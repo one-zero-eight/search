@@ -1,0 +1,66 @@
+# This is a Docker Compose configuration for local use.
+# In production use docker-compose.prod.yaml
+
+# Run all services:
+# docker compose up --build --detach
+
+version: "3"
+
+services:
+  # TODO bot
+
+  api:
+    build:
+      context: .
+      dockerfile: api.Dockerfile
+    depends_on:
+      db:
+        # Wait for the database to be ready before starting the application
+        condition: service_healthy
+    restart: always
+    ports:
+      - "8001:8000"
+    volumes:
+      - "./settings.yaml:/code/settings.yaml:ro" # Read-only settings file
+    env_file: .env # You can specify some Uvicorn settings in .env file
+    environment:
+      - TZ=Europe/Moscow # Set the timezone for correct calendar image generation
+    networks:
+      - default
+      - music-room
+
+# TODO
+#  db:
+#    # See more: https://hub.docker.com/_/postgres
+#    image: "postgres:16.0"
+#    restart: always
+#    # The commits were slow on our servers, so we turned off the synchronous_commit
+#    command: postgres -c synchronous_commit=off
+#    volumes:
+#      - "postgres:/var/lib/postgresql/data"
+#    ports:
+#      - "5433:5432"
+#    env_file: .env # Set POSTGRES_PASSWORD in .env file
+#    healthcheck:
+#      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+#      interval: 5s
+#      timeout: 5s
+#      retries: 5
+
+  redis:
+    build: ./redis # See ./redis/Dockerfile for more details
+    restart: always
+    volumes:
+      - "redis:/data"
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres:
+  redis:
+
+networks:
+  # Create a 'music-room' network for connecting MusicRoom service with other services
+  music-room:
+    driver: bridge
+    name: music-room

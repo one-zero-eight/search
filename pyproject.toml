@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "innohassle-search"
+version = "0.1.0"
+description = "Search service for InNoHassle ecosystem"
+authors = ["Nikita <n.sannikov@innopolis.university>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pyyaml = "^6.0.1"
+colorlog = "^6.8.2"
+
+[tool.poetry.group.api.dependencies]
+fastapi = "^0.110.0"
+uvicorn = "^0.27.1"
+asyncpg = "^0.29.0"
+cryptography = "^42.0.5"
+pillow = "^10.0.1"
+authlib = "^1.3.0"
+python-docx = "^1.1.0"
+pydantic = { version = "<2.6", extras = ["email"] } # TODO: Update when aiogram supports pydantic 2.6+
+httpx = "^0.27.0"
+
+[tool.poetry.group.dev]
+optional = true
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.3.4"
+pre-commit = "^3.6.2"
+
+[tool.ruff]
+line-length = 120
+lint.ignore = [
+    # wildcard imports are fine
+    "F403",
+    "F405",
+]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
