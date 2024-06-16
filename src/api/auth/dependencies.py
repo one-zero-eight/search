@@ -1,13 +1,13 @@
-__all__ = ["verify_request"]
-
+__all__ = ["verify_user", "verify_parser"]
 
 from fastapi import Depends
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
-
-# TODO
-# from src.repositories.auth.repository import TokenRepository
-from src.schemas.auth import SucceedVerificationResult
+from src.exceptions import (
+    NoCredentialsException,
+    IncorrectCredentialsException,
+)
+from src.repositories.tokens.repository import TokenRepository
 
 bearer_scheme = HTTPBearer(
     scheme_name="Bearer",
@@ -17,45 +17,21 @@ bearer_scheme = HTTPBearer(
 )
 
 
-async def get_access_token(
+async def verify_user(
     bearer: HTTPAuthorizationCredentials | None = Depends(bearer_scheme),
-) -> str | None:
+) -> str:
     # Prefer header to cookie
-    if bearer:
-        return bearer.credentials
-    return None
+    token = bearer and bearer.credentials
+    if not token:
+        raise NoCredentialsException()
+    token_data = await TokenRepository.verify_user_token(token, IncorrectCredentialsException())
+    return token_data.innohassle_id
 
 
-async def verify_request(
-    bearer: HTTPAuthorizationCredentials | None = Depends(bearer_scheme),
-) -> SucceedVerificationResult:
-    """
-    Check one of the following:
-    - Bearer token from header with BOT_TOKEN (or `user_id:bot_token`)
-    - Bearer token from header with API_KEY
-    :raises NoCredentialsException: if token is not provided
-    :raises IncorrectCredentialsException: if token is invalid
-    """
-
-    # TODO
-    pass
-
-    # if not bearer:
-    #     raise NoCredentialsException()
-    #
-    # api_verification_result = TokenRepository.verify_api_token(bearer.credentials)
-    # if api_verification_result.success:
-    #     return cast(SucceedVerificationResult, api_verification_result)
-    #
-    # bot_verification_result = TokenRepository.verify_bot_token(bearer.credentials)
-    # if bot_verification_result.success:
-    #     if bot_verification_result.telegram_id is not None:
-    #         # add user_id to the result
-    #         from src.repositories.users.repository import user_repository
-    #
-    #         bot_verification_result.user_id = await user_repository.get_user_id(
-    #             telegram_id=bot_verification_result.telegram_id
-    #         )
-    #     return cast(SucceedVerificationResult, bot_verification_result)
-    #
-    # raise IncorrectCredentialsException()
+def verify_parser(
+    bearer: HTTPAuthorizationCredentials = Depends(bearer_scheme),
+) -> bool:
+    token = (bearer and bearer.credentials) or None
+    if not token:
+        raise NoCredentialsException()
+    return TokenRepository.verify_parser_token(token, IncorrectCredentialsException())

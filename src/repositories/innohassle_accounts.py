@@ -25,7 +25,7 @@ class TelegramWidgetData(BaseModel):
 
 class UserSchema(BaseModel):
     innopolis_sso: UserInfoFromSSO | None
-    telegram: TelegramWidgetData | None = None
+    # telegram: TelegramWidgetData | None = None
     # innohassle_admin: bool = False
 
 
@@ -54,17 +54,6 @@ class InNoHassleAcounts:
 
     def get_authorized_client(self) -> httpx.AsyncClient:
         return httpx.AsyncClient(headers={"Authorization": f"Bearer {self.api_jwt_token}"})
-
-    async def get_user_by_telegram_id(self, telegram_id: int) -> UserSchema | None:
-        async with self.get_authorized_client() as client:
-            response = await client.get(f"{self.api_url}/users/by-telegram-id/{telegram_id}")
-            try:
-                response.raise_for_status()
-                return UserSchema.model_validate(response.json())
-            except httpx.HTTPStatusError as e:
-                if e.response.status_code == 404:
-                    return None
-                raise e
 
 
 innohassle_accounts: InNoHassleAcounts = InNoHassleAcounts(

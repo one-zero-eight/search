@@ -1,4 +1,4 @@
-$schema: https://json-schema.org/draft-07/schema
+$schema: https://json-schema.org/draft-07/schema#
 $defs:
   Accounts:
     description: InNoHassle-Accounts integration settings
@@ -38,11 +38,11 @@ $defs:
         type: string
       bot_token:
         description: Bot token from @BotFather
-        example: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        examples:
+        - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         title: Bot Token
         type: string
       api_key:
-        description: API key for access to the Music Room API
         example: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         title: Api Key
         type: string
@@ -51,50 +51,11 @@ $defs:
     - api_key
     title: ApiSettings
     type: object
-  BotSettings:
-    properties:
-      environment:
-        allOf:
-        - $ref: '#/$defs/Environment'
-        default: development
-      bot_token:
-        description: Bot token from @BotFather
-        format: password
-        title: Bot Token
-        type: string
-        writeOnly: true
-      api_url:
-        title: Api Url
-        type: string
-      redis_url:
-        anyOf:
-        - format: password
-          type: string
-          writeOnly: true
-        - type: 'null'
-        default: null
-        title: Redis Url
-    required:
-    - bot_token
-    - api_url
-    title: BotSettings
-    type: object
-  Environment:
-    enum:
-    - development
-    - production
-    - staging
-    title: Environment
-    type: string
+additionalProperties: false
 properties:
   api_settings:
     anyOf:
     - $ref: '#/$defs/ApiSettings'
-    - type: 'null'
-    default: null
-  bot_settings:
-    anyOf:
-    - $ref: '#/$defs/BotSettings'
     - type: 'null'
     default: null
   accounts:

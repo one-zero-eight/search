@@ -11,13 +11,6 @@ class Environment(StrEnum):
     STAGING = "staging"
 
 
-class BotSettings(BaseModel):
-    environment: Environment = Environment.DEVELOPMENT
-    bot_token: SecretStr = Field(..., description="Bot token from @BotFather")
-    api_url: str
-    redis_url: SecretStr | None = None
-
-
 class Accounts(BaseModel):
     """InNoHassle-Accounts integration settings"""
 
@@ -40,20 +33,16 @@ class ApiSettings(BaseModel):
     )
 
     bot_token: str = Field(
-        ..., example="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", description="Bot token from @BotFather"
+        ..., examples=["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], description="Bot token from @BotFather"
     )
 
-    api_key: str = Field(
-        ...,
-        example="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        description="API key for access to the Music Room API",
-    )
+    api_key: str = Field(..., example="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+    "API key for access to the Music Room API"
 
 
 class Settings(BaseModel):
-    model_config = ConfigDict(json_schema_extra={"title": "Settings"}, extra="ignore")
+    model_config = ConfigDict(use_attribute_docstrings=True, extra="forbid")
     api_settings: ApiSettings | None = None
-    bot_settings: BotSettings | None = None
     accounts: Accounts | None = None
 
     @classmethod
@@ -66,5 +55,8 @@ class Settings(BaseModel):
     @classmethod
     def save_schema(cls, path: Path) -> None:
         with open(path, "w", encoding="utf-8") as f:
-            schema = {"$schema": "https://json-schema.org/draft-07/schema", **cls.model_json_schema()}
+            schema = {
+                "$schema": "https://json-schema.org/draft-07/schema#",
+                **cls.model_json_schema(),
+            }
             yaml.dump(schema, f, sort_keys=False)

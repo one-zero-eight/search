@@ -3,8 +3,6 @@
 
 # Except code
 !/src/
-!/alembic/
-!/alembic.ini
 !/deploy/
 !/pyproject.toml
 !/poetry.lock
