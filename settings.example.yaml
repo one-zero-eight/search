@@ -1,11 +1,6 @@
 $schema: "./settings.schema.yaml"
 api_settings:
   db_url: "mongodb+srv://username:password@host"
-  bot_token: "some-telegram-bot-token" # get it from @BotFather (same as bot_settings.bot_token)
-  api_key: "some-secret-key" # use `openssl rand -hex 32` to generate a random key
-bot_settings:
-  api_url: "http://127.0.0.1:8001"
-  bot_token: "some-telegram-bot-token" # get it from @BotFather
-  redis_url: "redis://127.0.0.1:6379/0" # or delete this line to disable redis and use in-memory storage
 accounts:
-  api_jwt_token: "some-jwt-token" # generate it in accounts service (https://api.innohassle.ru/accounts/v0)
+  api_jwt_token: "some-jwt-token"
+  # ^ Generate it here: https://api.innohassle.ru/accounts/v0/docs#/Tokens/tokens_generate_service_token

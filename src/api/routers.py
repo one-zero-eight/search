@@ -1,3 +1,7 @@
-routers = []
+from src.api.search.routes import router as search_router
 
-__all__ = ["routers", *routers]
+routers = [
+    search_router,
+]
+
+__all__ = ["routers"]

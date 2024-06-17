@@ -1,30 +1,28 @@
 $schema: https://json-schema.org/draft-07/schema#
 $defs:
   Accounts:
+    additionalProperties: false
     description: InNoHassle-Accounts integration settings
     properties:
       api_url:
         default: https://api.innohassle.ru/accounts/v0
+        description: URL of the Accounts API
         title: Api Url
         type: string
       api_jwt_token:
+        description: 'JWT token for accessing the Accounts API as a service.
+
+          Generate it here: https://api.innohassle.ru/accounts/v0/docs#/Tokens/tokens_generate_service_token'
         format: password
         title: Api Jwt Token
         type: string
         writeOnly: true
-      telegram_login_url:
-        default: https://innohassle.ru/account/connect-telegram
-        title: Telegram Login Url
-        type: string
-      telegram_bot_username:
-        default: InNoHassleBot
-        title: Telegram Bot Username
-        type: string
     required:
     - api_jwt_token
     title: Accounts
     type: object
   ApiSettings:
+    additionalProperties: false
     properties:
       app_root_path:
         default: ''
@@ -32,27 +30,22 @@ $defs:
         title: App Root Path
         type: string
       db_url:
-        default: mongodb+srv://admin:admin@localhost
-        example: mongodb+srv://username:password@host
+        examples:
+        - mongodb://username:password@localhost:27017/db?authSource=admin
+        format: password
         title: Db Url
         type: string
-      bot_token:
-        description: Bot token from @BotFather
-        examples:
-        - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        title: Bot Token
-        type: string
-      api_key:
-        example: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        title: Api Key
-        type: string
+        writeOnly: true
     required:
-    - bot_token
-    - api_key
+    - db_url
     title: ApiSettings
     type: object
 additionalProperties: false
 properties:
+  $schema:
+    default: null
+    title: $Schema
+    type: string
   api_settings:
     anyOf:
     - $ref: '#/$defs/ApiSettings'
