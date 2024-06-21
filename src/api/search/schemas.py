@@ -1,6 +1,7 @@
 from inspect import cleandoc
 from typing import Literal, Annotated, TypeAlias
 
+from beanie import Document
 from pydantic import ConfigDict, Discriminator
 
 from src.custom_pydantic import CustomModel
@@ -89,3 +90,35 @@ class SearchResponses(CustomModel):
     responses: list[SearchResponse]
 
     model_config = ConfigDict(json_schema_extra={"examples": [_example()]})
+
+
+# TODO: Move from schemas to separate file
+class SearchResponseDocument(Document):
+    """
+    Don't mind it is in schemas for now. Subject to change
+    """
+
+    responses: list[SearchResponse]
+
+    class Config:
+        json_schema_extra = {"examples": [_example()]}
+
+    class Settings:
+        collection = "search_responses"
+
+
+async def create_search_response():
+    example_data = _example()
+    search_response_document = SearchResponseDocument(**example_data)
+    await search_response_document.insert()
+
+
+async def read_search_responses():
+    responses: list[SearchResponseDocument] = await SearchResponseDocument.find_all().to_list()
+    return responses
+
+
+async def delete_search_response(response_id):
+    response = await SearchResponseDocument.get(response_id)
+    if response:
+        await response.delete()
