@@ -7,7 +7,7 @@ from src.exceptions import (
     NoCredentialsException,
     IncorrectCredentialsException,
 )
-from src.modules.tokens import TokenRepository
+from src.modules.tokens.repository import TokenRepository
 
 bearer_scheme = HTTPBearer(
     scheme_name="Bearer",
