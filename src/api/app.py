@@ -32,6 +32,7 @@ app = FastAPI(
     lifespan=lifespan,
     docs_url=None,
     redoc_url=None,
+    redirect_slashes=False,
 )
 
 app.add_middleware(
