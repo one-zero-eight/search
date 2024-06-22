@@ -1,20 +1,25 @@
 import datetime
 
+import pymongo
+from pymongo import IndexModel
+
 from src.custom_pydantic import CustomModel
-from src.schemas.pyrogram.chat import Chat
+from src.storages.mongo.__base__ import CustomDocument
 
 
-class Message(CustomModel):
-    id: int
+class MessageSchema(CustomModel):
+    message_id: int
     "Unique message identifier inside this chat."
-    sender_chat: Chat = None
-    "Sender of the message, sent on behalf of a chat."
-    date: datetime.datetime = None
+    date: datetime.datetime
     "Date the message was sent."
-    chat: Chat = None
-    "Conversation the message belongs to."
-    edit_date: datetime.datetime = None
+    edit_date: datetime.datetime
     "Date the message was last edited."
+    chat_id: int
+    "Conversation the message belongs to."
+    chat_title: str
+    "Title of the chat."
+    chat_username: str
+    "Username of the chat."
     text: str = None
     """
     For text messages, the actual UTF-8 text of the message, 0-4096 characters.
@@ -31,3 +36,19 @@ class Message(CustomModel):
     """
     link: str = None
     "Generate a link to this message, only for groups and channels."
+
+
+class Message(MessageSchema, CustomDocument):
+    class Settings:
+        indexes = [
+            IndexModel(
+                [("message_id", pymongo.ASCENDING)],
+                unique=True,
+            ),
+            IndexModel(
+                [("chat_id", pymongo.ASCENDING), ("date", pymongo.DESCENDING)],
+            ),
+            IndexModel(
+                [("text", pymongo.TEXT), ("caption", pymongo.TEXT), ("chat_title", pymongo.TEXT)], name="text_index"
+            ),
+        ]

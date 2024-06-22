@@ -1,60 +1,54 @@
 __all__ = ["lifespan"]
 
+import asyncio
+import json
 from contextlib import asynccontextmanager
 
 from beanie import init_beanie
 from fastapi import FastAPI
 from motor.motor_asyncio import AsyncIOMotorClient
+from pymongo import timeout
+from pymongo.errors import ConnectionFailure
+from src.api.logging_ import logger
 
-# from src.api.search.schemas import read_search_responses
-# from src.api.search.schemas import create_search_response
-# from src.api.search.schemas import delete_search_response
-
-from src.api.search.schemas import SearchResponseDocument
 from src.config import settings
+from src.storages.mongo import document_models
+
+
+async def setup_database() -> AsyncIOMotorClient:
+    motor_client = AsyncIOMotorClient(
+        settings.database.uri.get_secret_value(), connectTimeoutMS=5000, serverSelectionTimeoutMS=5000, tz_aware=True
+    )
+    motor_client.get_io_loop = asyncio.get_running_loop  # type: ignore[method-assign]
+
+    # healthcheck mongo
+    try:
+        with timeout(2):
+            server_info = await motor_client.server_info()
+            server_info_pretty_text = json.dumps(server_info, indent=2, default=str)
+            logger.info(f"Connected to MongoDB: {server_info_pretty_text}")
+    except ConnectionFailure as e:
+        logger.critical("Could not connect to MongoDB: %s" % e)
+        raise e
+
+    mongo_db = motor_client.get_default_database()
+    await init_beanie(database=mongo_db, document_models=document_models, recreate_views=True)
+    return motor_client
 
 
 async def setup_repositories():
-    from src.repositories.innohassle_accounts import innohassle_accounts
+    from src.modules.innohassle_accounts import innohassle_accounts
 
     await innohassle_accounts.update_key_set()
-
-    pass
-
-
-async def setup_mongo():
-    client = AsyncIOMotorClient(settings.api_settings.db_url.get_secret_value())
-
-    # TODO: Add database field to settings
-    db = client["example_database"]
-
-    await init_beanie(database=db, document_models=[SearchResponseDocument])
-
-    # print(await read_search_responses())
-    # await create_search_response()
-    # print(await read_search_responses())
-    #
-    # delete_id = input("Input Object ID to delete: ")
-    # await delete_search_response(delete_id)
-    # print(await read_search_responses())
-
-
-def setup_timezone():
-    import sys
-    import os
-    import time
-
-    if sys.platform != "win32":  # unix only
-        os.environ["TZ"] = "Europe/Moscow"
-        time.tzset()
 
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     # Application startup
-    # storage = await setup_repositories()
+    motor_client = await setup_database()
 
-    await setup_mongo()
+    await setup_repositories()
     yield
-    # Application shutdown
-    # await storage.close_connection()
+
+    # -- Application shutdown --
+    motor_client.close()

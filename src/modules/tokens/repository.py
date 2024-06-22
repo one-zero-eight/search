@@ -6,7 +6,7 @@ from authlib.jose import JWTClaims
 from authlib.jose import jwt, JoseError
 from pydantic import BaseModel
 
-from src.repositories.innohassle_accounts import innohassle_accounts
+from src.modules.innohassle_accounts import innohassle_accounts
 
 
 class UserTokenData(BaseModel):

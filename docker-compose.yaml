@@ -27,5 +27,18 @@ services:
       - "27017:27017"
     env_file: .env # Set username and password in .env file
 
+  minio:
+    # See more: https://registry.hub.docker.com/minio/minio
+    image: "minio/minio:RELEASE.2024-05-10T01-41-38Z"
+    restart: always
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - "minio:/data"
+    command: server /data --console-address ":9001"
+    env_file: .env # Set username and password in .env file
+
 volumes:
   mongodb:
+  minio:
