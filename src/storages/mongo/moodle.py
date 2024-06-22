@@ -8,8 +8,8 @@ from src.storages.mongo.__base__ import CustomDocument
 class MoodleContentSchema(CustomModel):
     type: str
     filename: str
-    timecreated: int
-    timemodified: int
+    timecreated: int | None
+    timemodified: int | None
 
 
 class MoodleEntrySchema(CustomModel):
@@ -23,14 +23,6 @@ class MoodleEntrySchema(CustomModel):
     contents: list[MoodleContentSchema]
 
 
-class MoodleCourseSchema(CustomModel):
-    course_id: int
-    fullname: str
-    startdate: int
-    enddate: int
-    coursecategory: str
-
-
 class MoodleEntry(MoodleEntrySchema, CustomDocument):
     class Settings:
         indexes = [
@@ -40,6 +32,14 @@ class MoodleEntry(MoodleEntrySchema, CustomDocument):
                 name="text_index",
             ),
         ]
+
+
+class MoodleCourseSchema(CustomModel):
+    course_id: int
+    fullname: str
+    startdate: int
+    enddate: int
+    coursecategory: str
 
 
 class MoodleCourse(MoodleCourseSchema, CustomDocument):

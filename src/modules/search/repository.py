@@ -9,39 +9,48 @@ MOODLE_URL = "https://moodle.innopolis.university"
 class SearchRepository:
     async def by_meta(self, query: str, *, request: Request) -> SearchResponses:
         # search by text
-        entries = await MoodleEntry.find(
-            {
-                "$text": {
-                    "$search": query,
-                }
-            }
-        ).to_list()
+        entries = (
+            await MoodleEntry.get_motor_collection()
+            .find(
+                {
+                    "$text": {
+                        "$search": query,
+                    },
+                },
+                {
+                    "score": {"$meta": "textScore"},
+                },
+            )
+            .sort({"score": {"$meta": "textScore"}})
+            .to_list(None)
+        )
 
         responses = []
 
         for e in entries:
             response = SearchResponse(
                 markdown_text="",
+                score=e["score"],
                 sources=[
                     MoodleSource(
-                        course_id=e.course_id,
-                        course_name=e.course_fullname,
-                        module_id=e.module_id,
-                        module_name=e.module_name,
-                        display_name=c.filename,
+                        course_id=e["course_id"],
+                        course_name=e["course_fullname"],
+                        module_id=e["module_id"],
+                        module_name=e["module_name"],
+                        display_name=c["filename"],
                         resource_type="pdf",
-                        anchor_url=f"{MOODLE_URL}/course/view.php?id={e.course_id}#module-{e.module_id}",
+                        anchor_url=f'{MOODLE_URL}/course/view.php?id={e["course_id"]}#module-{e["module_id"]}',
                         resource_preview_url=str(
-                            request.url_for(
-                                "preview_moodle",
-                                course_id=e.course_id,
-                                module_id=e.module_id,
-                                content_filename=c.filename,
-                            )
+                            request.url_for("preview_moodle").include_query_params(
+                                course_id=e["course_id"],
+                                module_id=e["module_id"],
+                                type=c["type"],
+                                filename=c["filename"],
+                            ),
                         ),
                     )
-                    for c in e.contents
-                    if c.type == "file" and c.filename.endswith(".pdf")
+                    for c in e["contents"]
+                    if c["type"] == "file"
                 ],
             )
             if response.sources:

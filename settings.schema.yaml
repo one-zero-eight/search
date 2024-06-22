@@ -1,7 +1,6 @@
 $schema: https://json-schema.org/draft-07/schema#
 $defs:
   Accounts:
-    additionalProperties: false
     description: InNoHassle-Accounts integration settings
     properties:
       api_url:
@@ -22,7 +21,6 @@ $defs:
     title: Accounts
     type: object
   ApiSettings:
-    additionalProperties: false
     properties:
       app_root_path:
         default: ''
@@ -40,21 +38,42 @@ $defs:
     - db_url
     title: ApiSettings
     type: object
-additionalProperties: false
+  MinioSettings:
+    properties:
+      endpoint:
+        default: 127.0.0.1:9000
+        description: URL of the target service.
+        title: Endpoint
+        type: string
+      access_key:
+        description: Access key (user ID) of a user account in the service.
+        examples:
+        - minioadmin
+        title: Access Key
+        type: string
+      secret_key:
+        description: Secret key (password) for the user account.
+        examples:
+        - password
+        format: password
+        title: Secret Key
+        type: string
+        writeOnly: true
+    required:
+    - access_key
+    - secret_key
+    title: MinioSettings
+    type: object
 properties:
   $schema:
     default: null
     title: $Schema
     type: string
   api_settings:
-    anyOf:
-    - $ref: '#/$defs/ApiSettings'
-    - type: 'null'
-    default: null
+    $ref: '#/$defs/ApiSettings'
   accounts:
-    anyOf:
-    - $ref: '#/$defs/Accounts'
-    - type: 'null'
-    default: null
+    $ref: '#/$defs/Accounts'
+  minio:
+    $ref: '#/$defs/MinioSettings'
 title: Settings
 type: object

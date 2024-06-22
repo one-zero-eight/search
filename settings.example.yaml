@@ -4,3 +4,6 @@ api_settings:
 accounts:
   api_jwt_token: "some-jwt-token"
   # ^ Generate it here: https://api.innohassle.ru/accounts/v0/docs#/Tokens/tokens_generate_service_token
+minio:
+  access_key: "minioadmin"
+  secret_key: "password"

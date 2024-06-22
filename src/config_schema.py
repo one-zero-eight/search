@@ -18,6 +18,15 @@ class Accounts(CustomModel):
     """
 
 
+class MinioSettings(CustomModel):
+    endpoint: str = "127.0.0.1:9000"
+    "URL of the target service."
+    access_key: str = Field(..., examples=["minioadmin"])
+    "Access key (user ID) of a user account in the service."
+    secret_key: SecretStr = Field(..., examples=["password"])
+    "Secret key (password) for the user account."
+
+
 class ApiSettings(CustomModel):
     app_root_path: str = ""
     'Prefix for the API path (e.g. "/api/v0")'
@@ -26,8 +35,9 @@ class ApiSettings(CustomModel):
 
 class Settings(CustomModel):
     schema_: str = Field(None, alias="$schema")
-    api_settings: ApiSettings | None = None
-    accounts: Accounts | None = None
+    api_settings: ApiSettings = Field(default_factory=ApiSettings)
+    accounts: Accounts = Field(default_factory=Accounts)
+    minio: MinioSettings = Field(default_factory=MinioSettings)
 
     @classmethod
     def from_yaml(cls, path: Path) -> "Settings":

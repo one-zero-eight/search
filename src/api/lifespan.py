@@ -9,15 +9,19 @@ from fastapi import FastAPI
 from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo import timeout
 from pymongo.errors import ConnectionFailure
-from src.api.logging_ import logger
 
+from src.api.logging_ import logger
 from src.config import settings
+from src.storages.minio import minio_client
 from src.storages.mongo import document_models
 
 
 async def setup_database() -> AsyncIOMotorClient:
     motor_client = AsyncIOMotorClient(
-        settings.database.uri.get_secret_value(), connectTimeoutMS=5000, serverSelectionTimeoutMS=5000, tz_aware=True
+        settings.api_settings.db_url.get_secret_value(),
+        connectTimeoutMS=5000,
+        serverSelectionTimeoutMS=5000,
+        tz_aware=True,
     )
     motor_client.get_io_loop = asyncio.get_running_loop  # type: ignore[method-assign]
 
@@ -36,6 +40,13 @@ async def setup_database() -> AsyncIOMotorClient:
     return motor_client
 
 
+def setup_minio():
+    found = minio_client.bucket_exists("search")
+    if not found:
+        minio_client.make_bucket("search")
+        logger.info("Bucket `search` created")
+
+
 async def setup_repositories():
     from src.modules.innohassle_accounts import innohassle_accounts
 
@@ -46,7 +57,7 @@ async def setup_repositories():
 async def lifespan(_app: FastAPI):
     # Application startup
     motor_client = await setup_database()
-
+    setup_minio()
     await setup_repositories()
     yield
 
