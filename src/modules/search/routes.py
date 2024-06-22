@@ -9,7 +9,7 @@ router = APIRouter(prefix="/search", tags=["Search"])
 
 
 @router.get("/by-meta")
-async def search_by_meta(_: VerifiedDep, query: str, request: Request) -> SearchResponses:
-    responses = await search_repository.by_meta(query, request=request)
+async def search_by_meta(_: VerifiedDep, query: str, request: Request, limit: int = 5) -> SearchResponses:
+    responses = await search_repository.by_meta(query, request=request, limit=limit)
 
     return responses

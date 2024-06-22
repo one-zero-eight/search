@@ -7,7 +7,7 @@ MOODLE_URL = "https://moodle.innopolis.university"
 
 # noinspection PyMethodMayBeStatic
 class SearchRepository:
-    async def by_meta(self, query: str, *, request: Request) -> SearchResponses:
+    async def by_meta(self, query: str, *, request: Request, limit: int) -> SearchResponses:
         # search by text
         entries = (
             await MoodleEntry.get_motor_collection()
@@ -22,7 +22,7 @@ class SearchRepository:
                 },
             )
             .sort({"score": {"$meta": "textScore"}})
-            .to_list(None)
+            .to_list(limit)
         )
 
         responses = []
