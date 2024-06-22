@@ -1,6 +1,6 @@
 $schema: "./settings.schema.yaml"
 api_settings:
-  db_url: "mongodb+srv://username:password@host"
+  db_url: "mongodb://mongoadmin:secret@localhost:27017/db?authSource=admin"
 accounts:
   api_jwt_token: "some-jwt-token"
   # ^ Generate it here: https://api.innohassle.ru/accounts/v0/docs#/Tokens/tokens_generate_service_token

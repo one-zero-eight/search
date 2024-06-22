@@ -3,9 +3,10 @@
 
 # Except code
 !/src/
-!/deploy/
+!/deploy/docker-entrypoint.sh
 !/pyproject.toml
 !/poetry.lock
+!logging.yaml
 
 # And ignore cache files in the code
 __pycache__
