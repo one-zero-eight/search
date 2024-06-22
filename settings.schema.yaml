@@ -27,6 +27,17 @@ $defs:
         description: Prefix for the API path (e.g. "/api/v0")
         title: App Root Path
         type: string
+      cors_allow_origins:
+        default:
+        - https://innohassle.ru
+        - https://pre.innohassle.ru
+        - http://localhost:3000
+        description: 'Allowed origins for CORS: from which domains requests to the
+          API are allowed'
+        items:
+          type: string
+        title: Cors Allow Origins
+        type: array
       db_url:
         examples:
         - mongodb://username:password@localhost:27017/db?authSource=admin

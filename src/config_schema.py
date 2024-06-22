@@ -30,6 +30,8 @@ class MinioSettings(CustomModel):
 class ApiSettings(CustomModel):
     app_root_path: str = ""
     'Prefix for the API path (e.g. "/api/v0")'
+    cors_allow_origins: list[str] = ["https://innohassle.ru", "https://pre.innohassle.ru", "http://localhost:3000"]
+    "Allowed origins for CORS: from which domains requests to the API are allowed"
     db_url: SecretStr = Field(..., examples=["mongodb://username:password@localhost:27017/db?authSource=admin"])
 
 
