@@ -1,10 +1,10 @@
 # InNoHassle Search
 
-[![GitHub Actions pre-commit](https://img.shields.io/github/actions/workflow/status/raydenoir/InNoHassle-Search/pre-commit.yaml?label=pre-commit)](https://github.com/one-zero-eight/InNoHassle-MusicRoom/actions)
+[![GitHub Actions pre-commit](https://img.shields.io/github/actions/workflow/status/one-zero-eight/search/pre-commit.yaml?label=pre-commit)](https://github.com/one-zero-eight/search/actions)
 
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=raydenoir_InNoHassle-Search&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=raydenoir_InNoHassle-Search)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=raydenoir_InNoHassle-Search&metric=bugs)](https://sonarcloud.io/summary/new_code?id=raydenoir_InNoHassle-Search)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=raydenoir_InNoHassle-Search&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=raydenoir_InNoHassle-Search)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=one-zero-eight_search&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=one-zero-eight_search)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=one-zero-eight_search&metric=bugs)](https://sonarcloud.io/summary/new_code?id=one-zero-eight_search)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=one-zero-eight_search&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=one-zero-eight_search)
 
 ## Table of contents
 
