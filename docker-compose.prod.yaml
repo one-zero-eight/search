@@ -16,3 +16,7 @@ services:
   db:
     ports: !reset [ ] # Do not expose any ports
     env_file: .env.db
+
+  minio:
+    # ports: !reset [ ] # TODO: Do not expose any ports
+    env_file: .env.minio
