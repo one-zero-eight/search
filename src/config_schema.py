@@ -11,11 +11,6 @@ class Accounts(CustomModel):
 
     api_url: str = "https://api.innohassle.ru/accounts/v0"
     "URL of the Accounts API"
-    api_jwt_token: SecretStr
-    """
-    JWT token for accessing the Accounts API as a service.
-    Generate it here: https://api.innohassle.ru/accounts/v0/docs#/Tokens/tokens_generate_service_token
-    """
 
 
 class MinioSettings(CustomModel):
