@@ -1,3 +1,5 @@
+import os
+
 from fastapi import Request
 from src.modules.search.schemas import SearchResponse, MoodleSource, SearchResponses
 from src.storages.mongo import MoodleEntry
@@ -28,32 +30,34 @@ class SearchRepository:
         responses = []
 
         for e in entries:
-            response = SearchResponse(
-                markdown_text="",
-                score=e["score"],
-                sources=[
-                    MoodleSource(
+            for c in e["contents"]:
+                if c["type"] != "file":
+                    continue
+                _, file_extension = os.path.splitext(c["filename"])
+                if not file_extension:
+                    continue
+                resource_type = file_extension[1:]
+                preview_url = str(
+                    request.url_for("preview_moodle").include_query_params(
+                        course_id=e["course_id"],
+                        module_id=e["module_id"],
+                        type=c["type"],
+                        filename=c["filename"],
+                    ),
+                )
+                response = SearchResponse(
+                    score=e["score"],
+                    source=MoodleSource(
                         course_id=e["course_id"],
                         course_name=e["course_fullname"],
                         module_id=e["module_id"],
                         module_name=e["module_name"],
-                        display_name=c["filename"],
-                        resource_type="pdf",
-                        anchor_url=f'{MOODLE_URL}/course/view.php?id={e["course_id"]}#module-{e["module_id"]}',
-                        resource_preview_url=str(
-                            request.url_for("preview_moodle").include_query_params(
-                                course_id=e["course_id"],
-                                module_id=e["module_id"],
-                                type=c["type"],
-                                filename=c["filename"],
-                            ),
-                        ),
-                    )
-                    for c in e["contents"]
-                    if c["type"] == "file"
-                ],
-            )
-            if response.sources:
+                        resource_type=resource_type,
+                        link=f'{MOODLE_URL}/course/view.php?id={e["course_id"]}#module-{e["module_id"]}',
+                        resource_preview_url=preview_url,
+                        resource_download_url=preview_url,
+                    ),
+                )
                 responses.append(response)
 
         return SearchResponses(responses=responses, searched_for=query)
