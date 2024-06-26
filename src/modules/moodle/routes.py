@@ -1,15 +1,17 @@
 from datetime import timedelta
 
 import minio
-from fastapi import APIRouter, Depends, UploadFile
+from fastapi import APIRouter, UploadFile, Depends
+from minio.deleteobjects import DeleteObject
 from pymongo import UpdateOne
 from starlette.responses import RedirectResponse
 
 from src.api.dependencies import VerifiedDep
-from src.modules.moodle.schemas import InCourses, InSections, FileOnlyContentRef, UploadableContentRef
+from src.modules.moodle.schemas import InCourses, InSections, InContents
+from src.modules.moodle.utils import content_to_minio_object, module_to_minio_prefix, checker
 from src.storages.minio import minio_client
 from src.storages.mongo import MoodleCourse, MoodleEntry
-from src.storages.mongo.moodle import MoodleEntrySchema
+from src.storages.mongo.moodle import MoodleEntrySchema, MoodleContentSchema
 
 router = APIRouter(prefix="/moodle", tags=["Moodle"])
 
@@ -19,9 +21,10 @@ router = APIRouter(prefix="/moodle", tags=["Moodle"])
     responses={307: {"description": "Redirect to the file"}, 404: {"description": "File not found"}},
     response_class=RedirectResponse,
 )
-async def preview_moodle(_: VerifiedDep, content_ref: FileOnlyContentRef = Depends()) -> RedirectResponse:
+async def preview_moodle(_: VerifiedDep, course_id: int, module_id: int, filename: str) -> RedirectResponse:
     # get url for minio
-    url = minio_client.presigned_get_object("search", content_ref.to_object(), expires=timedelta(days=1))
+    obj = content_to_minio_object(course_id, module_id, filename)
+    url = minio_client.presigned_get_object("search", obj, expires=timedelta(days=1))
 
     return RedirectResponse(url)
 
@@ -83,46 +86,71 @@ async def courses_content(_: VerifiedDep) -> list[MoodleEntry]:
     "/need-to-upload-contents",
     responses={200: {"description": "Success"}},
 )
-async def need_to_upload_contents(_: VerifiedDep, contents: list[UploadableContentRef]) -> list[FileOnlyContentRef]:
+async def need_to_upload_contents(_: VerifiedDep, contents_list: list[InContents]) -> list[InContents]:
     result = []
 
-    for content in contents:
-        try:
-            r = minio_client.stat_object("search", content.to_object())
-            meta = r.metadata
-            timecreated = int(meta["timecreated"]) if "timecreated" in meta else None
-            timemodified = int(meta["timemodified"]) if "timemodified" in meta else None
-            # check if different
-            if timecreated != content.timecreated or timemodified != content.timemodified:
-                result.append(content)
+    for contents in contents_list:
+        need_to_update = False
+        for content in contents.contents:
+            if content.type != "file":
+                continue
 
-        except minio.S3Error as e:
-            if e.code == "NoSuchKey":
-                result.append(content)
-            else:
-                raise e
+            try:
+                obj = content_to_minio_object(contents.course_id, contents.module_id, content.filename)
+                r = minio_client.stat_object("search", obj)
+                meta = r.metadata
+                timecreated = int(meta["timecreated"]) if "timecreated" in meta else None
+                timemodified = int(meta["timemodified"]) if "timemodified" in meta else None
+                # check if different
+                if timecreated != content.timecreated or timemodified != content.timemodified:
+                    need_to_update = True
+
+            except minio.S3Error as e:
+                if e.code == "NoSuchKey":
+                    need_to_update = True
+                else:
+                    raise e
+
+        if need_to_update:
+            result.append(contents)
 
     return result
 
 
 @router.post(
-    "/upload-content",
+    "/upload-contents",
     responses={200: {"description": "Success"}},
 )
-async def upload_content(_: VerifiedDep, file: UploadFile, content: UploadableContentRef = Depends()) -> None:
-    # upload file
-    meta = {}
-
-    if content.timecreated is not None:
-        meta["timecreated"] = str(content.timecreated)
-    if content.timemodified is not None:
-        meta["timemodified"] = str(content.timemodified)
-
-    minio_client.put_object(
-        "search",
-        content.to_object(),
-        file.file,
-        file.size,
-        file.content_type or "application/octet-stream",
-        metadata=meta,
+async def upload_content(
+    _: VerifiedDep,
+    files: list[UploadFile],
+    data: InContents = Depends(checker),
+) -> None:
+    # clear files for that module first
+    module_prefix = module_to_minio_prefix(data.course_id, data.module_id)
+    delete_object_list = list(
+        map(
+            lambda x: DeleteObject(x.object_name),
+            minio_client.list_objects("search", module_prefix, recursive=True),
+        )
     )
+    minio_client.remove_objects("search", delete_object_list)
+
+    # upload files
+    for file, content in zip(files, data.contents):
+        content: MoodleContentSchema
+        meta = {}
+
+        if content.timecreated is not None:
+            meta["timecreated"] = str(content.timecreated)
+        if content.timemodified is not None:
+            meta["timemodified"] = str(content.timemodified)
+
+        minio_client.put_object(
+            "search",
+            content_to_minio_object(data.course_id, data.module_id, content.filename),
+            file.file,
+            file.size,
+            file.content_type or "application/octet-stream",
+            metadata=meta,
+        )

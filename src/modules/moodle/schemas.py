@@ -1,5 +1,3 @@
-from typing import Literal
-
 from pydantic import Field
 
 from src.custom_pydantic import CustomModel
@@ -33,16 +31,19 @@ class InSections(CustomModel):
     sections: list[InSection]
 
 
-class FileOnlyContentRef(CustomModel):
+# {
+#   "course_id": 1114,
+#   "module_id": 83459,
+#   "contents": [
+#     {
+#       "type": "file",
+#       "filename": "Lab 5 (AddersSubtractors).pdf"
+#     }
+#   ]
+# }
+
+
+class InContents(CustomModel):
     course_id: int
     module_id: int
-    type: Literal["file"]
-    filename: str
-
-    def to_object(self):
-        return f"moodle/{self.course_id}/{self.module_id}/{self.filename}"
-
-
-class UploadableContentRef(FileOnlyContentRef):
-    timecreated: int | None = None
-    timemodified: int | None = None
+    contents: list[MoodleContentSchema]

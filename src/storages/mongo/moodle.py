@@ -8,8 +8,8 @@ from src.storages.mongo.__base__ import CustomDocument
 class MoodleContentSchema(CustomModel):
     type: str
     filename: str
-    timecreated: int | None
-    timemodified: int | None
+    timecreated: int | None = None
+    timemodified: int | None = None
 
 
 class MoodleEntrySchema(CustomModel):

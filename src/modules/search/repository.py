@@ -53,6 +53,7 @@ class SearchRepository:
                         module_id=e["module_id"],
                         module_name=e["module_name"],
                         resource_type=resource_type,
+                        filename=c["filename"],
                         link=f'{MOODLE_URL}/course/view.php?id={e["course_id"]}#module-{e["module_id"]}',
                         resource_preview_url=preview_url,
                         resource_download_url=preview_url,

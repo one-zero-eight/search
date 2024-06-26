@@ -31,13 +31,11 @@ class UserSchema(BaseModel):
 
 class InNoHassleAcounts:
     api_url: str
-    api_jwt_token: str
     PUBLIC_KID = "public"
     key_set: KeySet
 
-    def __init__(self, api_url: str, api_jwt_token: str):
+    def __init__(self, api_url: str):
         self.api_url = api_url
-        self.api_jwt_token = api_jwt_token
 
     async def update_key_set(self):
         self.key_set = await self.get_key_set()
@@ -52,10 +50,5 @@ class InNoHassleAcounts:
             jwks_json = response.json()
             return JsonWebKey.import_key_set(jwks_json)
 
-    def get_authorized_client(self) -> httpx.AsyncClient:
-        return httpx.AsyncClient(headers={"Authorization": f"Bearer {self.api_jwt_token}"})
 
-
-innohassle_accounts: InNoHassleAcounts = InNoHassleAcounts(
-    api_url=settings.accounts.api_url, api_jwt_token=settings.accounts.api_jwt_token.get_secret_value()
-)
+innohassle_accounts: InNoHassleAcounts = InNoHassleAcounts(api_url=settings.accounts.api_url)

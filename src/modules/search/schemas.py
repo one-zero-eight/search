@@ -27,6 +27,8 @@ class MoodleSource(CustomModel):
     "Module name in the Moodle system."
     resource_type: str
     "Type of the resource."
+    filename: str | None = None
+    "Filename of the resource."
     link: str
     "Anchor URL to the resource on Moodle."
     resource_preview_url: str
