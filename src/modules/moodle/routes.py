@@ -21,7 +21,7 @@ router = APIRouter(prefix="/moodle", tags=["Moodle"])
     responses={307: {"description": "Redirect to the file"}, 404: {"description": "File not found"}},
     response_class=RedirectResponse,
 )
-async def preview_moodle(_: VerifiedDep, course_id: int, module_id: int, filename: str) -> RedirectResponse:
+async def preview_moodle(course_id: int, module_id: int, filename: str) -> RedirectResponse:
     # get url for minio
     obj = content_to_minio_object(course_id, module_id, filename)
     url = minio_client.presigned_get_object("search", obj, expires=timedelta(days=1))
