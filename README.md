@@ -18,6 +18,7 @@ This is the API for search service in InNoHassle ecosystem.
 ### Features
 
 - WIP
+
 ### Technologies
 
 - [Python 3.11](https://www.python.org/downloads/release/python-3117/) & [Poetry](https://python-poetry.org/docs/)
@@ -62,21 +63,7 @@ This is the API for search service in InNoHassle ecosystem.
       docker compose up -d db
       ```
 
-    - Make sure to set up the actual database connection in `settings.yaml`, for example:
-      ```yaml
-      db_url: mongodb+srv://username:password@host
-      ```
-
-   </details>
-   <details>
-    <summary>Using pgAdmin</summary>
-
-    - Connect to the PostgreSQL server using pgAdmin
-    - Set up a new database in the server: `Edit > New Object > New database`
-    - Use the database name in `settings.yaml` file, for example `innohassle-events`:
-      ```yaml
-      db_url: mongodb+srv://username:password@host
-      ```
+    - Make sure to set up the actual database connection in `settings.yaml`.
    </details>
 
 **Set up PyCharm integrations**
@@ -110,6 +97,21 @@ This is the API for search service in InNoHassle ecosystem.
 
 Now the API is running on http://localhost:8001. Good job!
 
+### Authentication
+
+We use our own IAM service for
+authentication - [InNoHassle Accounts](https://github.com/one-zero-eight/InNoHassle-Accounts).
+To authenticate the user, you need to pass the `Authorization` header with the `Bearer: <jwt_token>`.
+How to get token:
+
+1. First of all, go to [innohassle.ru](https://innohassle.ru) and log in if you are not logged in (or register). That
+   will add cookie with
+   account secret needed for the next step.
+2. Go to [Accounts](https://api.innohassle.ru/accounts/v0/docs#/Tokens/tokens_generate_my_token) API and execute the
+   the method `GET /tokens/generate-my-token`, copy the token from the response.
+3. Go to the Swagger of API you want to authenticate and click on the `Authorize` button in the top right corner, paste
+   the token
+   in the `Value` field and click `Authorize`. Now you can use protected endpoints from the Swagger.
 
 ### Deployment
 
