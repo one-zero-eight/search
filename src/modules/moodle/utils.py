@@ -14,7 +14,7 @@ def module_to_minio_prefix(course_id: int, module_id: int) -> str:
     return f"moodle/{course_id}/{module_id}/"
 
 
-def checker(data: InContents | str = Form(...)):
+def checker(data: str = Form(...)):
     try:
         return InContents.model_validate_json(data)
     except ValidationError as e:
