@@ -31,18 +31,6 @@ class InSections(CustomModel):
     sections: list[InSection]
 
 
-# {
-#   "course_id": 1114,
-#   "module_id": 83459,
-#   "contents": [
-#     {
-#       "type": "file",
-#       "filename": "Lab 5 (AddersSubtractors).pdf"
-#     }
-#   ]
-# }
-
-
 class InContents(CustomModel):
     course_id: int
     module_id: int
