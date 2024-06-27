@@ -1,10 +1,8 @@
-from datetime import timedelta
-
 import minio
 from fastapi import APIRouter, UploadFile, Depends
+from fastapi.responses import Response, StreamingResponse
 from minio.deleteobjects import DeleteObject
 from pymongo import UpdateOne
-from starlette.responses import RedirectResponse
 
 from src.api.dependencies import VerifiedDep
 from src.modules.moodle.schemas import InCourses, InSections, InContents
@@ -19,14 +17,21 @@ router = APIRouter(prefix="/moodle", tags=["Moodle"])
 @router.get(
     "/preview",
     responses={307: {"description": "Redirect to the file"}, 404: {"description": "File not found"}},
-    response_class=RedirectResponse,
 )
-async def preview_moodle(course_id: int, module_id: int, filename: str) -> RedirectResponse:
+async def preview_moodle(course_id: int, module_id: int, filename: str):
     # get url for minio
     obj = content_to_minio_object(course_id, module_id, filename)
-    url = minio_client.presigned_get_object("search", obj, expires=timedelta(days=1))
-
-    return RedirectResponse(url)
+    try:
+        response = minio_client.get_object("search", obj)
+    except minio.S3Error as e:
+        if e.code == "NoSuchKey":
+            return Response(status_code=404)
+        raise e
+    return StreamingResponse(
+        response,
+        media_type="application/octet-stream",
+        headers={"Content-Disposition": f"attachment; filename={filename}"},
+    )
 
 
 @router.post(
