@@ -3,11 +3,13 @@ from fastapi import APIRouter, UploadFile, Depends
 from fastapi.responses import Response, StreamingResponse
 from minio.deleteobjects import DeleteObject
 from pymongo import UpdateOne
+from typing import List, Dict
 
 from src.api.dependencies import VerifiedDep
 from src.modules.moodle.schemas import InCourses, InSections, InContents
 from src.modules.moodle.utils import content_to_minio_object, module_to_minio_prefix, checker
 from src.storages.minio import minio_client
+from src.repositories.minio.repository import minio_repository
 from src.storages.mongo import MoodleCourse, MoodleEntry
 from src.storages.mongo.moodle import MoodleEntrySchema, MoodleContentSchema
 
@@ -32,6 +34,16 @@ async def preview_moodle(course_id: int, module_id: int, filename: str):
         media_type="application/octet-stream",
         headers={"Content-Disposition": f"attachment; filename={filename}"},
     )
+
+
+@router.get(
+    "/files",
+    response_model=List[Dict[str, any]],
+    responses={200: {"description": "Success"}},
+)
+async def get_moodle_files(_: VerifiedDep) -> List[Dict[str, any]]:
+    moodle_objects = minio_repository.get_moodle_objects()
+    return moodle_objects
 
 
 @router.post(
