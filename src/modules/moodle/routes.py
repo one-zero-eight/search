@@ -3,7 +3,7 @@ from fastapi import APIRouter, UploadFile, Depends
 from fastapi.responses import Response, StreamingResponse
 from minio.deleteobjects import DeleteObject
 from pymongo import UpdateOne
-from typing import List, Dict
+from typing import List, Dict, Any
 
 from src.api.dependencies import VerifiedDep
 from src.modules.moodle.schemas import InCourses, InSections, InContents
@@ -38,7 +38,7 @@ async def preview_moodle(course_id: int, module_id: int, filename: str):
 
 @router.get(
     "/files",
-    response_model=List[Dict[str, any]],
+    response_model=list[dict[str, Any]],
     responses={200: {"description": "Success"}},
 )
 async def get_moodle_files(_: VerifiedDep) -> List[Dict[str, any]]:
