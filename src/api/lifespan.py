@@ -17,7 +17,7 @@ from src.storages.mongo import document_models
 
 
 async def setup_database() -> AsyncIOMotorClient:
-    motor_client = AsyncIOMotorClient(
+    motor_client: AsyncIOMotorClient = AsyncIOMotorClient(
         settings.api_settings.db_url.get_secret_value(),
         connectTimeoutMS=5000,
         serverSelectionTimeoutMS=5000,
@@ -35,7 +35,7 @@ async def setup_database() -> AsyncIOMotorClient:
         logger.critical("Could not connect to MongoDB: %s" % e)
         raise e
 
-    mongo_db = motor_client.get_default_database()
+    mongo_db = motor_client.get_database()
     await init_beanie(database=mongo_db, document_models=document_models, recreate_views=True)
     return motor_client
 
