@@ -32,7 +32,7 @@ async def preview_moodle(course_id: int, module_id: int, filename: str):
     return StreamingResponse(
         response,
         media_type="application/octet-stream",
-        headers={"Content-Disposition": f"attachment; filename={filename}"},
+        headers={"Content-Disposition": f"inline; filename={filename}"},
     )
 
 
