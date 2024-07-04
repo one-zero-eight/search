@@ -61,7 +61,7 @@ class SearchRepository:
                 )
                 responses.append(response)
 
-        return SearchResponses(responses=responses, searched_for=query)
+        return SearchResponses(responses=responses, searched_for=query, search_query_id="")
 
 
 search_repository: SearchRepository = SearchRepository()

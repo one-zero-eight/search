@@ -131,5 +131,7 @@ class SearchResponses(CustomModel):
     "Text that was searched for."
     responses: list[SearchResponse]
     "Responses to the search query."
+    search_query_id: str
+    "Assigned search query index"
 
     model_config = ConfigDict(json_schema_extra={"examples": [_example()]})
