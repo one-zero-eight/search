@@ -118,18 +118,14 @@ async def need_to_upload_contents(_: VerifiedDep, contents_list: list[InContents
                 obj = content_to_minio_object(contents.course_id, contents.module_id, content.filename)
                 r = minio_client.stat_object("search", obj)
                 meta = r.metadata
-                timecreated = int(meta["timecreated"]) if "timecreated" in meta else None
-                timemodified = int(meta["timemodified"]) if "timemodified" in meta else None
+                timecreated = int(meta["x-amz-meta-timecreated"]) if "x-amz-meta-timecreated" in meta else None
+                timemodified = int(meta["x-amz-meta-timemodified"]) if "x-amz-meta-timemodified" in meta else None
                 # check if different
                 if timecreated != content.timecreated or timemodified != content.timemodified:
-                    print(
-                        f"Need to update {content.filename}, timecreated: {timecreated}, timemodified: {timemodified}"
-                    )
+                    print(f"Need to update {content.filename}, {meta=}")
                     need_to_update = True
                 else:
-                    print(
-                        f"No need to update {content.filename}, timecreated: {timecreated}, timemodified: {timemodified}"
-                    )
+                    print(f"No need to update {content.filename}, {meta=}")
 
             except minio.S3Error as e:
                 if e.code == "NoSuchKey":
@@ -168,9 +164,9 @@ async def upload_content(
         meta = {}
 
         if content.timecreated is not None:
-            meta["timecreated"] = str(content.timecreated)
+            meta["x-amz-meta-timecreated"] = str(content.timecreated)
         if content.timemodified is not None:
-            meta["timemodified"] = str(content.timemodified)
+            meta["x-amz-meta-timemodified"] = str(content.timemodified)
 
         minio_client.put_object(
             "search",
