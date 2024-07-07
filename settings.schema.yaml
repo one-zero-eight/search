@@ -29,15 +29,45 @@ $defs:
         title: Cors Allow Origins
         type: array
       db_url:
+        description: URL of the MongoDB database
         examples:
         - mongodb://username:password@localhost:27017/db?authSource=admin
         format: password
         title: Db Url
         type: string
         writeOnly: true
+      compute_service_token:
+        default: secret
+        description: Access token for the compute service which is used for authentication
+        title: Compute Service Token
+        type: string
     required:
     - db_url
     title: ApiSettings
+    type: object
+  ComputeSetting:
+    properties:
+      api_url:
+        default: http://127.0.0.1:8001
+        description: URL of the Search API
+        title: Api Url
+        type: string
+      auth_token:
+        default: secret
+        description: Access token for the compute service which is used for authentication
+        title: Auth Token
+        type: string
+      period:
+        default: 10
+        description: Period in seconds to fetch tasks from the API
+        title: Period
+        type: number
+      num_workers:
+        default: 4
+        description: Number of workers to process tasks
+        title: Num Workers
+        type: integer
+    title: ComputeSetting
     type: object
   MinioSettings:
     properties:
@@ -72,6 +102,8 @@ properties:
     type: string
   api_settings:
     $ref: '#/$defs/ApiSettings'
+  compute_settings:
+    $ref: '#/$defs/ComputeSetting'
   accounts:
     $ref: '#/$defs/Accounts'
   minio:

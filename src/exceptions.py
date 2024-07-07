@@ -1,31 +1,13 @@
+from typing import Any, ClassVar
+
 from fastapi import HTTPException
 from pydantic import BaseModel
 from starlette import status
 
 
 class ExceptionWithDetail(BaseModel):
+    responses: ClassVar[dict[int | str, dict[str, Any]]]
     detail: str
-
-
-class NoCredentialsException(HTTPException):
-    """
-    HTTP_401_UNAUTHORIZED
-    """
-
-    def __init__(self):
-        super().__init__(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail=self.responses[401]["description"],
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-
-    responses = {
-        401: {
-            "description": "No credentials provided",
-            "headers": {"WWW-Authenticate": {"schema": {"type": "string"}}},
-            "model": ExceptionWithDetail,
-        }
-    }
 
 
 class IncorrectCredentialsException(HTTPException):
@@ -33,15 +15,22 @@ class IncorrectCredentialsException(HTTPException):
     HTTP_401_UNAUTHORIZED
     """
 
-    def __init__(self):
-        super().__init__(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail=self.responses[401]["description"],
-        )
+    def __init__(self, no_credentials: bool = False):
+        if no_credentials:
+            super().__init__(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail=self.responses[401]["description"],
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+        else:
+            super().__init__(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail=self.responses[401]["description"],
+            )
 
     responses = {
         401: {
-            "description": "Could not validate credentials",
+            "description": "Unable to verify credentials OR Credentials not provided",
             "model": ExceptionWithDetail,
         }
     }

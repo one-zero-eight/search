@@ -1,12 +1,9 @@
-__all__ = ["verify_user", "verify_parser"]
+__all__ = ["verify_user", "verify_compute_service"]
 
 from fastapi import Depends
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
-from src.exceptions import (
-    NoCredentialsException,
-    IncorrectCredentialsException,
-)
+from src.exceptions import IncorrectCredentialsException
 from src.modules.tokens.repository import TokenRepository
 
 bearer_scheme = HTTPBearer(
@@ -23,15 +20,15 @@ async def verify_user(
     # Prefer header to cookie
     token = bearer and bearer.credentials
     if not token:
-        raise NoCredentialsException()
+        raise IncorrectCredentialsException(no_credentials=True)
     token_data = await TokenRepository.verify_user_token(token, IncorrectCredentialsException())
     return token_data.innohassle_id
 
 
-def verify_parser(
+def verify_compute_service(
     bearer: HTTPAuthorizationCredentials = Depends(bearer_scheme),
 ) -> bool:
     token = (bearer and bearer.credentials) or None
     if not token:
-        raise NoCredentialsException()
-    return TokenRepository.verify_parser_token(token, IncorrectCredentialsException())
+        raise IncorrectCredentialsException(no_credentials=True)
+    return TokenRepository.verify_compute_service_token(token, IncorrectCredentialsException())

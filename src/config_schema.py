@@ -28,11 +28,26 @@ class ApiSettings(CustomModel):
     cors_allow_origins: list[str] = ["https://innohassle.ru", "https://pre.innohassle.ru", "http://localhost:3000"]
     "Allowed origins for CORS: from which domains requests to the API are allowed"
     db_url: SecretStr = Field(..., examples=["mongodb://username:password@localhost:27017/db?authSource=admin"])
+    "URL of the MongoDB database"
+    compute_service_token: str = "secret"
+    "Access token for the compute service which is used for authentication"
+
+
+class ComputeSetting(CustomModel):
+    api_url: str = "http://127.0.0.1:8001"
+    "URL of the Search API"
+    auth_token: str = "secret"
+    "Access token for the compute service which is used for authentication"
+    period: float = 10
+    "Period in seconds to fetch tasks from the API"
+    num_workers: int = 4
+    "Number of workers to process tasks"
 
 
 class Settings(CustomModel):
     schema_: str = Field(None, alias="$schema")
     api_settings: ApiSettings = Field(default_factory=ApiSettings)
+    compute_settings: ComputeSetting = Field(default_factory=ComputeSetting)
     accounts: Accounts = Field(default_factory=Accounts)
     minio: MinioSettings = Field(default_factory=MinioSettings)
 

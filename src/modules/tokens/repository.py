@@ -6,6 +6,7 @@ from authlib.jose import JWTClaims
 from authlib.jose import jwt, JoseError
 from pydantic import BaseModel
 
+from src.config import settings
 from src.modules.innohassle_accounts import innohassle_accounts
 
 
@@ -35,11 +36,10 @@ class TokenRepository:
             raise credentials_exception
 
     @classmethod
-    def verify_parser_token(cls, token: str, credentials_exception) -> bool:
+    def verify_compute_service_token(cls, token: str, credentials_exception) -> bool:
         try:
-            payload = cls.decode_token(token)
-            parser_data = payload.get("sub")
-            if parser_data == "parser":
+            token = token.removeprefix("Bearer ")
+            if token == settings.api_settings.compute_service_token:
                 return True
             raise credentials_exception
         except JoseError:
