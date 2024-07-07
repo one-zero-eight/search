@@ -79,6 +79,8 @@ async def course_content(_: VerifiedDep, data: InSections) -> None:
             m = MoodleEntrySchema(
                 course_id=data.course_id,
                 course_fullname=data.course_fullname,
+                section_id=section.section_id,
+                section_summary=section.section_summary,
                 module_id=module.module_id,
                 module_name=module.module_name,
                 module_modname=module.module_modname,

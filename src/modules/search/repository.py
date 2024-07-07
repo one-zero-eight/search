@@ -45,6 +45,11 @@ class SearchRepository:
                         filename=c["filename"],
                     ),
                 )
+                if "section_id" in c:
+                    link = f'{MOODLE_URL}/course/view.php?id={e["course_id"]}#sectionid-{e["section_id"]}-title'
+                else:
+                    link = f'{MOODLE_URL}/course/view.php?id={e["course_id"]}#module-{e["module_id"]}'
+
                 response = SearchResponse(
                     score=e["score"],
                     source=MoodleSource(
@@ -54,14 +59,14 @@ class SearchRepository:
                         module_name=e["module_name"],
                         resource_type=resource_type,
                         filename=c["filename"],
-                        link=f'{MOODLE_URL}/course/view.php?id={e["course_id"]}#module-{e["module_id"]}',
+                        link=link,
                         resource_preview_url=preview_url,
                         resource_download_url=preview_url,
                     ),
                 )
                 responses.append(response)
 
-        return SearchResponses(responses=responses, searched_for=query, search_query_id="")
+        return SearchResponses(responses=responses, searched_for=query)
 
 
 search_repository: SearchRepository = SearchRepository()
