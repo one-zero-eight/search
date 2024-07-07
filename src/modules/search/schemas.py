@@ -1,6 +1,7 @@
 import re
 from typing import Literal, Annotated, TypeAlias
 
+from beanie import PydanticObjectId
 from pydantic import ConfigDict, Discriminator, model_validator
 
 from src.custom_pydantic import CustomModel
@@ -131,7 +132,7 @@ class SearchResponses(CustomModel):
     "Text that was searched for."
     responses: list[SearchResponse]
     "Responses to the search query."
-    search_query_id: str
+    search_query_id: PydanticObjectId = None
     "Assigned search query index"
 
     model_config = ConfigDict(json_schema_extra={"examples": [_example()]})

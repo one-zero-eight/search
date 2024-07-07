@@ -1,25 +1,23 @@
-from fastapi import APIRouter, Request, HTTPException
-import datetime
-from src.modules.search.repository import search_repository
+import time
 
-from src.storages.mongo.statistics import WrappedResponseSchema, SearchStatistics
+from fastapi import APIRouter, Request, HTTPException
+
+from src.modules.search.repository import search_repository
 from src.modules.search.schemas import SearchResponses
+from src.storages.mongo.statistics import WrappedResponseSchema, SearchStatistics
 
 router = APIRouter(prefix="/search", tags=["Search"])
 
 
 @router.get("/search")
 async def search_by_query(query: str, request: Request, limit: int = 5) -> SearchResponses:
-    start_time = datetime.datetime.utcnow()
-
+    start_time = time.monotonic()
     responses = await search_repository.by_meta(query, request=request, limit=limit)
-
-    end_time = datetime.datetime.utcnow()
-    time_spent = (end_time - start_time).total_seconds()
+    time_spent = time.monotonic() - start_time
 
     # Create a list of wrapped responses
     wrapped_responses = [
-        WrappedResponseSchema(source=str(response.source), score=response.score) for response in responses.responses
+        WrappedResponseSchema(source=response.source, score=response.score) for response in responses.responses
     ]
 
     # Create a new search statistics document
@@ -27,7 +25,7 @@ async def search_by_query(query: str, request: Request, limit: int = 5) -> Searc
     await search_statistics.insert()
 
     # Adding search statistics ID to the response
-    responses.search_query_id = str(search_statistics.id)
+    responses.search_query_id = search_statistics.id
 
     return responses
 
