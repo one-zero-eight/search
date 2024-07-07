@@ -122,7 +122,14 @@ async def need_to_upload_contents(_: VerifiedDep, contents_list: list[InContents
                 timemodified = int(meta["timemodified"]) if "timemodified" in meta else None
                 # check if different
                 if timecreated != content.timecreated or timemodified != content.timemodified:
+                    print(
+                        f"Need to update {content.filename}, timecreated: {timecreated}, timemodified: {timemodified}"
+                    )
                     need_to_update = True
+                else:
+                    print(
+                        f"No need to update {content.filename}, timecreated: {timecreated}, timemodified: {timemodified}"
+                    )
 
             except minio.S3Error as e:
                 if e.code == "NoSuchKey":
