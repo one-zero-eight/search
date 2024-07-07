@@ -45,7 +45,7 @@ class SearchRepository:
                         filename=c["filename"],
                     ),
                 )
-                if "section_id" in c:
+                if "section_id" in c and c["section_id"] is not None:
                     link = f'{MOODLE_URL}/course/view.php?id={e["course_id"]}#sectionid-{e["section_id"]}-title'
                 else:
                     link = f'{MOODLE_URL}/course/view.php?id={e["course_id"]}#module-{e["module_id"]}'
