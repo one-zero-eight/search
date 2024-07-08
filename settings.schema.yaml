@@ -57,10 +57,15 @@ $defs:
         description: Access token for the compute service which is used for authentication
         title: Auth Token
         type: string
-      period:
+      corpora_update_period:
         default: 10
+        description: Period in seconds to fetch corpora from the API
+        title: Corpora Update Period
+        type: number
+      check_search_queue_period:
+        default: 0.1
         description: Period in seconds to fetch tasks from the API
-        title: Period
+        title: Check Search Queue Period
         type: number
       num_workers:
         default: 4

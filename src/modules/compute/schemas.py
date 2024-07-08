@@ -1,30 +1,16 @@
-from typing import Any, Literal, Annotated
+from typing import Any, Literal
 
-from pydantic import BaseModel, Discriminator, TypeAdapter
-
-TaskTypes = Literal["search", "process-pdf"]
+from pydantic import BaseModel
 
 
-class TaskBase(BaseModel):
-    id: int
-
-
-class PdfTask(TaskBase):
-    type: Literal["process-pdf"] = "process-pdf"
-    pdf_url: str
-
-
-class SearchTask(TaskBase):
-    type: Literal["search"] = "search"
+class SearchTask(BaseModel):
+    task_id: str
+    status: Literal["pending", "completed", "failed"]
     query: str
+    result: Any = None
 
 
-Task = Annotated[PdfTask | SearchTask, Discriminator("type")]
-TaskAdapter = TypeAdapter(Task)
-
-
-class Result(BaseModel):
-    task_id: int
-    task_type: TaskTypes
-    status: str
+class SearchResult(BaseModel):
+    task_id: str
+    status: Literal["completed", "failed"]
     result: Any

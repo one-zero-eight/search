@@ -38,7 +38,9 @@ class ComputeSetting(CustomModel):
     "URL of the Search API"
     auth_token: str = "secret"
     "Access token for the compute service which is used for authentication"
-    period: float = 10
+    corpora_update_period: float = 10
+    "Period in seconds to fetch corpora from the API"
+    check_search_queue_period: float = 0.1
     "Period in seconds to fetch tasks from the API"
     num_workers: int = 4
     "Number of workers to process tasks"
