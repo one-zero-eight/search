@@ -34,7 +34,7 @@ class MinioRepository:
                                 size=object_stat.size,
                                 last_modified=object_stat.last_modified,
                                 object_name=obj.object_name,
-                                metadata=object_stat.metadata,
+                                metadata=dict(object_stat.metadata) if object_stat.metadata is not None else None,
                             ),
                         )
                         moodle_objects.append(moodle_object)

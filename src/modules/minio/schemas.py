@@ -1,6 +1,5 @@
 import datetime
 
-from urllib3 import HTTPHeaderDict
 
 from src.custom_pydantic import CustomModel
 
@@ -9,7 +8,7 @@ class MinioData(CustomModel):
     size: int
     last_modified: datetime.datetime | None
     object_name: str
-    metadata: dict[str, str] | HTTPHeaderDict | None
+    metadata: dict[str, str] | None
 
 
 class MoodleFileObject(CustomModel):
