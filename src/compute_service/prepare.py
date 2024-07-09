@@ -1,9 +1,7 @@
-import multiprocessing
-import queue
 import re
 import time
 from functools import partial
-from multiprocessing import Pool, Manager, Process
+from multiprocessing import Pool
 from typing import TypedDict
 
 import httpx
@@ -14,6 +12,8 @@ from pymupdf4llm.to_markdown import Output
 from retriv import HybridRetriever
 
 from src.config import settings
+from src.modules.compute.schemas import Corpora
+from src.modules.minio.schemas import MoodleFileObject
 
 MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
 CHUNK_OVERLAP = 25
@@ -29,12 +29,13 @@ def get_client() -> httpx.Client:
     )
 
 
-def fetch_corpora():
+def fetch_corpora() -> Corpora:
     with get_client() as session:
         response = session.get("/corpora")
         response.raise_for_status()
         corpora_data = response.json()
-    return corpora_data
+        corpora = Corpora.model_validate(corpora_data)
+    return corpora
 
 
 def get_document_from_url(file_uri: str) -> pymupdf.Document:
@@ -79,52 +80,33 @@ def file_pipeline(file_uri):
     return output, chunks
 
 
-def pdf_to_text_worker(namespace):
-    print("[PDF-Text worker]: Started")
-
-    while True:
-        pack = []
-        while True:
-            try:
-                namespace.pdf_processor_queue: multiprocessing.Queue
-                task = namespace.pdf_processor_queue.get_nowait()
-                pack.append(task)
-            except queue.Empty:
-                break
-
-        if not pack:
-            print("[PDF-Text worker]: Idle")
-            time.sleep(1)  # Avoid busy waiting
-            continue
-        else:
-            print(f"[PDF-Text worker]: Processing {len(pack)} items")
-
-        with Pool(processes=settings.compute_settings.num_workers) as pool:
-            _results = pool.map(partial(file_pipeline, splitter=chunk_splitter), [task.pdf_url for task in pack])
+def moodle_file_object_to_url(obj: MoodleFileObject) -> str:
+    return f"{settings.compute_settings.api_url}/moodle/preview?course_id={obj.course_id}&module_id={obj.module_id}&filename={obj.filename}"
 
 
-def fetcher(namespace):
-    print(f"Fetch tasks from API every {settings.compute_settings.check_search_queue_period} seconds")
-    while True:
-        corpora = fetch_corpora()
-        print(f"Populated by {len(corpora)} corpora entries")
-        # Wait for the specified period before fetching tasks again
-        time.sleep(settings.compute_settings.corpora_update_period)
+def pdf_to_text_job(corpora: Corpora):
+    pdf_urls = [moodle_file_object_to_url(obj) for obj in corpora.moodle_files]
+
+    print(f"[PDF-Text worker]: Processing {len(pdf_urls)} items")
+
+    with Pool(processes=settings.compute_settings.num_workers) as pool:
+        _results = pool.map(partial(file_pipeline, splitter=chunk_splitter), pdf_urls)
 
 
 def main():
-    with Manager() as manager:
-        namespace = manager.Namespace()
-        namespace.search_queue = manager.Queue()
-        namespace.pdf_processor_queue = manager.Queue()
+    print(f"Fetch tasks from API every {settings.compute_settings.check_search_queue_period} seconds")
+    prev_corpora = None
+    while True:
+        corpora = fetch_corpora()
+        if prev_corpora != corpora:
+            print(f"Populated by {len(corpora.moodle_files)} corpora entries")
+            pdf_to_text_job(corpora)
+            prev_corpora = corpora
+        else:
+            print("No corpora changes")
 
-        # spawn fetcher
-        fetcher_process = Process(target=fetcher, args=(namespace,))
-        pdf_to_text_process = Process(target=pdf_to_text_worker, args=(namespace,))
-        fetcher_process.start()
-        pdf_to_text_process.start()
-        fetcher_process.join()
-        pdf_to_text_process.join()
+        # Wait for the specified period before fetching tasks again
+        time.sleep(settings.compute_settings.corpora_update_period)
 
 
 if __name__ == "__main__":

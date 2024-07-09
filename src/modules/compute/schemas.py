@@ -1,16 +1,20 @@
 from typing import Any, Literal
 
-from pydantic import BaseModel
+from src.custom_pydantic import CustomModel
+from src.modules.minio.schemas import MoodleFileObject
 
 
-class SearchTask(BaseModel):
+class SearchTask(CustomModel):
     task_id: str
-    status: Literal["pending", "completed", "failed"]
+    status: Literal["pending", "completed", "failed"] = "pending"
     query: str
-    result: Any = None
 
 
-class SearchResult(BaseModel):
+class SearchResult(CustomModel):
     task_id: str
     status: Literal["completed", "failed"]
     result: Any
+
+
+class Corpora(CustomModel):
+    moodle_files: list[MoodleFileObject]

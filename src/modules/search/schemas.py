@@ -2,9 +2,10 @@ import re
 from typing import Literal, Annotated, TypeAlias
 
 from beanie import PydanticObjectId
-from pydantic import ConfigDict, Discriminator, model_validator
+from pydantic import Discriminator, model_validator
 
 from src.custom_pydantic import CustomModel
+from src.storages.mongo import MoodleEntry
 
 
 class PdfLocation(CustomModel):
@@ -86,45 +87,16 @@ class TelegramSource(CustomModel):
 Sources: TypeAlias = Annotated[MoodleSource | TelegramSource, Discriminator("type")]
 
 
+class MoodleEntryWithScore(MoodleEntry):
+    score: float
+    "Score of the search response. Multiple scores if was an aggregation of multiple chunks."
+
+
 class SearchResponse(CustomModel):
     source: Sources
     "Relevant source for the search."
-    score: float | None = None
-    "Score of the search response. Optional."
-
-
-def _example() -> dict:
-    return dict(
-        searched_for="computer architecture",
-        responses=[
-            dict(
-                source=dict(
-                    type="moodle",
-                    course_id=1114,
-                    course_name="[F22] Fundamentals of Computer Architecture",
-                    module_id=82752,
-                    module_name="Week 01 - 01 August 2022",
-                    display_name="Lecture 2 Slides",
-                    resource_type="pdf",
-                    resource_download_url="https://ontheline.trincoll.edu/images/bookdown/sample-local-pdf.pdf",
-                    resource_preview_url="https://ontheline.trincoll.edu/images/bookdown/sample-local-pdf.pdf",
-                    link="https://moodle.innopolis.university/course/view.php?id=1114#module-82752",
-                    preview_location=dict(page_index=1),
-                ),
-                score=0.5,
-            ),
-            dict(
-                source=dict(
-                    type="telegram",
-                    chat_username="one_zero_eight",
-                    chat_title="one-zero-eight – 108",
-                    message_id=63,
-                    link="https://t.me/one_zero_eight/63",
-                ),
-                score=0.3,
-            ),
-        ],
-    )
+    score: float | list[float] | None = None
+    "Score of the search response. Multiple scores if was an aggregation of multiple chunks. Optional."
 
 
 class SearchResponses(CustomModel):
@@ -134,5 +106,3 @@ class SearchResponses(CustomModel):
     "Responses to the search query."
     search_query_id: PydanticObjectId | None = None
     "Assigned search query index"
-
-    model_config = ConfigDict(json_schema_extra={"examples": [_example()]})

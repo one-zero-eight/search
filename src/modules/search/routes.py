@@ -1,7 +1,10 @@
+import asyncio
 import time
+from typing import Literal
 
 from fastapi import APIRouter, Request, HTTPException
 
+from src.api.logging_ import logger
 from src.modules.search.repository import search_repository
 from src.modules.search.schemas import SearchResponses
 from src.storages.mongo.statistics import WrappedResponseSchema, SearchStatistics
@@ -9,10 +12,17 @@ from src.storages.mongo.statistics import WrappedResponseSchema, SearchStatistic
 router = APIRouter(prefix="/search", tags=["Search"])
 
 
-@router.get("/search")
-async def search_by_query(query: str, request: Request, limit: int = 5) -> SearchResponses:
+@router.get("/search", responses={200: {"description": "Success"}, 408: {"description": "Search timed out"}})
+async def search_by_query(query: str, request: Request, limit: int = 5, use_ai: bool = False) -> SearchResponses:
     start_time = time.monotonic()
-    responses = await search_repository.by_meta(query, request=request, limit=limit)
+    try:
+        responses = await asyncio.wait_for(
+            search_repository.search_moodle(query, request=request, limit=limit, use_ai=use_ai), timeout=15
+        )
+    except asyncio.TimeoutError:
+        logger.warning("Timeout while searching for query")
+        raise HTTPException(status_code=408, detail="Search timed out")
+
     time_spent = time.monotonic() - start_time
 
     # Create a list of wrapped responses
@@ -31,11 +41,7 @@ async def search_by_query(query: str, request: Request, limit: int = 5) -> Searc
 
 
 @router.post("/search/{search_query_id}/feedback")
-async def add_user_feedback(search_query_id: str, response_index: int, feedback: str):
-    valid_feedback = {"like", "dislike"}
-    if feedback not in valid_feedback:
-        raise HTTPException(status_code=400, detail="Invalid feedback value, must be 'like' or 'dislike'")
-
+async def add_user_feedback(search_query_id: str, response_index: int, feedback: Literal["like", "dislike"]):
     search_statistics = await SearchStatistics.get(search_query_id)
 
     if not search_statistics:

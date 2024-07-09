@@ -30,9 +30,9 @@ def fetch_tasks() -> list[SearchTask]:
     with get_client() as session:
         response = session.get("/pending-searchs")
         response.raise_for_status()
-        tasks_data = response.json()
+        pending_searches_data = response.json()
     type_adapter = TypeAdapter(list[SearchTask])
-    tasks = type_adapter.validate_python(tasks_data)
+    tasks = type_adapter.validate_python(pending_searches_data["queries"])
     return tasks
 
 

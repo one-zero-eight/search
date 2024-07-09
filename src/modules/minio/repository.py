@@ -1,15 +1,16 @@
-from typing import Any
 from minio import Minio
 from minio.error import S3Error
+
 from src.api.logging_ import logger
-from src.storages.minio import minio_client as client
+from src.modules.minio.schemas import MinioData, MoodleFileObject
+from src.storages.minio import minio_client
 
 
 class MinioRepository:
     def __init__(self, minio_client: Minio):
         self.minio_client = minio_client
 
-    def get_moodle_objects(self) -> list[dict[str, Any]]:
+    def get_moodle_objects(self) -> list[MoodleFileObject]:
         try:
             moodle_objects = []
             # List all objects with the "moodle/" prefix recursively
@@ -25,17 +26,17 @@ class MinioRepository:
                         # Retrieve the object metadata
                         object_stat = self.minio_client.stat_object("search", obj.object_name)
 
-                        moodle_object = {
-                            "course_id": course_id,
-                            "module_id": module_id,
-                            "filename": filename,
-                            "minio_data": {
-                                "size": object_stat.size,
-                                "last_modified": str(object_stat.last_modified),
-                                "object_name": obj.object_name,
-                                "metadata": str(object_stat.metadata),
-                            },
-                        }
+                        moodle_object = MoodleFileObject(
+                            course_id=course_id,
+                            module_id=module_id,
+                            filename=filename,
+                            minio_data=MinioData(
+                                size=object_stat.size,
+                                last_modified=object_stat.last_modified,
+                                object_name=obj.object_name,
+                                metadata=object_stat.metadata,
+                            ),
+                        )
                         moodle_objects.append(moodle_object)
                     except (ValueError, S3Error) as e:
                         logger.error(f"Error processing object {obj.object_name}: {e}")
@@ -45,4 +46,4 @@ class MinioRepository:
             return []
 
 
-minio_repository: MinioRepository = MinioRepository(client)
+minio_repository: MinioRepository = MinioRepository(minio_client)
