@@ -1,16 +1,18 @@
+import urllib.parse
+from typing import Any
+
 import minio
 from fastapi import APIRouter, UploadFile, Depends
 from fastapi.responses import Response, StreamingResponse
 from minio.deleteobjects import DeleteObject
 from pymongo import UpdateOne
-from typing import Any
 
 from src.api.dependencies import VerifiedDep
+from src.modules.minio.repository import minio_repository
+from src.modules.minio.schemas import MoodleFileObject
 from src.modules.moodle.schemas import InCourses, InSections, InContents
 from src.modules.moodle.utils import content_to_minio_object, module_to_minio_prefix, checker
 from src.storages.minio import minio_client
-from src.modules.minio.repository import minio_repository
-from src.modules.minio.schemas import MoodleFileObject
 from src.storages.mongo import MoodleCourse, MoodleEntry
 from src.storages.mongo.moodle import MoodleEntrySchema, MoodleContentSchema
 
@@ -30,12 +32,11 @@ async def preview_moodle(course_id: int, module_id: int, filename: str):
         if e.code == "NoSuchKey":
             return Response(status_code=404)
         raise e
-    encoded_filename = filename.encode("utf-8").decode("unicode-escape")
-
+    escaped = urllib.parse.quote(filename)
     return StreamingResponse(
         response,
         media_type="application/octet-stream",
-        headers={"Content-Disposition": f'inline; filename*=UTF-8"{encoded_filename}'},
+        headers={"Content-Disposition": f'inline; filename*=UTF-8"{escaped}'},
     )
 
 
