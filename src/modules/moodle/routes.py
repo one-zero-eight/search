@@ -30,10 +30,12 @@ async def preview_moodle(course_id: int, module_id: int, filename: str):
         if e.code == "NoSuchKey":
             return Response(status_code=404)
         raise e
+    encoded_filename = filename.encode("utf-8").decode("unicode-escape")
+
     return StreamingResponse(
         response,
         media_type="application/octet-stream",
-        headers={"Content-Disposition": f"inline; filename={filename}"},
+        headers={"Content-Disposition": f'inline; filename*=UTF-8"{encoded_filename}'},
     )
 
 
