@@ -1,5 +1,5 @@
 import datetime
-from typing import Any
+from typing import Any, Literal
 
 import pymongo
 from pydantic import Field
@@ -11,8 +11,8 @@ from src.storages.mongo.__base__ import CustomDocument
 
 class WrappedResponseSchema(CustomModel):
     source: Any
-    score: float
-    user_feedback: str = None  # 'like', 'dislike', or None
+    score: float | list[float] | None
+    user_feedback: Literal["like", "dislike"] | None = None  # 'like', 'dislike', or None
 
 
 class SearchStatisticsSchema(CustomModel):

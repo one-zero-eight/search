@@ -5,7 +5,7 @@ from src.custom_pydantic import CustomModel
 
 
 class MinioData(CustomModel):
-    size: int
+    size: int | None
     last_modified: datetime.datetime | None
     object_name: str
     metadata: dict[str, str] | None

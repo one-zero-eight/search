@@ -7,7 +7,7 @@ from src.api import docs
 from src.api.docs import generate_unique_operation_id
 from src.api.lifespan import lifespan
 from src.api.routers import routers
-from src.config import api_settings
+from src.config import settings
 
 # App definition
 app = FastAPI(
@@ -17,16 +17,15 @@ app = FastAPI(
     version=docs.VERSION,
     contact=docs.CONTACT_INFO,
     license_info=docs.LICENSE_INFO,
-    openapi_tags=docs.TAGS_INFO,
     servers=[
-        {"url": api_settings.app_root_path, "description": "Current"},
+        {"url": settings.api_settings.app_root_path, "description": "Current"},
     ],
     swagger_ui_parameters={
         "tryItOutEnabled": True,
         "persistAuthorization": True,
         "filter": True,
     },
-    root_path=api_settings.app_root_path,
+    root_path=settings.api_settings.app_root_path,
     root_path_in_servers=False,
     generate_unique_id_function=generate_unique_operation_id,
     lifespan=lifespan,
@@ -37,7 +36,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=api_settings.cors_allow_origins,
+    allow_origins=settings.api_settings.cors_allow_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

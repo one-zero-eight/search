@@ -48,10 +48,10 @@ class ComputeSetting(CustomModel):
 
 class Settings(CustomModel):
     schema_: str = Field(None, alias="$schema")
-    api_settings: ApiSettings = Field(default_factory=ApiSettings)
-    compute_settings: ComputeSetting = Field(default_factory=ComputeSetting)
-    accounts: Accounts = Field(default_factory=Accounts)
-    minio: MinioSettings = Field(default_factory=MinioSettings)
+    api_settings: ApiSettings
+    compute_settings: ComputeSetting = ComputeSetting()
+    accounts: Accounts = Accounts()
+    minio: MinioSettings
 
     @classmethod
     def from_yaml(cls, path: Path) -> "Settings":

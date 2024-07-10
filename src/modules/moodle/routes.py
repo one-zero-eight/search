@@ -14,7 +14,7 @@ from src.modules.moodle.schemas import InCourses, InSections, InContents
 from src.modules.moodle.utils import content_to_minio_object, module_to_minio_prefix, checker
 from src.storages.minio import minio_client
 from src.storages.mongo import MoodleCourse, MoodleEntry
-from src.storages.mongo.moodle import MoodleEntrySchema, MoodleContentSchema
+from src.storages.mongo.moodle import MoodleEntrySchema
 
 router = APIRouter(prefix="/moodle", tags=["Moodle"])
 
@@ -122,6 +122,8 @@ async def need_to_upload_contents(_: VerifiedDep, contents_list: list[InContents
                 obj = content_to_minio_object(contents.course_id, contents.module_id, content.filename)
                 r = minio_client.stat_object("search", obj)
                 meta = r.metadata
+                if meta is None:
+                    meta = {}
                 timecreated = int(meta["x-amz-meta-timecreated"]) if "x-amz-meta-timecreated" in meta else None
                 timemodified = int(meta["x-amz-meta-timemodified"]) if "x-amz-meta-timemodified" in meta else None
                 # check if different
@@ -164,7 +166,6 @@ async def upload_content(
 
     # upload files
     for file, content in zip(files, data.contents):
-        content: MoodleContentSchema
         meta = {}
 
         if content.timecreated is not None:
@@ -176,7 +177,7 @@ async def upload_content(
             "search",
             content_to_minio_object(data.course_id, data.module_id, content.filename),
             file.file,
-            file.size,
+            file.size or 0,
             file.content_type or "application/octet-stream",
-            metadata=meta,
+            metadata=meta,  # type: ignore[arg-type]
         )

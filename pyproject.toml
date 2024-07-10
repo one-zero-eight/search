@@ -20,6 +20,7 @@ authlib = "^1.3.0"
 httpx = "^0.27.0"
 minio = "^7.2.7"
 python-multipart = "^0.0.9"
+types-pyyaml = "^6.0.12.20240311"
 
 [tool.poetry.group.dev]
 optional = true
@@ -29,9 +30,34 @@ pre-commit = "^3.6.2"
 
 
 [tool.poetry.group.compute.dependencies]
-pymupdf4llm = {url = "https://github.com/dantetemplar/pymupdf4llm/releases/download/0.1.3/pymupdf4llm-0.1.3-py3-none-any.whl"}
+pymupdf4llm = { url = "https://github.com/dantetemplar/pymupdf4llm/releases/download/0.1.3/pymupdf4llm-0.1.3-py3-none-any.whl" }
 retriv = "^0.2.3"
 langchain = "^0.2.6"
+
+[tool.pydantic-mypy]
+# setup pydantic plugin
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+warn_untyped_fields = true
+
+# ignore authlib types
+[[tool.mypy.overrides]]
+module = "authlib.jose.*"
+ignore_missing_imports = true
+# ignore retriv types
+[[tool.mypy.overrides]]
+module = "retriv.*"
+ignore_missing_imports = true
+# ignore pymupdf types
+[[tool.mypy.overrides]]
+module = "pymupdf.*"
+ignore_missing_imports = true
+# ignore pymupdf4llm types
+[[tool.mypy.overrides]]
+module = "pymupdf4llm.*"
+ignore_missing_imports = true
+
 
 [tool.ruff]
 line-length = 120

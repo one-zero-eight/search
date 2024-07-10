@@ -108,10 +108,23 @@ properties:
   api_settings:
     $ref: '#/$defs/ApiSettings'
   compute_settings:
-    $ref: '#/$defs/ComputeSetting'
+    allOf:
+    - $ref: '#/$defs/ComputeSetting'
+    default:
+      api_url: http://127.0.0.1:8001
+      auth_token: secret
+      corpora_update_period: 10.0
+      check_search_queue_period: 0.1
+      num_workers: 4
   accounts:
-    $ref: '#/$defs/Accounts'
+    allOf:
+    - $ref: '#/$defs/Accounts'
+    default:
+      api_url: https://api.innohassle.ru/accounts/v0
   minio:
     $ref: '#/$defs/MinioSettings'
+required:
+- api_settings
+- minio
 title: Settings
 type: object

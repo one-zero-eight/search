@@ -20,21 +20,21 @@ class MessageSchema(CustomModel):
     "Title of the chat."
     chat_username: str
     "Username of the chat."
-    text: str = None
+    text: str | None = None
     """
     For text messages, the actual UTF-8 text of the message, 0-4096 characters.
     If the message contains entities (bold, italic, ...) you can access *text.markdown* or
     *text.html* to get the marked up message text. In case there is no entity, the fields
     will contain the same text as *text*.
     """
-    caption: str = None
+    caption: str | None = None
     """
     Caption for the audio, document, photo, video or voice, 0-1024 characters.
     If the message contains caption entities (bold, italic, ...) you can access *caption.markdown* or
     *caption.html* to get the marked up caption text. In case there is no caption entity, the fields
     will contain the same text as *caption*.
     """
-    link: str = None
+    link: str | None = None
     "Generate a link to this message, only for groups and channels."
 
 
