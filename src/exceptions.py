@@ -1,15 +1,19 @@
 from typing import Any, ClassVar
 
 from fastapi import HTTPException
+from pydantic import BaseModel
 from starlette import status
 
 
-class ExceptionWithDetail(HTTPException):
-    responses: ClassVar[dict[int | str, dict[str, Any]]]
+class Detail(BaseModel):
     detail: str
 
 
-class IncorrectCredentialsException(ExceptionWithDetail):
+class ExceptionBase(HTTPException):
+    responses: ClassVar[dict[int | str, dict[str, Any]]]
+
+
+class IncorrectCredentialsException(ExceptionBase):
     """
     HTTP_401_UNAUTHORIZED
     """
@@ -30,12 +34,12 @@ class IncorrectCredentialsException(ExceptionWithDetail):
     responses = {
         401: {
             "description": "Unable to verify credentials OR Credentials not provided",
-            "model": ExceptionWithDetail,
+            "model": Detail,
         }
     }
 
 
-class ForbiddenException(ExceptionWithDetail):
+class ForbiddenException(ExceptionBase):
     """
     HTTP_403_FORBIDDEN
     """
@@ -46,10 +50,10 @@ class ForbiddenException(ExceptionWithDetail):
             detail=self.responses[403]["description"],
         )
 
-    responses = {403: {"description": "Not enough permissions", "model": ExceptionWithDetail}}
+    responses = {403: {"description": "Not enough permissions", "model": Detail}}
 
 
-class UserExists(ExceptionWithDetail):
+class UserExists(ExceptionBase):
     """
     HTTP_409_CONFLICT
     """
@@ -61,7 +65,7 @@ class UserExists(ExceptionWithDetail):
         )
 
 
-class UserDidNotConnectTelegram(ExceptionWithDetail):
+class UserDidNotConnectTelegram(ExceptionBase):
     """
     HTTP_400_BAD_REQUEST
     """
