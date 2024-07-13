@@ -1,4 +1,4 @@
-from typing import Any, Literal
+from typing import Literal
 
 from src.custom_pydantic import CustomModel
 from src.modules.minio.schemas import MoodleFileObject
@@ -10,10 +10,17 @@ class SearchTask(CustomModel):
     query: str
 
 
+class MoodleFileResult(CustomModel):
+    course_id: int
+    module_id: int
+    filename: str
+    score: list[float] | float | None = None
+
+
 class SearchResult(CustomModel):
     task_id: str
     status: Literal["completed", "failed"]
-    result: Any
+    result: list[MoodleFileResult] = []
 
 
 class Corpora(CustomModel):

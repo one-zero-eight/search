@@ -88,7 +88,7 @@ Sources: TypeAlias = Annotated[MoodleSource | TelegramSource, Discriminator("typ
 
 
 class MoodleEntryWithScore(MoodleEntry):
-    score: float
+    score: float | list[float] | None = None
     "Score of the search response. Multiple scores if was an aggregation of multiple chunks."
 
 

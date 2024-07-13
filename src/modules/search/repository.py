@@ -6,8 +6,10 @@ from fastapi import Request
 
 from src.api.logging_ import logger
 from src.modules.compute.schemas import SearchTask, SearchResult
+from src.modules.moodle.repository import moodle_repository
 from src.modules.search.schemas import SearchResponse, MoodleSource, SearchResponses, MoodleEntryWithScore
 from src.storages.mongo import MoodleEntry
+from src.storages.mongo.moodle import MoodleContentSchema
 
 MOODLE_URL = "https://moodle.innopolis.university"
 
@@ -43,44 +45,46 @@ class SearchRepository:
         )
         return [MoodleEntryWithScore.model_validate(e) for e in entries]
 
-    def _moodle_entry_to_search_response(self, entry: MoodleEntryWithScore, request: Request) -> list[SearchResponse]:
-        responses = []
-        for c in entry.contents:
-            if c.type != "file":
-                continue
-            _, file_extension = os.path.splitext(c.filename)
-            if not file_extension:
-                continue
-            resource_type = file_extension[1:]
-            preview_url = str(
-                request.url_for("preview_moodle").include_query_params(
-                    course_id=entry.course_id,
-                    module_id=entry.module_id,
-                    type=c.type,
-                    filename=c.filename,
-                ),
-            )
-            if entry.section_id is not None:
-                link = f"{MOODLE_URL}/course/view.php?id={entry.course_id}#sectionid-{entry.section_id}-title"
-            else:
-                link = f"{MOODLE_URL}/course/view.php?id={entry.course_id}#module-{entry.module_id}"
+    def _moodle_entry_contents_to_search_response(
+        self,
+        entry: MoodleEntry,
+        content: MoodleContentSchema,
+        request: Request,
+        score: float | list[float] | None = None,
+    ) -> SearchResponse | None:
+        if content.type != "file":
+            return None
+        _, file_extension = os.path.splitext(content.filename)
+        if not file_extension:
+            return None
+        resource_type = file_extension[1:]
+        preview_url = str(
+            request.url_for("preview_moodle").include_query_params(
+                course_id=entry.course_id,
+                module_id=entry.module_id,
+                type=content.type,
+                filename=content.filename,
+            ),
+        )
+        if entry.section_id is not None:
+            link = f"{MOODLE_URL}/course/view.php?id={entry.course_id}#sectionid-{entry.section_id}-title"
+        else:
+            link = f"{MOODLE_URL}/course/view.php?id={entry.course_id}#module-{entry.module_id}"
 
-            response = SearchResponse(
-                score=entry.score,
-                source=MoodleSource(
-                    course_id=entry.course_id,
-                    course_name=entry.course_fullname,
-                    module_id=entry.module_id,
-                    module_name=entry.module_name,
-                    resource_type=resource_type,
-                    filename=c.filename,
-                    link=link,
-                    resource_preview_url=preview_url,
-                    resource_download_url=preview_url,
-                ),
-            )
-            responses.append(response)
-        return responses
+        return SearchResponse(
+            score=score,
+            source=MoodleSource(
+                course_id=entry.course_id,
+                course_name=entry.course_fullname,
+                module_id=entry.module_id,
+                module_name=entry.module_name,
+                resource_type=resource_type,
+                filename=content.filename,
+                link=link,
+                resource_preview_url=preview_url,
+                resource_download_url=preview_url,
+            ),
+        )
 
     def submit_search_results(self, search_results: list[SearchResult]) -> None:
         for result in search_results:
@@ -96,12 +100,16 @@ class SearchRepository:
             responses = []
 
             for e in entries:
-                responses.extend(self._moodle_entry_to_search_response(e, request))
+                for c in e.contents:
+                    response = self._moodle_entry_contents_to_search_response(e, c, request, score=e.score)
+                    if response:
+                        responses.append(response)
 
             return SearchResponses(responses=responses, searched_for=query)
 
         else:
             search_task = SearchTask(query=query, task_id=str(uuid.uuid4()))
+            result = None
             self.pending_searches[search_task.task_id] = search_task
             self.pending_events[search_task.task_id] = asyncio.Event()
             try:
@@ -113,9 +121,29 @@ class SearchRepository:
                 logger.warning("Search task timed out")
                 self.pending_events.pop(search_task.task_id, None)
                 self.pending_searches.pop(search_task.task_id, None)
-                return SearchResponses(responses=[], searched_for=query)
 
-            return SearchResponses(responses=[], searched_for=query)  # TODO: return data from results
+            if result is None:
+                return SearchResponses(responses=[], searched_for=query)
+            else:
+                responses = []
+                moodle_entries = await moodle_repository.read_all()
+                _mapping = {(e.course_id, e.module_id): e for e in moodle_entries}
+
+                for entry in result.result:
+                    moodle_entry = _mapping.get((entry.course_id, entry.module_id), None)
+                    if moodle_entry is None:
+                        logger.warning(f"Entry not found: {entry.course_id} {entry.module_id}")
+                        continue
+
+                    for c in moodle_entry.contents:
+                        if c.filename == entry.filename:
+                            response = self._moodle_entry_contents_to_search_response(
+                                moodle_entry, c, request, score=entry.score
+                            )
+                            if response:
+                                responses.append(response)
+
+                return SearchResponses(responses=responses, searched_for=query)
 
 
 search_repository: SearchRepository = SearchRepository()
