@@ -72,6 +72,18 @@ $defs:
         description: Number of workers to process tasks
         title: Num Workers
         type: integer
+      qdrant_url:
+        default: '**********'
+        description: URL of the Qdrant service
+        format: password
+        title: Qdrant Url
+        type: string
+        writeOnly: true
+      qdrant_collection_name:
+        default: inh-search
+        description: Name of the collection in the Qdrant service
+        title: Qdrant Collection Name
+        type: string
     title: ComputeSetting
     type: object
   MinioSettings:
@@ -133,6 +145,8 @@ properties:
       corpora_update_period: 10.0
       check_search_queue_period: 0.1
       num_workers: 4
+      qdrant_url: '**********'
+      qdrant_collection_name: inh-search
   accounts:
     allOf:
     - $ref: '#/$defs/Accounts'

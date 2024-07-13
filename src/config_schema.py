@@ -50,6 +50,10 @@ class ComputeSetting(CustomModel):
     "Period in seconds to fetch tasks from the API"
     num_workers: int = 4
     "Number of workers to process tasks"
+    qdrant_url: SecretStr = SecretStr("http://127.0.0.1:6333")
+    "URL of the Qdrant service"
+    qdrant_collection_name: str = "inh-search"
+    "Name of the collection in the Qdrant service"
 
 
 class Settings(CustomModel):

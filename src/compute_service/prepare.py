@@ -3,11 +3,12 @@ import re
 import time
 from multiprocessing import Pool
 from pathlib import Path
-from typing import TypedDict
 
 import httpx
 import pymupdf
 import pymupdf4llm
+from qdrant_client import QdrantClient, models
+
 from sentence_transformers import SentenceTransformer
 
 from src.compute_service.chunker import CustomTokenTextSplitter
@@ -23,13 +24,18 @@ logger = logging.getLogger("compute.prepare")
 
 _1 = time.monotonic()
 model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
-print(type(model.tokenizer))
-CHUNK_OVERLAP = 25
-chunk_splitter = CustomTokenTextSplitter(
-    tokenizer=model.tokenizer, chunk_size=model.max_seq_length, chunk_overlap=CHUNK_OVERLAP
-)
+chunk_splitter = CustomTokenTextSplitter(tokenizer=model.tokenizer, chunk_size=model.max_seq_length, chunk_overlap=25)
+
+qdrant = QdrantClient(settings.compute_settings.qdrant_url.get_secret_value())
+QDRANT_COLLECTION = settings.compute_settings.qdrant_collection_name
+if not qdrant.collection_exists(QDRANT_COLLECTION):
+    qdrant.create_collection(
+        collection_name=QDRANT_COLLECTION,
+        vectors_config=models.VectorParams(size=model.get_sentence_embedding_dimension(), distance=models.Distance.DOT),
+    )
 _2 = time.monotonic()
-logger.info(f"DenseRetriever loaded in {_2 - _1:.2f} seconds")
+
+logger.info(f"Initialized in {_2 - _1:.2f} seconds")
 
 
 def get_client() -> httpx.Client:
@@ -48,20 +54,6 @@ def fetch_corpora() -> Corpora:
     return corpora
 
 
-def get_document_from_url(file_uri: str) -> pymupdf.Document:
-    with get_client() as session:
-        response = session.get(file_uri)
-        response.raise_for_status()
-
-        doc = pymupdf.Document(stream=response.content)
-        return doc
-
-
-class Chunk(TypedDict):
-    text: str
-    page_number: int
-
-
 def object_pipeline(obj: MoodleFileObject):
     s3_object_name = content_to_minio_object(obj.course_id, obj.module_id, obj.filename)
     file_path = Path("s3") / s3_object_name
@@ -78,10 +70,12 @@ def object_pipeline(obj: MoodleFileObject):
             chunks.append(
                 {
                     "text": text,
-                    "ref": {
+                    "document-ref": {
                         "course_id": obj.course_id,
                         "module_id": obj.module_id,
                         "filename": obj.filename,
+                    },
+                    "chunk-ref": {
                         "page_number": i,
                         "chunk_number": j,
                     },
@@ -90,20 +84,40 @@ def object_pipeline(obj: MoodleFileObject):
     return chunks
 
 
-def corpora_to_chunks(corpora: Corpora) -> list[dict]:
+def save_file_chunks_to_qdrant(chunks: list[dict]):
+    if not chunks:
+        return
+    ref = chunks[0]["document-ref"]
+    must = [
+        models.FieldCondition(key=f"document-ref.{key}", match=models.MatchValue(value=value))
+        for key, value in ref.items()
+    ]
+
+    qdrant.delete(
+        QDRANT_COLLECTION,
+        models.FilterSelector(filter=models.Filter(must=must)),
+    )
+
+    vectors = model.encode([chunk["text"] for chunk in chunks], show_progress_bar=False)
+    qdrant.upload_collection(QDRANT_COLLECTION, payload=chunks, vectors=vectors)
+    logger.info(f"Saved +{len(chunks)} chunks to Qdrant")
+
+
+def corpora_to_qdrant(corpora: Corpora):
     logger.info(f"Processing {len(corpora.moodle_files)} items")
-    collection = []
+    collection_len = 0
 
     _1 = time.monotonic()
     items = [item for item in corpora.moodle_files if item.filename.endswith(".pdf")]
 
     with Pool(processes=settings.compute_settings.num_workers) as pool:
-        file_chunks = pool.map(object_pipeline, items)
+        file_chunks = pool.imap_unordered(object_pipeline, items)
         for chunks in file_chunks:
-            collection.extend(chunks)
+            if chunks:
+                save_file_chunks_to_qdrant(chunks)
+                collection_len += len(chunks)
     _2 = time.monotonic()
-    logger.info(f"Processed {len(collection)} chunks in {_2 - _1:.2f} seconds")
-    return collection
+    logger.info(f"Processed {collection_len} chunks in {_2 - _1:.2f} seconds")
 
 
 def no_corpora_changes(prev_corpora: Corpora | None, corpora: Corpora) -> bool:
@@ -127,7 +141,7 @@ def main():
             logger.info("No corpora changes")
         else:
             logger.info(f"Populated by {len(corpora.moodle_files)} corpora entries")
-            corpora_to_chunks(corpora)
+            corpora_to_qdrant(corpora)
             prev_corpora = corpora
 
         # Wait for the specified period before fetching tasks again
