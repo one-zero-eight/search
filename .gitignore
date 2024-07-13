@@ -6,6 +6,8 @@
 __pycache__
 .ruff_cache
 *.py[cod]
+s3/
+qdrant_storage/
 
 ### Environment ###
 .env
