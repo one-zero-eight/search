@@ -2,6 +2,7 @@ from minio import Minio
 from minio.error import S3Error
 
 from src.api.logging_ import logger
+from src.config import settings
 from src.modules.minio.schemas import MinioData, MoodleFileObject
 from src.storages.minio import minio_client
 
@@ -14,7 +15,9 @@ class MinioRepository:
         try:
             moodle_objects = []
             # List all objects with the "moodle/" prefix recursively
-            objects = self.minio_client.list_objects(bucket_name="search", prefix="moodle/", recursive=True)
+            objects = self.minio_client.list_objects(
+                bucket_name=settings.minio.bucket, prefix="moodle/", recursive=True
+            )
             for obj in objects:
                 parts = obj.object_name.split("/")
                 if len(parts) >= 4:
@@ -24,7 +27,7 @@ class MinioRepository:
                         filename = parts[3]
 
                         # Retrieve the object metadata
-                        object_stat = self.minio_client.stat_object("search", obj.object_name)
+                        object_stat = self.minio_client.stat_object(settings.minio.bucket, obj.object_name)
 
                         moodle_object = MoodleFileObject(
                             course_id=course_id,

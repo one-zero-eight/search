@@ -41,10 +41,10 @@ async def setup_database() -> AsyncIOMotorClient:
 
 
 def setup_minio():
-    found = minio_client.bucket_exists("search")
+    found = minio_client.bucket_exists(settings.minio.bucket)
     if not found:
-        minio_client.make_bucket("search")
-        logger.info("Bucket `search` created")
+        minio_client.make_bucket(settings.minio.bucket)
+        logger.info(f"Bucket `{settings.minio.bucket}` created")
 
 
 async def setup_repositories():

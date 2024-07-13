@@ -16,6 +16,12 @@ class Accounts(CustomModel):
 class MinioSettings(CustomModel):
     endpoint: str = "127.0.0.1:9000"
     "URL of the target service."
+    secure: bool = False
+    "Use https connection to the service."
+    region: str | None = None
+    "Region of the service."
+    bucket: str = "search"
+    "Name of the bucket in the service."
     access_key: str = Field(..., examples=["minioadmin"])
     "Access key (user ID) of a user account in the service."
     secret_key: SecretStr = Field(..., examples=["password"])

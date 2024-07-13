@@ -81,6 +81,23 @@ $defs:
         description: URL of the target service.
         title: Endpoint
         type: string
+      secure:
+        default: false
+        description: Use https connection to the service.
+        title: Secure
+        type: boolean
+      region:
+        anyOf:
+        - type: string
+        - type: 'null'
+        default: null
+        description: Region of the service.
+        title: Region
+      bucket:
+        default: search
+        description: Name of the bucket in the service.
+        title: Bucket
+        type: string
       access_key:
         description: Access key (user ID) of a user account in the service.
         examples:

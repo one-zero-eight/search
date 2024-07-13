@@ -1,13 +1,14 @@
-import urllib.parse
+from datetime import timedelta
 from typing import Any
 
 import minio
 from fastapi import APIRouter, UploadFile, Depends
-from fastapi.responses import Response, StreamingResponse
+from fastapi.responses import RedirectResponse
 from minio.deleteobjects import DeleteObject
 from pymongo import UpdateOne
 
 from src.api.dependencies import VerifiedDep
+from src.config import settings
 from src.modules.minio.repository import minio_repository
 from src.modules.minio.schemas import MoodleFileObject
 from src.modules.moodle.schemas import InCourses, InSections, InContents
@@ -24,20 +25,10 @@ router = APIRouter(prefix="/moodle", tags=["Moodle"])
     responses={307: {"description": "Redirect to the file"}, 404: {"description": "File not found"}},
 )
 async def preview_moodle(course_id: int, module_id: int, filename: str):
-    # get url for minio
+    # Redirect to a pre-signed URL
     obj = content_to_minio_object(course_id, module_id, filename)
-    try:
-        response = minio_client.get_object("search", obj)
-    except minio.S3Error as e:
-        if e.code == "NoSuchKey":
-            return Response(status_code=404)
-        raise e
-    escaped = urllib.parse.quote(filename)
-    return StreamingResponse(
-        response,
-        media_type="application/octet-stream",
-        headers={"Content-Disposition": f"inline; filename={escaped}"},
-    )
+    url = minio_client.presigned_get_object(settings.minio.bucket, obj, expires=timedelta(days=1))
+    return RedirectResponse(url=url)
 
 
 @router.get(
@@ -120,7 +111,7 @@ async def need_to_upload_contents(_: VerifiedDep, contents_list: list[InContents
 
             try:
                 obj = content_to_minio_object(contents.course_id, contents.module_id, content.filename)
-                r = minio_client.stat_object("search", obj)
+                r = minio_client.stat_object(settings.minio.bucket, obj)
                 meta = r.metadata
                 if meta is None:
                     meta = {}
@@ -156,10 +147,10 @@ async def upload_content(
     delete_object_list = list(
         map(
             lambda x: DeleteObject(x.object_name),
-            minio_client.list_objects("search", module_prefix, recursive=True),
+            minio_client.list_objects(settings.minio.bucket, module_prefix, recursive=True),
         )
     )
-    minio_client.remove_objects("search", delete_object_list)
+    minio_client.remove_objects(settings.minio.bucket, delete_object_list)
 
     # upload files
     for file, content in zip(files, data.contents):
@@ -171,7 +162,7 @@ async def upload_content(
             meta["x-amz-meta-timemodified"] = str(content.timemodified)
 
         minio_client.put_object(
-            "search",
+            settings.minio.bucket,
             content_to_minio_object(data.course_id, data.module_id, content.filename),
             file.file,
             file.size or 0,
