@@ -33,6 +33,8 @@ class ApiSettings(CustomModel):
     'Prefix for the API path (e.g. "/api/v0")'
     cors_allow_origins: list[str] = ["https://innohassle.ru", "https://pre.innohassle.ru", "http://localhost:3000"]
     "Allowed origins for CORS: from which domains requests to the API are allowed"
+    cors_allow_origins_regex: str = None
+    "Regular expression for allowed origins for CORS (.* for example)"
     db_url: SecretStr = Field(..., examples=["mongodb://username:password@localhost:27017/db?authSource=admin"])
     "URL of the MongoDB database"
     compute_service_token: str = "secret"

@@ -28,6 +28,11 @@ $defs:
           type: string
         title: Cors Allow Origins
         type: array
+      cors_allow_origins_regex:
+        default: null
+        description: Regular expression for allowed origins for CORS (.* for example)
+        title: Cors Allow Origins Regex
+        type: string
       db_url:
         description: URL of the MongoDB database
         examples:
