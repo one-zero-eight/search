@@ -19,37 +19,20 @@ class MoodleSource(CustomModel):
     "Display name of the resource."
     breadcrumbs: list[str] = ["Moodle"]
     "Breadcrumbs to the resource."
-    course_id: int
-    "Course ID in the Moodle system."
-    course_name: str
-    "Course name in the Moodle system."
-    module_id: int
-    "Module ID in the Moodle system (resources)."
-    module_name: str
-    "Module name in the Moodle system."
-    resource_type: str
-    "Type of the resource."
-    filename: str | None = None
-    "Filename of the resource."
     link: str
     "Anchor URL to the resource on Moodle."
-    resource_preview_url: str
+    resource_preview_url: str | None = None
     "URL to get the preview of the resource."
-    resource_download_url: str
+    resource_download_url: str | None = None
     "URL to download the resource."
     preview_location: PdfLocation | None = None
 
-    @model_validator(mode="before")
-    def set_breadcrumbs_and_display_name(cls, data):
-        if "course_name" not in data or "module_name" not in data:
-            return data
-        course_name = data["course_name"]
+    def set_breadcrumbs_and_display_name(self, course_name: str, module_name: str):
         # remove "/ Глубокое обучение для задач поиска" from "[Sum24] Deep Learning for Search / Глубокое обучение
         # для задач поиска"
         course_name = course_name.split(" / ")[0]
-        data["breadcrumbs"] = ["Moodle", course_name, data["module_name"]]
-        data["display_name"] = data["module_name"]
-        return data
+        self.breadcrumbs = ["Moodle", course_name, module_name]
+        self.display_name = module_name
 
 
 class TelegramSource(CustomModel):

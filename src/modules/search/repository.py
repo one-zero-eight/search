@@ -52,39 +52,26 @@ class SearchRepository:
         request: Request,
         score: float | list[float] | None = None,
     ) -> SearchResponse | None:
-        if content.type != "file":
-            return None
-        _, file_extension = os.path.splitext(content.filename)
-        if not file_extension:
-            return None
-        resource_type = file_extension[1:]
-        preview_url = str(
-            request.url_for("preview_moodle").include_query_params(
-                course_id=entry.course_id,
-                module_id=entry.module_id,
-                type=content.type,
-                filename=content.filename,
-            ),
-        )
+        if content.type == "file":
+            _, file_extension = os.path.splitext(content.filename)
+            if not file_extension:
+                return None
+            preview_url = str(
+                request.url_for("preview_moodle").include_query_params(
+                    course_id=entry.course_id, module_id=entry.module_id, filename=content.filename
+                ),
+            )
+        else:
+            preview_url = None
+
         if entry.section_id is not None:
             link = f"{MOODLE_URL}/course/view.php?id={entry.course_id}#sectionid-{entry.section_id}-title"
         else:
             link = f"{MOODLE_URL}/course/view.php?id={entry.course_id}#module-{entry.module_id}"
 
-        return SearchResponse(
-            score=score,
-            source=MoodleSource(
-                course_id=entry.course_id,
-                course_name=entry.course_fullname,
-                module_id=entry.module_id,
-                module_name=entry.module_name,
-                resource_type=resource_type,
-                filename=content.filename,
-                link=link,
-                resource_preview_url=preview_url,
-                resource_download_url=preview_url,
-            ),
-        )
+        source = MoodleSource(link=link, resource_preview_url=preview_url, resource_download_url=preview_url)
+        source.set_breadcrumbs_and_display_name(entry.course_fullname, entry.module_name)
+        return SearchResponse(score=score, source=source)
 
     def submit_search_results(self, search_results: list[SearchResult]) -> None:
         for result in search_results:
