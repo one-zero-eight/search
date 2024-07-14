@@ -12,8 +12,6 @@ class MessageSchema(CustomModel):
     "Unique message identifier inside this chat."
     date: datetime.datetime
     "Date the message was sent."
-    edit_date: datetime.datetime
-    "Date the message was last edited."
     chat_id: int
     "Conversation the message belongs to."
     chat_title: str
