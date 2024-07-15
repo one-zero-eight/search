@@ -1,5 +1,4 @@
 import logging
-import re
 import time
 from multiprocessing import Pool
 from pathlib import Path
@@ -8,10 +7,11 @@ import httpx
 import pymupdf
 import pymupdf4llm
 from qdrant_client import QdrantClient, models
-
 from sentence_transformers import SentenceTransformer
+from torch import cuda
 
 from src.compute_service.chunker import CustomTokenTextSplitter
+from src.compute_service.text import clean_text
 from src.config import settings
 from src.modules.compute.schemas import Corpora
 from src.modules.minio.schemas import MoodleFileObject
@@ -23,15 +23,26 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 logger = logging.getLogger("compute.prepare")
 
 _1 = time.monotonic()
-model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
-chunk_splitter = CustomTokenTextSplitter(tokenizer=model.tokenizer, chunk_size=model.max_seq_length, chunk_overlap=25)
+device = "cuda" if cuda.is_available() else "cpu"
+bi_encoder = SentenceTransformer(settings.compute_settings.bi_encoder_name, trust_remote_code=True, device=device)
+bi_encoder.share_memory()
+chunk_splitter = CustomTokenTextSplitter(
+    tokenizer=bi_encoder.tokenizer, chunk_size=bi_encoder.max_seq_length, chunk_overlap=25
+)
 
 qdrant = QdrantClient(settings.compute_settings.qdrant_url.get_secret_value())
 QDRANT_COLLECTION = settings.compute_settings.qdrant_collection_name
 if not qdrant.collection_exists(QDRANT_COLLECTION):
     qdrant.create_collection(
         collection_name=QDRANT_COLLECTION,
-        vectors_config=models.VectorParams(size=model.get_sentence_embedding_dimension(), distance=models.Distance.DOT),
+        vectors_config={
+            "dense": models.VectorParams(
+                size=bi_encoder.get_sentence_embedding_dimension(), distance=models.Distance.DOT
+            )
+        },
+        sparse_vectors_config={
+            "bm25": models.SparseVectorParams(modifier=models.Modifier.IDF),
+        },
     )
 _2 = time.monotonic()
 
@@ -63,8 +74,11 @@ def object_pipeline(obj: MoodleFileObject):
     output = pymupdf4llm.process_document(doc, graphics_limit=1000)
     doc.close()
     chunks = []
+
+    meta_prefix = obj.meta_prefix()
+
     for i, page_chunk in enumerate(output["page_chunks"]):
-        page_text = re.sub(r"<[^>]*>", "", page_chunk["text"])
+        page_text = clean_text(meta_prefix + page_chunk["text"])
         splitted = chunk_splitter.split_text(page_text)
         for j, text in enumerate(splitted):
             chunks.append(
@@ -98,7 +112,11 @@ def save_file_chunks_to_qdrant(chunks: list[dict]):
         models.FilterSelector(filter=models.Filter(must=must)),
     )
 
-    vectors = model.encode([chunk["text"] for chunk in chunks], show_progress_bar=False)
+    vectors = bi_encoder.encode(
+        [chunk["text"] for chunk in chunks],
+        show_progress_bar=False,
+        batch_size=settings.compute_settings.bi_encoder_batch_size,
+    )
     qdrant.upload_collection(QDRANT_COLLECTION, payload=chunks, vectors=vectors)
     logger.info(f"Saved +{len(chunks)} chunks to Qdrant")
 

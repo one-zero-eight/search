@@ -22,12 +22,6 @@ minio = "^7.2.7"
 python-multipart = "^0.0.9"
 types-pyyaml = "^6.0.12.20240311"
 qdrant-client = "^1.10.1"
-torch = { version = "^2.3.1+cu118", source = "pytorch-cu118" }
-
-[[tool.poetry.source]]
-name = "pytorch-cu118"
-url = "https://download.pytorch.org/whl/cu118"
-priority = "explicit"
 
 [tool.poetry.group.dev]
 optional = true
@@ -41,6 +35,7 @@ pymupdf4llm = { url = "https://github.com/dantetemplar/pymupdf4llm/releases/down
 langchain = "^0.2.6"
 sentence-transformers = "^3.0.1"
 qdrant-client = "^1.10.1"
+nltk = "^3.8.1"
 
 [tool.pydantic-mypy]
 # setup pydantic plugin

@@ -56,6 +56,14 @@ class ComputeSetting(CustomModel):
     "URL of the Qdrant service"
     qdrant_collection_name: str = "inh-search"
     "Name of the collection in the Qdrant service"
+    bi_encoder_name: str = "sentence-transformers/all-MiniLM-L6-v2"
+    "Name of the bi-encoder model"
+    bi_encoder_batch_size: int = 32
+    "Batch size for the bi-encoder model"
+    cross_encoder_name: str = "cross-encoder/ms-marco-MiniLM-L-6-v2"
+    "Name of the cross-encoder model"
+    cross_encoder_batch_size: int = 32
+    "Batch size for the cross-encoder model"
 
 
 class Settings(CustomModel):

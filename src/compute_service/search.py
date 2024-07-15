@@ -1,19 +1,19 @@
-import time
 import logging
 import multiprocessing
 import queue
-import numpy as np
+import time
 from multiprocessing import Manager, Process
 from typing import Iterable
-from torch import cuda
 
 import httpx
+import numpy as np
 from pydantic import TypeAdapter
-
 from qdrant_client import QdrantClient
 from qdrant_client.models import ScoredPoint
 from sentence_transformers import SentenceTransformer, CrossEncoder
+from torch import cuda
 
+from src.compute_service.text import clean_text
 from src.config import settings
 from src.modules.compute.schemas import SearchTask, SearchResult, MoodleFileResult
 
@@ -28,14 +28,10 @@ t2 = time.monotonic()
 logger = logging.getLogger("compute.search")
 logger.info(f"Connected to Qdrant loaded in {t2 - t1:.2f} seconds")
 
-
-BI_ENCODER_NAME = "sentence-transformers/all-MiniLM-L6-v2"
-CROSS_ENCODER_NAME = "cross-encoder/ms-marco-MiniLM-L-6-v2"
-
 t1 = time.monotonic()
 device = "cuda" if cuda.is_available() else "cpu"
-bi_encoder = SentenceTransformer(BI_ENCODER_NAME, device=device)
-cross_encoder = CrossEncoder(CROSS_ENCODER_NAME, device=device)
+bi_encoder = SentenceTransformer(settings.compute_settings.bi_encoder_name, trust_remote_code=True, device=device)
+cross_encoder = CrossEncoder(settings.compute_settings.cross_encoder_name, trust_remote_code=True, device=device)
 t2 = time.monotonic()
 
 logger = logging.getLogger("compute.search")
@@ -74,7 +70,9 @@ def rerank(query: str, scored_points: list[ScoredPoint], score_threshold: float 
         sentences.append([query, scored_point.payload["text"]])
 
     # get cross encoder scores (bottleneck)
-    reranked_scores: np.ndarray = cross_encoder.predict(sentences, batch_size=64, show_progress_bar=True)
+    reranked_scores: np.ndarray = cross_encoder.predict(
+        sentences, batch_size=settings.compute_settings.cross_encoder_batch_size, show_progress_bar=True
+    )
 
     if score_threshold is not None:
         filtered_amount = len(reranked_scores[reranked_scores > score_threshold])
@@ -95,26 +93,49 @@ def rerank(query: str, scored_points: list[ScoredPoint], score_threshold: float 
 
 
 def search(query: str) -> list[MoodleFileResult]:
+    query = clean_text(query)
+
     # text to vector repr
-    embedding: np.array = bi_encoder.encode(query)
+    _1 = time.monotonic()
+    embedding: np.array = bi_encoder.encode(query, batch_size=settings.compute_settings.bi_encoder_batch_size)
+    _2 = time.monotonic()
+    logger.info(f"Text encoded by BiEncoder in {_2 - _1:.2f} seconds")
 
     # ann for limit amount of chunks (points)
-    scored_points: list[ScoredPoint] = qdrant.search(QDRANT_COLLECTION, query_vector=embedding, limit=50)
+    _1 = time.monotonic()
+    scored_points: list[ScoredPoint] = qdrant.search(QDRANT_COLLECTION, query_vector=embedding, limit=100)
+    _2 = time.monotonic()
+    logger.info(f"Qdrant Search completed in {_2 - _1:.2f} seconds")
 
     # apply cross encoder to rerank (with threshold possible) and set new scores
+    _1 = time.monotonic()
     reranked_scored_points: list[ScoredPoint] = rerank(query, scored_points, 0.0)
+    _2 = time.monotonic()
+    logger.info(f"Reranked by CrossEncoder in {_2 - _1:.2f} seconds")
 
     added_ids = set()
     results: list[MoodleFileResult] = []
     for reranked_scored_point in reranked_scored_points:
-        doc_ref = reranked_scored_point.payload.get("document-ref", None)
-        doc_id = f"{doc_ref.get('course_id', None)}-{doc_ref.get('module_id', None)}-{doc_ref.get('filename', None)}"
-        if doc_ref and doc_id not in added_ids:
-            added_ids.add(doc_id)
+        if reranked_scored_point.payload is None:
+            continue
+
+        doc_ref: dict | None = reranked_scored_point.payload.get("document-ref", None)
+        if doc_ref is None:
+            continue
+
+        if "course_id" not in doc_ref or "module_id" not in doc_ref or "filename" not in doc_ref:
+            continue
+
+        course_id = doc_ref["course_id"]
+        module_id = doc_ref["module_id"]
+        filename = doc_ref["filename"]
+
+        if (course_id, module_id, filename) not in added_ids:
+            added_ids.add((course_id, module_id, filename))
             result = MoodleFileResult(
-                course_id=doc_ref.get("course_id", None),
-                module_id=doc_ref.get("module_id", None),
-                filename=doc_ref.get("filename", None),
+                course_id=course_id,
+                module_id=module_id,
+                filename=filename,
                 score=reranked_scored_point.score,
             )
             results.append(result)

@@ -89,6 +89,26 @@ $defs:
         description: Name of the collection in the Qdrant service
         title: Qdrant Collection Name
         type: string
+      bi_encoder_name:
+        default: sentence-transformers/all-MiniLM-L6-v2
+        description: Name of the bi-encoder model
+        title: Bi Encoder Name
+        type: string
+      bi_encoder_batch_size:
+        default: 32
+        description: Batch size for the bi-encoder model
+        title: Bi Encoder Batch Size
+        type: integer
+      cross_encoder_name:
+        default: cross-encoder/ms-marco-MiniLM-L-6-v2
+        description: Name of the cross-encoder model
+        title: Cross Encoder Name
+        type: string
+      cross_encoder_batch_size:
+        default: 32
+        description: Batch size for the cross-encoder model
+        title: Cross Encoder Batch Size
+        type: integer
     title: ComputeSetting
     type: object
   MinioSettings:
@@ -152,6 +172,10 @@ properties:
       num_workers: 4
       qdrant_url: '**********'
       qdrant_collection_name: inh-search
+      bi_encoder_name: sentence-transformers/all-MiniLM-L6-v2
+      bi_encoder_batch_size: 32
+      cross_encoder_name: cross-encoder/ms-marco-MiniLM-L-6-v2
+      cross_encoder_batch_size: 32
   accounts:
     allOf:
     - $ref: '#/$defs/Accounts'
