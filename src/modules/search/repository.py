@@ -41,7 +41,7 @@ class SearchRepository:
                 },
             )
             .sort({"score": {"$meta": "textScore"}})
-            .to_list(limit)
+            .to_list(None if limit <= 0 else limit)
         )
         return [MoodleEntryWithScore.model_validate(e) for e in entries]
 

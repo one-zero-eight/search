@@ -3,16 +3,16 @@ import multiprocessing
 import queue
 import time
 from multiprocessing import Manager, Process
-from typing import Iterable
 
 import httpx
 import numpy as np
 from pydantic import TypeAdapter
-from qdrant_client import QdrantClient
+from qdrant_client import QdrantClient, models
 from qdrant_client.models import ScoredPoint
 from sentence_transformers import SentenceTransformer, CrossEncoder
 from torch import cuda
 
+from src.compute_service.bm25 import Bm25
 from src.compute_service.text import clean_text
 from src.config import settings
 from src.modules.compute.schemas import SearchTask, SearchResult, MoodleFileResult
@@ -32,6 +32,8 @@ t1 = time.monotonic()
 device = "cuda" if cuda.is_available() else "cpu"
 bi_encoder = SentenceTransformer(settings.compute_settings.bi_encoder_name, trust_remote_code=True, device=device)
 cross_encoder = CrossEncoder(settings.compute_settings.cross_encoder_name, trust_remote_code=True, device=device)
+bi_encoder.share_memory()
+bm25 = Bm25()
 t2 = time.monotonic()
 
 logger = logging.getLogger("compute.search")
@@ -43,10 +45,6 @@ def get_client() -> httpx.Client:
         base_url=f"{settings.compute_settings.api_url}/compute",
         headers={"Authorization": f"Bearer {settings.compute_settings.auth_token}"},
     )
-
-
-def map_internal_ids_to_original_ids(self, doc_ids: Iterable) -> list[str]:
-    return [self.id_mapping[doc_id] for doc_id in doc_ids if doc_id != -1]
 
 
 def fetch_tasks() -> list[SearchTask]:
@@ -69,10 +67,13 @@ def rerank(query: str, scored_points: list[ScoredPoint], score_threshold: float 
     for scored_point in scored_points:
         sentences.append([query, scored_point.payload["text"]])
 
-    # get cross encoder scores (bottleneck)
+    # get cross encoder scores
+    _1 = time.monotonic()
     reranked_scores: np.ndarray = cross_encoder.predict(
-        sentences, batch_size=settings.compute_settings.cross_encoder_batch_size, show_progress_bar=True
+        sentences, batch_size=settings.compute_settings.cross_encoder_batch_size, show_progress_bar=False
     )
+    _2 = time.monotonic()
+    logger.info(f"Reranked by CrossEncoder in {_2 - _1:.2f} seconds")
 
     if score_threshold is not None:
         filtered_amount = len(reranked_scores[reranked_scores > score_threshold])
@@ -97,21 +98,43 @@ def search(query: str) -> list[MoodleFileResult]:
 
     # text to vector repr
     _1 = time.monotonic()
-    embedding: np.array = bi_encoder.encode(query, batch_size=settings.compute_settings.bi_encoder_batch_size)
+    dense_embedding: np.array = bi_encoder.encode(
+        query, batch_size=settings.compute_settings.bi_encoder_batch_size, show_progress_bar=False
+    )
     _2 = time.monotonic()
     logger.info(f"Text encoded by BiEncoder in {_2 - _1:.2f} seconds")
 
+    # text to sparse vector repr
+    _1 = time.monotonic()
+    bm25_embedding = bm25.query_embed(query)
+    _2 = time.monotonic()
+    logger.info(f"Text encoded by BM25 in {_2 - _1:.2f} seconds")
+
     # ann for limit amount of chunks (points)
     _1 = time.monotonic()
-    scored_points: list[ScoredPoint] = qdrant.search(QDRANT_COLLECTION, query_vector=embedding, limit=100)
+    scored_points = qdrant.query_points(
+        QDRANT_COLLECTION,
+        prefetch=[
+            models.Prefetch(
+                query=bm25_embedding,
+                using="bm25",
+                limit=1000,
+            ),
+            models.Prefetch(
+                query=dense_embedding,
+                using="dense",
+                limit=1000,
+            ),
+        ],
+        query=models.FusionQuery(fusion=models.Fusion.RRF),
+        limit=100,
+    ).points
+
     _2 = time.monotonic()
     logger.info(f"Qdrant Search completed in {_2 - _1:.2f} seconds")
 
     # apply cross encoder to rerank (with threshold possible) and set new scores
-    _1 = time.monotonic()
     reranked_scored_points: list[ScoredPoint] = rerank(query, scored_points, 0.0)
-    _2 = time.monotonic()
-    logger.info(f"Reranked by CrossEncoder in {_2 - _1:.2f} seconds")
 
     added_ids = set()
     results: list[MoodleFileResult] = []

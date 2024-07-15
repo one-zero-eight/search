@@ -6,10 +6,12 @@ from pathlib import Path
 import httpx
 import pymupdf
 import pymupdf4llm
+from pymupdf4llm import join_chunks
 from qdrant_client import QdrantClient, models
 from sentence_transformers import SentenceTransformer
 from torch import cuda
 
+from src.compute_service.bm25 import Bm25
 from src.compute_service.chunker import CustomTokenTextSplitter
 from src.compute_service.text import clean_text
 from src.config import settings
@@ -29,7 +31,7 @@ bi_encoder.share_memory()
 chunk_splitter = CustomTokenTextSplitter(
     tokenizer=bi_encoder.tokenizer, chunk_size=bi_encoder.max_seq_length, chunk_overlap=25
 )
-
+bm25 = Bm25()
 qdrant = QdrantClient(settings.compute_settings.qdrant_url.get_secret_value())
 QDRANT_COLLECTION = settings.compute_settings.qdrant_collection_name
 if not qdrant.collection_exists(QDRANT_COLLECTION):
@@ -70,31 +72,32 @@ def object_pipeline(obj: MoodleFileObject):
     file_path = Path("s3") / s3_object_name
     if not file_path.exists():
         minio_client.fget_object(settings.minio.bucket, s3_object_name, str(file_path))
+    _1 = time.monotonic()
     doc = pymupdf.Document(file_path)
-    output = pymupdf4llm.process_document(doc, graphics_limit=1000)
+    output = join_chunks(pymupdf4llm.process_document(doc, graphics_limit=1000))
     doc.close()
+    _2 = time.monotonic()
+    logger.info(f"Converted {obj.filename} to text in {_2 - _1:.2f} seconds")
     chunks = []
 
     meta_prefix = obj.meta_prefix()
 
-    for i, page_chunk in enumerate(output["page_chunks"]):
-        page_text = clean_text(meta_prefix + page_chunk["text"])
-        splitted = chunk_splitter.split_text(page_text)
-        for j, text in enumerate(splitted):
-            chunks.append(
-                {
-                    "text": text,
-                    "document-ref": {
-                        "course_id": obj.course_id,
-                        "module_id": obj.module_id,
-                        "filename": obj.filename,
-                    },
-                    "chunk-ref": {
-                        "page_number": i,
-                        "chunk_number": j,
-                    },
-                }
-            )
+    page_text = clean_text(meta_prefix + output)
+    splitted = chunk_splitter.split_text(page_text)
+    for j, text in enumerate(splitted):
+        chunks.append(
+            {
+                "text": text,
+                "document-ref": {
+                    "course_id": obj.course_id,
+                    "module_id": obj.module_id,
+                    "filename": obj.filename,
+                },
+                "chunk-ref": {
+                    "chunk_number": j,
+                },
+            }
+        )
     return chunks
 
 
@@ -111,12 +114,25 @@ def save_file_chunks_to_qdrant(chunks: list[dict]):
         QDRANT_COLLECTION,
         models.FilterSelector(filter=models.Filter(must=must)),
     )
-
-    vectors = bi_encoder.encode(
-        [chunk["text"] for chunk in chunks],
+    texts = [chunk["text"] for chunk in chunks]
+    _1 = time.monotonic()
+    dense_vectors = bi_encoder.encode(
+        texts,
         show_progress_bar=False,
         batch_size=settings.compute_settings.bi_encoder_batch_size,
     )
+    _2 = time.monotonic()
+    logger.info(f"Encoded [Dense] {len(chunks)} chunks in {_2 - _1:.2f} seconds")
+
+    _1 = time.monotonic()
+    sparse_vectors = list(bm25.embed(texts))
+    _2 = time.monotonic()
+    logger.info(f"Encoded [Sparse] {len(chunks)} chunks in {_2 - _1:.2f} seconds")
+
+    vectors = []
+    for dense_vector, sparse_vector in zip(dense_vectors, sparse_vectors):
+        vectors.append({"dense": dense_vector, "bm25": sparse_vector})
+
     qdrant.upload_collection(QDRANT_COLLECTION, payload=chunks, vectors=vectors)
     logger.info(f"Saved +{len(chunks)} chunks to Qdrant")
 
