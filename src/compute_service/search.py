@@ -1,16 +1,18 @@
-import itertools
-import json
+import time
 import logging
 import multiprocessing
 import queue
-import time
+import numpy as np
 from multiprocessing import Manager, Process
 from typing import Iterable
+from torch import cuda
 
 import httpx
-import retriv.base_retriever
 from pydantic import TypeAdapter
-from retriv import DenseRetriever
+
+from qdrant_client import QdrantClient
+from qdrant_client.models import ScoredPoint
+from sentence_transformers import SentenceTransformer, CrossEncoder
 
 from src.config import settings
 from src.modules.compute.schemas import SearchTask, SearchResult, MoodleFileResult
@@ -18,13 +20,26 @@ from src.modules.compute.schemas import SearchTask, SearchResult, MoodleFileResu
 logging.basicConfig(level=logging.INFO)
 logging.getLogger("httpx").setLevel(logging.WARNING)
 
-_1 = time.monotonic()
-dense_retriever = DenseRetriever.load("innohassle-search")
-_2 = time.monotonic()
+QDRANT_COLLECTION = settings.compute_settings.qdrant_collection_name
+t1 = time.monotonic()
+qdrant = QdrantClient(url=settings.compute_settings.qdrant_url.get_secret_value())
+t2 = time.monotonic()
 
 logger = logging.getLogger("compute.search")
-logger.info(f"DenseRetriever loaded in {_2 - _1:.2f} seconds")
-logger.info(f"Doc Count: {dense_retriever.doc_count}")
+logger.info(f"Connected to Qdrant loaded in {t2 - t1:.2f} seconds")
+
+
+BI_ENCODER_NAME = "sentence-transformers/all-MiniLM-L6-v2"
+CROSS_ENCODER_NAME = "cross-encoder/ms-marco-MiniLM-L-6-v2"
+
+t1 = time.monotonic()
+device = "cuda" if cuda.is_available() else "cpu"
+bi_encoder = SentenceTransformer(BI_ENCODER_NAME, device=device)
+cross_encoder = CrossEncoder(CROSS_ENCODER_NAME, device=device)
+t2 = time.monotonic()
+
+logger = logging.getLogger("compute.search")
+logger.info(f"Loaded bi and cross encoders on ({device}) in {t2 - t1:.2f} seconds")
 
 
 def get_client() -> httpx.Client:
@@ -36,9 +51,6 @@ def get_client() -> httpx.Client:
 
 def map_internal_ids_to_original_ids(self, doc_ids: Iterable) -> list[str]:
     return [self.id_mapping[doc_id] for doc_id in doc_ids if doc_id != -1]
-
-
-retriv.base_retriever.BaseRetriever.map_internal_ids_to_original_ids = map_internal_ids_to_original_ids
 
 
 def fetch_tasks() -> list[SearchTask]:
@@ -54,9 +66,65 @@ def fetch_tasks() -> list[SearchTask]:
 _processed_tasks = set()
 
 
+def rerank(query: str, scored_points: list[ScoredPoint], score_threshold: float | None = None) -> list[ScoredPoint]:
+    scored_points = np.array(scored_points)
+
+    sentences = []
+    for scored_point in scored_points:
+        sentences.append([query, scored_point.payload["text"]])
+
+    # get cross encoder scores (bottleneck)
+    reranked_scores: np.ndarray = cross_encoder.predict(sentences, batch_size=64, show_progress_bar=True)
+
+    if score_threshold is not None:
+        filtered_amount = len(reranked_scores[reranked_scores > score_threshold])
+    else:
+        filtered_amount = len(reranked_scores)
+
+    # get indexes of values to keep sorted (reversed) order
+    indexes = np.argsort(reranked_scores)[::-1][:filtered_amount]
+
+    # apply indexes to make sorted list and revert it with better matches first
+    reranked_scores = reranked_scores[indexes]
+    reranked_scored_points = scored_points[indexes]
+
+    for score, point in zip(reranked_scores, reranked_scored_points):
+        point.score = score
+
+    return list(reranked_scored_points)
+
+
+def search(query: str) -> list[MoodleFileResult]:
+    # text to vector repr
+    embedding: np.array = bi_encoder.encode(query)
+
+    # ann for limit amount of chunks (points)
+    scored_points: list[ScoredPoint] = qdrant.search(QDRANT_COLLECTION, query_vector=embedding, limit=50)
+
+    # apply cross encoder to rerank (with threshold possible) and set new scores
+    reranked_scored_points: list[ScoredPoint] = rerank(query, scored_points, 0.0)
+
+    added_ids = set()
+    results: list[MoodleFileResult] = []
+    for reranked_scored_point in reranked_scored_points:
+        doc_ref = reranked_scored_point.payload.get("document-ref", None)
+        doc_id = f"{doc_ref.get('course_id', None)}-{doc_ref.get('module_id', None)}-{doc_ref.get('filename', None)}"
+        if doc_ref and doc_id not in added_ids:
+            added_ids.add(doc_id)
+            result = MoodleFileResult(
+                course_id=doc_ref.get("course_id", None),
+                module_id=doc_ref.get("module_id", None),
+                filename=doc_ref.get("filename", None),
+                score=reranked_scored_point.score,
+            )
+            results.append(result)
+
+    return results
+
+
 def process_tasks(tasks: list[SearchTask]) -> None:
     _1 = time.monotonic()
-    _results = {task.task_id: dense_retriever.search(task.query) for task in tasks}
+    _results = {task.task_id: search(task.query) for task in tasks}
     _2 = time.monotonic()
     logger.info(f"Processed {len(tasks)} tasks in {_2 - _1:.2f} seconds")
 
@@ -66,49 +134,8 @@ def process_tasks(tasks: list[SearchTask]) -> None:
         if result is None:
             results.append(SearchResult(task_id=task.task_id, status="failed"))
         else:
-            relevant_chunks = [
-                {
-                    "id": json.loads(_["id"]),
-                    "score": float(_["score"]),
-                }
-                for _ in result
-            ]
-            # [
-            #     {
-            #         "id": {
-            #             "course_id": 1114,
-            #             "module_id": 83459,
-            #             "filename": "Lab 5 (AddersSubtractors).pdf",
-            #             "page_number": 2,
-            #             "chunk_number": 0,
-            #         },
-            #         "score": 0.286164253950119,
-            #     },
-            # ]
-            # Collect chunks to documents
-            relevant_documents = []
-            # sort
-            _key = lambda _: (_["id"]["course_id"], _["id"]["module_id"], _["id"]["filename"])  # noqa: E731
-            relevant_chunks.sort(key=_key)
+            results.append(SearchResult(task_id=task.task_id, status="completed", result=result))
 
-            for (course_id, module_id, filename), grouping in itertools.groupby(relevant_chunks, key=_key):
-                relevant_documents.append(
-                    MoodleFileResult(
-                        course_id=course_id,
-                        module_id=module_id,
-                        filename=filename,
-                        score=[item["score"] for item in grouping],
-                    )
-                )
-            relevant_documents.sort(key=lambda _: max(_.score), reverse=True)
-
-            results.append(
-                SearchResult(
-                    task_id=task.task_id,
-                    status="completed",
-                    result=relevant_documents,
-                )
-            )
     type_adapter = TypeAdapter(list[SearchResult])
     # Post result to the API
     try:
@@ -117,7 +144,10 @@ def process_tasks(tasks: list[SearchTask]) -> None:
             response = session.post("/completed-searchs", json=type_adapter.dump_python(results))
             response.raise_for_status()
         _2 = time.monotonic()
-        logger.info(f"Stored {len(results)} results in {_2 - _1:.2f} seconds")
+        if len(results) > 0:
+            logger.info(f"Stored {len(results[0].result)} results in {_2 - _1:.2f} seconds")
+        else:
+            logger.info(f"Stored {len(results)} results in {_2 - _1:.2f} seconds")
     except httpx.HTTPStatusError as e:
         logger.error(f"Failed to store result for tasks: {e}")
     _processed_tasks.update(task.task_id for task in tasks)
