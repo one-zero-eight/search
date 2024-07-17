@@ -8,6 +8,7 @@ __pycache__
 *.py[cod]
 s3/
 qdrant_storage/
+cache/
 
 ### Environment ###
 .env

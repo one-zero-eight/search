@@ -12,6 +12,7 @@ from sentence_transformers import SentenceTransformer
 from torch import cuda
 
 from src.compute_service.bm25 import Bm25
+from src.compute_service.cache import PDF_TO_TEXT_VERSION
 from src.compute_service.chunker import CustomTokenTextSplitter
 from src.compute_service.text import clean_text
 from src.config import settings
@@ -34,6 +35,7 @@ chunk_splitter = CustomTokenTextSplitter(
 bm25 = Bm25()
 qdrant = QdrantClient(settings.compute_settings.qdrant_url.get_secret_value())
 QDRANT_COLLECTION = settings.compute_settings.qdrant_collection_name
+
 if not qdrant.collection_exists(QDRANT_COLLECTION):
     qdrant.create_collection(
         collection_name=QDRANT_COLLECTION,
@@ -46,6 +48,17 @@ if not qdrant.collection_exists(QDRANT_COLLECTION):
             "bm25": models.SparseVectorParams(modifier=models.Modifier.IDF),
         },
     )
+    # create indexes
+    qdrant.create_payload_index(
+        QDRANT_COLLECTION, "document-ref.course_id", field_schema=models.PayloadSchemaType.INTEGER
+    )
+    qdrant.create_payload_index(
+        QDRANT_COLLECTION, "document-ref.module_id", field_schema=models.PayloadSchemaType.INTEGER
+    )
+    qdrant.create_payload_index(
+        QDRANT_COLLECTION, "document-ref.filename", field_schema=models.PayloadSchemaType.KEYWORD
+    )
+
 _2 = time.monotonic()
 
 logger.info(f"Initialized in {_2 - _1:.2f} seconds")
@@ -69,15 +82,26 @@ def fetch_corpora() -> Corpora:
 
 def object_pipeline(obj: MoodleFileObject):
     s3_object_name = content_to_minio_object(obj.course_id, obj.module_id, obj.filename)
+
     file_path = Path("s3") / s3_object_name
     if not file_path.exists():
         minio_client.fget_object(settings.minio.bucket, s3_object_name, str(file_path))
-    _1 = time.monotonic()
-    doc = pymupdf.Document(file_path)
-    output = join_chunks(pymupdf4llm.process_document(doc, graphics_limit=1000))
-    doc.close()
-    _2 = time.monotonic()
-    logger.info(f"Converted {obj.filename} to text in {_2 - _1:.2f} seconds")
+
+    text_path = Path("cache") / f"text-{PDF_TO_TEXT_VERSION}" / s3_object_name
+    if not text_path.exists():
+        _1 = time.monotonic()
+
+        text_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(text_path, "w") as f:
+            doc = pymupdf.Document(file_path)
+            output = join_chunks(pymupdf4llm.process_document(doc, graphics_limit=1000))
+            doc.close()
+            f.write(output)
+        _2 = time.monotonic()
+        logger.info(f"Converted {obj.filename} to text in {_2 - _1:.2f} seconds")
+    else:
+        with open(text_path) as f:
+            output = f.read()
     chunks = []
 
     meta_prefix = obj.meta_prefix()
@@ -104,16 +128,20 @@ def object_pipeline(obj: MoodleFileObject):
 def save_file_chunks_to_qdrant(chunks: list[dict]):
     if not chunks:
         return
+
     ref = chunks[0]["document-ref"]
     must = [
         models.FieldCondition(key=f"document-ref.{key}", match=models.MatchValue(value=value))
         for key, value in ref.items()
     ]
+    duplicates_filter = models.Filter(must=must)
 
-    qdrant.delete(
-        QDRANT_COLLECTION,
-        models.FilterSelector(filter=models.Filter(must=must)),
-    )
+    exact_match = qdrant.count(QDRANT_COLLECTION, count_filter=duplicates_filter).count
+    if exact_match == len(chunks):
+        logger.info(f"Skipping {len(chunks)} chunks as they are already in Qdrant")
+        return
+
+    qdrant.delete(QDRANT_COLLECTION, models.FilterSelector(filter=duplicates_filter), wait=True)
     texts = [chunk["text"] for chunk in chunks]
     _1 = time.monotonic()
     dense_vectors = bi_encoder.encode(

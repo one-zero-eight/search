@@ -98,8 +98,12 @@ def search(query: str) -> list[MoodleFileResult]:
 
     # text to vector repr
     _1 = time.monotonic()
+
     dense_embedding: np.array = bi_encoder.encode(
-        query, batch_size=settings.compute_settings.bi_encoder_batch_size, show_progress_bar=False
+        query,
+        batch_size=settings.compute_settings.bi_encoder_batch_size,
+        show_progress_bar=False,
+        prompt_name="s2p_query" if settings.compute_settings.bi_encoder_name.__contains__("stella") else None,
     )
     _2 = time.monotonic()
     logger.info(f"Text encoded by BiEncoder in {_2 - _1:.2f} seconds")
