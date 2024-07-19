@@ -7,7 +7,14 @@ from fastapi import Request
 from src.api.logging_ import logger
 from src.modules.compute.schemas import SearchTask, SearchResult
 from src.modules.moodle.repository import moodle_repository
-from src.modules.search.schemas import SearchResponse, MoodleSource, SearchResponses, MoodleEntryWithScore
+from src.modules.search.schemas import (
+    SearchResponse,
+    MoodleFileSource,
+    SearchResponses,
+    MoodleEntryWithScore,
+    MoodleUrlSource,
+    MoodleUnknownSource,
+)
 from src.storages.mongo import MoodleEntry
 from src.storages.mongo.moodle import MoodleContentSchema
 
@@ -52,25 +59,31 @@ class SearchRepository:
         request: Request,
         score: float | list[float] | None = None,
     ) -> SearchResponse | None:
+        link = f"{MOODLE_URL}/course/view.php?id={entry.course_id}#sectionid-{entry.section_id}-title"
+        within_folder = len(entry.contents) > 1
+
         if content.type == "file":
             _, file_extension = os.path.splitext(content.filename)
             if not file_extension:
-                return None
+                logger.warning(f"File extension not found: {content.filename}")
             preview_url = str(
                 request.url_for("preview_moodle").include_query_params(
                     course_id=entry.course_id, module_id=entry.module_id, filename=content.filename
                 ),
             )
+            source = MoodleFileSource(link=link, resource_preview_url=preview_url, resource_download_url=preview_url)
+        elif content.type == "url":
+            # https://moodle.innopolis.university/mod/url/view.php?id=79390&redirect=1
+            url = f"{MOODLE_URL}/mod/url/view.php?id={entry.module_id}&redirect=1"
+            source = MoodleUrlSource(link=link, url=url)
         else:
-            preview_url = None
+            logger.warning(f"Unknown content type: {content.type}")
+            source = MoodleUnknownSource(link=link)
 
-        if entry.section_id is not None:
-            link = f"{MOODLE_URL}/course/view.php?id={entry.course_id}#sectionid-{entry.section_id}-title"
-        else:
-            link = f"{MOODLE_URL}/course/view.php?id={entry.course_id}#module-{entry.module_id}"
+        source.set_breadcrumbs_and_display_name(
+            entry.course_fullname, entry.module_name, content.filename, within_folder=within_folder
+        )
 
-        source = MoodleSource(link=link, resource_preview_url=preview_url, resource_download_url=preview_url)
-        source.set_breadcrumbs_and_display_name(entry.course_fullname, entry.module_name)
         return SearchResponse(score=score, source=source)
 
     def submit_search_results(self, search_results: list[SearchResult]) -> None:

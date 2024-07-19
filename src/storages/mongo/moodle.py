@@ -15,8 +15,8 @@ class MoodleContentSchema(CustomModel):
 class MoodleEntrySchema(CustomModel):
     course_id: int
     course_fullname: str
-    section_id: int | None = None
-    section_summary: str | None = None
+    section_id: int
+    section_summary: str
     module_id: int
     module_name: str
     module_modname: str

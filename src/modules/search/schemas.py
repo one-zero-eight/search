@@ -13,26 +13,44 @@ class PdfLocation(CustomModel):
     "Page index in the PDF file. Starts from 1."
 
 
-class MoodleSource(CustomModel):
-    type: Literal["moodle"] = "moodle"
+class MoodleSourceBase(CustomModel):
     display_name: str = "-"
     "Display name of the resource."
     breadcrumbs: list[str] = ["Moodle"]
     "Breadcrumbs to the resource."
     link: str
     "Anchor URL to the resource on Moodle."
+
+    def set_breadcrumbs_and_display_name(
+        self, course_name: str, module_name: str, filename: str, within_folder: bool = False
+    ):
+        # remove "/ Глубокое обучение для задач поиска" from "[Sum24] Deep Learning for Search / Глубокое обучение
+        # для задач поиска"
+        course_name = course_name.split(" / ")[0]
+        self.breadcrumbs = ["Moodle", course_name, module_name]
+        if within_folder:
+            self.display_name = f"{module_name} / {filename}"
+        else:
+            self.display_name = module_name
+
+
+class MoodleFileSource(MoodleSourceBase):
+    type: Literal["moodle-file"] = "moodle-file"
     resource_preview_url: str | None = None
     "URL to get the preview of the resource."
     resource_download_url: str | None = None
     "URL to download the resource."
     preview_location: PdfLocation | None = None
 
-    def set_breadcrumbs_and_display_name(self, course_name: str, module_name: str):
-        # remove "/ Глубокое обучение для задач поиска" from "[Sum24] Deep Learning for Search / Глубокое обучение
-        # для задач поиска"
-        course_name = course_name.split(" / ")[0]
-        self.breadcrumbs = ["Moodle", course_name, module_name]
-        self.display_name = module_name
+
+class MoodleUrlSource(MoodleSourceBase):
+    type: Literal["moodle-url"] = "moodle-url"
+    url: str
+    "URL of the resource"
+
+
+class MoodleUnknownSource(MoodleSourceBase):
+    type: Literal["moodle-unknown"] = "moodle-unknown"
 
 
 class TelegramSource(CustomModel):
@@ -67,7 +85,9 @@ class TelegramSource(CustomModel):
         return data
 
 
-Sources: TypeAlias = Annotated[MoodleSource | TelegramSource, Discriminator("type")]
+Sources: TypeAlias = Annotated[
+    MoodleFileSource | MoodleUrlSource | MoodleUnknownSource | TelegramSource, Discriminator("type")
+]
 
 
 class MoodleEntryWithScore(MoodleEntry):
