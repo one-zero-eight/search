@@ -97,7 +97,6 @@ async def course_content(_: VerifiedDep, bulk: list[InSections]) -> None:
 async def need_to_upload_contents(
     _: VerifiedDep, contents_list: list[InContents]
 ) -> list[FlattenInContentsWithPresignedUrl]:
-    result = []
     course_module_filenames = []
 
     for contents in contents_list:
@@ -107,7 +106,7 @@ async def need_to_upload_contents(
             course_module_filenames.append((contents.course_id, contents.module_id, content.filename))
 
     if not course_module_filenames:
-        return result
+        return []
 
     moodle_entries = await moodle_repository.read_all_in(course_module_filenames)
     moodle_entries_x = {(e.course_id, e.module_id, c.filename): (e, c) for e in moodle_entries for c in e.contents}
@@ -149,7 +148,7 @@ async def need_to_upload_contents(
                     )
                 )
 
-    return result
+    return response
 
 
 @router.post("/content-uploaded", responses={200: {"description": "Success"}})
