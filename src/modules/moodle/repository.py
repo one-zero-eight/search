@@ -29,7 +29,7 @@ class MoodleRepository:
     async def content_uploaded(self, data: InContent) -> None:
         content = data.content
 
-        await MoodleEntry.update(
+        await MoodleEntry.get_motor_collection().update_one(
             {"course_id": data.course_id, "module_id": data.module_id, "contents.filename": content.filename},
             {
                 "$set": {
