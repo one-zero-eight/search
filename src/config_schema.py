@@ -64,6 +64,8 @@ class ComputeSetting(CustomModel):
     "Name of the cross-encoder model"
     cross_encoder_batch_size: int = 32
     "Batch size for the cross-encoder model"
+    cross_encoder_threshold: float = 0.0
+    "Threshold for the cross-encoder model (will filter out results with lower score)"
 
 
 class Settings(CustomModel):

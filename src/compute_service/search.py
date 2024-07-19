@@ -138,7 +138,9 @@ def search(query: str) -> list[MoodleFileResult]:
     logger.info(f"Qdrant Search completed in {_2 - _1:.2f} seconds")
 
     # apply cross encoder to rerank (with threshold possible) and set new scores
-    reranked_scored_points: list[ScoredPoint] = rerank(query, scored_points, 0.0)
+    reranked_scored_points: list[ScoredPoint] = rerank(
+        query, scored_points, settings.compute_settings.cross_encoder_threshold
+    )
 
     added_ids = set()
     results: list[MoodleFileResult] = []
