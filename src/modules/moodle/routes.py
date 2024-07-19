@@ -9,7 +9,7 @@ from src.api.logging_ import logger
 from src.modules.minio.repository import minio_repository
 from src.modules.minio.schemas import MoodleFileObject
 from src.modules.moodle.repository import moodle_repository
-from src.modules.moodle.schemas import InCourses, InSections, InContents, FlattenInContentsWithPresignedUrl
+from src.modules.moodle.schemas import InCourses, InSections, InContents, FlattenInContentsWithPresignedUrl, InContent
 from src.storages.mongo import MoodleCourse, MoodleEntry
 from src.storages.mongo.moodle import MoodleEntrySchema, MoodleContentSchema
 
@@ -148,5 +148,5 @@ async def need_to_upload_contents(
 
 
 @router.post("/content-uploaded", responses={200: {"description": "Success"}})
-async def content_uploaded(_: VerifiedDep, data: InContents) -> None:
+async def content_uploaded(_: VerifiedDep, data: InContent) -> None:
     await moodle_repository.content_uploaded(data)

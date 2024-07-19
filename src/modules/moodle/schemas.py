@@ -37,6 +37,12 @@ class InContents(CustomModel):
     contents: list[MoodleContentSchema]
 
 
+class InContent(CustomModel):
+    course_id: int
+    module_id: int
+    content: MoodleContentSchema
+
+
 class FlattenInContentsWithPresignedUrl(CustomModel):
     course_id: int
     module_id: int
