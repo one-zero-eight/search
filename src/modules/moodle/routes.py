@@ -50,7 +50,8 @@ async def batch_upsert_courses(_: VerifiedDep, data: InCourses) -> None:
     for c in data.courses:
         m = MoodleCourse.model_validate(c, from_attributes=True)
         operations.append(UpdateOne({"course_id": m.course_id}, {"$set": m.model_dump()}, upsert=True))
-
+    if not operations:
+        return
     await MoodleCourse.get_motor_collection().bulk_write(operations, ordered=False)
 
 
@@ -68,9 +69,30 @@ async def courses_content(_: VerifiedDep) -> list[MoodleEntry]:
 )
 async def course_content(_: VerifiedDep, bulk: list[InSections]) -> None:
     operations = []
+    course_module_filename = {
+        (data.course_id, module.module_id, content.filename)
+        for data in bulk
+        for section in data.sections
+        for module in section.modules
+        for content in module.contents
+    }
+
+    moodle_entries = await moodle_repository.read_all_in(list(course_module_filename))
+    moodle_entries_x = {(e.course_id, e.module_id, c.filename): (e, c) for e in moodle_entries for c in e.contents}
+
     for data in bulk:
         for section in data.sections:
             for module in section.modules:
+                for c in module.contents:
+                    _, mongo_content = moodle_entries_x.get(
+                        (data.course_id, module.module_id, c.filename), (None, None)
+                    )
+
+                    if mongo_content and (
+                        mongo_content.timecreated == c.timecreated and mongo_content.timemodified == c.timemodified
+                    ):
+                        c.uploaded = mongo_content.uploaded
+
                 m = MoodleEntrySchema(
                     course_id=data.course_id,
                     course_fullname=data.course_fullname,
@@ -86,6 +108,8 @@ async def course_content(_: VerifiedDep, bulk: list[InSections]) -> None:
                         {"course_id": m.course_id, "module_id": m.module_id}, {"$set": m.model_dump()}, upsert=True
                     )
                 )
+    if not operations:
+        return
 
     await MoodleEntry.get_motor_collection().bulk_write(operations, ordered=False)
 
