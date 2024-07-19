@@ -8,6 +8,8 @@ class MoodleRepository:
         return await MoodleEntry.find().to_list()
 
     async def read_all_in(self, course_module_filenames: list[tuple[int, int, str]]) -> list[MoodleEntry]:
+        if not course_module_filenames:
+            return []
         return await MoodleEntry.find(
             {
                 "$or": [

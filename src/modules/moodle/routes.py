@@ -104,6 +104,9 @@ async def need_to_upload_contents(
                 continue
             course_module_filenames.append((contents.course_id, contents.module_id, content.filename))
 
+    if not course_module_filenames:
+        return result
+
     moodle_entries = await moodle_repository.read_all_in(course_module_filenames)
     moodle_entries_x = {(e.course_id, e.module_id, c.filename): (e, c) for e in moodle_entries for c in e.contents}
     response = []
