@@ -1,9 +1,12 @@
+from datetime import timedelta
+
 from minio import Minio
 from minio.error import S3Error
 
 from src.api.logging_ import logger
 from src.config import settings
 from src.modules.minio.schemas import MoodleFileObject
+from src.modules.moodle.utils import content_to_minio_object
 from src.storages.minio import minio_client
 
 
@@ -34,6 +37,20 @@ class MinioRepository:
         except S3Error as e:
             logger.error(f"An error occurred while listing Moodle objects: {e}")
             return []
+
+    def get_presigned_url_moodle(self, course_id: int, module_id: int, filename: str) -> str:
+        return self.minio_client.presigned_get_object(
+            settings.minio.bucket,
+            content_to_minio_object(course_id, module_id, filename),
+            expires=timedelta(days=1),
+        )
+
+    def put_presigned_url_moodle(self, course_id: int, module_id: int, filename: str) -> str:
+        return self.minio_client.presigned_put_object(
+            settings.minio.bucket,
+            content_to_minio_object(course_id, module_id, filename),
+            expires=timedelta(days=1),
+        )
 
 
 minio_repository: MinioRepository = MinioRepository(minio_client)

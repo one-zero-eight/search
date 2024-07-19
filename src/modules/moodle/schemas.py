@@ -35,3 +35,10 @@ class InContents(CustomModel):
     course_id: int
     module_id: int
     contents: list[MoodleContentSchema]
+
+
+class FlattenInContentsWithPresignedUrl(CustomModel):
+    course_id: int
+    module_id: int
+    content: MoodleContentSchema
+    presigned_url: str

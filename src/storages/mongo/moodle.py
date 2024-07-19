@@ -10,6 +10,7 @@ class MoodleContentSchema(CustomModel):
     filename: str
     timecreated: int | None = None
     timemodified: int | None = None
+    uploaded: bool = False
 
 
 class MoodleEntrySchema(CustomModel):

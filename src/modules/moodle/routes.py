@@ -1,21 +1,17 @@
-from datetime import timedelta
 from typing import Any
 
-import minio
-from fastapi import APIRouter, UploadFile, Depends
+from fastapi import APIRouter
 from fastapi.responses import RedirectResponse
-from minio.deleteobjects import DeleteObject
 from pymongo import UpdateOne
 
 from src.api.dependencies import VerifiedDep
-from src.config import settings
+from src.api.logging_ import logger
 from src.modules.minio.repository import minio_repository
 from src.modules.minio.schemas import MoodleFileObject
-from src.modules.moodle.schemas import InCourses, InSections, InContents
-from src.modules.moodle.utils import content_to_minio_object, module_to_minio_prefix, checker
-from src.storages.minio import minio_client
+from src.modules.moodle.repository import moodle_repository
+from src.modules.moodle.schemas import InCourses, InSections, InContents, FlattenInContentsWithPresignedUrl
 from src.storages.mongo import MoodleCourse, MoodleEntry
-from src.storages.mongo.moodle import MoodleEntrySchema
+from src.storages.mongo.moodle import MoodleEntrySchema, MoodleContentSchema
 
 router = APIRouter(prefix="/moodle", tags=["Moodle"])
 
@@ -25,10 +21,7 @@ router = APIRouter(prefix="/moodle", tags=["Moodle"])
     responses={307: {"description": "Redirect to the file"}, 404: {"description": "File not found"}},
 )
 async def preview_moodle(course_id: int, module_id: int, filename: str):
-    # Redirect to a pre-signed URL
-    obj = content_to_minio_object(course_id, module_id, filename)
-    url = minio_client.presigned_get_object(settings.minio.bucket, obj, expires=timedelta(days=1))
-    return RedirectResponse(url=url)
+    return RedirectResponse(url=minio_repository.get_presigned_url_moodle(course_id, module_id, filename))
 
 
 @router.get(
@@ -37,8 +30,15 @@ async def preview_moodle(course_id: int, module_id: int, filename: str):
     responses={200: {"description": "Success"}},
 )
 async def get_moodle_files(_: VerifiedDep) -> list[MoodleFileObject]:
-    moodle_objects = minio_repository.get_moodle_objects()
-    return moodle_objects
+    return minio_repository.get_moodle_objects()
+
+
+@router.get(
+    "/courses",
+    responses={200: {"description": "Success"}},
+)
+async def courses(_: VerifiedDep) -> list[MoodleCourse]:
+    return await moodle_repository.read_all_courses()
 
 
 @router.post(
@@ -55,11 +55,11 @@ async def batch_upsert_courses(_: VerifiedDep, data: InCourses) -> None:
 
 
 @router.get(
-    "/courses",
+    "/courses-content",
     responses={200: {"description": "Success"}},
 )
-async def courses(_: VerifiedDep) -> list[MoodleCourse]:
-    return await MoodleCourse.find().to_list()
+async def courses_content(_: VerifiedDep) -> list[MoodleEntry]:
+    return await moodle_repository.read_all()
 
 
 @router.post(
@@ -88,84 +88,65 @@ async def course_content(_: VerifiedDep, data: InSections) -> None:
     await MoodleEntry.get_motor_collection().bulk_write(operations, ordered=False)
 
 
-@router.get(
-    "/courses-content",
-    responses={200: {"description": "Success"}},
-)
-async def courses_content(_: VerifiedDep) -> list[MoodleEntry]:
-    return await MoodleEntry.find().to_list()
-
-
 @router.post(
     "/need-to-upload-contents",
     responses={200: {"description": "Success"}},
 )
-async def need_to_upload_contents(_: VerifiedDep, contents_list: list[InContents]) -> list[InContents]:
+async def need_to_upload_contents(
+    _: VerifiedDep, contents_list: list[InContents]
+) -> list[FlattenInContentsWithPresignedUrl]:
     result = []
+    course_module_filenames = []
 
     for contents in contents_list:
-        need_to_update = False
+        for content in contents.contents:
+            if content.type != "file":
+                continue
+            course_module_filenames.append((contents.course_id, contents.module_id, content.filename))
+
+    moodle_entries = await moodle_repository.read_all_in(course_module_filenames)
+    moodle_entries_x = {(e.course_id, e.module_id, c.filename): (e, c) for e in moodle_entries for c in e.contents}
+    response = []
+
+    for contents in contents_list:
         for content in contents.contents:
             if content.type != "file":
                 continue
 
-            try:
-                obj = content_to_minio_object(contents.course_id, contents.module_id, content.filename)
-                r = minio_client.stat_object(settings.minio.bucket, obj)
-                meta = r.metadata
-                if meta is None:
-                    meta = {}
-                timecreated = int(meta["x-amz-meta-timecreated"]) if "x-amz-meta-timecreated" in meta else None
-                timemodified = int(meta["x-amz-meta-timemodified"]) if "x-amz-meta-timemodified" in meta else None
-                # check if different
-                if timecreated != content.timecreated or timemodified != content.timemodified:
-                    need_to_update = True
+            mongo_entry, mongo_content = moodle_entries_x.get(
+                (contents.course_id, contents.module_id, content.filename), (None, None)
+            )
 
-            except minio.S3Error as e:
-                if e.code == "NoSuchKey":
-                    need_to_update = True
-                else:
-                    raise e
+            if mongo_entry is None or mongo_content is None:
+                logger.warning("Entry not found in the database")
+                continue
 
-        if need_to_update:
-            result.append(contents)
+            mongo_entry: MoodleEntry
+            mongo_content: MoodleContentSchema
+
+            if not mongo_content.uploaded or (
+                mongo_content.timecreated != content.timecreated or mongo_content.timemodified != content.timemodified
+            ):
+                response.append(
+                    FlattenInContentsWithPresignedUrl(
+                        course_id=contents.course_id,
+                        module_id=contents.module_id,
+                        content=MoodleContentSchema(
+                            type=content.type,
+                            filename=content.filename,
+                            timecreated=content.timecreated,
+                            timemodified=content.timemodified,
+                            uploaded=mongo_content.uploaded,
+                        ),
+                        presigned_url=minio_repository.put_presigned_url_moodle(
+                            contents.course_id, contents.module_id, content.filename
+                        ),
+                    )
+                )
 
     return result
 
 
-@router.post(
-    "/upload-contents",
-    responses={200: {"description": "Success"}},
-)
-async def upload_content(
-    _: VerifiedDep,
-    files: list[UploadFile],
-    data: InContents = Depends(checker),
-) -> None:
-    # clear files for that module first
-    module_prefix = module_to_minio_prefix(data.course_id, data.module_id)
-    delete_object_list = list(
-        map(
-            lambda x: DeleteObject(x.object_name),
-            minio_client.list_objects(settings.minio.bucket, module_prefix, recursive=True),
-        )
-    )
-    minio_client.remove_objects(settings.minio.bucket, delete_object_list)
-
-    # upload files
-    for file, content in zip(files, data.contents):
-        meta = {}
-
-        if content.timecreated is not None:
-            meta["x-amz-meta-timecreated"] = str(content.timecreated)
-        if content.timemodified is not None:
-            meta["x-amz-meta-timemodified"] = str(content.timemodified)
-
-        minio_client.put_object(
-            settings.minio.bucket,
-            content_to_minio_object(data.course_id, data.module_id, content.filename),
-            file.file,
-            file.size or 0,
-            file.content_type or "application/octet-stream",
-            metadata=meta,  # type: ignore[arg-type]
-        )
+@router.post("/content-uploaded", responses={200: {"description": "Success"}})
+async def content_uploaded(_: VerifiedDep, data: InContents) -> None:
+    await moodle_repository.content_uploaded(data)
