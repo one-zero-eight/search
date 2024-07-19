@@ -66,24 +66,26 @@ async def courses_content(_: VerifiedDep) -> list[MoodleEntry]:
     "/set-course-content",
     responses={200: {"description": "Success"}},
 )
-async def course_content(_: VerifiedDep, data: InSections) -> None:
+async def course_content(_: VerifiedDep, bulk: list[InSections]) -> None:
     operations = []
-
-    for section in data.sections:
-        for module in section.modules:
-            m = MoodleEntrySchema(
-                course_id=data.course_id,
-                course_fullname=data.course_fullname,
-                section_id=section.section_id,
-                section_summary=section.section_summary,
-                module_id=module.module_id,
-                module_name=module.module_name,
-                module_modname=module.module_modname,
-                contents=module.contents,
-            )
-            operations.append(
-                UpdateOne({"course_id": m.course_id, "module_id": m.module_id}, {"$set": m.model_dump()}, upsert=True)
-            )
+    for data in bulk:
+        for section in data.sections:
+            for module in section.modules:
+                m = MoodleEntrySchema(
+                    course_id=data.course_id,
+                    course_fullname=data.course_fullname,
+                    section_id=section.section_id,
+                    section_summary=section.section_summary,
+                    module_id=module.module_id,
+                    module_name=module.module_name,
+                    module_modname=module.module_modname,
+                    contents=module.contents,
+                )
+                operations.append(
+                    UpdateOne(
+                        {"course_id": m.course_id, "module_id": m.module_id}, {"$set": m.model_dump()}, upsert=True
+                    )
+                )
 
     await MoodleEntry.get_motor_collection().bulk_write(operations, ordered=False)
 
