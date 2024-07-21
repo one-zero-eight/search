@@ -23,10 +23,9 @@ MOODLE_URL = "https://moodle.innopolis.university"
 
 # noinspection PyMethodMayBeStatic
 class SearchRepository:
-    compute_client: httpx.AsyncClient
-
-    def __init__(self):
-        self.compute_client = httpx.AsyncClient(
+    @property
+    def compute_client(self) -> httpx.AsyncClient:
+        return httpx.AsyncClient(
             base_url=settings.api_settings.compute_service_url,
             headers={"X-API-KEY": settings.api_settings.compute_service_token},
         )
@@ -84,49 +83,47 @@ class SearchRepository:
 
         return SearchResponse(score=score, source=source)
 
-    async def search_moodle(self, query: str, *, request: Request, limit: int, use_ai: bool) -> SearchResponses:
-        if not use_ai:
-            entries = await self._by_meta(query, limit=limit)
-            responses = []
+    async def search_moodle(self, query: str, *, request: Request, limit: int) -> SearchResponses:
+        search_task = SearchTask(query=query)
 
-            for e in entries:
-                for c in e.contents:
-                    response = self._moodle_entry_contents_to_search_response(e, c, request, score=e.score)
-                    if response:
-                        responses.append(response)
-
-            return SearchResponses(responses=responses, searched_for=query)
-
-        else:
-            search_task = SearchTask(query=query)
-
-            async with self.compute_client as client:
+        async with self.compute_client as client:
+            try:
                 r = await client.post("/search", json=search_task.model_dump())
-                if r.status_code == 200:
-                    result = SearchResult.model_validate(r.json())
-                else:
-                    logger.warning(f"Failed to search: {r.text} using Compute Service: {r.status_code}")
-                    return SearchResponses(responses=[], searched_for=query)
+                r.raise_for_status()
+                result = SearchResult.model_validate(r.json())
+            except httpx.HTTPError as e:
+                logger.warning(f"Failed to search: {e}")
+                # Fallback to MongoDB search
+                entries = await self._by_meta(query, limit=limit)
+                responses = []
 
-            responses = []
-            moodle_entries = await moodle_repository.read_all()
-            _mapping = {(e.course_id, e.module_id): e for e in moodle_entries}
-
-            for entry in result.result:
-                moodle_entry = _mapping.get((entry.course_id, entry.module_id), None)
-                if moodle_entry is None:
-                    logger.warning(f"Entry not found: {entry.course_id} {entry.module_id}")
-                    continue
-
-                for c in moodle_entry.contents:
-                    if c.filename == entry.filename:
-                        response = self._moodle_entry_contents_to_search_response(
-                            moodle_entry, c, request, score=entry.score
-                        )
+                for e in entries:
+                    for c in e.contents:
+                        response = self._moodle_entry_contents_to_search_response(e, c, request, score=e.score)
                         if response:
                             responses.append(response)
 
-            return SearchResponses(responses=responses, searched_for=query)
+                return SearchResponses(responses=responses, searched_for=query)
+
+        responses = []
+        moodle_entries = await moodle_repository.read_all()
+        _mapping = {(e.course_id, e.module_id): e for e in moodle_entries}
+
+        for entry in result.result:
+            moodle_entry = _mapping.get((entry.course_id, entry.module_id), None)
+            if moodle_entry is None:
+                logger.warning(f"Entry not found: {entry.course_id} {entry.module_id}")
+                continue
+
+            for c in moodle_entry.contents:
+                if c.filename == entry.filename:
+                    response = self._moodle_entry_contents_to_search_response(
+                        moodle_entry, c, request, score=entry.score
+                    )
+                    if response:
+                        responses.append(response)
+
+        return SearchResponses(responses=responses, searched_for=query)
 
 
 search_repository: SearchRepository = SearchRepository()

@@ -1,8 +1,7 @@
 from fastapi import FastAPI
 
 from src.compute_service.search import search_pipeline
-from src.modules.compute.schemas import SearchResult
-
+from src.modules.compute.schemas import SearchResult, SearchTask
 
 # App definition
 app = FastAPI(
@@ -27,14 +26,14 @@ app = FastAPI(
 )
 
 
-@app.get(
+@app.post(
     "/search",
     responses={
         200: {"description": "Success"},
         403: {"description": "Invalid API key"},
     },
 )
-def _search(query: str) -> SearchResult:
-    moodle_file_results = search_pipeline(query)
+def _search(task: SearchTask) -> SearchResult:
+    moodle_file_results = search_pipeline(task.query)
     search_result = SearchResult(status="completed", result=moodle_file_results)
     return search_result

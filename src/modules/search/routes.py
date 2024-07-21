@@ -13,11 +13,11 @@ router = APIRouter(prefix="/search", tags=["Search"])
 
 
 @router.get("/search", responses={200: {"description": "Success"}, 408: {"description": "Search timed out"}})
-async def search_by_query(query: str, request: Request, limit: int = 10, use_ai: bool = False) -> SearchResponses:
+async def search_by_query(query: str, request: Request, limit: int = 10) -> SearchResponses:
     start_time = time.monotonic()
     try:
         responses = await asyncio.wait_for(
-            search_repository.search_moodle(query, request=request, limit=limit, use_ai=use_ai), timeout=15
+            search_repository.search_moodle(query, request=request, limit=limit), timeout=15
         )
     except asyncio.TimeoutError:
         logger.warning("Timeout while searching for query")
