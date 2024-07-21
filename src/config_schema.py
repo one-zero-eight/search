@@ -39,6 +39,8 @@ class ApiSettings(CustomModel):
     "URL of the MongoDB database"
     compute_service_token: str = "secret"
     "Access token for the compute service which is used for authentication"
+    compute_service_url: str = "http://127.0.0.1:8024"
+    "URL of the Compute service"
 
 
 class ComputeSetting(CustomModel):
@@ -48,8 +50,6 @@ class ComputeSetting(CustomModel):
     "Access token for the compute service which is used for authentication"
     corpora_update_period: float = 300
     "Period in seconds to fetch corpora from the API"
-    check_search_queue_period: float = 0.1
-    "Period in seconds to fetch tasks from the API"
     num_workers: int = 4
     "Number of workers to process tasks"
     qdrant_url: SecretStr = SecretStr("http://127.0.0.1:6333")

@@ -11,5 +11,20 @@ class MoodleFileObject(CustomModel):
     module_name: str = ""
     module_modname: str = ""
 
+    @property
     def meta_prefix(self) -> str:
-        return " ".join([self.course_fullname, self.section_summary, self.module_name, self.module_modname])
+        parts = []
+        if self.course_fullname:
+            parts.append(f"Course: {self.course_fullname}")
+        if self.section_summary:
+            parts.append(f"Section: {self.section_summary}")
+        if self.module_name:
+            parts.append(f"Module: {self.module_name}")
+        if self.module_modname:
+            parts.append(f"Type: {self.module_modname}")
+        if self.filename:
+            parts.append(f"Filename: {self.filename}")
+        if not parts:
+            return ""
+        meta_prefix = "; ".join(parts) + "\n"
+        return meta_prefix

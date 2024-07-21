@@ -1,7 +1,6 @@
-import asyncio
 import os
-import uuid
 
+import httpx
 from fastapi import Request
 
 from src.api.logging_ import logger
@@ -17,21 +16,20 @@ from src.modules.search.schemas import (
 )
 from src.storages.mongo import MoodleEntry
 from src.storages.mongo.moodle import MoodleContentSchema
+from src.config import settings
 
 MOODLE_URL = "https://moodle.innopolis.university"
 
 
-class QueueItem:
-    def __init__(self, search_request: SearchTask, future: asyncio.Future):
-        self.search_request = search_request
-        self.future = future
-
-
 # noinspection PyMethodMayBeStatic
 class SearchRepository:
-    pending_searches: dict[str, SearchTask] = {}
-    completed_searches: dict[str, SearchResult] = {}
-    pending_events: dict[str, asyncio.Event] = {}
+    compute_client: httpx.AsyncClient
+
+    def __init__(self):
+        self.compute_client = httpx.AsyncClient(
+            base_url=settings.api_settings.compute_service_url,
+            headers={"X-API-KEY": settings.api_settings.compute_service_token},
+        )
 
     async def _by_meta(self, query: str, *, limit: int) -> list[MoodleEntryWithScore]:
         # search by text
@@ -86,14 +84,6 @@ class SearchRepository:
 
         return SearchResponse(score=score, source=source)
 
-    def submit_search_results(self, search_results: list[SearchResult]) -> None:
-        for result in search_results:
-            self.completed_searches[result.task_id] = result
-            self.pending_searches.pop(result.task_id, None)
-            event = self.pending_events.get(result.task_id)
-            if event:
-                event.set()
-
     async def search_moodle(self, query: str, *, request: Request, limit: int, use_ai: bool) -> SearchResponses:
         if not use_ai:
             entries = await self._by_meta(query, limit=limit)
@@ -108,42 +98,35 @@ class SearchRepository:
             return SearchResponses(responses=responses, searched_for=query)
 
         else:
-            search_task = SearchTask(query=query, task_id=str(uuid.uuid4()))
-            result = None
-            self.pending_searches[search_task.task_id] = search_task
-            self.pending_events[search_task.task_id] = asyncio.Event()
-            try:
-                await asyncio.wait_for(self.pending_events[search_task.task_id].wait(), timeout=10)
-                del self.pending_events[search_task.task_id]
-                result = self.completed_searches.pop(search_task.task_id, None)
-                logger.info(result)
-            except asyncio.TimeoutError:
-                logger.warning("Search task timed out")
-                self.pending_events.pop(search_task.task_id, None)
-                self.pending_searches.pop(search_task.task_id, None)
+            search_task = SearchTask(query=query)
 
-            if result is None:
-                return SearchResponses(responses=[], searched_for=query)
-            else:
-                responses = []
-                moodle_entries = await moodle_repository.read_all()
-                _mapping = {(e.course_id, e.module_id): e for e in moodle_entries}
+            async with self.compute_client as client:
+                r = await client.post("/search", json=search_task.model_dump())
+                if r.status_code == 200:
+                    result = SearchResult.model_validate(r.json())
+                else:
+                    logger.warning(f"Failed to search: {r.text} using Compute Service: {r.status_code}")
+                    return SearchResponses(responses=[], searched_for=query)
 
-                for entry in result.result:
-                    moodle_entry = _mapping.get((entry.course_id, entry.module_id), None)
-                    if moodle_entry is None:
-                        logger.warning(f"Entry not found: {entry.course_id} {entry.module_id}")
-                        continue
+            responses = []
+            moodle_entries = await moodle_repository.read_all()
+            _mapping = {(e.course_id, e.module_id): e for e in moodle_entries}
 
-                    for c in moodle_entry.contents:
-                        if c.filename == entry.filename:
-                            response = self._moodle_entry_contents_to_search_response(
-                                moodle_entry, c, request, score=entry.score
-                            )
-                            if response:
-                                responses.append(response)
+            for entry in result.result:
+                moodle_entry = _mapping.get((entry.course_id, entry.module_id), None)
+                if moodle_entry is None:
+                    logger.warning(f"Entry not found: {entry.course_id} {entry.module_id}")
+                    continue
 
-                return SearchResponses(responses=responses, searched_for=query)
+                for c in moodle_entry.contents:
+                    if c.filename == entry.filename:
+                        response = self._moodle_entry_contents_to_search_response(
+                            moodle_entry, c, request, score=entry.score
+                        )
+                        if response:
+                            responses.append(response)
+
+            return SearchResponses(responses=responses, searched_for=query)
 
 
 search_repository: SearchRepository = SearchRepository()

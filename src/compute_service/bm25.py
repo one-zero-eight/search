@@ -100,13 +100,17 @@ class Bm25:
             if token in self.punctuation:
                 continue
 
-            if token in self.stopwords:
+            if token.lower() in self.stopwords:
                 continue
 
             stemmed_token = self.stemmer.stemWord(token)
 
             if stemmed_token:
                 stemmed_tokens.append(stemmed_token)
+
+            if stemmed_token.lower() in self.stopwords:
+                continue
+
         return stemmed_tokens
 
     def raw_embed(

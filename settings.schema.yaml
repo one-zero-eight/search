@@ -46,6 +46,11 @@ $defs:
         description: Access token for the compute service which is used for authentication
         title: Compute Service Token
         type: string
+      compute_service_url:
+        default: http://127.0.0.1:8024
+        description: URL of the Compute service
+        title: Compute Service Url
+        type: string
     required:
     - db_url
     title: ApiSettings
@@ -66,11 +71,6 @@ $defs:
         default: 300
         description: Period in seconds to fetch corpora from the API
         title: Corpora Update Period
-        type: number
-      check_search_queue_period:
-        default: 0.1
-        description: Period in seconds to fetch tasks from the API
-        title: Check Search Queue Period
         type: number
       num_workers:
         default: 4
@@ -174,7 +174,6 @@ properties:
       api_url: http://127.0.0.1:8001
       auth_token: secret
       corpora_update_period: 300.0
-      check_search_queue_period: 0.1
       num_workers: 4
       qdrant_url: '**********'
       qdrant_collection_name: inh-search

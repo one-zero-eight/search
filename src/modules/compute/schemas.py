@@ -2,11 +2,10 @@ from typing import Literal
 
 from src.custom_pydantic import CustomModel
 from src.modules.minio.schemas import MoodleFileObject
+from src.storages.mongo.moodle import MoodleEntrySchema
 
 
 class SearchTask(CustomModel):
-    task_id: str
-    status: Literal["pending", "completed", "failed"] = "pending"
     query: str
 
 
@@ -18,10 +17,10 @@ class MoodleFileResult(CustomModel):
 
 
 class SearchResult(CustomModel):
-    task_id: str
     status: Literal["completed", "failed"]
     result: list[MoodleFileResult] = []
 
 
 class Corpora(CustomModel):
-    moodle_files: list[MoodleFileObject]
+    moodle_entries: list[MoodleEntrySchema] = []
+    moodle_files: list[MoodleFileObject] = []
