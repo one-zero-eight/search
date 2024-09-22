@@ -21,7 +21,7 @@ This is the API for search service in InNoHassle ecosystem.
 
 ### Technologies
 
-- [Python 3.11](https://www.python.org/downloads/release/python-3117/) & [Poetry](https://python-poetry.org/docs/)
+- [Python 3.12](https://www.python.org/downloads/) & [Poetry](https://python-poetry.org/docs/)
 - [FastAPI](https://fastapi.tiangolo.com/) & [Pydantic](https://docs.pydantic.dev/latest/)
 - Database and ORM: [MongoDB](https://www.mongodb.com/), [Beanie](https://beanie-odm.dev/)
 - Formatting and linting: [Ruff](https://docs.astral.sh/ruff/), [pre-commit](https://pre-commit.com/)
@@ -32,11 +32,11 @@ This is the API for search service in InNoHassle ecosystem.
 
 ### Getting started
 
-1. Install [Python 3.11+](https://www.python.org/downloads/release/python-3117/)
+1. Install [Python 3.12](https://www.python.org/downloads/)
 2. Install [Poetry](https://python-poetry.org/docs/)
 3. Install project dependencies with [Poetry](https://python-poetry.org/docs/cli/#options-2).
    ```bash
-   poetry install --no-root --with dev
+   poetry install
    ```
 4. Set up [pre-commit](https://pre-commit.com/) hooks:
 
@@ -81,7 +81,7 @@ This is the API for search service in InNoHassle ecosystem.
 
 1. Install dependencies for api if needed:
    ```bash
-   poetry install --no-root --with api
+   poetry install --with api
    ```
 2. Run the database if you have not done it yet
 

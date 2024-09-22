@@ -2,7 +2,7 @@
 
 ###########################################################
 # Base Python image. Set shared environment variables.
-FROM python:3.11-slim-bullseye as base
+FROM python:3.12-slim-bullseye AS base
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=off \
@@ -39,7 +39,7 @@ RUN curl -sSL https://install.python-poetry.org | POETRY_HOME=${POETRY_HOME} pyt
 # and install only runtime deps using poetry
 WORKDIR $PYSETUP_PATH
 COPY ./poetry.lock ./pyproject.toml ./
-RUN poetry install --only main --no-root
+RUN poetry install
 
 
 ###########################################################
@@ -60,5 +60,5 @@ USER poetry
 WORKDIR /code
 
 EXPOSE 8000
-ENTRYPOINT /docker-entrypoint.sh $0 $@
+ENTRYPOINT [ "/docker-entrypoint.sh" ]
 CMD [ "uvicorn", "src.api.app:app", "--host", "0.0.0.0", "--port", "8000", "--proxy-headers", "--forwarded-allow-ips=*" ]
