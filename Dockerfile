@@ -39,7 +39,7 @@ RUN curl -sS https://install.python-poetry.org | POETRY_HOME=${POETRY_HOME} pyth
 # and install only runtime deps using poetry
 WORKDIR $PYSETUP_PATH
 COPY ./poetry.lock ./pyproject.toml ./
-RUN poetry install --no-interaction
+RUN poetry install --no-interaction --only main
 
 
 ###########################################################
