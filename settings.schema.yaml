@@ -158,8 +158,7 @@ properties:
   api_settings:
     $ref: '#/$defs/ApiSettings'
   compute_settings:
-    allOf:
-    - $ref: '#/$defs/ComputeSetting'
+    $ref: '#/$defs/ComputeSetting'
     default:
       api_url: http://127.0.0.1:8001
       auth_token: secret
@@ -173,8 +172,7 @@ properties:
       cross_encoder_batch_size: 32
       cross_encoder_threshold: 0.0
   accounts:
-    allOf:
-    - $ref: '#/$defs/Accounts'
+    $ref: '#/$defs/Accounts'
     default:
       api_url: https://api.innohassle.ru/accounts/v0
   minio:
