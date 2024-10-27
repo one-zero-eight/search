@@ -19,6 +19,14 @@ app = FastAPI(
     license_info=docs.LICENSE_INFO,
     servers=[
         {"url": settings.api_settings.app_root_path, "description": "Current"},
+        {
+            "url": "https://api.innohassle.ru/search/v0",
+            "description": "Production environment",
+        },
+        {
+            "url": "https://api.innohassle.ru/search/staging-v0",
+            "description": "Staging environment",
+        },
     ],
     swagger_ui_parameters={
         "tryItOutEnabled": True,
