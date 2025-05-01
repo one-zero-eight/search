@@ -1,6 +1,6 @@
 from typing import Any
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
 from fastapi.responses import RedirectResponse
 from pymongo import UpdateOne
 from starlette.requests import Request
@@ -18,13 +18,31 @@ from src.storages.mongo.moodle import MoodleEntrySchema, MoodleContentSchema
 router = APIRouter(prefix="/moodle", tags=["Moodle"])
 
 
-@router.get("/courses/grouped-by-semester")
+@router.get(
+    "/courses/grouped-by-semester",
+    responses={
+        200: {
+            "description": "Courses grouped by semester",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "S25": ["[S25] Mathematical Analysis II / Математический анализ II"],
+                        "F20": ["[F20] Discrete Mathematics"],
+                        "F22": ["[F22]  Philosophy II (Languages and Perceptions)"],
+                    }
+                }
+            },
+        }
+    },
+)
 async def get_courses_grouped_by_semester() -> dict[str, list[str]]:
     return await moodle_repository.get_courses_grouped_by_semester()
 
 
 @router.get("/courses/by-course-fullname/content")
-async def get_course_names_grouped(course_fullname: str, request: Request) -> list[Sources]:
+async def get_course_names_grouped(
+    request: Request, course_fullname: str = Query(example="[S25] Mathematical Analysis II / Математический анализ II")
+) -> list[Sources]:
     return await moodle_repository.get_courses_by_course_fullname_content(course_fullname, request)
 
 
