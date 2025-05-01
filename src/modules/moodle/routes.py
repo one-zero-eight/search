@@ -3,6 +3,7 @@ from typing import Any
 from fastapi import APIRouter
 from fastapi.responses import RedirectResponse
 from pymongo import UpdateOne
+from starlette.requests import Request
 
 from src.api.dependencies import VerifiedDep
 from src.api.logging_ import logger
@@ -10,10 +11,21 @@ from src.modules.minio.repository import minio_repository
 from src.modules.minio.schemas import MoodleFileObject
 from src.modules.moodle.repository import moodle_repository
 from src.modules.moodle.schemas import InCourses, InSections, InContents, FlattenInContentsWithPresignedUrl, InContent
+from src.modules.search.schemas import Sources
 from src.storages.mongo import MoodleCourse, MoodleEntry
 from src.storages.mongo.moodle import MoodleEntrySchema, MoodleContentSchema
 
 router = APIRouter(prefix="/moodle", tags=["Moodle"])
+
+
+@router.get("/courses/grouped-by-semester")
+async def get_courses_grouped_by_semester() -> dict[str, list[str]]:
+    return await moodle_repository.get_courses_grouped_by_semester()
+
+
+@router.get("/courses/by-course-fullname/content")
+async def get_course_names_grouped(course_fullname: str, request: Request) -> list[Sources]:
+    return await moodle_repository.get_courses_by_course_fullname_content(course_fullname, request)
 
 
 @router.get(

@@ -31,81 +31,9 @@ $defs:
         title: Db Url
         type: string
         writeOnly: true
-      compute_service_token:
-        default: secret
-        description: Access token for the compute service which is used for authentication
-        title: Compute Service Token
-        type: string
-      compute_service_url:
-        default: http://127.0.0.1:8024
-        description: URL of the Compute service
-        title: Compute Service Url
-        type: string
     required:
     - db_url
     title: ApiSettings
-    type: object
-  ComputeSetting:
-    properties:
-      api_url:
-        default: http://127.0.0.1:8001
-        description: URL of the Search API
-        title: Api Url
-        type: string
-      auth_token:
-        default: secret
-        description: Access token for the compute service which is used for authentication
-        title: Auth Token
-        type: string
-      corpora_update_period:
-        default: 300
-        description: Period in seconds to fetch corpora from the API
-        title: Corpora Update Period
-        type: number
-      num_workers:
-        default: 4
-        description: Number of workers to process tasks
-        title: Num Workers
-        type: integer
-      qdrant_url:
-        default: '**********'
-        description: URL of the Qdrant service
-        format: password
-        title: Qdrant Url
-        type: string
-        writeOnly: true
-      qdrant_collection_name:
-        default: inh-search
-        description: Name of the collection in the Qdrant service
-        title: Qdrant Collection Name
-        type: string
-      bi_encoder_name:
-        default: sentence-transformers/all-MiniLM-L6-v2
-        description: Name of the bi-encoder model
-        title: Bi Encoder Name
-        type: string
-      bi_encoder_batch_size:
-        default: 32
-        description: Batch size for the bi-encoder model
-        title: Bi Encoder Batch Size
-        type: integer
-      cross_encoder_name:
-        default: cross-encoder/ms-marco-MiniLM-L-6-v2
-        description: Name of the cross-encoder model
-        title: Cross Encoder Name
-        type: string
-      cross_encoder_batch_size:
-        default: 32
-        description: Batch size for the cross-encoder model
-        title: Cross Encoder Batch Size
-        type: integer
-      cross_encoder_threshold:
-        default: 0.0
-        description: Threshold for the cross-encoder model (will filter out results
-          with lower score)
-        title: Cross Encoder Threshold
-        type: number
-    title: ComputeSetting
     type: object
   MinioSettings:
     properties:
@@ -157,20 +85,6 @@ properties:
     type: string
   api_settings:
     $ref: '#/$defs/ApiSettings'
-  compute_settings:
-    $ref: '#/$defs/ComputeSetting'
-    default:
-      api_url: http://127.0.0.1:8001
-      auth_token: secret
-      corpora_update_period: 300.0
-      num_workers: 4
-      qdrant_url: '**********'
-      qdrant_collection_name: inh-search
-      bi_encoder_name: sentence-transformers/all-MiniLM-L6-v2
-      bi_encoder_batch_size: 32
-      cross_encoder_name: cross-encoder/ms-marco-MiniLM-L-6-v2
-      cross_encoder_batch_size: 32
-      cross_encoder_threshold: 0.0
   accounts:
     $ref: '#/$defs/Accounts'
     default:

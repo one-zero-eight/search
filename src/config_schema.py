@@ -35,41 +35,11 @@ class ApiSettings(CustomModel):
     "Allowed origins for CORS: from which domains requests to the API are allowed. Specify as a regex: `https://.*\\.innohassle\\.ru`"
     db_url: SecretStr = Field(..., examples=["mongodb://username:password@localhost:27017/db?authSource=admin"])
     "URL of the MongoDB database"
-    compute_service_token: str = "secret"
-    "Access token for the compute service which is used for authentication"
-    compute_service_url: str = "http://127.0.0.1:8024"
-    "URL of the Compute service"
-
-
-class ComputeSetting(CustomModel):
-    api_url: str = "http://127.0.0.1:8001"
-    "URL of the Search API"
-    auth_token: str = "secret"
-    "Access token for the compute service which is used for authentication"
-    corpora_update_period: float = 300
-    "Period in seconds to fetch corpora from the API"
-    num_workers: int = 4
-    "Number of workers to process tasks"
-    qdrant_url: SecretStr = SecretStr("http://127.0.0.1:6333")
-    "URL of the Qdrant service"
-    qdrant_collection_name: str = "inh-search"
-    "Name of the collection in the Qdrant service"
-    bi_encoder_name: str = "sentence-transformers/all-MiniLM-L6-v2"
-    "Name of the bi-encoder model"
-    bi_encoder_batch_size: int = 32
-    "Batch size for the bi-encoder model"
-    cross_encoder_name: str = "cross-encoder/ms-marco-MiniLM-L-6-v2"
-    "Name of the cross-encoder model"
-    cross_encoder_batch_size: int = 32
-    "Batch size for the cross-encoder model"
-    cross_encoder_threshold: float = 0.0
-    "Threshold for the cross-encoder model (will filter out results with lower score)"
 
 
 class Settings(CustomModel):
     schema_: str = Field(None, alias="$schema")
     api_settings: ApiSettings
-    compute_settings: ComputeSetting = ComputeSetting()
     accounts: Accounts = Accounts()
     minio: MinioSettings
 
