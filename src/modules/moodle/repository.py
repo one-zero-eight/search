@@ -1,3 +1,5 @@
+import re
+from collections import defaultdict
 from re import RegexFlag
 
 from starlette.requests import Request
@@ -5,9 +7,7 @@ from starlette.requests import Request
 from src.modules.moodle.schemas import InContent
 from src.modules.search.repository import moodle_entry_contents_to_sources
 from src.modules.search.schemas import Sources
-from src.storages.mongo.moodle import MoodleEntry, MoodleCourse
-import re
-from collections import defaultdict
+from src.storages.mongo.moodle import MoodleCourse, MoodleEntry
 
 
 # noinspection PyMethodMayBeStatic

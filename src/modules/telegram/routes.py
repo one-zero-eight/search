@@ -1,8 +1,8 @@
 from fastapi import APIRouter, status
 
 from src.api.dependencies import VerifiedDep
-from src.storages.mongo import Message
 from src.modules.telegram.schemas import DBMessageSchema, MessageSchema
+from src.storages.mongo import Message
 
 router = APIRouter(prefix="/telegram", tags=["Telegram"])
 

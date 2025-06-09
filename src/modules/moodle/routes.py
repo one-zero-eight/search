@@ -10,10 +10,10 @@ from src.api.logging_ import logger
 from src.modules.minio.repository import minio_repository
 from src.modules.minio.schemas import MoodleFileObject
 from src.modules.moodle.repository import moodle_repository
-from src.modules.moodle.schemas import InCourses, InSections, InContents, FlattenInContentsWithPresignedUrl, InContent
+from src.modules.moodle.schemas import FlattenInContentsWithPresignedUrl, InContent, InContents, InCourses, InSections
 from src.modules.search.schemas import Sources
 from src.storages.mongo import MoodleCourse, MoodleEntry
-from src.storages.mongo.moodle import MoodleEntrySchema, MoodleContentSchema
+from src.storages.mongo.moodle import MoodleContentSchema, MoodleEntrySchema
 
 router = APIRouter(prefix="/moodle", tags=["Moodle"])
 

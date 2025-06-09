@@ -1,5 +1,5 @@
 import re
-from typing import Literal, Annotated, TypeAlias
+from typing import Annotated, Literal
 
 from beanie import PydanticObjectId
 from pydantic import Discriminator, model_validator
@@ -85,7 +85,7 @@ class TelegramSource(CustomModel):
         return data
 
 
-Sources: TypeAlias = Annotated[
+Sources: type = Annotated[
     MoodleFileSource | MoodleUrlSource | MoodleUnknownSource | TelegramSource, Discriminator("type")
 ]
 

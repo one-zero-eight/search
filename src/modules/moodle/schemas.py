@@ -1,7 +1,7 @@
 from pydantic import Field
 
 from src.custom_pydantic import CustomModel
-from src.storages.mongo.moodle import MoodleCourseSchema, MoodleContentSchema
+from src.storages.mongo.moodle import MoodleContentSchema, MoodleCourseSchema
 
 
 class InCourse(MoodleCourseSchema):

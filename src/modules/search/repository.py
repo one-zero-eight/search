@@ -4,12 +4,12 @@ from fastapi import Request
 
 from src.api.logging_ import logger
 from src.modules.search.schemas import (
-    SearchResponse,
-    MoodleFileSource,
-    SearchResponses,
     MoodleEntryWithScore,
-    MoodleUrlSource,
+    MoodleFileSource,
     MoodleUnknownSource,
+    MoodleUrlSource,
+    SearchResponse,
+    SearchResponses,
     Sources,
 )
 from src.storages.mongo import MoodleEntry

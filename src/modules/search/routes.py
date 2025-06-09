@@ -2,12 +2,12 @@ import asyncio
 import time
 from typing import Literal
 
-from fastapi import APIRouter, Request, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 
 from src.api.logging_ import logger
 from src.modules.search.repository import search_repository
 from src.modules.search.schemas import SearchResponses
-from src.storages.mongo.statistics import WrappedResponseSchema, SearchStatistics
+from src.storages.mongo.statistics import SearchStatistics, WrappedResponseSchema
 
 router = APIRouter(prefix="/search", tags=["Search"])
 
@@ -19,7 +19,7 @@ async def search_by_query(query: str, request: Request, limit: int = 10) -> Sear
         responses = await asyncio.wait_for(
             search_repository.search_moodle(query, request=request, limit=limit), timeout=15
         )
-    except asyncio.TimeoutError:
+    except TimeoutError:
         logger.warning("Timeout while searching for query")
         raise HTTPException(status_code=408, detail="Search timed out")
 
