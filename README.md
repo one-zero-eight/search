@@ -21,7 +21,7 @@ This is the API for search service in InNoHassle ecosystem.
 
 ### Technologies
 
-- [Python 3.12](https://www.python.org/downloads/) & [Poetry](https://python-poetry.org/docs/)
+- [Python 3.11](https://www.python.org/downloads/) & [Poetry](https://python-poetry.org/docs/)
 - [FastAPI](https://fastapi.tiangolo.com/) & [Pydantic](https://docs.pydantic.dev/latest/)
 - Database and ORM: [MongoDB](https://www.mongodb.com/), [Beanie](https://beanie-odm.dev/)
 - Formatting and linting: [Ruff](https://docs.astral.sh/ruff/), [pre-commit](https://pre-commit.com/)
@@ -32,7 +32,7 @@ This is the API for search service in InNoHassle ecosystem.
 
 ### Getting started
 
-1. Install [Python 3.12](https://www.python.org/downloads/)
+1. Install [Python 3.11](https://www.python.org/downloads/)
 2. Install [Poetry](https://python-poetry.org/docs/)
 3. Install project dependencies with [Poetry](https://python-poetry.org/docs/cli/#options-2).
    ```bash
@@ -48,9 +48,7 @@ This is the API for search service in InNoHassle ecosystem.
    cp settings.example.yaml settings.yaml
    ```
    Edit `settings.yaml` according to your needs.
-6. Set up a [MongoDB](https://www.mongodb.com/) database instance.
-   <details>
-    <summary>Using docker container</summary>
+6. Set up a [MongoDB](https://www.mongodb.com/) and [Minio](https://min.io/) instances.
 
     - Set up database settings for [docker-compose](https://docs.docker.com/compose/) container
       in `.env` file:х
@@ -59,11 +57,10 @@ This is the API for search service in InNoHassle ecosystem.
       ```
     - Run the database instance:
       ```bash
-      docker compose up -d db
+      docker compose up -d db minio
       ```
 
     - Make sure to set up the actual database connection in `settings.yaml`.
-   </details>
 
 **Set up PyCharm integrations**
 
@@ -81,9 +78,9 @@ This is the API for search service in InNoHassle ecosystem.
 
 1. Install dependencies for api if needed:
    ```bash
-   poetry install --with api
+   poetry install
    ```
-2. Run the database if you have not done it yet
+2. Run the databases if you have not done it yet
 
 3. Run the ASGI server
    ```bash
