@@ -13,7 +13,7 @@ contents [by default](https://github.blog/changelog/2021-04-13-table-of-contents
 
 ## About
 
-This is the API for search service in InNoHassle ecosystem.
+This is an API for the search service in the InNoHassle ecosystem. The search should be carried out on services relevant to Innopolis University students ([moodle](https://moodle.innopolis.university/), [EduWiki](https://eduwiki.innopolis.university/index.php/AcademicCalendar), [Campus Life](http://campuslife.innopolis.ru/), etc.). The search expects to use AI to accept free-form queries from users in addition to just service keywords.
 
 ### Features
 
