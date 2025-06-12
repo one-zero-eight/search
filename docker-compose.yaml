@@ -7,7 +7,9 @@
 services:
   api:
     build: . # See Dockerfile for more details
-    depends_on: [ db ]
+    depends_on:
+      db:
+        condition: service_healthy
     restart: always
     ports:
       - "8004:8000"
@@ -26,6 +28,13 @@ services:
     ports:
       - "27017:27017"
     env_file: .env # Set username and password in .env file
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/db --quiet
+      start_period: 10s
+      start_interval: 1s
+      interval: 1m
+      timeout: 5s
+      retries: 3
 
   minio:
     # See more: https://registry.hub.docker.com/minio/minio

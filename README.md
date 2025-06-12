@@ -15,10 +15,6 @@ contents [by default](https://github.blog/changelog/2021-04-13-table-of-contents
 
 This is an API for the search service in the InNoHassle ecosystem. The search should be carried out on services relevant to Innopolis University students ([moodle](https://moodle.innopolis.university/), [EduWiki](https://eduwiki.innopolis.university/index.php/AcademicCalendar), [Campus Life](http://campuslife.innopolis.ru/), etc.). The search expects to use AI to accept free-form queries from users in addition to just service keywords.
 
-### Features
-
-- WIP
-
 ### Technologies
 
 - [Python 3.11](https://www.python.org/downloads/) & [Poetry](https://python-poetry.org/docs/)
@@ -28,9 +24,30 @@ This is an API for the search service in the InNoHassle ecosystem. The search sh
 - Deployment: [Docker](https://www.docker.com/), [Docker Compose](https://docs.docker.com/compose/),
   [GitHub Actions](https://github.com/features/actions)
 
+## Run with Docker
+
+1. Set up project settings file (check [settings.schema.yaml](../InNoHassle-Search/settings.schema.yaml) for more info).
+   ```bash
+   cp settings.example.yaml settings.yaml
+   ```
+   Edit `settings.yaml` according to your needs.
+2. Set up database settings for [docker-compose](https://docs.docker.com/compose/) container
+      in `.env` file:х
+      ```bash
+      cp .env.example .env
+      ```
+
+1. Start all services:
+   ```bash
+   docker compose up
+   ```
+
+Now you can find API docs on http://localhost:8004/docs. Good job!
+
+
 ## Development
 
-### Getting started
+### Run locally [API]
 
 1. Install [Python 3.11](https://www.python.org/downloads/)
 2. Install [Poetry](https://python-poetry.org/docs/)
@@ -43,11 +60,14 @@ This is an API for the search service in the InNoHassle ecosystem. The search sh
    ```bash
    poetry run pre-commit install --install-hooks -t pre-commit -t commit-msg
    ```
-5. Set up project settings file (check [settings.schema.yaml](../InNoHassle-Search/settings.schema.yaml) for more info).
+5. Check that your `settings.yaml` looks like:
    ```bash
-   cp settings.example.yaml settings.yaml
-   ```
-   Edit `settings.yaml` according to your needs.
+   $schema: "./settings.schema.yaml"
+   api_settings:
+      db_url: "mongodb://mongoadmin:secret@localhost:27017/db?authSource=admin"
+   minio:
+      access_key: "minioadmin"
+      secret_key: "password"
 6. Set up a [MongoDB](https://www.mongodb.com/) and [Minio](https://min.io/) instances.
 
     - Set up database settings for [docker-compose](https://docs.docker.com/compose/) container
@@ -59,8 +79,12 @@ This is an API for the search service in the InNoHassle ecosystem. The search sh
       ```bash
       docker compose up -d db minio
       ```
-
     - Make sure to set up the actual database connection in `settings.yaml`.
+7. Run the ASGI server
+   ```bash
+   poetry run python -m src.api
+   ```
+Check API docs on http://127.0.0.1:8001/docs
 
 **Set up PyCharm integrations**
 
@@ -74,24 +98,6 @@ This is an API for the search service in the InNoHassle ecosystem. The search sh
    It will help you
    to write [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
-### Run for development [API]
-
-1. Install dependencies for api if needed:
-   ```bash
-   poetry install
-   ```
-2. Run the databases if you have not done it yet
-
-3. Run the ASGI server
-   ```bash
-   poetry run python -m src.api
-   ```
-   OR using uvicorn directly
-   ```bash
-   poetry run uvicorn src.api.app:app --use-colors --proxy-headers --forwarded-allow-ips=* --port=8001
-   ```
-
-Now the API is running on http://localhost:8001. Good job!
 
 ### Authentication
 
