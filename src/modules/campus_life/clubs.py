@@ -2,8 +2,11 @@ import re
 from urllib.parse import urlparse
 
 import markdownify
-from base import BASE_URL, fetch_html, parse_tilda_table, save_markdown
 from bs4 import BeautifulSoup
+
+from src.storages.mongo.campus_life import CampusLifeEntrySchema
+
+from .base import BASE_URL, fetch_html, parse_tilda_table
 
 PATH = "/clubs"
 _CLUB_PATH_RE = re.compile(r"^/[a-z0-9_]+_clubs/?$", re.I)  # pattern: "/something_clubs"
@@ -98,11 +101,15 @@ def extract_catalogue_links(html: str) -> list[str]:
     return sorted(links)
 
 
-def parse():
+def parse() -> dict[str, CampusLifeEntrySchema]:
+    result: dict[str, CampusLifeEntrySchema] = {}
+
     # 1. Main catalogue page
     html = fetch_html(PATH)
-    save_markdown(html_to_markdown(html), "clubs.md")
-    print("✅ clubs.md saved.")
+    main_md = html_to_markdown(html)
+    result["clubs.md"] = CampusLifeEntrySchema(
+        source_url=BASE_URL + PATH, source_page_title="Student Clubs Catalogue", content=main_md
+    )
 
     # 2. Process all sub-pages for individual clubs
     for sub_path in extract_catalogue_links(html):
@@ -110,7 +117,12 @@ def parse():
             sub_html = fetch_html(sub_path)
             md = html_to_markdown(sub_html)
             filename = sub_path.lstrip("/").replace("/", "_") + ".md"
-            save_markdown(md, filename)
-            print(f"   └─ ✅ {filename} saved.")
+            title = filename.removesuffix(".md").replace("_", " ").title()
+
+            result[filename] = CampusLifeEntrySchema(
+                source_url=BASE_URL + sub_path, source_page_title=title, content=md
+            )
         except Exception as e:
             print(f"   └─ ❌ Error parsing {sub_path}: {e}")
+
+    return result

@@ -24,6 +24,7 @@ pyyaml = "^6.0.1"
 ruff = "^0.6.7"
 types-pyyaml = "^6.0.12.20240311"
 uvicorn = "^0.30.6"
+markdownify = "^1.1.0"
 
 [tool.ruff]
 line-length = 120

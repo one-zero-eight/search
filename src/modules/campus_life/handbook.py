@@ -1,8 +1,11 @@
 import re
 
 import markdownify
-from base import fetch_html, parse_tilda_table, save_markdown
 from bs4 import BeautifulSoup
+
+from src.storages.mongo.campus_life import CampusLifeEntrySchema
+
+from .base import BASE_URL, fetch_html, parse_tilda_table
 
 PATH = "/handbook2023"
 
@@ -112,8 +115,8 @@ def html_to_markdown(html):
     return md_content.strip()
 
 
-def parse():
+def parse() -> CampusLifeEntrySchema:
     html = fetch_html(PATH)
     markdown = html_to_markdown(html)
-    save_markdown(markdown, filename="handbook2023.md")
-    print("✅ handbook2023.md saved.")
+
+    return CampusLifeEntrySchema(source_url=BASE_URL + PATH, source_page_title="HANDBOOK2023", content=markdown)
