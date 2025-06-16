@@ -2077,10 +2077,10 @@ If you cannot log in, please contact the IT-department @iuithelp
 
 ## How to create a page?
 
-From the search box 
+From the search box
 If you search for a page that doesn't exist, then you will be provided with a link to create the new page.
 
-Using the URL 
+Using the URL
 You can use the wiki's URL for creating a new page.
 
 The URL to an article of the wiki is usually something like this:
@@ -2330,7 +2330,7 @@ For examle, the following code
            yshift=-83,every node/.append style={
            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
            ]
-       \draw[step=4mm, black] (0,0) grid (5,5); 
+       \draw[step=4mm, black] (0,0) grid (5,5);
        \draw[black,thick] (0,0) rectangle (5,5);%borders
        \fill[green] (2.05,2.05) rectangle (2.35,2.35); % center pixel
        \fill[green] (1.65,2.05) rectangle (1.95,2.35); %left
