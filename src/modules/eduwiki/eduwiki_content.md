@@ -1,5 +1,17 @@
-# parsed from: https://eduwiki.innopolis.university/index.php/InnopolisUniversityManifestoonMedium
+<article source_url="https://eduwiki.innopolis.university/index.php/InnopolisUniversityManifestoonMedium" source_page_name="InnopolisUniversityManifestoonMedium">
+
 # InnopolisUniversityManifestoonMedium
+
+## Contents
+
+* [1 INNOPOLIS UNIVERSITY MANIFESTO ON MEDIUM OF INSTRUCTION](https://eduwiki.innopolis.university/index.php/InnopolisUniversityManifestoonMedium#INNOPOLIS_UNIVERSITY_MANIFESTO_ON_MEDIUM_OF_INSTRUCTION)
+  + [1.1 Rationale](https://eduwiki.innopolis.university/index.php/InnopolisUniversityManifestoonMedium#Rationale)
+  + [1.2 English as a communicationmeans](https://eduwiki.innopolis.university/index.php/InnopolisUniversityManifestoonMedium#English_as_a_communicationmeans)
+  + [1.3 English as language of employment](https://eduwiki.innopolis.university/index.php/InnopolisUniversityManifestoonMedium#English_as_language_of_employment)
+  + [1.4 English as language of science](https://eduwiki.innopolis.university/index.php/InnopolisUniversityManifestoonMedium#English_as_language_of_science)
+  + [1.5 Commitment to improve language skills](https://eduwiki.innopolis.university/index.php/InnopolisUniversityManifestoonMedium#Commitment_to_improve_language_skills)
+  + [1.6 Exceptions](https://eduwiki.innopolis.university/index.php/InnopolisUniversityManifestoonMedium#Exceptions)
+  + [1.7 Summary](https://eduwiki.innopolis.university/index.php/InnopolisUniversityManifestoonMedium#Summary)
 
 # INNOPOLIS UNIVERSITY MANIFESTO ON MEDIUM OF INSTRUCTION
 
@@ -13,7 +25,17 @@ This commitment is reflected on using English as the language of instruction of 
 University. All classes, teaching, labs, assignments, exercises and practical material are
 provided in English. English is expected to be used in the following situations:
 
-Frontal Classes, including questionsFrontal Labs, including questionsClass and labs materialTechnical and non-technical assignmentsTheses and projectsWritten and Oral ExamsGroup Office HoursPublic Chats related to University lifeEmails to students or colleaguesStudent’s GroupsAny other document related to education
+* Frontal Classes, including questions
+* Frontal Labs, including questions
+* Class and labs material
+* Technical and non-technical assignments
+* Theses and projects
+* Written and Oral Exams
+* Group Office Hours
+* Public Chats related to University life
+* Emails to students or colleagues
+* Student’s Groups
+* Any other document related to education
 
 Being English the officialMedium of Instruction of Innopolis University does not prevent
 the use of other languages, and, in particular, Russian, in other situations where two or
@@ -29,7 +51,9 @@ notable skill, no matter what set of languages is in a student’s portfolio, ho
 is an important addition for every graduate. The importance of English language can be
 summarized in three major points:
 
-English as a communication meansEnglish as language of employmentEnglish as language of science
+* English as a communication means
+* English as language of employment
+* English as language of science
 
 ## English as a communicationmeans
 
@@ -68,7 +92,11 @@ specific language levels based on the specific program of enrollment. Over the p
 the English level is expected to grow. The University implements several ways to support
 students in their path, some of them being:
 
-English CoursesCommunication CoursesTechnical Essays in EnglishLab internshipsInternational projects
+* English Courses
+* Communication Courses
+* Technical Essays in English
+* Lab internships
+* International projects
 
 ## Exceptions
 
@@ -88,12 +116,42 @@ as aMediumof Instruction to better prepare future graduate to a dynamic job envi
 whenever there is certainty that no involved participants could be excluded by the conversation for lack of fluency in the used language. This chapter of the teaching regulations collects the suggested practices for staff, teacher and student to keep alive the international
 community and be competitive at the national and international level.
 
-# parsed from: https://eduwiki.innopolis.university/index.php/About_lecturing_a_course
+<article/>
+
+<article source_url="https://eduwiki.innopolis.university/index.php/About_lecturing_a_course" source_page_name="About_lecturing_a_course">
+
 # About lecturing a course
+
+## Contents
+
+* [1 ABOUT LECTURING A COURSE](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course#ABOUT_LECTURING_A_COURSE)
+  + [1.1 Course Structure and Syllabus](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course#Course_Structure_and_Syllabus)
+  + [1.2 Evaluation of students performance](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course#Evaluation_of_students_performance)
+    - [1.2.1 Ongoing academic progress assessment (OPA)](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course#Ongoing_academic_progress_assessment_.28OPA.29)
+    - [1.2.2 Studentsmid-semester evaluation](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course#Studentsmid-semester_evaluation)
+    - [1.2.3 Final evaluation](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course#Final_evaluation)
+    - [1.2.4 Rules on final examinations](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course#Rules_on_final_examinations)
+    - [1.2.5 Marks and grading policy](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course#Marks_and_grading_policy)
+  + [1.3 Retakes and missed assignments](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course#Retakes_and_missed_assignments)
+  + [1.4 Ongoing and interim assessment for students with disabilities](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course#Ongoing_and_interim_assessment_for_students_with_disabilities)
+    - [1.4.1 Storage of documents](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course#Storage_of_documents)
+    - [1.4.2 Transfer Students for BS](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course#Transfer_Students_for_BS)
+  + [1.5 Transfer Students for MS](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course#Transfer_Students_for_MS)
+  + [1.6 Meeting with the Student-Representatives](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course#Meeting_with_the_Student-Representatives)
+  + [1.7 Management of the Thesis](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course#Management_of_the_Thesis)
+  + [1.8 Participation in lab activities](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course#Participation_in_lab_activities)
+  + [1.9 Academic misconduct policy](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course#Academic_misconduct_policy)
+    - [1.9.1 Definitions](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course#Definitions)
+    - [1.9.2 Statement](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course#Statement)
+    - [1.9.3 Procedure](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course#Procedure)
+      * [1.9.3.1 Procedure from instructor’s point of view](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course#Procedure_from_instructor.E2.80.99s_point_of_view)
+      * [1.9.3.2 Procedure from student’s point of view](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course#Procedure_from_student.E2.80.99s_point_of_view)
+      * [1.9.3.3 Procedure from an administration point of view](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course#Procedure_from_an_administration_point_of_view)
+    - [1.9.4 Penalty](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course#Penalty)
 
 # ABOUT LECTURING A COURSE
 
-The old version of the regulations to consider is https://docs.google.com/document/d/1Pk0J5C1LIkXHz-aPMCXZPr1SSD0YsLULJ8IslahdyOU/edit.
+The old version of the regulations to consider is <https://docs.google.com/document/d/1Pk0J5C1LIkXHz-aPMCXZPr1SSD0YsLULJ8IslahdyOU/edit>.
 
 ## Course Structure and Syllabus
 
@@ -125,7 +183,16 @@ practice, or by the tutor of the research work.
 
 2. The forms of the OPA include:
 
-individual realization of software code,individual assignments,practical and laboratory work,projects,examinations,colloquiums,tests (hand-written or computer-based),reports, essays, surveys,oral polls,discussions, training, workshops.
+* individual realization of software code,
+* individual assignments,
+* practical and laboratory work,
+* projects,
+* examinations,
+* colloquiums,
+* tests (hand-written or computer-based),
+* reports, essays, surveys,
+* oral polls,
+* discussions, training, workshops.
 
 3. Other forms of OPA might be established in accordance with the curriculum and
 schedule.
@@ -176,15 +243,18 @@ by relevant regulations.
 
 3. The forms of interim assessment are:
 
-a test (including a pass/fail test),an examination.
+* a test (including a pass/fail test),
+* an examination.
 
 Both of these can be carried out in the following forms:
 
-verbally and in a written form,in the form of testing, including the use of computers, software and hardware, as
+* verbally and in a written form,
+* in the form of testing, including the use of computers, software and hardware, as
 
 well as
 
-in the form of an essay orproject defense.
+* in the form of an essay or
+* project defense.
 
 The form of the interim assessment is determined by the Instructor. Students must
 be informed about the IA form.
@@ -194,11 +264,11 @@ results of the OPA.
 
 5. Recording the IA results can be conducted in the following 2 ways:
 
-The Instructor enters IA results into the LMSMoodle after which the results are
+* The Instructor enters IA results into the LMSMoodle after which the results are
 
 transferred into the intermediate attestation report.
 
-The Instructor fills out the intermediate attestation report (Appendix 1 of the
+* The Instructor fills out the intermediate attestation report (Appendix 1 of the
 
 cited document) and submits it to the DoE. The DoE employees then transfer the grades into LMSMoodle.
 
@@ -246,7 +316,7 @@ provided no later than three working days after being issued.
 
 9. The following procedure is applied for the extension of the examination session:
 
-A student provides the DoE with:
+* A student provides the DoE with:
 
 1) A statement in the name of Vice-Rector
 for Education to extend the examination period;
@@ -254,11 +324,11 @@ for Education to extend the examination period;
 reason for the extension of the examination period (a medical certificate or other
 documents).
 
-The Vice-Rector for Education examines the submitted documents and visas
+* The Vice-Rector for Education examines the submitted documents and visas
 
 student’s statement.
 
-Based on this, the Department of Education of the University drafts submission
+* Based on this, the Department of Education of the University drafts submission
 
 for the Director on the extension of the examination period, indicating a concrete number of extension days.
 
@@ -269,15 +339,21 @@ the justification document in time.
 
 IU five-point grading system:
 
-“Excellent” - A - A student gets A (“Excellent”) mark when he/she shows his/her full knowledge of the subject of a study program.“Good" - B - The learner has the knowledge of the subject in the almost full volume of the curriculum; independently, in a logical sequence, and in a comprehensive manner, answers all the questions, emphasizing the most essential, is able to analyze, compare, classify, generalize, and systematize the studied material, highlight the main concepts, establish causal relations; clearly formulates answers, freely interprets analytical results and solves situational problems of increased complexity; is well-acquainted with basic literature and research methods; can correlate the theoretical aspects of the activities of a subject with practical problems.“Satisfactory" - C - The learner has only basic knowledge of the discipline; has difficulties when answering questions, operates with inaccurate wording, misses essential parts of questions. The student is able to solve only the easiest
+* “Excellent” - A - A student gets A (“Excellent”) mark when he/she shows his/her full knowledge of the subject of a study program.
+
+* “Good" - B - The learner has the knowledge of the subject in the almost full volume of the curriculum; independently, in a logical sequence, and in a comprehensive manner, answers all the questions, emphasizing the most essential, is able to analyze, compare, classify, generalize, and systematize the studied material, highlight the main concepts, establish causal relations; clearly formulates answers, freely interprets analytical results and solves situational problems of increased complexity; is well-acquainted with basic literature and research methods; can correlate the theoretical aspects of the activities of a subject with practical problems.
+
+* “Satisfactory" - C - The learner has only basic knowledge of the discipline; has difficulties when answering questions, operates with inaccurate wording, misses essential parts of questions. The student is able to solve only the easiest
 
 tasks.
 
-“Unsatisfactory" - D - The student did not master the required minimum of subject knowledge,
+* “Unsatisfactory" - D - The student did not master the required minimum of subject knowledge,
 
 is unable to answer questions even with additional probing questions from the instructor.
 
-“Passed" - P“Fail" - F - The student did not master the required minimum of subject knowledge, is unable to answer questions even with additional probing questions from the instructor.
+* “Passed" - P
+
+* “Fail" - F - The student did not master the required minimum of subject knowledge, is unable to answer questions even with additional probing questions from the instructor.
 
 1. The grades A, B, C, and P are considered positive and are not subject to retake in order to improve the grade. The grades D and F are considered negative (unsatisfactory).
 
@@ -432,7 +508,8 @@ Specifically, the following provisions apply to Innopolis University:
 
 1. For the Fall semester,
 
-(a) all the policies applied to courses are applied to the thesis;(b) in the final evaluation in the Fall semester an assessment at the C level should
+* (a) all the policies applied to courses are applied to the thesis;
+* (b) in the final evaluation in the Fall semester an assessment at the C level should
 
 be assimilated to a Fail, since there is an expectation that theses should not be
 mediocre.
@@ -458,7 +535,8 @@ the thesis defense.
 the library system of the University within 5 (five) days after the defense, except for the
 works:
 
-containing the information being a state secret;containing information that has current or potential commercial value (production,
+* containing the information being a state secret;
+* containing information that has current or potential commercial value (production,
 
 technical, economic, organizational) for the rightsholder due to it being unknown to
 third parties, and other data (including the results of intellectual activity in the scientific
@@ -483,12 +561,16 @@ clarify the mutual expectations and duties.
 5. For the student, such participation must not interfere in any way with the course of
 study and cannot be a reason for:
 
-earning credits toward a degreemissing classesskipping or delaying exams or any other formof evaluationasking the university to provide extra space for desks, resources for computing,
+* earning credits toward a degree
+* missing classes
+* skipping or delaying exams or any other formof evaluation
+* asking the university to provide extra space for desks, resources for computing,
 
 funding to attend conferences, etc
 For the accepting professor, such participation cannot be a reason for:
 
-a reduced teaching loadextra resources or benefits of any kind (lab space, computational facilities, funds
+* a reduced teaching load
+* extra resources or benefits of any kind (lab space, computational facilities, funds
 
 for conferences, . . . )
 
@@ -502,18 +584,23 @@ Academic misconduct -— any action or attempted action that may result in creat
 unfair academic advantage for oneself or an unfair academic advantage or disadvantage for
 any other member or members of the academic community. Include but not limited by:
 
-cheating (including plagiarism),fabrication or alteration of information and documents (lies in general),theft,sabotage (lesson disruption, bomb calls, fire alarms).
+1. cheating (including plagiarism),
+2. fabrication or alteration of information and documents (lies in general),
+3. theft,
+4. sabotage (lesson disruption, bomb calls, fire alarms).
 
 Students shall be considered to be cheating if involved in any of the following: using
 unauthorized cheat sheets, opening books during closed-book tests, talking during tests,
 plagiarising (as defined by instructor), or in any other case of cheating detected.
 Plagiarism can take several forms, including but not limited to:
 
-Using the exact words of another student.Copying and pasting materials from the Internet or other electronic resources without
+1. Using the exact words of another student.
+2. Copying and pasting materials from the Internet or other electronic resources without
 
 proper citation, quotation or referencing.
 
-Accepting excessive assistance from another person in writing.Writing a computer program that is the same or closely similar to public sources or
+1. Accepting excessive assistance from another person in writing.
+2. Writing a computer program that is the same or closely similar to public sources or
 
 solutions of other students.
 
@@ -522,7 +609,8 @@ The percentage is determined by the regulation document for the exact work (e.g.
 project, BS/MS thesis, or coding assignment). Similarity can include quotations, in-text
 citations, names, titles, terms, and code. Similarity can be measured:
 
-among students’ works,as well as with other datasets.
+1. among students’ works,
+2. as well as with other datasets.
 
 Similarity checks shall only be applied to long text works in natural or programming language
 to prove the fact of copying. For example, similarity reports are a necessary part of thesis
@@ -541,7 +629,10 @@ All academic misconduct cases shall be reported to the IU Department of Educatio
 and Student Affairs Office (SAO) using the official email address (education@innopolis.ru,
 319@innopolis.ru). Specify the following:
 
-Student(s) name(s) involved and their roles;Date and time the case was detected;Course affected by the situation;Short description of the situation. Please refer to this policy or other policy documents
+1. Student(s) name(s) involved and their roles;
+2. Date and time the case was detected;
+3. Course affected by the situation;
+4. Short description of the situation. Please refer to this policy or other policy documents
 
 which you use to identify the misconduct.
 
@@ -563,27 +654,46 @@ Should an instructor (teaching assistant or professor) have reason to believe th
 works are copied from unauthorized resources, and action on a test is taken in violation, or work of one student is copied from another (as defined in plagiarism clarification), the
 the procedure below shall be followed.
 
-The instructor shall report the case to DoE and SAO (education@innopolis.ru and 319@innopolis.ru).The instructor shall inform the suspected students about the above finding separately, and discuss this incident. They shall be penalized as per the recommendations below and a report will be submitted to DoE outlining these decisions. In case of copying from each other—both students shall be penalized. The actions of the instructor are considered final.In the event of an appeal to the DoE, the student must present a clear written rationale for why the decision was in error. If the DoE agrees that the student appeal has merit then an appeal committee is formed of one student representative, the course PI, and an unrelated professor selected by the DoE. Otherwise, the decision of the course PI is considered final and the report is entered.The student shall contact the committee and provide the said committee with the following materials: a cheating policy for this course/test/exam, students’ papers/code, any other findings, including the student’s arguments.The committee shall study the above materials.The committee can contact the students to listen to their arguments or ask questions. However, this shall be upon the committee’s discretion.The committee shall make an appeal decision to either accept or reject. This decision shall be final.Any fabrications of data or false statements made to the DoE or the Committee during the appeals process will be seen as a separate instance of misconduct and the DoE or the Committee may impose additional outcomes if necessary when the actions have impeded investigation.
+1. The instructor shall report the case to DoE and SAO (education@innopolis.ru and 319@innopolis.ru).
+2. The instructor shall inform the suspected students about the above finding separately, and discuss this incident. They shall be penalized as per the recommendations below and a report will be submitted to DoE outlining these decisions. In case of copying from each other—both students shall be penalized. The actions of the instructor are considered final.
+3. In the event of an appeal to the DoE, the student must present a clear written rationale for why the decision was in error. If the DoE agrees that the student appeal has merit then an appeal committee is formed of one student representative, the course PI, and an unrelated professor selected by the DoE. Otherwise, the decision of the course PI is considered final and the report is entered.
+
+* The student shall contact the committee and provide the said committee with the following materials: a cheating policy for this course/test/exam, students’ papers/code, any other findings, including the student’s arguments.
+* The committee shall study the above materials.
+* The committee can contact the students to listen to their arguments or ask questions. However, this shall be upon the committee’s discretion.
+* The committee shall make an appeal decision to either accept or reject. This decision shall be final.
+* Any fabrications of data or false statements made to the DoE or the Committee during the appeals process will be seen as a separate instance of misconduct and the DoE or the Committee may impose additional outcomes if necessary when the actions have impeded investigation.
 
 #### Procedure from instructor’s point of view
 
-Instructor reports the violation case to DoE and SAO.Instructor notifies students involved (can be BCC in report email).In case of student’s appeal, instructor may be invited to participate in committee.
+1. Instructor reports the violation case to DoE and SAO.
+2. Instructor notifies students involved (can be BCC in report email).
+3. In case of student’s appeal, instructor may be invited to participate in committee.
 
 #### Procedure from student’s point of view
 
-The student gets a notification about academic misconduct.The student may appeal. He/she collects the documents (3.a) and submits to DoE and
+1. The student gets a notification about academic misconduct.
+2. The student may appeal. He/she collects the documents (3.a) and submits to DoE and
 
 SAO.
 
 #### Procedure from an administration point of view
 
-DoE and SAO get the report about student misconduct.SAO tracks the record and asks DoE to act in case violation is not the first (see penalty section).In case of student’s appeal, DoE with the help of programmanagers collects a committee.
+1. DoE and SAO get the report about student misconduct.
+2. SAO tracks the record and asks DoE to act in case violation is not the first (see penalty section).
+3. In case of student’s appeal, DoE with the help of programmanagers collects a committee.
 
 ### Penalty
 
 Note that the following are the minimal actions.
 
-Should a student be found to have committed misconduct for the first time, such a student shall receive zero points for the particular work (assignment/exam/test/homework)Should a student be found to have committed misconduct for the second time, the following actions shall be taken:Such a student shall:receive zero points for the course (or courses if 2 cheating instances are detected in different courses);be sent to retake.An official warning shall be issued for the said student.Should a student be found to have committed misconduct for the third time (without respect to the course), such a student shall be expelled from Innopolis University.
+1. Should a student be found to have committed misconduct for the first time, such a student shall receive zero points for the particular work (assignment/exam/test/homework)
+2. Should a student be found to have committed misconduct for the second time, the following actions shall be taken:
+   1. Such a student shall:
+      1. receive zero points for the course (or courses if 2 cheating instances are detected in different courses);
+      2. be sent to retake.
+   2. An official warning shall be issued for the said student.
+3. Should a student be found to have committed misconduct for the third time (without respect to the course), such a student shall be expelled from Innopolis University.
 
 In the event that the actions were of a grievous nature, e.g. a student using a work for hire
 an assignment, a bomb/shooting threat, etc., the DoE maintains the right to increase the
@@ -592,8 +702,70 @@ or DoE in order to maintain class order, have recompense of the action, or in or
 proper scholarly methodology, e.g. be required to make an apology to classmates affected, be
 required to write an essay or attend a course on how to cite properly, etc.
 
-# parsed from: https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees
+<article/>
+
+<article source_url="https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees" source_page_name="Structure_of_the_BS_Degrees">
+
 # Structure of the BS Degrees
+
+## Contents
+
+* [1 SUMMARY OF THE BS DEGREES](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#SUMMARY_OF_THE_BS_DEGREES)
+* [2 INTRODUCTION](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#INTRODUCTION)
+  + [2.1 Premises](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Premises)
+    - [2.1.1 Distribution of the core and elective courses in Software Engineering, Data Science, a Security-Blockchain streams:](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Distribution_of_the_core_and_elective_courses_in_Software_Engineering.2C_Data_Science.2C_a_Security-Blockchain_streams:)
+    - [2.1.2 Distribution of the core and elective courses in Robotics stream:](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Distribution_of_the_core_and_elective_courses_in_Robotics_stream:)
+    - [2.1.3 Distribution of the credits for internships and theses:](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Distribution_of_the_credits_for_internships_and_theses:)
+  + [2.2 Organization of the information about the BS Degree](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Organization_of_the_information_about_the_BS_Degree)
+* [3 STRUCTURE OF THE DEGREE](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#STRUCTURE_OF_THE_DEGREE)
+  + [3.1 Credits](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Credits)
+  + [3.2 Organization of the Courses of Instruction](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Organization_of_the_Courses_of_Instruction)
+  + [3.3 Internships](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Internships)
+  + [3.4 Knowledge of English](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Knowledge_of_English)
+  + [3.5 Multidisciplinary Exam](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Multidisciplinary_Exam)
+  + [3.6 Number of Admitted Students](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Number_of_Admitted_Students)
+* [4 MAIN EDUCATIONAL AIMS AND STRUCTURES](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#MAIN_EDUCATIONAL_AIMS_AND_STRUCTURES)
+  + [4.1 Overall Educational Goals](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Overall_Educational_Goals)
+  + [4.2 Organization of Studies](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Organization_of_Studies)
+  + [4.3 Main Areas and Knowledge Areas](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Main_Areas_and_Knowledge_Areas)
+  + [4.4 Structure of the First Two Years of Instruction](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Structure_of_the_First_Two_Years_of_Instruction)
+  + [4.5 Overview of the Second Two Years of Instruction](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Overview_of_the_Second_Two_Years_of_Instruction)
+* [5 SOFTWARE ENGINEERING STREAM](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#SOFTWARE_ENGINEERING_STREAM)
+  + [5.1 Specific Educational Goals of the Program](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Specific_Educational_Goals_of_the_Program)
+  + [5.2 Key Competences and Practices](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Key_Competences_and_Practices)
+  + [5.3 Structure of the Two Years of Specialization](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Structure_of_the_Two_Years_of_Specialization)
+    - [5.3.1 Third Year: SE Stream (Fall Semester):](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Third_Year:_SE_Stream_.28Fall_Semester.29:)
+    - [5.3.2 Third Year: SE Stream (Spring Semester):](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Third_Year:_SE_Stream_.28Spring_Semester.29:)
+    - [5.3.3 Fourth Year: SE Stream (Fall Semester):](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Fourth_Year:_SE_Stream_.28Fall_Semester.29:)
+    - [5.3.4 Fourth Year: SE Stream (Spring Semester):](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Fourth_Year:_SE_Stream_.28Spring_Semester.29:)
+    - [5.3.5 Mapping between knowledge areas and courses in the Software Engineering Stream](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Mapping_between_knowledge_areas_and_courses_in_the_Software_Engineering_Stream)
+* [6 DATA SCIENCE STREAM](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#DATA_SCIENCE_STREAM)
+  + [6.1 Specific Educational Goals of the Program](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Specific_Educational_Goals_of_the_Program_2)
+  + [6.2 Key Competences and Practices](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Key_Competences_and_Practices_2)
+  + [6.3 Structure of the Two Years of Specialization](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Structure_of_the_Two_Years_of_Specialization_2)
+    - [6.3.1 Third Year: DS Stream (Fall Semester):](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Third_Year:_DS_Stream_.28Fall_Semester.29:)
+    - [6.3.2 Third Year: DS Stream (Spring Semester):](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Third_Year:_DS_Stream_.28Spring_Semester.29:)
+    - [6.3.3 Fourth Year: DS Stream (Fall Semester):](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Fourth_Year:_DS_Stream_.28Fall_Semester.29:)
+    - [6.3.4 Fourth Year: DS Stream (Spring Semester):](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Fourth_Year:_DS_Stream_.28Spring_Semester.29:)
+    - [6.3.5 Mapping between knowledge areas and courses in the DS Stream:](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Mapping_between_knowledge_areas_and_courses_in_the_DS_Stream:)
+* [7 ROBOTICS STREAM](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#ROBOTICS_STREAM)
+  + [7.1 Specific Educational Goals of the Program](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Specific_Educational_Goals_of_the_Program_3)
+  + [7.2 Key Competences and Practices](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Key_Competences_and_Practices_3)
+  + [7.3 Structure of the Two Years of Specialization](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Structure_of_the_Two_Years_of_Specialization_3)
+    - [7.3.1 Third Year: Robotics Stream (Fall Semester):](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Third_Year:_Robotics_Stream_.28Fall_Semester.29:)
+    - [7.3.2 Third Year: Robotics Stream (Spring Semester):](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Third_Year:_Robotics_Stream_.28Spring_Semester.29:)
+    - [7.3.3 : Fourth Year: Robotics Stream (Fall Semester)](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#:_Fourth_Year:_Robotics_Stream_.28Fall_Semester.29)
+    - [7.3.4 Fourth Year: Robotics Stream (Spring Semester):](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Fourth_Year:_Robotics_Stream_.28Spring_Semester.29:)
+* [8 SECURITY-BLOCKCHAIN STREAM](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#SECURITY-BLOCKCHAIN_STREAM)
+  + [8.1 Specific Educational Goals of the Program](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Specific_Educational_Goals_of_the_Program_4)
+  + [8.2 Key Competences and Practices](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Key_Competences_and_Practices_4)
+    - [8.2.1 Third Year: SB Stream (Fall Semester):](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Third_Year:_SB_Stream_.28Fall_Semester.29:)
+    - [8.2.2 Third Year: SB Stream (Spring Semester):](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Third_Year:_SB_Stream_.28Spring_Semester.29:)
+    - [8.2.3 Fourth Year: SB Stream (Fall Semester):](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Fourth_Year:_SB_Stream_.28Fall_Semester.29:)
+    - [8.2.4 Fourth Year: SB Stream (Spring Semester):](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Fourth_Year:_SB_Stream_.28Spring_Semester.29:)
+  + [8.3 Structure of the Two Years of Specialization](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Structure_of_the_Two_Years_of_Specialization_4)
+    - [8.3.1 Mapping between knowledge areas and courses in the Security-Blockchain stream:](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#Mapping_between_knowledge_areas_and_courses_in_the_Security-Blockchain_stream:)
+* [9 CORE COURSES](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees#CORE_COURSES)
 
 # SUMMARY OF THE BS DEGREES
 
@@ -632,15 +804,22 @@ thoroughly cover how networks and systems security protocols work while teaching
 programming and appropriate mathematical concepts.
 Computer scientists typically have an understanding of:
 
-programming languages;how to run, maintain, and fix operating systems;data structures and algorithms;basic cybersecurity and cryptography;knowledge of designing, coding, and testing software;how computer networks work and how to manage them.
+* programming languages;
+* how to run, maintain, and fix operating systems;
+* data structures and algorithms;
+* basic cybersecurity and cryptography;
+* knowledge of designing, coding, and testing software;
+* how computer networks work and how to manage them.
 
 Some common skills a computer engineer utilize include:
 
-A complete understanding of how computer hardware and architecture work;knowledge of designing, coding, and testing software;flexibility to work with a wide range of software, which can be highly specialized depending
+* A complete understanding of how computer hardware and architecture work;
+* knowledge of designing, coding, and testing software;
+* flexibility to work with a wide range of software, which can be highly specialized depending
 
 on the company and/or industry;
 
-ability to build your own PC systems and repair/maintain device drivers.
+* ability to build your own PC systems and repair/maintain device drivers.
 
 At the moment there is no special selection procedure for each track. Students pick the
 program by their own on the basis of the knowledge obtained in Higher School.
@@ -758,11 +937,15 @@ of 8 credits requires 288 hours (about 7 weeks).
 Courses can be organized in a variety of ways, taking advantage of various teaching mechanisms,
 such as:
 
-Lc: Class Lecture;Tut: Class Tutorial,where the instructor explains concepts guiding students through practical exercises;Lab: Group Laboratory, where the students perform homework and/or exercises and/or projects coordinated by the instructor, asking help from the instructor as needed, and receiving if needed also additional material directly from the instructor.IL: Individual Labs, where the students perform exercises and refer to the instructor in person or via electronic media to get support in case of need.
+* Lc: Class Lecture;
+* Tut: Class Tutorial,where the instructor explains concepts guiding students through practical exercises;
+* Lab: Group Laboratory, where the students perform homework and/or exercises and/or projects coordinated by the instructor, asking help from the instructor as needed, and receiving if needed also additional material directly from the instructor.
+* IL: Individual Labs, where the students perform exercises and refer to the instructor in person or via electronic media to get support in case of need.
 
 During the first two years of instruction:
 
-Math and science courses have typically the structure of 2Lc-2Lab-2IL, meaning 2 academic hours per week of class lectures, 2 academic hours of labs, and 2 academic hours of individual labs;Computer science and engineering courses have the structure of 2Lc-2Tut-2Lab, meaning 2 academic hours per week of class lectures, 2 academic hours of class tutorials, and 2 academic hours of labs.
+* Math and science courses have typically the structure of 2Lc-2Lab-2IL, meaning 2 academic hours per week of class lectures, 2 academic hours of labs, and 2 academic hours of individual labs;
+* Computer science and engineering courses have the structure of 2Lc-2Tut-2Lab, meaning 2 academic hours per week of class lectures, 2 academic hours of class tutorials, and 2 academic hours of labs.
 
 The technical courses have the structure of 2Lc-2Lab-2IL meaning 2 academic hours per week of class lectures, 2 academic hours of labs, and 2 academic hours of individual labs. The courses in humanities have the structure of 2Lc-4IL.
 
@@ -771,7 +954,9 @@ The technical courses have the structure of 2Lc-2Lab-2IL meaning 2 academic hour
 Every year the students have a mandatory internship during the summer break. There are
 three types of internships:
 
-Industrial – students work in Innopolis University partner IT companies, primarily located within the city of InnopolisScientific – students work in Innopolis University labs on ongoing research and development tasksAdministrative – students work in different Innopolis University departments on IT analysis, design, and implementation projects.
+* Industrial – students work in Innopolis University partner IT companies, primarily located within the city of Innopolis
+* Scientific – students work in Innopolis University labs on ongoing research and development tasks
+* Administrative – students work in different Innopolis University departments on IT analysis, design, and implementation projects.
 
 It is also possible to have internships that combine these three types.
 The internship usually starts once the exam session for the spring semester is completed.
@@ -781,7 +966,11 @@ The internship usually starts once the exam session for the spring semester is c
 A graduate fromthe program is expected to know English at least at the level of IELTS 7. To
 achieve this goal, Innopolis University takes the following steps:2
 
-At admission at the university, the student must have a knowledge of English at least at level of IELTS 5.At the end of the first year of instruction, the student must have a knowledge of English equivalent to at least the level 5.5 of IELTS.English equivalent to at least the level 6 of IELTS.At the end of the third year of instruction, the student must have a knowledge of English equivalent to at least the level 6.5 of IELTS.At the end of the fouth year of instruction, the studentmust have a knowledge of English equivalent to at least the level 7 of IELTS.
+* At admission at the university, the student must have a knowledge of English at least at level of IELTS 5.
+* At the end of the first year of instruction, the student must have a knowledge of English equivalent to at least the level 5.5 of IELTS.
+* English equivalent to at least the level 6 of IELTS.
+* At the end of the third year of instruction, the student must have a knowledge of English equivalent to at least the level 6.5 of IELTS.
+* At the end of the fouth year of instruction, the studentmust have a knowledge of English equivalent to at least the level 7 of IELTS.
 
 The university will make available to the student the fundamental resources to achieve
 the required levels. However, it is the responsibility of the student to achieve them, taking
@@ -835,7 +1024,8 @@ Innopolis University attracts top students in Russia and worldwide.
 The curriculum spans four years.
 First and second-year students can choose one of the following tracks:
 
-Computer EngineeringComputer Science
+* Computer Engineering
+* Computer Science
 
 Despite their choice students take fundamental courses in Engineering, Mathematics and
 Computer Science in each semester but in different depths of studying.
@@ -871,7 +1061,10 @@ engineering. Learning the same subjects students will bemore focused on the appl
 of the theory for solving real life problems.
 Third and fourth-year students can choose one of the following streams:
 
-Software engineeringData scienceRoboticsSecurity-Blockchain
+* Software engineering
+* Data science
+* Robotics
+* Security-Blockchain
 
 Each stream has its own set of specific courses, as well as those that are shared with
 other streams. Moreover, the stream in data science has a direction in finance technologies,
@@ -892,12 +1085,38 @@ To effectively design the curriculum, we identify areas that must be covered in 
 We distinguish the following two kinds of areas, i.e., main areas and knowledge areas. First,
 the main areas are the key components of the degree program listed as follows:
 
-(CSE) Computer Science and Engineering(M)Math(P) Physics(H) Humanities(M-CS)Math and Computer Science(IT) Internship and Theses
+* (CSE) Computer Science and Engineering
+* (M)Math
+* (P) Physics
+* (H) Humanities
+* (M-CS)Math and Computer Science
+* (IT) Internship and Theses
 
 Meanwhile, the knowledge areas shown in the following list identify more specifically the
 body of knowledge that must be covered in the curriculum.
 
-(IS) Intelligent Systems(GV) Graphics and Visualization(PL) Programming Languages(PD) Parallel and Distributed Programming(SDF) Software Development Fundamentals(SE) Software Engineering(EE) Electrical Engineering(CE) Control Engineering(OS) Operating Systems(CN) Computational Science(MP)Mathematical Physics(Ph) Philosophy(Hs) History(FN) Finance(ME)Mechanical Engineering(AL) Algorithms and Complexity(HCI) Human Computer Interaction(BE) Bio-engineering(SP) Social Issues and Professional Practice(CM) Communications(AO) Architecture and Organization(SP) Social Issues and Professional Practice
+* (IS) Intelligent Systems
+* (GV) Graphics and Visualization
+* (PL) Programming Languages
+* (PD) Parallel and Distributed Programming
+* (SDF) Software Development Fundamentals
+* (SE) Software Engineering
+* (EE) Electrical Engineering
+* (CE) Control Engineering
+* (OS) Operating Systems
+* (CN) Computational Science
+* (MP)Mathematical Physics
+* (Ph) Philosophy
+* (Hs) History
+* (FN) Finance
+* (ME)Mechanical Engineering
+* (AL) Algorithms and Complexity
+* (HCI) Human Computer Interaction
+* (BE) Bio-engineering
+* (SP) Social Issues and Professional Practice
+* (CM) Communications
+* (AO) Architecture and Organization
+* (SP) Social Issues and Professional Practice
 
 We identified the knowledge areas based on the CurriculumGuidelines for undergraduate
 Degree Programs in Computer Science by the joint task force between ACM(Association for
@@ -917,17 +1136,17 @@ of specialized knowledge and skills, which occurs in the second two years of the
 More especially, the aim of the first two years is to foster the following fundamental skills
 and knowledge:
 
-Ability to develop computer programs and systems efficiently. Related courses are
+* Ability to develop computer programs and systems efficiently. Related courses are
 
 Introduction to Programming and Software Project where the former focuses on improving
 the programming skills of students, while the latter also involves other diverse
 software development activities such as software design and maintenance.
 
-Ability to solve problems efficiently using computer programs. Related courses are
+* Ability to solve problems efficiently using computer programs. Related courses are
 
 Data Structures and Algorithms, and Introduction to AI.
 
-Ability to understand the theory and concept of computer systems. Related courses are
+* Ability to understand the theory and concept of computer systems. Related courses are
 
 Computer Architecture, DataModeling and Databases, Operating Systems, Networks,
 and Theoretical Computer Science.
@@ -992,32 +1211,36 @@ required for software engineers, courses relevant to that topic are also provide
 in the Software Engineering Stream.
 Learning Outcomes: A student completing the Software Engineering Stream will be able to:
 
-Solve difficult computer systems problems in a creative and innovative way.Design a system, or a component of it, in order to meet the desired needs within realistic
+* Solve difficult computer systems problems in a creative and innovative way.
+* Design a system, or a component of it, in order to meet the desired needs within realistic
 
 economic and environmental constraints.
 
-Understand the importance of componentization and reuse.Use models, techniques, and technologies available to cover all the phases of software
+* Understand the importance of componentization and reuse.
+* Use models, techniques, and technologies available to cover all the phases of software
 
 development, from requirements elicitation to design implementation, and testing.
 
-Apply established and innovative service-based software architecture paradigms and
+* Apply established and innovative service-based software architecture paradigms and
 
 design patterns to software development.
 
-Take advantage of the most recent software verification techniques and tools, such as
+* Take advantage of the most recent software verification techniques and tools, such as
 
 model checking and various static analysis techniques.
 
-Apply the principles of syntactic and semantic analysis in compilers.Distinguish among the various existing models for software processes, both traditional
+* Apply the principles of syntactic and semantic analysis in compilers.
+* Distinguish among the various existing models for software processes, both traditional
 
 and agile, and be able to identify, customize, and apply the most suitable depending on
 circumstances.
 
-Work both individually and as a team member in order to develop and deliver software
+* Work both individually and as a team member in order to develop and deliver software
 
 artifacts of high quality.
 
-Develop communication skills, negotiation skills, work ethic and discipline, and leadership.Learn how to support and advance professional and organizational goals.
+* Develop communication skills, negotiation skills, work ethic and discipline, and leadership.
+* Learn how to support and advance professional and organizational goals.
 
 ## Key Competences and Practices
 
@@ -1173,15 +1396,26 @@ media, energy, and transportation. Students will have a chance to learn the late
 emerging techniques in the field as well as to gain experience with industrial projects.
 Learning Outcomes: A student completing the Data Science Stream will be able to:
 
-Manage and analyze a large volume of data in a scalable fashion.Pick the right tools to manage and analyze a large volume of data.Develop a data analytic tool on an appropriate platform, including a cloud computing
+* Manage and analyze a large volume of data in a scalable fashion.
+* Pick the right tools to manage and analyze a large volume of data.
+* Develop a data analytic tool on an appropriate platform, including a cloud computing
 
 platform.
 
-Understand in detail how machine learning works.Apply an appropriate machine learning technique to a real-world problem at hand.Develop a data mining system appropriate for the task at hand.Understand in detail how an information retrieval system works.Develop an information retrieval system appropriate for the task at hand.Collect a large volume of data necessary for data analytics.Understand various database systems, and pick an appropriate database system for
+* Understand in detail how machine learning works.
+* Apply an appropriate machine learning technique to a real-world problem at hand.
+* Develop a data mining system appropriate for the task at hand.
+* Understand in detail how an information retrieval system works.
+* Develop an information retrieval system appropriate for the task at hand.
+* Collect a large volume of data necessary for data analytics.
+* Understand various database systems, and pick an appropriate database system for
 
 the task at hand.
 
-Understand how decision-makers use business analytics to formulate and solve business problems.Understand and apply the appropriate tools for the analysis of quantitative and qualitative data.Use software packages fluently for data analysis.Solve challenging problems in a creative way
+* Understand how decision-makers use business analytics to formulate and solve business problems.
+* Understand and apply the appropriate tools for the analysis of quantitative and qualitative data.
+* Use software packages fluently for data analysis.
+* Solve challenging problems in a creative way
 
 ## Key Competences and Practices
 
@@ -1320,19 +1554,26 @@ create a new product and start their own business.
 
 Learning Outcomes: A student completing the Robotics Stream will be able to:
 
-Model the kinematics of robotic systems.Formulate and compute dynamic equations necessary to control a robotic system.Write code for sensor data processing.Understand the physical principles of sensors and their limitations.Design, implement and document appropriate, effective, and efficient software solutions for a variety of real-world computer vision problems.Apply their knowledge of image acquisition, image processing, and image analysis to
+* Model the kinematics of robotic systems.
+* Formulate and compute dynamic equations necessary to control a robotic system.
+* Write code for sensor data processing.
+* Understand the physical principles of sensors and their limitations.
+* Design, implement and document appropriate, effective, and efficient software solutions for a variety of real-world computer vision problems.
+* Apply their knowledge of image acquisition, image processing, and image analysis to
 
 extract useful information from visual images.
 
-Build virtual reality applications.Build real-time embedded systems.Understand the characteristics of control systems, including controllability, stability
+* Build virtual reality applications.
+* Build real-time embedded systems.
+* Understand the characteristics of control systems, including controllability, stability
 
 and regulation quality.
 
-Perform time and frequency analysis for control systems including nonlinear control
+* Perform time and frequency analysis for control systems including nonlinear control
 
 systems.
 
-Solve diverse mechanics problems using various methods such as Newtonian, Lagrangian and Hamiltonian methods.
+* Solve diverse mechanics problems using various methods such as Newtonian, Lagrangian and Hamiltonian methods.
 
 ## Key Competences and Practices
 
@@ -1434,23 +1675,26 @@ with a core background in designing and building secure software systems. The st
 covers distributed ledgers technologies (e.g., cryptocurrencies and blockchain technologies).
 Learning Outcomes: A student completing the Security-Blockchain stream will be able to:
 
-Develop robust and secure code.Reverse engineer software into formats that can be deciphered and analyzed.Explore cyber security and information assurance concepts for secrecy, integrity, and
+* Develop robust and secure code.
+* Reverse engineer software into formats that can be deciphered and analyzed.
+* Explore cyber security and information assurance concepts for secrecy, integrity, and
 
 availability of information.
 
-Develop a deeper understanding of blockchain technology and its long-term implications for business, coupled with knowledge of its relationship to other emerging
+* Develop a deeper understanding of blockchain technology and its long-term implications for business, coupled with knowledge of its relationship to other emerging
 
 technologies such as AI.
 
-Make better strategic business decisions by drawing on their knowledge of blockchain
+* Make better strategic business decisions by drawing on their knowledge of blockchain
 
 and affiliated industries and technologies.
 
-Work both individually and as a team member in order to develop and deliver secure
+* Work both individually and as a team member in order to develop and deliver secure
 
 software artifacts of high quality.
 
-Develop communication skills, negotiation skills, work ethic and discipline, and leadership.Learn how to support and advance professional and organizational goals.
+* Develop communication skills, negotiation skills, work ethic and discipline, and leadership.
+* Learn how to support and advance professional and organizational goals.
 
 ## Key Competences and Practices
 
@@ -1603,42 +1847,64 @@ The following is the list of the core courses.
 | 26. Introduction to Machine Learning | 53. Practical Machine Learning and Deep Learning |
 | 27. Distributed Systems and Cloud Computing | |
 
-# parsed from: https://eduwiki.innopolis.university/index.php/HowToMoodle
+<article/>
+
+<article source_url="https://eduwiki.innopolis.university/index.php/HowToMoodle" source_page_name="HowToMoodle">
+
 # How To Moodle
 
-(Redirected from HowToMoodle)
+(Redirected from [HowToMoodle](/index.php?title=HowToMoodle&redirect=no "HowToMoodle"))
+
+## Contents
+
+* [1 What is Moodle](https://eduwiki.innopolis.university/index.php/HowToMoodle#What_is_Moodle)
+* [2 Moodle minimum](https://eduwiki.innopolis.university/index.php/HowToMoodle#Moodle_minimum)
+* [3 Expected state](https://eduwiki.innopolis.university/index.php/HowToMoodle#Expected_state)
+* [4 Good to have](https://eduwiki.innopolis.university/index.php/HowToMoodle#Good_to_have)
+* [5 Further reading](https://eduwiki.innopolis.university/index.php/HowToMoodle#Further_reading)
+* [6 Extended instructions for the Moodle learning portal](https://eduwiki.innopolis.university/index.php/HowToMoodle#Extended_instructions_for_the_Moodle_learning_portal)
 
 # What is Moodle
 
-Moodle is a widely spread Learning Management System (LMS). Such systems can automate multiple educational procedures. In our university we use Moodle for 2 major tasks: professor-to-student and professor-to-administration communication. In particular at least we use Moodle:
+[Moodle](https://moodle.innopolis.university/my/) is a widely spread [Learning Management System (LMS)](https://en.wikipedia.org/wiki/Learning_management_system). Such systems can automate multiple educational procedures. In our university we use Moodle for 2 major tasks: **professor-to-student** and **professor-to-administration** communication. In particular *at least* we use Moodle:
 
-as an entry point for a course for offline and online students;to publish a course structure, regulations, and materials;to schedule graded activities (quizzes, homeworks, exams, ...);to store a digital footprint of a student, mostly in a form of uploaded assignments and quizzes;for timely grading and grade publishing.
+* as an entry point for a course for offline and *online* students;
+* to publish a course structure, regulations, and materials;
+* to schedule graded activities (quizzes, homeworks, exams, ...);
+* to store a digital footprint of a student, mostly in a form of uploaded assignments and quizzes;
+* for timely grading and grade publishing.
 
 # Moodle minimum
 
 As soon as you get access to the course, you should:
 
-Upload or link a course syllabus, preferably in a form of an eduwiki page.Create Attendance element, and then create teaching sessions inside. Attendance check is mandatory for electives and labs.Create course sections, preferably with respect to syllabus topics.Create all graded activities with submission deadlines in advance.Setup grading. Moodle by default equally weights all assignments and uses default letter scale. To adjust this behavior please refer to Grades menu of the course. Useful tips are given in this video about grades setup and this video about mid-semester evaluation. NB University administration automatically imports final grades from Moodle, thus you should ensure that grades are correct in 2 days after a final exam.
+1. Upload or link a **course syllabus**, preferably in a form of an [eduwiki page](https://eduwiki.innopolis.university/index.php/Main_Page).
+2. Create **Attendance** element, and then create teaching sessions inside. Attendance check is mandatory for electives and labs.
+3. Create **course sections**, preferably with respect to syllabus topics.
+4. Create **all graded activities** with submission deadlines in advance.
+5. **Setup grading**. Moodle by default equally weights all assignments and uses default letter scale. To adjust this behavior please refer to *Grades* menu of the course. Useful tips are given in [this video about grades setup](https://www.youtube.com/watch?v=tCs6F-PfBJ4&list=PLneu1tELBieKgdGI6MXpgCQ-KwTnItYu-&index=7&t=3s) and [this video about mid-semester evaluation](https://www.youtube.com/watch?v=P5cUlVIN7J8&list=PLneu1tELBieKgdGI6MXpgCQ-KwTnItYu-&index=8). **NB University administration automatically imports final grades from Moodle, thus you should ensure that grades are correct in 2 days after a final exam**.
 
 # Expected state
 
-As Moodle is used as a default professor-to-student communication channel, we expect to see there:
+As Moodle is used as a default **professor-to-student** communication channel, we expect to see there:
 
-Course material: lecture notes, lecture recording, scientific acticles, presentations, links to repositories and chats, and other course artifacts.Grading feedback. Assignments and quizzes graded in Moodle should include justification of the grade. This can include explicit grading schemas, personal feedbacks to student uploads, feedback to their open question answers, etc.
+* **Course material**: lecture notes, lecture recording, scientific acticles, presentations, links to repositories and chats, and other course artifacts.
+* **Grading feedback**. Assignments and quizzes graded in Moodle should include justification of the grade. This can include explicit grading schemas, personal feedbacks to student uploads, feedback to their open question answers, etc.
 
 # Good to have
 
-Our university has a default Academic Misconduct Policy. If you want to override these rules, you can do this in Moodle.Dedicated grading policy section in a course header.
+* Our university has a default [Academic Misconduct Policy](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course#Academic_misconduct_policy). If you want to override these rules, you can do this in Moodle.
+* Dedicated **grading policy** section in a course header.
 
 # Further reading
 
-Some motivation and useful tricks are given in this YouTube playlist.
+Some motivation and useful tricks are given in this [YouTube playlist](https://www.youtube.com/playlist?list=PLneu1tELBieKgdGI6MXpgCQ-KwTnItYu-).
 
-Please don't hesitate to contact Miloslav and Rinat to get Moodle assitance.
+Please don't hesitate to contact [Miloslav](https://t.me/Mls181) and [Rinat](https://t.me/rin_akhm) to get Moodle assitance.
 
 # Extended instructions for the Moodle learning portal
 
-What is Moodle? How do I access it?
+**What is Moodle? How do I access it?**
 
 At our university, we use Moodle for 2 main tasks:
 professor-student communication
@@ -1646,30 +1912,34 @@ professor-administration communication
 
 More specifically, we use Moodle:
 
-as a starting point for a course for offline and online students;publications of the course structure, rules and materials;for planning assessed activities (quizzes, homework, exams, etc.);for storing a student's digital fingerprint, mainly in the form of uploaded assignments and quizzes;for timely assessment and publication of assessments.
+* as a starting point for a course for offline and online students;
+* publications of the course structure, rules and materials;
+* for planning assessed activities (quizzes, homework, exams, etc.);
+* for storing a student's digital fingerprint, mainly in the form of uploaded assignments and quizzes;
+* for timely assessment and publication of assessments.
 
-Link to Innopolis University LMS Moodle.
+Link to [Innopolis University LMS Moodle](https://moodle.innopolis.university/my/).
 
 Authorization in Moodle: Log in -> Log in using your Innopolis University account (authorization by your username and password)
 
-An auxiliary article on working in Moodle is available at the link.
-If you have any questions, you can seek advice Miloslav.
+An auxiliary article on working in Moodle [is available at the link](https://eduwiki.innopolis.university/index.php/HowToMoodle).
+If you have any questions, you can seek advice [Miloslav](https://t.me/Mls181).
 
-How can I get a link to the course I teach?
+**How can I get a link to the course I teach?**
 
 The list of courses to be taught by the teacher is displayed in the course schedule table for the semester. Before the start of the semester, we add the teacher to his courses in advance, which are then displayed in his/her personal account in Moodle, in the Dashboard section.
 
-What obligations do I have to the UI on the moodle? Course description? Grades?
+**What obligations do I have to the UI on the moodle? Course description? Grades?**
 
 The structure of the created course page, in which the course materials are located, adds materials to the teacher(s), assistant(s) /assistant(s) of the course.
 
 As a rule, a Syllabus must be present at the course, which students can familiarize themselves with..
-We ask you to send the finished syllabus by personal message to telegram: Miloslav.
+We ask you to send the finished syllabus by personal message to telegram: [Miloslav](https://t.me/Mls181).
 In the main course description, you can specify: goals, teacher contacts and links to repositories on the Telegram channel/chat on your subject.
 
 Elements of materials on the course:
 
-Commitment to the UI
+* Commitment to the UI
 
 Accumulation of methodological materials - syllabus, course materials,
 accumulation of artifacts of students - homework done electronically. the format must be accessible from Moodle..
@@ -1684,53 +1954,95 @@ Evaluative feedback is tasks and tests evaluated in Moodle must contain a justif
 
 Grades are set in a separate section, but depend on the evaluation criteria for your subject. For example, you can configure in the format "A" "B" ”With ” "D”, and/or PASS/FAIL, set % according to the criteria from the syllabus.
 
-Background information on the section: estimates and their settings: https://docs.moodle.org/310/en/Grades
+Background information on the section: estimates and their settings: <https://docs.moodle.org/310/en/Grades>
 
-If you have any questions about any settings, you can contact Miloslav for help and advice on working on the Moodle portal.
+If you have any questions about any settings, you can contact [Miloslav](https://t.me/Mls181) for help and advice on working on the Moodle portal.
 
-Any documents uploaded there? What do I have to do?
+**Any documents uploaded there? What do I have to do?**
 
 Once you have access to the course, you should:
 
-Download or link the course program, preferably in the form of an edu wiki page.Create an attendance element, and then create training sessions inside it.Attendance check is mandatory for electives and laboratory work - check about "Attendance” on Moodle on YouTubeCreate sections of the course, preferably according to the topics of the curriculum.Create all classified actions with submission deadlines in advance.
+* Download or link the course program, preferably in the form of an edu wiki page.
+* Create an attendance element, and then create training sessions inside it.
+* Attendance check is mandatory for electives and laboratory work - check about "Attendance” on Moodle [on YouTube](https://www.youtube.com/watch?v=yGCZRMbXsec)
+* Create sections of the course, preferably according to the topics of the curriculum.
+* Create all classified actions with submission deadlines in advance.
 
-Am I obliged to communicate with students in Moodle, or can I send them study materials as it is convenient for me?
+**Am I obliged to communicate with students in Moodle, or can I send them study materials as it is convenient for me?**
 
 You can upload tasks to Moodle in advance and hide them from students, and open them when necessary.
 You can share a link to a chat/Telegram channel with students for assignments from Moodle.
 
-How to make a formula for grading so that it matches my grading scheme that exists on the course?
+**How to make a formula for grading so that it matches my grading scheme that exists on the course?**
 
 By default, Moodle weighs all assignments equally and uses the default letter scale. To adjust this behavior, please refer to the course grades menu. Useful tips are given in this video about setting up grades and in this video about mid-semester assessment. The administration of NB University automatically imports final grades from Moodle, so you should make sure that the grades are correct within 2 days after the final exam.
 
-The Moodle forum on the topic of ratings and their settings is available at the link: https://docs.moodle.org/310/en/Grades
+The Moodle forum on the topic of ratings and their settings is available at the link: <https://docs.moodle.org/310/en/Grades>
 
-If you have any questions about any settings, you can contact Miloslav.
+If you have any questions about any settings, you can contact [Miloslav](https://t.me/Mls181).
 for help and advice on working on the Moodle portal.
 
-How much time do I have to check my homework? Is there a mandatory deadline when grades should stand?
+**How much time do I have to check my homework? Is there a mandatory deadline when grades should stand?**
 
 Each teacher has their own criteria and deadlines for checking homework and test results.
 The deadline should not exceed the date of the exam. If you are doing homework, you are required to tell students how much you are checking it. The recommended period is one week.
 
-Who should I contact if I don't understand how to use some kind of Moodle functionality?
+**Who should I contact if I don't understand how to use some kind of Moodle functionality?**
 
 ome motivational and useful tips are given in this YouTube playlist:
-"IU Moodle setup": https://www.youtube.com/playlist?list=PLneu1tELBieKgdGI6MXpgCQ-KwTnItYu-
+"IU Moodle setup": <https://www.youtube.com/playlist?list=PLneu1tELBieKgdGI6MXpgCQ-KwTnItYu->
 
 Reference information for familiarization is available at the links:
 
-How To MoodleManaging a Moodle course"How to moodle" russian version
+* [How To Moodle](https://eduwiki.innopolis.university/index.php/HowToMoodle)
+* [Managing a Moodle course](https://docs.moodle.org/310/en/Managing_a_Moodle_course)
+* ["How to moodle" russian version](https://docs.google.com/document/d/1nNbmgYOfrBWX7ddxEP6NPTbl5AhBedRE4YpZidPWX4s/edit?usp=sharing)
 
-Also, for more detailed advice on working with the Moodle functionality, you can contact Miloslav.
+Also, for more detailed advice on working with the Moodle functionality, you can contact [Miloslav](https://t.me/Mls181).
 
-# parsed from: https://eduwiki.innopolis.university/index.php/OverallRegulations
+<article/>
+
+<article source_url="https://eduwiki.innopolis.university/index.php/OverallRegulations" source_page_name="OverallRegulations">
+
 # OverallRegulations
 
-About this documentInnopolis University Manifesto on Medium of InstructionAbout lecturing a courseStructure of the BS DegreesStructure of the MS DegreesHow to Moodle
+* [About this document](https://eduwiki.innopolis.university/index.php/About_this_document)
+* [Innopolis University Manifesto on Medium of Instruction](https://eduwiki.innopolis.university/index.php/InnopolisUniversityManifestoonMedium)
+* [About lecturing a course](https://eduwiki.innopolis.university/index.php/About_lecturing_a_course)
+* [Structure of the BS Degrees](https://eduwiki.innopolis.university/index.php/Structure_of_the_BS_Degrees)
+* [Structure of the MS Degrees](https://eduwiki.innopolis.university/index.php/Structure_of_the_MS_Degrees)
+* [How to Moodle](https://eduwiki.innopolis.university/index.php/HowToMoodle)
 
-# parsed from: https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective
+<article/>
+
+<article source_url="https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective" source_page_name="FAQ_for_offering_an_elective">
+
 # FAQ for offering an elective
+
+## Contents
+
+* [1 General information about elective courses](https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective#General_information_about_elective_courses)
+  + [1.1 What is an elective course?](https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective#What_is_an_elective_course.3F)
+  + [1.2 What should be the content of an elective course?](https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective#What_should_be_the_content_of_an_elective_course.3F)
+  + [1.3 How many classes/teaching hours does a course take?](https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective#How_many_classes.2Fteaching_hours_does_a_course_take.3F)
+  + [1.4 What is the language of teaching?](https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective#What_is_the_language_of_teaching.3F)
+* [2 Offering a course](https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective#Offering_a_course)
+  + [2.1 How can I propose an elective?](https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective#How_can_I_propose_an_elective.3F)
+  + [2.2 I proposed. What’s next? How are the students going to choose?](https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective#I_proposed._What.E2.80.99s_next.3F_How_are_the_students_going_to_choose.3F)
+  + [2.3 My elective course is chosen by the students. What are the official procedures? Do I need to sign a contract? How is the decision to hire for a position on the course made? What criteria are being considered? What is going to be checked?](https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective#My_elective_course_is_chosen_by_the_students._What_are_the_official_procedures.3F_Do_I_need_to_sign_a_contract.3F_How_is_the_decision_to_hire_for_a_position_on_the_course_made.3F_What_criteria_are_being_considered.3F_What_is_going_to_be_checked.3F)
+  + [2.4 What about the contract and the payments? In general, what does the procedure of hiring look like?](https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective#What_about_the_contract_and_the_payments.3F_In_general.2C_what_does_the_procedure_of_hiring_look_like.3F)
+  + [2.5 Business trips, i.e. travel to Innopolis. Is it paid? Who is responsible for these questions?](https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective#Business_trips.2C_i.e._travel_to_Innopolis._Is_it_paid.3F_Who_is_responsible_for_these_questions.3F)
+  + [2.6 Can accommodation be provided? If so, on which terms?](https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective#Can_accommodation_be_provided.3F_If_so.2C_on_which_terms.3F)
+* [3 The students attending the course](https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective#The_students_attending_the_course)
+  + [3.1 How large are the groups of students?](https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective#How_large_are_the_groups_of_students.3F)
+  + [3.2 When electives can be offered](https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective#When_electives_can_be_offered)
+  + [3.3 Where can I get the lists of students?](https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective#Where_can_I_get_the_lists_of_students.3F)
+* [4 Organizing the course and teaching](https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective#Organizing_the_course_and_teaching)
+  + [4.1 What are my administrative responsibilities related to the course? Do I need to provide any reports? (отчётности/документы/явки/присутствие)](https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective#What_are_my_administrative_responsibilities_related_to_the_course.3F_Do_I_need_to_provide_any_reports.3F_.28.D0.BE.D1.82.D1.87.D1.91.D1.82.D0.BD.D0.BE.D1.81.D1.82.D0.B8.2F.D0.B4.D0.BE.D0.BA.D1.83.D0.BC.D0.B5.D0.BD.D1.82.D1.8B.2F.D1.8F.D0.B2.D0.BA.D0.B8.2F.D0.BF.D1.80.D0.B8.D1.81.D1.83.D1.82.D1.81.D1.82.D0.B2.D0.B8.D0.B5.29)
+  + [4.2 How does grading happen? Should attendance affect it (is attendance obligatory for students)? What does the examination look like? Should I provide the assignments and grade the students myself?](https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective#How_does_grading_happen.3F_Should_attendance_affect_it_.28is_attendance_obligatory_for_students.29.3F_What_does_the_examination_look_like.3F_Should_I_provide_the_assignments_and_grade_the_students_myself.3F)
+  + [4.3 What is Moodle? What info should I post there? In what time frames?](https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective#What_is_Moodle.3F_What_info_should_I_post_there.3F_In_what_time_frames.3F)
+  + [4.4 Who is responsible for organizational things such as schedule, booking rooms, and providing the equipment?](https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective#Who_is_responsible_for_organizational_things_such_as_schedule.2C_booking_rooms.2C_and_providing_the_equipment.3F)
+  + [4.5 What about online format? Will I have online students? Is it obligatory to attend offline if the student is present in Innopolis? How do I get a Zoom or Microsoft Teams account? How should a mixed format be organized? Who will help me with the equipment?](https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective#What_about_online_format.3F_Will_I_have_online_students.3F_Is_it_obligatory_to_attend_offline_if_the_student_is_present_in_Innopolis.3F_How_do_I_get_a_Zoom_or_Microsoft_Teams_account.3F_How_should_a_mixed_format_be_organized.3F_Who_will_help_me_with_the_equipment.3F)
 
 # General information about elective courses
 
@@ -1746,15 +2058,25 @@ The content and topics can be suggested by the instructor who is delivering the 
 
 Generally speaking, we welcome industry-related subjects. The main criteria are two:
 
-subjects have to be suitable for students given their background;subjects must not repeat the core subjects that students take during their degree. (See: core subjects by each year BSc & MS)
+1. subjects have to be suitable for students given their background;
+2. subjects must not repeat the core subjects that students take during their degree. (See: core subjects by each year BSc & MS)
 
 Some subjects of interest to our students could be:
 
-Industrial Programming in Java;Backend Development with Kotlin;Advanced С++: New Language Concepts, Features and Mechanisms;UX/UI design;Back-end development with Python.
+1. Industrial Programming in Java;
+2. Backend Development with Kotlin;
+3. Advanced С++: New Language Concepts, Features and Mechanisms;
+4. UX/UI design;
+5. Back-end development with Python.
 
 Example subjects we are already delivering:
 
-Introduction to Quantum Programming;Front-end Web Development;Programming in Haskell;Introduction to Game Development;iOS Development with Swift;Cross-platform Mobile Development with Flutter.
+1. Introduction to Quantum Programming;
+2. Front-end Web Development;
+3. Programming in Haskell;
+4. Introduction to Game Development;
+5. iOS Development with Swift;
+6. Cross-platform Mobile Development with Flutter.
 
 ### How many classes/teaching hours does a course take?
 
@@ -1773,17 +2095,23 @@ English.
 
 To propose an elective, you need to provide the following information about the course:
 
-The title;A short description;Prerequisites needed for your course;Intended learning outcomes;The list of topics that will be covered during the course.
+1. The title;
+2. A short description;
+3. Prerequisites needed for your course;
+4. Intended learning outcomes;
+5. The list of topics that will be covered during the course.
 
 This is needed for students to understand the content of the course and choose the elective among others.
 
 You can also provide links to GitHub repos, some presentations, etc.
 
-Please send your proposals to bmp@innopolis.ru if you have any questions
+Please send your proposals to [bmp@innopolis.ru](mailto:bmp@innopolis.ru) if you have any questions
 
 ### I proposed. What’s next? How are the students going to choose?
 
-We will provide the students with the list of all proposed options.Students will vote to indicate their interests.When all votes are collected, we will notify you whether the students have chosen your elective.
+1. We will provide the students with the list of all proposed options.
+2. Students will vote to indicate their interests.
+3. When all votes are collected, we will notify you whether the students have chosen your elective.
 
 ### My elective course is chosen by the students. What are the official procedures? Do I need to sign a contract? How is the decision to hire for a position on the course made? What criteria are being considered? What is going to be checked?
 
@@ -1793,11 +2121,16 @@ You will submit a CV and some other documents, do an interview, and then deliver
 
 Selection process for the academic staff collaborating with IU for the first time:
 
-Candidates should email the application package via the form at the bottom of https://career.innopolis.university/en/job/ : cover letter, CV (add your links to videos of public talks, if any), teaching statement, scans of educational certificates.Candidates will have an interview to discuss the course, propose ideas or clarify all the details needed.Candidates will be asked to deliver an offline/online public lecture to demonstrate your teaching skills and knowledge of the subject, and to introduce the course to IU students and staff.
+* Candidates should email the application package via the form at the bottom of <https://career.innopolis.university/en/job/> : cover letter, CV (add your links to videos of public talks, if any), teaching statement, scans of educational certificates.
+* Candidates will have an interview to discuss the course, propose ideas or clarify all the details needed.
+* Candidates will be asked to deliver an offline/online public lecture to demonstrate your teaching skills and knowledge of the subject, and to introduce the course to IU students and staff.
 
 ### What about the contract and the payments? In general, what does the procedure of hiring look like?
 
-Agreement is concluded for the period of the course. Terms and conditions will be sent in advance by the Faculty Recruitment and Support Office.Required documents: passport, resident and contact details, certificate of no criminal records issued at the country of residence, bank details, work record book to confirm your working and teaching experience, ИНН, СНИЛС if available.Please indicate the country of residence for TAX rate specification.Payment can be arranged monthly, split in 2 parts, or arranged at the end of the course.
+* Agreement is concluded for the period of the course. Terms and conditions will be sent in advance by the Faculty Recruitment and Support Office.
+* Required documents: passport, resident and contact details, certificate of no criminal records issued at the country of residence, bank details, work record book to confirm your working and teaching experience, ИНН, СНИЛС if available.
+* Please indicate the country of residence for TAX rate specification.
+* Payment can be arranged monthly, split in 2 parts, or arranged at the end of the course.
 
 ### Business trips, i.e. travel to Innopolis. Is it paid? Who is responsible for these questions?
 
@@ -1829,9 +2162,13 @@ You can contact to get the list of students and their contact details.
 
 ### What are my administrative responsibilities related to the course? Do I need to provide any reports? (отчётности/документы/явки/присутствие)
 
-You should provide the syllabus of the course. Please email education@innopolis.ru to get the template. Syllabus is supposed to be done in both English and Russian. If you don’t speak Russian, we can help you with the translation.Your Moodle page should be organized with respect to course syllabus (same sections, activities), it should contain relevant materials (slides, papers, references, lecture notes, repositories, …).All graded activities must be projected to Moodle with assignments, quizzes, and graded items.You should collect attendance.You must provide final grades in Moodle in 3 days after the final exam.
+1. You should provide the syllabus of the course. Please email [education@innopolis.ru](mailto:education@innopolis.ru) to get the template. Syllabus is supposed to be done in both English and Russian. If you don’t speak Russian, we can help you with the translation.
+2. Your Moodle page should be organized with respect to course syllabus (same sections, activities), it should contain relevant materials (slides, papers, references, lecture notes, repositories, …).
+3. All graded activities must be projected to Moodle with assignments, quizzes, and graded items.
+4. You should collect attendance.
+5. You must provide final grades in Moodle in 3 days after the final exam.
 
-All Moodle related questions can be addressed to https://t.me/Mls181
+All Moodle related questions can be addressed to <https://t.me/Mls181>
 
 ### How does grading happen? Should attendance affect it (is attendance obligatory for students)? What does the examination look like? Should I provide the assignments and grade the students myself?
 
@@ -1839,30 +2176,33 @@ Mostly grading is up to the instructor. The most important thing is that student
 
 ### What is Moodle? What info should I post there? In what time frames?
 
-https://eduwiki.innopolis.university/index.php/HowToMoodle
+<https://eduwiki.innopolis.university/index.php/HowToMoodle>
 
-All Moodle related questions can be addressed to https://t.me/Mls181
+All Moodle related questions can be addressed to <https://t.me/Mls181>
 
 ### Who is responsible for organizational things such as schedule, booking rooms, and providing the equipment?
 
-The electives schedule and rooms are managed by Department of Education, please email education@innopolis.ru
+The electives schedule and rooms are managed by Department of Education, please email [education@innopolis.ru](mailto:education@innopolis.ru)
 
 ### What about online format? Will I have online students? Is it obligatory to attend offline if the student is present in Innopolis? How do I get a Zoom or Microsoft Teams account? How should a mixed format be organized? Who will help me with the equipment?
 
-Remote teaching guide: document [1] and video instruction [2]
+Remote teaching guide: document [[1]](https://docs.google.com/document/d/15BSpVWYbFCn-A7YWgEHPicFR9kZARrL5cV6mBTNqtrM/edit) and video instruction [[2]](https://www.youtube.com/watch?v=Cyi5064KLCQ&list=PLneu1tELBieKgdGI6MXpgCQ-KwTnItYu-&index=8)
 
-# parsed from: https://eduwiki.innopolis.university/index.php/ProfessorInformationPage
+<article/>
+
+<article source_url="https://eduwiki.innopolis.university/index.php/ProfessorInformationPage" source_page_name="ProfessorInformationPage">
+
 # Professor Information Page
 
-(Redirected from ProfessorInformationPage)
+(Redirected from [ProfessorInformationPage](/index.php?title=ProfessorInformationPage&redirect=no "ProfessorInformationPage"))
 
-## LMS Moodle
+## [LMS Moodle](https://moodle.innopolis.university/login/index.php)
 
 Authorization on the Moodle portal: Log in -> Log in using your Innopolis University account (login with your username and password).
 
-Background information for review: "How To Moodle", "How to moodle" russian version & “IU Moodle setup”.
+Background information for review: ["How To Moodle"](https://eduwiki.innopolis.university/index.php/HowToMoodle), ["How to moodle" russian version](https://docs.google.com/document/d/1nNbmgYOfrBWX7ddxEP6NPTbl5AhBedRE4YpZidPWX4s/edit?usp=sharing) & [“IU Moodle setup”](https://www.youtube.com/playlist?list=PLneu1tELBieKgdGI6MXpgCQ-KwTnItYu-).
 
-If you need advice on working with the Moodle functionality, you can contact a technical specialist related to Moodle technical support.
+If you need advice on working with the Moodle functionality, you can contact a technical specialist related to [Moodle technical support](https://t.me/Mls181).
 
 ## Employment documents
 
@@ -1870,42 +2210,63 @@ You can contact the Faculty Support and Public Relations Department for registra
 paperwork, accommodation, etc.:
 
 For other preferences, please contact the Faculty Support and Public Relations Department.
-Also, reference information is given in the table: FAQ for offering an elective
+Also, reference information is given in the table: [FAQ for offering an elective](https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective)
 
-Necessary documents for the registration of an employee:
+**Necessary documents for the registration of an employee:**
 
-Employment documents for a foreign employee1. International passport (valid for no less than eighteen months at the date of employment)2. Bachelor and master’s degree diploma with transcripts3. PhD diploma4.Certificate of no criminal record issued at the country of residence (valid for a month)
+* Employment documents for a foreign employee
+
+* 1. International passport (valid for no less than eighteen months at the date of employment)
+* 2. Bachelor and master’s degree diploma with transcripts
+* 3. PhD diploma
+* 4.Certificate of no criminal record issued at the country of residence (valid for a month)
 
 Family members:
 
-5. International passports (valid for no less than eighteen months at the date of entry to Russia) for each member6. Marriage certificate7. Birth certificate for each childAll documents from the list above should be legalized. The type of legalization — an apostille or consular legalization — depends on the country of origin of a document.Translation into Russian and certification by the notary has to be arranged at the Russian consulate or can be arranged by IU if scan of the documents are provided in good quality.Documents are to be submitted in the original at the date of employment8. 6 passport type photos, in color, on gray or light background, no head coverings permitted except for the religious reasons, dimensions: 3x4cm (1.18х1.57in)
+* 5. International passports (valid for no less than eighteen months at the date of entry to Russia) for each member
+* 6. Marriage certificate
+* 7. Birth certificate for each child
 
-Documents to receive in Russia:
+* All documents from the list above should be legalized. The type of legalization — an apostille or consular legalization — depends on the country of origin of a document.
+* Translation into Russian and certification by the notary has to be arranged at the Russian consulate or can be arranged by IU if scan of the documents are provided in good quality.
+* Documents are to be submitted in the original at the date of employment
 
-1. Migration Card
+* 8. 6 passport type photos, in color, on gray or light background, no head coverings permitted except for the religious reasons, dimensions: 3x4cm (1.18х1.57in)
+
+**Documents to receive in Russia:**
+
+* 1. Migration Card
 
 Upon entry to Russia you will be given a migration card, which is usually distributed to the passengers on international in­coming flights while passing through a passport control
 
-2. Registration Card
+* 2. Registration Card
 
 Upon every entry into Russia, foreign citizens must register with the migration authorities within 7 days after entering the country.
 The process will be completed by Innopolis university if staying on campus, or hotel staff if staying in Kazan.
 Please remember to keep your registration slip and migration card until you leave Russia, as they may be requested when crossing the border.
 
-3. Medical insurance (done by IU)4. Work permit collection consists of several steps:4.1 Medical examination in a public hospital includes checks by specialists (dermatovenerologist, narcologist, tuberculosis specialist, physician)4.2 Fingerprinting and photography in 4 days4.3 Work permit collection aprox. in a week once your details appear in the database
+* 3. Medical insurance (done by IU)
+* 4. Work permit collection consists of several steps:
+* 4.1 Medical examination in a public hospital includes checks by specialists (dermatovenerologist, narcologist, tuberculosis specialist, physician)
+* 4.2 Fingerprinting and photography in 4 days
+* 4.3 Work permit collection aprox. in a week once your details appear in the database
 
 Official employment as a staff member of the IU can be arranged only upon collection of the document. Innopolis University staff member will accompany you to all Kazan migration offices.
 
-5. Medical examination for working in an educational institution. Innopolis University staff members will accompany you to the private clinic for check up. Includes several lab tests and advice from specialized doctors.6. Bank card and account in Russia
+* 5. Medical examination for working in an educational institution. Innopolis University staff members will accompany you to the private clinic for check up. Includes several lab tests and advice from specialized doctors.
+* 6. Bank card and account in Russia
 
-## Other important information on the Main page Educational Wiki Knowledgebase
+## Other important information on [the Main page Educational Wiki Knowledgebase](https://eduwiki.innopolis.university/index.php/Main_Page)
 
-Educational Programs, Courses and Instructors, Schedule, Calendar, and Faculty, Resources for faculty
+* Educational Programs, Courses and Instructors, Schedule, Calendar, and Faculty, Resources for faculty
 
-# parsed from: https://eduwiki.innopolis.university/index.php/Newcomer's
+<article/>
+
+<article source_url="https://eduwiki.innopolis.university/index.php/Newcomer's" source_page_name="Newcomer's">
+
 # General Information
 
-(Redirected from Newcomer's)
+(Redirected from [Newcomer's](/index.php?title=Newcomer%27s&redirect=no "Newcomer's"))
 
 # Tools and resources for teaching
 
@@ -1913,35 +2274,52 @@ Several organizational aspects to figure out:
 
 1. Moodle Access
 
-We use Moodle as our LMS. Here are the tutorials explaining how to work with it:
+We use [Moodle](https://moodle.innopolis.university) as our LMS. Here are the tutorials explaining how to work with it:
 
-IU Moodle setup: IntroRecommendation for setting the final grades
+* [IU Moodle setup: Intro](https://www.youtube.com/watch?v=bToQtv0h-u8&list=PLneu1tELBieKgdGI6MXpgCQ-KwTnItYu-)
+* [Recommendation for setting the final grades](https://www.youtube.com/watch?v=WSq_2mjYghE)
 
 2. Remote teaching
 
 In some groups, we have students who are authorized to attend lessons online. In this case, you need to use a video conference system. It is recommended to use Microsoft Teams, but it is up to you to use your preferred software for this purpose. Just remember, students should have clear algorithms for joining the lesson together with the tools needed. For those not familiar with any video conference system, we recommend using Microsoft Teams:
 
-Microsoft Teams quick start
+* [Microsoft Teams quick start](https://www.youtube.com/watch?v=Cyi5064KLCQ&list=PLneu1tELBieKgdGI6MXpgCQ-KwTnItYu-&index=8)
 
 3. Attendance tracking
 
-We use automatic authentication software BAAM compatible with Moodle to simplify the process of attendance tracking. Watch the video below to see how it works:
+We use automatic authentication software [BAAM](https://baam.duckdns.org/) compatible with Moodle to simplify the process of attendance tracking. Watch the video below to see how it works:
 
-BAAM - students’ attendance tracking
+* [BAAM - students’ attendance tracking](https://www.youtube.com/watch?v=14hL6avHasc)
 
-# parsed from: https://eduwiki.innopolis.university/index.php/HowToMoodlerus
+<article/>
+
+<article source_url="https://eduwiki.innopolis.university/index.php/HowToMoodlerus" source_page_name="HowToMoodlerus">
+
 # HowToMoodlerus
+
+## Contents
+
+* [1 Справочная информация для нового преподавателя](https://eduwiki.innopolis.university/index.php/HowToMoodlerus#.D0.A1.D0.BF.D1.80.D0.B0.D0.B2.D0.BE.D1.87.D0.BD.D0.B0.D1.8F_.D0.B8.D0.BD.D1.84.D0.BE.D1.80.D0.BC.D0.B0.D1.86.D0.B8.D1.8F_.D0.B4.D0.BB.D1.8F_.D0.BD.D0.BE.D0.B2.D0.BE.D0.B3.D0.BE_.D0.BF.D1.80.D0.B5.D0.BF.D0.BE.D0.B4.D0.B0.D0.B2.D0.B0.D1.82.D0.B5.D0.BB.D1.8F)
+* [2 Структура](https://eduwiki.innopolis.university/index.php/HowToMoodlerus#.D0.A1.D1.82.D1.80.D1.83.D0.BA.D1.82.D1.83.D1.80.D0.B0)
+* [3 Что такое мудл? Как мне туда попасть?](https://eduwiki.innopolis.university/index.php/HowToMoodlerus#.D0.A7.D1.82.D0.BE_.D1.82.D0.B0.D0.BA.D0.BE.D0.B5_.D0.BC.D1.83.D0.B4.D0.BB.3F_.D0.9A.D0.B0.D0.BA_.D0.BC.D0.BD.D0.B5_.D1.82.D1.83.D0.B4.D0.B0_.D0.BF.D0.BE.D0.BF.D0.B0.D1.81.D1.82.D1.8C.3F)
+* [4 Как и у кого мне узнать ссылку на мой курс, который я преподаю?](https://eduwiki.innopolis.university/index.php/HowToMoodlerus#.D0.9A.D0.B0.D0.BA_.D0.B8_.D1.83_.D0.BA.D0.BE.D0.B3.D0.BE_.D0.BC.D0.BD.D0.B5_.D1.83.D0.B7.D0.BD.D0.B0.D1.82.D1.8C_.D1.81.D1.81.D1.8B.D0.BB.D0.BA.D1.83_.D0.BD.D0.B0_.D0.BC.D0.BE.D0.B9_.D0.BA.D1.83.D1.80.D1.81.2C_.D0.BA.D0.BE.D1.82.D0.BE.D1.80.D1.8B.D0.B9_.D1.8F_.D0.BF.D1.80.D0.B5.D0.BF.D0.BE.D0.B4.D0.B0.D1.8E.3F)
+* [5 Какие у меня есть обязательства перед УИ по мудлу? Описание курса? Оценки?](https://eduwiki.innopolis.university/index.php/HowToMoodlerus#.D0.9A.D0.B0.D0.BA.D0.B8.D0.B5_.D1.83_.D0.BC.D0.B5.D0.BD.D1.8F_.D0.B5.D1.81.D1.82.D1.8C_.D0.BE.D0.B1.D1.8F.D0.B7.D0.B0.D1.82.D0.B5.D0.BB.D1.8C.D1.81.D1.82.D0.B2.D0.B0_.D0.BF.D0.B5.D1.80.D0.B5.D0.B4_.D0.A3.D0.98_.D0.BF.D0.BE_.D0.BC.D1.83.D0.B4.D0.BB.D1.83.3F_.D0.9E.D0.BF.D0.B8.D1.81.D0.B0.D0.BD.D0.B8.D0.B5_.D0.BA.D1.83.D1.80.D1.81.D0.B0.3F_.D0.9E.D1.86.D0.B5.D0.BD.D0.BA.D0.B8.3F)
 
 ## Справочная информация для нового преподавателя
 
 LMS Moodle
-https://moodle.innopolis.university/login/index.php
+<https://moodle.innopolis.university/login/index.php>
 
 Авторизация
 ❗️ Авторизация на портале Moodle
 Войти -> Войти с использованием учётной записи Innopolis University\*
 
-авторизация по вашему логину и паролю.✅ На курсе должен присутствовать Силлабус. Учебные материалы на курс в Moodle (лекционный и практический материал, возможно тесты, опросники) загружаются преподавателем.✅ Оценки выставляются в графе Grades, в формате “А” ”В” ”С” ”D”, либо PASS/FAIL.✅ Справочная информация для ознакомления: https://eduwiki.innopolis.university/index.php/HowToMoodle🖋Для консультаций по Moodle вы можете обратиться к https://t.me/mls181
+* авторизация по вашему логину и паролю.
+
+* ✅ На курсе должен присутствовать Силлабус. Учебные материалы на курс в Moodle (лекционный и практический материал, возможно тесты, опросники) загружаются преподавателем.
+* ✅ Оценки выставляются в графе Grades, в формате “А” ”В” ”С” ”D”, либо PASS/FAIL.
+* ✅ Справочная информация для ознакомления: <https://eduwiki.innopolis.university/index.php/HowToMoodle>
+* 🖋Для консультаций по Moodle вы можете обратиться к <https://t.me/mls181>
 
 # Структура
 
@@ -1950,10 +2328,10 @@ https://moodle.innopolis.university/login/index.php
 Элементы курса:
 Посещаемость (элемент Attendance) на Moodle.
 Есть краткая подробная информация по настройке и отметке, доступная по ссылке:
-https://www.youtube.com/watch?v=yGCZRMbXsec
+<https://www.youtube.com/watch?v=yGCZRMbXsec>
 
 Оценки, настройки оценок:
-https://docs.moodle.org/310/en/Grades
+<https://docs.moodle.org/310/en/Grades>
 
 # Что такое мудл? Как мне туда попасть?
 
@@ -1965,20 +2343,20 @@ https://docs.moodle.org/310/en/Grades
 для своевременной оценки и публикации оценок.
 
 Ссылка на Moodle Университета Иннополис:
-https://moodle.innopolis.university/my/
+<https://moodle.innopolis.university/my/>
 Справочная статья:
-https://eduwiki.innopolis.university/index.php/HowToMoodle
+<https://eduwiki.innopolis.university/index.php/HowToMoodle>
 
 LMS Moodle
-https://moodle.innopolis.university/login/index.php
+<https://moodle.innopolis.university/login/index.php>
 
 ❗️ Авторизация на портале Moodle
 Войти -> Войти с использованием учётной записи Innopolis University\*
 
-авторизация по вашему логину и паролю.
+* авторизация по вашему логину и паролю.
 
-Вспомогательная статья по работе в Moodle доступна по ссылке (https://eduwiki.innopolis.university/index.php/HowToMoodle).
-Если у Вас есть вопросы, Вы можете обратиться за консультацией к https://t.me/Mls181.
+Вспомогательная статья по работе в Moodle доступна по ссылке (<https://eduwiki.innopolis.university/index.php/HowToMoodle>).
+Если у Вас есть вопросы, Вы можете обратиться за консультацией к <https://t.me/Mls181>.
 
 # Как и у кого мне узнать ссылку на мой курс, который я преподаю?
 
@@ -1990,7 +2368,7 @@ https://moodle.innopolis.university/login/index.php
 Структура созданной страница курса, в котором располагаются материалы курса, добавляет материалы преподаватель (-и), помощник(-и)/ассистент(-ы) курса.
 
 Как правило, на курсе должен присутствовать Силлабус, с которым могут ознакомиться студенты.
-Готовый силлабус просим направить личным сообщением в телеграм: https://t.me/Mls181.
+Готовый силлабус просим направить личным сообщением в телеграм: <https://t.me/Mls181>.
 В основном описании курса можно указать: цели, контакты преподавателя и ссылки на репозитории на Телеграм-канал/чат по вашему предмету.
 
 Элементы материалов на курсе:
@@ -2010,9 +2388,9 @@ https://moodle.innopolis.university/login/index.php
 
 Оценки/Grades выставляются в отдельном разделе, но зависят от критериев оценивания по вашему предмету. Например, можно настроить в формате “А” ”В” ”С” ”D”, и/или PASS/FAIL, выставить % по критериям из силлабуса.
 
-Справочная информация по разделу: оценки и их настройка: https://docs.moodle.org/310/en/Grades
+Справочная информация по разделу: оценки и их настройка: <https://docs.moodle.org/310/en/Grades>
 
-Если по каким-то настройкам у вас возникли вопросы, вы можете обратиться к https://t.me/Mls181 за помощью и консультацией по вопросам работы на портале Moodle.
+Если по каким-то настройкам у вас возникли вопросы, вы можете обратиться к <https://t.me/Mls181> за помощью и консультацией по вопросам работы на портале Moodle.
 
 Какие-то загруженные туда документы? Что делать обязательно?
 
@@ -2020,7 +2398,7 @@ https://moodle.innopolis.university/login/index.php
 
 Загрузить или свяжите программу курса, предпочтительно в виде вики-страницы edu.
 Создать элемент посещаемости, а затем создайте внутри него учебные занятия.
-Проверка посещаемости обязательна для факультативов и лабораторных работ (проверка “Посещаемость” на Moodle https://www.youtube.com/watch?v=yGCZRMbXsec
+Проверка посещаемости обязательна для факультативов и лабораторных работ (проверка “Посещаемость” на Moodle <https://www.youtube.com/watch?v=yGCZRMbXsec>
 Создавайте разделы курса, предпочтительно в соответствии с темами учебной программы.
 Создайте все классифицированные действия с указанием крайних сроков подачи заранее.
 
@@ -2033,9 +2411,9 @@ https://moodle.innopolis.university/login/index.php
 
 Moodle по умолчанию одинаково взвешивает все назначения и использует шкалу букв по умолчанию. Чтобы настроить это поведение, пожалуйста, обратитесь к меню оценок курса. Полезные советы даны в этом видео о настройке оценок и в этом видео об оценке в середине семестра. Администрация университета NB автоматически импортирует итоговые оценки из Moodle, поэтому вы должны убедиться, что оценки верны в течение 2 дней после итогового экзамена.
 
-Форум Moodle по теме оценок и их настройки доступен по ссылке: https://docs.moodle.org/310/en/Grades
+Форум Moodle по теме оценок и их настройки доступен по ссылке: <https://docs.moodle.org/310/en/Grades>
 
-Если по каким-то настройкам у вас возникли вопросы, вы можете обратиться к https://t.me/Mls181.
+Если по каким-то настройкам у вас возникли вопросы, вы можете обратиться к <https://t.me/Mls181>.
 
 ```
 за помощью и консультацией по вопросам работы на портале Moodle.
@@ -2051,18 +2429,45 @@ Moodle по умолчанию одинаково взвешивает все н
 К кому обращаться, если я не понимаю, как пользоваться каким-то функционалом мудл?
 
 Некоторые мотивационные и полезные советы приведены в этом плейлисте YouTube:
-“IU Moodle setup” - https://www.youtube.com/playlist?list=PLneu1tELBieKgdGI6MXpgCQ-KwTnItYu-
+“IU Moodle setup” - <https://www.youtube.com/playlist?list=PLneu1tELBieKgdGI6MXpgCQ-KwTnItYu->
 
 Справочная информация для ознакомления доступна по ссылкам:
-https://eduwiki.innopolis.university/index.php/HowToMoodle
-https://docs.moodle.org/310/en/Managing\_a\_Moodle\_course
+<https://eduwiki.innopolis.university/index.php/HowToMoodle>
+<https://docs.moodle.org/310/en/Managing_a_Moodle_course>
 
-Также для более подробной консультации по работе с функционалом Moodle Вы можете обратиться к https://t.me/Mls181.
+Также для более подробной консультации по работе с функционалом Moodle Вы можете обратиться к <https://t.me/Mls181>.
 
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
-# parsed from: https://eduwiki.innopolis.university/index.php/FAQInstructors
+<article/>
+
+<article source_url="https://eduwiki.innopolis.university/index.php/FAQInstructors" source_page_name="FAQInstructors">
+
 # FAQInstructors
+
+## Contents
+
+* [1 Introduction to MediaWiki](https://eduwiki.innopolis.university/index.php/FAQInstructors#Introduction_to_MediaWiki)
+* [2 Content editing](https://eduwiki.innopolis.university/index.php/FAQInstructors#Content_editing)
+  + [2.1 How to log in the system?](https://eduwiki.innopolis.university/index.php/FAQInstructors#How_to_log_in_the_system.3F)
+  + [2.2 How to create a page?](https://eduwiki.innopolis.university/index.php/FAQInstructors#How_to_create_a_page.3F)
+  + [2.3 How to edit a page?](https://eduwiki.innopolis.university/index.php/FAQInstructors#How_to_edit_a_page.3F)
+  + [2.4 How to work with text and its structuring?](https://eduwiki.innopolis.university/index.php/FAQInstructors#How_to_work_with_text_and_its_structuring.3F)
+    - [2.4.1 How to structurize a text?](https://eduwiki.innopolis.university/index.php/FAQInstructors#How_to_structurize_a_text.3F)
+    - [2.4.2 How to format text?](https://eduwiki.innopolis.university/index.php/FAQInstructors#How_to_format_text.3F)
+    - [2.4.3 How to use HTML tags?](https://eduwiki.innopolis.university/index.php/FAQInstructors#How_to_use_HTML_tags.3F)
+    - [2.4.4 How to work with lists?](https://eduwiki.innopolis.university/index.php/FAQInstructors#How_to_work_with_lists.3F)
+    - [2.4.5 How to insert a link?](https://eduwiki.innopolis.university/index.php/FAQInstructors#How_to_insert_a_link.3F)
+  + [2.5 How to format tables?](https://eduwiki.innopolis.university/index.php/FAQInstructors#How_to_format_tables.3F)
+  + [2.6 How to work with math formulas?](https://eduwiki.innopolis.university/index.php/FAQInstructors#How_to_work_with_math_formulas.3F)
+  + [2.7 How to put a source code?](https://eduwiki.innopolis.university/index.php/FAQInstructors#How_to_put_a_source_code.3F)
+  + [2.8 How to add TikZ-flowchart?](https://eduwiki.innopolis.university/index.php/FAQInstructors#How_to_add_TikZ-flowchart.3F)
+  + [2.9 How to paste pictures?](https://eduwiki.innopolis.university/index.php/FAQInstructors#How_to_paste_pictures.3F)
+  + [2.10 How to embed a Google document into mediawiki page?](https://eduwiki.innopolis.university/index.php/FAQInstructors#How_to_embed_a_Google_document_into_mediawiki_page.3F)
+* [3 Content import / export](https://eduwiki.innopolis.university/index.php/FAQInstructors#Content_import_.2F_export)
+  + [3.1 How to import content?](https://eduwiki.innopolis.university/index.php/FAQInstructors#How_to_import_content.3F)
+  + [3.2 How to export content?](https://eduwiki.innopolis.university/index.php/FAQInstructors#How_to_export_content.3F)
+    - [3.2.1 To PDF-file](https://eduwiki.innopolis.university/index.php/FAQInstructors#To_PDF-file)
 
 # Introduction to MediaWiki
 
@@ -2073,24 +2478,24 @@ The MediaWiki software is used by tens of thousands of websites and thousands of
 ## How to log in the system?
 
 Use your regular credentials for this purpose: user@innopolis.ru and the password from your account.
-If you cannot log in, please contact the IT-department @iuithelp
+If you cannot log in, please contact the IT-department [@iuithelp](https://t.me/iuithelp)
 
 ## How to create a page?
 
-From the search box
+**From the search box** 
 If you search for a page that doesn't exist, then you will be provided with a link to create the new page.
 
-Using the URL
+**Using the URL** 
 You can use the wiki's URL for creating a new page.
 
 The URL to an article of the wiki is usually something like this:
 
-https://eduwiki.innopolis.university/index.php/ARTICLE
+* <https://eduwiki.innopolis.university/index.php/ARTICLE>
 
 If you replace ARTICLE with the name of the page you wish to create, you will be taken to a blank page which indicates that no article of that name exists yet.
 
 > To get more detailed information you can refer to the user's manual:
-> Help: Starting a new page
+> [Help: Starting a new page](https://www.mediawiki.org/wiki/Help:Starting_a_new_page)
 
 ## How to edit a page?
 
@@ -2098,11 +2503,11 @@ Clicking the "Edit" page tab at the top of the page will take you to the edit pa
 
 Note that only the authorized users are able to edit the content.
 
-> Here you can get more information about the editing process: Help:Editing pages
+> Here you can get more information about the editing process: [Help:Editing pages](https://www.mediawiki.org/wiki/Help:Editing_pages)
 
 ## How to work with text and its structuring?
 
-> Detailed user guide on text formatting: MediaWiki: User guide
+> Detailed user guide on text formatting: [MediaWiki: User guide](https://en.wikibooks.org/wiki/MediaWiki_User_Guide)
 
 ### How to structurize a text?
 
@@ -2116,15 +2521,15 @@ Examples:
 | 3. | ===Plants=== |
 | 4. | ====Plants==== |
 
-Start level: 2
+*Start level:* 2
 
 Do not use headings of level 1, such as "=Title="; start with level 2 instead. The heading at level 1 is used for the title of the page.
 
-Maximum level: 6
+*Maximum level:* 6
 
 The maximum level of a heading is 6, rendered using ======Heading L6======. Entering a heading with 7 equals-signs such as =======Heading L7======= results in the creation of a heading of the level 6, with one equal-sign becoming part of the text of the heading: "=Heading L7=".
 
-> See more details here: MediaWiki user guide: sections and headings
+> See more details here: [MediaWiki user guide: sections and headings](https://en.wikibooks.org/wiki/MediaWiki_User_Guide/Sections_and_Headings)
 
 ### How to format text?
 
@@ -2192,9 +2597,10 @@ Mixed lists:
 
 There are five types of hypertext links in MediaWiki, but two of them are the mostly used:
 
-Internal links to other pages in the same wiki (commonly called "wikilinks")External links to pages at other websites
+* Internal links to other pages in the same wiki (commonly called "wikilinks")
+* External links to pages at other websites
 
-Internal hyperlinks
+**Internal hyperlinks**
 
 | Task | Markup |
 | --- | --- |
@@ -2204,12 +2610,12 @@ Internal hyperlinks
 | Internal hyperlink with a tooltip | [[keyword|<span title="A tooltip">its appearance</span>]] |
 | Internal hyperlink in bold | '''[[keyword]]''' |
 
-External hyperlinks
+**External hyperlinks**
 
 | Task | Markup |
 | --- | --- |
 | External hyperlink | [URL\_containing\_no\_spaces title of the URL] |
-> You can also fing some more details here: Help: links
+> You can also fing some more details here: [Help: links](https://www.mediawiki.org/wiki/Help:Links)
 
 ## How to format tables?
 
@@ -2236,9 +2642,9 @@ gives the following:
 | Top left cell | Top center cell | Top right cell |
 | Middle left cell | Middle center cell | Middle right cell |
 | Bottom left cell | Bottom center cell | Bottom right cell |
-> Basics: MediaWiki User guide: Tables
+> Basics: [MediaWiki User guide: Tables](https://en.wikibooks.org/wiki/MediaWiki_User_Guide/Tables)
 
-> Advanced: Wiki: Tables
+> Advanced: [Wiki: Tables](https://en.wikipedia.org/wiki/Help:Table)
 
 ## How to work with math formulas?
 
@@ -2298,7 +2704,7 @@ def quick_sort(arr):
 
 ```
 
-> See the documentation of the syntaxhighlight-extension here: Syntax highlight
+> See the documentation of the syntaxhighlight-extension here: [Syntax highlight](https://www.mediawiki.org/wiki/Extension:SyntaxHighlight)
 
 ## How to add TikZ-flowchart?
 
@@ -2330,7 +2736,7 @@ For examle, the following code
            yshift=-83,every node/.append style={
            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
            ]
-       \draw[step=4mm, black] (0,0) grid (5,5);
+       \draw[step=4mm, black] (0,0) grid (5,5); 
        \draw[black,thick] (0,0) rectangle (5,5);%borders
        \fill[green] (2.05,2.05) rectangle (2.35,2.35); % center pixel
        \fill[green] (1.65,2.05) rectangle (1.95,2.35); %left
@@ -2349,7 +2755,7 @@ For examle, the following code
 
 ```
 
-> See the instructions here: PGTikZ
+> See the instructions here: [PGTikZ](https://www.mediawiki.org/wiki/Extension:PGFTikZ)
 
 ## How to paste pictures?
 
@@ -2362,7 +2768,7 @@ The following is an overview of placing images into pages, such images that have
 | Image | [[Image:image\_name.png]] | No | The image is shown in its full size as found in the file. |
 | Image with thumb | [[Image:image\_name.png|thumb|A caption text of the image.]] | Yes | Thumbs are always scaled down so as not to exceed an upper limit on the size. |
 | Image without thumb, with restricted size | [[Image:image\_name.png|150px]] | No | |
-> To know about other feature please refer to: MediaWiki User Guide: images
+> To know about other feature please refer to: [MediaWiki User Guide: images](https://en.wikibooks.org/wiki/MediaWiki_User_Guide/Images)
 
 ## How to embed a Google document into mediawiki page?
 
@@ -2382,56 +2788,74 @@ As an example using all of the parameters:
 <googlespreadsheet width="600" height="200" style="width:50%">Google Docs' key goes here</googlespreadsheet>
 ```
 
-To actually embed a spreadsheet, the spreadsheet needs to be published with Google's File > Publish to Web... option. It is not sufficient to just have a shareable link.
+To actually embed a spreadsheet, the spreadsheet needs to be published with Google's **File** > **Publish to Web...** option. It is not sufficient to just have a shareable link.
 
 # Content import / export
 
 ## How to import content?
 
-From Latex file
+**From Latex file**
 
 To upload your syllabus from Latex to MediaWiki use the toolkit developed by our students:
 
-Syllabus in Latex: import
+* [Syllabus in Latex: import](https://dev.digitalprofile.innopolis.university/generator/eduwiki/upload)
 
 ## How to export content?
 
 ### To PDF-file
 
-To get a printable version of the certain page use the link Printable version at the left column of the page. After the page is generated you may print it as usually.
+To get a printable version of the certain page use the link **Printable version** at the left column of the page. After the page is generated you may print it as usually.
 
-# parsed from: https://eduwiki.innopolis.university/index.php/Newsboard
+<article/>
+
+<article source_url="https://eduwiki.innopolis.university/index.php/Newsboard" source_page_name="Newsboard">
+
 # Newsboard, Channels and Groups links
 
-(Redirected from Newsboard)
+(Redirected from [Newsboard](/index.php?title=Newsboard&redirect=no "Newsboard"))
 
-Newsboard & Channels and Groups links (Usefull link for IU students)
+* Newsboard & Channels and Groups links (Usefull link for IU students)
 
-– Student Union(here you can find interesting events): https://t.me/suiu\_news;
+– Student Union(here you can find interesting events): <https://t.me/suiu_news>;
 
-– Lost and Found if you lost or find smth: https://t.me/LostAndFoundInnopolis;
+– Lost and Found if you lost or find smth: <https://t.me/LostAndFoundInnopolis>;
 
-– Important ads about campus life: https://t.me/campus\_info;
+– Important ads about campus life: <https://t.me/campus_info>;
 
-– Innopolis Library: https://portal.university.innopolis.ru;
+– Innopolis Library: <https://portal.university.innopolis.ru>;
 
-– technical questions directly to@Iuithelp (projectors, internet, wifi) or https://t.me/Orginnopolisu (furniture, markers, lights, A/C, etc.);
+– technical questions directly to@Iuithelp (projectors, internet, wifi) or <https://t.me/Orginnopolisu> (furniture, markers, lights, A/C, etc.);
 
-– requests to Students Affairs:https://t.me/StudentAffairs\_bot, 319@innopolis.ru;
+– requests to Students Affairs:<https://t.me/StudentAffairs_bot>, 319@innopolis.ru;
 
-– requests to Departament of Education: https://t.me/education\_support\_bot, doe@innopolis.university;
+– requests to Departament of Education: <https://t.me/education_support_bot>, doe@innopolis.university;
 
-# parsed from: https://eduwiki.innopolis.university/index.php/Exchange
+<article/>
+
+<article source_url="https://eduwiki.innopolis.university/index.php/Exchange" source_page_name="Exchange">
+
 # Exchange program
 
-(Redirected from Exchange)
+(Redirected from [Exchange](/index.php?title=Exchange&redirect=no "Exchange"))
+
+## Contents
+
+* [1 Exchange program](https://eduwiki.innopolis.university/index.php/Exchange#Exchange_program)
+* [2 Types of exchange programs](https://eduwiki.innopolis.university/index.php/Exchange#Types_of_exchange_programs)
+* [3 Call announcement](https://eduwiki.innopolis.university/index.php/Exchange#Call_announcement)
+* [4 Eligibility criteria](https://eduwiki.innopolis.university/index.php/Exchange#Eligibility_criteria)
+* [5 Preparation for the call](https://eduwiki.innopolis.university/index.php/Exchange#Preparation_for_the_call)
+* [6 List of courses at Innopolis University](https://eduwiki.innopolis.university/index.php/Exchange#List_of_courses_at_Innopolis_University)
+* [7 Assistance with course matching](https://eduwiki.innopolis.university/index.php/Exchange#Assistance_with_course_matching)
+* [8 Transcript of records](https://eduwiki.innopolis.university/index.php/Exchange#Transcript_of_records)
+* [9 Partner Universities](https://eduwiki.innopolis.university/index.php/Exchange#Partner_Universities)
 
 # Exchange program
 
 Innopolis University is glad to offer you a chance to study at one of the finest universities from all over the world during one semester.
 If you are dreaming of getting opportunities for personal development, acquiring skills needed for the job market across the globe, discovering and exploring new cultures, meeting new people and traveling, you are most welcome to apply for an exchange program at one of the partner institutions of Innopolis University. International Relations Office will assist you and help with questions throughout the whole program. Participate in the program and get benefits that will surely enhance your skills: master foreign language, advance your CV, make lifelong friends, open new opportunities for your future career.
 
-International Relations Office contacts
+**International Relations Office contacts**
 
 Innopolis University
 
@@ -2452,9 +2876,9 @@ Erasmus+ program allows students to receive a grant that may cover the tuition f
 
 Innopolis University currently has the Erasmus+ agreements with the partner universities listed below. Please note that the list is subject to changes.
 
-• University of Toulouse 3 Paul Sabatier (France)
+• [University of Toulouse 3 Paul Sabatier (France)](https://www.univ-tlse3.fr/venir-erasmus)
 
-• Technological University Dublin (Ireland)
+• [Technological University Dublin (Ireland)](https://www.tudublin.ie/study/international-students/study-abroad-and-erasmus/incoming-erasmus-plus-and-exchange-students/)
 
 # Call announcement
 
@@ -2465,14 +2889,14 @@ International Relations Office sends an-email to all Innopolis University studen
 
 You are welcome to apply for an exchange program if you meet the following eligibility criteria.
 
-Semesters available for exchange:
+**Semesters available for exchange:**
 - Bachelor's level: 3, 4, 5, 6 or 7
 - Master's level: 2 or 3
 
-Trimesters available for exchange:
+**Trimesters available for exchange:**
 - Bachelor's level: 4, 5, 7, 8
 
-GPA required:
+**GPA required:**
 - regular exchange: 4.0 or higher
 - Erasmus+: 4.4 or higher.
 
@@ -2496,102 +2920,187 @@ You should order transcript of records at my.university.innopolis.ru, it is usua
 
 # Partner Universities
 
-Check partner universities here.
+Check partner universities [here](https://drive.google.com/file/d/1iibsPESggO38pyE49rYPlnlJStzurBIB/view).
 
-# parsed from: https://eduwiki.innopolis.university/index.php/Winter_School
+<article/>
+
+<article source_url="https://eduwiki.innopolis.university/index.php/Winter_School" source_page_name="Winter_School">
+
 # Winter School
 
 ## Russia & CIS
 
-Polytechnic Winter School at Peter the Great St. Petersburg Polytechnic University
+[Polytechnic Winter School](https://summerschool.spbstu.ru/schools/winter_school/) at Peter the Great St. Petersburg Polytechnic University
 
 • Partnership: non-partner
 • Teaching method: online, hybrid and tailor-made
-• Courses: check here
+• Courses: [check here](https://summerschool.spbstu.ru/schools/summer_school/)
 • Duration: depends on the program
-• Deadline: depends on the program and your citizenship. Please find the detailed information here
+• Deadline: depends on the program and your citizenship. Please find the detailed information [here](https://summerschool.spbstu.ru/visa_procedure/)
 
 ## Europe
 
-SAPIENZA WINTER SCHOOL at the Sapienza University of Rome
+[SAPIENZA WINTER SCHOOL](https://www.uniroma1.it/en/pagina/summer-winter-school) at the Sapienza University of Rome
 
-Partnership: partnerTeaching method: onsiteCourses: check hereDuration: 1-4 weeksDeadline: October 31
+* Partnership: partner
+* Teaching method: onsite
+* Courses: [check here](https://www.uniroma1.it/en/pagina/summer-and-winter-schools)
+* Duration: 1-4 weeks
+* Deadline: October 31
 
-WINTER SCHOOLS 2023 at the University of Trento
+[WINTER SCHOOLS 2023](https://international.unitn.it/incoming/summer-and-winter-schools) at the University of Trento
 
-Partnership: partnerTeaching method: onsiteCourses: check hereDuration: January 16-27, 2023; Jan 30-Feb 10, 2023Deadline: October 15Fee: 400 €
+* Partnership: partner
+* Teaching method: onsite
+* Courses: [check here](https://international.unitn.it/incoming/summer-and-winter-schools)
+* Duration: January 16-27, 2023; Jan 30-Feb 10, 2023
+* Deadline: October 15
+* Fee: 400 €
 
-WINTER SCHOOLS 2023 at the University of Bologna
+[WINTER SCHOOLS 2023](https://www.unibo.it/en/teaching/summer-and-winter-schools) at the University of Bologna
 
-Partnership: partnerTeaching method: onsiteCourses: check hereDuration: depends on the programDeadline: depends on the programFee: 100 € and more
+* Partnership: partner
+* Teaching method: onsite
+* Courses: [check here](https://www.unibo.it/en/teaching/summer-and-winter-schools/2022)
+* Duration: depends on the program
+* Deadline: depends on the program
+* Fee: 100 € and more
 
 ## Asia
 
-INTERNATIONAL WINTER “CLOUD LESSONS” PROGRAM at the Beijing Institute of Technology
+[INTERNATIONAL WINTER “CLOUD LESSONS” PROGRAM](https://isc.bit.edu.cn/admissionsaid/spss/BITWinterPrograms_20201010031116496880/index.htm) at the Beijing Institute of Technology
 
-Partnership: partnerTeaching method: onlineCourses: check hereDuration: December 27 - January 7Deadline: December 15Fee: free for students from partner universities
+* Partnership: partner
+* Teaching method: online
+* Courses: [check here](https://isc.bit.edu.cn/admissionsaid/spss/BITWinterPrograms_20201010031116496880/index.htm)
+* Duration: December 27 - January 7
+* Deadline: December 15
+* Fee: free for students from partner universities
 
-Learn more
+[Learn more](https://drive.google.com/file/d/1KTQDBPsIkzroXMjZ7BMJ2oBtKPy5R2XL/view)
 
-ONLINE WINTER SCHOOL @ FUDAN SOE 2021: SCHOOL OF ECONOMICS at Fudan University
+[ONLINE WINTER SCHOOL @ FUDAN SOE 2021: SCHOOL OF ECONOMICS](https://econ.fudan.edu.cn/info/1530/19205.htm) at Fudan University
 
-Partnership: non-partnerTeaching method: OnlineCourses: check hereDuration: December 20 - January 16Deadline: December 5 (application),December 12 (course enrollment)Fee: CNY 400 (application fee), CNY 26,000 (tuition fee).
+* Partnership: non-partner
+* Teaching method: Online
+* Courses: [check here](https://econ.fudan.edu.cn/en/)
+* Duration: December 20 - January 16
+* Deadline: December 5 (application),December 12 (course enrollment)
+* Fee: CNY 400 (application fee), CNY 26,000 (tuition fee).
 
-UIBE SIE ACADEMIC WINTER SESSION at the University of International Business and Economics
+[UIBE SIE ACADEMIC WINTER SESSION](http://sie.uibe.edu.cn/en/xmjs/xfxm/90986.htm) at the University of International Business and Economics
 
-Partnership: non-partnerTeaching method: online/onsiteCourses: hereDuration: December 13 - January 5Deadline: December 6Fee: $5,030 (CNY 23,910) — one course; $7,430 (CNY 35,310) — three courses.
+* Partnership: non-partner
+* Teaching method: online/onsite
+* Courses: [here](https://drive.google.com/drive/folders/1fGUAB2641iCcxZAKK15RD3evyxVWQ0PEcheck)
+* Duration: December 13 - January 5
+* Deadline: December 6
+* Fee: $5,030 (CNY 23,910) — one course; $7,430 (CNY 35,310) — three courses.
 
-HANYANG INTERNATIONAL WINTER SCHOOL at Hanyang University
+[HANYANG INTERNATIONAL WINTER SCHOOL](https://hanyangwinter.com/) at Hanyang University
 
-Partnership: partnerCourses: check hereDuration: January 4 - January 15Fee: KRW 900,000 for online courses
+* Partnership: partner
+* Courses: [check here](https://hanyangwinter.com/courses/)
+* Duration: January 4 - January 15
+* Fee: KRW 900,000 for online courses
+
+[KOREA UNIVERSITY INTERNATIONAL WINTER CAMPUS](https://winter.korea.ac.kr/src/main/main.php) at Korea University
+
+* Partnership: non-partner
+* Teaching method: online/onsite
+* Courses: [check here](https://winter.korea.ac.kr/src/program/session1.php)
+* Duration: December 27 - January 14
+* Deadline: November 19 (application),November 26 (course enrollment)
+* Fee: depends on the program, [please check](https://winter.korea.ac.kr/src/program/scholarship.php) discounts and scholarships available
 
 KOREA UNIVERSITY INTERNATIONAL WINTER CAMPUS at Korea University
 
-Partnership: non-partnerTeaching method: online/onsiteCourses: check hereDuration: December 27 - January 14Deadline: November 19 (application),November 26 (course enrollment)Fee: depends on the program, please check discounts and scholarships available
+* Partnership: non-partner
+* Teaching method: online/onsite
+* Courses: check here
+* Duration: December 27 - January 14
+* Deadline: November 19 (application),November 26 (course enrollment)
+* Fee: depends on the program, please check discounts and scholarships available
 
-KOREA UNIVERSITY INTERNATIONAL WINTER CAMPUS at Korea University
+[WINTER ABROAD AT YONSEI](https://winter.yonsei.ac.kr/main/default.asp) at Yonsei University
 
-Partnership: non-partnerTeaching method: online/onsiteCourses: check hereDuration: December 27 - January 14Deadline: November 19 (application),November 26 (course enrollment)Fee: depends on the program, please check discounts and scholarships available
+* Partnership: non-partner
+* Teaching method: online/onsite
+* Courses: [check here](https://winter.yonsei.ac.kr/main/course.asp?mid=m02_02)
+* Duration: December 27 - January 14
+* Deadline: October 31 (early bird 1), November 19 (early bird 2), November 30 (regular).
+* Fee: depends on the program, please check discounts and scholarships availablehere
 
-WINTER ABROAD AT YONSEI at Yonsei University
+[KOREA UNIVERSITY INTERNATIONAL WINTER CAMPUS](https://winter.korea.ac.kr:5002/src/main/main.php) at Korea University
 
-Partnership: non-partnerTeaching method: online/onsiteCourses: check hereDuration: December 27 - January 14Deadline: October 31 (early bird 1), November 19 (early bird 2), November 30 (regular).Fee: depends on the program, please check discounts and scholarships availablehere
+* Partnership: non-partner
+* Teaching method: online
+* Courses: [check here](https://winter.korea.ac.kr/src/program/session1.php)
+* Deadline: September 1 - November 19
+* Application fee— KRW 100,000 (Appx. USD 90). Tuition fee, online Courses: 1 course — KRW 1,300,000 (Appx. USD 1,110), 2 courses — KRW 2,200,000 (Appx. USD 1,890). For Online courses: 300,000 KRW discount/course will be provided based on the price of In-Person Course.
 
-KOREA UNIVERSITY INTERNATIONAL WINTER CAMPUS at Korea University
+[NATIONAL TAIWAN UNIVERSITY: AI DEVELOPMENT, APPLICATIONS & BEYOND (MODULE A: HUMAN/AI COLLABORATION)](https://oiasystem.ntu.edu.tw/summer/course/index.course/season/5) at National Taiwan University
 
-Partnership: non-partnerTeaching method: onlineCourses: check hereDeadline: September 1 - November 19Application fee— KRW 100,000 (Appx. USD 90). Tuition fee, online Courses: 1 course — KRW 1,300,000 (Appx. USD 1,110), 2 courses — KRW 2,200,000 (Appx. USD 1,890). For Online courses: 300,000 KRW discount/course will be provided based on the price of In-Person Course.
-
-NATIONAL TAIWAN UNIVERSITY: AI DEVELOPMENT, APPLICATIONS & BEYOND (MODULE A: HUMAN/AI COLLABORATION) at National Taiwan University
-
-Partnership: non-partnerTeaching method: online/onsiteCourses: check hereDuration: April 20 - May 15Deadline: April 8Fee: USD 150 (application fee); USD 380 (program fee)Special price: USD 320
+* Partnership: non-partner
+* Teaching method: online/onsite
+* Courses: [check here](https://oiasystem.ntu.edu.tw/summer/course/index.course/season/5)
+* Duration: April 20 - May 15
+* Deadline: April 8
+* Fee: USD 150 (application fee); USD 380 (program fee)
+* Special price: USD 320
 
 - Early Bird application & payment (before March 20)
 - Group application (at least 6 students)
 
-# parsed from: https://eduwiki.innopolis.university/index.php/Summer_School
+<article/>
+
+<article source_url="https://eduwiki.innopolis.university/index.php/Summer_School" source_page_name="Summer_School">
+
 # Summer School
+
+## Contents
+
+* [1 Russia & CIS](https://eduwiki.innopolis.university/index.php/Summer_School#Russia_.26_CIS)
+* [2 Europe](https://eduwiki.innopolis.university/index.php/Summer_School#Europe)
+* [3 Asia](https://eduwiki.innopolis.university/index.php/Summer_School#Asia)
+* [4 Other countries](https://eduwiki.innopolis.university/index.php/Summer_School#Other_countries)
 
 ## Russia & CIS
 
-THE RUSSIAN LANGUAGE SUMMER SCHOOL at the Belarusian State University of Informatics and Radioelectronics
+[THE RUSSIAN LANGUAGE SUMMER SCHOOL](https://www.bsuir.by/m/12_100229_0_144670.pdf) at the Belarusian State University of Informatics and Radioelectronics
 
-Partnership: partnerTeaching method: onsiteCourses: Russian languageDuration: TBDDeadline: TBDFee: $200
+* Partnership: partner
+* Teaching method: onsite
+* Courses: Russian language
+* Duration: TBD
+* Deadline: TBD
+* Fee: $200
 
-Learn more
+[Learn](https://www.bsuir.by/m/12_100229_0_144670.pdf) more
 
-INTERNATIONAL POLYTECHNIC SUMMER SCHOOL at Peter the Great St. Petersburg Polytechnic University
+[INTERNATIONAL POLYTECHNIC SUMMER SCHOOL](https://english.spbstu.ru/education/programs/short-term-programs/summer-school/) at Peter the Great St. Petersburg Polytechnic University
 
-Partnership: non-partnerTeaching method: onlineCourses: check hereDuration: depends on the programDeadline: depends on the program and your citizenship. Please find the detailed information hereFee: 135 €
+* Partnership: non-partner
+* Teaching method: online
+* Courses: [check here](https://summerschool.spbstu.ru/schools/summer_school/)
+* Duration: depends on the program
+* Deadline: depends on the program and your citizenship. Please find the detailed information here
+* Fee: 135 €
 
-Learn more
+[Learn](https://english.spbstu.ru/upload/inter/brochure/flyer_Summer_School_eng_A4_2021.pdf) more
 
-IX INTERNATIONAL SUMMER SCHOOL at Ural Federal University
+[IX INTERNATIONAL SUMMER SCHOOL](https://gsem.urfu.ru/en/prospective-students/short-term-programmes/international-summer-school/) at Ural Federal University
 
-Partnership: non-partnerTeaching method: onsiteCourses: Doing Business in Russia and worldwide: Diving into Creative EconomyDuration: July 6-15Deadline: June 30 (for foreigners May 31)Fee: 100 €
+* Partnership: non-partner
+* Teaching method: onsite
+* Courses: Doing Business in Russia and worldwide: Diving into Creative Economy
+* Duration: July 6-15
+* Deadline: June 30 (for foreigners May 31)
+* Fee: 100 €
 
 ## Europe
 
-INNSBRUCK SUMMER SCHOOL OF ALPINE RESEARCH at the University of Innsbruck
+[INNSBRUCK SUMMER SCHOOL OF ALPINE RESEARCH](https://www.uibk.ac.at/geographie/summerschool/2022/) at the University of Innsbruck
 
 • Partnership: partner
 • Teaching method: onsite
@@ -2599,7 +3108,7 @@ INNSBRUCK SUMMER SCHOOL OF ALPINE RESEARCH at the University of Innsbruck
 • Deadline: February 28
 • Fee: 500 €
 
-LUT SUMMER SCHOOL at the Lappeenranta University of Technology
+[LUT SUMMER SCHOOL](https://www.lut.fi/en/studies/lut-summer-school) at the Lappeenranta University of Technology
 
 • Partnership: non-partner
 • Teaching method: onsite
@@ -2609,7 +3118,7 @@ LUT SUMMER SCHOOL at the Lappeenranta University of Technology
 
 • Accommodation: 220 € (1 week), 290 € (2 weeks), 370 € (3 weeks)
 
-GINSEN SUMMER SCHOOL at Grenoble INP – UGA
+[GINSEN SUMMER SCHOOL](https://www.grenoble-inp.fr/en/academics/grenoble-international-smart-engineering-summer-school-ginsen-2) at Grenoble INP – UGA
 
 • Partnership: partner
 • Teaching method: onsite
@@ -2620,7 +3129,7 @@ GINSEN SUMMER SCHOOL at Grenoble INP – UGA
 
 Learn more about Micro and Nanotechnology], Summer School], Smart Energy Summer School]
 
-ESME & EPITECH - SUMMER SCHOOL IN ROBOTICS at Ecole Spéciale de Mécanique et d'Electricité( ESME)
+[ESME & EPITECH - SUMMER SCHOOL IN ROBOTICS](https://www.academiccourses.com/ESME-and-Epitech-Summer-School-in-Robotics-2022/France/ESME/) at Ecole Spéciale de Mécanique et d'Electricité( ESME)
 
 • Partnership: non-partner
 • Teaching method: onsite
@@ -2631,7 +3140,7 @@ ESME & EPITECH - SUMMER SCHOOL IN ROBOTICS at Ecole Spéciale de Mécanique et d
 • Onsite program fees: 2,400 € all-inclusive
 • Online program fees: 900 €
 
-SUMMER SCHOOL ARTIFICIAL INTELLIGENCE & ENGINEERING APPLIED TO SMART CITIES at ESTP Paris - École Spéciale des Travaux Publics, du Bâtiment et de l'Industrie
+[SUMMER SCHOOL ARTIFICIAL INTELLIGENCE & ENGINEERING APPLIED TO SMART CITIES](https://www.estp.fr/summer-school-artificial-intelligence-sustainable-smart-cities) at ESTP Paris - École Spéciale des Travaux Publics, du Bâtiment et de l'Industrie
 
 • Partnership: partner
 • Teaching method: onsite
@@ -2644,9 +3153,9 @@ Module 2 - Artificial Intelligence and Big Data in Urban Planning, Design and Ma
 • Deadline: April 19
 • Fee: 2400 € for 3 weeks
 
-Learn more
+[Learn more](https://www.estp.fr/sites/default/files/2020-01/Summer%20School%20EPF%20ESTP%20Paris%202020.pdf)
 
-SUMMER SCHOOL IN VISUAL COMPUTING & ARTIFICIAL INTELLIGENCE at CY Cergy Paris Universite
+[SUMMER SCHOOL IN VISUAL COMPUTING & ARTIFICIAL INTELLIGENCE](https://international-programs.cytech.cyu.fr/summer-school-visual-computing-artificial-intelligence-in-pau-or-cergy-pontoise/?_sp=1f16dc0f-a59f-4279-8019-455e265a15a8.1654264537501) at CY Cergy Paris Universite
 
 • Partnership: non-partner
 • Teaching method: onsite
@@ -2654,15 +3163,15 @@ SUMMER SCHOOL IN VISUAL COMPUTING & ARTIFICIAL INTELLIGENCE at CY Cergy Paris Un
 • Duration: June – July
 • Fee: 2,400 € per course
 
-SAPIENZA SUMMER SCHOOLS at the Sapienza University of Rome
+[SAPIENZA SUMMER SCHOOLS](https://www.uniroma1.it/en/pagina/sapienza-summer-schools) at the Sapienza University of Rome
 
 • Partnership: partner
 • Teaching method: onsite
-• Courses: check here
+• Courses: check [here](http://people.disim.univaq.it/~antonio.cicone/NoSAG21/Program.html)
 • Duration: 1-4 weeks
 • Deadline: March 31
 
-SUMMER SCHOOL & CONFERENCE at the University of L'Aquila
+[SUMMER SCHOOL & CONFERENCE](http://people.disim.univaq.it/~antonio.cicone/NoSAG21/NoSAG21_homepage.html) at the University of L'Aquila
 
 • Partnership: partner
 • Teaching method: onsite
@@ -2673,7 +3182,7 @@ SUMMER SCHOOL & CONFERENCE at the University of L'Aquila
 
 • Fee: 180 € - Early registration (deadline April 30), 250 € - Standard registration
 
-GSSI-SIF-INAF SUMMER SCHOOL ON COSMIC RAYS at Gran Sasso Science Institute (GSSI)
+[GSSI-SIF-INAF SUMMER SCHOOL ON COSMIC RAYS](https://www.gssi.it/communication/news-events/item/16944-registrations-open-for-gssi-sif-summer-school-on-cosmic-rays) at Gran Sasso Science Institute (GSSI)
 
 • Partnership: partner
 • Teaching method: onsite
@@ -2682,9 +3191,9 @@ GSSI-SIF-INAF SUMMER SCHOOL ON COSMIC RAYS at Gran Sasso Science Institute (GSSI
 • Deadline: April 15
 • Fee: 500 €
 
-Learn more
+Learn [more](https://www.gssi.it/communication/news-events/item/download/3458_b4b419b21b51b3b03d0bf5fff9d72970)
 
-AI-DLDA 2022: INTERNATIONAL SUMMER SCHOOL ON ARTIFICIAL INTELLIGENCE at the University of Udine
+[AI-DLDA 2022: INTERNATIONAL SUMMER SCHOOL ON ARTIFICIAL INTELLIGENCE](https://www.aidlda.it/) at the University of Udine
 
 • Partnership: non-partner
 • Teaching method: online/onsite
@@ -2692,26 +3201,26 @@ AI-DLDA 2022: INTERNATIONAL SUMMER SCHOOL ON ARTIFICIAL INTELLIGENCE at the Univ
 • Duration: July 4-8
 • Fee: 160 €
 
-SUMMER SCHOOLS IN ENGINEERING at the University of Pisa
+[SUMMER SCHOOLS IN ENGINEERING](https://www.unipi.it/index.php/engineering) at the University of Pisa
 
 • Partnership: non-partner
 • Teaching method: onsite
-• Courses:check here
+• Courses:check [here](https://www.unipi.it/index.php/engineering)
 • Duration: July
 
 • Deadline: June
 • Fee: 250 €
 
-SUMMER SCHOOLS at the University of Bologna
+[SUMMER SCHOOLS](https://www.unibo.it/en/teaching/summer-and-winter-schools) at the University of Bologna
 
 • Partnership: partner
 • Teaching method: onsite
-• Courses:check here
+• Courses:check [here](https://www.unibo.it/en/teaching/summer-and-winter-schools/2022)
 • Duration: depends on the program
 • Deadline: depends on the program
 • Fee: 100 € and more
 
-VISUM Summer School (VISion Understanding and Machine intelligence) at INESC TEC - Institute for Systems and Computer Engineering, Technology and Science
+[VISUM Summer School (VISion Understanding and Machine intelligence)](https://visum.inesctec.pt/) at INESC TEC - Institute for Systems and Computer Engineering, Technology and Science
 
 • Partnership: non-partner
 • Teaching method: onsite
@@ -2719,34 +3228,34 @@ VISUM Summer School (VISion Understanding and Machine intelligence) at INESC TEC
 • Duration: July 11-16
 • Fee: May 6 (early bird registration) — 700 €, May 30 (regular registration) — 750 €, June 13 (late registration) — 800 €
 
-ROBOTCRAFT SUMMER COURSE at the UNIVERSITY OF COIMBRA
+[ROBOTCRAFT SUMMER COURSE](https://robotcraft.ingeniarius.pt/) at the UNIVERSITY OF COIMBRA
 
 • Partnership: non-partner
 • Teaching method: onsite
-• Courses:check here
+• Courses:check [here](https://robotcraft.ingeniarius.pt/programme)
 • Duration: June 27 - August 27
 • Deadline: April 30 (early bird), May 31 (regular)
 • Fee: 425 € (early bird), 500 € (regular)
 
-LJUBLJANA SUMMER SCHOOL at the University of Ljubljana
+[LJUBLJANA SUMMER SCHOOL](https://shortprogrammes.ef.uni-lj.si/programmes/ljubljana_summer_school/about/) at the University of Ljubljana
 
 • Partnership: partner
 • Teaching method: onsite
-• Courses:check here
+• Courses:check [here](https://shortprogrammes.ef.uni-lj.si/programmes/ljubljana_summer_school/courses_2022/)
 • Duration: July 4-22
 • Deadline: May 16 (early bird), June 9 (standard fee)
 • Fee: 800 € (1 course), 1050 € (2 courses)
 
-UNIVERSITAT AUTÒNOMA DE BARCELONA (UAB) BARCELONA SUMMER SCHOOL at Universitat Autònoma de Barcelona
+[UNIVERSITAT AUTÒNOMA DE BARCELONA (UAB) BARCELONA SUMMER SCHOOL](https://www.uab.cat/barcelona-summer-school/) at Universitat Autònoma de Barcelona
 
 • Partnership: non-partner
 • Teaching method: online/onsite
-• Courses:check here
+• Courses:check [here](https://www.uab.cat/web/courses/second-period-courses-1345844080922.html)
 • Duration: June-July (Session 1), July (Session 2)
 • Deadline: April 30
 • Fee: 850 € per course
 
-UNIVERSIDAD AUTόNOMA DE MADRID (UAM): CLIMATE CHANGE SUMMER SCHOOL at the Spain Center for International Education (SpaCIE) and Universidad Autónoma de Madrid (UAM)
+[UNIVERSIDAD AUTόNOMA DE MADRID (UAM): CLIMATE CHANGE SUMMER SCHOOL](https://climate.enveco.es/) at the Spain Center for International Education (SpaCIE) and Universidad Autónoma de Madrid (UAM)
 
 • Partnership: non-partner
 • Teaching method: onsite
@@ -2755,16 +3264,16 @@ UNIVERSIDAD AUTόNOMA DE MADRID (UAM): CLIMATE CHANGE SUMMER SCHOOL at the Spain
 • Deadline: February 28 (early bird), June 28 (regular deadline for 3 ECTS prog), May 31 (regular deadline for 6 ECTS prog)
 • Fee: 999-1199 €; 200 € discount for early application (until February 28)
 
-HUMAN-CENTERED MACHINE LEARNING SUMMER COURSE at Universitat Politecnica de Catalunya
+[HUMAN-CENTERED MACHINE LEARNING SUMMER COURSE](https://www.upc.edu/en/other-courses/summer-courses) at Universitat Politecnica de Catalunya
 
 • Partnership: partner
 • Teaching method: onsite
-• Courses:check here
+• Courses:check [here](https://www.upc.edu/en/other-courses/summer-courses)
 • Duration: depends on the program
 • Deadline: depends on the program
 • Fee: depends on the program
 
-DEEP DIVE INTO BLOCKCHAIN: LINKING ECONOMICS, TECHNOLOGY AND LAW at the University Of Zurich
+[DEEP DIVE INTO BLOCKCHAIN: LINKING ECONOMICS, TECHNOLOGY AND LAW](https://www.int.uzh.ch/en/in/shortprograms.html) at the University Of Zurich
 
 • Partnership: non-partner
 • Teaching method: online
@@ -2780,21 +3289,21 @@ DEEP DIVE INTO BLOCKCHAIN: LINKING ECONOMICS, TECHNOLOGY AND LAW at the Universi
 • Duration: 3 - 22 July
 • Fee: 1,500 Swiss Francs
 
-12 SUMMER PROGRAMMES IN DIGITAL INNOVATION & ENTREPRENEURSHIP at EIT Digital
+[12 SUMMER PROGRAMMES IN DIGITAL INNOVATION & ENTREPRENEURSHIP](https://summerschool.eitdigital.eu/#c40099) at EIT Digital
 
 • Partnership: non-partner
 • Teaching method:onsite
-• Courses:check here
+• Courses:check [here](https://summerschool.eitdigital.eu/#c40099)
 • Duration: depends on the program
 
 • Deadline: depends on the program
 • Fee: depends on the program
 
-Learn more
+[Learn more](https://summerschool.eitdigital.eu/#c40099)
 
 ## Asia
 
-INTERNATIONAL SUMMER PROGRAM ‘CLOUD LESSONS’ at the Beijing Institute of Technology
+[INTERNATIONAL SUMMER PROGRAM ‘CLOUD LESSONS’](https://isc.bit.edu.cn/admissionsaid/spss/languageulture_20201010031104805795/index.htm) at the Beijing Institute of Technology
 
 • Partnership: partner
 • Teaching method: online
@@ -2809,49 +3318,49 @@ INTERNATIONAL SUMMER PROGRAM ‘CLOUD LESSONS’ at the Beijing Institute of Tec
 • Deadline: June 1 (nomination), June 16 (application)
 • Fee: free for students from BIT partner universities
 
-Learn more
+Learn [more](https://drive.google.com/file/d/1S1Vg-isJ69SVi6E8Irwdma8U0DG6bjio/view)
 
-FUDAN UNIVERSITY SCHOOL OF ECONOMICS: SUMMER SCHOOL@ FUDAN SOE at Fudan University
+[FUDAN UNIVERSITY SCHOOL OF ECONOMICS: SUMMER SCHOOL@ FUDAN SOE](https://econ.fudan.edu.cn/en/) at Fudan University
 
 • Partnership: non-partner
 • Teaching method: online
-• Courses:check here
+• Courses:check [here](https://econ.fudan.edu.cn/info/1530/19526.htm)
 • Duration: 6 June to 31 July
 
 • Deadline: May 15
 • Fee: CNY 28,600 (approx. $6,100)
-Learn more
+Learn [more](https://drive.google.com/file/d/1Qrhj_1kSj_qHJD0mVU1VfhJmYOeGsC2N/view)
 
-UNIVERSITY OF INTERNATIONAL BUSINESS AND ECONOMICS SCHOOL OF INTERNATIONAL EDUCATION INTERNATIONAL SUMMER SESSION at the University of International Business and Economics
+[UNIVERSITY OF INTERNATIONAL BUSINESS AND ECONOMICS SCHOOL OF INTERNATIONAL EDUCATION INTERNATIONAL SUMMER SESSION](http://sie.uibe.edu.cn/xmjs/xfxm/76260.htm) at the University of International Business and Economics
 
 • Partnership: non-partner
 • Teaching method:online and onsite
-• Courses:check here
+• Courses:check [here](http://sie.uibe.edu.cn/docs/2022-01/e959439c597944d396e3e856bbf3d49c.pdf)
 • Duration: June 13 - July 14; July 18 - August 12
 • Deadline: May and July
 • Fee: CNY 23,410 for one course, CNY 31,810 for two courses, CNY 36,810 for three courses
-Learn more
+Learn [more](https://drive.google.com/file/d/1-AgX_uxeI3aNU1iYQrQJR7NUYwSyfk2o/view)
 
-SUMMER INSTITUTE SUMMER PROGRAMMES at the University of Hong Kong
+[SUMMER INSTITUTE SUMMER PROGRAMMES](https://summerinstitute.hku.hk/special-announcement-page/HKU) at the University of Hong Kong
 
 • Partnership: non-partner
 • Teaching method:online
-• Courses:check here
+• Courses:check [here](https://summerinstitute.hku.hk/homepage/for-undergraduates/?wpv_view_count=98&wpv-area-of-interest=21type-science&wpv-target-students=universities-students&wpv-credit=0&wpv-session=0)
 • Duration:depends on the program, June - August
 
 • Deadline: February 28
-• Fees are here
+• Fees are [here](https://drive.google.com/file/d/1-AgX_uxeI3aNU1iYQrQJR7NUYwSyfk2o/view)
 
-UNIVERSITY OF TOKYO GLOBAL UNIT COURSE at the University of Tokyo
+[UNIVERSITY OF TOKYO GLOBAL UNIT COURSE](https://www.u-tokyo.ac.jp/en/prospective-students/guc.html) at the University of Tokyo
 
 • Partnership: partner
 • Teaching method: online
-• Courses:check here
+• Courses:check [here](https://www.u-tokyo.ac.jp/en/prospective-students/special_programs.html)
 • Duration: depends on the program
 • Deadline: depends on the program
 • Fee: JPY 50,000 per unit / JPY 25,000 per 0.5 unit
 
-PKU SUMMER SCHOOL INTERNATIONAL at Peking University
+[PKU SUMMER SCHOOL INTERNATIONAL](http://www.oir.pku.edu.cn/summerschool/Courses/Courses_List1/Session_A/Online_Courses.htm#current_course) at Peking University
 
 • Partnership: non-partner
 • Teaching method: online/onsite
@@ -2876,7 +3385,7 @@ PKU SUMMER SCHOOL INTERNATIONAL at Peking University
 
 RMB 11 000-16 000 (tuition fee)
 
-INTERNATIONAL SUMMER SCHOOL at Esya Centre
+[INTERNATIONAL SUMMER SCHOOL at Esya Centre](https://www.issnewdelhi.in/)
 
 • Partnership: non-partner
 • Teaching method: onsite
@@ -2893,14 +3402,14 @@ INTERNATIONAL SUMMER SCHOOL at Esya Centre
 
 Please check scholarships here
 
-THE 6TH SUMMER SCHOOL ON AI WITH FOCUS ON COMPUTER VISION & MACHINE LEARNINGE at the International Institute of Information Technology HYDERABAD
+[THE 6TH SUMMER SCHOOL ON AI WITH FOCUS ON COMPUTER VISION & MACHINE LEARNINGE](http://cvit.iiit.ac.in/summerschoolseries/) at the International Institute of Information Technology HYDERABAD
 
 • Partnership: partner
 • Teaching method: online
 • Courses: Artificial intelligence
 • Duration: July 15 - August 5
 
-UNIVERSITAS INDONESIA UI-CREATES at Universitas Indonesia
+[UNIVERSITAS INDONESIA UI-CREATES](https://international.ui.ac.id/short-programs/) at Universitas Indonesia
 
 • Partnership: non-partner
 • Teaching method: onsite
@@ -2915,7 +3424,7 @@ Economics, Engineering, Law, Political Science, Psychology
 
 - A $500 Southeast Asia Experience Award is available.
 
-SUMMER SCHOOL IN BALI at Warmadewa University
+[SUMMER SCHOOL IN BALI](https://asiaexchange.org/study-destinations/bali-indonesia/summer-school-bali/) at Warmadewa University
 
 • Partnership: non-partner
 • Teaching method: onsite
@@ -2925,7 +3434,7 @@ SUMMER SCHOOL IN BALI at Warmadewa University
 • Deadline: June 12
 • Fee: 840 EUR tuition fee (2 weeks), 990 € tuition fee (4 weeks) + 50 € application fee
 
-INTERNATIONAL ENGLISH SUMMER / WINTER PROGRAMME at the University of Nottingham Malaysia
+[INTERNATIONAL ENGLISH SUMMER / WINTER PROGRAMME](https://www.nottingham.edu.my/CELFE/International-English-SummerWinter-Programme/index.aspx) at the University of Nottingham Malaysia
 
 • Partnership: non-partner
 • Teaching method: onsite
@@ -2934,40 +3443,40 @@ INTERNATIONAL ENGLISH SUMMER / WINTER PROGRAMME at the University of Nottingham 
 • Deadline: April 30
 • Fee: 4-weeks programme USD 1,900 USD 1,800\*, 3-weeks programme USD 1,450 USD 1,400\*
 
-Learn more
+Learn [more](https://www.nottingham.edu.my/International/documents/International-Summer-School-2022-Flyer-e-copy.pdf)
 
-SUMMER PROGRAMMES AT NUS: SCHOOL OF COMPUTING at the National University of Singapore
+[SUMMER PROGRAMMES AT NUS: SCHOOL OF COMPUTING at the National University of Singapore](https://sws.comp.nus.edu.sg/)
 
 • Partnership: non-partner
 • Teaching method: online
-• Courses:check here
+• Courses:check [here](https://sws.comp.nus.edu.sg/Topics%20and%20Clusters.htm)
 • Duration: Phase 1— May 15-29, Phase 2— July 11-28
 • Deadline: 17 April
 • Programme fee: SGD 1,950; no application fee
 
-GEM TRAILBLAZER SUMMER at Nanyang Technological University
+[GEM TRAILBLAZER SUMMER at Nanyang Technological University](https://gem.ntu.edu.sg/index.cfm?FuseAction=Programs.ViewProgramAngular&id=11025)
 
 • Partnership: non-partner
 • Teaching method: onsite
-• Courses:check here
+• Courses:check [here](https://gem.ntu.edu.sg/index.cfm?FuseAction=Programs.ViewProgramAngular&id=11025)
 • Duration:depends on the program, June-July
 
 • Partner's nomination deadline: March 31
 • Application deadline: February 15- April 20
 • Fee: one course— SGD 2,760 (~ USD 2,000), two courses— SGD 4,470 (~ USD 3,300)
 
-HANYANG INTERNATIONAL SUMMER SCHOOL at Hanyang University
+[HANYANG INTERNATIONAL SUMMER SCHOOL](https://hanyangsummer.com/) at Hanyang University
 
 • Partnership: partner
 • Teaching method: onsite
-• Courses:check here
+• Courses:check [here](https://hanyangsummer.com/courses/)
 • Duration: June 27 – July 22
 • Deadline: March 31 (early bird), May 22 (payment)
-• Fee: non-partner— ₩ 3,100,000, partner— ₩ 1,900,000. Please check scholarship here
+• Fee: non-partner— ₩ 3,100,000, partner— ₩ 1,900,000. Please check scholarship [here](https://hanyangsummer.com/fees/)
 
-Learn more
+Learn [more](https://drive.google.com/file/d/1_edC2ND8OrKBXL-G2bkxla178Gj9cjre/view)
 
-SUMMER PROGRAMMES AT NUS: SCHOOL OF COMPUTING at the National University of Singapore
+[SUMMER PROGRAMMES AT NUS: SCHOOL OF COMPUTING](https://sws.comp.nus.edu.sg/) at the National University of Singapore
 
 • Partnership: non-partner
 • Teaching method: online
@@ -2976,11 +3485,11 @@ SUMMER PROGRAMMES AT NUS: SCHOOL OF COMPUTING at the National University of Sing
 • Deadline: 17 April
 • Programme fee is SGD 1,950, no application fee
 
-KAIST INTERNATIONAL SUMMER SCHOOL at the Korea Advanced Institute of Science and Technology (KAIST)
+[KAIST INTERNATIONAL SUMMER SCHOOL](http://summer.kaist.ac.kr/) at the Korea Advanced Institute of Science and Technology (KAIST)
 
 • Partnership: partner
 • Teaching method: onsite
-• Courses:check here
+• Courses:check [here](http://summer.kaist.ac.kr/programs/program1)
 • Duration: July 4-29
 • Deadline:Jan 10; May 13; April 15
 • Fee: KRW 100,000 (application fee); KRW 900,000
@@ -2991,7 +3500,7 @@ KAIST INTERNATIONAL SUMMER SCHOOL at the Korea Advanced Institute of Science and
 - KRW 2,400,000 for 2 courses (6 credits)
 - KRW 1,600,000 for 3 credit course + 1 credit course (4 credits)
 
-KOREA UNIVERSITY INTERNATIONAL SUMMER CAMPUS at Korea University
+[KOREA UNIVERSITY INTERNATIONAL SUMMER CAMPUS](https://summer.korea.ac.kr/all/src/main/main.php) at Korea University
 
 • Partnership: non-partner
 • Teaching method: onsite
@@ -3000,44 +3509,44 @@ KOREA UNIVERSITY INTERNATIONAL SUMMER CAMPUS at Korea University
 • Deadline: Jan 5 - May 20
 • Fee: KRW 1,700,000 - KRW 3,800,000
 
-SNU INTERNATIONAL SUMMER PROGRAM (ISP) at Seoul National University
+[SNU INTERNATIONAL SUMMER PROGRAM (ISP) at Seoul National University](https://summer.snu.ac.kr/index.php)
 
 • Partnership: partner
 • Teaching method: onsite
-• Courses:check here
+• Courses:check [here](https://summer.snu.ac.kr/bbs/board.php?bo_table=notice&wr_id=50)
 • Duration: June 28 - July 29
 • Deadline: January 10 - April 4 (early bird), May 7 (regular)
 • Application Fee: ₩1,800,000 - ₩3,600,000 (approx. S$2,000 - S$4,000)
 
-YONSEI INTERNATIONAL SUMMER SCHOOL at Yonsei University
+[YONSEI INTERNATIONAL SUMMER SCHOOL](https://summer.yonsei.ac.kr/home/program/courses.asp?cateNo=0) at Yonsei University
 
 • Partnership: non-partner
 • Teaching method: onsite
-• Courses:check here
+• Courses:check [here](https://summer.yonsei.ac.kr/home/program/courses.asp?cateNo=0)
 • Duration: June 28 - July 21 (4-week Programme), June 28 - August 4 (6-week Programme)
 • Deadline: April 22 (early bird), May 13 (regular)
 • Application fee: ₩100 000
 
 • Tuition fee: ₩3,000,000 - ₩3,600,000
 
-Learn more
+Learn [more](https://drive.google.com/file/d/1EX9bJQuplXQQSApSEqQ5F0SCyfXBOCE6/view)
 
-INTERNATIONAL SUMMER SESSION at Chonnam National University
+[INTERNATIONAL SUMMER SESSION](https://international.jnu.ac.kr/Inbound/SummerSession/OverView) at Chonnam National University
 
 • Partnership: non-partner
 • Teaching method: onsite
-• Courses:check here
+• Courses:check [here](https://international.jnu.ac.kr/Inbound/SummerSession/Course)
 • Duration: June 23 – July 21
 • Deadline: April 22 (nomination), April 27 (application & payment)
 • Fee: KRW 1,950,000
 
-Learn more
+Learn [more](https://international.ui.ac.id/wp-content/uploads/2020/02/CNUISS2020-Brochure_.pdf)
 
-HUFS INTERNATIONAL SUMMER SESSION at the Hankuk University of Foreign Studies
+[HUFS INTERNATIONAL SUMMER SESSION](https://www.hufsiss.online/home) at the Hankuk University of Foreign Studies
 
 • Partnership: non-partner
 • Teaching method: onsite
-• Courses:check here
+• Courses:check [here](https://www.hufsiss.online/about/course-info)
 • Duration: July 14 - August 12
 • Application deadline: March 2 - June 7
 
@@ -3045,11 +3554,11 @@ HUFS INTERNATIONAL SUMMER SESSION at the Hankuk University of Foreign Studies
 • Registration Fee: USD 100
 • Tuition Fee: USD 500 per course
 
-SUNGKYUNKWAN UNIVERSITY INTERNATIONAL SUMMER SEMESTER at Sungkyunkwan University
+[SUNGKYUNKWAN UNIVERSITY INTERNATIONAL SUMMER SEMESTER](https://summer.skku.edu/summer/index.do) at Sungkyunkwan University
 
 • Partnership: non-partner
 • Teaching method: onsite
-• Courses:check here
+• Courses:check [here](https://summer.skku.edu/summer/program/Course_DATA.do)
 • Duration: June 24 - July 22
 • Deadline: June 3
 • Fee: ₩780,000 - ₩1,380,000 (approx. S$875 - S$1,550) after 40% tuition discount. Please check scholarships here
@@ -3067,47 +3576,59 @@ SUMMER SCHOOL at Middle East Technical University(METU)
 
 ## Other countries
 
-THE UFMG SUMMER SCHOOL ON BRAZILIAN STUDIES (SSBS) at the Federal University of
+[THE UFMG SUMMER SCHOOL ON BRAZILIAN STUDIES (SSBS)](https://www.ufmg.br/summerschool/) at the Federal University of
 Minas Gerais
 
-Partnership: partnerTeaching method: onlineCourses:
+* Partnership: partner
+* Teaching method: online
+* Courses:
 
 - Brazilian Culture, Portuguese for Foreigners
 
-Duration: July 4-15Fee: free of charge to all participants from partner institutions
+* Duration: July 4-15
+* Fee: free of charge to all participants from partner institutions
 
-# parsed from: https://eduwiki.innopolis.university/index.php/AcademicLeave
+<article/>
+
+<article source_url="https://eduwiki.innopolis.university/index.php/AcademicLeave" source_page_name="AcademicLeave">
+
 # Academic Leave
 
-(Redirected from AcademicLeave)
+(Redirected from [AcademicLeave](/index.php?title=AcademicLeave&redirect=no "AcademicLeave"))
 
-Academic Leave
+* Academic Leave
 
 The basis and procedure for granting academic leave are prescribed in paragraph 5 of the "Regulations on the procedure and grounds for transferring,
 expelling and restoring students and granting academic leave to students in the Autonomous Non-profit Organization of Higher Education "Innopolis University",
-at the link: https://innopolis.university/sveden/document .
+at the link: <https://innopolis.university/sveden/document> .
 
-For more information, you can contact the Student Support and Development Department, office 319, or the bot of this department.
+For more information, you can contact the Student Support and Development Department, office 319, or [the bot of this department](https://t.me/StudentAffairs_bot).
 
-# parsed from: https://eduwiki.innopolis.university/index.php/WhatifIfailed
+<article/>
+
+<article source_url="https://eduwiki.innopolis.university/index.php/WhatifIfailed" source_page_name="WhatifIfailed">
+
 # What if I failed
 
-(Redirected from WhatifIfailed)
+(Redirected from [WhatifIfailed](/index.php?title=WhatifIfailed&redirect=no "WhatifIfailed"))
 
 The rules of expulsion and reinstatement can be found in paragraphs 3 and 4 of the "Regulations on the procedure and grounds for transferring,
 Expelling and reinstating students and granting academic leave to students in the Autonomous Non-profit Organization of Higher Education "Innopolis University",
-at the link: https://innopolis.university/sveden/document .
+at the link: <https://innopolis.university/sveden/document> .
 
-For more information and advice, you can contact the Student Support and Development Department, office 319, or the bot of this department.
+For more information and advice, you can contact the Student Support and Development Department, office 319, or [the bot of this department](https://t.me/StudentAffairs_bot).
 
-# parsed from: https://eduwiki.innopolis.university/index.php/Scientificsourcesandmaterial
+<article/>
+
+<article source_url="https://eduwiki.innopolis.university/index.php/Scientificsourcesandmaterial" source_page_name="Scientificsourcesandmaterial">
+
 # Scientific sources and material
 
-(Redirected from Scientificsourcesandmaterial)
+(Redirected from [Scientificsourcesandmaterial](/index.php?title=Scientificsourcesandmaterial&redirect=no "Scientificsourcesandmaterial"))
 
-Library
+* Library
 
-Library website: https://portal.university.innopolis.ru/reading\_hall/index.php .
+Library website: <https://portal.university.innopolis.ru/reading_hall/index.php> .
 
 Work schedule: Monday, Wednesday, Friday
 Time: 13.00-17.30
@@ -3119,40 +3640,47 @@ Information about subscription resources is located on the cabinet door.
 
 To take a paper book from the Library and /or catalog, you need to place an order on the website, come and pick it up.
 Background information, terms of use are posted on the library's website:
-https://portal.university.innopolis.ru/reading\_hall/index.php
+<https://portal.university.innopolis.ru/reading_hall/index.php>
 
-SubscriptionsMSDN-AAGSuite for Education
+* Subscriptions
+
+* MSDN-AA
+
+* GSuite for Education
 
 G suite for Education Information:
-https://en.wikipedia.org/wiki/Google\_for\_Education
+<https://en.wikipedia.org/wiki/Google_for_Education>
 Video to help you master the platform:
 - Getting Started with G Suite for Education
-https://www.youtube.com/watch?v=ME-iLCtLeyo
+<https://www.youtube.com/watch?v=ME-iLCtLeyo>
 - G Suite for Education Overview - Summer 2020 PD
-https://www.youtube.com/watch?v=oEHOLw6v-2c
+<https://www.youtube.com/watch?v=oEHOLw6v-2c>
 
-LMS Moodle
+* LMS Moodle
 
-https://moodle.innopolis.university/login/index.php
+<https://moodle.innopolis.university/login/index.php>
 ❗️ Authorization on the Moodle portal
 Log in -> Log in using an account Innopolis University\*
 Аuthorization using your username and password previously issued to you by the IT-department.
 
 How to Moodle:
-https://eduwiki.innopolis.university/index.php/HowToMoodle
+<https://eduwiki.innopolis.university/index.php/HowToMoodle>
 
-# parsed from: https://eduwiki.innopolis.university/index.php/Employment_Supports_and_Educational_opportunities_for_alumni
+<article/>
+
+<article source_url="https://eduwiki.innopolis.university/index.php/Employment_Supports_and_Educational_opportunities_for_alumni" source_page_name="Employment_Supports_and_Educational_opportunities_for_alumni">
+
 # Employment Supports and Educational opportunities for alumni
 
-Employment Supports and Educational opportunities for alumni
+* Employment Supports and Educational opportunities for alumni
 
 How a student can find an internship and a job:
 
-Internships and vacancies, meetings with industry representatives can be monitored in the channel https://t.me/IUCareerFinder.
+Internships and vacancies, meetings with industry representatives can be monitored in the channel <https://t.me/IUCareerFinder>.
 
-Internships that take place within the framework of the mandatory curriculum are published on the My Uni portal: https://my.university.innopolis.ru/profile/internships, students receive a newsletter by e-mail in advance.
+Internships that take place within the framework of the mandatory curriculum are published on the My Uni portal: <https://my.university.innopolis.ru/profile/internships>, students receive a newsletter by e-mail in advance.
 
-Educational opportunities for alumni
+* Educational opportunities for alumni
 
 If you are a graduate of the UI, then you have the opportunity to attend elective courses as a free listener.
 At the beginning of the semester, information about enrolling in courses is published in the alumni channel in the telegram. You can choose any of the proposed electives
@@ -3160,25 +3688,45 @@ At the beginning of the semester, information about enrolling in courses is publ
 
 Confirmation of access will be reflected in the muddle (the course will appear in the list) (there should be a link to the new muddle probably), the schedule will be available to you in the alumni channel. You can take courses in the UI building upon presentation of your passport at the reception
 
-To get a link to the channel and the alumni group, write to https://t.me/StudentAffairs\_bot
+To get a link to the channel and the alumni group, write to <https://t.me/StudentAffairs_bot>
 
-# parsed from: https://eduwiki.innopolis.university/index.php/Main_Page
+<article/>
+
+<article source_url="https://eduwiki.innopolis.university/index.php/Main_Page" source_page_name="Main_Page">
+
 # Main Page
 
 # Educational Wiki Knowledgebase
 
-Schedule, Calendar, and Faculty
+**Schedule, Calendar, and Faculty**
 
-Schedule of the classesStudy PlansAcademic CalendarOverall Regulations
+* [Schedule of the classes](https://eduwiki.innopolis.university/index.php/All:Schedule)
+* [Study Plans](https://eduwiki.innopolis.university/index.php/ALL:StudyPlan)
+* [Academic Calendar](https://eduwiki.innopolis.university/index.php/AcademicCalendar)
+* [Overall Regulations](https://eduwiki.innopolis.university/index.php/OverallRegulations)
 
-Resources for faculty
+**Resources for faculty**
 
-Professor information pageTools and resources for teaching onlineHow To MoodleHow To Moodle on Russian language (in progress)FAQ for instructorsFAQ for offering an elective courseNewsboard
+* [Professor information page](https://eduwiki.innopolis.university/index.php/ProfessorInformationPage)
+* [Tools and resources for teaching online](https://eduwiki.innopolis.university/index.php/Newcomer's)
+* [How To Moodle](https://eduwiki.innopolis.university/index.php/HowToMoodle)
+* [How To Moodle on Russian language (in progress)](https://eduwiki.innopolis.university/index.php/HowToMoodlerus)
+* [FAQ for instructors](https://eduwiki.innopolis.university/index.php/FAQInstructors)
+* [FAQ for offering an elective course](https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective)
+* [Newsboard](https://eduwiki.innopolis.university/index.php/Newsboard)
 
-Resources for students
+**Resources for students**
 
-Exchange programsWinter SchoolsSummer SchoolsAcademic LeaveWhat if I failedScientific sources and materialThesis guidelines
+* [Exchange programs](https://eduwiki.innopolis.university/index.php/Exchange)
+* [Winter Schools](https://eduwiki.innopolis.university/index.php/Winter_School)
+* [Summer Schools](https://eduwiki.innopolis.university/index.php/Summer_School)
+* [Academic Leave](https://eduwiki.innopolis.university/index.php/AcademicLeave)
+* [What if I failed](https://eduwiki.innopolis.university/index.php/WhatifIfailed)
+* [Scientific sources and material](https://eduwiki.innopolis.university/index.php/Scientificsourcesandmaterial)
+* [Thesis guidelines](https://docs.google.com/document/d/1V41lifNZIfVq2XyEFZKIeBPHedl15iA7t1DpnByURH8/)
 
-Alumni and career at UI
+**Alumni and career at UI**
 
-Employment supports
+* [Employment supports](https://eduwiki.innopolis.university/index.php/Employment_Supports_and_Educational_opportunities_for_alumni)
+
+<article/>
