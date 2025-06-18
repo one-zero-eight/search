@@ -13,7 +13,24 @@ router = APIRouter(prefix="/search", tags=["Search"])
 
 
 @router.get("/search", responses={200: {"description": "Success"}, 408: {"description": "Search timed out"}})
-async def search_by_query(query: str, request: Request, limit: int = 10) -> SearchResponses:
+async def search_by_query(
+    query: str,
+    response_types: list[str],
+    search_category: list[str],
+    search_sources: list[str],
+    request: Request,
+    limit: int = 10,
+) -> SearchResponses:
+    """
+    Main endpoint for "search" functionality.
+    :param query: User's query/question
+    :param response_types: List of types for query result. Now can be ["pdf", "link_to_source"]
+    :param search_category: List of addition context to add to ML. Now can be ["university", "city", "campus"]
+    :param search_sources: List of sources to use for answering query.
+    :param limit: Upper bound for number of entries to return
+    :return:
+    """
+    # TODO: rewrite this endpoint
     start_time = time.monotonic()
     try:
         responses = await asyncio.wait_for(
