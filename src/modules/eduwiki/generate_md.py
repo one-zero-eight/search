@@ -13,7 +13,7 @@ IGNORE_ENDPOINTS = [
     "/index.php/All:Schedule",
     "/index.php/ALL:StudyPlan",
     "/index.php/AcademicCalendar",
-    "/index.php/ARTICLE"
+    "/index.php/ARTICLE",
 ]
 
 parser = EduWikiParser(START_URL, TARGET_CLASSES, IGNORE_CLASSES, IGNORE_ENDPOINTS)

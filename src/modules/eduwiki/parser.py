@@ -41,7 +41,7 @@ class EduWikiParser:
         self.visited.add(url)
 
         # Uncomment for debug purposes :)
-        #print(f"Crawling: {url}")
+        # print(f"Crawling: {url}")
 
         try:
             response = httpx.get(url, timeout=2)
@@ -100,9 +100,7 @@ class EduWikiParser:
                 md_table: str = self.__html_table_to_md(table)
                 table.replace_with(NavigableString(md_table))
 
-            res += markdownify(
-                str(content_div), heading_style="ATX"
-            )
+            res += markdownify(str(content_div), heading_style="ATX")
 
         return res
 
