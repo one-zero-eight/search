@@ -1,32 +1,28 @@
 # src/utils/scheduler.py
 import logging
-import subprocess
 from datetime import datetime
 
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 
+from src.modules.campus_life.__main__ import main as campus_life
+from src.modules.dorms.__main__ import process_pages as dorms
+
 logger = logging.getLogger(__name__)
-
-
-def run_module(module_name: str, *args):
-    try:
-        logger.info(f"Running module: {module_name}")
-        subprocess.run(["poetry", "run", "python", "-m", module_name, *args], check=True)
-    except subprocess.CalledProcessError as e:
-        logger.error(f"Error running module {module_name}: {e}")
 
 
 def start_scheduler():
     print("Scheduler is running")
     scheduler = BackgroundScheduler()
 
-    jobs = [("src.modules.dorms", ["https://hotel.innopolis.university/", "-t 30"]), ("src.modules.campus_life", [])]
+    scheduler.add_job(campus_life, trigger=IntervalTrigger(seconds=120), next_run_time=datetime.now())
 
-    for module_name, args in jobs:
-        scheduler.add_job(
-            run_module, args=[module_name, *args], trigger=IntervalTrigger(seconds=120), next_run_time=datetime.now()
-        )
+    scheduler.add_job(
+        dorms,
+        args=["https://hotel.innopolis.university/", "/", 10],
+        trigger=IntervalTrigger(seconds=120),
+        next_run_time=datetime.now(),
+    )
 
     scheduler.start()
     logger.info("Scheduler started")
