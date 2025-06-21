@@ -1,11 +1,11 @@
 import re
-from typing import Annotated, Literal
+from typing import Annotated, Generic, Literal, TypeVar
 
 from beanie import PydanticObjectId
-from pydantic import Discriminator, model_validator
+from pydantic import BaseModel, Discriminator, model_validator
 
 from src.custom_pydantic import CustomModel
-from src.storages.mongo import MoodleEntry
+from src.storages.mongo import CampusLifeEntry, EduWikiEntry, HotelEntry
 
 
 class PdfLocation(CustomModel):
@@ -85,21 +85,46 @@ class TelegramSource(CustomModel):
         return data
 
 
-Sources: type = Annotated[
-    MoodleFileSource | MoodleUrlSource | MoodleUnknownSource | TelegramSource, Discriminator("type")
+class EduWikiSource(BaseModel):
+    type: Literal["eduwiki"] = "eduwiki"
+    inner: EduWikiEntry
+
+
+class HotelSource(BaseModel):
+    type: Literal["hotel"] = "hotel"
+    inner: HotelEntry
+
+
+class CampusLifeSource(BaseModel):
+    type: Literal["campus-life"] = "campus-life"
+    inner: CampusLifeEntry
+
+
+Sources = Annotated[
+    EduWikiSource
+    | HotelSource
+    | CampusLifeSource
+    | MoodleFileSource
+    | MoodleUrlSource
+    | MoodleUnknownSource
+    | TelegramSource,
+    Discriminator("type"),
 ]
 
+T = TypeVar("T")
 
-class MoodleEntryWithScore(MoodleEntry):
+
+class WithScore(BaseModel, Generic[T]):
     score: float | list[float] | None = None
     "Score of the search response. Multiple scores if was an aggregation of multiple chunks."
+    inner: T
 
 
 class SearchResponse(CustomModel):
-    source: Sources
-    "Relevant source for the search."
     score: float | list[float] | None = None
     "Score of the search response. Multiple scores if was an aggregation of multiple chunks. Optional."
+    source: Sources
+    "Relevant source for the search."
 
 
 class SearchResponses(CustomModel):
