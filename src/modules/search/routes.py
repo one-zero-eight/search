@@ -7,6 +7,7 @@ from fastapi import APIRouter, HTTPException, Request
 from src.api.logging_ import logger
 from src.modules.search.repository import search_repository
 from src.modules.search.schemas import SearchResponses
+from src.modules.sources_enum import InfoSources
 from src.storages.mongo.statistics import SearchStatistics, WrappedResponseSchema
 
 router = APIRouter(prefix="/search", tags=["Search"])
@@ -15,21 +16,12 @@ router = APIRouter(prefix="/search", tags=["Search"])
 @router.get("/search", responses={200: {"description": "Success"}, 408: {"description": "Search timed out"}})
 async def search_by_query(
     query: str,
-    response_types: list[str],
-    search_category: list[str],
-    search_sources: list[str],
+    sources: list[InfoSources],
+    response_types: list[Literal["pdf", "link_to_source"]],
+    query_categories: list[str],  # Should be Literal["city",...]
     request: Request,
     limit: int = 10,
 ) -> SearchResponses:
-    """
-    Main endpoint for "search" functionality.
-    :param query: User's query/question
-    :param response_types: List of types for query result. Now can be ["pdf", "link_to_source"]
-    :param search_category: List of addition context to add to ML. Now can be ["university", "city", "campus"]
-    :param search_sources: List of sources to use for answering query.
-    :param limit: Upper bound for number of entries to return
-    :return:
-    """
     # TODO: rewrite this endpoint
     start_time = time.monotonic()
     try:

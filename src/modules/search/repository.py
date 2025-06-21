@@ -1,8 +1,11 @@
 import os
 
+import httpx
 from fastapi import Request
 
 from src.api.logging_ import logger
+from src.config import settings
+from src.modules.ml.schemas import SearchResult, SearchTask
 from src.modules.search.schemas import (
     MoodleEntryWithScore,
     MoodleFileSource,
@@ -12,6 +15,7 @@ from src.modules.search.schemas import (
     SearchResponses,
     Sources,
 )
+from src.modules.sources_enum import InfoSources
 from src.storages.mongo import MoodleEntry
 from src.storages.mongo.moodle import MoodleContentSchema
 
@@ -89,6 +93,49 @@ class SearchRepository:
                     responses.append(response)
 
         return SearchResponses(responses=responses, searched_for=query)
+
+    async def search_sources(
+        self, query: str, sources: list[InfoSources], request: Request, limit: int
+    ) -> SearchResponses:
+        search_task = SearchTask(query=query, sources=sources, limit=limit)
+
+        async with self.get_ml_service_client() as client:
+            try:
+                r = await client.post("/search", json=search_task.model_dump())
+                r.raise_for_status()
+                results = SearchResult.model_validate(r.json())
+            except httpx.HTTPError:
+                # Fallback to mongo search
+                pass
+
+        responses = []
+        for res_item in results.result_items:
+            if res_item.resource == InfoSources.moodle:
+                entry = await MoodleEntry.get(res_item.mongo_id)
+                for c in entry.contents:
+                    response = self._moodle_entry_contents_to_search_response(entry, c, request, res_item.score)
+                    responses.append(response)
+
+            if res_item.resource == InfoSources.eduwiki:
+                pass
+
+            if res_item.resource == InfoSources.campuslife:
+                pass
+
+            if res_item.resource == InfoSources.hotel:
+                pass
+
+        return SearchResponses(responses=responses, searched_for=query)
+
+    def get_ml_service_client(self) -> httpx.AsyncClient:
+        """
+        Creates async connection with the ml service.
+        :return: async client
+        """
+        return httpx.AsyncClient(
+            base_url=settings.api_settings.ml_service,
+            headers={"X-API-KEY": settings.api_settings.ml_service_api_token},
+        )
 
 
 search_repository: SearchRepository = SearchRepository()

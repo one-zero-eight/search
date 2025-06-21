@@ -5,6 +5,7 @@ from beanie import PydanticObjectId
 from pydantic import Discriminator, model_validator
 
 from src.custom_pydantic import CustomModel
+from src.modules.sources_enum import InfoSources
 from src.storages.mongo import MoodleEntry
 
 
@@ -85,14 +86,52 @@ class TelegramSource(CustomModel):
         return data
 
 
+class SiteBase(CustomModel):
+    display_name: str = "-"
+    url: str
+    preview_text: str
+
+
+class EduwikiSource(SiteBase):
+    type: Literal[InfoSources.eduwiki]
+    breadcrumbs: list[str] = ["Educational Wiki Knowledgebase"]
+
+
+class CampusLifeSource(SiteBase):
+    type: Literal[InfoSources.campuslife]
+    breadcrumbs: list[str] = ["Campus life"]
+
+
+class HotelSource(CustomModel):
+    type: Literal[InfoSources.hotel]
+    breadcrumbs: list[str] = ["Hotel"]
+
+
 Sources: type = Annotated[
-    MoodleFileSource | MoodleUrlSource | MoodleUnknownSource | TelegramSource, Discriminator("type")
+    EduwikiSource
+    | CampusLifeSource
+    | HotelSource
+    | MoodleFileSource
+    | MoodleUrlSource
+    | MoodleUnknownSource
+    | TelegramSource,
+    Discriminator("type"),
 ]
 
 
 class MoodleEntryWithScore(MoodleEntry):
     score: float | list[float] | None = None
     "Score of the search response. Multiple scores if was an aggregation of multiple chunks."
+
+
+class SearchRequest(CustomModel):
+    query: str
+    sources: list[InfoSources]
+    "Sources to search in"
+    response_types: list[Literal["pdf", "link_to_source"]]
+    "Form of results user want to see"
+    query_categories: list[str]  # Should be Literal["city",...]
+    "A user choice of his query category(e.g. university, campus, city)"
 
 
 class SearchResponse(CustomModel):
