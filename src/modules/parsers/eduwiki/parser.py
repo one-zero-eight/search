@@ -1,9 +1,26 @@
-from time import sleep
 from urllib.parse import urljoin, urlparse
 
 import httpx
 from bs4 import BeautifulSoup, NavigableString
 from markdownify import markdownify
+
+from src.storages.mongo.edu_wiki import EduWikiEntrySchema
+
+START_URL = "https://eduwiki.innopolis.university/index.php/Main_Page"
+OUTPUT_FILE = "./src/modules/eduwiki/eduwiki_content.md"
+# Ignore everything except the main content of the page.
+TARGET_CLASSES = ["mw-body"]
+# Exclude redundant content like "table of content" or "From UI"
+IGNORE_CLASSES = ["printfooter", "noprint", "mw-jump-link"]
+# Exclude useless endpoints
+IGNORE_ENDPOINTS = [
+    "/index.php/Structure_of_the_MS_Degrees",
+    "/index.php/About_this_document",
+    "/index.php/All:Schedule",
+    "/index.php/ALL:StudyPlan",
+    "/index.php/AcademicCalendar",
+    "/index.php/ARTICLE",
+]
 
 
 class EduWikiParser:
@@ -13,29 +30,27 @@ class EduWikiParser:
     designed for it.
     """
 
-    def __init__(
-        self, start_url: str, target_classes: list[str], ignore_classes: list[str], ignore_endpoints: list[str]
-    ):
-        self.start_url = start_url
+    def __init__(self):
+        self.start_url = START_URL
         self.domain = urlparse(self.start_url).netloc
         # TODO: allow these lists to be empty
-        self.target_classes = target_classes
-        self.ignore_classes = ignore_classes
-        self.ignore_endpoints = ignore_endpoints
+        self.target_classes = TARGET_CLASSES
+        self.ignore_classes = IGNORE_CLASSES
+        self.ignore_endpoints = IGNORE_ENDPOINTS
         # Track already visited pages to not repeat them
         self.visited = set()
         # Store every page
         self.parsed_content: list[str] = []
 
     def crawl(self):
-        self.__crawl_page(self.start_url)
+        return self.__crawl_page(self.start_url)
 
     def save_to_file(self, output_file: str):
         with open(output_file, "w", encoding="utf-8") as md_file:
             md_file.write("\n\n".join(self.parsed_content))
 
     def __crawl_page(self, url: str):
-        sleep(0.5)
+        # sleep(0.5)
         if url in self.visited:
             return
         self.visited.add(url)
@@ -47,6 +62,10 @@ class EduWikiParser:
             response = httpx.get(url, timeout=2)
             response.raise_for_status()
             soup = BeautifulSoup(response.content, "html.parser")
+
+            # Получаем заголовок страницы
+            heading_element = soup.find(id="firstHeading")
+            source_page_title = heading_element.get_text(strip=True) if heading_element else "Untitled"
 
             # Go to the links
             for a in soup.find_all("a", href=True):
@@ -68,7 +87,7 @@ class EduWikiParser:
                     and href_parts.path not in self.ignore_endpoints
                     and "oldid" not in href_parts.query
                 ):
-                    self.__crawl_page(href)
+                    yield from self.__crawl_page(href)
 
                 # Convert links in table of content: #title -> https://domain/page#title
                 if href.startswith("#"):
@@ -76,6 +95,7 @@ class EduWikiParser:
 
             md_content = self.__soup_to_markdown(soup)
             self.parsed_content.append(self.__enrich_md_content(url, md_content))
+            yield EduWikiEntrySchema(source_url=url, source_page_title=source_page_title, content=md_content)
 
         except Exception as e:
             # Use of specific logger here is overengineering,
@@ -130,3 +150,9 @@ class EduWikiParser:
         """
         page_name = urlparse(url).path.split("/")[-1]
         return f'<article source_url="{url}" source_page_name="{page_name}">\n\n{md_content}\n\n<article/>'
+
+
+def parse():
+    parser = EduWikiParser()
+    result = list(parser.crawl())
+    return result

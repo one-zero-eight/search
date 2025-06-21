@@ -101,14 +101,14 @@ def extract_catalogue_links(html: str) -> list[str]:
     return sorted(links)
 
 
-def parse() -> dict[str, CampusLifeEntrySchema]:
-    result: dict[str, CampusLifeEntrySchema] = {}
+def parse():
+    result = list()
 
     # 1. Main catalogue page
     html = fetch_html(PATH)
     main_md = html_to_markdown(html)
-    result["clubs.md"] = CampusLifeEntrySchema(
-        source_url=BASE_URL + PATH, source_page_title="Student Clubs Catalogue", content=main_md
+    result.append(
+        CampusLifeEntrySchema(source_url=BASE_URL + PATH, source_page_title="Student Clubs Catalogue", content=main_md)
     )
 
     # 2. Process all sub-pages for individual clubs
@@ -119,9 +119,7 @@ def parse() -> dict[str, CampusLifeEntrySchema]:
             filename = sub_path.lstrip("/").replace("/", "_") + ".md"
             title = filename.removesuffix(".md").replace("_", " ").title()
 
-            result[filename] = CampusLifeEntrySchema(
-                source_url=BASE_URL + sub_path, source_page_title=title, content=md
-            )
+            result.append(CampusLifeEntrySchema(source_url=BASE_URL + sub_path, source_page_title=title, content=md))
         except Exception as e:
             print(f"   └─ ❌ Error parsing {sub_path}: {e}")
 
