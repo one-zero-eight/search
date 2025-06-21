@@ -27,7 +27,7 @@ async def upload_markdown_file(section: InfoSources):
         await model_class.get_motor_collection().delete_many({})
 
         all_entries = parse_func()
-        logger.info(all_entries)
+        logger.info(f"{section} section entries parsed")
 
         for entry in all_entries:
             doc = model_class.model_validate(entry, from_attributes=True)

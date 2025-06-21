@@ -57,10 +57,10 @@ async def setup_repositories():
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     # Application startup
-    start_scheduler()
     motor_client = await setup_database()
     setup_minio()
     await setup_repositories()
+    start_scheduler()
     yield
 
     # -- Application shutdown --

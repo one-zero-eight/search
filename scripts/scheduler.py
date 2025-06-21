@@ -1,28 +1,26 @@
 # src/utils/scheduler.py
-import logging
 from datetime import datetime
 
-from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 
-from src.modules.campus_life.__main__ import main as campus_life
-from src.modules.dorms.__main__ import process_pages as dorms
+from src.api.logging_ import logger
+from src.modules.parsers.routes import upload_markdown_file
+from src.modules.sources_enum import InfoSources
 
-logger = logging.getLogger(__name__)
+
+async def run_parsers():
+    await upload_markdown_file(InfoSources.campuslife)
+    await upload_markdown_file(InfoSources.eduwiki)
+    await upload_markdown_file(InfoSources.hotel)
+    print("Parsers complete job")
 
 
 def start_scheduler():
     print("Scheduler is running")
-    scheduler = BackgroundScheduler()
+    scheduler = AsyncIOScheduler()
 
-    scheduler.add_job(campus_life, trigger=IntervalTrigger(seconds=120), next_run_time=datetime.now())
-
-    scheduler.add_job(
-        dorms,
-        args=["https://hotel.innopolis.university/", "/", 10],
-        trigger=IntervalTrigger(seconds=120),
-        next_run_time=datetime.now(),
-    )
+    scheduler.add_job(run_parsers, trigger=IntervalTrigger(days=1), next_run_time=datetime.now())
 
     scheduler.start()
     logger.info("Scheduler started")
