@@ -1,8 +1,9 @@
-import os
 from urllib.parse import urlparse
 
 from bs4 import BeautifulSoup
 from markdownify import markdownify as md
+
+from src.storages.mongo.hotel import HotelEntrySchema
 
 from .scraper import clean_soup, fetch_html, find_internal_links, sanitize_markdown
 
@@ -19,24 +20,34 @@ def convert_page_to_markdown(html: str, base_url: str, domain: str):
     return clean, links_map
 
 
-def process_pages(base_url: str, out_dir: str, timeout: int):
+def get_title_from_html(html: str) -> str:
+    soup = BeautifulSoup(html, "html.parser")
+    header_block = soup.find("div", class_=lambda x: x and "landing-block-card-header" in x and "text-uppercase" in x)
+
+    if header_block:
+        h2 = header_block.find("h2")
+        if h2:
+            p = h2.find("p")
+            return p.get_text(strip=True) if p else h2.get_text(strip=True)
+
+    return "Untitled Page"
+
+
+def process_pages(base_url: str, timeout: int):
     """
     Fetch main page and all internal links, save each as .md in out_dir.
     """
-    os.makedirs(out_dir, exist_ok=True)
     domain = urlparse(base_url).netloc
 
-    # Main page
     html = fetch_html(base_url, timeout)
     main_md, links_map = convert_page_to_markdown(html, base_url, domain)
-    main_file = os.path.join(out_dir, "campus_en.md")
-    with open(main_file, "w", encoding="utf-8") as f:
-        f.write(main_md)
+    page_title = get_title_from_html(html)
+    yield HotelEntrySchema(source_url=base_url, source_page_title=page_title, content=main_md)
 
-    # Internal pages
     for url, fname in links_map.items():
+        if fname == "zayavkanabronirovanie.md":
+            continue
         html2 = fetch_html(url, timeout)
         md2, _ = convert_page_to_markdown(html2, url, domain)
-        out2 = os.path.join(out_dir, fname)
-        with open(out2, "w", encoding="utf-8") as f:
-            f.write(md2)
+        page_title = get_title_from_html(html2)
+        yield HotelEntrySchema(source_url=url, source_page_title=page_title, content=md2)

@@ -1,7 +1,7 @@
 import argparse
 from pathlib import Path
 
-from .converter import process_pages
+from src.modules.parsers.hotel.converter import process_pages
 
 # Base directory of this module (modules/dorms)
 BASE_DIR = Path(__file__).parent.resolve()
