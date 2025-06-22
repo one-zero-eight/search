@@ -1,22 +1,26 @@
 import os
+from typing import assert_never
 
 import httpx
-from fastapi import Request
+from fastapi import HTTPException, Request
 
 from src.api.logging_ import logger
 from src.config import settings
 from src.modules.ml.schemas import SearchResult, SearchTask
 from src.modules.search.schemas import (
-    MoodleEntryWithScore,
+    CampusLifeSource,
+    EduwikiSource,
+    HotelSource,
     MoodleFileSource,
     MoodleUnknownSource,
     MoodleUrlSource,
     SearchResponse,
     SearchResponses,
     Sources,
+    WithScore,
 )
-from src.modules.sources_enum import InfoSources
-from src.storages.mongo import MoodleEntry
+from src.modules.sources_enum import InfoSources, InfoSourcesToMongoEntry
+from src.storages.mongo import CampusLifeEntry, EduWikiEntry, HotelEntry, MoodleEntry
 from src.storages.mongo.moodle import MoodleContentSchema
 
 MOODLE_URL = "https://moodle.innopolis.university"
@@ -53,10 +57,15 @@ def moodle_entry_contents_to_sources(entry: MoodleEntry, content: MoodleContentS
 
 # noinspection PyMethodMayBeStatic
 class SearchRepository:
-    async def _by_meta(self, query: str, *, limit: int) -> list[MoodleEntryWithScore]:
+    async def _by_meta(self, query: str, *, limit: int, section: InfoSources) -> list[WithScore]:
+        try:
+            model_class = InfoSourcesToMongoEntry[section]
+        except KeyError:
+            raise HTTPException(status_code=400, detail=f"Not supported section: {section}")
+
         # search by text
         entries = (
-            await MoodleEntry.get_motor_collection()
+            await model_class.get_motor_collection()
             .find(
                 {
                     "$text": {
@@ -70,7 +79,12 @@ class SearchRepository:
             .sort({"score": {"$meta": "textScore"}})
             .to_list(None if limit <= 0 else limit)
         )
-        return [MoodleEntryWithScore.model_validate(e) for e in entries]
+
+        with_scores = []
+        for e in entries:
+            score = e.pop("score")
+            with_scores.append(WithScore[model_class].model_validate({"score": score, "inner": e}))  # type: ignore
+        return with_scores
 
     def _moodle_entry_contents_to_search_response(
         self,
@@ -82,16 +96,53 @@ class SearchRepository:
         source = moodle_entry_contents_to_sources(entry, content, request)
         return SearchResponse(score=score, source=source)
 
-    async def search_moodle(self, query: str, *, request: Request, limit: int) -> SearchResponses:
-        entries = await self._by_meta(query, limit=limit)
+    async def search_mongo_index(self, query: str, *, request: Request, limit: int) -> SearchResponses:
+        entries = []
+        for section in InfoSources:
+            logger.info(f"Searching for {section}")
+            _ = await self._by_meta(query, limit=limit, section=section)
+            logger.info(f"Found {len(_)} entries for {section}")
+            entries.extend(_)
         responses = []
 
         for e in entries:
-            for c in e.contents:
-                response = self._moodle_entry_contents_to_search_response(e, c, request, score=e.score)
-                if response:
-                    responses.append(response)
+            inner = e.inner
+            if isinstance(inner, MoodleEntry):
+                for c in e.contents:
+                    response = self._moodle_entry_contents_to_search_response(inner, c, request, score=e.score)
+                    if response:
+                        responses.append(response)
+            elif isinstance(inner, CampusLifeEntry):
+                responses.append(
+                    SearchResponse(
+                        score=e.score,
+                        source=CampusLifeSource(
+                            display_name=inner.source_page_title, preview_text=inner.content[:50], url=inner.source_url
+                        ),
+                    )
+                )
+            elif isinstance(inner, HotelEntry):
+                responses.append(
+                    SearchResponse(
+                        score=e.score,
+                        source=HotelSource(
+                            display_name=inner.source_page_title, preview_text=inner.content[:50], url=inner.source_url
+                        ),
+                    )
+                )
+            elif isinstance(inner, EduWikiEntry):
+                responses.append(
+                    SearchResponse(
+                        score=e.score,
+                        source=EduwikiSource(
+                            display_name=inner.source_page_title, preview_text=inner.content[:50], url=inner.source_url
+                        ),
+                    )
+                )
+            else:
+                assert_never(inner)
 
+        responses.sort(key=lambda x: x.score, reverse=True)
         return SearchResponses(responses=responses, searched_for=query)
 
     async def search_sources(

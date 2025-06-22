@@ -26,7 +26,7 @@ async def search_by_query(
     start_time = time.monotonic()
     try:
         responses = await asyncio.wait_for(
-            search_repository.search_moodle(query, request=request, limit=limit), timeout=15
+            search_repository.search_mongo_index(query, request=request, limit=limit), timeout=15
         )
     except TimeoutError:
         logger.warning("Timeout while searching for query")

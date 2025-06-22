@@ -1,12 +1,11 @@
 import re
-from typing import Annotated, Literal
+from typing import Annotated, Generic, Literal, TypeVar
 
 from beanie import PydanticObjectId
-from pydantic import Discriminator, model_validator
+from pydantic import BaseModel, Discriminator, model_validator
 
 from src.custom_pydantic import CustomModel
 from src.modules.sources_enum import InfoSources
-from src.storages.mongo import MoodleEntry
 
 
 class PdfLocation(CustomModel):
@@ -86,24 +85,24 @@ class TelegramSource(CustomModel):
         return data
 
 
-class SiteBase(CustomModel):
+class SiteBaseSource(CustomModel):
     display_name: str = "-"
     url: str
     preview_text: str
 
 
-class EduwikiSource(SiteBase):
-    type: Literal[InfoSources.eduwiki]
+class EduwikiSource(SiteBaseSource):
+    type: Literal[InfoSources.eduwiki] = InfoSources.eduwiki
     breadcrumbs: list[str] = ["Educational Wiki Knowledgebase"]
 
 
-class CampusLifeSource(SiteBase):
-    type: Literal[InfoSources.campuslife]
+class CampusLifeSource(SiteBaseSource):
+    type: Literal[InfoSources.campuslife] = InfoSources.campuslife
     breadcrumbs: list[str] = ["Campus life"]
 
 
-class HotelSource(CustomModel):
-    type: Literal[InfoSources.hotel]
+class HotelSource(SiteBaseSource):
+    type: Literal[InfoSources.hotel] = InfoSources.hotel
     breadcrumbs: list[str] = ["Hotel"]
 
 
@@ -118,10 +117,13 @@ Sources: type = Annotated[
     Discriminator("type"),
 ]
 
+T = TypeVar("T")
 
-class MoodleEntryWithScore(MoodleEntry):
+
+class WithScore(BaseModel, Generic[T]):
     score: float | list[float] | None = None
     "Score of the search response. Multiple scores if was an aggregation of multiple chunks."
+    inner: T
 
 
 class SearchRequest(CustomModel):
@@ -135,10 +137,10 @@ class SearchRequest(CustomModel):
 
 
 class SearchResponse(CustomModel):
-    source: Sources
-    "Relevant source for the search."
     score: float | list[float] | None = None
     "Score of the search response. Multiple scores if was an aggregation of multiple chunks. Optional."
+    source: Sources
+    "Relevant source for the search."
 
 
 class SearchResponses(CustomModel):
