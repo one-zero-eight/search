@@ -23,7 +23,6 @@ async def search_by_query(
     query_categories: list[str] = Query(...),  # Should be Literal["city",...]. Currently ignored
     limit: int = 10,
 ) -> SearchResponses:
-    # TODO: rewrite this endpoint
     start_time = time.monotonic()
     try:
         responses = await asyncio.wait_for(search_repository.search_sources(query, sources, request, limit), timeout=15)
