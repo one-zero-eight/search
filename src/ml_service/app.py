@@ -34,7 +34,10 @@ BASIC_RESPONSES = {
 
 @app.get("/search", responses=BASIC_RESPONSES)
 async def search_info(task: SearchTask) -> SearchResult:
-    ...
+    # results: SearchResult
+    # results = search_pipeline(task.query, task.sources, task.limit)
+    # return results
+    pass
 
 
 # Update info in vector db

@@ -78,6 +78,23 @@ $defs:
     - secret_key
     title: MinioSettings
     type: object
+  MlServiceSettings:
+    properties:
+      api_url:
+        default: 127.0.0.1:8003
+        description: URL of ml service API
+        title: Api Url
+        type: string
+      api_key:
+        description: Secret key to access API
+        format: password
+        title: Api Key
+        type: string
+        writeOnly: true
+    required:
+    - api_key
+    title: MlServiceSettings
+    type: object
 properties:
   $schema:
     default: null
@@ -85,6 +102,8 @@ properties:
     type: string
   api_settings:
     $ref: '#/$defs/ApiSettings'
+  ml_service:
+    $ref: '#/$defs/MlServiceSettings'
   accounts:
     $ref: '#/$defs/Accounts'
     default:
@@ -93,6 +112,7 @@ properties:
     $ref: '#/$defs/MinioSettings'
 required:
 - api_settings
+- ml_service
 - minio
 title: Settings
 type: object

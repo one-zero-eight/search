@@ -3,6 +3,7 @@ import time
 from typing import Literal
 
 from fastapi import APIRouter, HTTPException, Request
+from fastapi.params import Query
 
 from src.api.logging_ import logger
 from src.modules.search.repository import search_repository
@@ -15,19 +16,17 @@ router = APIRouter(prefix="/search", tags=["Search"])
 
 @router.get("/search", responses={200: {"description": "Success"}, 408: {"description": "Search timed out"}})
 async def search_by_query(
-    query: str,
-    sources: list[InfoSources],
-    response_types: list[Literal["pdf", "link_to_source"]],
-    query_categories: list[str],  # Should be Literal["city",...]
     request: Request,
+    query: str,
+    sources: list[InfoSources] = Query(...),
+    response_types: list[Literal["pdf", "link_to_source"]] = Query(...),  # Currently ignored
+    query_categories: list[str] = Query(...),  # Should be Literal["city",...]. Currently ignored
     limit: int = 10,
 ) -> SearchResponses:
     # TODO: rewrite this endpoint
     start_time = time.monotonic()
     try:
-        responses = await asyncio.wait_for(
-            search_repository.search_mongo_index(query, request=request, limit=limit), timeout=15
-        )
+        responses = await asyncio.wait_for(search_repository.search_sources(query, sources, request, limit), timeout=15)
     except TimeoutError:
         logger.warning("Timeout while searching for query")
         raise HTTPException(status_code=408, detail="Search timed out")

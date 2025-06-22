@@ -24,6 +24,8 @@ from src.storages.mongo import CampusLifeEntry, EduWikiEntry, HotelEntry, Moodle
 from src.storages.mongo.moodle import MoodleContentSchema
 
 MOODLE_URL = "https://moodle.innopolis.university"
+"Size of preview text shown to user"
+SNIPPET_SIZE = 100
 
 
 def moodle_entry_contents_to_sources(entry: MoodleEntry, content: MoodleContentSchema, request: Request) -> Sources:
@@ -96,9 +98,14 @@ class SearchRepository:
         source = moodle_entry_contents_to_sources(entry, content, request)
         return SearchResponse(score=score, source=source)
 
-    async def search_mongo_index(self, query: str, *, request: Request, limit: int) -> SearchResponses:
+    async def search_via_mongo(
+        self, query: str, sources: list[InfoSources], request: Request, limit: int
+    ) -> SearchResponses:
+        """
+        Fallback to search in mongo for cases when ML service fails or cannot be used.
+        """
         entries = []
-        for section in InfoSources:
+        for section in sources:
             logger.info(f"Searching for {section}")
             _ = await self._by_meta(query, limit=limit, section=section)
             logger.info(f"Found {len(_)} entries for {section}")
@@ -117,7 +124,9 @@ class SearchRepository:
                     SearchResponse(
                         score=e.score,
                         source=CampusLifeSource(
-                            display_name=inner.source_page_title, preview_text=inner.content[:50], url=inner.source_url
+                            display_name=inner.source_page_title,
+                            preview_text=inner.content[:SNIPPET_SIZE],
+                            url=inner.source_url,
                         ),
                     )
                 )
@@ -126,7 +135,9 @@ class SearchRepository:
                     SearchResponse(
                         score=e.score,
                         source=HotelSource(
-                            display_name=inner.source_page_title, preview_text=inner.content[:50], url=inner.source_url
+                            display_name=inner.source_page_title,
+                            preview_text=inner.content[:SNIPPET_SIZE],
+                            url=inner.source_url,
                         ),
                     )
                 )
@@ -135,7 +146,9 @@ class SearchRepository:
                     SearchResponse(
                         score=e.score,
                         source=EduwikiSource(
-                            display_name=inner.source_page_title, preview_text=inner.content[:50], url=inner.source_url
+                            display_name=inner.source_page_title,
+                            preview_text=inner.content[:SNIPPET_SIZE],
+                            url=inner.source_url,
                         ),
                     )
                 )
@@ -155,37 +168,80 @@ class SearchRepository:
                 r = await client.post("/search", json=search_task.model_dump())
                 r.raise_for_status()
                 results = SearchResult.model_validate(r.json())
-            except httpx.HTTPError:
-                # Fallback to mongo search
-                pass
 
-        responses = []
+                responses = await self._process_ml_results(results, request)
+                return SearchResponses(responses=responses, searched_for=query)
+            except httpx.HTTPError as e:
+                # Fallback to mongo search
+                logger.warning(f"ML service search failed: {e}")
+                return await self.search_via_mongo(query, sources, request, limit)
+
+    async def _process_ml_results(self, results: SearchResult, request: Request) -> list[SearchResponse]:
+        responses: list[SearchResponse] = []
+
         for res_item in results.result_items:
+            ## "entry" get from mongo can be generalized to:
+            # mongo_class = InfoSourcesToMongoEntry[res_item.resource]
+            # entry = mongo_class.get(res_item.mongo_id)
+            ## But we lose static type deduction, so write entry get for each source
+
+            # Also all 'if' cases(except moodle) now can be rewritten to 1 generalized via class mappings,
+            # but this is unstable since sources we use for search likely be extended in the future.
+
             if res_item.resource == InfoSources.moodle:
-                entry = await MoodleEntry.get(res_item.mongo_id)
-                for c in entry.contents:
-                    response = self._moodle_entry_contents_to_search_response(entry, c, request, res_item.score)
+                mongo_entry = await MoodleEntry.get(res_item.mongo_id)
+                for c in mongo_entry.contents:
+                    response = self._moodle_entry_contents_to_search_response(mongo_entry, c, request, res_item.score)
                     responses.append(response)
 
             if res_item.resource == InfoSources.eduwiki:
-                pass
+                mongo_entry = await EduWikiEntry.get(res_item.mongo_id)
+                responses.append(
+                    SearchResponse(
+                        score=res_item.score,
+                        source=EduwikiSource(
+                            display_name=mongo_entry.source_page_title,
+                            preview_text=res_item.snippet[:SNIPPET_SIZE],
+                            url=mongo_entry.source_url,
+                        ),
+                    )
+                )
 
             if res_item.resource == InfoSources.campuslife:
-                pass
+                mongo_entry = await CampusLifeEntry.get(res_item.mongo_id)
+                responses.append(
+                    SearchResponse(
+                        score=res_item.score,
+                        source=CampusLifeSource(
+                            display_name=mongo_entry.source_page_title,
+                            preview_text=res_item.snippet[:SNIPPET_SIZE],
+                            url=mongo_entry.source_url,
+                        ),
+                    )
+                )
 
             if res_item.resource == InfoSources.hotel:
-                pass
+                mongo_entry = await HotelEntry.get(res_item.mongo_id)
+                responses.append(
+                    SearchResponse(
+                        score=res_item.score,
+                        source=HotelSource(
+                            display_name=mongo_entry.source_page_title,
+                            preview_text=res_item[:SNIPPET_SIZE],
+                            url=mongo_entry.source_url,
+                        ),
+                    )
+                )
 
-        return SearchResponses(responses=responses, searched_for=query)
+        return responses
 
     def get_ml_service_client(self) -> httpx.AsyncClient:
         """
         Creates async connection with the ml service.
-        :return: async client
         """
         return httpx.AsyncClient(
-            base_url=settings.api_settings.ml_service,
-            headers={"X-API-KEY": settings.api_settings.ml_service_api_token},
+            base_url=settings.ml_service.api_url,
+            headers={"X-API-KEY": settings.ml_service.api_key.get_secret_value()},
         )
 
 

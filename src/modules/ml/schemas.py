@@ -5,7 +5,7 @@ from src.modules.sources_enum import InfoSources
 class SearchTask(CustomModel):
     query: str
     sources: list[InfoSources]
-    limit: int | None = 10
+    limit: int = 10
 
 
 class SearchResultItem(CustomModel):
