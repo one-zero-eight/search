@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request
+from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.responses import RedirectResponse
 from starlette.middleware.cors import CORSMiddleware
 
@@ -59,8 +60,6 @@ async def redirect_to_docs(request: Request):
 
 @app.get("/docs", tags=["System"], include_in_schema=False)
 async def swagger_ui_html(request: Request):
-    from fastapi.openapi.docs import get_swagger_ui_html
-
     root_path = request.scope.get("root_path", "").rstrip("/")
     openapi_url = root_path + app.openapi_url
 
