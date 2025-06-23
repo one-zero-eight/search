@@ -10,6 +10,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo import timeout
 from pymongo.errors import ConnectionFailure
 
+from scripts.scheduler import start_scheduler
 from src.api.logging_ import logger
 from src.config import settings
 from src.storages.minio import minio_client
@@ -59,6 +60,7 @@ async def lifespan(_app: FastAPI):
     motor_client = await setup_database()
     setup_minio()
     await setup_repositories()
+    start_scheduler()
     yield
 
     # -- Application shutdown --
