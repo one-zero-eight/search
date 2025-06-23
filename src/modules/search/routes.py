@@ -20,7 +20,6 @@ async def search_by_query(
     query: str,
     sources: list[InfoSources] = Query(...),
     response_types: list[Literal["pdf", "link_to_source"]] = Query(...),  # Currently ignored
-    query_categories: list[str] = Query(...),  # Should be Literal["city",...]. Currently ignored
     limit: int = 10,
 ) -> SearchResponses:
     start_time = time.monotonic()
