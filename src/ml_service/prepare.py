@@ -9,7 +9,7 @@ from src.ml_service.text import clean_text
 
 
 class Schema(LanceModel):
-    text: str
+    content: str
     embedding: Vector(settings.LANCEDB_EMBEDDING_DIM)
     resource: str
     mongo_id: str
@@ -23,37 +23,45 @@ def prepare_resource(resource):
     lance_db = lancedb.connect(settings.LANCEDB_URI)
     table_name = f"chunks_{resource}"
     arrow_schema = Schema.to_arrow_schema()
-    if table_name not in lance_db.table_names():
-        lance_db.create_table(
-            table_name,
-            schema=arrow_schema,
-        )
-    tbl = lance_db.open_table(table_name)
-
-    encoder = SentenceTransformer(settings.BI_ENCODER_MODEL, device=settings.DEVICE)
 
     docs = get_all_documents(resource)
     print(f">>> Resource `{resource}`: found {len(docs)} documents in MongoDB")
 
-    for doc in get_all_documents(resource):
-        raw = doc.get("text", "")
+    encoder = SentenceTransformer(settings.BI_ENCODER_MODEL, device=settings.DEVICE)
+    records = []
+    for doc in docs:
+        raw = doc.get("content", "")
         text = clean_text(raw)
         chunks = sentence_chunker(text)
         for idx, chunk in enumerate(chunks):
             emb = encoder.encode(chunk)
-            tbl.add(
-                Schema(
-                    text=chunk,
-                    embedding=emb,
-                    resource=resource,
-                    mongo_id=str(doc.get("_id", "")),
-                    title=doc.get("title", ""),
-                    page_name=doc.get("page_name", ""),
-                    filename=doc.get("filename", ""),
-                    chunk_number=idx,
-                )
-            )
+            records.append({
+                "content": chunk,
+                "embedding": emb,
+                "resource": resource,
+                "mongo_id": str(doc.get("_id", "")),
+                "title": doc.get("title", ""),
+                "page_name": doc.get("page_name", ""),
+                "filename": doc.get("filename", ""),
+                "chunk_number": idx,
+            })
 
+    if table_name in lance_db.table_names():
+        lance_db.drop_table(table_name)
+
+    if records:
+        lance_db.create_table(
+            table_name,
+            data=records,
+            schema=arrow_schema,
+        )
+    else:
+        lance_db.create_table(
+            table_name,
+            schema=arrow_schema,
+        )
+
+    tbl = lance_db.open_table(table_name)
     arrow_tbl = tbl.to_arrow()
     print("checking table size:", arrow_tbl.num_rows, "strings (Arrow)")
 

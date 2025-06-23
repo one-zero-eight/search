@@ -27,6 +27,7 @@ uvicorn = "^0.30.6"
 markdownify = "^1.1.0"
 beautifulsoup4 = "^4.13.4"
 requests = "^2.32.4"
+lance = "^1.2.1"
 
 [tool.poetry.group.ml.dependencies]
 lancedb = "^0.24.0"
