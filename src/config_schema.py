@@ -37,9 +37,17 @@ class ApiSettings(CustomModel):
     "URL of the MongoDB database"
 
 
+class MlServiceSettings(CustomModel):
+    api_url: str = "127.0.0.1:8003"
+    "URL of ml service API"
+    api_key: SecretStr
+    "Secret key to access API"
+
+
 class Settings(CustomModel):
     schema_: str = Field(None, alias="$schema")
     api_settings: ApiSettings
+    ml_service: MlServiceSettings
     accounts: Accounts = Accounts()
     minio: MinioSettings
 

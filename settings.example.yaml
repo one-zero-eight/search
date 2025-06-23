@@ -4,3 +4,5 @@ api_settings:
 minio:
   access_key: "minioadmin"
   secret_key: "password"
+ml_service:
+  api_key: "secret_token"

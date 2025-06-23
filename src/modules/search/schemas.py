@@ -5,7 +5,7 @@ from beanie import PydanticObjectId
 from pydantic import BaseModel, Discriminator, model_validator
 
 from src.custom_pydantic import CustomModel
-from src.storages.mongo import CampusLifeEntry, EduWikiEntry, HotelEntry
+from src.modules.sources_enum import InfoSources
 
 
 class PdfLocation(CustomModel):
@@ -85,25 +85,31 @@ class TelegramSource(CustomModel):
         return data
 
 
-class EduWikiSource(BaseModel):
-    type: Literal["eduwiki"] = "eduwiki"
-    inner: EduWikiEntry
+class SiteBaseSource(CustomModel):
+    display_name: str = "-"
+    url: str
+    preview_text: str
 
 
-class HotelSource(BaseModel):
-    type: Literal["hotel"] = "hotel"
-    inner: HotelEntry
+class EduwikiSource(SiteBaseSource):
+    type: Literal[InfoSources.eduwiki] = InfoSources.eduwiki
+    breadcrumbs: list[str] = ["Educational Wiki Knowledgebase"]
 
 
-class CampusLifeSource(BaseModel):
-    type: Literal["campus-life"] = "campus-life"
-    inner: CampusLifeEntry
+class CampusLifeSource(SiteBaseSource):
+    type: Literal[InfoSources.campuslife] = InfoSources.campuslife
+    breadcrumbs: list[str] = ["Campus life"]
 
 
-Sources = Annotated[
-    EduWikiSource
-    | HotelSource
+class HotelSource(SiteBaseSource):
+    type: Literal[InfoSources.hotel] = InfoSources.hotel
+    breadcrumbs: list[str] = ["Hotel"]
+
+
+Sources: type = Annotated[
+    EduwikiSource
     | CampusLifeSource
+    | HotelSource
     | MoodleFileSource
     | MoodleUrlSource
     | MoodleUnknownSource
@@ -118,6 +124,16 @@ class WithScore(BaseModel, Generic[T]):
     score: float | list[float] | None = None
     "Score of the search response. Multiple scores if was an aggregation of multiple chunks."
     inner: T
+
+
+class SearchRequest(CustomModel):
+    query: str
+    sources: list[InfoSources]
+    "Sources to search in"
+    response_types: list[Literal["pdf", "link_to_source"]]
+    "Form of results user want to see"
+    query_categories: list[str]  # Should be Literal["city",...]
+    "A user choice of his query category(e.g. university, campus, city)"
 
 
 class SearchResponse(CustomModel):
