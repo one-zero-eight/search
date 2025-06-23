@@ -93,7 +93,7 @@ class SiteBaseSource(CustomModel):
 
 class EduwikiSource(SiteBaseSource):
     type: Literal[InfoSources.eduwiki] = InfoSources.eduwiki
-    breadcrumbs: list[str] = ["Educational Wiki Knowledgebase"]
+    breadcrumbs: list[str] = ["EduWiki"]
 
 
 class CampusLifeSource(SiteBaseSource):
