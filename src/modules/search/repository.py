@@ -194,7 +194,8 @@ class SearchRepository:
                     response = self._moodle_entry_contents_to_search_response(mongo_entry, c, request, res_item.score)
                     responses.append(response)
 
-            if res_item.resource == InfoSources.eduwiki:
+
+            elif res_item.resource == InfoSources.eduwiki:
                 mongo_entry = await EduWikiEntry.get(res_item.mongo_id)
                 responses.append(
                     SearchResponse(
@@ -207,7 +208,8 @@ class SearchRepository:
                     )
                 )
 
-            if res_item.resource == InfoSources.campuslife:
+
+            elif res_item.resource == InfoSources.campuslife:
                 mongo_entry = await CampusLifeEntry.get(res_item.mongo_id)
                 responses.append(
                     SearchResponse(
@@ -220,7 +222,8 @@ class SearchRepository:
                     )
                 )
 
-            if res_item.resource == InfoSources.hotel:
+
+            elif res_item.resource == InfoSources.hotel:
                 mongo_entry = await HotelEntry.get(res_item.mongo_id)
                 responses.append(
                     SearchResponse(
@@ -232,6 +235,10 @@ class SearchRepository:
                         ),
                     )
                 )
+
+
+            else:
+                assert_never(res_item)
 
         return responses
 

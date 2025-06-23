@@ -15,12 +15,17 @@ class SearchResultItem(CustomModel):
     snippet: str
 
 
-# List of ranked sources/files to backend
+
 class SearchResult(CustomModel):
+    """
+    List of ranked sources/files to backend
+    """
+
     result_items: list[SearchResultItem]
 
 
-# Currently unused
+# TODO: Currently unused
+
 class ChatTask(CustomModel):
     query: str
     snippets: list[str] | None = None
