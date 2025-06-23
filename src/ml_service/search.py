@@ -8,6 +8,7 @@ from src.ml_service.text import clean_text
 
 bi_encoder = SentenceTransformer(settings.BI_ENCODER_MODEL, device=settings.DEVICE)
 
+
 def search_pipeline(query, resources=None, return_chunks=False, top_k=5):
     if not resources:
         resources = settings.RESOURCES
@@ -25,16 +26,18 @@ def search_pipeline(query, resources=None, return_chunks=False, top_k=5):
         print(results[["mongo_id", "_distance", "content"]].head())
         for _, row in results.iterrows():
             snippet = row["content"]
-            snippet = re.sub(r'#{2,}\s*', '', snippet)
-            all_results.append({
-                "resource": resource,
-                "mongo_id": row["mongo_id"],
-                "score":    row["_distance"],
-                "snippet":  snippet,
-                
-            })
+            snippet = re.sub(r"#{2,}\s*", "", snippet)
+            all_results.append(
+                {
+                    "resource": resource,
+                    "mongo_id": row["mongo_id"],
+                    "score": row["_distance"],
+                    "snippet": snippet,
+                }
+            )
     all_results.sort(key=lambda x: x["score"])
     return all_results[:top_k] if not return_chunks else all_results[:top_k]
+
 
 if __name__ == "__main__":
     print("📥 Starting search pipeline…")

@@ -35,16 +35,18 @@ def prepare_resource(resource):
         chunks = sentence_chunker(text)
         for idx, chunk in enumerate(chunks):
             emb = encoder.encode(chunk)
-            records.append({
-                "content": chunk,
-                "embedding": emb,
-                "resource": resource,
-                "mongo_id": str(doc.get("_id", "")),
-                "title": doc.get("title", ""),
-                "page_name": doc.get("page_name", ""),
-                "filename": doc.get("filename", ""),
-                "chunk_number": idx,
-            })
+            records.append(
+                {
+                    "content": chunk,
+                    "embedding": emb,
+                    "resource": resource,
+                    "mongo_id": str(doc.get("_id", "")),
+                    "title": doc.get("title", ""),
+                    "page_name": doc.get("page_name", ""),
+                    "filename": doc.get("filename", ""),
+                    "chunk_number": idx,
+                }
+            )
 
     if table_name in lance_db.table_names():
         lance_db.drop_table(table_name)
