@@ -15,7 +15,6 @@ class SearchResultItem(CustomModel):
     snippet: str
 
 
-
 class SearchResult(CustomModel):
     """
     List of ranked sources/files to backend
@@ -25,6 +24,7 @@ class SearchResult(CustomModel):
 
 
 # TODO: Currently unused
+
 
 class ChatTask(CustomModel):
     query: str

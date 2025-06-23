@@ -47,8 +47,7 @@ async def search_info(task: SearchTask) -> SearchResult:
 
 
 @app.get("/chat", responses=BASIC_RESPONSES)
-async def ask_llm(task: ChatTask) -> ChatResult:
-    ...
+async def ask_llm(task: ChatTask) -> ChatResult: ...
 
 
 # TODO: add swagger docs
