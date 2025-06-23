@@ -1,8 +1,8 @@
 import re
-from typing import Annotated, Generic, Literal, TypeVar
+from typing import Annotated, Literal, TypeVar
 
 from beanie import PydanticObjectId
-from pydantic import BaseModel, Discriminator, model_validator
+from pydantic import Discriminator, GenericModel, model_validator
 
 from src.custom_pydantic import CustomModel
 from src.modules.sources_enum import InfoSources
@@ -120,9 +120,8 @@ Sources: type = Annotated[
 T = TypeVar("T")
 
 
-class WithScore(BaseModel, Generic[T]):
+class WithScore(GenericModel[T]):
     score: float | list[float] | None = None
-    "Score of the search response. Multiple scores if was an aggregation of multiple chunks."
     inner: T
 
 

@@ -20,9 +20,6 @@ app = FastAPI(
     root_path_in_servers=False,
     generate_unique_id_function=generate_unique_operation_id,
     lifespan=lifespan,
-    docs_url=None,
-    redoc_url=None,
-    redirect_slashes=False,
 )
 
 # Highly likely will be removed in the future. All responses will be manually rewritten.
@@ -50,8 +47,7 @@ async def search_info(task: SearchTask) -> SearchResult:
 
 
 @app.get("/chat", responses=BASIC_RESPONSES)
-async def ask_llm(task: ChatTask) -> ChatResult:
-    ...
+async def ask_llm(task: ChatTask) -> ChatResult: ...
 
 
 # TODO: add swagger docs

@@ -24,6 +24,8 @@ class SearchResult(CustomModel):
 
 
 # TODO: Currently unused
+
+
 class ChatTask(CustomModel):
     query: str
     snippets: list[str] | None = None

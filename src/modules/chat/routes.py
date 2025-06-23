@@ -17,5 +17,4 @@ async def ask_llm(
     search_sources: list[str],
     request: Request,
     limit: int = 3,
-) -> ChatResponse:
-    ...
+) -> ChatResponse: ...
