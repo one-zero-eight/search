@@ -1,4 +1,3 @@
-# src/utils/scheduler.py
 from datetime import datetime
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler

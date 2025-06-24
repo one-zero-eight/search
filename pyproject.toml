@@ -27,15 +27,13 @@ uvicorn = "^0.30.6"
 markdownify = "^1.1.0"
 beautifulsoup4 = "^4.13.4"
 requests = "^2.32.4"
-
-lance = "^1.2.1"
+apscheduler = "^3.11.0"
 
 [tool.poetry.group.ml.dependencies]
 lancedb = "^0.24.0"
+lance = "^1.2.1"
 sentence-transformers = "^4.1.0"
 pandas = "^2.3.0"
-apscheduler = "^3.11.0"
-
 
 [tool.ruff]
 line-length = 120
