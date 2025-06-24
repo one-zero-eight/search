@@ -10,10 +10,10 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo import timeout
 from pymongo.errors import ConnectionFailure
 
-from scripts.scheduler import start_scheduler
 from src.api.logging_ import logger
 from src.config import settings
 from src.modules.innohassle_accounts import innohassle_accounts
+from src.scheduler import start_scheduler
 from src.storages.minio import minio_client
 from src.storages.mongo import document_models
 
