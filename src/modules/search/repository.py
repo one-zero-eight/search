@@ -115,7 +115,7 @@ class SearchRepository:
         for e in entries:
             inner = e.inner
             if isinstance(inner, MoodleEntry):
-                for c in e.contents:
+                for c in inner.contents:
                     response = self._moodle_entry_contents_to_search_response(inner, c, request, score=e.score)
                     if response:
                         responses.append(response)
