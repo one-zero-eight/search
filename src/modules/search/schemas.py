@@ -120,7 +120,7 @@ Sources: type = Annotated[
 T = TypeVar("T")
 
 
-class WithScore(Generic[T]):
+class WithScore(CustomModel, Generic[T]):
     score: float | list[float] | None = None
     inner: T
 
