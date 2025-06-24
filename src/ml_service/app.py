@@ -4,8 +4,9 @@ from src.api.docs import generate_unique_operation_id
 from src.ml_service import docs
 from src.ml_service.lifespan import lifespan
 from src.ml_service.prepare import prepare_resource
+from src.ml_service.search import search_pipeline
 from src.modules.ml.schemas import ChatResult, ChatTask, SearchResult, SearchTask
-from src.modules.sources_enum import InfoSources, InfoSourcesToMongoEntryName
+from src.modules.sources_enum import InfoSources
 
 # App definition
 app = FastAPI(
@@ -31,17 +32,15 @@ BASIC_RESPONSES = {
 }
 
 
-@app.get("/search", responses=BASIC_RESPONSES)
+@app.post("/search", responses=BASIC_RESPONSES)
 async def search_info(task: SearchTask) -> SearchResult:
-    # results: SearchResult
-    # results = search_pipeline(task.query, task.sources, task.limit)
-    # return results
-    pass
+    results = search_pipeline(task.query, task.sources, limit=task.limit)
+    return SearchResult(result_items=results)
 
 
 @app.post("/lancedb/update/{resource}")
 async def update_resource(resource: InfoSources):
-    prepare_resource(InfoSourcesToMongoEntryName[resource])
+    prepare_resource(resource)
     return {"status": "success"}
 
 

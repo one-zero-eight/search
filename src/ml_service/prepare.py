@@ -6,6 +6,7 @@ from src.ml_service.config import settings
 from src.ml_service.db_utils import get_all_documents
 from src.ml_service.search import bi_encoder
 from src.ml_service.text import clean_text
+from src.modules.sources_enum import InfoSources, InfoSourcesToMongoEntryName
 
 
 class Schema(LanceModel):
@@ -19,12 +20,12 @@ class Schema(LanceModel):
     chunk_number: int
 
 
-def prepare_resource(resource):
+def prepare_resource(resource: InfoSources):
     lance_db = lancedb.connect(settings.LANCEDB_URI)
     table_name = f"chunks_{resource}"
     arrow_schema = Schema.to_arrow_schema()
-
-    docs = get_all_documents(resource)
+    mongo_table_name = InfoSourcesToMongoEntryName[resource]
+    docs = get_all_documents(mongo_table_name)
     print(f">>> Resource `{resource}`: found {len(docs)} documents in MongoDB")
 
     records = []
@@ -69,5 +70,5 @@ def prepare_resource(resource):
 
 if __name__ == "__main__":
     print("📥 Starting prepare pipeline...")
-    for resource in settings.RESOURCES:
-        prepare_resource(resource)
+    for r in settings.RESOURCES:
+        prepare_resource(r)
