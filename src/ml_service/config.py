@@ -4,10 +4,6 @@ from src.config import settings as general_settings
 
 
 class Settings:
-    MONGO_HOST = os.getenv("MONGO_HOST", "localhost")
-    MONGO_PORT = os.getenv("MONGO_PORT", "27017")
-    MONGO_DB_NAME = os.getenv("MONGO_DB_NAME", "db")
-
     @property
     def mongo_connection_uri(self) -> str:
         return general_settings.api_settings.db_url.get_secret_value()

@@ -38,7 +38,7 @@ class ApiSettings(CustomModel):
 
 
 class MlServiceSettings(CustomModel):
-    api_url: str = "127.0.0.1:8003"
+    api_url: str = "http://127.0.0.1:8002"
     "URL of ml service API"
     api_key: SecretStr
     "Secret key to access API"

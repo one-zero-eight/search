@@ -80,8 +80,12 @@ Now you can find API docs on http://localhost:8004/docs. Good job!
    ```bash
    poetry run python -m src.api
    ```
-Check API docs on http://127.0.0.1:8001/docs
+   Check API docs on http://127.0.0.1:8001/docs
 
+8. Run ml client
+   ```bash
+   poetry run python -m src.ml_service
+   ```
 **Set up PyCharm integrations**
 
 1. Ruff ([plugin](https://plugins.jetbrains.com/plugin/20574-ruff)).

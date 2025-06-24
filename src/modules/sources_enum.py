@@ -18,3 +18,10 @@ InfoSourcesToMongoEntry = {
     InfoSources.campuslife: CampusLifeEntry,
     InfoSources.hotel: HotelEntry,
 }
+
+InfoSourcesToMongoEntryName = {
+    InfoSources.moodle: "MoodleEntry",
+    InfoSources.eduwiki: "EduWikiEntry",
+    InfoSources.campuslife: "CampusLifeEntry",
+    InfoSources.hotel: "HotelEntry",
+}

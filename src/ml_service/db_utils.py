@@ -18,7 +18,7 @@ def get_db():
     """
     Return a cached reference to the MongoDB database.
     """
-    return get_mongo_client()[settings.MONGO_DB_NAME]
+    return get_mongo_client().get_default_database()
 
 
 def get_all_documents(collection_name: str):

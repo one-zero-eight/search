@@ -5,6 +5,7 @@ from src.ml_service import docs
 from src.ml_service.lifespan import lifespan
 from src.ml_service.prepare import prepare_resource
 from src.modules.ml.schemas import ChatResult, ChatTask, SearchResult, SearchTask
+from src.modules.sources_enum import InfoSources, InfoSourcesToMongoEntryName
 
 # App definition
 app = FastAPI(
@@ -39,8 +40,8 @@ async def search_info(task: SearchTask) -> SearchResult:
 
 
 @app.post("/lancedb/update/{resource}")
-async def update_resource(resource: str):
-    prepare_resource(resource)
+async def update_resource(resource: InfoSources):
+    prepare_resource(InfoSourcesToMongoEntryName[resource])
     return {"status": "success"}
 
 

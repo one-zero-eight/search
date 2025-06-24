@@ -1,10 +1,10 @@
 import lancedb
 from lancedb.pydantic import LanceModel, Vector
-from sentence_transformers import SentenceTransformer
 
 from src.ml_service.chunker import sentence_chunker
 from src.ml_service.config import settings
 from src.ml_service.db_utils import get_all_documents
+from src.ml_service.search import bi_encoder
 from src.ml_service.text import clean_text
 
 
@@ -27,14 +27,13 @@ def prepare_resource(resource):
     docs = get_all_documents(resource)
     print(f">>> Resource `{resource}`: found {len(docs)} documents in MongoDB")
 
-    encoder = SentenceTransformer(settings.BI_ENCODER_MODEL, device=settings.DEVICE)
     records = []
     for doc in docs:
         raw = doc.get("content", "")
         text = clean_text(raw)
         chunks = sentence_chunker(text)
         for idx, chunk in enumerate(chunks):
-            emb = encoder.encode(chunk)
+            emb = bi_encoder.encode(chunk)
             records.append(
                 {
                     "content": chunk,

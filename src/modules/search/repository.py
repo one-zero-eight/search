@@ -5,7 +5,7 @@ import httpx
 from fastapi import HTTPException, Request
 
 from src.api.logging_ import logger
-from src.config import settings
+from src.modules.ml.ml_client import get_ml_service_client
 from src.modules.ml.schemas import SearchResult, SearchTask
 from src.modules.search.schemas import (
     CampusLifeSource,
@@ -163,7 +163,7 @@ class SearchRepository:
     ) -> SearchResponses:
         search_task = SearchTask(query=query, sources=sources, limit=limit)
 
-        async with self.get_ml_service_client() as client:
+        async with get_ml_service_client() as client:
             try:
                 r = await client.post("/search", json=search_task.model_dump())
                 r.raise_for_status()
@@ -237,15 +237,6 @@ class SearchRepository:
                 assert_never(res_item)
 
         return responses
-
-    def get_ml_service_client(self) -> httpx.AsyncClient:
-        """
-        Creates async connection with the ml service.
-        """
-        return httpx.AsyncClient(
-            base_url=settings.ml_service.api_url,
-            headers={"X-API-KEY": settings.ml_service.api_key.get_secret_value()},
-        )
 
 
 search_repository: SearchRepository = SearchRepository()
