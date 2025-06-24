@@ -44,6 +44,7 @@ lint.ignore = [
     "F403",
     "F405",
     "PLR",
+    "UP046"
 ]
 lint.extend-select = ["I", "UP", "PL"]
 target-version = "py312"

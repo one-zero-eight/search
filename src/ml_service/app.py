@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from src.api.docs import generate_unique_operation_id
 from src.ml_service import docs
 from src.ml_service.lifespan import lifespan
+from src.ml_service.prepare import prepare_resource
 from src.modules.ml.schemas import ChatResult, ChatTask, SearchResult, SearchTask
 
 # App definition
@@ -35,6 +36,12 @@ async def search_info(task: SearchTask) -> SearchResult:
     # results = search_pipeline(task.query, task.sources, task.limit)
     # return results
     pass
+
+
+@app.post("/lancedb/update/{resource}")
+async def update_resource(resource: str):
+    prepare_resource(resource)
+    return {"status": "success"}
 
 
 # Update info in vector db

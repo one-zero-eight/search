@@ -1,8 +1,8 @@
 import re
-from typing import Annotated, Literal, TypeVar
+from typing import Annotated, Generic, Literal, TypeVar
 
 from beanie import PydanticObjectId
-from pydantic import Discriminator, GenericModel, model_validator
+from pydantic import Discriminator, model_validator
 
 from src.custom_pydantic import CustomModel
 from src.modules.sources_enum import InfoSources
@@ -120,7 +120,7 @@ Sources: type = Annotated[
 T = TypeVar("T")
 
 
-class WithScore(GenericModel[T]):
+class WithScore(Generic[T]):
     score: float | list[float] | None = None
     inner: T
 
