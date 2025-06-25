@@ -32,29 +32,32 @@ chunker = TokenChunker(
 
 
 async def prepare_resource(resource: InfoSources):
-    lance_db = await lancedb.connect_async(settings.LANCEDB_URI)
+    lance_db = await lancedb.connect_async(settings.ml_service.lancedb_uri)
     table_name = f"chunks_{resource}"
     arrow_schema = Schema.to_arrow_schema()
     mongo_table_name = InfoSourcesToMongoEntryName[resource]
     docs = get_all_documents(mongo_table_name)
-    logger.info(f">>> Resource `{resource}`: found {len(docs)} documents in MongoDB")
+    logger.info(f"Resource `{resource}`: found {len(docs)} documents in MongoDB")
 
     records = []
     for doc in docs:
         raw = doc.get("content", "")
         text = clean_text(raw)
         chunks = chunker.chunk(text)
-        for idx, (chunk, emb) in enumerate(zip(chunks, await embed(chunks))):
-            prefixed = chunk
+        prefixed_chunks = []
+        for idx, chunk in enumerate(chunks):
             if "source_url" in doc and "source_page_title" in doc:
                 source_url_escaped = html.escape(doc["source_url"], quote=True)
                 source_page_title_escaped = html.escape(doc["source_page_title"], quote=True)
                 prefix = f'<chunk chunk_number={idx} source_url="{source_url_escaped}" source_page_title="{source_page_title_escaped}">'
-                prefixed = f"{prefix}\n{chunk}"
+                prefixed_chunks.append(f"{prefix}\n{chunk}")
+            else:
+                prefixed_chunks.append(chunk)
 
+        for idx, (chunk, emb) in enumerate(zip(prefixed_chunks, await embed(prefixed_chunks))):
             records.append(
                 {
-                    "content": prefixed,
+                    "content": chunk,
                     "embedding": emb,
                     "resource": resource,
                     "mongo_id": str(doc.get("_id", "")),
@@ -83,7 +86,7 @@ async def prepare_resource(resource: InfoSources):
     tbl = await lance_db.open_table(table_name)
     # tbl.create_fts_index("content", replace=True, use_tantivy=False)
     arrow_tbl = await tbl.to_arrow()
-    print("checking table size:", arrow_tbl.num_rows, "strings (Arrow)")
+    logger.info(f"Resource `{resource}`: {arrow_tbl.num_rows} rows (Arrow)")
 
 
 if __name__ == "__main__":

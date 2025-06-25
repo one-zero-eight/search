@@ -38,6 +38,8 @@ class ApiSettings(CustomModel):
         examples=["mongodb://username:password@localhost:27017/db?authSource=admin"],
     )
     "URL of the MongoDB database"
+    scheduler_enabled: bool = True
+    "Enable scheduler"
 
 
 class MlServiceSettings(CustomModel):
@@ -45,6 +47,11 @@ class MlServiceSettings(CustomModel):
     "URL of ml service API"
     api_key: SecretStr
     "Secret key to access API"
+    mongo_url: SecretStr = Field(
+        ...,
+        examples=["mongodb://username:password@localhost:27017/db?authSource=admin"],
+    )
+    "URL of the MongoDB database"
     lancedb_uri: str = "./lance_data"
     "URI of the LanceDB database"
     infinity_url: str = "http://127.0.0.1:7997"

@@ -2,7 +2,7 @@ from functools import lru_cache
 
 from pymongo import MongoClient
 
-from src.ml_service.config import settings
+from src.config import settings
 
 
 @lru_cache(maxsize=1)
@@ -10,7 +10,7 @@ def get_mongo_client() -> MongoClient:
     """
     Return a cached MongoClient instance.
     """
-    return MongoClient(settings.mongo_connection_uri)
+    return MongoClient(settings.ml_service.mongo_url.get_secret_value())
 
 
 @lru_cache(maxsize=1)

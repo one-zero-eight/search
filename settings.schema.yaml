@@ -31,6 +31,11 @@ $defs:
         title: Db Url
         type: string
         writeOnly: true
+      scheduler_enabled:
+        default: true
+        description: Enable scheduler
+        title: Scheduler Enabled
+        type: boolean
     required:
     - db_url
     title: ApiSettings
@@ -91,6 +96,14 @@ $defs:
         title: Api Key
         type: string
         writeOnly: true
+      mongo_url:
+        description: URL of the MongoDB database
+        examples:
+        - mongodb://username:password@localhost:27017/db?authSource=admin
+        format: password
+        title: Mongo Url
+        type: string
+        writeOnly: true
       lancedb_uri:
         default: ./lance_data
         description: URI of the LanceDB database
@@ -123,6 +136,7 @@ $defs:
         type: string
     required:
     - api_key
+    - mongo_url
     title: MlServiceSettings
     type: object
 properties:

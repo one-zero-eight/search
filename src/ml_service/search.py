@@ -22,7 +22,6 @@ async def search_pipeline(
     bi_encoder_start = time.perf_counter()
     _ = await embed(
         [clean_text(query)],
-        convert_to_numpy=True,
         task="query",
     )
     query_emb = _[0]
@@ -48,9 +47,7 @@ async def search_pipeline(
         )
         resource_time = time.perf_counter() - resource_start
         logger.info(f"⏱️  {resource} query: {resource_time:.3f}s")
-        logger.info(
-            f"\nRaw results for {resource}:\n{results.drop(columns=['embedding']).head(3)}"
-        )
+        logger.info(f"\nRaw results for {resource}:\n{results.drop(columns=['embedding']).head(3)}")
         for _, row in results.iterrows():
             if "_relevance_score" in row:
                 score = row["_relevance_score"]
@@ -101,9 +98,7 @@ async def search_pipeline(
             )
 
         all_results = reranked_results
-        logger.info(
-            f"🔄 Cross encoder reranking completed for {len(all_results)} results"
-        )
+        logger.info(f"🔄 Cross encoder reranking completed for {len(all_results)} results")
 
     total_time = time.perf_counter() - start_time
     logger.info(f"⏱️  Total search pipeline: {total_time:.3f}s")
@@ -113,6 +108,7 @@ async def search_pipeline(
 
     # Results are already sorted by cross encoder scores (highest first)
     return all_results
+
 
 if __name__ == "__main__":
     logger.info("📥 Starting search pipeline…")

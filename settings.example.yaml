@@ -7,3 +7,4 @@ minio:
   secret_key: "password"
 ml_service:
   api_key: "secret_token"
+  mongo_url: "mongodb://mongoadmin:secret@localhost:27017/db?authSource=admin"

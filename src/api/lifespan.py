@@ -59,7 +59,8 @@ async def lifespan(_app: FastAPI):
     motor_client = await setup_database()
     setup_minio()
     await setup_repositories()
-    start_scheduler()
+    if settings.api_settings.scheduler_enabled:
+        start_scheduler()
     yield
 
     # -- Application shutdown --
