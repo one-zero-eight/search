@@ -1,3 +1,5 @@
+import asyncio
+
 from fastapi import FastAPI
 
 from src.api.docs import generate_unique_operation_id
@@ -34,13 +36,13 @@ BASIC_RESPONSES = {
 
 @app.post("/search", responses=BASIC_RESPONSES)
 async def search_info(task: SearchTask) -> SearchResult:
-    results = search_pipeline(task.query, task.sources, limit=task.limit)
+    results = await search_pipeline(task.query, task.sources, limit=task.limit)
     return SearchResult(result_items=results)
 
 
 @app.post("/lancedb/update/{resource}")
 async def update_resource(resource: InfoSources):
-    prepare_resource(resource)
+    await asyncio.to_thread(prepare_resource, resource)
     return {"status": "success"}
 
 

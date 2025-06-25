@@ -1,3 +1,4 @@
+import asyncio
 import re
 
 import lancedb
@@ -10,7 +11,7 @@ from src.modules.sources_enum import InfoSources
 bi_encoder = SentenceTransformer(settings.BI_ENCODER_MODEL, device=settings.DEVICE)
 
 
-def search_pipeline(
+async def search_pipeline(
     query: str,
     resources: list[InfoSources],
     return_chunks: bool = False,
@@ -19,13 +20,20 @@ def search_pipeline(
     query_emb = bi_encoder.encode(clean_text(query), convert_to_numpy=True)
     print("Query embedding (first 5 dims):", query_emb[:5], "…")
     all_results = []
-    lance_db = lancedb.connect(settings.LANCEDB_URI)
+    lance_db = await lancedb.connect_async(settings.LANCEDB_URI)
     for resource in resources:
         tbl_name = f"chunks_{resource}"
-        if tbl_name not in lance_db.table_names():
+        if tbl_name not in await lance_db.table_names():
             continue
-        tbl = lance_db.open_table(tbl_name)
-        results = tbl.search(query_emb).limit(limit).to_pandas()
+        tbl = await lance_db.open_table(tbl_name)
+        results = (
+            await tbl.query()
+            .nearest_to(query_emb)
+            .distance_type("cosine")
+            .nearest_to_text(query)
+            .limit(limit)
+            .to_pandas()
+        )
         print(f"\nRaw results for {resource}:")
         print(results[["mongo_id", "_distance", "content"]].head())
         for _, row in results.iterrows():
@@ -35,7 +43,7 @@ def search_pipeline(
                 {
                     "resource": resource,
                     "mongo_id": row["mongo_id"],
-                    "score": row["_distance"],
+                    "score": 1 - row["_distance"],
                     "snippet": snippet,
                 }
             )
@@ -47,6 +55,10 @@ def search_pipeline(
 if __name__ == "__main__":
     print("📥 Starting search pipeline…")
     q = "How much does room for 2 people rent cost?"
-    results = search_pipeline(q)
+    results = asyncio.run(
+        search_pipeline(
+            q, resources=[InfoSources.moodle, InfoSources.hotel, InfoSources.eduwiki, InfoSources.campuslife]
+        )
+    )
     for i, r in enumerate(results, 1):
         print(f"{i}. ({r['resource']}) [{r['score']:.3f}]: {r['snippet']}")
