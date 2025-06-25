@@ -77,13 +77,7 @@ Now you can find API docs on http://localhost:8004/docs. Good job!
       docker compose up -d db minio
       ```
     - Make sure to set up the actual database connection in `settings.yaml`.
-7. Run the ASGI server
-   ```bash
-   poetry run python -m src.api
-   ```
-   Check API docs on http://127.0.0.1:8001/docs
-
-8. Choose the way to run models: either use Infinity or local models.
+7. Choose the way to run models: either use Infinity or local models.
    1. If you want to use local models, just not set `infinity_url` in `settings.yaml`
    2. If you want to use Infinity, set `infinity_url` in `settings.yaml` to the url of deployed Infinity engine.
       You can run Infinity engine locally:
@@ -92,10 +86,16 @@ Now you can find API docs on http://localhost:8004/docs. Good job!
       ```
       Or use deployed Infinity engine provided by someone else.
 
-9. Run ml client
+8. Run ml client
    ```bash
    poetry run python -m src.ml_service
    ```
+9. Run the ASGI server
+   ```bash
+   poetry run python -m src.api
+   ```
+   Check API docs on http://127.0.0.1:8001/docs
+
 
 **Set up PyCharm integrations**
 

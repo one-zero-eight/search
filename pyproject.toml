@@ -36,6 +36,7 @@ einops = "^0.8.1"
 lance = "^1.2.1"
 pandas = "^2.3.0"
 infinity-client = "^0.0.76"
+lancedb = "^0.24.0"
 
 [tool.ruff]
 line-length = 120

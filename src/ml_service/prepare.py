@@ -6,20 +6,16 @@ from lancedb.pydantic import LanceModel, Vector
 
 from src.api.logging_ import logger
 from src.config import settings
-from src.ml_service.db_utils import get_all_documents
 from src.ml_service.text import clean_text
-from src.modules.sources_enum import InfoSources, InfoSourcesToMongoEntryName
+from src.modules.sources_enum import InfoSources
 
 
 class Schema(LanceModel):
+    resource: str
+    mongo_id: str | None
+    chunk_number: int
     content: str
     embedding: Vector(settings.ml_service.bi_encoder_dim)
-    resource: str
-    mongo_id: str
-    title: str
-    page_name: str
-    filename: str
-    chunk_number: int
 
 
 chunker = TokenChunker(
@@ -30,12 +26,10 @@ chunker = TokenChunker(
 )
 
 
-async def prepare_resource(resource: InfoSources):
+async def prepare_resource(resource: InfoSources, docs: list[dict]):
     lance_db = await lancedb.connect_async(settings.ml_service.lancedb_uri)
     table_name = f"chunks_{resource}"
     arrow_schema = Schema.to_arrow_schema()
-    mongo_table_name = InfoSourcesToMongoEntryName[resource]
-    docs = get_all_documents(mongo_table_name)
     logger.info(f"Resource `{resource}`: found {len(docs)} documents in MongoDB")
 
     records = []
@@ -65,14 +59,11 @@ async def prepare_resource(resource: InfoSources):
         for idx, (chunk, emb) in enumerate(zip(prefixed_chunks, embeddings)):
             records.append(
                 {
+                    "resource": resource,
+                    "mongo_id": str(doc.get("_id", doc.get("id", None))),
+                    "chunk_number": idx,
                     "content": chunk,
                     "embedding": emb,
-                    "resource": resource,
-                    "mongo_id": str(doc.get("_id", "")),
-                    "title": doc.get("title", ""),
-                    "page_name": doc.get("page_name", ""),
-                    "filename": doc.get("filename", ""),
-                    "chunk_number": idx,
                 }
             )
 
@@ -95,6 +86,7 @@ async def prepare_resource(resource: InfoSources):
     # tbl.create_fts_index("content", replace=True, use_tantivy=False)
     arrow_tbl = await tbl.to_arrow()
     logger.info(f"Resource `{resource}`: {arrow_tbl.num_rows} rows (Arrow)")
+    return arrow_tbl.drop("embedding").to_pylist()
 
 
 if __name__ == "__main__":

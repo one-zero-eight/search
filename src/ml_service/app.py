@@ -39,9 +39,9 @@ async def search_info(task: SearchTask) -> SearchResult:
 
 
 @app.post("/lancedb/update/{resource}")
-async def update_resource(resource: InfoSources):
-    await prepare_resource(resource)
-    return {"status": "success"}
+async def update_resource(resource: InfoSources, docs: list[dict]):
+    resources = await prepare_resource(resource, docs=docs)
+    return {"status": "success", "resources": resources}
 
 
 # Update info in vector db
