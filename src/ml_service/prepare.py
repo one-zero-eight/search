@@ -64,7 +64,7 @@ def prepare_resource(resource: InfoSources):
         )
 
     tbl = lance_db.open_table(table_name)
-    tbl.create_fts_index("content", replace=True)
+    tbl.create_fts_index("content", replace=True, use_tantivy=False)
     arrow_tbl = tbl.to_arrow()
     print("checking table size:", arrow_tbl.num_rows, "strings (Arrow)")
 
