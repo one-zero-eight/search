@@ -1,3 +1,5 @@
+from typing import Literal
+
 import numpy as np
 from infinity_client import Client
 from infinity_client.api.default import embeddings
@@ -15,12 +17,22 @@ from src.ml_service.config import settings as ml_settings
 
 i_client = Client(base_url=settings.ml_service.infinity_url)
 
+task_prefix = {
+    "query": "Represent the query for retrieving evidence documents: ",
+    "passage": "Represent the document for retrieval: ",
+}
 
-async def embed(texts: list[str]) -> list[np.ndarray]:
+
+async def embed(texts: list[str], task: Literal["query", "passage"] | None = None) -> list[np.ndarray]:
+    prefix = task_prefix[task] if task else ""
     embeds: OpenAIEmbeddingResult = await embeddings.asyncio(
         client=i_client,
         body=OpenAIEmbeddingInputText.from_dict(
-            {"input": texts, "model": settings.ml_service.bi_encoder, "dimensions": ml_settings.LANCEDB_EMBEDDING_DIM}
+            {
+                "input": [f"{prefix}{text}" for text in texts],
+                "model": settings.ml_service.bi_encoder,
+                "dimensions": ml_settings.LANCEDB_EMBEDDING_DIM,
+            }
         ),
     )
     query_emb = [np.array(emb.to_dict()["embedding"]) for emb in embeds.data]
