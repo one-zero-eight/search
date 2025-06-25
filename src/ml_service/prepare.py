@@ -33,11 +33,10 @@ async def prepare_resource(resource: InfoSources):
         raw = doc.get("content", "")
         text = clean_text(raw)
         chunks = sentence_chunker(text)
-        for idx, chunk in enumerate(chunks):
-            emb = (await embed([chunk]))[0]
+        for idx, emb in enumerate(await embed(chunks)):
             records.append(
                 {
-                    "content": chunk,
+                    "content": chunks[idx],
                     "embedding": emb,
                     "resource": resource,
                     "mongo_id": str(doc.get("_id", "")),
