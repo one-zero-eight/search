@@ -91,6 +91,21 @@ $defs:
         title: Api Key
         type: string
         writeOnly: true
+      infinity_url:
+        default: http://127.0.0.1:7997
+        description: URL of the deployed Infinity engine API
+        title: Infinity Url
+        type: string
+      bi_encoder:
+        default: jinaai/jina-embeddings-v3
+        description: Model to use for embeddings (should be available on Infinity)
+        title: Bi Encoder
+        type: string
+      cross_encoder:
+        default: jinaai/jina-reranker-v2-base-multilingual
+        description: Model to use for reranking (should be available on Infinity)
+        title: Cross Encoder
+        type: string
     required:
     - api_key
     title: MlServiceSettings

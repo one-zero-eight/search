@@ -42,6 +42,12 @@ class MlServiceSettings(CustomModel):
     "URL of ml service API"
     api_key: SecretStr
     "Secret key to access API"
+    infinity_url: str = "http://127.0.0.1:7997"
+    "URL of the deployed Infinity engine API"
+    bi_encoder: str = "jinaai/jina-embeddings-v3"
+    "Model to use for embeddings (should be available on Infinity)"
+    cross_encoder: str = "jinaai/jina-reranker-v2-base-multilingual"
+    "Model to use for reranking (should be available on Infinity)"
 
 
 class Settings(CustomModel):

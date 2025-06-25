@@ -3,13 +3,11 @@ import re
 
 import lancedb
 import pandas as pd
-from sentence_transformers import SentenceTransformer
 
-from src.ml_service.config import settings
+from src.ml_service.config import settings as ml_settings
+from src.ml_service.infinity import embed
 from src.ml_service.text import clean_text
 from src.modules.sources_enum import InfoSources
-
-bi_encoder = SentenceTransformer(settings.BI_ENCODER_MODEL)
 
 
 async def search_pipeline(
@@ -18,10 +16,10 @@ async def search_pipeline(
     return_chunks: bool = False,
     limit: int = 5,
 ):
-    query_emb = bi_encoder.encode(clean_text(query), convert_to_numpy=True)
+    query_emb = (await embed([clean_text(query)]))[0]
     print("Query embedding (first 5 dims):", query_emb[:5], "…")
     all_results = []
-    lance_db = await lancedb.connect_async(settings.LANCEDB_URI)
+    lance_db = await lancedb.connect_async(ml_settings.LANCEDB_URI)
     for resource in resources:
         tbl_name = f"chunks_{resource}"
         if tbl_name not in await lance_db.table_names():

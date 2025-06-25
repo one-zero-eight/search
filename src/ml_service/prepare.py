@@ -4,7 +4,7 @@ from lancedb.pydantic import LanceModel, Vector
 from src.ml_service.chunker import sentence_chunker
 from src.ml_service.config import settings
 from src.ml_service.db_utils import get_all_documents
-from src.ml_service.search import bi_encoder
+from src.ml_service.infinity import embed
 from src.ml_service.text import clean_text
 from src.modules.sources_enum import InfoSources, InfoSourcesToMongoEntryName
 
@@ -20,8 +20,8 @@ class Schema(LanceModel):
     chunk_number: int
 
 
-def prepare_resource(resource: InfoSources):
-    lance_db = lancedb.connect(settings.LANCEDB_URI)
+async def prepare_resource(resource: InfoSources):
+    lance_db = await lancedb.connect_async(settings.LANCEDB_URI)
     table_name = f"chunks_{resource}"
     arrow_schema = Schema.to_arrow_schema()
     mongo_table_name = InfoSourcesToMongoEntryName[resource]
@@ -34,7 +34,7 @@ def prepare_resource(resource: InfoSources):
         text = clean_text(raw)
         chunks = sentence_chunker(text)
         for idx, chunk in enumerate(chunks):
-            emb = bi_encoder.encode(chunk)
+            emb = (await embed([chunk]))[0]
             records.append(
                 {
                     "content": chunk,
@@ -48,24 +48,24 @@ def prepare_resource(resource: InfoSources):
                 }
             )
 
-    if table_name in lance_db.table_names():
-        lance_db.drop_table(table_name)
+    if table_name in await lance_db.table_names():
+        await lance_db.drop_table(table_name)
 
     if records:
-        lance_db.create_table(
+        await lance_db.create_table(
             table_name,
             data=records,
             schema=arrow_schema,
         )
     else:
-        lance_db.create_table(
+        await lance_db.create_table(
             table_name,
             schema=arrow_schema,
         )
 
-    tbl = lance_db.open_table(table_name)
-    tbl.create_fts_index("content", replace=True, use_tantivy=False)
-    arrow_tbl = tbl.to_arrow()
+    tbl = await lance_db.open_table(table_name)
+    # tbl.create_fts_index("content", replace=True, use_tantivy=False)
+    arrow_tbl = await tbl.to_arrow()
     print("checking table size:", arrow_tbl.num_rows, "strings (Arrow)")
 
 
