@@ -25,7 +25,6 @@ from src.storages.mongo.moodle import MoodleContentSchema
 
 MOODLE_URL = "https://moodle.innopolis.university"
 "Size of preview text shown to user"
-SNIPPET_SIZE = 100
 
 
 def moodle_entry_contents_to_sources(entry: MoodleEntry, content: MoodleContentSchema, request: Request) -> Sources:
@@ -125,7 +124,7 @@ class SearchRepository:
                         score=e.score,
                         source=CampusLifeSource(
                             display_name=inner.source_page_title,
-                            preview_text=inner.content[:SNIPPET_SIZE],
+                            preview_text=inner.content,
                             url=inner.source_url,
                         ),
                     )
@@ -136,7 +135,7 @@ class SearchRepository:
                         score=e.score,
                         source=HotelSource(
                             display_name=inner.source_page_title,
-                            preview_text=inner.content[:SNIPPET_SIZE],
+                            preview_text=inner.content,
                             url=inner.source_url,
                         ),
                     )
@@ -147,7 +146,7 @@ class SearchRepository:
                         score=e.score,
                         source=EduwikiSource(
                             display_name=inner.source_page_title,
-                            preview_text=inner.content[:SNIPPET_SIZE],
+                            preview_text=inner.content,
                             url=inner.source_url,
                         ),
                     )
@@ -209,7 +208,7 @@ class SearchRepository:
                             score=res_item.score,
                             source=EduwikiSource(
                                 display_name=mongo_entry.source_page_title,
-                                preview_text=res_item.snippet[:SNIPPET_SIZE],
+                                preview_text=res_item.content,
                                 url=mongo_entry.source_url,
                             ),
                         )
@@ -225,7 +224,7 @@ class SearchRepository:
                             score=res_item.score,
                             source=CampusLifeSource(
                                 display_name=mongo_entry.source_page_title,
-                                preview_text=res_item.snippet[:SNIPPET_SIZE],
+                                preview_text=res_item.content,
                                 url=mongo_entry.source_url,
                             ),
                         )
@@ -241,7 +240,7 @@ class SearchRepository:
                             score=res_item.score,
                             source=HotelSource(
                                 display_name=mongo_entry.source_page_title,
-                                preview_text=res_item.snippet[:SNIPPET_SIZE],
+                                preview_text=res_item.content,
                                 url=mongo_entry.source_url,
                             ),
                         )

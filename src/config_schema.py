@@ -33,7 +33,10 @@ class ApiSettings(CustomModel):
     'Prefix for the API path (e.g. "/api/v0")'
     cors_allow_origin_regex: str = ".*"
     "Allowed origins for CORS: from which domains requests to the API are allowed. Specify as a regex: `https://.*\\.innohassle\\.ru`"
-    db_url: SecretStr = Field(..., examples=["mongodb://username:password@localhost:27017/db?authSource=admin"])
+    db_url: SecretStr = Field(
+        ...,
+        examples=["mongodb://username:password@localhost:27017/db?authSource=admin"],
+    )
     "URL of the MongoDB database"
 
 
@@ -42,10 +45,16 @@ class MlServiceSettings(CustomModel):
     "URL of ml service API"
     api_key: SecretStr
     "Secret key to access API"
+    lancedb_uri: str = "./lance_data"
+    "URI of the LanceDB database"
     infinity_url: str = "http://127.0.0.1:7997"
     "URL of the deployed Infinity engine API"
     bi_encoder: str = "jinaai/jina-embeddings-v3"
     "Model to use for embeddings (should be available on Infinity)"
+    bi_encoder_dim: int = 768
+    "Dimension of the bi-encoder"
+    bi_encoder_search_limit_per_table: int = 10
+    "Limit for the number of results from the bi-encoder"
     cross_encoder: str = "jinaai/jina-reranker-v2-base-multilingual"
     "Model to use for reranking (should be available on Infinity)"
 

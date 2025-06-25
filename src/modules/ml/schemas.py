@@ -12,7 +12,7 @@ class SearchResultItem(CustomModel):
     resource: InfoSources
     mongo_id: str
     score: float
-    snippet: str
+    content: str
 
 
 class SearchResult(CustomModel):
@@ -28,7 +28,7 @@ class SearchResult(CustomModel):
 
 class ChatTask(CustomModel):
     query: str
-    snippets: list[str] | None = None
+    contents: list[str] | None = None
     "Additional context to forward to LLM. See RAG."
 
 

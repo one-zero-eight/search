@@ -13,7 +13,6 @@ from infinity_client.models import (
 )
 
 from src.config import settings
-from src.ml_service.config import settings as ml_settings
 
 i_client = Client(base_url=settings.ml_service.infinity_url)
 
@@ -31,7 +30,7 @@ async def embed(texts: list[str], task: Literal["query", "passage"] | None = Non
             {
                 "input": [f"{prefix}{text}" for text in texts],
                 "model": settings.ml_service.bi_encoder,
-                "dimensions": ml_settings.LANCEDB_EMBEDDING_DIM,
+                "dimensions": settings.ml_service.bi_encoder_dim,
             }
         ),
     )

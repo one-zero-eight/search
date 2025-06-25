@@ -1,11 +1,12 @@
 import asyncio
-import re
+import time
 
 import lancedb
 import pandas as pd
 
-from src.ml_service.config import settings as ml_settings
-from src.ml_service.infinity import embed
+from src.api.logging_ import logger
+from src.config import settings
+from src.ml_service.infinity import embed, rerank
 from src.ml_service.text import clean_text
 from src.modules.sources_enum import InfoSources
 
@@ -13,14 +14,26 @@ from src.modules.sources_enum import InfoSources
 async def search_pipeline(
     query: str,
     resources: list[InfoSources],
-    return_chunks: bool = False,
     limit: int = 5,
 ):
-    query_emb = (await embed([clean_text(query)]))[0]
-    print("Query embedding (first 5 dims):", query_emb[:5], "…")
+    start_time = time.perf_counter()
+    logger.info(f"🔍 Searching for {query} in {resources}")
+    # Time bi-encoder encoding
+    bi_encoder_start = time.perf_counter()
+    _ = await embed(
+        [clean_text(query)],
+        convert_to_numpy=True,
+        task="query",
+    )
+    query_emb = _[0]
+    bi_encoder_time = time.perf_counter() - bi_encoder_start
+    logger.info(f"⏱️  Bi-encoder encoding: {bi_encoder_time:.3f}s")
+
     all_results = []
-    lance_db = await lancedb.connect_async(ml_settings.LANCEDB_URI)
+    db_query_start = time.perf_counter()
+    lance_db = await lancedb.connect_async(settings.ml_service.lancedb_uri)
     for resource in resources:
+        resource_start = time.perf_counter()
         tbl_name = f"chunks_{resource}"
         if tbl_name not in await lance_db.table_names():
             continue
@@ -29,35 +42,91 @@ async def search_pipeline(
             await tbl.query()
             .nearest_to(query_emb)
             .distance_type("cosine")
-            .nearest_to_text(query)
-            .limit(limit)
+            # .nearest_to_text(query) TODO: For now it will not work if /tmp and /home are on different partitions: https://github.com/lancedb/lancedb/issues/2461
+            .limit(settings.ml_service.bi_encoder_search_limit_per_table)
             .to_pandas()
         )
-        print(f"\nRaw results for {resource}:")
-        print(results.head())
+        resource_time = time.perf_counter() - resource_start
+        logger.info(f"⏱️  {resource} query: {resource_time:.3f}s")
+        logger.info(
+            f"\nRaw results for {resource}:\n{results.drop(columns=['embedding']).head(3)}"
+        )
         for _, row in results.iterrows():
-            snippet = row["content"]
-            snippet = re.sub(r"#{2,}\s*", "", snippet)
+            if "_relevance_score" in row:
+                score = row["_relevance_score"]
+            elif "_score" in row:
+                score = row["_score"]
+            elif "_distance" in row:
+                score = 1 - row["_distance"]
+            else:
+                score = 0
+
             all_results.append(
                 {
                     "resource": resource,
                     "mongo_id": row["mongo_id"],
-                    "score": row["_relevance_score"],
-                    "snippet": snippet,
+                    "score": score,
+                    "content": row["content"],
                 }
             )
-    print(len(all_results), "is length of results")
-    all_results.sort(key=lambda x: x["score"], reverse=True)
-    return all_results[:limit] if not return_chunks else all_results[:limit]
+    db_query_time = time.perf_counter() - db_query_start
+    logger.info(f"⏱️  Total database queries: {db_query_time:.3f}s")
+    logger.info(f"🔍 Found {len(all_results)} results")
 
+    # Rerank with cross encoder
+    cross_encoder_time = 0
+    if all_results:
+        logger.info("🔄 Reranking with cross encoder...")
+        cross_encoder_start = time.perf_counter()
+        documents = [result["content"] for result in all_results]
+        rankings = await rerank(
+            clean_text(query),
+            documents,
+            top_n=limit,
+        )
+        cross_encoder_time = time.perf_counter() - cross_encoder_start
+        logger.info(f"⏱️  Cross-encoder reranking: {cross_encoder_time:.3f}s")
+
+        # Create reranked results based on cross encoder rankings
+        reranked_results = []
+        for ranking in rankings:
+            original_result = all_results[ranking.index]
+            reranked_results.append(
+                {
+                    "resource": original_result["resource"],
+                    "mongo_id": original_result["mongo_id"],
+                    "score": ranking.relevance_score,
+                    "content": original_result["content"],
+                }
+            )
+
+        all_results = reranked_results
+        logger.info(
+            f"🔄 Cross encoder reranking completed for {len(all_results)} results"
+        )
+
+    total_time = time.perf_counter() - start_time
+    logger.info(f"⏱️  Total search pipeline: {total_time:.3f}s")
+    logger.info(
+        f"⏱️  Breakdown: Bi-encoder ({bi_encoder_time:.3f}s) + DB queries ({db_query_time:.3f}s) + Cross-encoder ({cross_encoder_time:.3f}s) = {total_time:.3f}s"
+    )
+
+    # Results are already sorted by cross encoder scores (highest first)
+    return all_results
 
 if __name__ == "__main__":
-    print("📥 Starting search pipeline…")
+    logger.info("📥 Starting search pipeline…")
     q = "How much does room for 2 people rent cost?"
     results = asyncio.run(
         search_pipeline(
-            q, resources=[InfoSources.moodle, InfoSources.hotel, InfoSources.eduwiki, InfoSources.campuslife]
+            q,
+            resources=[
+                InfoSources.moodle,
+                InfoSources.hotel,
+                InfoSources.eduwiki,
+                InfoSources.campuslife,
+            ],
         )
     )
     for i, r in enumerate(results, 1):
-        print(f"{i}. ({r['resource']}) [{r['score']:.3f}]: {r['snippet']}")
+        logger.info(f"{i}. ({r['resource']}) [{r['score']:.3f}]: {r['content']}")

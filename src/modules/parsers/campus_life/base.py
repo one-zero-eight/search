@@ -2,6 +2,10 @@ import http.client
 import re
 from urllib.parse import urlparse
 
+from fake_useragent import UserAgent
+
+ua = UserAgent()
+
 BASE_URL = "http://campuslife.innopolis.ru"
 
 
@@ -12,7 +16,7 @@ def fetch_html(path):
     path = parsed_url.path or "/"
 
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+        "User-Agent": ua.random,
         "Accept": "text/html",
         "Accept-Language": "en-US,en;q=0.5",
         "Connection": "keep-alive",
