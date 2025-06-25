@@ -6,7 +6,6 @@ import pandas as pd
 
 from src.api.logging_ import logger
 from src.config import settings
-from src.ml_service.infinity import embed, rerank
 from src.ml_service.text import clean_text
 from src.modules.sources_enum import InfoSources
 
@@ -20,11 +19,24 @@ async def search_pipeline(
     logger.info(f"🔍 Searching for {query} in {resources}")
     # Time bi-encoder encoding
     bi_encoder_start = time.perf_counter()
-    _ = await embed(
-        [clean_text(query)],
-        task="query",
-    )
-    query_emb = _[0]
+    if settings.ml_service.infinity_url:
+        import src.ml_service.infinity
+
+        query_emb = (
+            await src.ml_service.infinity.embed(
+                [clean_text(query)],
+                task="query",
+            )
+        )[0]
+    else:
+        import src.ml_service.non_infinity
+
+        query_emb = (
+            await src.ml_service.non_infinity.embed(
+                [clean_text(query)],
+                task="query",
+            )
+        )[0]
     bi_encoder_time = time.perf_counter() - bi_encoder_start
     logger.info(f"⏱️  Bi-encoder encoding: {bi_encoder_time:.3f}s")
 
@@ -76,11 +88,24 @@ async def search_pipeline(
         logger.info("🔄 Reranking with cross encoder...")
         cross_encoder_start = time.perf_counter()
         documents = [result["content"] for result in all_results]
-        rankings = await rerank(
-            clean_text(query),
-            documents,
-            top_n=limit,
-        )
+
+        if settings.ml_service.infinity_url:
+            import src.ml_service.infinity
+
+            rankings = await src.ml_service.infinity.rerank(
+                clean_text(query),
+                documents,
+                top_n=limit,
+            )
+        else:
+            import src.ml_service.non_infinity
+
+            rankings = await src.ml_service.non_infinity.rerank(
+                clean_text(query),
+                documents,
+                top_n=limit,
+            )
+
         cross_encoder_time = time.perf_counter() - cross_encoder_start
         logger.info(f"⏱️  Cross-encoder reranking: {cross_encoder_time:.3f}s")
 

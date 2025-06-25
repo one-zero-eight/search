@@ -110,10 +110,15 @@ $defs:
         title: Lancedb Uri
         type: string
       infinity_url:
-        default: http://127.0.0.1:7997
-        description: URL of the deployed Infinity engine API
+        anyOf:
+        - type: string
+        - type: 'null'
+        default: null
+        description: URL of the deployed Infinity engine API, if not provided, use
+          local models
+        examples:
+        - http://127.0.0.1:7997
         title: Infinity Url
-        type: string
       bi_encoder:
         default: jinaai/jina-embeddings-v3
         description: Model to use for embeddings (should be available on Infinity)

@@ -47,6 +47,7 @@ lint.ignore = [
     "UP046"
 ]
 lint.extend-select = ["I", "UP", "PL"]
+lint.extend-ignore = ["PLC0415"]
 target-version = "py312"
 
 [build-system]

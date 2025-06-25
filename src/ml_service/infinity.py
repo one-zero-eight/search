@@ -22,8 +22,8 @@ task_prefix = {
 }
 
 
-async def embed(texts: list[str], task: Literal["query", "passage"] | None = None) -> list[np.ndarray]:
-    prefix = task_prefix[task] if task else ""
+async def embed(texts: list[str], task: Literal["query", "passage"]) -> list[np.ndarray]:
+    prefix = task_prefix[task]
     embeds: OpenAIEmbeddingResult = await embeddings.asyncio(
         client=i_client,
         body=OpenAIEmbeddingInputText.from_dict(

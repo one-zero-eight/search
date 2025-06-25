@@ -54,8 +54,8 @@ class MlServiceSettings(CustomModel):
     "URL of the MongoDB database"
     lancedb_uri: str = "./lance_data"
     "URI of the LanceDB database"
-    infinity_url: str = "http://127.0.0.1:7997"
-    "URL of the deployed Infinity engine API"
+    infinity_url: str | None = Field(None, examples=["http://127.0.0.1:7997"])
+    "URL of the deployed Infinity engine API, if not provided, use local models"
     bi_encoder: str = "jinaai/jina-embeddings-v3"
     "Model to use for embeddings (should be available on Infinity)"
     bi_encoder_dim: int = 768

@@ -7,7 +7,6 @@ from lancedb.pydantic import LanceModel, Vector
 from src.api.logging_ import logger
 from src.config import settings
 from src.ml_service.db_utils import get_all_documents
-from src.ml_service.infinity import embed
 from src.ml_service.text import clean_text
 from src.modules.sources_enum import InfoSources, InfoSourcesToMongoEntryName
 
@@ -54,7 +53,16 @@ async def prepare_resource(resource: InfoSources):
             else:
                 prefixed_chunks.append(chunk)
 
-        for idx, (chunk, emb) in enumerate(zip(prefixed_chunks, await embed(prefixed_chunks))):
+        if settings.ml_service.infinity_url:
+            import src.ml_service.infinity
+
+            embeddings = await src.ml_service.infinity.embed(prefixed_chunks, task="passage")
+        else:
+            import src.ml_service.non_infinity
+
+            embeddings = await src.ml_service.non_infinity.embed(prefixed_chunks, task="passage")
+
+        for idx, (chunk, emb) in enumerate(zip(prefixed_chunks, embeddings)):
             records.append(
                 {
                     "content": chunk,

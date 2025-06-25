@@ -83,15 +83,19 @@ Now you can find API docs on http://localhost:8004/docs. Good job!
    ```
    Check API docs on http://127.0.0.1:8001/docs
 
-8. Run ml client
+8. Choose the way to run models: either use Infinity or local models.
+   1. If you want to use local models, just not set `infinity_url` in `settings.yaml`
+   2. If you want to use Infinity, set `infinity_url` in `settings.yaml` to the url of deployed Infinity engine.
+      You can run Infinity engine locally:
+      ```bash
+      uv run --no-project --with "infinity_emb[all]" --with "transformers<4.49" infinity_emb v2 --model-id jinaai/jina-embeddings-v3 --model-id jinaai/jina-reranker-v2-base-multilingual
+      ```
+      Or use deployed Infinity engine provided by someone else.
+
+9. Run ml client
    ```bash
    poetry run python -m src.ml_service
    ```
-9. Run Infinity engine:
-   ```bash
-   uv run --no-project --with "infinity_emb[all]" --with "transformers<4.49" infinity_emb v2 --model-id jinaai/jina-embeddings-v3 --model-id jinaai/jina-reranker-v2-base-multilingual
-   ```
-   (Or specify url of deployed Infinity in settings.yaml)
 
 **Set up PyCharm integrations**
 
