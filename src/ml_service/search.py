@@ -25,7 +25,7 @@ def search_pipeline(
         if tbl_name not in lance_db.table_names():
             continue
         tbl = lance_db.open_table(tbl_name)
-        results = tbl.search(query_emb, vector_column_name=...).limit(limit).to_pandas()
+        results = tbl.search(query_emb).limit(limit).to_pandas()
         print(f"\nRaw results for {resource}:")
         print(results[["mongo_id", "_distance", "content"]].head())
         for _, row in results.iterrows():
