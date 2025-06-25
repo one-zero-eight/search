@@ -16,26 +16,24 @@ i_client = Client(base_url=settings.ml_service.infinity_url)
 
 
 async def embed(texts: list[str]) -> list[np.ndarray]:
-    with i_client as client:
-        embeds: OpenAIEmbeddingResult = await embeddings.asyncio(
-            client=client,
-            body=OpenAIEmbeddingInputText.from_dict({"input": texts, "model": settings.ml_service.bi_encoder}),
-        )
-        query_emb = [np.array(emb.to_dict()["embedding"]) for emb in embeds.data]
-        return query_emb
+    embeds: OpenAIEmbeddingResult = await embeddings.asyncio(
+        client=i_client,
+        body=OpenAIEmbeddingInputText.from_dict({"input": texts, "model": settings.ml_service.bi_encoder}),
+    )
+    query_emb = [np.array(emb.to_dict()["embedding"]) for emb in embeds.data]
+    return query_emb
 
 
 async def rerank(query: str, documents: list[str], top_n: int | None = None) -> list[ReRankObject]:
-    with i_client as client:
-        reranks: ReRankResult = await infinity_rerank.asyncio(
-            client=client,
-            body=RerankInput.from_dict(
-                {
-                    "query": query,
-                    "documents": documents,
-                    "top_n": top_n,
-                    "model": settings.ml_service.cross_encoder,
-                }
-            ),
-        )
-        return reranks.results
+    reranks: ReRankResult = await infinity_rerank.asyncio(
+        client=i_client,
+        body=RerankInput.from_dict(
+            {
+                "query": query,
+                "documents": documents,
+                "top_n": top_n,
+                "model": settings.ml_service.cross_encoder,
+            }
+        ),
+    )
+    return reranks.results
