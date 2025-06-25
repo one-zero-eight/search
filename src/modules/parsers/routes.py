@@ -15,7 +15,7 @@ router = APIRouter()
 
 
 @router.post("/{section}/parse")
-async def run_parse_route(section: InfoSources, indexing_is_needed: bool = False, parsing_is_needed: bool = False):
+async def run_parse_route(section: InfoSources, indexing_is_needed: bool = True, parsing_is_needed: bool = False):
     if not indexing_is_needed and not parsing_is_needed:
         raise HTTPException(
             status_code=400, detail="At least one of indexing_is_needed or parsing_is_needed must be True"
