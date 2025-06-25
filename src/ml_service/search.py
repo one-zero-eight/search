@@ -44,7 +44,7 @@ async def search_pipeline(
                 {
                     "resource": resource,
                     "mongo_id": row["mongo_id"],
-                    "score": 1 - row["_distance"],
+                    "score": row["_relevance_score"],
                     "snippet": snippet,
                 }
             )
