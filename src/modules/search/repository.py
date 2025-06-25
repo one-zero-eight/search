@@ -227,7 +227,7 @@ class SearchRepository:
                         score=res_item.score,
                         source=HotelSource(
                             display_name=mongo_entry.source_page_title,
-                            preview_text=res_item[:SNIPPET_SIZE],
+                            preview_text=res_item.snippet[:SNIPPET_SIZE],
                             url=mongo_entry.source_url,
                         ),
                     )
