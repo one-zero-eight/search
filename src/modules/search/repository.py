@@ -190,48 +190,62 @@ class SearchRepository:
 
             if res_item.resource == InfoSources.moodle:
                 mongo_entry = await MoodleEntry.get(res_item.mongo_id)
-                for c in mongo_entry.contents:
-                    response = self._moodle_entry_contents_to_search_response(mongo_entry, c, request, res_item.score)
-                    responses.append(response)
+                if mongo_entry is None:
+                    logger.warning(f"mongo_entry is None: {res_item}")
+                else:
+                    for c in mongo_entry.contents:
+                        response = self._moodle_entry_contents_to_search_response(
+                            mongo_entry, c, request, res_item.score
+                        )
+                        responses.append(response)
 
             elif res_item.resource == InfoSources.eduwiki:
                 mongo_entry = await EduWikiEntry.get(res_item.mongo_id)
-                responses.append(
-                    SearchResponse(
-                        score=res_item.score,
-                        source=EduwikiSource(
-                            display_name=mongo_entry.source_page_title,
-                            preview_text=res_item.snippet[:SNIPPET_SIZE],
-                            url=mongo_entry.source_url,
-                        ),
+                if mongo_entry is None:
+                    logger.warning(f"mongo_entry is None: {res_item}")
+                else:
+                    responses.append(
+                        SearchResponse(
+                            score=res_item.score,
+                            source=EduwikiSource(
+                                display_name=mongo_entry.source_page_title,
+                                preview_text=res_item.snippet[:SNIPPET_SIZE],
+                                url=mongo_entry.source_url,
+                            ),
+                        )
                     )
-                )
 
             elif res_item.resource == InfoSources.campuslife:
                 mongo_entry = await CampusLifeEntry.get(res_item.mongo_id)
-                responses.append(
-                    SearchResponse(
-                        score=res_item.score,
-                        source=CampusLifeSource(
-                            display_name=mongo_entry.source_page_title,
-                            preview_text=res_item.snippet[:SNIPPET_SIZE],
-                            url=mongo_entry.source_url,
-                        ),
+                if mongo_entry is None:
+                    logger.warning(f"mongo_entry is None: {res_item}")
+                else:
+                    responses.append(
+                        SearchResponse(
+                            score=res_item.score,
+                            source=CampusLifeSource(
+                                display_name=mongo_entry.source_page_title,
+                                preview_text=res_item.snippet[:SNIPPET_SIZE],
+                                url=mongo_entry.source_url,
+                            ),
+                        )
                     )
-                )
 
             elif res_item.resource == InfoSources.hotel:
                 mongo_entry = await HotelEntry.get(res_item.mongo_id)
-                responses.append(
-                    SearchResponse(
-                        score=res_item.score,
-                        source=HotelSource(
-                            display_name=mongo_entry.source_page_title,
-                            preview_text=res_item.snippet[:SNIPPET_SIZE],
-                            url=mongo_entry.source_url,
-                        ),
+                if mongo_entry is None:
+                    logger.warning(f"mongo_entry is None: {res_item}")
+                else:
+                    responses.append(
+                        SearchResponse(
+                            score=res_item.score,
+                            source=HotelSource(
+                                display_name=mongo_entry.source_page_title,
+                                preview_text=res_item.snippet[:SNIPPET_SIZE],
+                                url=mongo_entry.source_url,
+                            ),
+                        )
                     )
-                )
 
             else:
                 assert_never(res_item)
