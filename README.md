@@ -89,9 +89,10 @@ Now you can find API docs on http://localhost:8004/docs. Good job!
    ```
 9. Run Infinity engine:
    ```bash
-   poetry run infinity_emb v2 --model-id jinaai/jina-embeddings-v3 --model-id jinaai/jina-reranker-v2-base-multilingual
+   uv run --no-project --with "infinity_emb[all]" --with "transformers<4.49" infinity_emb v2 --model-id jinaai/jina-embeddings-v3 --model-id jinaai/jina-reranker-v2-base-multilingual
    ```
    (Or specify url of deployed Infinity in settings.yaml)
+
 **Set up PyCharm integrations**
 
 1. Ruff ([plugin](https://plugins.jetbrains.com/plugin/20574-ruff)).
