@@ -11,6 +11,7 @@ from infinity_client.models import (
 )
 
 from src.config import settings
+from src.ml_service.config import settings as ml_settings
 
 i_client = Client(base_url=settings.ml_service.infinity_url)
 
@@ -18,7 +19,9 @@ i_client = Client(base_url=settings.ml_service.infinity_url)
 async def embed(texts: list[str]) -> list[np.ndarray]:
     embeds: OpenAIEmbeddingResult = await embeddings.asyncio(
         client=i_client,
-        body=OpenAIEmbeddingInputText.from_dict({"input": texts, "model": settings.ml_service.bi_encoder}),
+        body=OpenAIEmbeddingInputText.from_dict(
+            {"input": texts, "model": settings.ml_service.bi_encoder, "dimensions": ml_settings.LANCEDB_EMBEDDING_DIM}
+        ),
     )
     query_emb = [np.array(emb.to_dict()["embedding"]) for emb in embeds.data]
     return query_emb
