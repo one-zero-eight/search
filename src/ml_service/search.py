@@ -40,7 +40,7 @@ def search_pipeline(
                 }
             )
     print(len(all_results), "is length of results")
-    all_results.sort(key=lambda x: x["score"])
+    all_results.sort(key=lambda x: x["score"], reverse=True)
     return all_results[:limit] if not return_chunks else all_results[:limit]
 
 
