@@ -2,6 +2,7 @@ import asyncio
 import re
 
 import lancedb
+import pandas as pd
 from sentence_transformers import SentenceTransformer
 
 from src.ml_service.config import settings
@@ -26,7 +27,7 @@ async def search_pipeline(
         if tbl_name not in await lance_db.table_names():
             continue
         tbl = await lance_db.open_table(tbl_name)
-        results = (
+        results: pd.DataFrame = (
             await tbl.query()
             .nearest_to(query_emb)
             .distance_type("cosine")
@@ -35,7 +36,7 @@ async def search_pipeline(
             .to_pandas()
         )
         print(f"\nRaw results for {resource}:")
-        print(results[["mongo_id", "_distance", "content"]].head())
+        print(results.head())
         for _, row in results.iterrows():
             snippet = row["content"]
             snippet = re.sub(r"#{2,}\s*", "", snippet)
