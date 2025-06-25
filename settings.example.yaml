@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=settings.schema.yaml
 $schema: "./settings.schema.yaml"
 api_settings:
   db_url: "mongodb://mongoadmin:secret@localhost:27017/db?authSource=admin"
