@@ -57,13 +57,14 @@ Now you can find API docs on http://localhost:8004/docs. Good job!
    poetry run pre-commit install --install-hooks -t pre-commit -t commit-msg
    ```
 5. Check that your `settings.yaml` looks like:
-   ```bash
+   ```yaml
    $schema: "./settings.schema.yaml"
    api_settings:
       db_url: "mongodb://mongoadmin:secret@localhost:27017/db?authSource=admin"
    minio:
       access_key: "minioadmin"
       secret_key: "password"
+   ```
 6. Set up a [MongoDB](https://www.mongodb.com/) and [Minio](https://min.io/) instances.
 
     - Set up database settings for [docker-compose](https://docs.docker.com/compose/) container
