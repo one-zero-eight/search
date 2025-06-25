@@ -1,6 +1,8 @@
 from enum import StrEnum
+from typing import Final
 
 from src.storages.mongo import CampusLifeEntry, EduWikiEntry, HotelEntry, MoodleEntry
+from src.storages.mongo.__base__ import CustomDocument
 
 
 # Currently supported list of sources we use information from.
@@ -12,14 +14,14 @@ class InfoSources(StrEnum):
     hotel = "hotel"
 
 
-InfoSourcesToMongoEntry = {
+InfoSourcesToMongoEntry: Final[dict[InfoSources, type[CustomDocument]]] = {
     InfoSources.moodle: MoodleEntry,
     InfoSources.eduwiki: EduWikiEntry,
     InfoSources.campuslife: CampusLifeEntry,
     InfoSources.hotel: HotelEntry,
 }
 
-InfoSourcesToMongoEntryName = {
+InfoSourcesToMongoEntryName: Final[dict[InfoSources, str]] = {
     InfoSources.moodle: "MoodleEntry",
     InfoSources.eduwiki: "EduWikiEntry",
     InfoSources.campuslife: "CampusLifeEntry",

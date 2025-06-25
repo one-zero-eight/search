@@ -19,7 +19,7 @@ from src.modules.search.schemas import (
     Sources,
     WithScore,
 )
-from src.modules.sources_enum import InfoSources, InfoSourcesToMongoEntry
+from src.modules.sources_enum import InfoSources
 from src.storages.mongo import CampusLifeEntry, EduWikiEntry, HotelEntry, MoodleEntry
 from src.storages.mongo.moodle import MoodleContentSchema
 
@@ -60,13 +60,22 @@ def moodle_entry_contents_to_sources(entry: MoodleEntry, content: MoodleContentS
 class SearchRepository:
     async def _by_meta(self, query: str, *, limit: int, section: InfoSources) -> list[WithScore]:
         try:
-            model_class = InfoSourcesToMongoEntry[section]
+            if section == InfoSources.moodle:
+                _MongoEntryClass = MoodleEntry
+            elif section == InfoSources.eduwiki:
+                _MongoEntryClass = EduWikiEntry
+            elif section == InfoSources.campuslife:
+                _MongoEntryClass = CampusLifeEntry
+            elif section == InfoSources.hotel:
+                _MongoEntryClass = HotelEntry
+            else:
+                assert_never(section)
         except KeyError:
             raise HTTPException(status_code=400, detail=f"Not supported section: {section}")
 
         # search by text
         entries = (
-            await model_class.get_motor_collection()
+            await _MongoEntryClass.get_motor_collection()
             .find(
                 {
                     "$text": {
@@ -84,7 +93,7 @@ class SearchRepository:
         with_scores = []
         for e in entries:
             score = e.pop("score")
-            with_scores.append(WithScore[model_class].model_validate({"score": score, "inner": e}))  # type: ignore
+            with_scores.append(WithScore[_MongoEntryClass].model_validate({"score": score, "inner": e}))  # type: ignore
         return with_scores
 
     def _moodle_entry_contents_to_search_response(
@@ -103,13 +112,13 @@ class SearchRepository:
         """
         Fallback to search in mongo for cases when ML service fails or cannot be used.
         """
-        entries = []
+        entries: list[WithScore] = []
         for section in sources:
             logger.info(f"Searching for {section}")
             _ = await self._by_meta(query, limit=limit, section=section)
             logger.info(f"Found {len(_)} entries for {section}")
             entries.extend(_)
-        responses = []
+        responses: list[SearchResponse] = []
 
         for e in entries:
             inner = e.inner
@@ -118,33 +127,20 @@ class SearchRepository:
                     response = self._moodle_entry_contents_to_search_response(inner, c, request, score=e.score)
                     if response:
                         responses.append(response)
-            elif isinstance(inner, CampusLifeEntry):
+            elif isinstance(inner, (CampusLifeEntry | HotelEntry | EduWikiEntry)):
+                if isinstance(inner, CampusLifeEntry):
+                    _SourceModel = CampusLifeSource
+                elif isinstance(inner, HotelEntry):
+                    _SourceModel = HotelSource
+                elif isinstance(inner, EduWikiEntry):
+                    _SourceModel = EduwikiSource
+                else:
+                    assert_never(inner)
+
                 responses.append(
                     SearchResponse(
                         score=e.score,
-                        source=CampusLifeSource(
-                            display_name=inner.source_page_title,
-                            preview_text=inner.content,
-                            url=inner.source_url,
-                        ),
-                    )
-                )
-            elif isinstance(inner, HotelEntry):
-                responses.append(
-                    SearchResponse(
-                        score=e.score,
-                        source=HotelSource(
-                            display_name=inner.source_page_title,
-                            preview_text=inner.content,
-                            url=inner.source_url,
-                        ),
-                    )
-                )
-            elif isinstance(inner, EduWikiEntry):
-                responses.append(
-                    SearchResponse(
-                        score=e.score,
-                        source=EduwikiSource(
+                        source=_SourceModel(
                             display_name=inner.source_page_title,
                             preview_text=inner.content,
                             url=inner.source_url,
@@ -179,14 +175,6 @@ class SearchRepository:
         responses: list[SearchResponse] = []
 
         for res_item in results.result_items:
-            ## "entry" get from mongo can be generalized to:
-            # mongo_class = InfoSourcesToMongoEntry[res_item.resource]
-            # entry = mongo_class.get(res_item.mongo_id)
-            ## But we lose static type deduction, so write entry get for each source
-
-            # Also all 'if' cases(except moodle) now can be rewritten to 1 generalized via class mappings,
-            # but this is unstable since sources we use for search likely be extended in the future.
-
             if res_item.resource == InfoSources.moodle:
                 mongo_entry = await MoodleEntry.get(res_item.mongo_id)
                 if mongo_entry is None:
@@ -194,61 +182,42 @@ class SearchRepository:
                 else:
                     for c in mongo_entry.contents:
                         response = self._moodle_entry_contents_to_search_response(
-                            mongo_entry, c, request, res_item.score
+                            mongo_entry,
+                            c,
+                            request,
+                            res_item.score,
                         )
                         responses.append(response)
 
-            elif res_item.resource == InfoSources.eduwiki:
-                mongo_entry = await EduWikiEntry.get(res_item.mongo_id)
+            elif res_item.resource in (InfoSources.eduwiki, InfoSources.campuslife, InfoSources.hotel):
+                if res_item.resource == InfoSources.eduwiki:
+                    _MongoEntryClass = EduWikiEntry
+                    _SourceModel = EduwikiSource
+                elif res_item.resource == InfoSources.campuslife:
+                    _MongoEntryClass = CampusLifeEntry
+                    _SourceModel = CampusLifeSource
+                elif res_item.resource == InfoSources.hotel:
+                    _MongoEntryClass = HotelEntry
+                    _SourceModel = HotelSource
+                else:
+                    assert_never(res_item.resource)
+                mongo_entry = await _MongoEntryClass.get(res_item.mongo_id)
                 if mongo_entry is None:
                     logger.warning(f"mongo_entry is None: {res_item}")
                 else:
                     responses.append(
                         SearchResponse(
                             score=res_item.score,
-                            source=EduwikiSource(
+                            source=_SourceModel(
                                 display_name=mongo_entry.source_page_title,
                                 preview_text=res_item.content,
                                 url=mongo_entry.source_url,
                             ),
                         )
                     )
-
-            elif res_item.resource == InfoSources.campuslife:
-                mongo_entry = await CampusLifeEntry.get(res_item.mongo_id)
-                if mongo_entry is None:
-                    logger.warning(f"mongo_entry is None: {res_item}")
-                else:
-                    responses.append(
-                        SearchResponse(
-                            score=res_item.score,
-                            source=CampusLifeSource(
-                                display_name=mongo_entry.source_page_title,
-                                preview_text=res_item.content,
-                                url=mongo_entry.source_url,
-                            ),
-                        )
-                    )
-
-            elif res_item.resource == InfoSources.hotel:
-                mongo_entry = await HotelEntry.get(res_item.mongo_id)
-                if mongo_entry is None:
-                    logger.warning(f"mongo_entry is None: {res_item}")
-                else:
-                    responses.append(
-                        SearchResponse(
-                            score=res_item.score,
-                            source=HotelSource(
-                                display_name=mongo_entry.source_page_title,
-                                preview_text=res_item.content,
-                                url=mongo_entry.source_url,
-                            ),
-                        )
-                    )
-
             else:
                 assert_never(res_item)
-
+        responses.sort(key=lambda x: x.score, reverse=True)
         return responses
 
 

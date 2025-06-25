@@ -106,7 +106,7 @@ class HotelSource(SiteBaseSource):
     breadcrumbs: list[str] = ["Hotel"]
 
 
-Sources: type = Annotated[
+Sources = Annotated[
     EduwikiSource
     | CampusLifeSource
     | HotelSource
