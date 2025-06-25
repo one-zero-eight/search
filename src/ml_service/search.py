@@ -9,7 +9,7 @@ from src.ml_service.config import settings
 from src.ml_service.text import clean_text
 from src.modules.sources_enum import InfoSources
 
-bi_encoder = SentenceTransformer(settings.BI_ENCODER_MODEL, device=settings.DEVICE)
+bi_encoder = SentenceTransformer(settings.BI_ENCODER_MODEL)
 
 
 async def search_pipeline(

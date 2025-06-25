@@ -11,7 +11,6 @@ class Settings:
     LANCEDB_URI = os.getenv("LANCEDB_URI", "./lance_data")
     LANCEDB_EMBEDDING_DIM = int(os.getenv("LANCEDB_EMBEDDING_DIM", "384"))
     BI_ENCODER_MODEL = os.getenv("BI_ENCODER_MODEL", "all-MiniLM-L6-v2")
-    DEVICE = os.getenv("DEVICE", "cpu")
     RESOURCES = os.getenv("RESOURCES", "CampusLifeEntry,EduWikiEntry,HotelEntry").split(",")
 
 
