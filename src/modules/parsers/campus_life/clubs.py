@@ -4,9 +4,8 @@ from urllib.parse import urlparse
 import markdownify
 from bs4 import BeautifulSoup
 
+from src.modules.parsers.campus_life.base import BASE_URL, fetch_html, parse_tilda_table
 from src.storages.mongo.campus_life import CampusLifeEntrySchema
-
-from .base import BASE_URL, fetch_html, parse_tilda_table
 
 PATH = "/clubs"
 _CLUB_PATH_RE = re.compile(r"^/[a-z0-9_]+_clubs/?$", re.I)  # pattern: "/something_clubs"
@@ -58,10 +57,9 @@ def html_to_markdown(html: str) -> str:
 
     # Final conversion to Markdown string
     body = soup.body
-    if not body:
-        raise ValueError("Main content container not found.")
+    html_to_convert = str(body) if body else str(soup)
 
-    md = markdownify.markdownify(str(body), heading_style="ATX")
+    md = markdownify.markdownify(html_to_convert, heading_style="ATX")
     md = re.sub(r"\\\|", "|", md)
     md = re.sub(r"```markdown\n|```", "", md)
     md = re.sub(r"\n{3,}", "\n\n", md)
@@ -120,7 +118,55 @@ def parse():
             title = filename.removesuffix(".md").replace("_", " ").title()
 
             result.append(CampusLifeEntrySchema(source_url=BASE_URL + sub_path, source_page_title=title, content=md))
+
+            # 3. Find pairs of content-tab1_<n> and content-tab2_<n>
+            sub_soup = BeautifulSoup(sub_html, "html.parser")
+
+            tab1_blocks = {}
+            tab2_blocks = {}
+
+            # Collect all content-tab1_<n> blocks
+            for div in sub_soup.find_all("div", id=re.compile(r"content-tab1_(\d+)", re.I)):
+                match = re.search(r"content-tab1_(\d+)", div.get("id", ""))
+                if match:
+                    tab_number = match.group(1)
+                    tab1_blocks[tab_number] = div
+
+            # Collect all content-tab2_<n> blocks
+            for div in sub_soup.find_all("div", id=re.compile(r"content-tab2_(\d+)", re.I)):
+                match = re.search(r"content-tab2_(\d+)", div.get("id", ""))
+                if match:
+                    tab_number = match.group(1)
+                    tab2_blocks[tab_number] = div
+
+            # 4. Combine pairs and convert to Markdown
+            for tab_number in sorted(tab1_blocks.keys()):
+                tab1_div = tab1_blocks.get(tab_number)
+                tab2_div = tab2_blocks.get(tab_number)
+
+                if not tab2_div:
+                    print(f"   └─ ⚠️ Tab2 for club {tab_number} not found, skipping")
+                    continue
+
+                combined_html = str(tab1_div) + str(tab2_div)
+                combined_md = html_to_markdown(combined_html)
+
+                club_title = f"Club {tab_number}"
+                heading_elem = tab1_div.find(class_=lambda x: x and "t-heading" in x.lower())
+                if heading_elem:
+                    title_text = heading_elem.get_text(strip=True)
+                    if title_text:
+                        club_title = title_text
+
+                result.append(
+                    CampusLifeEntrySchema(
+                        source_url=BASE_URL + sub_path + f"#!/tab/{str(tab_number)}-1",
+                        source_page_title=club_title,
+                        content=combined_md,
+                    )
+                )
+
         except Exception as e:
-            print(f"   └─ ❌ Error parsing {sub_path}: {e}")
+            print(f"   └─ ❌ Error while parsing {sub_path}: {e}")
 
     return result
