@@ -82,6 +82,18 @@ async def search_pipeline(
     logger.info(f"⏱️  Total database queries: {db_query_time:.3f}s")
     logger.info(f"🔍 Found {len(all_results)} results")
 
+    # Deduplicate chunks per document (resource, mongo_id), keep highest bi-encoder score
+    unique: dict[tuple[str, str], dict] = {}
+    for result in all_results:
+        key = (result["resource"], result["mongo_id"])
+        # if this document is new or has a higher score than previously seen
+        if key not in unique or result["score"] > unique[key]["score"]:
+            unique[key] = result
+    # rebuild list from map values
+    all_results = list(unique.values())
+    # sort deduplicated results by score descending
+    all_results.sort(key=lambda r: r["score"], reverse=True)
+
     # Rerank with cross encoder
     cross_encoder_time = 0
     if all_results:

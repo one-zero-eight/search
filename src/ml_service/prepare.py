@@ -1,3 +1,4 @@
+import asyncio
 import html
 
 import lancedb
@@ -6,6 +7,7 @@ from lancedb.pydantic import LanceModel, Vector
 
 from src.api.logging_ import logger
 from src.config import settings
+from src.ml_service.db_utils import get_all_documents
 from src.ml_service.text import clean_text
 from src.modules.sources_enum import InfoSources
 
@@ -91,5 +93,11 @@ async def prepare_resource(resource: InfoSources, docs: list[dict]):
 
 if __name__ == "__main__":
     print("📥 Starting prepare pipeline...")
-    for r in settings.RESOURCES:
-        prepare_resource(r)
+    for r in [
+        InfoSources.campuslife,
+        InfoSources.eduwiki,
+        InfoSources.hotel,
+        InfoSources.moodle,
+    ]:
+        docs = get_all_documents(r.value)
+        asyncio.run(prepare_resource(r, docs))

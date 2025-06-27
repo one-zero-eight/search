@@ -37,6 +37,13 @@ lance = "^1.2.1"
 pandas = "^2.3.0"
 infinity-client = "^0.0.76"
 lancedb = "^0.24.0"
+pylance = {version = "^0.31.0b1", allow-prereleases = true, source = "lancedb"}
+
+
+[[tool.poetry.source]]
+name = "lancedb"
+url = "https://pypi.fury.io/lancedb/"
+priority = "supplemental"
 
 [tool.ruff]
 line-length = 120

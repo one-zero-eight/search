@@ -3910,6 +3910,39 @@ files = [
 windows-terminal = ["colorama (>=0.4.6)"]
 
 [[package]]
+name = "pylance"
+version = "0.31.0b1"
+description = "python wrapper for Lance columnar format"
+optional = false
+python-versions = ">=3.9"
+groups = ["ml"]
+files = [
+    {file = "pylance-0.31.0b1-cp39-abi3-macosx_10_15_x86_64.whl", hash = "sha256:5d3cdde7c1aebcc5f7c56e71433e4ccb0ac934bafb45f924c32697a905e413d0"},
+    {file = "pylance-0.31.0b1-cp39-abi3-macosx_11_0_arm64.whl", hash = "sha256:802a0096ab50bc01d8332495442036850b2bcdf98da8c698c1ae2b2608fc8ba6"},
+    {file = "pylance-0.31.0b1-cp39-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:67b896f17a57191c9244007e1e43ebd2dc49d35c53c9b042465dc02b8e246df4"},
+    {file = "pylance-0.31.0b1-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:53c4eb4d6e162724ad5be5001bf3e6e227d792e51734faf2d20daa2679a82acf"},
+    {file = "pylance-0.31.0b1-cp39-abi3-manylinux_2_28_aarch64.whl", hash = "sha256:7097c4b21e6e7916ff2fcb6753946ad32c7b9be2d77ab70ee88b826f3ea24853"},
+    {file = "pylance-0.31.0b1-cp39-abi3-manylinux_2_28_x86_64.whl", hash = "sha256:86ab63c515c4386fcb8919e32fb725659e016502773f76d86b0131cc39a0d1a6"},
+    {file = "pylance-0.31.0b1-cp39-abi3-win_amd64.whl", hash = "sha256:2e88cccbb4274fa43861a34e9e9cd06c2f4cf2fbe1fc5e8bcfd765e3f436b3d2"},
+]
+
+[package.dependencies]
+numpy = ">=1.22"
+pyarrow = ">=14"
+
+[package.extras]
+benchmarks = ["pytest-benchmark"]
+dev = ["pyright", "ruff (==0.4.1)"]
+ray = ["ray[data] (<2.38) ; python_full_version < \"3.12.0\""]
+tests = ["boto3", "datafusion", "datasets", "duckdb", "ml-dtypes", "pandas", "pillow", "polars[pandas,pyarrow]", "pytest", "tensorflow", "tqdm"]
+torch = ["torch"]
+
+[package.source]
+type = "legacy"
+url = "https://pypi.fury.io/lancedb"
+reference = "lancedb"
+
+[[package]]
 name = "pymongo"
 version = "4.13.2"
 description = "PyMongo - the Official MongoDB Python driver"
@@ -5846,4 +5879,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.11"
-content-hash = "b00f1656bb3fb474d385eda6d0e213c732931839576a2bb8b83d57af011e560c"
+content-hash = "45f418c5851f8e47e54d1c047ba0d1e30824f48dad5bb407246e8d1f237d6c7c"
