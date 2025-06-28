@@ -20,7 +20,18 @@ async def run_parse_route(section: InfoSources, indexing_is_needed: bool = True,
         raise HTTPException(
             status_code=400, detail="At least one of indexing_is_needed or parsing_is_needed must be True"
         )
+    if section == InfoSources.maps:
+        async with get_ml_service_client() as client:
+            maps_response = await client.get("https://api.innohassle.ru/maps/v0/scenes/")
+            maps_response.raise_for_status()
+            maps_response_data = maps_response.json()
 
+            lancedb_response = await client.post(
+                f"/lancedb/update/{InfoSources.maps}", json=maps_response_data, timeout=100
+            )
+            lancedb_response.raise_for_status()
+            lancedb_response_data = lancedb_response.json()
+        return {"message": "success", "indexing": lancedb_response_data}
     if section == InfoSources.hotel:
         parse_func, model_class = parse_hotel, HotelEntry
     elif section == InfoSources.eduwiki:
@@ -48,7 +59,7 @@ async def run_parse_route(section: InfoSources, indexing_is_needed: bool = True,
     if indexing_is_needed:
         async with get_ml_service_client() as client:
             response = await client.post(
-                f"/lancedb/update/{section.value}", json=[o.model_dump(mode="json") for o in all_entries], timeout=100
+                f"/lancedb/update/{section.value}", json=[o.model_dump(mode="json") for o in all_entries], timeout=200
             )
             response.raise_for_status()
             response_data = response.json()
