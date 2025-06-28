@@ -12,6 +12,7 @@ class InfoSources(StrEnum):
     eduwiki = "eduwiki"
     campuslife = "campuslife"
     hotel = "hotel"
+    maps = "maps"
 
 
 InfoSourcesToMongoEntry: Final[dict[InfoSources, type[CustomDocument]]] = {

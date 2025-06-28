@@ -28,10 +28,34 @@ chunker = TokenChunker(
 )
 
 
-async def prepare_resource(resource: InfoSources, docs: list[dict]):
-    lance_db = await lancedb.connect_async(settings.ml_service.lancedb_uri)
-    table_name = f"chunks_{resource}"
-    arrow_schema = Schema.to_arrow_schema()
+async def prepare_maps(response: list[dict]):
+    idx = 0
+    prefixed_chunks = []
+    for scene in response:
+        scene_str = f"# {scene['title']}\n"
+        for area in scene["areas"]:
+            area_str = f"### {area['title']}\n"
+            description_str = ""
+            if area["description"]:
+                joined_lines = "  \n".join(area["description"].split("\n"))
+                description_str = f"**Description:** {joined_lines}  \n"
+            link_str = f"https://innohassle.ru/maps?scene={scene['scene_id']}&area={area['svg_polygon_id']}"
+            people_str = ""
+            if area["people"]:
+                people_str = "**People:** "
+                people_str += f"{', '.join(area['people'][::2])}  \n"
+
+            source_url_escaped = html.escape(link_str, quote=True)
+            prefix = f'<chunk chunk_number={idx} source_url="{source_url_escaped}">'
+            chunk = scene_str + area_str + description_str + link_str + people_str
+            prefixed_chunk = prefix + chunk
+            prefixed_chunks.append(prefixed_chunk)
+            idx += 1
+
+    return await embed(InfoSources.maps, prefixed_chunks, None)
+
+
+async def prepare_mongo(resource: InfoSources, docs: list[dict]):
     logger.info(f"Resource `{resource}`: found {len(docs)} documents in MongoDB")
 
     records = []
@@ -49,25 +73,46 @@ async def prepare_resource(resource: InfoSources, docs: list[dict]):
             else:
                 prefixed_chunks.append(chunk)
 
-        if settings.ml_service.infinity_url:
-            import src.ml_service.infinity
+        records.extend(await embed(resource, prefixed_chunks, str(doc.get("_id", doc.get("id", None)))))
+    return records
 
-            embeddings = await src.ml_service.infinity.embed(prefixed_chunks, task="passage")
-        else:
-            import src.ml_service.non_infinity
 
-            embeddings = await src.ml_service.non_infinity.embed(prefixed_chunks, task="passage")
+async def embed(resource, prefixed_chunks, mongo_id=None):
+    if settings.ml_service.infinity_url:
+        import src.ml_service.infinity
 
-        for idx, (chunk, emb) in enumerate(zip(prefixed_chunks, embeddings)):
-            records.append(
-                {
-                    "resource": resource,
-                    "mongo_id": str(doc.get("_id", doc.get("id", None))),
-                    "chunk_number": idx,
-                    "content": chunk,
-                    "embedding": emb,
-                }
-            )
+        embeddings = await src.ml_service.infinity.embed(prefixed_chunks, task="passage")
+    else:
+        import src.ml_service.non_infinity
+
+        embeddings = await src.ml_service.non_infinity.embed(prefixed_chunks, task="passage")
+
+    records = []
+    for idx, (chunk, emb) in enumerate(zip(prefixed_chunks, embeddings)):
+        records.append(
+            {
+                "resource": resource,
+                "mongo_id": mongo_id,
+                "chunk_number": idx,
+                "content": chunk,
+                "embedding": emb,
+            }
+        )
+    return records
+
+
+async def prepare_resource(resource: InfoSources, docs: list[dict]):
+    lance_db = await lancedb.connect_async(settings.ml_service.lancedb_uri)
+    table_name = f"chunks_{resource}"
+    arrow_schema = Schema.to_arrow_schema()
+
+    records = []
+    if resource == InfoSources.maps:
+        records = await prepare_maps(docs)
+    elif resource in [InfoSources.campuslife, InfoSources.eduwiki, InfoSources.hotel]:
+        records = await prepare_mongo(resource, docs)
+    else:
+        raise Exception("Unknown resource")
 
     if table_name in await lance_db.table_names():
         await lance_db.drop_table(table_name)
