@@ -101,6 +101,7 @@ def html_to_markdown(html):
     #   <a name="academic" style="font-size:0;"></a>
     # </div>
 
+    # print(sections)
     pivots = {}
     prev_pivot_name = None
     selections = {}
@@ -130,7 +131,6 @@ def html_to_markdown(html):
             content.append(element)
             element = element.find_next_sibling()
         selections[prev_pivot_name] = content
-
     for section_name, elements in selections.items():
         fragment_html = "".join(str(el) for el in elements)
 
