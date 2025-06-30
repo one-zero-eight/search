@@ -2,7 +2,7 @@ from src.custom_pydantic import CustomModel
 from src.modules.sources_enum import InfoSources
 
 
-class SearchTask(CustomModel):
+class MLSearchTask(CustomModel):
     """
     Task for ML service
     """
@@ -12,7 +12,7 @@ class SearchTask(CustomModel):
     limit: int = 10
 
 
-class SearchResultItem(CustomModel):
+class MLSearchResultItem(CustomModel):
     """
     Item for SearchResult
     """
@@ -23,26 +23,24 @@ class SearchResultItem(CustomModel):
     content: str
 
 
-class SearchResult(CustomModel):
+class MLSearchResult(CustomModel):
     """
     List of ranked sources/files to backend
     """
 
-    result_items: list[SearchResultItem]
+    result_items: list[MLSearchResultItem]
 
 
-class AskRequest(CustomModel):
+class MLAskRequest(CustomModel):
     """
     Task for ML service: RAG-chat
     """
 
     query: str
-
     sources: list[InfoSources] | None = None
-    limit: int | None = None
 
 
-class ContextItem(CustomModel):
+class MLContextItem(CustomModel):
     """
     One snippet used as context for the answer
     """
@@ -53,10 +51,10 @@ class ContextItem(CustomModel):
     content: str
 
 
-class AskResponse(CustomModel):
+class MLAskResponse(CustomModel):
     """
     Response for ML service: RAG-chat
     """
 
     answer: str
-    contexts: list[ContextItem]
+    search_result: MLSearchResult

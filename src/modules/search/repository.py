@@ -6,7 +6,7 @@ from fastapi import HTTPException, Request
 
 from src.api.logging_ import logger
 from src.modules.ml.ml_client import get_ml_service_client
-from src.modules.ml.schemas import SearchResult, SearchTask
+from src.modules.ml.schemas import MLSearchResult, MLSearchTask
 from src.modules.search.schemas import (
     CampusLifeSource,
     EduwikiSource,
@@ -156,13 +156,13 @@ class SearchRepository:
     async def search_sources(
         self, query: str, sources: list[InfoSources], request: Request, limit: int
     ) -> SearchResponses:
-        search_task = SearchTask(query=query, sources=sources, limit=limit)
+        search_task = MLSearchTask(query=query, sources=sources, limit=limit)
 
         async with get_ml_service_client() as client:
             try:
                 r = await client.post("/search", json=search_task.model_dump())
                 r.raise_for_status()
-                results = SearchResult.model_validate(r.json())
+                results = MLSearchResult.model_validate(r.json())
 
                 responses = await self._process_ml_results(results, request)
                 return SearchResponses(responses=responses, searched_for=query)
@@ -171,7 +171,7 @@ class SearchRepository:
                 logger.warning(f"ML service search failed: {e}")
                 return await self.search_via_mongo(query, sources, request, limit)
 
-    async def _process_ml_results(self, results: SearchResult, request: Request) -> list[SearchResponse]:
+    async def _process_ml_results(self, results: MLSearchResult, request: Request) -> list[SearchResponse]:
         responses: list[SearchResponse] = []
 
         for res_item in results.result_items:

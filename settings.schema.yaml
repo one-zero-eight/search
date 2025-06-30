@@ -155,7 +155,8 @@ $defs:
         type: string
         writeOnly: true
       system_prompt:
-        default: You are a helpful assistant.
+        default: You are a helpful assistant. Write the answer in the same language
+          as the question.
         description: System prompt for OpenRouter
         title: System Prompt
         type: string

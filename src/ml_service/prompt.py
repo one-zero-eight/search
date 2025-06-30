@@ -22,3 +22,7 @@ def build_prompt(
         contexts=ctx,
         question=question.strip(),
     )
+
+
+if __name__ == "__main__":
+    print(build_prompt("question", ["context 1", "context 2"], "system prompt"))

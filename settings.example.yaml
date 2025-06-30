@@ -8,12 +8,8 @@ minio:
 ml_service:
   api_key: "secret_token"
   mongo_url: "mongodb://mongoadmin:secret@localhost:27017/db?authSource=admin"
-  llm_api_base: "https://openrouter.ai"
-  llm_api_type: "open_router"
-  llm_api_version: "v1"
-  llm_model: "openai/gpt-4.1-mini"
   openrouter_api_key: "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"
-  system_prompt: "You are a helpful assistant."
+  system_prompt: "You are a helpful assistant. Write the answer in the same language as the question."
   max_tokens: 512
   k_ctx: 10
   default_sources:
