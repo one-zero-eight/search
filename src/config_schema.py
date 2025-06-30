@@ -4,7 +4,6 @@ import yaml
 from pydantic import Field, SecretStr
 
 from src.custom_pydantic import CustomModel
-from src.modules.sources_enum import InfoSources
 
 
 class Accounts(CustomModel):
@@ -73,12 +72,6 @@ class MlServiceSettings(CustomModel):
     "API key for OpenRouter"
     system_prompt: str = "You are a helpful assistant. Write the answer in the same language as the question."
     "System prompt for OpenRouter"
-    max_tokens: int = (512,)
-    "Maximum tokens for OpenRouter"
-    k_ctx: int = 10
-    "Number of content records for OpenRouter"
-    default_sources: list[str] = Field(default_factory=lambda: [s.value for s in InfoSources])
-    "Default sources for OpenRouter"
 
 
 class Settings(CustomModel):

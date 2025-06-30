@@ -160,23 +160,6 @@ $defs:
         description: System prompt for OpenRouter
         title: System Prompt
         type: string
-      max_tokens:
-        default:
-        - 512
-        description: Maximum tokens for OpenRouter
-        title: Max Tokens
-        type: integer
-      k_ctx:
-        default: 10
-        description: Number of content records for OpenRouter
-        title: K Ctx
-        type: integer
-      default_sources:
-        description: Default sources for OpenRouter
-        items:
-          type: string
-        title: Default Sources
-        type: array
     required:
     - api_key
     - mongo_url

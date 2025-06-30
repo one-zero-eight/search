@@ -8,7 +8,7 @@ minio:
 ml_service:
   api_key: "secret_token"
   mongo_url: "mongodb://mongoadmin:secret@localhost:27017/db?authSource=admin"
-  openrouter_api_key: "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"
+  openrouter_api_key: "your openrouter api key"
   system_prompt: "You are a helpful assistant. Write the answer in the same language as the question."
   max_tokens: 512
   k_ctx: 10
