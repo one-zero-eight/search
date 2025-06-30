@@ -4,5 +4,5 @@ from src.modules.parsers.campus_life.handbook import parse as parse_handbook
 
 def parse():
     result = parse_clubs()
-    result.append(parse_handbook())
+    result += parse_handbook()
     return result
