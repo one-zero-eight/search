@@ -9,7 +9,7 @@ from src.modules.sources_enum import InfoSources
 
 
 async def run_parsers():
-    for source in (InfoSources.campuslife, InfoSources.eduwiki, InfoSources.hotel):
+    for source in (InfoSources.campuslife, InfoSources.eduwiki, InfoSources.hotel, InfoSources.maps):
         try:
             await run_parse_route(source, indexing_is_needed=True, parsing_is_needed=True)
         except Exception as e:

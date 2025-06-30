@@ -158,6 +158,7 @@ if __name__ == "__main__":
                 InfoSources.hotel,
                 InfoSources.eduwiki,
                 InfoSources.campuslife,
+                InfoSources.maps,
             ],
         )
     )
