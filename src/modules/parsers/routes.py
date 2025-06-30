@@ -32,7 +32,6 @@ async def run_parse_route(section: InfoSources, indexing_is_needed: bool = True,
     elif section == InfoSources.campuslife:
         parse_func, model_class = parse_campus_life, CampusLifeEntry
     else:
-        print("We are here")
         raise HTTPException(status_code=400, detail=f"Not supported section: {section}")
     collection = model_class.get_motor_collection()
     all_entries: list[CustomDocument]
