@@ -73,7 +73,7 @@ class SearchRepository:
             elif section == InfoSources.maps:
                 _MongoEntryClass = MapsEntry
             elif section == InfoSources.residents:
-                _MongoEntryClass= ResidentsEntry
+                _MongoEntryClass = ResidentsEntry
             else:
                 assert_never(section)
         except KeyError:
