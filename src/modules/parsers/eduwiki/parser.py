@@ -1,3 +1,4 @@
+import re
 from urllib.parse import urlparse
 
 import httpx
@@ -142,8 +143,9 @@ class EduWikiParser:
                     for e in elements:
                         new_body.append(e)
                     md_content = self._soup_to_markdown(new_body, is_content_div=True)
+                    clean_section_title = re.sub(r"^[\s:.0-9]+", "", sections[section_name])
                     yield EduWikiEntrySchema(
-                        source_url=url + "#" + section_name, source_page_title=source_page_title, content=md_content
+                        source_url=url + "#" + section_name, source_page_title=clean_section_title, content=md_content
                     )
 
             md_content = self._soup_to_markdown(soup, is_content_div=True)
