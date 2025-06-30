@@ -1,11 +1,13 @@
 from fastapi import FastAPI
 
 from src.api.docs import generate_unique_operation_id
+from src.config_schema import Settings
 from src.ml_service import docs
 from src.ml_service.lifespan import lifespan
+from src.ml_service.llm import generate_answer
 from src.ml_service.prepare import prepare_resource
 from src.ml_service.search import search_pipeline
-from src.modules.ml.schemas import ChatResult, ChatTask, SearchResult, SearchTask
+from src.modules.ml.schemas import AskRequest, AskResponse, ContextItem, SearchResult, SearchTask
 from src.modules.sources_enum import InfoSources
 
 # App definition
@@ -29,6 +31,7 @@ app = FastAPI(
 BASIC_RESPONSES = {
     200: {"description": "Success"},
     403: {"description": "Invalid API key"},  # allow only backend to communicate with it
+    404: {"description": "Not Found"},
 }
 
 
@@ -53,8 +56,29 @@ async def update_resource(resource: InfoSources, docs: list[dict]):
 # async def update_search_db(task: AddTask) -> AddResult:...
 
 
-@app.get("/chat", responses=BASIC_RESPONSES)
-async def ask_llm(task: ChatTask) -> ChatResult: ...
+@app.post("/ask", responses=BASIC_RESPONSES)
+async def ask_llm(request: AskRequest) -> AskResponse:
+    sources = InfoSources
+    k = Settings.k_ctx
+
+    hits = await search_pipeline(request.query, sources, limit=k)
+    if not hits:
+        hits = []
+
+    snippets = [h["content"] for h in hits]
+    answer = await generate_answer(request.query, snippets)
+
+    contexts = [
+        ContextItem(
+            resource=h["resource"],
+            mongo_id=h["mongo_id"],
+            score=h["score"],
+            content=h["content"],
+        )
+        for h in hits
+    ]
+
+    return AskResponse(answer=answer, contexts=contexts)
 
 
 # TODO: add swagger docs

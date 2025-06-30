@@ -4,6 +4,7 @@ import yaml
 from pydantic import Field, SecretStr
 
 from src.custom_pydantic import CustomModel
+from src.modules.sources_enum import InfoSources
 
 
 class Accounts(CustomModel):
@@ -64,6 +65,20 @@ class MlServiceSettings(CustomModel):
     "Limit for the number of results from the bi-encoder"
     cross_encoder: str = "jinaai/jina-reranker-v2-base-multilingual"
     "Model to use for reranking (should be available on Infinity)"
+
+    llm_api_base: str = "https://openrouter.ai/api/v1"
+    "URL of the external LLM API"
+    llm_model: str = "openai/gpt-4.1-mini"
+    openrouter_api_key: SecretStr = ...
+    "API key for OpenRouter"
+    system_prompt: str = "You are a helpful assistant."
+    "System prompt for OpenRouter"
+    max_tokens: int = (512,)
+    "Maximum tokens for OpenRouter"
+    k_ctx: int = 10
+    "Number of content records for OpenRouter"
+    default_sources: list[str] = Field(default_factory=lambda: [s.value for s in InfoSources])
+    "Default sources for OpenRouter"
 
 
 class Settings(CustomModel):

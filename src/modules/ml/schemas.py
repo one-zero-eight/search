@@ -3,12 +3,20 @@ from src.modules.sources_enum import InfoSources
 
 
 class SearchTask(CustomModel):
+    """
+    Task for ML service
+    """
+
     query: str
     sources: list[InfoSources]
     limit: int = 10
 
 
 class SearchResultItem(CustomModel):
+    """
+    Item for SearchResult
+    """
+
     resource: InfoSources
     mongo_id: str
     score: float
@@ -23,16 +31,32 @@ class SearchResult(CustomModel):
     result_items: list[SearchResultItem]
 
 
-# TODO: Currently unused
+class AskRequest(CustomModel):
+    """
+    Task for ML service: RAG-chat
+    """
 
-
-class ChatTask(CustomModel):
     query: str
-    contents: list[str] | None = None
-    "Additional context to forward to LLM. See RAG."
+
+    sources: list[InfoSources] | None = None
+    limit: int | None = None
 
 
-# Currently unused
-class ChatResult(CustomModel):
-    status: str = "completed"
+class ContextItem(CustomModel):
+    """
+    One snippet used as context for the answer
+    """
+
+    resource: InfoSources
+    mongo_id: str
+    score: float
+    content: str
+
+
+class AskResponse(CustomModel):
+    """
+    Response for ML service: RAG-chat
+    """
+
     answer: str
+    contexts: list[ContextItem]
