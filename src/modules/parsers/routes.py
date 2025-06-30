@@ -6,12 +6,14 @@ from src.modules.parsers.campus_life.parser import parse as parse_campus_life
 from src.modules.parsers.eduwiki.parser import parse as parse_eduwiki
 from src.modules.parsers.hotel.parser import parse as parse_hotel
 from src.modules.parsers.maps.parser import parse as parse_maps
+from src.modules.parsers.residents.parser import parse as parse_residents
 from src.modules.sources_enum import InfoSources
 from src.storages.mongo.__base__ import CustomDocument
 from src.storages.mongo.campus_life import CampusLifeEntry
 from src.storages.mongo.edu_wiki import EduWikiEntry
 from src.storages.mongo.hotel import HotelEntry
 from src.storages.mongo.maps import MapsEntry
+from src.storages.mongo.residents import ResidentsEntry
 
 router = APIRouter()
 
@@ -31,6 +33,8 @@ async def run_parse_route(section: InfoSources, indexing_is_needed: bool = True,
         parse_func, model_class = parse_eduwiki, EduWikiEntry
     elif section == InfoSources.campuslife:
         parse_func, model_class = parse_campus_life, CampusLifeEntry
+    elif section == InfoSources.residents:
+        parse_func, model_class = parse_residents, ResidentsEntry
     else:
         raise HTTPException(status_code=400, detail=f"Not supported section: {section}")
     collection = model_class.get_motor_collection()

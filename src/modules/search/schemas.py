@@ -105,6 +105,10 @@ class HotelSource(SiteBaseSource):
     type: Literal[InfoSources.hotel] = InfoSources.hotel
     breadcrumbs: list[str] = ["Hotel"]
 
+class ResidentsSource(SiteBaseSource):
+    type: Literal[InfoSources.residents] = InfoSources.residents
+    breadcrumbs: list[str] = ["Residents"]
+
 
 class MapsSource(SiteBaseSource):
     type: Literal[InfoSources.maps] = InfoSources.maps
