@@ -28,46 +28,74 @@ chunker = TokenChunker(
 )
 
 
+async def prepare_maps(doc: list[dict]):
+    if "location_url" in doc and "scene_id" in doc and "area_id" in doc:
+        url_escaped = html.escape(doc["location_url"], quote=True)
+        scene_id = doc["scene_id"]
+        area_id = doc["area_id"]
+        prefix = f'<chunk chunk_number=0 location_url="{url_escaped}" scene_id="{scene_id}" area_id="{area_id}">'
+        chunk = clean_text(doc.get("content", ""))
+        prefixed_chunk = prefix + chunk
+    return [prefixed_chunk]
+
+
+async def prepare_large(doc: dict):
+    raw = doc.get("content", "")
+    text = clean_text(raw)
+    chunks = chunker.chunk(text)
+    prefixed_chunks = []
+    for idx, chunk in enumerate(chunks):
+        if "source_url" in doc and "source_page_title" in doc:
+            source_url_escaped = html.escape(doc["source_url"], quote=True)
+            source_page_title_escaped = html.escape(doc["source_page_title"], quote=True)
+            prefix = f'<chunk chunk_number={idx} source_url="{source_url_escaped}" source_page_title="{source_page_title_escaped}">'
+            prefixed_chunks.append(f"{prefix}\n{chunk}")
+        else:
+            prefixed_chunks.append(chunk)
+    return prefixed_chunks
+
+
 async def prepare_resource(resource: InfoSources, docs: list[dict]):
     lance_db = await lancedb.connect_async(settings.ml_service.lancedb_uri)
     table_name = f"chunks_{resource}"
     arrow_schema = Schema.to_arrow_schema()
+
     logger.info(f"Resource `{resource}`: found {len(docs)} documents in MongoDB")
 
-    records = []
+    idxs = []
+    mongo_ids = []
+    prefixed_chunks = []
     for doc in docs:
-        raw = doc.get("content", "")
-        text = clean_text(raw)
-        chunks = chunker.chunk(text)
-        prefixed_chunks = []
-        for idx, chunk in enumerate(chunks):
-            if "source_url" in doc and "source_page_title" in doc:
-                source_url_escaped = html.escape(doc["source_url"], quote=True)
-                source_page_title_escaped = html.escape(doc["source_page_title"], quote=True)
-                prefix = f'<chunk chunk_number={idx} source_url="{source_url_escaped}" source_page_title="{source_page_title_escaped}">'
-                prefixed_chunks.append(f"{prefix}\n{chunk}")
-            else:
-                prefixed_chunks.append(chunk)
-
-        if settings.ml_service.infinity_url:
-            import src.ml_service.infinity
-
-            embeddings = await src.ml_service.infinity.embed(prefixed_chunks, task="passage")
+        if resource == InfoSources.maps:
+            res = await prepare_maps(doc)
+        elif resource in [InfoSources.campuslife, InfoSources.eduwiki, InfoSources.hotel]:
+            res = await prepare_large(doc)
         else:
-            import src.ml_service.non_infinity
+            raise Exception("Unknown resource")
+        prefixed_chunks.extend(res)
+        idxs.extend(list(range(len(res))))
+        mongo_ids.extend([str(doc.get("_id", doc.get("id", None)))] * len(res))
 
-            embeddings = await src.ml_service.non_infinity.embed(prefixed_chunks, task="passage")
+    if settings.ml_service.infinity_url:
+        import src.ml_service.infinity
 
-        for idx, (chunk, emb) in enumerate(zip(prefixed_chunks, embeddings)):
-            records.append(
-                {
-                    "resource": resource,
-                    "mongo_id": str(doc.get("_id", doc.get("id", None))),
-                    "chunk_number": idx,
-                    "content": chunk,
-                    "embedding": emb,
-                }
-            )
+        embeddings = await src.ml_service.infinity.embed(prefixed_chunks, task="passage")
+    else:
+        import src.ml_service.non_infinity
+
+        embeddings = await src.ml_service.non_infinity.embed(prefixed_chunks, task="passage")
+
+    records = []
+    for idx, mongo_id, chunk, emb in zip(idxs, mongo_ids, prefixed_chunks, embeddings):
+        records.append(
+            {
+                "resource": resource,
+                "mongo_id": mongo_id,
+                "chunk_number": idx,
+                "content": chunk,
+                "embedding": emb,
+            }
+        )
 
     if table_name in await lance_db.table_names():
         await lance_db.drop_table(table_name)
