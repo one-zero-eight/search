@@ -222,7 +222,7 @@ class SearchRepository:
                             ),
                         )
                     )
-            elif res_item.resource in (InfoSources.eduwiki, InfoSources.campuslife, InfoSources.hotel):
+            elif res_item.resource in (InfoSources.eduwiki, InfoSources.campuslife, InfoSources.hotel, InfoSources.residents):
                 if res_item.resource == InfoSources.eduwiki:
                     _MongoEntryClass = EduWikiEntry
                     _SourceModel = EduwikiSource
@@ -232,6 +232,9 @@ class SearchRepository:
                 elif res_item.resource == InfoSources.hotel:
                     _MongoEntryClass = HotelEntry
                     _SourceModel = HotelSource
+                elif res_item.resource == InfoSources.residents:
+                    _MongoEntryClass = ResidentsEntry
+                    _SourceModel = ResidentsSource
                 else:
                     assert_never(res_item.resource)
                 mongo_entry = await _MongoEntryClass.get(res_item.mongo_id)
