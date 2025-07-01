@@ -202,7 +202,7 @@ class SearchRepository:
                             res_item.score,
                         )
                         responses.append(response)
-            elif isinstance(res_item.resource, MapsEntry):
+            elif res_item.resource == InfoSources.maps:
                 mongo_entry = await MapsEntry.get(res_item.mongo_id)
                 if mongo_entry is None:
                     logger.warning(f"mongo_entry is None: {res_item}")
