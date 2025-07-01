@@ -68,7 +68,7 @@ async def prepare_resource(resource: InfoSources, docs: list[dict]):
     for doc in docs:
         if resource == InfoSources.maps:
             res = await prepare_maps(doc)
-        elif resource in [InfoSources.campuslife, InfoSources.eduwiki, InfoSources.hotel]:
+        elif resource in [InfoSources.campuslife, InfoSources.eduwiki, InfoSources.hotel, InfoSources.residents]:
             res = await prepare_large(doc)
         else:
             raise Exception("Unknown resource")
