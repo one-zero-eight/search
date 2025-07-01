@@ -18,11 +18,12 @@ router = APIRouter(prefix="/search", tags=["Search"])
 async def search_by_query(
     request: Request,
     query: str,
-    sources: list[InfoSources] = Query(...),
+    sources: list[InfoSources] = Query(default=[]),
     response_types: list[Literal["pdf", "link_to_source"]] = Query(...),  # Currently ignored
     limit: int = 10,
 ) -> SearchResponses:
-    sources = [InfoSources.campuslife, InfoSources.eduwiki, InfoSources.hotel, InfoSources.maps, InfoSources.moodle]
+    if not sources:
+        sources = [InfoSources.campuslife, InfoSources.eduwiki, InfoSources.hotel, InfoSources.maps, InfoSources.moodle]
     start_time = time.monotonic()
     try:
         responses = await asyncio.wait_for(search_repository.search_sources(query, sources, request, limit), timeout=15)
