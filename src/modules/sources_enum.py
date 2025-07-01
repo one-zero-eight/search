@@ -15,6 +15,8 @@ class InfoSources(StrEnum):
     maps = "maps"
 
 
+ALL_SOURCES = list(InfoSources)
+
 InfoSourcesToMongoEntry: Final[dict[InfoSources, type[CustomDocument]]] = {
     InfoSources.moodle: MoodleEntry,
     InfoSources.eduwiki: EduWikiEntry,
