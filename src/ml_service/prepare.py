@@ -9,7 +9,7 @@ from src.api.logging_ import logger
 from src.config import settings
 from src.ml_service.db_utils import get_all_documents
 from src.ml_service.text import clean_text
-from src.modules.sources_enum import InfoSources
+from src.modules.sources_enum import ALL_SOURCES, InfoSources
 
 
 class Schema(LanceModel):
@@ -93,11 +93,6 @@ async def prepare_resource(resource: InfoSources, docs: list[dict]):
 
 if __name__ == "__main__":
     print("📥 Starting prepare pipeline...")
-    for r in [
-        InfoSources.campuslife,
-        InfoSources.eduwiki,
-        InfoSources.hotel,
-        InfoSources.moodle,
-    ]:
+    for r in ALL_SOURCES:
         docs = get_all_documents(r.value)
         asyncio.run(prepare_resource(r, docs))

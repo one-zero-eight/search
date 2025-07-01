@@ -5,11 +5,11 @@ from apscheduler.triggers.interval import IntervalTrigger
 
 from src.api.logging_ import logger
 from src.modules.parsers.routes import run_parse_route
-from src.modules.sources_enum import InfoSources
+from src.modules.sources_enum import ALL_SOURCES
 
 
 async def run_parsers():
-    for source in (InfoSources.campuslife, InfoSources.eduwiki, InfoSources.hotel):
+    for source in ALL_SOURCES:
         try:
             await run_parse_route(source, indexing_is_needed=True, parsing_is_needed=True)
         except Exception as e:

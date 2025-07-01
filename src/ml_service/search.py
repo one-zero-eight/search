@@ -7,7 +7,7 @@ import pandas as pd
 from src.api.logging_ import logger
 from src.config import settings
 from src.ml_service.text import clean_text
-from src.modules.sources_enum import InfoSources
+from src.modules.sources_enum import ALL_SOURCES, InfoSources
 
 
 async def search_pipeline(
@@ -150,16 +150,6 @@ async def search_pipeline(
 if __name__ == "__main__":
     logger.info("📥 Starting search pipeline…")
     q = "How much does room for 2 people rent cost?"
-    results = asyncio.run(
-        search_pipeline(
-            q,
-            resources=[
-                InfoSources.moodle,
-                InfoSources.hotel,
-                InfoSources.eduwiki,
-                InfoSources.campuslife,
-            ],
-        )
-    )
+    results = asyncio.run(search_pipeline(q, resources=ALL_SOURCES))
     for i, r in enumerate(results, 1):
         logger.info(f"{i}. ({r['resource']}) [{r['score']:.3f}]: {r['content']}")
