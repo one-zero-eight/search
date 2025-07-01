@@ -24,6 +24,8 @@ def parse() -> list[ResidentsEntrySchema]:
         soup = BeautifulSoup(response.text, "html.parser")
         cards = soup.find_all("a", class_="newsSliderItem")
 
+        index = []
+
         for i, card in enumerate(cards):
             try:
                 name = card.find("span").text.strip()
@@ -60,11 +62,25 @@ def parse() -> list[ResidentsEntrySchema]:
                         source_url=full_url,
                     )
                     result.append(entry)
+                    index.append(entry)
 
                 except Exception as e:
                     print(f"Error inserting resident {name} into database: {e}")
 
             except Exception as e:
                 print(f"Error processing resident {i}: {e}")
+
+        index_content = ""
+
+        for element in index:
+            index_content += element.source_page_title + " " + element.source_url + "\n"
+
+        result.append(
+            ResidentsEntrySchema(
+                source_page_title=f"Residents Index Page {page}",
+                content=index_content.strip(),
+                source_url=url,
+            )
+        )
 
     return result
