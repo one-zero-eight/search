@@ -202,7 +202,21 @@ class SearchRepository:
                             res_item.score,
                         )
                         responses.append(response)
-
+            elif isinstance(res_item.resource, MapsEntry):
+                mongo_entry = await MapsEntry.get(res_item.mongo_id)
+                if mongo_entry is None:
+                    logger.warning(f"mongo_entry is None: {res_item}")
+                else:
+                    responses.append(
+                        SearchResponse(
+                            score=res_item.score,
+                            source=MapsSource(
+                                display_name=mongo_entry.title,
+                                preview_text=mongo_entry.content,
+                                url=mongo_entry.location_url,
+                            ),
+                        )
+                    )
             elif res_item.resource in (InfoSources.eduwiki, InfoSources.campuslife, InfoSources.hotel):
                 if res_item.resource == InfoSources.eduwiki:
                     _MongoEntryClass = EduWikiEntry
