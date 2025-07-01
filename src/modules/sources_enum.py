@@ -1,7 +1,7 @@
 from enum import StrEnum
 from typing import Final
 
-from src.storages.mongo import CampusLifeEntry, EduWikiEntry, HotelEntry, MoodleEntry, ResidentsEntry, MapsEntry
+from src.storages.mongo import CampusLifeEntry, EduWikiEntry, HotelEntry, MapsEntry, MoodleEntry, ResidentsEntry
 from src.storages.mongo.__base__ import CustomDocument
 
 
