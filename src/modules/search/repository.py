@@ -11,6 +11,7 @@ from src.modules.search.schemas import (
     CampusLifeSource,
     EduwikiSource,
     HotelSource,
+    MapsSource,
     MoodleFileSource,
     MoodleUnknownSource,
     MoodleUrlSource,
@@ -20,7 +21,7 @@ from src.modules.search.schemas import (
     WithScore,
 )
 from src.modules.sources_enum import InfoSources
-from src.storages.mongo import CampusLifeEntry, EduWikiEntry, HotelEntry, MoodleEntry
+from src.storages.mongo import CampusLifeEntry, EduWikiEntry, HotelEntry, MapsEntry, MoodleEntry
 from src.storages.mongo.moodle import MoodleContentSchema
 
 MOODLE_URL = "https://moodle.innopolis.university"
@@ -68,6 +69,8 @@ class SearchRepository:
                 _MongoEntryClass = CampusLifeEntry
             elif section == InfoSources.hotel:
                 _MongoEntryClass = HotelEntry
+            elif section == InfoSources.maps:
+                _MongoEntryClass = MapsEntry
             else:
                 assert_never(section)
         except KeyError:
@@ -127,6 +130,17 @@ class SearchRepository:
                     response = self._moodle_entry_contents_to_search_response(inner, c, request, score=e.score)
                     if response:
                         responses.append(response)
+            elif isinstance(inner, MapsEntry):
+                responses.append(
+                    SearchResponse(
+                        score=e.score,
+                        source=MapsSource(
+                            display_name=inner.title,
+                            preview_text=inner.content,
+                            url=inner.location_url,
+                        ),
+                    )
+                )
             elif isinstance(inner, (CampusLifeEntry | HotelEntry | EduWikiEntry)):
                 if isinstance(inner, CampusLifeEntry):
                     _SourceModel = CampusLifeSource

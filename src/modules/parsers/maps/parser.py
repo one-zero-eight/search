@@ -9,6 +9,7 @@ def parse():
 
     for scene in response:
         scene_str = f"# {scene['title']}\n"
+        preposition = "on" if scene["title"].lower().startswith("floor") else "in"
         for area in scene["areas"]:
             area_str = f"### {area['title']}\n"
             description_str = ""
@@ -23,7 +24,11 @@ def parse():
             content = scene_str + area_str + description_str + people_str
             result.append(
                 MapsEntrySchema(
-                    location_url=link_str, scene_id=scene["scene_id"], area_id=area["svg_polygon_id"], content=content
+                    location_url=link_str,
+                    scene_id=scene["scene_id"],
+                    area_id=area["svg_polygon_id"],
+                    content=content,
+                    title=f"Maps: {area['title']} {preposition} {scene['title']}",
                 )
             )
     return result

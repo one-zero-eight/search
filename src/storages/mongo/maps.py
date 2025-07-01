@@ -10,6 +10,7 @@ class MapsEntrySchema(CustomModel):
     scene_id: str
     area_id: str
     content: str
+    title: str
 
 
 class MapsEntry(MapsEntrySchema, CustomDocument):

@@ -106,10 +106,16 @@ class HotelSource(SiteBaseSource):
     breadcrumbs: list[str] = ["Hotel"]
 
 
+class MapsSource(SiteBaseSource):
+    type: Literal[InfoSources.maps] = InfoSources.maps
+    breadcrumbs: list[str] = ["Maps"]
+
+
 Sources = Annotated[
     EduwikiSource
     | CampusLifeSource
     | HotelSource
+    | MapsSource
     | MoodleFileSource
     | MoodleUrlSource
     | MoodleUnknownSource
