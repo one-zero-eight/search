@@ -124,7 +124,8 @@ Sources = Annotated[
     | MoodleFileSource
     | MoodleUrlSource
     | MoodleUnknownSource
-    | TelegramSource,
+    | TelegramSource
+    | ResidentsSource,
     Discriminator("type"),
 ]
 

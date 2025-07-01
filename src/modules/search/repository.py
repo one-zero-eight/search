@@ -222,7 +222,12 @@ class SearchRepository:
                             ),
                         )
                     )
-            elif res_item.resource in (InfoSources.eduwiki, InfoSources.campuslife, InfoSources.hotel, InfoSources.residents):
+            elif res_item.resource in (
+                InfoSources.eduwiki,
+                InfoSources.campuslife,
+                InfoSources.hotel,
+                InfoSources.residents,
+            ):
                 if res_item.resource == InfoSources.eduwiki:
                     _MongoEntryClass = EduWikiEntry
                     _SourceModel = EduwikiSource
