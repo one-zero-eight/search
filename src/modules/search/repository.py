@@ -15,13 +15,14 @@ from src.modules.search.schemas import (
     MoodleFileSource,
     MoodleUnknownSource,
     MoodleUrlSource,
+    ResidentsSource,
     SearchResponse,
     SearchResponses,
     Sources,
     WithScore,
 )
 from src.modules.sources_enum import InfoSources
-from src.storages.mongo import CampusLifeEntry, EduWikiEntry, HotelEntry, MapsEntry, MoodleEntry
+from src.storages.mongo import CampusLifeEntry, EduWikiEntry, HotelEntry, MapsEntry, MoodleEntry, ResidentsEntry
 from src.storages.mongo.moodle import MoodleContentSchema
 
 MOODLE_URL = "https://moodle.innopolis.university"
@@ -71,6 +72,8 @@ class SearchRepository:
                 _MongoEntryClass = HotelEntry
             elif section == InfoSources.maps:
                 _MongoEntryClass = MapsEntry
+            elif section == InfoSources.residents:
+                _MongoEntryClass = ResidentsEntry
             else:
                 assert_never(section)
         except KeyError:
@@ -141,13 +144,15 @@ class SearchRepository:
                         ),
                     )
                 )
-            elif isinstance(inner, (CampusLifeEntry | HotelEntry | EduWikiEntry)):
+            elif isinstance(inner, (CampusLifeEntry | HotelEntry | EduWikiEntry | ResidentsEntry)):
                 if isinstance(inner, CampusLifeEntry):
                     _SourceModel = CampusLifeSource
                 elif isinstance(inner, HotelEntry):
                     _SourceModel = HotelSource
                 elif isinstance(inner, EduWikiEntry):
                     _SourceModel = EduwikiSource
+                elif isinstance(inner, ResidentsEntry):
+                    _SourceModel = ResidentsSource
                 else:
                     assert_never(inner)
 
@@ -217,7 +222,12 @@ class SearchRepository:
                             ),
                         )
                     )
-            elif res_item.resource in (InfoSources.eduwiki, InfoSources.campuslife, InfoSources.hotel):
+            elif res_item.resource in (
+                InfoSources.eduwiki,
+                InfoSources.campuslife,
+                InfoSources.hotel,
+                InfoSources.residents,
+            ):
                 if res_item.resource == InfoSources.eduwiki:
                     _MongoEntryClass = EduWikiEntry
                     _SourceModel = EduwikiSource
@@ -227,6 +237,9 @@ class SearchRepository:
                 elif res_item.resource == InfoSources.hotel:
                     _MongoEntryClass = HotelEntry
                     _SourceModel = HotelSource
+                elif res_item.resource == InfoSources.residents:
+                    _MongoEntryClass = ResidentsEntry
+                    _SourceModel = ResidentsSource
                 else:
                     assert_never(res_item.resource)
                 mongo_entry = await _MongoEntryClass.get(res_item.mongo_id)
