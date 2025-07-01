@@ -84,3 +84,25 @@ jobs:
           script: |
             cd "${{ secrets.DEPLOY_DIRECTORY }}"
             bash "${{ secrets.DEPLOY_SCRIPT }}" "${{ needs.build-and-push-image.outputs.imageid }}"
+
+  deploy-ml:
+    # Only on manual trigger or push to main
+    if: github.repository_owner == 'one-zero-eight' && (github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main'))
+    name: Deploy to ML server
+    runs-on: [self-hosted, raspberry]
+    concurrency:
+      # Set the concurrency group to prevent multiple deployments at once
+      group: ml
+      cancel-in-progress: false
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.1.0
+        with:
+          host: ${{ secrets.ML_SSH_HOST }}
+          username: ${{ secrets.ML_SSH_USERNAME }}
+          key: ${{ secrets.ML_SSH_KEY }}
+          script_stop: true # Stop script on error
+          command_timeout: 30m
+          script: |
+            cd "${{ secrets.ML_DEPLOY_DIRECTORY }}"
+            bash "${{ secrets.ML_DEPLOY_SCRIPT }}"

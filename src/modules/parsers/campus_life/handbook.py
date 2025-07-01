@@ -3,9 +3,8 @@ import re
 import markdownify
 from bs4 import BeautifulSoup
 
+from src.modules.parsers.campus_life.base import BASE_URL, fetch_html, parse_tilda_table
 from src.storages.mongo.campus_life import CampusLifeEntrySchema
-
-from .base import BASE_URL, fetch_html, parse_tilda_table
 
 PATH = "/handbook2023"
 
@@ -45,42 +44,34 @@ def process_nested_divs(element, indent_level=0):
 
 
 def html_to_markdown(html):
+    result = list()
     soup = BeautifulSoup(html, "html.parser")
-
-    # Remove unnecessary elements
     for element in soup.select("header, img"):
         element.decompose()
+    for person_wrapper in soup.find_all(class_=lambda x: x and "personwrapper" in x.lower()):
+        person_wrapper.decompose()
 
-    # Handle hyperlinks
-    for link in soup.find_all("a", href=True):
-        href = link["href"].strip()
-        if href.startswith("#"):
-            link.replace_with(link.get_text(strip=True))
-            continue
-
-        if not link.find("table"):
-            link_text = link.get_text(strip=True)
-            if link_text:
-                link.replace_with(f"[{link_text}]({href})")
-        else:
-            td = link.find("td", {"data-field": "buttontitle"})
-            if td:
-                link.replace_with(f"[{td.get_text(strip=True)}]({href})")
-
-    # Convert title divs to markdown headings
     for title_div in soup.find_all(
         "div", class_=lambda x: x and any(c in x.lower() for c in ["t-title", "title_xxl", "title_xl", "t-card__title"])
     ):
         text = title_div.get_text(strip=True)
         if text and len(text) < 100:
-            level = 2 if "xxl" in title_div.get("class", [""])[0].lower() else 3
-            new_tag = soup.new_tag(f"h{level}")
-            new_tag.string = text
-            title_div.replace_with(new_tag)
+            class_list = [cls.lower() for cls in title_div.get("class", [])]
 
-    # Remove technical blocks
-    for person_wrapper in soup.find_all(class_=lambda x: x and "personwrapper" in x.lower()):
-        person_wrapper.decompose()
+            if any("xxl" in cls for cls in class_list):
+                level = 2
+            elif any("xl" in cls for cls in class_list):
+                level = 3
+            else:
+                level = 3
+
+            title_div.name = f"h{level}"  # Просто меняем имя тега
+
+    # Handle Tilda-style tables
+    for table_div in soup.find_all("div", class_=lambda x: x and re.match(r"t\d+", x)):
+        if md_table := parse_tilda_table(table_div):
+            table_html = BeautifulSoup(f'<div class="markdown-table">{md_table}</div>', "html.parser")
+            table_div.replace_with(table_html)
 
     # Process structured content sections
     for section in soup.find_all(
@@ -97,26 +88,73 @@ def html_to_markdown(html):
         else:
             section.decompose()
 
-    # Handle Tilda-style tables
-    for table_div in soup.find_all("div", class_=lambda x: x and re.match(r"t\d+", x)):
-        if md_table := parse_tilda_table(table_div):
-            table_html = BeautifulSoup(f'<div class="markdown-table">{md_table}</div>', "html.parser")
-            table_div.replace_with(table_html)
+    sections = {}
+    # For every link with # anchor
+    for link in soup.find_all("a", href=True):
+        href = link["href"].strip()
 
-    # Final conversion to markdown
-    content_div = soup.body
-    if not content_div:
-        raise ValueError("Main content container not found.")
+        if href.startswith("#"):
+            sections[href[1:]] = link.get_text(strip=True)
 
-    md_content = markdownify.markdownify(str(content_div), heading_style="ATX")
-    md_content = re.sub(r"\\\|", "|", md_content)
-    md_content = re.sub(r"```markdown\n|```", "", md_content)
-    md_content = re.sub(r"\n{3,}", "\n\n", md_content)
-    return md_content.strip()
+    # Each section starts with:
+    # <div id="rec210971790" class="r t-rec t-rec_pt_0 t-rec_pb_0" style="padding-top:0px;padding-bottom:0px; " data-record-type="215">
+    #   <a name="academic" style="font-size:0;"></a>
+    # </div>
+
+    # print(sections)
+    pivots = {}
+    prev_pivot_name = None
+    selections = {}
+    for a in soup.find_all("a", attrs={"name": True}):
+        name = a["name"]
+
+        if name in sections:
+            assert name not in pivots
+            pivots[name] = a
+            if prev_pivot_name:
+                prev_pivot = pivots[prev_pivot_name]
+                content = []
+                element = prev_pivot.find_next()
+                while element and element != a:
+                    if any(c == a for c in element.children):
+                        break
+                    content.append(element)
+                    element = element.find_next_sibling()
+                selections[prev_pivot_name] = content
+            prev_pivot_name = name
+
+    if prev_pivot_name:
+        prev_pivot = pivots[prev_pivot_name]
+        content = []
+        element = prev_pivot.find_next()
+        while element:
+            content.append(element)
+            element = element.find_next_sibling()
+        selections[prev_pivot_name] = content
+    for section_name, elements in selections.items():
+        fragment_html = "".join(str(el) for el in elements)
+
+        md_content = markdownify.markdownify(fragment_html, heading_style="ATX")
+        md_content = re.sub(r"\[\s*\|\s*.*?\|\s*\]\(.*?\)", "", md_content, flags=re.DOTALL)
+
+        md_content = md_content.replace("\\|", "|").strip()
+        result.append(
+            CampusLifeEntrySchema(
+                source_url=BASE_URL + PATH + "#" + section_name,
+                source_page_title=sections[section_name],
+                content=md_content,
+            )
+        )
+
+    return result
 
 
-def parse() -> CampusLifeEntrySchema:
+def parse():
     html = fetch_html(PATH)
-    markdown = html_to_markdown(html)
+    result = html_to_markdown(html)
 
-    return CampusLifeEntrySchema(source_url=BASE_URL + PATH, source_page_title="HANDBOOK2023", content=markdown)
+    return result
+
+
+if __name__ == "__main__":
+    parse()

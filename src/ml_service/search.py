@@ -151,5 +151,6 @@ if __name__ == "__main__":
     logger.info("📥 Starting search pipeline…")
     q = "How much does room for 2 people rent cost?"
     results = asyncio.run(search_pipeline(q, resources=ALL_SOURCES))
+
     for i, r in enumerate(results, 1):
         logger.info(f"{i}. ({r['resource']}) [{r['score']:.3f}]: {r['content']}")
