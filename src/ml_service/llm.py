@@ -24,7 +24,7 @@ async def generate_answer(
     resp = await client.chat.completions.create(
         model=settings.ml_service.llm_model,
         messages=[{"role": "user", "content": prompt}],
-        max_tokens=settings.ml_service.max_tokens,
+        max_tokens=512,
         temperature=0.7,
     )
     return resp.choices[0].message.content

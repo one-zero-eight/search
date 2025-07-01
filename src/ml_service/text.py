@@ -1,10 +1,9 @@
 import re
 
+_TAG_RE = re.compile(r"<[^>]+>")
+
 
 def clean_text(text: str) -> str:
-    """
-    Simple cleaning: lowercase, collapse whitespace, strip.
-    """
-    text = text.lower()
-    text = re.sub(r"\s+", " ", text)
-    return text.strip()
+    no_tags = _TAG_RE.sub("", text)
+
+    return no_tags.strip()

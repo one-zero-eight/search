@@ -5,6 +5,7 @@ import httpx
 from fastapi import HTTPException, Request
 
 from src.api.logging_ import logger
+from src.ml_service.text import clean_text
 from src.modules.ml.ml_client import get_ml_service_client
 from src.modules.ml.schemas import MLSearchResult, MLSearchTask
 from src.modules.search.schemas import (
@@ -104,6 +105,9 @@ class SearchRepository:
         score: float | list[float] | None = None,
     ) -> SearchResponse:
         source = moodle_entry_contents_to_sources(entry, content, request)
+        # чистим preview_text внутри объекта source
+        if hasattr(source, "preview_text"):
+            source.preview_text = clean_text(source.preview_text)
         return SearchResponse(score=score, source=source)
 
     async def search_via_mongo(
@@ -137,16 +141,13 @@ class SearchRepository:
                 else:
                     assert_never(inner)
 
-                responses.append(
-                    SearchResponse(
-                        score=e.score,
-                        source=_SourceModel(
-                            display_name=inner.source_page_title,
-                            preview_text=inner.content,
-                            url=inner.source_url,
-                        ),
-                    )
+                # создаём source-модель, сразу очищая её preview_text
+                source_model = _SourceModel(
+                    display_name=inner.source_page_title,
+                    preview_text=clean_text(inner.content),
+                    url=inner.source_url,
                 )
+                responses.append(SearchResponse(score=e.score, source=source_model))
             else:
                 assert_never(inner)
 
@@ -205,16 +206,13 @@ class SearchRepository:
                 if mongo_entry is None:
                     logger.warning(f"mongo_entry is None: {res_item}")
                 else:
-                    responses.append(
-                        SearchResponse(
-                            score=res_item.score,
-                            source=_SourceModel(
-                                display_name=mongo_entry.source_page_title,
-                                preview_text=res_item.content,
-                                url=mongo_entry.source_url,
-                            ),
-                        )
+                    # очищаем preview_text из ML-результата
+                    source_model = _SourceModel(
+                        display_name=mongo_entry.source_page_title,
+                        preview_text=clean_text(res_item.content),
+                        url=mongo_entry.source_url,
                     )
+                    responses.append(SearchResponse(score=res_item.score, source=source_model))
             else:
                 assert_never(res_item)
         responses.sort(key=lambda x: x.score, reverse=True)

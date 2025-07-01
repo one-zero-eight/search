@@ -6,7 +6,6 @@ from httpx import AsyncClient
 
 from src.api.docs import generate_unique_operation_id
 from src.api.logging_ import logger
-from src.config import settings
 from src.ml_service import docs
 from src.ml_service.lifespan import lifespan
 from src.ml_service.llm import generate_answer
@@ -70,7 +69,7 @@ async def ask_llm(request: MLAskRequest) -> MLAskResponse:
         InfoSources.campuslife,
     ]
     logger.info(f"Target sources: {target_sources}")
-    results = await search_pipeline(request.query, target_sources, limit=settings.ml_service.k_ctx)
+    results = await search_pipeline(request.query, target_sources, limit=10)
     if not results:
         results = []
 
