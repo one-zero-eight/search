@@ -8,7 +8,7 @@ from fastapi.params import Query
 from src.api.logging_ import logger
 from src.modules.search.repository import search_repository
 from src.modules.search.schemas import SearchResponses
-from src.modules.sources_enum import InfoSources
+from src.modules.sources_enum import ALL_SOURCES, InfoSources
 from src.storages.mongo.statistics import SearchStatistics, WrappedResponseSchema
 
 router = APIRouter(prefix="/search", tags=["Search"])
@@ -23,7 +23,7 @@ async def search_by_query(
     limit: int = 10,
 ) -> SearchResponses:
     if not sources:
-        sources = [InfoSources.campuslife, InfoSources.eduwiki, InfoSources.hotel, InfoSources.maps, InfoSources.moodle]
+        sources = ALL_SOURCES
     start_time = time.monotonic()
     try:
         responses = await asyncio.wait_for(search_repository.search_sources(query, sources, request, limit), timeout=15)

@@ -7,7 +7,7 @@ import pandas as pd
 from src.api.logging_ import logger
 from src.config import settings
 from src.ml_service.text import clean_text
-from src.modules.sources_enum import InfoSources
+from src.modules.sources_enum import ALL_SOURCES, InfoSources
 
 
 async def search_pipeline(
@@ -153,13 +153,7 @@ if __name__ == "__main__":
     results = asyncio.run(
         search_pipeline(
             q,
-            resources=[
-                InfoSources.moodle,
-                InfoSources.hotel,
-                InfoSources.eduwiki,
-                InfoSources.campuslife,
-                InfoSources.maps,
-            ],
+            resources=ALL_SOURCES,
         )
     )
     for i, r in enumerate(results, 1):
