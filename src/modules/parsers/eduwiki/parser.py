@@ -1,7 +1,8 @@
-from urllib.parse import urljoin, urlparse
+import re
+from urllib.parse import urlparse
 
 import httpx
-from bs4 import BeautifulSoup, NavigableString
+from bs4 import BeautifulSoup, NavigableString, Tag
 from markdownify import markdownify
 
 from src.storages.mongo.edu_wiki import EduWikiEntrySchema
@@ -39,21 +40,20 @@ class EduWikiParser:
         self.ignore_endpoints = IGNORE_ENDPOINTS
         # Track already visited pages to not repeat them
         self.visited = set()
-        # Store every page
-        self.parsed_content: list[str] = []
 
     def crawl(self):
-        return self.__crawl_page(self.start_url)
+        return self.crawl_page(self.start_url)
 
     def save_to_file(self, output_file: str):
         with open(output_file, "w", encoding="utf-8") as md_file:
             md_file.write("\n\n".join(self.parsed_content))
 
-    def __crawl_page(self, url: str):
+    def crawl_page(self, url: str, log_prefix: str = "", recursive: bool = True):
         # sleep(0.5)
         if url in self.visited:
             return
         self.visited.add(url)
+        print(f"{log_prefix}Crawling {url}")
 
         # Uncomment for debug purposes :)
         # print(f"Crawling: {url}")
@@ -63,7 +63,7 @@ class EduWikiParser:
             response.raise_for_status()
             soup = BeautifulSoup(response.content, "html.parser")
 
-            # Получаем заголовок страницы
+            # Get the page title
             heading_element = soup.find(id="firstHeading")
             source_page_title = heading_element.get_text(strip=True) if heading_element else "Untitled"
 
@@ -83,49 +83,104 @@ class EduWikiParser:
                 # Skip external links, ignored endpoints,
                 # and links to the old versions of pages
                 if (
-                    self.domain == href_parts.netloc
+                    recursive
+                    and self.domain == href_parts.netloc
                     and href_parts.path not in self.ignore_endpoints
                     and "oldid" not in href_parts.query
                 ):
-                    yield from self.__crawl_page(href)
+                    yield from self.crawl_page(href, log_prefix + " ", recursive=recursive)
 
-                # Convert links in table of content: #title -> https://domain/page#title
-                if href.startswith("#"):
-                    a["href"] = urljoin(url, href)
+                # # Convert links in table of content: #title -> https://domain/page#title
+                # if href.startswith("#"):
+                #     a["href"] = urljoin(url, href)
 
-            md_content = self.__soup_to_markdown(soup)
-            self.parsed_content.append(self.__enrich_md_content(url, md_content))
+            # Extract the table of contents (toc)
+            toc = soup.find("div", id="toc", class_="toc")
+            if toc:
+                sections = {}
+                for a in toc.find_all("a", href=True):
+                    href = a["href"]
+                    if href.startswith("#"):
+                        section_id = href[1:]  # убираем #
+                        section_name = a.get_text(strip=False)
+                        sections[section_id] = section_name
+                pivots = {}
+                prev_pivot_name = None
+                selections = {}
+
+                # Search for all headings with the mw-headline class inside
+                for header in soup.find_all(["h1", "h2", "h3", "h4", "h5", "h6"]):
+                    span = header.find("span", class_="mw-headline", id=True)
+                    if not span:
+                        continue
+                    name = span["id"]
+
+                    if name in sections:
+                        assert name not in pivots
+                        pivots[name] = header
+                        if prev_pivot_name:
+                            prev_pivot = pivots[prev_pivot_name]
+                            content = [prev_pivot]
+                            element = prev_pivot.find_next_sibling()
+                            while element and element != header:
+                                content.append(element)
+                                element = element.find_next_sibling()
+                            selections[prev_pivot_name] = content
+                        prev_pivot_name = name
+
+                # For the last pivot, we collect all the remaining elements
+                if prev_pivot_name:
+                    prev_pivot = pivots[prev_pivot_name]
+                    content = []
+                    element = prev_pivot.find_next_sibling()
+                    while element:
+                        content.append(element)
+                        element = element.find_next_sibling()
+                    selections[prev_pivot_name] = content
+
+                for section_name, elements in selections.items():
+                    new_body = soup.new_tag("div", id="content", class_="mw-body", role="main")
+                    for e in elements:
+                        new_body.append(e)
+                    md_content = self._soup_to_markdown(new_body, is_content_div=True)
+                    clean_section_title = re.sub(r"^[\s:.0-9]+", "", sections[section_name])
+                    yield EduWikiEntrySchema(
+                        source_url=url + "#" + section_name, source_page_title=clean_section_title, content=md_content
+                    )
+
+            md_content = self._soup_to_markdown(soup, is_content_div=True)
             yield EduWikiEntrySchema(source_url=url, source_page_title=source_page_title, content=md_content)
-
         except Exception as e:
             # Use of specific logger here is overengineering,
             # since the parser is executed really rarely
             print(f"Failed to process {url}: {e}")
 
-    def __soup_to_markdown(self, soup: BeautifulSoup) -> str:
+    def _soup_to_markdown(self, soup: BeautifulSoup | Tag, is_content_div: bool = False) -> str:
         res = ""
-        for target_class in self.target_classes:
-            content_div = soup.find(class_=target_class)
+        if is_content_div:
+            content_div = soup
+        else:
+            content_div = soup.find(class_="mw-body")
             if not content_div:
-                continue
+                return res
 
-            # Remove junk like table of content
-            for unwanted in content_div.find_all(class_=self.ignore_classes):
-                unwanted.decompose()
+        # Remove junk like table of content
+        for unwanted in content_div.find_all(class_=self.ignore_classes):
+            unwanted.decompose()
 
-            for img in content_div.find_all("img"):
-                img.decompose()
+        for img in content_div.find_all("img"):
+            img.decompose()
 
-            for table in content_div.find_all("table"):
-                md_table: str = self.__html_table_to_md(table)
-                table.replace_with(NavigableString(md_table))
+        for table in content_div.find_all("table"):
+            md_table: str = self._html_table_to_md(table)
+            table.replace_with(NavigableString(md_table))
 
-            res += markdownify(str(content_div), heading_style="ATX")
+        res += markdownify(str(content_div), heading_style="ATX")
 
         return res
 
     @staticmethod
-    def __html_table_to_md(table) -> str:
+    def _html_table_to_md(table) -> str:
         rows = table.find_all("tr")
         if not rows:
             return ""
@@ -140,19 +195,12 @@ class EduWikiParser:
 
         return "\n".join(md_rows) + "\n"
 
-    @staticmethod
-    def __enrich_md_content(url: str, md_content: str) -> str:
-        """
-        Enriches markdown content with metadata
-        :param url: url from which md_content was crawled
-        :param md_content: parsed page in Markdown format
-        :return: Enriched data.
-        """
-        page_name = urlparse(url).path.split("/")[-1]
-        return f'<article source_url="{url}" source_page_name="{page_name}">\n\n{md_content}\n\n<article/>'
-
 
 def parse():
     parser = EduWikiParser()
     result = list(parser.crawl())
     return result
+
+
+if __name__ == "__main__":
+    parse()
