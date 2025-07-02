@@ -135,8 +135,10 @@ For testing we use ```pytest```.
    ```
 * To generate test coverage report run:
    ```
-   poetry run pytest --cov=src tests/
+   poetry run pytest  --cov-config=.coveragerc --cov=src/ tests/
    ```
+   You can change coverage ignored folders/files in `.coveragerc`.
+
 ### Deployment
 
 We use Docker with Docker Compose plugin to run the website on servers.
