@@ -31,6 +31,7 @@ types-pyyaml = "^6.0.12.20240311"
 uvicorn = "^0.32"
 pytest = "^8.4.1"
 pytest-asyncio = "^1.0.0"
+pytest-cov = "^6.2.1"
 
 [tool.poetry.group.ml.dependencies]
 chonkie = {extras = ["all"], version = "^1.0.10"}
