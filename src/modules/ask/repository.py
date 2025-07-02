@@ -1,11 +1,11 @@
 import httpx
-from fastapi import HTTPException, Request
+from fastapi import HTTPException, Query, Request
 
 from src.modules.ask.schemas import AskResponses
 from src.modules.ml.ml_client import get_ml_service_client
 from src.modules.ml.schemas import MLAskRequest, MLAskResponse
 from src.modules.search.repository import search_repository
-from src.modules.sources_enum import InfoSources
+from src.modules.sources_enum import ALL_SOURCES, InfoSources
 
 
 class AskRepository:
@@ -13,8 +13,10 @@ class AskRepository:
         self,
         query: str,
         request: Request,
-        sources: list[InfoSources] | None = None,
+        sources: list[InfoSources] = Query(default=[]),
     ) -> AskResponses:
+        if not sources:
+            sources = ALL_SOURCES
         body = MLAskRequest(
             query=query,
             sources=sources,
