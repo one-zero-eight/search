@@ -126,6 +126,19 @@ How to get token:
    the token
    in the `Value` field and click `Authorize`. Now you can use protected endpoints from the Swagger.
 
+### Testing
+
+For testing we use ```pytest```.
+* To run tests enter in your terminal:
+   ```
+   poetry run pytest tests
+   ```
+* To generate test coverage report run:
+   ```
+   poetry run pytest  --cov-config=.coveragerc --cov=src/ tests/
+   ```
+   You can change coverage ignored folders/files in `.coveragerc`.
+
 ### Deployment
 
 We use Docker with Docker Compose plugin to run the website on servers.
