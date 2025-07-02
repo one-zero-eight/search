@@ -33,7 +33,7 @@ jobs:
       run: poetry install --no-interaction
 
     - name: Copy settings.yaml from example
-      run: cp setting.example.yaml setting.yaml
+      run: cp settings.example.yaml settings.yaml
 
     - name: Run tests
       run: poetry run pytest tests
