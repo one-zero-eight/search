@@ -2,37 +2,59 @@ from src.custom_pydantic import CustomModel
 from src.modules.sources_enum import InfoSources
 
 
-class SearchTask(CustomModel):
+class MLSearchTask(CustomModel):
+    """
+    Task for ML service
+    """
+
     query: str
     sources: list[InfoSources]
     limit: int = 10
 
 
-class SearchResultItem(CustomModel):
+class MLSearchResultItem(CustomModel):
+    """
+    Item for SearchResult
+    """
+
     resource: InfoSources
     mongo_id: str
     score: float
     content: str
 
 
-class SearchResult(CustomModel):
+class MLSearchResult(CustomModel):
     """
     List of ranked sources/files to backend
     """
 
-    result_items: list[SearchResultItem]
+    result_items: list[MLSearchResultItem]
 
 
-# TODO: Currently unused
+class MLAskRequest(CustomModel):
+    """
+    Task for ML service: RAG-chat
+    """
 
-
-class ChatTask(CustomModel):
     query: str
-    contents: list[str] | None = None
-    "Additional context to forward to LLM. See RAG."
+    sources: list[InfoSources] | None = None
 
 
-# Currently unused
-class ChatResult(CustomModel):
-    status: str = "completed"
+class MLContextItem(CustomModel):
+    """
+    One snippet used as context for the answer
+    """
+
+    resource: InfoSources
+    mongo_id: str
+    score: float
+    content: str
+
+
+class MLAskResponse(CustomModel):
+    """
+    Response for ML service: RAG-chat
+    """
+
     answer: str
+    search_result: MLSearchResult

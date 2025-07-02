@@ -5,8 +5,9 @@ import httpx
 from fastapi import HTTPException, Request
 
 from src.api.logging_ import logger
+from src.ml_service.text import clean_text
 from src.modules.ml.ml_client import get_ml_service_client
-from src.modules.ml.schemas import SearchResult, SearchTask
+from src.modules.ml.schemas import MLSearchResult, MLSearchTask
 from src.modules.search.schemas import (
     CampusLifeSource,
     EduwikiSource,
@@ -110,6 +111,8 @@ class SearchRepository:
         score: float | list[float] | None = None,
     ) -> SearchResponse:
         source = moodle_entry_contents_to_sources(entry, content, request)
+        if hasattr(source, "preview_text"):
+            source.preview_text = clean_text(source.preview_text)
         return SearchResponse(score=score, source=source)
 
     async def search_via_mongo(
@@ -156,16 +159,12 @@ class SearchRepository:
                 else:
                     assert_never(inner)
 
-                responses.append(
-                    SearchResponse(
-                        score=e.score,
-                        source=_SourceModel(
-                            display_name=inner.source_page_title,
-                            preview_text=inner.content,
-                            url=inner.source_url,
-                        ),
-                    )
+                source_model = _SourceModel(
+                    display_name=inner.source_page_title,
+                    preview_text=clean_text(inner.content),
+                    url=inner.source_url,
                 )
+                responses.append(SearchResponse(score=e.score, source=source_model))
             else:
                 assert_never(inner)
 
@@ -175,13 +174,13 @@ class SearchRepository:
     async def search_sources(
         self, query: str, sources: list[InfoSources], request: Request, limit: int
     ) -> SearchResponses:
-        search_task = SearchTask(query=query, sources=sources, limit=limit)
+        search_task = MLSearchTask(query=query, sources=sources, limit=limit)
 
         async with get_ml_service_client() as client:
             try:
                 r = await client.post("/search", json=search_task.model_dump())
                 r.raise_for_status()
-                results = SearchResult.model_validate(r.json())
+                results = MLSearchResult.model_validate(r.json())
 
                 responses = await self._process_ml_results(results, request)
                 return SearchResponses(responses=responses, searched_for=query)
@@ -190,7 +189,7 @@ class SearchRepository:
                 logger.warning(f"ML service search failed: {e}")
                 return await self.search_via_mongo(query, sources, request, limit)
 
-    async def _process_ml_results(self, results: SearchResult, request: Request) -> list[SearchResponse]:
+    async def _process_ml_results(self, results: MLSearchResult, request: Request) -> list[SearchResponse]:
         responses: list[SearchResponse] = []
 
         for res_item in results.result_items:
@@ -246,16 +245,12 @@ class SearchRepository:
                 if mongo_entry is None:
                     logger.warning(f"mongo_entry is None: {res_item}")
                 else:
-                    responses.append(
-                        SearchResponse(
-                            score=res_item.score,
-                            source=_SourceModel(
-                                display_name=mongo_entry.source_page_title,
-                                preview_text=res_item.content,
-                                url=mongo_entry.source_url,
-                            ),
-                        )
+                    source_model = _SourceModel(
+                        display_name=mongo_entry.source_page_title,
+                        preview_text=clean_text(res_item.content),
+                        url=mongo_entry.source_url,
                     )
+                    responses.append(SearchResponse(score=res_item.score, source=source_model))
             else:
                 assert_never(res_item)
         responses.sort(key=lambda x: x.score, reverse=True)

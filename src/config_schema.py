@@ -65,6 +65,14 @@ class MlServiceSettings(CustomModel):
     cross_encoder: str = "jinaai/jina-reranker-v2-base-multilingual"
     "Model to use for reranking (should be available on Infinity)"
 
+    llm_api_base: str = "https://openrouter.ai/api/v1"
+    "URL of the external LLM API"
+    llm_model: str = "openai/gpt-4.1-mini"
+    openrouter_api_key: SecretStr
+    "API key for OpenRouter"
+    system_prompt: str = "You are a helpful assistant. Write the answer in the same language as the question."
+    "System prompt for OpenRouter"
+
 
 class Settings(CustomModel):
     schema_: str = Field(None, alias="$schema")

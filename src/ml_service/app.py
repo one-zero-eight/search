@@ -1,11 +1,17 @@
+import asyncio
+
+import uvicorn
 from fastapi import FastAPI
+from httpx import AsyncClient
 
 from src.api.docs import generate_unique_operation_id
+from src.api.logging_ import logger
 from src.ml_service import docs
 from src.ml_service.lifespan import lifespan
+from src.ml_service.llm import generate_answer
 from src.ml_service.prepare import prepare_resource
 from src.ml_service.search import search_pipeline
-from src.modules.ml.schemas import ChatResult, ChatTask, SearchResult, SearchTask
+from src.modules.ml.schemas import MLAskRequest, MLAskResponse, MLSearchResult, MLSearchTask
 from src.modules.sources_enum import InfoSources
 
 # App definition
@@ -30,13 +36,14 @@ app = FastAPI(
 BASIC_RESPONSES = {
     200: {"description": "Success"},
     403: {"description": "Invalid API key"},  # allow only backend to communicate with it
+    404: {"description": "Not Found"},
 }
 
 
 @app.post("/search", responses=BASIC_RESPONSES)
-async def search_info(task: SearchTask) -> SearchResult:
+async def search_info(task: MLSearchTask) -> MLSearchResult:
     results = await search_pipeline(task.query, task.sources, limit=task.limit)
-    return SearchResult(result_items=results)
+    return MLSearchResult(result_items=results)
 
 
 @app.post("/lancedb/update/{resource}")
@@ -54,8 +61,23 @@ async def update_resource(resource: InfoSources, docs: list[dict]):
 # async def update_search_db(task: AddTask) -> AddResult:...
 
 
-@app.get("/chat", responses=BASIC_RESPONSES)
-async def ask_llm(task: ChatTask) -> ChatResult: ...
+@app.post("/ask", responses=BASIC_RESPONSES)
+async def ask_llm(request: MLAskRequest) -> MLAskResponse:
+    target_sources = request.sources or [
+        InfoSources.moodle,
+        InfoSources.hotel,
+        InfoSources.eduwiki,
+        InfoSources.campuslife,
+    ]
+    logger.info(f"Target sources: {target_sources}")
+    results = await search_pipeline(request.query, target_sources, limit=10)
+    if not results:
+        results = []
+
+    snippets = [h["content"] for h in results]
+    answer = await generate_answer(request.query, snippets)
+
+    return MLAskResponse(answer=answer, search_result=MLSearchResult(result_items=results))
 
 
 # TODO: add swagger docs
@@ -81,3 +103,18 @@ async def ask_llm(task: ChatTask) -> ChatResult: ...
 #         swagger_favicon_url="https://api.innohassle.ru/swagger/favicon.png",
 #         swagger_ui_parameters={"tryItOutEnabled": True, "persistAuthorization": True, "filter": True},
 #     )
+
+if __name__ == "__main__":
+
+    async def test_ask():
+        async with AsyncClient(app=app, base_url="http://test") as client:
+            payload = {
+                "query": "Who is the leader of basketball club?",
+            }
+            resp = await client.post("/ask", json=payload)
+            print("Status:", resp.status_code)
+            print("Body:", resp.json())
+
+    asyncio.run(test_ask())
+
+    uvicorn.run(app, host="127.0.0.1", port=8000)

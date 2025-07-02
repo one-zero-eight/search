@@ -75,7 +75,7 @@ async def search_pipeline(
                     "resource": resource,
                     "mongo_id": row["mongo_id"],
                     "score": score,
-                    "content": row["content"],
+                    "content": clean_text(row["content"]),
                 }
             )
     db_query_time = time.perf_counter() - db_query_start
@@ -118,7 +118,7 @@ async def search_pipeline(
                     "resource": original_result["resource"],
                     "mongo_id": original_result["mongo_id"],
                     "score": ranking.relevance_score,
-                    "content": original_result["content"],
+                    "content": clean_text(original_result["content"]),
                 }
             )
 
@@ -150,11 +150,7 @@ async def search_pipeline(
 if __name__ == "__main__":
     logger.info("📥 Starting search pipeline…")
     q = "How much does room for 2 people rent cost?"
-    results = asyncio.run(
-        search_pipeline(
-            q,
-            resources=ALL_SOURCES,
-        )
-    )
+    results = asyncio.run(search_pipeline(q, resources=ALL_SOURCES))
+
     for i, r in enumerate(results, 1):
         logger.info(f"{i}. ({r['resource']}) [{r['score']:.3f}]: {r['content']}")
