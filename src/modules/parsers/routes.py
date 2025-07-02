@@ -5,11 +5,13 @@ from src.modules.ml.ml_client import get_ml_service_client
 from src.modules.parsers.campus_life.parser import parse as parse_campus_life
 from src.modules.parsers.eduwiki.parser import parse as parse_eduwiki
 from src.modules.parsers.hotel.parser import parse as parse_hotel
+from src.modules.parsers.maps.parser import parse as parse_maps
 from src.modules.sources_enum import InfoSources
 from src.storages.mongo.__base__ import CustomDocument
 from src.storages.mongo.campus_life import CampusLifeEntry
 from src.storages.mongo.edu_wiki import EduWikiEntry
 from src.storages.mongo.hotel import HotelEntry
+from src.storages.mongo.maps import MapsEntry
 
 router = APIRouter()
 
@@ -21,7 +23,9 @@ async def run_parse_route(section: InfoSources, indexing_is_needed: bool = True,
             status_code=400, detail="At least one of indexing_is_needed or parsing_is_needed must be True"
         )
 
-    if section == InfoSources.hotel:
+    if section == InfoSources.maps:
+        parse_func, model_class = parse_maps, MapsEntry
+    elif section == InfoSources.hotel:
         parse_func, model_class = parse_hotel, HotelEntry
     elif section == InfoSources.eduwiki:
         parse_func, model_class = parse_eduwiki, EduWikiEntry
@@ -48,7 +52,7 @@ async def run_parse_route(section: InfoSources, indexing_is_needed: bool = True,
     if indexing_is_needed:
         async with get_ml_service_client() as client:
             response = await client.post(
-                f"/lancedb/update/{section.value}", json=[o.model_dump(mode="json") for o in all_entries], timeout=100
+                f"/lancedb/update/{section.value}", json=[o.model_dump(mode="json") for o in all_entries], timeout=200
             )
             response.raise_for_status()
             response_data = response.json()

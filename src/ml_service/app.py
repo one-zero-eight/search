@@ -20,6 +20,7 @@ app = FastAPI(
     version=docs.VERSION,
     contact=docs.CONTACT_INFO,
     license_info=docs.LICENSE_INFO,
+    description=docs.DESCRIPTION,
     servers=[],
     swagger_ui_parameters={
         "tryItOutEnabled": True,
