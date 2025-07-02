@@ -32,5 +32,8 @@ jobs:
     - name: Install dependencies
       run: poetry install --no-interaction
 
+    - name: Copy settings.yaml from example
+      run: cp setting.example.yaml setting.yaml
+
     - name: Run tests
       run: poetry run pytest tests
