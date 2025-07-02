@@ -3,7 +3,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 from httpx import HTTPError
 
-from src.modules.ml.schemas import SearchResult, SearchResultItem
+from src.modules.ml.schemas import MLSearchResult, MLSearchResultItem
 from src.modules.search.repository import moodle_entry_contents_to_sources
 from src.modules.search.schemas import SearchResponses
 from src.modules.sources_enum import InfoSources
@@ -131,12 +131,12 @@ async def test_process_ml_results(search_repo, mock_search_repo_request, sample_
     eduwiki_entry.source_page_title = "test_title"
     eduwiki_entry.source_url = "http://testurl"
 
-    results = SearchResult(
+    results = MLSearchResult(
         result_items=[
-            SearchResultItem.model_validate(
+            MLSearchResultItem.model_validate(
                 {"resource": InfoSources.moodle, "mongo_id": "1", "score": 0.7, "content": "test_content"}
             ),
-            SearchResultItem.model_validate(
+            MLSearchResultItem.model_validate(
                 {"resource": InfoSources.eduwiki, "mongo_id": "2", "score": 0.9, "content": "test_content"}
             ),
         ]
