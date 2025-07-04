@@ -35,3 +35,12 @@ InfoSourcesToMongoEntryName: Final[dict[InfoSources, str]] = {
     InfoSources.maps: "MapsEntry",
     InfoSources.residents: "ResidentsEntry",
 }
+
+MongoEntryNameToMongoEntry: Final[dict[str, type[CustomDocument]]] = {
+    "MoodleEntry": MoodleEntry,
+    "EduWikiEntry": EduWikiEntry,
+    "CampusLifeEntry": CampusLifeEntry,
+    "HotelEntry": HotelEntry,
+    "MapsEntry": MapsEntry,
+    "ResidentsEntry": ResidentsEntry,
+}

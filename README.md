@@ -128,13 +128,15 @@ How to get token:
 
 ### Testing
 
-For testing we use ```pytest```.
+For testing we use ```pytest```. To pass integration tests you will need to prepare test data and
+save it to `tests/test_data/data.json`. You need to run ```./scripts/preparse_sources.py``` once, it
+will make exactly this.
+
 * To run tests enter in your terminal:
    ```
-   poetry run pytest tests
+   ./scripts/run_tests.sh
    ```
-* To generate test coverage report run:
-   ```
+   It will automatically generate coverage report. You can change coverage ignored folders/files in `.coveragerc`.
    poetry run pytest  --cov-config=.coveragerc --cov=src/ tests/
    ```
    You can change coverage ignored folders/files in `.coveragerc`.

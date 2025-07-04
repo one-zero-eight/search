@@ -9,6 +9,7 @@ __pycache__
 s3/
 qdrant_storage/
 cache/
+test_data/
 
 ### Environment ###
 .env

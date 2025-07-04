@@ -1,12 +1,19 @@
+import json
 from unittest.mock import MagicMock, patch
 
 import pytest
 from beanie import PydanticObjectId
 from fastapi import Request
+from fastapi.testclient import TestClient
 from minio import Minio
 
+from src.api.app import app as api_app
+from src.api.lifespan import setup_database
+from src.ml_service.app import app as ml_app
 from src.modules.minio.repository import MinioRepository
+from src.modules.parsers.routes import run_parse_route
 from src.modules.search.repository import SearchRepository
+from src.modules.sources_enum import InfoSources, MongoEntryNameToMongoEntry
 from src.storages.mongo import MoodleEntry
 from src.storages.mongo.moodle import MoodleContentSchema
 
@@ -68,3 +75,37 @@ def sample_moodle_entry_mock():
         MagicMock(spec=MoodleContentSchema, type="file", filename="test_file.pdf"),
     ]
     return entry
+
+
+@pytest.fixture(scope="session")
+async def fill_mongo_with_test_data():
+    motor_client = await setup_database()
+
+    filepath = "tests/test_data/data.json"
+    with open(filepath, encoding="utf-8") as file:
+        for line in file:
+            data = json.loads(line)
+            model_class = MongoEntryNameToMongoEntry[data["model_type"]]
+            model_instance = model_class(**data["data"])
+            model_instance.save()
+
+    # Don't yield, since this function just fills docker mongo instance.
+    # FastApi/Ml app will open its own connection to it
+
+    motor_client.close()
+
+
+@pytest.fixture(scope="session")
+def api_client(fill_mongo_with_test_data):
+    return TestClient(api_app)
+
+
+@pytest.fixture(scope="session")
+async def index_data_in_ml_service():
+    for source in (InfoSources.hotel, InfoSources.eduwiki, InfoSources.campuslife, InfoSources.residents):
+        await run_parse_route(section=source, parsing_is_needed=False, indexing_is_needed=True)
+
+
+@pytest.fixture(scope="session")
+def ml_client(fill_mongo_with_test_data, index_data_in_ml_service):
+    return TestClient(ml_app)

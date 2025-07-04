@@ -1,0 +1,15 @@
+services:
+  test_db:
+    # See more: https://registry.hub.docker.com/_/mongo
+    image: "mongo:7.0"
+    restart: always
+    ports:
+      - "27018:27017"
+    env_file: .env # Set username and password in .env file
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/db --quiet
+      start_period: 10s
+      start_interval: 1s
+      interval: 1m
+      timeout: 5s
+      retries: 3

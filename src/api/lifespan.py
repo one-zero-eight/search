@@ -1,4 +1,4 @@
-__all__ = ["lifespan"]
+__all__ = ["lifespan", "setup_database"]
 
 import asyncio
 import json

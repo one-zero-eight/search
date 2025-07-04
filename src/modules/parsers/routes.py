@@ -1,3 +1,5 @@
+import json
+
 from fastapi import APIRouter, HTTPException
 
 from src.api.logging_ import logger
@@ -18,8 +20,28 @@ from src.storages.mongo.residents import ResidentsEntry
 router = APIRouter()
 
 
+def save_dump(entries):
+    filepath = "tests/test_data/data.json"
+    mode = "a"
+
+    print("Writing results to file...")
+
+    with open(filepath, mode, encoding="utf-8") as file:
+        for entry in entries:
+            item = {"model_type": entry.__class__.__name__, "data": entry.dict()}
+            obj = json.dumps(item, ensure_ascii=False)
+            file.write(obj + "\n")
+
+    print("Finished writing")
+
+
 @router.post("/{section}/parse")
-async def run_parse_route(section: InfoSources, indexing_is_needed: bool = True, parsing_is_needed: bool = False):
+async def run_parse_route(
+    section: InfoSources,
+    indexing_is_needed: bool = True,
+    parsing_is_needed: bool = False,
+    saving_dump_is_needed: bool = False,
+):  # dump used for generation and saving test data.
     if not indexing_is_needed and not parsing_is_needed:
         raise HTTPException(
             status_code=400, detail="At least one of indexing_is_needed or parsing_is_needed must be True"
@@ -37,19 +59,28 @@ async def run_parse_route(section: InfoSources, indexing_is_needed: bool = True,
         parse_func, model_class = parse_residents, ResidentsEntry
     else:
         raise HTTPException(status_code=400, detail=f"Not supported section: {section}")
-    collection = model_class.get_motor_collection()
     all_entries: list[CustomDocument]
     if parsing_is_needed:
-        await collection.delete_many({})
-
         to_create = parse_func()
         all_entries = []
         for entry in to_create:
             doc = model_class.model_validate(entry, from_attributes=True)
-            await doc.save()
             all_entries.append(doc)
+
+        if saving_dump_is_needed:
+            # We were run to just generate files, so skip saving in db, return nothing
+            save_dump(all_entries)
+            return {}
+
+        collection = model_class.get_motor_collection()
+        await collection.delete_many({})
+        for doc in all_entries:
+            await doc.save()
+
         logger.info(f"{section} section entries parsed, {len(all_entries)} documents saved successfully.")
+
     else:
+        collection = model_class.get_motor_collection()
         raw_entries = await collection.find().to_list(None)
         all_entries = [model_class.model_validate(entry) for entry in raw_entries]
         logger.info(f"Skip parsing, get entries from db for {section}")
