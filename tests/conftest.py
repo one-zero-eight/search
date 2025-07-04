@@ -101,11 +101,10 @@ def api_client(fill_mongo_with_test_data):
 
 
 @pytest.fixture(scope="session")
-async def index_data_in_ml_service():
+async def ml_client(fill_mongo_with_test_data):
+    client = TestClient(ml_app)
+
     for source in (InfoSources.hotel, InfoSources.eduwiki, InfoSources.campuslife, InfoSources.residents):
         await run_parse_route(section=source, parsing_is_needed=False, indexing_is_needed=True)
 
-
-@pytest.fixture(scope="session")
-def ml_client(fill_mongo_with_test_data, index_data_in_ml_service):
-    return TestClient(ml_app)
+    return client
