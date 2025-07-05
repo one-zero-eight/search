@@ -72,6 +72,8 @@ class MlServiceSettings(CustomModel):
     "API key for OpenRouter"
     system_prompt: str = "You are a helpful assistant. Write the answer in the same language as the question."
     "System prompt for OpenRouter"
+    timeout: float = 10.0
+    "Timeout in seconds for API requests"
 
 
 class Settings(CustomModel):

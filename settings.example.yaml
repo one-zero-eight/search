@@ -10,3 +10,4 @@ ml_service:
   mongo_url: "mongodb://mongoadmin:secret@localhost:27017/db?authSource=admin"
   openrouter_api_key: "your openrouter api key"
   system_prompt: "You are a helpful assistant. Write the answer in the same language as the question."
+  timeout: 10.0

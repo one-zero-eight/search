@@ -8,6 +8,7 @@ def get_ml_service_client() -> httpx.AsyncClient:
     Creates async connection with the ml service.
     """
     return httpx.AsyncClient(
+        timeout=settings.ml_service.timeout,
         base_url=settings.ml_service.api_url,
         headers={"X-API-KEY": settings.ml_service.api_key.get_secret_value()},
     )
