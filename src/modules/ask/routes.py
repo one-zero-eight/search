@@ -6,7 +6,7 @@ from fastapi import APIRouter, Body, HTTPException, Request
 from src.api.logging_ import logger
 from src.modules.ask.repository import ask_repository
 from src.modules.ask.schemas import AskResponses
-from src.storages.mongo.ask_statistics import AskStatistics, WrappedResponseSchema
+from src.storages.mongo.statistics import AskStatistics, WrappedResponseSchema
 
 router = APIRouter(prefix="/ask", tags=["Ask"])
 
