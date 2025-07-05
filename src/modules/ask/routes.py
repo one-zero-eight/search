@@ -19,7 +19,7 @@ router = APIRouter(prefix="/ask", tags=["Ask"])
 )
 async def ask_by_query(
     request: Request,
-    query: str = Body(..., examples=["Кто лидер клуба по баскетболу?", "Есть ли места для хранения велосипедов?"]),
+    query: str = Body(..., embed=True),
 ) -> AskResponses:
     try:
         result = await asyncio.wait_for(ask_repository.ask(query=query, request=request, sources=None), timeout=30)
