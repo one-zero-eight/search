@@ -2,6 +2,7 @@ from typing import cast
 
 from beanie import Document, View
 
+from src.storages.mongo.ask_statistics import AskStatistics
 from src.storages.mongo.campus_life import CampusLifeEntry
 from src.storages.mongo.edu_wiki import EduWikiEntry
 from src.storages.mongo.hotel import HotelEntry
@@ -19,6 +20,7 @@ document_models = cast(
         MoodleCourse,
         CampusLifeEntry,
         SearchStatistics,
+        AskStatistics,
         CampusLifeEntry,
         EduWikiEntry,
         HotelEntry,
