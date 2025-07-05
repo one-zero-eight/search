@@ -21,7 +21,7 @@ router = APIRouter(prefix="/ask", tags=["Ask"])
 )
 async def ask_by_query(
     request: Request,
-    query: str = Body(..., examples=["Кто лидер клуба по баскетболу?", "Есть ли места для хранения велосипедов?"]),
+    query: str = Body(..., embed=True),
 ) -> AskResponses:
     start_time = time.monotonic()
     try:
