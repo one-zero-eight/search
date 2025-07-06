@@ -1,5 +1,5 @@
 import re
-from urllib.parse import urlparse
+from urllib.parse import urljoin, urlparse
 
 import httpx
 from bs4 import BeautifulSoup, NavigableString, Tag
@@ -91,8 +91,8 @@ class EduWikiParser:
                     yield from self.crawl_page(href, log_prefix + " ", recursive=recursive)
 
                 # # Convert links in table of content: #title -> https://domain/page#title
-                # if href.startswith("#"):
-                #     a["href"] = urljoin(url, href)
+                if href.startswith("#") or href.startswith("/"):
+                    a["href"] = urljoin(url, href)
 
             # Extract the table of contents (toc)
             soup_copy = BeautifulSoup(str(soup), "html.parser")
