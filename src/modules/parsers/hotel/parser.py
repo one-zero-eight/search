@@ -3,10 +3,11 @@ import sys
 from pathlib import Path
 
 from src.modules.parsers.hotel.converter import process_pages
+from src.modules.parsers.hotel.scraper import START_URL
 
 # Base directory of this module (modules/dorms)
 BASE_DIR = Path(__file__).parent.resolve()
-sys.argv = ["parser.py", "https://hotel.innopolis.university/"]
+sys.argv = ["parser.py", START_URL]
 
 
 def parse():

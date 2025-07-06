@@ -40,13 +40,11 @@ def process_pages(base_url: str, timeout: int):
     domain = urlparse(base_url).netloc
 
     html = fetch_html(base_url, timeout)
-    main_md, links_map = convert_page_to_markdown(html, base_url, domain)
+    main_md, links = convert_page_to_markdown(html, base_url, domain)
     page_title = get_title_from_html(html)
     yield HotelEntrySchema(source_url=base_url, source_page_title=page_title, content=main_md)
 
-    for url, fname in links_map.items():
-        if fname == "zayavkanabronirovanie.md":
-            continue
+    for url in links:
         html2 = fetch_html(url, timeout)
         md2, _ = convert_page_to_markdown(html2, url, domain)
         page_title = get_title_from_html(html2)
