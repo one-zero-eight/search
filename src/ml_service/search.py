@@ -3,11 +3,24 @@ import time
 
 import lancedb
 import pandas as pd
+from langdetect import detect
+from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
 
 from src.api.logging_ import logger
 from src.config import settings
 from src.ml_service.text import clean_text
 from src.modules.sources_enum import ALL_SOURCES, InfoSources
+
+model_name = "facebook/m2m100_418M"
+tokenizer = M2M100Tokenizer.from_pretrained(model_name)
+model = M2M100ForConditionalGeneration.from_pretrained(model_name)
+
+
+def translate_to_russian(text: str) -> str:
+    tokenizer.src_lang = "en"
+    encoded = tokenizer(text, return_tensors="pt")
+    generated = model.generate(**encoded, forced_bos_token_id=tokenizer.get_lang_id("ru"))
+    return tokenizer.batch_decode(generated, skip_special_tokens=True)[0]
 
 
 async def search_pipeline(
@@ -17,6 +30,21 @@ async def search_pipeline(
 ):
     start_time = time.perf_counter()
     logger.info(f"🔍 Searching for {query} in {resources}")
+
+    original_query = query
+    try:
+        query_lang = detect(query)
+    except Exception as e:
+        logger.warning(f"🌐 Language detection failed: {e}")
+        query_lang = None
+
+    if query_lang == "en" and InfoSources.residents in resources:
+        logger.info("🌍 English query + 'residents' → переводим на русский")
+        search_query = translate_to_russian(query)
+        logger.info(f"📝 Translated query: {search_query}")
+    else:
+        search_query = query
+
     # Time bi-encoder encoding
     bi_encoder_start = time.perf_counter()
     if settings.ml_service.infinity_url:
@@ -24,7 +52,7 @@ async def search_pipeline(
 
         query_emb = (
             await src.ml_service.infinity.embed(
-                [clean_text(query)],
+                [clean_text(search_query)],
                 task="query",
             )
         )[0]
@@ -33,7 +61,7 @@ async def search_pipeline(
 
         query_emb = (
             await src.ml_service.non_infinity.embed(
-                [clean_text(query)],
+                [clean_text(search_query)],
                 task="query",
             )
         )[0]
@@ -144,7 +172,15 @@ async def search_pipeline(
     )
 
     # Results are already sorted by cross encoder scores (highest first)
-    return all_results
+    lang_map = {"en": "English", "ru": "Russian", "fr": "French"}
+    query_lang_name = lang_map.get(query_lang, "the same language as the input question")
+
+    return {
+        "results": all_results,
+        "original_query": original_query,
+        "query_lang": query_lang,
+        "query_lang_name": query_lang_name,
+    }
 
 
 if __name__ == "__main__":

@@ -32,6 +32,9 @@ uvicorn = "^0.32"
 pytest = "^8.4.1"
 pytest-asyncio = "^1.0.0"
 pytest-cov = "^6.2.1"
+langdetect = "^1.0.9"
+deep-translator = "^1.11.4"
+sentencepiece = ">=0.1.99"
 
 [tool.poetry.group.ml.dependencies]
 chonkie = {extras = ["all"], version = "^1.0.10"}
