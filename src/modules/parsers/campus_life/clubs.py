@@ -1,5 +1,5 @@
 import re
-from urllib.parse import urlparse
+from urllib.parse import urljoin, urlparse
 
 import markdownify
 from bs4 import BeautifulSoup
@@ -34,6 +34,9 @@ def html_to_markdown(html: str) -> str:
         if not text:
             a.decompose()
             continue
+
+        if href.startswith("/"):
+            href = urljoin(BASE_URL, href)
 
         # Handle Tilda button-style links (inside <table>)
         a.replace_with(f"[{text}]({href})")
