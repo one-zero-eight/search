@@ -70,12 +70,21 @@ async def ask_llm(request: MLAskRequest) -> MLAskResponse:
         InfoSources.campuslife,
     ]
     logger.info(f"Target sources: {target_sources}")
-    results = await search_pipeline(request.query, target_sources, limit=10)
+
+    search_output = await search_pipeline(request.query, target_sources, limit=10)
+
+    results = search_output["results"]
+    original_query = search_output["original_query"]
+    query_lang = search_output["query_lang"]
+    lang_name = search_output["query_lang_name"]
+
     if not results:
         results = []
 
     snippets = [h["content"] for h in results]
-    answer = await generate_answer(request.query, snippets)
+    answer = await generate_answer(original_query, snippets, lang_name)
+
+    logger.info(f"🗣️  Original query: '{original_query}' | Detected language: {query_lang} ({lang_name})")
 
     return MLAskResponse(answer=answer, search_result=MLSearchResult(result_items=results))
 

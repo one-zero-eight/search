@@ -160,6 +160,11 @@ $defs:
         description: System prompt for OpenRouter
         title: System Prompt
         type: string
+      timeout:
+        default: 10.0
+        description: Timeout in seconds for API requests
+        title: Timeout
+        type: number
     required:
     - api_key
     - mongo_url
