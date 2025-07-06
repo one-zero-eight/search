@@ -95,21 +95,23 @@ class EduWikiParser:
                 #     a["href"] = urljoin(url, href)
 
             # Extract the table of contents (toc)
-            toc = soup.find("div", id="toc", class_="toc")
+            soup_copy = BeautifulSoup(str(soup), "html.parser")
+
+            toc = soup_copy.find("div", id="toc", class_="toc")
             if toc:
                 sections = {}
                 for a in toc.find_all("a", href=True):
                     href = a["href"]
                     if href.startswith("#"):
-                        section_id = href[1:]  # убираем #
+                        section_id = href[1:]
                         section_name = a.get_text(strip=False)
                         sections[section_id] = section_name
+
                 pivots = {}
                 prev_pivot_name = None
                 selections = {}
 
-                # Search for all headings with the mw-headline class inside
-                for header in soup.find_all(["h1", "h2", "h3", "h4", "h5", "h6"]):
+                for header in soup_copy.find_all(["h1", "h2", "h3", "h4", "h5", "h6"]):
                     span = header.find("span", class_="mw-headline", id=True)
                     if not span:
                         continue
@@ -128,7 +130,6 @@ class EduWikiParser:
                             selections[prev_pivot_name] = content
                         prev_pivot_name = name
 
-                # For the last pivot, we collect all the remaining elements
                 if prev_pivot_name:
                     prev_pivot = pivots[prev_pivot_name]
                     content = []
@@ -139,17 +140,21 @@ class EduWikiParser:
                     selections[prev_pivot_name] = content
 
                 for section_name, elements in selections.items():
-                    new_body = soup.new_tag("div", id="content", class_="mw-body", role="main")
+                    new_body = soup_copy.new_tag("div", id="content", class_="mw-body", role="main")
                     for e in elements:
-                        new_body.append(e)
+                        cloned = BeautifulSoup(str(e), "html.parser")
+                        for child in cloned.contents:
+                            new_body.append(child)
                     md_content = self._soup_to_markdown(new_body, is_content_div=True)
                     clean_section_title = re.sub(r"^[\s:.0-9]+", "", sections[section_name])
                     yield EduWikiEntrySchema(
                         source_url=url + "#" + section_name, source_page_title=clean_section_title, content=md_content
                     )
 
+            # Оригинальный soup остаётся целым
             md_content = self._soup_to_markdown(soup, is_content_div=True)
             yield EduWikiEntrySchema(source_url=url, source_page_title=source_page_title, content=md_content)
+
         except Exception as e:
             # Use of specific logger here is overengineering,
             # since the parser is executed really rarely
