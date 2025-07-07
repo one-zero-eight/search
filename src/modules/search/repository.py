@@ -186,7 +186,7 @@ class SearchRepository:
                 return SearchResponses(responses=responses, searched_for=query)
             except httpx.HTTPError as e:
                 # Fallback to mongo search
-                logger.warning(f"ML service search failed: {e}")
+                logger.exception(f"ML service search failed: {repr(e)}", exc_info=True)
                 return await self.search_via_mongo(query, sources, request, limit)
 
     async def _process_ml_results(self, results: MLSearchResult, request: Request) -> list[SearchResponse]:
