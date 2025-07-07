@@ -35,5 +35,8 @@ jobs:
     - name: Copy settings.yaml from example
       run: cp settings.example.yaml settings.yaml
 
+    - name: Make tests script executable
+      run: chmod a+x scripts/run_tests.sh
+
     - name: Run tests
-      run: poetry run pytest tests
+      run: scripts/run_tests.sh
