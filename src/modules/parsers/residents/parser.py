@@ -17,14 +17,14 @@ def parse() -> list[ResidentsEntrySchema]:
 
     result: list[ResidentsEntrySchema] = []
 
+    all_residents = []
+
     for page in range(1, max_page + 1):
         url = f"{LIST_URL}ooo-kf-venchurs?PAGEN_1={page}" if page > 1 else f"{LIST_URL}ooo-kf-venchurs"
 
         response = requests.get(url, headers=HEADERS)
         soup = BeautifulSoup(response.text, "html.parser")
         cards = soup.find_all("a", class_="newsSliderItem")
-
-        index = []
 
         for i, card in enumerate(cards):
             try:
@@ -62,7 +62,7 @@ def parse() -> list[ResidentsEntrySchema]:
                         source_url=full_url,
                     )
                     result.append(entry)
-                    index.append(entry)
+                    all_residents.append(title)
 
                 except Exception as e:
                     print(f"Error inserting resident {name} into database: {e}")
@@ -70,17 +70,12 @@ def parse() -> list[ResidentsEntrySchema]:
             except Exception as e:
                 print(f"Error processing resident {i}: {e}")
 
-        index_content = ""
-
-        for element in index:
-            index_content += element.source_page_title + " " + element.source_url + "\n"
-
-        result.append(
-            ResidentsEntrySchema(
-                source_page_title=f"Residents Index Page {page}",
-                content=index_content.strip(),
-                source_url=url,
-            )
+    result.append(
+        ResidentsEntrySchema(
+            source_page_title="ОЭЗ Иннополис — Резиденты",
+            content="\n".join(all_residents),
+            source_url=url,
         )
+    )
 
     return result
