@@ -1,7 +1,16 @@
 from enum import StrEnum
 from typing import Final
 
-from src.storages.mongo import CampusLifeEntry, EduWikiEntry, HotelEntry, MapsEntry, MoodleEntry, ResidentsEntry
+from src.storages.mongo import (
+    CampusLifeEntry,
+    EduWikiEntry,
+    HotelEntry,
+    InNoHassleEntry,
+    MapsEntry,
+    MoodleEntry,
+    MyUniEntry,
+    ResidentsEntry,
+)
 from src.storages.mongo.__base__ import CustomDocument
 
 
@@ -14,6 +23,8 @@ class InfoSources(StrEnum):
     hotel = "hotel"
     maps = "maps"
     residents = "residents"
+    myuni = "myuni"
+    innohassle = "innohassle"
 
 
 ALL_SOURCES = list(InfoSources)
@@ -25,6 +36,8 @@ InfoSourcesToMongoEntry: Final[dict[InfoSources, type[CustomDocument]]] = {
     InfoSources.hotel: HotelEntry,
     InfoSources.maps: MapsEntry,
     InfoSources.residents: ResidentsEntry,
+    InfoSources.myuni: MyUniEntry,
+    InfoSources.innohassle: InNoHassleEntry,
 }
 
 InfoSourcesToMongoEntryName: Final[dict[InfoSources, str]] = {
@@ -34,4 +47,6 @@ InfoSourcesToMongoEntryName: Final[dict[InfoSources, str]] = {
     InfoSources.hotel: "HotelEntry",
     InfoSources.maps: "MapsEntry",
     InfoSources.residents: "ResidentsEntry",
+    InfoSources.myuni: "MyUniEntry",
+    InfoSources.innohassle: "InNoHassleEntry",
 }
