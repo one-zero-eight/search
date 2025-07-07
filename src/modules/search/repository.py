@@ -216,7 +216,9 @@ class SearchRepository:
                             score=res_item.score,
                             source=MapsSource(
                                 display_name=mongo_entry.title,
-                                preview_text=mongo_entry.content,
+                                preview_text="\n".join(mongo_entry.content.splitlines()[2:])
+                                if mongo_entry.content
+                                else "",
                                 url=mongo_entry.location_url,
                             ),
                         )
