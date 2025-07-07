@@ -32,8 +32,8 @@ jobs:
     - name: Install dependencies
       run: poetry install --no-interaction
 
-    - name: Copy settings.yaml from example
-      run: cp settings.example.yaml settings.yaml
+    - name: Copy settings.test.yaml from example
+      run: cp settings.test.example.yaml settings.test.yaml
 
     - name: Make tests script executable
       run: chmod a+x scripts/run_tests.sh
