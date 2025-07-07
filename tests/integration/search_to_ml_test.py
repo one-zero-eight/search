@@ -1,9 +1,11 @@
 import httpx
+import pytest
 
 from src.modules.sources_enum import InfoSources
 
 
-async def test_search_interaction(api_client, ml_client):
+@pytest.mark.asyncio
+async def test_search_interaction(api_client, ml_client, monkeypatch):
     # Test only interaction for sources like eduwiki, hotel, etc.
     # TODO: test moodle(will require mocking minio and auth APIs)
 
@@ -16,19 +18,34 @@ async def test_search_interaction(api_client, ml_client):
 
     # Use all sources
     query = "Who is the leader of basketball club?"
-    assert_response(api_client.get("/search/search", params={"query": query}))
+    assert_response(await api_client.get("/search/search", params={"query": query, "response_types": "link_to_source"}))
 
     # Use specific sources
-    api_client.get("/search/search", params={"query": query, "sources": [InfoSources.campuslife.value]})
-
-    api_client.get(
-        "/search/search", params={"query": query, "sources": [InfoSources.campuslife.value, InfoSources.hotel.value]}
+    assert_response(
+        await api_client.get(
+            "/search/search",
+            params={"query": query, "sources": [InfoSources.campuslife.value], "response_types": "link_to_source"},
+        )
     )
 
-    api_client.get(
-        "/search/search",
-        params={
-            "query": query,
-            "sources": [InfoSources.campuslife.value, InfoSources.hotel.value, InfoSources.eduwiki.value],
-        },
+    assert_response(
+        await api_client.get(
+            "/search/search",
+            params={
+                "query": query,
+                "sources": [InfoSources.campuslife.value, InfoSources.hotel.value],
+                "response_types": "link_to_source",
+            },
+        )
+    )
+
+    assert_response(
+        await api_client.get(
+            "/search/search",
+            params={
+                "query": query,
+                "sources": [InfoSources.campuslife.value, InfoSources.hotel.value, InfoSources.eduwiki.value],
+                "response_types": "link_to_source",
+            },
+        )
     )

@@ -4,7 +4,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 from beanie import PydanticObjectId
 from fastapi import Request
-from fastapi.testclient import TestClient
+from httpx import ASGITransport, AsyncClient
 from minio import Minio
 
 from src.api.app import app as api_app
@@ -16,6 +16,17 @@ from src.modules.search.repository import SearchRepository
 from src.modules.sources_enum import InfoSources, MongoEntryNameToMongoEntry
 from src.storages.mongo import MoodleEntry
 from src.storages.mongo.moodle import MoodleContentSchema
+
+
+@pytest.fixture(autouse=True)
+async def mock_ml_service_client(ml_client):
+    """Mock that returns our test client"""
+
+    def mock():
+        return ml_client
+
+    with patch("src.modules.ml.ml_client.get_ml_service_client", new=mock):
+        yield
 
 
 @pytest.fixture
@@ -87,24 +98,26 @@ async def fill_mongo_with_test_data():
             data = json.loads(line)
             model_class = MongoEntryNameToMongoEntry[data["model_type"]]
             model_instance = model_class(**data["data"])
-            model_instance.save()
+            await model_instance.save()
 
-    # Don't yield, since this function just fills docker mongo instance.
-    # FastApi/Ml app will open its own connection to it
+    yield
 
     motor_client.close()
 
 
 @pytest.fixture(scope="session")
-def api_client(fill_mongo_with_test_data):
-    return TestClient(api_app)
+async def init_ml_data(fill_mongo_with_test_data, mock_ml_service_client):
+    for source in (InfoSources.hotel, InfoSources.eduwiki, InfoSources.campuslife, InfoSources.residents):
+        await run_parse_route(section=source, parsing_is_needed=False, indexing_is_needed=True)
+
+
+@pytest.fixture(scope="session")
+async def api_client(fill_mongo_with_test_data):
+    async with AsyncClient(transport=ASGITransport(app=api_app), base_url="http://test") as client:
+        yield client
 
 
 @pytest.fixture(scope="session")
 async def ml_client(fill_mongo_with_test_data):
-    client = TestClient(ml_app)
-
-    for source in (InfoSources.hotel, InfoSources.eduwiki, InfoSources.campuslife, InfoSources.residents):
-        await run_parse_route(section=source, parsing_is_needed=False, indexing_is_needed=True)
-
-    return client
+    async with AsyncClient(transport=ASGITransport(app=ml_app), base_url="http://test") as client:
+        yield client
