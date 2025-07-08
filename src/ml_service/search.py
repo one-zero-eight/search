@@ -3,7 +3,7 @@ import time
 
 import lancedb
 import pandas as pd
-from langdetect import detect
+from langdetect import DetectorFactory, detect
 from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
 
 from src.api.logging_ import logger
@@ -15,12 +15,20 @@ model_name = "facebook/m2m100_418M"
 tokenizer = M2M100Tokenizer.from_pretrained(model_name)
 model = M2M100ForConditionalGeneration.from_pretrained(model_name)
 
+DetectorFactory.seed = 0
+
 
 def translate_to_russian(text: str) -> str:
     tokenizer.src_lang = "en"
     encoded = tokenizer(text, return_tensors="pt")
     generated = model.generate(**encoded, forced_bos_token_id=tokenizer.get_lang_id("ru"))
     return tokenizer.batch_decode(generated, skip_special_tokens=True)[0]
+
+
+def normalize_lang(lang: str | None) -> str:
+    if lang and lang.lower().startswith("ru"):
+        return "ru"
+    return "en"
 
 
 async def search_pipeline(
@@ -33,13 +41,16 @@ async def search_pipeline(
 
     original_query = query
     try:
-        query_lang = detect(query)
+        raw_lang = detect(query)
     except Exception as e:
         logger.warning(f"🌐 Language detection failed: {e}")
-        query_lang = None
+        raw_lang = None
+
+    query_lang = normalize_lang(raw_lang)
+    logger.info(f"🔤 Normalized query language: {query_lang}")
 
     if query_lang == "en" and InfoSources.residents in resources:
-        logger.info("🌍 English query + 'residents' → переводим на русский")
+        logger.info("🌍 English query + 'residents' → Translate to Russian")
         search_query = translate_to_russian(query)
         logger.info(f"📝 Translated query: {search_query}")
     else:
@@ -172,8 +183,8 @@ async def search_pipeline(
     )
 
     # Results are already sorted by cross encoder scores (highest first)
-    lang_map = {"en": "English", "ru": "Russian", "fr": "French"}
-    query_lang_name = lang_map.get(query_lang, "the same language as the input question")
+    lang_map = {"en": "English", "ru": "Russian"}
+    query_lang_name = lang_map.get(query_lang, "strictly in the same language as the input question")
 
     return {
         "results": all_results,
