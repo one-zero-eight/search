@@ -1,0 +1,31 @@
+myuni:
+  - source_page_title: "MyUni Dashboard"
+    source_url: https://my.university.innopolis.ru/profile
+    content: "# MyUni Dashboard\n\n\nThis source page provides a structured overview of a student's academic profile and university services at Innopolis University.\n"
+  - source_page_title: "Gradebook"
+    source_url: https://my.university.innopolis.ru/profile/personal-form/index?tab=validations
+    content: "# Gradebook\n\n\nThis source page describes the structure and content of a student gradebook for the academic year. The data is presented in a tabular format showing course performance across semesters.\n\n"
+  - source_page_title: "Scholarship"
+    source_url: https://my.university.innopolis.ru/profile/personal-form/index?tab=scholarship
+    content: "# Scholarship\n\n\nThis source page presents a student's scholarship culculation using the Innopolis University's formula.\n\n"
+  - source_page_title: "Higher scholarship"
+    source_url: https://my.university.innopolis.ru/profile/student-achievements
+    content: "# Higher scholarship\n\n\nThis source page allows to submit achievement-based scholarship applications at Innopolis University.\n\n"
+  - source_page_title: "Financial Request for Support"
+    source_url: https://my.university.innopolis.ru/profile/ext-event-requests
+    content: "# Financial Request for Support\n\n\nThis source page contains guidelines for students applying for financial support to participate in external academic/professional events at Innopolis University.\n\n"
+  - source_page_title: "Request on a reference"
+    source_url: https://my.university.innopolis.ru/profile/edu-certs/create
+    content: "# Request on a reference\n\n\nThis source page allows students to order official university references/transcripts through a digital portal.\n"
+  - source_page_title: "Applications"
+    source_url: https://my.university.innopolis.ru/profile/applications
+    content: "# Applications\n\n\nThis source page provides downloadable application forms for various administrative processes at the university, available in both English and Russian.\n\n"
+  - source_page_title: "MyUni Room Booking"
+    source_url: https://my.university.innopolis.ru/profile/room-booking
+    content: "# MyUni Room Booking\n\n\nThis source page allows users to book rooms at the university, view active bookings and display room capacities and existing bookings in a calendar format.\n\n"
+  - source_page_title: "Enrollment documents"
+    source_url: https://my.university.innopolis.ru/app/enrollee-docs-form
+    content: "# Enrollment documents\n\n\nThis source page provides downloadable application forms and consent documents for university admission processes, primarily targeting grant applicants and personal data management.\n\n"
+  - source_page_title: "Employment report"
+    source_url: https://my.university.innopolis.ru/app/graduate-form
+    content: "# Employment report\n\n\nThis source page collects employment verification data from graduates for university records and alumni tracking purposes.\n\n"

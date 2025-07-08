@@ -116,6 +116,11 @@ class MapsSource(SiteBaseSource):
     breadcrumbs: list[str] = ["Maps"]
 
 
+class ResourcesSource(SiteBaseSource):
+    type: Literal[InfoSources.resources] = InfoSources.resources
+    breadcrumbs: list[str] = ["Resources"]
+
+
 Sources = Annotated[
     EduwikiSource
     | CampusLifeSource
@@ -125,7 +130,8 @@ Sources = Annotated[
     | MoodleUrlSource
     | MoodleUnknownSource
     | TelegramSource
-    | ResidentsSource,
+    | ResidentsSource
+    | ResourcesSource,
     Discriminator("type"),
 ]
 
