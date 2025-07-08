@@ -116,14 +116,9 @@ class MapsSource(SiteBaseSource):
     breadcrumbs: list[str] = ["Maps"]
 
 
-class MyUniSource(SiteBaseSource):
-    type: Literal[InfoSources.myuni] = InfoSources.myuni
-    breadcrumbs: list[str] = ["MyUni"]
-
-
-class InNoHassleSource(SiteBaseSource):
-    type: Literal[InfoSources.innohassle] = InfoSources.innohassle
-    breadcrumbs: list[str] = ["InNoHassle"]
+class ResourcesSource(SiteBaseSource):
+    type: Literal[InfoSources.resources] = InfoSources.resources
+    breadcrumbs: list[str] = ["Resources"]
 
 
 Sources = Annotated[
@@ -136,8 +131,7 @@ Sources = Annotated[
     | MoodleUnknownSource
     | TelegramSource
     | ResidentsSource
-    | MyUniSource
-    | InNoHassleSource,
+    | ResourcesSource,
     Discriminator("type"),
 ]
 

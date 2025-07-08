@@ -12,13 +12,12 @@ from src.modules.search.schemas import (
     CampusLifeSource,
     EduwikiSource,
     HotelSource,
-    InNoHassleSource,
     MapsSource,
     MoodleFileSource,
     MoodleUnknownSource,
     MoodleUrlSource,
-    MyUniSource,
     ResidentsSource,
+    ResourcesSource,
     SearchResponse,
     SearchResponses,
     Sources,
@@ -29,11 +28,10 @@ from src.storages.mongo import (
     CampusLifeEntry,
     EduWikiEntry,
     HotelEntry,
-    InNoHassleEntry,
     MapsEntry,
     MoodleEntry,
-    MyUniEntry,
     ResidentsEntry,
+    ResourcesEntry,
 )
 from src.storages.mongo.moodle import MoodleContentSchema
 
@@ -86,10 +84,8 @@ class SearchRepository:
                 _MongoEntryClass = MapsEntry
             elif section == InfoSources.residents:
                 _MongoEntryClass = ResidentsEntry
-            elif section == InfoSources.myuni:
-                _MongoEntryClass = MyUniEntry
-            elif section == InfoSources.innohassle:
-                _MongoEntryClass = InNoHassleEntry
+            elif section == InfoSources.resources:
+                _MongoEntryClass = ResourcesEntry
             else:
                 assert_never(section)
         except KeyError:
@@ -162,9 +158,7 @@ class SearchRepository:
                         ),
                     )
                 )
-            elif isinstance(
-                inner, (CampusLifeEntry | HotelEntry | EduWikiEntry | ResidentsEntry | MyUniEntry | InNoHassleEntry)
-            ):
+            elif isinstance(inner, (CampusLifeEntry | HotelEntry | EduWikiEntry | ResidentsEntry | ResourcesEntry)):
                 if isinstance(inner, CampusLifeEntry):
                     _SourceModel = CampusLifeSource
                 elif isinstance(inner, HotelEntry):
@@ -173,10 +167,8 @@ class SearchRepository:
                     _SourceModel = EduwikiSource
                 elif isinstance(inner, ResidentsEntry):
                     _SourceModel = ResidentsSource
-                elif isinstance(inner, MyUniEntry):
-                    _SourceModel = MyUniSource
-                elif isinstance(inner, InNoHassleEntry):
-                    _SourceModel = InNoHassleSource
+                elif isinstance(inner, ResourcesEntry):
+                    _SourceModel = ResourcesSource
                 elif isinstance(inner, ResidentsEntry):
                     _SourceModel = ResidentsSource
                 else:
@@ -251,8 +243,7 @@ class SearchRepository:
                 InfoSources.campuslife,
                 InfoSources.hotel,
                 InfoSources.residents,
-                InfoSources.myuni,
-                InfoSources.innohassle,
+                InfoSources.resources,
             ):
                 if res_item.resource == InfoSources.eduwiki:
                     _MongoEntryClass = EduWikiEntry
@@ -266,12 +257,9 @@ class SearchRepository:
                 elif res_item.resource == InfoSources.residents:
                     _MongoEntryClass = ResidentsEntry
                     _SourceModel = ResidentsSource
-                elif res_item.resource == InfoSources.myuni:
-                    _MongoEntryClass = MyUniEntry
-                    _SourceModel = MyUniSource
-                elif res_item.resource == InfoSources.innohassle:
-                    _MongoEntryClass = InNoHassleEntry
-                    _SourceModel = InNoHassleSource
+                elif res_item.resource == InfoSources.resources:
+                    _MongoEntryClass = ResourcesEntry
+                    _SourceModel = ResourcesSource
                 else:
                     assert_never(res_item.resource)
                 mongo_entry = await _MongoEntryClass.get(res_item.mongo_id)

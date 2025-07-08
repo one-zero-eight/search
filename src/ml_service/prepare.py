@@ -73,8 +73,7 @@ async def prepare_resource(resource: InfoSources, docs: list[dict]):
             InfoSources.eduwiki,
             InfoSources.hotel,
             InfoSources.residents,
-            InfoSources.myuni,
-            InfoSources.innohassle,
+            InfoSources.resources,
         ]:
             res = await prepare_large(doc)
         else:

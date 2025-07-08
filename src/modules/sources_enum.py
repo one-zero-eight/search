@@ -5,11 +5,10 @@ from src.storages.mongo import (
     CampusLifeEntry,
     EduWikiEntry,
     HotelEntry,
-    InNoHassleEntry,
     MapsEntry,
     MoodleEntry,
-    MyUniEntry,
     ResidentsEntry,
+    ResourcesEntry,
 )
 from src.storages.mongo.__base__ import CustomDocument
 
@@ -23,8 +22,7 @@ class InfoSources(StrEnum):
     hotel = "hotel"
     maps = "maps"
     residents = "residents"
-    myuni = "myuni"
-    innohassle = "innohassle"
+    resources = "resources"
 
 
 ALL_SOURCES = list(InfoSources)
@@ -36,8 +34,7 @@ InfoSourcesToMongoEntry: Final[dict[InfoSources, type[CustomDocument]]] = {
     InfoSources.hotel: HotelEntry,
     InfoSources.maps: MapsEntry,
     InfoSources.residents: ResidentsEntry,
-    InfoSources.myuni: MyUniEntry,
-    InfoSources.innohassle: InNoHassleEntry,
+    InfoSources.resources: ResourcesEntry,
 }
 
 InfoSourcesToMongoEntryName: Final[dict[InfoSources, str]] = {
@@ -47,6 +44,5 @@ InfoSourcesToMongoEntryName: Final[dict[InfoSources, str]] = {
     InfoSources.hotel: "HotelEntry",
     InfoSources.maps: "MapsEntry",
     InfoSources.residents: "ResidentsEntry",
-    InfoSources.myuni: "MyUniEntry",
-    InfoSources.innohassle: "InNoHassleEntry",
+    InfoSources.resources: "ResourcesEntry",
 }

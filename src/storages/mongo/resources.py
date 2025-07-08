@@ -5,13 +5,13 @@ from src.custom_pydantic import CustomModel
 from src.storages.mongo.__base__ import CustomDocument
 
 
-class InNoHassleEntrySchema(CustomModel):
+class ResourcesEntrySchema(CustomModel):
     source_url: str
     source_page_title: str
     content: str
 
 
-class InNoHassleEntry(InNoHassleEntrySchema, CustomDocument):
+class ResourcesEntry(ResourcesEntrySchema, CustomDocument):
     class Settings:
         indexes = [
             IndexModel(
