@@ -1,7 +1,0 @@
-food:
-  - title: "Столовая MATRIX"
-    places:
-      - address: "ул. Университетская, 1 (Университет Иннополис)"
-        schedule: "08:00-20:00"
-    channel: "@matrixfood"
-    order: ""
