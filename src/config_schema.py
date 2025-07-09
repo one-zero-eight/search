@@ -156,6 +156,9 @@ class MlServiceSettings(CustomModel):
     rerank_threshold: float = 0.0
     "Rerank Threshold"
 
+    api_music_url: str = "https://api.innohassle.ru/music-room/v0"
+    "URL of ml service API music-room"
+
 
 class Settings(CustomModel):
     schema_: str = Field(None, alias="$schema")

@@ -14,7 +14,7 @@ from infinity_client.models import (
 
 from src.config import settings
 
-i_client = Client(base_url=settings.ml_service.infinity_url)
+i_client = Client(base_url=settings.ml_service.infinity_url, raise_on_unexpected_status=True)
 
 task_prefix = {
     "jinaai/jina-embeddings-v3": {

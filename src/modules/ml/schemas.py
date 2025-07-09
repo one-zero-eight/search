@@ -59,3 +59,20 @@ class MLAskResponse(CustomModel):
 
     answer: str
     search_result: MLSearchResult
+
+
+class MLActRequest(CustomModel):
+    """
+    Task for ML service: RAG-act
+    """
+
+    query: str
+    user_token: str | None = None
+
+class MLActResponse(CustomModel):
+    """
+    Task for ML service: RAG-act
+    """
+
+    answer: str
+    tool_calls: list | None
