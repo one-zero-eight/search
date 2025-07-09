@@ -18,17 +18,6 @@ from src.storages.mongo import MoodleEntry
 from src.storages.mongo.moodle import MoodleContentSchema
 
 
-@pytest.fixture(autouse=True)
-async def mock_ml_service_client(ml_client):
-    """Mock that returns our test client"""
-
-    def mock():
-        return ml_client
-
-    with patch("src.modules.ml.ml_client.get_ml_service_client", new=mock):
-        yield
-
-
 @pytest.fixture
 def mock_minio_settings():
     with patch("src.modules.minio.repository.settings") as mock:
@@ -106,7 +95,7 @@ async def fill_mongo_with_test_data():
 
 
 @pytest.fixture(scope="session")
-async def init_ml_data(fill_mongo_with_test_data, mock_ml_service_client):
+async def init_ml_data(fill_mongo_with_test_data, ml_client):
     for source in (InfoSources.hotel, InfoSources.eduwiki, InfoSources.campuslife, InfoSources.residents):
         await run_parse_route(section=source, parsing_is_needed=False, indexing_is_needed=True)
 
@@ -119,5 +108,9 @@ async def api_client(fill_mongo_with_test_data):
 
 @pytest.fixture(scope="session")
 async def ml_client(fill_mongo_with_test_data):
-    async with AsyncClient(transport=ASGITransport(app=ml_app), base_url="http://test") as client:
-        yield client
+    def mock():
+        return AsyncClient(transport=ASGITransport(app=ml_app), base_url="http://test")
+
+    # TODO: patch every `get_ml_service_client` usage
+    with patch("src.modules.parsers.routes.get_ml_service_client", new=mock):
+        yield

@@ -12,7 +12,7 @@ echo "All docker containers has been successfully launched"
 
 echo "Running tests..."
 if ! poetry run pytest -s --asyncio-mode=auto --cov-config=.coveragerc --cov=src/ tests/; then
-  docker compose -f docker-compose.test.yaml down
+  docker compose -f docker-compose.test.yaml down -v
   echo "Ahtung! some tests are failed"
   exit 1
 fi
@@ -20,7 +20,7 @@ fi
 echo "Successfully run tests"
 
 echo "Stopping docker compose..."
-if ! docker compose -f docker-compose.test.yaml down; then
+if ! docker compose -f docker-compose.test.yaml down -v; then
   echo "Something went wrong when stopping docker containers"
   exit 1
 fi

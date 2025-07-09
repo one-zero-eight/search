@@ -5,7 +5,7 @@ from src.modules.sources_enum import InfoSources
 
 
 @pytest.mark.asyncio
-async def test_search_interaction(api_client, ml_client, monkeypatch):
+async def test_search_interaction(api_client, ml_client, init_ml_data):
     # Test only interaction for sources like eduwiki, hotel, etc.
     # TODO: test moodle(will require mocking minio and auth APIs)
 

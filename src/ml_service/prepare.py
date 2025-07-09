@@ -56,9 +56,7 @@ async def prepare_large(doc: dict):
 
 
 async def prepare_resource(resource: InfoSources, docs: list[dict]):
-    print("11111111111111111111")
     lance_db = await lancedb.connect_async(settings.ml_service.lancedb_uri)
-    print("222222222222222222")
     table_name = f"chunks_{resource}"
     arrow_schema = Schema.to_arrow_schema()
 
