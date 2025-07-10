@@ -151,6 +151,8 @@ async def search_pipeline(
         # Create reranked results based on cross encoder rankings
         reranked_results = []
         for ranking in rankings:
+            if ranking.relevance_score < settings.ml_service.rerank_threshold:
+                continue
             original_result = all_results[ranking.index]
             reranked_results.append(
                 {
@@ -160,7 +162,6 @@ async def search_pipeline(
                     "content": clean_text(original_result["content"]),
                 }
             )
-
         all_results = reranked_results
         logger.info(f"🔄 Cross encoder reranking completed for {len(all_results)} results")
 

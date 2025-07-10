@@ -1,7 +1,9 @@
 import asyncio
 
 from openai import AsyncOpenAI
+from openai.types.chat import ChatCompletionSystemMessageParam, ChatCompletionUserMessageParam
 
+from src.api.logging_ import logger
 from src.config import settings
 
 from .prompt import build_prompt
@@ -20,13 +22,20 @@ async def generate_answer(
     prompt = build_prompt(
         question,
         contexts,
-        settings.ml_service.system_prompt,
         lang_name,
     )
+    messages = [
+        ChatCompletionSystemMessageParam(role="system", content=settings.ml_service.system_prompt),
+        ChatCompletionUserMessageParam(role="user", content=prompt),
+    ]
+
+    logger.info(f"system prompt: {messages[0]['content']}")
+    logger.info(f"user prompt: {messages[1]['content']}")
+
     resp = await client.chat.completions.create(
         model=settings.ml_service.llm_model,
-        messages=[{"role": "user", "content": prompt}],
-        max_tokens=512,
+        messages=messages,
+        max_tokens=2048,
         temperature=0.4,
         top_p=1.0,
     )
