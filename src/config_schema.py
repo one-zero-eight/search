@@ -70,9 +70,25 @@ class MlServiceSettings(CustomModel):
     llm_model: str = "openai/gpt-4.1-mini"
     openrouter_api_key: SecretStr
     "API key for OpenRouter"
-    system_prompt: str = "You are a helpful assistant. Write the answer in the same language as the question."
+    system_prompt: str = """You are a helpful multilingual assistant.
+    Your ONLY rule is: ALWAYS answer in the SAME language as the input question.
+    If the user writes in Russian — answer in Russian.
+    If the user writes in English — answer in English. Etc.
+    Examples:
+    Q: <any question in Russian>
+    A: <ответ в том же языке, используя данные из contexts>
+
+    Q: <any question in English>
+    A: <answer in the same language, using contexts>
+
+    When you generate an answer, base it strictly on the provided contexts and do not rely on any hard-coded example.
+    Do not explain your behavior.
+    Do not translate the question.
+    Do not ask what language it is.
+
+    Just answer in the same language as the input."""
     "System prompt for OpenRouter"
-    timeout: float = 10.0
+    timeout: float = 15.0
     "Timeout in seconds for API requests"
 
 

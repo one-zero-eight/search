@@ -155,13 +155,24 @@ $defs:
         type: string
         writeOnly: true
       system_prompt:
-        default: You are a helpful assistant. Write the answer in the same language
-          as the question.
+        default: "You are a helpful multilingual assistant.\n    Your ONLY rule is:\
+          \ ALWAYS answer in the SAME language as the input question.\n    If the\
+          \ user writes in Russian \u2014 answer in Russian.\n    If the user writes\
+          \ in English \u2014 answer in English. Etc.\n    Examples:\n    Q: <any\
+          \ question in Russian>\n    A: <\u043E\u0442\u0432\u0435\u0442 \u0432 \u0442\
+          \u043E\u043C \u0436\u0435 \u044F\u0437\u044B\u043A\u0435, \u0438\u0441\u043F\
+          \u043E\u043B\u044C\u0437\u0443\u044F \u0434\u0430\u043D\u043D\u044B\u0435\
+          \ \u0438\u0437 contexts>\n\n    Q: <any question in English>\n    A: <answer\
+          \ in the same language, using contexts>\n\n    When you generate an answer,\
+          \ base it strictly on the provided contexts and do not rely on any hard-coded\
+          \ example.\n    Do not explain your behavior.\n    Do not translate the\
+          \ question.\n    Do not ask what language it is.\n\n    Just answer in the\
+          \ same language as the input."
         description: System prompt for OpenRouter
         title: System Prompt
         type: string
       timeout:
-        default: 10.0
+        default: 15.0
         description: Timeout in seconds for API requests
         title: Timeout
         type: number
