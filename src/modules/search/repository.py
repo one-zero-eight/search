@@ -158,17 +158,25 @@ class SearchRepository:
                         ),
                     )
                 )
-            elif isinstance(inner, (CampusLifeEntry | HotelEntry | EduWikiEntry | ResidentsEntry | ResourcesEntry)):
+            elif isinstance(inner, ResourcesEntry):
+                responses.append(
+                    SearchResponse(
+                        score=e.score,
+                        source=ResourcesSource(
+                            display_name=inner.title,
+                            preview_text=inner.content,
+                            url=inner.location_url,
+                            resource_type=inner.resource_type,
+                        ),
+                    )
+                )
+            elif isinstance(inner, (CampusLifeEntry | HotelEntry | EduWikiEntry | ResidentsEntry)):
                 if isinstance(inner, CampusLifeEntry):
                     _SourceModel = CampusLifeSource
                 elif isinstance(inner, HotelEntry):
                     _SourceModel = HotelSource
                 elif isinstance(inner, EduWikiEntry):
                     _SourceModel = EduwikiSource
-                elif isinstance(inner, ResidentsEntry):
-                    _SourceModel = ResidentsSource
-                elif isinstance(inner, ResourcesEntry):
-                    _SourceModel = ResourcesSource
                 elif isinstance(inner, ResidentsEntry):
                     _SourceModel = ResidentsSource
                 else:
@@ -238,12 +246,27 @@ class SearchRepository:
                             ),
                         )
                     )
+            elif res_item.resource == InfoSources.resources:
+                mongo_entry = await ResourcesEntry.get(res_item.mongo_id)
+                if mongo_entry is None:
+                    logger.warning(f"mongo_entry is None: {res_item}")
+                else:
+                    responses.append(
+                        SearchResponse(
+                            score=res_item.score,
+                            source=ResourcesSource(
+                                display_name=mongo_entry.source_page_title,
+                                preview_text=clean_text(res_item.content),
+                                url=mongo_entry.source_url,
+                                resource_type=mongo_entry.resource_type,
+                            ),
+                        )
+                    )
             elif res_item.resource in (
                 InfoSources.eduwiki,
                 InfoSources.campuslife,
                 InfoSources.hotel,
                 InfoSources.residents,
-                InfoSources.resources,
             ):
                 if res_item.resource == InfoSources.eduwiki:
                     _MongoEntryClass = EduWikiEntry
@@ -257,9 +280,6 @@ class SearchRepository:
                 elif res_item.resource == InfoSources.residents:
                     _MongoEntryClass = ResidentsEntry
                     _SourceModel = ResidentsSource
-                elif res_item.resource == InfoSources.resources:
-                    _MongoEntryClass = ResourcesEntry
-                    _SourceModel = ResourcesSource
                 else:
                     assert_never(res_item.resource)
                 mongo_entry = await _MongoEntryClass.get(res_item.mongo_id)
