@@ -5,7 +5,7 @@ from src.storages.mongo.maps import MapsEntrySchema
 
 def parse():
     result = []
-    response = requests.get("https://api.innohassle.ru/maps/v0/scenes/").json()
+    response = requests.get("https://api.innohassle.ru/maps/v0/scenes/", verify=False).json()
 
     for scene in response:
         scene_str = f"# {scene['title']}\n"
