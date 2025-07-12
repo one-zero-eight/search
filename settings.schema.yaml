@@ -120,12 +120,12 @@ $defs:
         - http://127.0.0.1:7997
         title: Infinity Url
       bi_encoder:
-        default: jinaai/jina-embeddings-v3
+        default: intfloat/multilingual-e5-large-instruct
         description: Model to use for embeddings (should be available on Infinity)
         title: Bi Encoder
         type: string
       bi_encoder_dim:
-        default: 768
+        default: 1024
         description: Dimension of the bi-encoder
         title: Bi Encoder Dim
         type: integer

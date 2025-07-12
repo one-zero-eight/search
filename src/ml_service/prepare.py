@@ -21,7 +21,7 @@ class Schema(LanceModel):
 
 
 chunker = TokenChunker(
-    tokenizer="jinaai/jina-embeddings-v3",
+    tokenizer=settings.ml_service.bi_encoder,
     chunk_size=512,
     chunk_overlap=128,
     return_type="texts",
@@ -31,9 +31,7 @@ chunker = TokenChunker(
 async def prepare_maps(doc: list[dict]):
     if "location_url" in doc and "scene_id" in doc and "area_id" in doc:
         url_escaped = html.escape(doc["location_url"], quote=True)
-        scene_id = doc["scene_id"]
-        area_id = doc["area_id"]
-        prefix = f'<chunk chunk_number=0 location_url="{url_escaped}" scene_id="{scene_id}" area_id="{area_id}">'
+        prefix = f'<chunk chunk_number=0 location_url="{url_escaped}" hint="This is a entry pointing to some room in Innopolis University">'
         chunk = clean_text(doc.get("content", ""))
         prefixed_chunk = prefix + chunk
     return [prefixed_chunk]

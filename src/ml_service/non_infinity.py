@@ -18,14 +18,27 @@ cross_encoder = CrossEncoder(
     trust_remote_code=True,
 )
 
+model_x_task = {
+    "jinaai/jina-embeddings-v3": {
+        "query": "retrieval.query",
+        "passage": "retrieval.passage",
+    }
+}
+
+task_prefix = {
+    "intfloat/multilingual-e5-large-instruct": {
+        "query": "Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery: ",
+        "passage": "",
+    },
+}
+
 
 async def embed(texts: list[str], task: Literal["query", "passage"]) -> list[np.ndarray]:
-    return bi_encoder.encode(
-        texts,
-        convert_to_numpy=True,
-        task=f"retrieval.{task}",
-        prompt_name=f"retrieval.{task}",
-    )
+    prefix = task_prefix.get(settings.ml_service.bi_encoder, {}).get(task)
+    if prefix:
+        texts = [f"{prefix}{text}" for text in texts]
+    task = model_x_task.get(settings.ml_service.bi_encoder, {}).get(task)
+    return bi_encoder.encode(texts, convert_to_numpy=True, task=task, prompt_name=task)
 
 
 @dataclass

@@ -56,9 +56,9 @@ class MlServiceSettings(CustomModel):
     "URI of the LanceDB database"
     infinity_url: str | None = Field(None, examples=["http://127.0.0.1:7997"])
     "URL of the deployed Infinity engine API, if not provided, use local models"
-    bi_encoder: str = "jinaai/jina-embeddings-v3"
+    bi_encoder: str = "intfloat/multilingual-e5-large-instruct"
     "Model to use for embeddings (should be available on Infinity)"
-    bi_encoder_dim: int = 768
+    bi_encoder_dim: int = 1024
     "Dimension of the bi-encoder"
     bi_encoder_search_limit_per_table: int = 10
     "Limit for the number of results from the bi-encoder"

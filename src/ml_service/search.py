@@ -122,6 +122,8 @@ async def search_pipeline(
     logger.info(f"🔍 Found {len(all_results)} results")
 
     # Rerank with cross encoder
+    for r in all_results:
+        logger.info(r)
     cross_encoder_time = 0
     if all_results:
         logger.info("🔄 Reranking with cross encoder...")
