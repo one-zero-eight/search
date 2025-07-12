@@ -30,8 +30,36 @@ class AskRepository:
             except httpx.HTTPError as e:
                 logger.exception(f"Got http error from ML service: {repr(e)}", exc_info=True)
                 raise HTTPException(status_code=502, detail=f"ML service error: {e}")
+
         ml_ask_response = MLAskResponse.model_validate(resp.json())
-        search_responses = await search_repository._process_ml_results(ml_ask_response.search_result, request=request)
+
+        search_responses = await search_repository._process_ml_results(
+            ml_ask_response.search_result,
+            request=request,
+        )
+
+        no_info_patterns = [
+            # English
+            "there is no",
+            "no information",
+            "does not contain information",
+            "i do not know",
+            "sorry",
+            "the letter",
+            "does not have a specific meaning",
+            "please provide",
+            # Russian
+            "нет информации",
+            "не содержат информации",
+            "я не знаю",
+            "извините",
+            "уточните вопрос",
+            "сведения отсутствуют",
+        ]
+        answer_lc = ml_ask_response.answer.strip().lower()
+        if any(phrase in answer_lc for phrase in no_info_patterns):
+            search_responses = []
+
         return AskResponses(
             query=query,
             answer=ml_ask_response.answer,

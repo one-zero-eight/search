@@ -36,7 +36,7 @@ async def generate_answer(
         model=settings.ml_service.llm_model,
         messages=messages,
         max_tokens=2048,
-        temperature=0.4,
+        temperature=0.2,
         top_p=1.0,
     )
     return resp.choices[0].message.content
