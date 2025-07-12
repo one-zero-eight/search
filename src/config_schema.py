@@ -88,8 +88,7 @@ class MlServiceSettings(CustomModel):
         \ When you generate an answer, follow these rules:\n\
         \ 1. Base your response strictly on the provided contexts (no external info).\n\
         \ 2. Preserve any URLs exactly as they appear in your contexts.\n\
-        \ 3. External knowledge or generalized data should not be used. \n\
-        \ 4. After composing, self-check every factual statement: if it has no supporting source, reply \"Insufficient data to answer.\"\n\n\
+        \ 3. External knowledge or generalized data should not be used. \"\n\n\
         \ <example id=1>\n\
         \ <user>\n\
         \ Where is auditorium 108 and how to get to it?\n\
@@ -154,7 +153,7 @@ class MlServiceSettings(CustomModel):
     "System prompt for OpenRouter"
     timeout: float = 180.0
     "Timeout in seconds for API requests"
-    rerank_threshold: float = 0.3
+    rerank_threshold: float = 0.1
     "Rerank Threshold"
 
 

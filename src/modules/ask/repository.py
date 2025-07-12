@@ -33,10 +33,10 @@ class AskRepository:
 
         ml_ask_response = MLAskResponse.model_validate(resp.json())
 
-        search_responses = await search_repository._process_ml_results(
-            ml_ask_response.search_result,
-            request=request,
-        )
+        # search_responses = await search_repository._process_ml_results(
+        #    ml_ask_response.search_result,
+        #    request=request,
+        # )
 
         no_info_patterns = [
             # English
@@ -59,6 +59,11 @@ class AskRepository:
         answer_lc = ml_ask_response.answer.strip().lower()
         if any(phrase in answer_lc for phrase in no_info_patterns):
             search_responses = []
+        else:
+            search_responses = await search_repository._process_ml_results(
+                ml_ask_response.search_result,
+                request=request,
+            )
 
         return AskResponses(
             query=query,
