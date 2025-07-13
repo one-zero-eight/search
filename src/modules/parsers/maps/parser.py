@@ -5,7 +5,7 @@ from src.storages.mongo.maps import MapsEntrySchema
 
 def parse():
     result = []
-    response = requests.get("https://api.innohassle.ru/maps/v0/scenes/").json()
+    response = requests.get("https://api.innohassle.ru/maps/v0/scenes/", verify=False).json()
 
     for scene in response:
         scene_str = f"# {scene['title']}\n"
@@ -21,14 +21,14 @@ def parse():
             if area["people"]:
                 people_str = "**People:** "
                 people_str += f"{', '.join(area['people'][::2])}  \n"
-            content = scene_str + area_str + description_str + people_str
+            content = (scene_str + area_str + description_str + people_str).rstrip()
             result.append(
                 MapsEntrySchema(
                     location_url=link_str,
                     scene_id=scene["scene_id"],
                     area_id=area["svg_polygon_id"],
                     content=content,
-                    title=f"Maps: {area['title']} {preposition} {scene['title']}",
+                    title=f"{area['title']} {preposition} {scene['title']}",
                 )
             )
     return result

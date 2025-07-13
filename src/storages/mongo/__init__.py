@@ -8,6 +8,7 @@ from src.storages.mongo.hotel import HotelEntry
 from src.storages.mongo.maps import MapsEntry
 from src.storages.mongo.moodle import MoodleCourse, MoodleEntry
 from src.storages.mongo.residents import ResidentsEntry
+from src.storages.mongo.resources import ResourcesEntry
 from src.storages.mongo.statistics import AskStatistics, SearchStatistics
 from src.storages.mongo.telegram import Message
 
@@ -24,6 +25,7 @@ document_models = cast(
         EduWikiEntry,
         HotelEntry,
         MapsEntry,
+        ResourcesEntry,
         ResidentsEntry,
     ],
 )

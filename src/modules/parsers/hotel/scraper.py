@@ -5,6 +5,8 @@ from urllib.parse import urljoin, urlparse
 import requests
 from bs4 import BeautifulSoup
 
+START_URL = "https://hotel.innopolis.university/"
+
 
 def fetch_html(url: str, timeout: int) -> str:
     """
@@ -38,6 +40,9 @@ def find_internal_links(soup: BeautifulSoup, base_url: str, domain: str) -> dict
         if href.startswith(("mailto:", "tel:", "#")):
             continue
         full = urljoin(base_url, href)
+
+        a["href"] = full
+
         p = urlparse(full)
         if p.netloc != domain:
             continue
@@ -49,7 +54,6 @@ def find_internal_links(soup: BeautifulSoup, base_url: str, domain: str) -> dict
         slug = path.lstrip("/").replace("/", "_")
         fname = f"{slug}.md"
         links[full] = fname
-        a["href"] = fname
     return links
 
 

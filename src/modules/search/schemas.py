@@ -5,6 +5,7 @@ from beanie import PydanticObjectId
 from pydantic import Discriminator, model_validator
 
 from src.custom_pydantic import CustomModel
+from src.modules.resources_types_enum import Resources
 from src.modules.sources_enum import InfoSources
 
 
@@ -116,6 +117,12 @@ class MapsSource(SiteBaseSource):
     breadcrumbs: list[str] = ["Maps"]
 
 
+class ResourcesSource(SiteBaseSource):
+    type: Literal[InfoSources.resources] = InfoSources.resources
+    resource_type: Resources
+    breadcrumbs: list[str] = ["Resources"]
+
+
 Sources = Annotated[
     EduwikiSource
     | CampusLifeSource
@@ -125,7 +132,8 @@ Sources = Annotated[
     | MoodleUrlSource
     | MoodleUnknownSource
     | TelegramSource
-    | ResidentsSource,
+    | ResidentsSource
+    | ResourcesSource,
     Discriminator("type"),
 ]
 

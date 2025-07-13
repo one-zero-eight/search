@@ -42,8 +42,9 @@ BASIC_RESPONSES = {
 
 @app.post("/search", responses=BASIC_RESPONSES)
 async def search_info(task: MLSearchTask) -> MLSearchResult:
-    results = await search_pipeline(task.query, task.sources, limit=task.limit)
-    return MLSearchResult(result_items=results)
+    stats = await search_pipeline(task.query, task.sources, limit=task.limit)
+    items = stats["results"] if isinstance(stats, dict) else stats
+    return MLSearchResult(result_items=items)
 
 
 @app.post("/lancedb/update/{resource}")

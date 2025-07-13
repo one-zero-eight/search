@@ -17,13 +17,22 @@ from src.modules.search.schemas import (
     MoodleUnknownSource,
     MoodleUrlSource,
     ResidentsSource,
+    ResourcesSource,
     SearchResponse,
     SearchResponses,
     Sources,
     WithScore,
 )
 from src.modules.sources_enum import InfoSources
-from src.storages.mongo import CampusLifeEntry, EduWikiEntry, HotelEntry, MapsEntry, MoodleEntry, ResidentsEntry
+from src.storages.mongo import (
+    CampusLifeEntry,
+    EduWikiEntry,
+    HotelEntry,
+    MapsEntry,
+    MoodleEntry,
+    ResidentsEntry,
+    ResourcesEntry,
+)
 from src.storages.mongo.moodle import MoodleContentSchema
 
 MOODLE_URL = "https://moodle.innopolis.university"
@@ -75,6 +84,8 @@ class SearchRepository:
                 _MongoEntryClass = MapsEntry
             elif section == InfoSources.residents:
                 _MongoEntryClass = ResidentsEntry
+            elif section == InfoSources.resources:
+                _MongoEntryClass = ResourcesEntry
             else:
                 assert_never(section)
         except KeyError:
@@ -147,6 +158,18 @@ class SearchRepository:
                         ),
                     )
                 )
+            elif isinstance(inner, ResourcesEntry):
+                responses.append(
+                    SearchResponse(
+                        score=e.score,
+                        source=ResourcesSource(
+                            display_name=inner.title,
+                            preview_text=inner.content,
+                            url=inner.location_url,
+                            resource_type=inner.resource_type,
+                        ),
+                    )
+                )
             elif isinstance(inner, (CampusLifeEntry | HotelEntry | EduWikiEntry | ResidentsEntry)):
                 if isinstance(inner, CampusLifeEntry):
                     _SourceModel = CampusLifeSource
@@ -186,7 +209,7 @@ class SearchRepository:
                 return SearchResponses(responses=responses, searched_for=query)
             except httpx.HTTPError as e:
                 # Fallback to mongo search
-                logger.warning(f"ML service search failed: {e}")
+                logger.exception(f"ML service search failed: {repr(e)}", exc_info=True)
                 return await self.search_via_mongo(query, sources, request, limit)
 
     async def _process_ml_results(self, results: MLSearchResult, request: Request) -> list[SearchResponse]:
@@ -216,8 +239,26 @@ class SearchRepository:
                             score=res_item.score,
                             source=MapsSource(
                                 display_name=mongo_entry.title,
-                                preview_text=mongo_entry.content,
+                                preview_text="\n".join(mongo_entry.content.splitlines()[2:])
+                                if mongo_entry.content
+                                else "",
                                 url=mongo_entry.location_url,
+                            ),
+                        )
+                    )
+            elif res_item.resource == InfoSources.resources:
+                mongo_entry = await ResourcesEntry.get(res_item.mongo_id)
+                if mongo_entry is None:
+                    logger.warning(f"mongo_entry is None: {res_item}")
+                else:
+                    responses.append(
+                        SearchResponse(
+                            score=res_item.score,
+                            source=ResourcesSource(
+                                display_name=mongo_entry.source_page_title,
+                                preview_text=clean_text(res_item.content),
+                                url=mongo_entry.source_url,
+                                resource_type=mongo_entry.resource_type,
                             ),
                         )
                     )

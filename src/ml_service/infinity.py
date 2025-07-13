@@ -17,13 +17,19 @@ from src.config import settings
 i_client = Client(base_url=settings.ml_service.infinity_url)
 
 task_prefix = {
-    "query": "Represent the query for retrieving evidence documents: ",
-    "passage": "Represent the document for retrieval: ",
+    "jinaai/jina-embeddings-v3": {
+        "query": "Represent the query for retrieving evidence documents: ",
+        "passage": "Represent the document for retrieval: ",
+    },
+    "intfloat/multilingual-e5-large-instruct": {
+        "query": "Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery: ",
+        "passage": "",
+    },
 }
 
 
 async def embed(texts: list[str], task: Literal["query", "passage"]) -> list[np.ndarray]:
-    prefix = task_prefix[task]
+    prefix = task_prefix[settings.ml_service.bi_encoder][task]
     embeds: OpenAIEmbeddingResult = await embeddings.asyncio(
         client=i_client,
         body=OpenAIEmbeddingInputText.from_dict(
@@ -35,6 +41,7 @@ async def embed(texts: list[str], task: Literal["query", "passage"]) -> list[np.
         ),
     )
     query_emb = [np.array(emb.to_dict()["embedding"]) for emb in embeds.data]
+
     return query_emb
 
 
