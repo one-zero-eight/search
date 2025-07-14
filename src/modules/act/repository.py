@@ -11,6 +11,7 @@ from src.api.logging_ import logger
 
 class ActRepository:
     def __init__(self):
+
         self.base_url = settings.ml_service.api_music_url
 
     async def check_availability(
@@ -53,10 +54,14 @@ class ActRepository:
         req: BookingRequest,
         token: str,
     ) -> dict:
+        # Check room availability
         avail = await self.check_availability(req, token)
         if not avail.available:
             return {"available": False, "message": avail.message or "The room is occupied"}
+
+        # Book room
         if req.confirm:
             booking = await self.create_booking(req, token)
             return {"available": True, "booked": True, **booking.dict()}
+
         return {"available": True, "booked": False, "message": avail.message}
