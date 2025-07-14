@@ -95,15 +95,24 @@ class EduWikiParser:
                     a["href"] = urljoin(url, href)
 
             # Extract the table of contents (toc)
-            soup_copy = BeautifulSoup(str(soup), "html.parser")
+            mw_body_div = soup.find("div", class_="mw-body")
+            soup_copy = BeautifulSoup(str(mw_body_div), "html.parser")
 
             toc = soup_copy.find("div", id="toc", class_="toc")
             if toc:
                 sections = {}
-                for a in toc.find_all("a", href=True):
+                for li in toc.select("ul li:not(:has(ul))"):  # Select only li elements that don't contain ul
+                    a = li.find("a", href=True)
+                    if not a:
+                        continue
+
                     href = a["href"]
                     if href.startswith("#"):
                         section_id = href[1:]
+                        section_name = a.get_text(strip=False)
+                        sections[section_id] = section_name
+                    elif href.find("#") != -1:
+                        section_id = href.split("#")[1]
                         section_name = a.get_text(strip=False)
                         sections[section_id] = section_name
 
@@ -132,7 +141,7 @@ class EduWikiParser:
 
                 if prev_pivot_name:
                     prev_pivot = pivots[prev_pivot_name]
-                    content = []
+                    content = [prev_pivot]
                     element = prev_pivot.find_next_sibling()
                     while element:
                         content.append(element)
@@ -150,10 +159,10 @@ class EduWikiParser:
                     yield EduWikiEntrySchema(
                         source_url=url + "#" + section_name, source_page_title=clean_section_title, content=md_content
                     )
-
-            # Оригинальный soup остаётся целым
-            md_content = self._soup_to_markdown(soup, is_content_div=True)
-            yield EduWikiEntrySchema(source_url=url, source_page_title=source_page_title, content=md_content)
+            else:
+                # Оригинальный soup остаётся целым
+                md_content = self._soup_to_markdown(soup_copy, is_content_div=True)
+                yield EduWikiEntrySchema(source_url=url, source_page_title=source_page_title, content=md_content)
 
         except Exception as e:
             # Use of specific logger here is overengineering,
