@@ -38,6 +38,7 @@ class MLAskRequest(CustomModel):
 
     query: str
     sources: list[InfoSources] | None = None
+    user_token: str | None = None
 
 
 class MLContextItem(CustomModel):

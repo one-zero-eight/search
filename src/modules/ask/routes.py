@@ -3,6 +3,7 @@ import time
 
 from fastapi import APIRouter, Body, HTTPException, Request
 
+from src.api.dependencies import VerifiedDep
 from src.api.logging_ import logger
 from src.modules.ask.repository import ask_repository
 from src.modules.ask.schemas import AskResponses
@@ -21,6 +22,7 @@ router = APIRouter(prefix="/ask", tags=["Ask"])
 )
 async def ask_by_query(
     request: Request,
+    _verify: VerifiedDep,
     query: str = Body(..., embed=True),
 ) -> AskResponses:
     start_time = time.monotonic()

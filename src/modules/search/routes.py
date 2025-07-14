@@ -5,6 +5,7 @@ from typing import Literal
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.params import Query
 
+from src.api.dependencies import VerifiedDep
 from src.api.logging_ import logger
 from src.modules.search.repository import search_repository
 from src.modules.search.schemas import SearchResponses
@@ -17,6 +18,7 @@ router = APIRouter(prefix="/search", tags=["Search"])
 @router.get("/search", responses={200: {"description": "Success"}, 408: {"description": "Search timed out"}})
 async def search_by_query(
     request: Request,
+    _verify: VerifiedDep,
     query: str,
     sources: list[InfoSources] = Query(default=[]),
     response_types: list[Literal["pdf", "link_to_source"]] = Query(...),  # Currently ignored

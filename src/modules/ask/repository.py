@@ -9,6 +9,17 @@ from src.modules.search.repository import search_repository
 from src.modules.sources_enum import ALL_SOURCES, InfoSources
 
 
+def get_token(request: Request) -> str | None:
+    headers = request.headers
+    authorization = headers.get("Authorization")
+    if not authorization:
+        return None
+    scheme, _, token = authorization.partition(" ")
+    if scheme.lower() != "bearer" or not token:
+        return None
+    return token
+
+
 class AskRepository:
     async def ask(
         self,
@@ -18,10 +29,8 @@ class AskRepository:
     ) -> AskResponses:
         if not sources:
             sources = ALL_SOURCES
-        body = MLAskRequest(
-            query=query,
-            sources=sources,
-        ).model_dump()
+        token = get_token(request)
+        body = MLAskRequest(query=query, sources=sources, user_token=token).model_dump()
 
         async with get_ml_service_client() as client:
             try:
