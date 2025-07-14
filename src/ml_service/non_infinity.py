@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import Literal
 
 import numpy as np
+import torch
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.cross_encoder import CrossEncoder
 
@@ -16,6 +17,7 @@ cross_encoder = CrossEncoder(
     settings.ml_service.cross_encoder,
     model_kwargs={"torch_dtype": "auto"},
     trust_remote_code=True,
+    device="cuda" if torch.cuda.is_available() else "cpu",
 )
 
 model_x_task = {

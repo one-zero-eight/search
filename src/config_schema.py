@@ -62,7 +62,7 @@ class MlServiceSettings(CustomModel):
     "Dimension of the bi-encoder"
     bi_encoder_search_limit_per_table: int = 10
     "Limit for the number of results from the bi-encoder"
-    cross_encoder: str = "jinaai/jina-reranker-v2-base-multilingual"
+    cross_encoder: str = "BAAI/bge-reranker-v2-m3"
     "Model to use for reranking (should be available on Infinity)"
 
     llm_api_base: str = "https://openrouter.ai/api/v1"
@@ -153,7 +153,7 @@ class MlServiceSettings(CustomModel):
     "System prompt for OpenRouter"
     timeout: float = 180.0
     "Timeout in seconds for API requests"
-    rerank_threshold: float = 0.1
+    rerank_threshold: float = 0.0
     "Rerank Threshold"
 
 
