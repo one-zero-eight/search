@@ -69,9 +69,10 @@ def html_to_markdown(html):
 
     # Handle Tilda-style tables
     for table_div in soup.find_all("div", class_=lambda x: x and re.match(r"t\d+", x)):
-        if md_table := parse_tilda_table(table_div):
-            table_html = BeautifulSoup(f'<div class="markdown-table">{md_table}</div>', "html.parser")
-            table_div.replace_with(table_html)
+        if md_list := parse_tilda_table(table_div):
+            md_list = md_list.replace("\t", "&nbsp;&nbsp;")
+            list_html = BeautifulSoup(f'<div class="markdown-list">\n{md_list}\n</div>', "html.parser")
+            table_div.replace_with(list_html)
 
     # Process structured content sections
     for section in soup.find_all(
@@ -135,6 +136,7 @@ def html_to_markdown(html):
         fragment_html = "".join(str(el) for el in elements)
 
         md_content = markdownify.markdownify(fragment_html, heading_style="ATX")
+        md_content = md_content.replace("\xa0", " ")
         md_content = re.sub(r"\[\s*\|\s*.*?\|\s*\]\(.*?\)", "", md_content, flags=re.DOTALL)
 
         md_content = md_content.replace("\\|", "|").strip()

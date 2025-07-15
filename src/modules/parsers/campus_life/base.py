@@ -1,18 +1,20 @@
 import http.client
 import re
+import ssl
 from urllib.parse import urlparse
 
 from fake_useragent import UserAgent
 
 ua = UserAgent()
 
-BASE_URL = "http://campuslife.innopolis.ru"
+context = ssl._create_unverified_context()
+BASE_URL = "https://www.campuslife.innopolis.ru"
 
 
 def fetch_html(path):
     full_url = f"{BASE_URL}{path}"
     parsed_url = urlparse(full_url)  # we get an object with .netloc, .path, etc.
-    connection = http.client.HTTPConnection(parsed_url.netloc)
+    connection = http.client.HTTPSConnection(parsed_url.netloc, context=context)
     path = parsed_url.path or "/"
 
     headers = {
@@ -59,8 +61,11 @@ def parse_tilda_table(table_div):
                 cols = cols[: len(headers)]
             rows.append(cols)
 
-    md_table = [f"| {' | '.join(headers)} |", f"| {' | '.join(['---'] * len(headers))} |"]
+    md_res = ""
     for row in rows:
-        md_table.append(f"| {' | '.join(row)} |")
+        md_res += f"- {row[0]}\n"
+        for i, el in enumerate(row[1:]):
+            if el:
+                md_res += f"\t- {headers[i + 1]}: {el}\n"
 
-    return "\n".join(md_table)
+    return md_res

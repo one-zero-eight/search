@@ -54,9 +54,11 @@ def html_to_markdown(html: str) -> str:
             div.replace_with(header_tag)
 
     # Convert Tilda tables to Markdown
-    for tbl in soup.find_all("div", class_=lambda x: x and re.match(r"t\d+", x)):
-        if md_table := parse_tilda_table(tbl):
-            tbl.replace_with(BeautifulSoup(f'<div class="markdown-table">{md_table}</div>', "html.parser"))
+    for table_div in soup.find_all("div", class_=lambda x: x and re.match(r"t\d+", x)):
+        if md_list := parse_tilda_table(table_div):
+            md_list = md_list.replace("\t", "&nbsp;&nbsp;")
+            list_html = BeautifulSoup(f'<div class="markdown-list">\n{md_list}\n</div>', "html.parser")
+            table_div.replace_with(list_html)
 
     # Final conversion to Markdown string
     body = soup.body
@@ -173,3 +175,7 @@ def parse():
             print(f"   └─ ❌ Error while parsing {sub_path}: {e}")
 
     return result
+
+
+if __name__ == "__main__":
+    parse()

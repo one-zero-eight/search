@@ -160,7 +160,6 @@ class EduWikiParser:
                         source_url=url + "#" + section_name, source_page_title=clean_section_title, content=md_content
                     )
             else:
-                # Оригинальный soup остаётся целым
                 md_content = self._soup_to_markdown(soup_copy, is_content_div=True)
                 yield EduWikiEntrySchema(source_url=url, source_page_title=source_page_title, content=md_content)
 
@@ -186,10 +185,13 @@ class EduWikiParser:
             img.decompose()
 
         for table in content_div.find_all("table"):
-            md_table: str = self._html_table_to_md(table)
-            table.replace_with(NavigableString(md_table))
+            md_list: str = self._html_table_to_md(table)
+            md_list = md_list.replace("\t", "&nbsp;&nbsp;")
+            table.replace_with(NavigableString(md_list))
 
-        res += markdownify(str(content_div), heading_style="ATX")
+        md = markdownify(str(content_div), heading_style="ATX")
+        md = md.replace("&nbsp;", " ")
+        res += md
 
         return res
 
@@ -199,15 +201,23 @@ class EduWikiParser:
         if not rows:
             return ""
 
-        md_rows = []
+        headers = []
+        content_rows = []
         for i, row in enumerate(rows):
             cols = row.find_all(["td", "th"])
             col_texts = [col.get_text(strip=True) for col in cols]
-            md_rows.append("| " + " | ".join(col_texts) + " |")
             if i == 0:
-                md_rows.append("| " + " | ".join(["---"] * len(cols)) + " |")
+                headers = col_texts
+            else:
+                content_rows.append(col_texts)
 
-        return "\n".join(md_rows) + "\n"
+        md_res = ""
+        for row in content_rows:
+            md_res += f"- {row[0]}\n"
+            for i, el in enumerate(row[1:]):
+                if el:
+                    md_res += f"\t- {headers[i + 1]}: {el}\n"
+        return md_res + "\n"
 
 
 def parse():
