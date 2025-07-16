@@ -69,6 +69,7 @@ class MLActRequest(CustomModel):
     query: str
     user_token: str | None = None
 
+
 class MLActResponse(CustomModel):
     """
     Task for ML service: RAG-act

@@ -8,12 +8,18 @@ from src.api.docs import generate_unique_operation_id
 from src.api.logging_ import logger
 from src.ml_service import docs
 from src.ml_service.lifespan import lifespan
-from src.ml_service.llm import generate_answer, act
+from src.ml_service.llm import act, generate_answer
 from src.ml_service.prepare import prepare_resource
 from src.ml_service.search import search_pipeline
-from src.modules.ml.schemas import MLAskRequest, MLAskResponse, MLSearchResult, MLSearchTask, MLActRequest, MLActResponse
+from src.modules.ml.schemas import (
+    MLActRequest,
+    MLActResponse,
+    MLAskRequest,
+    MLAskResponse,
+    MLSearchResult,
+    MLSearchTask,
+)
 from src.modules.sources_enum import InfoSources
-
 
 # App definition
 app = FastAPI(
@@ -81,10 +87,12 @@ async def ask_llm(request: MLAskRequest) -> MLAskResponse:
 
     return MLAskResponse(answer=answer, search_result=MLSearchResult(result_items=results))
 
+
 @app.post("/act", responses=BASIC_RESPONSES)
 async def llm_act(request: MLActRequest) -> MLActResponse:
     result = await act(request.query, request.user_token)
     return result
+
 
 if __name__ == "__main__":
 

@@ -236,7 +236,7 @@ $defs:
         title: Rerank Threshold
         type: number
       api_music_url:
-        default: https://api.innohassle.ru/music-room/staging-v0
+        default: https://api.innohassle.ru/music-room/v0
         description: URL of ml service API music-room
         title: Api Music Url
         type: string

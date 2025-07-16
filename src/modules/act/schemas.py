@@ -1,9 +1,9 @@
 import datetime
+
+from pydantic import Field
+
 from src.custom_pydantic import CustomModel
 
-from pydantic import Field, HttpUrl
-
-from src.config_schema import Accounts
 
 class MusicRoomSlot(CustomModel):
     time_start: datetime.datetime
