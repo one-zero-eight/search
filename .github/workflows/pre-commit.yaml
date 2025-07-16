@@ -27,7 +27,7 @@ jobs:
       #        Run pre-commit
       #----------------------------------------------
       - name: Install the project
-        run: uv sync --locked --all-extras
+        run: uv sync
       - name: Run pre-commit
         run: uv run pre-commit run --show-diff-on-failure --color=always --all-files --hook-stage manual
         env:
