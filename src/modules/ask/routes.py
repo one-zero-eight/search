@@ -12,7 +12,7 @@ router = APIRouter(prefix="", tags=["Ask"])
 
 
 @router.post(
-    "/ask",
+    "/ask/",
     responses={
         200: {"description": "Success"},
         408: {"description": "Chat timed out"},
@@ -35,7 +35,7 @@ async def ask_by_query(
 
 
 @router.post(
-    "/act",
+    "/act/",
     responses={
         200: {"description": "Success"},
         408: {"description": "Chat timed out"},
