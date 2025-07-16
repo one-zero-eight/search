@@ -82,7 +82,7 @@ Now you can find API docs on http://localhost:8004/docs. Good job!
    2. If you want to use Infinity, set `infinity_url` in `settings.yaml` to the url of deployed Infinity engine.
       You can run Infinity engine locally:
       ```bash
-      uv run --no-project --with "infinity_emb[all]" --with "transformers<4.49" infinity_emb v2 --model-id jinaai/jina-embeddings-v3 --model-id jinaai/jina-reranker-v2-base-multilingual
+      uv run --no-project --with "infinity_emb[all]" --with "transformers<4.49" infinity_emb v2 --model-id intfloat/multilingual-e5-large-instruct --model-id BAAI/bge-reranker-v2-m3
       ```
       Or use deployed Infinity engine provided by someone else.
 

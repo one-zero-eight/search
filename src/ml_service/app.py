@@ -8,10 +8,17 @@ from src.api.docs import generate_unique_operation_id
 from src.api.logging_ import logger
 from src.ml_service import docs
 from src.ml_service.lifespan import lifespan
-from src.ml_service.llm import generate_answer
+from src.ml_service.llm import act, generate_answer
 from src.ml_service.prepare import prepare_resource
 from src.ml_service.search import search_pipeline
-from src.modules.ml.schemas import MLAskRequest, MLAskResponse, MLSearchResult, MLSearchTask
+from src.modules.ml.schemas import (
+    MLActRequest,
+    MLActResponse,
+    MLAskRequest,
+    MLAskResponse,
+    MLSearchResult,
+    MLSearchTask,
+)
 from src.modules.sources_enum import InfoSources
 
 # App definition
@@ -53,15 +60,6 @@ async def update_resource(resource: InfoSources, docs: list[dict]):
     return {"status": "success", "resources": resources}
 
 
-# Update info in vector db
-# @app.put("/search", responses=BASIC_RESPONSES)
-# async def update_search_db(task: UpdateTask) -> UpdateResult:...
-
-# Add info in vector db
-# @app.post("/search", responses=BASIC_RESPONSES)
-# async def update_search_db(task: AddTask) -> AddResult:...
-
-
 @app.post("/ask", responses=BASIC_RESPONSES)
 async def ask_llm(request: MLAskRequest) -> MLAskResponse:
     target_sources = request.sources or [
@@ -90,29 +88,11 @@ async def ask_llm(request: MLAskRequest) -> MLAskResponse:
     return MLAskResponse(answer=answer, search_result=MLSearchResult(result_items=results))
 
 
-# TODO: add swagger docs
+@app.post("/act", responses=BASIC_RESPONSES)
+async def llm_act(request: MLActRequest) -> MLActResponse:
+    result = await act(request.query, request.user_token)
+    return result
 
-# # Redirect root to docs
-# @app.get("/", tags=["Root"], include_in_schema=False)
-# async def redirect_to_docs(request: Request):
-#     return RedirectResponse(url=request.url_for("swagger_ui_html"))
-#
-#
-# @app.get("/docs", tags=["System"], include_in_schema=False)
-# async def swagger_ui_html(request: Request):
-#     from fastapi.openapi.docs import get_swagger_ui_html
-#
-#     root_path = request.scope.get("root_path", "").rstrip("/")
-#     openapi_url = root_path + app.openapi_url
-#
-#     return get_swagger_ui_html(
-#         openapi_url=openapi_url,
-#         title=app.title + " - Swagger UI",
-#         swagger_js_url="https://api.innohassle.ru/swagger/swagger-ui-bundle.js",
-#         swagger_css_url="https://api.innohassle.ru/swagger/swagger-ui.css",
-#         swagger_favicon_url="https://api.innohassle.ru/swagger/favicon.png",
-#         swagger_ui_parameters={"tryItOutEnabled": True, "persistAuthorization": True, "filter": True},
-#     )
 
 if __name__ == "__main__":
 
