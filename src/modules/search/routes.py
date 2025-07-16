@@ -1,4 +1,3 @@
-import asyncio
 import time
 from typing import Literal
 
@@ -27,13 +26,9 @@ async def search_by_query(
     if not sources:
         sources = ALL_SOURCES
     start_time = time.monotonic()
-    try:
-        responses = await asyncio.wait_for(search_repository.search_sources(query, sources, request, limit), timeout=15)
-    except TimeoutError:
-        logger.warning("Timeout while searching for query")
-        raise HTTPException(status_code=408, detail="Search timed out")
-
+    responses = await search_repository.search_sources(query, sources, request, limit)
     time_spent = time.monotonic() - start_time
+    logger.info(f"Search for `{query}` ({round(time_spent * 1000)}ms): {responses.responses}")
 
     # Create a list of wrapped responses
     wrapped_responses = [

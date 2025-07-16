@@ -2,6 +2,7 @@ import asyncio
 import json
 from datetime import datetime
 
+import httpx
 from openai import AsyncOpenAI
 from openai.types.chat import (
     ChatCompletionMessageParam,
@@ -12,10 +13,9 @@ from openai.types.chat import (
 from src.api.logging_ import logger
 from src.config import settings
 from src.ml_service.openai_tools import BOOK_MUSIC_ROOM_FN
-from src.modules.act.repository import ActRepository
-from src.modules.act.schemas import MusicRoomSlot
 from src.modules.ml.schemas import MLActResponse
 
+from .actions import MusicRoomSlot, music_room_act
 from .prompt import build_prompt
 
 client = AsyncOpenAI(
@@ -52,9 +52,6 @@ async def generate_answer(
     return resp.choices[0].message.content
 
 
-act_repo = ActRepository()
-
-
 async def act(user_input: str, token: str) -> MLActResponse:
     extra_context = f"\nCurrent time: {datetime.now().strftime('%Y-%m-%d %H:%M %A')}\n"
     messages: list[ChatCompletionMessageParam] = [{"role": "user", "content": user_input + extra_context}]
@@ -82,14 +79,34 @@ async def act(user_input: str, token: str) -> MLActResponse:
 
                 slot = MusicRoomSlot(time_start=start_dt, time_end=end_dt)
 
-                booking = await act_repo.create_booking(slot, token)
-                messages.append(
-                    {
-                        "role": "tool",
-                        "tool_call_id": tool_call.id,
-                        "content": (f"The music room is booked: {booking}."),
-                    }
-                )
+                try:
+                    booking = await music_room_act.create_booking(slot, token)
+                    messages.append(
+                        {
+                            "role": "tool",
+                            "tool_call_id": tool_call.id,
+                            "content": (f"The music room is booked: {booking}."),
+                        }
+                    )
+                    logger.info(f"booking: {booking}")
+                except Exception as e:
+                    if isinstance(e, httpx.HTTPStatusError):
+                        error_text = f"{e} ({e.response.text})"
+                    else:
+                        error_text = str(e)
+                    logger.error(f"Failed to book music room: {e}")
+                    messages.append(
+                        {
+                            "role": "tool",
+                            "tool_call_id": tool_call.id,
+                            "content": (
+                                f"The user tried to book a music room with"
+                                f"{slot.time_start.strftime('%Y-%m-%d%H:%M')} to "
+                                f"{slot.time_end.strftime('%Y-%m-%d%H:%M')}, "
+                                f"but the booking failed: {error_text}. Please politely inform the user about this."
+                            ),
+                        }
+                    )
 
                 completion2 = await client.chat.completions.create(
                     model=settings.ml_service.llm_model,
@@ -99,7 +116,9 @@ async def act(user_input: str, token: str) -> MLActResponse:
                 )
                 answer = completion2.choices[0].message.content
     return MLActResponse(
-        answer=answer, tool_calls=[tool_call.model_dump(mode="json") for tool_call in msg.tool_calls or []]
+        answer=answer,
+        tool_calls=[tool_call.model_dump(mode="json") for tool_call in msg.tool_calls or []],
+        messages=messages,
     )
 
 

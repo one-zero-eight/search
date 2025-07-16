@@ -1,17 +1,6 @@
 from enum import StrEnum
 from typing import Final
 
-from src.storages.mongo import (
-    CampusLifeEntry,
-    EduWikiEntry,
-    HotelEntry,
-    MapsEntry,
-    MoodleEntry,
-    ResidentsEntry,
-    ResourcesEntry,
-)
-from src.storages.mongo.__base__ import CustomDocument
-
 
 # Currently supported list of sources we use information from.
 # To add new source add it here, in ml service, in parser.
@@ -26,6 +15,18 @@ class InfoSources(StrEnum):
 
 
 ALL_SOURCES = list(InfoSources)
+
+
+from src.storages.mongo import (  # noqa: E402
+    CampusLifeEntry,
+    EduWikiEntry,
+    HotelEntry,
+    MapsEntry,
+    MoodleEntry,
+    ResidentsEntry,
+    ResourcesEntry,
+)
+from src.storages.mongo.__base__ import CustomDocument  # noqa: E402
 
 InfoSourcesToMongoEntry: Final[dict[InfoSources, type[CustomDocument]]] = {
     InfoSources.moodle: MoodleEntry,

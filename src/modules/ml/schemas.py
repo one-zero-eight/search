@@ -77,3 +77,4 @@ class MLActResponse(CustomModel):
 
     answer: str
     tool_calls: list | None
+    messages: list

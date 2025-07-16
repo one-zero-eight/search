@@ -9,7 +9,7 @@ from src.storages.mongo.maps import MapsEntry
 from src.storages.mongo.moodle import MoodleCourse, MoodleEntry
 from src.storages.mongo.residents import ResidentsEntry
 from src.storages.mongo.resources import ResourcesEntry
-from src.storages.mongo.statistics import AskStatistics, SearchStatistics
+from src.storages.mongo.statistics import ActStatistics, AskStatistics, SearchStatistics
 from src.storages.mongo.telegram import Message
 
 document_models = cast(
@@ -21,6 +21,7 @@ document_models = cast(
         CampusLifeEntry,
         SearchStatistics,
         AskStatistics,
+        ActStatistics,
         CampusLifeEntry,
         EduWikiEntry,
         HotelEntry,

@@ -2,9 +2,9 @@ import httpx
 from fastapi import HTTPException, Query, Request
 
 from src.api.logging_ import logger
-from src.modules.ask.schemas import AskResponses
+from src.modules.ask.schemas import ActResponses, AskResponses
 from src.modules.ml.ml_client import get_ml_service_client
-from src.modules.ml.schemas import MLAskRequest, MLAskResponse
+from src.modules.ml.schemas import MLActRequest, MLActResponse, MLAskRequest, MLAskResponse
 from src.modules.search.repository import search_repository
 from src.modules.sources_enum import ALL_SOURCES, InfoSources
 
@@ -79,6 +79,32 @@ class AskRepository:
             answer=ml_ask_response.answer,
             ask_query_id=None,
             search_responses=search_responses,
+        )
+
+    async def act(
+        self,
+        query: str,
+        request: Request,
+    ) -> ActResponses:
+        user_token = get_token(request)
+        body = MLActRequest(query=query, user_token=user_token).model_dump()
+
+        async with get_ml_service_client() as client:
+            try:
+                resp = await client.post("/act", json=body)
+                resp.raise_for_status()
+            except httpx.HTTPError as e:
+                logger.exception(f"Got http error from ML service: {repr(e)}", exc_info=True)
+                raise HTTPException(status_code=502, detail=f"ML service error: {e}")
+
+        ml_act_response = MLActResponse.model_validate(resp.json())
+
+        return ActResponses(
+            query=query,
+            answer=ml_act_response.answer,
+            act_query_id=None,
+            tool_calls=ml_act_response.tool_calls,
+            messages=ml_act_response.messages,
         )
 
 

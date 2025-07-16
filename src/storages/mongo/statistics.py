@@ -6,6 +6,7 @@ from pydantic import Field
 from pymongo import IndexModel
 
 from src.custom_pydantic import CustomModel
+from src.modules.ask.schemas import ActResponses, AskResponses
 from src.storages.mongo.__base__ import CustomDocument
 
 
@@ -31,16 +32,26 @@ class SearchStatistics(SearchStatisticsSchema, CustomDocument):
 
 
 class AskStatisticsSchema(CustomModel):
-    query: str
-    answer: str
-    search_responses: list[WrappedResponseSchema]
-    time_spent: float  # Time spent on the search in seconds
+    time_spent: float
     created_at: datetime.datetime = Field(default_factory=lambda: datetime.datetime.now(datetime.UTC))
+    ask_responses: AskResponses
 
 
 class AskStatistics(AskStatisticsSchema, CustomDocument):
     class Settings:
         indexes = [
-            IndexModel([("query", pymongo.TEXT)], name="query_index"),
+            IndexModel([("created_at", pymongo.DESCENDING)], name="created_at_index"),
+        ]
+
+
+class ActStatisticsSchema(CustomModel):
+    time_spent: float
+    created_at: datetime.datetime = Field(default_factory=lambda: datetime.datetime.now(datetime.UTC))
+    act_responses: ActResponses
+
+
+class ActStatistics(ActStatisticsSchema, CustomDocument):
+    class Settings:
+        indexes = [
             IndexModel([("created_at", pymongo.DESCENDING)], name="created_at_index"),
         ]

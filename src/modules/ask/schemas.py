@@ -11,3 +11,14 @@ class AskResponses(CustomModel):
     "Assigned ask query index"
     search_responses: list[SearchResponse]
     "Responses to the search query."
+
+
+class ActResponses(CustomModel):
+    query: str
+    answer: str
+    act_query_id: PydanticObjectId | None = None
+    "Assigned act query index"
+    tool_calls: list
+    "Which tools were used."
+    messages: list
+    "Chat history for llm (do not show on frontend)."
