@@ -1,4 +1,3 @@
-import asyncio
 import json
 from datetime import datetime
 
@@ -120,28 +119,3 @@ async def act(user_input: str, token: str) -> MLActResponse:
         tool_calls=[tool_call.model_dump(mode="json") for tool_call in msg.tool_calls or []],
         messages=messages,
     )
-
-
-if __name__ == "__main__":
-    system = """
-    You are a helpful multilingual assistant.
-    Your ONLY rule is: ALWAYS answer in the SAME language as the input question.
-    If the user writes in Russian — answer in Russian.
-    If the user writes in English — answer in English. Etc.
-
-    Do not explain your behavior.
-    Do not translate the question.
-    Do not ask what language it is.
-
-    Just answer in the same language as the input. """
-
-    contexts = [
-        "3 600 rubles, One room suite, 21 м², • 2 single beds, • Working area , • Mini kitchen, Designed to accommodate two guests",
-        "4 400 rubles, Two-room Suite, 45 м², • 2 single beds, • Working area, • Lounge with Mini kitchen, • A TV, • An armchair and a sofa, Designed to accommodate two guests",
-    ]
-    question = "How much does a room for 2 people cost?"
-    # r = asyncio.run(generate_answer("question", ["context 1", "context 2"]))
-    # print(r)
-
-    answer = asyncio.run(generate_answer(question, contexts))
-    print(answer)
