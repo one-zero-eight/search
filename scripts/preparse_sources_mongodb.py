@@ -9,7 +9,10 @@ sys.path.append(str(Path(__file__).parents[1]))
 from src.modules.parsers.routes import run_parse_route
 from src.modules.sources_enum import InfoSources
 
-for section in (InfoSources.hotel, InfoSources.eduwiki, InfoSources.campuslife, InfoSources.residents):
+for section in InfoSources:
+    if section in InfoSources.moodle:
+        continue
+
     asyncio.run(
         run_parse_route(section=section, indexing_is_needed=False, parsing_is_needed=True, saving_dump_is_needed=True)
     )

@@ -8,23 +8,11 @@ minio:
 ml_service:
   api_key: "secret_token"
   mongo_url: "mongodb://mongoadmin:secret@localhost:27018/db?authSource=admin"
+  lancedb_uri: "./tests/test_data/lance_data"
+  cross_encoder: "cross-encoder/ms-marco-TinyBERT-L2-v2"
+  bi_encoder: "sentence-transformers/all-MiniLM-L6-v2"
+  bi_encoder_dim: 384
+  # To fill lance db with test data set external infinity_url
+  # infinity_url: ""
   openrouter_api_key: "your openrouter api key"
-  system_prompt: |
-    You are a helpful multilingual assistant.
-    Your ONLY rule is: ALWAYS answer in the SAME language as the input question.
-    If the user writes in Russian — answer in Russian.
-    If the user writes in English — answer in English. Etc.
-    Examples:
-    Q: <any question in Russian>
-    A: <ответ в том же языке, используя данные из contexts>
-
-    Q: <any question in English>
-    A: <answer in the same language, using contexts>
-
-    When you generate an answer, base it strictly on the provided contexts and do not rely on any hard-coded example.
-    Do not explain your behavior.
-    Do not translate the question.
-    Do not ask what language it is.
-
-    Just answer in the same language as the input.
-  timeout: 10.0
+  timeout: 15.0
