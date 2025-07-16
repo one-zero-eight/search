@@ -13,7 +13,7 @@ This is an API for the search service in the InNoHassle ecosystem. The search sh
 
 ### Technologies
 
-- [Python 3.11](https://www.python.org/downloads/) & [Poetry](https://python-poetry.org/docs/)
+- [Python 3.11](https://www.python.org/downloads/) & [uv](https://docs.astral.sh/uv/)
 - [FastAPI](https://fastapi.tiangolo.com/) & [Pydantic](https://docs.pydantic.dev/latest/)
 - Database and ORM: [MongoDB](https://www.mongodb.com/), [Beanie](https://beanie-odm.dev/)
 - Formatting and linting: [Ruff](https://docs.astral.sh/ruff/), [pre-commit](https://pre-commit.com/)
@@ -46,15 +46,15 @@ Now you can find API docs on http://localhost:8004/docs. Good job!
 ### Run locally [API]
 
 1. Install [Python 3.11](https://www.python.org/downloads/)
-2. Install [Poetry](https://python-poetry.org/docs/)
-3. Install project dependencies with [Poetry](https://python-poetry.org/docs/cli/#options-2).
+2. Install [uv](https://docs.astral.sh/uv/getting-started/installation/)
+3. Install project dependencies with uv:
    ```bash
-   poetry install
+   uv sync
    ```
 4. Set up [pre-commit](https://pre-commit.com/) hooks:
 
    ```bash
-   poetry run pre-commit install --install-hooks -t pre-commit -t commit-msg
+   uv run pre-commit install --install-hooks -t pre-commit -t commit-msg
    ```
 5. Check that your `settings.yaml` looks like:
    ```yaml
@@ -88,11 +88,11 @@ Now you can find API docs on http://localhost:8004/docs. Good job!
 
 8. Run ml client
    ```bash
-   poetry run python -m src.ml_service
+   uv run python -m src.ml_service
    ```
 9. Run the ASGI server
    ```bash
-   poetry run python -m src.api
+   uv run python -m src.api
    ```
    Check API docs on http://127.0.0.1:8001/docs
 
@@ -131,11 +131,11 @@ How to get token:
 For testing we use ```pytest```.
 * To run tests enter in your terminal:
    ```
-   poetry run pytest tests
+   uv run pytest tests
    ```
 * To generate test coverage report run:
    ```
-   poetry run pytest  --cov-config=.coveragerc --cov=src/ tests/
+   uv run pytest  --cov-config=.coveragerc --cov=src/ tests/
    ```
    You can change coverage ignored folders/files in `.coveragerc`.
 
