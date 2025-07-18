@@ -130,6 +130,7 @@ async def test_process_ml_results(search_repo, mock_search_repo_request, sample_
     eduwiki_entry = MagicMock(spec=EduWikiEntry)
     eduwiki_entry.source_page_title = "test_title"
     eduwiki_entry.source_url = "http://testurl"
+    eduwiki_entry.content = "test_content"
 
     results = MLSearchResult(
         result_items=[
