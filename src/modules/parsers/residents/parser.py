@@ -55,7 +55,7 @@ def parse() -> list[ResidentsEntrySchema]:
                     if contact_info:
                         content_parts.extend(contact_info)
 
-                    content = "\n".join(content_parts)
+                    content = f"# {title}\n\n" + "\n".join(content_parts)
                     entry = ResidentsEntrySchema(
                         source_page_title=title,
                         content=content,
@@ -73,7 +73,7 @@ def parse() -> list[ResidentsEntrySchema]:
     result.append(
         ResidentsEntrySchema(
             source_page_title="ОЭЗ Иннополис — Резиденты",
-            content="\n".join(all_residents),
+            content="# ОЭЗ Иннополис — Резиденты\n\n" + "\n".join(all_residents),
             source_url=url,
         )
     )

@@ -11,7 +11,7 @@ PATH = "/clubs"
 _CLUB_PATH_RE = re.compile(r"^/[a-z0-9_]+_clubs/?$", re.I)  # pattern: "/something_clubs"
 
 
-def html_to_markdown(html: str) -> str:
+def html_to_markdown(html: str, title: str) -> str:
     soup = BeautifulSoup(html, "html.parser")
 
     # Remove header
@@ -22,9 +22,17 @@ def html_to_markdown(html: str) -> str:
     for footer in soup.find_all("footer"):
         footer.decompose()
 
+    # Remove tilada label
+    for tilda_label in soup.find_all("div", class_=lambda x: x and "t-tildalabel" in x.lower()):
+        tilda_label.decompose()
+
     # Remove all images
     for img in soup.find_all("img"):
         img.decompose()
+
+    # Remove duplications (mobile wrappers)
+    for mobile in soup.find_all("div", class_=lambda x: x and "wrapper_mobile" in x.lower()):
+        mobile.decompose()
 
     # Convert links and buttons to Markdown format
     for a in soup.find_all("a", href=True):
@@ -42,10 +50,11 @@ def html_to_markdown(html: str) -> str:
         a.replace_with(f"[{text}]({href})")
 
     # Convert Tilda-style headers to Markdown headers
-    for div in soup.find_all(
+    headers = soup.find_all(
         "div",
         class_=lambda x: x and any(c in x.lower() for c in ["t-title", "title_xxl", "title_xl"]),
-    ):
+    )
+    for div in headers:
         text = div.get_text(strip=True)
         if text and len(text) < 100:
             level = 2 if "xxl" in div.get("class", [""])[0].lower() else 3
@@ -68,7 +77,10 @@ def html_to_markdown(html: str) -> str:
     md = re.sub(r"\\\|", "|", md)
     md = re.sub(r"```markdown\n|```", "", md)
     md = re.sub(r"\n{3,}", "\n\n", md)
-    return md.strip()
+    md = md.strip("\n").strip()
+    if not headers:
+        md = f"# {title}\n\n" + md
+    return md
 
 
 def extract_catalogue_links(html: str) -> list[str]:
@@ -109,7 +121,7 @@ def parse():
 
     # 1. Main catalogue page
     html = fetch_html(PATH)
-    main_md = html_to_markdown(html)
+    main_md = html_to_markdown(html, "Student Clubs Catalogue")
     result.append(
         CampusLifeEntrySchema(source_url=BASE_URL + PATH, source_page_title="Student Clubs Catalogue", content=main_md)
     )
@@ -118,9 +130,8 @@ def parse():
     for sub_path in extract_catalogue_links(html):
         try:
             sub_html = fetch_html(sub_path)
-            md = html_to_markdown(sub_html)
-            filename = sub_path.lstrip("/").replace("/", "_") + ".md"
-            title = filename.removesuffix(".md").replace("_", " ").title()
+            title = sub_path.lstrip("/").replace("/", "_").replace("_", " ").title()
+            md = html_to_markdown(sub_html, title)
 
             result.append(CampusLifeEntrySchema(source_url=BASE_URL + sub_path, source_page_title=title, content=md))
 
@@ -153,15 +164,15 @@ def parse():
                     print(f"   └─ ⚠️ Tab2 for club {tab_number} not found, skipping")
                     continue
 
-                combined_html = str(tab1_div) + str(tab2_div)
-                combined_md = html_to_markdown(combined_html)
-
                 club_title = f"Club {tab_number}"
                 heading_elem = tab1_div.find(class_=lambda x: x and "t-heading" in x.lower())
                 if heading_elem:
                     title_text = heading_elem.get_text(strip=True)
                     if title_text:
                         club_title = title_text
+                    heading_elem.decompose()
+                combined_html = str(tab1_div) + str(tab2_div)
+                combined_md = html_to_markdown(combined_html, club_title)
 
                 result.append(
                     CampusLifeEntrySchema(
