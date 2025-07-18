@@ -19,7 +19,6 @@ deep-translator = "^1.11.4"
 fake-useragent = "^2.2.0"
 fastapi = "^0.115.13"
 httpx = "^0.27.0"
-langdetect = "^1.0.9"
 markdownify = "^1.1.0"
 minio = "^7.2.7"
 motor = "^3.4.0"
@@ -45,6 +44,7 @@ lancedb = "^0.24.0"
 openai = "^1.96.1"
 pandas = "^2.3.0"
 pylance = {version = "^0.31.0b1", allow-prereleases = true, source = "lancedb"}
+lingua-language-detector = "^2.1.1"
 
 [[tool.poetry.source]]
 name = "lancedb"

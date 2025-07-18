@@ -191,7 +191,7 @@ class SearchRepository:
             else:
                 assert_never(inner)
 
-        responses.sort(key=lambda x: x.score, reverse=True)
+        responses.sort(key=lambda x: x.score, reverse=True)  # type: ignore
         return SearchResponses(responses=responses, searched_for=query)
 
     async def search_sources(
@@ -288,7 +288,7 @@ class SearchRepository:
                 else:
                     source_model = _SourceModel(
                         display_name=mongo_entry.source_page_title,
-                        preview_text=clean_text(res_item.content),
+                        preview_text=clean_text(mongo_entry.content),
                         url=mongo_entry.source_url,
                     )
                     responses.append(SearchResponse(score=res_item.score, source=source_model))

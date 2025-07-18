@@ -8,7 +8,7 @@ from fake_useragent import UserAgent
 ua = UserAgent()
 
 context = ssl._create_unverified_context()
-BASE_URL = "https://www.campuslife.innopolis.ru"
+BASE_URL = "https://campuslife.innopolis.ru"
 
 
 def fetch_html(path):

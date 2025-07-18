@@ -1,34 +1,30 @@
-import asyncio
 import time
 
 import lancedb
 import pandas as pd
-from langdetect import DetectorFactory, detect
+from lingua import Language, LanguageDetectorBuilder
 from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
 
 from src.api.logging_ import logger
 from src.config import settings
 from src.ml_service.text import clean_text
-from src.modules.sources_enum import ALL_SOURCES, InfoSources
+from src.modules.sources_enum import InfoSources
 
 model_name = "facebook/m2m100_418M"
 tokenizer = M2M100Tokenizer.from_pretrained(model_name)
 model = M2M100ForConditionalGeneration.from_pretrained(model_name)
+language_detector = LanguageDetectorBuilder.from_languages(
+    Language.ENGLISH,
+    Language.RUSSIAN,
+    Language.ARABIC,
+).build()
 
-DetectorFactory.seed = 0
 
-
-def translate_to_russian(text: str) -> str:
-    tokenizer.src_lang = "en"
+def translate_to_russian(text: str, from_lang: Language | None) -> str:
+    tokenizer.src_lang = from_lang.iso_code_639_1.name.lower() if from_lang else "en"
     encoded = tokenizer(text, return_tensors="pt")
     generated = model.generate(**encoded, forced_bos_token_id=tokenizer.get_lang_id("ru"))
     return tokenizer.batch_decode(generated, skip_special_tokens=True)[0]
-
-
-def normalize_lang(lang: str | None) -> str:
-    if lang and lang.lower().startswith("ru"):
-        return "ru"
-    return "en"
 
 
 async def search_pipeline(
@@ -40,18 +36,12 @@ async def search_pipeline(
     logger.info(f"🔍 Searching for {query} in {resources}")
 
     original_query = query
-    try:
-        raw_lang = detect(query)
-    except Exception as e:
-        logger.warning(f"🌐 Language detection failed: {e}")
-        raw_lang = None
+    language = language_detector.detect_language_of(query)
+    logger.info(f"🔤 Query language: {language}")
 
-    query_lang = normalize_lang(raw_lang)
-    logger.info(f"🔤 Normalized query language: {query_lang}")
-
-    if query_lang == "en" and InfoSources.residents in resources:
+    if language != Language.RUSSIAN and InfoSources.residents in resources:
         logger.info("🌍 English query + 'residents' → Translate to Russian")
-        search_query = translate_to_russian(query)
+        search_query = translate_to_russian(query, from_lang=language)
         logger.info(f"📝 Translated query: {search_query}")
     else:
         search_query = query
@@ -98,7 +88,6 @@ async def search_pipeline(
         )
         resource_time = time.perf_counter() - resource_start
         logger.info(f"⏱️  {resource} query: {resource_time:.3f}s")
-        logger.info(f"\nRaw results for {resource}:\n{results.drop(columns=['embedding']).head(3)}")
         for _, row in results.iterrows():
             if "_relevance_score" in row:
                 score = row["_relevance_score"]
@@ -122,8 +111,6 @@ async def search_pipeline(
     logger.info(f"🔍 Found {len(all_results)} results")
 
     # Rerank with cross encoder
-    for r in all_results:
-        logger.info(r)
     cross_encoder_time = 0
     if all_results:
         logger.info("🔄 Reranking with cross encoder...")
@@ -185,22 +172,8 @@ async def search_pipeline(
         f"⏱️  Breakdown: Bi-encoder ({bi_encoder_time:.3f}s) + DB queries ({db_query_time:.3f}s) + Cross-encoder ({cross_encoder_time:.3f}s) = {total_time:.3f}s"
     )
 
-    # Results are already sorted by cross encoder scores (highest first)
-    lang_map = {"en": "English", "ru": "Russian"}
-    query_lang_name = lang_map.get(query_lang, "strictly in the same language as the input question")
-
     return {
         "results": all_results,
         "original_query": original_query,
-        "query_lang": query_lang,
-        "query_lang_name": query_lang_name,
+        "query_lang": language.name.capitalize() if language else None,
     }
-
-
-if __name__ == "__main__":
-    logger.info("📥 Starting search pipeline…")
-    q = "How much does room for 2 people rent cost?"
-    results = asyncio.run(search_pipeline(q, resources=ALL_SOURCES))
-
-    for i, r in enumerate(results, 1):
-        logger.info(f"{i}. ({r['resource']}) [{r['score']:.3f}]: {r['content']}")

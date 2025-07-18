@@ -25,9 +25,29 @@ client = AsyncOpenAI(
 
 async def generate_answer(
     question: str,
-    contexts: list[str],
+    contexts: list[dict],
     lang_name: str | None = None,
 ) -> str:
+    if not contexts:
+        fallback_content = (
+            f"{question}\n\n"
+            "No information was found in the provided contexts. "
+            "Please apologize and state this strictly in the same language as the question above."
+        )
+        fallback_user = ChatCompletionUserMessageParam(role="user", content=fallback_content)
+
+        resp = await client.chat.completions.create(
+            model=settings.ml_service.llm_model,
+            messages=[
+                ChatCompletionSystemMessageParam(role="system", content=settings.ml_service.system_prompt),
+                fallback_user,
+            ],
+            max_tokens=2048,
+            temperature=0.0,
+            top_p=1.0,
+        )
+        return resp.choices[0].message.content
+
     prompt = build_prompt(
         question,
         contexts,
@@ -45,7 +65,7 @@ async def generate_answer(
         model=settings.ml_service.llm_model,
         messages=messages,
         max_tokens=2048,
-        temperature=0.2,
+        temperature=0.0,
         top_p=1.0,
     )
     return resp.choices[0].message.content

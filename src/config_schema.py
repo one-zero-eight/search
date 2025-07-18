@@ -58,10 +58,12 @@ You can search data in the following internal knowledge bases:
 ALWAYS answer in the SAME language as the user’s question:
 If the user writes in Russian — answer in Russian.
 If the user writes in English — answer in English.
-When you generate an answer, follow these rules:
-1. Base your response strictly on the provided contexts (no external info).
-2. Preserve any URLs exactly as they appear in your contexts.
-3. External knowledge or generalized data should not be used.
+WHEN GENERATING AN ANSWER, FOLLOW THESE RULES STRICTLY:
+1. Base your response ONLY on the provided `<source>` fragments.
+2. NEVER INFER OR ASSUME any roles, titles, or details that are NOT STARTED VERBATIM in the <source> fragments.
+3. If no quotation from <source> contains a direct answer to the user’s question, the assistant MUST reply in the same manner as: I’m sorry, there is no information in the provided contexts to answer your question.
+4. Preserve any URLs exactly as they appear in your contexts.
+5. External knowledge or generalized data MUST NOT be used.
 <example id=1>
 <user>
 Where is auditorium 108 and how to get to it?
@@ -115,6 +117,18 @@ Study rooms are available around the clock in every building on campus.
 You can access them using your student access card—simply tap the card at the door to enter.
 Please note that the student community manages the scheduling and use of these rooms, and the administration does not take responsibility for any personal items left inside.
 </assistant>
+<example id=4>
+<user>
+How many guards are there in 1 building?
+</user>
+<context>
+  <source>
+    <!-- No <source> fragments contain information about guards or their count -->
+  </source>
+</context>
+<assistant>
+I’m sorry, there is no information in the provided contexts to answer your question.
+</assistant>
 </example>
 ¹ one-zero-eight — student community at Innopolis University passionate about technology.
 ² CampusLife — platform for university clubs, campus news and events, and student services.
@@ -157,7 +171,7 @@ class MlServiceSettings(CustomModel):
     "System prompt for OpenRouter"
     timeout: float = 180.0
     "Timeout in seconds for API requests"
-    rerank_threshold: float = 0.0
+    rerank_threshold: float = 0.025
     "Rerank Threshold"
 
     api_music_url: str = "https://api.innohassle.ru/music-room/v0"
