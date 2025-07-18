@@ -229,23 +229,6 @@ class SearchRepository:
                             res_item.score,
                         )
                         responses.append(response)
-            elif res_item.resource == InfoSources.maps:
-                mongo_entry = await MapsEntry.get(res_item.mongo_id)
-                if mongo_entry is None:
-                    logger.warning(f"mongo_entry is None: {res_item}")
-                else:
-                    responses.append(
-                        SearchResponse(
-                            score=res_item.score,
-                            source=MapsSource(
-                                display_name=mongo_entry.title,
-                                preview_text="\n".join(mongo_entry.content.splitlines()[2:])
-                                if mongo_entry.content
-                                else "",
-                                url=mongo_entry.location_url,
-                            ),
-                        )
-                    )
             elif res_item.resource == InfoSources.resources:
                 mongo_entry = await ResourcesEntry.get(res_item.mongo_id)
                 if mongo_entry is None:
@@ -256,7 +239,9 @@ class SearchRepository:
                             score=res_item.score,
                             source=ResourcesSource(
                                 display_name=mongo_entry.source_page_title,
-                                preview_text=mongo_entry.content,
+                                preview_text="\n".join(mongo_entry.content.splitlines()[2:]).strip("\n")
+                                if mongo_entry.content
+                                else "",
                                 url=mongo_entry.source_url,
                                 resource_type=mongo_entry.resource_type,
                             ),
@@ -267,29 +252,32 @@ class SearchRepository:
                 InfoSources.campuslife,
                 InfoSources.hotel,
                 InfoSources.residents,
+                InfoSources.maps,
             ):
-                if res_item.resource == InfoSources.eduwiki:
-                    _MongoEntryClass = EduWikiEntry
-                    _SourceModel = EduwikiSource
-                elif res_item.resource == InfoSources.campuslife:
-                    _MongoEntryClass = CampusLifeEntry
-                    _SourceModel = CampusLifeSource
-                elif res_item.resource == InfoSources.hotel:
-                    _MongoEntryClass = HotelEntry
-                    _SourceModel = HotelSource
-                elif res_item.resource == InfoSources.residents:
-                    _MongoEntryClass = ResidentsEntry
-                    _SourceModel = ResidentsSource
-                else:
-                    assert_never(res_item.resource)
+                model_map = {
+                    InfoSources.eduwiki: (EduWikiEntry, EduwikiSource),
+                    InfoSources.campuslife: (CampusLifeEntry, CampusLifeSource),
+                    InfoSources.hotel: (HotelEntry, HotelSource),
+                    InfoSources.residents: (ResidentsEntry, ResidentsSource),
+                    InfoSources.maps: (MapsEntry, MapsSource),
+                }
+
+                _MongoEntryClass, _SourceModel = model_map[res_item.resource]
+
                 mongo_entry = await _MongoEntryClass.get(res_item.mongo_id)
                 if mongo_entry is None:
                     logger.warning(f"mongo_entry is None: {res_item}")
                 else:
                     source_model = _SourceModel(
-                        display_name=mongo_entry.source_page_title,
-                        preview_text=res_item.content,
-                        url=mongo_entry.source_url,
+                        display_name=mongo_entry.title
+                        if res_item.resource == InfoSources.maps
+                        else mongo_entry.source_page_title,
+                        preview_text="\n".join(mongo_entry.content.splitlines()[2:]).strip("\n")
+                        if mongo_entry.content
+                        else "",
+                        url=mongo_entry.location_url
+                        if res_item.resource == InfoSources.maps
+                        else mongo_entry.source_url,
                     )
                     responses.append(SearchResponse(score=res_item.score, source=source_model))
             else:
