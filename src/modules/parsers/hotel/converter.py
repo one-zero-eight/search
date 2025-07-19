@@ -9,13 +9,13 @@ from src.storages.mongo.hotel import HotelEntrySchema
 from .scraper import clean_soup, fetch_html, find_internal_links
 
 
-def convert_page_to_markdown(url: str):
+def convert_page_to_markdown(url: str, domain):
     """
     Turn rendered HTML into clean Markdown and extract links map.
     """
     html = fetch_html(url)
     soup = BeautifulSoup(html, "html.parser")
-    clean_soup(soup)
+    clean_soup(soup, domain)
     selections = {}
     prev_header = None
     for header in soup.find_all("h2"):
@@ -60,10 +60,10 @@ def process_pages(base_url: str, timeout: int):
     html = fetch_html(base_url, timeout)
     soup = BeautifulSoup(html, "html.parser")
     links = find_internal_links(soup, base_url, domain)
-    yield from convert_page_to_markdown(base_url)
+    yield from convert_page_to_markdown(base_url, domain)
 
     for url in links:
-        yield from convert_page_to_markdown(url)
+        yield from convert_page_to_markdown(url, domain)
 
 
 if __name__ == "__main__":

@@ -19,7 +19,7 @@ def fetch_html(url: str, timeout: int = 10) -> str:
         sys.exit(f"Error fetching {url}: {e}")
 
 
-def clean_soup(soup: BeautifulSoup) -> BeautifulSoup:
+def clean_soup(soup: BeautifulSoup, domain) -> BeautifulSoup:
     """
     Remove scripts, styles, frames, footers, and images.
     """
@@ -36,6 +36,10 @@ def clean_soup(soup: BeautifulSoup) -> BeautifulSoup:
         text = header.get_text().strip()
         if not text:
             header.decompose()
+
+    for a in soup.find_all("a", href=True):
+        if not a["href"].startswith(("http://", "https://", "mailto:", "tel:")):
+            a["href"] = f"https://{domain}/{a['href'].lstrip('/')}"
 
     return soup
 
