@@ -40,6 +40,7 @@ def clean_soup(soup: BeautifulSoup, domain) -> BeautifulSoup:
     for a in soup.find_all("a", href=True):
         if not a["href"].startswith(("http://", "https://", "mailto:", "tel:")):
             a["href"] = f"https://{domain}/{a['href'].lstrip('/')}"
+        a["href"] = a["href"].replace(" ", "%20")
 
     return soup
 
