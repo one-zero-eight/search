@@ -16,7 +16,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 
 ###########################################################
 # Production stage. Copy only runtime deps that were installed in the Builder stage.
-FROM python:3.11-slim-bookworm AS production
+FROM python:3.13-slim-bookworm AS production
 
 ENV PYTHONUNBUFFERED=1
 
