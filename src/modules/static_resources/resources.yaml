@@ -168,3 +168,29 @@ ithelp:
   - source_page_title: "Corporate network drives"
     source_url: https://help.university.innopolis.ru/ru/Remote_Connections/Network_drives
     content: "# Corporate network drives\n\n\nThis source page gives manual about connection to corporate network drives for different operating systems.\n"
+
+academic_calendar:
+  - source_page_title: "Bachelor academic calendar"
+    source_url: https://disk.yandex.ru/i/ap3xnj8B0SJFdQ
+    content: "# Bachelor academic calendar\n\n\nThis source page contains academic calendar for all courses of bachelor programs for the current year.\n"
+  - source_page_title: "Master academic calendar"
+    source_url: https://disk.yandex.ru/i/QmhaYHiR4ENagg
+    content: "# Master academic calendar\n\n\nThis source page contains academic calendar for all courses of master programs for the current year.\n"
+  - source_page_title: "Phd academic calendar"
+    source_url: https://disk.yandex.ru/i/A3wRZvat_XWtqg
+    content: "# Phd academic calendar\n\n\nThis source page contains academic calendar for all courses of phd programs for the current year.\n"
+
+psychologist:
+  - source_page_title: "University psychologist"
+    source_url: https://psychologist.innopolis.university/appointment/new
+    content: "# University psychologist\n\n\nThis source page allows to make an appointment with a university psychologist.\n"
+
+university_events:
+  - source_page_title: "University events"
+    source_url: https://my.innopolis.university/event
+    content: "# University events\n\n\nThis source page announces university events. For some of them you can register either as a volunteer or a photographer For some of them you can earn innopoints.\n"
+
+university_store:
+  - source_page_title: "University store"
+    source_url: https://my.innopolis.university/store
+    content: "# University store\n\n\nThis source page is a store where you can buy university merch for innopoints.\n"
