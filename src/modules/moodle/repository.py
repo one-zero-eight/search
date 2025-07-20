@@ -80,7 +80,8 @@ class MoodleRepository:
         # Sort it in such way:
         # Sum25, S25, F25, Sum24, S24, F24, ..., No Semester
         keys_to_sort = {}
-        for semester in semester_groups.keys():
+        for semester, courses in semester_groups.items():
+            courses.sort()
             year_r = re.search(r"\d{2}", semester)
             if year_r:
                 year = int(year_r.group(0))
