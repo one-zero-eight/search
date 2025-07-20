@@ -82,10 +82,16 @@ Now you can find API docs on http://localhost:8004/docs.
    ```yaml
    $schema: "./settings.schema.yaml"
    api_settings:
-      db_url: "mongodb://mongoadmin:secret@localhost:27017/db?authSource=admin"
+     db_url: "mongodb://mongoadmin:secret@localhost:27017/localhost?authSource=admin"
    minio:
-      access_key: "minioadmin"
-      secret_key: "password"
+     access_key: "minioadmin"
+     secret_key: "password"
+   ml_service:
+   # infinity_url: http://127.0.0.1:7997
+     api_key: "secret_token"
+     mongo_url: "mongodb://mongoadmin:secret@db:27017/localhost?authSource=admin"
+     openrouter_api_key: "your openrouter api key"
+     timeout: 180.0
    ```
 6. Set up a [MongoDB](https://www.mongodb.com/) and [Minio](https://min.io/) instances.
 
@@ -104,7 +110,7 @@ Now you can find API docs on http://localhost:8004/docs.
    2. If you want to use Infinity, set `infinity_url` in `settings.yaml` to the url of deployed Infinity engine.
       You can run Infinity engine locally:
       ```bash
-      uv run --no-project --with "infinity_emb[all]" --with "transformers<4.49" infinity_emb v2 --model-id jinaai/jina-embeddings-v3 --model-id jinaai/jina-reranker-v2-base-multilingual
+      uv run --no-project --with "infinity_emb[all]" --with "transformers<4.49" infinity_emb v2 --model-id intfloat/multilingual-e5-large-instruct --model-id BAAI/bge-reranker-v2-m3
       ```
       Or use deployed Infinity engine provided by someone else.
 
