@@ -43,6 +43,29 @@ def process_nested_divs(element, indent_level=0):
     return content
 
 
+def transform_bullet_points(text):
+    # First normalize multiple <br>s with spaces between them to single <br>
+    text = re.sub(r"<br>\s+<br>", "<br>", text)
+
+    # Pattern to match bullet points with 1-3 <br> tags
+    pattern = r"(-\s.*?)(?:<br>(.*?))?(?:<br>(.*?))?(?:<br>)?(?=\n|$)"
+
+    def replacer(match):
+        # Clean each part by removing extra spaces
+        parts = [re.sub(r"\s+", " ", g.strip()) for g in match.groups() if g and g.strip()]
+
+        # Build the transformed string
+        if len(parts) >= 3:
+            return f"{parts[0]}: {parts[1]}. {parts[2]}"
+        elif len(parts) == 2:
+            return f"{parts[0]}: {parts[1]}"
+        elif len(parts) == 1:
+            return parts[0]
+        return match.group(0)
+
+    return re.sub(pattern, replacer, text, flags=re.MULTILINE)
+
+
 def html_to_markdown(html):
     result = list()
     soup = BeautifulSoup(html, "html.parser")
@@ -138,7 +161,7 @@ def html_to_markdown(html):
         md_content = markdownify.markdownify(fragment_html, heading_style="ATX")
         md_content = md_content.replace("\xa0", " ")
         md_content = re.sub(r"\[\s*\|\s*.*?\|\s*\]\(.*?\)", "", md_content, flags=re.DOTALL)
-
+        md_content = transform_bullet_points(md_content)
         md_content = md_content.replace("\\|", "|").strip()
         result.append(
             CampusLifeEntrySchema(

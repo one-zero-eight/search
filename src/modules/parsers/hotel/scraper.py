@@ -1,4 +1,3 @@
-import re
 import sys
 from urllib.parse import urljoin, urlparse
 
@@ -8,7 +7,7 @@ from bs4 import BeautifulSoup
 START_URL = "https://hotel.innopolis.university/"
 
 
-def fetch_html(url: str, timeout: int) -> str:
+def fetch_html(url: str, timeout: int = 10) -> str:
     """
     Send a GET request and return HTML content.
     """
@@ -20,12 +19,29 @@ def fetch_html(url: str, timeout: int) -> str:
         sys.exit(f"Error fetching {url}: {e}")
 
 
-def clean_soup(soup: BeautifulSoup) -> BeautifulSoup:
+def clean_soup(soup: BeautifulSoup, domain) -> BeautifulSoup:
     """
     Remove scripts, styles, frames, footers, and images.
     """
     for tag in soup(["script", "style", "noscript", "iframe", "footer", "img"]):
         tag.decompose()
+
+    for div in soup.find_all(
+        "div", class_=lambda x: x and any(c in x.lower() for c in ["landing-footer", "landing-header"])
+    ):
+        div.decompose()
+
+    # Clean empty headers
+    for header in soup.find_all(["h1", "h2", "h3", "h4", "h5", "h6"]):
+        text = header.get_text().strip()
+        if not text:
+            header.decompose()
+
+    for a in soup.find_all("a", href=True):
+        if not a["href"].startswith(("http://", "https://", "mailto:", "tel:")):
+            a["href"] = f"https://{domain}/{a['href'].lstrip('/')}"
+        a["href"] = a["href"].replace(" ", "%20")
+
     return soup
 
 
@@ -55,25 +71,3 @@ def find_internal_links(soup: BeautifulSoup, base_url: str, domain: str) -> dict
         fname = f"{slug}.md"
         links[full] = fname
     return links
-
-
-def sanitize_markdown(text: str) -> str:
-    """
-    Strip Russian headers, empty lines, and menu lists at start of markdown.
-    """
-    lines = text.splitlines()
-    cleaned = []
-    skipping = True
-    for line in lines:
-        if skipping:
-            if not line.strip():
-                continue
-            if re.search(r"[А-Яа-яЁё]", line):
-                continue
-            if re.match(r"\s*\*\s*\[.*\]", line):
-                continue
-            skipping = False
-            cleaned.append(line)
-        else:
-            cleaned.append(line)
-    return "\n".join(cleaned)

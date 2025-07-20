@@ -28,7 +28,7 @@ async def search_by_query(
     start_time = time.monotonic()
     responses = await search_repository.search_sources(query, sources, request, limit)
     time_spent = time.monotonic() - start_time
-    logger.info(f"Search for `{query}` ({round(time_spent * 1000)}ms): {responses.responses}")
+    logger.info(f"Search for `{query}` ({round(time_spent * 1000)}ms)")
 
     # Create a list of wrapped responses
     wrapped_responses = [
