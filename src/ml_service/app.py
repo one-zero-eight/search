@@ -74,7 +74,31 @@ async def ask_llm(request: MLAskRequest) -> MLAskResponse:
     ]
     logger.info(f"Target sources: {target_sources}")
 
-    search_output = await search_pipeline(request.query, target_sources, limit=10)
+    rewrite_system = ChatCompletionSystemMessageParam(
+        role="system",
+        content=(
+            "Given the following conversation and a follow up question, "
+            "rephrase the follow up question to be a standalone question, in its original language. "
+            "Keep as much details as possible from previous messages. Keep entity names and all.\n\n"
+            "Chat History:\n"
+            + "\n".join(f"{m['role']}: {m['content']}" for m in (request.history or []))
+            + "\nFollow Up Input: "
+            + request.query
+            + "\nStandalone question:"
+        ),
+    )
+
+    rewrite_resp = await client.chat.completions.create(
+        model=settings.ml_service.llm_model,
+        messages=[rewrite_system],
+        max_tokens=2048,
+        temperature=0.0,
+        top_p=1.0,
+    )
+    standalone_query = rewrite_resp.choices[0].message.content.strip()
+    logger.info(f"Rewritten query: {standalone_query}")
+
+    search_output = await search_pipeline(standalone_query, target_sources, limit=10)
 
     results = search_output["results"]
     original_query = search_output["original_query"]
@@ -123,7 +147,7 @@ async def ask_llm(request: MLAskRequest) -> MLAskResponse:
         raise RuntimeError("No answer from openai")
 
     updated_history = (request.history or []) + [
-        user_message,
+        {"role": "user", "content": request.query},
         {"role": "assistant", "content": answer},
     ]
     logger.info(f"Updated history: {updated_history}")
