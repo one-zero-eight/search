@@ -30,7 +30,6 @@ RUN groupadd -g 1500 uv && \
 # Ensure /app/data directory exists and is writable
 RUN mkdir -p /app/data && chown -R uv:uv /app/data
 
-COPY --chmod=755 ./deploy/docker-entrypoint.sh /
 USER uv
 WORKDIR /app
 
@@ -40,7 +39,6 @@ ENV PATH="/app/.venv/bin:$PATH"
 COPY --chown=uv:uv . /app
 
 EXPOSE 8000
-ENTRYPOINT [ "/docker-entrypoint.sh" ]
 CMD ["gunicorn", \
     "--worker-class", "uvicorn.workers.UvicornWorker", \
     "--bind", "0.0.0.0:8000", \
