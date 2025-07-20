@@ -39,6 +39,8 @@ class MLAskRequest(CustomModel):
     query: str
     sources: list[InfoSources] | None = None
     user_token: str | None = None
+    history: list
+    "History of previous messages in the session, without current query, without system message"
 
 
 class MLContextItem(CustomModel):
@@ -59,6 +61,8 @@ class MLAskResponse(CustomModel):
 
     answer: str
     search_result: MLSearchResult
+    messages: list[dict] | None = None
+    updated_history: list
 
 
 class MLActRequest(CustomModel):

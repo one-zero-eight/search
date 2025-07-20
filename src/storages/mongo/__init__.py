@@ -3,6 +3,7 @@ from typing import cast
 from beanie import Document, View
 
 from src.storages.mongo.campus_life import CampusLifeEntry
+from src.storages.mongo.chat import ChatSession
 from src.storages.mongo.edu_wiki import EduWikiEntry
 from src.storages.mongo.hotel import HotelEntry
 from src.storages.mongo.maps import MapsEntry
@@ -28,5 +29,6 @@ document_models = cast(
         MapsEntry,
         ResourcesEntry,
         ResidentsEntry,
+        ChatSession,
     ],
 )

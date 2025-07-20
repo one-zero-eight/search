@@ -5,8 +5,6 @@ import httpx
 from openai import AsyncOpenAI
 from openai.types.chat import (
     ChatCompletionMessageParam,
-    ChatCompletionSystemMessageParam,
-    ChatCompletionUserMessageParam,
 )
 
 from src.api.logging_ import logger
@@ -15,60 +13,11 @@ from src.ml_service.openai_tools import BOOK_MUSIC_ROOM_FN
 from src.modules.ml.schemas import MLActResponse
 
 from .actions import MusicRoomSlot, music_room_act
-from .prompt import build_prompt
 
 client = AsyncOpenAI(
     api_key=settings.ml_service.openrouter_api_key.get_secret_value(),
     base_url=settings.ml_service.llm_api_base,
 )
-
-
-async def generate_answer(
-    question: str,
-    contexts: list[dict],
-    lang_name: str | None = None,
-) -> str:
-    if not contexts:
-        fallback_content = (
-            f"{question}\n\n"
-            "No information was found in the provided contexts. "
-            "Please apologize and state this strictly in the same language as the question above."
-        )
-        fallback_user = ChatCompletionUserMessageParam(role="user", content=fallback_content)
-
-        resp = await client.chat.completions.create(
-            model=settings.ml_service.llm_model,
-            messages=[
-                ChatCompletionSystemMessageParam(role="system", content=settings.ml_service.system_prompt),
-                fallback_user,
-            ],
-            max_tokens=2048,
-            temperature=0.0,
-            top_p=1.0,
-        )
-        return resp.choices[0].message.content
-
-    prompt = build_prompt(
-        question,
-        contexts,
-        lang_name,
-    )
-    messages = [
-        ChatCompletionSystemMessageParam(role="system", content=settings.ml_service.system_prompt),
-        ChatCompletionUserMessageParam(role="user", content=prompt),
-    ]
-
-    logger.info(f"system prompt: {messages[0]['content']}")
-    logger.info(f"user prompt: {messages[1]['content']}")
-
-    resp = await client.chat.completions.create(
-        model=settings.ml_service.llm_model,
-        messages=messages,
-        max_tokens=2048,
-        temperature=0.0,
-        top_p=1.0,
-    )
-    return resp.choices[0].message.content
 
 
 async def act(user_input: str, token: str) -> MLActResponse:

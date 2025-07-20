@@ -1,6 +1,7 @@
 import time
 
-from fastapi import APIRouter, Body, Request
+from beanie import PydanticObjectId
+from fastapi import APIRouter, Body, Request, Response
 
 from src.api.dependencies import VerifiedDep
 from src.api.logging_ import logger
@@ -13,6 +14,7 @@ router = APIRouter(prefix="", tags=["Ask"])
 
 @router.post(
     "/ask/",
+    response_model=AskResponses,
     responses={
         200: {"description": "Success"},
         408: {"description": "Chat timed out"},
@@ -20,12 +22,20 @@ router = APIRouter(prefix="", tags=["Ask"])
     },
 )
 async def ask_by_query(
+    response: Response,
     request: Request,
-    _verify: VerifiedDep,
-    query: str = Body(..., embed=True),
-) -> AskResponses:
+    innohassle_id: VerifiedDep,
+    query: str = Body(...),
+    chat_id: PydanticObjectId | None = Body(None),
+):
     start_time = time.monotonic()
-    result = await ask_repository.ask(query=query, request=request, sources=None)
+    result = await ask_repository.ask(
+        query=query,
+        request=request,
+        innohassle_id=innohassle_id,
+        chat_id=chat_id,
+        sources=None,
+    )
     time_spent = time.monotonic() - start_time
     logger.info(f"Ask for `{query}` ({round(time_spent * 1000)}ms): {result.answer}")
     ask_statistics = AskStatistics(time_spent=time_spent, ask_responses=result)

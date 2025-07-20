@@ -1,15 +1,19 @@
 import asyncio
+import pprint
 
 import uvicorn
 from fastapi import FastAPI
 from httpx import AsyncClient
+from openai.types.chat import ChatCompletionSystemMessageParam, ChatCompletionUserMessageParam
 
 from src.api.docs import generate_unique_operation_id
 from src.api.logging_ import logger
+from src.config import settings
 from src.ml_service import docs
 from src.ml_service.lifespan import lifespan
-from src.ml_service.llm import act, generate_answer
+from src.ml_service.llm import act, client
 from src.ml_service.prepare import prepare_resource
+from src.ml_service.prompt import build_prompt
 from src.ml_service.search import search_pipeline
 from src.modules.ml.schemas import (
     MLActRequest,
@@ -75,9 +79,7 @@ async def ask_llm(request: MLAskRequest) -> MLAskResponse:
     results = search_output["results"]
     original_query = search_output["original_query"]
     query_lang = search_output["query_lang"]
-
-    if not results:
-        results = []
+    logger.info(f"🗣️  Original query: '{original_query}' | Detected language: {query_lang}")
 
     snippets = [
         {
@@ -86,11 +88,49 @@ async def ask_llm(request: MLAskRequest) -> MLAskResponse:
         }
         for r in results
     ]
-    answer = await generate_answer(original_query, snippets, query_lang)
 
-    logger.info(f"🗣️  Original query: '{original_query}' | Detected language: {query_lang}")
+    if snippets:
+        search_knowledge_content = build_prompt(
+            original_query,
+            snippets,
+            query_lang,
+        )
+    else:
+        search_knowledge_content = (
+            f"{original_query}\n\n"
+            "No information was found in the provided contexts. "
+            "Please apologize and state this strictly in the same language as the question above."
+        )
+    system_message = ChatCompletionSystemMessageParam(role="system", content=settings.ml_service.system_prompt)
 
-    return MLAskResponse(answer=answer, search_result=MLSearchResult(result_items=results))
+    search_knowledge_content_message = ChatCompletionSystemMessageParam(role="system", content=search_knowledge_content)
+
+    user_message = ChatCompletionUserMessageParam(role="user", content=original_query)
+
+    messages = [system_message] + (request.history or []) + [user_message, search_knowledge_content_message]
+    logger.info(f"Mesages:\n{pprint.pformat(messages, width=120, sort_dicts=False)}")
+    r = await client.chat.completions.create(
+        model=settings.ml_service.llm_model,
+        messages=messages,
+        max_tokens=2048,
+        temperature=0.0,
+        top_p=1.0,
+    )
+    answer = r.choices[0].message.content
+
+    logger.info(f"Answer:\n{answer}")
+    if answer is None:
+        raise RuntimeError("No answer from openai")
+
+    updated_history = (request.history or []) + [
+        user_message,
+        {"role": "assistant", "content": answer},
+    ]
+    logger.info(f"Updated history: {updated_history}")
+
+    return MLAskResponse(
+        answer=answer, search_result=MLSearchResult(result_items=results), updated_history=updated_history
+    )
 
 
 @app.post("/act", responses=BASIC_RESPONSES)

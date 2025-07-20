@@ -6,8 +6,7 @@ TEMPLATE = Template(
 <context>
 ${contexts}
 </context>
-
-Answer:"""
+"""
 )
 
 

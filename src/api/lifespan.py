@@ -16,6 +16,7 @@ from src.modules.innohassle_accounts import innohassle_accounts
 from src.scheduler import start_scheduler
 from src.storages.minio import minio_client
 from src.storages.mongo import document_models
+from src.storages.mongo.chat import ChatSession
 
 
 async def setup_database() -> AsyncIOMotorClient:
@@ -38,7 +39,7 @@ async def setup_database() -> AsyncIOMotorClient:
         raise e
 
     mongo_db = motor_client.get_database()
-    await init_beanie(database=mongo_db, document_models=document_models, recreate_views=True)
+    await init_beanie(database=mongo_db, document_models=[*document_models, ChatSession], recreate_views=True)
     return motor_client
 
 
