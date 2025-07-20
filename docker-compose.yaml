@@ -14,7 +14,7 @@ services:
     ports:
       - "8004:8000"
     volumes:
-      - "./settings.yaml:/code/settings.yaml:ro" # Read-only settings file
+      - "./settings.yaml:/app/settings.yaml:ro" # Read-only settings file
     env_file: .env # You can specify some Uvicorn settings in .env file
     environment:
       - TZ=Europe/Moscow # Set the timezone for correct calendar image generation
