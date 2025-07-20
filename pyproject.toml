@@ -30,7 +30,6 @@ dependencies = [
     "pytest>=8.4.1,<9",
     "pytest-asyncio>=1.0.0,<2",
     "pytest-cov>=6.2.1,<7",
-    "deep-translator>=1.11.4,<2",
     "sentencepiece>=0.1.99",
     "openai>=1.96.1",
     "gunicorn>=23.0.0",

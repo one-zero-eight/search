@@ -164,6 +164,10 @@ For testing we use ```pytest```.
    uv run pytest  --cov-config=.coveragerc --cov=src/ tests/
    ```
    You can change coverage ignored folders/files in `.coveragerc`.
+* To run evaluation script:
+   ```
+   uv run --script scripts/search_result_metrics.py
+   ```
 
 ### Deployment
 

@@ -1,20 +1,33 @@
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#     "httpx",
+#     "numpy",
+#     "pandas",
+#     "ir-metrics",
+#     "tqdm"
+# ]
+# ///
+import argparse
 import asyncio
 
 import httpx
 import numpy as np
 import pandas as pd
 from irmetrics.topk import rr
+from tqdm import tqdm
 
 
-async def pred(i, question, expected_urls, token):
+async def pred(i, question, expected_urls, token, base_url):
     async with httpx.AsyncClient(timeout=10) as client:
         response = await client.get(
-            "http://127.0.0.1:8001/search/search",
+            f"{base_url}/search/search",
             params={
                 "query": question,
                 "response_types": ["link_to_source"],
             },
             headers={"Authorization": f"Bearer {token}"},
+            timeout=60,
         )
 
     response_data = response.json()
@@ -59,11 +72,11 @@ def count_average_precision(relevance_scores, k=None):
     return ap
 
 
-async def get_preds(df, token):
+async def get_preds(df, token, base_url):
     result = []
     problematic_queries = []
-    for i, question in enumerate(df["Вопрос"]):
-        pred_list = await pred(i, question, df["Ссылка"][i].split("\n"), token)
+    for i, question in tqdm(enumerate(df["Вопрос"]), total=len(df), desc="Processing queries"):
+        pred_list = await pred(i, question, df["Ссылка"][i].split("\n"), token, base_url)
         result.append(pred_list)
         if sum(pred_list) == 0:
             problematic_queries.append(question)
@@ -84,12 +97,18 @@ def count_metrics(pred_lists):
         aps.append(ap)
         ndcgs.append(ndcg)
 
-    print(f"Mean Response Rate: {np.array(response_rates).mean()}")
-    print(f"Mean Average Precision: {np.array(aps).mean()}")
-    print(f"Mean NDCG: {np.array(ndcgs).mean()}")
+    print(f"Mean Response Rate: {np.array(response_rates).mean():.2f}")
+    print(f"Mean Average Precision: {np.array(aps).mean():.2f}")
+    print(f"Mean NDCG: {np.array(ndcgs).mean():.2f}")
 
 
 async def process():
+    parser = argparse.ArgumentParser(description="Search result metrics evaluation")
+    parser.add_argument("--local", action="store_true", help="Use local endpoint at http://127.0.0.1:8001")
+    args = parser.parse_args()
+
+    base_url = "http://127.0.0.1:8001" if args.local else "https://api.innohassle.ru/search/v0"
+
     SHEET_ID = "1kpxqZB_gEwnivJHe5jJCVE0o_zqLAYw_Q_xQO3SwplI"
 
     en_url = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=csv&gid=0"
@@ -98,8 +117,8 @@ async def process():
     ru_df = pd.read_csv(ru_url)
 
     token = input("Enter your token from https://innohassle.ru/account/token: ")
-    en_preds, en_problematic_queries = await get_preds(en_df, token)
-    ru_preds, ru_problematic_queries = await get_preds(ru_df, token)
+    en_preds, en_problematic_queries = await get_preds(en_df, token, base_url)
+    ru_preds, ru_problematic_queries = await get_preds(ru_df, token, base_url)
 
     print("Metrics for English queries")
     count_metrics(en_preds)
