@@ -39,7 +39,7 @@ ENV PATH="/app/.venv/bin:$PATH"
 
 COPY --chown=uv:uv . /app
 
-EXPOSE 8000\
+EXPOSE 8000
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 CMD ["gunicorn", \
     "--worker-class", "uvicorn.workers.UvicornWorker", \
