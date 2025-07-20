@@ -6,7 +6,7 @@ import pandas as pd
 from irmetrics.topk import rr
 
 
-async def pred(i, question, expected_url, token):
+async def pred(i, question, expected_urls, token):
     async with httpx.AsyncClient(timeout=10) as client:
         response = await client.get(
             "http://127.0.0.1:8001/search/search",
@@ -21,7 +21,19 @@ async def pred(i, question, expected_url, token):
     if not response_data["responses"]:
         return []
 
-    return [int(item.get("source", "").get("url", "") == expected_url) for item in response_data["responses"]]
+    used = [0 for _ in range(len(expected_urls))]
+    result = []
+    for item in response_data["responses"]:
+        try:
+            index = expected_urls.index(item.get("source", "-").get("url", "-"))
+            used[index] = 1
+            result.append(1)
+        except ValueError:
+            result.append(0)
+
+    if sum(used) > 0 and sum(used) < len(used):
+        result = [0 for _ in range(len(result))]
+    return result
 
 
 def count_ndcg(relevance_scores, k=None):
@@ -49,10 +61,13 @@ def count_average_precision(relevance_scores, k=None):
 
 async def get_preds(df, token):
     result = []
+    problematic_queries = []
     for i, question in enumerate(df["Вопрос"]):
-        pred_list = await pred(i, question, df["Ссылка"][i], token)
+        pred_list = await pred(i, question, df["Ссылка"][i].split("\n"), token)
         result.append(pred_list)
-    return result
+        if sum(pred_list) == 0:
+            problematic_queries.append(question)
+    return result, problematic_queries
 
 
 def count_metrics(pred_lists):
@@ -83,8 +98,8 @@ async def process():
     ru_df = pd.read_csv(ru_url)
 
     token = input("Enter your token from https://innohassle.ru/account/token: ")
-    en_preds = await get_preds(en_df, token)
-    ru_preds = await get_preds(ru_df, token)
+    en_preds, en_problematic_queries = await get_preds(en_df, token)
+    ru_preds, ru_problematic_queries = await get_preds(ru_df, token)
 
     print("Metrics for English queries")
     count_metrics(en_preds)
@@ -94,6 +109,10 @@ async def process():
     print("---")
     print("Metrics for both")
     count_metrics(en_preds + ru_preds)
+    print("---")
+    print("Problematic queries: ")
+    print("\n".join(en_problematic_queries))
+    print("\n".join(ru_problematic_queries))
 
 
 if __name__ == "__main__":
