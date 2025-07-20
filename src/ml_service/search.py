@@ -3,28 +3,17 @@ import time
 import lancedb
 import pandas as pd
 from lingua import Language, LanguageDetectorBuilder
-from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
 
 from src.api.logging_ import logger
 from src.config import settings
 from src.ml_service.text import clean_text
 from src.modules.sources_enum import InfoSources
 
-model_name = "facebook/m2m100_418M"
-tokenizer = M2M100Tokenizer.from_pretrained(model_name)
-model = M2M100ForConditionalGeneration.from_pretrained(model_name)
 language_detector = LanguageDetectorBuilder.from_languages(
     Language.ENGLISH,
     Language.RUSSIAN,
     Language.ARABIC,
 ).build()
-
-
-def translate_to_russian(text: str, from_lang: Language | None) -> str:
-    tokenizer.src_lang = from_lang.iso_code_639_1.name.lower() if from_lang else "en"
-    encoded = tokenizer(text, return_tensors="pt")
-    generated = model.generate(**encoded, forced_bos_token_id=tokenizer.get_lang_id("ru"))
-    return tokenizer.batch_decode(generated, skip_special_tokens=True)[0]
 
 
 async def search_pipeline(
@@ -36,15 +25,10 @@ async def search_pipeline(
     logger.info(f"🔍 Searching for {query} in {resources}")
 
     original_query = query
+    search_query = query
+
     language = language_detector.detect_language_of(query)
     logger.info(f"🔤 Query language: {language}")
-
-    if language != Language.RUSSIAN and InfoSources.residents in resources:
-        logger.info("🌍 English query + 'residents' → Translate to Russian")
-        search_query = translate_to_russian(query, from_lang=language)
-        logger.info(f"📝 Translated query: {search_query}")
-    else:
-        search_query = query
 
     # Time bi-encoder encoding
     bi_encoder_start = time.perf_counter()
