@@ -79,7 +79,7 @@ class MoodleRepository:
             semester_groups["No Semester"] = sorted(no_semester)
         # Sort it in such way:
         # Sum25, S25, F25, Sum24, S24, F24, ..., No Semester
-        semester_groups = sorted(semester_groups.items(), key=lambda x: (x[0][-2:], x[0][0]))
+        semester_groups = sorted(semester_groups.items(), key=lambda x: (x[0][-2:], x[0][0]), reverse=True)
         return dict(semester_groups)
 
     async def get_courses_by_course_fullname_content(self, course_fullname: str, request: Request) -> list[Sources]:
