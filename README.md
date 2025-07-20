@@ -35,7 +35,7 @@ The search service acts as a smart assistant, helping users quickly find informa
 
 ## Technologies
 
-- Environment: [Python 3.11](https://www.python.org/downloads/), [Poetry](https://python-poetry.org/docs/)
+- Environment: [Python 3.11](https://www.python.org/downloads/), [uv](https://docs.astral.sh/uv/)
 - API: [FastAPI](https://fastapi.tiangolo.com/), [Pydantic](https://docs.pydantic.dev/latest/)
 - Database: [MongoDB](https://www.mongodb.com/), [Beanie](https://beanie-odm.dev/)
 - Dev Tools: [Ruff](https://docs.astral.sh/ruff/), [pre-commit](https://pre-commit.com/)
@@ -67,15 +67,15 @@ Now you can find API docs on http://localhost:8004/docs.
 ### Run locally
 
 1. Install [Python 3.11](https://www.python.org/downloads/)
-2. Install [Poetry](https://python-poetry.org/docs/)
-3. Install project dependencies with [Poetry](https://python-poetry.org/docs/cli/#options-2).
+2. Install [uv](https://docs.astral.sh/uv/getting-started/installation/)
+3. Install project dependencies with uv:
    ```bash
-   poetry install
+   uv sync
    ```
 4. Set up [pre-commit](https://pre-commit.com/) hooks:
 
    ```bash
-   poetry run pre-commit install --install-hooks -t pre-commit -t commit-msg
+   uv run pre-commit install --install-hooks -t pre-commit -t commit-msg
    ```
 5. Check that your `settings.yaml` looks like:
    ```yaml
@@ -103,17 +103,17 @@ Now you can find API docs on http://localhost:8004/docs.
    2. If you want to use Infinity, set `infinity_url` in `settings.yaml` to the url of deployed Infinity engine.
       You can run Infinity engine locally:
       ```bash
-      uv run --no-project --with "infinity_emb[all]" --with "transformers<4.49" infinity_emb v2 --model-id intfloat/multilingual-e5-large-instruct --model-id BAAI/bge-reranker-v2-m3
+      uv run --no-project --with "infinity_emb[all]" --with "transformers<4.49" infinity_emb v2 --model-id jinaai/jina-embeddings-v3 --model-id jinaai/jina-reranker-v2-base-multilingual
       ```
       Or use deployed Infinity engine provided by someone else.
 
 8. Run ml client
    ```bash
-   poetry run python -m src.ml_service
+   uv run python -m src.ml_service
    ```
 9. Run the ASGI server
    ```bash
-   poetry run python -m src.api
+   uv run python -m src.api
    ```
    Check API docs on http://127.0.0.1:8001/docs.
 
@@ -150,11 +150,11 @@ How to get token:
 For testing we use ```pytest```.
 * To run tests enter in your terminal:
    ```
-   poetry run pytest tests
+   uv run pytest tests
    ```
 * To generate test coverage report run:
    ```
-   poetry run pytest  --cov-config=.coveragerc --cov=src/ tests/
+   uv run pytest  --cov-config=.coveragerc --cov=src/ tests/
    ```
    You can change coverage ignored folders/files in `.coveragerc`.
 

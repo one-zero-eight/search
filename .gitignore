@@ -11,6 +11,7 @@ qdrant_storage/
 cache/
 
 ### Environment ###
+.venv
 .env
 settings.yaml
 private.pem
