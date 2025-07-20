@@ -122,7 +122,7 @@ Now you can find API docs on http://localhost:8004/docs.
 
 - Ruff – [plugin](https://plugins.jetbrains.com/plugin/20574-ruff):
    linting and formatting
-   Enable enable `Use ruff format` in plugin settings.
+   Enable `Use ruff format` in plugin settings.
 - Pydantic – [plugin](https://plugins.jetbrains.com/plugin/12861-pydantic):
    type hinting support
 - Conventional commits – [plugin](https://plugins.jetbrains.com/plugin/13389-conventional-commit):

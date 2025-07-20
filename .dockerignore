@@ -5,8 +5,9 @@
 !/src/
 !/deploy/docker-entrypoint.sh
 !/pyproject.toml
-!/poetry.lock
+!/uv.lock
 !logging.yaml
+!settings.yaml
 
 # And ignore cache files in the code
 __pycache__

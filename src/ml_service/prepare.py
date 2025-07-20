@@ -24,7 +24,6 @@ chunker = TokenChunker(
     tokenizer=settings.ml_service.bi_encoder,
     chunk_size=512,
     chunk_overlap=128,
-    return_type="texts",
 )
 
 
@@ -47,9 +46,9 @@ async def prepare_large(doc: dict):
             source_url_escaped = html.escape(doc["source_url"], quote=True)
             source_page_title_escaped = html.escape(doc["source_page_title"], quote=True)
             prefix = f'<chunk chunk_number={idx} source_url="{source_url_escaped}" source_page_title="{source_page_title_escaped}">'
-            prefixed_chunks.append(f"{prefix}\n{chunk}")
+            prefixed_chunks.append(f"{prefix}\n{chunk.text}")
         else:
-            prefixed_chunks.append(chunk)
+            prefixed_chunks.append(chunk.text)
     return prefixed_chunks
 
 

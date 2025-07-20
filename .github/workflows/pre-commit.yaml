@@ -2,9 +2,6 @@ name: pre-commit
 
 on: [ push, pull_request ]
 
-env:
-  POETRY_VIRTUALENVS_IN_PROJECT: true
-
 jobs:
   pre-commit:
     runs-on: ubuntu-latest

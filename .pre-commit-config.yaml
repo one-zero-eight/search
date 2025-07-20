@@ -42,6 +42,6 @@ repos:
       - id: generate-settings-schema
         name: generate settings.schema.yaml
         language: system
-        entry: poetry run python ./scripts/generate_settings_schema.py
+        entry: uv run python ./scripts/generate_settings_schema.py
         pass_filenames: false
         files: ^src/config_schema.py$
