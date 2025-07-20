@@ -1,12 +1,14 @@
 # yaml-language-server: $schema=settings.schema.yaml
 $schema: "./settings.schema.yaml"
 api_settings:
-  db_url: "mongodb://mongoadmin:secret@localhost:27017/db?authSource=admin"
+  db_url: "mongodb://mongoadmin:secret@db:27017/db?authSource=admin"
 minio:
+  endpoint: minio:9000
   access_key: "minioadmin"
   secret_key: "password"
 ml_service:
+  api_url: http://host.docker.internal:8002
   api_key: "secret_token"
-  mongo_url: "mongodb://mongoadmin:secret@localhost:27017/db?authSource=admin"
+  mongo_url: "mongodb://mongoadmin:secret@db:27017/db?authSource=admin"
   openrouter_api_key: "your openrouter api key"
-  timeout: 15.0
+  timeout: 180.0

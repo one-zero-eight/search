@@ -50,7 +50,7 @@ The search service acts as a smart assistant, helping users quickly find informa
    ```bash
    cp settings.example.yaml settings.yaml
    ```
-   Edit `settings.yaml` according to your needs.
+   Put your `openrouter_api_key` in `settings.yaml`.
 2. Set up database settings for [docker-compose](https://docs.docker.com/compose/) container
       in `.env` file
       ```bash
@@ -59,6 +59,7 @@ The search service acts as a smart assistant, helping users quickly find informa
 
 1. Start all services:
    ```bash
+   uv run python -m src.ml_service
    docker compose up
    ```
 
