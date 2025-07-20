@@ -116,6 +116,47 @@ def extract_catalogue_links(html: str) -> list[str]:
     return sorted(links)
 
 
+def process_club_entry(container):
+    tab1_blocks = {}
+    tab2_blocks = {}
+    anchor = container.get("id", "")
+
+    # Collect all content-tab1_<n> blocks
+    for div in container.find_all("div", id=re.compile(r"content-tab1_(\d+)", re.I)):
+        match = re.search(r"content-tab1_(\d+)", div.get("id", ""))
+        if match:
+            tab_number = match.group(1)
+            tab1_blocks[tab_number] = div
+
+    # Collect all content-tab2_<n> blocks
+    for div in container.find_all("div", id=re.compile(r"content-tab2_(\d+)", re.I)):
+        match = re.search(r"content-tab2_(\d+)", div.get("id", ""))
+        if match:
+            tab_number = match.group(1)
+            tab2_blocks[tab_number] = div
+
+    # 4. Combine pairs and convert to Markdown
+    for tab_number in sorted(tab1_blocks.keys()):
+        tab1_div = tab1_blocks.get(tab_number)
+        tab2_div = tab2_blocks.get(tab_number)
+
+        if not tab2_div:
+            print(f"   └─ ⚠️ Tab2 for club {tab_number} not found, skipping")
+            continue
+
+        club_title = f"Club {tab_number}"
+        heading_elem = tab1_div.find(class_=lambda x: x and "t-heading" in x.lower())
+        if heading_elem:
+            title_text = heading_elem.get_text(strip=True)
+            if title_text:
+                club_title = title_text
+            heading_elem.decompose()
+        combined_html = str(tab1_div) + str(tab2_div)
+        combined_md = html_to_markdown(combined_html, club_title)
+
+        yield anchor, club_title, combined_md
+
+
 def parse():
     result = list()
 
@@ -138,49 +179,18 @@ def parse():
             # 3. Find pairs of content-tab1_<n> and content-tab2_<n>
             sub_soup = BeautifulSoup(sub_html, "html.parser")
 
-            tab1_blocks = {}
-            tab2_blocks = {}
-
-            # Collect all content-tab1_<n> blocks
-            for div in sub_soup.find_all("div", id=re.compile(r"content-tab1_(\d+)", re.I)):
-                match = re.search(r"content-tab1_(\d+)", div.get("id", ""))
-                if match:
-                    tab_number = match.group(1)
-                    tab1_blocks[tab_number] = div
-
-            # Collect all content-tab2_<n> blocks
-            for div in sub_soup.find_all("div", id=re.compile(r"content-tab2_(\d+)", re.I)):
-                match = re.search(r"content-tab2_(\d+)", div.get("id", ""))
-                if match:
-                    tab_number = match.group(1)
-                    tab2_blocks[tab_number] = div
-
-            # 4. Combine pairs and convert to Markdown
-            for tab_number in sorted(tab1_blocks.keys()):
-                tab1_div = tab1_blocks.get(tab_number)
-                tab2_div = tab2_blocks.get(tab_number)
-
-                if not tab2_div:
-                    print(f"   └─ ⚠️ Tab2 for club {tab_number} not found, skipping")
-                    continue
-
-                club_title = f"Club {tab_number}"
-                heading_elem = tab1_div.find(class_=lambda x: x and "t-heading" in x.lower())
-                if heading_elem:
-                    title_text = heading_elem.get_text(strip=True)
-                    if title_text:
-                        club_title = title_text
-                    heading_elem.decompose()
-                combined_html = str(tab1_div) + str(tab2_div)
-                combined_md = html_to_markdown(combined_html, club_title)
-
-                result.append(
-                    CampusLifeEntrySchema(
-                        source_url=BASE_URL + sub_path + f"#!/tab/{str(tab_number)}-1",
-                        source_page_title=club_title,
-                        content=combined_md,
+            tab_containers = sub_soup.find_all(
+                "div", id=re.compile(r"^rec\d+"), class_=lambda x: x and "r" in x and "t-rec" in x
+            )
+            for container in tab_containers:
+                for anchor, club_title, club_md in process_club_entry(container):
+                    result.append(
+                        CampusLifeEntrySchema(
+                            source_url=BASE_URL + sub_path + f"#{anchor}",
+                            source_page_title=club_title,
+                            content=club_md,
+                        )
                     )
-                )
 
         except Exception as e:
             print(f"   └─ ❌ Error while parsing {sub_path}: {e}")
