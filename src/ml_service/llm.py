@@ -9,7 +9,11 @@ from openai.types.chat import (
 
 from src.api.logging_ import logger
 from src.config import settings
-from src.ml_service.openai_tools import BOOK_MUSIC_ROOM_FN
+from src.ml_service.openai_tools import (
+    BOOK_MUSIC_ROOM_FN,
+    CANCEL_BOOKING_FN,
+    LIST_MY_BOOKINGS_FN,
+)
 from src.modules.ml.schemas import MLActResponse
 
 from .actions import MusicRoomSlot, music_room_act
@@ -25,10 +29,11 @@ async def act(user_input: str, token: str) -> MLActResponse:
     messages: list[ChatCompletionMessageParam] = [{"role": "user", "content": user_input + extra_context}]
     logger.info(f"user prompt: {messages[0]['content']}")
 
+    tools = [BOOK_MUSIC_ROOM_FN, LIST_MY_BOOKINGS_FN, CANCEL_BOOKING_FN]
     completion = await client.chat.completions.create(
         model=settings.ml_service.llm_model,
         messages=messages,
-        tools=[BOOK_MUSIC_ROOM_FN],
+        tools=tools,
         tool_choice="auto",
     )
     msg = completion.choices[0].message
@@ -38,13 +43,13 @@ async def act(user_input: str, token: str) -> MLActResponse:
 
     if msg.tool_calls:
         for tool_call in msg.tool_calls:
-            if tool_call.function.name == "book_music_room":
-                messages.append(msg)
+            name = tool_call.function.name
+            kwargs = json.loads(tool_call.function.arguments)
 
-                kwargs = json.loads(tool_call.function.arguments)
+            if name == "book_music_room":
+                messages.append(msg)
                 start_dt = datetime.fromisoformat(kwargs["start_datetime"])
                 end_dt = datetime.fromisoformat(kwargs["end_datetime"])
-
                 slot = MusicRoomSlot(time_start=start_dt, time_end=end_dt)
 
                 try:
@@ -76,13 +81,116 @@ async def act(user_input: str, token: str) -> MLActResponse:
                         }
                     )
 
-                completion2 = await client.chat.completions.create(
-                    model=settings.ml_service.llm_model,
-                    messages=messages,
-                    tools=[BOOK_MUSIC_ROOM_FN],
-                    tool_choice="auto",
-                )
-                answer = completion2.choices[0].message.content
+            elif name == "list_my_bookings":
+                messages.append(msg)
+                try:
+                    bookings = await music_room_act.list_my_bookings(token)
+                    messages.append(
+                        {
+                            "role": "tool",
+                            "tool_call_id": tool_call.id,
+                            "content": (f"List of bookings: {json.dumps(bookings)}."),
+                        }
+                    )
+
+                    if not bookings:
+                        messages.append(
+                            {
+                                "role": "system",
+                                "content": (
+                                    "The user has no bookings in the music room."
+                                    "Please politely inform the user about this."
+                                ),
+                            }
+                        )
+
+                    logger.info(f"bookings: {json.dumps(bookings)}")
+                except Exception as e:
+                    if isinstance(e, httpx.HTTPStatusError):
+                        error_text = f"{e} ({e.response.text})"
+                    else:
+                        error_text = str(e)
+                    logger.error(f"Failed to list bookings: {e}")
+                    messages.append(
+                        {
+                            "role": "tool",
+                            "tool_call_id": tool_call.id,
+                            "content": (
+                                f"The user tried to see their bookings"
+                                f"but the action failed: {error_text}. Please politely inform the user about this."
+                            ),
+                        }
+                    )
+
+            elif name == "cancel_booking":
+                messages.append(msg)
+                start_dt = datetime.fromisoformat(kwargs["start_datetime"])
+                bookings = await music_room_act.list_my_bookings(token)
+                target = next((b for b in bookings if b["time_start"] == start_dt.isoformat()), None)
+                if not target:
+                    messages.append(
+                        {
+                            "role": "tool",
+                            "tool_call_id": tool_call.id,
+                            "content": (f"Canceled: {False}."),
+                        }
+                    )
+                    messages.append(
+                        {
+                            "role": "system",
+                            "content": (
+                                "The user has no bookings in the music room.Please politely inform the user about this."
+                            ),
+                        }
+                    )
+                else:
+                    bid = target["id"]
+
+                try:
+                    success = await music_room_act.cancel_booking(bid, token)
+                    messages.append(
+                        {
+                            "role": "tool",
+                            "tool_call_id": tool_call.id,
+                            "content": (f"Canceled: {success}."),
+                        }
+                    )
+                    messages.append(
+                        {
+                            "role": "system",
+                            "content": (
+                                "The user cancels his booking in the music room."
+                                "Please politely inform the user about this."
+                            ),
+                        }
+                    )
+
+                    logger.info(f"canceled: {success}")
+                except Exception as e:
+                    if isinstance(e, httpx.HTTPStatusError):
+                        error_text = f"{e} ({e.response.text})"
+                    else:
+                        error_text = str(e)
+                    logger.error(f"Failed to cancel booking: {e}")
+                    messages.append(
+                        {
+                            "role": "tool",
+                            "tool_call_id": tool_call.id,
+                            "content": (
+                                f"The user tried to cancel a booking"
+                                f"but the action failed: {error_text}. Please politely inform the user about this."
+                            ),
+                        }
+                    )
+
+        completion2 = await client.chat.completions.create(
+            model=settings.ml_service.llm_model,
+            messages=messages,
+            tools=tools,
+            tool_choice="auto",
+        )
+        answer = completion2.choices[0].message.content
+
     return MLActResponse(
         answer=answer,
         tool_calls=[tool_call.model_dump(mode="json") for tool_call in msg.tool_calls or []],

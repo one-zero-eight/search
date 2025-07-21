@@ -26,8 +26,6 @@ class MusicRoomActions:
     def __init__(self):
         self.base_url = settings.ml_service.api_music_url
 
-    async def get_daily_bookings(self, token: str, date: datetime.date): ...
-
     async def create_booking(
         self,
         slot: MusicRoomSlot,
@@ -47,6 +45,30 @@ class MusicRoomActions:
                 logger.error(f"Failed to book slot: {resp.json()}")  # exist overlap
             resp.raise_for_status()
             return BookingResponse.model_validate(resp.json())
+
+    async def list_my_bookings(self, token: str) -> list[dict]:
+        headers = {"Authorization": f"Bearer {token}", "Accept": "application/json", "Content-Type": "application/json"}
+
+        async with httpx.AsyncClient() as client:
+            resp = await client.get(f"{self.base_url}/bookings/my_bookings", headers=headers)
+            if resp.status_code == 400:
+                logger.error(f"Failed to get bookings: {resp.json()}")
+            elif resp.status_code == 409:
+                logger.error(f"Failed to get bookings: {resp.json()}")
+            resp.raise_for_status()
+            return resp.json()
+
+    async def cancel_booking(self, booking_id: int, token: str) -> bool:
+        headers = {"Authorization": f"Bearer {token}", "Accept": "application/json", "Content-Type": "application/json"}
+
+        async with httpx.AsyncClient() as client:
+            resp = await client.delete(f"{self.base_url}/bookings/{booking_id}", headers=headers)
+            if resp.status_code == 400:
+                logger.error(f"Failed to cancel booking: {resp.json()}")
+            elif resp.status_code == 409:
+                logger.error(f"Failed to cancel booking: {resp.json()}")
+            resp.raise_for_status()
+            return resp.status_code == 200
 
 
 music_room_act: MusicRoomActions = MusicRoomActions()
