@@ -40,6 +40,7 @@ async def act(user_input: str, token: str) -> MLActResponse:
     answer = msg.content
 
     logger.info(type(msg))
+    messages.append(msg)
 
     if msg.tool_calls:
         for tool_call in msg.tool_calls:
@@ -47,7 +48,6 @@ async def act(user_input: str, token: str) -> MLActResponse:
             kwargs = json.loads(tool_call.function.arguments)
 
             if name == "book_music_room":
-                messages.append(msg)
                 start_dt = datetime.fromisoformat(kwargs["start_datetime"])
                 end_dt = datetime.fromisoformat(kwargs["end_datetime"])
                 slot = MusicRoomSlot(time_start=start_dt, time_end=end_dt)
@@ -82,7 +82,6 @@ async def act(user_input: str, token: str) -> MLActResponse:
                     )
 
             elif name == "list_my_bookings":
-                messages.append(msg)
                 try:
                     bookings = await music_room_act.list_my_bookings(token)
                     messages.append(
@@ -123,10 +122,10 @@ async def act(user_input: str, token: str) -> MLActResponse:
                     )
 
             elif name == "cancel_booking":
-                messages.append(msg)
-                start_dt = datetime.fromisoformat(kwargs["start_datetime"])
+                start_dt = datetime.fromisoformat(kwargs["time_start"])
                 bookings = await music_room_act.list_my_bookings(token)
                 target = next((b for b in bookings if b["time_start"] == start_dt.isoformat()), None)
+                logger.info(f"target: {target}")
                 if not target:
                     messages.append(
                         {
@@ -144,44 +143,46 @@ async def act(user_input: str, token: str) -> MLActResponse:
                         }
                     )
                 else:
-                    bid = target["id"]
+                    booking_id = target["id"]
 
-                try:
-                    success = await music_room_act.cancel_booking(bid, token)
-                    messages.append(
-                        {
-                            "role": "tool",
-                            "tool_call_id": tool_call.id,
-                            "content": (f"Canceled: {success}."),
-                        }
-                    )
-                    messages.append(
-                        {
-                            "role": "system",
-                            "content": (
-                                "The user cancels his booking in the music room."
-                                "Please politely inform the user about this."
-                            ),
-                        }
-                    )
+                    logger.info(f"booking id: {booking_id}")
 
-                    logger.info(f"canceled: {success}")
-                except Exception as e:
-                    if isinstance(e, httpx.HTTPStatusError):
-                        error_text = f"{e} ({e.response.text})"
-                    else:
-                        error_text = str(e)
-                    logger.error(f"Failed to cancel booking: {e}")
-                    messages.append(
-                        {
-                            "role": "tool",
-                            "tool_call_id": tool_call.id,
-                            "content": (
-                                f"The user tried to cancel a booking"
-                                f"but the action failed: {error_text}. Please politely inform the user about this."
-                            ),
-                        }
-                    )
+                    try:
+                        success = await music_room_act.cancel_booking(booking_id, token)
+                        messages.append(
+                            {
+                                "role": "tool",
+                                "tool_call_id": tool_call.id,
+                                "content": (f"Canceled: {success}."),
+                            }
+                        )
+                        messages.append(
+                            {
+                                "role": "system",
+                                "content": (
+                                    "The user cancels his booking in the music room."
+                                    "Please politely inform the user about this."
+                                ),
+                            }
+                        )
+
+                        logger.info(f"canceled: {success}")
+                    except Exception as e:
+                        if isinstance(e, httpx.HTTPStatusError):
+                            error_text = f"{e} ({e.response.text})"
+                        else:
+                            error_text = str(e)
+                        logger.error(f"Failed to cancel booking: {e}")
+                        messages.append(
+                            {
+                                "role": "tool",
+                                "tool_call_id": tool_call.id,
+                                "content": (
+                                    f"The user tried to cancel a booking"
+                                    f"but the action failed: {error_text}. Please politely inform the user about this."
+                                ),
+                            }
+                        )
 
         completion2 = await client.chat.completions.create(
             model=settings.ml_service.llm_model,

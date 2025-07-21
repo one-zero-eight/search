@@ -36,13 +36,13 @@ CANCEL_BOOKING_FN = {
         "parameters": {
             "type": "object",
             "properties": {
-                "start_datetime": {
+                "time_start": {
                     "type": "string",
                     "format": "date-time",
                     "description": "Booking start",
                 }
             },
-            "required": ["start_time"],
+            "required": ["time_start"],
         },
     },
 }
