@@ -103,20 +103,13 @@ async def prepare_resource(resource: InfoSources, docs: list[dict]):
     if table_name in await lance_db.table_names():
         await lance_db.drop_table(table_name)
 
-    if records:
-        await lance_db.create_table(
-            table_name,
-            data=records,
-            schema=arrow_schema,
-        )
-    else:
-        await lance_db.create_table(
-            table_name,
-            schema=arrow_schema,
-        )
+    await lance_db.create_table(
+        table_name,
+        data=records if records else None,
+        schema=arrow_schema,
+    )
 
     tbl = await lance_db.open_table(table_name)
-    # tbl.create_fts_index("content", replace=True, use_tantivy=False)
     arrow_tbl = await tbl.to_arrow()
     logger.info(f"Resource `{resource}`: {arrow_tbl.num_rows} rows (Arrow)")
     return arrow_tbl.drop("embedding").to_pylist()
