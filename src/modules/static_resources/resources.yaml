@@ -1,171 +1,177 @@
 myuni:
-  - source_page_title: "MyUni Dashboard"
+  - source_page_title: "MyUni / Dashboard"
     source_url: https://my.university.innopolis.ru/profile
-    content: "# MyUni Dashboard\n\n\nThis source page provides a structured overview of a student's academic profile and university services at Innopolis University."
-  - source_page_title: "Gradebook"
+    content: "# Dashboard\n\n\nThis source page provides a structured overview of a student's academic profile and university services at Innopolis University."
+  - source_page_title: "MyUni / Gradebook"
     source_url: https://my.university.innopolis.ru/profile/personal-form/index?tab=validations
     content: "# Gradebook\n\n\nThis source page describes the structure and content of a student gradebook for the academic year. The data is presented in a tabular format showing course performance across semesters."
-  - source_page_title: "Scholarship"
+  - source_page_title: "MyUni / Scholarship"
     source_url: https://my.university.innopolis.ru/profile/personal-form/index?tab=scholarship
     content: "# Scholarship\n\n\nThis source page presents a student's scholarship culculation using the Innopolis University's formula."
-  - source_page_title: "Higher scholarship"
+  - source_page_title: "MyUni / Higher scholarship"
     source_url: https://my.university.innopolis.ru/profile/student-achievements
     content: "# Higher scholarship\n\n\nThis source page allows to submit achievement-based scholarship applications at Innopolis University."
-  - source_page_title: "Financial Request for Support"
+  - source_page_title: "MyUni / Financial Request for Support"
     source_url: https://my.university.innopolis.ru/profile/ext-event-requests
     content: "# Financial Request for Support\n\n\nThis source page contains guidelines for students applying for financial support to participate in external academic/professional events at Innopolis University."
-  - source_page_title: "Request on a reference"
+  - source_page_title: "MyUni / Request on a reference"
     source_url: https://my.university.innopolis.ru/profile/edu-certs/create
     content: "# Request on a reference\n\n\nThis source page allows students to order official university references/transcripts through a digital portal."
-  - source_page_title: "Applications"
+  - source_page_title: "MyUni / Applications"
     source_url: https://my.university.innopolis.ru/profile/applications
     content: "# Applications\n\n\nThis source page provides downloadable application forms for various administrative processes at the university, available in both English and Russian."
-  - source_page_title: "MyUni Room Booking"
+  - source_page_title: "MyUni / Room Booking"
     source_url: https://my.university.innopolis.ru/profile/room-booking
     content: "# MyUni Room Booking\n\n\nThis source page allows users to book rooms at the university, view active bookings and display room capacities and existing bookings in a calendar format."
-  - source_page_title: "Enrollment documents"
+  - source_page_title: "MyUni / Enrollment documents"
     source_url: https://my.university.innopolis.ru/app/enrollee-docs-form
     content: "# Enrollment documents\n\n\nThis source page provides downloadable application forms and consent documents for university admission processes, primarily targeting grant applicants and personal data management."
-  - source_page_title: "Employment report"
+  - source_page_title: "MyUni / Employment report"
     source_url: https://my.university.innopolis.ru/app/graduate-form
     content: "# Employment report\n\n\nThis source page collects employment verification data from graduates for university records and alumni tracking purposes."
+  - source_page_title: "MyUni / University events"
+    source_url: https://my.innopolis.university/event
+    content: "# University events\n\n\nThis source page announces university events. For some of them you can register either as a volunteer or a photographer For some of them you can earn innopoints.\n"
+  - source_page_title: "MyUni / University store"
+    source_url: https://my.innopolis.university/store
+    content: "# University store\n\n\nThis source page is a store where you can buy university merch for innopoints.\n"
 
 innohassle:
-  - source_page_title: "InNoHassle Dashboard"
+  - source_page_title: "InNoHassle / Dashboard"
     source_url: https://innohassle.ru/dashboard
     content: "# InNoHassle Dashboard\n\n\nThis personalized dashboard provides students with academic timelines, university services, and productivity tools in a unified interface."
-  - source_page_title: "Calendar"
+  - source_page_title: "InNoHassle / Calendar"
     source_url: https://innohassle.ru/calendar
     content: "# Calendar\n\n\nThis dynamic calendar interface displays a student's schedule with lectures, tutorials and labs."
-  - source_page_title: "Maps"
+  - source_page_title: "InNoHassle / Maps"
     source_url: https://innohassle.ru/maps
     content: "# Maps\n\n\nThis interface provides location search functionality across multiple floors of a university campus, including specialized areas like the Sport Complex."
-  - source_page_title: "InNoHassle Room Booking"
+  - source_page_title: "InNoHassle / Room Booking"
     source_url: https://innohassle.ru/room-booking
     content: "# InNoHassle Room Booking\n\n\nThis interface allows users to book meeting and lecture rooms through an interactive timeline-based system using drag-and-drop functionality."
-  - source_page_title: "Schedule"
+  - source_page_title: "InNoHassle / Schedule"
     source_url: https://innohassle.ru/schedule
     content: "# Schedule\n\n\nThis system provides centralized scheduling for academic activities, sports, and dormitory maintenance across multiple buildings in calendar format."
-  - source_page_title: "Scholarship Calculator"
+  - source_page_title: "InNoHassle / Scholarship Calculator"
     source_url: https://innohassle.ru/scholarship
     content: "# Scholarship Calculator\n\n\nInnopolis University\u2019s scholarship system calculates financial aid based on GPA, cohort (B22/B23/B24), and performance bonuses."
-  - source_page_title: "Inno Print Bot"
+  - source_page_title: "InNoHassle / Inno Print Bot"
     source_url: https://innohassle.ru/printers
     content: "# Inno Print Bot\n\n\nTelegram bot that enables wireless printing and scanning at Innopolis University."
-  - source_page_title: "Dorms"
+  - source_page_title: "InNoHassle / Dorms"
     source_url: https://innohassle.ru/dorms
     content: "# Dorms\n\n\nTelegram bot for managing shared dormitory responsibilities at Innopolis University."
-  - source_page_title: "Music Room"
+  - source_page_title: "InNoHassle / Music Room"
     source_url: https://innohassle.ru/music-room
     content: "# Music room\n\n\nTelegram-based system for reserving the university's music room, featuring equipment access and community engagement."
-  - source_page_title: "Sport"
+  - source_page_title: "InNoHassle / Sport"
     source_url: https://innohassle.ru/sport
     content: "# Sport \n\n\nThis source page is for sports activity tracking and facility access at Innopolis University."
-  - source_page_title: "Extension"
+  - source_page_title: "InNoHassle / Browser Extension"
     source_url: https://innohassle.ru/extension
-    content: "# Extension\n\n\nBrowser extension providing enhanced access to Innopolis University's digital ecosystem (Moodle, InNoHassle, etc.) with productivity features."
+    content: "# Browser extension\n\n\nBrowser extension providing enhanced access to Innopolis University's digital ecosystem (Moodle, InNoHassle, etc.) with productivity features."
 
 ithelp:
-  - source_page_title: "Home page"
+  - source_page_title: "IT Help / Home page"
     source_url: https://help.university.innopolis.ru/ru/home
     content: "# Home page\n\n\nThis source page describes other university resources and provides links for them.\n"
-  - source_page_title: "Contacts"
+  - source_page_title: "IT Help / Contacts"
     source_url: https://help.university.innopolis.ru/ru/Contacts
     content: "# Contacts\n\n\nThis source page provides ways to contact university's staff.\n"
-  - source_page_title: "VPN connection problems"
+  - source_page_title: "IT Help / VPN connection problems"
     source_url: https://help.university.innopolis.ru/ru/VPN/VPN_Errors/Problems_with_VPN_connection
     content: "# VPN connection problems\n\n\nThis source page describes how to handle errors with VPN.\n"
-  - source_page_title: "VPN traffic"
+  - source_page_title: "IT Help / VPN traffic"
     source_url: https://help.university.innopolis.ru/ru/VPN/VPN_Errors/Traffic_via_VPN
     content: "# VPN traffic\n\n\nThis source page describes ways of VPN connection and its pros and cons.\n"
-  - source_page_title: "WIFI for Android"
+  - source_page_title: "IT Help / WIFI for Android"
     source_url: https://help.university.innopolis.ru/ru/WIFI/Android11
     content: "# WIFI for Android\n\n\nThis source page has a connection to corporate wifi Android connection manual.\n"
-  - source_page_title: "WIFI for IOS"
+  - source_page_title: "IT Help / WIFI for IOS"
     source_url: https://help.university.innopolis.ru/ru/WIFI/IOS
     content: "# WIFI for IOS\n\n\nThis source page has a connection to corporate wifi IOS connection manual.\n"
-  - source_page_title: "WIFI for Ubuntu"
+  - source_page_title: "IT Help / WIFI for Ubuntu"
     source_url: https://help.university.innopolis.ru/ru/WIFI/Ubuntu(GUI)
     content: "# WIFI for Ubuntu\n\n\nThis source page has a connection to corporate wifi Ubuntu connection manual.\n"
-  - source_page_title: "WIFI for MacOS"
+  - source_page_title: "IT Help / WIFI for MacOS"
     source_url: https://help.university.innopolis.ru/ru/WIFI/MacOS
     content: "# WIFI for MacOS\n\n\nThis source page has a connection to corporate wifi MacOS connection manual.\n"
-  - source_page_title: "Virtual machines"
+  - source_page_title: "IT Help / Virtual machines"
     source_url: https://help.university.innopolis.ru/ru/Virtualization
     content: "# Virtual machines\n\n\nThis source page contains information about virtual machines in the university.\n"
-  - source_page_title: "VM request template"
+  - source_page_title: "IT Help / VM request template"
     source_url: https://help.university.innopolis.ru/ru/Virtualization/VM_template
     content: "# VM request template\n\n\nThis source page gives a virtual machine request template.\n"
-  - source_page_title: "White top bar windows"
+  - source_page_title: "IT Help / White top bar windows"
     source_url: https://help.university.innopolis.ru/ru/operating_system/white_bar_at_the_top_of_windows
     content: "# White top bar windows\n\n\nThis source page describes how to handle white bat on top of the windows operating system.\n"
-  - source_page_title: "Out of disk space problem"
+  - source_page_title: "IT Help / Out of disk space problem"
     source_url: https://help.university.innopolis.ru/ru/operating_system/Out_of_disk_space
     content: "# Out of disk space problem\n\n\nThis source page describes how to handle out of disk space problem on windows operation system.\n"
-  - source_page_title: "Employee certification"
+  - source_page_title: "IT Help / Employee certification"
     source_url: https://help.university.innopolis.ru/ru/%D0%9F%D0%BE%D1%80%D1%82%D0%B0%D0%BB/test
     content: "# Employee certification\n\n\nThis source page contains information about tests for university's employees.\n"
-  - source_page_title: "New email profile"
+  - source_page_title: "IT Help / New email profile"
     source_url: https://help.university.innopolis.ru/ru/Mail/Create_new_mail_Profile
     content: "# New email profile\n\n\nThis source page gives instructions about creation of new corporate university profile.\n"
-  - source_page_title: "Can't log into Outlook"
+  - source_page_title: "IT Help / Can't log into Outlook"
     source_url: https://help.university.innopolis.ru/ru/Mail/Cant_log_into_Outlook
     content: "# Can't log into Outlook\n\n\nThis source page describes how to handle can't log into Outlook email problem.\n"
-  - source_page_title: "Update Outlook email address book"
+  - source_page_title: "IT Help / Update Outlook email address book"
     source_url: https://help.university.innopolis.ru/ru/Mail/Update_your_address_book_in_Outlook
     content: "# Update Outlook email address book\n\n\nThis source page describes how to update your address book in the Outlook email.\n"
-  - source_page_title: "How to add email to printer's address book"
+  - source_page_title: "IT Help / How to add email to printer's address book"
     source_url: https://help.university.innopolis.ru/ru/Printers_and_Scanners/How_to_add_email_to_address_book
     content: "# How to add email to printer's address book\n\n\nThis source page proves instructions about adding email to the address book in the printer.\n"
-  - source_page_title: "Connection printer to PC"
+  - source_page_title: "IT Help / Connection printer to PC"
     source_url: https://help.university.innopolis.ru/ru/Printers_and_Scanners/Connecting_the_printer_to_a_PC
     content: "# Connection printer to PC\n\n\nThis source page describes how to connect PC to the printer.\n"
-  - source_page_title: "Printing settings in 1C"
+  - source_page_title: "IT Help / Printing settings in 1C"
     source_url: https://help.university.innopolis.ru/ru/Printers_and_Scanners/The_printing_settings_in_1C
     content: "# Printing settings in 1C\n\n\nThis source page describes what to do if printing settings in 1C are broken.\n"
-  - source_page_title: "Scanning docs on a Samsung's printer via FTP"
+  - source_page_title: "IT Help / Scanning docs on a Samsung's printer via FTP"
     source_url: https://help.university.innopolis.ru/ru/Printers_and_Scanners/Scanning_documents_on_a_Samsung_FTP
     content: "# Scanning docs on a Samsung's printer via FTP\n\n\nThis source page gives a manual about scanning documents in the Samsung's printer via FTP.\n"
-  - source_page_title: "MS teams quick start"
+  - source_page_title: "IT Help / MS teams quick start"
     source_url: https://help.university.innopolis.ru/ru/Software/MS_Teams/Get_started
     content: "# MS teams quick start\n\n\nThis source page describes how to start work with MS teams.\n"
-  - source_page_title: "MS teams  login problem"
+  - source_page_title: "IT Help / MS teams  login problem"
     source_url: https://help.university.innopolis.ru/ru/Software/MS_Teams/Problem_with_login_Teams
     content: "# MS teams  login problem\n\n\nThis source page describes how to handle login problem in MS teams.\n"
-  - source_page_title: "Teams meeting in Outlook"
+  - source_page_title: "IT Help / Teams meeting in Outlook"
     source_url: https://help.university.innopolis.ru/ru/Software/MS_Teams/Teams_Meeting_in_Outlook
     content: "# Teams meeting in Outlook\n\n\nThis source page describes how to create MS teams meeting in the Outlook email.\n"
-  - source_page_title: "Video conference in MS teams"
+  - source_page_title: "IT Help / Video conference in MS teams"
     source_url: https://help.university.innopolis.ru/ru/Software/MS_Teams/Video_Conferencing
     content: "# Video conference in MS teams\n\n\nThis source page give a manual how to create a video conference in MS teams.\n"
-  - source_page_title: "7-zip autoopen"
+  - source_page_title: "IT Help / 7-zip autoopen"
     source_url: https://help.university.innopolis.ru/ru/Software/7-Zip
     content: "# 7-zip autoopen\n\n\nThis source page describes how to automatically open archives via 7-zip program.\n"
-  - source_page_title: "Zoom-Youtube broadcasts"
+  - source_page_title: "IT Help / Zoom-Youtube broadcasts"
     source_url: https://help.university.innopolis.ru/ru/Software/Organization_of_Zoom_Youtube_broadcasts
     content: "# Zoom-Youtube broadcasts\n\n\nThis source page gives a manual how to create a broadcast in Youtube via Zoom.\n"
-  - source_page_title: "PDF editing"
+  - source_page_title: "IT Help / PDF editing"
     source_url: https://help.university.innopolis.ru/ru/Software/PDF_Editor
     content: "# PDF editing\n\n\nThis source page gives guidelines for editing PDF files via different software.\n"
-  - source_page_title: "Regulations for folders access"
+  - source_page_title: "IT Help / Regulations for folders access"
     source_url: https://help.university.innopolis.ru/ru/Regulations/Regulations_for_access_to_folders
     content: "# Regulations for folders access\n\n\nThis source page describes who has an access to which types of PC folders.\n"
-  - source_page_title: "Corporate access for external people"
+  - source_page_title: "IT Help / Corporate access for external people"
     source_url: https://help.university.innopolis.ru/ru/Regulations/NDA
     content: "# Corporate access for external people\n\n\nThis source page gives instructions hwo to give an access to corporate recourses for people that don't work in the university.\n"
-  - source_page_title: "SSH error in AzureDevOps"
+  - source_page_title: "IT Help / SSH error in AzureDevOps"
     source_url: https://help.university.innopolis.ru/ru/%D0%A1%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D1%8B/AzureDevOps/AzureDevOps_Error_SSH
     content: "# SSH error in AzureDevOps\n\n\nThis source page describes how to handle error with SSH in AzureDevOps.\n"
-  - source_page_title: "Remote PC connections"
+  - source_page_title: "IT Help / Remote PC connections"
     source_url: https://help.university.innopolis.ru/ru/Remote_Connections
     content: "# Remote PC connections\n\n\nThis source page gives general information about remote connection to corporate PC.\n"
-  - source_page_title: "How to connect to PC remotely"
+  - source_page_title: "IT Help / How to connect to PC remotely"
     source_url: https://help.university.innopolis.ru/ru/Remote_Connections/Connections_to_PC
     content: "# How to connect to PC remotely\n\n\nThis source page gives a manual how to connect to corporate PC remotely.\n"
-  - source_page_title: "Updating shortcuts in Work Resources folder"
+  - source_page_title: "IT Help / Updating shortcuts in Work Resources folder"
     source_url: https://help.university.innopolis.ru/ru/Remote_Connections/Update_shortcuts_Work_Resources
     content: "# Updating shortcuts in Work Resources folder\n\n\nThis source page describes how to update desktop shortcuts in Work Resources folder both remotely and in office.\n"
-  - source_page_title: "Corporate network drives"
+  - source_page_title: "IT Help / Corporate network drives"
     source_url: https://help.university.innopolis.ru/ru/Remote_Connections/Network_drives
     content: "# Corporate network drives\n\n\nThis source page gives manual about connection to corporate network drives for different operating systems.\n"
 
@@ -184,13 +190,3 @@ psychologist:
   - source_page_title: "University psychologist"
     source_url: https://psychologist.innopolis.university/appointment/new
     content: "# University psychologist\n\n\nThis source page allows to make an appointment with a university psychologist.\n"
-
-university_events:
-  - source_page_title: "University events"
-    source_url: https://my.innopolis.university/event
-    content: "# University events\n\n\nThis source page announces university events. For some of them you can register either as a volunteer or a photographer For some of them you can earn innopoints.\n"
-
-university_store:
-  - source_page_title: "University store"
-    source_url: https://my.innopolis.university/store
-    content: "# University store\n\n\nThis source page is a store where you can buy university merch for innopoints.\n"
