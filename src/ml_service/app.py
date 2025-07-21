@@ -78,7 +78,8 @@ async def ask_llm(request: MLAskRequest) -> MLAskResponse:
         role="system",
         content=(
             "Given the following conversation and a follow up question, "
-            "rephrase the follow up question to be a standalone question…\n\n"
+            "rephrase the follow up question to be a standalone question, in its original language.\n\n"
+            "Keep as much details as possible from previous messages. Keep entity names and all.\n\n"
             + (
                 "Chat History:\n" + "\n".join(f"{m['role']}: {m['content']}" for m in request.history) + "\n"
                 if request.history
