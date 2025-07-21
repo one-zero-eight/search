@@ -78,13 +78,14 @@ async def ask_llm(request: MLAskRequest) -> MLAskResponse:
         role="system",
         content=(
             "Given the following conversation and a follow up question, "
-            "rephrase the follow up question to be a standalone question, in its original language. "
-            "Keep as much details as possible from previous messages. Keep entity names and all.\n\n"
-            "Chat History:\n"
-            + "\n".join(f"{m['role']}: {m['content']}" for m in (request.history or []))
-            + "\nFollow Up Input: "
-            + request.query
-            + "\nStandalone question:"
+            "rephrase the follow up question to be a standalone question…\n\n"
+            + (
+                "Chat History:\n" + "\n".join(f"{m['role']}: {m['content']}" for m in request.history) + "\n"
+                if request.history
+                else ""
+            )
+            + f"Follow Up Input: {request.query}\n"
+            "Standalone question:"
         ),
     )
 
@@ -127,11 +128,20 @@ async def ask_llm(request: MLAskRequest) -> MLAskResponse:
         )
     system_message = ChatCompletionSystemMessageParam(role="system", content=settings.ml_service.system_prompt)
 
-    search_knowledge_content_message = ChatCompletionSystemMessageParam(role="system", content=search_knowledge_content)
+    search_knowledge_content_message = ChatCompletionSystemMessageParam(
+        role="assistant", content=search_knowledge_content
+    )
 
     user_message = ChatCompletionUserMessageParam(role="user", content=original_query)
 
-    messages = [system_message] + (request.history or []) + [user_message, search_knowledge_content_message]
+    if standalone_query != request.query:
+        history_msgs = [
+            ChatCompletionSystemMessageParam(role=m["role"], content=m["content"]) for m in (request.history or [])
+        ]
+        messages = [system_message] + history_msgs + [user_message, search_knowledge_content_message]
+    else:
+        messages = [system_message, user_message, search_knowledge_content_message]
+
     logger.info(f"Mesages:\n{pprint.pformat(messages, width=120, sort_dicts=False)}")
     r = await client.chat.completions.create(
         model=settings.ml_service.llm_model,
