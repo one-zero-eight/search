@@ -1,5 +1,4 @@
 import asyncio
-import pprint
 
 import uvicorn
 from fastapi import FastAPI
@@ -129,9 +128,7 @@ async def ask_llm(request: MLAskRequest) -> MLAskResponse:
         )
     system_message = ChatCompletionSystemMessageParam(role="system", content=settings.ml_service.system_prompt)
 
-    search_knowledge_content_message = ChatCompletionSystemMessageParam(
-        role="assistant", content=search_knowledge_content
-    )
+    search_knowledge_content_message = ChatCompletionSystemMessageParam(role="system", content=search_knowledge_content)
 
     user_message = ChatCompletionUserMessageParam(role="user", content=original_query)
 
@@ -143,7 +140,6 @@ async def ask_llm(request: MLAskRequest) -> MLAskResponse:
     else:
         messages = [system_message, user_message, search_knowledge_content_message]
 
-    logger.info(f"Mesages:\n{pprint.pformat(messages, width=120, sort_dicts=False)}")
     r = await client.chat.completions.create(
         model=settings.ml_service.llm_model,
         messages=messages,

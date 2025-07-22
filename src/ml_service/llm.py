@@ -30,19 +30,31 @@ async def act(user_input: str, token: str) -> MLActResponse:
     logger.info(f"user prompt: {messages[0]['content']}")
 
     tools = [BOOK_MUSIC_ROOM_FN, LIST_MY_BOOKINGS_FN, CANCEL_BOOKING_FN]
-    completion = await client.chat.completions.create(
-        model=settings.ml_service.llm_model,
-        messages=messages,
-        tools=tools,
-        tool_choice="auto",
-    )
-    msg = completion.choices[0].message
-    answer = msg.content
+    answer = None
+    tool_calls = []
+    max_loops = 5
+    loop_count = 0
 
-    logger.info(type(msg))
-    messages.append(msg)
+    while True:
+        if loop_count >= max_loops:
+            logger.warning(f"Max tool call loop count ({max_loops}) reached, breaking to avoid infinite loop.")
+            break
+        loop_count += 1
+        completion = await client.chat.completions.create(
+            model=settings.ml_service.llm_model,
+            messages=messages,
+            tools=tools,
+            tool_choice="auto",
+        )
+        msg = completion.choices[0].message
+        answer = msg.content
+        messages.append(msg)
 
-    if msg.tool_calls:
+        if not msg.tool_calls:
+            break
+
+        tool_calls.extend(msg.tool_calls)
+
         for tool_call in msg.tool_calls:
             name = tool_call.function.name
             kwargs = json.loads(tool_call.function.arguments)
@@ -184,16 +196,8 @@ async def act(user_input: str, token: str) -> MLActResponse:
                             }
                         )
 
-        completion2 = await client.chat.completions.create(
-            model=settings.ml_service.llm_model,
-            messages=messages,
-            tools=tools,
-            tool_choice="auto",
-        )
-        answer = completion2.choices[0].message.content
-
     return MLActResponse(
         answer=answer,
-        tool_calls=[tool_call.model_dump(mode="json") for tool_call in msg.tool_calls or []],
+        tool_calls=[tool_call.model_dump(mode="json") for tool_call in tool_calls],
         messages=messages,
     )
