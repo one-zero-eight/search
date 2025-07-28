@@ -11,14 +11,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
-
-    - name: "Set up uv"
+    - name: Set up uv
       uses: astral-sh/setup-uv@v6
       with:
+        python-version: "3.11"
         enable-cache: true
         activate-environment: true
 
