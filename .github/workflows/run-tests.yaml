@@ -21,9 +21,7 @@ jobs:
       with:
         enable-cache: true
         activate-environment: true
-    #----------------------------------------------
-    #        Run pre-commit
-    #----------------------------------------------
+
     - name: Install the project
       run: uv sync
 
