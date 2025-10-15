@@ -1,8 +1,6 @@
-# InNoHassle Search
+# Search
 
 [![GitHub Actions pre-commit](https://img.shields.io/github/actions/workflow/status/one-zero-eight/search/pre-commit.yaml?label=pre-commit)](https://github.com/one-zero-eight/search/actions)
-
-Check the [project website](https://search.innohassle.ru/search).
 
 ## Table of contents
 
@@ -12,12 +10,9 @@ contents [by default](https://github.blog/changelog/2021-04-13-table-of-contents
 ## About the Project
 
 This API powers the search functionality within the **InNoHassle** ecosystem — a unified digital platform designed to simplify daily life for students of Innopolis University.
-- Services code: [GitHub - one-zero-eight](https://github.com/one-zero-eight)
-- Frontend: [GitHub - website](https://github.com/one-zero-eight/website)
-- API endpoints: [api.innohassle.ru](https://api.innohassle.ru/)
-- InNoHassle website: [innohassle.ru](https://innohassle.ru/)
 
 The search service acts as a smart assistant, helping users quickly find information across various Innopolis University services.
+
 ## Functionality
 
 ### Supported features:
@@ -35,10 +30,10 @@ The search service acts as a smart assistant, helping users quickly find informa
 
 ## Technologies
 
-- Environment: [Python 3.11](https://www.python.org/downloads/), [uv](https://docs.astral.sh/uv/)
-- API: [FastAPI](https://fastapi.tiangolo.com/), [Pydantic](https://docs.pydantic.dev/latest/)
-- Database: [MongoDB](https://www.mongodb.com/), [Beanie](https://beanie-odm.dev/)
-- Dev Tools: [Ruff](https://docs.astral.sh/ruff/), [pre-commit](https://pre-commit.com/)
+- [Python 3.11](https://www.python.org/downloads/) & [uv](https://docs.astral.sh/uv/)
+- [FastAPI](https://fastapi.tiangolo.com/)
+- Database and ORM: [MongoDB](https://www.mongodb.com/) & [Beanie](https://beanie-odm.dev/)
+- Formatting and linting: [Ruff](https://docs.astral.sh/ruff/), [pre-commit](https://pre-commit.com/)
 - Deployment: [Docker](https://www.docker.com/), [Docker Compose](https://docs.docker.com/compose/),
   [GitHub Actions](https://github.com/features/actions)
 
@@ -46,7 +41,7 @@ The search service acts as a smart assistant, helping users quickly find informa
 
 ### Run with Docker
 
-1. Set up project settings file (check [settings.schema.yaml](../InNoHassle-Search/settings.schema.yaml) for more info).
+1. Set up project settings file (check [settings.schema.yaml](settings.schema.yaml) for more info).
    ```bash
    cp settings.example.yaml settings.yaml
    ```
@@ -56,29 +51,22 @@ The search service acts as a smart assistant, helping users quickly find informa
       ```bash
       cp .env.example .env
       ```
-
-1. Start all services:
+3. Start all services:
    ```bash
-   uv run python -m src.ml_service
+   uv run -m src.ml_service
    docker compose up
    ```
 
 Now you can find API docs on http://localhost:8004/docs.
 
-### Run locally
+### Set up for development
 
-1. Install [Python 3.11](https://www.python.org/downloads/)
-2. Install [uv](https://docs.astral.sh/uv/getting-started/installation/)
-3. Install project dependencies with uv:
+1. Install [uv](https://docs.astral.sh/uv/) and [Docker](https://docs.docker.com/engine/install/)
+2. Install dependencies:
    ```bash
    uv sync
    ```
-4. Set up [pre-commit](https://pre-commit.com/) hooks:
-
-   ```bash
-   uv run pre-commit install --install-hooks -t pre-commit -t commit-msg
-   ```
-5. Check that your `settings.yaml` looks like:
+3. Check that your `settings.yaml` looks like:
    ```yaml
    $schema: "./settings.schema.yaml"
    api_settings:
@@ -93,19 +81,13 @@ Now you can find API docs on http://localhost:8004/docs.
      openrouter_api_key: "your openrouter api key"
      timeout: 180.0
    ```
-6. Set up a [MongoDB](https://www.mongodb.com/) and [Minio](https://min.io/) instances.
-
-    - Set up database settings for [docker-compose](https://docs.docker.com/compose/) container
-      in `.env` file
-      ```bash
-      cp .env.example .env
-      ```
+4. Set up a [MongoDB](https://www.mongodb.com/) and [Minio](https://min.io/) instances.
     - Run the database instance:
       ```bash
       docker compose up -d db minio
       ```
     - Make sure to set up the actual database connection in `settings.yaml`.
-7. Choose the way to run models: either use Infinity or local models.
+5. Choose the way to run models: either use Infinity or local models.
    1. If you want to use local models, just not set `infinity_url` in `settings.yaml`
    2. If you want to use Infinity, set `infinity_url` in `settings.yaml` to the url of deployed Infinity engine.
       You can run Infinity engine locally:
@@ -113,28 +95,26 @@ Now you can find API docs on http://localhost:8004/docs.
       uv run --no-project --with "infinity_emb[all]" --with "transformers<4.49" infinity_emb v2 --model-id intfloat/multilingual-e5-large-instruct --model-id BAAI/bge-reranker-v2-m3
       ```
       Or use deployed Infinity engine provided by someone else.
-
-8. Run ml client
+6. Run ml client
    ```bash
-   uv run python -m src.ml_service
+   uv run -m src.ml_service
    ```
-9. Run the ASGI server
+7. Run the ASGI server
    ```bash
-   uv run python -m src.api
+   uv run -m src.api
    ```
    Check API docs on http://127.0.0.1:8001/docs.
 
+**Set up PyCharm integrations**
 
-### PyCharm integrations
-
-- Ruff – [plugin](https://plugins.jetbrains.com/plugin/20574-ruff):
-   linting and formatting
-   Enable `Use ruff format` in plugin settings.
-- Pydantic – [plugin](https://plugins.jetbrains.com/plugin/12861-pydantic):
-   type hinting support
-- Conventional commits – [plugin](https://plugins.jetbrains.com/plugin/13389-conventional-commit):
-   following [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)
-
+1. Run configurations ([docs](https://www.jetbrains.com/help/pycharm/run-debug-configuration.html#createExplicitly)).
+   Right-click the `__main__.py` file in the project explorer, select `Run '__main__'` from the context menu.
+2. Ruff ([plugin](https://plugins.jetbrains.com/plugin/20574-ruff)).
+   It will lint and format your code. Make sure to enable `Use ruff format` option in plugin settings.
+3. Pydantic ([plugin](https://plugins.jetbrains.com/plugin/12861-pydantic)). It will fix PyCharm issues with
+   type-hinting.
+4. Conventional commits ([plugin](https://plugins.jetbrains.com/plugin/13389-conventional-commit)). It will help you
+   to write [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
 ### Authentication
 
@@ -171,17 +151,41 @@ For testing we use ```pytest```.
 
 ### Deployment
 
-We use Docker with Docker Compose plugin to run the website on servers.
+We use Docker with Docker Compose plugin to run the service on servers.
 
-1. Copy the file with environment variables: `cp .env.example .env`
+1. Copy the file with environment variables: `cp .example.env .env`
 2. Change environment variables in the `.env` file
 3. Copy the file with settings: `cp settings.example.yaml settings.yaml`
 4. Change settings in the `settings.yaml` file according to your needs
-   (check [settings.schema.yaml](../InNoHassle-Search/settings.schema.yaml) for more info)
+   (check [settings.schema.yaml](settings.schema.yaml) for more info)
 5. Install Docker with Docker Compose
-6. Build a Docker image: `docker compose build --pull`
-7. Run the container: `docker compose up --detach`
-8. Check the logs: `docker compose logs -f`
+6. Run the containers: `docker compose up --build --wait`
+7. Check the logs: `docker compose logs -f`
+
+## FAQ
+
+### Be up to date with the template!
+
+Check https://github.com/one-zero-eight/fastapi-template for updates once in a while.
+
+### How to update dependencies
+
+1. Run `uv sync --upgrade` to update uv.lock file and install the latest versions of the dependencies.
+2. Run `uv tree --outdated --depth=1` will show what package versions are installed and what are the latest versions.
+3. Run `uv run pre-commit autoupdate`
+
+Also, Dependabot will help you to keep your dependencies up-to-date, see [dependabot.yaml](.github/dependabot.yaml).
+
+### How to dump the database
+
+1. Dump:
+   ```bash
+   docker compose exec db sh -c 'mongodump "mongodb://$MONGO_INITDB_ROOT_USERNAME:$MONGO_INITDB_ROOT_PASSWORD@127.0.0.1:27017/db?authSource=admin" --db=db --out=dump/'
+   ```
+2. Restore:
+   ```bash
+   docker compose exec db sh -c 'mongorestore "mongodb://$MONGO_INITDB_ROOT_USERNAME:$MONGO_INITDB_ROOT_PASSWORD@127.0.0.1:27017/db?authSource=admin" --drop /dump/db'
+   ```
 
 ## Contributing
 

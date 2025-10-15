@@ -14,8 +14,7 @@ cache/
 .venv
 .env
 settings.yaml
-private.pem
-public.pem
+*.pem
 
 ### OS ###
 .DS_Store
