@@ -49,7 +49,7 @@ The search service acts as a smart assistant, helping users quickly find informa
 2. Set up database settings for [docker-compose](https://docs.docker.com/compose/) container
       in `.env` file
       ```bash
-      cp .env.example .env
+      cp .example.env .env
       ```
 3. Start all services:
    ```bash
