@@ -143,6 +143,8 @@ I’m sorry, there is no information in the provided contexts to answer your que
 
 
 class MlServiceSettings(CustomModel):
+    app_root_path: str = ""
+    'Prefix for the API path (e.g. "/ml-api/v0")'
     api_url: str = "http://127.0.0.1:8002"
     "URL of ml service API"
     api_key: SecretStr

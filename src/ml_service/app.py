@@ -37,6 +37,7 @@ app = FastAPI(
         "persistAuthorization": True,
         "filter": True,
     },
+    root_path=settings.ml_service.app_root_path,
     root_path_in_servers=False,
     generate_unique_id_function=generate_unique_operation_id,
     lifespan=lifespan,

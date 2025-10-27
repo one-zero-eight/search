@@ -85,6 +85,11 @@ $defs:
     type: object
   MlServiceSettings:
     properties:
+      app_root_path:
+        default: ''
+        description: Prefix for the API path (e.g. "/ml-api/v0")
+        title: App Root Path
+        type: string
       api_url:
         default: http://127.0.0.1:8002
         description: URL of ml service API
