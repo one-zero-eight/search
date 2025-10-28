@@ -91,7 +91,7 @@ jobs:
   deploy-ml:
     # Only on manual trigger or push to main
     if: github.repository_owner == 'one-zero-eight' && (github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main'))
-    name: ⚡️ Deploy to ML server
+    name: ⚡️ Deploy to ML server for ${{ github.event.inputs.environment || 'staging' }}
     runs-on: [self-hosted, raspberry]
     environment:
       # Set the environment name and URL to be displayed in GitHub
