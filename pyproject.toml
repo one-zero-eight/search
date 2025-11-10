@@ -10,7 +10,7 @@ requires-python = ">=3.11,<3.12"
 dependencies = [
     "apscheduler>=3.11.0",
     "authlib>=1.6.5",
-    "beanie>=1.30.0,<2.0.0",
+    "beanie>=1.30.0,<3.0.0",
     "beautifulsoup4>=4.13.4",
     "colorlog>=6.8.2",
     "cryptography>=43.0.1",
@@ -43,9 +43,9 @@ ml = [
     "einops>=0.8.1,<0.9",
     "lance>=1.2.1,<2",
     "pandas>=2.3.0,<3",
-    "infinity-client>=0.0.76,<0.0.77",
-    "lancedb>=0.24.0,<0.25",
-    "pylance>=0.31.0b1,<0.32",
+    "infinity-client>=0.0.76,<0.0.78",
+    "lancedb>=0.24.0,<0.26",
+    "pylance>=0.31.0b1,<0.40",
     "lingua-language-detector>=2.1.1",
 ]
 
