@@ -4,6 +4,7 @@ from src.api.logging_ import logger
 from src.modules.ml.ml_client import get_ml_service_client
 from src.modules.parsers.campus_life.parser import parse as parse_campus_life
 from src.modules.parsers.eduwiki.parser import parse as parse_eduwiki
+from src.modules.parsers.clubs.parser import parse as parse_clubs
 from src.modules.parsers.hotel.parser import parse as parse_hotel
 from src.modules.parsers.maps.parser import parse as parse_maps
 from src.modules.parsers.residents.parser import parse as parse_residents
@@ -12,6 +13,7 @@ from src.modules.static_resources.load_data import load_resources
 from src.storages.mongo.__base__ import CustomDocument
 from src.storages.mongo.campus_life import CampusLifeEntry
 from src.storages.mongo.edu_wiki import EduWikiEntry
+from src.storages.mongo.clubs import ClubsEntry
 from src.storages.mongo.hotel import HotelEntry
 from src.storages.mongo.maps import MapsEntry
 from src.storages.mongo.residents import ResidentsEntry
@@ -29,6 +31,8 @@ async def run_parse_route(section: InfoSources, indexing_is_needed: bool = True,
 
     if section == InfoSources.maps:
         parse_func, model_class = parse_maps, MapsEntry
+    elif section == InfoSources.clubs:
+        parse_func, model_class = parse_clubs, ClubsEntry
     elif section == InfoSources.hotel:
         parse_func, model_class = parse_hotel, HotelEntry
     elif section == InfoSources.eduwiki:

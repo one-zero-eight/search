@@ -7,6 +7,7 @@ from typing import Final
 class InfoSources(StrEnum):
     moodle = "moodle"
     eduwiki = "eduwiki"
+    clubs = "clubs"
     campuslife = "campuslife"
     hotel = "hotel"
     maps = "maps"
@@ -20,6 +21,7 @@ ALL_SOURCES = list(InfoSources)
 from src.storages.mongo import (  # noqa: E402
     CampusLifeEntry,
     EduWikiEntry,
+    ClubsEntry,
     HotelEntry,
     MapsEntry,
     MoodleEntry,
@@ -31,6 +33,7 @@ from src.storages.mongo.__base__ import CustomDocument  # noqa: E402
 InfoSourcesToMongoEntry: Final[dict[InfoSources, type[CustomDocument]]] = {
     InfoSources.moodle: MoodleEntry,
     InfoSources.eduwiki: EduWikiEntry,
+    InfoSources.clubs: ClubsEntry,
     InfoSources.campuslife: CampusLifeEntry,
     InfoSources.hotel: HotelEntry,
     InfoSources.maps: MapsEntry,
@@ -41,6 +44,7 @@ InfoSourcesToMongoEntry: Final[dict[InfoSources, type[CustomDocument]]] = {
 InfoSourcesToMongoEntryName: Final[dict[InfoSources, str]] = {
     InfoSources.moodle: "MoodleEntry",
     InfoSources.eduwiki: "EduWikiEntry",
+    InfoSources.clubs: "ClubsEntry",
     InfoSources.campuslife: "CampusLifeEntry",
     InfoSources.hotel: "HotelEntry",
     InfoSources.maps: "MapsEntry",

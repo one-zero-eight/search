@@ -46,12 +46,7 @@ The search service acts as a smart assistant, helping users quickly find informa
    cp settings.example.yaml settings.yaml
    ```
    Put your `openrouter_api_key` in `settings.yaml`.
-2. Set up database settings for [docker-compose](https://docs.docker.com/compose/) container
-      in `.env` file
-      ```bash
-      cp .example.env .env
-      ```
-3. Start all services:
+2. Start all services:
    ```bash
    uv run -m src.ml_service
    docker compose up
@@ -153,14 +148,13 @@ For testing we use ```pytest```.
 
 We use Docker with Docker Compose plugin to run the service on servers.
 
-1. Copy the file with environment variables: `cp .example.env .env`
-2. Change environment variables in the `.env` file
-3. Copy the file with settings: `cp settings.example.yaml settings.yaml`
-4. Change settings in the `settings.yaml` file according to your needs
+1. Change environment variables in the `.env` file
+2. Copy the file with settings: `cp settings.example.yaml settings.yaml`
+3. Change settings in the `settings.yaml` file according to your needs
    (check [settings.schema.yaml](settings.schema.yaml) for more info)
-5. Install Docker with Docker Compose
-6. Run the containers: `docker compose up --build --wait`
-7. Check the logs: `docker compose logs -f`
+4. Install Docker with Docker Compose
+5. Run the containers: `docker compose up --build --wait`
+6. Check the logs: `docker compose logs -f`
 
 ## FAQ
 

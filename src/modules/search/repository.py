@@ -10,6 +10,7 @@ from src.modules.ml.ml_client import get_ml_service_client
 from src.modules.ml.schemas import MLSearchResult, MLSearchTask
 from src.modules.search.schemas import (
     CampusLifeSource,
+    ClubsSource,
     EduwikiSource,
     HotelSource,
     MapsSource,
@@ -33,6 +34,7 @@ from src.storages.mongo import (
     ResidentsEntry,
     ResourcesEntry,
 )
+from src.storages.mongo.clubs import ClubsEntry
 from src.storages.mongo.moodle import MoodleContentSchema
 
 MOODLE_URL = "https://moodle.innopolis.university"
@@ -76,6 +78,8 @@ class SearchRepository:
                 _MongoEntryClass = MoodleEntry
             elif section == InfoSources.eduwiki:
                 _MongoEntryClass = EduWikiEntry
+            elif section == InfoSources.clubs:
+                _MongoEntryClass = ClubsEntry
             elif section == InfoSources.campuslife:
                 _MongoEntryClass = CampusLifeEntry
             elif section == InfoSources.hotel:
@@ -170,13 +174,15 @@ class SearchRepository:
                         ),
                     )
                 )
-            elif isinstance(inner, (CampusLifeEntry | HotelEntry | EduWikiEntry | ResidentsEntry)):
+            elif isinstance(inner, (CampusLifeEntry | HotelEntry | EduWikiEntry | ClubsEntry | ResidentsEntry)):
                 if isinstance(inner, CampusLifeEntry):
                     _SourceModel = CampusLifeSource
                 elif isinstance(inner, HotelEntry):
                     _SourceModel = HotelSource
                 elif isinstance(inner, EduWikiEntry):
                     _SourceModel = EduwikiSource
+                elif isinstance(inner, ClubsEntry):
+                    _SourceModel = ClubsSource
                 elif isinstance(inner, ResidentsEntry):
                     _SourceModel = ResidentsSource
                 else:
@@ -249,6 +255,7 @@ class SearchRepository:
                     )
             elif res_item.resource in (
                 InfoSources.eduwiki,
+                InfoSources.clubs,
                 InfoSources.campuslife,
                 InfoSources.hotel,
                 InfoSources.residents,
@@ -256,6 +263,7 @@ class SearchRepository:
             ):
                 model_map = {
                     InfoSources.eduwiki: (EduWikiEntry, EduwikiSource),
+                    InfoSources.clubs: (ClubsEntry, ClubsSource),
                     InfoSources.campuslife: (CampusLifeEntry, CampusLifeSource),
                     InfoSources.hotel: (HotelEntry, HotelSource),
                     InfoSources.residents: (ResidentsEntry, ResidentsSource),

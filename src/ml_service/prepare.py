@@ -68,6 +68,7 @@ async def prepare_resource(resource: InfoSources, docs: list[dict]):
         elif resource in [
             InfoSources.campuslife,
             InfoSources.eduwiki,
+            InfoSources.clubs,
             InfoSources.hotel,
             InfoSources.residents,
             InfoSources.resources,

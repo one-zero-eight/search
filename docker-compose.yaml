@@ -44,6 +44,11 @@ services:
     volumes:
       - "minio:/data"
     command: server /data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      timeout: 5s
+      start_period: 30s
+      interval: 1m
     environment:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-password}

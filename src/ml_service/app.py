@@ -71,6 +71,7 @@ async def ask_llm(request: MLAskRequest) -> MLAskResponse:
         InfoSources.hotel,
         InfoSources.eduwiki,
         InfoSources.campuslife,
+        InfoSources.clubs,
     ]
     logger.info(f"Target sources: {target_sources}")
 

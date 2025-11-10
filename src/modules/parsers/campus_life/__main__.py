@@ -1,9 +1,7 @@
-import clubs
 import handbook
 
-
 def main():
-    result = {*handbook.parse(), *clubs.parse()}
+    result = {*handbook.parse()}
 
     return result
 

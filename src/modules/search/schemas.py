@@ -112,6 +112,11 @@ class ResidentsSource(SiteBaseSource):
     breadcrumbs: list[str] = ["Residents"]
 
 
+class ClubsSource(SiteBaseSource):
+    type: Literal[InfoSources.clubs] = InfoSources.clubs
+    breadcrumbs: list[str] = ["Clubs"]
+
+
 class MapsSource(SiteBaseSource):
     type: Literal[InfoSources.maps] = InfoSources.maps
     breadcrumbs: list[str] = ["Maps"]
@@ -127,6 +132,7 @@ Sources = Annotated[
     EduwikiSource
     | CampusLifeSource
     | HotelSource
+    | ClubsSource
     | MapsSource
     | MoodleFileSource
     | MoodleUrlSource
