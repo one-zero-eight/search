@@ -151,6 +151,7 @@ async def course_content(_: VerifiedDep, bulk: list[InSections]) -> None:
 async def need_to_upload_contents(
     _: VerifiedDep, contents_list: list[InContents]
 ) -> list[FlattenInContentsWithPresignedUrl]:
+    return []
     course_module_filenames = []
 
     for contents in contents_list:
