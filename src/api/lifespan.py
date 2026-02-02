@@ -58,7 +58,7 @@ async def setup_repositories():
 async def lifespan(_app: FastAPI):
     # Application startup
     motor_client = await setup_database()
-    setup_minio()
+    # setup_minio()  # MinIO is disabled
     await setup_repositories()
     if settings.api_settings.scheduler_enabled:
         start_scheduler()
