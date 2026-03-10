@@ -169,7 +169,7 @@ class MlServiceSettings(CustomModel):
 
     llm_api_base: str = "https://openrouter.ai/api/v1"
     "URL of the external LLM API"
-    llm_model: str = "openai/gpt-4.1-mini"
+    llm_model: str = "openai/gpt-5-mini"
     openrouter_api_key: SecretStr
     "API key for OpenRouter"
     system_prompt: str = SYSTEM_PROMPT
