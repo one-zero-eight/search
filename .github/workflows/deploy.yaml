@@ -31,7 +31,7 @@ jobs:
       imageid: ${{ steps.build.outputs.imageid }}
     steps:
       - name: 👾 Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: 🐳 Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -76,7 +76,7 @@ jobs:
       cancel-in-progress: false
     steps:
       - name: ⚡️ Deploy via SSH
-        uses: appleboy/ssh-action@v1.1.0
+        uses: appleboy/ssh-action@v1.2.3
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
@@ -102,7 +102,7 @@ jobs:
       cancel-in-progress: false
     steps:
       - name: ⚡️ Deploy via SSH
-        uses: appleboy/ssh-action@v1.1.0
+        uses: appleboy/ssh-action@v1.2.3
         with:
           host: ${{ secrets.ML_SSH_HOST }}
           username: ${{ secrets.ML_SSH_USERNAME }}
