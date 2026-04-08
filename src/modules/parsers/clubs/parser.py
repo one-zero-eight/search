@@ -1,5 +1,6 @@
-import requests
 import re
+
+import requests
 
 from src.storages.mongo.clubs import ClubsEntrySchema
 
@@ -14,8 +15,8 @@ def escape_md_underscores(text: str) -> str:
 def parse():
     result = []
     response = requests.get(API_BASE_URL + "/clubs/v0/clubs/", verify=False).json()
-    all_clubs_content = ''
-    art_clubs_content, sport_clubs_content, tech_clubs_content, hobby_clubs_content = '', '', '', ''
+    all_clubs_content = ""
+    art_clubs_content, sport_clubs_content, tech_clubs_content, hobby_clubs_content = "", "", "", ""
 
     for club in response:
         md_content = f"# {club['title']}\n{club['short_description']}"
@@ -23,8 +24,8 @@ def parse():
 
         if leader:
             md_content += f"\n\n**Club leader:** {leader['name']}"
-            if leader.get('telegram_alias'):
-                alias = escape_md_underscores(leader['telegram_alias'])
+            if leader.get("telegram_alias"):
+                alias = escape_md_underscores(leader["telegram_alias"])
                 md_content += f" [@{alias}](https://t.me/{alias})"
 
         for link in club["links"]:
@@ -43,17 +44,17 @@ def parse():
         result.append(
             ClubsEntrySchema(
                 source_url=BASE_URL + f"/{club['slug']}",
-                source_page_title=club['title'],
+                source_page_title=club["title"],
                 content=md_content,
             )
         )
 
         all_clubs_content += md_content + "\n\n"
-        if club['type'] == 'hobby':
+        if club["type"] == "hobby":
             hobby_clubs_content += md_content + "\n\n"
-        elif club['type'] == 'sport':
+        elif club["type"] == "sport":
             sport_clubs_content += md_content + "\n\n"
-        elif club['type'] == 'tech':
+        elif club["type"] == "tech":
             tech_clubs_content += md_content + "\n\n"
         else:
             art_clubs_content += md_content + "\n\n"
@@ -93,4 +94,3 @@ def parse():
         )
     )
     return result
-

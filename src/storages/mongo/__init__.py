@@ -4,8 +4,8 @@ from beanie import Document, View
 
 from src.storages.mongo.campus_life import CampusLifeEntry
 from src.storages.mongo.chat import ChatSession
-from src.storages.mongo.edu_wiki import EduWikiEntry
 from src.storages.mongo.clubs import ClubsEntry
+from src.storages.mongo.edu_wiki import EduWikiEntry
 from src.storages.mongo.hotel import HotelEntry
 from src.storages.mongo.maps import MapsEntry
 from src.storages.mongo.moodle import MoodleCourse, MoodleEntry

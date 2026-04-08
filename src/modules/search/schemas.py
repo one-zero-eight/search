@@ -27,7 +27,7 @@ class MoodleSourceBase(CustomModel):
     ):
         # remove "/ Глубокое обучение для задач поиска" from "[Sum24] Deep Learning for Search / Глубокое обучение
         # для задач поиска"
-        course_name = course_name.split(" / ")[0]
+        course_name = course_name.split(" / ", maxsplit=1)[0]
         self.breadcrumbs = ["Moodle", course_name, module_name]
         if within_folder:
             self.display_name = f"{module_name} / {filename}"

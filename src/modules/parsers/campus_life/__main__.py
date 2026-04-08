@@ -1,5 +1,6 @@
 import handbook
 
+
 def main():
     result = {*handbook.parse()}
 

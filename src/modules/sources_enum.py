@@ -20,8 +20,8 @@ ALL_SOURCES = list(InfoSources)
 
 from src.storages.mongo import (  # noqa: E402
     CampusLifeEntry,
-    EduWikiEntry,
     ClubsEntry,
+    EduWikiEntry,
     HotelEntry,
     MapsEntry,
     MoodleEntry,
