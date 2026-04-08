@@ -33,7 +33,7 @@ The search service acts as a smart assistant, helping users quickly find informa
 - [Python 3.11](https://www.python.org/downloads/) & [uv](https://docs.astral.sh/uv/)
 - [FastAPI](https://fastapi.tiangolo.com/)
 - Database and ORM: [MongoDB](https://www.mongodb.com/) & [Beanie](https://beanie-odm.dev/)
-- Formatting and linting: [Ruff](https://docs.astral.sh/ruff/), [pre-commit](https://pre-commit.com/)
+- Formatting and linting: [Ruff](https://docs.astral.sh/ruff/), [prek](https://prek.j178.dev/)
 - Deployment: [Docker](https://www.docker.com/), [Docker Compose](https://docs.docker.com/compose/),
   [GitHub Actions](https://github.com/features/actions)
 
@@ -96,7 +96,7 @@ Now you can find API docs on http://localhost:8004/docs.
    ```
 7. Run the ASGI server
    ```bash
-   uv run -m src.api
+   uv run -m src.api --reload
    ```
    Check API docs on http://127.0.0.1:8001/docs.
 
