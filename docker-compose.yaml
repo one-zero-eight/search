@@ -16,6 +16,13 @@ services:
       - "8004:8000"
     volumes:
       - "./settings.yaml:/app/settings.yaml:ro" # Read-only settings file
+    deploy:
+      # Change limits if project needs more RAM, though try to stay within limits
+      resources:
+        limits:
+          memory: 1g
+        reservations:
+          memory: 500m
 
   db:
     # See more: https://hub.docker.com/_/mongo
