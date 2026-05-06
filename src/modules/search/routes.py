@@ -17,7 +17,7 @@ router = APIRouter(prefix="/search", tags=["Search"])
 @router.get("/search", responses={200: {"description": "Success"}, 408: {"description": "Search timed out"}})
 async def search_by_query(
     request: Request,
-    _verify: VerifiedDep,
+    _auth: VerifiedDep,
     query: str,
     sources: list[InfoSources] = Query(default=[]),
     response_types: list[Literal["pdf", "link_to_source"]] = Query(...),  # Currently ignored
@@ -46,7 +46,9 @@ async def search_by_query(
 
 
 @router.post("/search/{search_query_id}/feedback")
-async def add_user_feedback(search_query_id: str, response_index: int, feedback: Literal["like", "dislike"]):
+async def add_user_feedback(
+    _auth: VerifiedDep, search_query_id: str, response_index: int, feedback: Literal["like", "dislike"]
+):
     search_statistics = await SearchStatistics.get(search_query_id)
 
     if not search_statistics:

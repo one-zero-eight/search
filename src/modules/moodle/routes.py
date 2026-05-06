@@ -59,7 +59,7 @@ async def preview_moodle(course_id: int, module_id: int, filename: str):
     response_model=list[dict[str, Any]],
     responses={200: {"description": "Success"}},
 )
-async def get_moodle_files(_: VerifiedDep) -> list[MoodleFileObject]:
+async def get_moodle_files(_auth: VerifiedDep) -> list[MoodleFileObject]:
     return minio_repository.get_moodle_objects()
 
 
@@ -67,7 +67,7 @@ async def get_moodle_files(_: VerifiedDep) -> list[MoodleFileObject]:
     "/courses",
     responses={200: {"description": "Success"}},
 )
-async def courses(_: VerifiedDep) -> list[MoodleCourse]:
+async def courses(_auth: VerifiedDep) -> list[MoodleCourse]:
     return await moodle_repository.read_all_courses()
 
 
@@ -75,7 +75,7 @@ async def courses(_: VerifiedDep) -> list[MoodleCourse]:
     "/batch-courses",
     responses={200: {"description": "Success"}},
 )
-async def batch_upsert_courses(_: VerifiedDep, data: InCourses) -> None:
+async def batch_upsert_courses(_auth: VerifiedDep, data: InCourses) -> None:
     operations = []
     for c in data.courses:
         m = MoodleCourse.model_validate(c, from_attributes=True)
@@ -89,7 +89,7 @@ async def batch_upsert_courses(_: VerifiedDep, data: InCourses) -> None:
     "/courses-content",
     responses={200: {"description": "Success"}},
 )
-async def courses_content(_: VerifiedDep) -> list[MoodleEntry]:
+async def courses_content(_auth: VerifiedDep) -> list[MoodleEntry]:
     return await moodle_repository.read_all()
 
 
@@ -97,7 +97,7 @@ async def courses_content(_: VerifiedDep) -> list[MoodleEntry]:
     "/set-course-content",
     responses={200: {"description": "Success"}},
 )
-async def course_content(_: VerifiedDep, bulk: list[InSections]) -> None:
+async def course_content(_auth: VerifiedDep, bulk: list[InSections]) -> None:
     operations = []
     course_module_filename = {
         (data.course_id, module.module_id, content.filename)
@@ -149,7 +149,7 @@ async def course_content(_: VerifiedDep, bulk: list[InSections]) -> None:
     responses={200: {"description": "Success"}},
 )
 async def need_to_upload_contents(
-    _: VerifiedDep, contents_list: list[InContents]
+    _auth: VerifiedDep, contents_list: list[InContents]
 ) -> list[FlattenInContentsWithPresignedUrl]:
     return []
     course_module_filenames = []
@@ -207,5 +207,5 @@ async def need_to_upload_contents(
 
 
 @router.post("/content-uploaded", responses={200: {"description": "Success"}})
-async def content_uploaded(_: VerifiedDep, data: InContent) -> None:
+async def content_uploaded(_auth: VerifiedDep, data: InContent) -> None:
     await moodle_repository.content_uploaded(data)

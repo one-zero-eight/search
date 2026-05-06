@@ -1,11 +1,32 @@
-__all__ = ["VerifiedDep", "ComputerServiceDep"]
+__all__ = ["VerifiedDep"]
 
 from typing import Annotated
 
 from fastapi import Depends
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
-from src.modules.auth.dependencies import verify_compute_service, verify_user
+from src.exceptions import IncorrectCredentialsException
+from src.modules.inh_accounts_sdk import UserTokenData, inh_accounts
 
-VerifiedDep = Annotated[str, Depends(verify_user)]
+bearer_scheme = HTTPBearer(
+    scheme_name="Bearer",
+    description="Token from [InNoHassle Accounts](https://innohassle.ru/account/token)",
+    bearerFormat="JWT",
+    auto_error=False,  # We'll handle error manually
+)
 
-ComputerServiceDep: type = Annotated[bool, Depends(verify_compute_service)]
+
+async def verify_user(
+    bearer: HTTPAuthorizationCredentials | None = Depends(bearer_scheme),
+) -> UserTokenData:
+    token = bearer and bearer.credentials
+    if not token:
+        raise IncorrectCredentialsException(no_credentials=True)
+
+    token_data = inh_accounts.decode_token(token)
+    if token_data is None:
+        raise IncorrectCredentialsException(no_credentials=False)
+    return token_data
+
+
+VerifiedDep = Annotated[UserTokenData, Depends(verify_user)]

@@ -12,7 +12,7 @@ from pymongo.errors import ConnectionFailure
 
 from src.api.logging_ import logger
 from src.config import settings
-from src.modules.innohassle_accounts import innohassle_accounts
+from src.modules.inh_accounts_sdk import inh_accounts
 from src.scheduler import start_scheduler
 from src.storages.minio import minio_client
 from src.storages.mongo import document_models
@@ -51,7 +51,7 @@ def setup_minio():
 
 
 async def setup_repositories():
-    await innohassle_accounts.update_key_set()
+    await inh_accounts.update_key_set()
 
 
 @asynccontextmanager

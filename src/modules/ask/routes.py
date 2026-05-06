@@ -54,7 +54,7 @@ async def ask_by_query(
 )
 async def act_by_query(
     request: Request,
-    _verify: VerifiedDep,
+    _auth: VerifiedDep,
     query: str = Body(..., embed=True),
 ) -> ActResponses:
     start_time = time.monotonic()
