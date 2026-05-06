@@ -24,7 +24,13 @@ from src.storages.mongo.resources import ResourcesEntry
 router = APIRouter()
 
 
-@router.post("/{section}/parse")
+@router.post(
+    "/{section}/parse",
+    responses={
+        403: {"description": "Unauthorized"},
+        400: {"description": "Bad Request"},
+    },
+)
 async def run_parse_route(
     auth: VerifiedDep, section: InfoSources, indexing_is_needed: bool = True, parsing_is_needed: bool = False
 ):
