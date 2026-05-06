@@ -1,6 +1,6 @@
 import re
 
-_TAG_RE = re.compile(r"<[^>]+>")
+_TAG_RE = re.compile(r"<[^>]++>")
 
 
 def clean_text(text: str) -> str:
