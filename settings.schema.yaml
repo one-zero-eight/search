@@ -36,6 +36,12 @@ $defs:
         description: Enable scheduler
         title: Scheduler Enabled
         type: boolean
+      allowed_to_start_parse:
+        description: Emails allowed to run parser endpoints
+        items:
+          type: string
+        title: Allowed To Start Parse
+        type: array
     required:
     - db_url
     title: ApiSettings
@@ -256,9 +262,11 @@ $defs:
     type: object
 properties:
   $schema:
+    anyOf:
+    - type: string
+    - type: 'null'
     default: null
     title: $Schema
-    type: string
   api_settings:
     $ref: '#/$defs/ApiSettings'
   ml_service:

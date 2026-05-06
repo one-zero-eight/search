@@ -40,6 +40,8 @@ class ApiSettings(CustomModel):
     "URL of the MongoDB database"
     scheduler_enabled: bool = True
     "Enable scheduler"
+    allowed_to_start_parse: list[str] = Field(default_factory=list)
+    "Emails allowed to run parser endpoints"
 
 
 SYSTEM_PROMPT = """
@@ -184,7 +186,7 @@ class MlServiceSettings(CustomModel):
 
 
 class Settings(CustomModel):
-    schema_: str = Field(None, alias="$schema")
+    schema_: str | None = Field(None, alias="$schema")
     api_settings: ApiSettings
     ml_service: MlServiceSettings
     accounts: Accounts = Accounts()

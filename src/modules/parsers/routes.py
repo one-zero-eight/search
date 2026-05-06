@@ -1,6 +1,8 @@
 from fastapi import APIRouter, HTTPException
 
+from src.api.dependencies import VerifiedDep
 from src.api.logging_ import logger
+from src.config import settings
 from src.modules.ml.ml_client import get_ml_service_client
 from src.modules.parsers.campus_life.parser import parse as parse_campus_life
 from src.modules.parsers.clubs.parser import parse as parse_clubs
@@ -23,7 +25,11 @@ router = APIRouter()
 
 
 @router.post("/{section}/parse")
-async def run_parse_route(section: InfoSources, indexing_is_needed: bool = True, parsing_is_needed: bool = False):
+async def run_parse_route(
+    auth: VerifiedDep, section: InfoSources, indexing_is_needed: bool = True, parsing_is_needed: bool = False
+):
+    if auth.email not in settings.api_settings.allowed_to_start_parse:
+        raise HTTPException(status_code=403, detail="You are not authorized to parse this section")
     if not indexing_is_needed and not parsing_is_needed:
         raise HTTPException(
             status_code=400, detail="At least one of indexing_is_needed or parsing_is_needed must be True"
