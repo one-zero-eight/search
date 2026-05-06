@@ -1,8 +1,7 @@
-import re
 from typing import Annotated, Generic, Literal, TypeVar
 
 from beanie import PydanticObjectId
-from pydantic import Discriminator, model_validator
+from pydantic import Discriminator
 
 from src.custom_pydantic import CustomModel
 from src.modules.resources_types_enum import Resources
@@ -52,38 +51,6 @@ class MoodleUrlSource(MoodleSourceBase):
 
 class MoodleUnknownSource(MoodleSourceBase):
     type: Literal["moodle-unknown"] = "moodle-unknown"
-
-
-class TelegramSource(CustomModel):
-    type: Literal["telegram"] = "telegram"
-    display_name: str = "-"
-    "Display name of the resource."
-    breadcrumbs: list[str] = ["Telegram"]
-    "Breadcrumbs to the resource."
-    chat_username: str
-    "Username of the chat, channel, group"
-    chat_title: str
-    "Title of the chat, channel, group"
-    message_id: int
-    "Message ID in the chat"
-    link: str
-    "Link to the message"
-
-    @model_validator(mode="before")
-    def set_breadcrumbs(cls, data):
-        if "chat_title" not in data:
-            return data
-        data["breadcrumbs"] = ["Telegram", data["chat_title"]]
-        display_name = ""
-        text = data.get("text") or data.get("caption")
-
-        if text:
-            # get first line of the message
-            display_name = text.split("\n")[0]
-            # only normal characters
-            display_name = re.sub(r"[^a-zA-Z0-9 ]", "", display_name)
-        data["display_name"] = display_name or "-"
-        return data
 
 
 class SiteBaseSource(CustomModel):
@@ -137,7 +104,6 @@ Sources = Annotated[
     | MoodleFileSource
     | MoodleUrlSource
     | MoodleUnknownSource
-    | TelegramSource
     | ResidentsSource
     | ResourcesSource,
     Discriminator("type"),
