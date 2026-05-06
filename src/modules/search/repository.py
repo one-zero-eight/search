@@ -167,9 +167,9 @@ class SearchRepository:
                     SearchResponse(
                         score=e.score,
                         source=ResourcesSource(
-                            display_name=inner.title,
+                            display_name=inner.source_page_title,
                             preview_text=inner.content,
-                            url=inner.location_url,
+                            url=inner.source_url,
                             resource_type=inner.resource_type,
                         ),
                     )
