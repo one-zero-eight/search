@@ -24,7 +24,7 @@ router = APIRouter(prefix="", tags=["Ask"])
 async def ask_by_query(
     response: Response,
     request: Request,
-    innohassle_id: VerifiedDep,
+    user: VerifiedDep,
     query: str = Body(...),
     chat_id: PydanticObjectId | None = Body(None),
 ):
@@ -32,7 +32,7 @@ async def ask_by_query(
     result = await ask_repository.ask(
         query=query,
         request=request,
-        innohassle_id=innohassle_id,
+        innohassle_id=user.innohassle_id,
         chat_id=chat_id,
         sources=None,
     )
