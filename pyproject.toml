@@ -51,6 +51,7 @@ ml = [
 
 [tool.uv]
 default-groups = ["ml"]
+constraint-dependencies = ["urllib3>=2.7.0"]
 
 [tool.ruff]
 line-length = 120
