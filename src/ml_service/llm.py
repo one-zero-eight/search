@@ -18,9 +18,14 @@ from src.modules.ml.schemas import MLActResponse
 
 from .actions import MusicRoomSlot, music_room_act
 
+_http_client = None
+if settings.ml_service.openrouter_proxy:
+    _http_client = httpx.AsyncClient(proxy=settings.ml_service.openrouter_proxy)
+
 client = AsyncOpenAI(
     api_key=settings.ml_service.openrouter_api_key.get_secret_value(),
     base_url=settings.ml_service.llm_api_base,
+    http_client=_http_client,
 )
 
 

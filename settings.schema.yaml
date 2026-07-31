@@ -165,6 +165,13 @@ $defs:
         title: Openrouter Api Key
         type: string
         writeOnly: true
+      openrouter_proxy:
+        anyOf:
+        - type: string
+        - type: 'null'
+        default: null
+        description: HTTP Proxy for requests to openrouter
+        title: Openrouter Proxy
       system_prompt:
         default: "\nYou are a helpful assistant for students at Innopolis University\n\
           developed by the one-zero-eight\xB9 community.\n\nYou can search data in\

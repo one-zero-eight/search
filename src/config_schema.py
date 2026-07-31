@@ -174,6 +174,8 @@ class MlServiceSettings(CustomModel):
     llm_model: str = "google/gemini-3.1-flash-lite-preview"
     openrouter_api_key: SecretStr
     "API key for OpenRouter"
+    openrouter_proxy: str | None = None
+    "HTTP Proxy for requests to openrouter"
     system_prompt: str = SYSTEM_PROMPT
     "System prompt for OpenRouter"
     timeout: float = 180.0
