@@ -1,0 +1,38 @@
+[project]
+name = "catix"
+version = "0.1.0"
+description = "cAtIx: a student assistant for Innopolis University (Telegram and Max bots, chat search, schedule changes)"
+authors = [
+    { name = "mainStorne", email = "dbevzpr@mail.ru" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "aiogram>=3.31.0",
+    "certifi>=2026.7.22",
+    "httpx>=0.28.1",
+    "icalendar>=7.3.0",
+    "langchain>=1.4.5",
+    "langchain-openai>=1.7.2",
+    "langfuse>=5.0.2",
+    "pgvector>=0.5.1",
+    "psycopg-pool>=3.3.3",
+    "psycopg[binary]>=3.3.6",
+    "pydantic-settings>=2.16.0",
+    "recurring-ical-events>=3.8.2",
+    "redis>=8.1.0",
+    "telethon>=1.45.0",
+]
+
+[project.scripts]
+catix = "catix.cli:main"
+catix-tgbot = "catix.tgbot.bot:main"
+catix-tguserbot = "catix.tguserbot.userbot:main"
+catix-maxbot = "catix.maxbot.bot:main"
+catix-worker = "catix.worker.app:main"
+catix-feed = "catix.worker.feed:main"
+catix-embed = "catix.worker.embedder:main"
+catix-db = "catix.db.init:main"
+
+[build-system]
+requires = ["uv_build>=0.13.0,<0.14.0"]
+build-backend = "uv_build"
