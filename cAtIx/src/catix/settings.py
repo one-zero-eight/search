@@ -97,6 +97,16 @@ class Settings(BaseSettings):
     # OpenAI-compatible /v1/embeddings server (llama.cpp --embedding, bge-m3) on the GPU machine.
     embeddings_route: HttpUrl = HttpUrl("http://localhost:8081/v1")
     embeddings_model: str = "bge-m3"
+    # OpenAI-compatible /v1/rerank server (llama.cpp --reranking, bge-reranker-v2-m3). Without a route the search
+    # keeps the order of the hybrid ranking. With one, `rerank_candidates` messages are re-scored against the
+    # query and the best few go to the model.
+    reranker_route: HttpUrl | None = None
+    reranker_model: str = "bge-reranker-v2-m3"
+    rerank_candidates: int = Field(100, gt=0)
+    # Messages the reranker scores below this are dropped, even if fewer than the limit are left (none at all is a
+    # valid answer: nothing relevant). The scale is the server's own (llama.cpp gives raw scores, not 0..1), so
+    # pick the value from the scores the search logs at DEBUG level. None = no cutoff.
+    rerank_min_score: float | None = None
     # Longer messages are cut before embedding: the start carries the meaning, and cost grows with length.
     embeddings_max_chars: int = Field(2000, gt=0)
     embed_workers: int = Field(2, gt=0, description="Parallel embedding requests; ~2-4 saturates the GPU server.")

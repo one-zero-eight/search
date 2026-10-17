@@ -99,3 +99,16 @@ def embed(texts: list[str]) -> list[list[float]]:
     response.raise_for_status()
     data = sorted(response.json()["data"], key=lambda item: item["index"])
     return [item["embedding"] for item in data]
+
+
+def rerank(query: str, documents: list[str]) -> list[float]:
+    """Relevance of every document to the query from the reranker server (llama.cpp --reranking), in the same order."""
+    response = _http.post(
+        f"{str(settings.reranker_route).rstrip('/')}/rerank",
+        json={"model": settings.reranker_model, "query": query, "documents": documents},
+    )
+    response.raise_for_status()
+    scores = [0.0] * len(documents)
+    for item in response.json()["results"]:
+        scores[item["index"]] = item["relevance_score"]
+    return scores

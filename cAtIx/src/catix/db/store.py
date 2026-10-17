@@ -358,7 +358,8 @@ def search(
                 executor.submit(_vector, vectors[i], ids, date_from, date_to) if vectors else None,
             ))
         per_query = [_rrf(*[job.result() for job in pair if job]) for pair in jobs]
-    fused = _combine(per_query, limit)
+    reranking = settings.reranker_route is not None
+    fused = _combine(per_query, max(limit, settings.rerank_candidates) if reranking else limit)
     if not fused:
         return []
     with pg.connection() as conn:
@@ -374,7 +375,31 @@ def search(
             (fused,),
         )
     by_id = {r.ref_id: r for r in rows}
-    return [by_id[i] for i in fused if i in by_id]
+    hits = [by_id[i] for i in fused if i in by_id]
+    return _rerank(queries, hits, limit) if reranking else hits
+
+
+def _rerank(queries: list[str], hits: list[MessageHit], limit: int) -> list[MessageHit]:
+    """The `limit` messages the reranker finds closest to any of the queries (its best score counts), above the cutoff.
+
+    If the reranker server is down the hybrid ranking stays as it was.
+    """
+    if len(hits) <= 1:
+        return hits[:limit]
+    # A short reply ("да, в пятницу") means little without the message it answers.
+    documents = [f"{h.parent_text[:200]}\n{h.text[:600]}" if h.parent_text else h.text[:600] for h in hits]
+    try:
+        with ThreadPoolExecutor(max_workers=len(queries)) as executor:
+            scores = list(executor.map(lambda q: pg.rerank(q, documents), queries))
+    except Exception:  # noqa: BLE001 - search must keep working without the reranker
+        log.warning("reranker server unavailable, keeping the hybrid ranking", exc_info=True)
+        return hits[:limit]
+    best = [max(per_query[i] for per_query in scores) for i in range(len(hits))]
+    order = sorted(range(len(hits)), key=lambda i: best[i], reverse=True)[:limit]
+    log.debug("rerank scores of %s: %s", queries, [round(best[i], 2) for i in order])
+    if settings.rerank_min_score is not None:
+        order = [i for i in order if best[i] >= settings.rerank_min_score]
+    return [hits[i] for i in order]
 
 
 def message_sources(ids: list[int]) -> dict[int, SourceRow]:

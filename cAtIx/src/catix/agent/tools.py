@@ -28,6 +28,7 @@ MAX_CLUBS_LISTING = 40
 MAX_EVENTS = 30
 MAX_AREAS = 8
 MAX_MESSAGES = 15
+MAX_MESSAGES_RERANKED = 8  # The reranker picks the best of ~100, so fewer are enough.
 
 
 @dataclass(frozen=True)
@@ -265,7 +266,7 @@ def search_chats(
         chat_ids=runtime.context.allowed_chat_ids if runtime.context else None,
         date_from=date_from and date_from.isoformat(),
         date_to=date_to and date_to.isoformat(),
-        limit=MAX_MESSAGES,
+        limit=MAX_MESSAGES if settings.reranker_route is None else MAX_MESSAGES_RERANKED,
     )
     messages = []
     now = datetime.now(settings.tz)
