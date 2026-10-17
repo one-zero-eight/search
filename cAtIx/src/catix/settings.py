@@ -106,7 +106,9 @@ class Settings(BaseSettings):
     # Messages the reranker scores below this are dropped, even if fewer than the limit are left (none at all is a
     # valid answer: nothing relevant). The scale is the server's own (llama.cpp gives raw scores, not 0..1), so
     # pick the value from the scores the search logs at DEBUG level. None = no cutoff.
-    rerank_min_score: float | None = None
+    # -3.0 comes from a handful of real queries with bge-reranker-v2-m3: answers sit at about -0.5..+1, off-topic
+    # noise at -4..-5.
+    rerank_min_score: float | None = -3.0
     # Longer messages are cut before embedding: the start carries the meaning, and cost grows with length.
     embeddings_max_chars: int = Field(2000, gt=0)
     embed_workers: int = Field(2, gt=0, description="Parallel embedding requests; ~2-4 saturates the GPU server.")
