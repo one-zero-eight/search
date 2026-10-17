@@ -326,14 +326,18 @@ _inline_tasks: dict[tuple[int, str], tuple[float, asyncio.Task[str]]] = {}
 
 async def _inline_answer(user_id: int, question: str) -> str:
     log.info("inline question from %s: %s", user_id, question[:200])
+    # Every inline question starts fresh: its own thread, dropped when the answer is ready.
+    thread_id = f"tg:inline:{user_id}:{uuid.uuid4().hex}"
     try:
         # The answer is shown to whoever is in the chat where it was posted, which the bot cannot see: public chats only.
         allowed = await asyncio.to_thread(store.public_chat_ids) if settings.restrict_chat_access else None
         # One answer per message, an inline message cannot be followed by more.
-        return _chunks(await _run_agent(question, f"tg:inline:{user_id}", user_id, allowed, None, brief=True), 3500)[0]
+        return _chunks(await _run_agent(question, thread_id, user_id, allowed, None, brief=True), 3500)[0]
     except Exception:
         log.exception("inline agent failed")
         return "Не получилось ответить: ошибка на стороне ассистента. Попробуйте ещё раз позже."
+    finally:
+        agent.checkpointer.delete_thread(thread_id)
 
 
 def _inline_task(user_id: int, question: str) -> asyncio.Task[str]:
