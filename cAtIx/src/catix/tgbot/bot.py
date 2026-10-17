@@ -148,7 +148,12 @@ async def _save(message: Message) -> None:
 
 
 async def _run_agent(
-    question: str, thread_id: str, user_id: int | None, allowed: set[int] | None, streamer: stream.DraftStreamer | None
+    question: str,
+    thread_id: str,
+    user_id: int | None,
+    allowed: set[int] | None,
+    streamer: stream.DraftStreamer | None,
+    brief: bool = False,
 ) -> str:
     """Ask the agent; `allowed` is what the place of the question permits, narrowed to the user's study group."""
     allowed = groups.narrow(allowed, await asyncio.to_thread(groups.scoped_chat_ids, f"tg:{user_id or 0}", user_id))
@@ -156,7 +161,7 @@ async def _run_agent(
         agent,
         {"messages": [{"role": "user", "content": question}]},
         tracing.run_config(thread_id, str(user_id) if user_id else None),
-        AgentContext(allowed_chat_ids=None if allowed is None else frozenset(allowed), user_telegram_id=user_id),
+        AgentContext(allowed_chat_ids=None if allowed is None else frozenset(allowed), user_telegram_id=user_id, brief=brief),
         streamer,
     )
     return final_answer(messages) or "Не получилось сформулировать ответ."
@@ -325,7 +330,7 @@ async def _inline_answer(user_id: int, question: str) -> str:
         # The answer is shown to whoever is in the chat where it was posted, which the bot cannot see: public chats only.
         allowed = await asyncio.to_thread(store.public_chat_ids) if settings.restrict_chat_access else None
         # One answer per message, an inline message cannot be followed by more.
-        return _chunks(await _run_agent(question, f"tg:inline:{user_id}", user_id, allowed, None), 3500)[0]
+        return _chunks(await _run_agent(question, f"tg:inline:{user_id}", user_id, allowed, None, brief=True), 3500)[0]
     except Exception:
         log.exception("inline agent failed")
         return "Не получилось ответить: ошибка на стороне ассистента. Попробуйте ещё раз позже."

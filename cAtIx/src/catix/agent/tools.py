@@ -39,6 +39,8 @@ class AgentContext:
     allowed_chat_ids: frozenset[int] | None = None
     # Telegram id of the asker; None in the local CLI.
     user_telegram_id: int | None = None
+    # The answer goes into an inline-mode card: it must be as short as possible.
+    brief: bool = False
 
 
 DEFAULT_EVENTS_WINDOW_DAYS = 14

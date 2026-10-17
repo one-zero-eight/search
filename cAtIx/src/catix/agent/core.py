@@ -119,16 +119,24 @@ def _last_question_language(request: ModelRequest) -> str:
     return "English" if letters and cyrillic * 2 < len(letters) else "Russian"
 
 
+BRIEF_PROMPT = """
+
+The answer is shown in a tiny inline card: give only the answer itself, in one or two short sentences (at most about 40
+words), with the key date, time, place or number. No greeting, no introduction, no repeating the question, no lists, no
+caveats beyond one word like "(неофициально)" if the source is unreliable. Keep the [mN] source marks."""
+
+
 @dynamic_prompt
 def system_prompt(request: ModelRequest) -> str:
     # Rendered on every model call so "today" stays correct in long-lived conversations.
     now = datetime.now(settings.tz)
+    context = request.runtime.context
     return SYSTEM_PROMPT.format(
         language=_last_question_language(request),
         now=now.strftime("%Y-%m-%d %H:%M"),
         timezone=settings.timezone,
         weekday=now.strftime("%A"),
-    )
+    ) + (BRIEF_PROMPT if context and context.brief else "")
 
 
 class SubjectHintMiddleware(AgentMiddleware):
