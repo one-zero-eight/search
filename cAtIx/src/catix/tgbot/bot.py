@@ -31,6 +31,7 @@ from aiogram.types import (
     InlineQuery,
     InlineQueryResultArticle,
     InputTextMessageContent,
+    LinkPreviewOptions,
     Message,
     MessageOriginChannel,
     MessageOriginChat,
@@ -305,55 +306,99 @@ async def channel_post(message: Message) -> None:
 
 
 # ---- inline mode: `@bot question` in any chat -----------------------------------------------------------------------
-# An inline query must be answered within seconds, the agent takes longer. So the query gets one placeholder result;
-# when the user picks it (chosen_inline_result, enable it with @BotFather -> /setinlinefeedback -> 100%), the agent
-# runs and the placeholder message is edited into the answer. Telegram gives an inline_message_id only for results
-# that carry a keyboard, hence the button.
+# The answer goes into the result card itself, so picking the card sends it ready. A client sends a query on every
+# keystroke, so the agent starts only after the user stops typing (INLINE_DEBOUNCE). If it is not done within
+# INLINE_WAIT, the query is answered with a placeholder card anyway (Telegram drops a query that waits too long), and
+# when that card is picked the finished answer replaces it (chosen_inline_result, enable it with @BotFather ->
+# /setinlinefeedback -> 100%). Telegram gives an inline_message_id only for results that carry a keyboard, hence the button.
+INLINE_DEBOUNCE = 1.2  # Seconds without a new keystroke.
+INLINE_WAIT = 8.0  # Seconds the query may wait for the agent.
+INLINE_KEEP = 600  # Seconds an unclaimed answer is kept.
+
+_inline_latest: dict[int, str] = {}  # user id -> id of their newest inline query
+_inline_tasks: dict[tuple[int, str], tuple[float, asyncio.Task[str]]] = {}
+
+
+async def _inline_answer(user_id: int, question: str) -> str:
+    log.info("inline question from %s: %s", user_id, question[:200])
+    try:
+        # The answer is shown to whoever is in the chat where it was posted, which the bot cannot see: public chats only.
+        allowed = await asyncio.to_thread(store.public_chat_ids) if settings.restrict_chat_access else None
+        # One answer per message, an inline message cannot be followed by more.
+        return _chunks(await _run_agent(question, f"tg:inline:{user_id}", user_id, allowed, None), 3500)[0]
+    except Exception:
+        log.exception("inline agent failed")
+        return "Не получилось ответить: ошибка на стороне ассистента. Попробуйте ещё раз позже."
+
+
+def _inline_task(user_id: int, question: str) -> asyncio.Task[str]:
+    """The running or finished answer to this question; asking again while it works does not start another run."""
+    now = time.monotonic()
+    for key in [k for k, (started, _) in _inline_tasks.items() if now - started > INLINE_KEEP]:
+        del _inline_tasks[key]
+    if (user_id, question) not in _inline_tasks:
+        _inline_tasks[user_id, question] = (now, asyncio.create_task(_inline_answer(user_id, question)))
+    return _inline_tasks[user_id, question][1]
+
+
+def _inline_text(question: str, answer: str) -> InputTextMessageContent:
+    return InputTextMessageContent(message_text=_to_html(f"❓ {question}\n\n{answer}"), parse_mode=ParseMode.HTML, link_preview_options=LinkPreviewOptions(is_disabled=True))
 
 
 @router.inline_query()
 async def inline_query(query: InlineQuery) -> None:
     question = query.query.strip()
-    if question:
-        result = InlineQueryResultArticle(
-            id=uuid.uuid4().hex,
-            title="Спросить cAtIx",
-            description=question,
-            input_message_content=InputTextMessageContent(message_text=f"❓ {question}\n\n⏳ Ищу ответ…"),
-            reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="⏳ Ищу ответ…", callback_data="inline:wait")]]),
-        )
-    else:
-        result = InlineQueryResultArticle(
+    if not question:
+        hint = InlineQueryResultArticle(
             id="hint",
             title="Введите вопрос",
             description="Например: когда мидтерм по матану?",
             input_message_content=InputTextMessageContent(message_text="Чтобы спросить cAtIx: @имя_бота вопрос"),
         )
-    await query.answer([result], cache_time=0, is_personal=True)
+        await query.answer([hint], cache_time=0, is_personal=True)
+        return
+
+    _inline_latest[query.from_user.id] = query.id
+    await asyncio.sleep(INLINE_DEBOUNCE)
+    if _inline_latest.get(query.from_user.id) != query.id:
+        return  # The user typed on: a newer query will be answered.
+
+    task = _inline_task(query.from_user.id, question)
+    await asyncio.wait({task}, timeout=INLINE_WAIT)
+    if task.done():
+        answer = task.result()
+        result = InlineQueryResultArticle(
+            id=f"ans:{uuid.uuid4().hex}",
+            title=answer.split("\n", 1)[0][:100] or "Ответ",
+            description=answer[:200],
+            input_message_content=_inline_text(question, answer),
+        )
+    else:
+        result = InlineQueryResultArticle(
+            id=f"wait:{uuid.uuid4().hex}",
+            title="Спросить cAtIx",
+            description=f"{question}\nОтвет появится после выбора",
+            input_message_content=InputTextMessageContent(message_text=f"❓ {question}\n\n⏳ Ищу ответ…"),
+            reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="⏳ Ищу ответ…", callback_data="inline:wait")]]),
+        )
+    try:
+        await query.answer([result], cache_time=0, is_personal=True)
+    except TelegramBadRequest as e:
+        log.warning("inline query answered too late or rejected: %s", e)
 
 
-@router.chosen_inline_result()
+@router.chosen_inline_result(F.result_id.startswith("wait:"))
 async def inline_chosen(chosen: ChosenInlineResult, bot: Bot) -> None:
-    if not chosen.inline_message_id or not chosen.query.strip():
+    """A placeholder card was picked: the answer replaces it as soon as the agent is done."""
+    if not chosen.inline_message_id:
         return
     question = chosen.query.strip()
-    thread_id = f"tg:inline:{chosen.from_user.id}"
-    log.info("inline question in %s: %s", thread_id, question[:200])
+    answer = await _inline_task(chosen.from_user.id, question)
+    text = _inline_text(question, answer)
     try:
-        # The answer is shown to whoever is in the chat where it was posted, which the bot cannot see: public chats only.
-        allowed = await asyncio.to_thread(store.public_chat_ids) if settings.restrict_chat_access else None
-        answer = await _run_agent(question, thread_id, chosen.from_user.id, allowed, None)
-    except Exception:
-        log.exception("inline agent failed")
-        answer = "Не получилось ответить: ошибка на стороне ассистента. Попробуйте ещё раз позже."
-    # One message only; an inline message cannot be followed by more.
-    answer = _chunks(answer, 4000)[0]
-    try:
-        await bot.edit_message_text(
-            _to_html(f"❓ {question}\n\n{answer}"), inline_message_id=chosen.inline_message_id, parse_mode=ParseMode.HTML, disable_web_page_preview=True
-        )
+        await bot.edit_message_text(text.message_text, inline_message_id=chosen.inline_message_id, parse_mode=ParseMode.HTML, link_preview_options=text.link_preview_options)
     except TelegramBadRequest:
-        await bot.edit_message_text(f"❓ {question}\n\n{answer}", inline_message_id=chosen.inline_message_id, disable_web_page_preview=True)
+        await bot.edit_message_text(f"❓ {question}\n\n{answer}", inline_message_id=chosen.inline_message_id)
 
 
 @router.callback_query(F.data == "inline:wait")
