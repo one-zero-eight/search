@@ -16,6 +16,7 @@ import logging
 import re
 import sys
 import time
+import uuid
 from datetime import datetime, timezone
 
 from aiogram import Bot, Dispatcher, F, Router
@@ -24,6 +25,12 @@ from aiogram.exceptions import TelegramAPIError, TelegramBadRequest
 from aiogram.filters import Command, CommandObject, CommandStart
 from aiogram.types import (
     CallbackQuery,
+    ChosenInlineResult,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    InlineQuery,
+    InlineQueryResultArticle,
+    InputTextMessageContent,
     Message,
     MessageOriginChannel,
     MessageOriginChat,
@@ -139,6 +146,21 @@ async def _save(message: Message) -> None:
     )
 
 
+async def _run_agent(
+    question: str, thread_id: str, user_id: int | None, allowed: set[int] | None, streamer: stream.DraftStreamer | None
+) -> str:
+    """Ask the agent; `allowed` is what the place of the question permits, narrowed to the user's study group."""
+    allowed = groups.narrow(allowed, await asyncio.to_thread(groups.scoped_chat_ids, f"tg:{user_id or 0}", user_id))
+    messages = await stream.run(
+        agent,
+        {"messages": [{"role": "user", "content": question}]},
+        tracing.run_config(thread_id, str(user_id) if user_id else None),
+        AgentContext(allowed_chat_ids=None if allowed is None else frozenset(allowed), user_telegram_id=user_id),
+        streamer,
+    )
+    return final_answer(messages) or "Не получилось сформулировать ответ."
+
+
 async def _reply(message: Message, question: str) -> None:
     question = question.strip()
     if not question:
@@ -157,8 +179,6 @@ async def _answer(message: Message, question: str) -> None:
             allowed = await access.visible_chats(
                 message.bot, message.from_user.id if message.from_user else 0, message.chat.id, message.chat.type
             )
-            user_key = f"tg:{message.from_user.id if message.from_user else 0}"
-            allowed = groups.narrow(allowed, await asyncio.to_thread(groups.scoped_chat_ids, user_key, message.from_user.id if message.from_user else None))
             # Drafts exist only in private chats; groups get the typing indicator and one message at the end.
             streamer = (
                 stream.DraftStreamer(
@@ -167,18 +187,8 @@ async def _answer(message: Message, question: str) -> None:
                 if message.chat.type == ChatType.PRIVATE
                 else None
             )
-            messages = await stream.run(
-                agent,
-                {"messages": [{"role": "user", "content": question}]},
-                tracing.run_config(thread_id, str(message.from_user.id) if message.from_user else None),
-                AgentContext(
-                    allowed_chat_ids=None if allowed is None else frozenset(allowed),
-                    user_telegram_id=message.from_user.id if message.from_user else None,
-                ),
-                streamer,
-            )
-            answer = final_answer(messages) or "Не получилось сформулировать ответ."
-            log.info("answered in %.1fs, %d chars, %d messages in thread", time.monotonic() - started, len(answer), len(messages))
+            answer = await _run_agent(question, thread_id, message.from_user.id if message.from_user else None, allowed, streamer)
+            log.info("answered in %.1fs, %d chars", time.monotonic() - started, len(answer))
         except Exception:
             log.exception("agent failed")
             answer = "Не получилось ответить: ошибка на стороне ассистента. Попробуйте ещё раз позже."
@@ -292,6 +302,63 @@ async def edited(message: Message) -> None:
 @router.edited_channel_post()
 async def channel_post(message: Message) -> None:
     await _save(message)
+
+
+# ---- inline mode: `@bot question` in any chat -----------------------------------------------------------------------
+# An inline query must be answered within seconds, the agent takes longer. So the query gets one placeholder result;
+# when the user picks it (chosen_inline_result, enable it with @BotFather -> /setinlinefeedback -> 100%), the agent
+# runs and the placeholder message is edited into the answer. Telegram gives an inline_message_id only for results
+# that carry a keyboard, hence the button.
+
+
+@router.inline_query()
+async def inline_query(query: InlineQuery) -> None:
+    question = query.query.strip()
+    if question:
+        result = InlineQueryResultArticle(
+            id=uuid.uuid4().hex,
+            title="Спросить cAtIx",
+            description=question,
+            input_message_content=InputTextMessageContent(message_text=f"❓ {question}\n\n⏳ Ищу ответ…"),
+            reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="⏳ Ищу ответ…", callback_data="inline:wait")]]),
+        )
+    else:
+        result = InlineQueryResultArticle(
+            id="hint",
+            title="Введите вопрос",
+            description="Например: когда мидтерм по матану?",
+            input_message_content=InputTextMessageContent(message_text="Чтобы спросить cAtIx: @имя_бота вопрос"),
+        )
+    await query.answer([result], cache_time=0, is_personal=True)
+
+
+@router.chosen_inline_result()
+async def inline_chosen(chosen: ChosenInlineResult, bot: Bot) -> None:
+    if not chosen.inline_message_id or not chosen.query.strip():
+        return
+    question = chosen.query.strip()
+    thread_id = f"tg:inline:{chosen.from_user.id}"
+    log.info("inline question in %s: %s", thread_id, question[:200])
+    try:
+        # The answer is shown to whoever is in the chat where it was posted, which the bot cannot see: public chats only.
+        allowed = await asyncio.to_thread(store.public_chat_ids) if settings.restrict_chat_access else None
+        answer = await _run_agent(question, thread_id, chosen.from_user.id, allowed, None)
+    except Exception:
+        log.exception("inline agent failed")
+        answer = "Не получилось ответить: ошибка на стороне ассистента. Попробуйте ещё раз позже."
+    # One message only; an inline message cannot be followed by more.
+    answer = _chunks(answer, 4000)[0]
+    try:
+        await bot.edit_message_text(
+            _to_html(f"❓ {question}\n\n{answer}"), inline_message_id=chosen.inline_message_id, parse_mode=ParseMode.HTML, disable_web_page_preview=True
+        )
+    except TelegramBadRequest:
+        await bot.edit_message_text(f"❓ {question}\n\n{answer}", inline_message_id=chosen.inline_message_id, disable_web_page_preview=True)
+
+
+@router.callback_query(F.data == "inline:wait")
+async def inline_wait(query: CallbackQuery) -> None:
+    await query.answer("Ещё думаю…")
 
 
 # ---- schedule changes: the admin approves what the worker (worker.py) found in chats ------------------------------
