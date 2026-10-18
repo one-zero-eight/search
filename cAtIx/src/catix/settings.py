@@ -80,6 +80,9 @@ class Settings(BaseSettings):
     # be reachable from the internet over HTTPS (a tunnel or reverse proxy). Without a token there is no feed.
     feed_token: SecretStr | None = None
     feed_port: int = 8090
+    # Public HTTPS address of the feed server (a reverse proxy or tunnel in front of feed_port), e.g. https://cal.example.com.
+    # With it (and feed_token) the bot's /calendar hands out the group and personal calendar links.
+    feed_public_url: HttpUrl | None = None
     feed_days_back: int = Field(30, gt=0, description="How far into the past the feed goes.")
     # Start time of a change whose message names only the day: the calendar does not show all-day events.
     changes_default_time: time = time(9, 0)

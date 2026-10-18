@@ -176,6 +176,31 @@ CREATE OR REPLACE VIEW visible.messages WITH (security_barrier = true) AS
     JOIN public.chats c ON c.chat_id = m.chat_id
     WHERE m.chat_id = ANY (visible.allowed_chats());
 
+-- Personal calendar of a user (personal_calendar.py): events they added with "➕ В мой календарь" under an answer, served
+-- as a private iCalendar feed at /feed/me/<token>.ics. user_key is 'tg:<id>'.
+CREATE TABLE IF NOT EXISTS user_calendars (
+    user_key   text PRIMARY KEY,
+    token      text NOT NULL UNIQUE,
+    created_at timestamptz NOT NULL DEFAULT now()
+);
+CREATE TABLE IF NOT EXISTS personal_events (
+    id         bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    user_key   text NOT NULL,
+    title      text NOT NULL,
+    starts_at  timestamptz NOT NULL,
+    ends_at    timestamptz,
+    all_day    boolean NOT NULL DEFAULT false,
+    room       text,
+    created_at timestamptz NOT NULL DEFAULT now(),
+    UNIQUE (user_key, title, starts_at)
+);
+-- Events the agent offered under an answer, waiting for a button press (short ids fit in callback data).
+CREATE TABLE IF NOT EXISTS calendar_proposals (
+    id         text PRIMARY KEY,
+    event      jsonb NOT NULL,
+    created_at timestamptz NOT NULL DEFAULT now()
+);
+
 -- Reschedules, room changes and cancellations found in chat messages (changes.py). Only approved ones reach the
 -- calendar feed. The worker reads new messages from a Redis stream, so history is never scanned.
 CREATE TABLE IF NOT EXISTS schedule_changes (

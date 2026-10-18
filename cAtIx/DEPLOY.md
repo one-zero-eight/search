@@ -43,6 +43,8 @@ docker compose -f docker-compose.prod.yml --profile userbot up -d
 Воркер отдаёт `/feed/<FEED_TOKEN>.ics` на порту `127.0.0.1:8090`. Перед ним нужен HTTPS (Caddy: `reverse_proxy 127.0.0.1:8090` для вашего домена), затем один раз привязать адрес:
 `docker compose -f docker-compose.prod.yml exec worker catix-feed link https://<домен>`.
 
+Чтобы пользователи получали ссылки через бота (`/calendar`), задайте в `.env` `FEED_PUBLIC_URL=https://<домен>` (тот же адрес, что перед портом 8090) и `FEED_TOKEN`. Бот выдаёт каждому подписанную ссылку на ленту его учебной группы (`/feed/g/<подпись>/<ГРУППА>.ics`, подпись считается из `FEED_TOKEN` отдельно для каждой группы) и личную ссылку на его события (`/feed/me/<токен>.ics`, токен у каждого свой и заменяется кнопкой «Новая личная ссылка»). Сам `FEED_TOKEN` пользователям не показывается.
+
 ## 6. Эксплуатация
 - Обновление: `git pull && docker compose -f docker-compose.prod.yml up -d --build` (схема применяется сама).
 - Резервная копия БД: `scripts/backup.sh /srv/backups` (хранит 14 последних), поставить в cron на ночь. Восстановление: `gunzip -c файл.sql.gz | docker compose -f docker-compose.prod.yml exec -T db psql -U ctx -d ctx`.

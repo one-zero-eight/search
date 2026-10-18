@@ -12,6 +12,7 @@ or with admin rights, and never sees history from before it was added.
 
 import asyncio
 import contextlib
+import html
 import logging
 import re
 import sys
@@ -45,12 +46,13 @@ from aiogram.utils.chat_action import ChatActionSender
 from catix.tgbot import admin
 from catix.tgbot import listen
 from catix.worker import changes
-from catix import groups, userbot_config
+from catix import groups, personal_calendar, userbot_config
 from catix.ingest import writer as ingest
 from catix.db import pg
 from catix.agent import sqlquery
 from catix.db import store
 from catix.tgbot import stream
+from catix.agent import events as calendar_events
 from catix.agent import tracing
 from catix.agent.core import build_agent, final_answer
 from catix.common.render import chunks as _chunks
@@ -166,25 +168,31 @@ async def _run_agent(
     Returns the answer and the Langfuse trace it was made in (for the 👍/👎 under it)."""
     allowed = await asyncio.to_thread(groups.scoped_chat_ids, f"tg:{user_id or 0}", user_id)
     config = tracing.run_config(thread_id, str(user_id) if user_id else None)
-    messages = await stream.run(
-        agent,
-        {"messages": [{"role": "user", "content": question}]},
-        config,
-        AgentContext(allowed_chat_ids=None if allowed is None else frozenset(allowed), user_telegram_id=user_id, brief=brief),
-        streamer,
-    )
+    context = AgentContext(allowed_chat_ids=None if allowed is None else frozenset(allowed), user_telegram_id=user_id, brief=brief)
+    messages = await stream.run(agent, {"messages": [{"role": "user", "content": question}]}, config, context, streamer)
     return final_answer(messages) or "Не получилось сформулировать ответ.", tracing.trace_id(config)
 
 
-def _feedback_keyboard(trace: str | None, chosen: bool | None = None) -> InlineKeyboardMarkup | None:
-    """👍/👎 under an answer; they score the trace in Langfuse. After a vote only the chosen one is shown."""
-    if not trace:
+def _event_label(event: dict) -> str:
+    start = datetime.fromisoformat(event["starts_at"]).astimezone(settings.tz)
+    when = f"{start:%d.%m}" if event.get("all_day") else f"{start:%d.%m %H:%M}"
+    return f"➕ В мой календарь: {event['title'][:28]} · {when}"
+
+
+def _feedback_keyboard(
+    trace: str | None, chosen: bool | None = None, extra: list[list[InlineKeyboardButton]] | None = None
+) -> InlineKeyboardMarkup | None:
+    """👍/👎 under an answer (they score the trace in Langfuse; after a vote only the chosen one is shown), then one
+    "add to my calendar" button per event the agent offered."""
+    if not trace and not extra:
         return None
-    if chosen is not None:
-        return InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text=f"Оценка: {'👍' if chosen else '👎'}", callback_data="fb:done")]])
-    return InlineKeyboardMarkup(
-        inline_keyboard=[[InlineKeyboardButton(text="👍", callback_data=f"fb:1:{trace}"), InlineKeyboardButton(text="👎", callback_data=f"fb:0:{trace}")]]
-    )
+    rows = list(extra or [])
+    if trace:
+        if chosen is not None:
+            rows.insert(0, [InlineKeyboardButton(text=f"Оценка: {'👍' if chosen else '👎'}", callback_data="fb:done")])
+        else:
+            rows.insert(0, [InlineKeyboardButton(text="👍", callback_data=f"fb:1:{trace}"), InlineKeyboardButton(text="👎", callback_data=f"fb:0:{trace}")])
+    return InlineKeyboardMarkup(inline_keyboard=rows)
 
 
 @router.callback_query(F.data.startswith("fb:"))
@@ -199,12 +207,101 @@ async def feedback(query: CallbackQuery, bot: Bot) -> None:
     except Exception:  # noqa: BLE001 - a vote must never break the bot
         log.exception("could not save the feedback")
     await query.answer("Спасибо!" if good else "Спасибо, разберём")
-    markup = _feedback_keyboard(trace, good)
+    kept = query.message.reply_markup.inline_keyboard[1:] if query.message and query.message.reply_markup else None
+    markup = _feedback_keyboard(trace, good, kept)
     with contextlib.suppress(TelegramAPIError):
         if query.inline_message_id:
             await bot.edit_message_reply_markup(inline_message_id=query.inline_message_id, reply_markup=markup)
         elif query.message:
             await query.message.edit_reply_markup(reply_markup=markup)
+
+
+# ---- calendar: /calendar and the "add to my calendar" buttons -----------------------------------------------------
+
+
+def _calendar_screen(user_id: int) -> tuple[str, InlineKeyboardMarkup | None]:
+    if not personal_calendar.configured():
+        return "Календарь пока не настроен (нужны FEED_TOKEN и FEED_PUBLIC_URL). Напишите администратору.", None
+    user_key = f"tg:{user_id}"
+    group = groups.effective_group(user_key, user_id)
+    lines = [
+        f"📅 <b>Календарь группы {html.escape(group)}</b>: изменения расписания из чатов, одобренные админом",
+        personal_calendar.group_url(group),
+        "",
+        "🗓 <b>Ваш личный календарь</b>: события, которые вы добавили кнопкой «➕ В мой календарь» под ответами",
+        personal_calendar.personal_url(user_key),
+        "",
+        "Добавьте ссылку как календарь «по URL»: Google Календарь → Другие календари → Добавить по URL; "
+        "Apple: Файл → Новая подписка на календарь; InNoHassle: добавление календаря по ссылке. "
+        "Ссылки личные, не пересылайте их.",
+    ]
+    rows = []
+    events = personal_calendar.upcoming(user_key, 5)
+    if events:
+        lines += ["", "<b>Ближайшие ваши события</b>:"]
+        for event in events:
+            start = event.starts_at.astimezone(settings.tz)
+            lines.append(f"• {html.escape(event.title)}: {start:%d.%m} " + ("" if event.all_day else f"{start:%H:%M}"))
+            rows.append([InlineKeyboardButton(text=f"❌ Убрать: {event.title[:30]}", callback_data=f"cal:del:{event.id}")])
+    rows.append([InlineKeyboardButton(text="🔄 Новая личная ссылка", callback_data="cal:rot")])
+    return "\n".join(lines), InlineKeyboardMarkup(inline_keyboard=rows)
+
+
+@router.message(F.chat.type == ChatType.PRIVATE, Command("calendar"))
+async def calendar_command(message: Message) -> None:
+    text, keyboard = await asyncio.to_thread(_calendar_screen, message.from_user.id)
+    await message.answer(text, parse_mode=ParseMode.HTML, reply_markup=keyboard, disable_web_page_preview=True)
+
+
+@router.callback_query(F.data.startswith("cal:"))
+async def calendar_callback(query: CallbackQuery) -> None:
+    _, action, *args = query.data.split(":")
+    user_key = f"tg:{query.from_user.id}"
+    if action == "done":
+        await query.answer("Уже в вашем календаре")
+        return
+    if action == "add":  # Anyone can add an offered event to their own calendar, in a group too.
+        title = await asyncio.to_thread(personal_calendar.add_proposal, user_key, args[0])
+        if title is None:
+            await query.answer("Предложение устарело", show_alert=True)
+            return
+        await query.answer("Добавлено в ваш календарь. Ссылка на него: /calendar")
+        with contextlib.suppress(TelegramAPIError):
+            rows = [
+                [InlineKeyboardButton(text="✅ Добавлено", callback_data="cal:done")] if b.callback_data == query.data else [b]
+                for row in query.message.reply_markup.inline_keyboard
+                for b in row
+            ] if query.message and query.message.reply_markup else []
+            await query.message.edit_reply_markup(reply_markup=InlineKeyboardMarkup(inline_keyboard=rows))
+        return
+    if action == "del":
+        await asyncio.to_thread(personal_calendar.delete_event, user_key, int(args[0]))
+        notice = "Убрано"
+    else:  # "rot"
+        await asyncio.to_thread(personal_calendar.rotate_token, user_key)
+        notice = "Новая ссылка готова, старая больше не работает"
+    await query.answer(notice)
+    text, keyboard = await asyncio.to_thread(_calendar_screen, query.from_user.id)
+    with contextlib.suppress(TelegramAPIError):
+        await query.message.edit_text(text, parse_mode=ParseMode.HTML, reply_markup=keyboard, disable_web_page_preview=True)
+
+
+_background: set[asyncio.Task] = set()
+
+
+async def _offer_events(sent: Message, answer: str, trace: str) -> None:
+    """If the answer names upcoming events, add an "add to my calendar" button for each under it."""
+    try:
+        events = await asyncio.to_thread(calendar_events.extract, answer)
+        if not events:
+            return
+        offered = await asyncio.to_thread(personal_calendar.propose, events)
+        rows = [[InlineKeyboardButton(text=_event_label(event), callback_data=f"cal:add:{pid}")] for pid, event in offered]
+        await sent.edit_reply_markup(reply_markup=_feedback_keyboard(trace, extra=rows))
+    except TelegramAPIError as e:
+        log.info("calendar buttons not added: %s", e)
+    except Exception:  # noqa: BLE001 - the answer is already delivered; this is a bonus
+        log.exception("could not offer calendar events")
 
 
 async def _reply(message: Message, question: str) -> None:
@@ -237,13 +334,18 @@ async def _answer(message: Message, question: str) -> None:
             answer, trace = "Не получилось ответить: ошибка на стороне ассистента. Попробуйте ещё раз позже.", None
 
     parts = _chunks(answer, 4096)
+    sent = None
     for i, chunk in enumerate(parts):
         keyboard = _feedback_keyboard(trace) if i == len(parts) - 1 else None  # Under the last piece.
         try:
-            await message.reply(_to_html(chunk), parse_mode=ParseMode.HTML, disable_web_page_preview=True, reply_markup=keyboard)
+            sent = await message.reply(_to_html(chunk), parse_mode=ParseMode.HTML, disable_web_page_preview=True, reply_markup=keyboard)
         except TelegramBadRequest:
             # Converter produced HTML Telegram does not accept: fall back to plain text.
-            await message.reply(chunk, disable_web_page_preview=True, reply_markup=keyboard)
+            sent = await message.reply(chunk, disable_web_page_preview=True, reply_markup=keyboard)
+    if sent and trace and personal_calendar.configured():
+        task = asyncio.create_task(_offer_events(sent, answer, trace))  # After the answer: it does not delay it.
+        _background.add(task)
+        task.add_done_callback(_background.discard)
 
 
 @router.message(CommandStart())
@@ -349,7 +451,7 @@ async def _inline_answer(user_id: int, question: str) -> tuple[str, str | None]:
     thread_id = f"tg:inline:{user_id}:{uuid.uuid4().hex}"
     try:
         # One answer per message, an inline message cannot be followed by more.
-        answer, trace = await _run_agent(question, thread_id, user_id, None, brief=True)
+        answer, trace = await _run_agent(question, thread_id, user_id, None, brief=True)  # No calendar buttons in a card.
         return _chunks(answer, 3500)[0], trace
     except Exception:
         log.exception("inline agent failed")
@@ -458,6 +560,7 @@ COMMANDS = [
     BotCommand(command="start", description="Что я умею"),
     BotCommand(command="ask", description="Задать вопрос (в группе)"),
     BotCommand(command="mygroup", description="Моя учебная группа"),
+    BotCommand(command="calendar", description="Календарь: группа и мои события"),
     BotCommand(command="id", description="ID чата и топика"),
 ]
 ADMIN_COMMANDS = [
