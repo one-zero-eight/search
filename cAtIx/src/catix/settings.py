@@ -108,6 +108,12 @@ class Settings(BaseSettings):
     embed_workers: int = Field(2, gt=0, description="Parallel embedding requests; ~2-4 saturates the GPU server.")
     embed_batch: int = Field(64, gt=0, description="Messages per embeddings request.")
 
+    # Alerts to the admins in Telegram (worker/health.py): a model, the embeddings or the reranker stop answering,
+    # or more than `alert_queue_max` messages wait for a vector for several checks in a row.
+    alerts: bool = True
+    alert_check_seconds: int = Field(60, gt=0)
+    alert_queue_max: int = Field(500, gt=0)
+
     # Messages that are certainly noise (a bare greeting, "+", emoji only, a word of three letters) are not stored at
     # all (ingest/noise.py). Existing ones are removed with `catix-db prune-noise`.
     drop_noise: bool = True

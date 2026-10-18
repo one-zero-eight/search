@@ -47,6 +47,7 @@ docker compose -f docker-compose.prod.yml --profile userbot up -d
 - Обновление: `git pull && docker compose -f docker-compose.prod.yml up -d --build` (схема применяется сама).
 - Резервная копия БД: `scripts/backup.sh /srv/backups` (хранит 14 последних), поставить в cron на ночь. Восстановление: `gunzip -c файл.sql.gz | docker compose -f docker-compose.prod.yml exec -T db psql -U ctx -d ctx`.
 - Состояние: `docker compose -f docker-compose.prod.yml exec worker catix-db status`.
+- Алерты: воркер каждую минуту проверяет `/health` моделей, эмбеддингов и реранкера и длину очереди эмбеддингов; о проблеме (после двух неудачных проверок подряд), напоминании каждые 6 часов и восстановлении пишет всем администраторам бота в Telegram. Отключить: `ALERTS=false`.
 - Трассировка запросов агента: Langfuse (`LANGFUSE_*` в `.env`), ставится отдельно.
 - Все секреты только в `.env` на сервере (в git он не попадает). Перед бетой перевыпустить токены, которые использовались в разработке.
 

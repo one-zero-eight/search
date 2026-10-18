@@ -26,6 +26,7 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from catix.worker import changes
 from catix.worker import embedder
 from catix.worker import feed
+from catix.worker import health
 from catix.db import pg
 from catix.agent import tracing
 from catix.settings import settings
@@ -115,6 +116,7 @@ async def run() -> None:
     tracing.log_status()
     stop, wake = threading.Event(), threading.Event()
     embedder.start(stop, wake)
+    monitoring = asyncio.create_task(health.run())  # Alerts to the admins, independent of Redis and the changes part.
     if not settings.redis_url:
         log.warning("REDIS_URL is not set: only embeddings run (polling the queue); schedule changes need Redis")
         await asyncio.Event().wait()
@@ -138,6 +140,7 @@ async def run() -> None:
     finally:
         tracing.flush()
         stop.set()
+        monitoring.cancel()
         waking.cancel()
         if notifying:
             notifying.cancel()
