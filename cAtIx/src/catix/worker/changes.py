@@ -14,6 +14,7 @@ from datetime import date, datetime, time, timedelta, timezone
 from langchain_openai import ChatOpenAI
 from pydantic import BaseModel, Field
 
+from catix import admins as admins_module
 from catix.common import dates
 from catix.db import pg
 from catix.agent import tracing
@@ -137,10 +138,8 @@ def process(model, chat_id: int, msg_id: int) -> Change | None:
 
 
 def admins() -> list[int]:
-    """Telegram ids that approve changes."""
-    from catix.innohassle import client as innohassle
-
-    return settings.admin_telegram_ids or [i for i in [innohassle.token_telegram_id()] if i]
+    """Telegram ids that approve changes (settings plus those added in the bot, see admins.py)."""
+    return admins_module.everyone()
 
 
 # ---- approval ---------------------------------------------------------------------------------------------

@@ -42,6 +42,7 @@ from aiogram.types import (
 )
 from aiogram.utils.chat_action import ChatActionSender
 
+from catix.tgbot import admin
 from catix.tgbot import listen
 from catix.worker import changes
 from catix import groups
@@ -210,7 +211,7 @@ async def start(message: Message) -> None:
         "Привет! Я cAtIx, ассистент Innopolis University: клубы, аудитории, события, а также экзамены, дедлайны и советы "
         "из чатов, куда меня добавили.\n\nВ личке просто пишите вопрос. В группе: /ask вопрос, упоминание или ответ "
         "на моё сообщение.\n\n/mygroup: ваша учебная группа (по умолчанию ищу везде).\n"
-        "/listen: для администратора: какие чаты слушать и к какой учебной группе они относятся."
+        "/listen и /admin: для администратора: чаты и учебные группы, другие администраторы."
     )
 
 
@@ -393,7 +394,7 @@ async def inline_wait(query: CallbackQuery) -> None:
 
 @router.callback_query(F.data.startswith("chg:"))
 async def decide_change(query: CallbackQuery) -> None:
-    if query.from_user.id not in changes.admins():
+    if query.from_user.id not in await asyncio.to_thread(changes.admins):
         await query.answer("Только для администратора", show_alert=True)
         return
     _, action, change_id = query.data.split(":")
@@ -410,7 +411,11 @@ COMMANDS = [
     BotCommand(command="mygroup", description="Моя учебная группа"),
     BotCommand(command="id", description="ID чата и топика"),
 ]
-ADMIN_COMMANDS = [*COMMANDS, BotCommand(command="listen", description="Чаты для прослушки и учебные группы")]
+ADMIN_COMMANDS = [
+    *COMMANDS,
+    BotCommand(command="listen", description="Чаты для прослушки и учебные группы"),
+    BotCommand(command="admin", description="Администраторы бота"),
+]
 
 
 async def set_commands(bot: Bot) -> None:
@@ -433,7 +438,8 @@ async def run() -> None:
         sys.exit("Set TG_BOT_TOKEN in .env (create a bot with @BotFather).")
     bot = Bot(settings.tg_bot_token.get_secret_value())
     dp = Dispatcher()
-    dp.include_router(listen.router)  # before the generic handlers: /listen and its buttons
+    dp.include_router(admin.router)  # before the generic handlers: /admin, /listen and their buttons
+    dp.include_router(listen.router)
     dp.include_router(router)
     me = await bot.me()
     log.info("Running as @%s", me.username)

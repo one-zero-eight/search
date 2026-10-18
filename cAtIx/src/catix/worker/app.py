@@ -54,7 +54,7 @@ async def notify_admins(bot: Bot) -> None:
     while True:
         try:
             for change in await asyncio.to_thread(changes.unnotified):
-                for admin in changes.admins():
+                for admin in await asyncio.to_thread(changes.admins):
                     with contextlib.suppress(TelegramAPIError):
                         await bot.send_message(
                             admin, changes.card(change), parse_mode=ParseMode.HTML, reply_markup=approval_keyboard(change.id), disable_web_page_preview=True

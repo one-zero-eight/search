@@ -52,6 +52,14 @@ CREATE TABLE IF NOT EXISTS userbot_meta (
 -- Which chats an answer may use is decided by the asker's study group (groups.py), not by who is in a chat.
 DROP TABLE IF EXISTS members;
 
+-- Telegram ids of the bot's admins added in the bot itself (/admin); the ones in ADMIN_TELEGRAM_IDS (or the owner of
+-- INNOHASSLE_TOKEN) come from settings and are not stored here.
+CREATE TABLE IF NOT EXISTS bot_admins (
+    telegram_id bigint PRIMARY KEY,
+    added_by    bigint,
+    added_at    timestamptz NOT NULL DEFAULT now()
+);
+
 CREATE TABLE IF NOT EXISTS messages (
     id          bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     chat_id     bigint NOT NULL REFERENCES chats (chat_id),
