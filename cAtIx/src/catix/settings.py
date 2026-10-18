@@ -3,7 +3,7 @@ from functools import cached_property
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-from pydantic import AliasChoices, Field, HttpUrl, SecretStr
+from pydantic import AliasChoices, Field, HttpUrl, SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -128,6 +128,18 @@ class Settings(BaseSettings):
     messages_db: Path = Path("raw/telegram.db")
     courses_file: Path = Path("courses.toml")
     timezone: str = "Europe/Moscow"
+
+    @field_validator("feed_public_url", mode="before")
+    @classmethod
+    def _feed_url_scheme(cls, value: object) -> object:
+        """`FEED_PUBLIC_URL=name.tuna.am` is what a tunnel prints: it means https, and an empty value means off."""
+        if isinstance(value, str):
+            value = value.strip()
+            if not value:
+                return None
+            if "://" not in value:
+                return f"https://{value}"
+        return value
 
     @cached_property
     def tz(self) -> ZoneInfo:
