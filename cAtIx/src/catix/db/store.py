@@ -6,16 +6,16 @@ Async code runs it with asyncio.to_thread.
 
 import logging
 import re
-from concurrent.futures import ThreadPoolExecutor
 from collections.abc import Collection, Iterable
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from datetime import datetime
 
 from catix import userbot_config
 from catix.common import courses
 from catix.db import pg
-from catix.ingest import noise
 from catix.db.rows import ChatRow, MessageHit, SourceRow
+from catix.ingest import noise
 from catix.settings import settings
 
 log = logging.getLogger("catix.store")
@@ -75,7 +75,6 @@ def write_batch(chats: Iterable[ChatInfo], messages: list[Message]) -> None:
     if noise.enabled():
         messages = [m for m in messages if not noise.is_noise(m.text)]
     with pg.connection() as conn, conn.cursor() as cur:
-        messages = _drop_copies(cur, messages)
         cur.executemany(
             """INSERT INTO chats (chat_id, title, username, bot_member, link) VALUES (%s, %s, %s, %s, %s)
                ON CONFLICT (chat_id) DO UPDATE SET
@@ -92,7 +91,19 @@ def write_batch(chats: Iterable[ChatInfo], messages: list[Message]) -> None:
                WHERE messages.text IS DISTINCT FROM excluded.text
                   OR messages.edit_date IS DISTINCT FROM excluded.edit_date""",
             [
-                (m.chat_id, m.msg_id, m.topic_id, m.date, m.edit_date, m.sender_id, m.sender_name, m.reply_to, m.text, m.link, m.sender_link)
+                (
+                    m.chat_id,
+                    m.msg_id,
+                    m.topic_id,
+                    m.date,
+                    m.edit_date,
+                    m.sender_id,
+                    m.sender_name,
+                    m.reply_to,
+                    m.text,
+                    m.link,
+                    m.sender_link,
+                )
                 for m in messages
             ],
         )
@@ -131,7 +142,9 @@ def migrate_chat(old_id: int, new_id: int) -> dict[str, int]:
     if old_id == new_id:
         return counts
     with pg.connection() as conn:
-        old = pg.row(conn, ChatRow, "SELECT chat_id, title, username, bot_member FROM chats WHERE chat_id = %s", (old_id,))
+        old = pg.row(
+            conn, ChatRow, "SELECT chat_id, title, username, bot_member FROM chats WHERE chat_id = %s", (old_id,)
+        )
         if old is None:
             return counts  # Nothing stored under the old id: already moved, or never seen.
         conn.execute(
@@ -155,10 +168,20 @@ def migrate_chat(old_id: int, new_id: int) -> dict[str, int]:
         if counts["left_behind"] == 0:
             conn.execute("DELETE FROM chats WHERE chat_id = %(old)s", params)
         else:
-            log.warning("%d messages of chat %s kept their old id: the same message ids exist in %s", counts["left_behind"], old_id, new_id)
+            log.warning(
+                "%d messages of chat %s kept their old id: the same message ids exist in %s",
+                counts["left_behind"],
+                old_id,
+                new_id,
+            )
     mentioned = [name for name in ("tg_chats", "extract_skip_chats") if old_id in getattr(settings, name, [])]
     if mentioned or old_id in settings.tg_topics:
-        log.warning("chat id %s is still listed in .env (%s): replace it with %s", old_id, ", ".join(mentioned + (["tg_topics"] if old_id in settings.tg_topics else [])), new_id)
+        log.warning(
+            "chat id %s is still listed in .env (%s): replace it with %s",
+            old_id,
+            ", ".join(mentioned + (["tg_topics"] if old_id in settings.tg_topics else [])),
+            new_id,
+        )
     return counts
 
 
@@ -189,7 +212,10 @@ def last_msg_id(chat_id: int, topic_id: int | None = None) -> int | None:
     if topic_id is None:
         sql, params = "SELECT max(msg_id) AS m FROM messages WHERE chat_id = %s", (chat_id,)
     elif topic_id == GENERAL_TOPIC_ID:
-        sql, params = "SELECT max(msg_id) AS m FROM messages WHERE chat_id = %s AND (topic_id IS NULL OR topic_id = %s)", (chat_id, topic_id)
+        sql, params = (
+            "SELECT max(msg_id) AS m FROM messages WHERE chat_id = %s AND (topic_id IS NULL OR topic_id = %s)",
+            (chat_id, topic_id),
+        )
     else:
         sql, params = "SELECT max(msg_id) AS m FROM messages WHERE chat_id = %s AND topic_id = %s", (chat_id, topic_id)
     with pg.connection() as conn:
@@ -205,11 +231,15 @@ def _resolve_chats(chat: str | None, chat_ids: Collection[int] | None) -> list[i
     if not chat:
         return allowed
     with pg.connection() as conn:
-        found = pg.column(conn, "SELECT chat_id FROM chats WHERE title ILIKE %s OR username = %s", (f"%{chat}%", chat.lstrip("@")))
+        found = pg.column(
+            conn, "SELECT chat_id FROM chats WHERE title ILIKE %s OR username = %s", (f"%{chat}%", chat.lstrip("@"))
+        )
     return found if allowed is None else [c for c in found if c in set(allowed)]
 
 
-def _filters(chat_col: str, date_col: str, ids: list[int] | None, date_from: str | None, date_to: str | None) -> tuple[str, dict]:
+def _filters(
+    chat_col: str, date_col: str, ids: list[int] | None, date_from: str | None, date_to: str | None
+) -> tuple[str, dict]:
     sql, params = "", {}
     if ids is not None:
         sql += f" AND {chat_col} = ANY(%(ids)s::bigint[])"
@@ -332,10 +362,12 @@ def search(
     with ThreadPoolExecutor(max_workers=4) as executor:
         jobs = []  # per query: (words job, vector job or None)
         for i, q in enumerate(queries):
-            jobs.append((
-                executor.submit(_bm25, _words(q), ids, date_from, date_to),
-                executor.submit(_vector, vectors[i], ids, date_from, date_to) if vectors else None,
-            ))
+            jobs.append(
+                (
+                    executor.submit(_bm25, _words(q), ids, date_from, date_to),
+                    executor.submit(_vector, vectors[i], ids, date_from, date_to) if vectors else None,
+                )
+            )
         per_query = [_rrf(*[job.result() for job in pair if job]) for pair in jobs]
     reranking = settings.reranker_route is not None
     fused = _combine(per_query, max(limit, settings.rerank_candidates) if reranking else limit)
