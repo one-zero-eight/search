@@ -41,6 +41,7 @@ from aiogram.types import (
 from aiogram.utils.chat_action import ChatActionSender
 
 from catix.tgbot import access
+from catix.tgbot import listen
 from catix.worker import changes
 from catix import groups
 from catix.ingest import writer as ingest
@@ -436,6 +437,7 @@ async def run() -> None:
         sys.exit("Set TG_BOT_TOKEN in .env (create a bot with @BotFather).")
     bot = Bot(settings.tg_bot_token.get_secret_value())
     dp = Dispatcher()
+    dp.include_router(listen.router)  # before the generic handlers: /listen and its buttons
     dp.include_router(router)
     me = await bot.me()
     log.info("Running as @%s", me.username)

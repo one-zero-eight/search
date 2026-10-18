@@ -48,6 +48,8 @@ class Settings(BaseSettings):
     tg_api_hash: SecretStr | None = None
     # Session file grants full access to the account: keep it private, it is git-ignored.
     tg_session: Path = Path("data/telegram")
+    # Only the starting list: copied into the database once, after that the chats and topics the userbot listens to
+    # are chosen in the bot (/listen).
     # Whitelist of chats to ingest: marked ids (-100...) or @usernames. JSON list in env: TG_CHATS='[-1001234, "@chat"]'
     tg_chats: list[int | str] = []
     tg_sync_days: int = Field(365, gt=0, description="How far back the first sync of a chat goes.")

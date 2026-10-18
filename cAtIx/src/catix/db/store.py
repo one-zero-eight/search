@@ -11,6 +11,7 @@ from collections.abc import Collection, Iterable
 from dataclasses import dataclass
 from datetime import datetime
 
+from catix import userbot_config
 from catix.common import courses
 from catix.db import pg
 from catix.db.rows import ChatRow, MemberRow, MessageHit, SourceRow
@@ -181,9 +182,8 @@ def unmark_bot_chat(chat_id: int) -> None:
 
 
 def topic_allowed(chat_id: int, topic_id: int | None) -> bool:
-    """Whether a message of this chat and topic should be stored (see TG_TOPICS)."""
-    allowed = settings.tg_topics.get(chat_id)
-    return allowed is None or (topic_id or GENERAL_TOPIC_ID) in allowed
+    """Whether a message of this chat and topic should be stored (chosen in the bot with /listen, or TG_TOPICS)."""
+    return userbot_config.topic_allowed(chat_id, topic_id, GENERAL_TOPIC_ID)
 
 
 def public_chat_ids() -> set[int]:

@@ -21,6 +21,34 @@ CREATE TABLE IF NOT EXISTS user_groups (
 );
 ALTER TABLE chats ADD COLUMN IF NOT EXISTS link text;  -- tables created before this column existed
 
+-- What the userbot listens to, set by an admin in the bot (/listen, tgbot/listen.py) and read by the userbot
+-- (tguserbot/userbot.py). The userbot publishes the chats and forum topics it can see; the admin picks from them.
+CREATE TABLE IF NOT EXISTS userbot_dialogs (
+    chat_id      bigint PRIMARY KEY,
+    title        text NOT NULL,
+    kind         text NOT NULL,                   -- 'group' or 'channel'
+    username     text,
+    forum        boolean NOT NULL DEFAULT false,
+    refreshed_at timestamptz NOT NULL DEFAULT now()
+);
+CREATE TABLE IF NOT EXISTS userbot_topics (
+    chat_id  bigint NOT NULL,
+    topic_id bigint NOT NULL,
+    title    text NOT NULL,
+    closed   boolean NOT NULL DEFAULT false,
+    PRIMARY KEY (chat_id, topic_id)
+);
+-- A row = the chat is listened to. topic_ids NULL = the whole chat, otherwise only these forum topics.
+CREATE TABLE IF NOT EXISTS userbot_listen (
+    chat_id   bigint PRIMARY KEY,
+    topic_ids bigint[]
+);
+-- 'seeded' (TG_CHATS / TG_TOPICS from .env were copied once), 'refresh_requested' (unix time, set by the bot).
+CREATE TABLE IF NOT EXISTS userbot_meta (
+    key   text PRIMARY KEY,
+    value text NOT NULL
+);
+
 -- Who may see which chat; is_member = false caches a "no".
 CREATE TABLE IF NOT EXISTS members (
     chat_id    bigint NOT NULL,

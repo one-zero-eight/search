@@ -2,15 +2,19 @@
 
 Usage:
     catix-tguserbot login    # once: interactive login (phone, code, 2FA password)
-    catix-tguserbot chats    # list your groups/channels with ids, to fill TG_CHATS
-    catix-tguserbot topics <chat>   # list the topics of a forum chat, to fill TG_TOPICS
-    catix-tguserbot sync     # fetch new history of TG_CHATS
+    catix-tguserbot chats    # list your groups/channels with ids
+    catix-tguserbot topics <chat>   # list the topics of a forum chat
+    catix-tguserbot sync     # fetch new history of the chats being listened to
     catix-tguserbot listen   # keep running, store new and edited messages live
+
+What is listened to (chats, and which topics of a forum chat) is set by an admin in the Telegram bot: /listen.
+TG_CHATS and TG_TOPICS from .env are only the starting list: they are copied once, after that the bot decides.
 """
 
 import argparse
 import asyncio
 import sys
+import time
 from datetime import datetime, timedelta, timezone
 
 from telethon import TelegramClient, errors, events, utils
@@ -18,6 +22,7 @@ from telethon.tl.custom.message import Message as TgMessage
 from telethon.tl.functions.messages import GetForumTopicsRequest
 from telethon.tl.types import Channel, Chat, ForumTopic, PeerChannel
 
+from catix import userbot_config
 from catix.db import pg
 from catix.db import store
 from catix.ingest import publish
@@ -78,27 +83,63 @@ def _to_store(msg: TgMessage, chat_id: int, entity: Channel | Chat) -> store.Mes
     )
 
 
-def _require_whitelist() -> None:
-    if not settings.tg_chats:
-        sys.exit("TG_CHATS is empty. Run `catix-tguserbot chats` and put the ids you want into .env, e.g. TG_CHATS='[-1001234567890]'")
-
-
-async def _resolve_whitelist(client: TelegramClient) -> list[Channel | Chat]:
+async def _resolve(client: TelegramClient, refs: list[int | str]) -> list[Channel | Chat]:
     entities = []
-    for ref in settings.tg_chats:
-        entity = await client.get_entity(ref)
+    for ref in refs:
+        try:
+            entity = await client.get_entity(ref)
+        except (ValueError, errors.RPCError) as e:
+            print(f"{ref}: cannot be found by the userbot ({e}), skipping it.", file=sys.stderr)
+            continue
         if isinstance(entity, Chat) and getattr(entity, "migrated_to", None):
             new_id = utils.get_peer_id(PeerChannel(entity.migrated_to.channel_id))
             print(
                 f"{ref} was upgraded to a supergroup, its new id is {new_id}. Run `catix-db migrate-chat {utils.get_peer_id(entity)} {new_id}` "
-                f"to move what is stored, and replace the id in TG_CHATS. Skipping it for now.",
+                f"to move what is stored, and choose the new chat in the bot (/listen). Skipping it for now.",
                 file=sys.stderr,
             )
             continue
         if not isinstance(entity, (Channel, Chat)):
-            sys.exit(f"{ref} is a private dialog, not a group or channel; refusing to ingest it.")
+            print(f"{ref} is a private dialog, not a group or channel; refusing to ingest it.", file=sys.stderr)
+            continue
         entities.append(entity)
     return entities
+
+
+async def _forum_topics(client: TelegramClient, entity: Channel) -> list[userbot_config.Topic]:
+    result = await client(GetForumTopicsRequest(peer=entity, offset_date=None, offset_id=0, offset_topic=0, limit=100))
+    return [userbot_config.Topic(t.id, t.title, bool(t.closed)) for t in result.topics if isinstance(t, ForumTopic)]
+
+
+async def _publish_dialogs(client: TelegramClient) -> None:
+    """Tell the bot which chats (and forum topics) it can offer for listening."""
+    found, forums = [], []
+    async for dialog in client.iter_dialogs():
+        if not (dialog.is_group or dialog.is_channel):
+            continue
+        forum = bool(getattr(dialog.entity, "forum", False))
+        kind = "channel" if dialog.is_channel and not dialog.is_group else "group"
+        found.append(userbot_config.Dialog(dialog.id, dialog.name, kind, getattr(dialog.entity, "username", None), forum))
+        if forum:
+            forums.append(dialog.entity)
+    userbot_config.replace_dialogs(found)
+    for entity in forums:
+        try:
+            userbot_config.replace_topics(utils.get_peer_id(entity), await _forum_topics(client, entity))
+        except errors.RPCError as e:
+            print(f"topics of {utils.get_display_name(entity)} not read: {e}", file=sys.stderr)
+
+
+async def _seed(client: TelegramClient) -> None:
+    """The first time, TG_CHATS and TG_TOPICS become the list of chats being listened to."""
+    if userbot_config.meta("seeded"):
+        return
+    resolved = {}
+    for entity in await _resolve(client, settings.tg_chats):
+        chat_id = utils.get_peer_id(entity)
+        resolved[chat_id] = settings.tg_topics.get(chat_id)
+    if userbot_config.seed(resolved):
+        print(f"Copied {len(resolved)} chats from TG_CHATS into the database; change them in the bot with /listen.")
 
 
 async def login() -> None:
@@ -127,31 +168,35 @@ async def list_topics(chat: str | None) -> None:
         entity = await client.get_entity(ref)
         if not getattr(entity, "forum", False):
             sys.exit(f"{utils.get_display_name(entity)} has no topics (it is not a forum).")
-        result = await client(GetForumTopicsRequest(peer=entity, offset_date=None, offset_id=0, offset_topic=0, limit=100))
         print(f"chat id: {utils.get_peer_id(entity)}")
-        for topic in result.topics:
-            if isinstance(topic, ForumTopic):
-                print(f"{topic.id:>8}  {topic.title}{'  (closed)' if topic.closed else ''}")
-        print('\nPut the ones you need into .env, e.g. TG_TOPICS=\'{"%d": [<topic ids>]}\'' % utils.get_peer_id(entity))
+        for topic in await _forum_topics(client, entity):
+            print(f"{topic.topic_id:>8}  {topic.title}{'  (closed)' if topic.closed else ''}")
+        print("\nChoose the ones to listen to in the bot: /listen")
+
+
+async def _sync_chat(client: TelegramClient, entity: Channel | Chat, topics: list[int] | None) -> str:
+    """Fetch the new history of one chat (only `topics` of it, if given), its members, and note the chat as synced."""
+    chat_id = utils.get_peer_id(entity)
+    store.upsert_chat(chat_id, utils.get_display_name(entity), getattr(entity, "username", None))
+    # A chat with a topic whitelist is read topic by topic; otherwise as one stream.
+    total = 0
+    for topic_id in topics if topics is not None else [None]:
+        total += await _sync_stream(client, entity, chat_id, topic_id)
+    members = await _sync_members(client, entity, chat_id)
+    store.mark_synced(chat_id)
+    return f"{utils.get_display_name(entity)}: +{total} messages, {members}"
 
 
 async def sync() -> None:
-    _require_whitelist()
     async with _client() as client:
         await client.start()
-        for entity in await _resolve_whitelist(client):
-            chat_id = utils.get_peer_id(entity)
-            title = utils.get_display_name(entity)
-            store.upsert_chat(chat_id, title, getattr(entity, "username", None))
-
-            # A chat with a topic whitelist is read topic by topic; otherwise as one stream.
-            topics = settings.tg_topics.get(chat_id)
-            total = 0
-            for topic_id in topics if topics is not None else [None]:
-                total += await _sync_stream(client, entity, chat_id, topic_id)
-            members = await _sync_members(client, entity, chat_id)
-            store.mark_synced(chat_id)
-            print(f"{title}: +{total} messages, {members}")
+        await _publish_dialogs(client)
+        await _seed(client)
+        wanted = userbot_config.listened()
+        if not wanted:
+            sys.exit("Nothing is being listened to. In the Telegram bot, send /listen and choose the chats.")
+        for entity in await _resolve(client, list(wanted)):
+            print(await _sync_chat(client, entity, wanted[utils.get_peer_id(entity)]))
 
 
 async def _sync_stream(client: TelegramClient, entity: Channel | Chat, chat_id: int, topic_id: int | None) -> int:
@@ -199,24 +244,80 @@ async def _sync_members(client: TelegramClient, entity: Channel | Chat, chat_id:
     return f"{len(users)} members"
 
 
+POLL_SECONDS = 15  # How often the choice made in the bot is looked at.
+DIALOGS_EVERY = 600  # How often the list of chats offered in the bot is refreshed (it is also refreshed on request).
+
+
 async def listen() -> None:
-    _require_whitelist()
     async with _client() as client:
         await client.start()
-        entities = {utils.get_peer_id(e): e for e in await _resolve_whitelist(client)}
-        for chat_id, entity in entities.items():
-            store.upsert_chat(chat_id, utils.get_display_name(entity), getattr(entity, "username", None))
+        await _publish_dialogs(client)
+        await _seed(client)
+        entities: dict[int, Channel | Chat] = {}  # Chats being listened to right now.
 
         async def save(event: events.NewMessage.Event | events.MessageEdited.Event) -> None:
-            row = _to_store(event.message, event.chat_id, entities[event.chat_id])
+            entity = entities.get(event.chat_id)
+            if entity is None:
+                return  # Not a chat chosen in the bot.
+            row = _to_store(event.message, event.chat_id, entity)
             if row and store.topic_allowed(row.chat_id, row.topic_id):
                 store.upsert_messages([row])
                 await publish.publish([(row.chat_id, row.msg_id)])  # the worker looks for schedule changes in it
 
-        client.add_event_handler(save, events.NewMessage(chats=list(entities)))
-        client.add_event_handler(save, events.MessageEdited(chats=list(entities)))
-        print(f"Listening to {len(entities)} chats. Ctrl+C to stop.")
-        await client.run_until_disconnected()
+        client.add_event_handler(save, events.NewMessage())
+        client.add_event_handler(save, events.MessageEdited())
+        follower = asyncio.create_task(_follow_choice(client, entities))
+        print("Listening. The chats are chosen in the bot: /listen. Ctrl+C to stop.")
+        try:
+            await client.run_until_disconnected()
+        finally:
+            follower.cancel()
+
+
+async def _follow_choice(client: TelegramClient, entities: dict[int, Channel | Chat]) -> None:
+    """Keep `entities` equal to the chats chosen in the bot; fetch the history of a chat that was just turned on
+    (or got more topics). What was chosen before this start is not fetched again: that is `sync`."""
+    applied: dict[int, list[int] | None] | None = None
+    backfills: set[asyncio.Task] = set()
+    last_refresh, last_request = time.monotonic(), float(userbot_config.meta("refresh_requested") or 0)
+    while True:
+        try:
+            wanted = userbot_config.listened()
+            for chat_id in set(entities) - set(wanted):
+                del entities[chat_id]
+                print(f"No longer listening to {chat_id}.")
+            for entity in await _resolve(client, [c for c in wanted if c not in entities]):
+                entities[utils.get_peer_id(entity)] = entity
+            for chat_id, entity in entities.items():
+                topics = wanted[chat_id]
+                if applied is not None and applied.get(chat_id, ...) != _same(topics):
+                    print(f"Now listening to {utils.get_display_name(entity)}, fetching its history.")
+                    task = asyncio.create_task(_backfill(client, entity, topics))
+                    backfills.add(task)
+                    task.add_done_callback(backfills.discard)
+            applied = {c: _same(wanted[c]) for c in entities}
+
+            request = float(userbot_config.meta("refresh_requested") or 0)
+            if request > last_request or time.monotonic() - last_refresh > DIALOGS_EVERY:
+                await _publish_dialogs(client)
+                last_refresh, last_request = time.monotonic(), request
+        except asyncio.CancelledError:
+            raise
+        except Exception as e:  # noqa: BLE001 - the database or Telegram being away for a moment must not stop listening
+            print(f"Could not follow the choice made in the bot: {e!r}", file=sys.stderr)
+        await asyncio.sleep(POLL_SECONDS)
+
+
+def _same(topics: list[int] | None) -> list[int] | None:
+    """Topics in a fixed order, so choosing the same ones in another order is not a change."""
+    return None if topics is None else sorted(topics)
+
+
+async def _backfill(client: TelegramClient, entity: Channel | Chat, topics: list[int] | None) -> None:
+    try:
+        print(await _sync_chat(client, entity, topics))
+    except Exception as e:  # noqa: BLE001
+        print(f"History of {utils.get_display_name(entity)} not fetched: {e!r}", file=sys.stderr)
 
 
 def main() -> None:
