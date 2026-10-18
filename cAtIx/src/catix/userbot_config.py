@@ -1,6 +1,9 @@
-"""What the Telegram userbot listens to: chats and forum topics, chosen by an admin in the bot (tgbot/listen.py).
+"""What is listened to in Telegram: chats and forum topics, chosen by an admin in the bot (tgbot/listen.py).
 
-The userbot (tguserbot/userbot.py) publishes the chats and topics it can see; the admin turns chats on and off and
+Two readers share the choice. The userbot (tguserbot/userbot.py, an account that is a member of the chats) publishes the
+chats and topics it can see and stores what a chosen chat says, history included. The Bot API bot (tgbot/bot.py) stores
+the chats it was added to from then on; a chat it meets for the first time is turned on, an admin can turn it off.
+The userbot publishes the chats and topics it can see; the admin turns chats on and off and
 narrows a forum chat to some of its topics; the userbot picks the change up within seconds. The study group of a
 chat is not kept here, it stays `chats.group_code` (groups.py).
 TG_CHATS and TG_TOPICS from .env are copied here once (`seed`), after that this table is the truth.
@@ -8,8 +11,10 @@ TG_CHATS and TG_TOPICS from .env are copied here once (`seed`), after that this 
 
 import time
 from dataclasses import dataclass
+from typing import Any
 
 from catix.db import pg
+from catix.groups import MAX_CHAT_BASE
 from catix.settings import settings
 
 CACHE_TTL = 10.0  # Seconds: `topic_allowed` runs for every stored message.
@@ -22,6 +27,7 @@ class Dialog:
     kind: str
     username: str | None
     forum: bool
+    bot_only: bool = False  # Only the Bot API bot is in this chat, the userbot's account is not.
 
 
 @dataclass(frozen=True, slots=True)
@@ -31,14 +37,29 @@ class Topic:
     closed: bool
 
 
+# The chats of the userbot, then those only the Bot API bot is in (not Max chats, they have their own bot).
+_DIALOGS = """
+    SELECT chat_id, title, kind, username, forum, false AS bot_only FROM userbot_dialogs
+    UNION ALL
+    SELECT c.chat_id, c.title, 'group', c.username, false, true FROM chats c
+    WHERE c.bot_member AND c.chat_id < %(max)s AND NOT EXISTS (SELECT 1 FROM userbot_dialogs d WHERE d.chat_id = c.chat_id)
+"""
+
+
 def dialogs() -> list[Dialog]:
     with pg.connection() as conn:
-        return pg.rows(conn, Dialog, "SELECT chat_id, title, kind, username, forum FROM userbot_dialogs ORDER BY lower(title), chat_id")
+        return pg.rows(conn, Dialog, f"SELECT * FROM ({_DIALOGS}) x ORDER BY lower(title), chat_id", {"max": MAX_CHAT_BASE // 2})  # noqa: S608
 
 
 def dialog(chat_id: int) -> Dialog | None:
     with pg.connection() as conn:
-        return pg.row(conn, Dialog, "SELECT chat_id, title, kind, username, forum FROM userbot_dialogs WHERE chat_id = %s", (chat_id,))
+        return pg.row(conn, Dialog, f"SELECT * FROM ({_DIALOGS}) x WHERE chat_id = %(chat)s", {"max": MAX_CHAT_BASE // 2, "chat": chat_id})  # noqa: S608
+
+
+def userbot_chat_ids() -> set[int]:
+    """The chats the userbot's account is in (only those can be read by it)."""
+    with pg.connection() as conn:
+        return set(pg.column(conn, "SELECT chat_id FROM userbot_dialogs"))
 
 
 def topics(chat_id: int) -> list[Topic]:
@@ -106,7 +127,7 @@ def clear_topics(chat_id: int) -> None:
     _cache.clear()
 
 
-_cache: dict[str, tuple[float, dict[int, list[int] | None]]] = {}
+_cache: dict[str, tuple[float, Any]] = {}
 
 
 def listened_cached() -> dict[int, list[int] | None]:
@@ -116,6 +137,44 @@ def listened_cached() -> dict[int, list[int] | None]:
     value = listened()
     _cache["listened"] = (time.monotonic() + CACHE_TTL, value)
     return value
+
+
+def _known_chats_cached() -> set[int]:
+    hit = _cache.get("known")
+    if hit and time.monotonic() < hit[0]:
+        return hit[1]
+    with pg.connection() as conn:
+        value = set(pg.column(conn, "SELECT chat_id FROM chats"))
+    _cache["known"] = (time.monotonic() + CACHE_TTL, value)
+    return value
+
+
+def bot_listens(chat_id: int) -> bool:
+    """Whether the Bot API bot stores this chat. A chat chosen in /listen: yes. A chat it has never seen: it is turned
+    on now (adding the bot to a chat is the consent). A known chat that is not chosen was turned off by an admin."""
+    if chat_id in listened_cached():
+        return True
+    if chat_id in _known_chats_cached():
+        return False
+    set_listen(chat_id, True)
+    _cache.pop("known", None)
+    return True
+
+
+def seed_bot_chats() -> int:
+    """Once: the chats the Bot API bot already stores become chosen, so that nothing stops when it starts to ask."""
+    if meta("bot_chats_seeded"):
+        return 0
+    with pg.connection() as conn:
+        ids = pg.column(conn, "SELECT chat_id FROM chats WHERE bot_member AND chat_id < %s", (MAX_CHAT_BASE // 2,))
+        with conn.cursor() as cur:  # TG_TOPICS keeps limiting these chats, as it did.
+            cur.executemany(
+                "INSERT INTO userbot_listen (chat_id, topic_ids) VALUES (%s, %s) ON CONFLICT DO NOTHING",
+                [(chat_id, settings.tg_topics.get(chat_id)) for chat_id in ids],
+            )
+    set_meta("bot_chats_seeded", "1")
+    _cache.clear()
+    return len(ids)
 
 
 def topic_allowed(chat_id: int, topic_id: int | None, general_topic_id: int) -> bool:

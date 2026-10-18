@@ -45,7 +45,7 @@ from aiogram.utils.chat_action import ChatActionSender
 from catix.tgbot import admin
 from catix.tgbot import listen
 from catix.worker import changes
-from catix import groups
+from catix import groups, userbot_config
 from catix.ingest import writer as ingest
 from catix.db import pg
 from catix.agent import sqlquery
@@ -114,6 +114,8 @@ async def _save(message: Message) -> None:
         text = f"{text}\n[file: {message.document.file_name}]".strip()
     if not text:
         return
+    if not await asyncio.to_thread(userbot_config.bot_listens, message.chat.id):
+        return  # An admin turned this chat off in /listen.
     # In General the Bot API may omit the thread id; topic_allowed treats None as General.
     topic_id = message.message_thread_id if message.is_topic_message else None
     if not store.topic_allowed(message.chat.id, topic_id):
@@ -444,6 +446,7 @@ async def run() -> None:
     me = await bot.me()
     log.info("Running as @%s", me.username)
     await set_commands(bot)
+    log.info("%d chats the bot already stores became chosen in /listen", await asyncio.to_thread(userbot_config.seed_bot_chats))
     tracing.log_status()
     await asyncio.to_thread(sqlquery.reset_context)  # Rows left behind by a crash.
     writing = asyncio.create_task(writer.run())

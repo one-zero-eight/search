@@ -1,7 +1,8 @@
 """Admin settings of the chats in the bot: /listen (it replaced the Telegram /group).
 
-An admin (ADMIN_TELEGRAM_IDS) sees the chats the userbot is in, turns listening to them on and off, narrows a forum
-chat to some of its topics and sets the study group of a chat. All of it is kept in the database
+An admin (ADMIN_TELEGRAM_IDS) sees the chats the userbot is in and those only the Bot API bot (🤖) is in, turns
+listening to them on and off, narrows a forum chat of the userbot to some of its topics and sets the study group of a
+chat. All of it is kept in the database
 (userbot_config.py); the userbot follows it within seconds and fetches the history of a chat that was just turned on.
 Only in a private chat with the bot, so that nobody chatting in a group can change it.
 """
@@ -89,7 +90,7 @@ def _list_screen(user_id: int) -> tuple[str, Keyboard]:
     rows: Keyboard = []
     for d in shown:
         code = codes.get(d.chat_id, groups.ALL)
-        label = f"{'✅' if d.chat_id in chosen else '⬜'} {_short(d.title)}{' 🧵' if d.forum else ''}{'' if code == groups.ALL else ' · ' + code}"
+        label = f"{'✅' if d.chat_id in chosen else '⬜'} {_short(d.title)}{' 🧵' if d.forum else ''}{' 🤖' if d.bot_only else ''}{'' if code == groups.ALL else ' · ' + code}"
         rows.append([_button(label, f"ls:c:{d.chat_id}")])
     nav = []
     if page > 0:
@@ -101,7 +102,8 @@ def _list_screen(user_id: int) -> tuple[str, Keyboard]:
     rows.append([_button("🔄 Обновить список", "ls:r")])
     text = (
         f"<b>Чаты userbot</b>: слушаю {len(chosen)} из {len(dialogs)}.\n"
-        "✅ — слушаю, 🧵 — форум с топиками, после · — учебная группа чата. Нажмите на чат, чтобы настроить."
+        "✅ — слушаю, 🧵 — форум с топиками, 🤖 — чат, где есть только бот, после · — учебная группа чата. "
+        "Нажмите на чат, чтобы настроить."
     )
     return text, rows
 
@@ -115,10 +117,11 @@ def _chat_screen(chat_id: int) -> tuple[str, Keyboard]:
     lines = [
         f"<b>{html.escape(dialog.title)}</b>",
         f"Тип: {'канал' if dialog.kind == 'channel' else 'группа'}{', форум' if dialog.forum else ''}",
+        "Читает: бот (сообщения с момента добавления, истории нет)" if dialog.bot_only else "Читает: userbot (с историей)",
         f"Слушаю: {'да' if on else 'нет'}",
     ]
     rows: Keyboard = [[_button("🔕 Перестать слушать" if on else "🔔 Слушать", f"ls:o:{chat_id}")]]
-    if dialog.forum:
+    if dialog.forum and not dialog.bot_only:  # The Bot API gives no list of topics.
         selected = chosen.get(chat_id)
         total = len(userbot_config.topics(chat_id))
         lines.append("Топики: " + (f"выбраны {len(selected)} из {total}" if selected else "все"))
@@ -203,7 +206,7 @@ async def listen_callback(query: CallbackQuery) -> None:
             if dialog and chat_id not in await asyncio.to_thread(userbot_config.listened):
                 await asyncio.to_thread(_ensure_chat, dialog)
                 await asyncio.to_thread(userbot_config.set_listen, chat_id, True)
-                notice = "Слушаю. Историю userbot подгрузит в течение минуты"
+                notice = "Слушаю. Бот сохраняет сообщения с этого момента" if dialog.bot_only else "Слушаю. Историю userbot подгрузит в течение минуты"
             else:
                 await asyncio.to_thread(userbot_config.set_listen, chat_id, False)
                 notice = "Больше не слушаю (сохранённые сообщения остаются)"
