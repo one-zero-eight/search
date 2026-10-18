@@ -135,10 +135,21 @@ def group_command(args: str, admin_chats: list[ChatGroup]) -> str:
     return f"Готово: чат «{chat.title}» теперь в группе {code}."
 
 
-def mygroup_command(args: str, user_key: str, telegram_id: int | None = None) -> str:
+def manual_group_allowed(is_admin: bool) -> bool:
+    """Choosing a group by hand (`/mygroup`) is closed for everybody but the admins until the service token is set:
+    without it nobody can check the group a person names, so it would only be a claim."""
+    return is_admin or settings.innohassle_service_token is not None
+
+
+def mygroup_command(args: str, user_key: str, telegram_id: int | None = None, *, may_set: bool = True) -> str:
     """Reply to `/mygroup [group]`. A group InNoHassle knows cannot be changed by hand."""
     if known := auto_group(telegram_id):
         return f"Ваша группа определена по InNoHassle: {known}. Я ищу в её чатах и в общих; изменить вручную нельзя."
+    if not may_set:
+        return (
+            "Выбор группы вручную сейчас закрыт: она будет определяться автоматически по InNoHassle. "
+            "Пока я ищу по всем чатам."
+        )
     if not args.strip():
         return (
             f"Ваша группа: {user_group(user_key)}. Чтобы изменить: /mygroup B26-CSE-01. "

@@ -288,7 +288,8 @@ async def chat_migrated(message: Message) -> None:
 @router.message(F.chat.type == ChatType.PRIVATE, Command("mygroup"))
 async def my_group(message: Message, command: CommandObject) -> None:
     user_id = message.from_user.id
-    await message.answer(await asyncio.to_thread(groups.mygroup_command, command.args or "", f"tg:{user_id}", user_id))
+    may_set = groups.manual_group_allowed(user_id in await asyncio.to_thread(changes.admins))
+    await message.answer(await asyncio.to_thread(lambda: groups.mygroup_command(command.args or "", f"tg:{user_id}", user_id, may_set=may_set)))
 
 
 @router.message(Command("ask"))
