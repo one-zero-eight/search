@@ -29,13 +29,6 @@ class ChatGroup:
 
 
 @dataclass(frozen=True, slots=True)
-class MemberRow:
-    chat_id: int
-    is_member: bool
-    checked_at: datetime
-
-
-@dataclass(frozen=True, slots=True)
 class MessageHit:
     """A search result: the message, its chat and the message it replies to."""
 

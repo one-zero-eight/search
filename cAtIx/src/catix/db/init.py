@@ -1,7 +1,7 @@
 """Database setup.
 
     catix-db init      # create the read-only role, apply db/schema.sql (safe to repeat)
-    catix-db migrate   # copy chats, members and messages from the old SQLite file; drop its extracted events
+    catix-db migrate   # copy chats and messages from the old SQLite file; drop its extracted events
     catix-db status    # per chat: messages, vectors, messages waiting for a vector
     catix-db migrate-chat OLD NEW   # a basic group became a supergroup: move its messages and vectors to the new id
 """
@@ -76,11 +76,8 @@ def migrate() -> None:
                           r["sender_id"], r["sender_name"], r["reply_to"], r["text"], r["link"])
             for r in known[i : i + BATCH]
         ])
-    members = [(r["chat_id"], r["user_id"], bool(r["is_member"])) for r in src.execute("SELECT chat_id, user_id, is_member FROM members")]
-    store.set_members({(c, u) for c, u, ok in members if ok and c in chats}, True)
-    store.set_members({(c, u) for c, u, ok in members if not ok and c in chats}, False)
     with pg.connection() as conn:
-        counts = {t: pg.scalar(conn, f"SELECT count(*) FROM {t}") for t in ("chats", "messages", "members", "embedding_queue")}  # noqa: S608
+        counts = {t: pg.scalar(conn, f"SELECT count(*) FROM {t}") for t in ("chats", "messages", "embedding_queue")}  # noqa: S608
     print("postgres now:", counts)
     events = src.execute("SELECT count(*) FROM events").fetchone()[0] if src.execute("SELECT 1 FROM sqlite_master WHERE name = 'events'").fetchone() else 0
     src.execute("DROP TABLE IF EXISTS events")

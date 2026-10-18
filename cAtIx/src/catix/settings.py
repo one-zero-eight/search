@@ -57,14 +57,6 @@ class Settings(BaseSettings):
     # TG_TOPICS='{"-1001234567890": [5, 17]}'. Chats not listed here are stored whole. Topic 1 is
     # "General". Find topic ids with `catix-tguserbot topics <chat>` or the bot's /id command inside a topic.
     tg_topics: dict[int, list[int]] = {}
-    # False: the bot answers from all stored chats, wherever and by whomever it is asked. True: a group answer uses
-    # only public chats and that group, a private answer public chats and the chats the asker is known to belong to
-    # (src/catix/tgbot/access.py). Off for now: the chats are course chats with nothing secret in them, and in groups with
-    # hidden member lists membership cannot be found out at all.
-    restrict_chat_access: bool = False
-    # Private chats whose content may be shown to anyone, e.g. a course channel all students can join.
-    # Public chats (with @username) are open automatically; everything else only to its members.
-    tg_open_chats: list[int] = []
 
     # Bot API token from @BotFather. The bot stores messages of every group it is added to
     # (adding it is the admins' consent) and answers in DMs, on @mention, reply or /ask.

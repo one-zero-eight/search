@@ -175,16 +175,15 @@ async def list_topics(chat: str | None) -> None:
 
 
 async def _sync_chat(client: TelegramClient, entity: Channel | Chat, topics: list[int] | None) -> str:
-    """Fetch the new history of one chat (only `topics` of it, if given), its members, and note the chat as synced."""
+    """Fetch the new history of one chat (only `topics` of it, if given) and note the chat as synced."""
     chat_id = utils.get_peer_id(entity)
     store.upsert_chat(chat_id, utils.get_display_name(entity), getattr(entity, "username", None))
     # A chat with a topic whitelist is read topic by topic; otherwise as one stream.
     total = 0
     for topic_id in topics if topics is not None else [None]:
         total += await _sync_stream(client, entity, chat_id, topic_id)
-    members = await _sync_members(client, entity, chat_id)
     store.mark_synced(chat_id)
-    return f"{utils.get_display_name(entity)}: +{total} messages, {members}"
+    return f"{utils.get_display_name(entity)}: +{total} messages"
 
 
 async def sync() -> None:
@@ -227,21 +226,6 @@ async def _sync_stream(client: TelegramClient, entity: Channel | Chat, chat_id: 
 
 def _in_topic(row: store.Message, topic_id: int) -> bool:
     return (row.topic_id or store.GENERAL_TOPIC_ID) == topic_id
-
-
-async def _sync_members(client: TelegramClient, entity: Channel | Chat, chat_id: int) -> str:
-    """Record who is in a private group, so the bot can show its content to members only."""
-    if getattr(entity, "username", None):
-        return "public, members not needed"
-    if isinstance(entity, Channel) and entity.broadcast:
-        # Subscribers of a channel are visible to its admins only.
-        return "private channel: members unknown, add it to TG_OPEN_CHATS or the bot as admin to share it"
-    try:
-        users = {u.id async for u in client.iter_participants(entity) if not u.bot}
-    except (errors.ChatAdminRequiredError, errors.ChatAdminInviteRequiredError):
-        return "members hidden by admins: only message senders are known"
-    store.set_members({(chat_id, user_id) for user_id in users}, True)
-    return f"{len(users)} members"
 
 
 POLL_SECONDS = 15  # How often the choice made in the bot is looked at.

@@ -1,4 +1,4 @@
-"""Postgres storage of chat messages: hybrid search (BM25 + vectors) and the access bookkeeping.
+"""Postgres storage of chat messages: hybrid search (BM25 + vectors) and chat bookkeeping.
 
 Everything here is synchronous and uses the connection pool, so it is safe to call from worker threads.
 Async code runs it with asyncio.to_thread.
@@ -14,7 +14,7 @@ from datetime import datetime
 from catix import userbot_config
 from catix.common import courses
 from catix.db import pg
-from catix.db.rows import ChatRow, MemberRow, MessageHit, SourceRow
+from catix.db.rows import ChatRow, MessageHit, SourceRow
 from catix.settings import settings
 
 log = logging.getLogger("catix.store")
@@ -92,18 +92,16 @@ def write_batch(chats: Iterable[ChatInfo], messages: list[Message]) -> None:
                 for m in messages
             ],
         )
-        # Whoever writes in a chat is a member of it.
-        _set_members(cur, {(m.chat_id, m.sender_id) for m in messages if m.sender_id and m.sender_id > 0}, True)
 
 
 def migrate_chat(old_id: int, new_id: int) -> dict[str, int]:
     """Move a chat to its new id after Telegram upgraded a basic group to a supergroup (the id changes).
 
-    Messages, their vectors, member records and the chat row move to `new_id`. Safe to repeat. A message whose id is
+    Messages, their vectors and the chat row move to `new_id`. Safe to repeat. A message whose id is
     already taken in the new chat (old and new ids are separate numberings) stays under the old id rather than
     overwriting anything; the old chat row is kept while any message is left there.
     """
-    counts = {"messages": 0, "left_behind": 0, "members": 0}
+    counts = {"messages": 0, "left_behind": 0}
     if old_id == new_id:
         return counts
     with pg.connection() as conn:
@@ -127,19 +125,12 @@ def migrate_chat(old_id: int, new_id: int) -> dict[str, int]:
                WHERE e.message_id = m.id AND m.chat_id = %(new)s AND e.chat_id = %(old)s""",
             params,
         )
-        counts["members"] = conn.execute(
-            """INSERT INTO members (chat_id, user_id, is_member, checked_at)
-               SELECT %(new)s, user_id, is_member, checked_at FROM members WHERE chat_id = %(old)s
-               ON CONFLICT DO NOTHING""",
-            params,
-        ).rowcount
-        conn.execute("DELETE FROM members WHERE chat_id = %(old)s", params)
         counts["left_behind"] = pg.scalar(conn, "SELECT count(*) FROM messages WHERE chat_id = %(old)s", params)
         if counts["left_behind"] == 0:
             conn.execute("DELETE FROM chats WHERE chat_id = %(old)s", params)
         else:
             log.warning("%d messages of chat %s kept their old id: the same message ids exist in %s", counts["left_behind"], old_id, new_id)
-    mentioned = [name for name in ("tg_chats", "tg_open_chats", "extract_skip_chats") if old_id in getattr(settings, name, [])]
+    mentioned = [name for name in ("tg_chats", "extract_skip_chats") if old_id in getattr(settings, name, [])]
     if mentioned or old_id in settings.tg_topics:
         log.warning("chat id %s is still listed in .env (%s): replace it with %s", old_id, ", ".join(mentioned + (["tg_topics"] if old_id in settings.tg_topics else [])), new_id)
     return counts
@@ -159,50 +150,12 @@ def mark_synced(chat_id: int) -> None:
         conn.execute("UPDATE chats SET synced_at = now() WHERE chat_id = %s", (chat_id,))
 
 
-def _set_members(cur, pairs: Collection[tuple[int, int]], is_member: bool) -> None:
-    if pairs:
-        cur.executemany(
-            """INSERT INTO members (chat_id, user_id, is_member, checked_at) VALUES (%s, %s, %s, now())
-               ON CONFLICT (chat_id, user_id) DO UPDATE SET is_member = excluded.is_member, checked_at = excluded.checked_at""",
-            [(chat_id, user_id, is_member) for chat_id, user_id in pairs],
-        )
-
-
-def set_members(pairs: Collection[tuple[int, int]], is_member: bool) -> None:
-    with pg.connection() as conn, conn.cursor() as cur:
-        _set_members(cur, pairs, is_member)
-
-
-def unmark_bot_chat(chat_id: int) -> None:
-    with pg.connection() as conn:
-        conn.execute("UPDATE chats SET bot_member = false WHERE chat_id = %s", (chat_id,))
-
-
-# ---- access bookkeeping -----------------------------------------------------------------------------------
+# ---- what is stored ---------------------------------------------------------------------------------------
 
 
 def topic_allowed(chat_id: int, topic_id: int | None) -> bool:
     """Whether a message of this chat and topic should be stored (chosen in the bot with /listen, or TG_TOPICS)."""
     return userbot_config.topic_allowed(chat_id, topic_id, GENERAL_TOPIC_ID)
-
-
-def public_chat_ids() -> set[int]:
-    """Chats anyone may see: public (have a username) or explicitly opened in TG_OPEN_CHATS."""
-    with pg.connection() as conn:
-        public = pg.column(conn, "SELECT chat_id FROM chats WHERE username IS NOT NULL")
-    return set(public) | set(settings.tg_open_chats)
-
-
-def bot_chat_ids() -> set[int]:
-    with pg.connection() as conn:
-        return set(pg.column(conn, "SELECT chat_id FROM chats WHERE bot_member"))
-
-
-def membership(user_id: int) -> dict[int, tuple[bool, datetime]]:
-    """Cached membership of a user: chat id -> (is_member, when it was checked)."""
-    with pg.connection() as conn:
-        rows = pg.rows(conn, MemberRow, "SELECT chat_id, is_member, checked_at FROM members WHERE user_id = %s", (user_id,))
-    return {r.chat_id: (r.is_member, r.checked_at) for r in rows}
 
 
 def last_msg_id(chat_id: int, topic_id: int | None = None) -> int | None:

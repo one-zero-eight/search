@@ -116,13 +116,6 @@ def scoped_chat_ids(user_key: str, telegram_id: int | None = None) -> set[int] |
         return set(pg.column(conn, "SELECT chat_id FROM chats WHERE group_code IN (%s, %s)", (ALL, group)))
 
 
-def narrow(allowed: set[int] | None, scope: set[int] | None) -> set[int] | None:
-    """Both limits at once; None means no limit."""
-    if scope is None:
-        return allowed
-    return scope if allowed is None else allowed & scope
-
-
 def group_command(args: str, admin_chats: list[ChatGroup]) -> str:
     """Reply to `/group [number group]` from a user who is admin of `admin_chats` (already filtered and ordered)."""
     parts = args.split()

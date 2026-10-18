@@ -49,14 +49,8 @@ CREATE TABLE IF NOT EXISTS userbot_meta (
     value text NOT NULL
 );
 
--- Who may see which chat; is_member = false caches a "no".
-CREATE TABLE IF NOT EXISTS members (
-    chat_id    bigint NOT NULL,
-    user_id    bigint NOT NULL,
-    is_member  boolean NOT NULL,
-    checked_at timestamptz NOT NULL,
-    PRIMARY KEY (chat_id, user_id)
-);
+-- Which chats an answer may use is decided by the asker's study group (groups.py), not by who is in a chat.
+DROP TABLE IF EXISTS members;
 
 CREATE TABLE IF NOT EXISTS messages (
     id          bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
