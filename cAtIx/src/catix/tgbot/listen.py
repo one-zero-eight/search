@@ -1,4 +1,4 @@
-"""Admin settings of the userbot in the bot: /listen.
+"""Admin settings of the chats in the bot: /listen (it replaced the Telegram /group).
 
 An admin (ADMIN_TELEGRAM_IDS) sees the chats the userbot is in, turns listening to them on and off, narrows a forum
 chat to some of its topics and sets the study group of a chat. All of it is kept in the database
@@ -26,6 +26,7 @@ router = Router()
 PAGE_SIZE = 8
 BUTTON_TITLE = 32
 MAX_TOPIC_BUTTONS = 40
+MAX_CODE_BUTTON = 24  # callback_data is limited to 64 bytes: "ls:s:<chat id>:<code>".
 
 PAGE: dict[int, int] = {}  # admin -> the page of the chat list they were on, to come back to it
 PENDING_GROUP: dict[int, int] = {}  # admin -> chat whose group code they are about to send
@@ -54,6 +55,13 @@ def _groups_of(chat_ids: list[int]) -> dict[int, str]:
     with pg.connection() as conn:
         found = conn.execute("SELECT chat_id, group_code FROM chats WHERE chat_id = ANY(%s::bigint[])", (chat_ids,)).fetchall()
     return {r["chat_id"]: r["group_code"] for r in found}
+
+
+def _known_groups() -> list[str]:
+    """`all` first, then the other codes in use, the most used first."""
+    with pg.connection() as conn:
+        used = pg.column(conn, "SELECT group_code FROM chats WHERE group_code <> %s GROUP BY 1 ORDER BY count(*) DESC, 1", (groups.ALL,))
+    return [groups.ALL, *used]
 
 
 def _ensure_chat(dialog: userbot_config.Dialog) -> None:
@@ -117,7 +125,11 @@ def _chat_screen(chat_id: int) -> tuple[str, Keyboard]:
         if on:
             rows.append([_button("🧵 Топики", f"ls:t:{chat_id}")])
     lines.append(f"Учебная группа: {html.escape(_group_of(chat_id))}")
-    rows.append([_button("🎓 Учебная группа", f"ls:g:{chat_id}")])
+    current = _group_of(chat_id)
+    # Codes already in use (and `all`) are one tap; any other code is typed.
+    known = [c for c in _known_groups() if len(c) <= MAX_CODE_BUTTON]
+    rows.append([_button(f"{'✅ ' if c == current else ''}{c}", f"ls:s:{chat_id}:{c}") for c in known[:4]] or [])
+    rows.append([_button("🎓 Другая группа…", f"ls:g:{chat_id}")])
     rows.append([_button("← К списку", "ls:l:keep")])
     return "\n".join(lines), rows
 
@@ -204,6 +216,14 @@ async def listen_callback(query: CallbackQuery) -> None:
         case "a":
             await asyncio.to_thread(userbot_config.clear_topics, int(args[0]))
             screen = await asyncio.to_thread(_topics_screen, int(args[0]))
+        case "s":
+            chat_id, code = int(args[0]), ":".join(args[1:])
+            dialog = await asyncio.to_thread(userbot_config.dialog, chat_id)
+            if dialog and groups.normalize(code):
+                await asyncio.to_thread(_ensure_chat, dialog)
+                await asyncio.to_thread(groups.set_chat_group, chat_id, groups.normalize(code))
+                notice = f"Группа чата: {code}"
+            screen = await asyncio.to_thread(_chat_screen, chat_id)
         case "g":
             PENDING_GROUP[user_id] = int(args[0])
             await query.answer()

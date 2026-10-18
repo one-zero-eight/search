@@ -20,7 +20,7 @@ import uuid
 from datetime import datetime, timezone
 
 from aiogram import Bot, Dispatcher, F, Router
-from aiogram.enums import ChatMemberStatus, ChatType, ParseMode
+from aiogram.enums import ChatType, ParseMode
 from aiogram.exceptions import TelegramAPIError, TelegramBadRequest
 from aiogram.filters import Command, CommandObject, CommandStart
 from aiogram.types import (
@@ -52,7 +52,6 @@ from catix.agent import tracing
 from catix.agent.core import build_agent, final_answer
 from catix.common.render import chunks as _chunks
 from catix.common.render import to_html as _to_html
-from catix.db.rows import ChatGroup
 from catix.settings import settings
 from catix.agent.tools import AgentContext
 
@@ -209,7 +208,7 @@ async def start(message: Message) -> None:
         "Привет! Я cAtIx, ассистент Innopolis University: клубы, аудитории, события, а также экзамены, дедлайны и советы "
         "из чатов, куда меня добавили.\n\nВ личке просто пишите вопрос. В группе: /ask вопрос, упоминание или ответ "
         "на моё сообщение.\n\n/mygroup: ваша учебная группа (по умолчанию ищу везде).\n"
-        "/group: указать группу чата, где вы сделали меня администратором."
+        "/listen: для администратора: какие чаты слушать и к какой учебной группе они относятся."
     )
 
 
@@ -239,29 +238,7 @@ async def chat_migrated(message: Message) -> None:
     log.info("chat %s became a supergroup %s: %s", old, new, counts)
 
 
-ADMIN_STATUSES = {ChatMemberStatus.CREATOR, ChatMemberStatus.ADMINISTRATOR}
-
-
-async def _admin_chats(bot: Bot, user_id: int) -> list[ChatGroup]:
-    """Chats the bot is in where this user is an administrator (checked with Telegram, not with the stored data)."""
-    chats = await asyncio.to_thread(groups.list_chats, "tg")
-
-    async def is_admin(chat_id: int) -> bool:
-        try:
-            return (await bot.get_chat_member(chat_id, user_id)).status in ADMIN_STATUSES
-        except TelegramAPIError:
-            return False  # The bot was removed, or the user is not there.
-
-    flags = await asyncio.gather(*(is_admin(c.chat_id) for c in chats))
-    return [c for c, ok in zip(chats, flags) if ok]
-
-
-# The group of a chat is set in a private chat with the bot, never in the group itself, so that chatting people
-# cannot change it; Telegram confirms the admin rights.
-@router.message(F.chat.type == ChatType.PRIVATE, Command("group"))
-async def set_group(message: Message, command: CommandObject, bot: Bot) -> None:
-    admin_chats = await _admin_chats(bot, message.from_user.id)
-    await message.answer(groups.group_command(command.args or "", admin_chats))
+# The study group of a chat is set by an admin in /listen (listen.py), together with what the userbot listens to.
 
 
 @router.message(F.chat.type == ChatType.PRIVATE, Command("mygroup"))
