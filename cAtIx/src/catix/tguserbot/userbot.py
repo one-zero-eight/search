@@ -271,6 +271,8 @@ async def _follow_choice(client: TelegramClient, entities: dict[int, Channel | C
                 del entities[chat_id]
                 print(f"No longer listening to {chat_id}.")
             for entity in await _resolve(client, [c for c in wanted if c not in entities]):
+                # The chat row first: messages refer to it, and it keeps the title and @username up to date.
+                store.upsert_chat(utils.get_peer_id(entity), utils.get_display_name(entity), getattr(entity, "username", None))
                 entities[utils.get_peer_id(entity)] = entity
             for chat_id, entity in entities.items():
                 topics = wanted[chat_id]
