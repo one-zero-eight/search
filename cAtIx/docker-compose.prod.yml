@@ -1,0 +1,105 @@
+# Production / beta: everything cAtIx needs in one place.
+#   docker compose -f docker-compose.prod.yml up -d --build            db, redis, schema, tgbot, maxbot, worker
+#   docker compose -f docker-compose.prod.yml --profile userbot up -d   + the Telegram userbot (after its login, see DEPLOY.md)
+#   docker compose -f docker-compose.prod.yml --profile tunnel up -d    + an SSH tunnel to the GPU server (see DEPLOY.md)
+# Own project name and volumes: it does not touch the development docker-compose.yml (project `ctx`).
+name: catix-prod
+
+x-app: &app
+  build: .
+  image: catix:latest
+  restart: unless-stopped
+  env_file: .env
+  environment:
+    # The services find each other by name; these override the development values in .env.
+    DATABASE_URL: postgresql://ctx:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}@db:5432/ctx
+    REDIS_URL: redis://redis:6379/0
+  volumes:
+    - catix_data:/app/data
+  extra_hosts:
+    - "host.docker.internal:host-gateway"   # services on the host, e.g. Langfuse at http://host.docker.internal:3000
+  logging:
+    driver: json-file
+    options: {max-size: "20m", max-file: "5"}
+  depends_on:
+    migrate: {condition: service_completed_successfully}
+    redis: {condition: service_healthy}
+
+services:
+  db:
+    image: paradedb/paradedb:0.26.1-pg17   # pinned: the index syntax changed between ParadeDB versions
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ctx
+      POSTGRES_DB: ctx
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    shm_size: 256mb
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ctx -d ctx"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    logging:
+      driver: json-file
+      options: {max-size: "20m", max-file: "5"}
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  # Creates the read-only role and applies db/schema.sql (safe to repeat); the apps wait for it.
+  migrate:
+    <<: *app
+    restart: "no"
+    command: ["catix-db", "init"]
+    depends_on:
+      db: {condition: service_healthy}
+
+  tgbot:
+    <<: *app
+    command: ["catix-tgbot"]
+
+  maxbot:
+    <<: *app
+    command: ["catix-maxbot"]
+
+  worker:
+    <<: *app
+    command: ["catix-worker"]
+    ports:
+      - "127.0.0.1:8090:8090"   # the calendar feed; put an HTTPS reverse proxy (Caddy, nginx) in front of it
+
+  # Reads chats with a Telegram account: start it only after `login` (DEPLOY.md), the session lives in the data volume.
+  userbot:
+    <<: *app
+    profiles: ["userbot"]
+    command: ["catix-tguserbot", "listen"]
+
+  # SSH tunnel to the GPU server, for when the models are not reachable directly. Then in .env:
+  #   LLM_ROUTE=http://tunnel:8080/v1  EMBEDDINGS_ROUTE=http://tunnel:8081/v1  RERANKER_ROUTE=http://tunnel:8082/v1
+  tunnel:
+    profiles: ["tunnel"]
+    image: alpine:3.20
+    restart: unless-stopped
+    volumes:
+      - ./secrets/ssh:/root/.ssh:ro   # id_ed25519 (chmod 600) and known_hosts of the GPU server
+    command: >
+      sh -c "apk add --no-cache openssh-client >/dev/null &&
+      exec ssh -N -o ServerAliveInterval=30 -o ServerAliveCountMax=3 -o ExitOnForwardFailure=yes
+      -L 0.0.0.0:8080:localhost:8080 -L 0.0.0.0:8081:localhost:8081 -L 0.0.0.0:8082:localhost:8082
+      ${GPU_SSH:-user@gpu-host}"
+
+volumes:
+  pgdata:
+  redisdata:
+  catix_data:

@@ -1,0 +1,12 @@
+.venv
+.git
+data
+raw
+wiki
+experiments
+logo
+__pycache__
+*.pyc
+.env
+.env.*
+!.env.example
