@@ -30,6 +30,7 @@ class PersonalEvent:
     ends_at: datetime | None
     all_day: bool
     room: str | None
+    source_url: str | None = None  # The chat message the event comes from.
 
 
 def configured() -> bool:
@@ -105,9 +106,9 @@ def add_proposal(user_key: str, proposal_id: str) -> str | None:
         if event is None:
             return None
         conn.execute(
-            """INSERT INTO personal_events (user_key, title, starts_at, ends_at, all_day, room)
-               VALUES (%s, %s, %s::timestamptz, %s::timestamptz, %s, %s) ON CONFLICT DO NOTHING""",
-            (user_key, event["title"], event["starts_at"], event.get("ends_at"), bool(event.get("all_day")), event.get("room")),
+            """INSERT INTO personal_events (user_key, title, starts_at, ends_at, all_day, room, source_url)
+               VALUES (%s, %s, %s::timestamptz, %s::timestamptz, %s, %s, %s) ON CONFLICT DO NOTHING""",
+            (user_key, event["title"], event["starts_at"], event.get("ends_at"), bool(event.get("all_day")), event.get("room"), event.get("source_url")),
         )
     return event["title"]
 
@@ -139,7 +140,7 @@ def ics(user_key: str) -> str:
         rows = pg.rows(
             conn,
             PersonalEvent,
-            "SELECT id, title, starts_at, ends_at, all_day, room FROM personal_events WHERE user_key = %s ORDER BY starts_at",
+            "SELECT id, title, starts_at, ends_at, all_day, room, source_url FROM personal_events WHERE user_key = %s ORDER BY starts_at",
             (user_key,),
         )
     stamp = lambda t: t.astimezone(timezone.utc).strftime("%Y%m%dT%H%M%SZ")  # noqa: E731
@@ -154,6 +155,8 @@ def ics(user_key: str) -> str:
                   f"DTEND:{stamp(end)}", f"SUMMARY:{_escape(r.title)}"]  # fmt: skip
         if r.room:
             lines.append(f"LOCATION:{_escape(r.room)}")
+        if r.source_url:
+            lines += [f"URL:{r.source_url}", f"X-WR-LINK:{r.source_url}"]  # The message the event comes from.
         lines.append("END:VEVENT")
     lines.append("END:VCALENDAR")
     return "\r\n".join(_fold(line) for line in lines) + "\r\n"

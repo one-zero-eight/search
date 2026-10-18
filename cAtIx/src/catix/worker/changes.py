@@ -248,6 +248,7 @@ def feed_ics(group: str | None = None) -> str:
             lines.append(f"LOCATION:{_escape(r.room)}")
         if link:
             lines.append(f"URL:{link}")  # Calendar apps show it as a clickable link.
+            lines.append(f"X-WR-LINK:{link}")  # Where the information comes from: the Telegram or Max message.
         lines.append("END:VEVENT")
     lines.append("END:VCALENDAR")
     return "\r\n".join(_fold(line) for line in lines) + "\r\n"

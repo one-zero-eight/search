@@ -194,6 +194,8 @@ CREATE TABLE IF NOT EXISTS personal_events (
     created_at timestamptz NOT NULL DEFAULT now(),
     UNIQUE (user_key, title, starts_at)
 );
+ALTER TABLE personal_events ADD COLUMN IF NOT EXISTS source_url text;  -- the message the event comes from (X-WR-LINK)
+
 -- Events the agent offered under an answer, waiting for a button press (short ids fit in callback data).
 CREATE TABLE IF NOT EXISTS calendar_proposals (
     id         text PRIMARY KEY,

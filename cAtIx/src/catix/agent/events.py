@@ -31,6 +31,7 @@ midterm, test, deadline, lecture, meeting, contest. Rules:
 recurrences and anything without a day.
 - title: short, in the language of the answer: the subject and what happens ("Midterm: Mathematical Analysis").
 - day: YYYY-MM-DD. start_time / end_time: HH:MM local time or null. room: as written or null.
+- source: the number n of the marker [n] next to the fact in the answer (the source list is below it), or null.
 - At most {limit} events; an empty list if there is none.
 
 Now: {now} ({weekday}).
@@ -45,6 +46,7 @@ class Event(BaseModel):
     start_time: time | None = None
     end_time: time | None = None
     room: str | None = None
+    source: int | None = None
 
 
 class Events(BaseModel):
@@ -62,14 +64,25 @@ def _model():
     ).with_structured_output(Events, method="json_schema")
 
 
+_SOURCE_LINE = re.compile(r"^\[(\d+)\][^\n]*?(https?://[^\s)\]]+)", re.M)
+
+
+def source_links(answer: str) -> dict[int, str]:
+    """Link of each numbered source in the list the bot appends to an answer ([n] «chat», date, author)."""
+    parts = re.split(r"\n+(?:Источники|Sources):", answer, maxsplit=1)
+    return {int(n): url for n, url in _SOURCE_LINE.findall(parts[1])} if len(parts) == 2 else {}
+
+
 def extract(answer: str) -> list[dict]:
     """The upcoming events the answer names, as dicts ready for `personal_calendar.propose`."""
-    text = re.split(r"\n+(?:Источники|Sources):", answer, maxsplit=1)[0]  # The source list adds nothing.
-    if not _LOOKS_DATED.search(text):
+    body = re.split(r"\n+(?:Источники|Sources):", answer, maxsplit=1)[0]
+    if not _LOOKS_DATED.search(body):  # The source list adds nothing to look at.
         return []
+    text = answer
     now = datetime.now(settings.tz)
     prompt = PROMPT.format(limit=MAX_EVENTS, now=f"{now:%Y-%m-%d %H:%M}", weekday=f"{now:%A}", answer=text[:1500])
     result: Events = _model().invoke(prompt, config=tracing.run_config("calendar-events", name="calendar-event-extraction"))
+    links = source_links(answer)
     found = []
     for event in result.events[:MAX_EVENTS]:
         if event.day < now.date() or not event.title.strip():
@@ -83,6 +96,7 @@ def extract(answer: str) -> list[dict]:
                 "ends_at": end.isoformat() if end and end > start else None,
                 "all_day": event.start_time is None,
                 "room": event.room.strip()[:80] if event.room else None,
+                "source_url": links.get(event.source) if event.source else None,
             }
         )
     return found
