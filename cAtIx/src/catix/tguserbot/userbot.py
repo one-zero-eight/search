@@ -266,9 +266,8 @@ async def _follow_choice(client: TelegramClient, entities: dict[int, Channel | C
     last_refresh, last_request = time.monotonic(), float(userbot_config.meta("refresh_requested") or 0)
     while True:
         try:
-            # A chat only the Bot API bot is in cannot be opened by this account.
-            mine = userbot_config.userbot_chat_ids()
-            wanted = {c: topics for c, topics in userbot_config.listened().items() if c in mine}
+            # Not a chat only the Bot API bot is in (this account cannot open it), nor one an admin gave to the bot.
+            wanted = userbot_config.userbot_reads()
             for chat_id in set(entities) - set(wanted):
                 del entities[chat_id]
                 print(f"No longer listening to {chat_id}.")

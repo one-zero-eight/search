@@ -120,7 +120,7 @@ async def _save(message: Message) -> None:
     if not await asyncio.to_thread(userbot_config.bot_listens, message.chat.id):
         if message.chat.id not in IGNORED:  # Once per chat: why a chat the bot is in stays empty.
             IGNORED.add(message.chat.id)
-            log.info("chat %s (%s) is not chosen in /listen: its messages are not stored", message.chat.id, message.chat.title)
+            log.info("chat %s (%s): the bot does not store it (not chosen in /listen, or read by the userbot)", message.chat.id, message.chat.title)
         return
     # In General the Bot API may omit the thread id; topic_allowed treats None as General.
     topic_id = message.message_thread_id if message.is_topic_message else None

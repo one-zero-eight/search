@@ -96,10 +96,41 @@ def replace_topics(chat_id: int, found: list[Topic]) -> None:
 # ---- what is listened to ------------------------------------------------------------------------------------
 
 
+READERS = ("auto", "userbot", "bot")
+
+
+def _rows() -> dict[int, tuple[list[int] | None, str]]:
+    with pg.connection() as conn:
+        found = conn.execute("SELECT chat_id, topic_ids, reader FROM userbot_listen").fetchall()
+    return {r["chat_id"]: (r["topic_ids"], r["reader"]) for r in found}
+
+
 def listened() -> dict[int, list[int] | None]:
     """Chat id -> the topics to store (None = the whole chat)."""
+    return {chat_id: topics for chat_id, (topics, _) in _rows().items()}
+
+
+def readers() -> dict[int, str]:
+    """Chat id -> who stores it: auto, userbot or bot."""
+    return {chat_id: reader for chat_id, (_, reader) in _rows().items()}
+
+
+def set_reader(chat_id: int, reader: str) -> None:
+    assert reader in READERS
     with pg.connection() as conn:
-        return {r["chat_id"]: r["topic_ids"] for r in conn.execute("SELECT chat_id, topic_ids FROM userbot_listen").fetchall()}
+        conn.execute("UPDATE userbot_listen SET reader = %s WHERE chat_id = %s", (reader, chat_id))
+    _cache.clear()
+
+
+def effective_reader(reader: str, userbot_has_chat: bool) -> str:
+    """Who really stores a chat: `auto` is the userbot when its account is in the chat (it has the history), else the bot."""
+    return ("userbot" if userbot_has_chat else "bot") if reader == "auto" else reader
+
+
+def userbot_reads() -> dict[int, list[int] | None]:
+    """The chats the userbot stores, with their topics: chosen, its account is in them, and not given to the bot."""
+    mine = userbot_chat_ids()
+    return {c: topics for c, (topics, reader) in _rows().items() if c in mine and reader != "bot"}
 
 
 def set_listen(chat_id: int, on: bool) -> None:
@@ -133,35 +164,39 @@ def clear_topics(chat_id: int) -> None:
 _cache: dict[str, tuple[float, Any]] = {}
 
 
-def listened_cached() -> dict[int, list[int] | None]:
-    hit = _cache.get("listened")
+def _cached(key: str, load) -> Any:
+    hit = _cache.get(key)
     if hit and time.monotonic() < hit[0]:
         return hit[1]
-    value = listened()
-    _cache["listened"] = (time.monotonic() + CACHE_TTL, value)
+    value = load()
+    _cache[key] = (time.monotonic() + CACHE_TTL, value)
     return value
+
+
+def listened_cached() -> dict[int, list[int] | None]:
+    return {c: topics for c, (topics, _) in _cached("rows", _rows).items()}
 
 
 def _known_chats_cached() -> set[int]:
-    hit = _cache.get("known")
-    if hit and time.monotonic() < hit[0]:
-        return hit[1]
-    with pg.connection() as conn:
-        value = set(pg.column(conn, "SELECT chat_id FROM chats"))
-    _cache["known"] = (time.monotonic() + CACHE_TTL, value)
-    return value
+    def load() -> set[int]:
+        with pg.connection() as conn:
+            return set(pg.column(conn, "SELECT chat_id FROM chats"))
+
+    return _cached("known", load)
 
 
 def bot_listens(chat_id: int) -> bool:
-    """Whether the Bot API bot stores this chat. A chat chosen in /listen: yes. A chat it has never seen: it is turned
-    on now (adding the bot to a chat is the consent). A known chat that is not chosen was turned off by an admin."""
-    if chat_id in listened_cached():
-        return True
-    if chat_id in _known_chats_cached():
-        return False
-    set_listen(chat_id, True)
-    _cache.pop("known", None)
-    return True
+    """Whether the Bot API bot stores this chat: it is chosen in /listen and the bot is its reader (`auto` gives a chat
+    the userbot's account is in to the userbot). A chat the bot has never seen is turned on now (adding the bot to a chat
+    is the consent); a known chat that is not chosen was turned off by an admin."""
+    rows = _cached("rows", _rows)
+    if chat_id not in rows:
+        if chat_id in _known_chats_cached():
+            return False
+        set_listen(chat_id, True)
+        _cache.pop("known", None)
+        rows = _cached("rows", _rows)
+    return effective_reader(rows[chat_id][1], chat_id in _cached("mine", userbot_chat_ids)) == "bot"
 
 
 def seed_bot_chats() -> int:

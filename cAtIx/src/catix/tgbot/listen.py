@@ -108,6 +108,16 @@ def _list_screen(user_id: int) -> tuple[str, Keyboard]:
     return text, rows
 
 
+def _reader_line(dialog: userbot_config.Dialog, choice: str) -> str:
+    if dialog.bot_only:
+        return "Читает: бот (сообщения с момента добавления, истории нет)"
+    if not dialog.bot_in:
+        return "Читает: userbot (с историей)"
+    effective = userbot_config.effective_reader(choice, True)
+    who = "userbot (с историей)" if effective == "userbot" else "бот (с момента добавления, без истории)"
+    return f"Читает: {who}" + (" (авто)" if choice == "auto" else "") + ". В чате есть и userbot, и бот: читает один из них."
+
+
 def _chat_screen(chat_id: int) -> tuple[str, Keyboard]:
     dialog = userbot_config.dialog(chat_id)
     if dialog is None:
@@ -117,12 +127,16 @@ def _chat_screen(chat_id: int) -> tuple[str, Keyboard]:
     lines = [
         f"<b>{html.escape(dialog.title)}</b>",
         f"Тип: {'канал' if dialog.kind == 'channel' else 'группа'}{', форум' if dialog.forum else ''}",
-        "Читает: бот (сообщения с момента добавления, истории нет)"
-        if dialog.bot_only
-        else "Читает: userbot (с историей) и бот" if dialog.bot_in else "Читает: userbot (с историей)",
+        _reader_line(dialog, userbot_config.readers().get(chat_id, "auto")),
         f"Слушаю: {'да' if on else 'нет'}",
     ]
     rows: Keyboard = [[_button("🔕 Перестать слушать" if on else "🔔 Слушать", f"ls:o:{chat_id}")]]
+    if on and dialog.bot_in and not dialog.bot_only:  # Both can read it: one of them must (two copies of everything otherwise).
+        current = userbot_config.readers().get(chat_id, "auto")
+        rows.append([
+            _button(f"{'✅ ' if current == code else ''}{name}", f"ls:r:{chat_id}:{code}")
+            for code, name in (("auto", "Авто"), ("userbot", "👤 userbot"), ("bot", "🤖 бот"))
+        ])
     if dialog.forum and not dialog.bot_only:  # The Bot API gives no list of topics.
         selected = chosen.get(chat_id)
         total = len(userbot_config.topics(chat_id))
@@ -212,6 +226,12 @@ async def listen_callback(query: CallbackQuery) -> None:
             else:
                 await asyncio.to_thread(userbot_config.set_listen, chat_id, False)
                 notice = "Больше не слушаю (сохранённые сообщения остаются)"
+            screen = await asyncio.to_thread(_chat_screen, chat_id)
+        case "r":
+            chat_id, code = int(args[0]), args[1]
+            if code in userbot_config.READERS:
+                await asyncio.to_thread(userbot_config.set_reader, chat_id, code)
+                notice = {"auto": "Читает userbot, если он в чате", "userbot": "Читает userbot", "bot": "Читает бот"}[code]
             screen = await asyncio.to_thread(_chat_screen, chat_id)
         case "t":
             screen = await asyncio.to_thread(_topics_screen, int(args[0]))
