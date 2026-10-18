@@ -28,6 +28,7 @@ class Dialog:
     username: str | None
     forum: bool
     bot_only: bool = False  # Only the Bot API bot is in this chat, the userbot's account is not.
+    bot_in: bool = False  # The Bot API bot is in this chat (alone or with the userbot's account).
 
 
 @dataclass(frozen=True, slots=True)
@@ -39,9 +40,11 @@ class Topic:
 
 # The chats of the userbot, then those only the Bot API bot is in (not Max chats, they have their own bot).
 _DIALOGS = """
-    SELECT chat_id, title, kind, username, forum, false AS bot_only FROM userbot_dialogs
+    SELECT d.chat_id, d.title, d.kind, d.username, d.forum, false AS bot_only,
+           EXISTS (SELECT 1 FROM chats c WHERE c.chat_id = d.chat_id AND c.bot_member) AS bot_in
+    FROM userbot_dialogs d
     UNION ALL
-    SELECT c.chat_id, c.title, 'group', c.username, false, true FROM chats c
+    SELECT c.chat_id, c.title, 'group', c.username, false, true, true FROM chats c
     WHERE c.bot_member AND c.chat_id < %(max)s AND NOT EXISTS (SELECT 1 FROM userbot_dialogs d WHERE d.chat_id = c.chat_id)
 """
 

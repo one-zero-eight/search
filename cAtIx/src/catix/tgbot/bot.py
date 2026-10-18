@@ -92,6 +92,7 @@ def _origin(message: Message) -> tuple[str | None, datetime] | None:
 
 
 CHAT_LINKS: dict[int, str | None] = {}
+IGNORED: set[int] = set()
 
 
 async def _chat_link(message: Message) -> str | None:
@@ -115,7 +116,10 @@ async def _save(message: Message) -> None:
     if not text:
         return
     if not await asyncio.to_thread(userbot_config.bot_listens, message.chat.id):
-        return  # An admin turned this chat off in /listen.
+        if message.chat.id not in IGNORED:  # Once per chat: why a chat the bot is in stays empty.
+            IGNORED.add(message.chat.id)
+            log.info("chat %s (%s) is not chosen in /listen: its messages are not stored", message.chat.id, message.chat.title)
+        return
     # In General the Bot API may omit the thread id; topic_allowed treats None as General.
     topic_id = message.message_thread_id if message.is_topic_message else None
     if not store.topic_allowed(message.chat.id, topic_id):

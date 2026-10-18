@@ -90,7 +90,7 @@ def _list_screen(user_id: int) -> tuple[str, Keyboard]:
     rows: Keyboard = []
     for d in shown:
         code = codes.get(d.chat_id, groups.ALL)
-        label = f"{'✅' if d.chat_id in chosen else '⬜'} {_short(d.title)}{' 🧵' if d.forum else ''}{' 🤖' if d.bot_only else ''}{'' if code == groups.ALL else ' · ' + code}"
+        label = f"{'✅' if d.chat_id in chosen else '⬜'} {_short(d.title)}{' 🧵' if d.forum else ''}{' 🤖' if d.bot_in else ''}{'' if code == groups.ALL else ' · ' + code}"
         rows.append([_button(label, f"ls:c:{d.chat_id}")])
     nav = []
     if page > 0:
@@ -102,7 +102,7 @@ def _list_screen(user_id: int) -> tuple[str, Keyboard]:
     rows.append([_button("🔄 Обновить список", "ls:r")])
     text = (
         f"<b>Чаты userbot</b>: слушаю {len(chosen)} из {len(dialogs)}.\n"
-        "✅ — слушаю, 🧵 — форум с топиками, 🤖 — чат, где есть только бот, после · — учебная группа чата. "
+        "✅ — слушаю, 🧵 — форум с топиками, 🤖 — в чате есть бот, после · — учебная группа чата. "
         "Нажмите на чат, чтобы настроить."
     )
     return text, rows
@@ -117,7 +117,9 @@ def _chat_screen(chat_id: int) -> tuple[str, Keyboard]:
     lines = [
         f"<b>{html.escape(dialog.title)}</b>",
         f"Тип: {'канал' if dialog.kind == 'channel' else 'группа'}{', форум' if dialog.forum else ''}",
-        "Читает: бот (сообщения с момента добавления, истории нет)" if dialog.bot_only else "Читает: userbot (с историей)",
+        "Читает: бот (сообщения с момента добавления, истории нет)"
+        if dialog.bot_only
+        else "Читает: userbot (с историей) и бот" if dialog.bot_in else "Читает: userbot (с историей)",
         f"Слушаю: {'да' if on else 'нет'}",
     ]
     rows: Keyboard = [[_button("🔕 Перестать слушать" if on else "🔔 Слушать", f"ls:o:{chat_id}")]]
