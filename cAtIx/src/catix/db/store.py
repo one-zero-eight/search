@@ -14,7 +14,6 @@ from datetime import datetime
 from catix import userbot_config
 from catix.common import courses
 from catix.db import pg
-from catix.ingest import usefulness
 from catix.db.rows import ChatRow, MemberRow, MessageHit, SourceRow
 from catix.settings import settings
 
@@ -72,7 +71,6 @@ class ChatInfo:
 def write_batch(chats: Iterable[ChatInfo], messages: list[Message]) -> None:
     """Store chats and messages in one transaction. New or edited text is queued for embedding by a trigger."""
     latest = {c.chat_id: c for c in chats}
-    scores = usefulness.score_all([m.text for m in messages])  # Before the transaction: it must not wait for the model.
     with pg.connection() as conn, conn.cursor() as cur:
         cur.executemany(
             """INSERT INTO chats (chat_id, title, username, bot_member, link) VALUES (%s, %s, %s, %s, %s)
@@ -82,19 +80,16 @@ def write_batch(chats: Iterable[ChatInfo], messages: list[Message]) -> None:
             [(c.chat_id, c.title, c.username, c.via_bot, c.link) for c in latest.values()],
         )
         cur.executemany(
-            """INSERT INTO messages (chat_id, msg_id, topic_id, date, edit_date, sender_id, sender_name, reply_to, text, link, sender_link,
-                                     usefulness, filtered)
-               VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """INSERT INTO messages (chat_id, msg_id, topic_id, date, edit_date, sender_id, sender_name, reply_to, text, link, sender_link)
+               VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                ON CONFLICT (chat_id, msg_id) DO UPDATE SET
-                   text = excluded.text, edit_date = excluded.edit_date, sender_name = excluded.sender_name,
-                   usefulness = excluded.usefulness, filtered = excluded.filtered
+                   text = excluded.text, edit_date = excluded.edit_date, sender_name = excluded.sender_name
                -- Re-reading an unchanged message must not rewrite the row (and its search index entries).
                WHERE messages.text IS DISTINCT FROM excluded.text
                   OR messages.edit_date IS DISTINCT FROM excluded.edit_date""",
             [
-                (m.chat_id, m.msg_id, m.topic_id, m.date, m.edit_date, m.sender_id, m.sender_name, m.reply_to, m.text, m.link, m.sender_link,
-                 value, usefulness.is_useless(value))
-                for m, value in zip(messages, scores)
+                (m.chat_id, m.msg_id, m.topic_id, m.date, m.edit_date, m.sender_id, m.sender_name, m.reply_to, m.text, m.link, m.sender_link)
+                for m in messages
             ],
         )
         # Whoever writes in a chat is a member of it.
@@ -253,7 +248,7 @@ def _bm25(words: str, ids: list[int] | None, date_from: str | None, date_to: str
     filters, params = _filters("chat_id", "date", ids, date_from, date_to)
     # The text is indexed twice (Russian and English stemmer); a message matches if either field does.
     sql = f"""SELECT id FROM messages
-              WHERE (text ||| %(q)s OR text::pdb.alias('text_en') ||| %(q)s) AND filtered = false{filters}
+              WHERE (text ||| %(q)s OR text::pdb.alias('text_en') ||| %(q)s){filters}
               ORDER BY pdb.score(id) DESC LIMIT %(n)s"""
     with pg.connection() as conn:
         return pg.column(conn, sql, {"q": words, "n": CANDIDATES, **params})

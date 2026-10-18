@@ -116,11 +116,6 @@ class Settings(BaseSettings):
     embed_workers: int = Field(2, gt=0, description="Parallel embedding requests; ~2-4 saturates the GPU server.")
     embed_batch: int = Field(64, gt=0, description="Messages per embeddings request.")
 
-    # Usefulness filter (ingest/usefulness.py): llama.cpp serving a decision model (Kev) at /v1/systemone. Unset = no
-    # filtering. A message scored below `filter_min_score` (0..1) is stored but not embedded, searched or shown to the model.
-    filter_route: HttpUrl | None = None
-    filter_min_score: float = Field(0.3, ge=0, le=1)
-
     # Messages that arrive while a write is running are written together, up to this many per transaction.
     ingest_max_batch: int = Field(500, gt=0)
 

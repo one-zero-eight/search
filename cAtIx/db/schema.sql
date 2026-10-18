@@ -74,10 +74,6 @@ CREATE TABLE IF NOT EXISTS messages (
     UNIQUE (chat_id, msg_id)
 );
 ALTER TABLE messages ADD COLUMN IF NOT EXISTS sender_link text;  -- tables created before this column existed
--- Usefulness filter (ingest/usefulness.py): the model's score 0..1 and the verdict. A filtered message stays stored
--- but is not embedded, not searched and not shown to the model's SQL; `catix-db refilter` changes the verdict later.
-ALTER TABLE messages ADD COLUMN IF NOT EXISTS usefulness real;
-ALTER TABLE messages ADD COLUMN IF NOT EXISTS filtered boolean NOT NULL DEFAULT false;
 CREATE INDEX IF NOT EXISTS messages_date_idx ON messages (date);
 
 -- chat_id is copied here so that vector search can filter by the chats a user may see without a join.
@@ -99,10 +95,6 @@ CREATE TABLE IF NOT EXISTS embedding_queue (
 );
 CREATE OR REPLACE FUNCTION enqueue_embedding() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
-    IF NEW.filtered THEN  -- not worth indexing; an edit that made it so also drops the old vector
-        DELETE FROM message_embeddings WHERE message_id = NEW.id;
-        RETURN NEW;
-    END IF;
     INSERT INTO embedding_queue (message_id) VALUES (NEW.id) ON CONFLICT DO NOTHING;
     RETURN NEW;
 END $$;
@@ -114,22 +106,18 @@ CREATE TRIGGER messages_enqueue_edit AFTER UPDATE OF text ON messages
     FOR EACH ROW WHEN (OLD.text IS DISTINCT FROM NEW.text) EXECUTE FUNCTION enqueue_embedding();
 -- Messages that never got a vector (loaded before the trigger existed).
 INSERT INTO embedding_queue (message_id)
-    SELECT m.id FROM messages m WHERE NOT m.filtered AND NOT EXISTS (SELECT 1 FROM message_embeddings e WHERE e.message_id = m.id)
+    SELECT m.id FROM messages m WHERE NOT EXISTS (SELECT 1 FROM message_embeddings e WHERE e.message_id = m.id)
     ON CONFLICT DO NOTHING;
 
 -- BM25. The text is indexed twice: with the Russian stemmer (default field) and the English one
 -- (field text_en), since chats mix both languages. chat_id and date are in the index so that
 -- access and date filters run inside the index scan.
--- `filtered` is in the index too, so that filtered messages are skipped inside the index scan (messages_search was
--- the same index without it).
-DROP INDEX IF EXISTS messages_search;
-CREATE INDEX IF NOT EXISTS messages_search_v2 ON messages USING paradedb (
+CREATE INDEX IF NOT EXISTS messages_search ON messages USING paradedb (
     id,
     (text::pdb.simple('stemmer=russian')),
     (text::pdb.simple('stemmer=english', 'alias=text_en')),
     chat_id,
-    date,
-    filtered
+    date
 ) WITH (mutable_segment_rows = 100);
 -- mutable_segment_rows: new rows are buffered in memory and that buffer is read on every query. The default 1000
 -- made queries take 50-200 ms while it filled up; 100 keeps them at 10-40 ms at no cost in write speed (measured).
@@ -184,7 +172,7 @@ CREATE OR REPLACE VIEW visible.messages WITH (security_barrier = true) AS
            m.link
     FROM public.messages m
     JOIN public.chats c ON c.chat_id = m.chat_id
-    WHERE m.chat_id = ANY (visible.allowed_chats()) AND NOT m.filtered;
+    WHERE m.chat_id = ANY (visible.allowed_chats());
 
 -- Reschedules, room changes and cancellations found in chat messages (changes.py). Only approved ones reach the
 -- calendar feed. The worker reads new messages from a Redis stream, so history is never scanned.
