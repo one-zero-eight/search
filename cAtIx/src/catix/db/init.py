@@ -4,6 +4,8 @@
     catix-db migrate   # copy chats, members and messages from the old SQLite file; drop its extracted events
     catix-db status    # per chat: messages, vectors, messages waiting for a vector
     catix-db migrate-chat OLD NEW   # a basic group became a supergroup: move its messages and vectors to the new id
+    catix-db refilter [all]   # usefulness filter: score messages that have no score (all = rescore everything), apply FILTER_MIN_SCORE
+    catix-db filtered [N]     # what the filter removed and what it barely kept (N of each, default 15), to judge the threshold
 """
 
 import argparse
@@ -15,7 +17,8 @@ from psycopg import sql
 
 from catix.db import pg
 from catix.db import store
-from catix.db.rows import ChatStatus
+from catix.db.rows import ChatStatus, ScoreTodo
+from catix.ingest import usefulness
 from catix.settings import settings
 
 SCHEMA = Path(__file__).resolve().parents[3] / "db" / "schema.sql"
@@ -41,6 +44,71 @@ def init() -> None:
         conn.execute(sql.SQL(SCHEMA.read_text(encoding="utf-8").replace("__TZ__", settings.timezone)))  # type: ignore[arg-type]  # a file, not user input
         queued = pg.scalar(conn, "SELECT count(*) FROM embedding_queue")
     print(f"schema applied; {queued} messages waiting for a vector")
+
+
+def refilter(args: list[str]) -> None:
+    """Score messages (those without a score, or all) with the usefulness model and apply the threshold.
+
+    Newly filtered messages lose their vector; newly kept ones are queued for one. Safe to repeat and to change
+    FILTER_MIN_SCORE between runs: stored scores are reused, only the verdict is recomputed.
+    """
+    if not usefulness.enabled():
+        raise SystemExit("Set FILTER_ROUTE in .env (llama.cpp serving a Kev model, e.g. http://localhost:8083/v1).")
+    everything = bool(args) and args[0] == "all"
+    with pg.connection() as conn:
+        todo = pg.rows(
+            conn, ScoreTodo, "SELECT id, text FROM messages" + ("" if everything else " WHERE usefulness IS NULL") + " ORDER BY id"
+        )
+    print(f"scoring {len(todo)} messages")
+    scored = 0
+    for start in range(0, len(todo), 200):
+        chunk = todo[start : start + 200]
+        values = usefulness.score_all([m.text for m in chunk])
+        with pg.connection() as conn, conn.cursor() as cur:
+            cur.executemany("UPDATE messages SET usefulness = %s WHERE id = %s", [(v, m.id) for m, v in zip(chunk, values) if v is not None])
+        scored += sum(v is not None for v in values)
+        print(f"  {start + len(chunk)}/{len(todo)}", end="\r", flush=True)
+    if todo:
+        print(f"\nscored {scored}, the model did not answer for {len(todo) - scored}")
+    threshold = settings.filter_min_score
+    with pg.connection() as conn, conn.cursor() as cur:
+        cur.execute(
+            """UPDATE messages SET filtered = (usefulness < %s)
+               WHERE usefulness IS NOT NULL AND filtered IS DISTINCT FROM (usefulness < %s) RETURNING id, filtered""",
+            (threshold, threshold),
+        )
+        changed = cur.fetchall()
+        newly_filtered = [r["id"] for r in changed if r["filtered"]]
+        newly_kept = [r["id"] for r in changed if not r["filtered"]]
+        # The trigger only watches text edits, so a changed verdict has to move vectors by hand.
+        cur.execute("DELETE FROM message_embeddings WHERE message_id = ANY(%s::bigint[])", (newly_filtered,))
+        cur.execute("DELETE FROM embedding_queue WHERE message_id = ANY(%s::bigint[])", (newly_filtered,))
+        cur.execute("INSERT INTO embedding_queue (message_id) SELECT unnest(%s::bigint[]) ON CONFLICT DO NOTHING", (newly_kept,))
+    print(f"threshold {threshold}: {len(newly_filtered)} newly filtered, {len(newly_kept)} newly kept")
+    _filter_summary()
+
+
+def _filter_summary() -> None:
+    with pg.connection() as conn:
+        row = conn.execute(
+            """SELECT count(*) AS total, count(*) FILTER (WHERE filtered) AS filtered,
+                      count(*) FILTER (WHERE usefulness IS NULL) AS unscored FROM messages"""
+        ).fetchone()
+    print(f"{row['total']} messages: {row['filtered']} filtered, {row['unscored']} not scored yet")
+
+
+def show_filtered(args: list[str]) -> None:
+    """The newest filtered messages and the lowest-scoring kept ones: judge by eye whether the threshold is right."""
+    limit = int(args[0]) if args else 15
+    _filter_summary()
+    with pg.connection() as conn:
+        for title, where, order in [
+            ("FILTERED (newest)", "filtered", "date DESC"),
+            ("KEPT, lowest scores (the closest call)", "NOT filtered AND usefulness IS NOT NULL", "usefulness ASC"),
+        ]:
+            print(f"\n== {title}")
+            for r in conn.execute(f"SELECT usefulness, text FROM messages WHERE {where} ORDER BY {order} LIMIT %s", (limit,)).fetchall():  # noqa: S608
+                print(f"  {r['usefulness']:.2f}  {r['text'][:100]!r}")
 
 
 def _ts(value: str | None) -> datetime | None:
@@ -129,12 +197,14 @@ def migrate_chat(args: list[str]) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(prog="catix-db", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("command", choices=["init", "migrate", "status", "migrate-chat"])
-    parser.add_argument("args", nargs="*", help="OLD_ID NEW_ID, for migrate-chat")
+    parser.add_argument("command", choices=["init", "migrate", "status", "migrate-chat", "refilter", "filtered"])
+    parser.add_argument("args", nargs="*", help="OLD_ID NEW_ID, for migrate-chat; `all` for refilter; N for filtered")
     parsed = parser.parse_args()
     try:
         if parsed.command == "migrate-chat":
             migrate_chat(parsed.args)
+        elif parsed.command in ("refilter", "filtered"):
+            {"refilter": refilter, "filtered": show_filtered}[parsed.command](parsed.args)
         else:
             {"init": init, "migrate": migrate, "status": status}[parsed.command]()
     finally:

@@ -122,3 +122,9 @@ class ChatStatus:
     queued: int
     neither: int
     newest: str | None
+
+
+@dataclass(frozen=True, slots=True)
+class ScoreTodo:
+    id: int
+    text: str
