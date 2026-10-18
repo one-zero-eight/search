@@ -108,6 +108,10 @@ class Settings(BaseSettings):
     embed_workers: int = Field(2, gt=0, description="Parallel embedding requests; ~2-4 saturates the GPU server.")
     embed_batch: int = Field(64, gt=0, description="Messages per embeddings request.")
 
+    # Messages that are certainly noise (a bare greeting, "+", emoji only, a word of three letters) are not stored at
+    # all (ingest/noise.py). Existing ones are removed with `catix-db prune-noise`.
+    drop_noise: bool = True
+
     # Messages that arrive while a write is running are written together, up to this many per transaction.
     ingest_max_batch: int = Field(500, gt=0)
 

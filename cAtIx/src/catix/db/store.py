@@ -14,6 +14,7 @@ from datetime import datetime
 from catix import userbot_config
 from catix.common import courses
 from catix.db import pg
+from catix.ingest import noise
 from catix.db.rows import ChatRow, MessageHit, SourceRow
 from catix.settings import settings
 
@@ -71,6 +72,8 @@ class ChatInfo:
 def write_batch(chats: Iterable[ChatInfo], messages: list[Message]) -> None:
     """Store chats and messages in one transaction. New or edited text is queued for embedding by a trigger."""
     latest = {c.chat_id: c for c in chats}
+    if noise.enabled():
+        messages = [m for m in messages if not noise.is_noise(m.text)]
     with pg.connection() as conn, conn.cursor() as cur:
         cur.executemany(
             """INSERT INTO chats (chat_id, title, username, bot_member, link) VALUES (%s, %s, %s, %s, %s)

@@ -4,6 +4,7 @@
     catix-db migrate   # copy chats and messages from the old SQLite file; drop its extracted events
     catix-db status    # per chat: messages, vectors, messages waiting for a vector
     catix-db migrate-chat OLD NEW   # a basic group became a supergroup: move its messages and vectors to the new id
+    catix-db prune-noise [yes]      # list the stored messages ingest/noise.py would not store now (yes = delete them)
 """
 
 import argparse
@@ -16,6 +17,7 @@ from psycopg import sql
 from catix.db import pg
 from catix.db import store
 from catix.db.rows import ChatStatus
+from catix.ingest import noise
 from catix.settings import settings
 
 SCHEMA = Path(__file__).resolve().parents[3] / "db" / "schema.sql"
@@ -41,6 +43,25 @@ def init() -> None:
         conn.execute(sql.SQL(SCHEMA.read_text(encoding="utf-8").replace("__TZ__", settings.timezone)))  # type: ignore[arg-type]  # a file, not user input
         queued = pg.scalar(conn, "SELECT count(*) FROM embedding_queue")
     print(f"schema applied; {queued} messages waiting for a vector")
+
+
+def prune_noise(args: list[str]) -> None:
+    """Find stored messages that ingest/noise.py rejects now; with `yes` delete them (their vectors go with them)."""
+    with pg.connection() as conn:
+        rows = conn.execute("SELECT id, text FROM messages").fetchall()
+    found = [r for r in rows if noise.is_noise(r["text"])]
+    print(f"{len(found)} of {len(rows)} messages are noise")
+    shown: dict[str, int] = {}
+    for r in found:  # Distinct texts with counts, most frequent first.
+        shown[r["text"].strip()] = shown.get(r["text"].strip(), 0) + 1
+    for text, count in sorted(shown.items(), key=lambda x: -x[1])[:40]:
+        print(f"  {count:>4} x {text[:80]!r}")
+    if args[:1] != ["yes"]:
+        print("nothing deleted; run `catix-db prune-noise yes` to delete them")
+        return
+    with pg.connection() as conn:
+        deleted = conn.execute("DELETE FROM messages WHERE id = ANY(%s::bigint[])", ([r["id"] for r in found],)).rowcount
+    print(f"deleted {deleted} messages with their vectors")
 
 
 def _ts(value: str | None) -> datetime | None:
@@ -126,12 +147,14 @@ def migrate_chat(args: list[str]) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(prog="catix-db", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("command", choices=["init", "migrate", "status", "migrate-chat"])
-    parser.add_argument("args", nargs="*", help="OLD_ID NEW_ID, for migrate-chat")
+    parser.add_argument("command", choices=["init", "migrate", "status", "migrate-chat", "prune-noise"])
+    parser.add_argument("args", nargs="*", help="OLD_ID NEW_ID, for migrate-chat; `yes` for prune-noise")
     parsed = parser.parse_args()
     try:
         if parsed.command == "migrate-chat":
             migrate_chat(parsed.args)
+        elif parsed.command == "prune-noise":
+            prune_noise(parsed.args)
         else:
             {"init": init, "migrate": migrate, "status": status}[parsed.command]()
     finally:
