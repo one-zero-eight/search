@@ -161,17 +161,50 @@ async def _run_agent(
     user_id: int | None,
     streamer: stream.DraftStreamer | None,
     brief: bool = False,
-) -> str:
-    """Ask the agent; it may use the chats of the asker's study group (found by Telegram id)."""
+) -> tuple[str, str | None]:
+    """Ask the agent; it may use the chats of the asker's study group (found by Telegram id).
+    Returns the answer and the Langfuse trace it was made in (for the 👍/👎 under it)."""
     allowed = await asyncio.to_thread(groups.scoped_chat_ids, f"tg:{user_id or 0}", user_id)
+    config = tracing.run_config(thread_id, str(user_id) if user_id else None)
     messages = await stream.run(
         agent,
         {"messages": [{"role": "user", "content": question}]},
-        tracing.run_config(thread_id, str(user_id) if user_id else None),
+        config,
         AgentContext(allowed_chat_ids=None if allowed is None else frozenset(allowed), user_telegram_id=user_id, brief=brief),
         streamer,
     )
-    return final_answer(messages) or "Не получилось сформулировать ответ."
+    return final_answer(messages) or "Не получилось сформулировать ответ.", tracing.trace_id(config)
+
+
+def _feedback_keyboard(trace: str | None, chosen: bool | None = None) -> InlineKeyboardMarkup | None:
+    """👍/👎 under an answer; they score the trace in Langfuse. After a vote only the chosen one is shown."""
+    if not trace:
+        return None
+    if chosen is not None:
+        return InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text=f"Оценка: {'👍' if chosen else '👎'}", callback_data="fb:done")]])
+    return InlineKeyboardMarkup(
+        inline_keyboard=[[InlineKeyboardButton(text="👍", callback_data=f"fb:1:{trace}"), InlineKeyboardButton(text="👎", callback_data=f"fb:0:{trace}")]]
+    )
+
+
+@router.callback_query(F.data.startswith("fb:"))
+async def feedback(query: CallbackQuery, bot: Bot) -> None:
+    parts = query.data.split(":")
+    if parts[1] == "done":
+        await query.answer("Спасибо за оценку")
+        return
+    good, trace = parts[1] == "1", parts[2]
+    try:
+        await asyncio.to_thread(tracing.score_feedback, trace, query.from_user.id, good)
+    except Exception:  # noqa: BLE001 - a vote must never break the bot
+        log.exception("could not save the feedback")
+    await query.answer("Спасибо!" if good else "Спасибо, разберём")
+    markup = _feedback_keyboard(trace, good)
+    with contextlib.suppress(TelegramAPIError):
+        if query.inline_message_id:
+            await bot.edit_message_reply_markup(inline_message_id=query.inline_message_id, reply_markup=markup)
+        elif query.message:
+            await query.message.edit_reply_markup(reply_markup=markup)
 
 
 async def _reply(message: Message, question: str) -> None:
@@ -197,18 +230,20 @@ async def _answer(message: Message, question: str) -> None:
                 if message.chat.type == ChatType.PRIVATE
                 else None
             )
-            answer = await _run_agent(question, thread_id, message.from_user.id if message.from_user else None, streamer)
+            answer, trace = await _run_agent(question, thread_id, message.from_user.id if message.from_user else None, streamer)
             log.info("answered in %.1fs, %d chars", time.monotonic() - started, len(answer))
         except Exception:
             log.exception("agent failed")
-            answer = "Не получилось ответить: ошибка на стороне ассистента. Попробуйте ещё раз позже."
+            answer, trace = "Не получилось ответить: ошибка на стороне ассистента. Попробуйте ещё раз позже.", None
 
-    for chunk in _chunks(answer, 4096):
+    parts = _chunks(answer, 4096)
+    for i, chunk in enumerate(parts):
+        keyboard = _feedback_keyboard(trace) if i == len(parts) - 1 else None  # Under the last piece.
         try:
-            await message.reply(_to_html(chunk), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+            await message.reply(_to_html(chunk), parse_mode=ParseMode.HTML, disable_web_page_preview=True, reply_markup=keyboard)
         except TelegramBadRequest:
             # Converter produced HTML Telegram does not accept: fall back to plain text.
-            await message.reply(chunk, disable_web_page_preview=True)
+            await message.reply(chunk, disable_web_page_preview=True, reply_markup=keyboard)
 
 
 @router.message(CommandStart())
@@ -303,24 +338,26 @@ INLINE_WAIT = 8.0  # Seconds the query may wait for the agent.
 INLINE_KEEP = 600  # Seconds an unclaimed answer is kept.
 
 _inline_latest: dict[int, str] = {}  # user id -> id of their newest inline query
-_inline_tasks: dict[tuple[int, str], tuple[float, asyncio.Task[str]]] = {}
+_inline_tasks: dict[tuple[int, str], tuple[float, asyncio.Task[tuple[str, str | None]]]] = {}
 
 
-async def _inline_answer(user_id: int, question: str) -> str:
+async def _inline_answer(user_id: int, question: str) -> tuple[str, str | None]:
+    """The answer and its Langfuse trace."""
     log.info("inline question from %s: %s", user_id, question[:200])
     # Every inline question starts fresh: its own thread, dropped when the answer is ready.
     thread_id = f"tg:inline:{user_id}:{uuid.uuid4().hex}"
     try:
         # One answer per message, an inline message cannot be followed by more.
-        return _chunks(await _run_agent(question, thread_id, user_id, None, brief=True), 3500)[0]
+        answer, trace = await _run_agent(question, thread_id, user_id, None, brief=True)
+        return _chunks(answer, 3500)[0], trace
     except Exception:
         log.exception("inline agent failed")
-        return "Не получилось ответить: ошибка на стороне ассистента. Попробуйте ещё раз позже."
+        return "Не получилось ответить: ошибка на стороне ассистента. Попробуйте ещё раз позже.", None
     finally:
         agent.checkpointer.delete_thread(thread_id)
 
 
-def _inline_task(user_id: int, question: str) -> asyncio.Task[str]:
+def _inline_task(user_id: int, question: str) -> asyncio.Task[tuple[str, str | None]]:
     """The running or finished answer to this question; asking again while it works does not start another run."""
     now = time.monotonic()
     for key in [k for k, (started, _) in _inline_tasks.items() if now - started > INLINE_KEEP]:
@@ -355,12 +392,13 @@ async def inline_query(query: InlineQuery) -> None:
     task = _inline_task(query.from_user.id, question)
     await asyncio.wait({task}, timeout=INLINE_WAIT)
     if task.done():
-        answer = task.result()
+        answer, trace = task.result()
         result = InlineQueryResultArticle(
             id=f"ans:{uuid.uuid4().hex}",
             title=answer.split("\n", 1)[0][:100] or "Ответ",
             description=answer[:200],
             input_message_content=_inline_text(question, answer),
+            reply_markup=_feedback_keyboard(trace),
         )
     else:
         result = InlineQueryResultArticle(
@@ -382,12 +420,16 @@ async def inline_chosen(chosen: ChosenInlineResult, bot: Bot) -> None:
     if not chosen.inline_message_id:
         return
     question = chosen.query.strip()
-    answer = await _inline_task(chosen.from_user.id, question)
+    answer, trace = await _inline_task(chosen.from_user.id, question)
     text = _inline_text(question, answer)
+    keyboard = _feedback_keyboard(trace)  # Replaces the "searching" button.
     try:
-        await bot.edit_message_text(text.message_text, inline_message_id=chosen.inline_message_id, parse_mode=ParseMode.HTML, link_preview_options=text.link_preview_options)
+        await bot.edit_message_text(
+            text.message_text, inline_message_id=chosen.inline_message_id, parse_mode=ParseMode.HTML,
+            link_preview_options=text.link_preview_options, reply_markup=keyboard,
+        )
     except TelegramBadRequest:
-        await bot.edit_message_text(f"❓ {question}\n\n{answer}", inline_message_id=chosen.inline_message_id)
+        await bot.edit_message_text(f"❓ {question}\n\n{answer}", inline_message_id=chosen.inline_message_id, reply_markup=keyboard)
 
 
 @router.callback_query(F.data == "inline:wait")

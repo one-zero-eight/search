@@ -1,4 +1,6 @@
-"""Langfuse tracing: `run_config` is the config for every agent call; without keys it is just the thread id."""
+"""Langfuse tracing: `run_config` is the config for every agent call; without keys it is just the thread id.
+
+The users' 👍/👎 on an answer are written as a score on the same trace (`trace_id`, `score_feedback`)."""
 
 import logging
 
@@ -45,3 +47,31 @@ def flush() -> None:
         from langfuse import get_client
 
         get_client().flush()
+
+
+def enabled() -> bool:
+    return _enabled
+
+
+def trace_id(config: dict) -> str | None:
+    """The Langfuse trace of a finished run made with `config` (None when tracing is off)."""
+    for handler in config.get("callbacks", []):
+        if getattr(handler, "last_trace_id", None):
+            return handler.last_trace_id
+    return None
+
+
+def score_feedback(trace: str, user_id: int, good: bool) -> None:
+    """A user's thumbs up (1) or down (0) on the answer of `trace`; the same user changing their mind replaces it."""
+    if not _enabled:
+        return
+    from langfuse import get_client
+
+    get_client().create_score(
+        name="user-feedback",
+        value=1.0 if good else 0.0,
+        trace_id=trace,
+        score_id=f"{trace}-{user_id}",
+        data_type="NUMERIC",
+        comment="👍" if good else "👎",
+    )
