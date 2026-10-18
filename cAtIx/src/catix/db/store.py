@@ -75,6 +75,7 @@ def write_batch(chats: Iterable[ChatInfo], messages: list[Message]) -> None:
     if noise.enabled():
         messages = [m for m in messages if not noise.is_noise(m.text)]
     with pg.connection() as conn, conn.cursor() as cur:
+        messages = _drop_copies(cur, messages)
         cur.executemany(
             """INSERT INTO chats (chat_id, title, username, bot_member, link) VALUES (%s, %s, %s, %s, %s)
                ON CONFLICT (chat_id) DO UPDATE SET
@@ -95,6 +96,28 @@ def write_batch(chats: Iterable[ChatInfo], messages: list[Message]) -> None:
                 for m in messages
             ],
         )
+
+
+def _drop_copies(cur, messages: list[Message]) -> list[Message]:
+    """Leave out a message that is already stored under another id.
+
+    In a basic group the Bot API bot and the userbot's account number the same message differently, so a chat both of
+    them are in would store everything twice (and send the admins two cards for one announcement). The same chat,
+    author, second and text is the same message.
+    """
+    if not messages:
+        return messages
+    cur.execute(
+        "SELECT chat_id, sender_id, date, text, msg_id FROM messages WHERE chat_id = ANY(%s::bigint[]) AND date = ANY(%s::timestamptz[])",
+        (list({m.chat_id for m in messages}), list({m.date for m in messages})),
+    )
+    stored = {(r["chat_id"], r["sender_id"], r["date"], r["text"]): r["msg_id"] for r in cur.fetchall()}
+    kept = []
+    for m in messages:
+        other = stored.get((m.chat_id, m.sender_id, m.date, m.text))
+        if other is None or other == m.msg_id:
+            kept.append(m)
+    return kept
 
 
 def migrate_chat(old_id: int, new_id: int) -> dict[str, int]:
