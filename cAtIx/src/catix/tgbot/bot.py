@@ -24,6 +24,8 @@ from aiogram.enums import ChatType, ParseMode
 from aiogram.exceptions import TelegramAPIError, TelegramBadRequest
 from aiogram.filters import Command, CommandObject, CommandStart
 from aiogram.types import (
+    BotCommand,
+    BotCommandScopeChat,
     CallbackQuery,
     ChosenInlineResult,
     InlineKeyboardButton,
@@ -402,6 +404,30 @@ async def decide_change(query: CallbackQuery) -> None:
         await query.message.edit_text(f"{query.message.html_text}\n\n{verdict}", parse_mode=ParseMode.HTML, reply_markup=None, disable_web_page_preview=True)
 
 
+COMMANDS = [
+    BotCommand(command="start", description="Что я умею"),
+    BotCommand(command="ask", description="Задать вопрос (в группе)"),
+    BotCommand(command="mygroup", description="Моя учебная группа"),
+    BotCommand(command="id", description="ID чата и топика"),
+]
+ADMIN_COMMANDS = [*COMMANDS, BotCommand(command="listen", description="Чаты для прослушки и учебные группы")]
+
+
+async def set_commands(bot: Bot) -> None:
+    """The command menu in Telegram: the same for everybody, plus /listen for the admins (in their private chats)."""
+    await bot.set_my_commands(COMMANDS)
+    try:
+        admin_ids = await asyncio.to_thread(changes.admins)
+    except Exception:  # noqa: BLE001 - the menu is a convenience, the bot must start without it
+        log.warning("could not look up the admins, /listen is not in their menu", exc_info=True)
+        return
+    for admin_id in admin_ids:
+        try:
+            await bot.set_my_commands(ADMIN_COMMANDS, scope=BotCommandScopeChat(chat_id=admin_id))
+        except TelegramAPIError as e:
+            log.warning("menu for admin %s not set (they have not started the bot yet?): %s", admin_id, e)
+
+
 async def run() -> None:
     if not settings.tg_bot_token:
         sys.exit("Set TG_BOT_TOKEN in .env (create a bot with @BotFather).")
@@ -411,6 +437,7 @@ async def run() -> None:
     dp.include_router(router)
     me = await bot.me()
     log.info("Running as @%s", me.username)
+    await set_commands(bot)
     tracing.log_status()
     await asyncio.to_thread(sqlquery.reset_context)  # Rows left behind by a crash.
     writing = asyncio.create_task(writer.run())
