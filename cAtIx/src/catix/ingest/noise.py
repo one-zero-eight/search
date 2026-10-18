@@ -3,9 +3,11 @@
 Only what is certainly noise is dropped, so that nothing useful is lost without a model to judge it:
 - no letters or digits at all: "+", "👍", "😂😂😂", "!!!";
 - a few letters and no digit: "ок", "да", "ага", "хм" (a digit keeps "108" or "5 нояб": a room, a date);
+- a picture, sticker, GIF, video or voice message without a caption (the text is just "[file: sticker.webp]");
+  documents keep their names, "exam_2025.pdf" is worth finding;
 - nothing but a greeting and words of address: "Привет", "Всем привет!", "Доброе утро, ребята", "Hi guys",
   "Good morning everyone". A greeting followed by anything else ("Hi guys! Reminder: test today") is kept.
-Messages with a link or a file name are kept: they carry more than the greeting.
+Messages with a link or a document name are kept: they carry more than the greeting.
 """
 
 import re
@@ -29,12 +31,18 @@ _ADDRESS_WORDS = {
     "студенты", "все", "и", "а", "ну", "всеми", "everyone", "everybody", "all", "guys", "folks", "friends", "team",
     "there", "dear", "students", "and", "again", "снова", "опять", "еще", "всё",
 }
+# The text of a message that is only a media file (see userbot.py: "[file: <name>]" is all a captionless one has).
+_MEDIA_ONLY = re.compile(
+    r"\[file: [^\]]*\.(?:jpe?g|png|gif|webp|webm|mp4|mov|mkv|avi|m4v|mp3|ogg|oga|opus|m4a|wav|tgs|heic)\]", re.I
+)
 _URL = re.compile(r"https?://|www\.|t\.me/", re.I)
 _WORD = re.compile(r"[^\W_]+")
 
 
 def is_noise(text: str) -> bool:
     """True for text that is certainly not worth storing."""
+    if _MEDIA_ONLY.fullmatch(text.strip()):
+        return True
     if "[file:" in text or _URL.search(text):
         return False
     folded = text.casefold().replace("ё", "е")

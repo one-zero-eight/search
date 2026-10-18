@@ -5,6 +5,7 @@
     catix-db status    # per chat: messages, vectors, messages waiting for a vector
     catix-db migrate-chat OLD NEW   # a basic group became a supergroup: move its messages and vectors to the new id
     catix-db prune-noise [yes]      # list the stored messages ingest/noise.py would not store now (yes = delete them)
+    catix-db dedupe [yes]           # per chat keep only the newest of messages with the same text (yes = delete the rest)
 """
 
 import argparse
@@ -58,6 +59,44 @@ def prune_noise(args: list[str]) -> None:
         print(f"  {count:>4} x {text[:80]!r}")
     if args[:1] != ["yes"]:
         print("nothing deleted; run `catix-db prune-noise yes` to delete them")
+        return
+    with pg.connection() as conn:
+        deleted = conn.execute("DELETE FROM messages WHERE id = ANY(%s::bigint[])", ([r["id"] for r in found],)).rowcount
+    print(f"deleted {deleted} messages with their vectors")
+
+
+DUPLICATES = """
+    WITH ranked AS (
+        SELECT id, chat_id, text, date,
+               row_number() OVER (PARTITION BY chat_id, lower(btrim(regexp_replace(text, '\\s+', ' ', 'g'))) ORDER BY date DESC, id DESC) AS rn,
+               count(*) OVER (PARTITION BY chat_id, lower(btrim(regexp_replace(text, '\\s+', ' ', 'g')))) AS copies
+        FROM messages
+    )
+    SELECT r.id, r.chat_id, r.text, r.copies
+    FROM ranked r
+    WHERE r.rn > 1
+      -- A message a schedule change was found in stays: deleting it would delete the change, approved or not.
+      AND NOT EXISTS (SELECT 1 FROM schedule_changes s WHERE s.message_id = r.id)
+"""
+
+
+def dedupe(args: list[str]) -> None:
+    """Per chat, keep the newest of the messages with the same text (case and spacing ignored) and delete the older.
+
+    The same text in different chats is kept: each chat belongs to a study group, and a group must find it in its own.
+    """
+    with pg.connection() as conn:
+        found = conn.execute(DUPLICATES).fetchall()
+        total = pg.scalar(conn, "SELECT count(*) FROM messages")
+    print(f"{len(found)} of {total} messages are older copies of a message in the same chat")
+    texts: dict[str, list[int]] = {}
+    for r in found:
+        key = r["text"].strip()
+        texts.setdefault(key, [r["copies"], 0])[1] += 1
+    for text, (copies, removed) in sorted(texts.items(), key=lambda x: -x[1][1])[:25]:
+        print(f"  {copies:>4} copies, {removed:>4} removed: {text[:80]!r}")
+    if args[:1] != ["yes"]:
+        print("nothing deleted; run `catix-db dedupe yes` to delete them")
         return
     with pg.connection() as conn:
         deleted = conn.execute("DELETE FROM messages WHERE id = ANY(%s::bigint[])", ([r["id"] for r in found],)).rowcount
@@ -147,14 +186,16 @@ def migrate_chat(args: list[str]) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(prog="catix-db", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("command", choices=["init", "migrate", "status", "migrate-chat", "prune-noise"])
-    parser.add_argument("args", nargs="*", help="OLD_ID NEW_ID, for migrate-chat; `yes` for prune-noise")
+    parser.add_argument("command", choices=["init", "migrate", "status", "migrate-chat", "prune-noise", "dedupe"])
+    parser.add_argument("args", nargs="*", help="OLD_ID NEW_ID, for migrate-chat; `yes` for prune-noise and dedupe")
     parsed = parser.parse_args()
     try:
         if parsed.command == "migrate-chat":
             migrate_chat(parsed.args)
         elif parsed.command == "prune-noise":
             prune_noise(parsed.args)
+        elif parsed.command == "dedupe":
+            dedupe(parsed.args)
         else:
             {"init": init, "migrate": migrate, "status": status}[parsed.command]()
     finally:
