@@ -87,10 +87,11 @@ def _list_screen(user_id: int) -> tuple[str, Keyboard]:
     PAGE[user_id] = page
     shown = dialogs[page * PAGE_SIZE : (page + 1) * PAGE_SIZE]
     codes = _groups_of([d.chat_id for d in shown])
+    readers = userbot_config.readers()
     rows: Keyboard = []
     for d in shown:
         code = codes.get(d.chat_id, groups.ALL)
-        label = f"{'✅' if d.chat_id in chosen else '⬜'} {_short(d.title)}{' 🧵' if d.forum else ''}{' 🤖' if d.bot_in else ''}{'' if code == groups.ALL else ' · ' + code}"
+        label = f"{'✅' if d.chat_id in chosen else '⬜'} {_short(d.title)}{' 🧵' if d.forum else ''}{' 🤖' if d.bot_in else ''}{' 🔎' if readers.get(d.chat_id) == 'search' else ''}{'' if code == groups.ALL else ' · ' + code}"
         rows.append([_button(label, f"ls:c:{d.chat_id}")])
     nav = []
     if page > 0:
@@ -102,13 +103,15 @@ def _list_screen(user_id: int) -> tuple[str, Keyboard]:
     rows.append([_button("🔄 Обновить список", "ls:r")])
     text = (
         f"<b>Чаты userbot</b>: слушаю {len(chosen)} из {len(dialogs)}.\n"
-        "✅ — слушаю, 🧵 — форум с топиками, 🤖 — в чате есть бот, после · — учебная группа чата. "
+        "✅ — слушаю, 🧵 — форум с топиками, 🤖 — в чате есть бот, 🔎 — только поиск Telegram (не хранится), после · — учебная группа чата. "
         "Нажмите на чат, чтобы настроить."
     )
     return text, rows
 
 
 def _reader_line(dialog: userbot_config.Dialog, choice: str) -> str:
+    if choice == "search":
+        return "Только поиск Telegram: сообщения не сохраняются, userbot ищет в чате по запросу пользователя"
     if dialog.bot_only:
         return "Читает: бот (сообщения с момента добавления, истории нет)"
     if not dialog.bot_in:
@@ -131,12 +134,16 @@ def _chat_screen(chat_id: int) -> tuple[str, Keyboard]:
         f"Слушаю: {'да' if on else 'нет'}",
     ]
     rows: Keyboard = [[_button("🔕 Перестать слушать" if on else "🔔 Слушать", f"ls:o:{chat_id}")]]
-    if on and dialog.bot_in and not dialog.bot_only:  # Both can read it: one of them must (two copies of everything otherwise).
+    if on and not dialog.bot_only:
         current = userbot_config.readers().get(chat_id, "auto")
-        rows.append([
-            _button(f"{'✅ ' if current == code else ''}{name}", f"ls:w:{chat_id}:{code}")
-            for code, name in (("auto", "Авто"), ("userbot", "👤 userbot"), ("bot", "🤖 бот"))
-        ])
+        # With the bot in the chat as well exactly one of them must read it (two copies of everything otherwise); a huge
+        # chat can be left unstored and searched live in Telegram instead.
+        options = (
+            (("auto", "Авто"), ("userbot", "👤 userbot"), ("bot", "🤖 бот"), ("search", "🔎 Поиск"))
+            if dialog.bot_in
+            else (("auto", "💾 Хранить"), ("search", "🔎 Только поиск"))
+        )
+        rows.append([_button(f"{'✅ ' if current == code else ''}{name}", f"ls:w:{chat_id}:{code}") for code, name in options])
     if dialog.forum and not dialog.bot_only:  # The Bot API gives no list of topics.
         selected = chosen.get(chat_id)
         total = len(userbot_config.topics(chat_id))
@@ -250,7 +257,12 @@ async def listen_callback(query: CallbackQuery) -> None:
             chat_id, code = int(args[0]), args[1]
             if code in userbot_config.READERS:
                 await asyncio.to_thread(userbot_config.set_reader, chat_id, code)
-                notice = {"auto": "Читает userbot, если он в чате", "userbot": "Читает userbot", "bot": "Читает бот"}[code]
+                notice = {
+                    "auto": "Читает userbot, если он в чате",
+                    "userbot": "Читает userbot",
+                    "bot": "Читает бот",
+                    "search": "Только поиск Telegram: новые сообщения не сохраняются (уже сохранённые можно очистить)",
+                }[code]
             screen = await asyncio.to_thread(_chat_screen, chat_id)
         case "cl":
             screen = await asyncio.to_thread(_clear_screen, int(args[0]))

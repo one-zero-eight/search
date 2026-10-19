@@ -45,7 +45,11 @@ CREATE TABLE IF NOT EXISTS userbot_listen (
 );
 -- Who stores a listened chat when both the userbot's account and the Bot API bot are in it ('auto' = the userbot, it has the
 -- history; 'bot' / 'userbot' force one): both would store everything twice, a basic group even under different ids.
-ALTER TABLE userbot_listen ADD COLUMN IF NOT EXISTS reader text NOT NULL DEFAULT 'auto' CHECK (reader IN ('auto', 'userbot', 'bot'));
+ALTER TABLE userbot_listen ADD COLUMN IF NOT EXISTS reader text NOT NULL DEFAULT 'auto';
+-- 'search': nobody stores the chat; the userbot searches it live with Telegram's own search when a question needs it
+-- (a huge chat that is not worth indexing).
+ALTER TABLE userbot_listen DROP CONSTRAINT IF EXISTS userbot_listen_reader_check;
+ALTER TABLE userbot_listen ADD CONSTRAINT userbot_listen_reader_check CHECK (reader IN ('auto', 'userbot', 'bot', 'search'));
 -- 'seeded' (TG_CHATS / TG_TOPICS from .env were copied once), 'refresh_requested' (unix time, set by the bot).
 CREATE TABLE IF NOT EXISTS userbot_meta (
     key   text PRIMARY KEY,

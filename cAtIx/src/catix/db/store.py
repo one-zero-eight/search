@@ -359,9 +359,13 @@ def search(
     date_from: str | None = None,
     date_to: str | None = None,
     limit: int = 15,
+    original: str | None = None,
 ) -> list[MessageHit]:
     """Hybrid search from one or several angles: BM25 on the words plus vector similarity for each query, all
     rankings merged by reciprocal rank fusion, so a message found by several angles rises to the top.
+
+    `original` is the user's own question: it is searched as one more angle and counts double, so that the model's
+    rewordings do not pull the result away from the words the user used.
 
     `chat_ids` restricts the search to chats the asker may see (None = all).
     """
@@ -370,6 +374,11 @@ def search(
     # Drop empty and repeated queries (the model often repeats itself); embed everything in one request.
     queries = list(dict.fromkeys(q.strip() for q in queries if q.strip()))[:MAX_QUERIES]
     queries = [q for q in queries if _words(q)]
+    original = (original or "").strip()
+    if original and _words(original):
+        queries = [original, *[q for q in queries if q != original]]  # Not counted in MAX_QUERIES.
+    else:
+        original = ""
     if not queries:
         return []
     ids = _resolve_chats(chat, chat_ids)
@@ -387,6 +396,8 @@ def search(
                 )
             )
         per_query = [_rrf(*[job.result() for job in pair if job]) for pair in jobs]
+    if original:  # The first query is the original: its scores count twice.
+        per_query[0] = {item: 2 * value for item, value in per_query[0].items()}
     reranking = settings.reranker_route is not None
     fused = _combine(per_query, max(limit, settings.rerank_candidates) if reranking else limit)
     if not fused:

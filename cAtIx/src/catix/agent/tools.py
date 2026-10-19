@@ -6,6 +6,7 @@ kept compact because they go straight into the model context.
 
 import json
 import re
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 from typing import Literal
@@ -21,7 +22,7 @@ from catix.common import dates
 from catix.innohassle import client as innohassle
 from catix.agent.sources import Collector
 from catix.agent import sqlquery
-from catix.db import store
+from catix.db import pg, store
 from catix.settings import settings
 
 MAX_CLUBS = 10
@@ -263,14 +264,20 @@ def search_chats(
     reschedules, campus news, tips. Give several queries from different angles in ONE call: messages found by
     several of them rank first. Unofficial source: messages may be outdated, jokes or contradict each other.
     Results are ranked by relevance only, not by date: read the dates and prefer the latest information."""
+    allowed = runtime.context.allowed_chat_ids if runtime.context else None
+    live_pool = ThreadPoolExecutor(max_workers=1)
+    live = live_pool.submit(_live_hits, queries, chat, allowed, date_from, date_to)  # Meanwhile the database is searched.
     rows = store.search(
         queries,
         chat=chat,
-        chat_ids=runtime.context.allowed_chat_ids if runtime.context else None,
+        chat_ids=allowed,
         date_from=date_from and date_from.isoformat(),
         date_to=date_to and date_to.isoformat(),
         limit=MAX_MESSAGES if settings.reranker_route is None else MAX_MESSAGES_RERANKED,
+        original=_question(runtime),
     )
+    live_hits, live_problem = live.result()
+    live_pool.shutdown(wait=False)
     collector = Collector(runtime)
     messages = []
     now = datetime.now(settings.tz)
@@ -290,7 +297,50 @@ def search_chats(
         if row.parent_text:
             item["in_reply_to"] = f"{row.parent_sender}: {row.parent_text[:200]}"
         messages.append(item)
-    return collector.result({"total": len(messages), "messages": messages}, "search_chats")
+    stored = {(row.chat_id, row.msg_id) for row in rows}
+    for hit in live_hits:  # Chats that are not stored, searched in Telegram just now.
+        if (hit.chat_id, hit.msg_id) in stored:
+            continue  # Already above, from the database.
+        item = {
+            "ref": collector.add_live(
+                hit.chat_id, hit.msg_id, chat_title=hit.chat_title, link=hit.link, date=hit.date, author=hit.author, sender_link=hit.sender_link
+            ),
+            "chat": hit.chat_title,
+            "date": _fmt(hit.date),
+            "from": hit.author,
+            "text": hit.text[:600],
+        }
+        if settings.annotate_dates and (resolved := dates.resolve(hit.text, hit.date, now)):
+            item["dates_in_text"] = resolved
+        messages.append(item)
+    result = {"total": len(messages), "messages": messages}
+    if live_problem:
+        result["live_search_note"] = f"Chats searched live in Telegram gave no usable answer: {live_problem}."
+    return collector.result(result, "search_chats")
+
+
+def _question(runtime: ToolRuntime[AgentContext]) -> str | None:
+    """The user's own question (the last message of theirs), searched as one more angle with double weight."""
+    for message in reversed(runtime.state.get("messages", [])):
+        if getattr(message, "type", "") == "human":
+            return str(message.content)[:300]
+    return None
+
+
+def _live_hits(queries: list[str], chat: str | None, allowed, date_from: date | None, date_to: date | None):
+    """Telegram's search in the chats set to live search that this asker may use (and `chat` names); (hits, problem)."""
+    from catix import live_search, userbot_config
+
+    ids = userbot_config.live_chats()
+    if allowed is not None:
+        ids &= set(allowed)
+    if ids and chat:
+        with pg.connection() as conn:
+            named = pg.column(conn, "SELECT chat_id FROM chats WHERE title ILIKE %s OR username = %s", (f"%{chat}%", chat.lstrip("@")))
+        ids &= set(named)
+    if not ids:
+        return [], None
+    return live_search.search(queries, sorted(ids), date_from and date_from.isoformat(), date_to and date_to.isoformat())
 
 
 MAX_CLASSES = 40

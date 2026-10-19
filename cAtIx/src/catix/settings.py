@@ -123,6 +123,13 @@ class Settings(BaseSettings):
     alert_check_seconds: int = Field(60, gt=0)
     alert_queue_max: int = Field(500, gt=0)
 
+    # Live search in Telegram (live_search.py): chats set to "only search" in /listen are not stored; the userbot searches
+    # them with Telegram's own search when a question needs it, `live_search_per_chat` hits per keyword and chat, the best
+    # `live_search_results` of them go to the model. The request waits `live_search_timeout` seconds for the userbot.
+    live_search_per_chat: int = Field(15, gt=0)
+    live_search_results: int = Field(4, gt=0)
+    live_search_timeout: float = Field(10.0, gt=0)
+
     # Messages that are certainly noise (a bare greeting, "+", emoji only, a word of three letters) are not stored at
     # all (ingest/noise.py). Existing ones are removed with `catix-db prune-noise`.
     drop_noise: bool = True

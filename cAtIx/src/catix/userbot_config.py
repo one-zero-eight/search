@@ -96,7 +96,7 @@ def replace_topics(chat_id: int, found: list[Topic]) -> None:
 # ---- what is listened to ------------------------------------------------------------------------------------
 
 
-READERS = ("auto", "userbot", "bot")
+READERS = ("auto", "userbot", "bot", "search")
 
 
 def _rows() -> dict[int, tuple[list[int] | None, str]]:
@@ -124,13 +124,19 @@ def set_reader(chat_id: int, reader: str) -> None:
 
 def effective_reader(reader: str, userbot_has_chat: bool) -> str:
     """Who really stores a chat: `auto` is the userbot when its account is in the chat (it has the history), else the bot."""
-    return ("userbot" if userbot_has_chat else "bot") if reader == "auto" else reader
+    return ("userbot" if userbot_has_chat else "bot") if reader == "auto" else reader  # `search` stays: nobody stores it
 
 
 def userbot_reads() -> dict[int, list[int] | None]:
     """The chats the userbot stores, with their topics: chosen, its account is in them, and not given to the bot."""
     mine = userbot_chat_ids()
-    return {c: topics for c, (topics, reader) in _rows().items() if c in mine and reader != "bot"}
+    return {c: topics for c, (topics, reader) in _rows().items() if c in mine and reader in ("auto", "userbot")}
+
+
+def live_chats() -> set[int]:
+    """The chats that are searched live with Telegram's search (reader `search`) and that the userbot's account is in."""
+    mine = userbot_chat_ids()
+    return {c for c, (_, reader) in _rows().items() if reader == "search" and c in mine}
 
 
 def set_listen(chat_id: int, on: bool) -> None:

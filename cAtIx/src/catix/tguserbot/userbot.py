@@ -13,16 +13,18 @@ TG_CHATS and TG_TOPICS from .env are only the starting list: they are copied onc
 
 import argparse
 import asyncio
+import json
 import sys
 import time
 from datetime import datetime, timedelta, timezone
 
+import redis.asyncio as aioredis
 from telethon import TelegramClient, errors, events, utils
 from telethon.tl.custom.message import Message as TgMessage
 from telethon.tl.functions.messages import GetForumTopicsRequest
 from telethon.tl.types import Channel, Chat, ForumTopic, PeerChannel
 
-from catix import userbot_config
+from catix import live_search, userbot_config
 from catix.db import pg
 from catix.db import store
 from catix.ingest import publish
@@ -251,11 +253,13 @@ async def listen() -> None:
         client.add_event_handler(save, events.NewMessage())
         client.add_event_handler(save, events.MessageEdited())
         follower = asyncio.create_task(_follow_choice(client, entities))
+        searching = asyncio.create_task(_serve_search(client))
         print("Listening. The chats are chosen in the bot: /listen. Ctrl+C to stop.")
         try:
             await client.run_until_disconnected()
         finally:
             follower.cancel()
+            searching.cancel()
 
 
 async def _follow_choice(client: TelegramClient, entities: dict[int, Channel | Chat]) -> None:
@@ -293,6 +297,85 @@ async def _follow_choice(client: TelegramClient, entities: dict[int, Channel | C
         except Exception as e:  # noqa: BLE001 - the database or Telegram being away for a moment must not stop listening
             print(f"Could not follow the choice made in the bot: {e!r}", file=sys.stderr)
         await asyncio.sleep(POLL_SECONDS)
+
+
+SEARCH_CONCURRENCY = 3  # Telegram searches at the same time: the account must not look like a scraper.
+SEARCH_BUDGET = 8.0  # Seconds one request may take; the bot stops waiting a little later.
+
+
+async def _serve_search(client: TelegramClient) -> None:
+    """Answer the bot's live-search requests (live_search.py): Telegram's own search in the chats set to `search`."""
+    if not settings.redis_url:
+        print("REDIS_URL is not set: live search is off.")
+        return
+    redis_client = aioredis.from_url(settings.redis_url, socket_timeout=live_search.REQUEST_TTL + 10)
+    slots = asyncio.Semaphore(SEARCH_CONCURRENCY)
+    tasks: set[asyncio.Task] = set()
+
+    async def handle(payload: dict) -> None:
+        async with slots:
+            try:
+                answer = await asyncio.wait_for(_search_chats(client, payload), SEARCH_BUDGET)
+            except asyncio.TimeoutError:
+                answer = {"hits": [], "error": "Telegram search took too long"}
+            except Exception as e:  # noqa: BLE001 - the bot is waiting: it gets the problem, not silence
+                print(f"Live search failed: {e!r}", file=sys.stderr)
+                answer = {"hits": [], "error": f"search failed: {type(e).__name__}"}
+        key = live_search.reply_key(payload["id"])
+        await redis_client.rpush(key, json.dumps(answer, ensure_ascii=False))
+        await redis_client.expire(key, 60)
+
+    while True:
+        try:
+            item = await redis_client.blpop([live_search.REQUESTS], timeout=5)
+            if item is None:
+                continue
+            payload = json.loads(item[1])
+            if time.time() - payload.get("sent", 0) > live_search.REQUEST_TTL:
+                continue  # Nobody waits for it any more.
+            task = asyncio.create_task(handle(payload))
+            tasks.add(task)
+            task.add_done_callback(tasks.discard)
+        except asyncio.CancelledError:
+            raise
+        except Exception as e:  # noqa: BLE001 - Redis away for a moment must not stop the service
+            print(f"Live search service: {e!r}", file=sys.stderr)
+            await asyncio.sleep(5)
+
+
+async def _search_chats(client: TelegramClient, payload: dict) -> dict:
+    """Every keyword in every requested chat: the hits as dicts, or the problem."""
+    allowed = userbot_config.live_chats()  # Only chats an admin set to live search, whatever the request says.
+    date_from = datetime.fromisoformat(payload["date_from"]).replace(tzinfo=timezone.utc) if payload.get("date_from") else None
+    date_to = datetime.fromisoformat(payload["date_to"]).replace(tzinfo=timezone.utc) + timedelta(days=1) if payload.get("date_to") else None
+    hits: dict[tuple[int, int], dict] = {}
+    problem: str | None = None
+
+    async def one_chat(chat_id: int) -> None:
+        nonlocal problem
+        try:
+            entity = await client.get_entity(chat_id)
+        except (ValueError, errors.RPCError) as e:
+            problem = f"chat {chat_id} cannot be opened by the userbot: {e}"
+            return
+        title = utils.get_display_name(entity)
+        for word in payload["keywords"]:
+            try:
+                async for message in client.iter_messages(entity, search=word, limit=payload["per_chat"], offset_date=date_to):
+                    if date_from and message.date < date_from:
+                        break
+                    row = _to_store(message, chat_id, entity)
+                    if row and (chat_id, row.msg_id) not in hits:
+                        hits[chat_id, row.msg_id] = {
+                            "chat_id": chat_id, "msg_id": row.msg_id, "chat_title": title, "date": row.date.isoformat(),
+                            "author": row.sender_name, "sender_link": row.sender_link, "link": row.link, "text": row.text,
+                        }
+            except errors.FloodWaitError as e:
+                problem = f"Telegram asked to wait {e.seconds} s"
+                return
+
+    await asyncio.gather(*(one_chat(c) for c in payload["chat_ids"] if c in allowed), return_exceptions=False)
+    return {"hits": list(hits.values()), "error": problem}
 
 
 def _same(topics: list[int] | None) -> list[int] | None:
