@@ -42,6 +42,8 @@ class AgentContext:
     user_telegram_id: int | None = None
     # The answer goes into an inline-mode card: it must be as short as possible.
     brief: bool = False
+    # The asker's study group (from InNoHassle or their own choice); None when unknown (the default `all`).
+    study_group: str | None = None
 
 
 DEFAULT_EVENTS_WINDOW_DAYS = 14
@@ -315,11 +317,11 @@ def _asked_courses(runtime: ToolRuntime[AgentContext]) -> list[str]:
 def _subject_fields(item: dict, text: str, chat_title: str, asked: list[str]) -> None:
     """Say which courses a result is about (its text or the name of its chat) and, when the question names a course,
     whether the result is about it: a small model otherwise takes the midterm of one course for the midterm asked about."""
-    about = [c.short for c in courses.courses() if courses.mentioned(c.short, f"{chat_title}\n{text}")]
-    if about:
-        item["about"] = about
+    found = [c for c in courses.courses() if courses.mentioned(c.short, f"{chat_title}\n{text}")]
+    if found:
+        item["about"] = [f"{c.short} ({c.name})" for c in found]
     if asked:
-        item["matches_question_subject"] = bool(set(about) & set(asked)) if about else None
+        item["matches_question_subject"] = bool({c.short for c in found} & set(asked)) if found else None
 
 
 class SearchUserbotArgs(BaseModel):
@@ -374,6 +376,15 @@ def search_userbot_chats(
     return collector.result(result, "search_userbot_chats")
 
 
+def _own_group(runtime: ToolRuntime[AgentContext]) -> dict | None:
+    """The schedule group of the asker's study group, if InNoHassle has exactly one by that name."""
+    group = runtime.context.study_group if runtime.context else None
+    if not group:
+        return None
+    matches = _find_group(group)
+    return matches[0] if len(matches) == 1 else None
+
+
 MAX_CLASSES = 40
 DEFAULT_SCHEDULE_DAYS = 7
 
@@ -401,7 +412,7 @@ def _instructor(description: str) -> str | None:
 class GetScheduleArgs(BaseModel):
     group: str | None = Field(
         None,
-        description="Academic group like 'B26-DSAI-04' or an elective name. Omit for the asker's own schedule.",
+        description="Academic group like 'B26-DSAI-04' or an elective name. Omit for the asker's own group: it is known, never ask for it.",
     )
     date_from: date | None = Field(None, description="YYYY-MM-DD, default today.")
     date_to: date | None = Field(
@@ -441,6 +452,9 @@ def get_schedule(
             }
         source = matches[0]["name"]
         ics = innohassle.group_schedule_ics(matches[0]["alias"])
+    elif (own := _own_group(runtime)) is not None:
+        source = own["name"]
+        ics = innohassle.group_schedule_ics(own["alias"])
     else:
         context = runtime.context
         owner = innohassle.token_telegram_id()

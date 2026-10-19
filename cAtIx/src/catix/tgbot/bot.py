@@ -167,8 +167,14 @@ async def _run_agent(
     """Ask the agent; it may use the chats of the asker's study group (found by Telegram id).
     Returns the answer and the Langfuse trace it was made in (for the 👍/👎 under it)."""
     allowed = await asyncio.to_thread(groups.scoped_chat_ids, f"tg:{user_id or 0}", user_id)
+    group = await asyncio.to_thread(groups.effective_group, f"tg:{user_id or 0}", user_id)
     config = tracing.run_config(thread_id, str(user_id) if user_id else None)
-    context = AgentContext(allowed_chat_ids=None if allowed is None else frozenset(allowed), user_telegram_id=user_id, brief=brief)
+    context = AgentContext(
+        allowed_chat_ids=None if allowed is None else frozenset(allowed),
+        user_telegram_id=user_id,
+        brief=brief,
+        study_group=None if group == groups.ALL else group,
+    )
     state = await stream.run(agent, {"messages": [{"role": "user", "content": question}]}, config, context, streamer)
     answer = final_answer(state["messages"], state.get("sources") or {})
     return answer or "Не получилось сформулировать ответ.", tracing.trace_id(config)

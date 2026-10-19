@@ -14,6 +14,7 @@ class Course:
     short: str
     name: str
     aliases: tuple[str, ...]
+    name_ru: str = ""
 
 
 @cache
@@ -22,7 +23,7 @@ def courses() -> tuple[Course, ...]:
         return ()
     data = tomllib.loads(settings.courses_file.read_text(encoding="utf-8"))
     return tuple(
-        Course(short=c["short"], name=c["name"], aliases=tuple(a.lower() for a in c.get("aliases", [])))
+        Course(short=c["short"], name=c["name"], aliases=tuple(a.lower() for a in c.get("aliases", [])), name_ru=c.get("name_ru", ""))
         for c in data.get("course", [])
     )
 
@@ -97,3 +98,8 @@ def expand_query(query: str) -> str:
         if mentioned(course.short, query):
             extra += [a for a in (course.short.lower(), *course.aliases) if " " not in a and len(a) >= MIN_EXPANSION_LEN]
     return f"{query} {' '.join(dict.fromkeys(extra))}" if extra else query
+
+
+def glossary() -> str:
+    """The course codes with their names, for the system prompt: a model that is not told translates "CA" by guessing."""
+    return "; ".join(f"{c.short} = {c.name}" + (f" ({c.name_ru})" if c.name_ru else "") for c in courses())

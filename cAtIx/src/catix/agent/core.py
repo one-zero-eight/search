@@ -152,6 +152,16 @@ queries if needed, and `chat` to name one of them. When the question concerns on
 When it does not name a chat, call search_chats AND search_userbot_chats together, in the same step."""
 
 
+COURSES_PROMPT = """
+
+Courses (use these names in the answer, never translate or guess a code yourself): {glossary}."""
+
+GROUP_PROMPT = """
+
+The asker's study group is {group}: it is known from their profile, so never ask for it. Use it for schedule questions
+and for what concerns "my" courses, exams and midterms."""
+
+
 @dynamic_prompt
 def system_prompt(request: ModelRequest) -> str:
     # Rendered on every model call so "today" stays correct in long-lived conversations.
@@ -163,6 +173,8 @@ def system_prompt(request: ModelRequest) -> str:
         now=now.strftime("%Y-%m-%d %H:%M"),
         timezone=settings.timezone,
         weekday=now.strftime("%A"),
+    ) + (COURSES_PROMPT.format(glossary=courses.glossary()) if courses.courses() else "") + (
+        GROUP_PROMPT.format(group=context.study_group) if context and context.study_group else ""
     ) + (LIVE_PROMPT.format(titles=", ".join(f"«{t}»" for t in live.values())) if live else "") + (BRIEF_PROMPT if context and context.brief else "")
 
 

@@ -1,33 +1,40 @@
 # Courses and the names students use for them in chats.
-# `short` is the canonical id stored in events and passed to tools; `aliases` are matched case-insensitively.
+# `short` is the canonical id stored in events and passed to tools; `name_ru` is how the assistant names the course in Russian
+# (it must never translate a code by itself); `aliases` are matched case-insensitively.
 # Extend this list as new courses appear in the chats.
 
 [[course]]
 short = "ITP"
 name = "Introduction to Programming"
+name_ru = "Введение в программирование"
 aliases = ["итп", "itp", "intro to programming", "проги"]
 
 [[course]]
 short = "DM"
 name = "Discrete Mathematics"
+name_ru = "Дискретная математика"
 aliases = ["дискретка", "дискра", "диска", "дм", "dm", "discrete math", "дискретная математика"]
 
 [[course]]
 short = "AGLA"
 name = "Analytical Geometry and Linear Algebra"
+name_ru = "Аналитическая геометрия и линейная алгебра"
 aliases = ["агла", "agla", "линал", "линейная алгебра", "linear algebra"]
 
 [[course]]
 short = "MA"
 name = "Mathematical Analysis"
+name_ru = "Математический анализ"
 aliases = ["матан", "матанализ", "мат анализ", "математический анализ", "calculus", "math analysis", "ma"]
 
 [[course]]
 short = "CA"
 name = "Computer Architecture"
+name_ru = "Архитектура компьютеров"
 aliases = ["компарх", "компарч", "comparch", "computer architecture", "архитектура компьютеров"]
 
 [[course]]
 short = "English"
 name = "English"
+name_ru = "Английский язык"
 aliases = ["английский", "англ", "english", "инглиш"]

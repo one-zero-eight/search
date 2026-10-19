@@ -217,9 +217,14 @@ async def _answer(max_: Max, chat_id: int, user_id: int, question: str, reply_mi
     thread_id = f"max:{chat_id}:{user_id}"
     log.info("question in %s: %s", thread_id, question[:200])
     scope = await asyncio.to_thread(groups.scoped_chat_ids, f"max:{user_id}")
+    group = await asyncio.to_thread(groups.effective_group, f"max:{user_id}")
     typing = asyncio.create_task(_keep_typing(max_, chat_id))
     try:
-        context = AgentContext(allowed_chat_ids=None if scope is None else frozenset(scope), user_telegram_id=-user_id)  # Never a Telegram id: no personal schedule
+        context = AgentContext(
+            allowed_chat_ids=None if scope is None else frozenset(scope),
+            user_telegram_id=-user_id,  # Never a Telegram id: no personal schedule
+            study_group=None if group == groups.ALL else group,
+        )
         state = await agent.ainvoke(
             {"messages": [{"role": "user", "content": question}]}, tracing.run_config(thread_id, str(user_id)), context=context
         )
