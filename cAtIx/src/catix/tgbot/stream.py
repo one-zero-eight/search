@@ -27,6 +27,7 @@ MAX_CHARS = 4000  # A message holds 4096; the markup added by the HTML conversio
 # What the user sees while a tool runs, between the model deciding to call it and the answer starting.
 STATUS = {
     "search_chats": "🔎 Ищу в чатах…",
+    "search_userbot_chats": "🔎 Ищу в больших чатах через Telegram…",
     "get_schedule": "🗓 Смотрю расписание…",
     "get_clubs": "🎯 Смотрю клубы…",
     "get_university_events": "📅 Смотрю события…",

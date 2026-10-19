@@ -21,6 +21,7 @@ from catix.settings import settings
 log = logging.getLogger("catix.store")
 
 MAX_QUERIES = 8  # Angles per search call.
+RERANK_QUERIES = 3  # The reranker scores the candidates against this many queries (the user's own question comes first).
 # How much a message gains from also being found by the other queries. Small on purpose: queries about different
 # courses all contain "мидтерм", and summing their ranks would let the generic midterm messages crowd out the
 # one message that only the query for its own course finds (it fell to 26th of 40 that way).
@@ -428,6 +429,7 @@ def _rerank(queries: list[str], hits: list[MessageHit], limit: int) -> list[Mess
         return hits[:limit]
     # A short reply ("да, в пятницу") means little without the message it answers.
     documents = [f"{h.parent_text[:200]}\n{h.text[:600]}" if h.parent_text else h.text[:600] for h in hits]
+    queries = queries[:RERANK_QUERIES]  # The reranker server works through requests one by one: each query costs ~1 s.
     try:
         with ThreadPoolExecutor(max_workers=len(queries)) as executor:
             scores = list(executor.map(lambda q: pg.rerank(q, documents), queries))

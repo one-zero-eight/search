@@ -32,6 +32,7 @@ from langgraph.types import Command
 from catix.common import courses
 from catix.agent import sources
 from catix.settings import settings
+from catix import userbot_config
 from catix.agent.tools import TOOLS, AgentContext
 
 log = logging.getLogger("catix.agent")
@@ -133,17 +134,32 @@ words), with the key date, time, place or number. No greeting, no introduction, 
 caveats beyond one word like "(неофициально)" if the source is unreliable. Keep the [mN] source marks."""
 
 
+def _live_titles(request: ModelRequest) -> dict[int, str]:
+    """The chats this asker may search only through the userbot (not in the knowledge base)."""
+    context = request.runtime.context
+    return userbot_config.live_chat_titles(context.allowed_chat_ids if context else None)
+
+
+LIVE_PROMPT = """
+
+Some big chats are NOT in the knowledge base, so search_chats never sees them: {titles}. Search them with
+search_userbot_chats: queries of ONE or TWO words each (Telegram matches words, not meaning, newest first), several
+queries if needed, and `chat` to name one of them. When the question concerns one of these chats, use search_userbot_chats.
+When it does not name a chat, call search_chats AND search_userbot_chats together, in the same step."""
+
+
 @dynamic_prompt
 def system_prompt(request: ModelRequest) -> str:
     # Rendered on every model call so "today" stays correct in long-lived conversations.
     now = datetime.now(settings.tz)
     context = request.runtime.context
+    live = _live_titles(request)
     return SYSTEM_PROMPT.format(
         language=_last_question_language(request),
         now=now.strftime("%Y-%m-%d %H:%M"),
         timezone=settings.timezone,
         weekday=now.strftime("%A"),
-    ) + (BRIEF_PROMPT if context and context.brief else "")
+    ) + (LIVE_PROMPT.format(titles=", ".join(f"«{t}»" for t in live.values())) if live else "") + (BRIEF_PROMPT if context and context.brief else "")
 
 
 class SourcesState(AgentState):
@@ -156,6 +172,22 @@ class SourcesMiddleware(AgentMiddleware):
     """Adds the `sources` field to the graph state; the tools fill it."""
 
     state_schema = SourcesState
+
+
+class UserbotToolMiddleware(AgentMiddleware):
+    """Shows the model search_userbot_chats only when this asker has a chat to search with it: without such a chat the
+    tool would be a way to waste a model call."""
+
+    def _tools(self, request: ModelRequest) -> ModelRequest:
+        if _live_titles(request):
+            return request
+        return request.override(tools=[t for t in request.tools if getattr(t, "name", "") != "search_userbot_chats"])
+
+    def wrap_model_call(self, request, handler):
+        return handler(self._tools(request))
+
+    async def awrap_model_call(self, request, handler):
+        return await handler(self._tools(request))
 
 
 class SubjectHintMiddleware(AgentMiddleware):
@@ -250,6 +282,26 @@ class RunGuardMiddleware(AgentMiddleware):
       off by the call limit with an error message as the "answer".
     """
 
+    def _userbot_call(self, request: ModelRequest, response) -> AIMessage | None:
+        """The tool call to make instead of answering, if the model is about to answer after searching only the knowledge base
+        while the asker has chats that are searched through the userbot. Small models do not call the second tool even when
+        told to (a nudge was tried), so the call is made for them: the keywords of the queries they used in this run."""
+        message = self._last(response)
+        if message is None or message.tool_calls or not any(getattr(t, "name", "") == "search_userbot_chats" for t in request.tools):
+            return None
+        run = _this_run(request.messages)
+        called = {m.name for m in run if isinstance(m, ToolMessage)}
+        if "search_chats" not in called or "search_userbot_chats" in called:
+            return None
+        from catix import live_search
+
+        queries = [q for m in run if isinstance(m, AIMessage) for call in m.tool_calls if call["name"] == "search_chats" for q in call["args"].get("queries", [])]
+        words = live_search.keywords(queries)
+        if not words:
+            return None
+        log.info("answer after search_chats only: searching the userbot chats for %s", words)
+        return AIMessage(content="", tool_calls=[{"name": "search_userbot_chats", "args": {"queries": words}, "id": f"auto-{uuid.uuid4().hex[:8]}"}])
+
     def _final(self, request: ModelRequest) -> ModelRequest:
         used = sum(isinstance(m, AIMessage) for m in _this_run(request.messages))
         if used < settings.agent_max_model_calls - 1:
@@ -307,6 +359,8 @@ class RunGuardMiddleware(AgentMiddleware):
         if not ok:
             log.warning("unusable tool call markup in the model's answer, asking again")
             response, ok = self._check(handler(request), allow)
+        elif call := self._userbot_call(request, response):
+            response = self._with_last(response, call)
         # Never show the markup to the user.
         return response if ok else self._with_last(response, AIMessage(content=TOOL_FAILURE_ANSWER))
 
@@ -317,6 +371,8 @@ class RunGuardMiddleware(AgentMiddleware):
         if not ok:
             log.warning("unusable tool call markup in the model's answer, asking again")
             response, ok = self._check(await handler(request), allow)
+        elif call := self._userbot_call(request, response):
+            response = self._with_last(response, call)
         return response if ok else self._with_last(response, AIMessage(content=TOOL_FAILURE_ANSWER))
 
     def wrap_tool_call(self, request, handler):
@@ -480,6 +536,7 @@ def build_agent(model=None):
                 summary_prompt=SUMMARY_PROMPT,
             ),
             SourcesMiddleware(),
+            UserbotToolMiddleware(),
             ContextEditingMiddleware(
                 edits=[
                     ClearToolUsesEdit(

@@ -127,6 +127,23 @@ def effective_reader(reader: str, userbot_has_chat: bool) -> str:
     return ("userbot" if userbot_has_chat else "bot") if reader == "auto" else reader  # `search` stays: nobody stores it
 
 
+def live_chat_titles(allowed: "frozenset[int] | set[int] | None" = None) -> dict[int, str]:
+    """The live-search chats (title by id) a question may use: those of its study group, cached for a few seconds because the
+    agent asks on every model call."""
+    live = _cached("live_ids", live_chats)
+    ids = [c for c in live if allowed is None or c in allowed]
+    if not ids:
+        return {}
+
+    def load() -> dict[int, str]:
+        with pg.connection() as conn:
+            found = conn.execute("SELECT chat_id, title FROM chats WHERE chat_id = ANY(%s::bigint[])", (sorted(live),)).fetchall()
+        return {r["chat_id"]: r["title"] for r in found}
+
+    titles = _cached("live_titles", load)
+    return {c: titles.get(c, str(c)) for c in ids}
+
+
 def userbot_reads() -> dict[int, list[int] | None]:
     """The chats the userbot stores, with their topics: chosen, its account is in them, and not given to the bot."""
     mine = userbot_chat_ids()

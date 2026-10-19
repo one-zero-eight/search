@@ -105,7 +105,7 @@ class Settings(BaseSettings):
     # query and the best few go to the model.
     reranker_route: HttpUrl | None = None
     reranker_model: str = "bge-reranker-v2-m3"
-    rerank_candidates: int = Field(100, gt=0)
+    rerank_candidates: int = Field(60, gt=0)
     # Messages the reranker scores below this are dropped, even if fewer than the limit are left (none at all is a
     # valid answer: nothing relevant). The scale is the server's own (llama.cpp gives raw scores, not 0..1), so
     # pick the value from the scores the search logs at DEBUG level. None = no cutoff.
