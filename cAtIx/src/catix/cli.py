@@ -19,7 +19,8 @@ def ask(agent, question: str, thread_id: str) -> str:
                 if isinstance(message, AIMessage):
                     for call in message.tool_calls:
                         print(f"  → {call['name']}({call['args']})", file=sys.stderr)
-    return final_answer(agent.get_state(config).values["messages"], context.sources)
+    values = agent.get_state(config).values
+    return final_answer(values["messages"], values.get("sources") or {})
 
 
 def main() -> None:

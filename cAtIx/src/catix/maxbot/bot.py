@@ -220,14 +220,10 @@ async def _answer(max_: Max, chat_id: int, user_id: int, question: str, reply_mi
     typing = asyncio.create_task(_keep_typing(max_, chat_id))
     try:
         context = AgentContext(allowed_chat_ids=None if scope is None else frozenset(scope), user_telegram_id=-user_id)  # Never a Telegram id: no personal schedule
-        messages = (
-            await agent.ainvoke(
-                {"messages": [{"role": "user", "content": question}]},
-                tracing.run_config(thread_id, str(user_id)),
-                context=context,
-            )
-        )["messages"]
-        answer = final_answer(messages, context.sources) or "Не получилось сформулировать ответ."
+        state = await agent.ainvoke(
+            {"messages": [{"role": "user", "content": question}]}, tracing.run_config(thread_id, str(user_id)), context=context
+        )
+        answer = final_answer(state["messages"], state.get("sources") or {}) or "Не получилось сформулировать ответ."
     except Exception:
         log.exception("agent failed")
         answer = "Не получилось ответить: ошибка на стороне ассистента. Попробуйте ещё раз позже."

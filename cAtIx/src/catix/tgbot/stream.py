@@ -95,15 +95,15 @@ class DraftStreamer:
             self._shown = text
 
 
-async def run(agent, inputs: dict, config: dict, context, streamer: DraftStreamer | None) -> list:
-    """Run the agent and return its messages; with a streamer, show the answer as it is written."""
+async def run(agent, inputs: dict, config: dict, context, streamer: DraftStreamer | None) -> dict:
+    """Run the agent and return its final state (`messages`, `sources`); with a streamer, show the answer as it is written."""
     if streamer is None:
-        return (await agent.ainvoke(inputs, config, context=context))["messages"]
+        return await agent.ainvoke(inputs, config, context=context)
     await streamer.start()
-    messages: list = []
+    state: dict = {"messages": []}
     async for mode, data in agent.astream(inputs, config, context=context, stream_mode=["messages", "values"]):
         if mode == "messages":
             await streamer.feed(data[0])
         elif mode == "values":
-            messages = data["messages"]
-    return messages
+            state = data
+    return state

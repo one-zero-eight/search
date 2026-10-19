@@ -19,7 +19,11 @@ from langchain.agents.middleware import (
     ToolErrorMiddleware,
     dynamic_prompt,
 )
+from typing import Annotated
+
+from langchain.agents.middleware import AgentState
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, SystemMessage, ToolMessage
+from typing_extensions import NotRequired
 from langchain_core.messages.utils import count_tokens_approximately
 from langchain_openai import ChatOpenAI
 from langgraph.checkpoint.memory import InMemorySaver
@@ -71,8 +75,9 @@ Rules:
   Results are ranked by relevance, not by date: read the dates.
 - For counts, rankings and lists ("how many messages", "who wrote most", "which chats") use query_db.
 - Results taken from chat messages carry a "ref" (like m0, m1). Put it in square brackets right after the fact it
-  supports, copied exactly: "Мидтерм 22 октября [m0]"; several: [m0][m1]. Refs belong to the results of THIS question
-  only: never reuse a ref from an earlier answer, search again if you need an earlier fact. Never invent a ref and never write
+  supports, copied exactly: "Мидтерм 22 октября [m0]"; several: [m0][m1]. Refs stay valid through the whole
+  conversation, so a follow-up may cite results found earlier; search again when the user wants fresh or other
+  information. Never invent a ref and never write
   chat names or message links yourself: a numbered source list is added automatically. Data without a ref
   (timetable, clubs, map) needs no citation.
 - A chat message may carry "dates_in_text": the exact dates its words ("завтра", "в пятницу", "23 октября") mean,
@@ -141,33 +146,16 @@ def system_prompt(request: ModelRequest) -> str:
     ) + (BRIEF_PROMPT if context and context.brief else "")
 
 
-_OLD_TOOL_REF = re.compile(r'("(?:ref|source_ref)"\s*:\s*)"m\d+"')
-_OLD_ANSWER_REF = re.compile(r"[ \t]*\[\s*m\d+(?:\s*[,;]\s*m\d+)*\s*\]")
+class SourcesState(AgentState):
+    """The state of the graph: the messages and, next to them, the sources of the conversation (see sources.py)."""
+
+    sources: NotRequired[Annotated[dict, sources.merge_sources]]
 
 
-def _scrub_old_refs(messages: list) -> list:
-    """Remove the refs of earlier questions: results and answers before the current question lose them, so that the
-    model sees only the refs of this question (numbering restarts at m0 and an old `[m0]` would be the wrong source)."""
-    current = max((i for i, m in enumerate(messages) if isinstance(m, HumanMessage)), default=-1)
-    out = list(messages)
-    for i in range(current):
-        m = out[i]
-        if not isinstance(m.content, str):
-            continue
-        pattern, repl = (_OLD_TOOL_REF, r"\1null") if isinstance(m, ToolMessage) else (_OLD_ANSWER_REF, "") if isinstance(m, AIMessage) else (None, "")
-        if pattern and (cleaned := pattern.sub(repl, m.content)) != m.content:
-            out[i] = m.model_copy(update={"content": cleaned})
-    return out
+class SourcesMiddleware(AgentMiddleware):
+    """Adds the `sources` field to the graph state; the tools fill it."""
 
-
-class ScrubOldRefsMiddleware(AgentMiddleware):
-    """Grounding is per question: only the refs of the current question stay visible to the model."""
-
-    def wrap_model_call(self, request, handler):
-        return handler(request.override(messages=_scrub_old_refs(list(request.messages))))
-
-    async def awrap_model_call(self, request, handler):
-        return await handler(request.override(messages=_scrub_old_refs(list(request.messages))))
+    state_schema = SourcesState
 
 
 class SubjectHintMiddleware(AgentMiddleware):
@@ -199,12 +187,6 @@ def _tool_error(error: Exception, request: ToolCallRequest) -> str:
     # Hand the failure back to the model so it can fix the arguments or answer without the tool.
     return f"Tool error: {type(error).__name__}: {error}"
 
-
-SEARCH_AGAIN_HINT = (
-    "Your answer used no tool, and the results of earlier questions are not valid for this one (their refs are gone). "
-    "If the answer states facts (dates, times, rooms, rules, counts, names), call the matching tool now and answer from "
-    "its results, with refs. Answer without a tool only if the question needs no facts (thanks, small talk, how you work)."
-)
 
 FINAL_HINT = (
     "You have used your tool budget. Do not call tools. Answer now in the user's language with what the tool results "
@@ -268,21 +250,6 @@ class RunGuardMiddleware(AgentMiddleware):
       off by the call limit with an error message as the "answer".
     """
 
-    def _from_memory(self, request: ModelRequest, response) -> ModelRequest | None:
-        """The request to ask again with, if the model answered a follow-up from the earlier conversation without a tool
-        (then its answer would carry no sources): same request with a nudge to search first."""
-        message = self._last(response)
-        if message is None or message.tool_calls or not request.tools:
-            return None
-        run = _this_run(request.messages)
-        if any(isinstance(m, ToolMessage) for m in run):
-            return None  # It searched in this run.
-        if not any(isinstance(m, ToolMessage) for m in request.messages[: len(request.messages) - len(run)]):
-            return None  # Nothing earlier to be tempted by: a first question may be answered without a tool.
-        log.info("answered a follow-up from memory, asking to search first")
-        base = request.system_message.text if request.system_message else ""
-        return request.override(system_message=SystemMessage(content=f"{base}\n\n{SEARCH_AGAIN_HINT}"))
-
     def _final(self, request: ModelRequest) -> ModelRequest:
         used = sum(isinstance(m, AIMessage) for m in _this_run(request.messages))
         if used < settings.agent_max_model_calls - 1:
@@ -340,8 +307,6 @@ class RunGuardMiddleware(AgentMiddleware):
         if not ok:
             log.warning("unusable tool call markup in the model's answer, asking again")
             response, ok = self._check(handler(request), allow)
-        elif again := self._from_memory(request, response):
-            response, ok = self._check(handler(again), allow)
         # Never show the markup to the user.
         return response if ok else self._with_last(response, AIMessage(content=TOOL_FAILURE_ANSWER))
 
@@ -352,8 +317,6 @@ class RunGuardMiddleware(AgentMiddleware):
         if not ok:
             log.warning("unusable tool call markup in the model's answer, asking again")
             response, ok = self._check(await handler(request), allow)
-        elif again := self._from_memory(request, response):
-            response, ok = self._check(await handler(again), allow)
         return response if ok else self._with_last(response, AIMessage(content=TOOL_FAILURE_ANSWER))
 
     def wrap_tool_call(self, request, handler):
@@ -376,7 +339,8 @@ class LoggingMiddleware(AgentMiddleware):
 
     def _log_tool(self, request: ToolCallRequest, result: ToolMessage | Command, started: float) -> None:
         call = request.tool_call
-        size = len(result.content) if isinstance(result, ToolMessage) else 0
+        message = result if isinstance(result, ToolMessage) else next(iter((result.update or {}).get("messages", [])), None)
+        size = len(message.content) if message is not None else 0
         log.info("tool %s(%s): %d chars, %.1fs", call["name"], call["args"], size, time.monotonic() - started)
 
     def wrap_model_call(self, request, handler):
@@ -429,7 +393,7 @@ def _urls_in(content: object) -> set[str]:
     return found
 
 
-def final_answer(messages: list[BaseMessage], registry: sources.Registry) -> str:
+def final_answer(messages: list[BaseMessage], registry: dict[str, dict]) -> str:
     """Text of the last answer: invented URLs removed, source refs turned into a numbered list.
 
     The prompt forbids invented links and asks for refs, but small models do neither reliably,
@@ -515,7 +479,7 @@ def build_agent(model=None):
                 token_counter=_dialogue_tokens,
                 summary_prompt=SUMMARY_PROMPT,
             ),
-            ScrubOldRefsMiddleware(),
+            SourcesMiddleware(),
             ContextEditingMiddleware(
                 edits=[
                     ClearToolUsesEdit(

@@ -6,7 +6,7 @@ kept compact because they go straight into the model context.
 
 import json
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 from typing import Literal
 
@@ -14,11 +14,12 @@ import icalendar
 import recurring_ical_events
 from langchain.tools import ToolRuntime
 from langchain_core.tools import tool
+from langgraph.types import Command
 from pydantic import BaseModel, Field, field_validator
 
 from catix.common import dates
 from catix.innohassle import client as innohassle
-from catix.agent.sources import Registry
+from catix.agent.sources import Collector
 from catix.agent import sqlquery
 from catix.db import store
 from catix.settings import settings
@@ -41,8 +42,6 @@ class AgentContext:
     user_telegram_id: int | None = None
     # The answer goes into an inline-mode card: it must be as short as possible.
     brief: bool = False
-    # The sources of this question: tools register what they find here, `cite` turns the model's refs into a list.
-    sources: Registry = field(default_factory=Registry)
 
 
 DEFAULT_EVENTS_WINDOW_DAYS = 14
@@ -259,7 +258,7 @@ def search_chats(
     chat: str | None = None,
     date_from: date | None = None,
     date_to: date | None = None,
-) -> dict:
+) -> Command:
     """Search student Telegram chats by words and by meaning: announcements, exam and deadline dates, homework,
     reschedules, campus news, tips. Give several queries from different angles in ONE call: messages found by
     several of them rank first. Unofficial source: messages may be outdated, jokes or contradict each other.
@@ -272,11 +271,12 @@ def search_chats(
         date_to=date_to and date_to.isoformat(),
         limit=MAX_MESSAGES if settings.reranker_route is None else MAX_MESSAGES_RERANKED,
     )
+    collector = Collector(runtime)
     messages = []
     now = datetime.now(settings.tz)
     for row in rows:
         item = {
-            "ref": runtime.context.sources.add_db(row.ref_id) if runtime.context else None,
+            "ref": collector.add_db(row.ref_id),
             "chat": row.chat_title,
             "date": _fmt(row.date),
             "from": row.sender_name,
@@ -290,7 +290,7 @@ def search_chats(
         if row.parent_text:
             item["in_reply_to"] = f"{row.parent_sender}: {row.parent_text[:200]}"
         messages.append(item)
-    return {"total": len(messages), "messages": messages}
+    return collector.result({"total": len(messages), "messages": messages}, "search_chats")
 
 
 MAX_CLASSES = 40
@@ -420,10 +420,11 @@ class QueryDbArgs(BaseModel):
 
 
 @tool(args_schema=QueryDbArgs, description=sqlquery.DESCRIPTION)
-def query_db(sql: str, runtime: ToolRuntime[AgentContext]) -> dict:
+def query_db(sql: str, runtime: ToolRuntime[AgentContext]) -> Command:
     result = sqlquery.run(sql, runtime.context.allowed_chat_ids if runtime.context else None)
-    # The views name messages by database id ("m5127"): the model gets this question's refs instead.
-    return runtime.context.sources.rewrite(result) if runtime.context else result
+    # The views name messages by database id ("m5127"): the model gets this conversation's refs instead.
+    collector = Collector(runtime)
+    return collector.result(collector.rewrite(result), "query_db")
 
 
 TOOLS = [

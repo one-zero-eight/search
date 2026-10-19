@@ -169,8 +169,9 @@ async def _run_agent(
     allowed = await asyncio.to_thread(groups.scoped_chat_ids, f"tg:{user_id or 0}", user_id)
     config = tracing.run_config(thread_id, str(user_id) if user_id else None)
     context = AgentContext(allowed_chat_ids=None if allowed is None else frozenset(allowed), user_telegram_id=user_id, brief=brief)
-    messages = await stream.run(agent, {"messages": [{"role": "user", "content": question}]}, config, context, streamer)
-    return final_answer(messages, context.sources) or "Не получилось сформулировать ответ.", tracing.trace_id(config)
+    state = await stream.run(agent, {"messages": [{"role": "user", "content": question}]}, config, context, streamer)
+    answer = final_answer(state["messages"], state.get("sources") or {})
+    return answer or "Не получилось сформулировать ответ.", tracing.trace_id(config)
 
 
 def _event_label(event: dict) -> str:

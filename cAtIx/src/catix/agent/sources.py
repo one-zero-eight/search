@@ -1,17 +1,23 @@
 """Source citations built in code, because small models do not reliably name their sources.
 
-Every question has its own registry of sources (`Registry`, kept in the AgentContext). A tool that finds a chat message
-registers it and puts the ref it gets (m0, m1, ... in the order the messages reach the model) next to the message.
-The model copies refs next to the facts it uses; `cite` then replaces them by [1], [2], ... and appends a source list.
-Only refs of this question's registry are honoured, so a made-up or injected ref can neither leak a message nor
-produce a fake source, and a source is described by its fields, not by a database row (a message found live in
-Telegram has none).
+The sources of a conversation live in the graph state (`sources`, next to `messages`): a tool that finds a chat message
+registers it and puts the ref it gets (m0, m1, ... in the order the messages reach the model, over the whole
+conversation) next to the message; the registry is saved with the history and dropped with it (`/clear`). The model copies
+refs next to the facts it uses; `cite` replaces them by [1], [2], ... and appends the source list. Only refs of this
+conversation's registry are honoured, so a made-up or injected ref can neither leak a message nor produce a fake source.
+A source is described by its fields, not by a database row, so a message found live in Telegram can be cited too.
 """
 
 import logging
 import re
-from dataclasses import dataclass
+import threading
+import time
 from datetime import datetime
+from typing import Any
+
+from langchain.tools import ToolRuntime
+from langchain_core.messages import ToolMessage
+from langgraph.types import Command
 
 from catix.db import store
 from catix.settings import settings
@@ -24,42 +30,63 @@ FORWARDER_RE = re.compile(r"\s*\(forwarded by .*\)$")
 DB_REF_RE = re.compile(r"^m\d+$")
 # Keys under which tools put refs; message texts cannot forge a key.
 REF_KEYS = {"ref", "source_ref"}
+MAX_SOURCES = 300  # A very long conversation forgets its oldest sources (their refs are then dropped as unknown).
 
 
-@dataclass(frozen=True, slots=True)
-class Source:
-    """What a ref stands for: a stored message (`message_id`, the rest is read from the database) or a message found
-    live (the rest is given here)."""
-
-    message_id: int | None = None
-    chat_title: str | None = None
-    link: str | None = None
-    date: datetime | None = None
-    author: str | None = None
-    sender_link: str | None = None
+def merge_sources(left: dict | None, right: dict | None) -> dict:
+    """The state reducer: sources are only ever added (the newest MAX_SOURCES are kept)."""
+    merged = {**(left or {}), **(right or {})}
+    if len(merged) > MAX_SOURCES:
+        newest = sorted(merged, key=lambda ref: int(ref[1:]))[-MAX_SOURCES:]
+        merged = {ref: merged[ref] for ref in newest}
+    return merged
 
 
-class Registry:
-    """The sources of one question, numbered in the order they were registered."""
+# Refs given out in the last seconds but not yet merged into the state: tools of one step run in parallel and each of
+# them sees the state as it was before the step.
+_PENDING: dict[str, tuple[float, int]] = {}
+_LOCK = threading.Lock()
+PENDING_SECONDS = 60
 
-    def __init__(self) -> None:
-        self.items: dict[str, Source] = {}
-        self._by_key: dict[tuple, str] = {}
 
-    def _add(self, key: tuple, source: Source) -> str:
-        if key not in self._by_key:  # The same message found twice keeps its ref.
-            self._by_key[key] = f"m{len(self.items)}"
-            self.items[self._by_key[key]] = source
-        return self._by_key[key]
+def _next_index(thread: str, known: dict) -> int:
+    base = max((int(ref[1:]) for ref in known), default=-1) + 1
+    with _LOCK:
+        stamp, pending = _PENDING.get(thread, (0.0, 0))
+        n = max(base, pending) if time.monotonic() - stamp < PENDING_SECONDS else base
+        _PENDING[thread] = (time.monotonic(), n + 1)
+        if len(_PENDING) > 2000:  # Threads of inline questions come and go.
+            for old in sorted(_PENDING, key=lambda k: _PENDING[k][0])[:1000]:
+                del _PENDING[old]
+        return n
+
+
+class Collector:
+    """The sources one tool call finds: hands out refs now, builds the state update to return with the result."""
+
+    def __init__(self, runtime: ToolRuntime) -> None:
+        self.runtime = runtime
+        self.known: dict[str, dict] = dict(runtime.state.get("sources") or {})
+        self.thread = str((runtime.config.get("configurable") or {}).get("thread_id", "")) if runtime.config else ""
+        self.by_key = {source["key"]: ref for ref, source in self.known.items()}
+        self.new: dict[str, dict] = {}
+
+    def _add(self, key: str, fields: dict) -> str:
+        if key not in self.by_key:  # The same message found again keeps its ref.
+            ref = f"m{_next_index(self.thread, {**self.known, **self.new})}"
+            self.by_key[key] = ref
+            self.new[ref] = {"key": key, **fields}
+        return self.by_key[key]
 
     def add_db(self, message_id: int | None) -> str | None:
-        return self._add(("db", message_id), Source(message_id=message_id)) if message_id else None
+        return self._add(f"db:{message_id}", {"message_id": message_id}) if message_id else None
 
-    def add_live(self, chat_id: int, msg_id: int, source: Source) -> str:
-        return self._add(("live", chat_id, msg_id), source)
+    def add_live(self, chat_id: int, msg_id: int, *, chat_title: str, link: str | None, date: datetime, author: str | None, sender_link: str | None = None) -> str:
+        fields = {"chat_title": chat_title, "link": link, "date": date.isoformat(), "author": author, "sender_link": sender_link}
+        return self._add(f"live:{chat_id}:{msg_id}", fields)
 
-    def rewrite(self, value: object) -> object:
-        """Tool output that carries database refs ('m5127', from the SQL views) with this question's refs."""
+    def rewrite(self, value: Any) -> Any:
+        """Tool output that carries database refs ('m5127', from the SQL views) with this conversation's refs."""
         if isinstance(value, dict):
             return {
                 key: (self.add_db(int(item[1:])) if key in REF_KEYS and isinstance(item, str) and DB_REF_RE.match(item) else self.rewrite(item))
@@ -69,15 +96,22 @@ class Registry:
             return [self.rewrite(item) for item in value]
         return value
 
+    def result(self, payload: dict, tool_name: str) -> Command:
+        """The tool's result for the model, and the new sources for the state."""
+        import json
 
-def cite(answer: str, registry: Registry) -> str:
+        message = ToolMessage(content=json.dumps(payload, ensure_ascii=False, default=str), tool_call_id=self.runtime.tool_call_id, name=tool_name)
+        return Command(update={"messages": [message], "sources": self.new})
+
+
+def cite(answer: str, registry: dict[str, dict]) -> str:
     """Replace refs in the answer by numbers and append the numbered source list."""
     numbers: dict[str, int] = {}
 
     def renumber(match: re.Match) -> str:
         used: set[int] = set()
         for item in re.findall(r"m\d+", match.group(1)):
-            if item in registry.items:
+            if item in registry:
                 used.add(numbers.setdefault(item, len(numbers) + 1))
             else:
                 log.warning("dropping unknown source ref %s", item)
@@ -88,18 +122,18 @@ def cite(answer: str, registry: Registry) -> str:
     if not numbers:
         return answer.strip()
 
-    stored = store.message_sources([s.message_id for ref in numbers if (s := registry.items[ref]).message_id])
+    stored = store.message_sources([s["message_id"] for ref in numbers if (s := registry[ref]).get("message_id")])
     lines = []
     for ref, number in numbers.items():
-        source = registry.items[ref]
-        if source.message_id:
-            row = stored.get(source.message_id)
+        source = registry[ref]
+        if source.get("message_id"):
+            row = stored.get(source["message_id"])
             if not row:
                 continue
-            source = Source(
-                chat_title=row.chat_title, link=row.link or row.chat_link,  # The chat's own link when the message has none.
-                date=row.date, author=row.sender_name, sender_link=row.sender_link,
-            )
+            source = {
+                "chat_title": row.chat_title, "link": row.link or row.chat_link,  # The chat's own link when the message has none.
+                "date": row.date, "author": row.sender_name, "sender_link": row.sender_link,
+            }
         lines.append(_line(number, source))
     if not lines:
         return answer.strip()
@@ -107,15 +141,16 @@ def cite(answer: str, registry: Registry) -> str:
     return f"{answer.strip()}\n\n{title}:\n" + "\n".join(lines)
 
 
-def _line(number: int, source: Source) -> str:
-    when = source.date.astimezone(settings.tz) if source.date else None
-    author = FORWARDER_RE.sub("", source.author or "")
-    title = f"«{source.chat_title}»"
-    if source.link:
-        title = f"[{title.replace('[', '(').replace(']', ')')}]({source.link})"
+def _line(number: int, source: dict) -> str:
+    date = source.get("date")
+    when = (datetime.fromisoformat(date) if isinstance(date, str) else date).astimezone(settings.tz) if date else None
+    author = FORWARDER_RE.sub("", source.get("author") or "")
+    title = f"«{source['chat_title']}»"
+    if link := source.get("link"):
+        title = f"[{title.replace('[', '(').replace(']', ')')}]({link})"
     line = f"[{number}] {title}" + (f", {when:%d.%m.%Y}" if when else "")
-    if author and source.sender_link:
-        line += f", [{author.replace('[', '(').replace(']', ')')}]({source.sender_link})"
+    if author and source.get("sender_link"):
+        line += f", [{author.replace('[', '(').replace(']', ')')}]({source['sender_link']})"
     elif author:
         line += f", {author}"
     return line
