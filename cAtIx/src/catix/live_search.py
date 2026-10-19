@@ -13,7 +13,6 @@ import logging
 import re
 import secrets
 import time
-from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from datetime import datetime
 
@@ -82,24 +81,25 @@ def request(chat_ids: list[int], words: list[str], date_from: str | None = None,
     return hits, data.get("error")
 
 
+MAX_CANDIDATES = 40  # The reranker server works through documents one request at a time: ~1.6 s per 100.
+
+
 def rank(queries: list[str], hits: list[Hit], limit: int) -> list[Hit]:
-    """The best `limit` hits: by the reranker against the queries (the best score over them), else the newest."""
+    """The best `limit` hits: by the reranker against the keywords taken together, else the newest."""
     if len(hits) <= 1:
         return hits[:limit]
-    docs = [h.text[:600] for h in hits]
+    candidates = sorted(hits, key=lambda h: h.date, reverse=True)[:MAX_CANDIDATES]
+    if not settings.reranker_route:
+        return candidates[:limit]
     try:
-        with ThreadPoolExecutor(max_workers=len(queries) or 1) as executor:
-            scores = list(executor.map(lambda q: pg.rerank(q, docs), queries[:4])) if settings.reranker_route else []
+        scores = pg.rerank(" ".join(queries)[:200], [h.text[:600] for h in candidates])
     except Exception:  # noqa: BLE001 - live search must work without the reranker
         log.warning("reranker unavailable, live hits ordered by date", exc_info=True)
-        scores = []
-    if not scores:
-        return sorted(hits, key=lambda h: h.date, reverse=True)[:limit]
-    best = [max(per_query[i] for per_query in scores) for i in range(len(hits))]
-    keep = [i for i in sorted(range(len(hits)), key=lambda i: best[i], reverse=True)[:limit]]
+        return candidates[:limit]
+    keep = sorted(range(len(candidates)), key=lambda i: scores[i], reverse=True)[:limit]
     if settings.rerank_min_score is not None:
-        keep = [i for i in keep if best[i] >= settings.rerank_min_score]
-    return [hits[i] for i in keep]
+        keep = [i for i in keep if scores[i] >= settings.rerank_min_score]
+    return [candidates[i] for i in keep]
 
 
 def search(queries: list[str], chat_ids: list[int], date_from: str | None = None, date_to: str | None = None) -> tuple[list[Hit], str | None]:

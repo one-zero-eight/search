@@ -127,6 +127,25 @@ def effective_reader(reader: str, userbot_has_chat: bool) -> str:
     return ("userbot" if userbot_has_chat else "bot") if reader == "auto" else reader  # `search` stays: nobody stores it
 
 
+def searchable_chats() -> set[int]:
+    """The chats Telegram's search may be used on through the userbot: chosen in /listen (whatever the reader) and with the
+    userbot's account in them. The admin's choice is the policy; a chat that is not chosen is never searched."""
+    mine = userbot_chat_ids()
+    return {c for c in _rows() if c in mine}
+
+
+def searchable_titles(allowed: "frozenset[int] | set[int] | None" = None) -> dict[int, str]:
+    """`searchable_chats` with their titles, only those a question of this asker may use (its study group)."""
+    ids = _cached("searchable_ids", searchable_chats)
+    names = _cached("dialog_titles", _dialog_titles)
+    return {c: names.get(c, str(c)) for c in ids if allowed is None or c in allowed}
+
+
+def _dialog_titles() -> dict[int, str]:
+    with pg.connection() as conn:
+        return {r["chat_id"]: r["title"] for r in conn.execute("SELECT chat_id, title FROM userbot_dialogs").fetchall()}
+
+
 def live_chat_titles(allowed: "frozenset[int] | set[int] | None" = None) -> dict[int, str]:
     """The live-search chats (title by id) a question may use: those of its study group, cached for a few seconds because the
     agent asks on every model call."""

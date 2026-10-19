@@ -17,7 +17,7 @@ from langchain_core.tools import tool
 from langgraph.types import Command
 from pydantic import BaseModel, Field, field_validator
 
-from catix.common import dates
+from catix.common import courses, dates
 from catix.innohassle import client as innohassle
 from catix.agent.sources import Collector
 from catix.agent import sqlquery
@@ -274,6 +274,7 @@ def search_chats(
         original=_question(runtime),
     )
     collector = Collector(runtime)
+    asked = _asked_courses(runtime)
     messages = []
     now = datetime.now(settings.tz)
     for row in rows:
@@ -285,6 +286,7 @@ def search_chats(
             # The stamp is in the text itself, so "завтра" is read next to the day it was written on.
             "text": row.text[:600],
         }
+        _subject_fields(item, row.text, row.chat_title, asked)
         if row.edit_date:
             item["edited"] = _fmt(row.edit_date)
         if settings.annotate_dates and (resolved := dates.resolve(row.text, row.date, now)):
@@ -304,6 +306,22 @@ def _question(runtime: ToolRuntime[AgentContext]) -> str | None:
     return None
 
 
+def _asked_courses(runtime: ToolRuntime[AgentContext]) -> list[str]:
+    """The courses the user's question names (by any slang or spelling), short names."""
+    question = _question(runtime)
+    return [c.short for c in courses.hints(question)] if question else []
+
+
+def _subject_fields(item: dict, text: str, chat_title: str, asked: list[str]) -> None:
+    """Say which courses a result is about (its text or the name of its chat) and, when the question names a course,
+    whether the result is about it: a small model otherwise takes the midterm of one course for the midterm asked about."""
+    about = [c.short for c in courses.courses() if courses.mentioned(c.short, f"{chat_title}\n{text}")]
+    if about:
+        item["about"] = about
+    if asked:
+        item["matches_question_subject"] = bool(set(about) & set(asked)) if about else None
+
+
 class SearchUserbotArgs(BaseModel):
     queries: list[str] = Field(description="1 to 4 short queries of ONE or TWO words each (Telegram's search matches words and their forms, not phrases).")
     chat: str | None = Field(None, description="Only the chat whose title contains this text, or @username.")
@@ -319,21 +337,22 @@ def search_userbot_chats(
     date_from: date | None = None,
     date_to: date | None = None,
 ) -> Command:
-    """Search the big chats that are NOT in the knowledge base (their titles are listed in the system prompt) with Telegram's
-    own search, through the userbot. It matches whole words and their forms, not meaning, and lists the newest first:
-    give 1-4 queries of one or two words each, never a sentence. Results are unofficial chat messages: read their
-    dates. Use search_chats for everything else."""
+    """Search chats with Telegram's own search, through the userbot: the big chats that are NOT in the knowledge base (their
+    titles are in the system prompt), and any other chat for old messages that search_chats does not have. It matches
+    whole words and their forms, not meaning, and lists the newest first: give 1-4 queries of one or two words each, never a
+    sentence. Results are unofficial chat messages: read their dates."""
     from catix import live_search, userbot_config
 
     collector = Collector(runtime)
     allowed = runtime.context.allowed_chat_ids if runtime.context else None
-    chats = userbot_config.live_chat_titles(allowed)
+    chats = userbot_config.searchable_titles(allowed)
     if chat:
         chats = {c: t for c, t in chats.items() if chat.lstrip("@").casefold() in t.casefold()}
     if not chats:
         return collector.result({"total": 0, "messages": [], "note": "No chat to search this way (or none matches `chat`)."}, "search_userbot_chats")
     hits, problem = live_search.search(queries, sorted(chats), date_from and date_from.isoformat(), date_to and date_to.isoformat())
     now = datetime.now(settings.tz)
+    asked = _asked_courses(runtime)
     messages = []
     for hit in hits:
         item = {
@@ -345,6 +364,7 @@ def search_userbot_chats(
             "from": hit.author,
             "text": hit.text[:600],
         }
+        _subject_fields(item, hit.text, hit.chat_title, asked)
         if settings.annotate_dates and (resolved := dates.resolve(hit.text, hit.date, now)):
             item["dates_in_text"] = resolved
         messages.append(item)

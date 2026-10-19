@@ -345,7 +345,7 @@ async def _serve_search(client: TelegramClient) -> None:
 
 async def _search_chats(client: TelegramClient, payload: dict) -> dict:
     """Every keyword in every requested chat: the hits as dicts, or the problem."""
-    allowed = userbot_config.live_chats()  # Only chats an admin set to live search, whatever the request says.
+    allowed = userbot_config.searchable_chats()  # Only chats an admin chose in /listen, whatever the request says.
     date_from = datetime.fromisoformat(payload["date_from"]).replace(tzinfo=timezone.utc) if payload.get("date_from") else None
     date_to = datetime.fromisoformat(payload["date_to"]).replace(tzinfo=timezone.utc) + timedelta(days=1) if payload.get("date_to") else None
     hits: dict[tuple[int, int], dict] = {}

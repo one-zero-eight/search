@@ -74,6 +74,10 @@ Rules:
   topic words: never the year, "when", "where" or filler, and never repeat a query. The messages found by several
   queries rank first. If the results do not answer the question, search again with other words, not the same ones.
   Results are ranked by relevance, not by date: read the dates.
+- Chat results say which courses they are about (`about`: from the message or the name of its chat) and, when the question
+  names a course, `matches_question_subject`. A result with false belongs to ANOTHER course: never take its dates, rooms or
+  rules for the course asked about, even if it speaks of a "midterm" or "exam". If no result matches the asked course, say
+  that nothing was found for it, and you may add what exists for other courses naming those courses.
 - For counts, rankings and lists ("how many messages", "who wrote most", "which chats") use query_db.
 - Results taken from chat messages carry a "ref" (like m0, m1). Put it in square brackets right after the fact it
   supports, copied exactly: "Мидтерм 22 октября [m0]"; several: [m0][m1]. Refs stay valid through the whole
@@ -175,11 +179,12 @@ class SourcesMiddleware(AgentMiddleware):
 
 
 class UserbotToolMiddleware(AgentMiddleware):
-    """Shows the model search_userbot_chats only when this asker has a chat to search with it: without such a chat the
-    tool would be a way to waste a model call."""
+    """Shows the model search_userbot_chats whenever this asker has a chat the userbot may search (chosen in /listen, by
+    the study group): without one the tool would only waste a model call."""
 
     def _tools(self, request: ModelRequest) -> ModelRequest:
-        if _live_titles(request):
+        context = request.runtime.context
+        if userbot_config.searchable_titles(context.allowed_chat_ids if context else None):
             return request
         return request.override(tools=[t for t in request.tools if getattr(t, "name", "") != "search_userbot_chats"])
 
@@ -289,6 +294,8 @@ class RunGuardMiddleware(AgentMiddleware):
         message = self._last(response)
         if message is None or message.tool_calls or not any(getattr(t, "name", "") == "search_userbot_chats" for t in request.tools):
             return None
+        if not _live_titles(request):
+            return None  # Only chats outside the knowledge base cannot be skipped: for the others the model decides.
         run = _this_run(request.messages)
         called = {m.name for m in run if isinstance(m, ToolMessage)}
         if "search_chats" not in called or "search_userbot_chats" in called:
