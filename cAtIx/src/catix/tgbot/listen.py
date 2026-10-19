@@ -134,7 +134,7 @@ def _chat_screen(chat_id: int) -> tuple[str, Keyboard]:
     if on and dialog.bot_in and not dialog.bot_only:  # Both can read it: one of them must (two copies of everything otherwise).
         current = userbot_config.readers().get(chat_id, "auto")
         rows.append([
-            _button(f"{'✅ ' if current == code else ''}{name}", f"ls:r:{chat_id}:{code}")
+            _button(f"{'✅ ' if current == code else ''}{name}", f"ls:w:{chat_id}:{code}")
             for code, name in (("auto", "Авто"), ("userbot", "👤 userbot"), ("bot", "🤖 бот"))
         ])
     if dialog.forum and not dialog.bot_only:  # The Bot API gives no list of topics.
@@ -149,8 +149,27 @@ def _chat_screen(chat_id: int) -> tuple[str, Keyboard]:
     known = [c for c in _known_groups() if len(c) <= MAX_CODE_BUTTON]
     rows.append([_button(f"{'✅ ' if c == current else ''}{c}", f"ls:s:{chat_id}:{c}") for c in known[:4]] or [])
     rows.append([_button("🎓 Другая группа…", f"ls:g:{chat_id}")])
+    stored, _ = store.chat_message_counts(chat_id)
+    lines.append(f"Сообщений в базе: {stored}")
+    if stored:
+        rows.append([_button(f"🗑 Очистить сообщения ({stored})", f"ls:cl:{chat_id}")])
     rows.append([_button("← К списку", "ls:l:keep")])
     return "\n".join(lines), rows
+
+
+def _clear_screen(chat_id: int) -> tuple[str, Keyboard]:
+    dialog = userbot_config.dialog(chat_id)
+    title = html.escape(dialog.title) if dialog else str(chat_id)
+    stored, changes = store.chat_message_counts(chat_id)
+    text = (
+        f"Удалить все <b>{stored}</b> сообщений чата «{title}» и их эмбеддинги? Это необратимо.\n"
+        + (f"Вместе с ними удалятся найденные в них изменения расписания: {changes}.\n" if changes else "")
+        + "Сам чат, его учебная группа и выбор «слушать» остаются. "
+        + ("Пока чат включён, новые сообщения продолжат сохраняться." if chat_id in userbot_config.listened() else "")
+    )
+    return text.strip(), [
+        [_button("✅ Да, удалить", f"ls:cy:{chat_id}"), _button("← Отмена", f"ls:c:{chat_id}")],
+    ]
 
 
 def _topics_screen(chat_id: int) -> tuple[str, Keyboard]:
@@ -227,11 +246,19 @@ async def listen_callback(query: CallbackQuery) -> None:
                 await asyncio.to_thread(userbot_config.set_listen, chat_id, False)
                 notice = "Больше не слушаю (сохранённые сообщения остаются)"
             screen = await asyncio.to_thread(_chat_screen, chat_id)
-        case "r":
+        case "w":  # Who reads the chat (its own letter: "r" is the refresh above).
             chat_id, code = int(args[0]), args[1]
             if code in userbot_config.READERS:
                 await asyncio.to_thread(userbot_config.set_reader, chat_id, code)
                 notice = {"auto": "Читает userbot, если он в чате", "userbot": "Читает userbot", "bot": "Читает бот"}[code]
+            screen = await asyncio.to_thread(_chat_screen, chat_id)
+        case "cl":
+            screen = await asyncio.to_thread(_clear_screen, int(args[0]))
+        case "cy":
+            chat_id = int(args[0])
+            deleted = await asyncio.to_thread(store.clear_chat, chat_id)
+            log.info("admin %s cleared %d messages of chat %s", user_id, deleted, chat_id)
+            notice = f"Удалено сообщений: {deleted}"
             screen = await asyncio.to_thread(_chat_screen, chat_id)
         case "t":
             screen = await asyncio.to_thread(_topics_screen, int(args[0]))

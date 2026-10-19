@@ -185,6 +185,24 @@ def migrate_chat(old_id: int, new_id: int) -> dict[str, int]:
     return counts
 
 
+def chat_message_counts(chat_id: int) -> tuple[int, int]:
+    """How many messages of a chat are stored, and how many schedule changes were found in them."""
+    with pg.connection() as conn:
+        row = conn.execute(
+            """SELECT (SELECT count(*) FROM messages WHERE chat_id = %(c)s) AS messages,
+                      (SELECT count(*) FROM schedule_changes s JOIN messages m ON m.id = s.message_id WHERE m.chat_id = %(c)s) AS changes""",
+            {"c": chat_id},
+        ).fetchone()
+    return row["messages"], row["changes"]
+
+
+def clear_chat(chat_id: int) -> int:
+    """Delete every stored message of a chat. Their vectors, queue entries and the schedule changes found in them go
+    with them (cascade); the chat itself, its study group and the choice in /listen stay."""
+    with pg.connection() as conn:
+        return conn.execute("DELETE FROM messages WHERE chat_id = %s", (chat_id,)).rowcount
+
+
 def upsert_chat(chat_id: int, title: str, username: str | None, *, via_bot: bool = False) -> None:
     write_batch([ChatInfo(chat_id, title, username, via_bot)], [])
 
