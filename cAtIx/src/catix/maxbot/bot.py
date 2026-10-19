@@ -283,6 +283,10 @@ async def _handle(max_: Max, me: dict, update: dict) -> None:
             if command == "/group":
                 await max_.send(chat_id, groups.group_command(args, await max_.admin_chats(sender["user_id"])))
                 return
+            if command in ("/clear", "/new"):
+                await asyncio.to_thread(agent.checkpointer.delete_thread, f"max:{chat_id}:{sender['user_id']}")
+                await max_.send(chat_id, "Память диалога очищена: следующий вопрос начнёт разговор заново.")
+                return
             if command == "/mygroup":
                 await max_.send(chat_id, groups.mygroup_command(args, f"max:{sender['user_id']}", may_set=groups.manual_group_allowed(False)))
                 return

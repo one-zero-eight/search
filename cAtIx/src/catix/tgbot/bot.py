@@ -354,6 +354,7 @@ async def start(message: Message) -> None:
         "Привет! Я cAtIx, ассистент Innopolis University: клубы, аудитории, события, а также экзамены, дедлайны и советы "
         "из чатов, куда меня добавили.\n\nВ личке просто пишите вопрос. В группе: /ask вопрос, упоминание или ответ "
         "на моё сообщение.\n\n/mygroup: ваша учебная группа (по умолчанию ищу везде).\n"
+        "/clear: забыть наш разговор и начать заново.\n"
         "/listen и /admin: для администратора: чаты и учебные группы, другие администраторы."
     )
 
@@ -392,6 +393,14 @@ async def my_group(message: Message, command: CommandObject) -> None:
     user_id = message.from_user.id
     may_set = groups.manual_group_allowed(user_id in await asyncio.to_thread(changes.admins))
     await message.answer(await asyncio.to_thread(lambda: groups.mygroup_command(command.args or "", f"tg:{user_id}", user_id, may_set=may_set)))
+
+
+@router.message(Command("clear", "new"))
+async def clear_context(message: Message) -> None:
+    """Forget the conversation: the agent keeps the earlier questions and answers of this chat, per user."""
+    thread_id = f"tg:{message.chat.id}:{message.from_user.id if message.from_user else 0}"
+    await asyncio.to_thread(agent.checkpointer.delete_thread, thread_id)
+    await message.reply("Память диалога очищена: следующий вопрос начнёт разговор заново.")
 
 
 @router.message(Command("ask"))
@@ -560,6 +569,7 @@ COMMANDS = [
     BotCommand(command="start", description="Что я умею"),
     BotCommand(command="ask", description="Задать вопрос (в группе)"),
     BotCommand(command="mygroup", description="Моя учебная группа"),
+    BotCommand(command="clear", description="Очистить память диалога"),
     BotCommand(command="calendar", description="Календарь: группа и мои события"),
     BotCommand(command="id", description="ID чата и топика"),
 ]
