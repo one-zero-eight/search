@@ -28,6 +28,12 @@ class Settings(BaseSettings):
     # all but the last `agent_keep_tool_results` are replaced by a placeholder.
     agent_context_trigger_tokens: int = Field(6000, gt=0)
     agent_keep_tool_results: int = Field(3, ge=0)
+    # A long conversation is summarized before the next question when the questions and answers of it (tool results are
+    # not counted: they are cut above) reach this many tokens (approximate: Russian is about 1.8x more in reality), so
+    # that the history never grows to the model's window (the llama.cpp slot, e.g. 17k). The last
+    # `agent_summarize_keep_messages` messages stay as they are.
+    agent_summarize_trigger_tokens: int = Field(3000, gt=0)
+    agent_summarize_keep_messages: int = Field(4, ge=2)
 
     # Langfuse tracing of the agent (https://langfuse.com). Both keys set: every question is traced; otherwise off.
     langfuse_public_key: str | None = None

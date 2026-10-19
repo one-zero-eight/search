@@ -13,6 +13,7 @@ from langchain.agents.middleware import (
     ClearToolUsesEdit,
     ContextEditingMiddleware,
     ModelCallLimitMiddleware,
+    SummarizationMiddleware,
     ModelRequest,
     ToolCallRequest,
     ToolErrorMiddleware,
@@ -397,6 +398,38 @@ def final_answer(messages: list[BaseMessage]) -> str:
     return sources.cite(answer, messages)
 
 
+SUMMARY_PROMPT = """\
+Summarize this conversation between a student and a university assistant so that the assistant can continue it. \
+Keep: what the student asked and wants, the concrete facts found (dates, times, rooms, names, which course or chat), \
+and what is still unanswered. Drop greetings and wording. Do not write source marks like [m123]. At most 180 words, \
+in the language of the conversation. Reply with the summary only.
+
+Conversation:
+{messages}
+"""
+
+
+def _dialogue_tokens(messages) -> int:
+    """Tokens of the questions and answers only: tool calls and results are cut in the request anyway (see below)."""
+    spoken = [m for m in messages if isinstance(m, HumanMessage) or (isinstance(m, AIMessage) and not m.tool_calls)]
+    return count_tokens_approximately(spoken)
+
+
+class TurnStartSummarization(SummarizationMiddleware):
+    """Summarizes only when a new question arrives. In the middle of an answer the messages of this very question
+    (the tool results it is built on) must stay whole."""
+
+    def before_model(self, state, runtime):
+        if not state["messages"] or not isinstance(state["messages"][-1], HumanMessage):
+            return None
+        return super().before_model(state, runtime)
+
+    async def abefore_model(self, state, runtime):
+        if not state["messages"] or not isinstance(state["messages"][-1], HumanMessage):
+            return None
+        return await super().abefore_model(state, runtime)
+
+
 def build_agent(model=None):
     model = model or ChatOpenAI(
         base_url=str(settings.llm_route),
@@ -413,6 +446,20 @@ def build_agent(model=None):
         middleware=[
             system_prompt,
             SubjectHintMiddleware(),
+            TurnStartSummarization(
+                ChatOpenAI(
+                    base_url=str(settings.llm_route),
+                    api_key="not-needed",
+                    model=settings.llm_model,
+                    max_tokens=500,
+                    temperature=0,
+                    extra_body={"chat_template_kwargs": {"enable_thinking": False}},
+                ),
+                trigger=("tokens", settings.agent_summarize_trigger_tokens),
+                keep=("messages", settings.agent_summarize_keep_messages),
+                token_counter=_dialogue_tokens,
+                summary_prompt=SUMMARY_PROMPT,
+            ),
             ContextEditingMiddleware(
                 edits=[
                     ClearToolUsesEdit(
