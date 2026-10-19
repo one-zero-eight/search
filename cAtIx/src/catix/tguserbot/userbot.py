@@ -301,6 +301,9 @@ async def _follow_choice(client: TelegramClient, entities: dict[int, Channel | C
 
 SEARCH_CONCURRENCY = 3  # Telegram searches at the same time: the account must not look like a scraper.
 SEARCH_BUDGET = 8.0  # Seconds one request may take; the bot stops waiting a little later.
+CHATS_AT_ONCE = 8  # Chats of one request searched at the same time.
+GLOBAL_FROM = 3  # More chats than this: one search over all dialogs per keyword instead of one per chat.
+GLOBAL_LIMIT = 150  # Newest messages of all dialogs looked at per keyword.
 
 
 async def _serve_search(client: TelegramClient) -> None:
@@ -374,7 +377,42 @@ async def _search_chats(client: TelegramClient, payload: dict) -> dict:
                 problem = f"Telegram asked to wait {e.seconds} s"
                 return
 
-    await asyncio.gather(*(one_chat(c) for c in payload["chat_ids"] if c in allowed), return_exceptions=False)
+    wanted = [c for c in payload["chat_ids"] if c in allowed]
+    if len(wanted) > GLOBAL_FROM:
+        # Many chats: one search over all dialogs per keyword (a search per chat took many seconds when one chat was slow, and
+        # held up the others), the hits of other chats are dropped at once, unread.
+        for word in payload["keywords"]:
+            try:
+                async for message in client.iter_messages(None, search=word, limit=GLOBAL_LIMIT, offset_date=date_to):
+                    if date_from and message.date < date_from:
+                        break
+                    if message.chat_id not in wanted:
+                        continue
+                    entity = await message.get_chat()
+                    row = _to_store(message, message.chat_id, entity)
+                    if row and (message.chat_id, row.msg_id) not in hits:
+                        hits[message.chat_id, row.msg_id] = {
+                            "chat_id": message.chat_id, "msg_id": row.msg_id, "chat_title": utils.get_display_name(entity), "date": row.date.isoformat(),
+                            "author": row.sender_name, "sender_link": row.sender_link, "link": row.link, "text": row.text,
+                        }
+            except errors.FloodWaitError as e:
+                problem = f"Telegram asked to wait {e.seconds} s"
+                break
+        return {"hits": list(hits.values()), "error": problem}
+
+    gate = asyncio.Semaphore(CHATS_AT_ONCE)
+
+    async def limited(chat_id: int) -> None:
+        async with gate:
+            await one_chat(chat_id)
+
+    tasks = [asyncio.create_task(limited(c)) for c in wanted]
+    # Telegram answers some searches in many seconds: what is there when the time is up is returned, the slow chats are left out.
+    _, pending = await asyncio.wait(tasks, timeout=SEARCH_BUDGET - 1) if tasks else (set(), set())
+    for task in pending:
+        task.cancel()
+    if pending and not problem:
+        problem = f"{len(pending)} chat(s) answered too slowly and were skipped"
     return {"hits": list(hits.values()), "error": problem}
 
 
