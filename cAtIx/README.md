@@ -134,5 +134,4 @@ scripts/       catix.sh (запуск для разработки), backup.sh
 
 ## TODO
 
-- create summarization of messages if dialog is huge
-- Change InMemorySaver
+- Change InMemorySaver to AsyncPostgresSaver
