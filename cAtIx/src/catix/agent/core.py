@@ -112,8 +112,6 @@ take the messages whose text contains any keyword stem, in Russian and English, 
     AND day >= 'YYYY-MM-DD' ORDER BY sent_at LIMIT 50
 Then read the rows, drop what is not about the topic (adverts, chatter), and list the rest with their dates and refs.
 
-Current date and time: {now} ({timezone}, {weekday}).
-The user's last message is in {language}: write the answer in {language}.
 """
 
 
@@ -152,6 +150,13 @@ queries if needed, and `chat` to name one of them. When the question concerns on
 When it does not name a chat, call search_chats AND search_userbot_chats together, in the same step."""
 
 
+# The lines that change with every question go last: the model server reuses the cached start of a prompt up to the first
+# difference, and a cold prompt (~4k tokens with the tools) costs ~8 s of prefill.
+TAIL_PROMPT = """
+
+Current date and time: {now} ({timezone}, {weekday}).
+The user's last message is in {language}: write the answer in {language}."""
+
 COURSES_PROMPT = """
 
 Courses (use these names in the answer, never translate or guess a code yourself): {glossary}."""
@@ -168,14 +173,17 @@ def system_prompt(request: ModelRequest) -> str:
     now = datetime.now(settings.tz)
     context = request.runtime.context
     live = _live_titles(request)
-    return SYSTEM_PROMPT.format(
-        language=_last_question_language(request),
-        now=now.strftime("%Y-%m-%d %H:%M"),
-        timezone=settings.timezone,
-        weekday=now.strftime("%A"),
-    ) + (COURSES_PROMPT.format(glossary=courses.glossary()) if courses.courses() else "") + (
-        GROUP_PROMPT.format(group=context.study_group) if context and context.study_group else ""
-    ) + (LIVE_PROMPT.format(titles=", ".join(f"«{t}»" for t in live.values())) if live else "") + (BRIEF_PROMPT if context and context.brief else "")
+    parts = [
+        SYSTEM_PROMPT,  # Same for everybody: its start stays in the model server's cache.
+        COURSES_PROMPT.format(glossary=courses.glossary()) if courses.courses() else "",
+        LIVE_PROMPT.format(titles=", ".join(f"«{t}»" for t in live.values())) if live else "",
+        BRIEF_PROMPT if context and context.brief else "",
+        GROUP_PROMPT.format(group=context.study_group) if context and context.study_group else "",
+        TAIL_PROMPT.format(
+            language=_last_question_language(request), now=now.strftime("%Y-%m-%d %H:%M"), timezone=settings.timezone, weekday=now.strftime("%A")
+        ),
+    ]
+    return "".join(parts)
 
 
 class SourcesState(AgentState):
