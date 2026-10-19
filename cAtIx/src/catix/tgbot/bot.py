@@ -170,7 +170,7 @@ async def _run_agent(
     config = tracing.run_config(thread_id, str(user_id) if user_id else None)
     context = AgentContext(allowed_chat_ids=None if allowed is None else frozenset(allowed), user_telegram_id=user_id, brief=brief)
     messages = await stream.run(agent, {"messages": [{"role": "user", "content": question}]}, config, context, streamer)
-    return final_answer(messages) or "Не получилось сформулировать ответ.", tracing.trace_id(config)
+    return final_answer(messages, context.sources) or "Не получилось сформулировать ответ.", tracing.trace_id(config)
 
 
 def _event_label(event: dict) -> str:

@@ -6,7 +6,7 @@ kept compact because they go straight into the model context.
 
 import json
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta
 from typing import Literal
 
@@ -18,7 +18,7 @@ from pydantic import BaseModel, Field, field_validator
 
 from catix.common import dates
 from catix.innohassle import client as innohassle
-from catix.agent import sources
+from catix.agent.sources import Registry
 from catix.agent import sqlquery
 from catix.db import store
 from catix.settings import settings
@@ -41,6 +41,8 @@ class AgentContext:
     user_telegram_id: int | None = None
     # The answer goes into an inline-mode card: it must be as short as possible.
     brief: bool = False
+    # The sources of this question: tools register what they find here, `cite` turns the model's refs into a list.
+    sources: Registry = field(default_factory=Registry)
 
 
 DEFAULT_EVENTS_WINDOW_DAYS = 14
@@ -274,7 +276,7 @@ def search_chats(
     now = datetime.now(settings.tz)
     for row in rows:
         item = {
-            "ref": sources.ref(row.ref_id),
+            "ref": runtime.context.sources.add_db(row.ref_id) if runtime.context else None,
             "chat": row.chat_title,
             "date": _fmt(row.date),
             "from": row.sender_name,
@@ -419,9 +421,9 @@ class QueryDbArgs(BaseModel):
 
 @tool(args_schema=QueryDbArgs, description=sqlquery.DESCRIPTION)
 def query_db(sql: str, runtime: ToolRuntime[AgentContext]) -> dict:
-    return sqlquery.run(
-        sql, runtime.context.allowed_chat_ids if runtime.context else None
-    )
+    result = sqlquery.run(sql, runtime.context.allowed_chat_ids if runtime.context else None)
+    # The views name messages by database id ("m5127"): the model gets this question's refs instead.
+    return runtime.context.sources.rewrite(result) if runtime.context else result
 
 
 TOOLS = [

@@ -135,3 +135,4 @@ scripts/       catix.sh (запуск для разработки), backup.sh
 ## TODO
 
 - Change InMemorySaver to AsyncPostgresSaver
+- Пускай userbot использует уже готовый у телеграмма search, таким образом он сможет искать в огромных чатиках и не заводить свои embed и тд.

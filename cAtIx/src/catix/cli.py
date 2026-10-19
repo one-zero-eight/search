@@ -7,17 +7,19 @@ from langchain_core.messages import AIMessage
 
 from catix.agent import tracing
 from catix.agent.core import build_agent, final_answer
+from catix.agent.tools import AgentContext
 
 
 def ask(agent, question: str, thread_id: str) -> str:
     config = tracing.run_config(thread_id)
-    for update in agent.stream({"messages": [{"role": "user", "content": question}]}, config, stream_mode="updates"):
+    context = AgentContext()
+    for update in agent.stream({"messages": [{"role": "user", "content": question}]}, config, context=context, stream_mode="updates"):
         for step in update.values():
             for message in (step or {}).get("messages", []):
                 if isinstance(message, AIMessage):
                     for call in message.tool_calls:
                         print(f"  → {call['name']}({call['args']})", file=sys.stderr)
-    return final_answer(agent.get_state(config).values["messages"])
+    return final_answer(agent.get_state(config).values["messages"], context.sources)
 
 
 def main() -> None:
