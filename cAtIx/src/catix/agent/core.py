@@ -142,12 +142,16 @@ def _live_titles(request: ModelRequest) -> dict[int, str]:
     return userbot_config.live_chat_titles(context.allowed_chat_ids if context else None)
 
 
-LIVE_PROMPT = """
+USERBOT_PROMPT = """
 
-Some big chats are NOT in the knowledge base, so search_chats never sees them: {titles}. Search them with
-search_userbot_chats: queries of ONE or TWO words each (Telegram matches words, not meaning, newest first), several
-queries if needed, and `chat` to name one of them. When the question concerns one of these chats, use search_userbot_chats.
-When it does not name a chat, call search_chats AND search_userbot_chats together, in the same step."""
+search_userbot_chats searches chats with Telegram's own search, through the userbot. Use it besides search_chats when the
+knowledge base has nothing or only old results, when the user wants the newest messages, a message that may predate the
+knowledge base, or names a chat (`chat` narrows it to that one). It matches whole words and their forms, not meaning, newest
+first, so give 1-4 queries of ONE or TWO words each, never a sentence."""
+
+LIVE_PROMPT = """
+Some big chats are NOT in the knowledge base, so search_chats never sees them: {titles}. Anything about them needs
+search_userbot_chats. When the question names no chat, call search_chats AND search_userbot_chats together, in the same step."""
 
 
 # The lines that change with every question go last: the model server reuses the cached start of a prompt up to the first
@@ -176,6 +180,7 @@ def system_prompt(request: ModelRequest) -> str:
     parts = [
         SYSTEM_PROMPT,  # Same for everybody: its start stays in the model server's cache.
         COURSES_PROMPT.format(glossary=courses.glossary()) if courses.courses() else "",
+        USERBOT_PROMPT if userbot_config.searchable_titles(context.allowed_chat_ids if context else None) else "",
         LIVE_PROMPT.format(titles=", ".join(f"«{t}»" for t in live.values())) if live else "",
         BRIEF_PROMPT if context and context.brief else "",
         GROUP_PROMPT.format(group=context.study_group) if context and context.study_group else "",
