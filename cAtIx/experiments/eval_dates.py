@@ -100,7 +100,7 @@ def main() -> None:
                 started = time.monotonic()
                 try:
                     out = agent.invoke({"messages": [{"role": "user", "content": question}]}, config)
-                    answer = final_answer(out["messages"])
+                    answer = final_answer(out["messages"], out.get("sources") or {})
                 except Exception as e:  # noqa: BLE001
                     answer = ""
                     print(f"   error: {type(e).__name__}: {str(e)[:100]}", flush=True)

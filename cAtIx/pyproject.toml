@@ -36,3 +36,16 @@ catix-db = "catix.db.init:main"
 [build-system]
 requires = ["uv_build>=0.13.0,<0.14.0"]
 build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra -m 'not redteam'"
+
+[dependency-groups]
+dev = [
+    "deepeval>=4.3.1",
+    "deepteam>=1.0.10",
+    "pytest>=9.1.1",
+    "sentry-sdk>=2.72.0",
+]

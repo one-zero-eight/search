@@ -95,7 +95,7 @@ def main() -> None:
                         out = agent.invoke(
                             {"messages": [{"role": "user", "content": question}]}, {"configurable": {"thread_id": uuid.uuid4().hex}}
                         )
-                        answer = final_answer(out["messages"])
+                        answer = final_answer(out["messages"], out.get("sources") or {})
                     except Exception as e:  # noqa: BLE001
                         answer = ""
                         print(f"   error: {type(e).__name__}", flush=True)
