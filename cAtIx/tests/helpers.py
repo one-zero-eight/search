@@ -1,11 +1,14 @@
 """Shared pieces of the test suite: the local model as DeepEval judge, a way to ask the real agent, small metrics."""
 
 import os
+import random
 import re
 import uuid
 from dataclasses import dataclass
 
 # DeepEval and DeepTeam send telemetry to third parties unless told not to; the prompts under test stay on this machine.
+os.environ["PHOENIX_PROJECT"] = "catix-tests"  # the traces of the tests go to their own Phoenix project, not among the real ones
+
 for _key in ("DEEPTEAM_TELEMETRY_OPT_OUT", "DEEPEVAL_TELEMETRY_OPT_OUT", "TELEMETRY_OPT_OUT", "DEEPEVAL_UPDATE_WARNING_OPT_OUT"):
     os.environ[_key] = "YES"
 
@@ -65,6 +68,15 @@ class LocalModel(DeepEvalBaseLLM):
         return settings.llm_model
 
 
+TEST_USER_BASE = 10**15  # ids far above any real one: `max:1000000000000123`; conftest deletes their abuse rows afterwards
+
+
+def fresh_user() -> int:
+    """A new negative (Max-style) id for every question: the guardrail counts attacks per user, and one user asking
+    attack after attack in the tests would be paused."""
+    return -(TEST_USER_BASE + random.randrange(10**12))
+
+
 @dataclass
 class Answer:
     text: str  # what the user sees, with the source list
@@ -73,9 +85,10 @@ class Answer:
     tool_names: list[str]
 
 
-def ask(agent, question: str, user_id: int = -1, only_chats: set[int] | None = None) -> Answer:
+def ask(agent, question: str, user_id: int | None = None, only_chats: set[int] | None = None) -> Answer:
     """One question to the real agent as an ordinary user (not the owner of the InNoHassle token).
     `only_chats` limits the search to those chats, so that real chats cannot mix into a test about given messages."""
+    user_id = fresh_user() if user_id is None else user_id
     out = agent.invoke(
         {"messages": [{"role": "user", "content": question}]},
         tracing.run_config(uuid.uuid4().hex, str(user_id), name="test"),
