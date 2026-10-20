@@ -1,8 +1,8 @@
 """Admin settings of the chats in the bot: /listen (it replaced the Telegram /group).
 
 An admin (ADMIN_TELEGRAM_IDS) sees the chats the userbot is in and those only the Bot API bot (🤖) is in, turns
-listening to them on and off, narrows a forum chat of the userbot to some of its topics and sets the study group of a
-chat. All of it is kept in the database
+listening to them on and off, narrows a forum chat of the userbot to some of its topics, sets the study group of a
+chat and marks it as official (🏛, catix/official.py). All of it is kept in the database
 (userbot_config.py); the userbot follows it within seconds and fetches the history of a chat that was just turned on.
 Only in a private chat with the bot, so that nobody chatting in a group can change it.
 """
@@ -17,7 +17,7 @@ from aiogram.exceptions import TelegramBadRequest
 from aiogram.filters import Command
 from aiogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Message
 
-from catix import groups, userbot_config
+from catix import groups, official, userbot_config
 from catix.db import pg, store
 from catix.worker import changes
 
@@ -87,11 +87,12 @@ def _list_screen(user_id: int) -> tuple[str, Keyboard]:
     PAGE[user_id] = page
     shown = dialogs[page * PAGE_SIZE : (page + 1) * PAGE_SIZE]
     codes = _groups_of([d.chat_id for d in shown])
+    official_flags = official.flags([d.chat_id for d in shown])
     readers = userbot_config.readers()
     rows: Keyboard = []
     for d in shown:
         code = codes.get(d.chat_id, groups.ALL)
-        label = f"{'✅' if d.chat_id in chosen else '⬜'} {_short(d.title)}{' 🧵' if d.forum else ''}{' 🤖' if d.bot_in else ''}{' 🔎' if readers.get(d.chat_id) == 'search' else ''}{'' if code == groups.ALL else ' · ' + code}"
+        label = f"{'✅' if d.chat_id in chosen else '⬜'} {_short(d.title)}{' 🧵' if d.forum else ''}{' 🤖' if d.bot_in else ''}{' 🔎' if readers.get(d.chat_id) == 'search' else ''}{' 🏛' if official_flags.get(d.chat_id) else ''}{'' if code == groups.ALL else ' · ' + code}"
         rows.append([_button(label, f"ls:c:{d.chat_id}")])
     nav = []
     if page > 0:
@@ -103,7 +104,7 @@ def _list_screen(user_id: int) -> tuple[str, Keyboard]:
     rows.append([_button("🔄 Обновить список", "ls:r")])
     text = (
         f"<b>Чаты userbot</b>: слушаю {len(chosen)} из {len(dialogs)}.\n"
-        "✅ — слушаю, 🧵 — форум с топиками, 🤖 — в чате есть бот, 🔎 — только поиск Telegram (не хранится), после · — учебная группа чата. "
+        "✅ — слушаю, 🧵 — форум с топиками, 🤖 — в чате есть бот, 🔎 — только поиск Telegram (не хранится), 🏛 — официальный чат, после · — учебная группа чата. "
         "Нажмите на чат, чтобы настроить."
     )
     return text, rows
@@ -156,6 +157,9 @@ def _chat_screen(chat_id: int) -> tuple[str, Keyboard]:
     known = [c for c in _known_groups() if len(c) <= MAX_CODE_BUTTON]
     rows.append([_button(f"{'✅ ' if c == current else ''}{c}", f"ls:s:{chat_id}:{c}") for c in known[:4]] or [])
     rows.append([_button("🎓 Другая группа…", f"ls:g:{chat_id}")])
+    is_official = official.flags([chat_id]).get(chat_id, False)
+    lines.append(f"Официальный чат: {'да' if is_official else 'нет'} (только такие сообщения агент называет официальными)")
+    rows.append([_button("🏛 Снять отметку «официальный»" if is_official else "🏛 Сделать официальным", f"ls:of:{chat_id}")])
     stored, _ = store.chat_message_counts(chat_id)
     lines.append(f"Сообщений в базе: {stored}")
     if stored:
@@ -218,6 +222,17 @@ async def listen_command(message: Message) -> None:
     PENDING_GROUP.pop(message.from_user.id, None)
     text, rows = await asyncio.to_thread(_list_screen, message.from_user.id)
     await message.answer(text, parse_mode=ParseMode.HTML, reply_markup=InlineKeyboardMarkup(inline_keyboard=rows))
+
+
+def _toggle_official(chat_id: int) -> str | None:
+    """Switch the "official" mark of a chat of the list; the notice for the admin, or None if the chat is gone."""
+    dialog = userbot_config.dialog(chat_id)
+    if dialog is None:
+        return None
+    _ensure_chat(dialog)  # the chat row holds the mark and may not exist yet
+    value = not official.flags([chat_id]).get(chat_id, False)
+    official.set_official(chat_id, value)
+    return "Чат отмечен официальным: его сообщения можно называть официальными" if value else "Отметка «официальный» снята"
 
 
 @router.callback_query(F.data.startswith("ls:"))
@@ -287,6 +302,10 @@ async def listen_callback(query: CallbackQuery) -> None:
                 await asyncio.to_thread(_ensure_chat, dialog)
                 await asyncio.to_thread(groups.set_chat_group, chat_id, groups.normalize(code))
                 notice = f"Группа чата: {code}"
+            screen = await asyncio.to_thread(_chat_screen, chat_id)
+        case "of":
+            chat_id = int(args[0])
+            notice = await asyncio.to_thread(_toggle_official, chat_id)
             screen = await asyncio.to_thread(_chat_screen, chat_id)
         case "g":
             PENDING_GROUP[user_id] = int(args[0])

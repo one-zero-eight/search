@@ -132,7 +132,7 @@ def cite(answer: str, registry: dict[str, dict]) -> str:
                 continue
             source = {
                 "chat_title": row.chat_title, "link": row.link or row.chat_link,  # The chat's own link when the message has none.
-                "date": row.date, "author": row.sender_name, "sender_link": row.sender_link,
+                "date": row.date, "author": row.sender_name, "sender_link": row.sender_link, "official": row.chat_official,
             }
         lines.append(_line(number, source))
     if not lines:
@@ -148,7 +148,7 @@ def _line(number: int, source: dict) -> str:
     title = f"«{source['chat_title']}»"
     if link := source.get("link"):
         title = f"[{title.replace('[', '(').replace(']', ')')}]({link})"
-    line = f"[{number}] {title}" + (f", {when:%d.%m.%Y}" if when else "")
+    line = f"[{number}] {title}" + (" (официальный чат)" if source.get("official") else "") + (f", {when:%d.%m.%Y}" if when else "")
     if author and source.get("sender_link"):
         line += f", [{author.replace('[', '(').replace(']', ')')}]({source['sender_link']})"
     elif author:

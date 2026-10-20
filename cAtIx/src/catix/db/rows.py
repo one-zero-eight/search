@@ -42,6 +42,7 @@ class MessageHit:
     text: str
     link: str | None
     chat_title: str
+    chat_official: bool
     parent_sender: str | None
     parent_text: str | None
 
@@ -55,6 +56,7 @@ class SourceRow:
     sender_name: str | None
     sender_link: str | None
     link: str | None
+    chat_official: bool
     chat_link: str | None
     chat_title: str
 

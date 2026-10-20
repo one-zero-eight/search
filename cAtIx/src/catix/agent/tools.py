@@ -17,6 +17,7 @@ from langchain_core.tools import tool
 from langgraph.types import Command
 from pydantic import BaseModel, Field, field_validator
 
+from catix import official
 from catix.common import courses, dates
 from catix.innohassle import client as innohassle
 from catix.agent.sources import Collector
@@ -263,7 +264,8 @@ def search_chats(
 ) -> Command:
     """Search student Telegram chats by words and by meaning: announcements, exam and deadline dates, homework,
     reschedules, campus news, tips. Give several queries from different angles in ONE call: messages found by
-    several of them rank first. Unofficial source: messages may be outdated, jokes or contradict each other.
+    several of them rank first. Messages may be outdated, jokes or contradict each other. Each carries `official`: true only
+    for a chat an admin marked as the university's official one; all the rest is students talking.
     Results are ranked by relevance only, not by date: read the dates and prefer the latest information."""
     allowed = runtime.context.allowed_chat_ids if runtime.context else None
     rows = store.search(
@@ -283,6 +285,7 @@ def search_chats(
         item = {
             "ref": collector.add_db(row.ref_id),
             "chat": row.chat_title,
+            "official": row.chat_official,  # true only for chats an admin marked official
             "date": _fmt(row.date),
             "from": row.sender_name,
             # The stamp is in the text itself, so "завтра" is read next to the day it was written on.
@@ -352,6 +355,7 @@ def search_userbot_chats(
         chats = {c: t for c, t in chats.items() if chat.lstrip("@").casefold() in t.casefold()}
     if not chats:
         return collector.result({"total": 0, "messages": [], "note": "No chat to search this way (or none matches `chat`)."}, "search_userbot_chats")
+    official_ids = official.ids()
     hits, problem = live_search.search(queries, sorted(chats), date_from and date_from.isoformat(), date_to and date_to.isoformat())
     now = datetime.now(settings.tz)
     asked = _asked_courses(runtime)
@@ -362,6 +366,7 @@ def search_userbot_chats(
                 hit.chat_id, hit.msg_id, chat_title=hit.chat_title, link=hit.link, date=hit.date, author=hit.author, sender_link=hit.sender_link
             ),
             "chat": hit.chat_title,
+            "official": hit.chat_id in official_ids,
             "date": _fmt(hit.date),
             "from": hit.author,
             "text": hit.text[:600],

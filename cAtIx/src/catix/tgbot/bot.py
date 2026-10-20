@@ -45,6 +45,7 @@ from aiogram.utils.chat_action import ChatActionSender
 
 from catix.tgbot import admin
 from catix.tgbot import listen
+from catix.tgbot import official
 from catix.worker import changes
 from catix import groups, personal_calendar, userbot_config
 from catix.ingest import writer as ingest
@@ -609,6 +610,7 @@ async def run() -> None:
     dp = Dispatcher()
     dp.include_router(admin.router)  # before the generic handlers: /admin, /listen and their buttons
     dp.include_router(listen.router)
+    dp.include_router(official.router)  # /official: an admin marks chats as official
     dp.include_router(router)
     me = await bot.me()
     log.info("Running as @%s", me.username)

@@ -23,6 +23,9 @@ class Settings(BaseSettings):
     # Next to every chat message the tools give the concrete dates its "завтра", "в пятницу" or "23 октября" mean
     # and how far they are from today (src/catix/common/dates.py); the model does not have to do date arithmetic.
     annotate_dates: bool = True
+    # A short model call screens every user message before the agent (agent/guardrail.py): abuse, attempts to change its
+    # role or rules, tasks unrelated to the university are answered with a fixed refusal and never reach the agent.
+    guardrail_enabled: bool = True
     agent_max_model_calls: int = Field(6, gt=0, description="Model calls per question, including tool rounds.")
     # Old tool results dominate the context of long chats; above this size (approximate tokens)
     # all but the last `agent_keep_tool_results` are replaced by a placeholder.

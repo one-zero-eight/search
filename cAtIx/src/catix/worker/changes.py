@@ -11,6 +11,7 @@ import html
 import logging
 from datetime import date, datetime, time, timedelta, timezone
 
+from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 from pydantic import BaseModel, Field
 
@@ -53,6 +54,10 @@ dates above, never invent one; if the day is not given, is_change=false.
 """
 
 
+# The prompt as a template: the message text is a variable, so braces in it are data and never parsed.
+TEMPLATE = ChatPromptTemplate.from_messages([("human", PROMPT)])
+
+
 class Change(BaseModel):
     is_change: bool
     kind: ChangeKind | None = None
@@ -92,7 +97,7 @@ def extract(model, row: MessageToRead) -> Change | None:
     sent = row.date.astimezone(settings.tz)
     resolved = dates.resolve(row.text, row.date, now)
     parent = f"Message it replies to: {row.parent_text}\n" if row.parent_text else ""
-    prompt = PROMPT.format(
+    variables = dict(
         sent=f"{sent:%Y-%m-%d %H:%M}",
         weekday=f"{sent:%A}",
         chat=row.chat_title,
@@ -100,7 +105,7 @@ def extract(model, row: MessageToRead) -> Change | None:
         text=row.text[:1500],
         hints=("Dates in the message, resolved: " + "; ".join(resolved) + "\n") if resolved else "",
     )
-    result: Change = model.invoke(prompt, config=tracing.run_config("changes", name="schedule-change-detection"))
+    result: Change = (TEMPLATE | model).invoke(variables, config=tracing.run_config("changes", name="schedule-change-detection"))
     if not (result.is_change and result.kind and result.day):
         return None
     if result.day < now.date():

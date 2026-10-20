@@ -13,6 +13,8 @@ CREATE TABLE IF NOT EXISTS chats (
     group_code text NOT NULL DEFAULT 'all'        -- study group the chat belongs to (groups.py); 'all' = everybody
 );
 ALTER TABLE chats ADD COLUMN IF NOT EXISTS group_code text NOT NULL DEFAULT 'all';  -- tables created before this column existed
+-- An admin marks a chat as official (catix/official.py): only its messages may be called official in an answer.
+ALTER TABLE chats ADD COLUMN IF NOT EXISTS official boolean NOT NULL DEFAULT false;
 
 -- The study group a user searches in; no row = 'all'. user_key is 'tg:<id>' or 'max:<id>'.
 CREATE TABLE IF NOT EXISTS user_groups (

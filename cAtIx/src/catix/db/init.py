@@ -5,6 +5,7 @@
     catix-db status    # per chat: messages, vectors, messages waiting for a vector
     catix-db migrate-chat OLD NEW   # a basic group became a supergroup: move its messages and vectors to the new id
     catix-db prune-noise [yes]      # list the stored messages ingest/noise.py would not store now (yes = delete them)
+    catix-db official [N [on|off]]  # list the chats / mark chat number N official (or not): only those may be called official
     catix-db dedupe [yes]           # per chat keep only the newest of messages with the same text (yes = delete the rest)
 """
 
@@ -186,7 +187,7 @@ def migrate_chat(args: list[str]) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(prog="catix-db", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("command", choices=["init", "migrate", "status", "migrate-chat", "prune-noise", "dedupe"])
+    parser.add_argument("command", choices=["init", "migrate", "status", "migrate-chat", "prune-noise", "dedupe", "official"])
     parser.add_argument("args", nargs="*", help="OLD_ID NEW_ID, for migrate-chat; `yes` for prune-noise and dedupe")
     parsed = parser.parse_args()
     try:
@@ -196,6 +197,10 @@ def main() -> None:
             prune_noise(parsed.args)
         elif parsed.command == "dedupe":
             dedupe(parsed.args)
+        elif parsed.command == "official":
+            from catix import official
+
+            print(official.command(" ".join(parsed.args)))
         else:
             {"init": init, "migrate": migrate, "status": status}[parsed.command]()
     finally:

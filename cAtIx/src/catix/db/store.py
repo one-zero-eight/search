@@ -408,7 +408,7 @@ def search(
             conn,
             MessageHit,
             """SELECT m.id AS ref_id, m.chat_id, m.msg_id, m.date, m.edit_date, m.sender_name, m.reply_to, m.text, m.link,
-                      c.title AS chat_title, p.sender_name AS parent_sender, p.text AS parent_text
+                      c.title AS chat_title, c.official AS chat_official, p.sender_name AS parent_sender, p.text AS parent_text
                FROM messages m
                JOIN chats c ON c.chat_id = m.chat_id
                LEFT JOIN messages p ON p.chat_id = m.chat_id AND p.msg_id = m.reply_to
@@ -452,7 +452,7 @@ def message_sources(ids: list[int]) -> dict[int, SourceRow]:
         rows = pg.rows(
             conn,
             SourceRow,
-            """SELECT m.id, m.date, m.sender_name, m.sender_link, m.link, c.link AS chat_link, c.title AS chat_title
+            """SELECT m.id, m.date, m.sender_name, m.sender_link, m.link, c.link AS chat_link, c.official AS chat_official, c.title AS chat_title
                FROM messages m JOIN chats c ON c.chat_id = m.chat_id WHERE m.id = ANY(%s::bigint[])""",
             (ids,),
         )
