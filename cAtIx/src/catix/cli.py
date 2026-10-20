@@ -13,14 +13,17 @@ from catix.agent.tools import AgentContext
 def ask(agent, question: str, thread_id: str) -> str:
     config = tracing.run_config(thread_id)
     context = AgentContext()
-    for update in agent.stream({"messages": [{"role": "user", "content": question}]}, config, context=context, stream_mode="updates"):
-        for step in update.values():
-            for message in (step or {}).get("messages", []):
-                if isinstance(message, AIMessage):
-                    for call in message.tool_calls:
-                        print(f"  → {call['name']}({call['args']})", file=sys.stderr)
-    values = agent.get_state(config).values
-    return final_answer(values["messages"], values.get("sources") or {})
+    with tracing.question(thread_id, None, question) as traced:
+        for update in agent.stream({"messages": [{"role": "user", "content": question}]}, config, context=context, stream_mode="updates"):
+            for step in update.values():
+                for message in (step or {}).get("messages", []):
+                    if isinstance(message, AIMessage):
+                        for call in message.tool_calls:
+                            print(f"  → {call['name']}({call['args']})", file=sys.stderr)
+        values = agent.get_state(config).values
+        answer = final_answer(values["messages"], values.get("sources") or {})
+        traced.answer(answer)
+    return answer
 
 
 def main() -> None:

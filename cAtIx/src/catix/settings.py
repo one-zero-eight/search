@@ -23,9 +23,16 @@ class Settings(BaseSettings):
     # Next to every chat message the tools give the concrete dates its "завтра", "в пятницу" or "23 октября" mean
     # and how far they are from today (src/catix/common/dates.py); the model does not have to do date arithmetic.
     annotate_dates: bool = True
-    # A short model call screens every user message before the agent (agent/guardrail.py): abuse, attempts to change its
-    # role or rules, tasks unrelated to the university are answered with a fixed refusal and never reach the agent.
-    guardrail_enabled: bool = True
+    # Every user message is screened before the agent (agent/guardrail.py, always on). Repeated attacks (agent/guardrail.py -> abuse.py): from the 3rd stopped message in a day the refusal carries a warning, from
+    # the 5th the user is paused (15 minutes, doubled for each repeat, at most a day); nobody is messaged (see /abuse). Off-topic
+    # requests (a joke, some code) are refused but never counted. Admins are exempt.
+    abuse_enabled: bool = True
+    abuse_warn_at: int = Field(3, gt=0)
+    abuse_pause_at: int = Field(5, gt=0)
+    abuse_window_hours: int = Field(24, gt=0)
+    abuse_pause_minutes: int = Field(15, gt=0)
+    abuse_pause_max_hours: int = Field(24, gt=0)
+    abuse_forget_days: int = Field(7, gt=0, description="After this long without a pause the next one is short again.")
     agent_max_model_calls: int = Field(6, gt=0, description="Model calls per question, including tool rounds.")
     # Old tool results dominate the context of long chats; above this size (approximate tokens)
     # all but the last `agent_keep_tool_results` are replaced by a placeholder.
@@ -38,11 +45,10 @@ class Settings(BaseSettings):
     agent_summarize_trigger_tokens: int = Field(3000, gt=0)
     agent_summarize_keep_messages: int = Field(4, ge=2)
 
-    # Langfuse tracing of the agent (https://langfuse.com). Both keys set: every question is traced; otherwise off.
-    langfuse_public_key: str | None = None
-    langfuse_secret_key: SecretStr | None = None
-    # .env uses LANGFUSE_BASE_URL (the name the Langfuse SDK itself reads); LANGFUSE_HOST also works.
-    langfuse_host: HttpUrl = Field(HttpUrl("https://cloud.langfuse.com"), validation_alias=AliasChoices("LANGFUSE_BASE_URL", "LANGFUSE_HOST"))
+    # Arize Phoenix (docker-compose.yml): where the OpenInference spans of the agent go, e.g. http://localhost:6006. Unset = no
+    # tracing (agent/tracing.py).
+    phoenix_endpoint: HttpUrl | None = None
+    phoenix_project: str = "catix"
 
     innohassle_api: HttpUrl = HttpUrl("https://api.innohassle.ru")
     # Not needed for the public endpoints used so far (clubs, events.ics, maps).

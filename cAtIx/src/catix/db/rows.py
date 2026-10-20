@@ -117,3 +117,20 @@ class ChatStatus:
     queued: int
     neither: int
     newest: str | None
+
+
+@dataclass(frozen=True, slots=True)
+class AbuseUser:
+    """A user with stopped messages in the window, or paused."""
+
+    user_key: str
+    strikes: int
+    pauses: int
+    paused_until: datetime | None
+
+
+@dataclass(frozen=True, slots=True)
+class AbuseEntry:
+    category: str
+    at: datetime
+    preview: str

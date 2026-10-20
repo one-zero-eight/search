@@ -44,8 +44,9 @@ start_app() { # start_app <command> [args...]
 }
 
 up() {
-  echo "1/5 docker (postgres, redis)"
+  echo "1/5 docker (postgres, redis, phoenix)"
   docker compose up -d --wait db redis > /dev/null && ok "db, redis healthy"
+  docker compose up -d phoenix > /dev/null && ok "phoenix (traces: http://localhost:6006)"
 
   echo "2/5 database schema"
   uv run --quiet catix-db init 2>&1 | grep -v WARNING | tail -1
@@ -98,7 +99,7 @@ down() {
 }
 
 status() {
-  echo "docker:"; docker compose ps --format '  {{.Service}}: {{.Status}}' db redis
+  echo "docker:"; docker compose ps --format '  {{.Service}}: {{.Status}}' db redis phoenix
   echo "models:"; check_models || true
   echo "apps:"
   for app in "${APPS[@]}"; do if running "$app"; then ok "$app"; else bad "$app is not running"; fi; done

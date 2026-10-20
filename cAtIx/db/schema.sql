@@ -239,3 +239,21 @@ ALTER TABLE schedule_changes ADD COLUMN IF NOT EXISTS all_day boolean NOT NULL D
 ALTER TABLE schedule_changes DROP CONSTRAINT IF EXISTS schedule_changes_kind_check;
 ALTER TABLE schedule_changes ADD CONSTRAINT schedule_changes_kind_check
     CHECK (kind IN ('reschedule', 'room_change', 'cancel', 'announcement'));
+
+-- Messages the guardrail stopped as an attack or abuse, per user, and the pauses that repeated ones lead to (catix/abuse.py).
+-- user_key is 'tg:<id>' or 'max:<id>'. Nobody is notified; the admins read /abuse.
+CREATE TABLE IF NOT EXISTS abuse_log (
+    id       bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    user_key text NOT NULL,
+    category text NOT NULL,
+    at       timestamptz NOT NULL DEFAULT now(),
+    preview  text NOT NULL
+);
+CREATE INDEX IF NOT EXISTS abuse_log_user_idx ON abuse_log (user_key, at);
+CREATE TABLE IF NOT EXISTS abuse_state (
+    user_key      text PRIMARY KEY,
+    pauses        int NOT NULL DEFAULT 0,
+    last_pause_at timestamptz,
+    paused_until  timestamptz
+);
+ALTER TABLE abuse_state DROP COLUMN IF EXISTS alert_pending;  -- admins used to be messaged; they are not any more

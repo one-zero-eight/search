@@ -43,6 +43,7 @@ from aiogram.types import (
 )
 from aiogram.utils.chat_action import ChatActionSender
 
+from catix.tgbot import abuse as abuse_commands
 from catix.tgbot import admin
 from catix.tgbot import listen
 from catix.tgbot import official
@@ -166,7 +167,7 @@ async def _run_agent(
     brief: bool = False,
 ) -> tuple[str, str | None]:
     """Ask the agent; it may use the chats of the asker's study group (found by Telegram id).
-    Returns the answer and the Langfuse trace it was made in (for the 👍/👎 under it)."""
+    Returns the answer and the root span of its trace in Phoenix (for the 👍/👎 under it)."""
     allowed = await asyncio.to_thread(groups.scoped_chat_ids, f"tg:{user_id or 0}", user_id)
     group = await asyncio.to_thread(groups.effective_group, f"tg:{user_id or 0}", user_id)
     config = tracing.run_config(thread_id, str(user_id) if user_id else None)
@@ -176,9 +177,11 @@ async def _run_agent(
         brief=brief,
         study_group=None if group == groups.ALL else group,
     )
-    state = await stream.run(agent, {"messages": [{"role": "user", "content": question}]}, config, context, streamer)
-    answer = final_answer(state["messages"], state.get("sources") or {})
-    return answer or "Не получилось сформулировать ответ.", tracing.trace_id(config)
+    with tracing.question(thread_id, str(user_id) if user_id else None, question) as traced:
+        state = await stream.run(agent, {"messages": [{"role": "user", "content": question}]}, config, context, streamer)
+        answer = final_answer(state["messages"], state.get("sources") or {}) or "Не получилось сформулировать ответ."
+        traced.answer(answer)
+    return answer, traced.id
 
 
 def _event_label(event: dict) -> str:
@@ -190,7 +193,7 @@ def _event_label(event: dict) -> str:
 def _feedback_keyboard(
     trace: str | None, chosen: bool | None = None, extra: list[list[InlineKeyboardButton]] | None = None
 ) -> InlineKeyboardMarkup | None:
-    """👍/👎 under an answer (they score the trace in Langfuse; after a vote only the chosen one is shown), then one
+    """👍/👎 under an answer (they annotate the trace in Phoenix; after a vote only the chosen one is shown), then one
     "add to my calendar" button per event the agent offered."""
     if not trace and not extra:
         return None
@@ -462,7 +465,7 @@ _inline_tasks: dict[tuple[int, str], tuple[float, asyncio.Task[tuple[str, str | 
 
 
 async def _inline_answer(user_id: int, question: str) -> tuple[str, str | None]:
-    """The answer and its Langfuse trace."""
+    """The answer and the root span of its trace."""
     log.info("inline question from %s: %s", user_id, question[:200])
     # Every inline question starts fresh: its own thread, dropped when the answer is ready.
     thread_id = f"tg:inline:{user_id}:{uuid.uuid4().hex}"
@@ -611,6 +614,7 @@ async def run() -> None:
     dp.include_router(admin.router)  # before the generic handlers: /admin, /listen and their buttons
     dp.include_router(listen.router)
     dp.include_router(official.router)  # /official: an admin marks chats as official
+    dp.include_router(abuse_commands.router)  # /abuse: repeated attacks, lift a pause
     dp.include_router(router)
     me = await bot.me()
     log.info("Running as @%s", me.username)

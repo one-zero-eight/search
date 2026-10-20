@@ -8,12 +8,14 @@ authors = [
 requires-python = ">=3.13"
 dependencies = [
     "aiogram>=3.31.0",
+    "arize-phoenix-client>=3.5.0",
+    "arize-phoenix-otel>=0.17.2",
     "certifi>=2026.7.22",
     "httpx>=0.28.1",
     "icalendar>=7.3.0",
     "langchain>=1.4.5",
     "langchain-openai>=1.7.2",
-    "langfuse>=5.0.2",
+    "openinference-instrumentation-langchain>=0.1.79",
     "pgvector>=0.5.1",
     "psycopg-pool>=3.3.3",
     "psycopg[binary]>=3.3.6",

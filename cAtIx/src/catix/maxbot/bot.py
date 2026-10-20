@@ -225,10 +225,12 @@ async def _answer(max_: Max, chat_id: int, user_id: int, question: str, reply_mi
             user_telegram_id=-user_id,  # Never a Telegram id: no personal schedule
             study_group=None if group == groups.ALL else group,
         )
-        state = await agent.ainvoke(
-            {"messages": [{"role": "user", "content": question}]}, tracing.run_config(thread_id, str(user_id)), context=context
-        )
-        answer = final_answer(state["messages"], state.get("sources") or {}) or "Не получилось сформулировать ответ."
+        with tracing.question(thread_id, str(user_id), question) as traced:
+            state = await agent.ainvoke(
+                {"messages": [{"role": "user", "content": question}]}, tracing.run_config(thread_id, str(user_id)), context=context
+            )
+            answer = final_answer(state["messages"], state.get("sources") or {}) or "Не получилось сформулировать ответ."
+            traced.answer(answer)
     except Exception:
         log.exception("agent failed")
         answer = "Не получилось ответить: ошибка на стороне ассистента. Попробуйте ещё раз позже."

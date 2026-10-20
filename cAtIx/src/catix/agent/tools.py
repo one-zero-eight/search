@@ -18,11 +18,11 @@ from langgraph.types import Command
 from pydantic import BaseModel, Field, field_validator
 
 from catix import official
-from catix.common import courses, dates
-from catix.innohassle import client as innohassle
-from catix.agent.sources import Collector
 from catix.agent import sqlquery
+from catix.agent.sources import Collector
+from catix.common import courses, dates
 from catix.db import store
+from catix.innohassle import client as innohassle
 from catix.settings import settings
 
 MAX_CLUBS = 10
@@ -98,9 +98,7 @@ class GetClubsArgs(BaseModel):
 
 
 @tool(args_schema=GetClubsArgs)
-def get_clubs(
-    query: str | None = None, type: str | None = None, include_inactive: bool = False
-) -> dict:
+def get_clubs(query: str | None = None, type: str | None = None, include_inactive: bool = False) -> dict:
     """Student clubs of Innopolis University. With `query`: full description, schedule, location,
     leader contacts and links. Without `query`: a short list of titles; call again with a query for details."""
     leaders = innohassle.club_leaders()
@@ -111,9 +109,7 @@ def get_clubs(
         if type and club["type"] != type:
             continue
         description = _doc_to_text(club["description"])
-        if query and not _matches(
-            query, club["title"], club["short_description"], description
-        ):
+        if query and not _matches(query, club["title"], club["short_description"], description):
             continue
         if not query:
             # Listing mode: many clubs, so only the essentials to save context.
@@ -133,19 +129,14 @@ def get_clubs(
                 "active": club["is_active"],
                 "short_description": club["short_description"],
                 "description": description[:1200],
-                "leader": leader
-                and {"name": leader["name"], "telegram": leader["telegram_alias"]},
-                "links": [
-                    {"label": l.get("label"), "url": l["link"]} for l in club["links"]
-                ],
+                "leader": leader and {"name": leader["name"], "telegram": leader["telegram_alias"]},
+                "links": [{"label": l.get("label"), "url": l["link"]} for l in club["links"]],
             }
         )
     limit = MAX_CLUBS if query else MAX_CLUBS_LISTING
     result = {"total": len(found), "clubs": found[:limit]}
     if len(found) > limit:
-        result["note"] = (
-            f"Only the first {limit} of {len(found)} are shown; narrow the query or filter by type."
-        )
+        result["note"] = f"Only the first {limit} of {len(found)} are shown; narrow the query or filter by type."
     return result
 
 
@@ -159,18 +150,14 @@ class GetUniversityEventsArgs(BaseModel):
 
 
 @tool(args_schema=GetUniversityEventsArgs)
-def get_university_events(
-    date_from: date | None = None, date_to: date | None = None, query: str | None = None
-) -> dict:
+def get_university_events(date_from: date | None = None, date_to: date | None = None, query: str | None = None) -> dict:
     """University-wide events (talks, workshops, celebrations) from InNoHassle.
     Does NOT contain class schedules, exams or deadlines."""
     start = date_from or datetime.now(settings.tz).date()
     end = date_to or start + timedelta(days=DEFAULT_EVENTS_WINDOW_DAYS)
     calendar = icalendar.Calendar.from_ical(innohassle.events_ics())
     # Expands RRULE so recurring events show up as individual occurrences.
-    occurrences = recurring_ical_events.of(calendar).between(
-        start, end + timedelta(days=1)
-    )
+    occurrences = recurring_ical_events.of(calendar).between(start, end + timedelta(days=1))
 
     events = []
     for ev in occurrences:
@@ -196,16 +183,12 @@ def get_university_events(
         "events": events[:MAX_EVENTS],
     }
     if not calendar.walk("VEVENT"):
-        result["note"] = (
-            "The InNoHassle events calendar is empty right now, so absence of events here proves nothing."
-        )
+        result["note"] = "The InNoHassle events calendar is empty right now, so absence of events here proves nothing."
     return result
 
 
 class FindRoomArgs(BaseModel):
-    query: str = Field(
-        description="Room number ('319'), place ('canteen', 'printer') or person surname."
-    )
+    query: str = Field(description="Room number ('319'), place ('canteen', 'printer') or person surname.")
 
 
 @tool(args_schema=FindRoomArgs)
@@ -328,7 +311,9 @@ def _subject_fields(item: dict, text: str, chat_title: str, asked: list[str]) ->
 
 
 class SearchUserbotArgs(BaseModel):
-    queries: list[str] = Field(description="1 to 4 short queries of ONE or TWO words each (Telegram's search matches words and their forms, not phrases).")
+    queries: list[str] = Field(
+        description="1 to 4 short queries of ONE or TWO words each (Telegram's search matches words and their forms, not phrases)."
+    )
     chat: str | None = Field(None, description="Only the chat whose title contains this text, or @username.")
     date_from: date | None = Field(None, description="Only messages on or after this day (YYYY-MM-DD).")
     date_to: date | None = Field(None, description="Only messages on or before this day (YYYY-MM-DD).")
@@ -354,16 +339,27 @@ def search_userbot_chats(
     if chat:
         chats = {c: t for c, t in chats.items() if chat.lstrip("@").casefold() in t.casefold()}
     if not chats:
-        return collector.result({"total": 0, "messages": [], "note": "No chat to search this way (or none matches `chat`)."}, "search_userbot_chats")
+        return collector.result(
+            {"total": 0, "messages": [], "note": "No chat to search this way (or none matches `chat`)."},
+            "search_userbot_chats",
+        )
     official_ids = official.ids()
-    hits, problem = live_search.search(queries, sorted(chats), date_from and date_from.isoformat(), date_to and date_to.isoformat())
+    hits, problem = live_search.search(
+        queries, sorted(chats), date_from and date_from.isoformat(), date_to and date_to.isoformat()
+    )
     now = datetime.now(settings.tz)
     asked = _asked_courses(runtime)
     messages = []
     for hit in hits:
         item = {
             "ref": collector.add_live(
-                hit.chat_id, hit.msg_id, chat_title=hit.chat_title, link=hit.link, date=hit.date, author=hit.author, sender_link=hit.sender_link
+                hit.chat_id,
+                hit.msg_id,
+                chat_title=hit.chat_title,
+                link=hit.link,
+                date=hit.date,
+                author=hit.author,
+                sender_link=hit.sender_link,
             ),
             "chat": hit.chat_title,
             "official": hit.chat_id in official_ids,
@@ -465,18 +461,14 @@ def get_schedule(
         owner = innohassle.token_telegram_id()
         # The personal schedule belongs to the token owner: never show it to someone else.
         if owner is None or (context and context.user_telegram_id not in (None, owner)):
-            return {
-                "error": "Personal schedule is not available for this user. Ask for their group, e.g. B26-DSAI-04."
-            }
+            return {"error": "Personal schedule is not available for this user. Ask for their group, e.g. B26-DSAI-04."}
         source = "your personal schedule"
         ics = innohassle.my_schedule_ics()
 
     calendar = icalendar.Calendar.from_ical(ics)
     now = datetime.now(settings.tz)
     classes, seen = [], set()
-    for ev in recurring_ical_events.of(calendar).between(
-        start, end + timedelta(days=1)
-    ):
+    for ev in recurring_ical_events.of(calendar).between(start, end + timedelta(days=1)):
         title = str(ev.get("SUMMARY", ""))
         if query and not _matches(query, title):
             continue

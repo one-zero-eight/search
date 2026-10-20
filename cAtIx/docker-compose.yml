@@ -38,6 +38,20 @@ services:
       timeout: 3s
       retries: 20
 
+  # Trace viewer (it replaced Langfuse, which needed six containers): one container, its data in a SQLite file in the volume;
+  # PHOENIX_SQL_DATABASE_URL would put it into Postgres. UI and OTLP over HTTP on 6006 (/v1/traces), OTLP over gRPC on 4317.
+  phoenix:
+    image: arizephoenix/phoenix:version-20.23.0   # pinned: the UI and the API change between versions
+    restart: unless-stopped
+    environment:
+      PHOENIX_WORKING_DIR: /mnt/data
+    ports:
+      - "127.0.0.1:6006:6006"
+      - "127.0.0.1:4317:4317"
+    volumes:
+      - phoenixdata:/mnt/data
+
 volumes:
   pgdata:
+  phoenixdata:
   redisdata:
