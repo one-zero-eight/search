@@ -103,3 +103,25 @@ def test_command_lists_and_switches_chats(chat):
         assert official.command("999999") == official.USAGE
     finally:
         official.set_official(chat, False)
+
+
+def test_mentions_and_advice_are_not_attributions():
+    """Regression: a refusal that said 'contact the dean's office' lost that sentence, because the check cut every sentence that
+    merely contained the word. Advice and links are not claims about where a message came from."""
+    answers = [
+        "I cannot help with forging documents. If you cannot attend, contact the Student Affairs office or the dean's office.",
+        "Обратитесь в деканат или в учебный офис.",
+        "Официальный Telegram-канал столовой: https://t.me/matrixfood",
+        "Подробности на официальном сайте университета.",
+        "Администрация общежития находится на первом этаже.",
+    ]
+    for answer in answers:
+        cleaned, dropped = claims.check(answer, results(LINEN))
+        assert not dropped, f"cut: {dropped}"
+        assert_test(LLMTestCase(input=answer, actual_output=cleaned), [ContainsAll([answer[:25]], name="SentenceStays")])
+
+
+def test_a_message_signed_by_the_administration_backs_the_attribution():
+    answer = "Администрация сообщает, что смена белья сегодня с 14:00 до 17:00 [m1]."
+    evidence = results("Смена белья сегодня с 14:00 до 17:00. С уважением, администрация жилого комплекса")
+    assert_test(checked(answer, evidence), [ContainsAll(["Администрация сообщает"], name="Backed")])
