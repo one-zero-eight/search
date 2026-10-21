@@ -77,8 +77,25 @@ def _relation(target: date, today: date) -> str:
 
 def resolve(text: str, sent_at: datetime, now: datetime) -> list[str]:
     """Concrete dates for the loose dates in a message, e.g. "'Завтра' = 2026-10-05 Mon (10 days ago)"."""
-    sent = sent_at.astimezone(now.tzinfo).date()
     today = now.date()
+    result, seen = [], set()
+    for phrase, target in found_dates(text, sent_at, now):
+        key = (phrase.lower(), target)
+        if key in seen:
+            continue
+        seen.add(key)
+        result.append(f"'{phrase.strip()}' = {target:%Y-%m-%d %a} ({_relation(target, today)})")
+    return result[:MAX_RESULTS]
+
+
+def mentions_between(text: str, sent_at: datetime, now: datetime, start: date, end: date) -> bool:
+    """Does the message speak of a day in start..end (both included)? "23 October" in a post of 5 October does."""
+    return any(start <= target <= end for _, target in found_dates(text, sent_at, now))
+
+
+def found_dates(text: str, sent_at: datetime, now: datetime) -> list[tuple[str, date]]:
+    """The loose dates of a message as (phrase, day), relative to the day it was sent."""
+    sent = sent_at.astimezone(now.tzinfo).date()
     found: list[tuple[str, date]] = []
 
     for match in _DAY_MONTH_RE.finditer(text):
@@ -119,11 +136,4 @@ def resolve(text: str, sent_at: datetime, now: datetime) -> list[str]:
             ahead = 7
         found.append((match.group(0), sent + timedelta(days=ahead)))
 
-    result, seen = [], set()
-    for phrase, target in found:
-        key = (phrase.lower(), target)
-        if key in seen:
-            continue
-        seen.add(key)
-        result.append(f"'{phrase.strip()}' = {target:%Y-%m-%d %a} ({_relation(target, today)})")
-    return result[:MAX_RESULTS]
+    return found

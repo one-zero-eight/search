@@ -228,13 +228,24 @@ class SearchChatsArgs(BaseModel):
         ),
     )
     chat: str | None = Field(None, description="Part of a chat title to restrict the search to.")
-    date_from: date | None = Field(None, description="YYYY-MM-DD.")
-    date_to: date | None = Field(None, description="YYYY-MM-DD inclusive.")
+    date_from: date | None = Field(
+        None, description="YYYY-MM-DD: only messages WRITTEN on or after this day (for 'what was written recently')."
+    )
+    date_to: date | None = Field(None, description="YYYY-MM-DD inclusive: only messages WRITTEN on or before this day.")
+    event_from: date | None = Field(
+        None,
+        description="YYYY-MM-DD: only messages about a day on or after this one, whenever they were written. A post of "
+        "5 October announcing a midterm on 23 October counts for this week of October. Use for 'this week', 'tomorrow', 'upcoming'.",
+    )
+    event_to: date | None = Field(None, description="YYYY-MM-DD inclusive: the end of the period the messages are about.")
 
     @field_validator("queries", mode="before")
     @classmethod
     def _one_query(cls, value):
         return [value] if isinstance(value, str) else value
+
+
+EVENT_POOL = 60
 
 
 @tool(args_schema=SearchChatsArgs)
@@ -244,6 +255,8 @@ def search_chats(
     chat: str | None = None,
     date_from: date | None = None,
     date_to: date | None = None,
+    event_from: date | None = None,
+    event_to: date | None = None,
 ) -> Command:
     """Search student Telegram chats by words and by meaning: announcements, exam and deadline dates, homework,
     reschedules, campus news, tips. Give several queries from different angles in ONE call: messages found by
@@ -257,13 +270,22 @@ def search_chats(
         chat_ids=allowed,
         date_from=date_from and date_from.isoformat(),
         date_to=date_to and date_to.isoformat(),
-        limit=MAX_MESSAGES if settings.reranker_route is None else MAX_MESSAGES_RERANKED,
+        # A period of events needs a wider pool: the filter below is applied after the ranking.
+        limit=EVENT_POOL if event_from or event_to else MAX_MESSAGES if settings.reranker_route is None else MAX_MESSAGES_RERANKED,
         original=_question(runtime),
     )
     collector = Collector(runtime)
     asked = _asked_courses(runtime)
     messages = []
     now = datetime.now(settings.tz)
+    if event_from or event_to:
+        start, end = event_from or date.min, event_to or date.max
+        # Written in the period, or speaking of a day in it ("23 October" in a post of 5 October).
+        rows = [
+            r
+            for r in rows
+            if start <= r.date.astimezone(settings.tz).date() <= end or dates.mentions_between(r.text, r.date, now, start, end)
+        ][: MAX_MESSAGES if settings.reranker_route is None else MAX_MESSAGES_RERANKED]
     for row in rows:
         item = {
             "ref": collector.add_db(row.ref_id),
@@ -327,10 +349,10 @@ def search_userbot_chats(
     date_from: date | None = None,
     date_to: date | None = None,
 ) -> Command:
-    """Search chats with Telegram's own search, through the userbot: the big chats that are NOT in the knowledge base (their
-    titles are in the system prompt), and any other chat for old messages that search_chats does not have. It matches
+    """Search chats with Telegram's own search, through the userbot: every chat an admin chose in /listen, official or not,
+    whether or not the knowledge base stores it (it also reaches messages the knowledge base does not have). It matches
     whole words and their forms, not meaning, and lists the newest first: give 1-4 queries of one or two words each, never a
-    sentence. Results are unofficial chat messages: read their dates."""
+    sentence. Read the dates and `official` of each message."""
     from catix import live_search, userbot_config
 
     collector = Collector(runtime)

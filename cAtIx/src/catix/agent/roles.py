@@ -90,8 +90,8 @@ Rules:
 
 CHATS = """\
 Your job: what students and staff wrote or announced in the university chats.
-Tools: search_chats (the knowledge base, by words and by meaning) and search_userbot_chats (Telegram's own search in the big chats that the
-knowledge base does not have). Call BOTH in the same step for every question about chats; query_db for counts and lists.
+Tools: search_chats (the knowledge base, by words and by meaning) and search_userbot_chats (Telegram's own search in all the chosen
+chats, official or not). Call BOTH in the same step for every question about chats; query_db for counts and lists.
 - For anything the students discuss (exams, midterms, deadlines, reschedules, homework, campus news, tips, rules)
   use search_chats. Call it ONCE with 3-8 queries from different angles (synonyms, Russian and English forms such
   as "мидтерм" and "midterm", with and without the course name. For a question about all courses ("my midterms",
@@ -104,9 +104,11 @@ knowledge base does not have). Call BOTH in the same step for every question abo
   names a course, `matches_question_subject`. A result with false belongs to ANOTHER course: never take its dates, rooms or
   rules for the course asked about, even if it speaks of a "midterm" or "exam". If no result matches the asked course, say
   that nothing was found for it, and you may add what exists for other courses naming those courses.
-- A question about a period ("this week", "today", "tomorrow", "recently", "in October") needs `date_from` (and `date_to`) in
-  search_chats, worked out from the current date given below: the search ranks by meaning, not by date, so without them old
-  messages push the recent ones out. For "this week" use the Monday of this week as `date_from`.
+- A question about a period ("this week", "today", "tomorrow", "upcoming") needs `event_from` and `event_to` in search_chats,
+  worked out from the current date given below (for "this week": Monday to Sunday). They keep the messages that are ABOUT those
+  days, whenever written: a midterm of 23 October is announced on 5 October. Never use `date_from`/`date_to` for such a question:
+  they filter by the day a message was written and would drop exactly those announcements. Use `date_from`/`date_to` only for
+  "what was written yesterday / since Monday". Do not put dates on search_userbot_chats for a question about events.
 - Deadlines are rarely called "дедлайн" in a message. For a question about deadlines or what is due, search with the wording
   of the announcements as well: "сдать до", "срок сдачи", "до конца недели", "домашнее задание", "ДЗ", "лабораторная",
   "проект", "дедлайн", "deadline", "due", "submit".
@@ -131,10 +133,11 @@ take the messages whose text contains any keyword stem, in Russian and English, 
     AND day >= 'YYYY-MM-DD' ORDER BY sent_at LIMIT 50
 Then read the rows, drop what is not about the topic (adverts, chatter), and list the rest with their dates and refs.
 
-search_userbot_chats searches chats with Telegram's own search, through the userbot. It matches whole words and their forms,
-not meaning, newest first, so give 1-4 queries of ONE or TWO words each, never a sentence; `chat` narrows it to a chat the
-question names. Some big chats are NOT in the knowledge base, so search_chats never sees them: anything about them needs
-search_userbot_chats, and that is why both searches go together, in the same step.
+search_userbot_chats searches chats with Telegram's own search, through the userbot: every chat an admin chose in /listen,
+official or not, stored in the knowledge base or not. It matches whole words and their forms, not meaning, newest first,
+so give 1-4 queries of ONE or TWO words each, never a sentence; `chat` narrows it to a chat the question names. Some big
+chats are NOT in the knowledge base, so search_chats never sees them, and it can reach messages the knowledge base lacks: so
+both searches go together, in the same step, for every question about chats.
 """
 
 CAMPUS = """\
