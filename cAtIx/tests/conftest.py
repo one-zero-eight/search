@@ -167,4 +167,4 @@ def clean_abuse_rows():
     yield
     with pg.connection() as conn:
         for table in ("abuse_log", "abuse_state"):
-            conn.execute(f"DELETE FROM {table} WHERE user_key ~ '^max:1[0-9]{{15}}$' OR user_key LIKE 'max:99900%' OR user_key LIKE 'tg:99900%'")  # noqa: S608
+            conn.execute(f"DELETE FROM {table} WHERE user_key ~ '^max:1[0-9]{{15}}$' OR user_key = 'max:1' OR user_key LIKE 'max:99900%' OR user_key LIKE 'tg:99900%'")  # noqa: S608
