@@ -86,13 +86,33 @@ class Answer:
     helpers: list[str]  # the helpers the supervisor called (ask_chats, ask_campus)
 
 
+TRACES: list[tuple[str, str]] = []  # (question, Phoenix trace id) of the test that is running; conftest prints them for a failed one
+
+
+def invoke_traced(agent, question: str, *, user_id: int, context: AgentContext, thread_id: str | None = None, name: str = "test") -> dict:
+    """One question to the agent inside a root span, so that its trace in Phoenix (project `catix-tests`) can be found: the
+    trace id of every question goes to TRACES and conftest prints it with a failed test."""
+    thread_id = thread_id or uuid.uuid4().hex
+    with tracing.question(thread_id, str(user_id), question) as traced:
+        if traced.trace_id:
+            TRACES.append((question, traced.trace_id))  # Before the call: a call that raises is the one to look at
+        out = agent.invoke(
+            {"messages": [{"role": "user", "content": question}]},
+            tracing.run_config(thread_id, str(user_id), name=name),
+            context=context,
+        )
+        traced.answer(final_answer(out["messages"], out.get("sources") or {}) or "")
+    return out
+
+
 def ask(agent, question: str, user_id: int | None = None, only_chats: set[int] | None = None) -> Answer:
     """One question to the real agent as an ordinary user (not the owner of the InNoHassle token).
     `only_chats` limits the search to those chats, so that real chats cannot mix into a test about given messages."""
     user_id = fresh_user() if user_id is None else user_id
-    out = agent.invoke(
-        {"messages": [{"role": "user", "content": question}]},
-        tracing.run_config(uuid.uuid4().hex, str(user_id), name="test"),
+    out = invoke_traced(
+        agent,
+        question,
+        user_id=user_id,
         context=AgentContext(allowed_chat_ids=None if only_chats is None else frozenset(only_chats), user_telegram_id=user_id),
     )
     text = final_answer(out["messages"], out.get("sources") or {}) or ""

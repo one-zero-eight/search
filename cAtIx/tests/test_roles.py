@@ -14,7 +14,7 @@ from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
 from catix.agent import roles
 from catix.agent.core import build_agent, final_answer
 from catix.agent.tools import TOOLS, AgentContext
-from tests.helpers import ContainsAll, ContainsNone, SameLabel, ask
+from tests.helpers import ContainsAll, ContainsNone, SameLabel, ask, invoke_traced
 
 CAMPUS_ROUTE = [
     "какие у меня сегодня пары",
@@ -172,7 +172,7 @@ def test_a_repeated_question_goes_to_the_helpers_again(agent):
     config = {"configurable": {"thread_id": "repeat-test"}}
     context = AgentContext(user_telegram_id=-1)
     for _ in range(3):
-        out = agent.invoke({"messages": [{"role": "user", "content": "что будет на этой неделе?"}]}, config, context=context)
+        out = invoke_traced(agent, "что будет на этой неделе?", user_id=-1, context=context, thread_id=config["configurable"]["thread_id"])
         last_question = max(i for i, m in enumerate(out["messages"]) if m.type == "human")
         calls = [c["name"] for m in out["messages"][last_question:] if isinstance(m, AIMessage) for c in m.tool_calls]
         assert calls, "answered a repeated question from the conversation, with no helper"

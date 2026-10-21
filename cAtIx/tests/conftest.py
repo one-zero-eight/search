@@ -7,10 +7,11 @@ import httpx
 import pytest
 
 import tests.helpers  # noqa: F401  (switches telemetry off before DeepEval is imported anywhere)
+from catix.agent import tracing
 from catix.agent.core import build_agent
 from catix.db import pg, store
 from catix.settings import settings
-from tests.helpers import LocalModel
+from tests.helpers import TRACES, LocalModel
 
 CHAT_ID = -999000999
 MONTHS = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"]
@@ -19,6 +20,52 @@ MONTHS = ["января", "февраля", "марта", "апреля", "ма�
 def pytest_configure(config):
     config.addinivalue_line("markers", "redteam: slow DeepTeam attack runs (one per vulnerability)")
     config.addinivalue_line("markers", "model: the test calls the model server directly")
+
+
+FAILED_TRACES: dict[str, list[str]] = {}  # test id -> the Phoenix links of the questions it asked
+_project_id: str | None = None
+
+
+def trace_url(trace_id: str) -> str:
+    """Link to a trace in the Phoenix UI (needs the id of the project, asked once)."""
+    global _project_id
+    base = str(settings.phoenix_endpoint).rstrip("/")
+    if _project_id is None:
+        try:
+            projects = httpx.get(f"{base}/v1/projects", timeout=5).json()["data"]
+            _project_id = next(p["id"] for p in projects if p["name"] == settings.phoenix_project)
+        except Exception:  # noqa: BLE001 - Phoenix is optional: the trace id alone still finds it
+            return f"{base} (trace id {trace_id})"
+    return f"{base}/projects/{_project_id}/traces/{trace_id}"
+
+
+@pytest.fixture(autouse=True)
+def _forget_traces():
+    TRACES.clear()
+    yield
+
+
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    """A failed test gets the Phoenix links of the questions it asked, in its own report and in the summary at the end."""
+    report = (yield).get_result()
+    if report.when == "call" and report.failed and TRACES and tracing.enabled():
+        lines = [f"{question[:70]!r}\n    {trace_url(trace)}" for question, trace in TRACES[-8:]]
+        report.sections.append(("Phoenix traces", "\n".join(lines)))
+        FAILED_TRACES[item.nodeid] = lines
+
+
+def pytest_terminal_summary(terminalreporter):
+    if FAILED_TRACES:
+        terminalreporter.section("Phoenix traces of the failed tests")
+        for nodeid, lines in FAILED_TRACES.items():
+            terminalreporter.write_line(nodeid[:150])
+            for line in lines:
+                terminalreporter.write_line(f"  {line}")
+
+
+def pytest_sessionfinish(session, exitstatus):
+    tracing.flush()  # The traces of the last tests would otherwise wait for the batch
 
 
 MODEL_FIXTURES = {"agent", "bare_agent", "judge", "model"}

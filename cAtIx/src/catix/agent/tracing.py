@@ -51,6 +51,7 @@ class Question:
     """The root span of one question. `id` is what a 👍/👎 refers to (None when tracing is off)."""
 
     id: str | None = None
+    trace_id: str | None = None  # The whole trace in Phoenix (the tests print it for a failed test)
     _span: object | None = field(default=None, repr=False)
 
     def answer(self, text: str) -> None:
@@ -68,7 +69,8 @@ def question(thread_id: str, user_id: str | None, text: str) -> Iterator[Questio
     if user_id:
         attributes["user.id"] = user_id
     with _provider.get_tracer("catix").start_as_current_span("question", attributes=attributes) as span:
-        yield Question(id=format(span.get_span_context().span_id, "016x"), _span=span)
+        context = span.get_span_context()
+        yield Question(id=format(context.span_id, "016x"), trace_id=format(context.trace_id, "032x"), _span=span)
 
 
 def log_status() -> None:
