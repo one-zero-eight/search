@@ -4,8 +4,11 @@ Telegram's `sendMessageDraft` streams a partial message into a private chat: a d
 in place, it lives 30 seconds, and the final text must still be sent as a normal message (the draft then disappears).
 It does not exist for groups, which keep the typing indicator and one message at the end.
 
-Only the text of the last model call is shown. A call that is about to use a tool has no text, or, when the model
-writes the tool call as text, text starting with <tool_call>: that is never shown.
+Only the text of the supervisor's last model call is shown (`lc_agent_name` and `langgraph_node` in the metadata of a
+streamed piece say whose it is): the screen's JSON verdict and the helpers' reports are never shown. A call that is about
+to use a tool has no text, or, when the model writes the tool call as text, text starting with <tool_call>: that is never
+shown either. Between the question and the answer the user sees what is going on: the check, which helper was asked, which
+tool it runs (the tool reports that as a "custom" event), then the writing of the answer.
 """
 
 import logging
@@ -17,7 +20,9 @@ from collections.abc import Callable
 from aiogram import Bot
 from aiogram.enums import ParseMode
 from aiogram.exceptions import TelegramAPIError
-from langchain_core.messages import AIMessageChunk
+from langchain_core.messages import AIMessageChunk, ToolMessage
+
+from catix.agent.core import SUPERVISOR_NAME
 
 log = logging.getLogger("catix.stream")
 
@@ -25,7 +30,11 @@ INTERVAL_SECONDS = 0.7  # Between drafts: Telegram limits how fast a bot may sen
 MAX_CHARS = 4000  # A message holds 4096; the markup added by the HTML conversion needs room.
 
 # What the user sees while a tool runs, between the model deciding to call it and the answer starting.
+CHECKING = "🛡 Проверяю запрос…"
+WRITING = "✍️ Формулирую ответ…"
 STATUS = {
+    "ask_chats": "💬 Спрашиваю помощника по чатам…",
+    "ask_campus": "🧭 Спрашиваю помощника по кампусу…",
     "search_chats": "🔎 Ищу в базе знаний…",
     "search_userbot_chats": "🔎 Ищу в чатах…",
     "get_schedule": "🗓 Смотрю расписание…",
@@ -71,19 +80,35 @@ class DraftStreamer:
         self._last = time.monotonic()
 
     async def start(self) -> None:
-        """An empty draft shows Telegram's "Thinking…" placeholder."""
-        await self._send("", html=False)
+        """The first thing the user sees: the screen is checking the question."""
+        self._status = CHECKING
+        await self._send(CHECKING, html=False)
 
-    async def feed(self, chunk) -> None:
-        """One streamed piece of a model call (an AIMessageChunk)."""
-        # The stream also carries the tools' results (ToolMessage) and the user's message: only the model's text counts.
+    async def _show_status(self, status: str | None) -> None:
+        if self.enabled and status and status != self._status:
+            self._status = status
+            await self._send(status, html=False)
+
+    async def feed_custom(self, event) -> None:
+        """A "custom" event of the stream: a helper agent reports the tool it is about to run (`{"tool": name}`)."""
+        if isinstance(event, dict):
+            await self._show_status(STATUS.get(event.get("tool") or ""))
+
+    async def feed(self, chunk, metadata: dict | None = None) -> None:
+        """One streamed piece: a part of a model call (AIMessageChunk) or a tool result, with its metadata."""
+        if isinstance(chunk, ToolMessage):  # A helper came back: the supervisor now writes the answer.
+            if chunk.name in (n for n in STATUS if n.startswith("ask_")):
+                await self._show_status(WRITING)
+            return
+        # The user's message and other things in the stream do not count: only the model's text does.
         if not self.enabled or not isinstance(chunk, AIMessageChunk):
             return
+        if metadata is not None and (
+            metadata.get("langgraph_node") != "model" or metadata.get("lc_agent_name") != SUPERVISOR_NAME
+        ):
+            return  # The screen's verdict, the summary, a helper's own calls: not the answer.
         if chunk.tool_call_chunks:
-            status = STATUS.get(chunk.tool_call_chunks[0].get("name") or "")
-            if status and status != self._status:
-                self._status = status
-                await self._send(status, html=False)
+            await self._show_status(STATUS.get(chunk.tool_call_chunks[0].get("name") or ""))
             return
         if chunk.id != self._call_id:  # A new model call begins: its text starts from zero.
             self._call_id, self._text = chunk.id, ""
@@ -102,9 +127,11 @@ async def run(agent, inputs: dict, config: dict, context, streamer: DraftStreame
         return await agent.ainvoke(inputs, config, context=context)
     await streamer.start()
     state: dict = {"messages": []}
-    async for mode, data in agent.astream(inputs, config, context=context, stream_mode=["messages", "values"]):
+    async for mode, data in agent.astream(inputs, config, context=context, stream_mode=["messages", "values", "custom"]):
         if mode == "messages":
-            await streamer.feed(data[0])
+            await streamer.feed(*data)
+        elif mode == "custom":
+            await streamer.feed_custom(data)
         elif mode == "values":
             state = data
     return state

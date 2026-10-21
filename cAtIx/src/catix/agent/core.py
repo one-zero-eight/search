@@ -472,6 +472,9 @@ class TurnStartSummarization(SummarizationMiddleware):
         return await super().abefore_model(state, runtime)
 
 
+SUPERVISOR_NAME = "supervisor"
+
+
 class AskArgs(BaseModel):
     question: str = Field(description="The complete question in the user's language, with whatever a follow-up depends on.")
 
@@ -515,11 +518,18 @@ def _helper_tool(role: roles.Role, model) -> BaseTool:
 
     @tool(f"ask_{role.name}", description=role.description, args_schema=AskArgs)
     def ask(question: str, runtime: ToolRuntime[AgentContext]) -> Command:
-        out = helper.invoke(
+        out, announced = {}, 0
+        # Streamed in "values" mode only to tell the user which tool the helper runs (a "custom" event, tgbot/stream.py).
+        for out in helper.stream(
             {"messages": [HumanMessage(question)], "sources": runtime.state.get("sources") or {}},
             runtime.config,
             context=runtime.context,
-        )
+            stream_mode="values",
+        ):
+            for m in out["messages"][announced:]:
+                for call in m.tool_calls if isinstance(m, AIMessage) else []:
+                    runtime.stream_writer({"tool": call["name"]})
+            announced = len(out["messages"])
         messages = out["messages"]
         report = clean(messages, messages[-1].text.strip()) or NO_REPORT
         used = {
@@ -575,4 +585,5 @@ def build_agent(model=None, *, guardrail: bool = True):
         ],
         context_schema=AgentContext,
         checkpointer=InMemorySaver(),
+        name=SUPERVISOR_NAME,  # Metadata of its model calls says whose text it is (tgbot/stream.py).
     )
