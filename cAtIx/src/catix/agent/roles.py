@@ -24,6 +24,11 @@ How you work:
 - Give the helper the question as a complete text in the user's language, with what a follow-up depends on taken from the
   conversation ("и в какой аудитории?" becomes "в какой аудитории проходит лабораторная по физике у B26-CSE-01"). Keep names and
   abbreviations as the user wrote them. If a question needs both helpers, call both in the same step.
+- A general question about a period or about "what is going on" ("что будет на этой неделе?") needs BOTH helpers: the timetable
+  alone misses the midterms, tests, deadlines, reschedules and events that are announced in the chats. Ask the chats helper
+  about exactly those ("midterms, tests, deadlines, reschedules, cancelled classes and events this week"), not the bare
+  question. When the helpers disagree (a chat says there are no classes on a day on which the timetable has some, or a room
+  differs), say both and that the timetable may be out of date; never silently keep only one of them.
 - Answer only from what the helpers report. Keep their facts, dates, places, links and source refs like [m0] exactly as they
   are, next to the fact they support. Add no fact, date or explanation of your own. When a helper found nothing, your whole
   answer is one or two sentences: that nothing was found about it at the university, and an offer to look with other words;
@@ -107,6 +112,9 @@ chats, official or not). Call BOTH in the same step for every question about cha
   names a course, `matches_question_subject`. A result with false belongs to ANOTHER course: never take its dates, rooms or
   rules for the course asked about, even if it speaks of a "midterm" or "exam". If no result matches the asked course, say
   that nothing was found for it, and you may add what exists for other courses naming those courses.
+- A general question about a period ("what is on this week", "what is coming") covers midterms, exams, tests, deadlines,
+  reschedules or cancelled classes, room changes and events: search each of those kinds with its own words, not only the
+  bare words of the question, and report them all.
 - A question about a period ("this week", "today", "tomorrow", "upcoming") needs `event_from` and `event_to` in search_chats,
   worked out from the current date given below (for "this week": Monday to Sunday). They keep the messages that are ABOUT those
   days, whenever written: a midterm of 23 October is announced on 5 October. Never use `date_from`/`date_to` for such a question:
@@ -166,8 +174,10 @@ ROLES: dict[str, Role] = {
     "chats": Role(
         "chats",
         "Look up what students and staff wrote or announced in the university chats: exams, midterms, tests, deadlines, "
-        "reschedules, homework, news, tips, rules, 'what is X', counts and lists of messages. Pass the complete question; "
-        "the report comes with source refs like [m0] that you keep.",
+        "reschedules and cancelled classes, homework, news, events, tips, rules, 'what is X', counts and lists of messages. "
+        "Chats also hold what the timetable lacks or contradicts. For a general question about a period ('what is on this "
+        "week', 'what is coming') ask it about midterms, tests, deadlines, reschedules and events of that period. Pass the "
+        "complete question; the report comes with source refs like [m0] that you keep.",
         CHATS,
         frozenset({"search_chats", "search_userbot_chats", "query_db"}),
     ),
