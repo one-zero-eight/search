@@ -24,8 +24,8 @@ class Settings(BaseSettings):
     # and how far they are from today (src/catix/common/dates.py); the model does not have to do date arithmetic.
     annotate_dates: bool = True
     # Every user message is screened before the agent (agent/guardrail.py, always on). Repeated attacks (agent/guardrail.py -> abuse.py): from the 3rd stopped message in a day the refusal carries a warning, from
-    # the 5th the user is paused (15 minutes, doubled for each repeat, at most a day); nobody is messaged (see /abuse). Off-topic
-    # requests (a joke, some code) are refused but never counted. Admins are exempt.
+    # the 5th the user is paused (15 minutes, doubled for each repeat, at most a day); nobody is messaged (see /abuse). Only what the
+    # screen stops is counted; the agent refuses off-topic requests (a joke, some code) itself. Admins are exempt.
     abuse_enabled: bool = True
     abuse_warn_at: int = Field(3, gt=0)
     abuse_pause_at: int = Field(5, gt=0)

@@ -82,7 +82,8 @@ class Answer:
     text: str  # what the user sees, with the source list
     body: str  # the same without the source list
     tool_results: list[str]  # what the tools returned: the context the answer must be based on
-    tool_names: list[str]
+    tool_names: list[str]  # the tools the helpers called
+    helpers: list[str]  # the helpers the supervisor called (ask_chats, ask_campus)
 
 
 def ask(agent, question: str, user_id: int | None = None, only_chats: set[int] | None = None) -> Answer:
@@ -96,11 +97,14 @@ def ask(agent, question: str, user_id: int | None = None, only_chats: set[int] |
     )
     text = final_answer(out["messages"], out.get("sources") or {}) or ""
     messages = out["messages"]
+    # The helpers' own tool calls and results are kept in the artifact of their messages (agent/core.py `_helper_tool`).
+    inner = [m.artifact for m in messages if isinstance(m, ToolMessage) and isinstance(m.artifact, dict)]
     return Answer(
         text=text,
         body=re.split(r"\n\n(?:Источники|Sources):", text)[0].replace("*", ""),  # without markdown emphasis
-        tool_results=[str(m.content) for m in messages if isinstance(m, ToolMessage)],
-        tool_names=[c["name"] for m in messages for c in getattr(m, "tool_calls", None) or []],
+        tool_results=[str(m.content) for m in messages if isinstance(m, ToolMessage)] + [r for a in inner for r in a["results"]],
+        tool_names=[t for a in inner for t in a["tools"]],
+        helpers=[c["name"] for m in messages for c in getattr(m, "tool_calls", None) or []],
     )
 
 

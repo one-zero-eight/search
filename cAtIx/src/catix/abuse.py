@@ -8,7 +8,7 @@ gets the usual refusal. If the same user keeps trying, the refusals change and i
 - at ABUSE_PAUSE_AT the user is paused for ABUSE_PAUSE_MINUTES, doubled for each repeat, at most ABUSE_PAUSE_MAX_HOURS
   (the repeats are forgotten after ABUSE_FORGET_DAYS without a pause); every message of a paused user, normal ones too, gets
   a short notice and costs no model call; nobody is told: the admins look at `/abuse` when they want to;
-- off-topic requests (a joke, some code) are refused but never counted, and admins are never counted.
+- only what the screen stops is counted (an off-topic request is refused by the agent itself and is not), and admins are never counted.
 
 Admins look and lift a pause with `/abuse` in the bot (tgbot/abuse.py). Previews of the stopped messages are kept for
 30 days. The user key is `tg:<id>` or `max:<id>`.
@@ -25,7 +25,7 @@ from catix.settings import settings
 
 log = logging.getLogger("catix.abuse")
 
-COUNTED = {"prompt_injection", "abuse"}  # off_topic_task is refused but is not an offence
+COUNTED = {"prompt_injection", "abuse"}  # the screen's two ways to stop a message; the agent refuses off-topic requests itself
 KEEP_DAYS = 30
 PREVIEW_CHARS = 200
 

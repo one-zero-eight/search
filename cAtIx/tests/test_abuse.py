@@ -91,13 +91,6 @@ def test_the_fifth_attack_pauses_for_fifteen_minutes_and_the_pause_covers_normal
     assert_test(case(send(NORMAL, user)), [ContainsAll([PAUSED_REPLY], name="PausedReply")])
 
 
-def test_off_topic_requests_are_refused_but_never_counted(user):
-    user.verdict["category"] = "off_topic_task"
-    for _ in range(9):
-        assert_test(case(send("расскажи анекдот", user)), [ContainsNone([WARNING, PAUSE], name="PlainRefusal")])
-    assert user.key not in [u.user_key for u in abuse.offenders()]
-
-
 def test_abuse_counts_like_an_attack(user):
     user.verdict["category"] = "abuse"
     replies = [send("ты тупой бот", user) for _ in range(5)]

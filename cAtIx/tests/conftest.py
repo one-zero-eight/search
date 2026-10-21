@@ -31,7 +31,7 @@ def model_server_up(request):
     if not (MODEL_FIXTURES & set(request.fixturenames) or request.node.get_closest_marker("model")):
         return
     try:
-        ok = httpx.get(f"{str(settings.llm_route).removesuffix('/v1')}/health", timeout=5).status_code == 200
+        ok = httpx.get(f"{str(settings.llm_route).removesuffix('/v1')}/health", timeout=30).status_code == 200
     except httpx.HTTPError:
         ok = False
     if not ok:
