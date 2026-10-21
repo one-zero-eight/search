@@ -166,7 +166,7 @@ GRANT EXECUTE ON FUNCTION visible.allowed_chats() TO ctx_reader;
 -- security_barrier: the chat filter runs before any condition the query adds, so a clever function in the
 -- query's WHERE cannot see rows of other chats.
 CREATE OR REPLACE VIEW visible.chats WITH (security_barrier = true) AS
-    SELECT c.chat_id, c.title, c.username
+    SELECT c.chat_id, c.title, c.username, c.group_code AS chat_group
     FROM public.chats c
     WHERE c.chat_id = ANY (visible.allowed_chats());
 
@@ -180,7 +180,8 @@ CREATE OR REPLACE VIEW visible.messages WITH (security_barrier = true) AS
            m.sender_name,
            m.reply_to,
            m.text,
-           m.link
+           m.link,
+           c.group_code AS chat_group
     FROM public.messages m
     JOIN public.chats c ON c.chat_id = m.chat_id
     WHERE m.chat_id = ANY (visible.allowed_chats());

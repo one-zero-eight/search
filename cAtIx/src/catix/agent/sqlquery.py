@@ -35,9 +35,10 @@ counts, rankings, lists with several filters ("сколько сообщений
 relevance and meaning). Always add LIMIT; at most 50 rows are returned.
 
 Tables (only the chats the user may see; nothing else exists):
-  visible.chats(chat_id, title, username)
-  visible.messages(ref, chat_id, chat, topic_id, day, sent_at, sender_name, reply_to, text, link)
-      day = local date, sent_at = timestamptz, chat = chat title, ref identifies the message for citations.
+  visible.chats(chat_id, title, username, chat_group)
+  visible.messages(ref, chat_id, chat, topic_id, day, sent_at, sender_name, reply_to, text, link, chat_group)
+      day = local date, sent_at = timestamptz, chat = chat title, ref identifies the message for citations,
+      chat_group = 'all' (a chat for everybody) or the study group the chat belongs to.
 Rules:
   - PostgreSQL syntax. Case-insensitive text match, Cyrillic included: text ILIKE '%мидтерм%'.
   - Dates: day >= current_date - 7; date_trunc('day', sent_at); count(*) FILTER (WHERE ...).

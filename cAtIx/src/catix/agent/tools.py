@@ -291,6 +291,7 @@ def search_chats(
             "ref": collector.add_db(row.ref_id),
             "chat": row.chat_title,
             "official": row.chat_official,  # true only for chats an admin marked official
+            "group": row.chat_group,  # `all` (for everybody) or the study group of the chat
             "date": _fmt(row.date),
             "from": row.sender_name,
             # The stamp is in the text itself, so "завтра" is read next to the day it was written on.
@@ -366,6 +367,7 @@ def search_userbot_chats(
             "search_userbot_chats",
         )
     official_ids = official.ids()
+    chat_group = store.chat_groups([int(c) for c in chats])
     hits, problem = live_search.search(
         queries, sorted(chats), date_from and date_from.isoformat(), date_to and date_to.isoformat()
     )
@@ -385,6 +387,7 @@ def search_userbot_chats(
             ),
             "chat": hit.chat_title,
             "official": hit.chat_id in official_ids,
+            "group": chat_group.get(hit.chat_id, "all"),
             "date": _fmt(hit.date),
             "from": hit.author,
             "text": hit.text[:600],

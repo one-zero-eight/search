@@ -89,7 +89,15 @@ Courses (use these names in the answer, never translate or guess a code yourself
 GROUP_PROMPT = """
 
 The asker's study group is {group}: it is known from their profile, so never ask for it. Use it for schedule questions
-and for what concerns "my" courses, exams and midterms."""
+and for what concerns "my" courses, exams and midterms. The system has already limited every chat search to the chats for
+everybody (group `all`) and the chats of group {group}: you cannot and need not choose or change that. Each chat message says
+its `group`."""
+
+NO_GROUP_PROMPT = """
+
+The asker has no study group (`all`): the chat searches cover every chat, and each chat message says the `group` of its chat
+(`all` = for everybody, or a study group code). The timetable of "my group" is unknown: ask the asker for their group if the
+question needs it."""
 
 
 def prompt_for(role: str | None):
@@ -106,7 +114,7 @@ def prompt_for(role: str | None):
             parts = [
                 roles.prompt(role),  # Same for everybody: its start stays in the model server's cache.
                 COURSES_PROMPT.format(glossary=courses.glossary()) if courses.courses() else "",
-                GROUP_PROMPT.format(group=context.study_group) if context and context.study_group else "",
+                GROUP_PROMPT.format(group=context.study_group) if context and context.study_group else NO_GROUP_PROMPT,
             ]
         parts.append(
             TAIL_PROMPT.format(

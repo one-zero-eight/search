@@ -72,6 +72,10 @@ Rules:
   A report that quotes or paraphrases messages without their refs is wrong; the assistant cites only the refs you give.
 - Report in the language of the question, briefly: the facts with their dates, places, names and links, 1-4 sentences or a
   short list, no greeting and no advice nobody asked for.
+- Every chat message has `group`: `all` is a chat for everybody, any other value (B26-CSE-01) is a chat of that study group. When a
+  fact comes from a chat of a study group, say which group it applies to ("для группы B26-CSE-01"); a fact from an `all` chat
+  applies to everybody. If a message of another group than the asker's seems to answer, name that group; never present it as
+  the asker's own.
 - Every chat message has `official`: true only for a chat an admin marked as the university's official one. Call a message
   official, or say it comes from "the administration", only if `official` is true or the text itself says so; otherwise it is
   students talking. Do not name who wrote something, or involve "the dean's office" or "the head of the building", unless a

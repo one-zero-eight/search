@@ -408,7 +408,7 @@ def search(
             conn,
             MessageHit,
             """SELECT m.id AS ref_id, m.chat_id, m.msg_id, m.date, m.edit_date, m.sender_name, m.reply_to, m.text, m.link,
-                      c.title AS chat_title, c.official AS chat_official, p.sender_name AS parent_sender, p.text AS parent_text
+                      c.title AS chat_title, c.official AS chat_official, c.group_code AS chat_group, p.sender_name AS parent_sender, p.text AS parent_text
                FROM messages m
                JOIN chats c ON c.chat_id = m.chat_id
                LEFT JOIN messages p ON p.chat_id = m.chat_id AND p.msg_id = m.reply_to
@@ -442,6 +442,15 @@ def _rerank(queries: list[str], hits: list[MessageHit], limit: int) -> list[Mess
     if settings.rerank_min_score is not None:
         order = [i for i in order if best[i] >= settings.rerank_min_score]
     return [hits[i] for i in order]
+
+
+def chat_groups(chat_ids: list[int]) -> dict[int, str]:
+    """The group of each chat (`all` or a study group code); a chat the knowledge base does not store is for everybody."""
+    if not chat_ids:
+        return {}
+    with pg.connection() as conn:
+        found = dict(conn.execute("SELECT chat_id, group_code FROM chats WHERE chat_id = ANY(%s::bigint[])", (chat_ids,)).fetchall())
+    return {c: found.get(c, "all") for c in chat_ids}
 
 
 def message_sources(ids: list[int]) -> dict[int, SourceRow]:

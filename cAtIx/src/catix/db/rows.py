@@ -43,6 +43,7 @@ class MessageHit:
     link: str | None
     chat_title: str
     chat_official: bool
+    chat_group: str  # `all` or a study group code: whom the chat is for
     parent_sender: str | None
     parent_text: str | None
 
