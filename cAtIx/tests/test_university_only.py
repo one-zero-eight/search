@@ -23,7 +23,7 @@ GENERAL = [
     "what is a database index",
     "что такое docker",
 ]
-NOT_FOUND = [r"не\s+нашёл|не\s+нашел|не\s+найден|нет\s+(?:информации|упоминаний|объяснени)", r"\bfound\s+no\b|no\s+information|not\s+mentioned|no\s+mention"]
+NOT_FOUND = [r"не\s+нашёл|не\s+нашел|не\s+найден|нет\s+(?:информации|упоминаний|объяснени)|ничего\s+не\s+(?:найден|нашл|нашё)", r"\bfound\s+no\b|no\s+information|not\s+mentioned|no\s+mention|(?:couldn['’]t|could\s+not|did\s+not|didn['’]t)\s+find|nothing\s+(?:was\s+)?found"]
 # what the model made up for DID, and what it would say from memory about the other terms
 INVENTED_DID = re.compile(r"digital|decentral|diploma|innovation days|innopolis days|цифров|дипломн|децентрализ", re.I)
 

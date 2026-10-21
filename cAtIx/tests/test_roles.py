@@ -176,3 +176,24 @@ def test_a_repeated_question_goes_to_the_helpers_again(agent):
         last_question = max(i for i, m in enumerate(out["messages"]) if m.type == "human")
         calls = [c["name"] for m in out["messages"][last_question:] if isinstance(m, AIMessage) for c in m.tool_calls]
         assert calls, "answered a repeated question from the conversation, with no helper"
+
+
+def test_a_helper_must_call_a_tool_on_its_first_model_call_only():
+    import types
+
+    from catix.agent.core import LookUpFirstMiddleware
+
+    class Req:
+        def __init__(self, messages, tool_choice=None):
+            self.messages, self.tool_choice = messages, tool_choice
+
+        def override(self, **changes):
+            clone = Req(self.messages)
+            clone.__dict__.update(self.__dict__ | changes)
+            return clone
+
+    middleware = LookUpFirstMiddleware()
+    first = middleware._first(Req([HumanMessage("что такое git")]))
+    assert first.tool_choice == "required"
+    after_a_tool_call = middleware._first(Req([HumanMessage("что такое git"), _ask("ask_chats", "x"), ToolMessage(content="r", tool_call_id="c1")]))
+    assert after_a_tool_call.tool_choice is None  # later calls are free: the model may answer

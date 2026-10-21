@@ -4,6 +4,7 @@ import os
 import random
 import re
 import uuid
+from typing import Any
 from dataclasses import dataclass
 
 # DeepEval and DeepTeam send telemetry to third parties unless told not to; the prompts under test stay on this machine.
@@ -105,15 +106,21 @@ def invoke_traced(agent, question: str, *, user_id: int, context: AgentContext, 
     return out
 
 
-def ask(agent, question: str, user_id: int | None = None, only_chats: set[int] | None = None) -> Answer:
+USE_DEFAULT: Any = object()
+DEFAULT_CHATS: frozenset[int] | None = None  # set by conftest: the chats a test may search unless it says otherwise
+
+
+def ask(agent, question: str, user_id: int | None = None, only_chats: Any = USE_DEFAULT) -> Answer:
     """One question to the real agent as an ordinary user (not the owner of the InNoHassle token).
-    `only_chats` limits the search to those chats, so that real chats cannot mix into a test about given messages."""
+    `only_chats` limits the search to those chats, so that real chats cannot mix into a test about given messages; a test that uses
+    the synthetic `chat` fixture searches only that chat by default, and `only_chats=None` opens everything again."""
     user_id = fresh_user() if user_id is None else user_id
+    chats = DEFAULT_CHATS if only_chats is USE_DEFAULT else only_chats
     out = invoke_traced(
         agent,
         question,
         user_id=user_id,
-        context=AgentContext(allowed_chat_ids=None if only_chats is None else frozenset(only_chats), user_telegram_id=user_id),
+        context=AgentContext(allowed_chat_ids=None if chats is None else frozenset(chats), user_telegram_id=user_id),
     )
     text = final_answer(out["messages"], out.get("sources") or {}) or ""
     messages = out["messages"]

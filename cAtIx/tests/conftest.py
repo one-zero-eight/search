@@ -6,7 +6,7 @@ from datetime import datetime, timedelta, timezone
 import httpx
 import pytest
 
-import tests.helpers  # noqa: F401  (switches telemetry off before DeepEval is imported anywhere)
+import tests.helpers as helpers  # (switches telemetry off before DeepEval is imported anywhere)
 from catix.agent import tracing
 from catix.agent.core import build_agent
 from catix.db import pg, store
@@ -37,6 +37,20 @@ def trace_url(trace_id: str) -> str:
         except Exception:  # noqa: BLE001 - Phoenix is optional: the trace id alone still finds it
             return f"{base} (trace id {trace_id})"
     return f"{base}/projects/{_project_id}/traces/{trace_id}"
+
+
+@pytest.fixture(autouse=True)
+def _hermetic(request, monkeypatch):
+    """A test never reaches the real Telegram, and one that uses the synthetic chat searches only that chat.
+
+    The agent's `search_userbot_chats` asks the running userbot to search the real chats, which both leaks the test's questions
+    (attack texts included) and mixes real messages into the answers; here it finds nothing. A test that wants hits sets its own."""
+    from catix import live_search
+
+    monkeypatch.setattr(live_search, "search", lambda *args, **kwargs: ([], None))
+    helpers.DEFAULT_CHATS = frozenset({CHAT_ID}) if "chat" in request.fixturenames else None
+    yield
+    helpers.DEFAULT_CHATS = None
 
 
 @pytest.fixture(autouse=True)

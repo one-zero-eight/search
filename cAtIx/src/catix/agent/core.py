@@ -238,6 +238,23 @@ def _this_run(messages: list[BaseMessage]) -> list[BaseMessage]:
     return messages[last_question + 1 :]
 
 
+class LookUpFirstMiddleware(AgentMiddleware):
+    """A helper's first model call must be a tool call (`tool_choice="required"`): its job is to look things up, and a small
+    model sometimes reported "nothing found" for a question that sounds foreign to the university ("что такое git") without
+    searching (1 to 4 times of 6, measured). Which tool, and with what arguments, stays the model's choice; later calls are free."""
+
+    def _first(self, request: ModelRequest) -> ModelRequest:
+        if any(isinstance(m, AIMessage) for m in _this_run(request.messages)):
+            return request
+        return request.override(tool_choice="required")
+
+    def wrap_model_call(self, request, handler):
+        return handler(self._first(request))
+
+    async def awrap_model_call(self, request, handler):
+        return await handler(self._first(request))
+
+
 class RunGuardMiddleware(AgentMiddleware):
     """Keeps a run from ending without an answer. It never decides which tool the model calls: that is the model's choice.
 
@@ -506,6 +523,7 @@ def _helper_tool(role: roles.Role, model) -> BaseTool:
                     )
                 ]
             ),
+            LookUpFirstMiddleware(),
             RunGuardMiddleware(role.tools),
             LoggingMiddleware(),
             ToolErrorMiddleware(on_error=_tool_error),
