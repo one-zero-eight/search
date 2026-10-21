@@ -95,8 +95,8 @@ its `group`."""
 
 NO_GROUP_PROMPT = """
 
-The asker has no study group (`all`): the chat searches cover every chat, and each chat message says the `group` of its chat
-(`all` = for everybody, or a study group code). The timetable of "my group" is unknown: ask the asker for their group if the
+The asker has no study group (`all`): the system has limited every chat search to the chats of group `all` (the ones for
+everybody), and each chat message says the `group` of its chat. The timetable of "my group" is unknown: ask the asker for their group if the
 question needs it."""
 
 

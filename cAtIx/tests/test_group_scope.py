@@ -26,7 +26,7 @@ def grouped_chat(chat):
     yield chat
     groups.set_chat_group(chat, groups.ALL)
     with pg.connection() as conn:
-        conn.execute("DELETE FROM user_groups WHERE user_key = ANY(%s)", (KEYS,))
+        conn.execute("DELETE FROM user_groups WHERE user_key = ANY(%s)", (KEYS + ["tg:999000004"],))
 
 
 def test_a_search_result_says_the_group_of_its_chat(grouped_chat):
@@ -41,8 +41,24 @@ def test_the_chats_of_other_groups_are_cut_by_code(grouped_chat):
     groups.set_user_group(KEYS[1], OTHER)
     assert grouped_chat not in (groups.scoped_chat_ids(KEYS[0]) or set()), "a user of another group must not search this chat"
     assert grouped_chat in groups.scoped_chat_ids(KEYS[1])
-    everything = groups.scoped_chat_ids("tg:999000003")  # no group: `all`, every chat
-    assert everything is None
+
+
+def test_a_user_of_group_all_gets_only_the_chats_of_group_all(grouped_chat):
+    """`all` is not "everything": it sees the chats of group `all` and none of a study group."""
+    scope = groups.scoped_chat_ids("tg:999000003")  # nobody set a group for this key: `all`
+    assert scope is not None and grouped_chat not in scope
+    with pg.connection() as conn:
+        for_everybody = set(pg.column(conn, "SELECT chat_id FROM chats WHERE group_code = 'all'"))
+        of_a_group = set(pg.column(conn, "SELECT chat_id FROM chats WHERE group_code <> 'all'"))
+    assert scope == for_everybody and not scope & of_a_group
+    assert not store.search(["орнитологии"], chat_ids=scope, limit=5) or all(h.chat_id != grouped_chat for h in store.search(["орнитологии"], chat_ids=scope, limit=5))
+
+
+def test_the_texts_of_the_group_commands_say_what_all_means():
+    reply = groups.mygroup_command("", "tg:999000004", None, may_set=True)
+    assert "общие чаты" in reply and "во всех чатах" not in reply
+    assert "только в общих чатах" in groups.mygroup_command("all", "tg:999000004", None, may_set=True)
+    assert "только в общих чатах" in groups.mygroup_command("", "tg:999000004", None, may_set=False)
 
 
 def test_the_search_tool_never_leaves_the_allowed_chats(grouped_chat):
