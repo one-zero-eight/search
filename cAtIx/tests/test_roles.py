@@ -164,3 +164,15 @@ def test_the_supervisor_cannot_cite_a_ref_that_no_helper_reported_in_this_turn()
     assert "Источники" not in answer and "Sources" not in answer and "[1]" not in answer, answer
     messages[2] = ToolMessage(content="Бурмяков рассказывал [m0].", tool_call_id="c1", name="ask_chats")
     assert "Analytical Geometry" in final_answer(messages, registry)  # the same ref, reported this turn, is honoured
+
+
+@pytest.mark.model
+def test_a_repeated_question_goes_to_the_helpers_again(agent):
+    """The supervisor once copied its own earlier answer for the same question and called no helper (trace b7e0a84)."""
+    config = {"configurable": {"thread_id": "repeat-test"}}
+    context = AgentContext(user_telegram_id=-1)
+    for _ in range(3):
+        out = agent.invoke({"messages": [{"role": "user", "content": "что будет на этой неделе?"}]}, config, context=context)
+        last_question = max(i for i, m in enumerate(out["messages"]) if m.type == "human")
+        calls = [c["name"] for m in out["messages"][last_question:] if isinstance(m, AIMessage) for c in m.tool_calls]
+        assert calls, "answered a repeated question from the conversation, with no helper"
