@@ -534,6 +534,7 @@ def _helper_tool(role: roles.Role, model) -> BaseTool:
         report = clean(messages, messages[-1].text.strip()) or NO_REPORT
         used = {
             "tools": [c["name"] for m in messages if isinstance(m, AIMessage) for c in m.tool_calls],
+            "calls": [c for m in messages if isinstance(m, AIMessage) for c in m.tool_calls],
             "results": [str(m.content) for m in messages if isinstance(m, ToolMessage)],
         }
         message = ToolMessage(content=report, tool_call_id=runtime.tool_call_id, name=f"ask_{role.name}", artifact=used)

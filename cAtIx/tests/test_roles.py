@@ -99,7 +99,7 @@ def test_a_question_goes_to_the_helper_and_its_report_comes_back():
     assert names == ["ask_chats"]
     report = next(m for m in out["messages"] if isinstance(m, ToolMessage))
     assert "invented.example" not in report.content, "an invented link in a helper's report must be cut"
-    assert report.artifact == {"tools": [], "results": []}
+    assert report.artifact == {"tools": [], "calls": [], "results": []}
     assert final_answer(out["messages"], out.get("sources") or {}) == "Мидтерм 22 октября."
 
 
