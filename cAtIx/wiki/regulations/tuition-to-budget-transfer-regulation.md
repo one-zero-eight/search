@@ -1,11 +1,12 @@
 ---
 type: regulation
 title: "Положение о порядке и случаях перехода обучающихся с платного обучения на обучение за счет бюджетных ассигнований"
-description: ""
+description: "Regulates the procedure for students at Innopolis University to transfer from paid education to budget-funded or university-funded study."
 resource: "https://innopolis.university/upload/iblock/a01/67kqu68idvya20wr507ggfr1w0qdoii7/Положение_Переход_на_бесплатное.pdf"
-tags: []
+tags: ["innopolis", "education", "regulation", "budget", "transfer", "university"]
 source_kind: official-document
 language: ru
+section: "document"
 sources:
   - resource: "https://innopolis.university/upload/iblock/a01/67kqu68idvya20wr507ggfr1w0qdoii7/Положение_Переход_на_бесплатное.pdf"
     id: "565dfadbaed6"

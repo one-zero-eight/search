@@ -1,0 +1,257 @@
+{
+ "page": "/guides/accelerated-study-eligibility-and-duration.md",
+ "evidence_sha": "2bc6d90ba23b1113",
+ "claims": [
+  {
+   "sentence": "Students may qualify for accelerated study under an individual plan based on their program level",
+   "cites": [
+    1,
+    2
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "f7dfac331ee4",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "7029f09ec6da",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "For bachelor’s and master’s programs, a student qualifies if they have secondary vocational, higher, or additional education, and/or studied in those programs, and/or have abilities or a development level allowing completion in a shorter time than the standard university term set per federal standards",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "f7dfac331ee4",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "For the PhD (aspirantura) program, a student qualifies if they have a diploma of completed aspirantura or adjuncture, and/or a candidate of sciences diploma, and/or a doctor of sciences diploma, and/or study in another aspirantura program, and/or have abilities or a development level allowing completion in a shorter time than the standard term set per the educational standard",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "7029f09ec6da",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Increasing the study pace specifically requires a personal application from the student, a decision by the University’s Accreditation Committee, and an order from the University Director",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "eb0c91eeafe5",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not state a specific number of months or years for the reduction",
+   "cites": [
+    3,
+    4
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "fb6163203e4a",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "448e20770179",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The shortened duration is achieved through defined mechanisms rather than a fixed time reduction",
+   "cites": [
+    3,
+    4
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "fb6163203e4a",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "448e20770179",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "For bachelor’s and master’s programs, the reduction is implemented by crediting results from individual disciplines or modules and/or individual practices completed during secondary vocational, higher, or additional education, and/or by increasing the pace of study",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "fb6163203e4a",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "For the PhD program, the reduction is implemented by crediting (via re-examination) fully or partially the results of individual disciplines or modules, and/or individual practices, and/or individual types of scientific research work, and/or by increasing the pace of study",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "448e20770179",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify how many months or years the degree program will be shortened",
+   "cites": [
+    3,
+    4
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "fb6163203e4a",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "448e20770179",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not define what constitutes \"corresponding abilities or development level\"",
+   "cites": [
+    1,
+    2,
+    5
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "f7dfac331ee4",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "7029f09ec6da",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "eb0c91eeafe5",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not provide the exact procedures, timelines, or forms for the personal application or the Accreditation Committee decision",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "eb0c91eeafe5",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not indicate whether different courses or departments apply different reduction amounts",
+   "cites": [
+    3,
+    4
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "fb6163203e4a",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "448e20770179",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not address what happens if a student’s application is denied",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "eb0c91eeafe5",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

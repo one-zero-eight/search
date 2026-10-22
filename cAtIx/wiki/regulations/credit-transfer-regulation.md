@@ -1,11 +1,12 @@
 ---
 type: regulation
 title: "Положение о порядке зачета результатов освоения обучающимися учебных предметов, курсов, дисциплин (модулей), практики"
-description: ""
+description: "Regulates the credit transfer process for Innopolis University students regarding courses and internships completed elsewhere or within the institution."
 resource: "https://innopolis.university/upload/iblock/d7e/txxukdacbjlc0ym3x1qyy2vmhxfmu4wf/Положение_о_порядке_зачета_АНО_ВО__Университет_Иннополис__результатов_освоения_обучающимися_учебных_предметов__курсо.pdf"
-tags: []
+tags: ["innopolis", "university", "regulations", "credit-transfer", "education", "russia"]
 source_kind: official-document
 language: ru
+section: "document"
 sources:
   - resource: "https://innopolis.university/upload/iblock/d7e/txxukdacbjlc0ym3x1qyy2vmhxfmu4wf/Положение_о_порядке_зачета_АНО_ВО__Университет_Иннополис__результатов_освоения_обучающимися_учебных_предметов__курсо.pdf"
     id: "1cfc1cb8c095"

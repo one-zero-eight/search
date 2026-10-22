@@ -1,11 +1,12 @@
 ---
 type: regulation
 title: "Положение по применению дисциплинарных взысканий за нарушения академической добропорядочности"
-description: ""
+description: "This document is a university order approving regulations for disciplinary sanctions regarding academic integrity violations."
 resource: "https://innopolis.university/upload/iblock/88c/o6qcuf0gjap2g2ow7teqoal3a5aao0kz/приказ_от_01.02.2023___ОД_АД-03.pdf"
-tags: []
+tags: ["discipline", "academic-integrity", "university", "regulations", "sanctions"]
 source_kind: official-document
 language: ru
+section: "document"
 sources:
   - resource: "https://innopolis.university/upload/iblock/88c/o6qcuf0gjap2g2ow7teqoal3a5aao0kz/приказ_от_01.02.2023___ОД_АД-03.pdf"
     id: "ede170078161"

@@ -1,0 +1,111 @@
+{
+ "page": "/guides/faculty-vs-elective-status.md",
+ "evidence_sha": "13ec72986d836d12",
+ "claims": [
+  {
+   "sentence": "Faculty courses are not mandatory for students and are not included in the annual volume of the educational program",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "55c4c303e346",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Elective disciplines (modules) are mandatory for students in bachelor’s, master’s, and graduate programs",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "a85d45ecb254",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "For graduate students in programs developed in accordance with FGT, electives are mandatory only if the University has included them in the graduate program",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "a85d45ecb254",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "In study plans, elective disciplines (modules) are presented alternatively",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "a857b681f83a",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Each block contains at least two disciplines (modules)",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "a857b681f83a",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Students may select no more than one discipline from a block",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "a857b681f83a",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If a discipline (module) is presented in two or more blocks, a student may choose to study it no more than once",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "a857b681f83a",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

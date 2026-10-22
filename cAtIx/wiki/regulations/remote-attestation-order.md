@@ -1,11 +1,12 @@
 ---
 type: regulation
 title: "Порядок проведения промежуточной аттестации с применением дистанционных образовательных технологий (бакалавриат и магистратура)"
-description: ""
+description: "This document establishes the regulations for conducting interim assessments using distance learning technologies for bachelor and master programs at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/94f/osb458fkdh07uzyvxznou2viyo5glxk9/poryadok_pa_bakmag_eodot_02.08.2022.pdf"
-tags: []
+tags: ["innopolis-university", "distance-learning", "interim-assessment", "higher-education", "academic-regulations", "bachelor-master"]
 source_kind: official-document
 language: ru
+section: "document"
 sources:
   - resource: "https://innopolis.university/upload/iblock/94f/osb458fkdh07uzyvxznou2viyo5glxk9/poryadok_pa_bakmag_eodot_02.08.2022.pdf"
     id: "64f65c4b4bbb"

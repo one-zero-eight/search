@@ -1,0 +1,511 @@
+{
+ "page": "/guides/campus-behavior.md",
+ "evidence_sha": "31043229c5697b0f",
+ "claims": [
+  {
+   "sentence": "Students are obliged to strictly observe behavior rules and discipline during classes, academic control, exams, and written works, including final qualification works",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "177877b97257",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "When inside university buildings, students must follow generally accepted norms of behavior in public places",
+   "cites": [
+    9
+   ],
+   "evidence": [
+    {
+     "n": 9,
+     "sha": "ddea01214528",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The official document is the university's own regulation and outranks any course pages",
+   "cites": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "177877b97257",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "de827b377157",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "cec81f9054b2",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "7ca22dbee279",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "ecabe35f550a",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    },
+    {
+     "n": 6,
+     "sha": "05b612cc8aec",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    },
+    {
+     "n": 7,
+     "sha": "627e7b13d61e",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    },
+    {
+     "n": 8,
+     "sha": "fea2c4ad52b3",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    },
+    {
+     "n": 9,
+     "sha": "ddea01214528",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    },
+    {
+     "n": 10,
+     "sha": "4545191d513e",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Students must not create excessive noise or perform other actions in university premises and classrooms that disrupt the educational process or hinder the work of staff and students",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "de827b377157",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Students must not appear in university buildings and the adjacent territory under the influence of alcohol or drugs",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "7ca22dbee279",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Students must not consume, store, or distribute alcoholic beverages, narcotics, or psychotropic substances",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "7ca22dbee279",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Smoking is prohibited in university buildings and on the university territory, including hookahs and vapor cocktails, except in specially equipped places for smoking",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "cec81f9054b2",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Students must not use, store, or bring electronic vaping devices or devices that imitate cigarette smoke into university buildings",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "cec81f9054b2",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Students must not use obscene language or engage in other anti-social behavior",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "ecabe35f550a",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Students must not be rude or insult other students, staff members, university visitors, or other third parties",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "ecabe35f550a",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Students must not litter, spit, throw household trash out of windows, hang out of windows, or enter and exit university buildings through windows",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "05b612cc8aec",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Students must not behave in any other improper manner that violates the university's behavior rules",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "05b612cc8aec",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Students must not sit, lie, or sleep on tables, desks, window sills, cornices, and railings",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "627e7b13d61e",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Students must not be in classrooms wearing outerwear or headwear",
+   "cites": [
+    8
+   ],
+   "evidence": [
+    {
+     "n": 8,
+     "sha": "fea2c4ad52b3",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Students are recommended to come to the university dressed neatly",
+   "cites": [
+    10
+   ],
+   "evidence": [
+    {
+     "n": 10,
+     "sha": "4545191d513e",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Clothing should strongly avoid details that emphasize subculture affiliation, such as excessive metal chains, pins, studs, and similar items",
+   "cites": [
+    10
+   ],
+   "evidence": [
+    {
+     "n": 10,
+     "sha": "4545191d513e",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The official document does not specify penalties or enforcement procedures for violations",
+   "cites": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "177877b97257",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "de827b377157",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "cec81f9054b2",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "7ca22dbee279",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "ecabe35f550a",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    },
+    {
+     "n": 6,
+     "sha": "05b612cc8aec",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    },
+    {
+     "n": 7,
+     "sha": "627e7b13d61e",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    },
+    {
+     "n": 8,
+     "sha": "fea2c4ad52b3",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    },
+    {
+     "n": 9,
+     "sha": "ddea01214528",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    },
+    {
+     "n": 10,
+     "sha": "4545191d513e",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The official document does not define what constitutes excessive noise or anti-social behavior",
+   "cites": [
+    2,
+    5
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "de827b377157",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "ecabe35f550a",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The official document does not list the locations of specially equipped smoking areas",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "cec81f9054b2",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The official document does not provide a formal dress code policy and only offers recommendations for neat attire and avoiding subculture details",
+   "cites": [
+    10
+   ],
+   "evidence": [
+    {
+     "n": 10,
+     "sha": "4545191d513e",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The official document does not address behavior in non-university buildings or off-campus locations",
+   "cites": [
+    1,
+    9
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "177877b97257",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    },
+    {
+     "n": 9,
+     "sha": "ddea01214528",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The official document does not specify exceptions for medical or religious headwear or outerwear",
+   "cites": [
+    8
+   ],
+   "evidence": [
+    {
+     "n": 8,
+     "sha": "fea2c4ad52b3",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The official document does not define generally accepted norms of behavior in public places",
+   "cites": [
+    9
+   ],
+   "evidence": [
+    {
+     "n": 9,
+     "sha": "ddea01214528",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  }
+ ]
+}
