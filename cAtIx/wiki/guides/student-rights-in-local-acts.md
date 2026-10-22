@@ -10,47 +10,25 @@ sources:
     last_modified: "2025-04-10T00:00:00+03:00"
 generated:
   by: "catix-wiki-synth/0.1 (model, thinking)"
-  at: "2026-10-22T15:48:44+00:00"
+  at: "2026-10-22T18:53:14+00:00"
 status: draft
-evidence_sha: "2383cbf7df14ce15"
-review: ["number 1 is not in the cited evidence: 1.  **Submission of Draft:** Before making a decision to adopt the act, the governing bodi", "number 2 is not in the cited evidence: 2.  **Student Council:** The Student Council is created upon the initiative of University ", "no citation: *   Agree with the opinion (fully or partially) and make changes to the draft act; or"]
+evidence_sha: "92e2771c926775cc"
 source_warning: "relies on scanned documents read by OCR (/regulations/sveden-186a6c8d-ustav-10-04-2025-pdf.md): wording, numbers and letters may contain reading errors; check against the PDF"
+audience: ["student", "applicant", "staff", "public"]
 ---
 
 # How university rules affecting students are made and communicated
 
-## Adoption of local normative acts
+The University adopts local normative acts to regulate its activities within its competence and in accordance with Russian Federation legislation [1]. These acts cannot contradict Russian Federation legislation [1]. The University regulates its activities through orders, directives, protocol decisions, regulations, rules, procedures, instructions, and other documents [1]. These acts are adopted by the Founders, Supervisory Board, Operational Board, Director, and other University bodies according to their competences established by legislation and the Statute [2].
 
-Local normative acts are adopted by the University’s governing bodies within their respective competencies established by legislation and the University Charter [1][2]. These acts include orders, directives, protocol decisions, regulations, rules, procedures, and instructions [1]. Local normative acts must not contradict the legislation of the Russian Federation [1].
+Local normative acts that affect your rights as a student are adopted considering the opinion of the Student Council [3]. The Student Council is created by student initiative as a form of public self-activity and may represent the interests of all or part of the students [3]. Before adopting a local normative act that affects student rights, the relevant management body sends the draft of the act to the Student Council [4].
 
-## Procedure for acts affecting student rights
+The Student Council must send a reasoned opinion on the draft in writing to the relevant collegial body or the Director within five working days from the day it receives the draft [5]. If the Student Council agrees with the draft, or if the reasoned opinion is not received within the deadline specified in clause 7.6, the relevant management body adopts the local normative act [6]. If the reasoned opinion does not contain agreement or includes proposals for improvement, the relevant management body may fully or partially agree with the opinion and amend the draft, or disagree with the opinion and adopt the act in its original version [7].
 
-When a local normative act affects the rights of students, the governing bodies must follow a specific consultation procedure before adoption [3][4].
-
-1.  **Submission of Draft:** Before making a decision to adopt the act, the governing bodies send the draft of the local normative act to the Student Council and the Parents Council for minor students (if one exists) [4].
-2.  **Student Council:** The Student Council is created upon the initiative of University students and serves as a form of their public self-government [3]. It may represent the interests of all or part of the students [3].
-3.  **Parents Council:** The Parents Council for minor students is created upon the initiative of parents (legal representatives) and serves as a form of their public self-government [3]. It may represent the interests of all or part of the parents (legal representatives) of students [3].
-
-## Timeline and Feedback
-
-The Student Council and the Parents Council for minor students have a deadline of five working days from the date of receiving the draft act to submit their feedback [5]. This feedback must be a reasoned opinion submitted in writing to the corresponding collegial body or the Director [5].
-
-## Outcomes of the Consultation
-
-The adoption of the act depends on the response from the councils [6][7].
-
-*   **Agreement or No Response:** If the Student Council or the Parents Council for minor students expresses agreement with the draft, or if the reasoned opinion is not received within the specified deadline, the corresponding governing body of the University adopts the local normative act [6].
-*   **Disagreement or Proposals:** If the reasoned opinion does not contain agreement or contains proposals for improvement, the corresponding governing body of the University has the right to either:
-    *   Agree with the opinion (fully or partially) and make changes to the draft act; or
-    *   Disagree with the opinion and adopt the local normative act in its original version [7].
-
-## Invalidity and Cancellation
-
-Norms of local normative acts that worsen the position of students or employees compared to the position established by education legislation, labor legislation, or that are adopted in violation of the established procedure, are not applied and are subject to cancellation by the Director [8].
+Norms of local normative acts that worsen your position compared to the position established by education legislation or labor legislation, or that are adopted with a violation of the established procedure, are not applied and are subject to cancellation by the Director [8].
 
 ## Gaps and caveats
-
-The evidence does not specify how students are notified of the adopted acts after they are signed. The evidence does not define the composition or election process of the Student Council beyond it being created by student initiative. The evidence does not specify the exact method of delivery for the draft acts to the councils. The evidence does not detail the procedure for the Director to cancel an act, only that they have the authority to do so.
+The evidence does not specify how the Student Council is formally recognized or registered [3]. The evidence does not state how drafts are delivered to the Student Council or how opinions are delivered back [4][5]. The evidence does not define what constitutes a violation of the established procedure [8]. The evidence does not explain how the Director initiates cancellation or what happens after cancellation [8]. The evidence does not cover acts that do not affect student rights [1]. The evidence does not provide a mechanism for students to directly challenge acts outside the Student Council [3]. The evidence does not specify deadlines for the Director's cancellation decision [8]. The evidence does not address how acts are communicated to students after adoption [1]. The evidence does not mention any course pages or how they interact with these rules [1].
 
 ## Clauses used
 

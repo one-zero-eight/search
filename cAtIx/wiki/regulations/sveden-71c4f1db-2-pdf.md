@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Учебный план [2._Учебный_план_ПП_Программная_инженерия_и_новые_технологии]"
-description: "This document is the study plan for a professional retraining program in software engineering and new technologies at Innopolis University."
+description: "This document is the study plan for a professional retraining program in software engineering at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/d49/awvh8gp1h5u9lq6l70avkzd8j2fcdkjz/2._Учебный_план_ПП_Программная_инженерия_и_новые_технологии_разработки_ПО.pdf"
-tags: ["innopolis", "study-plan", "software-engineering", "professional-retraining", "russian-university"]
+tags: ["innopolis", "study-plan", "retraining", "software-engineering", "curriculum"]
+audience: ["teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Учебный план [2._Учебный_план_ПП_Программная_инженерия_и_новые_технологии]"
     last_modified: "2023-02-13T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:11:00+00:00"
 extraction: "text layer"
 status: draft

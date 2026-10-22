@@ -1,9 +1,9 @@
 {
  "page": "/guides/individual-study-plan.md",
- "evidence_sha": "0c936891658e9afe",
+ "evidence_sha": "4c59e75f520e2a95",
  "claims": [
   {
-   "sentence": "To apply for an individual study plan, you must submit an application for transfer to the Director of the University using the form specified in the appendix to the Regulation",
+   "sentence": "You submit an application for transfer to an individual study plan to the Director of the University using the form specified in the appendix to the Regulation",
    "cites": [
     1
    ],
@@ -18,7 +18,7 @@
    ]
   },
   {
-   "sentence": "First-year students must submit this application no later than fourteen calendar days after the start of their studies",
+   "sentence": "First-year students enrolled in their first semester or trimester must submit the application no later than fourteen calendar days after the start of their studies",
    "cites": [
     1
    ],
@@ -48,7 +48,7 @@
    ]
   },
   {
-   "sentence": "The University organizes an attestation commission to consider the possibility of transferring to an individual study plan based on the application",
+   "sentence": "The University organizes an attestation commission to consider the possibility of transferring you to an individual study plan based on your application",
    "cites": [
     2
    ],
@@ -63,7 +63,7 @@
    ]
   },
   {
-   "sentence": "The attestation commission can decide to recommend the transfer or refuse the transfer",
+   "sentence": "The attestation commission can decide to recommend the transfer or to refuse it",
    "cites": [
     3
    ],
@@ -153,7 +153,7 @@
    ]
   },
   {
-   "sentence": "If the commission recommends the transfer, the Director of the University or another person authorized by the Director issues an order to transfer you to the individual study plan and approve the plan based on the commission's decision",
+   "sentence": "The transfer to an individual study plan and the approval of the individual study plan are carried out by an order of the Director of the University or another person authorized by the Director, based on the decision of the attestation commission",
    "cites": [
     5
    ],
@@ -168,7 +168,7 @@
    ]
   },
   {
-   "sentence": "The academic calendar for bachelor's and master's programs is approved either as part of the individual study plan or separately by an order of the Director of the University or another person authorized by the Director",
+   "sentence": "For bachelor’s and master’s programs, the academic calendar is approved as part of the individual study plan or separately by an order of the Director of the University or another person authorized by the Director",
    "cites": [
     6
    ],
@@ -183,7 +183,7 @@
    ]
   },
   {
-   "sentence": "For doctoral studies (aspirantura), the academic calendar is approved by an order of the Director of the University or another person authorized by the Director",
+   "sentence": "For graduate programs (aspirantura), the academic calendar is approved by an order of the Director of the University or another person authorized by the Director",
    "cites": [
     7
    ],
@@ -198,7 +198,7 @@
    ]
   },
   {
-   "sentence": "You must attend classes and undergo intermediate assessment during the periods established by the academic calendar included in the individual study plan or approved by the Director's order",
+   "sentence": "You attend classes and undergo intermediate assessment during the periods established by the academic calendar included in the individual study plan or approved by the order of the Director of the University or another person authorized by the Director",
    "cites": [
     8
    ],
@@ -213,7 +213,7 @@
    ]
   },
   {
-   "sentence": "The forms, frequency, and procedure for conducting current performance control, intermediate assessment, the grading system for intermediate assessment results, the procedure and deadlines for clearing academic debt, and the forms and procedures for passing the state final assessment for students on an individual study plan are regulated by the University's local normative acts",
+   "sentence": "The forms, frequency, and procedure for conducting current performance control, intermediate assessment, the grading system for intermediate assessment results, the procedure and deadlines for clearing academic debt, and the forms and procedure for passing the state final assessment for students on an individual study plan are regulated by the local normative acts of the University",
    "cites": [
     9
    ],
@@ -228,7 +228,7 @@
    ]
   },
   {
-   "sentence": "If you fail to clear your academic debt within the established deadlines, you are expelled from the University for failing to fulfill the duties of conscientious study of the Educational Program and execution of the individual study plan",
+   "sentence": "If you fail to clear academic debt within the established deadlines, you are expelled from the University for failing to fulfill the duties of conscientious study of the Educational Program and execution of the individual study plan",
    "cites": [
     10
    ],
@@ -243,7 +243,7 @@
    ]
   },
   {
-   "sentence": "The evidence does not specify the exact content of the \"form in the appendix\" mentioned in clause 9.2",
+   "sentence": "The evidence does not specify the exact form of the application mentioned in clause 9.2, only that it is in the appendix to the Regulation",
    "cites": [
     1
    ],
@@ -273,7 +273,7 @@
    ]
   },
   {
-   "sentence": "The evidence does not specify the exact deadlines or procedures for clearing academic debt, stating only that they are regulated by local normative acts",
+   "sentence": "The evidence does not list the specific local normative acts that regulate assessment procedures",
    "cites": [
     9
    ],
@@ -288,7 +288,7 @@
    ]
   },
   {
-   "sentence": "The evidence does not specify the exact deadlines for clearing academic debt that lead to expulsion, only that they are \"established deadlines\"",
+   "sentence": "The evidence does not specify the exact deadlines for clearing academic debt, only that they are \"established\"",
    "cites": [
     10
    ],
@@ -303,7 +303,7 @@
    ]
   },
   {
-   "sentence": "The evidence does not provide details on the composition or voting rules of the attestation commission",
+   "sentence": "The evidence does not detail the composition or voting rules of the attestation commission",
    "cites": [
     2,
     3

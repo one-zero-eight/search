@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Календарный учебный график [4._Календарный_учебный_график_ПК_ИИ_в_цифровой_трансформа]"
-description: "This document is the academic calendar for a professional development program on artificial intelligence in public administration at Innopolis University."
+description: "This document is the academic calendar for a professional development course on AI in public administration at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/354/06pui3xxmdv1aqc1jiw1dei16koolpma/4._Календарный_учебный_график_ПК_ИИ_в_цифровой_трансформации_государственного_управления.pdf"
-tags: ["innopolis", "ai", "calendar", "professional-development", "public-administration"]
+tags: ["ai", "calendar", "innopolis", "professional-development", "public-administration"]
+audience: ["staff"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Календарный учебный график [4._Календарный_учебный_график_ПК_ИИ_в_цифровой_трансформа]"
     last_modified: "2025-02-14T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:02:06+00:00"
 extraction: "text layer"
 status: draft

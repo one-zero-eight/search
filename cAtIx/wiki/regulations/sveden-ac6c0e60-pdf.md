@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Положение о проведении итоговой аттестации по не имеющим государственной аккредитации образовательным программам высшего образования - программам подготовки научно-педагогических кадров в аспирантуре в АНО ВО \"Университет Иннополис\""
-description: "This document establishes the regulations for final certification in non-accredited postgraduate programs at Innopolis University."
+description: "Regulates final certification procedures for postgraduate programs without state accreditation at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/5e5/Положение_об_итоговой_аттестации.pdf"
-tags: ["innopolis", "postgraduate", "certification", "regulation", "university", "russia"]
+tags: ["postgraduate", "innopolis", "regulations", "certification", "russian-university"]
+audience: ["postgraduate"]
 source_kind: official-document
 language: ru
 section: "sveden/objects"
@@ -13,7 +14,7 @@ sources:
     title: "Положение о проведении итоговой аттестации по не имеющим государственной аккредитации образовательным программам высшего образования - программам подготовки научно-педагогических кадров в аспирантуре в АНО ВО \"Университет Иннополис\""
     last_modified: "2012-12-29T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:16:54+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

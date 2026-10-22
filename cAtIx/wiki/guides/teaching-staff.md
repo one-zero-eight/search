@@ -474,24 +474,29 @@ sources:
     last_modified: "2021-08-20T11:06:39Z"
 generated:
   by: "catix-wiki-synth/0.1 (model, thinking)"
-  at: "2026-10-22T12:32:03+00:00"
+  at: "2026-10-22T18:31:27+00:00"
 status: draft
-evidence_sha: "77bf5b9363e0a438"
+evidence_sha: "5f5cff50eff98446"
 stale_after: "2023-07-30T08:34:11+00:00"
-review: ["number 5 is not in the cited evidence: Among the staff, five individuals list the most courses: Ahsan Kazmi (4), Evgenii Zouev (4", "number 5 is not in the cited evidence: The evidence does not specify how to reach the two staff members who do not provide an e-m"]
+review: ["number 3 is not in the cited evidence: The evidence does not specify the number of courses taught by staff members who are not am"]
+audience: ["student", "teacher"]
 ---
 
 # Teaching staff and their courses
 
-The wiki contains 49 pages about teaching staff [1]. The largest group consists of 47 staff members who provide an e-mail address and list the courses they teach [1]. Two staff members provide no e-mail address, and two list no courses [1].
+## Who teaches and how to reach them
 
-The staff pages list 68 different courses [3]. The wiki has 275 course pages in total [3].
+The wiki contains 49 pages about teaching staff [1]. Of these, 47 pages provide an e-mail address and 47 pages list the courses taught by the person [1]. Two staff pages do not provide an e-mail address, and two staff pages do not list any courses [1].
 
-Among the staff, five individuals list the most courses: Ahsan Kazmi (4), Evgenii Zouev (4), Giancarlo Succi (4), Igor Gaponov (4), and Kirill Poletkin (4) [2].
+The staff members who list the highest number of courses are Ahsan Kazmi, Evgenii Zouev, Giancarlo Succi, Igor Gaponov, and Kirill Poletkin, each listing 4 courses [2].
+
+## Coverage of the course list
+
+The staff pages collectively list 68 different courses [3]. The wiki contains 275 course pages in total [3].
 
 ## Gaps and caveats
 
-The evidence does not specify how to reach the two staff members who do not provide an e-mail address [1]. The evidence does not explain why two staff members list no courses [1]. The evidence does not provide a breakdown of which specific courses are taught by which staff members beyond the five listed in E2 [2]. The evidence does not indicate whether the 68 courses listed by staff are a subset of the 275 course pages or if there is overlap not accounted for [3].
+The evidence does not specify the number of courses taught by staff members who are not among the top five listed in E2 [2]. The evidence does not state the exact number of courses taught by staff members outside the group identified in E2 [2]. The evidence does not clarify whether the 68 courses listed in E3 are unique to the staff pages or if there is overlap with other wiki content [3]. The evidence does not explain the status of the two staff pages that list no courses [1]. The evidence does not explain the status of the two staff pages that provide no e-mail address [1].
 
 ## Staff directory
 

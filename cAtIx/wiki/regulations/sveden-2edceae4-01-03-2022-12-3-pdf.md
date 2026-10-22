@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Положение о текущем контроле успеваемости и промежуточной аттестации обучающихся по образовательным программам высшего образования – программам подготовки научных и научно-педагогических кадров в аспирантуре,"
-description: "This document is a university order approving regulations for monitoring graduate student progress and conducting interim assessments."
+description: "This document establishes the rules for monitoring progress and conducting interim assessments for PhD students at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/50d/o3by5vboymj7q176tlh8bb9rcv238cms/приказ_от_01.03.2022___ОД_АД-12__3_.pdf"
-tags: ["innopolis", "regulation", "graduate", "assessment", "order"]
+tags: ["innopolis", "phd", "regulations", "assessment", "university"]
+audience: ["postgraduate", "teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/document"
@@ -13,7 +14,7 @@ sources:
     title: "Положение о текущем контроле успеваемости и промежуточной аттестации обучающихся по образовательным программам высшего образования – программам подготовки научных и научно-педагогических кадров в аспирантуре,"
     last_modified: "2022-03-01T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:14:30+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Рабочая программа учебных предметов, курсов, дисциплин (модулей) [3._Рабочая_программа_учебных_предметов__курсов__дисциплин__м]"
-description: "This document is the curriculum for a professional development course on artificial intelligence in public administration at Innopolis University."
+description: "This document outlines the curriculum for a professional development course on AI in public administration at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/71f/du9nt06ej42bs2ttlmsh1e1nq1muns3o/3._Рабочая_программа_учебных_предметов__курсов__дисциплин__модулей__ПК_ИИ_в_цифровой_трансформации_государственного_уп.pdf"
-tags: ["ai", "curriculum", "innopolis", "professional-development", "public-administration"]
+tags: ["ai", "innopolis", "professional-development", "artificial-intelligence", "public-administration"]
+audience: ["teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Рабочая программа учебных предметов, курсов, дисциплин (модулей) [3._Рабочая_программа_учебных_предметов__курсов__дисциплин__м]"
     last_modified: "2025-02-14T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:07:23+00:00"
 extraction: "text layer"
 status: draft

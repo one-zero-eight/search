@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Аннотации к рабочим программам дисциплин [Аннотация]"
-description: "This document is an approved study plan for a 144-hour course on digital technologies in teaching specialized disciplines."
+description: "This document outlines the curriculum and assessment structure for a professional retraining program on digital technologies in education."
 resource: "https://innopolis.university/upload/iblock/5d7/u7rxlr2lqcjrwcr1rzyeqdgh8izcs11y/Аннотация.pdf"
-tags: ["education", "curriculum", "digital-economy", "robotics", "university", "study-plan"]
+tags: ["curriculum", "digital-education", "retraining", "university", "syllabus"]
+audience: ["teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Аннотации к рабочим программам дисциплин [Аннотация]"
     last_modified: "2026-10-22T14:06:48+00:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:06:48+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

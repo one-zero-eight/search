@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Оценочные и методические материалы [6._Оценочные_и_методические_материалы_ПП_Программная_инженер]"
-description: "This document outlines the assessment and methodological materials for a professional retraining program in software engineering at Innopolis University."
+description: "This document outlines assessment methods and evaluation criteria for the Professional Retraining program in Software Engineering at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/58f/lq4wzuzo1qto4g9w04hdi2yzgtdcp997/6._Оценочные_и_методические_материалы_ПП_Программная_инженерия_и_новые_технологии_разработки_ПО.pdf"
 tags: ["innopolis", "software-engineering", "assessment", "professional-retraining", "educational-materials"]
+audience: ["postgraduate", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Оценочные и методические материалы [6._Оценочные_и_методические_материалы_ПП_Программная_инженер]"
     last_modified: "2023-02-13T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:06:40+00:00"
 extraction: "text layer"
 status: draft

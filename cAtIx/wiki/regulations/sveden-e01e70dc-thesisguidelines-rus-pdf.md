@@ -1,25 +1,26 @@
 ---
 type: regulation
-title: "Общее образование 1. Образовательная программа общего образования; Образовательная программа начального общего образования Автономной некомм — 2025"
-description: "This document provides guidelines for preparing, writing, and defending a final qualifying thesis in general education programs."
+title: "Общее образование 1. Образовательная программа общего образования; Образовательная программа начального общего образования Автономной некомм — 2025 [ThesisGuideLines_rus]"
+description: "Guidelines for preparing, writing, and defending a final qualifying thesis at a Russian university."
 resource: "https://innopolis.university/upload/iblock/878/bgta7k63y2ejspqqea0vw53wqc3nwj17/ThesisGuideLines_rus.pdf"
-tags: ["education", "thesis", "guidelines", "university", "defense", "academic"]
+tags: ["thesis", "guidelines", "student", "defense", "university", "russia"]
+audience: ["student", "postgraduate", "applicant"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
 sources:
   - resource: "https://innopolis.university/upload/iblock/878/bgta7k63y2ejspqqea0vw53wqc3nwj17/ThesisGuideLines_rus.pdf"
     id: "4c9874e09c27"
-    title: "Общее образование 1. Образовательная программа общего образования; Образовательная программа начального общего образования Автономной некомм — 2025"
+    title: "Общее образование 1. Образовательная программа общего образования; Образовательная программа начального общего образования Автономной некомм — 2025 [ThesisGuideLines_rus]"
     last_modified: "2026-10-22T14:08:07+00:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:08:07+00:00"
 extraction: "text layer"
 status: draft
 ---
 
-# Общее образование 1. Образовательная программа общего образования; Образовательная программа начального общего образования Автономной некомм — 2025
+# Общее образование 1. Образовательная программа общего образования; Образовательная программа начального общего образования Автономной некомм — 2025 [ThesisGuideLines_rus]
 
 СОДЕРЖАНИЕ
 
@@ -408,4 +409,4 @@ status: draft
 
 # Citations
 
-1. [Общее образование 1. Образовательная программа общего образования; Образовательная программа начального общего образования Автономной некомм — 2025](https://innopolis.university/upload/iblock/878/bgta7k63y2ejspqqea0vw53wqc3nwj17/ThesisGuideLines_rus.pdf), file 4c9874e09c27
+1. [Общее образование 1. Образовательная программа общего образования; Образовательная программа начального общего образования Автономной некомм — 2025 [ThesisGuideLines_rus]](https://innopolis.university/upload/iblock/878/bgta7k63y2ejspqqea0vw53wqc3nwj17/ThesisGuideLines_rus.pdf), file 4c9874e09c27

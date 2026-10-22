@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Оценочные и методические материалы [6._Оценочные_и_методические_материалы_ПК_Технологии_цифровои]"
-description: "This document outlines the assessment methods and evaluation criteria for the \"Digital Transformation Technologies\" advanced training program at Innopolis University."
+description: "This document outlines the assessment methods and evaluation criteria for the \"Digital Transformation Technologies\" professional development program at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/7d9/a05zrgxrhwht95nn0lq79r9btfxs1nnb/6._Оценочные_и_методические_материалы_ПК_Технологии_цифровой_трансформации.pdf"
-tags: ["innopolis", "digital-transformation", "assessment", "continuing-education", "evaluation-criteria"]
+tags: ["assessment", "innopolis", "digital-transformation", "professional-development", "evaluation-criteria"]
+audience: ["teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Оценочные и методические материалы [6._Оценочные_и_методические_материалы_ПК_Технологии_цифровои]"
     last_modified: "2023-04-24T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:07:47+00:00"
 extraction: "text layer"
 status: draft

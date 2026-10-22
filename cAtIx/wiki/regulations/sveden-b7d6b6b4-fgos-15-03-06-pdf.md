@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "15.03.06 Мехатроника и робототехника"
-description: "This Russian Ministry of Science and Higher Education order approves the federal state educational standard for bachelor's programs in Mechatronics and Robotics."
+description: "This document establishes the federal state educational standard for the bachelor's degree program in Mechatronics and Robotics in Russia."
 resource: "https://innopolis.university/upload/iblock/661/ico8fnkfbn2krhfoe3i13ci4tt6wbwv0/fgos_15.03.06.pdf"
-tags: ["education", "mechatronics", "robotics", "russia", "standard", "bachelor"]
+tags: ["mechatronics", "robotics", "education", "standard", "bachelor", "russia"]
+audience: ["student", "postgraduate", "applicant", "teacher", "staff", "management"]
 source_kind: official-document
 language: ru
 section: "sveden/eduStandarts"
@@ -13,7 +14,7 @@ sources:
     title: "15.03.06 Мехатроника и робототехника"
     last_modified: "2020-08-17T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:07:08+00:00"
 extraction: "text layer"
 status: draft

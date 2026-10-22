@@ -3,7 +3,8 @@ type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Календарный учебный график [4._Календарный_учебный_график_ПП_Программная_инженерия_и_н]"
 description: "This document is the academic calendar for the Professional Retraining program in Software Engineering and New Software Development Technologies at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/be1/j9s27i2vib345u1tckzhm9pfyf9l6hoj/4._Календарный_учебный_график_ПП_Программная_инженерия_и_новые_технологии_разработки_ПО.pdf"
-tags: ["software-engineering", "innopolis", "academic-calendar", "professional-retraining", "assessment"]
+tags: ["innopolis", "calendar", "software-engineering", "retraining", "schedule"]
+audience: ["teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Календарный учебный график [4._Календарный_учебный_график_ПП_Программная_инженерия_и_н]"
     last_modified: "2023-02-13T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:10:07+00:00"
 extraction: "text layer"
 status: draft

@@ -1,25 +1,26 @@
 ---
 type: regulation
-title: "Особенности проведения вступительных испытаний для инвалидов и лиц с ограниченными возможностями здоровья"
-description: "This document outlines the special admission testing conditions for disabled applicants at Innopolis University for the 2026/2027 academic year."
+title: "ПРАВИЛА ПРИЕМА НА ОБУЧЕНИЕ ПО ОБРАЗОВАТЕЛЬНЫМ ПРОГРАММАМ ВЫСШЕГО ОБРАЗОВАНИЯ – ПРОГРАММАМ БАКАЛАВРИАТА И ПРОГРАММАМ МАГИСТРАТУРЫ В АНО ВО «У — Особенности проведения вступительных испытаний для инвалидов и лиц с ограниченными возможностями здоровья"
+description: "This document outlines the specific conditions and accommodations for entrance exams for applicants with disabilities at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/9e3/ff23bkvlp6krmp5e478jwdqt89y41bt0/Особенности_проведения_ВИ_2026.docx"
-tags: ["admissions", "disability", "innopolis", "russia", "university"]
+tags: ["innopolis", "admissions", "disabilities", "entrance-exams", "regulations"]
+audience: ["applicant"]
 source_kind: official-document
 language: ru
 section: "sveden/apply"
 sources:
   - resource: "https://innopolis.university/upload/iblock/9e3/ff23bkvlp6krmp5e478jwdqt89y41bt0/Особенности_проведения_ВИ_2026.docx"
     id: "cef138a14a72"
-    title: "Особенности проведения вступительных испытаний для инвалидов и лиц с ограниченными возможностями здоровья"
+    title: "ПРАВИЛА ПРИЕМА НА ОБУЧЕНИЕ ПО ОБРАЗОВАТЕЛЬНЫМ ПРОГРАММАМ ВЫСШЕГО ОБРАЗОВАНИЯ – ПРОГРАММАМ БАКАЛАВРИАТА И ПРОГРАММАМ МАГИСТРАТУРЫ В АНО ВО «У — Особенности проведения вступительных испытаний для инвалидов и лиц с ограниченными возможностями здоровья"
     last_modified: "2026-10-22T14:08:56+00:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:08:56+00:00"
 extraction: "text layer"
 status: draft
 ---
 
-# Особенности проведения вступительных испытаний для инвалидов и лиц с ограниченными возможностями здоровья
+# ПРАВИЛА ПРИЕМА НА ОБУЧЕНИЕ ПО ОБРАЗОВАТЕЛЬНЫМ ПРОГРАММАМ ВЫСШЕГО ОБРАЗОВАНИЯ – ПРОГРАММАМ БАКАЛАВРИАТА И ПРОГРАММАМ МАГИСТРАТУРЫ В АНО ВО «У — Особенности проведения вступительных испытаний для инвалидов и лиц с ограниченными возможностями здоровья
 
 ВЫПИСКА ИЗ ПРАВИЛ ПРИЕМА НА ОБУЧЕНИЕ ПО ОБРАЗОВАТЕЛЬНЫМ ПРОГРАММАМ ВЫСШЕГО ОБРАЗОВАНИЯ – ПРОГРАММАМ БАКАЛАВРИАТА И ПРОГРАММАМ МАГИСТРАТУРЫ В АНО ВО «УНИВЕРСИТЕТ ИННОПОЛИС» НА 2026/2027 УЧЕБНЫЙ ГОД
 
@@ -100,4 +101,4 @@ XIII. Особенности проведения внутренних всту�
 
 # Citations
 
-1. [Особенности проведения вступительных испытаний для инвалидов и лиц с ограниченными возможностями здоровья](https://innopolis.university/upload/iblock/9e3/ff23bkvlp6krmp5e478jwdqt89y41bt0/Особенности_проведения_ВИ_2026.docx), file cef138a14a72
+1. [ПРАВИЛА ПРИЕМА НА ОБУЧЕНИЕ ПО ОБРАЗОВАТЕЛЬНЫМ ПРОГРАММАМ ВЫСШЕГО ОБРАЗОВАНИЯ – ПРОГРАММАМ БАКАЛАВРИАТА И ПРОГРАММАМ МАГИСТРАТУРЫ В АНО ВО «У — Особенности проведения вступительных испытаний для инвалидов и лиц с ограниченными возможностями здоровья](https://innopolis.university/upload/iblock/9e3/ff23bkvlp6krmp5e478jwdqt89y41bt0/Особенности_проведения_ВИ_2026.docx), file cef138a14a72

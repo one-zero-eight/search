@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Порядок освоения факультативных и элективных дисциплин (модулей) при реализации образовательных программ высшего образования – программ бакалавриата, программ магистратуры и программ подготовки научных и научно-педагогических кадров в аспирантуре в АНО ВО «Университет Иннополис» (документ подписан простой электронной подписью)"
-description: "This document establishes the regulations for studying optional and elective courses at Innopolis University for bachelor, master, and PhD programs."
+description: "Regulates the study of elective and facultative courses for bachelor, master, and PhD students at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/839/dl2n11xytm1t2kcyfit9k2eoccb5jpaj/Порядок_освоения_факультативных_и_элективных_дисциплин.pdf"
-tags: ["innopolis", "education", "regulations", "electives", "higher-education", "university-policy"]
+tags: ["electives", "innopolis", "university", "regulations", "russia"]
+audience: ["student", "postgraduate", "teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/document"
@@ -13,7 +14,7 @@ sources:
     title: "Порядок освоения факультативных и элективных дисциплин (модулей) при реализации образовательных программ высшего образования – программ бакалавриата, программ магистратуры и программ подготовки научных и научно-педагогических кадров в аспирантуре в АНО ВО «Университет Иннополис» (документ подписан простой электронной подписью)"
     last_modified: "2025-10-06T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:07:55+00:00"
 extraction: "text layer"
 status: draft

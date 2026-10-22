@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Устав Автономной некоммерческой организации высшего образования «Университет Иннополис» (копия)"
-description: "This document is the official charter of Innopolis University, defining its legal status and educational mission."
+description: "This document is the official charter of Innopolis University, defining its legal status and operational regulations."
 resource: "https://innopolis.university/upload/iblock/6b7/rk6q97uvbez61jg7nhxg6jx8bhzo4w1a/ustav_10.04.2025.pdf"
-tags: ["charter", "university", "innopolis", "legal", "education"]
+tags: ["charter", "innopolis", "university", "russian", "legal"]
+audience: ["student", "applicant", "staff", "public"]
 source_kind: official-document
 language: ru
 section: "sveden/document"
@@ -13,7 +14,7 @@ sources:
     title: "Устав Автономной некоммерческой организации высшего образования «Университет Иннополис» (копия)"
     last_modified: "2025-04-10T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:17:58+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

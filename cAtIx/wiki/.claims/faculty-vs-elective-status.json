@@ -1,9 +1,9 @@
 {
  "page": "/guides/faculty-vs-elective-status.md",
- "evidence_sha": "13ec72986d836d12",
+ "evidence_sha": "206c9a4416f69757",
  "claims": [
   {
-   "sentence": "Faculty courses are not mandatory for students and are not included in the annual volume of the educational program",
+   "sentence": "Facultative disciplines (modules) are optional for you to study",
    "cites": [
     1
    ],
@@ -18,7 +18,22 @@
    ]
   },
   {
-   "sentence": "Elective disciplines (modules) are mandatory for students in bachelor’s, master’s, and graduate programs",
+   "sentence": "They are not included in the annual volume of your educational program",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "55c4c303e346",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Elective disciplines (modules) are mandatory for you to study in bachelor's, master's, and postgraduate programs developed in accordance with FGOS VO",
    "cites": [
     2
    ],
@@ -33,7 +48,7 @@
    ]
   },
   {
-   "sentence": "For graduate students in programs developed in accordance with FGT, electives are mandatory only if the University has included them in the graduate program",
+   "sentence": "Elective disciplines (modules) are also mandatory for postgraduates studying under programs developed in accordance with FGT, if the University includes them in your postgraduate program",
    "cites": [
     2
    ],
@@ -48,7 +63,7 @@
    ]
   },
   {
-   "sentence": "In study plans, elective disciplines (modules) are presented alternatively",
+   "sentence": "You must select elective disciplines (modules) from alternative options in your study plan",
    "cites": [
     3
    ],
@@ -63,7 +78,7 @@
    ]
   },
   {
-   "sentence": "Each block contains at least two disciplines (modules)",
+   "sentence": "Each block must contain at least two disciplines (modules)",
    "cites": [
     3
    ],
@@ -78,7 +93,7 @@
    ]
   },
   {
-   "sentence": "Students may select no more than one discipline from a block",
+   "sentence": "You may choose no more than one discipline from each block",
    "cites": [
     3
    ],
@@ -93,11 +108,195 @@
    ]
   },
   {
-   "sentence": "If a discipline (module) is presented in two or more blocks, a student may choose to study it no more than once",
+   "sentence": "If a discipline (module) appears in two or more blocks of your study plan, you may choose it for study no more than once",
    "cites": [
     3
    ],
    "evidence": [
+    {
+     "n": 3,
+     "sha": "a857b681f83a",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Facultative disciplines do not carry these selection limits or mandatory requirements",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "55c4c303e346",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify deadlines for choosing electives or facultative courses",
+   "cites": [
+    1,
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "55c4c303e346",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "a85d45ecb254",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "a857b681f83a",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It does not explain the procedure for making selections or where to submit them",
+   "cites": [
+    1,
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "55c4c303e346",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "a85d45ecb254",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "a857b681f83a",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It does not define what constitutes the annual volume of an educational program",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "55c4c303e346",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It does not state what happens if you fail to choose a mandatory elective",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "a85d45ecb254",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It does not provide details on how course pages list these disciplines or how they differ from the regulation",
+   "cites": [
+    1,
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "55c4c303e346",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "a85d45ecb254",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "a857b681f83a",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The regulation is silent on registration steps, grading, or credit allocation for facultative courses",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "55c4c303e346",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "No course pages are provided to compare against the regulation, but the regulation takes precedence if any course page differs or goes beyond it",
+   "cites": [
+    1,
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "55c4c303e346",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "a85d45ecb254",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    },
     {
      "n": 3,
      "sha": "a857b681f83a",

@@ -1,9 +1,9 @@
 {
  "page": "/guides/electronic-portfolio-guide.md",
- "evidence_sha": "0bc25314a915cede",
+ "evidence_sha": "0321ed25112a8695",
  "claims": [
   {
-   "sentence": "The purpose of the electronic portfolio is to record and store information about significant results of the student's professional and personal development",
+   "sentence": "The purpose of the electronic portfolio is the fixation and storage of information about significant results of professional and personal development of the learner",
    "cites": [
     1
    ],
@@ -18,7 +18,7 @@
    ]
   },
   {
-   "sentence": "University students independently fill out the following portfolio sections",
+   "sentence": "You independently fill out the following sections of the portfolio",
    "cites": [
     2
    ],
@@ -33,7 +33,7 @@
    ]
   },
   {
-   "sentence": "Мои работы и рецензии (My works and reviews) allows students to present information about any works completed during or outside their studies by filling in specific fields",
+   "sentence": "My works and reviews:** This section allows you to present information about any works completed during or outside your studies by filling out the following fields: Title (specify the work title), Type (specify the work type: practice, research work, project, or other work), Description (specify a brief description of your work or research), and File (attach a file with materials, an article, research, etc.)",
    "cites": [
     3
    ],
@@ -48,22 +48,7 @@
    ]
   },
   {
-   "sentence": "The required fields are Название (Title), which specifies the work's name; Тип (Type), which specifies the work type such as practice, research work, project, or other work; Описание (Description), which provides a brief description of the work or research; and Файл (File), which attaches materials, articles, or research documents",
-   "cites": [
-    3
-   ],
-   "evidence": [
-    {
-     "n": 3,
-     "sha": "e04e7fb3a0fa",
-     "sources": [
-      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The second section allows the evaluation of any participant in the educational relationship's work by searching for the work using the participant's email address",
+   "sentence": "Evaluation section:** This section allows you to evaluate any participant in educational relations by searching for their work using their email address",
    "cites": [
     4
    ],
@@ -78,7 +63,7 @@
    ]
   },
   {
-   "sentence": "Достижения (Achievements) allows students to provide information about their achievements in academic, research, socially significant, cultural-creative, and sports activities",
+   "sentence": "Achievements:** This section allows you to provide information about your achievements in academic, research, socially significant, cultural-creative, and sports activities",
    "cites": [
     5
    ],
@@ -93,7 +78,7 @@
    ]
   },
   {
-   "sentence": "The evidence does not specify deadlines for completing the sections",
+   "sentence": "The evidence does not specify deadlines for completing the portfolio sections",
    "cites": [
     2,
     3,
@@ -132,7 +117,22 @@
    ]
   },
   {
-   "sentence": "The evidence does not state limits on the number of works or file sizes",
+   "sentence": "The evidence does not state whether additional sections exist that are managed by staff or generated automatically",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "46c7b9106325",
+     "sources": [
+      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not define the technical requirements or accepted formats for the File field",
    "cites": [
     3
    ],
@@ -147,7 +147,7 @@
    ]
   },
   {
-   "sentence": "The evidence does not explain how the email search function operates or who can perform the evaluation",
+   "sentence": "The evidence does not explain how the evaluation section processes multiple reviews or handles search conflicts",
    "cites": [
     4
    ],
@@ -162,7 +162,22 @@
    ]
   },
   {
-   "sentence": "The evidence does not list any other portfolio sections beyond the three mentioned",
+   "sentence": "The evidence does not clarify what qualifies as a significant result for the portfolio's stated purpose",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "ede08db0b995",
+     "sources": [
+      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not reference any course-specific instructions or alternative submission pathways",
    "cites": [
     2,
     3,
@@ -191,36 +206,6 @@
       "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
      ]
     },
-    {
-     "n": 5,
-     "sha": "cdf74f2f78f3",
-     "sources": [
-      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify consequences for empty or incomplete fields",
-   "cites": [
-    3
-   ],
-   "evidence": [
-    {
-     "n": 3,
-     "sha": "e04e7fb3a0fa",
-     "sources": [
-      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not address how achievements are verified or approved",
-   "cites": [
-    5
-   ],
-   "evidence": [
     {
      "n": 5,
      "sha": "cdf74f2f78f3",

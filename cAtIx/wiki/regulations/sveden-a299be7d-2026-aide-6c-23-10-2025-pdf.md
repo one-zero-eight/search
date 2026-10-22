@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — 6 семестр Преддипломная практика (документ подписан ПЭП) [Визуализация_2026_AIDE_ПП_Преддипломная_практика_6c_23.10.20]"
-description: "This document is the pre-diploma internship program for the Master's degree in Computer Science and Engineering at Innopolis University."
+description: "This document is the pre-diploma internship program for Master's students in Robotics and Computer Vision at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/fe4/vjj0zswalxv5f5ekd36xd312m0xvjtc8/Визуализация_2026_AIDE_ПП_Преддипломная_практика_6c_23.10.2025.pdf"
-tags: ["innopolis", "internship", "robotics", "computer-vision", "master-s-degree", "practice-program"]
+tags: ["innopolis", "internship", "robotics", "computer-vision", "master", "practice"]
+audience: ["student", "postgraduate"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — 6 семестр Преддипломная практика (документ подписан ПЭП) [Визуализация_2026_AIDE_ПП_Преддипломная_практика_6c_23.10.20]"
     last_modified: "2026-10-22T14:12:41+00:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:12:41+00:00"
 extraction: "text layer"
 status: draft

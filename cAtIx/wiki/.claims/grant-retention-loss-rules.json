@@ -1,9 +1,9 @@
 {
  "page": "/guides/grant-retention-loss-rules.md",
- "evidence_sha": "0fba519ef63f7b0e",
+ "evidence_sha": "62af1345abc74bfe",
  "claims": [
   {
-   "sentence": "A winner loses the right to receive the grant if they do not meet the requirements specified in clause 3.2 of the Regulation",
+   "sentence": "You lose the right to receive the grant if you do not meet the requirements specified in clause 3.2 of the Regulation",
    "cites": [
     1
    ],
@@ -18,7 +18,7 @@
    ]
   },
   {
-   "sentence": "Grants that are not claimed by the start of the academic year following the completion of the current year’s competition are not issued by the Organizer and are not carried over to the next year",
+   "sentence": "The grant is not issued if it is not claimed by the start of the academic year following the completion of the current year's competition, including if you fail to take the actions established in clause 3.3",
    "cites": [
     1
    ],
@@ -33,7 +33,7 @@
    ]
   },
   {
-   "sentence": "This includes cases where the winner fails to perform the actions established in clause 3.3 of the Regulation",
+   "sentence": "Grants not claimed in this period are not issued by the Organizer and are not carried over to the next year",
    "cites": [
     1
    ],
@@ -48,37 +48,7 @@
    ]
   },
   {
-   "sentence": "The Organizer may refuse to issue the grant to a participant if the participant is caught committing fraud, deception, or violating the terms of the Regulation",
-   "cites": [
-    3
-   ],
-   "evidence": [
-    {
-     "n": 3,
-     "sha": "7065101b9b46",
-     "sources": [
-      "/regulations/sveden-9d0974a5-1-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "This also applies if the participant provided unreliable information",
-   "cites": [
-    3
-   ],
-   "evidence": [
-    {
-     "n": 3,
-     "sha": "7065101b9b46",
-     "sources": [
-      "/regulations/sveden-9d0974a5-1-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The Organizer has the right to unilaterally prohibit any person from further participation in the competition if that person falsifies documents, derives benefit from submitting fake documents, violates the Regulation, acts destructively, or intends to harass, insult, threaten, or cause trouble to any person connected with the competition",
+   "sentence": "Forge documents or derive benefit from the submission of forged documents for participation",
    "cites": [
     2
    ],
@@ -93,7 +63,7 @@
    ]
   },
   {
-   "sentence": "This right also applies if the person violates conduct rules at the competition venue, including public order",
+   "sentence": "Act in violation of the Regulation",
    "cites": [
     2
    ],
@@ -108,7 +78,82 @@
    ]
   },
   {
-   "sentence": "In any other cases of early termination of the Agreement for reasons not specified in clause 5.4 of the Contract, the Grant Recipient is obliged to return the portion of the grant provided under the Contract",
+   "sentence": "Act destructively or perform actions with the intent to annoy, insult, threaten, or cause trouble to any other person connected with the competition",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "6d6320ac05e9",
+     "sources": [
+      "/regulations/sveden-9d0974a5-1-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Violate behavior rules at the location of the competition stages, including public order",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "6d6320ac05e9",
+     "sources": [
+      "/regulations/sveden-9d0974a5-1-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Are caught committing fraud or deception",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "7065101b9b46",
+     "sources": [
+      "/regulations/sveden-9d0974a5-1-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Provide unreliable information",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "7065101b9b46",
+     "sources": [
+      "/regulations/sveden-9d0974a5-1-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Violate the conditions of the Regulation",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "7065101b9b46",
+     "sources": [
+      "/regulations/sveden-9d0974a5-1-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If your agreement is terminated early for reasons not specified in clause 5.4 of the Agreement, you are obliged to return the portion of the grant provided under this Agreement",
    "cites": [
     4
    ],
@@ -123,7 +168,7 @@
    ]
   },
   {
-   "sentence": "The repayment amount is 20% of the sum equal to the cost of education, calculated proportionally to the period of actual study by the Grant Recipient",
+   "sentence": "The amount to be returned is 20% of the sum equal to the cost of education, calculated proportionally to the period of your actual study",
    "cites": [
     4
    ],
@@ -153,14 +198,22 @@
    ]
   },
   {
-   "sentence": "If a Grant Recipient is dismissed before the end of the first year (for bachelors) or the first trimester (for masters) of study under the Agreement, the Grantor may decide not to demand the return of the provided grant amount",
+   "sentence": "Your grant is affected by your academic performance after specific trimesters or semesters",
    "cites": [
-    5
+    6,
+    7
    ],
    "evidence": [
     {
-     "n": 5,
-     "sha": "69ffa0882a6e",
+     "n": 6,
+     "sha": "38a256ea115a",
+     "sources": [
+      "/regulations/sveden-9d0974a5-1-pdf.md"
+     ]
+    },
+    {
+     "n": 7,
+     "sha": "3faa77b2b8f1",
      "sources": [
       "/regulations/sveden-9d0974a5-1-pdf.md"
      ]
@@ -168,14 +221,22 @@
    ]
   },
   {
-   "sentence": "The parties conclude an additional agreement to the Contract regarding this decision",
+   "sentence": "The results of repeated interim assessments for the corresponding subjects are not taken into account",
    "cites": [
-    5
+    6,
+    7
    ],
    "evidence": [
     {
-     "n": 5,
-     "sha": "69ffa0882a6e",
+     "n": 6,
+     "sha": "38a256ea115a",
+     "sources": [
+      "/regulations/sveden-9d0974a5-1-pdf.md"
+     ]
+    },
+    {
+     "n": 7,
+     "sha": "3faa77b2b8f1",
      "sources": [
       "/regulations/sveden-9d0974a5-1-pdf.md"
      ]
@@ -183,22 +244,7 @@
    ]
   },
   {
-   "sentence": "The Grantor’s decision is based on information about the Grant Recipient’s current academic performance and attendance, as well as other information indicating the Grant Recipient’s good faith in mastering the educational program",
-   "cites": [
-    5
-   ],
-   "evidence": [
-    {
-     "n": 5,
-     "sha": "69ffa0882a6e",
-     "sources": [
-      "/regulations/sveden-9d0974a5-1-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The grant is affected if there are more than two satisfactory (C) grades after the first (autumn) trimester (semester)",
+   "sentence": "More than two grades of \"satisfactory\" (C) by the end of the first (autumn) trimester (semester) and/or more than four grades of \"satisfactory\" (C) by the end of the first (spring) and/or first (summer) trimester (semester)",
    "cites": [
     6
    ],
@@ -213,37 +259,7 @@
    ]
   },
   {
-   "sentence": "It is also affected if there are more than four satisfactory (C) grades after the first (spring) and/or first (summer) trimester (semester)",
-   "cites": [
-    6
-   ],
-   "evidence": [
-    {
-     "n": 6,
-     "sha": "38a256ea115a",
-     "sources": [
-      "/regulations/sveden-9d0974a5-1-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "Results of repeated interim assessments for the corresponding subjects are not taken into account in these cases",
-   "cites": [
-    6
-   ],
-   "evidence": [
-    {
-     "n": 6,
-     "sha": "38a256ea115a",
-     "sources": [
-      "/regulations/sveden-9d0974a5-1-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The grant is affected if there is one or more unsatisfactory () grades after the corresponding trimester",
+   "sentence": "One or more grades of \"unsatisfactory\" by the end of the corresponding trimester",
    "cites": [
     7
    ],
@@ -258,14 +274,14 @@
    ]
   },
   {
-   "sentence": "Results of repeated interim assessments for the corresponding subjects are not taken into account in this case",
+   "sentence": "If you are dismissed before the end of the first year (for bachelors) or the first trimester (for masters) of study under the Agreement, the Grantor may decide not to demand the return of the provided grant amount",
    "cites": [
-    7
+    5
    ],
    "evidence": [
     {
-     "n": 7,
-     "sha": "3faa77b2b8f1",
+     "n": 5,
+     "sha": "69ffa0882a6e",
      "sources": [
       "/regulations/sveden-9d0974a5-1-pdf.md"
      ]
@@ -273,7 +289,37 @@
    ]
   },
   {
-   "sentence": "The evidence does not specify what the requirements in clause 3.2 are",
+   "sentence": "This decision is made by concluding a supplementary agreement to the Agreement",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "69ffa0882a6e",
+     "sources": [
+      "/regulations/sveden-9d0974a5-1-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The Grantor's decision is based on information about your current academic performance and attendance of classes, as well as other information indicating your good faith in mastering the educational program",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "69ffa0882a6e",
+     "sources": [
+      "/regulations/sveden-9d0974a5-1-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify what the requirements in clause 3.2 are, only that failing them leads to loss of the grant",
    "cites": [
     1
    ],
@@ -303,7 +349,7 @@
    ]
   },
   {
-   "sentence": "The evidence does not specify the reasons for early termination listed in clause 5.4 of the Contract",
+   "sentence": "The evidence does not specify the exact reasons listed in clause 5.4 of the Agreement, only that other reasons trigger the 20% repayment rule",
    "cites": [
     4
    ],
@@ -318,34 +364,11 @@
    ]
   },
   {
-   "sentence": "The evidence does not define the specific criteria for \"good faith\" or the exact threshold for \"current academic performance\" used in clause 5.6",
+   "sentence": "The evidence does not define the specific threshold for \"unsatisfactory\" grades beyond the label itself",
    "cites": [
-    5
-   ],
-   "evidence": [
-    {
-     "n": 5,
-     "sha": "69ffa0882a6e",
-     "sources": [
-      "/regulations/sveden-9d0974a5-1-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the exact grade thresholds for \"unsatisfactory\" or \"satisfactory\" beyond the letters C and the notation ()",
-   "cites": [
-    6,
     7
    ],
    "evidence": [
-    {
-     "n": 6,
-     "sha": "38a256ea115a",
-     "sources": [
-      "/regulations/sveden-9d0974a5-1-pdf.md"
-     ]
-    },
     {
      "n": 7,
      "sha": "3faa77b2b8f1",
@@ -356,14 +379,14 @@
    ]
   },
   {
-   "sentence": "The evidence does not state whether the 20% repayment rule applies to all early terminations or only specific ones not covered by clause 5.4",
+   "sentence": "The evidence does not specify the exact criteria for \"good faith\" or the specific data points used for the decision on not demanding repayment in the first year/trimester",
    "cites": [
-    4
+    5
    ],
    "evidence": [
     {
-     "n": 4,
-     "sha": "e3b4b8486a73",
+     "n": 5,
+     "sha": "69ffa0882a6e",
      "sources": [
       "/regulations/sveden-9d0974a5-1-pdf.md"
      ]

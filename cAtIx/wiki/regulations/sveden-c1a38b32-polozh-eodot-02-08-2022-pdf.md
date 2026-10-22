@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Положение о порядке применения электронного обучения и дистанционных образовательных технологий при реализации образовательных программ высшего образования - программ бакалавриата, программ магистратуры и программ подготовки научных и научно-педагогических кадров в аспирантуре в автономной некоммерческой организации высшего образования \"Университет Иннополис\","
-description: "This document establishes the rules for using e-learning and distance education technologies for bachelor, master, and graduate programs at Innopolis University."
+description: "Regulates the use of e-learning and distance education technologies for bachelor, master, and graduate programs at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/11c/dyp7odsza3je9pf08wks9z5gd864k67l/Polozh_eodot_02.08.2022.pdf"
-tags: ["regulations", "innopolis-university", "e-learning", "distance-education", "higher-education", "russian-university"]
+tags: ["e-learning", "innopolis", "regulations", "distance-education", "higher-education"]
+audience: ["student", "postgraduate", "teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/document"
@@ -13,7 +14,7 @@ sources:
     title: "Положение о порядке применения электронного обучения и дистанционных образовательных технологий при реализации образовательных программ высшего образования - программ бакалавриата, программ магистратуры и программ подготовки научных и научно-педагогических кадров в аспирантуре в автономной некоммерческой организации высшего образования \"Университет Иннополис\","
     last_modified: "2022-08-02T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T13:59:31+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

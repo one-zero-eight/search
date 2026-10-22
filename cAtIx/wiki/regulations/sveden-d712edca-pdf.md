@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Учебный план [Учебный план Управление цифровой трансформацией образователь]"
-description: "This document is the curriculum for a master's program on managing digital transformation in higher education institutions."
+description: "This document is the study plan for the Master's program in Managing Digital Transformation of Educational Organizations."
 resource: "https://innopolis.university/upload/iblock/210/rzcijrdwa3585056rvn0osh2j4tga3u9/Учебный план Управление цифровой трансформацией образовательных организаций ВО.pdf"
-tags: ["education", "curriculum", "digital-transformation", "management", "master-s-degree"]
+tags: ["study-plan", "digital-transformation", "master-s-degree", "university", "curriculum", "education-management"]
+audience: ["staff", "management"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Учебный план [Учебный план Управление цифровой трансформацией образователь]"
     last_modified: "2026-10-22T14:00:25+00:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:00:25+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

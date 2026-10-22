@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Положение о порядке организации и осуществления образовательной деятельности по образовательным программам высшего образования – программам бакалавриата и программам магистратуры АНО ВО «Университет Иннополис» (документ подписан простой электронной подписью)"
-description: "This document establishes the regulations for organizing and conducting educational activities for bachelor's and master's programs at Innopolis University."
+description: "Regulates educational activities for bachelor and master programs at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/77c/1l3lgp2kifctx0dyu707acbmcfiw4lxs/Положение_о_порядке_организации_и_осуществления_образовательной_деятельности_по_образовательным_программам_высшег.pdf"
-tags: ["education", "university", "innopolis", "regulations", "higher-education"]
+tags: ["innopolis", "regulations", "higher-education", "bachelor", "master", "university"]
+audience: ["student", "postgraduate", "staff", "management"]
 source_kind: official-document
 language: ru
 section: "sveden/document"
@@ -13,7 +14,7 @@ sources:
     title: "Положение о порядке организации и осуществления образовательной деятельности по образовательным программам высшего образования – программам бакалавриата и программам магистратуры АНО ВО «Университет Иннополис» (документ подписан простой электронной подписью)"
     last_modified: "2025-09-22T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:07:36+00:00"
 extraction: "text layer"
 status: draft

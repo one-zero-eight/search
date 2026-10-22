@@ -3,7 +3,8 @@ type: regulation
 title: "ПРАВИЛА ПРИЕМА НА ОБУЧЕНИЕ ПО ОБРАЗОВАТЕЛЬНЫМ ПРОГРАММАМ ВЫСШЕГО ОБРАЗОВАНИЯ – ПРОГРАММАМ БАКАЛАВРИАТА И ПРОГРАММАМ МАГИСТРАТУРЫ В АНО ВО «У — Положение о порядке проведения итоговой аттестации по не имеющим государственной аккредитации образовательным программам высшего образования – программам бакалавриата, программам магистратуры в АНО ВО «Университет Иннополис» (документ подписан простой электронной подписью)"
 description: "Regulates final certification procedures for non-accredited bachelor and master programs at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/369/bqkh8aq5pvpdfody4axoyjmi5m3ecz85/polozh_ia_bakmag_27.04.2024.pdf"
-tags: ["innopolis", "higher-education", "final-certification", "regulations", "non-accredited-programs"]
+tags: ["innopolis", "regulations", "final-exam", "higher-education", "accreditation"]
+audience: ["student", "postgraduate", "applicant", "teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/document"
@@ -13,7 +14,7 @@ sources:
     title: "ПРАВИЛА ПРИЕМА НА ОБУЧЕНИЕ ПО ОБРАЗОВАТЕЛЬНЫМ ПРОГРАММАМ ВЫСШЕГО ОБРАЗОВАНИЯ – ПРОГРАММАМ БАКАЛАВРИАТА И ПРОГРАММАМ МАГИСТРАТУРЫ В АНО ВО «У — Положение о порядке проведения итоговой аттестации по не имеющим государственной аккредитации образовательным программам высшего образования – программам бакалавриата, программам магистратуры в АНО ВО «Университет Иннополис» (документ подписан простой электронной подписью)"
     last_modified: "2024-04-27T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:02:14+00:00"
 extraction: "text layer"
 status: draft

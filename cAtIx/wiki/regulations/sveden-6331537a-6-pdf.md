@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Оценочные и методические материалы [6._Оценочные_и_методические_материалы_ПК_ИИ_в_цифровой_тран]"
-description: "This document defines the assessment methods and evaluation criteria for the \"Artificial Intelligence in Digital Transformation of Public Administration\" advanced training program."
+description: "This document outlines assessment methods and evaluation criteria for the \"Artificial Intelligence in Digital Transformation of Public Administration\" advanced training program at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/938/djt9itjng4m5kgmm7z2fv84m6ppo86lj/6._Оценочные_и_методические_материалы_ПК_ИИ_в_цифровой_трансформации_государственного_управления.pdf"
-tags: ["assessment", "artificial-intelligence", "training", "university", "innovation"]
+tags: ["assessment", "innopolis", "ai", "public-administration", "training", "evaluation"]
+audience: ["staff", "public"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Оценочные и методические материалы [6._Оценочные_и_методические_материалы_ПК_ИИ_в_цифровой_тран]"
     last_modified: "2025-02-14T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:08:28+00:00"
 extraction: "text layer"
 status: draft

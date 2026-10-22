@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Порядок заполнения, учета и выдачи свидетельства об окончании аспирантуры, приложения к нему и их дубликатов в автономной некоммерческой организации высшего образования «Университет Иннополис» (документ подписан простой электронной подписью)"
-description: "This document establishes the rules for filling out, accounting for, and issuing postgraduate completion certificates at Innopolis University."
+description: "Regulates the filling, accounting, and issuance of postgraduate completion certificates at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/d2e/8tz767317lbkuosituvurhxohebxoodv/poryadok_svidetelstvo_asp_23.06.2025.pdf"
-tags: ["innopolis", "postgraduate", "certificate", "regulations", "university", "russia"]
+tags: ["postgraduate", "innopolis", "university", "regulations", "certificate"]
+audience: ["postgraduate", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/document"
@@ -13,7 +14,7 @@ sources:
     title: "Порядок заполнения, учета и выдачи свидетельства об окончании аспирантуры, приложения к нему и их дубликатов в автономной некоммерческой организации высшего образования «Университет Иннополис» (документ подписан простой электронной подписью)"
     last_modified: "2025-06-23T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:10:55+00:00"
 extraction: "text layer"
 status: draft

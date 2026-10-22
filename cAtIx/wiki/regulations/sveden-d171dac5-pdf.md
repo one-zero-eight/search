@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Порядок освоения дисциплин (модулей) по физической культуре и спорту в Автономной некоммерческой организации высшего образования \"Университет Иннополис\" (2021),"
-description: "This document establishes the regulations for studying physical culture and sports electives at Innopolis University."
+description: "Regulates physical education and sports courses for bachelor's students at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/c11/Порядок по физкультуре и спорту.pdf"
-tags: ["innopolis", "physical-education", "university-regulations", "sports-curriculum", "higher-education"]
+tags: ["innopolis", "physical-education", "regulations", "bachelor", "university"]
+audience: ["student"]
 source_kind: official-document
 language: ru
 section: "sveden/document"
@@ -13,7 +14,7 @@ sources:
     title: "Порядок освоения дисциплин (модулей) по физической культуре и спорту в Автономной некоммерческой организации высшего образования \"Университет Иннополис\" (2021),"
     last_modified: "2021-07-02T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:21:28+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

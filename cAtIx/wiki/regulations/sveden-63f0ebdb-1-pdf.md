@@ -3,7 +3,8 @@ type: regulation
 title: "«Технологии цифровой трансформации»"
 description: "This document is the official curriculum for a professional development program on digital transformation technologies at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/3b0/a6pmrm0k8rwgj6rnm2v724zork9bqe0v/1._ДПП_Технологии_цифровой_трансформации.pdf"
-tags: ["innopolis", "digital-transformation", "professional-development", "higher-education", "curriculum"]
+tags: ["digital", "transformation", "innopolis", "education", "curriculum"]
+audience: ["applicant", "teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "«Технологии цифровой трансформации»"
     last_modified: "2023-04-24T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:02:38+00:00"
 extraction: "text layer"
 status: draft

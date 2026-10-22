@@ -1,13 +1,21 @@
 {
  "page": "/guides/retakes.md",
- "evidence_sha": "9a2c2d657bc40369",
+ "evidence_sha": "59230ce9b2acc2da",
  "claims": [
   {
-   "sentence": "The university defines an academic failure as an unsatisfactory result in an interim assessment for one or more disciplines, modules, or other components of the educational program, including internships, or a failure to pass an assessment due to absence without a valid reason",
+   "sentence": "Unsatisfactory interim assessment results, defined as grades D and F, constitute an academic failure",
    "cites": [
+    6,
     7
    ],
    "evidence": [
+    {
+     "n": 6,
+     "sha": "6660fa61d9fc",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    },
     {
      "n": 7,
      "sha": "7eb109e93d20",
@@ -18,37 +26,7 @@
    ]
   },
   {
-   "sentence": ". Unsatisfactory results are specifically categorized as grades D and F",
-   "cites": [
-    6
-   ],
-   "evidence": [
-    {
-     "n": 6,
-     "sha": "6660fa61d9fc",
-     "sources": [
-      "/regulations/attestation-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": ". Results of interim assessments A, B, C, and P are positive and cannot be retaken for improvement, except as specified in clause 6.1 of the Regulation on current control and attestation",
-   "cites": [
-    5
-   ],
-   "evidence": [
-    {
-     "n": 5,
-     "sha": "2d8ec49b6a5d",
-     "sources": [
-      "/regulations/attestation-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "Students who incur an academic failure are entitled to retake the relevant assessment no more than 2 times within a period set by the University, calculated within one year from the date the academic failure was incurred",
+   "sentence": "You are entitled to retake the failed assessment no more than 2 times within a one-year period from the date the failure occurred",
    "cites": [
     8
    ],
@@ -63,7 +41,7 @@
    ]
   },
   {
-   "sentence": ". The period of student illness, academic leave, or maternity leave is not included in this one-year timeframe",
+   "sentence": "Periods of illness, academic leave, or maternity leave are excluded from this one-year window",
    "cites": [
     8
    ],
@@ -78,7 +56,7 @@
    ]
   },
   {
-   "sentence": ". The University sets specific deadlines for these retakes for each discipline or component",
+   "sentence": "The University sets specific deadlines for each retake",
    "cites": [
     9
    ],
@@ -93,7 +71,7 @@
    ]
   },
   {
-   "sentence": ". If a student fails the first retake, they are given the opportunity for a second retake, which is conducted by a committee assigned by the University",
+   "sentence": "If you fail the first retake, you are given a second retake conducted by a University-assigned committee",
    "cites": [
     9
    ],
@@ -108,7 +86,7 @@
    ]
   },
   {
-   "sentence": ". The existence of an academic failure that serves as grounds for expulsion is established following the results of the second repeated interim assessment",
+   "sentence": "The fact that you have an academic debt leading to expulsion is established after the second repeated interim assessment",
    "cites": [
     12
    ],
@@ -123,7 +101,22 @@
    ]
   },
   {
-   "sentence": "Retaking results to improve a positive grade is available only for final-year students who have successfully completed the entire educational program and are candidates for an honors diploma based on the results of state final certification",
+   "sentence": "Positive results, defined as grades A, B, C, and P, cannot be retaken for improvement, except under specific conditions",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "2d8ec49b6a5d",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Retaking a course to improve a positive grade is only available to final-year students who have completed the entire educational program and are candidates for an honors diploma",
    "cites": [
     10
    ],
@@ -138,7 +131,22 @@
    ]
   },
   {
-   "sentence": "Expulsion and reinstatement procedures are governed by the \"Regulations on the procedure and grounds for transferring, Expelling and reinstating students and granting academic leave to students in the Autonomous Non-profit Organization of Higher Education 'Innopolis University'\"",
+   "sentence": "If you fail to meet academic requirements after the second retake, you face expulsion",
+   "cites": [
+    12
+   ],
+   "evidence": [
+    {
+     "n": 12,
+     "sha": "caf83d325aae",
+     "sources": [
+      "/regulations/transfer-expulsion-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Expulsion rules and reinstatement procedures are detailed in paragraphs 3 and 4 of the official Regulations",
    "cites": [
     1
    ],
@@ -153,67 +161,7 @@
    ]
   },
   {
-   "sentence": ". Expulsion orders are issued based on a personal application from the student to the University Director",
-   "cites": [
-    11
-   ],
-   "evidence": [
-    {
-     "n": 11,
-     "sha": "00b79aa39c85",
-     "sources": [
-      "/regulations/transfer-expulsion-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": ". The student must submit their student ID and a signed clearance sheet to the responsible structural subdivision within 3 working days from the date of the expulsion application",
-   "cites": [
-    11
-   ],
-   "evidence": [
-    {
-     "n": 11,
-     "sha": "00b79aa39c85",
-     "sources": [
-      "/regulations/transfer-expulsion-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": ". If the clearance sheet is not submitted, the University reserves the right to demand the recovery of any debts from the student",
-   "cites": [
-    11
-   ],
-   "evidence": [
-    {
-     "n": 11,
-     "sha": "00b79aa39c85",
-     "sources": [
-      "/regulations/transfer-expulsion-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": ". For students whose education contracts are sponsored by other individuals or legal entities, a document confirming the sponsor's consent to terminate the contract at the student's initiative must be provided",
-   "cites": [
-    11
-   ],
-   "evidence": [
-    {
-     "n": 11,
-     "sha": "00b79aa39c85",
-     "sources": [
-      "/regulations/transfer-expulsion-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "A student expelled for academic failure is reinstated to the beginning of the semester for the course for which they have academic debts",
+   "sentence": "If you are expelled for academic debt, you can be reinstated from the beginning of the semester onto the course where you have debts, except for students mentioned in a specific clause",
    "cites": [
     13
    ],
@@ -228,7 +176,67 @@
    ]
   },
   {
-   "sentence": "Academic leave is granted to students in main professional educational programs due to temporary inability to study, including for military service, medical indications, or other exceptional cases such as natural disasters or family circumstances",
+   "sentence": "Voluntary expulsion requires a personal application to the University director",
+   "cites": [
+    11
+   ],
+   "evidence": [
+    {
+     "n": 11,
+     "sha": "00b79aa39c85",
+     "sources": [
+      "/regulations/transfer-expulsion-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must submit your student ID and a clearance sheet signed by University staff within 3 working days of the application",
+   "cites": [
+    11
+   ],
+   "evidence": [
+    {
+     "n": 11,
+     "sha": "00b79aa39c85",
+     "sources": [
+      "/regulations/transfer-expulsion-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If you do not submit the clearance sheet, the University reserves the right to claim outstanding debts from you",
+   "cites": [
+    11
+   ],
+   "evidence": [
+    {
+     "n": 11,
+     "sha": "00b79aa39c85",
+     "sources": [
+      "/regulations/transfer-expulsion-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Students under third-party education contracts must provide a document proving the client's consent to terminate the contract",
+   "cites": [
+    11
+   ],
+   "evidence": [
+    {
+     "n": 11,
+     "sha": "00b79aa39c85",
+     "sources": [
+      "/regulations/transfer-expulsion-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Academic leave is granted for temporary inability to study due to military service, medical indications, or other exceptional circumstances such as natural disasters or family situations",
    "cites": [
     14
    ],
@@ -243,7 +251,7 @@
    ]
   },
   {
-   "sentence": ". The basis and procedure for granting academic leave are prescribed in paragraph 5 of the \"Regulations on the procedure and grounds for transferring, expelling and restoring students and granting academic leave to students in the Autonomous Non-profit Organization of Higher Education 'Innopolis University'\"",
+   "sentence": "The basis and procedure for granting academic leave are prescribed in paragraph 5 of the official Regulations",
    "cites": [
     2
    ],
@@ -258,7 +266,7 @@
    ]
   },
   {
-   "sentence": "For information regarding expulsion, reinstatement, and academic leave, students can contact the Student Support and Development Department in office 319 or use the department's bot",
+   "sentence": "For information on expulsion, reinstatement, and academic leave, contact the Student Support and Development Department in office 319 or use their official bot",
    "cites": [
     1,
     2
@@ -281,7 +289,7 @@
    ]
   },
   {
-   "sentence": "Among 275 courses, 114 have a section about retakes",
+   "sentence": "Out of 275 courses, 114 include a section about retakes",
    "cites": [
     15
    ],
@@ -364,7 +372,7 @@
    ]
   },
   {
-   "sentence": ". In 69 of these courses, the section is an empty template containing only generic headings, providing no information on how a retake works",
+   "sentence": "In 69 of those courses, the section is an empty template and provides no information on how a retake works",
    "cites": [
     15
    ],
@@ -447,7 +455,7 @@
    ]
   },
   {
-   "sentence": ". The remaining 45 courses describe the retake process using 33 different texts",
+   "sentence": "The remaining 45 courses describe the retake process using 33 different texts",
    "cites": [
     16
    ],
@@ -506,23 +514,11 @@
    ]
   },
   {
-   "sentence": "No course page mentions a third retake, and no course page contradicts the regulatory limit of two repeated attestations",
-   "cites": [
-    29
-   ],
-   "evidence": [
-    {
-     "n": 29,
-     "sha": "e574e29fc033",
-     "sources": []
-    }
-   ]
-  },
-  {
-   "sentence": "Project-based implementation with guidelines:** 2 courses require students to implement a product following course guidelines, with reduced complexity allowed for individual work, grading criteria matching the final project presentation, and a mandatory planning meeting",
+   "sentence": "The evidence provides descriptions for a subset of those courses, which group into several formats. The typical format involves project or product work: 3 courses require implementing a product with course guidelines and a planning meeting, allowing reduced complexity for solo students",
    "cites": [
     20,
-    24
+    24,
+    28
    ],
    "evidence": [
     {
@@ -540,11 +536,18 @@
       "/courses/mshe-it-product-development.md",
       "/courses/mste-mste-it-course.md"
      ]
+    },
+    {
+     "n": 28,
+     "sha": "88a1307c3e37",
+     "sources": [
+      "/courses/bsc-capstone-project.md"
+     ]
     }
    ]
   },
   {
-   "sentence": ". 2 courses require students to improve their project based on professor recommendations from the final exam",
+   "sentence": "; 2 courses require improving a project based on final exam recommendations",
    "cites": [
     22
    ],
@@ -560,7 +563,7 @@
    ]
   },
   {
-   "sentence": ". 2 courses require students to apply course learning to a specific model, with grading criteria matching the final project presentation and a mandatory planning meeting",
+   "sentence": "; and 2 courses require applying course knowledge to a specific model with a planning meeting and final presentation grading criteria",
    "cites": [
     23
    ],
@@ -576,22 +579,77 @@
    ]
   },
   {
-   "sentence": ". 1 course requires students to follow guidelines and contribute to a new project, with reduced complexity for individual work, grading criteria matching the final project presentation, and a mandatory planning meeting",
+   "sentence": "Exceptions include exam-based retakes: 2 courses match the midterm or final exam form and weight",
    "cites": [
-    28
+    25,
+    26
    ],
    "evidence": [
     {
-     "n": 28,
-     "sha": "88a1307c3e37",
+     "n": 25,
+     "sha": "9912a9d326a5",
      "sources": [
-      "/courses/bsc-capstone-project.md"
+      "/courses/bsc-analytic-geometry-and-linear-algebra-ii.md"
+     ]
+    },
+    {
+     "n": 26,
+     "sha": "58931947ea02",
+     "sources": [
+      "/courses/bsc-analytic-geometry-and-linear-algebra-ii.md"
      ]
     }
    ]
   },
   {
-   "sentence": "Pitch deck or presentation formats:** 1 course outlines grading criteria for a final project presentation focusing on problem statement, user definition, solution, and elicitation process",
+   "sentence": "2 courses use a pitch deck presentation with point deductions for absence or inactivity",
+   "cites": [
+    21
+   ],
+   "evidence": [
+    {
+     "n": 21,
+     "sha": "a3ed81f42657",
+     "sources": [
+      "/courses/bshe-fundraising-go-to-market-and-hyper-growth-for-startups.md",
+      "/courses/msc-venture-capital-and-growth-hacking.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "and 1 course uses a written or oral exam after the semester ends",
+   "cites": [
+    27
+   ],
+   "evidence": [
+    {
+     "n": 27,
+     "sha": "f5b918e06f29",
+     "sources": [
+      "/courses/bsc-analyticgeometry.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "A smaller group focuses on specific assessment criteria or topics: 2 courses require solving complex coding problems similar to homework or labs",
+   "cites": [
+    19
+   ],
+   "evidence": [
+    {
+     "n": 19,
+     "sha": "30ae7cd5fa4c",
+     "sources": [
+      "/courses/bsc-information-retrieval.md",
+      "/courses/msc-advanced-information-retrieval.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "1 course outlines grading criteria for a final project presentation covering problem, user, solution, and elicitation",
    "cites": [
     17
    ],
@@ -610,84 +668,7 @@
    ]
   },
   {
-   "sentence": ". 2 courses state that the retake exam is the same pitch deck presentation, with 10-20 points subtracted for absence from lectures or lack of activity",
-   "cites": [
-    21
-   ],
-   "evidence": [
-    {
-     "n": 21,
-     "sha": "a3ed81f42657",
-     "sources": [
-      "/courses/bshe-fundraising-go-to-market-and-hyper-growth-for-startups.md",
-      "/courses/msc-venture-capital-and-growth-hacking.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "Exam format matching course structure:** 1 course states the first retake will be conducted in the same form as midterm and final exams, with the same weight as the entire course",
-   "cites": [
-    25
-   ],
-   "evidence": [
-    {
-     "n": 25,
-     "sha": "9912a9d326a5",
-     "sources": [
-      "/courses/bsc-analytic-geometry-and-linear-algebra-ii.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": ". 1 course states the second retake will be conducted in the same form as midterm and final exams, with the same weight as the entire course",
-   "cites": [
-    26
-   ],
-   "evidence": [
-    {
-     "n": 26,
-     "sha": "58931947ea02",
-     "sources": [
-      "/courses/bsc-analytic-geometry-and-linear-algebra-ii.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": ". 1 course states the retake will be an exam (written or oral) after the semester in which the discipline is taught",
-   "cites": [
-    27
-   ],
-   "evidence": [
-    {
-     "n": 27,
-     "sha": "f5b918e06f29",
-     "sources": [
-      "/courses/bsc-analyticgeometry.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "Coding problems:** 2 courses require students to solve a complex coding problem similar to homework or lab tasks",
-   "cites": [
-    19
-   ],
-   "evidence": [
-    {
-     "n": 19,
-     "sha": "30ae7cd5fa4c",
-     "sources": [
-      "/courses/bsc-information-retrieval.md",
-      "/courses/msc-advanced-information-retrieval.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "Theoretical topics:** 3 courses list specific theoretical topics to be covered, including taxation systems for IT startups in Russia, DOS features, income tax, privileges, simplified tax systems, patent systems, tax saving methods, management definitions, and the history of management and marketing",
+   "sentence": "and 1 course lists preparation topics on taxation, DOS features, and management",
    "cites": [
     18
    ],
@@ -704,22 +685,27 @@
    ]
   },
   {
-   "sentence": "The evidence leaves open the specific deadlines set by the University for retakes, as these are determined case-by-case or by separate local acts not fully detailed in the provided text",
+   "sentence": "No course page mentions a third retake, and none contradict the official limit of two repeated attestations",
    "cites": [
-    9,
-    12
+    29
    ],
    "evidence": [
     {
-     "n": 9,
-     "sha": "6edece82fa71",
-     "sources": [
-      "/regulations/attestation-regulation.md"
-     ]
-    },
+     "n": 29,
+     "sha": "e574e29fc033",
+     "sources": []
+    }
+   ]
+  },
+  {
+   "sentence": "The official regulation cuts off mid-sentence when describing exceptions to reinstatement after expulsion for academic debt",
+   "cites": [
+    13
+   ],
+   "evidence": [
     {
-     "n": 12,
-     "sha": "caf83d325aae",
+     "n": 13,
+     "sha": "b6dfa78c17ba",
      "sources": [
       "/regulations/transfer-expulsion-regulation.md"
      ]
@@ -727,7 +713,22 @@
    ]
   },
   {
-   "sentence": ". The \"Regulations on current control and attestation\" clause 6.1 is referenced for exceptions to the rule that positive grades (A, B, C, P) cannot be retaken, but the specific details of those exceptions are not provided in the evidence",
+   "sentence": "The official regulation references a specific clause for reinstatement exceptions but does not list them in the provided text",
+   "cites": [
+    13
+   ],
+   "evidence": [
+    {
+     "n": 13,
+     "sha": "b6dfa78c17ba",
+     "sources": [
+      "/regulations/transfer-expulsion-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The official regulation states that retaking positive grades is allowed \"except as specified in p. 6.1\" but does not provide the full text of p. 6.1 beyond the final-year honors condition",
    "cites": [
     5,
     10
@@ -750,14 +751,14 @@
    ]
   },
   {
-   "sentence": ". The \"Regulations on transfer, expulsion and reinstatement\" clause 4.4.3 mentions exceptions to reinstatement rules for certain students, but the text cuts off before specifying who those students are",
+   "sentence": "The official regulation mentions that the procedure for repeated interim assessments is set by a separate local normative act, but does not name or link it",
    "cites": [
-    13
+    12
    ],
    "evidence": [
     {
-     "n": 13,
-     "sha": "b6dfa78c17ba",
+     "n": 12,
+     "sha": "caf83d325aae",
      "sources": [
       "/regulations/transfer-expulsion-regulation.md"
      ]
@@ -765,11 +766,161 @@
    ]
   },
   {
-   "sentence": ". The evidence does not specify the exact composition or appointment process of the committee that conducts the second retake, only that it is assigned by the University",
+   "sentence": "69 course pages contain empty retake templates, leaving students without course-specific retake instructions",
    "cites": [
+    15
+   ],
+   "evidence": [
+    {
+     "n": 15,
+     "sha": "afbd29f6c25d",
+     "sources": [
+      "/courses/bsc-advanced-compilers-construction-and-program-analysis.md",
+      "/courses/bsc-advanced-databases.md",
+      "/courses/bsc-analytic-geometry-and-linear-algebra-ii.md",
+      "/courses/bsc-compilers-construction.md",
+      "/courses/bsc-computer-architecture.md",
+      "/courses/bsc-control-theory.md",
+      "/courses/bsc-data-structures-algorithms.md",
+      "/courses/bsc-dev-ops-engineering.md",
+      "/courses/bsc-differential-equations.md",
+      "/courses/bsc-distributed-and-network-programming.md",
+      "/courses/bsc-fundamentals-of-computer-security.md",
+      "/courses/bsc-game-theory.md",
+      "/courses/bsc-human-ai-interaction-design.md",
+      "/courses/bsc-introduction-to-artificial-intelligence.md",
+      "/courses/bsc-introduction-to-big-data.md",
+      "/courses/bsc-introduction-to-machine-learning.md",
+      "/courses/bsc-introduction-to-programming.md",
+      "/courses/bsc-introduction-to-robotics.md",
+      "/courses/bsc-mechanics-and-machines.md",
+      "/courses/bsc-mechatronics.md",
+      "/courses/bsc-nature-inspired-computing.md",
+      "/courses/bsc-network-and-cyber-security.md",
+      "/courses/bsc-networks.md",
+      "/courses/bsc-numericalmodelling.md",
+      "/courses/bsc-operating-systems.md",
+      "/courses/bsc-philosophy-ii.md",
+      "/courses/bsc-physical-culture-and-sport-nutrition.md",
+      "/courses/bsc-physical-culture-and-sport-psychology.md",
+      "/courses/bsc-physics-i.md",
+      "/courses/bsc-practical-machine-learning-deep-learning.md",
+      "/courses/bsc-robotic-systems.md",
+      "/courses/bsc-secure-system-development.md",
+      "/courses/bsc-signals-and-systems.md",
+      "/courses/bsc-system-and-network-administration.md",
+      "/courses/bsc-theoretical-computer-science.md",
+      "/courses/bsc-total-virtualization.md",
+      "/courses/bshe-career-and-leadership.md",
+      "/courses/bshe-developing-entrepreneurial-skills-for-a-startup-founder.md",
+      "/courses/bshe-human-and-animal-brain-representation-in-neurosciences.md",
+      "/courses/bshe-introduction-to-it-entrepreneurship.md",
+      "/courses/bste-advanced-linux.md",
+      "/courses/bste-art-of-reading-learning-and-understanding.md",
+      "/courses/bste-cross-platform-mobile-development-with-flutter.md",
+      "/courses/bste-introductiontopracticalartificialintelligence.md",
+      "/courses/msc-advanced-machine-learning.md",
+      "/courses/msc-advanced-networking.md",
+      "/courses/msc-advanced-robotics.md",
+      "/courses/msc-advanced-security.md",
+      "/courses/msc-analysis-software-artifacts.md",
+      "/courses/msc-applied-statistics-and-experiments-in-science-and-engineering.md",
+      "/courses/msc-architectures-of-software-systems.md",
+      "/courses/msc-big-data-technologies-and-analytics.md",
+      "/courses/msc-classical-internet-applications.md",
+      "/courses/msc-computational-intelligence.md",
+      "/courses/msc-computer-vision.md",
+      "/courses/msc-dynamics-of-non-linear-robotic-systems.md",
+      "/courses/msc-fundamentals-of-robot-control.md",
+      "/courses/msc-inter-networking-and-routing.md",
+      "/courses/msc-machine-learning.md",
+      "/courses/msc-managing-software-development.md",
+      "/courses/msc-models-software-systems.md",
+      "/courses/msc-msc-secure-development.md",
+      "/courses/msc-offensive-technologies.md",
+      "/courses/msc-personal-software-process.md",
+      "/courses/msc-requirements-engineering.md",
+      "/courses/msc-secure-development.md",
+      "/courses/msc-sensing-perception-actuation.md",
+      "/courses/mste-introduction-to-programming.md",
+      "/courses/mte-founderproject.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The 45 course pages with retake descriptions use 33 different texts, meaning there is no single standardized retake format across courses",
+   "cites": [
+    16
+   ],
+   "evidence": [
+    {
+     "n": 16,
+     "sha": "5574335a3537",
+     "sources": [
+      "/courses/bc-it-product-development.md",
+      "/courses/bte-itproductdevelopment.md",
+      "/courses/mcc-itproductdevelopment.md",
+      "/courses/mhe-itproductdevelopment.md",
+      "/courses/mte-itproductdevelopment.md",
+      "/courses/bsc-analytic-geometry-and-linear-algebra-ii.md",
+      "/courses/bsc-analytic-geometry-and-linear-algebra-ii.md",
+      "/courses/bsc-analyticgeometry.md",
+      "/courses/bsc-capstone-project.md",
+      "/courses/bsc-information-retrieval.md",
+      "/courses/msc-advanced-information-retrieval.md",
+      "/courses/bsc-it-product-development.md",
+      "/courses/bste-applied-machine-learning.md",
+      "/courses/bsc-logic-and-discrete-mathematics-776.md",
+      "/courses/bsc-numericalmodelling.md",
+      "/courses/bsc-numericalmodelling.md",
+      "/courses/bsc-software-project.md",
+      "/courses/bsc-software-quality-reliability-and-security.md",
+      "/courses/bshe-fundraising-go-to-market-and-hyper-growth-for-startups.md",
+      "/courses/msc-venture-capital-and-growth-hacking.md",
+      "/courses/bshe-leadership-in-entrepreneurship.md",
+      "/courses/msc-leadership-in-entrepreneurship.md",
+      "/courses/bste-computer-graphics-in-game-development.md",
+      "/courses/bste-distributed-systems.md",
+      "/courses/bste-security-and-interpretability-of-machine-learning.md",
+      "/courses/bste-the-security-and-interpretability-of-machine-learning.md",
+      "/courses/msc-advanced-statistics.md",
+      "/courses/msc-applied-statistics-and-experiments-in-science-and-engineering.md",
+      "/courses/msc-ceo-toolkit-strategy-operations-finance-hr-legal-aspects-ip-law-and-innovations.md",
+      "/courses/mste-ceo-toolkit.md",
+      "/courses/mte-ceotoolkit-strategy-operations-finance-hr-legalaspects-iplawandinnovations.md",
+      "/courses/msc-founder-project.md",
+      "/courses/msc-it-business-start-933.md",
+      "/courses/msc-marketing-and-sales-for-it-business-937.md",
+      "/courses/msc-optimization.md",
+      "/courses/msc-researchmethods.md",
+      "/courses/msc-securityofsystemsandnetworks.md",
+      "/courses/msc-unit-economics-for-it-startups-936.md",
+      "/courses/msc-unit-economics-in-it-business.md",
+      "/courses/msc-venture-and-growth-hacking.md",
+      "/courses/mshe-it-product-development.md",
+      "/courses/mste-mste-it-course.md",
+      "/courses/mste-analysis-of-software-artifacts.md",
+      "/courses/mste-it-course.md",
+      "/courses/mste-market-research-for-it-startups.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify how the University calculates the one-year retake window or how deadlines are communicated",
+   "cites": [
+    8,
     9
    ],
    "evidence": [
+    {
+     "n": 8,
+     "sha": "2a557f4112e7",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    },
     {
      "n": 9,
      "sha": "6edece82fa71",
@@ -780,16 +931,47 @@
    ]
   },
   {
-   "sentence": ". The evidence does not provide details on the \"other components of the educational program\" mentioned in the definition of academic failure, beyond internships",
+   "sentence": "The evidence does not explain what happens if a student misses the second retake deadline or fails the committee-led second retake beyond expulsion",
    "cites": [
-    7
+    9,
+    12
    ],
    "evidence": [
     {
-     "n": 7,
-     "sha": "7eb109e93d20",
+     "n": 9,
+     "sha": "6edece82fa71",
      "sources": [
       "/regulations/attestation-regulation.md"
+     ]
+    },
+    {
+     "n": 12,
+     "sha": "caf83d325aae",
+     "sources": [
+      "/regulations/transfer-expulsion-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not clarify whether academic leave pauses the one-year retake window or if it is automatically excluded as stated",
+   "cites": [
+    8,
+    14
+   ],
+   "evidence": [
+    {
+     "n": 8,
+     "sha": "2a557f4112e7",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    },
+    {
+     "n": 14,
+     "sha": "1f8b0127ec33",
+     "sources": [
+      "/regulations/academic-leave-regulation.md"
      ]
     }
    ]

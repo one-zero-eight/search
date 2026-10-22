@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.03.01 Информатика и вычислительная техника"
-description: "This Russian Ministry of Education order approves the federal state educational standard for bachelor's degree programs in Computer Science and Engineering."
+description: "This document establishes the federal state educational standard for bachelor's programs in Computer Science and Engineering in Russia."
 resource: "https://innopolis.university/upload/iblock/0b6/wqscbsjddqzo2qmvc84t5p09kbdcyk4v/fgos_09.03.01.pdf"
-tags: ["education", "russia", "standard", "bachelor", "it", "regulation"]
+tags: ["federal-standard", "higher-education", "bachelor", "computer-science", "russia", "regulation"]
+audience: ["student", "postgraduate", "applicant", "teacher", "staff", "management", "public"]
 source_kind: official-document
 language: ru
 section: "sveden/eduStandarts"
@@ -13,7 +14,7 @@ sources:
     title: "09.03.01 Информатика и вычислительная техника"
     last_modified: "2017-09-19T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T13:56:59+00:00"
 extraction: "text layer"
 status: draft

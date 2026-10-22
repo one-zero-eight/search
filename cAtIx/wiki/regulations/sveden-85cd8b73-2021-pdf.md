@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Рабочая программа воспитания [РПВоспитания_2021]"
-description: "This document is an official order from Innopolis University approving its student upbringing program for the 2021 academic year."
+description: "This document is a university order approving the educational program for master's students in Robotics and Computer Vision."
 resource: "https://innopolis.university/upload/iblock/515/vq6qe09exvtbes7wata2r5x12nh6a6r5/РПВоспитания_2021.pdf"
-tags: ["innopolis", "university", "order", "upbringing", "education", "russia"]
+tags: ["education", "university", "order", "robotics", "master", "innopolis"]
+audience: ["student", "postgraduate", "staff", "management"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Рабочая программа воспитания [РПВоспитания_2021]"
     last_modified: "2021-05-31T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:15:33+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

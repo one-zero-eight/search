@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Правила внутреннего распорядка обучающихся Автономной некоммерческой организации высшего образования \"Университет Иннополис\""
-description: "These rules regulate student rights, duties, and conduct at Innopolis University to maintain academic discipline."
+description: "These rules regulate the rights, duties, and conduct of students at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/b07/a72iagmm7ca32hhbwoi8xbjdhdrwcser/Правила_внутреннего_распорядка_обучающихся_АНО_ВО_Университет_Иннополис.pdf"
-tags: ["innopolis", "university", "student-rules", "regulations", "russia", "education"]
+tags: ["innopolis", "rules", "students", "university", "regulations"]
+audience: ["student", "postgraduate", "applicant", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/document"
@@ -13,7 +14,7 @@ sources:
     title: "Правила внутреннего распорядка обучающихся Автономной некоммерческой организации высшего образования \"Университет Иннополис\""
     last_modified: "2012-12-29T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:19:21+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

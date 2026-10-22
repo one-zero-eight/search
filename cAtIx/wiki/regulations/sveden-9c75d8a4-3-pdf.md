@@ -3,7 +3,8 @@ type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Рабочая программа учебных предметов, курсов, дисциплин (модулей) [3._Рабочая_программа_учебных_предметов__курсов__дисциплин__м]"
 description: "This document outlines the curriculum for a professional development course on mathematical training for engineers at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/548/yy0ynbd4vg326dwss5bzx58uy01jl1qg/3._Рабочая_программа_учебных_предметов__курсов__дисциплин__модулей__ПК_Математическая_подготовка_инженеров.pdf"
-tags: ["innopolis", "mathematics", "engineering", "digitalization", "curriculum", "professional-development"]
+tags: ["innopolis", "curriculum", "engineering", "professional-development"]
+audience: ["teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Рабочая программа учебных предметов, курсов, дисциплин (модулей) [3._Рабочая_программа_учебных_предметов__курсов__дисциплин__м]"
     last_modified: "2023-10-25T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:06:30+00:00"
 extraction: "text layer"
 status: draft

@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Положение о стипендиях и иных формах материальной поддержки студентов и аспирантов АНО ВО «Университет Иннополис»;"
-description: "Regulates the assignment and payment of scholarships and other financial support for students and postgraduates at Innopolis University."
+description: "Regulates the appointment and payment of scholarships and other financial support for students and postgraduates at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/e9f/ltexz4ryl4f6rhy60jeiye4ej9baa9nj/Визуализация_Приказ_Положение_о_стипендиях_и_иных_формах_материальной.pdf"
-tags: ["scholarships", "innopolis-university", "financial-aid", "regulations", "students", "postgraduates"]
+tags: ["scholarships", "innopolis-university", "financial-aid", "russian-higher-education", "student-support"]
+audience: ["student", "postgraduate"]
 source_kind: official-document
 language: ru
 section: "sveden/grants"
@@ -13,7 +14,7 @@ sources:
     title: "Положение о стипендиях и иных формах материальной поддержки студентов и аспирантов АНО ВО «Университет Иннополис»;"
     last_modified: "2025-05-28T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:12:08+00:00"
 extraction: "text layer"
 status: draft

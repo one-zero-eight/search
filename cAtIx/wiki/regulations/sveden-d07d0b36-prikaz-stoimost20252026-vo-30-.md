@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Приказ Об утверждении стоимости обучения по образовательным программам АНО ВО «Университет Иннополис» на 2025/2026 учебный год (высшее образование) (документ подписан простой электронной подписью)"
-description: "This document establishes the tuition fees for higher education programs at Innopolis University for the 2025/2026 academic year."
+description: "This order establishes the tuition fees for bachelor, master, and PhD programs at Innopolis University for the 2025/2026 academic year."
 resource: "https://innopolis.university/upload/iblock/e81/svao49wlq41m9kcd910jnmbu9zfkrc9v/prikaz_stoimost20252026_vo_30.05.2025.pdf"
-tags: ["innopolis", "tuition", "fees", "education", "russia", "university"]
+tags: ["innopolis", "tuition", "fees", "higher-education", "2025", "russia"]
+audience: ["student", "postgraduate", "applicant"]
 source_kind: official-document
 language: ru
 section: "sveden/paid_edu"
@@ -13,7 +14,7 @@ sources:
     title: "Приказ Об утверждении стоимости обучения по образовательным программам АНО ВО «Университет Иннополис» на 2025/2026 учебный год (высшее образование) (документ подписан простой электронной подписью)"
     last_modified: "2012-12-29T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:11:56+00:00"
 extraction: "text layer"
 status: draft

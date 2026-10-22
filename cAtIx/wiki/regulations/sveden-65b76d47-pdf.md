@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Об установлении величины зачетной единицы в АНО ВО \"Университет Иннополис\" (документ подписан простой электронной подписью)"
-description: "This order establishes the credit unit value at 27 astronomical hours for Innopolis University programs."
+description: "This order establishes the credit value at 27 astronomical hours for all educational programs at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/c64/amgi6pnm1om0qaprirz3ppuwatzsb7uw/Приказ_Об_установлении_величины_зачетной_единицы.pdf"
-tags: ["education", "university", "regulation", "credit", "innopolis"]
+tags: ["order", "innopolis", "credits", "regulation", "university"]
+audience: ["student", "postgraduate", "teacher", "staff", "management"]
 source_kind: official-document
 language: ru
 section: "sveden/document"
@@ -13,7 +14,7 @@ sources:
     title: "Об установлении величины зачетной единицы в АНО ВО \"Университет Иннополис\" (документ подписан простой электронной подписью)"
     last_modified: "2012-12-29T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:10:30+00:00"
 extraction: "text layer"
 status: draft

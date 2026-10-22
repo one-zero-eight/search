@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Положение по применению дисциплинарных взысканий за нарушения академической добропорядочности"
-description: "This document is a university order approving regulations for disciplinary sanctions regarding academic integrity violations."
+description: "This document establishes disciplinary procedures for academic integrity violations at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/88c/o6qcuf0gjap2g2ow7teqoal3a5aao0kz/приказ_от_01.02.2023___ОД_АД-03.pdf"
-tags: ["discipline", "academic-integrity", "university", "regulations", "sanctions"]
+tags: ["innopolis", "academic-integrity", "discipline", "regulations", "university-policy"]
+audience: ["student", "postgraduate", "teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "document"
@@ -13,7 +14,7 @@ sources:
     title: "Положение по применению дисциплинарных взысканий за нарушения академической добропорядочности"
     last_modified: "2012-12-29T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T12:08:43+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — 4 семестр Ознакомительная практика (документ подписан ПЭП) [Визуализация_2026_GD_УП_Ознакомительная_практика_4c_23102025]"
-description: "This document is the practice program for the introductory internship of the Master's program in Computer Science and Engineering at Innopolis University."
+description: "This document defines the curriculum and requirements for the introductory practice of the Master's program in Computer Science and Engineering at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/d01/l1kikxhqhfj1nlvtqagbdma7zuuse4jf/Визуализация_2026_GD_УП_Ознакомительная_практика_4c_23102025.pdf"
-tags: ["innopolis", "internship", "robotics", "computer-vision", "master", "program"]
+tags: ["innopolis", "practice", "master", "robotics", "computer-vision"]
+audience: ["student"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — 4 семестр Ознакомительная практика (документ подписан ПЭП) [Визуализация_2026_GD_УП_Ознакомительная_практика_4c_23102025]"
     last_modified: "2026-10-22T14:10:50+00:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:10:50+00:00"
 extraction: "text layer"
 status: draft

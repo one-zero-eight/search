@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Порядок оформления возникновения, приостановления и прекращения образовательных отношений"
-description: "This document establishes the official procedure for initiating, suspending, and terminating educational relationships between Innopolis University and students or their guardians."
+description: "This document establishes the official procedure for initiating, suspending, and terminating educational relationships at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/ec8/Порядок%20оформления%20возникновения,%20приостановления%20и%20прекращения%20образовательных%20отношений.pdf"
-tags: ["innopolis-university", "education-regulations", "student-enrollment", "academic-relations", "russian-higher-education", "university-order"]
+tags: ["innopolis", "education", "regulations", "university", "administrative"]
+audience: ["student", "applicant", "staff", "management"]
 source_kind: official-document
 language: ru
 section: "document"
@@ -13,7 +14,7 @@ sources:
     title: "Порядок оформления возникновения, приостановления и прекращения образовательных отношений"
     last_modified: "1994-11-03T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T12:08:00+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

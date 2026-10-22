@@ -3,7 +3,8 @@ type: regulation
 title: "Приказ об утверждении порядка оказания платных образовательных услуг;"
 description: "This order approves the procedure for providing paid educational services at Innopolis University effective January 1, 2021."
 resource: "https://innopolis.university/upload/iblock/88b/Приказ_об_утверждении_Порядка_оказания_платных_образовательных_услуг.pdf"
-tags: ["innopolis", "order", "paid-services", "education", "regulation", "university"]
+tags: ["innopolis", "paid-services", "order", "education", "regulations"]
+audience: ["student", "applicant", "staff", "management"]
 source_kind: official-document
 language: ru
 section: "sveden/paid_edu"
@@ -13,7 +14,7 @@ sources:
     title: "Приказ об утверждении порядка оказания платных образовательных услуг;"
     last_modified: "2018-05-16T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:18:31+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

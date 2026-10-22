@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "«Искусственный интеллект в цифровой трансформации государственного управления»"
-description: "This document is the approved curriculum for a professional development program on AI in public administration digital transformation at Innopolis University."
+description: "This document is a continuing professional development program on AI in public administration digital transformation at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/58e/g4u5nq5cti4m9b2xdbwc4lv24hiyg0j1/1._ДПП_ИИ_в_цифровой_трансформации_государственного_управления.pdf"
-tags: ["innopolis", "ai", "education", "government", "digital-transformation"]
+tags: ["ai", "digital-transformation", "public-administration", "continuing-education", "innopolis"]
+audience: ["applicant", "staff", "public"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "«Искусственный интеллект в цифровой трансформации государственного управления»"
     last_modified: "2025-02-14T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:06:38+00:00"
 extraction: "text layer"
 status: draft

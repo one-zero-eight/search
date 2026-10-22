@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Документ, содержащий информацию о языках образования (документ подписан простой электронной подписью)"
-description: "This order from Innopolis University defines Russian and English as the languages of instruction for higher and additional education programs."
+description: "This order defines Russian and English as the languages of instruction at Innopolis University for higher and additional education programs."
 resource: "https://innopolis.university/upload/iblock/b7e/ufabx0v9e00wj4iok8ij4aejdi1ztyjx/prikaz_language_30.06.2025.pdf"
-tags: ["innopolis", "education", "language", "order", "university", "instruction"]
+tags: ["innopolis", "education", "language", "order", "university"]
+audience: ["student", "postgraduate", "applicant", "teacher", "staff", "management", "public"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "Документ, содержащий информацию о языках образования (документ подписан простой электронной подписью)"
     last_modified: "2012-12-29T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:09:33+00:00"
 extraction: "text layer"
 status: draft

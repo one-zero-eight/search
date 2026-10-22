@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Рабочая программа учебных предметов, курсов, дисциплин (модулей) [3._Рабочая_программа_учебных_предметов__курсов__дисциплин__м]"
-description: "This document is the syllabus for the \"Data Management for Managers\" course at Innopolis University."
+description: "This document outlines the syllabus for the \"Data Management for Managers\" executive education program at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/3cf/2c1w6pf60oww8vms057erym23ctatqmp/3._Рабочая_программа_учебных_предметов__курсов__дисциплин__модулей___ПК_Управление_данными_для_руководителей.pdf"
-tags: ["syllabus", "innopolis", "data-management", "project-management", "higher-education"]
+tags: ["syllabus", "innopolis", "data-management", "executive-education", "project-management"]
+audience: ["staff", "management"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Рабочая программа учебных предметов, курсов, дисциплин (модулей) [3._Рабочая_программа_учебных_предметов__курсов__дисциплин__м]"
     last_modified: "2024-10-30T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:02:41+00:00"
 extraction: "text layer"
 status: draft

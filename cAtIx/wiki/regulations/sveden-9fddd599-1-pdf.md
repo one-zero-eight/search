@@ -3,7 +3,8 @@ type: regulation
 title: "«Методы и инструменты работы с данными»"
 description: "This document is the official curriculum for a professional development program on data methods and tools at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/765/vdx446hj8lk1ut0fqtzltpgejm8lc5bn/1._ДПП_Методы_и_инструменты_работы_с_данными.pdf"
-tags: ["education", "innopolis", "data-science", "professional-development", "russian-university"]
+tags: ["data-science", "professional-development", "innopolis", "curriculum", "higher-education"]
+audience: ["applicant", "teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "«Методы и инструменты работы с данными»"
     last_modified: "2022-12-19T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:07:32+00:00"
 extraction: "text layer"
 status: draft

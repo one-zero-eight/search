@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Положение о предоставлении академического отпуска, отпуска по беременности и родам, отпуска по уходу за ребенком"
-description: "This document establishes the regulations for granting academic, maternity, and childcare leaves to students at Innopolis University."
+description: "Regulates academic, maternity, and childcare leave procedures for students at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/1d2/f5dqw4glz92ni8l6ed30we4hk9ede261/Положение_о_предоставлении_академического_отпуска__отпуска_по_беременности_и_родам__отпуска_по_уходу_за_ребенком_до_д.pdf"
-tags: ["innopolis-university", "academic-leave", "maternity-leave", "childcare-leave", "student-regulations"]
+tags: ["leave", "student", "innopolis", "regulation", "maternity"]
+audience: ["student"]
 source_kind: official-document
 language: ru
 section: "document"
@@ -13,7 +14,7 @@ sources:
     title: "Положение о предоставлении академического отпуска, отпуска по беременности и родам, отпуска по уходу за ребенком"
     last_modified: "2025-07-28T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T11:52:42+00:00"
 extraction: "text layer"
 status: draft

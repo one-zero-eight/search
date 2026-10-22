@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Учебный план [Учебный план. Внедрение]"
-description: "This document is the academic curriculum for a master's program in Robotics and Computer Vision at a Russian university."
+description: "This document is the study plan for a professional retraining program on digital technologies in teaching specialized subjects."
 resource: "https://innopolis.university/upload/iblock/104/rftuz879spe8z9nf179vslijymn0fu0r/Учебный план. Внедрение.pdf"
-tags: ["education", "curriculum", "robotics", "computer-vision", "master-s-degree", "university"]
+tags: ["professional-development", "digital-education", "study-plan", "retraining", "university", "curriculum"]
+audience: ["teacher"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Учебный план [Учебный план. Внедрение]"
     last_modified: "2026-10-22T13:57:56+00:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T13:57:56+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

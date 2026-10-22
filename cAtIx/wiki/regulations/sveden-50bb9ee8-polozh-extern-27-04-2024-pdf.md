@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Положение об условиях и порядке зачисления экстернов в АНО ВО «Университет Иннополис», сроках прохождения ими промежуточной и государственной итоговой аттестации (документ подписан простой электронной подписью)"
-description: "This document establishes the rules and procedures for enrolling externs at Innopolis University and scheduling their intermediate and final state examinations."
+description: "Regulates the admission and examination procedures for externs at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/56f/fjyqgoi5l8vtf3qc3y5pxm896qenbd0r/polozh_extern_27.04.2024.pdf"
-tags: ["innopolis", "externs", "enrollment", "regulations", "higher-education", "university-policy"]
+tags: ["admission", "externs", "innopolis-university", "regulations", "higher-education"]
+audience: ["student", "applicant"]
 source_kind: official-document
 language: ru
 section: "sveden/document"
@@ -13,7 +14,7 @@ sources:
     title: "Положение об условиях и порядке зачисления экстернов в АНО ВО «Университет Иннополис», сроках прохождения ими промежуточной и государственной итоговой аттестации (документ подписан простой электронной подписью)"
     last_modified: "2024-04-27T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:06:37+00:00"
 extraction: "text layer"
 status: draft

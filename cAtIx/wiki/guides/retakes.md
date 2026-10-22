@@ -470,54 +470,33 @@ sources:
     last_modified: "2026-05-12T00:00:00+03:00"
 generated:
   by: "catix-wiki-synth/0.1 (model, thinking)"
-  at: "2026-10-22T12:02:45+00:00"
+  at: "2026-10-22T18:26:47+00:00"
 status: draft
-evidence_sha: "9a2c2d657bc40369"
+evidence_sha: "59230ce9b2acc2da"
 stale_after: "2023-07-30T10:48:29+00:00"
 source_warning: "relies on scanned documents read by OCR (/regulations/transfer-expulsion-regulation.md): wording, numbers and letters may contain reading errors; check against the PDF"
+audience: ["student", "postgraduate", "teacher", "staff", "management"]
 ---
 
 # Failing a course and retakes
 
-## Academic Failure and Retakes
+## Academic failure and retake limits
+Unsatisfactory interim assessment results, defined as grades D and F, constitute an academic failure [6][7]. You are entitled to retake the failed assessment no more than 2 times within a one-year period from the date the failure occurred [8]. Periods of illness, academic leave, or maternity leave are excluded from this one-year window [8]. The University sets specific deadlines for each retake [9]. If you fail the first retake, you are given a second retake conducted by a University-assigned committee [9]. The fact that you have an academic debt leading to expulsion is established after the second repeated interim assessment [12]. Positive results, defined as grades A, B, C, and P, cannot be retaken for improvement, except under specific conditions [5]. Retaking a course to improve a positive grade is only available to final-year students who have completed the entire educational program and are candidates for an honors diploma [10].
 
-The university defines an academic failure as an unsatisfactory result in an interim assessment for one or more disciplines, modules, or other components of the educational program, including internships, or a failure to pass an assessment due to absence without a valid reason [7]. Unsatisfactory results are specifically categorized as grades D and F [6]. Results of interim assessments A, B, C, and P are positive and cannot be retaken for improvement, except as specified in clause 6.1 of the Regulation on current control and attestation [5].
+## Expulsion and reinstatement
+If you fail to meet academic requirements after the second retake, you face expulsion [12]. Expulsion rules and reinstatement procedures are detailed in paragraphs 3 and 4 of the official Regulations [1]. If you are expelled for academic debt, you can be reinstated from the beginning of the semester onto the course where you have debts, except for students mentioned in a specific clause [13]. Voluntary expulsion requires a personal application to the University director [11]. You must submit your student ID and a clearance sheet signed by University staff within 3 working days of the application [11]. If you do not submit the clearance sheet, the University reserves the right to claim outstanding debts from you [11]. Students under third-party education contracts must provide a document proving the client's consent to terminate the contract [11].
 
-Students who incur an academic failure are entitled to retake the relevant assessment no more than 2 times within a period set by the University, calculated within one year from the date the academic failure was incurred [8]. The period of student illness, academic leave, or maternity leave is not included in this one-year timeframe [8]. The University sets specific deadlines for these retakes for each discipline or component [9]. If a student fails the first retake, they are given the opportunity for a second retake, which is conducted by a committee assigned by the University [9]. The existence of an academic failure that serves as grounds for expulsion is established following the results of the second repeated interim assessment [12].
+## Academic leave
+Academic leave is granted for temporary inability to study due to military service, medical indications, or other exceptional circumstances such as natural disasters or family situations [14]. The basis and procedure for granting academic leave are prescribed in paragraph 5 of the official Regulations [2].
 
-Retaking results to improve a positive grade is available only for final-year students who have successfully completed the entire educational program and are candidates for an honors diploma based on the results of state final certification [10].
+## Who to ask
+For information on expulsion, reinstatement, and academic leave, contact the Student Support and Development Department in office 319 or use their official bot [1][2].
 
-## Expulsion and Reinstatement
-
-Expulsion and reinstatement procedures are governed by the "Regulations on the procedure and grounds for transferring, Expelling and reinstating students and granting academic leave to students in the Autonomous Non-profit Organization of Higher Education 'Innopolis University'" [1]. Expulsion orders are issued based on a personal application from the student to the University Director [11]. The student must submit their student ID and a signed clearance sheet to the responsible structural subdivision within 3 working days from the date of the expulsion application [11]. If the clearance sheet is not submitted, the University reserves the right to demand the recovery of any debts from the student [11]. For students whose education contracts are sponsored by other individuals or legal entities, a document confirming the sponsor's consent to terminate the contract at the student's initiative must be provided [11].
-
-A student expelled for academic failure is reinstated to the beginning of the semester for the course for which they have academic debts [13].
-
-## Academic Leave
-
-Academic leave is granted to students in main professional educational programs due to temporary inability to study, including for military service, medical indications, or other exceptional cases such as natural disasters or family circumstances [14]. The basis and procedure for granting academic leave are prescribed in paragraph 5 of the "Regulations on the procedure and grounds for transferring, expelling and restoring students and granting academic leave to students in the Autonomous Non-profit Organization of Higher Education 'Innopolis University'" [2].
-
-## Contact Information
-
-For information regarding expulsion, reinstatement, and academic leave, students can contact the Student Support and Development Department in office 319 or use the department's bot [1][2].
-
-## Course-Specific Retake Details
-
-Among 275 courses, 114 have a section about retakes [15]. In 69 of these courses, the section is an empty template containing only generic headings, providing no information on how a retake works [15]. The remaining 45 courses describe the retake process using 33 different texts [16].
-
-No course page mentions a third retake, and no course page contradicts the regulatory limit of two repeated attestations [29].
-
-The descriptions in the 45 active course pages fall into the following groups:
-
-*   **Project-based implementation with guidelines:** 2 courses require students to implement a product following course guidelines, with reduced complexity allowed for individual work, grading criteria matching the final project presentation, and a mandatory planning meeting [20][24]. 2 courses require students to improve their project based on professor recommendations from the final exam [22]. 2 courses require students to apply course learning to a specific model, with grading criteria matching the final project presentation and a mandatory planning meeting [23]. 1 course requires students to follow guidelines and contribute to a new project, with reduced complexity for individual work, grading criteria matching the final project presentation, and a mandatory planning meeting [28].
-*   **Pitch deck or presentation formats:** 1 course outlines grading criteria for a final project presentation focusing on problem statement, user definition, solution, and elicitation process [17]. 2 courses state that the retake exam is the same pitch deck presentation, with 10-20 points subtracted for absence from lectures or lack of activity [21].
-*   **Exam format matching course structure:** 1 course states the first retake will be conducted in the same form as midterm and final exams, with the same weight as the entire course [25]. 1 course states the second retake will be conducted in the same form as midterm and final exams, with the same weight as the entire course [26]. 1 course states the retake will be an exam (written or oral) after the semester in which the discipline is taught [27].
-*   **Coding problems:** 2 courses require students to solve a complex coding problem similar to homework or lab tasks [19].
-*   **Theoretical topics:** 3 courses list specific theoretical topics to be covered, including taxation systems for IT startups in Russia, DOS features, income tax, privileges, simplified tax systems, patent systems, tax saving methods, management definitions, and the history of management and marketing [18].
+## What course pages say about retakes
+Out of 275 courses, 114 include a section about retakes [15]. In 69 of those courses, the section is an empty template and provides no information on how a retake works [15]. The remaining 45 courses describe the retake process using 33 different texts [16]. The evidence provides descriptions for a subset of those courses, which group into several formats. The typical format involves project or product work: 3 courses require implementing a product with course guidelines and a planning meeting, allowing reduced complexity for solo students [20][24][28]; 2 courses require improving a project based on final exam recommendations [22]; and 2 courses require applying course knowledge to a specific model with a planning meeting and final presentation grading criteria [23]. Exceptions include exam-based retakes: 2 courses match the midterm or final exam form and weight [25][26], 2 courses use a pitch deck presentation with point deductions for absence or inactivity [21], and 1 course uses a written or oral exam after the semester ends [27]. A smaller group focuses on specific assessment criteria or topics: 2 courses require solving complex coding problems similar to homework or labs [19], 1 course outlines grading criteria for a final project presentation covering problem, user, solution, and elicitation [17], and 1 course lists preparation topics on taxation, DOS features, and management [18]. No course page mentions a third retake, and none contradict the official limit of two repeated attestations [29].
 
 ## Gaps and caveats
-
-The evidence leaves open the specific deadlines set by the University for retakes, as these are determined case-by-case or by separate local acts not fully detailed in the provided text [9][12]. The "Regulations on current control and attestation" clause 6.1 is referenced for exceptions to the rule that positive grades (A, B, C, P) cannot be retaken, but the specific details of those exceptions are not provided in the evidence [5][10]. The "Regulations on transfer, expulsion and reinstatement" clause 4.4.3 mentions exceptions to reinstatement rules for certain students, but the text cuts off before specifying who those students are [13]. The evidence does not specify the exact composition or appointment process of the committee that conducts the second retake, only that it is assigned by the University [9]. The evidence does not provide details on the "other components of the educational program" mentioned in the definition of academic failure, beyond internships [7].
+The official regulation cuts off mid-sentence when describing exceptions to reinstatement after expulsion for academic debt [13]. The official regulation references a specific clause for reinstatement exceptions but does not list them in the provided text [13]. The official regulation states that retaking positive grades is allowed "except as specified in p. 6.1" but does not provide the full text of p. 6.1 beyond the final-year honors condition [5][10]. The official regulation mentions that the procedure for repeated interim assessments is set by a separate local normative act, but does not name or link it [12]. 69 course pages contain empty retake templates, leaving students without course-specific retake instructions [15]. The 45 course pages with retake descriptions use 33 different texts, meaning there is no single standardized retake format across courses [16]. The evidence does not specify how the University calculates the one-year retake window or how deadlines are communicated [8][9]. The evidence does not explain what happens if a student misses the second retake deadline or fails the committee-led second retake beyond expulsion [9][12]. The evidence does not clarify whether academic leave pauses the one-year retake window or if it is automatically excluded as stated [8][14].
 
 ## Courses that describe their retake
 

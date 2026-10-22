@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — 5 семестр Проектно-технологическая практика (документ подписан ПЭП) [Визуализация_ITE_2026_ПП_Технологическая_практика_5с_2310202]"
-description: "This document is the practice program for the 5th semester of the Master's program in Business Informatics at Innopolis University."
+description: "This document is the approved practice program for the 5th semester of the Master's program in Business Informatics at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/157/s34vsrc3t27fv4esghhmlk5as17tyi1u/Визуализация_ITE_2026_ПП_Технологическая_практика_5с_23102025.pdf"
-tags: ["innopolis", "practice", "master", "business-informatics", "university"]
+tags: ["innopolis", "practice", "master", "business-informatics", "curriculum"]
+audience: ["student", "postgraduate"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — 5 семестр Проектно-технологическая практика (документ подписан ПЭП) [Визуализация_ITE_2026_ПП_Технологическая_практика_5с_2310202]"
     last_modified: "2026-10-22T13:59:41+00:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T13:59:41+00:00"
 extraction: "text layer"
 status: draft

@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Порядок предоставления материальной помощи за счет собственных средств АНО ВО \"Университет Иннополис\""
-description: "This document establishes the procedure for Innoopolis University to provide financial aid to students facing difficult life circumstances."
+description: "Regulates financial aid for students at Innopolis University facing difficult life situations."
 resource: "https://innopolis.university/upload/iblock/364/Порядок_предоставления_материальной_помощи_за_счет_собственных_средств.pdf"
-tags: ["university", "financial-aid", "student-support", "regulations", "innopolis", "material-assistance"]
+tags: ["innopolis", "financial-aid", "student-support", "university-regulations", "russia"]
+audience: ["student"]
 source_kind: official-document
 language: ru
 section: "sveden/grants"
@@ -13,7 +14,7 @@ sources:
     title: "Порядок предоставления материальной помощи за счет собственных средств АНО ВО \"Университет Иннополис\""
     last_modified: "2026-10-22T14:02:12+00:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:02:12+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

@@ -3,7 +3,8 @@ type: regulation
 title: "Положение о порядке организации и осуществления образовательной деятельности при сетевой форме реализации образовательных программ в АНО ВО «Университет Иннополис» (документ подписан простой электронной подписью)"
 description: "Regulates educational activities at Innopolis University under the network implementation of educational programs."
 resource: "https://innopolis.university/upload/iblock/aff/48n0uu5rw3i12tm8ej1qi2ef9k2rlniu/polozh_setevaya_21.03.2025.pdf"
-tags: ["innopolis", "education", "regulation", "university", "network", "policy"]
+tags: ["innopolis", "regulation", "network-education", "higher-education", "university-policy"]
+audience: ["student", "postgraduate", "applicant", "teacher", "staff", "management"]
 source_kind: official-document
 language: ru
 section: "sveden/document"
@@ -13,7 +14,7 @@ sources:
     title: "Положение о порядке организации и осуществления образовательной деятельности при сетевой форме реализации образовательных программ в АНО ВО «Университет Иннополис» (документ подписан простой электронной подписью)"
     last_modified: "2025-03-21T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:09:09+00:00"
 extraction: "text layer"
 status: draft

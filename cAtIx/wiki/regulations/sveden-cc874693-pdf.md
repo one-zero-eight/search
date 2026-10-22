@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Порядок оказания платных образовательных услуг;"
-description: "This document establishes the official procedure for providing paid educational services at Innopolis University."
+description: "This document outlines the regulations for providing paid educational services at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/4fd/Порядок_оказания_платных_образовательных_услуг.pdf"
-tags: ["innopolis", "education", "regulations", "paid-services", "university-policy"]
+tags: ["order", "innopolis", "education", "paid-services", "russia"]
+audience: ["student", "applicant", "public"]
 source_kind: official-document
 language: ru
 section: "sveden/paid_edu"
@@ -13,7 +14,7 @@ sources:
     title: "Порядок оказания платных образовательных услуг;"
     last_modified: "2026-10-22T14:06:16+00:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:06:16+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

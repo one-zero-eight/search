@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Учебный план [2._Учебный_план_ПК_Инженерия_искусственного_интеллекта]"
-description: "This document is the curriculum for a professional development program in Artificial Intelligence Engineering at Innopolis University."
+description: "This document is the study plan for the \"Artificial Intelligence Engineering\" professional development program at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/d38/0i1s36bntojdsz05tld13765jd8srovx/2._Учебный_план_ПК_Инженерия_искусственного_интеллекта.pdf"
-tags: ["innopolis", "ai", "curriculum", "professional-development", "robotics"]
+tags: ["innopolis", "ai", "study-plan", "professional-development", "robotics"]
+audience: ["teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Учебный план [2._Учебный_план_ПК_Инженерия_искусственного_интеллекта]"
     last_modified: "2024-10-30T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:10:56+00:00"
 extraction: "text layer"
 status: draft

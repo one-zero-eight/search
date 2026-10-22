@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — 2025 (рус.) [ThesisGuideLines_rus (1)]"
-description: "This document provides guidelines for writing and defending a master's thesis in robotics and computer vision."
+description: "Guidelines for writing and defending a master's thesis in Computer Science and Robotics for the 2025 academic year."
 resource: "https://innopolis.university/upload/iblock/32e/dn7n60ue8kabidd0z02ucnh2be56s2iq/ThesisGuideLines_rus (1).pdf"
 tags: ["thesis", "master", "robotics", "guidelines", "university", "defense"]
+audience: ["postgraduate"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — 2025 (рус.) [ThesisGuideLines_rus (1)]"
     last_modified: "2026-10-22T14:02:01+00:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:02:01+00:00"
 extraction: "text layer"
 status: draft

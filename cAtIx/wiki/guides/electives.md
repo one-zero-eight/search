@@ -34,25 +34,23 @@ sources:
     last_modified: "2021-09-10T12:38:06Z"
 generated:
   by: "catix-wiki-synth/0.1 (model, thinking)"
-  at: "2026-10-22T12:30:56+00:00"
+  at: "2026-10-22T18:30:21+00:00"
 status: draft
-evidence_sha: "eae1bb8176ea22d3"
+evidence_sha: "bca041c447f4b43c"
 stale_after: "2022-09-10T12:38:06+00:00"
+audience: ["student", "teacher"]
 ---
 
 # Elective courses
 
-## Which elective courses are available
-Students can choose from four main lists: BSc technical, BSc humanitarian, MSc technical, and MSc humanitarian [1]. Additional options appear on the 'Electives' page as 'Elective:' pages [6]. A separate 'Technical Electives' timetable covers 38 courses taught by 18 instructors [7].
+## Elective lists and organization
+You can choose from four main lists: BSc technical, BSc humanitarian, MSc technical, and MSc humanitarian [1]. The overview page marks all four lists as '(update in progress)' [1]. A separate 'Electives' page also lists additional options as 'Elective:' pages [6]. A separate 'Technical Electives' timetable lists 38 courses taught by 18 instructors [7]. These courses run in block(s) 1, 1-2, or 2 [7]. Each timetable entry includes a short name, a full name, an instructor, a block, and the dates of its classes [7].
 
-## How the lists are organized
-The primary lists group courses by degree level and track [1]. The BSc technical list contains 54 courses distributed across 8 areas [2]. The BSc humanitarian list contains 27 courses distributed across 5 areas [3]. The MSc technical list contains 22 courses [4]. The MSc humanitarian list contains 8 courses [5]. The 'Technical Electives' timetable organizes its 38 courses by instructor, teaching block (1, 1-2, or 2), and class dates [7].
-
-## How complete the information is
-The overview page marks all four main lists as '(update in progress)' [1]. The typical pattern across all tracks is that most courses lack a wiki page or link to an unavailable page [2][3][4][5]. The exceptions are the small groups of courses that have active wiki pages [2][3][4][5]. The BSc technical track contains the largest group of courses with wiki pages (14) and the largest group marked '(in progress)' (34) [2]. The BSc humanitarian track contains 10 courses with wiki pages and 0 marked '(in progress)' [3]. The MSc technical track contains 0 courses with wiki pages [4]. The MSc humanitarian track contains 1 course with a wiki page [5]. The 'Technical Electives' timetable provides a short name, full name, instructor, block, and class dates for each of its 38 courses [7].
+## Course coverage and typical status
+Across all four lists, the typical course lacks a dedicated wiki page or links to an unavailable page [2][3][4][5]. The exceptions are the courses that have a wiki page, which are concentrated in the BSc technical list (14 courses) and the BSc humanitarian list (10 courses) [2][3]. The BSc technical list is the largest group with 54 courses distributed across 8 areas [2]. The areas are Computer Science (6), Programming (2), Maths (9), AI (7), Hardware and Robotics (5), Security and Networks (1), Business and analytics (2), Research (2), and Software Engineering (22) [2]. Within this group, 21 courses link to an unavailable page and 19 have no link [2]. 34 courses in this list are marked '(in progress)' [2]. The BSc humanitarian list contains 27 courses distributed across 5 areas [3]. The areas are Pedagogy (2), Languages and literature (1), Business management (13), Psychology and negotiation (5), and The science (6) [3]. Within this group, 13 courses link to an unavailable page and 4 have no link [3]. 0 courses in this list are marked '(in progress)' [3]. The MSc technical list contains 22 courses [4]. 2 courses link to an unavailable page and 20 have no link [4]. 0 courses are marked '(in progress)' [4]. The MSc humanitarian list contains 8 courses [5]. 1 course links to an unavailable page and 6 have no link [5]. 0 courses are marked '(in progress)' [5].
 
 ## Gaps and caveats
-The evidence leaves several details open regarding course availability and organization [1][2][3][4][5][6][7]. The overview page marks every main list as '(update in progress)' without providing a completion date or update scope [1]. The BSc technical list states 8 areas but enumerates 9 categories in the evidence [2]. The 'Electives' page lists additional courses as 'Elective:' pages but provides no further information on them [6]. The 'Technical Electives' timetable covers 38 courses but does not state how these 38 courses relate to the 54 courses in the BSc technical list or the 22 courses in the MSc technical list [7]. The evidence does not specify credit values, enrollment limits, or prerequisites for any course [1][2][3][4][5][6][7]. The evidence does not clarify whether the '(update in progress)' status applies to course content, availability, or wiki formatting [1].
+The overview page marks all four lists as '(update in progress)' [1]. 34 BSc technical courses are explicitly marked '(in progress)' [2]. A large portion of courses across all lists link to unavailable pages or have no links [2][3][4][5]. The 'Electives' page lists additional options as 'Elective:' pages, but their content is not detailed here [6]. The 'Technical Electives' timetable lists 38 courses taught by 18 instructors, but the evidence does not state how these 38 courses overlap with the 54 BSc technical or 22 MSc technical lists [2][4][7]. The evidence leaves open how many of the 38 timetable courses belong to each degree track, and it does not provide details for the 19 BSc technical, 4 BSc humanitarian, 20 MSc technical, or 6 MSc humanitarian courses that have no links [2][3][4][5].
 
 ## Listed electives
 

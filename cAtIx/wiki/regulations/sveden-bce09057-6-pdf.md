@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Оценочные и методические материалы [6._Оценочные_и_методические_материалы_ПК_Математическая_подг]"
-description: "This document outlines assessment methods and sample tasks for a continuing education program on mathematical preparation for engineers at Innopolis University."
+description: "This document outlines assessment methods and sample tasks for a professional development program in mathematical preparation for engineers at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/f42/yoh0c32tbeacrw1r1fneku5uq7j1vic4/6._Оценочные_и_методические_материалы_ПК_Математическая_подготовка_инженеров.pdf"
-tags: ["innopolis", "education", "assessment", "mathematics", "engineering", "robotics"]
+tags: ["assessment", "innopolis", "mathematics", "engineering", "professional-development", "digitalization"]
+audience: ["teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Оценочные и методические материалы [6._Оценочные_и_методические_материалы_ПК_Математическая_подг]"
     last_modified: "2023-10-25T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:12:24+00:00"
 extraction: "text layer"
 status: draft

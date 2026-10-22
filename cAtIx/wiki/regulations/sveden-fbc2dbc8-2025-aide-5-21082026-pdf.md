@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — 5 семестр Технологическая (проектно-технологическая) практика (документ подписан ПЭП) [Визуализация_2025_AIDE_ПП_Технологическая_практика_5с_210820]"
-description: "This document is the practice program for the fifth semester of the Master's program in Computer Science and Engineering at Innopolis University."
+description: "This document defines the curriculum and requirements for the technological practice of the Master's program in Computer Science and Engineering at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/552/29xalx4pkclphoa1gj1clrxbupczfk9s/Визуализация_2025_AIDE_ПП_Технологическая_практика_5с_21082026.pdf"
-tags: ["innopolis", "practice", "robotics", "computer-vision", "master", "program"]
+tags: ["innopolis", "practice", "master", "robotics", "computer-vision"]
+audience: ["student", "postgraduate"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — 5 семестр Технологическая (проектно-технологическая) практика (документ подписан ПЭП) [Визуализация_2025_AIDE_ПП_Технологическая_практика_5с_210820]"
     last_modified: "2026-10-22T14:06:34+00:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:06:34+00:00"
 extraction: "text layer"
 status: draft

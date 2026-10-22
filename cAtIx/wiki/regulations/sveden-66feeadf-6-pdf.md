@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Оценочные и методические материалы [6._Оценочные_и_методические_материалы_ПК_Методы_и_инструмент]"
-description: "This document outlines assessment methods and evaluation criteria for a data management professional development course at Innopolis University."
+description: "This document outlines assessment methods and evaluation criteria for the \"Data Work Methods and Tools\" professional development program at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/645/aw20eo0d3b7b3x3cdx8jg5y0xrghm5zv/6._Оценочные_и_методические_материалы_ПК_Методы_и_инструменты_работы_с_данными.pdf"
-tags: ["innopolis", "data-management", "assessment", "professional-development", "evaluation-criteria"]
+tags: ["assessment", "innopolis", "data", "professional-development"]
+audience: ["teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Оценочные и методические материалы [6._Оценочные_и_методические_материалы_ПК_Методы_и_инструмент]"
     last_modified: "2022-12-19T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:07:05+00:00"
 extraction: "text layer"
 status: draft

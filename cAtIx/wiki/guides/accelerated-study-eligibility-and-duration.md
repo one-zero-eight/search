@@ -10,21 +10,25 @@ sources:
     last_modified: "2022-08-02T00:00:00+03:00"
 generated:
   by: "catix-wiki-synth/0.1 (model, thinking)"
-  at: "2026-10-22T15:54:59+00:00"
+  at: "2026-10-22T19:04:31+00:00"
 status: draft
-evidence_sha: "2bc6d90ba23b1113"
+evidence_sha: "c91ac715b2f87ae5"
+audience: ["student", "postgraduate", "teacher", "staff"]
 ---
 
 # Eligibility and Duration Reduction for Accelerated Study
 
-## Eligibility
-Students may qualify for accelerated study under an individual plan based on their program level [1][2]. For bachelor’s and master’s programs, a student qualifies if they have secondary vocational, higher, or additional education, and/or studied in those programs, and/or have abilities or a development level allowing completion in a shorter time than the standard university term set per federal standards [1]. For the PhD (aspirantura) program, a student qualifies if they have a diploma of completed aspirantura or adjuncture, and/or a candidate of sciences diploma, and/or a doctor of sciences diploma, and/or study in another aspirantura program, and/or have abilities or a development level allowing completion in a shorter time than the standard term set per the educational standard [2]. Increasing the study pace specifically requires a personal application from the student, a decision by the University’s Accreditation Committee, and an order from the University Director [5].
+## Who qualifies
+If you are studying a bachelor’s or master’s program, you qualify for accelerated study under an individual plan if you have secondary vocational, higher, or additional education, and/or you have studied or are studying in one of those programs, and/or you have abilities and/or a development level that allow you to complete the program in a shorter time than the standard University term set according to federal higher education standards [1]. The University makes the final decision on your eligibility [1].
+If you are studying an aspirantura program, you qualify if you hold a diploma from a completed aspirantura or adjuncture program, a Candidate of Sciences diploma, a Doctor of Sciences diploma, and/or you are currently studying in another aspirantura program, and/or you have abilities and/or a development level that allow you to complete the program in a shorter time than the standard University term set according to the educational standard [2]. The University makes the final decision on your eligibility [2].
 
-## How Duration Is Reduced
-The evidence does not state a specific number of months or years for the reduction [3][4]. The shortened duration is achieved through defined mechanisms rather than a fixed time reduction [3][4]. For bachelor’s and master’s programs, the reduction is implemented by crediting results from individual disciplines or modules and/or individual practices completed during secondary vocational, higher, or additional education, and/or by increasing the pace of study [3]. For the PhD program, the reduction is implemented by crediting (via re-examination) fully or partially the results of individual disciplines or modules, and/or individual practices, and/or individual types of scientific research work, and/or by increasing the pace of study [4].
+## How the program duration is reduced
+For bachelor’s and master’s programs, the reduction in your study duration is implemented by crediting results from individual disciplines (modules) and/or individual practices that you completed during secondary vocational, higher, or additional education, and/or by increasing your pace of study [3].
+For aspirantura programs, the reduction in your study duration is implemented by crediting (in the form of re-examination) fully or partially completed results from individual disciplines (modules), and/or individual practices, and/or individual types of scientific research work, and/or by increasing your pace of study [4].
+Increasing your pace of study requires a personal application from you [5]. It is granted only if you have the corresponding abilities and/or development level [5]. The University Director issues an order based on a decision by the University Attestation Commission [5].
 
 ## Gaps and caveats
-The evidence does not specify how many months or years the degree program will be shortened [3][4]. The evidence does not define what constitutes "corresponding abilities or development level" [1][2][5]. The evidence does not provide the exact procedures, timelines, or forms for the personal application or the Accreditation Committee decision [5]. The evidence does not indicate whether different courses or departments apply different reduction amounts [3][4]. The evidence does not address what happens if a student’s application is denied [5].
+The evidence does not specify a fixed number of semesters, months, or percentage by which your degree program will be shortened [3][4]. It only describes the mechanisms used to achieve the reduction [3][4]. The evidence does not state how many disciplines, practices, or research tasks can be credited, nor does it define the exact threshold for "corresponding abilities" or "development level" [1][2][5]. The evidence does not provide a deadline for submitting your personal application or a timeline for the Attestation Commission's decision [5]. The evidence does not specify what happens if the University denies your request [1][2]. The evidence does not list the specific federal standards or educational standards referenced for setting the standard University terms [1][2]. The official regulation takes precedence over any course pages, and any course page details that differ from or go beyond this regulation are overridden [1][2][3][4][5]. The evidence leaves open how individual courses will implement the credited disciplines or increased pace [3][4].
 
 ## Clauses used
 

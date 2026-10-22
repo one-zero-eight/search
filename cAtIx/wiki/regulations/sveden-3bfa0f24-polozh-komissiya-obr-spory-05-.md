@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Положение о комиссии по урегулированию споров между участниками образовательных отношений автономной некоммерческой организации высшего образования «Университет Иннополис» (документ подписан простой электронной подписью)"
-description: "Regulates the dispute resolution commission at Innopolis University to handle conflicts between educational stakeholders."
+description: "Regulates the dispute resolution commission at Innopolis University for handling conflicts between educational relationship participants."
 resource: "https://innopolis.university/upload/iblock/bdc/zol9h7d5tlpm66irsjgb5zuxm2mujmvy/polozh_komissiya_obr_spory_05.02.2025.pdf"
-tags: ["innopolis", "university", "dispute-resolution", "regulations", "education", "russia"]
+tags: ["innopolis", "dispute-resolution", "regulations", "university", "education"]
+audience: ["student", "applicant", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/document"
@@ -13,7 +14,7 @@ sources:
     title: "Положение о комиссии по урегулированию споров между участниками образовательных отношений автономной некоммерческой организации высшего образования «Университет Иннополис» (документ подписан простой электронной подписью)"
     last_modified: "2025-02-05T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:10:03+00:00"
 extraction: "text layer"
 status: draft

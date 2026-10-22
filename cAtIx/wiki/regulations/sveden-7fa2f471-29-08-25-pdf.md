@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Приказ АНО ВО «Университет Иннополис» от 29.08.2025 № ОД/АД-01/2025/08/29 «Об утверждении стоимости услуг размещения в жилом комплексе АНО ВО «Университет Иннополис»"
-description: "This order approves the accommodation rates for the university's residential complex effective September 1, 2025."
+description: "This order establishes the updated accommodation rates for the university's residential complex effective September 1, 2025."
 resource: "https://innopolis.university/upload/iblock/54c/u4g5ip5rvtopyys5loq4vytu507v6bx7/Приказ_о_стоимости_проживания_в_ЖК_от_29.08.25.pdf"
-tags: ["university", "innopolis", "accommodation", "pricing", "order", "residential"]
+tags: ["accommodation", "fees", "innopolis", "housing", "order"]
+audience: ["student", "staff", "public"]
 source_kind: official-document
 language: ru
 section: "sveden/objects"
@@ -13,7 +14,7 @@ sources:
     title: "Приказ АНО ВО «Университет Иннополис» от 29.08.2025 № ОД/АД-01/2025/08/29 «Об утверждении стоимости услуг размещения в жилом комплексе АНО ВО «Университет Иннополис»"
     last_modified: "2025-08-29T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:06:32+00:00"
 extraction: "text layer"
 status: draft

@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Оценочные и методические материалы [6._Оценочные_и_методические_материалы_ПК_Инженерия_искусстве]"
-description: "This document outlines the assessment criteria and sample questions for the \"Artificial Intelligence Engineering\" professional development program at Innopolis University."
+description: "This document outlines assessment criteria and sample questions for the Artificial Intelligence Engineering professional development program at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/944/7vpq10s920behmlzqbtauk2qgiknwdq4/6._Оценочные_и_методические_материалы_ПК_Инженерия_искусственного_интеллекта.pdf"
-tags: ["innopolis", "ai", "assessment", "training", "evaluation"]
+tags: ["innopolis", "ai", "professional-development", "assessment", "robotics"]
+audience: ["teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Оценочные и методические материалы [6._Оценочные_и_методические_материалы_ПК_Инженерия_искусстве]"
     last_modified: "2024-10-30T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:08:31+00:00"
 extraction: "text layer"
 status: draft

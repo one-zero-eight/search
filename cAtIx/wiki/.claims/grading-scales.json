@@ -1,9 +1,107 @@
 {
  "page": "/guides/grading-scales.md",
- "evidence_sha": "1a54338cfe085ef7",
+ "evidence_sha": "855b4f097474268b",
  "claims": [
   {
-   "sentence": "103 of 275 courses state a grading scale with letter grades and point ranges, while 172 courses do not",
+   "sentence": "You will find that the university regulation maps letter grades to a five-point system: A is Excellent, B is Good, C is Satisfactory, D is Fail, P is Passed, and F is Fail",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "5d0b0911bb1d",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Grades A, B, C, and P are positive and cannot be retaken for improvement, except where the regulation specifies otherwise",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "2d8ec49b6a5d",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Grades D and F are unsatisfactory",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "6660fa61d9fc",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Instructors may use alternative grading systems instead of the university standard",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "2a0b7b8efdf7",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If they do, the grading system, evaluation criteria, and conversion rules must be written in the course syllabus or internship program and shared with you through the university's electronic educational environment",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "2a0b7b8efdf7",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If a course page states a grading rule that differs from or goes beyond this regulation, the regulation takes precedence",
+   "cites": [
+    1,
+    4
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "5d0b0911bb1d",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "2a0b7b8efdf7",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Out of 275 courses, 103 state a grading scale that pairs letter grades with point ranges, while 172 do not",
    "cites": [
     5
    ],
@@ -120,7 +218,7 @@
    ]
   },
   {
-   "sentence": ". The most common scale is A 90–100, B 75–89, C 60–74, D 0–59, used by 54 of the 103 courses (52%)",
+   "sentence": "The typical scale assigns A to 90–100 points, B to 75–89, C to 60–74, and D to 0–59, and 54 of the 103 courses use it",
    "cites": [
     6
    ],
@@ -188,152 +286,7 @@
    ]
   },
   {
-   "sentence": ". Among the 56 BSc courses with a scale, 31 use the most common scale",
-   "cites": [
-    15
-   ],
-   "evidence": [
-    {
-     "n": 15,
-     "sha": "70968be99163",
-     "sources": [
-      "/courses/bsc-advanced-databases.md",
-      "/courses/bsc-data-structures-algorithms.md",
-      "/courses/bsc-dev-ops-engineering.md",
-      "/courses/bsc-distributed-and-network-programming.md",
-      "/courses/bsc-fundamentals-of-computer-security.md",
-      "/courses/bsc-game-theory.md",
-      "/courses/bsc-human-ai-interaction-design.md",
-      "/courses/bsc-information-retrieval.md",
-      "/courses/bsc-introduction-to-artificial-intelligence.md",
-      "/courses/bsc-introduction-to-big-data.md",
-      "/courses/bsc-introduction-to-machine-learning.md",
-      "/courses/bsc-it-product-development.md",
-      "/courses/bsc-mechanics-and-machines.md",
-      "/courses/bsc-mechatronics.md",
-      "/courses/bsc-natural-language-processing.md",
-      "/courses/bsc-nature-inspired-computing.md",
-      "/courses/bsc-physical-culture-and-sport-nutrition.md",
-      "/courses/bsc-practical-machine-learning-deep-learning.md",
-      "/courses/bsc-software-project.md",
-      "/courses/bsc-software-quality-reliability-and-security.md",
-      "/courses/bshe-career-and-leadership.md",
-      "/courses/bshe-developing-entrepreneurial-skills-for-a-startup-founder.md",
-      "/courses/bshe-human-and-animal-brain-representation-in-neurosciences.md",
-      "/courses/bshe-introduction-to-it-entrepreneurship.md",
-      "/courses/bshe-leadership-in-entrepreneurship.md",
-      "/courses/bste-advanced-linux.md",
-      "/courses/bste-applied-machine-learning.md",
-      "/courses/bste-art-of-reading-learning-and-understanding.md",
-      "/courses/bste-distributed-systems.md",
-      "/courses/bste-security-and-interpretability-of-machine-learning.md",
-      "/courses/bste-the-security-and-interpretability-of-machine-learning.md",
-      "/courses/bsc-advanced-compilers-construction-and-program-analysis.md",
-      "/courses/bsc-logic-and-discrete-mathematics-776.md",
-      "/courses/bsc-compilers-construction.md",
-      "/courses/bsc-introduction-to-programming.md",
-      "/courses/bsc-philosophy-ii.md",
-      "/courses/bsc-computer-architecture.md",
-      "/courses/bsc-network-and-cyber-security.md",
-      "/courses/bsc-networks.md",
-      "/courses/bsc-control-theory.md",
-      "/courses/bsc-physics-i.md",
-      "/courses/bsc-differential-equations.md",
-      "/courses/bsc-introduction-to-robotics.md",
-      "/courses/bsc-lean-software-development.md",
-      "/courses/bsc-operating-systems.md",
-      "/courses/bsc-physical-culture-and-sport-psychology.md",
-      "/courses/bsc-robotic-systems.md",
-      "/courses/bste-cross-platform-mobile-development-with-flutter.md",
-      "/courses/bsc-secure-system-development.md",
-      "/courses/bsc-total-virtualization.md",
-      "/courses/bste-introductiontopracticalartificialintelligence.md",
-      "/courses/bsc-signals-and-systems.md",
-      "/courses/bsc-system-and-network-administration.md",
-      "/courses/bste-computer-graphics-in-game-development.md",
-      "/courses/bsc-theoretical-computer-science.md",
-      "/courses/bshe-fundraising-go-to-market-and-hyper-growth-for-startups.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": ". Among the 40 MSc courses with a scale, 17 use it",
-   "cites": [
-    16
-   ],
-   "evidence": [
-    {
-     "n": 16,
-     "sha": "f70e53af3f3c",
-     "sources": [
-      "/courses/msc-advanced-machine-learning.md",
-      "/courses/msc-advanced-networking.md",
-      "/courses/msc-advanced-robotics.md",
-      "/courses/msc-advanced-security.md",
-      "/courses/msc-architectures-of-software-systems.md",
-      "/courses/msc-big-data-technologies-and-analytics.md",
-      "/courses/msc-classical-internet-applications.md",
-      "/courses/msc-computer-vision.md",
-      "/courses/msc-founder-project.md",
-      "/courses/msc-inter-networking-and-routing.md",
-      "/courses/msc-it-business-start-933.md",
-      "/courses/msc-leadership-in-entrepreneurship.md",
-      "/courses/msc-machine-learning.md",
-      "/courses/msc-marketing-and-sales-for-it-business-937.md",
-      "/courses/mshe-it-product-development.md",
-      "/courses/mste-it-course.md",
-      "/courses/mste-mste-it-course.md",
-      "/courses/mste-introduction-to-programming.md",
-      "/courses/msc-advanced-statistics.md",
-      "/courses/msc-computational-intelligence.md",
-      "/courses/msc-dynamics-of-non-linear-robotic-systems.md",
-      "/courses/msc-sensing-perception-actuation.md",
-      "/courses/msc-fundamentals-of-robot-control.md",
-      "/courses/msc-msc-secure-development.md",
-      "/courses/msc-secure-development.md",
-      "/courses/msc-analysis-software-artifacts.md",
-      "/courses/msc-managing-software-development.md",
-      "/courses/msc-models-software-systems.md",
-      "/courses/msc-requirements-engineering.md",
-      "/courses/mste-analysis-of-software-artifacts.md",
-      "/courses/msc-venture-capital-and-growth-hacking.md",
-      "/courses/msc-advanced-information-retrieval.md",
-      "/courses/msc-ceo-toolkit-strategy-operations-finance-hr-legal-aspects-ip-law-and-innovations.md",
-      "/courses/msc-unit-economics-for-it-startups-936.md",
-      "/courses/msc-unit-economics-in-it-business.md",
-      "/courses/mste-ceo-toolkit.md",
-      "/courses/msc-offensive-technologies.md",
-      "/courses/msc-optimization.md",
-      "/courses/msc-personal-software-process.md",
-      "/courses/mste-market-research-for-it-startups.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": ". Among the 7 other program courses with a scale, 6 use it",
-   "cites": [
-    17
-   ],
-   "evidence": [
-    {
-     "n": 17,
-     "sha": "3852dee8f1ca",
-     "sources": [
-      "/courses/bc-it-product-development.md",
-      "/courses/bte-itproductdevelopment.md",
-      "/courses/mcc-itproductdevelopment.md",
-      "/courses/mhe-itproductdevelopment.md",
-      "/courses/mte-founderproject.md",
-      "/courses/mte-itproductdevelopment.md",
-      "/courses/mte-ceotoolkit-strategy-operations-finance-hr-legalaspects-iplawandinnovations.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": ". The remaining 49 courses use 21 different scales, and no other scale is used by more than 6 courses",
+   "sentence": "The remaining 49 courses use 21 different scales, and no other scale appears in more than 6 courses",
    "cites": [
     7
    ],
@@ -396,7 +349,7 @@
    ]
   },
   {
-   "sentence": ". The lowest points required for an A are 90 in 60 courses, 85 in 22 courses, 80 in 12 courses, 92 in 2 courses, and 1 point each for 136, 95, 96, 104, 84, and 86",
+   "sentence": "Among the 103 courses that publish a scale, the lowest point threshold for an A is typically 90, shared by 60 courses, while 22 courses use 85, 12 use 80, 2 use 92, and 1 course each uses 136, 95, 96, 104, 84, and 86",
    "cites": [
     8
    ],
@@ -512,7 +465,7 @@
    ]
   },
   {
-   "sentence": ". The lowest points for a B are 75 in 67 courses, 70 in 13 courses, 80 in 6 courses, 60 in 6 courses, 65 in 6 courses, and 1 point each for 102, 66, 84, 72, and 71",
+   "sentence": "The lowest threshold for a B is typically 75, shared by 67 courses, while 13 courses use 70, 6 courses use 80, 6 use 60, 6 use 65, and 1 course each uses 102, 66, 84, 72, and 71",
    "cites": [
     9
    ],
@@ -629,7 +582,7 @@
    ]
   },
   {
-   "sentence": ". The lowest points for a C are 60 in 70 courses, 50 in 12 courses, 40 in 6 courses, 65 in 3 courses, 55 in 3 courses, 56 in 2 courses, 70 in 2 courses, 51 in 2 courses, and 1 point each for 68 and 45",
+   "sentence": "The lowest threshold for a C is typically 60, shared by 70 courses, while 12 courses use 50, 6 use 40, 3 use 65, 3 use 55, 2 use 56, 2 use 70, 2 use 51, and 1 course each uses 68 and 45",
    "cites": [
     10
    ],
@@ -745,7 +698,7 @@
    ]
   },
   {
-   "sentence": ". The lowest points for a D are 0 in 102 courses",
+   "sentence": "The lowest threshold for a D is 0 in 102 courses",
    "cites": [
     11
    ],
@@ -861,7 +814,7 @@
    ]
   },
   {
-   "sentence": ". Two courses give ranges in raw points where the top of grade A is above 100",
+   "sentence": "Two courses use raw point ranges where the top of grade A exceeds 100",
    "cites": [
     12
    ],
@@ -877,7 +830,7 @@
    ]
   },
   {
-   "sentence": ". Several scales feature overlapping or incomplete ranges, including A 85–100, B 75–84, C 60–75, D 0–59 (4 courses); A 136–170, B 102–135, C 68–101, D 0–68 (1 course); A 92–100, B 80–91, C 65–79, D 0–59 (2 courses); A 85–100, B 80–84, C 51–79, D 0–59 (2 courses); A 85–100, B 75–85, C 60–74, D 0–59 (5 courses); B 75–84 (1 course); and A 85–100, B 70–84, C 50–69, D 0–50 (1 course)",
+   "sentence": "Scales with overlapping or incomplete ranges appear in 4 courses with A 85–100, B 75–84, C 60–75, D 0–59; 1 course with A 136–170, B 102–135, C 68–101, D 0–68; 2 courses with A 92–100, B 80–91, C 65–79, D 0–59; 2 courses with A 85–100, B 80–84, C 51–79, D 0–59; 5 courses with A 85–100, B 75–85, C 60–74, D 0–59; 1 course with only B 75–84; and 1 course with A 85–100, B 70–84, C 50–69, D 0–50",
    "cites": [
     13
    ],
@@ -907,52 +860,255 @@
    ]
   },
   {
-   "sentence": "The university regulation maps letter grades to a five-point scale as A to «Excellent», B to «Good», C to «Satisfactory», D to «Fail», P to «Passed», and F to «Fail»",
+   "sentence": "When you look at program levels, 56 BSc courses, 40 MSc courses, and 7 other program courses publish a scale",
    "cites": [
-    1
+    14
    ],
    "evidence": [
     {
-     "n": 1,
-     "sha": "5d0b0911bb1d",
+     "n": 14,
+     "sha": "951abaf44a9b",
      "sources": [
-      "/regulations/attestation-regulation.md"
+      "/courses/bc-it-product-development.md",
+      "/courses/bsc-advanced-databases.md",
+      "/courses/bsc-data-structures-algorithms.md",
+      "/courses/bsc-dev-ops-engineering.md",
+      "/courses/bsc-distributed-and-network-programming.md",
+      "/courses/bsc-fundamentals-of-computer-security.md",
+      "/courses/bsc-game-theory.md",
+      "/courses/bsc-human-ai-interaction-design.md",
+      "/courses/bsc-information-retrieval.md",
+      "/courses/bsc-introduction-to-artificial-intelligence.md",
+      "/courses/bsc-introduction-to-big-data.md",
+      "/courses/bsc-introduction-to-machine-learning.md",
+      "/courses/bsc-it-product-development.md",
+      "/courses/bsc-mechanics-and-machines.md",
+      "/courses/bsc-mechatronics.md",
+      "/courses/bsc-natural-language-processing.md",
+      "/courses/bsc-nature-inspired-computing.md",
+      "/courses/bsc-physical-culture-and-sport-nutrition.md",
+      "/courses/bsc-practical-machine-learning-deep-learning.md",
+      "/courses/bsc-software-project.md",
+      "/courses/bsc-software-quality-reliability-and-security.md",
+      "/courses/bshe-career-and-leadership.md",
+      "/courses/bshe-developing-entrepreneurial-skills-for-a-startup-founder.md",
+      "/courses/bshe-human-and-animal-brain-representation-in-neurosciences.md",
+      "/courses/bshe-introduction-to-it-entrepreneurship.md",
+      "/courses/bshe-leadership-in-entrepreneurship.md",
+      "/courses/bste-advanced-linux.md",
+      "/courses/bste-applied-machine-learning.md",
+      "/courses/bste-art-of-reading-learning-and-understanding.md",
+      "/courses/bste-distributed-systems.md",
+      "/courses/bste-security-and-interpretability-of-machine-learning.md",
+      "/courses/bste-the-security-and-interpretability-of-machine-learning.md",
+      "/courses/bte-itproductdevelopment.md",
+      "/courses/mcc-itproductdevelopment.md",
+      "/courses/mhe-itproductdevelopment.md",
+      "/courses/msc-advanced-machine-learning.md",
+      "/courses/msc-advanced-networking.md",
+      "/courses/msc-advanced-robotics.md",
+      "/courses/msc-advanced-security.md",
+      "/courses/msc-architectures-of-software-systems.md",
+      "/courses/msc-big-data-technologies-and-analytics.md",
+      "/courses/msc-classical-internet-applications.md",
+      "/courses/msc-computer-vision.md",
+      "/courses/msc-founder-project.md",
+      "/courses/msc-inter-networking-and-routing.md",
+      "/courses/msc-it-business-start-933.md",
+      "/courses/msc-leadership-in-entrepreneurship.md",
+      "/courses/msc-machine-learning.md",
+      "/courses/msc-marketing-and-sales-for-it-business-937.md",
+      "/courses/mshe-it-product-development.md",
+      "/courses/mste-it-course.md",
+      "/courses/mste-mste-it-course.md",
+      "/courses/mte-founderproject.md",
+      "/courses/mte-itproductdevelopment.md",
+      "/courses/bsc-advanced-compilers-construction-and-program-analysis.md",
+      "/courses/bsc-logic-and-discrete-mathematics-776.md",
+      "/courses/bsc-compilers-construction.md",
+      "/courses/bsc-introduction-to-programming.md",
+      "/courses/bsc-philosophy-ii.md",
+      "/courses/mste-introduction-to-programming.md",
+      "/courses/bsc-computer-architecture.md",
+      "/courses/bsc-network-and-cyber-security.md",
+      "/courses/bsc-networks.md",
+      "/courses/bsc-control-theory.md",
+      "/courses/bsc-physics-i.md",
+      "/courses/msc-advanced-statistics.md",
+      "/courses/msc-computational-intelligence.md",
+      "/courses/bsc-differential-equations.md",
+      "/courses/bsc-introduction-to-robotics.md",
+      "/courses/msc-dynamics-of-non-linear-robotic-systems.md",
+      "/courses/bsc-lean-software-development.md",
+      "/courses/bsc-operating-systems.md",
+      "/courses/bsc-physical-culture-and-sport-psychology.md",
+      "/courses/bsc-robotic-systems.md",
+      "/courses/bste-cross-platform-mobile-development-with-flutter.md",
+      "/courses/msc-sensing-perception-actuation.md",
+      "/courses/bsc-secure-system-development.md",
+      "/courses/bsc-total-virtualization.md",
+      "/courses/bste-introductiontopracticalartificialintelligence.md",
+      "/courses/msc-fundamentals-of-robot-control.md",
+      "/courses/msc-msc-secure-development.md",
+      "/courses/msc-secure-development.md",
+      "/courses/bsc-signals-and-systems.md",
+      "/courses/bsc-system-and-network-administration.md",
+      "/courses/bste-computer-graphics-in-game-development.md",
+      "/courses/bsc-theoretical-computer-science.md",
+      "/courses/msc-analysis-software-artifacts.md",
+      "/courses/msc-managing-software-development.md",
+      "/courses/msc-models-software-systems.md",
+      "/courses/msc-requirements-engineering.md",
+      "/courses/mste-analysis-of-software-artifacts.md",
+      "/courses/bshe-fundraising-go-to-market-and-hyper-growth-for-startups.md",
+      "/courses/msc-venture-capital-and-growth-hacking.md",
+      "/courses/msc-advanced-information-retrieval.md",
+      "/courses/msc-ceo-toolkit-strategy-operations-finance-hr-legal-aspects-ip-law-and-innovations.md",
+      "/courses/msc-unit-economics-for-it-startups-936.md",
+      "/courses/msc-unit-economics-in-it-business.md",
+      "/courses/mste-ceo-toolkit.md",
+      "/courses/mte-ceotoolkit-strategy-operations-finance-hr-legalaspects-iplawandinnovations.md",
+      "/courses/msc-offensive-technologies.md",
+      "/courses/msc-optimization.md",
+      "/courses/msc-personal-software-process.md",
+      "/courses/mste-market-research-for-it-startups.md"
      ]
     }
    ]
   },
   {
-   "sentence": ". Results of interim assessments A, B, C, and P are positive and cannot be retaken for improvement, except as specified in clause 6.1 of the regulation",
+   "sentence": "Of those, 31 BSc courses, 17 MSc courses, and 6 other program courses follow the most common scale",
    "cites": [
-    2
+    15,
+    16,
+    17
    ],
    "evidence": [
     {
-     "n": 2,
-     "sha": "2d8ec49b6a5d",
+     "n": 15,
+     "sha": "70968be99163",
      "sources": [
-      "/regulations/attestation-regulation.md"
+      "/courses/bsc-advanced-databases.md",
+      "/courses/bsc-data-structures-algorithms.md",
+      "/courses/bsc-dev-ops-engineering.md",
+      "/courses/bsc-distributed-and-network-programming.md",
+      "/courses/bsc-fundamentals-of-computer-security.md",
+      "/courses/bsc-game-theory.md",
+      "/courses/bsc-human-ai-interaction-design.md",
+      "/courses/bsc-information-retrieval.md",
+      "/courses/bsc-introduction-to-artificial-intelligence.md",
+      "/courses/bsc-introduction-to-big-data.md",
+      "/courses/bsc-introduction-to-machine-learning.md",
+      "/courses/bsc-it-product-development.md",
+      "/courses/bsc-mechanics-and-machines.md",
+      "/courses/bsc-mechatronics.md",
+      "/courses/bsc-natural-language-processing.md",
+      "/courses/bsc-nature-inspired-computing.md",
+      "/courses/bsc-physical-culture-and-sport-nutrition.md",
+      "/courses/bsc-practical-machine-learning-deep-learning.md",
+      "/courses/bsc-software-project.md",
+      "/courses/bsc-software-quality-reliability-and-security.md",
+      "/courses/bshe-career-and-leadership.md",
+      "/courses/bshe-developing-entrepreneurial-skills-for-a-startup-founder.md",
+      "/courses/bshe-human-and-animal-brain-representation-in-neurosciences.md",
+      "/courses/bshe-introduction-to-it-entrepreneurship.md",
+      "/courses/bshe-leadership-in-entrepreneurship.md",
+      "/courses/bste-advanced-linux.md",
+      "/courses/bste-applied-machine-learning.md",
+      "/courses/bste-art-of-reading-learning-and-understanding.md",
+      "/courses/bste-distributed-systems.md",
+      "/courses/bste-security-and-interpretability-of-machine-learning.md",
+      "/courses/bste-the-security-and-interpretability-of-machine-learning.md",
+      "/courses/bsc-advanced-compilers-construction-and-program-analysis.md",
+      "/courses/bsc-logic-and-discrete-mathematics-776.md",
+      "/courses/bsc-compilers-construction.md",
+      "/courses/bsc-introduction-to-programming.md",
+      "/courses/bsc-philosophy-ii.md",
+      "/courses/bsc-computer-architecture.md",
+      "/courses/bsc-network-and-cyber-security.md",
+      "/courses/bsc-networks.md",
+      "/courses/bsc-control-theory.md",
+      "/courses/bsc-physics-i.md",
+      "/courses/bsc-differential-equations.md",
+      "/courses/bsc-introduction-to-robotics.md",
+      "/courses/bsc-lean-software-development.md",
+      "/courses/bsc-operating-systems.md",
+      "/courses/bsc-physical-culture-and-sport-psychology.md",
+      "/courses/bsc-robotic-systems.md",
+      "/courses/bste-cross-platform-mobile-development-with-flutter.md",
+      "/courses/bsc-secure-system-development.md",
+      "/courses/bsc-total-virtualization.md",
+      "/courses/bste-introductiontopracticalartificialintelligence.md",
+      "/courses/bsc-signals-and-systems.md",
+      "/courses/bsc-system-and-network-administration.md",
+      "/courses/bste-computer-graphics-in-game-development.md",
+      "/courses/bsc-theoretical-computer-science.md",
+      "/courses/bshe-fundraising-go-to-market-and-hyper-growth-for-startups.md"
+     ]
+    },
+    {
+     "n": 16,
+     "sha": "f70e53af3f3c",
+     "sources": [
+      "/courses/msc-advanced-machine-learning.md",
+      "/courses/msc-advanced-networking.md",
+      "/courses/msc-advanced-robotics.md",
+      "/courses/msc-advanced-security.md",
+      "/courses/msc-architectures-of-software-systems.md",
+      "/courses/msc-big-data-technologies-and-analytics.md",
+      "/courses/msc-classical-internet-applications.md",
+      "/courses/msc-computer-vision.md",
+      "/courses/msc-founder-project.md",
+      "/courses/msc-inter-networking-and-routing.md",
+      "/courses/msc-it-business-start-933.md",
+      "/courses/msc-leadership-in-entrepreneurship.md",
+      "/courses/msc-machine-learning.md",
+      "/courses/msc-marketing-and-sales-for-it-business-937.md",
+      "/courses/mshe-it-product-development.md",
+      "/courses/mste-it-course.md",
+      "/courses/mste-mste-it-course.md",
+      "/courses/mste-introduction-to-programming.md",
+      "/courses/msc-advanced-statistics.md",
+      "/courses/msc-computational-intelligence.md",
+      "/courses/msc-dynamics-of-non-linear-robotic-systems.md",
+      "/courses/msc-sensing-perception-actuation.md",
+      "/courses/msc-fundamentals-of-robot-control.md",
+      "/courses/msc-msc-secure-development.md",
+      "/courses/msc-secure-development.md",
+      "/courses/msc-analysis-software-artifacts.md",
+      "/courses/msc-managing-software-development.md",
+      "/courses/msc-models-software-systems.md",
+      "/courses/msc-requirements-engineering.md",
+      "/courses/mste-analysis-of-software-artifacts.md",
+      "/courses/msc-venture-capital-and-growth-hacking.md",
+      "/courses/msc-advanced-information-retrieval.md",
+      "/courses/msc-ceo-toolkit-strategy-operations-finance-hr-legal-aspects-ip-law-and-innovations.md",
+      "/courses/msc-unit-economics-for-it-startups-936.md",
+      "/courses/msc-unit-economics-in-it-business.md",
+      "/courses/mste-ceo-toolkit.md",
+      "/courses/msc-offensive-technologies.md",
+      "/courses/msc-optimization.md",
+      "/courses/msc-personal-software-process.md",
+      "/courses/mste-market-research-for-it-startups.md"
+     ]
+    },
+    {
+     "n": 17,
+     "sha": "3852dee8f1ca",
+     "sources": [
+      "/courses/bc-it-product-development.md",
+      "/courses/bte-itproductdevelopment.md",
+      "/courses/mcc-itproductdevelopment.md",
+      "/courses/mhe-itproductdevelopment.md",
+      "/courses/mte-founderproject.md",
+      "/courses/mte-itproductdevelopment.md",
+      "/courses/mte-ceotoolkit-strategy-operations-finance-hr-legalaspects-iplawandinnovations.md"
      ]
     }
    ]
   },
   {
-   "sentence": ". Results of interim assessments D and F are unsatisfactory results",
-   "cites": [
-    3
-   ],
-   "evidence": [
-    {
-     "n": 3,
-     "sha": "6660fa61d9fc",
-     "sources": [
-      "/regulations/attestation-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": ". Teaching staff may use an alternative grading system during the teaching process",
+   "sentence": "The regulation does not specify how alternative grading systems must be structured, only that they must be documented in syllabuses and communicated electronically",
    "cites": [
     4
    ],
@@ -967,7 +1123,7 @@
    ]
   },
   {
-   "sentence": ". When an alternative system is used, the grading system, evaluation criteria, and conversion rules must be specified in discipline syllabuses or internship programs and communicated to students in the university's electronic educational environment",
+   "sentence": "The regulation is silent on whether alternative systems must use letter grades, point ranges, or other formats",
    "cites": [
     4
    ],
@@ -982,7 +1138,7 @@
    ]
   },
   {
-   "sentence": "The evidence leaves open how the 172 courses without stated scales handle grading",
+   "sentence": "The course data does not explain why 172 courses omit a grading scale entirely",
    "cites": [
     5
    ],
@@ -1099,7 +1255,23 @@
    ]
   },
   {
-   "sentence": ". The regulation is silent on point ranges for letter grades, leaving that detail to individual course syllabuses",
+   "sentence": "The evidence does not clarify how the 2 courses with raw points above 100 calculate totals",
+   "cites": [
+    12
+   ],
+   "evidence": [
+    {
+     "n": 12,
+     "sha": "25511c127caf",
+     "sources": [
+      "/courses/bsc-differential-equations.md",
+      "/courses/bsc-signals-and-systems.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not state what happens if a course page contradicts the official regulation, only that the regulation outranks course pages",
    "cites": [
     1,
     4
@@ -1122,10 +1294,9 @@
    ]
   },
   {
-   "sentence": ". The regulation does not specify whether alternative grading systems must align with the university's five-point scale mapping",
+   "sentence": "The evidence does not cover how grades P and F are converted to points in alternative systems",
    "cites": [
-    1,
-    4
+    1
    ],
    "evidence": [
     {
@@ -1134,18 +1305,11 @@
      "sources": [
       "/regulations/attestation-regulation.md"
      ]
-    },
-    {
-     "n": 4,
-     "sha": "2a0b7b8efdf7",
-     "sources": [
-      "/regulations/attestation-regulation.md"
-     ]
     }
    ]
   },
   {
-   "sentence": ". The evidence does not clarify what clause 6.1 specifies regarding retaking assessments",
+   "sentence": "The evidence does not explain the exception mentioned in clause 6.1 for retaking positive grades",
    "cites": [
     2
    ],
@@ -1160,177 +1324,7 @@
    ]
   },
   {
-   "sentence": ". The evidence does not explain why 2 courses use raw points above 100 or how overlapping ranges are resolved in grading",
-   "cites": [
-    12,
-    13
-   ],
-   "evidence": [
-    {
-     "n": 12,
-     "sha": "25511c127caf",
-     "sources": [
-      "/courses/bsc-differential-equations.md",
-      "/courses/bsc-signals-and-systems.md"
-     ]
-    },
-    {
-     "n": 13,
-     "sha": "efd8d1dab756",
-     "sources": [
-      "/courses/bsc-compilers-construction.md",
-      "/courses/bsc-introduction-to-programming.md",
-      "/courses/bsc-philosophy-ii.md",
-      "/courses/mste-introduction-to-programming.md",
-      "/courses/bsc-differential-equations.md",
-      "/courses/bsc-introduction-to-robotics.md",
-      "/courses/msc-dynamics-of-non-linear-robotic-systems.md",
-      "/courses/bshe-fundraising-go-to-market-and-hyper-growth-for-startups.md",
-      "/courses/msc-venture-capital-and-growth-hacking.md",
-      "/courses/msc-ceo-toolkit-strategy-operations-finance-hr-legal-aspects-ip-law-and-innovations.md",
-      "/courses/msc-unit-economics-for-it-startups-936.md",
-      "/courses/msc-unit-economics-in-it-business.md",
-      "/courses/mste-ceo-toolkit.md",
-      "/courses/mte-ceotoolkit-strategy-operations-finance-hr-legalaspects-iplawandinnovations.md",
-      "/courses/msc-personal-software-process.md",
-      "/courses/mste-market-research-for-it-startups.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": ". The evidence does not state how many students are in each course or how grades are weighted",
-   "cites": [
-    5,
-    17
-   ],
-   "evidence": [
-    {
-     "n": 5,
-     "sha": "5ecfea668d6c",
-     "sources": [
-      "/courses/bc-it-product-development.md",
-      "/courses/bsc-advanced-databases.md",
-      "/courses/bsc-data-structures-algorithms.md",
-      "/courses/bsc-dev-ops-engineering.md",
-      "/courses/bsc-distributed-and-network-programming.md",
-      "/courses/bsc-fundamentals-of-computer-security.md",
-      "/courses/bsc-game-theory.md",
-      "/courses/bsc-human-ai-interaction-design.md",
-      "/courses/bsc-information-retrieval.md",
-      "/courses/bsc-introduction-to-artificial-intelligence.md",
-      "/courses/bsc-introduction-to-big-data.md",
-      "/courses/bsc-introduction-to-machine-learning.md",
-      "/courses/bsc-it-product-development.md",
-      "/courses/bsc-mechanics-and-machines.md",
-      "/courses/bsc-mechatronics.md",
-      "/courses/bsc-natural-language-processing.md",
-      "/courses/bsc-nature-inspired-computing.md",
-      "/courses/bsc-physical-culture-and-sport-nutrition.md",
-      "/courses/bsc-practical-machine-learning-deep-learning.md",
-      "/courses/bsc-software-project.md",
-      "/courses/bsc-software-quality-reliability-and-security.md",
-      "/courses/bshe-career-and-leadership.md",
-      "/courses/bshe-developing-entrepreneurial-skills-for-a-startup-founder.md",
-      "/courses/bshe-human-and-animal-brain-representation-in-neurosciences.md",
-      "/courses/bshe-introduction-to-it-entrepreneurship.md",
-      "/courses/bshe-leadership-in-entrepreneurship.md",
-      "/courses/bste-advanced-linux.md",
-      "/courses/bste-applied-machine-learning.md",
-      "/courses/bste-art-of-reading-learning-and-understanding.md",
-      "/courses/bste-distributed-systems.md",
-      "/courses/bste-security-and-interpretability-of-machine-learning.md",
-      "/courses/bste-the-security-and-interpretability-of-machine-learning.md",
-      "/courses/bte-itproductdevelopment.md",
-      "/courses/mcc-itproductdevelopment.md",
-      "/courses/mhe-itproductdevelopment.md",
-      "/courses/msc-advanced-machine-learning.md",
-      "/courses/msc-advanced-networking.md",
-      "/courses/msc-advanced-robotics.md",
-      "/courses/msc-advanced-security.md",
-      "/courses/msc-architectures-of-software-systems.md",
-      "/courses/msc-big-data-technologies-and-analytics.md",
-      "/courses/msc-classical-internet-applications.md",
-      "/courses/msc-computer-vision.md",
-      "/courses/msc-founder-project.md",
-      "/courses/msc-inter-networking-and-routing.md",
-      "/courses/msc-it-business-start-933.md",
-      "/courses/msc-leadership-in-entrepreneurship.md",
-      "/courses/msc-machine-learning.md",
-      "/courses/msc-marketing-and-sales-for-it-business-937.md",
-      "/courses/mshe-it-product-development.md",
-      "/courses/mste-it-course.md",
-      "/courses/mste-mste-it-course.md",
-      "/courses/mte-founderproject.md",
-      "/courses/mte-itproductdevelopment.md",
-      "/courses/bsc-advanced-compilers-construction-and-program-analysis.md",
-      "/courses/bsc-logic-and-discrete-mathematics-776.md",
-      "/courses/bsc-compilers-construction.md",
-      "/courses/bsc-introduction-to-programming.md",
-      "/courses/bsc-philosophy-ii.md",
-      "/courses/mste-introduction-to-programming.md",
-      "/courses/bsc-computer-architecture.md",
-      "/courses/bsc-network-and-cyber-security.md",
-      "/courses/bsc-networks.md",
-      "/courses/bsc-control-theory.md",
-      "/courses/bsc-physics-i.md",
-      "/courses/msc-advanced-statistics.md",
-      "/courses/msc-computational-intelligence.md",
-      "/courses/bsc-differential-equations.md",
-      "/courses/bsc-introduction-to-robotics.md",
-      "/courses/msc-dynamics-of-non-linear-robotic-systems.md",
-      "/courses/bsc-lean-software-development.md",
-      "/courses/bsc-operating-systems.md",
-      "/courses/bsc-physical-culture-and-sport-psychology.md",
-      "/courses/bsc-robotic-systems.md",
-      "/courses/bste-cross-platform-mobile-development-with-flutter.md",
-      "/courses/msc-sensing-perception-actuation.md",
-      "/courses/bsc-secure-system-development.md",
-      "/courses/bsc-total-virtualization.md",
-      "/courses/bste-introductiontopracticalartificialintelligence.md",
-      "/courses/msc-fundamentals-of-robot-control.md",
-      "/courses/msc-msc-secure-development.md",
-      "/courses/msc-secure-development.md",
-      "/courses/bsc-signals-and-systems.md",
-      "/courses/bsc-system-and-network-administration.md",
-      "/courses/bste-computer-graphics-in-game-development.md",
-      "/courses/bsc-theoretical-computer-science.md",
-      "/courses/msc-analysis-software-artifacts.md",
-      "/courses/msc-managing-software-development.md",
-      "/courses/msc-models-software-systems.md",
-      "/courses/msc-requirements-engineering.md",
-      "/courses/mste-analysis-of-software-artifacts.md",
-      "/courses/bshe-fundraising-go-to-market-and-hyper-growth-for-startups.md",
-      "/courses/msc-venture-capital-and-growth-hacking.md",
-      "/courses/msc-advanced-information-retrieval.md",
-      "/courses/msc-ceo-toolkit-strategy-operations-finance-hr-legal-aspects-ip-law-and-innovations.md",
-      "/courses/msc-unit-economics-for-it-startups-936.md",
-      "/courses/msc-unit-economics-in-it-business.md",
-      "/courses/mste-ceo-toolkit.md",
-      "/courses/mte-ceotoolkit-strategy-operations-finance-hr-legalaspects-iplawandinnovations.md",
-      "/courses/msc-offensive-technologies.md",
-      "/courses/msc-optimization.md",
-      "/courses/msc-personal-software-process.md",
-      "/courses/mste-market-research-for-it-startups.md"
-     ]
-    },
-    {
-     "n": 17,
-     "sha": "3852dee8f1ca",
-     "sources": [
-      "/courses/bc-it-product-development.md",
-      "/courses/bte-itproductdevelopment.md",
-      "/courses/mcc-itproductdevelopment.md",
-      "/courses/mhe-itproductdevelopment.md",
-      "/courses/mte-founderproject.md",
-      "/courses/mte-itproductdevelopment.md",
-      "/courses/mte-ceotoolkit-strategy-operations-finance-hr-legalaspects-iplawandinnovations.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": ". Course pages that list point ranges go beyond the regulation by providing the specific thresholds the regulation leaves open",
+   "sentence": "A regulation that is silent on something does not make a course page wrong",
    "cites": [
     1,
     4

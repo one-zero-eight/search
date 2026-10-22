@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "MY UNIVERSITY Корпоративная почта Корпоративный портал Личный кабинет абитуриента Личный кабинет школьника Портал IT-help Если у вас возникл — Положение об электронной информационно-образовательной среде АНО ВО «Университет Иннополис» (документ подписан простой электронной подписью)"
-description: "This document establishes the regulations for the electronic information and educational environment at Innopolis University."
+description: "Regulates the electronic educational environment at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/197/y8u9q6x2nvrhcueg1zqe4628g2kfeo7k/polozh_eios_03.2026.pdf"
-tags: ["innopolis", "university", "regulations", "e-learning", "edtech", "russia"]
+tags: ["innopolis", "e-learning", "regulations", "university", "it-policy"]
+audience: ["student", "teacher", "staff", "management"]
 source_kind: official-document
 language: ru
 section: "sveden/objects"
@@ -13,7 +14,7 @@ sources:
     title: "MY UNIVERSITY Корпоративная почта Корпоративный портал Личный кабинет абитуриента Личный кабинет школьника Портал IT-help Если у вас возникл — Положение об электронной информационно-образовательной среде АНО ВО «Университет Иннополис» (документ подписан простой электронной подписью)"
     last_modified: "2025-12-29T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T13:59:49+00:00"
 extraction: "text layer"
 status: draft

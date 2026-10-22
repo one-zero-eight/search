@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Учебный план [2._Учебный_план_ПК_Методы_и_инструменты_работы_с_данными]"
-description: "This document is the curriculum for a 40-hour professional development course on data management methods and tools at Innopolis University."
+description: "This document is the study plan for a 40-hour professional development course on data methods and tools at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/c59/7rja0wuena513ocqonlla9rrate37q1d/2._Учебный_план_ПК_Методы_и_инструменты_работы_с_данными.pdf"
-tags: ["innopolis", "curriculum", "data-management", "professional-development", "higher-education"]
+tags: ["curriculum", "data", "training", "innopolis", "professional-development"]
+audience: ["staff"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Учебный план [2._Учебный_план_ПК_Методы_и_инструменты_работы_с_данными]"
     last_modified: "2022-12-19T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:10:26+00:00"
 extraction: "text layer"
 status: draft

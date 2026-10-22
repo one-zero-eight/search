@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Порядок посещения обучающимися АНО ВО \"Университет Иннополис\" по своему выбору мероприятий, проводимых в Университете и не предусмотренных учебным планом\","
-description: "This document establishes the rules for Innopolis University students to attend optional extracurricular events not included in their academic curriculum."
+description: "Regulates how students at Innopolis University can attend optional extracurricular events not included in their academic curriculum."
 resource: "https://innopolis.university/upload/iblock/306/Порядок посещения мероприятий.pdf"
-tags: ["innopolis", "university", "regulations", "extracurricular", "students", "russia"]
+tags: ["innopolis", "university", "regulations", "students", "extracurricular"]
+audience: ["student", "postgraduate", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/document"
@@ -13,7 +14,7 @@ sources:
     title: "Порядок посещения обучающимися АНО ВО \"Университет Иннополис\" по своему выбору мероприятий, проводимых в Университете и не предусмотренных учебным планом\","
     last_modified: "2026-10-22T14:01:56+00:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:01:56+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Положение о порядке проведения государственной итоговой аттестации (бакалавриат и магистратура)"
-description: "This document establishes the procedures for conducting state final certification for bachelor's and master's programs at Innopolis University."
+description: "Regulates the state final certification procedures for bachelor and master students at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/0a9/oaov9ai9asxm9hlemq5m0kjpemzvek8j/Положение_о_ГИА_2026.pdf"
-tags: ["innopolis", "higher-education", "final-certification", "regulations", "bachelor", "master"]
+tags: ["innopolis", "gia", "regulations", "bachelor", "master", "university"]
+audience: ["student", "postgraduate", "teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "document"
@@ -13,7 +14,7 @@ sources:
     title: "Положение о порядке проведения государственной итоговой аттестации (бакалавриат и магистратура)"
     last_modified: "2026-01-26T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T12:08:04+00:00"
 extraction: "text layer"
 status: draft

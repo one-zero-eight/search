@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — 4 семестр (документы подписаны ПЭП) [Визуализация_Б1.О.11_AIDE_2026_AIDE Practicum Project (4 с)_]"
-description: "This document is the approved syllabus for the AIDE Practicum Project course at Innopolis University for the 2026 academic year."
+description: "This document is the approved syllabus for the AIDE Practicum Project course for Master's students at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/29e/03ybqo1cj9og3lp5wujoc1vdvg3whmlr/Визуализация_Б1.О.11_AIDE_2026_AIDE Practicum Project (4 с)_21.08.2026.pdf"
-tags: ["syllabus", "innopolis", "ai", "data-science", "robotics", "higher-education"]
+tags: ["syllabus", "innopolis", "master", "ai", "data-analysis"]
+audience: ["student", "postgraduate", "teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — 4 семестр (документы подписаны ПЭП) [Визуализация_Б1.О.11_AIDE_2026_AIDE Practicum Project (4 с)_]"
     last_modified: "2026-10-22T14:01:01+00:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:01:01+00:00"
 extraction: "text layer"
 status: draft

@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Положение о подготовке научных и научно-педагогических кадров в аспирантуре в автономной некоммерческой организации высшего образования \"Университет Иннополис\","
-description: "This document establishes the regulations for organizing and conducting postgraduate training and dissertation defense procedures at Innopolis University."
+description: "Regulates PhD training procedures at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/bde/qax46pv9f4zp43k6ldkcit7xxxegotrh/Polozh_podgotov_aspirant_01.03.2022.pdf"
-tags: ["innopolis", "postgraduate", "regulations", "dissertation", "russian-university", "higher-education"]
+tags: ["phd", "innopolis", "regulations", "russia", "graduate"]
+audience: ["postgraduate", "applicant", "staff", "management"]
 source_kind: official-document
 language: ru
 section: "sveden/document"
@@ -13,7 +14,7 @@ sources:
     title: "Положение о подготовке научных и научно-педагогических кадров в аспирантуре в автономной некоммерческой организации высшего образования \"Университет Иннополис\","
     last_modified: "2012-12-29T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:21:10+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

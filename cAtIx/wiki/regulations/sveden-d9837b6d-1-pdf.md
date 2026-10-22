@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Методические и иные документы [введение1]"
-description: "This document outlines the assessment criteria and reporting tasks for the Master's program in Robotics and Computer Vision at Innopolis University."
+description: "This document outlines the assessment tasks and grading criteria for the Master's program in Robotics and Computer Vision at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/de2/x4zwclz25wjiv2gpyaq270vdwtema9tc/введение1.pdf"
-tags: ["innopolis", "master", "robotics", "assessment", "curriculum"]
+tags: ["master", "robotics", "innopolis", "curriculum", "assessment"]
+audience: ["postgraduate"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Методические и иные документы [введение1]"
     last_modified: "2026-10-22T14:21:47+00:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:21:47+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

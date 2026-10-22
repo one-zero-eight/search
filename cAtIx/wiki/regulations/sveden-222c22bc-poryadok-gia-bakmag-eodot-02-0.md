@@ -3,7 +3,8 @@ type: regulation
 title: "Порядок проведения государственной итоговой аттестации с применением дистанционных образовательных технологий по образовательным программам высшего образования – программам бакалавриата и программам магистратуры в автономной некоммерческой организации высшего образования «Университет Иннополис» (документ подписан простой электронной подписью)"
 description: "This document establishes the regulations for conducting state final certification via distance learning for bachelor and master programs at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/33a/6g6z9ms7xnjw3w6mzk1qtlb9wnk31g6q/poryadok_gia_bakmag_eodot_02.08.2022.pdf"
-tags: ["innopolis", "higher-education", "distance-learning", "final-certification", "regulations", "university-policy"]
+tags: ["regulations", "innopolis", "exams", "distance-learning", "higher-education"]
+audience: ["student", "postgraduate", "teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/document"
@@ -13,7 +14,7 @@ sources:
     title: "Порядок проведения государственной итоговой аттестации с применением дистанционных образовательных технологий по образовательным программам высшего образования – программам бакалавриата и программам магистратуры в автономной некоммерческой организации высшего образования «Университет Иннополис» (документ подписан простой электронной подписью)"
     last_modified: "2022-08-02T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:02:02+00:00"
 extraction: "text layer"
 status: draft

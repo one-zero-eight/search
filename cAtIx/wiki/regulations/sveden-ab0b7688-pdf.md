@@ -3,7 +3,8 @@ type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Аннотации к рабочим программам дисциплин [Аннотация Управление цифровой трансформацией образовательных]"
 description: "This document outlines the curriculum for a professional development course on managing digital transformation in higher education institutions."
 resource: "https://innopolis.university/upload/iblock/b8b/6bh0xjkbb5gi4kkspxi6kru3yn3qnnta/Аннотация Управление цифровой трансформацией образовательных организаций ВО.pdf"
-tags: ["digital-transformation", "higher-education", "curriculum", "management", "online-learning", "assessment"]
+tags: ["digital-transformation", "higher-education", "curriculum", "professional-development", "management"]
+audience: ["teacher", "staff", "management"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Аннотации к рабочим программам дисциплин [Аннотация Управление цифровой трансформацией образовательных]"
     last_modified: "2026-10-22T14:20:08+00:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:20:08+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Положение о порядке и сроках проведения конкурсного отбора при переводе обучающихся в Автономную некоммерческую организацию высшего образования \"Университет Иннополис\" из организаций, осуществляющих образовательную деятельность по образовательным программам высшего образования,"
-description: "This document establishes the rules and deadlines for competitive selection when transferring students to Innopolis University from other higher education institutions."
+description: "Regulates the competitive selection process for transferring students to Innopolis University from other higher education institutions."
 resource: "https://innopolis.university/upload/iblock/3fb/Положение о порядке и сроках проведения конкурсного отбора при переводе обучающихся в АНО ВО Университет Иннополис (1).pdf"
-tags: ["transfer", "university", "innopolis", "regulations", "admission"]
+tags: ["transfer", "university", "regulation", "innopolis", "student"]
+audience: ["student", "applicant"]
 source_kind: official-document
 language: ru
 section: "sveden/document"
@@ -13,7 +14,7 @@ sources:
     title: "Положение о порядке и сроках проведения конкурсного отбора при переводе обучающихся в Автономную некоммерческую организацию высшего образования \"Университет Иннополис\" из организаций, осуществляющих образовательную деятельность по образовательным программам высшего образования,"
     last_modified: "2017-08-01T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:02:55+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

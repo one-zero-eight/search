@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Оценочные и методические материалы [6._Оценочные_и_методические_материалы_ПК_Эффективный_руково]"
-description: "This document outlines the assessment methods and grading criteria for the \"Effective Manager in the Digital Transformation Era\" professional development program."
+description: "This document outlines assessment methods and criteria for the \"Effective Manager in the Digital Transformation Era\" continuing education program at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/799/yytd1x0vp7fmm5wub272cn1zovv1dusj/6._Оценочные_и_методические_материалы_ПК_Эффективный_руководитель.pdf"
-tags: ["assessment", "digital-transformation", "management", "university", "innopolis", "evaluation"]
+tags: ["innopolis", "digital-transformation", "management", "assessment", "continuing-education"]
+audience: ["staff", "management"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Оценочные и методические материалы [6._Оценочные_и_методические_материалы_ПК_Эффективный_руково]"
     last_modified: "2023-02-20T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:07:37+00:00"
 extraction: "text layer"
 status: draft

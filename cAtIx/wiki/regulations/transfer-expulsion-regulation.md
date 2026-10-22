@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Положение о порядке и основаниях перевода, отчисления и восстановления обучающихся"
-description: "This document establishes the rules and grounds for transferring, expelling, and reinstating students at Innopolis University."
+description: "Regulates the procedures and grounds for transferring, expelling, and reinstating students at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/c06/49xocpxyo6mx0dri7yd8c5y0zwdmp4pz/Положение_о_порядке_и_основаниях_перевода__отчисления_и_восстановления.pdf"
-tags: ["regulations", "innopolis-university", "student-status", "academic-policy", "russian-higher-education"]
+tags: ["innopolis", "regulations", "student", "university", "academic"]
+audience: ["student", "postgraduate", "staff", "management"]
 source_kind: official-document
 language: ru
 section: "document"
@@ -13,7 +14,7 @@ sources:
     title: "Положение о порядке и основаниях перевода, отчисления и восстановления обучающихся"
     last_modified: "2026-05-12T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T11:52:40+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

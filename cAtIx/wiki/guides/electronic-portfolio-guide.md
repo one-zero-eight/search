@@ -10,24 +10,25 @@ sources:
     last_modified: "2025-12-29T00:00:00+03:00"
 generated:
   by: "catix-wiki-synth/0.1 (model, thinking)"
-  at: "2026-10-22T15:52:37+00:00"
+  at: "2026-10-22T19:01:55+00:00"
 status: draft
-evidence_sha: "0bc25314a915cede"
+evidence_sha: "0321ed25112a8695"
+audience: ["student", "teacher", "staff"]
 ---
 
 # Managing Your Electronic Portfolio
 
-## Purpose
-The purpose of the electronic portfolio is to record and store information about significant results of the student's professional and personal development [1].
+## Purpose of the electronic portfolio
+The purpose of the electronic portfolio is the fixation and storage of information about significant results of professional and personal development of the learner [1].
 
-## Sections You Must Fill Out
-University students independently fill out the following portfolio sections [2].
-- Мои работы и рецензии (My works and reviews) allows students to present information about any works completed during or outside their studies by filling in specific fields [3]. The required fields are Название (Title), which specifies the work's name; Тип (Type), which specifies the work type such as practice, research work, project, or other work; Описание (Description), which provides a brief description of the work or research; and Файл (File), which attaches materials, articles, or research documents [3].
-- The second section allows the evaluation of any participant in the educational relationship's work by searching for the work using the participant's email address [4].
-- Достижения (Achievements) allows students to provide information about their achievements in academic, research, socially significant, cultural-creative, and sports activities [5].
+## Sections you must fill out yourself
+You independently fill out the following sections of the portfolio [2].
+- **My works and reviews:** This section allows you to present information about any works completed during or outside your studies by filling out the following fields: Title (specify the work title), Type (specify the work type: practice, research work, project, or other work), Description (specify a brief description of your work or research), and File (attach a file with materials, an article, research, etc.) [3].
+- **Evaluation section:** This section allows you to evaluate any participant in educational relations by searching for their work using their email address [4].
+- **Achievements:** This section allows you to provide information about your achievements in academic, research, socially significant, cultural-creative, and sports activities [5].
 
 ## Gaps and caveats
-The evidence does not specify deadlines for completing the sections [2][3][4][5]. The evidence does not state limits on the number of works or file sizes [3]. The evidence does not explain how the email search function operates or who can perform the evaluation [4]. The evidence does not list any other portfolio sections beyond the three mentioned [2][3][4][5]. The evidence does not specify consequences for empty or incomplete fields [3]. The evidence does not address how achievements are verified or approved [5].
+The evidence does not specify deadlines for completing the portfolio sections [2][3][4][5]. The evidence does not state whether additional sections exist that are managed by staff or generated automatically [2]. The evidence does not define the technical requirements or accepted formats for the File field [3]. The evidence does not explain how the evaluation section processes multiple reviews or handles search conflicts [4]. The evidence does not clarify what qualifies as a significant result for the portfolio's stated purpose [1]. The evidence does not reference any course-specific instructions or alternative submission pathways [2][3][4][5].
 
 ## Clauses used
 

@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "График учебных занятий на 2024/2025 учебный год"
-description: "This document is the approved academic schedule for the 2024/2025 year at Innopolis University, detailing class times for various undergraduate programs."
+description: "This document is the approved academic schedule for the 2024/2025 academic year at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/eef/7gyxepn5zk88e650001sbog45aotuse5/grafik_zanyatiy_05.08.2024.pdf"
-tags: ["schedule", "innopolis", "university", "education", "russia", "academic"]
+tags: ["schedule", "innopolis", "university", "academic-calendar", "2024"]
+audience: ["student", "teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/document"
@@ -13,7 +14,7 @@ sources:
     title: "График учебных занятий на 2024/2025 учебный год"
     last_modified: "2024-08-05T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:12:20+00:00"
 extraction: "text layer"
 status: draft

@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Информация о предоставлении особых прав и особого преимущества (по программам бакалавриата)"
-description: "This Innopolis University document outlines special admission rights and advantages for bachelor's degree applicants under the 2026/2027 regulations."
+description: "Defines special admission rights and advantages for bachelor's applicants at Innopolis University for the 2026/2027 academic year."
 resource: "https://innopolis.university/upload/iblock/854/joqrvun3ohhklngnedj0im7t5o2x4hm1/Информация_об_особых_правах_2026.docx"
 tags: ["admission", "innopolis", "bachelor", "regulations", "russia"]
+audience: ["applicant"]
 source_kind: official-document
 language: ru
 section: "sveden/apply"
@@ -13,7 +14,7 @@ sources:
     title: "Информация о предоставлении особых прав и особого преимущества (по программам бакалавриата)"
     last_modified: "2026-10-22T14:08:02+00:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:08:02+00:00"
 extraction: "text layer"
 status: draft

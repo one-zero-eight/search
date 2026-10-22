@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — 2024-2025 [Визуализация_КПСиМВП на 2024-2025 уч.год (1)]"
-description: "This document is an order approving the extracurricular educational activities calendar for Innopolis University for the 2024/2025 academic year."
+description: "This document is an official order approving the 2024-2025 extracurricular educational activities calendar for Innopolis University students."
 resource: "https://innopolis.university/upload/iblock/398/9y5lwcblku1lsz8nhyy7mauo0e29xq4b/Визуализация_КПСиМВП на 2024-2025 уч.год (1).pdf"
-tags: ["innopolis", "university", "order", "extracurricular", "calendar", "2024"]
+tags: ["innopolis", "calendar", "extracurricular", "student-support", "order"]
+audience: ["student", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — 2024-2025 [Визуализация_КПСиМВП на 2024-2025 уч.год (1)]"
     last_modified: "2026-10-22T14:02:36+00:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:02:36+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

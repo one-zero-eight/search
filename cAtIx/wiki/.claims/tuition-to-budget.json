@@ -1,9 +1,9 @@
 {
  "page": "/guides/tuition-to-budget.md",
- "evidence_sha": "6ab24073fc79b82e",
+ "evidence_sha": "c2cbc6c6fe0093e5",
  "claims": [
   {
-   "sentence": "A student enrolled under a paid education services contract may apply to move to state-funded study or study funded by the University's own funds",
+   "sentence": "To move from paid study to state-funded study, you must be a student enrolled under a contract for paid educational services",
    "cites": [
     5
    ],
@@ -18,30 +18,7 @@
    ]
   },
   {
-   "sentence": "The applicant must not have academic debts, disciplinary sanctions, or tuition fee arrears at the time of submitting the application",
-   "cites": [
-    5,
-    6
-   ],
-   "evidence": [
-    {
-     "n": 5,
-     "sha": "c293c8b6dedf",
-     "sources": [
-      "/regulations/tuition-to-budget-transfer-regulation.md"
-     ]
-    },
-    {
-     "n": 6,
-     "sha": "5a8930fce648",
-     "sources": [
-      "/regulations/tuition-to-budget-transfer-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The applicant must meet at least one of the following conditions",
+   "sentence": "You must have no academic debts, disciplinary sanctions, or unpaid tuition fees at the time of submitting your application",
    "cites": [
     5
    ],
@@ -56,7 +33,7 @@
    ]
   },
   {
-   "sentence": "Pass intermediate certification in the last academic period preceding the application with grades of \"excellent\", or \"excellent\" and \"good\", or \"good\"",
+   "sentence": "You must meet at least one of the following conditions",
    "cites": [
     5
    ],
@@ -71,7 +48,7 @@
    ]
   },
   {
-   "sentence": "Belong to one of the following categories (excluding foreign citizens unless an international treaty provides otherwise)",
+   "sentence": "You passed the intermediate certification in the last study period preceding the application with grades of \"excellent\", or \"excellent\" and \"good\", or \"good\"",
    "cites": [
     5
    ],
@@ -86,7 +63,7 @@
    ]
   },
   {
-   "sentence": "Orphans and children left without parental care, or persons from among orphans and children left without parental care",
+   "sentence": "You belong to one of the following citizen categories (excluding foreign citizens, unless an international treaty of the Russian Federation provides otherwise)",
    "cites": [
     5
    ],
@@ -101,7 +78,22 @@
    ]
   },
   {
-   "sentence": "Citizens under the age of twenty who have only one parent with disability group I, if the family's per capita income is below the subsistence minimum established in the relevant subject of the Russian Federation",
+   "sentence": "Children who are orphans or left without parental care, as well as persons from among children who are orphans or left without parental care",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "c293c8b6dedf",
+     "sources": [
+      "/regulations/tuition-to-budget-transfer-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Citizens under the age of twenty who have only one parent who is a disabled person of Group I, if the per capita income of the family is below the subsistence minimum established in the corresponding subject of the Russian Federation",
    "cites": [
     5
    ],
@@ -146,7 +138,7 @@
    ]
   },
   {
-   "sentence": "Participants of the special military operation who do not have academic debts, disciplinary sanctions, or tuition fee arrears are transferred to vacant budget places redistributed according to the Rules of redistribution of vacant places",
+   "sentence": "Participants of the special military operation who have no academic debts, disciplinary sanctions, or unpaid tuition fees are transferred to vacant budget places redistributed in accordance with the Rules for redistribution of vacant places",
    "cites": [
     6
    ],
@@ -161,7 +153,7 @@
    ]
   },
   {
-   "sentence": "They must submit an application to the University Director and a document confirming participation in the special military operation (if not already in the student's personal file)",
+   "sentence": "Such participants must submit an application to the Director of the University and a document confirming participation in the special military operation (if this document is not already in the student's personal file)",
    "cites": [
     6
    ],
@@ -176,7 +168,7 @@
    ]
   },
   {
-   "sentence": "Transitions are carried out only if there are vacant budget places funded by budget appropriations or by the University's own funds",
+   "sentence": "Vacant budget places are funded from budget appropriations or from the University's own funds",
    "cites": [
     1
    ],
@@ -191,7 +183,7 @@
    ]
   },
   {
-   "sentence": "Vacant budget places funded by budget appropriations are determined by the University as the difference between the control figures for the corresponding admission year and the actual number of students enrolled on a budget basis for the corresponding educational program and course",
+   "sentence": "The number of vacant budget places is determined by the University as the difference between the control figures for the corresponding admission year (the number of places for the first year of study) and the actual number of students enrolled at the University for the corresponding educational program, specialty, field of study, scientific specialty, and form of study for the corresponding course, at least twice a year (upon completion of the study periods allocated within the courses)",
    "cites": [
     2
    ],
@@ -206,7 +198,7 @@
    ]
   },
   {
-   "sentence": "This count is performed no less than twice a year, at the end of the academic periods allocated within courses",
+   "sentence": "The number of vacant places funded from the University's own funds is determined by an order of the Director of the University or an authorized person, taking into account the volume of budget funds allocated to educational activities for the corresponding educational programs",
    "cites": [
     2
    ],
@@ -221,7 +213,7 @@
    ]
   },
   {
-   "sentence": "The number of vacant places funded by the University's own funds is determined by the order of the University Director or authorized person, taking into account the budget volume allocated for educational activities for the corresponding programs",
+   "sentence": "If the University lacks the financial capacity, vacant places funded from the University's own funds are not allocated",
    "cites": [
     2
    ],
@@ -236,22 +228,7 @@
    ]
   },
   {
-   "sentence": "If the University lacks financial capacity, no such places are allocated",
-   "cites": [
-    2
-   ],
-   "evidence": [
-    {
-     "n": 2,
-     "sha": "8782b7f9d9ae",
-     "sources": [
-      "/regulations/tuition-to-budget-transfer-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The University ensures openness of information regarding the number of vacant budget places, the number of vacant places funded by the University's own funds, and the deadlines for submitting applications by posting this information in information and telecommunication networks, including the official University website",
+   "sentence": "The University ensures openness of information about the number of vacant budget places, the number of vacant places funded from the University's own funds, and the deadlines for submitting applications by posting this information in information and telecommunication networks, including on the official website of the University on the Internet",
    "cites": [
     4
    ],
@@ -266,7 +243,7 @@
    ]
   },
   {
-   "sentence": "The deadlines for submitting applications are established by the University after a vacant place appears",
+   "sentence": "The deadlines for submitting applications for transition are established by the University after a vacant place appears",
    "cites": [
     3
    ],
@@ -281,7 +258,7 @@
    ]
   },
   {
-   "sentence": "The student submits an application for transition to the responsible structural division addressed to the University Director, according to the form specified in the appendix to the Regulation",
+   "sentence": "To apply, you must submit an Application for Transition to the Responsible Structural Division, addressed to the Director of the University, according to the form specified in the appendix to the Regulation",
    "cites": [
     7
    ],
@@ -296,7 +273,7 @@
    ]
   },
   {
-   "sentence": "The application must be accompanied by documents confirming the student's belonging to the categories specified in subpoints \"b\" and \"v\" of clause 9 (if not already in the personal file) and documents confirming special achievements in academic, research, public, cultural-creative, or sports activities (if any)",
+   "sentence": "You must attach the following documents to the Application for Transition",
    "cites": [
     7
    ],
@@ -311,7 +288,37 @@
    ]
   },
   {
-   "sentence": "The Commission makes decisions with a quorum of at least 2/3 of its members",
+   "sentence": "Documents confirming your belonging to the categories of citizens specified in sub-clauses \"b\" and \"v\" of clause 9 of the Regulation (if these documents are not already in your personal file)",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "02486d4a2716",
+     "sources": [
+      "/regulations/tuition-to-budget-transfer-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Documents confirming special achievements in academic, research, public, cultural-creative, and sports activities of the University (if any)",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "02486d4a2716",
+     "sources": [
+      "/regulations/tuition-to-budget-transfer-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The Commission makes decisions with the presence of at least 2/3 of its composition",
    "cites": [
     8
    ],
@@ -326,7 +333,7 @@
    ]
   },
   {
-   "sentence": "Decisions are made by open voting and are considered adopted if a majority (50% + 1 vote) of those present vote in favor",
+   "sentence": "Decisions are made by open voting",
    "cites": [
     8
    ],
@@ -341,7 +348,7 @@
    ]
   },
   {
-   "sentence": "The decision is recorded in a protocol",
+   "sentence": "A decision is considered adopted if more than half (50% + 1 vote) of those present at the meeting voted for it",
    "cites": [
     8
    ],
@@ -356,7 +363,22 @@
    ]
   },
   {
-   "sentence": "The Commission considers the application, attached documents, and information within a period of no more than 10 calendar days from the date of receipt of the application",
+   "sentence": "The Commission's decision is recorded in the form of a protocol",
+   "cites": [
+    8
+   ],
+   "evidence": [
+    {
+     "n": 8,
+     "sha": "8483bcb215cc",
+     "sources": [
+      "/regulations/tuition-to-budget-transfer-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Within 10 calendar days from the date of receipt of the Application for Transition by the Commission, the Commission considers the application, attached documents, and information, and makes one of the following decisions",
    "cites": [
     9
    ],
@@ -371,7 +393,7 @@
    ]
   },
   {
-   "sentence": "The Commission issues one of three decisions: transition to a vacant budget place, transition to study funded by the University's own funds, or refusal of transition",
+   "sentence": "About the transition of the Student from paid study to study at a vacant budget place",
    "cites": [
     9
    ],
@@ -386,7 +408,37 @@
    ]
   },
   {
-   "sentence": "The decision to transition to a vacant budget place is made by the Commission taking into account the number of vacant budget places and priorities established by the Commission in accordance with clauses 13 and 14 of the Regulation",
+   "sentence": "About the transition of the Student from paid study to study at the expense of the University's own funds",
+   "cites": [
+    9
+   ],
+   "evidence": [
+    {
+     "n": 9,
+     "sha": "975ee6ded005",
+     "sources": [
+      "/regulations/tuition-to-budget-transfer-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "About refusal to transition the Student from paid study to study at the expense of budget appropriations or the University's own funds",
+   "cites": [
+    9
+   ],
+   "evidence": [
+    {
+     "n": 9,
+     "sha": "975ee6ded005",
+     "sources": [
+      "/regulations/tuition-to-budget-transfer-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The decision to transition a Student from paid study to study at the expense of budget appropriations is made by the Commission taking into account the number of vacant budget places and priorities established by the Commission in accordance with clauses 13 and 14 of the Regulation",
    "cites": [
     10
    ],
@@ -401,7 +453,7 @@
    ]
   },
   {
-   "sentence": "The evidence does not specify the exact deadlines for submitting applications, stating only that they are set by the University after a vacancy appears",
+   "sentence": "The evidence does not specify the exact deadlines for submitting applications, stating only that they are established by the University after a vacant place appears",
    "cites": [
     3
    ],
@@ -416,7 +468,22 @@
    ]
   },
   {
-   "sentence": "The evidence does not define the specific priorities used by the Commission to decide between applicants, referring only to clauses 13 and 14 which are not provided",
+   "sentence": "The evidence does not specify the exact number of vacant budget places, stating only that they are determined by the University at least twice a year",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "8782b7f9d9ae",
+     "sources": [
+      "/regulations/tuition-to-budget-transfer-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify the priorities established by the Commission, referring only to clauses 13 and 14 of the Regulation, which are not provided in the evidence",
    "cites": [
     10
    ],
@@ -431,19 +498,11 @@
    ]
   },
   {
-   "sentence": "The evidence does not specify the composition of the Commission or the responsible structural division",
+   "sentence": "The evidence does not specify the form of the Application for Transition, referring only to an appendix to the Regulation, which is not provided in the evidence",
    "cites": [
-    8,
     7
    ],
    "evidence": [
-    {
-     "n": 8,
-     "sha": "8483bcb215cc",
-     "sources": [
-      "/regulations/tuition-to-budget-transfer-regulation.md"
-     ]
-    },
     {
      "n": 7,
      "sha": "02486d4a2716",
@@ -454,7 +513,52 @@
    ]
   },
   {
-   "sentence": "The evidence does not state what happens after the clause continues in E5 regarding the loss of the student",
+   "sentence": "The evidence does not specify the Responsible Structural Division, referring only to its name, which is not provided in the evidence",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "02486d4a2716",
+     "sources": [
+      "/regulations/tuition-to-budget-transfer-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify the criteria for determining the \"actual number of students\" or the \"control figures,\" referring only to their definition in clause 2, which is provided",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "8782b7f9d9ae",
+     "sources": [
+      "/regulations/tuition-to-budget-transfer-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify the procedure for redistributing vacant places for participants of the special military operation, referring only to a Government Resolution, which is not provided in the evidence",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "5a8930fce648",
+     "sources": [
+      "/regulations/tuition-to-budget-transfer-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify the categories of citizens in clause 9, sub-clause \"v\", as the clause is cut off",
    "cites": [
     5
    ],
@@ -462,21 +566,6 @@
     {
      "n": 5,
      "sha": "c293c8b6dedf",
-     "sources": [
-      "/regulations/tuition-to-budget-transfer-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not provide the form of the application or the list of special achievements",
-   "cites": [
-    7
-   ],
-   "evidence": [
-    {
-     "n": 7,
-     "sha": "02486d4a2716",
      "sources": [
       "/regulations/tuition-to-budget-transfer-regulation.md"
      ]

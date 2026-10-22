@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — 2025-2026 (документ подписан ПЭП) [Визуализация_Приказ_Календарный_график_2025-2026__магистрату]"
-description: "This order approves the academic calendar for the 2025-2026 year at Innopolis University for bachelor, master, and postgraduate programs."
+description: "This order approves the academic calendar for the 2025-2026 year at Innopolis University for bachelor, master, and postgraduate students."
 resource: "https://innopolis.university/upload/iblock/430/evsxtnwvvis1zlq8c71p10qre090a4oe/Визуализация_Приказ_Календарный_график_2025-2026__магистратура__подписано_ЭЦП.pdf"
-tags: ["calendar", "innopolis", "education", "order", "2025"]
+tags: ["calendar", "innopolis", "university", "academic-schedule", "russia"]
+audience: ["student", "postgraduate", "teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — 2025-2026 (документ подписан ПЭП) [Визуализация_Приказ_Календарный_график_2025-2026__магистрату]"
     last_modified: "2025-06-24T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:04:11+00:00"
 extraction: "text layer"
 status: draft

@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Аннотации к рабочим программам дисциплин [Аннотация. Внедрение]"
-description: "This document is an annotation for a professional development course on integrating digital technologies into educational programs at Innopolis University."
+description: "This document is an annotation for a continuing education course on implementing digital technologies in educational programs at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/6a0/kuo9z983u8swxcpg6wmlfnyiynults36/Аннотация. Внедрение.pdf"
-tags: ["innopolis", "digital-transformation", "education", "robotics", "computer-vision", "professional-development"]
+tags: ["innopolis", "digital-transformation", "education", "continuing-education", "healthcare"]
+audience: ["teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Аннотации к рабочим программам дисциплин [Аннотация. Внедрение]"
     last_modified: "2026-10-22T14:16:57+00:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:16:57+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

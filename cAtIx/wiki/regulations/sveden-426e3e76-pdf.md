@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Положение об адаптированных образовательных программах высшего образования в АНО ВО \"Университет Иннополис\","
-description: "This document is a university order approving regulations for adapted higher education programs for students with disabilities."
+description: "This document establishes the regulations for adapted higher education programs for students with disabilities at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/0d6/Приказ_об_утверждении_положения_об_адаптированных_ОП.pdf"
-tags: ["order", "regulations", "university", "disabilities", "higher-education"]
+tags: ["innopolis", "disability", "regulations", "higher-education", "russia"]
+audience: ["student", "staff", "public"]
 source_kind: official-document
 language: ru
 section: "sveden/document"
@@ -13,7 +14,7 @@ sources:
     title: "Положение об адаптированных образовательных программах высшего образования в АНО ВО \"Университет Иннополис\","
     last_modified: "2012-12-29T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T13:57:52+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

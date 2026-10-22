@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Положение о профилактике заболеваний и оздоровления обучающихся, о создании условий для занятия ими физической культурой и спортом в АНО ВО \"Университет Иннополис\","
-description: "This order approves regulations for disease prevention, student health, and sports facilities at Innopolis University."
+description: "This document establishes regulations for disease prevention, student health, and sports facilities at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/b2b/Положение о профилактике заболеваний.pdf"
-tags: ["health", "sports", "university", "innopolis", "regulations"]
+tags: ["health", "sports", "university", "regulations", "innopolis"]
+audience: ["student", "staff", "management"]
 source_kind: official-document
 language: ru
 section: "sveden/document"
@@ -13,7 +14,7 @@ sources:
     title: "Положение о профилактике заболеваний и оздоровления обучающихся, о создании условий для занятия ими физической культурой и спортом в АНО ВО \"Университет Иннополис\","
     last_modified: "2006-12-18T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:19:36+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

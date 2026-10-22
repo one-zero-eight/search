@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Учебный план [2._Учебный_план_ПК_Технологии_цифровой_трансформации]"
-description: "This document is the curriculum for a 24-hour professional development program on digital transformation technologies at Innopolis University."
+description: "This document outlines the curriculum for a 24-hour professional development course on digital transformation technologies at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/44b/yj8usmynrjye21lr2g14sqoswuvreulb/2._Учебный_план_ПК_Технологии_цифровой_трансформации.pdf"
-tags: ["digital-transformation", "curriculum", "innopolis", "professional-development", "higher-education"]
+tags: ["professional-development", "digital-transformation", "innopolis", "curriculum", "continuing-education"]
+audience: ["staff", "public"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Учебный план [2._Учебный_план_ПК_Технологии_цифровой_трансформации]"
     last_modified: "2023-04-24T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:04:15+00:00"
 extraction: "text layer"
 status: draft

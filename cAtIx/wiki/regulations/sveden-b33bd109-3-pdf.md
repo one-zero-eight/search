@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Рабочая программа учебных предметов, курсов, дисциплин (модулей) [3._Рабочая_программа_учебных_предметов__курсов__дисциплин__м]"
-description: "This document outlines the curriculum for a digital transformation leadership qualification program, detailing topics like AI, Big Data, and digital economy in education."
+description: "This document outlines the curriculum for a professional development course on digital transformation leadership."
 resource: "https://innopolis.university/upload/iblock/efc/0es8pr91ll4szesmq0p070man3qu0tre/3._Рабочая_программа_учебных_предметов__курсов__дисциплин__модулей__ПК_Эффективный_руководитель.pdf"
-tags: ["digital-transformation", "education", "curriculum", "ai", "big-data", "leadership"]
+tags: ["management", "digital", "education", "curriculum", "leadership"]
+audience: ["staff", "management"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Рабочая программа учебных предметов, курсов, дисциплин (модулей) [3._Рабочая_программа_учебных_предметов__курсов__дисциплин__м]"
     last_modified: "2026-10-22T14:12:21+00:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:12:21+00:00"
 extraction: "text layer"
 status: draft

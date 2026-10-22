@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Положение о порядке разработки и утверждения образовательных программ высшего образования – программ бакалавриата и программ магистратуры автономной некоммерческой организации высшего образования «Университет Иннополис» (документ подписан простой электронной подписью)"
-description: "This document establishes the rules for developing and approving bachelor's and master's degree programs at Innopolis University."
+description: "Regulates the development and approval procedures for bachelor and master educational programs at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/d75/0rmd0vc9zfs5l07itpkhimh1seueouyp/polozh_razrabotka_op_bakmag_02.08.2022.pdf"
-tags: ["regulations", "innopolis-university", "higher-education", "bachelor", "master", "academic-policy"]
+tags: ["regulations", "innopolis", "education", "bachelor", "master", "university"]
+audience: ["staff", "management"]
 source_kind: official-document
 language: ru
 section: "sveden/document"
@@ -13,7 +14,7 @@ sources:
     title: "Положение о порядке разработки и утверждения образовательных программ высшего образования – программ бакалавриата и программ магистратуры автономной некоммерческой организации высшего образования «Университет Иннополис» (документ подписан простой электронной подписью)"
     last_modified: "2022-08-02T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:11:08+00:00"
 extraction: "text layer"
 status: draft

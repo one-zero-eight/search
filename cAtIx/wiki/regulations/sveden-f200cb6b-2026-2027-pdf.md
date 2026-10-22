@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — 2026-2027 (документ подписан ПЭП) [КУГ_2026-2027__магистратура_]"
-description: "This document is an order from Innopolis University amending the academic calendar for the 2026-2027 academic year."
+description: "This document is an official order from Innopolis University amending the academic calendar for the 2026-2027 academic year."
 resource: "https://innopolis.university/upload/iblock/48e/7dvvgfu27cgqodyupehippjtac33qtq1/КУГ_2026-2027__магистратура_.pdf"
-tags: ["innopolis", "academic-calendar", "order", "university", "education", "russia"]
+tags: ["order", "innopolis", "calendar", "university", "russia"]
+audience: ["staff", "management"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — 2026-2027 (документ подписан ПЭП) [КУГ_2026-2027__магистратура_]"
     last_modified: "2025-09-22T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:04:28+00:00"
 extraction: "text layer"
 status: draft

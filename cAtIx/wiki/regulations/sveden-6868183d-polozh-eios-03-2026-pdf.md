@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "ПРАВИЛА ПРИЕМА НА ОБУЧЕНИЕ ПО ОБРАЗОВАТЕЛЬНЫМ ПРОГРАММАМ ВЫСШЕГО ОБРАЗОВАНИЯ – ПРОГРАММАМ БАКАЛАВРИАТА И ПРОГРАММАМ МАГИСТРАТУРЫ В АНО ВО «У — Положение об электронной информационно-образовательной среде АНО ВО «Университет Иннополис» (документ подписан простой электронной подписью)"
-description: "This document establishes the regulations for the electronic information and educational environment at Innopolis University."
+description: "Regulates the electronic educational environment at Innopolis University for students and staff."
 resource: "https://innopolis.university/upload/iblock/d0f/usvt3xdaruufr1z2d7jkmgpr150wtqht/polozh_eios_03.2026.pdf"
-tags: ["innopolis", "e-learning", "university", "regulations", "digital-education"]
+tags: ["innopolis", "e-learning", "regulations", "university", "digital-education"]
+audience: ["student", "teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/document"
@@ -13,7 +14,7 @@ sources:
     title: "ПРАВИЛА ПРИЕМА НА ОБУЧЕНИЕ ПО ОБРАЗОВАТЕЛЬНЫМ ПРОГРАММАМ ВЫСШЕГО ОБРАЗОВАНИЯ – ПРОГРАММАМ БАКАЛАВРИАТА И ПРОГРАММАМ МАГИСТРАТУРЫ В АНО ВО «У — Положение об электронной информационно-образовательной среде АНО ВО «Университет Иннополис» (документ подписан простой электронной подписью)"
     last_modified: "2025-12-29T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:10:52+00:00"
 extraction: "text layer"
 status: draft

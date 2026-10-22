@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Положение о формах, периодичности и порядке проведения текущего контроля успеваемости и промежуточной аттестации (бакалавриат и магистратура)"
-description: "This order approves the regulations for monitoring student progress and conducting interim assessments for bachelor and master programs at Innopolis University."
+description: "This order approves the regulations for current academic performance monitoring and interim assessment for bachelor and master students at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/bd2/y363qvj8ag33j0wotva5qullyxlyjc9g/Положение%20о%20формах,%20периодичности%20и%20порядке%20проведения%20текущего%20контроля%20успеваемости.pdf"
-tags: ["innopolis", "education", "regulation", "assessment", "university", "order"]
+tags: ["innopolis", "regulation", "assessment", "higher-education", "order"]
+audience: ["student", "postgraduate", "teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "document"
@@ -13,7 +14,7 @@ sources:
     title: "Положение о формах, периодичности и порядке проведения текущего контроля успеваемости и промежуточной аттестации (бакалавриат и магистратура)"
     last_modified: "2012-12-29T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T11:51:30+00:00"
 extraction: "text layer"
 status: draft

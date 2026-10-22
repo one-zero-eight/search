@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Рабочая программа учебных предметов, курсов, дисциплин (модулей) [3._Рабочая_программа_учебных_предметов__курсов__дисциплин__м]"
-description: "This document is the syllabus for a professional development course on data methods and tools at Innopolis University."
+description: "This document outlines the curriculum for a data science professional development course at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/89a/0gw410xjy405ke77evzmscandd2nqg6x/3._Рабочая_программа_учебных_предметов__курсов__дисциплин__модулей__ПК_Методы_и_инструменты_работы_с_данными.pdf"
-tags: ["innopolis", "syllabus", "data-science", "professional-development", "russia"]
+tags: ["innopolis", "data-science", "professional-development", "curriculum", "higher-education"]
+audience: ["teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Рабочая программа учебных предметов, курсов, дисциплин (модулей) [3._Рабочая_программа_учебных_предметов__курсов__дисциплин__м]"
     last_modified: "2022-12-19T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:08:12+00:00"
 extraction: "text layer"
 status: draft

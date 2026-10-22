@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "15.04.06 Мехатроника и робототехника"
-description: "This Russian Ministry of Science and Higher Education order approves the federal state educational standard for master's degree programs in Mechatronics and Robotics."
+description: "This document establishes the federal state educational standard for the Master's degree program in Mechatronics and Robotics in Russia."
 resource: "https://innopolis.university/upload/iblock/edf/u91otanks2q6nmb5kg6f63e5n2olb7gl/fgos_15.04.06.pdf"
-tags: ["education", "standard", "mechatronics", "robotics", "master", "russia"]
+tags: ["mechatronics", "robotics", "master", "education", "russia", "standard"]
+audience: ["postgraduate", "applicant", "teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/eduStandarts"
@@ -13,7 +14,7 @@ sources:
     title: "15.04.06 Мехатроника и робототехника"
     last_modified: "2020-08-14T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:12:18+00:00"
 extraction: "text layer"
 status: draft

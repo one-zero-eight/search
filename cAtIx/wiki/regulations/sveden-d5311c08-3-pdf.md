@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Рабочая программа учебных предметов, курсов, дисциплин (модулей) [3._Рабочая_программа_учебных_предметов__курсов__дисциплин__м]"
-description: "This document is the curriculum for a professional retraining program in software engineering at Innopolis University."
+description: "This document is the syllabus for a professional retraining program in Software Engineering and new development technologies at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/a8a/fo2y4tbr2w6t3q8b3vgzidgg7zgnn8s3/3._Рабочая_программа_учебных_предметов__курсов__дисциплин__модулей__ПП_Программная_инженерия_и_новые_технологии_разраб.pdf"
-tags: ["innopolis", "curriculum", "software-engineering", "retraining", "education"]
+tags: ["syllabus", "innopolis", "software-engineering", "retraining", "pedagogy"]
+audience: ["teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Рабочая программа учебных предметов, курсов, дисциплин (модулей) [3._Рабочая_программа_учебных_предметов__курсов__дисциплин__м]"
     last_modified: "2023-02-13T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:08:58+00:00"
 extraction: "text layer"
 status: draft

@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Правила приема на обучение по образовательным программам высшего образования – программам бакалавриата и программам магистратуры в АНО ВО «Университет Иннополис» на 2024/2025 учебный год"
-description: "This document outlines the admission rules for bachelor's and master's programs at Innopolis University for the 2024/2025 academic year."
+description: "Regulates admission procedures for bachelor and master programs at Innopolis University for the 2024/2025 academic year."
 resource: "https://innopolis.university/upload/iblock/4c7/v4e3tbh8i5jpg41sc5txrouf17xwf61w/pravila_priema_bakmag_15.01.2024.pdf"
-tags: ["admission", "innopolis", "university", "rules", "2024"]
+tags: ["admission", "innopolis", "university", "regulations", "higher-education"]
+audience: ["student", "applicant"]
 source_kind: official-document
 language: ru
 section: "sveden/objects"
@@ -13,7 +14,7 @@ sources:
     title: "Правила приема на обучение по образовательным программам высшего образования – программам бакалавриата и программам магистратуры в АНО ВО «Университет Иннополис» на 2024/2025 учебный год"
     last_modified: "2012-12-29T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:05:57+00:00"
 extraction: "text layer"
 status: draft

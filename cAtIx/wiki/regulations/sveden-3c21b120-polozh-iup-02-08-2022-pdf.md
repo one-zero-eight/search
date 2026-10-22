@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Положение об обучении по индивидуальному учебному плану в автономной некоммерческой организации высшего образования «Университет Иннополис» по образовательным программам высшего образования – программам бакалавриата, программам магистратуры и программам подготовки научных и научно-педагогических кадров в аспирантуре (документ подписан простой электронной подписью)"
-description: "This document establishes the regulations for studying under an individual educational plan at Innopolis University for bachelor, master, and graduate programs."
+description: "Regulates the conditions and procedures for students to study under an individual educational plan at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/8e2/squtf3qtrotjf02414cfn476np4zem0e/polozh_iup_02.08.2022.pdf"
-tags: ["innopolis", "education", "regulation", "individual-plan", "university-policy"]
+tags: ["innopolis", "regulation", "individual-study-plan", "higher-education", "university-rules"]
+audience: ["student", "postgraduate", "applicant", "teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/document"
@@ -13,7 +14,7 @@ sources:
     title: "Положение об обучении по индивидуальному учебному плану в автономной некоммерческой организации высшего образования «Университет Иннополис» по образовательным программам высшего образования – программам бакалавриата, программам магистратуры и программам подготовки научных и научно-педагогических кадров в аспирантуре (документ подписан простой электронной подписью)"
     last_modified: "2022-08-02T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:08:22+00:00"
 extraction: "text layer"
 status: draft

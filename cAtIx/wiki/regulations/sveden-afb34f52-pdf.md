@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Календарный учебный график [календарный график]"
-description: "This document is the academic calendar for a master's program in robotics and computer vision at Innopolis University."
+description: "This document is a calendar academic schedule for a professional development course on web development technologies at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/9ca/3jzy1xl7p2zsxq7b6kf0qqvah3zbkqdy/календарный график.pdf"
-tags: ["innopolis", "calendar", "master", "robotics", "schedule"]
+tags: ["schedule", "innopolis", "web-development", "training", "calendar"]
+audience: ["staff"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Календарный учебный график [календарный график]"
     last_modified: "2026-10-22T14:18:34+00:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:18:34+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

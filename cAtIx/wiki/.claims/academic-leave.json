@@ -1,9 +1,9 @@
 {
  "page": "/guides/academic-leave.md",
- "evidence_sha": "392cb7471b718616",
+ "evidence_sha": "a0a978e3077b13f8",
  "claims": [
   {
-   "sentence": "Academic leave is available to students and postgraduate students enrolled in basic professional educational programs at the University",
+   "sentence": "Academic leave is available to students and postgraduate students enrolled in the University’s main professional educational programs",
    "cites": [
     1
    ],
@@ -63,7 +63,7 @@
    ]
   },
   {
-   "sentence": "The standard duration of academic leave is up to 12 calendar months at one time",
+   "sentence": "The leave is granted for a single period not exceeding 12 calendar months",
    "cites": [
     2
    ],
@@ -78,10 +78,9 @@
    ]
   },
   {
-   "sentence": "However, for leave taken due to military service or medical indications, the duration may not exceed two years",
+   "sentence": "However, if the leave is due to military service or medical indications, the period may not exceed two years",
    "cites": [
-    2,
-    7
+    2
    ],
    "evidence": [
     {
@@ -90,21 +89,13 @@
      "sources": [
       "/regulations/academic-leave-regulation.md"
      ]
-    },
-    {
-     "n": 7,
-     "sha": "ef2d1a9840fb",
-     "sources": [
-      "/regulations/enrollment-procedure-order.md"
-     ]
     }
    ]
   },
   {
-   "sentence": "There is no limit on the number of times academic leave can be granted to a student during their studies",
+   "sentence": "You may be granted academic leave an unlimited number of times during your studies",
    "cites": [
-    2,
-    8
+    2
    ],
    "evidence": [
     {
@@ -113,49 +104,11 @@
      "sources": [
       "/regulations/academic-leave-regulation.md"
      ]
-    },
-    {
-     "n": 8,
-     "sha": "6cfc30408448",
-     "sources": [
-      "/regulations/enrollment-procedure-order.md"
-     ]
     }
    ]
   },
   {
-   "sentence": "To request academic leave, the student must submit a personal application to the University Director",
-   "cites": [
-    1,
-    3,
-    8
-   ],
-   "evidence": [
-    {
-     "n": 1,
-     "sha": "f7e900a93b94",
-     "sources": [
-      "/regulations/academic-leave-regulation.md"
-     ]
-    },
-    {
-     "n": 3,
-     "sha": "1635cc40fe4e",
-     "sources": [
-      "/regulations/academic-leave-regulation.md"
-     ]
-    },
-    {
-     "n": 8,
-     "sha": "6cfc30408448",
-     "sources": [
-      "/regulations/enrollment-procedure-order.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The application form is specified in Appendix 1 to the Regulation",
+   "sentence": "To apply, you must submit a personal application to the University Director",
    "cites": [
     3
    ],
@@ -170,51 +123,12 @@
    ]
   },
   {
-   "sentence": "For medical indications: a medical conclusion issued by a healthcare organization within the state or municipal health system",
+   "sentence": "The application must use the form specified in Appendix 1 to the Regulation",
    "cites": [
-    1,
-    3,
-    8
-   ],
-   "evidence": [
-    {
-     "n": 1,
-     "sha": "f7e900a93b94",
-     "sources": [
-      "/regulations/academic-leave-regulation.md"
-     ]
-    },
-    {
-     "n": 3,
-     "sha": "1635cc40fe4e",
-     "sources": [
-      "/regulations/academic-leave-regulation.md"
-     ]
-    },
-    {
-     "n": 8,
-     "sha": "6cfc30408448",
-     "sources": [
-      "/regulations/enrollment-procedure-order.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "For military service: a mobilization notice, order, or summons from the military commissariat containing the time and place of dispatch to the place of military service, and a copy of the contract for military service in the Armed Forces of the Russian Federation, certified in the manner established by Russian legislation",
-   "cites": [
-    1,
     3
    ],
    "evidence": [
     {
-     "n": 1,
-     "sha": "f7e900a93b94",
-     "sources": [
-      "/regulations/academic-leave-regulation.md"
-     ]
-    },
-    {
      "n": 3,
      "sha": "1635cc40fe4e",
      "sources": [
@@ -224,38 +138,52 @@
    ]
   },
   {
-   "sentence": "For other exceptional cases: other documents confirming the grounds for the leave, if available",
+   "sentence": "Medical indications:** A medical conclusion issued by a healthcare organization within the state or municipal health system",
    "cites": [
-    1,
-    3,
-    8
+    3
    ],
    "evidence": [
     {
-     "n": 1,
-     "sha": "f7e900a93b94",
+     "n": 3,
+     "sha": "1635cc40fe4e",
      "sources": [
       "/regulations/academic-leave-regulation.md"
      ]
-    },
+    }
+   ]
+  },
+  {
+   "sentence": "Military service:** A mobilization notice, order, or summons from the military commissariat containing the time and place of dispatch to the place of military service, and a copy of the contract for military service in the Armed Forces of the Russian Federation, certified in the manner established by Russian legislation",
+   "cites": [
+    3
+   ],
+   "evidence": [
     {
      "n": 3,
      "sha": "1635cc40fe4e",
      "sources": [
       "/regulations/academic-leave-regulation.md"
      ]
-    },
+    }
+   ]
+  },
+  {
+   "sentence": "Other cases:** Other documents confirming the grounds for the leave, if available",
+   "cites": [
+    3
+   ],
+   "evidence": [
     {
-     "n": 8,
-     "sha": "6cfc30408448",
+     "n": 3,
+     "sha": "1635cc40fe4e",
      "sources": [
-      "/regulations/enrollment-procedure-order.md"
+      "/regulations/academic-leave-regulation.md"
      ]
     }
    ]
   },
   {
-   "sentence": "The decision to grant academic leave is made by the University Director or an authorized official within 10 days from the date of receiving the application and attached documents",
+   "sentence": "The University Director or an authorized official makes the decision on granting the leave",
    "cites": [
     9
    ],
@@ -270,7 +198,22 @@
    ]
   },
   {
-   "sentence": "The leave is formalized by an order issued by the University Head no later than 5 working days from the date the decision to grant the leave is made",
+   "sentence": "This decision must be made within 10 days from the day the University receives your application and attached documents",
+   "cites": [
+    9
+   ],
+   "evidence": [
+    {
+     "n": 9,
+     "sha": "3fdb79675bcd",
+     "sources": [
+      "/regulations/enrollment-procedure-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The granting of the leave is formalized by an order issued by the University Head no later than 5 working days from the day the decision to grant the leave is made",
    "cites": [
     4
    ],
@@ -285,22 +228,7 @@
    ]
   },
   {
-   "sentence": "During the academic leave, the student is released from obligations related to mastering the educational program and is not admitted to the educational process until the leave ends",
-   "cites": [
-    10
-   ],
-   "evidence": [
-    {
-     "n": 10,
-     "sha": "e2614a6cbd6b",
-     "sources": [
-      "/regulations/enrollment-procedure-order.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "Educational relations are suspended during this period",
+   "sentence": "Your educational relations are suspended while you are on academic leave",
    "cites": [
     6
    ],
@@ -315,7 +243,7 @@
    ]
   },
   {
-   "sentence": "If the student is enrolled under a contract, tuition fees are not charged during the academic leave",
+   "sentence": "You are released from obligations related to mastering the educational program and are not admitted to the educational process until the leave ends",
    "cites": [
     10
    ],
@@ -330,19 +258,11 @@
    ]
   },
   {
-   "sentence": "Academic leave ends upon the expiration of the period for which it was granted, or earlier based on the student's application",
+   "sentence": "If you study under a contract, tuition fees are not charged during the academic leave",
    "cites": [
-    5,
     10
    ],
    "evidence": [
-    {
-     "n": 5,
-     "sha": "aec84556dd45",
-     "sources": [
-      "/regulations/academic-leave-regulation.md"
-     ]
-    },
     {
      "n": 10,
      "sha": "e2614a6cbd6b",
@@ -353,7 +273,7 @@
    ]
   },
   {
-   "sentence": "The application form for early termination is specified in Appendix 4 to the order",
+   "sentence": "The leave ends when the granted period expires",
    "cites": [
     5
    ],
@@ -368,7 +288,7 @@
    ]
   },
   {
-   "sentence": "If the leave ends early, the student is admitted to studies based on an order from the University Head",
+   "sentence": "You may also end it early by submitting a personal application",
    "cites": [
     5
    ],
@@ -383,35 +303,12 @@
    ]
   },
   {
-   "sentence": "Upon completion of the leave, the student is admitted to studies based on an order from the University Director or an authorized official",
+   "sentence": "If you return early, you are admitted to studies based on an order from the University Head",
    "cites": [
-    10
-   ],
-   "evidence": [
-    {
-     "n": 10,
-     "sha": "e2614a6cbd6b",
-     "sources": [
-      "/regulations/enrollment-procedure-order.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the exact content or submission method for Appendix 1 or Appendix 4",
-   "cites": [
-    3,
     5
    ],
    "evidence": [
     {
-     "n": 3,
-     "sha": "1635cc40fe4e",
-     "sources": [
-      "/regulations/academic-leave-regulation.md"
-     ]
-    },
-    {
      "n": 5,
      "sha": "aec84556dd45",
      "sources": [
@@ -421,34 +318,11 @@
    ]
   },
   {
-   "sentence": "The evidence does not define what constitutes \"other exceptional cases\" beyond natural disasters and family circumstances",
+   "sentence": "If the leave ends naturally, you are admitted to studies based on an order from the University Director or an authorized official",
    "cites": [
-    1
-   ],
-   "evidence": [
-    {
-     "n": 1,
-     "sha": "f7e900a93b94",
-     "sources": [
-      "/regulations/academic-leave-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the procedure for resuming studies if the leave was granted for medical reasons and the student needs to provide a new medical certificate upon return, only stating that admission is based on an order",
-   "cites": [
-    5,
     10
    ],
    "evidence": [
-    {
-     "n": 5,
-     "sha": "aec84556dd45",
-     "sources": [
-      "/regulations/academic-leave-regulation.md"
-     ]
-    },
     {
      "n": 10,
      "sha": "e2614a6cbd6b",
@@ -459,24 +333,16 @@
    ]
   },
   {
-   "sentence": "The evidence does not specify what happens to academic progress or grades accrued before the leave",
+   "sentence": "The evidence does not specify what happens to academic progress, grades, or credits earned during the leave. The evidence does not define what constitutes \"other exceptional cases\" or \"family circumstances\" beyond the general listing. The evidence does not specify the exact form of the application for early return, only that it is a personal application",
    "cites": [
-    6,
-    10
+    5
    ],
    "evidence": [
     {
-     "n": 6,
-     "sha": "98117faf0e7c",
+     "n": 5,
+     "sha": "aec84556dd45",
      "sources": [
-      "/regulations/enrollment-procedure-order.md"
-     ]
-    },
-    {
-     "n": 10,
-     "sha": "e2614a6cbd6b",
-     "sources": [
-      "/regulations/enrollment-procedure-order.md"
+      "/regulations/academic-leave-regulation.md"
      ]
     }
    ]

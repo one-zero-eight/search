@@ -1,9 +1,69 @@
 {
  "page": "/guides/financial-aid-and-scholarships.md",
- "evidence_sha": "8940c5b3ee24224c",
+ "evidence_sha": "295d03cc3a5fd4b3",
  "claims": [
   {
-   "sentence": "The grant competition is open annually from October 1 of the year preceding admission to August 10 of the admission year",
+   "sentence": "You must hold citizenship of a country outside the Commonwealth of Independent States to participate in the competition",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "fe17f292d277",
+     "sources": [
+      "/regulations/sveden-9d0974a5-1-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must be in the final year of secondary education, a graduate of secondary vocational education (for bachelor's programs), or a current student or graduate of higher education (for master's programs)",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "fe17f292d277",
+     "sources": [
+      "/regulations/sveden-9d0974a5-1-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Your education documents must be legalized according to Russian law and translated into Russian unless an international treaty states otherwise",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "fe17f292d277",
+     "sources": [
+      "/regulations/sveden-9d0974a5-1-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You cannot participate if you were or are a student in",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "fe17f292d277",
+     "sources": [
+      "/regulations/sveden-9d0974a5-1-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The competition runs annually from 1 October of the year before admission to 10 August of the admission year",
    "cites": [
     2
    ],
@@ -18,14 +78,14 @@
    ]
   },
   {
-   "sentence": "It is for foreign citizens from countries not belonging to the Commonwealth of Independent States (CIS) who are in their final year of secondary education, have graduated from secondary education, or are students/graduates of secondary vocational education (for bachelor's programs) or higher education (for master's programs)",
+   "sentence": "Grants cover tuition starting from the academic year following the competition",
    "cites": [
-    1
+    2
    ],
    "evidence": [
     {
-     "n": 1,
-     "sha": "fe17f292d277",
+     "n": 2,
+     "sha": "4fbaf9f7200c",
      "sources": [
       "/regulations/sveden-9d0974a5-1-pdf.md"
      ]
@@ -33,37 +93,7 @@
    ]
   },
   {
-   "sentence": "Educational documents must be legalized according to Russian legislation and translated into Russian unless an international treaty provides otherwise",
-   "cites": [
-    1
-   ],
-   "evidence": [
-    {
-     "n": 1,
-     "sha": "fe17f292d277",
-     "sources": [
-      "/regulations/sveden-9d0974a5-1-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "Individuals who are or were enrolled in certain programs are not admitted to the competition",
-   "cites": [
-    1
-   ],
-   "evidence": [
-    {
-     "n": 1,
-     "sha": "fe17f292d277",
-     "sources": [
-      "/regulations/sveden-9d0974a5-1-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "Participants may enter the competition no more than once per year",
+   "sentence": "You may participate only once per year",
    "cites": [
     8
    ],
@@ -78,7 +108,7 @@
    ]
   },
   {
-   "sentence": "The first stage involves online registration and testing on the Official Website during dates set by the Organizer",
+   "sentence": "Stage one requires you to register on the Official Website and pass an online test",
    "cites": [
     3
    ],
@@ -93,7 +123,7 @@
    ]
   },
   {
-   "sentence": "To participate, a candidate must register on the Official Website, pass online testing, and provide specific documents and information",
+   "sentence": "You must submit a completed questionnaire, a motivation letter in English, a portfolio in English, copies of your education certificates or diplomas, an English proficiency certificate if available, and a signed consent to data processing",
    "cites": [
     4
    ],
@@ -108,22 +138,7 @@
    ]
   },
   {
-   "sentence": "Required submissions include: a completed online questionnaire with personal details, education history, and program information; a motivation letter in English; an English-language portfolio of achievements; copies of the secondary education certificate or vocational diploma (for bachelor's applicants); copies of the higher education diploma (for master's applicants, if available); an English language proficiency certificate (if available); and a signed consent for personal data processing",
-   "cites": [
-    4
-   ],
-   "evidence": [
-    {
-     "n": 4,
-     "sha": "7ab62c4d6cbf",
-     "sources": [
-      "/regulations/sveden-9d0974a5-1-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The passing score for the first stage is 45% correct answers for the English language test (for bachelor's) and 50% for the master's program, and 45% for the profile test",
+   "sentence": "The passing score is 45% correct answers for the English test for bachelor's programs or 50% for master's programs, and 45% for the profile test",
    "cites": [
     5
    ],
@@ -138,7 +153,7 @@
    ]
   },
   {
-   "sentence": "Participants who meet all conditions of clause 2.2 and achieve the passing score are invited to the second stage via email",
+   "sentence": "If you pass stage one, you will receive an invitation to your registered email",
    "cites": [
     6
    ],
@@ -153,7 +168,7 @@
    ]
   },
   {
-   "sentence": "The participant must confirm participation within 7 calendar days of receiving the invitation; failure to confirm results in withdrawal from the competition",
+   "sentence": "You must confirm participation within 7 calendar days of the email's sending date, or you will be withdrawn from the competition",
    "cites": [
     6
    ],
@@ -168,22 +183,7 @@
    ]
   },
   {
-   "sentence": "The date of receipt is the date the message is sent by the Organizer",
-   "cites": [
-    6
-   ],
-   "evidence": [
-    {
-     "n": 6,
-     "sha": "97c6ff63e3bb",
-     "sources": [
-      "/regulations/sveden-9d0974a5-1-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "Winners must sign an education contract with the University before the date of the enrollment order and a grant agreement before the start of the academic year following the competition",
+   "sentence": "Winners must sign an education contract by the admission order date, sign a grant contract by the start of the academic year, and attend the Summer School if organized",
    "cites": [
     7
    ],
@@ -198,22 +198,7 @@
    ]
   },
   {
-   "sentence": "Winners must also participate in the University's \"Summer School\" if organized, on a voluntary basis",
-   "cites": [
-    7
-   ],
-   "evidence": [
-    {
-     "n": 7,
-     "sha": "272064ae88a3",
-     "sources": [
-      "/regulations/sveden-9d0974a5-1-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "To qualify for material aid, a student's Grade Point Average (GPA) from the previous semester must be less than 4.33 for Russian students and less than 4.37 for foreign students",
+   "sentence": "Your GPA from the previous semester must be below 4.33 for Russian students or below 4.37 for foreign students",
    "cites": [
     9
    ],
@@ -228,7 +213,7 @@
    ]
   },
   {
-   "sentence": "The income per family member (including parents and minor siblings) must be below the subsistence minimum in the region of residence for Russian students, or below the subsistence minimum in the student's country of residence for foreign students",
+   "sentence": "Your per-capita family income must be below the regional minimum subsistence level for Russian students or the country's minimum subsistence level for foreign students",
    "cites": [
     9
    ],
@@ -243,7 +228,7 @@
    ]
   },
   {
-   "sentence": "Applications and documents can be submitted to the Student Support and Development Department on any working day, including during holidays",
+   "sentence": "You can submit your application and documents any working day, including holidays",
    "cites": [
     12
    ],
@@ -258,22 +243,7 @@
    ]
   },
   {
-   "sentence": "Foreign students may submit documents in English or their native language; the Department may assist with translation, but the student bears the responsibility for the translation",
-   "cites": [
-    11
-   ],
-   "evidence": [
-    {
-     "n": 11,
-     "sha": "6c9ca9073733",
-     "sources": [
-      "/regulations/sveden-0a5d0a37-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "Required documents include a family composition certificate and a parents' income certificate",
+   "sentence": "You must provide a family composition certificate and a parents' income certificate",
    "cites": [
     10
    ],
@@ -288,7 +258,22 @@
    ]
   },
   {
-   "sentence": "Material aid can be received as a one-time payment or monthly for the entire semester until the next interim assessment",
+   "sentence": "Foreign students may submit documents in English or their home country's language, and you are responsible for translation even if the department assists",
+   "cites": [
+    11
+   ],
+   "evidence": [
+    {
+     "n": 11,
+     "sha": "6c9ca9073733",
+     "sources": [
+      "/regulations/sveden-0a5d0a37-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You may receive aid once or monthly until the next interim assessment",
    "cites": [
     13
    ],
@@ -303,7 +288,7 @@
    ]
   },
   {
-   "sentence": "Payments occur on the nearest scholarship payment day if the application is submitted at least one week prior; otherwise, payment occurs on the scholarship payment day of the following month",
+   "sentence": "Payments occur on the nearest scholarship day if submitted at least one week prior, otherwise on the next month's scholarship day",
    "cites": [
     13
    ],
@@ -318,7 +303,7 @@
    ]
   },
   {
-   "sentence": "The final decision is made by the University Director or authorized person based on the scholarship commission's petition, confirmed by an order",
+   "sentence": "The director or authorized person decides based on the scholarship commission's petition",
    "cites": [
     14
    ],
@@ -333,7 +318,7 @@
    ]
   },
   {
-   "sentence": "To maintain material aid throughout the semester, a student must attend at least 70% of classes; failure to meet this requirement stops the aid",
+   "sentence": "You must attend at least 70% of classes to keep support, and failure stops payments",
    "cites": [
     15
    ],
@@ -348,7 +333,7 @@
    ]
   },
   {
-   "sentence": "If the student's GPA for the semester in which they received aid does not improve, the University denies aid for the following semester",
+   "sentence": "If your semester GPA does not improve, you will be denied aid the following semester",
    "cites": [
     16
    ],
@@ -363,112 +348,7 @@
    ]
   },
   {
-   "sentence": "Students receiving a state scholarship must have no \"satisfactory\" grades in the interim assessment and no academic debts",
-   "cites": [
-    17
-   ],
-   "evidence": [
-    {
-     "n": 17,
-     "sha": "dbe493fd474a",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "Students admitted from 2024 onwards must also have no \"satisfactory\" grades and no academic debts to receive University scholarships and increased University scholarships",
-   "cites": [
-    24
-   ],
-   "evidence": [
-    {
-     "n": 24,
-     "sha": "e9653b14efcb",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "A state social scholarship is assigned to full-time students funded by federal budget allocations who belong to specific categories: orphans, children left without parental care, persons who lost both parents or a sole parent during studies, children with disabilities, persons with disabilities of groups I and II, persons with childhood disabilities, victims of the Chernobyl disaster and other radiation catastrophes, nuclear tests at the Semipalatinsk polygon, military injury or disease veterans, recipients of state social assistance, and citizens who served at least three years in the Armed Forces, Internal Troops, engineering/technical/road construction military formations, rescue formations, foreign intelligence, security services, state guard, and mobilization preparation bodies",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The scholarship is assigned by order from the date of providing the confirming document until the end of the basis for appointment, except for those receiving state social assistance",
-   "cites": [
-    19
-   ],
-   "evidence": [
-    {
-     "n": 19,
-     "sha": "b2ee340cb9df",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "If the confirming document is indefinite, the scholarship is assigned until the end of studies",
-   "cites": [
-    19
-   ],
-   "evidence": [
-    {
-     "n": 19,
-     "sha": "b2ee340cb9df",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "An increased state social scholarship is assigned to first and second-year students with \"excellent\" or \"good\" grades who belong to the categories in clause 6.1, or to students under 20 years old with only one parent who is a disability group I holder",
-   "cites": [
-    20
-   ],
-   "evidence": [
-    {
-     "n": 20,
-     "sha": "41cb69e294eb",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "It is assigned by order after the interim assessment from the date of providing the confirming document until the end of the basis for appointment, except for those receiving state social assistance",
-   "cites": [
-    21
-   ],
-   "evidence": [
-    {
-     "n": 21,
-     "sha": "864dd5f0d692",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "One-time material aid is decided by the Commission based on the student's application and documents confirming need",
+   "sentence": "The commission decides on one-time aid based on your application and need documents",
    "cites": [
     22
    ],
@@ -483,7 +363,7 @@
    ]
   },
   {
-   "sentence": "Maternity leave benefits are paid to full-time students from federal budget allocations for 70 days before birth (84 days for multiple births) and 70 days after birth (86 days for complicated births, 100 days for two or more children)",
+   "sentence": "Full-time students receive a maternity benefit from federal budget funds for 70 days before birth, 84 days for multiples, 70 days after birth, 86 days for complicated births, or 100 days for two or more children",
    "cites": [
     23
    ],
@@ -498,7 +378,97 @@
    ]
   },
   {
-   "sentence": "A University scholarship is assigned to students who have signed a grant agreement with the University providing for University scholarships",
+   "sentence": "You must have no \"satisfactory\" grade at interim assessment and no academic debt to receive a state scholarship",
+   "cites": [
+    17
+   ],
+   "evidence": [
+    {
+     "n": 17,
+     "sha": "dbe493fd474a",
+     "sources": [
+      "/regulations/sveden-4940ff25-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Full-time students who are orphans, disabled, Chernobyl or radiation victims, military injury or veteran recipients, social aid recipients, or contract military personnel may receive a state social scholarship",
+   "cites": [
+    18
+   ],
+   "evidence": [
+    {
+     "n": 18,
+     "sha": "0a05582a05f2",
+     "sources": [
+      "/regulations/sveden-4940ff25-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "This scholarship is awarded from document submission until the basis expires, or until studies end if the basis is lifelong, except for social aid recipients",
+   "cites": [
+    19
+   ],
+   "evidence": [
+    {
+     "n": 19,
+     "sha": "b2ee340cb9df",
+     "sources": [
+      "/regulations/sveden-4940ff25-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "First or second year students with excellent or good grades meeting the social categories, or students under 20 with one disabled parent, may receive an enhanced state social scholarship",
+   "cites": [
+    20
+   ],
+   "evidence": [
+    {
+     "n": 20,
+     "sha": "41cb69e294eb",
+     "sources": [
+      "/regulations/sveden-4940ff25-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "This enhanced scholarship follows the same duration rules as the standard social scholarship",
+   "cites": [
+    21
+   ],
+   "evidence": [
+    {
+     "n": 21,
+     "sha": "864dd5f0d692",
+     "sources": [
+      "/regulations/sveden-4940ff25-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Students admitted from 2024 onward must have no \"satisfactory\" grade and no academic debt to receive university scholarships",
+   "cites": [
+    24
+   ],
+   "evidence": [
+    {
+     "n": 24,
+     "sha": "e9653b14efcb",
+     "sources": [
+      "/regulations/sveden-4940ff25-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must have a signed grant contract providing for university scholarships to receive them",
    "cites": [
     25
    ],
@@ -513,7 +483,7 @@
    ]
   },
   {
-   "sentence": "An increased academic University scholarship is assigned to bachelor's students who received \"excellent\" grades for the last two learning periods preceding the assignment and have no academic debts",
+   "sentence": "Bachelor's students with excellent grades for the last two periods and no academic debt may receive an enhanced university academic scholarship",
    "cites": [
     26
    ],
@@ -528,12 +498,9 @@
    ]
   },
   {
-   "sentence": "The evidence does not specify the monetary amounts for grants, material aid, or scholarships",
+   "sentence": "The evidence cuts off the exclusion clause for grant competition participants",
    "cites": [
-    1,
-    9,
-    17,
-    25
+    1
    ],
    "evidence": [
     {
@@ -542,198 +509,11 @@
      "sources": [
       "/regulations/sveden-9d0974a5-1-pdf.md"
      ]
-    },
-    {
-     "n": 9,
-     "sha": "621b007e0fd0",
-     "sources": [
-      "/regulations/sveden-0a5d0a37-pdf.md"
-     ]
-    },
-    {
-     "n": 17,
-     "sha": "dbe493fd474a",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    },
-    {
-     "n": 25,
-     "sha": "bddfcbeb549b",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
     }
    ]
   },
   {
-   "sentence": "The evidence does not define the specific content or format of the \"profile test\" or the \"motivation letter\" beyond language requirements",
-   "cites": [
-    4,
-    5
-   ],
-   "evidence": [
-    {
-     "n": 4,
-     "sha": "7ab62c4d6cbf",
-     "sources": [
-      "/regulations/sveden-9d0974a5-1-pdf.md"
-     ]
-    },
-    {
-     "n": 5,
-     "sha": "ffc8ffd3c5ff",
-     "sources": [
-      "/regulations/sveden-9d0974a5-1-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the dates for the second stage of the grant competition, only that it is invited via email",
-   "cites": [
-    6
-   ],
-   "evidence": [
-    {
-     "n": 6,
-     "sha": "97c6ff63e3bb",
-     "sources": [
-      "/regulations/sveden-9d0974a5-1-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the exact criteria for \"need\" in the application for one-time material aid, only that documents must confirm it according to an appendix",
-   "cites": [
-    22
-   ],
-   "evidence": [
-    {
-     "n": 22,
-     "sha": "24b2e78d3332",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the duration or content of the \"Summer School\"",
-   "cites": [
-    7
-   ],
-   "evidence": [
-    {
-     "n": 7,
-     "sha": "272064ae88a3",
-     "sources": [
-      "/regulations/sveden-9d0974a5-1-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the procedure for appealing decisions regarding material aid or scholarships",
-   "cites": [
-    14,
-    22
-   ],
-   "evidence": [
-    {
-     "n": 14,
-     "sha": "f6de0cd38e6e",
-     "sources": [
-      "/regulations/sveden-0a5d0a37-pdf.md"
-     ]
-    },
-    {
-     "n": 22,
-     "sha": "24b2e78d3332",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify what happens if a student withdraws from the grant competition after the first stage but before the second",
-   "cites": [
-    6
-   ],
-   "evidence": [
-    {
-     "n": 6,
-     "sha": "97c6ff63e3bb",
-     "sources": [
-      "/regulations/sveden-9d0974a5-1-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the consequences of failing to sign the education or grant contracts for winners",
-   "cites": [
-    7
-   ],
-   "evidence": [
-    {
-     "n": 7,
-     "sha": "272064ae88a3",
-     "sources": [
-      "/regulations/sveden-9d0974a5-1-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the exact definition of \"family member\" for income calculation beyond including parents and minor siblings",
-   "cites": [
-    9
-   ],
-   "evidence": [
-    {
-     "n": 9,
-     "sha": "621b007e0fd0",
-     "sources": [
-      "/regulations/sveden-0a5d0a37-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the deadline for submitting documents for material aid relative to the payment date, other than the one-week rule for payment timing",
-   "cites": [
-    13
-   ],
-   "evidence": [
-    {
-     "n": 13,
-     "sha": "5e0b7c363b6f",
-     "sources": [
-      "/regulations/sveden-0a5d0a37-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the criteria for the \"increased University scholarship\" beyond grades and debts",
-   "cites": [
-    26
-   ],
-   "evidence": [
-    {
-     "n": 26,
-     "sha": "53fedf5f1724",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who are not full-time",
+   "sentence": "The evidence cuts off the full list of categories for state social scholarship eligibility",
    "cites": [
     18
    ],
@@ -741,591 +521,6 @@
     {
      "n": 18,
      "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who are not funded by federal budget allocations",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who do not meet the categories in clause 6.1",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who are not in Russia",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who are not in higher education",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who are not in bachelor's or master's programs",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who are not in their first or second year",
-   "cites": [
-    20
-   ],
-   "evidence": [
-    {
-     "n": 20,
-     "sha": "41cb69e294eb",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who are 20 years or older",
-   "cites": [
-    20
-   ],
-   "evidence": [
-    {
-     "n": 20,
-     "sha": "41cb69e294eb",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who have two parents",
-   "cites": [
-    20
-   ],
-   "evidence": [
-    {
-     "n": 20,
-     "sha": "41cb69e294eb",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who have a parent who is not a disability group I holder",
-   "cites": [
-    20
-   ],
-   "evidence": [
-    {
-     "n": 20,
-     "sha": "41cb69e294eb",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who do not have \"excellent\" or \"good\" grades",
-   "cites": [
-    20
-   ],
-   "evidence": [
-    {
-     "n": 20,
-     "sha": "41cb69e294eb",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who have academic debts",
-   "cites": [
-    20
-   ],
-   "evidence": [
-    {
-     "n": 20,
-     "sha": "41cb69e294eb",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who are not orphans",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who are not children left without parental care",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who have not lost both parents or a sole parent",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who are not children with disabilities",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who are not persons with disabilities of groups I and II",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who are not persons with childhood disabilities",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who are not victims of the Chernobyl disaster",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who are not victims of other radiation catastrophes",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who are not victims of nuclear tests at the Semipalatinsk polygon",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who are not military injury or disease veterans",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who are not recipients of state social assistance",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who have not served at least three years in the Armed Forces",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who have not served in the Internal Troops",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who have not served in engineering/technical/road construction military formations",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who have not served in rescue formations",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who have not served in foreign intelligence",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who have not served in security services",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who have not served in state guard",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who have not served in mobilization preparation bodies",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who are not in Russia",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who are not in higher education",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who are not in bachelor's or master's programs",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0a05582a05f2",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who are not in their first or second year",
-   "cites": [
-    20
-   ],
-   "evidence": [
-    {
-     "n": 20,
-     "sha": "41cb69e294eb",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who are 20 years or older",
-   "cites": [
-    20
-   ],
-   "evidence": [
-    {
-     "n": 20,
-     "sha": "41cb69e294eb",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who have two parents",
-   "cites": [
-    20
-   ],
-   "evidence": [
-    {
-     "n": 20,
-     "sha": "41cb69e294eb",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who have a parent who is not a disability group I holder",
-   "cites": [
-    20
-   ],
-   "evidence": [
-    {
-     "n": 20,
-     "sha": "41cb69e294eb",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who do not have \"excellent\" or \"good\" grades",
-   "cites": [
-    20
-   ],
-   "evidence": [
-    {
-     "n": 20,
-     "sha": "41cb69e294eb",
-     "sources": [
-      "/regulations/sveden-4940ff25-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the eligibility for state social scholarship for students who have academic debts",
-   "cites": [
-    20
-   ],
-   "evidence": [
-    {
-     "n": 20,
-     "sha": "41cb69e294eb",
      "sources": [
       "/regulations/sveden-4940ff25-pdf.md"
      ]

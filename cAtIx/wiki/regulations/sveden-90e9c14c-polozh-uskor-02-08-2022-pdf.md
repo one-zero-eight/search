@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Положение об ускоренном обучении по индивидуальному учебному плану в автономной некоммерческой организации высшего образования «Университет Иннополис» по образовательным программам высшего образования – программам бакалавриата, программам магистратуры и программам подготовки научно-педагогических кадров в аспирантуре (документ подписан простой электронной подписью)"
-description: "Regulates accelerated study via individual plans for bachelor, master, and PhD programs at Innopolis University."
+description: "Regulates accelerated study via individual plans for bachelor, master, and PhD students at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/06b/t1qoo4jn453eulan64mcmoy58jnvq3or/polozh_uskor_02.08.2022.pdf"
-tags: ["education", "innopolis", "accelerated", "regulation", "university", "russia"]
+tags: ["innopolis", "accelerated-learning", "individual-study-plan", "higher-education", "university-regulations"]
+audience: ["student", "postgraduate", "teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/document"
@@ -13,7 +14,7 @@ sources:
     title: "Положение об ускоренном обучении по индивидуальному учебному плану в автономной некоммерческой организации высшего образования «Университет Иннополис» по образовательным программам высшего образования – программам бакалавриата, программам магистратуры и программам подготовки научно-педагогических кадров в аспирантуре (документ подписан простой электронной подписью)"
     last_modified: "2022-08-02T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T13:56:52+00:00"
 extraction: "text layer"
 status: draft

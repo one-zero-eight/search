@@ -3,7 +3,8 @@ type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Календарный учебный график [4._Календарный_учебный_график_ПК_Технологии_цифровой_тран]"
 description: "This document is the academic calendar for the \"Digital Transformation Technologies\" professional development program at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/8cb/q8anh99eg6t675009zdo3bq54ynzz56q/4._Календарный_учебный_график_ПК_Технологии_цифровой_трансформации.pdf"
-tags: ["innopolis", "digital-transformation", "academic-calendar", "professional-development", "higher-education"]
+tags: ["innopolis", "digital-transformation", "professional-development", "academic-calendar", "schedule"]
+audience: ["staff", "public"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Календарный учебный график [4._Календарный_учебный_график_ПК_Технологии_цифровой_тран]"
     last_modified: "2023-04-24T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:08:20+00:00"
 extraction: "text layer"
 status: draft

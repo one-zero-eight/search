@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "ПРАВИЛА ПРИЕМА НА ОБУЧЕНИЕ ПО ОБРАЗОВАТЕЛЬНЫМ ПРОГРАММАМ ВЫСШЕГО ОБРАЗОВАНИЯ – ПРОГРАММАМ БАКАЛАВРИАТА И ПРОГРАММАМ МАГИСТРАТУРЫ В АНО ВО «УНИВЕРСИТЕТ ИННОПОЛИС» НА 2026/2027 УЧЕБНЫЙ ГОД [Правила_приема_ВО_новая_редакция]"
-description: "This order approves the new admission rules for bachelor's and master's programs at Innopolis University for the 2026/2027 academic year."
+description: "This order approves the new admission rules for bachelor and master programs at Innopolis University for the 2026/2027 academic year."
 resource: "https://innopolis.university/upload/iblock/2e1/y921axc6i1e6ppjmhcwtvuk5x8sl34wl/Правила_приема_ВО_новая_редакция.pdf"
-tags: ["admission", "innopolis", "university", "rules", "order"]
+tags: ["admission", "innopolis", "university", "regulations", "2026"]
+audience: ["student", "applicant", "management"]
 source_kind: official-document
 language: ru
 section: "sveden/apply"
@@ -13,7 +14,7 @@ sources:
     title: "ПРАВИЛА ПРИЕМА НА ОБУЧЕНИЕ ПО ОБРАЗОВАТЕЛЬНЫМ ПРОГРАММАМ ВЫСШЕГО ОБРАЗОВАНИЯ – ПРОГРАММАМ БАКАЛАВРИАТА И ПРОГРАММАМ МАГИСТРАТУРЫ В АНО ВО «УНИВЕРСИТЕТ ИННОПОЛИС» НА 2026/2027 УЧЕБНЫЙ ГОД [Правила_приема_ВО_новая_редакция]"
     last_modified: "2023-02-17T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:01:30+00:00"
 extraction: "text layer"
 status: draft

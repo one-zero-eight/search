@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Порядок проведения промежуточной аттестации с применением дистанционных образовательных технологий по образовательным программам высшего образования – программам бакалавриата и программам магистратуры в автономной некоммерческой организации высшего образования «Университет Иннополис» (документ подписан простой электронной подписью)"
-description: "This document establishes the regulations for conducting interim assessments using distance learning technologies for bachelor and master programs at Innopolis University."
+description: "Regulates remote interim assessments for bachelor and master programs at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/b83/5m5noggyci5ansruj4ssl04aif6e78o8/poryadok_pa_bakmag_eodot_02.08.2022.pdf"
-tags: ["innopolis", "education", "assessment", "regulations", "distance-learning", "university"]
+tags: ["assessment", "distance-learning", "innopolis", "higher-education", "regulations", "university"]
+audience: ["student", "postgraduate", "teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/objects"
@@ -13,7 +14,7 @@ sources:
     title: "Порядок проведения промежуточной аттестации с применением дистанционных образовательных технологий по образовательным программам высшего образования – программам бакалавриата и программам магистратуры в автономной некоммерческой организации высшего образования «Университет Иннополис» (документ подписан простой электронной подписью)"
     last_modified: "2022-08-02T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:09:34+00:00"
 extraction: "text layer"
 status: draft

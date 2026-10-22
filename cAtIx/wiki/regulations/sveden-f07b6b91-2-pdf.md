@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Учебный план [2._Учебный_план_ПК_Эффективный_руководитель]"
-description: "This document is the curriculum for a professional development program on digital transformation leadership at Innopolis University."
+description: "This document is the study plan for a professional development program on effective leadership in digital transformation."
 resource: "https://innopolis.university/upload/iblock/8a5/q284q5bn32gn6jpe2mog5lvwqaxg56nr/2._Учебный_план_ПК_Эффективный_руководитель.pdf"
-tags: ["innopolis", "curriculum", "digital-transformation", "leadership", "professional-development"]
+tags: ["innopolis", "digital-transformation", "leadership", "study-plan", "professional-development"]
+audience: ["staff", "management"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Учебный план [2._Учебный_план_ПК_Эффективный_руководитель]"
     last_modified: "2023-02-20T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:08:13+00:00"
 extraction: "text layer"
 status: draft

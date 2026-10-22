@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Приказ об утверждении размеров стипендии АНО ВО «Университет Иннополис»"
-description: "This order establishes the specific scholarship amounts for undergraduate, master's, and PhD students at Innopolis University for the 2026 academic year."
+description: "This order establishes the academic scholarship amounts for bachelor, master, and postgraduate students at Innopolis University for 2026."
 resource: "https://innopolis.university/upload/iblock/229/27fs840czdho77noz80attm0p64rzmxu/Приказ_об_установлении_размеров_стипендий_АНО_ВО_Университет_а_Иннополис.pdf"
-tags: ["scholarship", "innopolis", "university", "order", "stipend", "2026"]
+tags: ["scholarship", "innopolis", "university", "stipend", "regulation"]
+audience: ["student", "postgraduate", "applicant"]
 source_kind: official-document
 language: ru
 section: "sveden/grants"
@@ -13,7 +14,7 @@ sources:
     title: "Приказ об утверждении размеров стипендии АНО ВО «Университет Иннополис»"
     last_modified: "2025-05-28T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:00:29+00:00"
 extraction: "text layer"
 status: draft

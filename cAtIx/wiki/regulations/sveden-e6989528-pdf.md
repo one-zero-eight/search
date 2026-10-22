@@ -3,7 +3,8 @@ type: regulation
 title: "Порядок проведения промежуточной и государственной итоговой аттестации с применением дистанционных образовательных технологий по образовательным программам высшего образования – программам подготовки научно-педагогических кадров в аспирантуре в автономной некоммерческой организации высшего образования \"Университет Иннополис\""
 description: "This document establishes the regulations for conducting interim and final state assessments using distance learning technologies at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/02f/omzh5hfjd0461mq53598uzttllph7pbx/Положение о порядке проведения ГИА и ИА с ДОТ аспиранты.pdf"
-tags: ["innopolis", "education", "assessment", "distance-learning", "university", "regulation"]
+tags: ["assessment", "innopolis", "distance-learning", "higher-education", "regulations"]
+audience: ["student", "postgraduate", "teacher", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/objects"
@@ -13,7 +14,7 @@ sources:
     title: "Порядок проведения промежуточной и государственной итоговой аттестации с применением дистанционных образовательных технологий по образовательным программам высшего образования – программам подготовки научно-педагогических кадров в аспирантуре в автономной некоммерческой организации высшего образования \"Университет Иннополис\""
     last_modified: "2012-12-29T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T13:56:48+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

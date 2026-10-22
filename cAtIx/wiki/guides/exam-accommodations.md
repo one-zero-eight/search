@@ -10,28 +10,24 @@ sources:
     last_modified: "2012-12-29T00:00:00+03:00"
 generated:
   by: "catix-wiki-synth/0.1 (model, thinking)"
-  at: "2026-10-22T13:25:42+00:00"
+  at: "2026-10-22T18:47:30+00:00"
 status: draft
-evidence_sha: "dd7a9030778b5903"
+evidence_sha: "ae573248c72f60b7"
+audience: ["student", "postgraduate", "teacher", "staff"]
 ---
 
 # Exam Accommodations for Disabilities and Health Issues
 
-## Forms and adjustments for ongoing and interim assessments
+To request accommodations for ongoing and interim assessments, you must submit a written application [1]. You must also submit a written request to receive additional time to prepare your answer during a test or an exam [5].
 
-To conduct ongoing and interim assessments for students with disabilities, adapted evaluation materials must be developed upon the submission of a written application [1]. These materials must allow for the evaluation of the achievement of learning outcomes and the level of all competences’ development mentioned in the education program [1].
+The university will develop adapted evaluation materials for your assessment [1]. These materials must make it possible to evaluate the achievement of learning outcomes and the level of all competences’ development mentioned in your education program [1]. The form of your assessment will be defined taking into account the peculiarities of your mental and physical development [2]. The available forms include verbal responses, written responses on paper and computer, and tests [2].
 
-The form of assessment is defined taking into account the peculiarities of mental and physical development [2]. Options include verbal responses, written responses on paper, written responses on a computer, or a test format [2].
+If you have a serious health problem such as a speech disorder, deafness, or hard of hearing, oral assessments must be held in written form [4]. If you have a visual impairment, the university must provide an assistant to provide you with the necessary assistance during pass fail exam and exams [3]. Written exercises will be dictated to an assistant [3]. A technical assistive device will be provided for task completion in case of necessity, and the usage of your own technical assistive devices is also possible [3]. You might use assistive devices during the assessment sessions taking into consideration your special needs [6].
 
-For students with visual impairment, the University must provide an assistant to provide necessary assistance during pass fail exams and exams [3]. Written exercises are dictated to an assistant [3]. A technical assistive device must be provided for task completion if necessary, and the usage of own technical assistive devices is also possible [3].
-
-For students with serious health problems such as speech disorder, deafness, or hard of hearing, oral assessments must be held in a written form [4].
-
-Disabled students are entitled to additional time to prepare their answer during a test or an exam upon a written request and in case of necessity [5]. The duration of an assessment session cannot be extended to more than 1.5 hours [5]. Disabled students might use assistive devices during assessment sessions taking into consideration their special needs [6].
+You are entitled to additional time to prepare your answer during a test or an exam [5]. The duration of an assessment session cannot be extended to more than 1.5 hours [5].
 
 ## Gaps and caveats
-
-The evidence does not specify the procedure or deadline for submitting the written application [1]. The evidence does not specify the procedure for defining the form of assessment or determining the "peculiarities of mental and physical development" [2]. The evidence does not specify how the assistant is selected or trained [3]. The evidence does not specify the procedure for determining if a student has a "serious health problem" or which specific conditions qualify [4]. The evidence does not specify the procedure for requesting additional time or how "necessity" is determined [5]. The evidence does not specify which assistive devices are available or how they are provided [6].
+The evidence does not specify the deadline for submitting the written application or written request [1][5]. The evidence does not state which office or staff member processes these requests or where they should be submitted [1][5]. The evidence does not define the exact procedures for developing the adapted evaluation materials or how the assessment form is officially selected [1][2]. The evidence does not specify how the additional time is calculated or what happens if the 1.5-hour limit is reached [5]. The evidence does not cover accommodations for disabilities or health conditions other than visual impairment, speech disorders, deafness, or hard of hearing [3][4]. The evidence does not address interim assessments for students without disabilities or serious health conditions [1][4]. Individual course pages may provide additional details or differ from these regulations, but the official document takes precedence [1][2][3][4][5][6].
 
 ## Clauses used
 

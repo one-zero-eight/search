@@ -1,9 +1,9 @@
 {
  "page": "/guides/extern-enrollment-procedure.md",
- "evidence_sha": "552e1f5b31a8c0f0",
+ "evidence_sha": "4d2099c0d2736459",
  "claims": [
   {
-   "sentence": "You must submit your application and all attached documents no later than one month before the University's established start date of the academic year",
+   "sentence": "You must submit your application and all attached documents no later than one month before the university's established start date of the academic year",
    "cites": [
     5
    ],
@@ -18,7 +18,7 @@
    ]
   },
   {
-   "sentence": "Submit a personal application addressed to the head of the University to the structural unit responsible for admissions",
+   "sentence": "You submit a personal application addressed to the director of the university to the university structural unit responsible for admissions",
    "cites": [
     1
    ],
@@ -33,7 +33,7 @@
    ]
   },
   {
-   "sentence": "When you submit the application, you must present an identity document",
+   "sentence": "When you submit the application, you must present a document that verifies your identity",
    "cites": [
     2
    ],
@@ -48,7 +48,7 @@
    ]
   },
   {
-   "sentence": "You must also complete a consent form for the processing of personal data in accordance with Federal Law No. 152-FZ of 27.07.2006",
+   "sentence": "You must also complete a consent form for the processing of your personal data in accordance with Federal Law No. 152-FZ dated 27.07.2006 \"On Personal Data\"",
    "cites": [
     3
    ],
@@ -63,7 +63,7 @@
    ]
   },
   {
-   "sentence": "Based on this consent, the University may enter your information into federal, regional, and municipal information systems",
+   "sentence": "The university uses this consent to enter your information into federal, regional, and municipal information systems",
    "cites": [
     3
    ],
@@ -78,7 +78,7 @@
    ]
   },
   {
-   "sentence": "Attach the following to your application",
+   "sentence": "Your application must include the following documents",
    "cites": [
     1
    ],
@@ -93,7 +93,7 @@
    ]
   },
   {
-   "sentence": "A copy of your education document or education and qualification document",
+   "sentence": "A copy of your education document or your education and qualification document",
    "cites": [
     1
    ],
@@ -108,7 +108,7 @@
    ]
   },
   {
-   "sentence": "A copy of a certificate (or certificates) of your study period confirming successful completion of previous intermediate certifications at other educational organizations, if you are studying in the form of self-education",
+   "sentence": "A copy of a certificate (or copies of certificates) of your study period, confirming successful completion of previous interim certifications at other educational organizations, if you are studying in the form of self-education",
    "cites": [
     1
    ],
@@ -138,7 +138,7 @@
    ]
   },
   {
-   "sentence": "Any other documents that serve your interests as a person wishing to be enrolled as an extern",
+   "sentence": "Any other documents whose submission serves your interests as a person wishing to be enrolled as an extern",
    "cites": [
     1
    ],
@@ -153,7 +153,7 @@
    ]
   },
   {
-   "sentence": "The University's examination commission reviews your submitted documents to decide whether you can be enrolled as an extern",
+   "sentence": "The university's examination commission reviews your submitted documents and makes a decision on your possibility of enrollment",
    "cites": [
     4
    ],
@@ -183,7 +183,7 @@
    ]
   },
   {
-   "sentence": "Based on the examination commission's protocol, the University concludes a contract for paid educational services with you as an extern",
+   "sentence": "Based on the examination commission's protocol, the university signs a contract for paid educational services with you as an extern",
    "cites": [
     6
    ],
@@ -198,7 +198,7 @@
    ]
   },
   {
-   "sentence": "The University then issues an order enrolling you as an extern to pass intermediate and final state certification",
+   "sentence": "The university then issues an order enrolling you as an extern to pass the interim and state final certification",
    "cites": [
     6
    ],
@@ -228,30 +228,7 @@
    ]
   },
   {
-   "sentence": "It does not state whether the application can be submitted online or only in person",
-   "cites": [
-    1,
-    2
-   ],
-   "evidence": [
-    {
-     "n": 1,
-     "sha": "5d1381f4e5a8",
-     "sources": [
-      "/regulations/sveden-50bb9ee8-polozh-extern-27-04-2024-pdf.md"
-     ]
-    },
-    {
-     "n": 2,
-     "sha": "3acd06f42f5c",
-     "sources": [
-      "/regulations/sveden-50bb9ee8-polozh-extern-27-04-2024-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the timeline for the examination commission to review the documents or issue the protocol",
+   "sentence": "It does not state the timeline for the examination commission to review the documents or issue the protocol",
    "cites": [
     4
    ],
@@ -266,7 +243,7 @@
    ]
   },
   {
-   "sentence": "It does not mention the cost, payment schedule, or terms of the paid educational services contract",
+   "sentence": "It does not specify the cost, payment terms, or duration of the paid educational services contract",
    "cites": [
     6
    ],
@@ -281,7 +258,7 @@
    ]
   },
   {
-   "sentence": "The evidence does not clarify what happens if the commission denies the application",
+   "sentence": "It does not explain what happens if the examination commission denies enrollment",
    "cites": [
     4
    ],
@@ -296,7 +273,22 @@
    ]
   },
   {
-   "sentence": "It does not specify how or when the enrollment order is communicated to the student",
+   "sentence": "It does not provide details on how to submit the application (in person, online, by mail) beyond the requirement to present an ID",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "3acd06f42f5c",
+     "sources": [
+      "/regulations/sveden-50bb9ee8-polozh-extern-27-04-2024-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It does not mention any deadlines for signing the contract or paying fees after the order is issued",
    "cites": [
     6
    ],

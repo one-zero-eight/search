@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "«Программная инженерия и новые технологии разработки ПО»"
-description: "This document is the approved curriculum for a professional retraining program in software engineering and new development technologies at Innopolis University."
+description: "This document defines the curriculum and regulations for a professional retraining program in software engineering at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/234/u9vgpdk3eb4bkcd2iy7g4a9ieaatz9t7/1._ДПП_Программная_инженерия_и_новые_технологии_разработки_ПО.pdf"
-tags: ["innopolis", "software-engineering", "professional-retraining", "higher-education", "curriculum"]
+tags: ["software", "innopolis", "retraining", "curriculum", "higher-education"]
+audience: ["student", "applicant", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "«Программная инженерия и новые технологии разработки ПО»"
     last_modified: "2023-02-13T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:00:33+00:00"
 extraction: "text layer"
 status: draft

@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Оценочные и методические материалы [6._Оценочные_и_методические_материалы_ПК_Управление_данными_]"
-description: "This document outlines assessment criteria and sample test questions for the \"Data Management for Managers\" continuing education program at Innopolis University."
+description: "Assessment and methodological materials for the \"Data Management for Managers\" continuing education program at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/9a8/y1rlenp0vqrj15yjs7jbbn96wq3m5clf/6._Оценочные_и_методические_материалы_ПК_Управление_данными_для_руководителей.pdf"
-tags: ["innopolis", "data-management", "assessment", "continuing-education", "university", "testing"]
+tags: ["innopolis", "data-management", "assessment", "continuing-education", "exam-questions"]
+audience: ["staff", "public"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Оценочные и методические материалы [6._Оценочные_и_методические_материалы_ПК_Управление_данными_]"
     last_modified: "2024-10-30T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:08:46+00:00"
 extraction: "text layer"
 status: draft

@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Заключение от 06.10.2022 № МН-12/з-13268"
-description: "This document is a positive conclusion from the Russian Ministry of Science and Higher Education approving an academic exchange agreement between Innopolis University and a Kazakh institution."
+description: "This document is a Ministry of Science and Higher Education approval for Innopolis University to sign an academic exchange agreement with a Kazakh institution."
 resource: "https://innopolis.university/upload/iblock/35e/u9cg9sn0hz5ohb5uuvdt1t60quwkyyoc/заключение 49 — Kazakh-British Technical University - Academic Exchange agreement.pdf"
-tags: ["education", "agreement", "innopolis", "kazakhstan", "ministry", "approval"]
+tags: ["innopolis", "agreement", "ministry", "international", "approval"]
+audience: ["staff", "management"]
 source_kind: official-document
 language: ru
 section: "sveden/inter"
@@ -13,7 +14,7 @@ sources:
     title: "Заключение от 06.10.2022 № МН-12/з-13268"
     last_modified: "2026-10-22T14:02:07+00:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:02:07+00:00"
 extraction: "text layer"
 status: draft

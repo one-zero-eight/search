@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — 2026 [Методические_рекомендации_по_оформлению_ВКР]"
-description: "This document provides guidelines for formatting and defending a master's thesis in robotics and computer vision."
+description: "Guidelines for formatting and defending a master's thesis in Computer Science and Robotics at a Russian university."
 resource: "https://innopolis.university/upload/iblock/dfc/602txn86o0ii11epvu8fdyyi1aztzy2b/Методические_рекомендации_по_оформлению_ВКР.pdf"
-tags: ["thesis", "guidelines", "defense", "master", "robotics", "university"]
+tags: ["master", "thesis", "defense", "robotics", "guidelines"]
+audience: ["student"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — 2026 [Методические_рекомендации_по_оформлению_ВКР]"
     last_modified: "2026-10-22T14:11:25+00:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:11:25+00:00"
 extraction: "text layer"
 status: draft

@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "Положение о порядке проведения конкурса на получение гранта на обучение по программам высшего образования — программам бакалавриата и программам магистратуры для иностранных граждан из стран дальнего зарубежья,"
-description: "This document establishes the rules for granting scholarships to foreign students from distant abroad countries for bachelor and master programs at Innopolis University."
+description: "Regulates the competition for educational grants for foreign bachelor and master students at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/429/2k8o33xofx5h8mo3vwffmagktczu2m4w/Положение о порядке проведения конкурса на получение гранта на обучение по образовательным программам высшего образ (1).pdf"
-tags: ["innopolis", "scholarship", "foreign-students", "higher-education", "regulations", "university"]
+tags: ["innopolis", "grants", "foreign-students", "regulations", "university-policy"]
+audience: ["student", "applicant"]
 source_kind: official-document
 language: ru
 section: "sveden/document"
@@ -13,7 +14,7 @@ sources:
     title: "Положение о порядке проведения конкурса на получение гранта на обучение по программам высшего образования — программам бакалавриата и программам магистратуры для иностранных граждан из стран дальнего зарубежья,"
     last_modified: "2026-10-22T14:04:08+00:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:04:08+00:00"
 extraction: "ocr (tesseract rus)"
 status: draft

@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — 4 семестр (документы подписаны ПЭП) [Визуализация_Б1.О.11_AIDE_2025_Practice of Scientific Paper ]"
-description: "This document is the approved syllabus for the \"Practice of Scientific Paper Writing\" course at Innopolis University for the 2025 intake."
+description: "This document is the official syllabus for the \"Practice of Scientific Paper Writing\" course for Master's students at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/c36/nkpb74zhax9lwl80yx50wzvrq01mtx9t/Визуализация_Б1.О.11_AIDE_2025_Practice of Scientific Paper Writing (4 с)_21.08.2026.pdf"
-tags: ["syllabus", "innopolis", "robotics", "computer-vision", "scientific-writing", "master-degree"]
+tags: ["syllabus", "innopolis", "robotics", "computer-vision", "master", "scientific-writing"]
+audience: ["student", "postgraduate", "teacher"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — 4 семестр (документы подписаны ПЭП) [Визуализация_Б1.О.11_AIDE_2025_Practice of Scientific Paper ]"
     last_modified: "2026-10-22T14:10:19+00:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:10:19+00:00"
 extraction: "text layer"
 status: draft

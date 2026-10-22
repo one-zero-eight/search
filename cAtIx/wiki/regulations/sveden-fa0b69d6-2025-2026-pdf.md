@@ -1,9 +1,10 @@
 ---
 type: regulation
 title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — 2025-2026 (документ подписан ПЭП) [Визуализация_Приказ_Календарный_план_воспит_работы_2025_202]"
-description: "This document is an official order approving the extracurricular educational activities calendar for Innopolis University for the 2025/2026 academic year."
+description: "This document approves the 2025-2026 extracurricular activity calendar for Innopolis University students."
 resource: "https://innopolis.university/upload/iblock/c98/cgqnx148wp29ntrhw3sqice5bnn13j01/Визуализация_Приказ_Календарный_план_воспит_работы_2025_2026_уч_г_.pdf"
-tags: ["innopolis", "university", "order", "extracurricular", "calendar", "2025"]
+tags: ["innopolis", "extracurricular", "calendar", "student-life", "university-order"]
+audience: ["student", "staff"]
 source_kind: official-document
 language: ru
 section: "sveden/education"
@@ -13,7 +14,7 @@ sources:
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — 2025-2026 (документ подписан ПЭП) [Визуализация_Приказ_Календарный_план_воспит_работы_2025_202]"
     last_modified: "2025-06-30T00:00:00+03:00"
 generated:
-  by: "catix-wiki/0.1 regulations (local: description and tags only)"
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:10:36+00:00"
 extraction: "text layer"
 status: draft
