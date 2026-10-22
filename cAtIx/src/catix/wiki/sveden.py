@@ -30,6 +30,7 @@ HEADERS = {"User-Agent": "catix-wiki/0.1 (Innopolis University assistant; polite
 FILE = re.compile(r'<a[^>]+href="([^"]+\.(?:pdf|docx?|rtf|xlsx?|zip|7z))(?:\?[^"]*)?"[^>]*>(.*?)</a>', re.I | re.S)
 HANDLED = {"pdf", "docx", "doc", "rtf"}
 BATCH = 40
+PERSONAL = re.compile(r"personal|персональн|named (people|students|individuals)|list of (names|people|students|applicants)", re.I)
 
 TRIAGE_PROMPT = """You decide which official documents of a university go into its wiki. Read the brief, then decide for each numbered document from its section and title.
 
@@ -118,6 +119,7 @@ def load(path: Path) -> list | dict:
 def triage(redo: bool = False) -> None:
     brief = Path(__file__).with_name("instructions.md").read_text(encoding="utf-8")
     decisions: dict = load(TRIAGE)
+    before = dict(decisions)
     if redo:  # new instructions or a better listing: ask again, but what a person decided stays
         decisions = {u: v for u, v in decisions.items() if v.get("by") == "person"}
     todo = [d for d in load(INDEX) if d["url"] not in decisions]
@@ -137,6 +139,10 @@ def triage(redo: bool = False) -> None:
                 seen[int(m.group(1))] = (m.group(2).lower(), m.group(3).strip()[:120])
         for n, d in enumerate(batch, 1):
             decision, reason = seen.get(n, ("skip", "no decision from the model"))  # no answer is not a yes
+            if decision == "skip" and before.get(d["url"], {}).get("decision") == "keep" and not PERSONAL.search(reason):
+                # The model decides about one document differently from one reading to the next (93 of 1000 once): a new
+                # reading may add documents, but drops one kept before only for personal data.
+                decision, reason = "keep", f"kept by an earlier reading (this one said: {reason[:80]})"
             decisions[d["url"]] = {"decision": decision, "reason": reason, "by": "model" if n in seen else "code", "title": d["title"][:200]}
         TRIAGE.write_text(json.dumps(decisions, ensure_ascii=False, indent=1), encoding="utf-8")
         print(f"  {min(i + BATCH, len(todo))}/{len(todo)}: kept {sum(1 for v in decisions.values() if v['decision'] == 'keep')}")
