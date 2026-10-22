@@ -1,0 +1,473 @@
+{
+ "page": "/guides/remote-assessment-technical.md",
+ "evidence_sha": "f45498d9aef507f2",
+ "claims": [
+  {
+   "sentence": "You need computing devices such as a desktop computer, laptop, or tablet to take a remote assessment",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "17e01e392186",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must have communication equipment that provides access to the university's electronic educational environment through local networks and the Internet",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "17e01e392186",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must also have the corresponding software installed",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "17e01e392186",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If a course page specifies technical requirements that differ from or go beyond this official document, the official document takes precedence",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "b1fcf52230bf",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If your assessment uses video conferencing, you should use a webcam with a resolution of at least 640x480 (0.3 MP)",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "9320dca5526d",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You should use a monitor or screen with a resolution of at least 1280x1024",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "9320dca5526d",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You need a microphone with speakers or a computer headset for communication",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "9320dca5526d",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You need configured video conferencing software such as Microsoft Teams, Zoom, or a similar program that allows remote audio-visual contact",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "9320dca5526d",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Your internet connection speed must be at least 2 Mbps, or 1024 Kbps per workstation",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "9320dca5526d",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must use the Google Chrome browser, version 81.0 or higher",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "9320dca5526d",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "For assessments using a proctoring system, you should use the Google Chrome browser, version 72 or higher",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "09b1b9ceab14",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Your operating system must be at least Windows 7, macOS 10.12 Sierra, or Linux",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "09b1b9ceab14",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You should use a webcam with a resolution of at least 640x480 (0.3 MP)",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "09b1b9ceab14",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You need a microphone with speakers or a computer headset to communicate with the proctor",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "09b1b9ceab14",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Your internet connection speed must be at least 512 Kbps",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "09b1b9ceab14",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "A browser plugin may be required if necessary",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "09b1b9ceab14",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "For online testing, you should use the Google Chrome browser, version 72 or higher",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "3e7f24f5255b",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Your operating system must be at least Windows 7, macOS 10.12 Sierra, or Linux",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "3e7f24f5255b",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Your internet connection speed must be at least 512 Kbps",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "3e7f24f5255b",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If your assessment uses a format chosen independently by the instructor, the instructor sets the technical and software requirements and recommendations",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "b1fcf52230bf",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must receive these requirements no later than 3 working days before the assessment day",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "b1fcf52230bf",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The notification is sent via corporate email addresses and/or other information and communication technologies",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "b1fcf52230bf",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify which software is required for general access to the electronic educational environment",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "17e01e392186",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not list operating system requirements for the general setup or for video conferencing mode",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "9320dca5526d",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not state what happens if a student's equipment does not meet the recommended specifications",
+   "cites": [
+    2,
+    3,
+    4
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "9320dca5526d",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "09b1b9ceab14",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "3e7f24f5255b",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not define what constitutes other information and communication technologies for notifications",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "b1fcf52230bf",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify which browser plugins are needed for proctoring beyond stating they may be required",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "09b1b9ceab14",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Course pages may list different or additional technical requirements; if they do, the official document takes precedence",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "b1fcf52230bf",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence leaves open whether the recommended specifications are mandatory or optional for each format",
+   "cites": [
+    2,
+    3,
+    4
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "9320dca5526d",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "09b1b9ceab14",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "3e7f24f5255b",
+     "sources": [
+      "/regulations/remote-attestation-order.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -10,29 +10,36 @@ sources:
     last_modified: "2025-05-28T00:00:00+03:00"
 generated:
   by: "catix-wiki-synth/0.1 (model, thinking)"
-  at: "2026-10-22T12:11:56+00:00"
+  at: "2026-10-22T13:19:54+00:00"
 status: draft
-evidence_sha: "ab8f20cdcded6cb1"
+evidence_sha: "116208c0b39c4cdf"
 ---
 
 # Recognition of earlier study results
 
 ## Who can apply
-Applications for credit transfer may be submitted by the enrolled student or by the parents or legal representatives of a minor student [2][5].
+Applications for credit transfer can be submitted by the student or by the parents or legal representatives of a minor student [2][5]. This process applies to students enrolled in main professional educational programs [1].
 
-## How to apply
-Applicants must submit a completed application form and supporting documents to the university's Attestation Commission [6]. Standard applications must be filed no later than 14 calendar days before the start of the semester or trimester [6]. Two deadline exceptions exist: first-year students in their initial semester or trimester have 14 calendar days after the start of studies to submit [7], and students returning from academic mobility programs must submit within 3 working days after program completion [8]. The required application forms are located in Appendix 1 and Appendix 2 of the regulation [9]. Submissions can be made through the methods specified in clause 2.5 of the regulation [10].
+## What documents are needed
+The regulation requires documents that confirm earlier study results [2]. Acceptable documents include a certificate of education and/or qualification, including those issued in a foreign country [3]. A certificate of study is also accepted, such as a study period certificate or any document issued by a foreign organization like an academic transcript [4]. For results acquired within the University at the same educational level, the electronic grade book serves as the basis [5].
 
-## Basis for recognition
-Credit transfer is granted when the Attestation Commission establishes correspondence between the previously mastered learning results and the planned outcomes of the current program part [11][12]. The commission evaluates this correspondence by comparing the submitted documents against the target program's planned outcomes [14]. To verify actual achievement, the commission may conduct an assessment of the student's knowledge [13]. The commission may also consult the issuing organization's official website or send direct inquiries to verify program details [14]. For internal transfers within the same educational level, recognition relies directly on results recorded in the student's electronic grade book [5]. External recognition requires documents confirming prior study, such as formal education or qualification certificates [3], or training certificates, study period records, and academic transcripts [4]. When foreign institutions are involved, the commission accounts for the issuing country's credit unit calculation system and may equate foreign credits to the volume of contact and independent work [15]. Foreign training documents must be accompanied by a Russian translation [16]. Foreign education or qualification documents require a legalized Russian translation with a formal recognition certificate, unless Russian law or an international treaty waives the recognition requirement [17]. Recognition based on foreign training or education documents is processed through the commission's assessment procedure [18].
+## How to submit
+Applications and supporting documents are submitted to the University's Attestation Commission [6]. The standard deadline is no later than 14 calendar days before the start of the semester or trimester [6]. First-year students must submit their application no later than 14 calendar days after the start of their studies [7]. Students who participated in an academic mobility program must submit their application no later than 3 working days after completing the program [8]. Application forms are provided in Appendix 1 and Appendix 2 of the regulation [9]. Applications and documents can be submitted in the forms specified in the regulation [10].
+
+## How recognition is evaluated
+The Attestation Commission evaluates applications by comparing the planned learning outcomes of the part of the educational program the student is currently studying with the study results acquired earlier [11]. Credit transfer is granted only when the Commission establishes correspondence between these outcomes [12]. To establish correspondence, the Commission may conduct an assessment of the actual achievement of the planned learning outcomes [13]. This procedure involves comparing submitted documents with the planned outcomes for the relevant part of the program [14]. The Commission may analyze information about the educational program from the issuing organization's official website or request information directly from that organization [14].
+
+## Special rules for foreign documents
+If documents are submitted from a foreign educational organization, the correspondence assessment must account for differences in that organization's credit unit calculation system [15]. Credit units may be compared with the volume of contact and independent work [15]. All foreign study certificates must be submitted with a translation into Russian [16]. The University may send verification requests to the organizations that issued these documents [16]. Foreign education or qualification certificates must be submitted with a Russian translation in a legalized form, accompanied by a certificate of recognition of foreign education, unless Russian law or an international treaty exempts recognition [17]. Recognition based on foreign study or education documents is conducted through the assessment procedure [18].
 
 ## Gaps and caveats
-The regulation does not specify the exact submission methods or channels listed in clause 2.5 [10]. It does not detail the specific assessment procedures referenced in Section 3 or Appendix 1 [18]. The regulation does not state what happens if an application is submitted after the stated deadlines [6][7][8]. It does not define the criteria or grading scale used by the Attestation Commission to establish correspondence or conduct assessments [11][13]. The regulation does not clarify how partial credit or multiple prior results are combined or allocated across different program parts [11]. It does not address the recognition of results from non-accredited or non-traditional educational providers beyond the general document requirements [3][4]. The regulation does not specify the processing timeline for applications once submitted to the Attestation Commission [6].
+The evidence does not specify the exact submission formats beyond referencing Appendix 1 and Appendix 2 [9][10]. The regulation does not state what happens if an application is submitted after the deadlines [6][7][8]. It does not define the criteria or grading scale used during the Commission's assessment of actual learning outcomes [13][18]. The text cuts off before listing the specific submission forms or completing the application form template [10][18]. No course pages are referenced in the evidence, so it is unclear how this regulation interacts with specific course syllabi or departmental guidelines. The regulation does not specify the timeline for the Commission's decision or how students are notified of the outcome.
 
 
 
 # Citations
 
+1. [Положение о порядке зачета результатов освоения обучающимися учебных предметов, курсов, дисциплин (модулей), практики](/regulations/credit-transfer-regulation.md)
 2. [Положение о порядке зачета результатов освоения обучающимися учебных предметов, курсов, дисциплин (модулей), практики](/regulations/credit-transfer-regulation.md)
 3. [Положение о порядке зачета результатов освоения обучающимися учебных предметов, курсов, дисциплин (модулей), практики](/regulations/credit-transfer-regulation.md)
 4. [Положение о порядке зачета результатов освоения обучающимися учебных предметов, курсов, дисциплин (модулей), практики](/regulations/credit-transfer-regulation.md)

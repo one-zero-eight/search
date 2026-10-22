@@ -1,0 +1,443 @@
+{
+ "page": "/guides/academic-integrity.md",
+ "evidence_sha": "34c0f8f28e077fc2",
+ "claims": [
+  {
+   "sentence": "Academic integrity consists of the behavioral rules described in point 9 of the Internal Rules of the University and the ethical principles required to ensure trust in learning and scientific achievements",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "52724efad45f",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "A violation of academic integrity is any action or attempt related to deception while mastering a course, during current control, or during intermediate and final certification",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "52724efad45f",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Plagiarism is the use of another person's work in any form without citing sources and presenting it as your own",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "52724efad45f",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "An instructor may specify the expected similarity for course assignments in the course syllabus or in the assignment notice",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "a6cf39a0a397",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The University may use iPlag, Turnitin, Antiplagiat, or other programs at the instructor's discretion to check work originality",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "867a0a622d18",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If a student refuses to have their work checked for originality when a violation is suspected, the violation is considered established",
+   "cites": [
+    8
+   ],
+   "evidence": [
+    {
+     "n": 8,
+     "sha": "1cc276104a4f",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The instructor must inform the student about the suspected violation",
+   "cites": [
+    9
+   ],
+   "evidence": [
+    {
+     "n": 9,
+     "sha": "3d9ae33adc59",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If the violation is confirmed during the originality check or if the student admits to it, disciplinary measures are applied",
+   "cites": [
+    10
+   ],
+   "evidence": [
+    {
+     "n": 10,
+     "sha": "e0402fc46eee",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The instructor must report the case to the Student Support and Development Department (OPS) at 319@innopolis.ru",
+   "cites": [
+    11
+   ],
+   "evidence": [
+    {
+     "n": 11,
+     "sha": "ddfa1eb3ce86",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "In cases of plagiarism, disciplinary measures apply to all students involved in the violation",
+   "cites": [
+    12
+   ],
+   "evidence": [
+    {
+     "n": 12,
+     "sha": "d592365cdb8d",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The consequences for violations are applied to the student as follows",
+   "cites": [
+    20
+   ],
+   "evidence": [
+    {
+     "n": 20,
+     "sha": "64bf28904d1c",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If a student is caught violating the rules for the first time, they receive an unsatisfactory result (0-E) for the completed work",
+   "cites": [
+    21
+   ],
+   "evidence": [
+    {
+     "n": 21,
+     "sha": "d3dee77a896b",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If a student is caught violating the rules a second time, they receive an unsatisfactory result (0-P) for the course or module (or for the courses if two cheating cases are found in different subjects) and are sent to retake the intermediate certification, and an official warning is issued to the student",
+   "cites": [
+    22
+   ],
+   "evidence": [
+    {
+     "n": 22,
+     "sha": "7994b86139a1",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "A student who disagrees with the fact of a violation can request a meeting of the Dispute Resolution Commission for Academic Integrity",
+   "cites": [
+    13
+   ],
+   "evidence": [
+    {
+     "n": 13,
+     "sha": "1790ab3b58a8",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The student has 3 working days after receiving the OPS email notification to appeal the fact of the violation and the disciplinary measures",
+   "cites": [
+    16
+   ],
+   "evidence": [
+    {
+     "n": 16,
+     "sha": "fd181b3a01a2",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "To appeal, the student must reply to the OPS email with a justification and evidence of their innocence",
+   "cites": [
+    16
+   ],
+   "evidence": [
+    {
+     "n": 16,
+     "sha": "fd181b3a01a2",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If the student does not submit an appeal within this timeframe, the instructor's decision is final and the disciplinary measures are applied",
+   "cites": [
+    17
+   ],
+   "evidence": [
+    {
+     "n": 17,
+     "sha": "015e7cbbabd7",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Within 10 working days after receiving the appeal, OPS schedules a commission meeting via email and invites the student",
+   "cites": [
+    18
+   ],
+   "evidence": [
+    {
+     "n": 18,
+     "sha": "71f3b92a2309",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The student has the right to present evidence and arguments in their defense, and the Commission may ask related questions",
+   "cites": [
+    19
+   ],
+   "evidence": [
+    {
+     "n": 19,
+     "sha": "1fea25e7406e",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The Commission consists of at least 3 people, including administrative staff, faculty, and possibly student council representatives, with a recommended composition of an OPS staff member, the Dean or deputy of the Faculty of Computer and Engineering Sciences, one faculty representative, a program manager (if available), and an official student self-government representative",
+   "cites": [
+    14
+   ],
+   "evidence": [
+    {
+     "n": 14,
+     "sha": "3242da9e69a8",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Commission decisions are made by a simple majority vote",
+   "cites": [
+    15
+   ],
+   "evidence": [
+    {
+     "n": 15,
+     "sha": "15fdf6594094",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify what happens after a third or subsequent violation",
+   "cites": [
+    21,
+    22
+   ],
+   "evidence": [
+    {
+     "n": 21,
+     "sha": "d3dee77a896b",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    },
+    {
+     "n": 22,
+     "sha": "7994b86139a1",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not detail the exact procedures for commission meetings or how evidence is evaluated",
+   "cites": [
+    18,
+    19
+   ],
+   "evidence": [
+    {
+     "n": 18,
+     "sha": "71f3b92a2309",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    },
+    {
+     "n": 19,
+     "sha": "1fea25e7406e",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not provide course-specific pages to compare against the regulation, so any course page differences cannot be verified here",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "2dd56e1596e1",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The definition of plagiarism is cut off in the source text and its full scope is not stated",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "52724efad45f",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The regulation applies to all students in higher education programs, but the evidence does not list the specific internal rules or ethical principles referenced",
+   "cites": [
+    3,
+    5
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "241c3f68a955",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "52724efad45f",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The official regulation outranks course pages, but the evidence is silent on how conflicts are resolved if a course page contradicts it, so a course page that goes beyond the regulation is not automatically wrong",
+   "cites": [
+    1,
+    2
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "13b34112d61b",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "c58ff9e77303",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

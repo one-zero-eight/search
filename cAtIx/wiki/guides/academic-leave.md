@@ -14,10 +14,10 @@ sources:
     last_modified: "1994-11-03T00:00:00+03:00"
 generated:
   by: "catix-wiki-synth/0.1 (model, thinking)"
-  at: "2026-10-22T12:23:02+00:00"
+  at: "2026-10-22T13:22:54+00:00"
 status: draft
-evidence_sha: "87ddfdd3401c236b"
-review: ["number 10 is not in the cited evidence: The decision on academic leave is made by the University Director or an authorized officia"]
+evidence_sha: "392cb7471b718616"
+review: ["number 10 is not in the cited evidence: The decision to grant academic leave is made by the University Director or an authorized o"]
 source_warning: "relies on scanned documents read by OCR (/regulations/enrollment-procedure-order.md): wording, numbers and letters may contain reading errors; check against the PDF"
 ---
 
@@ -25,25 +25,39 @@ source_warning: "relies on scanned documents read by OCR (/regulations/enrollmen
 
 ## Who can get it and on what grounds
 
-Academic leave is available to students enrolled in main professional educational programs [1]. Eligible grounds include conscription or signing a military service contract [1][8], medical indications [1][7][8], and other exceptional cases such as natural disasters or family circumstances [1][7].
+Academic leave is available to students and postgraduate students enrolled in basic professional educational programs at the University [1]. It is granted when the student is temporarily unable to complete their program due to:
+*   Conscription for military service or signing a contract for military service [1].
+*   Medical indications [1].
+*   Other exceptional cases, including natural disasters or family circumstances [1].
 
 ## Duration
 
-The standard duration of academic leave is up to 12 calendar months at one time [2]. Exceptions apply to leaves for military service or medical indications, which can last up to two years [2][7]. There is no limit on the number of times a student can be granted academic leave during their studies [2][8].
+The standard duration of academic leave is up to 12 calendar months at one time [2]. However, for leave taken due to military service or medical indications, the duration may not exceed two years [2][7]. There is no limit on the number of times academic leave can be granted to a student during their studies [2][8].
 
 ## How to apply
 
-Students must submit a personal application to the University Director [1][3][8]. The application must include supporting documents relevant to the grounds for leave [3][8]. For medical indications, a medical conclusion from a healthcare organization within the state or municipal health system is required [3]. For military service, a mobilization notice, order, or summons from the military commissariat specifying the time and place of deployment, or a copy of the military service contract, is required [3]. Other documents confirming the grounds may be submitted if available [3].
+To request academic leave, the student must submit a personal application to the University Director [1][3][8]. The application form is specified in Appendix 1 to the Regulation [3].
 
-## Decision and return
+Supporting documents must be submitted along with the application:
+*   For medical indications: a medical conclusion issued by a healthcare organization within the state or municipal health system [1][3][8].
+*   For military service: a mobilization notice, order, or summons from the military commissariat containing the time and place of dispatch to the place of military service, and a copy of the contract for military service in the Armed Forces of the Russian Federation, certified in the manner established by Russian legislation [1][3].
+*   For other exceptional cases: other documents confirming the grounds for the leave, if available [1][3][8].
 
-The decision on academic leave is made by the University Director or an authorized official within 10 days of receiving the application and documents [9]. The leave is formalized by an order issued by the University Director within 5 working days of the decision [4]. Educational relations are suspended during the leave [6]. Students are released from obligations related to the educational program and are not allowed to participate in the educational process until the leave ends [10]. If the student is enrolled under a contract, tuition fees are not charged during the leave [10].
+## Decision and timeline
 
-The leave ends when the specified period expires or earlier based on a student's application [5][10]. Upon completion, the student is admitted to studies based on an order from the University Director or an authorized official [5][10].
+The decision to grant academic leave is made by the University Director or an authorized official within 10 days from the date of receiving the application and attached documents [9]. The leave is formalized by an order issued by the University Head no later than 5 working days from the date the decision to grant the leave is made [4].
+
+## Status during leave
+
+During the academic leave, the student is released from obligations related to mastering the educational program and is not admitted to the educational process until the leave ends [10]. Educational relations are suspended during this period [6]. If the student is enrolled under a contract, tuition fees are not charged during the academic leave [10].
+
+## Returning to studies
+
+Academic leave ends upon the expiration of the period for which it was granted, or earlier based on the student's application [5][10]. The application form for early termination is specified in Appendix 4 to the order [5]. If the leave ends early, the student is admitted to studies based on an order from the University Head [5]. Upon completion of the leave, the student is admitted to studies based on an order from the University Director or an authorized official [10].
 
 ## Gaps and caveats
 
-The evidence does not specify the exact forms of the application or the order, only that they are listed in attachments to the regulations [3][5]. The evidence does not detail the process for returning to studies if the leave was extended or if there are complications beyond the standard completion. The evidence does not specify what happens to academic progress or credits earned before the leave. The evidence does not clarify if the "other exceptional cases" have specific definitions or approval criteria beyond the general statement. The evidence does not specify the procedure for appealing a denial of academic leave.
+The evidence does not specify the exact content or submission method for Appendix 1 or Appendix 4 [3][5]. The evidence does not define what constitutes "other exceptional cases" beyond natural disasters and family circumstances [1]. The evidence does not specify the procedure for resuming studies if the leave was granted for medical reasons and the student needs to provide a new medical certificate upon return, only stating that admission is based on an order [5][10]. The evidence does not specify what happens to academic progress or grades accrued before the leave [6][10].
 
 ## Clauses used
 

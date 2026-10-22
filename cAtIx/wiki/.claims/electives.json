@@ -1,0 +1,510 @@
+{
+ "page": "/guides/electives.md",
+ "evidence_sha": "eae1bb8176ea22d3",
+ "claims": [
+  {
+   "sentence": "Students can choose from four main lists: BSc technical, BSc humanitarian, MSc technical, and MSc humanitarian",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "9b8528e06581",
+     "sources": [
+      "/pages/list-of-electives.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": ". Additional options appear on the 'Electives' page as 'Elective:' pages",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "7670ab3cc8f9",
+     "sources": [
+      "/pages/electives.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": ". A separate 'Technical Electives' timetable covers 38 courses taught by 18 instructors",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "6e04d6450ced",
+     "sources": [
+      "/schedules/technical-electives.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The primary lists group courses by degree level and track",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "9b8528e06581",
+     "sources": [
+      "/pages/list-of-electives.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": ". The BSc technical list contains 54 courses distributed across 8 areas",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "27f22b58f9a5",
+     "sources": [
+      "/programs/list-of-bsc-technical-electives.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": ". The BSc humanitarian list contains 27 courses distributed across 5 areas",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "64654dfca71a",
+     "sources": [
+      "/pages/list-of-bsc-humanitarian-electives.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": ". The MSc technical list contains 22 courses",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "b569b0842eaf",
+     "sources": [
+      "/pages/list-of-msc-technical-electives.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": ". The MSc humanitarian list contains 8 courses",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "a7707b47de71",
+     "sources": [
+      "/pages/list-of-msc-humanitarian-electives.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": ". The 'Technical Electives' timetable organizes its 38 courses by instructor, teaching block (1, 1-2, or 2), and class dates",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "6e04d6450ced",
+     "sources": [
+      "/schedules/technical-electives.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The overview page marks all four main lists as '(update in progress)'",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "9b8528e06581",
+     "sources": [
+      "/pages/list-of-electives.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": ". The typical pattern across all tracks is that most courses lack a wiki page or link to an unavailable page",
+   "cites": [
+    2,
+    3,
+    4,
+    5
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "27f22b58f9a5",
+     "sources": [
+      "/programs/list-of-bsc-technical-electives.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "64654dfca71a",
+     "sources": [
+      "/pages/list-of-bsc-humanitarian-electives.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "b569b0842eaf",
+     "sources": [
+      "/pages/list-of-msc-technical-electives.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "a7707b47de71",
+     "sources": [
+      "/pages/list-of-msc-humanitarian-electives.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": ". The exceptions are the small groups of courses that have active wiki pages",
+   "cites": [
+    2,
+    3,
+    4,
+    5
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "27f22b58f9a5",
+     "sources": [
+      "/programs/list-of-bsc-technical-electives.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "64654dfca71a",
+     "sources": [
+      "/pages/list-of-bsc-humanitarian-electives.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "b569b0842eaf",
+     "sources": [
+      "/pages/list-of-msc-technical-electives.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "a7707b47de71",
+     "sources": [
+      "/pages/list-of-msc-humanitarian-electives.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": ". The BSc technical track contains the largest group of courses with wiki pages (14) and the largest group marked '(in progress)' (34)",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "27f22b58f9a5",
+     "sources": [
+      "/programs/list-of-bsc-technical-electives.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": ". The BSc humanitarian track contains 10 courses with wiki pages and 0 marked '(in progress)'",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "64654dfca71a",
+     "sources": [
+      "/pages/list-of-bsc-humanitarian-electives.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": ". The MSc technical track contains 0 courses with wiki pages",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "b569b0842eaf",
+     "sources": [
+      "/pages/list-of-msc-technical-electives.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": ". The MSc humanitarian track contains 1 course with a wiki page",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "a7707b47de71",
+     "sources": [
+      "/pages/list-of-msc-humanitarian-electives.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": ". The 'Technical Electives' timetable provides a short name, full name, instructor, block, and class dates for each of its 38 courses",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "6e04d6450ced",
+     "sources": [
+      "/schedules/technical-electives.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence leaves several details open regarding course availability and organization",
+   "cites": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "9b8528e06581",
+     "sources": [
+      "/pages/list-of-electives.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "27f22b58f9a5",
+     "sources": [
+      "/programs/list-of-bsc-technical-electives.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "64654dfca71a",
+     "sources": [
+      "/pages/list-of-bsc-humanitarian-electives.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "b569b0842eaf",
+     "sources": [
+      "/pages/list-of-msc-technical-electives.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "a7707b47de71",
+     "sources": [
+      "/pages/list-of-msc-humanitarian-electives.md"
+     ]
+    },
+    {
+     "n": 6,
+     "sha": "7670ab3cc8f9",
+     "sources": [
+      "/pages/electives.md"
+     ]
+    },
+    {
+     "n": 7,
+     "sha": "6e04d6450ced",
+     "sources": [
+      "/schedules/technical-electives.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": ". The overview page marks every main list as '(update in progress)' without providing a completion date or update scope",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "9b8528e06581",
+     "sources": [
+      "/pages/list-of-electives.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": ". The BSc technical list states 8 areas but enumerates 9 categories in the evidence",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "27f22b58f9a5",
+     "sources": [
+      "/programs/list-of-bsc-technical-electives.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": ". The 'Electives' page lists additional courses as 'Elective:' pages but provides no further information on them",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "7670ab3cc8f9",
+     "sources": [
+      "/pages/electives.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": ". The 'Technical Electives' timetable covers 38 courses but does not state how these 38 courses relate to the 54 courses in the BSc technical list or the 22 courses in the MSc technical list",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "6e04d6450ced",
+     "sources": [
+      "/schedules/technical-electives.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": ". The evidence does not specify credit values, enrollment limits, or prerequisites for any course",
+   "cites": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "9b8528e06581",
+     "sources": [
+      "/pages/list-of-electives.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "27f22b58f9a5",
+     "sources": [
+      "/programs/list-of-bsc-technical-electives.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "64654dfca71a",
+     "sources": [
+      "/pages/list-of-bsc-humanitarian-electives.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "b569b0842eaf",
+     "sources": [
+      "/pages/list-of-msc-technical-electives.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "a7707b47de71",
+     "sources": [
+      "/pages/list-of-msc-humanitarian-electives.md"
+     ]
+    },
+    {
+     "n": 6,
+     "sha": "7670ab3cc8f9",
+     "sources": [
+      "/pages/electives.md"
+     ]
+    },
+    {
+     "n": 7,
+     "sha": "6e04d6450ced",
+     "sources": [
+      "/schedules/technical-electives.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": ". The evidence does not clarify whether the '(update in progress)' status applies to course content, availability, or wiki formatting",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "9b8528e06581",
+     "sources": [
+      "/pages/list-of-electives.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -10,33 +10,36 @@ sources:
     last_modified: "2012-12-29T00:00:00+03:00"
 generated:
   by: "catix-wiki-synth/0.1 (model, thinking)"
-  at: "2026-10-22T12:10:57+00:00"
+  at: "2026-10-22T13:18:42+00:00"
 status: draft
-evidence_sha: "f77e19a2738292d2"
+evidence_sha: "34c0f8f28e077fc2"
 source_warning: "relies on scanned documents read by OCR (/regulations/academic-integrity-regulation.md): wording, numbers and letters may contain reading errors; check against the PDF"
 ---
 
 # Academic integrity and disciplinary measures
 
 ## What counts as a violation
-A violation of academic integrity is defined as any action or attempt involving deception during course study, current assessments, or interim and final examinations [5]. Specific forms include plagiarism, which occurs when a student uses another person's work in any format without citing sources and presents it as their own [5]. The broader behavioral rules for academic integrity are also outlined in clause 9 of the Student Code of Conduct [5]. Instructors may specify expected similarity thresholds for assignments in course syllabi or assignment notifications [6]. The university employs plagiarism detection software such as iThenticate, Turnitin, and Antiplagiat, with additional tools available at the instructor's discretion [7]. If a student refuses to allow originality checks when a violation is suspected, the violation is automatically considered established [8].
+Academic integrity consists of the behavioral rules described in point 9 of the Internal Rules of the University and the ethical principles required to ensure trust in learning and scientific achievements [5]. A violation of academic integrity is any action or attempt related to deception while mastering a course, during current control, or during intermediate and final certification [5]. Plagiarism is the use of another person's work in any form without citing sources and presenting it as your own [5].
 
 ## How a case is handled
-When a potential violation is identified, the instructor must notify the student of the suspicion [9]. If the originality check confirms the violation or the student admits to it, disciplinary measures are triggered [10]. The instructor is required to report the incident to the Student Support and Development Office (ОПРС) via email at 319@innopolis.ru [11]. In cases of plagiarism, disciplinary measures are applied to every student who participated in the violation [12].
-
-## How to appeal
-Appeals are processed by the Dispute Resolution Commission for Academic Integrity, which convenes only when a student disagrees with the established violation [13]. The commission consists of at least three members drawn from administrative staff, faculty, and optionally the student council, with a recommended composition including an OPS representative, a dean or deputy, one faculty member, a program manager, and a student representative [14]. Commission decisions are made by a simple majority vote [15]. A student must submit an appeal within three working days after receiving the disciplinary notification email from OPS [16]. The appeal requires sending a written justification and supporting evidence to the OPS email address [16]. Failure to appeal within this three-day window results in the instructor's decision becoming final and the disciplinary measures being applied [17]. Upon receiving a valid appeal, OPS schedules a commission meeting via email and invites the student within ten working days [18]. During the meeting, the student may present evidence and arguments, while the commission may ask follow-up questions [19].
+An instructor may specify the expected similarity for course assignments in the course syllabus or in the assignment notice [6]. The University may use iPlag, Turnitin, Antiplagiat, or other programs at the instructor's discretion to check work originality [7]. If a student refuses to have their work checked for originality when a violation is suspected, the violation is considered established [8]. The instructor must inform the student about the suspected violation [9]. If the violation is confirmed during the originality check or if the student admits to it, disciplinary measures are applied [10]. The instructor must report the case to the Student Support and Development Department (OPS) at 319@innopolis.ru [11]. In cases of plagiarism, disciplinary measures apply to all students involved in the violation [12].
 
 ## Disciplinary measures
-Cases are grouped by offense count. First-time cases result in an unsatisfactory grade (0–E) for the specific assignment or assessment [21]. Second-time cases result in an unsatisfactory grade (0–Р) for the entire course or module, or for multiple courses if the offenses occurred in different subjects, require retaking the interim assessment, and trigger an official warning [22].
+The consequences for violations are applied to the student as follows [20]. If a student is caught violating the rules for the first time, they receive an unsatisfactory result (0-E) for the completed work [21]. If a student is caught violating the rules a second time, they receive an unsatisfactory result (0-P) for the course or module (or for the courses if two cheating cases are found in different subjects) and are sent to retake the intermediate certification, and an official warning is issued to the student [22].
+
+## How to appeal
+A student who disagrees with the fact of a violation can request a meeting of the Dispute Resolution Commission for Academic Integrity [13]. The student has 3 working days after receiving the OPS email notification to appeal the fact of the violation and the disciplinary measures [16]. To appeal, the student must reply to the OPS email with a justification and evidence of their innocence [16]. If the student does not submit an appeal within this timeframe, the instructor's decision is final and the disciplinary measures are applied [17]. Within 10 working days after receiving the appeal, OPS schedules a commission meeting via email and invites the student [18]. The student has the right to present evidence and arguments in their defense, and the Commission may ask related questions [19]. The Commission consists of at least 3 people, including administrative staff, faculty, and possibly student council representatives, with a recommended composition of an OPS staff member, the Dean or deputy of the Faculty of Computer and Engineering Sciences, one faculty representative, a program manager (if available), and an official student self-government representative [14]. Commission decisions are made by a simple majority vote [15].
 
 ## Gaps and caveats
-The regulation does not specify exact similarity percentages that trigger a violation, leaving thresholds to instructor discretion or course pages [6][7]. The regulation does not detail internal commission procedures beyond the meeting invitation and voting mechanism [13][15]. It does not state the consequences if a student misses the scheduled commission meeting [18]. The regulation does not define the specific content of the official warning or its long-term academic impact [22]. Course-specific pages are not provided in the evidence, so program-level variations in integrity checks or appeals remain unverified [4]. The regulation is silent on whether disciplinary records are shared across departments or how offenses beyond the second are handled [22]. If any course page specifies procedures that differ from or expand upon this regulation, the regulation takes precedence.
+The evidence does not specify what happens after a third or subsequent violation [21][22]. The evidence does not detail the exact procedures for commission meetings or how evidence is evaluated [18][19]. The evidence does not provide course-specific pages to compare against the regulation, so any course page differences cannot be verified here [4]. The definition of plagiarism is cut off in the source text and its full scope is not stated [5]. The regulation applies to all students in higher education programs, but the evidence does not list the specific internal rules or ethical principles referenced [3][5]. The official regulation outranks course pages, but the evidence is silent on how conflicts are resolved if a course page contradicts it, so a course page that goes beyond the regulation is not automatically wrong [1][2].
 
 
 
 # Citations
 
+1. [Положение по применению дисциплинарных взысканий за нарушения академической добропорядочности](/regulations/academic-integrity-regulation.md)
+2. [Положение по применению дисциплинарных взысканий за нарушения академической добропорядочности](/regulations/academic-integrity-regulation.md)
+3. [Положение по применению дисциплинарных взысканий за нарушения академической добропорядочности](/regulations/academic-integrity-regulation.md)
 4. [Положение по применению дисциплинарных взысканий за нарушения академической добропорядочности](/regulations/academic-integrity-regulation.md)
 5. [Положение по применению дисциплинарных взысканий за нарушения академической добропорядочности](/regulations/academic-integrity-regulation.md)
 6. [Положение по применению дисциплинарных взысканий за нарушения академической добропорядочности](/regulations/academic-integrity-regulation.md)
@@ -53,5 +56,6 @@ The regulation does not specify exact similarity percentages that trigger a viol
 17. [Положение по применению дисциплинарных взысканий за нарушения академической добропорядочности](/regulations/academic-integrity-regulation.md)
 18. [Положение по применению дисциплинарных взысканий за нарушения академической добропорядочности](/regulations/academic-integrity-regulation.md)
 19. [Положение по применению дисциплинарных взысканий за нарушения академической добропорядочности](/regulations/academic-integrity-regulation.md)
+20. [Положение по применению дисциплинарных взысканий за нарушения академической добропорядочности](/regulations/academic-integrity-regulation.md)
 21. [Положение по применению дисциплинарных взысканий за нарушения академической добропорядочности](/regulations/academic-integrity-regulation.md)
 22. [Положение по применению дисциплинарных взысканий за нарушения академической добропорядочности](/regulations/academic-integrity-regulation.md)

@@ -8,6 +8,7 @@
   link     links between concepts, index.md
   graph    prerequisites, teachers, duplicates (the model only for lines it has not seen; answers are cached)
   synth    guides whose evidence changed (--force: all)
+  claims   which sentences of the guides rest on evidence that changed (wiki/.claims/)
   lint     the bundle against OKF v0.2; the exit code is 1 on errors
 """
 
@@ -38,5 +39,8 @@ def main() -> None:
     print("== synth")
     written = synth.run(force="--force" in args)
     print(f"== {written} guides written")
+    print("== claims")
+    stale = synth.check_claims(synth.Index())
+    print(f"== {sum(1 for _, n in stale.values() if n != 0)} guides have sentences on changed evidence")
     print("== lint")
     sys.exit(lint.lint())

@@ -13,7 +13,7 @@
    "accessibility",
    "student-rights"
   ],
-  "status": "proposed"
+  "status": "accepted"
  },
  "enrollment-and-withdrawal": {
   "slug": "enrollment-and-withdrawal",
@@ -29,7 +29,7 @@
    "university-procedures",
    "documentation"
   ],
-  "status": "proposed"
+  "status": "accepted"
  },
  "remote-assessment-technical": {
   "slug": "remote-assessment-technical",
@@ -45,6 +45,6 @@
    "student-equipment",
    "distance-education"
   ],
-  "status": "proposed"
+  "status": "accepted"
  }
 }
