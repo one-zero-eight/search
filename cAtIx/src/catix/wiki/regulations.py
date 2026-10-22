@@ -89,6 +89,7 @@ def fetch() -> None:
 def to_markdown(text: str) -> str:
     """Layout text -> markdown: chapters '## N. Title', clauses as paragraphs starting with their bold number, 3-space-gapped rows as tables."""
     out, para, table = [], [], []
+    flat = not re.search(r"^\s*\d+\.\d+\.?\s", text, re.M)  # numbering 1., 2., 3. without chapters: every number opens a clause
 
     def flush() -> None:
         nonlocal para, table
@@ -114,7 +115,11 @@ def to_markdown(text: str) -> str:
             continue
         if table:
             flush()
-        if re.match(r"^\d{1,2}\.\s+[А-ЯЁ]", line) and not re.match(r"^\d+\.\d", line) and len(line) < 150 and not line.endswith((";", ",")):
+        if flat and re.match(r"^\d{1,2}\.\s+\S", line):
+            flush()
+            num, _, rest = line.partition(" ")
+            para = [f"**{num}**", rest]
+        elif re.match(r"^\d{1,2}\.\s+[А-ЯЁA-Z]", line) and not re.match(r"^\d+\.\d", line) and len(line) < 150 and not line.endswith((";", ",")):
             flush()
             out.append(f"## {line}")
         elif re.match(r"^\d+(\.\d+)+\.?\s", line):
