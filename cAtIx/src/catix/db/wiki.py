@@ -177,5 +177,8 @@ def find_page(name: str) -> str | None:
     with pg.connection() as conn:
         if pg.scalar(conn, "SELECT path FROM wiki_pages WHERE path = %s", (path,)):
             return path
+        # The model often drops the folder ('/sveden-f8519483-pdf.md'): the file name alone is unique enough.
+        if found := pg.scalar(conn, "SELECT path FROM wiki_pages WHERE path LIKE %s ORDER BY length(path) LIMIT 1", ("%" + path,)):
+            return found
         return pg.scalar(conn, "SELECT path FROM wiki_pages WHERE title ILIKE %s ORDER BY trust = 'official' DESC, length(title) LIMIT 1",
                          (f"%{name.strip()}%",))

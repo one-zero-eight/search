@@ -48,3 +48,25 @@ def test_warnings_say_what_is_not_to_be_trusted():
     assert tools._warnings(old) == ["not checked: lost table", "may be outdated: due for review since 2020-01-01"]
     scan = hit(review="scanned document read by OCR: check numbers")
     assert tools._warnings(scan) == ["read from a scan by OCR: letters and numbers may be misread"]
+
+
+def test_clauses_of_one_document_share_one_line_of_the_source_list():
+    collector = tools.Collector(runtime())
+    a = tools._wiki_item(hit(id=1, clause="5.3"), collector)
+    b = tools._wiki_item(hit(id=2, clause="5.18"), collector)
+    answer = sources.cite(f"Не более двух раз [{a['ref']}], потом отчисление [{b['ref']}].", collector.new)
+    assert "Не более двух раз [1], потом отчисление [1]." in answer
+    assert answer.splitlines()[-1].endswith("п. 5.3, 5.18 (документ университета)") and "[2]" not in answer
+
+
+def test_a_field_of_study_code_is_not_a_clause():
+    from catix.wiki.chunks import cut
+
+    _, cs = cut('---\ntype: regulation\ntitle: "Правила"\n---\n\n## Испытания\n\n**09.04.01** Информатика: тестирование.\n')
+    assert cs[0].clause == ""
+
+
+def test_two_clauses_of_one_document_side_by_side_become_one_mark():
+    collector = tools.Collector(runtime())
+    a, b = tools._wiki_item(hit(id=1, clause="5.3"), collector), tools._wiki_item(hit(id=2, clause="5.4"), collector)
+    assert sources.cite(f"Компьютерное тестирование [{a['ref']}][{b['ref']}].", collector.new).startswith("Компьютерное тестирование [1].")

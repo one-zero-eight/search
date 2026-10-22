@@ -17,12 +17,13 @@ from dataclasses import dataclass, field
 from catix.wiki.compile import front_of
 from catix.wiki.graph import split_front
 
-SCHEME = "chunks-1"  # change it when the cutting rules change: every page is then cut again
+SCHEME = "chunks-2"  # change it when the cutting rules change: every page is then cut again
 MAX = 1200  # characters of a piece (about 300-400 tokens)
 MIN = 300  # a smaller piece is packed with the next one of the same section
 
 HEADING = re.compile(r"^(#{1,6})\s+(.*\S)\s*$")
 CLAUSE = re.compile(r"^\*\*(\d{1,2}(?:\.\d{1,2}){0,4})\.?\*\*")  # the same form as synth.clauses
+PROGRAMME_CODE = re.compile(r"\d\d\.0\d\.\d\d")  # '09.04.01' is a field of study, not a clause
 CITE = re.compile(r"\[(\d{1,3})\]")
 LINK = re.compile(r"\[([^\]]+)\]\(([^)\s]+)\)")
 SENTENCE = re.compile(r"(?<=[.!?;])\s+")
@@ -164,7 +165,10 @@ def cut(text: str) -> tuple[dict, list[Chunk]]:
             clause = ""
             continue
         heading = " > ".join(t for _, t in path)
-        if num := CLAUSE.match(block):
+        num = CLAUSE.match(block)
+        if num and PROGRAMME_CODE.fullmatch(num.group(1)):
+            num = None
+        if num:
             clause = num.group(1)
         pieces = split_table(block) if kind == "table" else split_long(block)
         for i, piece in enumerate(pieces):

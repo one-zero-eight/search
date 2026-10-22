@@ -620,6 +620,19 @@ def search_wiki(queries: list[str], runtime: ToolRuntime[AgentContext], kinds: l
     return collector.result(result, "search_wiki")
 
 
+MAX_READS = 2  # read_wiki calls per question
+
+
+def _calls_this_turn(runtime: ToolRuntime[AgentContext], name: str) -> int:
+    """How many results of tool `name` came back since the last question (the helper's run)."""
+    count = 0
+    for message in reversed(runtime.state.get("messages", [])):
+        if getattr(message, "type", "") == "human":
+            break
+        count += getattr(message, "type", "") == "tool" and getattr(message, "name", "") == name
+    return count
+
+
 class ReadWikiArgs(BaseModel):
     page: str = Field(description="The `page` of a search result ('/regulations/attestation-regulation.md'), or words of a document's title.")
     clause: str | None = Field(None, description="A clause number to read ('5.3'; '5' reads chapter 5).")
@@ -630,15 +643,26 @@ class ReadWikiArgs(BaseModel):
 def read_wiki(page: str, runtime: ToolRuntime[AgentContext], clause: str | None = None, section: str | None = None) -> Command:
     """Read more of one page of the knowledge base: a clause cut off in the search results, the clauses around it, or a
     section. Without clause and section: the start of the page and its list of sections."""
-    path = wiki_store.find_page(page)
     collector = Collector(runtime)
+    if _calls_this_turn(runtime, "read_wiki") >= MAX_READS:
+        # The prompt says so too, but a small model keeps reading and runs out of its budget without a report.
+        return collector.result({"error": "No more reading in this question: report now with what you have, and say what is missing."}, "read_wiki")
+    path = wiki_store.find_page(page)
     if not path:
         return collector.result({"error": f"No page {page!r}: use the `page` of a search result."}, "read_wiki")
     pieces = wiki_store.page(path)
     if clause:
-        chosen = [p for p in pieces if wiki_store.holds(p.clause, clause)]
+        # A clause numbered in the text (**5.3.**) or a heading that starts with the number ("32. Вступительные испытания"):
+        # documents with flat numbering carry their numbers in headings.
+        number = clause.strip().rstrip(".")
+        chosen = [p for p in pieces if wiki_store.holds(p.clause, number)
+                  or any(re.match(rf"{re.escape(number)}(?:\.\d+)*\.?\s", h) for h in p.heading.split(" > "))]
     elif section:
-        chosen = [p for p in pieces if section.lower() in p.heading.lower() or section.lower() in p.text[:200].lower()]
+        # From the first piece whose heading or text has the words on: a section is read on, as a person would read it
+        # ("Приложение 1" is often a line in the text, not a heading).
+        want = section.lower()
+        start = next((i for i, p in enumerate(pieces) if want in p.heading.lower() or want in p.text.lower()), None)
+        chosen = pieces[start:] if start is not None else []
     else:
         chosen = pieces
     first = pieces[0] if pieces else None
@@ -668,4 +692,6 @@ TOOLS = [
     get_university_events,
     find_room,
     search_userbot_chats,
+    search_wiki,
+    read_wiki,
 ]

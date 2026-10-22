@@ -44,6 +44,18 @@ CHATS_ROUTE = [
     "какие дедлайны на этой неделе",
     "what are the rules for retaking a midterm",
 ]
+DOCS_ROUTE = [
+    "сколько раз можно пересдавать экзамен",
+    "как оформить академический отпуск",
+    "за что могут отчислить",
+    "как перейти с платного обучения на бюджет",
+    "какие вступительные испытания в магистратуру",
+    "как сдают кандидатские экзамены в аспирантуре",
+    "кто преподает операционные системы",
+    "сколько часов в зачетной единице",
+    "what are the prerequisites of control theory",
+    "кто директор университета",
+]
 
 
 
@@ -51,6 +63,8 @@ def test_each_helper_has_the_rules_about_facts_and_its_own_part():
     chats, campus = roles.prompt("chats"), roles.prompt("campus")
     assert_test(LLMTestCase(input="", actual_output=chats), [ContainsAll(["helper of cAtIx", "search_userbot_chats", "After every tool result", "dates_in_text"], name="Chats")])
     assert_test(LLMTestCase(input="", actual_output=campus), [ContainsAll(["helper of cAtIx", "get_schedule", "InNoHassle"], name="Campus"), ContainsNone(["search_userbot_chats", "After every tool result"], name="NotTheChatRules")])
+    docs = roles.prompt("docs")
+    assert_test(LLMTestCase(input="", actual_output=docs), [ContainsAll(["helper of cAtIx", "search_wiki", "read_wiki", "newest"], name="Docs"), ContainsNone(["search_userbot_chats", "get_schedule"], name="NotTheOtherRules")])
     assert len(campus) < len(chats)
 
 
@@ -62,10 +76,11 @@ def test_the_supervisor_has_the_rules_of_conduct_and_none_of_the_tools():
 
 def test_the_tools_are_split_between_the_helpers():
     known = {t.name for t in TOOLS}
-    chats, campus = roles.ROLES["chats"].tools, roles.ROLES["campus"].tools
-    assert chats <= known and campus <= known, "a helper names a tool that does not exist"
-    assert known == chats | campus, "a tool belongs to no helper"
+    chats, campus, docs = roles.ROLES["chats"].tools, roles.ROLES["campus"].tools, roles.ROLES["docs"].tools
+    assert chats <= known and campus <= known and docs <= known, "a helper names a tool that does not exist"
+    assert known == chats | campus | docs, "a tool belongs to no helper"
     assert "search_userbot_chats" not in campus and "get_schedule" not in chats
+    assert docs == {"search_wiki", "read_wiki"}, "the documents have a helper of their own"
 
 
 class ScriptedModel(FakeMessagesListChatModel):
@@ -132,6 +147,12 @@ def test_a_question_about_the_chats_goes_to_the_chats_helper(agent, text):
 
 
 @pytest.mark.model
+@pytest.mark.parametrize("text", DOCS_ROUTE, ids=[t[:40] for t in DOCS_ROUTE])
+def test_a_question_about_rules_programmes_or_admission_goes_to_the_docs_helper(agent, text):
+    answer = ask(agent, text)
+    assert_test(LLMTestCase(input=text, actual_output="docs" if "ask_docs" in answer.helpers else ",".join(answer.helpers) or "none", expected_output="docs"), [SameLabel()])
+
+
 @pytest.mark.parametrize("text", CAMPUS_ROUTE[:-2], ids=[t[:40] for t in CAMPUS_ROUTE[:-2]])
 def test_a_question_about_the_timetable_clubs_or_map_goes_to_the_campus_helper(agent, text):
     answer = ask(agent, text)
@@ -197,3 +218,18 @@ def test_a_helper_must_call_a_tool_on_its_first_model_call_only():
     assert first.tool_choice == "required"
     after_a_tool_call = middleware._first(Req([HumanMessage("что такое git"), _ask("ask_chats", "x"), ToolMessage(content="r", tool_call_id="c1")]))
     assert after_a_tool_call.tool_choice is None  # later calls are free: the model may answer
+
+
+def test_when_every_helper_failed_the_answer_says_so_instead_of_what_the_supervisor_made_up():
+    from catix.agent.core import TOOL_FAILURE_ANSWER
+
+    messages = [
+        HumanMessage("Какие вступительные испытания в магистратуру?"),
+        _ask("ask_docs", "Какие вступительные испытания в магистратуру?"),
+        ToolMessage(content=TOOL_FAILURE_ANSWER, tool_call_id="c1", name="ask_docs"),
+        AIMessage(content="Вступительных испытаний нет, приём по портфолио."),
+    ]
+    assert final_answer(messages, {}) == TOOL_FAILURE_ANSWER
+    messages[2] = ToolMessage(content="Компьютерное тестирование [m0].", tool_call_id="c1", name="ask_docs")
+    messages[3] = AIMessage(content="Компьютерное тестирование [m0].")
+    assert "тестирование" in final_answer(messages, {"m0": {"wiki": True, "title": "Правила приема", "clause": "", "link": None, "trust": "official"}})

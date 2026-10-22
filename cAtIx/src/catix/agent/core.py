@@ -457,6 +457,12 @@ def final_answer(messages: list[BaseMessage], registry: dict[str, dict]) -> str:
     """
     turn_start = max((i for i, m in enumerate(messages) if isinstance(m, HumanMessage)), default=0)
     turn = messages[turn_start:]
+    reports = [str(m.content) for m in turn if isinstance(m, ToolMessage) and (m.name or "").startswith("ask_")]
+    if reports and all(r.strip() == TOOL_FAILURE_ANSWER for r in reports):
+        # No helper finished: whatever the supervisor wrote comes from its own memory (it once made up the rules of
+        # admission this way). The user is told that it did not work.
+        log.warning("every helper failed this turn; the supervisor's answer is replaced")
+        return TOOL_FAILURE_ANSWER
     answer = clean(turn, messages[-1].text)
     # The supervisor may cite only what a helper reported in this very turn. The registry holds the sources of the whole
     # conversation, so a ref the supervisor made up ("m0") could otherwise name an unrelated message found earlier.
@@ -570,7 +576,7 @@ def _helper_tool(role: roles.Role, model) -> BaseTool:
 
 
 def build_agent(model=None, *, guardrail: bool = True):
-    """The agent: a supervisor whose tools are the helpers (`ask_chats`, `ask_campus`). `guardrail=False` leaves out the
+    """The agent: a supervisor whose tools are the helpers (`ask_chats`, `ask_campus`, `ask_docs`). `guardrail=False` leaves out the
     screen in front of it (agent/guardrail.py); only the tests do that, to try the agent's own prompt against attacks that
     the screen would stop first."""
     model = model or ChatOpenAI(

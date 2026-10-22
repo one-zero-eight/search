@@ -111,28 +111,44 @@ class Collector:
         return Command(update={"messages": [message], "sources": self.new})
 
 
+def _identity(ref: str, source: dict) -> object:
+    """What one number of the source list stands for: a chat message, or a whole document of the wiki (its clauses are listed
+    in its one line, so that twelve clauses of one regulation do not make twelve lines)."""
+    return ("wiki", source.get("title"), source.get("link")) if source.get("wiki") else ref
+
+
 def cite(answer: str, registry: dict[str, dict]) -> str:
     """Replace refs in the answer by numbers and append the numbered source list."""
-    numbers: dict[str, int] = {}
+    numbers: dict[object, int] = {}
+    first: dict[object, str] = {}  # identity -> the first ref of it (its source fields)
+    clauses: dict[object, list[str]] = {}
 
     def renumber(match: re.Match) -> str:
         used: set[int] = set()
         for item in re.findall(r"m\d+", match.group(1)):
             if item in registry:
-                used.add(numbers.setdefault(item, len(numbers) + 1))
+                key = _identity(item, registry[item])
+                used.add(numbers.setdefault(key, len(numbers) + 1))
+                first.setdefault(key, item)
+                clause = registry[item].get("clause")
+                if clause and clause not in clauses.setdefault(key, []):
+                    clauses[key].append(clause)
             else:
                 log.warning("dropping unknown source ref %s", item)
         return f"[{', '.join(map(str, sorted(used)))}]" if used else ""
 
     answer = GROUP_RE.sub(renumber, answer)
+    answer = re.sub(r"(\[\d+(?:, \d+)*\])(?:\s*\1)+", r"\1", answer)  # [1][1]: two clauses of one document became one number
     answer = re.sub(r"[ \t]+([.,;:!?])", r"\1", answer)  # Where a dropped ref left a gap.
     if not numbers:
         return answer.strip()
 
-    stored = store.message_sources([s["message_id"] for ref in numbers if (s := registry[ref]).get("message_id")])
+    stored = store.message_sources([s["message_id"] for key in numbers if (s := registry[first[key]]).get("message_id")])
     lines = []
-    for ref, number in numbers.items():
-        source = registry[ref]
+    for key, number in numbers.items():
+        source = registry[first[key]]
+        if source.get("wiki"):
+            source = {**source, "clause": ", ".join(clauses.get(key, []))}
         if source.get("message_id"):
             row = stored.get(source["message_id"])
             if not row:
