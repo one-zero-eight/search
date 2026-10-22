@@ -15,3 +15,9 @@ wheels/
 # Telegram session (full account access) and private chat data
 data/
 raw/*.db*
+raw/eduwiki
+
+# Downloaded regulation PDFs and their OCR page images (the extracted text and metadata stay)
+raw/regulations/*.pdf
+raw/regulations/*.ocr/
+raw/regulations/ocr/

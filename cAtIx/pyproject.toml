@@ -34,6 +34,7 @@ catix-worker = "catix.worker.app:main"
 catix-feed = "catix.worker.feed:main"
 catix-embed = "catix.worker.embedder:main"
 catix-db = "catix.db.init:main"
+catix-wiki = "catix.wiki.fetch:main"
 
 [build-system]
 requires = ["uv_build>=0.13.0,<0.14.0"]
