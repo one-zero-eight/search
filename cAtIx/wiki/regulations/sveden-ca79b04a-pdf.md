@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/077/w2hur0ffsyako2fkgaywm9529n1usrk1/Условия_приема_на_обучение_по_договорам_об_оказании_платных_образовательных_услуг.pdf"
     id: "e095a4c59d1b"
     title: "Условия приема на обучение по договорам об оказании платных образовательных услуг"
-    last_modified: "2026-10-22T18:00:27+00:00"
+    last_modified: "2020-12-30T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T18:00:27+00:00"

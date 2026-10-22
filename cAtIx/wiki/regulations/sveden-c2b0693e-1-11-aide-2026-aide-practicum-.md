@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/8b6/lgydinvwjw0v7cxl8tif9344j0t9rfwn/Визуализация_Б1.О.11_AIDE_2026_AIDE Practicum Project (5 c.)_21.08.2026.pdf"
     id: "bec44ae9e2aa"
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — 5 семестр (документы подписаны ПЭП) [Визуализация_Б1.О.11_AIDE_2026_AIDE Practicum Project (5 c.)]"
-    last_modified: "2026-10-22T14:08:16+00:00"
+    last_modified: "2026-08-21T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:08:16+00:00"

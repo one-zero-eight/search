@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/edf/u91otanks2q6nmb5kg6f63e5n2olb7gl/fgos_15.04.06.pdf"
     id: "2fd6e447bb0d"
     title: "15.04.06 Мехатроника и робототехника"
-    last_modified: "2020-08-14T00:00:00+03:00"
+    last_modified: "2020-08-28T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:12:18+00:00"

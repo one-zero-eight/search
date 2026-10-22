@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/48e/7dvvgfu27cgqodyupehippjtac33qtq1/КУГ_2026-2027__магистратура_.pdf"
     id: "75f96ae08688"
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — 2026-2027 (документ подписан ПЭП) [КУГ_2026-2027__магистратура_]"
-    last_modified: "2025-09-22T00:00:00+03:00"
+    last_modified: "2026-07-20T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:04:28+00:00"

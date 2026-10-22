@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/f73/uojnz6obg6jn7wt3j8gn7klkhn6nr0tu/Анализ_условий_реализации_образовательной_деятельности_по_программам_дополнительного_профессионального_образован.pdf"
     id: "17c070cd6fc1"
     title: "Анализ условий реализации образовательной деятельности по программам дополнительного профессионального образования (от 30.04.2026)"
-    last_modified: "2026-10-22T18:10:49+00:00"
+    last_modified: "2025-12-24T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T18:10:49+00:00"

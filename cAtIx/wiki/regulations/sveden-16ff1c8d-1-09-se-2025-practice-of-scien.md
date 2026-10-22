@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/938/0wyt7exdpm1gup28slu8dcdk83vgvxgz/Визуализация_Б1.О.09_SE_2025_Practice of Scientific Paper Writing (4 с)_21.08.2026.pdf"
     id: "fa8e20a04b2a"
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — 4 семестр (документы подписаны ПЭП) [Визуализация_Б1.О.09_SE_2025_Practice of Scientific Paper Wr]"
-    last_modified: "2026-10-22T14:08:27+00:00"
+    last_modified: "2026-08-21T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:08:27+00:00"

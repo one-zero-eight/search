@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/0dc/yrwcckxhq2lhwdz1ri40ujhhk2xjhzw2/Визуализация_КПСиМВП на 2024-2025 уч.год.pdf"
     id: "005295b05396"
     title: "Общее образование 1. Образовательная программа общего образования; Образовательная программа начального общего образования Автономной некомм — 2024-2025 [Визуализация_КПСиМВП на 2024-2025 уч.год]"
-    last_modified: "2026-10-22T18:02:20+00:00"
+    last_modified: "2024-05-20T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T18:02:20+00:00"

@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/c64/amgi6pnm1om0qaprirz3ppuwatzsb7uw/Приказ_Об_установлении_величины_зачетной_единицы.pdf"
     id: "fc9e1b269a00"
     title: "Об установлении величины зачетной единицы в АНО ВО \"Университет Иннополис\" (документ подписан простой электронной подписью)"
-    last_modified: "2012-12-29T00:00:00+03:00"
+    last_modified: "2025-05-30T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:10:30+00:00"

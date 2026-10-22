@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/090/nzehd65f7kpxx99nci4w32dsogdnbaa0/Визуализация_1.2.2 Мат.моделир обуч.pdf"
     id: "581d9f1e5576"
     title: "Результаты опросов обучающихся организации высшего образования об удовлетворенности условиями, содержанием, организацией и качеством образовательного процесса в целом [Визуализация_1.2.2 Мат.моделир обуч]"
-    last_modified: "2026-10-22T18:00:31+00:00"
+    last_modified: "2023-12-25T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T18:00:31+00:00"

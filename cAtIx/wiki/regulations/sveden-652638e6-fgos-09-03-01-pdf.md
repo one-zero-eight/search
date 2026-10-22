@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/0b6/wqscbsjddqzo2qmvc84t5p09kbdcyk4v/fgos_09.03.01.pdf"
     id: "5b4b95081101"
     title: "09.03.01 Информатика и вычислительная техника"
-    last_modified: "2017-09-19T00:00:00+03:00"
+    last_modified: "2023-02-27T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T13:56:59+00:00"

@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/2e1/y921axc6i1e6ppjmhcwtvuk5x8sl34wl/Правила_приема_ВО_новая_редакция.pdf"
     id: "6812d7193459"
     title: "ПРАВИЛА ПРИЕМА НА ОБУЧЕНИЕ ПО ОБРАЗОВАТЕЛЬНЫМ ПРОГРАММАМ ВЫСШЕГО ОБРАЗОВАНИЯ – ПРОГРАММАМ БАКАЛАВРИАТА И ПРОГРАММАМ МАГИСТРАТУРЫ В АНО ВО «УНИВЕРСИТЕТ ИННОПОЛИС» НА 2026/2027 УЧЕБНЫЙ ГОД [Правила_приема_ВО_новая_редакция]"
-    last_modified: "2023-02-17T00:00:00+03:00"
+    last_modified: "2026-04-10T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:01:30+00:00"

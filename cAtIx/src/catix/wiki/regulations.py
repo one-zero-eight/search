@@ -49,6 +49,20 @@ DOCS = {  # key -> (title, path under BASE as the official page links it)
 MONTHS = {m: i for i, m in enumerate("января февраля марта апреля мая июня июля августа сентября октября ноября декабря".split(), 1)}
 
 
+def issued_of(text: str, fallback: str) -> str:
+    """When the document was issued: the latest date 'от 30 июня 2025' / 'от 30.06.2025' near its start, or a date in its header.
+    Not the first such date: the first is often a law the document cites ('Федеральный закон от 29 декабря 2012 года № 273-ФЗ')."""
+    words = r"(\d{1,2})\s+(" + "|".join(MONTHS) + r")\s+(\d{4})"
+    found = [(int(y), MONTHS[mo], int(d)) for d, mo, y in re.findall(r"от\s+" + words, text[:4000]) + re.findall(words, text[:1500])]
+    found += [(int(y), int(mo), int(d)) for d, mo, y in re.findall(r"от\s+(\d{1,2})\.(\d{1,2})\.(\d{4})", text[:4000])]
+    today = datetime.now(timezone.utc).date()
+    found = [f for f in found if 1 <= f[1] <= 12 and 1 <= f[2] <= 31 and 1990 <= f[0] and f <= (today.year, today.month, today.day)]
+    if not found:
+        return fallback
+    y, mo, d = max(found)
+    return f"{y}-{mo:02d}-{d:02d}T00:00:00+03:00"
+
+
 SVEDEN_ROOT = ROOT.parent / "sveden"
 MAX_BYTES, MAX_PAGES, MAX_OCR_PAGES = 25_000_000, 150, 40  # one document may not take hours of OCR
 MAX_FAILURES = 5  # network errors in a row before a run gives up
@@ -258,7 +272,14 @@ def compile_all() -> None:
             continue
         if target.exists() and f"id: {yaml_value(meta['sha256'][:12])}" in target.read_text(encoding="utf-8") and 'description: ""' not in target.read_text(encoding="utf-8") \
                 and "\naudience:" in target.read_text(encoding="utf-8"):
-            continue  # this version of the file is already in the bundle (a page without a description or an audience is made again)
+            # This version of the file is already in the bundle (a page without a description or an audience is made again);
+            # only its date is worked out again, by code, when the rule for it changed.
+            page = target.read_text(encoding="utf-8")
+            issued = issued_of((root / f"{key}.txt").read_text(encoding="utf-8"), meta["fetched_at"])
+            fixed = re.sub(r"(\n    last_modified: ).*", lambda m: m.group(1) + yaml_value(issued), page, count=1)
+            if fixed != page:
+                target.write_text(fixed, encoding="utf-8")
+            continue
         title = docs[key]["title"]  # (not the one stored at download time: the titles are made unique across all documents)
         text = (root / f"{key}.txt").read_text(encoding="utf-8")
         if not readable(text):
@@ -266,8 +287,7 @@ def compile_all() -> None:
             continue
         body = to_markdown(text)
         desc, tags, audience = describe(title, text)
-        m = re.search(r"от\s+(\d{1,2})\s+(" + "|".join(MONTHS) + r")\s+(\d{4})", text)
-        issued = f"{m.group(3)}-{MONTHS[m.group(2)]:02d}-{int(m.group(1)):02d}T00:00:00+03:00" if m else meta["fetched_at"]
+        issued = issued_of(text, meta["fetched_at"])
         ocr = meta["method"].startswith("ocr")
         front = ["---", "type: regulation", f"title: {yaml_value(title)}", f"description: {yaml_value(desc)}", f"resource: {yaml_value(meta['url'])}", f"tags: {yaml_value(tags)}", f"audience: {yaml_value(audience)}",
                  "source_kind: official-document", "language: ru", f"section: {yaml_value(meta.get('section', 'document'))}",

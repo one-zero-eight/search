@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/052/l7v9l9n2monh5aw2j9mk659oskv5slp5/Анализ_организации_и_реализации_практики_обучающихся.pdf"
     id: "a3a94690967d"
     title: "Анализ организации и реализации практики обучающихся (от 31.07.2024)"
-    last_modified: "2026-10-22T18:00:05+00:00"
+    last_modified: "2023-12-25T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T18:00:05+00:00"

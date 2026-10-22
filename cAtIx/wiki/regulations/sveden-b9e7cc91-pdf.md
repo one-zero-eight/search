@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/0f8/2xwm0a77ybvfazwebeifjilz6g023pev/Положение об отделе общего обеспечения ЦРПР.pdf"
     id: "8c1a777b6e1c"
     title: "Администрация Вандюков Дмитрий Владимирович Директор - г. Иннополис, ул. Университетская д. 1 отсутствует director@innopolis.ru - Положение  — Положение [Положение об отделе общего обеспечения ЦРПР]"
-    last_modified: "2012-12-29T00:00:00+03:00"
+    last_modified: "2024-01-02T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T18:02:42+00:00"

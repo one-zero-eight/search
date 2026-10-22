@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/1d0/xgfcxi0dqedatmnc2fxn3bk210n5qf7i/Визуализация_2023_DSAI_УП_21.08.2026 сайт.pdf"
     id: "d7c62afe5815"
     title: "Общее образование 1. Образовательная программа общего образования; Образовательная программа начального общего образования Автономной некомм — Учебный план (документ подписан ПЭП) [Визуализация_2023_DSAI_УП_21.08.2026 сайт]"
-    last_modified: "2026-10-22T18:05:31+00:00"
+    last_modified: "2026-08-21T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T18:05:31+00:00"

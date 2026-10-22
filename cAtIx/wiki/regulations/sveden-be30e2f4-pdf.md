@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/f64/pxkmkz5o1gkjcztmixy3es7qna5f2ppm/МР_КР(КП), дипломного проекта (работы).pdf"
     id: "81f8d9d48006"
     title: "Общее образование 1. Образовательная программа общего образования; Образовательная программа начального общего образования Автономной некомм — 2025 [МР_КР(КП), дипломного проекта (работы)]"
-    last_modified: "2015-07-20T00:00:00+03:00"
+    last_modified: "2022-08-24T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T18:10:46+00:00"

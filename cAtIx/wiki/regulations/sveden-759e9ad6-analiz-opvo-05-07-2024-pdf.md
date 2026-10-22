@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/18a/cp238q9i69ucnab07fgf93awlgibafyw/analiz_opvo_05.07.2024.pdf"
     id: "06a461c30518"
     title: "Анализ условий реализации образовательных программ высшего образования, включая анализ оценочных средств, материально-технического и информационного обеспечения, кадровых условий реализации программ (от 05.07.2024)"
-    last_modified: "1996-08-23T00:00:00+03:00"
+    last_modified: "2023-12-25T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T18:05:21+00:00"

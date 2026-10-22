@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/6b7/rk6q97uvbez61jg7nhxg6jx8bhzo4w1a/ustav_10.04.2025.pdf"
     id: "f35c432b7ddd"
     title: "Устав Автономной некоммерческой организации высшего образования «Университет Иннополис» (копия)"
-    last_modified: "2025-04-10T00:00:00+03:00"
+    last_modified: "2025-04-23T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:17:58+00:00"

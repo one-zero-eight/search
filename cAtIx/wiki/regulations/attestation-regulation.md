@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/bd2/y363qvj8ag33j0wotva5qullyxlyjc9g/Положение%20о%20формах,%20периодичности%20и%20порядке%20проведения%20текущего%20контроля%20успеваемости.pdf"
     id: "36012b556b92"
     title: "Положение о формах, периодичности и порядке проведения текущего контроля успеваемости и промежуточной аттестации (бакалавриат и магистратура)"
-    last_modified: "2012-12-29T00:00:00+03:00"
+    last_modified: "2025-06-30T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T11:51:30+00:00"

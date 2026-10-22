@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/fee/a1q13cztv68qejfww4eqos0yvq60rq9k/Визуализация_Б1.О.11_AIDE_2025_Practice of Scientific Paper Writing (5 с)_21.08.2026.pdf"
     id: "cf40c0b91b1a"
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — 5 семестр (документы подписаны ПЭП) [Визуализация_Б1.О.11_AIDE_2025_Practice of Scientific Paper ]"
-    last_modified: "2026-10-22T14:12:43+00:00"
+    last_modified: "2026-08-21T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:12:43+00:00"

@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/f68/67uhf30t45juda92sytosa25be48qa7s/Визуализация_Приказ_утверждение_Положения_Центра_ППС итог.pdf"
     id: "10ad0b961fcf"
     title: "Администрация Вандюков Дмитрий Владимирович Директор - г. Иннополис, ул. Университетская д. 1 отсутствует director@innopolis.ru - Положение  — Положение [Визуализация_Приказ_утверждение_Положения_Центра_ППС итог]"
-    last_modified: "2021-05-26T00:00:00+03:00"
+    last_modified: "2026-03-27T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T18:10:48+00:00"

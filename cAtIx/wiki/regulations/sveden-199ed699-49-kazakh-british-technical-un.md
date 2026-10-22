@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/35e/u9cg9sn0hz5ohb5uuvdt1t60quwkyyoc/заключение 49 — Kazakh-British Technical University - Academic Exchange agreement.pdf"
     id: "c9920d217f14"
     title: "Заключение от 06.10.2022 № МН-12/з-13268"
-    last_modified: "2026-10-22T14:02:07+00:00"
+    last_modified: "2022-08-27T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:02:07+00:00"

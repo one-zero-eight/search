@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/4c7/v4e3tbh8i5jpg41sc5txrouf17xwf61w/pravila_priema_bakmag_15.01.2024.pdf"
     id: "b84e5f450f15"
     title: "Правила приема на обучение по образовательным программам высшего образования – программам бакалавриата и программам магистратуры в АНО ВО «Университет Иннополис» на 2024/2025 учебный год"
-    last_modified: "2012-12-29T00:00:00+03:00"
+    last_modified: "2024-01-15T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:05:57+00:00"

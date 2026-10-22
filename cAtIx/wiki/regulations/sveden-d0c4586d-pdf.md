@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/306/Порядок посещения мероприятий.pdf"
     id: "baf613506271"
     title: "Порядок посещения обучающимися АНО ВО \"Университет Иннополис\" по своему выбору мероприятий, проводимых в Университете и не предусмотренных учебным планом\","
-    last_modified: "2026-10-22T14:01:56+00:00"
+    last_modified: "2012-12-29T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:01:56+00:00"

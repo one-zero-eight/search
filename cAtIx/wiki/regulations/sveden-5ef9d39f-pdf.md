@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/218/ljbs50kvt4ifp8bidr6e118dsvan148e/Приказ_о_доп._приеме.pdf"
     id: "5c111ed88dab"
     title: "Приказ о дополнительном приеме"
-    last_modified: "2026-08-31T00:00:00+03:00"
+    last_modified: "2026-09-01T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T18:05:46+00:00"

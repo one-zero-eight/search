@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/867/1rpbzmj840zrwstos1i7wvagc8plyfaq/Визуализация_ITE_2026_ПП_Преддипломная_практика_5с_23102025.pdf"
     id: "aff1ccf198dc"
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — 5 семестр Преддипломная практика (документ подписан ПЭП) [Визуализация_ITE_2026_ПП_Преддипломная_практика_5с_23102025]"
-    last_modified: "2026-10-22T14:08:05+00:00"
+    last_modified: "2025-10-23T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:08:05+00:00"

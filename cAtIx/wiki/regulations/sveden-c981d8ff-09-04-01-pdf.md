@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/fac/pbdujfe3not82x9mmptbp1xgnhhmrl08/Визуализация_09.04.01 ИВТ АДиИ обуч.pdf"
     id: "c40be8d2af3d"
     title: "Результаты опросов обучающихся организации высшего образования об удовлетворенности условиями, содержанием, организацией и качеством образовательного процесса в целом [Визуализация_09.04.01 ИВТ АДиИ обуч]"
-    last_modified: "2026-10-22T18:11:01+00:00"
+    last_modified: "2023-12-25T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T18:11:01+00:00"

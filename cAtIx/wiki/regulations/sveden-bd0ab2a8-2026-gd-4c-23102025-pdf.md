@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/d01/l1kikxhqhfj1nlvtqagbdma7zuuse4jf/Визуализация_2026_GD_УП_Ознакомительная_практика_4c_23102025.pdf"
     id: "7664b97f9899"
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — 4 семестр Ознакомительная практика (документ подписан ПЭП) [Визуализация_2026_GD_УП_Ознакомительная_практика_4c_23102025]"
-    last_modified: "2026-10-22T14:10:50+00:00"
+    last_modified: "2025-10-23T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:10:50+00:00"

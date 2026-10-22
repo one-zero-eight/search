@@ -85,6 +85,13 @@ class Collector:
         fields = {"chat_title": chat_title, "link": link, "date": date.isoformat(), "author": author, "sender_link": sender_link}
         return self._add(f"live:{chat_id}:{msg_id}", fields)
 
+    def add_wiki(self, hit) -> str:
+        """A piece of the wiki (db/wiki.py WikiHit): the document, the clause and the original, so that the source line
+        points to the university's own document; a guide's piece names the documents it rests on."""
+        fields = {"wiki": True, "title": hit.title, "clause": hit.clause, "link": hit.resource, "trust": hit.trust,
+                  "based_on": [{"title": b["title"], "link": b["link"]} for b in hit.based_on if b.get("link")][:2]}
+        return self._add(f"wiki:{hit.id}", fields)
+
     def rewrite(self, value: Any) -> Any:
         """Tool output that carries database refs ('m5127', from the SQL views) with this conversation's refs."""
         if isinstance(value, dict):
@@ -141,7 +148,25 @@ def cite(answer: str, registry: dict[str, dict]) -> str:
     return f"{answer.strip()}\n\n{title}:\n" + "\n".join(lines)
 
 
+def _link(title: str, link: str | None) -> str:
+    title = f"«{title}»"
+    return f"[{title.replace('[', '(').replace(']', ')')}]({link})" if link else title
+
+
+def _wiki_line(number: int, source: dict) -> str:
+    """[n] «Положение о …», п. 5.3 (документ университета) — or a guide with the documents it rests on, or an eduwiki page."""
+    line = f"[{number}] {_link(source['title'], source.get('link'))}" + (f", п. {source['clause']}" if source.get("clause") else "")
+    if source.get("trust") == "official":
+        return line + " (документ университета)"
+    if source.get("trust") == "guide":
+        based = ", ".join(_link(b["title"], b["link"]) for b in source.get("based_on") or [])
+        return line + " (сводка cAtIx" + (f" по документам: {based})" if based else ")")
+    return line + " (eduwiki)"
+
+
 def _line(number: int, source: dict) -> str:
+    if source.get("wiki"):
+        return _wiki_line(number, source)
     date = source.get("date")
     when = (datetime.fromisoformat(date) if isinstance(date, str) else date).astimezone(settings.tz) if date else None
     author = FORWARDER_RE.sub("", source.get("author") or "")

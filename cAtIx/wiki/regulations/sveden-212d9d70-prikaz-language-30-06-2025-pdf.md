@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/b7e/ufabx0v9e00wj4iok8ij4aejdi1ztyjx/prikaz_language_30.06.2025.pdf"
     id: "1458d5b4888a"
     title: "Документ, содержащий информацию о языках образования (документ подписан простой электронной подписью)"
-    last_modified: "2012-12-29T00:00:00+03:00"
+    last_modified: "2025-06-30T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:09:33+00:00"

@@ -28,6 +28,7 @@ from catix.wiki.chunks import SCHEME, Chunk, cut
 from catix.wiki.compile import BUNDLE
 
 SKIP = {"index.md", "log.md", "README.md"}
+PAGE_FIELDS = 3  # change it when wiki_pages gets a new field: every page row is written again (its pieces and vectors stay)
 EMBED_BATCH = 32
 
 
@@ -38,7 +39,7 @@ def files(bundle: Path = BUNDLE) -> dict[str, Path]:
 
 
 def fingerprint(text: str) -> str:
-    return hashlib.sha256(f"{SCHEME}\n{text}".encode()).hexdigest()[:16]
+    return hashlib.sha256(f"{SCHEME}\n{PAGE_FIELDS}\n{text}".encode()).hexdigest()[:16]
 
 
 def trust_of(meta: dict) -> str:
@@ -73,14 +74,19 @@ def write_page(conn, rel: str, sha: str, meta: dict, chunks: list[Chunk]) -> tup
     title = str(meta.get("title") or rel)
     trust = trust_of(meta)
     stale = str(meta.get("stale_after") or "")[:10] or None
+    sources = meta.get("sources") or [{}]
+    generated = str((meta.get("generated") or {}).get("at", ""))[:10] if isinstance(meta.get("generated"), dict) else ""
+    issued = generated if trust == "guide" else max((str(s.get("last_modified") or "")[:10] for s in sources if isinstance(s, dict)), default="")
+    if trust == "official" and issued == generated:
+        issued = ""  # no date found in the document: regulations.py put the day it was downloaded there, which says nothing
     conn.execute(
-        """INSERT INTO wiki_pages (path, sha, title, type, trust, audience, resource, status, review, source_warning, stale_after, indexed_at)
-           VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, now())
+        """INSERT INTO wiki_pages (path, sha, title, type, trust, audience, resource, status, review, source_warning, stale_after, issued, indexed_at)
+           VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, now())
            ON CONFLICT (path) DO UPDATE SET sha = excluded.sha, title = excluded.title, type = excluded.type, trust = excluded.trust,
                audience = excluded.audience, resource = excluded.resource, status = excluded.status, review = excluded.review,
-               source_warning = excluded.source_warning, stale_after = excluded.stale_after, indexed_at = now()""",
+               source_warning = excluded.source_warning, stale_after = excluded.stale_after, issued = excluded.issued, indexed_at = now()""",
         (rel, sha, title, str(meta.get("type") or ""), trust, [str(a) for a in meta.get("audience") or []], _text(meta.get("resource")),
-         _text(meta.get("status")), _text(meta.get("review")), _text(meta.get("source_warning")), stale),
+         _text(meta.get("status")), _text(meta.get("review")), _text(meta.get("source_warning")), stale, issued or None),
     )
     old = [(r["id"], r["sha"]) for r in conn.execute("SELECT id, sha FROM wiki_chunks WHERE path = %s", (rel,)).fetchall()]
     kept, insert, delete = plan(old, chunks)

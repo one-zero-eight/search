@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/baa/01264bvf0he5j905b72q6b8wqj3fkm8o/Приказ_об_установлении_размеров_государственных_стипендий.pdf"
     id: "a4383171d4bc"
     title: "Приказ об утверждении размеров государственных стипендий"
-    last_modified: "2025-11-28T00:00:00+03:00"
+    last_modified: "2026-08-31T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:09:54+00:00"

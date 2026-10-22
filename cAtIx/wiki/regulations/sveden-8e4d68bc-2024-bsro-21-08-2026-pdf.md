@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/154/6u4p6bcqm5652vzx21rxuvnw3fxua89k/Визуализация_2024_BSRO_УП_21.08.2026 сайт.pdf"
     id: "c64c1bac03b4"
     title: "Общее образование 1. Образовательная программа общего образования; Образовательная программа начального общего образования Автономной некомм — Учебный план (документ подписан ПЭП) [Визуализация_2024_BSRO_УП_21.08.2026 сайт]"
-    last_modified: "2026-10-22T18:03:27+00:00"
+    last_modified: "2026-08-21T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T18:03:27+00:00"

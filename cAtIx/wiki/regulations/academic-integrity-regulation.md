@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/88c/o6qcuf0gjap2g2ow7teqoal3a5aao0kz/приказ_от_01.02.2023___ОД_АД-03.pdf"
     id: "ede170078161"
     title: "Положение по применению дисциплинарных взысканий за нарушения академической добропорядочности"
-    last_modified: "2012-12-29T00:00:00+03:00"
+    last_modified: "2023-02-01T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T12:08:43+00:00"

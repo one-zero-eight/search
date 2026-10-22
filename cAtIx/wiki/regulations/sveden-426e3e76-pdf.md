@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/0d6/Приказ_об_утверждении_положения_об_адаптированных_ОП.pdf"
     id: "e271cd68a610"
     title: "Положение об адаптированных образовательных программах высшего образования в АНО ВО \"Университет Иннополис\","
-    last_modified: "2012-12-29T00:00:00+03:00"
+    last_modified: "2019-07-31T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T13:57:52+00:00"

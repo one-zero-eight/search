@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/661/ico8fnkfbn2krhfoe3i13ci4tt6wbwv0/fgos_15.03.06.pdf"
     id: "903ef729b910"
     title: "15.03.06 Мехатроника и робототехника"
-    last_modified: "2020-08-17T00:00:00+03:00"
+    last_modified: "2023-02-27T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:07:08+00:00"

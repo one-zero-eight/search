@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/229/27fs840czdho77noz80attm0p64rzmxu/Приказ_об_установлении_размеров_стипендий_АНО_ВО_Университет_а_Иннополис.pdf"
     id: "e0be4b6500ea"
     title: "Приказ об утверждении размеров стипендии АНО ВО «Университет Иннополис»"
-    last_modified: "2025-05-28T00:00:00+03:00"
+    last_modified: "2025-12-02T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:00:29+00:00"

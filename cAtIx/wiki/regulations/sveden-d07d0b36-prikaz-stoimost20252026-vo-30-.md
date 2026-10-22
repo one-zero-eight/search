@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/e81/svao49wlq41m9kcd910jnmbu9zfkrc9v/prikaz_stoimost20252026_vo_30.05.2025.pdf"
     id: "f6d3573bf38b"
     title: "Приказ Об утверждении стоимости обучения по образовательным программам АНО ВО «Университет Иннополис» на 2025/2026 учебный год (высшее образование) (документ подписан простой электронной подписью)"
-    last_modified: "2012-12-29T00:00:00+03:00"
+    last_modified: "2025-05-30T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:11:56+00:00"

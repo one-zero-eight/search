@@ -276,8 +276,10 @@ CREATE TABLE IF NOT EXISTS wiki_pages (
     review         text,                            -- what on the page nobody checked, if anything
     source_warning text,
     stale_after    date,
+    issued         date,                            -- when the source was issued or last edited (newer documents replace older ones)
     indexed_at     timestamptz NOT NULL DEFAULT now()
 );
+ALTER TABLE wiki_pages ADD COLUMN IF NOT EXISTS issued date;  -- tables created before this column existed
 CREATE TABLE IF NOT EXISTS wiki_chunks (
     id          bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     path        text NOT NULL REFERENCES wiki_pages (path) ON DELETE CASCADE,

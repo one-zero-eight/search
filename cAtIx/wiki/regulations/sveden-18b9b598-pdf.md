@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/094/e2uev37zohxa73hitj2wj7eh1ortfmx1/Положение об Администрации.pdf"
     id: "3b9df0dcd003"
     title: "Администрация Вандюков Дмитрий Владимирович Директор - г. Иннополис, ул. Университетская д. 1 отсутствует director@innopolis.ru - Положение  — Положение [Положение об Администрации]"
-    last_modified: "2026-10-22T18:00:42+00:00"
+    last_modified: "2012-12-29T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T18:00:42+00:00"

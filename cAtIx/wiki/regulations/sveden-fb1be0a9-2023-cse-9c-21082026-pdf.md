@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/12e/pzhqehsletkvn3j1qqqz2qsgn1q0ycvm/Визуализация_2023_CSE_УП_Ознакомительная_практика_9c_21082026.pdf"
     id: "d4dd50badaf8"
     title: "Общее образование 1. Образовательная программа общего образования; Образовательная программа начального общего образования Автономной некомм — 9 семестр Ознакомительная практика (документ подписан ПЭП) [Визуализация_2023_CSE_УП_Ознакомительная_практика_9c_2108202]"
-    last_modified: "2026-10-22T18:03:16+00:00"
+    last_modified: "2026-08-21T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T18:03:16+00:00"

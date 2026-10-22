@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/282/5zpw2zmx8me33smz7z6bu2x27187vrzu/КУГ 2026-2027 (аспирантура).pdf"
     id: "400bb73dd79f"
     title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — 2026-2027 (документ подписан ПЭП) [КУГ 2026-2027 (аспирантура)]"
-    last_modified: "2025-09-22T00:00:00+03:00"
+    last_modified: "2026-04-28T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:00:59+00:00"

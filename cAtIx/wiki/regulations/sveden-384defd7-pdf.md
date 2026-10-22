@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/88b/Приказ_об_утверждении_Порядка_оказания_платных_образовательных_услуг.pdf"
     id: "d8641f4a1c5a"
     title: "Приказ об утверждении порядка оказания платных образовательных услуг;"
-    last_modified: "2018-05-16T00:00:00+03:00"
+    last_modified: "2021-01-01T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:18:31+00:00"

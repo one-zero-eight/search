@@ -22,6 +22,7 @@ from catix.agent import sqlquery
 from catix.agent.sources import Collector
 from catix.common import courses, dates
 from catix.db import store
+from catix.db import wiki as wiki_store
 from catix.innohassle import client as innohassle
 from catix.settings import settings
 
@@ -542,6 +543,121 @@ def query_db(sql: str, runtime: ToolRuntime[AgentContext]) -> Command:
     # The views name messages by database id ("m5127"): the model gets this conversation's refs instead.
     collector = Collector(runtime)
     return collector.result(collector.rewrite(result), "query_db")
+
+
+# ---- the wiki: documents of the university, guides, eduwiki ------------------------------------------------------
+
+MAX_WIKI = 8
+WIKI_TEXT = 1000  # characters of a piece in the search results
+READ_BUDGET = 5000  # characters read_wiki returns at most
+KINDS = {
+    "official": "official document of the university",
+    "guide": "guide: a summary that cAtIx wrote from the documents it names (check the clause in the document)",
+    "wiki": "eduwiki page (the university's teaching wiki, edited by staff; may be outdated)",
+}
+
+
+def _warnings(hit) -> list[str]:
+    out = []
+    if hit.source_warning or hit.trust == "official" and hit.review and "OCR" in hit.review:
+        out.append("read from a scan by OCR: letters and numbers may be misread")
+    elif hit.review:
+        out.append("not checked: " + hit.review[:200])
+    if hit.stale_after and hit.stale_after < date.today():
+        out.append(f"may be outdated: due for review since {hit.stale_after:%Y-%m-%d}")
+    return out
+
+
+def _wiki_item(hit, collector: Collector, text_limit: int = WIKI_TEXT) -> dict:
+    item = {"ref": collector.add_wiki(hit), "document": hit.title, "kind": KINDS[hit.trust]}
+    if hit.issued:
+        item["date"] = f"{hit.issued:%Y-%m-%d}"  # of the document (or of the guide): a newer one replaces an older one
+    if hit.trust == "official":
+        item["official"] = True  # a document of the university: "official" may be said of it
+    if hit.clause:
+        item["clause"] = hit.clause
+    if hit.heading:
+        item["section"] = hit.heading[:200]
+    item["text"] = hit.text if len(hit.text) <= text_limit else hit.text[:text_limit] + " [...cut; read_wiki gives the rest]"
+    if hit.audience:
+        item["for"] = hit.audience
+    if hit.based_on:
+        item["based_on"] = [{"document": b["title"], "page": b["page"]} for b in hit.based_on[:3]]
+    if warnings := _warnings(hit):
+        item["warnings"] = warnings
+    item["page"] = hit.path
+    return item
+
+
+class SearchWikiArgs(BaseModel):
+    queries: list[str] = Field(
+        min_length=1,
+        max_length=8,
+        description="2 to 6 search queries from different angles, in Russian AND English (the documents are Russian, the guides "
+        "English): the words a rule would use ('академический отпуск', 'academic leave', 'пересдача', 'retake').",
+    )
+    kinds: list[Literal["official", "guide", "wiki"]] | None = Field(
+        None, description="Only these kinds of pages: official (documents of the university), guide (summaries), wiki (eduwiki). Default: all."
+    )
+
+    @field_validator("queries", mode="before")
+    @classmethod
+    def _one_query(cls, value):
+        return [value] if isinstance(value, str) else value
+
+
+@tool(args_schema=SearchWikiArgs)
+def search_wiki(queries: list[str], runtime: ToolRuntime[AgentContext], kinds: list[str] | None = None) -> Command:
+    """Search the university's knowledge base: its official documents (regulations, orders, rules of admission, study plans,
+    programmes, reports), guides that summarise them, and the eduwiki (courses, teachers, procedures). Returns pieces of
+    pages with the document, the clause number and a ref to cite. For rules, rights, deadlines, procedures, programmes,
+    courses, admission, structure of the university."""
+    hits = wiki_store.search(queries, trust=kinds, limit=MAX_WIKI, original=_question(runtime))
+    collector = Collector(runtime)
+    result = {"total": len(hits), "pieces": [_wiki_item(h, collector) for h in hits]}
+    if not hits:
+        result["note"] = "Nothing found: try other words, in Russian and in English."
+    return collector.result(result, "search_wiki")
+
+
+class ReadWikiArgs(BaseModel):
+    page: str = Field(description="The `page` of a search result ('/regulations/attestation-regulation.md'), or words of a document's title.")
+    clause: str | None = Field(None, description="A clause number to read ('5.3'; '5' reads chapter 5).")
+    section: str | None = Field(None, description="Words of a section heading to read.")
+
+
+@tool(args_schema=ReadWikiArgs)
+def read_wiki(page: str, runtime: ToolRuntime[AgentContext], clause: str | None = None, section: str | None = None) -> Command:
+    """Read more of one page of the knowledge base: a clause cut off in the search results, the clauses around it, or a
+    section. Without clause and section: the start of the page and its list of sections."""
+    path = wiki_store.find_page(page)
+    collector = Collector(runtime)
+    if not path:
+        return collector.result({"error": f"No page {page!r}: use the `page` of a search result."}, "read_wiki")
+    pieces = wiki_store.page(path)
+    if clause:
+        chosen = [p for p in pieces if wiki_store.holds(p.clause, clause)]
+    elif section:
+        chosen = [p for p in pieces if section.lower() in p.heading.lower() or section.lower() in p.text[:200].lower()]
+    else:
+        chosen = pieces
+    first = pieces[0] if pieces else None
+    result: dict = {"document": first.title if first else page, "kind": KINDS[first.trust] if first else None, "page": path}
+    if first and first.resource:
+        result["original"] = first.resource
+    if not chosen:
+        result["note"] = f"No {'clause ' + clause if clause else 'section ' + repr(section)} on this page; its sections are listed."
+    out, used = [], 0
+    for p in chosen:
+        if used + len(p.text) > READ_BUDGET and out:
+            result["note"] = "More follows: ask for a later clause or section."
+            break
+        out.append(_wiki_item(p, collector, text_limit=READ_BUDGET))
+        used += len(p.text)
+    result["pieces"] = out
+    if not clause and not section or not chosen:
+        result["sections"] = list(dict.fromkeys(p.heading for p in pieces if p.heading))[:60]
+    return collector.result(result, "read_wiki")
 
 
 TOOLS = [

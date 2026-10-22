@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/bde/qax46pv9f4zp43k6ldkcit7xxxegotrh/Polozh_podgotov_aspirant_01.03.2022.pdf"
     id: "20baa76a4836"
     title: "Положение о подготовке научных и научно-педагогических кадров в аспирантуре в автономной некоммерческой организации высшего образования \"Университет Иннополис\","
-    last_modified: "2012-12-29T00:00:00+03:00"
+    last_modified: "2021-11-30T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:21:10+00:00"

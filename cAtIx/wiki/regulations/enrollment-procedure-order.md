@@ -12,7 +12,7 @@ sources:
   - resource: "https://innopolis.university/upload/iblock/ec8/Порядок%20оформления%20возникновения,%20приостановления%20и%20прекращения%20образовательных%20отношений.pdf"
     id: "a2733c4f7092"
     title: "Порядок оформления возникновения, приостановления и прекращения образовательных отношений"
-    last_modified: "1994-11-03T00:00:00+03:00"
+    last_modified: "2013-08-15T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T12:08:00+00:00"
