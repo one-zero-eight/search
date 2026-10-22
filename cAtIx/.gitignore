@@ -24,3 +24,8 @@ raw/regulations/ocr/
 
 # Obsidian keeps its local state (open files, window layout) in the vault folder
 wiki/.obsidian/
+
+# The disclosure-section documents are downloaded again by catix-wiki; the list of documents and the decisions about them stay in git
+raw/sveden/*
+!raw/sveden/index.json
+!raw/sveden/triage.json

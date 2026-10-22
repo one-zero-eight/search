@@ -46,5 +46,863 @@
    "distance-education"
   ],
   "status": "accepted"
+ },
+ "financial-aid-and-scholarships": {
+  "slug": "financial-aid-and-scholarships",
+  "title": "Financial Aid, Scholarships, and Grants",
+  "brief": "How do I apply for scholarships, grants, and material aid, and what are the eligibility rules?",
+  "documents": [
+   "sveden-9d0974a5-1-pdf",
+   "sveden-f8519483-pdf",
+   "sveden-0a5d0a37-pdf",
+   "sveden-4940ff25-pdf"
+  ],
+  "tags": [
+   "scholarships",
+   "grants",
+   "financial-aid",
+   "eligibility",
+   "student-support"
+  ],
+  "status": "accepted",
+  "accepted_by": "model+code"
+ },
+ "academic-leave-duration": {
+  "slug": "academic-leave-duration",
+  "title": "Academic Leave Duration Limits",
+  "brief": "How many months can I take an academic leave at one time?",
+  "documents": [
+   "academic-leave-regulation"
+  ],
+  "tags": [
+   "academic-leave",
+   "duration",
+   "limits",
+   "student-rights",
+   "university-policy"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'academic-leave'"
+ },
+ "how-to-request-academic-leave": {
+  "slug": "how-to-request-academic-leave",
+  "title": "How to Request an Academic Leave",
+  "brief": "What is the procedure and required document to apply for an academic leave?",
+  "documents": [
+   "academic-leave-regulation"
+  ],
+  "tags": [
+   "academic-leave",
+   "application-procedure",
+   "student-rights",
+   "university-policy",
+   "deadlines"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'academic-leave'"
+ },
+ "maternity-and-childcare-leave-rules": {
+  "slug": "maternity-and-childcare-leave-rules",
+  "title": "Maternity and Childcare Leave Rules",
+  "brief": "How long can I take maternity or childcare leave, and when does it officially end?",
+  "documents": [
+   "academic-leave-regulation"
+  ],
+  "tags": [
+   "maternity-leave",
+   "childcare-leave",
+   "duration",
+   "student-rights",
+   "university-policy"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'academic-leave' (the editor model's judgement)"
+ },
+ "academic-failure-retake-deadlines": {
+  "slug": "academic-failure-retake-deadlines",
+  "title": "Academic Failure and Retake Deadlines",
+  "brief": "What are the rules and deadlines for retaking failed interim assessments?",
+  "documents": [
+   "attestation-regulation"
+  ],
+  "tags": [
+   "academic-failure",
+   "retakes",
+   "deadlines",
+   "interim-assessment",
+   "university-rules"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'retakes' (the editor model's judgement)"
+ },
+ "retake-to-improve-grade": {
+  "slug": "retake-to-improve-grade",
+  "title": "Retaking to Improve a Positive Grade",
+  "brief": "How can students retake an exam to improve a passing grade, and what are the limits?",
+  "documents": [
+   "attestation-regulation"
+  ],
+  "tags": [
+   "grade-improvement",
+   "retakes",
+   "exam-rules",
+   "student-rights",
+   "academic-progress"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'retakes' (the editor model's judgement)"
+ },
+ "exam-accommodations-disabilities": {
+  "slug": "exam-accommodations-disabilities",
+  "title": "Exam Accommodations for Disabilities and Health Issues",
+  "brief": "How can students with disabilities or serious health conditions request adapted assessment formats?",
+  "documents": [
+   "attestation-regulation"
+  ],
+  "tags": [
+   "disability-accommodations",
+   "health-issues",
+   "exam-adjustments",
+   "inclusive-education",
+   "student-rights"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'exam-accommodations'"
+ },
+ "credit-transfer-application": {
+  "slug": "credit-transfer-application",
+  "title": "How to Apply for Credit Transfer",
+  "brief": "What documents and forms must I submit to request credit transfer of previous studies?",
+  "documents": [
+   "credit-transfer-regulation"
+  ],
+  "tags": [
+   "credit-transfer",
+   "application",
+   "documents",
+   "procedure"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'credit-transfer' (the editor model's judgement)"
+ },
+ "credit-transfer-deadlines": {
+  "slug": "credit-transfer-deadlines",
+  "title": "When to Submit Credit Transfer Requests",
+  "brief": "By what deadlines must first-year and exchange students submit their credit transfer applications?",
+  "documents": [
+   "credit-transfer-regulation"
+  ],
+  "tags": [
+   "credit-transfer",
+   "deadlines",
+   "first-year-students",
+   "academic-mobility"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'credit-transfer' (the editor model's judgement)"
+ },
+ "foreign-documents-translation": {
+  "slug": "foreign-documents-translation",
+  "title": "Requirements for Foreign Study Documents",
+  "brief": "What translation and legalization requirements apply to foreign training certificates and degrees?",
+  "documents": [
+   "credit-transfer-regulation"
+  ],
+  "tags": [
+   "foreign-documents",
+   "translation",
+   "legalization",
+   "credit-transfer"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'credit-transfer' (the editor model's judgement)"
+ },
+ "academic-debt-retakes": {
+  "slug": "academic-debt-retakes",
+  "title": "Academic Debt and Retake Procedures",
+  "brief": "What are the deadlines and procedures for retaking failed exams or tests?",
+  "documents": [
+   "remote-attestation-order"
+  ],
+  "tags": [
+   "academic-debt",
+   "retakes",
+   "deadlines",
+   "distance-learning",
+   "exams"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'retakes' (the editor model's judgement)"
+ },
+ "distance-exam-requirements": {
+  "slug": "distance-exam-requirements",
+  "title": "Technical Requirements for Remote Exams",
+  "brief": "What computing devices and technical conditions are mandatory for taking exams or tests online?",
+  "documents": [
+   "remote-attestation-order"
+  ],
+  "tags": [
+   "distance-learning",
+   "technical-requirements",
+   "exams",
+   "student-equipment",
+   "remote-assessment"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'remote-assessment-technical' (the editor model's judgement)"
+ },
+ "student-rights-in-local-acts": {
+  "slug": "student-rights-in-local-acts",
+  "title": "How university rules affecting students are made and communicated",
+  "brief": "How are local normative acts that impact student rights adopted and notified to students?",
+  "documents": [
+   "sveden-186a6c8d-ustav-10-04-2025-pdf"
+  ],
+  "tags": [
+   "student-rights",
+   "university-regulations",
+   "governance",
+   "transparency",
+   "campus-rules"
+  ],
+  "status": "accepted",
+  "accepted_by": "model+code"
+ },
+ "educational-programs-and-methods": {
+  "slug": "educational-programs-and-methods",
+  "title": "Types of programs and teaching technologies",
+  "brief": "What types of educational programs does the university offer and how are teaching methods determined?",
+  "documents": [
+   "sveden-186a6c8d-ustav-10-04-2025-pdf"
+  ],
+  "tags": [
+   "academic-programs",
+   "curriculum",
+   "teaching-methods",
+   "student-academic-life",
+   "university-policy"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'bsc-structure' (the editor model's judgement)"
+ },
+ "campus-political-restrictions": {
+  "slug": "campus-political-restrictions",
+  "title": "Banned organizational activities on campus",
+  "brief": "What political or religious organizational structures are prohibited from operating at the university?",
+  "documents": [
+   "sveden-186a6c8d-ustav-10-04-2025-pdf"
+  ],
+  "tags": [
+   "campus-rules",
+   "student-conduct",
+   "political-restrictions",
+   "university-charter",
+   "compliance"
+  ],
+  "status": "rejected",
+  "reason": "the regulations give only 1 clause(s) for it"
+ },
+ "faculty-vs-elective-status": {
+  "slug": "faculty-vs-elective-status",
+  "title": "Mandatory vs Optional Course Status",
+  "brief": "Are faculty and elective courses mandatory for students, and how do their requirements differ?",
+  "documents": [
+   "sveden-21777590-pdf"
+  ],
+  "tags": [
+   "course-requirements",
+   "mandatory-courses",
+   "optional-courses",
+   "academic-policy"
+  ],
+  "status": "accepted",
+  "accepted_by": "model+code"
+ },
+ "faculty-course-enrollment": {
+  "slug": "faculty-course-enrollment",
+  "title": "How to Enroll in Faculty Courses",
+  "brief": "What is the official procedure and communication channel for registering in optional faculty courses?",
+  "documents": [
+   "sveden-21777590-pdf"
+  ],
+  "tags": [
+   "course-registration",
+   "enrollment-procedure",
+   "faculty-courses",
+   "student-communication"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'enrollment-and-withdrawal' (the editor model's judgement)"
+ },
+ "elective-course-structure": {
+  "slug": "elective-course-structure",
+  "title": "How Elective Courses Are Organized",
+  "brief": "How are elective courses structured and selected within the academic curriculum?",
+  "documents": [
+   "sveden-21777590-pdf"
+  ],
+  "tags": [
+   "elective-courses",
+   "course-selection",
+   "curriculum-design",
+   "academic-planning"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'electives' (the editor model's judgement)"
+ },
+ "thesis-submission-deadline": {
+  "slug": "thesis-submission-deadline",
+  "title": "Deadline for submitting thesis materials before defense",
+  "brief": "When must I submit the electronic version of my thesis before the defense?",
+  "documents": [
+   "sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0"
+  ],
+  "tags": [
+   "thesis",
+   "deadline",
+   "defense",
+   "submission"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'graduation' (the editor model's judgement)"
+ },
+ "defense-appeal-procedure": {
+  "slug": "defense-appeal-procedure",
+  "title": "How to appeal your thesis defense results",
+  "brief": "What is the deadline and procedure for filing an appeal after the defense results are announced?",
+  "documents": [
+   "sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0"
+  ],
+  "tags": [
+   "appeal",
+   "defense",
+   "results",
+   "deadline"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'academic-integrity' (the editor model's judgement)"
+ },
+ "academic-debt-and-retake-deadlines": {
+  "slug": "academic-debt-and-retake-deadlines",
+  "title": "Academic Debt and Retake Deadlines",
+  "brief": "What happens if I fail an intermediate certification, and how long do I have to clear the debt?",
+  "documents": [
+   "sveden-2edceae4-01-03-2022-12-3-pdf"
+  ],
+  "tags": [
+   "academic-debt",
+   "retake-deadlines",
+   "intermediate-certification",
+   "graduate-students"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'retakes' (the editor model's judgement)"
+ },
+ "intermediate-certification-forms": {
+  "slug": "intermediate-certification-forms",
+  "title": "Forms of Intermediate Certification",
+  "brief": "What types of exams or credits are used for intermediate certification, and how is the specific form determined?",
+  "documents": [
+   "sveden-2edceae4-01-03-2022-12-3-pdf"
+  ],
+  "tags": [
+   "certification-forms",
+   "exams",
+   "credits",
+   "study-plan"
+  ],
+  "status": "rejected",
+  "reason": "the regulations give only 2 clause(s) for it"
+ },
+ "disability-accommodations-exams": {
+  "slug": "disability-accommodations-exams",
+  "title": "Exam Accommodations for Students with Disabilities",
+  "brief": "How are intermediate certification procedures adapted for students with visual, hearing, or speech impairments?",
+  "documents": [
+   "sveden-2edceae4-01-03-2022-12-3-pdf"
+  ],
+  "tags": [
+   "disability-accommodations",
+   "accessibility",
+   "intermediate-certification",
+   "o"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'exam-accommodations' (the editor model's judgement)"
+ },
+ "individual-learning-trajectory": {
+  "slug": "individual-learning-trajectory",
+  "title": "Individual Learning Trajectory",
+  "brief": "How can I apply for and structure an individual learning trajectory within the Mechatronics and Robotics program?",
+  "documents": [
+   "sveden-325b1670-1-15-03-06-pdf"
+  ],
+  "tags": [
+   "academic-planning",
+   "student-rights",
+   "program-structure"
+  ],
+  "status": "rejected",
+  "reason": "the regulations give only 0 clause(s) for it"
+ },
+ "sports-and-health-conditions": {
+  "slug": "sports-and-health-conditions",
+  "title": "Sports and Health Facilities",
+  "brief": "What standards and resources are guaranteed for physical education and sports activities on campus?",
+  "documents": [
+   "sveden-325b1670-1-15-03-06-pdf"
+  ],
+  "tags": [
+   "student-wellbeing",
+   "campus-facilities",
+   "physical-education"
+  ],
+  "status": "rejected",
+  "reason": "the regulations give only 1 clause(s) for it"
+ },
+ "meal-organization": {
+  "slug": "meal-organization",
+  "title": "Student Meal Services",
+  "brief": "What are the established conditions and standards for student meal organization?",
+  "documents": [
+   "sveden-325b1670-1-15-03-06-pdf"
+  ],
+  "tags": [
+   "student-life",
+   "campus-services",
+   "dining"
+  ],
+  "status": "rejected",
+  "reason": "the regulations give only 1 clause(s) for it"
+ },
+ "appeals-procedure": {
+  "slug": "appeals-procedure",
+  "title": "How to Appeal an Assessment Result",
+  "brief": "How can I formally submit a complaint about a grade or assessment outcome?",
+  "documents": [
+   "sveden-3bfa0f24-polozh-komissiya-obr-spory-05-"
+  ],
+  "tags": [
+   "appeals",
+   "grades",
+   "procedure",
+   "deadlines",
+   "student-rights"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'academic-integrity' (the editor model's judgement)"
+ },
+ "appeal-deadlines": {
+  "slug": "appeal-deadlines",
+  "title": "Time Limits for Filing Disputes",
+  "brief": "What is the time limit for submitting a formal appeal to the Commission?",
+  "documents": [
+   "sveden-3bfa0f24-polozh-komissiya-obr-spory-05-"
+  ],
+  "tags": [
+   "deadlines",
+   "appeals",
+   "regulations",
+   "procedure",
+   "student-rights"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'academic-integrity' (the editor model's judgement)"
+ },
+ "commission-review-process": {
+  "slug": "commission-review-process",
+  "title": "How the Commission Reviews Appeals",
+  "brief": "How does the Dispute Commission evaluate and decide on my submitted complaint?",
+  "documents": [
+   "sveden-3bfa0f24-polozh-komissiya-obr-spory-05-"
+  ],
+  "tags": [
+   "procedure",
+   "commission",
+   "appeals",
+   "student-rights",
+   "process"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'academic-integrity' (the editor model's judgement)"
+ },
+ "individual-study-plan": {
+  "slug": "individual-study-plan",
+  "title": "Индивидуальный учебный план",
+  "brief": "How do I apply for an individual study plan, and what are the rules for its approval, academic schedule, and assessment?",
+  "documents": [
+   "sveden-3c21b120-polozh-iup-02-08-2022-pdf"
+  ],
+  "tags": [
+   "individual-study-plan",
+   "academic-schedule",
+   "assessment",
+   "application-procedure",
+   "university-regulations"
+  ],
+  "status": "accepted",
+  "accepted_by": "model+code"
+ },
+ "transfer-between-programs": {
+  "slug": "transfer-between-programs",
+  "title": "Перевод с одной образовательной программы на другую",
+  "brief": "What is the step-by-step procedure and required documentation to transfer from one study program or form of study to another?",
+  "documents": [
+   "sveden-3c21b120-polozh-iup-02-08-2022-pdf"
+  ],
+  "tags": [
+   "transfer",
+   "program-change",
+   "academic-regulations",
+   "student-rights",
+   "university-procedures"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'credit-transfer' (the editor model's judgement)"
+ },
+ "credit-transfer-mobility": {
+  "slug": "credit-transfer-mobility",
+  "title": "Зачет результатов обучения по программе академической мобильности",
+  "brief": "By what deadline must I submit an application to get my academic mobility results credited, and how is the decision made?",
+  "documents": [
+   "sveden-3c21b120-polozh-iup-02-08-2022-pdf"
+  ],
+  "tags": [
+   "credit-transfer",
+   "academic-mobility",
+   "deadlines",
+   "assessment",
+   "university-regulations"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'credit-transfer' (the editor model's judgement)"
+ },
+ "apply-adapted-program": {
+  "slug": "apply-adapted-program",
+  "title": "How to get an adapted educational program",
+  "brief": "What documents do I need to submit to enroll in an adapted educational program at Innopolis University?",
+  "documents": [
+   "sveden-426e3e76-pdf"
+  ],
+  "tags": [
+   "disabilities",
+   "enrollment",
+   "procedure",
+   "accommodations",
+   "pmpk"
+  ],
+  "status": "rejected",
+  "reason": "the regulations give only 1 clause(s) for it"
+ },
+ "adapted-program-rights": {
+  "slug": "adapted-program-rights",
+  "title": "Student rights in adapted educational programs",
+  "brief": "What specific academic accommodations and support are guaranteed to students with disabilities under the adapted program?",
+  "documents": [
+   "sveden-426e3e76-pdf"
+  ],
+  "tags": [
+   "disabilities",
+   "academic-rights",
+   "curriculum",
+   "support",
+   "inclusive-education"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'exam-accommodations' (the editor model's judgement)"
+ },
+ "appealing-final-exam-results": {
+  "slug": "appealing-final-exam-results",
+  "title": "How to Appeal a Final Exam Grade",
+  "brief": "What is the deadline and procedure for submitting an appeal against a final exam or thesis defense result?",
+  "documents": [
+   "sveden-4ef7567d-polozh-ia-bakmag-27-04-2024-pd"
+  ],
+  "tags": [
+   "final-exams",
+   "appeals",
+   "deadlines",
+   "student-rights",
+   "procedures"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'academic-integrity' (the editor model's judgement)"
+ },
+ "final-certification-format-and-thesis-requirements": {
+  "slug": "final-certification-format-and-thesis-requirements",
+  "title": "Final Certification Format and Thesis Topic Rules",
+  "brief": "What are the required forms of final certification and how can I request a change to my thesis topic?",
+  "documents": [
+   "sveden-4ef7567d-polozh-ia-bakmag-27-04-2024-pd"
+  ],
+  "tags": [
+   "final-exams",
+   "thesis-defense",
+   "academic-requirements",
+   "topic-selection",
+   "graduation"
+  ],
+  "status": "rejected",
+  "reason": "the regulations give only 2 clause(s) for it"
+ },
+ "disability-accommodations-final-exams": {
+  "slug": "disability-accommodations-final-exams",
+  "title": "Accommodations for Students with Disabilities During Final Exams",
+  "brief": "What specific accommodations and support are guaranteed for students with disabilities during final certification?",
+  "documents": [
+   "sveden-4ef7567d-polozh-ia-bakmag-27-04-2024-pd"
+  ],
+  "tags": [
+   "disability-support",
+   "final-exams",
+   "accommodations",
+   "student-rights",
+   "accessibility"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'exam-accommodations' (the editor model's judgement)"
+ },
+ "extern-enrollment-procedure": {
+  "slug": "extern-enrollment-procedure",
+  "title": "How to Enroll as an Extern",
+  "brief": "How do I apply to be officially enrolled as an extern to take my exams at the university?",
+  "documents": [
+   "sveden-50bb9ee8-polozh-extern-27-04-2024-pdf"
+  ],
+  "tags": [
+   "extern",
+   "enrollment",
+   "application",
+   "procedure",
+   "student-rights"
+  ],
+  "status": "accepted",
+  "accepted_by": "model+code"
+ },
+ "extern-certification-deadlines": {
+  "slug": "extern-certification-deadlines",
+  "title": "Extern Certification Deadlines",
+  "brief": "What are the strict deadlines I must meet to complete my intermediate and final state certification?",
+  "documents": [
+   "sveden-50bb9ee8-polozh-extern-27-04-2024-pdf"
+  ],
+  "tags": [
+   "deadlines",
+   "certification",
+   "extern",
+   "academic-calendar",
+   "compliance"
+  ],
+  "status": "rejected",
+  "reason": "the regulations give only 2 clause(s) for it"
+ },
+ "extern-intermediate-assessment": {
+  "slug": "extern-intermediate-assessment",
+  "title": "Intermediate Assessment for Externs",
+  "brief": "What forms of intermediate assessment do I need to pass after being enrolled as an extern?",
+  "documents": [
+   "sveden-50bb9ee8-polozh-extern-27-04-2024-pdf"
+  ],
+  "tags": [
+   "extern",
+   "intermediate-exams",
+   "assessment",
+   "curriculum",
+   "deadlines"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'extern-enrollment-procedure' (the editor model's judgement)"
+ },
+ "special-conditions-disability-accessibility": {
+  "slug": "special-conditions-disability-accessibility",
+  "title": "Special Conditions & Accessibility for Students with Disabilities",
+  "brief": "What special conditions and accessibility measures does the university provide for students with disabilities or limited health capacities?",
+  "documents": [
+   "sveden-570b92d0-pdf"
+  ],
+  "tags": [
+   "disability",
+   "accessibility",
+   "special-conditions",
+   "student-rights",
+   "accommodations"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'exam-accommodations' (the editor model's judgement)"
+ },
+ "student-account-credentials": {
+  "slug": "student-account-credentials",
+  "title": "Student Account and Platform Access",
+  "brief": "How are my university login credentials created and where do I find them?",
+  "documents": [
+   "sveden-6868183d-polozh-eios-03-2026-pdf"
+  ],
+  "tags": [
+   "account",
+   "login",
+   "access",
+   "credentials",
+   "portal"
+  ],
+  "status": "rejected",
+  "reason": "the regulations give only 2 clause(s) for it"
+ },
+ "grades-and-assignments-lms": {
+  "slug": "grades-and-assignments-lms",
+  "title": "Tracking Assignments and Viewing Grades",
+  "brief": "Where and how are my assignments recorded and intermediate certification results published?",
+  "documents": [
+   "sveden-6868183d-polozh-eios-03-2026-pdf"
+  ],
+  "tags": [
+   "grades",
+   "assignments",
+   "lms",
+   "moodle",
+   "results"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'grading-scales' (the editor model's judgement)"
+ },
+ "electronic-portfolio-guide": {
+  "slug": "electronic-portfolio-guide",
+  "title": "Managing Your Electronic Portfolio",
+  "brief": "What is the purpose of the electronic portfolio and which sections must I fill out myself?",
+  "documents": [
+   "sveden-6868183d-polozh-eios-03-2026-pdf"
+  ],
+  "tags": [
+   "portfolio",
+   "e-portfolio",
+   "self-service",
+   "academic-records",
+   "digital"
+  ],
+  "status": "accepted",
+  "accepted_by": "model+code"
+ },
+ "academic-integrity": {
+  "slug": "academic-integrity",
+  "title": "academic-integrity-assignment-rules",
+  "brief": "Academic Integrity and Assignment Rules",
+  "documents": [
+   "sveden-7600a171-pdf"
+  ],
+  "tags": [
+   "d1"
+  ],
+  "status": "rejected",
+  "reason": "slug exists"
+ },
+ "disciplinary-sanctions": {
+  "slug": "disciplinary-sanctions",
+  "title": "disciplinary-sanctions-violations",
+  "brief": "Disciplinary Sanctions for Rule Violations",
+  "documents": [
+   "sveden-7600a171-pdf"
+  ],
+  "tags": [
+   "d1"
+  ],
+  "status": "rejected",
+  "reason": "the question is too vague"
+ },
+ "campus-behavior": {
+  "slug": "campus-behavior",
+  "title": "campus-behavior-dress-code",
+  "brief": "Campus Behavior and Dress Code Guidelines",
+  "documents": [
+   "sveden-7600a171-pdf"
+  ],
+  "tags": [
+   "d1"
+  ],
+  "status": "accepted",
+  "accepted_by": "model+code"
+ },
+ "accelerated-study-eligibility-and-duration": {
+  "slug": "accelerated-study-eligibility-and-duration",
+  "title": "Eligibility and Duration Reduction for Accelerated Study",
+  "brief": "Who qualifies for accelerated study under an individual plan and how much shorter will my degree program be?",
+  "documents": [
+   "sveden-90e9c14c-polozh-uskor-02-08-2022-pdf"
+  ],
+  "tags": [
+   "accelerated-study",
+   "eligibility",
+   "study-duration",
+   "bachelor",
+   "master"
+  ],
+  "status": "accepted",
+  "accepted_by": "model+code"
+ },
+ "individual-study-plan-structure": {
+  "slug": "individual-study-plan-structure",
+  "title": "How the Individual Study Plan Works",
+  "brief": "How are course sequences, workload, and practical training organized under an accelerated individual study plan?",
+  "documents": [
+   "sveden-90e9c14c-polozh-uskor-02-08-2022-pdf"
+  ],
+  "tags": [
+   "individual-study-plan",
+   "course-sequence",
+   "workload",
+   "practical-training",
+   "curriculum"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'individual-study-plan' (the editor model's judgement)"
+ },
+ "switching-back-and-academic-debt": {
+  "slug": "switching-back-and-academic-debt",
+  "title": "Switching Back to Regular Study and Academic Debt Rules",
+  "brief": "Can I return to standard study if the accelerated plan is too demanding, and what happens if I fail to clear academic debts on time?",
+  "documents": [
+   "sveden-90e9c14c-polozh-uskor-02-08-2022-pdf"
+  ],
+  "tags": [
+   "academic-debt",
+   "switching-programs",
+   "study-regulations",
+   "dismissal",
+   "student-rights"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'academic-leave'"
+ },
+ "scholarship-application-process-deadlines": {
+  "slug": "scholarship-application-process-deadlines",
+  "title": "Scholarship Application Process and Key Deadlines",
+  "brief": "What are the stages of the scholarship competition and the final deadline for winner registration?",
+  "documents": [
+   "sveden-9d0974a5-1-pdf"
+  ],
+  "tags": [
+   "scholarship",
+   "application",
+   "deadlines",
+   "competition",
+   "international-students"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'financial-aid-and-scholarships' (the editor model's judgement)"
+ },
+ "grant-retention-loss-rules": {
+  "slug": "grant-retention-loss-rules",
+  "title": "Rules for Retaining or Losing the Scholarship",
+  "brief": "Under what conditions can a winner lose their grant or be disqualified from receiving it?",
+  "documents": [
+   "sveden-9d0974a5-1-pdf"
+  ],
+  "tags": [
+   "scholarship",
+   "regulations",
+   "disqualification",
+   "compliance",
+   "student-rights"
+  ],
+  "status": "accepted",
+  "accepted_by": "model+code"
  }
 }

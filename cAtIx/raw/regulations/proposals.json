@@ -1,0 +1,1416 @@
+{
+ "academic-integrity-regulation": {
+  "version": "ede170078161",
+  "topics": []
+ },
+ "academic-leave-regulation": {
+  "version": "e0c2010f5cea",
+  "topics": [
+   {
+    "slug": "academic-leave-duration",
+    "title": "Academic Leave Duration Limits",
+    "brief": "How many months can I take an academic leave at one time?",
+    "documents": [
+     "academic-leave-regulation"
+    ],
+    "tags": [
+     "academic-leave",
+     "duration",
+     "limits",
+     "student-rights",
+     "university-policy"
+    ]
+   },
+   {
+    "slug": "how-to-request-academic-leave",
+    "title": "How to Request an Academic Leave",
+    "brief": "What is the procedure and required document to apply for an academic leave?",
+    "documents": [
+     "academic-leave-regulation"
+    ],
+    "tags": [
+     "academic-leave",
+     "application-procedure",
+     "student-rights",
+     "university-policy",
+     "deadlines"
+    ]
+   },
+   {
+    "slug": "maternity-and-childcare-leave-rules",
+    "title": "Maternity and Childcare Leave Rules",
+    "brief": "How long can I take maternity or childcare leave, and when does it officially end?",
+    "documents": [
+     "academic-leave-regulation"
+    ],
+    "tags": [
+     "maternity-leave",
+     "childcare-leave",
+     "duration",
+     "student-rights",
+     "university-policy"
+    ]
+   }
+  ]
+ },
+ "attestation-regulation": {
+  "version": "36012b556b92",
+  "topics": [
+   {
+    "slug": "academic-failure-retake-deadlines",
+    "title": "Academic Failure and Retake Deadlines",
+    "brief": "What are the rules and deadlines for retaking failed interim assessments?",
+    "documents": [
+     "attestation-regulation"
+    ],
+    "tags": [
+     "academic-failure",
+     "retakes",
+     "deadlines",
+     "interim-assessment",
+     "university-rules"
+    ]
+   },
+   {
+    "slug": "retake-to-improve-grade",
+    "title": "Retaking to Improve a Positive Grade",
+    "brief": "How can students retake an exam to improve a passing grade, and what are the limits?",
+    "documents": [
+     "attestation-regulation"
+    ],
+    "tags": [
+     "grade-improvement",
+     "retakes",
+     "exam-rules",
+     "student-rights",
+     "academic-progress"
+    ]
+   },
+   {
+    "slug": "exam-accommodations-disabilities",
+    "title": "Exam Accommodations for Disabilities and Health Issues",
+    "brief": "How can students with disabilities or serious health conditions request adapted assessment formats?",
+    "documents": [
+     "attestation-regulation"
+    ],
+    "tags": [
+     "disability-accommodations",
+     "health-issues",
+     "exam-adjustments",
+     "inclusive-education",
+     "student-rights"
+    ]
+   }
+  ]
+ },
+ "credit-transfer-regulation": {
+  "version": "1cfc1cb8c095",
+  "topics": [
+   {
+    "slug": "credit-transfer-application",
+    "title": "How to Apply for Credit Transfer",
+    "brief": "What documents and forms must I submit to request credit transfer of previous studies?",
+    "documents": [
+     "credit-transfer-regulation"
+    ],
+    "tags": [
+     "credit-transfer",
+     "application",
+     "documents",
+     "procedure"
+    ]
+   },
+   {
+    "slug": "credit-transfer-deadlines",
+    "title": "When to Submit Credit Transfer Requests",
+    "brief": "By what deadlines must first-year and exchange students submit their credit transfer applications?",
+    "documents": [
+     "credit-transfer-regulation"
+    ],
+    "tags": [
+     "credit-transfer",
+     "deadlines",
+     "first-year-students",
+     "academic-mobility"
+    ]
+   },
+   {
+    "slug": "foreign-documents-translation",
+    "title": "Requirements for Foreign Study Documents",
+    "brief": "What translation and legalization requirements apply to foreign training certificates and degrees?",
+    "documents": [
+     "credit-transfer-regulation"
+    ],
+    "tags": [
+     "foreign-documents",
+     "translation",
+     "legalization",
+     "credit-transfer"
+    ]
+   }
+  ]
+ },
+ "enrollment-procedure-order": {
+  "version": "a2733c4f7092",
+  "topics": []
+ },
+ "final-attestation-regulation": {
+  "version": "2b0c4d14691b",
+  "topics": []
+ },
+ "remote-attestation-order": {
+  "version": "64f65c4b4bbb",
+  "topics": [
+   {
+    "slug": "academic-debt-retakes",
+    "title": "Academic Debt and Retake Procedures",
+    "brief": "What are the deadlines and procedures for retaking failed exams or tests?",
+    "documents": [
+     "remote-attestation-order"
+    ],
+    "tags": [
+     "academic-debt",
+     "retakes",
+     "deadlines",
+     "distance-learning",
+     "exams"
+    ]
+   },
+   {
+    "slug": "distance-exam-requirements",
+    "title": "Technical Requirements for Remote Exams",
+    "brief": "What computing devices and technical conditions are mandatory for taking exams or tests online?",
+    "documents": [
+     "remote-attestation-order"
+    ],
+    "tags": [
+     "distance-learning",
+     "technical-requirements",
+     "exams",
+     "student-equipment",
+     "remote-assessment"
+    ]
+   }
+  ]
+ },
+ "sveden-025359ab-09-03-01-pdf": {
+  "version": "4616b1384b17",
+  "topics": []
+ },
+ "sveden-08e4b66a-1-pdf": {
+  "version": "115300eebe27",
+  "topics": []
+ },
+ "sveden-186a6c8d-ustav-10-04-2025-pdf": {
+  "version": "f35c432b7ddd",
+  "topics": [
+   {
+    "slug": "student-rights-in-local-acts",
+    "title": "How university rules affecting students are made and communicated",
+    "brief": "How are local normative acts that impact student rights adopted and notified to students?",
+    "documents": [
+     "sveden-186a6c8d-ustav-10-04-2025-pdf"
+    ],
+    "tags": [
+     "student-rights",
+     "university-regulations",
+     "governance",
+     "transparency",
+     "campus-rules"
+    ]
+   },
+   {
+    "slug": "educational-programs-and-methods",
+    "title": "Types of programs and teaching technologies",
+    "brief": "What types of educational programs does the university offer and how are teaching methods determined?",
+    "documents": [
+     "sveden-186a6c8d-ustav-10-04-2025-pdf"
+    ],
+    "tags": [
+     "academic-programs",
+     "curriculum",
+     "teaching-methods",
+     "student-academic-life",
+     "university-policy"
+    ]
+   },
+   {
+    "slug": "campus-political-restrictions",
+    "title": "Banned organizational activities on campus",
+    "brief": "What political or religious organizational structures are prohibited from operating at the university?",
+    "documents": [
+     "sveden-186a6c8d-ustav-10-04-2025-pdf"
+    ],
+    "tags": [
+     "campus-rules",
+     "student-conduct",
+     "political-restrictions",
+     "university-charter",
+     "compliance"
+    ]
+   }
+  ]
+ },
+ "sveden-21777590-pdf": {
+  "version": "29e5edea824b",
+  "topics": [
+   {
+    "slug": "faculty-vs-elective-status",
+    "title": "Mandatory vs Optional Course Status",
+    "brief": "Are faculty and elective courses mandatory for students, and how do their requirements differ?",
+    "documents": [
+     "sveden-21777590-pdf"
+    ],
+    "tags": [
+     "course-requirements",
+     "mandatory-courses",
+     "optional-courses",
+     "academic-policy"
+    ]
+   },
+   {
+    "slug": "faculty-course-enrollment",
+    "title": "How to Enroll in Faculty Courses",
+    "brief": "What is the official procedure and communication channel for registering in optional faculty courses?",
+    "documents": [
+     "sveden-21777590-pdf"
+    ],
+    "tags": [
+     "course-registration",
+     "enrollment-procedure",
+     "faculty-courses",
+     "student-communication"
+    ]
+   },
+   {
+    "slug": "elective-course-structure",
+    "title": "How Elective Courses Are Organized",
+    "brief": "How are elective courses structured and selected within the academic curriculum?",
+    "documents": [
+     "sveden-21777590-pdf"
+    ],
+    "tags": [
+     "elective-courses",
+     "course-selection",
+     "curriculum-design",
+     "academic-planning"
+    ]
+   }
+  ]
+ },
+ "sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0": {
+  "version": "84227b82066f",
+  "topics": [
+   {
+    "slug": "thesis-submission-deadline",
+    "title": "Deadline for submitting thesis materials before defense",
+    "brief": "When must I submit the electronic version of my thesis before the defense?",
+    "documents": [
+     "sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0"
+    ],
+    "tags": [
+     "thesis",
+     "deadline",
+     "defense",
+     "submission"
+    ]
+   },
+   {
+    "slug": "defense-appeal-procedure",
+    "title": "How to appeal your thesis defense results",
+    "brief": "What is the deadline and procedure for filing an appeal after the defense results are announced?",
+    "documents": [
+     "sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0"
+    ],
+    "tags": [
+     "appeal",
+     "defense",
+     "results",
+     "deadline"
+    ]
+   }
+  ]
+ },
+ "sveden-2edceae4-01-03-2022-12-3-pdf": {
+  "version": "598b87f748fc",
+  "topics": [
+   {
+    "slug": "academic-debt-and-retake-deadlines",
+    "title": "Academic Debt and Retake Deadlines",
+    "brief": "What happens if I fail an intermediate certification, and how long do I have to clear the debt?",
+    "documents": [
+     "sveden-2edceae4-01-03-2022-12-3-pdf"
+    ],
+    "tags": [
+     "academic-debt",
+     "retake-deadlines",
+     "intermediate-certification",
+     "graduate-students"
+    ]
+   },
+   {
+    "slug": "intermediate-certification-forms",
+    "title": "Forms of Intermediate Certification",
+    "brief": "What types of exams or credits are used for intermediate certification, and how is the specific form determined?",
+    "documents": [
+     "sveden-2edceae4-01-03-2022-12-3-pdf"
+    ],
+    "tags": [
+     "certification-forms",
+     "exams",
+     "credits",
+     "study-plan"
+    ]
+   },
+   {
+    "slug": "disability-accommodations-exams",
+    "title": "Exam Accommodations for Students with Disabilities",
+    "brief": "How are intermediate certification procedures adapted for students with visual, hearing, or speech impairments?",
+    "documents": [
+     "sveden-2edceae4-01-03-2022-12-3-pdf"
+    ],
+    "tags": [
+     "disability-accommodations",
+     "accessibility",
+     "intermediate-certification",
+     "o"
+    ]
+   }
+  ]
+ },
+ "sveden-325b1670-1-15-03-06-pdf": {
+  "version": "d88e59ada23a",
+  "topics": [
+   {
+    "slug": "individual-learning-trajectory",
+    "title": "Individual Learning Trajectory",
+    "brief": "How can I apply for and structure an individual learning trajectory within the Mechatronics and Robotics program?",
+    "documents": [
+     "sveden-325b1670-1-15-03-06-pdf"
+    ],
+    "tags": [
+     "academic-planning",
+     "student-rights",
+     "program-structure"
+    ]
+   },
+   {
+    "slug": "sports-and-health-conditions",
+    "title": "Sports and Health Facilities",
+    "brief": "What standards and resources are guaranteed for physical education and sports activities on campus?",
+    "documents": [
+     "sveden-325b1670-1-15-03-06-pdf"
+    ],
+    "tags": [
+     "student-wellbeing",
+     "campus-facilities",
+     "physical-education"
+    ]
+   },
+   {
+    "slug": "meal-organization",
+    "title": "Student Meal Services",
+    "brief": "What are the established conditions and standards for student meal organization?",
+    "documents": [
+     "sveden-325b1670-1-15-03-06-pdf"
+    ],
+    "tags": [
+     "student-life",
+     "campus-services",
+     "dining"
+    ]
+   }
+  ]
+ },
+ "sveden-3bfa0f24-polozh-komissiya-obr-spory-05-": {
+  "version": "196e4afe0e8b",
+  "topics": [
+   {
+    "slug": "appeals-procedure",
+    "title": "How to Appeal an Assessment Result",
+    "brief": "How can I formally submit a complaint about a grade or assessment outcome?",
+    "documents": [
+     "sveden-3bfa0f24-polozh-komissiya-obr-spory-05-"
+    ],
+    "tags": [
+     "appeals",
+     "grades",
+     "procedure",
+     "deadlines",
+     "student-rights"
+    ]
+   },
+   {
+    "slug": "appeal-deadlines",
+    "title": "Time Limits for Filing Disputes",
+    "brief": "What is the time limit for submitting a formal appeal to the Commission?",
+    "documents": [
+     "sveden-3bfa0f24-polozh-komissiya-obr-spory-05-"
+    ],
+    "tags": [
+     "deadlines",
+     "appeals",
+     "regulations",
+     "procedure",
+     "student-rights"
+    ]
+   },
+   {
+    "slug": "commission-review-process",
+    "title": "How the Commission Reviews Appeals",
+    "brief": "How does the Dispute Commission evaluate and decide on my submitted complaint?",
+    "documents": [
+     "sveden-3bfa0f24-polozh-komissiya-obr-spory-05-"
+    ],
+    "tags": [
+     "procedure",
+     "commission",
+     "appeals",
+     "student-rights",
+     "process"
+    ]
+   }
+  ]
+ },
+ "sveden-3c21b120-polozh-iup-02-08-2022-pdf": {
+  "version": "3191b647cf72",
+  "topics": [
+   {
+    "slug": "individual-study-plan",
+    "title": "Индивидуальный учебный план",
+    "brief": "How do I apply for an individual study plan, and what are the rules for its approval, academic schedule, and assessment?",
+    "documents": [
+     "sveden-3c21b120-polozh-iup-02-08-2022-pdf"
+    ],
+    "tags": [
+     "individual-study-plan",
+     "academic-schedule",
+     "assessment",
+     "application-procedure",
+     "university-regulations"
+    ]
+   },
+   {
+    "slug": "transfer-between-programs",
+    "title": "Перевод с одной образовательной программы на другую",
+    "brief": "What is the step-by-step procedure and required documentation to transfer from one study program or form of study to another?",
+    "documents": [
+     "sveden-3c21b120-polozh-iup-02-08-2022-pdf"
+    ],
+    "tags": [
+     "transfer",
+     "program-change",
+     "academic-regulations",
+     "student-rights",
+     "university-procedures"
+    ]
+   },
+   {
+    "slug": "credit-transfer-mobility",
+    "title": "Зачет результатов обучения по программе академической мобильности",
+    "brief": "By what deadline must I submit an application to get my academic mobility results credited, and how is the decision made?",
+    "documents": [
+     "sveden-3c21b120-polozh-iup-02-08-2022-pdf"
+    ],
+    "tags": [
+     "credit-transfer",
+     "academic-mobility",
+     "deadlines",
+     "assessment",
+     "university-regulations"
+    ]
+   }
+  ]
+ },
+ "sveden-426e3e76-pdf": {
+  "version": "e271cd68a610",
+  "topics": [
+   {
+    "slug": "apply-adapted-program",
+    "title": "How to get an adapted educational program",
+    "brief": "What documents do I need to submit to enroll in an adapted educational program at Innopolis University?",
+    "documents": [
+     "sveden-426e3e76-pdf"
+    ],
+    "tags": [
+     "disabilities",
+     "enrollment",
+     "procedure",
+     "accommodations",
+     "pmpk"
+    ]
+   },
+   {
+    "slug": "adapted-program-rights",
+    "title": "Student rights in adapted educational programs",
+    "brief": "What specific academic accommodations and support are guaranteed to students with disabilities under the adapted program?",
+    "documents": [
+     "sveden-426e3e76-pdf"
+    ],
+    "tags": [
+     "disabilities",
+     "academic-rights",
+     "curriculum",
+     "support",
+     "inclusive-education"
+    ]
+   }
+  ]
+ },
+ "sveden-45f82e4f-pdf": {
+  "version": "4e1bf9a5b036",
+  "topics": []
+ },
+ "sveden-4ef7567d-polozh-ia-bakmag-27-04-2024-pd": {
+  "version": "cf47641fa0e4",
+  "topics": [
+   {
+    "slug": "appealing-final-exam-results",
+    "title": "How to Appeal a Final Exam Grade",
+    "brief": "What is the deadline and procedure for submitting an appeal against a final exam or thesis defense result?",
+    "documents": [
+     "sveden-4ef7567d-polozh-ia-bakmag-27-04-2024-pd"
+    ],
+    "tags": [
+     "final-exams",
+     "appeals",
+     "deadlines",
+     "student-rights",
+     "procedures"
+    ]
+   },
+   {
+    "slug": "final-certification-format-and-thesis-requirements",
+    "title": "Final Certification Format and Thesis Topic Rules",
+    "brief": "What are the required forms of final certification and how can I request a change to my thesis topic?",
+    "documents": [
+     "sveden-4ef7567d-polozh-ia-bakmag-27-04-2024-pd"
+    ],
+    "tags": [
+     "final-exams",
+     "thesis-defense",
+     "academic-requirements",
+     "topic-selection",
+     "graduation"
+    ]
+   },
+   {
+    "slug": "disability-accommodations-final-exams",
+    "title": "Accommodations for Students with Disabilities During Final Exams",
+    "brief": "What specific accommodations and support are guaranteed for students with disabilities during final certification?",
+    "documents": [
+     "sveden-4ef7567d-polozh-ia-bakmag-27-04-2024-pd"
+    ],
+    "tags": [
+     "disability-support",
+     "final-exams",
+     "accommodations",
+     "student-rights",
+     "accessibility"
+    ]
+   }
+  ]
+ },
+ "sveden-50bb9ee8-polozh-extern-27-04-2024-pdf": {
+  "version": "80a11cc29ee2",
+  "topics": [
+   {
+    "slug": "extern-enrollment-procedure",
+    "title": "How to Enroll as an Extern",
+    "brief": "How do I apply to be officially enrolled as an extern to take my exams at the university?",
+    "documents": [
+     "sveden-50bb9ee8-polozh-extern-27-04-2024-pdf"
+    ],
+    "tags": [
+     "extern",
+     "enrollment",
+     "application",
+     "procedure",
+     "student-rights"
+    ]
+   },
+   {
+    "slug": "extern-certification-deadlines",
+    "title": "Extern Certification Deadlines",
+    "brief": "What are the strict deadlines I must meet to complete my intermediate and final state certification?",
+    "documents": [
+     "sveden-50bb9ee8-polozh-extern-27-04-2024-pdf"
+    ],
+    "tags": [
+     "deadlines",
+     "certification",
+     "extern",
+     "academic-calendar",
+     "compliance"
+    ]
+   },
+   {
+    "slug": "extern-intermediate-assessment",
+    "title": "Intermediate Assessment for Externs",
+    "brief": "What forms of intermediate assessment do I need to pass after being enrolled as an extern?",
+    "documents": [
+     "sveden-50bb9ee8-polozh-extern-27-04-2024-pdf"
+    ],
+    "tags": [
+     "extern",
+     "intermediate-exams",
+     "assessment",
+     "curriculum",
+     "deadlines"
+    ]
+   }
+  ]
+ },
+ "sveden-570b92d0-pdf": {
+  "version": "edd814dfb827",
+  "topics": [
+   {
+    "slug": "special-conditions-disability-accessibility",
+    "title": "Special Conditions & Accessibility for Students with Disabilities",
+    "brief": "What special conditions and accessibility measures does the university provide for students with disabilities or limited health capacities?",
+    "documents": [
+     "sveden-570b92d0-pdf"
+    ],
+    "tags": [
+     "disability",
+     "accessibility",
+     "special-conditions",
+     "student-rights",
+     "accommodations"
+    ]
+   }
+  ]
+ },
+ "sveden-6868183d-polozh-eios-03-2026-pdf": {
+  "version": "3fead6337cf1",
+  "topics": [
+   {
+    "slug": "student-account-credentials",
+    "title": "Student Account and Platform Access",
+    "brief": "How are my university login credentials created and where do I find them?",
+    "documents": [
+     "sveden-6868183d-polozh-eios-03-2026-pdf"
+    ],
+    "tags": [
+     "account",
+     "login",
+     "access",
+     "credentials",
+     "portal"
+    ]
+   },
+   {
+    "slug": "grades-and-assignments-lms",
+    "title": "Tracking Assignments and Viewing Grades",
+    "brief": "Where and how are my assignments recorded and intermediate certification results published?",
+    "documents": [
+     "sveden-6868183d-polozh-eios-03-2026-pdf"
+    ],
+    "tags": [
+     "grades",
+     "assignments",
+     "lms",
+     "moodle",
+     "results"
+    ]
+   },
+   {
+    "slug": "electronic-portfolio-guide",
+    "title": "Managing Your Electronic Portfolio",
+    "brief": "What is the purpose of the electronic portfolio and which sections must I fill out myself?",
+    "documents": [
+     "sveden-6868183d-polozh-eios-03-2026-pdf"
+    ],
+    "tags": [
+     "portfolio",
+     "e-portfolio",
+     "self-service",
+     "academic-records",
+     "digital"
+    ]
+   }
+  ]
+ },
+ "sveden-7600a171-pdf": {
+  "version": "d062ce05d809",
+  "topics": [
+   {
+    "slug": "academic-integrity",
+    "title": "academic-integrity-assignment-rules",
+    "brief": "Academic Integrity and Assignment Rules",
+    "documents": [
+     "sveden-7600a171-pdf"
+    ],
+    "tags": [
+     "d1"
+    ]
+   },
+   {
+    "slug": "disciplinary-sanctions",
+    "title": "disciplinary-sanctions-violations",
+    "brief": "Disciplinary Sanctions for Rule Violations",
+    "documents": [
+     "sveden-7600a171-pdf"
+    ],
+    "tags": [
+     "d1"
+    ]
+   },
+   {
+    "slug": "campus-behavior",
+    "title": "campus-behavior-dress-code",
+    "brief": "Campus Behavior and Dress Code Guidelines",
+    "documents": [
+     "sveden-7600a171-pdf"
+    ],
+    "tags": [
+     "d1"
+    ]
+   }
+  ]
+ },
+ "sveden-90e9c14c-polozh-uskor-02-08-2022-pdf": {
+  "version": "caa101affed7",
+  "topics": [
+   {
+    "slug": "accelerated-study-eligibility-and-duration",
+    "title": "Eligibility and Duration Reduction for Accelerated Study",
+    "brief": "Who qualifies for accelerated study under an individual plan and how much shorter will my degree program be?",
+    "documents": [
+     "sveden-90e9c14c-polozh-uskor-02-08-2022-pdf"
+    ],
+    "tags": [
+     "accelerated-study",
+     "eligibility",
+     "study-duration",
+     "bachelor",
+     "master"
+    ]
+   },
+   {
+    "slug": "individual-study-plan-structure",
+    "title": "How the Individual Study Plan Works",
+    "brief": "How are course sequences, workload, and practical training organized under an accelerated individual study plan?",
+    "documents": [
+     "sveden-90e9c14c-polozh-uskor-02-08-2022-pdf"
+    ],
+    "tags": [
+     "individual-study-plan",
+     "course-sequence",
+     "workload",
+     "practical-training",
+     "curriculum"
+    ]
+   },
+   {
+    "slug": "switching-back-and-academic-debt",
+    "title": "Switching Back to Regular Study and Academic Debt Rules",
+    "brief": "Can I return to standard study if the accelerated plan is too demanding, and what happens if I fail to clear academic debts on time?",
+    "documents": [
+     "sveden-90e9c14c-polozh-uskor-02-08-2022-pdf"
+    ],
+    "tags": [
+     "academic-debt",
+     "switching-programs",
+     "study-regulations",
+     "dismissal",
+     "student-rights"
+    ]
+   }
+  ]
+ },
+ "sveden-989ec181-1-09-04-01-pdf": {
+  "version": "95c4aaa27b7e",
+  "topics": []
+ },
+ "sveden-9d0974a5-1-pdf": {
+  "version": "17bbba32d8fd",
+  "topics": [
+   {
+    "slug": "scholarship-application-process-deadlines",
+    "title": "Scholarship Application Process and Key Deadlines",
+    "brief": "What are the stages of the scholarship competition and the final deadline for winner registration?",
+    "documents": [
+     "sveden-9d0974a5-1-pdf"
+    ],
+    "tags": [
+     "scholarship",
+     "application",
+     "deadlines",
+     "competition",
+     "international-students"
+    ]
+   },
+   {
+    "slug": "grant-retention-loss-rules",
+    "title": "Rules for Retaining or Losing the Scholarship",
+    "brief": "Under what conditions can a winner lose their grant or be disqualified from receiving it?",
+    "documents": [
+     "sveden-9d0974a5-1-pdf"
+    ],
+    "tags": [
+     "scholarship",
+     "regulations",
+     "disqualification",
+     "compliance",
+     "student-rights"
+    ]
+   },
+   {
+    "slug": "restoration-after-expulsion-repeat-grant",
+    "title": "Restoration After Expulsion and Repeat Grant Procedure",
+    "brief": "How can an expelled student apply for a repeat scholarship and what are the eligibility requirements?",
+    "documents": [
+     "sveden-9d0974a5-1-pdf"
+    ],
+    "tags": [
+     "expulsion",
+     "restoration",
+     "scholarship",
+     "academic-rights",
+     "procedures"
+    ]
+   }
+  ]
+ },
+ "sveden-a1f98bed-polozh-podgotov-aspirant-01-03": {
+  "version": "20baa76a4836",
+  "topics": [
+   {
+    "slug": "post-graduation-dissertation-support",
+    "title": "Post-Graduation Dissertation Defense Support",
+    "brief": "How can graduates apply for university support when submitting their dissertation for defense, and what is the maximum duration of this support?",
+    "documents": [
+     "sveden-a1f98bed-polozh-podgotov-aspirant-01-03"
+    ],
+    "tags": [
+     "dissertation",
+     "defense",
+     "graduate-support",
+     "application-procedure",
+     "time-limit"
+    ]
+   },
+   {
+    "slug": "aspirantura-assessment-and-certification",
+    "title": "Assessment and Intermediate Certification Rules",
+    "brief": "What types of academic control and intermediate certification are conducted during the aspirantura program, and what do they evaluate?",
+    "documents": [
+     "sveden-a1f98bed-polozh-podgotov-aspirant-01-03"
+    ],
+    "tags": [
+     "assessment",
+     "intermediate-certification",
+     "current-control",
+     "academic-progress",
+     "research-stages"
+    ]
+   }
+  ]
+ },
+ "sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf": {
+  "version": "9c64a724ce05",
+  "topics": [
+   {
+    "slug": "network-form-rights",
+    "title": "Understanding Network Form Education",
+    "brief": "How does the network form of education affect my curriculum and what rights do I have to study parts of my program at partner institutions?",
+    "documents": [
+     "sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf"
+    ],
+    "tags": [
+     "network-form",
+     "student-rights",
+     "curriculum",
+     "partner-institutions",
+     "academic-regulations"
+    ]
+   },
+   {
+    "slug": "network-program-structure",
+    "title": "Network Educational Program Organization",
+    "brief": "How is a network educational program structured and which organizations are responsible for delivering my coursework?",
+    "documents": [
+     "sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf"
+    ],
+    "tags": [
+     "network-form",
+     "study-structure",
+     "academic-procedures",
+     "program-organization",
+     "student-guide"
+    ]
+   }
+  ]
+ },
+ "sveden-c1a38b32-polozh-eodot-02-08-2022-pdf": {
+  "version": "7f91fafdffa7",
+  "topics": [
+   {
+    "slug": "accessing-online-learning-platform",
+    "title": "Getting Started with the University's Online Learning Platform",
+    "brief": "How do I obtain my login credentials and access the required digital resources after enrollment?",
+    "documents": [
+     "sveden-c1a38b32-polozh-eodot-02-08-2022-pdf"
+    ],
+    "tags": [
+     "e-learning",
+     "student-portal",
+     "account-setup",
+     "university-resources"
+    ]
+   },
+   {
+    "slug": "online-exams-and-assessments",
+    "title": "Rules for Online Exams and Intermediate Assessments",
+    "brief": "What formats and procedures are used for taking online tests and completing mid-term evaluations?",
+    "documents": [
+     "sveden-c1a38b32-polozh-eodot-02-08-2022-pdf"
+    ],
+    "tags": [
+     "e-learning",
+     "exams",
+     "assessments",
+     "academic-procedures"
+    ]
+   },
+   {
+    "slug": "online-internship-rules",
+    "title": "Guidelines for Remote and Hybrid Internships",
+    "brief": "How are online tools and remote supervision integrated into university practice and internship programs?",
+    "documents": [
+     "sveden-c1a38b32-polozh-eodot-02-08-2022-pdf"
+    ],
+    "tags": [
+     "e-learning",
+     "internship",
+     "practical-training",
+     "university-policy"
+    ]
+   }
+  ]
+ },
+ "sveden-d0c4586d-pdf": {
+  "version": "baf613506271",
+  "topics": [
+   {
+    "slug": "student-obligations",
+    "title": "Student obligations at university events",
+    "brief": "What are students required to do while attending non-curricular university events?",
+    "documents": [
+     "sveden-d0c4586d-pdf"
+    ],
+    "tags": [
+     "student-rules",
+     "event-attendance",
+     "conduct",
+     "university-policy",
+     "obligations"
+    ]
+   },
+   {
+    "slug": "event-restrictions",
+    "title": "Recording, phone, and age limits at events",
+    "brief": "What recording, mobile phone, and age restrictions can organizers impose at university events?",
+    "documents": [
+     "sveden-d0c4586d-pdf"
+    ],
+    "tags": [
+     "event-rules",
+     "privacy",
+     "age-limits",
+     "mobile-phones",
+     "university-policy"
+    ]
+   },
+   {
+    "slug": "violations-and-removal",
+    "title": "Consequences for breaking event rules",
+    "brief": "What happens if a student violates the rules during a university event?",
+    "documents": [
+     "sveden-d0c4586d-pdf"
+    ],
+    "tags": [
+     "event-violations",
+     "removal",
+     "disciplinary-action",
+     "student-rules",
+     "university-policy"
+    ]
+   }
+  ]
+ },
+ "sveden-d171dac5-pdf": {
+  "version": "1e660f73eb20",
+  "topics": [
+   {
+    "slug": "health-group-medical-exam",
+    "title": "Health Groups and Medical Examinations",
+    "brief": "How do students get assigned to a medical group and what is the procedure to confirm or change it?",
+    "documents": [
+     "sveden-d171dac5-pdf"
+    ],
+    "tags": [
+     "physical-education",
+     "medical-group",
+     "health-assessment",
+     "student-rights",
+     "university-procedures"
+    ]
+   },
+   {
+    "slug": "pe-for-students-with-disabilities",
+    "title": "Physical Education for Students with Disabilities",
+    "brief": "What special learning formats and accommodations are provided for students with disabilities or limited health capacities?",
+    "documents": [
+     "sveden-d171dac5-pdf"
+    ],
+    "tags": [
+     "disability-support",
+     "inclusive-education",
+     "physical-education",
+     "accommodations",
+     "university-policy"
+    ]
+   },
+   {
+    "slug": "distance-learning-pe",
+    "title": "Online and Distance Learning for Sports Modules",
+    "brief": "How are elective physical culture and sports modules delivered through electronic and distance learning technologies?",
+    "documents": [
+     "sveden-d171dac5-pdf"
+    ],
+    "tags": [
+     "e-learning",
+     "distance-education",
+     "physical-education",
+     "course-format",
+     "student-guidelines"
+    ]
+   }
+  ]
+ },
+ "sveden-d40bccec-pdf": {
+  "version": "36012b556b92",
+  "topics": [
+   {
+    "slug": "retake-positive-grade",
+    "title": "Retaking Exams to Improve Grades",
+    "brief": "How many disciplines can I retake to improve a positive grade, and how is the retake schedule communicated?",
+    "documents": [
+     "sveden-d40bccec-pdf"
+    ],
+    "tags": [
+     "exams",
+     "retakes",
+     "grading",
+     "deadlines",
+     "procedures"
+    ]
+   },
+   {
+    "slug": "academic-failure-retake-deadlines",
+    "title": "Academic Failure Retake Deadlines and Rules",
+    "brief": "What are the rules and deadlines for retaking failed courses, and which grades cannot be retaken for improvement?",
+    "documents": [
+     "sveden-d40bccec-pdf"
+    ],
+    "tags": [
+     "academic-failure",
+     "retakes",
+     "deadlines",
+     "regulations",
+     "exams"
+    ]
+   },
+   {
+    "slug": "disability-exam-accommodations",
+    "title": "Disability and Health Accommodations for Assessments",
+    "brief": "How do I request adapted exam formats or accommodations for disabilities and serious health issues?",
+    "documents": [
+     "sveden-d40bccec-pdf"
+    ],
+    "tags": [
+     "disabilities",
+     "accommodations",
+     "exams",
+     "health",
+     "procedures"
+    ]
+   }
+  ]
+ },
+ "sveden-d412a435-polozh-razrabotka-op-bakmag-02": {
+  "version": "c585bbf67901",
+  "topics": [
+   {
+    "slug": "academic-calendar-duration",
+    "title": "Academic Calendar and Course Duration Limits",
+    "brief": "What is the maximum duration of a study course and what key periods must it include?",
+    "documents": [
+     "sveden-d412a435-polozh-razrabotka-op-bakmag-02"
+    ],
+    "tags": [
+     "academic-calendar",
+     "course-duration",
+     "study-schedule",
+     "deadlines",
+     "regulations"
+    ]
+   },
+   {
+    "slug": "course-workload-credits",
+    "title": "Course Workload and Credit Hour System",
+    "brief": "How is the workload of a course or module measured and converted into academic hours?",
+    "documents": [
+     "sveden-d412a435-polozh-razrabotka-op-bakmag-02"
+    ],
+    "tags": [
+     "workload",
+     "credit-hours",
+     "academic-hours",
+     "course-structure",
+     "study-plan"
+    ]
+   },
+   {
+    "slug": "graduation-assessment-rules",
+    "title": "State Final Certification Procedures",
+    "brief": "What regulates the organization, rules, and content of graduation assessments?",
+    "documents": [
+     "sveden-d412a435-polozh-razrabotka-op-bakmag-02"
+    ],
+    "tags": [
+     "graduation",
+     "final-certification",
+     "assessment-rules",
+     "thesis",
+     "exams"
+    ]
+   }
+  ]
+ },
+ "sveden-dcc8ca92-poryadok-svidetelstvo-asp-23-0": {
+  "version": "cab01ff64d90",
+  "topics": []
+ },
+ "sveden-f8519483-pdf": {
+  "version": "6812d7193459",
+  "topics": [
+   {
+    "slug": "admission-requirements",
+    "title": "Entrance exam scores and subjects by program",
+    "brief": "What are the required entrance exams and minimum passing scores for each Bachelor’s and Master’s program?",
+    "documents": [
+     "sveden-f8519483-pdf"
+    ],
+    "tags": [
+     "admission",
+     "entrance-exams",
+     "bachelor",
+     "master",
+     "scores"
+    ]
+   },
+   {
+    "slug": "advanced-engineering-schools",
+    "title": "Federal project program admission",
+    "brief": "How are admission and selection handled for programs under the Advanced Engineering Schools federal project?",
+    "documents": [
+     "sveden-f8519483-pdf"
+    ],
+    "tags": [
+     "federal-project",
+     "engineering-schools",
+     "admission",
+     "bachelor",
+     "master"
+    ]
+   }
+  ]
+ },
+ "transfer-expulsion-regulation": {
+  "version": "e968173979d8",
+  "topics": []
+ },
+ "tuition-to-budget-transfer-regulation": {
+  "version": "565dfadbaed6",
+  "topics": [
+   {
+    "slug": "transition-application-deadlines",
+    "title": "Application deadlines and procedure for paid-to-budget transition",
+    "brief": "When and how can I submit an application to switch from paid to budget-funded tuition, and what are the official processing timelines?",
+    "documents": [
+     "tuition-to-budget-transfer-regulation"
+    ],
+    "tags": [
+     "tuition",
+     "application",
+     "deadlines",
+     "procedure",
+     "budget"
+    ]
+   },
+   {
+    "slug": "transition-priority-rules",
+    "title": "Priority rules and vacancy allocation for budget transitions",
+    "brief": "How are vacant budget places allocated and which students receive priority when multiple applicants compete for the same spot?",
+    "documents": [
+     "tuition-to-budget-transfer-regulation"
+    ],
+    "tags": [
+     "priority",
+     "vacancies",
+     "allocation",
+     "rules",
+     "students"
+    ]
+   },
+   {
+    "slug": "transition-commission-decision",
+    "title": "Commission decision process and notification for transition requests",
+    "brief": "How does the university commission review transition applications, make binding decisions, and officially notify students of the outcome?",
+    "documents": [
+     "tuition-to-budget-transfer-regulation"
+    ],
+    "tags": [
+     "commission",
+     "decision",
+     "notification",
+     "process",
+     "rights"
+    ]
+   }
+  ]
+ },
+ "sveden-0a5d0a37-pdf": {
+  "version": "01a1ffbd3182",
+  "topics": [
+   {
+    "slug": "apply-for-material-assistance",
+    "title": "How to Apply for Material Assistance",
+    "brief": "Where and when can I submit my application and required documents to receive financial support?",
+    "documents": [
+     "sveden-0a5d0a37-pdf"
+    ],
+    "tags": [
+     "application",
+     "submission",
+     "deadlines",
+     "student-support"
+    ]
+   },
+   {
+    "slug": "eligibility-and-maintenance-rules",
+    "title": "Eligibility and Maintenance Rules for Financial Aid",
+    "brief": "What criteria must I meet to qualify for material assistance and how do I keep it throughout the semester?",
+    "documents": [
+     "sveden-0a5d0a37-pdf"
+    ],
+    "tags": [
+     "eligibility",
+     "attendance",
+     "gpa",
+     "requirements",
+     "financial-aid"
+    ]
+   },
+   {
+    "slug": "types-and-payment-frequency",
+    "title": "Forms and Payment Schedule of Student Assistance",
+    "brief": "What forms of material assistance are available and can I receive it as a one-time payment or monthly support?",
+    "documents": [
+     "sveden-0a5d0a37-pdf"
+    ],
+    "tags": [
+     "financial-aid",
+     "payment-frequency",
+     "support-types",
+     "university-benefits"
+    ]
+   }
+  ]
+ },
+ "sveden-4940ff25-pdf": {
+  "version": "b1afcceab50b",
+  "topics": [
+   {
+    "slug": "university-scholarship-calculation",
+    "title": "How is the Innopolis University scholarship amount calculated after the first interim assessment and when does it start?",
+    "brief": "d1",
+    "documents": [
+     "sveden-4940ff25-pdf"
+    ],
+    "tags": []
+   },
+   {
+    "slug": "scholarship-suspension-rules",
+    "title": "From which exact date is a university scholarship suspended if a student fails an assessment, and what actions can the university take?",
+    "brief": "d1",
+    "documents": [
+     "sveden-4940ff25-pdf"
+    ],
+    "tags": []
+   },
+   {
+    "slug": "one-time-material-aid",
+    "title": "What is the procedure for requesting one-time financial assistance and who decides on the approval?",
+    "brief": "d1",
+    "documents": [
+     "sveden-4940ff25-pdf"
+    ],
+    "tags": []
+   }
+  ]
+ },
+ "sveden-cc874693-pdf": {
+  "version": "67a8970a06d7",
+  "topics": [
+   {
+    "slug": "paid-services-price-changes",
+    "title": "Price Changes and Contract Modifications",
+    "brief": "Can the university increase tuition fees after I sign my paid education contract?",
+    "documents": [
+     "sveden-cc874693-pdf"
+    ],
+    "tags": [
+     "tuition",
+     "contract",
+     "pricing",
+     "student-rights",
+     "regulations"
+    ]
+   },
+   {
+    "slug": "service-deficiencies-and-refunds",
+    "title": "Remedies for Incomplete or Delayed Services",
+    "brief": "What can I claim if the university fails to provide paid educational services on time or in full?",
+    "documents": [
+     "sveden-cc874693-pdf"
+    ],
+    "tags": [
+     "refunds",
+     "contract-termination",
+     "service-quality",
+     "student-rights",
+     "deadlines"
+    ]
+   },
+   {
+    "slug": "free-library-and-information-access",
+    "title": "Free Access to Library and Information Resources",
+    "brief": "Do I have the right to use university library and information resources for free while enrolled in a paid program?",
+    "documents": [
+     "sveden-cc874693-pdf"
+    ],
+    "tags": [
+     "library",
+     "student-benefits",
+     "paid-programs",
+     "campus-resources",
+     "regulations"
+    ]
+   }
+  ]
+ }
+}

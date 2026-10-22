@@ -2,9 +2,10 @@
 
     catix-wiki fetch [NAMESPACE ...]   # default: namespace 0 (articles); only pages whose revision changed are downloaded
     catix-wiki status                  # pages in the snapshot, redirects, pages missing on the wiki now
+    catix-wiki sveden discover|triage|status|override   # all documents of innopolis.university/sveden (see sveden.py)
     catix-wiki topics [list|accept|reject]   # the model proposes guides, a person accepts them (see topics.py)
     catix-wiki regs fetch|compile      # official regulations (PDF) as a second source, see regulations.py
-    catix-wiki build [--offline] [--force]   # the whole chain, re-running only what changed (see build.py)
+    catix-wiki build [--offline] [--force] [--auto]   # the whole chain, re-running only what changed (see build.py)
     catix-wiki synth [TOPIC ...]       # guides that combine many concepts (wiki/guides/), see synth.py
     catix-wiki graph                   # relations between concepts (prerequisites, teachers), see graph.py
     catix-wiki lint                    # check wiki/ against OKF v0.2
@@ -105,6 +106,10 @@ def main() -> None:
         fetch([int(a) for a in args] or [0])
     elif cmd == "status":
         status()
+    elif cmd == "sveden":
+        from catix.wiki import sveden
+
+        sveden.main()
     elif cmd == "topics":
         from catix.wiki import topics
 

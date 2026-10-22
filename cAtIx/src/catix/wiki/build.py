@@ -1,12 +1,13 @@
 """The whole chain, re-running only what changed.
 
-    catix-wiki build [--offline] [--force]
+    catix-wiki build [--offline] [--force] [--auto]
 
-  fetch    new and changed pages of the wiki, and the regulation PDFs (--offline: use what is downloaded)
+  fetch    new and changed pages of the wiki; the documents of innopolis.university/sveden, kept or skipped by the model (--offline: use what is downloaded)
   regs     regulations -> wiki/regulations (the text as it is; the model writes only the description)
   compile  pages whose revision is not in the bundle yet (the model)
   link     links between concepts, index.md
   graph    prerequisites, teachers, duplicates (the model only for lines it has not seen; answers are cached)
+  topics   (--auto) guides for new documents, proposed by the model and accepted when every code check passes
   synth    guides whose evidence changed (--force: all)
   claims   which sentences of the guides rest on evidence that changed (wiki/.claims/)
   lint     the bundle against OKF v0.2; the exit code is 1 on errors
@@ -15,7 +16,7 @@
 import sys
 
 from catix.wiki import compile as compiler
-from catix.wiki import fetch, graph, lint, regulations, synth
+from catix.wiki import fetch, graph, lint, regulations, sveden, synth, topics
 
 
 def main() -> None:
@@ -28,6 +29,8 @@ def main() -> None:
     print(f"== {len(changed)} pages new or changed in the snapshot")
     print("== regulations")
     if "--offline" not in args:
+        sveden.discover()  # new documents on innopolis.university/sveden
+        sveden.triage()  # the model decides about the documents it has not seen
         regulations.fetch()
     regulations.compile_all()
     print("== compile")
@@ -36,6 +39,9 @@ def main() -> None:
     compiler.link()
     print("== graph")
     graph.main()
+    if "--auto" in args:
+        print("== topics")
+        topics.propose(limit=8, auto=True)  # the model proposes guides for new documents; those that pass every check are accepted
     print("== synth")
     written = synth.run(force="--force" in args)
     print(f"== {written} guides written")
