@@ -258,3 +258,69 @@ CREATE TABLE IF NOT EXISTS abuse_state (
     paused_until  timestamptz
 );
 ALTER TABLE abuse_state DROP COLUMN IF EXISTS alert_pending;  -- admins used to be messaged; they are not any more
+
+-- ---------------------------------------------------------------------------------------------------------
+-- The wiki (catix-wiki index, src/catix/wiki/search_index.py): the pages of the OKF bundle in wiki/ and the pieces
+-- the agent searches. A page is cut again only when its file (or the cutting scheme) changed; a piece whose text
+-- stayed the same keeps its row and its vector, so an update of the wiki embeds only what is new.
+-- ---------------------------------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS wiki_pages (
+    path           text PRIMARY KEY,                -- '/regulations/attestation-regulation.md'
+    sha            text NOT NULL,                   -- of the file and the cutting scheme
+    title          text NOT NULL,
+    type           text NOT NULL,
+    trust          text NOT NULL CHECK (trust IN ('official', 'guide', 'wiki')),  -- a document of the university, a guide written from evidence, eduwiki
+    audience       text[] NOT NULL DEFAULT '{}',
+    resource       text,                            -- the original: a PDF on the university's site or an eduwiki page
+    status         text,
+    review         text,                            -- what on the page nobody checked, if anything
+    source_warning text,
+    stale_after    date,
+    indexed_at     timestamptz NOT NULL DEFAULT now()
+);
+CREATE TABLE IF NOT EXISTS wiki_chunks (
+    id          bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    path        text NOT NULL REFERENCES wiki_pages (path) ON DELETE CASCADE,
+    trust       text NOT NULL,                      -- copied from the page: the search filters by it inside the index
+    seq         int NOT NULL,                       -- order on the page
+    heading     text NOT NULL,                      -- 'Chapter > Section'
+    clause      text NOT NULL,                      -- '5.3' or '5.3–5.5' or ''
+    sha         text NOT NULL,                      -- of heading and text
+    text        text NOT NULL,
+    search_text text NOT NULL,                      -- title, headings and text: what is searched and embedded
+    cites       jsonb NOT NULL DEFAULT '[]'         -- a guide's [n] resolved to the pages it cites
+);
+CREATE INDEX IF NOT EXISTS wiki_chunks_path_idx ON wiki_chunks (path);
+CREATE TABLE IF NOT EXISTS wiki_chunk_embeddings (
+    chunk_id  bigint PRIMARY KEY REFERENCES wiki_chunks (id) ON DELETE CASCADE,
+    embedding vector(1024) NOT NULL
+);
+CREATE TABLE IF NOT EXISTS wiki_embedding_queue (
+    chunk_id  bigint PRIMARY KEY REFERENCES wiki_chunks (id) ON DELETE CASCADE,
+    queued_at timestamptz NOT NULL DEFAULT now()
+);
+-- Which embeddings model made the vectors: another model makes them all invalid.
+CREATE TABLE IF NOT EXISTS wiki_meta (
+    key   text PRIMARY KEY,
+    value text NOT NULL
+);
+CREATE OR REPLACE FUNCTION enqueue_wiki_embedding() RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+    INSERT INTO wiki_embedding_queue (chunk_id) VALUES (NEW.id) ON CONFLICT DO NOTHING;
+    RETURN NEW;
+END $$;
+DROP TRIGGER IF EXISTS wiki_chunks_enqueue_insert ON wiki_chunks;
+CREATE TRIGGER wiki_chunks_enqueue_insert AFTER INSERT ON wiki_chunks
+    FOR EACH ROW EXECUTE FUNCTION enqueue_wiki_embedding();
+DROP TRIGGER IF EXISTS wiki_chunks_enqueue_edit ON wiki_chunks;
+CREATE TRIGGER wiki_chunks_enqueue_edit AFTER UPDATE OF search_text ON wiki_chunks
+    FOR EACH ROW WHEN (OLD.search_text IS DISTINCT FROM NEW.search_text) EXECUTE FUNCTION enqueue_wiki_embedding();
+-- BM25 with the Russian and the English stemmer, as for messages: the documents are Russian, the guides English.
+CREATE INDEX IF NOT EXISTS wiki_chunks_search ON wiki_chunks USING paradedb (
+    id,
+    (search_text::pdb.simple('stemmer=russian')),
+    (search_text::pdb.simple('stemmer=english', 'alias=search_text_en')),
+    trust
+) WITH (mutable_segment_rows = 100);
+CREATE INDEX IF NOT EXISTS wiki_chunk_embeddings_hnsw ON wiki_chunk_embeddings
+    USING hnsw (embedding vector_cosine_ops);

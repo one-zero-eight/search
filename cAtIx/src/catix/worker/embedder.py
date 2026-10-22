@@ -4,7 +4,8 @@ A trigger puts every new or edited message into embedding_queue. A worker claims
 (FOR UPDATE SKIP LOCKED, so several workers and processes can run side by side), embeds them in one request,
 stores the vectors and removes them from the queue, all in one transaction: if the embeddings server fails the
 messages simply stay queued. Newest first, so under a backlog recent messages become searchable by meaning first.
-Until its vector exists a message is already found by words.
+Until its vector exists a message is already found by words. The pieces of the wiki have a queue of their own
+(wiki/search_index.py), served when no message waits.
 """
 
 import logging
@@ -14,6 +15,7 @@ import time
 from catix.db import pg
 from catix.db.rows import QueuedMessage
 from catix.settings import settings
+from catix.wiki import search_index
 
 log = logging.getLogger("catix.embedder")
 
@@ -56,7 +58,8 @@ def run_forever(stop: threading.Event, wake: threading.Event) -> None:
     backoff, done, last_log = 1.0, 0, time.monotonic()
     while not stop.is_set():
         try:
-            n = embed_batch()
+            # Pieces of the wiki (catix-wiki index) only when no message waits: fresh messages come first.
+            n = embed_batch() or search_index.embed_batch()
             backoff = 1.0
         except Exception:  # noqa: BLE001 - keep the worker alive through database or server outages
             log.exception("embedding failed, retrying in %.0fs", backoff)

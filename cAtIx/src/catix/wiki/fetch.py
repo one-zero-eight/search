@@ -9,6 +9,7 @@
     catix-wiki synth [TOPIC ...]       # guides that combine many concepts (wiki/guides/), see synth.py
     catix-wiki graph                   # relations between concepts (prerequisites, teachers), see graph.py
     catix-wiki lint                    # check wiki/ against OKF v0.2
+    catix-wiki index [status|--no-embed]   # the bundle in the database for the agent's search (see search_index.py)
     catix-wiki compile ...             # snapshot -> OKF bundle in wiki/ (see compile.py)
 
 One file per page (raw/eduwiki/pages/<pageid>.json) with the wikitext and the revision it came from;
@@ -134,6 +135,10 @@ def main() -> None:
         from catix.wiki import lint
 
         lint.main()
+    elif cmd == "index":
+        from catix.wiki import search_index
+
+        search_index.main()
     elif cmd in {"compile", "link"}:
         from catix.wiki import compile as compiler
 

@@ -11,12 +11,14 @@
   synth    guides whose evidence changed (--force: all)
   claims   which sentences of the guides rest on evidence that changed (wiki/.claims/)
   lint     the bundle against OKF v0.2; the exit code is 1 on errors
+  index    (when DATABASE_URL is set and lint passed) the agent's search: pages and pieces that changed, their vectors
 """
 
 import sys
 
 from catix.wiki import compile as compiler
-from catix.wiki import fetch, graph, lint, regulations, sveden, synth, topics
+from catix.settings import settings
+from catix.wiki import fetch, graph, lint, regulations, search_index, sveden, synth, topics
 
 
 def main() -> None:
@@ -49,4 +51,10 @@ def main() -> None:
     stale = synth.check_claims(synth.Index())
     print(f"== {sum(1 for _, n in stale.values() if n != 0)} guides have sentences on changed evidence")
     print("== lint")
-    sys.exit(lint.lint())
+    errors = lint.lint()
+    if errors or not settings.database_url:
+        sys.exit(errors)  # a broken bundle does not reach the agent
+    print("== index")
+    counts = search_index.sync()
+    print(", ".join(f"{v} {k}" for k, v in counts.items()))
+    print(f"== {search_index.embed_all()} pieces embedded")
