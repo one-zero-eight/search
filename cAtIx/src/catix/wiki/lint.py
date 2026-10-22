@@ -40,6 +40,10 @@ def lint() -> int:
             if not isinstance(meta, dict) or not str(meta.get("type", "")).strip():
                 errors.append(f"{rel}: no non-empty `type`")
                 continue
+            if meta.get("type") == "readme":
+                continue
+            if bad := [t for t in meta.get("tags") or [] if not re.fullmatch(r"[a-z0-9][a-z0-9-]*", str(t))]:
+                warnings.append(f"{rel}: tags that a tag system may reject: {bad[:3]}")
             if not meta.get("sources"):
                 warnings.append(f"{rel}: no `sources`")
             if "# Citations" not in text and meta.get("sources"):

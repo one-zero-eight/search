@@ -3,7 +3,7 @@ type: course
 title: "MSc: Managing Software Development"
 description: "A full-semester course on managing software development, covering people management, processes, planning, and risk assessment for technical engineers."
 resource: "https://eduwiki.innopolis.university/index.php/MSc%3A_Managing_Software_Development"
-tags: ["course", "software-engineering", "management", "msccode: se-04"]
+tags: ["course", "software-engineering", "management"]
 aliases: ["MSc:Managing Software Development"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/MSc%3A_Managing_Software_Development"

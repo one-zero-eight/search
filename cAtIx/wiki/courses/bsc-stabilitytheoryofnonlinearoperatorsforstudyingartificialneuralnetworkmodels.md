@@ -3,7 +3,7 @@ type: course
 title: "Stability Theory of Nonlinear Operators for Studying Artificial Neural Network Models"
 description: "A bachelor's course on stability theory of nonlinear operators applied to artificial neural networks, covering Lyapunov methods, fixed point theorems, and bifurcation analysis."
 resource: "https://eduwiki.innopolis.university/index.php/BSc%3A_StabilityTheoryOfNonlinearOperatorsForStudyingArtificialNeuralNetworkModels"
-tags: ["course", "neural networks", "stability", "nonlinear operators", "mathematics"]
+tags: ["course", "neural-networks", "stability", "nonlinear-operators", "mathematics"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/BSc%3A_StabilityTheoryOfNonlinearOperatorsForStudyingArtificialNeuralNetworkModels"
     id: "9076"

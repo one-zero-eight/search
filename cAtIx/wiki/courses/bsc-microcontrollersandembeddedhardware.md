@@ -3,7 +3,7 @@ type: course
 title: "Microcontrollers and Embedded Hardware"
 description: "A course covering microcontroller architecture, embedded C programming, and real-time applications using 8051 and PIC18F families."
 resource: "https://eduwiki.innopolis.university/index.php/BSc%3AMicrocontrollersandEmbeddedHardware"
-tags: ["microcontrollers", "embedded systems", "hardware", "course", "8051", "pic18f"]
+tags: ["microcontrollers", "embedded-systems", "hardware", "course", "8051", "pic18f"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/BSc%3AMicrocontrollersandEmbeddedHardware"
     id: "70"

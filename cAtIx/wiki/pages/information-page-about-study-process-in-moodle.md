@@ -3,7 +3,7 @@ type: page
 title: "Information page about study process in Moodle"
 description: "Guide on how to log in to the Moodle LMS platform using Innopolis University credentials and where to find help."
 resource: "https://eduwiki.innopolis.university/index.php/Information_page_about_study_process_in_Moodle"
-tags: ["moodle", "lms", "login", "study process", "support"]
+tags: ["moodle", "lms", "login", "study-process", "support"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/Information_page_about_study_process_in_Moodle"
     id: "7117"

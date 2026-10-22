@@ -3,7 +3,7 @@ type: course
 title: "BSc: B1.V.DV.03.04 MFAI 2024 Mathematical foundations of quantum computing"
 description: "Course syllabus for Mathematical foundations of quantum computing, covering theory, algorithms, and assessment criteria for the MFAI profile."
 resource: "https://eduwiki.innopolis.university/index.php/BSc%3A_B1.V.DV.03.04_MFAI_2024_Mathematical_foundations_of_quantum_computing"
-tags: ["quantum computing", "course", "syllabus", "mathematics", "mfai", "bachelor"]
+tags: ["quantum-computing", "course", "syllabus", "mathematics", "mfai", "bachelor"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/BSc%3A_B1.V.DV.03.04_MFAI_2024_Mathematical_foundations_of_quantum_computing"
     id: "9783"

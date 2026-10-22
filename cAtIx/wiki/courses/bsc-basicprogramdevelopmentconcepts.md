@@ -3,7 +3,7 @@ type: course
 title: "Алгоритмы и структуры данных 2"
 description: "Курс по продвинутым алгоритмам и структурам данных, охватывающий графы, строки, конечные автоматы и контекстно-свободные грамматики с практикой на Python и C++."
 resource: "https://eduwiki.innopolis.university/index.php/BSc%3A_BasicProgramDevelopmentConcepts"
-tags: ["algorithms", "data-structures", "c++", "python", "ai", "bachelor"]
+tags: ["algorithms", "data-structures", "cpp", "python", "ai", "bachelor"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/BSc%3A_BasicProgramDevelopmentConcepts"
     id: "9163"

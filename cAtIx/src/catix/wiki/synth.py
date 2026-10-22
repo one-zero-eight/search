@@ -16,7 +16,7 @@ import sys
 from collections import defaultdict
 from datetime import datetime, timezone
 
-from catix.wiki.compile import BUNDLE, _llm, yaml_value
+from catix.wiki.compile import BUNDLE, _llm, clean_tags, yaml_value
 from catix.wiki.graph import BLOCK, Index, split_front
 
 PRODUCER = "catix-wiki-synth/0.1"
@@ -270,7 +270,7 @@ def write_page(idx: Index, slug: str, title: str, tags: list[str], builder, forc
         if meta.get("stale_after"):
             stale.append(str(meta["stale_after"]))
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
-    front = ["---", "type: guide", f"title: {yaml_value(title)}", f"description: {yaml_value(brief)}", f"tags: {yaml_value(tags)}", "sources:", *srcs,
+    front = ["---", "type: guide", f"title: {yaml_value(title)}", f"description: {yaml_value(brief)}", f"tags: {yaml_value(clean_tags(tags))}", "sources:", *srcs,
              "generated:", f'  by: "{PRODUCER} (model, thinking)"', f"  at: {yaml_value(now)}", "status: draft", f'evidence_sha: "{sha}"',
              *([f"stale_after: {yaml_value(min(stale))}"] if stale else []),  # as stale as its oldest source
              *([f"review: {yaml_value(issues[:8])}"] if issues else []), "---"]

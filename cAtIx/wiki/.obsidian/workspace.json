@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "regulations/final-attestation-regulation.md",
+                "file": "guides/academic-leave.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "final-attestation-regulation"
+              "title": "academic-leave"
             }
           }
         ]
@@ -99,7 +99,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "regulations/final-attestation-regulation.md",
+                "file": "guides/academic-leave.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -118,7 +118,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "regulations/final-attestation-regulation.md",
+                "file": "guides/academic-leave.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -161,7 +161,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "regulations/final-attestation-regulation.md",
+                "file": "guides/academic-leave.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -190,10 +190,14 @@
   },
   "active": "0fc6a36e6440634a",
   "lastOpenFiles": [
+    "README.md",
+    "README.md.tmp.1812836.0a1d12bc5b97",
+    "regulations/innopolisuniversitymanifestoonmedium.md",
+    "regulations/final-attestation-regulation.md",
+    "regulations/enrollment-procedure-order.md",
+    "regulations/credit-transfer-regulation.md",
     "guides/tuition-to-budget.md",
     "regulations/remote-attestation-order.md",
-    "regulations/innopolisuniversitymanifestoonmedium.md",
-    "regulations/credit-transfer-regulation.md",
     "regulations/academic-integrity-regulation.md",
     "regulations/about-this-document.md",
     "regulations/attestation-regulation.md",
@@ -213,9 +217,6 @@
     "courses/bsc-analytic-geometry-and-linear-algebra-ii.md",
     "courses/bsc-b1-o-01-mfai-2024-foreign-language-1s.md",
     "courses/bsc-b1-v-dv-06-01-mfai-2024-ux-ui-design.md",
-    "courses/bsc-fundamentals.md",
-    "courses/bsc-decentralizedpptimizationtransportproblemsspectralpropertiesofgraphs.md",
-    "courses/bsc-b1-v-dv-03-04-mfai-2024-mathematical-foundations-of-quantum-computing.md",
     "guides"
   ]
 }

@@ -3,7 +3,7 @@ type: person
 title: "Georgy Gelvanovsky"
 description: "Staff member Georgy Gelvanovsky, contactable at g.gelvanovsky@innopolis.ru, associated with English For Academic Purposes I and Academic Research and Writing Culture."
 resource: "https://eduwiki.innopolis.university/index.php/GeorgyGelvanovsky"
-tags: ["person", "staff", "innopolis university", "courses"]
+tags: ["person", "staff", "innopolis-university", "courses"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/GeorgyGelvanovsky"
     id: "1262"

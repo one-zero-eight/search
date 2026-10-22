@@ -3,7 +3,7 @@ type: page
 title: "Summer School"
 description: "A list of international summer school programs available to students, categorized by region, including details on fees, deadlines, and application links."
 resource: "https://eduwiki.innopolis.university/index.php/Summer_School"
-tags: ["summer school", "exchange", "international", "programs", "opportunities"]
+tags: ["summer-school", "exchange", "international", "programs", "opportunities"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/Summer_School"
     id: "7358"

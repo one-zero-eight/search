@@ -2,7 +2,7 @@
 type: guide
 title: "Final state attestation (graduation)"
 description: "How the final state attestation (graduation) works for bachelor and master students: its forms, the commissions, the thesis requirements and appeals."
-tags: ["graduation", "thesis", "final attestation"]
+tags: ["graduation", "thesis", "final-attestation"]
 sources:
   - resource: "/regulations/final-attestation-regulation.md"
     id: "2b0c4d14691b"

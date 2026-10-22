@@ -3,7 +3,7 @@ type: course
 title: "Advanced Topics in Software Testing"
 description: "A basic software testing course introducing quality assurance approaches, testing levels, and practical skills in manual and automated testing."
 resource: "https://eduwiki.innopolis.university/index.php/BSTE%3AAdvancedTopicsInSoftwareTesting"
-tags: ["software testing", "quality assurance", "course", "testing levels", "automation"]
+tags: ["software-testing", "quality-assurance", "course", "testing-levels", "automation"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/BSTE%3AAdvancedTopicsInSoftwareTesting"
     id: "914"

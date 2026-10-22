@@ -3,7 +3,7 @@ type: regulation
 title: "About this document"
 description: "Overview of the document summarizing the educational process at Innopolis University, including update procedures and annual version freezing."
 resource: "https://eduwiki.innopolis.university/index.php/About_this_document"
-tags: ["regulation", "education", "process", "innopolis university", "documentation"]
+tags: ["regulation", "education", "process", "innopolis-university", "documentation"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/About_this_document"
     id: "647"

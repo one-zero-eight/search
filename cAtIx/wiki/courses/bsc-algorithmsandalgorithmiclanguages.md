@@ -3,7 +3,7 @@ type: course
 title: "Алгоритмы и программирование 1"
 description: "Учебная дисциплина бакалавриата по направлению «Информатика и вычислительная техника», охватывающая алгоритмы, структуры данных и программирование на Python и C++."
 resource: "https://eduwiki.innopolis.university/index.php/BSc%3A_AlgorithmsAndAlgorithmicLanguages"
-tags: ["algorithms", "python", "c++", "course", "bachelor"]
+tags: ["algorithms", "python", "cpp", "course", "bachelor"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/BSc%3A_AlgorithmsAndAlgorithmicLanguages"
     id: "9161"

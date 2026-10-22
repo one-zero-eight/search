@@ -3,7 +3,7 @@ type: course
 title: "Big Data Technologies and Analytics"
 description: "A course covering advanced distributed data organization and processing, including R, Apache Spark, HDFS, and MapReduce for analyzing large-scale datasets."
 resource: "https://eduwiki.innopolis.university/index.php/MSc%3A_Big_Data_Technologies_And_Analytics"
-tags: ["big data", "analytics", "spark", "hadoop", "distributed systems"]
+tags: ["big-data", "analytics", "spark", "hadoop", "distributed-systems"]
 aliases: ["MSc:Big Data Technologies And Analytics"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/MSc%3A_Big_Data_Technologies_And_Analytics"

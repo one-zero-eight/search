@@ -3,7 +3,7 @@ type: procedure
 title: "FAQ for offering an elective"
 description: "Guide for instructors on proposing, hiring, and teaching elective courses at Innopolis University, including content criteria, administrative steps, and student management."
 resource: "https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective"
-tags: ["elective", "teaching", "faculty", "procedure", "innopolis university"]
+tags: ["elective", "teaching", "faculty", "procedure", "innopolis-university"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/FAQ_for_offering_an_elective"
     id: "9805"

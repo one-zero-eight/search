@@ -3,7 +3,7 @@ type: course
 title: "MSc: Marketing and sales for it business"
 description: "Course covering marketing strategy, digital tools, and sales processes for IT businesses, including prerequisites, learning outcomes, and project-based assessment."
 resource: "https://eduwiki.innopolis.university/index.php/MSc%3A_Marketing_and_sales_for_it_business"
-tags: ["marketing", "sales", "it business", "course", "mscc"]
+tags: ["marketing", "sales", "it-business", "course", "mscc"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/MSc%3A_Marketing_and_sales_for_it_business"
     id: "7299"

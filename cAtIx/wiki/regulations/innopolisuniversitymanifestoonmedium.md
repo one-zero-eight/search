@@ -3,7 +3,7 @@ type: regulation
 title: "Innopolis University Manifesto on Medium of Instruction"
 description: "Defines English as the primary medium of instruction for all academic activities while allowing other languages in informal or private contexts."
 resource: "https://eduwiki.innopolis.university/index.php/InnopolisUniversityManifestoonMedium"
-tags: ["language", "policy", "english", "medium of instruction", "regulations"]
+tags: ["language", "policy", "english", "medium-of-instruction", "regulations"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/InnopolisUniversityManifestoonMedium"
     id: "659"

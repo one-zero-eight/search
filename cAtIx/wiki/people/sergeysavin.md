@@ -3,7 +3,7 @@ type: person
 title: "Sergey Savin"
 description: "Profile of Sergey Savin, a staff member at the Robotics and Computer Vision Institute, listing his courses, research interests, and selected publications."
 resource: "https://eduwiki.innopolis.university/index.php/SergeySavin"
-tags: ["person", "robotics", "computer vision", "innopolis university", "staff"]
+tags: ["person", "robotics", "computer-vision", "innopolis-university", "staff"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/SergeySavin"
     id: "1078"

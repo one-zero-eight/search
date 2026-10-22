@@ -3,7 +3,7 @@ type: course
 title: "System and Network Administration"
 description: "A practice-oriented course covering GNU/Linux and BSD system administration, network fundamentals, security, and infrastructure design for industrial environments."
 resource: "https://eduwiki.innopolis.university/index.php/BSc%3A_System_And_Network_Administration"
-tags: ["system administration", "network", "linux", "security", "course"]
+tags: ["system-administration", "network", "linux", "security", "course"]
 aliases: ["BSc:SystemAndNetworkAdministration"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/BSc%3A_System_And_Network_Administration"

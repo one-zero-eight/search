@@ -2,7 +2,7 @@
 type: guide
 title: "Academic leave"
 description: "Academic leave: who can get it and on what grounds, for how long, how to apply, what the decision and the return look like, and what the student must do before and after."
-tags: ["academic leave", "leave", "regulation"]
+tags: ["academic-leave", "leave", "regulation"]
 sources:
   - resource: "/regulations/academic-leave-regulation.md"
     id: "e0c2010f5cea"

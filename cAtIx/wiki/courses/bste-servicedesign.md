@@ -3,7 +3,7 @@ type: course
 title: "Service Design (Human Computer Interaction for AI)"
 description: "A course teaching Human-Computer Interaction (HCI) design for various technologies including AI, focusing on user needs, project work, and the CHI 2018 design challenge."
 resource: "https://eduwiki.innopolis.university/index.php/BSTE%3AServiceDesign"
-tags: ["course", "hci", "ai", "service design", "chi"]
+tags: ["course", "hci", "ai", "service-design", "chi"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/BSTE%3AServiceDesign"
     id: "931"

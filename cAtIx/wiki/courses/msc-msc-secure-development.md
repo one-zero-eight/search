@@ -3,7 +3,7 @@ type: course
 title: "Secure development"
 description: "Course covering secure development principles, threat modeling, secure coding, and security architecture, including prerequisites, learning outcomes, and grading."
 resource: "https://eduwiki.innopolis.university/index.php/MSc%3A_MSc%3A_Secure_Development"
-tags: ["course", "security", "secure-development", "msccode: xxx"]
+tags: ["course", "security", "secure-development"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/MSc%3A_MSc%3A_Secure_Development"
     id: "7549"

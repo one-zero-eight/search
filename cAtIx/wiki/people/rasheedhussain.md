@@ -3,7 +3,7 @@ type: person
 title: "Rasheed Hussain"
 description: "Staff member Rasheed Hussain, contactable at r.hussain@innopolis.ru, teaching Networks, Classical Internet Applications, and Security of Systems and Networks."
 resource: "https://eduwiki.innopolis.university/index.php/RasheedHussain"
-tags: ["person", "staff", "instructor", "innopolis university"]
+tags: ["person", "staff", "instructor", "innopolis-university"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/RasheedHussain"
     id: "475"

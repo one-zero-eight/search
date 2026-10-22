@@ -3,7 +3,7 @@ type: course
 title: "BSc: Robotic Systems"
 description: "A course covering robot hardware, feedback control, trajectory tracking, and advanced control algorithms for robotic systems with 1 and 2 degrees of freedom."
 resource: "https://eduwiki.innopolis.university/index.php/BSc%3A_Robotic_Systems"
-tags: ["robotics", "control", "robotic systems", "bsc", "course"]
+tags: ["robotics", "control", "robotic-systems", "bsc", "course"]
 aliases: ["BSc:RoboticSystems"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/BSc%3A_Robotic_Systems"

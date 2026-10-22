@@ -3,7 +3,7 @@ type: person
 title: "Evgeniya Kruglova"
 description: "Staff member page for Evgeniya Krugloa, including contact email and associated courses."
 resource: "https://eduwiki.innopolis.university/index.php/EvgeniyaKruglova"
-tags: ["person", "staff", "innopolis university"]
+tags: ["person", "staff", "innopolis-university"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/EvgeniyaKruglova"
     id: "1259"

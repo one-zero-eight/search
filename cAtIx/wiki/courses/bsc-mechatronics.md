@@ -3,7 +3,7 @@ type: course
 title: "BSc: Mechatronics"
 description: "A course covering system design, feedback control, and electric motor selection for mechatronics and robotics engineering."
 resource: "https://eduwiki.innopolis.university/index.php/BSc%3A_Mechatronics"
-tags: ["mechatronics", "robotics", "control systems", "sensors", "actuators"]
+tags: ["mechatronics", "robotics", "control-systems", "sensors", "actuators"]
 aliases: ["BSc:Mechatronics"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/BSc%3A_Mechatronics"

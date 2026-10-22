@@ -3,7 +3,7 @@ type: person
 title: "Nursultan Askarbekuly"
 description: "Senior Instructor at Machine Learning and Knowledge Representation Lab and PhD student at Software Service Engineering Lab."
 resource: "https://eduwiki.innopolis.university/index.php/NursultanAskarbekuly"
-tags: ["person", "instructor", "researcher", "innopolis university"]
+tags: ["person", "instructor", "researcher", "innopolis-university"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/NursultanAskarbekuly"
     id: "1334"

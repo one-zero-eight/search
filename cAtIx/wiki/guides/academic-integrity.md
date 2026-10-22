@@ -2,7 +2,7 @@
 type: guide
 title: "Academic integrity and disciplinary measures"
 description: "What counts as a violation of academic integrity at the university, how a case is handled, how a student can appeal, and which disciplinary measures can follow."
-tags: ["academic integrity", "discipline", "appeals"]
+tags: ["academic-integrity", "discipline", "appeals"]
 sources:
   - resource: "/regulations/academic-integrity-regulation.md"
     id: "ede170078161"

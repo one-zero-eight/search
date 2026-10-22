@@ -2,7 +2,7 @@
 type: guide
 title: "Failing a course and retakes"
 description: "What happens when a student fails a course: what the university's regulations say (academic debt, retakes, limits, expulsion, academic leave), who to ask, and what the course pages add about retakes."
-tags: ["retake", "failed course", "academic leave", "grades"]
+tags: ["retake", "failed-course", "academic-leave", "grades"]
 sources:
   - resource: "/courses/bc-it-product-development.md"
     id: "5962"

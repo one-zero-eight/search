@@ -3,7 +3,7 @@ type: course
 title: "BSHE: Venture Capital Hacks in IT industry: From Zero to Negotiating and Investment Deal"
 description: "An intensive course on investment strategies for student start-ups, covering market identification, product-market fit, pitching, and negotiating with venture capitalists."
 resource: "https://eduwiki.innopolis.university/index.php/BSHE%3AVenture_Capital_Hacks_in_IT_industry%3A_From_Zero_to_Negotiating_and_Investment_Deal"
-tags: ["venture capital", "startup", "investment", "negotiation", "course"]
+tags: ["venture-capital", "startup", "investment", "negotiation", "course"]
 aliases: ["BSHE:VentureCapitalHacksInITIndustry"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/BSHE%3AVenture_Capital_Hacks_in_IT_industry%3A_From_Zero_to_Negotiating_and_Investment_Deal"

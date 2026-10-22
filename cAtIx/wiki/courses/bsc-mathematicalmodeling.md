@@ -3,7 +3,7 @@ type: course
 title: "Mathematical Modeling"
 description: "A 3rd-year BS course (4 ECTS) focusing on building and analyzing mathematical models of real-world systems from physics, biology, and economics."
 resource: "https://eduwiki.innopolis.university/index.php/BSc%3AMathematicalModeling"
-tags: ["mathematical modeling", "physics", "simulation", "analysis", "bs-course"]
+tags: ["mathematical-modeling", "physics", "simulation", "analysis", "bs-course"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/BSc%3AMathematicalModeling"
     id: "64"

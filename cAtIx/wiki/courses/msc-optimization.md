@@ -3,7 +3,7 @@ type: course
 title: "Optimization"
 description: "Course covering optimization of cost functions, linear and nonlinear algorithms, simplex method, and convergence analysis for engineering applications."
 resource: "https://eduwiki.innopolis.university/index.php/MSc%3A_Optimization"
-tags: ["optimization", "linear programming", "nonlinear programming", "algorithms", "engineering"]
+tags: ["optimization", "linear-programming", "nonlinear-programming", "algorithms", "engineering"]
 aliases: ["MSc:Optimization"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/MSc%3A_Optimization"

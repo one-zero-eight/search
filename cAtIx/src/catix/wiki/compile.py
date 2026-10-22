@@ -126,6 +126,20 @@ def chunks(text: str) -> list[str]:
     return [*parts, rest]
 
 
+def clean_tags(tags: list[str]) -> list[str]:
+    """Tags a tag system accepts: lowercase ASCII words joined by '-' ('academic leave' -> 'academic-leave', 'c++' -> 'cpp').
+    A 'tag' with a colon is a stray 'key: value' from the page, not a tag."""
+    out = []
+    for t in tags:
+        t = str(t).strip().lower().replace("c++", "cpp").replace("c#", "csharp")
+        if ":" in t:
+            continue
+        t = re.sub(r"[^a-z0-9]+", "-", t).strip("-")
+        if t and len(t) <= 40 and t not in out:
+            out.append(t)
+    return out
+
+
 def slug(title: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-") or "page"
 
@@ -246,7 +260,7 @@ def compile_page(pid: str, entry: dict, aliases: list[str]) -> Path | None:
     typ = meta["type"].lower()
     title = meta.get("title") or page["title"]
     body = re.sub(r"\A#\s+[^\n]*\n+", "", body) if re.match(r"#\s+[^\n]*\n", body) else body  # the program writes the title heading
-    tags = [t.strip().lower() for t in meta.get("tags", "").split(",") if t.strip()]
+    tags = clean_tags(meta.get("tags", "").split(","))
     url = SITE + quote(page["title"].replace(" ", "_"))
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
     front = [
@@ -280,7 +294,7 @@ def concepts() -> list[tuple[Path, dict]]:
     """Every concept of the bundle with the few front matter fields the linker needs."""
     out = []
     for path in sorted(BUNDLE.rglob("*.md")):
-        if path.name in {"index.md", "log.md"}:
+        if path.name in {"index.md", "log.md", "README.md"}:  # README.md describes the bundle, it is not a concept
             continue
         text = path.read_text(encoding="utf-8")
         fm = text.split("---\n")[1] if text.startswith("---\n") else ""

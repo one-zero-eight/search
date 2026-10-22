@@ -3,7 +3,7 @@ type: course
 title: "BSc: Decentralized Optimization, Transport Problems, Spectral Properties of Graphs"
 description: "A course covering decentralized optimization, transport network problems, and graph spectral properties, focusing on theoretical models, numerical methods, and project-based implementation."
 resource: "https://eduwiki.innopolis.university/index.php/BSc%3A_DecentralizedPptimizationTransportProblemsSpectralPropertiesOfGraphs"
-tags: ["optimization", "transport problems", "graphs", "decentralized", "numerical methods"]
+tags: ["optimization", "transport-problems", "graphs", "decentralized", "numerical-methods"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/BSc%3A_DecentralizedPptimizationTransportProblemsSpectralPropertiesOfGraphs"
     id: "9255"

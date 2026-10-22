@@ -2,7 +2,7 @@
 type: guide
 title: "Recognition of earlier study results"
 description: "How results of earlier study (other universities, certificates) can be recognized as credits at the university: who can apply, how, and on what basis."
-tags: ["credit transfer", "recognition", "regulation"]
+tags: ["credit-transfer", "recognition", "regulation"]
 sources:
   - resource: "/regulations/credit-transfer-regulation.md"
     id: "1cfc1cb8c095"

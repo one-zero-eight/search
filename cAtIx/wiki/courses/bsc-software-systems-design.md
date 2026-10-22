@@ -3,7 +3,7 @@ type: course
 title: "Software Systems Design"
 description: "A 3rd-year BSc course covering C++, OOP, UML, design patterns, and software engineering principles, including lectures, labs, and exams."
 resource: "https://eduwiki.innopolis.university/index.php/BSc%3A_Software_Systems_Design"
-tags: ["software-engineering", "c++", "design-patterns", "uml", "bsc"]
+tags: ["software-engineering", "cpp", "design-patterns", "uml", "bsc"]
 aliases: ["BSc:SoftwareSystemsDesign"]
 sources:
   - resource: "https://eduwiki.innopolis.university/index.php/BSc%3A_Software_Systems_Design"
