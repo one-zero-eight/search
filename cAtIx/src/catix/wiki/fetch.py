@@ -73,7 +73,7 @@ def save_manifest(manifest: dict[str, dict]) -> None:
 def fetch(namespaces: list[int]) -> None:
     PAGES.mkdir(parents=True, exist_ok=True)
     manifest = load_manifest()
-    with httpx.Client(timeout=60, headers={"User-Agent": "catix-wiki/0.1 (Innopolis student assistant)"}) as client:
+    with httpx.Client(timeout=60, headers={"User-Agent": "catix-wiki/0.1 (Innopolis University assistant)"}) as client:
         remote: dict[int, dict] = {}
         for ns in namespaces:
             remote |= list_pages(client, ns)

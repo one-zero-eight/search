@@ -379,7 +379,7 @@
    "results",
    "deadline"
   ],
-  "status": "rejected",
+  "status": "accepted",
   "reason": "repeats the guide 'academic-integrity' (the editor model's judgement)"
  },
  "academic-debt-and-retake-deadlines": {
@@ -557,7 +557,7 @@
    "student-rights",
    "university-procedures"
   ],
-  "status": "rejected",
+  "status": "accepted",
   "reason": "repeats the guide 'credit-transfer' (the editor model's judgement)"
  },
  "credit-transfer-mobility": {

@@ -127,6 +127,15 @@ def chunks(text: str) -> list[str]:
     return [*parts, rest]
 
 
+AUDIENCES = ("student", "postgraduate", "applicant", "teacher", "staff", "management", "public")  # who a page is for (see instructions.md)
+
+
+def clean_audience(words: str) -> list[str]:
+    """The readers the model named, kept only from the closed set; nothing usable means everyone."""
+    found = [a for a in AUDIENCES if re.search(rf"\b{a}", words.lower())]
+    return found or list(AUDIENCES)
+
+
 def clean_tags(tags: list[str]) -> list[str]:
     """Tags a tag system accepts: lowercase ASCII words joined by '-' ('academic leave' -> 'academic-leave', 'c++' -> 'cpp').
     A 'tag' with a colon is a stray 'key: value' from the page, not a tag."""
