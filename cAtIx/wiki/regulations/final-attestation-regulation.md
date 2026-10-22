@@ -433,7 +433,7 @@ REGULATIONS on the Procedure for Conducting the Final State Certification for Hi
 
 Innopolis, 2026
 
-1. Area of Application
+## 1. Area of Application
 
 **1.1.** These Regulations on the Procedure for Conducting the Final State Certification for Higher Education programs – Bachelor’s Degree and Master’s Degree Programs of the Autonomous Non-Commercial Organization of Higher Education "Innopolis University" (hereinafter referred to as the "Regulations") establish the procedure for the organization and conduct of the Final State Certification (hereinafter referred to as the "FSC") by the Autonomous Non-Commercial Organization of Higher Education "Innopolis University" (hereinafter referred to as the "University") for students completing state-accredited higher education programs – Bachelor’s Degree and Master’s Degree programs (hereinafter referred to as the "Educational Programs") , including forms of the Final State Certification, requirements for the use of instructional aids, educational tools, and communication means during the FSC, requirements for individuals involved in conducting the FSC, procedure for filing and considering appeals, procedure for amending and/or annulling FSC results; specifics of conducting the FSC for students with disabilities.
 
@@ -459,7 +459,7 @@ as the "Educational Standards" or "FSES HE");
 
 - • other applicable regulatory documents and local regulations of the University.
 
-2. General Provisions
+## 2. General Provisions
 
 **2.1.** The FSC is conducted by State Qualifying Committees for the purpose of determining whether the learning outcomes achieved by students in the Educational Programs comply with the relevant requirements of the Educational Standards.
 
@@ -481,7 +481,7 @@ as the "Educational Standards" or "FSES HE");
 
 **2.10.** Those students, who have completed an Educational Program through self- education, or who have studied in a higher education program that lacks state accreditation, have the right to take the FSC externally at the University for a state-accredited educational program, in accordance with these Regulations.
 
-3. Forms and Procedures for the Final State Certification
+## 3. Forms and Procedures for the Final State Certification
 
 **3.1.** Specific forms of the Final State Certification are determined independently by the University for each Educational Program, in accordance with the requirements set by the FSES HE.
 
@@ -553,7 +553,9 @@ pass the FSC within the period established for them (due to missing a FSC test o
 
 **3.13.** To retake the FSC, the individual is to be reinstated at the University for a period determined by the University, upon their application, but for no less than the period provided by the academic calendar for the FSC in the relevant educational program. When retaking the FSC, at the student's request, the University may, by its decision, assign a different topic for the Final Qualification Work, in accordance with the procedure established in Clause 6.7 of these Regulations.
 
-4. Specific Arrangements for the Final State Certification for students with disabilities considering their special psychophysical development, individual capabilities and state of health
+## 4. Specific Arrangements for the Final State Certification for students with
+
+disabilities considering their special psychophysical development, individual capabilities and state of health
 
 **4.1.** For students with disabilities, the FSC shall be conducted at the University taking into account their psychophysical development characteristics, individual capabilities, and state of health (hereinafter referred to as "Individual Characteristics").
 
@@ -627,7 +629,7 @@ software or are dictated to an assistant;
 
 **4.6.** A student with a disability shall submit a written request for the provision of special arrangements during state certification tests, indicating their Individual Characteristics, no later than three months prior to the start of the FSC. Documents confirming the student's Individual Characteristics shall be attached to the request, if such documents are not already on file at the University. In the request, the student indicates the need (or lack thereof) for an assistant to be present during the state certification test, and the need (or lack thereof) to extend the duration of the test relative to the standard allotted time (for each state certification test).
 
-5. State Examination and Appeal Committees
+## 5. State Examination and Appeal Committees
 
 **5.1.** State Examination Committees are established at the University to conduct the FSC. Appeal Committees are established at the University to consider appeals regarding FSC results. The State Examination and Appeal Committees (hereinafter jointly referred to as the Committees) are valid for a period of one calendar year. The University independently establishes the rules of procedure for the Committees.
 
@@ -649,7 +651,7 @@ software or are dictated to an assistant;
 
 opinions of the Chairperson and members of the Committee regarding the level of the student's preparedness for solving professional tasks as revealed during the test, as well as any identified shortcomings in the student's theoretical and practical training. The minutes are prepared in Russian and English, or in Russian only, in accordance with the language of the relevant Educational Program. The minutes of the Committees' meetings are signed by the Chairperson and the Secretary of the Committee. The minutes of the Committees' meetings are bound into volumes and stored in the University archive.
 
-6. General Requirements for the Final Qualification Work
+## 6. General Requirements for the Final Qualification Work
 
 **6.1.** The Final Qualification Work is a piece of work completed by a student (or jointly by several students), demonstrating the graduate's level of preparedness for independent professional activity.
 
@@ -739,7 +741,7 @@ the Educational Program);
 
 **6.16.** The texts of Final Qualification Works, except for those containing classified information, are to be placed by the University in its electronic library system and checked for the volume of borrowed content (plagiarism check). The procedure for placing texts in the University's electronic library system, checking for the volume of borrowed content, including substantive borrowing, and identifying improper borrowing is established by the University. Access to texts is provided in accordance with the legislation of the Russian Federation, subject to the removal, based on the rights holder's decision, of production, technical, economic, organizational, and other information. This includes information on intellectual activity results in the scientific and technical sphere and on methods of professional activity, which have actual or potential commercial value due to being unknown to third parties (see Appendix 18 to these Regulations).
 
-7. Filing and Consideration of Appeals on the Results of the Final State Certification
+## 7. Filing and Consideration of Appeals on the Results of the Final State Certification
 
 **7.1.** A student has the right to appeal the results of the FSC.
 
@@ -769,7 +771,7 @@ violations during the final certification is substantiated and did affect the ou
 
 **7.10.** An appeal for reconducting the FSC is not accepted.
 
-8. Final Provisions
+## 8. Final Provisions
 
 **8.1.** These Regulations are to be approved by an order of the Director of the University or another duly authorised representative and enter into force as of the date of their approval.
 

@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "regulations/attestation-regulation.md",
+                "file": "regulations/final-attestation-regulation.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "attestation-regulation"
+              "title": "final-attestation-regulation"
             }
           }
         ]
@@ -99,7 +99,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "regulations/attestation-regulation.md",
+                "file": "regulations/final-attestation-regulation.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -118,7 +118,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "regulations/attestation-regulation.md",
+                "file": "regulations/final-attestation-regulation.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -161,7 +161,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "regulations/attestation-regulation.md",
+                "file": "regulations/final-attestation-regulation.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -190,32 +190,32 @@
   },
   "active": "0fc6a36e6440634a",
   "lastOpenFiles": [
-    "guides/graduation.md",
-    "guides/credit-transfer.md",
-    "guides/academic-integrity.md",
-    "regulations/academic-integrity-regulation.md",
-    "regulations/credit-transfer-regulation.md",
-    "regulations/final-attestation-regulation.md",
+    "guides/tuition-to-budget.md",
     "regulations/remote-attestation-order.md",
-    "regulations/tuition-to-budget-transfer-regulation.md",
-    "regulations/enrollment-procedure-order.md",
-    "guides/retakes.md",
-    "courses/bsc-computer-architecture.md",
-    "regulations/academic-leave-regulation.md",
-    "regulations/transfer-expulsion-regulation.md",
+    "regulations/innopolisuniversitymanifestoonmedium.md",
+    "regulations/credit-transfer-regulation.md",
+    "regulations/academic-integrity-regulation.md",
+    "regulations/about-this-document.md",
     "regulations/attestation-regulation.md",
-    "people/artemburmyakov.md",
-    "guides/teaching-staff.md",
-    "guides/bsc-structure.md",
-    "guides/electives.md",
-    "guides/grading-scales.md",
-    "courses/bsc-distributedsytemsandcloudcomputing.md",
-    "courses/bsc-differentialandpartialdifferentialequationsadv.md",
-    "courses/bsc-human-ai-interaction-design.md",
-    "courses/bsc-capstone-project.md",
-    "courses/bsc-physics-ii.md",
-    "people/kirillpoletkin.md",
-    "courses/bsc-sensors-and-sensing.md",
+    "regulations/academic-leave-regulation.md",
+    "calendars/academiccalendar.md",
+    "calendars/msccalendar.md",
+    "calendars/winter-school.md",
+    "courses/bsc-academic-research-and-writing-culture-ii.md",
+    "courses/bsc-advanced-algorithms.md",
+    "courses/bsc-advanced-compilers-construction-and-program-analysis.md",
+    "courses/bsc-advanced-databases.md",
+    "courses/bsc-advanced-linux.md",
+    "courses/bsc-advancedalgorithms.md",
+    "courses/bsc-academic-research-and-writing-culture.md",
+    "courses/bsc-ftd-02-mfai-2024-logic-of-problem-solving-2s.md",
+    "courses/bsc-datastructuresalgorithmsii.md",
+    "courses/bsc-analytic-geometry-and-linear-algebra-ii.md",
+    "courses/bsc-b1-o-01-mfai-2024-foreign-language-1s.md",
+    "courses/bsc-b1-v-dv-06-01-mfai-2024-ux-ui-design.md",
+    "courses/bsc-fundamentals.md",
+    "courses/bsc-decentralizedpptimizationtransportproblemsspectralpropertiesofgraphs.md",
+    "courses/bsc-b1-v-dv-03-04-mfai-2024-mathematical-foundations-of-quantum-computing.md",
     "guides"
   ]
 }

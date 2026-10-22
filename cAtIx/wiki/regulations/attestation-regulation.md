@@ -396,7 +396,7 @@ REGULATION on Forms, Periodicity and Order of Conduction of Ongoing and Interim 
 
 Innopolis, 2025
 
-1. General Provisions
+## 1. General Provisions
 
 **1.1.** The Regulation on Forms, Periodicity and Order of Conduction of Ongoing and Interim Assessment of Students’ Academic Performance on Educational Programs of Higher Education – Bachelor and Master Programs of Autonomous Non-Commercial Organization of Higher Education «Innopolis University» (hereinafter – Regulation) defines the forms, frequency, and procedures for ongoing and interim assessment of students at Innopolis University (hereinafter — the University) enrolled in core professional higher education programs — bachelor's and master's programs (hereinafter — the educational program), establishes the grading system for interim assessment, criteria for assigning grades, procedures and deadlines for academic failures elimination, procedures for retaking results of education with the aim of obtaining a higher positive grade, and the procedures for ongoing and interim assessment for students with disabilities.
 
@@ -430,7 +430,7 @@ Federation»;
 
 **1.9.** Ongoing and interim assessment, and retakes may be conducted using e-learning and distance educational technologies, as established by the University.
 
-2. Forms, Frequency, and Procedures for Ongoing Assessment
+## 2. Forms, Frequency, and Procedures for Ongoing Assessment
 
 **2.1.** Ongoing academic progress monitoring covers all types of contact and independent work specified in the discipline (module) syllabuses of disciplines (modules)
 
@@ -474,7 +474,7 @@ programs.
 
 **2.9.** The possibility to retake the results of ongoing assessment is established by teaching staff member for each discipline (module), other component of the educational program, or internship independently.
 
-3. Grading System and Criteria for Interim assessment
+## 3. Grading System and Criteria for Interim assessment
 
 **3.1.** Interim assessment results of discipline (module), other component of the educational program, including internship are evaluated using the grading system specified in p. 3.2 of this Regulation and criteria for assigning grades outlined in discipline (module) syllabuses, internship programs, assessment materials, and other components included the educational program.
 
@@ -509,7 +509,7 @@ In accordance with paragraph 34 of the Order of the Ministry of and Higher Educa
 
 **3.8.** Teaching staff may consider ongoing assessment results, level of mastering the skills of practical application of theoretical knowledge, attendance, class participation, and exam performance when assigning final grades during interim assessment of discipline (module), another component of the educational program, including internship.
 
-4. Forms, Frequency, and Procedures for Interim assessment
+## 4. Forms, Frequency, and Procedures for Interim assessment
 
 **4.1.** Interim assessment of disciplines (modules), other components of the educational program, and internships evaluates students' learning outcomes that ensures the achievement of the planned results of competence development in disciplines (modules), other components of the educational program, and internships by identifying the compliance of the student's level of competence development with the requirements of the relevant educational program.
 
@@ -590,7 +590,7 @@ electronic information-educational environment. Grades are then transferred to t
 
 **4.21.** Students who do not have academic failures in disciplines (modules) or other components of the educational program, including internships, and who have fully completed the curriculum or individual study plan of the current year, are transferred to the next year by an order of the University Director or another authorized representative, upon the submission of the head of the responsible University’s department. Students who have did not undergo interim assessment due to absence with legal excuse or who have academic failures are conditionally transferred to the next year by an order of the University Director or another authorized representative, upon the submission of the head of the responsible University’s department. Students who do not have academic failures and who have fully completed the curriculum or individual study plan, are allowed to take the state final certification in accordance with the Regulations on the Procedure for Conducting State Final Certification for Higher Education Programs—Bachelor’s and Master’s Programs—of the Autonomous Non-Profit Organization of Higher Education «Innopolis University».
 
-5. Procedures and Deadlines for Academic Failure Elimination
+## 5. Procedures and Deadlines for Academic Failure Elimination
 
 **5.1.** Unsatisfactory results in the interim assessment for one or more disciplines (modules), one or more other components of the educational program, including internships, as specified in p. 3.5 of this Regulation, or failure of interim assessment in case of absence without a valid reason are considered an academic failure.
 
@@ -640,7 +640,7 @@ information-educational environment. Grades are then transferred to the Retake E
 
 **5.18.** Those students who has not eliminated academic failure during the defined period are expelled from University as students who did not fulfil obligations of educational program acquisition with good faith and who did not fulfil the curriculum in accordance with the University’s established procedures.
 
-6. Procedure for Retake with the Aim to Improve a Positive Grade
+## 6. Procedure for Retake with the Aim to Improve a Positive Grade
 
 **6.1.** The retake of results of studying with the aim of improve a positive grade for a discipline (module) can be made available only for final-year students who have successfully completed the entire educational program and only in case if a student can be a candidate for honors diploma based on the results of state final certification.
 
@@ -664,7 +664,7 @@ The retake’s result is defined by decision of all committee’s members. The d
 
 **6.8.** All retakes should be conducted before the order of admission to state final certification.
 
-7. Conducting Ongoing and Interim Assessment for Students with Disabilities
+## 7. Conducting Ongoing and Interim Assessment for Students with Disabilities
 
 **7.1.** In order to conduct ongoing and interim assessment for people with disabilities (upon submission of written application) adapted evaluation material should be developed. These materials should make it possible to evaluate the achievement of learning outcomes and level of all competences’ development, that are mentioned in education program.
 
@@ -678,7 +678,7 @@ The retake’s result is defined by decision of all committee’s members. The d
 
 **7.6.** The disabled students might use the assistive devices during the assessment sessions taking into consideration their special needs.
 
-8. Final Provisions
+## 8. Final Provisions
 
 **8.1.** This Regulation shall be approved by an order of the University Director or another authorized representative and shall enter into force upon its approval.
 

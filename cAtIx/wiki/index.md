@@ -444,6 +444,7 @@ Knowledge about Innopolis University compiled from [eduwiki](https://eduwiki.inn
 ## guides
 
 - [Academic integrity and disciplinary measures](/guides/academic-integrity.md): What counts as a violation of academic integrity at the university, how a case is handled, how a student can appeal, and which disciplinary measures can follow.
+- [Academic leave](/guides/academic-leave.md): Academic leave: who can get it and on what grounds, for how long, how to apply, what the decision and the return look like, and what the student must do before and after.
 - [How the BSc programme is organized](/guides/bsc-structure.md): How the BSc programme (Computer Science and Engineering) is organized: duration, tracks and streams, course load by year, internships, theses and language requirements.
 - [Recognition of earlier study results](/guides/credit-transfer.md): How results of earlier study (other universities, certificates) can be recognized as credits at the university: who can apply, how, and on what basis.
 - [Elective courses](/guides/electives.md): Which elective courses a student can choose, how the lists are organized, and how complete the information about them is.
@@ -451,3 +452,4 @@ Knowledge about Innopolis University compiled from [eduwiki](https://eduwiki.inn
 - [Final state attestation (graduation)](/guides/graduation.md): How the final state attestation (graduation) works for bachelor and master students: its forms, the commissions, the thesis requirements and appeals.
 - [Failing a course and retakes](/guides/retakes.md): What happens when a student fails a course: what the university's regulations say (academic debt, retakes, limits, expulsion, academic leave), who to ask, and what the course pages add about retakes.
 - [Teaching staff and their courses](/guides/teaching-staff.md): Who teaches at the university according to the wiki, how to reach them, and how much of the course list is covered by the staff pages.
+- [Moving from paid to state-funded study](/guides/tuition-to-budget.md): How a student can move from paid study to state-funded (budget) study: who is eligible, the conditions, how vacancies are found, how to apply and how the decision is made.
