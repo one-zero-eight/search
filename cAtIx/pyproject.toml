@@ -16,6 +16,7 @@ dependencies = [
     "langchain>=1.4.5",
     "langchain-openai>=1.7.2",
     "openinference-instrumentation-langchain>=0.1.79",
+    "pdfplumber>=0.11.10",
     "pgvector>=0.5.1",
     "psycopg-pool>=3.3.3",
     "psycopg[binary]>=3.3.6",

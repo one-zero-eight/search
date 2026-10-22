@@ -33,3 +33,15 @@ def test_the_date_of_a_document_is_its_own_not_that_of_a_law_it_cites():
     assert issued_of(text, "fallback") == "2025-06-30T00:00:00+03:00"
     assert issued_of("Утверждено приказом от 01.09.2024 № 5, закон от 29 декабря 2012 года", "f").startswith("2024-09-01")
     assert issued_of("Без дат.", "fallback") == "fallback"
+
+
+def test_a_table_found_in_the_pdf_keeps_its_rows_and_merged_cells_take_the_value_above():
+    from catix.wiki.regulations import table_markdown, to_markdown
+
+    rows = [["Код", "Профиль", "Испытание", None], ["09.04.01", "Робототехника", "Тестирование", None], [None, None, "Собеседование", None]]
+    md = table_markdown(rows)
+    assert md.splitlines() == ["| Код | Профиль | Испытание |", "| --- | --- | --- |",
+                               "| 09.04.01 | Робототехника | Тестирование |", "| 09.04.01 | Робототехника | Собеседование |"]
+    text = f"**1.1.** До таблицы.\n\n{md}\n\n{md}\nПосле таблицы."
+    blocks = to_markdown(text).split("\n\n")
+    assert blocks[1] == md and blocks[2] == md and blocks[3] == "После таблицы."  # two tables stay two, the text after stays after

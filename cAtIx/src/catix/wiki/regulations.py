@@ -1,7 +1,8 @@
 """Official regulations (PDF files on innopolis.university/sveden/document) as a second source of the bundle.
 
-    catix-wiki regs fetch     # download the PDFs, extract the text (text layer, else OCR with tesseract rus) into raw/regulations/
-    catix-wiki regs compile   # raw/regulations -> wiki/regulations/<key>.md
+    catix-wiki regs fetch       # download the PDFs, extract the text (text layer, else OCR with tesseract rus) into raw/regulations/
+    catix-wiki regs reextract   # extract the text of the downloaded PDFs again (after the extraction got better)
+    catix-wiki regs compile     # raw/regulations -> wiki/regulations/<key>.md
 
 The text of a regulation is NOT rewritten by the model: the program only turns the layout into markdown (chapters, clauses, tables)
 and the clause numbers stay, so that a guide can quote 'п. 5.3'. The model is asked only for a one-sentence description and tags.
@@ -117,12 +118,75 @@ def to_pdf(path: Path) -> Path:
     return pdf
 
 
+TEXT_LAYER = "text layer (pdfplumber)"
+
+
+def _cell(value: str | None) -> str:
+    return re.sub(r"\s+", " ", (value or "").replace("|", "/")).strip()
+
+
+def table_markdown(rows: list[list[str | None]]) -> str:
+    """A table found by pdfplumber as a markdown table. A merged cell comes as None in the rows it spans: it takes the value
+    above (the programme of every exam row), as tables.py does with rowspan. Empty rows and columns go."""
+    out: list[list[str]] = []
+    for row in rows:
+        cells = [_cell(c) for c in row]
+        if out and any(cells):
+            cells = [out[-1][i] if row[i] is None and i < len(out[-1]) else c for i, c in enumerate(cells)]
+        if any(cells):
+            out.append(cells)
+    if len(out) < 2:
+        return "\n".join(" ".join(c for c in r if c) for r in out)
+    width = max(len(r) for r in out)
+    out = [r + [""] * (width - len(r)) for r in out]
+    keep = [i for i in range(width) if any(r[i] for r in out)]
+    out = [[r[i] for i in keep] for r in out]
+    return "\n".join(["| " + " | ".join(out[0]) + " |", "|" + " --- |" * len(keep)] + ["| " + " | ".join(r) + " |" for r in out[1:]])
+
+
+def text_layer(pdf: Path) -> str:
+    """The text of a PDF with its tables as markdown tables, in reading order. pdftotext -layout aligned the columns with
+    spaces, and a cell of several lines fell apart into rows of other cells (the exams of the rules of admission came out
+    under the wrong level); pdfplumber finds the ruled tables and their cells."""
+    import pdfplumber
+
+    pages = []
+    with pdfplumber.open(pdf) as doc:
+        for page in doc.pages:
+            tables = sorted((t for t in page.find_tables() if len(t.rows) >= 2), key=lambda t: t.bbox[1])
+            boxes = [t.bbox for t in tables]
+
+            def outside(obj: dict) -> bool:
+                if obj.get("object_type") != "char":
+                    return True
+                x, y = (obj["x0"] + obj["x1"]) / 2, (obj["top"] + obj["bottom"]) / 2
+                return not any(b[0] <= x <= b[2] and b[1] <= y <= b[3] for b in boxes)
+
+            rest = page.filter(outside)
+
+            def band(top: float, bottom: float) -> str:
+                top, bottom = max(top, 0), min(bottom, page.height)
+                return (rest.crop((0, top, page.width, bottom)).extract_text() or "") if bottom - top > 1 else ""
+
+            parts, y = [], 0.0
+            for t in tables:
+                parts += [band(y, t.bbox[1]), table_markdown(t.extract()), band(t.bbox[1], t.bbox[3])]  # (text beside a table too)
+                y = t.bbox[3]
+            parts.append(band(y, page.height))
+            pages.append("\n\n".join(p for p in parts if p.strip()))
+    return "\f".join(pages)
+
+
 def extract(pdf: Path, ocr_left: int) -> tuple[str | None, str, int]:
     """(text, method, OCR pages used): the text layer when there is one, else OCR of the page images; None when OCR is not allowed now."""
-    text = subprocess.run(["pdftotext", "-layout", str(pdf), "-"], capture_output=True, text=True, check=True).stdout
     pages = pages_of(pdf)
+    try:
+        text, method = text_layer(pdf), TEXT_LAYER
+    except Exception as e:  # noqa: BLE001 - a PDF pdfplumber cannot parse is read the old way
+        print(f"  pdfplumber failed ({e}), pdftotext instead")
+        text, method = subprocess.run(["pdftotext", "-layout", str(pdf), "-"], capture_output=True, text=True, check=True).stdout, "text layer"
     if len(text.strip()) > 300 * pages:
-        return text, "text layer", 0
+        return text, method, 0
     if pages > MAX_OCR_PAGES or pages > ocr_left:
         return None, "ocr deferred" if pages <= MAX_OCR_PAGES else "scan too long for OCR", 0
     work = pdf.with_suffix(".ocr")
@@ -191,11 +255,14 @@ def fetch(limit: int | None = None) -> None:
 
 def to_markdown(text: str) -> str:
     """Layout text -> markdown: chapters '## N. Title', clauses as paragraphs starting with their bold number, 3-space-gapped rows as tables."""
-    out, para, table = [], [], []
+    out, para, table, made = [], [], [], []
     flat = not re.search(r"^\s*\d+\.\d+\.?\s", text, re.M)  # numbering 1., 2., 3. without chapters: every number opens a clause
 
     def flush() -> None:
-        nonlocal para, table
+        nonlocal para, table, made
+        if made:
+            out.append("\n".join(made))
+            made = []
         if para:
             out.append(" ".join(para))
             para = []
@@ -210,6 +277,13 @@ def to_markdown(text: str) -> str:
         if not line or re.fullmatch(r"\d{1,3}", line):  # blank, or a page number
             flush()
             continue
+        if line.startswith("| ") and line.endswith(" |") or re.fullmatch(r"\|( --- \|)+", line):  # a table the extraction already made
+            if para or table:
+                flush()
+            made.append(line)
+            continue
+        if made:
+            flush()
         cells = re.split(r"\s{3,}", line)
         if len(cells) >= 2 and not re.match(r"^\d+(\.\d+)+\.?\s", line):
             if para:
@@ -260,12 +334,16 @@ def readable(text: str) -> bool:
 
 
 def compile_all() -> None:
+    """Every kept document -> wiki/regulations/<key>.md. The model writes only the description, tags and audience, once per
+    version of the file; everything else (title, date, text, tables) is made by code on every run, so that a better
+    extraction or a better title reaches the pages without asking the model again."""
     BUNDLE.joinpath("regulations").mkdir(parents=True, exist_ok=True)
     docs = all_docs()
     for page in BUNDLE.joinpath("regulations").glob("sveden-*.md"):
         if page.stem not in docs:  # the document is no longer kept (a new decision of the triage, or it left the site)
             page.unlink()
             print(f"{page.stem}: no longer kept, page removed")
+    written = 0
     for key, d in docs.items():
         root: Path = d["root"]
         if not (root / f"{key}.json").exists():
@@ -274,27 +352,18 @@ def compile_all() -> None:
         target = BUNDLE / "regulations" / f"{key}.md"
         if "sha256" not in meta:
             continue
-        if target.exists() and f"id: {yaml_value(meta['sha256'][:12])}" in target.read_text(encoding="utf-8") and 'description: ""' not in target.read_text(encoding="utf-8") \
-                and "\naudience:" in target.read_text(encoding="utf-8"):
-            # This version of the file is already in the bundle (a page without a description or an audience is made again);
-            # only its date is worked out again, by code, when the rule for it changed.
-            page = target.read_text(encoding="utf-8")
-            issued = issued_of((root / f"{key}.txt").read_text(encoding="utf-8"), meta["fetched_at"])
-            fixed = re.sub(r"(\n    last_modified: ).*", lambda m: m.group(1) + yaml_value(issued), page, count=1)
-            old_title, new_title = str(front_of(page).get("title", "")), docs[key]["title"]
-            if old_title and old_title != new_title:  # the title is made from the site's listing: it changes when the listing is read better
-                fixed = (fixed.replace(f"title: {yaml_value(old_title)}", f"title: {yaml_value(new_title)}")
-                         .replace(f"\n# {old_title}\n", f"\n# {new_title}\n").replace(f"[{old_title}](", f"[{new_title}]("))
-            if fixed != page:
-                target.write_text(fixed, encoding="utf-8")
-            continue
         title = docs[key]["title"]  # (not the one stored at download time: the titles are made unique across all documents)
         text = (root / f"{key}.txt").read_text(encoding="utf-8")
         if not readable(text):
             print(f"{key}: no readable text, skipped")
             continue
+        old = target.read_text(encoding="utf-8") if target.exists() else ""
+        fm = front_of(old) if old else {}
+        if f"id: {yaml_value(meta['sha256'][:12])}" in old and fm.get("description") and fm.get("audience"):
+            desc, tags, audience = str(fm["description"]), [str(t) for t in fm.get("tags") or []], [str(a) for a in fm["audience"]]
+        else:  # a new file or a new version of it: the model reads it
+            desc, tags, audience = describe(title, text)
         body = to_markdown(text)
-        desc, tags, audience = describe(title, text)
         issued = issued_of(text, meta["fetched_at"])
         ocr = meta["method"].startswith("ocr")
         front = ["---", "type: regulation", f"title: {yaml_value(title)}", f"description: {yaml_value(desc)}", f"resource: {yaml_value(meta['url'])}", f"tags: {yaml_value(tags)}", f"audience: {yaml_value(audience)}",
@@ -303,8 +372,40 @@ def compile_all() -> None:
                  "generated:", f"  by: {yaml_value(f'{PRODUCER} regulations ({settings.llm_model}: description, tags and audience only)')}", f"  at: {yaml_value(meta['fetched_at'])}",
                  f"extraction: {yaml_value(meta['method'])}", "status: draft",
                  *(['review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"'] if ocr else []), "---"]
-        target.write_text("\n".join(front) + f"\n\n# {title}\n\n{body}\n\n# Citations\n\n1. [{title}]({meta['url']}), file {meta['sha256'][:12]}\n", encoding="utf-8")
-        print(f"{key}: {len(body)} chars of markdown")
+        page = "\n".join(front) + f"\n\n# {title}\n\n{body}\n\n# Citations\n\n1. [{title}]({meta['url']}), file {meta['sha256'][:12]}\n"
+        if page != old:
+            target.write_text(page, encoding="utf-8")
+            written += 1
+            if not old or not fm.get("description"):
+                print(f"{key}: {len(body)} chars of markdown")
+    print(f"{written} pages written")
+
+
+def reextract() -> None:
+    """The text of every downloaded PDF that has a text layer, extracted again (OCR is not repeated: it is slow and the same)."""
+    done = 0
+    for key, d in all_docs().items():
+        root: Path = d["root"]
+        meta_path = root / f"{key}.json"
+        meta = json.loads(meta_path.read_text(encoding="utf-8")) if meta_path.exists() else {}
+        if not str(meta.get("method", "")).startswith("text layer") or meta.get("method") == TEXT_LAYER:
+            continue
+        pdf = root / f"{key}.pdf"
+        if not pdf.exists():
+            continue
+        try:
+            text, method, _ = extract(pdf, 0)
+        except (ValueError, subprocess.SubprocessError) as e:
+            print(f"{key}: {e}")
+            continue
+        if text is None:
+            continue
+        (root / f"{key}.txt").write_text(text, encoding="utf-8")
+        meta_path.write_text(json.dumps({**meta, "method": method, "chars": len(text)}, ensure_ascii=False, indent=1), encoding="utf-8")
+        done += 1
+        if done % 25 == 0:
+            print(f"  {done} extracted again", flush=True)
+    print(f"{done} documents extracted again")
 
 
 def main() -> None:
@@ -313,5 +414,7 @@ def main() -> None:
         fetch(int(sys.argv[3]) if len(sys.argv) > 3 else None)  # catix-wiki regs fetch [N]: at most N new documents
     elif cmd == "compile":
         compile_all()
+    elif cmd == "reextract":
+        reextract()
     else:
         sys.exit(__doc__)
