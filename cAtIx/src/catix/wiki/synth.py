@@ -88,7 +88,7 @@ def clauses(idx: Index, rel: str, numbers: list[str] | None = None, containing: 
     A document that also has an English version is quoted in English."""
     if rel not in idx.meta:
         return []
-    found = re.findall(r"^\*\*(\d+(?:\.\d+)+)\.?\*\*\s*(.*?)(?=\n\*\*\d|\n## |\n# Citations|\Z)", course_text(idx, rel), re.S | re.M)
+    found = re.findall(r"^\*\*(\d{1,2}(?:\.\d{1,2}){1,4})\.?\*\*\s*(.*?)(?=\n\*\*\d|\n## |\n# Citations|\Z)", course_text(idx, rel), re.S | re.M)
     latin = lambda t: sum(c.isascii() and c.isalpha() for c in t) / (sum(c.isalpha() for c in t) or 1)
     out: dict[str, str] = {}
     for num, text in found:
@@ -278,6 +278,22 @@ def write_page(idx: Index, slug: str, title: str, tags: list[str], builder, forc
     return True
 
 
+def mark_scans(idx: Index) -> None:
+    """A guide that quotes a scanned document (read by OCR) carries a source_warning: the OCR can turn 'F' into 'E' or a Latin letter into a Cyrillic one,
+    and the model repeats what it is given. Done for every guide on every run, so that it does not depend on the model."""
+    scans = {rel for rel, i in idx.meta.items() if str(i["meta"].get("extraction", "")).startswith("ocr")}
+    for path in (BUNDLE / "guides").glob("*.md"):
+        text = path.read_text(encoding="utf-8")
+        front, body = split_front(text)
+        used = sorted(r for r in scans if f'resource: "{r}"' in front)
+        front = re.sub(r"^source_warning: .*\n", "", front, flags=re.M)
+        if used:
+            warn = "relies on scanned documents read by OCR (" + ", ".join(used) + "): wording, numbers and letters may contain reading errors; check against the PDF"
+            front = front[: front.rindex("---\n")] + f"source_warning: {yaml_value(warn)}\n---\n"
+        if front + body != text:
+            path.write_text(front + body, encoding="utf-8")
+
+
 def run(names: list[str] | None = None, force: bool = False) -> int:
     """Write the guides whose evidence changed; returns how many were written."""
     idx = Index()
@@ -286,6 +302,7 @@ def run(names: list[str] | None = None, force: bool = False) -> int:
         title, tags, builder = TOPICS[name]
         print(title)
         written += write_page(idx, name, title, tags, builder, force)
+    mark_scans(Index())  # (a fresh index: the guides just written are part of the bundle)
     return written
 
 
@@ -387,4 +404,37 @@ TOPICS.update({
     "bsc-structure": ("How the BSc programme is organized", ["bsc", "curriculum", "internship", "streams"], bsc_structure),
     "electives": ("Elective courses", ["electives", "technical", "humanitarian"], electives),
     "teaching-staff": ("Teaching staff and their courses", ["staff", "teachers", "contacts"], teaching_staff),
+})
+
+
+def regulation_digest(idx: Index, rel: str, label: str, per_chapter: int = 3, total: int = 22) -> Evidence:
+    """The opening clauses of every chapter of a regulation, verbatim (the clauses of a chapter that state its rules come first)."""
+    ev, taken = Evidence(), defaultdict(int)
+    for num, text in clauses(idx, rel, limit=10_000, size=900):
+        chapter = num.split(".")[0]
+        if taken[chapter] < per_chapter and len(ev.items) < total:
+            taken[chapter] += 1
+            ev.add(f"[official document] {label}, clause {num}: {text}", [rel])
+    return ev
+
+
+def academic_integrity(idx: Index) -> tuple[Evidence, str, str]:
+    ev = regulation_digest(idx, "/regulations/academic-integrity-regulation.md", "Regulation on disciplinary measures for violations of academic integrity (scanned, read by OCR)", per_chapter=4)
+    return ev, "What counts as a violation of academic integrity at the university, how a case is handled, how a student can appeal, and which disciplinary measures can follow.", ""
+
+
+def credit_transfer(idx: Index) -> tuple[Evidence, str, str]:
+    ev = regulation_digest(idx, "/regulations/credit-transfer-regulation.md", "Regulation on recognition of study results (credit transfer)", per_chapter=5)
+    return ev, "How results of earlier study (other universities, certificates) can be recognized as credits at the university: who can apply, how, and on what basis.", ""
+
+
+def graduation(idx: Index) -> tuple[Evidence, str, str]:
+    ev = regulation_digest(idx, "/regulations/final-attestation-regulation.md", "Regulation on the state final attestation", per_chapter=3, total=24)
+    return ev, "How the final state attestation (graduation) works for bachelor and master students: its forms, the commissions, the thesis requirements and appeals.", ""
+
+
+TOPICS.update({
+    "academic-integrity": ("Academic integrity and disciplinary measures", ["academic integrity", "discipline", "appeals"], academic_integrity),
+    "credit-transfer": ("Recognition of earlier study results", ["credit transfer", "recognition", "regulation"], credit_transfer),
+    "graduation": ("Final state attestation (graduation)", ["graduation", "thesis", "final attestation"], graduation),
 })

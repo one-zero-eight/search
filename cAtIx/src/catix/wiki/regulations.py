@@ -30,6 +30,18 @@ DOCS = {  # key -> (title, path under BASE as the official page links it)
                                       "c06/49xocpxyo6mx0dri7yd8c5y0zwdmp4pz/Положение_о_порядке_и_основаниях_перевода__отчисления_и_восстановления.pdf"),
     "academic-leave-regulation": ("Положение о предоставлении академического отпуска, отпуска по беременности и родам, отпуска по уходу за ребенком",
                                   "1d2/f5dqw4glz92ni8l6ed30we4hk9ede261/Положение_о_предоставлении_академического_отпуска__отпуска_по_беременности_и_родам__отпуска_по_уходу_за_ребенком_до_д.pdf"),
+    "enrollment-procedure-order": ("Порядок оформления возникновения, приостановления и прекращения образовательных отношений",
+                                   "ec8/Порядок%20оформления%20возникновения,%20приостановления%20и%20прекращения%20образовательных%20отношений.pdf"),
+    "tuition-to-budget-transfer-regulation": ("Положение о порядке и случаях перехода обучающихся с платного обучения на обучение за счет бюджетных ассигнований",
+                                              "a01/67kqu68idvya20wr507ggfr1w0qdoii7/Положение_Переход_на_бесплатное.pdf"),
+    "remote-attestation-order": ("Порядок проведения промежуточной аттестации с применением дистанционных образовательных технологий (бакалавриат и магистратура)",
+                                 "94f/osb458fkdh07uzyvxznou2viyo5glxk9/poryadok_pa_bakmag_eodot_02.08.2022.pdf"),
+    "final-attestation-regulation": ("Положение о порядке проведения государственной итоговой аттестации (бакалавриат и магистратура)",
+                                     "0a9/oaov9ai9asxm9hlemq5m0kjpemzvek8j/Положение_о_ГИА_2026.pdf"),
+    "credit-transfer-regulation": ("Положение о порядке зачета результатов освоения обучающимися учебных предметов, курсов, дисциплин (модулей), практики",
+                                   "d7e/txxukdacbjlc0ym3x1qyy2vmhxfmu4wf/Положение_о_порядке_зачета_АНО_ВО__Университет_Иннополис__результатов_освоения_обучающимися_учебных_предметов__курсо.pdf"),
+    "academic-integrity-regulation": ("Положение по применению дисциплинарных взысканий за нарушения академической добропорядочности",
+                                      "88c/o6qcuf0gjap2g2ow7teqoal3a5aao0kz/приказ_от_01.02.2023___ОД_АД-03.pdf"),
 }
 MONTHS = {m: i for i, m in enumerate("января февраля марта апреля мая июня июля августа сентября октября ноября декабря".split(), 1)}
 
@@ -56,8 +68,12 @@ def fetch() -> None:
         pdf, meta = ROOT / f"{key}.pdf", ROOT / f"{key}.json"
         print(key)
         if not pdf.exists():
-            resp = httpx.get(BASE + path, timeout=120, follow_redirects=True)
-            resp.raise_for_status()
+            try:
+                resp = httpx.get(BASE + path, timeout=120, follow_redirects=True)
+                resp.raise_for_status()
+            except httpx.HTTPError as e:  # a moved file must not stop the others
+                print(f"  FAILED: {e}")
+                continue
             pdf.write_bytes(resp.content)
         sha = hashlib.sha256(pdf.read_bytes()).hexdigest()
         if meta.exists() and json.loads(meta.read_text())["sha256"] == sha and (ROOT / f"{key}.txt").exists():
@@ -118,6 +134,9 @@ def to_markdown(text: str) -> str:
 def compile_all() -> None:
     BUNDLE.joinpath("regulations").mkdir(parents=True, exist_ok=True)
     for key, (title, path) in DOCS.items():
+        if not (ROOT / f"{key}.json").exists():
+            print(f"{key}: not downloaded, skipped")
+            continue
         meta = json.loads((ROOT / f"{key}.json").read_text(encoding="utf-8"))
         text = (ROOT / f"{key}.txt").read_text(encoding="utf-8")
         body = to_markdown(text)
