@@ -21,6 +21,7 @@ from pathlib import Path
 from urllib.parse import quote, unquote
 
 import httpx
+import yaml
 
 from catix.settings import settings
 from catix.wiki.fetch import PAGES, load_manifest
@@ -214,8 +215,11 @@ def filename(page: dict) -> str:
 
 def compiled(page: dict) -> bool:
     """This revision of the page is already in the bundle."""
-    return any(f'    id: "{page["revid"]}"\n    title: {yaml_value(page["title"])}' in p.read_text(encoding="utf-8")
-               for p in BUNDLE.glob(f"*/{filename(page)}.md"))
+    for p in BUNDLE.glob(f"*/{filename(page)}.md"):
+        src = (front_of(p.read_text(encoding="utf-8")).get("sources") or [{}])[0]
+        if str(src.get("id")) == str(page["revid"]) and str(src.get("title")) == page["title"]:
+            return True
+    return False
 
 
 def compile_page(pid: str, entry: dict, aliases: list[str]) -> Path | None:
@@ -290,22 +294,26 @@ def compile_page(pid: str, entry: dict, aliases: list[str]) -> Path | None:
     return path
 
 
+def front_of(text: str) -> dict:
+    """The front matter as a dict, whatever form the YAML has (an editor such as Obsidian rewrites quotes and lists)."""
+    return (yaml.safe_load(text.split("---\n", 2)[1]) or {}) if text.startswith("---\n") else {}
+
+
+def drop_key(front: str, key: str) -> str:
+    """Remove a top-level key from front matter text, with the indented lines or list items that belong to it."""
+    return re.sub(rf"^{re.escape(key)}:.*\n(?:(?:[ \t]+.*|- .*)\n)*", "", front, flags=re.M)
+
+
 def concepts() -> list[tuple[Path, dict]]:
     """Every concept of the bundle with the few front matter fields the linker needs."""
     out = []
     for path in sorted(BUNDLE.rglob("*.md")):
         if path.name in {"index.md", "log.md", "README.md"}:  # README.md describes the bundle, it is not a concept
             continue
-        text = path.read_text(encoding="utf-8")
-        fm = text.split("---\n")[1] if text.startswith("---\n") else ""
-        meta = {k: v for k, _, v in (line.partition(": ") for line in fm.splitlines()) if k in {"type", "title", "description"}}
-        src = re.search(r'^  - resource: .*\n    id: .*\n    title: (".*")', fm, re.M)
-        meta["source_title"] = json.loads(src.group(1)) if src else ""
-        meta["aliases"] = json.loads(m.group(1)) if (m := re.search(r"^aliases: (\[.*\])$", fm, re.M)) else []
-        for k in ("title", "description"):
-            if k in meta:
-                meta[k] = json.loads(meta[k])
-        out.append((path, meta))
+        fm = front_of(path.read_text(encoding="utf-8"))
+        sources = fm.get("sources") or [{}]
+        out.append((path, {"type": fm.get("type", ""), "title": str(fm.get("title", "")), "description": str(fm.get("description", "")),
+                           "source_title": str(sources[0].get("title", "")), "aliases": [str(a) for a in fm.get("aliases") or []]}))
     return out
 
 

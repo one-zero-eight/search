@@ -2,6 +2,7 @@
 
     catix-wiki fetch [NAMESPACE ...]   # default: namespace 0 (articles); only pages whose revision changed are downloaded
     catix-wiki status                  # pages in the snapshot, redirects, pages missing on the wiki now
+    catix-wiki topics [list|accept|reject]   # the model proposes guides, a person accepts them (see topics.py)
     catix-wiki regs fetch|compile      # official regulations (PDF) as a second source, see regulations.py
     catix-wiki build [--offline] [--force]   # the whole chain, re-running only what changed (see build.py)
     catix-wiki synth [TOPIC ...]       # guides that combine many concepts (wiki/guides/), see synth.py
@@ -104,6 +105,10 @@ def main() -> None:
         fetch([int(a) for a in args] or [0])
     elif cmd == "status":
         status()
+    elif cmd == "topics":
+        from catix.wiki import topics
+
+        topics.main()
     elif cmd == "regs":
         from catix.wiki import regulations
 

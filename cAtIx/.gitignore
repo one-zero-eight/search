@@ -21,3 +21,6 @@ raw/eduwiki
 raw/regulations/*.pdf
 raw/regulations/*.ocr/
 raw/regulations/ocr/
+
+# Obsidian keeps its local state (open files, window layout) in the vault folder
+wiki/.obsidian/

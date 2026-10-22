@@ -20,7 +20,7 @@ from urllib.parse import unquote
 
 import yaml
 
-from catix.wiki.compile import BUNDLE, _llm, concepts
+from catix.wiki.compile import BUNDLE, _llm, concepts, drop_key
 
 CACHE = Path(__file__).resolve().parents[3] / "raw" / "eduwiki" / "graph-cache.json"  # the model's answers: a rerun asks nothing twice
 PICK = """A course of Innopolis University lists a prerequisite. Decide which of the numbered courses the line names or explicitly requires knowledge of.
@@ -128,12 +128,14 @@ def grounded(idx: Index, item: str, target: str) -> bool:
     return bool(stem(item) & stem(meta.get("title", "") + " " + meta.get("sources", [{}])[0].get("title", "")))
 
 
-def ask_model(idx: Index, path: str, item: str, cache: dict) -> list[str]:
+def ask_model(idx: Index, path: str, item: str, cache: dict, call: bool = True) -> list[str]:
     """Courses the model picks for a line that string matching could not resolve; only answers from the candidate list count."""
     cands = candidates(idx, item, path)
     if not cands or len(item) > 160:  # nothing similar, or a bibliography entry
         return []
     key = json.dumps([idx.meta[path]["meta"].get("title"), item, cands], ensure_ascii=False)
+    if key not in cache and not call:
+        return []  # --no-model: what the model answered before still counts, no new question is asked
     if key not in cache:
         listing = "\n".join(f"{i}. {idx.meta[c]['meta'].get('sources', [{}])[0].get('title', '')} ({idx.meta[c]['meta'].get('title', '')})" for i, c in enumerate(cands, 1))
         answer, _ = _llm(PICK, f"Course that lists the line: {idx.meta[path]['meta'].get('title')}\nLine: {item}\n\nCourses:\n{listing}", think=True)
@@ -173,13 +175,11 @@ def derive(idx: Index, use_model: bool = True) -> dict[str, dict[str, list]]:
             target = None
         if target:
             targets, via = [target], None
-        elif use_model:
-            picked = [idx.canon.get(t, t) for t in ask_model(idx, path, item, cache)]
+        else:
+            picked = [idx.canon.get(t, t) for t in ask_model(idx, path, item, cache, call=use_model)]
             # a BSc course does not need an MSc course; and the line must share a content word with the pick
             targets = [t for t in dict.fromkeys(picked) if t != path and grounded(idx, item, t) and not (level == "bs" and idx.level(t) == "ms")]
             via = "model"
-        else:
-            targets, via = [], None
         if not targets:
             rel[path]["prerequisites"].append({"as_written": item})
             stats["unresolved"] += 1
@@ -234,7 +234,7 @@ def write(idx: Index, rel: dict[str, dict[str, list]]) -> None:
         edges = rel.get(path, {})
         front = info["front"]
         for k in KEYS:  # what an earlier run wrote
-            front = re.sub(rf"^{k}: .*\n", "", front, flags=re.M)
+            front = drop_key(front, k)
         add = [f"{k}: {json.dumps([json.loads(s) for s in dict.fromkeys(json.dumps(x, ensure_ascii=False) for x in v)], ensure_ascii=False)}"
                for k, v in edges.items() if v]
         if add:

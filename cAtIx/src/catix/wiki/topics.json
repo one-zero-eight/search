@@ -1,0 +1,50 @@
+{
+ "exam-accommodations": {
+  "slug": "exam-accommodations",
+  "title": "Exam Accommodations for Disabilities and Health Issues",
+  "brief": "What forms and adjustments are available for ongoing and interim assessments for students with disabilities or serious health conditions?",
+  "documents": [
+   "attestation-regulation"
+  ],
+  "tags": [
+   "disability-accommodations",
+   "health-issues",
+   "exam-adjustments",
+   "accessibility",
+   "student-rights"
+  ],
+  "status": "proposed"
+ },
+ "enrollment-and-withdrawal": {
+  "slug": "enrollment-and-withdrawal",
+  "title": "Enrollment Contract and Voluntary Withdrawal",
+  "brief": "What must be included in the enrollment contract and what are the procedures for voluntary withdrawal?",
+  "documents": [
+   "enrollment-procedure-order"
+  ],
+  "tags": [
+   "enrollment-contract",
+   "voluntary-withdrawal",
+   "student-rights",
+   "university-procedures",
+   "documentation"
+  ],
+  "status": "proposed"
+ },
+ "remote-assessment-technical": {
+  "slug": "remote-assessment-technical",
+  "title": "Technical Requirements for Remote Assessments",
+  "brief": "What computing devices and technical setup do I need to take a remote exam or test?",
+  "documents": [
+   "remote-attestation-order"
+  ],
+  "tags": [
+   "remote-learning",
+   "technical-requirements",
+   "exams",
+   "student-equipment",
+   "distance-education"
+  ],
+  "status": "proposed"
+ }
+}

@@ -13,10 +13,11 @@ import hashlib
 import json
 import re
 import sys
+from pathlib import Path
 from collections import defaultdict
 from datetime import datetime, timezone
 
-from catix.wiki.compile import BUNDLE, _llm, clean_tags, yaml_value
+from catix.wiki.compile import BUNDLE, _llm, clean_tags, drop_key, front_of, yaml_value
 from catix.wiki.graph import BLOCK, Index, split_front
 
 PRODUCER = "catix-wiki-synth/0.1"
@@ -241,7 +242,7 @@ def write_page(idx: Index, slug: str, title: str, tags: list[str], builder, forc
         return False
     sha = evidence_sha(ev, brief, details)
     path = BUNDLE / "guides" / f"{slug}.md"
-    if not force and path.exists() and f'evidence_sha: "{sha}"' in path.read_text(encoding="utf-8"):  # (a page with review: notes is not retried either: --force)
+    if not force and path.exists() and front_of(path.read_text(encoding="utf-8")).get("evidence_sha") == sha:  # (a page with review: notes is not retried either: --force)
         print("  unchanged (same evidence)")
         return False
     prompt = f"Page: {title}\nWhat the page must answer: {brief}\n\nEVIDENCE:\n{ev.listing()}"
@@ -288,8 +289,8 @@ def mark_scans(idx: Index) -> None:
     for path in (BUNDLE / "guides").glob("*.md"):
         text = path.read_text(encoding="utf-8")
         front, body = split_front(text)
-        used = sorted(r for r in scans if f'resource: "{r}"' in front)
-        front = re.sub(r"^source_warning: .*\n", "", front, flags=re.M)
+        used = sorted(r for r in scans if r in {str(x.get("resource")) for x in front_of(text).get("sources") or []})
+        front = drop_key(front, "source_warning")
         if used:
             warn = "relies on scanned documents read by OCR (" + ", ".join(used) + "): wording, numbers and letters may contain reading errors; check against the PDF"
             front = front[: front.rindex("---\n")] + f"source_warning: {yaml_value(warn)}\n---\n"
@@ -495,3 +496,14 @@ TOPICS.update({
                           auto_topic("How a student can move from paid study to state-funded (budget) study: who is eligible, the conditions, how vacancies are found, how to apply and how the decision is made.",
                                      ["/regulations/tuition-to-budget-transfer-regulation.md"])),
 })
+
+
+def load_accepted_topics() -> None:
+    """Topics a person accepted (topics.json, see topics.py) become guides of the same kind as the hand-written ones."""
+    path = Path(__file__).with_name("topics.json")
+    for slug, t in (json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}).items():
+        if t.get("status") == "accepted":
+            TOPICS[slug] = (t["title"], t.get("tags", []), auto_topic(t["brief"], [f"/regulations/{d}.md" for d in t["documents"]]))
+
+
+load_accepted_topics()
