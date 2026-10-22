@@ -474,6 +474,7 @@ generated:
 status: draft
 evidence_sha: "9a2c2d657bc40369"
 stale_after: "2023-07-30T10:48:29+00:00"
+source_warning: "relies on scanned documents read by OCR (/regulations/transfer-expulsion-regulation.md): wording, numbers and letters may contain reading errors; check against the PDF"
 ---
 
 # Failing a course and retakes

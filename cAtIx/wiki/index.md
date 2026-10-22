@@ -377,11 +377,17 @@ Knowledge about Innopolis University compiled from [eduwiki](https://eduwiki.inn
 ## regulations
 
 - [About this document](/regulations/about-this-document.md): Overview of the document summarizing the educational process at Innopolis University, including update procedures and annual version freezing.
+- [Положение по применению дисциплинарных взысканий за нарушения академической добропорядочности](/regulations/academic-integrity-regulation.md): 
 - [Положение о предоставлении академического отпуска, отпуска по беременности и родам, отпуска по уходу за ребенком](/regulations/academic-leave-regulation.md): 
 - [Положение о формах, периодичности и порядке проведения текущего контроля успеваемости и промежуточной аттестации (бакалавриат и магистратура)](/regulations/attestation-regulation.md): 
+- [Положение о порядке зачета результатов освоения обучающимися учебных предметов, курсов, дисциплин (модулей), практики](/regulations/credit-transfer-regulation.md): 
+- [Порядок оформления возникновения, приостановления и прекращения образовательных отношений](/regulations/enrollment-procedure-order.md): 
+- [Положение о порядке проведения государственной итоговой аттестации (бакалавриат и магистратура)](/regulations/final-attestation-regulation.md): 
 - [Innopolis University Manifesto on Medium of Instruction](/regulations/innopolisuniversitymanifestoonmedium.md): Defines English as the primary medium of instruction for all academic activities while allowing other languages in informal or private contexts.
 - [Overall Regulations](/regulations/overallregulations.md): A collection of links to key university documents including the medium of instruction manifesto, degree structures, and course lecturing guidelines.
+- [Порядок проведения промежуточной аттестации с применением дистанционных образовательных технологий (бакалавриат и магистратура)](/regulations/remote-attestation-order.md): 
 - [Положение о порядке и основаниях перевода, отчисления и восстановления обучающихся](/regulations/transfer-expulsion-regulation.md): 
+- [Положение о порядке и случаях перехода обучающихся с платного обучения на обучение за счет бюджетных ассигнований](/regulations/tuition-to-budget-transfer-regulation.md): 
 
 ## procedures
 
@@ -437,8 +443,11 @@ Knowledge about Innopolis University compiled from [eduwiki](https://eduwiki.inn
 
 ## guides
 
+- [Academic integrity and disciplinary measures](/guides/academic-integrity.md): What counts as a violation of academic integrity at the university, how a case is handled, how a student can appeal, and which disciplinary measures can follow.
 - [How the BSc programme is organized](/guides/bsc-structure.md): How the BSc programme (Computer Science and Engineering) is organized: duration, tracks and streams, course load by year, internships, theses and language requirements.
+- [Recognition of earlier study results](/guides/credit-transfer.md): How results of earlier study (other universities, certificates) can be recognized as credits at the university: who can apply, how, and on what basis.
 - [Elective courses](/guides/electives.md): Which elective courses a student can choose, how the lists are organized, and how complete the information about them is.
 - [Grading scales across courses](/guides/grading-scales.md): Which grade scales (letter grades and the points for each) the courses use, what is the most common one, how much they differ, and what the university's regulation says about letter grades, passing and the points systems that teachers may use.
+- [Final state attestation (graduation)](/guides/graduation.md): How the final state attestation (graduation) works for bachelor and master students: its forms, the commissions, the thesis requirements and appeals.
 - [Failing a course and retakes](/guides/retakes.md): What happens when a student fails a course: what the university's regulations say (academic debt, retakes, limits, expulsion, academic leave), who to ask, and what the course pages add about retakes.
 - [Teaching staff and their courses](/guides/teaching-staff.md): Who teaches at the university according to the wiki, how to reach them, and how much of the course list is covered by the staff pages.

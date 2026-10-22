@@ -190,6 +190,15 @@
   },
   "active": "0fc6a36e6440634a",
   "lastOpenFiles": [
+    "guides/graduation.md",
+    "guides/credit-transfer.md",
+    "guides/academic-integrity.md",
+    "regulations/academic-integrity-regulation.md",
+    "regulations/credit-transfer-regulation.md",
+    "regulations/final-attestation-regulation.md",
+    "regulations/remote-attestation-order.md",
+    "regulations/tuition-to-budget-transfer-regulation.md",
+    "regulations/enrollment-procedure-order.md",
     "guides/retakes.md",
     "courses/bsc-computer-architecture.md",
     "regulations/academic-leave-regulation.md",
@@ -207,15 +216,6 @@
     "courses/bsc-physics-ii.md",
     "people/kirillpoletkin.md",
     "courses/bsc-sensors-and-sensing.md",
-    "courses/bsc-systemtheory.md",
-    "courses/bsc-theoreticalmechanicsadv.md",
-    "courses/bste-advanced-linux.md",
-    "courses/bste-applied-machine-learning.md",
-    "courses/mste-mste-it-course.md",
-    "courses/physical-culture-and-sport-exercise-physiology-mindfulness.md",
-    "index.md",
-    "courses/bsc-academic-research-and-writing-culture.md",
-    "procedures/about-lecturing-a-course.md",
     "guides"
   ]
 }
