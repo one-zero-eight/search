@@ -50,6 +50,40 @@ def get(client: httpx.Client, url: str) -> str:
     raise RuntimeError(f"{url}: {r.status_code}")
 
 
+def _text(fragment: str) -> str:
+    return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", fragment))).strip()
+
+
+def context_of(page: str, pos: int) -> str:
+    """What a link at `pos` belongs to, from the markup around it (the start of the list it sits in said the wrong programme
+    for most links: the lists are long and nested).
+    - a cell of a table of programmes: the caption (the programme), the first cell of the row (the year), the column header
+      (the kind of document: study plans, calendar, practice);
+    - an item of the list of units: the unit's name;
+    - a link in a collapsible panel: the panel's header (the programme)."""
+    table = page.rfind("<table", 0, pos)
+    if table > page.rfind("</table>", 0, pos):
+        parts = []
+        if caption := re.search(r"<caption[^>]*>(.*?)</caption>", page[table:pos], re.S):
+            # The same words open every caption; the level and the programme are what tell them apart.
+            parts.append(re.sub(r"Образовательная программа высшего образования\s*[-–]\s*(?:программа\s+)?", "", _text(caption.group(1)))[:170])
+        row, cell = page.rfind("<tr", table, pos), page.rfind("<td", table, pos)
+        first = re.search(r"<td[^>]*>(.*?)</td>", page[row:pos], re.S) if row >= 0 else None
+        if first and row + first.start() != cell:  # (the link's own cell is not its context)
+            parts.append(_text(first.group(1)))
+        if column := re.match(r'<td[^>]*data-name="([^"]+)"', page[cell:pos]):
+            if header := re.search(rf'<th[^>]*data-name="{re.escape(column.group(1))}"[^>]*>(.*?)</th>', page[table:pos], re.S):
+                parts.append(_text(header.group(1)))
+        return " — ".join(p for p in parts if p)
+    item = page.rfind("<li", 0, pos)
+    if item >= 0 and (name := re.search(r'itemprop="name"[^>]*>(.*?)</div>', page[item:pos], re.S)):
+        return _text(name.group(1))[:240]
+    panel = page.rfind("expand-panel__header", 0, pos)
+    if panel >= 0 and (header := re.search(r'expand-panel__header[^>]*>(.*?)<i', page[panel:pos], re.S)):
+        return _text(header.group(1))[:240]
+    return ""
+
+
 def discover() -> None:
     ROOT.mkdir(parents=True, exist_ok=True)
     found: dict[str, dict] = {}
@@ -60,9 +94,8 @@ def discover() -> None:
                 url = urljoin(BASE, html.unescape(m.group(1)))
                 title = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", "", m.group(2)))).strip()
                 doc = found.setdefault(url, {"url": url, "titles": [], "sections": [], "context": ""})
-                if not doc["context"]:  # the list the link sits in starts with the level and the programme: that is what 'Study plan' or '2025' belongs to
-                    start = max(page.rfind("<ul", 0, m.start()), 0)
-                    doc["context"] = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", page[start : m.start()]))).strip()[:240]
+                if not doc["context"]:  # what 'Study plan' or '2025' belongs to: the programme, the year, the kind of document
+                    doc["context"] = context_of(page, m.start())
                 if title and title not in doc["titles"]:
                     doc["titles"].append(title)
                 if section not in doc["sections"]:

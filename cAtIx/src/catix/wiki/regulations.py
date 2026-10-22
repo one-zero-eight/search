@@ -22,7 +22,7 @@ import httpx
 from urllib.parse import unquote
 
 from catix.settings import settings
-from catix.wiki.compile import AUDIENCES, BUNDLE, PRODUCER, _llm, clean_audience, clean_tags, yaml_value
+from catix.wiki.compile import AUDIENCES, BUNDLE, PRODUCER, _llm, clean_audience, clean_tags, front_of, yaml_value
 
 ROOT = Path(__file__).resolve().parents[3] / "raw" / "regulations"
 BASE = "https://innopolis.university/upload/iblock/"
@@ -66,7 +66,11 @@ def issued_of(text: str, fallback: str) -> str:
 SVEDEN_ROOT = ROOT.parent / "sveden"
 MAX_BYTES, MAX_PAGES, MAX_OCR_PAGES = 25_000_000, 150, 40  # one document may not take hours of OCR
 MAX_FAILURES = 5  # network errors in a row before a run gives up
+PAUSE = 2  # seconds between requests: the site blocked us once after a burst, so stay well below what it tolerates
 OCR_BUDGET = 200  # pages of OCR per run of `regs fetch`; documents left over are done by the next run
+
+
+SIGNED = re.compile(r"\s*\(документ подписан (?:ПЭП|простой электронной подписью|электронной подписью)\)", re.I)  # says nothing about the content
 
 
 def all_docs() -> dict[str, dict]:
@@ -79,9 +83,9 @@ def all_docs() -> dict[str, dict]:
         if dec["decision"] != "keep" or url not in index or url in known:
             continue
         d = index[url]
-        title = d["title"]
+        title = SIGNED.sub("", d["title"]).strip()
         if len(title) < 30 or re.fullmatch(r"[\d\s./()–-]+", title) or title.lower().startswith(("учебный план", "календарный", "рабочая программа")):
-            title = f"{d['context'][:140]} — {title}" if d.get("context") else title  # 'Study plan' alone says nothing: the programme is in the list it sits in
+            title = f"{d['context'][:220]} — {title}" if d.get("context") else title  # 'Study plan' alone says nothing: the programme is in the list it sits in
         key = "sveden-" + hashlib.sha1(url.encode()).hexdigest()[:8] + "-" + (re.sub(r"[^a-z0-9]+", "-", unquote(url.rsplit("/", 1)[-1]).lower()).strip("-")[:30] or "doc")
         docs[key] = {"title": title, "url": url, "root": SVEDEN_ROOT, "section": "sveden/" + d["sections"][0], "context": d.get("context", ""), "ext": d["ext"]}
     boiler = re.compile(r"^(?:Высшее образование\s*[-–]\s*\w+\s*)?(?:Образовательная программа высшего образования\s*[-–]\s*программа\s*\w+\s*)?")
@@ -90,7 +94,7 @@ def all_docs() -> dict[str, dict]:
     titles = Counter(d["title"] for d in docs.values())
     for d in docs.values():  # the same title for many programmes ('Program of the final attestation'): the programme tells them apart
         if titles[d["title"]] > 1 and d.get("context") and not d["title"].startswith(d["context"][:20]):
-            d["title"] = f"{d['context'][:140]} — {d['title']}"
+            d["title"] = f"{d['context'][:220]} — {d['title']}"
     titles = Counter(d["title"].lstrip(": ") for d in docs.values())
     for d in docs.values():  # the same programme and title in several years: the file name carries the cohort or year
         d["title"] = d["title"].lstrip(": ")
@@ -158,11 +162,11 @@ def fetch(limit: int | None = None) -> None:
                 if failures >= MAX_FAILURES:  # the site refuses connections: going on would only hammer it
                     print(f"{failures} failures in a row: the site is not answering, stopped (the rest is fetched by the next run)")
                     break
-                time.sleep(1 + 5 * failures)  # one request a second, and slower while the site is failing
+                time.sleep(PAUSE + 5 * failures)  # slower while the site is failing
                 continue
             failures = 0
             src.write_bytes(resp.content)
-            time.sleep(1)  # one request a second
+            time.sleep(PAUSE)
         try:
             pdf = to_pdf(src)
             if not pdf.exists() or pages_of(pdf) > MAX_PAGES:
@@ -277,6 +281,10 @@ def compile_all() -> None:
             page = target.read_text(encoding="utf-8")
             issued = issued_of((root / f"{key}.txt").read_text(encoding="utf-8"), meta["fetched_at"])
             fixed = re.sub(r"(\n    last_modified: ).*", lambda m: m.group(1) + yaml_value(issued), page, count=1)
+            old_title, new_title = str(front_of(page).get("title", "")), docs[key]["title"]
+            if old_title and old_title != new_title:  # the title is made from the site's listing: it changes when the listing is read better
+                fixed = (fixed.replace(f"title: {yaml_value(old_title)}", f"title: {yaml_value(new_title)}")
+                         .replace(f"\n# {old_title}\n", f"\n# {new_title}\n").replace(f"[{old_title}](", f"[{new_title}]("))
             if fixed != page:
                 target.write_text(fixed, encoding="utf-8")
             continue
