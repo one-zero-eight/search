@@ -25,6 +25,14 @@ docker compose -f docker-compose.prod.yml ps
 git clone -b wiki --single-branch <репозиторий> ../catix-wiki      # один раз; другой путь — WIKI_DIR в .env
 docker compose -f docker-compose.prod.yml run --rm wiki              # первый раз: ~20 с, 2155 файлов
 ```
+Векторы не обязательно считать на сервере заново: индекс можно привезти с машины, где он уже посчитан. Это только вики-таблицы, сообщения чатов не затрагиваются; импорт занимает около 2 минут против ≈45 на подсчёт. Файл около 370 МБ, в git его не кладём:
+```bash
+uv run catix-wiki index export wiki-index.tar.gz                        # локально; в файле записан коммит ветки wiki
+scp wiki-index.tar.gz server:/srv/cAtIx/
+docker compose -f docker-compose.prod.yml run --rm -v ./wiki-index.tar.gz:/tmp/wiki-index.tar.gz:ro wiki catix-wiki index import /tmp/wiki-index.tar.gz
+```
+После импорта сервис `wiki` досчитывает только то, что изменилось после коммита из файла.
+
 Новые коммиты вики привозит `scripts/wiki-pull.sh`: `git pull` ветки и, если что-то пришло, сервис `wiki`. Скрипт ставится в cron, например `*/15 * * * * /srv/cAtIx/scripts/wiki-pull.sh >> /var/log/catix-wiki-pull.log 2>&1`. Пересобирать образ для обновления вики не нужно.
 
 Векторы кусков считает `worker` в фоне, когда нет новых сообщений из чатов. Пока векторов нет, куски находятся по словам. Первый раз это займёт около 45 минут (88 тыс. кусков), дальше — секунды на коммит. Очередь вики в алертах не участвует.

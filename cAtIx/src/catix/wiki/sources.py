@@ -11,7 +11,8 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import timedelta
 
-from catix.wiki import fetch, regulations, rpd, sveden
+from catix.settings import settings
+from catix.wiki import fetch, mock, regulations, rpd, sveden
 
 
 @dataclass(frozen=True)
@@ -41,3 +42,5 @@ SOURCES = [
     Source("sveden", timedelta(days=1), _sveden, "innopolis.university/sveden: documents and course programmes added to the site"),
     Source("files", timedelta(days=7), _files, "documents and archives read before that changed on the site (HEAD, ~1 request every 2 s)"),
 ]
+if settings.wiki_mock_site:  # a stand-in site for showing and testing the run (mock.py)
+    SOURCES.append(Source("mock", timedelta(minutes=1), mock.update, f"{settings.wiki_mock_site}: new documents and new versions of them"))

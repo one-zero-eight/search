@@ -154,6 +154,8 @@ class Settings(BaseSettings):
     wiki_push: bool = True  # push a commit that passed every check; one that failed goes to a review branch
     # The search must keep finding the answers of experiments/eval_wiki.py: a commit below this is not pushed to `wiki`.
     wiki_min_hit5: float = Field(0.85, ge=0, le=1)
+    # A web listing of documents that stands in for the university's site (wiki/mock.py): the source `mock` of the wiki's run.
+    wiki_mock_site: str | None = None
 
     # Old SQLite file, only read by `catix-db migrate`.
     messages_db: Path = Path("raw/telegram.db")

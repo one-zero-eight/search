@@ -13,6 +13,12 @@ changes, every vector is dropped and every piece is queued again.
     catix-wiki index              # sync the database with wiki/ and compute the missing vectors
     catix-wiki index --no-embed   # sync only; the workers compute the vectors
     catix-wiki index status       # pages, pieces, vectors, queue
+    catix-wiki index export FILE  # the wiki's tables, vectors included, into one file
+    catix-wiki index import FILE  # replace the wiki's tables with the file's: the server does not compute 88k vectors again
+
+Export and import move only the wiki's tables (not the messages of the chats). The file says which embeddings model made
+its vectors and which commit of the `wiki` branch it was made from: after the import, `catix-wiki index` on a checkout of
+that commit finds every page unchanged; on a later commit it does only what changed since.
 """
 
 import hashlib
@@ -193,6 +199,79 @@ def status() -> None:
         print(f"queued for a vector: {pg.scalar(conn, 'SELECT count(*) FROM wiki_embedding_queue')}")
 
 
+TABLES = ("wiki_pages", "wiki_chunks", "wiki_chunk_embeddings", "wiki_meta")  # in the order of their references
+
+
+def _columns(conn, table: str) -> list[str]:
+    return pg.column(conn, "SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name = %s ORDER BY ordinal_position", (table,))
+
+
+def export(path: Path) -> None:
+    """The wiki's tables as binary COPY streams in one tar file, with a manifest."""
+    import io
+    import subprocess
+    import tarfile
+
+    commit = subprocess.run(["git", "-C", str(BUNDLE.parent), "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
+    with pg.connection() as conn, conn.transaction(), tarfile.open(path, "w:gz") as tar:
+        conn.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ")  # (one snapshot of all four tables)
+        manifest = {"embeddings_model": pg.scalar(conn, "SELECT value FROM wiki_meta WHERE key = 'embeddings_model'"),
+                    "wiki_commit": commit or None, "scheme": SCHEME, "exported_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
+                    "columns": {t: _columns(conn, t) for t in TABLES}, "rows": {}}
+        for table in TABLES:
+            data = io.BytesIO()
+            cols = ", ".join(manifest["columns"][table])
+            with conn.cursor().copy(f"COPY (SELECT {cols} FROM {table}) TO STDOUT (FORMAT binary)") as copy:  # noqa: S608 - names from the catalog
+                for block in copy:
+                    data.write(block)
+            manifest["rows"][table] = pg.scalar(conn, f"SELECT count(*) FROM {table}")  # noqa: S608
+            info = tarfile.TarInfo(f"{table}.bin")
+            info.size = data.tell()
+            data.seek(0)
+            tar.addfile(info, data)
+        raw = json.dumps(manifest, ensure_ascii=False, indent=1).encode()
+        info = tarfile.TarInfo("manifest.json")
+        info.size = len(raw)
+        tar.addfile(info, io.BytesIO(raw))
+    print(f"{path}: {', '.join(f'{n} {t}' for t, n in manifest['rows'].items())}; wiki commit {commit[:12] or '?'}; {path.stat().st_size // 1_000_000} MB")
+
+
+def import_(path: Path) -> None:
+    """Replace the wiki's tables with those of an export, in one transaction: the search sees the old wiki or the new one.
+    Pieces that came with a vector are not queued for one."""
+    import tarfile
+
+    with tarfile.open(path, "r:gz") as tar:
+        manifest = json.loads(tar.extractfile("manifest.json").read())
+        if manifest["embeddings_model"] != settings.embeddings_model:
+            sys.exit(f"the vectors of {path} are of {manifest['embeddings_model']}, this database uses {settings.embeddings_model}")
+        started = time.monotonic()
+        with pg.connection() as conn, conn.transaction():
+            for table in TABLES:
+                # (by name: COPY names the columns, and a column added later by ALTER stands last in an older database)
+                if set(here := _columns(conn, table)) != set(manifest["columns"][table]):
+                    sys.exit(f"{table} has other columns here ({here}) than in {path}: apply db/schema.sql of the same version")
+            conn.execute("TRUNCATE wiki_pages, wiki_meta CASCADE")  # (pieces, vectors and the queue go with the pages)
+            for table in TABLES:
+                cols = ", ".join(manifest["columns"][table])
+                # The pieces' ids are generated: they come through a staging table, so that the vectors keep their pieces.
+                target = "stage" if table == "wiki_chunks" else table
+                if target == "stage":
+                    conn.execute("CREATE TEMP TABLE stage (LIKE wiki_chunks) ON COMMIT DROP")
+                with conn.cursor().copy(f"COPY {target} ({cols}) FROM STDIN (FORMAT binary)") as copy:  # noqa: S608
+                    stream = tar.extractfile(f"{table}.bin")
+                    while block := stream.read(1 << 20):
+                        copy.write(block)
+                if target == "stage":
+                    conn.execute(f"INSERT INTO wiki_chunks ({cols}) OVERRIDING SYSTEM VALUE SELECT {cols} FROM stage")  # noqa: S608
+                    conn.execute("SELECT setval(pg_get_serial_sequence('wiki_chunks', 'id'), coalesce(max(id), 1)) FROM wiki_chunks")
+                print(f"  {table}: {manifest['rows'][table]} rows ({time.monotonic() - started:.0f}s)", flush=True)
+            conn.execute("DELETE FROM wiki_embedding_queue q USING wiki_chunk_embeddings e WHERE e.chunk_id = q.chunk_id")
+            conn.execute("INSERT INTO wiki_meta (key, value) VALUES ('imported_from', %s) ON CONFLICT (key) DO UPDATE SET value = excluded.value",
+                         (manifest["wiki_commit"] or "?",))
+    print(f"imported {path} (wiki commit {str(manifest['wiki_commit'])[:12]}) in {time.monotonic() - started:.0f}s")
+
+
 def main() -> None:
     args = sys.argv[2:]
     if not settings.database_url:
@@ -200,6 +279,9 @@ def main() -> None:
     try:
         if args[:1] == ["status"]:
             status()
+            return
+        if args[:1] in (["export"], ["import"]) and len(args) == 2:
+            (export if args[0] == "export" else import_)(Path(args[1]))
             return
         started = time.monotonic()
         counts = sync()

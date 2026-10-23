@@ -108,6 +108,10 @@ def all_docs() -> dict[str, dict]:
             title = f"{d['context'][:220]} — {title}" if d.get("context") else title  # 'Study plan' alone says nothing: the programme is in the list it sits in
         key = "sveden-" + hashlib.sha1(url.encode()).hexdigest()[:8] + "-" + (re.sub(r"[^a-z0-9]+", "-", unquote(url.rsplit("/", 1)[-1]).lower()).strip("-")[:30] or "doc")
         docs[key] = {"title": title, "url": url, "root": SVEDEN_ROOT, "section": "sveden/" + d["sections"][0], "context": d.get("context", ""), "ext": d["ext"]}
+    if settings.wiki_mock_site:
+        from catix.wiki import mock
+
+        docs.update(mock.docs())
     boiler = re.compile(r"^(?:Высшее образование\s*[-–]\s*\w+\s*)?(?:Образовательная программа высшего образования\s*[-–]\s*программа\s*\w+\s*)?")
     for d in docs.values():
         d["context"] = boiler.sub("", d.get("context", "")).strip()  # the level and 'educational programme of higher education' are the same for all
@@ -278,7 +282,7 @@ def fetch(limit: int | None = None) -> int:
     return done
 
 
-def refresh() -> int:
+def refresh(prefix: str = "") -> int:
     """Ask the site (HEAD, one request every PAUSE seconds) whether each downloaded document is still the same file. A changed
     one is marked `refetch`: the next `fetch` downloads and reads it again (its page stays until then). The first check of a
     document only records what the site says about it. The number of changed documents."""
@@ -287,7 +291,7 @@ def refresh() -> int:
         for key, d in all_docs().items():
             path = d["root"] / f"{key}.json"
             meta = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
-            if "sha256" not in meta or meta.get("refetch"):
+            if not key.startswith(prefix) or "sha256" not in meta or meta.get("refetch"):
                 continue
             try:
                 resp = client.head(d["url"])

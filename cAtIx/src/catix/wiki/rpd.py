@@ -258,9 +258,11 @@ def compile_all(all_years: bool = False) -> None:
     index, written, keep = load(), 0, set()
     taken = {a["url"] for a in archives(all_years, dead_links(index))}
     for key, c in sorted(index.items()):
-        if "sha256" not in c or c["archive"] not in taken or not (ROOT / f"{key}.txt").exists():
+        if "sha256" not in c or c["archive"] not in taken:
             continue
         keep.add(key)
+        if not (ROOT / f"{key}.txt").exists():  # (a fresh checkout of `wiki` has the pages but not the downloads: the page stays)
+            continue
         text = (ROOT / f"{key}.txt").read_text(encoding="utf-8").replace("\f", "\n")  # (a section often opens a page)
         kind, code, name = name_of(text, Path(c["member"]).name)  # by code on every run: a better reading reaches the pages
         c = {**c, "kind": kind, "code": code, "name": name}

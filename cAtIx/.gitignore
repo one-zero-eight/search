@@ -24,3 +24,4 @@ raw/*.db*
 /raw/rpd
 /raw/sveden
 /raw/topics.json
+experiments/.wiki-demo-site/
