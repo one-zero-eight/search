@@ -75,3 +75,51 @@ def test_a_citation_whose_clause_went_away_may_go(tmp_path, monkeypatch):
     assert agent.write("academic-leave", "Academic leave", "d", f"Up to 12 months [п. 2.2]({REG}#2.2). Twice [п. 2.3]({REG}#2.3).", [], [], idx) == []
     idx.meta[REG]["body"] = "**2.2.** Academic leave is granted for up to 12 months.\n"  # the new version of the regulation has no 2.3
     assert agent.write("academic-leave", "Academic leave", "d", f"Up to 12 months [п. 2.2]({REG}#2.2).", [], [], idx) == []
+
+
+def test_surveys_and_curricula_are_not_queued_rules_are():
+    assert agent.worth_reading({"type": "regulation", "section": "sveden/document"})
+    assert agent.worth_reading({"type": "regulation", "section": "sveden/apply"})
+    assert not agent.worth_reading({"type": "regulation", "section": "sveden/rating-system"})
+    assert not agent.worth_reading({"type": "regulation", "section": "sveden/education"})
+    assert agent.worth_reading({"type": "course"})  # the teaching wiki: no section
+    assert not agent.worth_reading({"type": "course-programme"}) and not agent.worth_reading({"type": "guide"})
+
+
+def test_refusals_are_counted_by_kind():
+    from collections import Counter
+
+    counts = Counter({"attempts": 5, "refused": 2, agent.kind_of("number 24 is not in what the sentence cites: x"): 1,
+                      agent.kind_of("no citation of a source page: x"): 2})
+    assert agent.describe(counts) == "5 attempts, 2 refused (no citation 2, number not in what it cites 1)"
+
+
+def test_numbers_written_as_russian_words_count():
+    assert {"4", "7", "18"} <= agent.numbers_in("до четырёх месяцев, в течение семи дней, старше восемнадцати лет")
+    assert agent.numbers_in("в течение семестра в пятницу") == set()  # whole words only
+
+
+def test_a_card_too_long_is_split():
+    long = "\n\n".join(f"Leave lasts up to 12 months [п. 2.2]({REG}#2.2)." for _ in range(200))
+    assert "too long" in agent.write("academic-leave", "Academic leave", "d", long, [], [], bundle())[0]
+
+
+def test_ordinals_and_clause_numbers_in_the_text():
+    assert {"2", "3"} <= agent.numbers_in("по итогам второго этапа; третий этап")
+    found = agent.problems(f"Stage 2 ends by August 1, see clause 3.1.2 [п. 2.2]({REG}#2.2).", bundle())
+    assert any("number 1" in p or "number 2" in p for p in found)  # (2.2 says neither 2 stages nor August 1)
+    assert not any("number 3" in p for p in found)  # "clause 3.1.2" is a reference, not a claim
+
+
+def test_the_items_of_a_list_rest_on_the_line_that_opens_it():
+    body = f"Leave is granted for [п. 2.2]({REG}#2.2):\n\n- up to 12 months;\n- 24 months."
+    found = agent.problems(body, bundle())
+    assert len(found) == 1 and "number 24" in found[0]  # the first item rests on 2.2, the second states what 2.2 does not
+
+
+def test_a_link_to_a_card_not_written_yet_becomes_its_name(tmp_path, monkeypatch):
+    monkeypatch.setattr(agent, "BUNDLE", tmp_path)
+    body = f"Up to 12 months [п. 2.2]({REG}#2.2).\n\n## See also\n\n- [Appeals](/knowledge/appeals.md)"
+    assert agent.write("academic-leave", "Academic leave", "d", body, [], [], bundle()) == []
+    text = (tmp_path / "knowledge" / "academic-leave.md").read_text()
+    assert "- Appeals" in text and "/knowledge/appeals.md" not in text

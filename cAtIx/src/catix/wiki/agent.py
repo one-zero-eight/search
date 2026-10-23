@@ -20,6 +20,7 @@ are written by code, so the assistant cites the original document, as with the g
 import json
 import re
 import sys
+from collections import Counter
 from datetime import datetime, timezone
 
 from catix.settings import settings
@@ -32,10 +33,12 @@ FOLDER = "knowledge"
 QUEUE = RAW / "knowledge-queue.json"
 NOT_EVIDENCE = {"card", "guide"}  # made by a model: a card rests on the source pages only
 SLUG = re.compile(r"^[a-z0-9][a-z0-9-]{2,80}$")
+CLAUSE_REF = re.compile(r"(?:\bп\.|\bпп?\.|пункт\w*|\bclauses?|\bsections?|\bparagraphs?|\bitems?|раздел\w*|§)\s*\d+(?:\.\d+)*\.?", re.I)
 LINK = re.compile(r"\[([^\]]*)\]\((/[^)\s#]+\.md)(?:#([\w.\-]+))?\)")
 REF = re.compile(r"\[(\d{1,3})\]")
 CLAUSE = re.compile(r"^\*\*(\d{1,2}(?:\.\d{1,2}){0,4})\.?\*\*\s*(.*?)(?=\n\*\*\d|\n## |\n# Citations|\Z)", re.S | re.M)
 BATCH = 3  # source pages per task of the agent
+MAX_BODY = 9000  # characters of a card: a longer one is split (the model also breaks the JSON of a very long tool call)
 READ_LIMIT = 12_000  # characters read_page returns at once
 
 INSTRUCTIONS = """You keep the knowledge cards of the wiki of Innopolis University. The wiki's pages are the university's documents
@@ -47,17 +50,20 @@ A card is about one subject a reader asks about: a procedure (academic leave, a 
 programme, a course across its programmes and cohorts. It brings together what every page says about the subject.
 - Before writing, look for an existing card on the subject (list_cards, search_wiki): update it with read_card and
   write_card, keeping what it says and adding what is new. Make a new card only for a new subject. Never two cards on one subject.
-- Every sentence and every list item ends with links to the pages it rests on: [п. 5.3](/regulations/x.md#5.3) for a clause
+- Every sentence and every list item ends with links to the pages it rests on (the items of a list may rest on the
+  links of the line that opens it with ':'): [п. 5.3](/regulations/x.md#5.3) for a clause
   of a regulation (the clause number goes after #), [source](/course-programmes/x.md) for a page without clauses. Only
   source pages are evidence, never cards or guides; a link to another card ([title](/knowledge/slug.md)) is only
   navigation and goes in a section "## See also".
 - Write only what the cited text says. Every number must be in the text you cite for it. Keep conditions and exceptions.
   When pages differ (two cohorts, two versions of a document), say so and say which page says what.
+- A card is short: at most about a page (9000 characters). A long document makes several cards on narrower subjects.
 - English, plain markdown: ## sections, short paragraphs and lists. No title heading, no front matter, no Citations section.
 - Updating a card, keep what it says: write_card refuses a text that drops citations of the old one. Leave one out only
   when it is wrong for the card, and then name it in `dropped`.
 - If write_card returns problems, fix exactly those and write again. If a page says nothing that belongs in a card, write nothing.
-When the pages of the task are done, answer with one line: what you wrote."""
+Work until every page of the task is done: a reply without a tool call ends your work. Then answer with one line that
+starts with DONE: and says what you wrote (DONE: nothing, if the pages hold nothing for a card)."""
 
 
 # ---- cards on disk: the agent's form (inline links) <-> the file (numbered [n] and a Citations section) ----------
@@ -73,8 +79,8 @@ def to_file_body(body: str) -> tuple[str, list[tuple[str, str]]]:
 
     def number(m: re.Match) -> str:
         page, clause = m.group(2), m.group(3) or ""
-        if page.startswith(f"/{FOLDER}/"):
-            return m.group(0)
+        if page.startswith(f"/{FOLDER}/"):  # a card that is not written (yet) is named, not linked
+            return m.group(0) if (BUNDLE / page.lstrip("/")).exists() else m.group(1)
         if (page, clause) not in refs:
             refs.append((page, clause))
         return f"[{refs.index((page, clause)) + 1}]"
@@ -148,8 +154,29 @@ def clauses_of(idx: Index, page: str) -> dict[str, str]:
     return out
 
 
+# Russian numerals as the documents write them ("в течение семи календарных дней", "до четырёх месяцев", "старше
+# восемнадцати лет"): a card that says "seven days" cites a clause with no digit 7. Whole words only, so that "семестр" or
+# "пятница" are not numbers.
+RU_NUMBERS = {
+    1: r"од(?:ин|на|но|ного|ному|ним|ном|ной|ну|ни|них)", 2: r"дв(?:а|е|ух|ум|умя)", 3: r"тр(?:и|ех|ёх|ем|ём|емя)",
+    4: r"четыр(?:е|ех|ёх|ем|ём|ьмя)", 5: r"пят(?:ь|и|ью)", 6: r"шест(?:ь|и|ью)", 7: r"сем(?:ь|и|ью)", 8: r"вос(?:емь|ьми|емью|ьмью)",
+    9: r"девят(?:ь|и|ью)", 10: r"десят(?:ь|и|ью)", 11: r"одиннадцат(?:ь|и|ью)", 12: r"двенадцат(?:ь|и|ью)",
+    13: r"тринадцат(?:ь|и|ью)", 14: r"четырнадцат(?:ь|и|ью)", 15: r"пятнадцат(?:ь|и|ью)", 16: r"шестнадцат(?:ь|и|ью)",
+    17: r"семнадцат(?:ь|и|ью)", 18: r"восемнадцат(?:ь|и|ью)", 19: r"девятнадцат(?:ь|и|ью)", 20: r"двадцат(?:ь|и|ью)",
+    30: r"тридцат(?:ь|и|ью)", 40: r"сорок(?:а)?", 50: r"пятидесяти|пятьдесят", 60: r"шестидесяти|шестьдесят",
+    90: r"девяност(?:о|а)", 100: r"ст(?:о|а)",
+}
+ORDINAL_END = r"(?:ый|ий|ой|ая|ое|ые|ого|ому|ым|ом|ой|ую|ых|ыми|ья|ье|ьи|ьего|ьему|ьим|ьем|ьей|ью|ьих)"
+ORDINALS = {1: "перв", 2: "втор", 3: "трет", 4: "четв[её]рт", 5: "пят", 6: "шест", 7: "седьм", 8: "восьм", 9: "девят", 10: "десят"}
+for _n, _stem in ORDINALS.items():  # "второго этапа" says 2 as well as "двух"
+    RU_NUMBERS[_n] = f"{RU_NUMBERS[_n]}|{_stem}{ORDINAL_END}"
+RU_NUMBER = re.compile(r"(?<![а-яё])(?:" + "|".join(f"(?P<n{n}>{p})" for n, p in RU_NUMBERS.items()) + r")(?![а-яё])", re.I)
+
+
 def numbers_in(text: str) -> set[str]:
-    return set(re.findall(r"\d+", text)) | spelled_numbers(text)
+    """The numbers a text states: digits, English words ('seven') and Russian numerals ('семи')."""
+    russian = {name[1:] for m in RU_NUMBER.finditer(text) for name, value in m.groupdict().items() if value}
+    return set(re.findall(r"\d+", text)) | spelled_numbers(text) | russian
 
 
 def problems(body: str, idx: Index) -> list[str]:
@@ -159,18 +186,24 @@ def problems(body: str, idx: Index) -> list[str]:
         out.append("no '# ' headings: the title and the Citations section are written by the program")
     clause_cache: dict[str, dict[str, str]] = {}
     section, cited_any = "", False
+    lead: list[tuple[str, str]] = []  # the evidence of a line that ends with ':' and opens a list: its items rest on it
     for line in (l.rstrip() for l in body.splitlines()):
         if not line.strip() or re.fullmatch(r"\|?[\s:|-]+\|?", line):
             continue
         if line.startswith("#"):
-            section = line.lstrip("#").strip().lower()
+            section, lead = line.lstrip("#").strip().lower(), []
             continue
         short = line.strip()[:90]
         links = LINK.findall(line)
         for _, page, _ in links:
-            if page not in idx.meta:
+            if page not in idx.meta and not page.startswith(f"/{FOLDER}/"):  # (a card not written yet: the link becomes text)
                 out.append(f"no such page {page}: {short}")
         evidence = [(page, clause) for _, page, clause in links if page in idx.meta and idx.meta[page]["meta"].get("type") not in NOT_EVIDENCE]
+        item = re.match(r"\s*(?:[-*+]|\d+[.)])\s+", line)
+        if not item:
+            lead = evidence if line.endswith(":") else []
+        elif not evidence:
+            evidence = lead
         if bad := [page for _, page, _ in links if page in idx.meta and idx.meta[page]["meta"].get("type") in NOT_EVIDENCE and section != "see also"]:
             out.append(f"{bad[0]} is a card or a guide: cite the source pages it rests on: {short}")
         if section == "see also":
@@ -191,6 +224,7 @@ def problems(body: str, idx: Index) -> list[str]:
             else:
                 support.append(course_text(idx, page))
         claim = re.sub(r"^\s*(?:[-*+]|\d+[.)])\s+", "", LINK.sub(" ", line))  # (a list's own numbering is not a claim)
+        claim = CLAUSE_REF.sub(" ", claim)  # nor is "clause 3.1.2" or "п. 2.4" written in the text
         missing = sorted(numbers_in(claim) - numbers_in(" ".join(support)))
         if missing and support:
             out.append(f"number {missing[0]} is not in what the sentence cites: {short}")
@@ -213,6 +247,9 @@ def write(slug: str, title: str, description: str, body: str, tags: list[str], a
         return ["slug: lowercase latin letters, digits and hyphens, 3 to 80 characters"]
     if not title.strip() or not description.strip():
         return ["a title and a one-sentence description are needed"]
+    if len(body) > MAX_BODY:
+        return [f"the card is too long ({len(body)} characters, at most {MAX_BODY}): split it into cards on narrower subjects "
+                "(e.g. who may apply / the stages / the documents), linked under ## See also"]
     if found := problems(body, idx):
         return found
     if gone := lost(slug, body, dropped or [], idx):
@@ -243,7 +280,17 @@ def write(slug: str, title: str, description: str, body: str, tags: list[str], a
 # ---- the agent ---------------------------------------------------------------------------------------------------
 
 
-def _tools(idx_box: list, written: list):
+KINDS = [("no citation", "no citation"), ("number", "number not in what it cites"), ("has no clause", "clause does not exist"),
+         ("no such page", "page does not exist"), ("card or a guide", "cited a card or a guide"), ("leaves out", "lost old citations"),
+         ("slug", "bad slug"), ("title", "no title or description"), ("headings", "title or Citations heading"), ("too long", "too long")]
+
+
+def kind_of(problem: str) -> str:
+    return next((name for marker, name in KINDS if marker in problem), "other")
+
+
+def _tools(idx_box: list, written: list, refused: Counter | None = None):
+    refused = refused if refused is not None else Counter()
     from langchain_core.tools import tool
 
     @tool
@@ -289,7 +336,12 @@ def _tools(idx_box: list, written: list):
         postgraduate, applicant, teacher, staff, management, public. dropped: citations of the old text you leave out on
         purpose, as '/regulations/x.md#5.3' (a page without clauses: just its path). Returns 'written' or the problems to fix."""
         found = write(slug, title, description, body, tags or [], audience or [], idx_box[0], dropped or [])
+        refused["attempts"] += 1
         if found:
+            refused["refused"] += 1
+            print(f"  write_card {slug} refused: " + " | ".join(p[:160] for p in found[:2]), flush=True)
+            for kind in {kind_of(p) for p in found}:
+                refused[kind] += 1
             return "NOT written, fix these:\n" + "\n".join(f"- {p}" for p in found[:12])
         written.append(slug)
         return f"written: /{FOLDER}/{slug}.md"
@@ -297,7 +349,7 @@ def _tools(idx_box: list, written: list):
     return [search_wiki, read_page, list_cards, read_card, write_card]
 
 
-def build_agent(idx_box: list, written: list):
+def build_agent(idx_box: list, written: list, refused: Counter | None = None):
     from deepagents import create_deep_agent
     from deepagents.backends import FilesystemBackend
     from deepagents.middleware.filesystem import FilesystemPermission
@@ -309,12 +361,12 @@ def build_agent(idx_box: list, written: list):
         api_key=settings.wiki_llm_api_key.get_secret_value() if settings.wiki_llm_api_key else "not-needed",
         model=model_name(),
         temperature=0,
-        max_tokens=settings.llm_max_tokens,
+        max_tokens=settings.wiki_agent_max_tokens,  # (a whole card is one tool call)
         **({"extra_body": {"chat_template_kwargs": {"enable_thinking": False}}} if local else {}),
     )
     return create_deep_agent(
         model=model,
-        tools=_tools(idx_box, written),
+        tools=_tools(idx_box, written, refused),
         system_prompt=INSTRUCTIONS,
         backend=FilesystemBackend(root_dir=BUNDLE, virtual_mode=True),  # '/' is the bundle; nothing outside it
         permissions=[FilesystemPermission(operations=["write"], paths=["/**"], mode="deny")],  # cards go through write_card only
@@ -322,11 +374,37 @@ def build_agent(idx_box: list, written: list):
     )
 
 
+CONTINUES = 3  # times an agent that stopped before DONE is sent back to work
+CONTINUE = ("You stopped before the task was done (no DONE: line). Go on from where you are: fix what write_card refused and "
+            "write it again, then the pages not done yet. Finish with a line that starts with DONE:.")
+
+
+BROKEN_CALL = ("Your last tool call could not be read (its JSON was broken, usually a card too long or a quote not escaped). "
+               "Read the cards again (list_cards), write shorter cards: one narrow subject each, and go on. Finish with DONE:.")
+
+
 def _invoke(agent, task: str) -> str:
+    """Run a task to its DONE: line; a model that ends its turn half way ('Let me restructure.') is sent back to work.
+    'NOT FINISHED: ...' when it never gets there."""
     from langchain_core.messages import HumanMessage
 
-    out = agent.invoke({"messages": [HumanMessage(task)]}, {"recursion_limit": settings.wiki_agent_steps})
-    return str(out["messages"][-1].content)[:300]
+    messages, last = [HumanMessage(task)], ""
+    for _ in range(1 + CONTINUES):
+        try:
+            out = agent.invoke({"messages": messages}, {"recursion_limit": settings.wiki_agent_steps})
+        except Exception as e:  # noqa: BLE001 - mostly the server failing to parse a long tool call the model wrote
+            if "tool call" not in str(e).lower():
+                raise
+            print(f"  the model wrote a broken tool call: sent back to work", flush=True)
+            last = f"broken tool call: {str(e)[:120]}"
+            messages = [*messages, HumanMessage(BROKEN_CALL)]  # (the cards written before it are on disk)
+            continue
+        last = str(out["messages"][-1].content).strip()
+        if last.upper().startswith("DONE"):
+            return last[:300]
+        print(f"  stopped before DONE ({last[:80]!r}): sent back to work", flush=True)
+        messages = [*out["messages"], HumanMessage(CONTINUE)]
+    return f"NOT FINISHED: {last[:250]}"
 
 
 def load_queue() -> list[str]:
@@ -338,34 +416,50 @@ def save_queue(pages: list[str]) -> None:
     QUEUE.write_text(json.dumps(pages, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
+def worth_reading(meta: dict) -> bool:
+    """Whether a source page may hold what readers ask about (WIKI_AGENT_SECTIONS): not a survey or a curriculum."""
+    if meta.get("type") in NOT_EVIDENCE:
+        return False
+    if meta.get("type") == "course-programme":
+        return settings.wiki_agent_course_programmes
+    section = meta.get("section")
+    return section is None or str(section) in settings.wiki_agent_sections
+
+
 def enqueue(pages: list[str]) -> int:
-    queue = load_queue()
-    new = [p for p in dict.fromkeys(pages) if p not in queue]
+    """Queue the pages worth reading (worth_reading); how many are new in the queue."""
+    queue, idx = load_queue(), Index()
+    new = [p for p in dict.fromkeys(pages) if p not in queue and p in idx.meta and worth_reading(idx.meta[p]["meta"])]
     save_queue(queue + new)
     return len(new)
 
 
 def source_pages(folders: list[str] | None = None) -> list[str]:
     idx = Index()
-    return sorted(rel for rel, i in idx.meta.items() if i["meta"].get("type") not in NOT_EVIDENCE and (not folders or rel.split("/")[1] in folders))
+    return sorted(rel for rel, i in idx.meta.items() if worth_reading(i["meta"]) and (not folders or rel.split("/")[1] in folders))
 
 
 def run(pages: list[str] | None = None, limit: int | None = None) -> dict:
     """The agent on these pages (or on the queue, at most `limit` of it), then on the cards the check finds broken."""
     from_queue = pages is None
     todo = (load_queue() if from_queue else pages)[: limit or settings.wiki_agent_max_pages]
-    idx_box, written = [Index()], []
-    agent = build_agent(idx_box, written)
+    idx_box, written, refused = [Index()], [], Counter()
+    agent = build_agent(idx_box, written, refused)
     for start in range(0, len(todo), BATCH):
         batch = todo[start:start + BATCH]
         print(f"== agent: {', '.join(batch)}", flush=True)
         task = ("These pages of the wiki are new or changed. Read each, and put what it says about subjects readers ask about "
                 "into the cards (update the existing card of a subject, or make one):\n" + "\n".join(batch))
+        before = Counter(refused)
         try:
-            print("  " + _invoke(agent, task), flush=True)
+            result = _invoke(agent, task)
+            print("  " + result, flush=True)
+            refused["unfinished"] += result.startswith("NOT FINISHED")
         except Exception as e:  # noqa: BLE001 - one batch failing (the model server, the step limit) leaves it queued
-            print(f"  failed: {type(e).__name__}: {e}", flush=True)
+            print(f"  failed: {type(e).__name__}: {str(e)[:300]}", flush=True)
+            refused["unfinished"] += 1
             break
+        print(f"  write_card: {describe(refused - before)}", flush=True)
         if from_queue:
             save_queue([p for p in load_queue() if p not in batch])
         idx_box[0] = Index()  # the cards just written are part of the bundle
@@ -379,7 +473,15 @@ def run(pages: list[str] | None = None, limit: int | None = None) -> dict:
         except Exception as e:  # noqa: BLE001
             print(f"  failed: {type(e).__name__}: {e}", flush=True)
             break
-    return {"pages": len(todo), "cards written": len(written), "cards broken": len(check_all())}
+    print(f"== agent: write_card in all: {describe(refused)}", flush=True)
+    return {"pages": len(todo), "cards written": len(written), "cards broken": len(check_all()),
+            "write attempts": refused["attempts"], "refused": refused["refused"], "unfinished tasks": refused["unfinished"]}
+
+
+def describe(counts: Counter) -> str:
+    """'7 attempts, 2 refused (no citation 2, number not in what it cites 1)'."""
+    kinds = ", ".join(f"{k} {n}" for k, n in counts.most_common() if k not in {"attempts", "refused", "unfinished"})
+    return f"{counts['attempts']} attempts, {counts['refused']} refused" + (f" ({kinds})" if kinds else "")
 
 
 def main() -> None:

@@ -176,7 +176,15 @@ class Settings(BaseSettings):
     # knowledge cards (wiki/knowledge/). At most `wiki_agent_max_pages` pages a run; the rest wait in the queue.
     wiki_agent: bool = True
     wiki_agent_max_pages: int = Field(30, gt=0)
-    wiki_agent_steps: int = Field(80, gt=0, description="Model and tool steps per task of the agent.")
+    wiki_agent_steps: int = Field(150, gt=0, description="Model and tool steps per task of the agent.")
+    # A card goes in one tool call: with the assistant's LLM_MAX_TOKENS a long one was cut off half way and its JSON broke.
+    wiki_agent_max_tokens: int = Field(16000, gt=0)
+    # The documents of the site the agent reads, by the section they come from: rules, procedures, admission, fees,
+    # grants, the units' regulations. Left out: sveden/rating-system (surveys) and sveden/education (curricula, programme
+    # descriptions); a page of the teaching wiki has no section and is always read. Course programmes only when asked.
+    wiki_agent_sections: list[str] = ["document", "sveden/document", "sveden/apply", "sveden/paid_edu", "sveden/grants",
+                                      "sveden/objects", "sveden/struct"]
+    wiki_agent_course_programmes: bool = False
 
     # Old SQLite file, only read by `catix-db migrate`.
     messages_db: Path = Path("raw/telegram.db")
