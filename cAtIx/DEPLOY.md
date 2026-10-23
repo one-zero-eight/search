@@ -66,6 +66,16 @@ uv run catix-wiki autopilot --loop           # лучше как systemd-сер�
 - **Коммит.** Все проверки прошли — коммит от «cAtIx wiki» в `wiki` и push. Что-то не прошло — те же изменения уходят в ветку `wiki-review/<время>`, а `wiki` не меняется. Человек смотрит и решает: `catix-wiki autopilot accept` (в `wiki` и push) или `catix-wiki autopilot discard`.
 - **Защита путей.** Коммит, затронувший что-то кроме `wiki/` и `raw/`, не делается вовсе. На GitHub стоит включить защиту ветки `main`, а токену машины с вики дать права только на `wiki` и `wiki-review/*`.
 
+## 2c. Модели на той же машине
+Если llama-серверы запущены на той же машине, что и Docker, контейнеры не могут ходить на `localhost`: это сам контейнер.
+- **Обычный Docker:** `LLM_ROUTE=http://host.docker.internal:8080/v1` (и так же 8081, 8082). Имя уже прописано в `docker-compose.prod.yml` (`extra_hosts`). llama-серверы должны слушать не только 127.0.0.1 (`--host 0.0.0.0` или адрес `docker0`).
+- **Rootless Docker** (`docker info` показывает `rootless`): `host.docker.internal` (172.17.0.1) ведёт в сеть rootlesskit, а не на хост, и даёт `Connection refused`. Нужен IP машины в локальной сети (`ip -4 addr`, интерфейс вроде `eth0`), например `LLM_ROUTE=http://10.1.1.27:8080/v1`; llama-серверы с `--host 0.0.0.0`.
+
+Проверка из контейнера (после правки `.env` — `docker compose -f docker-compose.prod.yml up -d --force-recreate tgbot worker`):
+```bash
+docker compose -f docker-compose.prod.yml exec worker python -c "import httpx; print([httpx.get(f'http://10.1.1.27:{p}/health').text for p in (8080, 8081, 8082)])"
+```
+
 ## 3. Модели через SSH-туннель (если GPU-сервер напрямую недоступен)
 Положить в `secrets/ssh/` ключ `id_ed25519` (chmod 600) и `known_hosts` GPU-сервера, в `.env`:
 ```
@@ -85,6 +95,17 @@ docker compose -f docker-compose.prod.yml run --rm userbot catix-tguserbot login
 docker compose -f docker-compose.prod.yml --profile userbot up -d
 ```
 Дальше всё в боте: администратор пишет `/listen`, выбирает чаты и учебные группы; `/admin` добавляет других администраторов. Новый администратор должен один раз написать боту `/start`.
+
+**Если userbot пишет `Attempt 1 at connecting failed: TimeoutError`**, сеть сервера не пускает к дата-центрам Telegram (MTProto). Бота это не касается: он ходит по HTTPS на `api.telegram.org`. Проверка с сервера:
+```bash
+timeout 5 bash -c "</dev/tcp/149.154.167.51/443" && echo ok || echo blocked
+```
+Тогда userbot ходит через прокси с машины, откуда Telegram открыт, `TG_PROXY` в `.env`:
+```
+TG_PROXY=socks5://user:password@host:1080        # или socks4://, http://
+TG_PROXY=mtproxy://SECRET@host:443               # MTProxy: hex-секрет, обычный или dd...; fake-TLS (ee...) Telethon не умеет
+```
+Простой SOCKS5 — SSH-туннель до машины, где Telegram доступен, запущенный на сервере: `ssh -N -D 10.1.1.27:1080 user@machine-with-telegram` (IP сервера в локальной сети: при rootless Docker контейнер видит только его, раздел 2c), затем `TG_PROXY=socks5://10.1.1.27:1080`. Такой прокси без пароля открыт всей локальной сети: закройте порт файрволом для всех, кроме самого сервера. Прокси нужен и для `login`.
 
 ## 5. Календарный фид
 Воркер (FastAPI) отдаёт личный календарь пользователя `GET /users/me.ics` на порту `127.0.0.1:8090`. В запросе заголовок `Authorization: Bearer <токен InNoHassle пользователя>`: подпись проверяется по открытым ключам InNoHassle (`/accounts/v0/.well-known/jwks.json`), `telegram_id` из токена говорит, чей это календарь. В календаре события, которые пользователь добавил кнопкой «➕ В мой календарь» под ответами. Календарей групп нет. Перед портом нужен HTTPS (Caddy: `reverse_proxy 127.0.0.1:8090` для вашего домена).

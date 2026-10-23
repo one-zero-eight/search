@@ -17,6 +17,7 @@ import json
 import sys
 import time
 from datetime import datetime, timedelta, timezone
+from urllib.parse import unquote, urlsplit
 
 import redis.asyncio as aioredis
 from telethon import TelegramClient, errors, events, utils
@@ -33,11 +34,43 @@ from catix.settings import settings
 BATCH = 500
 
 
+PROXY_SCHEMES = ("socks5", "socks4", "http")
+
+
+def proxy_args(url: str | None) -> dict:
+    """TelegramClient arguments for TG_PROXY (see settings.py); {} without a proxy. A malformed value stops the start."""
+    if not url:
+        return {}
+    parts = urlsplit(url)
+    if not parts.hostname or not parts.port:
+        raise ValueError("TG_PROXY needs a host and a port, e.g. socks5://127.0.0.1:1080")
+    if parts.scheme == "mtproxy":
+        from telethon.network.connection import ConnectionTcpMTProxyRandomizedIntermediate
+
+        secret = unquote(parts.username or "")
+        if not secret:
+            raise ValueError("TG_PROXY: an MTProxy needs its secret, mtproxy://SECRET@host:port")
+        if secret.startswith("ee"):
+            raise ValueError("TG_PROXY: fake-TLS MTProxy secrets (ee...) are not supported by Telethon; use a dd... secret or SOCKS5")
+        return {"connection": ConnectionTcpMTProxyRandomizedIntermediate, "proxy": (parts.hostname, parts.port, secret)}
+    if parts.scheme in PROXY_SCHEMES:
+        return {"proxy": {
+            "proxy_type": parts.scheme, "addr": parts.hostname, "port": parts.port, "rdns": True,
+            "username": unquote(parts.username) if parts.username else None,
+            "password": unquote(parts.password) if parts.password else None,
+        }}  # fmt: skip
+    raise ValueError(f"TG_PROXY: unknown scheme {parts.scheme!r}; one of {', '.join(PROXY_SCHEMES)}, mtproxy")
+
+
 def _client() -> TelegramClient:
     if not settings.tg_api_id or not settings.tg_api_hash:
         sys.exit("Set TG_API_ID and TG_API_HASH in .env (https://my.telegram.org -> API development tools).")
+    try:
+        proxy = proxy_args(settings.tg_proxy.get_secret_value() if settings.tg_proxy else None)
+    except ValueError as e:
+        sys.exit(str(e))
     settings.tg_session.parent.mkdir(parents=True, exist_ok=True)
-    return TelegramClient(str(settings.tg_session), settings.tg_api_id, settings.tg_api_hash.get_secret_value())
+    return TelegramClient(str(settings.tg_session), settings.tg_api_id, settings.tg_api_hash.get_secret_value(), **proxy)
 
 
 def _link(entity: Channel | Chat, msg_id: int) -> str | None:

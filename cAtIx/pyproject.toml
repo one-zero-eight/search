@@ -23,6 +23,7 @@ dependencies = [
     "psycopg[binary]>=3.3.6",
     "pydantic-settings>=2.16.0",
     "pyjwt[crypto]>=2.15.1",
+    "python-socks[asyncio]>=3.1.1",
     "recurring-ical-events>=3.8.2",
     "redis>=8.1.0",
     "telethon>=1.45.0",

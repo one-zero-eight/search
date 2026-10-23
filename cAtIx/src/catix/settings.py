@@ -66,6 +66,10 @@ class Settings(BaseSettings):
     tg_api_hash: SecretStr | None = None
     # Session file grants full access to the account: keep it private, it is git-ignored.
     tg_session: Path = Path("data/telegram")
+    # Proxy for the userbot, where the network blocks Telegram's data centres (the bot is not affected: it talks HTTPS to
+    # api.telegram.org). socks5://[user:password@]host:port, socks4://host:port, http://host:port, or
+    # mtproxy://SECRET@host:port (a hex secret, plain or "dd..."; fake-TLS "ee..." secrets are not supported by Telethon).
+    tg_proxy: SecretStr | None = None
     # Only the starting list: copied into the database once, after that the chats and topics the userbot listens to
     # are chosen in the bot (/listen).
     # Whitelist of chats to ingest: marked ids (-100...) or @usernames. JSON list in env: TG_CHATS='[-1001234, "@chat"]'
