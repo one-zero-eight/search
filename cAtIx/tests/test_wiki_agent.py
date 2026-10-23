@@ -55,3 +55,23 @@ def test_a_card_is_written_with_its_front_matter_and_citations_and_read_back(tmp
     assert "# Citations\n\n1. [Regulation on academic leave](/regulations/leave.md), clause 2.2" in text
     assert agent.read_file_card("academic-leave")["body"] == body
     assert agent.write("Bad Slug", "t", "d", body, [], [], bundle()) != []
+
+
+def test_a_new_text_of_a_card_may_not_lose_what_the_old_one_cited(tmp_path, monkeypatch):
+    monkeypatch.setattr(agent, "BUNDLE", tmp_path)
+    idx = bundle()
+    both = f"Up to 12 months [п. 2.2]({REG}#2.2). At most twice [п. 2.3]({REG}#2.3)."
+    assert agent.write("academic-leave", "Academic leave", "d", both, [], [], idx) == []
+    shorter = f"Up to 12 months [п. 2.2]({REG}#2.2)."
+    refused = agent.write("academic-leave", "Academic leave", "d", shorter, [], [], idx)
+    assert refused and f"{REG}#2.3" in refused[0]
+    assert agent.write("academic-leave", "Academic leave", "d", shorter, [], [], idx, dropped=[f"{REG}#2.3"]) == []
+    assert agent.read_file_card("academic-leave")["body"] == shorter
+
+
+def test_a_citation_whose_clause_went_away_may_go(tmp_path, monkeypatch):
+    monkeypatch.setattr(agent, "BUNDLE", tmp_path)
+    idx = bundle()
+    assert agent.write("academic-leave", "Academic leave", "d", f"Up to 12 months [п. 2.2]({REG}#2.2). Twice [п. 2.3]({REG}#2.3).", [], [], idx) == []
+    idx.meta[REG]["body"] = "**2.2.** Academic leave is granted for up to 12 months.\n"  # the new version of the regulation has no 2.3
+    assert agent.write("academic-leave", "Academic leave", "d", f"Up to 12 months [п. 2.2]({REG}#2.2).", [], [], idx) == []

@@ -12,7 +12,8 @@ programme, a course across cohorts), merged from every page that speaks of it an
 A card is written only through `write_card`, which checks it by code: every sentence cites a source page with a markdown
 link (and the clause of a regulation: `[п. 5.3](/regulations/x.md#5.3)`), the page and the clause exist, and every number
 of the sentence is in the text it cites. A card that fails is not written; the agent gets the problems and fixes them.
-Cards and guides are never evidence for a card. The front matter, the numbered [n] references and the Citations section
+Cards and guides are never evidence for a card. A
+new text of a card may not lose what the old one cited (the page and clause still there) unless the agent names it in `dropped`. The front matter, the numbered [n] references and the Citations section
 are written by code, so the assistant cites the original document, as with the guides (chunks.py).
 """
 
@@ -53,6 +54,8 @@ programme, a course across its programmes and cohorts. It brings together what e
 - Write only what the cited text says. Every number must be in the text you cite for it. Keep conditions and exceptions.
   When pages differ (two cohorts, two versions of a document), say so and say which page says what.
 - English, plain markdown: ## sections, short paragraphs and lists. No title heading, no front matter, no Citations section.
+- Updating a card, keep what it says: write_card refuses a text that drops citations of the old one. Leave one out only
+  when it is wrong for the card, and then name it in `dropped`.
 - If write_card returns problems, fix exactly those and write again. If a page says nothing that belongs in a card, write nothing.
 When the pages of the task are done, answer with one line: what you wrote."""
 
@@ -105,7 +108,29 @@ def read_file_card(slug: str) -> dict | None:
         if m := re.match(r"\s*\d+\.\s+\[[^\]]*\]\((/[^)\s]+\.md)\)(?:, clause ([\w.\-]+))?", line):
             refs.append((m.group(1), m.group(2) or ""))
     return {"slug": slug, "title": str(fm.get("title", "")), "description": str(fm.get("description", "")), "tags": fm.get("tags") or [],
-            "audience": fm.get("audience") or [], "body": to_agent_body(body.strip(), refs)}
+            "audience": fm.get("audience") or [], "body": to_agent_body(body.strip(), refs), "refs": refs}
+
+
+def ref_name(page: str, clause: str) -> str:
+    return f"{page}#{clause}" if clause else page
+
+
+def lost(slug: str, body: str, dropped: list[str], idx: Index) -> list[str]:
+    """What a new text of a card leaves out of the old one: the citations that are gone though their page (and clause) are
+    still there, unless the agent named them in `dropped`. A card is written whole, and a model that rewrites it can drop
+    what it did not mean to drop; a citation whose page or clause went away may go (the card would not hold with it)."""
+    old = read_file_card(slug)
+    if old is None:
+        return []
+    _, new_refs = to_file_body(body)
+    gone = []
+    for page, clause in old["refs"]:
+        if (page, clause) in new_refs or ref_name(page, clause) in dropped or page not in idx.meta:
+            continue
+        if clause and clause not in clauses_of(idx, page):
+            continue
+        gone.append(ref_name(page, clause))
+    return gone
 
 
 def all_cards() -> list[str]:
@@ -180,14 +205,21 @@ def check_all(idx: Index | None = None) -> dict[str, list[str]]:
     return {slug: found for slug in all_cards() if (card := read_file_card(slug)) and (found := problems(card["body"], idx))}
 
 
-def write(slug: str, title: str, description: str, body: str, tags: list[str], audience: list[str], idx: Index) -> list[str]:
-    """Check the card and write it; the problems when it is not written."""
+def write(slug: str, title: str, description: str, body: str, tags: list[str], audience: list[str], idx: Index,
+          dropped: list[str] | None = None) -> list[str]:
+    """Check the card and write it; the problems when it is not written. `dropped`: citations of the old text that the new one
+    leaves out on purpose ('/regulations/x.md#5.3'), each as the agent named it."""
     if not SLUG.match(slug):
         return ["slug: lowercase latin letters, digits and hyphens, 3 to 80 characters"]
     if not title.strip() or not description.strip():
         return ["a title and a one-sentence description are needed"]
     if found := problems(body, idx):
         return found
+    if gone := lost(slug, body, dropped or [], idx):
+        return [f"the new text leaves out what the card cited, though the pages still say it: {', '.join(gone[:10])}. Keep the sentences "
+                "they support (read_card shows the old text), or, if they are wrong for this card, name them in `dropped`"]
+    if dropped and (old := read_file_card(slug)) and (really := [d for d in dropped if d in {ref_name(p, c) for p, c in old["refs"]}]):
+        print(f"  {slug}: dropped on purpose: {', '.join(really[:10])}", flush=True)
     text, refs = to_file_body(body.strip())
     sources = []
     for page in dict.fromkeys(p for p, _ in refs):
@@ -251,10 +283,12 @@ def _tools(idx_box: list, written: list):
         return read_file_card(slug) or f"no card {slug}"
 
     @tool
-    def write_card(slug: str, title: str, description: str, body: str, tags: list[str] | None = None, audience: list[str] | None = None) -> str:
-        """Write a card (new, or the whole new text of an existing one). audience: some of student, postgraduate,
-        applicant, teacher, staff, management, public. Returns 'written' or the problems to fix."""
-        found = write(slug, title, description, body, tags or [], audience or [], idx_box[0])
+    def write_card(slug: str, title: str, description: str, body: str, tags: list[str] | None = None, audience: list[str] | None = None,
+                   dropped: list[str] | None = None) -> str:
+        """Write a card (new, or the whole new text of an existing one: keep what it said). audience: some of student,
+        postgraduate, applicant, teacher, staff, management, public. dropped: citations of the old text you leave out on
+        purpose, as '/regulations/x.md#5.3' (a page without clauses: just its path). Returns 'written' or the problems to fix."""
+        found = write(slug, title, description, body, tags or [], audience or [], idx_box[0], dropped or [])
         if found:
             return "NOT written, fix these:\n" + "\n".join(f"- {p}" for p in found[:12])
         written.append(slug)
