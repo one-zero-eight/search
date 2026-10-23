@@ -71,7 +71,10 @@ def autopilot(url: str) -> None:
             print("   ", line)
 
 
-def show_commit() -> None:
+def show_commit(before: str) -> None:
+    if git("rev-parse", "HEAD") == before:
+        print("    no commit in this run (see the lines above)")
+        return
     print(git("log", "-1", "--format=%n    commit %h by %an%n%n%B"))
     for path in git("diff", "--name-only", "HEAD~1", "HEAD", "--", "wiki/guides", "wiki/regulations/mock-*").splitlines():
         print(f"    --- {path}")
@@ -96,16 +99,21 @@ def main() -> None:
         print("1. The mock site publishes a new document")
         publish(days=30, grant="50 000")
         print("2. The wiki's run: source mock -> page -> guide -> checks -> commit")
+        before = git("rev-parse", "HEAD")
         autopilot(url)
-        show_commit()
+        show_commit(before)
         print("3. The site publishes a new version: 30 days -> 14, 50 000 -> 70 000 roubles")
         time.sleep(1.5)  # (Last-Modified has a precision of a second)
         publish(days=14, grant="70 000")
+        before = git("rev-parse", "HEAD")
         autopilot(url)
-        show_commit()
+        show_commit(before)
     finally:
         server.shutdown()
         print("4. Back to `wiki`; the search index follows it")
+        # What the demo left uncommitted is thrown away first: `git switch` would carry it over to `wiki`.
+        git("checkout", "--", ".")
+        git("clean", "-fdq", "--", "wiki", "raw")
         git("switch", "-q", "wiki")
         if stashed:
             git("stash", "pop", "-q")

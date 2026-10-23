@@ -53,6 +53,7 @@ def rebuild(auto: bool = False, force: bool = False, topics_limit: int = 8) -> R
     if auto:
         print("== topics")
         topics.propose(limit=topics_limit, auto=True)  # the model proposes guides for new documents; those that pass every check are accepted
+        synth.load_accepted_topics()  # (synth read the accepted topics when it was imported: the new ones get their guide in this run)
     print("== synth")
     report.guides_written = synth.run(force=force)
     print(f"== {report.guides_written} guides written")
