@@ -21,7 +21,7 @@ from langchain.agents.middleware import (
     ToolErrorMiddleware,
     dynamic_prompt,
 )
-from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, SystemMessage, ToolMessage
+from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, ToolMessage
 from langchain_core.messages.utils import count_tokens_approximately
 from langchain_core.tools import BaseTool, tool
 from langchain.tools import ToolRuntime
@@ -105,9 +105,11 @@ def prompt_for(role: str | None):
 
     @dynamic_prompt
     def system_prompt(request: ModelRequest) -> str:
-        # Rendered on every model call so "today" stays correct in long-lived conversations.
-        now = datetime.now(settings.tz)
+        # The time of the question, not of the call: the clock passing a minute between two calls of one question changed
+        # the end of the prompt, and the model server read the whole conversation after it again (14k tokens, 21 s on the
+        # V100). A new question gets a new context, so "today" stays correct in long-lived conversations.
         context = request.runtime.context
+        now = context.asked_at if context else datetime.now(settings.tz)
         if role is None:
             parts = [roles.SUPERVISOR, BRIEF_PROMPT if context and context.brief else ""]
         else:
@@ -304,8 +306,10 @@ class RunGuardMiddleware(AgentMiddleware):
       Small models repeat a failing query instead of rewording it, and burn the whole budget that way.
     - A tool call the model wrote as text (`<tool_call>…`, a quirk of Qwen) is turned into a real one, or the model is asked
       again; the markup never reaches the user.
-    - On the last model call the tools are taken away and the model is told to answer, instead of the run being cut
-      off by the call limit with an error message as the "answer".
+    - On the last model call the model may not call tools (`tool_choice` "none") and is told to answer, instead of the run
+      being cut off by the call limit with an error message as the "answer". The tools stay in the request and the hint
+      goes after the conversation: the tool list and the system prompt are at the start of what the model server reads,
+      and changing them made it read the whole conversation again (12k tokens, 20 s on the V100).
     """
 
     def __init__(self, tool_names: Iterable[str] | None = None) -> None:
@@ -316,9 +320,8 @@ class RunGuardMiddleware(AgentMiddleware):
         used = sum(isinstance(m, AIMessage) for m in _this_run(request.messages))
         if used < settings.agent_max_model_calls - 1:
             return request
-        log.info("last model call of this run: tools removed, the model must answer")
-        base = request.system_message.text if request.system_message else ""
-        return request.override(tools=[], system_message=SystemMessage(content=f"{base}\n\n{FINAL_HINT}"))
+        log.info("last model call of this run: no tool calls, the model must answer")
+        return request.override(tool_choice="none", messages=[*request.messages, HumanMessage(FINAL_HINT)])
 
     def _duplicate(self, request: ToolCallRequest) -> ToolMessage | None:
         current = request.tool_call
@@ -351,7 +354,7 @@ class RunGuardMiddleware(AgentMiddleware):
     def _check(self, response, allow_calls: bool):
         """(response, ok): a tool call written as text is converted to a real one; ok is False if it cannot be.
 
-        On the last call of a run the tools are taken away (`allow_calls` False): markup there must not become a
+        On the last call of a run tool calls are not allowed (`allow_calls` False): markup there must not become a
         call, since the run would end on the call limit instead of an answer.
         """
         message = self._last(response)
@@ -364,7 +367,7 @@ class RunGuardMiddleware(AgentMiddleware):
 
     def wrap_model_call(self, request, handler):
         request = self._final(request)
-        allow = bool(request.tools)
+        allow = bool(request.tools) and request.tool_choice != "none"
         response, ok = self._check(handler(request), allow)
         if not ok:
             log.warning("unusable tool call markup in the model's answer, asking again")
@@ -374,7 +377,7 @@ class RunGuardMiddleware(AgentMiddleware):
 
     async def awrap_model_call(self, request, handler):
         request = self._final(request)
-        allow = bool(request.tools)
+        allow = bool(request.tools) and request.tool_choice != "none"
         response, ok = self._check(await handler(request), allow)
         if not ok:
             log.warning("unusable tool call markup in the model's answer, asking again")

@@ -6,7 +6,7 @@ kept compact because they go straight into the model context.
 
 import json
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta
 from typing import Literal
 
@@ -46,6 +46,9 @@ class AgentContext:
     brief: bool = False
     # The asker's study group (from InNoHassle or their own choice); None when unknown (the default `all`).
     study_group: str | None = None
+    # When the question was asked: the prompts say this time, so that it stays the same for all the model calls of one
+    # question (see core.prompt_for).
+    asked_at: datetime = field(default_factory=lambda: datetime.now(settings.tz))
 
 
 DEFAULT_EVENTS_WINDOW_DAYS = 14

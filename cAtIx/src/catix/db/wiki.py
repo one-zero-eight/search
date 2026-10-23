@@ -13,6 +13,7 @@ from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from datetime import date
 
+from catix.agent import tracing
 from catix.db import pg
 from catix.db.store import CANDIDATES, MAX_QUERIES, RERANK_QUERIES, _combine, _embed_all, _rrf, _words
 from catix.settings import settings
@@ -54,8 +55,8 @@ POOLS = (False, True)  # (not course programmes, course programmes)
 
 
 def _bm25(words: str, trust: list[str], courses: bool = False) -> list[int]:
-    with pg.connection() as conn:
-        return pg.column(
+    with tracing.span("bm25 course programmes" if courses else "bm25", "RETRIEVER", input=words) as done, pg.connection() as conn:
+        found = pg.column(
             conn,
             """SELECT id FROM wiki_chunks
                WHERE (search_text ||| %(q)s OR search_text::pdb.alias('search_text_en') ||| %(q)s) AND trust = ANY(%(t)s)
@@ -63,20 +64,24 @@ def _bm25(words: str, trust: list[str], courses: bool = False) -> list[int]:
                ORDER BY pdb.score(id) DESC LIMIT %(n)s""",
             {"q": words, "t": trust, "n": CANDIDATES, "c": COURSES, "courses": courses},
         )
+        done(len(found))
+        return found
 
 
 def _vector(vector: list[float], trust: list[str], courses: bool = False) -> list[int]:
-    with pg.connection() as conn, conn.transaction():
+    with tracing.span("vector course programmes" if courses else "vector", "RETRIEVER") as done, pg.connection() as conn, conn.transaction():
         conn.execute("SET LOCAL hnsw.iterative_scan = relaxed_order")  # a filter by trust must not leave too few rows
         # The default 40 found 0 to 2 of the true 30 nearest pieces once a filter left out the course programmes (measured
         # against an exact scan, 88k pieces); 200 finds 29-30 of them in under 10 ms.
         conn.execute("SET LOCAL hnsw.ef_search = 200")
-        return pg.column(
+        found = pg.column(
             conn,
             """SELECT e.chunk_id FROM wiki_chunk_embeddings e JOIN wiki_chunks c ON c.id = e.chunk_id
                WHERE c.trust = ANY(%(t)s) AND (c.path LIKE %(c)s) = %(courses)s ORDER BY e.embedding <=> %(v)s::vector LIMIT %(n)s""",
             {"v": vector, "t": trust, "n": CANDIDATES, "c": COURSES, "courses": courses},
         )
+        done(len(found))
+        return found
 
 
 HIT = """SELECT c.id, c.path, c.seq, c.heading, c.clause, c.sha, c.text, c.cites, p.title, p.type, p.trust, p.audience, p.resource,
@@ -158,8 +163,9 @@ def search(queries: str | list[str], *, trust: Collection[str] | None = None, li
     if not queries or not kinds:
         return []
     vectors = _embed_all(queries)
-    with ThreadPoolExecutor(max_workers=4) as executor:
-        jobs = [(i, executor.submit(_bm25, _words(q), kinds, pool), executor.submit(_vector, vectors[i], kinds, pool) if vectors else None)
+    with tracing.span("hybrid", "RETRIEVER", input=queries), ThreadPoolExecutor(max_workers=4) as executor:
+        jobs = [(i, executor.submit(tracing.carry(_bm25), _words(q), kinds, pool),
+                 executor.submit(tracing.carry(_vector), vectors[i], kinds, pool) if vectors else None)
                 for i, q in enumerate(queries) for pool in POOLS]
         per_query = [{item: (2 if original and i == 0 else 1) * value for item, value in _rrf(*[job.result() for job in pair if job]).items()}
                      for i, *pair in jobs]
@@ -168,7 +174,8 @@ def search(queries: str | list[str], *, trust: Collection[str] | None = None, li
     fused = _combine(per_query, max(limit, settings.rerank_candidates) if reranking else limit)
     if not fused:
         return []
-    hits = _hits(fused)
+    with tracing.span("load pieces", input=len(fused)):
+        hits = _hits(fused)
     # An earlier version of a document is left out unless a query names its year: the helper cited the admission rules of
     # 2024/2025 next to those of 2026/2027 even with the warning that they are replaced.
     asked = " ".join(queries)
@@ -182,8 +189,8 @@ def _rerank(queries: list[str], hits: list[WikiHit], limit: int) -> list[WikiHit
     documents = [f"{h.title}\n{h.heading}\n{h.text[:1000]}" for h in hits]
     queries = queries[:RERANK_QUERIES]
     try:
-        with ThreadPoolExecutor(max_workers=len(queries)) as executor:
-            scores = list(executor.map(lambda q: pg.rerank(q, documents), queries))
+        with tracing.span("rerank", "RERANKER", input=queries, documents=len(documents)), ThreadPoolExecutor(max_workers=len(queries)) as executor:
+            scores = list(executor.map(tracing.carry(lambda q: pg.rerank(q, documents)), queries))
     except Exception:  # noqa: BLE001 - search must keep working without the reranker
         log.warning("reranker server unavailable, keeping the hybrid ranking", exc_info=True)
         return hits[:limit]

@@ -25,7 +25,7 @@ class Req:
 
     def __init__(self, ai_messages: int, system="base prompt"):
         self.messages = [HumanMessage("вопрос"), *[AIMessage(content="", tool_calls=[SEARCH]) for _ in range(ai_messages)]]
-        self.tools, self.system_message = TOOLS, types.SimpleNamespace(text=system)
+        self.tools, self.system_message, self.tool_choice = TOOLS, types.SimpleNamespace(text=system), None
 
     def override(self, **changes):
         clone = Req(0)
@@ -49,13 +49,17 @@ def test_a_final_answer_is_not_followed_by_a_forced_search():
     assert result.result[-1] is answer and not answer.tool_calls
 
 
-def test_the_last_call_has_no_tools_and_an_order_to_answer():
+def test_the_last_call_may_not_call_tools_and_has_an_order_to_answer():
+    """The tools and the system prompt stay as they were (the start of the request is the model server's cache): the
+    call only forbids tool calls and adds the order after the conversation."""
     guard = RunGuardMiddleware()
     early = guard._final(Req(1))
-    assert early.tools == TOOLS and early.system_message.text == "base prompt"
-    last = guard._final(Req(core.settings.agent_max_model_calls - 1))
-    assert last.tools == []
-    assert_test(LLMTestCase(input="", actual_output=last.system_message.content), [ContainsAll(["base prompt", "You have used your tool budget"], name="OrderToAnswer")])
+    assert early.tools == TOOLS and early.system_message.text == "base prompt" and early.tool_choice is None
+    before = Req(core.settings.agent_max_model_calls - 1)
+    last = guard._final(before)
+    assert last.tools == TOOLS and last.system_message.text == "base prompt" and last.tool_choice == "none"
+    assert last.messages[:-1] == before.messages
+    assert_test(LLMTestCase(input="", actual_output=str(last.messages[-1].content)), [ContainsAll(["You have used your tool budget"], name="OrderToAnswer")])
 
 
 def test_a_repeated_tool_call_is_not_executed_again():

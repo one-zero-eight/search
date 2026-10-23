@@ -2,14 +2,17 @@
 the root span of one question, and the users' 👍/👎 on an answer are annotations on that span (`score_feedback`).
 
 The LangChain/LangGraph runs are traced by the OpenInference instrumentation, which sees every run in the process: model calls,
-tools, middleware. The root span groups them under one entry with the question, the answer, the session and the user. Without
+tools, middleware. The root span groups them under one entry with the question, the answer, the session and the user. `span`
+adds the steps inside a tool (BM25, vectors, the reranker), so that a trace shows where a search spends its time. Without
 PHOENIX_ENDPOINT everything here does nothing.
 """
 
 import contextlib
+import contextvars
+import json
 import logging
 import time
-from collections.abc import Iterator
+from collections.abc import Callable, Iterator
 from dataclasses import dataclass, field
 
 from catix.settings import settings
@@ -71,6 +74,63 @@ def question(thread_id: str, user_id: str | None, text: str) -> Iterator[Questio
     with _provider.get_tracer("catix").start_as_current_span("question", attributes=attributes) as span:
         context = span.get_span_context()
         yield Question(id=format(context.span_id, "016x"), trace_id=format(context.trace_id, "032x"), _span=span)
+
+
+_step: contextvars.ContextVar = contextvars.ContextVar("catix_step", default=None)
+
+
+def _parent():
+    """The span a step belongs to: the step it is inside of, else the LangChain run (a tool) it is called from. The
+    OpenInference spans of LangChain runs are not the current OpenTelemetry span, so a step would hang off the question."""
+    if _provider is None:
+        return None
+    from openinference.instrumentation.langchain import get_current_span
+    from opentelemetry import trace
+
+    for candidate in (_step.get(), get_current_span(), trace.get_current_span()):
+        if candidate is not None and candidate.is_recording():
+            return candidate
+    return None
+
+
+@contextlib.contextmanager
+def span(name: str, kind: str = "CHAIN", input: object = None, **attributes) -> Iterator[Callable[[object], None]]:
+    """`with tracing.span("bm25", "RETRIEVER", input=words) as done: ...; done(result)`: one step of a search as a child of
+    the tool that runs it, with its time. `done` records what the step gave (a count or a short value).
+
+    Only inside a traced question: the worker's embeddings and the experiments make no traces of their own."""
+    parent = _parent()
+    if parent is None:
+        yield lambda _: None
+        return
+    from opentelemetry import trace
+
+    attrs = {"openinference.span.kind": kind, **{k: v for k, v in attributes.items() if v is not None}}
+    if input is not None:
+        attrs["input.value"] = input if isinstance(input, str) else json.dumps(input, ensure_ascii=False, default=str)
+    with _provider.get_tracer("catix").start_as_current_span(name, context=trace.set_span_in_context(parent), attributes=attrs) as current:
+        token = _step.set(current)
+        try:
+            yield lambda output: current.set_attribute(
+                "output.value", output if isinstance(output, str) else json.dumps(output, ensure_ascii=False, default=str)
+            )
+        finally:
+            _step.reset(token)
+
+
+def carry(fn: Callable) -> Callable:
+    """`fn` that runs inside the current step in another thread: a thread pool does not carry the context, and the steps
+    run there would hang off nothing."""
+    parent = _parent()
+
+    def run(*args, **kwargs):
+        token = _step.set(parent)
+        try:
+            return fn(*args, **kwargs)
+        finally:
+            _step.reset(token)
+
+    return run
 
 
 def log_status() -> None:

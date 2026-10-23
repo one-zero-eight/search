@@ -10,6 +10,7 @@ from psycopg import Connection
 from psycopg.rows import class_row, dict_row
 from psycopg_pool import ConnectionPool
 
+from catix.agent import tracing
 from catix.settings import settings
 
 T = TypeVar("T")
@@ -92,22 +93,26 @@ def connect() -> Connection:
 def embed(texts: list[str]) -> list[list[float]]:
     """Vectors for a batch of texts from the embeddings server, in the same order."""
     texts = [t[: settings.embeddings_max_chars].strip() or " " for t in texts]
-    response = _http.post(
-        f"{str(settings.embeddings_route).rstrip('/')}/embeddings",
-        json={"input": texts, "model": settings.embeddings_model},
-    )
-    response.raise_for_status()
+    with tracing.span("embed", "EMBEDDING", input=texts, **{"embedding.model_name": settings.embeddings_model}):
+        response = _http.post(
+            f"{str(settings.embeddings_route).rstrip('/')}/embeddings",
+            json={"input": texts, "model": settings.embeddings_model},
+        )
+        response.raise_for_status()
     data = sorted(response.json()["data"], key=lambda item: item["index"])
     return [item["embedding"] for item in data]
 
 
 def rerank(query: str, documents: list[str]) -> list[float]:
     """Relevance of every document to the query from the reranker server (llama.cpp --reranking), in the same order."""
-    response = _http.post(
-        f"{str(settings.reranker_route).rstrip('/')}/rerank",
-        json={"model": settings.reranker_model, "query": query, "documents": documents},
-    )
-    response.raise_for_status()
+    with tracing.span("rerank request", "RERANKER", input=query, **{"reranker.model_name": settings.reranker_model,
+                                                                      "reranker.query": query, "documents": len(documents),
+                                                                      "document_chars": sum(map(len, documents))}):
+        response = _http.post(
+            f"{str(settings.reranker_route).rstrip('/')}/rerank",
+            json={"model": settings.reranker_model, "query": query, "documents": documents},
+        )
+        response.raise_for_status()
     scores = [0.0] * len(documents)
     for item in response.json()["results"]:
         scores[item["index"]] = item["relevance_score"]

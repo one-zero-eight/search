@@ -17,17 +17,17 @@ x-app: &app
   volumes:
     - catix_data:/app/data
   extra_hosts:
-    - "host.docker.internal:host-gateway"   # services on the host, e.g. Langfuse at http://host.docker.internal:3000
+    - "host.docker.internal:host-gateway" # services on the host, e.g. Langfuse at http://host.docker.internal:3000
   logging:
     driver: json-file
-    options: {max-size: "20m", max-file: "5"}
+    options: { max-size: "20m", max-file: "5" }
   depends_on:
-    migrate: {condition: service_completed_successfully}
-    redis: {condition: service_healthy}
+    migrate: { condition: service_completed_successfully }
+    redis: { condition: service_healthy }
 
 services:
   db:
-    image: paradedb/paradedb:0.26.1-pg17   # pinned: the index syntax changed between ParadeDB versions
+    image: paradedb/paradedb:0.26.1-pg17 # pinned: the index syntax changed between ParadeDB versions
     restart: unless-stopped
     environment:
       POSTGRES_USER: ctx
@@ -43,7 +43,7 @@ services:
       retries: 20
     logging:
       driver: json-file
-      options: {max-size: "20m", max-file: "5"}
+      options: { max-size: "20m", max-file: "5" }
 
   redis:
     image: redis:7-alpine
@@ -63,7 +63,7 @@ services:
     restart: "no"
     command: ["catix-db", "init"]
     depends_on:
-      db: {condition: service_healthy}
+      db: { condition: service_healthy }
 
   # Puts the wiki into the database: only pages that changed since the last time, then exits. The wiki is a checkout of
   # its own branch `wiki` next to the code (WIKI_DIR, see DEPLOY.md 2a), committed by the wiki's own run; scripts/wiki-pull.sh
@@ -84,13 +84,14 @@ services:
 
   maxbot:
     <<: *app
+    profiles: ["maxbot"]
     command: ["catix-maxbot"]
 
   worker:
     <<: *app
     command: ["catix-worker"]
     ports:
-      - "127.0.0.1:8090:8090"   # personal calendars (/users/me.ics); put an HTTPS reverse proxy (Caddy, nginx) in front of it
+      - "127.0.0.1:8090:8090" # personal calendars (/users/me.ics); put an HTTPS reverse proxy (Caddy, nginx) in front of it
 
   # Reads chats with a Telegram account: start it only after `login` (DEPLOY.md), the session lives in the data volume.
   userbot:
@@ -105,7 +106,7 @@ services:
     image: alpine:3.20
     restart: unless-stopped
     volumes:
-      - ./secrets/ssh:/root/.ssh:ro   # id_ed25519 (chmod 600) and known_hosts of the GPU server
+      - ./secrets/ssh:/root/.ssh:ro # id_ed25519 (chmod 600) and known_hosts of the GPU server
     command: >
       sh -c "apk add --no-cache openssh-client >/dev/null &&
       exec ssh -N -o ServerAliveInterval=30 -o ServerAliveCountMax=3 -o ExitOnForwardFailure=yes

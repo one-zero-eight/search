@@ -35,8 +35,11 @@ class Settings(BaseSettings):
     abuse_forget_days: int = Field(7, gt=0, description="After this long without a pause the next one is short again.")
     agent_max_model_calls: int = Field(6, gt=0, description="Model calls per question, including tool rounds.")
     # Old tool results dominate the context of long chats; above this size (approximate tokens)
-    # all but the last `agent_keep_tool_results` are replaced by a placeholder.
-    agent_context_trigger_tokens: int = Field(6000, gt=0)
+    # all but the last `agent_keep_tool_results` are replaced by a placeholder. Every replacement changes the start of the
+    # context, and the model server reads all after it again (~750 tokens/s on the V100): at 6000 a question with two
+    # searches and two reads was cut on each later step, ~15 s of re-reading. A helper makes at most
+    # `agent_max_model_calls` calls, so its context stays bounded without it; this is a safety net.
+    agent_context_trigger_tokens: int = Field(16000, gt=0)
     agent_keep_tool_results: int = Field(3, ge=0)
     # A long conversation is summarized before the next question when the questions and answers of it (tool results are
     # not counted: they are cut above) reach this many tokens (approximate: Russian is about 1.8x more in reality), so
@@ -110,7 +113,11 @@ class Settings(BaseSettings):
     # query and the best few go to the model.
     reranker_route: HttpUrl | None = None
     reranker_model: str = "bge-reranker-v2-m3"
-    rerank_candidates: int = Field(60, gt=0)
+    rerank_candidates: int = Field(30, gt=0)
+    # The chat search (store.py) does without the reranker by default: on experiments/eval_search.py the fused ranking
+    # alone found every answer in the first 10 (the reranker's cutoff dropped one) in 0.05 s instead of 0.85 s, and the
+    # agent reads all 15 hits anyway. The wiki search always reranks: without it hit@5 falls from 91% to 75%.
+    rerank_chats: bool = True
     # Messages the reranker scores below this are dropped, even if fewer than the limit are left (none at all is a
     # valid answer: nothing relevant). The scale is the server's own (llama.cpp gives raw scores, not 0..1), so
     # pick the value from the scores the search logs at DEBUG level. None = no cutoff.

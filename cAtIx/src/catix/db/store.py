@@ -12,6 +12,7 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from catix import userbot_config
+from catix.agent import tracing
 from catix.common import courses
 from catix.db import pg
 from catix.db.rows import ChatRow, MessageHit, SourceRow
@@ -278,8 +279,10 @@ def _bm25(words: str, ids: list[int] | None, date_from: str | None, date_to: str
     sql = f"""SELECT id FROM messages
               WHERE (text ||| %(q)s OR text::pdb.alias('text_en') ||| %(q)s){filters}
               ORDER BY pdb.score(id) DESC LIMIT %(n)s"""
-    with pg.connection() as conn:
-        return pg.column(conn, sql, {"q": words, "n": CANDIDATES, **params})
+    with tracing.span("bm25", "RETRIEVER", input=words) as done, pg.connection() as conn:
+        found = pg.column(conn, sql, {"q": words, "n": CANDIDATES, **params})
+        done(len(found))
+        return found
 
 
 def _embed_all(queries: list[str]) -> list[list[float]]:
@@ -298,10 +301,12 @@ def _vector(vector: list[float], ids: list[int] | None, date_from: str | None, d
     sql = f"""SELECT e.message_id AS id FROM message_embeddings e{join}
               WHERE true{filters}
               ORDER BY e.embedding <=> %(v)s::vector LIMIT %(n)s"""
-    with pg.connection() as conn, conn.transaction():
+    with tracing.span("vector", "RETRIEVER") as done, pg.connection() as conn, conn.transaction():
         # With a selective filter (the chats a user may see) HNSW would return too few rows; this keeps scanning.
         conn.execute("SET LOCAL hnsw.iterative_scan = relaxed_order")
-        return pg.column(conn, sql, {"v": vector, "n": CANDIDATES, **params})
+        found = pg.column(conn, sql, {"v": vector, "n": CANDIDATES, **params})
+        done(len(found))
+        return found
 
 
 def _words(query: str) -> str:
@@ -387,23 +392,23 @@ def search(
         return []
 
     vectors = _embed_all(queries)
-    with ThreadPoolExecutor(max_workers=4) as executor:
+    with tracing.span("hybrid", "RETRIEVER", input=queries), ThreadPoolExecutor(max_workers=4) as executor:
         jobs = []  # per query: (words job, vector job or None)
         for i, q in enumerate(queries):
             jobs.append(
                 (
-                    executor.submit(_bm25, _words(q), ids, date_from, date_to),
-                    executor.submit(_vector, vectors[i], ids, date_from, date_to) if vectors else None,
+                    executor.submit(tracing.carry(_bm25), _words(q), ids, date_from, date_to),
+                    executor.submit(tracing.carry(_vector), vectors[i], ids, date_from, date_to) if vectors else None,
                 )
             )
         per_query = [_rrf(*[job.result() for job in pair if job]) for pair in jobs]
     if original:  # The first query is the original: its scores count twice.
         per_query[0] = {item: 2 * value for item, value in per_query[0].items()}
-    reranking = settings.reranker_route is not None
+    reranking = settings.reranker_route is not None and settings.rerank_chats
     fused = _combine(per_query, max(limit, settings.rerank_candidates) if reranking else limit)
     if not fused:
         return []
-    with pg.connection() as conn:
+    with tracing.span("load messages", input=len(fused)), pg.connection() as conn:
         rows = pg.rows(
             conn,
             MessageHit,
@@ -431,8 +436,8 @@ def _rerank(queries: list[str], hits: list[MessageHit], limit: int) -> list[Mess
     documents = [f"{h.parent_text[:200]}\n{h.text[:600]}" if h.parent_text else h.text[:600] for h in hits]
     queries = queries[:RERANK_QUERIES]  # The reranker server works through requests one by one: each query costs ~1 s.
     try:
-        with ThreadPoolExecutor(max_workers=len(queries)) as executor:
-            scores = list(executor.map(lambda q: pg.rerank(q, documents), queries))
+        with tracing.span("rerank", "RERANKER", input=queries, documents=len(documents)), ThreadPoolExecutor(max_workers=len(queries)) as executor:
+            scores = list(executor.map(tracing.carry(lambda q: pg.rerank(q, documents)), queries))
     except Exception:  # noqa: BLE001 - search must keep working without the reranker
         log.warning("reranker server unavailable, keeping the hybrid ranking", exc_info=True)
         return hits[:limit]

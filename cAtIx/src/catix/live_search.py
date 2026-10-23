@@ -18,6 +18,7 @@ from datetime import datetime
 
 import redis
 
+from catix.agent import tracing
 from catix.db import pg
 from catix.settings import settings
 
@@ -107,6 +108,8 @@ def search(queries: list[str], chat_ids: list[int], date_from: str | None = None
     words = keywords(queries)
     if not words or not chat_ids:
         return [], None
-    hits, problem = request(chat_ids, words, date_from, date_to)
+    with tracing.span("userbot search", "RETRIEVER", input=words, chats=len(chat_ids)) as done:
+        hits, problem = request(chat_ids, words, date_from, date_to)
+        done(problem or len(hits))
     unique = list({(h.chat_id, h.msg_id): h for h in hits}.values())
     return rank(queries, unique, settings.live_search_results), problem
