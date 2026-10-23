@@ -24,3 +24,6 @@ raw/rpd/*
 
 # The state and the lock of the wiki's run
 .autopilot.*
+
+# Obsidian opened on the root of the checkout instead of wiki/
+.obsidian/
