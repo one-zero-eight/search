@@ -60,9 +60,10 @@ def test_a_cohort_whose_links_are_dead_gives_way_to_the_one_before(monkeypatch):
     cell = "магистратуры: 09.04.01 Информатика; Направленность программы (профиль) – Кибербезопасность* — {} — Рабочие программы дисциплин"
     listed = [{"url": f"https://x/{y}-{s}.7z", "ext": "7z", "title": f"{s} семестр", "context": cell.format(y)} for y, n in ((2025, 3), (2026, 4)) for s in range(1, n + 1)]
     monkeypatch.setattr(rpd.sveden, "load", lambda path: listed)
-    assert {a["year"] for a in rpd.archives()} == {2026}
+    assert {a["year"] for a in rpd.archives()} == {2025, 2026}  # every cohort by default (WIKI_RPD_ALL_YEARS)
+    assert {a["year"] for a in rpd.archives(all_years=False)} == {2026}
     dead = {f"https://x/2026-{s}.7z" for s in (1, 2, 3)}
-    assert {a["year"] for a in rpd.archives(dead=dead)} == {2025}
+    assert {a["year"] for a in rpd.archives(all_years=False, dead=dead)} == {2025}
 
 
 def test_dates_and_stray_numbers_leave_a_name_from_the_file():

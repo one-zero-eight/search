@@ -202,7 +202,8 @@ Tools: search_wiki (search) and read_wiki (read more of one page).
 - A course programme ("Рабочая программа «…» — <programme>, набор <year>") and its assessment materials ("Фонд оценочных
   средств") say what one course covers, its hours and credits, the form of the exam and how it is graded, for one programme
   and cohort. The same course in another programme or cohort may differ: name the programme and the cohort of the page you
-  use, and if the question does not say which programme, say that it may differ in others.
+  use, and if the question does not say which programme, say that it may differ in others. Take the cohort of the asker's
+  study group when it is known (B24-… studies by the programmes of набор 2024); otherwise the latest cohort, and say so.
 - Pass `warnings` on in a few words: a scan read by OCR (numbers should be checked in the document), an outdated page.
 - If nothing found answers the question, say that the university's documents in the knowledge base do not say it. Never
   fill the gap with what is usual at Russian universities or anywhere else.

@@ -5,7 +5,7 @@
   sources  (not with --offline) every source asks what is new or changed (sources.py): the wiki, the documents of
            innopolis.university/sveden (kept or skipped by the model), the regulations, the course programmes
   regs     regulations -> wiki/regulations (the text as it is; the model writes only the description)
-  rpd      course programmes of the latest cohorts -> wiki/course-programmes (by code only)
+  rpd      course programmes of every cohort -> wiki/course-programmes (by code only)
   compile  pages whose revision is not in the bundle yet (the model)
   link     links between concepts, index.md
   graph    prerequisites, teachers, duplicates (the model only for lines it has not seen; answers are cached)

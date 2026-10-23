@@ -1,6 +1,6 @@
 """Course programmes (РПД, рабочие программы дисциплин) from the archives of innopolis.university/sveden/education.
 
-    catix-wiki rpd fetch [--all-years] [--limit N]   # the archives of the latest cohort of every programme -> raw/rpd/ (text and meta of every PDF)
+    catix-wiki rpd fetch [--all-years] [--limit N]   # the archives of every cohort (or the latest, see below) -> raw/rpd/ (text and meta of every PDF)
     catix-wiki rpd compile [--all-years] # raw/rpd -> wiki/course-programmes/<key>.md
     catix-wiki rpd refresh               # ask the site (HEAD) whether an archive read before changed; fetch reads a changed one again
     catix-wiki rpd status                # archives found and taken, programmes read
@@ -9,8 +9,8 @@ The site keeps one 7z archive per programme, cohort and semester (sveden.py list
 Every PDF inside is one course: its text is kept as it is (as for the regulations, the program only turns the layout into
 markdown), no model is asked, the title and the description are made by code from the header of the programme and the
 place of the archive. Section 6 (the classrooms and equipment of the university) is the same in every programme and is left out.
-By default only the latest cohort of a programme is taken: its students and the applicants ask about it; earlier cohorts
-study by their own programmes (--all-years).
+Every cohort is taken (WIKI_RPD_ALL_YEARS, on by default): a student studies by the programme of their own cohort. With it off
+only the latest cohort of a programme is taken (the applicants ask about it), and --all-years takes every one for one run.
 """
 
 import hashlib
@@ -26,6 +26,7 @@ from pathlib import Path
 
 import httpx
 
+from catix.settings import settings
 from catix.wiki import regulations, sveden
 from catix.wiki.compile import BUNDLE, PRODUCER, yaml_value
 from catix.wiki.paths import RAW
@@ -51,15 +52,15 @@ def latin(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", out).strip("-")
 
 
-def archives(all_years: bool = False, dead: set[str] = frozenset()) -> list[dict]:
+def archives(all_years: bool | None = None, dead: set[str] = frozenset()) -> list[dict]:
     """The РПД archives that sveden.py found, with the programme and the cohort of their cell; only the latest cohort of each
-    programme unless `all_years`. A cohort most of whose links are `dead` (404 on the site: every master's programme of 2026
+    programme unless `all_years` (default: WIKI_RPD_ALL_YEARS). A cohort most of whose links are `dead` (404 on the site: every master's programme of 2026
     once) does not count: the one before it is taken."""
     found = []
     for d in sveden.load(sveden.INDEX):
         if d["ext"] in ("7z", "zip") and (m := CELL.match(d.get("context", ""))):
             found.append({"url": d["url"], "title": d["title"], "programme": m["programme"], "year": int(m["year"]), "ext": d["ext"]})
-    if all_years:
+    if settings.wiki_rpd_all_years if all_years is None else all_years:
         return found
     alive, total, latest = Counter(), Counter(), Counter()
     for a in found:
@@ -143,7 +144,7 @@ def save(index: dict) -> None:
     INDEX.write_text(json.dumps(index, ensure_ascii=False, indent=1, sort_keys=True), encoding="utf-8")
 
 
-def fetch(all_years: bool = False, limit: int | None = None) -> int:
+def fetch(all_years: bool | None = None, limit: int | None = None) -> int:
     """Download the archives not read yet, unpack them and keep the text of every programme inside. Polite: one archive every
     `regulations.PAUSE` seconds, stop after `regulations.MAX_FAILURES` network errors in a row."""
     work = ROOT / "archives"
@@ -250,7 +251,7 @@ def refresh() -> int:
     return found
 
 
-def compile_all(all_years: bool = False) -> None:
+def compile_all(all_years: bool | None = None) -> None:
     """Every read programme of the archives taken now -> wiki/course-programmes/<key>.md, by code only (no model). A cohort
     that is no longer taken (a newer one came, or the one before replaced dead links) loses its pages."""
     out = BUNDLE / FOLDER
@@ -299,7 +300,8 @@ def compile_all(all_years: bool = False) -> None:
 def status() -> None:
     index = load()
     taken = archives(dead=dead_links(index))
-    print(f"{len(archives(all_years=True))} archives of course programmes on the site, {len(taken)} of the latest cohorts")
+    print(f"{len(archives(all_years=True))} archives of course programmes on the site, {len(taken)} taken "
+          f"({'every cohort' if settings.wiki_rpd_all_years else 'the latest cohorts'})")
     print(f"{len({c['archive'] for c in index.values()})} archives read: {sum('sha256' in c for c in index.values())} programmes, "
           f"{sum('skipped' in c for c in index.values())} files skipped")
     for programme, n in Counter(c["programme"] for c in index.values() if "sha256" in c).most_common():
@@ -309,9 +311,9 @@ def status() -> None:
 def main() -> None:
     cmd, *args = sys.argv[2:] or ["status"]
     if cmd == "fetch":
-        fetch(all_years="--all-years" in args, limit=int(args[args.index("--limit") + 1]) if "--limit" in args else None)
+        fetch(all_years=True if "--all-years" in args else None, limit=int(args[args.index("--limit") + 1]) if "--limit" in args else None)
     elif cmd == "compile":
-        compile_all(all_years="--all-years" in args)
+        compile_all(all_years=True if "--all-years" in args else None)
     elif cmd == "refresh":
         refresh()
     elif cmd == "status":

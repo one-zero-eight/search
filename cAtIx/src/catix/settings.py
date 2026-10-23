@@ -163,6 +163,9 @@ class Settings(BaseSettings):
     wiki_min_hit5: float = Field(0.85, ge=0, le=1)
     # A web listing of documents that stands in for the university's site (wiki/mock.py): the source `mock` of the wiki's run.
     wiki_mock_site: str | None = None
+    # Course programmes (rpd.py) of every cohort on the site, not only the latest one of each programme: a student of
+    # 2024 studies by the programme of 2024.
+    wiki_rpd_all_years: bool = True
 
     # Old SQLite file, only read by `catix-db migrate`.
     messages_db: Path = Path("raw/telegram.db")
