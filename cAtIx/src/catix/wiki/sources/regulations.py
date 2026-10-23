@@ -24,7 +24,7 @@ import httpx
 from urllib.parse import unquote
 
 from catix.settings import settings
-from catix.wiki.compile import AUDIENCES, BUNDLE, PRODUCER, _llm, clean_audience, clean_tags, front_of, yaml_value
+from catix.wiki.compile import AUDIENCES, BUNDLE, PRODUCER, clean_audience, clean_tags, front_of, _llm, model_name, yaml_value
 from catix.wiki.paths import RAW
 
 ROOT = RAW / "regulations"
@@ -439,7 +439,7 @@ def compile_all() -> None:
         front = ["---", "type: regulation", f"title: {yaml_value(title)}", f"description: {yaml_value(desc)}", f"resource: {yaml_value(meta['url'])}", f"tags: {yaml_value(tags)}", f"audience: {yaml_value(audience)}",
                  "source_kind: official-document", "language: ru", f"section: {yaml_value(meta.get('section', 'document'))}",
                  "sources:", f"  - resource: {yaml_value(meta['url'])}", f"    id: {yaml_value(meta['sha256'][:12])}", f"    title: {yaml_value(title)}", f"    last_modified: {yaml_value(issued)}",
-                 "generated:", f"  by: {yaml_value(f'{PRODUCER} regulations ({settings.llm_model}: description, tags and audience only)')}", f"  at: {yaml_value(meta['fetched_at'])}",
+                 "generated:", f"  by: {yaml_value(f'{PRODUCER} regulations ({model_name()}: description, tags and audience only)')}", f"  at: {yaml_value(meta['fetched_at'])}",
                  f"extraction: {yaml_value(meta['method'])}", "status: draft",
                  *(['review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"'] if ocr else []), "---"]
         page = "\n".join(front) + f"\n\n# {title}\n\n{body}\n\n# Citations\n\n1. [{title}]({meta['url']}), file {meta['sha256'][:12]}\n"

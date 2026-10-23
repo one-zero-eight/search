@@ -16,6 +16,12 @@ class Settings(BaseSettings):
     # llama.cpp serves whatever model it was started with, the name is informational.
     llm_model: str = "local"
     llm_max_tokens: int = Field(4096, gt=0)
+    # The model that builds the wiki (src/catix/wiki/: page conversion, descriptions, topics, guides), when it is not the
+    # agent's: any OpenAI-compatible API, e.g. a larger model the wiki can wait for. Unset: LLM_ROUTE and LLM_MODEL.
+    # The wiki sends it only public documents of the university, never the chats.
+    wiki_llm_route: HttpUrl | None = None
+    wiki_llm_model: str | None = None
+    wiki_llm_api_key: SecretStr | None = None
     llm_temperature: float = Field(0.3, ge=0)
     # Qwen "thinking" before answering: slightly more careful, but 2-10x slower on this hardware
     # and sometimes runs out of tokens with an empty answer.

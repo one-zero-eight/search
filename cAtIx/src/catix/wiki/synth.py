@@ -17,7 +17,7 @@ import sys
 from collections import defaultdict
 from datetime import datetime, timezone
 
-from catix.wiki.compile import AUDIENCES, BUNDLE, _llm, clean_tags, drop_key, front_of, yaml_value
+from catix.wiki.compile import AUDIENCES, BUNDLE, clean_tags, drop_key, front_of, _llm, model_name, yaml_value
 from catix.wiki.graph import BLOCK, Index, split_front
 from catix.wiki.paths import RAW, TOPICS_FILE
 
@@ -341,7 +341,7 @@ def write_page(idx: Index, slug: str, title: str, tags: list[str], builder, forc
             stale.append(str(meta["stale_after"]))
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
     front = ["---", "type: guide", f"title: {yaml_value(title)}", f"description: {yaml_value(brief)}", f"tags: {yaml_value(clean_tags(tags))}", "sources:", *srcs,
-             "generated:", f'  by: "{PRODUCER} (model, thinking)"', f"  at: {yaml_value(now)}", "status: draft", f'evidence_sha: "{sha}"',
+             "generated:", f"  by: {yaml_value(f'{PRODUCER} ({model_name()}, thinking)')}", f"  at: {yaml_value(now)}", "status: draft", f'evidence_sha: "{sha}"',
              *([f"stale_after: {yaml_value(min(stale))}"] if stale else []),  # as stale as its oldest source
              *([f"review: {yaml_value(issues[:8])}"] if issues else []), "---"]
     page = "\n".join(front) + f"\n\n# {title}\n\n{body}\n\n{details}\n\n# Citations\n\n" + "\n".join(citations) + "\n"

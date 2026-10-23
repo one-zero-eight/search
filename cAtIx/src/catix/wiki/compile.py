@@ -101,16 +101,26 @@ def _llm(system: str, user: str, think: bool = False, max_tokens: int = 8000) ->
     raise AssertionError("unreachable")
 
 
+def model_name() -> str:
+    """The model that builds the wiki: WIKI_LLM_MODEL, else the agent's (LLM_MODEL). Written into `generated.by`."""
+    return settings.wiki_llm_model or settings.llm_model
+
+
 def _llm_once(system: str, user: str, think: bool = False, max_tokens: int = 8000) -> tuple[str, str]:
+    route = settings.wiki_llm_route or settings.llm_route
+    body = {
+        "model": model_name(),
+        "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
+        "temperature": 0,
+        "max_tokens": max_tokens,
+    }
+    if settings.wiki_llm_route is None:  # llama.cpp's switch for Qwen's thinking; an API has its own (or a model name)
+        body["chat_template_kwargs"] = {"enable_thinking": think}
+    key = settings.wiki_llm_api_key.get_secret_value() if settings.wiki_llm_api_key else None
     resp = httpx.post(
-        f"{str(settings.llm_route).rstrip('/')}/chat/completions",
-        json={
-            "model": settings.llm_model,
-            "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
-            "temperature": 0,
-            "max_tokens": max_tokens,
-            "chat_template_kwargs": {"enable_thinking": think},
-        },
+        f"{str(route).rstrip('/')}/chat/completions",
+        json=body,
+        headers={"Authorization": f"Bearer {key}"} if key else None,
         timeout=900,
     )
     resp.raise_for_status()
@@ -291,7 +301,7 @@ def compile_page(pid: str, entry: dict, aliases: list[str]) -> Path | None:
         f"    title: {yaml_value(page['title'])}",
         f"    last_modified: {yaml_value(page['timestamp'])}",
         "generated:",
-        f"  by: {yaml_value(f'{PRODUCER} ({settings.llm_model})')}",
+        f"  by: {yaml_value(f'{PRODUCER} ({model_name()})')}",
         f"  at: {yaml_value(now)}",
         "status: draft",
         *(["review: table positions in the text could not be kept"] if lost else []),
