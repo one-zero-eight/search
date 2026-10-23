@@ -14,12 +14,12 @@ import hashlib
 import json
 import re
 import sys
-from pathlib import Path
 from collections import defaultdict
 from datetime import datetime, timezone
 
 from catix.wiki.compile import AUDIENCES, BUNDLE, _llm, clean_tags, drop_key, front_of, yaml_value
 from catix.wiki.graph import BLOCK, Index, split_front
+from catix.wiki.paths import RAW, TOPICS_FILE
 
 PRODUCER = "catix-wiki-synth/0.1"
 # The server shares one context pool between its slots (llama.cpp --kv-unified), and the RAG agent needs ~18k tokens per request.
@@ -405,6 +405,11 @@ def run(names: list[str] | None = None, force: bool = False) -> int:
     return written
 
 
+def under_review() -> list[str]:
+    """Guides whose last draft failed the code check twice (written with `review:`): a person must read them."""
+    return sorted(p.stem for p in (BUNDLE / "guides").glob("*.md") if front_of(p.read_text(encoding="utf-8")).get("review"))
+
+
 def main() -> None:
     args = sys.argv[2:]
     if args[:1] == ["claims"]:
@@ -554,9 +559,7 @@ Answer with one line: CLAUSES: numbers separated by commas, or CLAUSES: none"""
 
 def select_clauses(idx: Index, rel: str, brief: str, n: int = 10) -> list[str]:
     """Clause numbers of a regulation that the model picks for a question; only numbers that exist in the document count. Cached per document version."""
-    from pathlib import Path
-
-    cache_path = Path(__file__).resolve().parents[3] / "raw" / "regulations" / "selection-cache.json"
+    cache_path = RAW / "regulations" / "selection-cache.json"
     cache = json.loads(cache_path.read_text(encoding="utf-8")) if cache_path.exists() else {}
     listing = clauses(idx, rel, limit=10_000, size=170)
     key = hashlib.sha256(json.dumps([brief, n, listing, SELECT], ensure_ascii=False).encode()).hexdigest()[:20]
@@ -598,7 +601,7 @@ TOPICS.update({
 
 def load_accepted_topics() -> None:
     """Topics a person accepted (topics.json, see topics.py) become guides of the same kind as the hand-written ones."""
-    path = Path(__file__).with_name("topics.json")
+    path = TOPICS_FILE
     for slug, t in (json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}).items():
         if t.get("status") == "accepted":
             TOPICS[slug] = (t["title"], t.get("tags", []), auto_topic(t["brief"], [f"/regulations/{d}.md" for d in t["documents"]]))

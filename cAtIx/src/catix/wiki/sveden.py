@@ -21,8 +21,9 @@ from urllib.parse import unquote, urljoin
 import httpx
 
 from catix.wiki.compile import _llm
+from catix.wiki.paths import RAW
 
-ROOT = Path(__file__).resolve().parents[3] / "raw" / "sveden"
+ROOT = RAW / "sveden"
 INDEX, TRIAGE = ROOT / "index.json", ROOT / "triage.json"
 BASE = "https://innopolis.university/"
 SECTIONS = "apply budget catering common document eduStandarts education employees grants inter managers objects paid_edu rating-system struct vacant".split()
@@ -85,8 +86,10 @@ def context_of(page: str, pos: int) -> str:
     return ""
 
 
-def discover() -> None:
+def discover() -> int:
+    """The documents listed on the site now -> index.json; the number of documents added or gone since the last listing."""
     ROOT.mkdir(parents=True, exist_ok=True)
+    before = {d["url"] for d in load(INDEX)}
     found: dict[str, dict] = {}
     with httpx.Client(headers=HEADERS, timeout=60, follow_redirects=True) as client:
         for section in SECTIONS:
@@ -110,6 +113,7 @@ def discover() -> None:
         d["title"] = max(d["titles"], key=len) if d["titles"] else d["url"].rsplit("/", 1)[-1]
     INDEX.write_text(json.dumps(sorted(docs, key=lambda d: d["url"]), ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"{len(docs)} documents ({len(found) - len(docs)} footer links left out)")
+    return len(before ^ {d["url"] for d in docs})
 
 
 def load(path: Path) -> list | dict:

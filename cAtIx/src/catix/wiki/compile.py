@@ -26,9 +26,10 @@ import yaml
 from catix.settings import settings
 from catix.wiki.fetch import PAGES, load_manifest
 from catix.wiki.markup import convert
+from catix.wiki.paths import BUNDLE  # (the other modules take it from here)
 from catix.wiki.tables import TOKEN, extract
 
-BUNDLE = Path(__file__).resolve().parents[3] / "wiki"
+
 SITE = "https://eduwiki.innopolis.university/index.php/"
 PRODUCER = "catix-wiki/0.1"
 CHUNK = 9000  # characters of wikitext per model call

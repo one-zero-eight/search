@@ -2,6 +2,7 @@
 
     catix-wiki regs fetch       # download the PDFs, extract the text (text layer, else OCR with tesseract rus) into raw/regulations/
     catix-wiki regs reextract   # extract the text of the downloaded PDFs again (after the extraction got better)
+    catix-wiki regs refresh     # ask the site (HEAD) whether a downloaded document changed; a changed one is downloaded again by fetch
     catix-wiki regs compile     # raw/regulations -> wiki/regulations/<key>.md
 
 The text of a regulation is NOT rewritten by the model: the program only turns the layout into markdown (chapters, clauses, tables)
@@ -24,8 +25,9 @@ from urllib.parse import unquote
 
 from catix.settings import settings
 from catix.wiki.compile import AUDIENCES, BUNDLE, PRODUCER, _llm, clean_audience, clean_tags, front_of, yaml_value
+from catix.wiki.paths import RAW
 
-ROOT = Path(__file__).resolve().parents[3] / "raw" / "regulations"
+ROOT = RAW / "regulations"
 BASE = "https://innopolis.university/upload/iblock/"
 DOCS = {  # key -> (title, path under BASE as the official page links it)
     "attestation-regulation": ("Положение о формах, периодичности и порядке проведения текущего контроля успеваемости и промежуточной аттестации (бакалавриат и магистратура)",
@@ -69,6 +71,23 @@ MAX_BYTES, MAX_PAGES, MAX_OCR_PAGES = 25_000_000, 150, 40  # one document may no
 MAX_FAILURES = 5  # network errors in a row before a run gives up
 PAUSE = 2  # seconds between requests: the site blocked us once after a burst, so stay well below what it tolerates
 OCR_BUDGET = 200  # pages of OCR per run of `regs fetch`; documents left over are done by the next run
+
+
+HEADERS = {"User-Agent": "catix-wiki/0.1 (Innopolis University assistant; polite crawl)"}
+
+
+def signature(headers: httpx.Headers) -> dict:
+    """What says that a file on the site is still the same one, without downloading it."""
+    return {k: headers[h] for k, h in (("etag", "etag"), ("modified", "last-modified"), ("size", "content-length")) if h in headers}
+
+
+def changed(old: dict | None, new: dict) -> bool:
+    """A different ETag, or (without one) a different date or size. A file not seen before is not 'changed': it is recorded."""
+    if not old or not new:
+        return False
+    if old.get("etag") and new.get("etag"):
+        return old["etag"] != new["etag"]
+    return (old.get("modified"), old.get("size")) != (new.get("modified"), new.get("size"))
 
 
 SIGNED = re.compile(r"\s*\(документ подписан (?:ПЭП|простой электронной подписью|электронной подписью)\)", re.I)  # says nothing about the content
@@ -198,21 +217,23 @@ def extract(pdf: Path, ocr_left: int) -> tuple[str | None, str, int]:
     return "\f".join(out), "ocr (tesseract rus)", pages
 
 
-def fetch(limit: int | None = None) -> None:
+def fetch(limit: int | None = None) -> int:
+    """Download and read the documents not read yet (and those `refresh` found changed); the number read."""
     docs, ocr_left, done, failures = all_docs(), OCR_BUDGET, 0, 0
     for key, d in docs.items():
         root: Path = d["root"]
         root.mkdir(parents=True, exist_ok=True)
         ext = d.get("ext", "pdf")
         src, meta = root / f"{key}.{ext}", root / f"{key}.json"
-        if meta.exists() and ((root / f"{key}.txt").exists() or "skipped" in json.loads(meta.read_text(encoding="utf-8"))):
-            continue  # (a document that changed on the site is noticed by `regs refresh`, not on every run; a skipped one stays skipped)
+        old = json.loads(meta.read_text(encoding="utf-8")) if meta.exists() else {}
+        if old and ((root / f"{key}.txt").exists() or "skipped" in old) and not old.get("refetch"):
+            continue  # (a document that changed on the site is noticed by `regs refresh`; a skipped one stays skipped)
         if limit is not None and done >= limit:
             break
         print(key)
         if not src.exists():
             try:
-                resp = httpx.get(d["url"], timeout=120, follow_redirects=True, headers={"User-Agent": "catix-wiki/0.1 (Innopolis University assistant; polite crawl)"})
+                resp = httpx.get(d["url"], timeout=120, follow_redirects=True, headers=HEADERS)
                 resp.raise_for_status()
                 if len(resp.content) > MAX_BYTES:
                     print(f"  too big ({len(resp.content) // 1_000_000} MB), skipped")
@@ -230,7 +251,10 @@ def fetch(limit: int | None = None) -> None:
                 continue
             failures = 0
             src.write_bytes(resp.content)
+            remote = signature(resp.headers)
             time.sleep(PAUSE)
+        else:
+            remote = old.get("remote", {})
         try:
             pdf = to_pdf(src)
             if not pdf.exists() or pages_of(pdf) > MAX_PAGES:
@@ -247,10 +271,52 @@ def fetch(limit: int | None = None) -> None:
         sha = hashlib.sha256(src.read_bytes()).hexdigest()
         (root / f"{key}.txt").write_text(text, encoding="utf-8")
         meta.write_text(json.dumps({"title": d["title"], "url": d["url"], "sha256": sha, "method": method, "chars": len(text), "section": d["section"], "context": d.get("context", ""),
-                                    "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}, ensure_ascii=False, indent=1), encoding="utf-8")
+                                    "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "remote": remote}, ensure_ascii=False, indent=1), encoding="utf-8")
         done += 1
-        print(f"  {len(text)} chars by {method}")
+        print(f"  {len(text)} chars by {method}" + (" (a new version)" if old.get("sha256") and old["sha256"] != sha else ""))
     print(f"{done} documents fetched; OCR pages left in the budget: {ocr_left}")
+    return done
+
+
+def refresh() -> int:
+    """Ask the site (HEAD, one request every PAUSE seconds) whether each downloaded document is still the same file. A changed
+    one is marked `refetch`: the next `fetch` downloads and reads it again (its page stays until then). The first check of a
+    document only records what the site says about it. The number of changed documents."""
+    found, failures = 0, 0
+    with httpx.Client(headers=HEADERS, timeout=60, follow_redirects=True) as client:
+        for key, d in all_docs().items():
+            path = d["root"] / f"{key}.json"
+            meta = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+            if "sha256" not in meta or meta.get("refetch"):
+                continue
+            try:
+                resp = client.head(d["url"])
+            except httpx.HTTPError as e:
+                failures += 1
+                print(f"{key}: {e}")
+                if failures >= MAX_FAILURES:
+                    print(f"{failures} failures in a row: the site is not answering, stopped")
+                    break
+                time.sleep(PAUSE + 5 * failures)
+                continue
+            failures = 0
+            time.sleep(PAUSE)
+            if resp.status_code != 200:  # (a document gone from the list of the site leaves the bundle through `sveden discover`)
+                continue
+            now = signature(resp.headers)
+            if changed(meta.get("remote"), now):
+                meta["refetch"] = True
+                for old_file in {d["root"] / f"{key}.{d.get('ext', 'pdf')}", d["root"] / f"{key}.pdf"}:  # (and the PDF made of a Word file)
+                    old_file.unlink(missing_ok=True)
+                found += 1
+                print(f"{key}: changed on the site")
+            elif not meta.get("remote"):
+                meta["remote"] = now
+            else:
+                continue
+            path.write_text(json.dumps(meta, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"{found} documents changed on the site")
+    return found
 
 
 def to_markdown(text: str) -> str:
@@ -416,5 +482,7 @@ def main() -> None:
         compile_all()
     elif cmd == "reextract":
         reextract()
+    elif cmd == "refresh":
+        refresh()
     else:
         sys.exit(__doc__)

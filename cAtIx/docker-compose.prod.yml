@@ -65,13 +65,18 @@ services:
     depends_on:
       db: {condition: service_healthy}
 
-  # Puts the wiki (copied into the image) into the database: only pages that changed since the last image, then exits.
-  # The worker computes the vectors in the background (about 20 minutes for the whole wiki the first time); until then the
-  # pieces are found by words. The bots do not wait for it.
+  # Puts the wiki into the database: only pages that changed since the last time, then exits. The wiki is a checkout of
+  # its own branch `wiki` next to the code (WIKI_DIR, see DEPLOY.md 2a), committed by the wiki's own run; scripts/wiki-pull.sh
+  # pulls it and runs this service. The worker computes the vectors in the background; until then pieces are found by words.
   wiki:
     <<: *app
     restart: "no"
     command: ["catix-wiki", "index", "--no-embed"]
+    environment:
+      DATABASE_URL: postgresql://ctx:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}@db:5432/ctx
+      WIKI_ROOT: /wiki-data
+    volumes:
+      - ${WIKI_DIR:-../catix-wiki}:/wiki-data:ro
 
   tgbot:
     <<: *app

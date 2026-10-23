@@ -2,6 +2,7 @@
 
     catix-wiki rpd fetch [--all-years] [--limit N]   # the archives of the latest cohort of every programme -> raw/rpd/ (text and meta of every PDF)
     catix-wiki rpd compile [--all-years] # raw/rpd -> wiki/course-programmes/<key>.md
+    catix-wiki rpd refresh               # ask the site (HEAD) whether an archive read before changed; fetch reads a changed one again
     catix-wiki rpd status                # archives found and taken, programmes read
 
 The site keeps one 7z archive per programme, cohort and semester (sveden.py lists them; the cell of the table says which).
@@ -27,9 +28,11 @@ import httpx
 
 from catix.wiki import regulations, sveden
 from catix.wiki.compile import BUNDLE, PRODUCER, yaml_value
+from catix.wiki.paths import RAW
 
-ROOT = Path(__file__).resolve().parents[3] / "raw" / "rpd"
+ROOT = RAW / "rpd"
 INDEX = ROOT / "index.json"  # course key -> where it comes from and how it was read (in git; the files are not)
+REMOTE = ROOT / "archives.json"  # archive URL -> what the site said about the file when it was read (regulations.signature)
 FOLDER = "course-programmes"
 CELL = re.compile(r"(?P<programme>.*?) — (?P<year>\d{4}) — (?P<kind>Рабочие программы дисциплин.*)$")
 HEADING = re.compile(r"^(?:(?:РАБОЧАЯ\s+)?ПРОГРАММА|ФОНД ОЦЕНОЧНЫХ СРЕДСТВ)\b.*$", re.M)
@@ -140,22 +143,23 @@ def save(index: dict) -> None:
     INDEX.write_text(json.dumps(index, ensure_ascii=False, indent=1, sort_keys=True), encoding="utf-8")
 
 
-def fetch(all_years: bool = False, limit: int | None = None) -> None:
+def fetch(all_years: bool = False, limit: int | None = None) -> int:
     """Download the archives not read yet, unpack them and keep the text of every programme inside. Polite: one archive every
     `regulations.PAUSE` seconds, stop after `regulations.MAX_FAILURES` network errors in a row."""
     work = ROOT / "archives"
     work.mkdir(parents=True, exist_ok=True)
     index = load()
+    remote = json.loads(REMOTE.read_text(encoding="utf-8")) if REMOTE.exists() else {}
     read = {c["archive"] for c in index.values()}
     todo = [a for a in archives(all_years, dead_links(index)) if a["url"] not in read][:limit]
     print(f"{len(todo)} archives to read")
-    failures = 0
+    failures, total = 0, 0
     for n, a in enumerate(todo, 1):
         akey = hashlib.sha1(a["url"].encode()).hexdigest()[:10]
         path = work / f"{akey}.{a['ext']}"
         if not path.exists():
             try:
-                resp = httpx.get(a["url"], timeout=300, follow_redirects=True, headers={"User-Agent": "catix-wiki/0.1 (Innopolis University assistant; polite crawl)"})
+                resp = httpx.get(a["url"], timeout=300, follow_redirects=True, headers=regulations.HEADERS)
                 resp.raise_for_status()
             except httpx.HTTPError as e:
                 print(f"  FAILED {a['url']}: {e}")
@@ -172,6 +176,8 @@ def fetch(all_years: bool = False, limit: int | None = None) -> None:
                 continue
             failures = 0
             path.write_bytes(resp.content)
+            remote[a["url"]] = regulations.signature(resp.headers)
+            REMOTE.write_text(json.dumps(remote, ensure_ascii=False, indent=1, sort_keys=True), encoding="utf-8")
             time.sleep(regulations.PAUSE)
         unpacked = work / akey
         shutil.rmtree(unpacked, ignore_errors=True)
@@ -201,7 +207,47 @@ def fetch(all_years: bool = False, limit: int | None = None) -> None:
             found += 1
         shutil.rmtree(unpacked, ignore_errors=True)  # the archive stays; its texts are in raw/rpd
         save(index)
+        total += found
         print(f"{n}/{len(todo)} {label[:70]}, {a['year']}, {a['title'][:30]}: {found} programmes", flush=True)
+    return total
+
+
+def refresh() -> int:
+    """HEAD every archive read before (one request every PAUSE seconds); a changed one loses its programmes from the index and its
+    file, so that the next `fetch` reads it again (the pages stay until compile). The number of changed archives."""
+    index = load()
+    remote = json.loads(REMOTE.read_text(encoding="utf-8")) if REMOTE.exists() else {}
+    urls = sorted({c["archive"] for c in index.values() if "sha256" in c})
+    found, failures = 0, 0
+    with httpx.Client(headers=regulations.HEADERS, timeout=60, follow_redirects=True) as client:
+        for url in urls:
+            try:
+                resp = client.head(url)
+            except httpx.HTTPError as e:
+                failures += 1
+                print(f"{url}: {e}")
+                if failures >= regulations.MAX_FAILURES:
+                    print(f"{failures} failures in a row: the site is not answering, stopped")
+                    break
+                time.sleep(regulations.PAUSE + 5 * failures)
+                continue
+            failures = 0
+            time.sleep(regulations.PAUSE)
+            if resp.status_code != 200:
+                continue
+            now = regulations.signature(resp.headers)
+            if regulations.changed(remote.get(url), now):
+                index = {k: c for k, c in index.items() if c["archive"] != url}
+                akey = hashlib.sha1(url.encode()).hexdigest()[:10]
+                for f in (ROOT / "archives").glob(f"{akey}.*"):
+                    f.unlink()
+                found += 1
+                print(f"changed on the site: {url}")
+            remote[url] = remote.get(url) or now  # (a changed one gets its new signature when fetch downloads it)
+    save(index)
+    REMOTE.write_text(json.dumps(remote, ensure_ascii=False, indent=1, sort_keys=True), encoding="utf-8")
+    print(f"{found} archives changed on the site")
+    return found
 
 
 def compile_all(all_years: bool = False) -> None:
@@ -264,6 +310,8 @@ def main() -> None:
         fetch(all_years="--all-years" in args, limit=int(args[args.index("--limit") + 1]) if "--limit" in args else None)
     elif cmd == "compile":
         compile_all(all_years="--all-years" in args)
+    elif cmd == "refresh":
+        refresh()
     elif cmd == "status":
         status()
     else:

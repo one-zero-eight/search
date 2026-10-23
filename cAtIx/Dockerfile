@@ -12,9 +12,6 @@ COPY src ./src
 COPY db ./db
 COPY courses.toml ./
 RUN uv sync --frozen --no-dev
-# The wiki of documents (OKF bundle): `catix-wiki index` puts it in the database (the `wiki` service of docker-compose.prod.yml).
-# Last of the app layers: it changes most often.
-COPY wiki ./wiki
 
 # The Max API is served with a certificate of the Russian Ministry of Digital Development (see settings.max_root_ca).
 RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates curl \

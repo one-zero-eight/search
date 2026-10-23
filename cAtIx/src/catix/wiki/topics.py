@@ -13,14 +13,14 @@ A proposal is only a proposal: the model does not decide which guides exist, the
 import json
 import re
 import sys
-from pathlib import Path
 
 from catix.wiki.compile import AUDIENCES, _llm, clean_audience, clean_tags
 from catix.wiki.graph import Index
 from catix.wiki.synth import TOPICS, clauses, output_budget, select_clauses
+from catix.wiki.paths import RAW, TOPICS_FILE
 
-FILE = Path(__file__).with_name("topics.json")
-PROPOSALS = Path(__file__).resolve().parents[3] / "raw" / "regulations" / "proposals.json"  # document key -> version read and the topics proposed from it
+FILE = TOPICS_FILE
+PROPOSALS = RAW / "regulations" / "proposals.json"  # document key -> version read and the topics proposed from it
 MIN_CLAUSES = 3
 MIN_DOC_CLAUSES = 8  # a document with fewer numbered clauses (a plan, a table, a short order) has nothing a guide could quote
 FORMAT = "TOPIC: slug | title | question the page answers | document keys separated by commas | 3 to 5 tags separated by commas | readers separated by commas"

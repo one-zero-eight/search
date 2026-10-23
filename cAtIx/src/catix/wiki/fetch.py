@@ -6,6 +6,7 @@
     catix-wiki topics [list|accept|reject]   # the model proposes guides, a person accepts them (see topics.py)
     catix-wiki regs fetch|compile      # official regulations (PDF) as a second source, see regulations.py
     catix-wiki rpd fetch|compile|status   # course programmes (РПД) from the archives of sveden/education, see rpd.py
+    catix-wiki autopilot [--loop] [--source NAME ...] [--no-push] [--no-answers]   # the wiki maintains itself and commits to its branch (see autopilot.py)
     catix-wiki build [--offline] [--force] [--auto]   # the whole chain, re-running only what changed (see build.py)
     catix-wiki synth [TOPIC ...]       # guides that combine many concepts (wiki/guides/), see synth.py
     catix-wiki graph                   # relations between concepts (prerequisites, teachers), see graph.py
@@ -20,12 +21,12 @@ raw/eduwiki/manifest.json maps page id -> title and revision id. Files are never
 import json
 import sys
 from datetime import datetime, timezone
-from pathlib import Path
 
 import httpx
 
+from catix.wiki.paths import RAW
 API = "https://eduwiki.innopolis.university/api.php"
-ROOT = Path(__file__).resolve().parents[3] / "raw" / "eduwiki"
+ROOT = RAW / "eduwiki"
 PAGES = ROOT / "pages"
 MANIFEST = ROOT / "manifest.json"
 BATCH = 50  # MediaWiki returns page content for at most 50 titles per request
@@ -72,7 +73,8 @@ def save_manifest(manifest: dict[str, dict]) -> None:
     MANIFEST.write_text(json.dumps(manifest, ensure_ascii=False, indent=1, sort_keys=True), encoding="utf-8")
 
 
-def fetch(namespaces: list[int]) -> None:
+def fetch(namespaces: list[int]) -> int:
+    """New and changed pages of the wiki into the snapshot; the number of pages new, changed or deleted."""
     PAGES.mkdir(parents=True, exist_ok=True)
     manifest = load_manifest()
     with httpx.Client(timeout=60, headers={"User-Agent": "catix-wiki/0.1 (Innopolis University assistant)"}) as client:
@@ -89,10 +91,13 @@ def fetch(namespaces: list[int]) -> None:
             print(f"  {min(i + BATCH, len(todo))}/{len(todo)}")
             save_manifest(manifest)
         # pages deleted on the wiki stay in the snapshot but are marked, so the compiler can retire their concepts
+        gone = 0
         for pid, entry in manifest.items():
             if entry["ns"] in namespaces:
+                gone += (int(pid) not in remote) != entry.get("deleted", False)
                 entry["deleted"] = int(pid) not in remote
         save_manifest(manifest)
+    return len(todo) + gone
 
 
 def status() -> None:
@@ -124,6 +129,10 @@ def main() -> None:
         from catix.wiki import rpd
 
         rpd.main()
+    elif cmd == "autopilot":
+        from catix.wiki import autopilot
+
+        autopilot.main()
     elif cmd == "build":
         from catix.wiki import build
 

@@ -2,8 +2,7 @@
 .git
 data
 raw
-wiki/.obsidian
-wiki/.claims
+wiki
 experiments
 logo
 __pycache__

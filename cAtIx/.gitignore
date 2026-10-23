@@ -15,21 +15,12 @@ wheels/
 # Telegram session (full account access) and private chat data
 data/
 raw/*.db*
-raw/eduwiki
 
-# Downloaded regulation PDFs and their OCR page images (the extracted text and metadata stay)
-raw/regulations/*.pdf
-raw/regulations/*.ocr/
-raw/regulations/ocr/
-
-# Obsidian keeps its local state (open files, window layout) in the vault folder
-wiki/.obsidian/
-
-# The disclosure-section documents are downloaded again by catix-wiki; the list of documents and the decisions about them stay in git
-raw/sveden/*
-!raw/sveden/index.json
-!raw/sveden/triage.json
-
-# The archives of course programmes and their texts are downloaded again by catix-wiki rpd; the list of what was read stays in git
-raw/rpd/*
-!raw/rpd/index.json
+# The wiki's data lives on the orphan branch `wiki` (a checkout of it is WIKI_ROOT, see src/catix/wiki/paths.py). Without
+# WIKI_ROOT the wiki commands write here: that copy is never committed to the code.
+/wiki/
+/raw/eduwiki
+/raw/regulations
+/raw/rpd
+/raw/sveden
+/raw/topics.json

@@ -146,6 +146,15 @@ class Settings(BaseSettings):
     # Messages that arrive while a write is running are written together, up to this many per transaction.
     ingest_max_batch: int = Field(500, gt=0)
 
+    # The wiki's data, wiki/ (the bundle) and raw/ (what it is made from): a checkout of the orphan `wiki` branch, which
+    # only the wiki's own run writes to (wiki/autopilot.py). Unset: the repository itself, as in development.
+    wiki_root: Path | None = None
+    wiki_branch: str = "wiki"
+    wiki_remote: str = "origin"
+    wiki_push: bool = True  # push a commit that passed every check; one that failed goes to a review branch
+    # The search must keep finding the answers of experiments/eval_wiki.py: a commit below this is not pushed to `wiki`.
+    wiki_min_hit5: float = Field(0.85, ge=0, le=1)
+
     # Old SQLite file, only read by `catix-db migrate`.
     messages_db: Path = Path("raw/telegram.db")
     courses_file: Path = Path("courses.toml")
