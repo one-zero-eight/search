@@ -18,7 +18,7 @@ REFUSAL = [
     r"\b(?:cannot|can(?:'|’)?t|won(?:'|’)?t|will\s+not|unable\s+to|not\s+able\s+to|do\s+not|don(?:'|’)?t)\b[^.\n]{0,40}\b(?:help|assist|provide|write|create|generate|give|share|forge|support)\b",
     r"\bi\s+(?:only|can\s+only)\s+help\b",
     r"помогаю\s+только",
-    r"не\s+является\s+вопросом",
+    r"не\s+является\s+вопросом|а\s+не\s+вопрос",
     r"выходит\s+за\s+рамки|не\s+относится\s+к\s+вопросам|(?:out\s+of|outside)\s+(?:my|the)\s+scope",
 ]
 REPEATS = 2
