@@ -43,6 +43,7 @@ class WikiHit:
     stale_after: date | None
     issued: date | None
     based_on: list[dict] = field(default_factory=list)  # a guide piece: the pages it cites, with their titles and originals
+    newer: str | None = None  # the title of a later version of the document ("на 2026/2027 учебный год" for one of 2024/2025)
 
 
 def _bm25(words: str, trust: list[str]) -> list[int]:
@@ -83,7 +84,36 @@ def _hits(ids: list[int]) -> list[WikiHit]:
             seen.add(by_id[i].sha)
             hits.append(by_id[i])
     _resolve_cites(hits)
+    _mark_newer(hits)
     return hits
+
+
+ACADEMIC_YEAR = re.compile(r"(\d{4})\s*/\s*\d{4}")
+
+
+def _series(title: str) -> str | None:
+    """What stays of a title without its academic year: the admission rules of every year have one. Only titles with an
+    academic year make a series; "Учебный план" or "Приказ о зачислении" name different documents of different programmes."""
+    if not ACADEMIC_YEAR.search(title):
+        return None
+    title = ACADEMIC_YEAR.sub(" ", re.sub(r"\([^)]*\)|\[[^\]]*\]", " ", title.lower()))
+    return " ".join(re.sub(r"[^а-яёa-z0-9.]+", " ", title).split())
+
+
+def _mark_newer(hits: list[WikiHit]) -> None:
+    """A piece of a document that has a version for a later academic year gets that version's title in `newer`."""
+    if not any(_series(h.title) for h in hits):
+        return
+    with pg.connection() as conn:
+        titles = pg.column(conn, "SELECT DISTINCT title FROM wiki_pages WHERE trust = 'official' AND title ~ '\\d{4}\\s*/\\s*\\d{4}'")
+    latest: dict[str, tuple[int, str]] = {}
+    for title in titles:
+        key, year = _series(title), int(ACADEMIC_YEAR.search(title).group(1))
+        if key and year > latest.get(key, (0, ""))[0]:
+            latest[key] = (year, title)
+    for h in hits:
+        if (key := _series(h.title)) and key in latest and latest[key][0] > int(ACADEMIC_YEAR.search(h.title).group(1)):
+            h.newer = latest[key][1]
 
 
 def _resolve_cites(hits: list[WikiHit]) -> None:
@@ -127,6 +157,10 @@ def search(queries: str | list[str], *, trust: Collection[str] | None = None, li
     if not fused:
         return []
     hits = _hits(fused)
+    # An earlier version of a document is left out unless a query names its year: the helper cited the admission rules of
+    # 2024/2025 next to those of 2026/2027 even with the warning that they are replaced.
+    asked = " ".join(queries)
+    hits = [h for h in hits if not h.newer or ACADEMIC_YEAR.search(h.title).group(1) in asked]
     return _rerank(queries, hits, limit) if reranking else hits[:limit]
 
 
@@ -167,6 +201,7 @@ def page(path: str) -> list[WikiHit]:
     with pg.connection() as conn:
         hits = pg.rows(conn, WikiHit, HIT + " WHERE c.path = %s ORDER BY c.seq", (path,))
     _resolve_cites(hits)
+    _mark_newer(hits)
     return hits
 
 

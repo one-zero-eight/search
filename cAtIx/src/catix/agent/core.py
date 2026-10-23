@@ -263,6 +263,40 @@ class LookUpFirstMiddleware(AgentMiddleware):
         return await handler(self._first(request))
 
 
+CITE_HINT = (
+    "Your report gives facts from the tool results above but no ref. Write it again with the ref of every fact next to it, "
+    "as in [m3]. If the results said nothing about the question, repeat your report unchanged."
+)
+
+
+class CiteMiddleware(AgentMiddleware):
+    """A helper's report that cites nothing although the tools returned sources is asked for once more, with the refs.
+    The docs helper left all refs out in 2 of 5 answers about admission (measured), and an answer without a source cannot be
+    checked; asking again with CITE_HINT costs one model call, only when it happens."""
+
+    @staticmethod
+    def _uncited(request: ModelRequest, response) -> AIMessage | None:
+        last = RunGuardMiddleware._last(response)
+        if last is None or last.tool_calls or re.search(r"\bm\d+\b", last.text):
+            return None
+        found = any(isinstance(m, ToolMessage) and re.search(r'"ref": "m\d+"', str(m.content)) for m in _this_run(request.messages))
+        return last if found else None
+
+    def _again(self, request: ModelRequest, last: AIMessage) -> ModelRequest:
+        log.info("report without refs, asking again")
+        return request.override(messages=[*request.messages, last, HumanMessage(CITE_HINT)])
+
+    def wrap_model_call(self, request, handler):
+        response = handler(request)
+        last = self._uncited(request, response)
+        return handler(self._again(request, last)) if last else response
+
+    async def awrap_model_call(self, request, handler):
+        response = await handler(request)
+        last = self._uncited(request, response)
+        return await handler(self._again(request, last)) if last else response
+
+
 class RunGuardMiddleware(AgentMiddleware):
     """Keeps a run from ending without an answer. It never decides which tool the model calls: that is the model's choice.
 
@@ -466,7 +500,12 @@ def final_answer(messages: list[BaseMessage], registry: dict[str, dict]) -> str:
     answer = clean(turn, messages[-1].text)
     # The supervisor may cite only what a helper reported in this very turn. The registry holds the sources of the whole
     # conversation, so a ref the supervisor made up ("m0") could otherwise name an unrelated message found earlier.
-    reported = {ref for m in turn if isinstance(m, ToolMessage) for ref in re.findall(r"\bm\d+\b", str(m.content))}
+    in_reports = [ref for m in turn if isinstance(m, ToolMessage) for ref in re.findall(r"\bm\d+\b", str(m.content))]
+    reported = set(in_reports)
+    if reported and not set(re.findall(r"\bm\d+\b", answer)) & reported:
+        # The supervisor retold the reports without their refs (2 of 5 answers about admission): the answer rests on
+        # what the helpers cited, so their sources go under it, at the end of the answer.
+        answer = f"{answer.rstrip()} [{']['.join(dict.fromkeys(in_reports))}]"
     # After the URL check: the source list adds links of its own, taken from the database.
     return sources.cite(answer, {ref: source for ref, source in registry.items() if ref in reported})
 
@@ -539,6 +578,7 @@ def _helper_tool(role: roles.Role, model) -> BaseTool:
             ),
             LookUpFirstMiddleware(),
             RunGuardMiddleware(role.tools),
+            CiteMiddleware(),  # inside the guard: the second answer is checked for tool call markup too
             LoggingMiddleware(),
             ToolErrorMiddleware(on_error=_tool_error),
             ModelCallLimitMiddleware(run_limit=settings.agent_max_model_calls, exit_behavior="end"),

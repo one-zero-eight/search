@@ -565,6 +565,8 @@ def _warnings(hit) -> list[str]:
         out.append("not checked: " + hit.review[:200])
     if hit.stale_after and hit.stale_after < date.today():
         out.append(f"may be outdated: due for review since {hit.stale_after:%Y-%m-%d}")
+    if getattr(hit, "newer", None):
+        out.append(f"an older version: «{hit.newer[:200]}» replaces it; use that one unless the question is about this year")
     return out
 
 

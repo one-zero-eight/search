@@ -233,3 +233,44 @@ def test_when_every_helper_failed_the_answer_says_so_instead_of_what_the_supervi
     messages[2] = ToolMessage(content="Компьютерное тестирование [m0].", tool_call_id="c1", name="ask_docs")
     messages[3] = AIMessage(content="Компьютерное тестирование [m0].")
     assert "тестирование" in final_answer(messages, {"m0": {"wiki": True, "title": "Правила приема", "clause": "", "link": None, "trust": "official"}})
+
+
+def test_refs_the_supervisor_left_out_go_under_the_answer():
+    messages = [
+        HumanMessage("Какое вступительное испытание в магистратуру?"),
+        _ask("ask_docs", "Какое вступительное испытание в магистратуру?"),
+        ToolMessage(content="Компьютерное тестирование, не менее 40 баллов [m7][m9].", tool_call_id="c1", name="ask_docs"),
+        AIMessage(content="Компьютерное тестирование, минимальный балл 40."),
+    ]
+    rules = {"wiki": True, "title": "Правила приема 2026/2027", "clause": "", "link": "https://innopolis.university/r.pdf", "trust": "official"}
+    answer = final_answer(messages, {"m7": rules, "m9": rules})
+    assert answer.startswith("Компьютерное тестирование, минимальный балл 40. [1]")
+    assert answer.endswith("[1] [«Правила приема 2026/2027»](https://innopolis.university/r.pdf) (документ университета)")
+
+
+def test_a_report_without_refs_is_asked_again_only_when_the_tools_gave_sources():
+    from catix.agent.core import CiteMiddleware
+
+    class Req:
+        def __init__(self, messages):
+            self.messages = messages
+
+        def override(self, **changes):
+            clone = Req(self.messages)
+            clone.__dict__.update(changes)
+            return clone
+
+    found = ToolMessage(content='{"results": [{"ref": "m3", "text": "40 баллов"}]}', tool_call_id="c1")
+    nothing = ToolMessage(content='{"results": []}', tool_call_id="c1")
+    calls = []
+
+    def model(request):
+        calls.append(request.messages)
+        return AIMessage(content="Минимальный балл 40." if len(calls) == 1 else "Минимальный балл 40 [m3].")
+
+    question = HumanMessage("минимальный балл в магистратуру")
+    assert CiteMiddleware().wrap_model_call(Req([question, _ask("search_wiki", "x"), found]), model).text == "Минимальный балл 40 [m3]."
+    assert len(calls) == 2 and "ref" in calls[1][-1].text
+    calls.clear()
+    assert CiteMiddleware().wrap_model_call(Req([question, _ask("search_wiki", "x"), nothing]), model).text == "Минимальный балл 40."
+    assert len(calls) == 1

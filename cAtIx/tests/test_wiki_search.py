@@ -70,3 +70,30 @@ def test_two_clauses_of_one_document_side_by_side_become_one_mark():
     collector = tools.Collector(runtime())
     a, b = tools._wiki_item(hit(id=1, clause="5.3"), collector), tools._wiki_item(hit(id=2, clause="5.4"), collector)
     assert sources.cite(f"Компьютерное тестирование [{a['ref']}][{b['ref']}].", collector.new).startswith("Компьютерное тестирование [1].")
+
+
+def test_only_a_title_with_an_academic_year_makes_a_series_of_versions():
+    from catix.db.wiki import _series
+
+    old = _series("Правила приема на обучение по программам бакалавриата и магистратуры на 2024/2025 учебный год")
+    new = _series("ПРАВИЛА ПРИЕМА НА ОБУЧЕНИЕ ПО ПРОГРАММАМ БАКАЛАВРИАТА И МАГИСТРАТУРЫ НА 2026/2027 УЧЕБНЫЙ ГОД (новая редакция)")
+    assert old == new and old is not None
+    assert _series("Учебный план [Учебный план. Внедрение]") is None
+
+
+def test_an_older_version_is_said_to_be_replaced():
+    old = hit(newer="Правила приема на 2026/2027 учебный год")
+    assert tools._warnings(old) == ["an older version: «Правила приема на 2026/2027 учебный год» replaces it; use that one unless the question is about this year"]
+
+
+def test_an_older_version_is_found_only_when_its_year_is_asked(monkeypatch):
+    from catix.db import wiki
+
+    old = hit(id=1, sha="a", title="Правила приема на 2024/2025 учебный год", newer="Правила приема на 2026/2027 учебный год")
+    new = hit(id=2, sha="b", title="Правила приема на 2026/2027 учебный год")
+    monkeypatch.setattr(wiki, "_embed_all", lambda queries: [])
+    monkeypatch.setattr(wiki, "_bm25", lambda words, kinds: [1, 2])
+    monkeypatch.setattr(wiki, "_hits", lambda ids: [old, new])
+    monkeypatch.setattr(wiki.settings, "reranker_route", None)
+    assert [h.id for h in wiki.search("правила приема магистратура")] == [2]
+    assert [h.id for h in wiki.search("правила приема 2024 года")] == [1, 2]
