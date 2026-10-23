@@ -84,7 +84,7 @@ def write_page(conn, rel: str, sha: str, meta: dict, chunks: list[Chunk]) -> tup
     generated = str((meta.get("generated") or {}).get("at", ""))[:10] if isinstance(meta.get("generated"), dict) else ""
     issued = generated if trust == "guide" else max((str(s.get("last_modified") or "")[:10] for s in sources if isinstance(s, dict)), default="")
     if trust == "official" and issued == generated:
-        issued = ""  # no date found in the document: regulations.py put the day it was downloaded there, which says nothing
+        issued = ""  # no date found in the document: sources/regulations.py put the day it was downloaded there, which says nothing
     conn.execute(
         """INSERT INTO wiki_pages (path, sha, title, type, trust, audience, resource, status, review, source_warning, stale_after, issued, indexed_at)
            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, now())

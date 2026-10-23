@@ -51,7 +51,7 @@ docker compose -f docker-compose.prod.yml exec worker catix-wiki index status   
 git worktree add ../catix-wiki wiki          # или git clone -b wiki; затем WIKI_ROOT=<путь> в .env
 uv run catix-wiki autopilot --loop           # лучше как systemd-сервис пользователя
 ```
-- **Источники** (`src/catix/wiki/sources.py`) опрашиваются по своему расписанию:
+- **Источники** (`src/catix/wiki/sources/`, расписание в `__init__.py`) опрашиваются по своему расписанию:
   - `eduwiki` — каждые 6 часов, по номерам ревизий;
   - `sveden` — раз в день: новые документы и архивы РПД на сайте, решение модели о новых;
   - `files` — раз в неделю: HEAD каждого прочитанного документа (ETag, дата, размер), изменившиеся скачиваются заново.

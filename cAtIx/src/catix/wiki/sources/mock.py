@@ -57,7 +57,7 @@ def docs() -> dict[str, dict]:
 
 def update() -> int:
     """The source's step of the wiki's run: new documents of the listing, documents that changed on it."""
-    from catix.wiki import regulations
+    from catix.wiki.sources import regulations
 
     return discover() + regulations.refresh(prefix=PREFIX) + regulations.fetch()
 

@@ -6,7 +6,7 @@ and the result is committed to the `wiki` branch and pushed.
     catix-wiki autopilot discard   # a person disagrees: the changes are thrown away, the search index follows the branch again
 
 One run:
-  1. the sources that are due (sources.py, each with its own interval; `--source` asks the named ones now, e.g. when
+  1. the sources that are due (sources/, each with its own interval; `--source` asks the named ones now, e.g. when
      something tells the wiki that a source changed);
   2. if one brought something, or the data still has changes an earlier run could not commit: build.rebuild(auto=True);
   3. the checks: lint without errors, no guide resting on evidence that changed, the search finds the answers of

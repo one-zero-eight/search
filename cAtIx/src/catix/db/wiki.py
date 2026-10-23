@@ -47,7 +47,7 @@ class WikiHit:
     newer: str | None = None  # the title of a later version of the document ("на 2026/2027 учебный год" for one of 2024/2025)
 
 
-# The course programmes (rpd.py) are 700 pages of the same shape that use every word of study ("курс", "дисциплина",
+# The course programmes (wiki/sources/rpd.py) are 700 pages of the same shape that use every word of study ("курс", "дисциплина",
 # "зачет"): searched together with the rest they took the candidates of the regulations (the rules of credit transfer
 # fell out of the first ten). They are a pool of their own; both pools give candidates, the reranker orders them together.
 COURSES = "/course-programmes/%"

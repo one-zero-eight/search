@@ -1,4 +1,4 @@
-"""The stand-in site (wiki/mock.py): a listing becomes documents, a new version is found by HEAD like on the real site."""
+"""The stand-in site (wiki/sources/mock.py): a listing becomes documents, a new version is found by HEAD like on the real site."""
 
 import json
 import os
@@ -6,7 +6,7 @@ import time
 
 
 def test_a_listed_document_is_found_and_its_new_version_noticed(tmp_path, monkeypatch):
-    from catix.wiki import mock, regulations
+    from catix.wiki.sources import mock, regulations
 
     site, raw = tmp_path / "site", tmp_path / "mock"
     site.mkdir()

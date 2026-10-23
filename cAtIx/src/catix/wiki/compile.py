@@ -24,7 +24,7 @@ import httpx
 import yaml
 
 from catix.settings import settings
-from catix.wiki.fetch import PAGES, load_manifest
+from catix.wiki.sources.eduwiki import PAGES, load_manifest
 from catix.wiki.markup import convert
 from catix.wiki.paths import BUNDLE  # (the other modules take it from here)
 from catix.wiki.tables import TOKEN, extract
@@ -42,7 +42,7 @@ TYPES = {  # type -> directory of the bundle
     "person": "people",
     "study-plan": "programs",
     "regulation": "regulations",
-    "course-programme": "course-programmes",  # written by rpd.py from the official course programmes (РПД)
+    "course-programme": "course-programmes",  # written by sources/rpd.py from the official course programmes (РПД)
     "procedure": "procedures",
     "calendar": "calendars",
     "schedule": "schedules",

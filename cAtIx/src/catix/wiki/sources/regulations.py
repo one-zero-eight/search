@@ -109,7 +109,7 @@ def all_docs() -> dict[str, dict]:
         key = "sveden-" + hashlib.sha1(url.encode()).hexdigest()[:8] + "-" + (re.sub(r"[^a-z0-9]+", "-", unquote(url.rsplit("/", 1)[-1]).lower()).strip("-")[:30] or "doc")
         docs[key] = {"title": title, "url": url, "root": SVEDEN_ROOT, "section": "sveden/" + d["sections"][0], "context": d.get("context", ""), "ext": d["ext"]}
     if settings.wiki_mock_site:
-        from catix.wiki import mock
+        from catix.wiki.sources import mock
 
         docs.update(mock.docs())
     boiler = re.compile(r"^(?:Высшее образование\s*[-–]\s*\w+\s*)?(?:Образовательная программа высшего образования\s*[-–]\s*программа\s*\w+\s*)?")

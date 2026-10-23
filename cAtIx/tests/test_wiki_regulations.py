@@ -1,4 +1,4 @@
-from catix.wiki.regulations import to_markdown
+from catix.wiki.sources.regulations import to_markdown
 
 
 def test_numbered_clauses_and_chapters():
@@ -27,7 +27,7 @@ def test_audience_is_kept_to_the_closed_set():
 
 
 def test_the_date_of_a_document_is_its_own_not_that_of_a_law_it_cites():
-    from catix.wiki.regulations import issued_of
+    from catix.wiki.sources.regulations import issued_of
 
     text = "ПРИКАЗ\n\n30 июня 2025 г.\n\nВ соответствии с Федеральным законом от 29 декабря 2012 года № 273-ФЗ ..."
     assert issued_of(text, "fallback") == "2025-06-30T00:00:00+03:00"
@@ -36,7 +36,7 @@ def test_the_date_of_a_document_is_its_own_not_that_of_a_law_it_cites():
 
 
 def test_a_table_found_in_the_pdf_keeps_its_rows_and_merged_cells_take_the_value_above():
-    from catix.wiki.regulations import table_markdown, to_markdown
+    from catix.wiki.sources.regulations import table_markdown, to_markdown
 
     rows = [["Код", "Профиль", "Испытание", None], ["09.04.01", "Робототехника", "Тестирование", None], [None, None, "Собеседование", None]]
     md = table_markdown(rows)

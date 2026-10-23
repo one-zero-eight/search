@@ -2,7 +2,7 @@
 
     catix-wiki build [--offline] [--force] [--auto]
 
-  sources  (not with --offline) every source asks what is new or changed (sources.py): the wiki, the documents of
+  sources  (not with --offline) every source asks what is new or changed (sources/): the wiki, the documents of
            innopolis.university/sveden (kept or skipped by the model), the regulations, the course programmes
   regs     regulations -> wiki/regulations (the text as it is; the model writes only the description)
   rpd      course programmes of every cohort -> wiki/course-programmes (by code only)
@@ -23,7 +23,8 @@ from dataclasses import dataclass, field
 
 from catix.settings import settings
 from catix.wiki import compile as compiler
-from catix.wiki import graph, lint, regulations, rpd, search_index, sources, synth, topics
+from catix.wiki import graph, lint, search_index, sources, synth, topics
+from catix.wiki.sources import regulations, rpd
 
 
 @dataclass

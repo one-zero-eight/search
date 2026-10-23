@@ -1,25 +1,13 @@
-"""Snapshot of the eduwiki (MediaWiki) into raw/eduwiki: the source the OKF bundle in wiki/ is compiled from.
+"""Source `eduwiki`: a snapshot of the eduwiki (MediaWiki) into raw/eduwiki. compile.py makes the bundle's pages of it.
 
     catix-wiki fetch [NAMESPACE ...]   # default: namespace 0 (articles); only pages whose revision changed are downloaded
     catix-wiki status                  # pages in the snapshot, redirects, pages missing on the wiki now
-    catix-wiki sveden discover|triage|status|override   # all documents of innopolis.university/sveden (see sveden.py)
-    catix-wiki topics [list|accept|reject]   # the model proposes guides, a person accepts them (see topics.py)
-    catix-wiki regs fetch|compile      # official regulations (PDF) as a second source, see regulations.py
-    catix-wiki rpd fetch|compile|status   # course programmes (РПД) from the archives of sveden/education, see rpd.py
-    catix-wiki autopilot [--loop] [--source NAME ...] [--no-push] [--no-answers]   # the wiki maintains itself and commits to its branch (see autopilot.py)
-    catix-wiki build [--offline] [--force] [--auto]   # the whole chain, re-running only what changed (see build.py)
-    catix-wiki synth [TOPIC ...]       # guides that combine many concepts (wiki/guides/), see synth.py
-    catix-wiki graph                   # relations between concepts (prerequisites, teachers), see graph.py
-    catix-wiki lint                    # check wiki/ against OKF v0.2
-    catix-wiki index [status|--no-embed]   # the bundle in the database for the agent's search (see search_index.py)
-    catix-wiki compile ...             # snapshot -> OKF bundle in wiki/ (see compile.py)
 
 One file per page (raw/eduwiki/pages/<pageid>.json) with the wikitext and the revision it came from;
 raw/eduwiki/manifest.json maps page id -> title and revision id. Files are never edited by hand.
 """
 
 import json
-import sys
 from datetime import datetime, timezone
 
 import httpx
@@ -105,57 +93,3 @@ def status() -> None:
     redirects = sum(e["redirect"] for e in manifest.values())
     deleted = sum(e.get("deleted", False) for e in manifest.values())
     print(f"{len(manifest)} pages in the snapshot, {redirects} redirects, {deleted} deleted on the wiki")
-
-
-def main() -> None:
-    cmd, *args = sys.argv[1:] or ["status"]
-    if cmd == "fetch":
-        fetch([int(a) for a in args] or [0])
-    elif cmd == "status":
-        status()
-    elif cmd == "sveden":
-        from catix.wiki import sveden
-
-        sveden.main()
-    elif cmd == "topics":
-        from catix.wiki import topics
-
-        topics.main()
-    elif cmd == "regs":
-        from catix.wiki import regulations
-
-        regulations.main()
-    elif cmd == "rpd":
-        from catix.wiki import rpd
-
-        rpd.main()
-    elif cmd == "autopilot":
-        from catix.wiki import autopilot
-
-        autopilot.main()
-    elif cmd == "build":
-        from catix.wiki import build
-
-        build.main()
-    elif cmd == "synth":
-        from catix.wiki import synth
-
-        synth.main()
-    elif cmd == "graph":
-        from catix.wiki import graph
-
-        graph.main()
-    elif cmd == "lint":
-        from catix.wiki import lint
-
-        lint.main()
-    elif cmd == "index":
-        from catix.wiki import search_index
-
-        search_index.main()
-    elif cmd in {"compile", "link"}:
-        from catix.wiki import compile as compiler
-
-        compiler.main([cmd] + args if cmd == "link" else args)
-    else:
-        raise SystemExit(__doc__)

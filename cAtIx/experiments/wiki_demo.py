@@ -1,4 +1,4 @@
-"""The wiki's own run on a stand-in site (wiki/mock.py), start to end, without touching the real `wiki` branch.
+"""The wiki's own run on a stand-in site (wiki/sources/mock.py), start to end, without touching the real `wiki` branch.
 
     uv run python experiments/wiki_demo.py
 
@@ -18,7 +18,7 @@ import time
 from pathlib import Path
 
 from catix.settings import settings
-from catix.wiki import mock
+from catix.wiki.sources import mock
 
 DATA = settings.wiki_root
 SITE = Path(__file__).resolve().parent / ".wiki-demo-site"  # (ignored by git)

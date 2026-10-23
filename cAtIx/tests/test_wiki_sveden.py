@@ -1,6 +1,6 @@
 """What a document of innopolis.university/sveden belongs to, from the markup around its link (sveden.context_of)."""
 
-from catix.wiki.sveden import FILE, context_of
+from catix.wiki.sources.sveden import FILE, context_of
 
 
 def contexts(page: str) -> list[str]:

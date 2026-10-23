@@ -1,6 +1,6 @@
 """Course programmes (РПД): what code reads from an archive's cell, a file name and the header of a programme (rpd.py)."""
 
-from catix.wiki.rpd import FACILITIES, latin, name_of, programme_label, semester_of
+from catix.wiki.sources.rpd import FACILITIES, latin, name_of, programme_label, semester_of
 
 HEADER = """Председатель Ученого совета
 А.В. Гасников
@@ -55,7 +55,7 @@ def test_a_cut_caption_loses_its_cut_word():
 
 
 def test_a_cohort_whose_links_are_dead_gives_way_to_the_one_before(monkeypatch):
-    from catix.wiki import rpd
+    from catix.wiki.sources import rpd
 
     cell = "магистратуры: 09.04.01 Информатика; Направленность программы (профиль) – Кибербезопасность* — {} — Рабочие программы дисциплин"
     listed = [{"url": f"https://x/{y}-{s}.7z", "ext": "7z", "title": f"{s} семестр", "context": cell.format(y)} for y, n in ((2025, 3), (2026, 4)) for s in range(1, n + 1)]
@@ -77,7 +77,7 @@ def test_the_name_of_a_college_course_stops_before_its_cycle():
 
 
 def test_the_sections_of_a_programme_are_headings():
-    from catix.wiki.rpd import to_markdown
+    from catix.wiki.sources.rpd import to_markdown
 
     md = to_markdown("Шапка\n1. КРАТКАЯ ХАРАКТЕРИСТИКА ДИСЦИПЛИНЫ\nЦель курса\n2. ПЕРЕЧЕНЬ ПЛАНИРУЕМЫХ РЕЗУЛЬТАТОВ ОБУЧЕНИЯ\n1. Знать методы\n")
     assert "## 1. Краткая характеристика дисциплины" in md and "## 2. Перечень планируемых результатов обучения" in md
@@ -85,13 +85,13 @@ def test_the_sections_of_a_programme_are_headings():
 
 
 def test_a_heading_at_the_top_of_a_page_is_a_heading_too():
-    from catix.wiki.rpd import to_markdown
+    from catix.wiki.sources.rpd import to_markdown
 
     assert "## 1. Краткая характеристика дисциплины (модуля)" in to_markdown("Тыртышников Е. Е., д.ф.-м.н.\f1. КРАТКАЯ ХАРАКТЕРИСТИКА ДИСЦИПЛИНЫ (МОДУЛЯ)\nЦель")
 
 
 def test_a_checkout_without_the_downloads_keeps_the_pages(tmp_path, monkeypatch):
-    from catix.wiki import rpd
+    from catix.wiki.sources import rpd
 
     cell = "магистратуры: 09.04.01 Информатика; Направленность программы (профиль) – Кибербезопасность* — 2026 — Рабочие программы дисциплин"
     monkeypatch.setattr(rpd.sveden, "load", lambda path: [{"url": "https://x/a.7z", "ext": "7z", "title": "1 семестр", "context": cell}])

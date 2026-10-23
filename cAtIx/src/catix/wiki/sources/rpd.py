@@ -27,7 +27,7 @@ from pathlib import Path
 import httpx
 
 from catix.settings import settings
-from catix.wiki import regulations, sveden
+from catix.wiki.sources import regulations, sveden
 from catix.wiki.compile import BUNDLE, PRODUCER, yaml_value
 from catix.wiki.paths import RAW
 
