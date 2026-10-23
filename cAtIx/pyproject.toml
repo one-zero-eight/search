@@ -11,6 +11,7 @@ dependencies = [
     "arize-phoenix-client>=3.5.0",
     "arize-phoenix-otel>=0.17.2",
     "certifi>=2026.7.22",
+    "fastapi>=0.161.1",
     "httpx>=0.28.1",
     "icalendar>=7.3.0",
     "langchain>=1.4.5",
@@ -21,9 +22,11 @@ dependencies = [
     "psycopg-pool>=3.3.3",
     "psycopg[binary]>=3.3.6",
     "pydantic-settings>=2.16.0",
+    "pyjwt[crypto]>=2.15.1",
     "recurring-ical-events>=3.8.2",
     "redis>=8.1.0",
     "telethon>=1.45.0",
+    "uvicorn>=0.54.0",
 ]
 
 [project.scripts]
@@ -32,7 +35,6 @@ catix-tgbot = "catix.tgbot.bot:main"
 catix-tguserbot = "catix.tguserbot.userbot:main"
 catix-maxbot = "catix.maxbot.bot:main"
 catix-worker = "catix.worker.app:main"
-catix-feed = "catix.worker.feed:main"
 catix-embed = "catix.worker.embedder:main"
 catix-db = "catix.db.init:main"
 catix-wiki = "catix.wiki.fetch:main"

@@ -222,7 +222,7 @@ async def _answer(max_: Max, chat_id: int, user_id: int, question: str, reply_mi
     try:
         context = AgentContext(
             allowed_chat_ids=None if scope is None else frozenset(scope),
-            user_telegram_id=-user_id,  # Never a Telegram id: no personal schedule
+            user_telegram_id=-user_id,  # Never a Telegram id
             study_group=None if group == groups.ALL else group,
         )
         with tracing.question(thread_id, str(user_id), question) as traced:

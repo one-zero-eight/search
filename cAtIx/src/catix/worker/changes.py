@@ -1,15 +1,16 @@
-"""Schedule changes announced in chats (a test moved, a lecture in another room, a cancelled class) as a calendar feed.
+"""Schedule changes announced in chats (a test moved, a lecture in another room, a cancelled class).
 
 The worker (worker.py, `catix-worker`) gets the id of every new message from a Redis stream. The model decides
 whether the message puts something on the calendar (a reschedule, a room change, a cancellation or a new event) and,
-if so, when and where. A found change is stored as `pending`; an admin approves it in Telegram (bot.py) and only
-approved changes are published as an iCalendar feed (feed.py serves it) that InNoHassle links as an external
-calendar (`catix-feed link`). The stream carries only new messages, so history is not scanned.
+if so, when and where. A found change is sent to the users of the chat's study group (of a chat for everybody: to every
+user the bot knows), and each decides for themselves: "✅ В мой календарь" puts it in their personal calendar
+(personal_calendar.py, /users/me.ics). The stream carries only new messages, so history is not scanned.
 """
 
 import html
 import logging
-from datetime import date, datetime, time, timedelta, timezone
+import re
+from datetime import date, datetime, time, timedelta
 
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
@@ -159,9 +160,9 @@ FROM schedule_changes s JOIN messages m ON m.id = s.message_id JOIN chats c ON c
 
 
 def unnotified() -> list[ChangeView]:
-    """Pending changes the admins have not been told about yet, with the message they came from."""
+    """Changes the users have not been told about yet, with the message they came from."""
     with pg.connection() as conn:
-        return pg.rows(conn, ChangeView, CHANGE_VIEW + " WHERE s.status = 'pending' AND s.notified_at IS NULL ORDER BY s.id")
+        return pg.rows(conn, ChangeView, CHANGE_VIEW + " WHERE s.notified_at IS NULL ORDER BY s.id")
 
 
 def mark_notified(change_id: int) -> None:
@@ -169,19 +170,80 @@ def mark_notified(change_id: int) -> None:
         conn.execute("UPDATE schedule_changes SET notified_at = now() WHERE id = %s", (change_id,))
 
 
-def decide(change_id: int, approved: bool) -> bool:
-    """Approve or reject a pending change; False if it was already decided."""
+def recipients(change: ChangeView) -> list[int]:
+    """Telegram ids of the users a change is for: those of the chat's group (/mygroup); for a chat of group `all`, every
+    user who has a group, `all` included. The Max users are not told: the worker sends through Telegram only."""
     with pg.connection() as conn:
-        done = pg.scalar(
+        keys = pg.column(
             conn,
-            "UPDATE schedule_changes SET status = %s, decided_at = now() WHERE id = %s AND status = 'pending' RETURNING id",
-            ("approved" if approved else "rejected", change_id),
+            "SELECT user_key FROM user_groups WHERE user_key LIKE 'tg:%%' AND (%s = 'all' OR group_code = %s) ORDER BY user_key",
+            (change.group_code, change.group_code),
         )
-    return done is not None
+    return [int(key.removeprefix("tg:")) for key in keys]
+
+
+def _words(text: str) -> str:
+    return " ".join(re.findall(r"\w+", text.casefold()))
+
+
+def _same_subject(subject: str, title: str) -> bool:
+    """Whether an event of the calendar ("Анонс: ОБЖ", "Экзамен по ОБЖ") is about the subject of a change ("ОБЖ"):
+    the words of one are among the words of the other."""
+    prefix = next((p for p in KIND_TITLE.values() if title.startswith(f"{p}: ")), None)
+    a, b = _words(subject), _words(title.removeprefix(f"{prefix}: ") if prefix else title)
+    return bool(a and b) and (f" {a} " in f" {b} " or f" {b} " in f" {a} ")
+
+
+def _earlier_event(conn, user_key: str, subject: str) -> int | None:
+    """The user's event a reschedule, room change or cancellation is about: the latest added upcoming one of its subject."""
+    rows = conn.execute(
+        """SELECT id, title FROM personal_events
+           WHERE user_key = %s AND coalesce(ends_at, starts_at) >= now() - interval '1 day' ORDER BY created_at DESC""",
+        (user_key,),
+    ).fetchall()
+    return next((r["id"] for r in rows if _same_subject(subject, r["title"])), None)
+
+
+def add_to_calendar(user_key: str, change_id: int) -> str | None:
+    """Put a change in the user's personal calendar and say what was done; None if there is no such change.
+
+    A reschedule or a room change of an event the user already has changes that event (it keeps its id, so calendar apps
+    move it), a cancellation removes it; anything else is a new event. Twice is once."""
+    with pg.connection() as conn:
+        change = pg.row(conn, ChangeView, CHANGE_VIEW + " WHERE s.id = %s", (change_id,))
+        if change is None:
+            return None
+        link = change.link or change.chat_link
+        subject = change.subject or change.summary
+        earlier = _earlier_event(conn, user_key, subject) if change.kind != "announcement" and change.subject else None
+        if earlier is not None and change.kind == "cancel":
+            conn.execute("DELETE FROM personal_events WHERE id = %s", (earlier,))
+            return f"Убрано из вашего календаря: {subject}"
+        if earlier is not None and change.kind == "room_change":
+            conn.execute("UPDATE personal_events SET room = %s, source_url = coalesce(%s, source_url) WHERE id = %s", (change.room, link, earlier))
+            return f"Аудитория изменена в вашем календаре: {subject}"
+        if earlier is not None:  # A reschedule.
+            title = pg.scalar(conn, "SELECT title FROM personal_events WHERE id = %s", (earlier,))
+            # The same event already at the new time (added twice) would break the uniqueness of (user, title, start).
+            conn.execute("DELETE FROM personal_events WHERE user_key = %s AND title = %s AND starts_at = %s AND id <> %s",
+                         (user_key, title, change.starts_at, earlier))
+            conn.execute(
+                """UPDATE personal_events SET starts_at = %s, ends_at = %s, all_day = %s, room = coalesce(%s, room),
+                          source_url = coalesce(%s, source_url) WHERE id = %s""",
+                (change.starts_at, change.ends_at, change.all_day, change.room, link, earlier),
+            )
+            return f"Перенесено в вашем календаре: {subject}"
+        title = f"{KIND_TITLE[change.kind]}: {subject}"
+        conn.execute(
+            """INSERT INTO personal_events (user_key, title, starts_at, ends_at, all_day, room, source_url)
+               VALUES (%s, %s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING""",
+            (user_key, title, change.starts_at, change.ends_at, change.all_day, change.room, link),
+        )
+    return f"Добавлено в ваш календарь: {title}"
 
 
 def card(change: ChangeView) -> str:
-    """The text an admin sees (Telegram HTML): what changed, and the message it was read from, as a link if it has one."""
+    """The text a user sees (Telegram HTML): what changed, and the message it was read from, as a link if it has one."""
     when = change.starts_at.astimezone(settings.tz)
     lines = [f"<b>{html.escape(KIND_TITLE[change.kind])}: {html.escape(change.subject or '?')}</b>"]
     lines.append(f"Когда: {when:%d.%m.%Y}" + ("" if change.all_day else f" {when:%H:%M}"))
@@ -195,7 +257,7 @@ def card(change: ChangeView) -> str:
     return "\n".join(lines)
 
 
-# ---- feed -------------------------------------------------------------------------------------------------
+# ---- iCalendar text (personal_calendar.py) -----------------------------------------------------------------
 
 
 def _escape(text: str) -> str:
@@ -214,46 +276,3 @@ def _fold(line: str) -> str:
         out.append(raw[:cut].decode())
         raw = b" " + raw[cut:]
     return "\r\n".join([*out, raw.decode()])
-
-
-def feed_ics(group: str | None = None) -> str:
-    """Approved changes as an iCalendar document. With a group: changes of its chats and of chats for everybody."""
-    since = datetime.now(timezone.utc) - timedelta(days=settings.feed_days_back)
-    with pg.connection() as conn:
-        rows = pg.rows(
-            conn,
-            ChangeView,
-            CHANGE_VIEW
-            + """ WHERE s.status = 'approved' AND s.starts_at >= %s
-                   AND (%s::text IS NULL OR c.group_code IN ('all', %s::text)) ORDER BY s.starts_at""",
-            (since, group, group),
-        )
-    stamp = lambda t: t.astimezone(timezone.utc).strftime("%Y%m%dT%H%M%SZ")  # noqa: E731
-    lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//ctx//schedule changes//RU", "CALSCALE:GREGORIAN",
-             "X-WR-CALNAME:Изменения расписания (из чатов)"]  # fmt: skip
-    for r in rows:
-        title = f"{KIND_TITLE[r.kind]}: {r.subject or r.summary}"
-        starts = r.starts_at
-        if r.all_day:
-            # No time was stated. All-day events (VALUE=DATE) are not shown by InNoHassle, so the event gets the
-            # same form as any other: a start time (CHANGES_DEFAULT_TIME) and the usual length, and says so.
-            starts = datetime.combine(r.starts_at.astimezone(settings.tz).date(), settings.changes_default_time, settings.tz)
-        end = starts + (r.ends_at - r.starts_at if r.ends_at and not r.all_day else DEFAULT_LENGTH)
-        span = [f"DTSTART:{stamp(starts)}", f"DTEND:{stamp(end)}"]
-        description = f"{r.summary}\nИсточник: «{r.chat_title}», {r.date.astimezone(settings.tz):%d.%m.%Y}"
-        if r.all_day:
-            description += "\nВремя в сообщении не указано"
-        link = r.link or r.chat_link
-        if link:
-            description += f"\n{link}"
-        lines += ["BEGIN:VEVENT", f"UID:change-{r.id}@ctx", f"DTSTAMP:{stamp(r.decided_at or r.created_at)}",
-                  *span, f"SUMMARY:{_escape(title)}",
-                  f"DESCRIPTION:{_escape(description)}"]  # fmt: skip
-        if r.room:
-            lines.append(f"LOCATION:{_escape(r.room)}")
-        if link:
-            lines.append(f"URL:{link}")  # Calendar apps show it as a clickable link.
-            lines.append(f"X-WR-LINK:{link}")  # Where the information comes from: the Telegram or Max message.
-        lines.append("END:VEVENT")
-    lines.append("END:VCALENDAR")
-    return "\r\n".join(_fold(line) for line in lines) + "\r\n"

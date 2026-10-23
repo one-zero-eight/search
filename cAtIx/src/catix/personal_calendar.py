@@ -1,15 +1,8 @@
-"""Calendars the bot hands out: a feed per study group and a personal one per user.
+"""A user's personal calendar: the events they added with "➕ В мой календарь" under an answer.
 
-- Group: /feed/g/<signature>/<GROUP>.ics, the approved schedule changes of the group's chats (worker/changes.py).
-  The signature is an HMAC of the group name under FEED_TOKEN, so the link of one group does not reveal another's, and
-  FEED_TOKEN itself (the admin's all-groups link for InNoHassle) is never given to users.
-- Personal: /feed/me/<token>.ics, the events the user added with "➕ В мой календарь" under an answer. The token is
-  random, belongs to one user and can be replaced (the old link stops working).
-Both are subscribed to by URL in any calendar app.
+Served at GET /users/me.ics (worker/feed.py) to whoever shows the user's InNoHassle token; user_key is 'tg:<id>'.
 """
 
-import hashlib
-import hmac
 import json
 import secrets
 from dataclasses import dataclass
@@ -34,54 +27,11 @@ class PersonalEvent:
 
 
 def configured() -> bool:
-    return bool(settings.feed_public_url and settings.feed_token)
+    return settings.feed_public_url is not None
 
 
-def _base() -> str:
-    return str(settings.feed_public_url).rstrip("/")
-
-
-# ---- links ----------------------------------------------------------------------------------------------------
-
-
-def group_signature(group: str) -> str:
-    assert settings.feed_token
-    key = settings.feed_token.get_secret_value().encode()
-    return hmac.new(key, f"group:{group}".encode(), hashlib.sha256).hexdigest()[:32]
-
-
-def group_url(group: str) -> str:
-    return f"{_base()}/feed/g/{group_signature(group)}/{group}.ics"
-
-
-def user_token(user_key: str) -> str:
-    with pg.connection() as conn:
-        token = pg.scalar(conn, "SELECT token FROM user_calendars WHERE user_key = %s", (user_key,))
-        if token:
-            return token
-        token = secrets.token_urlsafe(24)
-        conn.execute("INSERT INTO user_calendars (user_key, token) VALUES (%s, %s) ON CONFLICT DO NOTHING", (user_key, token))
-        return pg.scalar(conn, "SELECT token FROM user_calendars WHERE user_key = %s", (user_key,))
-
-
-def rotate_token(user_key: str) -> str:
-    token = secrets.token_urlsafe(24)
-    with pg.connection() as conn:
-        conn.execute(
-            """INSERT INTO user_calendars (user_key, token) VALUES (%s, %s)
-               ON CONFLICT (user_key) DO UPDATE SET token = excluded.token, created_at = now()""",
-            (user_key, token),
-        )
-    return token
-
-
-def personal_url(user_key: str) -> str:
-    return f"{_base()}/feed/me/{user_token(user_key)}.ics"
-
-
-def user_by_token(token: str) -> str | None:
-    with pg.connection() as conn:
-        return pg.scalar(conn, "SELECT user_key FROM user_calendars WHERE token = %s", (token,))
+def url() -> str:
+    return f"{str(settings.feed_public_url).rstrip('/')}/users/me.ics"
 
 
 # ---- events ---------------------------------------------------------------------------------------------------

@@ -1,8 +1,7 @@
 """Admins of the bot in the bot: /admin.
 
 An admin sees who the admins are, adds another one (by Telegram id, or by forwarding a message of that person) and
-removes the ones that were added here. The admins from ADMIN_TELEGRAM_IDS (or the owner of INNOHASSLE_TOKEN) are
-fixed. Only in a private chat with the bot.
+removes the ones that were added here. The admins from ADMIN_TELEGRAM_IDS are fixed. Only in a private chat with the bot.
 """
 
 import asyncio

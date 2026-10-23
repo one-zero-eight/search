@@ -1,7 +1,8 @@
-"""Thin client for the InNoHassle API gateway (https://api.innohassle.ru)."""
+"""Thin client for the InNoHassle API gateway (https://api.innohassle.ru).
 
-import base64
-import json
+Clubs, events, maps and group timetables are public; the only token is the service one (scope `users`), sent only to
+the users endpoint."""
+
 import time
 from typing import Any
 
@@ -13,11 +14,6 @@ _client = httpx.Client(
     base_url=str(settings.innohassle_api),
     timeout=30,
     follow_redirects=True,
-    headers=(
-        {"Authorization": f"Bearer {settings.innohassle_token.get_secret_value()}"}
-        if settings.innohassle_token
-        else {}
-    ),
 )
 
 
@@ -80,36 +76,15 @@ def study_group_by_telegram_id(telegram_id: int) -> str | None:
     return sso.get("group") or None
 
 
-def token_telegram_id() -> int | None:
-    """Telegram id of the INNOHASSLE_TOKEN owner (a user token carries it), to keep personal data theirs."""
-    if not settings.innohassle_token:
-        return None
-    payload = settings.innohassle_token.get_secret_value().split(".")[1]
-    claims = json.loads(base64.urlsafe_b64decode(payload + "=" * (-len(payload) % 4)))
-    return claims.get("telegram_id")
-
-
-def my_schedule_ics() -> str:
-    """Personal schedule of the token owner: their groups, electives, sport, bookings."""
-    return _get("/schedule/v0/users/me/all.ics", as_text=True)
-
-
 def event_groups() -> list[dict]:
     """All schedule groups (academic groups, electives, sport, ...) with aliases and names."""
     return _get("/schedule/v0/event-groups/")["event_groups"]
 
 
 def group_schedule_ics(alias: str) -> str:
-    # The endpoint requires a user_id but serves the same public calendar for any value;
-    # pass ours when known so the request is attributed honestly.
-    try:
-        user_id = (
-            _get("/schedule/v0/users/me")["id"] if settings.innohassle_token else 0
-        )
-    except httpx.HTTPStatusError:
-        user_id = 0  # Expired user token (they live one day); the group calendar is public anyway.
+    # The endpoint requires a user_id but serves the same public calendar for any value.
     return _get(
         f"/schedule/v0/{alias}.ics",
-        params={"user_id": user_id, "export_type": "group"},
+        params={"user_id": 0, "export_type": "group"},
         as_text=True,
     )

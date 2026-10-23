@@ -483,13 +483,7 @@ def get_schedule(
         source = own["name"]
         ics = innohassle.group_schedule_ics(own["alias"])
     else:
-        context = runtime.context
-        owner = innohassle.token_telegram_id()
-        # The personal schedule belongs to the token owner: never show it to someone else.
-        if owner is None or (context and context.user_telegram_id not in (None, owner)):
-            return {"error": "Personal schedule is not available for this user. Ask for their group, e.g. B26-DSAI-04."}
-        source = "your personal schedule"
-        ics = innohassle.my_schedule_ics()
+        return {"error": "The asker's group is not known. Ask for their group, e.g. B26-DSAI-04."}
 
     calendar = icalendar.Calendar.from_ical(ics)
     now = datetime.now(settings.tz)
@@ -503,7 +497,7 @@ def get_schedule(
             continue  # All-day entries are markers, not classes.
         key = (begin, title, str(ev.get("LOCATION", "")))
         if key in seen:
-            continue  # The personal calendar repeats some events once per source group.
+            continue  # A calendar may repeat an event once per source group.
         seen.add(key)
         local = begin.astimezone(settings.tz)
         finish = ev.decoded("DTEND") if "DTEND" in ev else begin

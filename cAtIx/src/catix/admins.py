@@ -1,6 +1,6 @@
-"""Admins of the bot: who approves schedule changes and sets up /listen.
+"""Admins of the bot: who sets up /listen and gets the alerts.
 
-Two sources: ADMIN_TELEGRAM_IDS (or, when empty, the owner of INNOHASSLE_TOKEN), which only a restart changes, and the
+Two sources: ADMIN_TELEGRAM_IDS, which only a restart changes, and the
 admins added by another admin in the bot (/admin, tgbot/admin.py), kept in the database.
 """
 
@@ -10,9 +10,7 @@ from catix.settings import settings
 
 def configured() -> list[int]:
     """Admins from the settings; they cannot be removed in the bot."""
-    from catix.innohassle import client as innohassle
-
-    return settings.admin_telegram_ids or [i for i in [innohassle.token_telegram_id()] if i]
+    return settings.admin_telegram_ids
 
 
 def added() -> list[int]:

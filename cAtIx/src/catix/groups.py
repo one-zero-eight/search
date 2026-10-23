@@ -5,7 +5,6 @@ of a chat sets the group in a private chat with the bot (`/group`), never in the
 group whose chats they want answers from (`/mygroup`). A user of group `all` (the default) is answered from the chats of group
 `all` only; a user of another group from the chats of `all` and of their own group. A chat of a group is never searched for a
 user of another group, and the model cannot change that: the scope is worked out here, in code, from the user's key.
-The calendar feed has one variant per group (feed.py).
 Both bots use this module; only the admin check (is this user an admin of that chat?) differs by messenger.
 """
 
@@ -64,7 +63,7 @@ _warned_token = False
 def auto_group(telegram_id: int | None) -> str | None:
     """The user's study group from InNoHassle by Telegram id, cached; None if unknown (then /mygroup decides)."""
     global _warned_token
-    if telegram_id is None or not settings.innohassle_service_token:
+    if telegram_id is None or not settings.innohassle_groups or not settings.innohassle_service_token:
         return None
     hit = _auto.get(telegram_id)
     if hit and time.monotonic() < hit[0]:
@@ -135,9 +134,10 @@ def group_command(args: str, admin_chats: list[ChatGroup]) -> str:
 
 
 def manual_group_allowed(is_admin: bool) -> bool:
-    """Choosing a group by hand (`/mygroup`) is closed for everybody but the admins until the service token is set:
-    without it nobody can check the group a person names, so it would only be a claim."""
-    return is_admin or settings.innohassle_service_token is not None
+    """Choosing a group by hand (`/mygroup`) is open while groups are not taken from InNoHassle (INNOHASSLE_GROUPS off).
+    With them on, it is closed for everybody but the admins until the service token is set: without it nobody can check
+    the group a person names, so it would only be a claim."""
+    return is_admin or not settings.innohassle_groups or settings.innohassle_service_token is not None
 
 
 def mygroup_command(args: str, user_key: str, telegram_id: int | None = None, *, may_set: bool = True) -> str:

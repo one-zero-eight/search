@@ -25,3 +25,4 @@ raw/*.db*
 /raw/sveden
 /raw/topics.json
 experiments/.wiki-demo-site/
+wiki-index.tar.gz

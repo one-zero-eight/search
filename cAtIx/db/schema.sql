@@ -187,12 +187,8 @@ CREATE OR REPLACE VIEW visible.messages WITH (security_barrier = true) AS
     WHERE m.chat_id = ANY (visible.allowed_chats());
 
 -- Personal calendar of a user (personal_calendar.py): events they added with "➕ В мой календарь" under an answer, served
--- as a private iCalendar feed at /feed/me/<token>.ics. user_key is 'tg:<id>'.
-CREATE TABLE IF NOT EXISTS user_calendars (
-    user_key   text PRIMARY KEY,
-    token      text NOT NULL UNIQUE,
-    created_at timestamptz NOT NULL DEFAULT now()
-);
+-- at /users/me.ics to the holder of the user's InNoHassle token. user_key is 'tg:<id>'.
+DROP TABLE IF EXISTS user_calendars;  -- The calendars had a secret link each; now the InNoHassle token opens them.
 CREATE TABLE IF NOT EXISTS personal_events (
     id         bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     user_key   text NOT NULL,
@@ -213,8 +209,10 @@ CREATE TABLE IF NOT EXISTS calendar_proposals (
     created_at timestamptz NOT NULL DEFAULT now()
 );
 
--- Reschedules, room changes and cancellations found in chat messages (changes.py). Only approved ones reach the
--- calendar feed. The worker reads new messages from a Redis stream, so history is never scanned.
+-- Reschedules, room changes and cancellations found in chat messages (changes.py). Each is sent to the users of the
+-- chat's group, and a user who accepts it gets it in their personal calendar (personal_events); status and decided_at
+-- are from when an admin decided for everybody and are no longer used. The worker reads new messages from a Redis
+-- stream, so history is never scanned.
 CREATE TABLE IF NOT EXISTS schedule_changes (
     id          bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     message_id  bigint NOT NULL UNIQUE REFERENCES messages (id) ON DELETE CASCADE,

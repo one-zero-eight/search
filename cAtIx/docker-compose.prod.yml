@@ -90,7 +90,7 @@ services:
     <<: *app
     command: ["catix-worker"]
     ports:
-      - "127.0.0.1:8090:8090"   # the calendar feed; put an HTTPS reverse proxy (Caddy, nginx) in front of it
+      - "127.0.0.1:8090:8090"   # personal calendars (/users/me.ics); put an HTTPS reverse proxy (Caddy, nginx) in front of it
 
   # Reads chats with a Telegram account: start it only after `login` (DEPLOY.md), the session lives in the data volume.
   userbot:

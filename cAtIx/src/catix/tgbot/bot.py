@@ -232,19 +232,11 @@ async def feedback(query: CallbackQuery, bot: Bot) -> None:
 
 def _calendar_screen(user_id: int) -> tuple[str, InlineKeyboardMarkup | None]:
     if not personal_calendar.configured():
-        return "Календарь пока не настроен (нужны FEED_TOKEN и FEED_PUBLIC_URL). Напишите администратору.", None
+        return "Календарь пока не настроен (нужен FEED_PUBLIC_URL). Напишите администратору.", None
     user_key = f"tg:{user_id}"
-    group = groups.effective_group(user_key, user_id)
     lines = [
-        f"📅 <b>Календарь группы {html.escape(group)}</b>: изменения расписания из чатов, одобренные админом",
-        personal_calendar.group_url(group),
-        "",
-        "🗓 <b>Ваш личный календарь</b>: события, которые вы добавили кнопкой «➕ В мой календарь» под ответами",
-        personal_calendar.personal_url(user_key),
-        "",
-        "Добавьте ссылку как календарь «по URL»: Google Календарь → Другие календари → Добавить по URL; "
-        "Apple: Файл → Новая подписка на календарь; InNoHassle: добавление календаря по ссылке. "
-        "Ссылки личные, не пересылайте их.",
+        "🗓 <b>Ваш личный календарь</b>: события, которые вы добавили кнопкой «➕ В мой календарь» под ответами.",
+        f"Адрес: {personal_calendar.url()}, открывается с вашим токеном InNoHassle (аккаунт, привязанный к этому Telegram).",
     ]
     rows = []
     events = personal_calendar.upcoming(user_key, 5)
@@ -254,8 +246,7 @@ def _calendar_screen(user_id: int) -> tuple[str, InlineKeyboardMarkup | None]:
             start = event.starts_at.astimezone(settings.tz)
             lines.append(f"• {html.escape(event.title)}: {start:%d.%m} " + ("" if event.all_day else f"{start:%H:%M}"))
             rows.append([InlineKeyboardButton(text=f"❌ Убрать: {event.title[:30]}", callback_data=f"cal:del:{event.id}")])
-    rows.append([InlineKeyboardButton(text="🔄 Новая личная ссылка", callback_data="cal:rot")])
-    return "\n".join(lines), InlineKeyboardMarkup(inline_keyboard=rows)
+    return "\n".join(lines), InlineKeyboardMarkup(inline_keyboard=rows) if rows else None
 
 
 @router.message(F.chat.type == ChatType.PRIVATE, Command("calendar"))
@@ -276,7 +267,7 @@ async def calendar_callback(query: CallbackQuery) -> None:
         if title is None:
             await query.answer("Предложение устарело", show_alert=True)
             return
-        await query.answer("Добавлено в ваш календарь. Ссылка на него: /calendar")
+        await query.answer("Добавлено в ваш календарь: /calendar")
         with contextlib.suppress(TelegramAPIError):
             rows = [
                 [InlineKeyboardButton(text="✅ Добавлено", callback_data="cal:done")] if b.callback_data == query.data else [b]
@@ -285,13 +276,10 @@ async def calendar_callback(query: CallbackQuery) -> None:
             ] if query.message and query.message.reply_markup else []
             await query.message.edit_reply_markup(reply_markup=InlineKeyboardMarkup(inline_keyboard=rows))
         return
-    if action == "del":
-        await asyncio.to_thread(personal_calendar.delete_event, user_key, int(args[0]))
-        notice = "Убрано"
-    else:  # "rot"
-        await asyncio.to_thread(personal_calendar.rotate_token, user_key)
-        notice = "Новая ссылка готова, старая больше не работает"
-    await query.answer(notice)
+    if action != "del":
+        return
+    await asyncio.to_thread(personal_calendar.delete_event, user_key, int(args[0]))
+    await query.answer("Убрано")
     text, keyboard = await asyncio.to_thread(_calendar_screen, query.from_user.id)
     with contextlib.suppress(TelegramAPIError):
         await query.message.edit_text(text, parse_mode=ParseMode.HTML, reply_markup=keyboard, disable_web_page_preview=True)
@@ -560,19 +548,19 @@ async def inline_wait(query: CallbackQuery) -> None:
     await query.answer("Ещё думаю…")
 
 
-# ---- schedule changes: the admin approves what the worker (worker.py) found in chats ------------------------------
+# ---- schedule changes: each user decides on what the worker (worker.py) found in the chats of their group ---------
 
 
 @router.callback_query(F.data.startswith("chg:"))
 async def decide_change(query: CallbackQuery) -> None:
-    if query.from_user.id not in await asyncio.to_thread(changes.admins):
-        await query.answer("Только для администратора", show_alert=True)
-        return
     _, action, change_id = query.data.split(":")
-    done = await asyncio.to_thread(changes.decide, int(change_id), action == "ok")
-    verdict = ("✅ Добавлено в календарь" if action == "ok" else "❌ Отклонено") if done else "Уже обработано"
+    if action == "ok":
+        done = await asyncio.to_thread(changes.add_to_calendar, f"tg:{query.from_user.id}", int(change_id))
+        verdict = f"✅ {done[:180]}. /calendar" if done else "Изменение не найдено"
+    else:
+        verdict = "❌ Не добавлено"
     await query.answer(verdict)
-    if query.message and done:
+    if query.message:
         await query.message.edit_text(f"{query.message.html_text}\n\n{verdict}", parse_mode=ParseMode.HTML, reply_markup=None, disable_web_page_preview=True)
 
 
@@ -581,7 +569,7 @@ COMMANDS = [
     BotCommand(command="ask", description="Задать вопрос (в группе)"),
     BotCommand(command="mygroup", description="Моя учебная группа"),
     BotCommand(command="clear", description="Очистить память диалога"),
-    BotCommand(command="calendar", description="Календарь: группа и мои события"),
+    BotCommand(command="calendar", description="Мой календарь"),
     BotCommand(command="id", description="ID чата и топика"),
 ]
 ADMIN_COMMANDS = [

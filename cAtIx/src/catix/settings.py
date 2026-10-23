@@ -51,11 +51,11 @@ class Settings(BaseSettings):
     phoenix_project: str = "catix"
 
     innohassle_api: HttpUrl = HttpUrl("https://api.innohassle.ru")
-    # Not needed for the public endpoints used so far (clubs, events.ics, maps).
-    innohassle_token: SecretStr | None = None
     # Token of a service with the `users` scope: it lets us ask InNoHassle which study group a Telegram id belongs to.
-    # A normal user token (scope `me`, the one above) cannot do that. Without it groups are chosen with /mygroup.
+    # The only InNoHassle token: the rest (clubs, events, maps, group timetables) is public. Without it groups are chosen with /mygroup.
     innohassle_service_token: SecretStr | None = None
+    # Off for now: the groups InNoHassle gives are not the right ones yet, so users set theirs with /mygroup.
+    innohassle_groups: bool = False
     innohassle_cache_ttl: int = Field(600, ge=0, description="Seconds.")
 
     # Telegram userbot (MTProto). api_id / api_hash come from https://my.telegram.org -> API development tools.
@@ -83,22 +83,18 @@ class Settings(BaseSettings):
     max_bot_token: SecretStr | None = None
     max_root_ca: Path = Path("data/russian_root_ca.crt")
 
-    # Schedule changes found in chats (changes.py): reschedules, room changes, cancellations. A change reaches the
-    # calendar feed only after an admin approves it in Telegram.
+    # Schedule changes found in chats (changes.py): reschedules, room changes, cancellations. Each goes to the users
+    # of the chat's group, who put it in their own calendar or not.
     # Redis (docker-compose.yml): the bots put the ids of newly stored messages on a stream, the worker `catix-worker`
     # reads it. Without it the bots publish nothing.
     redis_url: str | None = None
     changes_enabled: bool = True
-    # Telegram ids that approve changes; empty = the owner of INNOHASSLE_TOKEN.
+    # Telegram ids that set up the bot and get the alerts; more are added in the bot (/admin).
     admin_telegram_ids: list[int] = []
-    # The feed is served at /feed/<token>.ics on feed_port; InNoHassle links it as an external calendar, so it must
-    # be reachable from the internet over HTTPS (a tunnel or reverse proxy). Without a token there is no feed.
-    feed_token: SecretStr | None = None
+    # The worker serves the users' personal calendars at /users/me.ics on feed_port (127.0.0.1); an HTTPS reverse proxy
+    # in front of it is feed_public_url, e.g. https://cal.example.com. Without it /calendar has no address to give.
     feed_port: int = 8090
-    # Public HTTPS address of the feed server (a reverse proxy or tunnel in front of feed_port), e.g. https://cal.example.com.
-    # With it (and feed_token) the bot's /calendar hands out the group and personal calendar links.
     feed_public_url: HttpUrl | None = None
-    feed_days_back: int = Field(30, gt=0, description="How far into the past the feed goes.")
     # Start time of a change whose message names only the day: the calendar does not show all-day events.
     changes_default_time: time = time(9, 0)
 
