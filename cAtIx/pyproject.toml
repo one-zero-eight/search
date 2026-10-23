@@ -11,6 +11,7 @@ dependencies = [
     "arize-phoenix-client>=3.5.0",
     "arize-phoenix-otel>=0.17.2",
     "certifi>=2026.7.22",
+    "deepagents>=0.7.32",
     "fastapi>=0.161.1",
     "httpx>=0.28.1",
     "icalendar>=7.3.0",

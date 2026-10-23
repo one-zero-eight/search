@@ -9,6 +9,7 @@
     catix-wiki autopilot [--loop] [--source NAME ...] [--no-push] [--no-answers]   # the wiki maintains itself and commits to its branch (see autopilot.py)
     catix-wiki build [--offline] [--force] [--auto]   # the whole chain, re-running only what changed (see build.py)
     catix-wiki synth [TOPIC ...]       # guides that combine many concepts (wiki/guides/), see synth.py
+    catix-wiki agent [queue|all [FOLDER]|check|PATH ...]   # the wiki's agent keeps the knowledge cards (wiki/knowledge/), see agent.py
     catix-wiki graph                   # relations between concepts (prerequisites, teachers), see graph.py
     catix-wiki lint                    # check wiki/ against OKF v0.2
     catix-wiki index [status|--no-embed]   # the bundle in the database for the agent's search (see search_index.py)
@@ -23,6 +24,7 @@ The code is laid out by what each part does:
     graph.py       relations between pages (code; the model only resolves a prerequisite line to a course)
     topics.py      which guides the wiki needs (the model proposes, code checks, a person or the run accepts)
     synth.py       guides from numbered evidence (the model writes, code checks every citation and number)
+    agent.py       the wiki's agent (deepagents): reads the pages and keeps knowledge cards; code checks every card
     lint.py        OKF checks;  search_index.py, chunks.py: the bundle in the database for the agent's search
     build.py       the whole chain;  autopilot.py: the wiki's own run that commits to the `wiki` branch
 """
@@ -62,6 +64,10 @@ def main() -> None:
         from catix.wiki import build
 
         build.main()
+    elif cmd == "agent":
+        from catix.wiki import agent
+
+        agent.main()
     elif cmd == "synth":
         from catix.wiki import synth
 

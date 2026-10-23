@@ -112,10 +112,39 @@ def check(report: build.Report, review_before: set[str], answers: bool) -> Check
                + (f"; not found: {'; '.join(score.missed[:5])}" if score.missed else ""))
     if answers:
         checks.add(answers_pass(), "answers: tests/test_docs_answers.py")
+    if report.agent:
+        broken = report.agent.get("cards broken", 0)
+        checks.add(broken == 0, f"cards: {report.agent.get('cards written', 0)} written, {broken} do not hold against the pages (catix-wiki agent check)")
     new_review = sorted(set(report.review) - review_before)
     if new_review:  # (not a failure: the agent shows such a guide as not checked; a person should read it)
         checks.passed.append("written with review notes, to be read: " + ", ".join(new_review))
     return checks
+
+
+def changed_pages() -> list[str]:
+    """Source pages the run added or changed ('/regulations/x.md'), from git: what the wiki's agent reads next."""
+    out = []
+    for line in git("status", "--porcelain", "--", "wiki").splitlines():
+        status, path = line[:2], line[3:].split(" -> ")[-1].strip('"')
+        if "D" in status or not path.endswith(".md") or path.startswith(("wiki/knowledge/", "wiki/guides/")) or path in {"wiki/index.md", "wiki/log.md"}:
+            continue
+        out.append("/" + path.removeprefix("wiki/"))
+    return out
+
+
+def keep_cards(report: build.Report) -> None:
+    """The wiki's agent on the pages that changed (and on those still queued from earlier runs), then the cards into the index."""
+    from catix.wiki import agent, lint, search_index
+
+    print(f"== agent: {agent.enqueue(changed_pages())} changed pages queued, {len(agent.load_queue())} in the queue", flush=True)
+    if not agent.load_queue() and not agent.check_all():
+        return
+    report.agent = agent.run()
+    print(f"== agent: {report.agent}", flush=True)
+    report.lint_errors = lint.lint()
+    if not report.lint_errors and settings.database_url:
+        search_index.sync()
+        search_index.embed_all()
 
 
 def run_once(names: list[str] | None = None, push: bool = True, answers: bool = True) -> str:
@@ -132,7 +161,10 @@ def run_once(names: list[str] | None = None, push: bool = True, answers: bool = 
             continue
         state.setdefault("asked", {})[source.name] = now.isoformat(timespec="seconds")
         save_state(state)
-    if not any(changed.values()) and not git("status", "--porcelain"):
+    from catix.wiki import agent
+
+    waiting = settings.wiki_agent and bool(agent.load_queue())
+    if not any(changed.values()) and not git("status", "--porcelain") and not waiting:
         return f"nothing new ({', '.join(s.name for s in asked) or 'no source due'})"
     if not any(changed.values()) and state.get("review_tree") and working_tree() == state["review_tree"]:
         return "nothing new; changes wait for review (catix-wiki autopilot accept | discard)"
@@ -140,6 +172,8 @@ def run_once(names: list[str] | None = None, push: bool = True, answers: bool = 
 
     review_before = set(synth.under_review())
     report = build.rebuild(auto=True)
+    if settings.wiki_agent and not report.lint_errors:
+        keep_cards(report)
     git("add", "-A")
     staged = git("diff", "--cached", "--name-only").splitlines()
     if not staged:

@@ -36,6 +36,7 @@ class Report:
     review: list[str] = field(default_factory=list)  # guides written with `review:` (the model's draft failed the code check twice)
     lint_errors: int = 0
     index: dict[str, int] = field(default_factory=dict)
+    agent: dict[str, int] = field(default_factory=dict)  # what the wiki's agent did with the cards (agent.py)
 
 
 def rebuild(auto: bool = False, force: bool = False, topics_limit: int = 8) -> Report:

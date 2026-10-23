@@ -48,6 +48,7 @@ TYPES = {  # type -> directory of the bundle
     "schedule": "schedules",
     "page": "pages",
     "guide": "guides",  # written by synth.py, not compiled from one wiki page
+    "card": "knowledge",  # written by the wiki's agent (agent.py) from what many pages say
 }
 
 # Old versions and drafts live next to the current page and contradict it: not content.
@@ -258,7 +259,7 @@ def compile_page(pid: str, entry: dict, aliases: list[str]) -> Path | None:
     context = f"\nStart of the first table (for context, do not copy):\n{tables[0][:700]}" if tables else ""
     answer, finish = _llm(SYSTEM, f"Title: {page['title']}\n<page>\n{parts[0]}\n</page>{context}")
     meta, body = parse_answer(answer)
-    if meta.get("type", "").lower() == "skip" or meta.get("type", "").lower() not in TYPES or meta.get("type", "").lower() == "guide":
+    if meta.get("type", "").lower() == "skip" or meta.get("type", "").lower() not in TYPES or meta.get("type", "").lower() in {"guide", "card"}:
         print(f"  skipped ({meta.get('type', 'no TYPE line')})")
         return None
     truncated = finish == "length"

@@ -172,6 +172,11 @@ class Settings(BaseSettings):
     # Course programmes (wiki/sources/rpd.py) of every cohort on the site, not only the latest one of each programme: a student of
     # 2024 studies by the programme of 2024.
     wiki_rpd_all_years: bool = True
+    # The wiki's agent (wiki/agent.py): after each run of the sources it reads the pages that changed and keeps the
+    # knowledge cards (wiki/knowledge/). At most `wiki_agent_max_pages` pages a run; the rest wait in the queue.
+    wiki_agent: bool = True
+    wiki_agent_max_pages: int = Field(30, gt=0)
+    wiki_agent_steps: int = Field(80, gt=0, description="Model and tool steps per task of the agent.")
 
     # Old SQLite file, only read by `catix-db migrate`.
     messages_db: Path = Path("raw/telegram.db")
