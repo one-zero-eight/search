@@ -1,0 +1,171 @@
+{
+ "page": "/guides/admission-timeline.md",
+ "evidence_sha": "6bd9ac63a15f5052",
+ "claims": [
+  {
+   "sentence": "You can apply for admission to additional professional programs throughout the entire calendar year",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "5bf11d4f3add",
+     "sources": [
+      "/regulations/sveden-1f59cf74-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The deadline for submitting your documents is until the start of studies, unless the implementation conditions of your specific program state otherwise",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "5fac056c1f76",
+     "sources": [
+      "/regulations/sveden-1f59cf74-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "To enroll, you must submit an application for admission addressed to the Director of the University",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "0e6226f5ca11",
+     "sources": [
+      "/regulations/sveden-1f59cf74-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "When you submit this application, you must provide the required documents",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "65899593f01d",
+     "sources": [
+      "/regulations/sveden-1f59cf74-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You can submit these documents to the University in one of the following ways",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "f6143910aa92",
+     "sources": [
+      "/regulations/sveden-1f59cf74-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The University official or structural unit responsible for implementing your program will receive your documents",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "74d989631202",
+     "sources": [
+      "/regulations/sveden-1f59cf74-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Admission is conducted without entrance exams based on a review of your submitted documents, unless your educational program provides otherwise",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "7d99f5b263b7",
+     "sources": [
+      "/regulations/sveden-1f59cf74-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify the exact list of documents you must provide when submitting your application",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "65899593f01d",
+     "sources": [
+      "/regulations/sveden-1f59cf74-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It does not list the specific ways you can submit your documents",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "f6143910aa92",
+     "sources": [
+      "/regulations/sveden-1f59cf74-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It does not state which official or structural unit will receive your documents for any given program",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "74d989631202",
+     "sources": [
+      "/regulations/sveden-1f59cf74-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It does not indicate which programs might require entrance exams or what those requirements would be",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "7d99f5b263b7",
+     "sources": [
+      "/regulations/sveden-1f59cf74-pdf.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

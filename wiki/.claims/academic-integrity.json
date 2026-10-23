@@ -1,0 +1,435 @@
+{
+ "page": "/guides/academic-integrity.md",
+ "evidence_sha": "c528a70695b4e59b",
+ "claims": [
+  {
+   "sentence": "Academic integrity consists of the behavioral rules in point 9 of the University's Internal Rules of Conduct and the ethical principles required to maintain trust in learning and research outcomes",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "52724efad45f",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "A violation is any action or attempt to deceive while mastering a discipline, during current control, or during interim and final assessments",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "52724efad45f",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Plagiarism is using someone else's work in any form without citing sources and presenting it as your own",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "52724efad45f",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If you refuse to allow your work to be checked for originality when a violation is suspected, the violation is considered established",
+   "cites": [
+    8
+   ],
+   "evidence": [
+    {
+     "n": 8,
+     "sha": "1cc276104a4f",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "This regulation applies to all students enrolled in higher education programs at the University",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "241c3f68a955",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "A teacher may set an expected similarity threshold for assignments in the course program or assignment notification",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "a6cf39a0a397",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The University uses plagiarism-checking software such as iThenticate, Turnitin, Antiplagiat, or other programs chosen by the teacher",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "867a0a622d18",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The teacher must inform you of the suspected violation",
+   "cites": [
+    9
+   ],
+   "evidence": [
+    {
+     "n": 9,
+     "sha": "3d9ae33adc59",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If the originality check confirms the violation or you admit to it, the teacher must report the case to the Student Support and Development Department (SSDD) at the official email `319@innopolis.ru`",
+   "cites": [
+    10,
+    11
+   ],
+   "evidence": [
+    {
+     "n": 10,
+     "sha": "e0402fc46eee",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    },
+    {
+     "n": 11,
+     "sha": "ddfa1eb3ce86",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "In cases of plagiarism, disciplinary measures apply to all students involved in the violation",
+   "cites": [
+    12
+   ],
+   "evidence": [
+    {
+     "n": 12,
+     "sha": "d592365cdb8d",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You have 3 working days after receiving an email from the SSDD about a disciplinary measure to appeal the violation and the measure",
+   "cites": [
+    16
+   ],
+   "evidence": [
+    {
+     "n": 16,
+     "sha": "fd181b3a01a2",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "To appeal, you must reply to the official SSDD email with your justification and evidence of your innocence",
+   "cites": [
+    16
+   ],
+   "evidence": [
+    {
+     "n": 16,
+     "sha": "fd181b3a01a2",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If you do not submit an appeal within this deadline, the teacher's decision becomes final and the disciplinary measures are applied",
+   "cites": [
+    17
+   ],
+   "evidence": [
+    {
+     "n": 17,
+     "sha": "015e7cbbabd7",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If you submit an appeal, the SSDD will schedule a Commission meeting via email and invite you within 10 working days of receiving your appeal",
+   "cites": [
+    18
+   ],
+   "evidence": [
+    {
+     "n": 18,
+     "sha": "71f3b92a2309",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "At the meeting, you may present evidence and arguments for your defense, and the Commission may ask follow-up questions",
+   "cites": [
+    19
+   ],
+   "evidence": [
+    {
+     "n": 19,
+     "sha": "1fea25e7406e",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The Commission is a collegial body convened when you disagree with the violation fact",
+   "cites": [
+    13
+   ],
+   "evidence": [
+    {
+     "n": 13,
+     "sha": "1790ab3b58a8",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It consists of at least 3 members, including administrative staff, faculty, and potentially student council representatives, with a recommended composition of an SSDD employee, the Dean or deputy of the Faculty of Computer and Engineering Sciences, 1 faculty member, a program manager if available, and an official student self-government representative",
+   "cites": [
+    14
+   ],
+   "evidence": [
+    {
+     "n": 14,
+     "sha": "3242da9e69a8",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The Commission makes decisions by simple majority vote",
+   "cites": [
+    15
+   ],
+   "evidence": [
+    {
+     "n": 15,
+     "sha": "15fdf6594094",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The consequences for violations are disciplinary measures applied to you",
+   "cites": [
+    20
+   ],
+   "evidence": [
+    {
+     "n": 20,
+     "sha": "64bf28904d1c",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If you are caught violating the rules for the first time, you receive an unsatisfactory result (0-E) for the completed work, such as an assignment or interim assessment",
+   "cites": [
+    21
+   ],
+   "evidence": [
+    {
+     "n": 21,
+     "sha": "d3dee77a896b",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If you are caught violating the rules a second time, you receive an unsatisfactory result (0-Р) for the discipline or module (or for multiple disciplines if two cases occur on different subjects), you are directed to retake the interim assessment, and you receive an official warning",
+   "cites": [
+    22
+   ],
+   "evidence": [
+    {
+     "n": 22,
+     "sha": "7994b86139a1",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The regulation does not specify the exact similarity thresholds that trigger a violation, only that a teacher may set one",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "a6cf39a0a397",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The definition of plagiarism is cut off in the source text, so the full scope of what constitutes plagiarism is not provided",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "52724efad45f",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The regulation does not detail the exact procedures for how the Commission conducts its meetings or how evidence is formally submitted beyond the email invitation and verbal presentation",
+   "cites": [
+    18,
+    19
+   ],
+   "evidence": [
+    {
+     "n": 18,
+     "sha": "71f3b92a2309",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    },
+    {
+     "n": 19,
+     "sha": "1fea25e7406e",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It does not specify what happens after a second violation or if there are consequences for a third violation",
+   "cites": [
+    22
+   ],
+   "evidence": [
+    {
+     "n": 22,
+     "sha": "7994b86139a1",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The regulation does not list the specific content of point 9 of the Internal Rules of Conduct that defines academic integrity",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "52724efad45f",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Course pages or other university documents may contain additional information, but this regulation is the primary local act governing disciplinary measures for academic integrity violations",
+   "cites": [
+    1,
+    2
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "13b34112d61b",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "c58ff9e77303",
+     "sources": [
+      "/regulations/academic-integrity-regulation.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

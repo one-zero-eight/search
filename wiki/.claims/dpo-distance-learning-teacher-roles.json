@@ -1,0 +1,261 @@
+{
+ "page": "/guides/dpo-distance-learning-teacher-roles.md",
+ "evidence_sha": "5401e4b8177f6c57",
+ "claims": [
+  {
+   "sentence": "You have the right to control the learning process by assigning control works and test tasks that are provided for in the educational program",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "0bf123fd5580",
+     "sources": [
+      "/regulations/sveden-1206e1ee-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You have the right to organize forums and online consultations",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "0bf123fd5580",
+     "sources": [
+      "/regulations/sveden-1206e1ee-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You have the right not to allow a student who has not mastered the previous module of the educational program to study the next module in the case of sequential learning",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "0bf123fd5580",
+     "sources": [
+      "/regulations/sveden-1206e1ee-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You are obliged to assist in processing information and consult students if necessary",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "14e17a0cca02",
+     "sources": [
+      "/regulations/sveden-1206e1ee-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must help students document the results of their independent activities through communication via the internet or any method convenient for you and the student",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "14e17a0cca02",
+     "sources": [
+      "/regulations/sveden-1206e1ee-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must provide feedback during the execution of tasks",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "14e17a0cca02",
+     "sources": [
+      "/regulations/sveden-1206e1ee-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "This feedback includes clarifying the degree of task completion, answering questions, diagnosing the causes of difficulties, giving recommendations, and helping to determine ways to solve problems",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "14e17a0cca02",
+     "sources": [
+      "/regulations/sveden-1206e1ee-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You are obliged to design and carry out high-quality teaching of academic disciplines conducted in a distance learning format",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "14e17a0cca02",
+     "sources": [
+      "/regulations/sveden-1206e1ee-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must timely replenish and edit educational and methodological complexes",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "14e17a0cca02",
+     "sources": [
+      "/regulations/sveden-1206e1ee-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must answer student questions in a timely manner",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "14e17a0cca02",
+     "sources": [
+      "/regulations/sveden-1206e1ee-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must systematically improve your professional qualifications, including in the field of mastering specific tools that allow you to conduct distance learning",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "14e17a0cca02",
+     "sources": [
+      "/regulations/sveden-1206e1ee-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "As a teacher or curator using distance learning technologies, you also perform the duties of a tutor",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "f90d2d606d97",
+     "sources": [
+      "/regulations/sveden-1206e1ee-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Your duties as a tutor include organizing the process of individual work with students",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "84d5013cc815",
+     "sources": [
+      "/regulations/sveden-1206e1ee-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must assist students in overcoming difficulties in the process of self-education and in mastering new technologies, including those related to the field of distance learning",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "84d5013cc815",
+     "sources": [
+      "/regulations/sveden-1206e1ee-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must monitor all actions of students",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "84d5013cc815",
+     "sources": [
+      "/regulations/sveden-1206e1ee-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must support the cognitive interest of the student",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "84d5013cc815",
+     "sources": [
+      "/regulations/sveden-1206e1ee-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must organize individual and group consultations",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "84d5013cc815",
+     "sources": [
+      "/regulations/sveden-1206e1ee-pdf.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

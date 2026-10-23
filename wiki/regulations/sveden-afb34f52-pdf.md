@@ -1,0 +1,60 @@
+---
+type: regulation
+title: "Календарный учебный график [календарный график]"
+description: "This document is a calendar academic schedule for a professional development course on web development technologies at Innopolis University."
+resource: "https://innopolis.university/upload/iblock/9ca/3jzy1xl7p2zsxq7b6kf0qqvah3zbkqdy/календарный график.pdf"
+tags: ["schedule", "innopolis", "web-development", "training", "calendar"]
+audience: ["staff"]
+source_kind: official-document
+language: ru
+section: "sveden/education"
+sources:
+  - resource: "https://innopolis.university/upload/iblock/9ca/3jzy1xl7p2zsxq7b6kf0qqvah3zbkqdy/календарный график.pdf"
+    id: "fd3382a5be9f"
+    title: "Календарный учебный график [календарный график]"
+    last_modified: "2026-10-22T14:18:34+00:00"
+generated:
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
+  at: "2026-10-22T14:18:34+00:00"
+extraction: "ocr (tesseract rus)"
+status: draft
+review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
+---
+
+# Календарный учебный график [календарный график]
+
+УТВЕРЖДЕНО
+
+Проректор — начальник управления
+
+по —.__ООФ_А.:._ОШ и _._ш<:т_0-$пп`._т_п.0шшц.т:_чох0—ч_
+
+Календарный учебный график программы повышения квалификации
+
+«Егоп‘епд-разработка с применением С55, НТМ! и Замабстир?»
+
+Бариев И.И.
+
+.›„О «Университет Иннополис»
+
+Календарный учебный график представляет собой график учебного процесса, устанавливающий последовательность и
+
+продолжительность обучения и итоговой аттестации по учебным дням.
+
+№ Наименование раздела Учебные дни п/п 12 |3|4 10 | 11 |12 |13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 1 Введение, обзор инструментария, основы СК, обзор НТМ!. 2 Практическое
+
+применение НТМ1; Подключение С55 и Замабстпр* на странице
+
+Подходы к верстке страниц. Возможности ©553.
+
+Замабстр?
+
+\Меб-сервер, АЗАХ, ВЕ5Т АР!|
+
+Модули Замабстр{. Препроцессоры С55. Системы сборки проектов.
+
+Итоговая аттестация
+
+# Citations
+
+1. [Календарный учебный график [календарный график]](https://innopolis.university/upload/iblock/9ca/3jzy1xl7p2zsxq7b6kf0qqvah3zbkqdy/календарный график.pdf), file fd3382a5be9f

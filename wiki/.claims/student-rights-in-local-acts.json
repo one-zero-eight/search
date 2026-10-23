@@ -1,0 +1,314 @@
+{
+ "page": "/guides/student-rights-in-local-acts.md",
+ "evidence_sha": "92e2771c926775cc",
+ "claims": [
+  {
+   "sentence": "The University adopts local normative acts to regulate its activities within its competence and in accordance with Russian Federation legislation",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "bdf30abea91a",
+     "sources": [
+      "/regulations/sveden-186a6c8d-ustav-10-04-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "These acts cannot contradict Russian Federation legislation",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "bdf30abea91a",
+     "sources": [
+      "/regulations/sveden-186a6c8d-ustav-10-04-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The University regulates its activities through orders, directives, protocol decisions, regulations, rules, procedures, instructions, and other documents",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "bdf30abea91a",
+     "sources": [
+      "/regulations/sveden-186a6c8d-ustav-10-04-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "These acts are adopted by the Founders, Supervisory Board, Operational Board, Director, and other University bodies according to their competences established by legislation and the Statute",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "87a683fe98ad",
+     "sources": [
+      "/regulations/sveden-186a6c8d-ustav-10-04-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Local normative acts that affect your rights as a student are adopted considering the opinion of the Student Council",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "81259451760a",
+     "sources": [
+      "/regulations/sveden-186a6c8d-ustav-10-04-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The Student Council is created by student initiative as a form of public self-activity and may represent the interests of all or part of the students",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "81259451760a",
+     "sources": [
+      "/regulations/sveden-186a6c8d-ustav-10-04-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Before adopting a local normative act that affects student rights, the relevant management body sends the draft of the act to the Student Council",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "1ee700c6024e",
+     "sources": [
+      "/regulations/sveden-186a6c8d-ustav-10-04-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The Student Council must send a reasoned opinion on the draft in writing to the relevant collegial body or the Director within five working days from the day it receives the draft",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "674edaeea654",
+     "sources": [
+      "/regulations/sveden-186a6c8d-ustav-10-04-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If the Student Council agrees with the draft, or if the reasoned opinion is not received within the deadline specified in clause 7.6, the relevant management body adopts the local normative act",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "b1b935997a59",
+     "sources": [
+      "/regulations/sveden-186a6c8d-ustav-10-04-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If the reasoned opinion does not contain agreement or includes proposals for improvement, the relevant management body may fully or partially agree with the opinion and amend the draft, or disagree with the opinion and adopt the act in its original version",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "05b52c21e1df",
+     "sources": [
+      "/regulations/sveden-186a6c8d-ustav-10-04-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Norms of local normative acts that worsen your position compared to the position established by education legislation or labor legislation, or that are adopted with a violation of the established procedure, are not applied and are subject to cancellation by the Director",
+   "cites": [
+    8
+   ],
+   "evidence": [
+    {
+     "n": 8,
+     "sha": "b9ee57e9e28c",
+     "sources": [
+      "/regulations/sveden-186a6c8d-ustav-10-04-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify how the Student Council is formally recognized or registered",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "81259451760a",
+     "sources": [
+      "/regulations/sveden-186a6c8d-ustav-10-04-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not state how drafts are delivered to the Student Council or how opinions are delivered back",
+   "cites": [
+    4,
+    5
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "1ee700c6024e",
+     "sources": [
+      "/regulations/sveden-186a6c8d-ustav-10-04-2025-pdf.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "674edaeea654",
+     "sources": [
+      "/regulations/sveden-186a6c8d-ustav-10-04-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not define what constitutes a violation of the established procedure",
+   "cites": [
+    8
+   ],
+   "evidence": [
+    {
+     "n": 8,
+     "sha": "b9ee57e9e28c",
+     "sources": [
+      "/regulations/sveden-186a6c8d-ustav-10-04-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not explain how the Director initiates cancellation or what happens after cancellation",
+   "cites": [
+    8
+   ],
+   "evidence": [
+    {
+     "n": 8,
+     "sha": "b9ee57e9e28c",
+     "sources": [
+      "/regulations/sveden-186a6c8d-ustav-10-04-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not cover acts that do not affect student rights",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "bdf30abea91a",
+     "sources": [
+      "/regulations/sveden-186a6c8d-ustav-10-04-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not provide a mechanism for students to directly challenge acts outside the Student Council",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "81259451760a",
+     "sources": [
+      "/regulations/sveden-186a6c8d-ustav-10-04-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify deadlines for the Director's cancellation decision",
+   "cites": [
+    8
+   ],
+   "evidence": [
+    {
+     "n": 8,
+     "sha": "b9ee57e9e28c",
+     "sources": [
+      "/regulations/sveden-186a6c8d-ustav-10-04-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not address how acts are communicated to students after adoption",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "bdf30abea91a",
+     "sources": [
+      "/regulations/sveden-186a6c8d-ustav-10-04-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not mention any course pages or how they interact with these rules",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "bdf30abea91a",
+     "sources": [
+      "/regulations/sveden-186a6c8d-ustav-10-04-2025-pdf.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

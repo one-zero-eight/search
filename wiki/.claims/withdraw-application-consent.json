@@ -1,0 +1,219 @@
+{
+ "page": "/guides/withdraw-application-consent.md",
+ "evidence_sha": "6884367fe8500e2f",
+ "claims": [
+  {
+   "sentence": "You may withdraw your application at any stage of the admission process",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "8d8724e310f3",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You can submit this withdrawal through ЕПГУ or by delivering a written application to the University in person or via a postal operator",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "8d8724e310f3",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You may withdraw your consent to enrollment at any stage of the admission process",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "4a9b9cdf1041",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You can submit this withdrawal through ЕПГУ or by delivering a written application to the University in person or via a postal operator",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "4a9b9cdf1041",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If you have already been enrolled, you may refuse enrollment without withdrawing your consent to enrollment",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "ddb8e0c54215",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You can submit this refusal through ЕПГУ or by delivering a written application to the University in person or via a postal operator",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "ddb8e0c54215",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If you are enrolled under the quota for admissions and wish to withdraw your consent to enrollment, you must refuse enrollment simultaneously with withdrawing your consent",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "312e7f191be4",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence leaves open all deadlines for withdrawing your application, withdrawing consent, or refusing enrollment",
+   "cites": [
+    1,
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "4a9b9cdf1041",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "8d8724e310f3",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "ddb8e0c54215",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence leaves open the distinction between quota and paid places regarding withdrawal procedures or deadlines",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "312e7f191be4",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence leaves open the administrative consequences of submitting a withdrawal or refusal",
+   "cites": [
+    1,
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "4a9b9cdf1041",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "8d8724e310f3",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "ddb8e0c54215",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence leaves open whether ЕПГУ submissions require additional steps compared to paper submissions",
+   "cites": [
+    1,
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "4a9b9cdf1041",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "8d8724e310f3",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "ddb8e0c54215",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

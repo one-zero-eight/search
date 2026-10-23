@@ -1,0 +1,277 @@
+{
+ "page": "/guides/assessment-methods.md",
+ "evidence_sha": "6536c940a2cbd934",
+ "claims": [
+  {
+   "sentence": "Current academic control is the method used to check the quality of your progress in the Additional General Education Program",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "0e2e3d6fa5eb",
+     "sources": [
+      "/regulations/sveden-24d48faf-22-02-2023-01-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "This control takes place during the academic period",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "b46fda271508",
+     "sources": [
+      "/regulations/sveden-24d48faf-22-02-2023-01-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It is conducted for the purposes of controlling the level of achievement of results provided by the program, conducting self-assessment, and evaluating your work to possibly improve the educational process",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "b46fda271508",
+     "sources": [
+      "/regulations/sveden-24d48faf-22-02-2023-01-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It systematically checks your individual assignments, preparation for classes, independent study of specific topics, and the completion of projects or essays",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "b46fda271508",
+     "sources": [
+      "/regulations/sveden-24d48faf-22-02-2023-01-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The control is conducted in the following forms",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "db73ad4c4645",
+     "sources": [
+      "/regulations/sveden-24d48faf-22-02-2023-01-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Oral control, which consists of oral questioning",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "db73ad4c4645",
+     "sources": [
+      "/regulations/sveden-24d48faf-22-02-2023-01-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Written control, which consists of written questioning and the completion of specific assignments",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "db73ad4c4645",
+     "sources": [
+      "/regulations/sveden-24d48faf-22-02-2023-01-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Test-based control, which consists of oral, written, computer, or electronic testing",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "db73ad4c4645",
+     "sources": [
+      "/regulations/sveden-24d48faf-22-02-2023-01-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Students, you use this process to conduct self-assessment and receive an evaluation of your work from the teacher",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "b46fda271508",
+     "sources": [
+      "/regulations/sveden-24d48faf-22-02-2023-01-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The teacher uses this evaluation to possibly improve the educational process",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "b46fda271508",
+     "sources": [
+      "/regulations/sveden-24d48faf-22-02-2023-01-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The control systematically checks your individual assignments, preparation for classes, independent study of specific topics, and the completion of projects or essays",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "b46fda271508",
+     "sources": [
+      "/regulations/sveden-24d48faf-22-02-2023-01-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It also verifies your achievement of the results provided by the program",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "b46fda271508",
+     "sources": [
+      "/regulations/sveden-24d48faf-22-02-2023-01-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify deadlines, grading scales, or frequency for these forms of control",
+   "cites": [
+    1,
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "0e2e3d6fa5eb",
+     "sources": [
+      "/regulations/sveden-24d48faf-22-02-2023-01-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "b46fda271508",
+     "sources": [
+      "/regulations/sveden-24d48faf-22-02-2023-01-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "db73ad4c4645",
+     "sources": [
+      "/regulations/sveden-24d48faf-22-02-2023-01-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It does not list which specific assignments, projects, or essays are required for each course",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "b46fda271508",
+     "sources": [
+      "/regulations/sveden-24d48faf-22-02-2023-01-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It does not detail how computer or electronic testing is administered or which platforms are used",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "db73ad4c4645",
+     "sources": [
+      "/regulations/sveden-24d48faf-22-02-2023-01-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not explain what happens if a student fails to meet the program results",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "b46fda271508",
+     "sources": [
+      "/regulations/sveden-24d48faf-22-02-2023-01-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Course pages may provide additional details, but the official regulation does not cover them",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "0e2e3d6fa5eb",
+     "sources": [
+      "/regulations/sveden-24d48faf-22-02-2023-01-pdf.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

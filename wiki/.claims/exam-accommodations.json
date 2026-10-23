@@ -1,0 +1,386 @@
+{
+ "page": "/guides/exam-accommodations.md",
+ "evidence_sha": "ae573248c72f60b7",
+ "claims": [
+  {
+   "sentence": "To request accommodations for ongoing and interim assessments, you must submit a written application",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "8b8f09e93184",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must also submit a written request to receive additional time to prepare your answer during a test or an exam",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "8d088be6d56a",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The university will develop adapted evaluation materials for your assessment",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "8b8f09e93184",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "These materials must make it possible to evaluate the achievement of learning outcomes and the level of all competences’ development mentioned in your education program",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "8b8f09e93184",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The form of your assessment will be defined taking into account the peculiarities of your mental and physical development",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "7dfd28e74746",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The available forms include verbal responses, written responses on paper and computer, and tests",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "7dfd28e74746",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If you have a serious health problem such as a speech disorder, deafness, or hard of hearing, oral assessments must be held in written form",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "dcf3c2a4b8a9",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If you have a visual impairment, the university must provide an assistant to provide you with the necessary assistance during pass fail exam and exams",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "5b42d33a700b",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Written exercises will be dictated to an assistant",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "5b42d33a700b",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "A technical assistive device will be provided for task completion in case of necessity, and the usage of your own technical assistive devices is also possible",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "5b42d33a700b",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You might use assistive devices during the assessment sessions taking into consideration your special needs",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "b52cea2d6f19",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You are entitled to additional time to prepare your answer during a test or an exam",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "8d088be6d56a",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The duration of an assessment session cannot be extended to more than 1.5 hours",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "8d088be6d56a",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify the deadline for submitting the written application or written request",
+   "cites": [
+    1,
+    5
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "8b8f09e93184",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "8d088be6d56a",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not state which office or staff member processes these requests or where they should be submitted",
+   "cites": [
+    1,
+    5
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "8b8f09e93184",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "8d088be6d56a",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not define the exact procedures for developing the adapted evaluation materials or how the assessment form is officially selected",
+   "cites": [
+    1,
+    2
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "8b8f09e93184",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "7dfd28e74746",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify how the additional time is calculated or what happens if the 1.5-hour limit is reached",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "8d088be6d56a",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not cover accommodations for disabilities or health conditions other than visual impairment, speech disorders, deafness, or hard of hearing",
+   "cites": [
+    3,
+    4
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "5b42d33a700b",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "dcf3c2a4b8a9",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not address interim assessments for students without disabilities or serious health conditions",
+   "cites": [
+    1,
+    4
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "8b8f09e93184",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "dcf3c2a4b8a9",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Individual course pages may provide additional details or differ from these regulations, but the official document takes precedence",
+   "cites": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "8b8f09e93184",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "7dfd28e74746",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "5b42d33a700b",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "dcf3c2a4b8a9",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "8d088be6d56a",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    },
+    {
+     "n": 6,
+     "sha": "b52cea2d6f19",
+     "sources": [
+      "/regulations/attestation-regulation.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

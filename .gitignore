@@ -1,0 +1,26 @@
+# The data of the cAtIx wiki: the OKF bundle (wiki/) and what it is made from (raw/). Written by the wiki's own run
+# (catix-wiki autopilot, code on the main branch); downloads are fetched again by it and stay out of git.
+
+# Obsidian keeps its local state (open files, window layout) in the vault folder
+wiki/.obsidian/
+
+# The eduwiki snapshot is downloaded again by catix-wiki fetch
+raw/eduwiki
+
+# Downloaded files of the regulations; their extracted text and meta stay
+raw/regulations/*.pdf
+raw/regulations/*.ocr/
+raw/regulations/ocr/
+
+# The disclosure-section documents are downloaded again; the list of documents and the decisions about them stay
+raw/sveden/*
+!raw/sveden/index.json
+!raw/sveden/triage.json
+
+# The archives of course programmes and their texts are downloaded again; the list of what was read stays
+raw/rpd/*
+!raw/rpd/index.json
+!raw/rpd/archives.json
+
+# The state and the lock of the wiki's run
+.autopilot.*

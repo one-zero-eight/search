@@ -1,0 +1,54 @@
+---
+type: regulation
+title: "Методические и иные документы [введение1]"
+description: "This document outlines the assessment tasks and grading criteria for the Master's program in Robotics and Computer Vision at Innopolis University."
+resource: "https://innopolis.university/upload/iblock/de2/x4zwclz25wjiv2gpyaq270vdwtema9tc/введение1.pdf"
+tags: ["master", "robotics", "innopolis", "curriculum", "assessment"]
+audience: ["postgraduate"]
+source_kind: official-document
+language: ru
+section: "sveden/education"
+sources:
+  - resource: "https://innopolis.university/upload/iblock/de2/x4zwclz25wjiv2gpyaq270vdwtema9tc/введение1.pdf"
+    id: "7f183e44682a"
+    title: "Методические и иные документы [введение1]"
+    last_modified: "2026-10-22T14:21:47+00:00"
+generated:
+  by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
+  at: "2026-10-22T14:21:47+00:00"
+extraction: "ocr (tesseract rus)"
+status: draft
+review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
+---
+
+# Методические и иные документы [введение1]
+
+УТВЕРЖДЕНО
+
+Первый проректор —
+
+е # К зысиего ),
+
+у а х 55Т
+
+в\директора
+
+верситет Иннополис»
+
+Бариев И.И.
+
+В ходе освоения Пр0ГраММЫ каждый слушатель выполняет следующие
+
+отчетные работы:
+
+№ Наименование раздела Задание Критерии оценки п/п (модуля) 1 Модуль 1. Введение в Домашнее задание цифровую экономику. (п. 26.1.) 2 Промежуточная Тестирование Более 50 % правильных аттестация (п. 26.2) ответов . Модуль 2. Цифровые Домашнее задание Качество и полнота технологии в отрасли (по (п. 26.3.) внедрения цифровых выбору). Проверяется в конце модуля ресурсов в содержание в формате презентации основных групповых работ образовательных программ (не менее 20 % изменений).
+
+**4.** Промежуточная Презентация аттестация актуализированных основных образовательных программ ( п. 26.4.) ^ Модуль 3. Цифровые Домашнее задание Качество и полнота технологии в (п. 26.5.) разработанных тестовых проектировании вопросов, заданий, кейсов образовательных для оценки цифровых программ компетенций в рамках программы
+
+**6.** Промежуточная Загрузка актуализированных Соответствие аттестация образовательных программ требованиям (п. 26.6.) проектной работы. (п. 26.6.)
+
+**2.** Итоговая аттестация Тестирование Более 50 % правильных (п. 27) ответов
+
+# Citations
+
+1. [Методические и иные документы [введение1]](https://innopolis.university/upload/iblock/de2/x4zwclz25wjiv2gpyaq270vdwtema9tc/введение1.pdf), file 7f183e44682a

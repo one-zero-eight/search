@@ -1,0 +1,344 @@
+{
+ "page": "/guides/program-profiles-and-intake.md",
+ "evidence_sha": "826ecc5912ce0f1f",
+ "claims": [
+  {
+   "sentence": "Students and applicants, the official document lists the following specializations and admission years for the requested programs",
+   "cites": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "ef3a6c9e5af2",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "f4b872570f87",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "1fc874d2ac35",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "2cb5fbd1da28",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "a4626416e807",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Informatics and Computational Engineering (Bachelor's): AI360: Data Engineering, 2024 admission year",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "ef3a6c9e5af2",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Mechatronics and Robotics (Master's): Robotics, 2024 admission year",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "f4b872570f87",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Informatics and Computational Engineering (Master's): Computer Game Development Management, 2024 admission year",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "1fc874d2ac35",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Business Informatics (Postgraduate): Informational, Technological, Entrepreneurship, 2023 admission year",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "2cb5fbd1da28",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Informatics and Computational Engineering (Postgraduate): Mathematical modeling, numerical methods and software complexes, 2021 admission year",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "a4626416e807",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The same postgraduate clause also lists 2022, 2023, and 2024 admission years for master's programs, but does not name the profiles for those master's programs",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "a4626416e807",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The document directs you to the university's official website for information on all implemented educational programs, specifically in the \"Information about the educational organization\" section under the \"Education\" subsection",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "a4626416e807",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not list any other specializations or admission years for Informatics, Mechatronics, or Business Informatics",
+   "cites": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "ef3a6c9e5af2",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "f4b872570f87",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "1fc874d2ac35",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "2cb5fbd1da28",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "a4626416e807",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify the profiles for the 2022, 2023, and 2024 master's programs mentioned in the postgraduate clause",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "a4626416e807",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not detail the \"more than 100 additional educational programs\" referenced in the postgraduate clause",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "a4626416e807",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not state whether the listed specializations are currently active, historical, or subject to change",
+   "cites": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "ef3a6c9e5af2",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "f4b872570f87",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "1fc874d2ac35",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "2cb5fbd1da28",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "a4626416e807",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence cuts off after discussing staff requirements and does not complete the clause, leaving its full conditions unknown",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "a4626416e807",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not compare these listings to course pages or other university materials",
+   "cites": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "ef3a6c9e5af2",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "f4b872570f87",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "1fc874d2ac35",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "2cb5fbd1da28",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "a4626416e807",
+     "sources": [
+      "/regulations/sveden-6a5b4bab-pdf.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

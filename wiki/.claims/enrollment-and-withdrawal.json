@@ -1,0 +1,322 @@
+{
+ "page": "/guides/enrollment-and-withdrawal.md",
+ "evidence_sha": "5cdf9e3fed77852b",
+ "claims": [
+  {
+   "sentence": "The enrollment contract must specify the type, level, and direction of the educational program (or part of a program of a specific level, type, and/or direction)",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "4e0154cbc5df",
+     "sources": [
+      "/regulations/enrollment-procedure-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It must list the main characteristics of the provided education or educational service",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "4e0154cbc5df",
+     "sources": [
+      "/regulations/enrollment-procedure-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The contract must state the form of study and the terms for mastering the educational program (duration of study)",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "4e0154cbc5df",
+     "sources": [
+      "/regulations/enrollment-procedure-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It must indicate the type of document issued to you after successful completion of the educational program (or part of it)",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "4e0154cbc5df",
+     "sources": [
+      "/regulations/enrollment-procedure-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The contract must include the procedure for modifying and terminating the agreement",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "4e0154cbc5df",
+     "sources": [
+      "/regulations/enrollment-procedure-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It must contain any other necessary information related to the specifics of the paid educational services provided",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "4e0154cbc5df",
+     "sources": [
+      "/regulations/enrollment-procedure-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Educational relations may be terminated early by your own wish or by the wish of your parents (legal representatives) if you are a minor student, including if you are transferring to continue your studies at another organization that provides education",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "884413fa736e",
+     "sources": [
+      "/regulations/enrollment-procedure-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Early termination may also occur by the University's initiative or due to circumstances beyond the control of you, your parents (legal representatives), and the University, including the liquidation of the University",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "884413fa736e",
+     "sources": [
+      "/regulations/enrollment-procedure-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If you are a student or a parent (legal representative) of a minor student and decide to terminate educational relations early, you must apply to the University administration",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "8402488603c6",
+     "sources": [
+      "/regulations/enrollment-procedure-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "a personal application addressed to the director requesting dismissal on your own wish",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "8402488603c6",
+     "sources": [
+      "/regulations/enrollment-procedure-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "a clearance sheet in the form established by the University",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "8402488603c6",
+     "sources": [
+      "/regulations/enrollment-procedure-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "a receipt for tuition payment for the relevant period of study, if applicable",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "8402488603c6",
+     "sources": [
+      "/regulations/enrollment-procedure-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "your student ID card and grade book, if they were issued to you",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "8402488603c6",
+     "sources": [
+      "/regulations/enrollment-procedure-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The University will process your dismissal on your own wish or the wish of your parents (legal representatives) within one month from the date you submit the application",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "8402488603c6",
+     "sources": [
+      "/regulations/enrollment-procedure-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify the exact form of the clearance sheet or the specific process for submitting the application",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "8402488603c6",
+     "sources": [
+      "/regulations/enrollment-procedure-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not state how partial refunds are calculated or how the payment receipt is verified",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "8402488603c6",
+     "sources": [
+      "/regulations/enrollment-procedure-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not address what occurs if the University fails to process the dismissal within the one-month deadline",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "8402488603c6",
+     "sources": [
+      "/regulations/enrollment-procedure-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not define the exact modification procedure detailed in the actual contract",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "4e0154cbc5df",
+     "sources": [
+      "/regulations/enrollment-procedure-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify the procedures for termination by the University's initiative or force majeure circumstances",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "884413fa736e",
+     "sources": [
+      "/regulations/enrollment-procedure-order.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The official document governs these procedures and outranks any course pages",
+   "cites": [
+    1,
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "4e0154cbc5df",
+     "sources": [
+      "/regulations/enrollment-procedure-order.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "884413fa736e",
+     "sources": [
+      "/regulations/enrollment-procedure-order.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "8402488603c6",
+     "sources": [
+      "/regulations/enrollment-procedure-order.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

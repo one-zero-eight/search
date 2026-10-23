@@ -1,0 +1,775 @@
+{
+ "page": "/guides/bsc-structure.md",
+ "evidence_sha": "343c4df04666b8a5",
+ "claims": [
+  {
+   "sentence": "The Bachelor of Science in Computer Science and Engineering is organized as a 4-year program",
+   "cites": [
+    1,
+    2,
+    5,
+    6
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "34e3508cd3da",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "cd35eed0c0e6",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "cf674b0145fc",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    },
+    {
+     "n": 6,
+     "sha": "8d78d247aca9",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The instruction is performed mostly in English",
+   "cites": [
+    1,
+    2
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "34e3508cd3da",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "cd35eed0c0e6",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The total degree requires the acquisition of 240 ECTS credits, distributed at a pace of 60 credits per year",
+   "cites": [
+    2,
+    6
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "cd35eed0c0e6",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    },
+    {
+     "n": 6,
+     "sha": "8d78d247aca9",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "One credit corresponds to approximately 36 academic hours of student effort",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "8d78d247aca9",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Students take a total of 45 courses over the four years",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "cd35eed0c0e6",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "For the Software Engineering, Data Science, and Security-Blockchain streams, the yearly course distribution is identical",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "cd35eed0c0e6",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "These students take 12 core courses and 0 electives in the first year, 12 core and 0 electives in the second year, 10 core and 1 elective in the third year, and 6 core and 4 electives in the fourth year",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "9822f306a835",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The total for these streams is 40 core courses and 5 elective courses",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "9822f306a835",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "For the Robotics stream, the distribution differs slightly",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "cd35eed0c0e6",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Students take 12 core and 0 electives in the first year, 12 core and 0 electives in the second year, 11 core and 0 electives in the third year, and 8 core and 2 electives in the fourth year",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "a410aa450b34",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The total for this stream is 43 core courses and 2 elective courses",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "a410aa450b34",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The first two years contain fundamental courses in mathematics, physics, and computer science and engineering",
+   "cites": [
+    1,
+    5
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "34e3508cd3da",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "cf674b0145fc",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The body of knowledge includes Math, Physics, Algorithms and Complexity, Programming Languages, Software Development Fundamentals, Architecture and organization, Operating Systems, Computational Science, information management, and Networking and Communications",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "cf674b0145fc",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The primary objective is to provide a solid scientific and technical foundation, fostering skills in efficient program development, problem-solving using computer programs, and understanding computer system theory",
+   "cites": [
+    11
+   ],
+   "evidence": [
+    {
+     "n": 11,
+     "sha": "830dbe65cfe4",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "In the third and fourth years, students select one of four streams",
+   "cites": [
+    5,
+    12
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "cf674b0145fc",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    },
+    {
+     "n": 12,
+     "sha": "43b619b58d45",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Software Engineering:** Combines system theory, computer science, and software engineering for careers in software engineering",
+   "cites": [
+    12
+   ],
+   "evidence": [
+    {
+     "n": 12,
+     "sha": "43b619b58d45",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Data Science:** Integrates intelligent systems, computer science, and data science to evaluate and interpret big data",
+   "cites": [
+    12
+   ],
+   "evidence": [
+    {
+     "n": 12,
+     "sha": "43b619b58d45",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Robotics:** Provides fundamental knowledge in mechanics, mechatronics, electrical engineering, control theory, and robotics",
+   "cites": [
+    12
+   ],
+   "evidence": [
+    {
+     "n": 12,
+     "sha": "43b619b58d45",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Security-Blockchain:** Focuses on information security, secure software design, and distributed ledger technologies such as cryptocurrencies and blockchain",
+   "cites": [
+    12
+   ],
+   "evidence": [
+    {
+     "n": 12,
+     "sha": "43b619b58d45",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The body of knowledge in the final two years includes Graphics and Visualization, Information Assurance and Security, Intelligent Systems, Parallel and Distributed Computing, Software Engineering, Systems Fundamentals, Human-Computer Interaction, Finance, Mechanical Engineering, Electrical Engineering, Mathematical Physics, Robotics, and Control Engineering",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "cf674b0145fc",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Every year, students have a mandatory internship during the summer break",
+   "cites": [
+    8
+   ],
+   "evidence": [
+    {
+     "n": 8,
+     "sha": "61be617a7b5c",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Internships typically start once the spring semester exam session is completed",
+   "cites": [
+    8
+   ],
+   "evidence": [
+    {
+     "n": 8,
+     "sha": "61be617a7b5c",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Industrial:** Work in Innopolis University partner IT companies, primarily in Innopolis",
+   "cites": [
+    8
+   ],
+   "evidence": [
+    {
+     "n": 8,
+     "sha": "61be617a7b5c",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Scientific:** Work in university labs on ongoing research and development tasks",
+   "cites": [
+    8
+   ],
+   "evidence": [
+    {
+     "n": 8,
+     "sha": "61be617a7b5c",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Administrative:** Work in university departments on IT analysis, design, and implementation projects",
+   "cites": [
+    8
+   ],
+   "evidence": [
+    {
+     "n": 8,
+     "sha": "61be617a7b5c",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Internships can also combine these three types",
+   "cites": [
+    8
+   ],
+   "evidence": [
+    {
+     "n": 8,
+     "sha": "61be617a7b5c",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The credit distribution for internships is 14 credits in the first year, 10 in the second, 10 in the third, and 24 in the fourth, totaling 58 credits",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "cf674b0145fc",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "An internship of 8 credits requires 288 hours of effort, approximately 7 weeks",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "8d78d247aca9",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "At the end of the second year, students must pass a multidisciplinary exam to evaluate their comprehensive understanding of the discipline and ability to engage in system-oriented thinking",
+   "cites": [
+    10
+   ],
+   "evidence": [
+    {
+     "n": 10,
+     "sha": "1c56ed12223f",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "This exam ensures students can solve broadly-based IT problems before progressing to years three and four",
+   "cites": [
+    10
+   ],
+   "evidence": [
+    {
+     "n": 10,
+     "sha": "1c56ed12223f",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Graduates are expected to know English at least at the level of IELTS 7",
+   "cites": [
+    9
+   ],
+   "evidence": [
+    {
+     "n": 9,
+     "sha": "ee4d65b5ca54",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Admission requires a minimum IELTS level of 5",
+   "cites": [
+    9
+   ],
+   "evidence": [
+    {
+     "n": 9,
+     "sha": "ee4d65b5ca54",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "End of first year: IELTS 5.5",
+   "cites": [
+    9
+   ],
+   "evidence": [
+    {
+     "n": 9,
+     "sha": "ee4d65b5ca54",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "End of second year: IELTS 6",
+   "cites": [
+    9
+   ],
+   "evidence": [
+    {
+     "n": 9,
+     "sha": "ee4d65b5ca54",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "End of third year: IELTS 6.5",
+   "cites": [
+    9
+   ],
+   "evidence": [
+    {
+     "n": 9,
+     "sha": "ee4d65b5ca54",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "End of fourth year: IELTS 7",
+   "cites": [
+    9
+   ],
+   "evidence": [
+    {
+     "n": 9,
+     "sha": "ee4d65b5ca54",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It is the student's responsibility to achieve these levels using university resources",
+   "cites": [
+    9
+   ],
+   "evidence": [
+    {
+     "n": 9,
+     "sha": "ee4d65b5ca54",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Courses are organized using various teaching mechanisms: Class Lecture (Lc), Class Tutorial (Tut), Group Laboratory (Lab), and Individual Labs (IL)",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "90c805e92be1",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Math and science courses typically follow the structure 2Lc-2Lab-2IL",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "90c805e92be1",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Computer science and engineering courses follow the structure 2Lc-2Tut-2Lab",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "90c805e92be1",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Technical courses follow the structure 2Lc-2Lab-2IL",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "90c805e92be1",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Humanities courses follow the structure 2Lc-4IL",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "90c805e92be1",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify the exact titles of the 45 courses taken by students",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "cd35eed0c0e6",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not detail the specific content of the multidisciplinary exam beyond its purpose",
+   "cites": [
+    10
+   ],
+   "evidence": [
+    {
+     "n": 10,
+     "sha": "1c56ed12223f",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify the credit value of individual courses, only the total credits per year and for internships",
+   "cites": [
+    5,
+    6
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "cf674b0145fc",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    },
+    {
+     "n": 6,
+     "sha": "8d78d247aca9",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify the duration or credit value of the final thesis, only the total internship credits",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "cf674b0145fc",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify the exact resources provided by the university for language learning",
+   "cites": [
+    9
+   ],
+   "evidence": [
+    {
+     "n": 9,
+     "sha": "ee4d65b5ca54",
+     "sources": [
+      "/programs/structure-of-the-bs-degrees.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

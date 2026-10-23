@@ -1,0 +1,231 @@
+{
+ "page": "/guides/campus-behavior.md",
+ "evidence_sha": "b83b5178e1ec85d6",
+ "claims": [
+  {
+   "sentence": "You must strictly observe behavior rules and maintain discipline during classes, current academic performance monitoring, intermediate and final state assessments, and when writing written works, including graduation qualification works",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "177877b97257",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "While inside the university buildings, you must follow generally accepted norms of behavior in public places",
+   "cites": [
+    9
+   ],
+   "evidence": [
+    {
+     "n": 9,
+     "sha": "ddea01214528",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must not perform work or take other actions in university rooms and classrooms that create excessive noise, disrupt the educational process, or hinder the work of university staff and students",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "de827b377157",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must not smoke in university buildings and on the university territory, including hookahs and vapor cocktails, except in areas specifically equipped for smoking",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "cec81f9054b2",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must not use, store, or carry electronic vaping devices or devices that imitate cigarette smoke inside university buildings",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "cec81f9054b2",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must not appear in university buildings and on the adjacent territory in a state of alcohol or drug intoxication",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "7ca22dbee279",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must not consume, store, or distribute alcoholic beverages, narcotic, or psychoactive substances",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "7ca22dbee279",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must not use profanity or engage in other antisocial behavior",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "ecabe35f550a",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must not be rude or insult other students, university staff, visitors, or other third parties",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "ecabe35f550a",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must not litter, spit, throw household trash out of windows, hang out of windows, or enter and exit university buildings through windows",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "05b612cc8aec",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must not behave in any other improper manner that violates the university's behavior rules",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "05b612cc8aec",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must not sit, lie, or sleep on tables, desks, window sills, cornices, and railings",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "627e7b13d61e",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You must not be in classrooms wearing outerwear or headwear",
+   "cites": [
+    8
+   ],
+   "evidence": [
+    {
+     "n": 8,
+     "sha": "fea2c4ad52b3",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You are recommended to come to the university dressed neatly",
+   "cites": [
+    10
+   ],
+   "evidence": [
+    {
+     "n": 10,
+     "sha": "4545191d513e",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You are strongly recommended to avoid clothing details that emphasize affiliation with a subculture, such as an abundance of metal chains, pins, studs, etc",
+   "cites": [
+    10
+   ],
+   "evidence": [
+    {
+     "n": 10,
+     "sha": "4545191d513e",
+     "sources": [
+      "/regulations/sveden-7600a171-pdf.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

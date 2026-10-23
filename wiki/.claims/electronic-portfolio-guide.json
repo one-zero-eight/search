@@ -1,0 +1,196 @@
+{
+ "page": "/guides/electronic-portfolio-guide.md",
+ "evidence_sha": "79935b9bb871fdcb",
+ "claims": [
+  {
+   "sentence": "The electronic portfolio ensures the formation of your portfolio, including the preservation of your works, reviews, and grades on these works by any participants of the educational process",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "5f86f98580e6",
+     "sources": [
+      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You receive access to your portfolio after you obtain a login and password for the electronic information and educational environment",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "4d27e0031f97",
+     "sources": [
+      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You fill out the \"My works and reviews\" section to present information about any works completed as part of your studies or outside them",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "b474e9bb4f03",
+     "sources": [
+      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "This section requires you to fill out the Title, Type, Description, and File fields",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "b474e9bb4f03",
+     "sources": [
+      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You provide information in the \"Achievements\" section about your achievements in academic, research, socially significant, cultural-creative, and sports activities",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "4d27e0031f97",
+     "sources": [
+      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not state which sections are mandatory or optional",
+   "cites": [
+    1,
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "5f86f98580e6",
+     "sources": [
+      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "b474e9bb4f03",
+     "sources": [
+      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "4d27e0031f97",
+     "sources": [
+      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not provide deadlines for filling out the sections",
+   "cites": [
+    1,
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "5f86f98580e6",
+     "sources": [
+      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "b474e9bb4f03",
+     "sources": [
+      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "4d27e0031f97",
+     "sources": [
+      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not define what the \"additional part\" or \"mandatory part\" of the portfolio contain",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "4d27e0031f97",
+     "sources": [
+      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not list any other portfolio sections beyond \"My works and reviews\" and \"Achievements\"",
+   "cites": [
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "b474e9bb4f03",
+     "sources": [
+      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "4d27e0031f97",
+     "sources": [
+      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not explain the procedure for obtaining the login and password",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "4d27e0031f97",
+     "sources": [
+      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
+     ]
+    }
+   ]
+  }
+ ]
+}
