@@ -419,26 +419,43 @@ sources:
   - resource: "/regulations/attestation-regulation.md"
     id: "36012b556b92"
     title: "Положение о формах, периодичности и порядке проведения текущего контроля успеваемости и промежуточной аттестации (бакалавриат и магистратура)"
-    last_modified: "2012-12-29T00:00:00+03:00"
+    last_modified: "2025-06-30T00:00:00+03:00"
 generated:
   by: "catix-wiki-synth/0.1 (model, thinking)"
-  at: "2026-10-22T18:24:53+00:00"
+  at: "2026-10-23T01:10:22+00:00"
 status: draft
-evidence_sha: "855b4f097474268b"
+evidence_sha: "5a470121fb767056"
 stale_after: "2024-04-14T08:30:50+00:00"
 audience: ["student", "postgraduate", "teacher", "staff"]
 ---
 
 # Grading scales across courses
 
-## Official grading rules
-You will find that the university regulation maps letter grades to a five-point system: A is Excellent, B is Good, C is Satisfactory, D is Fail, P is Passed, and F is Fail [1]. Grades A, B, C, and P are positive and cannot be retaken for improvement, except where the regulation specifies otherwise [2]. Grades D and F are unsatisfactory [3]. Instructors may use alternative grading systems instead of the university standard [4]. If they do, the grading system, evaluation criteria, and conversion rules must be written in the course syllabus or internship program and shared with you through the university's electronic educational environment [4]. If a course page states a grading rule that differs from or goes beyond this regulation, the regulation takes precedence [1][4].
+## Grading scales across courses
 
-## Course grading scales
-Out of 275 courses, 103 state a grading scale that pairs letter grades with point ranges, while 172 do not [5]. The typical scale assigns A to 90–100 points, B to 75–89, C to 60–74, and D to 0–59, and 54 of the 103 courses use it [6]. The remaining 49 courses use 21 different scales, and no other scale appears in more than 6 courses [7]. Among the 103 courses that publish a scale, the lowest point threshold for an A is typically 90, shared by 60 courses, while 22 courses use 85, 12 use 80, 2 use 92, and 1 course each uses 136, 95, 96, 104, 84, and 86 [8]. The lowest threshold for a B is typically 75, shared by 67 courses, while 13 courses use 70, 6 courses use 80, 6 use 60, 6 use 65, and 1 course each uses 102, 66, 84, 72, and 71 [9]. The lowest threshold for a C is typically 60, shared by 70 courses, while 12 courses use 50, 6 use 40, 3 use 65, 3 use 55, 2 use 56, 2 use 70, 2 use 51, and 1 course each uses 68 and 45 [10]. The lowest threshold for a D is 0 in 102 courses [11]. Two courses use raw point ranges where the top of grade A exceeds 100 [12]. Scales with overlapping or incomplete ranges appear in 4 courses with A 85–100, B 75–84, C 60–75, D 0–59; 1 course with A 136–170, B 102–135, C 68–101, D 0–68; 2 courses with A 92–100, B 80–91, C 65–79, D 0–59; 2 courses with A 85–100, B 80–84, C 51–79, D 0–59; 5 courses with A 85–100, B 75–85, C 60–74, D 0–59; 1 course with only B 75–84; and 1 course with A 85–100, B 70–84, C 50–69, D 0–50 [13]. When you look at program levels, 56 BSc courses, 40 MSc courses, and 7 other program courses publish a scale [14]. Of those, 31 BSc courses, 17 MSc courses, and 6 other program courses follow the most common scale [15][16][17].
+103 of 275 courses state a grading scale (letter grade with a range of points) [5]. The other 172 do not [5].
+
+The most common scale is A 90-100, B 75-89, C 60-74, D 0-59 [6]. 54 of the 103 courses with a scale use it (52%) [6]. The other 49 courses use 21 different scales [7]. No other scale is used by more than 6 courses [7].
+
+Across all 103 courses that state a scale, the lowest points that earn grade A are: 90 in 60 courses; 85 in 22 courses; 80 in 12 courses; 92 in 2 courses; 136 in 1 courses; 95 in 1 courses; 96 in 1 courses; 104 in 1 courses; 84 in 1 courses; 86 in 1 courses [8]. Across all 103 courses that state a scale, the lowest points that earn grade B are: 75 in 67 courses; 70 in 13 courses; 80 in 6 courses; 60 in 6 courses; 65 in 6 courses; 102 in 1 courses; 66 in 1 courses; 84 in 1 courses; 72 in 1 courses; 71 in 1 courses [9]. Across all 103 courses that state a scale, the lowest points that earn grade C are: 60 in 70 courses; 50 in 12 courses; 40 in 6 courses; 65 in 3 courses; 55 in 3 courses; 56 in 2 courses; 70 in 2 courses; 51 in 2 courses; 68 in 1 courses; 45 in 1 courses [10]. Across all 103 courses that state a scale, the lowest points that earn grade D are: 0 in 102 courses [11].
+
+2 course(s) give the ranges in raw points, not out of 100 (the top of grade A is above 100) [12].
+
+Scales with overlapping or incomplete ranges include: A 85-100, B 75-84, C 60-75, D 0-59 (4 course(s)); A 136-170, B 102-135, C 68-101, D 0-68 (1 course(s)); A 92-100, B 80-91, C 65-79, D 0-59 (2 course(s)); A 85-100, B 80-84, C 51-79, D 0-59 (2 course(s)); A 85-100, B 75-85, C 60-74, D 0-59 (5 course(s)); B 75-84 (1 course(s)); A 85-100, B 70-84, C 50-69, D 0-50 (1 course(s)) [13].
+
+Courses with a scale by programme level are: BSc 56, MSc 40, other programs 7 [14]. Of the 56 BSc courses with a scale, 31 use the most common scale [15]. Of the 40 MSc courses with a scale, 17 use the most common scale [16]. Of the 7 other programs courses with a scale, 6 use the most common scale [17].
+
+## University regulation
+
+The University has established rules for translating letter designations into the assessment system «excellent», «good», «satisfactory», «fail», «pass», «fail» (five-point scale) [1]. The mapping is: A is «Excellent»; B is «Good»; C is «Satisfactory»; D is «Fail»; P is «Passed»; F is «Fail» [1].
+
+Results of interim assessment A, B, C and P are positive and cannot be retaken for improvement, except as specified in p. 6.1 of this Regulation [2]. Results of interim assessment D and F are unsatisfactory results [3].
+
+Teaching staff member can use during teaching process may use alternative to established at University grading systems [4]. In this case grading system, criteria of evaluation and conversion rules are specified in discipline (module) syllabuses, internships programs and communicated to students in the University's electronic educational environment [4].
 
 ## Gaps and caveats
-The regulation does not specify how alternative grading systems must be structured, only that they must be documented in syllabuses and communicated electronically [4]. The regulation is silent on whether alternative systems must use letter grades, point ranges, or other formats [4]. The course data does not explain why 172 courses omit a grading scale entirely [5]. The evidence does not clarify how the 2 courses with raw points above 100 calculate totals [12]. The evidence does not state what happens if a course page contradicts the official regulation, only that the regulation outranks course pages [1][4]. The evidence does not cover how grades P and F are converted to points in alternative systems [1]. The evidence does not explain the exception mentioned in clause 6.1 for retaking positive grades [2]. A regulation that is silent on something does not make a course page wrong [1][4].
+
+The evidence leaves open the specific conversion rules for the 49 courses that do not use the most common scale, as they use 21 different scales [7]. The evidence does not specify the criteria for the "except as specified in p. 6.1" exception for retaking assessments [2]. The evidence does not provide the specific syllabus content for the alternative grading systems used by teaching staff [4]. The evidence does not explain the discrepancy in the scale A 85-100, B 75-85, C 60-74, D 0-59 where B and C ranges overlap or are adjacent in a non-standard way compared to the most common scale [13]. The evidence does not clarify why 2 courses use raw points above 100 [12]. The evidence does not specify the content of the 172 courses that do not state a grading scale [5].
 
 ## Scales in detail
 

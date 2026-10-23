@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Администрация Вандюков Дмитрий Владимирович Директор - г. Иннополис, ул. Университетская д. 1 отсутствует director@innopolis.ru - Положение  — Положение [Положение о Центре развития проектов цифровой экономики]"
+title: "Центр развития проектов цифровой экономики — Положение"
 description: "Regulates the activities, tasks, and structure of the Center for Digital Economy Project Development at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/119/s8dvojd14mxtgjub7m1jb30h5j9styko/Положение о Центре развития проектов цифровой экономики.pdf"
 tags: ["innopolis", "regulation", "digital-economy", "center", "university", "policy"]
@@ -11,7 +11,7 @@ section: "sveden/struct"
 sources:
   - resource: "https://innopolis.university/upload/iblock/119/s8dvojd14mxtgjub7m1jb30h5j9styko/Положение о Центре развития проектов цифровой экономики.pdf"
     id: "9776bc0c5720"
-    title: "Администрация Вандюков Дмитрий Владимирович Директор - г. Иннополис, ул. Университетская д. 1 отсутствует director@innopolis.ru - Положение  — Положение [Положение о Центре развития проектов цифровой экономики]"
+    title: "Центр развития проектов цифровой экономики — Положение"
     last_modified: "2021-05-31T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
@@ -21,7 +21,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# Администрация Вандюков Дмитрий Владимирович Директор - г. Иннополис, ул. Университетская д. 1 отсутствует director@innopolis.ru - Положение  — Положение [Положение о Центре развития проектов цифровой экономики]
+# Центр развития проектов цифровой экономики — Положение
 
 УТВЕРЖДЕНО
 
@@ -273,4 +273,4 @@ review: "scanned document read by OCR: check numbers and dates against the PDF b
 
 # Citations
 
-1. [Администрация Вандюков Дмитрий Владимирович Директор - г. Иннополис, ул. Университетская д. 1 отсутствует director@innopolis.ru - Положение  — Положение [Положение о Центре развития проектов цифровой экономики]](https://innopolis.university/upload/iblock/119/s8dvojd14mxtgjub7m1jb30h5j9styko/Положение о Центре развития проектов цифровой экономики.pdf), file 9776bc0c5720
+1. [Центр развития проектов цифровой экономики — Положение](https://innopolis.university/upload/iblock/119/s8dvojd14mxtgjub7m1jb30h5j9styko/Положение о Центре развития проектов цифровой экономики.pdf), file 9776bc0c5720

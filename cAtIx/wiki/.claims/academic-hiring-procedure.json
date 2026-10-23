@@ -1,0 +1,257 @@
+{
+ "page": "/guides/academic-hiring-procedure.md",
+ "evidence_sha": "c1350e60d45d0418",
+ "claims": [
+  {
+   "sentence": "Applicants, teachers, staff, and management, the competitive selection for academic staff positions consists of four stages",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "0d2d68e23356",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Publication of the vacancy announcement and collection of applications from Candidates",
+   "cites": [
+    1,
+    2
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "0d2d68e23356",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "f049774aa893",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Evaluation of Candidates, which includes the primary assessment of Candidate documents, the assessment of Candidate documents by experts, interviews with the Candidate at the University's location or remotely via electronic communication means, and the demonstration of a trial teaching session or sessions at the University's location or remotely via electronic communication means",
+   "cites": [
+    1,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "0d2d68e23356",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "e5baf27b3fcd",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Conducting the Competition and electing the final Candidate",
+   "cites": [
+    1,
+    4
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "0d2d68e23356",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "a8190d202414",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Formalizing employment relations",
+   "cites": [
+    1,
+    5
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "0d2d68e23356",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "cdb9ba7e651a",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The official deadline for publishing the list of academic staff whose employment contracts expire in the following academic year is no later than July 1",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "fa7fb5d2922f",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The University Director's order approves this list, which contains the surname, first name, patronymic (if available), and position",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "fa7fb5d2922f",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The approved list is published on the University's Official Website",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "fa7fb5d2922f",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not provide a deadline for publishing vacancy lists for new positions",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "fa7fb5d2922f",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not describe the detailed procedures for stages 2, 3, and 4 beyond their headings",
+   "cites": [
+    2,
+    3,
+    4,
+    5
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "f049774aa893",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "e5baf27b3fcd",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "a8190d202414",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "cdb9ba7e651a",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify the number of applicants, the selection criteria for experts, or the evaluation metrics for the trial teaching sessions",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "0d2d68e23356",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not state the consequences of missing the July 1 deadline",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "fa7fb5d2922f",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not clarify how vacancy lists are generated or who initiates them",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "fa7fb5d2922f",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

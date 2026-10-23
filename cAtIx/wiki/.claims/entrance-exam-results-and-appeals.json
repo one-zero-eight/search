@@ -1,0 +1,299 @@
+{
+ "page": "/guides/entrance-exam-results-and-appeals.md",
+ "evidence_sha": "4cce6e34c91d5efa",
+ "claims": [
+  {
+   "sentence": "As an applicant, your exam results will be published on the official website within 3 working days after the day of the exam",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "0add43dcc965",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The results will be published no later than 1 day before the publication of the competitive lists",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "0add43dcc965",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "As an applicant, you must submit your appeal on the day the results are announced or within the next working day",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "87d04ca74ab8",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If your appeal concerns a violation of the established procedure for conducting the exam, you may also submit it on the day of the exam",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "87d04ca74ab8",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You can submit the appeal in person or by sending it to the email address `айт!5510п5 @ ппоро!!5.ги`",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "646057c00674",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The appeal will be reviewed no later than the next working day after the day you submit it",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "16d80017fe97",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "As an applicant, you have the right to be present during the review of your appeal",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "e8ca1f8b6533",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "After the review, the appeal commission will decide to change your exam score or leave it unchanged",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "8ef74fb54864",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The commission's decision, formalized in a protocol, will be communicated to you",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "8ef74fb54864",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Your acknowledgment of the decision is recorded by your signature if you are present in person, or by an email sent to your personal email address from `аат\\!$5510п5@ ппоро!!5.ги. \\!`",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "8ef74fb54864",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The procedure also references lists of applicants who filed appeals and competitive lists",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "8ef74fb54864",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify the consequences of missing the appeal submission deadline",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "87d04ca74ab8",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It does not state the required format, content, or supporting documents for an appeal",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "646057c00674",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence cuts off while mentioning lists of applicants who filed appeals and competitive lists, leaving the subsequent steps undefined",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "8ef74fb54864",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The email addresses in the evidence contain OCR artifacts and their functionality is unverified",
+   "cites": [
+    2,
+    6
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "646057c00674",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    },
+    {
+     "n": 6,
+     "sha": "8ef74fb54864",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify the timeframe for acknowledging the commission's decision",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "8ef74fb54864",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It does not detail the composition of the appeal commission or the specific criteria for score changes",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "8ef74fb54864",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not address how results are published if the 3-day or 1-day limits conflict with other university schedules",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "0add43dcc965",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The regulation does not reference course pages, so any course-specific instructions cannot be cross-checked against this document",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "0add43dcc965",
+     "sources": [
+      "/regulations/sveden-3e373d7e-2026-pdf.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

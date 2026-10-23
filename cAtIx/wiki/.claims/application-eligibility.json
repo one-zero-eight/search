@@ -1,0 +1,468 @@
+{
+ "page": "/guides/application-eligibility.md",
+ "evidence_sha": "eaace1ab3b15f90f",
+ "claims": [
+  {
+   "sentence": "Applicants, teachers, staff, and the public should review the qualification requirements for each academic position below",
+   "cites": [
+    2,
+    3,
+    4,
+    5
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "e5570c55ab7a",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "dd8318c79311",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "94c84574e13a",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "85dc2eeaafec",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "To apply for a professor position, you must hold a Doctor of Sciences degree and at least 5 years of scientific-pedagogical experience, or hold a professor academic title",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "e5570c55ab7a",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "To apply for an associate professor position, you must have higher professional education, a Candidate or Doctor of Sciences degree, and at least 3 years of scientific-pedagogical experience, or hold a docent or senior researcher academic title",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "dd8318c79311",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "To apply for a senior lecturer position, you must have higher professional education and at least 3 years of scientific-pedagogical experience, or at least 1 year of experience if you hold a Candidate of Sciences degree",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "94c84574e13a",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "To apply for a lecturer position, you must have higher professional education and at least 1 year of work experience in an educational institution, or no experience requirement if you have postgraduate education or a Candidate of Sciences degree",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "94c84574e13a",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "To apply for an assistant position, you must have higher professional education and at least 1 year of work experience in an educational institution, or no experience requirement if you have postgraduate education or a Candidate of Sciences degree",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "85dc2eeaafec",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "For senior lecturer, lecturer, and assistant positions, candidates with a Candidate of Sciences degree receive priority in the competitive selection",
+   "cites": [
+    4,
+    5
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "94c84574e13a",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "85dc2eeaafec",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Qualifications and education obtained in a foreign state are considered if they are recognized in the Russian Federation according to international treaties or Russian legislation",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "43c01a98a12c",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If you are a foreign citizen who passes the competition, the Department of Attraction and Support of Teaching Staff prepares and sends you a job offer",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "906481652d38",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If you accept the job offer, the Department handles the administrative support for your invitation and admission, which includes preparing a visa invitation and a work permit, including for highly qualified specialists",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "906481652d38",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "A passport",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "7248d558dd9e",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "A diploma, including foreign diplomas that are legalized and recognized in the Russian Federation",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "7248d558dd9e",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "A diploma supplement, if available, including foreign supplements that are legalized and recognized in the Russian Federation",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "7248d558dd9e",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "A document confirming a scientific degree or academic title, including foreign documents that are legalized and recognized in the Russian Federation",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "7248d558dd9e",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Documents confirming your pedagogical, scientific, or scientific-pedagogical experience",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "7248d558dd9e",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "A certificate of criminal record or absence thereof, or a certificate of termination of criminal prosecution on rehabilitating grounds, legalized for the Russian Federation",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "7248d558dd9e",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "A marriage certificate, legalized for the Russian Federation",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "7248d558dd9e",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Birth certificates for children under 18, if applicable, legalized for the Russian Federation",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "7248d558dd9e",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Notarized Russian translations of all documents if they are in a foreign language, prepared according to Russian legislation",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "7248d558dd9e",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "A medical book and conclusions from medical and psychiatric examinations conducted based on directions issued by the Department",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "7248d558dd9e",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify the exact deadlines for submitting documents or for the Department to process visa invitations and work permits",
+   "cites": [
+    1,
+    7
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "906481652d38",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    },
+    {
+     "n": 7,
+     "sha": "7248d558dd9e",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not list the specific international treaties or Russian legislative acts that govern the recognition of foreign qualifications",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "43c01a98a12c",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not detail the exact procedures for the medical and psychiatric examinations beyond stating they require directions from the Department",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "7248d558dd9e",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence cuts off after mentioning the medical book and examination conclusions, so it does not state what additional requirements or steps follow",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "7248d558dd9e",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify whether non-academic staff or administrative positions have different eligibility criteria",
+   "cites": [
+    2,
+    3,
+    4,
+    5
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "e5570c55ab7a",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "dd8318c79311",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "94c84574e13a",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "85dc2eeaafec",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not clarify how the priority for candidates with a Candidate of Sciences degree is applied in practice or what happens if multiple candidates hold the degree",
+   "cites": [
+    4,
+    5
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "94c84574e13a",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "85dc2eeaafec",
+     "sources": [
+      "/regulations/sveden-5cf06d1b-pdf.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

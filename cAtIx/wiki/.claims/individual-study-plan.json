@@ -1,16 +1,16 @@
 {
  "page": "/guides/individual-study-plan.md",
- "evidence_sha": "4c59e75f520e2a95",
+ "evidence_sha": "9ee5a244db94f1e4",
  "claims": [
   {
-   "sentence": "You submit an application for transfer to an individual study plan to the Director of the University using the form specified in the appendix to the Regulation",
+   "sentence": "You submit an application for transfer to an individual study plan in the form per the app",
    "cites": [
     1
    ],
    "evidence": [
     {
      "n": 1,
-     "sha": "dcfa130e7c29",
+     "sha": "48cdab94f6b7",
      "sources": [
       "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
      ]
@@ -18,14 +18,14 @@
    ]
   },
   {
-   "sentence": "First-year students enrolled in their first semester or trimester must submit the application no later than fourteen calendar days after the start of their studies",
+   "sentence": "You address the application to the Director of the University",
    "cites": [
     1
    ],
    "evidence": [
     {
      "n": 1,
-     "sha": "dcfa130e7c29",
+     "sha": "48cdab94f6b7",
      "sources": [
       "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
      ]
@@ -33,14 +33,14 @@
    ]
   },
   {
-   "sentence": "All other students must submit the application no later than fourteen calendar days before the start of the semester",
+   "sentence": "You must submit the application no later than fourteen calendar days before the start of the semester",
    "cites": [
     1
    ],
    "evidence": [
     {
      "n": 1,
-     "sha": "dcfa130e7c29",
+     "sha": "48cdab94f6b7",
      "sources": [
       "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
      ]
@@ -48,14 +48,29 @@
    ]
   },
   {
-   "sentence": "The University organizes an attestation commission to consider the possibility of transferring you to an individual study plan based on your application",
+   "sentence": "If you are enrolled in the first year, you submit the application no later than fourteen calendar days after the start of your studies",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "48cdab94f6b7",
+     "sources": [
+      "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The Attestation Commission reviews your application and may recommend transfer to an individual study plan or refuse the transfer",
    "cites": [
     2
    ],
    "evidence": [
     {
      "n": 2,
-     "sha": "3f1581927333",
+     "sha": "920e745b99ff",
      "sources": [
       "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
      ]
@@ -63,29 +78,14 @@
    ]
   },
   {
-   "sentence": "The attestation commission can decide to recommend the transfer or to refuse it",
-   "cites": [
-    3
-   ],
-   "evidence": [
-    {
-     "n": 3,
-     "sha": "a772d0363b8f",
-     "sources": [
-      "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "You violated the deadlines for submitting the application",
+   "sentence": "The Director of the University or another person authorized by the Director issues an order to transfer you to the individual study plan and approve the plan based on the Attestation Commission's decision",
    "cites": [
     4
    ],
    "evidence": [
     {
      "n": 4,
-     "sha": "af734eb773bd",
+     "sha": "5a0f834484af",
      "sources": [
       "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
      ]
@@ -93,74 +93,14 @@
    ]
   },
   {
-   "sentence": "The annual volume of the Educational Program is exceeded",
-   "cites": [
-    4
-   ],
-   "evidence": [
-    {
-     "n": 4,
-     "sha": "af734eb773bd",
-     "sources": [
-      "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "There is a violation of the logical sequence and content-methodological interconnection of disciplines (modules), other components, including practices of the corresponding Educational Program",
-   "cites": [
-    4
-   ],
-   "evidence": [
-    {
-     "n": 4,
-     "sha": "af734eb773bd",
-     "sources": [
-      "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "You have academic debt",
-   "cites": [
-    4
-   ],
-   "evidence": [
-    {
-     "n": 4,
-     "sha": "af734eb773bd",
-     "sources": [
-      "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "There are other cases decided by the attestation commission",
-   "cites": [
-    4
-   ],
-   "evidence": [
-    {
-     "n": 4,
-     "sha": "af734eb773bd",
-     "sources": [
-      "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The transfer to an individual study plan and the approval of the individual study plan are carried out by an order of the Director of the University or another person authorized by the Director, based on the decision of the attestation commission",
+   "sentence": "The individual study plan is approved by the order of the Director of the University or another person authorized by the Director",
    "cites": [
     5
    ],
    "evidence": [
     {
      "n": 5,
-     "sha": "0904b2437813",
+     "sha": "37e1631c5d53",
      "sources": [
       "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
      ]
@@ -168,14 +108,89 @@
    ]
   },
   {
-   "sentence": "For bachelor’s and master’s programs, the academic calendar is approved as part of the individual study plan or separately by an order of the Director of the University or another person authorized by the Director",
+   "sentence": "The Attestation Commission may refuse your transfer to an individual study plan if you violate the application submission deadlines",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "052a7f63de2c",
+     "sources": [
+      "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The Commission may refuse if you exceed the annual volume of the Educational Program",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "052a7f63de2c",
+     "sources": [
+      "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The Commission may refuse if you violate the logical sequence and substantive-methodological interconnection of disciplines (modules), other components, including practices of the corresponding Educational Program",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "052a7f63de2c",
+     "sources": [
+      "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The Commission may refuse if you have academic debt",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "052a7f63de2c",
+     "sources": [
+      "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The Commission may refuse in other cases decided by the Attestation Commission",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "052a7f63de2c",
+     "sources": [
+      "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The calendar academic schedule for study under an individual study plan for bachelor's and master's programs is approved as part of the individual study plan or separately by the order of the Director of the University or another person authorized by the Director",
    "cites": [
     6
    ],
    "evidence": [
     {
      "n": 6,
-     "sha": "daf457d50ad3",
+     "sha": "37f6080f1ea1",
      "sources": [
       "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
      ]
@@ -183,14 +198,14 @@
    ]
   },
   {
-   "sentence": "For graduate programs (aspirantura), the academic calendar is approved by an order of the Director of the University or another person authorized by the Director",
+   "sentence": "You attend classes and undergo intermediate assessment within the deadlines established by the calendar academic schedule included in the individual study plan or approved by the order of the Director of the University or another person authorized by the Director",
    "cites": [
     7
    ],
    "evidence": [
     {
      "n": 7,
-     "sha": "4a9537fd66ca",
+     "sha": "27221f111e56",
      "sources": [
       "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
      ]
@@ -198,14 +213,14 @@
    ]
   },
   {
-   "sentence": "You attend classes and undergo intermediate assessment during the periods established by the academic calendar included in the individual study plan or approved by the order of the Director of the University or another person authorized by the Director",
+   "sentence": "You are transferred to the next course if you do not have academic debt in disciplines (modules), other components, including practices, scientific research, scientific (research) activity, and have fully completed the individual study plan of the current course",
    "cites": [
     8
    ],
    "evidence": [
     {
      "n": 8,
-     "sha": "94c13c46a772",
+     "sha": "e58ec16deb5c",
      "sources": [
       "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
      ]
@@ -213,14 +228,14 @@
    ]
   },
   {
-   "sentence": "The forms, frequency, and procedure for conducting current performance control, intermediate assessment, the grading system for intermediate assessment results, the procedure and deadlines for clearing academic debt, and the forms and procedure for passing the state final assessment for students on an individual study plan are regulated by the local normative acts of the University",
+   "sentence": "If you do not eliminate academic debt within the established deadlines, you are expelled from the University as having failed to fulfill the duties of conscientious study of the Educational Program and execution of the individual study plan",
    "cites": [
     9
    ],
    "evidence": [
     {
      "n": 9,
-     "sha": "b07f0d26faa3",
+     "sha": "49f004dbff81",
      "sources": [
       "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
      ]
@@ -228,29 +243,14 @@
    ]
   },
   {
-   "sentence": "If you fail to clear academic debt within the established deadlines, you are expelled from the University for failing to fulfill the duties of conscientious study of the Educational Program and execution of the individual study plan",
-   "cites": [
-    10
-   ],
-   "evidence": [
-    {
-     "n": 10,
-     "sha": "8e4a66bb7014",
-     "sources": [
-      "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the exact form of the application mentioned in clause 9.2, only that it is in the appendix to the Regulation",
+   "sentence": "The evidence does not specify the content of the application form mentioned in clause 9.2",
    "cites": [
     1
    ],
    "evidence": [
     {
      "n": 1,
-     "sha": "dcfa130e7c29",
+     "sha": "48cdab94f6b7",
      "sources": [
       "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
      ]
@@ -258,14 +258,14 @@
    ]
   },
   {
-   "sentence": "The evidence does not define what constitutes \"exceeding the annual volume of the Educational Program\"",
+   "sentence": "The evidence does not define the specific annual volume limits for the Educational Program",
    "cites": [
-    4
+    3
    ],
    "evidence": [
     {
-     "n": 4,
-     "sha": "af734eb773bd",
+     "n": 3,
+     "sha": "052a7f63de2c",
      "sources": [
       "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
      ]
@@ -273,52 +273,44 @@
    ]
   },
   {
-   "sentence": "The evidence does not list the specific local normative acts that regulate assessment procedures",
+   "sentence": "The evidence does not detail the specific logical sequence or substantive-methodological interconnections required for disciplines",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "052a7f63de2c",
+     "sources": [
+      "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not list the \"other cases\" in which the Attestation Commission may refuse a transfer",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "052a7f63de2c",
+     "sources": [
+      "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify the exact deadlines for eliminating academic debt before expulsion",
    "cites": [
     9
    ],
    "evidence": [
     {
      "n": 9,
-     "sha": "b07f0d26faa3",
-     "sources": [
-      "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify the exact deadlines for clearing academic debt, only that they are \"established\"",
-   "cites": [
-    10
-   ],
-   "evidence": [
-    {
-     "n": 10,
-     "sha": "8e4a66bb7014",
-     "sources": [
-      "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not detail the composition or voting rules of the attestation commission",
-   "cites": [
-    2,
-    3
-   ],
-   "evidence": [
-    {
-     "n": 2,
-     "sha": "3f1581927333",
-     "sources": [
-      "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
-     ]
-    },
-    {
-     "n": 3,
-     "sha": "a772d0363b8f",
+     "sha": "49f004dbff81",
      "sources": [
       "/regulations/sveden-3c21b120-polozh-iup-02-08-2022-pdf.md"
      ]

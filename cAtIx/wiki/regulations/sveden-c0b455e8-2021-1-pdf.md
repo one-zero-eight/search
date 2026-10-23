@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Общее образование 1. Образовательная программа общего образования; Образовательная программа начального общего образования Автономной некомм — Рабочая программа воспитания [РПВоспитания_2021 (1)]"
+title: "бакалавриата: 09.03.01 Информатика и вычислительная техника; Направленность программы (профиль) – AI360: Инженерия данных* — 2024 — Рабочая программа воспитания"
 description: "This document is a university order approving the 2021 educational and moral development program for students at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/014/j4v22t5tz443fib1yxkydb7utgvxrowk/РПВоспитания_2021 (1).pdf"
 tags: ["innopolis", "education", "student-life", "university-policy", "russia"]
@@ -11,7 +11,7 @@ section: "sveden/education"
 sources:
   - resource: "https://innopolis.university/upload/iblock/014/j4v22t5tz443fib1yxkydb7utgvxrowk/РПВоспитания_2021 (1).pdf"
     id: "5d812cc6da0b"
-    title: "Общее образование 1. Образовательная программа общего образования; Образовательная программа начального общего образования Автономной некомм — Рабочая программа воспитания [РПВоспитания_2021 (1)]"
+    title: "бакалавриата: 09.03.01 Информатика и вычислительная техника; Направленность программы (профиль) – AI360: Инженерия данных* — 2024 — Рабочая программа воспитания"
     last_modified: "2021-05-31T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
@@ -21,7 +21,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# Общее образование 1. Образовательная программа общего образования; Образовательная программа начального общего образования Автономной некомм — Рабочая программа воспитания [РПВоспитания_2021 (1)]
+# бакалавриата: 09.03.01 Информатика и вычислительная техника; Направленность программы (профиль) – AI360: Инженерия данных* — 2024 — Рабочая программа воспитания
 
 '№оцР|\с|,|{\`}Ёг5|ЕЧ
 
@@ -1115,4 +1115,4 @@ review: "scanned document read by OCR: check numbers and dates against the PDF b
 
 # Citations
 
-1. [Общее образование 1. Образовательная программа общего образования; Образовательная программа начального общего образования Автономной некомм — Рабочая программа воспитания [РПВоспитания_2021 (1)]](https://innopolis.university/upload/iblock/014/j4v22t5tz443fib1yxkydb7utgvxrowk/РПВоспитания_2021 (1).pdf), file 5d812cc6da0b
+1. [бакалавриата: 09.03.01 Информатика и вычислительная техника; Направленность программы (профиль) – AI360: Инженерия данных* — 2024 — Рабочая программа воспитания](https://innopolis.university/upload/iblock/014/j4v22t5tz443fib1yxkydb7utgvxrowk/РПВоспитания_2021 (1).pdf), file 5d812cc6da0b

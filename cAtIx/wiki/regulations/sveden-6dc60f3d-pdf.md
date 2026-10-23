@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Аннотации к рабочим программам дисциплин [Аннотация]"
+title: "Аннотации к рабочим программам дисциплин [Аннотация]"
 description: "This document outlines the curriculum and assessment structure for a professional retraining program on digital technologies in education."
 resource: "https://innopolis.university/upload/iblock/5d7/u7rxlr2lqcjrwcr1rzyeqdgh8izcs11y/Аннотация.pdf"
 tags: ["curriculum", "digital-education", "retraining", "university", "syllabus"]
@@ -11,7 +11,7 @@ section: "sveden/education"
 sources:
   - resource: "https://innopolis.university/upload/iblock/5d7/u7rxlr2lqcjrwcr1rzyeqdgh8izcs11y/Аннотация.pdf"
     id: "ab65ae3e533a"
-    title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Аннотации к рабочим программам дисциплин [Аннотация]"
+    title: "Аннотации к рабочим программам дисциплин [Аннотация]"
     last_modified: "2026-10-22T14:06:48+00:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
@@ -21,7 +21,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# 09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Аннотации к рабочим программам дисциплин [Аннотация]
+# Аннотации к рабочим программам дисциплин [Аннотация]
 
 УТВЕРЖДЕНО
 
@@ -69,4 +69,4 @@ review: "scanned document read by OCR: check numbers and dates against the PDF b
 
 # Citations
 
-1. [09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Аннотации к рабочим программам дисциплин [Аннотация]](https://innopolis.university/upload/iblock/5d7/u7rxlr2lqcjrwcr1rzyeqdgh8izcs11y/Аннотация.pdf), file ab65ae3e533a
+1. [Аннотации к рабочим программам дисциплин [Аннотация]](https://innopolis.university/upload/iblock/5d7/u7rxlr2lqcjrwcr1rzyeqdgh8izcs11y/Аннотация.pdf), file ab65ae3e533a

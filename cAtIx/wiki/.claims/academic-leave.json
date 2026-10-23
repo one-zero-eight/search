@@ -1,9 +1,9 @@
 {
  "page": "/guides/academic-leave.md",
- "evidence_sha": "a0a978e3077b13f8",
+ "evidence_sha": "038734c5d88d42bc",
  "claims": [
   {
-   "sentence": "Academic leave is available to students and postgraduate students enrolled in the University’s main professional educational programs",
+   "sentence": "You can get academic leave if you are a student or postgraduate enrolled in the University’s main professional educational programs",
    "cites": [
     1
    ],
@@ -18,7 +18,22 @@
    ]
   },
   {
-   "sentence": "Conscription for military service or signing a contract for military service",
+   "sentence": "The leave is granted when you are temporarily unable to study for the following reasons",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "f7e900a93b94",
+     "sources": [
+      "/regulations/academic-leave-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Conscription into military service or signing a contract for military service",
    "cites": [
     1
    ],
@@ -63,7 +78,7 @@
    ]
   },
   {
-   "sentence": "The leave is granted for a single period not exceeding 12 calendar months",
+   "sentence": "The standard duration of academic leave is up to 12 calendar months at one time",
    "cites": [
     2
    ],
@@ -78,7 +93,7 @@
    ]
   },
   {
-   "sentence": "However, if the leave is due to military service or medical indications, the period may not exceed two years",
+   "sentence": "However, if the leave is for military service or medical reasons, the period can be up to two years",
    "cites": [
     2
    ],
@@ -93,7 +108,7 @@
    ]
   },
   {
-   "sentence": "You may be granted academic leave an unlimited number of times during your studies",
+   "sentence": "You can take academic leave an unlimited number of times during your studies",
    "cites": [
     2
    ],
@@ -103,6 +118,21 @@
      "sha": "daa6b0b85e86",
      "sources": [
       "/regulations/academic-leave-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The total period of leave cannot exceed two years",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "ef2d1a9840fb",
+     "sources": [
+      "/regulations/enrollment-procedure-order.md"
      ]
     }
    ]
@@ -110,12 +140,12 @@
   {
    "sentence": "To apply, you must submit a personal application to the University Director",
    "cites": [
-    3
+    1
    ],
    "evidence": [
     {
-     "n": 3,
-     "sha": "1635cc40fe4e",
+     "n": 1,
+     "sha": "f7e900a93b94",
      "sources": [
       "/regulations/academic-leave-regulation.md"
      ]
@@ -123,14 +153,14 @@
    ]
   },
   {
-   "sentence": "The application must use the form specified in Appendix 1 to the Regulation",
+   "sentence": "The application form is specified in Appendix 1 to the Regulation",
    "cites": [
     3
    ],
    "evidence": [
     {
      "n": 3,
-     "sha": "1635cc40fe4e",
+     "sha": "cf5a946017bb",
      "sources": [
       "/regulations/academic-leave-regulation.md"
      ]
@@ -138,14 +168,14 @@
    ]
   },
   {
-   "sentence": "Medical indications:** A medical conclusion issued by a healthcare organization within the state or municipal health system",
+   "sentence": "You must also provide supporting documents depending on your reason for leave",
    "cites": [
     3
    ],
    "evidence": [
     {
      "n": 3,
-     "sha": "1635cc40fe4e",
+     "sha": "cf5a946017bb",
      "sources": [
       "/regulations/academic-leave-regulation.md"
      ]
@@ -153,14 +183,14 @@
    ]
   },
   {
-   "sentence": "Military service:** A mobilization notice, order, or summons from the military commissariat containing the time and place of dispatch to the place of military service, and a copy of the contract for military service in the Armed Forces of the Russian Federation, certified in the manner established by Russian legislation",
+   "sentence": "For medical reasons:** A medical conclusion issued by a healthcare organization within the state or municipal health system",
    "cites": [
     3
    ],
    "evidence": [
     {
      "n": 3,
-     "sha": "1635cc40fe4e",
+     "sha": "cf5a946017bb",
      "sources": [
       "/regulations/academic-leave-regulation.md"
      ]
@@ -168,14 +198,14 @@
    ]
   },
   {
-   "sentence": "Other cases:** Other documents confirming the grounds for the leave, if available",
+   "sentence": "For military service:** A mobilization notice, order, or summons from the military commissariat containing the time and place of dispatch to the place of military service, and a copy of the contract for military service in the Armed Forces of the Russian Federation, certified in the manner prescribed by law",
    "cites": [
     3
    ],
    "evidence": [
     {
      "n": 3,
-     "sha": "1635cc40fe4e",
+     "sha": "cf5a946017bb",
      "sources": [
       "/regulations/academic-leave-regulation.md"
      ]
@@ -183,7 +213,22 @@
    ]
   },
   {
-   "sentence": "The University Director or an authorized official makes the decision on granting the leave",
+   "sentence": "For other reasons:** Other documents confirming the grounds for leave, if available",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "cf5a946017bb",
+     "sources": [
+      "/regulations/academic-leave-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The University Director or an authorized official reviews your application and supporting documents within 10 days of receipt",
    "cites": [
     9
    ],
@@ -198,7 +243,7 @@
    ]
   },
   {
-   "sentence": "This decision must be made within 10 days from the day the University receives your application and attached documents",
+   "sentence": "The decision is made within this 10-day period",
    "cites": [
     9
    ],
@@ -213,7 +258,7 @@
    ]
   },
   {
-   "sentence": "The granting of the leave is formalized by an order issued by the University Head no later than 5 working days from the day the decision to grant the leave is made",
+   "sentence": "The leave is formalized by an order issued by the University Director no later than 5 working days from the day the decision to grant the leave is made",
    "cites": [
     4
    ],
@@ -228,7 +273,7 @@
    ]
   },
   {
-   "sentence": "Your educational relations are suspended while you are on academic leave",
+   "sentence": "While you are on academic leave, your educational relations are suspended",
    "cites": [
     6
    ],
@@ -243,7 +288,7 @@
    ]
   },
   {
-   "sentence": "You are released from obligations related to mastering the educational program and are not admitted to the educational process until the leave ends",
+   "sentence": "You are released from obligations related to studying at the University and are not allowed to participate in the educational process until the leave ends",
    "cites": [
     10
    ],
@@ -258,7 +303,7 @@
    ]
   },
   {
-   "sentence": "If you study under a contract, tuition fees are not charged during the academic leave",
+   "sentence": "If you study under a contract, you are not charged tuition fees during the academic leave",
    "cites": [
     10
    ],
@@ -273,7 +318,7 @@
    ]
   },
   {
-   "sentence": "The leave ends when the granted period expires",
+   "sentence": "Academic leave ends when the granted period expires",
    "cites": [
     5
    ],
@@ -303,7 +348,7 @@
    ]
   },
   {
-   "sentence": "If you return early, you are admitted to studies based on an order from the University Head",
+   "sentence": "If you return early, you are admitted to studies based on an order from the University Director",
    "cites": [
     5
    ],
@@ -328,21 +373,6 @@
      "sha": "e2614a6cbd6b",
      "sources": [
       "/regulations/enrollment-procedure-order.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify what happens to academic progress, grades, or credits earned during the leave. The evidence does not define what constitutes \"other exceptional cases\" or \"family circumstances\" beyond the general listing. The evidence does not specify the exact form of the application for early return, only that it is a personal application",
-   "cites": [
-    5
-   ],
-   "evidence": [
-    {
-     "n": 5,
-     "sha": "aec84556dd45",
-     "sources": [
-      "/regulations/academic-leave-regulation.md"
      ]
     }
    ]

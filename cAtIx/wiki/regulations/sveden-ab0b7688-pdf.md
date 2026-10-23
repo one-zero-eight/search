@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Аннотации к рабочим программам дисциплин [Аннотация Управление цифровой трансформацией образовательных]"
+title: "Аннотации к рабочим программам дисциплин [Аннотация Управление цифровой трансформацией образовательных]"
 description: "This document outlines the curriculum for a professional development course on managing digital transformation in higher education institutions."
 resource: "https://innopolis.university/upload/iblock/b8b/6bh0xjkbb5gi4kkspxi6kru3yn3qnnta/Аннотация Управление цифровой трансформацией образовательных организаций ВО.pdf"
 tags: ["digital-transformation", "higher-education", "curriculum", "professional-development", "management"]
@@ -11,7 +11,7 @@ section: "sveden/education"
 sources:
   - resource: "https://innopolis.university/upload/iblock/b8b/6bh0xjkbb5gi4kkspxi6kru3yn3qnnta/Аннотация Управление цифровой трансформацией образовательных организаций ВО.pdf"
     id: "bb222994816f"
-    title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Аннотации к рабочим программам дисциплин [Аннотация Управление цифровой трансформацией образовательных]"
+    title: "Аннотации к рабочим программам дисциплин [Аннотация Управление цифровой трансформацией образовательных]"
     last_modified: "2026-10-22T14:20:08+00:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
@@ -21,7 +21,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# 09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Аннотации к рабочим программам дисциплин [Аннотация Управление цифровой трансформацией образовательных]
+# Аннотации к рабочим программам дисциплин [Аннотация Управление цифровой трансформацией образовательных]
 
 УТВЕРЖДЕНО
 
@@ -549,4 +549,4 @@ review: "scanned document read by OCR: check numbers and dates against the PDF b
 
 # Citations
 
-1. [09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Аннотации к рабочим программам дисциплин [Аннотация Управление цифровой трансформацией образовательных]](https://innopolis.university/upload/iblock/b8b/6bh0xjkbb5gi4kkspxi6kru3yn3qnnta/Аннотация Управление цифровой трансформацией образовательных организаций ВО.pdf), file bb222994816f
+1. [Аннотации к рабочим программам дисциплин [Аннотация Управление цифровой трансформацией образовательных]](https://innopolis.university/upload/iblock/b8b/6bh0xjkbb5gi4kkspxi6kru3yn3qnnta/Аннотация Управление цифровой трансформацией образовательных организаций ВО.pdf), file bb222994816f

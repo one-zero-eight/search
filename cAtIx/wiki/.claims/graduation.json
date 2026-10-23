@@ -1,16 +1,16 @@
 {
  "page": "/guides/graduation.md",
- "evidence_sha": "e952b087c126e657",
+ "evidence_sha": "d33eb1e2e58ceec9",
  "claims": [
   {
-   "sentence": "The Final State Certification (FSC) is conducted by State Qualifying Committees to determine whether learning outcomes comply with Educational Standards",
+   "sentence": "The Final State Certification applies to students completing state-accredited Bachelor’s Degree and Master’s Degree programs",
    "cites": [
-    3
+    1
    ],
    "evidence": [
     {
-     "n": 3,
-     "sha": "b27aefb4260a",
+     "n": 1,
+     "sha": "3fd7fd5985c0",
      "sources": [
       "/regulations/final-attestation-regulation.md"
      ]
@@ -18,7 +18,7 @@
    ]
   },
   {
-   "sentence": "The schedule for conducting the FSC is determined independently by the University",
+   "sentence": "The University independently determines the schedule for conducting the Final State Certification",
    "cites": [
     4
    ],
@@ -33,7 +33,7 @@
    ]
   },
   {
-   "sentence": "The scope, structure, and content of the FSC for each Educational Program are established by the University in accordance with the requirements of the Educational Standards",
+   "sentence": "The scope, structure, and content of the Final State Certification for each program are established by the University in accordance with the Educational Standards",
    "cites": [
     5
    ],
@@ -48,7 +48,7 @@
    ]
   },
   {
-   "sentence": "Specific forms of the FSC are determined independently by the University for each Educational Program, in accordance with the requirements set by the FSES HE",
+   "sentence": "Specific forms of the Final State Certification are determined independently by the University for each program in accordance with the FSES HE requirements",
    "cites": [
     6
    ],
@@ -63,7 +63,7 @@
    ]
   },
   {
-   "sentence": "For students enrolled in Educational Programs at the University, the FSC is conducted in the form of a defense of a Final Qualification Work",
+   "sentence": "For students enrolled in these programs, the Final State Certification is conducted in the form of a defense of a Final Qualification Work",
    "cites": [
     7
    ],
@@ -78,7 +78,7 @@
    ]
   },
   {
-   "sentence": "The University has established the following types of Final Qualification Works corresponding to the levels of higher education: for the Bachelor's level – a Bachelor’s Thesis; for the Master's level – a Master’s Thesis",
+   "sentence": "The University has established a Bachelor’s Thesis for the Bachelor's level and a Master’s Thesis for the Master's level",
    "cites": [
     8
    ],
@@ -93,7 +93,7 @@
    ]
   },
   {
-   "sentence": "The Final State Certification Program, which includes the requirements for Final Qualification Works and the procedure for their completion, as well as the criteria for assessing the results of the FQW defense approved by the University, shall be communicated to students no later than six months prior to the commencement of the FSC",
+   "sentence": "The Final State Certification Program includes the requirements for Final Qualification Works and the procedure for their completion",
    "cites": [
     8
    ],
@@ -108,7 +108,7 @@
    ]
   },
   {
-   "sentence": "The FSC Program constitutes a part of the Educational Program and is approved by the Academic Council of the University",
+   "sentence": "The Final State Certification Program constitutes a part of the Educational Program and is approved by the Academic Council of the University",
    "cites": [
     8
    ],
@@ -123,7 +123,22 @@
    ]
   },
   {
-   "sentence": "The Final Qualification Work is a piece of work completed by a student (or jointly by several students), demonstrating the graduate's level of preparedness for independent professional activity",
+   "sentence": "You will receive the Final State Certification Program no later than six months prior to the commencement of the Final State Certification",
+   "cites": [
+    8
+   ],
+   "evidence": [
+    {
+     "n": 8,
+     "sha": "ad3b3e3db0cb",
+     "sources": [
+      "/regulations/final-attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The Final Qualification Work demonstrates your level of preparedness for independent professional activity",
    "cites": [
     15
    ],
@@ -138,7 +153,7 @@
    ]
   },
   {
-   "sentence": "The type of the Final Qualification Work, the requirements for it, the procedure for its completion, and the criteria for its assessment are established independently by the University in accordance with the requirements set by the Educational Standards (where such requirements exist) and these Regulations",
+   "sentence": "The type of the Final Qualification Work, the requirements for it, the procedure for its completion, and the criteria for its assessment are established independently by the University in accordance with the Educational Standards and these Regulations",
    "cites": [
     16
    ],
@@ -153,7 +168,7 @@
    ]
   },
   {
-   "sentence": "The Final Qualification Work may be completed jointly by several students within the same field of study of an educational program",
+   "sentence": "You may complete the Final Qualification Work jointly with several other students within the same field of study of your educational program",
    "cites": [
     17
    ],
@@ -168,7 +183,7 @@
    ]
   },
   {
-   "sentence": "In a Final Qualification Work completed jointly by several students, the individual contribution of each student must be clearly identified",
+   "sentence": "In a jointly completed Final Qualification Work, the individual contribution of each student must be clearly identified",
    "cites": [
     17
    ],
@@ -183,7 +198,7 @@
    ]
   },
   {
-   "sentence": "State Examination Committees are established at the University to conduct the FSC",
+   "sentence": "State Examination Committees are established at the University to conduct the Final State Certification",
    "cites": [
     12
    ],
@@ -198,14 +213,14 @@
    ]
   },
   {
-   "sentence": "Appeal Committees are established at the University to consider appeals regarding FSC results",
+   "sentence": "These committees determine whether the learning outcomes you achieved comply with the relevant requirements of the Educational Standards",
    "cites": [
-    12
+    3
    ],
    "evidence": [
     {
-     "n": 12,
-     "sha": "6384459e1cf4",
+     "n": 3,
+     "sha": "b27aefb4260a",
      "sources": [
       "/regulations/final-attestation-regulation.md"
      ]
@@ -213,37 +228,7 @@
    ]
   },
   {
-   "sentence": "The State Examination and Appeal Committees are valid for a period of one calendar year",
-   "cites": [
-    12
-   ],
-   "evidence": [
-    {
-     "n": 12,
-     "sha": "6384459e1cf4",
-     "sources": [
-      "/regulations/final-attestation-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The University independently establishes the rules of procedure for the Committees",
-   "cites": [
-    12
-   ],
-   "evidence": [
-    {
-     "n": 12,
-     "sha": "6384459e1cf4",
-     "sources": [
-      "/regulations/final-attestation-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "Committees are established at the University for each field of study, or for each Educational Program, or for a group of fields of study, or for a group of Educational Programs",
+   "sentence": "The committees are established for each field of study, for each program, for a group of fields of study, or for a group of programs",
    "cites": [
     13
    ],
@@ -258,7 +243,37 @@
    ]
   },
   {
-   "sentence": "The Chairperson of a State Examination Committee is approved by the Ministry of Science and Higher Education of the Russian Federation, upon nomination by the University",
+   "sentence": "The committees are valid for a period of one calendar year",
+   "cites": [
+    12
+   ],
+   "evidence": [
+    {
+     "n": 12,
+     "sha": "6384459e1cf4",
+     "sources": [
+      "/regulations/final-attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The University independently establishes the rules of procedure for the committees",
+   "cites": [
+    12
+   ],
+   "evidence": [
+    {
+     "n": 12,
+     "sha": "6384459e1cf4",
+     "sources": [
+      "/regulations/final-attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The Chairperson of a State Examination Committee is approved by the Ministry of Science and Higher Education of the Russian Federation upon nomination by the University",
    "cites": [
     14
    ],
@@ -288,7 +303,7 @@
    ]
   },
   {
-   "sentence": "Approval must occur no later than December 31 of the year preceding the year in which the FSC is conducted",
+   "sentence": "The approval must occur no later than December 31 of the year preceding the year in which the Final State Certification is conducted",
    "cites": [
     14
    ],
@@ -296,6 +311,21 @@
     {
      "n": 14,
      "sha": "b665f84cdbe2",
+     "sources": [
+      "/regulations/final-attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "An Appeal Committee is established at the University to consider appeals regarding Final State Certification results",
+   "cites": [
+    12
+   ],
+   "evidence": [
+    {
+     "n": 12,
+     "sha": "6384459e1cf4",
      "sources": [
       "/regulations/final-attestation-regulation.md"
      ]
@@ -318,7 +348,7 @@
    ]
   },
   {
-   "sentence": "For students with disabilities, the FSC shall be conducted at the University taking into account their psychophysical development characteristics, individual capabilities, and state of health (hereinafter referred to as \"Individual Characteristics\")",
+   "sentence": "If you have disabilities, the Final State Certification shall be conducted taking into account your psychophysical development characteristics, individual capabilities, and state of health",
    "cites": [
     9
    ],
@@ -333,157 +363,7 @@
    ]
   },
   {
-   "sentence": "All local regulations of the University concerning the conduct of the FSC shall be communicated to students with disabilities in an accessible format",
-   "cites": [
-    11
-   ],
-   "evidence": [
-    {
-     "n": 11,
-     "sha": "2440897ae8b3",
-     "sources": [
-      "/regulations/final-attestation-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "A student has the right to appeal the results of the FSC",
-   "cites": [
-    18
-   ],
-   "evidence": [
-    {
-     "n": 18,
-     "sha": "0345f0a37bf3",
-     "sources": [
-      "/regulations/final-attestation-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "Students should be informed about the procedure for filing and considering appeals no later than 6 months before the commencement of the FSC",
-   "cites": [
-    19
-   ],
-   "evidence": [
-    {
-     "n": 19,
-     "sha": "2a73eca1590d",
-     "sources": [
-      "/regulations/final-attestation-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "A student has the right to submit a written appeal to the Appeal Committee concerning an alleged violation of the established procedure for conducting the state certification",
-   "cites": [
-    20
-   ],
-   "evidence": [
-    {
-     "n": 20,
-     "sha": "c17bd608315f",
-     "sources": [
-      "/regulations/final-attestation-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The application form is provided in Appendix 19 to these Regulations",
-   "cites": [
-    20
-   ],
-   "evidence": [
-    {
-     "n": 20,
-     "sha": "c17bd608315f",
-     "sources": [
-      "/regulations/final-attestation-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence leaves open the specific schedule dates for the attestation, as the schedule is determined independently by the University",
-   "cites": [
-    4
-   ],
-   "evidence": [
-    {
-     "n": 4,
-     "sha": "10b707d43e25",
-     "sources": [
-      "/regulations/final-attestation-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence leaves open the specific scope, structure, and content of the FSC for each Educational Program, as these are established by the University",
-   "cites": [
-    5
-   ],
-   "evidence": [
-    {
-     "n": 5,
-     "sha": "20ac3d0141b5",
-     "sources": [
-      "/regulations/final-attestation-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence leaves open the specific forms of the FSC for each Educational Program, as these are determined independently by the University",
-   "cites": [
-    6
-   ],
-   "evidence": [
-    {
-     "n": 6,
-     "sha": "a8d1d3dc425f",
-     "sources": [
-      "/regulations/final-attestation-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence leaves open the specific requirements for Final Qualification Works and the procedure for their completion, as these are established independently by the University",
-   "cites": [
-    16
-   ],
-   "evidence": [
-    {
-     "n": 16,
-     "sha": "a971cad859c3",
-     "sources": [
-      "/regulations/final-attestation-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence leaves open the specific rules of procedure for the Committees, as these are established independently by the University",
-   "cites": [
-    12
-   ],
-   "evidence": [
-    {
-     "n": 12,
-     "sha": "6384459e1cf4",
-     "sources": [
-      "/regulations/final-attestation-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence leaves open the specific details of the unimpeded access for students with disabilities, as the clause continues without stating what it leaves out",
+   "sentence": "During the Final State Certification, you will be conducted in the same room as students without disabilities, provided this does not create difficulties for you or other students",
    "cites": [
     10
    ],
@@ -498,14 +378,284 @@
    ]
   },
   {
-   "sentence": "The evidence leaves open the specific details of the Supervisor's Review form, as the clause continues without stating what it leaves out",
+   "sentence": "An assistant or assistants will be present in the room to provide necessary technical assistance to you, considering your individual characteristics, such as taking your seat, moving around, reading and completing assignments, and communicating with the chair and members of the State Qualifying Committee",
+   "cites": [
+    10
+   ],
+   "evidence": [
+    {
+     "n": 10,
+     "sha": "1891e1424403",
+     "sources": [
+      "/regulations/final-attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You are permitted to use the necessary technical aids during the Final State Certification, considering your individual characteristics",
+   "cites": [
+    10
+   ],
+   "evidence": [
+    {
+     "n": 10,
+     "sha": "1891e1424403",
+     "sources": [
+      "/regulations/final-attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The University will ensure unimpeded access for you to the examination rooms, restrooms, and other premises",
+   "cites": [
+    10
+   ],
+   "evidence": [
+    {
+     "n": 10,
+     "sha": "1891e1424403",
+     "sources": [
+      "/regulations/final-attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "All local regulations of the University concerning the conduct of the Final State Certification shall be communicated to you in an accessible format",
+   "cites": [
+    11
+   ],
+   "evidence": [
+    {
+     "n": 11,
+     "sha": "2440897ae8b3",
+     "sources": [
+      "/regulations/final-attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You have the right to appeal the results of the Final State Certification",
+   "cites": [
+    18
+   ],
+   "evidence": [
+    {
+     "n": 18,
+     "sha": "0345f0a37bf3",
+     "sources": [
+      "/regulations/final-attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You will be informed about the procedure for filing and considering appeals no later than 6 months before the commencement of the Final State Certification",
+   "cites": [
+    19
+   ],
+   "evidence": [
+    {
+     "n": 19,
+     "sha": "2a73eca1590d",
+     "sources": [
+      "/regulations/final-attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You have the right to submit a written appeal to the Appeal Committee concerning an alleged violation of the established procedure for conducting the state certification",
+   "cites": [
+    20
+   ],
+   "evidence": [
+    {
+     "n": 20,
+     "sha": "c17bd608315f",
+     "sources": [
+      "/regulations/final-attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The application form for the appeal is provided in Appendix 19 to these Regulations",
+   "cites": [
+    20
+   ],
+   "evidence": [
+    {
+     "n": 20,
+     "sha": "c17bd608315f",
+     "sources": [
+      "/regulations/final-attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The regulation does not specify the exact dates or deadlines for the Final State Certification schedule, as the University determines this independently",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "10b707d43e25",
+     "sources": [
+      "/regulations/final-attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The regulation does not detail the specific scope, structure, or content of the Final State Certification for individual programs, as these are established by the University in accordance with the Educational Standards",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "20ac3d0141b5",
+     "sources": [
+      "/regulations/final-attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The regulation does not list the specific requirements, completion procedures, or assessment criteria for the Bachelor’s or Master’s Theses, as these are established independently by the University",
+   "cites": [
+    16
+   ],
+   "evidence": [
+    {
+     "n": 16,
+     "sha": "a971cad859c3",
+     "sources": [
+      "/regulations/final-attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The regulation does not provide the full text of the rules of procedure for the State Examination and Appeal Committees, as the University establishes these independently",
+   "cites": [
+    12
+   ],
+   "evidence": [
+    {
+     "n": 12,
+     "sha": "6384459e1cf4",
+     "sources": [
+      "/regulations/final-attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The regulation does not specify the exact criteria for determining whether conducting the Final State Certification in the same room as students without disabilities creates difficulties",
+   "cites": [
+    10
+   ],
+   "evidence": [
+    {
+     "n": 10,
+     "sha": "1891e1424403",
+     "sources": [
+      "/regulations/final-attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The regulation does not list the specific technical aids permitted for students with disabilities",
+   "cites": [
+    10
+   ],
+   "evidence": [
+    {
+     "n": 10,
+     "sha": "1891e1424403",
+     "sources": [
+      "/regulations/final-attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The regulation does not detail the exact accessible formats used for communicating local regulations to students with disabilities",
+   "cites": [
+    11
+   ],
+   "evidence": [
+    {
+     "n": 11,
+     "sha": "2440897ae8b3",
+     "sources": [
+      "/regulations/final-attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The regulation does not specify the exact timeline or process for the Appeal Committee to consider appeals",
+   "cites": [
+    20
+   ],
+   "evidence": [
+    {
+     "n": 20,
+     "sha": "c17bd608315f",
+     "sources": [
+      "/regulations/final-attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The regulation does not state what happens if an appeal is successful or unsuccessful",
+   "cites": [
+    20
+   ],
+   "evidence": [
+    {
+     "n": 20,
+     "sha": "c17bd608315f",
+     "sources": [
+      "/regulations/final-attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The regulation does not specify the exact requirements for the supervisor's review form for the Bachelor's thesis, as the relevant appendix is cut off",
    "cites": [
     23
    ],
    "evidence": [
     {
      "n": 23,
-     "sha": "4979d1b76811",
+     "sha": "32942a993de9",
+     "sources": [
+      "/regulations/final-attestation-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Course pages may contain additional details or differ from this regulation, but the regulation remains the authoritative source",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "3fd7fd5985c0",
      "sources": [
       "/regulations/final-attestation-regulation.md"
      ]

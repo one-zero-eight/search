@@ -1,22 +1,7 @@
 {
  "page": "/guides/defense-appeal-procedure.md",
- "evidence_sha": "710a20f1da568219",
+ "evidence_sha": "a60cb93c2c89ab1c",
  "claims": [
-  {
-   "sentence": "You must submit your appeal no later than the next working day after the state final certification results are announced",
-   "cites": [
-    3
-   ],
-   "evidence": [
-    {
-     "n": 3,
-     "sha": "07b2e1bfae53",
-     "sources": [
-      "/regulations/sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0.md"
-     ]
-    }
-   ]
-  },
   {
    "sentence": "You have the right to appeal the results of your thesis defense",
    "cites": [
@@ -25,7 +10,7 @@
    "evidence": [
     {
      "n": 1,
-     "sha": "b80abd9ce06e",
+     "sha": "b3af319bd724",
      "sources": [
       "/regulations/sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0.md"
      ]
@@ -33,14 +18,14 @@
    ]
   },
   {
-   "sentence": "You may submit a written appeal to the appellate commission regarding a violation of the established procedure for conducting the state final certification",
+   "sentence": "You may file an appeal if you believe there was a violation of the established procedure for conducting the state final certification",
    "cites": [
     2
    ],
    "evidence": [
     {
      "n": 2,
-     "sha": "0b86940c69ac",
+     "sha": "697c14534921",
      "sources": [
       "/regulations/sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0.md"
      ]
@@ -48,14 +33,14 @@
    ]
   },
   {
-   "sentence": "You must send a scanned copy of the appeal application, which must include your signature and a transcription of your full name, to the email address education@innopolis.ru",
+   "sentence": "You must submit your appeal no later than the next working day after the results of the state final certification are announced",
    "cites": [
     3
    ],
    "evidence": [
     {
      "n": 3,
-     "sha": "07b2e1bfae53",
+     "sha": "2363dc27a69f",
      "sources": [
       "/regulations/sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0.md"
      ]
@@ -63,14 +48,29 @@
    ]
   },
   {
-   "sentence": "After you submit your appeal, the ГЭК secretary forwards the case materials to the appellate commission via email",
+   "sentence": "To do this, send a scanned copy of the appeal application, signed and with your full name deciphered, to the Office of Educational Programs at education@innopolis.ru",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "2363dc27a69f",
+     "sources": [
+      "/regulations/sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "After you submit your appeal, the Secretary of the State Examination Commission forwards the following to the Appeal Commission via email: a scanned copy of the Commission's meeting minutes, a scanned copy of the Chairman's conclusion on compliance with procedural issues, the video recording of the defense, and the thesis, review, and reference (if necessary)",
    "cites": [
     4
    ],
    "evidence": [
     {
      "n": 4,
-     "sha": "4ec7f11bee7d",
+     "sha": "da2248abf2af",
      "sources": [
       "/regulations/sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0.md"
      ]
@@ -78,29 +78,14 @@
    ]
   },
   {
-   "sentence": "The forwarded materials include a scanned copy of the ГЭК meeting protocol, a scanned copy of the ГЭК chairman’s conclusion on procedural compliance, the defense video recording, your thesis, and the review(s) if necessary",
-   "cites": [
-    4
-   ],
-   "evidence": [
-    {
-     "n": 4,
-     "sha": "4ec7f11bee7d",
-     "sources": [
-      "/regulations/sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The chairman of the appellate commission must conduct an online meeting to review your appeal no later than 2 working days after your application is submitted",
+   "sentence": "The Chairman of the Appeal Commission conducts an online meeting to consider your appeal via video conference (using Microsoft Teams, Zoom, or similar software) no later than 2 working days after you submit the appeal application",
    "cites": [
     5
    ],
    "evidence": [
     {
      "n": 5,
-     "sha": "45e68e568b1c",
+     "sha": "47fe7acbc4c9",
      "sources": [
       "/regulations/sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0.md"
      ]
@@ -108,14 +93,14 @@
    ]
   },
   {
-   "sentence": "The meeting is conducted via video conference using Microsoft Teams, Zoom, or similar software",
+   "sentence": "The Secretary of the Appeal Commission keeps a record of the meeting and records the session",
    "cites": [
     5
    ],
    "evidence": [
     {
      "n": 5,
-     "sha": "45e68e568b1c",
+     "sha": "47fe7acbc4c9",
      "sources": [
       "/regulations/sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0.md"
      ]
@@ -123,29 +108,14 @@
    ]
   },
   {
-   "sentence": "The secretary of the appellate commission keeps a protocol of the meeting, and the meeting is recorded",
-   "cites": [
-    5
-   ],
-   "evidence": [
-    {
-     "n": 5,
-     "sha": "45e68e568b1c",
-     "sources": [
-      "/regulations/sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "On the day of the meeting, the chairman sends the results to the Methodological Department by emailing education@innopolis.ru with a scanned copy of the protocol",
+   "sentence": "On the day of the Appeal Commission meeting, the Chairman notifies the Methodological Department of the results by sending an email with a scanned copy of the meeting minutes to education@innopolis.ru",
    "cites": [
     6
    ],
    "evidence": [
     {
      "n": 6,
-     "sha": "11edda442c24",
+     "sha": "09bf60542f08",
      "sources": [
       "/regulations/sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0.md"
      ]
@@ -153,14 +123,14 @@
    ]
   },
   {
-   "sentence": "The Methodological Department then notifies you of the results via your corporate email no later than the next working day after the appellate commission meeting",
+   "sentence": "You will receive notification of the appeal decision via email to your corporate email address no later than the next working day after the Appeal Commission meeting",
    "cites": [
     7
    ],
    "evidence": [
     {
      "n": 7,
-     "sha": "a90b4306a5fd",
+     "sha": "36068790409c",
      "sources": [
       "/regulations/sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0.md"
      ]
@@ -168,14 +138,14 @@
    ]
   },
   {
-   "sentence": "The decision of the appellate commission is final and cannot be revised",
+   "sentence": "The decision of the Appeal Commission is final and not subject to review",
    "cites": [
     8
    ],
    "evidence": [
     {
      "n": 8,
-     "sha": "3b121b9fb61e",
+     "sha": "a7ddb7b88e1e",
      "sources": [
       "/regulations/sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0.md"
      ]
@@ -183,14 +153,14 @@
    ]
   },
   {
-   "sentence": "If necessary, a repeated thesis defense may be conducted by the ГЭК in the presence of one appellate commission member according to the requirements of clause 2 of the regulation",
+   "sentence": "If necessary, the State Examination Commission may conduct a repeat thesis defense in the presence of one member of the Appeal Commission",
    "cites": [
     9
    ],
    "evidence": [
     {
      "n": 9,
-     "sha": "cbd629f65eaf",
+     "sha": "7694df5bd3f6",
      "sources": [
       "/regulations/sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0.md"
      ]
@@ -198,14 +168,14 @@
    ]
   },
   {
-   "sentence": "An appeal against a repeated state final certification is not accepted",
+   "sentence": "An appeal against a repeat state final certification is not accepted",
    "cites": [
     10
    ],
    "evidence": [
     {
      "n": 10,
-     "sha": "dd9f7a37587b",
+     "sha": "99305e74b1d5",
      "sources": [
       "/regulations/sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0.md"
      ]
@@ -213,22 +183,14 @@
    ]
   },
   {
-   "sentence": "The evidence does not specify what constitutes a violation of the established procedure that justifies an appeal",
+   "sentence": "The evidence does not define what qualifies as a violation of the established procedure",
    "cites": [
-    1,
     2
    ],
    "evidence": [
     {
-     "n": 1,
-     "sha": "b80abd9ce06e",
-     "sources": [
-      "/regulations/sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0.md"
-     ]
-    },
-    {
      "n": 2,
-     "sha": "0b86940c69ac",
+     "sha": "697c14534921",
      "sources": [
       "/regulations/sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0.md"
      ]
@@ -236,44 +198,14 @@
    ]
   },
   {
-   "sentence": "It does not state what happens if the 2-working-day deadline for the commission meeting is missed",
-   "cites": [
-    5
-   ],
-   "evidence": [
-    {
-     "n": 5,
-     "sha": "45e68e568b1c",
-     "sources": [
-      "/regulations/sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "It does not provide details on the requirements of clause 2 mentioned for a repeated defense",
-   "cites": [
-    9
-   ],
-   "evidence": [
-    {
-     "n": 9,
-     "sha": "cbd629f65eaf",
-     "sources": [
-      "/regulations/sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "It does not specify the format or content requirements for the written appeal beyond the signature and full name transcription",
+   "sentence": "The evidence does not specify the format or content requirements for the appeal application beyond the signature and name deciphering",
    "cites": [
     3
    ],
    "evidence": [
     {
      "n": 3,
-     "sha": "07b2e1bfae53",
+     "sha": "2363dc27a69f",
      "sources": [
       "/regulations/sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0.md"
      ]
@@ -281,14 +213,14 @@
    ]
   },
   {
-   "sentence": "It does not state whether you can attend the online commission meeting or present your case",
+   "sentence": "The evidence does not specify who constitutes the Appeal Commission or how its members are selected",
    "cites": [
     5
    ],
    "evidence": [
     {
      "n": 5,
-     "sha": "45e68e568b1c",
+     "sha": "47fe7acbc4c9",
      "sources": [
       "/regulations/sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0.md"
      ]
@@ -296,14 +228,29 @@
    ]
   },
   {
-   "sentence": "It does not clarify how the Methodological Department determines your corporate email address",
+   "sentence": "The evidence does not specify the criteria the Appeal Commission uses to make its decision",
    "cites": [
-    7
+    5
    ],
    "evidence": [
     {
-     "n": 7,
-     "sha": "a90b4306a5fd",
+     "n": 5,
+     "sha": "47fe7acbc4c9",
+     "sources": [
+      "/regulations/sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify what happens if the repeat defense is also failed",
+   "cites": [
+    9
+   ],
+   "evidence": [
+    {
+     "n": 9,
+     "sha": "7694df5bd3f6",
      "sources": [
       "/regulations/sveden-222c22bc-poryadok-gia-bakmag-eodot-02-0.md"
      ]

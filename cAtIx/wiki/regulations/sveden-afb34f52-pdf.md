@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Календарный учебный график [календарный график]"
+title: "Календарный учебный график [календарный график]"
 description: "This document is a calendar academic schedule for a professional development course on web development technologies at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/9ca/3jzy1xl7p2zsxq7b6kf0qqvah3zbkqdy/календарный график.pdf"
 tags: ["schedule", "innopolis", "web-development", "training", "calendar"]
@@ -11,7 +11,7 @@ section: "sveden/education"
 sources:
   - resource: "https://innopolis.university/upload/iblock/9ca/3jzy1xl7p2zsxq7b6kf0qqvah3zbkqdy/календарный график.pdf"
     id: "fd3382a5be9f"
-    title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Календарный учебный график [календарный график]"
+    title: "Календарный учебный график [календарный график]"
     last_modified: "2026-10-22T14:18:34+00:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
@@ -21,7 +21,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# 09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Календарный учебный график [календарный график]
+# Календарный учебный график [календарный график]
 
 УТВЕРЖДЕНО
 
@@ -57,4 +57,4 @@ review: "scanned document read by OCR: check numbers and dates against the PDF b
 
 # Citations
 
-1. [09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Календарный учебный график [календарный график]](https://innopolis.university/upload/iblock/9ca/3jzy1xl7p2zsxq7b6kf0qqvah3zbkqdy/календарный график.pdf), file fd3382a5be9f
+1. [Календарный учебный график [календарный график]](https://innopolis.university/upload/iblock/9ca/3jzy1xl7p2zsxq7b6kf0qqvah3zbkqdy/календарный график.pdf), file fd3382a5be9f

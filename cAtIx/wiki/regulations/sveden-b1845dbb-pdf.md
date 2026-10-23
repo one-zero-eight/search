@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Учебный план [Учебный план]"
+title: "Учебный план [Учебный план]"
 description: "This document is the curriculum for a master's program in Computer Science and Engineering at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/19c/mj2ges301lhjhoh7f1po7snlxuv10cfg/Учебный план.pdf"
 tags: ["curriculum", "innopolis", "master", "web-development", "robotics"]
@@ -11,7 +11,7 @@ section: "sveden/education"
 sources:
   - resource: "https://innopolis.university/upload/iblock/19c/mj2ges301lhjhoh7f1po7snlxuv10cfg/Учебный план.pdf"
     id: "72bd7288276b"
-    title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Учебный план [Учебный план]"
+    title: "Учебный план [Учебный план]"
     last_modified: "2026-10-22T13:59:58+00:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
@@ -21,7 +21,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# 09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Учебный план [Учебный план]
+# Учебный план [Учебный план]
 
 УТВЕРЖДЕНО Проректор — начальник управления
 
@@ -171,4 +171,4 @@ review: "scanned document read by OCR: check numbers and dates against the PDF b
 
 # Citations
 
-1. [09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Учебный план [Учебный план]](https://innopolis.university/upload/iblock/19c/mj2ges301lhjhoh7f1po7snlxuv10cfg/Учебный план.pdf), file 72bd7288276b
+1. [Учебный план [Учебный план]](https://innopolis.university/upload/iblock/19c/mj2ges301lhjhoh7f1po7snlxuv10cfg/Учебный план.pdf), file 72bd7288276b

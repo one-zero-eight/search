@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — 2025 (англ.) [ThesisGuideLines_eng]"
+title: "Передовая инженерная школа: магистратуры: 09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Инженерия безопасности систем и сетей* — 2025 — Руководство по написанию тезисов — 2025 (англ.)"
 description: "This document provides guidelines for writing and defending a master's thesis in Computer Science and Robotics."
 resource: "https://innopolis.university/upload/iblock/651/9yhmi5y1ol3haq2wnpqlrf9m2arrwmyh/ThesisGuideLines_eng.pdf"
 tags: ["thesis", "master", "robotics", "guidelines", "defense"]
@@ -11,39 +11,30 @@ section: "sveden/education"
 sources:
   - resource: "https://innopolis.university/upload/iblock/651/9yhmi5y1ol3haq2wnpqlrf9m2arrwmyh/ThesisGuideLines_eng.pdf"
     id: "1a8b97e8a687"
-    title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — 2025 (англ.) [ThesisGuideLines_eng]"
+    title: "Передовая инженерная школа: магистратуры: 09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Инженерия безопасности систем и сетей* — 2025 — Руководство по написанию тезисов — 2025 (англ.)"
     last_modified: "2026-10-22T14:07:07+00:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T14:07:07+00:00"
-extraction: "text layer"
+extraction: "text layer (pdfplumber)"
 status: draft
 ---
 
-# 09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — 2025 (англ.) [ThesisGuideLines_eng]
+# Передовая инженерная школа: магистратуры: 09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Инженерия безопасности систем и сетей* — 2025 — Руководство по написанию тезисов — 2025 (англ.)
 
-CONTENTS
+CONTENTS 1 Introduction 3 2 Preparation 4 3 Dissertation 5
 
-| 1 Introduction | 3 |
-| --- | --- |
-
-| 2 Preparation | 4 |
-| --- | --- |
-
-| 3 Dissertation | 5 |
-| --- | --- |
-
-**3.1** Sample thesis structures..................................................................................... 5
+**3.1** Sample thesis structures ..................................................................................... 5
 
 **3.2** General guidelines .............................................................................................. 6
 
 **3.3** Title, abstract, acknowledgments, table of contents ......................................... 6
 
-**3.4** Introduction........................................................................................................ 6
+**3.4** Introduction ........................................................................................................ 6
 
 **3.5** Literature Review and Related Work .................................................................. 6
 
-**3.6** Design and Methodology.................................................................................... 7
+**3.6** Design and Methodology .................................................................................... 7
 
 **3.7** Implementation and Results .............................................................................. 7
 
@@ -51,12 +42,9 @@ CONTENTS
 
 **3.9** Conclusion .......................................................................................................... 8
 
-**3.10** Bibliography........................................................................................................ 8
+**3.10** Bibliography ........................................................................................................ 8 4 Thesis Defence 9
 
-| 4 Thesis Defence | 9 |
-| --- | --- |
-
-**4.1** Formal criteria to be admitted to thesis defence................................................ 9
+**4.1** Formal criteria to be admitted to thesis defence ................................................ 9
 
 **4.2** Presentation ....................................................................................................... 9
 
@@ -64,15 +52,9 @@ CONTENTS
 
 **4.4** Panel of Experts ................................................................................................ 12
 
-| 1 | INTRODUCTION |
-| --- | --- |
+1 INTRODUCTION A thesis is an essential part of the learning experience for students as it focuses on their ability to integrate knowledge acquired throughout courses into a concrete problem. The final thesis assessment will consist of two parts. The first part relates to the project outcome. The second part relates to the project documentation. The part that relates to the project outcome can take two forms, depending on the nature of the goals of the project: system development (thesis type 1) or research- oriented investigation (thesis type 2). In the case of a thesis that focuses on system development, the outcome will take the form of the design, implementation, test, and evaluation of a complete system. This type of thesis might be done based on an Industrial project. Intellectual property is generally agreed between the student, company, and university on a case by case basis. An agreement has to be signed in order to clarify what access rights have the university over the source code. In most of the case, this agreement does not prevent the publication of a scientific article. The Center for Career Development is in charge of preparing the agreement and validate the compatibility between University and Company. The signature of the agreement should be executed before any research and development activity. In the case of a thesis that focuses on a research-oriented investigation, the outcome will take the form of an analysis of the subject area, a synthesis of a specific conjecture or hypothesis, empirical validation of the proposed model, and critical appraisal of the empirical or theoretical results. This document serves as guidelines to ensure the maximum quality of students’ work and the possibility of them finishing their thesis in time. The thesis work will be developed incrementally: students will have a running prototype of the thesis by the end of the first academic term, and complete development by the end of the academic year. Lastly, it is essential to emphasize that during the thesis, students are expected to meet regularly with their supervisor and to act diligently on them. This document is organized as follows. Chapter 2 describes what needs to be done before starting the thesis work. Chapters 3 and give guidelines for the thesis document. Finally, chapter 4.3 presents the thesis defence procedure.
 
-A thesis is an essential part of the learning experience for students as it focuses on their ability to integrate knowledge acquired throughout courses into a concrete problem. The final thesis assessment will consist of two parts. The first part relates to the project outcome. The secondpart relates to the project documentation. The part that relates to the project outcome can take two forms, depending on the nature of the goals of the project: system development (thesis type 1) or research- oriented investigation (thesis type 2). In the case of a thesis that focuses on system development, the outcome will take the form of the design, implementation, test, and evaluation of a complete system. This type ofthesis might be done based on an Industrial project. Intellectual property is generally agreed between the student, company, and university on a case by case basis. An agreement has to be signed in order to clarify what access rights have the university over the source code. In most of the case, this agreement does not prevent the publication of a scientific article. The Center for Career Development is in charge of preparing the agreement and validate the compatibility between University and Company. The signature of the agreement should be executed before any research and development activity. In the case of a thesis that focuses on a research-oriented investigation, the outcome will take the form of an analysis of the subject area, a synthesis of a specific conjecture or hypothesis, empirical validation of the proposed model, and critical appraisal of the empiricalor theoretical results. This document serves as guidelines to ensure the maximum quality of students’ work and the possibility of them finishing their thesis in time. The thesis work will be developed incrementally: students will have a running prototype of the thesis by the end of the first academic term, and complete development by the end of the academic year. Lastly, it is essential to emphasize that during the thesis, students are expected to meetregularly with their supervisor and to act diligently on them. This document is organized as follows. Chapter 2 describes what needs to be done before starting the thesis work. Chapters 3 and give guidelines for the thesis document. Finally, chapter 4.3 presents the thesis defence procedure.
-
-| 2 | PREPARATION |
-| --- | --- |
-
-First of all, students should open a list of potential topic (should be delivered during the first month of the academic year). They should choose interesting topics and organize a meeting with a potential supervisor. To propose the own topic is also acceptable. The goal of this meetings is to decide on the topic of the thesis, research questions, title, aims, objectives, andthe general structure of the thesis project. Students, with their potential supervisors’ help, should provide a complete specification of the problem, listing objectives, requirements, and a work plan to develop. The specificationshould include the research question.
+2 PREPARATION First of all, students should open a list of potential topic (should be delivered during the first month of the academic year). They should choose interesting topics and organize a meeting with a potential supervisor. To propose the own topic is also acceptable. The goal of this meetings is to decide on the topic of the thesis, research questions, title, aims, objectives, and the general structure of the thesis project. Students, with their potential supervisors’ help, should provide a complete specification of the problem, listing objectives, requirements, and a work plan to develop. The specification should include the research question.
 
 - • For thesis type 1, students should provide a description of the functionality of the
 
@@ -82,14 +64,9 @@ system to be designed. Along with a discussion of the parameters affecting the p
 
 carried out in the project. Along with a discussion of the criteria or metrics to be used to assess the outcome of the investigation.
 
-| 3 | DISSERTATION |
-| --- | --- |
+3 DISSERTATION The dissertation is an independently written scientific work. This chapter shows the general guidelines for the document (each section can be treated as a chapter of the dissertation).
 
-The dissertation is an independently written scientific work. This chapter shows the general guidelines for the document (each section can be treated as a chapter of the dissertation).
-
-**3.1**      Sample thesis structures
-
-Below several examples of thesis structures are summarized, with sample content items. Please note that these are not mandatory and should be rather used as a guideline for the students and advisors. The final contents and structure of the thesis is subject to the studentthemself and their supervisor. Current (default) contents
+**3.1** Sample thesis structures Below several examples of thesis structures are summarized, with sample content items. Please note that these are not mandatory and should be rather used as a guideline for the students and advisors. The final contents and structure of the thesis is subject to the student themself and their supervisor. Current (default) contents
 
 - • Introduction
 
@@ -107,7 +84,7 @@ Alternative contents #1 (when involves hardware experiments)
 
 - • Introduction (motivation, literature review, problem statement, assumptions,
 
-back-ground)
+back- ground)
 
 - • Theoretical Part / Benchmarking
 
@@ -125,17 +102,11 @@ Alternative contents #2 (“research-based” or fundamental)
 
 - • Concluding Discussion
 
-**3.2**      General guidelines
+**3.2** General guidelines The thesis should be written in English language and have a minimum length of 40 pages. The annotation should be written in Russian language and be at maximum 15 pages long.
 
-The thesis should be written in English language and have a minimum length of 40 pages. The annotation should be written in Russian language and be at maximum 15 pages long.
+**3.3** Title, abstract, acknowledgments, table of contents The thesis template. If you have any enhancements, which can be useful for others, you can make a pull request.
 
-**3.3**      Title, abstract, acknowledgments, table of contents
-
-The thesis template. If you have any enhancements, which can be useful for others, you canmake a pull request.
-
-**3.4**      Introduction
-
-In this chapter, students should introduce their work. Students should
+**3.4** Introduction In this chapter, students should introduce their work. Students should
 
 - • mention what the topic is about;
 
@@ -145,9 +116,7 @@ In this chapter, students should introduce their work. Students should
 
 - • state the research questions.
 
-**3.5**      Literature Review and Related Work
-
-In this chapter, students should write a Literature Review and Related Work on the topics and domains related to the project. For this, students may consult books, research journals, conference proceedings, handbooks, and even online courses. Some of the questions to be covered in this chapter are
+**3.5** Literature Review and Related Work In this chapter, students should write a Literature Review and Related Work on the topics and domains related to the project. For this, students may consult books, research journals, conference proceedings, handbooks, and even online courses. Some of the questions to be covered in this chapter are
 
 - • What is the relevant prior work?
 
@@ -161,9 +130,7 @@ In this chapter, students should write a Literature Review and Related Work on t
 
 - • What is the outline of your way?
 
-**3.6**      Design and Methodology
-
-In this chapter, students should describe the general structure of the study: methods, approaches, or processes followed during the study. The methodology should be linked back to the aims of the thesis and the literature to explain why you are using certain methods. In the case of system development, students should describe the Design of the system: describe each component and how they will interact with each other. They should also describe the different experiments carried out. The design and solution should be elegant and robust –consistent with industrial standards. This chapter should answer:
+**3.6** Design and Methodology In this chapter, students should describe the general structure of the study: methods, approaches, or processes followed during the study. The methodology should be linked back to the aims of the thesis and the literature to explain why you are using certain methods. In the case of system development, students should describe the Design of the system: describe each component and how they will interact with each other. They should also describe the different experiments carried out. The design and solution should be elegant and robust – consistent with industrial standards. This chapter should answer:
 
 - • Why did you use this technology/method?
 
@@ -177,9 +144,7 @@ In this chapter, students should describe the general structure of the study: me
 
 - • Why use these tools and methods?
 
-**3.7**      Implementation and Results
-
-In this chapter, students should describe in detail the implementation performed, as well as the results of applying the system implementation to a case study or an experimentundertaken.
+**3.7** Implementation and Results In this chapter, students should describe in detail the implementation performed, as well as the results of applying the system implementation to a case study or an experiment undertaken.
 
 - • For thesis type 1: Test suites implemented and documented. Faults also docu-
 
@@ -197,17 +162,11 @@ ship to the research question. Including some estimate of error or reliability, 
 
 - • Why did you test it this way?
 
-**3.8**      Analysis and Discussion
+**3.8** Analysis and Discussion In this chapter, the student should describe in detail the analysis and discussion of the findings from previous chapters. Students should discuss the accuracy and relevance of the results; compare with other researchers’ results. Are the results satisfactory? How do you define success in your thesis work? Why should you (not) test it more? What compensations had to be made to interpret the results? Why did you succeed/fail?
 
-In this chapter, the student should describe in detail the analysis and discussion of the findings from previous chapters. Students should discuss the accuracy and relevance of theresults; compare with other researchers’ results. Are the results satisfactory? How do you define success in your thesis work? Why should you (not) test it more? What compensations had to be made to interpret the results? Why did you succeed/fail?
+**3.9** Conclusion In this chapter, students should state the consequences of the achieved results. They should also mention whether the results are satisfactory and how they can be improved. This chapter is a short account of the results of your work, emphasizing mainly what is new. Students should align the conclusion to the Introduction, in which the problem was described. They should also mention the limitations of the work and suggest what further work might be done. Make a synthesis of the contributions and impact of your work and recommendations.
 
-**3.9**      Conclusion
-
-In this chapter, students should state the consequences of the achieved results. They should also mention whether the results are satisfactory and how they can be improved. This chapteris a short account of the results of your work, emphasizing mainly what is new. Students should align the conclusion to the Introduction, in which the problem was described. They should also mention the limitations of the work and suggest what further work might be done. Make a synthesis of the contributions and impact of your work and recommendations.
-
-**3.10**       Bibliography
-
-References should be consistently cited in the text. (Plagiarism is unacceptable). Refer- ences of the dissertation should follow IEEE style (it is already provided in the latex tem- plate). References to the World Wide Web, Wikipedia, non-peer-reviewed sites, non- academic manuscripts, and other blogs/social networks should be avoided. Some of the questions this chapter should answer are:
+**3.10** Bibliography References should be consistently cited in the text. (Plagiarism is unacceptable). Refer- ences of the dissertation should follow IEEE style (it is already provided in the latex tem- plate). References to the World Wide Web, Wikipedia, non-peer-reviewed sites, non- academic manuscripts, and other blogs/social networks should be avoided. Some of the questions this chapter should answer are:
 
 - • What is the background reading list?
 
@@ -217,22 +176,19 @@ References should be consistently cited in the text. (Plagiarism is unacceptable
 
 - • Where can I find important material?
 
-| 4 | THESIS DEFENCE |
-| --- | --- |
+4 THESIS DEFENCE
 
-**4.1**      Formal criteria to be admitted to thesis defence
-
-For admission to the graduation thesis defense, you must submit the following documents tothe Department of Education office:
+**4.1** Formal criteria to be admitted to thesis defence For admission to the graduation thesis defense, you must submit the following documents to the Department of Education office:
 
 - • Bound graduation thesis, signed by the supervisor on the title page, drawn up
 
-followingthe requirements doc;
+following the requirements doc;
 
 - • Graduation thesis annotation in Russian is on 10-15 pages doc.
 
 - • Graduation thesis and Abstract in soft copy (pdf with a text layer and link to LaTex
 
-doc)uploaded to Moodle;
+doc) uploaded to Moodle;
 
 - • ONLY FOR MASTERS Supervisor’s review signed by the supervisor doc;
 
@@ -240,9 +196,7 @@ doc)uploaded to Moodle;
 
 The graduation thesis will be checked by the anti-plagiarism system. If its authenticity is insufficient, it shall be returned for revision.
 
-**4.2**      Presentation
-
-Students, in addition to submitting the thesis document, need to make a presentation to their supervisors describing the thesis work. Supervisors arrange the presentation’s schedule andlocation. They might invite other IU Faculty to attend the presentation. The presentation should focus on the problem of the thesis, the research questions, the work performed, what was discovered, what are the lessons learned, and the recommendations. This is the recommended structure of the presentation.
+**4.2** Presentation Students, in addition to submitting the thesis document, need to make a presentation to their supervisors describing the thesis work. Supervisors arrange the presentation’s schedule and location. They might invite other IU Faculty to attend the presentation. The presentation should focus on the problem of the thesis, the research questions, the work performed, what was discovered, what are the lessons learned, and the recommendations. This is the recommended structure of the presentation.
 
 - • General context
 
@@ -258,9 +212,7 @@ Students, in addition to submitting the thesis document, need to make a presenta
 
 - • Conclusions – contribution, impact, future work
 
-**4.3**      Evaluation Criteria for thesis assessment
-
-These are the criteria: For thesis type 1:
+**4.3** Evaluation Criteria for thesis assessment These are the criteria: For thesis type 1:
 
 - • Does the student show that the design meets the requirements & specifications?
 
@@ -270,7 +222,7 @@ These are the criteria: For thesis type 1:
 
 - • Is the design well structured (e.g., is it hierarchical, are there well-identified
 
-interfaces,and is there a functional specification for each sub-system)?
+interfaces, and is there a functional specification for each sub-system)?
 
 - • Is the design of the software or hardware fully implemented?
 
@@ -278,9 +230,7 @@ interfaces,and is there a functional specification for each sub-system)?
 
 - • Is the final system of high quality (i.e., elegant or robust implementation consistent
 
-with industrial standards)?
-
-For thesis type 2
+with industrial standards)? For thesis type 2
 
 - • Are all the factors, empirical or theoretical, affecting the investigation analyzed and
 
@@ -290,23 +240,21 @@ coherently summarized?
 
 - • Is a clear research question in the form of an explicit conjecture or hypothesis
 
-formu-lated and discussed?
+formu- lated and discussed?
 
 - • Are appropriate validation criteria identified and described?
 
 - • Have appropriate studies been conducted sufficiently well to address the
 
-researchquestion (by simulation or other means)?
+research question (by simulation or other means)?
 
 - • Are the empirical tests well designed with clearly defined parameters and
 
-measurableoutcomes?
+measurable outcomes?
 
 - • Are the empirical tests sufficient to arrive at a convincing conclusion or answer to the
 
-research question?
-
-For the thesis document: Organization & Clarity
+research question? For the thesis document: Organization & Clarity
 
 - • Is the abstract representative of the content of the report?
 
@@ -330,9 +278,7 @@ Technical Content
 
 - • Has the student explained all the issues in his or her own words or recycled a
 
-significantamount of the text from other sources?
-
-Conclusions and Future Work
+significant amount of the text from other sources? Conclusions and Future Work
 
 - • Are conclusions well written?
 
@@ -348,9 +294,7 @@ achievements?
 
 - • Does he or she understand the relevance and importance of the work presented in
 
-theThesis?
-
-For the Presentation
+the Thesis? For the Presentation
 
 - • Has the student covered all of the relevant issues?
 
@@ -362,12 +306,8 @@ For the Presentation
 
 - • Did he or she answer questions well?
 
-**4.4**   Panel of Experts
-
-The Committee includes Professors from Innopolis University and Industry Representatives.
-
-The graduation thesis defense shall be held in English. Students will have 5-7 minutes only for the presentation. It will be followed by 10 minutes of questions/answers. Students might use the same guidelines as for the Supervisor’spresentation. The grades from Experts will be announced on the same day after the panel.
+**4.4** Panel of Experts The Committee includes Professors from Innopolis University and Industry Representatives. The graduation thesis defense shall be held in English. Students will have 5-7 minutes only for the presentation. It will be followed by 10 minutes of questions/answers. Students might use the same guidelines as for the Supervisor’s presentation. The grades from Experts will be announced on the same day after the panel.
 
 # Citations
 
-1. [09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — 2025 (англ.) [ThesisGuideLines_eng]](https://innopolis.university/upload/iblock/651/9yhmi5y1ol3haq2wnpqlrf9m2arrwmyh/ThesisGuideLines_eng.pdf), file 1a8b97e8a687
+1. [Передовая инженерная школа: магистратуры: 09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Инженерия безопасности систем и сетей* — 2025 — Руководство по написанию тезисов — 2025 (англ.)](https://innopolis.university/upload/iblock/651/9yhmi5y1ol3haq2wnpqlrf9m2arrwmyh/ThesisGuideLines_eng.pdf), file 1a8b97e8a687

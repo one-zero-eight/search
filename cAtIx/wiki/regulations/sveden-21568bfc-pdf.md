@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — 2025 [Методические_рекомендации_по_оформлению_ВКР]"
+title: "магистратуры: 10.04.01 Информационная безопасность; Направленность программы (профиль) – Кибербезопасность* — 2025 — 2025"
 description: "Guidelines for formatting and defending a master's thesis in Computer Science and Robotics at a Russian university."
 resource: "https://innopolis.university/upload/iblock/140/981avxx01p43ah8tg6bchtury340a10u/Методические_рекомендации_по_оформлению_ВКР.pdf"
 tags: ["master", "thesis", "defense", "robotics", "guidelines"]
@@ -11,20 +11,18 @@ section: "sveden/education"
 sources:
   - resource: "https://innopolis.university/upload/iblock/140/981avxx01p43ah8tg6bchtury340a10u/Методические_рекомендации_по_оформлению_ВКР.pdf"
     id: "32f5b1ecad57"
-    title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — 2025 [Методические_рекомендации_по_оформлению_ВКР]"
+    title: "магистратуры: 10.04.01 Информационная безопасность; Направленность программы (профиль) – Кибербезопасность* — 2025 — 2025"
     last_modified: "2026-10-22T13:59:37+00:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T13:59:37+00:00"
-extraction: "text layer"
+extraction: "text layer (pdfplumber)"
 status: draft
 ---
 
-# 09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — 2025 [Методические_рекомендации_по_оформлению_ВКР]
+# магистратуры: 10.04.01 Информационная безопасность; Направленность программы (профиль) – Кибербезопасность* — 2025 — 2025
 
-Методические рекомендации по оформлению выпускной квалификационной работы
-
-В конце обучения вам предстоит пройти процедуру государственной итоговой аттестации, чтобы она завершилась успешно, доводим до Вас следующую информацию:
+Методические рекомендации по оформлению выпускной квалификационной работы В конце обучения вам предстоит пройти процедуру государственной итоговой аттестации, чтобы она завершилась успешно, доводим до Вас следующую информацию:
 
 **1.** К государственной итоговой аттестации допускаются студенты, не имеющие академической задолженности (в том числе по физической культуре).
 
@@ -68,10 +66,7 @@ status: draft
 
 **8.** Выпускная квалификационная работа будет проверена системой «антиплагиат». Если ее оригинальность будет недостаточной, она будет направлена вам на доработку.
 
-| 9. Рекомендуемое количество источников | (указываемых | в | списке |
-| --- | --- | --- | --- |
-
-использованной литературы) – не менее 30.
+**9.** Рекомендуемое количество источников (указываемых в списке использованной литературы) – не менее 30.
 
 **10.** При написании совместной ВКР (от 2-х человек и более) в отзыве научного руководителя обязательным является описание вклада каждого из участников группы в подготовку ВКР.
 
@@ -121,7 +116,7 @@ New Roman, размер шрифта 14 pt, полуторный промежу�
 
 - • список использованной литературы; приложения (при наличии).
 
-**13.** Аннотация к выпускной квалификационной работе включает в себя следующиеэлементы:
+**13.** Аннотация к выпускной квалификационной работе включает в себя следующие элементы:
 
 - • титульный лист
 
@@ -135,11 +130,7 @@ New Roman, размер шрифта 14 pt, полуторный промежу�
 
 **14.** Рекомендации по заполнению полей в отзыве научного руководителя: в полях ФИО студента, Student's full name, Тема ВКР, Thesis title, Научный руководитель, Supervised by, а также в полях для заполнения комментариев от научного руководителя - гарнитура Arrial Narrow, 10,полужирный.
 
-**15.** Формы титульных листов ВКР и аннотации, а также формы отзыва от научного руководителя и рецензии Вы можете найти, перейдя по ссылке https://drive.google.com/drive/folders/1G2LjE05SqmjcJPjnZXhB7AtSLM-yhRmz
-
-Methodical recommendations of complying Thesis with standardrequirements
-
-This year you shall undergo the State Final Examination procedure. To complete it successfully,please mind the following information:
+**15.** Формы титульных листов ВКР и аннотации, а также формы отзыва от научного руководителя и рецензии Вы можете найти, перейдя по ссылке https://drive.google.com/drive/folders/1G2LjE05SqmjcJPjnZXhB7AtSLM-yhRmz Methodical recommendations of complying Thesis with standard requirements This year you shall undergo the State Final Examination procedure. To complete it successfully, please mind the following information:
 
 **1.** Students without academic debts (including sports course) and having successfully completed their pre-graduation internship are allowed to pass the State Final Examination.
 
@@ -157,7 +148,7 @@ research results (PDF presentation or any other layout); the handouts for the co
 
 **4.** Graduation Thesis must be written in English.
 
-**5.** For admission to Graduation Thesis Defense, you must submit the following documents nolater than 10 days before the day of Thesis Defense:
+**5.** For admission to Graduation Thesis Defense, you must submit the following documents no later than 10 days before the day of Thesis Defense:
 
 - • Printed Thesis in folder, signed by the supervisor on the title page, drawn up
 
@@ -205,7 +196,7 @@ other meaningful parts of the thesis shall begin on a new page;
 
 at the end of the paper.
 
-**12.** Graduation thesis shall include the following elements:title page;
+**12.** Graduation thesis shall include the following elements: title page;
 
 - • contents (list of contents) with page numbering;
 
@@ -235,13 +226,8 @@ design of practical component of the paper (description of the problems and ways
 
 **14.** Recommendations on filling the fields in Final Thesis Assessment: in the fields ФИО студента, Student's full name, Тема ВКР, Thesis title, Научный руководитель, Supervised by, and also in the fields for filling the comments from Supervisor – the font should be Arial Narrow, 10, in bold.
 
-**15.** You may find forms of Tittle pages of Thesis, Annotation, Final Thesis
-
-| Assessment | and | Review | following | the | link: |
-| --- | --- | --- | --- | --- | --- |
-
-https://drive.google.com/drive/folders/1G2LjE05SqmjcJPjnZXhB7AtSLM- yhRmz
+**15.** You may find forms of Tittle pages of Thesis, Annotation, Final Thesis Assessment and Review following the link: https://drive.google.com/drive/folders/1G2LjE05SqmjcJPjnZXhB7AtSLM- yhRmz
 
 # Citations
 
-1. [09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — 2025 [Методические_рекомендации_по_оформлению_ВКР]](https://innopolis.university/upload/iblock/140/981avxx01p43ah8tg6bchtury340a10u/Методические_рекомендации_по_оформлению_ВКР.pdf), file 32f5b1ecad57
+1. [магистратуры: 10.04.01 Информационная безопасность; Направленность программы (профиль) – Кибербезопасность* — 2025 — 2025](https://innopolis.university/upload/iblock/140/981avxx01p43ah8tg6bchtury340a10u/Методические_рекомендации_по_оформлению_ВКР.pdf), file 32f5b1ecad57

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Аннотации к рабочим программам дисциплин [Аннотация. Внедрение]"
+title: "Аннотации к рабочим программам дисциплин [Аннотация. Внедрение]"
 description: "This document is an annotation for a continuing education course on implementing digital technologies in educational programs at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/6a0/kuo9z983u8swxcpg6wmlfnyiynults36/Аннотация. Внедрение.pdf"
 tags: ["innopolis", "digital-transformation", "education", "continuing-education", "healthcare"]
@@ -11,7 +11,7 @@ section: "sveden/education"
 sources:
   - resource: "https://innopolis.university/upload/iblock/6a0/kuo9z983u8swxcpg6wmlfnyiynults36/Аннотация. Внедрение.pdf"
     id: "6e6b4b89c39f"
-    title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Аннотации к рабочим программам дисциплин [Аннотация. Внедрение]"
+    title: "Аннотации к рабочим программам дисциплин [Аннотация. Внедрение]"
     last_modified: "2026-10-22T14:16:57+00:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
@@ -21,7 +21,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# 09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Аннотации к рабочим программам дисциплин [Аннотация. Внедрение]
+# Аннотации к рабочим программам дисциплин [Аннотация. Внедрение]
 
 УТВЕРЖДЕНО Первый проректор —
 
@@ -51,4 +51,4 @@ review: "scanned document read by OCR: check numbers and dates against the PDF b
 
 # Citations
 
-1. [09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Аннотации к рабочим программам дисциплин [Аннотация. Внедрение]](https://innopolis.university/upload/iblock/6a0/kuo9z983u8swxcpg6wmlfnyiynults36/Аннотация. Внедрение.pdf), file 6e6b4b89c39f
+1. [Аннотации к рабочим программам дисциплин [Аннотация. Внедрение]](https://innopolis.university/upload/iblock/6a0/kuo9z983u8swxcpg6wmlfnyiynults36/Аннотация. Внедрение.pdf), file 6e6b4b89c39f

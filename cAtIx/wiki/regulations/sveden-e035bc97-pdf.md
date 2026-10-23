@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Положение о внутренней системе оценки качества образования АНО ВО «Университет Иннополис» (документ подписан простой электронной подписью)"
+title: "Положение о внутренней системе оценки качества образования АНО ВО «Университет Иннополис»"
 description: "Regulates Innopolis University's internal quality assessment system for higher education."
 resource: "https://innopolis.university/upload/iblock/22c/v8w2e1kkadmndbsxq38mfcks7c2prwnk/Положение_о_ВСОКО.pdf"
 tags: ["innopolis", "quality-assurance", "higher-education", "regulation", "university-policy"]
@@ -11,24 +11,18 @@ section: "sveden/document"
 sources:
   - resource: "https://innopolis.university/upload/iblock/22c/v8w2e1kkadmndbsxq38mfcks7c2prwnk/Положение_о_ВСОКО.pdf"
     id: "55ad80fe53f2"
-    title: "Положение о внутренней системе оценки качества образования АНО ВО «Университет Иннополис» (документ подписан простой электронной подписью)"
+    title: "Положение о внутренней системе оценки качества образования АНО ВО «Университет Иннополис»"
     last_modified: "2025-12-24T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T18:05:51+00:00"
-extraction: "text layer"
+extraction: "text layer (pdfplumber)"
 status: draft
 ---
 
-# Положение о внутренней системе оценки качества образования АНО ВО «Университет Иннополис» (документ подписан простой электронной подписью)
+# Положение о внутренней системе оценки качества образования АНО ВО «Университет Иннополис»
 
-УТВЕРЖДЕНО приказом АНО ВО «Университет Иннополис» от 24 декабря 2025 г. №  ОД/АД‐01/2025/12/24 МНРЕГ Директор МЭПВандюков
-
-Д.В. Вандюков
-
-ПОЛОЖЕНИЕ о внутренней системе оценки качества образования АНО ВО «Университет Иннополис»
-
-Иннополис 2025 г.
+УТВЕРЖДЕНО приказом АНО ВО «Университет Иннополис» от 24 декабря 2025 г. № ОД/АД‐01/2025/12/24 МНРЕГ Директор МЭПВандюков Д.В. Вандюков ПОЛОЖЕНИЕ о внутренней системе оценки качества образования АНО ВО «Университет Иннополис» Иннополис 2025 г.
 
 ## 1. Общие положения
 
@@ -42,23 +36,13 @@ status: draft
 
 **1.2.3.** Приказом Минобрнауки России от 14.06.2013 № 462 «Об утверждении Порядка проведения самообследования образовательной организацией»;
 
-**1.2.4.** Приказом Минобрнауки России от 10.12.2013 № 1324 «Об утверждении
-
-| показателей | деятельности | образовательной | организации, | подлежащей |
-| --- | --- | --- | --- | --- |
-
-самообследованию»;
+**1.2.4.** Приказом Минобрнауки России от 10.12.2013 № 1324 «Об утверждении показателей деятельности образовательной организации, подлежащей самообследованию»;
 
 **1.2.5.** Приказом Минпросвещения России от 13.03.2019 № 114 «Об утверждении показателей, характеризующих общие критерии оценки качества условий осуществления образовательной деятельности организациями, осуществляющими образовательную деятельность по основным общеобразовательным программам, образовательным программам среднего профессионального образования, основным программам профессионального обучения, дополнительным общеобразовательным программам»;
 
 **1.2.6.** Приказом Минобрнауки России от 31.07.2020 № 860 «Об утверждении показателей, характеризующих общие критерии оценки качества условий осуществления образовательной деятельности организациями, осуществляющими образовательную деятельность по образовательным программам высшего образования»;
 
-**1.2.7.** Приказом Минобрнауки России от 03.09.2020 № 1156 «Об утверждении показателей, характеризующих общие критерии оценки качества условий осуществления образовательной деятельности организациями, осуществляющими
-
-| образовательную | деятельность | по | дополнительным | профессиональным |
-| --- | --- | --- | --- | --- |
-
-программам»;
+**1.2.7.** Приказом Минобрнауки России от 03.09.2020 № 1156 «Об утверждении показателей, характеризующих общие критерии оценки качества условий осуществления образовательной деятельности организациями, осуществляющими образовательную деятельность по дополнительным профессиональным программам»;
 
 **1.2.8.** Приказом Минпросвещения России от 14.04.2023 № 272 «Об утверждении аккредитационных показателей, методики расчета и применения аккредитационных показателей по образовательным программам среднего профессионального образования»;
 
@@ -80,12 +64,7 @@ status: draft
 
 **1.3.2.** Оценка качества образования – определение с помощью диагностических и оценочных процедур степени соответствия образовательной деятельности и результатов подготовки обучающихся нормативным требованиям, социальным и личностным ожиданиям;
 
-**1.3.3.** Внутренняя система оценки качества образования – совокупность
-
-| регламентированных | Университетом | элементов, | позволяющих | оценивать |
-| --- | --- | --- | --- | --- |
-
-и анализировать процессы и результаты работы Университета в образовательной, научно-исследовательской, воспитательной сферах деятельности и разрабатывать рекомендации по улучшению качества.
+**1.3.3.** Внутренняя система оценки качества образования – совокупность регламентированных Университетом элементов, позволяющих оценивать и анализировать процессы и результаты работы Университета в образовательной, научно-исследовательской, воспитательной сферах деятельности и разрабатывать рекомендации по улучшению качества.
 
 **1.4.** Университет обеспечивает разработку и реализацию внутренней системы оценки качества образования, учет и дальнейшее использование полученных результатов.
 
@@ -131,12 +110,7 @@ status: draft
 
 **2.2.9.** Анализ трудоустройства выпускников и их востребованности на рынке труда;
 
-**2.2.10.** Определение     степени    соответствия   условий     осуществления
-
-| образовательного процесса | Стандартам, аккредитационным | показателям, |
-| --- | --- | --- |
-
-показателям аккредитационного мониторинга, образовательным программам (с учетом запросов основных потребителей образовательных услуг – обучающихся и работодателей).
+**2.2.10.** Определение степени соответствия условий осуществления образовательного процесса Стандартам, аккредитационным показателям, показателям аккредитационного мониторинга, образовательным программам (с учетом запросов основных потребителей образовательных услуг – обучающихся и работодателей).
 
 **2.3.** Внутренняя система оценки качества образования в Университете основывается на следующих принципах:
 
@@ -270,20 +244,15 @@ status: draft
 
 **4.4.** Оценка качества кадрового обеспечения образовательного процесса включает:
 
-**4.4.1.** Аудит кадровых условий реализации образовательных программ на соответствие требованиям Стандартов, квалификационным требованиям (оценивается квалификация педагогических работников на соответствие требованиям, указанным в квалификационных справочниках и (или) профессиональных стандартах; доля педагогических работников и лиц, привлекаемых Университетом к реализации образовательных программ на иных условиях, осуществляющих научную, учебно- методическую и (или) практическую работу, соответствующую профилю преподаваемой дисциплины (модуля); доля педагогических работников и лиц, привлекаемых Университетом к реализации образовательных программ на иных условиях, являющихся руководителями и (или) работниками иных организаций,
+**4.4.1.** Аудит кадровых условий реализации образовательных программ на соответствие требованиям Стандартов, квалификационным требованиям (оценивается квалификация педагогических работников на соответствие требованиям, указанным в квалификационных справочниках и (или) профессиональных стандартах; доля педагогических работников и лиц, привлекаемых Университетом к реализации образовательных программ на иных условиях, осуществляющих научную, учебно- методическую и (или) практическую работу, соответствующую профилю преподаваемой дисциплины (модуля); доля педагогических работников и лиц, привлекаемых Университетом к реализации образовательных программ на иных условиях, являющихся руководителями и (или) работниками иных организаций, осуществляющими трудовую деятельность в профессиональной сфере, соответствующей профессиональной деятельности, к которой готовятся выпускники; доля педагогических работников и лиц, привлекаемых Университетом к реализации образовательных программ на иных условиях, имеющих ученую степень и (или) ученое звание);
 
-| осуществляющими | трудовую | деятельность | в | профессиональной | сфере, |
-| --- | --- | --- | --- | --- | --- |
-
-соответствующей профессиональной деятельности, к которой готовятся выпускники; доля педагогических работников и лиц, привлекаемых Университетом к реализации образовательных программ на иных условиях, имеющих ученую степень и (или) ученое звание);
-
-**4.4.2.** Аудит    прохождения     педагогическими    работниками    обучения по программам повышения квалификации и (или) программам профессиональной переподготовки.
+**4.4.2.** Аудит прохождения педагогическими работниками обучения по программам повышения квалификации и (или) программам профессиональной переподготовки.
 
 **4.5.** Проведение опросов включает:
 
 **4.5.1.** Опрос педагогических и научных работников об удовлетворенности условиями и организацией образовательной деятельности в рамках реализации образовательных программ (приложение 1 к настоящему Положению);
 
-**4.5.2.** Опрос    обучающихся     (законных   представителей обучающихся) об удовлетворенности условиями, содержанием, организацией и качеством образовательного процесса в целом и отдельных учебных предметов, курсов, дисциплин (модулей) и практик (приложение 2 к настоящему Положению);
+**4.5.2.** Опрос обучающихся (законных представителей обучающихся) об удовлетворенности условиями, содержанием, организацией и качеством образовательного процесса в целом и отдельных учебных предметов, курсов, дисциплин (модулей) и практик (приложение 2 к настоящему Положению);
 
 **4.5.3.** Опрос работодателей по оценке качества подготовки обучающихся / выпускников (приложение 3 к настоящему Положению) (дает возможность определить степень удовлетворенности (оценки) работодателей уровнем профессиональных компетенций, практических навыков и умений обучающихся и выпускников Университета, а также дает возможность актуализировать учебные планы, рабочие программы дисциплин (модулей), программы практик на основе полученных результатов).
 
@@ -315,421 +284,102 @@ status: draft
 
 **4.7.** По решению директора Университета, ректора Университета, руководителя центра контроля образовательной деятельности перечень оценочных процедур может быть дополнен / изменен / уточнен при разработке плана-графика мероприятий по внутренней системе оценки качества образования.
 
-Приложение 1 к Положению о внутренней системе оценки качества образования АНО ВО «Университет Иннополис»
+| Приложение 1 |
+| --- |
+| к Положению о внутренней системе оценки качества |
+| образования АНО ВО «Университет Иннополис» |
 
 Анкета оценки удовлетворенности условиями и организацией образовательной деятельности в АНО ВО «Университет Иннополис» (для педагогических и научных работников)
 
-**1.1** Полнота и актуальность информации об Университете и его деятельности в        1.1. Completeness and relevance of information about the University and its activities in
+**1.1** Полнота и актуальность информации об Университете и его деятельности в 1.1. Completeness and relevance of information about the University and its activities in информационно-телекоммуникационной сети «Интернет»: the information and telecommunication network "Internet": o отлично, полностью удовлетворен (-а); o excellent, completely satisfied; o в целом хорошо, за исключением незначительных недостатков; o generally good, except for minor flaws; o удовлетворительно, но со значительными недостатками; o satisfactory, but with significant drawbacks; o плохо, не соответствует минимальным требованиям; o bad, does not meet the minimum requirements; o неудовлетворительно, не устраивает. o unsatisfactory, not satisfied.
 
-| информационно-телекоммуникационной сети «Интернет»: | the information and telecommunication network "Internet": |
-| --- | --- |
+**1.2** Наличие сведений о педагогических работниках организации на официальном 1.2 Availability of information about the teaching staff of the organization on the official сайте Университета: website of the University: o отлично, полностью удовлетворен (-а); o excellent, completely satisfied; o в целом хорошо, за исключением незначительных недостатков; o generally good, except for minor flaws; o удовлетворительно, но со значительными недостатками; o satisfactory, but with significant drawbacks; o плохо, не соответствует минимальным требованиям; o bad, does not meet the minimum requirements; o неудовлетворительно, не устраивает. o unsatisfactory, not satisfied.
 
-| o | отлично, полностью удовлетворен (-а); | o | excellent, completely satisfied; |
-| --- | --- | --- | --- |
-| o | в целом хорошо, за исключением незначительных недостатков; | o | generally good, except for minor flaws; |
-| o | удовлетворительно, но со значительными недостатками; | o | satisfactory, but with significant drawbacks; |
-| o | плохо, не соответствует минимальным требованиям; | o | bad, does not meet the minimum requirements; |
-| o | неудовлетворительно, не устраивает. | o | unsatisfactory, not satisfied. |
+**1.3** Доступность взаимодействия с Университетом по телефону, по электронной 1.3 Accessibility of interaction with the University by phone, by e-mail, using electronic почте, с помощью электронных сервисов, в том числе наличие возможности services, including the possibility of making proposals aimed at improving the work of внесения предложений, направленных на улучшение работы Университета: the University: o отлично, полностью удовлетворен (-а); o excellent, completely satisfied; o в целом хорошо, за исключением незначительных недостатков; o generally good, except for minor flaws; o удовлетворительно, но со значительными недостатками; o satisfactory, but with significant drawbacks; o плохо, не соответствует минимальным требованиям; o bad, does not meet the minimum requirements; o неудовлетворительно, не устраивает. o unsatisfactory, not satisfied.
 
-**1.2** Наличие сведений о педагогических работниках организации на официальном       1.2 Availability of information about the teaching staff of the organization on the official
+**2.1** Материально-техническое и информационное обеспечение образовательного 2.1 Material, technical and information support of the educational process (there is процесса (имеется доступ к ЭБС и базам данных, оснащенные читальные залы, access to an ELS and databases, equipped reading rooms, offices for independent work, кабинеты для самостоятельной работы, в том числе оборудованные рабочими including those equipped with workplaces, access to the Internet information and местами, доступ к информационно-телекоммуникационной сети «Интернет»): telecommunications network): o отлично, полностью удовлетворен (-а); o excellent, completely satisfied; o в целом хорошо, за исключением незначительных недостатков; o generally good, except for minor flaws; o удовлетворительно, но со значительными недостатками; o satisfactory, but with significant drawbacks; o плохо, не соответствует минимальным требованиям; o bad, does not meet the minimum requirements; o неудовлетворительно, не устраивает. o unsatisfactory, not satisfied.
 
-| сайте Университета: | website of the University: |
-| --- | --- |
+**2.2** Оцените условия для укрепления и охраны здоровья (наличие медицинского 2.2 Evaluate the conditions for strengthening and protecting health (availability of a кабинета (медицинского центра), условий для занятия физической культуры и medical office (medical center), conditions for physical education and sports (gym, спорта (спортзал, стадион, тренажерный зал): stadium): o отлично, полностью удовлетворен (-а); o excellent, completely satisfied; o в целом хорошо, за исключением незначительных недостатков; o generally good, except for minor flaws; o удовлетворительно, но со значительными недостатками; o satisfactory, but with significant drawbacks; o плохо, не соответствует минимальным требованиям; o bad, does not meet the minimum requirements; o неудовлетворительно, не устраивает. o unsatisfactory, not satisfied.
 
-| o отлично, полностью удовлетворен (-а); | o | excellent, completely satisfied; |
-| --- | --- | --- |
-| o в целом хорошо, за исключением незначительных недостатков; | o | generally good, except for minor flaws; |
-| o удовлетворительно, но со значительными недостатками; | o | satisfactory, but with significant drawbacks; |
-| o плохо, не соответствует минимальным требованиям; | o | bad, does not meet the minimum requirements; |
-| o неудовлетворительно, не устраивает. | o | unsatisfactory, not satisfied. |
+**2.3** Наличие возможности развития творческих способностей и интересов 2.3 The possibility of developing students' creative abilities and interests, including their обучающихся, включая их участие в конкурсах и олимпиадах (в том числе во participation in competitions and Olympiads (including All-Russian and international), всероссийских и международных), выставках, смотрах, физкультурных exhibitions, shows, physical education events, sports events, including official sports мероприятиях, спортивных мероприятиях, в том числе в официальных спортивных competitions, and other mass events: соревнованиях, и других массовых мероприятиях: o excellent, completely satisfied; o отлично, полностью удовлетворен (-а); o generally good, except for minor flaws; o в целом хорошо, за исключением незначительных недостатков; o satisfactory, but with significant drawbacks; o удовлетворительно, но со значительными недостатками; o bad, does not meet the minimum requirements; o плохо, не соответствует минимальным требованиям; o unsatisfactory, not satisfied. o неудовлетворительно, не устраивает.
 
-**1.3** Доступность взаимодействия с Университетом по телефону, по электронной        1.3 Accessibility of interaction with the University by phone, by e-mail, using electronic
+**2.4** Наличие возможности для профессионального развития в Университете 2.4 Availability of opportunities for professional development at the University (повышение квалификации и/или профессиональная переподготовка, созданы (advanced training and/or professional retraining, conditions for research work have условия для научно-исследовательской работы, созданы условия для участия в been created, conditions for participation in scientific conferences and events have been научных конференциях и мероприятиях): created): o отлично, полностью удовлетворен (-а); o excellent, completely satisfied;
 
-| почте, с помощью электронных сервисов, в том числе наличие возможности | services, including the possibility of making proposals aimed at improving the work of |
-| --- | --- |
-| внесения предложений, направленных на улучшение работы Университета: | the University: |
+o в целом хорошо, за исключением незначительных недостатков; o generally good, except for minor flaws; o удовлетворительно, но со значительными недостатками; o satisfactory, but with significant drawbacks; o плохо, не соответствует минимальным требованиям; o bad, does not meet the minimum requirements; o неудовлетворительно, не устраивает. o unsatisfactory, not satisfied.
 
-| o | отлично, полностью удовлетворен (-а); | o | excellent, completely satisfied; |
-| --- | --- | --- | --- |
-| o | в целом хорошо, за исключением незначительных недостатков; | o | generally good, except for minor flaws; |
-| o | удовлетворительно, но со значительными недостатками; | o | satisfactory, but with significant drawbacks; |
-| o | плохо, не соответствует минимальным требованиям; | o | bad, does not meet the minimum requirements; |
-| o | неудовлетворительно, не устраивает. | o | unsatisfactory, not satisfied. |
+**3.1** Доброжелательность и вежливость работников: 3.1 Benevolence and politeness of employees: o полностью устраивает; o completely satisfied; o в целом хорошо, но есть недостатки; o generally good, but there are disadvantages; o удовлетворительно; o satisfactory; o неудовлетворительно, не устраивает. o unsatisfactory, not satisfied.
 
-**2.1** Материально-техническое и информационное обеспечение образовательного         2.1 Material, technical and information support of the educational process (there is
+**3.2** Компетентность работников: 3.2 Competence of employees: o полностью устраивает; o completely satisfied; o в целом хорошо, но есть недостатки; o generally good, but there are disadvantages; o удовлетворительно; o satisfactory; o неудовлетворительно, не устраивает. o unsatisfactory, not satisfied.
 
-| процесса (имеется доступ к ЭБС и базам данных, оснащенные читальные залы, | access to an ELS and databases, equipped reading rooms, offices for independent work, |
-| --- | --- |
-| кабинеты для самостоятельной работы, в том числе оборудованные рабочими | including those equipped with workplaces, access to the Internet information and |
-| местами, доступ к информационно-телекоммуникационной сети «Интернет»): | telecommunications network): |
+**4.1** Оцените удовлетворенность условиями и организацией образовательной и 4.1 Assess your satisfaction with the conditions and organization of educational and трудовой деятельности в Университете в целом: work activities at the University as a whole: o полностью устраивает; o completely satisfied; o в целом хорошо, но есть недостатки; o generally good, but there are disadvantages; o удовлетворительно; o satisfactory; o неудовлетворительно, не устраивает. o unsatisfactory, not satisfied.
 
-| o | отлично, полностью удовлетворен (-а); | o | excellent, completely satisfied; |
-| --- | --- | --- | --- |
-| o | в целом хорошо, за исключением незначительных недостатков; | o | generally good, except for minor flaws; |
-| o | удовлетворительно, но со значительными недостатками; | o | satisfactory, but with significant drawbacks; |
-| o | плохо, не соответствует минимальным требованиям; | o | bad, does not meet the minimum requirements; |
-| o | неудовлетворительно, не устраивает. | o | unsatisfactory, not satisfied. |
+**4.2** Готовность рекомендовать Университет родственникам и знакомым: 4.2 Willingness to recommend the University to relatives and acquaintances: o готов (-а) рекомендовать; o ready to recommend; o скорее готов (-а) рекомендовать; o I am rather ready to recommend; o скорее не готов (-а) рекомендовать; o rather not ready to recommend; o не готов (-а) рекомендовать; o I am not ready to recommend; o затрудняюсь ответить. o I find it difficult to answer. Здесь вы можете оставить свои пожелания и предложения по вопросам повышения Here you can leave your wishes and suggestions on improving the quality of educational качества образовательной деятельности в Университете: activities at the University: ___________________________________________________________ ________________________________________________________
 
-**2.2** Оцените условия для укрепления и охраны здоровья (наличие медицинского        2.2 Evaluate the conditions for strengthening and protecting health (availability of a
-
-| кабинета (медицинского центра), условий для занятия физической культуры и | medical office (medical center), conditions for physical education and sports (gym, |
-| --- | --- |
-| спорта (спортзал, стадион, тренажерный зал): | stadium): |
-
-| o | отлично, полностью удовлетворен (-а); | o | excellent, completely satisfied; |
-| --- | --- | --- | --- |
-| o | в целом хорошо, за исключением незначительных недостатков; | o | generally good, except for minor flaws; |
-| o | удовлетворительно, но со значительными недостатками; | o | satisfactory, but with significant drawbacks; |
-| o | плохо, не соответствует минимальным требованиям; | o | bad, does not meet the minimum requirements; |
-| o | неудовлетворительно, не устраивает. | o | unsatisfactory, not satisfied. |
-
-**2.3** Наличие возможности развития творческих способностей и интересов              2.3 The possibility of developing students' creative abilities and interests, including their
-
-| обучающихся, включая их участие в конкурсах и олимпиадах (в том числе во | participation in competitions and Olympiads (including All-Russian and international), |
-| --- | --- |
-| всероссийских и международных), выставках, смотрах, физкультурных | exhibitions, shows, physical education events, sports events, including official sports |
-| мероприятиях, спортивных мероприятиях, в том числе в официальных спортивных | competitions, and other mass events: |
-
-соревнованиях, и других массовых мероприятиях:
-
-| o | excellent, completely satisfied; |  |  |
-| --- | --- | --- | --- |
-| o | отлично, полностью удовлетворен (-а); | o | generally good, except for minor flaws; |
-| o | в целом хорошо, за исключением незначительных недостатков; | o | satisfactory, but with significant drawbacks; |
-| o | удовлетворительно, но со значительными недостатками; | o | bad, does not meet the minimum requirements; |
-| o | плохо, не соответствует минимальным требованиям; | o | unsatisfactory, not satisfied. |
-| o | неудовлетворительно, не устраивает. |  |  |
-
-**2.4** Наличие возможности для профессионального развития в Университете             2.4 Availability of opportunities for professional development at the University
-
-| (повышение квалификации и/или профессиональная переподготовка, созданы | (advanced training and/or professional retraining, conditions for research work have |
-| --- | --- |
-| условия для научно-исследовательской работы, созданы условия для участия в | been created, conditions for participation in scientific conferences and events have been |
-| научных конференциях и мероприятиях): | created): |
-
-| o | отлично, полностью удовлетворен (-а); | o | excellent, completely satisfied; |
-| --- | --- | --- | --- |
-
-| o | в целом хорошо, за исключением незначительных недостатков; | o | generally good, except for minor flaws; |
-| --- | --- | --- | --- |
-| o | удовлетворительно, но со значительными недостатками; | o | satisfactory, but with significant drawbacks; |
-| o | плохо, не соответствует минимальным требованиям; | o | bad, does not meet the minimum requirements; |
-| o | неудовлетворительно, не устраивает. | o | unsatisfactory, not satisfied. |
-
-**3.1** Доброжелательность и вежливость работников:                                 3.1 Benevolence and politeness of employees:
-
-| o | полностью устраивает; | o | completely satisfied; |
-| --- | --- | --- | --- |
-| o | в целом хорошо, но есть недостатки; | o | generally good, but there are disadvantages; |
-| o | удовлетворительно; | o | satisfactory; |
-| o | неудовлетворительно, не устраивает. | o | unsatisfactory, not satisfied. |
-
-**3.2** Компетентность работников:                                                  3.2 Competence of employees:
-
-| o | полностью устраивает; | o | completely satisfied; |
-| --- | --- | --- | --- |
-| o | в целом хорошо, но есть недостатки; | o | generally good, but there are disadvantages; |
-| o | удовлетворительно; | o | satisfactory; |
-| o | неудовлетворительно, не устраивает. | o | unsatisfactory, not satisfied. |
-
-**4.1** Оцените удовлетворенность условиями и организацией образовательной и        4.1 Assess your satisfaction with the conditions and organization of educational and
-
-| трудовой деятельности в Университете в целом: | work activities at the University as a whole: |
-| --- | --- |
-
-| o | полностью устраивает; | o | completely satisfied; |
-| --- | --- | --- | --- |
-| o | в целом хорошо, но есть недостатки; | o | generally good, but there are disadvantages; |
-| o | удовлетворительно; | o | satisfactory; |
-| o | неудовлетворительно, не устраивает. | o | unsatisfactory, not satisfied. |
-
-**4.2** Готовность рекомендовать Университет родственникам и знакомым:              4.2 Willingness to recommend the University to relatives and acquaintances:
-
-| o | готов (-а) рекомендовать; | o | ready to recommend; |
-| --- | --- | --- | --- |
-| o | скорее готов (-а) рекомендовать; | o | I am rather ready to recommend; |
-| o | скорее не готов (-а) рекомендовать; | o | rather not ready to recommend; |
-| o | не готов (-а) рекомендовать; | o | I am not ready to recommend; |
-| o | затрудняюсь ответить. | o | I find it difficult to answer. |
-
-| Здесь вы можете оставить свои пожелания и предложения по вопросам повышения | Here you can leave your wishes and suggestions on improving the quality of educational |
-| --- | --- |
-| качества образовательной деятельности в Университете: | activities at the University: |
-| ___________________________________________________________ | ________________________________________________________ |
-
-Приложение 2 к Положению о внутренней системе оценки качества образования АНО ВО «Университет Иннополис»
+| Приложение 2 |
+| --- |
+| к Положению о внутренней системе оценки качества |
+| образования АНО ВО «Университет Иннополис» |
 
 Анкета оценки удовлетворенности условиями, содержанием, организацией и качеством образовательного процесса в АНО ВО «Университет Иннополис» (для обучающихся)
 
-**1.1** Полнота и актуальность информации об Университете и его деятельности в    1.1 Completeness and relevance of information about the University and its activities
+**1.1** Полнота и актуальность информации об Университете и его деятельности в 1.1 Completeness and relevance of information about the University and its activities информационно-телекоммуникационной сети «Интернет»: in the information and telecommunication network "Internet": o отлично, полностью удовлетворен (-а); o excellent, completely satisfied; o в целом хорошо, за исключением незначительных недостатков; o generally good, except for minor flaws; o удовлетворительно, но со значительными недостатками; o satisfactory, but with significant drawbacks; o плохо, не соответствует минимальным требованиям; o bad, does not meet the minimum requirements; o неудовлетворительно, не устраивает. o unsatisfactory, not satisfied.
 
-| информационно-телекоммуникационной сети «Интернет»: | in the information and telecommunication network "Internet": |
-| --- | --- |
+**1.2** Наличие сведений о педагогических работниках организации на 1.2 Availability of information about the teaching staff of the organization on the официальном сайте Университета: official website of the University: o отлично, полностью удовлетворен (-а); o excellent, completely satisfied; o в целом хорошо, за исключением незначительных недостатков; o generally good, except for minor flaws; o удовлетворительно, но со значительными недостатками; o satisfactory, but with significant drawbacks; o плохо, не соответствует минимальным требованиям; o bad, does not meet the minimum requirements; o неудовлетворительно, не устраивает. o unsatisfactory, not satisfied.
 
-| o | отлично, полностью удовлетворен (-а); | o | excellent, completely satisfied; |
-| --- | --- | --- | --- |
-| o | в целом хорошо, за исключением незначительных недостатков; | o | generally good, except for minor flaws; |
-| o | удовлетворительно, но со значительными недостатками; | o | satisfactory, but with significant drawbacks; |
-| o | плохо, не соответствует минимальным требованиям; | o | bad, does not meet the minimum requirements; |
-| o | неудовлетворительно, не устраивает. | o | unsatisfactory, not satisfied. |
+**1.3** Доступность взаимодействия с Университетом по телефону, по электронной 1.3 Accessibility of interaction with the University by phone, by e-mail, using electronic почте, с помощью электронных сервисов, в том числе наличие возможности services, including the possibility of making proposals aimed at improving the work of внесения предложений, направленных на улучшение работы Университета: the University: o отлично, полностью удовлетворен (-а); o excellent, completely satisfied; o в целом хорошо, за исключением незначительных недостатков; o generally good, except for minor flaws; o удовлетворительно, но со значительными недостатками; o satisfactory, but with significant drawbacks; o плохо, не соответствует минимальным требованиям; o bad, does not meet the minimum requirements; o неудовлетворительно, не устраивает. o unsatisfactory, not satisfied.
 
-**1.2** Наличие сведений о педагогических работниках организации на               1.2 Availability of information about the teaching staff of the organization on the
+**2.1** Материально-техническое и информационное обеспечение образовательного 2.1 Material, technical and information support of the educational process (there is процесса (имеется доступ к ЭБС и базам данных, оснащенные читальные залы, access to ELS and databases, equipped reading rooms, offices for independent work,
 
-| официальном сайте Университета: | official website of the University: |
-| --- | --- |
+кабинеты для самостоятельной работы, в том числе оборудованные рабочими including those equipped with workplaces, access to the Internet information and местами, доступ к информационно-телекоммуникационной сети «Интернет»): telecommunications network): o отлично, полностью удовлетворен (-а); o excellent, completely satisfied; o в целом хорошо, за исключением незначительных недостатков; o generally good, except for minor flaws; o удовлетворительно, но со значительными недостатками; o satisfactory, but with significant drawbacks; o плохо, не соответствует минимальным требованиям; o bad, does not meet the minimum requirements; o неудовлетворительно, не устраивает. o unsatisfactory, not satisfied.
 
-| o | отлично, полностью удовлетворен (-а); | o | excellent, completely satisfied; |
-| --- | --- | --- | --- |
-| o | в целом хорошо, за исключением незначительных недостатков; | o | generally good, except for minor flaws; |
-| o | удовлетворительно, но со значительными недостатками; | o | satisfactory, but with significant drawbacks; |
-| o | плохо, не соответствует минимальным требованиям; | o | bad, does not meet the minimum requirements; |
-| o | неудовлетворительно, не устраивает. | o | unsatisfactory, not satisfied. |
+**2.2** Оцените условия для укрепления и охраны здоровья (наличие медицинского 2.2 Evaluate the conditions for strengthening and protecting health (availability of a кабинета (медицинского центра), условий для занятия физической культуры и medical office (medical center), conditions for physical education and sports (gym, спорта (спортзал, стадион, тренажерный зал): stadium): o отлично, полностью удовлетворен (-а); o excellent, completely satisfied; o в целом хорошо, за исключением незначительных недостатков; o generally good, except for minor flaws; o удовлетворительно, но со значительными недостатками; o satisfactory, but with significant drawbacks; o плохо, не соответствует минимальным требованиям; o bad, does not meet the minimum requirements; o неудовлетворительно, не устраивает. o unsatisfactory, not satisfied.
 
-**1.3** Доступность взаимодействия с Университетом по телефону, по электронной    1.3 Accessibility of interaction with the University by phone, by e-mail, using electronic
+**2.3** Условия по организации питания (имеется помещение для организации 2.3 Catering conditions (there is a room for catering, as well as for storing and cooking питания, а также для хранения и приготовления пищи, обеспечивающее food, providing the possibility of organizing high-quality hot meals, additional catering возможность организации качественного горячего питания, организованы outlets are organized): дополнительные точки общественного питания): o excellent, completely satisfied; o отлично, полностью удовлетворен (-а); o generally good, except for minor flaws; o в целом хорошо, за исключением незначительных недостатков; o satisfactory, but with significant drawbacks; o удовлетворительно, но со значительными недостатками; o bad, does not meet the minimum requirements; o плохо, не соответствует минимальным требованиям; o unsatisfactory, not satisfied. o неудовлетворительно, не устраивает.
 
-| почте, с помощью электронных сервисов, в том числе наличие возможности | services, including the possibility of making proposals aimed at improving the work of |
-| --- | --- |
-| внесения предложений, направленных на улучшение работы Университета: | the University: |
+**2.4** Условия для формирования индивидуальной траектории обучения (выбор 2.4 Conditions for the formation of an individual learning trajectory (choice of elective элективных и факультативных дисциплин, наличие программ дополнительного and optional disciplines, availability of additional education programs, practice and образования, практик и стажировок в компаниях, осуществляющих деятельность internships in companies operating in accordance with the profile of the educational в соответствии с профилем образовательной программы): program): o отлично, полностью удовлетворен (-а); o excellent, completely satisfied; o в целом хорошо, за исключением незначительных недостатков; o generally good, except for minor flaws; o удовлетворительно, но со значительными недостатками; o satisfactory, but with significant drawbacks; o плохо, не соответствует минимальным требованиям; o bad, does not meet the minimum requirements;
 
-| o | отлично, полностью удовлетворен (-а); | o | excellent, completely satisfied; |
-| --- | --- | --- | --- |
-| o | в целом хорошо, за исключением незначительных недостатков; | o | generally good, except for minor flaws; |
-| o | удовлетворительно, но со значительными недостатками; | o | satisfactory, but with significant drawbacks; |
-| o | плохо, не соответствует минимальным требованиям; | o | bad, does not meet the minimum requirements; |
-| o | неудовлетворительно, не устраивает. | o | unsatisfactory, not satisfied. |
+o неудовлетворительно, не устраивает. o unsatisfactory, not satisfied.
 
-**2.1** Материально-техническое и информационное обеспечение образовательного     2.1 Material, technical and information support of the educational process (there is
+**2.5** Наличие возможности развития творческих способностей и интересов, 2.5 The possibility of developing creative abilities and interests, including participation включая участие в конкурсах и олимпиадах (в том числе во всероссийских и in competitions and Olympiads (including All-Russian and international), exhibitions, международных), выставках, смотрах, физкультурных мероприятиях, спортивных shows, physical education events, sports events, including official sports competitions, мероприятиях, в том числе в официальных спортивных соревнованиях, и других and other mass events: массовых мероприятиях: o excellent, completely satisfied; o отлично, полностью удовлетворен (-а); o generally good, except for minor flaws; o в целом хорошо, за исключением незначительных недостатков; o satisfactory, but with significant drawbacks; o удовлетворительно, но со значительными недостатками; o bad, does not meet the minimum requirements; o плохо, не соответствует минимальным требованиям; o unsatisfactory, not satisfied. o неудовлетворительно, не устраивает.
 
-| процесса (имеется доступ к ЭБС и базам данных, оснащенные читальные залы, | access to ELS and databases, equipped reading rooms, offices for independent work, |
-| --- | --- |
+**2.6** Наличие возможности оказания психолого-педагогической и социальной 2.6 Availability of psychological, pedagogical and social assistance: помощи: o excellent, completely satisfied; o отлично, полностью удовлетворен (-а); o generally good, except for minor flaws; o в целом хорошо, за исключением незначительных недостатков; o satisfactory, but with significant drawbacks; o удовлетворительно, но со значительными недостатками; o bad, does not meet the minimum requirements; o плохо, не соответствует минимальным требованиям; o unsatisfactory, not satisfied. o неудовлетворительно, не устраивает.
 
-| кабинеты для самостоятельной работы, в том числе оборудованные рабочими | including those equipped with workplaces, access to the Internet information and |
-| --- | --- |
-| местами, доступ к информационно-телекоммуникационной сети «Интернет»): | telecommunications network): |
+**3.1** Доброжелательность и вежливость работников: 3.1 Benevolence and politeness of employees: o полностью устраивает; o completely satisfied; o в целом хорошо, но есть недостатки; o generally good, but there are disadvantages; o удовлетворительно; o satisfactory; o неудовлетворительно, не устраивает. o unsatisfactory, not satisfied.
 
-| o | отлично, полностью удовлетворен (-а); | o | excellent, completely satisfied; |
-| --- | --- | --- | --- |
-| o | в целом хорошо, за исключением незначительных недостатков; | o | generally good, except for minor flaws; |
-| o | удовлетворительно, но со значительными недостатками; | o | satisfactory, but with significant drawbacks; |
-| o | плохо, не соответствует минимальным требованиям; | o | bad, does not meet the minimum requirements; |
-| o | неудовлетворительно, не устраивает. | o | unsatisfactory, not satisfied. |
+**3.2** Компетентность работников: 3.2 Competence of employees: o полностью устраивает; o completely satisfied; o в целом хорошо, но есть недостатки; o generally good, but there are disadvantages; o удовлетворительно; o satisfactory; o неудовлетворительно, не устраивает. o unsatisfactory, not satisfied.
 
-**2.2** Оцените условия для укрепления и охраны здоровья (наличие медицинского    2.2 Evaluate the conditions for strengthening and protecting health (availability of a
+**4.1** Удовлетворение качеством предоставляемых образовательных услуг: 4.1 Satisfaction with the quality of educational services provided:
 
-| кабинета (медицинского центра), условий для занятия физической культуры и | medical office (medical center), conditions for physical education and sports (gym, |
-| --- | --- |
-| спорта (спортзал, стадион, тренажерный зал): | stadium): |
+o полностью устраивает; o completely satisfied; o в целом хорошо, но есть недостатки; o generally good, but there are disadvantages; o удовлетворительно; o satisfactory; o неудовлетворительно, не устраивает. o unsatisfactory, not satisfied.
 
-| o | отлично, полностью удовлетворен (-а); | o | excellent, completely satisfied; |
-| --- | --- | --- | --- |
-| o | в целом хорошо, за исключением незначительных недостатков; | o | generally good, except for minor flaws; |
-| o | удовлетворительно, но со значительными недостатками; | o | satisfactory, but with significant drawbacks; |
-| o | плохо, не соответствует минимальным требованиям; | o | bad, does not meet the minimum requirements; |
-| o | неудовлетворительно, не устраивает. | o | unsatisfactory, not satisfied. |
+**4.2** Готовность рекомендовать Университет родственникам и знакомым: 4.2 Willingness to recommend the University to relatives and acquaintances: o готов (-а) рекомендовать; o ready to recommend; o скорее готов (-а) рекомендовать; o I am rather ready to recommend; o скорее не готов (-а) рекомендовать; o rather not ready to recommend; o не готов (-а) рекомендовать; o I am not ready to recommend; o затрудняюсь ответить. o I find it difficult to answer. Здесь вы можете оставить свои пожелания и предложения по вопросам Here you can leave your wishes and suggestions on improving the quality of education повышения качества образования в Университете: at the University: ___________________________________________________________ ___________________________________________________________
 
-**2.3** Условия по организации питания (имеется помещение для организации         2.3 Catering conditions (there is a room for catering, as well as for storing and cooking
-
-| питания, а также для хранения и приготовления пищи, обеспечивающее | food, providing the possibility of organizing high-quality hot meals, additional catering |
-| --- | --- |
-| возможность организации качественного горячего питания, организованы | outlets are organized): |
-
-дополнительные точки общественного питания):
-
-| o | excellent, completely satisfied; |  |  |
-| --- | --- | --- | --- |
-| o | отлично, полностью удовлетворен (-а); | o | generally good, except for minor flaws; |
-| o | в целом хорошо, за исключением незначительных недостатков; | o | satisfactory, but with significant drawbacks; |
-| o | удовлетворительно, но со значительными недостатками; | o | bad, does not meet the minimum requirements; |
-| o | плохо, не соответствует минимальным требованиям; | o | unsatisfactory, not satisfied. |
-| o | неудовлетворительно, не устраивает. |  |  |
-
-**2.4** Условия для формирования индивидуальной траектории обучения (выбор        2.4 Conditions for the formation of an individual learning trajectory (choice of elective
-
-| элективных и факультативных дисциплин, наличие программ дополнительного | and optional disciplines, availability of additional education programs, practice and |
-| --- | --- |
-| образования, практик и стажировок в компаниях, осуществляющих деятельность | internships in companies operating in accordance with the profile of the educational |
-| в соответствии с профилем образовательной программы): | program): |
-
-| o | отлично, полностью удовлетворен (-а); | o | excellent, completely satisfied; |
-| --- | --- | --- | --- |
-| o | в целом хорошо, за исключением незначительных недостатков; | o | generally good, except for minor flaws; |
-| o | удовлетворительно, но со значительными недостатками; | o | satisfactory, but with significant drawbacks; |
-| o | плохо, не соответствует минимальным требованиям; | o | bad, does not meet the minimum requirements; |
-
-| o | неудовлетворительно, не устраивает. | o | unsatisfactory, not satisfied. |
-| --- | --- | --- | --- |
-
-**2.5** Наличие возможности развития творческих способностей и интересов,         2.5 The possibility of developing creative abilities and interests, including participation
-
-| включая участие в конкурсах и олимпиадах (в том числе во всероссийских и | in competitions and Olympiads (including All-Russian and international), exhibitions, |
-| --- | --- |
-| международных), выставках, смотрах, физкультурных мероприятиях, спортивных | shows, physical education events, sports events, including official sports competitions, |
-| мероприятиях, в том числе в официальных спортивных соревнованиях, и других | and other mass events: |
-
-массовых мероприятиях:
-
-| o | excellent, completely satisfied; |  |  |
-| --- | --- | --- | --- |
-| o | отлично, полностью удовлетворен (-а); | o | generally good, except for minor flaws; |
-| o | в целом хорошо, за исключением незначительных недостатков; | o | satisfactory, but with significant drawbacks; |
-| o | удовлетворительно, но со значительными недостатками; | o | bad, does not meet the minimum requirements; |
-| o | плохо, не соответствует минимальным требованиям; | o | unsatisfactory, not satisfied. |
-| o | неудовлетворительно, не устраивает. |  |  |
-
-**2.6** Наличие возможности оказания психолого-педагогической и социальной        2.6 Availability of psychological, pedagogical and social assistance: помощи:
-
-| o | excellent, completely satisfied; |  |  |
-| --- | --- | --- | --- |
-| o | отлично, полностью удовлетворен (-а); | o | generally good, except for minor flaws; |
-| o | в целом хорошо, за исключением незначительных недостатков; | o | satisfactory, but with significant drawbacks; |
-| o | удовлетворительно, но со значительными недостатками; | o | bad, does not meet the minimum requirements; |
-| o | плохо, не соответствует минимальным требованиям; | o | unsatisfactory, not satisfied. |
-| o | неудовлетворительно, не устраивает. |  |  |
-
-**3.1** Доброжелательность и вежливость работников:                               3.1 Benevolence and politeness of employees:
-
-| o | полностью устраивает; | o | completely satisfied; |
-| --- | --- | --- | --- |
-| o | в целом хорошо, но есть недостатки; | o | generally good, but there are disadvantages; |
-| o | удовлетворительно; | o | satisfactory; |
-| o | неудовлетворительно, не устраивает. | o | unsatisfactory, not satisfied. |
-
-**3.2** Компетентность работников:                                                3.2 Competence of employees:
-
-| o | полностью устраивает; | o | completely satisfied; |
-| --- | --- | --- | --- |
-| o | в целом хорошо, но есть недостатки; | o | generally good, but there are disadvantages; |
-| o | удовлетворительно; | o | satisfactory; |
-| o | неудовлетворительно, не устраивает. | o | unsatisfactory, not satisfied. |
-
-**4.1** Удовлетворение качеством предоставляемых образовательных услуг:           4.1 Satisfaction with the quality of educational services provided:
-
-| o | полностью устраивает; | o | completely satisfied; |
-| --- | --- | --- | --- |
-| o | в целом хорошо, но есть недостатки; | o | generally good, but there are disadvantages; |
-| o | удовлетворительно; | o | satisfactory; |
-| o | неудовлетворительно, не устраивает. | o | unsatisfactory, not satisfied. |
-
-**4.2** Готовность рекомендовать Университет родственникам и знакомым:    4.2 Willingness to recommend the University to relatives and acquaintances:
-
-| o | готов (-а) рекомендовать; | o | ready to recommend; |
-| --- | --- | --- | --- |
-| o | скорее готов (-а) рекомендовать; | o | I am rather ready to recommend; |
-| o | скорее не готов (-а) рекомендовать; | o | rather not ready to recommend; |
-| o | не готов (-а) рекомендовать; | o | I am not ready to recommend; |
-| o | затрудняюсь ответить. | o | I find it difficult to answer. |
-
-| Здесь вы можете оставить свои пожелания и предложения по вопросам | Here you can leave your wishes and suggestions on improving the quality of education |
-| --- | --- |
-| повышения качества образования в Университете: | at the University: |
-| ___________________________________________________________ | ___________________________________________________________ |
-
-Приложение 3 к Положению о внутренней системе оценки качества образования АНО ВО «Университет Иннополис»
+| Приложение 3 |
+| --- |
+| к Положению о внутренней системе |
+| оценки качества образования |
+| АНО ВО «Университет Иннополис» |
 
 Анкета оценки удовлетворенности качеством образования в АНО ВО «Университет Иннополис» (для работодателей)
 
-| 1. | Полное наименование Вашего предприятия (организации, учреждения): |
-| --- | --- |
+## 1. Полное наименование Вашего предприятия (организации, учреждения):
 
-_______________________________________________________________
+_______________________________________________________________ 2. Выберите уровень образования специалистов, получивших (получающих) образование в Университете, которые у Вас работают (проходят практику, стажировку): o Бакалавриат: o Магистратура; o Подготовка научных и научно-педагогических кадров в аспирантуре; o Затрудняюсь ответить.
 
-| 2. | Выберите уровень образования специалистов, получивших (получающих) образование в Университете, |
-| --- | --- |
-
-которые у Вас работают (проходят практику, стажировку):
-
-| o | Бакалавриат: |
-| --- | --- |
-| o | Магистратура; |
-| o | Подготовка научных и научно-педагогических кадров в аспирантуре; |
-| o | Затрудняюсь ответить. |
-
-| 3. | Выберите образовательные программы Университета, на которых обучаются (обучились) |
-| --- | --- |
+## 3. Выберите образовательные программы Университета, на которых обучаются (обучились)
 
 специалисты, работающие у Вас (проходящие практику, стажировку):
 
-| 4. | Оцените качество подготовки выпускников по следующим критериям: |
-| --- | --- |
+## 4. Оцените качество подготовки выпускников по следующим критериям:
 
-Уровень профессиональной общетеоретической подготовки
+Уровень профессиональной общетеоретической подготовки 1 2 3 4 5 6 7 8 9 10 Уровень базовых знаний и умений 1 2 3 4 5 6 7 8 9 10 Уровень практических знаний, умений 1 2 3 4 5 6 7 8 9 10 Владение иностранным языком 1 2 3 4 5 6 7 8 9 10 Навыки работы на компьютере, знание необходимых в работе программ 1 2 3 4 5 6 7 8 9 10 Способность работать в коллективе, команде
 
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+1 2 3 4 5 6 7 8 9 10 Способность эффективно представлять себя и результаты своего труда 1 2 3 4 5 6 7 8 9 10 Нацеленность на карьерный рост и профессиональное развитие 1 2 3 4 5 6 7 8 9 10 Навыки управления персоналом 1 2 3 4 5 6 7 8 9 10 Готовность и способность к дальнейшему обучению 1 2 3 4 5 6 7 8 9 10 Способность воспринимать и анализировать новую информацию, развивать новые идеи 1 2 3 4 5 6 7 8 9 10 Эрудированность, общая культура 1 2 3 4 5 6 7 8 9 10 Осведомленность в смежных областях полученной специальности 1 2 3 4 5 6 7 8 9 10
 
-Уровень базовых знаний и умений
+## 5. Как бы Вы в целом оценили качество подготовки обучающихся (выпускников)?
 
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-
-Уровень практических знаний, умений
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-
-Владение иностранным языком
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-
-Навыки работы на компьютере, знание необходимых в работе программ
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-
-Способность работать в коллективе, команде
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-
-Способность эффективно представлять себя и результаты своего труда
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-
-Нацеленность на карьерный рост и профессиональное развитие
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-
-Навыки управления персоналом
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-
-Готовность и способность к дальнейшему обучению
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-
-Способность воспринимать и анализировать новую информацию, развивать новые идеи
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-
-Эрудированность, общая культура
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-
-Осведомленность в смежных областях полученной специальности
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-
-| 5. | Как бы Вы в целом оценили качество подготовки обучающихся (выпускников)? |
-| --- | --- |
-
-| o | Удовлетворен (-а) полностью; |
-| --- | --- |
-| o | Скорее удовлетворен (-а); |
-| o | Скорее не удовлетворен (-а); |
-| o | Не удовлетворен (-а). |
-
-Здесь Вы можете оставить свои пожелания и предложения по вопросам повышения качества образовательной деятельности в Университете: __________________________________________________________________________________
-
-Мы признательны Вам за сотрудничество!
+o Удовлетворен (-а) полностью; o Скорее удовлетворен (-а); o Скорее не удовлетворен (-а); o Не удовлетворен (-а). Здесь Вы можете оставить свои пожелания и предложения по вопросам повышения качества образовательной деятельности в Университете: __________________________________________________________________________________ Мы признательны Вам за сотрудничество!
 
 # Citations
 
-1. [Положение о внутренней системе оценки качества образования АНО ВО «Университет Иннополис» (документ подписан простой электронной подписью)](https://innopolis.university/upload/iblock/22c/v8w2e1kkadmndbsxq38mfcks7c2prwnk/Положение_о_ВСОКО.pdf), file 55ad80fe53f2
+1. [Положение о внутренней системе оценки качества образования АНО ВО «Университет Иннополис»](https://innopolis.university/upload/iblock/22c/v8w2e1kkadmndbsxq38mfcks7c2prwnk/Положение_о_ВСОКО.pdf), file 55ad80fe53f2

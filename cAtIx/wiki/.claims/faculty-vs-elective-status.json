@@ -1,16 +1,16 @@
 {
  "page": "/guides/faculty-vs-elective-status.md",
- "evidence_sha": "206c9a4416f69757",
+ "evidence_sha": "e894d1c5fdac55c2",
  "claims": [
   {
-   "sentence": "Facultative disciplines (modules) are optional for you to study",
+   "sentence": "Elective modules are mandatory for you if you are enrolled in bachelor's, master's, or postgraduate programs",
    "cites": [
-    1
+    3
    ],
    "evidence": [
     {
-     "n": 1,
-     "sha": "55c4c303e346",
+     "n": 3,
+     "sha": "e79cc0190a35",
      "sources": [
       "/regulations/sveden-21777590-pdf.md"
      ]
@@ -18,14 +18,14 @@
    ]
   },
   {
-   "sentence": "They are not included in the annual volume of your educational program",
+   "sentence": "You must choose no more than one module from each block of alternatives, where each block contains at least two modules",
    "cites": [
-    1
+    4
    ],
    "evidence": [
     {
-     "n": 1,
-     "sha": "55c4c303e346",
+     "n": 4,
+     "sha": "63d1452807d4",
      "sources": [
       "/regulations/sveden-21777590-pdf.md"
      ]
@@ -33,14 +33,119 @@
    ]
   },
   {
-   "sentence": "Elective disciplines (modules) are mandatory for you to study in bachelor's, master's, and postgraduate programs developed in accordance with FGOS VO",
+   "sentence": "If a module appears in multiple blocks, you may study it only once",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "63d1452807d4",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If you do not choose an elective module by the deadline, the university assigns you to a study group for a specific module",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "9ee24cab5e92",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You cannot change your elective module selection after the course begins",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "2e9f209db5a2",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Facultative modules are optional for you",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "0419bf84ac1c",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You may change your list of planned facultative modules or refuse to study them entirely",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "0419bf84ac1c",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Any changes require approval from the university department responsible for organizing the educational process, considering the objective possibility of organizing the educational process",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "0419bf84ac1c",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You cannot change your facultative module selection after the course begins",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "0419bf84ac1c",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If you do not choose a facultative module by the deadline, you are exempt from studying it",
    "cites": [
     2
    ],
    "evidence": [
     {
      "n": 2,
-     "sha": "a85d45ecb254",
+     "sha": "eff6f6081381",
      "sources": [
       "/regulations/sveden-21777590-pdf.md"
      ]
@@ -48,14 +153,67 @@
    ]
   },
   {
-   "sentence": "Elective disciplines (modules) are also mandatory for postgraduates studying under programs developed in accordance with FGT, if the University includes them in your postgraduate program",
+   "sentence": "The evidence does not specify the exact deadlines for choosing modules",
+   "cites": [
+    2,
+    6
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "eff6f6081381",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    },
+    {
+     "n": 6,
+     "sha": "9ee24cab5e92",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not define the specific criteria for \"objective possibility\" when approving changes to facultative modules",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "0419bf84ac1c",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not state how the university decides which module to assign you to if you fail to choose an elective module",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "9ee24cab5e92",
+     "sources": [
+      "/regulations/sveden-21777590-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not detail the procedure for the intermediate certification of facultative modules beyond stating it follows local acts",
    "cites": [
     2
    ],
    "evidence": [
     {
      "n": 2,
-     "sha": "a85d45ecb254",
+     "sha": "eff6f6081381",
      "sources": [
       "/regulations/sveden-21777590-pdf.md"
      ]
@@ -63,14 +221,14 @@
    ]
   },
   {
-   "sentence": "You must select elective disciplines (modules) from alternative options in your study plan",
+   "sentence": "The evidence does not specify the consequences of failing the intermediate certification for elective modules",
    "cites": [
     3
    ],
    "evidence": [
     {
      "n": 3,
-     "sha": "a857b681f83a",
+     "sha": "e79cc0190a35",
      "sources": [
       "/regulations/sveden-21777590-pdf.md"
      ]
@@ -78,228 +236,14 @@
    ]
   },
   {
-   "sentence": "Each block must contain at least two disciplines (modules)",
-   "cites": [
-    3
-   ],
-   "evidence": [
-    {
-     "n": 3,
-     "sha": "a857b681f83a",
-     "sources": [
-      "/regulations/sveden-21777590-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "You may choose no more than one discipline from each block",
-   "cites": [
-    3
-   ],
-   "evidence": [
-    {
-     "n": 3,
-     "sha": "a857b681f83a",
-     "sources": [
-      "/regulations/sveden-21777590-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "If a discipline (module) appears in two or more blocks of your study plan, you may choose it for study no more than once",
-   "cites": [
-    3
-   ],
-   "evidence": [
-    {
-     "n": 3,
-     "sha": "a857b681f83a",
-     "sources": [
-      "/regulations/sveden-21777590-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "Facultative disciplines do not carry these selection limits or mandatory requirements",
-   "cites": [
-    1
-   ],
-   "evidence": [
-    {
-     "n": 1,
-     "sha": "55c4c303e346",
-     "sources": [
-      "/regulations/sveden-21777590-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not specify deadlines for choosing electives or facultative courses",
-   "cites": [
-    1,
-    2,
-    3
-   ],
-   "evidence": [
-    {
-     "n": 1,
-     "sha": "55c4c303e346",
-     "sources": [
-      "/regulations/sveden-21777590-pdf.md"
-     ]
-    },
-    {
-     "n": 2,
-     "sha": "a85d45ecb254",
-     "sources": [
-      "/regulations/sveden-21777590-pdf.md"
-     ]
-    },
-    {
-     "n": 3,
-     "sha": "a857b681f83a",
-     "sources": [
-      "/regulations/sveden-21777590-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "It does not explain the procedure for making selections or where to submit them",
-   "cites": [
-    1,
-    2,
-    3
-   ],
-   "evidence": [
-    {
-     "n": 1,
-     "sha": "55c4c303e346",
-     "sources": [
-      "/regulations/sveden-21777590-pdf.md"
-     ]
-    },
-    {
-     "n": 2,
-     "sha": "a85d45ecb254",
-     "sources": [
-      "/regulations/sveden-21777590-pdf.md"
-     ]
-    },
-    {
-     "n": 3,
-     "sha": "a857b681f83a",
-     "sources": [
-      "/regulations/sveden-21777590-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "It does not define what constitutes the annual volume of an educational program",
-   "cites": [
-    1
-   ],
-   "evidence": [
-    {
-     "n": 1,
-     "sha": "55c4c303e346",
-     "sources": [
-      "/regulations/sveden-21777590-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "It does not state what happens if you fail to choose a mandatory elective",
+   "sentence": "The evidence does not clarify if the exemption from facultative modules affects your overall academic progress",
    "cites": [
     2
    ],
    "evidence": [
     {
      "n": 2,
-     "sha": "a85d45ecb254",
-     "sources": [
-      "/regulations/sveden-21777590-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "It does not provide details on how course pages list these disciplines or how they differ from the regulation",
-   "cites": [
-    1,
-    2,
-    3
-   ],
-   "evidence": [
-    {
-     "n": 1,
-     "sha": "55c4c303e346",
-     "sources": [
-      "/regulations/sveden-21777590-pdf.md"
-     ]
-    },
-    {
-     "n": 2,
-     "sha": "a85d45ecb254",
-     "sources": [
-      "/regulations/sveden-21777590-pdf.md"
-     ]
-    },
-    {
-     "n": 3,
-     "sha": "a857b681f83a",
-     "sources": [
-      "/regulations/sveden-21777590-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The regulation is silent on registration steps, grading, or credit allocation for facultative courses",
-   "cites": [
-    1
-   ],
-   "evidence": [
-    {
-     "n": 1,
-     "sha": "55c4c303e346",
-     "sources": [
-      "/regulations/sveden-21777590-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "No course pages are provided to compare against the regulation, but the regulation takes precedence if any course page differs or goes beyond it",
-   "cites": [
-    1,
-    2,
-    3
-   ],
-   "evidence": [
-    {
-     "n": 1,
-     "sha": "55c4c303e346",
-     "sources": [
-      "/regulations/sveden-21777590-pdf.md"
-     ]
-    },
-    {
-     "n": 2,
-     "sha": "a85d45ecb254",
-     "sources": [
-      "/regulations/sveden-21777590-pdf.md"
-     ]
-    },
-    {
-     "n": 3,
-     "sha": "a857b681f83a",
+     "sha": "eff6f6081381",
      "sources": [
       "/regulations/sveden-21777590-pdf.md"
      ]

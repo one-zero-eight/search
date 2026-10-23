@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Методические и иные документы [введение1]"
+title: "Методические и иные документы [введение1]"
 description: "This document outlines the assessment tasks and grading criteria for the Master's program in Robotics and Computer Vision at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/de2/x4zwclz25wjiv2gpyaq270vdwtema9tc/введение1.pdf"
 tags: ["master", "robotics", "innopolis", "curriculum", "assessment"]
@@ -11,7 +11,7 @@ section: "sveden/education"
 sources:
   - resource: "https://innopolis.university/upload/iblock/de2/x4zwclz25wjiv2gpyaq270vdwtema9tc/введение1.pdf"
     id: "7f183e44682a"
-    title: "09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Методические и иные документы [введение1]"
+    title: "Методические и иные документы [введение1]"
     last_modified: "2026-10-22T14:21:47+00:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
@@ -21,7 +21,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# 09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Методические и иные документы [введение1]
+# Методические и иные документы [введение1]
 
 УТВЕРЖДЕНО
 
@@ -51,4 +51,4 @@ review: "scanned document read by OCR: check numbers and dates against the PDF b
 
 # Citations
 
-1. [09.04.01 Информатика и вычислительная техника; Направленность программы (профиль) – Робототехника и компьютерное зрение* Год Основная — Высшее образование - магистратура Образовательная программа высшего образования - программа магистратуры: 09.04.01 Информатика и вычислитель — Методические и иные документы [введение1]](https://innopolis.university/upload/iblock/de2/x4zwclz25wjiv2gpyaq270vdwtema9tc/введение1.pdf), file 7f183e44682a
+1. [Методические и иные документы [введение1]](https://innopolis.university/upload/iblock/de2/x4zwclz25wjiv2gpyaq270vdwtema9tc/введение1.pdf), file 7f183e44682a

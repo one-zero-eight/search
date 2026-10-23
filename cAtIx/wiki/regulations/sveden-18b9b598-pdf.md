@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Администрация Вандюков Дмитрий Владимирович Директор - г. Иннополис, ул. Университетская д. 1 отсутствует director@innopolis.ru - Положение  — Положение [Положение об Администрации]"
+title: "Администрация — Положение [Положение об Администрации]"
 description: "This document defines the structure, tasks, and legal framework of the Administration at Innopolis University."
 resource: "https://innopolis.university/upload/iblock/094/e2uev37zohxa73hitj2wj7eh1ortfmx1/Положение об Администрации.pdf"
 tags: ["innopolis", "administration", "university", "regulations", "staff"]
@@ -11,7 +11,7 @@ section: "sveden/struct"
 sources:
   - resource: "https://innopolis.university/upload/iblock/094/e2uev37zohxa73hitj2wj7eh1ortfmx1/Положение об Администрации.pdf"
     id: "3b9df0dcd003"
-    title: "Администрация Вандюков Дмитрий Владимирович Директор - г. Иннополис, ул. Университетская д. 1 отсутствует director@innopolis.ru - Положение  — Положение [Положение об Администрации]"
+    title: "Администрация — Положение [Положение об Администрации]"
     last_modified: "2012-12-29T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
@@ -21,7 +21,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# Администрация Вандюков Дмитрий Владимирович Директор - г. Иннополис, ул. Университетская д. 1 отсутствует director@innopolis.ru - Положение  — Положение [Положение об Администрации]
+# Администрация — Положение [Положение об Администрации]
 
 УТВЕРЖДАЮ
 
@@ -111,4 +111,4 @@ review: "scanned document read by OCR: check numbers and dates against the PDF b
 
 # Citations
 
-1. [Администрация Вандюков Дмитрий Владимирович Директор - г. Иннополис, ул. Университетская д. 1 отсутствует director@innopolis.ru - Положение  — Положение [Положение об Администрации]](https://innopolis.university/upload/iblock/094/e2uev37zohxa73hitj2wj7eh1ortfmx1/Положение об Администрации.pdf), file 3b9df0dcd003
+1. [Администрация — Положение [Положение об Администрации]](https://innopolis.university/upload/iblock/094/e2uev37zohxa73hitj2wj7eh1ortfmx1/Положение об Администрации.pdf), file 3b9df0dcd003

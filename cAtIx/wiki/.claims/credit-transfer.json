@@ -1,9 +1,9 @@
 {
  "page": "/guides/credit-transfer.md",
- "evidence_sha": "b90e3453d1d7b356",
+ "evidence_sha": "cd94b653f4180d81",
  "claims": [
   {
-   "sentence": "You can apply for credit transfer if you are a student enrolled in the University's main professional educational programs, or if you are a parent or legal representative of a minor student",
+   "sentence": "You can apply for credit transfer if you are a student enrolled in the main professional educational programs at the university, or if you are a parent or legal representative of a minor student",
    "cites": [
     1,
     2,
@@ -34,7 +34,7 @@
    ]
   },
   {
-   "sentence": "The University recognizes results of study (subjects, courses, disciplines, modules, practice, or additional educational programs) that you completed at other educational organizations or within the University itself",
+   "sentence": "The university recognizes results of study, including subjects, courses, disciplines (modules), practice, and additional educational programs, that you completed at other educational organizations or within the university itself",
    "cites": [
     1
    ],
@@ -49,22 +49,7 @@
    ]
   },
   {
-   "sentence": "This Regulation is the authoritative source for credit transfer and overrides any conflicting course page information",
-   "cites": [
-    1
-   ],
-   "evidence": [
-    {
-     "n": 1,
-     "sha": "16b597c9a64a",
-     "sources": [
-      "/regulations/credit-transfer-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "You must submit an application and documents confirming your previous learning results to the University's Attestation Commission",
+   "sentence": "You must submit a written application and documents that confirm your previous study results",
    "cites": [
     2,
     6
@@ -87,7 +72,7 @@
    ]
   },
   {
-   "sentence": "For results from other organizations, you must provide either an education or qualification document (including those from foreign countries)",
+   "sentence": "The required documents include an education or qualification certificate, including those issued in a foreign country",
    "cites": [
     3
    ],
@@ -102,7 +87,7 @@
    ]
   },
   {
-   "sentence": "or a study document such as a certificate of study, academic transcript, or similar document issued by any organization (including foreign ones)",
+   "sentence": "or a training document such as a study certificate, a certificate of study period, or a document issued by a foreign organization",
    "cites": [
     4
    ],
@@ -117,7 +102,7 @@
    ]
   },
   {
-   "sentence": "If you are applying for results from within the University at the same education level, the Commission uses the records already entered in your electronic grade book",
+   "sentence": "If you are applying for results completed inside the university, the attestation commission uses the records already entered in your electronic grade book",
    "cites": [
     5
    ],
@@ -132,7 +117,7 @@
    ]
   },
   {
-   "sentence": "The application forms are listed in Appendix 1 and Appendix 2 to the Regulation",
+   "sentence": "The application forms are listed in Appendix 1 and Appendix 2 of the regulation",
    "cites": [
     9
    ],
@@ -147,7 +132,7 @@
    ]
   },
   {
-   "sentence": "You may submit your application and documents to the Commission in the forms specified in the Regulation",
+   "sentence": "You may submit the application and documents in the forms specified in the regulation",
    "cites": [
     10
    ],
@@ -162,157 +147,7 @@
    ]
   },
   {
-   "sentence": "Documents from foreign organizations must be submitted with a Russian translation",
-   "cites": [
-    16
-   ],
-   "evidence": [
-    {
-     "n": 16,
-     "sha": "4263eedebf8d",
-     "sources": [
-      "/regulations/credit-transfer-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "Education or qualification documents from foreign countries must include a Russian translation in legalized form with a certificate of recognition, unless Russian legislation or an international treaty exempts you from recognition",
-   "cites": [
-    17
-   ],
-   "evidence": [
-    {
-     "n": 17,
-     "sha": "9667ba203dd0",
-     "sources": [
-      "/regulations/credit-transfer-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "You must submit your application and confirming documents to the Attestation Commission no later than 14 calendar days before the start of the semester or trimester",
-   "cites": [
-    6
-   ],
-   "evidence": [
-    {
-     "n": 6,
-     "sha": "0f1079d79e59",
-     "sources": [
-      "/regulations/credit-transfer-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "If you are a first-year student in your first semester or trimester, you must submit your application no later than 14 calendar days after the start of your studies",
-   "cites": [
-    7
-   ],
-   "evidence": [
-    {
-     "n": 7,
-     "sha": "9844b4b8c667",
-     "sources": [
-      "/regulations/credit-transfer-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "If you participated in an academic mobility program, you must submit your application no later than 3 working days after completing the mobility program",
-   "cites": [
-    8
-   ],
-   "evidence": [
-    {
-     "n": 8,
-     "sha": "b90f8d5d3617",
-     "sources": [
-      "/regulations/credit-transfer-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The Attestation Commission evaluates your results by comparing the planned learning outcomes of the part of the University's educational program you are currently studying with the learning outcomes you previously mastered",
-   "cites": [
-    11
-   ],
-   "evidence": [
-    {
-     "n": 11,
-     "sha": "27b51fd78c8a",
-     "sources": [
-      "/regulations/credit-transfer-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The University grants credit only upon Establishment of Correspondence between these outcomes",
-   "cites": [
-    12
-   ],
-   "evidence": [
-    {
-     "n": 12,
-     "sha": "4c126f19342c",
-     "sources": [
-      "/regulations/credit-transfer-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "To establish correspondence, the Commission may conduct an Assessment of your actual achievement of the planned learning outcomes",
-   "cites": [
-    13
-   ],
-   "evidence": [
-    {
-     "n": 13,
-     "sha": "c49b799a6502",
-     "sources": [
-      "/regulations/credit-transfer-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "This procedure involves comparing your confirming documents with the planned outcomes for the relevant program part, and the Commission may analyze information from the issuing organization's official website or request information directly from that organization",
-   "cites": [
-    14
-   ],
-   "evidence": [
-    {
-     "n": 14,
-     "sha": "63ee5e9ec13c",
-     "sources": [
-      "/regulations/credit-transfer-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "If you are applying for results from a foreign educational organization, the Commission establishes correspondence while accounting for that organization's credit unit calculation system, and may compare credit units with the volume of contact and independent work",
-   "cites": [
-    15
-   ],
-   "evidence": [
-    {
-     "n": 15,
-     "sha": "3613149b4c0e",
-     "sources": [
-      "/regulations/credit-transfer-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "Recognition based on foreign study or education documents is conducted through Assessment according to the Regulation's Section 3",
+   "sentence": "The application form for students begins with a heading to the Chairman of the Attestation Commission, followed by your full name, study group, and study group code, and the text continues beyond the provided excerpt",
    "cites": [
     18
    ],
@@ -327,37 +162,7 @@
    ]
   },
   {
-   "sentence": "The Regulation does not specify the exact submission formats for applications and documents, only stating they can be submitted \"in the following forms:\"",
-   "cites": [
-    10
-   ],
-   "evidence": [
-    {
-     "n": 10,
-     "sha": "358ce0d1d86d",
-     "sources": [
-      "/regulations/credit-transfer-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The text of Appendix 1 and Appendix 2 is not provided in the evidence",
-   "cites": [
-    9
-   ],
-   "evidence": [
-    {
-     "n": 9,
-     "sha": "fc4f9caa18d0",
-     "sources": [
-      "/regulations/credit-transfer-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The Regulation does not state what happens if you miss the 14-day or 3-day deadlines",
+   "sentence": "You must submit your application and supporting documents to the university's attestation commission",
    "cites": [
     6,
     7,
@@ -388,106 +193,7 @@
    ]
   },
   {
-   "sentence": "The Regulation does not define the specific criteria or scoring thresholds for \"Establishment of Correspondence\" or \"Assessment\"",
-   "cites": [
-    12,
-    13
-   ],
-   "evidence": [
-    {
-     "n": 12,
-     "sha": "4c126f19342c",
-     "sources": [
-      "/regulations/credit-transfer-regulation.md"
-     ]
-    },
-    {
-     "n": 13,
-     "sha": "c49b799a6502",
-     "sources": [
-      "/regulations/credit-transfer-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The Regulation does not specify how many credits or ECTS equivalents you will receive after a successful match",
-   "cites": [
-    11,
-    15
-   ],
-   "evidence": [
-    {
-     "n": 11,
-     "sha": "27b51fd78c8a",
-     "sources": [
-      "/regulations/credit-transfer-regulation.md"
-     ]
-    },
-    {
-     "n": 15,
-     "sha": "3613149b4c0e",
-     "sources": [
-      "/regulations/credit-transfer-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The Regulation does not state whether you can appeal a negative decision or request a re-evaluation",
-   "cites": [
-    12,
-    13
-   ],
-   "evidence": [
-    {
-     "n": 12,
-     "sha": "4c126f19342c",
-     "sources": [
-      "/regulations/credit-transfer-regulation.md"
-     ]
-    },
-    {
-     "n": 13,
-     "sha": "c49b799a6502",
-     "sources": [
-      "/regulations/credit-transfer-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The Regulation does not clarify if partial credit is possible or if the entire course must match",
-   "cites": [
-    11
-   ],
-   "evidence": [
-    {
-     "n": 11,
-     "sha": "27b51fd78c8a",
-     "sources": [
-      "/regulations/credit-transfer-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The Regulation does not specify the language requirements for non-Russian translations beyond the legalization rule",
-   "cites": [
-    17
-   ],
-   "evidence": [
-    {
-     "n": 17,
-     "sha": "9667ba203dd0",
-     "sources": [
-      "/regulations/credit-transfer-regulation.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The Regulation does not state how long the Commission takes to process your application",
+   "sentence": "The standard deadline is no later than 14 (четырнадцати) календарных дней before the start of the semester or trimester",
    "cites": [
     6
    ],
@@ -502,14 +208,209 @@
    ]
   },
   {
-   "sentence": "The Regulation does not specify what happens to your submitted documents after the decision is made",
+   "sentence": "If you are a first-year student in your first semester or trimester, you must submit the application no later than 14 (четырнадцати) календарных дней after the start of your studies",
    "cites": [
-    2
+    7
    ],
    "evidence": [
     {
-     "n": 2,
-     "sha": "72b7859c0ec6",
+     "n": 7,
+     "sha": "9844b4b8c667",
+     "sources": [
+      "/regulations/credit-transfer-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If you participated in an academic mobility program, you must submit the application no later than 3 (трех) рабочих дней after the completion of that program",
+   "cites": [
+    8
+   ],
+   "evidence": [
+    {
+     "n": 8,
+     "sha": "b90f8d5d3617",
+     "sources": [
+      "/regulations/credit-transfer-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The attestation commission evaluates your application by comparing the planned learning outcomes of the relevant part of your current educational program with the study results you have already achieved",
+   "cites": [
+    11
+   ],
+   "evidence": [
+    {
+     "n": 11,
+     "sha": "730ce499ef49",
+     "sources": [
+      "/regulations/credit-transfer-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The university grants credit only when it establishes a correspondence between your previous results and your current program requirements",
+   "cites": [
+    12
+   ],
+   "evidence": [
+    {
+     "n": 12,
+     "sha": "4c126f19342c",
+     "sources": [
+      "/regulations/credit-transfer-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "To establish this correspondence, the commission may conduct an assessment of your actual achievement of the planned learning outcomes",
+   "cites": [
+    13
+   ],
+   "evidence": [
+    {
+     "n": 13,
+     "sha": "c49b799a6502",
+     "sources": [
+      "/regulations/credit-transfer-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The matching procedure involves comparing your confirmation documents with the planned outcomes for the corresponding part of your program",
+   "cites": [
+    14
+   ],
+   "evidence": [
+    {
+     "n": 14,
+     "sha": "995551f435a0",
+     "sources": [
+      "/regulations/credit-transfer-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The commission may analyze information about the educational program from the issuing organization's official website or request information directly from that organization",
+   "cites": [
+    14
+   ],
+   "evidence": [
+    {
+     "n": 14,
+     "sha": "995551f435a0",
+     "sources": [
+      "/regulations/credit-transfer-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If you submit training documents from foreign organizations, you must provide a Russian translation",
+   "cites": [
+    16
+   ],
+   "evidence": [
+    {
+     "n": 16,
+     "sha": "4263eedebf8d",
+     "sources": [
+      "/regulations/credit-transfer-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The university may send requests to the issuing organizations to verify the authenticity of your training documents",
+   "cites": [
+    16
+   ],
+   "evidence": [
+    {
+     "n": 16,
+     "sha": "4263eedebf8d",
+     "sources": [
+      "/regulations/credit-transfer-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If you submit education or qualification certificates from foreign countries, you must provide a Russian translation in a legalized form along with a certificate of recognition of foreign education, unless Russian legislation or an international treaty exempts you from this requirement",
+   "cites": [
+    17
+   ],
+   "evidence": [
+    {
+     "n": 17,
+     "sha": "9667ba203dd0",
+     "sources": [
+      "/regulations/credit-transfer-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "When granting credit for training results from foreign countries, the commission conducts an assessment according to the regulation's procedures",
+   "cites": [
+    18
+   ],
+   "evidence": [
+    {
+     "n": 18,
+     "sha": "481c5a801ce0",
+     "sources": [
+      "/regulations/credit-transfer-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The commission also considers the specific credit unit calculation system of the foreign educational organization and may compare credit units with the volume of contact and independent work",
+   "cites": [
+    15
+   ],
+   "evidence": [
+    {
+     "n": 15,
+     "sha": "3613149b4c0e",
+     "sources": [
+      "/regulations/credit-transfer-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The regulation does not specify the exact submission methods (e.g., online portal, in-person, email) beyond stating that applications can be submitted in the forms indicated in the regulation",
+   "cites": [
+    10
+   ],
+   "evidence": [
+    {
+     "n": 10,
+     "sha": "358ce0d1d86d",
+     "sources": [
+      "/regulations/credit-transfer-regulation.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "\", so the full form structure and additional fields are not provided",
+   "cites": [
+    18
+   ],
+   "evidence": [
+    {
+     "n": 18,
+     "sha": "481c5a801ce0",
      "sources": [
       "/regulations/credit-transfer-regulation.md"
      ]

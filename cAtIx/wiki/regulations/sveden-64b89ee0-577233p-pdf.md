@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Администрация Вандюков Дмитрий Владимирович Директор - г. Иннополис, ул. Университетская д. 1 отсутствует director@innopolis.ru - Положение  — Положение [577233p Положение о тендерном отделе]"
+title: "Тендерный отдел — Положение"
 description: "Regulates the Tender Department's activities, tasks, and functions within Innopolis University."
 resource: "https://innopolis.university/upload/iblock/27c/w0mfxrf8pl6bly9dwqyscr8mm0tfk6dd/577233p Положение о тендерном отделе.pdf"
 tags: ["innopolis", "tender", "regulation", "staff", "university", "procurement"]
@@ -11,7 +11,7 @@ section: "sveden/struct"
 sources:
   - resource: "https://innopolis.university/upload/iblock/27c/w0mfxrf8pl6bly9dwqyscr8mm0tfk6dd/577233p Положение о тендерном отделе.pdf"
     id: "f5d3ce509d62"
-    title: "Администрация Вандюков Дмитрий Владимирович Директор - г. Иннополис, ул. Университетская д. 1 отсутствует director@innopolis.ru - Положение  — Положение [577233p Положение о тендерном отделе]"
+    title: "Тендерный отдел — Положение"
     last_modified: "2022-01-10T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
@@ -21,7 +21,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# Администрация Вандюков Дмитрий Владимирович Директор - г. Иннополис, ул. Университетская д. 1 отсутствует director@innopolis.ru - Положение  — Положение [577233p Положение о тендерном отделе]
+# Тендерный отдел — Положение
 
 УТВЕРЖДЕНО
 
@@ -151,4 +151,4 @@ review: "scanned document read by OCR: check numbers and dates against the PDF b
 
 # Citations
 
-1. [Администрация Вандюков Дмитрий Владимирович Директор - г. Иннополис, ул. Университетская д. 1 отсутствует director@innopolis.ru - Положение  — Положение [577233p Положение о тендерном отделе]](https://innopolis.university/upload/iblock/27c/w0mfxrf8pl6bly9dwqyscr8mm0tfk6dd/577233p Положение о тендерном отделе.pdf), file f5d3ce509d62
+1. [Тендерный отдел — Положение](https://innopolis.university/upload/iblock/27c/w0mfxrf8pl6bly9dwqyscr8mm0tfk6dd/577233p Положение о тендерном отделе.pdf), file f5d3ce509d62

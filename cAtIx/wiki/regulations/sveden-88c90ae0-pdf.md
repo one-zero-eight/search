@@ -16,7 +16,7 @@ sources:
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
   at: "2026-10-22T18:05:26+00:00"
-extraction: "text layer"
+extraction: "text layer (pdfplumber)"
 status: draft
 ---
 

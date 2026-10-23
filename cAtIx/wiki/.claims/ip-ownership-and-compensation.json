@@ -1,0 +1,300 @@
+{
+ "page": "/guides/ip-ownership-and-compensation.md",
+ "evidence_sha": "ee51895603bc4a17",
+ "claims": [
+  {
+   "sentence": "If you are a teacher, staff member, or employee, the University holds the exclusive rights to service results of intellectual activity and the right to obtain a patent, unless your employment or civil law contract provides otherwise",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "2a86b356db60",
+     "sources": [
+      "/regulations/sveden-3f5274db-09-08-2022-02-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "For initiative results of intellectual activity, you hold the exclusive rights and the right to obtain a patent",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "e31bb1319f59",
+     "sources": [
+      "/regulations/sveden-3f5274db-09-08-2022-02-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If you are a student or postgraduate, the exclusive rights to your course works, final qualification works, and dissertations belong to you",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "1436dd9eb717",
+     "sources": [
+      "/regulations/sveden-3f5274db-09-08-2022-02-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "For other results of intellectual activity created by you, the distribution of rights follows the contract between you and the University that provides for or implies the creation of that result",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "60de1f8e926c",
+     "sources": [
+      "/regulations/sveden-3f5274db-09-08-2022-02-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If the University holds the exclusive rights to a service result created by you as an employee, you acquire the right to remuneration",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "78db04f9e847",
+     "sources": [
+      "/regulations/sveden-3f5274db-09-08-2022-02-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The size, conditions, and payment procedure for this remuneration are determined by your contract with the University, and in case of a dispute, by a court",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "78db04f9e847",
+     "sources": [
+      "/regulations/sveden-3f5274db-09-08-2022-02-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The Commission on Intellectual Property establishes recommended remuneration sizes and the calculation procedure for authors of service results",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "78db04f9e847",
+     "sources": [
+      "/regulations/sveden-3f5274db-09-08-2022-02-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If the University holds the exclusive rights to a result created by you as a student, you may receive methodological assistance from the University regarding the protection of your personal non-property and other rights",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "4d21dc91d895",
+     "sources": [
+      "/regulations/sveden-3f5274db-09-08-2022-02-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You may participate in determining the directions and methods of using the result, including commercial use",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "4d21dc91d895",
+     "sources": [
+      "/regulations/sveden-3f5274db-09-08-2022-02-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You may jointly with the University create and/or participate in the capital of legal entities focused on the practical application of the result",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "4d21dc91d895",
+     "sources": [
+      "/regulations/sveden-3f5274db-09-08-2022-02-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "When you hold the exclusive rights to an initiative result, the University may demand a free simple non-exclusive license for its own needs for the entire duration of the right, or reimbursement of expenses it incurred in creating the result",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "e31bb1319f59",
+     "sources": [
+      "/regulations/sveden-3f5274db-09-08-2022-02-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify financial compensation for students when the University claims exclusive rights",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "4d21dc91d895",
+     "sources": [
+      "/regulations/sveden-3f5274db-09-08-2022-02-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not define what constitutes a service result versus an initiative result",
+   "cites": [
+    1,
+    2
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "2a86b356db60",
+     "sources": [
+      "/regulations/sveden-3f5274db-09-08-2022-02-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "e31bb1319f59",
+     "sources": [
+      "/regulations/sveden-3f5274db-09-08-2022-02-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not state whether postgraduates are covered under the student or employee provisions",
+   "cites": [
+    3,
+    4
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "60de1f8e926c",
+     "sources": [
+      "/regulations/sveden-3f5274db-09-08-2022-02-pdf.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "1436dd9eb717",
+     "sources": [
+      "/regulations/sveden-3f5274db-09-08-2022-02-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not provide the actual recommended remuneration sizes or the calculation procedure, only that the Commission on Intellectual Property establishes them",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "78db04f9e847",
+     "sources": [
+      "/regulations/sveden-3f5274db-09-08-2022-02-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify the terms of the contracts between students and the University that determine rights distribution",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "60de1f8e926c",
+     "sources": [
+      "/regulations/sveden-3f5274db-09-08-2022-02-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not address compensation for results created during independent study or outside employment obligations beyond the initiative result clause",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "e31bb1319f59",
+     "sources": [
+      "/regulations/sveden-3f5274db-09-08-2022-02-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not mention any deadlines, limits, or procedures for claiming the rights or compensation listed here",
+   "cites": [
+    5,
+    6
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "4d21dc91d895",
+     "sources": [
+      "/regulations/sveden-3f5274db-09-08-2022-02-pdf.md"
+     ]
+    },
+    {
+     "n": 6,
+     "sha": "78db04f9e847",
+     "sources": [
+      "/regulations/sveden-3f5274db-09-08-2022-02-pdf.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

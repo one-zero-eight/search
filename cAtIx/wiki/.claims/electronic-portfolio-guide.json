@@ -1,16 +1,16 @@
 {
  "page": "/guides/electronic-portfolio-guide.md",
- "evidence_sha": "0321ed25112a8695",
+ "evidence_sha": "79935b9bb871fdcb",
  "claims": [
   {
-   "sentence": "The purpose of the electronic portfolio is the fixation and storage of information about significant results of professional and personal development of the learner",
+   "sentence": "The electronic portfolio ensures the formation of your portfolio, including the preservation of your works, reviews, and grades on these works by any participants of the educational process",
    "cites": [
     1
    ],
    "evidence": [
     {
      "n": 1,
-     "sha": "ede08db0b995",
+     "sha": "5f86f98580e6",
      "sources": [
       "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
      ]
@@ -18,29 +18,14 @@
    ]
   },
   {
-   "sentence": "You independently fill out the following sections of the portfolio",
-   "cites": [
-    2
-   ],
-   "evidence": [
-    {
-     "n": 2,
-     "sha": "46c7b9106325",
-     "sources": [
-      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "My works and reviews:** This section allows you to present information about any works completed during or outside your studies by filling out the following fields: Title (specify the work title), Type (specify the work type: practice, research work, project, or other work), Description (specify a brief description of your work or research), and File (attach a file with materials, an article, research, etc.)",
+   "sentence": "You receive access to your portfolio after you obtain a login and password for the electronic information and educational environment",
    "cites": [
     3
    ],
    "evidence": [
     {
      "n": 3,
-     "sha": "e04e7fb3a0fa",
+     "sha": "4d27e0031f97",
      "sources": [
       "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
      ]
@@ -48,14 +33,14 @@
    ]
   },
   {
-   "sentence": "Evaluation section:** This section allows you to evaluate any participant in educational relations by searching for their work using their email address",
+   "sentence": "You fill out the \"My works and reviews\" section to present information about any works completed as part of your studies or outside them",
    "cites": [
-    4
+    2
    ],
    "evidence": [
     {
-     "n": 4,
-     "sha": "06c775d5ad78",
+     "n": 2,
+     "sha": "b474e9bb4f03",
      "sources": [
       "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
      ]
@@ -63,14 +48,14 @@
    ]
   },
   {
-   "sentence": "Achievements:** This section allows you to provide information about your achievements in academic, research, socially significant, cultural-creative, and sports activities",
+   "sentence": "This section requires you to fill out the Title, Type, Description, and File fields",
    "cites": [
-    5
+    2
    ],
    "evidence": [
     {
-     "n": 5,
-     "sha": "cdf74f2f78f3",
+     "n": 2,
+     "sha": "b474e9bb4f03",
      "sources": [
       "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
      ]
@@ -78,98 +63,45 @@
    ]
   },
   {
-   "sentence": "The evidence does not specify deadlines for completing the portfolio sections",
+   "sentence": "You provide information in the \"Achievements\" section about your achievements in academic, research, socially significant, cultural-creative, and sports activities",
    "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "4d27e0031f97",
+     "sources": [
+      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not state which sections are mandatory or optional",
+   "cites": [
+    1,
     2,
-    3,
-    4,
-    5
-   ],
-   "evidence": [
-    {
-     "n": 2,
-     "sha": "46c7b9106325",
-     "sources": [
-      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
-     ]
-    },
-    {
-     "n": 3,
-     "sha": "e04e7fb3a0fa",
-     "sources": [
-      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
-     ]
-    },
-    {
-     "n": 4,
-     "sha": "06c775d5ad78",
-     "sources": [
-      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
-     ]
-    },
-    {
-     "n": 5,
-     "sha": "cdf74f2f78f3",
-     "sources": [
-      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not state whether additional sections exist that are managed by staff or generated automatically",
-   "cites": [
-    2
-   ],
-   "evidence": [
-    {
-     "n": 2,
-     "sha": "46c7b9106325",
-     "sources": [
-      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not define the technical requirements or accepted formats for the File field",
-   "cites": [
     3
-   ],
-   "evidence": [
-    {
-     "n": 3,
-     "sha": "e04e7fb3a0fa",
-     "sources": [
-      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not explain how the evaluation section processes multiple reviews or handles search conflicts",
-   "cites": [
-    4
-   ],
-   "evidence": [
-    {
-     "n": 4,
-     "sha": "06c775d5ad78",
-     "sources": [
-      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence does not clarify what qualifies as a significant result for the portfolio's stated purpose",
-   "cites": [
-    1
    ],
    "evidence": [
     {
      "n": 1,
-     "sha": "ede08db0b995",
+     "sha": "5f86f98580e6",
+     "sources": [
+      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "b474e9bb4f03",
+     "sources": [
+      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "4d27e0031f97",
      "sources": [
       "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
      ]
@@ -177,38 +109,83 @@
    ]
   },
   {
-   "sentence": "The evidence does not reference any course-specific instructions or alternative submission pathways",
+   "sentence": "The evidence does not provide deadlines for filling out the sections",
    "cites": [
+    1,
     2,
-    3,
-    4,
-    5
+    3
    ],
    "evidence": [
     {
+     "n": 1,
+     "sha": "5f86f98580e6",
+     "sources": [
+      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
+     ]
+    },
+    {
      "n": 2,
-     "sha": "46c7b9106325",
+     "sha": "b474e9bb4f03",
      "sources": [
       "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
      ]
     },
     {
      "n": 3,
-     "sha": "e04e7fb3a0fa",
+     "sha": "4d27e0031f97",
+     "sources": [
+      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not define what the \"additional part\" or \"mandatory part\" of the portfolio contain",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "4d27e0031f97",
+     "sources": [
+      "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not list any other portfolio sections beyond \"My works and reviews\" and \"Achievements\"",
+   "cites": [
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "b474e9bb4f03",
      "sources": [
       "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
      ]
     },
     {
-     "n": 4,
-     "sha": "06c775d5ad78",
+     "n": 3,
+     "sha": "4d27e0031f97",
      "sources": [
       "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
      ]
-    },
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not explain the procedure for obtaining the login and password",
+   "cites": [
+    3
+   ],
+   "evidence": [
     {
-     "n": 5,
-     "sha": "cdf74f2f78f3",
+     "n": 3,
+     "sha": "4d27e0031f97",
      "sources": [
       "/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md"
      ]

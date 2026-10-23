@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Общее образование 1. Образовательная программа общего образования; Образовательная программа начального общего образования Автономной некомм — 2024-2025 [Визуализация_КПСиМВП на 2024-2025 уч.год]"
+title: "бакалавриата: 09.03.01 Информатика и вычислительная техника; Направленность программы (профиль) – Математические основы искусственного интеллекта* — 2025 — 2024-2025"
 description: "This document approves the 2024-2025 extracurricular educational work calendar for Innopolis University students."
 resource: "https://innopolis.university/upload/iblock/0dc/yrwcckxhq2lhwdz1ri40ujhhk2xjhzw2/Визуализация_КПСиМВП на 2024-2025 уч.год.pdf"
 tags: ["innopolis", "university", "calendar", "extracurricular", "student-support", "2024"]
@@ -11,7 +11,7 @@ section: "sveden/education"
 sources:
   - resource: "https://innopolis.university/upload/iblock/0dc/yrwcckxhq2lhwdz1ri40ujhhk2xjhzw2/Визуализация_КПСиМВП на 2024-2025 уч.год.pdf"
     id: "005295b05396"
-    title: "Общее образование 1. Образовательная программа общего образования; Образовательная программа начального общего образования Автономной некомм — 2024-2025 [Визуализация_КПСиМВП на 2024-2025 уч.год]"
+    title: "бакалавриата: 09.03.01 Информатика и вычислительная техника; Направленность программы (профиль) – Математические основы искусственного интеллекта* — 2025 — 2024-2025"
     last_modified: "2024-05-20T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations (local: description, tags and audience only)"
@@ -21,7 +21,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# Общее образование 1. Образовательная программа общего образования; Образовательная программа начального общего образования Автономной некомм — 2024-2025 [Визуализация_КПСиМВП на 2024-2025 уч.год]
+# бакалавриата: 09.03.01 Информатика и вычислительная техника; Направленность программы (профиль) – Математические основы искусственного интеллекта* — 2025 — 2024-2025
 
 ЕЕ УунивЕРСИТЕТ М иннополис
 
@@ -109,4 +109,4 @@ review: "scanned document read by OCR: check numbers and dates against the PDF b
 
 # Citations
 
-1. [Общее образование 1. Образовательная программа общего образования; Образовательная программа начального общего образования Автономной некомм — 2024-2025 [Визуализация_КПСиМВП на 2024-2025 уч.год]](https://innopolis.university/upload/iblock/0dc/yrwcckxhq2lhwdz1ri40ujhhk2xjhzw2/Визуализация_КПСиМВП на 2024-2025 уч.год.pdf), file 005295b05396
+1. [бакалавриата: 09.03.01 Информатика и вычислительная техника; Направленность программы (профиль) – Математические основы искусственного интеллекта* — 2025 — 2024-2025](https://innopolis.university/upload/iblock/0dc/yrwcckxhq2lhwdz1ri40ujhhk2xjhzw2/Визуализация_КПСиМВП на 2024-2025 уч.год.pdf), file 005295b05396

@@ -1,16 +1,16 @@
 {
  "page": "/guides/accelerated-study-eligibility-and-duration.md",
- "evidence_sha": "c91ac715b2f87ae5",
+ "evidence_sha": "e049c521f41150f1",
  "claims": [
   {
-   "sentence": "If you are studying a bachelor’s or master’s program, you qualify for accelerated study under an individual plan if you have secondary vocational, higher, or additional education, and/or you have studied or are studying in one of those programs, and/or you have abilities and/or a development level that allow you to complete the program in a shorter time than the standard University term set according to federal higher education standards",
+   "sentence": "You qualify for accelerated study on an individual plan if you are enrolled in a bachelor’s or master’s program and you have secondary vocational, higher, or additional education, or you have studied or were studied in such programs, or you have abilities and development level that allow you to complete the program in a shorter time than the standard duration set by the University and federal standards",
    "cites": [
     1
    ],
    "evidence": [
     {
      "n": 1,
-     "sha": "f7dfac331ee4",
+     "sha": "c973dc018e7a",
      "sources": [
       "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
      ]
@@ -18,14 +18,14 @@
    ]
   },
   {
-   "sentence": "The University makes the final decision on your eligibility",
+   "sentence": "The University makes the decision to carry out accelerated study for you",
    "cites": [
     1
    ],
    "evidence": [
     {
      "n": 1,
-     "sha": "f7dfac331ee4",
+     "sha": "c973dc018e7a",
      "sources": [
       "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
      ]
@@ -33,14 +33,14 @@
    ]
   },
   {
-   "sentence": "If you are studying an aspirantura program, you qualify if you hold a diploma from a completed aspirantura or adjuncture program, a Candidate of Sciences diploma, a Doctor of Sciences diploma, and/or you are currently studying in another aspirantura program, and/or you have abilities and/or a development level that allow you to complete the program in a shorter time than the standard University term set according to the educational standard",
+   "sentence": "You qualify for accelerated study on an individual plan if you are enrolled in an aspirantura program and you hold a diploma from aspirantura or adjuncture, a Candidate of Sciences diploma, a Doctor of Sciences diploma, or you are currently studying in another aspirantura program, or you have abilities and development level that allow you to complete the program in a shorter time than the standard duration set by the University and the educational standard",
    "cites": [
     2
    ],
    "evidence": [
     {
      "n": 2,
-     "sha": "7029f09ec6da",
+     "sha": "ba8290ee57cb",
      "sources": [
       "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
      ]
@@ -48,14 +48,14 @@
    ]
   },
   {
-   "sentence": "The University makes the final decision on your eligibility",
+   "sentence": "The University makes the decision to carry out accelerated study for you",
    "cites": [
     2
    ],
    "evidence": [
     {
      "n": 2,
-     "sha": "7029f09ec6da",
+     "sha": "ba8290ee57cb",
      "sources": [
       "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
      ]
@@ -63,14 +63,60 @@
    ]
   },
   {
-   "sentence": "For bachelor’s and master’s programs, the reduction in your study duration is implemented by crediting results from individual disciplines (modules) and/or individual practices that you completed during secondary vocational, higher, or additional education, and/or by increasing your pace of study",
+   "sentence": "The evidence does not state a fixed number of semesters, months, or percentage reduction for your degree",
+   "cites": [
+    3,
+    4
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "8174129fd1ac",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "a31311569e18",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The reduction in duration is achieved through specific mechanisms rather than a predetermined shortened timeline",
+   "cites": [
+    3,
+    4
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "8174129fd1ac",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    },
+    {
+     "n": 4,
+     "sha": "a31311569e18",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "For bachelor’s and master’s programs, the duration is reduced by crediting results of individual disciplines or modules, and/or individual practices that you completed during secondary vocational, higher, or additional education",
    "cites": [
     3
    ],
    "evidence": [
     {
      "n": 3,
-     "sha": "fb6163203e4a",
+     "sha": "8174129fd1ac",
      "sources": [
       "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
      ]
@@ -78,14 +124,29 @@
    ]
   },
   {
-   "sentence": "For aspirantura programs, the reduction in your study duration is implemented by crediting (in the form of re-examination) fully or partially completed results from individual disciplines (modules), and/or individual practices, and/or individual types of scientific research work, and/or by increasing your pace of study",
+   "sentence": "The reduction can also be achieved by increasing the pace of your program completion",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "8174129fd1ac",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "For aspirantura programs, the duration is reduced by crediting, in the form of re-examination, fully or partially the results of individual disciplines or modules, and/or individual practices, and/or individual types of scientific research work",
    "cites": [
     4
    ],
    "evidence": [
     {
      "n": 4,
-     "sha": "448e20770179",
+     "sha": "a31311569e18",
      "sources": [
       "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
      ]
@@ -93,14 +154,29 @@
    ]
   },
   {
-   "sentence": "Increasing your pace of study requires a personal application from you",
+   "sentence": "The reduction can also be achieved by increasing the pace of your program completion",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "a31311569e18",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Increasing the pace of your program completion requires a personal application from you",
    "cites": [
     5
    ],
    "evidence": [
     {
      "n": 5,
-     "sha": "eb0c91eeafe5",
+     "sha": "4bc3181a1b79",
      "sources": [
       "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
      ]
@@ -108,14 +184,14 @@
    ]
   },
   {
-   "sentence": "It is granted only if you have the corresponding abilities and/or development level",
+   "sentence": "The University Attestation Commission makes a decision on your application",
    "cites": [
     5
    ],
    "evidence": [
     {
      "n": 5,
-     "sha": "eb0c91eeafe5",
+     "sha": "4bc3181a1b79",
      "sources": [
       "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
      ]
@@ -123,14 +199,14 @@
    ]
   },
   {
-   "sentence": "The University Director issues an order based on a decision by the University Attestation Commission",
+   "sentence": "The University Director issues an order to implement the increased pace",
    "cites": [
     5
    ],
    "evidence": [
     {
      "n": 5,
-     "sha": "eb0c91eeafe5",
+     "sha": "4bc3181a1b79",
      "sources": [
       "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
      ]
@@ -138,7 +214,22 @@
    ]
   },
   {
-   "sentence": "The evidence does not specify a fixed number of semesters, months, or percentage by which your degree program will be shortened",
+   "sentence": "This procedure applies only to students who have the corresponding abilities and development level",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "4bc3181a1b79",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify the exact length of the shortened program, the number of credits or semesters saved, or the minimum duration required",
    "cites": [
     3,
     4
@@ -146,14 +237,14 @@
    "evidence": [
     {
      "n": 3,
-     "sha": "fb6163203e4a",
+     "sha": "8174129fd1ac",
      "sources": [
       "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
      ]
     },
     {
      "n": 4,
-     "sha": "448e20770179",
+     "sha": "a31311569e18",
      "sources": [
       "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
      ]
@@ -161,7 +252,60 @@
    ]
   },
   {
-   "sentence": "It only describes the mechanisms used to achieve the reduction",
+   "sentence": "The evidence does not list the specific criteria or thresholds the Attestation Commission uses to evaluate your abilities and development level",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "4bc3181a1b79",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not state whether the University decision is final or subject to appeal",
+   "cites": [
+    1,
+    2
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "c973dc018e7a",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "ba8290ee57cb",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not provide deadlines for submitting your personal application or for the Commission to review it",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "4bc3181a1b79",
+     "sources": [
+      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not explain how the crediting of prior disciplines, modules, or practices is calculated or how it directly translates into time saved",
    "cites": [
     3,
     4
@@ -169,14 +313,14 @@
    "evidence": [
     {
      "n": 3,
-     "sha": "fb6163203e4a",
+     "sha": "8174129fd1ac",
      "sources": [
       "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
      ]
     },
     {
      "n": 4,
-     "sha": "448e20770179",
+     "sha": "a31311569e18",
      "sources": [
       "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
      ]
@@ -184,30 +328,22 @@
    ]
   },
   {
-   "sentence": "The evidence does not state how many disciplines, practices, or research tasks can be credited, nor does it define the exact threshold for \"corresponding abilities\" or \"development level\"",
+   "sentence": "If any course page or university portal states specific reduction periods, application deadlines, or evaluation criteria, those details are not covered by the provided regulation and should be verified separately. The regulation is silent on how the University calculates the exact shortened duration for individual students",
    "cites": [
-    1,
-    2,
-    5
+    3,
+    4
    ],
    "evidence": [
     {
-     "n": 1,
-     "sha": "f7dfac331ee4",
+     "n": 3,
+     "sha": "8174129fd1ac",
      "sources": [
       "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
      ]
     },
     {
-     "n": 2,
-     "sha": "7029f09ec6da",
-     "sources": [
-      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
-     ]
-    },
-    {
-     "n": 5,
-     "sha": "eb0c91eeafe5",
+     "n": 4,
+     "sha": "a31311569e18",
      "sources": [
       "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
      ]
@@ -215,14 +351,14 @@
    ]
   },
   {
-   "sentence": "The evidence does not provide a deadline for submitting your personal application or a timeline for the Attestation Commission's decision",
+   "sentence": "The regulation does not define what constitutes \"corresponding abilities and development level\"",
    "cites": [
     5
    ],
    "evidence": [
     {
      "n": 5,
-     "sha": "eb0c91eeafe5",
+     "sha": "4bc3181a1b79",
      "sources": [
       "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
      ]
@@ -230,22 +366,14 @@
    ]
   },
   {
-   "sentence": "The evidence does not specify what happens if the University denies your request",
+   "sentence": "The regulation does not state whether the increased pace applies to all semesters or only specific periods",
    "cites": [
-    1,
-    2
+    5
    ],
    "evidence": [
     {
-     "n": 1,
-     "sha": "f7dfac331ee4",
-     "sources": [
-      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
-     ]
-    },
-    {
-     "n": 2,
-     "sha": "7029f09ec6da",
+     "n": 5,
+     "sha": "4bc3181a1b79",
      "sources": [
       "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
      ]
@@ -253,30 +381,7 @@
    ]
   },
   {
-   "sentence": "The evidence does not list the specific federal standards or educational standards referenced for setting the standard University terms",
-   "cites": [
-    1,
-    2
-   ],
-   "evidence": [
-    {
-     "n": 1,
-     "sha": "f7dfac331ee4",
-     "sources": [
-      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
-     ]
-    },
-    {
-     "n": 2,
-     "sha": "7029f09ec6da",
-     "sources": [
-      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The official regulation takes precedence over any course pages, and any course page details that differ from or go beyond this regulation are overridden",
+   "sentence": "All gaps remain open as the evidence provides no further details",
    "cites": [
     1,
     2,
@@ -287,58 +392,35 @@
    "evidence": [
     {
      "n": 1,
-     "sha": "f7dfac331ee4",
+     "sha": "c973dc018e7a",
      "sources": [
       "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
      ]
     },
     {
      "n": 2,
-     "sha": "7029f09ec6da",
+     "sha": "ba8290ee57cb",
      "sources": [
       "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
      ]
     },
     {
      "n": 3,
-     "sha": "fb6163203e4a",
+     "sha": "8174129fd1ac",
      "sources": [
       "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
      ]
     },
     {
      "n": 4,
-     "sha": "448e20770179",
+     "sha": "a31311569e18",
      "sources": [
       "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
      ]
     },
     {
      "n": 5,
-     "sha": "eb0c91eeafe5",
-     "sources": [
-      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
-     ]
-    }
-   ]
-  },
-  {
-   "sentence": "The evidence leaves open how individual courses will implement the credited disciplines or increased pace",
-   "cites": [
-    3,
-    4
-   ],
-   "evidence": [
-    {
-     "n": 3,
-     "sha": "fb6163203e4a",
-     "sources": [
-      "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
-     ]
-    },
-    {
-     "n": 4,
-     "sha": "448e20770179",
+     "sha": "4bc3181a1b79",
      "sources": [
       "/regulations/sveden-90e9c14c-polozh-uskor-02-08-2022-pdf.md"
      ]
