@@ -1,5 +1,5 @@
 # Production / beta: everything cAtIx needs in one place.
-#   docker compose -f docker-compose.prod.yml up -d --build            db, redis, schema, tgbot, maxbot, worker
+#   docker compose -f docker-compose.prod.yml up -d --build            db, redis, schema, wiki, tgbot, maxbot, worker
 #   docker compose -f docker-compose.prod.yml --profile userbot up -d   + the Telegram userbot (after its login, see DEPLOY.md)
 #   docker compose -f docker-compose.prod.yml --profile tunnel up -d    + an SSH tunnel to the GPU server (see DEPLOY.md)
 # Own project name and volumes: it does not touch the development docker-compose.yml (project `ctx`).
@@ -64,6 +64,14 @@ services:
     command: ["catix-db", "init"]
     depends_on:
       db: {condition: service_healthy}
+
+  # Puts the wiki (copied into the image) into the database: only pages that changed since the last image, then exits.
+  # The worker computes the vectors in the background (about 20 minutes for the whole wiki the first time); until then the
+  # pieces are found by words. The bots do not wait for it.
+  wiki:
+    <<: *app
+    restart: "no"
+    command: ["catix-wiki", "index", "--no-embed"]
 
   tgbot:
     <<: *app
