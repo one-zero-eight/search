@@ -80,3 +80,13 @@ def test_a_rule_the_documents_do_not_have_is_not_made_up(agent):
     answer = ask(agent, question)
     assert answer.helpers, "answered without a helper"
     assert_test(case(question, answer), [NoMatch([r"\b\d+\s*(?:дн|день|недел)"], name="NoInventedDays")])
+
+
+def test_a_course_question_is_answered_from_its_programme(agent):
+    """The course programme of «Вычислительная математика» (Б1.О.15), bachelor 09.03.01 «Математические основы ИИ», cohort
+    2026: semester 5, 5 credits, 180 hours, an exam. The answer names the programme it comes from."""
+    question = "Сколько часов и какая форма аттестации по вычислительной математике на профиле Математические основы искусственного интеллекта?"
+    answer = ask(agent, question)
+    assert "ask_docs" in answer.helpers, answer.helpers
+    assert_test(case(question, answer), [ContainsAll(["180"], name="Hours"), MatchesAny([r"экзамен"], name="Exam")])
+    assert "Рабочая программа" in sources(answer), sources(answer)

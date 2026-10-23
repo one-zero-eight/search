@@ -76,6 +76,14 @@ QUESTIONS = [
     ("management", "какие результаты промежуточной аттестации студентов за последний год", r"sveden-4f1f0456", r"промежуточн\w+ аттестац"),
     ("management", "как организована практика студентов и ее результаты", r"sveden-b3da8fdf", r"практик"),
     ("public", "how is the bachelor programme structured into tracks", r"programs/|bsc-structure", r"track|stream|software engineering"),
+    # course programmes (РПД, wiki/course-programmes)
+    ("student", "как оценивается курс вычислительная математика", r"vychislitelnaya-matematika", r"критери\w+ оценивания|«отлично»"),
+    ("student", "сколько зачетных единиц и часов у дисциплины вычислительная математика", r"vychislitelnaya-matematika", r"зачетн\w+ единиц"),
+    ("student", "какие темы изучаются в курсе компьютерные сети", r"kompyuternye-seti|networks", r"содержани\w+ дисциплин|тем\w* \d|раздел"),
+    ("student", "какую литературу читать по машинному обучению", r"mashinnoe-obuchenie", r"литератур|учебно-методическ"),
+    ("applicant", "какая форма промежуточной аттестации по физкультуре в колледже", r"fizicheskaya-kultura", r"зач[её]т|дифференцированн"),
+    ("teacher", "what learning outcomes does the deep learning course have", r"glubokoe-obuchenie|deep-learning", r"результат\w* обучения|компетенц"),
+    ("teacher", "какие компетенции формирует дисциплина операционные системы", r"operatsionnye-sistemy|operating-systems", r"компетенц|ОПК-|ПК-"),
 ]  # fmt: skip
 
 

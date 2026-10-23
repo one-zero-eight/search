@@ -120,7 +120,8 @@ def propose(limit: int = 12, auto: bool = False, again: bool = False, max_docs: 
     'rejected' with the reason, so it is not tried again. At most `limit` new topics per run; the rest wait for the next run."""
     idx = Index()
     cache = json.loads(PROPOSALS.read_text(encoding="utf-8")) if PROPOSALS.exists() else {}
-    docs = {rel.rsplit("/", 1)[-1][:-3]: rel for rel, i in idx.meta.items() if i["meta"].get("source_kind") == "official-document"}
+    docs = {rel.rsplit("/", 1)[-1][:-3]: rel for rel, i in idx.meta.items() if i["meta"].get("source_kind") == "official-document"
+            and i["meta"].get("type") != "course-programme"}  # a course programme answers about its course by itself
     version = {k: str(idx.meta[rel]["meta"].get("sources", [{}])[0].get("id", "")) for k, rel in docs.items()}
     todo = [k for k, rel in docs.items() if (again or cache.get(k, {}).get("version") != version[k]) and len(clauses(idx, rel, limit=MIN_DOC_CLAUSES)) >= MIN_DOC_CLAUSES]
     rank = lambda k: (SECTION_ORDER.index(sec) if (sec := str(idx.meta[docs[k]]["meta"].get("section", "document")).split("/")[-1]) in SECTION_ORDER else 0, k)

@@ -5,6 +5,7 @@
     catix-wiki sveden discover|triage|status|override   # all documents of innopolis.university/sveden (see sveden.py)
     catix-wiki topics [list|accept|reject]   # the model proposes guides, a person accepts them (see topics.py)
     catix-wiki regs fetch|compile      # official regulations (PDF) as a second source, see regulations.py
+    catix-wiki rpd fetch|compile|status   # course programmes (РПД) from the archives of sveden/education, see rpd.py
     catix-wiki build [--offline] [--force] [--auto]   # the whole chain, re-running only what changed (see build.py)
     catix-wiki synth [TOPIC ...]       # guides that combine many concepts (wiki/guides/), see synth.py
     catix-wiki graph                   # relations between concepts (prerequisites, teachers), see graph.py
@@ -119,6 +120,10 @@ def main() -> None:
         from catix.wiki import regulations
 
         regulations.main()
+    elif cmd == "rpd":
+        from catix.wiki import rpd
+
+        rpd.main()
     elif cmd == "build":
         from catix.wiki import build
 

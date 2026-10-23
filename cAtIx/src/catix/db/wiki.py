@@ -46,25 +46,36 @@ class WikiHit:
     newer: str | None = None  # the title of a later version of the document ("на 2026/2027 учебный год" for one of 2024/2025)
 
 
-def _bm25(words: str, trust: list[str]) -> list[int]:
+# The course programmes (rpd.py) are 700 pages of the same shape that use every word of study ("курс", "дисциплина",
+# "зачет"): searched together with the rest they took the candidates of the regulations (the rules of credit transfer
+# fell out of the first ten). They are a pool of their own; both pools give candidates, the reranker orders them together.
+COURSES = "/course-programmes/%"
+POOLS = (False, True)  # (not course programmes, course programmes)
+
+
+def _bm25(words: str, trust: list[str], courses: bool = False) -> list[int]:
     with pg.connection() as conn:
         return pg.column(
             conn,
             """SELECT id FROM wiki_chunks
                WHERE (search_text ||| %(q)s OR search_text::pdb.alias('search_text_en') ||| %(q)s) AND trust = ANY(%(t)s)
+                 AND (path LIKE %(c)s) = %(courses)s
                ORDER BY pdb.score(id) DESC LIMIT %(n)s""",
-            {"q": words, "t": trust, "n": CANDIDATES},
+            {"q": words, "t": trust, "n": CANDIDATES, "c": COURSES, "courses": courses},
         )
 
 
-def _vector(vector: list[float], trust: list[str]) -> list[int]:
+def _vector(vector: list[float], trust: list[str], courses: bool = False) -> list[int]:
     with pg.connection() as conn, conn.transaction():
         conn.execute("SET LOCAL hnsw.iterative_scan = relaxed_order")  # a filter by trust must not leave too few rows
+        # The default 40 found 0 to 2 of the true 30 nearest pieces once a filter left out the course programmes (measured
+        # against an exact scan, 88k pieces); 200 finds 29-30 of them in under 10 ms.
+        conn.execute("SET LOCAL hnsw.ef_search = 200")
         return pg.column(
             conn,
             """SELECT e.chunk_id FROM wiki_chunk_embeddings e JOIN wiki_chunks c ON c.id = e.chunk_id
-               WHERE c.trust = ANY(%(t)s) ORDER BY e.embedding <=> %(v)s::vector LIMIT %(n)s""",
-            {"v": vector, "t": trust, "n": CANDIDATES},
+               WHERE c.trust = ANY(%(t)s) AND (c.path LIKE %(c)s) = %(courses)s ORDER BY e.embedding <=> %(v)s::vector LIMIT %(n)s""",
+            {"v": vector, "t": trust, "n": CANDIDATES, "c": COURSES, "courses": courses},
         )
 
 
@@ -148,10 +159,11 @@ def search(queries: str | list[str], *, trust: Collection[str] | None = None, li
         return []
     vectors = _embed_all(queries)
     with ThreadPoolExecutor(max_workers=4) as executor:
-        jobs = [(executor.submit(_bm25, _words(q), kinds), executor.submit(_vector, vectors[i], kinds) if vectors else None) for i, q in enumerate(queries)]
-        per_query = [_rrf(*[job.result() for job in pair if job]) for pair in jobs]
-    if original:
-        per_query[0] = {item: 2 * value for item, value in per_query[0].items()}
+        jobs = [(i, executor.submit(_bm25, _words(q), kinds, pool), executor.submit(_vector, vectors[i], kinds, pool) if vectors else None)
+                for i, q in enumerate(queries) for pool in POOLS]
+        per_query = [{item: (2 if original and i == 0 else 1) * value for item, value in _rrf(*[job.result() for job in pair if job]).items()}
+                     for i, *pair in jobs]
+    per_query = [scores for scores in per_query if scores]
     reranking = settings.reranker_route is not None
     fused = _combine(per_query, max(limit, settings.rerank_candidates) if reranking else limit)
     if not fused:

@@ -41,6 +41,7 @@ TYPES = {  # type -> directory of the bundle
     "person": "people",
     "study-plan": "programs",
     "regulation": "regulations",
+    "course-programme": "course-programmes",  # written by rpd.py from the official course programmes (РПД)
     "procedure": "procedures",
     "calendar": "calendars",
     "schedule": "schedules",

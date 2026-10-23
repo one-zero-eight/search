@@ -29,3 +29,7 @@ wiki/.obsidian/
 raw/sveden/*
 !raw/sveden/index.json
 !raw/sveden/triage.json
+
+# The archives of course programmes and their texts are downloaded again by catix-wiki rpd; the list of what was read stays in git
+raw/rpd/*
+!raw/rpd/index.json

@@ -4,6 +4,7 @@
 
   fetch    new and changed pages of the wiki; the documents of innopolis.university/sveden, kept or skipped by the model (--offline: use what is downloaded)
   regs     regulations -> wiki/regulations (the text as it is; the model writes only the description)
+  rpd      course programmes of the latest cohorts -> wiki/course-programmes (by code only)
   compile  pages whose revision is not in the bundle yet (the model)
   link     links between concepts, index.md
   graph    prerequisites, teachers, duplicates (the model only for lines it has not seen; answers are cached)
@@ -18,7 +19,7 @@ import sys
 
 from catix.wiki import compile as compiler
 from catix.settings import settings
-from catix.wiki import fetch, graph, lint, regulations, search_index, sveden, synth, topics
+from catix.wiki import fetch, graph, lint, regulations, rpd, search_index, sveden, synth, topics
 
 
 def main() -> None:
@@ -34,7 +35,9 @@ def main() -> None:
         sveden.discover()  # new documents on innopolis.university/sveden
         sveden.triage()  # the model decides about the documents it has not seen
         regulations.fetch()
+        rpd.fetch()  # archives of course programmes not read yet
     regulations.compile_all()
+    rpd.compile_all()
     print("== compile")
     compiler.compile_pages(None)
     print("== link")
