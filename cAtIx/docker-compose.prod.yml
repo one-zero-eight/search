@@ -2,6 +2,7 @@
 #   docker compose -f docker-compose.prod.yml up -d --build            db, redis, schema, wiki, tgbot, maxbot, worker
 #   docker compose -f docker-compose.prod.yml --profile userbot up -d   + the Telegram userbot (after its login, see DEPLOY.md)
 #   docker compose -f docker-compose.prod.yml --profile tunnel up -d    + an SSH tunnel to the GPU server (see DEPLOY.md)
+#   docker compose -f docker-compose.prod.yml --profile phoenix up -d   + Phoenix, the trace viewer (see DEPLOY.md)
 # Own project name and volumes: it does not touch the development docker-compose.yml (project `ctx`).
 name: catix-prod
 
@@ -99,6 +100,21 @@ services:
     profiles: ["userbot"]
     command: ["catix-tguserbot", "listen"]
 
+  # Trace viewer: the agent's questions, model calls, tools and search steps, and the users' 👍/👎. Then in .env:
+  #   PHOENIX_ENDPOINT=http://phoenix:6006
+  # Its UI has no login: it listens on the server's localhost only and is opened through an SSH tunnel (DEPLOY.md).
+  phoenix:
+    profiles: ["phoenix"]
+    image: arizephoenix/phoenix:version-20.23.0   # the same version as docker-compose.yml: the UI and the API change between versions
+    restart: unless-stopped
+    environment:
+      PHOENIX_WORKING_DIR: /mnt/data
+      PHOENIX_DEFAULT_RETENTION_POLICY_DAYS: ${PHOENIX_RETENTION_DAYS:-30}   # older traces are deleted
+    ports:
+      - "127.0.0.1:6006:6006"
+    volumes:
+      - phoenixdata:/mnt/data
+
   # SSH tunnel to the GPU server, for when the models are not reachable directly. Then in .env:
   #   LLM_ROUTE=http://tunnel:8080/v1  EMBEDDINGS_ROUTE=http://tunnel:8081/v1  RERANKER_ROUTE=http://tunnel:8082/v1
   tunnel:
@@ -114,6 +130,7 @@ services:
       ${GPU_SSH:-user@gpu-host}"
 
 volumes:
+  phoenixdata:
   pgdata:
   redisdata:
   catix_data:

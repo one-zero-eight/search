@@ -96,8 +96,31 @@ docker compose -f docker-compose.prod.yml --profile userbot up -d
 - Резервная копия БД: `scripts/backup.sh /srv/backups` (хранит 14 последних), поставить в cron на ночь. Восстановление: `gunzip -c файл.sql.gz | docker compose -f docker-compose.prod.yml exec -T db psql -U ctx -d ctx`.
 - Состояние: `docker compose -f docker-compose.prod.yml exec worker catix-db status`.
 - Алерты: воркер каждую минуту проверяет `/health` моделей, эмбеддингов и реранкера и длину очереди эмбеддингов; о проблеме (после двух неудачных проверок подряд), напоминании каждые 6 часов и восстановлении пишет всем администраторам бота в Telegram. Отключить: `ALERTS=false`.
-- Трассировка запросов агента: Langfuse (`LANGFUSE_*` в `.env`), ставится отдельно.
+- Трассировка запросов агента: Phoenix, раздел 6a.
 - Все секреты только в `.env` на сервере (в git он не попадает). Перед бетой перевыпустить токены, которые использовались в разработке.
+
+## 6a. Phoenix (трейсы агента)
+Phoenix показывает каждый вопрос целиком: вызовы модели, помощников и инструментов, шаги поиска (`embed`, `hybrid` с `bm25` и `vector`, `rerank`) со временем, а также оценки 👍/👎 пользователей. Он необязателен: без него бот работает так же.
+
+1. В `.env` на сервере:
+   ```
+   PHOENIX_ENDPOINT=http://phoenix:6006
+   PHOENIX_PROJECT=catix
+   ```
+   Адрес `phoenix` — имя сервиса в docker-сети, `localhost` из контейнера не подойдёт.
+2. Запустить Phoenix и перезапустить приложения, чтобы они подхватили адрес:
+   ```bash
+   docker compose -f docker-compose.prod.yml --profile phoenix up -d phoenix
+   docker compose -f docker-compose.prod.yml up -d tgbot worker   # и maxbot / userbot, если запущены
+   ```
+   В логе `tgbot` при старте строка `phoenix tracing on (http://phoenix:6006/, project catix)`.
+3. Интерфейс без входа по паролю, поэтому порт 6006 открыт только на localhost сервера. Открыть со своей машины через SSH-туннель:
+   ```bash
+   ssh -N -L 6006:localhost:6006 server
+   ```
+   и в браузере `http://localhost:6006`, проект `catix`.
+
+Данные лежат в томе `phoenixdata` (SQLite). Трейсы старше 30 дней Phoenix удаляет сам; срок задаёт `PHOENIX_RETENTION_DAYS` в `.env`. Удалить все трейсы: `docker compose -f docker-compose.prod.yml --profile phoenix down` и `docker volume rm catix-prod_phoenixdata`. Выключить трейсы: убрать `PHOENIX_ENDPOINT` из `.env` и перезапустить приложения.
 
 ## 7. Перед приглашением тестеров
 Сообщить им, что бот и userbot сохраняют сообщения чатов, куда добавлены (приветствия и мусор отбрасываются), и что бота можно убрать из чата.
