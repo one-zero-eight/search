@@ -1,0 +1,38 @@
+{
+  "log": {"loglevel": "warning"},
+  "inbounds": [
+    {
+      "tag": "socks-in",
+      "listen": "0.0.0.0",
+      "port": 1080,
+      "protocol": "socks",
+      "settings": {"auth": "noauth", "udp": false}
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "proxy",
+      "protocol": "vless",
+      "settings": {
+        "vnext": [
+          {
+            "address": "YOUR.SERVER.IP.OR.HOST",
+            "port": 443,
+            "users": [{"id": "YOUR-UUID", "encryption": "none", "flow": "xtls-rprx-vision"}]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "reality",
+        "realitySettings": {
+          "serverName": "www.example.com",
+          "fingerprint": "chrome",
+          "publicKey": "YOUR-REALITY-PUBLIC-KEY",
+          "shortId": "YOUR-SHORT-ID",
+          "spiderX": "/"
+        }
+      }
+    }
+  ]
+}

@@ -26,3 +26,4 @@ raw/*.db*
 /raw/topics.json
 experiments/.wiki-demo-site/
 wiki-index.tar.gz
+/secrets/
