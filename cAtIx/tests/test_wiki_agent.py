@@ -3,7 +3,16 @@ for a regulation, a clause that exists; every number is in what it cites; cards 
 
 from types import SimpleNamespace
 
+import pytest
+
 from catix.wiki import agent
+
+
+@pytest.fixture(autouse=True)
+def _no_real_wiki(tmp_path, monkeypatch):
+    """No test writes into the wiki of WIKI_ROOT (a card that passed the check would land there)."""
+    monkeypatch.setattr(agent, "BUNDLE", tmp_path)
+    monkeypatch.setattr(agent, "QUEUE", tmp_path / "knowledge-queue.json")
 
 REG = "/regulations/leave.md"
 COURSE = "/course-programmes/calc-2026.md"

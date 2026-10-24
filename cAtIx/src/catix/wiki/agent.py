@@ -445,8 +445,31 @@ def source_pages(folders: list[str] | None = None) -> list[str]:
     return sorted(rel for rel, i in idx.meta.items() if worth_reading(i["meta"]) and (not folders or rel.split("/")[1] in folders))
 
 
+def tokens(usage: dict) -> dict:
+    """The tokens of a run, summed over the models it called (an API bills them: input, of it read from the cache, output, of it
+    reasoning)."""
+    total = Counter()
+    for u in usage.values():
+        total["input"] += u.get("input_tokens", 0)
+        total["cached input"] += (u.get("input_token_details") or {}).get("cache_read", 0)
+        total["output"] += u.get("output_tokens", 0)
+        total["reasoning"] += (u.get("output_token_details") or {}).get("reasoning", 0)
+    return dict(total)
+
+
 def run(pages: list[str] | None = None, limit: int | None = None) -> dict:
-    """The agent on these pages (or on the queue, at most `limit` of it), then on the cards the check finds broken."""
+    """The agent on these pages (or on the queue, at most `limit` of it), then on the cards the check finds broken; with the
+    tokens it spent."""
+    from langchain_core.callbacks import get_usage_metadata_callback
+
+    with get_usage_metadata_callback() as usage:
+        stats = _run(pages, limit, usage)
+    stats["tokens"] = tokens(usage.usage_metadata)
+    print(f"== agent: tokens {stats['tokens']}", flush=True)
+    return stats
+
+
+def _run(pages: list[str] | None, limit: int | None, usage) -> dict:
     from_queue = pages is None
     todo = (load_queue() if from_queue else pages)[: limit or settings.wiki_agent_max_pages]
     idx_box, written, refused = [Index()], [], Counter()
@@ -465,7 +488,7 @@ def run(pages: list[str] | None = None, limit: int | None = None) -> dict:
             print(f"  failed: {type(e).__name__}: {str(e)[:300]}", flush=True)
             refused["unfinished"] += 1
             break
-        print(f"  write_card: {describe(refused - before)}", flush=True)
+        print(f"  write_card: {describe(refused - before)}; tokens so far {tokens(usage.usage_metadata)}", flush=True)
         if from_queue:
             save_queue([p for p in load_queue() if p not in batch])
         idx_box[0] = Index()  # the cards just written are part of the bundle
