@@ -125,6 +125,17 @@ Course programmes (РПД) by programme, cohort and semester. Back to [the wiki]
 - [Рабочая программа «Software Quality, Reliability and Security / Качество, надежность и безопасность программного обеспечения» (Б1.В.04)](/course-programmes/rpd-847d4a62-b1-v-04-software-quality-reliability-and.md)
 - [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-a30e5c0b-b1-v-01-elektivnye-distsipliny-moduli-po.md)
 
+## ПИШ, бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Инженерия информационных систем», набор 2024, 1 семестр
+
+- [Рабочая программа «Analytical Geometry and Linear Algebra / Аналитическая геометрия и линейная алгебра (1 семестр)» (Б1.О.08)](/course-programmes/rpd-9e890bc7-b1-o-08-analytical-geometry-and-linear-a.md)
+- [Рабочая программа «Fundamentals of Computer Architecture / Основы компьютерной архитектуры» (Б1.О.06)](/course-programmes/rpd-eff12619-b1-o-06-fundamentals-of-computer-archite.md)
+- [Рабочая программа «Introduction to Programming / Введение в программирование» (Б1.О.09)](/course-programmes/rpd-dcca9705-b1-o-09-introduction-to-programming-vved.md)
+- [Рабочая программа «Logic and Discrete Math / Логика и дискретная математика» (Б1.О.27)](/course-programmes/rpd-5bf1e74d-b1-o-27-logic-and-discrete-math-logika-i.md)
+- [Рабочая программа «Mathematical Analysis / Математический анализ (1 семестр)» (Б1.О.07)](/course-programmes/rpd-e5bc4d1f-b1-o-07-mathematical-analysis-matematich.md)
+- [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (1 семестр)» (ФТД.01)](/course-programmes/rpd-42b7a184-ftd-01-russian-as-a-foreign-language-rus.md)
+- [Рабочая программа «Иностранный язык (1 семестр)» (Б1.О.02)](/course-programmes/rpd-12dabd38-b1-o-02-inostrannyy-yazyk-1-semestr.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-6a5023fb-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
 ## ПИШ, бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Инженерия информационных систем», набор 2024, 2 семестр
 
 - [Рабочая программа «Analytical Geometry and Linear Algebra / Аналитическая геометрия и линейная алгебра (2 семестр)» (Б1.О.08)](/course-programmes/rpd-b13248d0-b1-o-08-analytical-geometry-and-linear-a.md)
@@ -137,6 +148,39 @@ Course programmes (РПД) by programme, cohort and semester. Back to [the wiki]
 - [Рабочая программа «Иностранный язык (2 семестр)» (Б1.О.02)](/course-programmes/rpd-85d91e50-b1-o-02-inostrannyy-yazyk-2-semestr.md)
 - [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-b8c8e3f4-b1-v-01-elektivnye-distsipliny-moduli-po.md)
 
+## ПИШ, бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Инженерия информационных систем», набор 2024, 3 семестр
+
+- [Рабочая программа «Applied Economics: Introduction to IT Entrepreneurship / Прикладная экономика: введение в ИТ-предпринимательство» (Б1.В.ДВ.01.01)](/course-programmes/rpd-e4211875-b1-v-dv-01-01-applied-economics-introduc.md)
+- [Рабочая программа «Architecture of Computing Devices / Архитектура вычислительных устройств» (Б1.В.ДВ.02.08)](/course-programmes/rpd-d7c7990e-b1-v-dv-02-08-architecture-of-computing.md)
+- [Рабочая программа «Basics of Product Management / Введение в управление продуктами» (Б1.В.ДВ.01.03)](/course-programmes/rpd-fc53e572-b1-v-dv-01-03-basics-of-product-manageme.md)
+- [Рабочая программа «Branding and Marketing in IT industry / Брендинг и маркетинг в ИТ- индустрии» (Б1.В.ДВ.01.02)](/course-programmes/rpd-a02f9849-b1-v-dv-01-02-branding-and-marketing-in.md)
+- [Рабочая программа «Business Analysis in IT / Бизнес-анализ в ИТ» (Б1.В.ДВ.02.07)](/course-programmes/rpd-4512d13d-b1-v-dv-02-07-business-analysis-in-it-bi.md)
+- [Рабочая программа «Business communications for IT-specialist / Деловые коммуникации для ИТ-специалиста» (Б1.В.ДВ.01.10)](/course-programmes/rpd-c82a8d1f-b1-v-dv-01-10-business-communications-fo.md)
+- [Рабочая программа «Design-thinking / Дизайн-мышление» (Б1.В.ДВ.01.08)](/course-programmes/rpd-f6cf1e37-b1-v-dv-01-08-designthinking-dizaynmyshl.md)
+- [Рабочая программа «Fundamentals of Computer Science in Lean 4 / Теоретические основы программирования с Lean 4» (Б1.В.ДВ.02.09)](/course-programmes/rpd-3b2206c9-b1-v-dv-02-09-fundamentals-of-computer-s.md)
+- [Рабочая программа «Golang & Flutter: Rapid Cross-Platform Development / Golang & Flutter: Быстрая кросс-платформенная разработка» (Б1.В.ДВ.02.05)](/course-programmes/rpd-395094ca-b1-v-dv-02-05-golang-flutter-rapid-cross.md)
+- [Рабочая программа «How to build an IT team / Построение ИТ-команды» (Б1.В.ДВ.01.07)](/course-programmes/rpd-1fcdc743-b1-v-dv-01-07-how-to-build-an-it-team-po.md)
+- [Рабочая программа «Introduction to 3D Modeling / Введение в 3D-моделирование» (Б1.В.ДВ.02.06)](/course-programmes/rpd-1e6f81a5-b1-v-dv-02-06-introduction-to-3d-modelin.md)
+- [Рабочая программа «Introduction to Career Development for IT-specialist / Введение в развитие карьеры ИТ-специалиста» (Б1.В.ДВ.01.05)](/course-programmes/rpd-b31e46de-b1-v-dv-01-05-introduction-to-career-dev.md)
+- [Рабочая программа «Introduction to Robot Operating System / Введение в операционную систему для роботов» (Б1.В.ДВ.02.11)](/course-programmes/rpd-0baef067-b1-v-dv-02-11-introduction-to-robot-oper.md)
+- [Рабочая программа «Methods and Approaches to the Launch of Robotic Systems / Методы и подходы к запуску роботизированных систем» (Б1.В.ДВ.02.02)](/course-programmes/rpd-f1ac4654-b1-v-dv-02-02-methods-and-approaches-to.md)
+- [Рабочая программа «Product Solutions Engineering / Инженерия продуктовых решений» (Б1.В.ДВ.01.12)](/course-programmes/rpd-3f4b58ac-b1-v-dv-01-12-product-solutions-engineer.md)
+- [Рабочая программа «Programming in Haskell / Программирование на языке Haskell» (Б1.В.ДВ.02.01)](/course-programmes/rpd-1d95ab44-b1-v-dv-02-01-programming-in-haskell-pro.md)
+- [Рабочая программа «Programming in Python / Программирование на языке Python» (Б1.В.ДВ.02.03)](/course-programmes/rpd-aa1a908a-b1-v-dv-02-03-programming-in-python-prog.md)
+- [Рабочая программа «Psychology of IT-specialist / Психология ИТ-специалиста» (Б1.В.ДВ.01.04)](/course-programmes/rpd-4a9ee7b1-b1-v-dv-01-04-psychology-of-itspecialist.md)
+- [Рабочая программа «Reading Skills for IT-specialist / Навыки чтения для ИТ-специалиста» (Б1.В.ДВ.01.09)](/course-programmes/rpd-d0c2cde3-b1-v-dv-01-09-reading-skills-for-itspeci.md)
+- [Рабочая программа «Real-Time Scheduling Theory / Теоретические основы систем реального времени» (Б1.В.ДВ.02.04)](/course-programmes/rpd-e816a9e3-b1-v-dv-02-04-realtime-scheduling-theory.md)
+- [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (3 семестр)» (ФТД.01)](/course-programmes/rpd-1e73085a-ftd-01-russian-as-a-foreign-language-rus.md)
+- [Рабочая программа «Social Adaptation and Professional Rehabilitation of People with Disabilities in the IT Industry / Социальная адаптация и реабилитация инвалидов и лиц с ограниченными возможностями здоровья в сфере ИТ» (Б1.В.ДВ.01.13)](/course-programmes/rpd-afad2d9b-b1-v-dv-01-13-social-adaptation-and-prof.md)
+- [Рабочая программа «Social Security and Legal Protection of Persons with Disabilities or Physical Conditions in the IT Industry / Социально-правовые гарантии инвалидов и лиц с ограниченными возможностями здоровья в сфере» (Б1.В.ДВ.01.14)](/course-programmes/rpd-da003a82-b1-v-dv-01-14-social-security-and-legal.md)
+- [Рабочая программа «Software Project / Разработка программного продукта (проектная работа)» (Б1.О.13)](/course-programmes/rpd-18897c0b-b1-o-13-software-project-razrabotka-prog.md)
+- [Рабочая программа «Tech Startup Design / Проектирование технологических стартапов» (Б1.В.ДВ.01.11)](/course-programmes/rpd-5d43b8b5-b1-v-dv-01-11-tech-startup-design-proekt.md)
+- [Рабочая программа «Technical Communication / Техническая коммуникация» (Б1.В.ДВ.02.10)](/course-programmes/rpd-7bdc403d-b1-v-dv-02-10-technical-communication-te.md)
+- [Рабочая программа «UX/UI Design / UX/UI Дизайн» (Б1.В.ДВ.01.06)](/course-programmes/rpd-87febf1d-b1-v-dv-01-06-ux-ui-design-ux-ui-dizayn.md)
+- [Рабочая программа «История России» (Б1.О.04)](/course-programmes/rpd-9b7d371d-b1-o-04-istoriya-rossii.md)
+- [Рабочая программа «Физическая культура и спорт» (Б1.О.01)](/course-programmes/rpd-99931194-b1-o-01-fizicheskaya-kultura-i-sport.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-bce451d5-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
 ## ПИШ, бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Инженерия информационных систем», набор 2024, 4 семестр
 
 - [Рабочая программа «Differential Equations / Дифференциальные уравнения» (Б1.О.18)](/course-programmes/rpd-8bf253eb-b1-o-18-differential-equations-different.md)
@@ -148,6 +192,91 @@ Course programmes (РПД) by programme, cohort and semester. Back to [the wiki]
 - [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (4 семестр)» (ФТД.01)](/course-programmes/rpd-d213f3c2-ftd-01-russian-as-a-foreign-language-rus.md)
 - [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-5fb4c5b4-b1-v-01-elektivnye-distsipliny-moduli-po.md)
 
+## ПИШ, бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Инженерия информационных систем», набор 2024, 5 семестр
+
+- [Рабочая программа «Computer Graphics in Game Development (Advanced) / Компьютерная графика в разработке игр (углубленный курс)» (Б1.В.ДВ.12.02)](/course-programmes/rpd-ea348576-b1-v-dv-12-02-computer-graphics-in-game.md)
+- [Рабочая программа «Databases / Проектирование баз данных» (Б1.В.ДВ.05.01)](/course-programmes/rpd-bf874e2d-b1-v-dv-05-01-databases-proektirovanie-b.md)
+- [Рабочая программа «Distributed and Network Programming / Распределенное и сетевое программирование» (Б1.В.ДВ.12.01)](/course-programmes/rpd-203c28da-b1-v-dv-12-01-distributed-and-network-pr.md)
+- [Рабочая программа «Fundamentals of Robotics / Основы робототехники» (Б1.В.ДВ.12.03)](/course-programmes/rpd-948ce0dc-b1-v-dv-12-03-fundamentals-of-robotics-o.md)
+- [Рабочая программа «Introduction to Control Systems Theory / Введение в теорию управляемых систем» (Б1.В.ДВ.10.03)](/course-programmes/rpd-2662e54b-b1-v-dv-10-03-introduction-to-control-sy.md)
+- [Рабочая программа «Introduction to Game Development / Введение в разработку игр» (Б1.В.ДВ.11.02)](/course-programmes/rpd-311736d3-b1-v-dv-11-02-introduction-to-game-devel.md)
+- [Рабочая программа «Introduction to Machine Learning / Введение в машинное обучение» (Б1.О.20)](/course-programmes/rpd-b20286fe-b1-o-20-introduction-to-machine-learning.md)
+- [Рабочая программа «Nature Inspired Computing / Бионические вычисления» (Б1.В.ДВ.10.02)](/course-programmes/rpd-2d73902f-b1-v-dv-10-02-nature-inspired-computing.md)
+- [Рабочая программа «Networks / Компьютерные сети» (Б1.В.ДВ.10.01)](/course-programmes/rpd-9f133154-b1-v-dv-10-01-networks-kompyuternye-seti.md)
+- [Рабочая программа «Physics II (Electrical Engineering) / Физика II (Электротехника)» (Б1.В.ДВ.11.03)](/course-programmes/rpd-ccbec7ef-b1-v-dv-11-03-physics-ii-electrical-engi.md)
+- [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (5 семестр)» (ФТД.В.01)](/course-programmes/rpd-7c7b0782-ftd-v-01-russian-as-a-foreign-language-r.md)
+- [Рабочая программа «System and Network Administration / Системное и сетевое администрирование» (Б1.В.ДВ.11.01)](/course-programmes/rpd-7de14515-b1-v-dv-11-01-system-and-network-adminis.md)
+- [Рабочая программа «Theoretical Mechanics / Теоретическая механика» (Б1.В.ДВ.05.02)](/course-programmes/rpd-3d93124a-b1-v-dv-05-02-theoretical-mechanics-teor.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-6f7652b9-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## ПИШ, бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Инженерия информационных систем», набор 2024, 6 семестр
+
+- [Рабочая программа «Basics of Product Management / Введение в управление продуктами» (Б1.В.ДВ.03.01)](/course-programmes/rpd-2be21f8a-b1-v-dv-03-01-basics-of-product-manageme.md)
+- [Рабочая программа «Branding and Marketing in IT industry / Брендинг и маркетинг в ИТ- индустрии» (Б1.В.ДВ.03.02)](/course-programmes/rpd-466851c8-b1-v-dv-03-02-branding-and-marketing-in.md)
+- [Рабочая программа «Business Analysis in IT / Бизнес-анализ в ИТ» (Б1.В.ДВ.04.01)](/course-programmes/rpd-d6172788-b1-v-dv-04-01-business-analysis-in-it-bi.md)
+- [Рабочая программа «Business communications for IT-specialist / Деловые коммуникации для ИТ-специалиста» (Б1.В.ДВ.03.04)](/course-programmes/rpd-8d3c85f7-b1-v-dv-03-04-business-communications-fo.md)
+- [Рабочая программа «Computational Geometry / Вычислительная геометрия» (Б1.В.ДВ.04.03)](/course-programmes/rpd-822c468e-b1-v-dv-04-03-computational-geometry-vyc.md)
+- [Рабочая программа «Deep Learning for Search / Глубокое обучение для задач поиска» (Б1.В.ДВ.04.07)](/course-programmes/rpd-5d244d3e-b1-v-dv-04-07-deep-learning-for-search-g.md)
+- [Рабочая программа «How to Design and Sell Your Game: From Concept to Market / Как придумать и продать свою игру: от идеи до маркетинга» (Б1.В.ДВ.03.06)](/course-programmes/rpd-c0d87311-b1-v-dv-03-06-how-to-design-and-sell-you.md)
+- [Рабочая программа «How to build an IT team / Построение ИТ-команды» (Б1.В.ДВ.03.05)](/course-programmes/rpd-ec3c09fe-b1-v-dv-03-05-how-to-build-an-it-team-po.md)
+- [Рабочая программа «IT Professions Lab / Практикум по ИТ‑профессиям» (Б1.В.ДВ.04.08)](/course-programmes/rpd-70c826f1-b1-v-dv-04-08-it-professions-lab-praktik.md)
+- [Рабочая программа «Introduction to 3D Modeling / Введение в 3D-моделирование» (Б1.В.ДВ.04.04)](/course-programmes/rpd-c603d4a5-b1-v-dv-04-04-introduction-to-3d-modelin.md)
+- [Рабочая программа «Introduction to Career Development for IT-specialist / Введение в развитие карьеры ИТ-специалиста» (Б1.В.ДВ.03.07)](/course-programmes/rpd-6c733290-b1-v-dv-03-07-introduction-to-career-dev.md)
+- [Рабочая программа «Introduction to DevOps / Введение в интеграцию и автоматизацию процесса разработки ПО» (Б1.В.ДВ.04.09)](/course-programmes/rpd-0eec4388-b1-v-dv-04-09-introduction-to-devops-vve.md)
+- [Рабочая программа «Introduction to DevSecOps / Введение в интеграцию и автоматизацию безопасного процесса разработки ПО» (Б1.В.ДВ.04.10)](/course-programmes/rpd-677083af-b1-v-dv-04-10-introduction-to-devsecops.md)
+- [Рабочая программа «Introduction to Robot Operating System / Введение в операционную систему для роботов» (Б1.В.ДВ.04.05)](/course-programmes/rpd-36168961-b1-v-dv-04-05-introduction-to-robot-oper.md)
+- [Рабочая программа «Introduction to Site Reliability Engineering (SRE) / Введение в практики обеспечения надёжности сервисов» (Б1.В.ДВ.04.11)](/course-programmes/rpd-c4646327-b1-v-dv-04-11-introduction-to-site-relia.md)
+- [Рабочая программа «Practicum Project / Прикладной проект» (Б1.О.21)](/course-programmes/rpd-6d1af273-b1-o-21-practicum-project-prikladnoy-pro.md)
+- [Рабочая программа «Product Solutions Engineering / Инженерия продуктовых решений» (Б1.В.ДВ.03.09)](/course-programmes/rpd-f1e24a5a-b1-v-dv-03-09-product-solutions-engineer.md)
+- [Рабочая программа «Psychology of IT-specialist / Психология ИТ-специалиста» (Б1.В.ДВ.03.10)](/course-programmes/rpd-82ad7d2e-b1-v-dv-03-10-psychology-of-itspecialist.md)
+- [Рабочая программа «Public Speaking in Business / Публичные выступления в бизнесе» (Б1.В.ДВ.03.11)](/course-programmes/rpd-3425715e-b1-v-dv-03-11-public-speaking-in-busines.md)
+- [Рабочая программа «RPG Game Design / Проектирование игр в жанре RPG» (Б1.В.ДВ.03.13)](/course-programmes/rpd-ad9d4fee-b1-v-dv-03-13-rpg-game-design-proektirov.md)
+- [Рабочая программа «Reading Skills for IT-specialist / Навыки чтения для ИТ-специалиста» (Б1.В.ДВ.03.12)](/course-programmes/rpd-2fa62824-b1-v-dv-03-12-reading-skills-for-itspeci.md)
+- [Рабочая программа «Real-Time Scheduling Theory / Теоретические основы систем реального времени» (Б1.В.ДВ.04.02)](/course-programmes/rpd-387a7151-b1-v-dv-04-02-realtime-scheduling-theory.md)
+- [Рабочая программа «Statistics with Applications / Прикладная статистика» (Б1.В.ДВ.04.12)](/course-programmes/rpd-50c7a1fd-b1-v-dv-04-12-statistics-with-applicatio.md)
+- [Рабочая программа «System Design of High-Load Applications / Системный дизайн высоконагруженных приложений» (Б1.В.ДВ.04.13)](/course-programmes/rpd-6b4885f5-b1-v-dv-04-13-system-design-of-highload.md)
+- [Рабочая программа «Tech Startup Design / Создание технологического стартап» (Б1.В.ДВ.03.03)](/course-programmes/rpd-150b95eb-b1-v-dv-03-03-tech-startup-design-sozdan.md)
+- [Рабочая программа «Technical Communication / Техническая коммуникация» (Б1.В.ДВ.04.06)](/course-programmes/rpd-3cf308b9-b1-v-dv-04-06-technical-communication-te.md)
+- [Рабочая программа «The Art of Negotiation / Искусство ведения переговоров» (Б1.В.ДВ.03.08)](/course-programmes/rpd-f0ba50ac-b1-v-dv-03-08-the-art-of-negotiation-isk.md)
+- [Рабочая программа «UX/UI Design / UX/UI Дизайн» (Б1.В.ДВ.03.15)](/course-programmes/rpd-d758e3f8-b1-v-dv-03-15-ux-ui-design-ux-ui-dizayn.md)
+- [Рабочая программа «Unit Economics / Юнит-экономика» (Б1.В.ДВ.03.14)](/course-programmes/rpd-4de88bfe-b1-v-dv-03-14-unit-economics-yunitekonom.md)
+- [Рабочая программа «Безопасность жизнедеятельности» (Б1.О.05)](/course-programmes/rpd-01216ccf-b1-o-05-bezopasnost-zhiznedeyatelnosti.md)
+- [Рабочая программа «Философия» (Б1.О.03)](/course-programmes/rpd-26c345bd-b1-o-03-filosofiya.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-398907c9-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## ПИШ, бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Инженерия информационных систем», набор 2024, 7 семестр
+
+- [Рабочая программа «Basics of Backend Development in Java / Основы backend-разработка на Java» (Б1.В.ДВ.15.02)](/course-programmes/rpd-2355b76b-b1-v-dv-15-02-basics-of-backend-developm.md)
+- [Рабочая программа «Big Data Analytics / Аналитика больших данных» (Б1.В.ДВ.15.10)](/course-programmes/rpd-26e7ffd6-b1-v-dv-15-10-big-data-analytics-analiti.md)
+- [Рабочая программа «Building Security Operations Centers (SOC) / Построение центров обнаружения атак» (Б1.В.ДВ.15.12)](/course-programmes/rpd-80965f30-b1-v-dv-15-12-building-security-operatio.md)
+- [Рабочая программа «Compilers Construction / Разработка компиляторов» (Б1.В.ДВ.13.01)](/course-programmes/rpd-77c768ba-b1-v-dv-13-01-compilers-construction-raz.md)
+- [Рабочая программа «Fundamentals of Information Security / Основные принципы информационной безопасности» (Б1.В.ДВ.14.02)](/course-programmes/rpd-91df0cd3-b1-v-dv-14-02-fundamentals-of-informatio.md)
+- [Рабочая программа «Industrial Development, Operation and Reliability of Software Systems / Промышленная разработка, эксплуатация и надежность программных систем» (Б1.В.ДВ.15.01)](/course-programmes/rpd-11f0d2c3-b1-v-dv-15-01-industrial-development-ope.md)
+- [Рабочая программа «Industrial IT Systems: From Idea to Operation / Промышленные ИТ- систем: от идеи до эксплуатации» (Б1.В.ДВ.15.15)](/course-programmes/rpd-e5f1b738-b1-v-dv-15-15-industrial-it-systems-from.md)
+- [Рабочая программа «Industrial Software Development in Python: Key Technologies and Approaches / Промышленная разработка ПО на Python: основные технологии и подходы» (Б1.В.ДВ.15.04)](/course-programmes/rpd-dabc7513-b1-v-dv-15-04-industrial-software-develo.md)
+- [Рабочая программа «Information Retrieval / Информационный поиск» (Б1.В.ДВ.06.01)](/course-programmes/rpd-cf111976-b1-v-dv-06-01-information-retrieval-info.md)
+- [Рабочая программа «Intro to Development of Multiplayer Games / Введение в разработку многопользовательских игр» (Б1.В.ДВ.15.13)](/course-programmes/rpd-a9f47988-b1-v-dv-15-13-intro-to-development-of-mu.md)
+- [Рабочая программа «Introduction to Adaptive and Efficient Machine Learning / Введение в адаптивное и эффективное машинное обучение» (Б1.В.ДВ.15.03)](/course-programmes/rpd-019b0e29-b1-v-dv-15-03-introduction-to-adaptive-a.md)
+- [Рабочая программа «Introduction to Computer Vision / Введение в компьютерное зрение» (Б1.В.ДВ.07.02)](/course-programmes/rpd-f6c1efbf-b1-v-dv-07-02-introduction-to-computer-v.md)
+- [Рабочая программа «Introduction to DevOps / Введение в интеграцию и автоматизацию процесса разработки ПО» (Б1.В.ДВ.15.08)](/course-programmes/rpd-3859fa06-b1-v-dv-15-08-introduction-to-devops-vve.md)
+- [Рабочая программа «Introduction to DevSecOps / Введение в интеграцию и автоматизацию безопасного процесса разработки ПО» (Б1.В.ДВ.15.09)](/course-programmes/rpd-4ad406c3-b1-v-dv-15-09-introduction-to-devsecops.md)
+- [Рабочая программа «Introduction to Game Projects and Teams / Введение в игровые проекты и команды» (Б1.В.ДВ.13.04)](/course-programmes/rpd-1d7102b8-b1-v-dv-13-04-introduction-to-game-proje.md)
+- [Рабочая программа «Introduction to Site Reliability Engineering (SRE) / Введение в практики обеспечения надёжности сервисов» (Б1.В.ДВ.15.06)](/course-programmes/rpd-3f307656-b1-v-dv-15-06-introduction-to-site-relia.md)
+- [Рабочая программа «Mechanics and Machines / Механика и механизмы» (Б1.В.ДВ.06.02)](/course-programmes/rpd-bd34bfb5-b1-v-dv-06-02-mechanics-and-machines-mek.md)
+- [Рабочая программа «Mechatronics / Мехатроника» (Б1.В.ДВ.14.03)](/course-programmes/rpd-deea1c60-b1-v-dv-14-03-mechatronics-mekhatronika.md)
+- [Рабочая программа «Network and Cyber Security / Сетевая и кибербезопасность» (Б1.В.ДВ.13.02)](/course-programmes/rpd-febb319a-b1-v-dv-13-02-network-and-cyber-security.md)
+- [Рабочая программа «Open Source Intelligence (OSINT) / Поиск по открытым источникам» (Б1.В.ДВ.15.07)](/course-programmes/rpd-938fe14e-b1-v-dv-15-07-open-source-intelligence-o.md)
+- [Рабочая программа «Postal Business Portal: How a Digital B2B Product Is Built and Evolves/ Почтовый бизнес-кабинет: как устроен и развивается цифровой продукт для бизнеса» (Б1.В.ДВ.15.14)](/course-programmes/rpd-90a0213f-b1-v-dv-15-14-postal-business-portal-how.md)
+- [Рабочая программа «Practical Machine Learning and Deep Learning / Прикладные технологии машинного и глубокого обучения» (Б1.В.ДВ.13.03)](/course-programmes/rpd-93fc033c-b1-v-dv-13-03-practical-machine-learning.md)
+- [Рабочая программа «Procedural Content Generation / Процедурная генерация контента» (Б1.В.ДВ.06.03)](/course-programmes/rpd-4eb9e39d-b1-v-dv-06-03-procedural-content-generat.md)
+- [Рабочая программа «Programming Paradigms / Парадигмы программирования» (Б1.В.ДВ.14.01)](/course-programmes/rpd-4047e0cd-b1-v-dv-14-01-programming-paradigms-para.md)
+- [Рабочая программа «Reinforcement Learning / Обучение с подкреплением» (Б1.В.ДВ.14.04)](/course-programmes/rpd-17569ec8-b1-v-dv-14-04-reinforcement-learning-obu.md)
+- [Рабочая программа «Robotics & Computer Vision Student Lab / Мастерская по робототехнике и компьютерному зрению (7 семестр)» (ФТД.03)](/course-programmes/rpd-b84dadd6-ftd-03-robotics-computer-vision-student.md)
+- [Рабочая программа «Security for Developers: Code, Data, People / Безопасность для разработчиков: код, данные, люди» (Б1.В.ДВ.15.05)](/course-programmes/rpd-0a603360-b1-v-dv-15-05-security-for-developers-co.md)
+- [Рабочая программа «Software Architecture / Архитектура программного обеспечения» (Б1.В.ДВ.07.01)](/course-programmes/rpd-e3d69d7c-b1-v-dv-07-01-software-architecture-arkh.md)
+- [Рабочая программа «Software Product Development and Analysis / Анализ и разработка продукта программного обеспечения» (Б1.В.ДВ.15.11)](/course-programmes/rpd-19256c15-b1-v-dv-15-11-software-product-developme.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-0b34c621-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
 ## ПИШ, бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Инженерия информационных систем», набор 2024, 8 семестр
 
 - [Рабочая программа «Academic Research and Writing Culture / Практика подготовки и написания научных работ на иностранном языке (8 семестр)» (Б1.О.23)](/course-programmes/rpd-011d205f-b1-o-23-academic-research-and-writing-cu.md)
@@ -158,6 +287,61 @@ Course programmes (РПД) by programme, cohort and semester. Back to [the wiki]
 - [Рабочая программа «Secure System Development / Разработка безопасных систем» (Б1.В.ДВ.08.02)](/course-programmes/rpd-ee8d93f1-b1-v-dv-08-02-secure-system-development.md)
 - [Рабочая программа «Software Quality, Reliability and Security / Качество, надежность и безопасность программного обеспечения» (Б1.В.04)](/course-programmes/rpd-605a2d8a-b1-v-04-software-quality-reliability-and.md)
 - [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-0a015f4b-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## ПИШ, бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Инженерия информационных систем», набор 2023, 1 семестр
+
+- [Рабочая программа «Analytical Geometry and Linear Algebra / Аналитическая геометрия и линейная алгебра (1 семестр)» (Б1.О.08)](/course-programmes/rpd-3c3fd9ba-b1-o-08-analytical-geometry-and-linear-a.md)
+- [Рабочая программа «Fundamentals of Computer Architecture / Основы компьютерной архитектуры» (Б1.О.06)](/course-programmes/rpd-4dce96fb-b1-o-06-fundamentals-of-computer-archite.md)
+- [Рабочая программа «Introduction to Programming / Введение в программирование» (Б1.О.09)](/course-programmes/rpd-3fd15c87-b1-o-09-introduction-to-programming-vved.md)
+- [Рабочая программа «Mathematical Analysis / Математический анализ (1 семестр)» (Б1.О.07)](/course-programmes/rpd-d47414ca-b1-o-07-mathematical-analysis-matematich.md)
+- [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (1 семестр)» (ФТД.01)](/course-programmes/rpd-f28c56d7-ftd-01-russian-as-a-foreign-language-rus.md)
+- [Рабочая программа «Иностранный язык (1 семестр)» (Б1.О.02)](/course-programmes/rpd-8ffa9c77-b1-o-02-inostrannyy-yazyk-1-semestr.md)
+- [Рабочая программа «Философия» (Б1.О.03)](/course-programmes/rpd-c49e7144-b1-o-03-filosofiya.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-0c4eaa94-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## ПИШ, бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Инженерия информационных систем», набор 2023, 2 семестр
+
+- [Рабочая программа «Analytical Geometry and Linear Algebra / Аналитическая геометрия и линейная алгебра (2 семестр)» (Б1.О.08)](/course-programmes/rpd-ce35d7c4-b1-o-08-analytical-geometry-and-linear-a.md)
+- [Рабочая программа «Data Structures and Algorithms / Алгоритмы и структуры данных» (Б1.О.10)](/course-programmes/rpd-415bd232-b1-o-10-data-structures-and-algorithms-a.md)
+- [Рабочая программа «Logic for problem solving / Логика решения задач» (ФТД.02)](/course-programmes/rpd-2173fec4-ftd-02-logic-for-problem-solving-logika.md)
+- [Рабочая программа «Mathematical Analysis / Математический анализ (2 семестр)» (Б1.О.07)](/course-programmes/rpd-d3399a97-b1-o-07-mathematical-analysis-matematich.md)
+- [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (2 семестр)» (ФТД.В.01)](/course-programmes/rpd-260ccaad-ftd-v-01-russian-as-a-foreign-language-r.md)
+- [Рабочая программа «Software Systems Analysis and Design / Проектирование и анализ программных систем» (Б1.О.12)](/course-programmes/rpd-7470841c-b1-o-12-software-systems-analysis-and-de.md)
+- [Рабочая программа «Theoretical Computer Science / Теоретические основы компьютерных наук» (Б1.О.11)](/course-programmes/rpd-58882a20-b1-o-11-theoretical-computer-science-teo.md)
+- [Рабочая программа «Иностранный язык (2 семестр)» (Б1.О.02)](/course-programmes/rpd-4bd886ca-b1-o-02-inostrannyy-yazyk-2-semestr.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-78934664-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## ПИШ, бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Инженерия информационных систем», набор 2023, 3 семестр
+
+- [Рабочая программа «Advanced С/С++ programming / Углубленное программирование на С/С++» (Б1.В.ДВ.02.01)](/course-programmes/rpd-103332fb-b1-v-dv-02-01-advanced-s-s-programming-u.md)
+- [Рабочая программа «Applied Economics: Introduction to IT Entrepreneurship / Прикладная экономика: введение в ИТ-предпринимательство» (Б1.В.ДВ.01.01)](/course-programmes/rpd-311e7566-b1-v-dv-01-01-applied-economics-introduc.md)
+- [Рабочая программа «Architecture of Computing Devices / Архитектура вычислительных устройств» (Б1.В.ДВ.02.02)](/course-programmes/rpd-66367a2e-b1-v-dv-02-02-architecture-of-computing.md)
+- [Рабочая программа «Basics of Product Management / Введение в управление продуктами» (Б1.В.ДВ.01.02)](/course-programmes/rpd-80db5133-b1-v-dv-01-02-basics-of-product-manageme.md)
+- [Рабочая программа «Branding and Marketing in IT industry / Брендинг и маркетинг в ИТ- индустрии» (Б1.В.ДВ.02.03)](/course-programmes/rpd-111f3830-b1-v-dv-02-03-branding-and-marketing-in.md)
+- [Рабочая программа «Career and Leadership / Развитие карьеры и лидерство» (Б1.В.ДВ.01.03)](/course-programmes/rpd-78aabac1-b1-v-dv-01-03-career-and-leadership-razv.md)
+- [Рабочая программа «Cross-platform Mobile Development with Flutter / Кросс-платформенная мобильная разработка с Flutter» (Б1.В.ДВ.02.04)](/course-programmes/rpd-a11cb89c-b1-v-dv-02-04-crossplatform-mobile-devel.md)
+- [Рабочая программа «Design-thinking / Дизайн-мышление» (Б1.В.ДВ.01.04)](/course-programmes/rpd-f0f46bb0-b1-v-dv-01-04-designthinking-dizaynmyshl.md)
+- [Рабочая программа «Front-end Web Development / Разработка пользовательских интерфейсов веб-приложений» (Б1.В.ДВ.02.05)](/course-programmes/rpd-ddbbd326-b1-v-dv-02-05-frontend-web-development-r.md)
+- [Рабочая программа «Introduction to 3D Modeling / Введение в 3D-моделирование» (Б1.В.ДВ.02.06)](/course-programmes/rpd-ee1c3c32-b1-v-dv-02-06-introduction-to-3d-modelin.md)
+- [Рабочая программа «Introduction to Career Development for IT-specialist / Введение в развитие карьеры ИТ-специалиста» (Б1.В.ДВ.01.05)](/course-programmes/rpd-05d04648-b1-v-dv-01-05-introduction-to-career-dev.md)
+- [Рабочая программа «Introduction to Mechanical Engineering / Введение в инженерное дело» (Б1.В.ДВ.02.07)](/course-programmes/rpd-afd22149-b1-v-dv-02-07-introduction-to-mechanical.md)
+- [Рабочая программа «Introduction to Robot Operating System / Введение в операционную систему для роботов» (Б1.В.ДВ.02.08)](/course-programmes/rpd-e8c1ea31-b1-v-dv-02-08-introduction-to-robot-oper.md)
+- [Рабочая программа «Lambda-Calculus, Algebra, Machinery and Logic for Formal Program Semantics / Лямбда-исчисление, алгебра, абстрактные машины и логика для формальной семантики программ» (Б1.В.ДВ.02.09)](/course-programmes/rpd-98e1c22a-b1-v-dv-02-09-lambdacalculus-algebra-mac.md)
+- [Рабочая программа «Personal Efficiency Skills of IT-specialist / Навыки личной эффективности ИТ-специалиста» (Б1.В.ДВ.01.06)](/course-programmes/rpd-4dcd993b-b1-v-dv-01-06-personal-efficiency-skills.md)
+- [Рабочая программа «Psychology of IT-specialist / Психология ИТ-специалиста» (Б1.В.ДВ.01.07)](/course-programmes/rpd-83ac285e-b1-v-dv-01-07-psychology-of-itspecialist.md)
+- [Рабочая программа «Public Speaking in Business / Публичные выступления в бизнесе» (Б1.В.ДВ.01.08)](/course-programmes/rpd-68323dc7-b1-v-dv-01-08-public-speaking-in-busines.md)
+- [Рабочая программа «Reading Skills for IT-specialist / Навыки чтения для ИТ-специалиста» (Б1.В.ДВ.01.09)](/course-programmes/rpd-76d8ff6d-b1-v-dv-01-09-reading-skills-for-itspeci.md)
+- [Рабочая программа «Real-Time Scheduling Theory / Теоретические основы систем реального времени» (Б1.В.ДВ.02.10)](/course-programmes/rpd-ab3f7fb8-b1-v-dv-02-10-realtime-scheduling-theory.md)
+- [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (3 семестр)» (ФТД.01)](/course-programmes/rpd-d711ebb7-ftd-01-russian-as-a-foreign-language-rus.md)
+- [Рабочая программа «Social Adaptation and Professional Rehabilitation of People with Disabilities in the IT Industry / Социальная адаптация и реабилитация инвалидов и лиц с ограниченными возможностями здоровья в сфере ИТ» (Б1.В.ДВ.01.13)](/course-programmes/rpd-a1bd1a88-b1-v-dv-01-13-social-adaptation-and-prof.md)
+- [Рабочая программа «Social Security and Legal Protection of Persons with Disabilities or Physical Conditions in the IT Industry / Социально-правовые гарантии инвалидов и лиц с ограниченными возможностями здоровья в сфере» (Б1.В.ДВ.01.14)](/course-programmes/rpd-fb76ecbb-b1-v-dv-01-14-social-security-and-legal.md)
+- [Рабочая программа «Software Project / Разработка программного продукта (проектная работа)» (Б1.О.13)](/course-programmes/rpd-02bbe917-b1-o-13-software-project-razrabotka-prog.md)
+- [Рабочая программа «Startup CEO Toolkit / Инструментарий СЕО стартапа» (Б1.В.ДВ.01.10)](/course-programmes/rpd-b447b525-b1-v-dv-01-10-startup-ceo-toolkit-instru.md)
+- [Рабочая программа «Tech Startup Design / Проектирование технологических стартапов» (Б1.В.ДВ.01.11)](/course-programmes/rpd-cc20b813-b1-v-dv-01-11-tech-startup-design-proekt.md)
+- [Рабочая программа «UX/UI Design / UX/UI Дизайн» (Б1.В.ДВ.01.12)](/course-programmes/rpd-3ece52c5-b1-v-dv-01-12-ux-ui-design-ux-ui-dizayn.md)
+- [Рабочая программа «История России» (Б1.О.04)](/course-programmes/rpd-a2052550-b1-o-04-istoriya-rossii.md)
+- [Рабочая программа «Физическая культура и спорт» (Б1.О.01)](/course-programmes/rpd-5f3152dd-b1-o-01-fizicheskaya-kultura-i-sport.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-d4b03d6d-b1-v-01-elektivnye-distsipliny-moduli-po.md)
 
 ## ПИШ, бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Инженерия информационных систем», набор 2023, 4 семестр
 
@@ -183,6 +367,37 @@ Course programmes (РПД) by programme, cohort and semester. Back to [the wiki]
 - [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (5 семестр)» (ФТД.В.01)](/course-programmes/rpd-3352a43a-ftd-v-01-russian-as-a-foreign-language-r.md)
 - [Рабочая программа «System and Network Administration / Системное и сетевое администрирование» (Б1.В.ДВ.10.01)](/course-programmes/rpd-1d6ad7be-b1-v-dv-10-01-system-and-network-adminis.md)
 - [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-35978c34-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## ПИШ, бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Инженерия информационных систем», набор 2023, 6 семестр
+
+- [Рабочая программа «Architecture of Computing Devices / Архитектура вычислительных устройств» (Б1.В.ДВ.04.06)](/course-programmes/rpd-3ce59600-b1-v-dv-04-06-architecture-of-computing.md)
+- [Рабочая программа «Basics of Product Management / Введение в управление продуктами» (Б1.В.ДВ.03.02)](/course-programmes/rpd-9c264803-b1-v-dv-03-02-basics-of-product-manageme.md)
+- [Рабочая программа «Branding and Marketing in IT industry / Брендинг и маркетинг в ИТ- индустрии» (Б1.В.ДВ.03.01)](/course-programmes/rpd-5496c36f-b1-v-dv-03-01-branding-and-marketing-in.md)
+- [Рабочая программа «Business Analysis in IT / Бизнес-анализ в ИТ» (Б1.В.ДВ.04.05)](/course-programmes/rpd-13dadaf3-b1-v-dv-04-05-business-analysis-in-it-bi.md)
+- [Рабочая программа «Business communications for IT-specialist / Деловые коммуникации для ИТ-специалиста» (Б1.В.ДВ.03.09)](/course-programmes/rpd-d1554ec6-b1-v-dv-03-09-business-communications-fo.md)
+- [Рабочая программа «Challenges of Object-Oriented Programming / Проблемы объектно- ориентированного программирования» (Б1.В.ДВ.04.10)](/course-programmes/rpd-ee3fdfb7-b1-v-dv-04-10-challenges-of-objectorient.md)
+- [Рабочая программа «Deep Learning for Search / Глубокое обучение для задач поиска» (Б1.В.ДВ.04.09)](/course-programmes/rpd-c44cd9ad-b1-v-dv-04-09-deep-learning-for-search-g.md)
+- [Рабочая программа «Design-thinking / Дизайн-мышление» (Б1.В.ДВ.03.07)](/course-programmes/rpd-31d4081f-b1-v-dv-03-07-designthinking-dizaynmyshl.md)
+- [Рабочая программа «Fundamentals of Computer Science in Lean 4 / Теоретические основы программирования с Lean 4» (Б1.В.ДВ.04.07)](/course-programmes/rpd-ece47483-b1-v-dv-04-07-fundamentals-of-computer-s.md)
+- [Рабочая программа «Golang & Flutter: Rapid Cross-Platform Development / Golang & Flutter: Быстрая кросс-платформенная разработка» (Б1.В.ДВ.04.03)](/course-programmes/rpd-bb6e2cb5-b1-v-dv-04-03-golang-flutter-rapid-cross.md)
+- [Рабочая программа «How to build an IT team / Построение ИТ-команды» (Б1.В.ДВ.03.06)](/course-programmes/rpd-073e86e0-b1-v-dv-03-06-how-to-build-an-it-team-po.md)
+- [Рабочая программа «Introduction to 3D Modeling / Введение в 3D-моделирование» (Б1.В.ДВ.04.04)](/course-programmes/rpd-6a9bedf6-b1-v-dv-04-04-introduction-to-3d-modelin.md)
+- [Рабочая программа «Introduction to Career Development for IT-specialist / Введение в развитие карьеры ИТ-специалиста» (Б1.В.ДВ.03.04)](/course-programmes/rpd-ebc1c06a-b1-v-dv-03-04-introduction-to-career-dev.md)
+- [Рабочая программа «Introduction to Robot Operating System / Введение в операционную систему для роботов» (Б1.В.ДВ.04.12)](/course-programmes/rpd-02a267f5-b1-v-dv-04-12-introduction-to-robot-oper.md)
+- [Рабочая программа «Practicum Project / Прикладной проект» (Б1.О.19)](/course-programmes/rpd-609a4980-b1-o-19-practicum-project-prikladnoy-pro.md)
+- [Рабочая программа «Product Solutions Engineering / Инженерия продуктовых решений» (Б1.В.ДВ.03.11)](/course-programmes/rpd-cc05e561-b1-v-dv-03-11-product-solutions-engineer.md)
+- [Рабочая программа «Programming in Python / Программирование на языке Python» (Б1.В.ДВ.04.01)](/course-programmes/rpd-56bf615a-b1-v-dv-04-01-programming-in-python-prog.md)
+- [Рабочая программа «Psychology of IT-specialist / Психология ИТ-специалиста» (Б1.В.ДВ.03.03)](/course-programmes/rpd-08815b42-b1-v-dv-03-03-psychology-of-itspecialist.md)
+- [Рабочая программа «Reading Skills for IT-specialist / Навыки чтения для ИТ-специалиста» (Б1.В.ДВ.03.08)](/course-programmes/rpd-646e5c03-b1-v-dv-03-08-reading-skills-for-itspeci.md)
+- [Рабочая программа «Real-Time Scheduling Theory / Теоретические основы систем реального времени» (Б1.В.ДВ.04.02)](/course-programmes/rpd-d5ffb72f-b1-v-dv-04-02-realtime-scheduling-theory.md)
+- [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (6 семестр)» (ФТД.В.01)](/course-programmes/rpd-4e1bde26-ftd-v-01-russian-as-a-foreign-language-r.md)
+- [Рабочая программа «Startup CEO Toolkit / Инструментарий СЕО стартапа» (Б1.В.ДВ.03.12)](/course-programmes/rpd-f75d08b1-b1-v-dv-03-12-startup-ceo-toolkit-instru.md)
+- [Рабочая программа «System Design of High-Load Applications / Системный дизайн высоконагруженных приложений» (Б1.В.ДВ.04.11)](/course-programmes/rpd-00efc801-b1-v-dv-04-11-system-design-of-highload.md)
+- [Рабочая программа «Tech Startup Design / Проектирование технологических стартапов» (Б1.В.ДВ.03.10)](/course-programmes/rpd-ff96a9b9-b1-v-dv-03-10-tech-startup-design-proekt.md)
+- [Рабочая программа «Technical Communication / Техническая коммуникация» (Б1.В.ДВ.04.08)](/course-programmes/rpd-8e8f0508-b1-v-dv-04-08-technical-communication-te.md)
+- [Рабочая программа «UX/UI Design / UX/UI Дизайн» (Б1.В.ДВ.03.05)](/course-programmes/rpd-64fe2c7a-b1-v-dv-03-05-ux-ui-design-ux-ui-dizayn.md)
+- [Рабочая программа «Безопасность жизнедеятельности» (Б1.О.05)](/course-programmes/rpd-5fa92ac4-b1-o-05-bezopasnost-zhiznedeyatelnosti.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-55216902-b1-v-01-elektivnye-distsipliny-moduli-po.md)
 
 ## ПИШ, бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Инженерия информационных систем», набор 2023, 7 семестр
 
@@ -315,6 +530,51 @@ Course programmes (РПД) by programme, cohort and semester. Back to [the wiki]
 - [Рабочая программа «Social Adaptation and Professional Rehabilitation of People with Disabilities in the IT Industry / Социальная адаптация и реабилитация инвалидов и лиц с ограниченными возможностями здоровья в сфере ИТ» (Б1.В.ДВ.01.04)](/course-programmes/rpd-a722f7c6-b1-v-dv-01-04-social-adaptation-and-prof.md)
 - [Рабочая программа «Social Security and Legal Protection of Persons with Disabilities or Physical Conditions in the IT Industry / Социально-правовые гарантии инвалидов и лиц с ограниченными возможностями здоровья в сфере» (Б1.В.ДВ.01.05)](/course-programmes/rpd-adac58d6-b1-v-dv-01-05-social-security-and-legal.md)
 - [Рабочая программа «Software System Development Using State-of-the-Art Artificial Intelligence Technologies (Project) / Разработка систем с использованием передовых технологий искусственного интеллекта (проектная работа)» (Б1.О.10)](/course-programmes/rpd-c9a50ae4-b1-o-10-software-system-development-usin.md)
+
+## ПИШ, магистратура 09.04.01 Информатика и вычислительная техника, профиль «Искусственный интеллект и инженерия данных», набор 2025, 1 семестр
+
+- [Рабочая программа «Applied Statistics and Experiments in Science and Engineering / Прикладная статистика и эксперименты в науке и инженерии» (Б1.О.01)](/course-programmes/rpd-e8635c09-b1-o-01-applied-statistics-and-experimen.md)
+- [Рабочая программа «High Dimentional Data Analysis / Анализ многомерных данных» (Б1.О.02)](/course-programmes/rpd-caae1ae7-b1-o-02-high-dimentional-data-analysis-a.md)
+- [Рабочая программа «Machine Learning / Машинное обучение» (Б1.О.03)](/course-programmes/rpd-1531e404-b1-o-03-machine-learning-mashinnoe-obuch.md)
+- [Рабочая программа «Optimization / Оптимизация» (Б1.О.04)](/course-programmes/rpd-c1abff63-b1-o-04-optimization-optimizatsiya.md)
+- [Рабочая программа «Research Methodology for Science and Engineering / Методология исследовательской деятельности в науке и инженерии» (Б1.В.01)](/course-programmes/rpd-03dde040-b1-v-01-research-methodology-for-science.md)
+- [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (1 семестр)» (ФТД.01)](/course-programmes/rpd-96da0645-ftd-01-russian-as-a-foreign-language-rus.md)
+
+## ПИШ, магистратура 09.04.01 Информатика и вычислительная техника, профиль «Искусственный интеллект и инженерия данных», набор 2025, 2 семестр
+
+- [Рабочая программа «Advanced Information Retrieval / Информационный поиск (углубленный курс)» (Б1.О.07)](/course-programmes/rpd-a6cbaca9-b1-o-07-advanced-information-retrieval-i.md)
+- [Рабочая программа «Advanced Machine Learning / Машинное обучение (углубленный курс)» (Б1.О.06)](/course-programmes/rpd-b47636d2-b1-o-06-advanced-machine-learning-mashin.md)
+- [Рабочая программа «Advanced Research and Writing Culture / Практика подготовки и написания научных работ на иностранном языке» (ФТД.02)](/course-programmes/rpd-4f5e1577-ftd-02-advanced-research-and-writing-cul.md)
+- [Рабочая программа «Advanced Statistics / Прикладная статистика (углубленный курс)» (Б1.О.05)](/course-programmes/rpd-e1719269-b1-o-05-advanced-statistics-prikladnaya.md)
+- [Рабочая программа «Big Data Technologies and Analytics / Технологии и анализ больших данных» (Б1.О.08)](/course-programmes/rpd-ed313130-b1-o-08-big-data-technologies-and-analyt.md)
+- [Рабочая программа «Reinforcement Learning and Intelligent Agents / Обучение с подкреплением и интеллектуальные агенты» (Б1.О.09)](/course-programmes/rpd-017445e8-b1-o-09-reinforcement-learning-and-intel.md)
+- [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (2 семестр)» (ФТД.01)](/course-programmes/rpd-b1c9fca0-ftd-01-russian-as-a-foreign-language-rus.md)
+
+## ПИШ, магистратура 09.04.01 Информатика и вычислительная техника, профиль «Искусственный интеллект и инженерия данных», набор 2025, 3 семестр
+
+- [Рабочая программа «Agentic AI / Агентный ИИ» (Б1.В.ДВ.02.04)](/course-programmes/rpd-f96bfd8c-b1-v-dv-02-04-agentic-ai-agentnyy-ii.md)
+- [Рабочая программа «Agentic AI / Агентный ИИ» (Б1.В.ДВ.03.04)](/course-programmes/rpd-e0047e49-b1-v-dv-03-04-agentic-ai-agentnyy-ii.md)
+- [Рабочая программа «Architecture of high-load systems (Advanced) / Архитектура высоконагруженных систем (углубленный курс)» (Б1.В.ДВ.02.02)](/course-programmes/rpd-d54554ef-b1-v-dv-02-02-architecture-of-highload-s.md)
+- [Рабочая программа «Architecture of high-load systems (Advanced) / Архитектура высоконагруженных систем (углубленный курс)» (Б1.В.ДВ.03.02)](/course-programmes/rpd-e036e902-b1-v-dv-03-02-architecture-of-highload-s.md)
+- [Рабочая программа «Cyberlaw: Data, Ethics and Digital Property / Киберправо: данные, этика и цифровая собственность» (Б1.В.ДВ.01.07)](/course-programmes/rpd-55c520b4-b1-v-dv-01-07-cyberlaw-data-ethics-and-d.md)
+- [Рабочая программа «Design-thinking / Дизайн-мышление» (Б1.В.ДВ.01.05)](/course-programmes/rpd-c4875049-b1-v-dv-01-05-designthinking-dizaynmyshl.md)
+- [Рабочая программа «DevOps Engineering (Advanced) / Интеграция и автоматизация процесса разработки ПО (углубленный курс)» (Б1.В.ДВ.02.01)](/course-programmes/rpd-9fab2497-b1-v-dv-02-01-devops-engineering-advance.md)
+- [Рабочая программа «DevOps Engineering (Advanced) / Интеграция и автоматизация процесса разработки ПО (углубленный курс)» (Б1.В.ДВ.03.01)](/course-programmes/rpd-7f5d5b7e-b1-v-dv-03-01-devops-engineering-advance.md)
+- [Рабочая программа «Efficient Processes in Software Development (Advanced) / Эффективные процессы в разработке программного обеспечения (углубленный курс)» (Б1.В.ДВ.02.03)](/course-programmes/rpd-369e1f99-b1-v-dv-02-03-efficient-processes-in-sof.md)
+- [Рабочая программа «Efficient Processes in Software Development (Advanced) / Эффективные процессы в разработке программного обеспечения (углубленный курс)» (Б1.В.ДВ.03.03)](/course-programmes/rpd-8b6a7eca-b1-v-dv-03-03-efficient-processes-in-sof.md)
+- [Рабочая программа «Financial Management in Digital Products / Финансовый менеджмент цифровых продуктов» (Б1.В.ДВ.01.06)](/course-programmes/rpd-7587cd1d-b1-v-dv-01-06-financial-management-in-di.md)
+- [Рабочая программа «IT team management / Управление ИТ-командой» (Б1.В.ДВ.01.01)](/course-programmes/rpd-c7657cc4-b1-v-dv-01-01-it-team-management-upravle.md)
+- [Рабочая программа «Models of Human Decision-Making / Модели принятия решений человеком» (Б1.В.ДВ.02.06)](/course-programmes/rpd-80ca7e23-b1-v-dv-02-06-models-of-human-decisionma.md)
+- [Рабочая программа «Models of Human Decision-Making / Модели принятия решений человеком» (Б1.В.ДВ.03.06)](/course-programmes/rpd-5c5cbcdf-b1-v-dv-03-06-models-of-human-decisionma.md)
+- [Рабочая программа «Negotiations and conflicts / Переговоры и конфликты» (Б1.В.ДВ.01.02)](/course-programmes/rpd-db3366ca-b1-v-dv-01-02-negotiations-and-conflicts.md)
+- [Рабочая программа «Public Speaking for IT-specialist (Advanced) / Публичные выступления в профессиональной деятельности ИТ-специалиста (углубленный курс)» (Б1.В.ДВ.01.04)](/course-programmes/rpd-02aaf55f-b1-v-dv-01-04-public-speaking-for-itspec.md)
+- [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (3 семестр)» (ФТД.01)](/course-programmes/rpd-5731a517-ftd-01-russian-as-a-foreign-language-rus.md)
+- [Рабочая программа «Social Adaptation and Professional Rehabilitation of People with Disabilities in the IT Industry / Социальная адаптация и реабилитация инвалидов и лиц с ограниченными возможностями здоровья в сфере ИТ» (Б1.В.ДВ.01.08)](/course-programmes/rpd-38feb02b-b1-v-dv-01-08-social-adaptation-and-prof.md)
+- [Рабочая программа «Social Security and Legal Protection of Persons with Disabilities or Physical Conditions in the IT Industry / Социально-правовые гарантии инвалидов и лиц с ограниченными возможностями здоровья в сфере» (Б1.В.ДВ.01.09)](/course-programmes/rpd-34f79b8b-b1-v-dv-01-09-social-security-and-legal.md)
+- [Рабочая программа «Software System Development Using State-of-the-Art Artificial Intelligence Technologies (Project) / Разработка систем с использованием передовых технологий искусственного интеллекта (проектная работа)» (Б1.О.10)](/course-programmes/rpd-400fa910-b1-o-10-software-system-development-usin.md)
+- [Рабочая программа «The Security and Interpretability of Machine Learning (Advanced) / Безопасность и интерпретируемость машинного обучения (углубленный курс)» (Б1.В.ДВ.02.05)](/course-programmes/rpd-59326d8c-b1-v-dv-02-05-the-security-and-interpret.md)
+- [Рабочая программа «The Security and Interpretability of Machine Learning (Advanced) / Безопасность и интерпретируемость машинного обучения (углубленный курс)» (Б1.В.ДВ.03.05)](/course-programmes/rpd-d2479b28-b1-v-dv-03-05-the-security-and-interpret.md)
+- [Рабочая программа «UX/UI Design / UX/UI Дизайн» (Б1.В.ДВ.01.03)](/course-programmes/rpd-9f9e90b1-b1-v-dv-01-03-ux-ui-design-ux-ui-dizayn.md)
 
 ## ПИШ, магистратура 09.04.01 Информатика и вычислительная техника, профиль «Программная инженерия», набор 2025, 1 семестр
 
@@ -534,6 +794,95 @@ Course programmes (РПД) by programme, cohort and semester. Back to [the wiki]
 - [Рабочая программа «Электрические машины и электроприводы» (ОП.11)](/course-programmes/rpd-fffc0153-op-11-elektricheskie-mashiny-i-elektropr.md)
 - [Рабочая программа «Электротехника» (ОП.04)](/course-programmes/rpd-fd76009a-op-04-elektrotekhnika-obshcheprofessiona.md)
 
+## СПО 15.02.10 Мехатроника и робототехника (по отраслям), набор 2025, 0 семестр
+
+- [Рабочая программа «Адаптивные информационные технологии в профессиональной деятельности» (ОП.02)](/course-programmes/rpd-7b50d3c7-op-02-adaptivnye-informatsionnye-tekhnol.md)
+- [Рабочая программа «Безопасность жизнедеятельности» (СГ.07)](/course-programmes/rpd-1e3d74df-sg-07-bezopasnost-zhiznedeyatelnosti.md)
+- [Рабочая программа «Биология»](/course-programmes/rpd-3ced369d-biologiya.md)
+- [Рабочая программа «Введение в специальность» (ДУП.02)](/course-programmes/rpd-22d99e20-dup-02-vvedenie-v-spetsialnost.md)
+- [Рабочая программа «Выполнение работ по рабочей профессии МиР Наладчик»](/course-programmes/rpd-382d130f-vypolnenie-rabot-po-rabochey-professii-m.md)
+- [Рабочая программа «География» (ОУП.11)](/course-programmes/rpd-29966a85-oup-11-geografiya.md)
+- [Рабочая программа «Индивидуальный проект» (ОУП.14)](/course-programmes/rpd-44ce76f6-oup-14-individualnyy-proekt.md)
+- [Рабочая программа «Инженерная и компьютерная графика» (ОП.03)](/course-programmes/rpd-4ced444f-op-03-inzhenernaya-i-kompyuternaya-grafi.md)
+- [Рабочая программа «Иностранный язык в профессиональной деятельности» (СГ.03)](/course-programmes/rpd-74071ff7-sg-03-inostrannyy-yazyk-v-professionalno.md)
+- [Рабочая программа «Иностранный язык» (ОУП.04)](/course-programmes/rpd-acb6cf0f-oup-04-inostrannyy-yazyk.md)
+- [Рабочая программа «Информатика» (ОУП.05)](/course-programmes/rpd-8fd7ee37-oup-05-informatika.md)
+- [Рабочая программа «Информационные технологии» (ОП.02)](/course-programmes/rpd-5e98b366-op-02-informatsionnye-tekhnologii.md)
+- [Рабочая программа «История России» (СГ.02)](/course-programmes/rpd-0c8f3dd1-sg-02-istoriya-rossii.md)
+- [Рабочая программа «История» (ОУП.09)](/course-programmes/rpd-2681b87c-oup-09-istoriya.md)
+- [Рабочая программа «Компьютерное моделирование» (ДУП.01)](/course-programmes/rpd-6c417263-dup-01-kompyuternoe-modelirovanie.md)
+- [Рабочая программа «Литература» (ОУП.02)](/course-programmes/rpd-4859ead0-oup-02-literatura.md)
+- [Рабочая программа «МЕТРОЛОГИЯ, СТАНДАРТИЗАЦИЯ И СЕРТИФИКАЦИЯ» (ОП.05)](/course-programmes/rpd-83ba8599-op-05-metrologiya-standartizatsiya-i-ser.md)
+- [Рабочая программа «Математика» (ОП.01)](/course-programmes/rpd-3761bba9-op-01-matematika.md)
+- [Рабочая программа «Математика» (ОУП.03)](/course-programmes/rpd-15eea1b3-oup-03-matematika.md)
+- [Рабочая программа «Математические методы решения прикладных профессиональных задач» (ОП.13)](/course-programmes/rpd-50103f69-op-13-matematicheskie-metody-resheniya-p.md)
+- [Рабочая программа «Материаловедение» (ОП.08)](/course-programmes/rpd-f3e272cd-op-08-materialovedenie.md)
+- [Рабочая программа «Монтаж, программирование и обслуживание робототехнических средств» (ПМ.03)](/course-programmes/rpd-bc550c93-pm-03-montazh-programmirovanie-i-obsluzh.md)
+- [Рабочая программа «ОСНОВЫ ФИНАНСОВОЙ ГРАМОТНОСТИ» (СГ.06)](/course-programmes/rpd-65e6284e-sg-06-osnovy-finansovoy-gramotnosti.md)
+- [Рабочая программа «Обществознание» (ОУП.10)](/course-programmes/rpd-3da9e682-oup-10-obshchestvoznanie.md)
+- [Рабочая программа «Основы автоматического управления» (ОП.10)](/course-programmes/rpd-760f2e6e-op-10-osnovy-avtomaticheskogo-upravleniy.md)
+- [Рабочая программа «Основы безопасности и защиты Родины» (ОУП.13)](/course-programmes/rpd-ace4618f-oup-13-osnovy-bezopasnosti-i-zashchity-r.md)
+- [Рабочая программа «Основы вычислительной техники» (ОП.09)](/course-programmes/rpd-3fde09fe-op-09-osnovy-vychislitelnoy-tekhniki.md)
+- [Рабочая программа «Основы философии» (СГ.01)](/course-programmes/rpd-d12b939c-sg-01-osnovy-filosofii.md)
+- [Рабочая программа «Охрана труда» (ОП.07)](/course-programmes/rpd-3d1ef90c-op-07-okhrana-truda.md)
+- [Рабочая программа «Психология общения» (СГ.05)](/course-programmes/rpd-8163ae04-sg-05-psikhologiya-obshcheniya.md)
+- [Рабочая программа «Разработка, моделирование и оптимизация работы систем промышленной автоматизации» (ПМ.05)](/course-programmes/rpd-b1808b01-pm-05-razrabotka-modelirovanie-i-optimiz.md)
+- [Рабочая программа «Русский язык» (ОУП.01)](/course-programmes/rpd-e68eb9f8-oup-01-russkiy-yazyk.md)
+- [Рабочая программа «СБОРКА, ПРОГРАММИРОВАНИЕ И ПУСКОНАЛАДКА МЕХАТРОННЫХ СИСТЕМ» (ПМ.01)](/course-programmes/rpd-a1a6b518-pm-01-sborka-programmirovanie-i-puskonal.md)
+- [Рабочая программа «ТЕХНИЧЕСКАЯ МЕХАНИКА» (ОП.06)](/course-programmes/rpd-099c8e61-op-06-tekhnicheskaya-mekhanika.md)
+- [Рабочая программа «Техническое обслуживание узлов и агрегатов мехатронных устройств и систем» (ПМ.02)](/course-programmes/rpd-9cecb8c9-pm-02-tekhnicheskoe-obsluzhivanie-uzlov.md)
+- [Рабочая программа «Физика»](/course-programmes/rpd-b7ac686d-fizika.md)
+- [Рабочая программа «Физическая культура» (ОУП.12)](/course-programmes/rpd-1691ec5f-oup-12-fizicheskaya-kultura.md)
+- [Рабочая программа «Физическая культура» (СГ.04)](/course-programmes/rpd-871eed93-sg-04-fizicheskaya-kultura.md)
+- [Рабочая программа «Химия» (ОУП.07)](/course-programmes/rpd-bc8fdf7b-oup-07-khimiya.md)
+- [Рабочая программа «Цифровая инженерия и проектное мышление» (ФТД.01)](/course-programmes/rpd-b1f396c8-ftd-01-tsifrovaya-inzheneriya-i-proektno.md)
+- [Рабочая программа «ЭЛЕМЕНТЫ ГИДРАВЛИЧЕСКИХ И ПНЕВМАТИЧЕСКИХ СИСТЕМ» (ОП.12)](/course-programmes/rpd-db7e1bfa-op-12-elementy-gidravlicheskikh-i-pnevma.md)
+- [Рабочая программа «Электрические машины и электроприводы» (ОП.11)](/course-programmes/rpd-49fb83e8-op-11-elektricheskie-mashiny-i-elektropr.md)
+- [Рабочая программа «Электротехника» (ОП.04)](/course-programmes/rpd-5681728e-op-04-elektrotekhnika.md)
+- [Фонд оценочных средств «Адаптивные информационные технологии» (ОП.03)](/course-programmes/rpd-380e37bc-op-03-adaptivnye-informatsionnye-tekhnol.md)
+- [Фонд оценочных средств «Безопасность жизнедеятельности» (СГ.07)](/course-programmes/rpd-9f78f349-sg-07-bezopasnost-zhiznedeyatelnosti.md)
+- [Фонд оценочных средств «Биология» (ОУП.08)](/course-programmes/rpd-c3322978-oup-08-biologiya.md)
+- [Фонд оценочных средств «Введение в специальность» (ДУП.02)](/course-programmes/rpd-1af0eeaa-dup-02-vvedenie-v-spetsialnost.md)
+- [Фонд оценочных средств «Выполнение работ по одной или нескольким профессиям рабочих, должностям служащих» (ПМ.04)](/course-programmes/rpd-f5807921-pm-04-vypolnenie-rabot-po-odnoy-ili-nesk.md)
+- [Фонд оценочных средств «География» (ОУП.11)](/course-programmes/rpd-9a573d9e-oup-11-geografiya.md)
+- [Фонд оценочных средств «Индивидуальный проект» (ОУП.14)](/course-programmes/rpd-962fa6d6-oup-14-individualnyy-proekt.md)
+- [Фонд оценочных средств «Инженерная и компьютерная графика» (ОП.03)](/course-programmes/rpd-48cf2671-op-03-inzhenernaya-i-kompyuternaya-grafi.md)
+- [Фонд оценочных средств «Иностранный язык в профессиональной деятельности» (СГ.03)](/course-programmes/rpd-ba92ad90-sg-03-inostrannyy-yazyk-v-professionalno.md)
+- [Фонд оценочных средств «Иностранный язык» (ОУП.04)](/course-programmes/rpd-5fcfc534-oup-04-inostrannyy-yazyk.md)
+- [Фонд оценочных средств «Информатика» (ОУП.05)](/course-programmes/rpd-45e16775-oup-05-informatika.md)
+- [Фонд оценочных средств «Информационные технологии» (ОП.02)](/course-programmes/rpd-265ecb8f-op-02-informatsionnye-tekhnologii.md)
+- [Фонд оценочных средств «История России» (СГ.02)](/course-programmes/rpd-f4310cfe-sg-02-istoriya-rossii.md)
+- [Фонд оценочных средств «История» (ОУП.09)](/course-programmes/rpd-6f7a9ab8-oup-09-istoriya.md)
+- [Фонд оценочных средств «Компьютерное моделирование» (ДУП.01)](/course-programmes/rpd-f58e0e72-dup-01-kompyuternoe-modelirovanie.md)
+- [Фонд оценочных средств «Литература» (ОУП.02)](/course-programmes/rpd-63ee1b2b-oup-02-literatura.md)
+- [Фонд оценочных средств «Математика» (ОП.01)](/course-programmes/rpd-1916e61a-op-01-matematika.md)
+- [Фонд оценочных средств «Математика» (ОУП.03)](/course-programmes/rpd-e8d5af84-oup-03-matematika.md)
+- [Фонд оценочных средств «Математические методы решения прикладных профессиональных задач» (ОП.13)](/course-programmes/rpd-d7298f13-op-13-matematicheskie-metody-resheniya-p.md)
+- [Фонд оценочных средств «Материаловедение» (ОП.08)](/course-programmes/rpd-4d570ebf-op-08-materialovedenie.md)
+- [Фонд оценочных средств «Метрология, стандартизация и сертификация» (ОП.05)](/course-programmes/rpd-a80ce319-op-05-metrologiya-standartizatsiya-i-ser.md)
+- [Фонд оценочных средств «Монтаж, программирование и обслуживание робототехнических средств» (ПМ.03)](/course-programmes/rpd-4587e872-pm-03-montazh-programmirovanie-i-obsluzh.md)
+- [Фонд оценочных средств «ОУП.13_ОБЗР» (ОУП.13)](/course-programmes/rpd-dbcc24d0-oup-13-oup-13-obzr.md)
+- [Фонд оценочных средств «Обществознание» (ОУП.10)](/course-programmes/rpd-f15098f4-oup-10-obshchestvoznanie.md)
+- [Фонд оценочных средств «Основы автоматического управления» (ОП.10)](/course-programmes/rpd-33e75d67-op-10-osnovy-avtomaticheskogo-upravleniy.md)
+- [Фонд оценочных средств «Основы вычислительной техники» (ОП.09)](/course-programmes/rpd-adc9d82c-op-09-osnovy-vychislitelnoy-tekhniki.md)
+- [Фонд оценочных средств «Основы философии» (СГ.01)](/course-programmes/rpd-f128d931-sg-01-osnovy-filosofii.md)
+- [Фонд оценочных средств «Основы финансовой грамотности» (СГ.06)](/course-programmes/rpd-699124e4-sg-06-osnovy-finansovoy-gramotnosti.md)
+- [Фонд оценочных средств «Охрана труда» (ОП.07)](/course-programmes/rpd-db9018ba-op-07-okhrana-truda.md)
+- [Фонд оценочных средств «Психология общения» (СГ.05)](/course-programmes/rpd-3f093df1-sg-05-psikhologiya-obshcheniya.md)
+- [Фонд оценочных средств «Разработка, моделирование и оптимизация работы систем промышленной автоматизации» (ПМ.05)](/course-programmes/rpd-286d76c3-pm-05-razrabotka-modelirovanie-i-optimiz.md)
+- [Фонд оценочных средств «Русский язык» (ОУП.01)](/course-programmes/rpd-afaefcff-oup-01-russkiy-yazyk.md)
+- [Фонд оценочных средств «Сборка, программирование и пусконаладка мехатронных систем» (ПМ.01)](/course-programmes/rpd-7748f02b-pm-01-sborka-programmirovanie-i-puskonal.md)
+- [Фонд оценочных средств «Техническая механика» (ОП.06)](/course-programmes/rpd-ed2db83e-op-06-tekhnicheskaya-mekhanika.md)
+- [Фонд оценочных средств «Техническое обслуживание узлов и агрегатов мехатронных устройств и систем» (ПМ.02)](/course-programmes/rpd-be23e10a-pm-02-tekhnicheskoe-obsluzhivanie-uzlov.md)
+- [Фонд оценочных средств «Физика» (ОУП.06)](/course-programmes/rpd-1b3a2fa7-oup-06-fizika.md)
+- [Фонд оценочных средств «Физическая культура» (ОУП.12)](/course-programmes/rpd-b77c9056-oup-12-fizicheskaya-kultura.md)
+- [Фонд оценочных средств «Физическая культура» (СГ.04)](/course-programmes/rpd-830fc3fd-sg-04-fizicheskaya-kultura.md)
+- [Фонд оценочных средств «Химия» (ОУП.07)](/course-programmes/rpd-8d175af7-oup-07-khimiya.md)
+- [Фонд оценочных средств «Цифровая инженерия и проектное мышление» (ФТД.01)](/course-programmes/rpd-18c29e63-ftd-01-tsifrovaya-inzheneriya-i-proektno.md)
+- [Фонд оценочных средств «Электрические машины и электроприводы» (ОП.11)](/course-programmes/rpd-14768436-op-11-elektricheskie-mashiny-i-elektropr.md)
+- [Фонд оценочных средств «Электротехника» (ОП.04)](/course-programmes/rpd-527093d3-op-04-elektrotekhnika.md)
+- [Фонд оценочных средств «Элементы гидравл и пневмат систем» (ОП.12)](/course-programmes/rpd-45ced354-op-12-elementy-gidravl-i-pnevmat-sistem.md)
+
 ## аспирантура 1.2.2. Математическое моделирование, численные методы и комплексы программ, набор 2026, 0 семестр
 
 - [Рабочая программа «2.1.5 (Ф) Технологии численного моделирования систем -базис научной специализации»](/course-programmes/rpd-606e0e19-2-1-5-f-tekhnologii-chislennogo-modeliro.md)
@@ -541,6 +890,22 @@ Course programmes (РПД) by programme, cohort and semester. Back to [the wiki]
 - [Рабочая программа «История и философия науки»](/course-programmes/rpd-86d384f0-istoriya-i-filosofiya-nauki.md)
 - [Рабочая программа «Математическое моделирование численные методы и комплексы программ»](/course-programmes/rpd-49ded1f5-matematicheskoe-modelirovanie-chislennye.md)
 - [Рабочая программа «Научные исследования и подготовка диссертации методология, организация, практика»](/course-programmes/rpd-91597723-nauchnye-issledovaniya-i-podgotovka-diss.md)
+
+## аспирантура 1.2.2. Математическое моделирование, численные методы и комплексы программ, набор 2025, 0 семестр
+
+- [Рабочая программа «2.1.5 (Ф) Технологии численного моделирования систем -базис научной специализации»](/course-programmes/rpd-0b4c2477-2-1-5-f-tekhnologii-chislennogo-modeliro.md)
+- [Рабочая программа «Иностранный язык»](/course-programmes/rpd-73b0457d-inostrannyy-yazyk.md)
+- [Рабочая программа «История и философия науки»](/course-programmes/rpd-2c2b6064-istoriya-i-filosofiya-nauki.md)
+- [Рабочая программа «Математическое моделирование численные методы и комплексы программ»](/course-programmes/rpd-b41b666c-matematicheskoe-modelirovanie-chislennye.md)
+- [Рабочая программа «Научные исследования и подготовка диссертации методология, организация, практика»](/course-programmes/rpd-65b81e77-nauchnye-issledovaniya-i-podgotovka-diss.md)
+
+## аспирантура 1.2.2. Математическое моделирование, численные методы и комплексы программ, набор 2024, 0 семестр
+
+- [Рабочая программа «2.1.5 (Ф) Технологии численного моделирования систем -базис научной специальности»](/course-programmes/rpd-9c2c5521-2-1-5-f-tekhnologii-chislennogo-modeliro.md)
+- [Рабочая программа «Иностранный язык»](/course-programmes/rpd-53fe6dc7-inostrannyy-yazyk.md)
+- [Рабочая программа «История и философия науки»](/course-programmes/rpd-9108d9db-istoriya-i-filosofiya-nauki.md)
+- [Рабочая программа «Математическое моделирование численные методы и комплексы программ»](/course-programmes/rpd-3a84a2f8-matematicheskoe-modelirovanie-chislennye.md)
+- [Рабочая программа «Научные исследования и подготовка диссертации метдология, организация, практика»](/course-programmes/rpd-a5a6b9dc-nauchnye-issledovaniya-i-podgotovka-diss.md)
 
 ## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «AI360: Инженерия данных», набор 2026, 2 семестр
 
@@ -631,6 +996,34 @@ Course programmes (РПД) by programme, cohort and semester. Back to [the wiki]
 - [Рабочая программа «Распределенные системы и связующее ПО: паттерны и фрэймворки» (Б1.В.ДВ.13.02)](/course-programmes/rpd-5517af35-b1-v-dv-13-02-raspredelennye-sistemy-i-s.md)
 - [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-ae84283a-b1-v-01-elektivnye-distsipliny-moduli-po.md)
 
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «AI360: Инженерия данных», набор 2025, 1 семестр
+
+- [Рабочая программа «Алгоритмы и структуры данных (1 семестр)» (Б1.О.05)](/course-programmes/rpd-f93f403a-b1-o-05-algoritmy-i-struktury-dannykh-1.md)
+- [Рабочая программа «Аналитическая геометрия и линейная алгебра» (Б1.О.02)](/course-programmes/rpd-ecf5b041-b1-o-02-analiticheskaya-geometriya-i-lin.md)
+- [Рабочая программа «Безопасность жизнедеятельности» (Б1.О.11)](/course-programmes/rpd-3f488b52-b1-o-11-bezopasnost-zhiznedeyatelnosti.md)
+- [Рабочая программа «Введение в комбинаторику и дискретную математику» (Б1.О.03)](/course-programmes/rpd-57dd2fca-b1-o-03-vvedenie-v-kombinatoriku-i-diskr.md)
+- [Рабочая программа «Иностранный язык (1 семестр)» (Б1.О.04)](/course-programmes/rpd-2728a75e-b1-o-04-inostrannyy-yazyk-1-semestr.md)
+- [Рабочая программа «Математический анализ (1 семестр)» (Б1.О.07)](/course-programmes/rpd-0329a5a4-b1-o-07-matematicheskiy-analiz-1-semestr.md)
+- [Рабочая программа «Общая физика (1 семестр)» (ФТД.01)](/course-programmes/rpd-b66d7103-ftd-01-obshchaya-fizika-1-semestr.md)
+- [Рабочая программа «Основы и методология программирования (1 семестр)» (Б1.О.12)](/course-programmes/rpd-58c3f2b3-b1-o-12-osnovy-i-metodologiya-programmir.md)
+- [Рабочая программа «Программирование на языке Python (1 семестр)» (Б1.О.06)](/course-programmes/rpd-94a4d44b-b1-o-06-programmirovanie-na-yazyke-pytho.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-b94b118c-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «AI360: Инженерия данных», набор 2025, 2 семестр
+
+- [Рабочая программа «Алгоритмы и структуры данных (2 семестр)» (Б1.О.05)](/course-programmes/rpd-b1343bed-b1-o-05-algoritmy-i-struktury-dannykh-2.md)
+- [Рабочая программа «Вычислительная линейная алгебра» (Б1.О.08)](/course-programmes/rpd-0821580c-b1-o-08-vychislitelnaya-lineynaya-algebr.md)
+- [Рабочая программа «Данные: от получения до понимания структуры» (Б1.О.13)](/course-programmes/rpd-12a1b7f2-b1-o-13-dannye-ot-polucheniya-do-poniman.md)
+- [Рабочая программа «Дискретная математика» (Б1.О.09)](/course-programmes/rpd-e59df131-b1-o-09-diskretnaya-matematika.md)
+- [Рабочая программа «Иностранный язык (2 семестр)» (Б1.О.04)](/course-programmes/rpd-4070fd1d-b1-o-04-inostrannyy-yazyk-2-semestr.md)
+- [Рабочая программа «Логика решения задач» (ФТД.02)](/course-programmes/rpd-a8d50636-ftd-02-logika-resheniya-zadach.md)
+- [Рабочая программа «Математический анализ (2 семестр)» (Б1.О.07)](/course-programmes/rpd-5949194e-b1-o-07-matematicheskiy-analiz-2-semestr.md)
+- [Рабочая программа «Общая физика (2 семестр)» (ФТД.01)](/course-programmes/rpd-5cc57058-ftd-01-obshchaya-fizika-2-semestr.md)
+- [Рабочая программа «Основы и методология программирования (2 семестр)» (Б1.О.12)](/course-programmes/rpd-3c66b618-b1-o-12-osnovy-i-metodologiya-programmir.md)
+- [Рабочая программа «Программирование на языке Python (2 семестр)» (Б1.О.06)](/course-programmes/rpd-efedf2c8-b1-o-06-programmirovanie-na-yazyke-pytho.md)
+- [Рабочая программа «Философия» (Б1.О.10)](/course-programmes/rpd-3a0751c2-b1-o-10-filosofiya.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-3b51a586-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
 ## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «AI360: Инженерия данных», набор 2025, 3 семестр
 
 - [Рабочая программа «Аналитические и компьютерные модели» (Б1.В.ДВ.01.03)](/course-programmes/rpd-fa3f87ab-b1-v-dv-01-03-analiticheskie-i-kompyuter.md)
@@ -666,6 +1059,44 @@ Course programmes (РПД) by programme, cohort and semester. Back to [the wiki]
 - [Рабочая программа «Экономические механизмы и их наиболее актуальные приложения» (Б1.В.ДВ.04.02)](/course-programmes/rpd-4fb07d8f-b1-v-dv-04-02-ekonomicheskie-mekhanizmy.md)
 - [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-621eb54b-b1-v-01-elektivnye-distsipliny-moduli-po.md)
 
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «AI360: Инженерия данных», набор 2025, 5 семестр
+
+- [Рабочая программа «UX/UI Дизайн» (Б1.В.ДВ.06.01)](/course-programmes/rpd-8c820486-b1-v-dv-06-01-ux-ui-dizayn.md)
+- [Рабочая программа «Введение в машинное обучение» (Б1.О.24)](/course-programmes/rpd-273b1c57-b1-o-24-vvedenie-v-mashinnoe-obuchenie.md)
+- [Рабочая программа «Высокопроизводительные вычисления» (Б1.В.ДВ.05.02)](/course-programmes/rpd-a028ee77-b1-v-dv-05-02-vysokoproizvoditelnye-vych.md)
+- [Рабочая программа «Вычислительная математика (углубленный курс)» (Б1.О.25)](/course-programmes/rpd-6a03b1a6-b1-o-25-vychislitelnaya-matematika-uglub.md)
+- [Рабочая программа «ИИ проект (5 семестр)» (Б1.О.30)](/course-programmes/rpd-74d25827-b1-o-30-ii-proekt-5-semestr.md)
+- [Рабочая программа «Построение ИТ-команды» (Б1.В.ДВ.06.02)](/course-programmes/rpd-d1d0e716-b1-v-dv-06-02-postroenie-itkomandy.md)
+- [Рабочая программа «Прикладная статистика в анализе данных» (Б1.О.22)](/course-programmes/rpd-b32b69ed-b1-o-22-prikladnaya-statistika-v-analize.md)
+- [Рабочая программа «Сетевые динамические модели: анализ и управление» (Б1.В.ДВ.05.01)](/course-programmes/rpd-4afcfcea-b1-v-dv-05-01-setevye-dinamicheskie-mode.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-7001c1e2-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+- [Рабочая программа «Эффективные алгоритмы для труднорешаемых задач» (Б1.О.23)](/course-programmes/rpd-d2aede56-b1-o-23-effektivnye-algoritmy-dlya-trudn.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «AI360: Инженерия данных», набор 2025, 6 семестр
+
+- [Рабочая программа «Введение в генеративное моделирование» (Б1.В.ДВ.07.01)](/course-programmes/rpd-faa4ccd7-b1-v-dv-07-01-vvedenie-v-generativnoe-mo.md)
+- [Рабочая программа «Глубокое обучение» (Б1.О.28)](/course-programmes/rpd-ce809060-b1-o-28-glubokoe-obuchenie.md)
+- [Рабочая программа «Децентрализованная оптимизация, транспортные задачи, спектральные свойства графов» (Б1.В.ДВ.08.02)](/course-programmes/rpd-79fc5344-b1-v-dv-08-02-detsentralizovannaya-optim.md)
+- [Рабочая программа «Диффузионные модели» (Б1.В.ДВ.07.02)](/course-programmes/rpd-e8fe9494-b1-v-dv-07-02-diffuzionnye-modeli.md)
+- [Рабочая программа «Доверенный ИИ» (Б1.О.31)](/course-programmes/rpd-a7593b1f-b1-o-31-doverennyy-ii.md)
+- [Рабочая программа «ИИ проект (6 семестр)» (Б1.О.30)](/course-programmes/rpd-454d1075-b1-o-30-ii-proekt-6-semestr.md)
+- [Рабочая программа «Математические основы ИИ» (Б1.О.27)](/course-programmes/rpd-e1d0c824-b1-o-27-matematicheskie-osnovy-ii.md)
+- [Рабочая программа «Машинное обучение» (Б1.О.26)](/course-programmes/rpd-af0e2df1-b1-o-26-mashinnoe-obuchenie.md)
+- [Рабочая программа «Методы обработки и генерации текста и речи» (Б1.О.29)](/course-programmes/rpd-71c6e46c-b1-o-29-metody-obrabotki-i-generatsii-te.md)
+- [Рабочая программа «Обучение с подкреплением» (Б1.В.ДВ.08.01)](/course-programmes/rpd-f4637591-b1-v-dv-08-01-obuchenie-s-podkrepleniem.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-d75d5866-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «AI360: Инженерия данных», набор 2025, 7 семестр
+
+- [Рабочая программа «Введение в 3D-моделирование» (Б1.В.ДВ.10.02)](/course-programmes/rpd-8fdbc9c7-b1-v-dv-10-02-vvedenie-v-3dmodelirovanie.md)
+- [Рабочая программа «Введение в функциональное программирование на языке Scala» (Б1.В.ДВ.11.01)](/course-programmes/rpd-2fc0909e-b1-v-dv-11-01-vvedenie-v-funktsionalnoe.md)
+- [Рабочая программа «ИИ проект (7 семестр)» (Б1.О.30)](/course-programmes/rpd-9fe14db8-b1-o-30-ii-proekt-7-semestr.md)
+- [Рабочая программа «Компьютерное зрение и обработка видео» (Б1.В.ДВ.09.02)](/course-programmes/rpd-42a98344-b1-v-dv-09-02-kompyuternoe-zrenie-i-obra.md)
+- [Рабочая программа «Математическая логика для ИИ» (Б1.В.ДВ.09.01)](/course-programmes/rpd-c7d3545b-b1-v-dv-09-01-matematicheskaya-logika-dl.md)
+- [Рабочая программа «Промышленная разработка ПО на Javascript (углубленный курс)» (Б1.В.ДВ.11.02)](/course-programmes/rpd-5d0d79ee-b1-v-dv-11-02-promyshlennaya-razrabotka.md)
+- [Рабочая программа «Углубленное программирование на С/С++» (Б1.В.ДВ.10.01)](/course-programmes/rpd-8a2f2acf-b1-v-dv-10-01-uglublennoe-programmirovan.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-33bfe9a8-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
 ## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «AI360: Инженерия данных», набор 2025, 8 семестр
 
 - [Рабочая программа «Введение в нейронауки» (Б1.В.ДВ.14.01)](/course-programmes/rpd-0e71b528-b1-v-dv-14-01-vvedenie-v-neyronauki.md)
@@ -689,6 +1120,92 @@ Course programmes (РПД) by programme, cohort and semester. Back to [the wiki]
 - [Рабочая программа «Практика подготовки и написания научных работ» (ФТД.01)](/course-programmes/rpd-00f2ac24-ftd-01-praktika-podgotovki-i-napisaniya.md)
 - [Рабочая программа «Программирование на языке Python (1 семестр)» (Б1.О.06)](/course-programmes/rpd-bf34ec1e-b1-o-06-programmirovanie-na-yazyke-pytho.md)
 - [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-3dfe3639-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «AI360: Инженерия данных», набор 2024, 3 семестр
+
+- [Рабочая программа «Безопасность жизнедеятельности» (Б1.О.11)](/course-programmes/rpd-1d4ea67f-b1-o-11-bezopasnost-zhiznedeyatelnosti.md)
+- [Рабочая программа «Введение в машинное обучение» (Б1.О.22)](/course-programmes/rpd-00a33b78-b1-o-22-vvedenie-v-mashinnoe-obuchenie.md)
+- [Рабочая программа «Введение в оптимизацию и численные методы оптимизации» (Б1.О.13)](/course-programmes/rpd-4fa0be41-b1-o-13-vvedenie-v-optimizatsiyu-i-chisl.md)
+- [Рабочая программа «Введение в функциональный анализ» (Б1.В.ДВ.01.02)](/course-programmes/rpd-8520a07b-b1-v-dv-01-02-vvedenie-v-funktsionalnyy.md)
+- [Рабочая программа «Данные: от получения до понимания структуры» (Б1.О.29)](/course-programmes/rpd-5f0be810-b1-o-29-dannye-ot-polucheniya-do-poniman.md)
+- [Рабочая программа «Математический анализ (3 семестр)» (Б1.О.07)](/course-programmes/rpd-0a0e9c1e-b1-o-07-matematicheskiy-analiz-3-semestr.md)
+- [Рабочая программа «Обыкновенные дифференциальные уравнения» (Б1.О.12)](/course-programmes/rpd-bfca5ee4-b1-o-12-obyknovennye-differentsialnye-ur.md)
+- [Рабочая программа «Прикладная математика: искусство и ремесло вычислений» (Б1.В.ДВ.01.03)](/course-programmes/rpd-0c63248e-b1-v-dv-01-03-prikladnaya-matematika-isk.md)
+- [Рабочая программа «Программирование на С++ (3 семестр)» (Б1.О.31)](/course-programmes/rpd-d8cb3991-b1-o-31-programmirovanie-na-s-3-semestr.md)
+- [Рабочая программа «Теория вероятностей» (Б1.О.14)](/course-programmes/rpd-f86bbcac-b1-o-14-teoriya-veroyatnostey.md)
+- [Рабочая программа «Теория информации» (Б1.В.ДВ.01.01)](/course-programmes/rpd-dafb5962-b1-v-dv-01-01-teoriya-informatsii.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-63c12774-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «AI360: Инженерия данных», набор 2024, 4 семестр
+
+- [Рабочая программа «CPython (продвинутый курс)» (Б1.В.ДВ.13.05)](/course-programmes/rpd-b8943229-b1-v-dv-13-05-cpython-prodvinutyy-kurs.md)
+- [Рабочая программа «Актуальные исследования в области ИИ» (Б1.О.33)](/course-programmes/rpd-0c613cef-b1-o-33-aktualnye-issledovaniya-v-oblast.md)
+- [Рабочая программа «Архитектура компьютера и операционные системы» (Б1.О.32)](/course-programmes/rpd-fe13e966-b1-o-32-arkhitektura-kompyutera-i-operat.md)
+- [Рабочая программа «Введение в интеграцию и автоматизацию процесса разработки ПО» (Б1.В.ДВ.13.01)](/course-programmes/rpd-3ca9de81-b1-v-dv-13-01-vvedenie-v-integratsiyu-i.md)
+- [Рабочая программа «Введение в теорию управляемых систем» (Б1.В.ДВ.02.03)](/course-programmes/rpd-201f9a1b-b1-v-dv-02-03-vvedenie-v-teoriyu-upravly.md)
+- [Рабочая программа «Высокопроизводительные вычисления» (Б1.В.ДВ.13.02)](/course-programmes/rpd-8d736369-b1-v-dv-13-02-vysokoproizvoditelnye-vych.md)
+- [Рабочая программа «Вычислительная математика» (Б1.О.16)](/course-programmes/rpd-fddedcad-b1-o-16-vychislitelnaya-matematika.md)
+- [Рабочая программа «Дифференциальные уравнения в частных производных» (Б1.В.ДВ.02.01)](/course-programmes/rpd-74f795f6-b1-v-dv-02-01-differentsialnye-uravneniy.md)
+- [Рабочая программа «Математическая статистика» (Б1.О.17)](/course-programmes/rpd-39905d4c-b1-o-17-matematicheskaya-statistika.md)
+- [Рабочая программа «Математические основы квантовых вычислений» (Б1.В.ДВ.02.04)](/course-programmes/rpd-d1d9d256-b1-v-dv-02-04-matematicheskie-osnovy-kva.md)
+- [Рабочая программа «Машинное обучение» (Б1.О.24)](/course-programmes/rpd-fb8a3a19-b1-o-24-mashinnoe-obuchenie.md)
+- [Рабочая программа «Основы математического и компьютерного моделирования» (Б1.В.ДВ.02.06)](/course-programmes/rpd-aa3f18a3-b1-v-dv-02-06-osnovy-matematicheskogo-i.md)
+- [Рабочая программа «Основы робототехники» (Б1.В.ДВ.13.03)](/course-programmes/rpd-6fc43d7b-b1-v-dv-13-03-osnovy-robototekhniki.md)
+- [Рабочая программа «Прикладная математика: искусство и ремесло вычислений (углубленный курс)» (Б1.В.ДВ.02.05)](/course-programmes/rpd-79bef9f0-b1-v-dv-02-05-prikladnaya-matematika-isk.md)
+- [Рабочая программа «Программирование на С++ (4 семестр)» (Б1.О.31)](/course-programmes/rpd-b31da9e5-b1-o-31-programmirovanie-na-s-4-semestr.md)
+- [Рабочая программа «Современные численные методы оптимизации в обучении» (Б1.О.18)](/course-programmes/rpd-498bd241-b1-o-18-sovremennye-chislennye-metody-op.md)
+- [Рабочая программа «Теория случайных процессов» (Б1.О.19)](/course-programmes/rpd-cd8fa15b-b1-o-19-teoriya-sluchaynykh-protsessov.md)
+- [Рабочая программа «Углубленный Python» (Б1.В.ДВ.13.06)](/course-programmes/rpd-6a29006e-b1-v-dv-13-06-uglublennyy-python.md)
+- [Рабочая программа «Функциональное программирование на Haskell» (Б1.В.ДВ.13.04)](/course-programmes/rpd-e4c255e1-b1-v-dv-13-04-funktsionalnoe-programmiro.md)
+- [Рабочая программа «Функциональный анализ» (Б1.В.ДВ.02.02)](/course-programmes/rpd-357d81ef-b1-v-dv-02-02-funktsionalnyy-analiz.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-5ece4566-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «AI360: Инженерия данных», набор 2024, 5 семестр
+
+- [Рабочая программа «UX/UI Дизайн» (Б1.В.ДВ.04.01)](/course-programmes/rpd-e50c95da-b1-v-dv-04-01-ux-ui-dizayn.md)
+- [Рабочая программа «Высокопроизводительные вычисления» (Б1.В.ДВ.03.02)](/course-programmes/rpd-fc2d19c3-b1-v-dv-03-02-vysokoproizvoditelnye-vych.md)
+- [Рабочая программа «Вычислительная математика (углубленный курс)» (Б1.О.23)](/course-programmes/rpd-00075b3c-b1-o-23-vychislitelnaya-matematika-uglub.md)
+- [Рабочая программа «ИИ проект (5 семестр)» (Б1.О.28)](/course-programmes/rpd-b3a06bcd-b1-o-28-ii-proekt-5-semestr.md)
+- [Рабочая программа «Построение ИТ-команды» (Б1.В.ДВ.04.02)](/course-programmes/rpd-c71bda46-b1-v-dv-04-02-postroenie-itkomandy.md)
+- [Рабочая программа «Прикладная статистика в анализе данных» (Б1.О.20)](/course-programmes/rpd-68c4712a-b1-o-20-prikladnaya-statistika-v-analize.md)
+- [Рабочая программа «Сетевые динамические модели: анализ и управление» (Б1.В.ДВ.03.01)](/course-programmes/rpd-75561f4e-b1-v-dv-03-01-setevye-dinamicheskie-mode.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-cde3f707-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+- [Рабочая программа «Эффективные алгоритмы для труднорешаемых задач» (Б1.О.21)](/course-programmes/rpd-d67a69b7-b1-o-21-effektivnye-algoritmy-dlya-trudn.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «AI360: Инженерия данных», набор 2024, 6 семестр
+
+- [Рабочая программа «Введение в генеративное моделирование» (Б1.В.ДВ.05.01)](/course-programmes/rpd-3ba331ce-b1-v-dv-05-01-vvedenie-v-generativnoe-mo.md)
+- [Рабочая программа «Глубокое обучение» (Б1.О.26)](/course-programmes/rpd-7699d005-b1-o-26-glubokoe-obuchenie.md)
+- [Рабочая программа «Децентрализованная оптимизация, транспортные задачи, спектральные свойства графов» (Б1.В.ДВ.06.02)](/course-programmes/rpd-e54aaaf6-b1-v-dv-06-02-detsentralizovannaya-optim.md)
+- [Рабочая программа «Диффузионные модели» (Б1.В.ДВ.05.02)](/course-programmes/rpd-0157c3e7-b1-v-dv-05-02-diffuzionnye-modeli.md)
+- [Рабочая программа «ИИ проект (6 семестр)» (Б1.О.28)](/course-programmes/rpd-ba003d5f-b1-o-28-ii-proekt-6-semestr.md)
+- [Рабочая программа «Математические основы ИИ» (Б1.О.25)](/course-programmes/rpd-8b784795-b1-o-25-matematicheskie-osnovy-ii.md)
+- [Рабочая программа «Методы обработки и генерации текста и речи» (Б1.О.27)](/course-programmes/rpd-65bdb83b-b1-o-27-metody-obrabotki-i-generatsii-te.md)
+- [Рабочая программа «Обучение с подкреплением» (Б1.В.ДВ.06.01)](/course-programmes/rpd-7fd072cb-b1-v-dv-06-01-obuchenie-s-podkrepleniem.md)
+- [Рабочая программа «Физическая культура и спорт» (Б1.О.15)](/course-programmes/rpd-4a05d87e-b1-o-15-fizicheskaya-kultura-i-sport.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-039ef7c3-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «AI360: Инженерия данных», набор 2024, 7 семестр
+
+- [Рабочая программа «Введение в 3D-моделирование» (Б1.В.ДВ.08.02)](/course-programmes/rpd-b229f1a8-b1-v-dv-08-02-vvedenie-v-3dmodelirovanie.md)
+- [Рабочая программа «Введение в функциональное программирование на языке Scala» (Б1.В.ДВ.09.01)](/course-programmes/rpd-9ef31554-b1-v-dv-09-01-vvedenie-v-funktsionalnoe.md)
+- [Рабочая программа «ИИ проект (7 семестр)» (Б1.О.28)](/course-programmes/rpd-52389079-b1-o-28-ii-proekt-7-semestr.md)
+- [Рабочая программа «Компьютерное зрение и обработка видео» (Б1.В.ДВ.07.02)](/course-programmes/rpd-8bcb1a40-b1-v-dv-07-02-kompyuternoe-zrenie-i-obra.md)
+- [Рабочая программа «Математическая логика для ИИ» (Б1.В.ДВ.07.01)](/course-programmes/rpd-efc4288a-b1-v-dv-07-01-matematicheskaya-logika-dl.md)
+- [Рабочая программа «Промышленная разработка ПО на Javascript (углубленный курс)» (Б1.В.ДВ.09.02)](/course-programmes/rpd-098f55fa-b1-v-dv-09-02-promyshlennaya-razrabotka.md)
+- [Рабочая программа «Углубленное программирование на С/С++» (Б1.В.ДВ.08.01)](/course-programmes/rpd-29ff2b81-b1-v-dv-08-01-uglublennoe-programmirovan.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-a9537f20-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «AI360: Инженерия данных», набор 2024, 8 семестр
+
+- [Рабочая программа «Введение в нейронауки» (Б1.В.ДВ.12.01)](/course-programmes/rpd-0ecf9f2b-b1-v-dv-12-01-vvedenie-v-neyronauki.md)
+- [Рабочая программа «Введение в практические приложения технологий искусственного интеллекта» (Б1.В.ДВ.11.01)](/course-programmes/rpd-ae00a1b4-b1-v-dv-11-01-vvedenie-v-prakticheskie-p.md)
+- [Рабочая программа «ИИ проект (8 семестр)» (Б1.О.28)](/course-programmes/rpd-ec4dcfd1-b1-o-28-ii-proekt-8-semestr.md)
+- [Рабочая программа «Механика и механизмы» (Б1.В.ДВ.12.02)](/course-programmes/rpd-ca933bdb-b1-v-dv-12-02-mekhanika-i-mekhanizmy.md)
+- [Рабочая программа «Объяснимый, интерпретируемый и справедливый искусственный интеллект» (Б1.В.ДВ.10.01)](/course-programmes/rpd-a297221c-b1-v-dv-10-01-obyasnimyy-interpretiruemy.md)
+- [Рабочая программа «Представление данных и знаний» (Б1.В.ДВ.10.02)](/course-programmes/rpd-7b1c1406-b1-v-dv-10-02-predstavlenie-dannykh-i-zn.md)
+- [Рабочая программа «Распределенные системы и связующее ПО: паттерны и фрэймворки» (Б1.В.ДВ.11.02)](/course-programmes/rpd-57801a33-b1-v-dv-11-02-raspredelennye-sistemy-i-s.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-654a07df-b1-v-01-elektivnye-distsipliny-moduli-po.md)
 
 ## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Анализ данных и искусственный интеллект», набор 2026, 1 семестр
 
@@ -795,6 +1312,30 @@ Course programmes (РПД) by programme, cohort and semester. Back to [the wiki]
 - [Рабочая программа «Robotics Systems / Робототехника» (Б1.В.ДВ.13.02)](/course-programmes/rpd-0ba7e587-b1-v-dv-13-02-robotics-systems-robototek.md)
 - [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-11693ee5-b1-v-01-elektivnye-distsipliny-moduli-po.md)
 
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Анализ данных и искусственный интеллект», набор 2025, 1 семестр
+
+- [Рабочая программа «Analytical Geometry and Linear Algebra I / Аналитическая геометрия и линейная алгебра I» (Б1.О.08)](/course-programmes/rpd-79ec12d8-b1-o-08-analytical-geometry-and-linear-a.md)
+- [Рабочая программа «Computer Architecture / Архитектура вычислительных систем» (Б1.О.06)](/course-programmes/rpd-fa014d82-b1-o-06-computer-architecture-arkhitektu.md)
+- [Рабочая программа «Introduction to Programming / Введение в программирование» (Б1.О.09)](/course-programmes/rpd-4409328e-b1-o-09-introduction-to-programming-vved.md)
+- [Рабочая программа «Logic and Discrete Math / Логика и дискретная математика» (Б1.О.10)](/course-programmes/rpd-bbf11516-b1-o-10-logic-and-discrete-math-logika-i.md)
+- [Рабочая программа «Mathematical Analysis I / Математический анализ I» (Б1.О.07)](/course-programmes/rpd-48038ea4-b1-o-07-mathematical-analysis-i-matemati.md)
+- [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (1 семестр)» (ФТД.01)](/course-programmes/rpd-344a6cae-ftd-01-russian-as-a-foreign-language-rus.md)
+- [Рабочая программа «Иностранный язык (1 семестр)» (Б1.О.02)](/course-programmes/rpd-ad494f1a-b1-o-02-inostrannyy-yazyk-1-semestr.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-e5b81134-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Анализ данных и искусственный интеллект», набор 2025, 2 семестр
+
+- [Рабочая программа «Analytical Geometry and Linear Algebra II / Аналитическая геометрия и линейная алгебра II» (Б1.О.13)](/course-programmes/rpd-8fd104d2-b1-o-13-analytical-geometry-and-linear-a.md)
+- [Рабочая программа «Data Structures and Algorithms / Алгоритмы и структуры данных» (Б1.О.11)](/course-programmes/rpd-4e825f13-b1-o-11-data-structures-and-algorithms-a.md)
+- [Рабочая программа «Logic for problem solving / Логика решения задач» (ФТД.02)](/course-programmes/rpd-54ff6044-ftd-02-logic-for-problem-solving-logika.md)
+- [Рабочая программа «Mathematical Analysis II / Математический анализ II» (Б1.О.12)](/course-programmes/rpd-552652cb-b1-o-12-mathematical-analysis-ii-matemat.md)
+- [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (2 семестр)» (ФТД.01)](/course-programmes/rpd-818c1e49-ftd-01-russian-as-a-foreign-language-rus.md)
+- [Рабочая программа «Software Engineering Toolkit / Инструментарий разработки программного обеспечения» (Б1.О.28)](/course-programmes/rpd-ed61798b-b1-o-28-software-engineering-toolkit-ins.md)
+- [Рабочая программа «Software Systems Analysis and Design / Проектирование и анализ программных систем» (Б1.О.15)](/course-programmes/rpd-b3dada7d-b1-o-15-software-systems-analysis-and-de.md)
+- [Рабочая программа «Theoretical Computer Science / Теоретические основы компьютерных наук» (Б1.О.14)](/course-programmes/rpd-c4add31c-b1-o-14-theoretical-computer-science-teo.md)
+- [Рабочая программа «Иностранный язык (2 семестр)» (Б1.О.02)](/course-programmes/rpd-f87173cd-b1-o-02-inostrannyy-yazyk-2-semestr.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-b9052ed2-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
 ## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Анализ данных и искусственный интеллект», набор 2025, 3 семестр
 
 - [Рабочая программа «Basics of Product Management / Введение в управление продуктами» (Б1.В.ДВ.01.01)](/course-programmes/rpd-f99ef211-b1-v-dv-01-01-basics-of-product-manageme.md)
@@ -830,6 +1371,31 @@ Course programmes (РПД) by programme, cohort and semester. Back to [the wiki]
 - [Рабочая программа «Физическая культура и спорт» (Б1.О.01)](/course-programmes/rpd-d71aca53-b1-o-01-fizicheskaya-kultura-i-sport.md)
 - [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-7d8438a5-b1-v-01-elektivnye-distsipliny-moduli-po.md)
 
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Анализ данных и искусственный интеллект», набор 2025, 4 семестр
+
+- [Рабочая программа «Differential Equations / Дифференциальные уравнения» (Б1.О.21)](/course-programmes/rpd-711f4749-b1-o-21-differential-equations-different.md)
+- [Рабочая программа «Philosophy II (Introduction to AI) / Философия II (Введение в искусственный интеллект)» (Б1.О.17)](/course-programmes/rpd-b491df50-b1-o-17-philosophy-ii-introduction-to-ai.md)
+- [Рабочая программа «Physics I (Mechanics) / Физика I (Механика)» (Б1.О.19)](/course-programmes/rpd-7acdc61b-b1-o-19-physics-i-mechanics-fizika-i-mek.md)
+- [Рабочая программа «Probability and Statistics / Теория вероятности и статистика» (Б1.О.18)](/course-programmes/rpd-44629eda-b1-o-18-probability-and-statistics-teori.md)
+- [Рабочая программа «Robotics & Computer Vision Student Lab / Мастерская по робототехнике и компьютерному зрению (4 семестр)» (ФТД.03)](/course-programmes/rpd-dfedd2b1-ftd-03-robotics-computer-vision-student.md)
+- [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (4 семестр)» (ФТД.В.01)](/course-programmes/rpd-fbda8793-ftd-v-01-russian-as-a-foreign-language-r.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-04fd0d26-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Анализ данных и искусственный интеллект», набор 2025, 5 семестр
+
+- [Рабочая программа «Control Theory / Теория автоматического управления» (Б1.В.ДВ.04.01)](/course-programmes/rpd-d9c49c43-b1-v-dv-04-01-control-theory-teoriya-avt.md)
+- [Рабочая программа «Data Wrangling and Visualization / Обработка и визуализация данных» (Б1.В.ДВ.05.02)](/course-programmes/rpd-acce8317-b1-v-dv-05-02-data-wrangling-and-visuali.md)
+- [Рабочая программа «Databases / Проектирование баз данных» (Б1.В.ДВ.04.02)](/course-programmes/rpd-dd666385-b1-v-dv-04-02-databases-proektirovanie-b.md)
+- [Рабочая программа «Distributed and Network Programming / Распределенное и сетевое программирование» (Б1.В.ДВ.05.01)](/course-programmes/rpd-9f7b3bf2-b1-v-dv-05-01-distributed-and-network-pr.md)
+- [Рабочая программа «Fundamentals of Robotics / Основы робототехники» (Б1.В.ДВ.06.01)](/course-programmes/rpd-4f8dae12-b1-v-dv-06-01-fundamentals-of-robotics-o.md)
+- [Рабочая программа «Introduction to Machine Learning / Введение в машинное обучение» (Б1.О.23)](/course-programmes/rpd-600ec911-b1-o-23-introduction-to-machine-learning.md)
+- [Рабочая программа «Nature Inspired Computing / Бионические вычисления» (Б1.В.ДВ.06.02)](/course-programmes/rpd-62248d7b-b1-v-dv-06-02-nature-inspired-computing.md)
+- [Рабочая программа «Networks / Компьютерные сети» (Б1.В.ДВ.03.01)](/course-programmes/rpd-f4617039-b1-v-dv-03-01-networks-kompyuternye-seti.md)
+- [Рабочая программа «Physics II (Electrical Engineering) / Физика II (Электротехника)» (Б1.В.ДВ.03.02)](/course-programmes/rpd-5a5e6b8f-b1-v-dv-03-02-physics-ii-electrical-engi.md)
+- [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (5 семестр)» (ФТД.В.01)](/course-programmes/rpd-0509c22d-ftd-v-01-russian-as-a-foreign-language-r.md)
+- [Рабочая программа «Theoretical Mechanics / Теоретическая механика» (Б1.В.ДВ.05.03)](/course-programmes/rpd-bff8e60b-b1-v-dv-05-03-theoretical-mechanics-teor.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-f2d15ef0-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
 ## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Анализ данных и искусственный интеллект», набор 2025, 6 семестр
 
 - [Рабочая программа «Computer Graphics in Game Development / Компьютерная графика в разработке игр» (Б1.В.ДВ.08.01)](/course-programmes/rpd-0def5a38-b1-v-dv-08-01-computer-graphics-in-game.md)
@@ -843,6 +1409,17 @@ Course programmes (РПД) by programme, cohort and semester. Back to [the wiki]
 - [Рабочая программа «Философия» (Б1.О.03)](/course-programmes/rpd-d30d71ec-b1-o-03-filosofiya.md)
 - [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-4c4f4524-b1-v-01-elektivnye-distsipliny-moduli-po.md)
 
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Анализ данных и искусственный интеллект», набор 2025, 7 семестр
+
+- [Рабочая программа «Academic Research and Writing Culture / Практика подготовки и написания научных работ на иностранном языке (7 семестр)» (Б1.О.26)](/course-programmes/rpd-446e9353-b1-o-26-academic-research-and-writing-cu.md)
+- [Рабочая программа «Information Retrieval / Информационный поиск» (Б1.В.ДВ.09.01)](/course-programmes/rpd-95200e92-b1-v-dv-09-01-information-retrieval-info.md)
+- [Рабочая программа «Introduction to Computer Vision / Введение в компьютерное зрение» (Б1.О.24)](/course-programmes/rpd-a396f045-b1-o-24-introduction-to-computer-vision.md)
+- [Рабочая программа «Mechanics and Machines / Механика и механизмы» (Б1.В.ДВ.10.01)](/course-programmes/rpd-cace529c-b1-v-dv-10-01-mechanics-and-machines-mek.md)
+- [Рабочая программа «Mechatronics / Мехатроника» (Б1.В.ДВ.09.02)](/course-programmes/rpd-91a39405-b1-v-dv-09-02-mechatronics-mekhatronika.md)
+- [Рабочая программа «Natural Language Processing / Обработка естественного языка» (Б1.В.ДВ.10.02)](/course-programmes/rpd-6750ce81-b1-v-dv-10-02-natural-language-processin.md)
+- [Рабочая программа «Practical Machine Learning and Deep Learning / Прикладные технологии машинного и глубокого обучения» (Б1.О.25)](/course-programmes/rpd-4159bb96-b1-o-25-practical-machine-learning-and-d.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-28201151-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
 ## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Анализ данных и искусственный интеллект», набор 2025, 8 семестр
 
 - [Рабочая программа «Academic Research and Writing Culture / Практика подготовки и написания научных работ на иностранном языке (8 семестр)» (Б1.О.26)](/course-programmes/rpd-cf789e70-b1-o-26-academic-research-and-writing-cu.md)
@@ -855,6 +1432,91 @@ Course programmes (РПД) by programme, cohort and semester. Back to [the wiki]
 - [Рабочая программа «Human AI Interaction Design / Проектирование систем с использованием технологий искусственного интеллекта» (Б1.В.ДВ.11.02)](/course-programmes/rpd-6eb23ca9-b1-v-dv-11-02-human-ai-interaction-desig.md)
 - [Рабочая программа «Robotics Systems / Робототехника» (Б1.В.ДВ.13.02)](/course-programmes/rpd-86fd1cf2-b1-v-dv-13-02-robotics-systems-robototek.md)
 - [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-751a99c0-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Анализ данных и искусственный интеллект», набор 2024, 1 семестр
+
+- [Рабочая программа «Analytical Geometry and Linear Algebra I / Аналитическая геометрия и линейная алгебра I» (Б1.О.08)](/course-programmes/rpd-cf6b202b-b1-o-08-analytical-geometry-and-linear-a.md)
+- [Рабочая программа «Fundamentals of Computer Architecture / Основы компьютерной архитектуры» (Б1.О.06)](/course-programmes/rpd-334dd50f-b1-o-06-fundamentals-of-computer-archite.md)
+- [Рабочая программа «Introduction to Programming / Введение в программирование» (Б1.О.09)](/course-programmes/rpd-86c2c06f-b1-o-09-introduction-to-programming-vved.md)
+- [Рабочая программа «Logic and Discrete Math / Логика и дискретная математика» (Б1.О.26)](/course-programmes/rpd-ac16fee9-b1-o-26-logic-and-discrete-math-logika-i.md)
+- [Рабочая программа «Mathematical Analysis I / Математический анализ I» (Б1.О.07)](/course-programmes/rpd-be7843f2-b1-o-07-mathematical-analysis-i-matemati.md)
+- [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (1 семестр)» (ФТД.01)](/course-programmes/rpd-fa52f218-ftd-01-russian-as-a-foreign-language-rus.md)
+- [Рабочая программа «Иностранный язык (1 семестр)» (Б1.О.02)](/course-programmes/rpd-d6314f3f-b1-o-02-inostrannyy-yazyk-1-semestr.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-0c3414d9-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Анализ данных и искусственный интеллект», набор 2024, 2 семестр
+
+- [Рабочая программа «Analytical Geometry and Linear Algebra II / Аналитическая геометрия и линейная алгебра II» (Б1.О.12)](/course-programmes/rpd-263de97d-b1-o-12-analytical-geometry-and-linear-a.md)
+- [Рабочая программа «Data Structures and Algorithms / Алгоритмы и структуры данных» (Б1.О.10)](/course-programmes/rpd-66a4c76a-b1-o-10-data-structures-and-algorithms-a.md)
+- [Рабочая программа «Logic for problem solving / Логика решения задач» (ФТД.02)](/course-programmes/rpd-96bcc141-ftd-02-logic-for-problem-solving-logika.md)
+- [Рабочая программа «Mathematical Analysis II / Математический анализ II» (Б1.О.11)](/course-programmes/rpd-00ae37c2-b1-o-11-mathematical-analysis-ii-matemat.md)
+- [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (2 семестр)» (ФТД.01)](/course-programmes/rpd-65632ad8-ftd-01-russian-as-a-foreign-language-rus.md)
+- [Рабочая программа «Software Systems Analysis and Design / Проектирование и анализ программных систем» (Б1.О.14)](/course-programmes/rpd-7cdc0d91-b1-o-14-software-systems-analysis-and-de.md)
+- [Рабочая программа «Theoretical Computer Science / Теоретические основы компьютерных наук» (Б1.О.13)](/course-programmes/rpd-21fc1f83-b1-o-13-theoretical-computer-science-teo.md)
+- [Рабочая программа «Иностранный язык (2 семестр)» (Б1.О.02)](/course-programmes/rpd-90468344-b1-o-02-inostrannyy-yazyk-2-semestr.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-000b169b-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Анализ данных и искусственный интеллект», набор 2024, 3 семестр
+
+- [Рабочая программа «Applied Economics: Introduction to IT Entrepreneurship / Прикладная экономика: введение в ИТ-предпринимательство» (Б1.В.ДВ.01.01)](/course-programmes/rpd-2f25e2f8-b1-v-dv-01-01-applied-economics-introduc.md)
+- [Рабочая программа «Architecture of Computing Devices / Архитектура вычислительных устройств» (Б1.В.ДВ.02.08)](/course-programmes/rpd-737b3fc9-b1-v-dv-02-08-architecture-of-computing.md)
+- [Рабочая программа «Basics of Product Management / Введение в управление продуктами» (Б1.В.ДВ.01.08)](/course-programmes/rpd-4cfa7dc8-b1-v-dv-01-08-basics-of-product-manageme.md)
+- [Рабочая программа «Branding and Marketing in IT industry / Брендинг и маркетинг в ИТ-индустрии» (Б1.В.ДВ.01.02)](/course-programmes/rpd-3c2ede9a-b1-v-dv-01-02-branding-and-marketing-in.md)
+- [Рабочая программа «Business Analysis in IT / Бизнес-анализ в ИТ» (Б1.В.ДВ.02.07)](/course-programmes/rpd-19ac5e8e-b1-v-dv-02-07-business-analysis-in-it-bi.md)
+- [Рабочая программа «Business communications for IT-specialist / Деловые коммуникации для ИТ-специалиста» (Б1.В.ДВ.01.10)](/course-programmes/rpd-2ffd2db5-b1-v-dv-01-10-business-communications-fo.md)
+- [Рабочая программа «Design-thinking / Дизайн-мышление» (Б1.В.ДВ.01.06)](/course-programmes/rpd-11b06490-b1-v-dv-01-06-designthinking-dizaynmyshl.md)
+- [Рабочая программа «Fundamentals of Computer Science in Lean 4 / Теоретические основы программирования с Lean 4» (Б1.В.ДВ.02.09)](/course-programmes/rpd-cfedcee8-b1-v-dv-02-09-fundamentals-of-computer-s.md)
+- [Рабочая программа «Golang & Flutter: Rapid Cross-Platform Development / Golang & Flutter: Быстрая кросс-платформенная разработка» (Б1.В.ДВ.02.05)](/course-programmes/rpd-811194d1-b1-v-dv-02-05-golang-flutter-rapid-cross.md)
+- [Рабочая программа «How to build an IT team / Построение ИТ-команды» (Б1.В.ДВ.01.05)](/course-programmes/rpd-0b896892-b1-v-dv-01-05-how-to-build-an-it-team-po.md)
+- [Рабочая программа «Introduction to 3D Modeling / Введение в 3D-моделирование» (Б1.В.ДВ.02.06)](/course-programmes/rpd-44ffbe75-b1-v-dv-02-06-introduction-to-3d-modelin.md)
+- [Рабочая программа «Introduction to Career Development for IT-specialist / Введение в развитие карьеры ИТ-специалиста» (Б1.В.ДВ.01.03)](/course-programmes/rpd-27636fa6-b1-v-dv-01-03-introduction-to-career-dev.md)
+- [Рабочая программа «Introduction to Robot Operating System / Введение в операционную систему для роботов» (Б1.В.ДВ.02.11)](/course-programmes/rpd-3a11352c-b1-v-dv-02-11-introduction-to-robot-oper.md)
+- [Рабочая программа «Methods and Approaches to the Launch of Robotic Systems / Методы и подходы к запуску роботизированных систем» (Б1.В.ДВ.02.02)](/course-programmes/rpd-b532fe58-b1-v-dv-02-02-methods-and-approaches-to.md)
+- [Рабочая программа «Product Solutions Engineering / Инженерия продуктовых решений» (Б1.В.ДВ.01.12)](/course-programmes/rpd-f143db7d-b1-v-dv-01-12-product-solutions-engineer.md)
+- [Рабочая программа «Programming in Haskell / Программирование на языке Haskell» (Б1.В.ДВ.02.01)](/course-programmes/rpd-1222f7d5-b1-v-dv-02-01-programming-in-haskell-pro.md)
+- [Рабочая программа «Programming in Python / Программирование на языке Python» (Б1.В.ДВ.02.03)](/course-programmes/rpd-a4c3d4ee-b1-v-dv-02-03-programming-in-python-prog.md)
+- [Рабочая программа «Psychology of IT-specialist / Психология ИТ-специалиста» (Б1.В.ДВ.01.09)](/course-programmes/rpd-99699c1b-b1-v-dv-01-09-psychology-of-itspecialist.md)
+- [Рабочая программа «Reading Skills for IT-specialist / Навыки чтения для ИТ-специалиста» (Б1.В.ДВ.01.07)](/course-programmes/rpd-060b840b-b1-v-dv-01-07-reading-skills-for-itspeci.md)
+- [Рабочая программа «Real-Time Scheduling Theory / Теоретические основы систем реального времени» (Б1.В.ДВ.02.04)](/course-programmes/rpd-5d10fd23-b1-v-dv-02-04-realtime-scheduling-theory.md)
+- [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (3 семестр)» (ФТД.01)](/course-programmes/rpd-849b6d4a-ftd-01-russian-as-a-foreign-language-rus.md)
+- [Рабочая программа «Social Adaptation and Professional Rehabilitation of People with Disabilities in the IT Industry / Социальная адаптация и реабилитация инвалидов и лиц с ограниченными возможностями здоровья в сфере ИТ» (Б1.В.ДВ.01.13)](/course-programmes/rpd-00d0128a-b1-v-dv-01-13-social-adaptation-and-prof.md)
+- [Рабочая программа «Social Security and Legal Protection of Persons with Disabilities or Physical Conditions in the IT Industry / Социально-правовые гарантии инвалидов и лиц с ограниченными возможностями здоровья в сфере» (Б1.В.ДВ.01.14)](/course-programmes/rpd-d75916b0-b1-v-dv-01-14-social-security-and-legal.md)
+- [Рабочая программа «Software Project / Разработка программного продукта (проектная работа)» (Б1.О.15)](/course-programmes/rpd-19c7f4aa-b1-o-15-software-project-razrabotka-prog.md)
+- [Рабочая программа «Startup Design / Проектирование технологических стартапов» (Б1.В.ДВ.01.11)](/course-programmes/rpd-23dc8da5-b1-v-dv-01-11-startup-design-proektirova.md)
+- [Рабочая программа «Technical Communication / Техническая коммуникация» (Б1.В.ДВ.02.10)](/course-programmes/rpd-36fc4fbb-b1-v-dv-02-10-technical-communication-te.md)
+- [Рабочая программа «UX/UI Design / UX/UI Дизайн» (Б1.В.ДВ.01.04)](/course-programmes/rpd-93a67a5d-b1-v-dv-01-04-ux-ui-design-ux-ui-dizayn.md)
+- [Рабочая программа «История России» (Б1.О.04)](/course-programmes/rpd-7209120f-b1-o-04-istoriya-rossii.md)
+- [Рабочая программа «Физическая культура и спорт» (Б1.О.01)](/course-programmes/rpd-cb2d6ac1-b1-o-01-fizicheskaya-kultura-i-sport.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-bead9fd1-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Анализ данных и искусственный интеллект», набор 2024, 4 семестр
+
+- [Рабочая программа «Differential Equations / Дифференциальные уравнения» (Б1.О.20)](/course-programmes/rpd-314b0d3c-b1-o-20-differential-equations-different.md)
+- [Рабочая программа «Introduction to Optimization / Введение в оптимизацию» (Б1.О.21)](/course-programmes/rpd-ac4c0f8d-b1-o-21-introduction-to-optimization-vve.md)
+- [Рабочая программа «Operating Systems / Операционные системы» (Б1.О.19)](/course-programmes/rpd-77c8e710-b1-o-19-operating-systems-operatsionnye.md)
+- [Рабочая программа «Philosophy II (Introduction to AI) / Философия II (Введение в искусственный интеллект)» (Б1.О.16)](/course-programmes/rpd-546f9aab-b1-o-16-philosophy-ii-introduction-to-ai.md)
+- [Рабочая программа «Physics I (Mechanics) / Физика I (Механика)» (Б1.О.18)](/course-programmes/rpd-f19717da-b1-o-18-physics-i-mechanics-fizika-i-mek.md)
+- [Рабочая программа «Probability and Statistics / Теория вероятности и статистика» (Б1.О.17)](/course-programmes/rpd-a6612d33-b1-o-17-probability-and-statistics-teori.md)
+- [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (4 семестр)» (ФТД.В.01)](/course-programmes/rpd-8e7698a3-ftd-v-01-russian-as-a-foreign-language-r.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-d40d01e8-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Анализ данных и искусственный интеллект», набор 2024, 5 семестр
+
+- [Рабочая программа «Computer Graphics in Game Development (Advanced) / Компьютерная графика в разработке игр (углубленный курс)» (Б1.В.ДВ.05.03)](/course-programmes/rpd-bff54fa7-b1-v-dv-05-03-computer-graphics-in-game.md)
+- [Рабочая программа «Data Wrangling and Visualization / Обработка и визуализация данных» (Б1.В.ДВ.05.04)](/course-programmes/rpd-d0fc1afb-b1-v-dv-05-04-data-wrangling-and-visuali.md)
+- [Рабочая программа «Databases / Проектирование баз данных» (Б1.В.ДВ.04.02)](/course-programmes/rpd-4d3e414f-b1-v-dv-04-02-databases-proektirovanie-b.md)
+- [Рабочая программа «Distributed and Network Programming / Распределенное и сетевое программирование» (Б1.В.ДВ.05.01)](/course-programmes/rpd-bfa4dba9-b1-v-dv-05-01-distributed-and-network-pr.md)
+- [Рабочая программа «Fundamentals of Robotics / Основы робототехники» (Б1.В.ДВ.06.02)](/course-programmes/rpd-248b61a5-b1-v-dv-06-02-fundamentals-of-robotics-o.md)
+- [Рабочая программа «Human AI Interaction Design / Проектирование систем с использованием технологий искусственного интеллекта» (Б1.В.ДВ.06.01)](/course-programmes/rpd-dfe9332e-b1-v-dv-06-01-human-ai-interaction-desig.md)
+- [Рабочая программа «Introduction to Control Systems Theory / Введение в теорию управляемых систем» (Б1.В.ДВ.04.01)](/course-programmes/rpd-d4929b5f-b1-v-dv-04-01-introduction-to-control-sy.md)
+- [Рабочая программа «Introduction to Game Development / Введение в разработку игр» (Б1.В.ДВ.03.03)](/course-programmes/rpd-65282dd8-b1-v-dv-03-03-introduction-to-game-devel.md)
+- [Рабочая программа «Introduction to Machine Learning / Введение в машинное обучение» (Б1.О.22)](/course-programmes/rpd-da3baf3e-b1-o-22-introduction-to-machine-learning.md)
+- [Рабочая программа «Nature Inspired Computing / Бионические вычисления» (Б1.В.ДВ.06.03)](/course-programmes/rpd-bf67525c-b1-v-dv-06-03-nature-inspired-computing.md)
+- [Рабочая программа «Networks / Компьютерные сети» (Б1.В.ДВ.03.01)](/course-programmes/rpd-f16d988f-b1-v-dv-03-01-networks-kompyuternye-seti.md)
+- [Рабочая программа «Physics II (Electrical Engineering) / Физика II (Электротехника)» (Б1.В.ДВ.03.02)](/course-programmes/rpd-f8382113-b1-v-dv-03-02-physics-ii-electrical-engi.md)
+- [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (5 семестр)» (ФТД.В.01)](/course-programmes/rpd-0d64ad1a-ftd-v-01-russian-as-a-foreign-language-r.md)
+- [Рабочая программа «Theoretical Mechanics / Теоретическая механика» (Б1.В.ДВ.05.02)](/course-programmes/rpd-ae7b5d0a-b1-v-dv-05-02-theoretical-mechanics-teor.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-b06afd12-b1-v-01-elektivnye-distsipliny-moduli-po.md)
 
 ## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Анализ данных и искусственный интеллект», набор 2024, 6 семестр
 
@@ -892,6 +1554,36 @@ Course programmes (РПД) by programme, cohort and semester. Back to [the wiki]
 - [Рабочая программа «Философия» (Б1.О.03)](/course-programmes/rpd-47a07adb-b1-o-03-filosofiya.md)
 - [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-7b414947-b1-v-01-elektivnye-distsipliny-moduli-po.md)
 
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Анализ данных и искусственный интеллект», набор 2024, 7 семестр
+
+- [Рабочая программа «Basics of Backend Development in Java / Основы backend-разработка на Java» (Б1.В.ДВ.13.02)](/course-programmes/rpd-d6f9eb89-b1-v-dv-13-02-basics-of-backend-developm.md)
+- [Рабочая программа «Big Data Analytics / Аналитика больших данных» (Б1.В.ДВ.13.10)](/course-programmes/rpd-185fa56f-b1-v-dv-13-10-big-data-analytics-analiti.md)
+- [Рабочая программа «Building Security Operations Centers (SOC) / Построение центров обнаружения атак» (Б1.В.ДВ.13.12)](/course-programmes/rpd-0d276877-b1-v-dv-13-12-building-security-operatio.md)
+- [Рабочая программа «Data and Knowledge Representation / Представление данных и знаний» (Б1.В.ДВ.12.02)](/course-programmes/rpd-a0095c14-b1-v-dv-12-02-data-and-knowledge-represe.md)
+- [Рабочая программа «Industrial Development, Operation and Reliability of Software Systems / Промышленная разработка, эксплуатация и надежность программных систем» (Б1.В.ДВ.13.01)](/course-programmes/rpd-93379e4a-b1-v-dv-13-01-industrial-development-ope.md)
+- [Рабочая программа «Industrial IT Systems: From Idea to Operation / Промышленные ИТ- систем: от идеи до эксплуатации» (Б1.В.ДВ.13.15)](/course-programmes/rpd-7c3e49f9-b1-v-dv-13-15-industrial-it-systems-from.md)
+- [Рабочая программа «Industrial Software Development in Python: Key Technologies and Approaches / Промышленная разработка ПО на Python: основные технологии и подходы» (Б1.В.ДВ.13.04)](/course-programmes/rpd-69a8c1ea-b1-v-dv-13-04-industrial-software-develo.md)
+- [Рабочая программа «Information Retrieval / Информационный поиск» (Б1.В.ДВ.09.01)](/course-programmes/rpd-e9ef0125-b1-v-dv-09-01-information-retrieval-info.md)
+- [Рабочая программа «Intro to Development of Multiplayer Games / Введение в разработку многопользовательских игр» (Б1.В.ДВ.13.13)](/course-programmes/rpd-e1790863-b1-v-dv-13-13-intro-to-development-of-mu.md)
+- [Рабочая программа «Introduction to Adaptive and Efficient Machine Learning / Введение в адаптивное и эффективное машинное обучение» (Б1.В.ДВ.13.03)](/course-programmes/rpd-d3b73748-b1-v-dv-13-03-introduction-to-adaptive-a.md)
+- [Рабочая программа «Introduction to Computer Vision / Введение в компьютерное зрение» (Б1.В.ДВ.10.01)](/course-programmes/rpd-7b0f6db6-b1-v-dv-10-01-introduction-to-computer-v.md)
+- [Рабочая программа «Introduction to DevOps / Введение в интеграцию и автоматизацию процесса разработки ПО» (Б1.В.ДВ.13.08)](/course-programmes/rpd-9f844ef7-b1-v-dv-13-08-introduction-to-devops-vve.md)
+- [Рабочая программа «Introduction to DevSecOps / Введение в интеграцию и автоматизацию безопасного процесса разработки ПО» (Б1.В.ДВ.13.09)](/course-programmes/rpd-68ad07cc-b1-v-dv-13-09-introduction-to-devsecops.md)
+- [Рабочая программа «Introduction to Game Projects and Teams / Введение в игровые проекты и команды» (Б1.В.ДВ.11.02)](/course-programmes/rpd-18e463a3-b1-v-dv-11-02-introduction-to-game-proje.md)
+- [Рабочая программа «Introduction to Site Reliability Engineering (SRE) / Введение в практики обеспечения надёжности сервисов» (Б1.В.ДВ.13.06)](/course-programmes/rpd-e2408188-b1-v-dv-13-06-introduction-to-site-relia.md)
+- [Рабочая программа «Mechanics and Machines / Механика и механизмы» (Б1.В.ДВ.09.02)](/course-programmes/rpd-0106cfaf-b1-v-dv-09-02-mechanics-and-machines-mek.md)
+- [Рабочая программа «Mechatronics / Мехатроника» (Б1.В.ДВ.12.03)](/course-programmes/rpd-778659d3-b1-v-dv-12-03-mechatronics-mekhatronika.md)
+- [Рабочая программа «Open Source Intelligence (OSINT) / Поиск по открытым источникам» (Б1.В.ДВ.13.07)](/course-programmes/rpd-a34a5062-b1-v-dv-13-07-open-source-intelligence-o.md)
+- [Рабочая программа «Postal Business Portal: How a Digital B2B Product Is Built and Evolves/ Почтовый бизнес-кабинет: как устроен и развивается цифровой продукт для бизнеса» (Б1.В.ДВ.13.14)](/course-programmes/rpd-ef4a024f-b1-v-dv-13-14-postal-business-portal-how.md)
+- [Рабочая программа «Practical Machine Learning and Deep Learning / Прикладные технологии машинного и глубокого обучения» (Б1.В.ДВ.11.01)](/course-programmes/rpd-d604b0f5-b1-v-dv-11-01-practical-machine-learning.md)
+- [Рабочая программа «Procedural Content Generation / Процедурная генерация контента» (Б1.В.ДВ.09.03)](/course-programmes/rpd-b75f1184-b1-v-dv-09-03-procedural-content-generat.md)
+- [Рабочая программа «Reinforcement Learning / Обучение с подкреплением» (Б1.В.ДВ.12.01)](/course-programmes/rpd-886953c2-b1-v-dv-12-01-reinforcement-learning-obu.md)
+- [Рабочая программа «Robotics & Computer Vision Student Lab / Мастерская по робототехнике и компьютерному зрению (7 семестр)» (ФТД.03)](/course-programmes/rpd-7c84d6ac-ftd-03-robotics-computer-vision-student.md)
+- [Рабочая программа «Security for Developers: Code, Data, People / Безопасность для разработчиков: код, данные, люди» (Б1.В.ДВ.13.05)](/course-programmes/rpd-f78edab1-b1-v-dv-13-05-security-for-developers-co.md)
+- [Рабочая программа «Software Architecture / Архитектура программного обеспечения» (Б1.В.ДВ.10.02)](/course-programmes/rpd-f68f9fc4-b1-v-dv-10-02-software-architecture-arkh.md)
+- [Рабочая программа «Software Product Development and Analysis / Анализ и разработка продукта программного обеспечения» (Б1.В.ДВ.13.11)](/course-programmes/rpd-86a9b2ff-b1-v-dv-13-11-software-product-developme.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-82eba929-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
 ## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Анализ данных и искусственный интеллект», набор 2024, 8 семестр
 
 - [Рабочая программа «Academic Research and Writing Culture / Практика подготовки и написания научных работ на иностранном языке (8 семестр)» (Б1.О.25)](/course-programmes/rpd-aad597dc-b1-o-25-academic-research-and-writing-cu.md)
@@ -906,6 +1598,122 @@ Course programmes (РПД) by programme, cohort and semester. Back to [the wiki]
 - [Рабочая программа «Sensors and Sensing / Датчики и считывание» (Б1.В.ДВ.15.03)](/course-programmes/rpd-32a6c281-b1-v-dv-15-03-sensors-and-sensing-datchi.md)
 - [Рабочая программа «Signals and Systems / Сигналы и системы» (Б1.В.ДВ.12.03)](/course-programmes/rpd-fa332ebd-b1-v-dv-12-03-signals-and-systems-signal.md)
 - [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-c8b05383-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Анализ данных и искусственный интеллект», набор 2023, 1 семестр
+
+- [Рабочая программа «Analytical Geometry and Linear Algebra I / Аналитическая геометрия и линейная алгебра I» (Б1.О.08)](/course-programmes/rpd-74da1ed9-b1-o-08-analytical-geometry-and-linear-a.md)
+- [Рабочая программа «Fundamentals of Computer Architecture /Основы программной инженерии» (Б1.О.06)](/course-programmes/rpd-e1636d52-b1-o-06-fundamentals-of-computer-archite.md)
+- [Рабочая программа «Introduction to Programming / Введение в программирование» (Б1.О.09)](/course-programmes/rpd-9c74fd53-b1-o-09-introduction-to-programming-vved.md)
+- [Рабочая программа «Mathematical Analysis I / Математический анализ I» (Б1.О.07)](/course-programmes/rpd-9f3649d9-b1-o-07-mathematical-analysis-i-matemati.md)
+- [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (1 семестр)» (ФТД.В.01)](/course-programmes/rpd-475947d4-ftd-v-01-russian-as-a-foreign-language-r.md)
+- [Рабочая программа «Иностранный язык (1 семестр)» (Б1.О.02)](/course-programmes/rpd-efe7e107-b1-o-02-inostrannyy-yazyk-1-semestr.md)
+- [Рабочая программа «Философия» (Б1.О.03)](/course-programmes/rpd-d3061357-b1-o-03-filosofiya.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-7c024c28-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Анализ данных и искусственный интеллект», набор 2023, 2 семестр
+
+- [Рабочая программа «Analytical Geometry and Linear Algebra II / Аналитическая геометрия и линейная алгебра II» (Б1.О.12)](/course-programmes/rpd-9b6892f2-b1-o-12-analytical-geometry-and-linear-a.md)
+- [Рабочая программа «Data Structures and Algorithms / Алгоритмы и структуры данных» (Б1.О.10)](/course-programmes/rpd-b141f96b-b1-o-10-data-structures-and-algorithms-a.md)
+- [Рабочая программа «Logic for problem solving / Логика решения задач» (ФТД.02)](/course-programmes/rpd-d3a760e5-ftd-02-logic-for-problem-solving-logika.md)
+- [Рабочая программа «Mathematical Analysis II / Математический анализ II» (Б1.О.11)](/course-programmes/rpd-6f75d75f-b1-o-11-mathematical-analysis-ii-matemat.md)
+- [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (2 семестр)» (ФТД.В.01)](/course-programmes/rpd-55413077-ftd-v-01-russian-as-a-foreign-language-r.md)
+- [Рабочая программа «Software Systems Analysis and Design / Проектирование и анализ программных систем» (Б1.О.14)](/course-programmes/rpd-19447965-b1-o-14-software-systems-analysis-and-de.md)
+- [Рабочая программа «Theoretical Computer Science / Теоретические основы компьютерных наук» (Б1.О.13)](/course-programmes/rpd-efc44d38-b1-o-13-theoretical-computer-science-teo.md)
+- [Рабочая программа «Иностранный язык (2 семестр)» (Б1.О.02)](/course-programmes/rpd-cf428fa5-b1-o-02-inostrannyy-yazyk-2-semestr.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-2d20d343-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Анализ данных и искусственный интеллект», набор 2023, 3 семестр
+
+- [Рабочая программа «Advanced С/С++ programming / Углубленное программирование на С/С++» (Б1.В.ДВ.02.01)](/course-programmes/rpd-1da7778a-b1-v-dv-02-01-advanced-s-s-programming-u.md)
+- [Рабочая программа «Applied Economics: Introduction to IT Entrepreneurship / Прикладная экономика: введение в ИТ-предпринимательство» (Б1.В.ДВ.01.01)](/course-programmes/rpd-6bbef546-b1-v-dv-01-01-applied-economics-introduc.md)
+- [Рабочая программа «Architecture of Computing Devices / Архитектура вычислительных устройств» (Б1.В.ДВ.02.02)](/course-programmes/rpd-db128e84-b1-v-dv-02-02-architecture-of-computing.md)
+- [Рабочая программа «Basics of Product Management / Введение в управление продуктами» (Б1.В.ДВ.01.02)](/course-programmes/rpd-528c02de-b1-v-dv-01-02-basics-of-product-manageme.md)
+- [Рабочая программа «Branding and Marketing in IT industry / Брендинг и маркетинг в ИТ- индустрии» (Б1.В.ДВ.02.03)](/course-programmes/rpd-bc29ac89-b1-v-dv-02-03-branding-and-marketing-in.md)
+- [Рабочая программа «Career and Leadership / Развитие карьеры и лидерство» (Б1.В.ДВ.01.03)](/course-programmes/rpd-1935bbb8-b1-v-dv-01-03-career-and-leadership-razv.md)
+- [Рабочая программа «Cross-platform Mobile Development with Flutter / Кросс-платформенная мобильная разработка с Flutter» (Б1.В.ДВ.02.04)](/course-programmes/rpd-2ac73fad-b1-v-dv-02-04-crossplatform-mobile-devel.md)
+- [Рабочая программа «Design-thinking / Дизайн-мышление» (Б1.В.ДВ.01.04)](/course-programmes/rpd-72e08eca-b1-v-dv-01-04-designthinking-dizaynmyshl.md)
+- [Рабочая программа «Front-end Web Development / Разработка пользовательских интерфейсов веб-приложений» (Б1.В.ДВ.02.05)](/course-programmes/rpd-09719778-b1-v-dv-02-05-frontend-web-development-r.md)
+- [Рабочая программа «Introduction to 3D Modeling / Введение в 3D-моделирование» (Б1.В.ДВ.02.06)](/course-programmes/rpd-345b7179-b1-v-dv-02-06-introduction-to-3d-modelin.md)
+- [Рабочая программа «Introduction to Career Development for IT-specialist / Введение в развитие карьеры ИТ-специалиста» (Б1.В.ДВ.01.05)](/course-programmes/rpd-de7b6ecc-b1-v-dv-01-05-introduction-to-career-dev.md)
+- [Рабочая программа «Introduction to Mechanical Engineering / Введение в инженерное дело» (Б1.В.ДВ.02.07)](/course-programmes/rpd-cb76c35f-b1-v-dv-02-07-introduction-to-mechanical.md)
+- [Рабочая программа «Introduction to Robot Operating System / Введение в операционную систему для роботов» (Б1.В.ДВ.02.08)](/course-programmes/rpd-7fa13b72-b1-v-dv-02-08-introduction-to-robot-oper.md)
+- [Рабочая программа «Lambda-Calculus, Algebra, Machinery and Logic for Formal Program Semantics / Лямбда-исчисление, алгебра, абстрактные машины и логика для формальной семантики программ» (Б1.В.ДВ.02.09)](/course-programmes/rpd-8c112725-b1-v-dv-02-09-lambdacalculus-algebra-mac.md)
+- [Рабочая программа «Personal Efficiency Skills of IT-specialist / Навыки личной эффективности ИТ-специалиста» (Б1.В.ДВ.01.06)](/course-programmes/rpd-b6e425aa-b1-v-dv-01-06-personal-efficiency-skills.md)
+- [Рабочая программа «Psychology of IT-specialist / Психология ИТ-специалиста» (Б1.В.ДВ.01.07)](/course-programmes/rpd-1715bf25-b1-v-dv-01-07-psychology-of-itspecialist.md)
+- [Рабочая программа «Public Speaking in Business / Публичные выступления в бизнесе» (Б1.В.ДВ.01.08)](/course-programmes/rpd-7094ed86-b1-v-dv-01-08-public-speaking-in-busines.md)
+- [Рабочая программа «Reading Skills for IT-specialist / Навыки чтения для ИТ-специалиста» (Б1.В.ДВ.01.09)](/course-programmes/rpd-c2f77f1d-b1-v-dv-01-09-reading-skills-for-itspeci.md)
+- [Рабочая программа «Real-Time Scheduling Theory / Теоретические основы систем реального времени» (Б1.В.ДВ.02.10)](/course-programmes/rpd-f63b8668-b1-v-dv-02-10-realtime-scheduling-theory.md)
+- [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (3 семестр)» (ФТД.01)](/course-programmes/rpd-f9784523-ftd-01-russian-as-a-foreign-language-rus.md)
+- [Рабочая программа «Social Adaptation and Professional Rehabilitation of People with Disabilities in the IT Industry / Социальная адаптация и реабилитация инвалидов и лиц с ограниченными возможностями здоровья в сфере ИТ» (Б1.В.ДВ.01.13)](/course-programmes/rpd-6c4c0637-b1-v-dv-01-13-social-adaptation-and-prof.md)
+- [Рабочая программа «Social Security and Legal Protection of Persons with Disabilities or Physical Conditions in the IT Industry / Социально-правовые гарантии инвалидов и лиц с ограниченными возможностями здоровья в сфере» (Б1.В.ДВ.01.14)](/course-programmes/rpd-4d714855-b1-v-dv-01-14-social-security-and-legal.md)
+- [Рабочая программа «Software Project / Разработка программного продукта (проектная работа)» (Б1.О.15)](/course-programmes/rpd-07a23b8f-b1-o-15-software-project-razrabotka-prog.md)
+- [Рабочая программа «Startup CEO Toolkit / Инструментарий СЕО стартапа» (Б1.В.ДВ.01.10)](/course-programmes/rpd-1d981367-b1-v-dv-01-10-startup-ceo-toolkit-instru.md)
+- [Рабочая программа «Tech Startup Design / Проектирование технологических стартапов» (Б1.В.ДВ.01.11)](/course-programmes/rpd-3d70aca8-b1-v-dv-01-11-tech-startup-design-proekt.md)
+- [Рабочая программа «UX/UI Design / UX/UI Дизайн» (Б1.В.ДВ.01.12)](/course-programmes/rpd-2c5cbca3-b1-v-dv-01-12-ux-ui-design-ux-ui-dizayn.md)
+- [Рабочая программа «История России» (Б1.О.04)](/course-programmes/rpd-2af34353-b1-o-04-istoriya-rossii.md)
+- [Рабочая программа «Физическая культура и спорт» (Б1.О.01)](/course-programmes/rpd-924b79b0-b1-o-01-fizicheskaya-kultura-i-sport.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-5d4a0e50-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Анализ данных и искусственный интеллект», набор 2023, 4 семестр
+
+- [Рабочая программа «Differential Equations / Дифференциальные уравнения» (Б1.О.20)](/course-programmes/rpd-c8aed777-b1-o-20-differential-equations-different.md)
+- [Рабочая программа «Introduction to Optimization / Введение в оптимизацию» (Б1.О.21)](/course-programmes/rpd-8593d846-b1-o-21-introduction-to-optimization-vve.md)
+- [Рабочая программа «Operating Systems / Операционные системы» (Б1.О.19)](/course-programmes/rpd-406609f2-b1-o-19-operating-systems-operatsionnye.md)
+- [Рабочая программа «Philosophy II (Introduction to AI) / Философия II (Введение в искусственный интеллект)» (Б1.О.16)](/course-programmes/rpd-18aa72ae-b1-o-16-philosophy-ii-introduction-to-ai.md)
+- [Рабочая программа «Physics I (Mechanics) / Физика I (Механика)» (Б1.О.18)](/course-programmes/rpd-ccde8ebb-b1-o-18-physics-i-mechanics-fizika-i-mek.md)
+- [Рабочая программа «Probability and Statistics / Теория вероятности и статистика» (Б1.О.17)](/course-programmes/rpd-c0bdca25-b1-o-17-probability-and-statistics-teori.md)
+- [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (4 семестр)» (ФТД.В.01)](/course-programmes/rpd-fdc49623-ftd-v-01-russian-as-a-foreign-language-r.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-996df599-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Анализ данных и искусственный интеллект», набор 2023, 5 семестр
+
+- [Рабочая программа «Computer Graphics in Game Development (Advanced) / Компьютерная графика в разработке игр (углубленный курс)» (Б1.В.ДВ.05.04)](/course-programmes/rpd-d9bdf3c9-b1-v-dv-05-04-computer-graphics-in-game.md)
+- [Рабочая программа «Control Theory / Теория автоматического управления» (Б1.В.ДВ.04.01)](/course-programmes/rpd-6e4ccd6f-b1-v-dv-04-01-control-theory-teoriya-avt.md)
+- [Рабочая программа «Data Wrangling and Visualization / Обработка и визуализация данных» (Б1.В.ДВ.05.02)](/course-programmes/rpd-06e91a6f-b1-v-dv-05-02-data-wrangling-and-visuali.md)
+- [Рабочая программа «Databases / Проектирование баз данных» (Б1.В.ДВ.04.02)](/course-programmes/rpd-5b616824-b1-v-dv-04-02-databases-proektirovanie-b.md)
+- [Рабочая программа «Distributed and Network Programming / Распределенное и сетевое программирование» (Б1.В.ДВ.05.01)](/course-programmes/rpd-1ec068b1-b1-v-dv-05-01-distributed-and-network-pr.md)
+- [Рабочая программа «Fundamentals of Robotics / Основы робототехники» (Б1.В.ДВ.06.02)](/course-programmes/rpd-7c9f1794-b1-v-dv-06-02-fundamentals-of-robotics-o.md)
+- [Рабочая программа «Human AI Interaction Design / Проектирование систем с использованием технологий искусственного интеллекта» (Б1.В.ДВ.06.01)](/course-programmes/rpd-9868003d-b1-v-dv-06-01-human-ai-interaction-desig.md)
+- [Рабочая программа «Introduction to Game Development / Введение в разработку игр» (Б1.В.ДВ.03.03)](/course-programmes/rpd-474e09ad-b1-v-dv-03-03-introduction-to-game-devel.md)
+- [Рабочая программа «Introduction to Machine Learning / Введение в машинное обучение» (Б1.О.22)](/course-programmes/rpd-aed493e5-b1-o-22-introduction-to-machine-learning.md)
+- [Рабочая программа «Nature Inspired Computing / Бионические вычисления» (Б1.В.ДВ.06.03)](/course-programmes/rpd-622d1371-b1-v-dv-06-03-nature-inspired-computing.md)
+- [Рабочая программа «Networks / Компьютерные сети» (Б1.В.ДВ.03.01)](/course-programmes/rpd-a62da86a-b1-v-dv-03-01-networks-kompyuternye-seti.md)
+- [Рабочая программа «Physics II (Electrical Engineering) / Физика II (Электротехника)» (Б1.В.ДВ.03.02)](/course-programmes/rpd-510fd020-b1-v-dv-03-02-physics-ii-electrical-engi.md)
+- [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (5 семестр)» (ФТД.В.01)](/course-programmes/rpd-2141325c-ftd-v-01-russian-as-a-foreign-language-r.md)
+- [Рабочая программа «System and Network Administration / Системное и сетевое администрирование» (Б1.В.ДВ.06.04)](/course-programmes/rpd-0fe1f195-b1-v-dv-06-04-system-and-network-adminis.md)
+- [Рабочая программа «Theoretical Mechanics / Теоретическая механика» (Б1.В.ДВ.05.03)](/course-programmes/rpd-f95cb0e4-b1-v-dv-05-03-theoretical-mechanics-teor.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-d8bfd47a-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Анализ данных и искусственный интеллект», набор 2023, 6 семестр
+
+- [Рабочая программа «Architecture of Computing Devices / Архитектура вычислительных устройств» (Б1.В.ДВ.08.06)](/course-programmes/rpd-c734c982-b1-v-dv-08-06-architecture-of-computing.md)
+- [Рабочая программа «Basics of Product Management / Введение в управление продуктами» (Б1.В.ДВ.07.02)](/course-programmes/rpd-111443ae-b1-v-dv-07-02-basics-of-product-manageme.md)
+- [Рабочая программа «Branding and Marketing in IT industry / Брендинг и маркетинг в ИТ- индустрии» (Б1.В.ДВ.07.01)](/course-programmes/rpd-f65ca918-b1-v-dv-07-01-branding-and-marketing-in.md)
+- [Рабочая программа «Business Analysis in IT / Бизнес-анализ в ИТ» (Б1.В.ДВ.08.05)](/course-programmes/rpd-b2d38285-b1-v-dv-08-05-business-analysis-in-it-bi.md)
+- [Рабочая программа «Business communications for IT-specialist / Деловые коммуникации для ИТ-специалиста» (Б1.В.ДВ.07.09)](/course-programmes/rpd-f686d193-b1-v-dv-07-09-business-communications-fo.md)
+- [Рабочая программа «Challenges of Object-Oriented Programming / Проблемы объектно- ориентированного программирования» (Б1.В.ДВ.08.10)](/course-programmes/rpd-06d9e0d9-b1-v-dv-08-10-challenges-of-objectorient.md)
+- [Рабочая программа «Deep Learning for Search / Глубокое обучение для задач поиска» (Б1.В.ДВ.08.09)](/course-programmes/rpd-c5a775f8-b1-v-dv-08-09-deep-learning-for-search-g.md)
+- [Рабочая программа «Design-thinking / Дизайн-мышление» (Б1.В.ДВ.07.07)](/course-programmes/rpd-8e3118e1-b1-v-dv-07-07-designthinking-dizaynmyshl.md)
+- [Рабочая программа «Fundamentals of Computer Science in Lean 4 / Теоретические основы программирования с Lean 4» (Б1.В.ДВ.08.07)](/course-programmes/rpd-699d07ff-b1-v-dv-08-07-fundamentals-of-computer-s.md)
+- [Рабочая программа «Golang & Flutter: Rapid Cross-Platform Development / Golang & Flutter: Быстрая кросс-платформенная разработка» (Б1.В.ДВ.08.03)](/course-programmes/rpd-3ea95f8a-b1-v-dv-08-03-golang-flutter-rapid-cross.md)
+- [Рабочая программа «How to build an IT team / Построение ИТ-команды» (Б1.В.ДВ.07.06)](/course-programmes/rpd-3731c8b5-b1-v-dv-07-06-how-to-build-an-it-team-po.md)
+- [Рабочая программа «Introduction to 3D Modeling / Введение в 3D-моделирование» (Б1.В.ДВ.08.04)](/course-programmes/rpd-96fea764-b1-v-dv-08-04-introduction-to-3d-modelin.md)
+- [Рабочая программа «Introduction to Career Development for IT-specialist / Введение в развитие карьеры ИТ-специалиста» (Б1.В.ДВ.07.04)](/course-programmes/rpd-bfc6306e-b1-v-dv-07-04-introduction-to-career-dev.md)
+- [Рабочая программа «Introduction to Robot Operating System / Введение в операционную систему для роботов» (Б1.В.ДВ.08.12)](/course-programmes/rpd-078f7141-b1-v-dv-08-12-introduction-to-robot-oper.md)
+- [Рабочая программа «Practicum Project / Прикладной проект» (Б1.О.26)](/course-programmes/rpd-6fe44d71-b1-o-26-practicum-project-prikladnoy-pro.md)
+- [Рабочая программа «Product Solutions Engineering / Инженерия продуктовых решений» (Б1.В.ДВ.07.11)](/course-programmes/rpd-02e33460-b1-v-dv-07-11-product-solutions-engineer.md)
+- [Рабочая программа «Programming in Python / Программирование на языке Python» (Б1.В.ДВ.08.01)](/course-programmes/rpd-d67d243c-b1-v-dv-08-01-programming-in-python-prog.md)
+- [Рабочая программа «Psychology of IT-specialist / Психология ИТ-специалиста» (Б1.В.ДВ.07.03)](/course-programmes/rpd-bdde253a-b1-v-dv-07-03-psychology-of-itspecialist.md)
+- [Рабочая программа «Reading Skills for IT-specialist / Навыки чтения для ИТ-специалиста» (Б1.В.ДВ.07.08)](/course-programmes/rpd-aacd5751-b1-v-dv-07-08-reading-skills-for-itspeci.md)
+- [Рабочая программа «Real-Time Scheduling Theory / Теоретические основы систем реального времени» (Б1.В.ДВ.08.02)](/course-programmes/rpd-fcd1f755-b1-v-dv-08-02-realtime-scheduling-theory.md)
+- [Рабочая программа «Russian as a Foreign Language / Русский как иностранный (6 семестр)» (ФТД.01)](/course-programmes/rpd-7447c7ad-ftd-01-russian-as-a-foreign-language-rus.md)
+- [Рабочая программа «Startup CEO Toolkit / Инструментарий СЕО стартапа» (Б1.В.ДВ.07.12)](/course-programmes/rpd-ed8ea2b9-b1-v-dv-07-12-startup-ceo-toolkit-instru.md)
+- [Рабочая программа «System Design of High-Load Applications / Системный дизайн высоконагруженных приложений» (Б1.В.ДВ.08.11)](/course-programmes/rpd-e9f8ddce-b1-v-dv-08-11-system-design-of-highload.md)
+- [Рабочая программа «Tech Startup Design / Проектирование технологических стартапов» (Б1.В.ДВ.07.10)](/course-programmes/rpd-51300b02-b1-v-dv-07-10-tech-startup-design-proekt.md)
+- [Рабочая программа «Technical Communication / Техническая коммуникация» (Б1.В.ДВ.08.08)](/course-programmes/rpd-04b1a090-b1-v-dv-08-08-technical-communication-te.md)
+- [Рабочая программа «UX/UI Design / UX/UI Дизайн» (Б1.В.ДВ.07.05)](/course-programmes/rpd-f574fd68-b1-v-dv-07-05-ux-ui-design-ux-ui-dizayn.md)
+- [Рабочая программа «Безопасность жизнедеятельности» (Б1.О.05)](/course-programmes/rpd-ab9b5249-b1-o-05-bezopasnost-zhiznedeyatelnosti.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-d617cc42-b1-v-01-elektivnye-distsipliny-moduli-po.md)
 
 ## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Анализ данных и искусственный интеллект», набор 2023, 7 семестр
 
@@ -937,6 +1745,38 @@ Course programmes (РПД) by programme, cohort and semester. Back to [the wiki]
 - [Рабочая программа «Software Architecture / Архитектура программного обеспечения» (Б1.В.ДВ.15.01)](/course-programmes/rpd-ad22c46a-b1-v-dv-15-01-software-architecture-arkh.md)
 - [Рабочая программа «Software Product Development and Analysis / Анализ и разработка продукта программного обеспечения» (Б1.В.ДВ.16.05)](/course-programmes/rpd-bed48928-b1-v-dv-16-05-software-product-developme.md)
 - [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-25f00f8c-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Анализ данных и искусственный интеллект», набор 2023, 8 семестр
+
+- [Рабочая программа «Advanced Compilers Construction and Program Analysis / Разработка компиляторов и анализ программ (углубленный курс)» (Б1.В.ДВ.14.04)](/course-programmes/rpd-dd26b1e2-b1-v-dv-14-04-advanced-compilers-constru.md)
+- [Рабочая программа «Advanced Technical Communications in IT / Техническая коммуникация (продвинутый курс)» (Б1.В.ДВ.18.09)](/course-programmes/rpd-18c92815-b1-v-dv-18-09-advanced-technical-communi.md)
+- [Рабочая программа «Artificial Intelligence in Games / Искусственный интеллект в игра» (Б1.В.ДВ.14.01)](/course-programmes/rpd-5fc33b50-b1-v-dv-14-01-artificial-intelligence-in.md)
+- [Рабочая программа «Artificial Intelligence in Healthcare / Искусственный интеллект в здравоохранении» (Б1.В.ДВ.18.06)](/course-programmes/rpd-20919467-b1-v-dv-18-06-artificial-intelligence-in.md)
+- [Рабочая программа «Autonomous Mobile Robotics / Автономная мобильная робототехника» (Б1.В.ДВ.12.03)](/course-programmes/rpd-ef0d4cc8-b1-v-dv-12-03-autonomous-mobile-robotics.md)
+- [Рабочая программа «Business Analysis in IT / Бизнес-анализ в ИТ» (Б1.В.ДВ.18.08)](/course-programmes/rpd-ac39b335-b1-v-dv-18-08-business-analysis-in-it-bi.md)
+- [Рабочая программа «CPython Advanced / CPython (продвинутый курс)» (Б1.В.ДВ.18.01)](/course-programmes/rpd-5b395d90-b1-v-dv-18-01-cpython-advanced-cpython-p.md)
+- [Рабочая программа «Data Mining / Интеллектуальный анализ данных» (Б1.В.ДВ.13.03)](/course-programmes/rpd-0c5e39a6-b1-v-dv-13-03-data-mining-intellektualny.md)
+- [Рабочая программа «DevOps Engineering / Интеграция и автоматизация процесса разработки ПО» (Б1.В.ДВ.12.01)](/course-programmes/rpd-4e712f4b-b1-v-dv-12-01-devops-engineering-integra.md)
+- [Рабочая программа «Enterprise Java Development with Spring Framework / Промышленная разработка на Java с применением фреймворка Spring» (Б1.В.ДВ.18.10)](/course-programmes/rpd-412955a9-b1-v-dv-18-10-enterprise-java-developmen.md)
+- [Рабочая программа «Explainable, Interpretable, and Fair AI / Объяснимый, интерпретируемый и справедливый искусственный интеллект» (Б1.В.ДВ.14.05)](/course-programmes/rpd-8fbdf0b0-b1-v-dv-14-05-explainable-interpretable.md)
+- [Рабочая программа «Functional Backend Development in Scala / Функциональное программирование для бэкенда на Scala» (Б1.В.ДВ.18.11)](/course-programmes/rpd-50220836-b1-v-dv-18-11-functional-backend-develop.md)
+- [Рабочая программа «Fundamentals of Computer Science in Lean 4 / Теоретические основы программирования с Lean 4» (Б1.В.ДВ.18.12)](/course-programmes/rpd-d8b3aa28-b1-v-dv-18-12-fundamentals-of-computer-s.md)
+- [Рабочая программа «Game Design and Interactive Narrative / Игровой дизайн и интерактивное повествование» (Б1.В.ДВ.13.04)](/course-programmes/rpd-9ebd05df-b1-v-dv-13-04-game-design-and-interactiv.md)
+- [Рабочая программа «Generative Artificial Intelligence / Генеративный искусственный интеллект» (Б1.В.ДВ.13.05)](/course-programmes/rpd-6693296b-b1-v-dv-13-05-generative-artificial-inte.md)
+- [Рабочая программа «Introduction to Big Data / Введение в супермассивы данных» (Б1.В.ДВ.12.02)](/course-programmes/rpd-4b9c6448-b1-v-dv-12-02-introduction-to-big-data-v.md)
+- [Рабочая программа «Introduction to DevOps / Введение в интеграцию и автоматизацию процесса разработки ПО» (Б1.В.ДВ.18.05)](/course-programmes/rpd-8a5f5c23-b1-v-dv-18-05-introduction-to-devops-vve.md)
+- [Рабочая программа «Introduction to DevSecOps / Введение в интеграцию и автоматизацию безопасного процесса разработки ПО» (Б1.В.ДВ.18.04)](/course-programmes/rpd-f4b3ccd7-b1-v-dv-18-04-introduction-to-devsecops.md)
+- [Рабочая программа «Lean Software Development / Бережливая разработка ПО» (Б1.В.ДВ.13.01)](/course-programmes/rpd-01335875-b1-v-dv-13-01-lean-software-development.md)
+- [Рабочая программа «Mobile Game Development on Unity / Разработка мобильных игр на Unity» (Б1.В.ДВ.18.07)](/course-programmes/rpd-9af03864-b1-v-dv-18-07-mobile-game-development-on.md)
+- [Рабочая программа «Modern Virtualization Technologies / Современные технологии виртуализации» (Б1.В.ДВ.18.02)](/course-programmes/rpd-51298a92-b1-v-dv-18-02-modern-virtualization-tech.md)
+- [Рабочая программа «Natural Language Processing / Обработка естественного языка» (Б1.В.ДВ.11.01)](/course-programmes/rpd-ee0bb2bd-b1-v-dv-11-01-natural-language-processin.md)
+- [Рабочая программа «Robotic Systems / Робототехника» (Б1.В.ДВ.13.02)](/course-programmes/rpd-068e1698-b1-v-dv-13-02-robotic-systems-robototekh.md)
+- [Рабочая программа «Sensors and Sensing / Датчики и считывание» (Б1.В.ДВ.14.03)](/course-programmes/rpd-6aaac0c2-b1-v-dv-14-03-sensors-and-sensing-datchi.md)
+- [Рабочая программа «Signals and Systems / Сигналы и системы» (Б1.В.ДВ.11.03)](/course-programmes/rpd-db8a9e8c-b1-v-dv-11-03-signals-and-systems-signal.md)
+- [Рабочая программа «Software Product Development and Analysis / Анализ и разработка продукта программного обеспечения» (Б1.В.ДВ.18.03)](/course-programmes/rpd-8041c133-b1-v-dv-18-03-software-product-developme.md)
+- [Рабочая программа «Software Quality, Reliability and Security / Качество, надежность и безопасность программного обеспечения» (Б1.В.ДВ.11.02)](/course-programmes/rpd-42e09c8b-b1-v-dv-11-02-software-quality-reliabili.md)
+- [Рабочая программа «Statistical Techniques for Data Science / Статистические методы для науки о данных» (Б1.В.ДВ.14.02)](/course-programmes/rpd-7ea9e194-b1-v-dv-14-02-statistical-techniques-for.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-87b3bf91-b1-v-01-elektivnye-distsipliny-moduli-po.md)
 
 ## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Математические основы искусственного интеллекта», набор 2026, 2 семестр
 
@@ -1052,6 +1892,23 @@ Course programmes (РПД) by programme, cohort and semester. Back to [the wiki]
 - [Рабочая программа «Экономические механизмы и их наиболее актуальные приложения» (Б1.В.ДВ.01.02)](/course-programmes/rpd-ed18d453-b1-v-dv-01-02-ekonomicheskie-mekhanizmy.md)
 - [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-477fdafa-b1-v-01-elektivnye-distsipliny-moduli-po.md)
 
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Математические основы искусственного интеллекта», набор 2025, 4 семестр
+
+- [Рабочая программа «Аналитические и компьютерные модели» (Б1.В.ДВ.02.03)](/course-programmes/rpd-1bba8a61-b1-v-dv-02-03-analiticheskie-i-kompyuter.md)
+- [Рабочая программа «Введение в DevOps» (Б1.В.ДВ.02.01)](/course-programmes/rpd-391e9f68-b1-v-dv-02-01-vvedenie-v-devops.md)
+- [Рабочая программа «Введение в машинное обучение» (Б1.О.24)](/course-programmes/rpd-060e176d-b1-o-24-vvedenie-v-mashinnoe-obuchenie.md)
+- [Рабочая программа «Введение в оптимизацию и численные методы оптимизации» (Б1.О.13)](/course-programmes/rpd-6dde35dc-b1-o-13-vvedenie-v-optimizatsiyu-i-chisl.md)
+- [Рабочая программа «Введение в функциональный анализ» (Б1.В.ДВ.02.02)](/course-programmes/rpd-a367b3ea-b1-v-dv-02-02-vvedenie-v-funktsionalnyy.md)
+- [Рабочая программа «Мастерская по робототехнике и компьютерному зрению (4 семестр)» (ФТД.03)](/course-programmes/rpd-27a51097-ftd-03-masterskaya-po-robototekhnike-i-k.md)
+- [Рабочая программа «Математический анализ (4 семестр)» (Б1.О.02)](/course-programmes/rpd-e4a8f360-b1-o-02-matematicheskiy-analiz-4-semestr.md)
+- [Рабочая программа «Обыкновенные дифференциальные уравнения» (Б1.О.12)](/course-programmes/rpd-1f54c97d-b1-o-12-obyknovennye-differentsialnye-ur.md)
+- [Рабочая программа «Основы Low-code и No-code разработки» (Б1.В.ДВ.02.04)](/course-programmes/rpd-e7d5bde5-b1-v-dv-02-04-osnovy-lowcode-i-nocode-ra.md)
+- [Рабочая программа «Основы программной инженерии» (Б1.В.ДВ.02.05)](/course-programmes/rpd-fe05fee8-b1-v-dv-02-05-osnovy-programmnoy-inzhene.md)
+- [Рабочая программа «Применение технологий ИИ в химии и экспериментах» (Б1.В.ДВ.02.07)](/course-programmes/rpd-54b941ed-b1-v-dv-02-07-primenenie-tekhnologiy-ii.md)
+- [Рабочая программа «Современные методы управления роботами» (Б1.В.ДВ.02.06)](/course-programmes/rpd-d420f622-b1-v-dv-02-06-sovremennye-metody-upravle.md)
+- [Рабочая программа «Теория вероятностей» (Б1.О.14)](/course-programmes/rpd-cab7b456-b1-o-14-teoriya-veroyatnostey.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-c40e5b51-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
 ## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Математические основы искусственного интеллекта», набор 2025, 5 семестр
 
 - [Рабочая программа «Аналитические и компьютерные модели (углубленный курс)» (Б1.В.ДВ.03.06)](/course-programmes/rpd-9d2af3ce-b1-v-dv-03-06-analiticheskie-i-kompyuter.md)
@@ -1066,6 +1923,16 @@ Course programmes (РПД) by programme, cohort and semester. Back to [the wiki]
 - [Рабочая программа «Функциональный анализ» (Б1.В.ДВ.03.05)](/course-programmes/rpd-e07af39b-b1-v-dv-03-05-funktsionalnyy-analiz.md)
 - [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-03ac6b29-b1-v-01-elektivnye-distsipliny-moduli-po.md)
 
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Математические основы искусственного интеллекта», набор 2025, 6 семестр
+
+- [Рабочая программа «Безопасность жизнедеятельности» (Б1.О.19)](/course-programmes/rpd-2d0cb9f1-b1-o-19-bezopasnost-zhiznedeyatelnosti.md)
+- [Рабочая программа «Вычислительная математика (углубленный курс)» (Б1.В.ДВ.04.03)](/course-programmes/rpd-e051d75c-b1-v-dv-04-03-vychislitelnaya-matematika.md)
+- [Рабочая программа «Математическая логика для ИИ (углубленный курс)» (Б1.В.ДВ.04.01)](/course-programmes/rpd-bd5a84d8-b1-v-dv-04-01-matematicheskaya-logika-dl.md)
+- [Рабочая программа «Теоретическая механика (углубленный курс)» (Б1.В.ДВ.04.02)](/course-programmes/rpd-9e5290fc-b1-v-dv-04-02-teoreticheskaya-mekhanika.md)
+- [Рабочая программа «Теория случайных процессов» (Б1.О.21)](/course-programmes/rpd-8c8cb6d6-b1-o-21-teoriya-sluchaynykh-protsessov.md)
+- [Рабочая программа «Философия» (Б1.О.20)](/course-programmes/rpd-4af45722-b1-o-20-filosofiya.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-99922468-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
 ## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Математические основы искусственного интеллекта», набор 2025, 7 семестр
 
 - [Рабочая программа «UX/UI Дизайн» (Б1.В.ДВ.06.01)](/course-programmes/rpd-f18999be-b1-v-dv-06-01-ux-ui-dizayn.md)
@@ -1077,6 +1944,29 @@ Course programmes (РПД) by programme, cohort and semester. Back to [the wiki]
 - [Рабочая программа «Прикладная статистика в анализе данных» (Б1.О.22)](/course-programmes/rpd-557e64be-b1-o-22-prikladnaya-statistika-v-analize.md)
 - [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-c259b702-b1-v-01-elektivnye-distsipliny-moduli-po.md)
 - [Рабочая программа «Эффективные алгоритмы для труднорешаемых задач» (Б1.О.23)](/course-programmes/rpd-ee9e9fae-b1-o-23-effektivnye-algoritmy-dlya-trudn.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Математические основы искусственного интеллекта», набор 2025, 8 семестр
+
+- [Рабочая программа «Введение в генеративное моделирование» (Б1.В.ДВ.07.01)](/course-programmes/rpd-70a1b08a-b1-v-dv-07-01-vvedenie-v-generativnoe-mo.md)
+- [Рабочая программа «Введение в машинное обучение (8 семестр)» (Б1.О.24)](/course-programmes/rpd-82cb91ef-b1-o-24-vvedenie-v-mashinnoe-obuchenie-8.md)
+- [Рабочая программа «Глубокое обучение» (Б1.О.26)](/course-programmes/rpd-d604a241-b1-o-26-glubokoe-obuchenie.md)
+- [Рабочая программа «Децентрализованная оптимизация, транспортные задачи, спектральные свойства графов» (Б1.В.ДВ.07.04)](/course-programmes/rpd-c2c483c3-b1-v-dv-07-04-detsentralizovannaya-optim.md)
+- [Рабочая программа «Диффузионные модели» (Б1.В.ДВ.07.02)](/course-programmes/rpd-c8166613-b1-v-dv-07-02-diffuzionnye-modeli.md)
+- [Рабочая программа «Доверенный ИИ» (Б1.О.30)](/course-programmes/rpd-a7ded221-b1-o-30-doverennyy-ii.md)
+- [Рабочая программа «Математические основы ИИ» (Б1.О.25)](/course-programmes/rpd-ba0cea18-b1-o-25-matematicheskie-osnovy-ii.md)
+- [Рабочая программа «Методы обработки и генерации текста и речи» (Б1.О.27)](/course-programmes/rpd-9a12d413-b1-o-27-metody-obrabotki-i-generatsii-te.md)
+- [Рабочая программа «Обучение с подкреплением» (Б1.В.ДВ.07.03)](/course-programmes/rpd-dcd682f9-b1-v-dv-07-03-obuchenie-s-podkrepleniem.md)
+- [Рабочая программа «Психология ИТ-специалиста» (Б1.В.ДВ.08.02)](/course-programmes/rpd-3474b2de-b1-v-dv-08-02-psikhologiya-itspetsialist.md)
+- [Рабочая программа «Развитие предпринимательских навыков у создателя стартапа» (Б1.В.ДВ.08.01)](/course-programmes/rpd-94c27304-b1-v-dv-08-01-razvitie-predprinimatelski.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-1736229a-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Математические основы искусственного интеллекта», набор 2025, 10 семестр
+
+- [Рабочая программа «ИИ прикладной проект (семестр А)» (Б1.О.28)](/course-programmes/rpd-1a7289d1-b1-o-28-ii-prikladnoy-proekt-semestr-a.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Математические основы искусственного интеллекта», набор 2025, 11 семестр
+
+- [Рабочая программа «ИИ прикладной проект (семестр В)» (Б1.О.28)](/course-programmes/rpd-f3d81c08-b1-o-28-ii-prikladnoy-proekt-semestr-v.md)
 
 ## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Математические основы искусственного интеллекта», набор 2024, 1 семестр
 
@@ -1101,6 +1991,31 @@ Course programmes (РПД) by programme, cohort and semester. Back to [the wiki]
 - [Рабочая программа «Общая физика (2 семестр)» (Б1.О.03)](/course-programmes/rpd-25607f94-b1-o-03-obshchaya-fizika-2-semestr.md)
 - [Рабочая программа «Программирование на Python (2 семестр)» (ФТД.03)](/course-programmes/rpd-e7ac7812-ftd-03-programmirovanie-na-python-2-seme.md)
 - [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-18246ebd-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Математические основы искусственного интеллекта», набор 2024, 3 семестр
+
+- [Рабочая программа «Бизнес-анализ в ИТ» (ФТД.04)](/course-programmes/rpd-958f8273-ftd-04-biznesanaliz-v-it.md)
+- [Рабочая программа «История России» (Б1.О.09)](/course-programmes/rpd-db9633f0-b1-o-09-istoriya-rossii.md)
+- [Рабочая программа «Методы и подходы к запуску роботизированных систем» (Б1.В.ДВ.01.04)](/course-programmes/rpd-c74609e1-b1-v-dv-01-04-metody-i-podkhody-k-zapusk.md)
+- [Рабочая программа «Общая физика (углубленный курс)» (Б1.В.ДВ.01.01)](/course-programmes/rpd-943a7403-b1-v-dv-01-01-obshchaya-fizika-uglublenn.md)
+- [Рабочая программа «Программирование на языке Python (углубленный курс)» (ФТД.06)](/course-programmes/rpd-5ff0d7c1-ftd-06-programmirovanie-na-yazyke-python.md)
+- [Рабочая программа «Разработка программного продукта (проектная работа)» (ФТД.05)](/course-programmes/rpd-893fe8c1-ftd-05-razrabotka-programmnogo-produkta.md)
+- [Рабочая программа «Теория функций комплексного переменного» (Б1.В.ДВ.01.03)](/course-programmes/rpd-0582dd4d-b1-v-dv-01-03-teoriya-funktsiy-kompleksn.md)
+- [Рабочая программа «Физическая культура и спорт» (Б1.О.10)](/course-programmes/rpd-c878cf03-b1-o-10-fizicheskaya-kultura-i-sport.md)
+- [Рабочая программа «Экономические механизмы и их наиболее актуальные приложения» (Б1.В.ДВ.01.02)](/course-programmes/rpd-41155996-b1-v-dv-01-02-ekonomicheskie-mekhanizmy.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-aebc7c5c-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Математические основы искусственного интеллекта», набор 2024, 4 семестр
+
+- [Рабочая программа «Введение в оптимизацию и численные методы оптимизации» (Б1.О.12)](/course-programmes/rpd-851e9fc8-b1-o-12-vvedenie-v-optimizatsiyu-i-chisl.md)
+- [Рабочая программа «Введение в функциональный анализ» (Б1.В.ДВ.02.02)](/course-programmes/rpd-3229790e-b1-v-dv-02-02-vvedenie-v-funktsionalnyy.md)
+- [Рабочая программа «Математический анализ (4 семестр)» (Б1.О.02)](/course-programmes/rpd-3dc83976-b1-o-02-matematicheskiy-analiz-4-semestr.md)
+- [Рабочая программа «Обыкновенные дифференциальные уравнения» (Б1.О.11)](/course-programmes/rpd-5b08d21a-b1-o-11-obyknovennye-differentsialnye-ur.md)
+- [Рабочая программа «Прикладная математика: искусство и ремесло вычислений» (Б1.В.ДВ.02.03)](/course-programmes/rpd-4013a1f0-b1-v-dv-02-03-prikladnaya-matematika-isk.md)
+- [Рабочая программа «Программирование на С++ (4 семестр)» (ФТД.07)](/course-programmes/rpd-568946b8-ftd-07-programmirovanie-na-s-4-semestr.md)
+- [Рабочая программа «Теория вероятностей» (Б1.О.13)](/course-programmes/rpd-026f435f-b1-o-13-teoriya-veroyatnostey.md)
+- [Рабочая программа «Теория информации» (Б1.В.ДВ.02.01)](/course-programmes/rpd-64a65b1d-b1-v-dv-02-01-teoriya-informatsii.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-a74d4208-b1-v-01-elektivnye-distsipliny-moduli-po.md)
 
 ## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Математические основы искусственного интеллекта», набор 2024, 5 семестр
 
@@ -1146,6 +2061,42 @@ Course programmes (РПД) by programme, cohort and semester. Back to [the wiki]
 - [Рабочая программа «Управление проектами в стиле Agile» (Б1.В.ДВ.10.06)](/course-programmes/rpd-6cd635aa-b1-v-dv-10-06-upravlenie-proektami-v-sti.md)
 - [Рабочая программа «Философия» (Б1.О.19)](/course-programmes/rpd-382db6c1-b1-o-19-filosofiya.md)
 - [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-5630187a-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Математические основы искусственного интеллекта», набор 2024, 7 семестр
+
+- [Рабочая программа «UX/UI Дизайн» (Б1.В.ДВ.06.01)](/course-programmes/rpd-31366891-b1-v-dv-06-01-ux-ui-dizayn.md)
+- [Рабочая программа «Агентные модели и динамика сетевых систем» (Б1.В.ДВ.05.01)](/course-programmes/rpd-5be89f84-b1-v-dv-05-01-agentnye-modeli-i-dinamika.md)
+- [Рабочая программа «Введение в машинное обучение (7 семестр)» (Б1.О.23)](/course-programmes/rpd-8ccaddeb-b1-o-23-vvedenie-v-mashinnoe-obuchenie-7.md)
+- [Рабочая программа «Высокопроизводительные вычисления» (Б1.В.ДВ.05.02)](/course-programmes/rpd-f02069cb-b1-v-dv-05-02-vysokoproizvoditelnye-vych.md)
+- [Рабочая программа «Компьютерное зрение и обработка видео» (Б1.В.ДВ.05.03)](/course-programmes/rpd-3001213f-b1-v-dv-05-03-kompyuternoe-zrenie-i-obra.md)
+- [Рабочая программа «Построение ИТ-команды» (Б1.В.ДВ.06.02)](/course-programmes/rpd-2e1d1e98-b1-v-dv-06-02-postroenie-itkomandy.md)
+- [Рабочая программа «Прикладная статистика в анализе данных» (Б1.О.21)](/course-programmes/rpd-afbd78fd-b1-o-21-prikladnaya-statistika-v-analize.md)
+- [Рабочая программа «Применение технологий ИИ в химии и экспериментах» (Б1.В.ДВ.05.04)](/course-programmes/rpd-f851a122-b1-v-dv-05-04-primenenie-tekhnologiy-ii.md)
+- [Рабочая программа «Технологии больших языковых моделей для задач исследований и разработки (базовый уровень)» (Б1.О.29)](/course-programmes/rpd-e9c8af03-b1-o-29-tekhnologii-bolshikh-yazykovykh.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-7a846835-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+- [Рабочая программа «Эффективные алгоритмы для труднорешаемых задач» (Б1.О.22)](/course-programmes/rpd-29f068cb-b1-o-22-effektivnye-algoritmy-dlya-trudn.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Математические основы искусственного интеллекта», набор 2024, 8 семестр
+
+- [Рабочая программа «Введение в генеративное моделирование» (Б1.В.ДВ.07.01)](/course-programmes/rpd-28a21b56-b1-v-dv-07-01-vvedenie-v-generativnoe-mo.md)
+- [Рабочая программа «Введение в машинное обучение (8 семестр)» (Б1.О.23)](/course-programmes/rpd-39880d93-b1-o-23-vvedenie-v-mashinnoe-obuchenie-8.md)
+- [Рабочая программа «Глубокое обучение» (Б1.О.25)](/course-programmes/rpd-a735abef-b1-o-25-glubokoe-obuchenie.md)
+- [Рабочая программа «Децентрализованная оптимизация, транспортные задачи, спектральные свойства графов» (Б1.В.ДВ.07.04)](/course-programmes/rpd-db0090e4-b1-v-dv-07-04-detsentralizovannaya-optim.md)
+- [Рабочая программа «Диффузионные модели» (Б1.В.ДВ.07.02)](/course-programmes/rpd-4292d8d7-b1-v-dv-07-02-diffuzionnye-modeli.md)
+- [Рабочая программа «Математические основы ИИ» (Б1.О.24)](/course-programmes/rpd-17cd24aa-b1-o-24-matematicheskie-osnovy-ii.md)
+- [Рабочая программа «Методы обработки и генерации текста и речи» (Б1.О.26)](/course-programmes/rpd-1211553a-b1-o-26-metody-obrabotki-i-generatsii-te.md)
+- [Рабочая программа «Обучение с подкреплением» (Б1.В.ДВ.07.03)](/course-programmes/rpd-14fe3dc5-b1-v-dv-07-03-obuchenie-s-podkrepleniem.md)
+- [Рабочая программа «Психология ИТ-специалиста» (Б1.В.ДВ.08.02)](/course-programmes/rpd-6a8ec9ce-b1-v-dv-08-02-psikhologiya-itspetsialist.md)
+- [Рабочая программа «Развитие предпринимательских навыков у создателя стартапа» (Б1.В.ДВ.08.01)](/course-programmes/rpd-30394c75-b1-v-dv-08-01-razvitie-predprinimatelski.md)
+- [Рабочая программа «Элективные дисциплины (модули) по физической культуре и спорту» (Б1.В.01)](/course-programmes/rpd-cc7a9bb4-b1-v-01-elektivnye-distsipliny-moduli-po.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Математические основы искусственного интеллекта», набор 2024, 10 семестр
+
+- [Рабочая программа «ИИ прикладной проект (семестр А)» (Б1.О.27)](/course-programmes/rpd-34b6154a-b1-o-27-ii-prikladnoy-proekt-semestr-a.md)
+
+## бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Математические основы искусственного интеллекта», набор 2024, 11 семестр
+
+- [Рабочая программа «ИИ прикладной проект (семестр В)» (Б1.О.27)](/course-programmes/rpd-bf4df4de-b1-o-27-ii-prikladnoy-proekt-semestr-v.md)
 
 ## магистратура 09.04.01 Информатика и вычислительная техника, профиль «Кибербезопасность», набор 2025, 1 семестр
 

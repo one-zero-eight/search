@@ -1,5 +1,9 @@
 # Log
 
+## 2026-10-24
+
+- **Update** compiled 1 pages from eduwiki: bsc-old-template
+
 ## 2026-10-22
 
 - **Update** compiled 14 pages from eduwiki: bsc-informationtheory, newsboard-channels-newsboard-channels, newsboard-channels-newsboard-channels-485, bsc-logic-and-discrete-mathematics, msc-unit-economics-for-it-startups, bsc-logic-and-discrete-mathematics-776, msc-it-business-start, msc-marketing-and-sales-for-it-business, mste-it-course, mste-it-course-903, msc-it-business-start-933, msc-unit-economics-for-it-startups-936, msc-marketing-and-sales-for-it-business-937, bsc-informationtheory-986

@@ -8,7 +8,7 @@ Knowledge about Innopolis University compiled from [eduwiki](https://eduwiki.inn
 
 - [knowledge](/knowledge/index.md): Knowledge cards: what many regulations say on one topic, every sentence cited, 267 pages
 - [regulations](/regulations/index.md): Regulations, orders and other official documents, 992 pages
-- [course-programmes](/course-programmes/index.md): Course programmes (РПД) by programme, cohort and semester, 1090 pages
+- [course-programmes](/course-programmes/index.md): Course programmes (РПД) by programme, cohort and semester, 1876 pages
 - [courses](/courses/index.md): Course descriptions from eduwiki, 296 pages
 - [programs](/programs/index.md): Study plans, 13 pages
 - [procedures](/procedures/index.md): Procedures: how to do things at the university, 11 pages
