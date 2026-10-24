@@ -100,18 +100,6 @@ services:
     profiles: ["userbot"]
     command: ["catix-tguserbot", "listen"]
 
-  # VLESS+Reality client for the userbot only, where the network blocks Telegram's data centres: a SOCKS5 proxy inside the
-  # compose network, not published on the host. Starts with the userbot (same profile). Then in .env:
-  #   TG_PROXY=socks5://xray:1080
-  # Its config: secrets/xray/config.json, made from xray.config.example.json (DEPLOY.md, section 4).
-  xray:
-    profiles: ["userbot"]
-    image: ghcr.io/xtls/xray-core:26.3.27   # pinned: a stable release
-    restart: unless-stopped
-    volumes:
-      - ./secrets/xray/config.json:/etc/xray/config.json:ro
-    command: ["run", "-c", "/etc/xray/config.json"]
-
   # Trace viewer: the agent's questions, model calls, tools and search steps, and the users' 👍/👎. Then in .env:
   #   PHOENIX_ENDPOINT=http://phoenix:6006
   # Its UI has no login: it listens on the server's localhost only and is opened through an SSH tunnel (DEPLOY.md).

@@ -103,20 +103,20 @@ timeout 5 bash -c "</dev/tcp/149.154.167.51/443" && echo ok || echo blocked
 ```
 Тогда userbot ходит через прокси с машины, откуда Telegram открыт, `TG_PROXY` в `.env`:
 ```
-TG_PROXY=socks5://user:password@host:1080        # или socks4://, http://
+TG_PROXY=http://user:password@host:3128          # HTTP-прокси (CONNECT); «HTTP/HTTPS-прокси» провайдеров — это он
+TG_PROXY=socks5://user:password@host:1080        # или socks4://
 TG_PROXY=mtproxy://SECRET@host:443               # MTProxy: hex-секрет, обычный или dd...; fake-TLS (ee...) Telethon не умеет
 ```
-**Через Xray (VLESS+Reality), только для userbot.** Нужен сервер Xray за пределами этой сети (VPS с VLESS+Reality), до которого сервер достаёт: `timeout 5 bash -c "</dev/tcp/<IP VPS>/443" && echo ok`.
-1. Конфиг клиента из шаблона: `mkdir -p secrets/xray && cp xray.config.example.json secrets/xray/config.json` (каталог `secrets/` в git не попадает). Вписать из клиентских данных вашего VLESS+Reality: `address`, `port`, `id` (UUID), `flow` (обычно `xtls-rprx-vision`), `serverName` (SNI), `publicKey`, `shortId`, `fingerprint`. Вход — SOCKS5 на 1080 без пароля: он виден только контейнерам compose, наружу не публикуется.
-2. Проверить конфиг: `docker run --rm -v ./secrets/xray/config.json:/c.json:ro ghcr.io/xtls/xray-core:26.3.27 run -test -c /c.json`.
-3. В `.env`: `TG_PROXY=socks5://xray:1080`. Контейнер `xray` в профиле `userbot` и поднимается вместе с ним:
-   ```bash
-   docker compose -f docker-compose.prod.yml --profile userbot run --rm userbot catix-tguserbot login
-   docker compose -f docker-compose.prod.yml --profile userbot up -d
-   ```
-4. Проверить: в `docker compose -f docker-compose.prod.yml logs userbot` нет `Attempt 1 at connecting failed`, в `docker compose -f docker-compose.prod.yml logs xray` нет ошибок соединения с VPS.
-
-Простой SOCKS5 — SSH-туннель до машины, где Telegram доступен, запущенный на сервере: `ssh -N -D 10.1.1.27:1080 user@machine-with-telegram` (IP сервера в локальной сети: при rootless Docker контейнер видит только его, раздел 2c), затем `TG_PROXY=socks5://10.1.1.27:1080`. Такой прокси без пароля открыт всей локальной сети: закройте порт файрволом для всех, кроме самого сервера. Прокси нужен и для `login`.
+Прокси, к которому подключаются по TLS (`https://` в адресе самого прокси), Telethon не умеет: такой адрес бот отвергает при старте. Обычный HTTP-прокси с CONNECT подходит — трафик Telegram внутри него и так зашифрован. Прокси должен разрешать CONNECT на порт 443 (дата-центры Telegram слушают 443). Проверить прокси с сервера:
+```bash
+curl -sS -o /dev/null -w "%{http_code}\n" -x http://user:password@host:3128 https://api.telegram.org   # 302 или 200 — прокси работает
+```
+Прокси нужен и для `login`:
+```bash
+docker compose -f docker-compose.prod.yml --profile userbot run --rm userbot catix-tguserbot login
+docker compose -f docker-compose.prod.yml --profile userbot up -d
+```
+Затем в `docker compose -f docker-compose.prod.yml logs userbot` не должно быть `Attempt 1 at connecting failed`.
 
 ## 5. Календарный фид
 Воркер (FastAPI) отдаёт личный календарь пользователя `GET /users/me.ics` на порту `127.0.0.1:8090`. В запросе заголовок `Authorization: Bearer <токен InNoHassle пользователя>`: подпись проверяется по открытым ключам InNoHassle (`/accounts/v0/.well-known/jwks.json`), `telegram_id` из токена говорит, чей это календарь. В календаре события, которые пользователь добавил кнопкой «➕ В мой календарь» под ответами. Календарей групп нет. Перед портом нужен HTTPS (Caddy: `reverse_proxy 127.0.0.1:8090` для вашего домена).

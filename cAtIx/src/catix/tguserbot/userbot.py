@@ -44,6 +44,9 @@ def proxy_args(url: str | None) -> dict:
     parts = urlsplit(url)
     if not parts.hostname or not parts.port:
         raise ValueError("TG_PROXY needs a host and a port, e.g. socks5://127.0.0.1:1080")
+    if parts.scheme == "https":
+        raise ValueError("TG_PROXY: Telethon cannot talk TLS to a proxy; an HTTP proxy (http://host:port, CONNECT) carries Telegram's "
+                         "traffic, already encrypted")
     if parts.scheme == "mtproxy":
         from telethon.network.connection import ConnectionTcpMTProxyRandomizedIntermediate
 
