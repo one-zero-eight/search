@@ -57,7 +57,8 @@ programme, a course across its programmes and cohorts. It brings together what e
   of a regulation (the clause number goes after #), [source](/course-programmes/x.md "words of the page") for a page
   without clauses. In quotes after the path goes a quote: 4 to 80 words copied from the page as they stand (in the page's
   language, its typos too; no " inside, write « » instead), the very words the sentence rests on, with its numbers. The
-  program finds the quote in the clause and checks the sentence's numbers against it. Only
+  program finds the quote in the clause and checks the sentence's numbers against it. Never write a person's identifier
+  (a СНИЛС, an applicant's code) into a card: say what a list holds, not whose; the program hides any left. Only
   source pages are evidence, never cards; a link to another card ([title](/knowledge/slug.md)) is only
   navigation and goes in a section "## See also".
 - Write only what the cited text says. Every number must be in the text you cite for it: do not count what a page lists
@@ -370,6 +371,8 @@ def write(slug: str, title: str, description: str, body: str, tags: list[str], a
     if dropped and (old := read_file_card(slug)) and (really := [d for d in dropped if d in {ref_name(p, c) for p, c, _ in old["refs"]}]):
         print(f"  {slug}: dropped on purpose: {', '.join(really[:10])}", flush=True)
     text, refs = to_file_body(body.strip())
+    people = any(PEOPLES_LISTS.match(str(idx.meta[p]["meta"].get("title", "")).strip()) for p, _, _ in refs)
+    text, refs = hide_ids(text, people), [(p, c, hide_ids(q, people)) for p, c, q in refs]  # (after the check: the quotes were found)
     sources = []
     for page in dict.fromkeys(p for p, _, _ in refs):
         meta = idx.meta[page]["meta"]
@@ -566,19 +569,26 @@ def save_queue(pages: list[str]) -> None:
     QUEUE.write_text(json.dumps(pages, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
-# Lists of people, not rules: the protocols of entrance examinations and the orders of enrolment (an identifier, a СНИЛС
-# and a score a line). A card on them would hold nothing a reader asks about and repeat the applicants' data.
+# Lists of people: the protocols of entrance examinations and the orders of enrolment (an identifier, a СНИЛС and a score
+# a line). A card may say what they hold, but never whose: hide_ids takes the identifiers out of it.
 PEOPLES_LISTS = re.compile(r"(Вступительное испытание|Приказ о зачислении)\b", re.I)
+SNILS = re.compile(r"(?<![\w/.#-])\d{3}-\d{3}-\d{3}[ -]\d{2}(?![\w/-])")
+LONG_ID = re.compile(r"(?<![\w/.#,-])\d{6,14}(?![\w/-]|[.,]\d)")  # an applicant's code; not a path, a link or a decimal
+HIDDEN = "[скрыто]"
+
+
+def hide_ids(text: str, people: bool) -> str:
+    """A СНИЛС anywhere, and in a card on a list of people (`people`) every applicant's code of 6 to 14 digits too, as [скрыто]."""
+    text = SNILS.sub(HIDDEN, text)
+    return LONG_ID.sub(HIDDEN, text) if people else text
 
 
 def worth_reading(meta: dict) -> bool:
-    """Whether a source page may hold what readers ask about (WIKI_AGENT_SECTIONS): not a survey, a curriculum or a list of people."""
+    """Whether a source page may hold what readers ask about (WIKI_AGENT_SECTIONS): not a survey or a curriculum."""
     if meta.get("type") in NOT_EVIDENCE:
         return False
     if meta.get("type") == "course-programme":
         return settings.wiki_agent_course_programmes
-    if PEOPLES_LISTS.match(str(meta.get("title", "")).strip()):
-        return False
     section = meta.get("section")
     return section is None or str(section) in settings.wiki_agent_sections
 

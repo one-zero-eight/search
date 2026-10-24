@@ -93,9 +93,7 @@ def test_surveys_and_curricula_are_not_queued_rules_are():
     assert not agent.worth_reading({"type": "regulation", "section": "sveden/rating-system"})
     assert not agent.worth_reading({"type": "regulation", "section": "sveden/education"})
     assert agent.worth_reading({"type": "course"})  # the teaching wiki: no section
-    assert not agent.worth_reading({"type": "regulation", "section": "sveden/apply", "title": "Вступительное испытание по программе магистратуры «Кибербезопасность» 15.08.2024"})
-    assert not agent.worth_reading({"type": "regulation", "section": "sveden/apply", "title": "Приказ о зачислении (Бакалавриат, БВИ, 2026 г.)"})
-    assert agent.worth_reading({"type": "regulation", "section": "sveden/apply", "title": "Информация о проведении вступительных испытаний"})
+    assert agent.worth_reading({"type": "regulation", "section": "sveden/apply", "title": "Вступительное испытание по программе магистратуры «Кибербезопасность» 15.08.2024"})
     assert not agent.worth_reading({"type": "course-programme"}) and not agent.worth_reading({"type": "card"})
 
 
@@ -289,3 +287,21 @@ def test_a_quote_goes_into_the_citations_with_its_lines_and_comes_back(quotes, t
     assert agent.write("academic-leave", "Academic leave", "d", body, [], [], bundle()) == []
     assert f"п. 2.2, lines 5–6: «{QUOTE}»" in agent.card_path("academic-leave").read_text()
     assert agent.read_file_card("academic-leave")["body"] == body
+
+
+def test_identifiers_of_people_are_hidden_and_paths_and_money_are_not():
+    line = "Score 40 against 159-606-560 98 and 12547673170, codes 156793 [1]; see [x](/regulations/sveden-35518743-pdf.md); 1150000 rubles, 4.33"
+    people = agent.hide_ids(line, people=True)
+    assert "159-606-560" not in people and "12547673170" not in people and "156793" not in people
+    assert "sveden-35518743" in people and "4.33" in people and "40" in people
+    other = agent.hide_ids(line, people=False)
+    assert "159-606-560" not in other and "12547673170" in other and "1150000" in other  # only a СНИЛС outside a list of people
+
+
+def test_a_card_on_a_list_of_people_is_written_without_their_codes(tmp_path):
+    idx = bundle()
+    idx.meta[REG]["meta"]["title"] = "Вступительное испытание по программе магистратуры «Кибербезопасность» 15.08.2024"
+    idx.meta[REG]["body"] = "**2.2.** № 1, 12547673170, 40 (Сорок).\n"
+    assert agent.write("exam-results", "Exam results", "d", f"One result: 40 for 12547673170 [п. 2.2]({REG}#2.2).", [], [], idx) == []
+    text = agent.card_path("exam-results").read_text()
+    assert "12547673170" not in text and "40 for [скрыто]" in text
