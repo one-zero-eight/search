@@ -3,7 +3,7 @@ from functools import cached_property
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-from pydantic import AliasChoices, Field, HttpUrl, SecretStr, field_validator
+from pydantic import AliasChoices, Field, HttpUrl, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -108,10 +108,8 @@ class Settings(BaseSettings):
     changes_enabled: bool = True
     # Telegram ids that set up the bot and get the alerts; more are added in the bot (/admin).
     admin_telegram_ids: list[int] = []
-    # The worker serves the users' personal calendars at /users/me.ics on feed_port (127.0.0.1); an HTTPS reverse proxy
-    # in front of it is feed_public_url, e.g. https://cal.example.com. Without it /calendar has no address to give.
+    # The worker serves the users' personal calendars at /users/my-calendar.ics on feed_port (127.0.0.1), behind an HTTPS proxy.
     feed_port: int = 8090
-    feed_public_url: HttpUrl | None = None
     # Start time of a change whose message names only the day: the calendar does not show all-day events.
     changes_default_time: time = time(9, 0)
 
@@ -199,18 +197,6 @@ class Settings(BaseSettings):
     messages_db: Path = Path("raw/telegram.db")
     courses_file: Path = Path("courses.toml")
     timezone: str = "Europe/Moscow"
-
-    @field_validator("feed_public_url", mode="before")
-    @classmethod
-    def _feed_url_scheme(cls, value: object) -> object:
-        """`FEED_PUBLIC_URL=name.tuna.am` is what a tunnel prints: it means https, and an empty value means off."""
-        if isinstance(value, str):
-            value = value.strip()
-            if not value:
-                return None
-            if "://" not in value:
-                return f"https://{value}"
-        return value
 
     @cached_property
     def tz(self) -> ZoneInfo:

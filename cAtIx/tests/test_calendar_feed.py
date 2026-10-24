@@ -1,4 +1,4 @@
-"""The personal calendar GET /users/me.ics (worker/feed.py): the InNoHassle token of the user opens their calendar, and
+"""The personal calendar GET /users/my-calendar.ics (worker/feed.py): the InNoHassle token of the user opens their calendar, and
 no other token does. The tokens are signed here by a key of our own, put in place of InNoHassle's keys."""
 
 import time
@@ -33,7 +33,7 @@ def client(monkeypatch):
 
 
 def get(client, bearer: str | None):
-    return client.get("/users/me.ics", headers={"Authorization": f"Bearer {bearer}"} if bearer else {})
+    return client.get("/users/my-calendar.ics", headers={"Authorization": f"Bearer {bearer}"} if bearer else {})
 
 
 def test_the_token_of_a_user_opens_their_calendar(client):

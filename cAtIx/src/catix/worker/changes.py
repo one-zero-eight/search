@@ -4,7 +4,7 @@ The worker (worker.py, `catix-worker`) gets the id of every new message from a R
 whether the message puts something on the calendar (a reschedule, a room change, a cancellation or a new event) and,
 if so, when and where. A found change is sent to the users of the chat's study group (of a chat for everybody: to every
 user the bot knows), and each decides for themselves: "✅ В мой календарь" puts it in their personal calendar
-(personal_calendar.py, /users/me.ics). The stream carries only new messages, so history is not scanned.
+(personal_calendar.py, /users/my-calendar.ics). The stream carries only new messages, so history is not scanned.
 """
 
 import html

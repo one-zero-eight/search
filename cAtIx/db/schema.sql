@@ -187,7 +187,7 @@ CREATE OR REPLACE VIEW visible.messages WITH (security_barrier = true) AS
     WHERE m.chat_id = ANY (visible.allowed_chats());
 
 -- Personal calendar of a user (personal_calendar.py): events they added with "➕ В мой календарь" under an answer, served
--- at /users/me.ics to the holder of the user's InNoHassle token. user_key is 'tg:<id>'.
+-- at /users/my-calendar.ics to the holder of the user's InNoHassle token. user_key is 'tg:<id>'.
 DROP TABLE IF EXISTS user_calendars;  -- The calendars had a secret link each; now the InNoHassle token opens them.
 CREATE TABLE IF NOT EXISTS personal_events (
     id         bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,

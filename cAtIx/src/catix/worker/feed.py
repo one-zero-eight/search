@@ -1,4 +1,4 @@
-"""The user's personal calendar for InNoHassle and calendar apps: GET /users/me.ics.
+"""The user's personal calendar for InNoHassle and calendar apps: GET /users/my-calendar.ics.
 
 The request carries the user's InNoHassle token (`Authorization: Bearer <JWT>`). It is checked against InNoHassle's
 public keys, and its `telegram_id` says whose calendar it is: the events they added with "➕ В мой календарь" under an
@@ -44,7 +44,7 @@ def user_key(token: str) -> str:
     return f"tg:{telegram_id}"
 
 
-@app.get("/users/me.ics")
+@app.get("/users/my-calendar.ics")
 def my_calendar(credentials: HTTPAuthorizationCredentials = Depends(bearer)) -> Response:
     return Response(personal_calendar.ics(user_key(credentials.credentials)), media_type="text/calendar; charset=utf-8")
 
@@ -56,5 +56,5 @@ class _Server(uvicorn.Server):
 
 
 async def serve() -> None:
-    log.info("calendar on 127.0.0.1:%s/users/me.ics", settings.feed_port)
+    log.info("calendar on 127.0.0.1:%s/users/my-calendar.ics", settings.feed_port)
     await _Server(uvicorn.Config(app, host="127.0.0.1", port=settings.feed_port, log_level="warning")).serve()

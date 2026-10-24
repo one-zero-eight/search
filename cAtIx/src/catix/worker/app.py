@@ -3,7 +3,7 @@
     bots --(ids of stored messages)--> Redis stream --> this worker --> schedule_changes (Postgres)
                                                                     --> cards to the users of the chat's group (Telegram)
 
-The worker also serves the users' personal calendars (feed.py, GET /users/me.ics).
+The worker also serves the users' personal calendars (feed.py, GET /users/my-calendar.ics).
 
 Embedding threads (embedder.py) turn every stored message into a vector; they read their queue from Postgres and
 are woken by the same stream. The bots only store messages, they compute nothing.

@@ -1,6 +1,6 @@
 """A user's personal calendar: the events they added with "➕ В мой календарь" under an answer.
 
-Served at GET /users/me.ics (worker/feed.py) to whoever shows the user's InNoHassle token; user_key is 'tg:<id>'.
+Served at GET /users/my-calendar.ics (worker/feed.py) to whoever shows the user's InNoHassle token; user_key is 'tg:<id>'.
 """
 
 import json
@@ -24,14 +24,6 @@ class PersonalEvent:
     all_day: bool
     room: str | None
     source_url: str | None = None  # The chat message the event comes from.
-
-
-def configured() -> bool:
-    return settings.feed_public_url is not None
-
-
-def url() -> str:
-    return f"{str(settings.feed_public_url).rstrip('/')}/users/me.ics"
 
 
 # ---- events ---------------------------------------------------------------------------------------------------

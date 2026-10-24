@@ -231,12 +231,10 @@ async def feedback(query: CallbackQuery, bot: Bot) -> None:
 
 
 def _calendar_screen(user_id: int) -> tuple[str, InlineKeyboardMarkup | None]:
-    if not personal_calendar.configured():
-        return "Календарь пока не настроен (нужен FEED_PUBLIC_URL). Напишите администратору.", None
     user_key = f"tg:{user_id}"
     lines = [
         "🗓 <b>Ваш личный календарь</b>: события, которые вы добавили кнопкой «➕ В мой календарь» под ответами.",
-        f"Адрес: {personal_calendar.url()}, открывается с вашим токеном InNoHassle (аккаунт, привязанный к этому Telegram).",
+        "Он отдаётся по запросу с вашим токеном InNoHassle (аккаунт, привязанный к этому Telegram).",
     ]
     rows = []
     events = personal_calendar.upcoming(user_key, 5)
@@ -341,7 +339,7 @@ async def _answer(message: Message, question: str) -> None:
         except TelegramBadRequest:
             # Converter produced HTML Telegram does not accept: fall back to plain text.
             sent = await message.reply(chunk, disable_web_page_preview=True, reply_markup=keyboard)
-    if sent and trace and personal_calendar.configured():
+    if sent and trace:
         task = asyncio.create_task(_offer_events(sent, answer, trace))  # After the answer: it does not delay it.
         _background.add(task)
         task.add_done_callback(_background.discard)
