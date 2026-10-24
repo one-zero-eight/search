@@ -345,6 +345,7 @@ FOLDERS = {  # directory -> what it holds, for the root index
     "regulations": "Regulations, orders and other official documents",
     "course-programmes": "Course programmes (РПД) by programme, cohort and semester",
     "sites": "Pages of the sites of the university's services: campus life, the campus hotel",
+    "past-papers": "Past exam papers by subject, as the students collected them (not official)",
     "courses": "Course descriptions from eduwiki",
     "programs": "Study plans",
     "procedures": "Procedures: how to do things at the university",
@@ -377,7 +378,7 @@ def write_index(found: list[tuple[Path, dict]]) -> None:
     root = ["---", 'okf_version: "0.2"', "---", "", "# Innopolis University wiki", "",
             "Knowledge about Innopolis University compiled from [eduwiki](https://eduwiki.innopolis.university), "
             "the [disclosure section](https://innopolis.university/sveden/) of the university's site, the course programmes and the sites of "
-            "[campus life](https://campuslife.innopolis.ru) and [the campus hotel](https://hotel.innopolis.university).", ""]
+            "[campus life](https://campuslife.innopolis.ru) and [the campus hotel](https://hotel.innopolis.university), and past exam papers the students collected.", ""]
     for directory in [*FOLDERS, *(d for d in TYPES.values() if d not in FOLDERS)]:
         items = [(p, m) for p, m in found if p.parent == BUNDLE / directory]
         if not items:

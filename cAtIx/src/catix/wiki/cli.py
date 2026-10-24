@@ -6,6 +6,7 @@
     catix-wiki regs fetch|compile      # official regulations (PDF) as a second source, see sources/regulations.py
     catix-wiki rpd fetch|compile|status   # course programmes (РПД) from the archives of sveden/education, see sources/rpd.py
     catix-wiki sites fetch|compile|status   # campuslife.innopolis.ru, hotel.innopolis.university, see sources/sites.py
+    catix-wiki papers fetch|compile|status  # past exam papers from the students' Notion database, see sources/pastpapers.py
     catix-wiki autopilot [--loop] [--source NAME ...] [--no-push] [--no-answers]   # the wiki maintains itself and commits to its branch (see autopilot.py)
     catix-wiki build [--offline]       # the whole chain, re-running only what changed (see build.py)
     catix-wiki agent [queue|all [FOLDER]|check|PATH ...]   # the wiki's agent keeps the knowledge cards (wiki/knowledge/), see agent.py
@@ -16,7 +17,7 @@
 
 The code is laid out by what each part does:
     sources/       what the wiki is made from: each module asks one source what is new and brings it into raw/
-                   (eduwiki, sveden: the site's documents, regulations: their PDFs and pages, rpd: course programmes, sites: the services' sites,
+                   (eduwiki, sveden: the site's documents, regulations: their PDFs and pages, rpd: course programmes, sites: the services' sites, pastpapers: past exams,
                    mock: a stand-in site); sources/__init__.py says how often each is asked
     compile.py     eduwiki snapshot -> pages (the model turns wikitext into markdown); also what every part shares
                    (the bundle's folder, the model client, front matter)
@@ -52,6 +53,10 @@ def main() -> None:
         from catix.wiki.sources import sites
 
         sites.main()
+    elif cmd == "papers":
+        from catix.wiki.sources import pastpapers
+
+        pastpapers.main()
     elif cmd == "rpd":
         from catix.wiki.sources import rpd
 

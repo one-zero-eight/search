@@ -5,6 +5,7 @@
     regulations.py  the kept documents (PDF): text, then wiki/regulations/ by code (the model writes only a description)
     rpd.py          course programmes (РПД) from the archives of sveden/education: wiki/course-programmes/, by code only
     sites.py        the sites of the university's services (campus life, the campus hotel): wiki/sites/, their documents as regulations
+    pastpapers.py   past exam papers the students keep in Notion: wiki/past-papers/, one page per subject, by code only
     mock.py         a stand-in site for showing and testing the wiki's run (WIKI_MOCK_SITE)
 
 
@@ -65,11 +66,18 @@ def _sites() -> int:
     return sites.fetch() + regulations.refresh(prefix="site-") + regulations.fetch()
 
 
+def _papers() -> int:
+    from catix.wiki.sources import pastpapers
+
+    return pastpapers.fetch()
+
+
 SOURCES = [
     Source("eduwiki", timedelta(hours=6), _eduwiki, "eduwiki.innopolis.university: pages whose revision changed"),
     Source("sveden", timedelta(days=1), _sveden, "innopolis.university/sveden: documents and course programmes added to the site"),
     Source("files", timedelta(days=7), _files, "documents and archives read before that changed on the site (HEAD, ~1 request every 2 s)"),
     Source("sites", timedelta(days=7), _sites, "campuslife.innopolis.ru, hotel.innopolis.university: pages and the documents they link"),
+    Source("papers", timedelta(days=7), _papers, "past exam papers in the students' Notion database: new rows and their files"),
 ]
 
 

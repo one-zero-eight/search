@@ -13,8 +13,8 @@ def test_only_the_data_may_be_committed():
 def test_a_source_is_asked_when_its_interval_has_passed():
     now = datetime(2026, 10, 24, 12, tzinfo=timezone.utc)
     state = {"asked": {"eduwiki": (now - timedelta(hours=7)).isoformat(), "sveden": (now - timedelta(hours=2)).isoformat()}}
-    assert [s.name for s in autopilot.due(state, now)] == ["eduwiki", "files", "sites"]  # files and sites were never asked
-    assert [s.name for s in sources.SOURCES] == ["eduwiki", "sveden", "files", "sites"]
+    assert [s.name for s in autopilot.due(state, now)] == ["eduwiki", "files", "sites", "papers"]  # files, sites and papers were never asked
+    assert [s.name for s in sources.SOURCES] == ["eduwiki", "sveden", "files", "sites", "papers"]
 
 
 def test_the_commit_message_counts_changes_per_folder():

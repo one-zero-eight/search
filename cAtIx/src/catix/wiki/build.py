@@ -7,6 +7,7 @@
   regs     regulations -> wiki/regulations (the text as it is; the model writes only the description)
   rpd      course programmes of every cohort -> wiki/course-programmes (by code only)
   sites    pages of the services' sites -> wiki/sites (the text as it is; the model writes only the description)
+  papers   past exam papers -> wiki/past-papers, one page per subject (by code only)
   compile  pages whose revision is not in the bundle yet (the model)
   link     links between concepts, index.md
   graph    prerequisites, teachers, duplicates (the model only for lines it has not seen; answers are cached)
@@ -23,7 +24,7 @@ from dataclasses import dataclass, field
 from catix.settings import settings
 from catix.wiki import compile as compiler
 from catix.wiki import graph, lint, search_index, sources
-from catix.wiki.sources import regulations, rpd, sites
+from catix.wiki.sources import pastpapers, regulations, rpd, sites
 
 
 @dataclass
@@ -44,6 +45,8 @@ def rebuild() -> Report:
     rpd.compile_all()
     print("== sites")
     sites.compile_all()
+    print("== past papers")
+    pastpapers.compile_all()
     print("== compile")
     compiler.compile_pages(None)
     print("== link")
