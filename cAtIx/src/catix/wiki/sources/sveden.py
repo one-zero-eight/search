@@ -121,7 +121,7 @@ def load(path: Path) -> list | dict:
 
 
 def triage(redo: bool = False) -> None:
-    brief = Path(__file__).parent.parent / "instructions.md".read_text(encoding="utf-8")
+    brief = (Path(__file__).parent.parent / "instructions.md").read_text(encoding="utf-8")
     decisions: dict = load(TRIAGE)
     before = dict(decisions)
     if redo:  # new instructions or a better listing: ask again, but what a person decided stays

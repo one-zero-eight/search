@@ -51,7 +51,7 @@ TYPES = {  # type -> directory of the bundle
 }
 
 # Old versions and drafts live next to the current page and contradict it: not content.
-SKIP_TITLE = re.compile(r"previous version|\.tex$|\.[fFsS]\d\d\b|\bold$|\bdraft", re.I)
+SKIP_TITLE = re.compile(r"previous version|\.tex$|\.[fFsS]\d\d\b|\bold$|\bdraft|\btemplate$", re.I)
 
 SAMPLE = [
     "BSTE:AdvancedCPP",

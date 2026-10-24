@@ -431,15 +431,18 @@ def compile_all() -> None:
         fm = front_of(old) if old else {}
         if f"id: {yaml_value(meta['sha256'][:12])}" in old and fm.get("description") and fm.get("audience"):
             desc, tags, audience = str(fm["description"]), [str(t) for t in fm.get("tags") or []], [str(a) for a in fm["audience"]]
+            by = (fm.get("generated") or {}).get("by")  # (the model that wrote them, not the one of this run: else every page changes)
         else:  # a new file or a new version of it: the model reads it
             desc, tags, audience = describe(title, text)
+            by = None
+        by = by or f"{PRODUCER} regulations ({model_name()}: description, tags and audience only)"
         body = to_markdown(text)
         issued = issued_of(text, meta["fetched_at"])
         ocr = meta["method"].startswith("ocr")
         front = ["---", "type: regulation", f"title: {yaml_value(title)}", f"description: {yaml_value(desc)}", f"resource: {yaml_value(meta['url'])}", f"tags: {yaml_value(tags)}", f"audience: {yaml_value(audience)}",
                  "source_kind: official-document", "language: ru", f"section: {yaml_value(meta.get('section', 'document'))}",
                  "sources:", f"  - resource: {yaml_value(meta['url'])}", f"    id: {yaml_value(meta['sha256'][:12])}", f"    title: {yaml_value(title)}", f"    last_modified: {yaml_value(issued)}",
-                 "generated:", f"  by: {yaml_value(f'{PRODUCER} regulations ({model_name()}: description, tags and audience only)')}", f"  at: {yaml_value(meta['fetched_at'])}",
+                 "generated:", f"  by: {yaml_value(by)}", f"  at: {yaml_value(meta['fetched_at'])}",
                  f"extraction: {yaml_value(meta['method'])}", "status: draft",
                  *(['review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"'] if ocr else []), "---"]
         page = "\n".join(front) + f"\n\n# {title}\n\n{body}\n\n# Citations\n\n1. [{title}]({meta['url']}), file {meta['sha256'][:12]}\n"
