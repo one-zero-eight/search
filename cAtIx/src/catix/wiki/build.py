@@ -6,6 +6,7 @@
            innopolis.university/sveden (kept or skipped by the model), the regulations, the course programmes
   regs     regulations -> wiki/regulations (the text as it is; the model writes only the description)
   rpd      course programmes of every cohort -> wiki/course-programmes (by code only)
+  sites    pages of the services' sites -> wiki/sites (the text as it is; the model writes only the description)
   compile  pages whose revision is not in the bundle yet (the model)
   link     links between concepts, index.md
   graph    prerequisites, teachers, duplicates (the model only for lines it has not seen; answers are cached)
@@ -22,7 +23,7 @@ from dataclasses import dataclass, field
 from catix.settings import settings
 from catix.wiki import compile as compiler
 from catix.wiki import graph, lint, search_index, sources
-from catix.wiki.sources import regulations, rpd
+from catix.wiki.sources import regulations, rpd, sites
 
 
 @dataclass
@@ -41,6 +42,8 @@ def rebuild() -> Report:
     regulations.compile_all()
     print("== course programmes")
     rpd.compile_all()
+    print("== sites")
+    sites.compile_all()
     print("== compile")
     compiler.compile_pages(None)
     print("== link")

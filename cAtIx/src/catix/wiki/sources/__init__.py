@@ -4,6 +4,7 @@
     sveden.py       innopolis.university/sveden: every document the site discloses; the model decides which to keep
     regulations.py  the kept documents (PDF): text, then wiki/regulations/ by code (the model writes only a description)
     rpd.py          course programmes (РПД) from the archives of sveden/education: wiki/course-programmes/, by code only
+    sites.py        the sites of the university's services (campus life, the campus hotel): wiki/sites/, their documents as regulations
     mock.py         a stand-in site for showing and testing the wiki's run (WIKI_MOCK_SITE)
 
 
@@ -57,10 +58,18 @@ def _files() -> int:
     return changed and regulations.fetch() + rpd.fetch()
 
 
+def _sites() -> int:
+    """The pages of the services' sites read again, then the documents they link that are new or changed."""
+    from catix.wiki.sources import regulations, sites
+
+    return sites.fetch() + regulations.refresh(prefix="site-") + regulations.fetch()
+
+
 SOURCES = [
     Source("eduwiki", timedelta(hours=6), _eduwiki, "eduwiki.innopolis.university: pages whose revision changed"),
     Source("sveden", timedelta(days=1), _sveden, "innopolis.university/sveden: documents and course programmes added to the site"),
     Source("files", timedelta(days=7), _files, "documents and archives read before that changed on the site (HEAD, ~1 request every 2 s)"),
+    Source("sites", timedelta(days=7), _sites, "campuslife.innopolis.ru, hotel.innopolis.university: pages and the documents they link"),
 ]
 
 

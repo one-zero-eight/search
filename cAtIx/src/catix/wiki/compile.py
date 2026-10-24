@@ -344,6 +344,7 @@ FOLDERS = {  # directory -> what it holds, for the root index
     "knowledge": "Knowledge cards: what many regulations say on one topic, every sentence cited",
     "regulations": "Regulations, orders and other official documents",
     "course-programmes": "Course programmes (РПД) by programme, cohort and semester",
+    "sites": "Pages of the sites of the university's services: campus life, the campus hotel",
     "courses": "Course descriptions from eduwiki",
     "programs": "Study plans",
     "procedures": "Procedures: how to do things at the university",
@@ -360,7 +361,7 @@ def _groups(directory: str, items: list[tuple[Path, dict]]) -> list[tuple[str, l
     if directory == "course-programmes":
         key = lambda m: (m["programme"], -int(m["cohort"]), int(m["semester"]))  # noqa: E731 - the newest cohort first
         name = lambda m: f"{m['programme']}, набор {m['cohort']}, {m['semester']} семестр"  # noqa: E731
-    elif directory == "regulations":
+    elif directory in {"regulations", "sites"}:
         key = name = lambda m: m["section"]  # noqa: E731
     else:
         return [("", items)]
@@ -375,7 +376,8 @@ def write_index(found: list[tuple[Path, dict]]) -> None:
     root one has front matter)."""
     root = ["---", 'okf_version: "0.2"', "---", "", "# Innopolis University wiki", "",
             "Knowledge about Innopolis University compiled from [eduwiki](https://eduwiki.innopolis.university), "
-            "the [disclosure section](https://innopolis.university/sveden/) of the university's site and the course programmes.", ""]
+            "the [disclosure section](https://innopolis.university/sveden/) of the university's site, the course programmes and the sites of "
+            "[campus life](https://campuslife.innopolis.ru) and [the campus hotel](https://hotel.innopolis.university).", ""]
     for directory in [*FOLDERS, *(d for d in TYPES.values() if d not in FOLDERS)]:
         items = [(p, m) for p, m in found if p.parent == BUNDLE / directory]
         if not items:

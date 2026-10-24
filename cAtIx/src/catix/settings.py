@@ -187,10 +187,10 @@ class Settings(BaseSettings):
     # the assistant (unset: 4 with WIKI_LLM_ROUTE, else 1).
     wiki_agent_parallel: int | None = Field(None, gt=0)
     # The documents of the site the agent reads, by the section they come from: rules, procedures, admission, fees,
-    # grants, the units' regulations. Left out: sveden/rating-system (surveys) and sveden/education (curricula, programme
+    # grants, the units' regulations, the sites of campus life and the campus hotel. Left out: sveden/rating-system (surveys) and sveden/education (curricula, programme
     # descriptions); a page of the teaching wiki has no section and is always read. Course programmes only when asked.
     wiki_agent_sections: list[str] = ["document", "sveden/document", "sveden/apply", "sveden/paid_edu", "sveden/grants",
-                                      "sveden/objects", "sveden/struct"]
+                                      "sveden/objects", "sveden/struct", "site/campuslife", "site/hotel"]
     wiki_agent_course_programmes: bool = False
 
     # Old SQLite file, only read by `catix-db migrate`.
