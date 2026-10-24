@@ -36,7 +36,7 @@ QUEUE = RAW / "knowledge-queue.json"
 NOT_EVIDENCE = {"card", "guide"}  # made by a model: a card rests on the source pages only
 SLUG = re.compile(r"^[a-z0-9][a-z0-9-]{2,80}$")
 CLAUSE_REF = re.compile(r"(?:\bп\.|\bпп?\.|пункт\w*|\bclauses?|\bsections?|\bparagraphs?|\bitems?|раздел\w*|§)\s*\d+(?:\.\d+)*\.?", re.I)
-LINK = re.compile(r"\[([^\]]*)\]\((/[^)\s#]+\.md)(?:#([\w.\-]+))?\)")
+LINK = re.compile(r'\[([^\]]*)\]\((/[^)\s#]+\.md)(?:#([\w.\-]+))?(?:\s+"([^"]*)")?\)')  # [п. 2.2](/x.md#2.2 "the words it rests on")
 REF = re.compile(r"\[(\d{1,3})\]")
 NUMBER = r"\*\*\d{1,2}(?:\.\d{1,2}){0,4}\.?\*\*"  # a clause's number in bold; a bold date ('**29.12.2012**', a PDF's line break) is not one
 CLAUSE = re.compile(rf"^\*\*(\d{{1,2}}(?:\.\d{{1,2}}){{0,4}})\.?\*\*\s*(.*?)(?=\n{NUMBER}|\n## |\n# Citations|\Z)", re.S | re.M)
@@ -54,8 +54,11 @@ programme, a course across its programmes and cohorts. It brings together what e
 - Before writing, look for an existing card on the subject (list_cards, search_wiki): update it with read_card and
   write_card, keeping what it says and adding what is new. Make a new card only for a new subject. Never two cards on one subject.
 - Every sentence and every list item ends with links to the pages it rests on (the items of a list may rest on the
-  links of the line that opens it with ':'): [п. 5.3](/regulations/x.md#5.3) for a clause
-  of a regulation (the clause number goes after #), [source](/course-programmes/x.md) for a page without clauses. Only
+  links of the line that opens it with ':'): [п. 5.3](/regulations/x.md#5.3 "words of the page") for a clause
+  of a regulation (the clause number goes after #), [source](/course-programmes/x.md "words of the page") for a page
+  without clauses. In quotes after the path goes a quote: 4 to 80 words copied from the page as they stand (in the page's
+  language, its typos too; no " inside, write « » instead), the very words the sentence rests on, with its numbers. The
+  program finds the quote in the clause and checks the sentence's numbers against it. Only
   source pages are evidence, never cards or guides; a link to another card ([title](/knowledge/slug.md)) is only
   navigation and goes in a section "## See also".
 - Write only what the cited text says. Every number must be in the text you cite for it: do not count what a page lists
@@ -78,31 +81,87 @@ def card_path(slug: str):
     return BUNDLE / FOLDER / f"{slug}.md"
 
 
-def to_file_body(body: str) -> tuple[str, list[tuple[str, str]]]:
-    """Inline evidence links -> [n], numbered by first use; the (page, clause) of each number. Links to cards stay links."""
-    refs: list[tuple[str, str]] = []
+def to_file_body(body: str) -> tuple[str, list[tuple[str, str, str]]]:
+    """Inline evidence links -> [n], numbered by first use; the (page, clause, quote) of each number. Links to cards stay links."""
+    refs: list[tuple[str, str, str]] = []
 
     def number(m: re.Match) -> str:
-        page, clause = m.group(2), m.group(3) or ""
+        page, clause, quote = m.group(2), m.group(3) or "", (m.group(4) or "").strip()
         if page.startswith(f"/{FOLDER}/"):  # a card that is not written (yet) is named, not linked
-            return m.group(0) if (BUNDLE / page.lstrip("/")).exists() else m.group(1)
-        if (page, clause) not in refs:
-            refs.append((page, clause))
-        return f"[{refs.index((page, clause)) + 1}]"
+            return f"[{m.group(1)}]({page})" if (BUNDLE / page.lstrip("/")).exists() else m.group(1)
+        if (page, clause, quote) not in refs:
+            refs.append((page, clause, quote))
+        return f"[{refs.index((page, clause, quote)) + 1}]"
 
     return LINK.sub(number, body), refs
 
 
-def to_agent_body(body: str, refs: list[tuple[str, str]]) -> str:
+def to_agent_body(body: str, refs: list[tuple[str, str, str]]) -> str:
     """[n] -> the inline link it stands for, so that the agent edits the card in the form it writes."""
     def link(m: re.Match) -> str:
         n = int(m.group(1))
         if not 1 <= n <= len(refs):
             return m.group(0)
-        page, clause = refs[n - 1]
-        return f"[п. {clause}]({page}#{clause})" if clause else f"[source]({page})"
+        page, clause, quote = refs[n - 1]
+        said = f' "{quote}"' if quote else ""
+        return f"[п. {clause}]({page}#{clause}{said})" if clause else f"[source]({page}{said})"
 
     return REF.sub(link, body)
+
+
+# ---- quotes: the words of the page a sentence rests on, found by code (whatever the line breaks, the OCR's noise) ----
+
+
+QUOTE_WORDS = (4, 80)  # a quote this many words long: enough to be found once, short enough to be the evidence of one sentence
+
+
+def words_of(text: str) -> list[str]:
+    """The words of a text for comparing quotes: lower case, ё as е; markup, punctuation, dashes and OCR's bullets ignored."""
+    return re.findall(r"[^\W_]+", text.lower().replace("ё", "е"))
+
+
+def find_quote(quote: str, text: str) -> tuple[int, int] | None:
+    """Where the quote is in the text: (first, last) word index, or None. Word for word first; else the place where most of its
+    word triples are in order (a model that mends a typo of the OCR, a word the extraction split). What the page says there is
+    what counts (quoted_text), never the model's copy: a number changed in a near quote is caught."""
+    q, t = words_of(quote), words_of(text)
+    if not q or len(q) > len(t):
+        return None
+    joined, wanted = " ".join(t), " ".join(q)
+    if (at := f" {joined} ".find(f" {wanted} ")) >= 0:
+        first = joined[:at].count(" ")  # (at is where the word starts in joined: the padding shifts it by one)
+        return first, first + len(q) - 1
+    triples = [tuple(q[i:i + 3]) for i in range(len(q) - 2)]
+    if not triples:
+        return None
+    where: dict[tuple, list[int]] = {}
+    for i in range(len(t) - 2):
+        where.setdefault((t[i], t[i + 1], t[i + 2]), []).append(i)
+    votes: Counter = Counter()
+    for k, tri in enumerate(triples):
+        for i in where.get(tri, []):
+            votes[i - k] += 1
+    if not votes:
+        return None
+    start, n = votes.most_common(1)[0]
+    return (max(start, 0), min(start + len(q) - 1, len(t) - 1)) if n >= 0.6 * len(triples) else None
+
+
+def quoted_text(quote: str, text: str) -> str | None:
+    """The words of the text the quote stands for (None when it is not there)."""
+    found = find_quote(quote, text)
+    return " ".join(words_of(text)[found[0]: found[1] + 1]) if found else None
+
+
+def lines_of(quote: str, page_text: str) -> str:
+    """'lines 118–119' of the page file where the quote stands ('' when it is not found): a reader opens the file there."""
+    lines = page_text.splitlines()
+    owner = [n for n, line in enumerate(lines, 1) for _ in words_of(line)]
+    found = find_quote(quote, page_text)
+    if not found or not owner:
+        return ""
+    first, last = owner[found[0]], owner[found[1]]
+    return f"line {first}" if first == last else f"lines {first}–{last}"
 
 
 def read_file_card(slug: str) -> dict | None:
@@ -115,14 +174,14 @@ def read_file_card(slug: str) -> dict | None:
     body = re.sub(r"^\s*# .*\n", "", body.lstrip("\n"), count=1)  # the title heading the code wrote
     body, _, cites = body.partition("\n# Citations\n")
     refs = []
-    for line in cites.splitlines():
-        if m := re.match(r"\s*\d+\.\s+\[.*\]\((/[^)\s]+\.md)\)(?:, clause ([\w.\-]+))?", line):  # (a title may hold brackets)
-            refs.append((m.group(1), m.group(2) or ""))
+    for line in cites.splitlines():  # n. [Title](/x.md), п. 2.2, lines 118–119: «quote»  (older cards: ", clause 2.2", no quote)
+        if m := re.match(r"\s*\d+\.\s+\[.*\]\((/[^)\s]+\.md)\)(?:, (?:clause|п\.) ([\w.\-]+))?(?:, lines? [\d–-]+)?(?:: «(.*)»)?\s*$", line):  # (a title may hold brackets)
+            refs.append((m.group(1), m.group(2) or "", m.group(3) or ""))
     return {"slug": slug, "title": str(fm.get("title", "")), "description": str(fm.get("description", "")), "tags": fm.get("tags") or [],
             "audience": fm.get("audience") or [], "body": to_agent_body(body.strip(), refs), "refs": refs}
 
 
-def ref_name(page: str, clause: str) -> str:
+def ref_name(page: str, clause: str, _quote: str = "") -> str:
     return f"{page}#{clause}" if clause else page
 
 
@@ -134,9 +193,10 @@ def lost(slug: str, body: str, dropped: list[str], idx: Index) -> list[str]:
     if old is None:
         return []
     _, new_refs = to_file_body(body)
+    new_places = {(p, c) for p, c, _ in new_refs}  # (a sentence may keep its place and change its quote)
     gone = []
-    for page, clause in old["refs"]:
-        if (page, clause) in new_refs or ref_name(page, clause) in dropped or page not in idx.meta:
+    for page, clause, _ in old["refs"]:
+        if (page, clause) in new_places or ref_name(page, clause) in dropped or page not in idx.meta:
             continue
         if clause and clause not in clauses_of(idx, page):
             continue
@@ -190,14 +250,16 @@ def numbers_in(text: str) -> set[str]:
     return digits | spelled_numbers(text) | russian
 
 
-def problems(body: str, idx: Index) -> list[str]:
-    """What is wrong with a card in the agent's form; [] when it may be written."""
+def problems(body: str, idx: Index, quotes: bool = False) -> list[str]:
+    """What is wrong with a card in the agent's form; [] when it may be written. With `quotes` every link to a source carries the
+    words of the page it rests on (the agent's cards since quotes; older cards hold without them until they are written again).
+    A quote is looked for in the clause it names (or the page); the numbers of the sentence must be in its quotes."""
     out = []
     if re.search(r"^# ", body, re.M):
         out.append("no '# ' headings: the title and the Citations section are written by the program")
     clause_cache: dict[str, dict[str, str]] = {}
     section, cited_any = "", False
-    lead: list[tuple[str, str]] = []  # the evidence of a line that ends with ':' and opens a list: its items rest on it
+    lead: list[tuple[str, str, str]] = []  # the evidence of a line that ends with ':' and opens a list: its items rest on it
     for line in (l.rstrip() for l in body.splitlines()):
         if not line.strip() or re.fullmatch(r"\|?[\s:|-]+\|?", line):
             continue
@@ -206,16 +268,17 @@ def problems(body: str, idx: Index) -> list[str]:
             continue
         short = line.strip()[:90]
         links = LINK.findall(line)
-        for _, page, _ in links:
+        for _, page, _, _ in links:
             if page not in idx.meta and not page.startswith(f"/{FOLDER}/"):  # (a card not written yet: the link becomes text)
                 out.append(f"no such page {page}: {short}")
-        evidence = [(page, clause) for _, page, clause in links if page in idx.meta and idx.meta[page]["meta"].get("type") not in NOT_EVIDENCE]
+        evidence = [(page, clause, quote) for _, page, clause, quote in links if page in idx.meta and idx.meta[page]["meta"].get("type") not in NOT_EVIDENCE]
+        own = bool(evidence)  # (the items of a list may rest on the line that opens it: its quotes are for that line, not for them)
         item = re.match(r"\s*(?:[-*+]|\d+[.)])\s+", line)
         if not item:
             lead = evidence if line.endswith(":") else []
         elif not evidence:
             evidence = lead
-        if bad := [page for _, page, _ in links if page in idx.meta and idx.meta[page]["meta"].get("type") in NOT_EVIDENCE and section != "see also"]:
+        if bad := [page for _, page, _, _ in links if page in idx.meta and idx.meta[page]["meta"].get("type") in NOT_EVIDENCE and section != "see also"]:
             out.append(f"{bad[0]} is a card or a guide: cite the source pages it rests on: {short}")
         if section == "see also":
             continue
@@ -224,19 +287,38 @@ def problems(body: str, idx: Index) -> list[str]:
                 out.append(f"no citation of a source page: {short}")
             continue
         cited_any = True
-        support = []
-        for page, clause in evidence:
+        support, said = [], []
+        for page, clause, quote in evidence:
             if clause:
                 found = clause_cache.setdefault(page, clauses_of(idx, page))
                 if clause not in found:
                     out.append(f"{page} has no clause {clause}: {short}")
                     continue
-                support.append(found[clause])
+                where = found[clause]
             else:
-                support.append(course_text(idx, page))
+                where = course_text(idx, page)
+            support.append(where)
+            if not own:
+                continue
+            if not quote:
+                if quotes:
+                    out.append(f'no quote: put the words of {ref_name(page, clause)} this rests on in the link, '
+                               f'[п. {clause or "N"}]({page}{"#" + clause if clause else ""} "verbatim words of the page"): {short}')
+                continue
+            n = len(words_of(quote))
+            if not QUOTE_WORDS[0] <= n <= QUOTE_WORDS[1]:
+                out.append(f"the quote is {n} words: quote {QUOTE_WORDS[0]} to {QUOTE_WORDS[1]} words, the ones this sentence rests on: {short}")
+            elif (page_words := quoted_text(quote, where)) is not None:
+                said.append(page_words)
+            elif clause and find_quote(quote, course_text(idx, page)):
+                out.append(f"the quote is in {page}, but not in its clause {clause}: cite the clause it is in: {short}")
+            else:
+                out.append(f"the quote is not in {ref_name(page, clause)}: copy the words as the page has them: {short}")
         claim = re.sub(r"^\s*(?:[-*+]|\d+[.)])\s+", "", LINK.sub(" ", line))  # (a list's own numbering is not a claim)
         claim = CLAUSE_REF.sub(" ", claim)  # nor is "clause 3.1.2" or "п. 2.4" written in the text
-        titles = [str(idx.meta[page]["meta"].get("title", "")) for page, _ in evidence]  # "the 2022 regulation": its year is in its title
+        titles = [str(idx.meta[page]["meta"].get("title", "")) for page, _, _ in evidence]  # "the 2022 regulation": its year is in its title
+        if said and len(said) == len(evidence):
+            support = said  # the numbers of a quoted sentence are in its quotes, not anywhere in a long clause or page
         missing = sorted(numbers_in(claim) - numbers_in(" ".join(support + titles)))
         if missing and support:
             out.append(f"number {missing[0]} is not in what the sentence cites: {short}")
@@ -262,16 +344,16 @@ def write(slug: str, title: str, description: str, body: str, tags: list[str], a
     if len(body) > MAX_BODY:
         return [f"the card is too long ({len(body)} characters, at most {MAX_BODY}): split it into cards on narrower subjects "
                 "(e.g. who may apply / the stages / the documents), linked under ## See also"]
-    if found := problems(body, idx):
+    if found := problems(body, idx, quotes=settings.wiki_agent_quotes):
         return found
     if gone := lost(slug, body, dropped or [], idx):
         return [f"the new text leaves out what the card cited, though the pages still say it: {', '.join(gone[:10])}. Keep the sentences "
                 "they support (read_card shows the old text), or, if they are wrong for this card, name them in `dropped`"]
-    if dropped and (old := read_file_card(slug)) and (really := [d for d in dropped if d in {ref_name(p, c) for p, c in old["refs"]}]):
+    if dropped and (old := read_file_card(slug)) and (really := [d for d in dropped if d in {ref_name(p, c) for p, c, _ in old["refs"]}]):
         print(f"  {slug}: dropped on purpose: {', '.join(really[:10])}", flush=True)
     text, refs = to_file_body(body.strip())
     sources = []
-    for page in dict.fromkeys(p for p, _ in refs):
+    for page in dict.fromkeys(p for p, _, _ in refs):
         meta = idx.meta[page]["meta"]
         src = (meta.get("sources") or [{}])[0]
         sources += [f"  - resource: {yaml_value(page)}", f"    id: {yaml_value(src.get('id', ''))}", f"    title: {yaml_value(meta.get('title', ''))}",
@@ -282,7 +364,12 @@ def write(slug: str, title: str, description: str, body: str, tags: list[str], a
              "generated:", f"  by: {yaml_value(f'{PRODUCER} agent ({model_name()})')}", f"  at: {yaml_value(datetime.now(timezone.utc).isoformat(timespec='seconds'))}",
              "status: draft", "---"]
     link_text = lambda p: str(idx.meta[p]["meta"].get("title", p)).replace("[", "(").replace("]", ")")  # noqa: E731 - brackets would end the link
-    citations = [f"{n}. [{link_text(p)}]({p})" + (f", clause {c}" if c else "") for n, (p, c) in enumerate(refs, 1)]
+    def citation(n: int, p: str, c: str, q: str) -> str:
+        file = BUNDLE / p.lstrip("/")
+        at = lines_of(q, file.read_text(encoding="utf-8")) if q and file.exists() else ""
+        return f"{n}. [{link_text(p)}]({p})" + (f", п. {c}" if c else "") + (f", {at}" if at else "") + (f": «{q}»" if q else "")
+
+    citations = [citation(n, p, c, q) for n, (p, c, q) in enumerate(refs, 1)]
     page = "\n".join(front) + f"\n\n# {title.strip()}\n\n{text}\n\n# Citations\n\n" + "\n".join(citations) + "\n"
     path = card_path(slug)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -295,7 +382,8 @@ def write(slug: str, title: str, description: str, body: str, tags: list[str], a
 
 KINDS = [("no citation", "no citation"), ("number", "number not in what it cites"), ("has no clause", "clause does not exist"),
          ("no such page", "page does not exist"), ("card or a guide", "cited a card or a guide"), ("leaves out", "lost old citations"),
-         ("slug", "bad slug"), ("title", "no title or description"), ("headings", "title or Citations heading"), ("too long", "too long")]
+         ("no quote", "no quote"), ("the quote is not in", "quote not in the page"), ("but not in its clause", "quote in another clause"),
+         ("the quote is", "quote too short or long"), ("slug", "bad slug"), ("title", "no title or description"), ("headings", "title or Citations heading"), ("too long", "too long")]
 
 
 def kind_of(problem: str) -> str:

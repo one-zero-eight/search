@@ -14,6 +14,7 @@ def _no_real_wiki(tmp_path, monkeypatch):
     """No test writes into the wiki of WIKI_ROOT (a card that passed the check would land there)."""
     monkeypatch.setattr(agent, "BUNDLE", tmp_path)
     monkeypatch.setattr(agent, "QUEUE", tmp_path / "knowledge-queue.json")
+    monkeypatch.setattr(agent.settings, "wiki_agent_quotes", False)  # (the tests of quotes turn them on)
 
 REG = "/regulations/leave.md"
 COURSE = "/course-programmes/calc-2026.md"
@@ -51,7 +52,7 @@ def test_a_guide_or_a_card_is_not_evidence():
 def test_the_file_numbers_the_links_and_the_agent_gets_them_back():
     body = f"Up to 12 months [п. 2.2]({REG}#2.2); 180 hours [source]({COURSE}); again [п. 2.2]({REG}#2.2)."
     text, refs = agent.to_file_body(body)
-    assert text == "Up to 12 months [1]; 180 hours [2]; again [1]." and refs == [(REG, "2.2"), (COURSE, "")]
+    assert text == "Up to 12 months [1]; 180 hours [2]; again [1]." and refs == [(REG, "2.2", ""), (COURSE, "", "")]
     assert agent.to_agent_body(text, refs) == body
 
 
@@ -62,7 +63,7 @@ def test_a_card_is_written_with_its_front_matter_and_citations_and_read_back(tmp
     text = (tmp_path / "knowledge" / "academic-leave.md").read_text()
     front = text.split("\n---\n")[0]
     assert "type: card" in front and REG in front and "academic-leave" not in front  # its sources are the pages it cites
-    assert "# Citations\n\n1. [Regulation on academic leave](/regulations/leave.md), clause 2.2" in text
+    assert "# Citations\n\n1. [Regulation on academic leave](/regulations/leave.md), п. 2.2" in text
     assert agent.read_file_card("academic-leave")["body"] == body
     assert agent.write("Bad Slug", "t", "d", body, [], [], bundle()) != []
 
@@ -237,4 +238,52 @@ def test_a_title_with_brackets_keeps_its_citations():
     assert agent.read_file_card("academic-leave")["body"] == body
     text = agent.card_path("academic-leave").read_text().replace("(Положение об Администрации)", "[Положение об Администрации]")
     agent.card_path("academic-leave").write_text(text)  # a card written before the fix
+    assert agent.read_file_card("academic-leave")["body"] == body
+
+
+QUOTE = "Academic leave is granted for up to 12 months"
+
+
+@pytest.fixture
+def quotes(monkeypatch):
+    monkeypatch.setattr(agent.settings, "wiki_agent_quotes", True)
+
+
+def test_a_link_without_a_quote_is_refused_and_a_quote_found_passes(quotes):
+    idx = bundle()
+    assert any("no quote" in p for p in agent.problems(f"Leave lasts up to 12 months [п. 2.2]({REG}#2.2).", idx, quotes=True))
+    assert agent.problems(f'Leave lasts up to 12 months [п. 2.2]({REG}#2.2 "{QUOTE}").', idx, quotes=True) == []
+
+
+def test_a_quote_is_found_whatever_the_case_the_punctuation_and_a_mended_typo():
+    text = "**2.2.** Академический   отпуск предоставляется на срок\nне более 12 (двенадцати) месяцев, — один раз."
+    assert agent.find_quote("академический отпуск предоставляется на срок не более 12 (двенадцати) месяцев", text)
+    assert agent.find_quote("Академический отпуск предоставлятся на срок не более 12 двенадцати месяцев", text)  # a typo mended or made
+    assert agent.find_quote("отпуск по уходу за ребёнком до трёх лет", text) is None
+
+
+def test_a_quote_not_in_the_page_or_in_another_clause_or_of_a_few_words_is_refused():
+    idx = bundle()
+    found = lambda body: agent.problems(body, idx, quotes=True)
+    assert any("not in /regulations/leave.md#2.2" in p for p in found(f'Up to 12 months [п. 2.2]({REG}#2.2 "students may take it as often as they like").'))
+    # a near quote with a number changed is found, and the number is checked against the page's own words there
+    assert any("number 24" in p for p in found(f'Up to 24 months [п. 2.2]({REG}#2.2 "leave is granted for up to 24 months").'))
+    assert any("but not in its clause 2.3" in p for p in found(f'Up to 12 months [п. 2.3]({REG}#2.3 "{QUOTE}").'))
+    assert any("quote is 2 words" in p for p in found(f'Up to 12 months [п. 2.2]({REG}#2.2 "12 months").'))
+
+
+def test_the_numbers_of_a_quoted_sentence_are_checked_against_its_quote():
+    idx = bundle()
+    idx.meta[REG]["body"] = "**2.2.** Academic leave is granted for up to 12 months, and a student may take it twice in 6 years.\n"
+    quoted = f'Leave lasts up to 6 months [п. 2.2]({REG}#2.2 "{QUOTE}").'
+    assert any("number 6" in p for p in agent.problems(quoted, idx, quotes=True))  # 6 is in the clause, not in what it quotes
+    assert agent.problems(quoted.replace("6 months", "12 months"), idx, quotes=True) == []
+
+
+def test_a_quote_goes_into_the_citations_with_its_lines_and_comes_back(quotes, tmp_path):
+    (tmp_path / "regulations").mkdir()
+    (tmp_path / "regulations" / "leave.md").write_text("---\ntype: regulation\n---\n\n**2.2.** Academic leave is granted\nfor up to 12 months.\n")
+    body = f'Leave lasts up to 12 months [п. 2.2]({REG}#2.2 "{QUOTE}").'
+    assert agent.write("academic-leave", "Academic leave", "d", body, [], [], bundle()) == []
+    assert f"п. 2.2, lines 5–6: «{QUOTE}»" in agent.card_path("academic-leave").read_text()
     assert agent.read_file_card("academic-leave")["body"] == body
