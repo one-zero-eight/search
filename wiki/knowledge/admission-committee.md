@@ -116,7 +116,7 @@ From the day the acceptance of documents begins, the committee announces on the 
 
 - [Enrollment contract](/knowledge/enrollment-contract.md)
 - [Application for PhD aspirantura admission (budget places)](/knowledge/phd-admission-application.md)
-- Reserve sittings of entrance examinations (August 2024) — published results
+- [Reserve sittings of entrance examinations (August 2024) — published results](/knowledge/reserve-entrance-exam-results-2024.md)
 
 # Citations
 

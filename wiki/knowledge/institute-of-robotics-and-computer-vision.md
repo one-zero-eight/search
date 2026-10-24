@@ -83,7 +83,7 @@ Within its activity the Institute is responsible for preparing scientific-educat
 
 ## See also
 
-- Entrance examination for the master's programme «Робототехника и компьютерное зрение» (5 August 2024) — published results
+- [Entrance examination for the master's programme «Робототехника и компьютерное зрение» (5 August 2024) — published results](/knowledge/robotics-computer-vision-entrance-exam-results-2024.md)
 - [Laboratory of Multi-Agent Systems (regulation)](/knowledge/multi-agent-systems-laboratory.md)
 - [Laboratory of Humanities (Лаборатория гуманитарных наук) — place, tasks, functions and rights](/knowledge/laboratory-of-humanities.md)
 

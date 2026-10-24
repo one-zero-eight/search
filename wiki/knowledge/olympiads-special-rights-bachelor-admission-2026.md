@@ -58,7 +58,7 @@ The text of the annexes is extracted from tables in a way that scrambles many ro
 - [Special rights and individual achievements in bachelor's and master's admission 2026/2027 — the competitive score](/knowledge/bachelor-master-admission-priorities-and-individual-achievements-2026-2027.md)
 - [Admission to bachelor's and master's programmes 2026/2027 — programmes, places and quotas](/knowledge/bachelor-master-admission-2026-2027.md)
 - [Entrance examinations for bachelor's and master's admission 2026/2027](/knowledge/bachelor-master-entrance-examinations-2026-2027.md)
-- Enrollment order for bachelor budget places without entrance examinations (2026)
+- [Enrollment order for bachelor budget places without entrance examinations (2026)](/knowledge/enrollment-order-bachelor-bvi-2026.md)
 
 # Citations
 

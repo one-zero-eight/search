@@ -71,7 +71,7 @@ Some data in the OCR text are corrupted: single characters are read as letters (
 
 ## See also
 
-- Enrollment order for bachelor budget places without entrance examinations (2026)
+- [Enrollment order for bachelor budget places without entrance examinations (2026)](/knowledge/enrollment-order-bachelor-bvi-2026.md)
 - [Lists, consent and enrolment in bachelor's and master's admission 2026/2027 — stages and deadlines](/knowledge/bachelor-master-admission-lists-and-enrollment-2026-2027.md)
 - [Number of places under contracts for education (paid places) by bachelor's and master's programme](/knowledge/paid-places-by-programme.md)
 - [Higher education tuition cost for 2026/2027 (first and later courses)](/knowledge/higher-education-tuition-2026-2027.md)
