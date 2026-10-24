@@ -20,7 +20,9 @@ are written by code, so the assistant cites the original document, as with the g
 import json
 import re
 import sys
+import threading
 from collections import Counter
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 
 from catix.settings import settings
@@ -341,18 +343,24 @@ def _tools(idx_box: list, written: list, refused: Counter | None = None):
         """Write a card (new, or the whole new text of an existing one: keep what it said). audience: some of student,
         postgraduate, applicant, teacher, staff, management, public. dropped: citations of the old text you leave out on
         purpose, as '/regulations/x.md#5.3' (a page without clauses: just its path). Returns 'written' or the problems to fix."""
-        found = write(slug, title, description, body, tags or [], audience or [], idx_box[0], dropped or [])
-        refused["attempts"] += 1
+        with WRITING:  # tasks run at once: the old text a new one is checked against is the one on disk
+            found = write(slug, title, description, body, tags or [], audience or [], idx_box[0], dropped or [])
+            refused["attempts"] += 1
+            if found:
+                refused["refused"] += 1
+                for kind in {kind_of(p) for p in found}:
+                    refused[kind] += 1
+            else:
+                written.append(slug)
         if found:
-            refused["refused"] += 1
             print(f"  write_card {slug} refused: " + " | ".join(p[:160] for p in found[:2]), flush=True)
-            for kind in {kind_of(p) for p in found}:
-                refused[kind] += 1
             return "NOT written, fix these:\n" + "\n".join(f"- {p}" for p in found[:12])
-        written.append(slug)
         return f"written: /{FOLDER}/{slug}.md"
 
     return [search_wiki, read_page, list_cards, read_card, write_card]
+
+
+WRITING = threading.Lock()  # a card's check and its write, the queue, the counters: one task at a time
 
 
 def build_agent(idx_box: list, written: list, refused: Counter | None = None):
@@ -389,27 +397,34 @@ BROKEN_CALL = ("Your last tool call could not be read (its JSON was broken, usua
                "Read the cards again (list_cards), write shorter cards: one narrow subject each, and go on. Finish with DONE:.")
 
 
-def _invoke(agent, task: str) -> str:
-    """Run a task to its DONE: line; a model that ends its turn half way ('Let me restructure.') is sent back to work.
-    'NOT FINISHED: ...' when it never gets there."""
+DONE = re.compile(r"^[\s*`>#_-]*DONE\b", re.I | re.M)  # 'DONE: ...' on a line of its own, bold or quoted too
+
+
+def _invoke(agent, task: str, callbacks: list | None = None) -> str:
+    """Run a task to its DONE: line; a model that ends its turn half way ('Let me restructure.') is sent back to work. A
+    model sent back that calls no tool has nothing left to do: the task is done though it did not say so. 'NOT FINISHED:
+    ...' when it never gets there."""
     from langchain_core.messages import HumanMessage
 
-    messages, last = [HumanMessage(task)], ""
+    config = {"recursion_limit": settings.wiki_agent_steps, "callbacks": callbacks or []}  # (a thread does not inherit the run's callbacks)
+    messages, last, sent_back = [HumanMessage(task)], "", False
     for _ in range(1 + CONTINUES):
         try:
-            out = agent.invoke({"messages": messages}, {"recursion_limit": settings.wiki_agent_steps})
+            out = agent.invoke({"messages": messages}, config)
         except Exception as e:  # noqa: BLE001 - mostly the server failing to parse a long tool call the model wrote
             if "tool call" not in str(e).lower():
                 raise
             print(f"  the model wrote a broken tool call: sent back to work", flush=True)
-            last = f"broken tool call: {str(e)[:120]}"
+            last, sent_back = f"broken tool call: {str(e)[:120]}", False
             messages = [*messages, HumanMessage(BROKEN_CALL)]  # (the cards written before it are on disk)
             continue
         last = str(out["messages"][-1].content).strip()
-        if last.upper().startswith("DONE"):
+        if DONE.search(last):
             return last[:300]
+        if sent_back and not any(getattr(m, "tool_calls", None) for m in out["messages"][len(messages):]):
+            return f"DONE (nothing left to do): {last[:280]}"
         print(f"  stopped before DONE ({last[:80]!r}): sent back to work", flush=True)
-        messages = [*out["messages"], HumanMessage(CONTINUE)]
+        messages, sent_back = [*out["messages"], HumanMessage(CONTINUE)], True
     return f"NOT FINISHED: {last[:250]}"
 
 
@@ -469,36 +484,57 @@ def run(pages: list[str] | None = None, limit: int | None = None) -> dict:
     return stats
 
 
+def parallel() -> int:
+    return settings.wiki_agent_parallel or (4 if settings.wiki_llm_route else 1)
+
+
+def cards_now() -> str:
+    """The cards there are, a line each, for a task: the agent sees at once what to update instead of making a twin."""
+    lines = []
+    for slug in all_cards():
+        lines.append(f"- {slug}: {front_of(card_path(slug).read_text(encoding='utf-8')).get('title', '')}")
+    return "\n".join(lines) or "(no cards yet)"
+
+
 def _run(pages: list[str] | None, limit: int | None, usage) -> dict:
     from_queue = pages is None
     todo = (load_queue() if from_queue else pages)[: limit or settings.wiki_agent_max_pages]
     idx_box, written, refused = [Index()], [], Counter()
     agent = build_agent(idx_box, written, refused)
-    for start in range(0, len(todo), BATCH):
-        batch = todo[start:start + BATCH]
-        print(f"== agent: {', '.join(batch)}", flush=True)
+    batches = [todo[start:start + BATCH] for start in range(0, len(todo), BATCH)]
+    failed = threading.Event()  # the model server down: the tasks not started yet stay queued
+
+    def one(n: int, batch: list[str]) -> None:
+        if failed.is_set():
+            return
+        print(f"== agent [{n}/{len(batches)}]: {', '.join(batch)}", flush=True)
         task = ("These pages of the wiki are new or changed. Read each, and put what it says about subjects readers ask about "
-                "into the cards (update the existing card of a subject, or make one):\n" + "\n".join(batch))
-        before = Counter(refused)
+                "into the cards: update the card of a subject if there is one (read_card first, keep what it says), make one "
+                "if there is not.\n" + "\n".join(batch) + "\n\nThe cards there are now:\n" + cards_now())
         try:
-            result = _invoke(agent, task)
-            print("  " + result, flush=True)
-            refused["unfinished"] += result.startswith("NOT FINISHED")
+            result = _invoke(agent, task, [usage])
+            print(f"  [{n}] {result}", flush=True)
+            unfinished, broke = result.startswith("NOT FINISHED"), False
         except Exception as e:  # noqa: BLE001 - one batch failing (the model server, the step limit) leaves it queued
-            print(f"  failed: {type(e).__name__}: {str(e)[:300]}", flush=True)
-            refused["unfinished"] += 1
-            break
-        print(f"  write_card: {describe(refused - before)}; tokens so far {tokens(usage.usage_metadata)}", flush=True)
-        if from_queue:
-            save_queue([p for p in load_queue() if p not in batch])
-        idx_box[0] = Index()  # the cards just written are part of the bundle
+            print(f"  [{n}] failed: {type(e).__name__}: {str(e)[:300]}", flush=True)
+            failed.set()
+            unfinished = broke = True
+        with WRITING:
+            refused["unfinished"] += unfinished
+            if from_queue and not broke:
+                save_queue([p for p in load_queue() if p not in batch])
+            idx_box[0] = Index()  # the cards just written are part of the bundle
+        print(f"  [{n}] write_card so far: {describe(refused)}; tokens so far {tokens(usage.usage_metadata)}", flush=True)
+
+    with ThreadPoolExecutor(parallel()) as pool:
+        list(pool.map(one, range(1, len(batches) + 1), batches))
     broken = check_all(idx_box[0])
     for slug, found in list(broken.items())[: settings.wiki_agent_max_pages]:
         print(f"== agent: card {slug} no longer holds", flush=True)
         task = (f"The card {slug} no longer holds against the pages (a page changed or went away). Read it, read what it cites, and "
                 f"write it again so that it holds; drop what the pages no longer say. Problems:\n" + "\n".join(f"- {p}" for p in found[:12]))
         try:
-            print("  " + _invoke(agent, task), flush=True)
+            print("  " + _invoke(agent, task, [usage]), flush=True)
         except Exception as e:  # noqa: BLE001
             print(f"  failed: {type(e).__name__}: {e}", flush=True)
             break

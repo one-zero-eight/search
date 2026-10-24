@@ -179,6 +179,9 @@ class Settings(BaseSettings):
     wiki_agent_steps: int = Field(150, gt=0, description="Model and tool steps per task of the agent.")
     # A card goes in one tool call: with the assistant's LLM_MAX_TOKENS a long one was cut off half way and its JSON broke.
     wiki_agent_max_tokens: int = Field(16000, gt=0)
+    # Tasks (batches of pages) the agent works on at once: an API takes several, the local server shares its slots with
+    # the assistant (unset: 4 with WIKI_LLM_ROUTE, else 1).
+    wiki_agent_parallel: int | None = Field(None, gt=0)
     # The documents of the site the agent reads, by the section they come from: rules, procedures, admission, fees,
     # grants, the units' regulations. Left out: sveden/rating-system (surveys) and sveden/education (curricula, programme
     # descriptions); a page of the teaching wiki has no section and is always read. Course programmes only when asked.

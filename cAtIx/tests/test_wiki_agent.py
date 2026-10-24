@@ -150,3 +150,56 @@ def test_the_index_of_the_cards_is_not_a_card(tmp_path, monkeypatch):
     (tmp_path / agent.FOLDER / "index.md").write_text("# knowledge\n")
     (tmp_path / agent.FOLDER / "a.md").write_text("---\ntype: card\n---\n")
     assert agent.all_cards() == ["a"]
+
+
+class _Model:
+    """An agent whose turns are given: each a list of (text, made tool calls)."""
+
+    def __init__(self, turns):
+        self.turns, self.calls = list(turns), 0
+
+    def invoke(self, state, config):
+        from langchain_core.messages import AIMessage
+
+        self.calls += 1
+        text, called = self.turns.pop(0)
+        made = [AIMessage("", tool_calls=[{"name": "list_cards", "args": {}, "id": "1"}])] if called else []
+        return {"messages": [*state["messages"], *made, AIMessage(text)]}
+
+
+def test_done_may_be_bold_or_on_a_later_line():
+    assert agent._invoke(_Model([("Wrote two cards.\n\n**DONE:** two cards", True)]), "t").endswith("two cards")
+
+
+def test_an_agent_sent_back_that_does_nothing_has_finished():
+    model = _Model([("Both cards passed the checks.", True), ("Nothing more: the third page is in a card already.", False)])
+    assert agent._invoke(model, "t").startswith("DONE (nothing left to do)") and model.calls == 2
+    busy = _Model([("Let me restructure.", True)] + [("Let me restructure.", True)] * agent.CONTINUES)
+    assert agent._invoke(busy, "t").startswith("NOT FINISHED")
+
+
+def test_tasks_run_at_once_and_each_leaves_the_queue_when_done(monkeypatch):
+    import threading
+    import time
+
+    agent.save_queue([f"/regulations/r{i}.md" for i in range(9)])
+    seen, at_once, lock = [], [0, 0], threading.Lock()
+
+    def invoke(_agent, task, callbacks=None):
+        with lock:
+            at_once[0] += 1
+            at_once[1] = max(at_once)
+        time.sleep(0.05)
+        with lock:
+            at_once[0] -= 1
+            seen.append(task)
+        return "DONE: nothing"
+
+    monkeypatch.setattr(agent, "_invoke", invoke)
+    monkeypatch.setattr(agent, "build_agent", lambda *a: None)
+    monkeypatch.setattr(agent, "Index", lambda: SimpleNamespace(meta={}))
+    monkeypatch.setattr(agent, "check_all", lambda *a: {})
+    monkeypatch.setattr(agent.settings, "wiki_agent_parallel", 3)
+    stats = agent.run()
+    assert at_once[1] == 3 and len(seen) == 3 and agent.load_queue() == [] and stats["unfinished tasks"] == 0
+    assert all("The cards there are now:" in t for t in seen)
