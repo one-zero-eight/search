@@ -47,7 +47,6 @@ TYPES = {  # type -> directory of the bundle
     "calendar": "calendars",
     "schedule": "schedules",
     "page": "pages",
-    "guide": "guides",  # written by synth.py, not compiled from one wiki page
     "card": "knowledge",  # written by the wiki's agent (agent.py) from what many pages say
 }
 
@@ -259,7 +258,7 @@ def compile_page(pid: str, entry: dict, aliases: list[str]) -> Path | None:
     context = f"\nStart of the first table (for context, do not copy):\n{tables[0][:700]}" if tables else ""
     answer, finish = _llm(SYSTEM, f"Title: {page['title']}\n<page>\n{parts[0]}\n</page>{context}")
     meta, body = parse_answer(answer)
-    if meta.get("type", "").lower() == "skip" or meta.get("type", "").lower() not in TYPES or meta.get("type", "").lower() in {"guide", "card"}:
+    if meta.get("type", "").lower() == "skip" or meta.get("type", "").lower() not in TYPES or meta.get("type", "").lower() == "card":
         print(f"  skipped ({meta.get('type', 'no TYPE line')})")
         return None
     truncated = finish == "length"
@@ -343,7 +342,6 @@ def concepts() -> list[tuple[Path, dict]]:
 
 FOLDERS = {  # directory -> what it holds, for the root index
     "knowledge": "Knowledge cards: what many regulations say on one topic, every sentence cited",
-    "guides": "Guides synthesized from several pages",
     "regulations": "Regulations, orders and other official documents",
     "course-programmes": "Course programmes (РПД) by programme, cohort and semester",
     "courses": "Course descriptions from eduwiki",

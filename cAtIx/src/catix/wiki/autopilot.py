@@ -1,4 +1,4 @@
-"""The wiki maintains itself: its sources are asked on their schedule, what changed becomes pages and guides, checks decide,
+"""The wiki maintains itself: its sources are asked on their schedule, what changed becomes pages and knowledge cards, checks decide,
 and the result is committed to the `wiki` branch and pushed.
 
     catix-wiki autopilot [--loop] [--source NAME ...] [--no-push] [--no-answers]
@@ -8,8 +8,9 @@ and the result is committed to the `wiki` branch and pushed.
 One run:
   1. the sources that are due (sources/, each with its own interval; `--source` asks the named ones now, e.g. when
      something tells the wiki that a source changed);
-  2. if one brought something, or the data still has changes an earlier run could not commit: build.rebuild(auto=True);
-  3. the checks: lint without errors, no guide resting on evidence that changed, the search finds the answers of
+  2. if one brought something, or the data still has changes an earlier run could not commit: build.rebuild(), then the
+     wiki's agent on the pages that changed (agent.py);
+  3. the checks: lint without errors, every card holds against the pages, the search finds the answers of
      quality.py (hit@5 >= settings.wiki_min_hit5), the agent answers tests/test_docs_answers.py (a failed test once more);
   4. a commit in the checkout of the `wiki` branch (settings.wiki_root), where only wiki/ and raw/ may change. All checks
      passed: pushed to `wiki`. One failed: the same changes go to a branch `wiki-review/<time>` for a person, and `wiki`
@@ -98,10 +99,9 @@ def answers_pass() -> bool:
     return bool(failed) and subprocess.run([*test[:-1], *failed], cwd=REPO, capture_output=True, text=True, env=env).returncode == 0
 
 
-def check(report: build.Report, review_before: set[str], answers: bool) -> Checks:
+def check(report: build.Report, answers: bool) -> Checks:
     checks = Checks()
     checks.add(report.lint_errors == 0, f"lint: {report.lint_errors} errors")
-    checks.add(not report.stale_guides, "guides on changed evidence: " + (", ".join(report.stale_guides) or "none"))
     if not settings.database_url:
         checks.add(False, "search: not checked (no DATABASE_URL)")
         return checks
@@ -115,9 +115,6 @@ def check(report: build.Report, review_before: set[str], answers: bool) -> Check
     if report.agent:
         broken = report.agent.get("cards broken", 0)
         checks.add(broken == 0, f"cards: {report.agent.get('cards written', 0)} written, {broken} do not hold against the pages (catix-wiki agent check)")
-    new_review = sorted(set(report.review) - review_before)
-    if new_review:  # (not a failure: the agent shows such a guide as not checked; a person should read it)
-        checks.passed.append("written with review notes, to be read: " + ", ".join(new_review))
     return checks
 
 
@@ -126,7 +123,7 @@ def changed_pages() -> list[str]:
     out = []
     for line in git("status", "--porcelain", "--", "wiki").splitlines():
         status, path = line[:2], line[3:].split(" -> ")[-1].strip('"')
-        if "D" in status or not path.endswith(".md") or path.startswith(("wiki/knowledge/", "wiki/guides/")) or path.rsplit("/", 1)[-1] in {"index.md", "log.md"}:
+        if "D" in status or not path.endswith(".md") or path.startswith("wiki/knowledge/") or path.rsplit("/", 1)[-1] in {"index.md", "log.md"}:
             continue
         out.append("/" + path.removeprefix("wiki/"))
     return out
@@ -168,10 +165,7 @@ def run_once(names: list[str] | None = None, push: bool = True, answers: bool = 
         return f"nothing new ({', '.join(s.name for s in asked) or 'no source due'})"
     if not any(changed.values()) and state.get("review_tree") and working_tree() == state["review_tree"]:
         return "nothing new; changes wait for review (catix-wiki autopilot accept | discard)"
-    from catix.wiki import synth
-
-    review_before = set(synth.under_review())
-    report = build.rebuild(auto=True)
+    report = build.rebuild()
     if settings.wiki_agent and not report.lint_errors:
         keep_cards(report)
     git("add", "-A")
@@ -181,7 +175,7 @@ def run_once(names: list[str] | None = None, push: bool = True, answers: bool = 
     if bad := outside(staged):
         git("reset", "-q")
         raise RuntimeError(f"the run changed paths outside the data, nothing committed: {bad[:5]}")
-    checks = check(report, review_before, answers)
+    checks = check(report, answers)
     found = ", ".join(f"{k} {v}" for k, v in changed.items() if v) or "changes left by an earlier run"
     message = (f"wiki: {found}\n\n{summary(git('diff', '--cached', '--name-status'))}\n\nChecks:\n"
                + "\n".join([*(f"- FAILED {c}" for c in checks.failed), *(f"- {c}" for c in checks.passed)]))

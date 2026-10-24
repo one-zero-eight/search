@@ -6,7 +6,7 @@ own run (autopilot.py) on documents one can add and change at will.
 
 Every PDF or Word file the listing links is a kept document (raw/mock/index.json). From there it goes the same way as a
 document of innopolis.university: regulations.fetch downloads and reads it, regulations.refresh asks the site (HEAD)
-whether it changed, compile makes its page, topics and synth make guides of it.
+whether it changed, compile makes its page, the wiki's agent keeps cards on it.
 """
 
 import hashlib

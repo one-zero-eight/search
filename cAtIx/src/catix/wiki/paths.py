@@ -13,4 +13,3 @@ REPO = Path(__file__).resolve().parents[3]
 DATA = (settings.wiki_root or REPO).resolve()
 BUNDLE = DATA / "wiki"
 RAW = DATA / "raw"
-TOPICS_FILE = RAW / "topics.json"  # the guides proposed and accepted (topics.py): written by the model's run, so data

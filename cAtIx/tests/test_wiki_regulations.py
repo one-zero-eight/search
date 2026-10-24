@@ -18,12 +18,9 @@ def test_table_rows_from_layout_gaps_and_page_numbers():
 
 def test_audience_is_kept_to_the_closed_set():
     from catix.wiki.compile import AUDIENCES, clean_audience
-    from catix.wiki.topics import parse
 
     assert clean_audience("Students, teachers and the rector") == ["student", "teacher"]
     assert clean_audience("everyone") == list(AUDIENCES)  # nothing usable: the page is for all readers
-    t = parse("TOPIC: phd-attestation | PhD attestation | How is a PhD student attested? | d1 | phd, attestation | postgraduate, teacher")[0]
-    assert t["audience"] == ["postgraduate", "teacher"]
 
 
 def test_the_date_of_a_document_is_its_own_not_that_of_a_law_it_cites():

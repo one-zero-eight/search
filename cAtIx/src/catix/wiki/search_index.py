@@ -51,7 +51,7 @@ def fingerprint(text: str) -> str:
 def trust_of(meta: dict) -> str:
     if meta.get("source_kind") == "official-document":
         return "official"
-    return "guide" if meta.get("type") in {"guide", "card"} else "wiki"  # made by a model from the pages, citing them
+    return "guide" if meta.get("type") == "card" else "wiki"  # a knowledge card: cAtIx wrote it from the pages it cites (the search's kind "guide")
 
 
 def plan(old: list[tuple[int, str]], new: list[Chunk]) -> tuple[list[tuple[int, Chunk]], list[Chunk], list[int]]:

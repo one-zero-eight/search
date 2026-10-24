@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     # llama.cpp serves whatever model it was started with, the name is informational.
     llm_model: str = "local"
     llm_max_tokens: int = Field(4096, gt=0)
-    # The model that builds the wiki (src/catix/wiki/: page conversion, descriptions, topics, guides), when it is not the
+    # The model that builds the wiki (src/catix/wiki/: page conversion, descriptions, the knowledge cards), when it is not the
     # agent's: any OpenAI-compatible API, e.g. a larger model the wiki can wait for. Unset: LLM_ROUTE and LLM_MODEL.
     # The wiki sends it only public documents of the university, never the chats.
     wiki_llm_route: HttpUrl | None = None

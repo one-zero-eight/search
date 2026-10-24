@@ -3,8 +3,8 @@
 Cut by meaning, in code: a heading starts a new piece, a regulation is cut at its numbered clauses (`**5.3.**`) and short
 clauses are packed together up to MAX characters, a big table is cut by rows with its header repeated, a very long
 paragraph by sentences. Every piece knows the headings above it and the clauses it holds, so that a search hit can be cited
-as "п. 5.3" of its document. A guide's `[n]` references are resolved to the pages its `# Citations` section names, so that
-the agent can cite the original and not the guide.
+as "п. 5.3" of its document. A knowledge card's `[n]` references are resolved to the pages its `# Citations` section names,
+so that the agent can cite the original and not the card.
 
 The text a piece is searched by (`search_text`) starts with the page title and the headings: "5.3. The term is ..." alone
 says nothing about which regulation it belongs to.
@@ -22,7 +22,7 @@ MAX = 1200  # characters of a piece (about 300-400 tokens)
 MIN = 300  # a smaller piece is packed with the next one of the same section
 
 HEADING = re.compile(r"^(#{1,6})\s+(.*\S)\s*$")
-CLAUSE = re.compile(r"^\*\*(\d{1,2}(?:\.\d{1,2}){0,4})\.?\*\*")  # the same form as synth.clauses
+CLAUSE = re.compile(r"^\*\*(\d{1,2}(?:\.\d{1,2}){0,4})\.?\*\*")  # the same form as agent.CLAUSE
 PROGRAMME_CODE = re.compile(r"\d\d\.0\d\.\d\d")  # '09.04.01' is a field of study, not a clause
 CITE = re.compile(r"\[(\d{1,3})\]")
 LINK = re.compile(r"\[([^\]]+)\]\(([^)\s]+)\)")
@@ -35,7 +35,7 @@ class Chunk:
     heading: str  # the headings above it, "Chapter > Section"
     clauses: list[str]  # numbers of the clauses it holds, in order
     text: str
-    cites: list[dict] = field(default_factory=list)  # for a guide: [{"n": 5, "title": ..., "href": ...}] of the [n] it uses
+    cites: list[dict] = field(default_factory=list)  # for a card: [{"n": 5, "title": ..., "href": ...}] of the [n] it uses
 
     @property
     def clause(self) -> str:

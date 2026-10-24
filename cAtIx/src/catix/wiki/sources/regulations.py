@@ -6,7 +6,7 @@
     catix-wiki regs compile     # raw/regulations -> wiki/regulations/<key>.md
 
 The text of a regulation is NOT rewritten by the model: the program only turns the layout into markdown (chapters, clauses, tables)
-and the clause numbers stay, so that a guide can quote 'п. 5.3'. The model is asked only for a one-sentence description and tags.
+and the clause numbers stay, so that a card can quote 'п. 5.3'. The model is asked only for a one-sentence description and tags.
 These concepts carry `source_kind: official-document`; a scanned one also `extraction: ocr` and a `review:` note.
 """
 

@@ -25,7 +25,6 @@ def bundle():
     return SimpleNamespace(meta={
         REG: page("regulation", "**2.2.** Academic leave is granted for up to 12 months.\n\n**2.3.** Twice at most.\n", "Regulation on academic leave"),
         COURSE: page("course-programme", "Calculus, 5 credits, 180 hours, an exam.", "Course programme: Calculus"),
-        "/guides/leave.md": page("guide", "Leave lasts 12 months [1].", "Academic leave (guide)"),
         "/knowledge/academic-leave.md": page("card", "", "Academic leave"),
     })
 
@@ -44,9 +43,9 @@ def test_a_sentence_without_a_source_a_missing_clause_or_a_number_not_cited_is_r
     assert any("no such page" in p for p in agent.problems("Leave [x](/regulations/none.md).", idx))
 
 
-def test_a_guide_or_a_card_is_not_evidence():
-    found = agent.problems("Leave lasts 12 months [g](/guides/leave.md).", bundle())
-    assert any("card or a guide" in p for p in found) and any("no citation" in p for p in found)
+def test_a_card_is_not_evidence():
+    found = agent.problems("Leave lasts 12 months [c](/knowledge/academic-leave.md).", bundle())
+    assert any("is a card" in p for p in found) and any("no citation" in p for p in found)
 
 
 def test_the_file_numbers_the_links_and_the_agent_gets_them_back():
@@ -94,7 +93,10 @@ def test_surveys_and_curricula_are_not_queued_rules_are():
     assert not agent.worth_reading({"type": "regulation", "section": "sveden/rating-system"})
     assert not agent.worth_reading({"type": "regulation", "section": "sveden/education"})
     assert agent.worth_reading({"type": "course"})  # the teaching wiki: no section
-    assert not agent.worth_reading({"type": "course-programme"}) and not agent.worth_reading({"type": "guide"})
+    assert not agent.worth_reading({"type": "regulation", "section": "sveden/apply", "title": "Вступительное испытание по программе магистратуры «Кибербезопасность» 15.08.2024"})
+    assert not agent.worth_reading({"type": "regulation", "section": "sveden/apply", "title": "Приказ о зачислении (Бакалавриат, БВИ, 2026 г.)"})
+    assert agent.worth_reading({"type": "regulation", "section": "sveden/apply", "title": "Информация о проведении вступительных испытаний"})
+    assert not agent.worth_reading({"type": "course-programme"}) and not agent.worth_reading({"type": "card"})
 
 
 def test_refusals_are_counted_by_kind():

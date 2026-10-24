@@ -40,15 +40,12 @@ def _data(tmp_path, monkeypatch, write, failed=()):
     autopilot.git("commit", "-q", "-m", "start")
     monkeypatch.setattr(sources, "SOURCES", [sources.Source("fake", timedelta(0), lambda: 1, "test")])
 
-    def rebuild(**kw):
+    def rebuild():
         write(tmp_path)
         return build.Report()
 
     monkeypatch.setattr(build, "rebuild", rebuild)
     monkeypatch.setattr(autopilot, "check", lambda *a: autopilot.Checks(failed=list(failed), passed=["lint: 0 errors"]))
-    from catix.wiki import synth
-
-    monkeypatch.setattr(synth, "under_review", lambda: [])
 
 
 def test_changes_that_pass_the_checks_are_committed_to_wiki(tmp_path, monkeypatch):

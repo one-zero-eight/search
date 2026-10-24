@@ -12,7 +12,7 @@ from catix.db import pg, wiki
 # (reader, question, page regex, text regex)
 QUESTIONS = [
     # student
-    ("student", "сколько раз можно пересдавать экзамен", r"attestation-regulation|sveden-(117f90c4|2edceae4|d40bccec)|remote-attestation|guides/retakes", r"повторн\w* промежуточн\w* аттестац|пересдач|retake"),
+    ("student", "сколько раз можно пересдавать экзамен", r"attestation-regulation|sveden-(117f90c4|2edceae4|d40bccec)|remote-attestation|knowledge/academic-failure-and-retakes", r"повторн\w* промежуточн\w* аттестац|пересдач|retake"),
     ("student", "как оформить академический отпуск", r"academic-leave", r"академическ\w+ отпуск"),
     ("student", "на какой срок дают академ", r"academic-leave", r"не более|двух лет|календарных месяц|12 calendar months"),
     ("student", "за что могут отчислить из университета", r"transfer-expulsion", r"отчислен|отчисляется"),
@@ -31,8 +31,8 @@ QUESTIONS = [
     ("student", "можно ли закончить университет быстрее", r"polozh-uskor|accelerated", r"ускоренн|accelerated"),
     ("student", "как подать апелляцию после защиты диплома", r"final-attestation|polozh-gia|defense-appeal|graduation|sveden-222c22bc", r"апелляц|appeal"),
     ("student", "how many retakes are allowed if I fail an exam", r"attestation-regulation|sveden-(117f90c4|2edceae4|d40bccec)|retakes", r"повторн\w* промежуточн\w* аттестац|retake"),
-    ("student", "can I get a scholarship as a master student", r"sveden-4940ff25|financial-aid|grant-retention", r"стипенди|scholarship"),
-    ("student", "куда обратиться, если конфликт с преподавателем из-за оценки", r"sveden-3bfa0f24|attestation|academic-integrity", r"комисси\w+ по урегулированию|апелляц|спор"),
+    ("student", "can I get a scholarship as a master student", r"sveden-4940ff25|financial-aid|grant-retention|scholarship", r"стипенди|scholarship"),
+    ("student", "куда обратиться, если конфликт с преподавателем из-за оценки", r"sveden-3bfa0f24|attestation|academic-integrity|dispute-resolution", r"комисси\w+ по урегулированию|апелляц|спор|disput|appeal"),
     ("student", "как заключается договор на платное обучение", r"sveden-cc874693|enrollment", r"договор"),
     # postgraduate
     ("postgraduate", "как сдают кандидатские экзамены", r"sveden-1aec3b46", r"кандидатск\w+ экзамен"),
