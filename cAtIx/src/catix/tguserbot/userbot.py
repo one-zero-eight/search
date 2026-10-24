@@ -2,6 +2,7 @@
 
 Usage:
     catix-tguserbot login    # once: interactive login (phone, code, 2FA password)
+    catix-tguserbot login --qr   # the same by a QR code scanned in the Telegram app, when the code does not come
     catix-tguserbot chats    # list your groups/channels with ids
     catix-tguserbot topics <chat>   # list the topics of a forum chat
     catix-tguserbot sync     # fetch new history of the chats being listened to
@@ -13,6 +14,7 @@ TG_CHATS and TG_TOPICS from .env are only the starting list: they are copied onc
 
 import argparse
 import asyncio
+import getpass
 import json
 import sys
 import time
@@ -22,8 +24,9 @@ from urllib.parse import unquote, urlsplit
 import redis.asyncio as aioredis
 from telethon import TelegramClient, errors, events, utils
 from telethon.tl.custom.message import Message as TgMessage
+from telethon.tl.functions.auth import ResendCodeRequest, SendCodeRequest
 from telethon.tl.functions.messages import GetForumTopicsRequest
-from telethon.tl.types import Channel, Chat, ForumTopic, PeerChannel
+from telethon.tl.types import Channel, Chat, CodeSettings, ForumTopic, PeerChannel, auth
 
 from catix import live_search, userbot_config
 from catix.db import pg
@@ -180,12 +183,93 @@ async def _seed(client: TelegramClient) -> None:
         print(f"Copied {len(resolved)} chats from TG_CHATS into the database; change them in the bot with /listen.")
 
 
-async def login() -> None:
-    async with _client() as client:
-        await client.start()
+# Where Telegram says it sent the login code (auth.SentCode.type, and next_type: what a resend would use).
+CODE_SENT = {
+    "SentCodeTypeApp": "to the Telegram app: the chat 'Telegram' on a device where this account is logged in",
+    "SentCodeTypeSms": "by SMS",
+    "SentCodeTypeSmsWord": "by SMS (a word)",
+    "SentCodeTypeSmsPhrase": "by SMS (a phrase)",
+    "SentCodeTypeFragmentSms": "to the anonymous number on fragment.com",
+    "SentCodeTypeFirebaseSms": "by an SMS only the official apps can request (Firebase): it may never come here",
+    "SentCodeTypeEmailCode": "to the login e-mail",
+    "SentCodeTypeCall": "by a phone call",
+    "SentCodeTypeFlashCall": "by a flash call (the code is the caller's number)",
+    "SentCodeTypeMissedCall": "by a missed call (the code is the last digits of the caller's number)",
+    "CodeTypeSms": "by SMS",
+    "CodeTypeCall": "by a phone call",
+    "CodeTypeFlashCall": "by a flash call",
+    "CodeTypeMissedCall": "by a missed call",
+    "CodeTypeFragmentSms": "to the anonymous number on fragment.com",
+}
+
+
+def where(code_type: object) -> str:
+    name = type(code_type).__name__
+    return CODE_SENT.get(name, name)
+
+
+async def _sign_in(client: TelegramClient) -> None:
+    """Phone, code, 2FA password, saying where Telegram sent the code (client.start() keeps that to itself)."""
+    phone = input("Phone, international format (+7...): ").strip()
+    sent = await client(SendCodeRequest(phone, client.api_id, client.api_hash, CodeSettings()))  # (client.send_code_request breaks on
+    # a payment request: it has no type)
+    while True:
+        if isinstance(sent, auth.SentCodePaymentRequired):
+            sys.exit("Telegram asks to pay for the login SMS of this number (SentCodePaymentRequired): log in once with an "
+                     "official app on this number, then the code comes to the app.")
+        if isinstance(sent, auth.SentCodeSuccess):
+            return
+        if isinstance(sent.type, auth.SentCodeTypeSetUpEmailRequired):
+            sys.exit("Telegram wants a login e-mail on this account first: in an official app, Settings -> Privacy and Security "
+                     "-> Login E-mail, then try again.")
+        print(f"Telegram sent the code {where(sent.type)}." + (f" Enter r to have it sent {where(sent.next_type)} instead"
+              + (f" (after {sent.timeout} s)" if sent.timeout else "") + "." if sent.next_type else ""))
+        code = input("Code: ").strip()
+        if code.lower() == "r":
+            try:
+                sent = await client(ResendCodeRequest(phone, sent.phone_code_hash))
+            except errors.RPCError as e:
+                print(f"Not resent: {e}")
+            continue
+        try:
+            await client.sign_in(phone, code, phone_code_hash=sent.phone_code_hash)
+            return
+        except errors.SessionPasswordNeededError:
+            await client.sign_in(password=getpass.getpass("2FA password: "))
+            return
+        except (errors.PhoneCodeInvalidError, errors.PhoneCodeEmptyError):
+            print("Wrong code, try again.")
+
+
+async def _sign_in_qr(client: TelegramClient) -> None:
+    """Login by a QR code scanned in the Telegram app (Settings -> Devices -> Link Desktop Device): no code to wait for."""
+    import segno
+
+    qr = await client.qr_login()
+    while True:
+        segno.make(qr.url).terminal(compact=True)
+        print("Scan it in the Telegram app: Settings -> Devices -> Link Desktop Device.")
+        try:
+            await qr.wait()
+            return
+        except asyncio.TimeoutError:
+            await qr.recreate()  # (a code lives about 30 s)
+        except errors.SessionPasswordNeededError:
+            await client.sign_in(password=getpass.getpass("2FA password: "))
+            return
+
+
+async def login(qr: bool = False) -> None:
+    client = _client()
+    await client.connect()
+    try:
+        if not await client.is_user_authorized():
+            await (_sign_in_qr if qr else _sign_in)(client)
         settings.tg_session.with_suffix(".session").chmod(0o600)
         me = await client.get_me()
         print(f"Logged in as {utils.get_display_name(me)} (@{me.username}). Session: {settings.tg_session}.session")
+    finally:
+        await client.disconnect()
 
 
 async def list_chats() -> None:
@@ -469,9 +553,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(prog="catix-tguserbot", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("command", choices=commands)
     parser.add_argument("chat", nargs="?", help="chat id or @username, for `topics`")
+    parser.add_argument("--qr", action="store_true", help="`login` by a QR code scanned in the Telegram app")
     args = parser.parse_args()
+    run = {"topics": lambda: list_topics(args.chat), "login": lambda: login(args.qr)}.get(args.command, commands[args.command])
     try:
-        asyncio.run(list_topics(args.chat) if args.command == "topics" else commands[args.command]())
+        asyncio.run(run())
     except KeyboardInterrupt:
         pass
     finally:
