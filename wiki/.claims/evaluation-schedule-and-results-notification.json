@@ -1,0 +1,285 @@
+{
+ "page": "/guides/evaluation-schedule-and-results-notification.md",
+ "evidence_sha": "661128aec82adb97",
+ "claims": [
+  {
+   "sentence": "The evaluation schedule is brought to your attention under signature no less than 30 (thirty) calendar days before the scheduled evaluation date",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "39202fbad36c",
+     "sources": [
+      "/regulations/sveden-8365b415-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The schedule is compiled according to the form in Appendix 2 to the regulation",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "39202fbad36c",
+     "sources": [
+      "/regulations/sveden-8365b415-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If you are directly present at the Evaluation Commission meeting, your evaluation results are communicated to you after the voting results are tallied",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "f7d95dbe547a",
+     "sources": [
+      "/regulations/sveden-8365b415-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If you are absent from the meeting, your results are communicated to you on the next working day",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "f7d95dbe547a",
+     "sources": [
+      "/regulations/sveden-8365b415-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If it is impossible to personally acquaint you with the results, a notification is sent to you via email",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "f7d95dbe547a",
+     "sources": [
+      "/regulations/sveden-8365b415-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "For you after you pass the evaluation, the secretary of the Evaluation Commission draws up an extract from the protocol no later than 2 (two) working days from the day the evaluation was conducted",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "e6e923d18781",
+     "sources": [
+      "/regulations/sveden-8365b415-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The extract is compiled according to the form in Appendix 5 to the regulation",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "e6e923d18781",
+     "sources": [
+      "/regulations/sveden-8365b415-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The extract contains your surname, first name, patronymic, position name, the date of the commission meeting, the voting results, the adopted decision, and the commission's decision",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "e6e923d18781",
+     "sources": [
+      "/regulations/sveden-8365b415-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You are acquainted with the extract under signature within 10 (ten) working days from the day the meeting was conducted",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "e6e923d18781",
+     "sources": [
+      "/regulations/sveden-8365b415-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If you refuse to familiarize yourself with the extract, an act according to Appendix 4 is drawn up",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "e6e923d18781",
+     "sources": [
+      "/regulations/sveden-8365b415-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "A copy of the extract is kept in your personal file in the HR department",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "e6e923d18781",
+     "sources": [
+      "/regulations/sveden-8365b415-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify the email address or platform used for the notification",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "f7d95dbe547a",
+     "sources": [
+      "/regulations/sveden-8365b415-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not state the procedure if the 10-working-day deadline for signing the extract is exceeded",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "e6e923d18781",
+     "sources": [
+      "/regulations/sveden-8365b415-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not clarify whether the schedule notification applies to all teaching staff or only specific categories",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "39202fbad36c",
+     "sources": [
+      "/regulations/sveden-8365b415-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not provide the actual forms for Appendix 2, Appendix 4, or Appendix 5",
+   "cites": [
+    1,
+    2
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "39202fbad36c",
+     "sources": [
+      "/regulations/sveden-8365b415-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "e6e923d18781",
+     "sources": [
+      "/regulations/sveden-8365b415-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not explain the procedure if you are absent and email notification is also impossible",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "f7d95dbe547a",
+     "sources": [
+      "/regulations/sveden-8365b415-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The regulation does not state how to handle conflicts if a course page provides different notification procedures",
+   "cites": [
+    1,
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "39202fbad36c",
+     "sources": [
+      "/regulations/sveden-8365b415-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "e6e923d18781",
+     "sources": [
+      "/regulations/sveden-8365b415-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "f7d95dbe547a",
+     "sources": [
+      "/regulations/sveden-8365b415-pdf.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

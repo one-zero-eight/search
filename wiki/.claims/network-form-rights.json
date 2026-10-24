@@ -1,0 +1,397 @@
+{
+ "page": "/guides/network-form-rights.md",
+ "evidence_sha": "ada3b346ceade680",
+ "claims": [
+  {
+   "sentence": "Your curriculum can include parts from programs of different types, levels, and directions",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "52d4723ef342",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You can study the full program or individual subjects, courses, modules, practice, or other components using the resources of multiple organizations, including foreign ones",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "a4057ab964d0",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The program may cover competencies from one or several professions, specialties, or training directions, and may allow you to obtain multiple qualifications simultaneously",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "a4057ab964d0",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "When you are admitted to a network program, you are enrolled in the base organization",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "2c693bf18e61",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You remain a student of the base organization throughout your studies",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "0dea61b6fe79",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If you study a part of the program at a participating organization, you are transferred to that organization without being dismissed from the base organization",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "d124eb7f7732",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "During that period, you are also a student of the participating organization",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "0dea61b6fe79",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You are not enrolled in an organization that possesses resources",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "d124eb7f7732",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You study the assigned part of the program at the participating organization according to the forms and order set by that organization's local rules",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "6a586cf4826f",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The participating organization determines the specific procedures for your study period",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "6a586cf4826f",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "After you fully complete that part of the program at the participating organization, you are dismissed from it",
+   "cites": [
+    7
+   ],
+   "evidence": [
+    {
+     "n": 7,
+     "sha": "8882eae50b94",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If the program requires joint final certification by both the base and participating organizations, your dismissal from the participating organization happens only after that certification is completed",
+   "cites": [
+    8
+   ],
+   "evidence": [
+    {
+     "n": 8,
+     "sha": "f9cba24a314e",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Your study period at the participating organization includes current control and intermediate certification",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "6a586cf4826f",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "These assessments follow the forms defined in the network program's curriculum and the order established by the participating organization",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "6a586cf4826f",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If the University acts as the participating organization, the assessments follow the University's local regulations",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "6a586cf4826f",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The results of your intermediate certification at the participating organization count as your official results for the network program and do not require additional verification at the base organization",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "6a586cf4826f",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If you successfully complete the network program and pass the final certification, the base organization issues you education and/or qualification documents",
+   "cites": [
+    9
+   ],
+   "evidence": [
+    {
+     "n": 9,
+     "sha": "5f1245343d0c",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If the Network Form Agreement specifies it, you also receive education and/or qualification documents from the participating organization",
+   "cites": [
+    9
+   ],
+   "evidence": [
+    {
+     "n": 9,
+     "sha": "5f1245343d0c",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "For programs that do not include final certification, documents are issued according to the conditions and order set in the Network Form Agreement",
+   "cites": [
+    9
+   ],
+   "evidence": [
+    {
+     "n": 9,
+     "sha": "5f1245343d0c",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify which partner institutions are available or how many students can be transferred to them",
+   "cites": [
+    4,
+    5
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "d124eb7f7732",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "0dea61b6fe79",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It does not state the duration of study periods at participating organizations or the deadlines for transfers",
+   "cites": [
+    4,
+    7
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "d124eb7f7732",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    },
+    {
+     "n": 7,
+     "sha": "8882eae50b94",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not define what happens if you fail current control or intermediate certification at a participating organization",
+   "cites": [
+    6
+   ],
+   "evidence": [
+    {
+     "n": 6,
+     "sha": "6a586cf4826f",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It does not explain how joint final certification is organized or what happens if you do not pass it",
+   "cites": [
+    8
+   ],
+   "evidence": [
+    {
+     "n": 8,
+     "sha": "f9cba24a314e",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not list the specific types of documents issued by participating organizations or the exact conditions for receiving them",
+   "cites": [
+    9
+   ],
+   "evidence": [
+    {
+     "n": 9,
+     "sha": "5f1245343d0c",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not provide course pages, so course-specific variations are not covered",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "a4057ab964d0",
+     "sources": [
+      "/regulations/sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

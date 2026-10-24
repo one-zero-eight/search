@@ -1,0 +1,263 @@
+{
+ "page": "/guides/accessing-online-learning-platform.md",
+ "evidence_sha": "f86ed5854a3ded21",
+ "claims": [
+  {
+   "sentence": "After you are enrolled, the University assigns you an identifier (personal login) and provides a primary password",
+   "cites": [
+    1,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "c6a778370967",
+     "sources": [
+      "/regulations/sveden-c1a38b32-polozh-eodot-02-08-2022-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "6031168f7828",
+     "sources": [
+      "/regulations/sveden-c1a38b32-polozh-eodot-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You use the standard identification level to access the University's EIS",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "415522329f1d",
+     "sources": [
+      "/regulations/sveden-c1a38b32-polozh-eodot-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Enter your identifier (login) and password to gain access to all data and the specific modules assigned to you in the system",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "415522329f1d",
+     "sources": [
+      "/regulations/sveden-c1a38b32-polozh-eodot-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The platform provides remote access to modern professional databases and information reference systems",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "4f6c8a580135",
+     "sources": [
+      "/regulations/sveden-c1a38b32-polozh-eodot-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The specific composition of these databases and systems is determined in the working programs of disciplines (modules) and is updated if necessary",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "4f6c8a580135",
+     "sources": [
+      "/regulations/sveden-c1a38b32-polozh-eodot-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You can access study plans, working programs of disciplines (modules), practices, electronic educational publications, and electronic educational resources that are specified in those working programs",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "4681d6d6c9b4",
+     "sources": [
+      "/regulations/sveden-c1a38b32-polozh-eodot-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The system supports the formation of your electronic portfolio, including the saving of your works and grades for those works",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "4681d6d6c9b4",
+     "sources": [
+      "/regulations/sveden-c1a38b32-polozh-eodot-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It records the course of the educational process, the results of intermediate certification, and the results of mastering educational programs",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "4681d6d6c9b4",
+     "sources": [
+      "/regulations/sveden-c1a38b32-polozh-eodot-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "You can use the platform to conduct educational sessions and assessment procedures that are provided for using electronic learning and distance educational technologies",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "4681d6d6c9b4",
+     "sources": [
+      "/regulations/sveden-c1a38b32-polozh-eodot-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The system enables interaction between participants of the educational process, including synchronous and asynchronous interaction via the Internet",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "4681d6d6c9b4",
+     "sources": [
+      "/regulations/sveden-c1a38b32-polozh-eodot-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify how to change the primary password after first login",
+   "cites": [
+    1,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "c6a778370967",
+     "sources": [
+      "/regulations/sveden-c1a38b32-polozh-eodot-02-08-2022-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "6031168f7828",
+     "sources": [
+      "/regulations/sveden-c1a38b32-polozh-eodot-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It does not provide direct links, URLs, or technical support contacts for the platform",
+   "cites": [
+    2,
+    5
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "415522329f1d",
+     "sources": [
+      "/regulations/sveden-c1a38b32-polozh-eodot-02-08-2022-pdf.md"
+     ]
+    },
+    {
+     "n": 5,
+     "sha": "4681d6d6c9b4",
+     "sources": [
+      "/regulations/sveden-c1a38b32-polozh-eodot-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It does not state what happens if the identifier or password is lost or compromised",
+   "cites": [
+    1,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "c6a778370967",
+     "sources": [
+      "/regulations/sveden-c1a38b32-polozh-eodot-02-08-2022-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "6031168f7828",
+     "sources": [
+      "/regulations/sveden-c1a38b32-polozh-eodot-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It does not list the exact professional databases or information reference systems available, only that they are defined in the working programs of disciplines (modules)",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "4f6c8a580135",
+     "sources": [
+      "/regulations/sveden-c1a38b32-polozh-eodot-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It does not explain how to access the platform from outside the university network beyond stating that remote access is provided",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "4f6c8a580135",
+     "sources": [
+      "/regulations/sveden-c1a38b32-polozh-eodot-02-08-2022-pdf.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

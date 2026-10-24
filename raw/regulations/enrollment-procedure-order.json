@@ -4,5 +4,10 @@
  "sha256": "a2733c4f7092663b1de86a9527d8a607f75b7b06d6476cf2c4ed97a83df0cd9d",
  "method": "ocr (tesseract rus)",
  "chars": 10048,
- "fetched_at": "2026-10-22T12:08:00+00:00"
+ "fetched_at": "2026-10-22T12:08:00+00:00",
+ "remote": {
+  "etag": "\"61a49268-23398e\"",
+  "modified": "Mon, 29 Nov 2021 08:42:16 GMT",
+  "size": "2308494"
+ }
 }

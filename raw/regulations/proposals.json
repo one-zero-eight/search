@@ -4908,5 +4908,3825 @@
  "sveden-f5d4390f-09-03-01-pdf": {
   "version": "04928c15e291",
   "topics": []
+ },
+ "sveden-f6025516-1-09-04-01-pdf": {
+  "version": "716ccf546614",
+  "topics": [
+   {
+    "slug": "individual-learning-trajectory",
+    "title": "Individual Learning Trajectory Support",
+    "brief": "What guaranteed conditions and support resources are available for students forming an individual learning trajectory in the Master's program?",
+    "documents": [
+     "sveden-f6025516-1-09-04-01-pdf"
+    ],
+    "tags": [
+     "individual-learning",
+     "master-s-program",
+     "student-rights",
+     "academic-planning"
+    ],
+    "audience": [
+     "student"
+    ]
+   },
+   {
+    "slug": "university-info-access",
+    "title": "Official Information & Staff Directory Standards",
+    "brief": "What are the official standards for accessing university information, finding staff contacts online, and using communication channels?",
+    "documents": [
+     "sveden-f6025516-1-09-04-01-pdf"
+    ],
+    "tags": [
+     "university-information",
+     "staff-directory",
+     "communication-channels",
+     "applicant-resources"
+    ],
+    "audience": [
+     "student",
+     "applicant"
+    ]
+   },
+   {
+    "slug": "campus-facilities-standards",
+    "title": "Campus Facilities & Service Quality Guarantees",
+    "brief": "What are the established quality standards for material support, health and sports facilities, meal services, and staff competence?",
+    "documents": [
+     "sveden-f6025516-1-09-04-01-pdf"
+    ],
+    "tags": [
+     "campus-facilities",
+     "student-services",
+     "quality-standards",
+     "master-s-program"
+    ],
+    "audience": [
+     "student",
+     "applicant"
+    ]
+   }
+  ]
+ },
+ "sveden-f6e7a66b-3-38-04-05-2023-pdf": {
+  "version": "08a4a069540d",
+  "topics": []
+ },
+ "sveden-f7637f22-pdf": {
+  "version": "61319f6787d3",
+  "topics": []
+ },
+ "sveden-f792fbcd-3-09-04-01-1-pdf": {
+  "version": "6c002579c143",
+  "topics": []
+ },
+ "sveden-f93ccbe0-13-09-04-01-pdf": {
+  "version": "9cc3ffeb36cf",
+  "topics": []
+ },
+ "sveden-f9fdf23b-7-09-04-01-pdf": {
+  "version": "d5fa52feec37",
+  "topics": []
+ },
+ "sveden-faec026b-1-09-04-01-pdf": {
+  "version": "7c25dcedc777",
+  "topics": []
+ },
+ "sveden-fb195aee-1-09-03-01-ai360-pdf": {
+  "version": "70f88a61e9b1",
+  "topics": []
+ },
+ "sveden-fcdb542e-5-09-03-01-pdf": {
+  "version": "a10871befa73",
+  "topics": []
+ },
+ "sveden-fd366ea0-11-09-04-01-pdf": {
+  "version": "7a356b82f741",
+  "topics": []
+ },
+ "sveden-fee70019-13-09-04-01-pdf": {
+  "version": "fe6cf3986858",
+  "topics": []
+ },
+ "sveden-dd255fc5-pdf": {
+  "version": "cce9332f06c1",
+  "topics": [
+   {
+    "slug": "final-assessment-outcomes",
+    "title": "Final Assessment Results and Retake Policy",
+    "brief": "What are the official outcomes for students who pass or fail the final assessment?",
+    "documents": [
+     "sveden-dd255fc5-pdf"
+    ],
+    "tags": [
+     "final-assessment",
+     "certification",
+     "retake",
+     "academic-outcomes"
+    ],
+    "audience": [
+     "student",
+     "postgraduate"
+    ]
+   },
+   {
+    "slug": "tuition-cost-and-discounts",
+    "title": "Total Tuition Fees and Eligible Discounts",
+    "brief": "How is the total cost of the educational program calculated and under what conditions can it be reduced?",
+    "documents": [
+     "sveden-dd255fc5-pdf"
+    ],
+    "tags": [
+     "tuition-fees",
+     "payment",
+     "discounts",
+     "financial-obligations"
+    ],
+    "audience": [
+     "student",
+     "applicant"
+    ]
+   },
+   {
+    "slug": "educational-service-remedies",
+    "title": "Remedies for Defective Educational Services",
+    "brief": "What specific remedies can a student request if the university provides the educational service incompletely or with defects?",
+    "documents": [
+     "sveden-dd255fc5-pdf"
+    ],
+    "tags": [
+     "service-quality",
+     "remedies",
+     "refunds",
+     "contract-rights"
+    ],
+    "audience": [
+     "student",
+     "postgraduate"
+    ]
+   }
+  ]
+ },
+ "sveden-14938e7c-pdf": {
+  "version": "60b3097df1a4",
+  "topics": [
+   {
+    "slug": "application-submission",
+    "title": "How to submit admission documents",
+    "brief": "How can applicants or their representatives submit application packages, and how is the daily volume of received applications communicated to the public?",
+    "documents": [
+     "sveden-14938e7c-pdf"
+    ],
+    "tags": [
+     "application-process",
+     "submission-deadlines",
+     "applicant-rights",
+     "university-communications"
+    ],
+    "audience": [
+     "applicant",
+     "public"
+    ]
+   },
+   {
+    "slug": "entrance-exam-preparation",
+    "title": "Entrance exam schedules and consultation rights",
+    "brief": "What official resources and consultation sessions are guaranteed to applicants before each entrance examination, and how are exam programs developed?",
+    "documents": [
+     "sveden-14938e7c-pdf"
+    ],
+    "tags": [
+     "entrance-exams",
+     "exam-schedule",
+     "preparation-resources",
+     "applicant-rights"
+    ],
+    "audience": [
+     "student",
+     "applicant"
+    ]
+   },
+   {
+    "slug": "admission-decisions-and-documents",
+    "title": "Admission decision process and document handling",
+    "brief": "How are final admission decisions formalized, within what timeframe are enrollment orders issued, and what is the procedure for unclaimed application documents?",
+    "documents": [
+     "sveden-14938e7c-pdf"
+    ],
+    "tags": [
+     "admission-decisions",
+     "enrollment-deadlines",
+     "document-handling",
+     "university-procedures"
+    ],
+    "audience": [
+     "applicant",
+     "staff"
+    ]
+   }
+  ]
+ },
+ "sveden-185a12ee-2026-pdf": {
+  "version": "5cfa4b72ea8b",
+  "topics": []
+ },
+ "sveden-1b9872b0-docx": {
+  "version": "3424a1db6dfe",
+  "topics": [
+   {
+    "slug": "appealing-entrance-exam-results",
+    "title": "Appealing Entrance Exam Results",
+    "brief": "How can an applicant formally challenge an entrance exam score and what is the deadline for submitting an appeal?",
+    "documents": [
+     "sveden-1b9872b0-docx"
+    ],
+    "tags": [
+     "admission",
+     "appeals",
+     "deadlines",
+     "rights"
+    ],
+    "audience": [
+     "applicant"
+    ]
+   },
+   {
+    "slug": "individual-achievement-bonus-points",
+    "title": "Bonus Points for Individual Achievements",
+    "brief": "What is the maximum number of bonus points awarded for general achievements and how must applicants submit proof?",
+    "documents": [
+     "sveden-1b9872b0-docx"
+    ],
+    "tags": [
+     "admission",
+     "bonus-points",
+     "documentation",
+     "limits"
+    ],
+    "audience": [
+     "applicant"
+    ]
+   },
+   {
+    "slug": "rescheduling-entrance-exams",
+    "title": "Rescheduling Entrance Exams for Valid Reasons",
+    "brief": "Under what circumstances can an applicant request a new exam date and how is the rescheduling procedure handled?",
+    "documents": [
+     "sveden-1b9872b0-docx"
+    ],
+    "tags": [
+     "admission",
+     "scheduling",
+     "exceptions",
+     "procedures"
+    ],
+    "audience": [
+     "applicant"
+    ]
+   }
+  ]
+ },
+ "sveden-5c0f421f-2026-2027-pdf": {
+  "version": "6eab687afdd3",
+  "topics": [
+   {
+    "slug": "admission-deadlines-2026-2027",
+    "title": "Key admission deadlines for 2026/2027",
+    "brief": "What are the official deadlines for submitting documents, viewing ranked lists, and completing enrollment for the 2026/2027 academic year?",
+    "documents": [
+     "sveden-5c0f421f-2026-2027-pdf"
+    ],
+    "tags": [
+     "deadlines",
+     "admission",
+     "enrollment",
+     "schedule",
+     "2026-2027"
+    ],
+    "audience": [
+     "applicant"
+    ]
+   },
+   {
+    "slug": "required-documents-application-process",
+    "title": "Required documents and how to apply",
+    "brief": "Which documents must applicants submit to apply for vocational education programs, and how can applications be filed?",
+    "documents": [
+     "sveden-5c0f421f-2026-2027-pdf"
+    ],
+    "tags": [
+     "application",
+     "documents",
+     "submission",
+     "vocational-education",
+     "requirements"
+    ],
+    "audience": [
+     "applicant"
+    ]
+   },
+   {
+    "slug": "entrance-exams-and-appeals",
+    "title": "Entrance examinations and appeals procedure",
+    "brief": "How are entrance examinations conducted and what is the procedure for filing an appeal against admission test results?",
+    "documents": [
+     "sveden-5c0f421f-2026-2027-pdf"
+    ],
+    "tags": [
+     "entrance-exams",
+     "appeals",
+     "testing",
+     "admission-process",
+     "rights"
+    ],
+    "audience": [
+     "applicant"
+    ]
+   }
+  ]
+ },
+ "sveden-62dee06c-pdf": {
+  "version": "6812d7193459",
+  "topics": [
+   {
+    "slug": "admission-programs",
+    "title": "Available bachelor and master programs for 2026/2027",
+    "brief": "Which specific bachelor and master programs and federal project tracks are open for admission in the 2026/2027 academic year?",
+    "documents": [
+     "sveden-62dee06c-pdf"
+    ],
+    "tags": [
+     "admission",
+     "programs",
+     "bachelor",
+     "master",
+     "applicant"
+    ],
+    "audience": [
+     "applicant"
+    ]
+   },
+   {
+    "slug": "scholarship-quota",
+    "title": "Minimum scholarship quota for new students",
+    "brief": "What is the minimum scholarship quota percentage guaranteed for admitted students under federal law?",
+    "documents": [
+     "sveden-62dee06c-pdf"
+    ],
+    "tags": [
+     "scholarships",
+     "funding",
+     "federal-law",
+     "limits",
+     "applicant"
+    ],
+    "audience": [
+     "student",
+     "applicant"
+    ]
+   }
+  ]
+ },
+ "sveden-7a13c41e-2026-pdf": {
+  "version": "68b7b86300d2",
+  "topics": [
+   {
+    "slug": "phd-application-documents-deadlines",
+    "title": "Submitting Your PhD Application and Required Documents",
+    "brief": "What documents must I submit, in what format, and by what deadlines to apply for the 2026/2027 PhD program?",
+    "documents": [
+     "sveden-7a13c41e-2026-pdf"
+    ],
+    "tags": [
+     "application",
+     "documents",
+     "deadlines",
+     "eligibility"
+    ],
+    "audience": [
+     "applicant"
+    ]
+   },
+   {
+    "slug": "phd-entrance-exams-scoring-appeals",
+    "title": "PhD Entrance Exams: Format, Scoring, and Appeal Rights",
+    "brief": "How are the PhD entrance exams conducted, scored, and what is the procedure and deadline for appealing a result or exam violation?",
+    "documents": [
+     "sveden-7a13c41e-2026-pdf"
+    ],
+    "tags": [
+     "entrance-exams",
+     "scoring",
+     "appeals",
+     "deadlines"
+    ],
+    "audience": [
+     "applicant"
+    ]
+   },
+   {
+    "slug": "phd-enrollment-priorities-withdrawal",
+    "title": "PhD Enrollment: Quotas, Paid Places, and How to Withdraw",
+    "brief": "How are final enrollment decisions made based on competitive lists, and what are the rules and deadlines for withdrawing consent or refusing enrollment?",
+    "documents": [
+     "sveden-7a13c41e-2026-pdf"
+    ],
+    "tags": [
+     "enrollment",
+     "quotas",
+     "paid-places",
+     "withdrawal"
+    ],
+    "audience": [
+     "applicant"
+    ]
+   }
+  ]
+ },
+ "sveden-8f3987d0-2026-pdf": {
+  "version": "224deff8cab1",
+  "topics": []
+ },
+ "sveden-ca79b04a-pdf": {
+  "version": "e095a4c59d1b",
+  "topics": []
+ },
+ "sveden-0933ae0d-pasport-dostupnosti-ovz-31-05-": {
+  "version": "3efe4445fe94",
+  "topics": [
+   {
+    "slug": "campus-accessibility-infrastructure",
+    "title": "Campus Accessibility Infrastructure and Mobility",
+    "brief": "What accessible pathways, designated parking, and transport boarding options are available for independent movement on campus?",
+    "documents": [
+     "sveden-0933ae0d-pasport-dostupnosti-ovz-31-05-"
+    ],
+    "tags": [
+     "accessibility",
+     "disability",
+     "infrastructure",
+     "campus",
+     "mobility"
+    ],
+    "audience": [
+     "student",
+     "staff",
+     "public"
+    ]
+   },
+   {
+    "slug": "accessible-textbooks-deadline",
+    "title": "Deadline for Accessible Textbooks",
+    "brief": "By what deadline must the university provide accessible textbooks and educational materials for students with disabilities?",
+    "documents": [
+     "sveden-0933ae0d-pasport-dostupnosti-ovz-31-05-"
+    ],
+    "tags": [
+     "textbooks",
+     "deadline",
+     "disability",
+     "education",
+     "resources"
+    ],
+    "audience": [
+     "student",
+     "postgraduate",
+     "teacher"
+    ]
+   },
+   {
+    "slug": "visual-impairment-assistance",
+    "title": "Support Services for Visually Impaired Students",
+    "brief": "What accompanying and entry assistance is provided to students with severe visual impairments on campus?",
+    "documents": [
+     "sveden-0933ae0d-pasport-dostupnosti-ovz-31-05-"
+    ],
+    "tags": [
+     "disability",
+     "support-services",
+     "visual-impairment",
+     "campus",
+     "assistance"
+    ],
+    "audience": [
+     "student",
+     "staff",
+     "public"
+    ]
+   }
+  ]
+ },
+ "sveden-117f90c4-pdf": {
+  "version": "0e8004f48336",
+  "topics": [
+   {
+    "slug": "academic-debt-retakes",
+    "title": "Clearing academic debt and retaking exams",
+    "brief": "What are the official deadlines and procedures for retaking failed courses or clearing academic debt?",
+    "documents": [
+     "sveden-117f90c4-pdf"
+    ],
+    "tags": [
+     "academic-debt",
+     "retakes",
+     "deadlines",
+     "certification",
+     "regulations"
+    ],
+    "audience": [
+     "student",
+     "postgraduate"
+    ]
+   },
+   {
+    "slug": "passing-grades-system",
+    "title": "Passing grades and retake policy",
+    "brief": "Which grading results are considered positive and explicitly cannot be retaken for improvement?",
+    "documents": [
+     "sveden-117f90c4-pdf"
+    ],
+    "tags": [
+     "grading-system",
+     "passing-grades",
+     "certification",
+     "rules",
+     "assessment"
+    ],
+    "audience": [
+     "student",
+     "postgraduate"
+    ]
+   },
+   {
+    "slug": "disability-exam-accommodations",
+    "title": "Exam accommodations for disabilities",
+    "brief": "What specific adjustments are provided for certification exams for students with visual, hearing, or speech impairments?",
+    "documents": [
+     "sveden-117f90c4-pdf"
+    ],
+    "tags": [
+     "disability-accommodations",
+     "accessibility",
+     "exams",
+     "inclusive-education",
+     "regulations"
+    ],
+    "audience": [
+     "student",
+     "postgraduate",
+     "teacher",
+     "staff"
+    ]
+   }
+  ]
+ },
+ "sveden-3441d4a7-polozh-gia-bakmag-02-08-2022-p": {
+  "version": "1a5dd4d10fb1",
+  "topics": [
+   {
+    "slug": "appeal-final-certification",
+    "title": "Appealing Final State Certification Results",
+    "brief": "How and within what timeframe can a student formally appeal the results of the Final State Certification?",
+    "documents": [
+     "sveden-3441d4a7-polozh-gia-bakmag-02-08-2022-p"
+    ],
+    "tags": [
+     "appeal",
+     "deadline",
+     "procedure",
+     "final-exam"
+    ],
+    "audience": [
+     "student"
+    ]
+   },
+   {
+    "slug": "eligibility-final-certification",
+    "title": "Eligibility for Final State Certification",
+    "brief": "What academic and administrative conditions must a student meet to be allowed to take the Final State Certification?",
+    "documents": [
+     "sveden-3441d4a7-polozh-gia-bakmag-02-08-2022-p"
+    ],
+    "tags": [
+     "graduation",
+     "eligibility",
+     "academic-debts",
+     "final-exam"
+    ],
+    "audience": [
+     "student"
+    ]
+   },
+   {
+    "slug": "disability-accommodations-final-certification",
+    "title": "Final Certification Accommodations for Students with Disabilities",
+    "brief": "What procedural adjustments and time extensions are guaranteed for students with disabilities during the Final State Certification?",
+    "documents": [
+     "sveden-3441d4a7-polozh-gia-bakmag-02-08-2022-p"
+    ],
+    "tags": [
+     "disability",
+     "accommodations",
+     "deadline",
+     "procedure"
+    ],
+    "audience": [
+     "student",
+     "staff"
+    ]
+   }
+  ]
+ },
+ "sveden-4d11336b-polozh-ia-bakmag-27-04-2024-pd": {
+  "version": "cf47641fa0e4",
+  "topics": [
+   {
+    "slug": "final-exam-appeal-deadline",
+    "title": "Final Exam Appeal Deadline and Procedure",
+    "brief": "What is the deadline and procedure for submitting an appeal against final exam or thesis defense results?",
+    "documents": [
+     "sveden-4d11336b-polozh-ia-bakmag-27-04-2024-pd"
+    ],
+    "tags": [
+     "final-certification",
+     "appeals",
+     "deadlines",
+     "student-rights",
+     "innopolis-university"
+    ],
+    "audience": [
+     "student"
+    ]
+   },
+   {
+    "slug": "thesis-topic-selection",
+    "title": "How to Choose a Thesis Topic",
+    "brief": "What is the official procedure for selecting a thesis topic for a bachelor's or master's program?",
+    "documents": [
+     "sveden-4d11336b-polozh-ia-bakmag-27-04-2024-pd"
+    ],
+    "tags": [
+     "thesis-defense",
+     "topic-selection",
+     "bachelor",
+     "master",
+     "academic-procedures"
+    ],
+    "audience": [
+     "student"
+    ]
+   },
+   {
+    "slug": "disability-accommodations-final-exams",
+    "title": "Accommodations for Students with Disabilities During Final Exams",
+    "brief": "What specific arrangements are guaranteed for students with disabilities during final certification?",
+    "documents": [
+     "sveden-4d11336b-polozh-ia-bakmag-27-04-2024-pd"
+    ],
+    "tags": [
+     "accessibility",
+     "disability-support",
+     "final-exams",
+     "student-rights",
+     "inclusive-education"
+    ],
+    "audience": [
+     "student"
+    ]
+   }
+  ]
+ },
+ "sveden-570cffbf-pravila-priema-asp-15-01-2024-": {
+  "version": "a8b84ba97ef2",
+  "topics": [
+   {
+    "slug": "appeal-deadlines-and-procedure",
+    "title": "Appeal Process and Deadlines for Entrance Exam Results",
+    "brief": "What are the deadlines and procedures for appealing entrance exam results, and can I attend the review?",
+    "documents": [
+     "sveden-570cffbf-pravila-priema-asp-15-01-2024-"
+    ],
+    "tags": [
+     "appeals",
+     "deadlines",
+     "exam-results",
+     "procedure",
+     "rights"
+    ],
+    "audience": [
+     "applicant"
+    ]
+   },
+   {
+    "slug": "individual-achievements-bonus-points",
+    "title": "Bonus Points for Individual Achievements",
+    "brief": "How many bonus points can I receive for individual achievements, and what documents are required?",
+    "documents": [
+     "sveden-570cffbf-pravila-priema-asp-15-01-2024-"
+    ],
+    "tags": [
+     "bonus-points",
+     "achievements",
+     "scoring",
+     "requirements",
+     "limits"
+    ],
+    "audience": [
+     "applicant"
+    ]
+   },
+   {
+    "slug": "disability-accommodations-exams",
+    "title": "Exam Accommodations for Applicants with Disabilities",
+    "brief": "What specific accommodations are guaranteed for applicants with disabilities during entrance exams, and how do I request them?",
+    "documents": [
+     "sveden-570cffbf-pravila-priema-asp-15-01-2024-"
+    ],
+    "tags": [
+     "disability",
+     "accommodations",
+     "accessibility",
+     "procedure",
+     "rights"
+    ],
+    "audience": [
+     "applicant"
+    ]
+   }
+  ]
+ },
+ "sveden-5c53ebf9-pdf": {
+  "version": "884c37e8b9c0",
+  "topics": [
+   {
+    "slug": "staff-disability-assistance-procedures",
+    "title": "Staff Procedures for Assisting Persons with Disabilities",
+    "brief": "What specific situational help and communication guidelines must staff follow when interacting with students or visitors with disabilities?",
+    "documents": [
+     "sveden-5c53ebf9-pdf"
+    ],
+    "tags": [
+     "accessibility",
+     "staff-duties",
+     "disability-support",
+     "communication-guidelines",
+     "university-policy"
+    ],
+    "audience": [
+     "teacher",
+     "staff"
+    ]
+   },
+   {
+    "slug": "student-disability-access-services",
+    "title": "Support Services and Accessibility for Students with Disabilities",
+    "brief": "What adapted educational programs and situational assistance are guaranteed to students with disabilities at the university?",
+    "documents": [
+     "sveden-5c53ebf9-pdf"
+    ],
+    "tags": [
+     "student-support",
+     "disability-services",
+     "accessibility",
+     "situational-help",
+     "educational-programs"
+    ],
+    "audience": [
+     "student",
+     "applicant",
+     "public"
+    ]
+   },
+   {
+    "slug": "staff-disability-training-requirements",
+    "title": "Mandatory Disability Awareness Training for University Staff",
+    "brief": "What are the university's requirements for staff instruction and certification on disability accessibility procedures?",
+    "documents": [
+     "sveden-5c53ebf9-pdf"
+    ],
+    "tags": [
+     "staff-training",
+     "disability-awareness",
+     "compliance",
+     "internal-instruction",
+     "university-policy"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-69606245-pdf": {
+  "version": "e271cd68a610",
+  "topics": [
+   {
+    "slug": "access-adapted-programs",
+    "title": "Accessing an Adapted Educational Program",
+    "brief": "What documentation and steps are required for a student with disabilities to enroll in an adapted educational program?",
+    "documents": [
+     "sveden-69606245-pdf"
+    ],
+    "tags": [
+     "disability",
+     "enrollment",
+     "procedure",
+     "rights",
+     "student-services"
+    ],
+    "audience": [
+     "student",
+     "applicant"
+    ]
+   },
+   {
+    "slug": "adaptive-disciplines-curriculum",
+    "title": "Understanding Adaptive Disciplines in the Study Plan",
+    "brief": "How are adaptive disciplines integrated into the curriculum and what competencies do they aim to develop?",
+    "documents": [
+     "sveden-69606245-pdf"
+    ],
+    "tags": [
+     "curriculum",
+     "adaptive-modules",
+     "study-plan",
+     "academic-support",
+     "disabilities"
+    ],
+    "audience": [
+     "student",
+     "teacher"
+    ]
+   },
+   {
+    "slug": "program-approval-process",
+    "title": "Development and Approval of Adapted Programs",
+    "brief": "Which university body approves adapted educational programs and how are they updated?",
+    "documents": [
+     "sveden-69606245-pdf"
+    ],
+    "tags": [
+     "governance",
+     "academic-council",
+     "program-development",
+     "compliance",
+     "staff"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-73841fa9-polozh-eios-03-2026-pdf": {
+  "version": "3fead6337cf1",
+  "topics": [
+   {
+    "slug": "student-digital-portfolio",
+    "title": "Student Digital Portfolio and Achievements",
+    "brief": "How can students showcase their academic work, peer reviews, and extracurricular achievements on the university's official digital platform?",
+    "documents": [
+     "sveden-73841fa9-polozh-eios-03-2026-pdf"
+    ],
+    "tags": [
+     "digital-portfolio",
+     "student-rights",
+     "e-learning",
+     "achievements"
+    ],
+    "audience": [
+     "student",
+     "postgraduate"
+    ]
+   },
+   {
+    "slug": "platform-work-evaluation",
+    "title": "Evaluating Student Work on the EIEE",
+    "brief": "How does the university's digital environment facilitate the search and assessment of student work by peers and instructors?",
+    "documents": [
+     "sveden-73841fa9-polozh-eios-03-2026-pdf"
+    ],
+    "tags": [
+     "assessment",
+     "peer-review",
+     "teaching-tools",
+     "evaluation"
+    ],
+    "audience": [
+     "student",
+     "teacher",
+     "staff"
+    ]
+   },
+   {
+    "slug": "platform-reliability-standards",
+    "title": "Digital Platform Reliability and Certification Standards",
+    "brief": "What technical and security standards guarantee the availability and data protection of the university's digital learning environment?",
+    "documents": [
+     "sveden-73841fa9-polozh-eios-03-2026-pdf"
+    ],
+    "tags": [
+     "it-infrastructure",
+     "data-security",
+     "platform-standards",
+     "fault-tolerance"
+    ],
+    "audience": [
+     "staff",
+     "management",
+     "public"
+    ]
+   }
+  ]
+ },
+ "sveden-923ead02-pravila-priema-bakmag-15-01-20": {
+  "version": "b84e5f450f15",
+  "topics": [
+   {
+    "slug": "application-submission-and-requirements",
+    "title": "Application Submission and Required Information",
+    "brief": "How do I submit my application electronically and what mandatory personal data must I include?",
+    "documents": [
+     "sveden-923ead02-pravila-priema-bakmag-15-01-20"
+    ],
+    "tags": [
+     "application",
+     "electronic-submission",
+     "snils",
+     "epgu",
+     "deadlines"
+    ],
+    "audience": [
+     "applicant"
+    ]
+   },
+   {
+    "slug": "entrance-exam-prioritization",
+    "title": "Entrance Exam Prioritization for Ranking",
+    "brief": "Which entrance exams are weighted most heavily when ranking applicants for admission?",
+    "documents": [
+     "sveden-923ead02-pravila-priema-bakmag-15-01-20"
+    ],
+    "tags": [
+     "ranking",
+     "entrance-exams",
+     "prioritization",
+     "admission-criteria",
+     "bachelor"
+    ],
+    "audience": [
+     "applicant"
+    ]
+   },
+   {
+    "slug": "original-document-deadline",
+    "title": "Deadline for Submitting Original Documents",
+    "brief": "By when must I submit my original educational documents to confirm admission?",
+    "documents": [
+     "sveden-923ead02-pravila-priema-bakmag-15-01-20"
+    ],
+    "tags": [
+     "original-documents",
+     "deadline",
+     "admission-confirmation",
+     "enrollment",
+     "procedures"
+    ],
+    "audience": [
+     "applicant"
+    ]
+   }
+  ]
+ },
+ "sveden-9312cfff-poryadok-pa-bakmag-eodot-02-08": {
+  "version": "64f65c4b4bbb",
+  "topics": [
+   {
+    "slug": "retaking-failed-exams",
+    "title": "Retaking Failed Exams and Academic Debt Deadlines",
+    "brief": "What are the rules, deadlines, and procedures for retaking failed exams or tests at Innopolis University?",
+    "documents": [
+     "sveden-9312cfff-poryadok-pa-bakmag-eodot-02-08"
+    ],
+    "tags": [
+     "academic-debt",
+     "retakes",
+     "deadlines",
+     "exams",
+     "student-rights"
+    ],
+    "audience": [
+     "student"
+    ]
+   },
+   {
+    "slug": "technical-requirements-online-exams",
+    "title": "Technical Requirements for Distance Exams",
+    "brief": "What computing devices and technical tools are mandatory for students to pass intermediate certification using distance educational technologies?",
+    "documents": [
+     "sveden-9312cfff-poryadok-pa-bakmag-eodot-02-08"
+    ],
+    "tags": [
+     "distance-learning",
+     "technical-requirements",
+     "equipment",
+     "exams",
+     "student"
+    ],
+    "audience": [
+     "student"
+    ]
+   },
+   {
+    "slug": "exam-conduct-responsibility",
+    "title": "Responsibility for Conducting Intermediate Certification",
+    "brief": "Who is officially responsible for preparing and conducting intermediate certification for a specific course or module?",
+    "documents": [
+     "sveden-9312cfff-poryadok-pa-bakmag-eodot-02-08"
+    ],
+    "tags": [
+     "teaching-staff",
+     "responsibilities",
+     "exams",
+     "procedure",
+     "staff"
+    ],
+    "audience": [
+     "teacher",
+     "staff"
+    ]
+   }
+  ]
+ },
+ "sveden-ac6c0e60-pdf": {
+  "version": "3c75a7a3b437",
+  "topics": [
+   {
+    "slug": "admission-to-final-certification",
+    "title": "Eligibility for Final Certification",
+    "brief": "What conditions must a postgraduate student meet to be allowed to take the final certification?",
+    "documents": [
+     "sveden-ac6c0e60-pdf"
+    ],
+    "tags": [
+     "final-certification",
+     "postgraduate",
+     "academic-debt",
+     "eligibility"
+    ],
+    "audience": [
+     "postgraduate"
+    ]
+   },
+   {
+    "slug": "commission-formation-deadlines",
+    "title": "Final Certification Commission Deadlines",
+    "brief": "By what deadlines must the university appoint the commission chair and approve its full composition?",
+    "documents": [
+     "sveden-ac6c0e60-pdf"
+    ],
+    "tags": [
+     "commission",
+     "deadlines",
+     "administration",
+     "postgraduate"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "disabled-student-certification-accommodations",
+    "title": "Accommodations for Disabled Students During Certification",
+    "brief": "What specific accommodations and procedures are available for disabled students during final certification?",
+    "documents": [
+     "sveden-ac6c0e60-pdf"
+    ],
+    "tags": [
+     "disability",
+     "accommodations",
+     "final-certification",
+     "rights"
+    ],
+    "audience": [
+     "student",
+     "postgraduate",
+     "staff"
+    ]
+   }
+  ]
+ },
+ "sveden-d2e422ce-pdf": {
+  "version": "f5fe7880724b",
+  "topics": [
+   {
+    "slug": "academic-debt-retake-deadlines",
+    "title": "Retaking Failed Exams and Credits",
+    "brief": "What are the deadlines and procedures for retaking courses or practices where I received an unsatisfactory grade?",
+    "documents": [
+     "sveden-d2e422ce-pdf"
+    ],
+    "tags": [
+     "academic-debt",
+     "retakes",
+     "deadlines",
+     "exams",
+     "credits"
+    ],
+    "audience": [
+     "student"
+    ]
+   },
+   {
+    "slug": "grade-improvement-retake-rules",
+    "title": "Retaking Courses to Improve a Grade",
+    "brief": "How can I request to retake a passed course to get a higher grade, and what are the limits on this process?",
+    "documents": [
+     "sveden-d2e422ce-pdf"
+    ],
+    "tags": [
+     "grade-improvement",
+     "retakes",
+     "academic-rules",
+     "student-rights"
+    ],
+    "audience": [
+     "student"
+    ]
+   },
+   {
+    "slug": "disability-accommodations-exams",
+    "title": "Exam and Certification Accommodations for Students with Disabilities",
+    "brief": "What specific assessment formats and accommodations are available for students with visual, speech, or hearing impairments?",
+    "documents": [
+     "sveden-d2e422ce-pdf"
+    ],
+    "tags": [
+     "disability-accommodations",
+     "inclusive-education",
+     "exams",
+     "student-rights"
+    ],
+    "audience": [
+     "student",
+     "teacher",
+     "staff"
+    ]
+   }
+  ]
+ },
+ "sveden-da4a5b60-pdf": {
+  "version": "ceccace7e736",
+  "topics": [
+   {
+    "slug": "admission-to-state-final-certification",
+    "title": "Admission Requirements for State Final Certification",
+    "brief": "What conditions must a student or postgraduate meet to be allowed to take the state final certification?",
+    "documents": [
+     "sveden-da4a5b60-pdf"
+    ],
+    "tags": [
+     "academic-debt",
+     "certification-eligibility",
+     "graduation-requirements",
+     "student-rights"
+    ],
+    "audience": [
+     "student",
+     "postgraduate"
+    ]
+   },
+   {
+    "slug": "exam-commission-deadlines",
+    "title": "Deadlines for State Exam Commission Formation",
+    "brief": "By what dates must the university appoint the commission chair and approve the full commission composition before the certification period?",
+    "documents": [
+     "sveden-da4a5b60-pdf"
+    ],
+    "tags": [
+     "administrative-deadlines",
+     "exam-commissions",
+     "staff-procedures",
+     "management-responsibilities"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "disabled-student-accommodations",
+    "title": "Extended Time for Disabled Students During Certification",
+    "brief": "How can a disabled student formally request extended time for the state final certification?",
+    "documents": [
+     "sveden-da4a5b60-pdf"
+    ],
+    "tags": [
+     "disability-accommodations",
+     "extended-time",
+     "written-application",
+     "accessibility-rights"
+    ],
+    "audience": [
+     "student",
+     "postgraduate"
+    ]
+   }
+  ]
+ },
+ "sveden-e6989528-pdf": {
+  "version": "a34f5d2dfcf4",
+  "topics": [
+   {
+    "slug": "deadlines-for-academic-debt-retakes",
+    "title": "Deadlines for Retaking Failed Exams",
+    "brief": "Who sets the deadline for retaking a failed intermediate certification exam?",
+    "documents": [
+     "sveden-e6989528-pdf"
+    ],
+    "tags": [
+     "deadlines",
+     "academic-debt",
+     "retakes",
+     "intermediate-certification"
+    ],
+    "audience": [
+     "student"
+    ]
+   },
+   {
+    "slug": "technical-requirements-online-exams",
+    "title": "Technical Requirements for Online Certification",
+    "brief": "What computing equipment must a student have to take an exam via distance educational technologies?",
+    "documents": [
+     "sveden-e6989528-pdf"
+    ],
+    "tags": [
+     "technical-requirements",
+     "distance-learning",
+     "equipment",
+     "online-exams"
+    ],
+    "audience": [
+     "student"
+    ]
+   },
+   {
+    "slug": "teacher-responsibility-and-retakes",
+    "title": "Teacher Responsibility and Retake Rules",
+    "brief": "Which teacher conducts my exam and will I retake it with the same instructor if I fail?",
+    "documents": [
+     "sveden-e6989528-pdf"
+    ],
+    "tags": [
+     "teacher-responsibility",
+     "exam-format",
+     "retakes",
+     "certification"
+    ],
+    "audience": [
+     "student",
+     "teacher"
+    ]
+   }
+  ]
+ },
+ "sveden-0d5c00cf-pdf": {
+  "version": "3b9df0dcd003",
+  "topics": [
+   {
+    "slug": "admin-information-request-procedure",
+    "title": "Requesting Information from University Units",
+    "brief": "How can the Administration formally request necessary information and materials from other university departments?",
+    "documents": [
+     "sveden-0d5c00cf-pdf"
+    ],
+    "tags": [
+     "administration",
+     "information-request",
+     "internal-procedure",
+     "staff-rights"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "admin-staff-borrowing-rules",
+    "title": "Temporary Staff Assignment from Other Departments",
+    "brief": "Under what conditions and with whose consent can the Administration temporarily assign employees from other university units to its projects?",
+    "documents": [
+     "sveden-0d5c00cf-pdf"
+    ],
+    "tags": [
+     "human-resources",
+     "staff-allocation",
+     "internal-procedure",
+     "management-rights"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "admin-reporting-structure",
+    "title": "Administrative Reporting Line and Authority",
+    "brief": "Who holds direct supervisory authority over the Administration and how is operational management responsibility structured?",
+    "documents": [
+     "sveden-0d5c00cf-pdf"
+    ],
+    "tags": [
+     "organizational-structure",
+     "chain-of-command",
+     "governance",
+     "management-authority"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-0d813194-958333-pdf": {
+  "version": "068fdc1a1298",
+  "topics": [
+   {
+    "slug": "practical-training-base",
+    "title": "Practical Training Base at the Center",
+    "brief": "How does the university regulate student practical training at the Center for Educational Partnership?",
+    "documents": [
+     "sveden-0d813194-958333-pdf"
+    ],
+    "tags": [
+     "practical-training",
+     "student-opportunities",
+     "center-functions",
+     "internship"
+    ],
+    "audience": [
+     "student",
+     "postgraduate"
+    ]
+   },
+   {
+    "slug": "certification-exams-platform",
+    "title": "Certification Exams on the University Platform",
+    "brief": "Where and by whom are specialist certification exams organized and conducted?",
+    "documents": [
+     "sveden-0d813194-958333-pdf"
+    ],
+    "tags": [
+     "certification",
+     "exams",
+     "platform",
+     "professional-standards",
+     "it-specialists"
+    ],
+    "audience": [
+     "student",
+     "teacher"
+    ]
+   },
+   {
+    "slug": "joint-network-programs",
+    "title": "Joint Educational Programs in Network Form",
+    "brief": "How are joint educational programs with industrial and academic partners developed and implemented?",
+    "documents": [
+     "sveden-0d813194-958333-pdf"
+    ],
+    "tags": [
+     "joint-programs",
+     "network-education",
+     "partnerships",
+     "curriculum-development",
+     "collaboration"
+    ],
+    "audience": [
+     "student",
+     "applicant",
+     "teacher"
+    ]
+   }
+  ]
+ },
+ "sveden-0dc7475a-pdf": {
+  "version": "9b0f233d8da3",
+  "topics": [
+   {
+    "slug": "student-internships",
+    "title": "University Internship Placement Procedures",
+    "brief": "How can students access the recruitment department's support for finding approved organizations for their mandatory or voluntary internships?",
+    "documents": [
+     "sveden-0dc7475a-pdf"
+    ],
+    "tags": [
+     "internships",
+     "practical-training",
+     "student-support",
+     "career-services"
+    ],
+    "audience": [
+     "student"
+    ]
+   },
+   {
+    "slug": "grant-employment-obligations",
+    "title": "Graduate Employment Requirements Under Training Grants",
+    "brief": "What are the specific employment obligations and monitoring procedures for graduates who received university training grants?",
+    "documents": [
+     "sveden-0dc7475a-pdf"
+    ],
+    "tags": [
+     "employment-grants",
+     "graduate-obligations",
+     "contract-compliance",
+     "career-tracking"
+    ],
+    "audience": [
+     "student",
+     "postgraduate"
+    ]
+   },
+   {
+    "slug": "internal-vacancies",
+    "title": "Internal University Job Application Process",
+    "brief": "How does the recruitment department manage applications and selection for internal vacancies within the university?",
+    "documents": [
+     "sveden-0dc7475a-pdf"
+    ],
+    "tags": [
+     "internal-vacancies",
+     "staff-recruitment",
+     "career-advancement",
+     "university-jobs"
+    ],
+    "audience": [
+     "teacher",
+     "staff"
+    ]
+   }
+  ]
+ },
+ "sveden-0f0919dd-pdf": {
+  "version": "3b9df0dcd003",
+  "topics": [
+   {
+    "slug": "admin-information-request-procedure",
+    "title": "Requesting Information from University Units",
+    "brief": "How can the Administration formally request necessary information and materials from other university departments?",
+    "documents": [
+     "sveden-0f0919dd-pdf"
+    ],
+    "tags": [
+     "administration",
+     "information-request",
+     "internal-procedure",
+     "staff-rights"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "admin-staff-borrowing-rules",
+    "title": "Temporary Staff Assignment from Other Departments",
+    "brief": "Under what conditions and with whose consent can the Administration temporarily assign employees from other university units to its projects?",
+    "documents": [
+     "sveden-0f0919dd-pdf"
+    ],
+    "tags": [
+     "human-resources",
+     "staff-allocation",
+     "internal-procedure",
+     "management-rights"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "admin-reporting-structure",
+    "title": "Administrative Reporting Line and Authority",
+    "brief": "Who holds direct supervisory authority over the Administration and how is operational management responsibility structured?",
+    "documents": [
+     "sveden-0f0919dd-pdf"
+    ],
+    "tags": [
+     "organizational-structure",
+     "chain-of-command",
+     "governance",
+     "management-authority"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-10033770-pdf": {
+  "version": "ae096269d12c",
+  "topics": [
+   {
+    "slug": "college-management-and-accountability",
+    "title": "College Management and Director Accountability",
+    "brief": "Who appoints the College Director and what are their specific responsibilities and accountability limits?",
+    "documents": [
+     "sveden-10033770-pdf"
+    ],
+    "tags": [
+     "governance",
+     "leadership",
+     "accountability",
+     "university-structure"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "amending-or-terminating-college-regulation",
+    "title": "Amending or Terminating the College Regulation",
+    "brief": "What is the official procedure and who has the authority to approve changes to or terminate the College?",
+    "documents": [
+     "sveden-10033770-pdf"
+    ],
+    "tags": [
+     "regulation-amendments",
+     "termination",
+     "university-procedures",
+     "governance"
+    ],
+    "audience": [
+     "staff",
+     "management",
+     "public"
+    ]
+   }
+  ]
+ },
+ "sveden-11b89e3c-748759-pdf": {
+  "version": "c3e6a1e8de4a",
+  "topics": [
+   {
+    "slug": "practical-training-base",
+    "title": "Hosting student practical training at the Development Department",
+    "brief": "Which university units are authorized to host practical training for students and what is the basis for this arrangement?",
+    "documents": [
+     "sveden-11b89e3c-748759-pdf"
+    ],
+    "tags": [
+     "practical-training",
+     "student-internships",
+     "department-functions"
+    ],
+    "audience": [
+     "student",
+     "teacher"
+    ]
+   },
+   {
+    "slug": "regulatory-change-proposal",
+    "title": "Proposing amendments to university regulations",
+    "brief": "How can university personnel formally submit proposals to cancel or modify existing university regulations?",
+    "documents": [
+     "sveden-11b89e3c-748759-pdf"
+    ],
+    "tags": [
+     "internal-governance",
+     "regulatory-changes",
+     "staff-rights"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-13f65186-pdf": {
+  "version": "3b9df0dcd003",
+  "topics": [
+   {
+    "slug": "admin-information-request-procedure",
+    "title": "Requesting Information from University Units",
+    "brief": "How can the Administration formally request necessary information and materials from other university departments?",
+    "documents": [
+     "sveden-13f65186-pdf"
+    ],
+    "tags": [
+     "administration",
+     "information-request",
+     "internal-procedure",
+     "staff-rights"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "admin-staff-borrowing-rules",
+    "title": "Temporary Staff Assignment from Other Departments",
+    "brief": "Under what conditions and with whose consent can the Administration temporarily assign employees from other university units to its projects?",
+    "documents": [
+     "sveden-13f65186-pdf"
+    ],
+    "tags": [
+     "human-resources",
+     "staff-allocation",
+     "internal-procedure",
+     "management-rights"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "admin-reporting-structure",
+    "title": "Administrative Reporting Line and Authority",
+    "brief": "Who holds direct supervisory authority over the Administration and how is operational management responsibility structured?",
+    "documents": [
+     "sveden-13f65186-pdf"
+    ],
+    "tags": [
+     "organizational-structure",
+     "chain-of-command",
+     "governance",
+     "management-authority"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-15416d75-pdf": {
+  "version": "13944dc686cc",
+  "topics": [
+   {
+    "slug": "it-support-and-equipment-maintenance",
+    "title": "IT Support and Equipment Maintenance",
+    "brief": "Which department handles technical support and maintenance of computers and peripherals for university staff?",
+    "documents": [
+     "sveden-15416d75-pdf"
+    ],
+    "tags": [
+     "it-support",
+     "equipment-maintenance",
+     "technical-assistance",
+     "university-staff",
+     "it-department"
+    ],
+    "audience": [
+     "teacher",
+     "staff"
+    ]
+   },
+   {
+    "slug": "it-hr-finance-coordination",
+    "title": "IT-HR-Finance System Coordination",
+    "brief": "How does the IT department interact with HR and Finance to automate personnel and financial processes?",
+    "documents": [
+     "sveden-15416d75-pdf"
+    ],
+    "tags": [
+     "it-systems",
+     "hr-automation",
+     "financial-processes",
+     "interdepartmental-coordination",
+     "digital-transformation"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "it-department-proposal-rights",
+    "title": "IT Department Proposal and Reporting Rights",
+    "brief": "To whom does the IT department report and what rights does it have to request information and propose regulatory changes?",
+    "documents": [
+     "sveden-15416d75-pdf"
+    ],
+    "tags": [
+     "organizational-structure",
+     "reporting-lines",
+     "regulatory-proposals",
+     "departmental-rights",
+     "university-governance"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-16d900c1-pdf": {
+  "version": "0b93e333ead6",
+  "topics": [
+   {
+    "slug": "practical-training-base",
+    "title": "Student Practical Training Location",
+    "brief": "Which university department is officially designated as a base for conducting student practical training?",
+    "documents": [
+     "sveden-16d900c1-pdf"
+    ],
+    "tags": [
+     "practical-training",
+     "student-placement",
+     "university-facilities",
+     "educational-programs"
+    ],
+    "audience": [
+     "student",
+     "postgraduate"
+    ]
+   },
+   {
+    "slug": "staff-assignment-procedure",
+    "title": "Department Staff Assignment to Center",
+    "brief": "Under what conditions can employees from other university departments be temporarily assigned to work on the Center for Educational Content's projects?",
+    "documents": [
+     "sveden-16d900c1-pdf"
+    ],
+    "tags": [
+     "staff-collaboration",
+     "project-assignment",
+     "department-consent",
+     "university-procedures"
+    ],
+    "audience": [
+     "teacher",
+     "staff"
+    ]
+   },
+   {
+    "slug": "internal-data-request",
+    "title": "Departmental Data Request Protocol",
+    "brief": "What is the official procedure for the Center for Educational Content to request necessary documents and materials from other university departments?",
+    "documents": [
+     "sveden-16d900c1-pdf"
+    ],
+    "tags": [
+     "internal-requests",
+     "departmental-cooperation",
+     "administrative-procedure",
+     "university-governance"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-18b9b598-pdf": {
+  "version": "3b9df0dcd003",
+  "topics": [
+   {
+    "slug": "admin-information-request-procedure",
+    "title": "Requesting Information from University Units",
+    "brief": "How can the Administration formally request necessary information and materials from other university departments?",
+    "documents": [
+     "sveden-18b9b598-pdf"
+    ],
+    "tags": [
+     "administration",
+     "information-request",
+     "internal-procedure",
+     "staff-rights"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "admin-staff-borrowing-rules",
+    "title": "Temporary Staff Assignment from Other Departments",
+    "brief": "Under what conditions and with whose consent can the Administration temporarily assign employees from other university units to its projects?",
+    "documents": [
+     "sveden-18b9b598-pdf"
+    ],
+    "tags": [
+     "human-resources",
+     "staff-allocation",
+     "internal-procedure",
+     "management-rights"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "admin-reporting-structure",
+    "title": "Administrative Reporting Line and Authority",
+    "brief": "Who holds direct supervisory authority over the Administration and how is operational management responsibility structured?",
+    "documents": [
+     "sveden-18b9b598-pdf"
+    ],
+    "tags": [
+     "organizational-structure",
+     "chain-of-command",
+     "governance",
+     "management-authority"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-190d53de-2022-pdf": {
+  "version": "bf399b28c1eb",
+  "topics": [
+   {
+    "slug": "student-postgrad-research-participation",
+    "title": "Joining Research Projects at the Humanities Laboratory",
+    "brief": "How can undergraduate and graduate students formally participate in research activities and skill development at the lab?",
+    "documents": [
+     "sveden-190d53de-2022-pdf"
+    ],
+    "tags": [
+     "research",
+     "student-involvement",
+     "postgraduate",
+     "laboratory",
+     "academic-skills"
+    ],
+    "audience": [
+     "student",
+     "postgraduate"
+    ]
+   },
+   {
+    "slug": "lab-publication-requirements",
+    "title": "Mandatory Publication Standards for Lab Research",
+    "brief": "What are the required publication venues and indexing standards for scientific articles produced by the laboratory?",
+    "documents": [
+     "sveden-190d53de-2022-pdf"
+    ],
+    "tags": [
+     "publication",
+     "web-of-science",
+     "research-output",
+     "academic-publishing",
+     "compliance"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "interdepartmental-resource-requests",
+    "title": "Requesting Information and Personnel from Other University Units",
+    "brief": "What formal procedures and consent requirements must the laboratory follow to access data or staff from other university departments?",
+    "documents": [
+     "sveden-190d53de-2022-pdf"
+    ],
+    "tags": [
+     "interdepartmental-cooperation",
+     "resource-allocation",
+     "administrative-procedures",
+     "university-governance",
+     "staff-management"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-1e7c56c2-pdf": {
+  "version": "97307d7537e0",
+  "topics": [
+   {
+    "slug": "practical-training",
+    "title": "Practical training at the Industrial Automation Sector",
+    "brief": "How can university students arrange practical training at this sector?",
+    "documents": [
+     "sveden-1e7c56c2-pdf"
+    ],
+    "tags": [
+     "practical-training",
+     "internships",
+     "student-opportunities",
+     "sector-functions"
+    ],
+    "audience": [
+     "student",
+     "postgraduate"
+    ]
+   },
+   {
+    "slug": "rdd-reporting",
+    "title": "R&D project reporting obligations",
+    "brief": "What are the sector's responsibilities for preparing and submitting reports on scientific and technical research?",
+    "documents": [
+     "sveden-1e7c56c2-pdf"
+    ],
+    "tags": [
+     "research-reporting",
+     "compliance",
+     "rdd-projects",
+     "federal-requirements"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "sector-coordination-rights",
+    "title": "Information and staffing access rights",
+    "brief": "Under what conditions can the sector request university data, recruit staff, and propose regulatory changes?",
+    "documents": [
+     "sveden-1e7c56c2-pdf"
+    ],
+    "tags": [
+     "internal-coordination",
+     "staff-recruitment",
+     "regulatory-proposals",
+     "university-resources"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-22e29abe-937882-pdf": {
+  "version": "a34ef199c62b",
+  "topics": [
+   {
+    "slug": "curriculum-support",
+    "title": "How to request methodological support for program updates",
+    "brief": "Which university unit handles methodological support and curriculum development for bachelor's and master's programs, and how can faculty engage with it?",
+    "documents": [
+     "sveden-22e29abe-937882-pdf"
+    ],
+    "tags": [
+     "curriculum-development",
+     "methodological-support",
+     "educational-programs",
+     "faculty-collaboration",
+     "university-structure"
+    ],
+    "audience": [
+     "teacher",
+     "staff"
+    ]
+   },
+   {
+    "slug": "academic-calendar-planning",
+    "title": "Who drafts the academic calendar and study plans",
+    "brief": "Which department is officially responsible for creating and updating the academic calendar and educational program components?",
+    "documents": [
+     "sveden-22e29abe-937882-pdf"
+    ],
+    "tags": [
+     "academic-calendar",
+     "study-plans",
+     "educational-planning",
+     "university-departments",
+     "regulatory-functions"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "departmental-rights-procedures",
+    "title": "How university units can request information or propose regulatory changes",
+    "brief": "What are the official rights and interaction channels for university departments to request materials or propose amendments to educational regulations through the Methodological Department?",
+    "documents": [
+     "sveden-22e29abe-937882-pdf"
+    ],
+    "tags": [
+     "internal-procedures",
+     "information-requests",
+     "regulatory-amendments",
+     "departmental-rights",
+     "university-governance"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-27c4a9f1-938268-pdf": {
+  "version": "4706a4cc4f01",
+  "topics": [
+   {
+    "slug": "center-collaboration-procedures",
+    "title": "Initiating R&D and Commercial Projects with the Center",
+    "brief": "How can university researchers and staff propose, plan, and contract commercial or applied robotics projects through the Center?",
+    "documents": [
+     "sveden-27c4a9f1-938268-pdf"
+    ],
+    "tags": [
+     "research-collaboration",
+     "commercialization",
+     "r-d-projects",
+     "university-procedures"
+    ],
+    "audience": [
+     "postgraduate",
+     "teacher",
+     "staff"
+    ]
+   },
+   {
+    "slug": "center-reporting-requirements",
+    "title": "R&D Reporting and Compliance Obligations",
+    "brief": "What are the reporting workflows and responsible parties for R&D projects and grants coordinated by the Center?",
+    "documents": [
+     "sveden-27c4a9f1-938268-pdf"
+    ],
+    "tags": [
+     "project-reporting",
+     "grant-compliance",
+     "federal-reporting",
+     "academic-administration"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "center-internal-rights-access",
+    "title": "Accessing University Resources and Information for Center Projects",
+    "brief": "What rights does the Center have to request information, materials, and staff from other university departments to conduct its research?",
+    "documents": [
+     "sveden-27c4a9f1-938268-pdf"
+    ],
+    "tags": [
+     "internal-resources",
+     "staff-allocation",
+     "information-requests",
+     "departmental-cooperation"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-2de04809-944225-pdf": {
+  "version": "3a3e561e0e02",
+  "topics": [
+   {
+    "slug": "student-practical-training-base",
+    "title": "Practical Training at the Advanced Engineering School",
+    "brief": "How can university students access practical training at the school, and which departments coordinate these placements?",
+    "documents": [
+     "sveden-2de04809-944225-pdf"
+    ],
+    "tags": [
+     "practical-training",
+     "student-placements",
+     "university-coordination",
+     "lab-access"
+    ],
+    "audience": [
+     "student",
+     "teacher"
+    ]
+   },
+   {
+    "slug": "industry-instructor-hiring",
+    "title": "Hiring Working Engineers as Instructors",
+    "brief": "What are the rules and approval steps for attracting practicing engineers to teach at the Advanced Engineering School?",
+    "documents": [
+     "sveden-2de04809-944225-pdf"
+    ],
+    "tags": [
+     "faculty-recruitment",
+     "industry-instructors",
+     "educational-programs",
+     "hiring-procedures"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "aes-grant-reporting",
+    "title": "Grant Reporting and Partnership Coordination",
+    "brief": "What are the school’s responsibilities and reporting deadlines for grant-funded advanced training programs?",
+    "documents": [
+     "sveden-2de04809-944225-pdf"
+    ],
+    "tags": [
+     "grant-reporting",
+     "partnership-coordination",
+     "program-development",
+     "compliance"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-31394ee6-pdf": {
+  "version": "d4aa9164e58c",
+  "topics": [
+   {
+    "slug": "practical-training-bureau",
+    "title": "Practical training at the Design Bureau Sector",
+    "brief": "How can bachelor and master students arrange practical training at the university's Design Bureau Sector?",
+    "documents": [
+     "sveden-31394ee6-pdf"
+    ],
+    "tags": [
+     "practical-training",
+     "student-internship",
+     "design-sector",
+     "university-bases",
+     "postgraduate"
+    ],
+    "audience": [
+     "student",
+     "postgraduate",
+     "applicant"
+    ]
+   },
+   {
+    "slug": "request-sector-resources",
+    "title": "Requesting information and staff from the Design Bureau Sector",
+    "brief": "What is the official procedure for university departments to request technical documentation or personnel from the Design Bureau Sector?",
+    "documents": [
+     "sveden-31394ee6-pdf"
+    ],
+    "tags": [
+     "information-request",
+     "staff-cooperation",
+     "departmental-procedures",
+     "research-support",
+     "university-staff"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-3e088483-957098-pdf": {
+  "version": "b1ec60b4417e",
+  "topics": [
+   {
+    "slug": "sector-learner-support-services",
+    "title": "Learner Support Services in Educational Projects",
+    "brief": "What academic, psychological, and digital support services are officially provided to learners enrolled in educational projects?",
+    "documents": [
+     "sveden-3e088483-957098-pdf"
+    ],
+    "tags": [
+     "student-support",
+     "enrollment-assistance",
+     "digital-learning",
+     "academic-guidance"
+    ],
+    "audience": [
+     "student",
+     "postgraduate",
+     "applicant"
+    ]
+   },
+   {
+    "slug": "sector-departmental-collaboration-rights",
+    "title": "Departmental Rights and Collaboration Procedures",
+    "brief": "What rights do university departments have to request information, recruit staff, or propose regulatory changes through this Sector?",
+    "documents": [
+     "sveden-3e088483-957098-pdf"
+    ],
+    "tags": [
+     "interdepartmental-cooperation",
+     "information-access",
+     "staff-recruitment",
+     "regulatory-proposals"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-41c18882-pdf": {
+  "version": "bee387f8b8eb",
+  "topics": [
+   {
+    "slug": "lab-practical-training",
+    "title": "Practical Training at the HCI Lab",
+    "brief": "How can students participate in practical training at the Human-Computer Interaction Laboratory?",
+    "documents": [
+     "sveden-41c18882-pdf"
+    ],
+    "tags": [
+     "practical-training",
+     "student-placement",
+     "lab-activities",
+     "university-structure"
+    ],
+    "audience": [
+     "student",
+     "postgraduate",
+     "teacher"
+    ]
+   },
+   {
+    "slug": "lab-administrative-rights",
+    "title": "HCI Lab Administrative Rights",
+    "brief": "What official rights does the laboratory have to request university resources and participate in management meetings?",
+    "documents": [
+     "sveden-41c18882-pdf"
+    ],
+    "tags": [
+     "lab-rights",
+     "administrative-procedures",
+     "staff-allocation",
+     "university-governance"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "lab-reporting-structure",
+    "title": "HCI Lab Reporting and Staffing",
+    "brief": "To whom does the laboratory report and how is its staff composition determined?",
+    "documents": [
+     "sveden-41c18882-pdf"
+    ],
+    "tags": [
+     "organizational-structure",
+     "reporting-line",
+     "staff-planning",
+     "lab-administration"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-422991d4-pdf": {
+  "version": "6e660d0eb30e",
+  "topics": [
+   {
+    "slug": "ai-center-student-selection-and-internships",
+    "title": "Student selection and practical training in the AI Center",
+    "brief": "How are students selected for the top-level AI programs and how are their internships organized?",
+    "documents": [
+     "sveden-422991d4-pdf"
+    ],
+    "tags": [
+     "student-selection",
+     "internships",
+     "practical-training",
+     "ai-programs",
+     "industry-partners"
+    ],
+    "audience": [
+     "student",
+     "applicant"
+    ]
+   },
+   {
+    "slug": "ai-center-reporting-deadlines",
+    "title": "Reporting deadlines and obligations for the AI Center",
+    "brief": "What are the specific deadlines and reporting requirements for the Center's quarterly and annual activities?",
+    "documents": [
+     "sveden-422991d4-pdf"
+    ],
+    "tags": [
+     "reporting-deadlines",
+     "quarterly-reports",
+     "annual-reports",
+     "compliance",
+     "ai-center"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "ai-center-industry-contract-procedure",
+    "title": "Procedure for industry partnership contracts",
+    "brief": "What is the official process for concluding civil-law contracts with industry partners for the AI Center?",
+    "documents": [
+     "sveden-422991d4-pdf"
+    ],
+    "tags": [
+     "industry-partners",
+     "contracts",
+     "procurement",
+     "ai-center",
+     "partnerships"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-4312c433-444293-3-7-pdf": {
+  "version": "05307315329e",
+  "topics": [
+   {
+    "slug": "practical-training-at-software-development-center",
+    "title": "Practical Training at the Software Development Center",
+    "brief": "How can bachelor or master students arrange practical training at the university's Software Development Center?",
+    "documents": [
+     "sveden-4312c433-444293-3-7-pdf"
+    ],
+    "tags": [
+     "practical-training",
+     "student-placement",
+     "software-development",
+     "university-regulations",
+     "internship"
+    ],
+    "audience": [
+     "student",
+     "postgraduate"
+    ]
+   }
+  ]
+ },
+ "sveden-441434e2-pdf": {
+  "version": "74b2e6bfcc6c",
+  "topics": [
+   {
+    "slug": "university-procurement-procedure",
+    "title": "University Procurement Procedure",
+    "brief": "How can university staff initiate and approve a purchase request through the Procurement Management Sector?",
+    "documents": [
+     "sveden-441434e2-pdf"
+    ],
+    "tags": [
+     "procurement",
+     "purchasing",
+     "approval-process",
+     "operational-council",
+     "documentation"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "procurement-sector-rights",
+    "title": "Procurement Sector Rights and Interactions",
+    "brief": "What information and staff resources can the Procurement Management Sector legally request from other university departments?",
+    "documents": [
+     "sveden-441434e2-pdf"
+    ],
+    "tags": [
+     "interdepartmental-cooperation",
+     "information-requests",
+     "staff-allocation",
+     "procurement-rights",
+     "university-administration"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "procurement-documentation",
+    "title": "Procurement Documentation and Financial Closing",
+    "brief": "What documentation is required to complete a university procurement and how is it processed by the finance and analytics departments?",
+    "documents": [
+     "sveden-441434e2-pdf"
+    ],
+    "tags": [
+     "procurement-documentation",
+     "financial-closing",
+     "contract-signing",
+     "analytics-department",
+     "finance-department"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-445c3ef5-pdf": {
+  "version": "3b9df0dcd003",
+  "topics": [
+   {
+    "slug": "admin-information-request-procedure",
+    "title": "Requesting Information from University Units",
+    "brief": "How can the Administration formally request necessary information and materials from other university departments?",
+    "documents": [
+     "sveden-445c3ef5-pdf"
+    ],
+    "tags": [
+     "administration",
+     "information-request",
+     "internal-procedure",
+     "staff-rights"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "admin-staff-borrowing-rules",
+    "title": "Temporary Staff Assignment from Other Departments",
+    "brief": "Under what conditions and with whose consent can the Administration temporarily assign employees from other university units to its projects?",
+    "documents": [
+     "sveden-445c3ef5-pdf"
+    ],
+    "tags": [
+     "human-resources",
+     "staff-allocation",
+     "internal-procedure",
+     "management-rights"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "admin-reporting-structure",
+    "title": "Administrative Reporting Line and Authority",
+    "brief": "Who holds direct supervisory authority over the Administration and how is operational management responsibility structured?",
+    "documents": [
+     "sveden-445c3ef5-pdf"
+    ],
+    "tags": [
+     "organizational-structure",
+     "chain-of-command",
+     "governance",
+     "management-authority"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-4944c6cc-940814-pdf": {
+  "version": "dc5d593e4648",
+  "topics": [
+   {
+    "slug": "practical-training-base",
+    "title": "Practical Training at the Integration Department",
+    "brief": "Which university department is officially designated as a base for conducting practical training for students?",
+    "documents": [
+     "sveden-4944c6cc-940814-pdf"
+    ],
+    "tags": [
+     "practical-training",
+     "student-internship",
+     "industrial-robotics",
+     "department-functions"
+    ],
+    "audience": [
+     "student",
+     "postgraduate"
+    ]
+   },
+   {
+    "slug": "research-reporting-authority",
+    "title": "Research and Grant Reporting Responsibilities",
+    "brief": "Which department is responsible for preparing and submitting official reports for research, development, and grant projects to federal authorities?",
+    "documents": [
+     "sveden-4944c6cc-940814-pdf"
+    ],
+    "tags": [
+     "research-reporting",
+     "grant-compliance",
+     "federal-reporting",
+     "project-management"
+    ],
+    "audience": [
+     "postgraduate",
+     "teacher",
+     "staff"
+    ]
+   },
+   {
+    "slug": "commercialization-procedures",
+    "title": "Commercialization of Research and Robotics Projects",
+    "brief": "How are university research outcomes and commercial robotics projects officially commercialized and implemented?",
+    "documents": [
+     "sveden-4944c6cc-940814-pdf"
+    ],
+    "tags": [
+     "commercialization",
+     "research-commercialization",
+     "robotics-projects",
+     "department-rights"
+    ],
+    "audience": [
+     "postgraduate",
+     "teacher",
+     "staff",
+     "public"
+    ]
+   }
+  ]
+ },
+ "sveden-54aea05d-pdf": {
+  "version": "50d3f58f1fd3",
+  "topics": [
+   {
+    "slug": "procurement-initiation",
+    "title": "Requirements for initiating a university purchase",
+    "brief": "What documentation and justifications must purchase initiators provide to the Procurement Department?",
+    "documents": [
+     "sveden-54aea05d-pdf"
+    ],
+    "tags": [
+     "procurement",
+     "purchasing",
+     "compliance",
+     "internal-procedures"
+    ],
+    "audience": [
+     "teacher",
+     "staff"
+    ]
+   },
+   {
+    "slug": "budget-verification",
+    "title": "Procurement budget and limit verification process",
+    "brief": "How are procurement budget plans and spending limits verified before procedures begin?",
+    "documents": [
+     "sveden-54aea05d-pdf"
+    ],
+    "tags": [
+     "budgeting",
+     "finance",
+     "procurement",
+     "internal-coordination"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "contract-approval",
+    "title": "Procedure for initiating procurement contract approvals",
+    "brief": "Which department is responsible for preparing and initiating the approval process for procurement-related contracts?",
+    "documents": [
+     "sveden-54aea05d-pdf"
+    ],
+    "tags": [
+     "contracts",
+     "procurement",
+     "compliance",
+     "internal-procedures"
+    ],
+    "audience": [
+     "staff"
+    ]
+   }
+  ]
+ },
+ "sveden-560db599-pdf": {
+  "version": "06b2ffcb5a9d",
+  "topics": [
+   {
+    "slug": "grant-project-reporting",
+    "title": "Grant and Project Reporting Procedures",
+    "brief": "Which university departments handle grant reporting and contract payments, and what are the institute's compliance obligations?",
+    "documents": [
+     "sveden-560db599-pdf"
+    ],
+    "tags": [
+     "grants",
+     "reporting",
+     "compliance",
+     "projects",
+     "administration"
+    ],
+    "audience": [
+     "postgraduate",
+     "teacher",
+     "staff"
+    ]
+   },
+   {
+    "slug": "institute-governance-staffing",
+    "title": "Institute Leadership and Staffing Approval Process",
+    "brief": "Who has the authority to approve the institute's organizational structure and staffing schedule, and how is the institute director appointed?",
+    "documents": [
+     "sveden-560db599-pdf"
+    ],
+    "tags": [
+     "governance",
+     "staffing",
+     "leadership",
+     "appointments",
+     "administration"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-56f99b67-940264-pdf": {
+  "version": "b2b2ff79b50f",
+  "topics": [
+   {
+    "slug": "project-sector-information-request",
+    "title": "Requesting Information and Staff from the Project Sector",
+    "brief": "How can university departments formally request materials from the Project Sector and involve its staff in collaborative tasks?",
+    "documents": [
+     "sveden-56f99b67-940264-pdf"
+    ],
+    "tags": [
+     "information-request",
+     "cross-departmental-cooperation",
+     "staff-assignment",
+     "administrative-rights"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "project-sector-contractual-role",
+    "title": "Contractual Responsibility and Departmental Coordination",
+    "brief": "Under what conditions can the Project Sector serve as a responsible party in contracts and how are its interactions with other university units structured?",
+    "documents": [
+     "sveden-56f99b67-940264-pdf"
+    ],
+    "tags": [
+     "contract-management",
+     "departmental-interaction",
+     "legal-responsibility",
+     "administrative-procedures"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-57925181-pdf": {
+  "version": "3b9df0dcd003",
+  "topics": [
+   {
+    "slug": "admin-information-request-procedure",
+    "title": "Requesting Information from University Units",
+    "brief": "How can the Administration formally request necessary information and materials from other university departments?",
+    "documents": [
+     "sveden-57925181-pdf"
+    ],
+    "tags": [
+     "administration",
+     "information-request",
+     "internal-procedure",
+     "staff-rights"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "admin-staff-borrowing-rules",
+    "title": "Temporary Staff Assignment from Other Departments",
+    "brief": "Under what conditions and with whose consent can the Administration temporarily assign employees from other university units to its projects?",
+    "documents": [
+     "sveden-57925181-pdf"
+    ],
+    "tags": [
+     "human-resources",
+     "staff-allocation",
+     "internal-procedure",
+     "management-rights"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "admin-reporting-structure",
+    "title": "Administrative Reporting Line and Authority",
+    "brief": "Who holds direct supervisory authority over the Administration and how is operational management responsibility structured?",
+    "documents": [
+     "sveden-57925181-pdf"
+    ],
+    "tags": [
+     "organizational-structure",
+     "chain-of-command",
+     "governance",
+     "management-authority"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-64b89ee0-577233p-pdf": {
+  "version": "f5d3ce509d62",
+  "topics": [
+   {
+    "slug": "tender-department-request-support",
+    "title": "Requesting Tender Department Support for Grant Applications",
+    "brief": "What information and materials must university departments provide to the Tender Department to initiate a tender application process?",
+    "documents": [
+     "sveden-64b89ee0-577233p-pdf"
+    ],
+    "tags": [
+     "tender-department",
+     "grant-application",
+     "internal-procedure",
+     "staff-cooperation",
+     "university-regulations"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "tender-department-interaction-procedures",
+    "title": "Procedures for Interacting with the Tender Department",
+    "brief": "How does the Tender Department coordinate with other university units and request staff or information for procurement and tender activities?",
+    "documents": [
+     "sveden-64b89ee0-577233p-pdf"
+    ],
+    "tags": [
+     "tender-department",
+     "internal-coordination",
+     "procurement",
+     "staff-management",
+     "university-procedures"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "tender-department-authority-limits",
+    "title": "Authority and Consent Requirements for Tender Department Actions",
+    "brief": "Under what conditions can the Tender Department publish procurement information or involve staff from other university departments?",
+    "documents": [
+     "sveden-64b89ee0-577233p-pdf"
+    ],
+    "tags": [
+     "tender-department",
+     "consent-requirements",
+     "procurement",
+     "internal-governance",
+     "staff-cooperation"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-65b86b0b-ee3f58da704510bf9ed2fe2754c375": {
+  "version": "ff8ce60002d6",
+  "topics": [
+   {
+    "slug": "student-practical-training",
+    "title": "Practical Training at the Editing Sector",
+    "brief": "Under what administrative basis can students complete practical training at the university's Editing Sector?",
+    "documents": [
+     "sveden-65b86b0b-ee3f58da704510bf9ed2fe2754c375"
+    ],
+    "tags": [
+     "practical-training",
+     "student-opportunities",
+     "departmental-regulation",
+     "educational-internships",
+     "university-departments"
+    ],
+    "audience": [
+     "student",
+     "postgraduate"
+    ]
+   },
+   {
+    "slug": "document-review-standards",
+    "title": "Official Document Review Requirements",
+    "brief": "What formatting, completeness, and legal compliance standards must departmental documents meet before the Editing Sector processes them?",
+    "documents": [
+     "sveden-65b86b0b-ee3f58da704510bf9ed2fe2754c375"
+    ],
+    "tags": [
+     "document-standards",
+     "administrative-procedures",
+     "compliance-checks",
+     "staff-guidelines",
+     "university-documentation"
+    ],
+    "audience": [
+     "teacher",
+     "staff"
+    ]
+   }
+  ]
+ },
+ "sveden-679ce790-pdf": {
+  "version": "76b8d24b3e9c",
+  "topics": [
+   {
+    "slug": "practical-training-base",
+    "title": "Practical Training at the Software Development Sector",
+    "brief": "How can university students arrange practical training at the Software Development Sector?",
+    "documents": [
+     "sveden-679ce790-pdf"
+    ],
+    "tags": [
+     "practical-training",
+     "student-internships",
+     "sector-collaboration",
+     "university-procedures"
+    ],
+    "audience": [
+     "student",
+     "postgraduate"
+    ]
+   },
+   {
+    "slug": "commercialization-reporting",
+    "title": "Commercialization and Reporting Rules for the Software Development Sector",
+    "brief": "What are the university's rules for commercializing software and submitting reports for projects handled by the Software Development Sector?",
+    "documents": [
+     "sveden-679ce790-pdf"
+    ],
+    "tags": [
+     "commercialization",
+     "project-reporting",
+     "software-development",
+     "university-compliance"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-69dad4fe-2025-pdf": {
+  "version": "8fcb33954cfa",
+  "topics": [
+   {
+    "slug": "methodological-support-program-development",
+    "title": "Methodological Support and Expertise for Educational Programs",
+    "brief": "How can academic departments request methodological support and legal compliance expertise when developing or updating educational programs?",
+    "documents": [
+     "sveden-69dad4fe-2025-pdf"
+    ],
+    "tags": [
+     "educational-programs",
+     "methodological-support",
+     "compliance-expertise",
+     "program-development",
+     "academic-staff"
+    ],
+    "audience": [
+     "teacher",
+     "staff"
+    ]
+   },
+   {
+    "slug": "requesting-center-information-and-staff",
+    "title": "Requesting Information and Temporary Staff from the Center",
+    "brief": "What are the official rules for university departments to request necessary materials or temporarily assign staff to the center?",
+    "documents": [
+     "sveden-69dad4fe-2025-pdf"
+    ],
+    "tags": [
+     "internal-requests",
+     "staff-allocation",
+     "departmental-coordination",
+     "administrative-procedures",
+     "university-staff"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "practical-training-base-at-center",
+    "title": "Using the Center as a Practical Training Base",
+    "brief": "Under what conditions and through which procedures can students use the center for their practical training?",
+    "documents": [
+     "sveden-69dad4fe-2025-pdf"
+    ],
+    "tags": [
+     "practical-training",
+     "student-internships",
+     "educational-base",
+     "student-resources",
+     "university-facilities"
+    ],
+    "audience": [
+     "student",
+     "postgraduate"
+    ]
+   }
+  ]
+ },
+ "sveden-6e56cf90-pdf": {
+  "version": "a80f93718994",
+  "topics": [
+   {
+    "slug": "student-internship-supervision",
+    "title": "Student Internship and Practice Supervision",
+    "brief": "How are academic and industrial internships for students in this program organized and supervised?",
+    "documents": [
+     "sveden-6e56cf90-pdf"
+    ],
+    "tags": [
+     "internships",
+     "student-practices",
+     "program-supervision",
+     "academic-process"
+    ],
+    "audience": [
+     "student",
+     "teacher"
+    ]
+   },
+   {
+    "slug": "curriculum-planning-approval",
+    "title": "Educational Process and Curriculum Development",
+    "brief": "What is the procedure for planning the educational process and developing study plans for this program?",
+    "documents": [
+     "sveden-6e56cf90-pdf"
+    ],
+    "tags": [
+     "curriculum",
+     "study-plans",
+     "educational-process",
+     "faculty-staffing"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "department-head-appointment",
+    "title": "Appointment of the Program Department Head",
+    "brief": "By whom and through what procedure is the head of the Master's program department appointed and dismissed?",
+    "documents": [
+     "sveden-6e56cf90-pdf"
+    ],
+    "tags": [
+     "leadership",
+     "appointment",
+     "administrative-procedure",
+     "staff-management"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-6f35d86a-pdf": {
+  "version": "3b9df0dcd003",
+  "topics": [
+   {
+    "slug": "admin-information-request-procedure",
+    "title": "Requesting Information from University Units",
+    "brief": "How can the Administration formally request necessary information and materials from other university departments?",
+    "documents": [
+     "sveden-6f35d86a-pdf"
+    ],
+    "tags": [
+     "administration",
+     "information-request",
+     "internal-procedure",
+     "staff-rights"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "admin-staff-borrowing-rules",
+    "title": "Temporary Staff Assignment from Other Departments",
+    "brief": "Under what conditions and with whose consent can the Administration temporarily assign employees from other university units to its projects?",
+    "documents": [
+     "sveden-6f35d86a-pdf"
+    ],
+    "tags": [
+     "human-resources",
+     "staff-allocation",
+     "internal-procedure",
+     "management-rights"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "admin-reporting-structure",
+    "title": "Administrative Reporting Line and Authority",
+    "brief": "Who holds direct supervisory authority over the Administration and how is operational management responsibility structured?",
+    "documents": [
+     "sveden-6f35d86a-pdf"
+    ],
+    "tags": [
+     "organizational-structure",
+     "chain-of-command",
+     "governance",
+     "management-authority"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-6f3b7072-pdf": {
+  "version": "a2631d05e5d8",
+  "topics": [
+   {
+    "slug": "grant-project-reporting-requirements",
+    "title": "Grant project reporting and documentation rules",
+    "brief": "What are the university's concrete requirements for preparing, formatting, and submitting timely grant project reports?",
+    "documents": [
+     "sveden-6f3b7072-pdf"
+    ],
+    "tags": [
+     "grant-reporting",
+     "project-documentation",
+     "compliance",
+     "university-procedures"
+    ],
+    "audience": [
+     "teacher",
+     "staff"
+    ]
+   },
+   {
+    "slug": "grant-project-meetings-procedure",
+    "title": "Kickoff and monitoring meetings for grant projects",
+    "brief": "How are initial and ongoing project meetings organized with grant managers and performers?",
+    "documents": [
+     "sveden-6f3b7072-pdf"
+    ],
+    "tags": [
+     "project-meetings",
+     "grant-management",
+     "kickoff",
+     "monitoring"
+    ],
+    "audience": [
+     "teacher",
+     "staff"
+    ]
+   },
+   {
+    "slug": "request-university-resources-grants",
+    "title": "Requesting university resources for grant projects",
+    "brief": "What is the procedure for requesting information, materials, or staff involvement for grant project implementation?",
+    "documents": [
+     "sveden-6f3b7072-pdf"
+    ],
+    "tags": [
+     "resource-request",
+     "staff-involvement",
+     "grant-administration",
+     "internal-procedures"
+    ],
+    "audience": [
+     "teacher",
+     "staff"
+    ]
+   }
+  ]
+ },
+ "sveden-72841b58-pdf": {
+  "version": "1c6ce09d272c",
+  "topics": [
+   {
+    "slug": "student-postgrad-research-participation",
+    "title": "Participation in Laboratory Research and Grants",
+    "brief": "How can students and postgraduates be formally recruited for the laboratory's research projects and grant activities?",
+    "documents": [
+     "sveden-72841b58-pdf"
+    ],
+    "tags": [
+     "research",
+     "grants",
+     "student-involvement",
+     "postgraduate",
+     "laboratory"
+    ],
+    "audience": [
+     "student",
+     "postgraduate"
+    ]
+   },
+   {
+    "slug": "project-grant-coordination",
+    "title": "Coordination of Industrial Projects and Grants",
+    "brief": "Which university department is responsible for coordinating and processing applications for industrial projects and research grants managed by the laboratory?",
+    "documents": [
+     "sveden-72841b58-pdf"
+    ],
+    "tags": [
+     "industrial-projects",
+     "grants",
+     "project-management",
+     "coordination",
+     "university-departments"
+    ],
+    "audience": [
+     "student",
+     "postgraduate",
+     "teacher",
+     "staff"
+    ]
+   },
+   {
+    "slug": "publication-conference-support",
+    "title": "Publishing and Conference Presentation Guidelines",
+    "brief": "What are the laboratory's official responsibilities and procedures for supporting the publication of research in indexed journals and presenting results at conferences?",
+    "documents": [
+     "sveden-72841b58-pdf"
+    ],
+    "tags": [
+     "publications",
+     "conferences",
+     "academic-dissemination",
+     "research-output",
+     "laboratory-support"
+    ],
+    "audience": [
+     "student",
+     "postgraduate",
+     "teacher"
+    ]
+   }
+  ]
+ },
+ "sveden-7c2df72d-912965-pdf": {
+  "version": "7900701ebd37",
+  "topics": [
+   {
+    "slug": "psychological-service-access-and-scope",
+    "title": "Access to University Psychological Support",
+    "brief": "Which student categories are guaranteed access to qualified psychological consulting, diagnostics, and preventive support under university regulations?",
+    "documents": [
+     "sveden-7c2df72d-912965-pdf"
+    ],
+    "tags": [
+     "psychological-support",
+     "student-rights",
+     "counseling",
+     "university-regulations"
+    ],
+    "audience": [
+     "student",
+     "postgraduate",
+     "applicant"
+    ]
+   },
+   {
+    "slug": "first-year-adaptation-procedures",
+    "title": "Psychological Adaptation Support for Freshmen",
+    "brief": "What official support measures and psychological correction procedures are mandated for first-year students to facilitate their academic transition?",
+    "documents": [
+     "sveden-7c2df72d-912965-pdf"
+    ],
+    "tags": [
+     "student-adaptation",
+     "first-year-support",
+     "psychological-counseling",
+     "academic-transition"
+    ],
+    "audience": [
+     "student",
+     "applicant"
+    ]
+   }
+  ]
+ },
+ "sveden-7fa95a4c-pdf": {
+  "version": "0e62f80ad271",
+  "topics": [
+   {
+    "slug": "student-postgrad-research-involvement",
+    "title": "Participation in Research and Grants",
+    "brief": "What are the procedures and rights for students and postgraduates to participate in the laboratory’s research and grant projects?",
+    "documents": [
+     "sveden-7fa95a4c-pdf"
+    ],
+    "tags": [
+     "research",
+     "grants",
+     "student-involvement",
+     "postgraduate",
+     "laboratory"
+    ],
+    "audience": [
+     "student",
+     "postgraduate"
+    ]
+   },
+   {
+    "slug": "research-grant-reporting",
+    "title": "Research and Grant Reporting Requirements",
+    "brief": "What are the mandatory reporting procedures and regulatory standards for the laboratory’s research and grant projects?",
+    "documents": [
+     "sveden-7fa95a4c-pdf"
+    ],
+    "tags": [
+     "reporting",
+     "grants",
+     "compliance",
+     "ministry-requirements",
+     "research"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "lab-publication-standards",
+    "title": "Publication Requirements for Laboratory Research",
+    "brief": "What are the publication requirements and target journal standards for research outputs produced by the laboratory?",
+    "documents": [
+     "sveden-7fa95a4c-pdf"
+    ],
+    "tags": [
+     "publications",
+     "web-of-science",
+     "academic-output",
+     "research",
+     "laboratory"
+    ],
+    "audience": [
+     "postgraduate",
+     "teacher",
+     "staff"
+    ]
+   }
+  ]
+ },
+ "sveden-81e7973e-2026-pdf": {
+  "version": "d565feefb3e8",
+  "topics": [
+   {
+    "slug": "practical-training-administration-sector",
+    "title": "Practical Training at the Administration Support Sector",
+    "brief": "Can university students complete their practical training at the Administration Support Sector, and what is its official role in student education?",
+    "documents": [
+     "sveden-81e7973e-2026-pdf"
+    ],
+    "tags": [
+     "practical-training",
+     "internship",
+     "student-opportunities",
+     "university-administration",
+     "regulations"
+    ],
+    "audience": [
+     "student"
+    ]
+   }
+  ]
+ },
+ "sveden-8436f340-docx": {
+  "version": "9b467b682174",
+  "topics": [
+   {
+    "slug": "student-postgraduate-lab-research-access",
+    "title": "Accessing Lab Research Databases and Experimental Sites",
+    "brief": "How can students and postgraduates access the laboratory’s research databases and experimental sites for coursework and thesis projects?",
+    "documents": [
+     "sveden-8436f340-docx"
+    ],
+    "tags": [
+     "research-access",
+     "student-projects",
+     "laboratory-resources",
+     "coursework-support"
+    ],
+    "audience": [
+     "student",
+     "postgraduate"
+    ]
+   },
+   {
+    "slug": "lab-grant-reporting-procedures",
+    "title": "Laboratory Grant and Research Reporting Procedures",
+    "brief": "What are the laboratory's reporting obligations and submission procedures for grants and research projects?",
+    "documents": [
+     "sveden-8436f340-docx"
+    ],
+    "tags": [
+     "grant-reporting",
+     "project-compliance",
+     "ministry-requirements",
+     "administrative-procedures"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "interdepartmental-staff-and-data-request",
+    "title": "Requesting Staff and Information from Other University Departments",
+    "brief": "Under what conditions can the laboratory request information or borrow staff from other university departments?",
+    "documents": [
+     "sveden-8436f340-docx"
+    ],
+    "tags": [
+     "interdepartmental-cooperation",
+     "staff-allocation",
+     "resource-requests",
+     "university-administration"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-84687259-pdf": {
+  "version": "9776bc0c5720",
+  "topics": [
+   {
+    "slug": "grant-application-procedure",
+    "title": "Grant and Tender Application Procedure",
+    "brief": "What is the step-by-step process for preparing and submitting applications to tenders and grants through the Center?",
+    "documents": [
+     "sveden-84687259-pdf"
+    ],
+    "tags": [
+     "grants",
+     "tenders",
+     "application-workflow",
+     "project-management",
+     "university-procedures"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "department-support-requests",
+    "title": "Requesting Center Support for Research Projects",
+    "brief": "How can university departments formally request information, materials, or staff from the Center to support grant preparation?",
+    "documents": [
+     "sveden-84687259-pdf"
+    ],
+    "tags": [
+     "interdepartmental-coordination",
+     "research-support",
+     "staff-allocation",
+     "grant-preparation",
+     "university-administration"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "external-collaboration-rules",
+    "title": "Rules for Attracting External Partners for R&D",
+    "brief": "Under what conditions can the Center engage external organizations for joint research, development, or consulting projects?",
+    "documents": [
+     "sveden-84687259-pdf"
+    ],
+    "tags": [
+     "external-partnerships",
+     "r-d-collaboration",
+     "consulting",
+     "innovation-policy",
+     "university-regulations"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-852d2779-pdf": {
+  "version": "84914adbf6c2",
+  "topics": [
+   {
+    "slug": "institute-subordination-and-decision-authority",
+    "title": "Institute Leadership and Decision-Making Chain",
+    "brief": "Who holds executive authority over the Institute of Robotics and Computer Vision, and who steps in when the director is unavailable?",
+    "documents": [
+     "sveden-852d2779-pdf"
+    ],
+    "tags": [
+     "governance",
+     "leadership",
+     "organizational-structure",
+     "university-administration"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "student-postgrad-research-access",
+    "title": "Access to Research Databases and Experimental Facilities",
+    "brief": "How can bachelor, master, and PhD students officially access the Institute’s research databases and experimental sites for coursework or thesis projects?",
+    "documents": [
+     "sveden-852d2779-pdf"
+    ],
+    "tags": [
+     "research-access",
+     "student-support",
+     "postgraduate-resources",
+     "academic-facilities"
+    ],
+    "audience": [
+     "student",
+     "postgraduate"
+    ]
+   },
+   {
+    "slug": "institute-interdepartmental-rights",
+    "title": "Institute Rights to Request Information and Recruit Staff",
+    "brief": "Under what conditions can the Institute formally request materials from other university departments or recruit personnel from them?",
+    "documents": [
+     "sveden-852d2779-pdf"
+    ],
+    "tags": [
+     "interdepartmental-cooperation",
+     "staff-recruitment",
+     "administrative-rights",
+     "university-procedures"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-88263cb8-pdf": {
+  "version": "10ad0b961fcf",
+  "topics": [
+   {
+    "slug": "practical-training-center-base",
+    "title": "Practical Training at the Center for Recruitment and Support of Teaching Staff",
+    "brief": "Can I complete my practical training at the Center for Recruitment and Support of Teaching Staff, and how is this arrangement organized?",
+    "documents": [
+     "sveden-88263cb8-pdf"
+    ],
+    "tags": [
+     "practical-training",
+     "student-rights",
+     "university-units",
+     "academic-practice"
+    ],
+    "audience": [
+     "student"
+    ]
+   },
+   {
+    "slug": "temporary-assignment-center-tasks",
+    "title": "Temporary Assignment to the Center for Recruitment and Support of Teaching Staff",
+    "brief": "How can a university employee be temporarily assigned to assist the Center with its projects?",
+    "documents": [
+     "sveden-88263cb8-pdf"
+    ],
+    "tags": [
+     "staff-assignment",
+     "temporary-work",
+     "university-procedures",
+     "employee-rights"
+    ],
+    "audience": [
+     "teacher",
+     "staff"
+    ]
+   }
+  ]
+ },
+ "sveden-88bbf5fb-docx": {
+  "version": "f4b9c17e86ff",
+  "topics": [
+   {
+    "slug": "student-postgrad-research-access",
+    "title": "Accessing Lab Research Resources and Projects",
+    "brief": "How can students and postgraduates access the laboratory's dedicated research databases and participate in its structured scientific projects?",
+    "documents": [
+     "sveden-88bbf5fb-docx"
+    ],
+    "tags": [
+     "research",
+     "student-resources",
+     "postgraduate",
+     "laboratory",
+     "academic-opportunities"
+    ],
+    "audience": [
+     "student",
+     "postgraduate"
+    ]
+   },
+   {
+    "slug": "inter-departmental-collaboration",
+    "title": "Requesting Lab Resources and Staff",
+    "brief": "What is the official procedure for university departments to request information or personnel from the laboratory for joint research activities?",
+    "documents": [
+     "sveden-88bbf5fb-docx"
+    ],
+    "tags": [
+     "collaboration",
+     "staff-assignment",
+     "information-request",
+     "university-departments",
+     "research-support"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-8e2a7329-1-pdf": {
+  "version": "dd03cdf1bf2d",
+  "topics": [
+   {
+    "slug": "project-funding-procedures",
+    "title": "Project Portfolio and Funding Management",
+    "brief": "How are IT research and applied development projects planned, funded, and managed within the university?",
+    "documents": [
+     "sveden-8e2a7329-1-pdf"
+    ],
+    "tags": [
+     "research-funding",
+     "project-management",
+     "applied-development",
+     "it-research",
+     "university-projects"
+    ],
+    "audience": [
+     "postgraduate",
+     "teacher",
+     "staff"
+    ]
+   },
+   {
+    "slug": "center-events-participation",
+    "title": "Participation in Seminars, Trainings, and Hackathons",
+    "brief": "Who is eligible to attend the thematic seminars, trainings, and hackathons organized by the Center?",
+    "documents": [
+     "sveden-8e2a7329-1-pdf"
+    ],
+    "tags": [
+     "student-events",
+     "hackathons",
+     "training-programs",
+     "public-engagement",
+     "academic-seminars"
+    ],
+    "audience": [
+     "student",
+     "postgraduate",
+     "public"
+    ]
+   },
+   {
+    "slug": "center-reporting-collaboration",
+    "title": "Reporting Lines and Departmental Collaboration",
+    "brief": "To which university official does the Center report, and what is the procedure for other departments to request information or collaborate with it?",
+    "documents": [
+     "sveden-8e2a7329-1-pdf"
+    ],
+    "tags": [
+     "organizational-structure",
+     "internal-reporting",
+     "departmental-collaboration",
+     "information-requests",
+     "university-administration"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-9084dee3-pdf": {
+  "version": "a9a6afc03945",
+  "topics": [
+   {
+    "slug": "degree-programs-offered",
+    "title": "Degree Programs and Academic Levels",
+    "brief": "What academic levels and degree tracks does the Faculty of Computer and Engineering Sciences provide for its students?",
+    "documents": [
+     "sveden-9084dee3-pdf"
+    ],
+    "tags": [
+     "degree-programs",
+     "enrollment",
+     "academic-levels",
+     "faculty-structure"
+    ],
+    "audience": [
+     "student",
+     "postgraduate",
+     "applicant"
+    ]
+   },
+   {
+    "slug": "student-internship-organization",
+    "title": "Organization of Student Internships and Practices",
+    "brief": "How are academic and industrial internships planned, supervised, and controlled at the faculty?",
+    "documents": [
+     "sveden-9084dee3-pdf"
+    ],
+    "tags": [
+     "internships",
+     "practical-training",
+     "student-supervision",
+     "educational-process"
+    ],
+    "audience": [
+     "student",
+     "teacher"
+    ]
+   },
+   {
+    "slug": "faculty-governance-reporting",
+    "title": "Faculty Reporting Structure and Administrative Rights",
+    "brief": "To whom does the faculty report for operational decisions and what formal rights does it hold within the university administration?",
+    "documents": [
+     "sveden-9084dee3-pdf"
+    ],
+    "tags": [
+     "governance",
+     "reporting-structure",
+     "faculty-rights",
+     "university-administration"
+    ],
+    "audience": [
+     "staff",
+     "management"
+    ]
+   }
+  ]
+ },
+ "sveden-923a12d2-961275-pdf": {
+  "version": "30c34cd61b98",
+  "topics": [
+   {
+    "slug": "syllabi-competency-alignment-review",
+    "title": "Syllabus and Competency Model Alignment Review",
+    "brief": "How are course syllabi evaluated for compliance with the university's competency model?",
+    "documents": [
+     "sveden-923a12d2-961275-pdf"
+    ],
+    "tags": [
+     "curriculum",
+     "quality-assurance",
+     "syllabus",
+     "competency-model",
+     "academic-standards"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   },
+   {
+    "slug": "student-performance-analysis-procedure",
+    "title": "Student Academic Performance Analysis and Optimization",
+    "brief": "What is the university's procedure for analyzing student performance and implementing optimization measures?",
+    "documents": [
+     "sveden-923a12d2-961275-pdf"
+    ],
+    "tags": [
+     "student-performance",
+     "academic-monitoring",
+     "grade-analysis",
+     "educational-quality",
+     "student-support"
+    ],
+    "audience": [
+     "student",
+     "postgraduate",
+     "teacher",
+     "staff"
+    ]
+   },
+   {
+    "slug": "department-information-request-procedure",
+    "title": "Requesting Official Data and Materials from the Programs Department",
+    "brief": "What is the official process for university units to request necessary documents and data from the Programs Organization Department?",
+    "documents": [
+     "sveden-923a12d2-961275-pdf"
+    ],
+    "tags": [
+     "information-request",
+     "administrative-procedure",
+     "cross-departmental-collaboration",
+     "university-governance",
+     "official-documents"
+    ],
+    "audience": [
+     "teacher",
+     "staff",
+     "management"
+    ]
+   }
+  ]
  }
 }

@@ -2246,5 +2246,1019 @@
   ],
   "status": "accepted",
   "accepted_by": "model+code"
+ },
+ "student-audit-timeline": {
+  "slug": "student-audit-timeline",
+  "title": "Student Academic Audit Schedule",
+  "brief": "When are audits of student achievements, intermediate assessments, and current grade control conducted during the academic year?",
+  "documents": [
+   "sveden-6f02766e-2026-pdf"
+  ],
+  "tags": [
+   "quality-assurance",
+   "academic-calendar",
+   "student-audits",
+   "deadlines",
+   "university-policies"
+  ],
+  "audience": [
+   "student"
+  ],
+  "status": "accepted",
+  "accepted_by": "model+code"
+ },
+ "phd-plan-audit-schedule": {
+  "slug": "phd-plan-audit-schedule",
+  "title": "PhD Individual Plan Audit Schedule",
+  "brief": "When are PhD students' individual research plans audited for compliance and progress?",
+  "documents": [
+   "sveden-6f02766e-2026-pdf"
+  ],
+  "tags": [
+   "postgraduate",
+   "quality-assurance",
+   "doctoral-studies",
+   "deadlines",
+   "academic-monitoring"
+  ],
+  "audience": [
+   "postgraduate"
+  ],
+  "status": "rejected",
+  "reason": "the regulations give only 1 clause(s) for it"
+ },
+ "transfer-process-audit": {
+  "slug": "transfer-process-audit",
+  "title": "Student Transfer Process Audit Timeline",
+  "brief": "When is the university's student transfer process audited to ensure regulatory compliance?",
+  "documents": [
+   "sveden-6f02766e-2026-pdf"
+  ],
+  "tags": [
+   "quality-assurance",
+   "student-transfers",
+   "deadlines",
+   "administrative-procedures",
+   "university-policies"
+  ],
+  "audience": [
+   "student",
+   "applicant"
+  ],
+  "status": "rejected",
+  "reason": "the regulations give only 1 clause(s) for it"
+ },
+ "language-of-instruction": {
+  "slug": "language-of-instruction",
+  "title": "Languages of Instruction",
+  "brief": "In which languages can I take courses and complete my studies at the university?",
+  "documents": [
+   "sveden-7b7c7b77-pdf"
+  ],
+  "tags": [
+   "language",
+   "instruction",
+   "accessibility",
+   "disabilities"
+  ],
+  "audience": [
+   "student",
+   "applicant"
+  ],
+  "status": "accepted",
+  "accepted_by": "model+code"
+ },
+ "learning-conditions-disabilities": {
+  "slug": "learning-conditions-disabilities",
+  "title": "Special Learning Conditions for Students with Disabilities",
+  "brief": "What specific accommodations and accessibility measures are provided for students with disabilities?",
+  "documents": [
+   "sveden-7b7c7b77-pdf"
+  ],
+  "tags": [
+   "accessibility",
+   "disabilities",
+   "accommodations",
+   "student"
+  ],
+  "audience": [
+   "student",
+   "applicant"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'exam-accommodations' (the model's judgement)"
+ },
+ "deadline-for-thesis-topic-selection": {
+  "slug": "deadline-for-thesis-topic-selection",
+  "title": "Deadline for Selecting a Thesis or Project Topic",
+  "brief": "By when must a participant select their final thesis or project topic before the program ends?",
+  "documents": [
+   "sveden-7dae4238-pdf"
+  ],
+  "tags": [
+   "deadlines",
+   "thesis",
+   "program-requirements",
+   "academic-calendar"
+  ],
+  "audience": [
+   "student"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'diploma-project-topic-selection' (the model's judgement)"
+ },
+ "admission-to-final-certification": {
+  "slug": "admission-to-final-certification",
+  "title": "Conditions for Admission to Final Certification",
+  "brief": "What academic and administrative requirements must be met to be allowed to take the final exam or defend a thesis?",
+  "documents": [
+   "sveden-7dae4238-pdf"
+  ],
+  "tags": [
+   "admission",
+   "final-exams",
+   "academic-debts",
+   "certification"
+  ],
+  "audience": [
+   "student"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'graduation' (the model's judgement)"
+ },
+ "final-certification-format-by-program": {
+  "slug": "final-certification-format-by-program",
+  "title": "Format of Final Certification for Additional Professional Programs",
+  "brief": "How does the final assessment differ between professional retraining and advanced training programs?",
+  "documents": [
+   "sveden-7dae4238-pdf"
+  ],
+  "tags": [
+   "certification",
+   "program-types",
+   "exams",
+   "thesis-defense"
+  ],
+  "audience": [
+   "student",
+   "applicant"
+  ],
+  "status": "accepted",
+  "accepted_by": "model+code"
+ },
+ "exemption-from-evaluation": {
+  "slug": "exemption-from-evaluation",
+  "title": "Exemption from Mandatory Staff Evaluation",
+  "brief": "Under what conditions is a teaching staff member exempt from mandatory performance evaluation?",
+  "documents": [
+   "sveden-8365b415-pdf"
+  ],
+  "tags": [
+   "evaluation",
+   "exemption",
+   "employment-rules",
+   "faculty"
+  ],
+  "audience": [
+   "teacher",
+   "staff"
+  ],
+  "status": "rejected",
+  "reason": "the regulations give only 1 clause(s) for it"
+ },
+ "evaluation-schedule-and-results-notification": {
+  "slug": "evaluation-schedule-and-results-notification",
+  "title": "Evaluation Schedule and Results Notification",
+  "brief": "When and how are teaching staff members notified of their evaluation schedule and final results?",
+  "documents": [
+   "sveden-8365b415-pdf"
+  ],
+  "tags": [
+   "evaluation",
+   "deadlines",
+   "notifications",
+   "faculty"
+  ],
+  "audience": [
+   "teacher",
+   "staff"
+  ],
+  "status": "accepted",
+  "accepted_by": "model+code"
+ },
+ "committee-meeting-requirements": {
+  "slug": "committee-meeting-requirements",
+  "title": "Committee Meeting Requirements and Attendance",
+  "brief": "What are the quorum rules and attendance obligations for a teaching staff evaluation committee meeting?",
+  "documents": [
+   "sveden-8365b415-pdf"
+  ],
+  "tags": [
+   "evaluation",
+   "meetings",
+   "quorum",
+   "faculty"
+  ],
+  "audience": [
+   "teacher",
+   "staff"
+  ],
+  "status": "rejected",
+  "reason": "the regulations give only 2 clause(s) for it"
+ },
+ "master-satisfaction-metrics": {
+  "slug": "master-satisfaction-metrics",
+  "title": "Master's Program Satisfaction Metrics",
+  "brief": "What are the current satisfaction rates for educational service quality and student recommendation likelihood in the Business Informatics master's program?",
+  "documents": [
+   "sveden-92b0f3bd-1-38-04-05-pdf"
+  ],
+  "tags": [
+   "satisfaction",
+   "quality-assessment",
+   "master-program",
+   "metrics",
+   "feedback"
+  ],
+  "audience": [
+   "student",
+   "applicant"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'program-satisfaction-and-development' (the model's judgement)"
+ },
+ "learning-conditions-standards": {
+  "slug": "learning-conditions-standards",
+  "title": "Learning Conditions and Support Standards",
+  "brief": "What percentage of students report satisfaction with material support, health and sports conditions, nutrition, and individual learning trajectories?",
+  "documents": [
+   "sveden-92b0f3bd-1-38-04-05-pdf"
+  ],
+  "tags": [
+   "campus-facilities",
+   "student-wellbeing",
+   "individual-learning",
+   "support-services",
+   "conditions"
+  ],
+  "audience": [
+   "student",
+   "postgraduate"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'student-support-services' (the model's judgement)"
+ },
+ "distance-learning-enrollment-procedure": {
+  "slug": "distance-learning-enrollment-procedure",
+  "title": "How to apply and submit documents for a distance learning program",
+  "brief": "How do I apply and submit documents for a distance learning program?",
+  "documents": [
+   "sveden-92e99b14-pdf"
+  ],
+  "tags": [
+   "enrollment",
+   "distance-learning",
+   "application-procedure",
+   "documents"
+  ],
+  "audience": [
+   "student",
+   "applicant"
+  ],
+  "status": "rejected",
+  "reason": "the regulations give only 1 clause(s) for it"
+ },
+ "distance-learning-materials-access": {
+  "slug": "distance-learning-materials-access",
+  "title": "How to get course materials after enrollment",
+  "brief": "How and when do I receive access to course materials after signing the contract?",
+  "documents": [
+   "sveden-92e99b14-pdf"
+  ],
+  "tags": [
+   "course-materials",
+   "access",
+   "distance-learning",
+   "contract"
+  ],
+  "audience": [
+   "student"
+  ],
+  "status": "rejected",
+  "reason": "the regulations give only 1 clause(s) for it"
+ },
+ "distance-learning-tutor-support": {
+  "slug": "distance-learning-tutor-support",
+  "title": "Tutor and teacher duties in distance learning",
+  "brief": "What support and monitoring can I expect from my tutor or teacher in a distance learning program?",
+  "documents": [
+   "sveden-92e99b14-pdf"
+  ],
+  "tags": [
+   "tutoring",
+   "teacher-support",
+   "distance-learning",
+   "student-rights"
+  ],
+  "audience": [
+   "student",
+   "teacher"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'dpo-distance-learning-teacher-roles' (the model's judgement)"
+ },
+ "grading-system-credits-exams": {
+  "slug": "grading-system-credits-exams",
+  "title": "Grading Scale for Credits and Exams",
+  "brief": "How are credits and exams graded according to university regulations?",
+  "documents": [
+   "sveden-98b23047-pdf"
+  ],
+  "tags": [
+   "grading-scale",
+   "credit",
+   "exam",
+   "assessment-criteria"
+  ],
+  "audience": [
+   "student",
+   "teacher"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'grading-scales' (the model's judgement)"
+ },
+ "current-monitoring-organization": {
+  "slug": "current-monitoring-organization",
+  "title": "Organization of Current Academic Monitoring",
+  "brief": "Who is responsible for organizing current academic monitoring and where can it take place?",
+  "documents": [
+   "sveden-98b23047-pdf"
+  ],
+  "tags": [
+   "current-monitoring",
+   "teacher-responsibilities",
+   "assessment-procedures"
+  ],
+  "audience": [
+   "teacher",
+   "staff"
+  ],
+  "status": "rejected",
+  "reason": "the regulations give only 2 clause(s) for it"
+ },
+ "restoration-after-expulsion-repeat-grant": {
+  "slug": "restoration-after-expulsion-repeat-grant",
+  "title": "Restoration After Expulsion and Repeat Grant Procedure",
+  "brief": "How can an expelled student apply for a repeat scholarship and what are the eligibility requirements?",
+  "documents": [
+   "sveden-9d0974a5-1-pdf"
+  ],
+  "tags": [
+   "expulsion",
+   "restoration",
+   "scholarship",
+   "academic-rights",
+   "procedures"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'reinstatement-repeated-grant'"
+ },
+ "post-graduation-dissertation-support": {
+  "slug": "post-graduation-dissertation-support",
+  "title": "Post-Graduation Dissertation Defense Support",
+  "brief": "How can graduates apply for university support when submitting their dissertation for defense, and what is the maximum duration of this support?",
+  "documents": [
+   "sveden-a1f98bed-polozh-podgotov-aspirant-01-03"
+  ],
+  "tags": [
+   "dissertation",
+   "defense",
+   "graduate-support",
+   "application-procedure",
+   "time-limit"
+  ],
+  "status": "accepted",
+  "accepted_by": "model+code"
+ },
+ "aspirantura-assessment-and-certification": {
+  "slug": "aspirantura-assessment-and-certification",
+  "title": "Assessment and Intermediate Certification Rules",
+  "brief": "What types of academic control and intermediate certification are conducted during the aspirantura program, and what do they evaluate?",
+  "documents": [
+   "sveden-a1f98bed-polozh-podgotov-aspirant-01-03"
+  ],
+  "tags": [
+   "assessment",
+   "intermediate-certification",
+   "current-control",
+   "academic-progress",
+   "research-stages"
+  ],
+  "status": "accepted",
+  "accepted_by": "model+code"
+ },
+ "appeal-submission-deadline": {
+  "slug": "appeal-submission-deadline",
+  "title": "Deadline for Submitting a Defense Appeal",
+  "brief": "When must a postgraduate student submit a written appeal if they believe the final certification procedure was violated?",
+  "documents": [
+   "sveden-a2611be0-pdf"
+  ],
+  "tags": [
+   "appeal",
+   "deadline",
+   "defense",
+   "postgraduate",
+   "procedure"
+  ],
+  "audience": [
+   "postgraduate"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'defense-appeal-procedure' (the model's judgement)"
+ },
+ "disability-accommodations-defense": {
+  "slug": "disability-accommodations-defense",
+  "title": "Requesting Special Conditions for Final Certification",
+  "brief": "How and by what deadline must a student with a disability formally request accommodations for the dissertation defense?",
+  "documents": [
+   "sveden-a2611be0-pdf"
+  ],
+  "tags": [
+   "disability",
+   "accommodations",
+   "deadline",
+   "procedure",
+   "postgraduate"
+  ],
+  "audience": [
+   "postgraduate"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'exam-accommodations' (the model's judgement)"
+ },
+ "early-defense-procedure": {
+  "slug": "early-defense-procedure",
+  "title": "Applying for an Early Dissertation Defense",
+  "brief": "What are the conditions and official steps for a postgraduate student to request and obtain approval for an early final certification?",
+  "documents": [
+   "sveden-a2611be0-pdf"
+  ],
+  "tags": [
+   "early-defense",
+   "application",
+   "approval",
+   "postgraduate",
+   "procedure"
+  ],
+  "audience": [
+   "postgraduate"
+  ],
+  "status": "rejected",
+  "reason": "the regulations give only 2 clause(s) for it"
+ },
+ "network-form-rights": {
+  "slug": "network-form-rights",
+  "title": "Understanding Network Form Education",
+  "brief": "How does the network form of education affect my curriculum and what rights do I have to study parts of my program at partner institutions?",
+  "documents": [
+   "sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf"
+  ],
+  "tags": [
+   "network-form",
+   "student-rights",
+   "curriculum",
+   "partner-institutions",
+   "academic-regulations"
+  ],
+  "status": "accepted",
+  "accepted_by": "model+code"
+ },
+ "network-program-structure": {
+  "slug": "network-program-structure",
+  "title": "Network Educational Program Organization",
+  "brief": "How is a network educational program structured and which organizations are responsible for delivering my coursework?",
+  "documents": [
+   "sveden-a5f0e359-polozh-setevaya-21-03-2025-pdf"
+  ],
+  "tags": [
+   "network-form",
+   "study-structure",
+   "academic-procedures",
+   "program-organization",
+   "student-guide"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'network-form-rights' (the model's judgement)"
+ },
+ "student-council-elections": {
+  "slug": "student-council-elections",
+  "title": "Running for the Student Council",
+  "brief": "How can a student run for the Student Council and what are the term limits for its leadership positions?",
+  "documents": [
+   "sveden-a67821f9-pdf"
+  ],
+  "tags": [
+   "student-council",
+   "elections",
+   "term-limits",
+   "eligibility",
+   "self-government"
+  ],
+  "audience": [
+   "student"
+  ],
+  "status": "accepted",
+  "accepted_by": "model+code"
+ },
+ "student-council-policy-rights": {
+  "slug": "student-council-policy-rights",
+  "title": "Student Council Rights in University Policy Drafting",
+  "brief": "What formal rights does the Student Council have to participate in drafting or revising university local regulations?",
+  "documents": [
+   "sveden-a67821f9-pdf"
+  ],
+  "tags": [
+   "student-council",
+   "regulations",
+   "policy-making",
+   "rights",
+   "university-administration"
+  ],
+  "audience": [
+   "student",
+   "management"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'student-rights-in-local-acts' (the model's judgement)"
+ },
+ "student-council-membership": {
+  "slug": "student-council-membership",
+  "title": "Student Council Membership and Participation Rules",
+  "brief": "Who is eligible to join the Student Council and how can all students participate in its activities?",
+  "documents": [
+   "sveden-a67821f9-pdf"
+  ],
+  "tags": [
+   "student-council",
+   "membership",
+   "participation",
+   "eligibility",
+   "self-government"
+  ],
+  "audience": [
+   "student"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'student-council-elections' (the model's judgement)"
+ },
+ "scientific-staff-attestation-frequency": {
+  "slug": "scientific-staff-attestation-frequency",
+  "title": "Attestation Schedule and Intervals",
+  "brief": "How often are scientific staff required to undergo attestation and what is the minimum interval between evaluations?",
+  "documents": [
+   "sveden-ad93227e-pdf"
+  ],
+  "tags": [
+   "attestation",
+   "schedule",
+   "deadlines",
+   "scientific-staff",
+   "compliance"
+  ],
+  "audience": [
+   "postgraduate",
+   "teacher",
+   "staff"
+  ],
+  "status": "accepted",
+  "accepted_by": "model+code"
+ },
+ "scientific-staff-attestation-exemptions": {
+  "slug": "scientific-staff-attestation-exemptions",
+  "title": "Exemptions from Mandatory Attestation",
+  "brief": "Which scientific staff members are legally exempt from mandatory attestation?",
+  "documents": [
+   "sveden-ad93227e-pdf"
+  ],
+  "tags": [
+   "exemptions",
+   "employment-contracts",
+   "scientific-staff",
+   "regulations",
+   "rights"
+  ],
+  "audience": [
+   "postgraduate",
+   "teacher",
+   "staff"
+  ],
+  "status": "accepted",
+  "accepted_by": "model+code"
+ },
+ "scientific-staff-attestation-procedure": {
+  "slug": "scientific-staff-attestation-procedure",
+  "title": "Requesting an Attestation",
+  "brief": "What is the official procedure to request a planned or unplanned attestation for a scientific staff member?",
+  "documents": [
+   "sveden-ad93227e-pdf"
+  ],
+  "tags": [
+   "procedure",
+   "workflow",
+   "management",
+   "scientific-staff",
+   "hr"
+  ],
+  "audience": [
+   "teacher",
+   "staff",
+   "management"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'scientific-staff-attestation-frequency' (the model's judgement)"
+ },
+ "campus-event-content-restrictions": {
+  "slug": "campus-event-content-restrictions",
+  "title": "Content Rules for University Events",
+  "brief": "What types of information are prohibited at events held on university premises, and who must approve them?",
+  "documents": [
+   "sveden-afecfbd9-pdf"
+  ],
+  "tags": [
+   "events",
+   "campus",
+   "content-policy",
+   "minors",
+   "compliance"
+  ],
+  "audience": [
+   "teacher",
+   "staff",
+   "management"
+  ],
+  "status": "rejected",
+  "reason": "the regulations give only 2 clause(s) for it"
+ },
+ "university-website-age-labeling": {
+  "slug": "university-website-age-labeling",
+  "title": "Age Restrictions on University Digital Platforms",
+  "brief": "How are age categories and information signs displayed on the university's official website and student portals?",
+  "documents": [
+   "sveden-afecfbd9-pdf"
+  ],
+  "tags": [
+   "digital",
+   "website",
+   "age-classification",
+   "student-portal",
+   "compliance"
+  ],
+  "audience": [
+   "student",
+   "staff",
+   "public"
+  ],
+  "status": "accepted",
+  "accepted_by": "model+code"
+ },
+ "minor-protection-responsible-officer": {
+  "slug": "minor-protection-responsible-officer",
+  "title": "Responsible Officer for Minor Student Protection",
+  "brief": "Who is officially designated to oversee and enforce information safety measures for minor students at the university?",
+  "documents": [
+   "sveden-afecfbd9-pdf"
+  ],
+  "tags": [
+   "responsibility",
+   "minors",
+   "student-support",
+   "compliance",
+   "governance"
+  ],
+  "audience": [
+   "student",
+   "staff",
+   "management"
+  ],
+  "status": "rejected",
+  "reason": "the regulations give only 2 clause(s) for it"
+ },
+ "contact-and-verification": {
+  "slug": "contact-and-verification",
+  "title": "University contact channels and online staff information",
+  "brief": "How can students and applicants contact the university and what percentage of staff information is guaranteed to be available on the official website?",
+  "documents": [
+   "sveden-b2fec401-2-09-02-07-pdf"
+  ],
+  "tags": [
+   "contact-channels",
+   "website-requirements",
+   "staff-directory"
+  ],
+  "audience": [
+   "student",
+   "applicant",
+   "public"
+  ],
+  "status": "rejected",
+  "reason": "the regulations give only 2 clause(s) for it"
+ },
+ "support-and-development-targets": {
+  "slug": "support-and-development-targets",
+  "title": "Concrete targets for material support, health, and professional growth",
+  "brief": "What are the university's guaranteed percentages for material support of education, physical activity engagement, and professional development opportunities?",
+  "documents": [
+   "sveden-b2fec401-2-09-02-07-pdf"
+  ],
+  "tags": [
+   "material-support",
+   "health-and-sports",
+   "professional-growth"
+  ],
+  "audience": [
+   "student",
+   "teacher",
+   "staff"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'student-support-services' (the model's judgement)"
+ },
+ "service-quality-standards": {
+  "slug": "service-quality-standards",
+  "title": "Measured targets for staff competence, politeness, and overall satisfaction",
+  "brief": "What are the university's concrete targets for staff competence, politeness, and overall satisfaction with educational and work conditions?",
+  "documents": [
+   "sveden-b2fec401-2-09-02-07-pdf"
+  ],
+  "tags": [
+   "staff-competence",
+   "service-quality",
+   "satisfaction-targets"
+  ],
+  "audience": [
+   "student",
+   "applicant",
+   "staff",
+   "management"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'staff-competence-and-accessibility' (the model's judgement)"
+ },
+ "faculty-directory": {
+  "slug": "faculty-directory",
+  "title": "Where to find official teaching staff profiles?",
+  "brief": "How can applicants and students locate verified information about the university's pedagogical staff on the official website?",
+  "documents": [
+   "sveden-b3b2c7b3-2-10-04-01-pdf"
+  ],
+  "tags": [
+   "faculty-contacts",
+   "website-information",
+   "applicant-resources",
+   "student-services"
+  ],
+  "audience": [
+   "student",
+   "applicant"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'teaching-staff' (the model's judgement)"
+ },
+ "student-facilities": {
+  "slug": "student-facilities",
+  "title": "What support and development resources are available for Master's students?",
+  "brief": "Which material, health, and professional development facilities are confirmed as available to students in the Cybersecurity program?",
+  "documents": [
+   "sveden-b3b2c7b3-2-10-04-01-pdf"
+  ],
+  "tags": [
+   "campus-facilities",
+   "student-wellbeing",
+   "professional-development",
+   "master-program"
+  ],
+  "audience": [
+   "student",
+   "postgraduate"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'student-support-services' (the model's judgement)"
+ },
+ "application-submission": {
+  "slug": "application-submission",
+  "title": "How to apply for additional education programs",
+  "brief": "What documents and signed declarations must an applicant submit when applying for an additional general education program?",
+  "documents": [
+   "sveden-b98bf4d4-pravila-priema-dop-21-05-2025-"
+  ],
+  "tags": [
+   "admission",
+   "application",
+   "requirements",
+   "declaration",
+   "additional-programs"
+  ],
+  "audience": [
+   "applicant"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'admission-timeline'"
+ },
+ "enrollment-process": {
+  "slug": "enrollment-process",
+  "title": "How enrollment is formalized and when it starts",
+  "brief": "How is enrollment in an additional general education program finalized and on what date does it officially take effect?",
+  "documents": [
+   "sveden-b98bf4d4-pravila-priema-dop-21-05-2025-"
+  ],
+  "tags": [
+   "enrollment",
+   "contract",
+   "director-order",
+   "effective-date",
+   "additional-programs"
+  ],
+  "audience": [
+   "student",
+   "applicant"
+  ],
+  "status": "rejected",
+  "reason": "repeats the guide 'enrollment-and-withdrawal' (the model's judgement)"
+ },
+ "accessibility-accommodations": {
+  "slug": "accessibility-accommodations",
+  "title": "Accessibility measures for visually impaired applicants",
+  "brief": "What specific accessibility adaptations does the university provide for visually impaired applicants to additional education programs?",
+  "documents": [
+   "sveden-b98bf4d4-pravila-priema-dop-21-05-2025-"
+  ],
+  "tags": [
+   "accessibility",
+   "disabilities",
+   "visually-impaired",
+   "website-adaptation",
+   "additional-programs"
+  ],
+  "audience": [
+   "applicant",
+   "public"
+  ],
+  "status": "accepted",
+  "accepted_by": "model+code"
+ },
+ "individual-learning-trajectories": {
+  "slug": "individual-learning-trajectories",
+  "title": "Individual Learning Trajectory Standards",
+  "brief": "What conditions and availability thresholds must the university meet to support an individual learning trajectory for students?",
+  "documents": [
+   "sveden-bf7f8b1b-1-09-02-07-pdf"
+  ],
+  "tags": [
+   "study-planning",
+   "personalized-education",
+   "program-standards",
+   "student-rights"
+  ],
+  "audience": [
+   "student",
+   "applicant"
+  ],
+  "status": "rejected",
+  "reason": "the regulations give only 1 clause(s) for it"
+ },
+ "university-information-accessibility": {
+  "slug": "university-information-accessibility",
+  "title": "Official Information and Communication Standards",
+  "brief": "What are the mandatory standards for the completeness of university information and the accessibility of official communication channels?",
+  "documents": [
+   "sveden-bf7f8b1b-1-09-02-07-pdf"
+  ],
+  "tags": [
+   "university-website",
+   "communication-channels",
+   "information-transparency",
+   "accessibility"
+  ],
+  "audience": [
+   "student",
+   "applicant",
+   "public"
+  ],
+  "status": "accepted",
+  "accepted_by": "model+code"
+ },
+ "student-welfare-facilities": {
+  "slug": "student-welfare-facilities",
+  "title": "Campus Facilities and Student Welfare Standards",
+  "brief": "What are the official coverage thresholds for student health, sports, and dining facilities?",
+  "documents": [
+   "sveden-bf7f8b1b-1-09-02-07-pdf"
+  ],
+  "tags": [
+   "campus-facilities",
+   "student-welfare",
+   "dining",
+   "sports",
+   "health-standards"
+  ],
+  "audience": [
+   "student",
+   "applicant",
+   "public"
+  ],
+  "status": "rejected",
+  "reason": "the regulations give only 2 clause(s) for it"
+ },
+ "admission-score-requirements": {
+  "slug": "admission-score-requirements",
+  "title": "Minimum unified exam score for general education subjects",
+  "brief": "What is the minimum score required in unified exams for general education subjects to qualify for admission?",
+  "documents": [
+   "sveden-c0ac52de-31-08-2022-pdf"
+  ],
+  "tags": [
+   "admission",
+   "exam-scores",
+   "eligibility",
+   "requirements"
+  ],
+  "audience": [
+   "applicant"
+  ],
+  "status": "rejected",
+  "reason": "the regulations give only 1 clause(s) for it"
+ },
+ "personal-data-consent": {
+  "slug": "personal-data-consent",
+  "title": "Applicant consent for data processing",
+  "brief": "What specific consent must applicants provide regarding the processing of their personal data during enrollment?",
+  "documents": [
+   "sveden-c0ac52de-31-08-2022-pdf"
+  ],
+  "tags": [
+   "personal-data",
+   "consent",
+   "privacy",
+   "enrollment"
+  ],
+  "audience": [
+   "applicant"
+  ],
+  "status": "rejected",
+  "reason": "the regulations give only 1 clause(s) for it"
+ },
+ "enrollment-orders": {
+  "slug": "enrollment-orders",
+  "title": "Official enrollment documentation for first-year students",
+  "brief": "What official orders and information sheets are issued to confirm full-time enrollment for first-year bachelor's and master's students?",
+  "documents": [
+   "sveden-c0ac52de-31-08-2022-pdf"
+  ],
+  "tags": [
+   "enrollment",
+   "official-orders",
+   "bachelor",
+   "master",
+   "documentation"
+  ],
+  "audience": [
+   "staff",
+   "management"
+  ],
+  "status": "accepted",
+  "accepted_by": "model+code"
+ },
+ "accessing-online-learning-platform": {
+  "slug": "accessing-online-learning-platform",
+  "title": "Getting Started with the University's Online Learning Platform",
+  "brief": "How do I obtain my login credentials and access the required digital resources after enrollment?",
+  "documents": [
+   "sveden-c1a38b32-polozh-eodot-02-08-2022-pdf"
+  ],
+  "tags": [
+   "e-learning",
+   "student-portal",
+   "account-setup",
+   "university-resources"
+  ],
+  "status": "accepted",
+  "accepted_by": "model+code"
+ },
+ "online-exams-and-assessments": {
+  "slug": "online-exams-and-assessments",
+  "title": "Rules for Online Exams and Intermediate Assessments",
+  "brief": "What formats and procedures are used for taking online tests and completing mid-term evaluations?",
+  "documents": [
+   "sveden-c1a38b32-polozh-eodot-02-08-2022-pdf"
+  ],
+  "tags": [
+   "e-learning",
+   "exams",
+   "assessments",
+   "academic-procedures"
+  ],
+  "status": "accepted",
+  "accepted_by": "model+code"
  }
 }

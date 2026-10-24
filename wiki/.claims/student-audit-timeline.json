@@ -1,0 +1,220 @@
+{
+ "page": "/guides/student-audit-timeline.md",
+ "evidence_sha": "ddd01c0de97432f4",
+ "claims": [
+  {
+   "sentence": "You will encounter audits of student achievements, intermediate assessments, and current grade control during the academic year according to the following schedule",
+   "cites": [
+    1,
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "af08ed0db972",
+     "sources": [
+      "/regulations/sveden-6f02766e-2026-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "1140d1dcfc36",
+     "sources": [
+      "/regulations/sveden-6f02766e-2026-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "93448a06fc5e",
+     "sources": [
+      "/regulations/sveden-6f02766e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "An audit of student achievements and an analysis of achievements and statistics of victories in olympiads, participation in scientific and practical and research conferences, competitions, etc., including based on information posted in the student portfolio, are conducted in January",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "af08ed0db972",
+     "sources": [
+      "/regulations/sveden-6f02766e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "This audit is carried out by the Center for Control of Educational Activities and the Department of Support and Development of Students",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "af08ed0db972",
+     "sources": [
+      "/regulations/sveden-6f02766e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "An audit of intermediate assessment data and student achievements is conducted in February and August",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "1140d1dcfc36",
+     "sources": [
+      "/regulations/sveden-6f02766e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "This audit is carried out by the Center for Control of Educational Activities, the Department of Organization of Educational Activities, the Department of Organization of Bachelor and Master Programs, and the College",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "1140d1dcfc36",
+     "sources": [
+      "/regulations/sveden-6f02766e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "An audit of current grade control data and student achievements is conducted in April and November",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "93448a06fc5e",
+     "sources": [
+      "/regulations/sveden-6f02766e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "This audit is carried out by the Center for Control of Educational Activities, the Department of Organization of Educational Activities, the Department of Organization of Bachelor and Master Programs, and the College",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "93448a06fc5e",
+     "sources": [
+      "/regulations/sveden-6f02766e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify the exact dates within the months of January, February, April, August, and November when these audits occur",
+   "cites": [
+    1,
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "af08ed0db972",
+     "sources": [
+      "/regulations/sveden-6f02766e-2026-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "1140d1dcfc36",
+     "sources": [
+      "/regulations/sveden-6f02766e-2026-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "93448a06fc5e",
+     "sources": [
+      "/regulations/sveden-6f02766e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not define what constitutes \"current grade control\" or \"intermediate assessment\" beyond these terms",
+   "cites": [
+    1,
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "af08ed0db972",
+     "sources": [
+      "/regulations/sveden-6f02766e-2026-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "1140d1dcfc36",
+     "sources": [
+      "/regulations/sveden-6f02766e-2026-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "93448a06fc5e",
+     "sources": [
+      "/regulations/sveden-6f02766e-2026-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not state the consequences or actions taken following these audits",
+   "cites": [
+    1,
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "af08ed0db972",
+     "sources": [
+      "/regulations/sveden-6f02766e-2026-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "1140d1dcfc36",
+     "sources": [
+      "/regulations/sveden-6f02766e-2026-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "93448a06fc5e",
+     "sources": [
+      "/regulations/sveden-6f02766e-2026-pdf.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

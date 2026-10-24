@@ -1,0 +1,186 @@
+{
+ "page": "/guides/student-council-elections.md",
+ "evidence_sha": "a6bbc26057a3c2dd",
+ "claims": [
+  {
+   "sentence": "You can run for the Student Council if you are an active student of the University",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "b1d52cf0e572",
+     "sources": [
+      "/regulations/sveden-a67821f9-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Every student at the University has the right to be elected to the Council in accordance with the Regulation",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "57bb409aa655",
+     "sources": [
+      "/regulations/sveden-a67821f9-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The Council is formed by holding elections at the University Student Conference at least once every two years",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "c924a88c85c6",
+     "sources": [
+      "/regulations/sveden-a67821f9-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The Student Conference decides on the number of Council members",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "c924a88c85c6",
+     "sources": [
+      "/regulations/sveden-a67821f9-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Elections for the Council Chair, members of the administrative block, the organizational block, and the development and support block take place at the first meeting of the newly elected Council",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "79b2e08e369e",
+     "sources": [
+      "/regulations/sveden-a67821f9-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "These elections are conducted by simple majority vote",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "79b2e08e369e",
+     "sources": [
+      "/regulations/sveden-a67821f9-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The elections are open",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "79b2e08e369e",
+     "sources": [
+      "/regulations/sveden-a67821f9-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "A quorum of at least two-thirds of the Council members must be present at the meeting for the elections to proceed",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "79b2e08e369e",
+     "sources": [
+      "/regulations/sveden-a67821f9-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The Council Chair is elected for a term of two years",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "7e75e26b3a42",
+     "sources": [
+      "/regulations/sveden-a67821f9-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify the procedure for nominating candidates or submitting applications to run for the Council. It does not state the term lengths for members of the administrative, organizational, or development and support blocks, only for the Chair",
+   "cites": [
+    5
+   ],
+   "evidence": [
+    {
+     "n": 5,
+     "sha": "7e75e26b3a42",
+     "sources": [
+      "/regulations/sveden-a67821f9-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It does not detail the specific voting mechanism beyond \"simple majority\" or \"open\" elections",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "79b2e08e369e",
+     "sources": [
+      "/regulations/sveden-a67821f9-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It does not specify what happens if the quorum is not met",
+   "cites": [
+    4
+   ],
+   "evidence": [
+    {
+     "n": 4,
+     "sha": "79b2e08e369e",
+     "sources": [
+      "/regulations/sveden-a67821f9-pdf.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

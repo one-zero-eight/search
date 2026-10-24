@@ -1,0 +1,234 @@
+{
+ "page": "/guides/scientific-staff-attestation-exemptions.md",
+ "evidence_sha": "55fc435379eaba3f",
+ "claims": [
+  {
+   "sentence": "If you are a postgraduate, teacher, or staff member working as a scientific researcher, the following groups are legally exempt from mandatory attestation",
+   "cites": [
+    1,
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "fcc08841d0ef",
+     "sources": [
+      "/regulations/sveden-ad93227e-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "13e4dc67d5be",
+     "sources": [
+      "/regulations/sveden-ad93227e-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "d3e0f8e32f97",
+     "sources": [
+      "/regulations/sveden-ad93227e-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Scientific staff working under fixed-term employment contracts",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "fcc08841d0ef",
+     "sources": [
+      "/regulations/sveden-ad93227e-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Pregnant women",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "13e4dc67d5be",
+     "sources": [
+      "/regulations/sveden-ad93227e-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Women on maternity leave, and staff on childcare leave until the child reaches three years of age",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "d3e0f8e32f97",
+     "sources": [
+      "/regulations/sveden-ad93227e-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The exemption for women on maternity leave and staff on childcare leave until the child reaches three years of age includes a strict timing limit",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "d3e0f8e32f97",
+     "sources": [
+      "/regulations/sveden-ad93227e-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Attestation for these staff members is possible no earlier than one year after their return from the corresponding leaves",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "d3e0f8e32f97",
+     "sources": [
+      "/regulations/sveden-ad93227e-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The official regulation does not state whether postgraduates or teachers who are not classified as scientific staff are covered by these exemptions",
+   "cites": [
+    1,
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "fcc08841d0ef",
+     "sources": [
+      "/regulations/sveden-ad93227e-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "13e4dc67d5be",
+     "sources": [
+      "/regulations/sveden-ad93227e-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "d3e0f8e32f97",
+     "sources": [
+      "/regulations/sveden-ad93227e-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The regulation does not define the duration or renewal rules for fixed-term contracts",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "fcc08841d0ef",
+     "sources": [
+      "/regulations/sveden-ad93227e-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The regulation does not list other medical conditions or leave types that qualify for exemption",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "d3e0f8e32f97",
+     "sources": [
+      "/regulations/sveden-ad93227e-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The regulation does not describe how to submit a request or provide documentation for these exemptions",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "d3e0f8e32f97",
+     "sources": [
+      "/regulations/sveden-ad93227e-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The regulation does not specify what happens if attestation deadlines overlap with the one-year waiting period",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "d3e0f8e32f97",
+     "sources": [
+      "/regulations/sveden-ad93227e-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "If any course page or internal guide claims different exemption rules, the official regulation overrides them",
+   "cites": [
+    1,
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "fcc08841d0ef",
+     "sources": [
+      "/regulations/sveden-ad93227e-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "13e4dc67d5be",
+     "sources": [
+      "/regulations/sveden-ad93227e-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "d3e0f8e32f97",
+     "sources": [
+      "/regulations/sveden-ad93227e-pdf.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

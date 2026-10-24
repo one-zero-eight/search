@@ -1,0 +1,205 @@
+{
+ "page": "/guides/university-information-accessibility.md",
+ "evidence_sha": "5c3c6d19eecd16e7",
+ "claims": [
+  {
+   "sentence": "Students, applicants, and the public should note that the completeness and relevance of information about the University and its activities in the information-telecommunication network is set at 80% \"Internet\"",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "5427624898a9",
+     "sources": [
+      "/regulations/sveden-bf7f8b1b-1-09-02-07-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The availability of information about teaching staff is set at 90% on the official website of the University",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "37f051a0e141",
+     "sources": [
+      "/regulations/sveden-bf7f8b1b-1-09-02-07-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Students, applicants, and the public can use the following channels for interaction with the University: by phone, by email, and using electronic services",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "d81b45b7ead9",
+     "sources": [
+      "/regulations/sveden-bf7f8b1b-1-09-02-07-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The University guarantees a 90% availability of the opportunity to submit proposals aimed at improving the work of the University",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "d81b45b7ead9",
+     "sources": [
+      "/regulations/sveden-bf7f8b1b-1-09-02-07-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The official document does not specify deadlines for maintaining the 80% or 90% standards",
+   "cites": [
+    1,
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "5427624898a9",
+     "sources": [
+      "/regulations/sveden-bf7f8b1b-1-09-02-07-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "37f051a0e141",
+     "sources": [
+      "/regulations/sveden-bf7f8b1b-1-09-02-07-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "d81b45b7ead9",
+     "sources": [
+      "/regulations/sveden-bf7f8b1b-1-09-02-07-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The official document does not define the measurement methodology for the completeness or availability percentages",
+   "cites": [
+    1,
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "5427624898a9",
+     "sources": [
+      "/regulations/sveden-bf7f8b1b-1-09-02-07-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "37f051a0e141",
+     "sources": [
+      "/regulations/sveden-bf7f8b1b-1-09-02-07-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "d81b45b7ead9",
+     "sources": [
+      "/regulations/sveden-bf7f8b1b-1-09-02-07-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The official document does not list which specific electronic services are included in the accessibility standard",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "d81b45b7ead9",
+     "sources": [
+      "/regulations/sveden-bf7f8b1b-1-09-02-07-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The official document does not state consequences or procedures for falling below the 80% or 90% thresholds",
+   "cites": [
+    1,
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "5427624898a9",
+     "sources": [
+      "/regulations/sveden-bf7f8b1b-1-09-02-07-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "37f051a0e141",
+     "sources": [
+      "/regulations/sveden-bf7f8b1b-1-09-02-07-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "d81b45b7ead9",
+     "sources": [
+      "/regulations/sveden-bf7f8b1b-1-09-02-07-pdf.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The official document does not address standards for other types of information or communication channels",
+   "cites": [
+    1,
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "5427624898a9",
+     "sources": [
+      "/regulations/sveden-bf7f8b1b-1-09-02-07-pdf.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "37f051a0e141",
+     "sources": [
+      "/regulations/sveden-bf7f8b1b-1-09-02-07-pdf.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "d81b45b7ead9",
+     "sources": [
+      "/regulations/sveden-bf7f8b1b-1-09-02-07-pdf.md"
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -4,5 +4,10 @@
  "sha256": "36012b556b924d94ebbb8b5500259d9461fca7f955ede3bc278a8652d0ddc366",
  "method": "text layer (pdfplumber)",
  "chars": 70765,
- "fetched_at": "2026-10-22T11:51:30+00:00"
+ "fetched_at": "2026-10-22T11:51:30+00:00",
+ "remote": {
+  "etag": "\"687a3f65-30cd3f\"",
+  "modified": "Fri, 18 Jul 2025 12:34:45 GMT",
+  "size": "3198271"
+ }
 }

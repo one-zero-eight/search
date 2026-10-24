@@ -1,0 +1,196 @@
+{
+ "page": "/guides/aspirantura-assessment-and-certification.md",
+ "evidence_sha": "509cec9a32a5d2e2",
+ "claims": [
+  {
+   "sentence": "Quality control of the aspirantura program includes current performance monitoring, intermediate certification of aspirants, and final certification of aspirants",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "0ee44462d5de",
+     "sources": [
+      "/regulations/sveden-a1f98bed-polozh-podgotov-aspirant-01-03.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Intermediate certification of aspirants ensures assessment of the results of carrying out stages of scientific (scientific-research) activity, results of mastery of disciplines (modules), and completion of practice",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "cbaa202add10",
+     "sources": [
+      "/regulations/sveden-a1f98bed-polozh-podgotov-aspirant-01-03.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "This assessment is conducted in accordance with the individual plan of scientific activity and the individual study plan",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "cbaa202add10",
+     "sources": [
+      "/regulations/sveden-a1f98bed-polozh-podgotov-aspirant-01-03.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "Current performance monitoring ensures assessment of the progress of stages of scientific research, mastery of disciplines (modules), and completion of practice",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "39ba39244031",
+     "sources": [
+      "/regulations/sveden-a1f98bed-polozh-podgotov-aspirant-01-03.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "This assessment is also conducted in accordance with the individual plan of scientific activity and the individual study plan",
+   "cites": [
+    2
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "39ba39244031",
+     "sources": [
+      "/regulations/sveden-a1f98bed-polozh-podgotov-aspirant-01-03.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not specify the deadlines, frequency, or procedures for conducting current performance monitoring or intermediate certification",
+   "cites": [
+    1,
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "0ee44462d5de",
+     "sources": [
+      "/regulations/sveden-a1f98bed-polozh-podgotov-aspirant-01-03.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "39ba39244031",
+     "sources": [
+      "/regulations/sveden-a1f98bed-polozh-podgotov-aspirant-01-03.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "cbaa202add10",
+     "sources": [
+      "/regulations/sveden-a1f98bed-polozh-podgotov-aspirant-01-03.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "It does not state the evaluation criteria, grading scales, or consequences of failing intermediate certification",
+   "cites": [
+    3
+   ],
+   "evidence": [
+    {
+     "n": 3,
+     "sha": "cbaa202add10",
+     "sources": [
+      "/regulations/sveden-a1f98bed-polozh-podgotov-aspirant-01-03.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence does not describe the format or requirements of the final certification",
+   "cites": [
+    1
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "0ee44462d5de",
+     "sources": [
+      "/regulations/sveden-a1f98bed-polozh-podgotov-aspirant-01-03.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "No information is provided regarding who conducts these assessments or how the individual plans are approved",
+   "cites": [
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 2,
+     "sha": "39ba39244031",
+     "sources": [
+      "/regulations/sveden-a1f98bed-polozh-podgotov-aspirant-01-03.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "cbaa202add10",
+     "sources": [
+      "/regulations/sveden-a1f98bed-polozh-podgotov-aspirant-01-03.md"
+     ]
+    }
+   ]
+  },
+  {
+   "sentence": "The evidence is silent on how results are recorded or reported",
+   "cites": [
+    1,
+    2,
+    3
+   ],
+   "evidence": [
+    {
+     "n": 1,
+     "sha": "0ee44462d5de",
+     "sources": [
+      "/regulations/sveden-a1f98bed-polozh-podgotov-aspirant-01-03.md"
+     ]
+    },
+    {
+     "n": 2,
+     "sha": "39ba39244031",
+     "sources": [
+      "/regulations/sveden-a1f98bed-polozh-podgotov-aspirant-01-03.md"
+     ]
+    },
+    {
+     "n": 3,
+     "sha": "cbaa202add10",
+     "sources": [
+      "/regulations/sveden-a1f98bed-polozh-podgotov-aspirant-01-03.md"
+     ]
+    }
+   ]
+  }
+ ]
+}
