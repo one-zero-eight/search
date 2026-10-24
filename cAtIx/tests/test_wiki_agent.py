@@ -100,7 +100,7 @@ def test_numbers_written_as_russian_words_count():
 
 
 def test_a_card_too_long_is_split():
-    long = "\n\n".join(f"Leave lasts up to 12 months [п. 2.2]({REG}#2.2)." for _ in range(200))
+    long = "\n\n".join(f"Leave lasts up to 12 months [п. 2.2]({REG}#2.2)." for _ in range(agent.MAX_BODY // 40))
     assert "too long" in agent.write("academic-leave", "Academic leave", "d", long, [], [], bundle())[0]
 
 

@@ -38,7 +38,7 @@ LINK = re.compile(r"\[([^\]]*)\]\((/[^)\s#]+\.md)(?:#([\w.\-]+))?\)")
 REF = re.compile(r"\[(\d{1,3})\]")
 CLAUSE = re.compile(r"^\*\*(\d{1,2}(?:\.\d{1,2}){0,4})\.?\*\*\s*(.*?)(?=\n\*\*\d|\n## |\n# Citations|\Z)", re.S | re.M)
 BATCH = 3  # source pages per task of the agent
-MAX_BODY = 9000  # characters of a card: a longer one is split (the model also breaks the JSON of a very long tool call)
+MAX_BODY = 20000  # characters of a card: a longer one is split (about 6k tokens, well under WIKI_AGENT_MAX_TOKENS, so the tool call is not cut)
 READ_LIMIT = 12_000  # characters read_page returns at once
 
 INSTRUCTIONS = """You keep the knowledge cards of the wiki of Innopolis University. The wiki's pages are the university's documents
@@ -57,7 +57,7 @@ programme, a course across its programmes and cohorts. It brings together what e
   navigation and goes in a section "## See also".
 - Write only what the cited text says. Every number must be in the text you cite for it. Keep conditions and exceptions.
   When pages differ (two cohorts, two versions of a document), say so and say which page says what.
-- A card is short: at most about a page (9000 characters). A long document makes several cards on narrower subjects.
+- A card answers one subject: at most 20000 characters. A long document on several subjects makes several cards.
 - English, plain markdown: ## sections, short paragraphs and lists. No title heading, no front matter, no Citations section.
 - Updating a card, keep what it says: write_card refuses a text that drops citations of the old one. Leave one out only
   when it is wrong for the card, and then name it in `dropped`.
