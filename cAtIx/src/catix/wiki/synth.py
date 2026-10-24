@@ -98,7 +98,7 @@ def clauses(idx: Index, rel: str, numbers: list[str] | None = None, containing: 
     A document that also has an English version is quoted in English."""
     if rel not in idx.meta:
         return []
-    found = re.findall(r"^\*\*(\d{1,2}(?:\.\d{1,2}){0,4})\.?\*\*\s*(.*?)(?=\n\*\*\d|\n## |\n# Citations|\Z)", course_text(idx, rel), re.S | re.M)
+    found = re.findall(r"^\*\*(\d{1,2}(?:\.\d{1,2}){0,4})\.?\*\*\s*(.*?)(?=\n\*\*\d{1,2}(?:\.\d{1,2}){0,4}\.?\*\*|\n## |\n# Citations|\Z)", course_text(idx, rel), re.S | re.M)  # (not at a bold date)
     latin = lambda t: sum(c.isascii() and c.isalpha() for c in t) / (sum(c.isalpha() for c in t) or 1)
     out: dict[str, str] = {}
     for num, text in found:

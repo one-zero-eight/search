@@ -35,6 +35,9 @@ from catix.wiki.sources import eduwiki
 
 
 def main() -> None:
+    from catix.settings import settings
+
+    settings.phoenix_project = settings.wiki_phoenix_project  # before tracing is set up: the wiki's traces go to a project of their own
     cmd, *args = sys.argv[1:] or ["status"]
     if cmd == "fetch":
         eduwiki.fetch([int(a) for a in args] or [0])

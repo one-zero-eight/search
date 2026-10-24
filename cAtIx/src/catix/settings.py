@@ -58,6 +58,10 @@ class Settings(BaseSettings):
     # tracing (agent/tracing.py).
     phoenix_endpoint: HttpUrl | None = None
     phoenix_project: str = "catix"
+    # USD per 1M tokens of the wiki's model, for the costs in Phoenix: {"input": .., "cache_read": .., "output": ..}. Phoenix
+    # keeps one price a model, so an API with peak and off-peak prices gets the ones its runs are billed at.
+    wiki_llm_prices: dict[str, float] = {}
+    wiki_phoenix_project: str = "catix-wiki"  # the wiki's builds and its agent (catix-wiki), apart from the assistant's questions
 
     innohassle_api: HttpUrl = HttpUrl("https://api.innohassle.ru")
     # Token of a service with the `users` scope: it lets us ask InNoHassle which study group a Telegram id belongs to.

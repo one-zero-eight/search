@@ -147,6 +147,39 @@ def flush() -> None:
         _provider.force_flush()
 
 
+MODELS = "{ generativeModels(first: 1000) { edges { node { id name kind } } } }"
+CREATE = "mutation($input: CreateModelMutationInput!) { createModel(input: $input) { model { id } } }"
+UPDATE = "mutation($input: UpdateModelMutationInput!) { updateModel(input: $input) { model { id } } }"
+
+
+def price_model(name: str, prices: dict[str, float]) -> None:
+    """The model's prices (USD per 1M tokens: input, cache_read, output) in Phoenix, which then shows the cost of each call
+    and trace. A model Phoenix has no price for (a new one, a local one) shows none."""
+    if not enabled() or not prices:
+        return
+    import re
+
+    import httpx
+
+    def gql(query: str, variables: dict | None = None) -> dict:
+        r = httpx.post(f"{str(settings.phoenix_endpoint).rstrip('/')}/graphql", json={"query": query, "variables": variables or {}}, timeout=10)
+        r.raise_for_status()
+        if r.json().get("errors"):
+            raise RuntimeError(r.json()["errors"][0]["message"])
+        return r.json()["data"]
+
+    costs = [{"tokenType": t, "kind": "COMPLETION" if t == "output" else "PROMPT", "costPerMillionTokens": float(v)} for t, v in prices.items()]
+    model = {"name": name, "namePattern": re.escape(name), "costs": costs}
+    try:
+        mine = [e["node"] for e in gql(MODELS)["generativeModels"]["edges"] if e["node"]["name"] == name and e["node"]["kind"] == "CUSTOM"]
+        if mine:
+            gql(UPDATE, {"input": {"id": mine[0]["id"], **model}})
+        else:
+            gql(CREATE, {"input": model})
+    except Exception as e:  # noqa: BLE001 - the costs are a convenience: the run goes on without them
+        log.warning("could not set the prices of %s in Phoenix: %s", name, e)
+
+
 def _phoenix_client():
     global _client
     if _client is None:

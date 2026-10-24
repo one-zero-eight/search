@@ -1,6 +1,7 @@
 """The wiki's agent writes cards only through a check by code (wiki/agent.py): every sentence cites a source page and,
 for a regulation, a clause that exists; every number is in what it cites; cards and guides are not evidence. No model here."""
 
+from collections import Counter
 from types import SimpleNamespace
 
 import pytest
@@ -185,7 +186,7 @@ def test_tasks_run_at_once_and_each_leaves_the_queue_when_done(monkeypatch):
     agent.save_queue([f"/regulations/r{i}.md" for i in range(9)])
     seen, at_once, lock = [], [0, 0], threading.Lock()
 
-    def invoke(_agent, task, callbacks=None):
+    def invoke(_agent, task, callbacks=None, name=""):
         with lock:
             at_once[0] += 1
             at_once[1] = max(at_once)
@@ -203,3 +204,37 @@ def test_tasks_run_at_once_and_each_leaves_the_queue_when_done(monkeypatch):
     stats = agent.run()
     assert at_once[1] == 3 and len(seen) == 3 and agent.load_queue() == [] and stats["unfinished tasks"] == 0
     assert all("The cards there are now:" in t for t in seen)
+
+
+def test_a_card_written_goes_into_the_search_at_once(monkeypatch):
+    from catix.wiki import search_index
+
+    indexed = []
+    monkeypatch.setattr(agent.settings, "database_url", "postgresql://test")
+    monkeypatch.setattr(search_index, "index_page", lambda rel, bundle: indexed.append(rel))
+    monkeypatch.setattr(agent, "write", lambda *a: [])
+    write_card = {t.name: t for t in agent._tools([bundle()], [], Counter())}["write_card"]
+    assert write_card.invoke({"slug": "academic-leave", "title": "t", "description": "d", "body": "b"}).startswith("written")
+    assert indexed == ["/knowledge/academic-leave.md"]
+
+
+def test_a_bold_date_from_a_line_break_does_not_end_a_clause():
+    text = "**1.4.** руководствуется Федеральным законом от\n\n**29.12.2012** №273-ФЗ «Об образовании».\n\n**1.5.** Далее."
+    assert dict(agent.CLAUSE.findall(text))["1.4"].rstrip().endswith("«Об образовании».")
+
+
+def test_a_number_in_the_title_of_the_cited_page_counts():
+    idx = bundle()
+    idx.meta[REG]["meta"]["title"] = "Положение об академическом отпуске 2022"
+    assert not any("number" in p for p in agent.problems(f"The 2022 regulation: leave lasts up to 12 months [п. 2.2]({REG}#2.2).", idx))
+
+
+def test_a_title_with_brackets_keeps_its_citations():
+    idx = bundle()
+    idx.meta[REG]["meta"]["title"] = "Администрация — Положение [Положение об Администрации]"
+    body = f"Leave lasts up to 12 months [п. 2.2]({REG}#2.2)."
+    assert agent.write("academic-leave", "Academic leave", "d", body, [], [], idx) == []
+    assert agent.read_file_card("academic-leave")["body"] == body
+    text = agent.card_path("academic-leave").read_text().replace("(Положение об Администрации)", "[Положение об Администрации]")
+    agent.card_path("academic-leave").write_text(text)  # a card written before the fix
+    assert agent.read_file_card("academic-leave")["body"] == body

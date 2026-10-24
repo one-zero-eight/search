@@ -38,7 +38,8 @@ SLUG = re.compile(r"^[a-z0-9][a-z0-9-]{2,80}$")
 CLAUSE_REF = re.compile(r"(?:\bп\.|\bпп?\.|пункт\w*|\bclauses?|\bsections?|\bparagraphs?|\bitems?|раздел\w*|§)\s*\d+(?:\.\d+)*\.?", re.I)
 LINK = re.compile(r"\[([^\]]*)\]\((/[^)\s#]+\.md)(?:#([\w.\-]+))?\)")
 REF = re.compile(r"\[(\d{1,3})\]")
-CLAUSE = re.compile(r"^\*\*(\d{1,2}(?:\.\d{1,2}){0,4})\.?\*\*\s*(.*?)(?=\n\*\*\d|\n## |\n# Citations|\Z)", re.S | re.M)
+NUMBER = r"\*\*\d{1,2}(?:\.\d{1,2}){0,4}\.?\*\*"  # a clause's number in bold; a bold date ('**29.12.2012**', a PDF's line break) is not one
+CLAUSE = re.compile(rf"^\*\*(\d{{1,2}}(?:\.\d{{1,2}}){{0,4}})\.?\*\*\s*(.*?)(?=\n{NUMBER}|\n## |\n# Citations|\Z)", re.S | re.M)
 BATCH = 3  # source pages per task of the agent
 MAX_BODY = 20000  # characters of a card: a longer one is split (about 6k tokens, well under WIKI_AGENT_MAX_TOKENS, so the tool call is not cut)
 READ_LIMIT = 12_000  # characters read_page returns at once
@@ -57,7 +58,9 @@ programme, a course across its programmes and cohorts. It brings together what e
   of a regulation (the clause number goes after #), [source](/course-programmes/x.md) for a page without clauses. Only
   source pages are evidence, never cards or guides; a link to another card ([title](/knowledge/slug.md)) is only
   navigation and goes in a section "## See also".
-- Write only what the cited text says. Every number must be in the text you cite for it. Keep conditions and exceptions.
+- Write only what the cited text says. Every number must be in the text you cite for it: do not count what a page lists
+  without counting it ("two kinds", "three conditions": name them instead), and do not add from memory what a page
+  leaves out (the date or number of a law it names). Keep conditions and exceptions.
   When pages differ (two cohorts, two versions of a document), say so and say which page says what.
 - A card answers one subject: at most 20000 characters. A long document on several subjects makes several cards.
 - English, plain markdown: ## sections, short paragraphs and lists. No title heading, no front matter, no Citations section.
@@ -113,7 +116,7 @@ def read_file_card(slug: str) -> dict | None:
     body, _, cites = body.partition("\n# Citations\n")
     refs = []
     for line in cites.splitlines():
-        if m := re.match(r"\s*\d+\.\s+\[[^\]]*\]\((/[^)\s]+\.md)\)(?:, clause ([\w.\-]+))?", line):
+        if m := re.match(r"\s*\d+\.\s+\[.*\]\((/[^)\s]+\.md)\)(?:, clause ([\w.\-]+))?", line):  # (a title may hold brackets)
             refs.append((m.group(1), m.group(2) or ""))
     return {"slug": slug, "title": str(fm.get("title", "")), "description": str(fm.get("description", "")), "tags": fm.get("tags") or [],
             "audience": fm.get("audience") or [], "body": to_agent_body(body.strip(), refs), "refs": refs}
@@ -233,7 +236,8 @@ def problems(body: str, idx: Index) -> list[str]:
                 support.append(course_text(idx, page))
         claim = re.sub(r"^\s*(?:[-*+]|\d+[.)])\s+", "", LINK.sub(" ", line))  # (a list's own numbering is not a claim)
         claim = CLAUSE_REF.sub(" ", claim)  # nor is "clause 3.1.2" or "п. 2.4" written in the text
-        missing = sorted(numbers_in(claim) - numbers_in(" ".join(support)))
+        titles = [str(idx.meta[page]["meta"].get("title", "")) for page, _ in evidence]  # "the 2022 regulation": its year is in its title
+        missing = sorted(numbers_in(claim) - numbers_in(" ".join(support + titles)))
         if missing and support:
             out.append(f"number {missing[0]} is not in what the sentence cites: {short}")
     if not cited_any and not out:
@@ -277,7 +281,8 @@ def write(slug: str, title: str, description: str, body: str, tags: list[str], a
              f"tags: {yaml_value(clean_tags(tags))}", f"audience: {yaml_value(readers)}", "sources:", *sources,
              "generated:", f"  by: {yaml_value(f'{PRODUCER} agent ({model_name()})')}", f"  at: {yaml_value(datetime.now(timezone.utc).isoformat(timespec='seconds'))}",
              "status: draft", "---"]
-    citations = [f"{n}. [{idx.meta[p]['meta'].get('title', p)}]({p})" + (f", clause {c}" if c else "") for n, (p, c) in enumerate(refs, 1)]
+    link_text = lambda p: str(idx.meta[p]["meta"].get("title", p)).replace("[", "(").replace("]", ")")  # noqa: E731 - brackets would end the link
+    citations = [f"{n}. [{link_text(p)}]({p})" + (f", clause {c}" if c else "") for n, (p, c) in enumerate(refs, 1)]
     page = "\n".join(front) + f"\n\n# {title.strip()}\n\n{text}\n\n# Citations\n\n" + "\n".join(citations) + "\n"
     path = card_path(slug)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -355,9 +360,23 @@ def _tools(idx_box: list, written: list, refused: Counter | None = None):
         if found:
             print(f"  write_card {slug} refused: " + " | ".join(p[:160] for p in found[:2]), flush=True)
             return "NOT written, fix these:\n" + "\n".join(f"- {p}" for p in found[:12])
+        index_card(slug)
         return f"written: /{FOLDER}/{slug}.md"
 
     return [search_wiki, read_page, list_cards, read_card, write_card]
+
+
+def index_card(slug: str) -> None:
+    """A card just written into the search, so that search_wiki finds it in the next tasks. Without a database, or when it
+    fails, the card is still written: the run's index sync takes it later."""
+    if not settings.database_url:
+        return
+    from catix.wiki import search_index
+
+    try:
+        search_index.index_page(f"/{FOLDER}/{slug}.md", BUNDLE)
+    except Exception as e:  # noqa: BLE001
+        print(f"  card {slug} written, not indexed: {type(e).__name__}: {str(e)[:160]}", flush=True)
 
 
 WRITING = threading.Lock()  # a card's check and its write, the queue, the counters: one task at a time
@@ -400,13 +419,17 @@ BROKEN_CALL = ("Your last tool call could not be read (its JSON was broken, usua
 DONE = re.compile(r"^[\s*`>#_-]*DONE\b", re.I | re.M)  # 'DONE: ...' on a line of its own, bold or quoted too
 
 
-def _invoke(agent, task: str, callbacks: list | None = None) -> str:
+RUN_ID = datetime.now(timezone.utc).strftime("wiki-agent %Y-%m-%d %H:%M")  # the session of a run's traces in Phoenix
+
+
+def _invoke(agent, task: str, callbacks: list | None = None, name: str = "wiki agent") -> str:
     """Run a task to its DONE: line; a model that ends its turn half way ('Let me restructure.') is sent back to work. A
     model sent back that calls no tool has nothing left to do: the task is done though it did not say so. 'NOT FINISHED:
     ...' when it never gets there."""
     from langchain_core.messages import HumanMessage
 
-    config = {"recursion_limit": settings.wiki_agent_steps, "callbacks": callbacks or []}  # (a thread does not inherit the run's callbacks)
+    config = {"recursion_limit": settings.wiki_agent_steps, "callbacks": callbacks or [],  # (a thread does not inherit the run's callbacks)
+              "run_name": name, "metadata": {"session_id": RUN_ID}}  # a trace a task, the tasks of a run one session
     messages, last, sent_back = [HumanMessage(task)], "", False
     for _ in range(1 + CONTINUES):
         try:
@@ -477,10 +500,15 @@ def run(pages: list[str] | None = None, limit: int | None = None) -> dict:
     tokens it spent."""
     from langchain_core.callbacks import get_usage_metadata_callback
 
+    from catix.agent import tracing  # (set up here: the first model call of the run is traced too)
+
+    tracing.price_model(model_name(), settings.wiki_llm_prices)  # Phoenix shows what each call cost
+
     with get_usage_metadata_callback() as usage:
         stats = _run(pages, limit, usage)
     stats["tokens"] = tokens(usage.usage_metadata)
     print(f"== agent: tokens {stats['tokens']}", flush=True)
+    tracing.flush()
     return stats
 
 
@@ -512,7 +540,7 @@ def _run(pages: list[str] | None, limit: int | None, usage) -> dict:
                 "into the cards: update the card of a subject if there is one (read_card first, keep what it says), make one "
                 "if there is not.\n" + "\n".join(batch) + "\n\nThe cards there are now:\n" + cards_now())
         try:
-            result = _invoke(agent, task, [usage])
+            result = _invoke(agent, task, [usage], f"wiki agent: {', '.join(p.rsplit('/', 1)[-1] for p in batch)}")
             print(f"  [{n}] {result}", flush=True)
             unfinished, broke = result.startswith("NOT FINISHED"), False
         except Exception as e:  # noqa: BLE001 - one batch failing (the model server, the step limit) leaves it queued
@@ -534,7 +562,7 @@ def _run(pages: list[str] | None, limit: int | None, usage) -> dict:
         task = (f"The card {slug} no longer holds against the pages (a page changed or went away). Read it, read what it cites, and "
                 f"write it again so that it holds; drop what the pages no longer say. Problems:\n" + "\n".join(f"- {p}" for p in found[:12]))
         try:
-            print("  " + _invoke(agent, task, [usage]), flush=True)
+            print("  " + _invoke(agent, task, [usage], f"wiki agent: repair {slug}"), flush=True)
         except Exception as e:  # noqa: BLE001
             print(f"  failed: {type(e).__name__}: {e}", flush=True)
             break

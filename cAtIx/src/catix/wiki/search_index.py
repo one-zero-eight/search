@@ -175,6 +175,29 @@ def embed_batch(size: int = EMBED_BATCH) -> int:
         return len(rows)
 
 
+def index_page(rel: str, bundle: Path = BUNDLE) -> int:
+    """One page into the search at once, its vectors too (the wiki's agent, after it writes a card); the pieces embedded."""
+    text = (bundle / rel.lstrip("/")).read_text(encoding="utf-8")
+    meta, chunks = cut(text)
+    with pg.connection() as conn:
+        check_model(conn)
+        write_page(conn, rel, fingerprint(text), meta, chunks)
+    with pg.connection() as conn:
+        rows = conn.execute(
+            "SELECT c.id, c.search_text FROM wiki_chunks c JOIN wiki_embedding_queue q ON q.chunk_id = c.id WHERE c.path = %s", (rel,)
+        ).fetchall()
+        if rows:
+            vectors = pg.embed([r["search_text"] for r in rows])
+            with conn.cursor() as cur:
+                cur.executemany(
+                    """INSERT INTO wiki_chunk_embeddings (chunk_id, embedding) VALUES (%s, %s)
+                       ON CONFLICT (chunk_id) DO UPDATE SET embedding = excluded.embedding""",
+                    [(r["id"], v) for r, v in zip(rows, vectors)],
+                )
+            conn.execute("DELETE FROM wiki_embedding_queue WHERE chunk_id = ANY(%s::bigint[])", ([r["id"] for r in rows],))
+    return len(rows)
+
+
 def embed_all() -> int:
     done, started, last = 0, time.monotonic(), time.monotonic()
     while n := embed_batch():
