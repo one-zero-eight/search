@@ -4,7 +4,7 @@
     catix-wiki compile --sample       # the prototype set from SAMPLE
     catix-wiki compile --random N     # N random pages (fixed seed, so a rerun picks the same ones)
     catix-wiki compile --all          # every page that is not a redirect or empty (skips pages whose revision is already compiled)
-    catix-wiki link                   # rewrite wiki:Title links to bundle paths, rebuild index.md
+    catix-wiki link                   # rewrite wiki:Title links to bundle paths, rebuild index.md (the root and one per folder)
 
 The model only turns wikitext into clean markdown and picks type, title, description and tags. Everything that says
 where the text came from (sources, generated, status, citations, file path) is written by this code, never by the model.
@@ -335,8 +335,65 @@ def concepts() -> list[tuple[Path, dict]]:
         fm = front_of(path.read_text(encoding="utf-8"))
         sources = fm.get("sources") or [{}]
         out.append((path, {"type": fm.get("type", ""), "title": str(fm.get("title", "")), "description": str(fm.get("description", "")),
-                           "source_title": str(sources[0].get("title", "")), "aliases": [str(a) for a in fm.get("aliases") or []]}))
+                           "source_title": str(sources[0].get("title", "")), "aliases": [str(a) for a in fm.get("aliases") or []],
+                           "section": str(fm.get("section") or "eduwiki"), "programme": str(fm.get("programme", "")),
+                           "cohort": fm.get("cohort") or 0, "semester": fm.get("semester") or 0}))
     return out
+
+
+FOLDERS = {  # directory -> what it holds, for the root index
+    "knowledge": "Knowledge cards: what many regulations say on one topic, every sentence cited",
+    "guides": "Guides synthesized from several pages",
+    "regulations": "Regulations, orders and other official documents",
+    "course-programmes": "Course programmes (РПД) by programme, cohort and semester",
+    "courses": "Course descriptions from eduwiki",
+    "programs": "Study plans",
+    "procedures": "Procedures: how to do things at the university",
+    "calendars": "Academic calendars",
+    "schedules": "Schedules",
+    "people": "People",
+    "pages": "Other pages",
+}
+
+
+def _groups(directory: str, items: list[tuple[Path, dict]]) -> list[tuple[str, list[tuple[Path, dict]]]]:
+    """The sections of a folder's index: course programmes by programme, cohort and semester, regulations by the section
+    of the site they come from, everything else in one list."""
+    if directory == "course-programmes":
+        key = lambda m: (m["programme"], -int(m["cohort"]), int(m["semester"]))  # noqa: E731 - the newest cohort first
+        name = lambda m: f"{m['programme']}, набор {m['cohort']}, {m['semester']} семестр"  # noqa: E731
+    elif directory == "regulations":
+        key = name = lambda m: m["section"]  # noqa: E731
+    else:
+        return [("", items)]
+    groups: dict = {}
+    for p, m in sorted(items, key=lambda i: (key(i[1]), i[1]["title"])):
+        groups.setdefault(name(m), []).append((p, m))
+    return list(groups.items())
+
+
+def write_index(found: list[tuple[Path, dict]]) -> None:
+    """index.md of every folder of the bundle with the pages in it, and the root index.md with the folders (OKF: only the
+    root one has front matter)."""
+    root = ["---", 'okf_version: "0.2"', "---", "", "# Innopolis University wiki", "",
+            "Knowledge about Innopolis University compiled from [eduwiki](https://eduwiki.innopolis.university), "
+            "the [disclosure section](https://innopolis.university/sveden/) of the university's site and the course programmes.", ""]
+    for directory in [*FOLDERS, *(d for d in TYPES.values() if d not in FOLDERS)]:
+        items = [(p, m) for p, m in found if p.parent == BUNDLE / directory]
+        if not items:
+            (BUNDLE / directory / "index.md").unlink(missing_ok=True)
+            continue
+        root.append(f"- [{directory}](/{directory}/index.md): {FOLDERS.get(directory, directory)}, {len(items)} pages")
+        lines = [f"# {directory}", "", f"{FOLDERS.get(directory, directory)}. Back to [the wiki](/index.md).", ""]
+        for heading, group in _groups(directory, items):
+            lines += [f"## {heading}", ""] if heading else []
+            short = directory == "course-programmes"  # the heading already names the programme, cohort and semester
+            lines += [f"- [{m['title'].split(' — ')[0] if short else m['title']}](/{p.relative_to(BUNDLE).as_posix()})"
+                      + ("" if short else f": {m['description']}") for p, m in group]
+            lines.append("")
+        (BUNDLE / directory / "index.md").write_text("\n".join(lines), encoding="utf-8")
+    root.append("")
+    (BUNDLE / "index.md").write_text("\n".join(root), encoding="utf-8")
 
 
 def link() -> None:
@@ -363,16 +420,8 @@ def link() -> None:
         new = re.sub(r"\[([^\]]*)\]\(wiki:([^)]*)\)", repl, head + body + citations)
         if new != text:
             path.write_text(new, encoding="utf-8")
-    lines = ["---", 'okf_version: "0.2"', "---", "", "# Innopolis University wiki", "",
-             "Knowledge about Innopolis University compiled from [eduwiki](https://eduwiki.innopolis.university).", ""]
-    for typ, directory in TYPES.items():
-        items = [(p, m) for p, m in found if p.parent.name == directory]
-        if items:
-            lines += [f"## {directory}", ""]
-            lines += [f"- [{m['title']}](/{p.relative_to(BUNDLE).as_posix()}): {m['description']}" for p, m in items]
-            lines.append("")
-    (BUNDLE / "index.md").write_text("\n".join(lines), encoding="utf-8")
-    print(f"{len(found)} concepts linked, index.md rebuilt")
+    write_index(found)
+    print(f"{len(found)} concepts linked, index.md rebuilt in the root and every folder")
 
 
 def log(entry: str) -> None:

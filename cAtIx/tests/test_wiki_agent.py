@@ -123,3 +123,21 @@ def test_a_link_to_a_card_not_written_yet_becomes_its_name(tmp_path, monkeypatch
     assert agent.write("academic-leave", "Academic leave", "d", body, [], [], bundle()) == []
     text = (tmp_path / "knowledge" / "academic-leave.md").read_text()
     assert "- Appeals" in text and "/knowledge/appeals.md" not in text
+
+
+def test_groups_of_thousands_are_one_number():
+    from catix.wiki.agent import numbers_in
+
+    assert {"16581"} <= numbers_in("16,581 sq. m") and "16" not in numbers_in("16,581 sq. m")
+    assert numbers_in("300 thousand rubles") <= numbers_in("стоимость 300 000 рублей")
+    assert {"1150000", "1150"} <= numbers_in("1 150 000 руб.") and {"1", "5"} <= numbers_in("1,5 часа")
+
+
+def test_the_index_of_the_cards_is_not_a_card(tmp_path, monkeypatch):
+    from catix.wiki import agent
+
+    monkeypatch.setattr(agent, "BUNDLE", tmp_path)
+    (tmp_path / agent.FOLDER).mkdir()
+    (tmp_path / agent.FOLDER / "index.md").write_text("# knowledge\n")
+    (tmp_path / agent.FOLDER / "a.md").write_text("---\ntype: card\n---\n")
+    assert agent.all_cards() == ["a"]

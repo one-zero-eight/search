@@ -126,7 +126,7 @@ def changed_pages() -> list[str]:
     out = []
     for line in git("status", "--porcelain", "--", "wiki").splitlines():
         status, path = line[:2], line[3:].split(" -> ")[-1].strip('"')
-        if "D" in status or not path.endswith(".md") or path.startswith(("wiki/knowledge/", "wiki/guides/")) or path in {"wiki/index.md", "wiki/log.md"}:
+        if "D" in status or not path.endswith(".md") or path.startswith(("wiki/knowledge/", "wiki/guides/")) or path.rsplit("/", 1)[-1] in {"index.md", "log.md"}:
             continue
         out.append("/" + path.removeprefix("wiki/"))
     return out

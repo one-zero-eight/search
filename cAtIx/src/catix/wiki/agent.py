@@ -140,7 +140,7 @@ def lost(slug: str, body: str, dropped: list[str], idx: Index) -> list[str]:
 
 
 def all_cards() -> list[str]:
-    return sorted(p.stem for p in (BUNDLE / FOLDER).glob("*.md")) if (BUNDLE / FOLDER).exists() else []
+    return sorted(p.stem for p in (BUNDLE / FOLDER).glob("*.md") if p.name != "index.md") if (BUNDLE / FOLDER).exists() else []  # (index.md lists them)
 
 
 # ---- the check -------------------------------------------------------------------------------------------------
@@ -173,10 +173,16 @@ for _n, _stem in ORDINALS.items():  # "второго этапа" says 2 as well
 RU_NUMBER = re.compile(r"(?<![а-яё])(?:" + "|".join(f"(?P<n{n}>{p})" for n, p in RU_NUMBERS.items()) + r")(?![а-яё])", re.I)
 
 
+THOUSANDS = re.compile(r"(?<=\d)[,\u00a0\u202f ](?=\d{3}(?!\d))")  # the separator of a group of thousands
+
+
 def numbers_in(text: str) -> set[str]:
-    """The numbers a text states: digits, English words ('seven') and Russian numerals ('семи')."""
+    """The numbers a text states: digits, English words ('seven') and Russian numerals ('семи'). Groups of thousands are
+    one number ('16,581', '1 150 000'), and a round one is also its thousands and millions ('300 000' is '300 thousand')."""
     russian = {name[1:] for m in RU_NUMBER.finditer(text) for name, value in m.groupdict().items() if value}
-    return set(re.findall(r"\d+", text)) | spelled_numbers(text) | russian
+    digits = set(re.findall(r"\d+", THOUSANDS.sub("", text)))
+    digits |= {d[:-k] for d in digits for k in (3, 6) if len(d) > k and d.endswith("0" * k)}
+    return digits | spelled_numbers(text) | russian
 
 
 def problems(body: str, idx: Index) -> list[str]:
@@ -243,8 +249,8 @@ def write(slug: str, title: str, description: str, body: str, tags: list[str], a
           dropped: list[str] | None = None) -> list[str]:
     """Check the card and write it; the problems when it is not written. `dropped`: citations of the old text that the new one
     leaves out on purpose ('/regulations/x.md#5.3'), each as the agent named it."""
-    if not SLUG.match(slug):
-        return ["slug: lowercase latin letters, digits and hyphens, 3 to 80 characters"]
+    if not SLUG.match(slug) or slug == "index":
+        return ["slug: lowercase latin letters, digits and hyphens, 3 to 80 characters, not 'index' (the folder's index)"]
     if not title.strip() or not description.strip():
         return ["a title and a one-sentence description are needed"]
     if len(body) > MAX_BODY:
