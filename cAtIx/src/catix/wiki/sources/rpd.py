@@ -15,6 +15,7 @@ only the latest cohort of a programme is taken (the applicants ask about it), an
 
 import hashlib
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -128,6 +129,18 @@ def to_markdown(text: str) -> str:
     return "\n\n".join(p for p in out if p.strip())
 
 
+def file_name(path: str) -> str:
+    """A name from an archive as text: zip archives made on Windows keep names in cp866, which Python reads as undecodable
+    bytes (surrogates) that cannot be written to JSON or hashed."""
+    raw = os.fsencode(path)
+    for encoding in ("utf-8", "cp866", "cp1251"):
+        try:
+            return raw.decode(encoding)
+        except UnicodeDecodeError:
+            continue
+    return raw.decode("utf-8", "replace")
+
+
 def key_of(archive_url: str, member: str, code: str, name: str) -> str:
     return "rpd-" + hashlib.sha1(f"{archive_url}/{member}".encode()).hexdigest()[:8] + "-" + (latin(f"{code} {name}")[:40].strip("-") or "course")
 
@@ -190,7 +203,7 @@ def fetch(all_years: bool | None = None, limit: int | None = None) -> int:
         level, label = programme_label(a["programme"])
         found = 0
         for member in sorted(p for p in unpacked.rglob("*") if p.is_file() and not p.is_symlink() and p.suffix.lower() in {".pdf", ".docx", ".doc"}):
-            rel = member.relative_to(unpacked).as_posix()
+            rel = file_name(member.relative_to(unpacked).as_posix())
             try:
                 text, method, _ = regulations.extract(regulations.to_pdf(member), 0)  # no OCR: the programmes have a text layer
             except (ValueError, subprocess.SubprocessError, AttributeError) as e:

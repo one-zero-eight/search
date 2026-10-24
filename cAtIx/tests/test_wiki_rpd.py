@@ -103,3 +103,12 @@ def test_a_checkout_without_the_downloads_keeps_the_pages(tmp_path, monkeypatch)
     page.write_text("page")
     rpd.compile_all()
     assert page.read_text() == "page"
+
+
+def test_a_name_from_a_windows_zip_is_read_as_text():
+    import os
+
+    from catix.wiki.sources.rpd import file_name
+
+    windows = os.fsdecode("Программа.pdf".encode("cp866"))  # how Python sees a cp866 name: surrogates
+    assert file_name(windows) == "Программа.pdf" and file_name("Программа.pdf") == "Программа.pdf"

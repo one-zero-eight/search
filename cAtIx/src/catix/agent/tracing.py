@@ -84,6 +84,7 @@ def _parent():
     OpenInference spans of LangChain runs are not the current OpenTelemetry span, so a step would hang off the question."""
     if _provider is None:
         return None
+    import langchain_core.runnables.config  # noqa: F401 - get_current_span reads it as an attribute, which needs the import
     from openinference.instrumentation.langchain import get_current_span
     from opentelemetry import trace
 
