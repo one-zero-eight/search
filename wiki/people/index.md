@@ -1,0 +1,54 @@
+# people
+
+People. Back to [the wiki](/index.md).
+
+- [AdilKhan](/people/adilkhan.md): Personal information and course list for Adil Khan, including email and associated Machine Learning and Data Structures courses.
+- [Ahsan Kazmi](/people/ahsankazmi.md): Staff member page for Ahsan Kazmi, listing contact email and associated courses.
+- [Aleksandr Maloletov](/people/aleksandrmaloletov.md): Staff member page for Aleksandr Maloletov, including contact email and associated courses.
+- [Alexander Hramov](/people/alexanderhramov.md): Contact information for Alexander Hramov, including email address.
+- [Alexander Klimchik](/people/alexanderklimchik.md): Personal profile of Alexander Klimchik, including contact information, courses taught, research interests, ongoing projects, and academic profiles.
+- [Alexander Tormasov](/people/alexandertormasov.md): Contact information and teaching assignments for Alexander Tormasov, including the Computer Architecture course.
+- [Alma Oracevic](/people/almaoracevic.md): Staff member page for Alma Oracevic, listing contact email and associated courses.
+- [Anastasiya Puzankova](/people/anastasiyapuzankova.md): Personal information and course list for Anastasiya Puzankova, including email and involvement in Analytic Geometry And Linear Algebra I.
+- [Andrey Frolov](/people/andreyfrolov.md): Personal information and course list for Andrey Frolov, including email and Theoretical Computer Science course.
+- [Andrey Sadovykh](/people/andreysadovykh.md): Personal information and list of courses taught by Andrey Sadovykh at Innopolis University.
+- [Artem Burmyakov](/people/artemburmyakov.md): Contact information and list of courses taught by Artem Burmyakov at Innopolis University.
+- [Artem Kruglov](/people/artemkruglov.md): Staff member page for Artem Kruglov, including contact email and associated courses.
+- [Evgenii Zouev](/people/evgeniizouev.md): Personal information and list of courses taught by Evgenii Zouev at Innopolis University.
+- [Evgeniya Kruglova](/people/evgeniyakruglova.md): Staff member page for Evgeniya Krugloa, including contact email and associated courses.
+- [Georgy Gelvanovsky](/people/georgygelvanovsky.md): Staff member Georgy Gelvanovsky, contactable at g.gelvanovsky@innopolis.ru, associated with English For Academic Purposes I and Academic Research and Writing Culture.
+- [Giancarlo Succi: List of Publications](/people/giancarlosucci-listofpublications.md): A list of authored and edited books, as well as journal papers, by Giancarlo Succi, including titles, co-authors, publishers, and years.
+- [Giancarlo Succi](/people/giancarlosucci.md): Staff profile for Giancarlo Succi, including contact details, taught courses, research interests, ongoing projects, and a link to his list of publications.
+- [Guzel Fazlyeva](/people/guzelfazlyeva.md): Staff member page for Guzel Fazlyeva, including contact email and associated courses.
+- [Igor Gaponov](/people/igorgaponov.md): Staff member page for Igor Gaponov, listing contact email and associated courses.
+- [Ivan Konyukhov](/people/ivankonyukhov.md): Staff member at Innopolis University specializing in computational fluid dynamics, numerical methods, and parallel computing, teaching Mathematical Analysis and Differential Equations.
+- [Joseph Brown](/people/josephbrown.md): Staff member Joseph Brown, contactable at j.brown@innopolis.ru, associated with the Introduction To Artificial Intelligence and Game Theory courses.
+- [Kirill Poletkin](/people/kirillpoletkin.md): Staff member page for Kirill Poletkin, listing contact email and associated courses.
+- [Kirill Saltanov](/people/kirillsaltanov.md): Personal contact information and list of courses taught by Kirill Saltanov at Innopolis University.
+- [Luiz Araujo](/people/luizaraujo.md): Staff member page for Luiz Araujo, including contact email, taught courses, and research interests.
+- [Mansur Khazeev](/people/mansurkhazeev.md): Staff member page for Mansur Khazeev, including contact email and associated courses.
+- [Manuel Mazzara](/people/manuelmazzara.md): Personal information and list of courses taught by Manuel Mazzara at Innopolis University.
+- [Marat Mingazov](/people/maratmingazov.md): Personal contact information and teaching assignments for Marat Mingazov at Innopolis University.
+- [Mirko Farina](/people/mirkofarina.md): Staff member Mirko Farina, contactable at m.farina@innopolis.ru, associated with Philosophy I and Philosophy II courses.
+- [Mohammedreza Bahrami](/people/mohammedrezabahrami.md): Personal information and course list for Mohammedreza Bahrami, including email and taught courses.
+- [Munir Makhmutov](/people/munirmakhmutov.md): Personal contact information and teaching assignments for staff member Munir Makhmutov.
+- [Nikolay Kudasov](/people/nikolaykudasov.md): Personal information and list of courses taught by Nikolay Kudasov at Innopolis University.
+- [Nikolay Shilov](/people/nikolayshilov.md): Contact information and list of courses taught by Nikolay Shilov at Innopolis University.
+- [Nursultan Askarbekuly](/people/nursultan-askarbekuly.md): Senior Instructor at Machine Learning and Knowledge Representation Lab and PhD student at Software Service Engineering Lab.
+- [Nursultan Askarbekuly](/people/nursultanaskarbekuly.md): Senior Instructor at Machine Learning and Knowledge Representation Lab and PhD student at Software Service Engineering Lab.
+- [Oksana Zhirosh](/people/oksanazhirosh.md): Staff member Oksana Zhirosh, contactable at o.zhirosh@innopolis.ru, associated with the courses English For Academic Purposes I and Academic Research and Writing Culture.
+- [Oleg Bulichev](/people/olegbulichev.md): Personal information and courses taught by Oleg Bulichev, including Analytic Geometry And Linear Algebra I and Theoretical Mechanics.
+- [Oleg Kiselev](/people/olegkiselev.md): Personal contact information and list of courses taught by Oleg Kiselev at Innopolis University.
+- [Paolo Ciancarini](/people/paolociancarini.md): Personal information and course list for Paolo Ciancarini, including email and DevOps Engineering course.
+- [Professors](/people/professors.md): A list of Innopolis University faculty members categorized by their academic rank, including full, associate, senior, assistant professors, postdocs, and teaching staff.
+- [Rabab Marouf](/people/rababmarouf.md): Staff member Rabab Marouf, contactable at r.marouf@innopolis.ru, associated with English For Academic Purposes I and Academic Research and Writing Culture.
+- [Rasheed Hussain](/people/rasheedhussain.md): Staff member Rasheed Hussain, contactable at r.hussain@innopolis.ru, teaching Networks, Classical Internet Applications, and Security of Systems and Networks.
+- [Ruslan Saduov](/people/ruslansaduov.md): Personal information and course list for Ruslan Saduov, including email and taught courses.
+- [SaifMohammedsabri](/people/saifmohammedsabri.md): Personal contact information and course enrollment for Saif Mohammed Sabri at Innopolis University.
+- [Semen Kurkin](/people/semenkurkin.md): Contact information and courses taught by Semen Kurkin at Innopolis University.
+- [Sergey Gorodetsky](/people/sergeygorodetsky.md): Personal information and list of courses taught by Sergey Gorodetsky at Innopolis University.
+- [Sergey Kladko](/people/sergeykladko.md): Contact information and course assignments for staff member Sergey Kladko.
+- [Sergey Savin](/people/sergeysavin.md): Profile of Sergey Savin, a staff member at the Robotics and Computer Vision Institute, listing his courses, research interests, and selected publications.
+- [Stanislav Protasov](/people/stanislavprotasov.md): Personal contact information and list of courses taught by Stanislav Protasov at Innopolis University.
+- [Vladimir Ivanov](/people/vladimirivanov.md): Staff member Vladimir Ivanov, contactable at v.ivanov@innopolis.ru, teaching Analytic Geometry, Machine Learning, NLP, and Statistical Techniques.
+- [Yaroslav Kholodov](/people/yaroslavkholodov.md): Personal information and course list for Yaroslav Kholodov, including email and taught courses.
