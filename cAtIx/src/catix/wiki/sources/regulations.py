@@ -110,7 +110,8 @@ def all_docs() -> dict[str, dict]:
         docs[key] = {"title": title, "url": url, "root": SVEDEN_ROOT, "section": "sveden/" + d["sections"][0], "context": d.get("context", ""), "ext": d["ext"]}
     from catix.wiki.sources import sites
 
-    docs.update(sites.docs())  # the documents the sites of the university's services link (the rules and prices of the dormitories)
+    have = {sites.canonical(d["url"]) for d in docs.values()}
+    docs.update({k: d for k, d in sites.docs().items() if d["url"] not in have})  # the documents the sites link (the rules and prices of the dormitories); one sveden has is not read twice
     if settings.wiki_mock_site:
         from catix.wiki.sources import mock
 
@@ -145,20 +146,23 @@ def to_pdf(path: Path) -> Path:
 
 
 TEXT_LAYER = "text layer (pdfplumber)"
+TABLES = 3  # the reading of tables: when it changes, `regs reextract` reads the text layers again (2: cells merged across columns, 3: a line on a table's edge once)
 
 
 def _cell(value: str | None) -> str:
     return re.sub(r"\s+", " ", (value or "").replace("|", "/")).strip()
 
 
-def table_markdown(rows: list[list[str | None]]) -> str:
+def table_markdown(rows: list[list[str | None]], wide: list[list[bool]] | None = None) -> str:
     """A table found by pdfplumber as a markdown table. A merged cell comes as None in the rows it spans: it takes the value
-    above (the programme of every exam row), as tables.py does with rowspan. Empty rows and columns go."""
+    above (the programme of every exam row), as tables.py does with rowspan. A cell merged across columns (`wide`, from
+    spans_of) stays empty: the heading of a group of rows ("Расходные материалы") is not the row above it again. Empty rows
+    and columns go."""
     out: list[list[str]] = []
-    for row in rows:
+    for r, row in enumerate(rows):
         cells = [_cell(c) for c in row]
         if out and any(cells):
-            cells = [out[-1][i] if row[i] is None and i < len(out[-1]) else c for i, c in enumerate(cells)]
+            cells = [out[-1][i] if row[i] is None and i < len(out[-1]) and not (wide and wide[r][i]) else c for i, c in enumerate(cells)]
         if any(cells):
             out.append(cells)
     if len(out) < 2:
@@ -168,6 +172,20 @@ def table_markdown(rows: list[list[str | None]]) -> str:
     keep = [i for i in range(width) if any(r[i] for r in out)]
     out = [[r[i] for i in keep] for r in out]
     return "\n".join(["| " + " | ".join(out[0]) + " |", "|" + " --- |" * len(keep)] + ["| " + " | ".join(r) + " |" for r in out[1:]])
+
+
+def spans_of(table) -> list[list[bool]]:
+    """For each cell pdfplumber left out (None) of a table: whether a cell to its left in the same row covers it (merged
+    across columns), not one above it."""
+    lefts = [col.bbox[0] for col in table.columns]
+    out = []
+    for row in table.rows:
+        flags, last = [], None
+        for i, cell in enumerate(row.cells):
+            flags.append(cell is None and last is not None and i < len(lefts) and last[2] > lefts[i] + 1)
+            last = cell if cell is not None else last
+        out.append(flags)
+    return out
 
 
 def text_layer(pdf: Path) -> str:
@@ -191,12 +209,15 @@ def text_layer(pdf: Path) -> str:
             rest = page.filter(outside)
 
             def band(top: float, bottom: float) -> str:
-                top, bottom = max(top, 0), min(bottom, page.height)
-                return (rest.crop((0, top, page.width, bottom)).extract_text() or "") if bottom - top > 1 else ""
+                """The text between two heights. A character belongs to the band its middle is in: crop() keeps what only
+                touches the band, and a line on the edge of a table came out twice, above it and beside it."""
+                if bottom - top <= 1:
+                    return ""
+                return rest.filter(lambda o: o.get("object_type") != "char" or top <= (o["top"] + o["bottom"]) / 2 < bottom).extract_text() or ""
 
             parts, y = [], 0.0
             for t in tables:
-                parts += [band(y, t.bbox[1]), table_markdown(t.extract()), band(t.bbox[1], t.bbox[3])]  # (text beside a table too)
+                parts += [band(y, t.bbox[1]), band(t.bbox[1], t.bbox[3]), table_markdown(t.extract(), spans_of(t))]  # (the text beside a table, its label, first)
                 y = t.bbox[3]
             parts.append(band(y, page.height))
             pages.append("\n\n".join(p for p in parts if p.strip()))
@@ -277,7 +298,7 @@ def fetch(limit: int | None = None) -> int:
         ocr_left -= used
         sha = hashlib.sha256(src.read_bytes()).hexdigest()
         (root / f"{key}.txt").write_text(text, encoding="utf-8")
-        meta.write_text(json.dumps({"title": d["title"], "url": d["url"], "sha256": sha, "method": method, "chars": len(text), "section": d["section"], "context": d.get("context", ""),
+        meta.write_text(json.dumps({"title": d["title"], "url": d["url"], "sha256": sha, "method": method, "chars": len(text), "tables": TABLES, "section": d["section"], "context": d.get("context", ""),
                                     "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "remote": remote}, ensure_ascii=False, indent=1), encoding="utf-8")
         done += 1
         print(f"  {len(text)} chars by {method}" + (" (a new version)" if old.get("sha256") and old["sha256"] != sha else ""))
@@ -458,13 +479,15 @@ def compile_all() -> None:
 
 
 def reextract() -> None:
-    """The text of every downloaded PDF that has a text layer, extracted again (OCR is not repeated: it is slow and the same)."""
+    """The text of every downloaded PDF that has a text layer, extracted again if it was read the old way or before the
+    reading of tables changed (TABLES). OCR is not repeated: it is slow and the same. A text that comes out the same is
+    not written: its page does not change."""
     done = 0
     for key, d in all_docs().items():
         root: Path = d["root"]
         meta_path = root / f"{key}.json"
         meta = json.loads(meta_path.read_text(encoding="utf-8")) if meta_path.exists() else {}
-        if not str(meta.get("method", "")).startswith("text layer") or meta.get("method") == TEXT_LAYER:
+        if not str(meta.get("method", "")).startswith("text layer") or (meta.get("method") == TEXT_LAYER and meta.get("tables") == TABLES):
             continue
         pdf = root / f"{key}.pdf"
         if not pdf.exists():
@@ -476,12 +499,18 @@ def reextract() -> None:
             continue
         if text is None:
             continue
-        (root / f"{key}.txt").write_text(text, encoding="utf-8")
-        meta_path.write_text(json.dumps({**meta, "method": method, "chars": len(text)}, ensure_ascii=False, indent=1), encoding="utf-8")
+        txt = root / f"{key}.txt"
+        same = txt.exists() and txt.read_text(encoding="utf-8") == text
+        if not same:
+            txt.write_text(text, encoding="utf-8")
+        meta_path.write_text(json.dumps({**meta, "method": method, "chars": len(text), "tables": TABLES}, ensure_ascii=False, indent=1), encoding="utf-8")
+        if same:
+            continue
+        print(f"  {key}: the text changed", flush=True)
         done += 1
         if done % 25 == 0:
             print(f"  {done} extracted again", flush=True)
-    print(f"{done} documents extracted again")
+    print(f"{done} documents read again came out different")
 
 
 def main() -> None:

@@ -121,7 +121,7 @@ def check(report: build.Report, answers: bool) -> Checks:
 def changed_pages() -> list[str]:
     """Source pages the run added or changed ('/regulations/x.md'), from git: what the wiki's agent reads next."""
     out = []
-    for line in git("status", "--porcelain", "--", "wiki").splitlines():
+    for line in git("status", "--porcelain", "-uall", "--", "wiki").splitlines():  # (-uall: a new folder is its files, not one line)
         status, path = line[:2], line[3:].split(" -> ")[-1].strip('"')
         if "D" in status or not path.endswith(".md") or path.startswith("wiki/knowledge/") or path.rsplit("/", 1)[-1] in {"index.md", "log.md"}:
             continue

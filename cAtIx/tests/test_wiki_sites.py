@@ -61,3 +61,20 @@ def test_the_documents_of_a_site_go_to_the_regulations_with_a_readable_key(tmp_p
     assert key.startswith("site-hotel-") and "-prilozhenie-k-prikazu-pravila" in key
     assert doc["title"] == "Приложение к приказу Правила размещения 2025 год"  # the link text says too little: the file's name
     assert doc["section"] == "site/hotel" and doc["ext"] == "pdf"
+
+
+def test_the_university_site_reads_the_pages_of_its_disclosure_section_too_and_has_an_english_copy():
+    uni = SITES["university"]
+    assert sites._taken(uni, "https://innopolis.university/campus")
+    assert sites._taken(uni, "https://innopolis.university/en/about/")
+    assert sites._taken(uni, "https://innopolis.university/sveden/employees/")  # (its text: sveden.py reads only the documents)
+    assert not sites._taken(uni, "https://innopolis.university/lk/")
+    assert not sites._taken(uni, "https://apply.innopolis.university/")  # (another site)
+    assert sites.language_of(uni, "en-about") == "en" and sites.language_of(uni, "about") == "ru" and sites.language_of(uni, "entrance") == "ru"
+
+
+def test_a_table_row_is_one_line_with_its_header_marked_whatever_breaks_its_cells_hold():
+    html = ("<table><tr><th>ФИО</th><th>Образование</th></tr>"
+            "<tr><td>Бегишева А. А.</td><td><p>Высшее: учитель географии</p><p>Высшее: инженер</p></td></tr></table><p>После</p>")
+    _, text, _ = read(html, "https://innopolis.university/sveden/employees")
+    assert text.splitlines() == ["| ФИО | Образование |", "| --- | --- |", "| Бегишева А. А. | Высшее: учитель географии Высшее: инженер |", "После"]

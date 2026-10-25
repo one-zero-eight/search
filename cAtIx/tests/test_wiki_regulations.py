@@ -42,3 +42,11 @@ def test_a_table_found_in_the_pdf_keeps_its_rows_and_merged_cells_take_the_value
     text = f"**1.1.** До таблицы.\n\n{md}\n\n{md}\nПосле таблицы."
     blocks = to_markdown(text).split("\n\n")
     assert blocks[1] == md and blocks[2] == md and blocks[3] == "После таблицы."  # two tables stay two, the text after stays after
+
+
+def test_a_cell_merged_across_columns_heads_a_group_of_rows_and_is_not_the_row_above_again():
+    from catix.wiki.sources.regulations import table_markdown
+
+    rows = [["№", "Услуга", "Периодичность"], ["Расходные материалы", None, None], ["4", "Мыло", "при заезде"]]
+    wide = [[False] * 3, [False, True, True], [False] * 3]
+    assert table_markdown(rows, wide).splitlines()[2:] == ["| Расходные материалы |  |  |", "| 4 | Мыло | при заезде |"]

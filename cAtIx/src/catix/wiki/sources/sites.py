@@ -1,5 +1,9 @@
-"""The sites of the university's services as a source of the bundle: campuslife.innopolis.ru (student life: the handbook,
-the FAQ, scholarships, clubs; English) and hotel.innopolis.university (the campus and its dormitories; Russian).
+"""The sites of the university and its services as a source of the bundle: innopolis.university (the university's own
+site, every page in Russian and English; of its disclosure section /sveden/ sveden.py reads the documents, this the text of
+the pages: the staff, the structure), apply.innopolis.university (for applicants: programmes, admission, grants, olympiads;
+Russian), campuslife.innopolis.ru
+(student life: the handbook, the FAQ, scholarships, clubs; English) and hotel.innopolis.university (the campus and its
+dormitories; Russian).
 
     catix-wiki sites fetch      # the pages of every site -> raw/sites/<site>/ (one request every PAUSE seconds); the number that changed
     catix-wiki sites compile    # raw/sites -> wiki/sites/<site>-<slug>.md
@@ -9,7 +13,7 @@ A page's text is kept as the site shows it: the program turns the markup into ma
 site repeats (menus, footers); the model writes only the description, once per version of the text. The documents a site
 links (PDF, DOCX: the rules of the dormitories, their prices) go the way of the regulations (regulations.py, which asks
 `docs()`): wiki/regulations/, quoted by clause, `source_kind: official-document`. The pages themselves are `website`.
-Every run reads all pages again (a few dozen) and compares their text: these sites say nothing reliable about changes.
+Every run reads all pages again and compares their text: these sites say nothing reliable about changes.
 """
 
 import hashlib
@@ -44,9 +48,16 @@ class Site:
     about: str
     skip: str  # paths not taken: past events, old copies, forms, the other language
     sitemap: bool = True
+    max_pages: int = MAX_PAGES
+    english: str | None = None  # the path of the English copy of a Russian site: its pages are `language: en`
 
 
 SITES = {
+    "university": Site("https://innopolis.university/", "ru", "the university's own site: its units, centres, programmes, campus, science, contacts",
+                       r"^(en/)?(search|lk|form|personal|auth|login|bitrix|upload|filespublic|files|local|include)(/|$)|print",
+                       sitemap=False, max_pages=3000, english="en"),
+    "apply": Site("https://apply.innopolis.university/", "ru", "admission to Innopolis University: programmes, the rules and dates of admission, grants, olympiads, quotas",
+                  r"^(en/)?(search|personal|auth|login|bitrix|upload|local|include)(/|$)|print", max_pages=1500),  # (its /en/ is the Russian text again)
     "campuslife": Site("https://campuslife.innopolis.ru/", "en", "student life at Innopolis University: handbook, FAQ, scholarships, clubs, services",
                        r"20\d\d|_old\b|^page\d+\.html$|^tilda/|talentshow|rockballqueen|battle_rage|covey_workshop|^ibc$"),
     "hotel": Site("https://hotel.innopolis.university/", "ru", "the campus of Innopolis University: dormitories, their rules, prices and documents",
@@ -66,10 +77,12 @@ def slug_of(site: Site, url: str) -> str:
 
 
 class _Markdown(HTMLParser):
-    """HTML -> markdown lines: headings, paragraphs, list items, table rows; the links to files and to pages on the side."""
+    """HTML -> markdown lines: headings, paragraphs, list items, tables; the links to files and to pages on the side. A
+    table row is one line, whatever breaks its cells hold (a teacher's two degrees in one cell), and the first row of a
+    table is followed by the markdown separator, so that the row is its header."""
 
     HIDDEN = {"script", "style", "noscript", "svg", "form", "select", "button", "template", "iframe", "head"}
-    BLOCK = {"p", "div", "section", "article", "br", "tr", "ul", "ol", "table", "blockquote", "dd", "dt"}
+    BLOCK = {"p", "div", "section", "article", "br", "ul", "ol", "blockquote", "dd", "dt"}
 
     def __init__(self, base: str) -> None:
         super().__init__(convert_charrefs=True)
@@ -79,6 +92,9 @@ class _Markdown(HTMLParser):
         self.anchor = ""
         self.title = ""
         self._in_title = False
+        self.tables: list[int] = []  # rows written of each open table (a table may sit in a cell of another)
+        self.row: list[str] | None = None
+        self.cell: str | None = None
 
     def _flush(self) -> None:
         text = re.sub(r"\s+", " ", self.line).strip()
@@ -86,25 +102,53 @@ class _Markdown(HTMLParser):
             self.lines.append(text)
         self.line = ""
 
+    def _end_row(self) -> None:
+        if self.cell is not None:
+            self._end_cell()
+        if self.row and any(self.row):
+            self._flush()
+            self.lines.append("| " + " | ".join(self.row) + " |")
+            if self.tables:
+                if self.tables[-1] == 0:
+                    self.lines.append("|" + " --- |" * len(self.row))
+                self.tables[-1] += 1
+        self.row = None
+
+    def _end_cell(self) -> None:
+        if self.row is None:
+            self.row = []
+        self.row.append(re.sub(r"\s+", " ", self.cell or "").replace("|", "/").strip())
+        self.cell = None
+
     def handle_starttag(self, tag: str, attrs: list) -> None:
         if tag == "title":
             self._in_title = True
         if tag in self.HIDDEN:
             self.hidden += 1
             return
-        if tag in self.BLOCK or re.fullmatch(r"h[1-6]|li|td|th", tag):
-            if tag in {"td", "th"}:
-                self.line += " | "
-            else:
-                self._flush()
-        if re.fullmatch(r"h[1-3]", tag):
-            self.line = "## "
-        elif re.fullmatch(r"h[4-6]", tag):
-            self.line = "### "
-        elif tag == "li":
-            self.line = "- "
-        elif tag == "a":
+        if tag == "a":
             self.href, self.anchor = dict(attrs).get("href"), ""
+        if tag == "table":
+            self._flush()
+            self.tables.append(0)
+        elif tag == "tr":
+            self._end_row()
+            self.row = []
+        elif tag in {"td", "th"}:
+            if self.cell is not None:
+                self._end_cell()
+            self.cell = ""
+        elif self.cell is not None:
+            if tag in self.BLOCK or re.fullmatch(r"h[1-6]|li", tag):
+                self.cell += " "  # (a break inside a cell is a space: the row stays one line)
+        elif tag in self.BLOCK or re.fullmatch(r"h[1-6]|li", tag):
+            self._flush()
+            if re.fullmatch(r"h[1-3]", tag):
+                self.line = "## "
+            elif re.fullmatch(r"h[4-6]", tag):
+                self.line = "### "
+            elif tag == "li":
+                self.line = "- "
 
     def handle_endtag(self, tag: str) -> None:
         if tag == "title":
@@ -115,7 +159,15 @@ class _Markdown(HTMLParser):
         if tag == "a" and self.href:
             self.links.append((urljoin(self.base, self.href.strip()), re.sub(r"\s+", " ", self.anchor).strip()))
             self.href = None
-        if tag in self.BLOCK or re.fullmatch(r"h[1-6]|li", tag):
+        if tag in {"td", "th"} and self.cell is not None:
+            self._end_cell()
+        elif tag == "tr":
+            self._end_row()
+        elif tag == "table":
+            self._end_row()
+            if self.tables:
+                self.tables.pop()
+        elif self.cell is None and (tag in self.BLOCK or re.fullmatch(r"h[1-6]|li", tag)):
             self._flush()
 
     def handle_data(self, data: str) -> None:
@@ -123,7 +175,10 @@ class _Markdown(HTMLParser):
             self.title += data
         if self.hidden:
             return
-        self.line += data
+        if self.cell is not None:
+            self.cell += data
+        else:
+            self.line += data
         if self.href is not None:
             self.anchor += data
 
@@ -172,12 +227,18 @@ def fetch_site(name: str, site: Site, client: httpx.Client) -> int:
     todo: list[str] = [site.base]
     if site.sitemap:
         try:
-            todo += re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", client.get(urljoin(site.base, "sitemap.xml")).text)
+            maps = [urljoin(site.base, "sitemap.xml")] + ([urljoin(site.base, f"{site.english}/sitemap.xml")] if site.english else [])
+            for _ in range(100):  # (a sitemap may list sitemaps: Bitrix keeps one per block of the site)
+                if not maps:
+                    break
+                for loc in re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", client.get(maps.pop(0)).text):
+                    (maps if loc.endswith(".xml") else todo).append(loc)
+                time.sleep(PAUSE)
         except httpx.HTTPError as e:
             print(f"  {name}: no sitemap ({e})")
         time.sleep(PAUSE)
     seen, read_ok, changed, docs = set(), 0, 0, {}
-    while todo and len(seen) < MAX_PAGES:
+    while todo and len(seen) < site.max_pages:
         url = canonical(todo.pop(0))
         if url in seen or not _taken(site, url):
             continue
@@ -214,9 +275,11 @@ def fetch_site(name: str, site: Site, client: httpx.Client) -> int:
         index["pages"][slug] = {"url": url, "title": title, "sha256": sha, "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
                                 "last_modified": resp.headers.get("last-modified", "")}
         changed += 1
-        print(f"  {slug}: {'changed' if old else 'new'}, {len(text)} chars")
+        print(f"  {slug}: {'changed' if old else 'new'}, {len(text)} chars", flush=True)
+        if changed % 50 == 0:
+            save(name, index)  # (a long crawl cut short keeps what it read)
     for slug, page in index["pages"].items():  # a page no link leads to any more has left the site
-        if read_ok and page["url"] not in seen and not page.get("gone") and len(seen) < MAX_PAGES:  # (not when the site did not answer)
+        if read_ok and page["url"] not in seen and not page.get("gone") and len(seen) < site.max_pages:  # (not when the site did not answer)
             index["pages"][slug] = {**page, "gone": True}
             changed += 1
     if read_ok:
@@ -256,6 +319,10 @@ def boilerplate(texts: list[str]) -> set[str]:
     return {line for line, n in counts.items() if n >= max(3, 0.5 * len(texts))}
 
 
+def language_of(site: Site, slug: str) -> str:
+    return "en" if site.english and (slug == site.english or slug.startswith(site.english + "-")) else site.language
+
+
 def compile_all() -> None:
     """Every page read -> wiki/sites/<site>-<slug>.md. The model writes only the description, tags and audience, once per
     version of the text; a page gone from its site loses its page."""
@@ -265,11 +332,12 @@ def compile_all() -> None:
     for name, site in SITES.items():
         pages = {slug: p for slug, p in load(name)["pages"].items() if not p.get("gone") and (ROOT / name / f"{slug}.md").exists()}
         texts = {slug: (ROOT / name / f"{slug}.md").read_text(encoding="utf-8") for slug in pages}
-        common = boilerplate(list(texts.values()))
+        common = {lang: boilerplate([t for slug, t in texts.items() if language_of(site, slug) == lang]) for lang in {"ru", "en"}}  # (each language has its menu)
         for slug, p in sorted(pages.items()):
             key = f"{name}-{slug}"
-            lines = [line for line in texts[slug].splitlines() if line not in common]
-            title = re.sub(r"\s*[|—–-]\s*(Campus Life|Кампус.*)$", "", p["title"]).strip() or p["title"]
+            lang = language_of(site, slug)
+            lines = [line for line in texts[slug].splitlines() if line not in common[lang]]
+            title = re.sub(r"\s*[|—–-]\s*(Campus Life|Кампус.*|Университет Иннополис|Innopolis University)$", "", p["title"]).strip() or p["title"]
             if lines and lines[0].lstrip("# ").lower() == title.lower():
                 lines = lines[1:]  # (the page's own heading: the title says it)
             body = "\n\n".join(lines)
@@ -286,7 +354,7 @@ def compile_all() -> None:
                 desc, tags, audience = regulations.describe(title, body, kind=f"page of the site {urlsplit(site.base).netloc} ({site.about})")
                 by = f"{PRODUCER} sites ({regulations.model_name()}: description, tags and audience only)"
             front = ["---", "type: page", f"title: {yaml_value(title)}", f"description: {yaml_value(desc)}", f"resource: {yaml_value(p['url'])}",
-                     f"tags: {yaml_value(tags)}", f"audience: {yaml_value(audience)}", "source_kind: website", f"language: {site.language}",
+                     f"tags: {yaml_value(tags)}", f"audience: {yaml_value(audience)}", "source_kind: website", f"language: {lang}",
                      f"section: {yaml_value(f'site/{name}')}",
                      "sources:", f"  - resource: {yaml_value(p['url'])}", f"    id: {yaml_value(p['sha256'][:12])}", f"    title: {yaml_value(title)}",
                      f"    last_modified: {yaml_value(p['fetched_at'])}",
