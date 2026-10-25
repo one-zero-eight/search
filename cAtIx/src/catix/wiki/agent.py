@@ -493,7 +493,7 @@ WRITING = threading.Lock()  # a card's check and its write, the queue, the count
 
 def build_agent(idx_box: list, written: list, refused: Counter | None = None):
     from deepagents import create_deep_agent
-    from deepagents.backends import FilesystemBackend
+    from deepagents.backends import CompositeBackend, FilesystemBackend, StateBackend
     from deepagents.middleware.filesystem import FilesystemPermission
     from langchain_openai import ChatOpenAI
 
@@ -510,7 +510,10 @@ def build_agent(idx_box: list, written: list, refused: Counter | None = None):
         model=model,
         tools=_tools(idx_box, written, refused),
         system_prompt=INSTRUCTIONS,
-        backend=FilesystemBackend(root_dir=BUNDLE, virtual_mode=True),  # '/' is the bundle; nothing outside it
+        # '/' is the bundle, nothing outside it. What deepagents offloads itself (a long conversation summarised, a tool's
+        # long result) stays in the agent's state: written into the bundle it was a page without front matter for lint.
+        backend=CompositeBackend(default=FilesystemBackend(root_dir=BUNDLE, virtual_mode=True),
+                                 routes={"/conversation_history/": StateBackend(), "/large_tool_results/": StateBackend()}),
         permissions=[FilesystemPermission(operations=["write"], paths=["/**"], mode="deny")],  # cards go through write_card only
         name="wiki-agent",
     )
