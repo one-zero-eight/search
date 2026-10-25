@@ -1,0 +1,162 @@
+[2020] Physics I. Mechanics
+
+Quiz 2 – Forces and Motion
+Problem 1 (25 pts) – Net Force
+Three forces are applied the particle as shown in Fig. 1, left. The known magnitudes are FA =
+220 N and FC = 170 N. Note that FB is acting vertically down, while the direction of FC
+(angle ) is not given. The particle is moving with constant velocity. What is the magnitude
+of FB?
+Problem 2 (25 pts) – Forces and Velocities
+A person is pulling on a rope attached to a locomotive of mass m = 100 tons (Fig. 1, right).
+The person is pulling with a constant force F that is 2 times greater than their body weight,
+at an upward angle θ = 30° from the horizontal. The person’s mass is 75 kg, and they moved
+the train by 1 m. Neglecting any friction on wheels and assuming the train was initially
+stationary, find the speed of the train v at the end of the pull. Assume g = 9.8 m/s2.
+y
+F
+A
+
+FC
+=?
+
+137o
+
+F
+
+x
+
+30o
+
+FB
+Figure 1: Diagrams for Problem 1 (left) and Problem 2 (right)
+Problem 3 (25 points) – Rope Tension
+In the two blocks of masses m1 and m2 (m1 < m2) and pulley system below, assume that the
+pulley is frictionless and both the cord and pulley are massless. Find an expression of the
+acceleration a when the blocks are released from rest.
+Problem 4 (25 pts) – Rotation with Friction
+An object of mass m = 0.25 kg is rotating at constant angular velocity on a string along a
+circular path of radius R = 0.7 m in the vertical plane, subject to gravitational forces (Fig. 2,
+right). The maximum force that the string can sustain without breaking is 30 N. Assuming g
+= 9.8 m/s2, answer the following:
+4.1. What is the maximum speed v at which the breaking will occur? (20 pts)
+4.2. Will the breaking occur at the lowest point or at the highest point of the circle? (5 pts)
+
+R
+v
+
+m1
+
+m2
+
+g
+
+mg
+
+Figure 2: Diagrams for Problem 3 (left) and Problem 4 (right)
+
+[2020] Physics I. Mechanics
+
+Quiz 2 – Forces and Motion
+Problem 1 (25 pts) – Net Force
+A 3-kg object is subjected to three forces that give it an acceleration 𝑎⃗ = −8î + 6ĵ m/s2.
+If two of the three forces are 𝐹⃗1 = 30î + 16ĵ N and 𝐹⃗2 = −12î + 8ĵ N, find the third force:
+1.1. In unit-vector notation (15 pts)
+1.2. As a magnitude and angle relative to the positive direction of the x axis (10 pts)
+Problem 2 (25 pts) – Velocities
+A car moving at speed v = 60 km/h crashes into a streetlight. The driver’s upper body of mass
+m = 40 kg hits the airbag and moves forward by 45 cm before coming to a full stop. What is
+the magnitude of force F acting on the body, assuming it is moving with constant
+deceleration?
+Problem 3 (25 points) – Rope Tensions
+Assume you have a toy car of mass m suspended on a string as shown in Fig. 1, left. This
+string is tied to another 2 strings at point B, with the opposite ends of these strings attached to
+the ceiling at angles α1 and α2. Assuming α1 = 60°, α2 = 20°, m = 5 kg and g = 9.8 m/s2, find
+tension forces T1 and T2 on each string.
+Problem 4 (25 pts) – Rotation with Friction
+A particle is located on the surface of a conically-shaped part at the radius r = 0.2 m, as
+shown in Fig. 1, right. The part is rotating around the vertical axis at constant angular
+velocity ω. What is the minimum angular velocity ωmin about the vertical axis y for which
+the particle will remain on the surface without slipping? Assume the coefficient of static
+friction between the object and the surface to be  = 0.3 and g = 9.8 m/s2.
+
+a2
+T2
+
+a1
+
+y
+r
+
+T1
+
+w
+
+B
+
+m
+
+mg
+30o
+
+mg
+
+Figure 1: Diagrams for Problem 3 (left) and Problem 4 (right)
+
+[2020] Physics I. Mechanics
+
+Quiz 2 – Forces and Motion
+Problem 1 (25 pts) – Net Force
+Two forces are acting on the 5 kg object, with only one of them shown in Fig. 1. Knowing
+that F1 = 20 N, θ = 30° and that the object is moving at a constant acceleration of a = 12 m/s2,
+find the second force:
+1.1. As a magnitude and angle relative to the positive direction of the x axis (15 pts)
+1.2. In unit-vector notation (10 pts)
+
+y
+
+F1
+
+a
+
+x
+
+q
+
+Figure 1: Diagram for Problem 1
+Problem 2 (25 pts) – Velocities
+A 500 kg rocket sled can be accelerated at a constant rate from rest to 1600 km/h in 1.8 s.
+What is the magnitude of the required net force?
+Problem 3 (25 points) – Rope Tensions
+In a hospital, a patient’s injured leg is suspended by a traction setup as shown in Fig. 2, left.
+Assuming the mass of the load to be m = 8 kg and g = 9.8 m/s2, what is the traction force F
+exerted on the leg? Ignore masses of pulleys and cables and friction between them.
+Problem 4 (25 pts) – Rotation with Friction
+A particle is located on the surface of a conically-shaped part at the radius r = 0.2 m, as
+shown in Fig. 1, right. The part is rotating around the vertical axis at constant angular
+velocity ω. What is the maximum angular velocity ωmin about the vertical axis y for which
+the particle will remain on the surface without slipping? Assume the coefficient of static
+friction between the object and the surface to be  = 0.3 and x`g = 9.8 m/s2.
+
+y
+70
+
+Leg
+
+F
+Traction force
+mg
+
+o
+
+r
+
+w
+
+m
+30o
+
+mg
+
+Figure 2: Diagrams for Problem 3 (left) and Problem 4 (right)
+
+

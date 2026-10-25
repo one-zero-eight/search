@@ -1,0 +1,34 @@
+. (5 points)
+
+Find the equations ol directrices and coordinates of [ocus (or [oci) of the [ollowing curve:
+2 —2x+y=0
+(5 points) Find the equation of an ellipse (major axis is horizontal), il it is known that the
+
+cecentricity equals 0.5 and Lthe distance [rom its focus Lo the nearest vertex is 2.
+
+(3 poiuts) Find the equations of the tangent and normal lines to the curve defined by the
+cquation x% — zy — y* + x + y = 0 at the point with coordinates (0.6,1.2) .
+
+(5 points) In a triangle AABC have vertices with coordinates A(2,0); B(—1,2),C(—1,—-2).
+(a) Find the transform that maps each vertex of the triangle to the middle point of the
+opposite side.
+(b) Find the fixed point of the transform.
+(¢) How the area of the transformed triangle relates to the area of the triangle AABC.
+. (5 points)
+Find the equations of directrices and coordinates of focus (or foci) of the following curve:
+2512 — 14y — 864y — 502 — 1871 = 0
+
+. (5 points) Find the equation of parabola if it is known that the equation of directrix y = —3.
+Focus of the parabola has coordinates (0, 1).
+
+. (3 points) Find the oquauou.s of the tangent and normal lines Lo the curve deflined by the
+cquation i—L + ”— = 1 at the point with coordinates (1.1, 1.8).
+
+. (5 points) In a triangle AABC have vertices with coordinates A(1,0); B(—3,1),C(—3, —1).
+
+(a) Find the transform that maps each vertex of the triangle to the middle point of the
+opposile side.
+
+(b) Find the fixed point of the transform.
+
+(¢) How the area of the transformed triangle relates Lo the area of the triangle AABC.

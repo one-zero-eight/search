@@ -1,0 +1,308 @@
+Reducing rotor vibrations in active conical fluid
+film bearings with controllable gap
+1st Yuri Kazakov 2nd Alexey Kornaev 3rd Denis Shutin
+Dept. of Mechatronics, Research Center for Artificial Intelligence Dept. of Mechatronics,
+Mechanics, and Robotics Innopolis University (IU) Mechanics, and Robotics
+Orel State University (OSU) Innopolis, Russia Orel State University (OSU)
+Orel, Russia a.kornaev@innopolis.ru Orel, Russia
+KazakYurii@yandex.ru rover.ru@gmail.com
+4th Elena Kornaeva 5th Leonid Savin
+Dept. of Information Systems Dept. of Mechatronics,
+and Digital Technologies Mechanics, and Robotics
+Orel State University (OSU) Orel State University (OSU.)
+Orel, Russia Orel, Russia
+lenoksbox@mail.ru savin3257@mail.ru
+Abstract—Despite the hydrodynamic lubrication is a self- controlled supply pressure in radial direction by means of PD
+controlledprocess,wedesignedcontrolsystemswiththeadaptive controllers.
+PI and a DQN-agent based controllers to minimize the rotor
+The bearings control systems often have simple control al-
+oscillations amplitude in a conical fluid film bearing. Design of
+gorithms.Despitethefairlysimplestructureofacontroller,its
+the bearing allows its axial displacement and thus adjustment
+of its average clearance. The tests were performed using a tuningisacomplexprocess.Analternativetothedeterministic
+simulation model in MATLAB software. The simulation model approachtocontrolmaybeanapproachbasedontheanalysis
+includesmodulesofarigidshaft,aconicalbearing,andacontrol of large experimental data [16], [17]. Deep Q network (DQN)
+system.Thebearingmoduleisbasedonnumericalsolutionofthe
+is a modern and relatively simple discrete reinforcement
+generalized Reynolds equation and its non-linear approximation
+learning algorithm [18]–[21]. Tarun [18] applied the DQN
+with fully connected neural networks. The obtained results
+demonstrate that the both the adaptive PI controller and the algorithm in control system of a manipulator to control its
+DQN-based controller reduce the rotor vibrations even when motions. J.B. Kim [20] developed transfer learning algorithm
+imbalance in the system grows. for DQN agent. The algorithm allows to train the agent using
+Index Terms—active fluid film bearing, conical bearing, simu-
+a simulation model instead of a real object. D. Berglund
+lation modeling, DQN-agent, adaptive PI controller
+et al. [21] developed a hydraulic control system based on
+DQN agent. So, DQN agents are used in many applications
+I. INTRODUCTION
+and they also may be implemented in controllable fluid-film
+Muchoftheworkinthefieldofactivebearingsisassociated
+bearings. DQN agents require relatively small training dataset
+with active magnetic bearings [1]–[5]. Control systems in
+in comparison with other deep reinforcement learning agents.
+fluid-filmbearingscanbeappliedtosolvethefollowingtasks:
+This work presents a fluid film bearing control system
+vibrations and noise minimization, friction losses reduction,
+that reducing rotor vibrations. The main control algorithms
+increase of reliability and service life [6], [7]. Bearings with
+are based on the PI controller and reinforcement learning
+built-in (integrated) elements are widely used in practice
+methods. The conical fluid film bearing is a bearing design
+[8]–[12]. Built-in elements to a fluid-film bearing structure
+with controllable gap.
+allow to change the bearing geometry. Bearing models with
+movable pads are presented in articles [8]–[10]. Authors II. CONTROLLEDSHAFTBEARINGSYSTEMCONCEPTION
+[13]–[15] deal with active tilting-pad bearings. Z. Cai et al.
+The hydrodynamic lifting effect depends on many factors
+[13] and A. Wu et al. [14] manifest improving the bearings
+including fluid film thickness. The more the fluid film thick-
+performance due to model based nonlinear controllers. It is
+nessis,thelesstheload-carryingcapacityis.Inturn,thefluid
+demonstrated that the proposed nonlinear controller requires
+film thickness in a bearing depends on the eccentricity of the
+less control energy in comparison to a PID controller [14].
+shaft and the average bearing clearance value [22]. The main
+Article [15] presents the concept of an active bearing with the
+idea of this research is that the average bearing clearance can
+be controlled in a conical fluid-film bearing due to the axial
+The study was supported by the Russian Science Foundation grant No.
+22-19-00789,https://rscf.ru/en/project/22-19-00789/. bearing displacement.The proposed conical bearing system includes the shaft p = 1.2 · 105Pa. The range of change of the bearing
+0
+supported with the coupling at the left-side end and with displacement was from −0.5·10−6m to 0.7·10−6m.
+the conical bearing at the right-side end (see Fig. 1). This The bearing reaction and the friction torque can be rep-
+conceptisintendedforconductingcomputationalexperiments resented as functions of shaft position in a bearing, shaft
+and testing the ideas for the development of controllers. The speed [22], and unbalance: F ⃗b = F ⃗b(X ,V ,m d), M =
+i i u
+bearing is lubricated with water or oil supplied with pressure M(X ,V ,m d) [24]. Where X are coordinate axes, V is
+i i u i i
+p 0 . The supply pressure is generated with a pump and can be velocity in coordinate axes, m u d is unbalance. It is a known
+controlled with a servo valve. The shafts coupling is not rigid fact that artificial neural networks allow nonlinear approxima-
+and can take the load. tion (interpolation) with high accuracy [23]. The appropriate
+In a screw-nut transmission, the nut has a conical surface. programming tool is the Neural Net Fitting toolbox in the
+The movement of the nut allows an axial force to be applied MATLAB [23]. The two datasets of about 384000 samples
+to the face of the bearing. This action causes the bearing to each were collected on the base of simulations to train,
+move. The reactions in the damping element depends on the validate and test the networks in proportion of 0.8:0.15:0.05,
+movement values and the speed of the bearing. respectively.
+Bearing position control allows you to adjust the average The approximation error is less than 1. Outside the training
+gap in the bearing and, as a result, its properties, such as domaintheerroroftheshaftpositionis3.5,andforthefriction
+load capacity, friction torque, etc. The proposed shaft-bearing torque - 3. However, errors increase with the increase of the
+system also includes displacement sensors for measuring the shaft axial displacement.
+shaft’s right end position in horizontal, vertical and axial
+directions,apressuresensorformeasuringthesupplypressure,
+IV. ADAPTIVEPICONTROLLERMODEL
+and a torque sensor for measuring the friction torque. A. Mathematical model.
+TheadaptivePIcontrollerisbasedonasimplePIcontroller:
+III. SIMULATIONMODELINGCONTROLLED
+SHAFT-BEARINGSYSTEM e(z)
+u =u(z)=Pe(z)+It (1)
+The general simulation model of a controlled shaft-bearing
+API S1−z
+system was designed using the Simscape Multibody module where P and I are the proportional and integral coefficients,
+and the Deep Learning, Reinforcement Learning, and Signal respectively, t is the sample time, z is a complex number, u
+S
+Processing toolboxes of the MATLAB software. is a output controller signal, e(z) is error control.
+The controller has been upgraded for the use in the shaft-
+A. Rotor dynamics.
+bearingsystem.ThecontrolerroroftheadaptivePIcontroller:
+The shaft-bearing simulation model is shown in Fig. 2.  |pos|−hmax ifX >Xmin(cid:86) pos>hmax,
+The Force ANN and Torque ANN blocks approximate the  0 3 3 0
+lubricating layer reaction forces and frictional torque as a e API = 0 ifX 3 >X 3 min(cid:86) p⃗os≤hm 0 ax,
+function of the speed and position data of the rotor in the |X |−Xmin ifX <Xmin,
+3 3 3 3
+bearingobtainedfromtheBearingJointblock.TheImbalance (2)
+(cid:112)
+Force block generates centrifugal force according to the given where pos = X2+X2 is eccentricity, hmax is desired
+1 2 0
+value of unbalance. The Damping element Reaction block controlareainabearing,Xmin isminimaladmissibleposition
+3
+calculates the reaction element according to Fig. 1. The End on the X axis.
+3
+Face Force block calculates the axial force depending on
+B. Simulation model.
+the fluid supply pressure. There are stiffness and damping
+coefficients in the Coupling block. They were chosen in such ThesimulationenvironmentincludesaControllerblock,an
+a way that at p the shaft displacement was about 0. Environment,aButton,andaLamp.TheButtonisintendedto
+0
+The peculiarity of this method of modeling is that the turn the controller on and off. The Lamp notifies the observer
+developedsimulationmodelscanbeequivalenttorealobjects. about the output of the oscillations of the rotor beyond the
+This allows to perform a long training agents process on a specified limits (see Fig. 3).
+simulation model without the data from a real object. The control error value is input to the controller, which
+is calculated by (2). The values h and k are used to select
+0
+B. Hydrodynamic lubrication. the trusted control area. The Cumulative sum accumulates the
+A set of simulation tests was performed to calculate the control signal. The control signal of the controller is the force
+shaft trajectories for the following approximation using feed- withwhichtheactuatoractsonthebearing.Theoutputsignal
+forward neural networks [23]. The tests were performed with of the controller is limited by the limits L max and L min .
+the following conditions. The shaft with the mass of 3 kg
+V. DQNAGENTMODEL
+rotates at the constant speed of 3000 rpm. The damping ele-
+A. Mathematical model.
+ment stiffness and damping coefficients are K =40000N/m,
+and B = 50N · s/m, respectively. The bearing with taper The DQN agent is a reinforcement learning algorithm. At
+angle α = 3 degrees operates with the supply pressure eachtimestepT thecontroller(agent)receivesfeedbackfromFig.1. Schematicofashaft-bearingsystemwithanactiveconicalbearing.
+B. Simulation model.
+The control system is a DQN agent block with input
+parametersofobservation,rewardandinterruptfunctions,and
+with an output control signal (see Fig. 4) [25].
+The control system generates a discrete signal in the range
+of pre-set values. This control system uses 5 variants of the
+control signal:-1, -0.5, 0.5, 1, 0 N. The control signal at
+each time step is added to the accumulated signal value. The
+frequency of the control signal is 10 Hz.
+Fig.2. Rotorsimulationmodel.
+VI. RESULTSANDDISCUSSION
+Malfunctions of rotary machines can lead to growing oscil-
+thesystem(environment)intheformofastatesignalS ,then
+T
+lations in time. Such phenomena adversely affect the system
+takesanactionA andarewardr inresponse.Itissupposed
+T T
+and can lead to its failure. The simulation test series were
+that a current state completely characterizes the state of the
+performed in order to obtain qualitative estimations of the
+system.
+proposed control systems. Control systems were tested on the
+The agent trains a critic q(S,A) to estimate the return of
+taskofminimizingtheamplitudesofrotoroscillationsintime.
+the future reward [25]:
+The rotating machine simulation model has the following
+q t =r T +γr T+1 +γ2r T+2 +..., (3) parameters: the shaft is 380 mm long and 40 mm in diameter,
+the shaft mass is 3 kg and its imbalance 0 ≤ m d ≤ 1−4
+where γ is discount. u
+kgm. The shaft rotates at a constant speed of 3000 rpm. The
+During the training process it is necessary to achieve the
+conical bearing, 26 mm wide and 40 / 42.8 mm diameters, is
+minimizationoftheerrorbetweenthetrainedfunctionq(S,A)
+and the optimal function q∗(S,A) that can be estimated with lubricatedwithwaterundercontrolledsupplypressurep 0 =0.12
+MPa. The conical angle is 3 degrees and the bearing maximal
+the Bellman equation [25]:
+axialdisplacementisabout1.5mm.Thestiffnessanddamping
+q T ∗(S T ,A T )=r T +γmax[q T+1 (S T+1 ,A T+1 )] (4) coefficients of the damping element are equal to K=40000
+A
+N/m and B=50 Ns/m.
+The critic is normally an artificial neural network that
+minimizes the loss function while training: A. Adaptive PI controller.
+1 (cid:88) m Asimulationenvironmentwascreatedtotestthecontroller.
+L(Θ(k))= (y −q(S ,A |Θ(k)))2, (5)
+m T T T It was assumed that during the simulation, the amplitude of
+i=1 rotoroscillationswouldincrease.Thegrowthoftheamplitude
+whereΘ(k) aretheweightsofthenetwork,misthenumberof was set by the increasing imbalance. The imbalance varied
+training samples in the minibatch, y = q∗ is the estimation from 0 to 9.3 · 10−5. The simulation time was 35 s. The
+T T
+for the future reward. adaptivePIcontrollershavethefollowingsettings:P=0.0001,Fig.3. AdaptivePIcontroller.
+Fig.4. DQNcontroller.
+I= 0.001, L =0.1, L =-0.1, k=0.8. The critical area of episode duration is 5 s, the learn rate is 0.001, the experience
+max min
+rotoroperationistheradiusexceeding85µm.Atthismoment, buffer length is 100000 time steps, the discount factor is
+the light comes on. 0.85, the mini batch size is 250. The DQN agent network
+It is assumed that the rotary machine is operating under architecture is shown in Fig. 4. The number of neurons in
+fault conditions. This leads to growing amplitudes of rotor hidden layers is [[14, 18, 18]]. At each time step, the DQN
+oscillations. After the rotor exits the selected critical area, a agent receives the reward of +1 if the oscillations is smaller
+signal light is activated. The operator has the option to turn than 0.9h . Otherwise, the reward is equal to +0. A penalty
+0
+on the controller. When the controller is turned on, a control of -50 is applied when the axial displacement of the shaft is
+actionisgenerated.ThesimulationresultsareshowninFig.5. more than 1.5 mm., or smaller -0.7, or the shaft touches the
+Fig. 5 shows the trajectories of the rotor oscillations. It can bearing. The DQN agent was trained at 630 iterations. The
+be seen that the final amplitude of rotor oscillations under test results are presented on the figure.
+control is less than if there was no control system. When the The imbalance varied from 2 · 10−5 to 9.4 · 10−5. The
+controller is turned on, at about 23 seconds, you can see how simulation time was 5 s. The figure shows that the final
+the rotor begins to move towards the geometric center of the trajectory of the rotor oscillations with control is smaller than
+bearing. With this movement, there is a decrease in the size without control. The resulting path lies very close to the
+of the lubricating layer and an increase in the stiffness and bearing surface. This is due to the error of the model rework
+dampingcoefficients.Thisleadstoadecreaseintheamplitude (see Fig. 6).
+of the oscillations of the rotor.
+VII. CONCLUSIONS
+B. DQN agent.
+The proposed simulation model of a rotating machine with
+The DQN agent training process has the following settings: the adjustable conical fluid film bearing allow to estimate the
+the maximum number of iterations is 1000, the maximum efficiencyofcontrolsystemsbasedonanadaptivePIcontrollerFig.5. RotortrajectorieswhencontrolledbytheAdaptivePIcontroller.a)withcontrol,b)withoutcontrol.
+Fig.6. RotortrajectorieswhencontrolledbytheDQN-agent.a)withcontrol,b)withoutcontrol.
+and a DQN-agent. The following points can be highlighted complex the requirements to the control system are, the more
+from the simulation results. preferable it is to use intellectual control techniques.
+1. Oscillations in an adjustable conical fluid-film bearing 3. The main advantage of a DQN-agent is its ability to
+can be decreased different control techniques. However, this adapt to complex environments and operating conditions. Its
+is due to a change in the gap and the risk of violation of the main disadvantage is connected with long training process.
+hydrodynamic regime of friction. The disadvantage may be partially reduced by using digital
+twins of the machines.
+2. Intellectual control systems, e.g. based on DQN-agent,
+allowtodealwithoperatinglimitationsofafluidfilmbearing 4. When comparing the two control methods, the main
+and random changes in their operating conditions easier than points can be identified. The agent shows the best results
+by convenient controllers. Adaptive PI controllers also show in amplitude reduction. This is due to the easier and more
+good results in minimization of the friction torque. The more flexible adjustment of the agent and its boundary conditions.However,suchsystemsrequirequitealotoftimefortraining. [17] Lucian Bus¸oniu, Tim de Bruin, Domagoj Tolic´, Jens Kober and Ivana
+Inturn,theadaptivePIcontrollerrequiressettingtheboundary Palunko, “Reinforcement learning for control: Performance, stability,
+anddeepapproximators,”AnnualReviewsinControl,vol.46,pp.8–28,
+values, which are configured by a person. The choice of the
+2018.
+optimal values of these parameters is quite difficult because it [18] Tarun Bhargav Sriram, “Vision-Based Reinforcement Learning Con-
+isimpossibletopredictthebehaviorofthesysteminadvance. trollerOfRoboticArmManipulator,”MasterofScienceinSystemsand
+Control,DepartmentofElectricalEngineering,ControlSystemsGroup,
+2021.
+ACKNOWLEDGMENT [19] S.Yeo,Y.Naing,T.Kim,andS.Oh,“Achievingbalancedloaddistribu-
+tion with reinforcement learning-based switch migration in distributed
+The study was supported by the Russian Science Foun- sdn controllers,” Electronics 2021, Vol. 10, Page 162, vol. 10, p. 162,
+2021.
+dationgrantNo.22-19-00789,https://rscf.ru/en/project/22-19-
+[20] J.B.Kim,H.K.Lim,C.M.Kim,M.S.Kim,Y.G.Hong,andY.H.
+00789/. Han, “Imitation reinforcement learning-based remote rotary inverted
+pendulumcontrolinopenflownetwork,”IEEEAccess,vol.7,pp.36682–
+36690,2019.
+REFERENCES
+[21] D. Berglund and Niklas Larsson, “Controlling a Hydraulic System
+using Reinforcement Learning,” Linko¨ping University, Department of
+[1] A. B. Palazzolo, R. R. Lin, R. M. Alexander, A. F. Kascak, and ManagementandEngineering,2021.
+J.Montague,“Testandtheoryforpiezoelectricactuator-activevibration [22] Y. Hori, “Hydrodynamic lubrication,” Hydrodynamic Lubrication, pp.
+controlofrotatingmachinery,”JournalofVibrationandAcoustics,vol. 1–231,2006.
+113,pp.167–175,1991. [23] A.V.Kornaev,N.V.Kornaev,E.P.Kornaeva,andL.A.Savin,“Applica-
+[2] Y. Aydın and F. Gu¨rleyen, “Adaptive and non-adaptive variable struc- tionofartificialneuralnetworkstocalculationofoilfilmreactionforces
+ture controls with sliding mode for active magnetic bearings (ambs) and dynamics of rotors on journal bearings,” International Journal of
+andmagneticlevitation(maglev)systems:Acomparativestudy,”IFAC- RotatingMachinery,vol.2017,2017.
+PapersOnLine,vol.49,pp.447–452,2016. [24] Y. N. Kazakov, A. V. Kornaev, D. V. Shutin, S. Li, and L. A. Savin,
+[3] R.SivaSrinivasandR.TiwariandChKannababu,“Applicationofactive “Active fluid-film bearing with deep q-network agent-based control
+magneticbearingsinflexiblerotordynamicsystems–Astate-of-the-art system,”JournalofTribology,vol.144,82022.
+review,”MechanicalSystemsandSignalProcessing,vol.106,pp.537– [25] “Train DQN Agent to Swing Up and Balance Pendulum - MATLAB
+572,2018. & Simulink,” https://www.mathworks.com/help/reinforcement-
+[4] L. Di and Z. Lin, “Control of a flexible rotor active magnetic bearing learning/ug/train-dqn-agent-to-swing-up-and-balance-pendulum.html
+test rig: a characteristic model based all-coefficient adaptive control (accessedMay14,2022).
+approach,”ControlTheoryandTechnology201412:1,vol.12,pp.1–12,
+2014.
+[5] J. Zhao, H. T. Zhang, M. C. Fan, Y. Wu, and H. Zhao, “Control
+of a constrained flexible rotor on active magnetic bearings,” IFAC-
+PapersOnLine,vol.48,pp.156–161,2015.
+[6] Łukasz Bren´kacz, Łukasz Witanowski, Marta Drosin´ska-Komor and
+NataliaSzewczuk-Krypa,“Researchandapplicationsofactivebearings:
+A state-of-the-art review,” Mechanical Systems and Signal Processing,
+vol.151,pp.1–39,2021.
+[7] F. Qin, Y. Li, H. Qi, and L. Ju, “Advances in compact manufacturing
+for shape and performance controllability of large-scale components-a
+review,”ChineseJournalofMechanicalEngineering,vol.30,pp.7–21,
+2017.
+[8] A.ChasalevrisandF.Dohnal,“Improvingstabilityandoperationoftur-
+bine rotors using adjustable journal bearings,” Tribology International,
+vol.104,pp.369–382,2016.
+[9] A.ChasalevrisandF.Dohnal,“Modalinteractionandvibrationsuppres-
+sioninindustrialturbinesusingadjustablejournalbearings,”Journalof
+Physics:ConferenceSeries,vol.744,2016.
+[10] A.ChasalevrisandF.Dohnal,“Enhancingstabilityofindustrialturbines
+using adjustable partial arc bearings,” Journal of Physics: Conference
+Series,vol.744,2016.
+[11] R.PaiandD.W.Parkins,“Performancecharacteristicsofaninnovative
+journalbearingwithadjustablebearingelements,”JournalofTribology,
+vol.140,2018.
+[12] J.M.KrodkiewskiandG.J.Davies,“Modellinganewthree-padactive
+bearing,”ProceedingsoftheASMETurboExpo2004,vol.6,pp.799–
+808,2008.
+[13] Z. Cai, M. S. D. Queiroz, and M. M. Khonsari, “Adaptive control
+of active tilting-pad bearings,” Proceedings of the American Control
+Conference,vol.4,pp.2907–2912,2003.
+[14] A. Wu, M. S. de Queiroz, and Z. Cai, “Model-based control of
+activetilting-padbearings,”IEEE/ASMETransactionsonMechatronics,
+vol.12,pp.689–695,2007.
+[15] I. F. Santos and F. Y. Watanabe, “Compensation of cross-coupling
+stiffnessandincreaseofdirectdampinginmultirecessjournalbearings
+using active hybrid lubrication: Part I—theory,” Journal of Tribology,
+vol.126,pp.146–155,2004.
+[16] T. P. Lillicrap, J. J. Hunt, A. Pritzel, N. Heess, T. Erez, Y. Tassa,
+D.Silver,andD.Wierstra,“Continuouscontrolwithdeepreinforcement
+learning,” 4th International Conference on Learning Representations,
+ICLR2016-ConferenceTrackProceedings,2016.

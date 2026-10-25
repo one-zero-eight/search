@@ -1,0 +1,45 @@
+Problem SVD3
+
+Find the SDV of the matrix A = [; f]
+
+Problem DE3
+
+Problem EV1
+
+Write down the system (and the matrix) for the fol-
+lowing differential equation. Check it for stability.
+
+yIV) + 3y + 3y +y =0
+
+Find S, A such that S—'AS = A, where A is a diago-
+nal matrix with eigenvalues on the main diagonal and
+
+1 3 0
+A=10 2 0
+00 0 Problem PD3
+
+positive semidefinite.
+
+Problem FT1
+
+Prove that any real square matrix can be factored into
+A = QS where Q is orthogonal and gis symmetric
+
+The signal corresponding to a single impulse at time
+zero is (roughly) described by
+
+1
+0
+0
+0
+
+Find the Fourier transform of this signal.
+
+Problem ARPD
+
+and any vectors x,y € R" is true:
+
+(x,y)=(x,4y)
+
+Prove that for any symmetric matrix 4 (nxn)
+

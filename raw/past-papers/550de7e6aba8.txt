@@ -1,0 +1,323 @@
+Innopolis University
+Academic Year 2023/2024
+The Pre-Final Exam of Computer Networks
+The 03rd of May 2024
+Duration: 60 minutes
+
+Student Full Name:
+Student Email:
+Student Group:
+Student Telegram:
+Missed the Midterm Exam due to a legal excuse?
+
+Question
+Question 1
+Question 2
+Question 3
+Question 4
+Question 5
+Question 6
+Question 7
+Question 8
+Question 9
+Question 10
+Total (max: 16 points)
+
+YES / NO
+
+For Instructors Use: Grade Summary
+Grade
+
+Please write very clearly your names and your solution. What will not be understood will
+be considered wrong.
+You need to perform this exam alone and without the use of any equipment or book, apart
+from this booklet and pens. Please do not consult any person or use any equipment,
+otherwise you will be disqualified from this exam at the very first attempt.
+Student’s signature:
+
+Student Name:
+Exam Grades Distribution
+
+Question 1. (1 point) Below is a list of calls to socket(...) functions in C language, with different input
+arguments. Choose the case(s) corresponding to connection-oriented communication:
+a) socket(AF_NET, SOCK_DGRAM, 0)
+b) socket(AF_NET, SOCK_STREAM, 0)
+c) No choice is correct
+Grading: All answers are graded with “1” point.
+Further notes: Option “c” should be the correct one. Option “b” is incorrect due to a typo (“AF_NET”
+should be “AF_INET”), which, however, was not done on purpose.
+Question 2. (1 point) What is/are the motivation(s) for hierarchical routing organized by means of
+autonomous systems (ASs)?
+a) The need for an administrative autonomy for some AS;
+b) The ability to run different routing algorithms within different ASs;
+c) No choice is correct
+Grading:
++0.5 for (a) and (b) each;
+-1 for (c)
+
+Computer Networks: The Pre-Final Exam 2024
+
+2
+
+Student Name:
+Question 3. (1 point) What does indicate the “255.255.255.255” destination IP address?
+(Choose one most precise answer only)
+a)
+b)
+c)
+d)
+
+The code of a “no available IP address” answer returned by a DHCP server to network hosts;
+A broadcast message, to be received by all hosts connected to the same network;
+A message sent from a private network through a NAT-enabled gateway router;
+No option is correct
+
+Grading:
++1 for (b);
+0 for any other choice
+Question 4. (1 point) What type(s) of information is/are typically provided by a DHCP server to a
+host newly joining a network?
+a)
+b)
+c)
+d)
+
+The IP address of the DHCP server;
+The IP address of a local (or default) DNS server;
+The IP address of a gateway router;
+The IP address allocated specifically to this newly joining host;
+
+Grading:
++0.25 for (a), (b), (c), (d) each
+Question 5. (2 points) Fill-in the following comparison table for BGP, RIP, and OSPF routing protocols
+by selecting the appropriate checkboxes in every cell:
+Answer:
+Criteria
+Network scale
+Routing
+algorithm
+type
+The scale of
+routing
+messages
+exchange
+
+BGP
+
+RIP
+
+OSPF
+
+Intra-AS routing
+(ok) Inter-AS routing
+
+(ok) Intra-AS routing
+Inter-AS routing
+
+(ok) Intra-AS routing
+Inter-AS routing
+
+Link-State
+(ok) Distance-Vector
+
+Link-State
+(ok) Distance-Vector
+
+(ok) Link-State
+Distance-Vector
+
+Limited to messages
+exchange between
+neighbor routers
+Network-wide messages
+exchange between all
+routers
+(ok) Messages exchange
+between gateway
+routers, which then
+update the tables of
+intra-AS routers
+
+(ok) Limited to
+messages exchange
+between neighbor
+routers
+Network-wide messages
+exchange between all
+routers
+Messages exchange
+between gateway
+routers, which then
+update the tables of
+intra-AS routers
+
+Limited to messages
+exchange between
+neighbor routers
+(ok) Network-wide
+messages exchange
+between all routers
+Messages exchange
+between gateway
+routers, which then
+update the tables of
+intra-AS routers
+
+Grading:
+(+0.25) for every absolutely correctly filled cell, but not more than 2 points in total
+
+Computer Networks: The Pre-Final Exam 2024
+
+3
+
+Student Name:
+Question 6. (2 points) Illustrate graphically the architecture of a router with its five key components.
+For each component, specify at least one its key function.
+Answer:
+The diagram:
+
+The functions description of router components:
+5 key components of a router:
+- Input lines
+- Output lines
+- Switching fabric
+- Router processor (CPU)
+- Forwarding table
+Input Link Functions:
+- Storing arriving data packets into its local buffers (physical link termination function);
+- Data extraction from packet header (de-encapsulation);
+- Determination of appropriate output links;
+- Verification of packets correctness (typically limited to packet headers, by using checksum
+method);
+- Control of Time-to-Live (the maximum number of routers, or hops, allowed to pass through);
+- Collecting statistics;
+Switching Fabric function:
+to propagate data packets from input to output ports (connection)
+Routing Processor functions:
+- Maintenance of forwarding tables;
+- Execution of routing protocols;
+- Other management functions
+Forwarding Table function:
+To provide data/information for a lookup process, forwarding function implementation, and similar
+Output Link functions:
+- To store packets received from a switching fabric into a local buffer;
+- To encapsulate necessary data into packet headers;
+- To transmit packets from a buffer into a physical link
+
+Computer Networks: The Pre-Final Exam 2024
+
+4
+
+Student Name:
+Grading:
+(+0.2) for every component correctly named and drawn in the figure;
+(+0.2) for a correctly described function per a router component
+Question 7. (2 points) The table below lists the five layers of the TCP/IP network reference model. For
+each layer, specify the following:
+a) In the column “Two Key Functions/Purposes”, describe the examples of two key
+functions/purposes implemented at a corresponding layer;
+b) In the column “Two Protocol Examples”, list two examples of appropriate network protocols
+for a corresponding layer.
+Answer:
+
+Grading:
+(+0.1) for every correct purpose or function listed, for the top 4 layers, with at most (+0.2) per cell;
+(+0.2) for a correctly described physical layer function;
+(+0.1) for every correct protocol example listed, with the maximum of (+0.2) per cell;
+
+Computer Networks: The Pre-Final Exam 2024
+
+5
+
+Student Name:
+Question 8. (2 points) The diagram below schematically demonstrates a typical sequence of C socket
+function calls for the TCP case, both for client and server sides of a network application. Some
+functions are however missing, replaced by gaps (“_______”). Fill-in the gaps in the diagram with the
+names of appropriate standard C socket functions; the list of input arguments is not required.
+Answer:
+TCP Communication
+
+Client
+
+Server
+
+__________
+
+__________
+bind(…)
+__________
+
+connect(…)
+________
+
+__________
+recv(…)
+…
+
+recv(…)
+
+__________
+shutdown(…)
+
+__________
+
+close(…)
+
+Grading:
+(+0.3) for every correctly filled space, but not more than 2 points in total
+
+Computer Networks: The Pre-Final Exam 2024
+
+6
+
+Student Name:
+Question 9. (2 points) The diagram below represents the finite-state machine (FSM) of the Reliable
+Data Transfer (RDT) 3.0 theoretical protocol, for the sender side. For simplicity, at the top right corner
+of the image below there is a table listing the key actions and events used in the protocol design.
+Timer-related actions and events are however missing on this FSM diagram, being replaced by empty
+rectangles. Fill-in those empty rectangles with appropriate timer-related actions and events, which
+are listed in the table at the lower right corner of the image.
+Answer:
+
+Grading:
+(+0.25) for every correctly filled rectangle
+
+Computer Networks: The Pre-Final Exam 2024
+
+7
+
+Student Name:
+Question 10. (2 points) Consider the following communication scenario for the CDMA protocol:
+•
+•
+•
+
+There are two simultaneous senders denoted by Sender 1 and Sender 2;
+Every sender sends the following two bits: Sender 1 sends “10” and Sender 2 sends “00”;
+Senders have the following CDMA codes assigned:
+Sender 1 has “11101000”, and Sender 2 has “10111011”
+
+Illustrate graphically the key stages of the CDMA communication between Sender 1 and its receiver
+by filling-in the template below.
+Answer:
+
+Some grading notes (not all):
+- No penalization in case of no graphics, but only numeric computations;
+- No penalization for an inverted order of bits sending on a diagram;
+- No penalization in case of no numeric computations are provided, but instead a list of totally
+correct equations;
+- (+0.5) for a correctly computed bit in the resulted interfered signal each;
+- (+0.5) for every clearly explained and correctly computed bit decoded on a receiver side;
+- (-0.5) if no computations are provided, but all equations are listed, which however contain
+minor errors (e.g. vector transposition is missing in the decoding equation);
+- (-0.5) for a minor computation mistake in the encoding on a receiver side;
+- (-1) if the decoding process is not detalised;
+- (-1) if the multiplication by the CDMA code on a receiver side is not illustrated
+
+This is the end of the student book
+
+Computer Networks: The Pre-Final Exam 2024
+
+8
+
+

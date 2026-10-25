@@ -1,0 +1,296 @@
+Fall 2021
+Introduction to Machine Learning · Midterm Exam
+Innopolis University
+
+Full Name:
+General Instructions: Read carefully each exercise and circle the correct answer
+on paper. Scratch paper is not allowed under any circumstances. All your work must
+be done in these pages.
+
+• You have up to 60 minutes.
+• Each question is worth a minimum one point (up to 2 points), for a maximum
+possible score of 35 points.
+• When multiple choices is applied, points will be deducted for wrong answers.
+• Calculators and smart devices are prohibited.
+• Mere suspicion of cheating, sharing papers or using any unfair means of aid is
+enough to get your test withdrawn.
+
+Introduction to Machine Learning · Fall 2021 · Midterm Exam · V1
+1. In regression analysis, the variable that is being predicted is called (1 pt)
+A. the independent variable
+B. the dependent variable
+C. the predictor
+D. none of the above
+2. Which of the following are correct about regression? (1 pt)
+A. The intercept/constant (w0 ) is the mean-Y when X = 0
+B. The intercept is the the amount of change in mean-Y when X = 0
+C. The coefficient is the mean-Y at a certain value of X
+D. The coefficient (w1 ) is the amount of change in mean-Y for every unit increase
+in X
+3. The logistic model is estimated by way of? (1 pt)
+A. Ordinary least squares
+B. Maximum likelihood estimation
+C. Poisson distribution
+D. Negative binomial distribution
+4. Suppose, You applied a Logistic Regression model on a given data and got a training
+accuracy X and testing accuracy Y. Now, you want to add a few new features in the
+same data. Select the option(s) which is/are correct in such a case. Note: Consider
+remaining parameters are the same. (1,5 pts)
+A. Training accuracy increases
+B. Training accuracy decreases or remains the same
+C. Testing accuracy increases, decreases, or remains the same
+5. Below are the three scatter plots (A,B,C left to right) and hand drawn decision boundaries for logistic regression. What can you conclude from them? (1 pt)
+
+1. The training error in first plot is maximum as compare to second and third plot.
+2. The best model for this regression problem is the last (third) plot because it has
+minimum training error (zero).
+3. The second model is more robust than first and third because it will perform best
+on unseen data.
+4. The third model is overfitting more as compare to first and second.
+5. All will perform same because we have not seen the testing data.
+A. 1 and 3
+B. 1 and 2
+C. 1, 3 and 4
+D. 5
+
+Page 1 of 5
+
+Introduction to Machine Learning · Fall 2021 · Midterm Exam · V1
+6. Which of the following image is showing the logistic regression cost function for y = 1.
+(1 pt)
+
+A. A
+
+B. B
+
+7. Is it possible to apply a logistic regression algorithm on a 3-class Classification problem?
+(1 pt)
+A. TRUE
+
+B. FALSE
+
+8. Applying the chain rule of partial derivatives to the following equation (2 pts)
+N
+1 X X
+(i)
+ε=
+wj xj + b − t(i)
+2N i=1
+j
+
+!2
+
+we will get:
+N
+∂E
+1 X (i) X
+(i)
+x
+wj 0 xj 0 + b − t(i)
+=
+∂wj
+N i=1 j
+j0
+N
+∂E
+1 X X
+(i)
+=
+w j 0 xj 0 + b
+∂b
+N i=1
+j0
+
+A. TRUE
+
+!
+
+!
+
+B. FALSE
+
+9. Assume you fit a regression model to predict house prices from squared feet based on
+training data set consisting of houses with square feet in the range of 1000 and 2000. In
+which interval would we expect predictions to do best? (1 pt)
+A. [0, 1000]
+B. [1000, 2000]
+C. [2000, 3000]
+10. Choose all those which can fix “high bias” (1,5 pts)
+A. Adding features
+B. Trying smaller set of features
+C. Getting more training examples
+D. Increasing λ (regularization)
+E. Decreasing λ (regularization)
+11. Suppose a binary classifier produced the following confusion matrix. Find recall and
+precision for this classifier, and choose True or False for C. (2 pts)
+
+Actual Positive
+Actual Negative
+
+Predicted Positive Predicted Negative
+5600
+40
+1900
+2460
+Page 2 of 5
+
+Introduction to Machine Learning · Fall 2021 · Midterm Exam · V1
+Recall = 0.99
+Precision = 0,74
+Is this classifier better than the majority classifier? (True or False)
+12. Suppose we want to compute 10-Fold Cross-Validation error on 100 training examples.
+We need to compute error N1 times, and the Cross-Validation error is the average of the
+errors. To compute each error, we need to build a model with data of size N2, and test
+the model on the data of size N3. What are the appropriate numbers for N1, N2, N3?
+(1 pt)
+A. N1 = 10, N2 = 90, N3 = 10
+B. N1 = 10, N2 = 80, N3 = 20
+C. N1 = 7, N2 = 70, N3 = 30
+D. N1 = 9, N2 = 90, N3 = 10
+13. Lasso can be interpreted as least-squares linear regression where (1 pt)
+A. Weights are regularized with l2 norm
+B. Weights have a Gaussian prior
+C. Weights are regularized with l1 norm
+D. Solution is linear
+14. How does the bias-variance decomposition of a ridge regression estimator compare with
+that of ordinary least squares regression? (Select one.) (1 pt)
+A. Ridge has larger bias and larger variance
+B. Ridge has smaller bias and larger variance
+C. Ridge has larger bias and smaller variance
+D. Ridge has smaller bias and smaller variance
+15. In terms of the bias-variance decomposition, a 1-nearest neighbor classifier has
+than a 3-nearest neighbor classifier. (Select all correct options) (1,5 pts)
+A. Higher variance
+B. Higher bias
+C. Lower variance
+D. Lower bias
+16. In a linearly separable case, an SVM with linear kernel will return the same parameters
+(w) regardless of the chosen values of C. (1 pt)
+A. TRUE
+
+B. FALSE
+
+17. Given the following two networks A and B, answer the following questions (1,5 pts)
+100 units
+
+100 units
+
+10 units
+
+100 units
+
+100 units
+
+Network A
+
+Network B
+
+A. Which one has fewer connections? B
+B. Which is more prone to overfit? A
+C. Which one requires few operations in backprop? B
+Page 3 of 5
+
+Introduction to Machine Learning · Fall 2021 · Midterm Exam · V1
+18. You want to solve a classification task. You first train your network on 20 samples.
+Training converges, but the training loss is very high. You then decide to train this
+network on 10,000 examples. Is your approach to fixing the problem correct? (1 pt)
+A. Yes
+B. No
+C. No clear answer
+19. Which of the following is/are true about PCA? (1 pt)
+1. PCA is supervised method
+2. It searches for the directions along which the data has the largest variance
+3. Maximum number of principal components ≤ number of features
+4. All principal components are orthogonal to each other.
+A. 1 and 2
+B. 1 and 3
+C. 2, 3 and 4
+D. All of the above
+20. What will be the dimensions of the covariance matrix of the following vectors: (1 pt)
+
+
+1
+6
+
+     
+
+
+2
+3
+4
+5
+,
+,
+and
+7
+8
+9
+10
+
+Ans: 2x2
+21. What do you mean by Hard Margin? (1 pt)
+A. The SVM allows very low test error in classification
+B. The SVM allows very high test error in classification
+C. None of the above
+22. In SVM, the dimension of the hyperplane depends upon (1 pt)
+A. The number of samples
+B. The number of features
+C. The number of target variables
+D. All of the above
+23. Which option is true for SVM? (1 pt)
+A. The distance of the vectors from the margin is called the hyperplane
+B. The loss function that helps maximize the margin is called cross-entropy
+C. SVM can solve non-linear classification problems.
+D. None of the above
+24. In Feedforward ANNs, loops are allowed. (1 pt)
+A. TRUE
+
+B. FALSE
+
+25. Provide the correct order of the following steps that we perform when training ANNs.
+(1,5 pts)
+1. Calculate error between the actual value and the predicted values
+2. Reiterate until we have found the optimum parameters
+3. Pass an input through the network and get the output
+4. Initialize parameters
+5. Go to each neuron, which contributes to the error, and update its parameters to
+reduce the error
+Page 4 of 5
+
+Introduction to Machine Learning · Fall 2021 · Midterm Exam · V1
+Ans: 4, 3, 1, 5, 2 or Ans: 4, 2, 3, 1, 5
+26. The Naı̈ve Bayes classifier is said to be naı̈ve because: (1 pt)
+A. The training is very easy and fast; Just requiring considering each attribute in
+each class separately.
+B. The test is very straightforward;
+C. The assumption that attributes are statistically dependent of one another given
+the class value.
+D. The assumption that attributes are statistically independent of one another
+given the class value.
+27. The Naı̈ve Bayes hypothesis (Select all correct options): (1 pt)
+A. Assumes that input features are conditionally independent given the associated
+output label.
+B. Allows to greatly simplify the computation of posterior probabilities.
+C. Assumes that all problem variables are conditionally independent.
+D. Is almost never verified in practice but naive Bayes classifiers perform really
+well nonetheless.
+28. In case of continuous-valued input attributes the Naı̈ve Bayes Classifier: (1 pt)
+A. is not applicable because we cannot compute conditional probabilities.
+B. conditional probabilities can be modelled with the normal distribution.
+C. the independence assumption does not hold.
+D. None of the above
+29. Consider the following reduction of dimensions from a 2-dimensional space to a 1dimensional space (Select all correct options). (1,5 pts)
+
+Figure 1: PCA Examples
+A. In all 3 examples, the reduction of dimensions leads to the same results.
+B. The percentage of variance retained is the same for each example.
+C. The percentage of variance retained in A is higher than in C.
+D. The dimension reduction is more efficient in C than A and B.
+30. In the examples in Fig. 1 PCA does the same job as Linear Regression. (1 pt)
+A. TRUE
+
+B. FALSE
+
+Page 5 of 5
+
+

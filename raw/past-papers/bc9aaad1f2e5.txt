@@ -1,0 +1,77 @@
+Mathematical Analysis I. Midterm Examination 2021. Problem Set 2. Part 1
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 1, 2 on the same
+sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for solving
+problems as well.
+I am aware that using any electronic devices, books etc. during the examination, as well as communicating
+with other students, is strictly prohibited. Only one handwritten informational sheet is allowed. Any violation
+of these rules immediately leads to test cancellation. Signature
+1. [5 points] Represent a function 𝑓 (𝑥) =
+𝑚
+
+𝑥−1
+𝑥2 + 7𝑥 + 10
+
+in the neighbourhood of 𝑥0 = −3 using Taylor
+
+formula with 𝑜 ((𝑥 + 3) ).
+arctan(sinh 𝑥) − ln(1 − 𝑥) − 𝑒2 tan(𝑥/2) + 1 − 𝑥
+√
+2. [6 points] Find the limit lim
+. Hint: it is better not to
+𝑥→0
+(1 + 𝑥)2𝑥 − 3 1 + 6𝑥2
+use l’Hôpital’s rule here. Use Taylor’s formula with 𝑜 (𝑥3 ).
+
+Mathematical Analysis I. Midterm Examination 2021. Problem Set 2. Part 2
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 3, 4 on the same
+sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for solving
+problems as well.
+I am aware that using any electronic devices, books etc. during the examination, as well as communicating
+with other students, is strictly prohibited. Only one handwritten informational sheet is allowed. Any violation
+of these rules immediately leads to test cancellation. Signature
+′′
+3. [4 points] Find the √
+derivatives 𝑦𝑥′ and 𝑦𝑥𝑥
+at point
+√ 𝑡0 = 1 if function 𝑦 = 𝑦(𝑥) is given by parametric
+2
+equations 𝑥(𝑡) = − 1 − 𝑡 , 𝑦(𝑡) = arccos 𝑡 − 1 − 𝑡2 .
+
+4. [4 points] Find 𝑦 (𝑚) (𝑥) if 𝑦 = (𝑥2 + 4𝑥) sin 𝑥 cos 3𝑥, 𝑚 ⩾ 3.
+
+Mathematical Analysis I. Midterm Examination 2021. Problem Set 2. Part 3
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 5, 6, 7 on the
+same sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for
+solving problems as well.
+I am aware that using any electronic devices, books etc. during the examination, as well as communicating
+with other students, is strictly prohibited. Only one handwritten informational sheet is allowed. Any violation
+of these rules immediately leads to test cancellation. Signature
+5. [3 points] Find the first and the second differentials of a function ℎ(𝑥) = (5𝑥2 + 𝑥 − 4) 𝑒2𝑥 .
+)︂
+(︂
+14
+8
+.
+6. [4 points] Find the limit lim
+−
+𝑥→1
+1 − 𝑥14 1 − 𝑥8
+7. [4 points] Find the first and the second derivatives of a function 𝑥 = 𝑥(𝑦) that is inverse to a function
+𝑦(𝑥) = 7𝑥 + 𝑥5 .
+
+

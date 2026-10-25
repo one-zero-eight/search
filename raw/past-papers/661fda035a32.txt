@@ -1,0 +1,106 @@
+Probability and Statistics – Test 1
+variant 1
+
+1. Balls and Conditional Probability
+There are 4 red balls, 3 white balls, and 2 blue balls. Two balls are drawn successively
+without replacement.
+1. Find the probability that both balls have the same color.
+2. Given
+P (A) = 0.5,
+
+P (B) = 0.4,
+
+P (A ∪ B) = 0.7,
+
+find
+P (A | B).
+3. Determine whether events A and B are independent.
+
+2. Discrete Random Variable
+Let
+f (x) = c(x + 1),
+
+x = 0, 1, 2, 3.
+
+Find:
+1. c;
+2. P (X ≥ 2);
+3. E(X);
+4. σ 2 .
+
+3. Continuous Random Variable
+Let
+f (x) = kx2 ,
+
+0 < x < 2.
+
+Find:
+1. k;
+2. P (0.5 < X < 1.5);
+3. E(X);
+4. σ 2 .
+1
+
+4. Joint Probability Distribution
+The joint probability distribution of X and Y is
+X\Y
+0
+1
+
+0
+1
+2
+0.05 0.10 0.15
+0.20 0.30 0.20
+
+Find:
+1. the marginal distributions g(x) and h(y);
+2. P (X = 1 | Y = 2);
+3. Cov(X, Y );
+4. the correlation coefficient ρXY .
+
+5. Linear Transformation of a Random Variable
+Let
+f (x) = 2x,
+
+0 < x < 1.
+
+Find:
+1. E(3X + 2);
+2
+.
+2. σ3X+2
+
+6. Distribution Function
+Let
+
+{︄
+0,
+x < 0,
+F (x) =
+1 − e−x , x ≥ 0.
+Find:
+
+1. the density function f (x);
+2. P (1 < X < 3);
+3. P (X > 2 | X > 1).
+
+7. Joint Continuous Distribution
+Let
+f (x, y) = cxy,
+
+0 < x < 1,
+
+Find:
+1. c;
+2
+
+0 < y < 2.
+
+2. P (X < 1, Y < 0.5);
+3. the marginal density h(y);
+4. the conditional density f (x | y).
+
+3
+
+

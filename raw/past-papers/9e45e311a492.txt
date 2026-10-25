@@ -1,0 +1,220 @@
+Name: ____________________________
+Group number: ____________________​
+
+[S25] Distributed and Network Programming
+Final Exam
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+Total
+
+3
+
+8
+
+8
+
+3
+
+6
+
+6
+
+6
+
+40
+
+1.​ Consider a system with two producers and one consumer. Producers generate
+random data and put it into the queue at some rate. If the queue is full, they
+block until the consumer processes some items. Consumers process items as
+soon as they become available in the queue. If the queue is empty, they block
+until new items are added by the producers. (3 points)​
+a.​ Draw a diagram of the system showing the components and their
+interactions (2 pts)​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+b.​ Consider production rate (for one producer) is 2 items/sec and consumption
+rate (for one consumer) is 1 item/sec. How many consumers are needed (at
+least) to have 0 buffering time in the system? (1pt)
+
+Name: ____________________________
+Group number: ____________________​
+
+2.​ Identify and describe the three main types of assumptions made in a
+distributed system model. For each type, provide three concrete examples.​
+a.​ Three main assumptions with examples (6 pts)​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+b.​ Explain why defining these assumptions is critical before designing a
+distributed algorithm (2 pts)
+
+Name: ____________________________
+Group number: ____________________​
+
+3.​ You are given a Chord overlay with m=5, so the identifier space goes from 0 to
+31. The nodes in t1he system are located at identifiers [2, 13, 16, 27]. For each
+node, build its finger table (5 entries). For each entry, indicate the node's
+successor for the corresponding finger interval. Clearly show how you calculate
+each entry. Partial credit will be given for correct logic even if your final answer
+is not fully accurate.
+
+Name: ____________________________
+Group number: ____________________​
+
+4.​ You are designing a fault-tolerant service using redundancy. Each individual
+system has a 3% chance of failing (i.e., 97% uptime), and failures are
+independent. You replicate the service across three systems, and the service
+will remain available as long as at least one system is working. What is the
+expected uptime of the overall system? Explain your calculation.
+
+Name: ____________________________
+Group number: ____________________​
+
+5.​ Explain what super-peer networks are in the context of peer-to-peer (P2P)
+systems. Compare them with pure P2P architectures. Provide at least one
+advantage and one disadvantage of using super-peer networks.
+
+Name: ____________________________
+Group number: ____________________​
+
+6.​ Compare Cristian’s algorithm and the Berkeley algorithm for clock
+synchronization in distributed systems. Describe the steps for each of them. In
+what scenarios would each be preferable?
+
+Name: ____________________________
+Group number: ____________________​
+
+7.​ You are observing a RAFT cluster of 5 servers: S1 to S5. The current state of the
+system is shown in the table below. Server S3 has started an election and is
+requesting votes from the others.
+Server
+
+Term
+
+Last Log Index
+
+Last Log Term
+
+Status
+
+S1
+
+5
+
+10
+
+5
+
+Follower
+
+S2
+
+5
+
+10
+
+5
+
+Follower
+
+S3
+
+4
+
+9
+
+4
+
+Candidate
+
+S4
+
+5
+
+10
+
+5
+
+Follower
+
+S5
+
+6
+
+11
+
+6
+
+Follower
+
+Votes for
+
+a.​ Which servers will grant or deny a vote to S3? Justify your reasoning based
+on the RAFT voting rules (4 pts)​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+b.​ Can S3 become the leader in this election round? Show your vote count and
+explain (2 pts)
+
+

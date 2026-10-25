@@ -1,0 +1,148 @@
+Mathematical Analysis I. Test 1. Problem Set 1. Part 1
+Name
+
+Group Number
+
+Solutions for each part of this test have to be written on separate sheets! Do not write solutions of two
+diﬀerent parts of this test on the same sheet of paper. You can use one sheet for several problems from
+one part of the test (i.e. you can write problems 1, 2, 3 on one sheet). Do not forget to sign each of the
+sheets that you hand in. You can use this sheet for solving problems as well.
+I am aware that using any electronic devices, books etc at the exam as well as communicating with other
+students is strictly prohibited (but for one informational sheet). Any violation of these rules immediately leads
+to exam cancellation. Signature
+1. Find out whether the sequence bn =
+
+n
+∑
+p=1
+
+1
+is bounded. Justify your answer.
+(3p−1)(3p+5)
+
+2. Find limits of the following sequences or prove that they do not exist:
+6
+√
+( 2n−4 )n
+(2n2 +1) (n−1)2
+(a) an = n − n2 − 70n + 1400; (b) dn = 2n+1
+; (c) xn = (n7 +1000n6 −3)2 .
+3. Find the derivatives of the following functions:
+√
+(a) f (x) = log| sin x| 6 x2 + 6;
+(b) y(x) that is given implicitly by x3 + 5xy + y 3 = 0.
+
+Mathematical Analysis I. Test 1. Problem Set 1. Part 2
+Name
+
+Group Number
+
+Solutions for each part of this test have to be written on separate sheets! Do not write solutions of two
+diﬀerent parts of this test on the same sheet of paper. You can use one sheet for several problems from
+one part of the test (i.e. you can write problems 4, 5, 6 on one sheet). Do not forget to sign each of the
+sheets that you hand in. You can use this sheet for solving problems as well.
+I am aware that using any electronic devices, books etc at the exam as well as communicating with other
+students is strictly prohibited (but for one informational sheet). Any violation of these rules immediately leads
+to exam cancellation. Signature
+′′
+4. Find the second derivative yxx
+of a function y = y(x) defined by parametric equations x = t4t+1 ,
+5
+y = t4t+1 .
+
+2
+
+2x − 1, x < −4,
+5. Find such values of α and β that function f (x) = αx + β, −4 ⩽ x ⩽ −1, is continuous. Does it
+
+√
+1 + x, x > −1
+have a continuous derivative? If it is not so, classify its discontinuity points.
+3
+
+6. Find y (n) (x) if y(x) = (x2 − 2) cos 2x sin 3x.
+7. Is it possible that sequence {xn } diverges (i.e. does not have a finite limit) and yet there exists a
+n
+∑
+xk ?
+finite lim n1
+n→∞
+
+k=1
+
+Mathematical Analysis I. Test 1. Problem Set 2. Part 1
+Name
+
+Group Number
+
+Solutions for each part of this test have to be written on separate sheets! Do not write solutions of two
+diﬀerent parts of this test on the same sheet of paper. You can use one sheet for several problems from
+one part of the test (i.e. you can write problems 1, 2, 3 on one sheet). Do not forget to sign each of the
+sheets that you hand in. You can use this sheet for solving problems as well.
+I am aware that using any electronic devices, books etc at the exam as well as communicating with other
+students is strictly prohibited (but for one informational sheet). Any violation of these rules immediately leads
+to exam cancellation. Signature
+1. Find out whether the sequence bn =
+
+n
+∑
+p=1
+
+p
+is bounded. Justify your answer.
+(2p−1)(2p+5)
+
+2. Find limits of the following sequences or prove that they do not exist:
+3
+√
+( 4n+1 )n
+(6n3 −1) (n−2)7
+(a) an = 3n − 9n2 + 15n − 17; (b) dn = 4n−2
+; (c) xn = (3n4 +156n3 −1)4 .
+3. Find the derivatives of the following functions:
+√
+(a) f (x) = log| sinh x| 4 2x3 − 1;
+(b) y(x) that is given implicitly by x5 − 2xy − y 3 = 0.
+
+Mathematical Analysis I. Test 1. Problem Set 2. Part 2
+Name
+
+Group Number
+
+Solutions for each part of this test have to be written on separate sheets! Do not write solutions of two
+diﬀerent parts of this test on the same sheet of paper. You can use one sheet for several problems from
+one part of the test (i.e. you can write problems 4, 5, 6 on one sheet). Do not forget to sign each of the
+sheets that you hand in. You can use this sheet for solving problems as well.
+I am aware that using any electronic devices, books etc at the exam as well as communicating with other
+students is strictly prohibited (but for one informational sheet). Any violation of these rules immediately leads
+to exam cancellation. Signature
+′′
+4. Find the second derivative yxx
+of a function y = y(x) defined by parametric equations x = t3t+1 ,
+2
+y = t3t+1 .
+
+2
+
+x − +3x − 1, x < −3,
+5. Find such values of α and β that function f (x) = αx + β,
+−3 ⩽ x ⩽ 2, is continuous. Does
+
+√
+x − 2,
+x>2
+it have a continuous derivative? If it is not so, classify its discontinuity points.
+5
+
+6. Find y (n) (x) if y(x) = (2x2 + 1) sin x sin 4x.
+7. Is it possible
+√ that sequence {xn } diverges (i.e. does not have a finite limit) and yet there exists a
+n
+∏
+xk ?
+finite lim n
+n→∞
+
+k=1
+
+

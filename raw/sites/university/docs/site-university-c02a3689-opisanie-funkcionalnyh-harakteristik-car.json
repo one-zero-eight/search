@@ -1,0 +1,16 @@
+{
+ "title": "opisanie funkcionalnyh harakteristik cardledger",
+ "url": "https://innopolis.university/filespublic/opisanie_funkcionalnyh_harakteristik_cardledger.pdf",
+ "sha256": "c639f4043ae379891084d5427e008dbf1ac95f84e4042931f1d76a07a16241a0",
+ "method": "text layer (pdfplumber)",
+ "chars": 41276,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:47:36+00:00",
+ "remote": {
+  "etag": "\"3c4d22-5ff42d8d37859\"",
+  "modified": "Thu, 29 Jun 2023 11:17:34 GMT",
+  "size": "3951906"
+ }
+}

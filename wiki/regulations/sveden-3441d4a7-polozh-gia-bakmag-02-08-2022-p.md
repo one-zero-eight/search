@@ -390,18 +390,18 @@ Education in Russian Federation”
 
 |  | • the Order of Ministry of Science and Higher Education of Russia of 6 April 2021 |
 | --- | --- |
-| No.245 “On reinforcing the organization and implementation of education within Higher | • the Order of Ministry of Science and Higher Education of Russia of 6 April 2021 |
-| Educational programs – Bachelor’s, Specialist, Master’s programs” | • the Order of Ministry of Science and Higher Education of Russia of 6 April 2021 |
+| No.245 “On reinforcing the organization and implementation of education within Higher |  |
+| Educational programs – Bachelor’s, Specialist, Master’s programs” |  |
 
 |  | • the Order of Ministry of Education and Science of Russia of 29 June 2015 No. 636 |
 | --- | --- |
-| “On reinforcing the procedure for conducting the Final State Certification of Higher | • the Order of Ministry of Education and Science of Russia of 29 June 2015 No. 636 |
-| Education programs – Bachelor’s, Specialist and Master’s programs” | • the Order of Ministry of Education and Science of Russia of 29 June 2015 No. 636 |
+| “On reinforcing the procedure for conducting the Final State Certification of Higher |  |
+| Education programs – Bachelor’s, Specialist and Master’s programs” |  |
 
 |  | • the Order of Ministry of Science and Higher Education of Russia of 27 June 2021 |
 | --- | --- |
-| No.670 “The procedure of filling, registration and issuance of Higher Education and | • the Order of Ministry of Science and Higher Education of Russia of 27 June 2021 |
-| qualification documents and their duplicate copies” | • the Order of Ministry of Science and Higher Education of Russia of 27 June 2021 |
+| No.670 “The procedure of filling, registration and issuance of Higher Education and |  |
+| qualification documents and their duplicate copies” |  |
 
 - • the Federal National educational standards of Higher Education (hereinafter – the
 
@@ -749,11 +749,13 @@ Certification procedure of the student were confirmed and (or) affected the resu
 | --- |
 | Commission Members |
 
+от № dated from
+
 | Состав ГЭК утвержден приказом |
 | --- |
 | SQC’s Body is approved by the University Director Board |
 
-от № dated from ПОВЕСТКА ЗАСЕДАНИЯ ПО ПРИЕМУ ГОСУДАРСТВЕННОГО АТТЕСТАЦИОННОГО ИСПЫТАНИЯ / COMMISSION AGENDA: О защите выпускной квалификационной работы (ВКР) / Graduation Thesis Defense (GT)
+ПОВЕСТКА ЗАСЕДАНИЯ ПО ПРИЕМУ ГОСУДАРСТВЕННОГО АТТЕСТАЦИОННОГО ИСПЫТАНИЯ / COMMISSION AGENDA: О защите выпускной квалификационной работы (ВКР) / Graduation Thesis Defense (GT)
 
 | ФИО обучающегося | ФИО руководителя ВКР |
 | --- | --- |
@@ -797,17 +799,17 @@ Certification procedure of the student were confirmed and (or) affected the resu
 
 Председатель государственной экзаменационной комиссии / State Qualifying Commission Chairman
 
-подпись / signature
+экзаменационной комиссии / State
 
-экзаменационной комиссии / State Qualifying Commission Chairman
+подпись / signature
 
 Qualifying Commission Chairman
 
 Секретарь государственной экзаменационной комиссии / State Qualifying Commission Secretary
 
-подпись / signature
+экзаменационной комиссии / State
 
-экзаменационной комиссии / State Qualifying Commission Secretary
+подпись / signature
 
 Qualifying Commission Secretary ________________________________________________________________________________ Конец формы Приложение 2 / Appendix 2 к Положению о порядке проведения государственной итоговой аттестации по образовательным программам высшего образования - программам бакалавриата и программам магистратуры в АНО ВО «Университет Иннополис» Форма заявления о предоставлении возможности подготовки и защиты выпускной квалификационной работы по теме предложенной обучающимся Начало формы Директору АНО ВО «Университет Иннополис» К.В. Семенихину /To K. V. Semenikhin, Director of Innopolis University Autonomous Non-Commercial Organization of Higher Education От/From _________________________________ _________________________________________ (Ф.И.О. заявителя, Full Name, Surname) Обучающегося _____ курса/year student ______________ формы обучения/form of study, (очной-intramural/заочной-extramural) направления подготовки/program track 09.__.01 Информатика и вычислительная техника, уровень/Computer science and engineering, degree ________________________________________, (бакалавриат-bachelor/магистратура- master/аспирантура-research degree) направленность (профиль) образовательной программы/field of study «__________________ _________________________________________» ЗАЯВЛЕНИЕ Прошу предоставить возможность подготовки и защиты выпускной квалификационной работы по теме:«_________________________________________________________________ ________________________________________________________________________________ _______________________________________________________________________________» Hereby I request to be provided with an opportunity to prepare and defend the Graduation Thesis on the topic: «______________________________________________________________ ________________________________________________________________________________ _______________________________________________________________________________» «___» __________ 20__ г./y. _______________ _________________________ Дата / Date подпись/signature ФИО/Full name СОГЛАСОВАНО/APPROVED BY: СОГЛАСОВАНО: Проректор - начальник Управления академической политики и организации образовательной деятельности
 
@@ -837,17 +839,17 @@ Qualifying Commission Secretary ________________________________________________
 
 Тема / Topic
 
-подпись / signature
-
 Работу выполнил / Thesis is executed by
 
 подпись / signature
 
 Руководитель выпускной
 
-квалификационной работы / Supervisor of Graduation Thesis подпись / signature
+подпись / signature
 
-Консультанты2 / Consultants
+квалификационной работы / Supervisor of Graduation Thesis Консультанты2 / Consultants
+
+подпись / signature
 
 Иннополис, Innopolis, 202_ Конец формы 2 Графа исключается при отсутствии консультанта, закрепленного приказом директора Университета или иного уполномоченного им ответственного лица. Приложение 5/ Appendix 5 к Положению о порядке проведения государственной итоговой аттестации по образовательным программам высшего образования - программам бакалавриата и программам магистратуры в АНО ВО «Университет Иннополис» Форма титульного листа выпускной квалификационной работы магистра Начало формы Автономная некоммерческая организация высшего образования «Университет Иннополис» (АНО ВО «Университет Иннополис») ВЫПУСКНАЯ КВАЛИФИКАЦИОННАЯ РАБОТА (МАГИСТЕРСКАЯ ДИССЕРТАЦИЯ) по направлению подготовки __.__.__ ___________________________________________ GRADUATION THESIS (MASTER GRADUATE THESIS) Field of Study __.__.___ ___________________________________________ Направленность (профиль) образовательной программы «_____________________________________________» Area of Specialization / Academic Program Title: «____________________________________________»
 
@@ -855,39 +857,39 @@ Qualifying Commission Secretary ________________________________________________
 
 Работу выполнил / Thesis is executed by
 
-подпись / signature
-
 Работу выполнил / Thesis is executed by
+
+подпись / signature
 
 Руководитель выпускной квалификационной работы /
 
-подпись / signature
-
 Руководитель выпускной
+
+подпись / signature
 
 квалификационной работы / Graduation Thesis Supervisor
 
 Консультанты3 / Consultants
 
-подпись / signature
-
 Консультанты3 / Consultants
+
+подпись / signature
 
 Иннополис, Innopolis, 202_ Конец формы 3 Графа исключается при отсутствии консультанта, закрепленного приказом директора Университета или иного уполномоченного им ответственного лица. Приложение 6 / Appendix 6 к Положению о порядке проведения государственной итоговой аттестации по образовательным программам высшего образования - программам бакалавриата и программам магистратуры в АНО ВО «Университет Иннополис» Форма титульного листа аннотации на выпускную квалификационную работу бакалавра Начало формы Автономная некоммерческая организация высшего образования «Университет Иннополис» АННОТАЦИЯ НА ВЫПУСКНУЮ КВАЛИФИКАЦИОННУЮ РАБОТУ (БАКАЛАВРСКУЮ РАБОТУ) ПО НАПРАВЛЕНИЮ ПОДГОТОВКИ __.__.__ __________________________________________ НАПРАВЛЕННОСТЬ (ПРОФИЛЬ) ОБРАЗОВАТЕЛЬНОЙ ПРОГРАММЫ «_________________________________________________»
 
 Тема
 
-подпись
+Выполнил
 
-Выполнил Иннополис, Innopolis, 202_ Конец формы Приложение 7 / Appendix 7 к Положению о порядке проведения государственной итоговой аттестации по образовательным программам высшего образования - программам бакалавриата и программам магистратуры в АНО ВО «Университет Иннополис» Форма титульного листа аннотации на выпускную квалификационную работу магистра Начало формы Автономная некоммерческая организация высшего образования «Университет Иннополис» АННОТАЦИЯ НА ВЫПУСКНУЮ КВАЛИФИКАЦИОННУЮ РАБОТУ (МАГИСТЕРСКУЮ ДИССЕРТАЦИЮ) ПО НАПРАВЛЕНИЮ ПОДГОТОВКИ
+подпись Иннополис, Innopolis, 202_ Конец формы Приложение 7 / Appendix 7 к Положению о порядке проведения государственной итоговой аттестации по образовательным программам высшего образования - программам бакалавриата и программам магистратуры в АНО ВО «Университет Иннополис» Форма титульного листа аннотации на выпускную квалификационную работу магистра Начало формы Автономная некоммерческая организация высшего образования «Университет Иннополис» АННОТАЦИЯ НА ВЫПУСКНУЮ КВАЛИФИКАЦИОННУЮ РАБОТУ (МАГИСТЕРСКУЮ ДИССЕРТАЦИЮ) ПО НАПРАВЛЕНИЮ ПОДГОТОВКИ
 
 **09.04.01** – «ИНФОРМАТИКА И ВЫЧИСЛИТЕЛЬНАЯ ТЕХНИКА» НАПРАВЛЕННОСТЬ (ПРОФИЛЬ) ОБРАЗОВАТЕЛЬНОЙ ПРОГРАММЫ «______________________________________________»
 
 Тема
 
-подпись
+Выполнил
 
-Выполнил Иннополис, Innopolis, 202_ Конец формы Приложение 8/ Appendix 8 к Положению о порядке проведения государственной итоговой аттестации по образовательным программам высшего образования - программам бакалавриата и программам магистратуры в АНО ВО «Университет Иннополис» Форма отзыва руководителя выпускной квалификационной работы на выпускную квалификационную работу бакалавра Начало формы Автономная некоммерческая организация высшего образования «Университет Иннополис» ОТЗЫВ РУКОВОДИТЕЛЯ ВЫПУСКНОЙ КВАЛИФИКАЦИОННОЙ РАБОТЫ НА ВЫПУСКНУЮ КВАЛИФИКАЦИОННУЮ РАБОТУ (БАКАЛАВРСКУЮ РАБОТУ) FINAL THESIS ASSESSMENT OF THESIS SUPERVISOR OF GRADUATION THESIS (BACHELOR GRADUATE THESIS) ФИО Фамилия Имя [Отчество] обучающегося Student's full name Name Surname
+подпись Иннополис, Innopolis, 202_ Конец формы Приложение 8/ Appendix 8 к Положению о порядке проведения государственной итоговой аттестации по образовательным программам высшего образования - программам бакалавриата и программам магистратуры в АНО ВО «Университет Иннополис» Форма отзыва руководителя выпускной квалификационной работы на выпускную квалификационную работу бакалавра Начало формы Автономная некоммерческая организация высшего образования «Университет Иннополис» ОТЗЫВ РУКОВОДИТЕЛЯ ВЫПУСКНОЙ КВАЛИФИКАЦИОННОЙ РАБОТЫ НА ВЫПУСКНУЮ КВАЛИФИКАЦИОННУЮ РАБОТУ (БАКАЛАВРСКУЮ РАБОТУ) FINAL THESIS ASSESSMENT OF THESIS SUPERVISOR OF GRADUATION THESIS (BACHELOR GRADUATE THESIS) ФИО Фамилия Имя [Отчество] обучающегося Student's full name Name Surname
 
 | Уровень образования | высшее образование бакалавриат |
 | --- | --- |
@@ -897,7 +899,7 @@ Qualifying Commission Secretary ________________________________________________
 | --- | --- |
 | Наименование направления подготовки | наименование направления |
 | Наименование направления подготовки | подготовки) |
-| Program track | подготовки) |
+| Program track |  |
 
 | высшее образование |
 | --- |
@@ -917,6 +919,8 @@ Justification of the grade ii
 
 Letter Grade / Оценка (A-D)
 
+подпись / signature
+
 | Thesis Supervisor |
 | --- |
 | Руководитель ВКР |
@@ -926,8 +930,6 @@ Letter Grade / Оценка (A-D)
 | Full Name |
 | --- |
 | Фамилия Имя [Отчество] |
-
-подпись / signature
 
 I Руководитель ВКР указывает в произвольной форме:
 
@@ -1031,11 +1033,11 @@ Justification of the grade ii
 
 Letter Grade / Оценка (A-D)
 
+Thesis Supervisor подпись / signature Руководитель ВКР
+
 | Full Name |
 | --- |
 | Фамилия Имя [Отчество] |
-
-Thesis Supervisor подпись / signature Руководитель ВКР
 
 i Руководитель ВКР указывает в произвольной форме:
 
@@ -1125,7 +1127,7 @@ hearing
 | --- | --- |
 | Наименование направления подготовки | наименование направления |
 | Наименование направления подготовки | подготовки) |
-| Program track | подготовки) |
+| Program track |  |
 
 | высшее образование |
 | --- |
@@ -1145,11 +1147,13 @@ Reviewii
 
 Letter Grade / Оценка (A-D)
 
+Internal Examiner подпись / signature Рецензент
+
 | Full Name |
 | --- |
 | Фамилия Имя [Отчество] |
 
-Internal Examiner подпись / signature Рецензент I Рецензент указывает в произвольной форме:
+I Рецензент указывает в произвольной форме:
 
 - - соответствует ли тема ВКР направлению подготовки, области, объектам, видам и задачам
 

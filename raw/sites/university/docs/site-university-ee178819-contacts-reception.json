@@ -1,0 +1,16 @@
+{
+ "title": "Список лиц ответственных за работу с поступающими из Белгородской области, Курской области, Брянской области, а также с участниками специальной военной операции на территориях Украины, ДНР, ЛНР, Запорожской области и Херсонской области и их детьми",
+ "url": "https://innopolis.university/upload/iblock/499/ob3dqtwco7b967lwbc2kz33j5h66n9zu/contacts_reception.pdf",
+ "sha256": "89fda16c768c4f9896ddc35c79ec8dd5e6dc6bac12f87ce5df38c17d44344849",
+ "method": "text layer (pdfplumber)",
+ "chars": 726,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:58:01+00:00",
+ "remote": {
+  "etag": "\"6681c65f-76d3\"",
+  "modified": "Sun, 30 Jun 2024 20:55:59 GMT",
+  "size": "30419"
+ }
+}

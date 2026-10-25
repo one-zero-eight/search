@@ -1,0 +1,16 @@
+{
+ "title": "Read the article [NIR_2022_vbframework]",
+ "url": "https://innopolis.university/filespublic/NIR_2022_vbframework.pdf",
+ "sha256": "571c0250ec283bc5ad0cab0ebc39171c41280a6e538b424b27497bdf4ee58474",
+ "method": "text layer (pdfplumber)",
+ "chars": 25452,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:45:49+00:00",
+ "remote": {
+  "etag": "\"2cb33b-5e724a40ac48d\"",
+  "modified": "Fri, 26 Aug 2022 13:10:40 GMT",
+  "size": "2929467"
+ }
+}

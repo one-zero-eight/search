@@ -1,0 +1,688 @@
+Full name:
+CSE 206 — Probability and statistics
+Test 2
+
+e-mail:
+group:
+Date: November 21th , 2024
+
+• The test lasts 1,5 hours (90 minutes).
+• Any cheating, any attempt to cheat, assisting others to cheat, or participating
+therein will be penalized with a null score on the test.
+• The use of any smart devices (e.g. mobile phones, tablets, laptops, smart watches
+and etc.) is strictly prohibited and will be considered as an attempt to cheat.
+• Non-graphing calculators are allowed, but sharing them is forbidden.
+
+
+
+1. (4 pts) Let (ξ1 , ξ2 ) ∼ N 2 (0, 0),
+
+
+
+3
+−1
+
+Model #1
+
+−1
+. Find E[ξ12 ξ2 ]. You can proceed as follows:
+2
+
+(i) Find constants β1 , β2 such that ξ1 and β1 ξ1 + β2 ξ2 are independent.
+(ii) Use the fact that if X and Y are independent random variables, then so are X 2 and Y .
+
+
+
+3 −1
+2
+Пусть (ξ1 , ξ2 ) ∼ N (0, 0),
+. Найти E[ξ12 ξ2 ]. Можно действовать так:
+−1 2
+(i) Найти константы β1 , β2 такие, что ξ1 и β1 ξ1 + β2 ξ2 — независимые случайные величины.
+(ii) Воспользоваться следующим фактом: если X и Y — независимые случайные величины, тогда
+величины X 2 и Y также независимы.
+Solution. First we find the constants mentioned in the hint. Remember that for Gaussian random variables,
+zero covariance is equivalent to independence.
+0 = Cov(ξ1 , β1 ξ1 + β2 ξ2 ) = 3β1 − β2 ,
+so taking β1 = 1, β2 = 3 we see that ξ1 and ξ1 + 3ξ2 are independent.
+By the second hint, we have that ξ12 and ξ1 + 3ξ2 are independent. So
+0 = Cov(ξ12 , ξ1 + 3ξ2 ) = E(ξ12 ξ1 ) + 3Eξ12 ξ2 ,
+since Eξ1 = Eξ2 = 0. But Eξ13 = 0 because x3 is an odd function and the pdf of centered Gaussian
+distribution is an even function. Therefore Eξ12 ξ2 = 0.
+
+Full name:
+CSE 206 — Probability and statistics
+Test 2
+
+e-mail:
+group:
+Date: November 21th , 2024
+Model #1
+
+2. (5 pts) You design software for an online casino. In one of the games, the chance of a player winning
+against the casino is 0.02. However, you made some mistakes in the latest software patch and as a result,
+the chance of a player winning is now 0.03. Every day this game is played by 1000 people. The casino owner
+is greedy and experienced, so, when an unfavorable event that has a 3% chance or less of occurring, occurs,
+his suspicions are raised.
+How many people x should win the game in one day, before the casino owner comes looking for your throat?
+Hint: use the central limit theorem and the attached table for the cdf of standard normal to find x.
+Вы создаете программное обеспечение для онлайн-казино. В одной из игр, вероятность победы игрока
+— 0,02. В результате ошибки в вашем последнем обновлении, теперь вероятность победы игрока —
+0,03. Каждый день в эту игру играет 1000 людей. Владелец казино — опытный и жадный (и из 90-х),
+и у него возникают подозрения, всякий раз когда случается любое 3%-вероятностное событие (в его
+ущерб).
+Сколько людей x должно выиграть в эту игру в один день, чтобы владелец пошел охотиться на вас?
+Указание: воспользоваться центральной предельной теоремой и таблицей стандартного нормального
+распределения.
+Solution. Let ξj the indicator function (r. v.) that the j-th player wins. For the casino owner (as he doesn’t
+know about the software bug, otherwise he will come for you right away), ξj √
+∼ Bernoulli(0.02), the variables
+ξ1 , . . . , ξ1000 are independent, each has mean 0.02 and standard deviation 0.02 · 0.98, and he will find x
+such that P(S1000 ≥ x) ≤ 0.03. Manipulating the inequality and using the CLT, x should be such that
+S1000 − 1000 · 0.02
+x − 0.02 · 1000
+0.03 = P(S1000 ≥ x) = P( √
+≥√
+)
+1000 · 0.02 · 0.98
+1000 · 0.02 · 0.98
+x − 0.02 · 1000
+≈ P(Z ≥ √
+),
+0.02 · 0.98 · 1000
+or
+x − 20
+0.97 ≈ P(Z ≤ √
+)
+20 · 0.98
+where Z is a standard normal random variable, so he is looking for x such that
+x − 20
+z0.97 ≈ √
+.
+20 · 0.98
+Looking at the cdf table for standard normal, he sees z0.97 ≈ 1.88, so
+x − 20
+1.88 ≈ √
+.
+20 · 0.98
+Solving for this gives x ≈ 28.
+Remark 1. What the casino owner does is based only on his own knowledge, which is why 0.02 has been used in this
+calculation. However, you, as the programmer, know that the actual probability of 28 or more people winning will
+be significantly higher than 0.03.
+Remark 2. It is logical that the casino owner doesn’t care about the event of ONE player winning. He knows someone
+must win, so he will not be surprised or worried when someone wins (in fact, you can calculate the probability of
+at least one player winning in one day). But the total number of winners out of 1000 — this is another matter. This
+distinction is at the heart of the subject matter of probability.
+
+Full name:
+CSE 206 — Probability and statistics
+Test 2
+
+e-mail:
+group:
+Date: November 21th , 2024
+Model #1
+
+3. (4 pts) I generated the following data (see table below) in R by sampling from a normal distribution with
+mean 0. Provide a 95% confidence interval for the standard deviation that I used.
+С помощью языка R я сгенирировал данные из нормального распределения со средним 0. Постройте
+95% доверительный интервал для среднеквадратичного отклонения, которое я использовал.
+3.6
+−2.1
+
+1.0
+−0.4
+
+−3.9
+−2.1
+
+1.4
+−1.5
+
+−0.9
+−1.3
+
+Solution. To find a 95% confidence interval we firstly have to find Vn :
+Vn =
+
+n
+X
+
+(xi − µ)2 = 44.86
+
+i=1
+
+In this case α = 0.05. From the Lecture 12 we know that Vθn2 ∼ χ2 (n). From χ2 table we can find that
+w0.975 = 20.483 and w0.025 = 3.247:
+r
+
+r
+
+44.86
+= 1.48
+=
+w0.975
+20.483
+r
+r
+Vn
+44.86
+=
+= 3.72
+θ̂2 =
+w0.025
+3.247
+
+θ̂1 =
+
+Vn
+
+So, the 95% confidence interval for a standard deviation (1.48; 3.72).
+
+Full name:
+CSE 206 — Probability and statistics
+Test 2
+
+e-mail:
+group:
+Date: November 21th , 2024
+Model #1
+
+4. (4 pts) I went crazy and decided to measure the diameter of this season’s mandarines. I was told the
+diameter of these mandarines has a variance of 4. I measured ten mandarines and I got these diamaters:
+8.6 6.0 1.1 6.4 4.1
+2.9 4.6 2.9 3.5 3.7.
+Provide a 95% confidence interval for the mean of the diamater of this season’s mandarines.
+Solution. To find a 95% confidence interval we firstly have to find the average value of the diameter x̃:
+10
+
+x̃ =
+
+1 X
+mi = 4.38cm
+10 i=1
+
+Now, the standard deviation of the average diameter is σn =
+
+q
+
+σ2
+n =
+
+q
+
+√
+
+4
+10 = 0.2
+
+10cm.
+
+Now lets finally construct the confidence interval itself:
+
+P(|x̃ − x̄| < ϵ) = 0.95
+
+|x̃ − x̄|
+ϵ
+P
+<
+= 0.95
+σn
+σn
+
+
+ϵ
+= 0.95
+P |Z| <
+σn
+
+
+Lets use Z-table and find value of Z such that √
+to the left of it we have 0.975. z = 1.96. So, we just need to
+solve σϵn = 1.96. Hence, ϵ = 1.96σn = 1.96 · 0.2 10 = 1.24cm.
+So, the 95% confidence interval for a mandarine diameter is (3.14; 5.62).
+
+Full name:
+CSE 206 — Probability and statistics
+Test 2
+
+e-mail:
+group:
+Date: November 21th , 2024
+
+• The Test 2 lasts 1,5 hours (90 minutes).
+• Any cheating, any attempt to cheat, assisting others to cheat, or participating
+therein will be penalized with a null score on the test.
+• Usage of any smart devices (e.g. mobile phones, tablets, laptops, smart watches and
+etc.) is strictly prohibited and will be considered as an attempt to cheat.
+• No cheat sheets, calculators nor books are allowed.
+
+
+
+1. (4 pts) Let (ξ1 , ξ2 ) ∼ N 2 (0, 0),
+
+
+
+2
+1
+
+Model #2
+
+1
+. Find E[ξ12 ξ2 ]. You can proceed as follows:
+2
+
+(i) Find constants β1 , β2 such that ξ1 and β1 ξ1 + β2 ξ2 are independent.
+(ii) Use the fact that if X and Y are independent random variables, then so are X 2 and Y .
+
+
+
+2 1
+2
+Пусть (ξ1 , ξ2 ) ∼ N (0, 0),
+. Найти E[ξ12 ξ2 ]. Можно действовать так:
+1 2
+(i) Найти константы β1 , β2 такие, что ξ1 и β1 ξ1 + β2 ξ2 — независимые случайные величины.
+(ii) Воспользоваться следующим фактом: если X и Y — независимые случайные величины, тогда
+величины X 2 и Y также независимы.
+Solution. First we find the constants mentioned in the hint. Remember that for Gaussian random variables,
+zero covariance is equivalent to independence.
+0 = Cov(ξ1 , β1 ξ1 + β2 ξ2 ) = 2β1 + β2 ,
+so taking β1 = 1, β2 = −2 we see that ξ1 and ξ1 − 2ξ2 are independent.
+By the second hint, we have that ξ12 and ξ1 − 2ξ2 are independent. So
+0 = Cov(ξ12 , ξ1 − 2ξ2 ) = E(ξ12 ξ1 ) − 2Eξ12 ξ2 ,
+since Eξ1 = Eξ2 = 0. But Eξ13 = 0 because x3 is an odd function and the pdf of centered Gaussian
+distribution is an even function. Therefore Eξ12 ξ2 = 0.
+
+Full name:
+CSE 206 — Probability and statistics
+Test 2
+
+e-mail:
+group:
+Date: November 21th , 2024
+Model #2
+
+2. (5 pts) In each round of a certain game, a player loses one dollar with probability 0.7, loses two dollars
+with probability 0.2 and wins 10 dollars with probability 0.1. Estimate the probability that after completing
+150 independent rounds of the game the player will remain in the black («to remain in the black» means
+having some money left). Please note: the player can play «in debt», that is, if the balance is negative, the
+game does not stop.
+Hint: use the central limit theorem and the attached table.
+В каждой партии некоторой игры игрок с вероятностью 0.7 проигрывает один доллар, с вероятностью
+0.2 проигрывает два доллара и с вероятностью 0.1 выигрывает 10 долларов. Оцените вероятность того,
+что по завершении 150 независимых партий игрок останется в плюсе. Обратите внимание: игрок может
+играть «в долг», то есть при отрицательном балансе игра не останавливается.
+Указание: воспользуйтесь центральной предельной теоремой, а также таблицей, приложенной к экзаменационному варианту.
+Solution. Let Xi be -1, -2 or 10 depending on the outcome of round i. Then we have P(Xi = −1) = 0.7,
+P(Xi = −2) = 0.2, P(Xi = 10) = 0.1. Thus,
+E(Xi ) = −1 · 0.7 − 2 · 0.2 + 10 · 0.1 = −0.1,
+Var(Xi ) = E(Xi2 ) − (E(Xi ))2 = 1 · 0.7 + 4 · 0.2 + 100 · 0.1 − (−0.1)2 = 11.49,
+p
+σi = Var(Xi ) = 3.389.
+Let S =
+
+150
+P
+
+Xi be the total outcome after 150 rounds of the game. Using the CLT we get
+
+i=1
+
+
+P(S > 0) = 1 − P(S ⩽ 0) = 1 − P
+
+0.1 · 150
+S − µn
+√
+√
+⩽
+σ n
+3.389 · 150
+
+
+≈ 1 − P(ζ ⩽ 0.3613) = 0.3594,
+
+where ζ ∼ N (0, 1). So the player is more likely to stay in a loser position.
+
+Full name:
+CSE 206 — Probability and statistics
+Test 2
+
+e-mail:
+group:
+Date: November 21th , 2024
+Model #2
+
+3. (4 pts) I generated the following data in R by sampling from a normal distribution with mean 105. Provide
+a 99% confidence interval for the standard deviation that I used.
+С помощью языка R я сгенирировал данные из нормального распределения со средним 105. Постройте
+99% доверительный интервал для среднеквадратичного отклонения, которое я использовал.
+98.8
+101.1
+
+109.7 99.6
+110.2 91.6
+
+105.9
+91.9
+
+91.5
+90.3
+
+Solution. To find a 99% confidence interval we firstly have to find Vn :
+Vn =
+
+n
+X
+(xi − µ)2 = 882.26
+i=1
+
+In this case α = 0.01. From the Lecture 12 we know that Vθn2 ∼ χ2 (n). From χ2 table we can find that
+w0.995 = 25.188 and w0.005 = 2.156:
+r
+
+Vn
+
+r
+
+882.26
+θ̂1 =
+= 5.92
+=
+w0.995
+25.188
+r
+r
+Vn
+882.26
+= 20.23
+=
+θ̂2 =
+w0.005
+2.156
+So, the 99% confidence interval for a standard deviation (5.92; 20.23).
+
+Full name:
+CSE 206 — Probability and statistics
+Test 2
+
+e-mail:
+group:
+Date: November 21th , 2024
+Model #2
+
+4. (4 pts) You bought 10 chocolate rabbits and decided to measure their weight (see table below). Manufacturer
+reports that the standard deviation of chocolate rabbit mass is 10 g. Find a 99% confidence interval of a
+weight of chocolate rabbit.
+Купив 10 шоколадных кроликов, ты решил(-а) их взвесить (см. таблицу ниже). Производитель утверждает, что среднеквадратичное отклонение массы шоколадного кролика - 10г. Найди 99% доверительный интервал для массы шоколадного кролика.
+118.8 129.7 119.6 125.9 111.5
+121.1 130.2 111.6 111.9 110.3
+Solution. To find a 99% confidence interval we firstly have to find the average value of the weight x̃:
+10
+
+x̃ =
+
+1 X
+mi = 119.06g
+10 i=1
+
+10g
+Now, the standard deviation of the average weight is σn = √σn = √
+=
+10
+
+√
+
+10g.
+
+Now lets finally construct the confidence interval itself:
+
+P(|x̃ − x̄| < ϵ) = 0.99
+
+|x̃ − x̄|
+ϵ
+P
+<
+= 0.99
+σn
+σn
+
+
+ϵ
+P |Z| <
+= 0.99
+σn
+
+
+Lets use Z-table and find value of Z such that√to the left of it we have 0.995. z ≈ 2.575. So, we just need to
+solve σϵn = 2.575. Hence, ϵ = 2.575σn = 2.575 10 = 8.14g.
+So, the 99% confidence interval for a mass of the chocolate rabbit is (110.92; 127.2).
+
+Full name:
+CSE 206 — Probability and statistics
+Test 2
+
+e-mail:
+group:
+Date: November 21th , 2024
+
+• The Test 2 lasts 1,5 hours (90 minutes).
+• Any cheating, any attempt to cheat, assisting others to cheat, or participating
+therein will be penalized with a null score on the test.
+• Usage of any smart devices (e.g. mobile phones, tablets, laptops, smart watches and
+etc.) is strictly prohibited and will be considered as an attempt to cheat.
+• No cheat sheets, calculators nor books are allowed.
+
+
+
+1. (4 pts) Let (ξ1 , ξ2 ) ∼ N 2 (0, 0),
+
+
+
+6
+−2
+
+Model #3
+
+−2
+. Find E[ξ12 ξ2 ]. You can proceed as follows:
+1
+
+(i) Find constants β1 , β2 such that ξ1 and β1 ξ1 + β2 ξ2 are independent.
+(ii) Use the fact that if X and Y are independent random variables, then so are X 2 and Y .
+
+
+
+6 −2
+2
+Пусть (ξ1 , ξ2 ) ∼ N (0, 0),
+. Найти E[ξ12 ξ2 ]. Можно действовать так:
+−2 1
+(i) Найти константы β1 , β2 такие, что ξ1 и β1 ξ1 + β2 ξ2 — независимые случайные величины.
+(ii) Воспользоваться следующим фактом: если X и Y — независимые случайные величины, тогда
+величины X 2 и Y также независимы.
+Solution. First we find the constants mentioned in the hint. Remember that for Gaussian random variables,
+zero covariance is equivalent to independence.
+0 = Cov(ξ1 , β1 ξ1 + β2 ξ2 ) = 6β1 − 2β2 ,
+so taking β1 = 1, β2 = 3 we see that ξ1 and ξ1 + 3ξ2 are independent.
+By the second hint, we have that ξ12 and ξ1 − 2ξ2 are independent. So
+0 = Cov(ξ12 , ξ1 + 3ξ2 ) = E(ξ12 ξ1 ) + 3Eξ12 ξ2 ,
+since Eξ1 = Eξ2 = 0. But Eξ13 = 0 because x3 is an odd function and the pdf of centered Gaussian
+distribution is an even function. Therefore Eξ12 ξ2 = 0.
+
+Full name:
+CSE 206 — Probability and statistics
+Test 2
+
+e-mail:
+group:
+Date: November 21th , 2024
+Model #3
+
+2. (5 pts) An astronomer measures the distance to a certain star (in light years). It is known that the
+measurement results have an average d (true distance value) and a standard deviation of 2 light years. How
+many measurements need to be carried out in order to be 95% sure that the astronomer established the
+distance with ± 0.5 light year accuracy?
+Hint: use the central limit theorem and the attached table. Also notice that: Φ(x) − Φ(−x) = 2Φ(x) − 1,
+where Φ(x) is the CDF of the standard normal distribution.
+Астроном измеряет расстояние до некоторой звезды (в световых годах). Известно, что результаты
+измерений имеют среднее d (истинное значение расстояния) и стандартное отклонение величиной в
+2 световых года. Сколько измерений необходимо провести, чтобы с вероятностью 95% установить
+расстояние с точностью до ±0.5 светового года?
+Указание: воспользуйтесь центральной предельной теоремой, а также таблицей, приложенной к экзаменационному варианту. Обратите внимание, что: Φ(x) − Φ(−x) = 2Φ(x) − 1, где Φ(x) — функция
+распределения (CDF) стандартной нормальной случайной величины.
+n
+P
+Xi . Considering the fact that all measurements
+Solution. Let Xi be the result of measurement i, X = n1
+i=1
+
+are independent, we can use the CLT
+
+ √
+ √
+√ 
+√ 
+n
+X −d
+n
+n
+n
+√ ⩽
+⩽
+≈P −
+⩽ζ⩽
+=
+P(|X − d| ⩽ 0.5) = P −0.5 ⩽ X − d ⩽ 0.5 = P −
+4
+4
+4
+4
+σ/ n
+ √ 
+√ 
+√ 
+n
+n
+n
+=Φ
+−Φ −
+=2·Φ
+− 1 = 0.95,
+4
+4
+4
+
+
+where ζ ∼ N (0, 1). Thus,
+√ 
+√
+√
+n
+n
+= 0.975 ⇒
+= 1.96 ⇒ n = 7.84 ⇒ n = 61.465.
+Φ
+4
+4
+So the astronomer will need 62 measurements.
+
+Full name:
+CSE 206 — Probability and statistics
+Test 2
+
+e-mail:
+group:
+Date: November 21th , 2024
+Model #3
+
+3. (4 pts) I generated the following data in R by sampling from a normal distribution with mean 13. Provide
+a 90% confidence interval for the standard deviation that I used.
+С помощью языка R я сгенирировал данные из нормального распределения со средним 13. Постройте
+90% доверительный интервал для среднеквадратичного отклонения, которое я использовал.
+18.4 12.3 13.7 14.6 13.9
+17.4 12.6 10.2 14.1 18.3
+Solution. To find a 90% confidence interval we firstly have to find Vn :
+Vn =
+
+n
+X
+
+(xi − µ)2 = 90.17
+
+i=1
+
+In this case α = 0.1. From the Lecture 12 we know that Vθn2 ∼ χ2 (n). From χ2 table we can find that
+w0.95 = 18.307 and w0.05 = 3.94:
+r
+Vn
+90.17
+θ̂1 =
+= 2.22
+=
+w0.95
+18.307
+r
+r
+Vn
+90.17
+=
+= 4.78
+θ̂2 =
+w0.05
+3.94
+r
+
+So, the 90% confidence interval for a standard deviation (2.22; 4.78).
+
+Full name:
+CSE 206 — Probability and statistics
+Test 2
+
+e-mail:
+group:
+Date: November 21th , 2024
+Model #3
+
+4. (4 pts) You have measured the weight of 10 peppermint canes (see the table below). Manufacturer claims
+that the standard deviation of peppermint cane mass is 3g. Find a 90% confidence interval of a weight of
+peppermint cane.
+Ты взвезил 10 карамельных тростей (см. таблицу ниже). Производитель заверяет, что среднекватратичное отклонение массы карамельной трости - 3г. Найди 90% доверительный интервал для веса
+карамельной трости.
+25.4 19.3 20.7 21.6 20.9
+24.4 19.6 17.2 21.1 25.3
+Solution.
+To find a 90% confidence interval we firstly have to find the average value of the weight x̃:
+10
+
+1 X
+mi = 21.55g
+x̃ =
+10 i=1
+√
+Now, the standard deviation of the average weight is σn = √σn = √3g10 = 0.3 10g.
+Now lets finally construct the confidence interval itself:
+
+P(|x̃ − x̄| < ϵ) = 0.9
+
+
+|x̃ − x̄|
+ϵ
+P
+<
+= 0.9
+σn
+σn
+
+
+ϵ
+P |Z| <
+= 0.9
+σn
+Lets use Z-table and find value of Z such that to the
+√ left of it we have 0.05. z ≈ 1.645. So, we just need to
+solve σϵn = 1.645. Hence, ϵ = 1.645σn = 1.645 · 0.3 10 = 1.56g.
+So, the 90% confidence interval for a mass of the peppermint cane is (19.99; 23.11).
+
+

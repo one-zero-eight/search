@@ -1,0 +1,16 @@
+{
+ "title": "Read the article [NIR_2022_computationaldesign]",
+ "url": "https://innopolis.university/filespublic/NIR_2022_computationaldesign.pdf",
+ "sha256": "7b00cef9a79631eb3e726a3e06dd6c0006ab2638f100aa472892028ae686878c",
+ "method": "text layer (pdfplumber)",
+ "chars": 28446,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:44:48+00:00",
+ "remote": {
+  "etag": "\"572f17-5e724a40a89f6\"",
+  "modified": "Fri, 26 Aug 2022 13:10:40 GMT",
+  "size": "5713687"
+ }
+}

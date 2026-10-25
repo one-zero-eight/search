@@ -1,0 +1,147 @@
+NAME:
+
+MID-TERM EXAM
+INTRODUCTION TO LOGIC
+PHIL 1
+Date:
+Student Number:
+Signature:
+The exam is arranged in 3 sections.
+Section 1 is worth 30 marks, Section 2 is worth 50 marks, Section 3 is worth 20.
+Good luck!
+
+SECTION 1
+LOGIC - THEORY
+(up to 30 marks, 5 questions for 6 marks each).
+To get 6 marks you must answer the theoretical questions below comprehensively.
+1. Explain the differences between Predicate Logic, Propositional Logic, and
+Categorical Logic. Then explain why Predicate Logic is superior to both
+Propositional Logic and Categorical Logic (answer no less than 150 words, no more
+than 500 words).
+SEE SLIDES LECTURE 6
+
+2. Give a definition of Categorical Logic. Describe its role in Aristotle’s system of
+knowledge. What are its elements? Then, describe their function (answer no less
+than 150 words, no more than 500 words)
+SEE SLIDES LECTURE 2
+3.What are the four basic categorical propositions in categorical logic?
+a. A, E, O, I
+b. C,D,E,F
+c. A,E,O,C
+d. D, A, E, W
+4. What is distribution in Categorical Logic (give a definition) and what does get
+distributed in A statements? Explain why (use a Venn Diagram)
+a. subject
+b. predicate
+c. subject and predicate
+d. none of the above
+SEE SLIDES LECTURE 2
+
+NAME:
+
+5. Suppose you know of an argument only that it is valid and has a false conclusion.
+What, if anything, can you tell about its premises?
+At least one of the premises must be false since a valid argument cannot have all
+true premises and a false conclusion
+
+SECTION 2
+LOGIC- EXERCISES (explain your answers, when needed)
+(up to 50 marks, 10 questions for 5 marks each)
+6. Identify the main connective in the following statements (2.5 marks each)
+a. ~[(A ∨ B) ≡ (B ⋅ C)] ⊃ (F ∨ G)
+b. ~[~G ⊃ (B ∨ A)]
+a. The horseshoe
+b. The first tilde.
+7. Symbolize the following, letting R = “It will rain”, U = “The temperature will go
+up”, D = “The temperature goes down”, S = “It will snow” (2.5 marks each)
+a. If it rains, then it snows if and only if the temperature goes down.
+b. If it both rains and snows, then the temperature is neither going up nor going down
+a. R ⊃ (S ≡ D)
+b. (R ⋅ S) ⊃ ~ (U ∨ D)
+
+8. Rephrase the following statement in standard categorical proposition. Individuate
+subject, predicate, copula and quantifier. Then say which term (If any) gets
+distributed
+“I will eat all toppings except anchovies on my pizza’’
+
+9. Rephrase the following statement in predicate logic
+
+All that glitters is not gold
+G(x) = x glitters
+A(x) = x is gold
+
+NAME:
+
+a. ~Ax[G(x) --> A(x)] OR
+b. Ax[G(x) --> ~A(x)]
+This sentence is AMBIGUOUS: it can either mean that not everything that
+glitters is gold (the ``standard'' interpretation of the saying), or that none of
+the things that glitter are gold. These two interpretations correspond to the
+logical representations in (a) and (b), respectively, which differ in the
+relative scope of the universal quantifier and negation.
+10. Determine by truth table analysis if the sentence below is tautological,
+contradictory, or contingent
+~ [(~ p ∨ q) ≡ (~ q ⊃ ~ p)]
+Compute -> Contradictory
+
+11. Determine by truth table analysis if the sentence below is tautological,
+contradictory, or contingent
+(p ⊃ ~ q) ⊃ ~ (q ⊃ ~ p)
+Compute -> Contingent
+
+12. Use a truth table to determine if the following pairs of sentence are logically
+equivalent. If they are not specify in which relation they stand.
+p ⊃ (q ⋅ r); (p ⊃ q) ⋅ (p ⊃ r).
+Compute -> Equivalent
+13. Determine by truth table analysis if the argument below is valid or invalid. And
+where it fails, in case.
+A ⊃ ~ B/ C ⊃ ~ A// ~ C
+Invalid, fails on 5rd and 7th line
+14a. Translate the following statement into propositional logic then compute its
+value (2.5 marks)
+Both Hitler ran the Third Reich and Lindbergh crossed the Atlantic if neither Einstein
+discovered aspirin nor Caesar conquered China. Note: E,C = F; H,L=T
+
+14b. Translate the following statement into propositional logic then compute its
+value (2.5 marks)
+
+NAME:
+
+If Hitler ran the Third Reich, then either Custer was killed by the Indians or Einstein
+discovered aspirin. Note: H, C = T; E=F
+
+15. True or False
+‘A condition A is said to be sufficient for a condition B, if (and only if) the falsity (non
+existence/non-occurrence) [as the case may be] of A guarantees (or brings about) the
+falsity (non-existence/non-occurrence) of B’.
+False: the above is a definition of a necessary condition not of a sufficient one
+
+SECTION 3
+MATCH LOGIC + SET THEORY (4 questions up to 20 marks)
+16. Choose the formula equaling to x ∨ y (4 marks)
+a) x ⊕ y,
+b) x ⊕ y ⊕ xy,
+c) 1 ⊕ x ⊕ xy,
+d) 1 ⊕ x ⊕ y.
+(b)
+
+17. Find P({1,2,3}) \ P({1,2}), where P(A) is the power set of A (5 marks)
+a) {∅,{3}},
+b) {∅,{1},{2},{1,2}},
+c) {{3},{1,3},{2,3},{1,2,3}},
+d) {{1,2},{1,3},{2,3},{1,2,3}}.
+(c)
+18. Let P(x) be the statement “x is even”, R(x,y) be the statement “x + y = 1”.
+If the domain consists of the integers, what are truth values of Φ and Ψ? (5 marks)
+Where Φ = ∀x∀y (R(x,y) → P(x)) and Ψ = ∀x∃y (R(x,y)&P(y))
+a) Φ = true, Ψ = true,
+b) Φ = true, Ψ = false,
+c) Φ = false, Ψ = true,
+d) Φ = false, Ψ = false.
+(d)
+
+NAME:
+
+19. (6 marks) Prove by mathematical induction (must be handwritten) that
+
+

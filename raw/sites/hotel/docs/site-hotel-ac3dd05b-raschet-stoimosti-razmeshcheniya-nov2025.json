@@ -1,0 +1,16 @@
+{
+ "title": "СТОИМОСТЬ ПРОЖИВАНИЯ ДЛЯ СТУДЕНТОВ/СОТРУДНИКОВ (КОРПУСА 5-7)",
+ "url": "https://hotel.innopolis.university/upload/docs-hotel/%D0%A0%D0%B0%D1%81%D1%87%D0%B5%D1%82_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F_%D0%BD%D0%BE%D0%B220251.pdf",
+ "sha256": "7392fe80b2f6fe0e629007d9126f71df715f59c4b63128f0cc11f72bfa8beb61",
+ "method": "text layer (pdfplumber)",
+ "chars": 1631,
+ "section": "site/hotel",
+ "context": "",
+ "fetched_at": "2026-10-24T22:05:53+00:00",
+ "remote": {
+  "etag": "\"2195a-63d45760f57a0\"",
+  "modified": "Tue, 26 Aug 2025 14:26:43 GMT",
+  "size": "137562"
+ },
+ "tables": 3
+}

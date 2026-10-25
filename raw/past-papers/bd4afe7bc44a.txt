@@ -1,0 +1,72 @@
+Mid Term Exam. Variant 2 Innopolis University
+
+Full Name: AG&LATI
+Group #: Spring 2023
+Duration: 120 Minutes 23.03.2023
+
+You need to perform this exam alone and without the use of any equipment, apart from this booklet and
+pens. You can use only 1 sheet of A4 paper with formulas on both sides. Please do not consult any person
+or use any equipment, except for a simple non-programmable calculator. Otherwise, you will be
+disqualified from this exam at the first attempt.
+
+Good Luck!
+
+Grade Table (for teacher use only)
+
+Question 1 2 3 4 5 6 7 Total
+Points 3 6 4 6 6 6 4 35
+Score
+
+1. (3 points) True or False statement.
+
+For matrix A(mxn) with rank(4) < m & rank(4) < n is True | False
+
+C(A") # C(A)
+Dim[C(AT)] # Dim[C(4)]
+Dim C(A") + Dim N(4) = n.
+
+2. Considering the matrix, A and the vector b,
+
+|’1 1 1
+b=E g = 22
+A= b=
+-2 0 1
+02 -1
+
+(a) (4 points) Find the projection of b onto the column space of A.
+(b) (1 points) Split b into p + e, with p in the column space and e orthogonal to that space.
+(c) (1 point) Which of the four fundamental spaces of A contains e.
+
+3. (4 points) LetS, = (x,y,z: x+2y—4z=8}andS, ={x,y,z: x+y+2z=3).
+
+X
+U= [y] — lies at the line of intersection of the planes S, and S. Find 7.
+z
+
+4. Considering the following measurements:
+
+t | -1 0 1 2
+o i =1 1 2
+
+(a) (4 points) Find the best straight-line fit (Least squares) to the measurements,
+(b) (2 point) Find the projection matrix of vector b = [1,~1,1,—2]" onto the column space of matrix A:
+
+1 <oy
+o I
+A= 7}
+5 2
+
+5. (6 points) Find the dimensions of the four fundamental subspaces associated with A4, depending on the
+parameters a and /.
+
+a 6 8 12
+iz 2
+A—lﬂlo
+
+9 4 5 8
+
+6. Find an orthonormal basis for the subspace spanned by the vectors: a5, a, and a3 (4 points).
+Then express A = [a,, a;, a;] in the form of QR (2 points).
+
+7. (4 points) Prove that if the matrix A(n X n) is symmetric the dot product of the vectors x € R™ and Ay is
+the same as the vectors Ax and y € R"

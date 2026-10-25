@@ -1,0 +1,16 @@
+{
+ "title": "Read the article [NIR_2022_gravity-compensator]",
+ "url": "https://innopolis.university/filespublic/NIR_2022_gravity-compensator.pdf",
+ "sha256": "1a3be1ed13d58009fb719ca3ed755797b08fb6d5571a4f56bc8f1d71c6441339",
+ "method": "text layer (pdfplumber)",
+ "chars": 19145,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:45:01+00:00",
+ "remote": {
+  "etag": "\"d65e85-5e724a40aef85\"",
+  "modified": "Fri, 26 Aug 2022 13:10:40 GMT",
+  "size": "14048901"
+ }
+}

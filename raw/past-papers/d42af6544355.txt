@@ -1,0 +1,722 @@
+State
+Time taken
+Grade
+
+Finished
+48 mins 31 secs
+16.94 out of 25.00 (67.75%)
+
+Question 1
+Correct
+Mark 1.00 out of 1.00
+
+What is the output of the following code?
+
+Answer:
+
+14
+
+The correct answer is: 14
+
+Question 2
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following statements about the following code is/are TRUE?
+a. It will give an output of 99
+b. It will give an error
+c. It contains a pointer to a function
+d. It will give an output of 100
+
+The correct answers are:
+It will give an output of 100,
+It contains a pointer to a function
+
+Question 3
+Incorrect
+Mark 0.00 out of 1.00
+
+What will be the output of the following code snippet?
+
+a. 20 1
+b. 20 20
+c. 1 20
+d. 20 2
+
+The correct answer is:
+20 1
+
+Question 4
+Incorrect
+Mark 0.00 out of 1.00
+
+Write the null character.
+
+Answer:
+
+'Null'
+
+The correct answer is: '\0'
+
+Question 5
+Partially correct
+Mark 0.50 out of 1.00
+
+Which of the following statements regarding preprocessor directives in C is/are TRUE?
+a. #ifndef can be used to conditionally include code if a macro is not defined
+b. #elif provides an "else if" condition in preprocessor directives, allowing multiple conditional branches
+c. #undef removes a previously defined macro
+d. #ifdef can be used to conditionally include code based on whether a macro is defined
+e. #if cannot be used to evaluate constant expressions
+f.
+
+Preprocessor directives follow the same syntax rules as C code
+
+The correct answers are:
+#ifndef can be used to conditionally include code if a macro is not defined,
+#elif provides an "else if" condition in preprocessor directives, allowing multiple conditional branches,
+#ifdef can be used to conditionally include code based on whether a macro is defined,
+#undef removes a previously defined macro
+
+Question 6
+Correct
+Mark 1.00 out of 1.00
+
+Which of those statements about enumerations in C is/are TRUE?
+a. Enum variables can hold floating values
+b. Enum members have default integer values
+c. Enum values must be unique
+d. Enumerations store integer constants
+
+The correct answers are:
+Enumerations store integer constants,
+Enum values must be unique,
+Enum members have default integer values
+
+Question 7
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following statements about functions in C is/are TRUE?
+a. All functions are not global
+b. A function declared with the void type does not return any value
+c. The function with the name “main” is the “entry point” of the whole C program
+d. The “return” statement specifies the result of the function
+
+The correct answers are:
+The function with the name “main” is the “entry point” of the whole C program,
+The “return” statement specifies the result of the function,
+A function declared with the void type does not return any value
+
+Question 8
+Incorrect
+Mark 0.00 out of 1.00
+
+What is the output of the given program?
+
+Answer:
+
+5
+
+The correct answer is: -2
+
+Question 9
+Partially correct
+Mark 0.50 out of 1.00
+
+Which of the following statements about the relationship between arrays and pointers in C is/are TRUE?
+a. &Array returns the address of the first element of the array
+b. The sizeof operator on an array returns the size of the array in bytes
+c. The name of an array points to the address of the first element
+d. Array[N] and *(Array + N) are semantically the same
+e. Pointer arithmetic can be used to traverse arrays
+f.
+
+Arrays can be resized dynamically using realloc
+
+The correct answers are:
+The name of an array points to the address of the first element,
+Array[N] and *(Array + N) are semantically the same,
+The sizeof operator on an array returns the size of the array in bytes,
+Pointer arithmetic can be used to traverse arrays
+
+Question 10
+Incorrect
+Mark 0.00 out of 1.00
+
+What will be the output of the following code?
+
+a. 0
+b. An address
+c. 2
+d. 1
+e. Error will be produced
+
+The correct answer is:
+Error will be produced
+
+Question 11
+Correct
+Mark 1.00 out of 1.00
+
+Consider the following enum definition:
+
+Which of the following statements about the previous code is/are TRUE?
+a. ORANGE has a value of 6
+b. RED has a value of 1
+c. BLUE has a value of 4
+d. GREEN has a value of 1
+
+The correct answers are:
+GREEN has a value of 1,
+ORANGE has a value of 6
+
+Question 12
+Partially correct
+Mark 0.50 out of 1.00
+
+Which of the following statements about scope is/are TRUE?
+a. Scope is a rule determining the existence and visibility of variables
+b. All declaration types in a language must follow the same scoping rules
+c. Scope is a language compound construct where variables (and other program entities) are declared
+d. Declared entities are valid only within their scope
+
+The correct answers are:
+Scope is a rule determining the existence and visibility of variables,
+Declared entities are valid only within their scope
+
+Question 13
+Incorrect
+Mark 0.00 out of 1.00
+
+Can a structure be passed as an argument to a function in C?
+a. No
+b. Yes, only by reference
+c. Yes, both by value and by reference
+d. Yes, only by value
+
+The correct answer is:
+Yes, only by reference
+
+Question 14
+Correct
+Mark 1.00 out of 1.00
+
+Assuming that the size of int is 4 bytes and the size of a pointer is 8 bytes in this system, what will be the output of this code?
+
+a. 200
+b. 8
+c. 800
+d. 400
+
+The correct answer is:
+400
+
+Question 15
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following statements about structures in C is/are TRUE?
+a. Unnamed structures can be declared
+b. Structure members are always stored in contiguous memory without padding
+c. Structures can contain functions as members
+d. A structure can contain another structure as a member
+
+The correct answers are:
+A structure can contain another structure as a member,
+Unnamed structures can be declared
+
+Question 16
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following structure declarations in C is/are valid?
+a. struct A, B { int x, y; };
+b. struct A { int x, y; } a, b;
+c. struct A { int x, y; };
+d. struct { int x, y; } a, b;
+e. struct A { int x = 5, y; };
+
+The correct answers are:
+struct A { int x, y; };, struct A { int x, y; } a, b;,
+struct { int x, y; } a, b;
+
+Question 17
+Incorrect
+Mark 0.00 out of 1.00
+
+Which of the following statements is FALSE?
+a. C is a safe language because of pointers
+b. The C core language is completely independent from its standard library
+c. C is not an object-oriented language
+d. C is the typed language
+
+The correct answer is:
+C is a safe language because of pointers
+
+Question 18
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following is/are valid way(s) to access the structure Person age element?
+
+a. person1->age = 25;
+b. person1.age = 25;
+c. person3->age = 25;
+d. person3.age = 25;
+
+The correct answers are:
+person1.age = 25;,
+person3->age = 25;
+
+Question 19
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following is/are common uses of bit-fields in C?
+a. Alternative syntax for unions
+b. Compacting the data
+c. Limiting the memory use
+d. Managing different data types that might not be known until runtime
+
+The correct answers are:
+Compacting the data,
+Limiting the memory use
+
+Question 20
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following statements about the malloc function is/are FALSE?
+a. malloc allocates memory from the stack
+b. The size of memory to be allocated is specified in bytes
+c. Memory allocated with malloc must be freed using free()
+d. The memory allocated by malloc is initialized to zero
+e. The return type of malloc is void*
+f.
+
+If malloc fails to allocate memory, it returns a NULL pointer
+
+The correct answers are:
+malloc allocates memory from the stack,
+The memory allocated by malloc is initialized to zero
+
+Question 21
+Correct
+Mark 1.00 out of 1.00
+
+Consider the following enum definition:
+
+Match the enumerators with their values:
+BLUE
+
+8
+
+WHITE
+
+36
+
+RED
+
+0
+
+ORANGE
+
+34
+
+BLACK
+
+35
+
+GREEN
+
+7
+
+YELLOW
+
+14
+
+The correct answer is:
+BLUE → 8,
+WHITE → 36,
+RED → 0,
+ORANGE → 34,
+BLACK → 35,
+GREEN → 7,
+YELLOW → 14
+
+Question 22
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following statements about unions in C is/are TRUE?
+a. Unions can hold pointer variables
+b. All union members must be of the same data type
+c. The size of the union is always equal to the sum of the sizes of all its members
+d. All members of a union share the same memory location
+
+The correct answers are:
+All members of a union share the same memory location,
+Unions can hold pointer variables
+
+Question 23
+Incorrect
+Mark 0.00 out of 1.00
+
+Which of the following statements about stack frame is/are TRUE?
+a. For each declared variable a new stack frame is created
+b. The stack grows downward
+c. Stack pointer in stack frame indicates the returning value
+d. Stack frame is the program’s address space where the local variables are allocated
+
+The correct answers are:
+Stack frame is the program’s address space where the local variables are allocated,
+The stack grows downward
+
+Question 24
+Incorrect
+Mark 0.00 out of 1.00
+
+Choose C Derived “User-defined” types.
+a. Signed integer types
+b. Pointer types
+c. Floating types
+d. Arrays types
+e. Complex types
+
+The correct answers are:
+Arrays types,
+Pointer types
+
+Question 25
+Correct
+Mark 1.00 out of 1.00
+
+Which of those statements about arrays is/are TRUE?
+a. Arrays are data structures that store a sequential collection of elements
+b. Arrays are data structures that store multiple data types
+c. Arrays are data structures that are fixed in size
+d. Arrays size can change dynamically during runtime
+
+The correct answers are:
+Arrays are data structures that store a sequential collection of elements,
+Arrays are data structures that are fixed in size
+
+Question 26
+Correct
+Mark 1.00 out of 1.00
+
+Which of those statements about strings is/are TRUE?
+a. The null character represents the beginning and the end of the string
+b. It is a one dimensional array
+c. The null character is always inserted automatically
+d. It consists of char values
+
+The correct answers are:
+It is a one dimensional array,
+It consists of char values
+
+Question 27
+Correct
+Mark 1.00 out of 1.00
+
+What is the output of the following code?
+
+a. Compile error
+b. 5, 5
+c. 5, 0
+d. 0, 5
+
+The correct answer is:
+Compile error
+
+Question 28
+Correct
+Mark 1.00 out of 1.00
+
+Match the following preprocessor directives with their correct descriptions:
+#undef
+
+Removes a previously defined macro
+
+#ifdef
+
+Conditionally includes code based on whether a macro is defined
+
+#define
+
+Defines a macro for code substitution
+
+#if
+
+Evaluates a constant expression to conditionally include code
+
+#include
+
+Includes the contents of an external file
+
+The correct answer is:
+#undef → Removes a previously defined macro,
+#ifdef → Conditionally includes code based on whether a macro is defined,
+#define → Defines a macro for code substitution,
+#if → Evaluates a constant expression to conditionally include code,
+#include → Includes the contents of an external file
+
+Question 29
+Correct
+Mark 1.00 out of 1.00
+
+Match the following about variables:
+Local variable
+
+A variable declared inside a function that exists only during the function runtime
+
+External variable
+
+A global variable declared in another translation unit, referenced but not defined in the current file
+
+Static local variable
+
+A variable that is local to the function but persists across function calls
+
+Global variable
+
+A variable declared outside a function and accessible throughout the program
+
+The correct answer is:
+Local variable → A variable declared inside a function that exists only during the function runtime,
+External variable → A global variable declared in another translation unit, referenced but not defined in the current file,
+Static local variable → A variable that is local to the function but persists across function calls,
+Global variable → A variable declared outside a function and accessible throughout the program
+
+Question 30
+Correct
+Mark 1.00 out of 1.00
+
+What is the default value of the first member in an enumeration?
+a. -1
+b. 1
+c. Depends on compiler
+d. 0
+
+The correct answer is:
+0
+
+Question 31
+Incorrect
+Mark 0.00 out of 1.00
+
+Which of the following statements about global variables is/are TRUE?
+a. They are stored in stack storage
+b. They are stored in global storage
+c. They are always constants
+d. They are created once
+
+The correct answers are:
+They are created once,
+They are stored in global storage
+
+Question 32
+Correct
+Mark 1.00 out of 1.00
+
+Match the the following code snippets and their outputs:
+struct W { short b; char s[4]; } w;
+w.b = 5;
+printf("%d", w.b);
+
+5
+
+struct S { int a; long* b; };
+struct S s = {.a = 32, .b = NULL};
+printf("%x", s.a);
+union U { char s[5]; unsigned int x:3; } u;
+u.x = 5;
+printf("%d", u.s[1]);
+struct B { int : 0; unsigned int z : 5; } b;
+b.z = 16;
+printf("%d", b.z);
+enum Metal {GOLD, SILVER, BRONZE};
+enum Metal metal = 6;
+printf("%d\n", metal);
+
+The correct answer is:
+struct W { short b; char s[4]; } w;
+w.b = 5;
+printf("%d", w.b);
+
+→ 5,
+struct S { int a; long* b; };
+struct S s = {.a = 32, .b = NULL};
+printf("%x", s.a);
+
+→ 20,
+union U { char s[5]; unsigned int x:3; } u;
+u.x = 5;
+printf("%d", u.s[1]);
+
+→ Unpredictable value,
+struct B { int : 0; unsigned int z : 5; } b;
+b.z = 16;
+printf("%d", b.z);
+
+→ 16,
+enum Metal {GOLD, SILVER, BRONZE};
+enum Metal metal = 6;
+printf("%d\n", metal);
+
+→6
+
+20
+
+Unpredictable value
+
+16
+
+6
+
+Question 33
+Correct
+Mark 1.00 out of 1.00
+
+What will be the output of the following code snippet?
+
+a. worl
+b. hell worl
+c. hell
+d. hello
+
+The correct answer is:
+hell
+
+Question 34
+Correct
+Mark 1.00 out of 1.00
+
+What is the output of the following code snippet?
+
+Answer:
+
+120
+
+The correct answer is: 120
+
+Question 35
+Incorrect
+Mark 0.00 out of 1.00
+
+Which of the following statements about bit-fields is/are TRUE?
+a. The size of a bit-field is equal to the size of the biggest member type in it
+b. The order of bit-fields can affect their memory layout
+c. Bit-fields can only be declared as int
+d. It is possible to have an unnamed bit-field member
+
+The correct answers are:
+It is possible to have an unnamed bit-field member,
+The order of bit-fields can affect their memory layout
+
+Question 36
+Partially correct
+Mark 0.60 out of 1.00
+
+Match the following I/O format specifier:
+“%s”
+
+String
+
+“%c”
+
+Character
+
+“%f”
+
+Unsigned Integer
+
+“%u”
+
+Float
+
+“%d”
+
+Integer
+
+The correct answer is:
+“%s” → String,
+“%c” → Character,
+“%f” → Float,
+“%u” → Unsigned Integer,
+“%d” → Integer
+
+Question 37
+Correct
+Mark 1.00 out of 1.00
+
+What is the primary advantage of using bit-fields in C?
+a. Memory efficiency
+b. Faster execution
+c. Easier debugging
+d. None of the above
+
+The correct answer is:
+Memory efficiency
+
+Question 38
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following statements about pointer arithmetic in C is/are TRUE?
+a. Adding an integer to a NULL pointer results in a valid memory address
+b. Subtracting two pointers gives the number of elements between them assuming that both pointers point to elements of the same
+array
+c. When you increment a pointer, it moves by the size of the type it points to
+d. You can subtract an integer from a pointer
+
+The correct answers are:
+When you increment a pointer, it moves by the size of the type it points to,
+Subtracting two pointers gives the number of elements between them assuming that both pointers point to elements of the same array,
+You can subtract an integer from a pointer
+
+Question 39
+Incorrect
+Mark 0.00 out of 1.00
+
+What is the correct order of function call stack frames?
+a. LIFO (Last In First Out)
+b. Round Robin
+c. FIFO (First In First Out)
+d. Random order
+
+The correct answer is:
+LIFO (Last In First Out)
+
+Question 40
+Correct
+Mark 1.00 out of 1.00
+
+Match the following terms and descriptions:
+
+Union
+
+Struct
+
+Enum
+Bit-
+
+A type in which all members share the same memory space
+
+Composite data type that groups different types of data under a single name enabling you to create complex data types that model real-world entities
+
+User-defined data type which is used to assign names to integral values
+
+A structure member that occupies a specified number of bits
+
+field
+
+The correct answer is:
+Union → A type in which all members share the same memory space,
+Struct → Composite data type that groups different types of data under a single name enabling you to create complex data types that model
+real-world entities,
+Enum → User-defined data type which is used to assign names to integral values,
+Bit-field → A structure member that occupies a specified number of bits
+
+

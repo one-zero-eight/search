@@ -1,0 +1,16 @@
+{
+ "title": "instrukciya po ustanovke cardledger",
+ "url": "https://innopolis.university/filespublic/instrukciya_po_ustanovke_cardledger.pdf",
+ "sha256": "7932358ded71caa267e1186ba01fa9fba3a7b6e3c6946ed82ea7a780f1a41f81",
+ "method": "text layer (pdfplumber)",
+ "chars": 10092,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:47:23+00:00",
+ "remote": {
+  "etag": "\"4b2b4-5ff42d5aa02b3\"",
+  "modified": "Thu, 29 Jun 2023 11:16:41 GMT",
+  "size": "307892"
+ }
+}

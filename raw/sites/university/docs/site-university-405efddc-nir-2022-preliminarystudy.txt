@@ -1,0 +1,432 @@
+Preliminary study: Exploring GitHub repository
+metrics
+Guzel Safiullina Aidar Gumerov Gcinizwe Dlamini Giancarlo Succi
+Innopolis University Innopolis University Innopolis University Innopolis University
+Innopolis, Russia Innopolis, Russia Innopolis, Russia Innopolis, Russia
+gu.safiullina@innopolis.university a.gumerov@innopolis.university g.dlamini@innopolis.university g.succi@innopolis.ru
+Abstract—GitHubisthelargestplatformforcodestorageand the relationship between the metrics has remained a complex
+development and is currently the source of data on software task and open area of research. Statistical and mathematical
+projects.Itisimportanttounderstandhowrepositoryproperties
+modellingapproacheswhichservesasbasesformostmachine
+affect code quality, project popularity, and find dependencies
+learning approaches for learning complex underlying patterns
+between different repository metrics. In this paper, a qualitative
+and quantitative analysis of more than 700 repositories and 81 of data have been proposed and there is still a room for
+metricswasconducted.Descriptivestatistics,statisticaltests,and improvement[21].Forexampleclusteringofsoftwareprojects
+correlationanalysiswereinvestigated.Ananalysisoftheresulting using selected metrics reveals different insights since the
+descriptive statistics was conducted. The correlation analysis
+metrics changes with time.
+highlightedstronglycorrelatedmetricsandprovidedatheoretical
+This paper contains a qualitative and quantitative study of
+justificationforthedependenciesobtained.Inaddition,clustering
+ofrepositorieswasperformedanddiscussionofobtainedgroups GitHub repository metrics. The main purpose of the paper is
+of repositories is presented. to establish relationship between the metrics of the project,
+Index Terms—GitHub, open-source, clustering, correlation to study the distribution of the data and get possible insights
+analysis, statistics
+from the data. Secondly, our goal is to cluster repositories
+by their scale and purpose. For example, a learning project
+I. INTRODUCTION
+is likely to contain a much smaller number of commits
+Therearenowmanyteamsworkingonopensourcesoftware and participants compared to commercial projects of large
+development. Software projects differ in scale, where one companies. Our approach is mainly based on fundamentals
+person or a large team can work on one project. Projects of statistical methods, correlation analysis and clustering.
+can also be either commercial or social. GitHub is the largest The remainder of this paper is organized as follows. The
+portal where developers of many projects interact. In addition related work is presented in section II. Section III provides
+GitHub serves as a knowledge and code base which for years the methodology which are the methods used in the project.
+has been a source of success for IT companies starting from Section IV presents the results section presents overview of
+start-ups to giant companies [27]. GitHub has tens of millions extracted data, while section V discusses the results. Lastly
+of registered users, and the number of repositories exceeds section VI presents the conclusion and future directions.
+two hundred million [10].
+Harnessing the knowledge GitHub presents is crucial for
+II. RELATEDWORK
+IT businesses for reasons such determining project maintain- The challenge of analysing and extracting knowledge from
+ability, adoption of software development practices used by software project metrics has has existed for a long time and
+successful open source projects [7], [13], [18]. Open source the software engineering research community has proposed
+projects are an effective way to develop software. Therefore, both statistical and machine learning models to address the
+it is important to understand how the metrics that characterize challenge [15], [19]. As GitHub has grown drastically over
+a repository affect the quality of the code, its popularity, and the years, the challenge has escalated and now comes under
+what insights can be gained from this data [4], [31]. the scope of Big data.
+For years researchers have developed and proposed ap- Kalliamvakou et al. [14] in their study conducted a quan-
+proaches for analysing open source projects to formulate titative and qualitative analysis aimed at understanding the
+strategies that propel software projects to success and high characteristicsoftherepositoriesinGitHubandhowuserstake
+quality [35] [31].To assess code quality, a defect density advantage of GitHub’s main features. As a result the authors
+calculationisused,whichcanbepredictedbasedonrepository concluded that the vast majority of repositories are individual
+metricssuchasnumberofauthors,numberofdownloads,and projectsandGithubovertheryearshasbecomeoneofvaluable
+so on [22], [29]. source for knowledge in the domain of sotware development.
+Over the recent years researchers have proposed various Analyzing Github repository statistics is an important tool
+approaches on mining knowledge from GitHub repositories for many different application tasks. One of these tasks is to
+metrics [32], [33]. However understanding the essence and predict the popularity of the project.Borgesetal.[5]proposedanapproachtopredictpopularity
+of repositories. The authors used data on the 5000 most
+popular repositories, cluster it and predict the number of
+project stars in each cluster. With similar objective Ren et
+al. [24] proposed an approach for predicting the popularity of
+repositories using data on the behavior of stargazers. A study
+of the statistics of more than 2,000 repositories mentioned in
+scientific publications has shown that the number of stars and
+forks is distributed according to a power law [9]. However
+github stars are not a sufficient indicator of a software health.
+Another type of task is clustering repositories on the
+GitHub. In this paper, the authors performed a hierarchical
+clustering of GitHub repositories based on keywords [34].
+Also,thestudyofrepositorymetricscanbeusefulinstudying
+trends in a particular area. For example, the authors of this
+article collected information about COVID19 repositories and
+analyzed their characteristics [30]. They have analyzed the
+numberofrepositories,thetime-dependenceofthenumberof
+repositories, the topic, and the characteristics of development.
+In a study conducted by [6], the researchers studied the
+effectof testdriven developmentinGitHub. Theeffect ofthis
+approach on such metrics as commit velocity and number of Fig.1. Ourproposedapproach
+bug-fixing commits was studied. Repository statistics (forks
+and commits) can be used to cluster repositories and identify
+C. Simple statistics
+vulnerable groups [16]. Putting different metrics together and
+gaining insights to improve software development process or Todefinedistributionpropertiesthefollowingstatisticswill
+product still remains an area of research. be calculated: mean, standart deviation, median, mode, 25%-
+In light of the aforementioned proposed approaches, we and 75% quantile [11].
+propose a statistical approach and machine learning based ap-
+D. Distribution test
+proach to analyse GitHub repositories and extract knowledge
+which could be useful in improving the quality of software 1) Normalitytest: TheKolmogorovSmirnovtestisastatis-
+product of development process. ticalnonparametrictestthatisappliedtocontinuousunivariate
+distributions, and which determines whether a given sample
+III. METHODOLOGY belongs to a particular distribution [23]. The Kolmogorov
+Smirnovtestisalsousedtocheckiftwosamplesbelongtothe
+Our proposed approach to analyse GitHub repositories is same distribution. The advantage of this test is that different
+presentedinFig.1.Itcontainsfivemainstages.Thefollowing distribution laws can be chosen as a reference distribution,
+subsections outlines the details about each stage. including normal distribution, Poisson distribution, exponen-
+tial distribution, and others [26]. Test data for normality with
+A. Data extraction and preprocessing Kolmogorov-Smirnovtest:H thedataisnormallydistributed,
+0
+H - data is not normal.
+Dataset includes information about public Github reposito- α
+ries. The data used in this paper is retrieved through GitHub
+E. Confidence interval
+RepositoryStatisticsAPI.Dataframecontains83metrics.The
+Confidenceintervalisarangebywhichyoucanestimatean
+study includes a variety of information about the dataset. A
+unknown value. The confidence interval is calculated at a cer-
+detailed description is provided in the list: commits, contribu-
+tain level of confidence. The most commonly used confidence
+tors, forks, issues, repo, pulls, releases, stars, workflow runs.
+levelis95%,butothervaluescanalsobeused[8].Inresearch,
+AspartofDatapreprocessingweremoveduplicatesandNan-
+confidence intervals allow us to estimate the likely range of
+values.
+values of a parameter for the entire population. Confidence
+intervals, in turn, allow you to estimate the true average value
+B. Exploratory data analysis
+of the general population [12]. Using the bootstrapping tech-
+We will visualize data using dimensionality reduction. nology,wegenerate100datasets(randomlyselectrepositories
+1) Dimensionality reduction: To find the most informative from the initial retrieved data). Let’s define the size such
+features. Principal Component Analysis (PCA) [1] will be samples as 10% of the main population. Now, for each such
+applied. PCA allows to extract most important information sample, we calculate the statistics that were calculated for the
+and this method is useful for data visualization. population. After we calculate 95% confidence interval.F. Correlation analysis repositories left after preprocessing was 732 and number of
+metrics was 81.
+To define linear and non-linear dependencies between fea-
+tures correlational matrices will be calculated [11].
+B. Exploratory Data analysis
+1) Pearson correlation: Pearson correlation to find linear
+dependencies in data [3] We have built histograms for each metric, however, not all
+ofthemareinformative.AlsoweappliedPCAandhavefound
+cov(X,Y)
+r = (1) that 20 features contains 90 % of information. We visualized
+(cid:112)
+Var(X)Var(Y) the data after dimensionality reduction using PCA.
+2) Spearsman correlation: Spearsman Correlation. Data
+C. Calculating simple statistics and confidence intervals
+should be normally distributed . [20]
+Mean, median, mode, minimum, maximum, standart devi-
+cov(R ,R )
+r = X Y (2) ation were calculated. Thus, we determine the quantiles of
+P (cid:112)
+Var(R X )Var(R Y ) t-statistics for the population and so on for 100 samples in
+where is R - is rank of this observation order to simply assess how close these intervals are. Apply
+Xi
+bootstraping to estimate means. Bootstrapping was applied
+G. Clustering
+and mean for each feature was estimated by 25% and 75%
+We can distinct several groups of projects: study projects, quantiles.Forallmetrics,thestandarddeviationismuchlarger
+emptyprojects,large-scalebusinessprojects,etc.Toformalize than the mean. For all metrics median is smaller than mean.
+this we can apply different clustering methods. First and This fact is due to skewness of data to zero. For 66 out of 81
+simplest one is k-means algorithm [17]. metricsmodeisequaltozero,for14ofthemmodeisequalto
+1) K-means algorithm: The k-means algorithm belongs to 1 or 2 and for ”repo age days” mode equals to 482. Our data
+thegroupofunsupervisedlearningalgorithms.Thisalgorithm contain a large number of observations for which the metrics
+allows you to allocate different groups for data that does are close to zero, but several observations are large projects
+not have class labels. The algorithm inputs the number of forwhichthesemetricsaremuchlargerthanzero.Thiscreates
+clusters and then k-means minimizes the function of the sum a situation in which the mean, mode, and median are close to
+ofsquaresofdistancesfromapointtothecenterofthecluster. or equal to 0, and the standard deviation is very large. All of
+The disadvantage of the algorithm is that you need to know this suggests that the data are not normally distributed.
+the number of clusters in advance. Therefore, the number of
+D. Test data for normality
+clusters can be determined using the Elbow method.
+2) DBSCAN: DBSCAN-Density-BasedSpatialClustering AfterapplyingKolmogorov-Smirnovtestwefoundoutthat
+ofApplicationswithNoiseisanotherclusteringalgorithmthat datausnotnormallydistributed,asaresultwecannotassume
+works with unlabeled data [25]. The algorithm is based on that Pearson correlation coefficient does not belong to T-
+clustering based on the criterion of density of located points. distribution.
+This algorithm is effective when working with data that are
+E. Correlational analysis
+homogeneous in density. The principle of the algorithm is
+as follows: the algorithm finds clusters with high density, To find linear relationship Pearson correlation coefficients
+with clusters separated by areas with low density. As a r was first calculated. After we have calculated Spearsman
+result, the formed clusters can take any shape, in contrast correlation matrix. We choose 22 pairs with correlation coef-
+to k-means, where clusters must have a convex shape. The ficient (r ) bigger than threshold (r > 0.8) and explain their
+s
+DBSCAN algorithm also allows the detection of noisy points dependence.
+that do not belong to any cluster [2]. In this case, real data
+sets contain clusters of different density with boundaries of
+differentdegreesoffuzziness.Inconditionswherethedensity
+of some boundaries between clusters is greater than or equal 7
+to the density of some isolated clusters, we have to sacrifice
+6
+something in the efficiency of the algorithm.
+5
+IV. RESULTS
+4
+A. Data extraction and preprocessing
+3
+We have collected data 764 repositories. Duplicates were
+2
+removed. Further, where the missing values occupy less than
+1
+30%, we fill in based on the neighboring values - (take the
+average or zero, for example, sometimes empty commit cells 0
+0 2000 4000 6000 8000 10000120001400016000
+donotmeantheabsenceofinformation,butthefactthatthere
+were no commits). Also we exclude 2 metrics (’commits avg
+per day’) which contains only zero values. Total number of Fig.2. Forkscountvsforksaverageperdayrxy =0.96,rSpearman=0.130% and what is wrong with them, because it is possible that
+outliersarecontainedinthem.Inthefollowinggraph,wehave
+shown a histogram for one pair of highly correlated metrics
+140000
+to see how many samples contain strange data.
+120000
+As far as can be estimated, very few of the ”strange”
+100000
+samples are located near the 0.8 trash hold. In this case,
+80000 many coefficients lying near zero can be considered as an
+60000 anomaly. for such anomalies, we also calculate the statistics
+40000 andcomparethemwiththeircounterpartsfromthepopulation.
+On the graphs, we see that for all such pairs there is
+20000
+one special point - outlier. So you need to check how the
+0
+data behaves without it. We also recalculated the Pearson
+0 25000 50000 75000100000125000150000175000200000
+coefficient without outliers and predicted that it for features
+began to fall for some pairs of metrics by 40-50%. Thus, a
+Fig.3. Commitsaverageversuscontributorstop
+linear dependence is no longer necessary, because only one
+point out of 700 corrects the dependencies so significantly.
+This observation is project is helm/charts1. It is a package
+25000 manager for Kubernetes. This project has more than 17000
+forks and more than 3400 contributors.
+20000 As a result, we also analyzed several pairs of metrics that
+have the highest correlation coefficient. Their list is presented
+15000
+below. Pairs with the highest Spearman correlation coefficient
+(correlation coefficient higher than 0.8):
+10000
+• Commits days since first - Repository days.
+5000 The longer the life of the project, the longer time from
+first commit
+0
+• Commits average per day - Commits maximum per day.
+0 2000 4000 6000 8000 10000120001400016000
+Since the average of a set depends on the maximum
+element of this set linearly, it is obvious that they are
+Fig.4. Releasesaverageversusstarsmaxperday
+strongly correlated
+• Contributors top average commits - Contributors top
+average participation weeks
+Aftercalculatingthevarianceitwasfoundthat40variables
+Also assume a linear dependence - the more contributors
+explain 90% of all information.
+per week, the more commits they will make.
+This is due to the fact that we have 20 metrics highly
+correlatedwitheachotherinthisway-theyarelinearlyrelated • Forks count - Repository network members.
+Whenthecommandisexpanded,thenumberofforksfor
+and can be expressed through each other.
+parallelizing the process increases.
+V. DISCUSSION • Issues total comments - Issues count.
+The more questions, the more commentators to them.
+This section presents the discussion of the obtained results
+based on our proposed approach in section III • Repository workflows - Workflow runs count.
+It is almost same.
+A. Correlational analysis • Repository watchers - Stars count.
+We have found pairs for which Spearsman correlation The more people who follow the project, the more
+coefficient is significantly distinct from Pearson correlation positive feedback (stars) the project will receive.
+coefficient (|r − r| > ε). Let’s look at the dependence of • Pulls total lines added - Pulls total lines removed.
+s
+these data on each other where the difference is very large: As the size of the project grows and the number of lines
+ε>0.4 . When analyzing such data, we saw that at least one of code increases, the possible number of errors and the
+of these two metrics within a pair contains 90% zeros. Then number of deleted lines of code grows accordingly.
+the small Spearman coefficient is explained by a very large • Releases count - Releases tags.
+randomness near zero. The metric data represent practically the same thing and
+To estimate correlational coefficients bootstrapping was therefore have a correlation coefficient of 1.
+applied. First of all, we decided on the size of the samples • Workflow average duration - Workflow average failure
+(20) and their number. After generating these datasets, we duration.
+calculated how many of them fit the null hypothesis and got
+70% of the total. After that we will analyze the remaining 1https://github.com/helm/chartsThe work process includes failure - when the set itself incorrect measurements. All this observations are big open-
+grows uniformly, then the subset of this set also grows sourceprojects.Wecanseethatthislistincludesprojectsfrom
+and vice versa Microsoft and Azure.
+We have calculated statistics again, and for this 58 samples
+B. Clustering
+standard deviation is now comparable with mean. We applied
+1) K-means: Visualization on the two main components is k-means(numberofclusterswasdeterminedbyelbowmethod
+presented on Figure 5. [28]) and DBSCAN clustering on this observations. These
+algorithms have shown the same results. Visualization is
+presented on Figure 7.
+
+30
+20 8
+6
+10
+4
+0 2
+0
+−10
+−2
+
+20 8
+6
+10
+4
+0 2
+0
+−10
+−2
+0 5 10 15 20 25 30 35 −4
+−6
+
+Fig.5. Clustersafterapplyingk-meansalgorithm −6 −4 −2 0 2 4 6 8
+Tofindnumberofclustersweimplementelbowmethodbut
+Fig.7. Clusteringofbigprojects
+figuredoes not show concrete numberof clusters.So wehave
+applied k-means with number of clusters k equals 2. Using 2) Main cluster: We have calculated statistics again for
+the ”elbow method”, after the second point, the slope of the the rest of projects and standard deviation is now smaller
+straight line connecting all points practically does not change. or comparable with mean. We applied k-means clustering.
+Thus it is not entirely clear justified the number of clusters Numberofclustersisdeterminedbyelbowmethodandequals
+equal to two. to 3. Results are presented on Figure 8.
+2) DBSCAN: UsingtheDBSCANalgorithms,wedidclus-
+teringandfoundthatbasicallyallpointsbelongtotwogeneral
+classes and only 6% are outliers. We emphasize that this is a
+
+20
+projectionofdataontotwomainvectorsandinn-dimensional
+15
+space the picture looks different on Figure 6.
+10
+5
+0
+30
+−5
+20 −10
+−15
+
+10
+0 5 10 15 20 25
+0
+Fig.8. Clusteringontherestofprojects
+−10
+VI. CONCLUSION
+0 5 10 15 20 25 30 35
+With the increasing value of knowledge presented by
+GitHub and one of the most important online source of
+Fig.6. ClusterswithDBSCAN
+software artifacts. We present a quantitative and qualitative
+analysis of GitHub repositories based on software project
+C. Outliers and main cluster
+metrics. Firstly, we retrieved software metrics for 732 unique
+1) ’Outliers’: Observation which were determined as out- repositories. For each metric we calculated the main statis-
+liersbyDBSCANarethemostinterestingforus.Wedetected tics: mean, median, mode standard deviation, 25%- and 75%
+58 outliers. It is not correct to call this observations outliers, quantiles. Overall metrics retrieved were 83 in total. Using
+because all metrics are collected correctly and there is no the Kolmogorov-Smirnov test, we found out that the retrievedmetrics data is not normally distributed. Next we performed [18] Nora McDonald and Sean Goggins. Performance and participation in
+a correlation analysis. Based on the nature of the data we opensourcesoftwareongithub.InCHI’13extendedabstractsonhuman
+factorsincomputingsystems,pages139–144.2013.
+used to measure the correlation within the metrics. The in-
+[19] NuthanMunaiah,StevenKroh,CraigCabrey,andMeiyappanNagappan.
+sights from the correlations calculations was discussed in the Curating github for engineered software projects. Empirical Software
+context of software development context. After the test for Engineering,22(6):3219–3253,2017.
+[20] Leann Myers and Maria J Sirois. Spearman correlation coefficients,
+normality and correlation measurements were performed, we
+differencesbetween. Encyclopediaofstatisticalsciences,12,2004.
+clusteredthedatausingtwoclusteringmethods:k-meansand [21] MarcoOrtu,GiuseppeDestefanis,DanielGraziotin,MicheleMarchesi,
+DBSCAN. Two clusters were obtained, one containing most andRobertoTonelli.Howdoyouproposeyourcodechanges?empirical
+analysis of affect metrics of pull requests on github. IEEE Access,
+of the repositories, namely individual projects of one owner,
+8:110897–110907,2020.
+the second cluster contains almost all large projects included [22] Cobra Rahmani and Deepak Khazanchi. A study on defect density of
+in the dataset. The number of clusters was determined using opensourcesoftware. In2010IEEE/ACIS9thInternationalConference
+onComputerandInformationScience,pages679–683,2010.
+the elbow method. For the future we are planning to extend
+[23] Nornadiah Mohd Razali, Yap Bee Wah, et al. Power comparisons of
+our study by increasing the number of projects to analyse and shapiro-wilk,kolmogorov-smirnov,lillieforsandanderson-darlingtests.
+include code metrics to the list of metrics to analyse. Journalofstatisticalmodelingandanalytics,2(1):21–33,2011.
+[24] Leiming Ren, Shimin Shan, Xiujuan Xu, and Yu Liu. Starin: An
+approachtopredictthepopularityofgithubrepository. InInternational
+REFERENCES Conference of Pioneering Computer Scientists, Engineers and Educa-
+tors,pages258–273.Springer,2020.
+[25] Erich Schubert, Jo¨rg Sander, Martin Ester, Hans Peter Kriegel, and
+[1] Herve´AbdiandLynneJWilliams. Principalcomponentanalysis. Wiley
+Xiaowei Xu. Dbscan revisited, revisited: why and how you should
+interdisciplinaryreviews:computationalstatistics,2(4):433–459,2010.
+(still) use dbscan. ACM Transactions on Database Systems (TODS),
+[2] TariqAli,SohailAsghar,andNaseerAhmedSajid. Criticalanalysisof
+42(3):1–21,2017.
+dbscanvariations. In2010internationalconferenceoninformationand
+[26] MichaelAStephens.Edfstatisticsforgoodnessoffitandsomecompar-
+emergingtechnologies,pages1–6.IEEE,2010.
+isons.JournaloftheAmericanstatisticalAssociation,69(347):730–737,
+[3] JacobBenesty,JingdongChen,YitengHuang,andIsraelCohen.Pearson
+1974.
+correlation coefficient. In Noise reduction in speech processing, pages
+[27] Nate Swanner. Big tech controls many major open source projects. is
+1–4.Springer,2009.
+thataproblem?,Aug2019.
+[4] Hudson Borges, Andre Hora, and Marco Tulio Valente. Predicting
+[28] MASyakur,BKKhotimah,EMSRochman,andBDSatoto. Inte-
+the popularity of github repositories. In Proceedings of the The 12th
+grationk-meansclusteringmethodandelbowmethodforidentification
+International Conference on Predictive Models and Data Analytics in
+ofthebestcustomerprofilecluster. IOPConferenceSeries:Materials
+SoftwareEngineering,pages1–10,2016.
+ScienceandEngineering,336:012017,apr2018.
+[5] HudsonBorges,AndreHora,andMarcoTulioValente. Predictingthe [29] DineshVermaandShishirKumar. Predictionofdefectdensityforopen
+popularityofgithubrepositories.PROMISE2016,NewYork,NY,USA, sourcesoftwareusingrepositorymetrics. JournalofWebEngineering,
+2016.AssociationforComputingMachinery. pages293–310,2017.
+[6] Neil C Borle, Meysam Feghhi, Eleni Stroulia, Russell Greiner, and [30] LiuWang,RuiqingLi,JiaxinZhu,GuangdongBai,andHaoyuWang.
+Abram Hindle. Analyzing the effects of test driven development in A large-scale empirical study of covid-19 themed github repositories.
+github. EmpiricalSoftwareEngineering,23(4):1931–1958,2018. In 2021 IEEE 45th Annual Computers, Software, and Applications
+[7] Fragkiskos Chatziasimidis and Ioannis Stamelos. Data collection and Conference(COMPSAC),pages914–923,2021.
+analysisofgithubrepositoriesandusers.In20156thInternationalCon- [31] SimonWeberandJieboLuo. Whatmakesanopensourcecodepopular
+ference on Information, Intelligence, Systems and Applications (IISA), on git hub? In 2014 IEEE International Conference on Data Mining
+pages1–6.IEEE,2015. Workshop,pages851–855,2014.
+[8] FrederikMichelDekking,CornelisKraaikamp,HendrikPaulLopuhaa¨, [32] YunxiangXiong,ZhangyuanMeng,BeijunShen,andWeiYin. Mining
+and Ludolf Erwin Meester. Confidence intervals for the mean, pages developer behavior across github and stackoverflow. In SEKE, pages
+341–360. SpringerLondon,London,2005. 578–583,2017.
+[9] MichaelFa¨rber. AnalyzingtheGitHubRepositoriesofResearchPapers, [33] Yue Yu, Gang Yin, Huaimin Wang, and Tao Wang. Exploring the
+page491–492. AssociationforComputingMachinery,NewYork,NY, patterns of social behavior in github. In Proceedings of the 1st
+USA,2020. internationalworkshoponcrowd-basedsoftwaredevelopmentmethods
+[10] github. Github,2020. andtechnologies,pages31–36,2014.
+[11] S.C.GuptaandV.K.Kapoor. FundamentalsofMathematicalStatistics. [34] Yu Zhang, Frank F. Xu, Sha Li, Yu Meng, Xuan Wang, Qi Li, and
+MathematicalSciences.SultanChand&Sons,2020. Jiawei Han. Higitclass: Keyword-driven hierarchical classification of
+[12] BarbaraIllowskyandSusanDean. Introductorystatistics. 2018. github repositories. In 2019 IEEE International Conference on Data
+[13] Abin Joy, Senthilkumar Thangavelu, and Amalendu Jyotishi. Perfor- Mining(ICDM),pages876–885,2019.
+mance of github open-source software project: An empirical analysis. [35] YangyangZhao,AlexanderSerebrenik,YumingZhou,VladimirFilkov,
+012018. and Bogdan Vasilescu. The impact of continuous integration on other
+[14] Eirini Kalliamvakou, Georgios Gousios, Kelly Blincoe, Leif Singer, software development practices: a large-scale empirical study. In
+Daniel M. German, and Daniela Damian. The promises and perils 201732ndIEEE/ACMInternationalConferenceonAutomatedSoftware
+of mining github. In Proceedings of the 11th Working Conference on Engineering(ASE),pages60–71.IEEE,2017.
+MiningSoftwareRepositories,MSR2014,page92–101,NewYork,NY,
+USA,2014.AssociationforComputingMachinery.
+[15] Eirini Kalliamvakou, Georgios Gousios, Kelly Blincoe, Leif Singer,
+Daniel M German, and Daniela Damian. An in-depth study of the
+promisesandperilsofmininggithub. EmpiricalSoftwareEngineering,
+21(5):2035–2071,2016.
+[16] BenLazarine,SagarSamtani,MarkPatton,HongyiZhu,StevenUllman,
+Benjamin Ampel, and Hsinchun Chen. Identifying vulnerable github
+repositoriesandusersinscientificcyberinfrastructure:Anunsupervised
+graphembeddingapproach. In2020IEEEInternationalConferenceon
+IntelligenceandSecurityInformatics(ISI),pages1–6,2020.
+[17] AristidisLikas,NikosVlassis,andJakobJVerbeek.Theglobalk-means
+clusteringalgorithm. Patternrecognition,36(2):451–461,2003.

@@ -1,0 +1,16 @@
+{
+ "title": "Информация об онлайн оплате",
+ "url": "https://hotel.innopolis.university/upload/docs-hotel/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D1%8F%20%D0%BE%D0%B1%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B5.pdf",
+ "sha256": "9bf70b8482b6214fb6a24352654e5b04f2b54706d0115198fe37c3f64c23e61d",
+ "method": "text layer (pdfplumber)",
+ "chars": 1708,
+ "section": "site/hotel",
+ "context": "",
+ "fetched_at": "2026-10-24T22:03:44+00:00",
+ "remote": {
+  "etag": "\"16c90-5c50630f9cba2\"",
+  "modified": "Fri, 18 Jun 2021 08:34:25 GMT",
+  "size": "93328"
+ },
+ "tables": 3
+}

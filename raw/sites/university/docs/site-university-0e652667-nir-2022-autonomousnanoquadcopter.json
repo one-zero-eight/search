@@ -1,0 +1,16 @@
+{
+ "title": "Read the article [NIR_2022_autonomous-nano-quadcopter]",
+ "url": "https://innopolis.university/filespublic/NIR_2022_autonomous-nano-quadcopter.pdf",
+ "sha256": "41009dc34f9054dc5532062192113bbb217eadb740f4f0fad6c738d2a97c22bd",
+ "method": "text layer (pdfplumber)",
+ "chars": 13278,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:44:37+00:00",
+ "remote": {
+  "etag": "\"bb749-5e724a40a66ce\"",
+  "modified": "Fri, 26 Aug 2022 13:10:40 GMT",
+  "size": "767817"
+ }
+}

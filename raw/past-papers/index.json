@@ -1,0 +1,2728 @@
+{
+ "02bd6de2-2bf9-42c3-9983-a450818b8c67": {
+  "exam": "Test 1",
+  "files": {
+   "7bf1fc0c49ca": {
+    "chars": 3684,
+    "method": "ocr (tesseract eng)",
+    "name": "AGLA 2 Test 1 2023.pdf",
+    "sha256": "478a7b04cae9c75c1817fdd5d4d86ed9360f658a1ca8739b100e2155a3c0252f"
+   }
+  },
+  "subject": "AGLA 2",
+  "year": "2023"
+ },
+ "03af9d6a-8c2d-46fa-b6fc-cdb68843f84f": {
+  "exam": "Midterm",
+  "files": {
+   "aa47fc51fa63": {
+    "chars": 11390,
+    "method": "text layer",
+    "name": "SSAD Midterm 2022.pdf",
+    "sha256": "b12f700d616bdfb85e96e9580b60599e66b41846f65901dca2940d81af65b395"
+   }
+  },
+  "subject": "SSAD",
+  "year": "2022"
+ },
+ "03d22a7a-7da0-4e76-b653-fb8a085abe0b": {
+  "exam": "Final",
+  "files": {
+   "9cf3af5cca59": {
+    "chars": 1567,
+    "method": "text layer",
+    "name": "Logic & Discrete Maths Final 2019.pdf",
+    "sha256": "d6044f055ac42c12384ab3380e103a1c039564fd7f719c12f87acca378d2215f"
+   }
+  },
+  "subject": "Logic & Discrete Maths",
+  "year": "2019"
+ },
+ "04b0a25d-bdf8-424a-83d7-aae9cea94de3": {
+  "exam": "Midterm",
+  "files": {
+   "5ec04bf9ded8": {
+    "chars": 17230,
+    "method": "text layer",
+    "name": "SSAD Midterm 2023.pdf",
+    "sha256": "a48e0cf70417cc077ed4bdc7526515058d8310a0a2a64efb3b25cd018dea3a93"
+   }
+  },
+  "subject": "SSAD",
+  "year": "2023"
+ },
+ "0a12da99-3a85-4eb1-8815-78d3b9d35780": {
+  "exam": "Midterm",
+  "files": {
+   "bc9aaad1f2e5": {
+    "chars": 3007,
+    "method": "text layer",
+    "name": "Mathematical Analysis 1 Midterm 2021.pdf",
+    "sha256": "c620ea66118c00cbcf9f275c0661f8ebee60d47326bff63e20366ea472b8503d"
+   }
+  },
+  "subject": "Mathematical Analysis 1",
+  "year": "2021"
+ },
+ "0b436a42-a26e-4969-8c11-5a322c01dac7": {
+  "exam": "Midterm",
+  "files": {
+   "e0d3478e45f2": {
+    "chars": 5644,
+    "method": "text layer",
+    "name": "Fundamentals of CompArch Midterm 2023.pdf",
+    "sha256": "423ba9271a5f4d2ea0954036d64aa781ab2ce93e9e8b193a528241053153a36a"
+   }
+  },
+  "subject": "Fundamentals of Computer Architecture",
+  "year": "2023"
+ },
+ "0c6f206a-bc3e-4da2-a041-28d7816dc9ac": {
+  "exam": "Midterm",
+  "files": {
+   "01f4492035ee": {
+    "chars": 1689,
+    "method": "text layer",
+    "name": "Logic & Discrete Maths Midterm 2019.pdf",
+    "sha256": "cc836c5353cc99c3503d43976144d4c6a4d4ae768072cedcb9be9d4e19062eda"
+   }
+  },
+  "subject": "Logic & Discrete Maths",
+  "year": "2019"
+ },
+ "0c88d13b-a497-4ff6-ac0b-30c157c6d632": {
+  "exam": "Test 1",
+  "files": {
+   "3368fc8a7be0": {
+    "chars": 2400,
+    "method": "text layer",
+    "name": "AGLA 1 Test 1 2023.pdf",
+    "sha256": "cdb46df119420ea93eb65df875f84f4241c3ad3f65b607472ca257391b90a5fa"
+   }
+  },
+  "subject": "AGLA 1",
+  "year": "2023"
+ },
+ "0dabce51-ffdc-476a-8475-d7a6160348ad": {
+  "exam": "Test 2",
+  "files": {
+   "3d791486146d": {
+    "chars": 727,
+    "method": "ocr (tesseract eng)",
+    "name": "MA 2 Test 2 2023 Variant 1 Solutions.pdf",
+    "sha256": "2514d8920b9545162191fa736e72331fc908ebd826b8697082664429a0e48743"
+   },
+   "7ab404df182c": {
+    "chars": 3429,
+    "method": "ocr (tesseract eng)",
+    "name": "MA 2 Test 2 2023.pdf",
+    "sha256": "992364cf43ee512f1b9744d4a53f7780ed00021d4abac64375373c939e9b18fb"
+   }
+  },
+  "subject": "Mathematical Analysis 2",
+  "year": "2023"
+ },
+ "0dd5ac48-d983-4c7f-b222-0183d576caad": {
+  "exam": "Midterm",
+  "files": {
+   "04b48e4a3b1e": {
+    "chars": 8140,
+    "method": "text layer",
+    "name": "Fundamentals of CompArch Midterm 2022.pdf",
+    "sha256": "596b97f44dc779f73fd3a14c27b7c046de6a1ca708ba9df7ae9594b4b2000701"
+   }
+  },
+  "subject": "Fundamentals of Computer Architecture",
+  "year": "2022"
+ },
+ "10794a90-b288-4008-946b-7e32f1c92446": {
+  "exam": "Midterm",
+  "files": {
+   "184d56c65336": {
+    "chars": 4895,
+    "method": "text layer",
+    "name": "History Midterm 2021.pdf",
+    "sha256": "d927fc1d9ffe897c7e6257be84596db035723d02b37efbb4a293a1051ef5bb78"
+   }
+  },
+  "subject": "History",
+  "year": "2021"
+ },
+ "11c742a1-b94e-4eab-942f-1aa74671d8d0": {
+  "exam": "Test 1",
+  "files": {
+   "d2d549eb11a8": {
+    "chars": 5095,
+    "method": "text layer",
+    "name": "AGLA 1 Test 1 2022.pdf",
+    "sha256": "85e00f4c549b3b76bd210757ec304e84a53527ccf996bd92c2d69269481c2849"
+   }
+  },
+  "subject": "AGLA 1",
+  "year": "2022"
+ },
+ "11f6378c-4f47-49a5-ba3b-de30f91b6a1e": {
+  "exam": "Midterm",
+  "files": {
+   "133df2910b6e": {
+    "chars": 18605,
+    "method": "text layer",
+    "name": "Introduction to Programming Midterm 2023.pdf",
+    "sha256": "b943be1f9c89bd5885deb08f0214638c53a11a9ff5b6379a72edb4d2136cb4db"
+   }
+  },
+  "subject": "Introduction to Programming",
+  "year": "2023"
+ },
+ "120e746c-ceef-8022-ac51-c5aa83af42b8": {
+  "exam": "Midterm",
+  "files": {
+   "d42af6544355": {
+    "chars": 16295,
+    "method": "text layer",
+    "name": "Introduction to Programming Midterm 2024.pdf",
+    "sha256": "33be79e7f39e30c2dd033cddd5800cfbaa0d593b90f575fb43e8499dbf9da430"
+   }
+  },
+  "subject": "Introduction to Programming",
+  "year": "2024"
+ },
+ "120e746c-ceef-80e7-b10d-edec54cd7720": {
+  "exam": "Midterm",
+  "files": {
+   "30311f5b877a": {
+    "chars": 1769,
+    "method": "text layer",
+    "name": "Introduction to AI Midterm 2022.pdf",
+    "sha256": "82f26c9a9a65f86769a06c4f4e44d949bb150214f3818f85a081d7a14bc23fdc"
+   }
+  },
+  "subject": "Introduction to AI",
+  "year": "2022"
+ },
+ "126df7e7-d75b-403a-8247-e22e72be081b": {
+  "exam": "Final",
+  "files": {
+   "0162798b8234": {
+    "chars": 42200,
+    "method": "text layer",
+    "name": "SSAD Final 2024.pdf",
+    "sha256": "6955e3ee5c06a623eb083b2fba950988079be95cc59e6e0e04b5c0d73fec5635"
+   }
+  },
+  "subject": "SSAD",
+  "year": "2024"
+ },
+ "127e746c-ceef-8036-9202-f0f5426c34d8": {
+  "exam": "Midterm",
+  "files": {},
+  "subject": "Differential Equations",
+  "year": "2023"
+ },
+ "127e746c-ceef-8036-b2dd-ca3c8eaecd41": {
+  "exam": "Midterm",
+  "files": {
+   "39f42364efca": {
+    "chars": 15653,
+    "method": "text layer",
+    "name": "Probability & Statistics Midterm 2024.pdf",
+    "sha256": "94c1b2aeee5604cf977a3d93cf6823da655fd8a455dd93fbd4fc2c24afe7db63"
+   }
+  },
+  "subject": "Probability and Statistics",
+  "year": "2024"
+ },
+ "127e746c-ceef-80f7-9b21-d74dd5c1abae": {
+  "exam": "Test 1",
+  "files": {
+   "3351b6ef05cb": {
+    "chars": 13721,
+    "method": "text layer",
+    "name": "Probability & Statistics Test 1 2024.pdf",
+    "sha256": "6c8a4b61df1f55edfa1894b994ca5ab50cd4ab7d534a4697aa6476abda646efb"
+   }
+  },
+  "subject": "Probability and Statistics",
+  "year": "2024"
+ },
+ "14ae746c-ceef-8004-ab24-dac3c01a6bd6": {
+  "exam": "Final",
+  "files": {
+   "5104d2c11735": {
+    "chars": 4159,
+    "method": "text layer",
+    "name": "DSA Final 2020.pdf",
+    "sha256": "1fa395ec4063680c0f527add32f8dca336dcf4207377c69b167d9bc48d869c54"
+   }
+  },
+  "subject": "DSA",
+  "year": "2020"
+ },
+ "14ae746c-ceef-8021-97c6-d2a7d3f702ad": {
+  "exam": "Test 1 Sample",
+  "files": {
+   "c55c259bbf12": {
+    "chars": 2090,
+    "method": "text layer",
+    "name": "Introduction to Optimization Test 1 Sample 2024.pdf",
+    "sha256": "d62e5d144fb8ff7d5a3de94564f7ae67ba7d9771b947499bcedb6bf103de0a00"
+   }
+  },
+  "subject": "Introduction to Optimization",
+  "year": "2024"
+ },
+ "14ae746c-ceef-804b-8e6a-d81910825cc7": {
+  "exam": "Midterm",
+  "files": {
+   "6893dfdfedd8": {
+    "chars": 6722,
+    "method": "text layer",
+    "name": "Fundamentals of CompArch Midterm 2024.pdf",
+    "sha256": "e5701a2258bedf508f0cffd6c6776212448f4378ee11e0de8a695ca1be1bbc6f"
+   }
+  },
+  "subject": "Fundamentals of Computer Architecture",
+  "year": "2024"
+ },
+ "14ae746c-ceef-805d-a55a-ffa0233ab77c": {
+  "exam": "Final",
+  "files": {
+   "6fb7a65021fe": {
+    "chars": 11074,
+    "method": "text layer",
+    "name": "Databases Final 2023.pdf",
+    "sha256": "3f3e4074065b46a66218a080ad840906126a712c66d8c8efcf4756583dc6c5a1"
+   }
+  },
+  "subject": "Databases",
+  "year": "2023"
+ },
+ "14ae746c-ceef-806f-a082-d2b4b6b66c09": {
+  "exam": "Midterm Sample",
+  "files": {
+   "4875f1b583a4": {
+    "chars": 3283,
+    "method": "text layer",
+    "name": "Introduction to Optimization Midterm Sample 2024.pdf",
+    "sha256": "6cf518f08189c5b3f86b5a81bcd721b0aae2aee4edfc7905a7f21777f5d3ac22"
+   }
+  },
+  "subject": "Introduction to Optimization",
+  "year": "2024"
+ },
+ "14ae746c-ceef-8073-801a-de819f8dd583": {
+  "exam": "Pre Final",
+  "files": {},
+  "subject": "Operating Systems",
+  "year": "2020"
+ },
+ "14ae746c-ceef-8089-aec2-c748701d7e03": {
+  "exam": "Final",
+  "files": {},
+  "subject": "Operating Systems",
+  "year": "2019"
+ },
+ "14ae746c-ceef-80a5-b92c-fe317203211c": {
+  "exam": "Test 2",
+  "files": {
+   "546c012fcc9c": {
+    "chars": 17475,
+    "method": "text layer",
+    "name": "Probability & Statistics Test 2 2024.pdf",
+    "sha256": "760df39cbed760871f42246450b27203ad5e910f19ff450023ba92541407714e"
+   }
+  },
+  "subject": "Probability and Statistics",
+  "year": "2024"
+ },
+ "14ae746c-ceef-80ab-b2d8-f6fbe4bc406c": {
+  "exam": "First Oral Poll",
+  "files": {
+   "3551c7c66fe2": {
+    "chars": 6532,
+    "method": "text layer",
+    "name": "MA 1 First Oral Poll 2024.pdf",
+    "sha256": "38ba83680b0693c2f81df1005330e58f4b42bd84f03cebe102962d0b67b745e4"
+   }
+  },
+  "subject": "Mathematical Analysis 1",
+  "year": "2024"
+ },
+ "14ae746c-ceef-80ba-aae8-ea07f1381c9d": {
+  "exam": "Midterm",
+  "files": {
+   "32343b914bee": {
+    "chars": 2219,
+    "method": "ocr (tesseract eng)",
+    "name": "AGLA 1 Midterm 2024.pdf",
+    "sha256": "ca67c740fc8415eda723ea7cb37f775bf08f8196125017c48a312729022d7ade"
+   }
+  },
+  "subject": "AGLA 1",
+  "year": "2024"
+ },
+ "14ae746c-ceef-80d3-a208-fb04b278da57": {
+  "exam": "Test 2 Sample",
+  "files": {
+   "e37ef7eb249d": {
+    "chars": 1251,
+    "method": "text layer",
+    "name": "Introduction to Optimization Test 2 Sample 2024.pdf",
+    "sha256": "958a385273b93afa37188262b04f81fb1cc2259c641dea233f70afe54d201484"
+   }
+  },
+  "subject": "Introduction to Optimization",
+  "year": "2024"
+ },
+ "14be746c-ceef-80e3-9d2e-f6e04bc22432": {
+  "exam": "Test 1",
+  "files": {
+   "4a6e23abcaca": {
+    "chars": 6603,
+    "method": "text layer",
+    "name": "DE Test 1 2023.pdf",
+    "sha256": "b40eb8311abf71ec30f7355303b65b95ab2f5e57924426bed2b8d2b50fb60996"
+   }
+  },
+  "subject": "Differential Equations",
+  "year": "2023"
+ },
+ "14eb9d43-2f60-46c7-82ee-6788ca73f286": {
+  "exam": "Midterm",
+  "files": {
+   "9e4def7fbe07": {
+    "chars": 8495,
+    "method": "text layer",
+    "name": "Networks Midterm 2024.pdf",
+    "sha256": "93ea1a975cf842fd84fc9dcfaf0c321aa848f6873a08c7be07e1a5a44fc5ed13"
+   }
+  },
+  "subject": "Networks",
+  "year": "2024"
+ },
+ "14ee746c-ceef-8036-887e-d923b892a150": {
+  "exam": "Second Oral Poll",
+  "files": {
+   "d40006d70be0": {
+    "chars": 6096,
+    "method": "text layer",
+    "name": "MA 1 Second Oral Poll 2024.pdf",
+    "sha256": "4fe7602d53d1355cf19f341b37093ee0b40311dee764bd4fef0d08805674d1a8"
+   }
+  },
+  "subject": "Mathematical Analysis 1",
+  "year": "2024"
+ },
+ "14ee746c-ceef-8037-88df-d20698d5117c": {
+  "exam": "Final",
+  "files": {
+   "200bdc18e453": {
+    "chars": 1299,
+    "method": "text layer",
+    "name": "Physics 2 Final 2021.pdf",
+    "sha256": "d5beb44dfd260a85442669105240e58361c5a1f8d70ba02c0765cfd66028ff5b"
+   }
+  },
+  "subject": "Physics 2",
+  "year": "2021"
+ },
+ "14ee746c-ceef-8044-bdb7-ecf7012a7b4f": {
+  "exam": "Midterm",
+  "files": {},
+  "subject": "Control Theory",
+  "year": "2019"
+ },
+ "14ee746c-ceef-8046-95eb-d8d56ab08fb8": {
+  "exam": "Final",
+  "files": {},
+  "subject": "History",
+  "year": "2023"
+ },
+ "14ee746c-ceef-8046-a2be-d58d313f052d": {
+  "exam": "Midterm",
+  "files": {
+   "23b54e23c587": {
+    "chars": 3382,
+    "method": "text layer",
+    "name": "Control Theory Midterm 2020.pdf",
+    "sha256": "96cadeabf84f32818bdba518358770f54339c3f1cbc6fd1870935c8caea87609"
+   }
+  },
+  "subject": "Control Theory",
+  "year": "2020"
+ },
+ "14ee746c-ceef-8059-a413-f5b454981f59": {
+  "exam": "Final",
+  "files": {
+   "8bc836ea444f": {
+    "chars": 5493,
+    "method": "text layer",
+    "name": "DNP Final 1 2021.pdf",
+    "sha256": "fa46be5c830e5656c06199e629173e81fca0f16185da2a2b1a19880e3ad8263c"
+   }
+  },
+  "subject": "Distributed and Network Programming",
+  "year": "2021"
+ },
+ "14ee746c-ceef-8062-8c7f-e0ad3d72a61a": {
+  "exam": "Quizzes",
+  "files": {
+   "2ef8102c828d": {
+    "chars": 801,
+    "method": "text layer",
+    "name": "Physics 2 Quiz 1 2021.pdf",
+    "sha256": "adfadb5ee15b950ee5850611299ce18d884ef7c5724175d8d4c82e824b4287b5"
+   },
+   "5c15c7c4a36a": {
+    "chars": 1607,
+    "method": "text layer",
+    "name": "Physics 2 Quiz 3 2021.pdf",
+    "sha256": "a498859536db34eb73187cccb0f1400cfd71f5bdb357d16ee2cd378af800cc48"
+   },
+   "958d22090ab7": {
+    "chars": 1417,
+    "method": "text layer",
+    "name": "Physics 2 Quiz 5 2021.pdf",
+    "sha256": "1475dffdf03c6b1755dc683574dac9cea1ab73f8d24bccde179e5ef540319034"
+   },
+   "a687fa16cbfa": {
+    "chars": 836,
+    "method": "text layer",
+    "name": "Physics 2 Quiz 2 2021.pdf",
+    "sha256": "d229f2fbdc6076dbcfa5c0c5bb13e348785e43413ba7ebfd42816c236e370d06"
+   },
+   "d11e87d10ce1": {
+    "chars": 3300,
+    "method": "text layer",
+    "name": "Physics 2 Quiz 4 2021.pdf",
+    "sha256": "164237dbb495d86f3cd19439f80c033a1fa9bb2087e755bab0b132a1b24d423d"
+   }
+  },
+  "subject": "Physics 2",
+  "year": "2021"
+ },
+ "14ee746c-ceef-8067-be34-dd3355161449": {
+  "exam": "Final",
+  "files": {
+   "e4ef9e0beb8c": {
+    "chars": 2391,
+    "method": "text layer",
+    "name": "SNA Final 2021.pdf",
+    "sha256": "fcf1e7ed74a547f9ddd033f48496aa83f0ff9c0d3dec25aa52472a8a241cfccd"
+   }
+  },
+  "subject": "System and Network Administration",
+  "year": "2021"
+ },
+ "14ee746c-ceef-8077-9d41-d8435c90792c": {
+  "exam": "Midterm",
+  "files": {
+   "4adfe421fd83": {
+    "chars": 9438,
+    "method": "text layer",
+    "name": "Intro to ML Midterm 2021.pdf",
+    "sha256": "72033518f5ce3eff0d53acdaa006dd5c83d3d20d52511025234384103cf849eb"
+   }
+  },
+  "subject": "Introduction to ML",
+  "year": "2021"
+ },
+ "14ee746c-ceef-8083-aa51-d662939d2a88": {
+  "exam": "Final",
+  "files": {},
+  "subject": "Operating Systems",
+  "year": "2018"
+ },
+ "14ee746c-ceef-808c-a505-f39dda5e16a9": {
+  "exam": "Midterm",
+  "files": {
+   "5160410e1d36": {
+    "chars": 1817,
+    "method": "text layer",
+    "name": "Control Theory Midterm 2021.pdf",
+    "sha256": "ff639416e0b22bd73f1105ec359af01ab9b31a911d72a4fb6314d7c9929784a1"
+   }
+  },
+  "subject": "Control Theory",
+  "year": "2021"
+ },
+ "14ee746c-ceef-809f-b1a5-eb5e118f84ea": {
+  "exam": "Final",
+  "files": {},
+  "subject": "Physics 1",
+  "year": "2020"
+ },
+ "14ee746c-ceef-80a8-9dbe-e982bad8a306": {
+  "exam": "Midterm",
+  "files": {
+   "91df6f81e47d": {
+    "chars": 2906,
+    "method": "text layer",
+    "name": "SNA Midterm 2021.pdf",
+    "sha256": "d8d5154a5a9a6c32322a474eb3edccb05814a752b6898a9f9c7e1bf23f3b4de8"
+   }
+  },
+  "subject": "System and Network Administration",
+  "year": "2021"
+ },
+ "14ee746c-ceef-80ba-95f5-cd62f94d52a2": {
+  "exam": "Final",
+  "files": {
+   "42ae094065af": {
+    "chars": 4361,
+    "method": "text layer",
+    "name": "Control Theory Final 2020.pdf",
+    "sha256": "01c0c3e5ad5ddbdba1f262403f73421ab138bf4da42474b18ec327665da6fbe0"
+   }
+  },
+  "subject": "Control Theory",
+  "year": "2020"
+ },
+ "14ee746c-ceef-80c5-9f1b-e7b10e9208c0": {
+  "exam": "Final",
+  "files": {
+   "347dbbd62920": {
+    "chars": 15897,
+    "method": "text layer",
+    "name": "Networks Final 2021.pdf",
+    "sha256": "d6f19c3add0a1c2270606c83d86bdb8009703232606da4b879ec7417a4439508"
+   }
+  },
+  "subject": "Networks",
+  "year": "2021"
+ },
+ "14ee746c-ceef-80c8-b646-cd5d4948021d": {
+  "exam": "Final",
+  "files": {},
+  "subject": "Databases",
+  "year": "2021"
+ },
+ "14ee746c-ceef-80c9-9467-e99ad24bb419": {
+  "exam": "Midterm",
+  "files": {
+   "b349ca087949": {
+    "chars": 4762,
+    "method": "text layer",
+    "name": "Databases Midterm 2021.pdf",
+    "sha256": "afef2f3962663335e046e11164a1a2f8e6f6d96c67ec81f6f51f04479ec325eb"
+   }
+  },
+  "subject": "Databases",
+  "year": "2021"
+ },
+ "14ee746c-ceef-80da-83d3-fd8c25eb6414": {
+  "exam": "Final",
+  "files": {
+   "ab1d5dabd195": {
+    "chars": 2060,
+    "method": "text layer",
+    "name": "Control Theory Final 2021.pdf",
+    "sha256": "0809ea71f1a28dc7b18c5225bd45ab593a219df50433b00c661a8d3ea467dc17"
+   }
+  },
+  "subject": "Control Theory",
+  "year": "2021"
+ },
+ "14fe746c-ceef-803f-9e61-daa9e3adacf3": {
+  "exam": "Quizzes",
+  "files": {},
+  "subject": "Physics 1",
+  "year": "2022"
+ },
+ "14fe746c-ceef-8055-ac47-d263700b9304": {
+  "exam": "Quizzes",
+  "files": {
+   "0637fba6ece8": {
+    "chars": 5076,
+    "method": "text layer",
+    "name": "Physics 1 Quiz 2 2020.pdf",
+    "sha256": "1cd009a5206376139e49ea3b6b44623831eff99a1b523f758564024c8d6e31ff"
+   },
+   "5f42b183013a": {
+    "chars": 4518,
+    "method": "text layer",
+    "name": "Physics 1 Quiz 4 2020.pdf",
+    "sha256": "a54b215c5d1c44d16f05136eb4a8bf1b97fb5914071c8355b8e64d89926b5280"
+   },
+   "b5c58bf78d41": {
+    "chars": 5510,
+    "method": "text layer",
+    "name": "Physics 1 Quiz 5 2020.pdf",
+    "sha256": "5fe5888074ee9a7804b71a4e55c5728919287dcc2ffbf700249ec3a2b31d2f37"
+   },
+   "da683a5cea61": {
+    "chars": 4889,
+    "method": "text layer",
+    "name": "Physics 1 Quiz 1 2020.pdf",
+    "sha256": "a01c1c5e92c737c7ed9851bf177f5a63bb08bd3db44737c5a532736ddfa2c968"
+   },
+   "ec9dca1f0ea5": {
+    "chars": 4699,
+    "method": "text layer",
+    "name": "Physics 1 Quiz 3 2020.pdf",
+    "sha256": "42fdafc3a30f06691832f9fd71c223c55a6fe9719f1f3f2599abf08318067d72"
+   }
+  },
+  "subject": "Physics 1",
+  "year": "2020"
+ },
+ "14fe746c-ceef-805e-8032-da9dd6931711": {
+  "exam": "Quizzes",
+  "files": {},
+  "subject": "Physics 1",
+  "year": "2023"
+ },
+ "14fe746c-ceef-805e-933b-f1d90577a679": {
+  "exam": "Midterm",
+  "files": {
+   "272f316ed2cf": {
+    "chars": 1272,
+    "method": "text layer",
+    "name": "DE Midterm 2024.pdf",
+    "sha256": "fb96caac3d917d3bfa6eec086a4f8b27bd17ba6ffd33dce0182765ef70ae237c"
+   }
+  },
+  "subject": "Differential Equations",
+  "year": "2024"
+ },
+ "14fe746c-ceef-80e1-ab57-c4cba8cee0bd": {
+  "exam": "Quizzes",
+  "files": {},
+  "subject": "Physics 1",
+  "year": "2024"
+ },
+ "150e746c-ceef-8070-a203-c9770a2917a4": {
+  "exam": "Final Oral Poll",
+  "files": {
+   "a9c971c95da4": {
+    "chars": 5249,
+    "method": "text layer",
+    "name": "MA 1 Final Oral Poll 2024.pdf",
+    "sha256": "22254f8615ff3682e7784d608e7169f41c878d859eecd31682156b70bcc3675e"
+   }
+  },
+  "subject": "Mathematical Analysis 1",
+  "year": "2024"
+ },
+ "150e746c-ceef-80d0-a8d4-f2b334bf444f": {
+  "exam": "Test 2",
+  "files": {
+   "f75753f8bf35": {
+    "chars": 1858,
+    "method": "text layer",
+    "name": "AGLA 1 Test 2 2024.pdf",
+    "sha256": "0d33b6c0c7af2466e01cbc0c657e72e2c680fbd2b4a9832585922e60df6a6f9b"
+   }
+  },
+  "subject": "AGLA 1",
+  "year": "2024"
+ },
+ "152e746c-ceef-8057-8082-e9801647b188": {
+  "exam": "Final",
+  "files": {
+   "a009de8a648b": {
+    "chars": 3814,
+    "method": "text layer",
+    "name": "Introduction to AI Final 2024.pdf",
+    "sha256": "244a1c5549aed1ecc8397d8c3702dd82dd1bf2418d6e3ae524be39bc41169483"
+   }
+  },
+  "subject": "Introduction to AI",
+  "year": "2024"
+ },
+ "156e746c-ceef-8083-9132-ef51109a29cd": {
+  "exam": "Pre Final",
+  "files": {
+   "c77d9b6a2449": {
+    "chars": 5124,
+    "method": "text layer",
+    "name": "Fundamentals of CompArch Pre Final 2024.pdf",
+    "sha256": "f9c5dc8421fb6e8eacb07e5923873ad7c92db1c1c2a7a59381043d0a1252c44b"
+   }
+  },
+  "subject": "Fundamentals of Computer Architecture",
+  "year": "2024"
+ },
+ "15ae746c-ceef-8010-8762-e11cc104572a": {
+  "exam": "Final",
+  "files": {
+   "5caa60e0249c": {
+    "chars": 6953,
+    "method": "text layer",
+    "name": "AGLA 1 Final 2024.pdf",
+    "sha256": "db331a310da0f18deeab72411c0724e1be70c4423d13d1347694a1c53f4b062f"
+   }
+  },
+  "subject": "AGLA 1",
+  "year": "2024"
+ },
+ "15ae746c-ceef-803e-8f1e-f8b0a5774128": {
+  "exam": "Final",
+  "files": {
+   "eda442457350": {
+    "chars": 18576,
+    "method": "text layer",
+    "name": "Probability & Statistics Final 2024.pdf",
+    "sha256": "39ca0ad8ce175af2ad496c9afa48f0184c4a8b11e19eee289c3bf6d94ec73c01"
+   }
+  },
+  "subject": "Probability and Statistics",
+  "year": "2024"
+ },
+ "15ae746c-ceef-8058-a85a-eec5c54cfa84": {
+  "exam": "Final",
+  "files": {
+   "9ee504754ce0": {
+    "chars": 6644,
+    "method": "text layer",
+    "name": "Fundamentals of CompArch Final 2024.pdf",
+    "sha256": "c1b3832bc60a2cea4382f6faf0f610373fc9a047b24c8cadf18790630db9dd67"
+   }
+  },
+  "subject": "Fundamentals of Computer Architecture",
+  "year": "2024"
+ },
+ "15ae746c-ceef-807f-b92d-f6a73aed896b": {
+  "exam": "Test 1",
+  "files": {
+   "e9dd10150c35": {
+    "chars": 546,
+    "method": "text layer",
+    "name": "DE Test 1 2024.pdf",
+    "sha256": "addab92d179db102102369031c03341a4120a2dd156126248ec9da43fed30f02"
+   }
+  },
+  "subject": "Differential Equations",
+  "year": "2024"
+ },
+ "15b51809-7ec6-4506-a498-667e8c16596f": {
+  "exam": "Final",
+  "files": {
+   "e090ffc131ae": {
+    "chars": 731,
+    "method": "ocr (tesseract eng)",
+    "name": "AGLA 2 Final 2020.pdf",
+    "sha256": "d43310b529b06bbfebe870bc7961c8a7e403f8da5a62f9040f375b2da10746ee"
+   }
+  },
+  "subject": "AGLA 2",
+  "year": "2020"
+ },
+ "15ce746c-ceef-80cf-bab7-e72690004655": {
+  "exam": "Final",
+  "files": {
+   "0c7f1515f163": {
+    "chars": 1248,
+    "method": "text layer",
+    "name": "DE Final 2024.pdf",
+    "sha256": "410d70143a22be3a62dc285b3f5de256d42e43aab9ce02c4a2e995f684e91837"
+   }
+  },
+  "subject": "Differential Equations",
+  "year": "2024"
+ },
+ "15ee746c-ceef-804d-89f0-dd64082c697f": {
+  "exam": "Final",
+  "files": {},
+  "subject": "Physics 1",
+  "year": "2023"
+ },
+ "15fe746c-ceef-803b-ab32-c34ad67adce2": {
+  "exam": "Final",
+  "files": {},
+  "subject": "Physics 1",
+  "year": "2024"
+ },
+ "15fe746c-ceef-8074-8064-c8efe17cb86d": {
+  "exam": "Final",
+  "files": {
+   "6d8af3376060": {
+    "chars": 3479,
+    "method": "text layer",
+    "name": "DE Final 2023.pdf",
+    "sha256": "646a7f597a6a90ee4833a090014e5c60397907da7d36b81b70e3083f83666227"
+   }
+  },
+  "subject": "Differential Equations",
+  "year": "2023"
+ },
+ "16636d99-e6ce-4fa0-9085-4e154f36ea56": {
+  "exam": "Pre Final",
+  "files": {
+   "019bb7d1788c": {
+    "chars": 4799,
+    "method": "text layer",
+    "name": "Fundamentals of CompArch Pre Final 2022.pdf",
+    "sha256": "9ee1941a33d6e6a8cbead0ff603c009afcf5b578f2ca4bd106f8a68ef7d660ea"
+   }
+  },
+  "subject": "Fundamentals of Computer Architecture",
+  "year": "2022"
+ },
+ "16de746c-ceef-804d-b9f2-c9311456aa07": {
+  "exam": "Test 2",
+  "files": {
+   "9ae74b38ae0d": {
+    "chars": 1209,
+    "method": "text layer",
+    "name": "DE Test 2 2024.pdf",
+    "sha256": "4bb6ee95e53c1e32253e0f351316a944df2037daa227671c0996814d919188d1"
+   }
+  },
+  "subject": "Differential Equations",
+  "year": "2024"
+ },
+ "171f3d82-626d-4638-aef8-ff854935a891": {
+  "exam": "Midterm",
+  "files": {
+   "bd4afe7bc44a": {
+    "chars": 1953,
+    "method": "ocr (tesseract eng)",
+    "name": "AGLA 2 Midterm 2023.pdf",
+    "sha256": "c5df5520dd325c38b2abf7eaebefdd4aa13d8c86cbe772a2a99e096380bde329"
+   }
+  },
+  "subject": "AGLA 2",
+  "year": "2023"
+ },
+ "17fc40f2-721d-4572-a4bc-3762acb26fc3": {
+  "exam": "Midterm",
+  "files": {
+   "7b37974694d3": {
+    "chars": 1827,
+    "method": "text layer",
+    "name": "TCS Midterm 2021 (paper part).pdf",
+    "sha256": "607c89431240cc1a694cdd10f036b7c60a7d3ebc8760c41b0114d2ac45a5ca3c"
+   },
+   "e5b371d0f96a": {
+    "chars": 1865,
+    "method": "ocr (tesseract eng)",
+    "name": "TCS Midterm 2021 (moodle part).pdf",
+    "sha256": "34b7c138364fb545f330cecd9650c22c837d8f76ffd8b956b180d831c61185cf"
+   }
+  },
+  "subject": "Theoretical Computer Science",
+  "year": "2021"
+ },
+ "19acb3b1-14b1-46de-86ae-8e165750a767": {
+  "exam": "Final",
+  "files": {
+   "e09b83b0fa5f": {
+    "chars": 2696,
+    "method": "text layer",
+    "name": "Fundamentals of CompArch Final 2019.pdf",
+    "sha256": "62cb89f390d646e68ae3b860427502af4e8bda4151a59e27ba08a0305c9908f8"
+   }
+  },
+  "subject": "Fundamentals of Computer Architecture",
+  "year": "2019"
+ },
+ "1a8e746c-ceef-80b5-a140-d18182886322": {
+  "exam": "Test 1",
+  "files": {
+   "ad29fa9abc88": {
+    "chars": 4538,
+    "method": "text layer",
+    "name": "MA 2 Test 1 2025.pdf",
+    "sha256": "239037f8978f1266f6aa52c3fa028e74511f4481527a55da98c3c9c6ab9c9de6"
+   }
+  },
+  "subject": "Mathematical Analysis 2",
+  "year": "2025"
+ },
+ "1ade746c-ceef-80a2-b3cc-fcfb88e82f95": {
+  "exam": "Midterm",
+  "files": {
+   "fb707d0de2b8": {
+    "chars": 7986,
+    "method": "text layer",
+    "name": "Databases Midterm 2025.pdf",
+    "sha256": "55652cf55f0d23b36fd0b053630c921e83c2027f6185134d525e3c4ac45833d5"
+   }
+  },
+  "subject": "Databases",
+  "year": "2025"
+ },
+ "1b4e746c-ceef-8010-8224-e94a847c9738": {
+  "exam": "First Oral Poll",
+  "files": {
+   "58c836281f51": {
+    "chars": 6421,
+    "method": "text layer",
+    "name": "MA 2 First Oral Poll.pdf",
+    "sha256": "4d177675cbbe14e8ff9d0fc53a5851bf98715aadf44297acb8d6a970517a5920"
+   }
+  },
+  "subject": "Mathematical Analysis 2",
+  "year": "2025"
+ },
+ "1b4e746c-ceef-805b-b0fb-eba3fd61ccb1": {
+  "exam": "Midterm",
+  "files": {
+   "0753a5ef71f6": {
+    "chars": 56618,
+    "method": "text layer",
+    "name": "Intro to ML Midterm 2025.pdf",
+    "sha256": "eb535ef184bdfd2f92f2ef8ef7ae87c3da802edbda1d6e66af84a36a13efce10"
+   }
+  },
+  "subject": "Introduction to ML",
+  "year": "2025"
+ },
+ "1b4e746c-ceef-8065-8dcb-dfef275daa96": {
+  "exam": "Final",
+  "files": {
+   "816cd0effefd": {
+    "name": "NIC.Final.Task.ipynb",
+    "skipped": "not a PDF"
+   },
+   "ee5ecd2e0bac": {
+    "chars": 8578,
+    "method": "text layer",
+    "name": "NIC Final 2024.pdf",
+    "sha256": "f342aec26b89073f6e4781f6e1c45fd078085947599ffbe4e94d215631fd9251"
+   }
+  },
+  "subject": "Nature Inspired Computing",
+  "year": "2024"
+ },
+ "1b4e746c-ceef-80eb-83da-d8a4bd29ab10": {
+  "exam": "Midterm",
+  "files": {
+   "d768a631fb05": {
+    "name": "NIC.Midterm.Task.ipynb",
+    "skipped": "not a PDF"
+   },
+   "fc9e0dc8b788": {
+    "chars": 8776,
+    "method": "text layer",
+    "name": "NIC Midterm 2024.pdf",
+    "sha256": "dd49af3656793cafc74d7ac15ebfd2d1e6535f959fcdd82c6fc4024f2d85ac7d"
+   }
+  },
+  "subject": "Nature Inspired Computing",
+  "year": "2024"
+ },
+ "1b4e746c-ceef-80fc-a9ce-cf443f20d2af": {
+  "exam": "Midterm",
+  "files": {
+   "de53f333665a": {
+    "chars": 11594,
+    "method": "text layer",
+    "name": "SSAD Midterm 2025.pdf",
+    "sha256": "7bc131a763f6919c5ca907dbede33af58f35f3b465284c5c2c0f150a02227a86"
+   }
+  },
+  "subject": "SSAD",
+  "year": "2025"
+ },
+ "1b9e746c-ceef-80f8-8763-e49913fc3c3b": {
+  "exam": "Midterm",
+  "files": {
+   "dfb69c356497": {
+    "chars": 5438,
+    "method": "ocr (tesseract eng)",
+    "name": "DSA Midterm 2025.pdf",
+    "sha256": "041eed16310ebc32b2f41994021133a893aa71f9c1b1047de47638eb54d637aa"
+   }
+  },
+  "subject": "DSA",
+  "year": "2025"
+ },
+ "1bde746c-ceef-8054-8909-ce405cc84d39": {
+  "exam": "Midterm",
+  "files": {
+   "72ec2bf785b4": {
+    "chars": 3962,
+    "method": "text layer",
+    "name": "Networks Midterm 2025.pdf",
+    "sha256": "f336377e94299c659ebe266f802baa2cce8de3621054b7fa1330afeeedc90aa5"
+   }
+  },
+  "subject": "Networks",
+  "year": "2025"
+ },
+ "1c7e746c-ceef-80c9-a77b-f04d7b8bc5b5": {
+  "exam": "Midterm",
+  "files": {
+   "c79083ceeccb": {
+    "chars": 11104,
+    "method": "text layer",
+    "name": "SNA Midterm 2025.pdf",
+    "sha256": "81c3b60e96441eaf5e26422900de361df27a25419d3c5515d0559764b815da61"
+   }
+  },
+  "subject": "System and Network Administration",
+  "year": "2025"
+ },
+ "1ca1f241-592d-48bc-952b-297853d0f524": {
+  "exam": "Midterm",
+  "files": {
+   "433370afdaa7": {
+    "chars": 3589,
+    "method": "text layer",
+    "name": "AGLA 1 Midterm 2023.pdf",
+    "sha256": "e169ebc70f5a44c05ac783463b53398584a05aa2feec0e171de01e3735c9ee79"
+   }
+  },
+  "subject": "AGLA 1",
+  "year": "2023"
+ },
+ "1d1a2574-63be-4260-a980-cd280fc3bb77": {
+  "exam": "Final",
+  "files": {
+   "0c00a47a0efc": {
+    "chars": 22900,
+    "method": "text layer",
+    "name": "SSAD Final 2023.pdf",
+    "sha256": "886cebbf620593f0c6ea77baeae2d6d6b95dd0c97b9ec0612c0d210f5df95d88"
+   }
+  },
+  "subject": "SSAD",
+  "year": "2023"
+ },
+ "1dfe746c-ceef-800a-b3f4-c1e3811a8bd8": {
+  "exam": "Final",
+  "files": {},
+  "subject": "Introduction to Optimization",
+  "year": "2024"
+ },
+ "1dfe746c-ceef-8076-840e-f7679d80d7f9": {
+  "exam": "Midterm",
+  "files": {
+   "5a106b15b646": {
+    "chars": 827,
+    "method": "text layer",
+    "name": "MA 2 Midterm 2025.pdf",
+    "sha256": "24b187ba026e4e29f6c48728cea3498e2f63ab0b9ba6d0ff0296b42947bed77a"
+   }
+  },
+  "subject": "Mathematical Analysis 2",
+  "year": "2025"
+ },
+ "1e0e746c-ceef-808e-b1c2-e4b3b023ad6a": {
+  "exam": "Test 2",
+  "files": {
+   "a90f2f34244c": {
+    "chars": 3259,
+    "method": "ocr (tesseract eng)",
+    "name": "AGLA 2 Test 2 2025.pdf",
+    "sha256": "2b139843837e72e15e83d5d673998586ffa65ef3acac235931c179ea6116c50d"
+   }
+  },
+  "subject": "AGLA 2",
+  "year": "2025"
+ },
+ "1e2e746c-ceef-80f9-ada2-dafe7edfaab4": {
+  "exam": "Pre Final",
+  "files": {
+   "6e9d3243506e": {
+    "chars": 6282,
+    "method": "text layer",
+    "name": "Networks Pre Final 2025.pdf",
+    "sha256": "a7d2265f2775a34b29bbf7d86b48bdadccf735ff00879a620e555b5e522af3c3"
+   }
+  },
+  "subject": "Networks",
+  "year": "2025"
+ },
+ "1e3e746c-ceef-801a-93cc-ef99cc95a7f7": {
+  "exam": "Bonus Assignment",
+  "files": {
+   "43d271eb41e6": {
+    "chars": 4136,
+    "method": "text layer",
+    "name": "Intro to ML Bonus Assignment 2025.pdf",
+    "sha256": "4dd218f967a40d4fb517ff923cf3e11d195b5e94a3f8946f0b9c7e8606834a23"
+   }
+  },
+  "subject": "Introduction to ML",
+  "year": "2025"
+ },
+ "1ebe746c-ceef-80dc-86a8-c52800ffe7a0": {
+  "exam": "Final",
+  "files": {
+   "902c1b5c8940": {
+    "chars": 7926,
+    "method": "text layer",
+    "name": "DNP Final Answers 2025.pdf",
+    "sha256": "9ad0b93ede11d34cf792c3a051fb2a251f6566d3c9df7256571a434e2b991b5f"
+   },
+   "9e45e311a492": {
+    "chars": 3488,
+    "method": "text layer",
+    "name": "DNP Final 2025.pdf",
+    "sha256": "e5a954f2cff32c4c4aab86ef4d969d977ec166b14a2962361e6ba2739ca5f5e9"
+   }
+  },
+  "subject": "Distributed and Network Programming",
+  "year": "2025"
+ },
+ "1efe746c-ceef-80c9-bd44-dd56ab4b52d0": {
+  "exam": "Final",
+  "files": {
+   "287d19d67440": {
+    "chars": 5329,
+    "method": "text layer",
+    "name": "Networks Final 2025.pdf",
+    "sha256": "73d3e8524b9a71bf32b1226f2831c6113741ba89500854c8d00b6f58424bbf9c"
+   }
+  },
+  "subject": "Networks",
+  "year": "2025"
+ },
+ "1f5e746c-ceef-8036-ac4f-db756ac7664f": {
+  "exam": "Final Sample",
+  "files": {
+   "270c97519cfe": {
+    "chars": 1767,
+    "method": "text layer",
+    "name": "DSA Final Sample 2025.pdf",
+    "sha256": "be0f54d59bc555c4e56d851b89f191c9594e67a7b5db6a4d35e036718be4a3f9"
+   }
+  },
+  "subject": "DSA",
+  "year": "2025"
+ },
+ "25ffc626-bc88-4efa-987f-7d670fd696e9": {
+  "exam": "Pre Final",
+  "files": {
+   "550de7e6aba8": {
+    "chars": 8946,
+    "method": "text layer",
+    "name": "Networks Pre Final 2024.pdf",
+    "sha256": "75594e9925bb0ad1833255dfd13296fccb21594049c775b3a92769df6a41872c"
+   }
+  },
+  "subject": "Networks",
+  "year": "2024"
+ },
+ "286e746c-ceef-8094-8522-e0051301ce9a": {
+  "exam": "Midterm",
+  "files": {
+   "0e4856e05d36": {
+    "chars": 3197,
+    "method": "text layer",
+    "name": "Software Architecture Midterm 2025.pdf",
+    "sha256": "be055655d7727d6853c9975dc62782e8046368194837e365eef1c41f92cbfd45"
+   }
+  },
+  "subject": "Software Architecture",
+  "year": "2025"
+ },
+ "28de746c-ceef-803f-9a4e-d80e66e46399": {
+  "exam": "Midterm",
+  "files": {},
+  "subject": "Information Retrieval",
+  "year": "2025"
+ },
+ "2a5ff269-8f81-4777-ae2c-569d1c915e34": {
+  "exam": "Final",
+  "files": {
+   "2cf96fb1f709": {
+    "chars": 2375,
+    "method": "ocr (tesseract eng)",
+    "name": "AGLA 1 Final 2023.pdf",
+    "sha256": "d0bf4d1a30e57c6cd77d453797fd51f4be762cff9fc497d0fc6ebb8538ed370b"
+   }
+  },
+  "subject": "AGLA 1",
+  "year": "2023"
+ },
+ "2bac7c08-e05d-406d-83a8-2d4a67328418": {
+  "exam": "Test 2",
+  "files": {
+   "79e5305708cf": {
+    "chars": 3142,
+    "method": "text layer",
+    "name": "AGLA 1 Test 2 2021.pdf",
+    "sha256": "39c2e2d6004af506cd51d5d5a3bab0c86b83481243ec8f79c9c1e4a3a60e5a9e"
+   }
+  },
+  "subject": "AGLA 1",
+  "year": "2021"
+ },
+ "2f6e746c-ceef-809e-94d4-eb10542bf799": {
+  "exam": "Retake",
+  "files": {
+   "16d38c77951b": {
+    "chars": 3442,
+    "method": "text layer",
+    "name": "ProbStat Retake 2026.pdf",
+    "sha256": "b8a54bf532b975acc784d1a8c4ca593087d3210716ca068374b08ade0b71e757"
+   }
+  },
+  "subject": "Probability and Statistics",
+  "year": "2026"
+ },
+ "315be0fa-8681-45c3-858d-cf4e0f2465f2": {
+  "exam": "Final",
+  "files": {
+   "d0fa2391723e": {
+    "chars": 8420,
+    "method": "text layer",
+    "name": "Networks Final 2024.pdf",
+    "sha256": "1a0f71c253bd2ff0f7bd837d978772c96d0252d829a62b154f962070de7c0732"
+   }
+  },
+  "subject": "Networks",
+  "year": "2024"
+ },
+ "3210dc3c-6077-43b6-b12e-945e9c25c07c": {
+  "exam": "Final",
+  "files": {
+   "90fe904d4da7": {
+    "chars": 6213,
+    "method": "text layer",
+    "name": "Logic & Discrete Maths Final 2023.pdf",
+    "sha256": "a8e3c6e40db42c18e9599e3b6781af873db7bfce1e8bbbf9c86a93d7086778c0"
+   }
+  },
+  "subject": "Logic & Discrete Maths",
+  "year": "2023"
+ },
+ "322c8472-dee6-4f60-8e9d-94e1871cde82": {
+  "exam": "Midterm",
+  "files": {
+   "4968f8e6f2cc": {
+    "chars": 4253,
+    "method": "ocr (tesseract eng)",
+    "name": "MA 2 Midterm 2023.pdf",
+    "sha256": "4a0f14250c6ec82ac9015b689f6ae7fad9a51494d722b8b4484012c35b6765cb"
+   }
+  },
+  "subject": "Mathematical Analysis 2",
+  "year": "2023"
+ },
+ "327716de-c849-472d-af0b-a8dc93beae50": {
+  "exam": "Midterm",
+  "files": {
+   "71095fc1b6ff": {
+    "name": "Introduction to Programming Midterm 2022.pdf",
+    "skipped": "a scan too long for OCR"
+   }
+  },
+  "subject": "Introduction to Programming",
+  "year": "2022"
+ },
+ "34c9078e-7a8e-4714-817b-0a5461fddf72": {
+  "exam": "Test 2",
+  "files": {
+   "77e502995947": {
+    "chars": 1845,
+    "method": "text layer",
+    "name": "AGLA 1 Test 2 2020.pdf",
+    "sha256": "27a82128cec50906db1917724de3ad00b233bbc7289fdea27ca32e550803678e"
+   }
+  },
+  "subject": "AGLA 1",
+  "year": "2020"
+ },
+ "3505d9f7-f349-4b18-a727-14553ec7a029": {
+  "exam": "Final",
+  "files": {
+   "d5e9eefd5598": {
+    "chars": 4918,
+    "method": "text layer",
+    "name": "AGLA 1 Final 2020.pdf",
+    "sha256": "8f00e808402fa949b34e63e8936a2eb0b08fef4cfb3d452b1fbbf823239109b2"
+   }
+  },
+  "subject": "AGLA 1",
+  "year": "2020"
+ },
+ "356e746c-ceef-8029-b023-c93cee0d29d3": {
+  "exam": "Midterm",
+  "files": {
+   "2fd21459adbc": {
+    "chars": 7737,
+    "method": "text layer",
+    "name": "DSA Midterm 2026.pdf",
+    "sha256": "f9f5338067c1731ca8d055a87a1a5ee470157695a84a04b6f6675f60728a3d73"
+   }
+  },
+  "subject": "DSA",
+  "year": "2026"
+ },
+ "356e746c-ceef-8047-a68a-ea345d658845": {
+  "exam": "Midterm",
+  "files": {
+   "1ab8c9285d16": {
+    "chars": 5462,
+    "method": "text layer",
+    "name": "Fundamentals of CompArch Midterm 2025.pdf",
+    "sha256": "f6af1acb271217656c929aa11831974cdb8b2509563f30c8458cec97bb9ba93a"
+   }
+  },
+  "subject": "Fundamentals of Computer Architecture",
+  "year": "2025"
+ },
+ "356e746c-ceef-805b-a157-c68e27b5c32a": {
+  "exam": "Final",
+  "files": {
+   "1cb7d1c955c2": {
+    "chars": 7621,
+    "method": "text layer",
+    "name": "Fundamentals of CompArch Final 2025.pdf",
+    "sha256": "ef4af0ccf6c329074d4f4fae961dc0b981bda68d37ac0ed51f88167afe9268b3"
+   }
+  },
+  "subject": "Fundamentals of Computer Architecture",
+  "year": "2025"
+ },
+ "356e746c-ceef-807d-9644-df23f9b1f396": {
+  "exam": "Test 1",
+  "files": {
+   "da81e5a1e015": {
+    "chars": 825,
+    "method": "text layer",
+    "name": "AGLA 2 Test 1 2026.pdf",
+    "sha256": "645ecc3e8d489ff5e57d33f46b5e5e0ff6be3aac3f5fa05bd0cb84854218e563"
+   }
+  },
+  "subject": "AGLA 2",
+  "year": "2026"
+ },
+ "356e746c-ceef-807f-b43c-f501dee9335d": {
+  "exam": "Midterm",
+  "files": {
+   "0d6b9f2a75f6": {
+    "chars": 896,
+    "method": "text layer",
+    "name": "AGLA 2 Midterm 2026.pdf",
+    "sha256": "bc0a12eb4adb1341f2cb1d5cb4a99673b91bbe681dcccf91fdb82865ec9ae960"
+   }
+  },
+  "subject": "AGLA 2",
+  "year": "2026"
+ },
+ "356e746c-ceef-80b1-80cc-e894c6269b71": {
+  "exam": "Midterm Sample",
+  "files": {
+   "924e6777d6b3": {
+    "chars": 9300,
+    "method": "text layer",
+    "name": "DSA Midterm Sample 2026.pdf",
+    "sha256": "8d14e4587478ee0f4af5b600661431832b469c86a1f9b40e0b69da69481aeb46"
+   }
+  },
+  "subject": "DSA",
+  "year": "2026"
+ },
+ "356e746c-ceef-80e2-8811-e95dd686427f": {
+  "exam": "Test 2",
+  "files": {
+   "91eede78b02f": {
+    "chars": 3239,
+    "method": "text layer",
+    "name": "AGLA 2 Test 2 2026.pdf",
+    "sha256": "0bb234cbc357b7a9a70115193d436124f2a6e00bb00f16ea5368dcdc1c365073"
+   }
+  },
+  "subject": "AGLA 2",
+  "year": "2026"
+ },
+ "356e746c-ceef-80fe-918b-c7cf073c5e63": {
+  "exam": "Pre Final",
+  "files": {
+   "47d76ce83d60": {
+    "chars": 5819,
+    "method": "text layer",
+    "name": "Fundamentals of CompArch Pre Final 2025.pdf",
+    "sha256": "28b58911467701566a17236d25546337c98b2c4beffcfa2e6fcd2cf4f2473b04"
+   }
+  },
+  "subject": "Fundamentals of Computer Architecture",
+  "year": "2025"
+ },
+ "3624a5c3-70b7-4ba4-867d-0ab99a69bd34": {
+  "exam": "Retake 2",
+  "files": {
+   "aff6bbfd4f75": {
+    "chars": 6935,
+    "method": "text layer",
+    "name": "OS Retake 2 2017.pdf",
+    "sha256": "1adb68ff1688661df2dc0c159a3ad34a590d538e7999b9d36dd7321a394c7276"
+   }
+  },
+  "subject": "Operating Systems",
+  "year": "2017"
+ },
+ "37088389-c223-499d-8c23-20e376d17ca2": {
+  "exam": "Final",
+  "files": {
+   "8f0d146e3aee": {
+    "chars": 4864,
+    "method": "ocr (tesseract eng)",
+    "name": "AGLA 1 Final 2022.pdf",
+    "sha256": "26f0f60f1b97185156f42b633a9eab8cd281108d2d9c7e3c67b56cb59b08d6b6"
+   }
+  },
+  "subject": "AGLA 1",
+  "year": "2022"
+ },
+ "3e85c90d-e3fa-4eb1-a84e-43708055a3ee": {
+  "exam": "Final",
+  "files": {},
+  "subject": "Mathematical Analysis 2",
+  "year": "2023"
+ },
+ "3eb05425-5d63-4dad-b529-9e83ef1ce615": {
+  "exam": "Test 1",
+  "files": {},
+  "subject": "Probability and Statistics",
+  "year": "2023"
+ },
+ "3fee746c-ceef-8023-a0a0-c871785e7919": {
+  "exam": "Midterm Sample",
+  "files": {
+   "b36dc57ec8c5": {
+    "chars": 3185,
+    "method": "text layer",
+    "name": "Introduction to Optimization Midterm Sample 2025.pdf",
+    "sha256": "95c9b638bdf84878783e3ad2f82246d62f7c0c843c3c5c061f87fcaeb2a52759"
+   }
+  },
+  "subject": "Introduction to Optimization",
+  "year": "2025"
+ },
+ "3fee746c-ceef-8037-b813-d09ff506d9e0": {
+  "exam": "Midterm",
+  "files": {
+   "fe9832432c4c": {
+    "chars": 4361,
+    "method": "text layer",
+    "name": "Software Architecture Midterm 2026.pdf",
+    "sha256": "1752129865dac6c42b13ff527e6b2e0a0ae70dde54c13dc05503ce8f8b06630c"
+   }
+  },
+  "subject": "Software Architecture",
+  "year": "2026"
+ },
+ "3fee746c-ceef-8073-b95f-d6a47614a10d": {
+  "exam": "Final Sample",
+  "files": {
+   "adc6afa4676c": {
+    "chars": 16886,
+    "method": "text layer",
+    "name": "DSA Final Sample 2026.pdf",
+    "sha256": "b38d0d8bda9ce73946acc8e8329040ffd9d7991ea59b3cad932bda04cfaf6c08"
+   }
+  },
+  "subject": "DSA",
+  "year": "2026"
+ },
+ "3fee746c-ceef-8076-9ca7-d88595970600": {
+  "exam": "Test 2 Sample",
+  "files": {
+   "4f56e525d23e": {
+    "chars": 1530,
+    "method": "text layer",
+    "name": "Introduction to Optimization Test 2 Sample 2025.pdf",
+    "sha256": "bd2d84177a572806c569ad5736ccdf30bfd4c3a4bac8f6cea4265f3cf9096403"
+   }
+  },
+  "subject": "Introduction to Optimization",
+  "year": "2025"
+ },
+ "3fee746c-ceef-809f-94c0-fdfbeb678b06": {
+  "exam": "Quizzes",
+  "files": {
+   "225934416525": {
+    "chars": 18076,
+    "method": "text layer",
+    "name": "Physics 1 Quiz 1 2026.pdf",
+    "sha256": "bf909ef20f1d6506b743178b80e417d0c7c2fe2dd5d645bcb6464a14eaa4d861"
+   }
+  },
+  "subject": "Physics 1",
+  "year": "2026"
+ },
+ "3fee746c-ceef-80a5-8c25-ffe6e4f23b6e": {
+  "exam": "Test 1 Sample",
+  "files": {
+   "c5bf05fb430f": {
+    "chars": 2090,
+    "method": "text layer",
+    "name": "Introduction to Optimization Test 1 Sample 2025.pdf",
+    "sha256": "7ed5a7019e363f67e4f576daffa165fc537151a8cc0fb7fcea2353f5baa97e97"
+   }
+  },
+  "subject": "Introduction to Optimization",
+  "year": "2025"
+ },
+ "3fee746c-ceef-80ef-9df7-f38159e81a96": {
+  "exam": "Test 1",
+  "files": {
+   "661fda035a32": {
+    "chars": 1311,
+    "method": "text layer",
+    "name": "ProbStat Test 1 2026.pdf",
+    "sha256": "f524bb049ac9af516b64d4161d4d769372c9711e36c871da63f2575b637342eb"
+   }
+  },
+  "subject": "Probability and Statistics",
+  "year": "2026"
+ },
+ "47399c7e-a84b-4370-a26c-d7f7debe1446": {
+  "exam": "Test 1",
+  "files": {
+   "bfd146751a8f": {
+    "chars": 1858,
+    "method": "ocr (tesseract eng)",
+    "name": "AGLA 1 Test 1 2021.pdf",
+    "sha256": "5a078ac213b8da96bd5cb91258435ab11b18cc4fd9e60bda5d793b26fcec50e8"
+   }
+  },
+  "subject": "AGLA 1",
+  "year": "2021"
+ },
+ "48f3a29c-6eca-4749-b4ac-cc8f51620e2d": {
+  "exam": "Pre Final",
+  "files": {
+   "e03977548d4f": {
+    "chars": 10896,
+    "method": "text layer",
+    "name": "TCS Pre Final 2024.pdf",
+    "sha256": "136c6c28a1a4a05e5c57f658dc154a53ebb8696fcda47ddb89f359aad9cf925b"
+   }
+  },
+  "subject": "Theoretical Computer Science",
+  "year": "2024"
+ },
+ "49edad8c-da74-45bb-8a3b-ce888f01f509": {
+  "exam": "Test 2",
+  "files": {
+   "1abdea73c811": {
+    "chars": 1167,
+    "method": "ocr (tesseract eng)",
+    "name": "AGLA 2 Test 2 2023 Var 1 Solutions.pdf",
+    "sha256": "c243d76e27cb67e2a7dcf36790d580ce4921a9eb5832ff33eff1a4383c2c2257"
+   },
+   "dbcff82a11f2": {
+    "chars": 1971,
+    "method": "ocr (tesseract eng)",
+    "name": "AGLA 2 Test 2 2023.pdf",
+    "sha256": "373abc2c7ee138f80147ca87fa36f43b20673a11bc09057086be1bf2d61a5412"
+   }
+  },
+  "subject": "AGLA 2",
+  "year": "2023"
+ },
+ "4bca0ac5-d38c-4ffb-b576-b942e9ac6c9b": {
+  "exam": "Final",
+  "files": {
+   "4cae41bd3868": {
+    "chars": 6828,
+    "method": "text layer",
+    "name": "Fundamentals of CompArch Final 2023.pdf",
+    "sha256": "885ee05f5693930699af0174e24a8bfea27fd43d8d234ff90d2e0fef8a465130"
+   }
+  },
+  "subject": "Fundamentals of Computer Architecture",
+  "year": "2023"
+ },
+ "4c201f5f-6684-4244-8b7f-bf11bddce4af": {
+  "exam": "Test 2",
+  "files": {
+   "716c1bd61385": {
+    "chars": 702,
+    "method": "text layer",
+    "name": "AGLA 1 Test 2 2019.pdf",
+    "sha256": "4da430f58cedee1e702092413166b5c14d877767155494c79756248922daf145"
+   }
+  },
+  "subject": "AGLA 1",
+  "year": "2019"
+ },
+ "4cb85390-d225-4ee8-ad13-f468284bb154": {
+  "exam": "Final",
+  "files": {
+   "4d7e42504c4d": {
+    "chars": 3434,
+    "method": "text layer",
+    "name": "DSA Final 2021.pdf",
+    "sha256": "c8271ee51a3aca3d3dd101abbcf70cffa43b10053738a43af6b8b90ab6427b1e"
+   }
+  },
+  "subject": "DSA",
+  "year": "2021"
+ },
+ "4d30f008-8b80-4504-acce-0e2e774c107c": {
+  "exam": "Final",
+  "files": {
+   "1b646943aaa4": {
+    "chars": 2279,
+    "method": "text layer",
+    "name": "AGLA 1 Final 2019.pdf",
+    "sha256": "db11340dc9d4bd3e00ab4158a0646521810e1744db9d89ebaf0f9a7fff945c01"
+   }
+  },
+  "subject": "AGLA 1",
+  "year": "2019"
+ },
+ "4f9a432a-5323-4361-8dae-97f1f0a841fc": {
+  "exam": "Midterm",
+  "files": {
+   "0b64ae6a5c3c": {
+    "chars": 5910,
+    "method": "text layer",
+    "name": "AGLA1 Midterm 2020.pdf",
+    "sha256": "38d0a110154937f720079d144763435eb77c8d6448a6aae07d6c8830f3bdae25"
+   }
+  },
+  "subject": "AGLA 1",
+  "year": "2020"
+ },
+ "526e18cb-fd88-442b-bc38-e30b892854d4": {
+  "exam": "Oral Poll 2",
+  "files": {
+   "49853a30e399": {
+    "chars": 5392,
+    "method": "text layer",
+    "name": "SecondTestForOralPoll.pdf",
+    "sha256": "d2d97e9556287d53eea6581e6b40541eca29a36ad464cb1ac2337bb70979e1a0"
+   }
+  },
+  "subject": "Mathematical Analysis 1",
+  "year": "2023"
+ },
+ "52b3bcff-d1a1-4972-9b71-ce9e572154da": {
+  "exam": "Midterm",
+  "files": {
+   "4c4edf079131": {
+    "chars": 5150,
+    "method": "text layer",
+    "name": "Logic & Discrete Maths Midterm 2022.pdf",
+    "sha256": "26ec59c9dfc6215c888e978dd853fc803b45cd0f56fee7a463c233e96e6f41f5"
+   }
+  },
+  "subject": "Logic & Discrete Maths",
+  "year": "2022"
+ },
+ "52daec4b-91e5-43da-8e85-30982dc5e690": {
+  "exam": "Midterm",
+  "files": {
+   "4a39bacea271": {
+    "chars": 4848,
+    "method": "text layer",
+    "name": "Networks Midterm 2023.pdf",
+    "sha256": "6b72886b2d98e30baafa5ce38dd513152c46058938179c4fe80cf6950b058a5e"
+   }
+  },
+  "subject": "Networks",
+  "year": "2023"
+ },
+ "540d5c91-a3e0-47a1-9b33-33ba4ddefbd0": {
+  "exam": "Pre Final",
+  "files": {
+   "763e61e822f3": {
+    "chars": 11104,
+    "method": "text layer",
+    "name": "Fundamentals of CompArch Pre Final 2020.pdf",
+    "sha256": "28ee035b24330be9424b2f41eb0e997f6240cb6bcf357cebe14c117f2237f3f6"
+   }
+  },
+  "subject": "Fundamentals of Computer Architecture",
+  "year": "2020"
+ },
+ "556bdcf8-7cf5-4305-8acd-8bc52f85997c": {
+  "exam": "Retake 1",
+  "files": {
+   "85e8cf342cf1": {
+    "chars": 5165,
+    "method": "text layer",
+    "name": "OS Retake 1 2016.pdf",
+    "sha256": "2c973c1caa58d01ad60d3f7d68ac07826ea746fbf586503fd852017570f9dc3e"
+   }
+  },
+  "subject": "Operating Systems",
+  "year": "2016"
+ },
+ "5aca1fa3-b5c6-45c5-90f6-122ea1abfbff": {
+  "exam": "Midterm",
+  "files": {
+   "57980d1892c0": {
+    "chars": 1319,
+    "method": "text layer",
+    "name": "AGLA 1 Midterm 2019.pdf",
+    "sha256": "51a4101766b8a8690303ca6a038015b24ea4169c66601869bd2fb93ce7a3b4bf"
+   }
+  },
+  "subject": "AGLA 1",
+  "year": "2019"
+ },
+ "5e4fe4cd-4dfe-4343-9d64-70c9c3aecf15": {
+  "exam": "Pre Final",
+  "files": {
+   "fe165d73be88": {
+    "chars": 5595,
+    "method": "text layer",
+    "name": "Fundamentals of CompArch Pre Final 2023.pdf",
+    "sha256": "4bda698a66d36dd0883c1299a49c98fe47bebfa009ee21d8864c59e9a041ac2e"
+   }
+  },
+  "subject": "Fundamentals of Computer Architecture",
+  "year": "2023"
+ },
+ "5e7dd8e9-21af-45b8-a314-d3bd22d09873": {
+  "exam": "Final",
+  "files": {
+   "2ed9d835f295": {
+    "chars": 1633,
+    "method": "ocr (tesseract eng)",
+    "name": "AGLA 2 Final 2023.pdf",
+    "sha256": "0e17c9ce5bdef6789f8373f2d89c8c3427515d170cf6528015b441b8f0bbb3e5"
+   }
+  },
+  "subject": "AGLA 2",
+  "year": "2023"
+ },
+ "62662d9f-d364-43d3-9ea8-4dd9cc1024ac": {
+  "exam": "Final",
+  "files": {
+   "93e6e2f19289": {
+    "chars": 2218,
+    "method": "text layer",
+    "name": "AGLA 2 Final 2021.pdf",
+    "sha256": "0bbc74f791fd504fcd2df9455b9ec19e692860562f5d7c9784f0dd843c20fb2a"
+   }
+  },
+  "subject": "AGLA 2",
+  "year": "2021"
+ },
+ "62b18546-227d-4da6-883d-8f33e21c0e70": {
+  "exam": "Final",
+  "files": {
+   "d414f44a5998": {
+    "chars": 10085,
+    "method": "text layer",
+    "name": "History Final 2021.pdf",
+    "sha256": "367bde25f55d960242e0f7cb6bf943dd53636186221978ed3de905d1d8fc79a7"
+   }
+  },
+  "subject": "History",
+  "year": "2021"
+ },
+ "64769074-1aea-431e-8973-048fb1718579": {
+  "exam": "Oral Poll 3",
+  "files": {
+   "08f0db1cb5f7": {
+    "chars": 5355,
+    "method": "text layer",
+    "name": "ThirdTestForOralPoll.pdf",
+    "sha256": "fc502f4fea3e9d702dfe4f48e896a84b17a2d6357a4e3c178ae0cf3b26974335"
+   }
+  },
+  "subject": "Mathematical Analysis 1",
+  "year": "2023"
+ },
+ "667a8dee-7d4d-4cb5-866e-a1341b151cd4": {
+  "exam": "Midterm",
+  "files": {
+   "ad9e6990660b": {
+    "chars": 5213,
+    "method": "text layer",
+    "name": "Networks Midterm 2021.pdf",
+    "sha256": "4c103eb92120615cd8bb2c041af229f53e60ac5498f306a440538b0740bf7f88"
+   }
+  },
+  "subject": "Networks",
+  "year": "2021"
+ },
+ "6a39cac9-6f3b-4a48-996d-dafc14a1cf30": {
+  "exam": "Test 2",
+  "files": {
+   "5d800f381597": {
+    "chars": 1558,
+    "method": "ocr (tesseract eng)",
+    "name": "AGLA 1 Test 2 2022.pdf",
+    "sha256": "52212fe142502a76ef953a734d9eb8769dafa5dacac953b5c7109774e5e82e47"
+   }
+  },
+  "subject": "AGLA 1",
+  "year": "2022"
+ },
+ "6acfc730-4c26-43de-9cc1-674d1a1877a9": {
+  "exam": "Final",
+  "files": {
+   "501f115f1f43": {
+    "chars": 7220,
+    "method": "text layer",
+    "name": "Probability & Statistics Final 2019.pdf",
+    "sha256": "683d7f77dafe51a317dd85055967f89b7cfeba606ee3d41c459def047d25fcb6"
+   }
+  },
+  "subject": "Probability and Statistics",
+  "year": "2019"
+ },
+ "6b27a87d-eae2-42c3-82b4-f70243d39266": {
+  "exam": "Final",
+  "files": {
+   "734d08d12b97": {
+    "chars": 6095,
+    "method": "text layer",
+    "name": "Probability & Statistics Final 2020.pdf",
+    "sha256": "8ff9cb5db02970c76771896165949341eb996a385183363913efcde24f126197"
+   }
+  },
+  "subject": "Probability and Statistics",
+  "year": "2020"
+ },
+ "6c69ae38-09c2-42c4-8c20-c942efcaaeb3": {
+  "exam": "Midterm",
+  "files": {
+   "a8673c57accd": {
+    "chars": 2750,
+    "method": "text layer",
+    "name": "AGLA 1 Midterm 2022.pdf",
+    "sha256": "f6e633760c1b80053328c3bc275ef2ac5181b8be274e4c961ff2f5ff2b1e0a3d"
+   }
+  },
+  "subject": "AGLA 1",
+  "year": "2022"
+ },
+ "6d3cc4c1-9bb8-4fc9-8657-68bad47d8a52": {
+  "exam": "Midterm",
+  "files": {
+   "840c89498386": {
+    "chars": 3575,
+    "method": "text layer",
+    "name": "AGLA 2 Midterm 2020.pdf",
+    "sha256": "5482016db92816c7202de10d8bd3c3b202be2cbeb14ed646bc0ed6d1130a620b"
+   }
+  },
+  "subject": "AGLA 2",
+  "year": "2020"
+ },
+ "6e1453ec-8e6b-4f69-a2ae-d351d85e4983": {
+  "exam": "Final",
+  "files": {
+   "d1c1e0f2f4ad": {
+    "chars": 6433,
+    "method": "text layer",
+    "name": "AGLA 1 Final 2021.pdf",
+    "sha256": "06ffd408f9b6388a72efa9e629a82a5e9de5b489578985f8ad03c8d65b26dcf3"
+   }
+  },
+  "subject": "AGLA 1",
+  "year": "2021"
+ },
+ "6fcb4a88-6d24-4f60-9f98-99876b8f5d5f": {
+  "exam": "Midterm",
+  "files": {
+   "b196c937b05b": {
+    "chars": 1637,
+    "method": "ocr (tesseract eng)",
+    "name": "Fundamentals of CompArch Midterm 2020.pdf",
+    "sha256": "14e85497193717f9d678c6cf642edfe74b1a442db224ae452e6e5844e8475747"
+   }
+  },
+  "subject": "Fundamentals of Computer Architecture",
+  "year": "2020"
+ },
+ "6fe8693e-5432-46c1-bd83-95bfd713d70a": {
+  "exam": "Final",
+  "files": {
+   "a8e1b40efa00": {
+    "chars": 4212,
+    "method": "text layer",
+    "name": "Differential Equations Final 2020.pdf",
+    "sha256": "e794ae5a35a03b079b5a53be3c8cc1bbed9c5a745b22349b241d0c3d1d9d523a"
+   }
+  },
+  "subject": "Differential Equations",
+  "year": "2020"
+ },
+ "712f970e-2c69-4bd3-8412-745381ad8be4": {
+  "exam": "Oral Poll 4",
+  "files": {
+   "a9a1a8110cff": {
+    "chars": 5008,
+    "method": "text layer",
+    "name": "FourthTestForOralPoll.pdf",
+    "sha256": "57893fc1a1a2fb101daa6105474e6274b12aa6e5a5188ac8f21abc394e18ba09"
+   }
+  },
+  "subject": "Mathematical Analysis 1",
+  "year": "2023"
+ },
+ "724acbf0-d79c-496e-a215-5fb5cb24001a": {
+  "exam": "Midterm",
+  "files": {
+   "ef42465481a8": {
+    "chars": 10840,
+    "method": "text layer",
+    "name": "Introduction to Programming Midterm 2019.pdf",
+    "sha256": "d8ab0e1e106a289dc77628eb8fa78c6405fbba35cbe1cd13858aac96668c0e19"
+   }
+  },
+  "subject": "Introduction to Programming",
+  "year": "2019"
+ },
+ "79b67108-559d-489c-8cfe-0a0e4a41e34b": {
+  "exam": "Midterm",
+  "files": {
+   "da09b44d1d38": {
+    "chars": 982,
+    "method": "ocr (tesseract eng)",
+    "name": "Mathematical Analysis 1 Midterm 2020.pdf.pdf",
+    "sha256": "c50033593f08ebc5d111f3e603fb3d6fa9c9acd80284bfff3eab1cbc143f01f2"
+   }
+  },
+  "subject": "Mathematical Analysis 1",
+  "year": "2020"
+ },
+ "7cab2266-bcc1-4784-848a-015af8436c31": {
+  "exam": "Midterm",
+  "files": {
+   "500402ec3de4": {
+    "chars": 3730,
+    "method": "ocr (tesseract eng)",
+    "name": "AGLA 2 Midterm 2024.pdf",
+    "sha256": "5b8b01e4de264b5fd2c714dc28d73b5058c5e1171c5d78b683bda3098e1dae5a"
+   }
+  },
+  "subject": "AGLA 2",
+  "year": "2024"
+ },
+ "84e79975-e04a-49d7-9a8c-aa45d8f5562e": {
+  "exam": "Midterm",
+  "files": {
+   "57dad47f84aa": {
+    "chars": 14558,
+    "method": "text layer",
+    "name": "DSA Midterm 2021.pdf",
+    "sha256": "7dbbeac0d812af773b2dfc314be6032f32b38314beb64754fa913d02f4421ca8"
+   }
+  },
+  "subject": "DSA",
+  "year": "2021"
+ },
+ "8921fef4-4f4f-46a1-b94f-c4152e981156": {
+  "exam": "Final",
+  "files": {
+   "5d216dbda5fb": {
+    "chars": 1997,
+    "method": "text layer",
+    "name": "TCS Final 2021.pdf",
+    "sha256": "7c7c385077cf4472b98eafeed353849b7c0c1d9533d67038672a4afe788a5142"
+   }
+  },
+  "subject": "Theoretical Computer Science",
+  "year": "2021"
+ },
+ "8b07d028-59d1-471a-a339-c9a516183e6b": {
+  "exam": "Test 1",
+  "files": {
+   "90e85e76c40b": {
+    "chars": 3074,
+    "method": "ocr (tesseract eng)",
+    "name": "AGLA 2 Test 1 2024.pdf",
+    "sha256": "e51826d024ad647eb68c9ccc8b732174ccfa5ca5b2529dc89636b497cd3c79fa"
+   }
+  },
+  "subject": "AGLA 2",
+  "year": "2024"
+ },
+ "8d6336ce-2154-4a40-9ce8-a11d1c32c818": {
+  "exam": "Final",
+  "files": {
+   "55fd248d8fc4": {
+    "chars": 7184,
+    "method": "text layer",
+    "name": "Probability & Statistics Final 2023.pdf",
+    "sha256": "748d0989aa996491ffd3ec7295ae90ab872aa351a2cf6409e7f80ce0e5bbd22b"
+   }
+  },
+  "subject": "Probability and Statistics",
+  "year": "2023"
+ },
+ "904f6277-6a2f-4d87-8c0d-0a2f7d018e78": {
+  "exam": "Final",
+  "files": {
+   "21c6245ff4e5": {
+    "chars": 8370,
+    "method": "text layer",
+    "name": "Databases Final 2024.pdf",
+    "sha256": "b77efae388873340c7bf5d709d18006ccf2d7df136a53090852023110d1e9a35"
+   }
+  },
+  "subject": "Databases",
+  "year": "2024"
+ },
+ "905a531a-cd84-4e69-902a-b56981f290ed": {
+  "exam": "Final",
+  "files": {
+   "99486d1e879f": {
+    "chars": 17229,
+    "method": "text layer",
+    "name": "Introduction to Programming 1 Final 2019.pdf",
+    "sha256": "70a2a861f56d414b47fd6578a54d2b3f1bf33c8a133a9278ba026b5ca89b7e69"
+   }
+  },
+  "subject": "Introduction to Programming",
+  "year": "2019"
+ },
+ "96b94133-7100-4c4c-9473-999ef9f16770": {
+  "exam": "Final",
+  "files": {
+   "09051f1a3dbe": {
+    "chars": 1934,
+    "method": "text layer",
+    "name": "Introduction to Optimization Final 2023 (2).pdf",
+    "sha256": "d49cf5dd3495f03d8bb38a8fbd70a2fdd7aa47c39bc00beb46e33c936b5e0625"
+   },
+   "39d90f8331cd": {
+    "chars": 1913,
+    "method": "text layer",
+    "name": "Introduction to Optimization Final 2023 (1).pdf",
+    "sha256": "1a3cff01719501e7ca7eefe113e4fe485a53d56c30c96a04a9bfdeef74ee4473"
+   }
+  },
+  "subject": "Introduction to Optimization",
+  "year": "2023"
+ },
+ "977bc393-1b74-4778-9152-b0960e840b33": {
+  "exam": "Final",
+  "files": {
+   "e741512b3191": {
+    "chars": 3531,
+    "method": "text layer",
+    "name": "Introduction to Programming Final 2021.pdf",
+    "sha256": "362aa68cbffabf058f58592e22003fea89690127a857b66cc12062c83b69e7ea"
+   }
+  },
+  "subject": "Introduction to Programming",
+  "year": "2021"
+ },
+ "985177cd-8911-40e7-9416-dca0d044822f": {
+  "exam": "Midterm",
+  "files": {
+   "d33a0297587d": {
+    "chars": 13894,
+    "method": "ocr (tesseract eng)",
+    "name": "Introduction to Programming Midterm 2021.pdf",
+    "sha256": "ddc86a9cd970b48d983d96457d3ca0ff66e5acef1ff7f5566edbc0943c46cb9e"
+   }
+  },
+  "subject": "Introduction to Programming",
+  "year": "2021"
+ },
+ "9a2d7a78-0c07-4eaf-9e7d-3dfefa4847f3": {
+  "exam": "Midterm",
+  "files": {
+   "e356d25e71cb": {
+    "chars": 2071,
+    "method": "ocr (tesseract eng)",
+    "name": "TCS Midterm 2022.pdf",
+    "sha256": "b6799b2cc55ebe2f8f33a59c5b3f608e63906b14375638759ab12c19aea97bc0"
+   }
+  },
+  "subject": "Theoretical Computer Science",
+  "year": "2022"
+ },
+ "9ac62d30-c583-438c-a150-0db32db22f88": {
+  "exam": "Midterm",
+  "files": {
+   "a3183679570e": {
+    "chars": 8658,
+    "method": "text layer",
+    "name": "Probability & Statistics Midterm 2020.pdf",
+    "sha256": "6bcb9490926318cfcf69d6e71990387c3c517a009782984c7c694d3176271ab2"
+   }
+  },
+  "subject": "Probability and Statistics",
+  "year": "2020"
+ },
+ "9b41eefa-1a71-40d8-904d-ec63a6b00bad": {
+  "exam": "Midterm",
+  "files": {
+   "c96fd2a2dfba": {
+    "chars": 4670,
+    "method": "text layer",
+    "name": "Logic & Discrete Maths Midterm 2023.pdf",
+    "sha256": "5d92505b5b1f48c428076e1b4663e6676b0e6e67da6b3c7c1a815ae0b96bcef1"
+   }
+  },
+  "subject": "Logic & Discrete Maths",
+  "year": "2023"
+ },
+ "9d4a1c24-fc7d-4b44-819b-862250fcc941": {
+  "exam": "Midterm",
+  "files": {
+   "783915589c09": {
+    "chars": 1764,
+    "method": "text layer",
+    "name": "Introduction to AI Midterm 2020.pdf",
+    "sha256": "c0c7ae04a7bc5ba41e0b924842643d941fc1f8c7554a46d148aa91871f2ce9ba"
+   }
+  },
+  "subject": "Introduction to AI",
+  "year": "2021"
+ },
+ "9f888e70-617c-4cc1-978c-8d2c173b2ff1": {
+  "exam": "Midterm",
+  "files": {
+   "69d1fcc30c4e": {
+    "chars": 17786,
+    "method": "text layer",
+    "name": "SSAD Midterm 2024.pdf",
+    "sha256": "56a66d21dabcf6f244d5a522934312b8f5d6331e7915a773144242476be87639"
+   }
+  },
+  "subject": "SSAD",
+  "year": "2024"
+ },
+ "a1306f8d-89fc-4d98-a580-35b3536a2d1b": {
+  "exam": "Midterm",
+  "files": {
+   "5f559400bdea": {
+    "chars": 10105,
+    "method": "text layer",
+    "name": "TCS Midterm 2023.pdf",
+    "sha256": "22e77db19219163114350b48b64c84dd13a5af4c92b0dff318bb41127cea4b9b"
+   }
+  },
+  "subject": "Theoretical Computer Science",
+  "year": "2023"
+ },
+ "a3b29c90-4f1e-49e0-be21-268c99f29994": {
+  "exam": "Midterm",
+  "files": {
+   "1885bdcb276c": {
+    "chars": 8822,
+    "method": "text layer",
+    "name": "Probability & Statistics Midterm 2021.pdf",
+    "sha256": "527fd0141f9f5d8c5e26a658be6ce51c1837647d7001418c0f55c89becb677a5"
+   }
+  },
+  "subject": "Probability and Statistics",
+  "year": "2021"
+ },
+ "a5ccbea1-ce9a-4d3a-a876-b91b8314af4f": {
+  "exam": "Final",
+  "files": {
+   "7d673172c28f": {
+    "chars": 1731,
+    "method": "text layer",
+    "name": "Introduction to AI Final 2020.pdf",
+    "sha256": "83b34a7a76f54c2cfa1ab65d5d40e3e632ce934997eaffe5b6d067ce8e8890c1"
+   }
+  },
+  "subject": "Introduction to AI",
+  "year": "2021"
+ },
+ "a6d8738c-602b-45de-8248-f6f3255f0482": {
+  "exam": "Final",
+  "files": {
+   "4c364f0066d8": {
+    "chars": 2043,
+    "method": "text layer",
+    "name": "AGLA 2 Final 2022.pdf",
+    "sha256": "835cbddc93c0e09bbd1462a4c5d03cd08b2ff522f0b728c0dff537f3e2826fcd"
+   }
+  },
+  "subject": "AGLA 2",
+  "year": "2022"
+ },
+ "a769c840-8651-4ef9-87c7-59e823cbbecd": {
+  "exam": "Test 1",
+  "files": {
+   "dbf8943c8aec": {
+    "chars": 2101,
+    "method": "ocr (tesseract eng)",
+    "name": "MA 2 Test 1 2024.pdf",
+    "sha256": "956f0d101d79b6fde898d769e28aa2dddf8beb679f6f28eba684c9ad386635d4"
+   }
+  },
+  "subject": "Mathematical Analysis 2",
+  "year": "2024"
+ },
+ "ac5d85cf-655d-40ae-a85a-fda3e59f28f2": {
+  "exam": "Final",
+  "files": {
+   "6fd715efca3c": {
+    "chars": 2480,
+    "method": "text layer",
+    "name": "Introduction to AI Final 2022.pdf",
+    "sha256": "f70ecdbaaa6f4248f298bd5f226b2b8b4961fea1ac986c9d02cb76466da732ba"
+   }
+  },
+  "subject": "Introduction to AI",
+  "year": "2022"
+ },
+ "ac642fa6-2864-44f0-844b-a137fa8f75ba": {
+  "exam": "Midterm",
+  "files": {
+   "40898e06a197": {
+    "chars": 7324,
+    "method": "text layer",
+    "name": "TCS Midterm 2020.pdf",
+    "sha256": "ad83ca7d9eb85d4030ab68d5e9167ac79294477038e4e8bd08343502f83e1a0f"
+   }
+  },
+  "subject": "Theoretical Computer Science",
+  "year": "2020"
+ },
+ "ad7a3637-bae3-4067-97c8-80bdb6a96f8a": {
+  "exam": "Midterm",
+  "files": {
+   "a9f85381d3d7": {
+    "chars": 10228,
+    "method": "text layer",
+    "name": "TCS Midterm 2024.pdf",
+    "sha256": "3a59b8b240ecb3ceadbb8233b7478eea49253872dd7edf1fc53997b655ecc680"
+   }
+  },
+  "subject": "Theoretical Computer Science",
+  "year": "2024"
+ },
+ "ae17cb4b-4bf6-460f-bb2b-80a6b694235e": {
+  "exam": "Pre Final",
+  "files": {
+   "0ea9448332df": {
+    "chars": 1770,
+    "method": "text layer",
+    "name": "AGLA 1 Pre Final 2023.pdf",
+    "sha256": "cd5d61111b8a239cd70b554646ad126b3fc229763a2772db92744a76f949967f"
+   }
+  },
+  "subject": "AGLA 1",
+  "year": "2023"
+ },
+ "ae7aa32a-4205-44af-9fa0-9c0d19d5ab31": {
+  "exam": "Final",
+  "files": {
+   "d2b74f1fa77e": {
+    "chars": 1048,
+    "method": "text layer",
+    "name": "ALGA 2 Final 2024.pdf",
+    "sha256": "fe9c57e22ee3130a03b59aba06b1879a4a265466c41470ddd0f4ddbbcab21932"
+   }
+  },
+  "subject": "AGLA 2",
+  "year": "2024"
+ },
+ "afe22ba5-b0a5-451e-9df3-280b7e8a4b38": {
+  "exam": "Test 2",
+  "files": {
+   "5d5c23033908": {
+    "chars": 2072,
+    "method": "text layer",
+    "name": "Mathematical Analysis 1 Test 2 2019.pdf",
+    "sha256": "35538bc91eb0560bfa6918bd4e509bf4310005fa6875880c8a10fbefaccc5b03"
+   }
+  },
+  "subject": "Mathematical Analysis 1",
+  "year": "2019"
+ },
+ "b4642144-7139-4664-ab62-7bc5f2194e46": {
+  "exam": "Test 1",
+  "files": {
+   "27a119009790": {
+    "chars": 4798,
+    "method": "text layer",
+    "name": "Mathematical Analysis 1 Test 1 2019.pdf",
+    "sha256": "ba866e7b63f8f3351489931309b930e995406d9cd42819458c5ff571b2838baa"
+   }
+  },
+  "subject": "Mathematical Analysis 1",
+  "year": "2019"
+ },
+ "b716aa36-5465-4524-9238-09cdf1cb4b36": {
+  "exam": "Midterm",
+  "files": {
+   "69ac46374d02": {
+    "chars": 5661,
+    "method": "text layer",
+    "name": "AGLA 2 Midterm 2021.pdf",
+    "sha256": "3c36bfdfbdf5cdc5de3b7984431b7175dd60bb35295efec46c4e63b883d3a673"
+   }
+  },
+  "subject": "AGLA 2",
+  "year": "2021"
+ },
+ "b8ecb143-739a-48b9-8654-f5f8c3a75c20": {
+  "exam": "Midterm",
+  "files": {
+   "aae1d8d7eed8": {
+    "chars": 14449,
+    "method": "text layer",
+    "name": "Databases Midterm 2024.pdf",
+    "sha256": "a3c3e706d95ff1d774a7122e31098289b0c6678faf10202f350e7556f13b6e95"
+   }
+  },
+  "subject": "Databases",
+  "year": "2024"
+ },
+ "b9048e05-b741-4891-aa15-1e5637bdd2b1": {
+  "exam": "Final",
+  "files": {
+   "727bf1002bbb": {
+    "chars": 1916,
+    "method": "text layer",
+    "name": "Logic & Discrete Maths Final 2020.pdf",
+    "sha256": "06ee1b4e4998ea0e08dde9e35347277464720fdc177383ae129f691a770d8623"
+   }
+  },
+  "subject": "Logic & Discrete Maths",
+  "year": "2020"
+ },
+ "b9050179-2b83-44cd-90cc-a75c55e85625": {
+  "exam": "Final",
+  "files": {
+   "c283e0aedad2": {
+    "chars": 13995,
+    "method": "text layer",
+    "name": "Probability & Statistics Final 2021.pdf",
+    "sha256": "202bac9a8e7d3018aa4438d0e50e76690f729d12b009205765e5db6bcbffc5ab"
+   }
+  },
+  "subject": "Probability and Statistics",
+  "year": "2021"
+ },
+ "b968a66c-2f3b-4f5b-801a-326b289255c2": {
+  "exam": "Midterm",
+  "files": {
+   "9371046f4844": {
+    "chars": 4092,
+    "method": "text layer",
+    "name": "Probability & Statistics Midterm 2023.pdf",
+    "sha256": "9ba2492677ae4c28e107748c28fcd465d7de4327ead4656868901724efb4dd42"
+   }
+  },
+  "subject": "Probability and Statistics",
+  "year": "2023"
+ },
+ "bc3e8afd-e935-424e-9c28-ad368b710f0e": {
+  "exam": "Midterm",
+  "files": {
+   "0126a9c87b9c": {
+    "chars": 4327,
+    "method": "ocr (tesseract eng)",
+    "name": "MA 2 Midterm 2024.pdf",
+    "sha256": "acab86c1b6c14b0743d14c4acde799df1a3c4ce06e6b8e02f41c264cdf19559a"
+   }
+  },
+  "subject": "Mathematical Analysis 2",
+  "year": "2024"
+ },
+ "bf2c4d18-f4f2-4551-9498-95cb2794cc72": {
+  "exam": "Final",
+  "files": {
+   "ff7451e6e80d": {
+    "chars": 13235,
+    "method": "text layer",
+    "name": "SSAD Final 2021.pdf",
+    "sha256": "8d2f675f13a5385285a51f6dad24f2f0d5810e9c183d7adf7d413fa2ef74b2e9"
+   }
+  },
+  "subject": "SSAD",
+  "year": "2021"
+ },
+ "c150a7b5-2454-4a71-bd3d-41e6c63bed48": {
+  "exam": "Midterm",
+  "files": {
+   "938173fcd58f": {
+    "chars": 1637,
+    "method": "ocr (tesseract eng)",
+    "name": "Fundamentals of CompArch Midterm 2019.pdf",
+    "sha256": "14e85497193717f9d678c6cf642edfe74b1a442db224ae452e6e5844e8475747"
+   }
+  },
+  "subject": "Fundamentals of Computer Architecture",
+  "year": "2019"
+ },
+ "c2bef959-9126-47ed-9f1f-3d7af2626e3a": {
+  "exam": "Final",
+  "files": {
+   "78960397aa5f": {
+    "chars": 1221,
+    "method": "text layer",
+    "name": "Mathematical Analysis 1 Final 2021.pdf",
+    "sha256": "ac4f29c480d4095204bdfb955039d51aa40a734569855d0618a7d8cbf41c71a6"
+   }
+  },
+  "subject": "Mathematical Analysis 1",
+  "year": "2021"
+ },
+ "c3acadbf-80d4-4b32-89fe-6120f395b1cb": {
+  "exam": "Midterm",
+  "files": {
+   "c3a56a4e28c0": {
+    "chars": 11591,
+    "method": "text layer",
+    "name": "MA 2 Midterm 2022.pdf",
+    "sha256": "e853cd13091f22b656c80f87db6a59ea00a13de48f6f2f0c472e940daaf33d01"
+   }
+  },
+  "subject": "Mathematical Analysis 2",
+  "year": "2022"
+ },
+ "c5d64b1c-d358-483d-ab53-75672152835b": {
+  "exam": "Final",
+  "files": {
+   "f72f3303b249": {
+    "chars": 6550,
+    "method": "text layer",
+    "name": "Logic & Discrete Maths Final 2021.pdf",
+    "sha256": "bc7d3a1584ecf972f0fcad60a4a4bd94099bbf8de7542f88b90ab06ce45d8092"
+   }
+  },
+  "subject": "Logic & Discrete Maths",
+  "year": "2021"
+ },
+ "c73acc7c-67b2-4790-a367-6ab73c88fdc8": {
+  "exam": "Midterm",
+  "files": {
+   "a6467a80c140": {
+    "chars": 4371,
+    "method": "ocr (tesseract eng)",
+    "name": "DSA Midterm 2020.pdf",
+    "sha256": "7fdc2d81c3305d3bc95044996af78c65671eb76cac3d8e25016f5e0bdd57a149"
+   }
+  },
+  "subject": "DSA",
+  "year": "2020"
+ },
+ "c8ab6f1f-d8ee-4812-bb13-ac342253b14c": {
+  "exam": "Final Oral Poll",
+  "files": {
+   "078cedbbb548": {
+    "chars": 5667,
+    "method": "text layer",
+    "name": "FinalExaination.pdf",
+    "sha256": "741528675cef2d7e6233207f177760d06f4b52ff96b3efcd6d19f63530ea7241"
+   }
+  },
+  "subject": "Mathematical Analysis 1",
+  "year": "2023"
+ },
+ "cf931ade-286a-47b9-b4e9-1936541ccfc1": {
+  "exam": "Final",
+  "files": {
+   "02af086522eb": {
+    "chars": 4679,
+    "method": "text layer",
+    "name": "OS Final 2017.pdf",
+    "sha256": "fc742c22c689d628384630678e321b898b37693fa7f59529c16e0c1c62668779"
+   }
+  },
+  "subject": "Operating Systems",
+  "year": "2017"
+ },
+ "d1985957-a0f1-4796-bd38-80f44429ef0a": {
+  "exam": "Retake 1",
+  "files": {
+   "e551486a36b3": {
+    "chars": 2924,
+    "method": "ocr (tesseract eng)",
+    "name": "DSA Retake 1 2022.pdf",
+    "sha256": "31bb24bcce06c7de7e491ccecd0de225213ee9ae86fd2269d3e64069e8f3540d"
+   }
+  },
+  "subject": "DSA",
+  "year": "2022"
+ },
+ "d2780c4c-6dcf-4b3b-9d11-4b55743dc059": {
+  "exam": "Retake",
+  "files": {
+   "4a79444895b5": {
+    "chars": 1402,
+    "method": "text layer",
+    "name": "AGLA 2 Retake 2021.pdf",
+    "sha256": "0f2892b36b71d0b9c1fe802d79fd18eeac26c7aa8d3cd1fbf75756c950a71bc9"
+   }
+  },
+  "subject": "AGLA 2",
+  "year": "2021"
+ },
+ "dbb876ee-94d9-4407-a436-1e0b4c0f2b92": {
+  "exam": "Test 2",
+  "files": {
+   "d66ae9b540cb": {
+    "chars": 1985,
+    "method": "ocr (tesseract eng)",
+    "name": "AGLA 2 Test 2 2024.pdf",
+    "sha256": "8820f72d8dbb83dcee31e5ff852ac641280cddd48ed84c7fcf9f11038c4ef8df"
+   }
+  },
+  "subject": "AGLA 2",
+  "year": "2024"
+ },
+ "dc150fc8-df41-4544-93ea-a473362535eb": {
+  "exam": "Test 1",
+  "files": {
+   "71e30dba3823": {
+    "chars": 1821,
+    "method": "ocr (tesseract eng)",
+    "name": "AGLA 1 Test 1 2019.pdf",
+    "sha256": "9f8829c1f6fab0132239a48f19f3cdcbc2b7c6b2b844ad55daa11bb25b737db0"
+   }
+  },
+  "subject": "AGLA 1",
+  "year": "2019"
+ },
+ "dfb0af38-1f8b-4855-bf2c-fd010a410683": {
+  "exam": "Final",
+  "files": {
+   "a232cd35149b": {
+    "chars": 1470,
+    "method": "text layer",
+    "name": "Introduction to Programming Final 2020.pdf",
+    "sha256": "28a535d56e91379e0332c99e56e2a96b35bb3351b54f12a51abab85aec61b9e3"
+   }
+  },
+  "subject": "Introduction to Programming",
+  "year": "2020"
+ },
+ "e0d56d1b-720b-40fe-af25-ae7e0f00d9fa": {
+  "exam": "Retake 1",
+  "files": {
+   "d34b7923c847": {
+    "chars": 5765,
+    "method": "text layer",
+    "name": "OS Retake 1 2017.pdf",
+    "sha256": "f697a0e41edf02ddaa9dae33c6856953f356d368b90599735ead08fffa3f0762"
+   }
+  },
+  "subject": "Operating Systems",
+  "year": "2017"
+ },
+ "e50c526f-0369-44de-a00b-a7b36aca0b6a": {
+  "exam": "Midterm",
+  "files": {
+   "f9366d221aca": {
+    "chars": 2550,
+    "method": "ocr (tesseract eng)",
+    "name": "Fundamentals of CompArch Midterm 2021.pdf",
+    "sha256": "376f880a4f88178b4af898f8a1d4b40c519cf174d426a2ff11b94bca99c84b5b"
+   }
+  },
+  "subject": "Fundamentals of Computer Architecture",
+  "year": "2021"
+ },
+ "e645811e-3f73-4b8d-9ccf-6dc571a9d6d5": {
+  "exam": "Final",
+  "files": {
+   "92c34d62129a": {
+    "chars": 3194,
+    "method": "text layer",
+    "name": "Fundamentals of CompArch Final 2022.pdf",
+    "sha256": "19454adc72b307fa957d8ea2a5372664c1d36bae113d3de12ea54da643946c58"
+   }
+  },
+  "subject": "Fundamentals of Computer Architecture",
+  "year": "2022"
+ },
+ "ead26fb6-0794-436a-975b-f35a0c0acb94": {
+  "exam": "Retake 2",
+  "files": {
+   "220794126e4d": {
+    "chars": 5088,
+    "method": "text layer",
+    "name": "OS Retake 2.2 2016.pdf",
+    "sha256": "85b87aa0fe284cf827acdb443308a3518076ed0a0ceab56f97c91c3efa7110c8"
+   },
+   "3bb2d2a20156": {
+    "chars": 6014,
+    "method": "text layer",
+    "name": "OS Retake 2.1 2016.pdf",
+    "sha256": "2f5576336a15b636cecea978e8e0f9c23cb8ca295b42ae9412b806b25139b181"
+   }
+  },
+  "subject": "Operating Systems",
+  "year": "2016"
+ },
+ "ee9c65e4-1bc3-4430-9fc9-191283cad4b0": {
+  "exam": "Pre Final",
+  "files": {
+   "34abcb2183eb": {
+    "chars": 10478,
+    "method": "text layer",
+    "name": "TCS Pre Final 2023.pdf",
+    "sha256": "46428d2f2c1da237971885c9670cee0a89ebc4588c00329992e95be822e62d0c"
+   }
+  },
+  "subject": "Theoretical Computer Science",
+  "year": "2023"
+ },
+ "f18d1bb0-12ba-460c-b47f-fc285b4b4e08": {
+  "exam": "Retake 2",
+  "files": {
+   "2e60136dc631": {
+    "chars": 3064,
+    "method": "text layer",
+    "name": "DSA Retake 2 2020.pdf",
+    "sha256": "60c576d6bcdaf92863310e377e527d13357fd4444d8a11ca5c883d9b2a293009"
+   }
+  },
+  "subject": "DSA",
+  "year": "2020"
+ },
+ "f824af4b-f0c6-4482-9f76-6fbc48bdb4df": {
+  "exam": "Oral Poll 1",
+  "files": {
+   "7c1b78c54aab": {
+    "chars": 4858,
+    "method": "text layer",
+    "name": "FirstTestForOralPoll.pdf",
+    "sha256": "ab4b4afc95bbc9eee5a14894b24d31724b1dee329cab7aa9ccf6e5ac780740df"
+   }
+  },
+  "subject": "Mathematical Analysis 1",
+  "year": "2023"
+ },
+ "f91194d5-6ce5-4fdd-a8dc-3bff2d34cbc5": {
+  "exam": "Test 2",
+  "files": {
+   "85461bb0e6a6": {
+    "chars": 6498,
+    "method": "text layer",
+    "name": "Probability & Statistics Test 2 2021.pdf",
+    "sha256": "57dab2669dc2b22f34721b47751b1f1d3b967b303e2cbeb59e8d7da5006afb76"
+   }
+  },
+  "subject": "Probability and Statistics",
+  "year": "2021"
+ },
+ "f9eccea9-3ebd-45c4-8c42-7024b53a13b2": {
+  "exam": "Midterm",
+  "files": {
+   "90d3db4231c9": {
+    "chars": 14132,
+    "method": "text layer",
+    "name": "Introduction to Programming Midterm 2020.pdf",
+    "sha256": "98a8a57458b8993bd1305eb751431784c95af7fbf326e73012ee1ca6afcab3df"
+   }
+  },
+  "subject": "Introduction to Programming",
+  "year": "2020"
+ },
+ "fb18a43e-4b0a-4cbd-a140-cccb627db82c": {
+  "exam": "Midterm",
+  "files": {},
+  "subject": "History",
+  "year": "2023"
+ },
+ "fecca0d8-2ec6-4e58-9998-3d4f1d989773": {
+  "exam": "Midterm",
+  "files": {
+   "857599cc3547": {
+    "chars": 3493,
+    "method": "text layer",
+    "name": "DE Second Midterm 2020.pdf",
+    "sha256": "5e0d1a917553702aaeb9c79e1cb85ed8bfe573d3f28beec8237695662246081a"
+   },
+   "ee488b872da8": {
+    "chars": 3814,
+    "method": "text layer",
+    "name": "DE First Midterm 2020.pdf",
+    "sha256": "e5d27279c7ba7c5914ffa16d00369794568281d148e399582c71cee123e116b0"
+   }
+  },
+  "subject": "Differential Equations",
+  "year": "2020"
+ }
+}

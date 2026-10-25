@@ -1,0 +1,441 @@
+Оставшееся время 0:33:25
+Вопрос 1
+Ответ сохранен
+Балл: 1,00
+
+Consider the following log:
+
+What will be the result when you run the following command: cat log.txt | cut -d" " -f6
+
+a. TLS
+b. girafalez/202.202.202.202:1194
+c.
+
+Error
+
+d. openvpn[76395]:
+
+Очистить мой выбор
+
+Оставшееся время 0:33:11
+Вопрос 2
+Ответ сохранен
+Балл: 1,00
+
+Which of these cron jobs will execute at 04:00, 05:00, and 06:00 every day?
+a. 4-6 0 * * * /home/user/job.sh
+b. 0 4-6 * * * /home/user/job.sh
+c.
+
+* 4-6 * * * /home/user/job.sh
+
+d. 4-6 * * * * /home/user/job.sh
+
+Очистить мой выбор
+
+Оставшееся время 0:33:04
+Вопрос 3
+Ответ сохранен
+Балл: 1,00
+
+How many bytes are we going to extract in total from /dev/sda with the following command?
+
+a. 1024
+b. 1536
+c.
+
+2048
+
+d. 512
+
+Очистить мой выбор
+
+Оставшееся время 0:32:59
+Вопрос 4
+Ответ сохранен
+Балл: 1,00
+
+Consider the following log
+
+Which of these regexes will match the string “girafalez/202.202.202.202:1194”
+
+a. \w+\/\d+\.\d+\.\d+\.\d+:\d+
+b. \w\/\d+\.\d+\.\d+\.\d+:.+
+c.
+
+\w+\/\d\.\d\.\d\.\d:\d
+
+d. \w\/\d+\.\d+\.\d+\.\d+:\d+
+
+Очистить мой выбор
+
+Оставшееся время 0:32:53
+Вопрос 5
+Ответ сохранен
+Балл: 1,00
+
+Consider the following SELinux configuration file /etc/selinux/config:
+
+Which of these commands will modify only the sixth line and change it to “SELINUX=enforcing”?
+a. sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+b. sed -i '/SELINUX=disabled/SELINUX=enforcing/' /etc/selinux/config
+c.
+
+sed -i 's/disabled/enforcing/g' /etc/selinux/config
+
+d. sed -i 's/SELINUX=disabled/SELINUX=enforcing/g' /etc/selinux/config
+
+Очистить мой выбор
+
+Оставшееся время 0:32:47
+Вопрос 6
+Ответ сохранен
+Балл: 1,00
+
+Which of the options will you consider to run a job only once at 07:00
+a. Create an anacron job to execute @daily at 07:00
+b. Use the at utility to create the job with the command “at 07:00 -f /home/job.sh”
+c.
+
+All the options are valid
+
+d. Run “crontab -e” and schedule the job “0 7 * * * /home/job.sh”
+
+Очистить мой выбор
+
+Оставшееся время 0:32:42
+Вопрос 7
+Ответ сохранен
+Балл: 1,00
+
+The provided docker-compose.yml file contains problems that may cause issues when running Docker Compose,
+preventing the services from running. Identify the correct option to fix the issues.
+
+a. Add a blank line between the services keyword and the first service definition.
+b. Indent the image, ports, volumes, and environment keys under each service definition correctly.
+c.
+
+Ensure all service names are aligned with the services keyword.
+
+d. The secrets are hardcoded.
+e. Use double quotes (") consistently for all string values in the YAML file.
+
+Очистить мой выбор
+
+Оставшееся время 0:32:36
+Вопрос 8
+Ответ сохранен
+Балл: 1,00
+
+Consider the following bash script:
+
+Which of the following statements IS TRUE when the bash script is executed?
+a. The script will exit when you press Ctrl + C
+b. The script will print "Script is running…" on the terminal output every 5 mins
+c.
+
+The trap command sets the sig_x function to be called when a SIGKILL signal is received
+
+d. The script will be suspended when you press Ctrl + Z
+
+Очистить мой выбор
+
+Оставшееся время 0:32:30
+Вопрос 9
+Ответ сохранен
+Балл: 1,00
+
+Which of the following is NOT TRUE when you run the following command on a bash shell?
+$ sudo sh -c "mv /home/user/file.txt /home/user/newfile.txt"
+Note: You have both /bin/bash and /bin/sh on the computer.
+
+a. The command renames file.txt to newfile.txt
+b. The only new process created by this command is the mv process
+c.
+
+The command spawns a new shell to execute the mv command
+
+d. The mv command is executed with super user privileges
+
+Очистить мой выбор
+
+Оставшееся время 0:32:26
+Вопрос 10
+Ответ сохранен
+Балл: 1,00
+
+A GPT drive is prevented from being overwritten by older systems by all of the following except?
+a. The MBR header contains a flag that indicates the disk is not MBR bootable
+b. All the options are valid
+c.
+
+By labeling the entire GPT disk as one partition with protective MBR
+
+d. The last block of the disk contains the protective MBR
+
+Очистить мой выбор
+
+Оставшееся время 0:32:22
+Вопрос 11
+Ответ сохранен
+Балл: 1,00
+
+All of these options are TRUE for UEFI booting on Ubuntu except one:
+a. Shim loads GRUB bootloader
+b. The firmware validates and loads the shim binary
+c.
+
+GRUB gives users the privilege to make changes during boot time
+
+d. All the options are true
+
+Очистить мой выбор
+
+Оставшееся время 0:32:17
+Вопрос 12
+Ответ сохранен
+Балл: 1,00
+
+Consider the following systemd service “test1.service”
+
+Which of the following is FALSE?
+a. test1.service will fail if test3.service fails to start
+b. test1.service and test2.service can be started in parallel
+c.
+
+All the statements are true
+
+d. test1.service will fail if test2.service fails to start
+
+Очистить мой выбор
+
+Оставшееся время 0:32:13
+Вопрос 13
+Ответ сохранен
+Балл: 1,00
+
+Which of these Bash variables contain the exit code of the last command you executed?
+a. $$
+b. !!
+c.
+
+$!
+
+d. $?
+
+Очистить мой выбор
+
+Оставшееся время 0:32:09
+Вопрос 14
+Ответ сохранен
+Балл: 1,00
+
+Which of these options will you consider to manage process resource allocation?
+a. free
+b. cgtop
+c.
+
+top
+
+d. cgroup
+
+Очистить мой выбор
+
+Оставшееся время 0:32:05
+Вопрос 15
+Ответ сохранен
+Балл: 1,00
+
+You can install a package via these options except one:
+a. Download the package from the maintainer’s official website and install it
+b. Install the package with your package manager
+c.
+
+All the options are valid
+
+d. Build the package from the source code, and then install it
+
+Очистить мой выбор
+
+Оставшееся время 0:32:00
+Вопрос 16
+Ответ сохранен
+Балл: 1,00
+
+You have been given a task to completely erase a disk in a manner that will make it impossible to recover files from the
+disk afterwards. Which of these options will you consider?
+a. Use dd to write bit stream of zeros (/dev/zero) to the disk
+b. This is not possible
+c.
+
+Use lsblk to view available devices and then mkfs to format
+
+d. Use the fdisk utility
+
+Очистить мой выбор
+
+Оставшееся время 0:31:56
+Вопрос 17
+Ответ сохранен
+Балл: 1,00
+
+You're responsible for setting up a CI/CD pipeline for a project hosted on GitLab. The pipeline should include stages for
+building the application, running tests, and deploying to multiple environments based on GitLab branches. Which of the
+following steps would be essential in configuring this pipeline using GitLab CI/CD?
+a. Configure GitLab project settings to enable CI/CD and specify triggers such as branch updates or merge
+requests to start pipeline runs.
+b. Use Docker containers as runners to execute pipeline jobs and ensure consistent build environments across
+different stages.
+c.
+
+Install and configure Jenkins on a dedicated server to serve as the CI/CD orchestrator for the GitLab
+repository.
+
+d. Define a .gitlab-ci.yml file in the root directory of the GitLab repository to specify the pipeline stages and jobs.
+
+Очистить мой выбор
+
+Оставшееся время 0:31:51
+Вопрос 18
+Ответ сохранен
+Балл: 1,00
+
+What is the primary difference between the docker-compose up and docker-compose start commands in Docker
+Compose?
+a. docker-compose up starts and initializes containers for all services defined in the Docker Compose file,
+including building images if necessary, while docker-compose start only starts containers that are already
+created but stopped.
+b. docker-compose up is a deprecated command, and docker-compose start should be used instead for
+starting Docker containers defined in a Docker Compose file.
+c.
+
+docker-compose up and docker-compose start are interchangeable commands that both start Docker
+containers defined in a Docker Compose file.
+
+d. docker-compose up is used to start containers defined in a Docker Compose file, whereas dockercompose start is used to scale the number of running instances for a particular service.
+
+Очистить мой выбор
+
+Оставшееся время 0:31:47
+Вопрос 19
+Ответ сохранен
+Балл: 1,00
+
+What will be the output when you run the following bash script?
+
+a. Vlad in class later
+b. class
+c.
+
+Vlad
+
+d. late
+
+Очистить мой выбор
+
+Оставшееся время 0:31:42
+Вопрос 20
+Ответ сохранен
+Балл: 1,00
+
+How will this script behave when the -x option is removed from set before execution?
+
+a. Exit gracefully
+b. Exit immediately it is unable to list the unknown directory without printing “End of the script”
+c.
+
+Print “This line won't be executed because of the previous error.”
+
+d. Print each command before it is executed
+
+Очистить мой выбор
+
+Оставшееся время 0:31:37
+Вопрос 21
+Ответ сохранен
+Балл: 1,00
+
+Consider a scenario where you are on a POSIX compliant Linux server, and you have access to one terminal with no
+options for creating new tabs. Which of these options is the most efficient way to run multiple commands concurrently
+without waiting for one to finish executing.
+a. Run processes in the background
+b. Concatenate commands
+c.
+
+Use systemd
+
+d. Connect via SSH from another device
+
+Очистить мой выбор
+
+Оставшееся время 0:31:33
+Вопрос 22
+Ответ сохранен
+Балл: 1,00
+
+In the given Dockerfile, how can you make it more effective in terms of image caching and build efficiency?
+
+a. Split the COPY instruction to copy requirements.txt separately, followed by the RUN instruction, and then
+COPY the rest of the source code.
+b. Use multi-stage builds to separate the build dependencies from the final application image.
+c.
+
+Move the COPY instruction for requirements.txt above the RUN pip install command.
+
+d. Remove the --no-cache-dir flag from the pip install command to allow caching of downloaded packages.
+
+Очистить мой выбор
+
+Оставшееся время 0:31:28
+Вопрос 23
+Ответ сохранен
+Балл: 1,00
+
+Which of the following is preferable to setup a shared storage device to emulate the local filesystem for applications?
+a. NFS
+b. DRBD
+c.
+
+Ceph RBD
+
+d. iSCSI
+
+Очистить мой выбор
+
+Оставшееся время 0:31:24
+Вопрос 24
+Ответ сохранен
+Балл: 1,00
+
+Which of the following statements is TRUE about using Linux anacron for scheduling backup tasks on a server?
+a. Anacron is not suitable for scheduling backup tasks on a server
+b. Anacron runs backup tasks only when the server is idle to avoid system load
+c.
+
+Anacron will ensure that the backup tasks run at the specified time every day, regardless of whether the
+server is powered on or not
+
+d. Anacron will run the backup the next time the server is powered on if it was skipped when the server was off
+
+Очистить мой выбор
+
+Оставшееся время 0:31:20
+Вопрос 25
+Ответ сохранен
+Балл: 1,00
+
+Select all applicable answers
+Review the provided Docker Compose file (docker-compose.yml). Upon examination, identify potential security risks
+related to the services defined in the file. Once identified, propose modifications to the configuration to mitigate this
+security risks.
+
+a. Use Docker Secrets to securely manage sensitive data such as passwords.
+b. Configure the web server to use a reverse proxy for accessing the database service.
+c.
+
+Remove the ports section for the db service to prevent external access to the database port.
+
+d. Implement mutual TLS authentication between the web server and the database.
+e. Utilize Docker's built-in network isolation feature to block all access to the web service.
+
+

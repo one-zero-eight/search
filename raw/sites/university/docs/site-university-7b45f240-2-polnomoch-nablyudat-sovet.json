@@ -1,0 +1,16 @@
+{
+ "title": "Полномочия Наблюдательного совета",
+ "url": "https://innopolis.university/upload/iblock/ecb/te9jqguvpe5fc4jco00um38q77ra7azg/2_polnomoch_nablyudat_sovet.pdf",
+ "sha256": "39548fe0aa0dc0f5c482f69d22d7a43917adbb8c40587b18169597c0ab5a6a11",
+ "method": "text layer (pdfplumber)",
+ "chars": 1202,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-25T00:02:43+00:00",
+ "remote": {
+  "etag": "\"652957f7-11c5b\"",
+  "modified": "Fri, 13 Oct 2023 14:45:11 GMT",
+  "size": "72795"
+ }
+}

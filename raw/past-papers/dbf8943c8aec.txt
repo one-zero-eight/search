@@ -1,0 +1,106 @@
+IN\IOPDLIS Mathematical Analysis II
+ONIVers 'tq First Test
+
+March 1%, 2024
+
+Exercise | 1 (2.5 Pts) | 2 (2.5 Pts) | 3 (2.5 Pts) | 4 (25 Pts) | 5 (2.5 Pts) | 6 (2.5 Pts)
+
+Points
+
+o The first test lasts 1,5 hours (90 minutes).
+
+o Any cheating, any attempt to cheat, assisting others to cheat, or participat-
+ing therein will result in the cancellation of the test.
+
+o The use of any smart devices (e.g. mobile phones, tablets, laptops, smart
+watches and ete.) is strictly prohibited and will be considered as an attempt
+to cheat.
+
+o No cheat sheets, calculators nor books are allowed.
+
+Model #1
+1. (2.5 pts) For the following series define whether it converges or diverges using the integral test
+
+> k
+>
+
+n=1
+inniopolis
+UNIVi
+
+Mathematical Analysis I1
+ersity
+
+First Test
+
+March 1%, 2024
+Model #1
+
+2. (2.5 pts) For the following serics define whether it converges or diverges using the ratio test
+
+— ™!
+g (2n — 1)1
+
+where (2n — 1) =1.3-5....(2n - 1)
+IN\IDPOLIS Mathematical Analysis 11
+UNIiverst First Test
+
+March 1%, 2024
+Model #1
+3. (2.5 pts) Using the root test determine convergence or divergence of the series
+
+i 4n+1\"
+2n+5
+
+n=1
+
+INI\IOPDLIs b Mathematical Analysis IT
+anNversity First Test
+
+March 1%, 2024
+Model #1
+4. (2.5 pts) Using the comparison test investigate the convergence of the series
+
+n=1
+
+Mathematical Analysis I1
+First Test
+
+March 1%, 2024
+Model #1
+
+5. (2.5 pts) For the following power series
+
+00 J.'"
+f=) = 2 T
+
+o (0.5pt) compute the radius of convergence R
+
+o (0.5pt) compute the interval of convergence
+
+« (0.5pt) analyze the left point of the interval
+
+o (0.5pt) analyze the right point of the interval F
+
+o (0.5pt) according to your analysis the interval of convergence is open, closed,
+them
+
+or none of
+II\NDPDLIS b Mathematical Analysis II
+onNversity First Test
+March 1%, 2024
+Model #1
+
+6. (2.5 pts) Find the solution to the differential equation
+Y +2y=0
+
+as a power series
+
+y) =) caz"
+
+n=0
+e {1pt) recursion
+o (1.5) coeflicient formula
+
+Note: Results obtained by solving the differential equation analytically and then obtaining its
+power series will not be considered.

@@ -1,0 +1,105 @@
+The first grading assignment (oral poll) on Mathematical Analysis
+(Innopolis University, Fall semester 2023, BS-I)
+
+Description
+Overall cost of the assignment is 15 points. This assignment is designed to evaluate how do we understand
+each other during the first 2 weeks of our studies of
+• proof techniques,
+• basics of Naïve Set Theory and
+• set-theoretic representation of the natural numbers
+and how we are ready to continue our studies of the foundations of Mathematical.
+The Assignments task consist in
+1. building a table of size 9x2 where for each of 9 exercises from the list below just indicate your belief
+whether you understand (by putting 1) or not (by putting 0) the exercise' formulation, and (by putting
+2) whether you think that you can or cannot solve the exercise,
+2. provide solutions for 2 (not more than 2!) exercises that you think that you understand and can solve
+as a proof/evidence/justification for your belief (in the filled-in table).
+
+Submission and grading rules
+Please write your table and solutions on a paper in readable way, make photos/scan, and upload as a
+single pdf-document to Moodle by the midnight from Sunday September 10 to Monday September 11,
+2023. File-name convention: submitted file should be named by student first name and surname (for
+example NikolayShilov.pdf).
+The main grading criterions
+•
+•
+•
+•
+•
+•
+
+human readable but concise written solutions (and its pdf-version)
+well-structuredness of the written solutions (up to 3 points for each solution)
+instructor may ask about oral presentation of any of 2 tasks that student believes knowing how to
+solve (according to student’s table to validate the table and student’s self-assessment)
+correct and complete oral presentation (up to 4 points for each correct solution)
+table itself costs 1 point while originality of presented solutions may be awarded too by 1 point
+non-crucial computational errors will be treated as tiny mistake (at most 1 point deduction for each
+task)
+
+Timeline and late submission policy
+•
+•
+•
+
+•
+•
+
+Publication of the Assignment document: Wednesday September 6, 2023.
+Consultation on the technical issues related to the assignment: Saturday September 9, 2023, from
+13:30 to 15:30 in the lecture theater 108.
+Individual oral polls for 9 volunteers: Saturday September 9, 2023, from 16:00 to 17:30 in the office
+507; these volunteers should upload their papers to Moodle before 15:30 Saturday September 9, 2023
+and
+register
+in
+the
+Google
+Sheet
+(at
+https://docs.google.com/spreadsheets/d/13IJU4Yt1TtvNNc6e5uwJY3aQN-QV2xlSCjPNGdcBMU/edit?usp=sharing) by selecting any free 10-minutes time slot.
+Due time for uploading of papers: the midnight from Sunday September 10 to Monday September 11,
+2023.
+Individual oral polls for all students: Saturday September 16, 2023, from 9:00 to 17:00; procedure how
+to reserve a time slot will be announce by Wednesday September 16, 2023.
+
+•
+
+Students who will not upload (without a legal excuse) their papers by the due date may do it till Sanday
+September 17, 2023, and then have oral by Saturday September 23, but with 30% deduction from the
+grade for this assignment.
+
+Exercises: Questions & tasks
+In the following tasks and exercises natural number 𝑛 stays for a parameter which value is 𝑑𝑎𝑦 + 𝑚𝑜𝑛𝑡ℎ
+where 𝑑𝑎𝑦 and 𝑚𝑜𝑛𝑡ℎ are the day and month of your personal birthdate. (For example, 𝑛 = 28 if the
+day and the month are April 24.)
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+9.
+
+What does Mathematical Analysis study? (Compare with high school algebra.) How do you understand terms
+“first-order theory” and “second-order theory”?
+What is naïve set theory and why we need to learn it in Mathematical Analysis? Could you please present 2-3
+its postulates and explain? Is any collection a set (according to the naïve set theory)?
+Prove by construction that for any sets 𝑋 and 𝑌 the symmetric set difference 𝑋∆𝑌 = {𝑧: 𝑧 ∈ 𝑋 or 𝑧 ∈
+𝑌, but not 𝑧 ∈ 𝑋 and 𝑧 ∈ 𝑌 simultaneously} is a set.
+Construct the set representation for natural numbers 0, 1, 2, 3 and prove by construction that these
+representations are sets indeed.
+Construct the collection of all prime numbers in [0. . 𝑛] = {1, 2, … , 𝑛} and prove by enumeration that this
+collection is a set.
+Find the largest number 𝑚 ∈ 𝑵 that is not greater than (𝑛 + 30) such that √𝑚 is irrational (and prove the
+irrationality by contradiction).
+Prove using induction that the set representation of any natural number is a set. Prove using this proven
+statement that the set representation of your number 𝑛 is a set too.
+What is cardinality of the set representation for natural number 𝑛? Build the power set for the set
+representation of this natural number. Is the power set a set indeed? What is cardinality of this powerset?
+What is Cartesian product of two sets? Build Cartesian product of two sets 𝑋 and 𝑌 where 𝑋 is the set
+representation of your number n and 𝑌 = 2𝑋 .
+
+

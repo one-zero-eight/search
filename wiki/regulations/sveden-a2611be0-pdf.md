@@ -432,7 +432,7 @@ status: draft
 | № п/п | Библиографическая запись** | Объем в печатных листах (авторское участие в печатных листах / в процентах) |
 | --- | --- | --- |
 | 1 | 2 | 3 |
-| Публикации в изданиях, входящих в международные реферативные базы данных и системы цитирования (Web of Science, Scopus и др.) | 2 | 3 |
+| Публикации в изданиях, входящих в международные реферативные базы данных и системы цитирования (Web of Science, Scopus и др.) |  |  |
 | 1. |  |  |
 | Публикации в изданиях, входящих в Перечень рецензируемых научных журналов ВАК при Минобрнауки России |  |  |
 | 1. |  |  |
@@ -459,13 +459,13 @@ status: draft
 | --- |
 | Научный руководитель / Supervised by |
 
+Научная специальность / Field of Study
+
 | Уровень профессионального образования / Level of Education | программа подготовки |
 | --- | --- |
 | Уровень профессионального образования / Level of Education | научных и научно- |
 | Уровень профессионального образования / Level of Education | педагогических кадров в |
 | Уровень профессионального образования / Level of Education | аспирантуре/ PhD |
-
-Научная специальность / Field of Study
 
 | Отрасль науки / Field of Science | № зачетной |
 | --- | --- |
@@ -493,7 +493,9 @@ status: draft
 |  | ХАРАКТЕРИСТИКА ОБУЧАЮЩЕГОСЯ И ЕГО НАУЧНОЙ ДЕЯТЕЛЬНОСТИ / |
 | --- | --- |
 |  | CHARACTERIZATION OF THE PhD STUDENT AND THEIR SCIENTIFIC WORK |
-| ДИССЕРТАЦИЯ СООТВЕТСТВУЕТ / НЕ СООТВЕТСТВУЕТ КРИТЕРИЯМ, УСТАНОВЛЕННЫМ В СООТВЕТСТВИИ С ФЕДЕРАЛЬНЫМ ЗАКОНОМ ОТ 23.08.1996 № 127-ФЗ «О НАУКЕ И ГОСУДАРСТВЕННОЙ НАУЧНО-ТЕХНИЧЕСКОЙ ПОЛИТИКЕ» / COMPLIANCE / NON-COMPLIANCE OF THE THESIS WITH THE CRITERIA ESTABLISHED IN ACCORDANCE WITH THE FEDERAL LAW «ON SCIENCE AND STATE SCIENTIFIC AND TECHNICAL POLICY» | CHARACTERIZATION OF THE PhD STUDENT AND THEIR SCIENTIFIC WORK |
+| ДИССЕРТАЦИЯ СООТВЕТСТВУЕТ / НЕ СООТВЕТСТВУЕТ КРИТЕРИЯМ, УСТАНОВЛЕННЫМ В СООТВЕТСТВИИ С ФЕДЕРАЛЬНЫМ ЗАКОНОМ ОТ 23.08.1996 № 127-ФЗ «О НАУКЕ И ГОСУДАРСТВЕННОЙ НАУЧНО-ТЕХНИЧЕСКОЙ ПОЛИТИКЕ» / COMPLIANCE / NON-COMPLIANCE OF THE THESIS WITH THE CRITERIA ESTABLISHED IN ACCORDANCE WITH THE FEDERAL LAW «ON SCIENCE AND STATE SCIENTIFIC AND TECHNICAL POLICY» |  |
+
+Научный руководитель / Research Supervisor
 
 | подпись / signature |  |
 | --- | --- |
@@ -503,13 +505,11 @@ status: draft
 
 подпись / signature
 
-Научный руководитель / Research Supervisor
-
 Ознакомлен с отзывом / Familiar with research report assessment
 
-Ф. И. О. обучающегося / Full name of a PhD student
-
 Ознакомлен с отзывом / Familiar with research report assessment подпись / signature
+
+Ф. И. О. обучающегося / Full name of a PhD student
 
 *рекомендуемая структура и содержание отзыва научного руководителя Конец формы
 
@@ -541,13 +541,13 @@ status: draft
 
 Приложение 9 к Положению об итоговой аттестации по программам подготовки научных и научно- педагогических кадров в аспирантуре в автономной некоммерческой организации высшего образования «Университет Иннополис» Форма рецензии на диссертацию на соискание ученой степени кандидата наук Начало формы РЕЦЕНЗИЯ НА ДИССЕРТАЦИЮ НА СОИСКАНИЕ УЧЕНОЙ СТЕПЕНИ КАНДИДАТА НАУК / REVIEW ON THE THESIS FOR THE DEGREE OF CANDIDATE OF SCIENCES * Ф. И. О. № зачетной обучающегося / PhD книжки / student's full name Grade book №
 
+Научная специальность / Field of Study
+
 | Уровень профессионального образования / Level of Education | программа подготовки |
 | --- | --- |
 | Уровень профессионального образования / Level of Education | научных и научно- |
 | Уровень профессионального образования / Level of Education | педагогических кадров в |
 | Уровень профессионального образования / Level of Education | аспирантуре / PhD |
-
-Научная специальность / Field of Study
 
 Отрасль науки / Field of Science
 
@@ -586,6 +586,8 @@ status: draft
 
 Дата / Date
 
+Рецензент / Reviewer ученая степень, ученое звание (при наличии) / academic degree, academic rank (if applicable)
+
 | подпись / signature |  |
 | --- | --- |
 | подпись / signature | Ф. И. О. / Full name |
@@ -594,19 +596,17 @@ status: draft
 
 подпись / signature
 
-Рецензент / Reviewer ученая степень, ученое звание (при наличии) / academic degree, academic rank (if applicable)
-
-rank (if applicable)
-
 Ознакомлен с отзывом / Familiar with research report assessment
 
-Ф. И. О. обучающегося / Full name of a PhD student
-
 Ознакомлен с отзывом / Familiar with research report assessment подпись / signature
+
+Ф. И. О. обучающегося / Full name of a PhD student
 
 *рекомендуемая структура и содержание рецензии Конец формы
 
 Приложение 10 к Положению об итоговой аттестации по программам подготовки научных и научно- педагогических кадров в аспирантуре в автономной некоммерческой организации высшего образования «Университет Иннополис» Форма протокола заседания экспертно-аттестационной комиссии Начало формы Автономная некоммерческая Autonomous noncommercial организация высшего образования organization of higher education «Университет Иннополис» «Innopolis University» ПРОТОКОЛ ЗАСЕДАНИЯ ЭКСПЕРТНО-АТТЕСТАЦИОННОЙ КОМИССИИ (ЭАК) / PROTOCOL SESSION OF THE EXPERT ATTESTATION COMMISSION (EAC) № протокола / Дата заседания / Protocol № Session date
+
+Научная специальность / Field of Study
 
 | Уровень профессионального образования / Level of Education | программа |
 | --- | --- |
@@ -615,8 +615,6 @@ rank (if applicable)
 | Уровень профессионального образования / Level of Education | педагогических |
 | Уровень профессионального образования / Level of Education | кадров в |
 | Уровень профессионального образования / Level of Education | аспирантуре/ PhD |
-
-Научная специальность / Field of Study
 
 Отрасль науки / Field of Science ПРИСУТСТВОВАЛИ / ATTENDED: Председатель ЭАК Ф. И. О. полностью (ученая степень, ученое звание (при наличии), должность) / Commission Chairman’s full name (Academic Degree, Academic Rank (if applicable), position) Члены ЭАК Ф. И. О. полностью (ученая степень, ученое звание (при наличии), должность) /
 
@@ -690,13 +688,13 @@ Commission Members’ full names (Academic Degree, Academic Rank (if applicable)
 
 The thesis is recommended / not recommended for defense in the dissertation council.
 
-подпись / signature
-
 Председатель ЭАК / Expert Attestation Commission Chairman
 
 подпись / signature
 
 Секретарь ЭАК / Expert Attestation Commission Secretary
+
+подпись / signature
 
 Конец формы
 
@@ -787,6 +785,8 @@ ________________________________________________________________________ _______
 
 Приложение 15 к Положению об итоговой аттестации по программам подготовки научных и научно- педагогических кадров в аспирантуре в автономной некоммерческой организации высшего образования «Университет Иннополис» Форма протокола заседания апелляционной комиссии Начало формы Автономная некоммерческая Autonomous noncommercial организация высшего образования organization of higher education «Университет Иннополис» «Innopolis University» ПРОТОКОЛ ЗАСЕДАНИЯ АПЕЛЛЯЦИОННОЙ КОМИССИИ / PROTOCOL SESSION OF THE APPEAL COMMISSION № протокола / Дата заседания / Protocol № Session date
 
+Научная специальность / Field of Study
+
 | Уровень профессионального образования / Level of Education | программа |
 | --- | --- |
 | Уровень профессионального образования / Level of Education | подготовки |
@@ -794,8 +794,6 @@ ________________________________________________________________________ _______
 | Уровень профессионального образования / Level of Education | педагогических |
 | Уровень профессионального образования / Level of Education | кадров в |
 | Уровень профессионального образования / Level of Education | аспирантуре / PhD |
-
-Научная специальность / Field of Study
 
 Отрасль науки / Field of Science ПРИСУТСТВОВАЛИ / ATTENDED: Председатель апелляционной комиссии Ф. И. О. (ученая степень, ученое звание (при наличии), должность) / Commission Chairman’s full name (Academic Degree, Academic Rank (if applicable), position) Члены апелляционной комиссии Ф. И. О.
 
@@ -851,15 +849,15 @@ ________________________________________________________________________ _______
 
 РЕШЕНИЕ АПЕЛЛЯЦИОННОЙ КОМИССИИ / DECISION OF THE APPEAL COMMISSION Апелляцию отклонить (сведения о нарушениях процедуры представления диссертации на соискание ученой степени кандидата наук не подтвердились и (или) не повлияли на его результат). / To reject the appeal (the information regarding violations in the procedure for presenting the thesis for the degree of Candidate of Sciences has not been confirmed and/or did not affect the outcome). Апелляцию удовлетворить (результат аннулировать, провести итоговую аттестацию обучающихся по программам подготовки научных и научно-педагогических кадров в аспирантуре повторно). / To uphold the appeal (to annul the result and to conduct the final assessment of students in the programs for the training of scientific and scientific-pedagogical personnel in postgraduate studies again).
 
-подпись / signature
-
-Председатель апелляционной комиссии / Appeal Commission Chairman
-
 Председатель апелляционной комиссии / Appeal Commission Chairman
 
 подпись / signature
+
+Председатель апелляционной комиссии / Appeal Commission Chairman
 
 Секретарь апелляционной комиссии / Appeal Commission Secretary
+
+подпись / signature
 
 Обучающийся с протоколом ознакомлен (а) / Student has been informed of the protocol подпись / signature Дата ознакомления / Date of acquaintance (ознакомить обучающегося необходимо в течение 3 рабочих дней со дня проведения заседания апелляционной комиссии / the student must be informed within 3 working days from the date of the appeal commission meeting) Конец формы
 

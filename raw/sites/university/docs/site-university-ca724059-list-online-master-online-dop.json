@@ -1,0 +1,16 @@
+{
+ "title": "Список зачисленных на программы очной-онлайн магистратуры (дополнительный набор)",
+ "url": "https://innopolis.university/upload/iblock/28b/a304ol3e8vd0m0zr83yvp552z5vlga9o/list_online_master_online_dop.pdf",
+ "sha256": "8f86a4be1d2b4b1f50ce0d348f1848abe74df10ea1c3bcec3f30142a20da4baa",
+ "method": "text layer (pdfplumber)",
+ "chars": 1420,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:54:35+00:00",
+ "remote": {
+  "etag": "\"671fb6df-210a9\"",
+  "modified": "Mon, 28 Oct 2024 16:07:59 GMT",
+  "size": "135337"
+ }
+}

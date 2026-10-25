@@ -130,7 +130,7 @@ status: draft
 | Блок 1 – Достаточный уровень |  |  |  |
 | --- | --- | --- | --- |
 | № | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
-| Научная деятельность, направленная на подготовку диссертации к защите | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
+| Научная деятельность, направленная на подготовку диссертации к защите |  |  |  |
 | 1 | Изучение теоретических источников, выполнение библиографического (патентного) поиска источников по научной проблеме |  | Первый этап |
 | 2 | Проведение анализа состояния и степени изученности проблем; выдвижение научной гипотезы и выбор направления исследования |  | Первый этап |
 | 3 | Формулирование цели и задач исследования |  | Первый этап |
@@ -141,13 +141,13 @@ status: draft
 | Блок 2 – Компетентный уровень |  |  |  |
 | --- | --- | --- | --- |
 | № | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
-| Научная деятельность, направленная на подготовку диссертации к защите | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
+| Научная деятельность, направленная на подготовку диссертации к защите |  |  |  |
 | 1 |  |  | Первый этап |
 
 | Блок 3 – Высокий уровень |  |  |  |
 | --- | --- | --- | --- |
 | № | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
-| Научная деятельность, направленная на подготовку диссертации к защите | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
+| Научная деятельность, направленная на подготовку диссертации к защите |  |  |  |
 | 1 |  |  | Первый этап |
 
 | Подготовка доклада и презентации по этапам выполнения научного исследования (выполнение плана научной деятельности), 1 семестр | Презентация по этапам выполнения научного исследования |
@@ -161,7 +161,7 @@ status: draft
 | Блок 1 – Достаточный уровень |  |  |  |
 | --- | --- | --- | --- |
 | № | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
-| Научная деятельность, направленная на подготовку диссертации к защите | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
+| Научная деятельность, направленная на подготовку диссертации к защите |  |  |  |
 | 1 | Изучение теоретических источников, выполнение библиографического (патентного) поиска источников по научной проблеме |  | Второй этап |
 | 2 | Выбор методов и инструментов исследования |  | Второй этап |
 | 3 | Разработка методики исследований (экспериментальных исследований) |  | Второй этап |
@@ -170,13 +170,13 @@ status: draft
 | Блок 2 – Компетентный уровень |  |  |  |
 | --- | --- | --- | --- |
 | № | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
-| Научная деятельность, направленная на подготовку диссертации к защите | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
+| Научная деятельность, направленная на подготовку диссертации к защите |  |  |  |
 | 1 |  |  | Второй этап |
 
 | Блок 3 – Высокий уровень |  |  |  |
 | --- | --- | --- | --- |
 | № | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
-| Подготовка публикаций и (или) заявок на государственную регистрацию результатов интеллектуальной деятельности | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
+| Подготовка публикаций и (или) заявок на государственную регистрацию результатов интеллектуальной деятельности |  |  |  |
 | 1 | Публикация статьи в издании (в сборнике материалов конференции) / участие в конференции с докладом / оформление заявки на государственную регистрацию результата интеллектуальной деятельности / государственная регистрация результата интеллектуальной деятельности и др. (по выбору аспиранта) |  | Второй этап |
 
 | Подготовка доклада и презентации по этапам выполнения научного исследования (выполнение плана научной деятельности), 2 семестр | Презентация по этапам выполнения научного исследования |
@@ -190,24 +190,24 @@ status: draft
 | Блок 1 – Достаточный уровень |  |  |  |
 | --- | --- | --- | --- |
 | № | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
-| Научная деятельность, направленная на подготовку диссертации к защите | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
+| Научная деятельность, направленная на подготовку диссертации к защите |  |  |  |
 | 1 | Изучение теоретических источников, выполнение библиографического (патентного) поиска источников по научной проблеме |  | Третий этап |
 | 2 | Проведение исследований (эксперимент) |  | Третий этап |
 | 3 | Обработка результатов исследования (эксперимента) |  | Третий этап |
 | 4 | Подготовка первой главы диссертации |  | Третий этап |
-| Подготовка публикаций и (или) заявок на государственную регистрацию результатов интеллектуальной деятельности | Подготовка первой главы диссертации |  | Третий этап |
+| Подготовка публикаций и (или) заявок на государственную регистрацию результатов интеллектуальной деятельности |  |  |  |
 | 1 | Публикация статьи в издании (в сборнике материалов конференции) / участие в конференции с докладом / оформление заявки на государственную регистрацию результата интеллектуальной деятельности / государственная регистрация результата интеллектуальной деятельности и др. (по выбору аспиранта) |  | Третий этап |
 
 | Блок 2 – Компетентный уровень |  |  |  |
 | --- | --- | --- | --- |
 | № | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
-| Подготовка публикаций и (или) заявок на государственную регистрацию результатов интеллектуальной деятельности | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
+| Подготовка публикаций и (или) заявок на государственную регистрацию результатов интеллектуальной деятельности |  |  |  |
 | 1 | Публикация статьи в издании (в сборнике материалов конференции) / участие в конференции с докладом / оформление заявки на государственную регистрацию результата интеллектуальной деятельности / государственная регистрация результата интеллектуальной деятельности и др. (по выбору аспиранта) |  | Третий этап |
 
 | Блок 3 – Высокий уровень |  |  |  |
 | --- | --- | --- | --- |
 | № | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
-| Научная деятельность, направленная на подготовку диссертации к защите | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
+| Научная деятельность, направленная на подготовку диссертации к защите |  |  |  |
 | 1 |  |  | Третий этап |
 
 Подготовка доклада и презентации по этапам Презентация по выполнения научного исследования (выполнение этапам плана научной деятельности), 3 семестр выполнения
@@ -223,25 +223,25 @@ status: draft
 | Блок 1 – Достаточный уровень |  |  |  |
 | --- | --- | --- | --- |
 | № | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
-| Научная деятельность, направленная на подготовку диссертации к защите | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
+| Научная деятельность, направленная на подготовку диссертации к защите |  |  |  |
 | 1 | Изучение теоретических источников, выполнение библиографического (патентного) поиска источников по научной проблеме |  | Четвертый этап |
 | 2 | Проведение исследований (эксперимент) |  | Четвертый этап |
 | 3 | Обработка результатов исследования (эксперимента) |  | Четвертый этап |
 | 4 | Корректировка первой главы диссертации (при необходимости) |  | Четвертый этап |
 | 5 | Подготовка второй главы диссертации |  | Четвертый этап |
-| Подготовка публикаций и (или) заявок на государственную регистрацию результатов интеллектуальной деятельности | Подготовка второй главы диссертации |  | Четвертый этап |
+| Подготовка публикаций и (или) заявок на государственную регистрацию результатов интеллектуальной деятельности |  |  |  |
 | 1 | Публикация статьи в издании из Перечня российских рецензируемых научных журналов, в которых должны быть опубликованы основные научные результаты диссертации на соискание ученой степени кандидата наук, рекомендованных Высшей аттестационной комиссией |  | Четвертый этап |
 
 | Блок 2 – Компетентный уровень |  |  |  |
 | --- | --- | --- | --- |
 | № | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
-| Научная деятельность, направленная на подготовку диссертации к защите | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
+| Научная деятельность, направленная на подготовку диссертации к защите |  |  |  |
 | 1 |  |  | Четвертый этап |
 
 | Блок 3 – Высокий уровень |  |  |  |
 | --- | --- | --- | --- |
 | № | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
-| Научная деятельность, направленная на подготовку диссертации к защите | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
+| Научная деятельность, направленная на подготовку диссертации к защите |  |  |  |
 | 1 |  |  | Четвертый этап |
 
 | Подготовка доклада и презентации по этапам выполнения научного исследования (выполнение плана научной деятельности), 4 семестр | Презентация по этапам выполнения научного исследования |
@@ -255,25 +255,25 @@ status: draft
 | Блок 1 – Достаточный уровень |  |  |  |
 | --- | --- | --- | --- |
 | № | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
-| Научная деятельность, направленная на подготовку диссертации к защите | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
+| Научная деятельность, направленная на подготовку диссертации к защите |  |  |  |
 | 1 | Проведение исследований (эксперимент) |  | Пятый этап |
 | 2 | Обработка результатов исследования (эксперимента) |  | Пятый этап |
 | 3 | Корректировка второй главы диссертации (при необходимости) |  | Пятый этап |
 | 4 | Подготовка третьей главы диссертации |  | Пятый этап |
 | 5 | Подготовка четвертой диссертации (при необходимости) |  | Пятый этап |
-| Подготовка публикаций и (или) заявок на государственную регистрацию результатов интеллектуальной деятельности | Подготовка четвертой диссертации (при необходимости) |  | Пятый этап |
+| Подготовка публикаций и (или) заявок на государственную регистрацию результатов интеллектуальной деятельности |  |  |  |
 | 1 | Публикация статьи в издании из Перечня российских рецензируемых научных журналов, в которых должны быть опубликованы основные научные результаты диссертации на соискание ученой степени кандидата наук, рекомендованных Высшей аттестационной комиссией |  | Пятый этап |
 
 | Блок 2 – Компетентный уровень |  |  |  |
 | --- | --- | --- | --- |
 | № | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
-| Научная деятельность, направленная на подготовку диссертации к защите | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
+| Научная деятельность, направленная на подготовку диссертации к защите |  |  |  |
 | 1 |  |  | Пятый этап |
 
 | Блок 3 – Высокий уровень |  |  |  |
 | --- | --- | --- | --- |
 | № | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
-| Научная деятельность, направленная на подготовку диссертации к защите | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
+| Научная деятельность, направленная на подготовку диссертации к защите |  |  |  |
 | 1 |  |  | Пятый этап |
 
 | Подготовка доклада и презентации по этапам выполнения научного исследования (выполнение плана научной деятельности), 5 семестр | Презентация по этапам выполнения научного исследования |
@@ -287,22 +287,22 @@ status: draft
 | Блок 1 – Достаточный уровень |  |  |  |
 | --- | --- | --- | --- |
 | № | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
-| Научная деятельность, направленная на подготовку диссертации к защите | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
+| Научная деятельность, направленная на подготовку диссертации к защите |  |  |  |
 | 1 | Корректировка текста диссертации (при необходимости) |  | Шестой этап |
 | 2 | Предоставление рукописи диссертации научному руководителю |  | Шестой этап |
-| Подготовка публикаций и (или) заявок на государственную регистрацию результатов интеллектуальной деятельности | Предоставление рукописи диссертации научному руководителю |  | Шестой этап |
+| Подготовка публикаций и (или) заявок на государственную регистрацию результатов интеллектуальной деятельности |  |  |  |
 | 1 | Публикация статьи в издании (в сборнике материалов конференции) / участие в конференции с докладом / оформление заявки на государственную регистрацию результата интеллектуальной деятельности / государственная регистрация результата интеллектуальной деятельности и др. (по выбору аспиранта) |  | Пятый этап |
 
 | Блок 2 – Компетентный уровень |  |  |  |
 | --- | --- | --- | --- |
 | № | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
-| Подготовка публикаций и (или) заявок на государственную регистрацию результатов интеллектуальной деятельности | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
+| Подготовка публикаций и (или) заявок на государственную регистрацию результатов интеллектуальной деятельности |  |  |  |
 | 1 | Публикация статьи в издании (в сборнике материалов конференции) / участие в конференции с докладом / оформление заявки на государственную регистрацию результата интеллектуальной деятельности / государственная регистрация результата интеллектуальной деятельности и др. (по выбору аспиранта) |  | Шестой этап |
 
 | Блок 3 – Высокий уровень |  |  |  |
 | --- | --- | --- | --- |
 | № | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
-| Подготовка публикаций и (или) заявок на государственную регистрацию результатов интеллектуальной деятельности | Виды работ | Сроки выполнения работ | Этапы выполнения работ |
+| Подготовка публикаций и (или) заявок на государственную регистрацию результатов интеллектуальной деятельности |  |  |  |
 | 1 | Публикация статьи в издании (в сборнике материалов конференции) / участие в конференции с докладом / оформление заявки на государственную регистрацию результата интеллектуальной деятельности / государственная регистрация результата интеллектуальной деятельности и др. (по выбору аспиранта) |  | Шестой этап |
 
 | Подготовка доклада и презентации по этапам выполнения научного исследования (выполнение плана научной деятельности), 6 семестр | Презентация по этапам выполнения научного исследования |
@@ -349,7 +349,7 @@ INDIVIDUAL RESEARCH PLAN 1st semester of 20__/20__ study year
 | Block 1 – Sufficient |  |  |  |
 | --- | --- | --- | --- |
 | № | Activities | Deadlines | Stages of work completion |
-| Research Activities Performed to Prepare a Dissertation for Defense | Activities | Deadlines | Stages of work completion |
+| Research Activities Performed to Prepare a Dissertation for Defense |  |  |  |
 | 1 | Study of Theoretical Sources, conducting a bibliographic (patent) search for sources related to the scientific problem |  | Stage one |
 | 2 | Performing an analysis of the existing state and extent of research on the problems; formulating a scientific hypothesis and selecting the direction of research |  | Stage one |
 | 3 | Formulation of Research Goals and Objectives |  | Stage one |
@@ -360,13 +360,13 @@ INDIVIDUAL RESEARCH PLAN 1st semester of 20__/20__ study year
 | Block 2 – Proficient |  |  |  |
 | --- | --- | --- | --- |
 | № | Activities | Deadlines | Stages of work completion |
-| Research Activities Performed to Prepare a Dissertation for Defense | Activities | Deadlines | Stages of work completion |
+| Research Activities Performed to Prepare a Dissertation for Defense |  |  |  |
 | 1 |  |  | Stage one |
 
 | Block 3 – Advanced |  |  |  |
 | --- | --- | --- | --- |
 | № | Activities | Deadlines | Stages of work completion |
-| Research Activities Performed to Prepare a Dissertation for Defense | Activities | Deadlines | Stages of work completion |
+| Research Activities Performed to Prepare a Dissertation for Defense |  |  |  |
 | 1 |  |  | Stage one |
 
 | Preparation of research report with presentation on the stages of conducting scientific research (fulfillment of the individual research plan) on 1st semester research results | Presentation on the Stages of Conducting Scientific Research |
@@ -380,7 +380,7 @@ PHD Student __________ _________________ (signature) (full name) Research superv
 | Block 1 – Sufficient |  |  |  |
 | --- | --- | --- | --- |
 | № | Activities | Deadlines | Stages of work completion |
-| Research Activities Performed to Prepare a Dissertation for Defense | Activities | Deadlines | Stages of work completion |
+| Research Activities Performed to Prepare a Dissertation for Defense |  |  |  |
 | 1 | Study of theoretical sources, conducting a bibliographic (patent) search for sources related to the scientific problem |  | Stage two |
 | 2 | Selection of research methods and tools |  | Stage two |
 | 3 | Development of research methodology (experimental research) |  | Stage two |
@@ -389,13 +389,13 @@ PHD Student __________ _________________ (signature) (full name) Research superv
 | Block 2 – Proficient |  |  |  |
 | --- | --- | --- | --- |
 | № | Activities | Deadlines | Stages of work completion |
-| Research Activities Performed to Prepare a Dissertation for Defense | Activities | Deadlines | Stages of work completion |
+| Research Activities Performed to Prepare a Dissertation for Defense |  |  |  |
 | 1 |  |  | Stage two |
 
 | Block 3 – Advanced |  |  |  |
 | --- | --- | --- | --- |
 | № | Activities | Deadlines | Stages of work completion |
-| Preparation of Publications and/or Applications for State Registration of Intellectual Property Results | Activities | Deadlines | Stages of work completion |
+| Preparation of Publications and/or Applications for State Registration of Intellectual Property Results |  |  |  |
 | 1 | Publication of an article in a peer-reviewed journal (or conference proceedings) / Presentation at a conference / Preparation of an application for state registration of an intellectual property / State registration of an intellectual property, etc. (to be chosen by the PhD student) |  | Stage two |
 
 | Preparation of research report with presentation on the stages of conducting scientific research (fulfillment of the individual research plan) on 2nd semester research results | Presentation on the Stages of Conducting Scientific Research |
@@ -409,24 +409,24 @@ PHD Student __________ _________________ (signature) (full name) Research superv
 | Block 1 – Sufficient |  |  |  |
 | --- | --- | --- | --- |
 | № | Activities | Deadlines | Stages of work completion |
-| Research Activities Performed to Prepare a Dissertation for Defense | Activities | Deadlines | Stages of work completion |
+| Research Activities Performed to Prepare a Dissertation for Defense |  |  |  |
 | 1 | Study of Theoretical Sources, conducting a bibliographic (patent) search for sources related to the scientific problem |  | Stage three |
 | 2 | Conducting research (experiment) |  | Stage three |
 | 3 | Processing of research results (experiment) |  | Stage three |
 | 4 | Preparation of the first chapter of the dissertation |  | Stage three |
-| Preparation of Publications and/or Applications for State Registration of Intellectual Property Results | Preparation of the first chapter of the dissertation |  | Stage three |
+| Preparation of Publications and/or Applications for State Registration of Intellectual Property Results |  |  |  |
 | 1 | Publication of an article in a peer-reviewed journal (or conference proceedings) / Presentation at a conference / Preparation of an application for state registration of an intellectual property / State registration of an intellectual property, etc. (to be chosen by the PhD student) |  | Stage three |
 
 | Block 2 – Proficient |  |  |  |
 | --- | --- | --- | --- |
 | № | Activities | Deadlines | Stages of work completion |
-| Preparation of Publications and/or Applications for State Registration of Intellectual Property Results | Activities | Deadlines | Stages of work completion |
+| Preparation of Publications and/or Applications for State Registration of Intellectual Property Results |  |  |  |
 | 1 | Publication of an article in a peer-reviewed journal (or conference proceedings) / Presentation at a conference / Preparation of an application for state registration of an intellectual property / State registration of an intellectual property, etc. (to be chosen by the PhD student) |  | Stage three |
 
 | Block 3 – Advanced |  |  |  |
 | --- | --- | --- | --- |
 | № | Activities | Deadlines | Stages of work completion |
-| Research Activities Performed to Prepare a Dissertation for Defense | Activities | Deadlines | Stages of work completion |
+| Research Activities Performed to Prepare a Dissertation for Defense |  |  |  |
 | 1 |  |  | Stage three |
 
 | Preparation of research report with presentation on the stages of conducting scientific research (fulfillment of the individual research plan) on 3rd semester research results | Presentation on the Stages of Conducting Scientific Research |
@@ -440,25 +440,25 @@ PHD Student __________ _________________ (signature) (full name) Research superv
 | Block 1 – Sufficient |  |  |  |
 | --- | --- | --- | --- |
 | № | Activities | Deadlines | Stages of work completion |
-| Research Activities Performed to Prepare a Dissertation for Defense | Activities | Deadlines | Stages of work completion |
+| Research Activities Performed to Prepare a Dissertation for Defense |  |  |  |
 | 1 | Study of Theoretical Sources, conducting a bibliographic (patent) search for sources related to the scientific problem |  | Stage four |
 | 2 | Conducting research (experiment) |  | Stage four |
 | 3 | Processing of research results (experiment) |  | Stage four |
 | 4 | Correction of the first chapter of the dissertation (if necessary) |  | Stage four |
 | 5 | Preparation of the second chapter of the dissertation |  | Stage four |
-| Preparation of Publications and/or Applications for State Registration of Intellectual Property Results | Preparation of the second chapter of the dissertation |  | Stage four |
+| Preparation of Publications and/or Applications for State Registration of Intellectual Property Results |  |  |  |
 | 1 | Publication of an article in journals from the List of Russian Peer-Reviewed Scientific Journals (approved by the Higher Attestation Commission) where the results of a Candidate of Sciences dissertation must be published (first article) |  | Stage four |
 
 | Block 2 – Proficient |  |  |  |
 | --- | --- | --- | --- |
 | № | Activities | Deadlines | Stages of work completion |
-| Research Activities Performed to Prepare a Dissertation for Defense | Activities | Deadlines | Stages of work completion |
+| Research Activities Performed to Prepare a Dissertation for Defense |  |  |  |
 | 1 |  |  | Stage four |
 
 | Block 3 – Advanced |  |  |  |
 | --- | --- | --- | --- |
 | № | Activities | Deadlines | Stages of work completion |
-| Research Activities Performed to Prepare a Dissertation for Defense | Activities | Deadlines | Stages of work completion |
+| Research Activities Performed to Prepare a Dissertation for Defense |  |  |  |
 | 1 |  |  | Stage four |
 
 | Preparation of research report with presentation on the stages of conducting scientific research (fulfillment of the individual research plan) on 4th semester research results | Presentation on the Stages of Conducting Scientific Research |
@@ -474,25 +474,25 @@ Head of the Responsible Structural Unit __________ _________________ (signature)
 | Block 1 – Sufficient |  |  |  |
 | --- | --- | --- | --- |
 | № | Activities | Deadlines | Stages of work completion |
-| Research Activities Performed to Prepare a Dissertation for Defense | Activities | Deadlines | Stages of work completion |
+| Research Activities Performed to Prepare a Dissertation for Defense |  |  |  |
 | 1 | Conducting research (experiment) |  | Stage five |
 | 2 | Processing of research results (experiment) |  | Stage five |
 | 3 | Correction of the second chapter of the dissertation (if necessary) |  | Stage five |
 | 4 | Preparation of the third chapter of the dissertation |  | Stage five |
 | 5 | Preparation of the fourth chapter of the dissertation (if necessary) |  | Stage five |
-| Preparation of Publications and/or Applications for State Registration of Intellectual Property Results | Preparation of the fourth chapter of the dissertation (if necessary) |  | Stage five |
+| Preparation of Publications and/or Applications for State Registration of Intellectual Property Results |  |  |  |
 | 1 | Publication of an article in journals from the List of Russian Peer-Reviewed Scientific Journals (approved by the Higher Attestation Commission) where the results of a Candidate of Sciences dissertation must be published (second article) |  | Stage five |
 
 | Block 2 – Proficient |  |  |  |
 | --- | --- | --- | --- |
 | № | Activities | Deadlines | Stages of work completion |
-| Research Activities Performed to Prepare a Dissertation for Defense | Activities | Deadlines | Stages of work completion |
+| Research Activities Performed to Prepare a Dissertation for Defense |  |  |  |
 | 1 |  |  | Stage five |
 
 | Block 3 – Advanced |  |  |  |
 | --- | --- | --- | --- |
 | № | Activities | Deadlines | Stages of work completion |
-| Research Activities Performed to Prepare a Dissertation for Defense | Activities | Deadlines | Stages of work completion |
+| Research Activities Performed to Prepare a Dissertation for Defense |  |  |  |
 | 1 |  |  | Stage five |
 
 | Preparation of research report with presentation on the stages of conducting scientific research (fulfillment of the individual research plan) on 5th semester research results | Presentation on the Stages of Conducting Scientific Research |
@@ -506,22 +506,22 @@ PHD Student __________ _________________ (signature) (full name) Research superv
 | Block 1 – Sufficient |  |  |  |
 | --- | --- | --- | --- |
 | № | Activities | Deadlines | Stages of work completion |
-| Research Activities Performed to Prepare a Dissertation for Defense | Activities | Deadlines | Stages of work completion |
+| Research Activities Performed to Prepare a Dissertation for Defense |  |  |  |
 | 1 | Correction of the dissertation text (if necessary) |  | Stage six |
 | 2 | Submission of the dissertation manuscript to the academic supervisor |  | Stage six |
-| Preparation of Publications and/or Applications for State Registration of Intellectual Property Results | Submission of the dissertation manuscript to the academic supervisor |  | Stage six |
+| Preparation of Publications and/or Applications for State Registration of Intellectual Property Results |  |  |  |
 | 1 | Publication of an article in a peer-reviewed journal (or conference proceedings) / Presentation at a conference / Preparation of an application for state registration of an intellectual property / State registration of an intellectual property, etc. (to be chosen by the PhD student) |  | Stage six |
 
 | Block 2 – Proficient |  |  |  |
 | --- | --- | --- | --- |
 | № | Activities | Deadlines | Stages of work completion |
-| Preparation of Publications and/or Applications for State Registration of Intellectual Property Results | Activities | Deadlines | Stages of work completion |
+| Preparation of Publications and/or Applications for State Registration of Intellectual Property Results |  |  |  |
 | 1 | Publication of an article in a peer-reviewed journal (or conference proceedings) / Presentation at a conference / Preparation of an application for state registration of an intellectual property / State registration of an intellectual property, etc. (to be chosen by the PhD student) |  | Stage six |
 
 | Block 3 – Advanced |  |  |  |
 | --- | --- | --- | --- |
 | № | Activities | Deadlines | Stages of work completion |
-| Preparation of Publications and/or Applications for State Registration of Intellectual Property Results | Activities | Deadlines | Stages of work completion |
+| Preparation of Publications and/or Applications for State Registration of Intellectual Property Results |  |  |  |
 | 1 | Publication of an article in a peer-reviewed journal (or conference proceedings) / Presentation at a conference / Preparation of an application for state registration of an intellectual property / State registration of an intellectual property, etc. (to be chosen by the PhD student) |  | Stage six |
 
 | Preparation of research report with presentation on the stages of conducting scientific research (fulfillment of the individual research plan) on 6th semester research results | Presentation on the Stages of Conducting Scientific Research |
@@ -546,8 +546,8 @@ INDIVIDUAL STUDY PLAN Конец формы
 
 | № | Виды работ (перечисляются виды работ, указанные в индивидуальном плане научной деятельности) | Результат выполнения работ (краткое описание выполненных работ / выходные данные мероприятия / статьи / объекта интеллектуальности деятельности*) |
 | --- | --- | --- |
-| Блок 1 – Достаточный уровень | Виды работ (перечисляются виды работ, указанные в индивидуальном плане научной деятельности) | Результат выполнения работ (краткое описание выполненных работ / выходные данные мероприятия / статьи / объекта интеллектуальности деятельности*) |
-| Научная деятельность, направленная на подготовку диссертации к защите | Виды работ (перечисляются виды работ, указанные в индивидуальном плане научной деятельности) | Результат выполнения работ (краткое описание выполненных работ / выходные данные мероприятия / статьи / объекта интеллектуальности деятельности*) |
+| Блок 1 – Достаточный уровень |  |  |
+| Научная деятельность, направленная на подготовку диссертации к защите |  |  |
 | 1 |  |  |
 | … |  |  |
 | Подготовка публикаций и (или) заявок на государственную регистрацию результатов интеллектуальной деятельности** |  |  |
@@ -599,8 +599,8 @@ __________ _________________ (подпись) (расшифровка) * Пра�
 
 | № | Activities (List of activities planned in the individual research plan) | Key Outcomes (Summary of completed work / Event particulars / Publication particulars / Intellectual property particulars*) |
 | --- | --- | --- |
-| Block 1 – Sufficient | Activities (List of activities planned in the individual research plan) | Key Outcomes (Summary of completed work / Event particulars / Publication particulars / Intellectual property particulars*) |
-| Research Activities Performed to Prepare a Dissertation for Defense | Activities (List of activities planned in the individual research plan) | Key Outcomes (Summary of completed work / Event particulars / Publication particulars / Intellectual property particulars*) |
+| Block 1 – Sufficient |  |  |
+| Research Activities Performed to Prepare a Dissertation for Defense |  |  |
 | 1 |  |  |
 | … |  |  |
 | Preparation of Publications and/or Applications for State Registration of Intellectual Property Results ** |  |  |

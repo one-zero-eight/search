@@ -1,0 +1,23 @@
+This is an essay style question, using the concepts in class. Do not rely on “personal opinions”
+in this writing, but relate it clearly to concepts of the course.
+You are expected to write your answer using the proper English spelling, grammar, and form and
+convince examiners you know the course materials via your persuasive writing. You may use any
+resources required but please cite any sources used. It is expected that an intelligent answer to
+this question will take at least two double spaced typed pages in 12pt Times New Roman font
+with normal margins (i.e. the settings already in this word document) without diagrams or
+figures. Though you may use more space to further your arguments. Please name your
+submission as Firstname_Lastname.docx and place your name and student ID on all pages of the
+document.
+Do this work on your own, evidence of copying or plagiarism, etc. will result in a grade of zero
+and a report to the DOE. Please, challenge yourselves and display your honest knowledge and
+understanding in a new issue.
+You have been asked to create a chess playing system for tournament play. The system is built
+into a normal chess board and uses a camera to view the positions on the board, it then makes its
+moves by declaration on a screen (an official of the tournament will move the pieces for it), it
+will also be able to operate the clock, and must be able to hand in its scorecard.
+Provide a PEAS model for the system. Define the task environment. Provide a clear justification
+for these choices. Compare and contrast two methods for the system to find the next move.
+Comment on these two methods in regards to how they use Exploration and Exploitation.
+Finally, can this system ever be said to know how to play chess? Why or why not?
+
+

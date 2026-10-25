@@ -1,0 +1,541 @@
+Databases Midterm Exam
+March 5, 2025
+Innopolis University
+
+Database Schema A
+CREATE TABLE Department (
+departmentName VARCHAR(50),
+budget INTEGER,
+PRIMARY KEY (departmentName)
+);
+CREATE TABLE Location (
+locationId VARCHAR(3),
+city VARCHAR(10),
+country VARCHAR (10),
+PRIMARY KEY (locationId)
+);
+CREATE TABLE Employee (
+employeeId INTEGER,
+name VARCHAR(30),
+jobTitle VARCHAR(15),
+departmentName VARCHAR (50)
+NOT NULL,
+PRIMARY KEY (employeeId),
+FOREIGN KEY (departmentName)
+REFERENCES Department
+);
+CREATE TABLE Project (
+projectCode VARCHAR(5),
+projectType VARCHAR(10),
+teamSize INTEGER,
+PRIMARY KEY (projectCode)
+);
+CREATE TABLE Resource (
+resourceId INTEGER,
+resourceName VARCHAR(50),
+locationId VARCHAR(3),
+PRIMARY KEY(resourceId),
+FOREIGN KEY (locationId)
+REFERENCES Location
+);
+CREATE TABLE Assignment (
+assignmentId INTEGER,
+startDate TIMESTAMP,
+endDate TIMESTAMP,
+PRIMARY KEY (assignmentId)
+);
+CREATE TABLE Skill (
+skillId INTEGER,
+skillName VARCHAR(20),
+PRIMARY KEY (skillId)
+);
+
+CREATE TABLE​
+ResourceAllocation (
+resourceId INTEGER,
+projectCode VARCHAR(5),
+assignmentId INTEGER,
+allocationPercentage INTEGER,
+PRIMARY KEY (resourceId,
+projectCode, assignmentId),
+FOREIGN KEY (resourceId)
+REFERENCES Resource,
+FOREIGN KEY (projectCode)
+REFERENCES Project,
+FOREIGN KEY (assignmentId)
+REFERENCES Assignment
+);
+CREATE TABLE ProjectLocation (
+projectCode VARCHAR(5),
+locationId VARCHAR(3),
+PRIMARY KEY (projectCode,
+locationId),
+FOREIGN KEY (projectCode)
+REFERENCES Project,
+FOREIGN KEY (locationId)
+REFERENCES Location
+);
+CREATE TABLE WorksOn (
+employeeId INTEGER,
+projectCode VARCHAR(5),
+assignmentId INTEGER,
+hoursWorked INTEGER,
+PRIMARY KEY (employeeId,
+projectCode, assignmentId),
+FOREIGN KEY (employeeId)
+REFERENCES Employee,
+FOREIGN KEY (projectCode)
+REFERENCES Project,
+FOREIGN KEY (assignmentId)
+REFERENCES Assignment
+);
+CREATE TABLE TaskAssignment (
+employeeId INTEGER,
+taskId INTEGER,
+assignmentId INTEGER,
+role VARCHAR(20),
+PRIMARY KEY (employeeId,
+taskId, assignmentId),
+FOREIGN KEY (employeeId)
+REFERENCES Employee,
+FOREIGN KEY (taskId)
+REFERENCES Task,
+FOREIGN KEY (assignmentId)
+REFERENCES Assignment
+);
+
+CREATE TABLE EmployeeSkill (
+employeeId INTEGER,
+skillId INTEGER,
+proficiencyLevel VARCHAR(10),
+PRIMARY KEY (employeeId,
+skillId),
+FOREIGN KEY (employeeId)
+REFERENCES Employee,
+FOREIGN KEY (skillId)
+REFERENCES Skill
+);
+CREATE TABLE Task (
+taskId INTEGER,
+taskDescription VARCHAR(100),
+projectCode VARCHAR(5),
+PRIMARY KEY (taskId),
+FOREIGN KEY (projectCode)
+REFERENCES Project
+);
+CREATE TABLE Manager (
+employeeId INTEGER,
+bonus DECIMAL (10, 2), -Additional attribute specific to
+Managers
+PRIMARY KEY (employeeId),
+FOREIGN KEY (employeeId)
+REFERENCES Employee (employeeId)
+);
+CREATE TABLE Engineer (
+employeeId INTEGER,
+specialization VARCHAR(50),
+-- Additional attribute specific
+to Engineers
+PRIMARY KEY (employeeId),
+FOREIGN KEY (employeeId)
+REFERENCES Employee (employeeId)
+);
+CREATE TABLE SoftwareEngineer (
+employeeId INTEGER,
+programmingLanguage
+VARCHAR(20), -- Additional
+attribute specific to Software
+Engineers
+PRIMARY KEY (employeeId),
+FOREIGN KEY (employeeId)
+REFERENCES Engineer (employeeId)
+);
+
+Task 1. 3 points.
+Part 1. ER diagram
+Draw ER diagram using Chen notation according to the Database Schema A. You are
+NOT required to include attributes to your diagram [3 pts]
+
+Part 2. Queries
+a.​ Write an SQL query to find employees who worked on project with a team size
+greater than 5 [2 pts]
+
+b.​ Describe the following SQL queries in a human-friendly way [4 pts]
+SELECT e.employeeId, e.name
+FROM Employee e
+WHERE EXISTS (
+SELECT 1
+FROM ResourceAllocation ra
+WHERE ra.resourceId = e.employeeId​
+AND ra.allocationPercentage > 50
+);
+SELECT e.employeeId, e.name
+FROM Employee e
+WHERE EXISTS (
+SELECT 1 FROM WorksOn w
+JOIN ProjectLocation pl ON w.projectCode =
+pl.projectCode
+JOIN Location l ON pl.locationId = l.locationId
+WHERE w.employeeId = e.employeeId​
+AND l.country = 'USA'
+)
+AND EXISTS (
+SELECT 1
+FROM EmployeeSkill es
+WHERE es.employeeId = e.employeeId​
+AND es.skillId = (
+SELECT skillId FROM Skill​
+WHERE skillName = 'Java'
+)
+);
+
+Task 2. 8 points.
+Part 1. True or False [5 pts]
+a. Database Schema A does not allow a software engineer to be a manager.
+
+T
+
+F
+
+b. In Database Schema A, the ResourceAllocation table ensures that a
+resource can only be allocated to one project at a time.
+
+T
+
+F
+
+c. When we map multivalued attributes from an ER model to a Relational
+model, we store the values of the multivalued attribute in a single column
+separated by commas.
+
+T
+
+F
+
+d. In the ER model, weak relationships are used to connect two weak
+entities.
+
+T
+
+F
+
+e. When mapping an ER model to Relational model, One-to-One and
+One-to-Many relationships can be mapped using a foreign key, while
+Many-to-Many relationships require an additional table.
+
+T
+
+F
+
+Part 2. Queries [3 pts]
+a.​ Write an SQL query to update the projectType column to “Group project” for all
+projects where the projectCode starts with “GP” and the teamSize is greater
+than or equal to 3 [1 pt]
+
+b.​ Write an SQL query to delete all employees whose name has “b” as the second
+letter and who belong to a department with a budget lower than 2000 [2 pts]
+
+Task 3. 8 points.
+a.​ Write an SQL query to find the total number of projects which were located in
+“Russia” and the city name starts with one of the following letters: “M”, “N’, or “K”
+[2 pts]​
+​
+​
+​
+​
+​
+​
+​
+b.​ Write an SQL query to list projectCode of all projects that employees with the
+name equal to <your name> work on [3 pts]
+​
+​
+​
+​
+​
+​
+​
+​
+c.​ Write an SQL query to list name of the departments whose budget is greater than
+the average budget of all departments, sort them by budget (from higher to
+lower), and if two or more departments have the same budget, sort them by name
+of the department [3 pts]
+
+Task 4. 7 points.
+Consider the following Relational Schema:
+Students (sid: integer, sname: string, age: integer, major: string)
+Enrollments (sid: integer, cid: integer, grade: real)
+Courses (cid: integer, cname: string, credits: integer, instructor: string)
+Convert the following SQL query into Relational Algebra notation:
+SELECT S.sname
+FROM Students S
+JOIN Enrollments E ON S.sid = E.sid
+JOIN Courses C ON E.cid = C.cid
+WHERE C.cname = 'Database Systems' AND E.grade > 3.0
+Step-by-step Solution. Specify the sequence of operations used and Relational Algebra
+form of it.
+
+Final Answer. Write the final answer in Relational Algebra format.
+
+Task 5. 8 points.
+You are given the following database table:
+EmpId
+
+EmpName
+
+Address
+
+Dept
+
+Skills
+
+ProjId
+
+ProjName
+
+MgrName
+
+MgrOffice
+
+Rating
+
+201
+
+John
+
+12A
+
+IT
+
+Python, Java
+
+P101
+
+Web App Dev
+
+Mr. Wilson
+
+M301
+
+87
+
+202
+
+Lisa
+
+34B
+
+AI
+
+Python, C++
+
+P202
+
+AI Research
+
+Dr. Adams
+
+M102
+
+98
+
+203
+
+Mike
+
+34C
+
+Design
+
+Figma, Sketch
+
+P303
+
+UI/UX Design
+
+Mr. Leo
+
+M205
+
+78
+
+204
+
+Sarah
+
+54C
+
+IT
+
+Java, Kotlin
+
+P404
+
+Software Dev
+
+Dr. Brown
+
+M401
+
+85
+
+205
+
+Alex
+
+75D
+
+Finance
+
+Excel, SQL
+
+P505
+
+Data Analysis
+
+Prof. Clark
+
+M207
+
+92
+
+206
+
+Robert
+
+38E
+
+IT
+
+C++, Rust
+
+P101
+
+Web App Dev
+
+Mr. Wilson
+
+M301
+
+89
+
+207
+
+Emma
+
+71F
+
+AI
+
+Python, R
+
+P202
+
+AI Research
+
+Dr. Adams
+
+M102
+
+95
+
+208
+
+Daniel
+
+33G
+
+Design
+
+Photoshop,
+Illustrator
+
+P303
+
+UI/UX Design
+
+Mr. Leo
+
+M205
+
+86
+
+209
+
+Olivia
+
+43M
+
+IT
+
+Java, Swift
+
+P404
+
+Software Dev
+
+Dr. Brown
+
+M401
+
+89
+
+210
+
+Jake
+
+88A
+
+Finance
+
+Python, Excel
+
+P505
+
+Data Analysis
+
+Prof. Clark
+
+M207
+
+76
+
+Normalize the given table to the 3NF step by step (Original → 1NF → 2NF → 3NF) by
+designing a set of relations. In each stage you need to list only tables that are changed.
+If a table isn’t changed in particular stage, you don’t need to mention it.
+For each relation you should provive:
+a)​ The list of attributes, underlining the primary key(s)
+b)​ Foreign key relationship (if any)
+Answer Example:
+Table1 (col-1-name, col-2-name, col-3-name…)
+Foreign keys:
+col-x-name references Table2(col-y-name)​
+…
+
+1.​ First Normal Form [2 pts]​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+2.​ Second Normal Form [3 pts]​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+3.​ Third Normal Form [3 pts]
+
+

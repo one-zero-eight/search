@@ -1,0 +1,16 @@
+{
+ "title": "Договор оферты для физических лиц",
+ "url": "https://hotel.innopolis.university/upload/docs-hotel/%D0%94%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80_%D0%BD%D0%BE%D0%B2%D1%8B%D0%B9_2024_%D1%84%D0%B8%D0%B7_%D0%BB%D0%B8%D1%86%D0%B0.pdf",
+ "sha256": "c10067150810c7049dc9715e4b6f4a5d807532b10190b77f7de51d8bbd0b815f",
+ "method": "text layer (pdfplumber)",
+ "chars": 15549,
+ "section": "site/hotel",
+ "context": "",
+ "fetched_at": "2026-10-24T22:03:06+00:00",
+ "remote": {
+  "etag": "\"1ffb2-6269078bbd22b\"",
+  "modified": "Sun, 10 Nov 2024 15:16:42 GMT",
+  "size": "130994"
+ },
+ "tables": 3
+}

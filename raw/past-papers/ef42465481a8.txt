@@ -1,0 +1,387 @@
+MIDTERM OF INTRODUCTION TO PROGRAMMING I, F2019
+1.
+
+What is the main function of the computer?
+a. Compute Pi with required precision
+b. Execute a set of arithmetic and logical
+instructions
+c. Execute a set of machine instructions
+d. Control the traffic light system
+2. What an algorithm is?
+a. A fixed set of steps to be undertaken to solve the
+task
+b. Set of diagrams which show how the task can be
+solved
+c. Any program source code
+3. What are the key components of the von
+Neumann architecture?
+a. Control unit, ALU, RAM, I/O devices
+b. CPU, RAM, I/O devices
+c. Motherboard, Hard disk, screen, system block
+4. How can we distinguish program code and data in
+RAM?
+a. Code and data are binary coded, so there is no
+difference between them
+b. CPU has a special register which contains the
+address of the command which will be executed
+c. There are computer architectures which store
+code and data separately
+5. How the CPU determines the next instruction to
+be executed?
+a. It increments the program counter register
+b. When the current instruction is fetched then the
+program counter is incremented by the size of the
+fetched instruction
+c. There is a special instruction like jump which
+modifies the program counter directly
+6. What is the key difference between low-level and
+high-level programming languages?
+a. Low-level programming languages allow
+developing programs which run the fastest possible
+way.
+b. Level of abstractions used in high-level
+programming languages is much higher
+c. High-level programming languages have clear
+syntax and semantics
+7.
+What is the key difference between semantics
+and validity of programming language construct
+a. There is no difference between them
+b. Semantics describes the run-time behaviour of the
+construct while validity describes its compiler-time
+behaviour
+c. Validity states when construction is correct, while
+semantics specifies its behaviour at run-time
+8.
+What is the main difference between compiler
+and interpreter?
+a. They both do an analysis of the program so,
+there is no fundamental difference between them
+b. The compiler produces binary code of the
+program, while interpreter does do that
+c. The interpreter executes the program while
+compiler does not do that
+d. The interpreter may generate binary code and
+then there is no difference between them
+9.
+What is the most important characteristic of
+the program
+a. Speed of its execution
+
+c. Amount of memory required for its execution
+d. Power consumption
+10. What is a data type?
+a. Named set of values, operations and constraints
+b. It is a template to create objects
+c. There are standard and user types
+11. What is the fundamental difference between
+structures and arrays?
+a. If the number of fields in the structure is equal to
+the number of elements in the array and all structure
+fields has the same type equal to the type of array
+elements, then there is no difference between them
+b. Access time to elements
+c. Indexes are used to access array elements and
+field names are used to access structure fields
+12. What is the fundamental difference between
+constants and variables?
+a.
+Constants are not stored as data they are part
+of the program code
+b.
+Constants cannot be put in the left side of the
+assignment statement
+c.
+Constants are always declared as public static
+final
+13. What is the fundamental difference between
+procedures and functions?
+a. We can treat procedures as functions which return
+void
+b. Procedures do the action, while functions in
+addition to the action return some result
+c. They both are routines
+14. What are the basic elements of structured
+programming?
+a. Condition check, assignment and jump
+b. Condition check, sequence and cycle
+c. One-entry and one-exit
+15. Which of the following statements break the
+concept of structured programming
+a. Break
+b. Continue
+c. Throw
+d. Return
+16. What is the meaning of the loop invariant?
+a. It is the exit condition of the loop
+b. It is a set of predicates which must be true for
+every loop iteration
+c. It is a monotonically decreasing integer function
+which guarantees that loop terminates
+17. What gives us the separation of interface and
+implementation?
+a. We may replace implementations while we keep
+interface the same
+b. This separation supports polymorphism
+c. This separation supports inheritance
+d. This separation supports encapsulation
+18. How many descendants a class may have if
+programming language support single inheritance?
+a. 1
+b. Any number
+c. It depends on the programming language
+19. What is the meaning of abstract classes?
+a. It just has some abstract functions in it
+b. It is not possible to create an object of such class
+c. A programmer cannot declare variables of such
+
+20. What is the output of the following program:
+
+22.
+
+from the program below:
+
+a. An infinity loop.
+b.
+c. It will not print anything and finish the program.
+d. This code will not compile.
+23.
+
+a. It depends on the arguments passed to the
+program.
+b. The following text:
+The program should stop
+a = 1; b = 1
+c. The following text:
+The program should stop
+a = 1; b = 3.0
+d. The following text:
+a = 1; b = 3.0
+21.
+code:
+
+Select the options that are correct for the following
+a. The program will not compile.
+b. The program will print the result, which is the
+average of the values in the array.
+c. The program will cause an
+ArrayIndexOutOfBoundsException.
+d. The program will finish without printing/showing
+anything.
+24.
+
+a.
+Executing the code without passing an argument
+will result in
+java.lang.ArrayIndexOutOfBoundsException in the line
+5.
+b.
+argument will result in
+java.lang.NumberFormatException.
+c.
+Executing the code passing 3 as an argument will
+show the following text as the result:
+a > 0.3333333
+d.
+Executing the code passing 3, space, and 0 as
+arguments (in the console: java Midterm 3 0) will result
+in result in java.lang.ArrayIndexOutOfBoundsException.
+
+a. The word
+b.
+c.
+d. The program will run without printing/showing
+anything
+
+25.
+Regarding the program below, select the correct
+option(s).
+
+28.
+Select the correct option(s).
+
+a. It will not compile
+b. It is an example of overloading
+c. It is an example of overriding
+d. The main method is mandatory, and the class will
+not compile
+26.
+Regarding the program below, select the correct
+option(s).
+
+a. The program will not compile because there are
+two classes in the same file.
+b. The program will not compile because of a
+NullPointException will be thrown.
+c. The program will not compile because the main
+d. The program will compile, run and show:
+Jane
+Beky
+29.
+Select the correct option(s).
+
+a.
+It is an example of overloading.
+b.
+It is an example of static polymorphism.
+c.
+I will not compile because there is no method
+main.
+d.
+It will not compile because myMethod appears
+twice with the same signature.
+27.
+Select the correct option(s) about the following
+Class Diagram:
+
+a.
+The class Animal extends from the classes Duck,
+Fish and Zebra.
+b.
+The attribute sizeInFt of the class Fish is public
+while the attribute is_wild in the class Zebra is private.
+c.
+Every instance of the class Fish has a gender.
+d.
+Every instance of the class Zebra can execute its
+method isMammal().
+
+a. A RunTimeException since the program attempts
+to change a non-public attribute of a different class.
+b. The program will not compile because it attempts
+to change a non-public attribute of a different class.
+c.
+The program will print/show:
+3.141
+3.141
+d.
+The attribute PI in the class Math can be
+accessed from the method main in the class Midterm.
+
+30.
+Select the correct option(s).
+
+32.
+Select the single correct option.
+
+a. The program will not run because Midterm
+attempts to access the attribute age of the class
+Person, which is private.
+b. The program will compile, run and show/print a
+space character and 0
+c. The program will compile but it will not run.
+d. The object p is an instance of the class Person.
+31.
+What
+Select the correct option(s).
+
+a. The program will not compile because there are
+two methods in the class Person called Person.
+b. The program will compile and run.
+c. The program will not compile because the
+constructors of Person have the same signature.
+d. The object p2 has as name the character 2 and
+age 0.
+
+a. The program will compile and show:
+Chuck Norris 79
+Mark Zuckerberg 19 90.1
+b. The program will not compile because the class
+Student attempts to change the age, which is private
+in the class Person.
+c. The program will compile and show:
+Chuck Norris 79
+Mark Zuckerberg 19
+d. The program will compile and show:
+Chuck Norris 79 0
+Mark Zuckerberg 19 90.1
+
+33.
+Select the correct option(s).
+
+35. What is the output of the following program:
+
+a. The program will give us an error
+b. The program will write: true
+c. The program will write: false
+d.
+36. What is the output of the following program:
+
+a. The program will give us an error
+b. The program will write: true
+c. The program will write: false
+d.
+output.
+37. What is the output of the following program:
+
+a. The program will compile, run and show the
+following output: 1
+b. The program will compile, run and show the
+following output: 2
+c. The program will compile, run and show the
+following output: 3
+d. The program will not compile.
+34.
+Select the correct option(s).
+
+a. The program will give us an error
+b. The program will write: 4
+c. The program will write: 22
+d.
+38. Can we override the private method in Java?
+a. Yes, why not.
+b. No, this method will be invisible in the subclass
+c. Depends on the situation.
+d. Only if the method has void type.
+39. What is the output of the following program:
+int arr[] = new int [5];
+System.out.print(arr);
+a.
+b.
+c.
+d.
+
+0
+value stored in arr[0]
+00000
+@ hashcode in hexadecimal form address of the first element
+
+40. You need to write a program that uses the formula
+
+Find the INCORRECT version of the formula:
+a. F = G*m1*m2/(r*r)
+b. F = G*(m1*m2)/(r*r)
+c. F = (G*m1*m2)/(r*r)
+d. F = G*m1*m2/r*r
+a.
+The program will compile, run and show: 10
+b.
+The program throws an exception and will show
+the message:
+An exception happened.
+c.
+The program will not compile because the
+keyword assert requires the text to be shown when the
+assert is not satisfied (for example: assert value < 0:
+d.
+
+Line 13 could be changed to the code below and
+
+41. Find the CORRECT variant of using try-catch:
+a. try { //some_code } catch { //some_code}
+b. try (Exception e){ //some_code } catch {
+//some_code}
+c. try { //some_code } catch(Exception e) {
+//some_code}
+d. try { //some_code } catch { Exception e; }
+
+MIDTERM OF INTRODUCTION TO PROGRAMMING I, F2019
+ANSWER SHEET
+NAME:
+GROUP:
+
+Clearly indicate your answers by marking the options with X or darkening the boxes as in the example above.
+This is the ONLY sheet that will be considered for grading. Answers in the other pages will NOT be considered.
+Do NOT commit mistakes in this sheet. You will NOT be given another one.
+
+

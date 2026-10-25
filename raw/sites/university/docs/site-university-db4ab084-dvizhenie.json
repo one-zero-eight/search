@@ -1,0 +1,16 @@
+{
+ "title": "Документ, содержащий информацию о результатах перевода, восстановления и отчисления (документ подписан простой электронной подписью)",
+ "url": "https://innopolis.university/upload/iblock/b8c/qso96swyvcm0f9zp6jt351klmyl6t73g/%D0%94%D0%B2%D0%B8%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5.pdf",
+ "sha256": "6e9a9b5073238965569170751e6dfda789d0cc7cb4d3d3e31d21f2a0f08ba2e5",
+ "method": "text layer (pdfplumber)",
+ "chars": 11543,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-25T00:01:37+00:00",
+ "remote": {
+  "etag": "\"6a26a65e-3dbd4\"",
+  "modified": "Mon, 08 Jun 2026 11:24:14 GMT",
+  "size": "252884"
+ }
+}

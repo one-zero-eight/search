@@ -1,0 +1,112 @@
+Linear Algebra. Test 1. Variant 1.
+
+First name
+
+- Last name Group Points#1
+I . =
+am, . (initials), confirming that | have read the following rules and agree to comply with
+them, that all solutions on this paper is my own work.
+(signature)
+
+Rules:
+
+— no talking AT ALL is allowed during the exam and after it (if you are still in the room)
+
+— Yyou can use 1 sheet of A4 paper with formulas on both sides
+
+— any electronic devices are not allowed except for a simple non-programmable calculator
+
+~ when time is up, you have to put down your pen (pencil) and do NOT write anything else
+
+— you can NOT leave your seat till the end of the test
+
+1. The 4x4 matrix A reduces to the identity matrix I by the following four row operations:
+o E21: subtract row 1 from row 2;
+. Ezi:add 2*row 1 to row 3;
+. E32: subtract 3*row 2 from row 3;
+° Es1: subtract 2*row 1 from row 4;
+o Es3: add row 3 to row 4;
+
+Write and compute A" (3 points) and A (2 points).
+2. Consider matrix A
+1 2 0
+A=12 6 -1
+0 -1 1
+a. Find the factorization A = LDU (3 points)
+b. Find A inverse (2 points).
+3. Consider matrix A
+
+11 2 4 by
+_12 1 3 6 _|b2
+4=10 11 2 b= bs
+1 0 1 2 by
+a. Reduce the matrix A to its ordinary Echelon form U (1 point).
+b. Find and describe every solution to Ax = 0 (1 point).
+
+¢. For which nontrivial right-hand sides (find a condition on by, b3, b3, by) Ax = b
+
+is solvable (1 point)?
+
+d. Provide an example of vector b # 0 that makes this system solvable (1 point).
+e. Find the complete solution for Ax = b using b from previous part (3.d)
+
+(1 point).
+Linear Algebra. Test 1. Variant 2.
+
+L Firstname Last name Group Points#l
+‘\ﬁ_r —
+
+I am, (initials), confirming that | have read the following rules and agreTe to comply with
+them, that all solutions on this paper is my own work.
+
+(signature)
+
+Rules:
+- no talking AT ALL is allowed during the exam and after it (if you are still in the room)
+~ You can use 1 sheet of A4 paper with formulas on both sides
+— any electronic devices are not allowed except for a simple non-programmable calculator
+- when time is up, you have to put down your pen (pencil) and do NOT write anything else
+- you can NOT leave your seat till the end of the test
+
+N :
+@ The 4x4 matrix A reduces to the identity matrix I by the following four row operations:
+
+. E2q1: add 2*row 1 to row 2;
+
+. E3q: subtract row 1 from row 3;
+
+1 E32: subtract 3*row 2 from row 3;
+° Ea1: add row 1 to row 4;
+
+. Ea3: subtract 2*row 3 from row 4;
+
+Write and compute A (3 points) and A (2 points).
+
+-1 -2 0
+A=|-2 -1 2
+
+0 2 1
+
+2. Consider matrix A
+
+Find the factorization A = LDU (3 points)
+Find A inverse (2 points).
+
+3. Consider matrix A
+
+1 21 3 by
+13 2 4 _ b2
+4= 1 4 3 5 b_b3
+01 11 I
+
+a. Reduce the matrix A to its ordinary Echelon form U (1 point).
+
+b. Find and describe every solution to Ax = 0 (1 paint).
+
+¢. For which nontrivial right-hand sides (find a condition on by, b3, bz, by) Ax = b
+is solvable (1 point)?
+
+d. Provide an example of vector b # 0 that makes this system solvable (1 point).
+
+e. Find the complete solution for Ax = b using b from previous part (3.d)
+(1 point).

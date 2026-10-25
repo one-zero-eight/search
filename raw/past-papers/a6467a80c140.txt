@@ -1,0 +1,127 @@
+Data Structures and Algorithms 2020: Midterm Exam Marks obtained |
+
+Date: 24.02.2020 Total questions: 3 Total points: 20
+
+Student’s name: Time: 1h20
+
+1 MULTIPLE CHOICE (5 pts)
+In each of the questions in this section, mark the correct answer(s).
+
+1. The best and the worst-case time complexity for the Insertion sort are respectively: E
+
+(a) O(n * log(n)) and O(n?)
+(b) O(n) and O(n?)
+{c) O(1) and O(n *log(n))
+(d) O(n) and O(n * log(n))
+2. Suppose that we perform a sequence of n operations on a certain data structure in which the ith
+operation costs i if ¢ is an exact power of 2, and 1 otherwise. For the considered data structure, mark E
+the option(s) which is(are) INCORRECT.
+(a) The amortized cost per operation is O(1)
+(b) The amortized cost per operation is O(n)
+(¢) The total cost of n operations is ©(n?)
+(d) An aggregate analysis finds a upper bound T(n) on the total cost of a sequence of n operations E
+
+3. What is the correct RPN representation for 2 +2%2- (4 /2)* 27
+
+(a)222*42/2*+-
+b)) 2@22%+(42/)2%-
+(© 222*+42/2*
+(d)222%42/2%-+
+
+For the next two multiple choice questions, we refer to the algorithm below.
+
+begin
+i 0;
+while i < A.length do
+if i =0 or Afi] > A[i — 1] then
+
+| ieit];
+else
+swap Ali] < A[i - 1J;
+i—i—-1;
+end
+end
+end
+
+4. What is the worst-case time complexity of this algorithm if » is the size of input array A? E
+
+(a) ©(nlogn)
+
+(b) 2(n?)
+(c) 0(2")
+() o(n?)
+
+5. What is the best-case time complexity of this algorithm if n is the size of input array A? E
+
+(a) o(nlogn)
+(b) 6("*)
+(¢) w(m)
+(d) O(n?)
+
+This space is for DRAFT only and will NOT be considered for grading.
+Data Structures and Algorithms 2020: Midterm Exam
+
+Student’s name:
+
+2 ALGORITHM ANALYSIS (10 pts)
+
+For the questions in this section, you are expected to present convincing evidence, calculations
+and reasons to support your answers. A penalty of -50% points will be applied for missing or
+unsatisfactory justification.
+
+IMPORTANT: After each question, enough space is given for your solution. Other pages or
+papers will NOT be graded, even if you link or refer to them.
+
+1. Using the definition of asymptotic notation (AN), prove or disprove that 8(n log n) = 6(n2)
+
+2. Using the definition of AN, prove or disprove that T(n) = ag + ayn + azn? + agn® is O(n®)
+
+3. What is the recurrence of an algorithm that, to solve a problem of size n, solves 16 subproblems of
+size n/4 and has a cost for combining the solutions of 100? Also, what is its asymptotic solution? You
+must use the Master Theorem (CLRS version) in your answer.
+4. What is the worst-case time complexity of the algorithm with input » shown below? Justify your
+ANSWer.
+
+for (int i = 0; i < n + 100; ++i){
+for (int j =0; j <i *n ; ++j){
+sum = sum + j;
+}
+for (int k = 0; k < n + n + n; ++k){
+clk] = c[k] + sum;
+}
+
+5. Using the Master Theorem (CLRS version), find an asymptotic solution of the following functional
+recurrence. Express your answer using ©-notation and state which case applies (if it applies): T(n) =
+6T'(n/3) + n? log n
+
+This space is for DRAFT only and will NOT be considered for grading.
+Data Structures and Algorithms 2020: Midterm Exam
+
+Student’s name:
+
+3 HASHING - COLLISION RESOLUTION (5 pts)
+
+IMPORTANT: After each question, enough space is given for your solution. Other pages or
+papers will NOT be graded, even if you link or refer to them.
+
+Assume that the following array express a HashSet. The top line represents the index and the bottom
+represents the value (a string) in the set. In this section, assume that you don’t have to worry about
+resizing.
+
+0 [1]2[ 3 ]4[ 5
+MA NY| |VA
+
+1. Assuming that we are using chaining and that CA hashes to index 3, which bucket does CA end up
+in, and what is the size of the list in that bucket?
+
+2. Assuming that we are using linear probing and that CA hashes to index 3, which bucket does CA end
+up in, and how many state objects are in that bucket?
+
+3. Assuming that we are using linear probing, CA hashes to index 3 and CA has already been inserted.
+How many buckets would linear probing need to probe if we were to insert AK, which also hashes to
+index 3? (The initial bucket check counts as a probe)
+
+4. Assuming that we are using quadratic probing (¢; = 0 and ¢; = 1), CA hashes to index 3 and CA has
+already been inserted. How many buckets would quadratic probing need to probe if we were to insert
+AK, which also hashes to index 3?
+

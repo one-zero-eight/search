@@ -1,0 +1,16 @@
+{
+ "title": "6. Памятка Как не стать жертвой террористического акта",
+ "url": "https://innopolis.university/public/files/antiterror/kaknestat.pdf",
+ "sha256": "116f672f6f36e103563f3309fc3e02fdc81ad1ab6b138e8b309b0267f468cc67",
+ "method": "text layer (pdfplumber)",
+ "chars": 8902,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:49:06+00:00",
+ "remote": {
+  "etag": "\"29bb9-5d18899f0b600\"",
+  "modified": "Wed, 24 Nov 2021 13:11:52 GMT",
+  "size": "170937"
+ }
+}

@@ -1,0 +1,70 @@
+AGLA II TEST I
+1. Compute the LU decomposition of
+
+
+1 3 5
+A = 3 12 18
+5 18 30
+and solve the system
+LU x = b,
+2. Consider the matrix
+
+ 
+1
+
+b = 1 .
+1
+
+
+
+4 1 1
+A = 1 3 0 .
+1 0 2
+
+(a) Check whether it is positive definite or not.
+(b) Is the LU decomposition for this matrix unique? Why?
+3. Find the complete solutions of the linear system
+ 
+
+ x
+ 
+1 3 1 2  
+1
+2 6 4 8  y  = 3 .
+z 
+0 0 2 4
+1
+w
+4. Apply the Gram–Schmidt process to the following vectors to orthonormalize them,
+and use it to compute the QR decomposition of the matrix
+A = [a, b, c],
+where
+
+ 
+1
+a = 2 ,
+0
+
+ 
+1
+b = 1 ,
+0
+
+ 
+1
+c = 1 .
+1
+
+5. Find a basis for the orthogonal complement of the row space of the following matrix:
+
+
+1 0 2
+.
+1 2 6
+Split
+x = [2, 2, 2]
+into a row-space component and a nullspace complement xn .
+
+1
+
+

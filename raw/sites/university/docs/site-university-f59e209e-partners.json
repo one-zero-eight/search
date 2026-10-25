@@ -1,0 +1,16 @@
+{
+ "title": "Перечень партнеров грантодателей",
+ "url": "https://innopolis.university/upload/iblock/5d4/dqsndhb2gmob32ewc9ghyib0d49daq6d/partners.pdf",
+ "sha256": "c276e942be730d34fb1f6a215a6cd3cd02543cfe9b9b2c60b421d803fc33c0b3",
+ "method": "text layer (pdfplumber)",
+ "chars": 10076,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:58:54+00:00",
+ "remote": {
+  "etag": "\"6accf6e0-379a45\"",
+  "modified": "Mon, 12 Oct 2026 15:04:00 GMT",
+  "size": "3643973"
+ }
+}

@@ -1,0 +1,74 @@
+Full 111-1.rrw: _ _ _ _ _ _ __
+
+1f\Noeol1s
+
+Finf.11
+
+Li11car Algcbm &
+Anu.lytical Ccomct.ry
+
+L
+
+CJNrvers11..y
+
+Exf.t.111
+
+CrrJUJJ nurnbr:r:
+Do.t,e: f/ 1' o,~c,:mlir~r , 2() I'J
+
+• Exam lasts 120 minutes.
+• Any cheating, any attempt to cheat, osHisting otherH t() chcu.t, ur part icipal,ing therein is a serious violation a nd will generally rc1,mlt, in CfJ.rt <;r:llatir,u rif
+the exam with simultaneous nullifying its result8.
+• One handwritten cheat sheet, a set of formul88 on orbital mot,ion prcpared
+by Prof. Merk.in a.s well as electronic calculator are allowed .
+• Usage of any electronic communication devices (e.g. mobile phones, tablets,
+laptops, smart watches and etc.) is strictly prohibited and will be considered
+as an attempt to cheat.
+
+Variant 2
+~
+
+- (10 pts) A point A lies on the line 2x - 3y + 4 = 0 The distance from a point A to t he Line
+3y = ;Ix equals 2. Find all the possible coordinates of A .
+
+~ ~/, h (15 is) The point A lies on the line x1 = Y =~and is equidistant from t he point B (O, 1, 1)
+1
+
+¥ / and the plane 2x - y + 2z + 1 = 0. Find the coordinates of A. (The answer is a little bit complex
+and may contain divisions by 97.)
+
+- (15 pts) Determine the type of a conic 3x2 +3y2 - 2xy- ./2x - .J2Y = 8. Compose the canonical
+1/ equation and canonical coordinate system. Find the coordinates of its foci in the source coordinate
+system .
+
+~
+
+ij4· (10 pts) Compose the equation of a right circular cylinder passing through a point M(l , 1, 2)
+and ha.s the ax.is x = I + t, y = 2 + t, z = 3 + t.
+\
+
+\
+
+l,
+
+I
+
+~
+
+-
+
+I
+
+tfS· (15 pts) Asteroid (4) Vesta is characterized by the following orbital elements: semi-major axis
+
+a= 2.36179 AU (astronomical units) , eccentricity e = 0.08874, orbit inclination I= 7.14043 deg,
+ascending node longitude n = 103.85136 deg, argument of perihelion w = 151 .19853 deg, initial
+mean anomaly Mo = 20.86384 deg at a time to = 2014-Dec-09 00:00:00.
+For the time t = 2019-Dec-09 00:00:00, compute its mean anomaly #,-the eccentric anomaly E ,
+the radius-vector.!J the rectangular coordinates in the orbital plane ( and T/ (the ( ax.is pointsto
+the perihelion), and the ecliptic 3D coordinates x , y , z . BEWARE that 2016 was a leap year! Also
+note that all angular elements are given in degrees, not in radians.
+
+--
+
+

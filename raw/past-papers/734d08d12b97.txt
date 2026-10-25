@@ -1,0 +1,154 @@
+Probability & Statistics. Final Examination. December 3, 2020. Problem 1
+20 MINUTES
+1. PROBLEM SET 1. There are 12 balls in the urn. Some of them are black, and some are white. If
+one draws two balls from this urn at random, the probability of getting balls of different colours is
+. What is the probability to get all balls of the same colour when drawing four balls from
+equal to 10
+33
+the urn?
+
+2. PROBLEM SET 2. There are 16 balls in the urn. Some of them are black, and some are white. If
+one draws two balls from this urn at random, the probability of getting balls of different colours is
+equal to 25 . What is the probability to get all balls of the same colour when drawing five balls from
+the urn?
+
+3. PROBLEM SET 3. There are 13 balls in the urn. Some of them are black, and some are white. If
+one draws two balls from this urn at random, the probability of getting balls of different colours is
+5
+equal to 13
+. What is the probability to get all balls of the same colour when drawing six balls from
+the urn?
+
+Probability & Statistics. Final Examination. December 3, 2020. Problem 2
+20 MINUTES
+1. PROBLEM SET 1. Random variables 𝑋 and 𝑌 are exponentially distributed with parameters 3
+and 5 respectively. Derive the probability density of 4𝑋 − 2𝑌 .
+
+2. PROBLEM SET 2. Random variables 𝑋 and 𝑌 are exponentially distributed with parameters 4
+and 3 respectively. Find the probability density of 3𝑋 − 5𝑌 (justify your answer).
+
+3. PROBLEM SET 3. Random variables 𝑋 and 𝑌 are exponentially distributed with parameters 1
+and 6 respectively. Derive the probability density of 2𝑋 − 5𝑌 .
+
+Probability & Statistics. Final Examination. December 3, 2020. Problem 3
+20 MINUTES
+1. PROBLEM SET 1. Let us consider a simple sample of binomial distribution with parameters 3
+and 𝑝. Check the hypothesis that 𝑝 = 0.7 given the following data:
+Values of 𝜉𝑘
+Quantity of outcomes
+
+0
+1
+2
+3
+23 100 210 167
+
+Let significance level be equal to 𝛼 = 0.01. Use chi-squared test.
+
+2. PROBLEM SET 2. Let us consider a simple sample of binomial distribution with parameters 3
+and 𝑝. Check the hypothesis that 𝑝 = 0.8 given the following data:
+Values of 𝜉𝑘
+Quantity of outcomes
+
+0 1
+2
+3
+7 85 301 357
+
+Let significance level be equal to 𝛼 = 0.02. Use chi-squared test.
+
+3. PROBLEM SET 3. Let us consider a simple sample of binomial distribution with parameters 3
+and 𝑝. Check the hypothesis that 𝑝 = 0.6 given the following data:
+Values of 𝜉𝑘
+Quantity of outcomes
+
+0
+1
+2
+3
+27 149 265 159
+
+Let significance level be equal to 𝛼 = 0.05. Use chi-squared test.
+
+Probability & Statistics. Final Examination. December 3, 2020. Problem 4
+35 MINUTES
+1. PROBLEM SET 1. There are 18 white and 16 black balls in the urn. Balls are taken one by one
+at random out of the urn and are not returned back into the urn. Random variable 𝜁 is equal to the
+number of balls of the same colour taken from the urn by the moment the first ball of a different
+colour appears. Find expectation and variance of 𝜁.
+
+2. PROBLEM SET 2. There are 12 white and 20 black balls in the urn. Balls are taken one by one
+at random out of the urn and are not returned back into the urn. Random variable 𝜁 is equal to the
+number of balls of the same colour taken from the urn by the moment the first ball of a different
+colour appears. Find expectation and variance of 𝜁.
+
+3. PROBLEM SET 3. There are 15 white and 25 black balls in the urn. Balls are taken one by one
+at random out of the urn and are not returned back into the urn. Random variable 𝜁 is equal to the
+number of balls of the same colour taken from the urn by the moment the first ball of a different
+colour appears. Find expectation and variance of 𝜁.
+
+Probability & Statistics. Final Examination. December 3, 2020. Problem 5
+20 MINUTES
+1. PROBLEM SET 1. Let us consider a simple sample from a normal distribution 𝑁 (𝜇; 𝜎 2 ) where
+parameters 𝜇 and 𝜎 2 are unknown. The values are provided in a table below:
+Number of the experiment 1 2 3 4 5 6 7 8 9 10 11 12
+Result
+5 6 8 14 14 10 0 6 11 11 12 15
+(a) Find a 95% confidence interval for 𝜇. (b) The same question if 𝜎 2 = 49.
+
+2. PROBLEM SET 2. Let us consider a simple sample from a normal distribution 𝑁 (𝜇; 𝜎 2 ) where
+parameters 𝜇 and 𝜎 2 are unknown. The values are provided in a table below:
+Number of the experiment
+1
+2
+3 4
+5
+6
+7
+Result
+−22 −11 2 2 −15 −6 −1
+
+8
+9
+10
+−18 −10 −4
+
+(a) Find a 95% confidence interval for 𝜇. (b) The same question if 𝜎 2 = 484.
+
+3. PROBLEM SET 3. Let us consider a simple sample from a normal distribution 𝑁 (𝜇; 𝜎 2 ) where
+parameters 𝜇 and 𝜎 2 are unknown. The values are provided in a table below:
+Number of the experiment 1
+2
+3 4 5
+6 7 8 9 10 11
+Result
+5 −11 7 14 22 −8 0 6 7 16 3
+(a) Find a 95% confidence interval for 𝜇. (b) The same question if 𝜎 2 = 16.
+
+Probability & Statistics. Final Examination. December 3, 2020. Problems 6-8
+60 MINUTES
+1. PROBLEM SET 1.
+6. Find a maximum likelihood estimator of unknown parameter 𝜃 of a simple sample from a normal
+distribution with parameters 𝐸𝑋 = 𝜃, 𝑉 𝑎𝑟𝑋 = 3𝜃.
+7. A (fair ten-sided) die is rolled nine times. Find the probability that there is at least one ten and
+at least one nine.
+8. Random variables 𝜉 and 𝜂 are independent. 𝜉 ∼ 𝑈 (0; 2), and 𝜂 ∼ 𝑃 𝑜𝑖𝑠𝑠𝑜𝑛(1). Determine the
+probability that 𝜉 + 𝜂 ∈ (3; 5).
+
+2. PROBLEM SET 2.
+6. Find a maximum likelihood estimator of unknown parameter 𝜃 of a simple sample from a normal
+distribution with parameters 𝐸𝑋 = 2𝜃, 𝑉 𝑎𝑟𝑋 = 𝜃.
+7. A (fair six-sided) die is rolled eleven times. Find the probability that there is at least one six and
+at least one five.
+8. Random variables 𝜉 and 𝜂 are independent. 𝜉 ∼ 𝑈 (0; 2), and 𝜂 ∼ 𝑃 𝑜𝑖𝑠𝑠𝑜𝑛(0.5). Determine the
+probability that 𝜉 + 𝜂 ∈ (4; 6).
+
+3. PROBLEM SET 3.
+6. Find a maximum likelihood estimator of unknown parameter 𝜃 of a simple sample from a normal
+distribution with parameters 𝐸𝑋 = −3𝜃, 𝑉 𝑎𝑟𝑋 = 2𝜃.
+7. A (fair twelve-sided) die is rolled eight times. Find the probability that there is at least one twelve
+and at least one eleven.
+8. Random variables 𝜉 and 𝜂 are independent. 𝜉 ∼ 𝑈 (0; 2), and 𝜂 ∼ 𝑃 𝑜𝑖𝑠𝑠𝑜𝑛(2). Determine the
+probability that 𝜉 + 𝜂 ∈ (2; 4).
+
+

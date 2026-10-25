@@ -1,0 +1,113 @@
+The third grading assignment (oral poll) on Mathematical Analysis
+(Innopolis University, Fall semester 2023, BS-I)
+
+Description
+Overall cost of the assignment is 15 points. This assignment is designed to evaluate how do we understand
+each other during study weeks 8-10 of
+• Derivative (including interpretations and applications)
+• Differentiation and differential
+• Basic properties of differentiation,
+and how we are ready to continue our studies of (of theory of integration).
+The Assignments consist of the following.
+1. Build a table of size 9x2 where for each of 9 exercises from the list below and indicate in the table
+your belief
+a. whether you don’t understand the exercise’ task/question (by putting 0),
+b. or understand the task/question but not sure how to solve/answer it (by putting 1),
+c. or you believe that you understand and can solve/answer the task/question (by putting 2).
+2. Provide solutions for 2 (not more than 2!) exercises (preferably from different sub-topics) that you
+think that you understand and can solve as a proof/evidence/justification for your belief (in the filledin table).
+
+Submission and grading rules
+Please write your table and solutions on a paper in readable way, make photos/scan, and upload as a
+single pdf-document to Moodle by the midnight from Friday November 17 to Saturday November 18,
+2023. File-name convention: submitted file should be named by student first name and surname (for
+example NikolayShilov.pdf).
+The main grading criterions
+•
+•
+•
+•
+•
+•
+
+human readable but concise written solutions (and its pdf-version)
+well-structuredness of the written solutions (up to 3 points for each solution)
+instructor may ask about oral presentation of any of 2 tasks that student believes knowing how to
+solve (according to student’s table to validate the table and student’s self-assessment)
+correct and complete oral presentation (up to 4 points for each correct solution)
+table itself costs 1 point while originality of presented solutions may be awarded too by 1 point
+non-crucial computational errors will be treated as tiny mistake (at most 1 point deduction for overall)
+
+Timeline and late submission policy
+•
+•
+•
+•
+•
+
+Publication of the Assignment document: Wednesday November 8, 2023.
+Consultation on the technical issues related to the assignment: Saturday November 11, 2023 from
+10:00 to 11:00 in class 300.
+Due time for uploading of papers: the midnight from Friday November 17 to Saturday November 18,
+2023.
+Individual oral polls for all students: Saturday November 18 and 25, 2023, from 9:00 to 17:00;
+procedure how to reserve a time slot will be announce by Monday November 13, 2023.
+Students who will not upload (without a legal excuse) their papers by the due date may do it till Friday
+November 24, 2023, and then have oral by Saturday December 2, but with 30% deduction from the
+grade for this assignment.
+
+Exercises: Questions & tasks
+In the following tasks and exercises natural number 𝑀 stays for a parameter which value is 𝑑𝑎𝑦 +
+𝑚𝑜𝑛𝑡ℎ where 𝑑𝑎𝑦 and 𝑚𝑜𝑛𝑡ℎ are the day and month of your personal birthdate. (For example, 𝑀 = 28
+if the day and the month are April 24.)
+Important notice: firstly, instantiate your actual value of this parameters into your task and just then
+solve this concrete instance (not a parameterized version)! For example, if a parameterized task is to
+solve linear equation 𝑀𝑥 = 100 then you need firstly instantiate actual value of 𝑀 (let it be 28 as
+above), then write the instance of the task (“Solve equation 28𝑥 = 100”), and finally – solve the
+instance.
+
+1. The first example (in the lecture notes) illustrating origins and applications of
+the derivatives is about tangent line. The example uses infinitesimal values
+(numbers). Are the infinitesimal values valid “citizens (with full rights)” or
+contradictory objects in our course “Mathematical Analysis”? Explain (prove)
+your answer!
+2. Prove (using the definition of the derivative) that (𝑥 𝑀 )′ = 𝑀𝑥 𝑀−1 and
+′
+1
+( ⁄𝑥 𝑀 ) = − 𝑀⁄ (𝑀+1) .
+𝑥
+3. Knowing that tan 𝑥 = sin 𝑥⁄cos 𝑥 and cot 𝑥 = cos 𝑥⁄sin 𝑥 (of course, when
+these expressions make sense), prove (using any theory from lecture notes)
+′
+that (tan(𝑀𝑥))′ = 𝑀⁄(cos(𝑀𝑥))2 and (cot(𝑀⁄𝑥) ) = 𝑀⁄
+2 (on
+(𝑥 sin(𝑀⁄𝑥 ))
+the region of definiteness).
+4. Using any theory (from lecture notes) prove that (𝑀 𝑥 )′ = 𝑀 𝑥 ln 𝑀 for and that
+(log 𝑀 𝑥)′ = 1⁄(𝑥
+ln 𝑀). – Your solutions should be self-explanatory and proofcarrying!
+5. Find (using known properties of derivatives and known derivatives) derivative
+of the function 𝜆𝑥 ∈ 𝑹. 𝑓(𝑥) at points 𝑥 = −1, 𝑥 = 0, and 𝑥 = 1, where 𝑓(𝑥)
+is defined as follows: (a) ln(𝑀 ln 𝑥); (b) (ln 𝑀𝑥)2 ; (c) ln(𝑀𝑥)2 ; (d) ln(2𝑥)𝑀 . –
+Your solutions should be self-explanatory and proof-carrying!
+6. Find the second derive of the function 𝜆𝑥 ∈ 𝑹. 𝑓(𝑥), where 𝑓(𝑥) is defined as
+2
+follows: (a) 𝑒 −𝑀𝑥 ; (b) 𝑥 + sin 𝑀𝑥; (c) 𝑥 𝑀 𝑒 −𝑀𝑥 . – Your solutions should be selfexplanatory and proof-carrying!
+𝑥2
+
+7. Write equation for the tangent and normal lines to the curve + (−1)𝑀 𝑦 2 =
+𝑀
+1 at point (𝑥1 , 𝑦1 ). – Your solutions should be self-explanatory and proofcarrying!
+𝑒
+𝑀
+1
+1
+8. Study whether (a) 𝑒 𝑀 > 𝑀𝑒 , (b) 𝑒 ⁄𝑀 > (1⁄𝑀) , and (c) (1⁄𝑒) > 𝑀 ⁄𝑒 . –
+Your solutions should be self-explanatory and proof-carrying!
+1 3
+9. Analyze graph of a function 𝜆𝑥 ∈ 𝑹. (𝑀√𝑥 + √𝑥 2 − 1⁄𝑀 ) and sketch it on
+𝑀
+√𝑥
+[−3, +3] (using pen and paper).
+
+

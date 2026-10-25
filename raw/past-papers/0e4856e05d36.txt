@@ -1,0 +1,96 @@
+Midterm Exam of Software Architecture 2025
+
+Page 1 of 5
+
+Innopolis University
+Academic Year 2025/2026
+Software Architecture
+Midterm Exam
+8th October 2025
+Duration: 50 mins
+
+Student Full Name:
+Student Email:
+Student Group:
+Exam Room:
+
+Question
+Question 1
+Question 2
+Question 3
+Question 4
+Question 5
+Total
+
+Summary (for instructors’ fill)
+Grade
+
+Please write clearly your name and your solutions. What will not be understood will be
+considered wrong. All answers must be provided in English, everything written in Russian will be
+ignored.
+This is a closed-book exam. You are not allowed to use any reference materials or electronic
+equipment, apart from this booklet and pens. You are not allowed to consult any person,
+otherwise you will be disqualified from this exam at the very first attempt.
+Student Signature:
+
+Midterm Exam of Software Architecture 2025
+
+Page 2 of 5
+
+Question 1 (1 point). What are the three core characteristics of the Rational Unified Process
+(RUP)?
+a) Sequential, document-centered, risk-averse
+b) Iterative, architecture-centered, use case-based
+c) Linear, code-centered, client-driven
+d) Ad-hoc, team-centered, test-based
+Question 2 (1 point). In Scrum, what is the purpose of the Daily Scrum meeting?
+a) To perform in-depth technical design discussions.
+b) To demonstrate completed functionality to the client.
+c) To discuss progress, plans, and obstacles within the team.
+d) To plan the entire project timeline and major milestones.
+
+Question 3 (1 point). Which of the following is a core value of Extreme Programming (XP)?
+a) Comprehensive Documentation
+b) Formal Processes
+c) Simplicity
+d) Contract Negotiation
+
+Midterm Exam of Software Architecture 2025
+
+Page 3 of 5
+
+Question 4 (3 point). What is the difference between aggregation and composition? Provide
+SHORT sentence answer in the provided cells.
+Answer:
+
+Grading: Student was able to fill the column with the correct answers. For each correctly filled row
+was 0.75 points. If one cell in a row was correct and the other wrong then the score amounted to
+0.
+
+Midterm Exam of Software Architecture 2025
+
+Page 4 of 5
+
+Question 5 (4 point). You are the lead process architect for a new project to develop a complex,
+large-scale Enterprise E-Commerce Platform. The system requires high reliability, must handle
+numerous integrations, and the market requirements are still evolving.
+a) (2 point). Using standard criteria for selecting a lifecycle model (e.g., project type, problem
+domain understandability, technical risk, team experience), recommend the most suitable SDL
+model for this project. Justify your recommendation by explaining how its characteristics align
+with the project's specific challenges.
+Grading
+Student was able to Identify the correct model – 1 point
+Justification of the model that has been chosen, also the student mentions how the high reliability
+is handled. – 1 point
+
+b) (2 point). Explain why the Build-and-Fix model would be a particularly poor and risky choice
+for this project.
+Grading:
+Student was able to explain 2 distinct reasons why Buil-n-Fix is not suitable and why is not suitable
+for the scale and complexity.
+
+Midterm Exam of Software Architecture 2025
+
+Page 5 of 5
+
+

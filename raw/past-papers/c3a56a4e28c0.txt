@@ -1,0 +1,420 @@
+Mathematical Analysis II. Midterm Examination 2022. Problem Set 1. Part 1
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 1, 2 on the same
+sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for solving
+problems as well.
+I am aware that using any electronic devices, books etc. during the examination, as well as communicating
+with other students, is strictly prohibited. Only one handwritten informational sheet is allowed. Any violation
+of these rules immediately leads to test cancellation. Signature
+ATTENTION! You may use the following list of integrals without deriving them on your test. All the other
+integrals
+be solved using substitutions, transformations of the integrand, etc.
+∫︀ 𝛼 have to
+𝑥𝛼+1
+𝑥 𝑑𝑥 = 𝛼+1 + 𝐶, 𝛼 ̸= −1;
+∫︀ 𝑥
+𝑥
+𝑎 𝑑𝑥 = ln𝑎 𝑎 + 𝐶, 𝑎 > 0, 𝑎 ̸= 1;
+∫︀ 𝑑𝑥
+∫︀ 𝑥+𝑎 = ln |𝑥 + 𝑎| + 𝐶;
+∫︀ sin 𝑥 𝑑𝑥 = − cos 𝑥 + 𝐶;
+𝑥 𝑑𝑥 = sin 𝑥 + 𝐶;
+∫︀ cos
+𝑑𝑥
+2 𝑥 = tan 𝑥 + 𝐶;
+∫︀ cos
+𝑑𝑥
+= − cot 𝑥 + 𝐶;
+∫︀ sin2 𝑥
+∫︀ sinh 𝑥 𝑑𝑥 = cosh 𝑥 + 𝐶;
+𝑥 𝑑𝑥 = sinh 𝑥 + 𝐶;
+∫︀ cosh
+𝑑𝑥
+= tanh 𝑥 + 𝐶;
+2
+𝑥
+∫︀ cosh
+𝑑𝑥
+= − coth 𝑥 + 𝐶;
+2
+𝑥
+∫︀ sinh
+𝑑𝑥
+1
+𝑥
+2 +𝑎2 = 𝑎 arctan 𝑎 + 𝐶, 𝑎 ̸= 0;
+𝑥
+∫︀ 𝑑𝑥
+𝑥
+√
+2
+2 = arcsin 𝑎 + 𝐶, 𝑎 ̸= 0;
+⃒
+⃒
+√
+∫︀ 𝑎𝑑𝑥−𝑥
+⃒𝑥 + 𝑥2 + 𝑎⃒ + 𝐶, 𝑎 ̸= 0;
+√
+=
+ln
+2
+⃒√
+⃒)︀
+(︀ √
+∫︀ √𝑥 +𝑎
+𝑥2 + 𝑎 𝑑𝑥 = 12 𝑥 𝑥2 + 𝑎 + 𝑎 ln ⃒ 𝑥2 + 𝑎 + 𝑥⃒ + 𝐶, 𝑎 ̸= 0;
+(︀ √
+)︀
+∫︀ √
+𝑎2 − 𝑥2 𝑑𝑥 = 12 𝑥 𝑎2 − 𝑥2 + 𝑎2 arcsin 𝑥𝑎 + 𝐶, 𝑎 ̸= 0.
+(︁
+)︁
+2
+1. [4 points] Find 𝑑𝑓 (−1; 2) and 𝑑2 𝑓 (−1; 2) if 𝑓 (𝑥; 𝑦) = cos 1 + (2𝑥𝑦 + 𝑦 2 ) .
+∮︁
+2. [5 points] Find the integral
+
+2𝑧 𝑑𝑥−5𝑥 𝑑𝑦 +3𝑦 𝑑𝑧 where 𝐿 is a circle 𝑥2 +𝑦 2 +𝑧 2 = 7, 6𝑥+2𝑦 +3𝑧 = 0
+
+𝐿
+
+oriented counterclockwise if looked at from point 𝐴(0; −1; 0).
+
+Mathematical Analysis II. Midterm Examination 2022. Problem Set 1. Part 2
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 3, 4 on the same
+sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for solving
+problems as well.
+I am aware that using any electronic devices, books etc. during the examination, as well as communicating
+with other students, is strictly prohibited. Only one handwritten informational sheet is allowed. Any violation
+of these rules immediately leads to test cancellation. Signature
+3. [5 points] Find local extrema of function 𝑢(𝑥; 𝑦) = 2𝑥 − 4𝑦 + 5 on a curve given by 2𝑥𝑦 − 3𝑦 2 + 4 = 0.
+∫︁ ∫︁
+4. [4 points] Represent a double integral
+𝑓 (𝑥; 𝑦) 𝑑𝑥 𝑑𝑦 as an iterated integral in two different orders of
+𝐺
+
+integration (i.e. you have to provide two different representations) if domain 𝐺 is given by inequalities
+𝑦 2 − 4𝑥 < 4, 𝑦 > 0, 4𝑥 − 3𝑦 < 0.
+
+Mathematical Analysis II. Midterm Examination 2022. Problem Set 1. Part 3
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 5, 6, 7 on the
+same sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for
+solving problems as well.
+I am aware that using any electronic devices, books etc. during the examination, as well as communicating
+with other students, is strictly prohibited. Only one handwritten informational sheet is allowed. Any violation
+of these rules immediately leads to test cancellation. Signature
+√︀
+2
+2
+2
+5. [5 points]
+Find
+the
+volume
+of
+a
+solid
+bounded
+by
+surfaces
+𝑥
++
+𝑦
++
+𝑧
+=
+20𝑧
+and
+𝑧
+=
+−
+𝑥2 + 𝑦 2
+√︀
+(𝑧 < − 𝑥2 + 𝑦 2 ).
+6. [4 points] Find the gradient of function 𝑓 (𝑥; 𝑦; 𝑧) = 𝑒𝑥+𝑥𝑦−𝑥𝑦𝑧 at point 𝑀 (1; 2; 3). Find the derivative
+of function 𝑓 at point 𝑀 in the direction of vector ⃗𝑙 = ⃗𝚤 − 3⃗𝚥 + ⃗𝑘.
+
+Mathematical Analysis II. Midterm Examination 2022. Problem Set 2. Part 1
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 1, 2 on the same
+sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for solving
+problems as well.
+I am aware that using any electronic devices, books etc. during the examination, as well as communicating
+with other students, is strictly prohibited. Only one handwritten informational sheet is allowed. Any violation
+of these rules immediately leads to test cancellation. Signature
+ATTENTION! You may use the following list of integrals without deriving them on your test. All the other
+integrals
+be solved using substitutions, transformations of the integrand, etc.
+∫︀ 𝛼 have to
+𝑥𝛼+1
+𝑥 𝑑𝑥 = 𝛼+1 + 𝐶, 𝛼 ̸= −1;
+∫︀ 𝑥
+𝑥
+𝑎 𝑑𝑥 = ln𝑎 𝑎 + 𝐶, 𝑎 > 0, 𝑎 ̸= 1;
+∫︀ 𝑑𝑥
+∫︀ 𝑥+𝑎 = ln |𝑥 + 𝑎| + 𝐶;
+∫︀ sin 𝑥 𝑑𝑥 = − cos 𝑥 + 𝐶;
+𝑥 𝑑𝑥 = sin 𝑥 + 𝐶;
+∫︀ cos
+𝑑𝑥
+2 𝑥 = tan 𝑥 + 𝐶;
+∫︀ cos
+𝑑𝑥
+= − cot 𝑥 + 𝐶;
+∫︀ sin2 𝑥
+∫︀ sinh 𝑥 𝑑𝑥 = cosh 𝑥 + 𝐶;
+𝑥 𝑑𝑥 = sinh 𝑥 + 𝐶;
+∫︀ cosh
+𝑑𝑥
+= tanh 𝑥 + 𝐶;
+2
+𝑥
+∫︀ cosh
+𝑑𝑥
+= − coth 𝑥 + 𝐶;
+2
+𝑥
+∫︀ sinh
+𝑑𝑥
+1
+𝑥
+2 +𝑎2 = 𝑎 arctan 𝑎 + 𝐶, 𝑎 ̸= 0;
+𝑥
+∫︀ 𝑑𝑥
+𝑥
+√
+2
+2 = arcsin 𝑎 + 𝐶, 𝑎 ̸= 0;
+⃒
+⃒
+√
+∫︀ 𝑎𝑑𝑥−𝑥
+⃒𝑥 + 𝑥2 + 𝑎⃒ + 𝐶, 𝑎 ̸= 0;
+√
+=
+ln
+2
+⃒√
+⃒)︀
+(︀ √
+∫︀ √𝑥 +𝑎
+𝑥2 + 𝑎 𝑑𝑥 = 12 𝑥 𝑥2 + 𝑎 + 𝑎 ln ⃒ 𝑥2 + 𝑎 + 𝑥⃒ + 𝐶, 𝑎 ̸= 0;
+(︀ √
+)︀
+∫︀ √
+𝑎2 − 𝑥2 𝑑𝑥 = 12 𝑥 𝑎2 − 𝑥2 + 𝑎2 arcsin 𝑥𝑎 + 𝐶, 𝑎 ̸= 0.
+(︁
+)︁
+2
+1. [4 points] Find 𝑑𝑓 (1; −3) and 𝑑2 𝑓 (1; −3) if 𝑓 (𝑥; 𝑦) = sinh (3𝑥2 + 𝑥𝑦) .
+∮︁
+2. [5 points] Find the integral
+
+3𝑦 𝑑𝑥 + 2𝑧 𝑑𝑦 + 𝑥 𝑑𝑧 where 𝐿 is a circle 𝑥2 + 𝑦 2 + 𝑧 2 = 6, 2𝑥 − 𝑦 + 𝑧 = 0
+
+𝐿
+
+oriented counterclockwise if looked at from point 𝐴(0; −1; 0).
+
+Mathematical Analysis II. Midterm Examination 2022. Problem Set 2. Part 2
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 3, 4 on the same
+sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for solving
+problems as well.
+I am aware that using any electronic devices, books etc. during the examination, as well as communicating
+with other students, is strictly prohibited. Only one handwritten informational sheet is allowed. Any violation
+of these rules immediately leads to test cancellation. Signature
+3. [5 points] Find local extrema of function 𝑢(𝑥; 𝑦) = −2𝑥+8𝑦+3 on a curve given by 𝑥2 −4𝑥𝑦+2𝑦 2 +1 =
+0.
+∫︁ ∫︁
+4. [4 points] Represent a double integral
+𝑓 (𝑥; 𝑦) 𝑑𝑥 𝑑𝑦 as an iterated integral in two different orders of
+𝐺
+
+integration (i.e. you have to provide two different representations) if domain 𝐺 is given by inequalities
+𝑦 2 < 4𝑥, 𝑦 > 0, 2𝑥 − 𝑦 < 4.
+
+Mathematical Analysis II. Midterm Examination 2022. Problem Set 2. Part 3
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 5, 6, 7 on the
+same sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for
+solving problems as well.
+I am aware that using any electronic devices, books etc. during the examination, as well as communicating
+with other students, is strictly prohibited. Only one handwritten informational sheet is allowed. Any violation
+of these rules immediately leads to test cancellation. Signature
+√︀
+2
+2
+2
+5. [5 points]
+Find
+the
+volume
+of
+a
+solid
+bounded
+by
+surfaces
+𝑥
++
+𝑦
++
+𝑧
+=
+25
+and
+𝑧
+=
+𝑥2 + 𝑦 2
+√︀
+(𝑧 < 𝑥2 + 𝑦 2 ).
+6. [4 points] Find the gradient of function 𝑓 (𝑥; 𝑦; 𝑧) = 𝑒2𝑥−𝑥𝑦+𝑥𝑦𝑧 at point 𝑀 (−2; 1; 3). Find the
+derivative of function 𝑓 at point 𝑀 in the direction of vector ⃗𝑙 = 4⃗𝚤 − 𝚥⃗ − 2⃗𝑘.
+
+Mathematical Analysis II. Midterm Examination 2022. Problem Set 3. Part 1
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 1, 2 on the same
+sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for solving
+problems as well.
+I am aware that using any electronic devices, books etc. during the examination, as well as communicating
+with other students, is strictly prohibited. Only one handwritten informational sheet is allowed. Any violation
+of these rules immediately leads to test cancellation. Signature
+ATTENTION! You may use the following list of integrals without deriving them on your test. All the other
+integrals
+be solved using substitutions, transformations of the integrand, etc.
+∫︀ 𝛼 have to
+𝑥𝛼+1
+𝑥 𝑑𝑥 = 𝛼+1 + 𝐶, 𝛼 ̸= −1;
+∫︀ 𝑥
+𝑥
+𝑎 𝑑𝑥 = ln𝑎 𝑎 + 𝐶, 𝑎 > 0, 𝑎 ̸= 1;
+∫︀ 𝑑𝑥
+∫︀ 𝑥+𝑎 = ln |𝑥 + 𝑎| + 𝐶;
+∫︀ sin 𝑥 𝑑𝑥 = − cos 𝑥 + 𝐶;
+𝑥 𝑑𝑥 = sin 𝑥 + 𝐶;
+∫︀ cos
+𝑑𝑥
+2 𝑥 = tan 𝑥 + 𝐶;
+∫︀ cos
+𝑑𝑥
+= − cot 𝑥 + 𝐶;
+∫︀ sin2 𝑥
+∫︀ sinh 𝑥 𝑑𝑥 = cosh 𝑥 + 𝐶;
+𝑥 𝑑𝑥 = sinh 𝑥 + 𝐶;
+∫︀ cosh
+𝑑𝑥
+= tanh 𝑥 + 𝐶;
+2
+𝑥
+∫︀ cosh
+𝑑𝑥
+= − coth 𝑥 + 𝐶;
+2
+𝑥
+∫︀ sinh
+𝑑𝑥
+1
+𝑥
+2 +𝑎2 = 𝑎 arctan 𝑎 + 𝐶, 𝑎 ̸= 0;
+𝑥
+∫︀ 𝑑𝑥
+𝑥
+√
+2
+2 = arcsin 𝑎 + 𝐶, 𝑎 ̸= 0;
+⃒
+⃒
+√
+∫︀ 𝑎𝑑𝑥−𝑥
+⃒𝑥 + 𝑥2 + 𝑎⃒ + 𝐶, 𝑎 ̸= 0;
+√
+=
+ln
+2
+⃒√
+⃒)︀
+(︀ √
+∫︀ √𝑥 +𝑎
+𝑥2 + 𝑎 𝑑𝑥 = 12 𝑥 𝑥2 + 𝑎 + 𝑎 ln ⃒ 𝑥2 + 𝑎 + 𝑥⃒ + 𝐶, 𝑎 ̸= 0;
+(︀ √
+)︀
+∫︀ √
+𝑎2 − 𝑥2 𝑑𝑥 = 12 𝑥 𝑎2 − 𝑥2 + 𝑎2 arcsin 𝑥𝑎 + 𝐶, 𝑎 ̸= 0.
+1. [4 points] Find 𝑑𝑓 (1; 1) and 𝑑2 𝑓 (1; 1) if 𝑓 (𝑥; 𝑦) = ln2 (3 − 𝑥3 − 𝑦 4 ).
+∮︁
+2. [5 points] Find the integral 𝑧 𝑑𝑥+2𝑥 𝑑𝑦 +3𝑦 𝑑𝑧 where 𝐿 is a circle 𝑥2 +𝑦 2 +𝑧 2 = 1, 4𝑥−3𝑦 +5𝑧 = 0
+𝐿
+
+oriented counterclockwise if looked at from point 𝐴(−1; 0; 0).
+
+Mathematical Analysis II. Midterm Examination 2022. Problem Set 3. Part 2
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 3, 4 on the same
+sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for solving
+problems as well.
+I am aware that using any electronic devices, books etc. during the examination, as well as communicating
+with other students, is strictly prohibited. Only one handwritten informational sheet is allowed. Any violation
+of these rules immediately leads to test cancellation. Signature
+3. [5 points] Find local extrema of function 𝑢(𝑥; 𝑦) = 2𝑥+2𝑦−1 on a curve given by 𝑥2 +4𝑥𝑦+𝑦 2 −6 = 0.
+∫︁ ∫︁
+4. [4 points] Represent a double integral
+𝑓 (𝑥; 𝑦) 𝑑𝑥 𝑑𝑦 as an iterated integral in two different orders of
+𝐺
+
+integration (i.e. you have to provide two different representations) if domain 𝐺 is given by inequalities
+𝑥2 + (𝑦 − 3)2 > 9, 0 < 𝑦 < 3, 2𝑥 + 𝑦 < 9, 𝑥 > 0.
+
+Mathematical Analysis II. Midterm Examination 2022. Problem Set 3. Part 3
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 5, 6, 7 on the
+same sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for
+solving problems as well.
+I am aware that using any electronic devices, books etc. during the examination, as well as communicating
+with other students, is strictly prohibited. Only one handwritten informational sheet is allowed. Any violation
+of these rules immediately leads to test cancellation. Signature
+2
+
+5. [5 points] Find the volume of a solid bounded by a surface (𝑥2 + 𝑦 2 + 𝑧 2 ) = 𝑧 (𝑥2 + 𝑦 2 ).
+6. [4 points] Find the gradient of function 𝑓 (𝑥; 𝑦; 𝑧) = 𝑒4𝑦−3𝑥𝑦+𝑥𝑦𝑧 at point 𝑀 (2; −3; 1). Find the
+derivative of function 𝑓 at point 𝑀 in the direction of vector ⃗𝑙 = 2⃗𝚤 + 𝚥⃗ + ⃗𝑘.
+
+

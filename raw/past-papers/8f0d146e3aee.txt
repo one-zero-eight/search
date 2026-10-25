@@ -1,0 +1,116 @@
+Analytical Geometry and Linear Algebra I. Final Exam. December 14, 2022
+
+VARIANT 1
+Full name:
+
+In each sheet, you should write your last name, first name, variant number, and group number
+in the upper right corner. Unsigned sheets or sheets without the information above will NOT
+BE graded. This assignment sheet must also be submitted along with your solution.
+
+Theory. Maximum 5 points
+
+Group:
+
+1. Definitions, simple proofs.
+(a) (1 point) Vectors vy, v2, ..., Un a1€ linearly independent if...
+(b) (2 points) Give a definition of an orthogonal matrix. Provide an example.
+(c) (2 points) Give a definition of a normal vector to a plane?
+
+(d) (2 points) Rank of a matrix A is a ...
+(e) (3 points) Give definition of a trace of a matrix and prove its linearity.
+
+Practice. Maximum 25 points
+
+1. Vector operations / Matrices
+(a) (2 points) Suppose A, B and C are 3x3 matrices, and |A| = 2,]B| = 3,|C[ = 5. Find
+|AB| - |A71B| +[2C|.
+(b) (4 points) Find a vector that is orthogonal to both v, = (1,0,1) and v, = (1,3,0) and
+swhich dot product with vector vz = (1,1,0) equals to 8.
+
+2. Lines / Planes
+(a) (2 points) Find the angle between the planes 2z —y +z =6,z +y+2z= 3.
+
+(b) (4 points) What is the general equation of the plane which contains the following two
+parallel lines: 2! = k7% = z and %2 =ul=z-1
+
+3. Conics
+(a) (3 points) What are the coordinates of the vertices of the hyperbola: 4z% —9y? — 40z +
+5dy — 17 =07
+
+(b) (5 points) Compose the equation of the hyperbola which axes coincide with the axes of
+coordinate system, if it’s known that it passes through a point (4, —24/2) and touches
+
+the line 3z +y +8=0.
+
+4. Coordinates / Affine Transformations
+(a) (2 points) What is the equation of the line y = 1 in polar coordinate system?
+(b) (7 points) Determine the type of a conic B2+ 897+ 785y = 48. Compose the
+canonical equation and the transition matrix to canonical coordinate system. Find the
+coordinates of its foci in the source coordinate system.
+
+5. Surfaces
+(a) (4 points) Find the radius of the circle defined by the following equations:
+22+ +2* —8z+4y+82—45=0,z—2y+2z=3.
+(b) (7 points) Compose the equation of a right circular cone obtained by the revolution of
+the line ¢ = 0, y—z+1=0around01, axis.
+
+Extra-task. 5 points (Polar coordinates) If the tangents at the points P and Q on & camc
+intersect in T and the chord PQ meets the directrix at R then prove that the angle TSR is &
+right angle.
+
+End of Exam
+
+el
+Analytical Geometry and Linear Algebra L. Final Exam. December 14, 20022
+VARIANT 2
+
+Full name: Group:
+
+In each sheet, you should write your last name, first name, variant number, and group number
+in the upper right corner. Unsigned sheets or sheets without the information above will NOT
+BE graded. This assignment sheet must also be submitted along with your solution.
+
+Theory. Maximum 5 points
+1. Definitions, simple proofs.
+
+(a) (1 point) Let V = {vy,2s,..., 7} be a set of vectors. Give a definition of a span S(V)
+(b) (2 points) A matrix is singular if ..
+(¢) (2 points) Give a definition of a basis of vector space
+(d) (2 points) What is the geometrical interpretation of the magnitude of a x b?
+(¢) (3 points) Given that BC and CB are valid, prove that Tr(BC) =Tr(CB)
+Practice. Maximum 25 points
+1. Vector operations / Matrices
+(a) (2 points) Suppose A, B and C are 4x4 matrices, and |A] = 3,|B| = 4,|C| = 5. Find
+|3B]—1ATCY .
+(b) (4 points) Find a vector that is orthogonal to both v; = (1,—1,1) and v, = (6,-3,0)
+and which dot product with a vector vs = (3,2,3) equals to 10.
+2. Lines / Planes
+
+(a) (2 points) Find the angle between the planes z +y — 4z=8,4z+y—2z=8.
+(b) (4 points) What is the general equation of the plane which contains the following two
+parallel lines: !g—l=”{—‘=zand%3= Elaz-1
+3. Conics
+(a) (3 points) What are the coordinates of the vertices of the hyperbola:
+92 + 5y% — 12z — 50y — 3 = 07
+(b) (5 points) Compose the equation of the hyperbola which axes coincide with the axes of
+coordinate system, if it’s known that it touches the lines z =1and 5z -2y +3=0.
+A. Coordinates / Affine Transformations
+(a) (2 points) What is the equation of the line z = 1 in polar coordinate system?
+
+(b) (7 points) Determine the type of a conic 322 + 8% — 2wy — ;T — 7‘5;, = 8. Compose
+the canonical equation and transition matrix to the canonical coordinate system. Find
+the coordinates of its foci in the source coordinate system.
+
+5. Surfaces
+
+(s) (4 points) Find coordinates where the curve defined by 227 —8z +8+2y% =227 — 1224
+18, z = 0 crosses the X-axis. What is the type of the surface and curve?
+
+(b) (7 points) Compose the equation of a right circular cylinder passing through 2 point
+M(1,1,2) and having theaxisz =1+t y=2+1t, z=3+¢t
+
+Extra-task. 5 points Show that the locus of the foot of the ‘perpendicular drawn from the
+origin to the tangent to the circle 7 =2a cosh is T = all +cosh).
+
+End of Exam
+

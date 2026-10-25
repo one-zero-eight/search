@@ -1,0 +1,16 @@
+{
+ "title": "Read the article [NIR_2022_biological-aging-mechanisms]",
+ "url": "https://innopolis.university/filespublic/NIR_2022_biological-aging-mechanisms.pdf",
+ "sha256": "ec8aa5eb1d714494b55b8cc1053080238e2ad54bbed85fe00c543d5f99d8c1d0",
+ "method": "text layer (pdfplumber)",
+ "chars": 22553,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:44:40+00:00",
+ "remote": {
+  "etag": "\"e838b-5e75e9bbd2548\"",
+  "modified": "Mon, 29 Aug 2022 10:20:09 GMT",
+  "size": "951179"
+ }
+}

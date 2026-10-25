@@ -1,0 +1,106 @@
+Innopolis University
+Academic Year 2022/2023
+Midterm Exam of Networks
+15th March 2023
+Questions
+Max 12 points
+Total time: 60 minutes
+Question 1. (1 point) What information is used by a process running on one host to communicate
+(over the network) with another process running on another host?
+Solution: The IP address of the destination host and the port number of the socket in the destination
+process.
+Note: mentioning other relevant (correct) answers is also accepted.
+Question 2. (1 point) Recall the basic C functions for TCP socket programming. To deal with multiple client
+connection requests, the server maintains a waiting queue. Choose the function that sets the maximum size
+of such waiting queue:
+a) socket(…);
+
+b) bind(…);
+
+c) listen(…);
+
+d) connect(…);
+
+e) accept(…);
+
+f) recvfrom(…);
+
+Solution: c) listen(…) function
+
+Question 3. (1 points) Consider the following string of ASCII characters that were captured by
+Wireshark when the browser sent an HTTP GET message (i.e., this is the actual content of an HTTP
+GET message). The characters <cr><lf> are carriage return and line-feed characters (i.e., the
+placeholder <cr> in the text below represents a single carriage-return character that was present at
+that location in the HTTP request). Did the browser request a non-persistent or a persistent
+connection? Explain your answer.
+GET /cs453/index.html HTTP/1.1<cr><lf>Host:
+gaia.cs.umass.edu<cr><lf>User-Agent: Mozilla/5.0 (Windows;U; Windows NT 5.1;
+en-US; rv:1.7.2) Gecko/20040804 Netscape/7.2 (ax) <cr><lf>Accept:ext/xml,
+application/xml, application/xhtml+xml, text/html;q=0.9,
+text/plain;q=0.8,image/png,*/*;q=0.5
+<cr><lf>Accept-Language: en-us,en;q=0.5<cr><lf>Accept-Encoding:zip,
+deflate<cr><lf>Accept-Charset:
+ISO-8859-1,utf8;q=0.7,*;q=0.7<cr><lf>Keep-Alive:
+300<cr><lf>Connection:keep-alive<cr><lf><cr><lf>
+
+Solution: The browser is requesting a persistent connection, as indicated by the value of the field
+“Connection: keep-alive”.
+Question 4. (1 point) Describe at least one key service provided by the Domain Name System (DNS)
+of the Internet.
+Solution: DNS provides IP address/hostname resolution (translation), host aliasing, and load
+balancing. (Mentioning at least one of the three services is sufficient).
+
+Networks Midterm Exam
+
+Page 1 of 3
+
+Question 5. (2 points) Do FTP, SMTP, and HTTP application-layer protocols run on top of TCP or
+UDP transport layer protocol? Why media streaming protocols, such as Voice-over-IP (VoIP) or the
+ones used for streaming videos run on the top of a different transport layer protocol? Provide a
+brief explanation.
+Solution:
+FTP, SMTP, and HTTP protocols run on top of TCP, while media streaming protocols run on top of UDP
+instead (1 point).
+The applications associated with FTP, SMTP, and HTTP protocols require that all application data be
+received in the correct order and without gaps (HTTP/3 is an exception). TCP provides this service
+whereas UDP does not. For media streaming protocols, some data loss (such as a video frame) is
+tolerable .
+
+Question 6. (2 points) Consider an Ethernet frame* of length L which originates from an
+end-system (A) and travels over three links to a destination end-system (D). These three links are
+connected by two packet switches (B and C). Let 𝑑𝑖, 𝑠𝑖, and 𝑅𝑖 denote the length, propagation speed,
+and the transmission rate of link i for i = 1, 2, 3. The packet switch delays each packet by 𝑑𝑝𝑟𝑜𝑐. In
+terms of 𝐿, 𝑑𝑖, 𝑠𝑖, 𝑅𝑖, what is the total end-to-end delay for the packet? Assume no queuing delays.
+Suppose now the frame* length is 1,500 bytes (12,000 bit), the propagation speed on all three links
+8
+
+is 2. 5 * 10 m/s, the transmission rates of all three links are 2 Mbps, the packet switch processing
+delay is 3 milliseconds (msec), the length of the first link is 5,000 km, the length of the second link is
+4,000 km, and the length of the last link is 1,000 km. For these values, what is the end-to-end delay?
+6
+
+Provide your answer in milliseconds (msec) and assume that 1Mbps = 10 bits per second.
+*Note: A “frame” is a data transmission unit at the data link layer of the OSI model, similar to a
+“packet” at the network layer of the OSI model.
+
+Note: not accounting for d_proc in the equation and/or the numerical answer is tolerated (in that case,
+58 ms is also considered as a correct answer).
+
+Networks Midterm Exam
+
+Page 2 of 3
+
+Question 7. (3 points) Describe at least three major differences between HTTP and FTP application
+layer protocols.
+Some correct answers:
+- FTP is used for file transfer, while HTTP is used mainly for retrieving web pages.
+- FTP uses two TCP connections, while HTTP uses only one TCP connection
+- FTP is less widely used, while HTTP is in wide use.
+- HTTP uses port 80, while FTP uses port 20 and 21
+* Mentioning other correct differences is also accepted.
+
+Networks Midterm Exam
+
+Page 3 of 3
+
+

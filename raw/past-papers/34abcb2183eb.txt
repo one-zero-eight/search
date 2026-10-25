@@ -1,0 +1,309 @@
+22.01.2024, 15:00
+
+Pre-Final: Attempt review
+
+Started on Wednesday, 3 May 2023, 1:11 PM
+State Finished
+Completed on
+
+Wednesday, 3 May 2023, 1:33 PM
+
+Time taken 22 mins 30 secs
+Grade 9.00 out of 10.00 (90%)
+Question 1
+Correct
+Mark 1.00 out of 1.00
+
+What was the name of the mathematical model that Alan Turing created and which is now known as the
+theoretical basis for modern computers?
+a. Turing machines
+b. Boolean algebra
+c. Quantum computing
+d. Game theory
+
+Your answer is correct.
+The correct answer is:
+Turing machines
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=165627&cmid=93144
+
+1/9
+
+22.01.2024, 15:00
+
+Pre-Final: Attempt review
+
+Question 2
+Correct
+Mark 1.00 out of 1.00
+
+Please consider the following proof of the undecidability of the Halting Problem:
+
+Assume that there exists an algorithm H that can decide whether any Turing machine M halts on a given input.
+We will use this assumption to construct a new Turing machine D that solves the halting problem.
+Let's define D as follows:
+
+D = "On input x:
+1. Use the algorithm H to determine whether Turing machine M_x halts on input x.
+2. If H says that M_x halts on input x, halt and accept.
+Otherwise, loop forever."
+Now, let's consider what happens when we run D on some input x:
+- If H says that M_x halts on input x, then D will halt and accept.
+- If H says that M_x does not halt on input x, then D will loop forever.
+Therefore, D correctly solves the halting problem for any input x.
+
+Is this proof valid?
+
+a. No, the proof is wrong because a TM cannot loop being TMs closed under complement
+b. Yes, the proof is correct and follows logically consistent steps
+c. No, the proof is wrong because it assumes that the algorithm H exists, which we know is not true due 
+to the undecidability of the halting problem. This is a circular argument and does not prove
+anything
+d. It depends on circumstances
+
+Your answer is correct.
+The correct answer is:
+No, the proof is wrong because it assumes that the algorithm H exists, which we know is not true due to the
+undecidability of the halting problem. This is a circular argument and does not prove anything
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=165627&cmid=93144
+
+2/9
+
+22.01.2024, 15:00
+
+Pre-Final: Attempt review
+
+Question 3
+Correct
+Mark 1.00 out of 1.00
+
+How can you determine whether a given language is regular or not?
+a. You can determine whether a language is regular or not by flipping a coin and seeing if it lands heads
+or tails. If it lands heads, the language is regular, and if it lands tails, the language is not regular
+b. To determine whether a language is regular or not, we can use the pumping lemma for regular
+languages. If a language does not satisfy the conditions of the pumping lemma, then it is not
+
+
+
+regular. If it does satisfy the conditions, then it may be regular, but further analysis is needed
+c. You can determine whether a language is regular or not by counting the number of vowels in each
+word. If the majority of words have an odd number of vowels, the language is regular. If the majority
+have an even number of vowels, the language is not regular
+d. One way to determine whether a language is regular or not is by counting the number of characters in
+each string and comparing it to a predetermined threshold. If the number of characters exceeds the
+threshold, then the language is not regular. This method is reliable and always produces accurate
+results
+
+Your answer is correct.
+The correct answer is:
+To determine whether a language is regular or not, we can use the pumping lemma for regular languages. If a
+language does not satisfy the conditions of the pumping lemma, then it is not regular. If it does satisfy the
+conditions, then it may be regular, but further analysis is needed
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=165627&cmid=93144
+
+3/9
+
+22.01.2024, 15:00
+
+Pre-Final: Attempt review
+
+Question 4
+Correct
+Mark 1.00 out of 1.00
+
+Why is the alphabet in FSA finite?
+a. The alphabet in FSA is finite because it is based on the limitations of human cognition and perception.
+Our brains can only process a limited amount of information at a time, and so the alphabet must be
+limited to a manageable number of symbols that we can recognize and remember
+b. No, the alphabet in FSA is infinite because it includes all the possible letters and symbols that can be
+used in any language or communication system. In fact, the more letters and symbols there are, the
+better the FSA will be at recognizing patterns and sequences
+c. The alphabet in FSA is finite because it is a conspiracy by the world's linguists to limit the number of
+letters and symbols that people can use in their languages. This is done to maintain the power of the
+linguistic elite and prevent the common people from expressing themselves fully. The linguists secretly
+meet in underground bunkers to decide which letters and symbols to include in the alphabet, and
+they use mind control techniques to force people to accept their decisions. The fewer letters and
+symbols there are, the easier it is for the linguists to control people's thoughts and actions
+
+d. The FSA has transitions from one state to another based on the current input symbol, and since it
+can only recognize a finite set of symbols, the alphabet must also be finite. If the alphabet were
+infinite, the FSA would not be able to operate on all possible input symbols, making it an impractical
+model for pattern recognition
+
+Your answer is correct.
+The correct answer is:
+The FSA has transitions from one state to another based on the current input symbol, and since it can only
+recognize a finite set of symbols, the alphabet must also be finite. If the alphabet were infinite, the FSA would
+not be able to operate on all possible input symbols, making it an impractical model for pattern recognition
+
+Question 5
+Incorrect
+Mark 0.00 out of 1.00
+
+Which of the following string(s) is/are NOT matched by the regular expression (B(AB|A)*D)*?
+a. ε 
+b. BAADBAABBDBAD
+c. BABD 
+d. BADABBA
+e. BD 
+f.
+
+BAADBAABDBAD 
+
+Your answer is incorrect.
+The correct answers are:
+BADABBA,
+BAADBAABBDBAD
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=165627&cmid=93144
+
+4/9
+
+22.01.2024, 15:00
+
+Pre-Final: Attempt review
+
+Question 6
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following languages over the Σ = {a, b} fully describes the represented FSA?
+
+a. L = {x ∈ Σ* | x does not end with aa}
+b. L = {x ∈ Σ* | every a in x (if there are any) is followed immediately by bb}
+c. L = {x ∈ Σ* | x accepts only strings with b's}
+d. L = {x ∈ Σ* | x does not end with a}
+
+Your answer is correct.
+The correct answer is:
+L = {x ∈ Σ* | every a in x (if there are any) is followed immediately by bb}
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=165627&cmid=93144
+
+5/9
+
+22.01.2024, 15:00
+
+Pre-Final: Attempt review
+
+Question 7
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following languages suits the drawn PDA?
+
+a. L = {(01)n1 | n>0 & n is odd}
+b. L = {(01)n0 | n>0 & n is odd}
+c. L = {(01)n1 | n>0 & n is even}
+d. L = {(01)n0 | n>0 & n is even}
+
+Your answer is correct.
+The correct answer is:
+L = {(01)n0 | n>0 & n is odd}
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=165627&cmid=93144
+
+6/9
+
+22.01.2024, 15:00
+
+Pre-Final: Attempt review
+
+Question 8
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following FSAs could have been used for receiving the next Regular Expressions in the k=-1 step of
+Kleene’s Algorithm?
+
+a.
+
+b.
+
+c.
+
+d. All of the above
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=165627&cmid=93144
+
+7/9
+
+22.01.2024, 15:00
+
+Pre-Final: Attempt review
+
+e. None of the above
+
+Your answer is correct.
+The correct answer is:
+All of the above
+
+Question 9
+Correct
+Mark 1.00 out of 1.00
+
+What is Theoretical Computer Science?
+
+a. Theoretical Computer Science is a type of computer game that involves solving puzzles and
+challenges
+b. Theoretical Computer Science is a branch of computer science that deals with the fundamental
+principles of computation and their practical applications
+
+
+
+c. Theoretical Computer Science is a philosophy that explores the ethical implications of computing
+technology
+d. Theoretical Computer Science is a method of designing computer hardware and software systems
+
+Your answer is correct.
+The correct answer is:
+Theoretical Computer Science is a branch of computer science that deals with the fundamental principles of
+computation and their practical applications
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=165627&cmid=93144
+
+8/9
+
+22.01.2024, 15:00
+
+Pre-Final: Attempt review
+
+Question 10
+Correct
+Mark 1.00 out of 1.00
+
+Please consider the following proof:
+Prove or disprove the following statement using Rice's theorem: "The language of all Turing machines that halt on
+a blank tape is decidable."
+
+We can disprove the statement using Rice's theorem. First, we need to define the property of Turing machines
+that we are interested in. Let P be the property of halting on a blank tape. That is, for any Turing machine M,
+P(M) is true if and only if M halts when given a blank tape as input, and false otherwise.
+Now, we can apply Rice's theorem, which states that any non-trivial property of the language recognized by
+a Turing machine is undecidable. A property is non-trivial if there exist two Turing machines that recognize
+different languages but have the same property.
+In this case, P is a non-trivial property because there exist Turing machines that halt on a blank tape and
+recognize different languages. For example, consider two Turing machines M1 and M2 where:
+- M1 recognizes the language {0} and halts on a blank tape
+- M2 recognizes the language {1} and does not halt on a blank tape
+Both M1 and M2 have the property P, but recognize different languages. Therefore, by Rice's theorem, the
+language of all Turing machines that halt on a blank tape is undecidable.
+
+Is this reasoning valid?
+
+a. Yes, this is a valid proof of the statement
+b. No, this is a wrong proof of the statement because Rice Theorem applies only to FSA
+c. No, this is a wrong proof of the statement because Rice Theorem applies only to PDA
+d. No, the statement does not make any sense because blank tape is not defined for TM
+
+Your answer is correct.
+The correct answer is:
+Yes, this is a valid proof of the statement
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=165627&cmid=93144
+
+9/9
+
+

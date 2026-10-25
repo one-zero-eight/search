@@ -1,0 +1,83 @@
+Name Surname:
+
+Group №:
+
+Introduction to AI
+Midterm Spring 2022 (2nd of March)
+Rules:
+Print your name and group number carefully at the top of all pages. This is a closed book exam
+and requires no external materials. Any cheating/misconduct will result in a mark of 0 and report
+to the Educational Dept. Make all answers in pen – no marks will be given to those using pencil.
+Exam will last 90 min from call of time. There are 6 questions and 50 marks available – this test
+making up 25% of your final grade:
+1. What is Socrates definition of Knowledge and how does it relate to the philosophy of AI? [5pt]
+
+2. Provide and justify a PEAS for a delivery robot. Describe and justify the properties of the
+environment. [10pt]
+
+1
+
+Name Surname:
+
+Group №:
+
+3. Describe the Chinese Room Problem and what it says about the philosophy of AI. [5pt]
+
+4. What is Exploitation and Exploration in a Search Algorithm? If I begin to use my car keys to
+cause my car alarm to sound – is this Explorative or Exploitative? [5pt]
+
+2
+
+Name Surname:
+
+Group №:
+
+5. Apply minimax with alpha beta pruning for a given tree and given sequence of numbers
+appearing in leaves from left to right: -1, 3, 5, 1, -6, -4, 0, 9. [10pt]
+
+max
+min
+max
+
+3
+
+Name Surname:
+
+Group №:
+
+6. Tank should cross the field and achieve final point. Different obstacles cost different points:
+• empty cell – 1 point
+• WALL can be destroyed - 2 points
+• LAKE can be crossed – 3 points
+• PIT can be crossed – 4 points
+• HILL can be climbed – 5 points
+
+Tank can move in any direction including diagonal cells. Using the A* algorithm find the
+shortest path (or paths) and draw other paths from initial point till final point [15pt]
+TANK
+
+LAKE
+
+HILL
+
+HILL
+
+LAKE
+
+HILL
+
+HILL
+
+WALL WALL LAKE
+
+LAKE
+
+PIT
+
+PIT
+
+WALL GOAL
+
+4
+
+

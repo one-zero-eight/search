@@ -1,0 +1,16 @@
+{
+ "title": "Образовательная программа высшего образования – программа бакалавриата 09.03.01 Информатика и вычислительная техника, направленность (профиль) AI360: Инженерия данных",
+ "url": "https://innopolis.university/upload/iblock/84a/pdxs1ly5fbo1sorunz5g175w76cazpz3/4.%20%D0%A0%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82%D1%8B%20%D0%BE%D0%BF%D1%80%D0%BE%D1%81%D0%B0%20%D0%9F%D0%9F%D0%A1_09.03.01_AI360.pdf",
+ "sha256": "cd405638f94f280e7f740115724e80d58491ab6da1613db44fa66fa4d7ac7947",
+ "method": "text layer (pdfplumber)",
+ "chars": 3598,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-25T00:00:07+00:00",
+ "remote": {
+  "etag": "\"68c93366-41b18\"",
+  "modified": "Tue, 16 Sep 2025 09:52:38 GMT",
+  "size": "269080"
+ }
+}

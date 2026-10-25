@@ -1,0 +1,163 @@
+Full name: _ _ _ _ _ _ _ _ _ _ _ __
+
+IN'1obol1s
+ШNIVeГSl~Ч
+
+Probabllity & Statistics
+Midterm
+
+group:
+e-mail: _ _ _ _ _ _ _ _ _ _ _ _ _ __
+Date: October 2ist, 2023
+
+Variant #1
+1. ( 4 pts) In а certain university, 124 students are second year Bachelors who play video gamcs оп
+а daily basis. 78 of them play "Dota 2" and the rest of them play "Overwatch 2" . At tl1e енd of
+semester 10 "Dota 2" players and 12 "Oveпvatch 2" got retakes. А studeнt from tl1e secoпd сошsе
+is selected at random, and it's known that this student had а retake. What is the probabllity tlшt
+а student is an "Overwatch 2" player? Answer the question using at least four decimal places.
+
+F\ill name: _ _ _ _ _ _ _ _ _ _ _ _ __
+
+1№Joc.dL1s
+шмvers1tч
+
+Probabil ity & Statistics
+Midterm
+
+group:
+e-mail: _ _ _ _ _ _ _ _ _ _ _ _ _ __
+Date: October 2l8t, 2023
+
+Variant #1
+
+2. ( 4 pts) There are 50 cards numbered from 1 to 50. You play the following game:
+1. you shuffie а deck of cards;
+
+2. if the number on а card is prime, you stop;
+step 1.
+3. otherwise you return the ca1:d back to the deck and repeat the game starting from
+(а) What is the probabllity that you will have to take at least 5 cards from the deck?
+(Ь) How many cards on average you will have to take?
+
+F\ill name: _ _ _ _ _ _ _ _ _ _ _ __
+
+1N\10 □0L1s
+ШNIVefSl~Ч
+
+Probabllity & Statistics
+Midterm
+
+group: - - - - - - - - - - - - - - e-mail: _ _ _ _ _ _ _ _ _ _ _ _ __
+Date: October 21 st , 2023
+
+Variant #1
+3. (4 pts) The continuous random variaЫe Х is distributed according to the "M-law'' depicted in
+the figure below. Find
+• y-coOl'dinate of а point А;
+• th_e analytical represeпtation of probabllity density function for Х .
+11
+
+о
+
+D(,l, О)
+
+F(lO , О)
+
+.!'
+
+Full name: _ _ _ _ _ _ _ _ _ _ _ __
+
+IN\I O□oL,s
+
+шмvегs1Ьч
+
+Probability & Statistics
+Midterm
+
+group: - - - - - - - - - - - - - - e-mail: _ _ _ _ _ _ _ _ _ _ _ _ _ __
+Date: October 21 st , 2023
+
+Variant #1
+4. (4 pts) Suppose you have а Ьох with 4 red marЫes, 3 green marЫes, and 3 Ыuе marЫes. You
+draw three marЫes without replacement. Let Х Ье the number of red marЫes drawn, and У Ье
+the number of green marЫes drawn.
+(а) Find the joint probaЬility distribution of Х and У .
+
+(Ь) Determine the marginal distribution g(x).
+(с)Р[(Х, У) Е А] , where А is the region given Ьу {(х , y)lx +у~ 2}
+
+F\1ll 11n.шe : _ _ _ _ _ _ _ _ _ _ _ __
+g 1· о нр:
+
+IN\10□0L1s
+ШNIVeГSl~Ч
+
+_ _ _ _ _ _ _ _ _ _ _ _ _ __
+
+P1·obabllity & Statistics
+Midteг111
+
+e-шail :
+
+_ _ _ _ _ _ __ __ _ _ __
+
+Date: Octobei· 2ist, 2023
+Vai·iaпt #1
+
+5. ( 4 pts) Let Х and У Ье co11ti11нous ш11dо111 va1·iaЬ!es ,vitl1 joint deнsity f1шctio11
+
+f(x,y) = {с~\ е-х, ~1 i,;; х i,;; О, О i,;; у i,;; 1,
+О, otl1e1·w1se.
+
+(а) (1 point) Find Е(ХУ).
+
+(Ь) (2 points) Find Vai·(X) and Vai·(Y) .
+(с) (1 point) Find Cov(X, У).
+
+Full name: _ _ _ _ _ _ _ _ _ _ _ _ __
+
+1N\10□0L1s
+
+"
+
+L!JN1vers1a;.ч
+
+Probability & Statistics
+
+group: - - - - - - - - - - - - - - -
+
+Midterm
+
+e-mail: _ _ _ _ _ _ _ _ _ _ _ _ _ __
+Date: October 21 st , 2023
+
+Variant #1
+
+6. ( 4 pts) The probaЬility of obtaining а product of the highest quality from production is 0.6.
+Using Chebyshev's inequality, estimate the probaЬility of having from 34 to 38 products of the
+highest quality of а batch of 60 products.
+
+Full name: _ _ _ _ _ _ _ _ _ __ _ __
+
+•~or:iolas
+
+ШNIVeГSl~Ч
+
+Probability & Statistics
+Midterm
+
+group: - - - - - - - - - - - - - -- e-mail:
+Date: October 21 st , 2023
+
+Variant #1
+7. (4 pts) The voltage in the home electricity is in average 220 V ,vith tl1e 10 V deviatio11. It's
+known that someone produces the power adaptors manually. From item to iteш the numb eг of
+turns in the primary coil of an adaptor is in average 400±3 and in the secondary coil is 22±1.
+Will а power adaptor charge the batteгy of the moЬile р\юnе if it 's known that tl1e 1110tl1eгboa1·d
+circuit switches the chai·ging off automatically if tl1e i11put voltage e..xceeds 13 V.
+
+Hint: the ratio Ьetween the input and output voltage of the power adaptoг is tlie same as tlie rat'io
+between tlie numbers of t11,171,s in primary (input) ancl secondaт·y (o·utput) co·ils.
+
+

@@ -1,0 +1,44 @@
+Name
+Group
+Course Name: Theoretical Computer Science
+Final exam
+Instructor: Manuel Mazzara
+
+Year: 2020-2021 (Spring Semester)
+Time allowed: 90 minutes
+Max grade: 25 points
+
+LAPTOPS ARE NOT ALLOWED, BOOKS MUST BE CLOSED!
+Please, write your solutions in the provided space. You may use the reverse side for drafts.
+
+EXERCISE 1 (5 points)
+Construct pushdown automaton that recognizes the following language:
+
+𝐿 = {𝑎𝑖 𝑏 𝑗 𝑐 𝑘 | 𝑖, 𝑗, 𝑘 ≥ 0, 𝑎𝑛𝑑 𝑖 + 𝑗 = 𝑘 𝑜𝑟 𝑖 = 𝑘}
+EXERCISE 2 (5 points)
+Construct a deterministic 2-tape (1 Input, 1 Memory) Turing machine over Σ = {a, b}:
+
+𝐿 = {𝑎2𝑛 𝑏𝑛 |𝑛 ≥ 0} ∪ {𝑎𝑛 𝑏2𝑛 |𝑛 ≥ 0}
+EXERCISE 3 (5 points)
+A. List the types of grammars of Chomsky hierarchy. What are the automata that correspond to these
+grammar types? (1 points)
+B. Let L be the language over Σ = {a, b} denoted by the regular expression 𝑎(𝑎|𝑏)∗. Is it possible to
+express this language with a CFG? If yes, provide the grammar, if no, provide the explanation. (2 points)
+C. What is the type of the least expressive grammar in the Chomsky hierarchy that could define the given
+language? Provide the grammar that defines this language (2 points)
+
+𝐿 = {𝑎𝑖 𝑏 𝑗 𝑐 𝑘 | 𝑖, 𝑗, 𝑘 ≥ 0, 𝑎𝑛𝑑 𝑖 = 𝑗 𝑜𝑟 𝑖 = 𝑘}
+EXERCISE 4 (5 points)
+Are two-tape Turing Machines more expressive than the one-tape Turing Machines? Explain.
+
+EXERCISE 5 (5 points)
+A decision problem (posed as a yes-no question) which can be solved by an algorithm is called decidable.
+Consider the following problems and state for each of them whether it is decidable or not. Explain. (5 points)
+A. Writing a static analyser that, for any given input pair consisting of (program, input) can decide whether
+the program gives an output with the specific input.
+B. Writing a program that for a given regular expression has to decide whether the complement of the
+language of the given RegExp is regular.
+C. Writing a program that for a given triple of integers has to decide whether the third integer is a greatest
+common divisor of the first two integers.
+
+

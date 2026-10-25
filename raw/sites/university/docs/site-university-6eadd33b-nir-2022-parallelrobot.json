@@ -1,0 +1,16 @@
+{
+ "title": "Read the article [NIR_2022_parallel-robot]",
+ "url": "https://innopolis.university/filespublic/NIR_2022_parallel-robot.pdf",
+ "sha256": "0d7f4eeba4fbeaeb9ebce2a43fd61379d420b4de861019164282469a77d4bd9e",
+ "method": "text layer (pdfplumber)",
+ "chars": 23086,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:45:22+00:00",
+ "remote": {
+  "etag": "\"2aff22-5e75e9bbd5427\"",
+  "modified": "Mon, 29 Aug 2022 10:20:09 GMT",
+  "size": "2817826"
+ }
+}

@@ -1,0 +1,1321 @@
+Full name:
+e-mail:
+
+CSE 206 — Probability and statistics
+Midterm
+
+group:
+Date: October 17th , 2024
+
+• The midterm lasts 1,5 hours (90 minutes).
+• Any cheating, any attempt to cheat, assisting others to cheat, or participating
+therein will be penalized with a null score on the test.
+• The use of any smart devices (e.g. mobile phones, tablets, laptops, smart watches
+and etc.) is strictly prohibited and will be considered as an attempt to cheat.
+• No cheat sheets, calculators or books are allowed.
+
+Model #1
+1. (8 pts) Let the random vector ξ = (ξ1 , ξ2 ) have the probability density function
+
+
+2
+4
+pξ (x1 , x2 ) =
+x1 + x2 I((x1 , x2 ) ∈ [0, 1] × [0, 1]).
+3
+3
+Find the conditional expectation E[ξ1 |ξ2 ].
+Случайный вектор ξ = (ξ1 , ξ2 ) имеет плотность
+
+pξ (x1 , x2 ) =
+
+
+4
+2
+x1 + x2 I((x1 , x2 ) ∈ [0, 1] × [0, 1]).
+3
+3
+
+Найти условное среднее E[ξ1 |ξ2 ].
+
+Solution. First we must find the conditional pdf pξ1 |ξ2 (x1 |x2 ), which by definition is pξ1 ,ξ2 (x1 , x2 )/pξ2 (x2 ).
+We need the marginal pdf pξ2 (·):
+Z +∞
+pξ2 (x2 ) =
+pξ1 ,ξ2 (x1 , x2 )dx1
+−∞
+
+Z +∞ 
+
+
+2
+4
+x1 + x2 I((x1 , x2 ) ∈ [0, 1] × [0, 1])dx1
+3
+3
+−∞
+
+1 4
++ x2 I(0 < x2 < 1).
+=
+3 3
+
+=
+
+So
+
+
+2
+4
+3 x1 + 3 x2
+
+
+
+I((x1 , x2 ) ∈ [0, 1] × [0, 1])
+
+1
+4
+3 + 3 x2 I(0 < x2 < 1)
+
+pξ1 |ξ2 (x1 |x2 ) =
+
+Now we find the mean of ξ1 conditioned on ξ2 = y:
+Z ∞
+E[ξ1 |ξ2 = y] =
+x1 pξ1 |ξ2 (x1 |y)dx1 =
+−∞
+
+Z 1
+I(0 < y < 1)
+x1 (2x1 + 4y)dx1
+=
+(1 + 4y)I(0 < y < 1) 0
+I(0 < y < 1)(2/3 + 2y)
+=
+.
+1 + 4y
+Finally,
+E[ξ1 |ξ2 ] =
+
+(2/3 + 2ξ2 )
+I(0 < ξ2 < 1).
+1 + 4ξ2
+
+Full name:
+e-mail:
+
+CSE 206 — Probability and statistics
+Midterm
+
+group:
+Date: October 17th , 2024
+Model #1
+2. (10 pts) Find the covariance matrix of the vector from the previous question.
+Найти ковариационную матрицу случайного вектора из предыдущего вопроса.
+
+Solution. We already have pξ2 , let’s find pξ1 :
+Z +∞
+pξ1 (x1 ) =
+pξ1 ,ξ2 (x1 , x2 )dx2
+−∞
+
+Z +∞ 
+
+
+2
+4
+=
+x1 + x2 I((x1 , x2 ) ∈ [0, 1] × [0, 1])dx2
+3
+3
+−∞
+
+2
+2
+x1 + I(0 < x1 < 1).
+=
+3
+3
+Therefore,
+Z +∞
+
+2
+2
+x1 + I(0 < x1 < 1)dx1
+3
+3
+−∞
+2 1
+5
+= + =
+9 3
+9
+
+Eξ1 =
+
+x1
+
+and
+Z +∞
+
+1 4 
++ x2 I(0 < x2 < 1)dx2
+3 3
+−∞
+1 4
+11
+= + =
+.
+6 9
+18
+
+Eξ2 =
+
+x2
+
+Second moments:
+Z +∞
+
+2
+2
+x1 + I(0 < x1 < 1)dx1
+3
+3
+−∞
+2
+2
+7
+=
++ =
+,
+12 9
+18
+
+Eξ12 =
+
+Z +∞
+
+x21
+
+1 4 
++ x2 I(0 < x2 < 1)dx2
+3 3
+−∞
+4
+1 1
+= + = ,
+9 3
+9
+
+Eξ22 =
+
+x22
+
+and Eξ1 ξ2 :
+Z +∞ Z ∞
+Eξ1 ξ2 =
+
+
+4
+2
+x1 + x2 I((x1 , x2 ) ∈ [0, 1] × [0, 1])dx1 dx2
+3
+3
+ Z 1
+
+4
+2
+4
+2 2
+2
+x1 x2 + x1 x2 dx1 =
+( x2 + x22 )dx2
+3
+3
+6
+0 9
+
+
+x1 x2
+−∞
+
+Z 1
+=
+
+−∞
+
+Z 1
+dx2
+
+0
+
+0
+
+1
+4
+1
+= +
+= .
+9 18
+3
+Finally:
+Cov(ξ1 , ξ2 ) =
+
+7
+
+5 2
+18 − ( 9 )
+1
+11
+3 − 54
+
+1
+11
+3 − 54
+4
+11 2
+9 − ( 18 )
+
+
+
+13
+162
+1
+− 162
+
+
+=
+
+1
+− 162
+23
+324
+
+
+
+
+=
+
+0.0802469
+−0.00617284
+
+
+−0.00617284
+.
+0.070987654
+
+Full name:
+CSE 206 — Probability and statistics
+Midterm
+
+e-mail:
+group:
+Date: October 17th , 2024
+Model #1
+
+3. (8 pts) Approximately 86 450 malware attacks occur in our country every day. Calculate the approximate
+probability that at least 1 attack occurs in one second.
+Note: an approximation with two decimal digits will suffice.
+Около 86450 хакерских атак происходит каждый день в нашей стране. Найти приблизительную вероятность того, что хотя бы
+одна атака происходит за одну секундну.
+Замечание: точность приближения до второго десятичного разряда (включительно) будет достаточно.
+
+Solution. It’s best to use the Poisson approximation in this question. The day has 24 × 3600 = 86400
+seconds, so approximately 1.0006 ≈ 1 attack occurs during one second. We use ξ ∼ Poi(1) as the model.
+Thus,
+P(ξ ≥ 1) = 1 − P(ξ = 0) ≈ 1 − e−1 ≈ 1 − 0.37 ≈ 0.63.
+
+Full name:
+CSE 206 — Probability and statistics
+Midterm
+
+e-mail:
+group:
+Date: October 17th , 2024
+Model #1
+
+4. (8 pts) Dima has opened a business, for which he needs broken Pearl-X gadgets, which have an average
+lifespan of 5 years. He has come up with a model, according to which he will pay (in units of tens of
+thousands of rubles) 4 + 15 x2 for a gadget that broke down after x years of usage. Find the mean amount
+of money that he will spend on buying a Pearl-X gadget.
+Дима открыл фирму, дело которой требует покупки Перл-Х устройств, у которых средняя продолжительность работоспособности — 5 лет. По его мат-модели, он будет платить (в десятках тысячах рублей) 4 + 51 x2 за устройство, приходящее в негодность
+спустя x лет. Найти средний расход Димы на каждое такое устройство.
+
+Solution. Gadget lifespan is well modeled by the exponential distribution, Exp(λ) which has mean λ1 ; from
+the statement of the question we are led to use λ = 51 . If η is the amount he pays and ξ is the gadget’s
+lifespan, then η = 4 + 15 ξ 2 . Then
+1
+2
+1
+Eη = 4 + Eξ 2 = 4 + ·
+= 4 + 10 = 14,
+5
+5 (1/5)2
+thus, 140 000 rubles.
+(Because the second moment of an Exp(λ) random variable is 2λ−2 . If you don’t remember this, all you
+R +∞
+need is to calculate 0 x2 λe−λ dx using integration by parts.)
+
+Full name:
+CSE 206 — Probability and statistics
+Midterm
+
+e-mail:
+group:
+Date: October 17th , 2024
+
+• The Midterm lasts 1,5 hours (90 minutes).
+• Any cheating, any attempt to cheat, assisting others to cheat, or participating
+therein will be penalized with a null score on the test.
+• Usage of any smart devices (e.g. mobile phones, tablets, laptops, smart watches and
+etc.) is strictly prohibited and will be considered as an attempt to cheat.
+• No cheat sheets, calculators nor books are allowed.
+
+Model #2
+1. (8 pts) Let the random vector ξ = (ξ1 , ξ2 ) have the probability density function
+
+
+1
+5
+pξ (x1 , x2 ) =
+x1 + x2 I((x1 , x2 ) ∈ [0, 1] × [0, 1]).
+3
+3
+Find the conditional expectation E[ξ1 |ξ2 ].
+Случайный вектор ξ = (ξ1 , ξ2 ) имеет плотность
+
+pξ (x1 , x2 ) =
+
+
+5
+1
+x1 + x2 I((x1 , x2 ) ∈ [0, 1] × [0, 1]).
+3
+3
+
+Найти условное среднее E[ξ1 |ξ2 ].
+
+Solution. First we must find the conditional pdf pξ1 |ξ2 (x1 |x2 ), which by definition is pξ1 ,ξ2 (x1 , x2 )/pξ2 (x2 ).
+We need the marginal pdf pξ2 (·):
+Z +∞
+pξ2 (x2 ) =
+pξ1 ,ξ2 (x1 , x2 )dx1
+−∞
+
+Z +∞ 
+
+
+5
+1
+x1 + x2 I((x1 , x2 ) ∈ [0, 1] × [0, 1])dx1
+3
+3
+−∞
+1 5 
++ x2 I(0 < x2 < 1).
+=
+6 3
+
+=
+
+So
+
+
+1
+5
+3 x1 + 3 x2
+
+
+
+I((x1 , x2 ) ∈ [0, 1] × [0, 1])
+
+1
+5
+6 + 3 x2 I(0 < x2 < 1)
+
+pξ1 |ξ2 (x1 |x2 ) =
+
+Now we find the mean of ξ1 conditioned on ξ2 = y:
+Z ∞
+E[ξ1 |ξ2 = y] =
+x1 pξ1 |ξ2 (x1 |y)dx1 =
+−∞
+
+Z 1
+I(0 < y < 1)
+x1 (x1 + 5y)dx1
+(1/2 + 5y)I(0 < y < 1) 0
+I(0 < y < 1)(2/3 + 2y)
+=
+.
+1/2 + 5y
+
+=
+
+Finally,
+E[ξ1 |ξ2 ] =
+
+(2/3 + 2ξ2 )
+I(0 < ξ2 < 1).
+1/2 + 5ξ2
+
+Full name:
+CSE 206 — Probability and statistics
+Midterm
+
+e-mail:
+group:
+Date: October 17th , 2024
+Model #2
+
+2. (10 pts) Find the covariance matrix of the vector from the previous question.
+Найти ковариационную матрицу случайного вектора из предыдущего вопроса.
+
+Solution. We already have pξ2 (x2 ) =
+
+
+
+
+1 5
++ x2 I(0 < x2 < 1) from the previous question. Let’s find
+6 3
+
+pξ1 (x1 ):
+Z 1
+pξ1 (x1 ) =
+
+pξ (x1 , x2 ) dx2
+
+Z 1
+1
+5
+=
+x1 + x2 dx2
+3
+3
+
+0
+5 1
+1
+x1 · 1 + ·
+I(0 < x1 < 1)
+=
+3
+3 2
+
+
+5
+1
+x1 +
+=
+I(0 < x1 < 1).
+3
+6
+0
+
+Therefore,
+Z 1
+E[ξ1 ] =
+
+Z 1
+x1 pξ1 (x1 ) dx1 =
+
+0
+
+0
+
+Z 1
+
+Z 1
+
+E[ξ2 ] =
+
+x2 pξ2 (x2 ) dx2 =
+0
+
+
+x1
+
+x2
+
+0
+
+5
+1
+x1 +
+3
+6
+
+
+dx1 =
+
+1
+5
+19
++
+=
+,
+9 12
+36
+
+
+5
+23
+1 5
+1
++ x2 dx2 =
++ =
+.
+6 3
+12 9
+36
+
+Second moments:
+E[ξ12 ] =
+E[ξ22 ] =
+
+Z 1
+
+x21 pξ1 (x1 ) dx1 =
+
+Z 1
+
+0
+
+0
+
+Z 1
+
+Z 1
+
+x22 pξ2 (x2 ) dx2 =
+
+0
+
+0
+
+x21
+x22
+
+
+
+
+5
+1
+x1 +
+3
+6
+
+
+dx1 =
+
+5
+13
+1
++
+=
+,
+12 18
+36
+
+
+1 5
+1
+5
+17
++ x2 dx2 =
++
+=
+.
+6 3
+18 12
+36
+
+Also,
+Z 1Z 1
+
+Z 1Z 1
+
+
+1
+5
+x1 + x2 dx1 dx2
+3
+3
+0
+0
+0
+0
+
+
+
+Z 1 Z 1 
+Z 1 
+1 5
+1 2 5
+x + x1 x2 dx1 dx2 =
+x2
++ x2 dx2
+=
+x2
+3 1 3
+9 6
+0
+0
+0
+
+Z 1
+5
+1
+5
+1
+1
+x2 + x22 dx2 =
++
+= .
+=
+9
+6
+18
+18
+3
+0
+
+E[ξ1 ξ2 ] =
+
+x1 x2 pξ (x1 , x2 ) dx1 dx2 =
+
+
+
+x1 x2
+
+Finally, the covariance matrix is:
+ 2
+13
+19
+ 36 − 36
+Cov(ξ) = 
+ 1 19 23
+−
+·
+3 36 36
+
+
+ 
+1 19 23
+107
+−
+·
+ 1296
+3 36 36 
+
+ 2  = 
+5
+17
+23
+−
+−
+1296
+36
+36
+
+
+5
+
+0.0826
+1296 
+≈
+83 
+−0.0039
+1296
+
+−
+
+
+−0.0039
+.
+0.0640
+
+Full name:
+CSE 206 — Probability and statistics
+Midterm
+
+e-mail:
+group:
+Date: October 17th , 2024
+Model #2
+
+3. (8 pts) Robert has a very noisy neighbor who likes to do repairs on the weekends. On an average Sunday
+(from 10 a.m. to 6 p.m.), a neighbor turns on the drill 16 times. Let ξ be a random variable responsible
+for the number of times the drill is turned on during an hour. Find the approximate probability that the
+neighbor will turn on the drill at least 4 times within an hour.
+Note: an approximation with two decimal digits will suffice.
+У Роберта есть очень шумный сосед, который любит заниматься ремонтом по выходным. В среднем за воскресный день (с
+10 часов утра до 6 часов вечера) сосед включает дрель 16 раз. Пусть ξ — случайная величина, отвечающая за количество
+включений дрели в течение часа. Найти приблизительную вероятность того, что сосед включит дрель не менее 4 раз в течение
+часа.
+Замечание: точность приближения до второго десятичного разряда (включительно) будет достаточно.
+
+Solution. Robert’s neighbor drills from 10 a.m. to 6 p.m. — 8 hours in total. An average number of times
+he turns on the drill is 16 times per 8 hours — 2 times per hour. Thus, by what was explained in lecture, a
+good model for ξ is the Poisson distribution with λ = 2:
+P (ξ = k) =
+
+2k −2
+e , k = 0, 1, 2, . . .
+k!
+
+The probability that the neighbor will turn on the drill at least 4 times within an hour:
+P(k ⩾ 4) = 1 − P(k < 4) = 1 − P(k ⩽ 3) = 1 − (P(k = 0) + P(k = 1) + P(k = 2) + P(k = 3)) =
+ 0
+
+2
+21
+22
+23
+−2
+=1−e ×
++
++
++
+= 0.1429.
+0!
+1!
+2!
+3!
+
+Full name:
+CSE 206 — Probability and statistics
+Midterm
+
+e-mail:
+group:
+Date: October 17th , 2024
+Model #2
+
+4. (8 pts) You work on a guitar strings factory. Your R&D department has found a new coating which allows
+to increase a string lifespan to 21 days of active playing. Further, your analists found that the customer
+1 2
+x , where x is the actual lifetime of a string. Do you think that
+satisfaction can be modeled as −5 + 63
+customers will be satisfied with the quality of your new product?
+Ты работаешь на фабрике по производству гитарных струн. Отдел R&D нашел новый вид покрытия, продлевающий срок
+службы струн до 21 дня активной игры. Кроме того, аналитики смогли смоделировать удовлетворенность покупателей как
+1 2
+−5 + 63
+x , где x — срок службы струны. Будут ли покупатели удовлетворены качеством нового продукта?
+
+1
+). We evaluate the expectation we were
+Solution. The string lifetime is distributed according to Exp( 21
+looking for:
+
+E(−5 +
+
+1 2
+1
+X ) = − 5 + EX 2
+63
+63 
+
+
+
+1
+1
+= −5+
+VarX + (EX)2 = −5 +
+212 + (21)2
+63
+63
+= 9.
+
+So, customers will be satisfied with our product.
+
+Full name:
+e-mail:
+
+CSE 206 — Probability and statistics
+Midterm
+
+group:
+Date: October 17th , 2024
+
+• The Midterm lasts 1,5 hours (90 minutes).
+• Any cheating, any attempt to cheat, assisting others to cheat, or participating
+therein will be penalized with a null score on the test.
+• Usage of any smart devices (e.g. mobile phones, tablets, laptops, smart watches and
+etc.) is strictly prohibited and will be considered as an attempt to cheat.
+• No cheat sheets, calculators nor books are allowed.
+
+Model #3
+1. (8 pts) Let the random vector ξ = (ξ1 , ξ2 ) have the probability density function
+
+
+3
+7
+pξ (x1 , x2 ) =
+x1 + x2 I((x1 , x2 ) ∈ [0, 1] × [0, 1]).
+5
+5
+Find the conditional expectation E[ξ1 |ξ2 ].
+Случайный вектор ξ = (ξ1 , ξ2 ) имеет плотность
+
+pξ (x1 , x2 ) =
+
+
+3
+7
+x1 + x2 I((x1 , x2 ) ∈ [0, 1] × [0, 1]).
+5
+5
+
+Найти условное среднее E[ξ1 |ξ2 ].
+
+Solution. First we must find the conditional pdf pξ1 |ξ2 (x1 |x2 ), which by definition is pξ1 ,ξ2 (x1 , x2 )/pξ2 (x2 ).
+We need the marginal pdf pξ2 (·):
+Z +∞
+pξ2 (x2 ) =
+pξ1 ,ξ2 (x1 , x2 )dx1
+−∞
+
+Z +∞ 
+
+
+7
+3
+x1 + x2 I((x1 , x2 ) ∈ [0, 1] × [0, 1])dx1
+=
+5
+5
+−∞
+7 
+3
++ x2 I(0 < x2 < 1).
+=
+10 5
+So
+
+
+3
+7
+5 x1 + 5 x2
+
+pξ1 |ξ2 (x1 |x2 ) =
+
+
+
+I((x1 , x2 ) ∈ [0, 1] × [0, 1])
+
+3
+7
+10 + 5 x2 I(0 < x2 < 1)
+
+Now we find the mean of ξ1 conditioned on ξ2 = y:
+Z ∞
+E[ξ1 |ξ2 = y] =
+x1 pξ1 |ξ2 (x1 |y)dx1 =
+−∞
+
+=
+=
+
+I(0 < y < 1)
+3
+( 10
++ 7y
+5 )I(0 < y < 1)
+I(0 < y < 1)( 51 + 7y
+10 )
+7y
+3
+10 + 5
+
+Z 1
+x1 (
+0
+
+3x1
+7y
++ )dx1
+5
+5
+
+.
+
+Finally,
+E[ξ1 |ξ2 ] =
+
+2
+( 51 + 7ξ
+10 )
+
+7ξ2
+3
+10 + 5
+
+I(0 < ξ2 < 1).
+
+Full name:
+CSE 206 — Probability and statistics
+Midterm
+
+e-mail:
+group:
+Date: October 17th , 2024
+Model #3
+
+2. (10 pts) Find the covariance matrix of the vector from the previous question.
+Найти ковариационную матрицу случайного вектора из предыдущего вопроса.
+
+Solution. We already have pξ2 (x2 ) =
+
+
+
+
+3
+7
++ x2 I(0 < x2 < 1) from the previous question. Let’s find
+10 5
+
+pξ1 (x1 ):
+Z 1
+pξ1 (x1 ) =
+
+pξ (x1 , x2 ) dx2
+
+Z 1
+3
+7
+=
+x1 + x2 dx2
+5
+5
+
+0
+7 1
+3
+x1 · 1 + ·
+I(0 < x1 < 1)
+=
+5
+5 2
+
+
+7
+3
+x1 +
+=
+I(0 < x1 < 1).
+5
+10
+0
+
+Therefore,
+Z 1
+E[ξ1 ] =
+
+Z 1
+x1 pξ1 (x1 ) dx1 =
+
+0
+
+0
+
+Z 1
+
+Z 1
+
+E[ξ2 ] =
+
+x2 pξ2 (x2 ) dx2 =
+0
+
+
+x1
+
+7
+3
+x1 +
+5
+10
+
+
+dx1 =
+
+1
+7
+11
++
+=
+,
+5 20
+20
+
+
+
+
+7
+7
+37
+3
+3
++ x2 dx2 =
++
+=
+.
+10 5
+20 15
+60
+
+
+
+7
+3
+x1 +
+5
+10
+
+x2
+0
+
+Second moments:
+E[ξ12 ] =
+E[ξ22 ] =
+
+Z 1
+
+x21 pξ1 (x1 ) dx1 =
+
+Z 1
+
+0
+
+0
+
+Z 1
+
+Z 1
+
+x22 pξ2 (x2 ) dx2 =
+
+0
+
+0
+
+x21
+x22
+
+
+
+
+dx1 =
+
+7
+23
+3
++
+=
+,
+20 30
+60
+
+
+3
+7
+1
+7
+9
++ x2 dx2 =
++
+=
+.
+10 5
+10 20
+20
+
+Also,
+Z 1Z 1
+
+Z 1Z 1
+
+
+3
+7
+x1 + x2 dx1 dx2
+5
+5
+0
+0
+0
+0
+
+
+
+Z 1 Z 1 
+Z 1 
+1
+7
+3 2 7
+x + x1 x2 dx1 dx2 =
+x2
++ x2 dx2
+=
+x2
+5 1 5
+5 10
+0
+0
+0
+
+Z 1
+7
+1
+7
+1
+1
+x2 + x22 dx2 =
++
+= .
+=
+5
+10
+10
+30
+3
+0
+
+E[ξ1 ξ2 ] =
+
+x1 x2 pξ (x1 , x2 ) dx1 dx2 =
+
+
+
+x1 x2
+
+Finally, the covariance matrix is:
+ 2
+23
+11
+ 60 − 20
+Cov(ξ) = 
+ 1 11 37
+−
+·
+3 20 60
+
+
+ 
+1 11 37
+97
+−
+·
+ 1200
+3 20 60 
+
+ 2  = 
+7
+9
+37
+−
+−
+1200
+20
+60
+
+
+7
+
+0.0808
+1200 
+≈
+251 
+−0.0058
+3600
+
+−
+
+
+−0.0058
+.
+0.0697
+
+Full name:
+CSE 206 — Probability and statistics
+Midterm
+
+e-mail:
+group:
+Date: October 17th , 2024
+Model #3
+
+3. (8 pts) Anna is a diligent student. On average, she makes 1 mistake per 10 pages of notes. Let ξ be a random
+variable reflecting the number of mistakes that Anna will make after filling out a 48-sheet notebook. Find
+the approximate probability that Anna will make from 2 to 5 errors in her notebook.
+Note: a page and a sheet are different concepts!
+Анна — старательный студент. В среднем она делает 1 ошибку на 10 страниц конспекта. Пусть ξ —
+случайная величина, отражающая количество ошибок, которые сделает Анна, исписав 48-листовую
+тетрадь. Найдите приблизительную вероятность того, что у Анны в тетради будет от 2 до 5 ошибок.
+Указание: страница и лист — разные понятия!
+Замечание: точность приближения до второго десятичного разряда (включительно) будет достаточно.
+
+Solution. On average, Anna makes 1 mistake per 10 pages of handwriting, which means that we will have
+approximately 48×2
+10 = 9.6 mistakes in her notebook. In this situation, the good model for ξ is the Poisson
+distribution with λ = 9.6:
+(9.6)k −9.6
+P (ξ = k) =
+e
+, k = 0, 1, 2, . . .
+k!
+The probability that Anna will make from 2 to 5 errors in her notebook:
+P(2 ⩽ ξ ⩽ 5) =
+
+5
+X
+k=2
+
+P(ξ = k) = e−9.6 ×
+
+
+
+(9.6)2
+(9.6)3
+(9.6)4
+(9.6)5
++
++
++
+2!
+3!
+4!
+5!
+
+
+= 0.083.
+
+Full name:
+CSE 206 — Probability and statistics
+Midterm
+
+e-mail:
+group:
+Date: October 17th , 2024
+Model #3
+
+4. (8 pts) On average, your sneakers survive 2 years of active usage. According to your experience, the fair
+price for a good sneakers follows the law 20 + 2x + 36x2 USD, where x is a lifespan of sneakers. What is the
+mean price you are ready to pay for your new sneakers?
+В среднем, твоя пара кроссовок выдерживает 2 года активного использования. Исходя из твоего опыта, справедливая цена
+хороших кроссовок определяется по закону 20 + 2x + 36x2 USD, где x - срок службы кроссовок. Какую среднюю цены ты
+готов(-а) заплатить за кроссовки?
+
+Solution. Lifespan of sneakers follows Exp(0.5). Then, the mean price can be calculated as:
+E(20 + 2X + 36X 2 ) = 20 + 2EX + 36EX 2
+
+
+
+
+= 20 + 2EX + 36 VarX + (EX)2 = 20 + 2 · 2 + 36· 4 + 22
+= 312.
+
+

@@ -1,0 +1,16 @@
+{
+ "title": "opisanie processov zhiznennogo cikla platforma cardledger",
+ "url": "https://innopolis.university/filespublic/opisanie_processov_zhiznennogo_cikla_platforma_cardledger.pdf",
+ "sha256": "8c4ef55594f74f4691f86fa5a3bdacb3324eecf2d74e31038dd561357f1d12e0",
+ "method": "text layer (pdfplumber)",
+ "chars": 20674,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:47:39+00:00",
+ "remote": {
+  "etag": "\"3f2f2-5ff42d8d37c41\"",
+  "modified": "Thu, 29 Jun 2023 11:17:34 GMT",
+  "size": "258802"
+ }
+}

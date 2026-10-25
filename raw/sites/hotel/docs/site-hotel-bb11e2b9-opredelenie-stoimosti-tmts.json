@@ -1,0 +1,16 @@
+{
+ "title": "Система штрафов",
+ "url": "https://hotel.innopolis.university/upload/docs-hotel/%D0%9E%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8_%D0%A2%D0%9C%D0%A6.pdf",
+ "sha256": "5d42455cc31f2d959c3e50a3443f2aa135c94709ebf78e5b707edeaec0e2b9ab",
+ "method": "text layer (pdfplumber)",
+ "chars": 8227,
+ "section": "site/hotel",
+ "context": "",
+ "fetched_at": "2026-10-24T22:03:58+00:00",
+ "remote": {
+  "etag": "\"35afb-62c5c8655b72b\"",
+  "modified": "Thu, 23 Jan 2025 09:49:22 GMT",
+  "size": "219899"
+ },
+ "tables": 3
+}

@@ -1,0 +1,16 @@
+{
+ "title": "Вступительное испытание на программам бакалавриата \"Русский язык\" 22.07.2024",
+ "url": "https://innopolis.university/upload/iblock/cb0/mqbe0tpqfq67tr1y0kcfawl55xfas4qn/russian_language_22_07.pdf",
+ "sha256": "acbeb97861e408f8b3f815a8d4d7ce4861ba8a58280637c8d48ba4b09fd7d43a",
+ "method": "text layer (pdfplumber)",
+ "chars": 2785,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-25T00:01:55+00:00",
+ "remote": {
+  "etag": "\"66a4c710-b903\"",
+  "modified": "Sat, 27 Jul 2024 10:08:16 GMT",
+  "size": "47363"
+ }
+}

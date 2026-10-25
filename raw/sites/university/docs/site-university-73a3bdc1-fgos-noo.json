@@ -1,0 +1,16 @@
+{
+ "title": "Федеральный государственный образовательный стандарт начального общего образования",
+ "url": "https://innopolis.university/upload/iblock/89b/k5tr2vjmva7645oiidjw0uzzl919zule/fgos_noo.pdf",
+ "sha256": "7ffc5fb38287878bab0c28db663604aa24d60389fe707ab83bd0a51dce2bd6eb",
+ "method": "text layer (pdfplumber)",
+ "chars": 119369,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-25T00:00:20+00:00",
+ "remote": {
+  "etag": "\"64f1ee02-720d7\"",
+  "modified": "Fri, 01 Sep 2023 13:58:26 GMT",
+  "size": "467159"
+ }
+}

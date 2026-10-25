@@ -1,0 +1,166 @@
+Probability & Statistics. Final Examination. Problem Set 1. Part 1
+Name
+
+Group Number
+
+Solutions for each part of this examination have to be written on separate sheets! Do not write solutions
+of two different parts of this examination on one sheet of paper. You can use a single sheet for several
+problems from one part of the examination (i.e. you can write problems 1, 2, 3, 4 on one sheet). Do not
+forget to sign each of the sheets that you hand in. You can use this sheet for solving problems as well.
+I am aware that using any electronic devices, books etc. at the exam as well as communicating with other
+students is strictly prohibited. Only two handwritten informational sheets are allowed at the examination. Any
+violation of these rules immediately leads to exam cancellation. Signature
+1. Two players take turns in rolling a 10-sided fair die. The first of them to get a result of one wins the
+game. Find the probability for each of the players to win the game.
+2. A regular hexagon inscribed into a circle divides it into seven parts. Seven points are chosen at
+random inside the circle. Find the probability that there is exactly one point in each of the seven
+parts of the circle.
+3. 10 000 people take part in the marathon. The probability to run all the way to the finish is equal
+to 0,64. (a) Find1 the probability that at least 6 500 people get to the finish. (b) Let 𝜉 be a number
+of people who got to the finish. Find the shortest possible interval that contains the value of 𝜉 with
+probability of 95%.
+4. There are three red balls and nine green balls in the first urn, and there are five red balls and seven
+yellow balls in the second urn. Two balls from the first urn and two balls from the second urn have
+been transferred into the third urn that had initially been empty. It has happened that the third urn
+contains balls of all three different colours. Find the probability that the balls transferred from the
+first urn were of different colours.
+
+1
+
+You should provide an approximate numerical answer for both questions in this problem.
+
+Probability & Statistics. Final Examination. Problem Set 1. Part 2
+Name
+
+Group Number
+
+Solutions for each part of this examination have to be written on separate sheets! Do not write solutions
+of two different parts of this examination on one sheet of paper. You can use a single sheet for several
+problems from one part of the examination (i.e. you can write problems 5, 6, 7, 8 on one sheet). Do not
+forget to sign each of the sheets that you hand in. You can use this sheet for solving problems as well.
+I am aware that using any electronic devices, books etc. at the exam as well as communicating with other
+students is strictly prohibited. Only two handwritten informational sheets are allowed at the examination. Any
+violation of these rules immediately leads to exam cancellation. Signature
+5. 𝜉 is uniformly distributed over some interval, and it is known that 𝐸𝜉 ⩽ 10, 𝑃 (𝜉 ⩽ 14) = 76 . Find
+the smallest possible value of the variance of 𝜉.
+6. 𝜉1 , 𝜉2 , . . . , 𝜉50 are independent 𝑁 (0; 1) random variables; 𝜂1 =
+
+50
+∑︀
+
+𝜉𝑖 ; 𝜂2 =
+
+𝑖=1
+
+50
+∑︀
+
+𝜉𝑖 . Find the joint
+
+𝑖=41
+
+probability density of 𝜂1 and 𝜂2 .
+7. Using maximum likelihood method find the estimator for the unknown parameter 𝜃 of an exponential
+distribution. Is this estimator (a) unbiased; (b) consistent? Justify your answer.
+8. Let 𝜉 and 𝜂 be continuously distributed random variables, their joint distribution density given by
+𝑓𝜉,𝜂 (𝑥; 𝑦). Prove that their ratio 𝜁 = 𝜂𝜉 has a probability density of
+∫︁0
+
+∫︁+∞
+𝑡𝑓 (𝑧𝑡, 𝑡) 𝑑𝑡 +
+𝑡𝑓 (𝑧𝑡, 𝑡) 𝑑𝑡.
+
+−∞
+
+0
+
+𝑓𝜁 (𝑧) = −
+
+Probability & Statistics. Final Examination. Problem Set 2. Part 1
+Name
+
+Group Number
+
+Solutions for each part of this examination have to be written on separate sheets! Do not write solutions
+of two different parts of this examination on one sheet of paper. You can use a single sheet for several
+problems from one part of the examination (i.e. you can write problems 1, 2, 3, 4 on one sheet). Do not
+forget to sign each of the sheets that you hand in. You can use this sheet for solving problems as well.
+I am aware that using any electronic devices, books etc. at the exam as well as communicating with other
+students is strictly prohibited. Only two handwritten informational sheets are allowed at the examination. Any
+violation of these rules immediately leads to exam cancellation. Signature
+1. Two players take turns in rolling a 12-sided fair die. The first of them to get a result of one wins the
+game. Find the probability for each of the players to win the game.
+2. A regular triangle inscribed into a circle divides it into four parts. Four points are chosen at random
+inside the circle. Find the probability that there is exactly one point in each of the four parts of the
+circle.
+3. 1 900 people take part in the marathon. The probability to run all the way to the finish is equal
+to 0,81. (a) Find2 the probability that no more than 1 500 people get to the finish. (b) Let 𝜉 be a
+number of people who got to the finish. Find the shortest possible interval that contains the value
+of 𝜉 with probability of 99%.
+4. There are five red balls and seven green balls in the first urn, and there are ten red balls and two
+yellow balls in the second urn. Two balls from the first urn and two balls from the second urn have
+been transferred into the third urn that had initially been empty. It has happened that the third urn
+contains balls of all three different colours. Find the probability that the balls transferred from the
+first urn were of different colours.
+
+2
+
+You should provide an approximate numerical answer for both questions in this problem.
+
+Probability & Statistics. Final Examination. Problem Set 2. Part 2
+Name
+
+Group Number
+
+Solutions for each part of this examination have to be written on separate sheets! Do not write solutions
+of two different parts of this examination on one sheet of paper. You can use a single sheet for several
+problems from one part of the examination (i.e. you can write problems 5, 6, 7, 8 on one sheet). Do not
+forget to sign each of the sheets that you hand in. You can use this sheet for solving problems as well.
+I am aware that using any electronic devices, books etc. at the exam as well as communicating with other
+students is strictly prohibited. Only two handwritten informational sheets are allowed at the examination. Any
+violation of these rules immediately leads to exam cancellation. Signature
+5. 𝜉 is uniformly distributed over some interval, and it is known that 𝐸𝜉 ⩽ 7, 𝑃 (𝜉 ⩽ 11) = 59 . Find the
+smallest possible value of the variance of 𝜉.
+6. 𝜉1 , 𝜉2 , . . . , 𝜉40 are independent 𝑁 (0; 1) random variables; 𝜂1 =
+
+40
+∑︀
+
+𝜉𝑖 ; 𝜂2 =
+
+𝑖=1
+
+40
+∑︀
+
+𝜉𝑖 . Find the joint
+
+𝑖=26
+
+probability density of 𝜂1 and 𝜂2 .
+7. Using maximum likelihood method find the estimator for the unknown parameter 𝜃 of a Poisson
+distribution. Is this estimator (a) unbiased; (b) consistent? Justify your answer.
+8. Let 𝜉 and 𝜂 be continuously distributed random variables, their joint distribution density given by
+𝑓𝜉,𝜂 (𝑥; 𝑦). Prove that their product 𝜁 = 𝜉𝜂 has a probability density of
+∫︁0
+
+∫︁+∞ (︁ )︁
+1
+𝑧
+1 (︁ 𝑧 )︁
+𝑓
+, 𝑡 𝑑𝑡 +
+𝑓
+, 𝑡 𝑑𝑡.
+𝑡
+𝑡
+𝑡
+𝑡
+
+−∞
+
+0
+
+𝑓𝜁 (𝑧) = −
+
+

@@ -1,0 +1,59 @@
+—
+
+|
+|
+
+Lincar Algebra. Final exam. Variant 1.
+
+First name Iast name | Group | Points j!
+[ BSI- i
+
+I am,
+
+(initials), confirming that I have read the following rules and agree to comply with
+
+them, that all solutions on this paper is my own work.
+
+Rules:
+
+(signature)
+
+no talking AT ALL is allowed during the exam and after it (if you are still in the room)
+you can use | sheet of Ad paper with formulas on both sides
+
+any electronic devices are not allowed except for a simple non-programmable calculator
+when time is up, you have to put down your pen (pencil) and do NOT write anything else
+you can NOT leave your seat 1ill the end of the test
+
+(4 points). Diagonalize matrix A by finding its eigenvalues and its eigenvectors. Find A
+
+inverse. (1 point).
+5 -1+ i]
+-1=i 4
+
+(5 points). Show that A and B are similar B = M~*AM by finding matrix M:
+
+— [ ¥ — [ - — [
+&= [_15_ i 14+ ‘] BiE [31 +2il 61+ 251'(]
+
+(5 points) For which @ and # quadratic form Q(x,y, z) is positive definite:
+
+Q(x,y,2) = ax® 4+ 2y? + 22 + 4Bxy + 4xz
+
+(5 points) Solve the second order differential equation system:
+d*u(t) -5 -1
+dez [-1 -5 A6
+A1) YR
+#(0) = [1] () = [0]
+(5 points) Using least squares method to find the coefficients a and b of the curve
+f(x) = acos(x + b) that best fits following points:
+X 0 | =4 |02
+fe) (=10 |1
+
+Note: cos(x + y) = cos(x) cos(y) — sin(y) sin(x).
+A -—B].
+(5 points). If A+ iB is a unitary matrix (4 a$nd B are real) show that |-B 4 ] is an
+
+orthogonal matrix.
+(5 points) Prove that for any square matrix A(n X n) with eigenvalues {41, 22,..., 4y} the
+multiplication: (4 — 2,1)(A — Az1) - (4 — A,,I) produces the zero matrix.

@@ -1,0 +1,248 @@
+Innopolis University
+Academic Year 2024/2025
+Final Exam of Computer Architecture
+12th December 2024
+Duration: 60 minutes
+
+Student Full Name:
+Student Group:
+Exam Room:
+Telegram Alias:
+Midterm missed (underline): No / Yes
+
+Question
+Question 1
+Question 2
+Question 3
+Question 4
+Question 5
+Question 6
+Question 7
+Question 8
+Question 9
+Question 10
+Total
+
+Grade Summary (for instructors fill)
+Grade
+
+Maximum score: 14 points
+
+Please write clearly your name and your solutions. What will not be understood will be
+considered wrong. All answers must be provided in English.
+This is a closed-book exam. You are not allowed to use any reference materials or
+electronic equipment, apart from this booklet and pens. You are not allowed to consult
+any person, otherwise you will be disqualified from this exam at the very first attempt.
+Good Luck!
+Signature:
+Computer Architecture – Final Exam Answers 2024
+
+1
+
+Course Grade Statistics
+
+Computer Architecture – Final Exam Answers 2024
+
+2
+
+Computer Architecture – Final Exam Answers 2024
+
+3
+
+Question 1. (1 point) Choose a RISC-V processor register used for specifying a system
+call (“syscall”) code:
+a) a7 (correct)
+
+b) f7
+
+c) s7
+
+d) t7
+
+e) zero
+
+f) No choice is correct
+
+Grading: (1 point) – for (a); (0 points) – for an incorrect option, or more than one option
+
+Question 2. (1 point) Choose valid characteristic(s) for RISC-V processor architecture:
+1) The size of R-type instructions is 32 bits, while the size of I- and J-types are 64 bits;
+2) (correct) The default storage capacity of a RISC-V general-purpose register
+is 64 bits;
+3) Unlike other existing processor architectures, RISC-V uses no clock generator
+Grading: (1 point) – for (2); (0 points) – for an incorrect option, or more than one option
+
+Question 3. (1 point) Below is a high-level classification for RISC-V processor registers.
+Provide examples of RISC-V register names for each category in empty rectangles.
+
+RISC-V Registers
+Directly addressable
+
+Not directly addressable,
+Special-purpose
+
+PC (or HI, LO from MIPS)
+General-purpose
+
+Floating-point
+
+Grading:
+(1 point) – all cases are correct;
+(+0.3) – for every correct option otherwise
+
+Computer Architecture – Final Exam Answers 2024
+
+4
+
+Question 4. (1 point) Which hardware building block corresponds to the SystemVerilog
+design provided below?
+Answer: __(1-to-4) demultiplexer__
+Grading:
+(1 point) – for the “demultiplexer” key word;
+(0 points) - otherwise
+
+module HwBuildingBlock (
+input
+d,
+input [1:0] s,
+output logic q0,
+output logic q1,
+output logic q2,
+output logic q3
+);
+always_comb
+case (s)
+2'b00:
+begin
+q0 = d;
+q1 = 0;
+q2 = 0;
+q3 = 0;
+end
+2'b01:
+begin
+q0 = 0;
+q1 = d;
+q2 = 0;
+q3 = 0;
+end
+
+==(continuation)==
+2'b10:
+begin
+q0 = 0;
+q1 = 0;
+q2 = d;
+q3 = 0;
+end
+2'b11:
+begin
+q0 = 0;
+q1 = 0;
+q2 = 0;
+q3 = d;
+end
+endcase
+endmodule
+
+Question 5. (1 points) RISC-V registers s0 and s1 contain the following binary data (for
+simplicity, we assume 8-bit registers, rather that 64):
+s0:
+s1:
+s2:
+
+00100000
+01010101
+00000100
+
+What is the value of register s1 after executing the following RISC-V instruction?:
+sll s1, s0, s2
+Answer: ____00000000______
+The answer is obtained by shifting the value of s0 register by 4 positions to the left;
+decimal value 4 corresponds to a binary value in s2 register
+Grading: (1 point) – for fully correct answer; (0 points) – otherwise
+
+Computer Architecture – Final Exam Answers 2024
+
+5
+
+Question 6. (1 point) The “performance via speculation” principle provides the
+mechanism for speeding-up program execution. Briefly describe its key idea.
+Answer (at most 3 sentences):
+Its idea is to speedup a program execution by predicting the result of a program
+flow/control flow instruction execution, such as “case”, “if”, “while”, and other
+instructions.
+
+Grading note:
+(1 point) - All key words similar to the prediction of “program flow/control flow/branch
+instruction result”, “faster execution”, “prediction/speculation” present;
+(0 point) - Otherwise
+Question 7. (2 points) Describe any four key differences between SRAM and DRAM
+memory types by filling-in the table below:
+Possible answers:
+
+Grading note:
+(+0.5) – For every correct difference (a correct table row); at most 2 points
+Computer Architecture – Final Exam Answers 2024
+
+6
+
+Question 8. (2 points) What is the key purpose of a CPU clock? Describe any of its
+characteristic metrics with a graphical illustration.
+CPU clock purpose (1-2 sentences):
+To synchronize instructions execution, or inputs provision, or similar
+Grading: (1 point) – if the key word “synchronize” is present
+CPU clock characteristic metric (1-2 sentences with a graphical illustration):
+CPU clock cycle length, or clock cycle, or clock rate, or period, or frequency
+
+Grading: (+0.5 point) – for correct clock characteristic; (+0.5 points) – for correct
+graphical illustration
+Question 9. (2 points) What is the key idea of the Amdahl’s law? Provide the key
+equation with its variables description. Illustrate the Amdahl’s law with a plot, for the
+case of 90% of parallelizable program instructions.
+The Amdahl’s law idea (1-2 sentences):
+Defines a theoretical upper bound on the execution speedup thanks to an
+increased number of processors/cores, for a given % of parallelizable (or
+unparallizable/sequential instructions)
+Grading: (0.5 points) – for correct formulation; (0 points) otherwise
+The Amdahl’s law equation with the description of variables meaning:
+Program given:
+1) 𝒙% of instructions depend on execution results of previous instructions;
+2) (𝟏𝟎𝟎 − 𝒙)% of instructions do not depend on previous ones;
+Solution:
+1) (𝟏𝟎𝟎 − 𝒙)% can execute in parallel upon 𝒎 cores;
+2) These (𝟏𝟎𝟎 − 𝒙)% execute in parallel 𝒎 times faster;
+3) According to Amdahl’s law, the runtime of such a program reduces according to:
+𝒕𝟏 𝒑𝒓𝒐𝒄
+
+𝒔𝒑𝒆𝒆𝒅𝒖𝒑 = 𝒕𝒎 𝒑𝒓𝒐𝒄𝒔 =
+
+𝟏
+𝒙$
+
+𝟏)𝒙
+𝒎
+
+Grading:
+(1 point) – if the equation and variables meaning is described correctly;
+(0 points) - otherwise
+The Amdahl’s law graphical plot: (specify axis labels, at least 3 data points, and plot line)
+Computer Architecture – Final Exam Answers 2024
+
+7
+
+Grading: (+0.5 points) – the plot line is correct (for the 90% case), with all axis labels and
+at least 3 data points specified
+Question 10. (2 points) Below is the template of a Finite State Transition graph for a
+S/R latch with its state labels and transition conditions missing. Fill-in the gaps for the
+state labels and empty rectangles for transition conditions.
+
+Grading:
+(1 point) – if “S” and “R” variables are not specified for transition conditions;
+(-0.25) – for every mistake in the transition condition or the state label otherwise
+
+Computer Architecture – Final Exam Answers 2024
+
+8
+
+

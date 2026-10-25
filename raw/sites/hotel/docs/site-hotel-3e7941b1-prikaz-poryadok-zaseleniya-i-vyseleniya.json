@@ -1,0 +1,16 @@
+{
+ "title": "Порядок заселения, переселения и выселения",
+ "url": "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7_%D0%9F%D0%BE%D1%80%D1%8F%D0%B4%D0%BE%D0%BA_%D0%B7%D0%B0%D1%81%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F_%D0%B8_%D0%B2%D1%8B%D1%81%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F_%D1%81%D1%82%D1%83%D0%B4%D0%B5%D0%BD%D1%82%D0%BE%D0%B2_2025%20%283%29.pdf",
+ "sha256": "371a997390dd8d05966551830dd24b79c82127b38b85d3037b2b148c7f8216bd",
+ "method": "text layer (pdfplumber)",
+ "chars": 9460,
+ "section": "site/hotel",
+ "context": "",
+ "fetched_at": "2026-10-24T22:05:38+00:00",
+ "remote": {
+  "etag": "\"2bff1-63faffd5d2ccf\"",
+  "modified": "Fri, 26 Sep 2025 08:22:42 GMT",
+  "size": "180209"
+ },
+ "tables": 3
+}

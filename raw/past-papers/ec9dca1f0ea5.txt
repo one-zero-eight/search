@@ -1,0 +1,131 @@
+[2020] Physics I. Mechanics
+
+Quiz 3 – Energy and Work
+Unless specified otherwise, assume g = 9.81 m/s2.
+Problem 1 (25 pts) – Energy
+A father running after his daughter has half the kinetic energy of the daughter, who has half
+the mass of the father. The father speeds up by 1 m/s and then has the same kinetic energy as
+the daughter. What are the original speeds of (a) the father and (b) the daughter?
+Problem 2 (25 pts) – Force and Work
+A 3-kg body is at rest on a frictionless surface when a constant horizontal force 𝐹⃗ acting in
+the positive direction of an 𝑥 axis along the track is applied to the body at 𝑡 = 0 s. A graph of
+the position of the object is shown below. How much work is done on the body by the
+applied force 𝐹⃗ between 𝑡 = 0 and 𝑡 = 2 s?
+
+t=0
+
+0
+
+t=1s
+
+0.2
+t = 0.5 s
+
+t = 1.5 s
+
+0.4
+
+0.6
+
+t=2s
+
+0.8
+
+x (m)
+
+Problem 3 (25 pts) – Potential Energy
+The spring of 𝑘 = 10 N/m is compressed by 5.5 cm and used to propel a 3.8 g cork from the
+gun. What is the speed of the cork if it is released as the spring passes through its relaxed
+position? Assume zero energy losses.
+Problem 4 (25 pts) – Work Done by External Forces
+An object is sliding on a horizontal surface, attached to one end of a spring with stiffness
+coefficient of 𝑘 = 400 N/m. The object has a kinetic energy of 𝐾0 = 20 J as it passes through
+the spring’s equilibrium position. As the object slides, a constant frictional force of
+magnitude 10.0 N acts on it. Answer the following:
+(a) How far (∆𝑥) will the object slide to the right from the equilibrium position before
+coming momentarily to rest? (15 pts)
+(b) What will be the kinetic energy of the object as it slides back through the equilibrium
+position? (10 pts)
+
+v
+
+Ffr
+x=0
+
+Dx
+
+[2020] Physics I. Mechanics
+
+Quiz 3 – Energy and Work
+Unless specified otherwise, assume g = 9.81 m/s2.
+Problem 1 (25 pts) – Energy
+How fast is a 1.5 kg ball traveling when it hits the ground 3.5 meters below its original
+position, given it starts from rest? Assume zero drag.
+Problem 2 (25 pts) – Force and Work
+A sled and its rider (total mass of 85 kg) are moving on a horizontal surface with an initial
+speed of 37 m/s. If a force slows them to a stop at a constant rate of 4 m/s2, answer the
+following:
+(a) What magnitude 𝐹 is required for the force? (5 pts)
+(b) What distance 𝑑 do they travel while slowing? Use the concept of work (20 pts)
+Problem 3 (25 pts) – Potential Energy
+A 60 kg skier starts from rest at height 𝐻 = 20 m above the end of a ski-jump ramp and
+leaves the ramp at angle 𝜃 = 28°. Neglecting the effects of air resistance and assuming
+the ramp is frictionless, find the maximum height ℎ of her jump above the end of the ramp.
+Skier
+H
+
+h
+
+q
+
+Problem 4 (25 pts) – Work Done by External Forces
+A 520-kg object slides from rest down a ramp that is 500 m long and 300 m high. The
+coefficient of kinetic friction between the object and the surface is 0.25. Answer the
+following:
+(a) Assuming the gravitational potential energy 𝑈 of the object–Earth system is zero at the
+bottom of the ramp, what is the value of 𝑈 just before the slide? (5 pts)
+(b) How much energy is transferred to thermal energy during the slide? (15 pts)
+(c) What is the kinetic energy of the object as it reaches the bottom of the ramp? (5 pts)
+
+300 m
+
+500 m
+
+[2020] Physics I. Mechanics
+
+Quiz 3 – Energy and Work
+Unless specified otherwise, assume g = 9.81 m/s2.
+Problem 1 (25 pts) – Energy
+An 85-kg roller coaster cart is traveling 4 m/s at the top of a hill 50 meters off the ground.
+How fast is it traveling at the top of a second hill 20 meters off the ground? Assume zero
+friction
+Problem 2 (25 pts) – Force and Work
+A 5-kg block moves in a straight line on a horizontal frictionless surface under the influence
+of a force that varies with position as shown in figure below. How much work is done by the
+force as the block moves from the origin to 𝑥 = 8.0 m?
+
+F (N)
+10
+2 4
+
+6
+
+8 x (m)
+
+-10
+
+Problem 3 (25 pts) – Potential Energy
+A spring-loaded air gun fixed to a table shoots a ball at a target located on the floor. The
+horizontal distance is 𝐷 = 2.50 m from the edge of the table, as shown below. When you
+compress the spring by 1.1 cm, the projectile falls 25 cm short of the target. How far should
+you compress the spring to score a direct hit? Assume zero friction and air drag.
+
+D
+
+Problem 4 (25 pts) – Work Done by External Forces
+A 60-kg skier jumps from a ramp with a velocity of 24 m/s directed 25° above the horizontal.
+Suppose that as a result of air drag the skier returns to the horizontal ground with a speed of
+22 m/s, landing 14 m vertically below the end of the ramp. By how much is the mechanical
+energy of the skier – Earth system reduced because of air drag?
+
+

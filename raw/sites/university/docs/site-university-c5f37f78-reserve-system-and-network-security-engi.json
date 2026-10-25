@@ -1,0 +1,16 @@
+{
+ "title": "Вступительное испытание по программе магистратуры \"Инженерия безопасности систем и сетей\" 16.08.2024-17.08.2024",
+ "url": "https://innopolis.university/upload/iblock/bf3/6otcb7w6f09mw0299vwmwtca6kki2fwm/reserve_system_and_network_security_engineering.pdf",
+ "sha256": "fc2dbd7c41016ff046c51f3b1da4f6c29a17297289b907a480e4aa2ba454abb5",
+ "method": "text layer (pdfplumber)",
+ "chars": 1282,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-25T00:01:45+00:00",
+ "remote": {
+  "etag": "\"66c44abb-b154\"",
+  "modified": "Tue, 20 Aug 2024 07:50:19 GMT",
+  "size": "45396"
+ }
+}

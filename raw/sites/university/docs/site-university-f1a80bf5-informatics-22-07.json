@@ -1,0 +1,16 @@
+{
+ "title": "Вступительное испытание на программам бакалавриата \"Информатика и ИКТ\" 22.07.2024",
+ "url": "https://innopolis.university/upload/iblock/8b2/nrpidoj16ktiuvzf5uiw0bs9rupmues3/informatics_22_07.pdf",
+ "sha256": "a9b9aa67f3e0ee0359112a1147cc352c9f06ef0445ac1bb171d3d9fbafc0cf0f",
+ "method": "text layer (pdfplumber)",
+ "chars": 1666,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-25T00:00:23+00:00",
+ "remote": {
+  "etag": "\"66a4c73a-ad1e\"",
+  "modified": "Sat, 27 Jul 2024 10:08:58 GMT",
+  "size": "44318"
+ }
+}

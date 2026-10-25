@@ -1,0 +1,202 @@
+Full name:
+Probability & Statistics
+Final
+
+group:
+e-mail:
+Date: December 19th , 2023
+
+• The exam lasts 3 hours.
+• You are allowed to use pen, paper, one A4 handwritten cheat sheet and
+electronic calculator.
+• A solution of each certain task MUST BE written on a separate paper.
+
+Variant #1
+1. (6 pts) The probability density function of a normal random variable X has the form:
+2
+
+f (x) = Ae−9(x−0.5) /8
+It is required to:
+1. find mathematical expectation, variance and standard deviation of a random variable X;
+2. find coefficient A;
+3. find the probability of a random variable X falling into an interval (0.3, 1.9).
+(x−a)2
+
+1
+e(− 2σ2 )
+Hint: the probability density function of a normal random variable is f (x) = √2πσ
+
+2. (6 pts) The probability that a student passes the exam on Probability and Statistics is 0.9. Of
+the next 100 students having this subject, what is the probability that between 84 and 95 inclusive
+passes?
+3. (6 pts) Assume we deal with measurements of peoples’ heights. Considering the population
+normal and having the variance in 22 centimeters, find the probability that the random sample of
+30 people have the heights’ variance:
+(a) greater than 25 cm,
+(b) between 10 and 18 cm.
+4. (6 pts) Let X and Y be two independent random variables with the same probability density
+functions
+(
+e−ξ , ξ > 0
+f (ξ) =
+0, elsewhere.
+X
+(a) Find the joint probability density function fU,V if U = X + Y and V = X+Y
+.
+(b) Find the marginal distributions of U and V.
+
+5. (6 pts) A random variable X has a probability density function
+(
+x2 + 34 x, 0 < x < 1
+f (x) =
+0, elsewhere.
+Find: (a) E(X), (b) σ 2 (X), (c) P (1/4 < X < 1/2).
+
+Full name:
+Probability & Statistics
+Final
+
+group:
+e-mail:
+Date: December 19th , 2023
+
+Variant #1
+6. (6 pts) The average teacher’s salary in some region of Russian Federation is 52174 RUR. Suppose
+that the distribution is normal with the standard deviation 7500 RUR.
+(a) What is the probability that a randomly selected teacher makes less than 50000 RUR?
+(b) If we sample 100 teachers’ salaries, what is the probability that the sample mean is less than
+50000 RUR?
+(c) Why the probability in (a) is higher the probability in (b)?
+7. (6 pts) Considering the quality of the fresh air in a certain city. A random sample of 10 probes
+is taken. The sample mean of the carbon dioxide concentration is 0.003% with the deviation
+0.0002%.
+What is the probability that the mean carbon dioxide concentration in the city is between 0.0025
+and 0.0027 %.
+8. (6 pts) A group of second-year bachelor students recently completed Assignment #1224 in the
+AI systems course. The individual grades obtained by these students are as follows: 8.3, 8.6, 8.7,
+8.8, 9.1, 9.3, 9.4, 13.4, 13.5, 13.8, 13.9, 14.1, and 14.3. Construct a 95% confidence interval for
+the average grade of this specific group of students.
+9. (6 pts) In the candidate dissertation, Zamira investigated the Sammon error within optimal
+subsets of the software engineering class metrics. The study revealed a mean Sammon error of 0.2
+from a sample of 100 optimal subsets. With a known population standard deviation of 0.19, the
+question arises: does this evidence suggest that the mean Sammon error is less than 0.25? Use a
+0.05 level of significance.
+10. (6 pts) Specify the conditions under which the provided formulas for constructing confidence
+intervals are applicable:
+1. x̄ − zα/2 √σn < µ < x̄ + zα/2 √σn
+2. x̄ − tn−1, α/2 √sn < µ < x̄ + tn−1, α/2 √sn
+
+Full name:
+Probability & Statistics
+Final
+
+group:
+e-mail:
+Date: December 19th , 2023
+
+• The exam lasts 3 hours.
+• You are allowed to use pen, paper, one A4 handwritten cheat sheet and
+electronic calculator.
+• A solution of each certain task MUST BE written on a separate paper.
+
+Variant #2
+1. (6 pts) The probability density function of a normal random variable X has the form:
+2
+
+f (x) = Ae−x +6x+3
+It is required to:
+1. find mathematical expectation, variance and standard deviation of a random variable X;
+2. find coefficient A;
+3. find the probability of a random variable X falling into an interval (3, 4).
+(x−a)2
+
+1
+e(− 2σ2 )
+Hint: the probability density function of a normal random variable is f (x) = √2πσ
+
+2. (6 pts) The probability that a student passes the exam on Operating systems is 0.1. Of the next
+100 students having this subject, what is the probability that between 4 and 15 inclusive passes?
+3. (6 pts) Assume we are measuring the emergency breaking distances of the cars from a certain
+speed. Considering the results normal and having variances in 6.7 meters, find the probability
+that the random sample of 12 cars have the emergency breaking distance variance:
+(a) less than 5 meters,
+(b) between 7 and 9 meters.
+4. (6 pts) Let X and Y be two independent random variables with the same probability density
+functions
+(
+1, 0 < ξ < 1
+f (ξ) =
+0, elsewhere.
+(a) Find the joint probability density function fU,V if U = XY , V = X.
+(b) Find the marginal distribution of U.
+5. (6 pts) A random variable X has a probability density function
+(
+5 4
+(x + 2x), 0 < x < 1
+f (x) = 6
+0, elsewhere.
+Find: (a) E(X), (b) σ 2 (X), (c) P (1/2 < X < 5/2).
+
+Full name:
+Probability & Statistics
+Final
+
+group:
+e-mail:
+Date: December 19th , 2023
+
+Variant #2
+6. (6 pts) Assume that the contract prices of the annual maintenance at the dealership are normally
+distributed with the mean 1518 $ and standard deviation 325 $.
+(a) If one contract is randomly selected, find the probability that its price is in-between 1440 $
+and 1480 $.
+(b) If 16 contracts are randomly selected, find the probability that they have the mean between
+1440 $ and 1480 $.
+(c) Why can the central limit theorem be used in the part (b) even though the sample size does
+not exceed 30?
+7. (6 pts) We are trying to make an inference of the quality of certain timing belts used for cars’
+engines. A random sample of 20 belts is taken. The sample distribution of breaking strengths is
+500 psi with the deviation in 40 psi.
+What is the probability that the mean breaking strength for these products is less 480 and 500
+psi?
+8. (6 pts) A group of second-year bachelor students recently passed the oral exam in the Probability
+and Statistics course. Ivan gave the following grades to these students: 8.3, 8.6, 8.7, 8.8, 9.1, 9.3,
+9.5, 13.4, 13.5, 13.8, 13.9, 14.2, and 14.3. Construct a 98% confidence interval for the average
+grade of this specific group of students.
+9. (6 pts) In the candidate dissertation, Zamira investigated the Sammon error within optimal
+subsets of the software engineering method metrics. The study revealed a mean Sammon error of
+0.12 from a sample of 100 optimal subsets. With a known population standard deviation of 0.6,
+the question arises: does this evidence suggest that the mean Sammon error is less than 0.25? Use
+a 0.05 level of significance.
+10. (6 pts) Specify the conditions under which the provided formulas for constructing confidence
+intervals are applicable:
+q 2
+q 2
+σ
+σ2
+σ
+σ2
+1. (x¯1 − x¯2 ) − zα/2 n11 + n22 < µ1 − µ2 < (x¯1 − x¯2 ) + zα/2 n11 + n22
+q 2
+q 2
+s1
+s22
+s
+s2
+2. (x¯1 − x¯2 ) − tv,α/2 n1 + n2 < µ1 − µ2 < (x¯1 − x¯2 ) + tv,α/2 n11 + n22 ,
+where
+s2
+s2
+( n11 + n22 )2
+v = s2
+s2
+( n1 )2
+
+1
+(n1 −1)
+
+( 2 )2
+
++ (nn22−1)
+
+

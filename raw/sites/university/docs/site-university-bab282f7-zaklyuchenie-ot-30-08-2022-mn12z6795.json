@@ -1,0 +1,16 @@
+{
+ "title": "Заключение от 30.08.2022 № МН-12/з-6795",
+ "url": "https://innopolis.university/upload/iblock/448/d2sf9njxx361wnqdz6q1268b27rrrmih/%D0%97%D0%B0%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%D1%82%2030.08.2022_%20%D0%9C%D0%9D-12%D0%B7-6795.pdf",
+ "sha256": "f46558add7ebfbb203be0bfc97fdefdbc817e85177f88daf749a6b62c83d55ca",
+ "method": "text layer (pdfplumber)",
+ "chars": 1139,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:56:14+00:00",
+ "remote": {
+  "etag": "\"6385f39a-58bb5\"",
+  "modified": "Tue, 29 Nov 2022 11:57:14 GMT",
+  "size": "363445"
+ }
+}

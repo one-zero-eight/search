@@ -1,0 +1,255 @@
+Probability & Statistics. Final Examination 2021. Problem Set 1. Part 1
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 1, 2, 3 on the
+same sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for
+solving problems as well.
+I am aware that using any electronic devices (except for calculators), books etc. during the examination, as
+well as communicating with other students, is strictly prohibited. Only two handwritten informational sheets
+are allowed. Any violation of these rules immediately leads to exam cancellation. Signature
+1. [2 points] Random variable 𝜁 is uniformly distributed on an interval. It is known that
+𝑃 {3 < 𝜁 < 8} = 0.5, 𝑃 {𝜁 < 3}𝑃 {𝜁 > 8} ̸= 0.
+(a) Find the smallest and the largest value of 𝐸𝜁.
+(b) Find the smallest and the lartgest value of Var 𝜁.
+2. [2 points] When tossing a coin, the probability of getting heads is equal to 0.7. The coin is tossed
+until heads is obtained exactly 98 times. Let 𝑌 be the number of tosses required for that. Find the
+expectation and the variance of 𝑌 .
+3. [2 points] Two marksmen, 𝐴 and 𝐵, take turns in shooting at a target. Their shots are independent
+of each other, and 𝐴 misses with probability 0.8, 𝐵 misses with probability 0.85. The first of them
+to hit the target wins. What is the probability that 𝐴 wins the game if he is the one who shoots the
+first?
+
+Probability & Statistics. Final Examination 2021. Problem Set 1. Part 2
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 4, 5, 6 on the
+same sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for
+solving problems as well.
+I am aware that using any electronic devices (except for calculators), books etc. during the examination, as
+well as communicating with other students, is strictly prohibited. Only two handwritten informational sheets
+are allowed. Any violation of these rules immediately leads to exam cancellation. Signature
+4. [3 points] Random variables 𝑋1 , 𝑋2 , . . . , 𝑋𝑛 are independent and identically distributed, the distribution
+being 𝑁 (𝜃; 5𝜃) where 𝜃 is an unknown parameter. Find the maximum likelihood estimator of 𝜃. Is
+the estimator consistent? Justify your answer.
+5. [3 points] Random variables 𝑋1 , 𝑋2 , . . . , 𝑋𝑛 are independent and identically distributed, 𝑋𝑖 ∼ 𝑁 (𝜇; 𝜎 2 )
+(𝜎 is known, and 𝜇 is not). Find the most powerful test of significance level 𝛼 for testing null
+hypothesis 𝐻0 : 𝜇 = 𝜇0 against the alternative 𝐻1 : 𝜇 = 𝜇1 (where 𝜇1 > 𝜇0 ). Find the power of the
+test.
+)︀2
+(︀√
+√
+√
+Var 𝑋1 + Var 𝑋2 + . . . + Var 𝑋𝑛 ⩾ Var (𝑋1 + 𝑋2 + . . . 𝑋𝑛 ) for arbitrary
+6. [2 points] Prove that
+random variables (provided both sides of the inequality exist). Can the equality be reached? If yes,
+in which case?
+
+Probability & Statistics. Final Examination 2021. Problem Set 1. Part 3
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 7, 8, 9 on the
+same sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for
+solving problems as well.
+I am aware that using any electronic devices (except for calculators), books etc. during the examination, as
+well as communicating with other students, is strictly prohibited. Only two handwritten informational sheets
+are allowed. Any violation of these rules immediately leads to exam cancellation. Signature
+7. [2 points] 𝜂 and 𝜉 are independent{︀ normally
+random variables, 𝐸𝜉 = 𝐸𝜂 = 0, Var 𝜉 =
+√ distributed
+}︀
+Var 𝜂 = 4. Find the probability 𝑃 |𝜉| > − 3𝜂 .
+)︀−2
+(︀
+is a characteristic function of random variable 𝑍. Find 𝐸𝑍 and
+8. [2 points] Function 𝜓(𝑡) = 1 − 𝑖𝑡3
+Var 𝑍.
+9. [2 points] A parallelepiped is constructed on vectors (𝑋; 𝑌 ; −1), (0; 𝑍; 0), (0; −3; 𝑌 ) where 𝑋, 𝑌 , 𝑍
+are independent random variables with Poisson(4) distribution. Find the expectation and variance
+of the volume of the parallelepiped.
+
+Probability & Statistics. Final Examination 2021. Problem Set 2. Part 1
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 1, 2, 3 on the
+same sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for
+solving problems as well.
+I am aware that using any electronic devices (except for calculators), books etc. during the examination, as
+well as communicating with other students, is strictly prohibited. Only two handwritten informational sheets
+are allowed. Any violation of these rules immediately leads to exam cancellation. Signature
+1. [2 points] Random variable 𝜁 is uniformly distributed on an interval. It is known that
+𝑃 {−4 < 𝜁 < 14} = 0.3, 𝑃 {𝜁 < −4}𝑃 {𝜁 > 14} ̸= 0.
+(a) Find the smallest and the largest value of 𝐸𝜁.
+(b) Find the smallest and the lartgest value of Var 𝜁.
+2. [2 points] When tossing a coin, the probability of getting heads is equal to 0.6. The coin is tossed
+until heads is obtained exactly 81 times. Let 𝑌 be the number of tosses required for that. Find the
+expectation and the variance of 𝑌 .
+3. [2 points] Two marksmen, 𝐴 and 𝐵, take turns in shooting at a target. Their shots are independent
+of each other, and 𝐴 misses with probability 0.7, 𝐵 misses with probability 0.65. The first of them
+to hit the target wins. What is the probability that 𝐴 wins the game if he is the one who shoots the
+first?
+
+Probability & Statistics. Final Examination 2021. Problem Set 2. Part 2
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 4, 5, 6 on the
+same sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for
+solving problems as well.
+I am aware that using any electronic devices (except for calculators), books etc. during the examination, as
+well as communicating with other students, is strictly prohibited. Only two handwritten informational sheets
+are allowed. Any violation of these rules immediately leads to exam cancellation. Signature
+4. [3 points] Random variables 𝑋1 , 𝑋2 , . . . , 𝑋𝑛 are independent and identically distributed, the distribution
+being 𝑁 (2𝜃; 3𝜃) where 𝜃 is an unknown parameter. Find the maximum likelihood estimator of 𝜃. Is
+the estimator consistent? Justify your answer.
+5. [3 points] Random variables 𝑋1 , 𝑋2 , . . . , 𝑋𝑛 are independent and identically distributed, 𝑋𝑖 ∼ 𝑁 (𝜇; 𝜎 2 )
+(𝜎 is known, and 𝜇 is not). Find the most powerful test of significance level 𝛼 for testing null
+hypothesis 𝐻0 : 𝜇 = 𝜇0 against the alternative 𝐻1 : 𝜇 = 𝜇1 (where 𝜇1 < 𝜇0 ). Find the power of the
+test.
+)︀2
+(︀√
+√
+√
+Var 𝑋1 + Var 𝑋2 + . . . + Var 𝑋𝑛 ⩾ Var (𝑋1 + 𝑋2 + . . . 𝑋𝑛 ) for arbitrary
+6. [2 points] Prove that
+random variables (provided both sides of the inequality exist). Can the equality be reached? If yes,
+in which case?
+
+Probability & Statistics. Final Examination 2021. Problem Set 2. Part 3
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 7, 8, 9 on the
+same sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for
+solving problems as well.
+I am aware that using any electronic devices (except for calculators), books etc. during the examination, as
+well as communicating with other students, is strictly prohibited. Only two handwritten informational sheets
+are allowed. Any violation of these rules immediately leads to exam cancellation. Signature
+7. [2 points] 𝜂 and 𝜉 are independent normally distributed random variables, 𝐸𝜉 = 𝐸𝜂 = 0, Var 𝜉 =
+Var 𝜂 = 25. Find the probability 𝑃 {|𝜉| > 𝜂}.
+)︀−3
+(︀
+is a characteristic function of random variable 𝑍. Find 𝐸𝑍 and
+8. [2 points] Function 𝜓(𝑡) = 1 − 𝑖𝑡2
+Var 𝑍.
+9. [2 points] A parallelepiped is constructed on vectors (0; 𝑍; 0), (𝑌 ; 2; 𝑌 ), (0; −𝑍; 𝑋) where 𝑋, 𝑌 , 𝑍
+are independent random variables with Poisson(2) distribution. Find the expectation and variance
+of the volume of the parallelepiped.
+
+Probability & Statistics. Final Examination 2021. Problem Set 3. Part 1
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 1, 2, 3 on the
+same sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for
+solving problems as well.
+I am aware that using any electronic devices (except for calculators), books etc. during the examination, as
+well as communicating with other students, is strictly prohibited. Only two handwritten informational sheets
+are allowed. Any violation of these rules immediately leads to exam cancellation. Signature
+1. [2 points] Random variable 𝜁 is uniformly distributed on an interval. It is known that
+𝑃 {−7 < 𝜁 < −1} = 0.2, 𝑃 {𝜁 < −7}𝑃 {𝜁 > −1} ̸= 0.
+(a) Find the smallest and the largest value of 𝐸𝜁.
+(b) Find the smallest and the lartgest value of Var 𝜁.
+2. [2 points] When tossing a coin, the probability of getting heads is equal to 0.4. The coin is tossed
+until heads is obtained exactly 88 times. Let 𝑌 be the number of tosses required for that. Find the
+expectation and the variance of 𝑌 .
+3. [2 points] Two marksmen, 𝐴 and 𝐵, take turns in shooting at a target. Their shots are independent
+of each other, and 𝐴 misses with probability 0.9, 𝐵 misses with probability 0.8. The first of them to
+hit the target wins. What is the probability that 𝐴 wins the game if he is the one who shoots the
+first?
+
+Probability & Statistics. Final Examination 2021. Problem Set 3. Part 2
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 4, 5, 6 on the
+same sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for
+solving problems as well.
+I am aware that using any electronic devices (except for calculators), books etc. during the examination, as
+well as communicating with other students, is strictly prohibited. Only two handwritten informational sheets
+are allowed. Any violation of these rules immediately leads to exam cancellation. Signature
+4. [3 points] Random variables 𝑋1 , 𝑋2 , . . . , 𝑋𝑛 are independent and identically distributed, the distribution
+being 𝑁 (3𝜃; 𝜃) where 𝜃 is an unknown parameter. Find the maximum likelihood estimator of 𝜃. Is
+the estimator consistent? Justify your answer.
+5. [3 points] Random variables 𝑋1 , 𝑋2 , . . . , 𝑋𝑛 are independent and identically distributed, 𝑋𝑖 ∼ 𝑁 (𝜇; 𝜎 2 )
+(𝜎 is known, and 𝜇 is not). Find the most powerful test of significance level 𝛼 for testing null
+hypothesis 𝐻0 : 𝜇 = 𝜇0 against the alternative 𝐻1 : 𝜇 = 𝜇1 (where 𝜇1 < 𝜇0 ). Find the power of the
+test.
+)︀2
+(︀√
+√
+√
+Var 𝑋1 + Var 𝑋2 + . . . + Var 𝑋𝑛 ⩾ Var (𝑋1 + 𝑋2 + . . . 𝑋𝑛 ) for arbitrary
+6. [2 points] Prove that
+random variables (provided both sides of the inequality exist). Can the equality be reached? If yes,
+in which case?
+
+Probability & Statistics. Final Examination 2021. Problem Set 3. Part 3
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 7, 8, 9 on the
+same sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for
+solving problems as well.
+I am aware that using any electronic devices (except for calculators), books etc. during the examination, as
+well as communicating with other students, is strictly prohibited. Only two handwritten informational sheets
+are allowed. Any violation of these rules immediately leads to exam cancellation. Signature
+7. [2 points] 𝜂 and 𝜉 are independent {︀⃒
+normally
+random variables, 𝐸𝜉 = 𝐸𝜂 = 0, Var 𝜉 =
+√ ⃒ distributed
+}︀
+⃒
+⃒
+Var 𝜂 = 36. Find the probability 𝑃
+3𝜉 < −𝜂 .
+)︀−5
+(︀
+is a characteristic function of random variable 𝑍. Find 𝐸𝑍 and
+8. [2 points] Function 𝜓(𝑡) = 1 − 𝑖𝑡4
+Var 𝑍.
+9. [2 points] A parallelepiped is constructed on vectors (𝑌 ; 0; 𝑍), (𝑋; 𝑍; 1), (0; 0; 𝑋) where 𝑋, 𝑌 , 𝑍 are
+independent random variables with Poisson(3) distribution. Find the expectation and variance of the
+volume of the parallelepiped.
+
+Suggestions on Grading
+1. (a) 1 point, (b) 1 point;
+2. the expectation is found – 1 point;
+the variance is found – 1 point;
+3. the probability is expressed as a sum of series or the equation for finding probability is obtained –
+1 point;
+4. the likelihood function is written – 1 point;
+the estimator is obtained – 1 point (are we going to cancel the point if it is not proved that the zero
+of the derivative is a minimum? );
+consistency of the estimator is justified – 1 point;
+5. the test is obtained – 2 points; the power of the test is found – 1 point;
+6. the inequality is proved – 1 point; the question about equality is answered and justified – 1 point;
+7. the probability is expressed as a double integral – 1 point;
+8. 𝐸𝑍 is found – 1 point;
+Var 𝑍 is found – 1 point;
+9. The volume is expressed in terms of 𝑋, 𝑌 , 𝑍 – 0 points;
+the expectation is found – 1 point; the variance is found – 1 point.
+After grading all the tasks we will be able to develop the coefficient to transform it into a 50-point scale.
+
+

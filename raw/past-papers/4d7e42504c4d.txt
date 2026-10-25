@@ -1,0 +1,103 @@
+Question P (10 points)
+Consider the following array of size 8 representing a Max Heap (in a standard
+way, described in the course textbooks, where leftmost cell of the array is
+reserved and is not used to store any values of the max heap):
+reserved
+
+105
+
+80
+
+29
+
+−1
+
+59
+
+6
+
+1. Show the tree represented by this array.
+2. Show the contents of the array after 30 is inserted into the original
+heap.
+3. Show the contents of the array after removeMax() is executed three
+times.
+
+DSA Spring 2021 Final Exam, Innopolis University
+
+Question M (15 points)
+Determine which of the following statements are True and which are False:
+1. delete(k) method of Map ADT implemented using B-trees has better
+worst-case asymptotic time complexity than if implemented using AVLtrees.
+
+2. When using array representation for a binary heap, for a node with
+index j, the right child node can be found at index 2j + 1.
+
+3. In-place quicksort is a stable sorting algorithm.
+
+4. Worst-case time complexity of counting sort is o(n log n).
+
+5. Prim’s algorithm cannot be applied to graphs with negative cycles.
+
+6. The recurrence T (n) = 16T ( n2 ) + n4 can be reduced to a closed form
+using case 3 of Master theorem.
+
+7. Floyd-Warshall algorithm has worst-case time complexity O(nm) where
+n is the number of vertices and m is the number of edges.
+
+8. Counting sort is not a comparison-based sorting algorithm.
+9. Expected height of a random BST with n distinct keys is Θ(log2 n).
+
+10. The net flow across a cut (S, T ) in a flow network N is the sum of flow
+values of all edges with source vertex in S and target vertex in T .
+
+DSA Spring 2021 Final Exam, Innopolis University
+
+Question F (15 points)
+Assuming ties are broken in lexicographic order (i.e. vertex C is considered
+before vertex D and edge AD is considered before edge BC if their weight is
+the same), perform the following for the given graph:
+1. List the edges in the order they are added to the Minimum Spanning
+Tree by Kruskal’s algorithm.
+2. List the edges in the order they are added to the Minimum Spanning
+Tree by Prim’s algorithm (algorithm starts at vertex A).
+
+Figure 1: Graph for Question F.
+
+DSA Spring 2021 Final Exam, Innopolis University
+
+Question B (20 points)
+Given an unsorted array of integers of length n, we are interested in finding
+and printing any items that are duplicates. For example, given the array
+{1, 2, 1, 4, 1, 2}, we want to print the numbers 1, 1, 2 (in any order). Solve
+this problem providing three different algorithms with three different running
+times:
+1. Find and print all duplicates with best-case asymptotic time complexity
+Ω(n2 ).
+2. Find and print all duplicates with best-case asymptotic time complexity
+Ω(n log n).
+3. Find and print all duplicates with best-case asymptotic time complexity
+Ω(n).
+Give your answer in the form of a pseudo-code.
+Note: algorithms that achieve the desired bound by using a faster algorithm
+and then doing busy-work to consume the remaining time will not receive
+credit.
+
+DSA Spring 2021 Final Exam, Innopolis University
+
+Question N (40 points)
+Do the following for the given flow network:
+1. Show residual network for the given flow network.
+2. Find the max flow and its value.
+3. Prove that the flow is maximum by applying max flow min cut theorem
+and demonstrating the min cut.
+
+Figure 2: Flow network for Question N.
+capacity c.
+
+f/c
+
+notation shows flow f and
+
+DSA Spring 2021 Final Exam, Innopolis University
+
+

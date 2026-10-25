@@ -1,0 +1,703 @@
+Started on Monday, 25 November 2019, 1:33 PM
+State Finished
+Completed on Monday, 25 November 2019, 2:33 PM
+Time taken 1 hour
+Question 1
+Not answered
+Marked out of 1.00
+
+What will be returned by partial function application?
+Select one or more:
+a. Partial evaluation has no return value as function is not fully evaluated
+b. New function with the same type of the return value
+c. New function with less parameters
+
+Question 2
+Not answered
+Marked out of 1.00
+
+Regarding the use of Generics, which of the following options are NOT allowed?
+Select one or more:
+a.
+
+b.
+
+c.
+d.
+
+Question 3
+Not answered
+Marked out of 1.00
+
+What would the following fragment of code output?
+
+Select one:
+a. 17.5
+b. 17
+c. 15
+d. 25
+
+Question 4
+Not answered
+Marked out of 1.00
+
+Which of the below is valid way to instantiate an array in java?
+Select one:
+a. int [ ] myArray = {"1", "2", "3"};
+b. int myArray [ ] [ ] = {1,2,3,4};
+c. int myArray [ ] = {1, 3, 5};
+d. int [ ] myArray = (5, 4, 3);
+
+Question 5
+Not answered
+Marked out of 1.00
+
+Select the options that describe the advantages of the use of Generics.
+Select one or more:
+a. Enabling programmers to implement generic algorithms that work on collections of different types.
+b. Allows dynamically change the type of variables at runtime.
+c. Elimination of casts.
+d. Introduced try-catch blocks, used to handle exceptions.
+
+Question 6
+Not answered
+Marked out of 1.00
+
+Which option(s) contain code(s) correctly implemented?
+Select one or more:
+
+a.
+
+b.
+
+c.
+
+d.
+
+Question 7
+Not answered
+Marked out of 1.00
+
+What will be the result/output of the following Java program?
+
+Select one or more:
+a. 0
+b. The code will not compile.
+c. 4
+d. 2
+
+Question 8
+Not answered
+Marked out of 1.00
+
+Can an abstract class implement an interface in Java? Should the abstract class implement all the methods in the
+interface?
+Select the correct answer(s).
+Select one or more:
+a. Since the abstract class is "abstract", it doesn't need to implement all methods.
+b. No, an abstract class can only extend other classes, which can be abstract or not.
+c. Yes, an abstract class can implement an interface by using 'implements' keyword.
+d. The abstract class can contain abstract methods, but it must implement all the methods of the interface that it
+implements.
+
+Question 9
+Not answered
+Marked out of 1.00
+
+Select the options that show code correctly implemented.
+Select one or more:
+
+a.
+
+b.
+
+c.
+
+d.
+
+Question 10
+Not answered
+Marked out of 1.00
+
+The affirmation below is TRUE or FALSE?
+"Object serialization in Java is the process in which an object is converted into a binary format which can be saved or
+persisted in disk or sent over a network. It can provide later access to the object's data among other information."
+
+Select one:
+a. False
+b. True
+
+Question 11
+Not answered
+Marked out of 1.00
+
+What's the result/output of the following code?
+
+Select one:
+a. The code will not compile
+b. It is not possible to say which letter will appear first
+c. B
+A
+d. A
+B
+
+Question 12
+Not answered
+Marked out of 1.00
+
+What is the result/outcome of the following code?
+
+Select one:
+a. It is not possible to predict the order of the letters
+b. A
+B
+c. B
+A
+d. The code doesn't compile
+
+Question 13
+Not answered
+Marked out of 1.00
+
+What will be the output of the following program:
+
+Select one:
+a. Compile time error
+b. Hello
+c. Hello Hello World
+d. Hello World
+
+Question 14
+Not answered
+Marked out of 1.00
+
+What is the output of the following code:
+
+Select one:
+a. The following instruction throws an exception:
+Base b = new Subclass();
+b. The following instruction throws an exception:
+b.show();
+c. Base called
+d. Subclass called
+
+Question 15
+Not answered
+Marked out of 1.00
+
+A class Animal has a subclass Mammal. Select the correct option(s):
+Select one or more:
+a. Because of single inheritance, Animal can have only one subclass.
+b. Because of single inheritance, Mammal can have no other parent than Animal.
+c. Because of single inheritance, Mammal can have no subclasses.
+d. Because of single inheritance, Mammal can have no siblings.
+
+Question 16
+Not answered
+Marked out of 1.00
+
+The options are:
+
+Match the corresponding options:
+
+Abstraction...
+
+Choose...
+
+Encapsulation...
+
+Choose...
+
+Attributes with the 'protected' modifier...
+
+Choose...
+
+Attributes with the no modifier...
+
+Choose...
+
+Question 17
+Not answered
+Marked out of 1.00
+
+Select the correct option(s) about the code below:
+
+Select one or more:
+a. The method methodThree in class A causes a compile-time error.
+b. The method methodFour in class A causes a compile-time error.
+c. The method methodTwo overrides a method in the superclass.
+d. The method methodOne in class A causes a compile-time error.
+
+... can be accessed in the same class and same
+package only.
+... can be accessed in the same class, same
+package, and from a subclass. However they can
+not be accessed from classes in different packages
+(provided that they are not subclasses).
+... hides details at the implementation level,
+defining what can be accessed from different parts
+of the system.
+... hides details at the design level, defining what is
+included in the system.
+
+Question 18
+Not answered
+Marked out of 1.00
+
+When deriving from a private base class, the public, protected and private members of the base class become private
+members of the derived class.
+Select one:
+a. True
+b. False
+
+Question 19
+Not answered
+Marked out of 1.00
+
+What will be the output of the following program:
+
+Select one:
+a. ab
+b. compile time error
+c. abcd
+d. abc
+e. runtime exception
+
+Question 20
+Not answered
+Marked out of 1.00
+
+Select the correct option(s).
+Select one or more:
+a. There is no explicit need to destroy an object as Java handles the de-allocation automatically.
+b. The following code will print "Hello" once.
+
+c. Constants that cannot be changed are declared using the ‘static’ keyword.
+d. The following program will show "0 1" in its output:
+
+Question 21
+Not answered
+Marked out of 1.00
+
+What will be the output of below program:
+
+Select one:
+a. Subclass
+b. Super
+c. Super
+Subclass
+d. Compile time error
+
+Question 22
+Not answered
+Marked out of 1.00
+
+Select the options that are FALSE about the code below:
+
+Select one or more:
+a. It can be used to return the sum of a list of Integer.
+b. It can be used to return the sum of a list of Decimal.
+c. It can be used to return the sum of a list of Float.
+d. It will not compile because the local variable s should be Double instead of double.
+
+Question 23
+Not answered
+Marked out of 1.00
+
+You are given the following code:
+
+What happens when replacing the code of line 5 (TODO comment) by each of the options A-D? Match the option to
+the result.
+
+The options are:
+AnimalHouse<?> house = new AnimalHouse<Cat>();
+
+Choose...
+AnimalHouse house = new AnimalHouse();
+house.setAnimal(new Dog());
+
+Choose...
+
+compiles and run, although the reference
+to the generic type would be better if
+parameterized
+compiles and runs normally
+fails to compile
+
+AnimalHouse<Animal> house = new AnimalHouse<Cat>();
+
+Choose...
+
+Question 24
+Not answered
+Marked out of 1.00
+
+Select the options which correctly describe what is happening with the code below.
+
+Select one:
+a. It doesn't compile because it requires to implement:
+public void myMethod(Integer t){}
+b. It doesn't compile because the class Question and the interface MyInterface have a method with the a
+conflicting name.
+c. It doesn't compile because a class can not extend a superclass and implement an interface.
+d. The code compile and runs normally.
+e. It doesn't compile because it requires to implement:
+public void myMethod(T t){}
+
+Question 25
+Not answered
+Marked out of 1.00
+
+What is the outcome/output of the following program?
+
+Select one:
+a. It will show the letter A 100 times
+b. It will thrown an Exception
+c. B
+d. A
+e. It will show the letter A 99 times
+
+Question 26
+Not answered
+Marked out of 1.00
+
+What elements of functional programming are supported in Java?
+Select one or more:
+a. First class functions
+b. Lambda expressions
+c. Functional interfaces
+d. Higher order functions
+
+Question 27
+Not answered
+Marked out of 1.00
+
+Pick the term that relates to polymorphism:
+Select one:
+a. Static typing
+b. Dynamic allocation
+c. Dynamic binding
+d. Static allocation
+
+Question 28
+Not answered
+Marked out of 1.00
+
+When can race conditions occur?
+Select one or more:
+a. When there is no synchronization between 2 independent threads
+b. When 2 or more threads work with the same data elements
+c. When 1st process holds resource required for the 2nd process and waits for another resource held by the 2nd
+process.
+
+Question 29
+Not answered
+Marked out of 1.00
+
+Which of the following is NOT a part of OOP?
+Select one:
+a. Information hiding
+b. Multitasking
+c. Polymorphism
+
+Question 30
+Not answered
+Marked out of 1.00
+
+Constructors are used to:
+Select one:
+a. To build a project
+b. Initialize a newly created object
+c. To create a subclass
+d. Free memory
+
+Question 31
+Not answered
+Marked out of 1.00
+
+What modifiers are allowed for methods in an Interface?
+Select one or more:
+a. Abstract
+b. Private
+c. Public
+
+Question 32
+Not answered
+Marked out of 1.00
+
+What are the differences between short and flat forms of classes in Eiffel?
+Select one or more:
+a. Short form of the class replaces class parents adding their short forms into the current class
+b. Flat form of the class can have less features as short form as it unfolds all feature adaptation done during
+inheritance
+c. Short form of the class has no information about implementation parts of the class
+d. Flat form of the class contains all implementation details of the class and all its parents recursively
+
+Question 33
+Not answered
+Marked out of 1.00
+
+Which of the following statements gets the number of integers in the array that follows?
+int[] customers = new int[55]
+Select one:
+a. int size = Arrays.size(customers);
+b. int size = customers.length;
+c. int size = customers.length();
+d. int size = customers.size();
+
+Question 34
+Not answered
+Marked out of 1.00
+
+To start a thread you need:
+Select one:
+a. To call the start() method
+b. To do nothing as it starts automatically
+c. To call the run() method
+
+Question 35
+Not answered
+Marked out of 1.00
+
+Is it possible to start a thread twice?
+Select one:
+True
+False
+
+Question 36
+Not answered
+Marked out of 1.00
+
+Which method is used to stop a thread from executing for a specified amount of time?
+Select one:
+a. pause()
+b. sleep()
+c. stop()
+d. wait()
+
+Question 37
+Not answered
+Marked out of 1.00
+
+A failed assert throws an exception.
+Select one:
+True
+False
+
+Question 38
+Not answered
+Marked out of 1.00
+
+What is the meaning of bounded Generics?
+Select one or more:
+a. It implies that only assignment can be done with objects of formal generic type inside the generic class
+b. It allows to perform operations which are visible from bounding class for object of the formal generic type within
+the generic class
+c. It implies that assignment and equality test can be done with objects of formal generic type inside the generic
+class
+
+Question 39
+Not answered
+Marked out of 1.00
+
+We're supposed to catch all Exceptions and Errors in our program.
+Select one:
+True
+False
+
+Question 40
+Not answered
+Marked out of 1.00
+
+Java lambda expression may be assigned to variable of functional interface type if:
+Select one or more:
+a. Lambda expression parameters match the parameters of the single method
+b. Lambda expression return type matches the return type of the single method
+c. The interface has only one unimplemented method
+
+Question 41
+Not answered
+Marked out of 1.00
+
+What are the differences between functional and imperative programming? Select the correct option(s).
+Select one or more:
+a. They have different naming conventions for functions
+b. Functional programming is aligned with mathematical approaches while imperative with the most widely-spread
+hardware
+c. As imperative programming has introduced pure functions there is no longer differences between 2 approaches
+d. In pure functional programming there is no global state which can be changed
+e. Functional programming relies on recursion while imperative focuses on loops
+
+Question 42
+Not answered
+Marked out of 1.00
+
+What would be printed out when the following fragment of code was executed?
+
+Select one:
+a. Answer is 1 + 2
+b. Answer is 12
+c. mesg + sum
+d. Answer is 3
+
+Question 43
+Not answered
+Marked out of 1.00
+
+When a subclass declares a method that has the same type arguments as a method declared by one of its
+superclasses, it is termed as:
+Select one:
+a. Method overriding
+b. Method overloading
+c. Operator overloading
+d. Operator overriding
+
+Question 44
+Not answered
+Marked out of 1.00
+
+What are the differences between high-order functions and first-class functions?
+Select one or more:
+a. These are just different terms for the same concept
+b. If the programming language supports first class functions then it supports high-order functions
+c. If the programming language supports high-order functions then it supports first class functions
+
+Question 45
+Not answered
+Marked out of 1.00
+
+What are the key benefits of pure functions usage?
+Select one or more:
+a. If result of the pure function call is not used evaluation of its arguments can be eliminated
+b. Result of the first call to the pure functions with particular arguments can be stored and later immediately
+returned when call with the same arguments be invoked
+c. Not much as modern compilers always detect pure functions automatically
+d. Calls to pure functions can be always executed concurrently
+
+Question 46
+Not answered
+Marked out of 1.00
+
+Which of the following statements are true?
+Select one:
+a. There is no difference between concurrency and parallelism, they are just synonyms
+b. Concurrency implies time-sharing (time-slicing), while parallelism means physical execution of many tasks at the
+same time
+c. Concurrency refers to the nature of the task which ca be broken into sub-tasks which can be executed at the
+same time, while parallelism means their actual physical execution at the same time
+
+Question 47
+Not answered
+Marked out of 1.00
+
+What are the implications of Amdahl’s law?
+Select one or more:
+a. Speed up of the program due to parallel execution is limited by its sequential part
+b. There is no reason to build computers with more than 16 CPUs/cores
+c. Speed up of the program due to parallel execution is limited by 10 times maximum
+
+Question 48
+Not answered
+Marked out of 1.00
+
+What are the plusses of the thread-based programming model?
+Select one or more:
+a. Low cost of switching between threads as they use the same process memory
+b. There is no need to synchronize access to data
+c. There is an IEEE standard for threads
+d. There is an OpenMP standard which can be easily applied to sequential code to make is concurrent
+
+Question 49
+Not answered
+Marked out of 1.00
+
+Match the corresponding options regarding Exceptions in Java.
+
+The options are:
+
+try {
+
+Valid.
+
+} finally {
+}
+int[] A;
+A[0] = 0;
+The JVM starts running your program, but the JVM can't find the Java platform
+classes. (The Java platform classes reside in classes.zip or rt.jar.)
+
+Choose...
+Compile error since the array is
+not initialized.
+
+Error.
+Choose...
+Choose...
+
+Question 50
+Not answered
+Marked out of 1.00
+
+What is the synchronization model in Eiffel?
+Select one:
+a. One needs to mark procedure as separate
+b. Function call will be synchronous call while procedure call will be asynchronous if it is executed on separate
+target
+c. Function or procedure need to have at least one parameters of separate type
+
+Question 51
+Not answered
+Marked out of 1.00
+
+Please select true statements about separate and independent compilation modes
+Select one or more:
+a. Separate compilation guarantees that executable will not have type safety error related to number of
+parameters and type in all calls.
+b. Separate compilation requires availability of interface information for all modules which are used by the one
+which is being compiled at the moment
+c. Independent compilation guarantees that if the compilation of the source code was done then executable will
+work correctly
+
+Question 52
+Not answered
+Marked out of 1.00
+
+SIMD stands for:
+Select one:
+a. Sequential Instruction Multiple Data
+b. Source Instruction Minimum Data
+c. Single Instruction Minimum Data
+d. Single Instruction Multiple Data
+
+Question 53
+Not answered
+Marked out of 1.00
+
+The process by which one object can acquire the properties of another object:
+Select one:
+a. Encapsulation
+b. Inheritance
+c. Polymorphism
+
+Question 54
+Not answered
+Marked out of 1.00
+
+What is the meaning of the unbounded Generics?
+Select one or more:
+a. It implies that we can do nothing with objects of the generic type inside the class
+b. It implies that the class can be instantiated with any class
+c. It implies that the class can be instantiated with any class which is descendant of Object in Java
+
+Question 55
+Not answered
+Marked out of 1.00
+
+What are the pluses of Generics over type casts?
+Select one or more:
+a. Type casts require (Type) operator to be used while generics require ClassType <Type> declarations – so, there is
+no principal difference.
+b. Generics ensure type safety while type casts do not guarantee that
+c. Type casts are performed at runtime while generics are processed at compile time
+
+

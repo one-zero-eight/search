@@ -1,0 +1,39 @@
+Innopolis University
+Academic Year 2019/2020
+Midterm Exam of Computer Architecture
+34 October 2019
+Questions
+Max 10 points + 3 points (30%) extra credit
+Total time: 60 minutes
+
+1. (1 point) Briefly describe the principles of Von Neumann architecture. Illustrate with a diagram.
+
+2. (2 points) Translate the following MIPS code to C (or pseudocode). Assume that variables f, g, h,
+and i are assigned to registers $s0, $s1, $s2, and $s3, respectively.
+
+sub  $t0, $s1, $s2
+addi  $t0, $t0, 3
+add  $s0, $s3, $t0
+
+3. (3 points) Describe the steps that transform a program written in a high-level language such as C
+into a representation that is directly executed by a computer processor. Illustrate with a diagram;
+provide a brief description for each step.
+
+4. (4 points) Prove that the AND and NOT logic gates can be implemented by using only the NOR logic
+gate.
+
+5. (3 points - 30% extra credit) Consider three different processors P1, P2, and P3 executing the same
+instruction set. P1 has a 3 GHz clock rate and a CPI of 1.5. P2 has a 2.5 GHz clock rate and a CPI of 1.0.
+P3 has a 4.0 GHz clock rate and has a CPI of 2.2. Answer the following questions:
+
+a) Which processor has the highest performance expressed in instructions per second?
+
+b) If the processors each execute a program in 10 seconds, find the number of cycles and the
+number of instructions.
+
+c) We are trying to reduce the execution time by 30% but this leads to an increase of 20% in the
+CPI. What clock rate should we have to get this time reduction?
+
+Hint: To simply computations, consider that 1/2.2 = 0.45and 1/7 = 0.14
+
+This is the end of the questions of the exam.

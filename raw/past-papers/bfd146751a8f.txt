@@ -1,0 +1,78 @@
+VARIANT 1
+
+Full name: Group:
+
+Task: |1 [2]|3]4 Total
+
+Score:
+
+[
+[=2]
+-
+oo
+©
+
+. (1 point) For each of the following statements mark it as True or False. Justify
+each answer.
+
+1 2
+(a) det |2 4 =0 True / False
+3 6
+(b) The result of Dot product operation is a vector. ~ True / False
+
+(c) Inverse matrix (A™1) is always exists.  True / False
+
+(d) It is always possible to change one basis to any other basis of the same
+space. True / TFalse
+
+(e) Multiplication vector by a scalar operation is always applicable. True
+/ False
+
+. (2 points)
+
+— O N
+W N Do
+
+1 1
+(a) Find the determinant of the following matrix: |2 4
+2 1
+
+(b) Let A be a square matrix. Prove that its left and right inverses are the
+same matrix.
+
+. (2 points) Find angles between vectors a and b, b and ¢, a and c.
+1 2 -2
+
+- b=|-1|,c=|1
+
+2 1 3
+
+. (2 points) For which values z, vectors a and b are basis of some space? Explain
+your answers.
+. (2 points) Show that the result of a cross product a x b will not change if one
+adds to one of the vectors some vector x which is collinear to another vector of
+the cross product.
+
+5 1 2
+the bases for R? given by B = {b;,by} and C = {c;,c;}. Find the change of
+coordinate matrix from B to C.
+
+. (2 points) Let by = V}, by, = {:3}, c, = [35], cy = {_2}, and consider
+
+. (2 points) Find all face areas of a parallelepiped, if its edges are:
+2 1 3
+PINE
+0 4 3
+
+. (2 points) Decompose the vector p = (1,2,3) into components parallel and
+perpendicular to the vector q = (1, —2, 2).
+
+. (Extra. 3 points) Point M is the intersection of medians of the equilateral
+triangle ABC. The old coordinate system is given by origin A and two basis
+vectors AB, AC and the new coordinate system is given by origin M and two
+basis vectors M B, MC. Find the coordinates of a point in the old coordinate
+system given its coordinates x’, 3y’ in the new one.
+
+End of Test 1
+
+Page 2

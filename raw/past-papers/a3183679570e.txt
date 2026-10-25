@@ -1,0 +1,181 @@
+Probability & Statistics. Midterm Examination. Problem 1
+25 MINUTES
+1. PROBLEM SET 1. How many times (on average) does one need to roll a (symmetric twentyfaced) die in order to get a five and a six one after another? Does anything change if one needs to
+get two fives in a row? Justify your answer.
+
+2. PROBLEM SET 2. How many times (on average) does one need to roll a (symmetric twelvefaced) die in order to get a five and a six one after another? Does anything change if one needs to
+get two fives in a row? Justify your answer.
+
+3. PROBLEM SET 3. How many times (on average) does one need to roll a (symmetric six-faced)
+die in order to get a five and a six one after another? Does anything change if one needs to get two
+fives in a row? Justify your answer.
+
+Probability & Statistics. Midterm Examination. Problem 2
+25 MINUTES
+1. PROBLEM SET 1. Probability density of random vector (𝑋, 𝑌 )𝑇 is given by
+)︂)︂
+(︂
+(︂
+25
+625
+48
+2
+2
+.
+𝑓𝑋,𝑌 (𝑥, 𝑦) =
+· exp −
+𝑥 − 𝑥𝑦 + 𝑦
+14𝜋
+98
+25
+Find marginal probability density of 𝑋 and determine the distribution law.
+
+2. PROBLEM SET 2. Probability density of random vector (𝑋, 𝑌 )𝑇 is given by
+)︂)︂
+(︂
+(︂
+13
+169
+10
+2
+2
+𝑓𝑋,𝑌 (𝑥, 𝑦) =
+.
+· exp −
+𝑥 − 𝑥𝑦 + 𝑦
+24𝜋
+288
+13
+Find marginal probability density of 𝑋 and determine the distribution law.
+
+3. PROBLEM SET 3. Probability density of random vector (𝑋, 𝑌 )𝑇 is given by
+(︂
+(︂
+)︂)︂
+17
+289
+30
+2
+2
+𝑓𝑋,𝑌 (𝑥, 𝑦) =
+· exp −
+𝑥 − 𝑥𝑦 + 𝑦
+.
+16𝜋
+128
+17
+Find marginal probability density of 𝑋 and determine the distribution law.
+
+Probability & Statistics. Midterm Examination. Problem 3
+20 MINUTES
+1. PROBLEM SET 1. Two fair dice are rolled. Let us consider events
+𝐴𝑖 = {the sum rolled is equal to 𝑖}
+and
+𝐵𝑗 = {there are 𝑗 points on the second die}.
+Find all possible pairs of (𝑖, 𝑗) such that events 𝐴𝑖 and 𝐵𝑗 are independent.
+
+2. PROBLEM SET 2. Two fair dice are rolled. Let us consider events
+𝐴𝑖 = {the sum rolled is equal to 𝑖}
+and
+𝐵𝑗 = {there are 𝑗 points on the second die}.
+Find all possible pairs of (𝑖, 𝑗) such that events 𝐴𝑖 and 𝐵𝑗 are independent.
+
+3. PROBLEM SET 3. Two fair dice are rolled. Let us consider events
+𝐴𝑖 = {the sum rolled is equal to 𝑖}
+and
+𝐵𝑗 = {there are 𝑗 points on the second die}.
+Find all possible pairs of (𝑖, 𝑗) such that events 𝐴𝑖 and 𝐵𝑗 are independent.
+
+Probability & Statistics. Midterm Examination. Problem 4
+20 MINUTES
+1. PROBLEM SET 1. There are 7 black balls and 16 white balls in the first urn; 6 black balls and 3
+white in the second urn; 7 black balls and 1 white in the third urn. A random ball is moved from the
+first urn to the second urn, the balls are thoroughly mixed, and after that a random ball is moved
+from the second urn to the third urn. What is the probability of getting a white ball out of the third
+urn?
+
+2. PROBLEM SET 2. There are 8 black balls and 5 white balls in the first urn; 8 black balls and 7
+white in the second urn; 1 black ball and 5 white in the third urn. A random ball is moved from the
+first urn to the second urn, the balls are thoroughly mixed, and after that a random ball is moved
+from the second urn to the third urn. What is the probability of getting a white ball out of the third
+urn?
+
+3. PROBLEM SET 3. There are 2 black balls and 9 white balls in the first urn; 5 black balls and 13
+white in the second urn; 2 black balls and 2 white in the third urn. A random ball is moved from the
+first urn to the second urn, the balls are thoroughly mixed, and after that a random ball is moved
+from the second urn to the third urn. What is the probability of getting a white ball out of the third
+urn?
+
+Probability & Statistics. Midterm Examination. Problem 5
+20 MINUTES
+1. PROBLEM SET 1. Ten people enter the lift at the ground floor of a 13-storey house. Each of
+them can get off the lift at all the floors starting with the first one with equal probabilities and
+independently of each other. Let 𝜉 be equal to the quantity of floors the lift does not reach at all.
+(For example, if the last person exits the lift at the seventh floor, it implies that the lift does not
+reach floors 8, 9, etc.) Find the expected value of 𝜉.
+
+2. PROBLEM SET 2. Eleven people enter the lift at the ground floor of a 12-storey house. Each
+of them can get off the lift at all the floors starting with the first one with equal probabilities and
+independently of each other. Let 𝜉 be equal to the quantity of floors the lift does not reach at all.
+(For example, if the last person exits the lift at the seventh floor, it implies that the lift does not
+reach floors 8, 9, etc.) Find the expected value of 𝜉.
+
+3. PROBLEM SET 3. Twelve people enter the lift at the ground floor of an 11-storey house. Each
+of them can get off the lift at all the floors starting with the first one with equal probabilities and
+independently of each other. Let 𝜉 be equal to the quantity of floors the lift does not reach at all.
+(For example, if the last person exits the lift at the seventh floor, it implies that the lift does not
+reach floors 8, 9, etc.) Find the expected value of 𝜉.
+
+Probability & Statistics. Midterm Examination. Problems 6–8
+55 MINUTES
+1. PROBLEM SET 1.
+6. A taxi driver moves between four settlements 𝑊 , 𝑋, 𝑌 , 𝑍 located at the vertices of a rectangle.
+Four highways connecting the settlements run along the sides of the rectangle, and 𝑊 𝑋 = 6
+kilometers, 𝑊 𝑍 = 10 kilometers. Having delivered a customer the driver waits for the next taxi
+call. Then he goes to the settlement the call came from, collects a customer, and goes to a new
+destination. A new call can emerge from any settlement with probability 0.25, and the customer
+chooses the settlement to travel to with probability 13 . Travelling between adjacent settlements, the
+driver always chooses the shortest route. The distances inside each of the settlements are very small
+(i.e. they may be neglected). Let 𝜁 be the distance the driver needs to travel in order to collect and
+deliver a customer. Find the distribution of random variable 𝜁. Determine 𝐸𝜁 and Var 𝜁.
+3−𝑋
+.
+7. Random variable 𝑋 is uniformly distributed on [0; 2]. Find the probability density of 𝑌 = 1+2𝑋
+
+8. Variables 𝑦1 , 𝑦2 , . . . , 𝑦7 can take only positive integer values. One of the solutions of the equation
+𝑦1 + 𝑦2 + . . . + 𝑦7 = 19 is chosen at random. Determine the probability that 𝑦5 = 5.
+
+2. PROBLEM SET 2.
+6. A taxi driver moves between four settlements 𝑊 , 𝑋, 𝑌 , 𝑍 located at the vertices of a rectangle.
+Four highways connecting the settlements run along the sides of the rectangle, and 𝑊 𝑋 = 11
+kilometers, 𝑊 𝑍 = 3 kilometers. Having delivered a customer the driver waits for the next taxi
+call. Then he goes to the settlement the call came from, collects a customer, and goes to a new
+destination. A new call can emerge from any settlement with probability 0.25, and the customer
+chooses the settlement to travel to with probability 13 . Travelling between adjacent settlements, the
+driver always chooses the shortest route. The distances inside each of the settlements are very small
+(i.e. they may be neglected). Let 𝜁 be the distance the driver needs to travel in order to collect and
+deliver a customer. Find the distribution of random variable 𝜁. Determine 𝐸𝜁 and Var 𝜁.
+4−𝑋
+.
+7. Random variable 𝑋 is uniformly distributed on [0; 3]. Find the probability density of 𝑌 = 1+3𝑋
+
+8. Variables 𝑦1 , 𝑦2 , . . . , 𝑦6 can take only positive integer values. One of the solutions of the equation
+𝑦1 + 𝑦2 + . . . + 𝑦7 = 23 is chosen at random. Determine the probability that 𝑦5 = 3.
+
+3. PROBLEM SET 3.
+6. A taxi driver moves between four settlements 𝑊 , 𝑋, 𝑌 , 𝑍 located at the vertices of a rectangle.
+Four highways connecting the settlements run along the sides of the rectangle, and 𝑊 𝑋 = 7
+kilometers, 𝑊 𝑍 = 9 kilometers. Having delivered a customer the driver waits for the next taxi
+call. Then he goes to the settlement the call came from, collects a customer, and goes to a new
+destination. A new call can emerge from any settlement with probability 0.25, and the customer
+chooses the settlement to travel to with probability 13 . Travelling between adjacent settlements, the
+driver always chooses the shortest route. The distances inside each of the settlements are very small
+(i.e. they may be neglected). Let 𝜁 be the distance the driver needs to travel in order to collect and
+deliver a customer. Find the distribution of random variable 𝜁. Determine 𝐸𝜁 and Var 𝜁.
+7. Random variable 𝑋 is uniformly distributed on [0; 4]. Find the probability density of 𝑌 = 9−2𝑋
+.
+2+𝑋
+8. Variables 𝑦1 , 𝑦2 , . . . , 𝑦8 can take only positive integer values. One of the solutions of the equation
+𝑦1 + 𝑦2 + . . . + 𝑦7 = 18 is chosen at random. Determine the probability that 𝑦5 = 2.
+
+

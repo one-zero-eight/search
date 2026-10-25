@@ -1,0 +1,61 @@
+[2021] Physics 2. Electrical Engineering
+
+Quiz 2 – Network Analysis
+Problem 1 (25 pts) – Node Voltage Method
+Using the Node Voltage Method, find the unknown voltages v1, v2, v3 in the circuit shown in Figure 1.
+Given quantities are:
+R1 = 100 , R2 = 200 , R3 = 25 , R4 = 50 ; R5 = 100 ; I = 0.2 A, V = 20 V.
+
+R4
+v1
+
+v2
+R2
+
+I
+
+R1
+
+v3
+V
+
+R3
+
+R5
+
+Figure 1: Electric circuit for Problem 1
+Problem 2 (25 pts) – Mesh Current Method
+Repeat problem 1 using the Mesh Current Method.
+Problem 3 (25 points) – Superposition
+Repeat problem 1 using the Principle of Superposition.
+Problem 4 (25 pts) – One-Port Networks
+Find Thevenin voltage and resistance for the circuit shown in Figure 2.
+Given quantities are:
+R1 = 10 , R2 = 20 , Rg =3 , Rp = 2 .
+
+Rp
+
+Rp
+
+Rp
+
+a
+
+16 V
+R1
+
+Rg
+
+R2
+
+Rg
+
+RL
+
+Rg
+
+Figure 2: Electric circuit for Problem 4
+
+b
+
+

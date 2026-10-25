@@ -1,0 +1,16 @@
+{
+ "title": "Квота Россотрудничества (entering through the Russian Ministry of Education)",
+ "url": "https://innopolis.university/upload/iblock/16f/7nrjhlmrht0wk76aolbmgqdp82zbk1me/minobr.pdf",
+ "sha256": "b69c072d0693d54ac3aa11cea7ccfab6eb4988125d18c052a811131296686f83",
+ "method": "text layer (pdfplumber)",
+ "chars": 1285,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:52:16+00:00",
+ "remote": {
+  "etag": "\"671fbd20-1ff16\"",
+  "modified": "Mon, 28 Oct 2024 16:34:40 GMT",
+  "size": "130838"
+ }
+}

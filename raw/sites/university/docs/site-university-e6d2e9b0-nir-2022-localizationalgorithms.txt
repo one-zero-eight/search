@@ -1,0 +1,491 @@
+Analysis of mixed reality cross-device localization
+algorithms based on point cloud registration
+Alexander Osipov Mikhail Ostanin Alexandr Klimchik
+Center for Technologies in Center for Technologies in Center for Technologies in
+Robotics and Mechatronics Components Robotics and Mechatronics Components Robotics and Mechatronics Components
+Innopolis University Innopolis University Innopolis University
+Innopolis, Russia Innopolis, Russia Innopolis, Russia
+a.osipov@innopolis.university m.ostanin@innopolis.ru a.klimchik@innopolis.ru
+Abstract—Stateofartapproachesforlocalizationandmapping There is a common functionality for constructing a mesh
+is based on local features in images. Along with this, modern map of the real environment in mixed reality systems. The
+augmented and mixed reality devices allow building a mesh of
+mesh map should geometrically represent the real environ-
+the surrounding space. Using this mesh map, we can solve the
+ment. Respectively, on different systems, regardless of the
+problem of cross-device localization. This approach is indepen-
+dent of the type of feature descriptors and SLAM used onboard algorithms, these maps will be similar to each other in the
+the AR / MR device. The mesh could be reduced to the points same place. However, the mesh itself has a lot of information
+cloud, which takes only vertices. We propose the approach for and is difficult to transfer and save, so we propose to reduce
+co-localization of AR / MR devices using point clouds which
+the spatial map to a point cloud consisting only of the mesh
+do not depend on algorithms onboard the device. We analyzed
+vertices. As a result, we will get a sparse cloud of points that
+various algorithms for registering point clouds and discuss of it
+limitation for the co-localization problem. are easier to save and transfer. At the same time, this point
+Index Terms—Indoor collaborative localization, augmented cloudwillbereadableforhumanperception,whichcouldhelp
+and mixed reality devices, point cloud registration. to use it for content location.
+Inthispaperweanalysisofpointcloudregistrationmethods
+I. INTRODUCTION
+withmodifications.Ourgeneralgoalistodevelopanapproach
+Localizationandmappingarethemaintechnicalcapabilities capable of solving the problem of indoor mixed reality cross-
+of modern mixed reality systems and robotics. This function device localization. We collected a new dataset with pairs of
+allows connecting the real and digital world into a single reconstructed point clouds for one environment.
+reality.Forpeopletocollaborateinmixedrealityorforpeople
+Ourfirststageisexperimentalefficiencycomparisonoffour
+and robots to work together, they need to be localized in a
+global registration methods on real point clouds of indoor
+single coordinate space. In addition, localization of devices is
+environments to know which methods of registering point
+also required for a content position on a pre-built map.
+clouds are suitable for solving the problem of MR devices
+Nowadays, devices solve the problems of localization and
+co-localization and to understand which parameters of the
+mapping on board. However, there is a trend towards cloud
+algorithm determine more high robustness and probability of
+computing and moving content localization to the cloud. For
+point cloud registration success.
+example, there are systems Microsoft Azure Spatial Anchors
+[1],Niantic[2],GoogleCloudAnchors[3],etc.Thesesystems
+Our second stage is a more detailed analysis of the effec-
+send key points and descriptors to the cloud for content
+tiveness for more perspective registration methods capable of
+localization.
+solving the problem of collaborative localization for different
+Modern systems have several limitations of collaborative parameters and methods modifications. As a modification, we
+localization. Co-localization with devices using different fea- added and used a local feature descriptor Weighted Height
+turesisimpossible.[4]Inaddition,varioussystemsusevarious Image (WHI) [7] in addition to the default and often used
+simultaneous localization and mapping (SLAM) algorithms one Fast Point Feature Histogram (FPFH) [8]. Our third stage
+andhavehardwareaccelerationforthem.Forexample,various is the efficiency analysis of the hybrid approach: feature
+features can be used, such as SIFT [5] or SOSNet [6]. correspondence-based methods + ICP which are proposed to
+Moreover, existing devices will lag behind the new SLAM solve the problem of co-localization of mixed reality devices.
+algorithms. This makes the systems impossible to co-localize
+with each other. In addition to the above, it is difficult or In our final stage, we discuss the weak points of the
+impossible for a human to perceive a map consisting of investigation approach and obtained results, which can be
+features. This imposes a restriction on the remote installation usefulforfine-tuningofapproachforcollaborativelocalization
+of content on the map. in real scenarios.II. RELATEDWORK 2) Bayesian-ICP: While Go-ICP is deterministic approach
+to registration point clouds, there is also a probabilistic ap-
+In this section, we consider the fundamental foundations proach such as algorithm Bayesian-ICP [16]. Bayesian-ICP
+of the algorithms under study and their capabilities. In the combines ideas from stochastic gradient descent-ICP (SGD-
+registration problem, we are given two 3D point clouds A= ICP) [17] and stochastic gradient Langevin dynamics (SGLD)
+{a i }N i=1 source and B = {b i }M i=1 target point clouds with [18] that allows estimating a pose distribution. For each
+a i ,b i ∈R3.Manyalgorithmsexisttosolvethisproblem.One iterationofSGD-ICP,smallmini-batchesM k fromthesource
+of the most often used approaches for point cloud registration cloudinsteadofthefullpointcloudareformedandassociated
+is Iterative Close Point (ICP) [9]. with closest points in the target cloud as in Standart ICP
+to solve the optimization problem (1). SGLD idea is to add
+A. Standard-ICP the right amount of noise to SGD optimization which allows
+converging to the posterior distribution. Therefore general
+This algorithm solves the L 2 -norm registration problem SGD-ICP update rule is modified by adding Gaussian noise
+to estimate rigid motion such as rotation R ∈ SO(3) and η ∼ N(0,Aα) and prior p(ϑ) over the transformation pa-
+k
+translationt∈R3betweensourceAandtargetBpointclouds,
+rameters θ, so general update rule for Bayesian-ICP becomes
+which minimizes the objective L 2 -error function: following:
+(cid:88) N α (cid:16) (cid:17)
+E(R,t)= ∥Ra i +t−b k∗ ∥2, (1) ϑ k+1 =ϑk− 2 A −∇logp(ϑ k )+N⃗g(ϑ k ,M k ) +η k , (2)
+i=1
+where a i is i point of source cloud and b k∗ is the closest where N is size of point cloud, and ∇logp(ϑ k ) is gradient
+point of target cloud to transformed a -point. Defined L - for prior distribution, α is learning rate, A ∈ R6×6 acts as a
+i 2
+errorisnon-convex,becausetherearenon-convexconstraints. pre-conditioner and ⃗g is gradient of objective function (1).
+Standard ICP algorithm solves this problem iteratively that
+C. Correspondence-based point cloud registration methods
+alternate between estimating the transformation by (1), and
+finding closest-point correspondences. Although ICP charac- Correspondence-based registration method is another ap-
+terized by its simplicity and effectiveness, it is guarantees proach to solve registration problem providing a global so-
+convergencetoalocalminimumonly[9].Hence,ICPneedsa lution. The most perspective algorithms of correspondences-
+goodinitialposebetweenpointcloudsforglobalconvergence. basedregistrationmethodsareFastGlobalRegistration(FGR)
+Some variants of ICP [10], [11], [12], [13] have suggested to [19] and Teaser++ [20]. They use invariant to rotations
+use robust cost functions to improve convergence, but they and translations feature descriptors to build correspondences
+are still local methods and don’t provide guarantee global between point clouds. Feature descriptors continue to be
+convergence. improved (robustness to noise, to occlusion, to clutter and
+etc.,compactness,descriptiveness),alsoincludingusingneural
+networks to this day.
+B. ICP-based point cloud registration methods
+1) Feature descriptors: Fast Point Feature Histograms.
+Asaruleinrealscenarios,pointcloudsfromseveraldevices Fast Point Feature Histograms [8] is a 33-dimensional local
+have large relative displacement, and rotation error can be feature descriptor that describes the local geometry of space
+near 360 degrees for one of Euler angles. Therefore to solve around a point in a 3D point cloud. This descriptor represent
+the matching problem of point clouds, it is required to use a simplified version of Point Feature Histograms (PFH), but
+global methods of registration that do not depend on good it keeps the discriminative power of the PFH and can be
+initialization. calculated in milliseconds time [21], due to the computational
+1) Go-ICP: Globally Optimal ICP (Go-ICP) [14] is the complexity of the algorithm is O(k) compare with O(k2) for
+point cloud registration method providing an optimal global PFH.
+solution without initial guess. To find global solution authors Weighted Height Image descriptor. Weighted Height
+of Go-ICP method use BnB (Branch-and-Bound) [15] algo- Image descriptor [7] (WHI) is a compact 3D local feature
+rithm extending to search 3D motion SE(3) = SO(3)×R3. descriptorfordescribingthe3Dlocalshapeinthepointcloud.
+Authors apply domain parameterization which compactly rep- When FPFH is classified as an algorithm based on Rotation-
+resents3Drotationsearchspaceasasolidradius-π ballinR3 Invariant Metrics (RIM), WHI feature descriptor is based on
+and for translation part domain is represented as a bounded Local Reference Frame (LRF). LRF based descriptors have
+cube [−ξ,ξ] where ξ can be easily set. Also they bounds clear advantages compared with Rotation-Invariant Metrics.
+L -norm error function [14]. Domain parameterization and Firstly, descriptors estimate a rotation-invariant local frame
+2
+bounding functions allow to apply BnB search to a problem (LRF), which is more repeatable and robust to occlusions
+(1). To sum up, the Go-ICP method presents the integration and clutter. Secondly, using LRF simplifies the process of
+of two main processes: global BnB search and the local ICP coding information, because rotation invariance is not needed
+search that helps each other to reach the global minimum of consideration, and allows to save the original information
+the objective function. about point cloud. In addition, WHI feature descriptor canhave a maximum compactness - dimension 16, without much transformationestimationonthreeseparateestimations:scale,
+loss in precision. rotation, and translation. The scale and translation estimation
+2) Fast Global Registration: Fast Global Registration is problems are solved in polynomial time using an adaptive
+correspondence-based registration method that consists of the voting algorithm [24]. The TLS rotation estimation is relaxed
+following main submodules: Advanced Matching and trans- to tight semidefinite relaxation problem and solved fast by
+formation estimation [19]. Firstly, for each point in source A using graduated non-convexity [25].
+and target B point clouds feature points are extracted. Then
+III. DATASETS
+F(B) is a set of source feature points, and F(A) is set of
+Inourwork,wecomparepointcloudregistrationalgorithms
+target feature points. Secondly, Advanced Matching algorithm
+for the co-localization problem of mixed reality devices. The
+is used to build correspondences by using feature points and
+algorithm takes point clouds of the reconstructed environment
+also to prune partially wrong pairs of them. It consists of 3
+from one and the other device. The reconstructed point cloud
+steps.Firststep:buildsetK pairspointsbycomputingnearest
+I
+only approximates the geometric parameters of the user’s real
+neighborsbetweenfeaturepointsF(B)andF(A).Secondand
+environment but does not describe it with high accuracy. So
+third steps: apply reciprocity test on K to get K and tuple
+I II
+data set is required to consist of reconstructed point clouds
+testonK togetK settoprunecorrespondences[19].And
+II III
+pairs for different locations, and each pair of point clouds
+finally,FGRusebuildingandpruningcorrespondencestofind
+should have different point distributions from each other.
+a transformation matrix T that aligns two points cloud, it is
+Dataset A. KTH Longterm and ICL-NUIM datasets.
+solved the optimization problem with the following objective
+The dataset A consists of two sub-datasets: KTH Longterm1
+function:
+andICL-NUIM2.KTHLongtermwascollectedautonomously
+E(T)= (cid:80) ρ(∥b−Ta∥), (3) by a Scitos G5 robot with an RGB-D camera on a pan-tilt.
+(b,a)∈KIII
+It contains data from 8 different areas of the KTH office
+where ρ is the penalty term. This penalty function is very environment. Half of the areas are rooms and the others are
+important because a well-chosen penalty allows to control corridors. ICL-NUIM sub-dataset was collected by RGB-D
+the shape of the objective function (3) by rapidly doing camera sensor and contains data of two rooms: living and
+validationandpruningofbadcorrespondencestoremovethem office rooms. As a result, the first dataset contains 11 pairs of
+from consideration. Also, it allows to solve optimization for KTH Longterm point clouds and 2 pairs of ICL-NUIM point
+one pass, without recomputation during the optimization as clouds. In both cases, the data is not collected from mixed
+in the Standard-ICP algorithm. Authors use Geman-McClure reality devices.
+estimator as penalty function [22]. The optimization problem DatasetB.IndoorHoloLensdataset.Wecollecteddataset
+(3) can not be solved directly. Therefore authors use Black- Busingtwomixedrealitydevices:MicrosoftHoloLens1stand
+Rangarajian duality [23] that allows to optimize the objective 2nd gen. Each device builds a mesh map of the environment.
+function (3) very fast. We have explored one space from two devices and used
+3) Teaser++: Teaser++ registration method can be divided Windows Device Portal to download the Spatial mapping.
+conditionally into the following main submodules: Advanced Spatial mapping is the mesh, we take only vertexes as a
+Matching, Maximal Clique Inlier Selection (MCIS) and trans- pointcloud.DatasetBcontainssparsepointcloudsof4areas:
+formation estimation [20]. Authors of Teaser++ also in FGR three different rooms and a corridor. We obtained 20 pairs of
+useAdvancedMatching[19]tobuildcorrespondences(a i ,b i ) pointclouds,whereeachpairofpointcloudsisobtainedfrom
+by using extracted feature points for each point of source A different devices.
+and target B point clouds. Next, they use MCIS algorithm to To evaluate the accuracy, we created a synthetic dataset of
+prune a significant amount of outliers. Then Truncated Least point clouds based on real point clouds from dataset B. We
+Squares(TLS)optimizationproblemisformulatedtoestimate selected large samples of point clouds and took different size
+theunknowntransformationbasedonprunedcorrespondences: parts from each large cloud. Each part has the ground truth
+transformationmatrixissetforeachpairrandomlyintherange
+N
+(cid:88)(cid:16) 1 (cid:17)
+min ∥b −sRa −t∥2,c2 , (4) of [−90,90] degree for the rotation and [−50,50] cm for the
+s>0,R∈SO(3)t∈R3 i=1 β i 2 i i translation.Thebasicideaofcreatingasyntheticdatasetisthat
+we know the actual position of a pair of point clouds relative
+where s > 0 is estimated scale, R ∈ SO(3), t are estimated
+to each other before registration. Hence, we can estimate the
+rotation and translation, β is given bound of Gaussian noise
+i
+foricorrespondence,c2 isthresholdtopenaltythecorrespon- accuracy of the point cloud pair alignment.
+dences with big residual. This formulation allows to take into IV. METHODOLOGY
+accountthatthesetofcorrespondenceshasanextremeamount
+A. Efficiency evaluation of registration algorithms
+of outliers and that inliers have unknown Gaussian noise. For
+At the first stage, we evaluated the effectiveness of four
+solving the optimization problem (4) the authors introduced
+registration algorithms: Go-ICP, Bayesian-ICP, FGR, and
+twoinvariantmeasures:theTranslationInvariantMeasurement
+(TIM), and the Translation and Rotation Invariant Measure- 1https://strands.readthedocs.io/en/latest/datasets/kth lt.html
+ment (TRIM) [20]. It created the possibility to decouple 2http://redwood-data.org/indoor/dataset.htmlTeaser++. FGR and Teaser++ were also evaluated depending We also evaluated the success rate of registrations for FGR
+on Advanced Matching usage modes and different feature and Teaser++. For FPFH, WHI16, WHI36 local feature de-
+descriptors namely FPFH, WHI16, WHI36. The used feature scriptorswecalculatedmetricsfordifferentfeatureradius,but
+radius did not exceed 150 cm with the ratio close to the we kept optimal ratio downsampling (r )/normal (r )/feature
+d n
+recommended, which is described in the next subsection. The (r ) radius equal 1 : 2 : 5 for FPFH and optimal ratio
+f
+effectiveness assessment consisted of the average registration downsampling (r )/feature (r ) radius equal 1 : 5 for WHI
+d f
+timeandtherateofsuccessfulalignments.Thereisnoground types feature descriptors. FPFH ratio is recommended by
+truth information about the actual transformation between authorsofFGRandWHIratioisselectedbyusforamorereli-
+pairs of point cloud origins. Thus, the alignment success for ablecomparisonofcorrespondence-basedregistrationmethods
+each pair was evaluated visually, as shown in the example with different feature descriptors. Successful alignment of
+(Fig. 1). All algorithms were tested on datasets A and B. two synthetic point clouds we considered the fulfillment of
+accuracy condition:
+R ≤0.03rad; t ≤1.0cm. (8)
+error error
+Such accuracy requirements we considered as satisfactory
+fortheco-localizationofmixedrealitydevices.Regardingthe
+time of registration, it is enough not more than 5 seconds for
+successfulsynchronizationofthedevices,becauseitisenough
+one registration with further update and refinement. Thus, the
+(a) Successful alignment success in registration we considered the fulfillment of the
+following conditions: 100% cases satisfy accuracy condition
+(8) and runtime bellow 5 s.
+C. Accuracy and runtime analysis of hybrid approaches
+Inthethirdstage,weevaluatedtheregistrationefficiencyof
+the hybrid approach (correspondence-based method [FGR or
+Teaser++]ascoarse+ICPaslocalrefinement).Thehybridap-
+proach allows us to use the advantages of the two techniques.
+(b) Non-successful alignment The first one does not require good initialization for the point
+clouds registration, but the usage of downsampling limits the
+Fig. 1: Examples of visually successful and non-successful
+accuracy of the method. The second has high convergence
+registrations.Thelefthalfofthesub-figuresshowsstatebefore
+accuracy(movestoalocalminimum,convergesgloballyonly
+registration and the right half shows a state after registration
+when close to the global minimum), but it requires having
+the appropriate initial position of point clouds relative to each
+B. Accuracy and runtime analysis of registration methods: other. So the first method allows to exclude the disadvantages
+FGR and Teaser++ for different local feature descriptors of the second, and the second method allows to exclude the
+At the second stage, we studied the efficiency of the disadvantages of the first.
+algorithms depending on the different radius of the features We used different numbers of iterations of ICP to evaluate
+FPFH, WHI16, and WHI36. We use synthetic data set for the effectiveness of the hybrid approach and to discover the
+accuracy and runtime evaluation. To find rotation error, we working range of the radius of features. We used previous
+use roll, pitch, and yaw angles calculated for transformation metrics and we add a new criterion for a more flexible
+matrix T obtained by the algorithm and for ground truth evaluation: 90% of cases satisfy accuracy condition (8) and
+a
+transformation matrix T : runtime 10 s. Since accuracy and runtime can be improved
+g
+by using the hybrid approach sub-modules improvements and
+ϕ=atan2(r ,r ),θ =arcsin(−r ),
+32 33 30 (5) more powerful hardware.
+ψ =atan2(r ,r ),
+21 11
+All experiments were done by using Point Cloud Library
+where r ij - is ij element of the rotation part in transfor- (PCL) [26] on a laptop with CPU AMD Ryzen 7 4800HS.
+mation matrix. Rotation error R is defined as summary
+error
+error of roll (ϕ ), pitch (θ ), yaw (ψ ) angles: V. RESULTS
+error error error
+A. Efficiency evaluation of registration algorithms on real
+ϕ =|ϕ −ϕ |,θ =|θ −θ |,
+error g a error g a datasets
+ψ =|ψ −ψ |, (6)
+error g a
+R =ϕ +θ +ψ . TablesIandIIshowestimatedregistrationtimeandtherate
+error error error error
+of success alignments of point clouds pairs. The algorithms
+Translation error t was calculated following:
+error based on ICP: Go-ICP and Bayesian-ICP have shown a very
+(cid:112)
+t = (x −x )2+(y −y )2+(z −z )2. (7) low success rate of alignments with high registration time.
+error g a g a g aTABLE I: Results for FGR and Teaser++ on dataset A. TABLE II: Results for FGR and Teaser++ on dataset B.
+
+| Method | Feature | Advanced Matching | Average runtime (ms) | Alignment success (%) |
+| --- | --- | --- | --- | --- |
+| Go-ICP | - | - | 24427 | 8 |
+| Bayesian-ICP | - | - | 1647 | 54 |
+| FGR | FPFH |  | 390 | 100 |
+| FGR | WHI16 | On | 371 | 100 |
+| FGR | WHI36 |  | 752 | 100 |
+| FGR | FPFH |  | 442 | 100 |
+| FGR | WHI16 | Off | 441 | 100 |
+| FGR | WHI36 |  | 823 | 92 |
+| Teaser++ | FPFH |  | 409 | 100 |
+| Teaser++ | WHI16 | On | 428 | 100 |
+| Teaser++ | WHI36 |  | 823 | 100 |
+| Teaser++ | FPFH |  | 1847 | 100 |
+| Teaser++ | WHI16 | Off | 1209 | 100 |
+| Teaser++ | WHI36 |  | 1897 | 100 |
+
+| Method | Feature | Advanced Matching | Average runtime (ms) | Alignment success (%) |
+| --- | --- | --- | --- | --- |
+| Go-ICP | - | - | 24158 | 0 |
+| Bayesian-ICP | - | - | 1564 | 5 |
+| FGR | FPFH |  | 219 | 68 |
+| FGR | WHI16 | On | 223 | 53 |
+| FGR | WHI36 |  | 419 | 79 |
+| FGR | FPFH |  | 259 | 42 |
+| FGR | WHI16 | Off | 262 | 26 |
+| FGR | WHI36 |  | 458 | 42 |
+| Teaser++ | FPFH |  | 219 | 63 |
+| Teaser++ | WHI16 | On | 213 | 58 |
+| Teaser++ | WHI36 |  | 446 | 63 |
+| Teaser++ | FPFH |  | 365 | 79 |
+| Teaser++ | WHI16 | Off | 382 | 100 |
+| Teaser++ | WHI36 |  | 641 | 100 |
+
+Features-based algorithms (FGR and Teaser++) significantly allows saving the surface structure since a centroid point is
+outperform ICP-based ones in terms of both successful align- calculated for each voxel. Hence, on the one hand, the small
+ments and execution time. voxelsizeallowstoslightlyreducethenumberofcalculations
+The rate of successful alignments by algorithms on dataset withoutlosinginformationaboutthesurfacegeometry.Onthe
+BislowerthanondatasetA.ThisindicatesthatdatasetBhas other hand, with a large feature radius, we significantly speed
+cloud pairs that are more difficult for registration. In dataset up calculations. Therefore, there is a compromise between
+B,morethanhalfofthepointcloudpairshaveasmalloverlap
+TABLEIII:ResultsforFGRandTeaser++onsyntheticdataset
+fraction:lessthan50%,andmoredifferentpointsdistribution.
+
+The registration success of a point cloud pair depends on the
+overlap fraction as well as the initial degree of point cloud
+sparsity. The overlap fraction determines how many pairs of
+point clouds have common geometric parts. In other words,
+the greater the overlap area of the point clouds, the easier
+it is for the registration algorithm to find correspondences
+between them and match them to each other. As for the
+sparsity degree of the point clouds, it affects the degree of
+dissimilarity in point cloud distribution. Sparse clouds may
+have more dissimilar point distributions than dense clouds.
+When the Advanced Matching for FGR algorithm is turned
+off, the probability of successful point cloud alignment tends
+to decrease. At the same time for the Teaser++, when Ad-
+vanced Matching is turned off, the percentage of successful
+point cloud alignments on the contrary increases and reached
+100% with local feature descriptors WHI16 and WHI36. It
+happensbecauseprobablythepruningcorrespondencespartof
+Advanced Matching rejects not only wrong correspondences
+but also part of good ones, and MCIS submodule of Teaser++
+selects inliers effectively.
+B. Accuracy and runtime analysis of FGR and Teaser++ for
+different feature descriptors
+Figures2and3showaccuracyandruntimeresultsofFGR,
+
+| Method | Feature | ICP | Feature radius (cm) |  |  |  |  |  |  |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Method | Feature | ICP | 35 | 50 | 75 | 100 | 150 | 200 | 250 |
+| FGR | FPFH | - |  |  |  |  |  |  |  |
+| FGR | FPFH | 1 |  |  |  |  |  |  |  |
+| FGR | FPFH | 10 |  |  |  |  |  |  |  |
+| FGR | FPFH | 100 |  |  |  |  |  |  |  |
+| FGR | WHI16 | - |  |  |  |  |  |  |  |
+| FGR | WHI16 | 1 |  |  |  |  |  |  |  |
+| FGR | WHI16 | 10 |  |  |  |  |  |  |  |
+| FGR | WHI16 | 100 |  |  |  |  |  |  |  |
+| FGR | WHI36 | - |  |  |  |  |  |  |  |
+| FGR | WHI36 | 1 |  |  |  |  |  |  |  |
+| FGR | WHI36 | 10 |  |  |  |  |  |  |  |
+| FGR | WHI36 | 100 |  |  |  |  |  |  |  |
+| Teaser++ | FPFH | - |  |  |  |  |  |  |  |
+| Teaser++ | FPFH | 1 |  |  |  |  |  |  |  |
+| Teaser++ | FPFH | 10 |  |  |  |  |  |  |  |
+| Teaser++ | FPFH | 100 |  |  |  |  |  |  |  |
+| Teaser++ | WHI16 | - |  |  |  |  |  |  |  |
+| Teaser++ | WHI16 | 1 |  |  |  |  |  |  |  |
+| Teaser++ | WHI16 | 10 |  |  |  |  |  |  |  |
+| Teaser++ | WHI16 | 100 |  |  |  |  |  |  |  |
+| Teaser++ | WHI36 | - |  |  |  |  |  |  |  |
+| Teaser++ | WHI36 | 1 |  |  |  |  |  |  |  |
+| Teaser++ | WHI36 | 10 |  |  |  |  |  |  |  |
+| Teaser++ | WHI36 | 100 |  |  |  |  |  |  |  |
+
+Teaser++ alignments with different local feature descriptors.
+Therotationandtranslationaccuracyofthemethodswithlocal
+feature descriptors WHI16, WHI36 exceeds the accuracy of
+the methods with FPFH, while the runtime of methods with
+feature WHI16 is the shortest for feature radius more than 50
+cm.Infigures2and3,wecannoticethatpointcloudregistra-
+tion translation accuracy is less than the downsampling level
+
+: 100% cases below accuracy 0.03 rad and 1 cm : 90% cases below accuracy 0.03 rad and 1 cm : less 90% cases below accuracy 0.03 rad and 1 cm : 100% ceses below runtime 5 s : 100% cases below runtime 10 s : less 100% cases below runtime 10 s
+
+for feature radius 150 cm or less. Voxel Grid Downsampling(a) Rotation estimation (b) Translation estimation (c) Runtime estimation
+Fig. 2: FGR FPFH vs FGR WHI16 vs FGR WHI36.
+(a) Rotation estimation (b) Translation estimation (c) Runtime estimation
+Fig. 3: Teaser++ FPFH vs Teaser++ WHI16 vs Teaser++ WHI36.
+accuracy and runtime, that is the optimal range of the feature the FPFH feature. Based on the results with the synthetic
+radius satisfying some accuracy and runtime requirements of dataset, it cannot be reliably determined feature descriptor is
+real applications. best used in a real application. But the results on real data
+show the superiority of WHI feature over FPFH. Therefore
+C. Accuracyandruntimeanalysisofhybridapproaches:FGR we recommend using WHI feature in the feature radius range
+and Teaser++ with ICP before 150 cm, and for more feature radius to use FPFH.
+WeusedFGRandTeaser++withICPasahybridapproach. VI. CONCLUSION
+TableIIIshowsthesummaryevaluationofFGRandTeaser++ In this paper, we proposed the approach to mixed real-
+for different types and parameters of local feature descriptors ity cross-devices localization and show its performance and
+and ICP iterations. The table shows the radius ranges of the limitations. We estimated the efficiency of four point cloud
+feature descriptors that correspond to the defined accuracy registration methods: Go-ICP, Bayesian-ICP, FGR, Teaser++
+and execution time criteria. The table III can be useful in onrealpointcloudsofroomsobtainedbyMicrosoftHoloLens
+determining the optimal feature radius range needed to solve (1stand2ndgen)MRdevices.Featurecorrespondences-based
+the collaborative localization problem. After our tests, we can methods: FGR and Teaser++ showed milliseconds runtime
+notice an increase in registration accuracy for all features efficiency and a high probability of successful alignments
+radius,notmorethan150cm.Thereisnoincreaseinaccuracy compared with ICP based methods: Go-ICP, Bayesian-ICP.
+for the WHI16 feature radius of more than 150 cm. It appears We tested a new WHI feature descriptor for the point cloud
+because the FGR and Teaser++ methods have poor accuracy registration method. On synthetic data, we tested a hybrid
+fortheWHI16featureradiusgreaterthan150cm.Thiscreates approach and provided the table with different algorithm pa-
+faulty initialization for ICP and as a result, ICP falls to a rametersandperformanceforco-localizationMRdevices.For
+local minimum. It is significant that the hybrid approach for co-localization MR devices in a real scenario, we recommend
+FPFH feature radius of more than 150 cm lets ICP converge using WHI feature descriptor with feature radius before 150
+to a global minimum. The accuracy of FGR and Teaser++ cm,asitismorerobusttointerferenceanddescriptiveonreal
+for FPFH feature the radius of more than 150 cm is greater data compared to FPFH.
+than for WHI feature type. It is possible that WHI for a In future works, we would like to extend the approach
+large feature radius partially loses its descriptiveness, unlike for co-localization of the multi-robot system and multi mixedreality device in one space. We will investigate the methods [23] M. J. Black and A. Rangarajan, “On the unification of line processes,
+for localization of MR devices in large pre-built and labeled outlierrejection,androbuststatisticswithapplicationsinearlyvision,”
+Internationaljournalofcomputervision,vol.19,no.1,pp.57–91,1996.
+maps.
+[24] H. Yang and L. Carlone, “A polynomial-time solution for robust reg-
+istration with extreme outlier rates,” arXiv preprint arXiv:1903.08588,
+REFERENCES
+2019.
+[1] Microsoft, “Azure spatial anchors,” https://azure.microsoft.com/en- [25] H. Yang, P. Antonante, V. Tzoumas, and L. Carlone, “Graduated non-
+us/services/spatial-anchors/,2019(accessedNovember11,2021). convexity for robust spatial perception: From non-minimal solvers to
+[2] Niantic, “Niantic lightship,” https://lightship.dev/, 2015 (accessed
+globaloutlierrejection,”IEEERoboticsandAutomationLetters,vol.5,
+November11,2021). no.2,pp.1127–1134,2020.
+[3] G. Developers, “Share ar experiences with cloud anchors — arcore,” [26] “Pointcloudlibrary(pcl),”https://pointclouds.org/,2020.
+https:// developers.google.com/ar/develop/java/cloud-anchors/overview-
+android,2018(accessedNovember11,2021).
+[4] M.Dusmanu,O.Miksik,J.L.Scho¨nberger,andM.Pollefeys,“Cross-
+descriptor visual localization and mapping,” in Proceedings of the
+IEEE/CVF International Conference on Computer Vision, 2021, pp.
+6058–6067.
+[5] P. C. Ng and S. Henikoff, “Sift: Predicting amino acid changes that
+affect protein function,” Nucleic acids research, vol. 31, no. 13, pp.
+3812–3814,2003.
+[6] Y. Tian, X. Yu, B. Fan, F. Wu, H. Heijnen, and V. Balntas, “Sosnet:
+Second order similarity regularization for local descriptor learning,”
+in Proceedings of the IEEE/CVF Conference on Computer Vision and
+PatternRecognition,2019,pp.11016–11025.
+[7] T. Sun, G. Liu, S. Liu, F. Meng, L. Zeng, and R. Li, “An efficient
+andcompact3dlocaldescriptorbasedontheweightedheightimage,”
+InformationSciences,vol.520,pp.209–231,2020.
+[8] R. B. Rusu, N. Blodow, and M. Beetz, “Fast point feature histograms
+(fpfh) for 3d registration,” in 2009 IEEE international conference on
+roboticsandautomation. IEEE,2009,pp.3212–3217.
+[9] P. J. Besl and N. D. McKay, “Method for registration of 3-d shapes,”
+inSensorfusionIV:controlparadigmsanddatastructures,vol.1611.
+InternationalSocietyforOpticsandPhotonics,1992,pp.586–606.
+[10] S. Granger and X. Pennec, “Multi-scale em-icp: A fast and robust
+approachforsurfaceregistration,”inEuropeanConferenceonComputer
+Vision. Springer,2002,pp.418–432.
+[11] L.Maier-Hein,A.M.Franz,T.R.DosSantos,M.Schmidt,M.Fangerau,
+H.-P.Meinzer,andJ.M.Fitzpatrick,“Convergentiterativeclosest-point
+algorithm to accomodate anisotropic and inhomogenous localization
+error,”IEEEtransactionsonpatternanalysisandmachineintelligence,
+vol.34,no.8,pp.1520–1532,2011.
+[12] D.Chetverikov,D.Stepanov,andP.Krsek,“Robusteuclideanalignment
+of 3d point sets: the trimmed iterative closest point algorithm,” Image
+andvisioncomputing,vol.23,no.3,pp.299–309,2005.
+[13] S.Kaneko,T.Kondo,andA.Miyamoto,“Robustmatchingof3dcon-
+toursusingiterativeclosestpointalgorithmimprovedbym-estimation,”
+PatternRecognition,vol.36,no.9,pp.2041–2047,2003.
+[14] J. Yang, H. Li, D. Campbell, and Y. Jia, “Go-icp: A globally optimal
+solutionto3dicppoint-setregistration,”IEEEtransactionsonpattern
+analysisandmachineintelligence,vol.38,no.11,pp.2241–2254,2015.
+[15] D.R.Morrison,S.H.Jacobson,J.J.Sauppe,andE.C.Sewell,“Branch-
+and-boundalgorithms:Asurveyofrecentadvancesinsearching,branch-
+ing,andpruning,”DiscreteOptimization,vol.19,pp.79–102,2016.
+[16] F.A.Maken,F.Ramos,andL.Ott,“Estimatingmotionuncertaintywith
+bayesianicp,”in2020IEEEInternationalConferenceonRoboticsand
+Automation(ICRA). IEEE,2020,pp.8602–8608.
+[17] ——, “Speeding up iterative closest point using stochastic gradient
+descent,”in2019InternationalConferenceonRoboticsandAutomation
+(ICRA). IEEE,2019,pp.6395–6401.
+[18] M. Welling and Y. W. Teh, “Bayesian learning via stochastic gradient
+langevindynamics,”inProceedingsofthe28thinternationalconference
+onmachinelearning(ICML-11). Citeseer,2011,pp.681–688.
+[19] Q.-Y. Zhou, J. Park, and V. Koltun, “Fast global registration,” in
+European Conference on Computer Vision. Springer, 2016, pp. 766–
+782.
+[20] H.Yang,J.Shi,andL.Carlone,“Teaser:Fastandcertifiablepointcloud
+registration,”IEEETransactionsonRobotics,2020.
+[21] Y.Guo,M.Bennamoun,F.Sohel,M.Lu,J.Wan,andN.M.Kwok,“A
+comprehensiveperformanceevaluationof3dlocalfeaturedescriptors,”
+International Journal of Computer Vision, vol. 116, no. 1, pp. 66–89,
+2016.
+[22] D.GemanandC.Yang,“Nonlinearimagerecoverywithhalf-quadratic
+regularization,” IEEE transactions on Image Processing, vol. 4, no. 7,
+pp.932–946,1995.

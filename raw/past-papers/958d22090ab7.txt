@@ -1,0 +1,81 @@
+[2021] Physics 2. Electrical Engineering
+
+Quiz 5 – Semiconductor Diodes
+Problem 1 (25 pts) – Forward Bias
+Determine which diodes are forward-biased and which are reverse-biased in the configurations
+shown in Figure 1 (left), assuming the offset voltage to be 0.7 V. Fill out the answers (‘√’ and ‘X’
+symbols) in the table below. Make sure to provide solution/justification for your answers as well.
+Diode Forward Reverse
+D1
+D2
+D3
+D4
+Problem 2 (25 pts) – Voltage Range
+For the circuit of Fig. 1 (right), find the range of Vin for which D1 is forward-biased. Assume diode’s
+offset voltage to be 0.7 V.
+0V
+
+R
++5 V
+0V
+
++
+
+D1
+D2
+
+-5 V
+
+D3
+
+-10 V
+
+D4
+
+Vin
+
+1 kW
+
++
+D1
+
+500 W
+2V
+
+-
+
+Vo
+
+-
+
+Figure 1. Circuits for Problem 1 (left) and Problem 2 (right)
+Problem 3 (25 pts) – Diode Circuit
+Consider the circuit shown in Fig. 2, left. Determine whether the ideal diode is conducting or not.
+Problem 4 (25 pts) – LED
+Assume you are making a digital circuit which should turn a red LED on if both signals x and y are ON
+(+5 V), as shown in Fig. 2 (right). The following specs of the LED are given: offset voltage 2 V,
+minimum current (required to turn ON) Imin = 1 mA, maximum power (exceeding which may destroy
+the LED) Pmax = 100 mW. Find the range of resistance values R suitable to support this circuit.
+
+Vi =
+12 V
+
+5W
+
+- vD +
+
+10 W
+
++5 V
+VB =
+10 V
+
+x
+LED
+y
+
+Figure 2. Circuits for Problem 3 (left) and Problem 4 (right)
+
+R
+
+

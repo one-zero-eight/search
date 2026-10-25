@@ -1,0 +1,255 @@
+VARIANT 1
+Full name:
+
+Group:
+
+Task:
+Score:
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+Total
+
+1. (4 points) Find the distance from the point (1, 1, −1) to the line of intersection of the planes
+x + y + z = 1 and 2x − y − 5z = 1.
+2. (4 points) Two vertices of a triangle are (4, −3) and (−2, 5). If the orthocenter (intersection
+of altitudes) of the triangle is at (1, 2), find the coordinates of the third vertex.
+3. (5 points)
+
+
+1
+(a) Solve the system Aw = b, where w = (x,y,z). A = −1
+5
+
+−3
+2
+−13
+
+
+ 
+1
+4
+−5, b = 3
+13
+8
+
+(b) Draw relative positions of the planes that correspond to equations.
+4. (5 points) Find the distance between the parallel planes 2x−y+2z+2 = 0, 6x−3y+6z−4 = 0.
+5. (5 points) Diagonals of a rhombus intersect at point M (1; 2), the longest of them being
+parallel to a horizontal axis. The side of the rhombus equals 2 and its obtuse angle is 120◦ .
+Compose the equations of the sides of this rhombus in canonical form.
+6. (6 points) Find the transition matrix from basis (x1 , y1 ) to the basis (x2 , y2 ).
+
+7. (6 points) Apex S of a regular quadrilateral pyramid (four edges form a base, all base edges
+are equal) SABCD has coordinates (0, 0, 0) in some Cartesian coordinate system. It’s also
+known that vertices A and C have coordinates (−3, 2, −6) and (1, 4, 2) respectively.
+(a) Find coordinates of vertices B and C.
+(b) Find the volume of the pyramid.
+(c) Find the distance from vertex A to the plane CDS.
+(d) Find the distance between lines AB and DS.
+
+VARIANT 2
+Full name:
+
+Group:
+
+Task:
+Score:
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+Total
+
+1. (4 points) Find the distance from the point (1, 1, −1) to the line of intersection of the planes
+x + y + z = 1 and 2x − y − 5z = 1.
+2. (4 points) Two vertices of a triangle are (4, −3) and (−2, 5). If the orthocenter (intersection
+of altitudes) of the triangle is at (1, 2), find the coordinates of the third vertex.
+3. (5 points)
+
+1
+(a) Solve the system Aw = b, where w = (x,y,z). A = 1
+5
+
+−3
+−2
+−13
+
+
+ 
+1
+4
+5 , b = −5
+13
+8
+
+(b) Draw relative positions of the planes that correspond to equations.
+4. (5 points) Find the distance between the parallel planes x+2y+2z−4 = 0, 3x+6y+6z+1 = 0.
+5. (5 points) Diagonals of a rhombus intersect at point M (1; 2), the longest of them being
+parallel to a vertical axis. The side of the rhombus equals 2 and its obtuse angle is 120◦ .
+Compose the equations of the sides of this rhombus in parametric form.
+6. (6 points) Find the transition matrix from basis (x2 , y2 ) to the basis (x3 , y3 ).
+
+7. (6 points) Apex S of a regular quadrilateral pyramid (four edges form a base, all base edges
+are equal) SABCD has coordinates (0, 0, 0) in some Cartesian coordinate system. It’s also
+known that vertices A and C have coordinates (−3, 2, −6) and (1, 4, 2) respectively.
+(a) Find coordinates of vertices B and C.
+(b) Find the volume of the pyramid.
+(c) Find the distance from vertex A to the plane CDS.
+(d) Find the distance between lines AB and DS.
+
+Page 2
+
+VARIANT 3
+Full name:
+
+Group:
+
+Task:
+Score:
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+Total
+
+1. (4 points) Find the distance from the point (1, 1, −1) to the line of intersection of the planes
+x + y + z = 1 and 2x − y − 5z = 1.
+2. (4 points) Two vertices of a triangle are (4, −3) and (−2, 5). If the orthocenter (intersection
+of altitudes) of the triangle is at (1, 2), find the coordinates of the third vertex.
+3. (5 points)
+
+1
+(a) Solve the system Aw = b, where w = (x,y,z). A = 1
+5
+
+
+ 
+−3
+1
+4
+−1 −1, b = 2
+−13 13
+8
+
+(b) Draw relative positions of the planes that correspond to equations.
+4. (5 points) Find the distance between the parallel planes 2x+y−2z+5 = 0, 4x+2y−4z+3 = 0.
+5. (5 points) Diagonals of a rhombus intersect at point M (2; 1), the longest of them being
+parallel to a horizontal axis. The side of the rhombus equals 2 and its obtuse angle is 120◦ .
+Compose the equations of the sides of this rhombus in general form.
+6. (6 points) Find the transition matrix from basis (x3 , y3 ) to the basis (x1 , y1 ).
+
+7. (6 points) Apex S of a regular quadrilateral pyramid (four edges form a base, all base edges
+are equal) SABCD has coordinates (0, 0, 0) in some Cartesian coordinate system. It’s also
+known that vertices A and C have coordinates (−3, 2, −6) and (1, 4, 2) respectively.
+(a) Find coordinates of vertices B and C.
+(b) Find the volume of the pyramid.
+(c) Find the distance from vertex A to the plane CDS.
+(d) Find the distance between lines AB and DS.
+
+Page 3
+
+VARIANT 4
+Full name:
+
+Group:
+
+Task:
+Score:
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+Total
+
+1. (4 points) Find the distance from the point (1, 1, −1) to the line of intersection of the planes
+x + y + z = 1 and 2x − y − 5z = 1.
+2. (4 points) Two vertices of a triangle are (4, −3) and (−2, 5). If the orthocenter (intersection
+of altitudes) of the triangle is at (1, 2), find the coordinates of the third vertex.
+3. (5 points)
+
+2
+(a) Solve the system Aw = b, where w = (x,y,z). A = 2
+2
+
+1
+1
+1
+
+
+ 
+−3
+4
+1 , b = 4
+−1
+4
+
+(b) Draw relative positions of the planes that correspond to equations.
+4. (5 points) Find the distance between the parallel planes 2x−2y−z−3 = 0, 6x−6y−3z−2 = 0.
+5. (5 points) Diagonals of a rhombus intersect at point M (−1; −2), the longest of them being
+parallel to a vertical axis. The side of the rhombus equals 2 and its obtuse angle is 120◦ .
+Compose the equations of the sides of this rhombus in slope intercept form.
+6. (6 points) Find the transition matrix from basis (x3 , y3 ) to the basis (x2 , y2 ).
+
+7. (6 points) Apex S of a regular quadrilateral pyramid (four edges form a base, all base edges
+are equal) SABCD has coordinates (0, 0, 0) in some Cartesian coordinate system. It’s also
+known that vertices A and C have coordinates (−3, 2, −6) and (1, 4, 2) respectively.
+(a) Find coordinates of vertices B and C.
+(b) Find the volume of the pyramid.
+(c) Find the distance from vertex A to the plane CDS.
+(d) Find the distance between lines AB and DS.
+
+Page 4
+
+

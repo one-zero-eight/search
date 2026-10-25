@@ -1,0 +1,16 @@
+{
+ "title": "Номер телефона для консультирования поступающих из Белгородской, Курской, Брянской областей, а также участников специальной военной операции на территориях Украины, ДНР, ЛНР, Запорожской области и Херсонской области и их детьми",
+ "url": "https://innopolis.university/upload/iblock/873/fcouu4g0zizdfrztym43pp3rf8hk86he/contacts_phone_reception.pdf",
+ "sha256": "93cca4a670b24450b7eb165048891efe8e56085678e31adad6107a9bee9291e9",
+ "method": "text layer (pdfplumber)",
+ "chars": 438,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-25T00:00:12+00:00",
+ "remote": {
+  "etag": "\"6681c7e6-12a4b\"",
+  "modified": "Sun, 30 Jun 2024 21:02:30 GMT",
+  "size": "76363"
+ }
+}

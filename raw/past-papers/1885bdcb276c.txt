@@ -1,0 +1,220 @@
+Probability & Statistics. Midterm Examination 2021. Problem Set 1. Part 1
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 1, 2, 3 on the
+same sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for
+solving problems as well.
+I am aware that using any electronic devices (except for calculators), books etc. during the examination, as
+well as communicating with other students, is strictly prohibited. Only one handwritten informational sheet is
+allowed. Any violation of these rules immediately leads to test cancellation. Signature
+(︀
+)︀
+1. Random variable 𝜉 has a normal distribution, and it is known that E 𝜉 = −6, E (3𝜉 − 2)(2𝜉 + 3) =
+330. Determine the probability that 𝜉 ∈ (−16.85; 2.7).
+2. Points 𝑃 , 𝑄, 𝑅, 𝑆 belong to sides 𝐴𝐵, 𝐵𝐶, 𝐶𝐷, 𝐷𝐴 of parallelogram 𝐴𝐵𝐶𝐷 respectively, and
+𝐴𝑃 : 𝑃 𝐵 = 𝐵𝑄 : 𝑄𝐶 = 𝐶𝑅 : 𝑅𝐷 = 𝐷𝑆 : 𝑆𝐴 = 1 : 4. Line segments 𝑃 𝑄, 𝑄𝑅, 𝑅𝑆, 𝑆𝑃 divide the
+parallelogram into 5 parts. Six points are chosen at random inside 𝐴𝐵𝐶𝐷.
+(a) Find the probability that there are no points inside quadrilateral 𝑃 𝑄𝑅𝑆.
+(b) Find the probability that at least one of the parts does not contain any points.
+3. Random variables 𝜉 and 𝜂 are independent and exponentially distributed with parameters 2 and 7
+respectively. Find the probability density of 𝜁 = 𝜉 − 2𝜂.
+
+Probability & Statistics. Midterm Examination 2021. Problem Set 1. Part 2
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 4, 5, 6 on the
+same sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for
+solving problems as well.
+I am aware that using any electronic devices (except for calculators), books etc. during the examination, as
+well as communicating with other students, is strictly prohibited. Only one handwritten informational sheet is
+allowed. Any violation of these rules immediately leads to test cancellation. Signature
+4. Some probabilities of a joint distribution of random variables 𝜉 and 𝜂 are given in a table below (𝑥
+and 𝑦 are not given).
+𝜂∖𝜉
+−2
+
+−1
+
+0
+
+1
+
+1
+21
+
+8
+21
+
+2
+
+𝑥
+
+4
+21
+3
+21
+
+𝑦
+
+(a) Find E 𝜂 and Var 𝜂.
+(b) Find all possible values of Cov (𝜉, 𝜂).
+(c) Are there any values of 𝑥 and 𝑦 such that random variables 𝜉 and 𝜂 are independent? uncorrelated?
+5. Four cards were lost out of a deck of 52 cards (4 suits, 13 cards of each suit). Four cards are chosen
+at random from the remaining 48 cards. What is the probability that the cards are of exactly two
+different colours?
+6. Random variable 𝑍 has a normal distribution with parameters E 𝑍 = 5, Var 𝑍 = 𝜎 2 . Find the value
+of 𝜎 > 0 such that 𝑃 (6 < 𝑍 < 15) reaches its maximum.
+
+Probability & Statistics. Midterm Examination 2021. Problem Set 2. Part 1
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 1, 2, 3 on the
+same sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for
+solving problems as well.
+I am aware that using any electronic devices (except for calculators), books etc. during the examination, as
+well as communicating with other students, is strictly prohibited. Only one handwritten informational sheet is
+allowed. Any violation of these rules immediately leads to test cancellation. Signature
+(︀
+)︀
+1. Random variable 𝜉 has a normal distribution, and it is known that E 𝜉 = 3, E (2−𝜉)(1−3𝜉) = −157.
+Determine the probability that 𝜉 ∈ (−5.82; 5.66).
+2. Points 𝑃 , 𝑄, 𝑅, 𝑆 belong to sides 𝐴𝐵, 𝐵𝐶, 𝐶𝐷, 𝐷𝐴 of parallelogram 𝐴𝐵𝐶𝐷 respectively, and
+𝐴𝑃 : 𝑃 𝐵 = 𝐵𝑄 : 𝑄𝐶 = 𝐶𝑅 : 𝑅𝐷 = 𝐷𝑆 : 𝑆𝐴 = 3 : 2. Line segments 𝑃 𝑄, 𝑄𝑅, 𝑅𝑆, 𝑆𝑃 divide the
+parallelogram into 5 parts. Six points are chosen at random inside 𝐴𝐵𝐶𝐷.
+(a) Find the probability that there are no points inside quadrilateral 𝑃 𝑄𝑅𝑆.
+(b) Find the probability that at least one of the parts does not contain any points.
+3. Random variables 𝜉 and 𝜂 are independent and exponentially distributed with parameters 4 and 3
+respectively. Find the probability density of 𝜁 = 3𝜉 − 𝜂.
+
+Probability & Statistics. Midterm Examination 2021. Problem Set 2. Part 2
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 4, 5, 6 on the
+same sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for
+solving problems as well.
+I am aware that using any electronic devices (except for calculators), books etc. during the examination, as
+well as communicating with other students, is strictly prohibited. Only one handwritten informational sheet is
+allowed. Any violation of these rules immediately leads to test cancellation. Signature
+4. Some probabilities of a joint distribution of random variables 𝜉 and 𝜂 are given in a table below (𝑥
+and 𝑦 are not given).
+𝜂∖𝜉
+−2
+
+−1
+
+0
+
+1
+
+5
+26
+
+1
+26
+
+2
+
+𝑥
+
+3
+26
+7
+26
+
+𝑦
+
+(a) Find E 𝜂 and Var 𝜂.
+(b) Find all possible values of Cov (𝜉, 𝜂).
+(c) Are there any values of 𝑥 and 𝑦 such that random variables 𝜉 and 𝜂 are independent? uncorrelated?
+5. Five cards were lost out of a deck of 48 cards (4 suits, 12 cards of each suit). Four cards are chosen
+at random from the remaining 43 cards. What is the probability that the cards are of exactly two
+different colours?
+6. Random variable 𝑍 has a normal distribution with parameters E 𝑍 = −2, Var 𝑍 = 𝜎 2 . Find the
+value of 𝜎 > 0 such that 𝑃 (−1 < 𝑍 < 10) reaches its maximum.
+
+Probability & Statistics. Midterm Examination 2021. Problem Set 3. Part 1
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 1, 2, 3 on the
+same sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for
+solving problems as well.
+I am aware that using any electronic devices (except for calculators), books etc. during the examination, as
+well as communicating with other students, is strictly prohibited. Only one handwritten informational sheet is
+allowed. Any violation of these rules immediately leads to test cancellation. Signature
+(︀
+)︀
+1. Random variable 𝜉 has a normal distribution, and it is known that E 𝜉 = −2, E (2𝜉 + 5)(2𝜉 + 1) =
+141. Determine the probability that 𝜉 ∈ (−18.92; −6.38).
+2. Points 𝑃 , 𝑄, 𝑅, 𝑆 belong to sides 𝐴𝐵, 𝐵𝐶, 𝐶𝐷, 𝐷𝐴 of parallelogram 𝐴𝐵𝐶𝐷 respectively, and
+𝐴𝑃 : 𝑃 𝐵 = 𝐵𝑄 : 𝑄𝐶 = 𝐶𝑅 : 𝑅𝐷 = 𝐷𝑆 : 𝑆𝐴 = 1 : 3. Line segments 𝑃 𝑄, 𝑄𝑅, 𝑅𝑆, 𝑆𝑃 divide the
+parallelogram into 5 parts. Six points are chosen at random inside 𝐴𝐵𝐶𝐷.
+(a) Find the probability that there are no points inside quadrilateral 𝑃 𝑄𝑅𝑆.
+(b) Find the probability that at least one of the parts does not contain any points.
+3. Random variables 𝜉 and 𝜂 are independent and exponentially distributed with parameters 3 and 5
+respectively. Find the probability density of 𝜁 = 𝜉 − 3𝜂.
+
+Probability & Statistics. Midterm Examination 2021. Problem Set 3. Part 2
+Name
+
+Group Number
+
+Solutions for each part of the examination have to be written on separate sheets! You can use a single
+sheet for several problems from one part of the examination (i.e. you can write solutions 4, 5, 6 on the
+same sheet). Do not forget to sign all the sheets you submit. You can use the sheet with the tasks for
+solving problems as well.
+I am aware that using any electronic devices (except for calculators), books etc. during the examination, as
+well as communicating with other students, is strictly prohibited. Only one handwritten informational sheet is
+allowed. Any violation of these rules immediately leads to test cancellation. Signature
+4. Some probabilities of a joint distribution of random variables 𝜉 and 𝜂 are given in a table below (𝑥
+and 𝑦 are not given).
+𝜂∖𝜉
+−2
+
+−1
+
+0
+
+1
+
+6
+22
+
+3
+22
+
+2
+
+𝑥
+
+5
+22
+1
+22
+
+𝑦
+
+(a) Find E 𝜂 and Var 𝜂.
+(b) Find all possible values of Cov (𝜉, 𝜂).
+(c) Are there any values of 𝑥 and 𝑦 such that random variables 𝜉 and 𝜂 are independent? uncorrelated?
+5. Six cards were lost out of a deck of 44 cards (4 suits, 11 cards of each suit). Four cards are chosen
+at random from the remaining 38 cards. What is the probability that the cards are of exactly two
+different colours?
+6. Random variable 𝑍 has a normal distribution with parameters E 𝑍 = 4, Var 𝑍 = 𝜎 2 . Find the value
+of 𝜎 > 0 such that 𝑃 (−8 < 𝑍 < −1) reaches its maximum.
+
+

@@ -1,0 +1,196 @@
+DSA final sample
+
+3
+
+TASK C
+
+DSA Final Sample
+1
+
+Task A
+
+Write all possible topological sortings for this graph.
+A
+
+B
+C
+
+D
+
+E
+
+2
+
+F
+
+Task B
+
+Write recursive function for time complexity and calculate it using Master Theorem
+1
+2
+3
+4
+5
+6
+
+function process(P):
+Q1 = new priority queue (min-heap)
+Q2 = new priority queue (max-heap)
+count = 0
+sum = 0
+n = P.size()
+
+7
+
+while not P.empty():
+element = P.extract()
+count += 1
+
+8
+9
+10
+11
+
+if element < 10:
+sum += element * element
+
+12
+13
+14
+
+if count <= n/3:
+Q1.insert(element)
+else if count <= 2*n/3:
+Q2.insert(element)
+
+15
+16
+17
+18
+19
+
+sum = sum + process(Q1) + process(Q2)
+return sum
+
+20
+21
+
+3
+
+Task C
+
+Compare functions by time complexity
+f (n)
+n2
+nn
+n+1 n
+( n )
+1
+log n2
+n log n
+sin(n)
+
+g(n)
+2n
+n!
+1
+0
+log2 n
+log n!
+1
+
+f (n) = o(g(n))
+
+f (n) = O(g(n))
+
+1
+
+f (n) = ω(g(n))
+
+f (n) = Ω(g(n))
+
+f (n) = Θ(g(n))
+
+4
+
+Task D
+
+Iterate Dijkstra algorithm with Priority Queue. For each iteration write array representation of
+Binary-Heap (so you need to have 6 arrays).
+5
+
+E
+
+B
+
+6
+
+8
+9
+
+A
+
+5
+
+7
+F
+
+8
+4
+
+5
+
+C
+D
+
+5
+
+4
+
+Task E
+
+Run Edmond-Karp algorithm. Write all pathes you came through. Show min-cut and residual network.
+A
+
+4
+
+C
+10
+
+10
+2
+
+S
+
+8
+
+6
+
+10
+
+10
+B
+
+6
+
+T
+
+9
+
+D
+
+Task F
+
+Consider sorting a collection of phrases using Radix-Sort, considering each word as a ”digit” of a
+phrase:
+• Each phrase is a list of at most w words.
+• Each word is a list of at most s symbols.
+• Each symbol comes from an alphabet of size a.
+What is the time complexity for sorting p phrases in terms of p, w, s and a, if:
+1. words are sorted using Bubble-Sort (worst case)
+2. words are sorted using Bucket-Sort (average case, bucket distribution is O(s))
+3. words are sorted using Radix-Sort (average case, symbols as tokens in inner Radix-Sort)
+
+2
+
+

@@ -1,0 +1,137 @@
+The final assignment (final overall examination) on Mathematical Analysis
+(Innopolis University, Fall semester 2024, BS-I)
+
+Assignment Description
+Overall cost of the assignment is 40 points. This assignment is designed to evaluate how do we understand
+topics of the course and each other during the Fall semester of Academic Year 2024/25. It covers the
+following topics:
+• Varieties of number systems (axiomatic and set-theoretic approaches)
+• Theory of limits and continuity
+• Differentiation, derivatives, and differential
+• Antiderivative and indefinite integral
+
+Assignment Specification
+1. It comprises 13 tasks (questions/exercises), 9 tasks for the first 3 topics and 4 tasks for the last one.
+2. Student attempting the tasks must build a table of size 13x2 where for each of 13 tasks from the list
+below and indicate in the table his/her belief
+a. whether he/she doesn’t understand the task (by putting 0),
+b. or he/she understands the task but not sure how to solve the task (by putting 1),
+c. or he/she can solve the task (by putting 2).
+3. Provide solutions/answers for 3 (not more than three) tasks that you think that you understand and
+can solve as proof/evidence/justification for your belief (in the filled-in table).
+a. two of provided solution/answer should be for any of tasks 1-9 (but for different topics would
+be better),
+b. the third of provided solution/answer should be for any of tasks 10-13.
+
+Submission and grading rules
+Please write your table and solutions on a paper in a readable way, make photos/scan, and upload as a
+single pdf-document to Moodle by midnight from Thursday December 12 to Friday December 13,
+2024. File-name convention: submitted file should be named by student first name and surname (for
+example NikolayShilov.pdf).
+The main grading criterions
+•
+•
+•
+•
+•
+•
+
+human readable but concise written solutions (and its pdf-version)
+well-structuredness of the written solutions (up to 6 points for each solution)
+instructor may ask about oral presentation of any of 3 tasks that student believes knowing how to
+solve (according to student’s table to validate the table and student’s self-assessment)
+correct and complete oral presentation (up to 8 points for each correct solution)
+table itself costs 1 point (assuming it reflect student’s actual knowledge) while originality of presented
+solutions may be awarded by 1 point too
+non-crucial computational errors will be treated as tiny mistake (at most 1-point deduction for overall)
+
+Timeline and late submission policy
+•
+•
+•
+
+Publication of the Assignment document: Monday December 2, 2024.
+Consultation on the technical issues related to the assignment: Monday December 9, 2024, from 9:00
+to 10:00 in class 108.
+Due time for uploading of papers: midnight from Thursday December 12 to Friday December 13, 2024.
+
+•
+•
+
+Individual oral polls for all students: Friday December 13 and Saturday December 14, 2024, from 9:00
+to 17:00 in class 305.
+Schedulers for registration for oral polls will be published on Moodle by Tuesday December 10,
+2024.
+
+Late Submission Policy
+According to the Syllabus, the Late Submission Policy is not applicable to the final examination.
+
+Tasks
+In the following tasks and exercises natural number 𝑀 stays for a parameter which value is 𝑑𝑎𝑦 +
+𝑚𝑜𝑛𝑡ℎ where 𝑑𝑎𝑦 and 𝑚𝑜𝑛𝑡ℎ are the day and month of your personal birthdate. (For example, 𝑀 = 28
+if the day and the month are April 24.)
+Important notice: firstly, instantiate your actual value of this parameters into your task and just then
+solve this concrete instance (not a parameterized version)! For example, if a parameterized task is to
+solve linear equation 𝑀𝑥 = 100 then you need firstly instantiate actual value of 𝑀 (let it be 28 as
+above), then write the instance of the task (“Solve equation 28𝑥 = 100”), and finally – solve the
+instance.
+1. Based on Tarski axiomatization of reals, find and explain decimal representation for rational
+number 1⁄𝑀.
+2. Is real number 1⁄
+irrational? (Prove your answer!)
+√𝑀
+3. Prove that each imaginary number 𝑀𝑖 has a square root (i.e., there exist a complex number √𝑀𝑖
+2
+
+such that (√𝑀𝑖) = 𝑀𝑖).
+𝑛𝑀
+
+4. Using the definition of the sequence limit, proof that lim 𝑀𝑛 = 0.
+(𝑀−1)×𝑎𝑛 +𝑎𝑛+1
+
+𝑛→∞
+
+5. Let 𝑎0 = 1, 𝑎1 = 2 and 𝑎𝑛+2 =
+for all natural 𝑛. Is this sequence monotone,
+𝑀
+antimonotone, converging? Prove your answer using any theory covered in the lectures.
+6. Using definition, study continuity and asymptotic behavior of the function 𝜆𝑥 ∈
+𝑀
+𝑹. (𝑀𝑥 + (𝑥 − 𝑀)((−1) ) ).
+7. Find (using definition) derivative of the function 𝜆𝑥 ∈ 𝑹. (√𝑀𝑥(𝑥 + 𝑀)).
+8. Find (using any properties of the derivatives) the second derive of the function 𝜆𝑥 ∈
+𝑀
+𝑹. (𝑥 −𝑀 𝑒 ((−1) 𝑥) ).
+9. Analyze the graph of the function 𝜆𝑥 ∈ 𝑹. ( 𝑀√𝑥 − 1⁄𝑀 ) and sketch its graph on [−3, +3].
+√𝑥
+10. Does the function 𝜆𝑥 ∈ 𝑹. (√𝑀𝑥(𝑥 + 𝑀)) has any antiderivative? Find all antiderivatives for the
+function 𝜆𝑥 ∈ ]0, 𝑀[. (𝑀⁄𝑥 ) that are equal to 𝑀 at point 𝑒.
+11. Find ∫ 𝑓(𝑥)𝑑𝑥 for the following 𝑓(𝑥):
+a.
+
+(𝑀+𝑥)2
+
+;
+
+𝑀+𝑥 2
+𝑀
+.
+𝑥 2 −𝑀𝑥+6
+
+b.
+12. Using variable substitution find ∫ 𝑓(𝑥)𝑑𝑥 for the following 𝑓(𝑥):
+𝑀
+a. 𝑀+ 𝑥;
+√
+𝑀
+.
+1+𝑀𝑒 𝑥
+
+b.
+13. Using any integration technique find ∫ 𝑓(𝑥)𝑑𝑥 for the following 𝑓(𝑥):
+a. (sin 𝑥)(cos 𝑥)𝑀 ;
+b. (sin(𝑀𝑥) )2 (cos(𝑀𝑥))3 ;
+1
+c. (cos(𝑀𝑥))4.
+
+

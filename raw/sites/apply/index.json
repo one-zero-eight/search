@@ -1,0 +1,229 @@
+{
+ "docs": {},
+ "pages": {
+  "bachelors": {
+   "fetched_at": "2026-10-24T23:40:26+00:00",
+   "last_modified": "",
+   "sha256": "29af74a680e3bc2bff7e8eb41563bb0e63c51908746d1231ee65e94028bd50af",
+   "title": "Бакалавриат Университета Иннополис. Программы и поступление",
+   "url": "https://apply.innopolis.university/bachelors/"
+  },
+  "bachelors-ai-360": {
+   "fetched_at": "2026-10-24T23:39:47+00:00",
+   "last_modified": "",
+   "sha256": "da4ba9bdb874136cf29fa754e2261266d29cb992bbb289c9466b0af946c34749",
+   "title": "Инженерия данных. AI360. Бакалавриат Университет Иннополис.",
+   "url": "https://apply.innopolis.university/bachelors/AI-360/"
+  },
+  "bachelors-ds-ai": {
+   "fetched_at": "2026-10-24T23:39:42+00:00",
+   "last_modified": "",
+   "sha256": "c9dd42db8091c94032ef6353b26e66c1789700175439106f4fcebd60d28d8224",
+   "title": "Анализ данных и искусственный интеллект. Университет Иннополис.",
+   "url": "https://apply.innopolis.university/bachelors/DS-AI/"
+  },
+  "bachelors-ds-mai": {
+   "fetched_at": "2026-10-24T23:39:44+00:00",
+   "last_modified": "",
+   "sha256": "afbae4cf9d4c89e5d59fb437bfd037bb7949669185247ecc3d231e3a11192c52",
+   "title": "Математические основы ИИ. Бакалавриат Университет Иннополис.",
+   "url": "https://apply.innopolis.university/bachelors/DS-MAI/"
+  },
+  "bachelors-information-systems-engineering": {
+   "fetched_at": "2026-10-24T23:39:40+00:00",
+   "last_modified": "",
+   "sha256": "aa63c04fe460da5ff73392a7d7715a766d24b5a739751f27c68f036fb8196e04",
+   "title": "Инженерия информационных систем. Бакалавриат Университет Иннополис.",
+   "url": "https://apply.innopolis.university/bachelors/information-systems-engineering/"
+  },
+  "bachelors-mechatronics-robotics": {
+   "fetched_at": "2026-10-24T23:39:49+00:00",
+   "last_modified": "",
+   "sha256": "192c5ff5148b541c68a104d41915766b72e582b913238c5d69c0d0e41dd81318",
+   "title": "Мехатроника и робототехника. Бакалавриат Университет Иннополис.",
+   "url": "https://apply.innopolis.university/bachelors/mechatronics-robotics/"
+  },
+  "campus": {
+   "fetched_at": "2026-10-24T23:41:03+00:00",
+   "last_modified": "",
+   "sha256": "20257b6736f3a96036517572f8a4ddf1aa5f690ecb9e897072bfb79d856ba1c4",
+   "title": "Кампус Университета Иннополис",
+   "url": "https://apply.innopolis.university/campus/"
+  },
+  "en": {
+   "fetched_at": "2026-10-24T23:41:14+00:00",
+   "last_modified": "",
+   "sha256": "f432bfe0631eff1e7f9a2481ba5747a474206a953dc6443659bd40f34b6fb4fe",
+   "title": "Empty page",
+   "url": "https://apply.innopolis.university/en/"
+  },
+  "home": {
+   "fetched_at": "2026-10-24T23:37:01+00:00",
+   "last_modified": "",
+   "sha256": "d11130510e5933d0ad0c2f90c87be60eaddb50fdf1f5256f5456951974c648a8",
+   "title": "Абитуриентам Университета Иннополис",
+   "url": "https://apply.innopolis.university/"
+  },
+  "masters": {
+   "fetched_at": "2026-10-24T23:40:28+00:00",
+   "last_modified": "",
+   "sha256": "b04ca12e72487743d777f4b993958abd12ea99a2c6dd25953cdf50aff8d39e14",
+   "title": "Магистратура Университета Иннополис. Программы и поступление",
+   "url": "https://apply.innopolis.university/masters/"
+  },
+  "masters-cybersecurity": {
+   "fetched_at": "2026-10-24T23:39:57+00:00",
+   "last_modified": "",
+   "sha256": "fd181b010c59dceade26ea865b6960d5bb6aba97350ef4e6f6996623ebcb2e58",
+   "title": "Кибербезопасность. Магистратура Университет Иннополис.",
+   "url": "https://apply.innopolis.university/masters/cybersecurity/"
+  },
+  "masters-datascience": {
+   "fetched_at": "2026-10-24T23:40:02+00:00",
+   "last_modified": "",
+   "sha256": "0737af226e986685dadf0d84c01611ed40f21a35fb2aafd32a9b8a9eda3fe4a0",
+   "title": "Искусственный интеллект и инженерия данных. ПИШ. Университет Иннополис.",
+   "url": "https://apply.innopolis.university/masters/datascience/"
+  },
+  "masters-development": {
+   "fetched_at": "2026-10-24T23:39:54+00:00",
+   "last_modified": "",
+   "sha256": "39ea53e43dd451d2ed138b2e8d98461dc52d06f9e3db0d6b2bba5313a685656b",
+   "title": "Программная инженерия. ПИШ. Магистратура Университет Иннополис.",
+   "url": "https://apply.innopolis.university/masters/development/"
+  },
+  "masters-rocv": {
+   "fetched_at": "2026-10-24T23:39:52+00:00",
+   "last_modified": "",
+   "sha256": "86b566f7d80b0099c741f02a80c3b305a71d6a42ec80c381e8caac60dc2c4313",
+   "title": "Робототехника компьютерное зрение. Магистратура Университет Иннополис.",
+   "url": "https://apply.innopolis.university/masters/rocv/"
+  },
+  "masters-securityandnetworkengineering": {
+   "fetched_at": "2026-10-24T23:39:59+00:00",
+   "last_modified": "",
+   "sha256": "6febb0cc332b3d29fe6774e38e98d56221aff10bed3c893ae17ef468d9ad0de1",
+   "title": "Инженерия безопасности систем и сетей. ПИШ. Университет Иннополис.",
+   "url": "https://apply.innopolis.university/masters/securityandnetworkengineering/"
+  },
+  "msonline": {
+   "fetched_at": "2026-10-24T23:40:31+00:00",
+   "last_modified": "",
+   "sha256": "aaeb36da5c006848fa0b5b0b99b3fd6671a7308c269cb884e3d4440261362924",
+   "title": "Онлайн-магистратура Университета Иннополис",
+   "url": "https://apply.innopolis.university/msonline/"
+  },
+  "msonline-cybersecurity": {
+   "fetched_at": "2026-10-24T23:40:06+00:00",
+   "last_modified": "",
+   "sha256": "49d791f737137e5e4c1a81218df22aa0df9830fb8737d303f00862a17a981bec",
+   "title": "Кибербезопасность. Онлайн-магистратура. Университет Иннополис.",
+   "url": "https://apply.innopolis.university/msonline/cybersecurity/"
+  },
+  "msonline-ddm": {
+   "fetched_at": "2026-10-24T23:40:13+00:00",
+   "last_modified": "",
+   "sha256": "bd3756c783dcbd175c4c17b43def6abbc7138da514bfab11e0a2cab1fc6b1a4e",
+   "title": "Управление на основе данных. Университет Иннополис.",
+   "url": "https://apply.innopolis.university/msonline/ddm/"
+  },
+  "msonline-dpm": {
+   "fetched_at": "2026-10-24T23:40:08+00:00",
+   "last_modified": "",
+   "sha256": "a2a4cfd33d0652d09d2efd0b0892c524d3d7742d5a531b94d14d262f66c467b6",
+   "title": "Управление цифровым продуктом",
+   "url": "https://apply.innopolis.university/msonline/dpm/"
+  },
+  "msonline-gamedev": {
+   "fetched_at": "2026-10-24T23:40:11+00:00",
+   "last_modified": "",
+   "sha256": "eda2f242b9338452b499d15e02442b974b500465ae1e05df06d18fe53e6c62c7",
+   "title": "Управление разработкой компьютерных игр. Университет Иннополис.",
+   "url": "https://apply.innopolis.university/msonline/gamedev/"
+  },
+  "msonline-zerocoder": {
+   "fetched_at": "2026-10-24T23:41:21+00:00",
+   "last_modified": "",
+   "sha256": "00fef64e040fcc7f7fcf36496e66beed3bbe1f3d90d565a449dc0aadde2d45da",
+   "title": "ИТ-предпринимательство. Онлайн-магистратура Университет Иннополис.",
+   "url": "https://apply.innopolis.university/msonline/zerocoder/"
+  },
+  "olympiad-bonus": {
+   "fetched_at": "2026-10-24T23:40:44+00:00",
+   "last_modified": "",
+   "sha256": "a6eb6c1d0754826f776f079b5a12a80893c2a9fc8f0236ec8fca58b1f2603e73",
+   "title": "Олимпиадные бонусы поступающим в Университет Иннополис",
+   "url": "https://apply.innopolis.university/olympiad-bonus/"
+  },
+  "open-day": {
+   "fetched_at": "2026-10-24T23:40:59+00:00",
+   "last_modified": "",
+   "sha256": "82c42ed58b2a117611bb5cec5a8140e68d1891fff04f082d5a7edd36c3d76308",
+   "title": "День открытых дверей в Университете Иннополис. Очный и онлайн",
+   "url": "https://apply.innopolis.university/open-day/"
+  },
+  "possibilities": {
+   "fetched_at": "2026-10-24T23:40:39+00:00",
+   "last_modified": "",
+   "sha256": "73ce0af6d4ecbade397894a1e5156c702b62008063f9b094b37ef3b942415ce3",
+   "title": "Возможности обучения в бакалавриате Университета Иннополис",
+   "url": "https://apply.innopolis.university/possibilities/"
+  },
+  "possibilities-master": {
+   "fetched_at": "2026-10-24T23:41:19+00:00",
+   "last_modified": "",
+   "sha256": "d8990ca1603f5765ba73ec8da535a00494b39aa73acd73a21f64b2c5e649cf27",
+   "title": "Возможности обучения в магистратуре Университета Иннополис",
+   "url": "https://apply.innopolis.university/possibilities/master/"
+  },
+  "possibilities-postgraduate-study": {
+   "fetched_at": "2026-10-24T23:41:23+00:00",
+   "last_modified": "",
+   "sha256": "62d9db9c06df53023b270ebb31c189348b18316a727eff1de970fe206bd0b30e",
+   "title": "Возможности обучения в аспирантуре Университета Иннополис",
+   "url": "https://apply.innopolis.university/possibilities/postgraduate-study/"
+  },
+  "postgraduate-study": {
+   "fetched_at": "2026-10-24T23:40:33+00:00",
+   "last_modified": "",
+   "sha256": "f5890d908d11435f2e5f813788a47b8a4bf6cf8f6146200434f3ceac77849f7d",
+   "title": "Аспирантура Университета Иннополис",
+   "url": "https://apply.innopolis.university/postgraduate-study/"
+  },
+  "postgraduate-study-mathematical-modeling": {
+   "fetched_at": "2026-10-24T23:40:15+00:00",
+   "last_modified": "",
+   "sha256": "5e11821ed018bdb7304b25dfc5ce6b748ebac2aec8bf6ba3eac2fb61026bcb81",
+   "title": "Математическое моделирование, численные методы и комплексы программ. Аспирантура",
+   "url": "https://apply.innopolis.university/postgraduate-study/mathematical-modeling/"
+  },
+  "quotas": {
+   "fetched_at": "2026-10-24T23:40:48+00:00",
+   "last_modified": "",
+   "sha256": "77d7a2350a69cd9b87d36dbcc06f9575260dc075eaae08d1e72c0ad910c3c9a0",
+   "title": "Поступление по квоте в Университет Иннополис",
+   "url": "https://apply.innopolis.university/quotas/"
+  },
+  "scholarship": {
+   "fetched_at": "2026-10-24T23:40:42+00:00",
+   "last_modified": "",
+   "sha256": "9744200a87728544f1145c66cff7c7037dd769aa38ad140c0a069e3ec9733718",
+   "title": "Стипендии в Университете Иннополис. Условия получения",
+   "url": "https://apply.innopolis.university/scholarship/"
+  },
+  "sng": {
+   "fetched_at": "2026-10-24T23:40:53+00:00",
+   "last_modified": "",
+   "sha256": "8e8e14667087a70287ef33f7d36c7616e0c3329380946b3fcfde8fef8a6b917e",
+   "title": "Поступление граждан СНГ в Университет Иннополис",
+   "url": "https://apply.innopolis.university/sng/"
+  },
+  "spo": {
+   "fetched_at": "2026-10-24T23:40:50+00:00",
+   "last_modified": "",
+   "sha256": "c202dabc9d5e89a2b8aba1122206530a47e1277cce6eec30b0693fb2e274b66a",
+   "title": "Поступление на базе среднего профессионального образования",
+   "url": "https://apply.innopolis.university/spo/"
+  }
+ }
+}

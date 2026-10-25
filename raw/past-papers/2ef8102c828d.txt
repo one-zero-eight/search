@@ -1,0 +1,48 @@
+[2021] Physics 2. Electrical Engineering
+
+Quiz 1 – Resistive Circuits
+Problem 1 (25 pts) – Voltages and Currents
+Find the values of all unknown voltages and currents in the circuit shown in Figure 1, left.
+Problem 2 (25 pts) – Unknown Power
+In the circuit of Figure 1 (right), determine the power delivered by the current source.
+W
+
+W
+
+W
+A
+
+Figure 1: Electric circuits for Problem 1 (left) and Problem 2 (right)
+Problem 3 (25 points) – Equivalent Resistance
+Find the equivalent resistance between terminals a and b in the circuit of Figure 2 (left).
+Problem 4 (25 pts) – Power in Mixed Circuits
+In the circuit of Figure 2 (right), the power absorbed by the 15-W resistor is 15 W. Find R.
+W
+W
+
+W
+
+W
+
+W
+W
+
+W
+
+W
+
+W
+
+W
+
+W
+
+W
+
+W
+
+Figure 2: Electric circuits for Problem 3 (left) and Problem 4 (right)
+
+W
+
+

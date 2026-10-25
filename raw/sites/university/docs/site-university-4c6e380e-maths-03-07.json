@@ -1,0 +1,16 @@
+{
+ "title": "Вступительное испытание на программам бакалавриата \"Математика\" 03.07.2024",
+ "url": "https://innopolis.university/upload/iblock/9ad/mtp2rs0es9q5qp4u1prbhnuep31677x9/maths_03_07.pdf",
+ "sha256": "96f7fb33d5fdfbf7af2217da5282bc9cfa0822ac3451f3d6a365d1aa13f9eb30",
+ "method": "text layer (pdfplumber)",
+ "chars": 969,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-25T00:00:37+00:00",
+ "remote": {
+  "etag": "\"668c48fd-a049\"",
+  "modified": "Mon, 08 Jul 2024 20:15:57 GMT",
+  "size": "41033"
+ }
+}

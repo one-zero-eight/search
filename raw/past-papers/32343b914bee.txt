@@ -1,0 +1,60 @@
+Analytical Geometry and Linear Algebra I. Midterm Exam. October 23, 2024
+VARIANT 2
+
+Full name: Group:
+
+Task: | 1a | 1b | 1c || 2a | 2b | 2c [ 2d || 3 | Extra | Total
+Score:
+
+In each sheet, you should write your last name, first name, variant number, and group number
+in the upper right corner. Unsigned sheets or sheets without the information above will NOT
+BE graded. This assignment sheet must also be submitted along with your solution.
+
+Practice. Full grade is 30 pts. Maximum with extra task is 40 points
+
+1. Vector operations / Matrices.
+
+(a) (4 points) Suppose A, B and C are 4x4 matrices, and |A] = 3,|B| =4,|C| = 5. Find
+[3B] - |ATC| .
+
+(b) (4 points) Find the inverse of the matrix A = [g 3] .
+
+(c) (5 points) Find a vector that is orthogonal to both vy = (1,-1,1) and vz = (6,—-3,0)
+and which dot product with a vector vz = (3,2,3) equals to'10.
+
+2. Lines / Planes
+
+(a) (4 points) Find the angle between the planes z +y —4z =8, 4z +y -z = 8.
+(b) (4 points) What is the general equation of the plane which contains the following two
+parallel lines: ’T“l = 1%2 = z and 5;—3 B y;—4 =z-1
+(c) (5 points) Given two lines z = 3+2t,y = 10—3t,z = 3+4t and = = 1+3ty=1-2tz=
+1+ 3t
+i. Check whether two lines are parallel or skew.
+ii. Find the distance between the lines.
+(d) (5 points) Let the lines ax? + 2hzy + by? = 0 be the two sides of a parallelogram and
+the line kz + my = 1 be one of the diagonals.
+
+i. Draw the parallelogram and find the equation of the other diagonal.
+
+3. Change of basis
+(4 points) In the plane three points A(2,3), B(1,4), C(—1,2) and the line v — 5y +7 = 0 are
+given. Compose an equation of this line in the coordinate system A, AB, AC.
+
+4. Extra. (5 points) Let us consider the following system of linear equations:
+
+anzy + a1pze + azrz =0
+ag 1 + agate + agzrz =0
+ag1z1 + azrs +azzzy =0
+
+We assume that the previous coefficients (aij)1<i,j<3 satisfy the following properties:
+
+e ay1,a3; and agy are non-zero positive real numbers.
+
+o coefficients (a;;)iz; are non-zero negative numbers
+
+o The summation of the coefficients of each equation is non-zero positive real number.
+Prove that the only solution for the aforementioned system of equations is vy = wy = ¥y = 0
+
+End of Exam
+
+Page 2

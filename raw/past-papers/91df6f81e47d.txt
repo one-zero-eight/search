@@ -1,0 +1,223 @@
+Dashboard / My courses / [F21]S&NA / Week 04 / Midterm Exam
+
+Question 1
+Not yet answered
+Marked out of 2.00
+
+How do you create a crontab entry in order to run the script?
+a. crontab -c
+b. crontab -e
+c. crontab --help
+d. crontab -open
+
+Question 2
+Not yet answered
+Marked out of 2.00
+
+Which of the following commands return the exit status of the last command?
+a. $$
+b. $#
+c. $!
+d. $?
+
+Question 3
+Not yet answered
+Marked out of 2.00
+
+Which command is used to delete a user along with its home directory?
+a.
+
+userdel -R username
+
+b.
+
+userdel -r username
+
+c. userdel -D username
+d. userdel -d username
+
+Time left 0:59:55
+
+Question 4
+Not yet answered
+Marked out of 5.00
+
+What is a daemon? What is a service?
+
+Maximum file size: 100MB, maximum number of files:
+2
+
+
+
+
+
+
+
+
+
+Files
+
+You can drag and drop files here to add them.
+
+Question 5
+Not yet answered
+Marked out of 2.00
+
+Which command is used to check the Linux version?
+a. uname -n
+b. uname -s
+c. uname -p
+d.
+
+uname -a
+
+Question 6
+Not yet answered
+Marked out of 5.00
+
+Describe the essential DNS records?
+
+Maximum file size: 100MB, maximum number of files:
+1
+
+
+
+
+
+
+
+
+
+Files
+
+You can drag and drop files here to add them.
+
+Question 7
+Not yet answered
+Marked out of 2.00
+
+How we can see hidden files in the directory
+a. ls -l
+b. ls
+c. ls -a
+d. ls -h
+
+Question 8
+Not yet answered
+Marked out of 2.00
+
+Assume you want to add executable permission for the group on the file. What type of command below is appropriate to use
+a. chmod 766 file1
+b. chmod 010 file1
+c. chown 777 file1
+d. chown u+g file1
+
+Question 9
+Not yet answered
+Marked out of 2.00
+
+The process which terminates before the parent process exits is known as
+a. Zombie
+
+b. None of the above
+c. Child
+d. Orphan
+
+Question 10
+Not yet answered
+Marked out of 5.00
+
+Describe the key components of an email system
+
+Maximum file size: 100MB, maximum number of files:
+1
+
+
+
+
+
+
+
+
+
+Files
+
+You can drag and drop files here to add them.
+
+Question 11
+Not yet answered
+Marked out of 2.00
+
+Which directory in Linux contains all the config file of the system
+a. /etc
+b. /tmp
+c. /var
+d. /lib
+
+Question 12
+Not yet answered
+Marked out of 5.00
+
+Describe identity and access management in Linux
+
+Maximum file size: 100MB, maximum number of files:
+1
+
+
+
+
+
+
+
+
+
+Files
+
+You can drag and drop files here to add them.
+
+Question 13
+Not yet answered
+Marked out of 2.00
+
+You have a range of IP addresses 10.90.100.0/24:
+1. Identify subnet range
+2. How many usable IP addresses?
+3. Identify starting IP and ending IP
+
+Question 14
+Not yet answered
+Marked out of 5.00
+
+Describe how the DNS translation works?
+
+Maximum size for new files: 100MB
+
+
+
+
+
+
+
+
+
+Files
+
+You can drag and drop files here to add them.
+
+Question 15
+Not yet answered
+Marked out of 2.00
+
+file permission with -wxrwx--x is equivalent to numeric
+a. 572
+b. 371
+c. 675
+d. 567
+
+◄ Lecture 07
+Jump to...
+
+Data retention summary
+Get the mobile app
+
+

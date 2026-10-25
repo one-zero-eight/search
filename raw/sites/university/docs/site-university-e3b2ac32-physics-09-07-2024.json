@@ -1,0 +1,16 @@
+{
+ "title": "Вступительное испытание на программам бакалавриата \"Физика\" 09.07.2024",
+ "url": "https://innopolis.university/upload/iblock/6c2/e5op4yzogs6g3fo06t0zwf2g595v6yjq/physics_09_07_2024.pdf",
+ "sha256": "0e3d2c889a30fdb185308dc69c5a3f6f0e66c5a7ac2489351d687e05e0ab22cd",
+ "method": "text layer (pdfplumber)",
+ "chars": 915,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:59:32+00:00",
+ "remote": {
+  "etag": "\"66946481-9e01\"",
+  "modified": "Sun, 14 Jul 2024 23:51:29 GMT",
+  "size": "40449"
+ }
+}

@@ -1,0 +1,746 @@
+Full name:
+CSE 206 — Probability and statistics
+First test
+
+e-mail:
+Date: September 26th , 2024
+
+• The first test lasts 1,5 hours (90 minutes).
+• Any cheating, any attempt to cheat, assisting others to cheat, or
+participating therein will be penalized with a null score on the test.
+• The use of any smart devices (e.g. mobile phones, tablets, laptops, smart
+watches and etc.) is strictly prohibited and will be considered as an attempt
+to cheat.
+• No cheat sheets, calculators or books are allowed.
+
+Model #1
+1. (4 pts) By accident someone randomly moved, from a folder containing three .cc files and two
+.asm files, two files into a folder containing four .cc files and four .asm files. After this, a file is
+selected at random from the second folder. What are the odds that it will be a .cc file?
+Solution. There are three mutually exclusive events here that cover all the possibilities: E1 —
+the moved files were one .cc and one .asm, E2 — the moved files were both .cc and E3 — the
+moved files were both .asm. The probabilities of these events are: P(E1 ) = C31 C21 /C52 = 6/10,
+P(E2 ) = C32 /C52 = 3/10, P(E3 ) = C22 /C52 = 1/10. If E1 occurs, the second folder has five .asm and
+five .cc and the probability of drawing a .cc will be 1/2. If E2 occurs, then the second folder has
+six .cc files and four .asm files, so the probability of getting a .cc file is 6/10. Under E3 , the second
+folder has four .cc files and six .asm files, and the probability of getting a .cc file is 4/10. Thus:
+P(it will be a .cc file) =
+
+1 6
+6 3
+4 1
+52
++
++
+=
+.
+2 10 10 10 10 10
+100
+
+Full name:
+CSE 206 — Probability and statistics
+First test
+
+e-mail:
+Date: September 26th , 2024
+Model #1
+
+2. (4 pts) Consider a circle with 1000 nodes. Each node randomly sends a signal to one of his two
+neighbouring nodes (with 1/2 probability to his right neighbour, and 1/2 probability to his left
+neighbour). Find the expected number of nodes that do not receive a signal.
+Solution. Focus on an arbitrary node numbered j. This node will not receive a signal if and only
+if the node to his right sends a signal to its right and the node to his left sends a signal to its left.
+This occurs with probability 41 . Let Ij be the indicator function (random variable) of the j-th node
+not receiving a signal. Then EIj = 41 as we just argued. The total number of nodes that did not
+P
+receive a signal is 1000
+j=1 Ij . So the answer is (by linearity of expectation)
+E(I1 + . . . + I1000 ) =
+
+1000
+X
+j=1
+
+EIj = 250.
+
+Full name:
+CSE 206 — Probability and statistics
+First test
+
+e-mail:
+Date: September 26th , 2024
+Model #1
+
+3. (5 pts) The random variable η takes each of the values −3, −1, 0 with probability 1/3, and ξ = η 2 .
+The random variable Z is defined by the following procedure. A fair coin is tossed. If the outcome
+is heads, then Z = ξ + η, if the outcome is tails, then Z = ξ − η. Assume that η is independent of
+the coin toss.
+1. Find the joint pmf p(Z,ξ) of the random vector (Z, ξ) by filling out the following table:
+ξ
+Z
+
+0
+
+1
+
+9
+
+0
+2
+6
+12
+
+Solution. Use formula of total probability on the outcome of the coin:
+p(Z,ξ) (x, y) = P(Z = x, ξ = y)
+= P(Z = x, ξ = y, heads) + P(Z = x, ξ = y, tails)
+= P(ξ + η = x, ξ = y, heads) + P(ξ − η = x, ξ = y, tails)
+= P(η(η + 1) = x, η 2 = y, heads) + P(η(η − 1) = x, η 2 = y, tails)
+(independence)
+
+=
+
+1
+1
+P(η(η + 1) = x, η 2 = y) + P(η(η − 1) = x, η 2 = y) .
+2
+2
+
+Now look at the values of η, η(η + 1), η(η − 1) and η 2 = ξ according to η:
+η
+0
+-1
+-3
+
+η(η + 1)
+0
+0
+6
+
+η2
+0
+1
+9
+
+η(η − 1)
+0
+2
+12
+
+This, together with the formula obtained, quickly gives the pmf:
+ξ
+Z
+0
+2
+6
+12
+
+0
+
+1
+
+9
+
+1/3
+0
+0
+0
+
+1/6
+1/6
+0
+0
+
+0
+0
+1/6
+1/6
+
+2. Find the marginal pmf pZ .
+Solution. Adding the values over the rows of the table we obtain:
+1
+1
+1
+1
+pZ (x) = I(x = 0) + I(x = 2) + I(x = 6) + I(x = 12).
+2
+6
+6
+6
+
+Full name:
+CSE 206 — Probability and statistics
+First test
+
+e-mail:
+Date: September 26th , 2024
+Model #1
+
+4. (4 pts) The random variable ξ takes on integer values, none larger than 10. Suppose that Eξ = 6.
+Is it true that P(ξ < 4) ≤ 47 ? If yes, prove it. If not, give an example.
+Solution. According to the information,
+6=
+
+10
+X
+
+jP(ξ = j).
+
+j>−∞
+
+Split this sum:
+3
+X
+
+6=
+
+jP(ξ = j) +
+
+10
+X
+
+jP(ξ = j).
+
+j>−∞
+
+j=4
+
+10
+X
+
+3
+X
+
+Estimate:
+6=
+
+3
+X
+
+jP(ξ = j) +
+
+j>−∞
+
+≤
+
+3
+X
+j=0
+
+jP(ξ = j) ≤
+
+j=4
+
+3P(ξ = j) +
+
+10
+X
+
+jP(ξ = j) +
+
+j=0
+
+10P(ξ = j)
+
+j=4
+
+≤ 3P(ξ ≤ 3) + 10(1 − P(ξ < 4)) = 10 − 7P(ξ < 4).
+So
+7P(ξ ≤ 3) ≤ 4,
+4
+P(ξ < 4) ≤ .
+7
+
+Remark. The same can be written using indicators:
+6 = E(ξI(ξ ≤ 3)) + E(ξI(ξ > 4))
+≤ 3E(I(ξ ≤ 3)) + 10E(I(ξ > 4))
+= 3P(ξ ≤ 3) + 10P(ξ > 4).
+
+10
+X
+j=4
+
+jP(ξ = j)
+
+Full name:
+CSE 206 — Probability and statistics
+First test
+
+e-mail:
+Date: September 26th , 2024
+
+• The first test lasts 1,5 hours (90 minutes).
+• Any cheating, any attempt to cheat, assisting others to cheat, or
+participating therein will be penalized with a null score on the test.
+• Usage of any smart devices (e.g. mobile phones, tablets, laptops, smart
+watches and etc.) is strictly prohibited and will be considered as an attempt
+to cheat.
+• No cheat sheets, calculators nor books are allowed.
+
+Model #2
+1. (4 pts) In the closet on one shelf there are 5 books on physics and 7 books on mathematics, on the
+second shelf there are 4 books on physics, 2 books on mathematics and one dictionary. Someone
+randomly moved two books from the first shelf to the second, and then pulled one random book
+from the second shelf. What is the probability that this book will be a math book?
+Solution. There are three mutually exclusive events here that cover all the possibilities: E1 — the
+moved objects were one physics book and one math book, E2 — the moved objects were both math
+books and E3 — the moved objects were both physics books. The probabilities of these events are:
+2 = 35/66, P(E ) = C 2 /C 2 = 7/22, P(E ) = C 2 /C 2 = 5/33. If E occurs,
+P(E1 ) = C51 C71 /C12
+2
+3
+1
+7
+12
+5
+12
+the second shelf has five physics books, three math books and one dictionary, and the probability
+of drawing a math book will be 3/9. If E2 occurs, then the second shelf has four physics books,
+four math books and one dictionary, so the probability of getting a math book is 4/9. Under E3 ,
+the second shelf has six physics books, two books on mathematics and one dictionary, and the
+probability of getting a math book is 2/9. Thus:
+P(it will be a math book) =
+
+3 35 4 7
+2 5
+19
++
++
+= .
+9 66 9 22 9 33
+54
+
+Full name:
+CSE 206 — Probability and statistics
+First test
+
+e-mail:
+Date: September 26th , 2024
+Model #2
+
+2. (4 pts) In a classroom of 60 students, each student independently and randomly selects a number
+from 1 to 5 (inclusive), with each number equally likely. Find the expected number of numbers
+that are not chosen by any student.
+Solution.
+Let us define indicator random variables Xi for each number i where i = 1, 2, 3, 4, 5:
+(
+1, if number i is not chosen by any student,
+Xi =
+0, if number i is chosen by at least one student.
+The total number of numbers not chosen by any student is:
+
+N=
+
+5
+X
+
+Xi .
+
+i=1
+
+We are asked to find the expected value E[N ].
+For each number i, the probability that a single student does not choose number i is:
+4
+P (a student does not choose number i) = .
+5
+Since all students choose independently, the probability that none of the 60 students choose number
+i is:
+P (Xi = 1) =
+
+ 60
+4
+.
+5
+
+Therefore, the expected value of Xi is:
+ 60
+4
+E[Xi ] = P (Xi = 1) =
+.
+5
+Since this is true for each number i, the expected total number of numbers not chosen by any
+student is:
+
+E[N ] =
+
+5
+X
+i=1
+
+ 60
+4
+E[Xi ] = 5 ×
+.
+5
+
+Full name:
+CSE 206 — Probability and statistics
+First test
+
+e-mail:
+Date: September 26th , 2024
+Model #2
+
+3. (5 pts) The random variable η takes each of the values 0, π with probability 1/2, and ξ = cos η.
+The random variable Z is defined by the following procedure. A random domino bone is chosen.
+If the bone chosen is a double bone, then Z = ξ + η, otherwise, Z = ξ − η. Assume that η is
+independent of the bone selection.
+Note: standard dominoes set consists of 28 bones, 7 of which are double bones.
+
+1. Find the joint pmf p(Z,ξ) of the random vector (Z, ξ) by filling out the following table:
+ξ
+Z
+−1 − π
+1−π
+−1
+1
+π−1
+1+π
+
+-1
+
+1
+
+Solution.
+Use formula of total probability on the outcome of the domino chosen:
+p(Z,ξ) (x, y) = P(Z = x, ξ = y)
+= P(Z = x, ξ = y, double) + P(Z = x, ξ = y, not double)
+= P(ξ + η = x, ξ = y, double) + P(ξ − η = x, ξ = y, not double)
+= P(η + cos η = x, cos η = y, double) + P(η − cos η = x, cos η = y, not double)
+3
+1
+P(η + cos η = x, cos η = y) + P(η − cos η = x, cos η = y) .
+4
+4
+Now look at the values of η, η + cos η, cos η − η and η = ξ according to η:
+(independence)
+
+=
+
+η
+0
+π
+
+η + cos η
+1
+π−1
+
+cos η − η
+1
+−1 − π
+
+cos η
+1
+-1
+
+This, together with the formula obtained, quickly gives the pmf:
+ξ
+Z
+−1 − π
+1−π
+−1
+1
+π−1
+1+π
+
+-1
+
+1
+
+3
+8
+
+0
+0
+0
+
+0
+0
+0
+1
+8
+
+0
+
+1
+2
+
+0
+0
+
+2. Find the marginal pmf pZ .
+Solution. Adding the values over the rows of the table we obtain:
+3
+1
+1
+pZ (x) = I(x = −1 − π) + I(x = 1) + I(x = π − 1)
+8
+2
+8
+
+Full name:
+CSE 206 — Probability and statistics
+First test
+
+e-mail:
+Date: September 26th , 2024
+Model #2
+
+4. (4 pts) The random variable ξ takes on integer values, none larger than 20. Suppose that Eξ = 15.
+Is it true that P(ξ < 18) ≤ 16 ? If yes, prove it. If not, give an example.
+Solution. This is not true in general. Example: a random variable with pmf pξ (x) = 14 I(x =
+3) + 41 I(x ∈ {18, 19, 20}).
+
+Full name:
+CSE 206 — Probability and statistics
+First test
+
+e-mail:
+Date: September 26th , 2024
+
+• The first test lasts 1,5 hours (90 minutes).
+• Any cheating, any attempt to cheat, assisting others to cheat, or
+participating therein will be penalized with a null score on the test.
+• Usage of any smart devices (e.g. mobile phones, tablets, laptops, smart
+watches and etc.) is strictly prohibited and will be considered as an attempt
+to cheat.
+• No cheat sheets, calculators nor books are allowed.
+
+Model #3
+1. (4 pts) James has 9 discs with various games, including 4 action games, one strategy and 4 indie
+games. His younger brother George borrowed two CDs from James, but James doesn’t know which
+ones. On Friday night, James randomly chooses a game to play. What is the probability that James
+will play the strategy game?
+Solution. There are three mutually exclusive events here that cover all the possibilities: E1 —
+George borrowed two action games, E2 — George borrowed an action game and an indie game
+and E3 — George borrowed two indie games. There’s no sense in considering the situations when
+George borrowed a strategy game, since in such cases James will not be able to play one. The
+probabilities of these events are: P(E1 ) = C42 /C92 = 6/36 = 1/6, P(E2 ) = C41 C41 /C92 = 16/36 = 4/9,
+P(E3 ) = C42 /C92 = 6/36 = 1/6. Doesn’t matter which event occurs, James will have only one disc
+with a strategy game, and the probability of playing it will be 1/7. Thus:
+P(it will be a strategy game) =
+
+11 14 11
+1
++
++
+= .
+76 79 76
+9
+
+Full name:
+CSE 206 — Probability and statistics
+First test
+
+e-mail:
+Date: September 26th , 2024
+Model #3
+
+2. (4 pts) A fair six-sided die is rolled 120 times. Each roll is independent of the others. What is the
+expected number of times the number 3 is rolled immediately after a 2 (the number 2)?
+Solution.
+Let us define indicator random variables Xi for each roll from i = 2 to i = 120:
+(
+1, if roll (i − 1) is 2 and roll i is 3,
+Xi =
+0, otherwise.
+The total number of times the number 3 is rolled immediately after a 2 is:
+
+N=
+
+120
+X
+
+Xi .
+
+i=2
+
+We are asked to find the expected value E[N ].
+Since each roll is independent and the die is fair, the probability that roll (i − 1) is 2 and roll i is
+3 is:
+P (Xi = 1) = P (roll (i − 1) = 2) × P (roll i = 3) =
+
+   
+1
+1
+1
+×
+= .
+6
+6
+36
+
+Therefore, the expected value of Xi is:
+E[Xi ] = P (Xi = 1) =
+
+1
+.
+36
+
+Since there are 119 such pairs of consecutive rolls (from i = 2 to i = 120), the expected total
+number is:
+
+E[N ] =
+
+120
+X
+i=2
+
+E[Xi ] = 119 ×
+
+1
+119
+=
+≈ 3.31.
+36
+36
+
+Full name:
+CSE 206 — Probability and statistics
+First test
+
+e-mail:
+Date: September 26th , 2024
+Model #3
+
+√
+3. (5 pts) The random variable η takes each of the values 1, 9 with probability 1/2, and ξ = η.
+The random variable Z is defined by the following procedure. A random playing card is chosen. If
+it is an ace, then Z = ηξ , otherwise, Z = ηξ . Assume that η is independent of the card selection.
+Note: standard deck of playing cards includes 52 cards, 4 of which are aces.
+1. Find the joint pmf p(Z,ξ) of the random vector (Z, ξ) by filling out the following table:
+ξ
+
+1
+
+Z
+
+3
+
+1
+1
+9
+1
+3
+
+3
+9
+
+Solution.
+Use formula of total probability on the outcome of the domino chosen:
+p(Z,ξ) (x, y) = P(Z = x, ξ = y)
+= P(Z = x, ξ = y, ace) + P(Z = x, ξ = y, not ace)
+ξ
+η
+= x, ξ = y, ace) + P( = x, ξ = y, not ace)
+η
+ξ
+√
+η
+η
+√
+√
+= P(
+= x, η = y, ace) + P( √ = x, η = y, not ace)
+η
+η
+(independence)
+1
+12
+1
+√
+√
+√
+=
+P( √ = x, η = y) + P( η = x, η = y) .
+η
+13
+13
+√
+√
+Now look at the values of η, √1η , η and η = ξ according to η:
+= P(
+
+η
+1
+9
+
+1
+√
+η
+
+1
+1
+3
+
+√
+
+η
+1
+3
+
+√
+
+η
+1
+3
+
+This, together with the formula obtained, quickly gives the pmf:
+ξ
+Z
+1
+1
+9
+1
+3
+
+3
+9
+
+1
+
+3
+
+1
+2
+
+0
+0
+
+0
+0
+0
+0
+
+1
+26
+6
+13
+
+0
+
+2. Find the marginal pmf pZ .
+Solution. Adding the values over the rows of the table we obtain:
+1
+1
+1
+6
+pZ (x) = I(x = 1) + I(x = ) + I(x = 3)
+2
+26
+3
+13
+
+Full name:
+CSE 206 — Probability and statistics
+First test
+
+e-mail:
+Date: September 26th , 2024
+Model #3
+
+4. (4 pts) The random variable ξ takes on integer values, none smaller than -5. Suppose that Eξ =
+−2. Is it true that P(ξ < −4) ≤ 12 ? If yes, prove it. If not, give an example.
+Solution. This is not true (in general). Example: a random variable with pmf pξ (x) = 34 I(x =
+−5) + 14 I(x = 7).
+
+

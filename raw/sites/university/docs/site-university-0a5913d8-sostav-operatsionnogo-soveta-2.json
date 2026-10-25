@@ -1,0 +1,16 @@
+{
+ "title": "Состав операционного совета Университета",
+ "url": "https://innopolis.university/upload/iblock/82b/79fguw4vdqzg7z42818ijj88tmzcuqwt/%D0%A1%D0%BE%D1%81%D1%82%D0%B0%D0%B2%20%D0%9E%D0%BF%D0%B5%D1%80%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%BE%D0%B3%D0%BE%20%D1%81%D0%BE%D0%B2%D0%B5%D1%82%D0%B0%20%282%29.docx",
+ "sha256": "e885d9123933e789214be8e7993522c57a11c484ecd4e910674202bd1e032a94",
+ "method": "text layer (pdfplumber)",
+ "chars": 700,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-25T00:00:05+00:00",
+ "remote": {
+  "etag": "\"62bb01c0-3840\"",
+  "modified": "Tue, 28 Jun 2022 13:27:28 GMT",
+  "size": "14400"
+ }
+}

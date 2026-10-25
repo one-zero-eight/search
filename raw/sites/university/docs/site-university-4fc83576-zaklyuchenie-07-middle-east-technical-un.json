@@ -1,0 +1,16 @@
+{
+ "title": "Заключение от 06.10.2022 № МН-12/з-12974",
+ "url": "https://innopolis.university/upload/iblock/c3c/t46pzp2uj427yvp0jiiy1t657tvx9ea0/%D0%B7%D0%B0%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5%2007%20%E2%80%94%C2%A0Middle%20East%20Technical%20University%20%E2%80%94%20Academic%20Exchange%20Agreement.pdf",
+ "sha256": "b8ef81633d5c8fc60e87d2776b8665c5bad19da826298dc442c380bda02d995f",
+ "method": "text layer (pdfplumber)",
+ "chars": 1060,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-25T00:01:47+00:00",
+ "remote": {
+  "etag": "\"63ff3495-52ff8\"",
+  "modified": "Wed, 01 Mar 2023 11:18:45 GMT",
+  "size": "339960"
+ }
+}

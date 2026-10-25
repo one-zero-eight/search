@@ -1,0 +1,16 @@
+{
+ "title": "Смотреть презентацию [kommercheskoe_predlozhenie]",
+ "url": "https://innopolis.university/filespublic/kommercheskoe_predlozhenie.pdf",
+ "sha256": "ac5d07d9ebecf29c8396328e99961b5bee35409a830c63c324be4aa2b791a9f9",
+ "method": "text layer (pdfplumber)",
+ "chars": 6501,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:47:32+00:00",
+ "remote": {
+  "etag": "\"11e6754-61d8258bc05a0\"",
+  "modified": "Thu, 18 Jul 2024 09:38:51 GMT",
+  "size": "18769748"
+ }
+}

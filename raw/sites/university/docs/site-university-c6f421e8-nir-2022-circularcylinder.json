@@ -1,0 +1,16 @@
+{
+ "title": "Read the article [NIR_2022_circular-cylinder]",
+ "url": "https://innopolis.university/filespublic/NIR_2022_circular-cylinder.pdf",
+ "sha256": "d0ebe1b1b0139eb7c31ac337dca774818de353915ac844dc75e089d76fdd7053",
+ "method": "text layer (pdfplumber)",
+ "chars": 17864,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:44:43+00:00",
+ "remote": {
+  "etag": "\"7d8cb-5e75e9bbd2930\"",
+  "modified": "Mon, 29 Aug 2022 10:20:09 GMT",
+  "size": "514251"
+ }
+}

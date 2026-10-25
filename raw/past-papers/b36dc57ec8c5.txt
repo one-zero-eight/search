@@ -1,0 +1,250 @@
+Full Name:
+
+Innopolis University
+Introduction to Optimization
+Fall 2025
+Midterm-Exam
+25.10.2025
+
+Variant SAMPLE
+Duration:
+
+120 Minutes
+
+You need to perform this exam alone and without using any equipment or
+book, apart from this booklet, A5 cheat sheet, a calculator, and pens. Please
+do not consult any person or use any equipment, otherwise, you will be
+disqualified from this exam on the first attempt.
+Good Luck!
+Grade Table (for teacher use only)
+Question:
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+Total
+
+Points:
+
+2
+
+6
+
+5
+
+4
+
+4
+
+4
+
+25
+
+Score:
+
+1. (2 points) Write the dual problem for the following primal problem:
+Maximize
+z = x1 + · · · + xn
+subject to
+
+x1 + 2x2 + x3 ≤ b1
+2x1 − x2 ≤ b2
+x 1 · · · x n ≤ bm
+x1 , · · · , xn ≥ 0
+
+2. Consider the transportation problem having the following parameter table:
+
+Source
+Demand
+
+1
+2
+3
+
+1
+c11
+c21
+c31
+d1
+
+Destination
+2
+3
+c12
+c13
+M
+c23
+c32
+c33
+d2
+d3
+
+Supply
+s1
+s2
+s3
+
+(a) (2 points) Use Vogel’s approximation method manually to select the first basic variable
+for an initial BF solution.
+(b) (2 points) Use Russell’s approximation method manually to select the first basic variable
+for an initial BF solution.
+(c) (2 points) Use the northwest corner rule manually to construct a complete initial BF solution.
+3. Consider the following LP.
+Maximize
+F (x1 , x2 ) = · · ·
+subject to
+
+g1 (x1 , x2 ) ≤ b1 ,
+
+
+
+g (x , x ) ≤ b ,
+2 1
+2
+2
+
+x1 ≥ 0,
+
+
+
+x2 ≥ 0
+
+(1)
+(2)
+(3)
+(4).
+
+(a) (1 point) Find the optimal solution using the graphical method.
+(b) (2 points) Find the optimal solution using Simplex method.
+
+Full Name:
+
+Midterm-Exam - Variant SAMPLE
+
+(c) (1 point) Determine the optimality condition for c1 and c2 that will keep the optimum
+unchanged.
+(d) (1 point) Determine the optimality ranges for c1 , assuming that the other coefficient is
+kept constant at its present value.
+4. Use an interior-point algorithm find X1 = (x11 , x12 ) for the following LP
+Maximize
+F (x1 , x2 ) = · · ·
+subject to
+
+g1 (x1 , x2 ) ≤ b1 ,
+
+
+
+g (x , x ) ≤ b ,
+2 1
+2
+2
+
+x1 ≥ 0,
+
+
+
+x2 ≥ 0
+
+(1)
+(2)
+(3)
+(4).
+
+Put that α = 0.5.
+(a) (1 point) Express the problem in equation form and choose X0 that lies in the interior of
+the feasible region.
+(b) (2 points) Substitute the corresponding matrices into the formula of P. Skip calculations.
+(c) (1 point) Write the formula for X1 .
+5. (4 points) Table shows the last iteration of phase I of the following LP:
+minimize
+z(x1 , x2 , x3 ) = · · ·
+subject to
+g1 (x1 , x2 , x3 ) = b1 ,
+g2 (x1 , x2 , x3 ) = b2 ,
+g3 (x1 , x2 , x3 ) = b3
+x1 , x2 , x3 , s1 , s2 , s3 , R1 , R2 ≥ 0.
+Basic
+z
+x3
+x1
+x2
+
+x1
+0
+0
+1
+0
+
+x2
+0
+0
+0
+1
+
+x3
+0
+1
+0
+0
+
+s1
+0
+-1/2
+-9/2
+-5/2
+
+s2
+0
+-1/3
+-14/3
+-8/3
+
+s3
+0
+0
+-2
+-1
+
+R1
+1
+1/3
+14/3
+8/3
+
+R2
+1
+1/2
+9/2
+5/2
+
+Sol.
+0
+22
+198
+114
+
+Determine optimal solutions (x1 , x2 , x3 ) by completing phase II.
+6. Consider the following LP.
+Maximize
+z(x1 , x2 , x3 ) = · · ·
+subject to
+
+g1 (x1 , x2 , x3 ) ≤ b1 ,
+g2 (x1 , x2 , x3 ) ≤ b2 ,
+g3 (x1 , x2 , x3 ) ≤ b3
+x1 , x2 , x3 ≥ 0.
+(a) (1 point) Express the problem in equation form.
+(b) (1 point) Express the problem in matrix form (z = CX subject to AX = b,X ≥ 0).
+(c) (1 point) Determine XB0 , CB0 .
+(d) (1 point) Which variable is entering and which variable is leaving.
+
+

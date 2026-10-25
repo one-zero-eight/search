@@ -1,0 +1,16 @@
+{
+ "title": "Анализ порядка организации и осуществления образовательной деятельности по программам дополнительного профессионального образования (от 16.10.2023)",
+ "url": "https://innopolis.university/upload/iblock/4da/yczb0nkjxwyrfp5zvvlqevsft3b2q21f/analiz_dpo_16.10.2023.pdf",
+ "sha256": "6f20079911e4731ca7875505620ed3e4038885961b4b7fda8cdcc31309bc9653",
+ "method": "text layer (pdfplumber)",
+ "chars": 13308,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:58:04+00:00",
+ "remote": {
+  "etag": "\"653baaa7-41365\"",
+  "modified": "Fri, 27 Oct 2023 12:18:47 GMT",
+  "size": "267109"
+ }
+}

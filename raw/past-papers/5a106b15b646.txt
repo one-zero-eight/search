@@ -1,0 +1,77 @@
+Task 1
+Find using definition derivative of function on direction 𝑙 = (2, 1)
+2
+
+𝑓(𝑥, 𝑦) = 𝑥
+
+− 𝑥𝑦
+
+Task 2
+2
+
+2
+
+𝑦
+
+𝑥
+
+2
+
+∂𝑧
+
+Proof, that for 𝑧 = 𝑥 𝑎𝑟𝑐𝑡𝑔( 𝑥 ) − 𝑦 𝑎𝑟𝑐𝑡𝑔( 𝑦 ) equation ∂𝑥∂𝑦 =
+
+2
+
+2
+
+2
+
+2
+
+𝑥 −𝑦
+𝑥 +𝑦
+
+is true
+
+Task 3
+Using a Lagrange multiplier, find the maximum surface area of the prism with an equilateral
+triangle at the base.
+
+Task 4
+𝑀 = 𝑑𝑎𝑦 + 𝑚𝑜𝑛𝑡ℎ
+2
+
+1.​ Can function λ 𝑥, 𝑦 ∈ ℝ 𝑥1𝑦1 + 𝑀𝑥2𝑦2 be a dot product function? Explain answer.
+2.​ Assume that it is a dot product function
+a.​ Find unit vector collinear to (1, 1)
+b.​ Find unit vector orthogonal to (1, 1)
+
+Task 5
+Find whether 𝑓(𝑥, 𝑦, 𝑧) =
+
+𝑥𝑦𝑧
+𝑥+𝑦+𝑧
+
+(𝑥, 𝑦, 𝑧) ≠ (0, 0, 0) has a limit in (𝑥, 𝑦, 𝑧) = (0, 0, 0)
+
+or not.
+
+Task 6
+2
+
+𝑓(𝑥, 𝑦) =
+
+3𝑥 𝑦
+2
+
+2
+
+𝑥 +𝑦
+
+when (𝑥, 𝑦) ≠ (0, 0) and 0 when (𝑥, 𝑦) = (0, 0)
+2
+
+Study continuity of 𝑓(𝑥, 𝑦) on 𝑥, 𝑦 ∈ ℝ
+
+

@@ -1,0 +1,97 @@
+Midterm 2026
+1. Let
+
+
+A=
+
+
+4 5 −2 6 0
+.
+1 1 0 1 0
+
+a) Find the four fundamental subspaces of A.
+
+[3 pts]
+
+b) Verify the orthogonality relations between the corresponding subspaces.
+
+[2 pts]
+
+2. Use the normal equations to find the least-squares line y = ax + b for the points
+(1, 2), (2, 4), (3, 5), (4, 4), (5, 6).
+[5 pts]
+3. Let
+
+
+
+4 2
+A=
+.
+2 4
+
+a) Find the eigenvalues and eigenvectors of A.
+
+[3 pts]
+
+3
+
+b) Compute A − A.
+
+[1 pt]
+
+c) Verify that the eigenvectors are orthogonal.
+
+[1 pt]
+
+4. Solve the system
+
+
+x1 + 2x2 + 3x3 + 4x4 = 5,
+2x1 + 4x2 + 6x3 + 8x4 = 10,
+
+
+x1 + 2x2 + 2x3 + 3x4 = 4.
+[5 pts]
+5. Let
+
+
+
+
+1 1
+A = 0 1  ,
+1 0
+
+ 
+1
+b = 1 .
+1
+
+a) Find the projection matrix P onto Col(A).
+
+[3 pts]
+
+b) Find the projection of b onto Col(A).
+
+[2 pts]
+
+6. Let
+
+
+A=
+
+
+i 1 i
+.
+1 −i 0
+
+a) Solve Ax = 0.
+
+[3 pts]
+
+b) Show that N (A) ⊥ C(AH ), but N (A) ̸⊥ C(AT ).
+
+[2 pts]
+
+1
+
+

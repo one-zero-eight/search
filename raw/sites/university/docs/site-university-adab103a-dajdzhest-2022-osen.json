@@ -1,0 +1,16 @@
+{
+ "title": "Дайджест №3, ноябрь 2022 г. «Цифровая независимость» Смотреть",
+ "url": "https://innopolis.university/filespublic/dajdzhest_2022_osen.pdf",
+ "sha256": "eb901763001d72b4383eec39ff58126b131f368896083f2eabef163c2e555f51",
+ "method": "text layer (pdfplumber)",
+ "chars": 189916,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:47:20+00:00",
+ "remote": {
+  "etag": "\"e01b80-5f041f8f5edc4\"",
+  "modified": "Tue, 20 Dec 2022 12:57:03 GMT",
+  "size": "14687104"
+ }
+}

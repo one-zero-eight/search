@@ -1,0 +1,192 @@
+Full name:
+Mathematical Analysis - II
+Test #1
+
+group:
+e-mail:
+Date: February 28th , 2025
+
+• The test lasts 120 minutes.
+• Any cheating, any attempt to cheat, assisting others to cheat, or participating therein is a serious violation and will generally result in cancellation of
+the exam with simultaneous nullifying its results.
+• It is allowed to use individually any published printed book, any handwritten materials.
+• Usage of any electronic devices (e.g. calculators, mobile phones, tablets,
+laptops, smart watches and etc.) is strictly prohibited and will be considered
+as an attempt to cheat.
+
+1. (6 pts) Use the Cauchy integral criterion to check the following series for convergence:
+∞
+X
+n=2
+
+1
+n ln n
+
+Full name:
+Mathematical Analysis - II
+Test #1
+
+group:
+e-mail:
+Date: February 28th , 2025
+
+2. (6 pts) Given the following infinite series
+∞
+X
+n=1
+
+M +n
+M +1+n
+
+where M = (your day of birth) + (month of birth) (For example, M = 28 if the day and the month
+are April 24)
+Important notice: Firstly, instantiate your actual value of M and then solve this
+concrete instance (not a parameterized version)!
+a) Using the ratio test (D’Alembert Ratio Criterion), does this series converge, diverge, or we
+cannot tell if the series converges or diverges? Clearly state the reason for your conclusion.
+b) If your answer in a) is ”we cannot tell if the series converges or diverges” use an alternative
+method to show that the series converges or diverges.
+
+Full name:
+Mathematical Analysis - II
+Test #1
+
+group:
+e-mail:
+Date: February 28th , 2025
+
+3. (6 pts) Find the surface area S of the body of rotation, where y = ex between x=0 and x=1.
+Firstly, write your answer here S =
+below.
+
+and then — your solution in the space
+
+Evaluation criteria
+• You can use the standard table of integrals only (from sine, cosine, exponent, degree).
+• You have used the correct formula to find the surface area of the body of rotation (1pts)
+R√
+• If your answer is correct, but you used a ready-made answer to the integral
+x2 + a2 dx (1pts)
+R√
+• You have correctly implemented the integration by parts
+x2 + a2 dx (1 pts)
+R
+• You have correctly implemented the change variable for integral √xdx
+(3 pts)
+2 +a2
+• Correct answer (1pts)
+
+Full name:
+Mathematical Analysis - II
+Test #1
+
+group:
+e-mail:
+Date: February 28th , 2025
+
+4. (6 pts) Let day and month be the day and month of your personal birth date, M = day + month be your
+individual parameter used in the questions below. (For example, M = 28 if the birth date is April 24.) Let
+integer part of a real number x be the largest integer ⌊x⌋ that isn’t greater than x. (For example, ⌊π⌋ = 3.)
+Firstly, write your individual value M =
+
+.
+
+Then compute the convergence radius and answer question(s) for each of three power series listed below.
+
+4.1 (1 pts) Consider the series Σn≥1
+
+
+
+series (a number) ⌊R⌋ =
+
+−x
+M −1
+
+n
+
+. Write the integer part of the convergence radius of the
+
+.
+
+Answer (by “yes” or “no”) whether it is possible to differentiate the series term-wise at point x = 5π:
+.
+
+4.2 (2 pts) Consider the series Σn≥1
+series (a number) ⌊R⌋ =
+
+
+
+x2
+M +1
+
+n
+
+. Write the integer part of the convergence radius of the
+
+.
+
+Answer (by “yes” or “no”) whether it is possible to integrate the series term-wise in a neighborhood of the
+.
+point x = e (the base of the natural logarithm):
+
+4.3 (3 pts) Consider the series Σn≥1
+series (a number) ⌊R⌋ =
+
+
+
+(2025−x)2
+2M
+
+n
+
+. Write the integer part of the convergence radius of the
+
+.
+
+Answer (by “yes” or “no”) whether it is possible
+• to differentiate the series term-wise at point x = 2020:
+• to integrate the series term-wise in a neighborhood of the point x = 2030:
+
+Full name:
+Mathematical Analysis - II
+Test #1
+
+group:
+e-mail:
+Date: February 28th , 2025
+
+5. (6 pts)
+5.1 (2 pts) Let f (x) be a continuous total function on the closed interval [a, b].
+(a) Briefly outline the key idea or proof sketch that shows continuity on [a, b] implies uniform continuity
+(b) Briefly state why f (x) must be Riemann integrable on [a, b] (cite the relevant theorem or argument).
+
+Full name:
+Mathematical Analysis - II
+Test #1
+
+group:
+e-mail:
+Date: February 28th , 2025
+
+5.2 (2 pts) Define the function
+F (x) =
+
+Z xp
+
+1 + t4 dt.
+
+2
+
+(a) Use the Fundamental Theorem of Calculus to find F ′ (x).
+(b) Determine the points where F ′ (x) = 0 (if any) by solving the resulting equation from part (a).
+
+5.3 (2 pts) Evaluate the definite integral
+Z 1
+
+(3x + 1) e(3x+1) dx
+
+0
+
+Clearly state your solution steps, perform the integral, and simplify your final answer.
+
+

@@ -1,0 +1,1088 @@
+Quiz 1 – Kinematics
+[2026] Physics 1. Mechanics
+
+Variant 1
+Problem 1 (25 pts)
+Plot the velocity of the object, whose
+acceleration is shown in Figure on the
+right. The velocity is zero at the moment
+t = 0 s. Find the mean velocity averaged
+over the time interval [6, 14 s].
+
+a (m/s2 )
+2
+
+t (s)
+2
+
+4
+
+6
+
+8
+
+10
+
+12
+
+14
+
+−4
+
+Figure for Problem 1
+
+1. Use acceleration to find the velocity changes.
+Use vend = vstart + a ∆t on each constant-acceleration interval. The velocity graph is
+horizontal where a = 0 and has slope a elsewhere.
+2. Write the area formula before using numbers.
+For endpoint velocities vi , vi+1 and durations ∆ti , add the signed trapezoid areas,
+then divide by the total time:
+∑
+(vi + vi+1 ) ∆ti
+v̄ = i ∑
+.
+2 i ∆ti
+3. Calculate the velocities and draw the graph.
+Starting from zero, the two positive pulses each add 2(2) = 4 m/s; the last pulse adds
+−4(2) = −8 m/s.
+8
+
+v (m/s)
+
+4
+
+∆x = 44 m
+2
+
+4
+
+6
+
+8
+
+10
+
+12
+
+14
+t (s)
+
+4. Add the areas over 6–14 s and divide by the time.
+The velocity at 6 s is also 4 m/s. The four areas give
+∆x = (8 + 12 + 16 + 8) m = 44 m,
+
+v̄ =
+
+44 m
+= 5.50 m/s.
+8s
+
+Quiz — Variant 1
+
+Quiz 1 – Kinematics
+
+Problem 2 (25 pts)
+The tram starts moving with a constant acceleration of 0.4 m/s2 . How long can a passenger stay after the beginning of the tram movement, then catch up to him, running
+at a constant speed of 10 m/s?
+1. Choose the model and sketch the limiting meeting.
+Assume a shared starting position, a tram starting from rest, and a passenger who
+waits there for time tw before instantly reaching running speed vP . Interpret the question as the longest possible wait.
+Tram
+Passenger
+
+x
+at2w
+
+4
+
+Meeting
+2
+
+0
+0
+
+1
+
+2
+
+3
+
+t
+tw
+
+At the limit, equal positions and speeds make the two curves tangent.
+2. Write the position equations.
+With +x along the motion and t ≥ tw ,
+at2
+,
+2
+Before tw , the passenger stays at x = 0.
+xT =
+
+xP = vP (t − tw ).
+
+3. Require a physically possible meeting.
+Equating positions gives at2 − 2vP t + 2vP tw = 0. For a, vP , tw > 0, a meeting after the
+wait exists when the discriminant is nonnegative: vP2 − 2avP tw ≥ 0. Thus
+vP
+vP
+tw,max = ,
+0 ≤ tw ≤ .
+2a
+2a
+4. Calculate and interpret the answer.
+10 m/s
+= 12.5 s.
+2(0.4 m/s2 )
+At the limit t∗ = vaP = 25.0 s. For a smaller positive wait there are two meetings if both
+continue; zero delay means initial coincidence.
+Alternative: equal positions and speeds. The gap decreases while the passenger is
+faster and increases once the tram is faster. At the limiting meeting, the smallest gap
+is zero, so
+{ 2
+at∗
+= vP (t∗ − tw ),
+2
+at∗ = vP .
+tw,max =
+
+v2
+
+v2
+
+vP
+Substitute t∗ = vaP into the position equation: 2aP = aP − vP tw . Thus tw,max = 2a
+= 12.5 s,
+without derivatives or a discriminant.
+2
+Alternative: minimize the separation d(t) = at2 − vP (t − tw ). Its minimum at t = vaP is
+v2
+
+vP tw − 2aP ; requiring this to be nonpositive gives the same bound.
+
+2
+
+Quiz — Variant 1
+
+Quiz 1 – Kinematics
+
+Problem 3 (25 pts)
+A drop of rain falls at an angle of α1 = 30◦
+to the vertical axis when the wind speed
+is u1 = 10 m/s. What is the angle α2 at
+which the drop falls after the wind has
+been increased to u2 = 20 m/s? Assume
+that the velocity of the raindrops with
+respect to the air is constant.
+
+Wind
+
+α Vertical
+
+Schematic
+Figure for Problem 3
+
+1. Draw the velocities and state the working assumption.
+Assume vertical downward motion relative to the air and horizontal wind in the
+same direction in both states. Measure the observed angle in the ground frame. Take
++y downward; vy is the unchanged vertical velocity component.
+
+u1
+vy
+
+u2
+vy
+
+α1
+v1
+
+α2
+v2
+
+State 1
+
+State 2
+
+The horizontal leg changes; the vertical leg does not.
+2. Relate each angle to the components.
+Velocity addition gives horizontal component ui and vertical component vy . Because the angle is measured from the vertical,
+tan α1 =
+
+u1
+,
+vy
+
+tan α2 =
+
+u2
+.
+vy
+
+3. Eliminate the unknown vertical speed.
+Using vy = tanu1α1 gives
+
+(
+
+)
+u2
+α2 = arctan
+tan α1 .
+u1
+
+The downward-drift solution is the acute angle.
+4. Evaluate the angle.
+)
+2
+≈ 49.1◦ .
+α2 = arctan(2 tan 30 ) = arctan √
+3
+The same relation follows from two right velocity triangles with a common vertical
+leg. Without the vertical air-relative-motion assumption, the source wording does not
+fix a unique numerical angle.
+(
+
+◦
+
+3
+
+Quiz — Variant 1
+
+Quiz 1 – Kinematics
+
+Problem 4 (25 pts)
+A particle moves in uniform circular motion over a horizontal xy plane. It takes
+20 s to make a full circle. At one instant, it moves through the point with coordinates
+[4 m, 4 m] with the acceleration of (0î + 8ĵ) m/s2 . Find the x and y coordinates of the
+center of the circular path.
+1. Use the direction of centripetal acceleration.
+
+C
+y
+
+R
+a
+x (4, 4) m
+
+Schematic; axes indicate directions
+
+Centripetal acceleration points toward the center. Here it is vertically upward, so xC =
+x and yC = y + R.
+2. Find the radius from centripetal acceleration.
+Let ac = |a| be its magnitude and v the constant speed. One revolution covers 2πR
+in time T , so
+v2
+2πR
+4π 2 R
+ac = ,
+v=
+=⇒ ac =
+.
+R
+T
+T2
+3. Write the symbolic answer.
+R=
+
+ac T 2
+,
+4π 2
+
+xC = x,
+
+yC = y +
+
+ac T 2
+.
+4π 2
+
+4. Calculate the radius and coordinates.
+8(20)2
+800
+m = 2 m.
+2
+4π
+π
+(
+)
+800
+xC = 4 m,
+yC = 4 + 2 m.
+π
+R=
+
+Answer: (xC , yC ) ≈ (4, 85.1) m. The radius is added to the point’s height; it is not the
+center’s height itself.
+T2
+, a = ω 2 (rC − r) gives rC = r + 4π
+Vector alternative: with ω = 2π
+2 a, the same result.
+T
+
+4
+
+Quiz — Variant 2
+
+Quiz 1 – Kinematics
+
+Variant 2
+Problem 1 (25 pts)
+It is one-dimensional motion along the
+x-axis. The initial position of the object
+is x(0) = 15 m. Figure on the right shows
+the change in the acceleration with time.
+What is the x-coordinate of the object at
+time t = 6 s, if the initial velocity equals
+to −10 m/s?
+
+a (m/s2 )
+8
+6
+4
+2
+
+t (s)
+2
+
+4
+
+6
+
+8
+
+10
+
+Figure for Problem 1
+
+Version note: An earlier printout asks for t = 8 s; the corrected statement above asks
+for t = 6 s.
+1. Split the motion into three equal time intervals.
+Use 0–2, 2–4 and 4–6 s, each of duration ∆t. The accelerations are a1 = 0, a2 and
+a3 = 0; the index labels the interval.
+2. Write the displacement in each interval.
+For constant acceleration, ∆x = vstart ∆t + a(∆t)
+and vend = vstart + a∆t. Therefore
+2
+2
+
+∆x1 = v0 ∆t,
+
+∆x2 = v0 ∆t +
+
+a2 (∆t)2
+,
+2
+
+∆x3 = (v0 + a2 ∆t)∆t.
+
+3. Add the displacements to the initial position.
+x = x0 + ∆x1 + ∆x2 + ∆x3 = x0 + 3v0 ∆t +
+
+3a2 (∆t)2
+.
+2
+
+4. Calculate the coordinate and check the graph.
+Use x0 = 15, v0 = −10, ∆t = 2 and a2 = 4 in SI units.
+v (m/s)
+2
+
+4
+
+6 t (s)
+
+−2
+−6
+−10
+
+∆x = −36 m
+
+The signed areas give ∆x0–6 = −20 − 12 − 4 = −36 m. For the earlier printout, extend to
+8 s: on 6–8 s, a = 0 and v = −2 m/s. Adding the initial coordinate gives
+x(6) = x0 + ∆x0–6 = 15 − 36 = −21 m,
+x(8) = x(6) + v(6)(8 − 6) = −21 − 2(2) = −25 m.
+These are coordinates; the displacements are −36 m and ∆x0–8 = x(8) − x0 = −40 m,
+respectively.
+5
+
+Quiz — Variant 2
+
+Quiz 1 – Kinematics
+
+Problem 2 (25 pts)
+The tram starts moving with the constant acceleration a. The passenger waits for
+10 s and then catches up the tram by running after with the constant velocity of 12 m/s.
+What is the maximum acceleration of the tram amax to make this happen?
+1. Choose the model and sketch the boundary.
+Assume a shared starting position and a tram initially at rest. The passenger waits
+there for time tw and then runs at constant speed vP . A limiting meeting counts as
+catching up.
+Tram
+Passenger
+
+x
+at2w
+
+4
+
+Meeting
+2
+
+0
+0
+
+1
+
+2
+
+3
+
+t
+tw
+
+The limiting line touches the tram’s parabola.
+2. Write the meeting equation.
+For t ≥ tw ,
+xT =
+
+at2
+,
+2
+
+xP = vP (t − tw ),
+
+at2 − 2vP t + 2vP tw = 0.
+
+3. Find the largest allowed acceleration.
+For positive a, vP , tw , a meeting after the wait exists when the discriminant is nonnegative: vP2 − 2avP tw ≥ 0. Thus
+amax =
+
+vP
+,
+2tw
+
+0<a≤
+
+vP
+.
+2tw
+
+At the boundary the roots merge and t∗ = 2tw .
+4. Calculate the maximum.
+amax =
+
+12 m/s
+= 0.600 m/s2 .
+2(10 s)
+
+The meeting is at 20 s. Below the threshold there are two meetings if both continue.
+Alternative: equal positions and speeds. The gap decreases while the passenger is
+faster and increases once the tram is faster. At the limiting meeting, the smallest gap
+is zero, so
+{ 2
+at∗
+= vP (t∗ − tw ),
+2
+at∗ = vP .
+Substitute a = vt∗P into the position equation: vP2t∗ = vP (t∗ − tw ), hence t∗ = 2tw . Thus
+amax = 2tvPw = 0.600 m/s2 , without derivatives or a discriminant.
+w)
+Alternative: maximize a(t) = 2vP (t−t
+for t > tw . Its derivative 2vP (2tt3w −t) changes from
+t2
+positive to negative at t = 2tw , giving the same maximum.
+
+6
+
+Quiz — Variant 2
+
+Quiz 1 – Kinematics
+
+Problem 3 (25 pts)
+Two balls were thrown from the ground
+at angles of 30° and 45° to the horizon.
+The ranges R of the balls were the same.
+Find the ratio of the initial speeds the
+balls had at the beginning of their flights.
+Neglect air resistance.
+
+45◦
+30◦
+0
+
+R
+Schematic, not to scale
+Figure for Problem 3
+
+1. Identify what is shared.
+The diagram shows equal launch and landing levels and a common range. Use
+uniform downward gravity. The initial speeds are not assumed equal.
+
+y
+v45
+
+0
+
+v30
+
+R
+Same range; different speeds
+
+x
+
+2. Relate speed to range.
+The nonzero flight time follows from vertical motion:
+tf =
+
+2vθ sin θ
+,
+g
+
+R = vθ cos θ tf =
+
+vθ2 sin(2θ)
+.
+g
+
+3. Eliminate the common range and gravity.
+For two angles θA , θB , vA2 sin(2θA ) = vB2 sin(2θB ). Taking the positive root because
+speeds are magnitudes,
+√
+vA
+=
+vB
+
+sin(2θB )
+.
+sin(2θA )
+
+4. State the order and evaluate.
+Choosing the 30° speed as the numerator gives
+√
+√
+v30
+sin 90◦
+2
+√
+=
+=
+≈ 1.07.
+v45
+sin 60◦
+3
+√√
+
+3
+=
+≈ 0.931. Both are dimenThe reverse order is equally valid when labeled:
+2
+sionless. The 30° launch needs the greater speed.
+Alternative: eliminate the two flight times directly from R = vθ cos θ tf and 0 =
+v45
+v30
+
+gt2
+
+vθ sin θ tf − 2f ; the same ratio follows.
+
+7
+
+Quiz — Variant 2
+
+Quiz 1 – Kinematics
+
+Problem 4 (25 pts)
+A particle moves in uniform circular motion over a horizontal xy plane with the
+period of 25 s. At one instant, it moves through the point with coordinates [−1 m, 3 m]
+with the velocity directed along î and the acceleration of (0î + 6ĵ) m/s2 . Find the x and
+y coordinates of the center of the circular path.
+1. Use the direction of centripetal acceleration.
+
+C
+y
+
+R
+a
+x (−1, 3) m
+
+v
+
+Schematic; axes indicate directions
+
+Centripetal acceleration points toward the center. Here it is vertically upward, so xC =
+x and yC = y + R.
+2. Find the radius from centripetal acceleration.
+Let ac = |a| be its magnitude and v the constant speed. One revolution covers 2πR
+in time T , so
+v2
+2πR
+4π 2 R
+ac = ,
+v=
+=⇒ ac =
+.
+R
+T
+T2
+3. Write the symbolic answer.
+R=
+
+ac T 2
+,
+4π 2
+
+xC = x,
+
+yC = y +
+
+ac T 2
+.
+4π 2
+
+4. Calculate the radius and coordinates.
+6(25)2
+1875
+m=
+m.
+2
+4π
+2π 2
+(
+)
+1875
+yC = 3 +
+xC = −1 m,
+m.
+2π 2
+R=
+
+Answer: (xC , yC ) ≈ (−1, 98.0) m. The radius is added to the point’s height; it is not the
+center’s height itself.
+T2
+Vector alternative: with ω = 2π
+, a = ω 2 (rC − r) gives rC = r + 4π
+2 a, the same result.
+T
+
+8
+
+Quiz — Variant 3
+
+Quiz 1 – Kinematics
+
+Variant 3
+Problem 1 (25 pts)
+It is one-dimensional motion along
+x-axis. Figure on the right shows change
+in an acceleration with time. Find the
+mean velocity averaged over time
+interval [2 s, 10 s], if the initial velocity
+equals to −8 m/s?
+
+a (m/s2 )
+8
+6
+4
+2
+
+t (s)
+2
+
+4
+
+6
+
+8
+
+10
+
+Figure for Problem 1
+
+1. Name the intervals and accelerations.
+The intervals 2–4, 4–8 and 8–10 s have durations ∆t, 2∆t, ∆t. Let a1 be the acceleration on 2–4 s and af the acceleration at the end of the ramp. Before 2 s, acceleration is
+zero, so the velocity is still its initial value v0 . After the first interval it is v1 = v0 + a1 ∆t.
+It then stays constant until 8 s.
+2. Find the displacement in each interval.
+During 8–10 s, let t′ be time since 8 s, with 0 ≤ t′ ≤ ∆t. Acceleration rises linearly
+from zero:
+af (t′ )2
+t′
+v(t′ ) = v1 +
+.
+a(t′ ) = af ,
+∆t
+2∆t
+Integrating velocity gives the three signed displacements:
+v0 + v1
+∆x1 =
+∆t,
+∆x2 = 2v1 ∆t,
+2
+∫ ∆t
+af (∆t)2
+.
+∆x3 =
+v(t′ ) dt′ = v1 ∆t +
+6
+0
+3. Divide total displacement by total time.
+a (∆t)2
+
+v0 +v1
+∆t + 3v1 ∆t + f 6
+∆x1 + ∆x2 + ∆x3
+2
+v̄ =
+=
+4∆t
+4∆t
+
+.
+
+4. Calculate and check the signed areas.
+Use ∆t = 2, v0 = −8, a1 = 4 and af = 8 in SI units. Then v1 = −8 + 4(2) = 0, giving
+2
+= 16
+m.
+displacements −8, 0 and 8(2)
+6
+3
+−8 + 0 + 16
+1
+3
+v̄ =
+m/s = − m/s ≈ −0.333 m/s.
+8
+3
+8 v (m/s)
++ t (s)
+2
+
+−
+
+4
+
+6
+
+8
+
+10
+
+−8
+
+The final branch is curved, so a trapezoid would give the wrong area. Signed displacements partly cancel; mean speed is a different quantity.
+9
+
+Quiz — Variant 3
+
+Quiz 1 – Kinematics
+
+Problem 1: alternative using the original time
+1. Write the acceleration on 8–10 s.
+The straight line joins (8, 0) and (10, 8) on the acceleration graph. Using t in seconds
+and numerical values in SI units,
+a(t) =
+
+8−0
+(t − 8) = 4(t − 8),
+10 − 8
+
+8 ≤ t ≤ 10.
+
+The coefficient 4 has units m/s3 , so a is in m/s2 .
+2. Integrate acceleration to find velocity.
+On 2–4 s, velocity rises from −8 m/s to −8 + 4(4 − 2) = 0; it then stays zero until 8 s.
+Thus v(8) = 0 and
+∫ t
+v(t) = v(8) +
+a(t′ ) dt′
+8
+∫ t
+=
+4(t′ − 8) dt′ = 2(t − 8)2 ,
+8 ≤ t ≤ 10.
+8
+
+Here t′ is the integration variable; v is in m/s.
+3. Integrate velocity to find displacement.
+∫ 10
+∆x8–10 =
+8
+
+[
+
+]10
+2(t − 8)3
+16
+v(t) dt =
+m.
+=
+3
+3
+8
+
+4. Include the earlier intervals and find the mean.
+The signed area on 2–4 s is ∆x2–4 = −8+0
+(4 − 2) = −8 m. On 4–8 s, ∆x4–8 = 0 because
+2
+the object is at rest. Therefore,
+−8 + 0 + 16
+1
+∆x2–4 + ∆x4–8 + ∆x8–10
+3
+v̄ =
+=
+m/s = − m/s.
+10 − 2
+8
+3
+Answer: v̄ ≈ −0.333 m/s, the same as in the preceding method.
+
+10
+
+Quiz — Variant 3
+
+Quiz 1 – Kinematics
+
+Problem 2 (25 pts)
+The tram starts moving with the constant acceleration of 0.3 m/s2 . Find the minimum passenger’s velocity, when the passenger could wait for 8 s and then catch up
+the tram by running after.
+1. Choose the model and sketch the minimum-speed case.
+Assume a common starting position, a tram starting from rest, and a passenger
+who waits there for time tw and then runs at constant speed vP . The source does not
+explicitly specify constant running speed.
+Tram
+Passenger
+
+x
+at2w
+
+4
+
+Meeting
+2
+
+0
+0
+
+1
+
+2
+
+3
+
+t
+tw
+
+At the minimum speed the passenger’s position line touches the tram’s parabola.
+2. Write the meeting equation.
+For t > tw > 0,
+xT =
+
+at2
+,
+2
+
+xP = vP (t − tw ),
+
+at2 − 2vP t + 2vP tw = 0.
+
+3. Require a real meeting after the wait.
+The discriminant is nonnegative when vP (vP − 2atw ) ≥ 0. For positive running speed
+this gives
+vP,min = 2atw ,
+vP ≥ 2atw .
+The formal boundary vP = 0 is invalid: its only meeting time is t = 0 < tw . At the valid
+boundary the double root is t∗ = vaP = 2tw .
+4. Calculate the speed.
+vP,min = 2(0.3 m/s2 )(8 s) = 4.80 m/s.
+The meeting occurs after 16 s in total, including 8 s of running. This is the running
+speed, not an average including the wait.
+Alternative: equal positions and speeds. The gap decreases while the passenger is
+faster and increases once the tram is faster. At the limiting meeting, the smallest gap
+is zero, so
+{ 2
+at∗
+= vP (t∗ − tw ),
+2
+at∗ = vP .
+Substitute vP = at∗ into the position equation: at2∗ = at∗ (t∗ − tw ). Since t∗ > 0, this gives
+t∗ = 2tw and vP,min = 2atw = 4.80 m/s, without derivatives or a discriminant.
+2
+
+at
+w)
+Alternative: minimize vP (t) = 2(t−t
+for t > tw . Since vP′ (t) = at(t−2t
+, the minimum
+2(t−tw )2
+w)
+is at t = 2tw , again giving vP,min = 2atw .
+2
+
+11
+
+Quiz — Variant 3
+
+Quiz 1 – Kinematics
+
+Problem 3 (25 pts)
+Two balls were thrown from the ground
+at angles of 30° and 45° to the horizon.
+The ranges R of the balls were the same.
+Find the ratio of their maximum heights
+during the flights. Neglect air resistance.
+
+45◦
+30◦
+0
+
+R
+Schematic, not to scale
+Figure for Problem 3
+
+1. Identify the common range and the two heights.
+Use the equal launch and landing levels shown, with uniform downward gravity.
+The initial speeds may differ.
+y
+45◦
+H30
+
+H45
+30◦
+
+x
+0
+R
+Schematic; height labels identify the ratio
+
+2. Write the height and range relations.
+At maximum height the vertical velocity is zero, so
+vθ2 sin2 θ
+Hθ =
+,
+2g
+
+R=
+
+vθ2 sin(2θ)
+.
+g
+
+3. Eliminate the unknown launch speeds.
+Divide the relations:
+
+Hθ
+sin2 θ
+tan θ
+=
+=
+.
+R
+2 sin(2θ)
+4
+
+Since both ranges are equal, the symbolic height ratio is
+tan θA
+HA
+=
+.
+HB
+tan θB
+4. Label the order and insert the angles.
+H30
+tan 30◦
+1
+=
+= √ ≈ 0.577.
+◦
+H45
+tan 45
+3
+√
+H45
+=
+3 ≈ 1.73. Both are dimensionless;
+The labeled reverse ratio is equally valid: H
+30
+the 45° trajectory is higher.
+Alternative: a parabola with roots 0, R and launch slope tan θ has equation y =
+tan θ
+θ
+x(R − x). Its vertex at x = R2 gives Hθ = R tan
+and the same ratio.
+R
+4
+
+12
+
+Quiz — Variant 3
+
+Quiz 1 – Kinematics
+
+Problem 4 (25 pts)
+A particle moves in uniform circular motion over a horizontal xy plane. At one
+instant, it moves through the point with coordinates [−10 m, 10 m] with velocity of
+(−20î + 0ĵ) m/s and acceleration of (0î + 25ĵ) m/s2 . Find the position of the particle
+at moment, when its velocity equals to (20î + 0ĵ) m/s.
+1. Locate the point with opposite velocity.
+
+P1
+
+v1
+
+R
+y
+
+C
+x
+
+a0
+
+v0
+P0 = (−10, 10) m
+Schematic; clockwise motion
+Centripetal acceleration points upward toward the center. The required velocity is
+opposite to the initial one, so the required point is diametrically opposite. The motion
+is clockwise.
+2. Find the radius from centripetal acceleration.
+Let v0 = |v0 | and ac = |a0 |. For uniform circular motion,
+ac =
+
+v02
+R
+
+=⇒
+
+R=
+
+v02
+.
+ac
+
+3. Move upward by one diameter.
+The opposite point has the same x coordinate and is 2R higher: write the given
+initial coordinates as (x0 , y0 ). Then
+x1 = x0 ,
+
+y1 = y0 + 2R = y0 +
+
+2v02
+.
+ac
+
+4. Calculate the radius and position.
+202
+m = 16 m,
+x1 = −10 m,
+y1 = 10 + 2(16) = 42 m.
+25
+Answer: (x1 , y1 ) = (−10, 42) m. Repeated revolutions give this same position, not additional coordinates.
+v2
+Vector alternative: the center is rC = r0 + a02 a0 . Opposite-point symmetry gives
+c
+r1 = 2rC − r0 , which produces the same coordinates.
+R=
+
+13
+
+

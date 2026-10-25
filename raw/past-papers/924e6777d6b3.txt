@@ -1,0 +1,852 @@
+Group:
+
+BS25
+
+-
+
+-
+
+0
+
+Name:
+
+Email:
+
+@innopolis.university
+
+In
+St no
+ru po
+ct lis
+Sp ure U
+m rin s a niv
+o c g nd e r
+k 20 A sit
+ex 2
+y
+l
+am 6 go
+rit
+hm
+
+Dear student, this is a mock exam for practice.
+
+s
+
+Data Structures and Algorithms — Spring 2026
+Mock Midterm Exam
+Please read the following:
+
+• This mock contains 14 questions.
+
+• Format and style are similar to the real midterm; content is varied.
+• You may use it under exam-like conditions or for revision.
+
+D
+
+at
+a
+
+• Note that the midterm exam may contain questions that do not appear in this mock
+exam.
+
+This mock exam has 14 questions.
+
+Page 1 of 9
+
+IU DSA Spring 2026 — Mock Midterm Exam
+
+Question A
+Compute asymptotic worst case time complexity of the Solve procedure:
+1. Express the running time T (n) as a recurrence relation.
+
+1
+2
+3
+
+In
+St no
+ru po
+ct lis
+Sp ure U
+m rin s a niv
+o c g nd e r
+k 20 A sit
+ex 2
+y
+l
+am 6 go
+rit
+hm
+
+s
+
+2. Find the asymptotic complexity of T (n) using the master method. Specify which case applies and
+give a brief justification.
+/* A is a 1-indexed array; n is the number of elements in A */
+Solve(A, n):
+return Helper(A, 1, n)
+
+4
+
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+
+Recurrence relation T (n) =
+
+Asymptotic complexity T (n) =
+
+at
+a
+
+6
+
+Helper(A, l, r):
+if r - l <= 50
+return l
+else
+low := l; high := r
+while low < high:
+mid := ⌊(low + high) / 2⌋
+count := 0
+for i from l to r:
+if A[i] > A[mid]: count := count + 1
+if count > (r - l + 1) / 2 then high := mid else low := mid + 1
+k := ⌈(r - l + 1) / 3⌉
+a := Helper(A, l,
+l + k - 1)
+b := Helper(A, l + k,
+l + 2*k - 1)
+c := Helper(A, l + 2*k,
+r)
+return low
+
+Case and justification
+
+D
+
+5
+
+This mock exam has 14 questions.
+
+Page 2 of 9
+
+Group:
+
+BS25
+
+-
+
+-
+
+0
+
+Name:
+
+Email:
+
+@innopolis.university
+
+Question B
+
+n · log2 n =
+
+
+
+3/4
+
+n
+
+
+
+
+
+2
+1+
+n
+
+n
+=
+
+2
+
+n
+
+
+
+In
+St no
+ru po
+ct lis
+Sp ure U
+m rin s a niv
+o c g nd e r
+k 20 A sit
+ex 2
+y
+l
+am 6 go
+rit
+hm
+
+√
+
+s
+
+Use the most precise asymptotic notation ( O , Θ , Ω ) in the relations below.
+If none applies, use X .
+
+n1.001 =
+
+
+n log2 n
+
+log2(n!) =
+√
+4
+n=
+
+(n log2 n)
+(log2 n)
+
+3n + 2 n =
+n2
+=
+log n
+(n + 1)! =
+
+(3n)
+√ 
+n n
+(n!)
+
+Question C
+
+Given a set A of n integers and a target number k, consider the problem of finding a subset of A of
+maximum size whose elements sum to exactly k. A brute-force algorithm enumerates all subsets of A,
+checks the sum of each, and among those that sum to k, picks one with the largest number of elements.
+
+at
+a
+
+1. Give pseudocode for such a brute-force algorithm (iterative or recursive), or a clear step-by-step
+description.
+
+D
+
+2. What is the worst case time complexity of this algorithm in terms of n?
+3. Brief justification for the time complexity:
+
+4. What is the worst case space complexity (excluding the input) if we use an iterative enumeration
+(e.g. a single array of length n to represent the current subset)?
+This mock exam has 14 questions.
+
+Page 3 of 9
+
+IU DSA Spring 2026 — Mock Midterm Exam
+
+Question D
+
+In
+St no
+ru po
+ct lis
+Sp ure U
+m rin s a niv
+o c g nd e r
+k 20 A sit
+ex 2
+y
+l
+am 6 go
+rit
+hm
+
+s
+
+We have n sorted lists containing m elements in total. We want to merge them into one sorted list of m
+elements.
+Fill in the table with the asymptotic worst case time complexity of merging, depending on how the
+input lists and the output list are represented.
+Input lists / Output list
+
+Array
+
+Singly-linked (with tail)
+
+Doubly-linked
+
+Array (each list contiguous)
+Singly-linked (with tail)
+Doubly-linked
+
+Brief justification:
+
+Question E
+
+Consider a hybrid sorting algorithm that runs Quick-Sort but stops recursion when the current subarray
+has size ≤ k; then applies Counting-Sort to each such small block (keys in a fixed range [0, R]) and
+concatenates the results.
+1. What is the worst case time complexity of this hybrid
+
+at
+a
+
+in terms of n, k, and R?
+
+2. If we choose k = Θ(log n) and R = O(n),
+
+D
+
+what is the overall worst case time complexity?
+
+Brief justification:
+
+This mock exam has 14 questions.
+
+Page 4 of 9
+
+Group:
+
+BS25
+
+-
+
+-
+
+0
+
+Name:
+
+Email:
+
+@innopolis.university
+
+Question F
+Apply Bucket-Sort to the following numbers in [0, 1):
+
+In
+St no
+ru po
+ct lis
+Sp ure U
+m rin s a niv
+o c g nd e r
+k 20 A sit
+ex 2
+y
+l
+am 6 go
+rit
+hm
+
+1. Show the contents of each bucket (before sorting inside buckets).
+
+s
+
+0.92, 0.21, 0.03, 0.55, 0.07, 0.41, 0.25, 0.12, 0.67, 0.05
+
+2. Give the sorted sequence (after sorting each bucket and concatenating).
+
+Question G
+
+For each statement, write TRUE or FALSE.
+1. n2 = O(n3/2 ).
+
+2. In a binary search tree, the node with the maximum key has no left child.
+3. Heap-Sort has O(n) worst case time complexity.
+
+at
+a
+
+4. Radix-Sort (with a fixed digit range) sorts n integers
+
+D
+
+in Θ(n) time regardless of the number of digits.
+5. In ArrayQueue, Enqueue(x) has Θ(n) worst case time complexity.
+6. The height of an AVL tree with n nodes is Θ(log n).
+7. For the recurrence T (n) = 2T (n/2)+n, the master theorem gives T (n) = Θ(n).
+8. In dynamic programming, overlapping subproblems are solved at least twice.
+9. Merge-Sort is a comparison-based sorting algorithm.
+10. A red-black tree with n internal nodes has height at least 2 log2 (n + 1).
+This mock exam has 14 questions.
+
+Page 5 of 9
+
+IU DSA Spring 2026 — Mock Midterm Exam
+
+Question H
+Consider a binary search tree stored in standard array representation. Start from an empty tree and
+insert the following keys in order:
+
+22,
+
+4,
+
+11,
+
+19,
+
+30,
+
+2,
+
+6,
+
+25
+
+s
+
+8,
+
+In
+St no
+ru po
+ct lis
+Sp ure U
+m rin s a niv
+o c g nd e r
+k 20 A sit
+ex 2
+y
+l
+am 6 go
+rit
+hm
+
+15,
+
+1. Draw the constructed BST (after all insertions).
+
+2. Fill in the array representation after all insertions (before any deletion).
+0
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+10
+
+11
+
+12
+
+13
+
+14
+
+15
+
+9
+
+10
+
+11
+
+12
+
+13
+
+14
+
+15
+
+3. Fill in the array representation after deleting key 30.
+0
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+at
+a
+
+4. Fill in the array representation after deleting key 8 (from the tree that already had 30 deleted).
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+10
+
+11
+
+12
+
+13
+
+14
+
+15
+
+D
+
+0
+
+5. Draw the final BST (after all insertions and both deletions).
+
+This mock exam has 14 questions.
+
+Page 6 of 9
+
+Group:
+
+BS25
+
+-
+
+-
+
+Name:
+
+0
+
+Email:
+
+@innopolis.university
+
+Question I
+Answer the following about the Longest Common Subsequence (LCS) problem. Given two sequences
+X and Y , we want the length of an LCS and one such subsequence.
+
+In
+St no
+ru po
+ct lis
+Sp ure U
+m rin s a niv
+o c g nd e r
+k 20 A sit
+ex 2
+y
+l
+am 6 go
+rit
+hm
+
+s
+
+1. What is the worst case time and space complexity of computing the LCS length using dynamic
+programming with tabulation (bottom-up), if |X| = m and |Y | = n?
+Time:
+
+Space:
+
+2. Find the LCS length for X = ⟨A, B, C, A, B⟩ and Y = ⟨B, A, C, B, A⟩. Then give one LCS of that
+length.
+LCS length =
+
+One LCS (e.g. as sequence):
+
+3. Fill in the DP table C[i, j] (LCS length of X[1..i] and Y [1..j]). Row i = 0 and column j = 0 are
+filled with 0.
+C
+i=0
+
+j=0
+0
+
+i = 1 (A)
+
+0
+
+i = 2 (B)
+
+0
+
+i = 3 (C)
+
+0
+
+i = 4 (A)
+
+0
+
+i = 5 (B)
+
+0
+
+j = 1 (B)
+0
+
+j = 2 (A)
+0
+
+j = 3 (C)
+0
+
+j = 4 (B)
+0
+
+j = 5 (A)
+0
+
+at
+a
+
+Question J
+
+D
+
+The initial AVL tree is given in array representation. An empty slot is shown as –.
+0
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+10
+
+11
+
+12
+
+13
+
+14
+
+15
+
+7
+
+4
+
+9
+
+1
+
+5
+
+8
+
+10
+
+–
+
+2
+
+–
+
+–
+
+–
+
+–
+
+–
+
+–
+
+–
+
+Key 3 is inserted using the usual BST insertion (without rebalancing).
+1. Which rotation(s) are necessary to restore the AVL invariant? For each rotation, give the pair of
+keys (parent, child ) where the rotation is performed. List at most two rotations.
+Rotation 1 (parent, child):
+Rotation 2 (parent, child):
+
+This mock exam has 14 questions.
+
+Page 7 of 9
+
+IU DSA Spring 2026 — Mock Midterm Exam
+
+Question K
+
+In
+St no
+ru po
+ct lis
+Sp ure U
+m rin s a niv
+o c g nd e r
+k 20 A sit
+ex 2
+y
+l
+am 6 go
+rit
+hm
+
+s
+
+The maximum subarray problem: given an array of n numbers, find a contiguous subarray with maximum sum.
+For each of the three approaches below, state the worst case time complexity in terms of n and give
+a brief justification.
+Time complexity for Brute Force:
+Brief justification:
+
+Time complexity for Divide-and-Conquer:
+Brief justification:
+
+Time complexity for Dynamic Programming:
+
+D
+
+at
+a
+
+Brief justification:
+
+Question L
+1. What is the minimum number of leaves in a decision tree for
+any comparison-based sorting algorithm on an input array of size 6?
+2. State the lower bound on the number of comparisons
+needed to sort n elements by comparisons. Give the asymptotic bound.
+
+This mock exam has 14 questions.
+
+Page 8 of 9
+
+Group:
+
+BS25
+
+-
+
+-
+
+Name:
+
+0
+
+Email:
+
+@innopolis.university
+
+Question M
+
+N(4) =
+
+h = 8:
+
+N(8) =
+
+In
+St no
+ru po
+ct lis
+Sp ure U
+m rin s a niv
+o c g nd e r
+k 20 A sit
+ex 2
+y
+l
+am 6 go
+rit
+hm
+
+h = 4:
+
+s
+
+1. What is the minimum number N (h) of (internal) nodes in an AVL tree of height
+
+h = 12:
+
+N(12) =
+
+2. Draw a valid AVL tree of height 4 with the minimum number of nodes:
+
+Question N
+
+Draw a valid red-black tree containing exactly the following keys (inserted in this order):
+
+10,
+
+5,
+
+15,
+
+3,
+
+7,
+
+12,
+
+20.
+
+Mark each node as red or black. Red-black tree invariants (reminder):
+1. The root and leaves (empty subtrees) are black.
+
+at
+a
+
+2. If a node is red, both its children are black.
+
+D
+
+3. For every node, every path from that node to a leaf has the same number of black nodes.
+
+This mock exam has 14 questions.
+
+Page 9 of 9
+
+

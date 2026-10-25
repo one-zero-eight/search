@@ -1,0 +1,307 @@
+Innopolis University
+Academic Year 2023/2024
+The Final Exam of Computer Networks
+The 10th of May 2024
+Duration: 60 minutes
+
+Student Full Name:
+Student Email:
+Student Group:
+Student Telegram:
+Exam Room:
+Missed the Midterm Exam due to a legal excuse?
+
+Question
+Question 1
+Question 2
+Question 3
+Question 4
+Question 5
+Question 6
+Question 7
+Question 8
+Question 9
+Question 10
+Total (max: 16 points)
+
+YES / NO
+
+For Instructors Use: Grade Summary
+Grade
+
+Please write very clearly your names and your solution. What will not be understood will
+be considered wrong.
+You need to perform this exam alone and without the use of any equipment or book, apart
+from this booklet and pens. Please do not consult any person or use any equipment,
+otherwise you will be disqualified from this exam at the very first attempt.
+Student’s signature:
+
+Student Full Name:
+
+Question 1. (1 point) Below is a list of calls to socket(...) functions in C language, with different input
+arguments. Choose the case(s) corresponding to a UDP communication:
+a) socket(AF_INET, SOCK_STREAM, 0)
+b) socket(AF_INET, SOCK_DGRAM, 0)
+c) No choice is correct
+Grading:
+(+1) for option (b);
+0 for another option or several options chosen
+Question 2. (1 point) Due to a drastic lack of available public IPv4 addresses, nowadays there is a
+rapid transition to the IPv6 standard use, which is to be completed just in several years.
+a) Yes, I agree;
+b) No, I disagree
+Grading:
+(+1) for option (b);
+In a few cases: (+0.5) or (+1) for option (a) with some relevant discussion;
+0 for option (a) without any justification/clarification
+Question 3. (1 point) Consider the terminology listed in the left column of the table below. These
+terms refer to a data packet at a specific TCP/IP layer, excluding the physical layer. Match the terms
+at the left to an appropriate TCP/IP layer at the right.
+a)
+b)
+c)
+d)
+
+Frame;
+Datagram;
+Message;
+Segment
+
+Computer Networks: The Final Exam 2024
+
+1)
+2)
+3)
+4)
+
+Application layer;
+Transport layer;
+Network layer;
+Data Link layer
+
+2
+
+Student Full Name:
+Answer:
+a) 4
+
+b) 3
+
+c) 1
+
+d) 2
+
+Grading:
+(+0.25) for every correctly filled cell
+Question 4. (1 point) Provide the names of four C socket functions for network programming, which
+are used in case of TCP communication, but not used in case of UDP communication. Input
+arguments for functions are not required.
+Possible answers:
+1 connect(…)
+
+2 accept(…)
+
+3 recv(…)
+
+4 send(…)
+
+Grading:
+(+0.25) for every correctly filled cell;
+close() was graded as correct
+Question 5. (1 point) What data is needed to identify a network process running on a remote host?
+Why an IP address of a remote host is not sufficient?
+Answer:
+An IP address + the port number of a network process;
+The IP address of a network host is not sufficient in case of multiple network processes running on
+the same host; thus, the port is used as an additional identifier for a process.
+Grading:
+(+0.5) for mentioning the port identifier of a process;
+(+0.5) for justifying its necessity
+Question 6. (2 points) Describe four key differences between a router and a switch, by filling-in the
+following template. One criteria for the comparison is specified in the first row of the table, and three
+others are up to a student choice. All table cells must be filled, including the “Criteria” column.
+Possible answers:
+
+Grading:
+(-0.5) for every incorrectly filled cell in the first row;
+(+0.3) for every fully correct row starting from the second one;
+(+1) for all three rows after the first one being totally correct
+
+Computer Networks: The Final Exam 2024
+
+3
+
+Student Full Name:
+Question 7. (1+2 points) What is the key purpose of a NAT translation mechanism? Schematically
+illustrate the numbered sequence of the key steps of a NAT translation mechanism with a graphical
+diagram, for the following communication scenario:
+a) There is a host located on a private network, an HTTP server located on a public network, and
+a NAT-enabled router connecting those private and public networks;
+b) A private network host sends a request to a public HTTP server, and the server responds;
+c) The IP address of a private network host is 10.0.0.1;
+d) The IP address of a public interface of a NAT-enabled router is 138.76.29.7;
+e) The IP address of a private interface of a NAT-enabled router is 10.0.0.4;
+f) The IP address of a public destination HTTP server is 128.119.40.186;
+g) The HTTP port number is 80;
+h) Any other data required for the NAT illustration should be chosen arbitrary by a student and
+documented explicitly.
+Answer:
+The key purpose of NAT:
+To represent the entire private network with a single public IP address, to deal with the shortage of
+IPv4 addresses
+Grading:
+(+1) for “the lack of IPv4 addresses”, “to represent a private network with a single IP address”, and
+similar;
+(+0.5) for “the lack of IP addresses” without an explicit specification of v4
+The diagram illustrating the key NAT translation steps for the scenario provided above:
+
+Some notes on grading:
+(-1) for not mentioning the presence of a NAT table and its purpose;
+(-1) for not mentioning the use of randomly generating port numbers for the NAT use;
+(-1) for a verbal description without sufficient details and no precise IP addresses or port numbers
+specified;
+(-0.25) for every mistake related to the use of IP addresses or port numbers;
+(-2) for the unclear inaccurate description
+
+Computer Networks: The Final Exam 2024
+
+4
+
+Student Full Name:
+Question 8. (2 points) What is the difference between Carrier Sense Multiple Access (CSMA) protocol
+with and without collision detection (CD)? Support your answer with a graphical illustration.
+Answer:
+The verbal description of the difference: Unlike CSMA, the CSMA with CD protocol version checks for
+collisions during data transmission, and not only before the start of the transmission.
+The graphical illustration motivating collision detection need for CSMA protocol (that is CSMA/CD):
+
+Grading:
+(+1) for a correct verbal description of the difference;
+(+1) for a correct illustration with meaningful labels;
+
+Computer Networks: The Final Exam 2024
+
+5
+
+Student Full Name:
+Question 9. (2 points) The diagram below represents the finite-state machine (FSM) of the Reliable
+Data Transfer (RDT) 2.0 theoretical protocol, both for the sender and receiver sides. For simplicity, at
+the right of the FSM image below there is a table listing the key actions and events used in the protocol
+design. RDT 2.0 protocol does not use any timers, and thus, there are no timer-related actions in the
+table. Some transition actions and events are however missing in the FSM below, being replaced with
+empty rectangles; the symbol “&&” denotes a binary logical AND operator and assumes two
+actions/events to be specified. Fill-in those empty rectangles with appropriate actions and events from
+the table.
+Sender Side
+FSM:
+
+RDT 2.0 Protocol Implementation: FSM Design
+
+rdt_send(data)
+sndpkt = make_pkt(data, checksum)
+udt_send(sndpkt)
+
+Function
+
+Description
+
+rdt_send(…)
+
+To send data reliably
+
+rdt_rcv(rcvpkt)
+&& isNAK(rcvpkt)
+
+make_pkt(…)
+
+To compose a data packet to be sent
+
+udt_send(…)
+
+To send data over unreliable channel
+
+udt_send(sndpkt)
+
+rdt_rcv(…)
+
+To receive data reliably
+
+rdt_rcv(rcvpkt)
+&& isACK(rcvpkt)
+&&
+
+isACK(…)
+
+Indicates if acknowldgement is positive
+
+isNAK(…)
+
+Indicates if acknowldgement is negative
+
+No actions
+
+notcorrupt(…)
+corrupt(…)
+
+Indicates if data is
+not corrupted or corrupted
+
+extract(…)
+
+Extracts application data from packet
+
+Wait for
+call from
+the layer
+above
+
+Wait for
+ACK or NAK
+from a
+receiver
+
+rdt_rcv(rcvpkt)
+&& corrupt(rcvpkt)
+&&
+
+Receiver Side
+FSM:
+
+rdt_rcv(rcvpkt)
+&& notcorrupt(rcvpkt)
+&&
+extract(rcvpkt, data)
+deliver_data(ACK)
+sndpkt = make_pkt(ACK)
+udt_send(sndpkt)
+
+Wait for
+call from
+below
+
+deliver_data(…) Passes data to an upper layer
+
+sndpkt = make_pkt(NAK)
+udt_send(sndpkt)
+
+Grading:
+(+0.25) for every correctly filled gap
+
+Computer Networks: The Final Exam 2024
+
+6
+
+Student Full Name:
+Question 10. (2 points) Specify at least four major performance criteria for an idealized medium access
+control (MAC) protocol. Fill-in the table below (the last row can be left empty):
+
+Grading:
+(+0.5) for every correct criterion (out of 4 required);
+Error detection, reliability, data flow control, congestion flow are not considered to be correct, as these
+are not the functions of MAC protocols. See reference below:
+
+Computer Networks: The Final Exam 2024
+
+7
+
+

@@ -1,0 +1,225 @@
+Innopolis University
+Academic Year 2024/2025
+Prefinal Exam of Computer Architecture
+6th December 2024
+Duration: 60 minutes
+
+Student Full Name:
+Student Group:
+Exam Room:
+Telegram Alias:
+Midterm missed (underline): No / Yes
+
+Question
+Question 1
+Question 2
+Question 3
+Question 4
+Question 5
+Question 6
+Question 7
+Question 8
+Total
+
+Grade Summary (for instructors fill)
+Grade
+
+Maximum score: 12 points
+
+Please write clearly your name and your solutions. What will not be understood will be
+considered wrong. All answers must be provided in English.
+This is a closed-book exam. You are not allowed to use any reference materials or electronic
+equipment, apart from this booklet and pens. You are not allowed to consult any person,
+otherwise you will be disqualified from this exam at the very first attempt.
+Good Luck!
+Signature:
+
+Computer Architecture – Prefinal 2024
+
+Student Full Name:
+
+Question 1. (1 point) Choose RISC-V branch-type instruction(s) below:
+a) lw
+
+b) ld
+
+c) sb
+
+d) bne
+
+e) jal
+
+f) No choice is correct
+
+Grading notes:
+(d) – (+1) point, (e) – (+0.5), but at most 1 point;
+Other options – 0 for the entire question, independently of (d), (e) options chosen
+Question 2. (1 point) Choose valid characteristic(s) for RISC-V processor architecture:
+1) RISC-V is a stack-based processor architecture;
+2) The length of the binary representation of RISC-V processor instructions is 64 bits;
+3) RISC-V processor has 64 floating-point registers;
+4) The default RISC-V register storage capacity is 14 bits;
+5) No choice is correct (correct)
+Grading notes:
+(5) – 1 point, otherwise 0 points
+
+Computer Architecture – Prefinal 2024
+
+Page 2 of 4
+
+Student Full Name:
+Question 3. (1 point) What logic circuit is depicted below?
+Answer: Subtractor (for 2 arguments of 4 bits each)
+
+Grading notes:
+(1 point) - Correct circuit name, otherwise 0 points (a single minor grammar mistake is not
+penalized)
+Question 4. (1 point) Computer memory units are classified by different criteria, including
+SRAM and DRAM, volatile and non-volatile, among other. For each memory type listed below,
+fill-in the table by placing a cross (X) into the corresponding column with memory types.
+Memory Type
+CPU register
+L1 Cache
+L2 Cache
+System Memory
+SSD Storage
+USB Flash Drive
+
+SRAM DRAM Neither SRAM nor DRAM
+X
+X
+X
+X
+X
+X
+
+Volatile
+X
+X
+X
+X
+
+Non-Volatile
+
+X
+X
+
+Grading notes: (+0.2) for every entirely correct column (not row)
+
+Computer Architecture – Prefinal 2024
+
+Page 3 of 4
+
+Student Full Name:
+Question 5. (2 points) The Flynn’s taxonomy identifies four computational models for
+computer systems, including SISD (Single Instruction Single Data). List the remaining three
+models according to the Flynn’s taxonomy in the table at the left. Then, for each processing unit
+type listed, specify its corresponding Flynn’s taxonomy model in the column at the right.
+
+1
+2
+3
+4
+
+Computation Model
+
+Processing Unit
+Type
+
+Flynn’s Taxonomy
+Model
+
+SISD: Single Instruction Single Data
+
+Single-Core CPU
+
+SISD
+
+SIMD: Single Instruction Multiple
+Data
+MISD: Multiple Instructions Single
+Data
+MIMD: Multiple Instructions Multiple
+Data
+
+Multi-Core CPU
+
+MIMD
+
+GPU
+
+SIMD
+
+Grading notes:
+(+1) – for entirely correctly filled table at the left, otherwise (+0.3) per correct row; only
+abbreviations are sufficient;
+(+1) – for entirely correctly filled table at the right, otherwise (+0.3) per correct row
+Question 6. (2 points) Provide the logic circuit of a 2-to-1 encoder by using AND, OR, and NOT
+logic gates. Implement this logic circuit in the Verilog HDL.
+Answer: One of the possible solutions:
+2-to-1 Encoder Circuit
+
+Its SystemVerilog Implementation
+
+module (i1, i2, q)
+input i1, i2;
+output q;
+assign q = i2;
+endmodule
+Grading notes: (+1) – for an entirely correct circuit; (+1) – for an entirely correct Verilog
+Question 7. (2 points) RISC-V architecture identifies several types of instructions, including
+R (register), I (immediate), J (jump)
+For each instruction in the table below, indicate its type by placing a cross (X) into the
+corresponding column:
+Instruction
+add
+addi
+ld
+jal
+sd
+
+R (Register)
+X
+
+Instruction Type
+I (Immediate) J (Jump)
+
+Other (not listed)
+
+X
+X
+X
+X
+
+Grading notes: (+0.4) for every correctly filled row (not column)
+Computer Architecture – Prefinal 2024
+
+Page 4 of 4
+
+Student Full Name:
+Question 8. (2 points) Below is a schematic design of a single-cycle RISC-V processor. On this
+diagram, some component names are missing. Write down the following names on/near the
+corresponding design components:
+a) Data Memory
+b) Instructions Memory
+c) ALU (Arithmetic-Logic Unit)
+d) Register File
+e) CU (Control Unit)
+f) Program Counter (PC) register
+g) CPU Clock
+h) “Opcode” pin (for ALU instructions
+i) “Zero” pin (the one used with conditional branch instructions)
+j) Branch/jump indication pin/wire (indicates the execution of a branch instruction)
+
+Grading notes:
+(+0.2) for every correctly matched name, except:
+If a name is written down for several components, including an incorrect
+component, then it is not counted
+This is the end of the student book
+Draft (will NOT be checked)
+
+Computer Architecture – Prefinal 2024
+
+Page 4 of 4
+
+

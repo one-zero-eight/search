@@ -1,0 +1,70 @@
+hﬁnum-ddnmn-lhﬂpdduucdmnwmunmudmuundunwmNor
+BE graded. mwmmdnhmwmdmmmm
+
+of the hyperbola which axes coincide with the axes of
+' "Tma:&mw-pdt(«—imndm
+
+4 W/W
+(a) Q_M'W.mavmmmmmm 22 +y* -2 = 1. Sketch the
+
+(b) (lpdﬂ)mthmdthdmhddmdbymfollmngeqmuom
+PP+ -8z dy+8:-45=01- 2y+2:- :
+
+(¢) (1 points) Determine the type of a conk: ? 4 ﬂy’ + -#xy 48. Compose the
+and the transition msmx to canonical coordinate system. Find the
+
+mdlubdhlbemmooordimte system.
+
+End of Exam
+Analytical Geometry and Linear Algebra 1. Final Exam. December 22, 2023
+. VARIANT 2
+
+[Full name: [¢]
+
+In each sheet, you should write your last name, first name, variant number, and group number
+in the upper right corner. Unsigned sheets or sheets without the information above will NOT
+BE graded. This assignment sheet must also be submitted along with your solution.
+
+Theory. b points
+
+1. Definitions
+(a) (lpoint)Whnhmmrlcdmumnmlonolthamplmaaxb?
+(b) (2 points) Give a definition of the affine transformation. Provide an example.
+(c) (2 points) What is the vector equation of the circular cylinder?
+
+Practice. Maximum 30 points
+
+1. Vector operations / Matrices
+(a) (apoint.s)Forwhid:vﬂwz,mwnamdmeOTformln‘bﬁlolmm?
+Prove your answers,
+2-z T
+&= [ 3z ey [=+2]
+(b) (4points)meoordimulynemisassumodtob00artesim(onbogoml). Find a unit
+vector d such that both following conditions hold:
+i. d is co-planar with a(4; —2;-1) and b(2;1;1);
+ii. d is orthogonal to c(1;2;2);
+2. Lines / Planes
+(a) (8points)ApointAliesontbeline‘-’,‘-‘=§=-‘-—]‘-l. The distance from a point A to
+theplanez+y+s+3=0equ-ls\/§. Find all the possible coordinates of A.
+(b) (4 points) Findtheoquaﬁonofaphnewhid:hferpemdicuhrmthephnez+4y—
+32+ 7 = 0 and crosses the straight line 272 = 73 = =1,
+3. Conics
+(a) (4 points) What are the coordinates of the foci of the ellipse: 922 + 16y* — 72z — 96y +
+144 =07
+
+(b) (7 points) Compose the equation of the hyperbola which axes coincide with the axes of
+coordinate system, if it’s known that it touches the lines ¢ = 1 and 5z — 2y +3 = 0.
+
+4. Coordinates / Surfaces
+(a “'am)mntypeonhemrfnmbytheoqmlonz’+z’+2y-l.Shswhtho
+
+) )Pindthcndiuonhecirchdeﬁnedbythefollowiueqwiou:s’+1’+
+122+4y—62+424=0,20+2+2+1=0.
+
+Determine the type of a conic #* — 2zy + y? — 10z — 6y + 25 = 0. Compose
+and the transition matrix to canonical coordinate system. Find
+of its vertex in the source coordinate system.
+
+End of Exam
+
+Page 2

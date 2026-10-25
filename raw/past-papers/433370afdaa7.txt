@@ -1,0 +1,136 @@
+Analytical Geometry and Linear Algebra I. Midterm Exam. October 27, 2023
+VARIANT 1
+Full name:
+
+Task:
+Score:
+
+Group:
+
+Theory
+
+1a
+
+1b
+
+2a
+
+2b
+
+3
+
+4
+
+5
+
+Total
+of 30 pts.
+
+In each sheet, you should write your last name, first name, variant number, and group number
+in the upper right corner. Unsigned sheets or sheets without the information above will NOT
+BE graded. This assignment sheet must also be submitted along with your solution. glhf!
+
+Theory. Maximum 5 points
+• Definitions, simple proofs (from lectures).
+1. (1 point) Vectors v1 , v2 , ..., vn are linearly independent if...
+2. (2 points) Give a condition of coplanarity of three vectors.
+3. (2 points) Give definition of a trace, T r(A), of matrix and prove linearity
+of trace.
+Practice. Maximum 25 points
+1. Vector operations / Matrices
+(a) (2 points) Find the determinant of the 3x3 matrix:
+
+
+2 5 −3
+ 1 4 −2
+−7 3 0
+(b) (4 points) Find a vector that is orthogonal to both v1 = (1, 0, 1) and
+v2 = (1, 3, 0) and which dot product with vector v3 = (1, 1, 0) equals to 8.
+2. Lines / Planes
+(a) (2 points) Find the angle between the planes 2x − y + z = 6, x + y + 2z = 3.
+(b) (4 points) What is the general equation of the plane which contains the
+following two parallel lines: x+1
+= y−2
+= z and x−3
+= y+4
+=z−1
+6
+7
+6
+7
+3. (4 points) Find the distance from the point (1, 1, −1) to the line of intersection
+of the planes x + y + z = 1 and 2x − y − 5z = 1.
+4. (4 points) Two vertices of a triangle are (4, −3) and (−2, 5). If the orthocenter
+(intersection of altitudes) of the triangle is at (1, 2), find the coordinates of the
+third vertex.
+5. (5 points) In a regular tetrahedron ABCD, find the coordinates of the point M
+in the basis {D, DA, DB, DC}, if the point M has coordinates (0, 1/3, 1/3) in
+the basis {A, AD, AB, AC}.
+
+Analytical Geometry and Linear Algebra I. Midterm Exam. October 27, 2023
+VARIANT 2
+Full name:
+
+Task:
+Score:
+
+Group:
+
+Theory
+
+1a 1b
+
+2a 2b
+
+3 4
+
+5
+
+Total
+of 30 pts.
+
+In each sheet, you should write your last name, first name, variant number, and
+group number in the upper right corner. Unsigned sheets or sheets without the
+information above will NOT BE graded. This assignment sheet must also be
+submitted along with your solution. gl hf!
+Theory. Maximum 5 points
+1. Definitions, simple proofs.
+(a) (1 point) Let V = {v1 , v2 , ..., vn } be a set of vectors. Give a definition of a
+span S(V )
+(b) (2 points) What is the geometrical interpretation of the magnitude of a×b?
+(c) (2 points) Given that BC and CB are valid, prove that T r(BC) = T r(CB)
+Practice. Maximum 25 points
+1. Vector operations / Matrices
+(a) (2 points) Find the determinant of matrix
+
+
+1 −2 2
+2 1 −1
+4 −3 5
+(b) (4 points) Find a vector that is orthogonal to both v1 = (1, −1, 1) and
+v2 = (6, −3, 0) and which dot product with a vector v3 = (3, 2, 3) equals to
+10.
+2. Lines / Planes
+(a) (2 points) Find the angle between the planes x + y − 4z = 8, 4x + y − z = 8.
+(b) (4 points) What is the general equation of the plane which contains the
+following two parallel lines: x−1
+= y+2
+= z and x+3
+= y−4
+=z−1
+5
+3
+5
+3
+3. (4 points) Find the distance from the point (1, 1, −1) to the line of intersection
+of the planes x + y + z = 1 and 2x − y − 5z = 1.
+4. (4 points) Two vertices of a triangle are (6, −1) and (−2, 5). If the orthocenter
+(intersection of altitudes) of the triangle is at (1, 2), find the coordinates of the
+third vertex.
+5. (5 points) In a regular tetrahedron ABCD, find the coordinates of the point M
+in the basis {A, AD, AB, AC}, if the point M has coordinates (1/3, 1/3, 1/3)
+in the basis {D, DA, DB, DC} .
+
+Page 2
+
+

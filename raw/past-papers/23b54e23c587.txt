@@ -1,0 +1,347 @@
+Linear Control Midterm , 2020
+1
+
+• d ) SYSTEM I is stable, SYSTEM II is unstable, SYSTEM
+
+III is stable in the sense of Lyapunov , SYSTEM IV is unstable
+
+Problem 1
+
+• e) SYSTEM I and II are unstable, SYSTEM III and IV are
+
+You have a linear system
+SYSTEM I:
+
+stable
+
+Xi
+
+- 10 - 1
+
+Xi
+
+-5
+
+Xo
+
+2
+
+X2
+
+SYSTEM II:
+2x =
+
+• f ) SYSTEM I is stable, SYSTEM II is unstable, for SYSTEM
+III stability cannot be identified , SYSTEM IV is unstable.
+
+• g) SYSTEM I is unstable, SYSTEM II is unstable, for SYS-
+
+—ix + x
+
+TEM III stability cannot be identified , SYSTEM IV is sta-
+
+SYSTEM III:
+Xi
+
+ble.
+
+-10 0 0 0
+
+Xi
+
+-1
+
+x2
+
+0
+0
+0
+
+X2
+
+xz
+x4
+
+0
+0
+
+0 0
+2 -2
+0 10
+
+xz
+x4
+
+0
+0
+0
+0
++ 10 2
+0 -10
+
+Ui
+U2
+
+xi
+Ui
+
+u2
+
+0 0 1 0
+0 0 0 1
+
+x2
+
+Problem 2
+
+Consider LTI systems with poles (eigenvalues) as shown on the
+graphs (see Fig. 1)
+Which are stable? Options:
+
+• a) SYSTEM I and II are stable, SYSTEM III is unstable,
+
+xz
+
+SYSTEM IV is unstable in the sense of Lyapunov
+
+x4
+
+SYSTEM IV:
+x\ = - Ax\
+
+2
+
+— 2xo xo = -2
+
+X2
+
+Which systems are stable? Options:
+
+• a) SYSTEM I and IV are stable, SYSTEM II and SYSTEM
+III are unstable
+
+• b) SYSTEM I is stable, others are unstable
+
+• b) SYSTEM I, II and IV are stable, SYSTEM III is unstable
+• c) SYSTEM I, III and IV are unstable, SYSTEM II is stable
+• d ) SYSTEM I is stable in the sense of Lyapunov, SYSTEM
+II is stable, SYSTEM III and IV are unstable
+
+• f ) SYSTEM I, II and III are unstable, SYSTEM IV is stable
+• e) SYSTEM I and II are stable, SYSTEM III is unstable,
+SYSTEM IV is stable in the sense of Lyapunov
+
+• c) SYSTEM I, III and IV are stable, SYSTEM II is unstable
+1
+
+2
+
+SYSTEM I
+
+CONTROL LAW III:
+
+SYSTEM (I
+
+Imaginary
+
+Imaginary
+
+i
+
+u = [ 0 10] X i
+
+*
+
+Real
+
+-i
+
+X2
+
+Real
+
+t
+
+CONTROL LAW IV:
+
+-I
+
+u = [-10 2] X i
+
+X2
+
+SYSTEM III
+
+SYSTEM IV
+
+Imaginary
+l
+
+• a) CONTROL LAW I, II and III stabilize the system, CON-
+
+1
+
+Real
+1
+
+Which control laws stabilize the system ? Options:
+
+Imaginary
+
+Real
+
+TROL LAW IV does not
+
+1
+
+•
+
+-1
+
+*
+
+• b) CONTROL LAW II and III stabilize the system , CONTROL LAW I and IV does not
+
+• c) None of the control laws stabilize the system
+• d ) all control laws stabilize the system
+• f ) the system is already stable, no control needed
+
+Figure 1: poles of the systems
+
+3
+
+Problem 3
+
+• e) CONTROL LAW I, II and III do not stabilize the system,
+CONTROL LAW IV stabilizes the system
+
+Consider LTI system:
+
+• g) CONTROL LAW II and III do not stabilize the system,
+
+2 3
+-10
+Xi
+Xi
+x2\
+[2 -6 j [ x2 + 2 u
+and the following control laws:
+CONTROL LAW I:
+Xi
+
+“ = [1 !] x2
+CONTROL LAW II:
+
+u = [10 0]
+3
+
+x\
+x2
+
+CONTROL LAW I and IV stabilizes the system in the sense
+of Lyapunov
+
+4
+
+Problem 4
+
+You have a linear system:
+x = 10x - 2u
+
+4
+
+and cost function:
+
+Table 1: Your answers
+
+J=
+
+J
+
+( rrlOrr + u0.1u )dt
+
+Question
+Your Name
+Your Surname
+Problem 1 correct option is
+Problem 2 correct option is
+Problem 3 correct option is
+Problem 4 correct option is
+
+Optimal cost is J * = f ( xSx ) dt . Solve Algebraic Riccati equation
+and find S.
+0
+• a ) S = .V05|
+'
+
+• b) S = 10.5
+• c) S = 3\/5
+• d ) S = 3.2
+
+—
+~
+
+#
+
+e) 5 =
+
+6
+
+-VZ -2
+
+[0
+
+'
+
+•
+
+Lookup info
+
+Determinant:
+
+3
+4 .
+
+a b
+
+\ A\ = c d = ad — be
+
+• f ) S = 30 ±|\/5
+
+•
+
+Answer
+
+Eigenvalues:
+
+g) 3 = -VE
+
+\A - X I\ =
+
+,
+
+h ) S = i + j\/5
+
+a
+
+cX
+
+•0 S =|±|\/5
+
+• j) 5 =|± iv/5
+• k) 5 = f %/5 ± ifv/5
+5
+
+Your answers
+
+Please write your answers in the table below:
+
+5
+
+6
+
+b
+0
+d-A =
+
+

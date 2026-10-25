@@ -1,0 +1,184 @@
+Full Name:
+
+Innopolis University
+Introduction to Optimization
+Fall 2024
+Test 1
+28.09.2024
+
+Variant 1
+Duration:
+
+90 Minutes
+
+You need to perform this exam alone and without the use of any equipment
+or book, apart from this booklet, cheat sheet, simple calculator and pens.
+Please do not consult any person or use any equipment, otherwise you will be
+disqualified from this exam at the very first attempt.
+Good Luck!
+Grade Table (for teacher use only)
+Question:
+
+1
+
+2
+
+3
+
+4
+
+Total
+
+Points:
+
+2
+
+5
+
+3
+
+5
+
+15
+
+Score:
+
+1. (2 points) The following table presents the iteration ”I” of a LPP, complete the iteration ”II”.
+This is the maximization problem.
+Iteration
+
+Basic
+
+x1
+
+x2
+
+x3
+
+s1
+
+s2
+
+Sol.
+
+I
+
+z
+
+-6
+
+-3
+
+-2
+
+0
+
+0
+
+0
+
+... enters
+
+s1
+
+8
+
+6
+
+1
+
+1
+
+0
+
+48
+
+... leaves
+
+s2
+
+2
+
+2
+
+1
+
+0
+
+1
+
+8
+
+z
+II
+
+Ratio
+
+Full Name:
+
+Test 1 - Variant 1
+
+2. Consider the following LP:
+Maximize
+z = −4x1 − 3x2
+subject to
+
+3x1 + 2x2 ≥ 12,
+
+
+
+3x + 8x ≤ 24,
+1
+2
+
+x1 ≥ 0,
+
+
+
+x2 ≥ 0.
+
+(1)
+(2)
+(3)
+(4)
+
+(a) (1 point) Express the problem in equation form.
+(b) (1 point) Determine all the basic solutions of the problem by enumeration, and classify
+them as feasible and infeasible.
+(c) (1 point) Use direct substitution in the objective function to determine the optimum basic
+feasible solution.
+(d) (1 point) Verify graphically that the solution obtained in (c) is the optimum LP solution.
+(e) (1 point) Show how the infeasible basic solutions are represented on the graphical solution
+space.
+
+Full Name:
+
+Test 1 - Variant 1
+
+3. Consider the following LP:
+Maximize
+z = 2x1 + 3x2 − 5x3
+subject to
+x1 + x2 + x3 = 7,
+− 5x1 + x2 + 10x3 ≥ 20,
+4x1 + 3x2 − 7x3 ≤ 14,
+2x1 − 5x2 + x3 ≥ 10,
+x1 , x2 , x3 ≥ 0.
+
+(a) (1 point) Express the problem in equation form. (Use artificial variables, if needed.)
+(b) (2 points) For this LPP, develop the z -row after substituting out the artificial variables in
+M -method.
+
+Full Name:
+
+Test 1 - Variant 1
+
+4. (5 points) Write Phase I for the following problem. Minimize
+z = −4x1 − 2x2 − 3x3
+subject to
+2x1 + x2 + 3x3 ≤ 1
+2x1 + 4x2 + 2x3 = 6
+3x1 + 7x2 + 2x3 = 10
+x1 , x2 , x3 ≥ 0
+
+

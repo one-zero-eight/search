@@ -1,0 +1,16 @@
+{
+ "title": "Read the article [NIR_2022_fusionofdata]",
+ "url": "https://innopolis.university/filespublic/NIR_2022_fusionofdata.pdf",
+ "sha256": "63b225eed634cf32c6d1f724cfa9b64203753d0bd86694189cf0ec866aca3064",
+ "method": "text layer (pdfplumber)",
+ "chars": 20737,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:44:57+00:00",
+ "remote": {
+  "etag": "\"8432d6-5e724a40aa54d\"",
+  "modified": "Fri, 26 Aug 2022 13:10:40 GMT",
+  "size": "8663766"
+ }
+}

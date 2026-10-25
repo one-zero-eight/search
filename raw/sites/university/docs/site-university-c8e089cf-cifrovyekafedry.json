@@ -1,0 +1,16 @@
+{
+ "title": "Смотреть презентацию [cifrovye-kafedry]",
+ "url": "https://innopolis.university/filespublic/cifrovye-kafedry.pdf",
+ "sha256": "3ec3dfffb730d6d4a6ebd167bdb6adefa1a533c41bd7a7750fd4e99e01514d24",
+ "method": "ocr (tesseract rus)",
+ "chars": 5064,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:47:00+00:00",
+ "remote": {
+  "etag": "\"34f21c-5f535108cb198\"",
+  "modified": "Tue, 21 Feb 2023 12:39:03 GMT",
+  "size": "3469852"
+ }
+}

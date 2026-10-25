@@ -1,0 +1,176 @@
+Innopolis University
+Academic Year 2025/2026
+Computer Architecture Course
+Midterm Exam
+
+ANSWERS
+
+24th October 2025
+Duration: 60 mins
+
+Student Full Name:
+Student Telegram:
+Exam Room:
+Started education late (due to Visa delay): NO / YES
+
+Question
+Question 1
+Question 2
+Question 3
+Question 4
+Question 5
+Question 6
+Question 7
+Question 8
+Total (max. 15 points)
+
+Summary (for instructors fill)
+Grade
+
+Please write clearly your name and your solutions. Write your name at every page.
+What will not be understood will be considered wrong. All answers must be provided in
+English, everything written in Russian will be ignored.
+This is a closed-book exam. You are not allowed to use any reference materials or electronic
+equipment, apart from this booklet and pens. You are not allowed to consult any person,
+otherwise you will be disqualified from this exam at the very first attempt.
+Student Signature:
+
+Student Name:
+
+Question 1 (1 point). Choose non-volatile memory units of a computer
+(circle or underline correct options):
+1)
+2)
+3)
+4)
+5)
+6)
+
+USB stick - correct, but no penalty if not chosen
+System Memory
+L1 and L2 Caches
+Solid-State Drive (SSD) – correct
+Hardware Disk Drive (HDD) - correct
+None of the above
+
+Grading notes:
+(+0.5) – for any correct option chosen, but at most 1;
+(-0.5) – for any incorrect option chosen, except option 6;
+(-1) – for option 6.
+
+Question 2 (1 point). Name the CPU component responsible for performing Instructions Fetch
+(IF) from memory.
+Answer:
+Control Unit (CU)
+(answer “registers” is also considered, due to a possible lecture slides misinterpretation)
+Grading notes:
+(+1) – for a fully correct answer, otherwise 0.
+
+Midterm Exam of Computer Architecture 2025
+
+Page 2 of 7
+
+Student Name:
+Question 3 (2 points). The photo below depicts the fragment of a computer laptop hardware.
+Specify in the empty rectangles names of pointed components. What is the major difference
+between components “a” and “b”?
+Answer:
+Component names:
+Some possible differences between “a” and “b”
+components:
+- GPU has more cores than CPU;
+- GPU has more ALUs than CPU;
+- GPU supports SIMD parallelism model;
+- GPU is used to process graphics, unlike CPU;
+- Unlike CPU, GPU has a limited Instruction Set
+- Other
+
+Grading notes:
+(+0.5) – for every correctly named component in the diagram;
+(+0.5) – for a correctly described difference between CPU and GPU
+
+Question 4 (3 points). The diagram below depicts well-known logic circuits used in computer
+components. Do the following:
+1) (1 point) For each circuit specify its corresponding name in an empty rectangle;
+2) (2 points) For circuits “b”, “d”, “e”, “f” fill-in their truth tables.
+
+Midterm Exam of Computer Architecture 2025
+
+Page 3 of 7
+
+Student Name:
+
+Grading notes:
+(+0.2) – for each correctly specified circuit name, but at most 1 point in total;
+(+0.5) – for each fully correctly filled truth table;
+
+Midterm Exam of Computer Architecture 2025
+
+Page 4 of 7
+
+Student Name:
+Question 5 (2 points). What is the key idea of Amdahl’s law? Plot Amdahl’s law for a program
+with 90% of parallelizable instructions.
+Answer:
+One of possible formulations for Amdahl’s law idea (equation is not needed):
+The increase of the number of cores speeds-up the execution of a program proportionally to the
+fraction of parallelizable instructions.
+Amdahl’s law plot for a program with 90% of parallelizable instructions:
+Purple line among the ones below:
+
+Grading notes:
+(+1) – Correctly described idea of Amdahl’s law;
+(+0.5) – Correctly labeled axes;
+(+0.5) – Correct plot line (with precise numeric values), but a totally correct equation was also
+considered.
+Question 6 (2 points). Answer the following questions regarding a CPU clock generator:
+a) (0.5 points) What is the main purpose of a CPU clock?
+A possible brief answer: To synchronize inputs/instructions execution by CPU.
+b) (0.5 points) Draw a clock wave and name its key parts by using standard terminology:
+
+Midterm Exam of Computer Architecture 2025
+
+Page 5 of 7
+
+Student Name:
+c) (0.5 points) What is the relation between a CPU speed and its clock wave period?
+A possible brief answer: Higher the CPU clock period, slower the execution speed of CPU
+d) (0.5 points) What is the difference between level-triggered and edge-triggered clock
+methodology? Brief answer: See note on the diagram above.
+Grading notes:
+(+0.5) – for every fully correctly answered sub-question
+Question 7 (2 points). The diagram below represents a northbridge/southbridge computer
+layout. Fill-in the missing component names into empty rectangles.
+Answer:
+
+Grading notes:
+(+0.4) – for every correctly specified option (CPU, Clock, Memory slots, Northbridge and
+Southbridge chipsets)
+
+Question 8 (2 points). Draw the circuit of a flip-flop, which updates its output value at the rising
+clock edge. Describe the necessary change to make this circuit update its output value at the
+falling clock edge instead.
+Answer:
+
+Midterm Exam of Computer Architecture 2025
+
+Page 6 of 7
+
+Student Name:
+
+Description of changes to make output value to be updated at a falling clock edge:
+See instructions provided in the diagram above.
+Grading notes:
+(+0.5) – correctly specified master and slave latches;
+(+0.5) – correctly connected clock signal;
+(+0.5) – correctly placed NOT gates;
+(+0.5) – for a correct transformation description into updating Qfinal at a falling edge.
+
+This is the end of the student book
+Draft Paper
+
+Midterm Exam of Computer Architecture 2025
+
+Page 7 of 7
+
+

@@ -1,0 +1,16 @@
+{
+ "title": "report-2015",
+ "url": "https://innopolis.university/upload/files/report-2015.pdf",
+ "sha256": "a1dc4d469e6126007b78c1b1c0d459f1218b8ea71669597570374c96bb0ddd41",
+ "method": "text layer (pdfplumber)",
+ "chars": 46464,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:50:02+00:00",
+ "remote": {
+  "etag": "\"69b964c8-684495\"",
+  "modified": "Tue, 17 Mar 2026 14:27:20 GMT",
+  "size": "6833301"
+ }
+}

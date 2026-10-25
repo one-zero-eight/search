@@ -1,0 +1,122 @@
+Name Surname:
+
+Group №:
+Introduction to AI
+Final Exam Spring 2022
+
+Rules:
+Print your name and group number carefully at the top of all pages. This is a closed book exam
+and requires no external materials Any cheating/misconduct will result in a mark of 0 and report
+to the Educational Dept. Make all answers in pen – no remarks will be given to those using pencil.
+Exam will last 110 min from call of time. There are 6 questions and 50 marks available – this test
+making up 25% of your final grade:
+1. Provide the Isaac Asimov’s laws of robotics. [5pt]
+
+2. The piece of Romanov’s family tree is given, most of the members are intentionally omitted,
+please ignore them. You should use PROLOG to answer the questions given below.
+
+Alexander II
+Maria Fedorovna
+
+Olga
+
+Maria Alexandrovna
+
+Alexander III …
+
+Vladimir
+
+Nicholas II
+
+George
+
+…
+
+1
+
+Name Surname:
+
+Group №:
+
+a. Write the knowledge base for the tree using female(X), male(X), parent(X,Y). [5pt]
+Write facts:
+
+Specify rules (ignore creation of duplicates in answers):
+• father(X,Y) :=
+• mother(X,Y) :=
+• grandfather(X,Y) :• grandmother(X,Y) :• brother(X,Y) :• sister(X,Y) :• aunt(X,Y) :• uncle(X,Y) :b. Resolve the following queries using given facts and rules [5pt]:
+• Was Alexander II the parent of Alexander III?
+Query:
+Answer:
+•
+
+Who were the parents of Nicholas II?
+Query:
+Answer:
+
+•
+
+Show all male nephews, make the rule ultimate for even a bigger tree.
+Query:
+Answer:
+
+•
+
+Show all pairs of males with daughters.
+Query:
+Answer:
+
+2
+
+Name Surname:
+
+Group №:
+
+3. What is the difference between GBEST and LBEST PSO versions? Draw examples of topologies
+for both versions [6pt]
+
+4. What formula is used for the selection of a leaf in Monte Carlo Tree Search and how? Explain
+the variable meanings and which part of the formula is responsible for exploitation and which
+for exploration. [7pt]
+
+3
+
+Name Surname:
+
+Group №:
+
+5. Provide pseudo-code for a general evolutionary algorithm’s main loop. Then give a description
+of evolutionary strategy (representation, selection, crossover and mutation).
+a. EA pseudo-code: [5pt]
+
+b. ES description:
+i. Representation [1pt]:
+
+ii. Selection [1pt]:
+
+iii. Crossover [1pt]:
+
+iv. Mutation and its versions [2pt]:
+
+4
+
+Name Surname:
+
+Group №:
+
+6. Show 3 perceptrons with activation functions and weights:
+a. Show a perceptron which implements AND. [4pt]
+
+b. Show a perceptron which implements OR. [4pt]
+
+c. Show a perceptron which implements NOT. [4pt]
+
+5
+
+Name Surname:
+
+Group №:
+
+6
+
+

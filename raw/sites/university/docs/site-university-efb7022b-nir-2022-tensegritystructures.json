@@ -1,0 +1,16 @@
+{
+ "title": "Read the article [NIR_2022_tensegrity-structures]",
+ "url": "https://innopolis.university/filespublic/NIR_2022_tensegrity-structures.pdf",
+ "sha256": "3f814130ed420c874686a8fb549150ab048b21940b3f00d6f006c684f4321e43",
+ "method": "text layer (pdfplumber)",
+ "chars": 22515,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:45:46+00:00",
+ "remote": {
+  "etag": "\"3e16a-5e75e9bbd67af\"",
+  "modified": "Mon, 29 Aug 2022 10:20:09 GMT",
+  "size": "254314"
+ }
+}

@@ -1,0 +1,219 @@
+DNP Final Exam with Answers
+TOTAL: 3 + 8 + 8 + 3 + 6 + 6 + 6 = 40
+1.​ [Graded by Ahmed] Consider a system with two producers and one consumer. Producers
+generate random data and put it into the queue at some rate. If the queue is full, they block
+until the consumer processes some items. Consumers process items as soon as they
+become available in the queue. If the queue is empty, they block until new items are added
+by the producers. (3 points)
+a) Draw a diagram of the system showing the components and their interactions. (2pts)
+-​
+
+A very simple drawing like this one is expected. Missing any component or
+misleading arrow directions were penalized.
+
+b) Consider production rate (for one producer) is 2 items/sec and consumption rate (for one
+consumer) is 1 item/sec. How many consumers are needed (at least) to have 0 buffering
+time in the system? (1pt)
+Answer:
+-​
+
+For two producers of 2 items/sec production rate, we need at least 4 consumers of
+1 item/sec consumption rate.
+
+2.​ [Graded by Egor]
+a) Identify and describe the three main types of assumptions made in a distributed system
+model. For each type, provide three concrete examples. (6 points)
+
+1.​ Network Behavior: Describes how messages are delivered between nodes. Examples:
+○​ Reliable links: messages are guaranteed to arrive.
+○​ Fair-loss links: some messages may be lost, but loss is not persistent.
+○​ Arbitrary links: messages may be lost, duplicated, or arrive out of order.​
+2.​ Node Behavior: Specifies how individual nodes may fail. Examples:
+○​ Crash-stop: a node stops working and never recovers.
+○​ Crash-recovery: a node may fail and later restart.
+○​ Byzantine faults: nodes may behave arbitrarily or maliciously.​
+3.​ Timing Behavior: Defines assumptions about how time and message delays are handled.
+Examples:
+○​ Synchronous: known bounds on processing and message delays.
+○​ Asynchronous: no bounds on delays.
+○​ Partially synchronous: system eventually behaves synchronously, but not always.​
+​
+​
+​
+b) Explain why defining these assumptions is critical before designing a distributed algorithm. (2
+points)
+-​
+
+Designing a distributed algorithm requires knowing the environment it will run in. These
+assumptions determine what kinds of guarantees (like consistency, fault tolerance, or
+availability) the algorithm can safely make. If assumptions are incorrect or unclear, the
+algorithm might not work as intended or could even fail silently.
+
+3.​ [Graded by Ilya] You are given a Chord overlay with m=5, so the identifier space goes from
+0 to 31. The nodes in t1he system are located at identifiers [2, 13, 16, 27]. For each node,
+build its finger table (5 entries). For each entry, indicate the node's successor for the
+corresponding finger interval. Clearly show how you calculate each entry. Partial credit will
+be given for correct logic even if your final answer is not fully accurate. (8 points, 2 points for
+each node).
+
+​
+Answer: ​
+2 = [13, 13, 13, 13, 27]​
+13 = [16, 16, 27, 27, 2]​
+16 = [27, 27, 27, 27, 2]​
+27 = [2, 2, 2, 13, 13]
+
+4.​ [Graded by Ahmed] You are designing a fault-tolerant service using redundancy. Each
+individual system has a 3% chance of failing (i.e., 97% uptime), and failures are
+independent. You replicate the service across three systems, and the service will remain
+available as long as at least one system is working. What is the expected uptime of the
+overall system? Explain your calculation. (3 points)
+
+A)​ Compute the probability that all 3 systems fail: (1 point)​
+P(all fail) = 0.03 ^ 3 = 0.000027
+B)​ The system is available if at least one system is working: (1 point)​
+P(available) = 1 − P(all fail) = 1 − 0.000027
+C)​ Availability = 99.9973% (1 point)
+
+5. [Graded by Egor] Explain what super-peer networks are in the context of peer-to-peer (P2P)
+systems. Compare them with pure P2P architectures. Provide at least one advantage and one
+disadvantage of using super-peer networks. (6 points)
+Super-peer networks are a hybrid form of peer-to-peer (P2P) systems where some nodes,
+called super-peers, take on additional responsibilities such as indexing, routing, or
+coordination on behalf of regular peers. These super-peers act similarly to servers in a
+client-server model but are themselves peers in the network, selected based on capabilities
+such as higher bandwidth, availability, or processing power. (2 points)
+Comparison: (2 points)
+●​ Pure P2P systems: All nodes are equal, no central coordination. Routing and
+resource discovery can be inefficient.
+●​ Super-peer networks: Combine the scalability of P2P with some structure of
+client-server by delegating certain roles to powerful peers.
+Advantages: (2 points)
+1.​ Improved scalability and resource discovery compared to pure P2P due to
+centralized indexing at super-peers.
+2.​ Better performance and query response time as super-peers reduce redundant
+messaging.
+Disadvantage:
+●​ Super-peers can become bottlenecks or points of failure, reducing robustness if they
+are overloaded or go offline.
+
+6. [Graded by Karim] Compare Cristian’s algorithm and the Berkeley algorithm for clock
+synchronization in distributed systems. Describe the steps for each of them. In what scenarios
+would each be preferable? (6 points)
+Evaluation: (2 points for the Cristian Algorithm, 2 points for the Berkley algorithm, 2 points
+for the scenarios described).
+Cristian’s Algorithm:
+Cristian’s algorithm is a client-server based synchronization method where a client sends a
+time request to a time server. The server responds with its current time, and the client
+adjusts its clock by estimating and correcting for the round-trip delay. It assumes the server
+has access to a highly accurate time source (e.g., atomic clock or GPS).
+●​ Steps:
+1.​ Client sends a time request to the server.
+2.​ Server replies with current time.
+3.​ Client sets its clock to the received time + half of the round-trip time.
+Berkeley Algorithm:
+The Berkeley algorithm is a decentralized approach to synchronize clocks among a group of
+machines without assuming any of them has access to an accurate external clock. One
+machine acts as a coordinator and polls all other nodes to collect their times, calculates an
+average (excluding outliers), and sends adjustments (not absolute times) to each node.
+●​ Steps:
+1.​ Coordinator asks each node for its clock value.
+2.​ Nodes reply with their local times.
+3.​ Coordinator calculates the average time.
+4.​ Coordinator sends clock adjustment instructions to each node.
+●​ Cristian’s Algorithm: Used when there is a trusted time server. The client
+requests time, receives it along with a round-trip estimation, and adjusts its clock.
+●​ Berkeley Algorithm: Used in a peer-to-peer system without access to a UTC
+server. A master polls other machines, computes an average, and tells everyone
+how to adjust.
+
+7. [Graded by Karim] You are observing a RAFT cluster of 5 servers: S1 to S5. The current state
+of the system is shown in the table below. Server S3 has started an election and is requesting votes
+from the others.
+a. Which servers will grant or deny a vote to S3? Justify your reasoning based on the RAFT voting
+rules. (4 points)
+RAFT Voting Rule: (2 points): A server grants its vote to a candidate if:
+●​ The candidate's term is ≥ the server’s term
+●​ AND the candidate’s log is at least as up-to-date
+Server-by-server analysis: (2 points)
+●​
+●​
+●​
+●​
+●​
+
+S1: Term 5 > 4 → Candidate's term is outdated → Deny
+S2: Term 5 > 4 → Deny
+S3: Always votes for itself → Grant
+S4: Term 5 > 4 → Deny
+S5: Term 6 > 4 → Deny
+
+b. Can S3 become the leader in this election round? Show your vote count and explain. - 2 points
+●​ No, S3 has only 1 vote (its own) (1 point)
+●​ It needs a majority of 3 votes in a 5-server cluster (1 point)
+
+Server
+
+Current Term
+
+Last Log
+Index
+
+Last Log
+Term
+
+State
+
+S1
+
+5
+
+10
+
+5
+
+Follower
+
+S2
+
+5
+
+10
+
+5
+
+Follower
+
+S3
+
+4
+
+9
+
+4
+
+Candidate
+
+S4
+
+5
+
+10
+
+5
+
+Follower
+
+S5
+
+6
+
+11
+
+6
+
+Follower
+
+Voted For
+
+

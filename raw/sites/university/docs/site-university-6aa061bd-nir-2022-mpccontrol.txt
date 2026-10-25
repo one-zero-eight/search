@@ -1,0 +1,235 @@
+Bio-inspired and Energy-efficient Convex Model
+Predictive Control for a Quadruped Robot
+1st Aleksei Shamraev 2nd Sergey Kolyubin
+Faculty of Control Systems and Robotics Faculty of Control Systems and Robotics
+ITMO University ITMO University
+St. Petersburg, Russia St. Petersburg, Russia
+adshamraev@itmo.ru s.kolyubin@itmo.ru
+Abstract—Animal running has been studied for a long time, dictive Control (cMPC) [4], which is the central algorithm of
+but until now robots cannot repeat the same movements with manyMITworks.Inthiscontroller,anoptimizationproblemis
+energyefficiencyclosetoanimals.Therearemanycontrollersfor
+formulatedwithasimplifiedlinearmodeloftherobot(Linear
+controllingthemovementoffour-leggedrobots.Themostpopular
+RigidBody).Thecontrolinputsarethegroundreactionforces
+is the Convex MPC. This paper presents a bioinspirational
+approach to increasing the energy efficiency of the state-of-the- set by each foot. The positions of the paws are set in advance
+art Convex MPC controller. This approach is to set a reference by a simplified algorithm using the Raibert heuristic.
+trajectory for the Convex MPC in the form of a SLIP model. In Regulated Predictive Control (RPC) [5] MPC calculates
+This model describes the movements of animals when running.
+not only the ground reaction forces but also the positions of
+Adding a SLIP trajectory increases the energy efficiency of the
+the paws. Because of this, MPC is formulated as nonlinear
+Pronk gait by 15 percent at a speed of 1 m/s.
+Index Terms—quadruped, model predictive control, spring- and therefore a set of local minima appears, which signifi-
+loaded inverted pendulum, bioinspiration, energy efficiency cantlycomplicatescalculations.Toreducethenumberoflocal
+minima, regularization with heuristics is added.
+I. INTRODUCTION
+RPC was implemented on Cheetah 3 [6], and a framework
+The field in the management of four-legged robots is forfindingheuristicswasalsodeveloped[7].Moredetailscan
+activelydeveloping.StartingwithRaibert[1],thereisadesire be found in the Phd thesis [8].
+to imitate four-legged animals in movement, and in particular
+All these controllers operate at a frequency of about 40
+to provide dynamic walking.
+Hz, which is not enough for locomotion at high speeds. For
+Raibert made dynamic walking possible thanks to the spe-
+example, when moving at a gallop, the controller calculates
+cialdesignofthejumpingrobot,whosemovementwassimilar
+the reaction forces of the support only 4 times per contact.
+to the model of a spring inverted pendulum (SLIP), and very
+To increase stability, a Whole Body Impulse Control
+simple control. However, the robot had low maneuverability,
+(WBIC)hasbeendeveloped[9],whichoperatesatafrequency
+robustness, speed, and limited reproduction of gait types.
+of 500 Hz. The essence of the algorithm is the relaxation of
+To solve these problems, more complex designs have been
+thefoundMPCgroundreactionforces.Thiscontrollerallowed
+developed for working with electric drives: Cheetah 3, Mini
+to increase the maximum speed of the quadruped robot Mini
+Cheetah, ANYmal. But along with the capabilities, the com-
+Cheetah from 2.45 m/s to 3.7 m/s.
+plexity in managing four-legged robots has also increased.
+The paper [10] presents an algorithm based on RPC and
+The main goal in controlling four-legged robots (Fig. 1) is
+WBIC with the addition of computer vision for detecting and
+to calculate the positions of the paws p = (x, y, z) and the
+avoiding obstacles.
+reaction forces of the support f at the moment of contact to
+Computervisionisalsoadded[11]usingcMPCandWBIC.
+achieve a given type of movement (walking, trot, gallop) at a
+And as a development, Depth-based Impulse Control (DIC)
+given speed.
+appears [12].
+For static walking (there are always at least 3 legs in
+contact), it is enough to solve the optimization problem once, The paper [13] provides an algorithm for generating the
+without predicting the behavior of the robot at the next type of gaits adaptively, rather than rigidly setting timings as
+momentintime.Commonly,thesecontrollersarebasedonthe before.
+solutionoftheQuadraticProgrammingproblem.Forinstance, MPC is resource-demanding and usually slow. In [14], the
+Whole Body Control [3]. author replaces MPC with a neural network, training it based
+For dynamic walking, it becomes necessary to predict the on MPC, which allows running the controller on robots with
+behavior of the robot several steps ahead. These controllers an on-board computer with small computing capabilities.
+are based on Model Predictive Control (MPC). Animal imitation is one of the main incentives in legged
+One of the most popular controllers for controlling the robotics. Today, there are works on the imitation of animals
+movement of four-legged robots is the Convex Model Pre- by robots using neural networks [15]. 
+1 0 R (ψ )∆t 0
+There is a well-known template describing the running 3×3 3×3 z k 3×3
+of animals, Spring-Loaded Inverted Pendulum (SLIP). This A=   0 3×3 1 3×3 0 3×3 1 3×3 ∆t  ,
+template is still widely used today. For example, in [16] the  0 3×3 0 3×3 1 3×3 0 3×3 
+0 0 0 1
+author uses a SLIP model to train a complex bipedal robot 3×3 3×3 3×3 3×3
+ 
+Cassie to walk and run. In [17], a simple SLIP model and a 0 ··· 0
+3×3 3×3
+Fu T ll h -m is o w de o l rk are fo c c o u m se b s in o e n d s t e o tt r i e n d g u t c h e e th tr e aj M ec P to C ry ca f l o c r u t l h at e io C n o t n im ve e x . B =    G I−1 0 [ 3 r × 1 3 ] × ∆t · · · · · · G I−1 0 [ 3 r × n 3 ] × ∆t   
+MPC [4] as a SLIP model so that the robot moves similarly 1 3×3 ∆t/m ··· 1 3×3 ∆t/m
+to real animals. This will increase energy efficiency with
+The MPC formulated as a QP, which minimizes
+locomotion.
+m
+spe I e n d th is e z o e r r i o g . in T a h l e c c o o n n tr t o ro ll l e le r, r z st o ab f i C liz o e M s th is e c h o e n ig st h a t n o t, f a t n h d e r t o h b e o z t m x, i f n (cid:88)(cid:13) (cid:13)x(k+1)−xref(k+1) (cid:13) (cid:13) Q +∥f(k)∥ R (3)
+k=0
+upon contact, which is a braking element when running.
+subject to dynamics and initial condition constraints.
+In the original, xref is set by the velocity in x, y, rate roll,
+and constant z. In this work, the trajectory is formulated by
+z, z˙ from the SLIP model.
+III. SPRING-LOADEDINVERTEDPENDULUMTRAJECTORY
+At the abstract level, the robot body can be represented as
+a SLIP model (Fig. 2) with mass m, spring stiffness k, spring
+length l, the resting length of the spring l .
+0
+Then COM will be described by the SLIP model as
+(cid:20) m¨l (cid:21) (cid:20) mlθ˙2−k(l−l )−mgcosθ (cid:21)
+= 0 (4)
+Fig.1. Modelofaquadrupedrobot[2].
+ml2θ¨ −2mlθ˙+mglsinθ
+Since in the cMPC controller the greatest braking effect
+when running occurs along the z axis, let’s take only this part
+II. MODELPREDICTIVECONTROL of (4).
+Let’stakeintoaccountthattheangleθ whenrunningisnot
+Let’s briefly describe the controller [4]. The model in the so large, so it can be ignored and take l=z.
+MPC controller [4] is a simplified, linear Space Potato. Then the dynamics along the z axis will have the form
+The robot’s orientation is expressed as a vector of Z-Y-X mz¨=−mg+k(z −z) (5)
+(cid:2) (cid:3)T 0
+Euler angles [18] Θ= ϕ θ ψ where ψ is the yaw, θ
+We can formulate the dynamic (5) into a state space
+is the pitch, and ϕ is the roll.
+equation as,
+The robot’s position is expressed as a p∈R3. The control
+(cid:20) (cid:21) (cid:20) (cid:21)(cid:18) (cid:19)
+inputs are the ground reaction forces f i . For each ground Z˙ = 0 1 Z+ 0 z − g , (6)
+reaction force f ∈ R3, the vector from the center of mass −ω2 0 ω2 0 ω2
+i z z z
+(COM) to the point where the force is applied is r ∈R3.
+i where the states of CoM in vertical direction are defined as
+(cid:113)
+G I and B I are the inertia tensor seen from the global and Z =[z,z˙]T,andwedefineω = k.Further,wecandenote
+local (body) frame, respectively, such as z − g as u , and (5) can be z writte m n into a linear state space
+0 ω2 z
+equatiozn as,
+I ≈R (ψ) IR (ψ)⊤, (1)
+G z B z (cid:20) (cid:21) (cid:20) (cid:21)
+0 1 0
+Z˙ = Z+ u (7)
+−ω2 0 ω2 z
+where R z (ψ) is a rotation matrix translating angular velocity z z
+in the global frame. We discretize (7) with sampling time ∆t and can obtain
+The discrete dynamics of the system can be expressed as
+Z =A (∆t)Z +B (∆t)u (8)
+k+1 z k z z,k
+where,
+x(k+1)=A x(k)+B ˆf(k)+gˆ (2)
+k k (cid:20) (cid:21)
+cos(ω ∆t) sin(ω ∆t)/ω
+A = z z
+z −ω ·sin(ω ∆t) cos(ω ∆t)
+where, z z z
+(cid:20) (cid:21)
+1−cos(ω ∆t)
+x= (cid:2) Θ⊤ p⊤ ω⊤ p˙⊤ (cid:3)⊤ B z = ω ·sin(ω z ∆t)
+z z
+ˆf = (cid:2) f ··· f (cid:3)⊤ ,
+1 n InitialconditionsZ istakenateachcontactwiththesurface
+0
+gˆ = (cid:2) 0 0 0 g⊤ (cid:3)⊤ , during the jump.
+1×3 1×3 1×3Fig. 4. Results of pronk running at a speed 1 m/s with SLIP trajectory in
+verticaldirectory.
+Fig.2. TheSpring-LoadedInvertedPendulum(SLIP)model.
+prediction horizon. This can increase the accuracy of tracking
+IV. RESULTS
+the trajectory.
+This approach was tested in the Pybullet simulator with a In future work, we plan to experiment with other gaits and
+model of a four-legged Unitree A1 robot with a pronk gait. implement this approach on the Unitree A1 robot.
+The stiffness was taken k = 4000, the mass m = 11 kg.
+Fig.3showstheresultswithoutSLIPtrajectory.Withpronk ACKNOWLEDGMENT
+gait at a speed of 1m/s, the energy efficiency value COT =
+We would like to thank SBER Robotics lab for their aid
+1.27.
+and support in our studies.
+Fig. 4 shows the results with SLIP trajectory. With pronk
+gait at a speed of 1m/s, the energy efficiency value COT = REFERENCES
+1.10. The peak ground reaction forces decreased from 17 to
+[1] MarcR.LeggedRobotsThatBalance.TheMITPress,1986.205pp.
+15.
+[2] DiCarloJ.SoftwareandcontroldesignfortheMITCheetahquadruped
+The desired trajectory is not fully tracked, but it still gives robots.MassachusettsInstituteofTechnology,DepartmentofElectrical
+an increase in energy efficiency of 15 percent. EngineeringandComputerScience,2020.101pp.
+[3] Kim D., Lee J., Ahn J., Campbell O., Hwang H., Sentis L.
+Computationally-Robust and Efficient Prioritized Whole-Body Con-
+troller with Contact Constraints // IEEE/RSJ International Conference
+onIntelligentRobotsandSystems,IROS,2018.pp.5987-5994.
+[4] Di Carlo, J.,Wensing, P. M., Katz, B., Bledt, G., Kim, S. Dynamic
+locomotion in the MIT cheetah 3 through convex model-predictive
+control // IEEE International Conference on Intelligent Robots and
+Systems,2018.pp.7440-7447.
+[5] Bledt,G.,Wensing,P.M., Kim,S.Policy-regularizedmodelpredictive
+controltostabilizediversequadrupedalgaitsfortheMITcheetah//IEEE
+International Conference on Intelligent Robots and Systems, 2017. pp.
+4102-4109.
+[6] Bledt, G., Kim, S. Implementing regularized predictive control for
+simultaneousreal-timefootstepandgroundreactionforceoptimization
+// IEEE International Conference on Intelligent Robots and Systems,
+2019.pp.6316-6323.
+[7] Bledt,G., Kim,S.Extractingleggedlocomotionheuristicswithregu-
+larizedpredictivecontrol//IEEEInternationalConferenceonRobotics
+andAutomation,2020.pp.406-412.
+[8] Bledt G. Regularized predictive control framework for robust dynamic
+legged locomotion. Massachusetts Institute of Technology, 2020. 160
+Fig.3. Resultsofpronkrunningataspeed1m/swithoutSLIPtrajectoryin pp.
+verticaldirectory. [9] D. Kim, J. Di Carlo, B. Katz, G. Bledt, and S. Kim. Highly dynamic
+quadruped locomotion via whole-body impulse control and model
+predictivecontrol//arXiv,2019.DOI:10.48550/arXiv.1909.06586.
+V. CONCLUSIONANDDISCUSSION [10] Dudzik, T., Chignoli, M., Bledt, G. Kim, S. Robust autonomous
+navigationofasmall-scalequadrupedrobotinreal-worldenvironments
+DespitethefactthatMPCdoesnotfullytrackthetrajectory
+// IEEE International Conference on Intelligent Robots and Systems,
+in vertical direction, the energy efficiency of running has 2020.pp.3664-3671.
+increased by 15 percent. [11] Kim,D.,Carballo,D.,DiCarlo,J.,Katz,B.,Bledt,G.,Lim,B., Kim,S.
+Visionaideddynamicexplorationofunstructuredterrainwithasmall-
+Since the dynamics in the vertical direction is very fast,
+scalequadrupedrobot//IEEEInternationalConferenceonRoboticsand
+we can try to set this trajectory in the MPC itself on the Automation,2020.pp.2464-2470.[12] Gabriel B. Margolis, Tao Chen. Learning to Jump from Pixels, 2021.
+DOI:10.48550/arXiv.2110.15344.
+[13] Boussema, C., Powell, M. J., Bledt, G., Ijspeert, A. J., Wensing, P.
+M., Kim,S.Onlinegaittransitionsanddisturbancerecoveryforlegged
+robots via the feasible impulse set // IEEE Robotics and Automation
+Letters,2019.pp.1611-1618.
+[14] CariusJ.,FarshidianF.,HutterM.MPC-Net:AFirstPrinciplesGuided
+PolicySearch//IEEERoboticsandAutomationLetters,2020.pp.2897-
+2904.
+[15] Xue Bin Peng, Erwin Coumans, Tingnan Zhang, Tsang-Wei Edward
+Lee,JieTan,SergeyLevine.LearningAgileRoboticLocomotionSkills
+byImitatingAnimals//arxiv,2020.DOI:10.48550/arXiv.2004.00784.
+[16] KevinGreen,YeshGodse,JeremyDao,RossL.Hatton,AlanFern,and
+Jonathan Hurst. Learning Spring Mass Locomotion: Guiding Policies
+withaReduced-OrderModel//IEEERoboticsandAutomationLetters,
+2021.pp.3926-3932.
+[17] HeLi,RobertJ.Frei,PatrickM.Wensing.ModelHierarchyPredictive
+ControlofRoboticSystems//IEEERoboticsandAutomationLetters,
+2021.pp.3373-3380.
+[18] J.Craig,IntroductiontoRobotics:MechanicsandControl,ser.Addison-
+Wesleyseriesinelectricalandcomputerengineering:controlengineer-
+ing.Pearson/PrenticeHall,2005.
+[19] Bledt,G.,Powell,M.J.,Katz,B.,DiCarlo,J.,Wensing,P.M., Kim,S.
+MITcheetah3:Designandcontrolofarobust,dynamicquadrupedrobot
+// IEEE International Conference on Intelligent Robots and Systems,
+2018.pp.2245-2252.

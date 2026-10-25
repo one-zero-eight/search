@@ -1,0 +1,221 @@
+Question A (variant 1, 15 points)
+Compute asymptotic worst case time complexity of the solve procedure:
+1. Express the running time of the solve procedure 7'(n) as a recurrence relation.
+
+2. Find the asymptotic complexity of 7'(n) using the master method. You must specify which case of
+the master theorem is applied and provide complete justification for its use.
+
+2]
+
+Fs
+
+n
+
+12
+
+13
+
+14
+
+15
+
+16
+
+17
+
+18
+
+19
+
+20
+
+/* A is a 0-indezed array
+
+* n is the number of elements in A */
+
+solve(A, n):
+return helper(A, 0, n - 1)
+
+helper(A, 1, r):
+
+ifr-1<=1
+return 1
+else
+
+k:=[(x-1+1) /9]
+
+helper(A, 1, min(l +
+helper(4, 1 + 2 * k,
+helper(4, 1 + 4 * k,
+helper(A, 1 + 6 * Kk,
+
+Qa0 o
+n
+
+for i from 1 to r:
+for j from 1 to r:
+if A[i] > A[j):
+exchange A[i] with
+return a
+
+3 xk, r))
+
+min(l + 5 * k, r))
+min(l + 7 * k, 1))
+r)
+
+A[3]
+
+Recurrence relation T'(n) =
+
+Email: @innopolis.university
+
+Question B (variant 1, 15 points)
+
+Consider sorting a collection of phrases using RADIX-SORT, considering each word as a “digit” of a phrase:
+e Each phrase is a list of at most w words.
+e Each word is a list of at most s symbols.
+e Each symbol comes from an alphabet of size a.
+
+What is the worst case time complexity for sorting p phrases in terms of p, w, s and a, if
+
+1. words are sorted using INSERTION-SORT
+
+2. words are sorted using COUNTING-SORT
+
+3. words are also sorted using RADIX-SORT,
+
+considering each symbol as a “digit” of a word?
+
+Question C (variant 1, 15 points)
+
+Consider the intersection' of k non-empty sorted lists of integers. For each of the following representations
+of List ADT specify whether it is possible to implement the intersection of k lists with total m clements
+in all lists with O(m) time complexity, and provide a brief justiication.
+
+Dynamic Array List
+
+Singl
+
+Doubly-Linked List
+
+O(mk) algorthm possible? (vES orN0) ]
+
+y-Linked List (no tail pointer) Ofmk) algorithm possbie? (vES orNO) |
+
+O(mk) algorithm possible? (YES or NO)
+Y
+
+1U DSA Spring 2025 — Midterm Exam
+Question D (variant 1, 15 points)
+
+Indicate, for each pai of expressions (4, B) in the table below whether A = O(B), A= oB), 4 = 2(B),
+A=w(B), or 4 =6(B). W
+
+),
+frite your answer, fillng in the following table with YES or NO in each box.
+Please, mind that missing answers incur less penalty than incorrect ones, for this question.
+
+A B |A=0(B)|A=o(B)|A=(B)|A=w(B) | A=6(B)
+" n!
+[ NG
+log™n |
+nlogyn
+log, (n") | logs(n!)
+
+Question E (variant 1, 10 points)
+
+Consider recurrence relation T(n) = 64T (n/4) + 7n® + 49. Applying the master theorem, we get:
+1. T(n) = O(n*logn);
+2. T(n) = O(nt);
+3. master theorem s not applicable;
+
+4. none of the above.
+
+Answer [
+
+Justify your answer. If master theorem s applicable, specify which case and conditions are checked.
+Otherwise, explain why the master theorenn is not epplicable.
+
+Justification
+
+Question F (variant 1, 12 points)
+
+Consider the following hash table with 11 slots and the hash function h(k) = (k + 1) mod 11. ‘The
+hashtable is constructed by inserting keys in some unknown order, resolving collisions by linear probing.
+
+Index | 0 [ 1 | 2 (3| 4|5 |6 | 7] 8] 9|10
+Key | - 23| -1352 |15 5 |13|-|—-|9
+
+e Could key 9 have been inserted before 237
+
+e Could key 23 have been inserted before 27
+
+¢ Could key 13 have been inserted before 57
+
+e Could key 15 have been inserted before 357
+
+Question G (variant 1, 10 points)
+
+In the following statements, o denotes the load factor of the corresponding hash table.
+For each of the statements, put TRUE or FALSE in the corresponding box:
+
+1. If log(f(n)) = ©(log(g(n))) then f(n) = ©(g(n)).
+
+2. Incrementing a binary counter takes ©(1) amortized,
+
+but ©(log k) worst case (where k is the number of digits used in the counter).
+
+3. In a stack implemented using dynamic arrays,
+
+PUsH operation has ©(n) worst case time complexity.
+
+4. Inserting into a hash table with separate chaining is O (1 + «) average case.
+
+5. Finding a value associated with key k in a hash table with load factor o
+
+is ©(1) worst case as long as hash(k) can be computed in O(1).
+
+6. If the master theorem is not applicable,
+
+it means that the algorithm can loop indefinitely on some input.
+
+10.
+
+Dynamic Programming is an implementation of an algorithm
+
+in a dynamically-typed programming language (e.g. Python)
+
+QUICK-SORT has ©(nlogn) worst case time complexity.
+
+Sorting n real numbers uniformly distributed in the range from 0 to &
+
+using BUCKET-SORT takes ©(n) time average case.
+
+PARTITION (used in QUICK-SORT) has quadratic worst case time complexity.
+
+1U DSA Spring 2025 — Midterm Exam
+
+Question H (variant 1, 20 points)
+Augwer the following questions related to the Rod Cutting problem:
+
+1. Using Dynamic Programming with tabulation, what is the worst caso time complexity of finding the
+‘maximum revenue obtainable by cutting a rod of length n?
+
+P \
+
+2. Using Dynamic Programming with memoization, what is the worst case time complexity of finding
+the maximum revenue obtainable by cutting a rod of length n, while finding the corresponding places
+for the cuts as well?
+
+i \
+
+3. Find the maximun revene by cutting a rod of length 10, given the following table of prices:
+
+lngthi 1 23 4 5 6 7 8 9 10
+pricep [2 3 9 12 13 13 14 24 %5 38
+
+[+1%extra credit | Consider a version of the Rod Cutting problem where we cannot do more than k
+cuts. Provide pseudocode for an O(nk) algorithm that finds the maximum revenue obtainable by
+cutting a rod of length n making at most k cuts.
+

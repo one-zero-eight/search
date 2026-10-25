@@ -1,0 +1,333 @@
+Name
+Group
+Institute of Software Development and Engineering
+Course Name: Theoretical Computer Science
+Course Code: TCS
+Instructor: Manuel Mazzara
+
+Year: 2019-2020 (Spring Semester)
+Midterm
+
+Time allowed: 50 minutes
+Marks: 100 points
+
+Exam Instructions
+
+Инструкция к экзамену
+
+1. This is a closed book exam.
+2. Use of any device is forbidden.
+3. Fill in every page your identifying information
+in English block letters. You must do it at the
+beginning of the exam.
+4. Answer all questions, following the same order
+and in the provided space.
+5. Use ballpoint or fountain pens with black or blue
+ink.
+6. If students are caught communicating during the
+exam, they will be expelled from the exam hall
+and will receive Fail grade.
+7. Please note that the questions are related to the
+material as presented in the course.
+
+1. Экзамен
+не
+допускает
+использования
+вспомогательных материалов (печатных или
+электронных).
+2. Запрещено использование любых электронных
+устройств.
+3. На каждой странице укажите свои имя, фамилию,
+группу и персональный идентификатор студента
+печатными латинскими буквами. Сделайте это
+перед тем как приступить к решению задач
+экзамена.
+4. Ответьте на все вопросы, сохраняя порядок их
+следования, а также не выходя за пределы
+отведенной для ответа области на бумаге.
+5. Используйте шариковые или гелевые ручки с
+синими или черными чернилами.
+6. Общение во время экзамена с другими
+студентами повлечет удаление с экзамена и
+автоматическое присвоение оценки Fail.
+7. Вопросы касаются материала, представленного в
+лекциях и на практических занятиях
+
+Part #1
+
+40
+
+Part #2
+
+28
+
+Part #3
+
+32
+
+1
+
+Part #1 GENERAL CONCEPTS – 40 Points (2 points each)
+One or more answers can be marked. The question will be considered correct only when all the right answers are
+marked.
+NOTE: Only answers written in the answer table (see page 4) will be considered for grading.
+1) Which statement about the expressive power of different computational models is true?
+a) FSA ⊂ NPDA ⊂ DPDA ⊂ TM
+b) FSA ⊂ DPDA ⊂ NPDA ⊂ TM
+c) NPDA ⊂ DPDA ⊂ FSA ⊂ TM
+d) NPDA ⊂ FSA ⊂ DPDA ⊂ TM
+e) TM ⊂ NDPA ⊂ DPDA ⊂ FSA
+2) Choose true statements:
+a) {𝜖}=∅
+b) {∅}=∅
+
+c) Both: a and b
+d) None of the mentioned
+
+3) Which of the following languages is regular?
+a) {𝑎𝑖 𝑏 𝑖 | 𝑖 ≥ 0}
+b) {𝑎𝑖 𝑏 𝑖 | 0 < 𝑖 < 5}
+
+c) {𝑎𝑖 𝑏 𝑖 | 𝑖 ≥ 1}
+d) None of the mentione
+
+4) Given that a string x is accepted by an FSA M, which of the following statements is true:
+a) any string containing substring x can be accepted by M
+b) all final states were visited at least once while x is read
+c) a final state is reached when the string x is read completely
+d) M is complete
+5) Given a PDA M=<Q, I, Γ, δ, q0, Z0, F> which of the following conditions makes it non-deterministic?
+a) For every q ∈ Q, every x ∈ I ∪ {ɛ}, and every γ ∈ Γ, the set δ(q, x, γ) has at most one element
+b) For every q ∈ Q, every x ∈ I, and every γ ∈ Γ, the sets δ(q, x, γ) and δ(q, ɛ, γ) are both empty
+c) For some q ∈ Q, every x ∈ I, and every γ ∈ Γ, the sets δ(q, x, γ) and δ(q, ɛ, γ) are both non-empty
+d) For some q ∈ Q, every x, y ∈ I, where x≠y and every γ ∈ Γ, the sets δ(q, x, γ) and δ(q, y, γ) are both nonempty
+6) Are FSA able to recognize palindromes?
+a) Yes, they are because palindromes are a paradigmatic example of regular languages
+b) Yes, they are because they can memorize the midpoint using states
+c) No, they cannot since FSA cannot deterministically find the midpoint
+d) No, they cannot because the memory model is not powerful enough
+7) Relate the following statement:
+“All sufficiently long words in a regular language can have a middle section of words repeated a number of
+times to produce a new word which also lies within the same language”
+a) Turing Machine
+b) Pumping Lemma
+c) Arden’s theorem
+d) None of the mentioned
+
+2
+
+Name
+Group
+8) While applying Pumping lemma to a string x of a language L, we need x = ywz to satisfy following conditions
+(where p – critical length):
+a) |yw|≤ p
+b) |yw|≥p
+c) |x|≤p
+d) |x|≥p
+e) |w|≥p
+f) |w|≥1
+9) Choose computation model(s) for which termination is undecidable?
+a) DPDA
+b) NDPDA
+c) FSA
+d) TM
+10) Choose true statement about operations on the set of regular languages:
+a) It is closed only by intersection
+b) It is closed only by union
+c) It is closed only by complement
+d) It is closed by any of these operations
+11) Let L1 be a language recognized by M1; L2 - by M2. Which of the following languages is L1 ∪ L2?
+
+a)
+b)
+c)
+d)
+
+Ø
+{ɛ}
+{0, 1}*
+{0, 1}*\{ɛ}
+
+12) Given complete FSA’s M1 and M2. Which of the following FSA’s is M1 ∩ M2?
+
+a.
+
+b.
+
+c.
+
+3
+
+d.
+
+13) Given complete FSA’s M1 and M2. Which of the following languages is recognized by M1\ M2?
+
+a)
+b)
+c)
+d)
+
+{0, 01, 010, ...}
+{1, 101, 1010, ...}
+{1}*\{ɛ}
+Ø
+
+14) Which of the following strings is accepted by the PDA?
+
+a)
+b)
+c)
+d)
+e)
+f)
+g)
+
+baaccc
+aabbcc
+ababcc
+aabbccc
+aababccc
+aabbbccc
+None of the mentioned
+
+Consider the below Problem statement and answer for question 15-20. For each of following languages choose the
+least powerful automata that can recognize it, where:
+a) DPDA
+
+b)NDPDA
+
+15) {anbn |n ∈ N}
+16) {anbn |n = 7}*
+17) {anbncn|n ∈ 𝑁}
+18) {anbmambn|n, m ∈ 𝑁}
+19) {anbmambn|n = 7,m ∈ 𝑁}
+20) {anbn ∪ anb2n|n ∈ 𝑁}
+
+c) FSA
+
+d) TM
+
+- _______
+- _______
+- _______
+- _______
+- _______
+- _______
+
+Answer table:
+Question
+Answer
+Question
+Answer
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+10
+
+11
+
+12
+
+13
+
+14
+
+15
+
+16
+
+17
+
+18
+
+19
+
+20
+
+NOTE: Only answers written in the answer table will be considered for grading.
+4
+
+Name
+Group
+Part #2 FSA – 28 Points
+a) Please consider the following FSAs and add missing transitions and labels (21 points)
+Let 𝛴 = {0, 1}. Add missing labels and transitions, and mark the start and final states to construct FSAs, which
+accept the following languages:
+1) 𝐿 = {𝑥 ∊ 𝛴 ∗ | 𝑥 contains the substring 1010}
+
+2) 𝐿 = {𝑥 ∊ 𝛴 ∗ | 𝑥 is a binary representation of an integer divisible by 4}
+
+3) 𝐿 = {𝑥 ∊ 𝛴 ∗ | 𝑥 starts with 0 and has odd length, or starts with 1 and has even length}
+
+5
+
+b) Consider the following automata operating on the binary digit alphabet (7 points)
+
+Please determine whether the following statements are true or false (write TRUE or FALSE next to the
+statement).
+______ 1)
+
+Automaton M1 recognizes all binary strings with at least one 0
+
+______ 2)
+
+Automaton M2 is complete
+
+______ 3)
+
+Automaton M2 recognizes all binary strings with at most one 0
+
+______ 4)
+
+Automaton M2 is not complete
+
+______ 5)
+
+Automaton M2 is the complement of Automaton number 1
+
+______ 6)
+
+Automaton M3 recognizes all binary strings starting and ending with 0 (and single-0 string does count)
+
+______ 7)
+
+Automaton M3 has a trap state
+
+6
+
+Name
+Group
+Part #3 PUSHDOWN AUTOMATA – 32 Points (16 Points each)
+Please consider the following PDAs and add missing labels
+a) Complete the following DPDA that recognises the following language:
+𝐿 = {𝑎𝑚 𝑏𝑛 𝑐 𝑝 𝑑𝑞 | (𝑚, 𝑛, 𝑝, 𝑞 ≥ 1) ⋀ (𝑚 + 𝑝 = 𝑛 + 𝑞)}
+
+7
+
+b) Complete the following DPDA which recognizes the language of well-formed parentheses of the arithmetic
+expressions (binary operations). Along with regular parentheses ’(’ and ’)’, there is also available bracket ’]’,
+which has the effect of closing all open parentheses upto that point.
+Consider the following alphabet 𝑰 = {𝒂, (, ), ], +}
+Note: In the PDA the first parenthesis is "remembered" by the character ′𝐵′, whereas the subsequent ones
+cause writing an ′𝐴′ on the stack.
+
+8
+
+

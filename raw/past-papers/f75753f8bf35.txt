@@ -1,0 +1,73 @@
+AGLA 1. TEST 2. VARIANT 1. 18 points, 90 minutes
+Rules:
+• no talking AT ALL is allowed during the Test
+• no cheat-sheets are allowed
+• any electronic devices are not allowed except for a simple non-programmable calculator
+Full name:
+
+Group:
+
+Task:
+Score:
+
+1
+
+2
+
+3
+
+Signature:
+
+Total
+
+1. (5 points) Compose the canonical equation of an ellipse if the distance from a
+directrix to the closest vertex is 4 and the distance from the same directrix to
+the vertex lying on y-axis is 8.
+2. (8 points) Given the equation of the hyperbola 9xy + 4 = 0
+• (4 point) Compose the canonical coordinate system and canonical equation
+of the conic.
+• (1 point) Find the coordinates of the foci in source coordinate system.
+• (3 point) Compose the equations of the asymptotes in source coordinate
+system.
+3. (5 points) Find the points on the hyperbola x2 − y 2 /4 = 1, if the interval
+between the foci is visible from that points at the angle π/2
+End of Test 2
+
+AGLA 1. TEST 2. VARIANT 2. 18 points, 90 minutes
+Rules:
+• no talking AT ALL is allowed during the Test
+• no cheat-sheets are allowed
+• any electronic devices are not allowed except for a simple non-programmable calculator
+Full name:
+
+Group:
+
+Task:
+Score:
+
+1
+
+2
+
+3
+
+Signature:
+
+Total
+
+1. (5 points) Compose the canonical equation of the hyperbola if the eccentricity
+is 7/5 and the distance from the vertex to the closest focus is 2.
+√
+2. (8 points) Given the equation of the hyperbola 2x2 − 2 3xy + 9 = 0.
+• (4 point) Compose the canonical coordinate system and canonical equation
+of the conic.
+• (1 point) Find the coordinates of the foci in source coordinate system.
+• (3 point) Compose the equations of the asymptotes in source coordinate
+system.
+3. (5 points) Find the points on the ellipse x2 /4 + y 2 = 1, if the interval between
+the foci is visible from that points at the angle π/2
+End of Test 2
+
+Page 2
+
+

@@ -1,0 +1,15 @@
+{
+ "title": "КЛИНИНГ НОМЕРОВ",
+ "url": "https://hotel.innopolis.university/upload/docs-hotel/%D0%9A%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%82%D0%B0%D1%86%D0%B8%D1%8F%20%D0%BD%D0%BE%D0%BC%D0%B5%D1%80%D0%BE%D0%B2.pdf",
+ "sha256": "2ed1e79d8b8e05fdc0c58efdfc2f16cee45dec949ce7d0777dccdaed4d5982f5",
+ "method": "ocr (tesseract rus)",
+ "chars": 2394,
+ "section": "site/hotel",
+ "context": "",
+ "fetched_at": "2026-10-24T22:03:52+00:00",
+ "remote": {
+  "etag": "\"586a0-5ee35698f18c0\"",
+  "modified": "Thu, 24 Nov 2022 11:07:35 GMT",
+  "size": "362144"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "Вступительное испытание по программе магистратуры \"Управление на основе данных\" 28.05.2024",
+ "url": "https://innopolis.university/upload/iblock/3e8/x7qo1ziksn4qqnwm51ie3qid95r5p02l/%D0%AD%D0%BA%D0%B7%D0%B0%D0%BC%D0%B5%D0%BD%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%B2%D0%B5%D0%B4%D0%BE%D0%BC%D0%BE%D1%81%D1%82%D1%8C%2025_05_2024%20%D0%A3%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%B5%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85.pdf",
+ "sha256": "48b226e0c8158538193caaf83c44845079c24a9d6e32579f9c834e81d6004df3",
+ "method": "text layer (pdfplumber)",
+ "chars": 1068,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:55:57+00:00",
+ "remote": {
+  "etag": "\"6655f60e-a7f2\"",
+  "modified": "Tue, 28 May 2024 15:19:42 GMT",
+  "size": "42994"
+ }
+}

@@ -1,0 +1,506 @@
+On Problem of Position and Orientation Errors of
+Large-Sized Cable-Driven Parallel Robot
+Eugene Marchuk Yaroslav Kalinin Inna Vysotskaya Alexander Maloletov
+University of Innopolis University of Innopolis VSTU University of Innopolis
+Innopolis, Russia Innopolis, Russia Volgograd, Russia Innopolis, Russia
+0000-0002-3758-9643 0000-0001-6068-0886 0000-0003-3407-9047 0000-0002-7312-2944
+Abstract—The article deals with the application of force that has been known at least since XVII century is absolutely
+sensors to estimate position error of center of mass of the the same cable-driven parallel mechanism but running and
+mobile platform of a cable-driven parallel robot. Conditions of
+driving by men [3]. In modern world automatic cable-driven
+deformations of cables and towers of the robot are included in
+parallel mechanisms have been used in a wide range of
+thenumericalmodelandsomeexternaldisturbancesareincluded
+too. A method of estimation of the error in positioning via force practical tasks only since the beginning of the XXI century.
+sensors is sensitive to the magnitude of spatial oscillations of the One of the first investigations of cable-driven parallel robotic
+mobile platform. To reduce torsional vibrations of the mobile systems appeared in the 80s of the XX century [4]. The first
+platformaroundverticalaxisdynamicdamperhasbeenincluded
+exampleappliedtosolvingpracticalproblemswastheStewart
+into the system.
+platformwithacabledrive.Itwasusedtostabilizethecraneof
+Index Terms—cable, robot, additive, printing, position, orien-
+tation, errors, force sensors theNISTRobocranemarineplatform[5].Sincethe90softhe
+XX century many experimental exemplars and prototypes of
+I. INTRODUCTION cable-driven parallel robots have been made, the most famous
+of them described in scientific articles and reports are: FAL-
+Cable-driven parallel robots are mechanical systems with
+CON, WARP, SEGESTA, IPANEMA, CableBOT, CoGiRo,
+parallel topological structure and wire ropes as tendons which
+see [6] – [11]. Cable-driven parallel robots are also differ
+moveend-effectoroftherobot.Ingeneral,cable-drivenrobots
+by principles of mechanics (underactuated or overactuated),
+consist of a cage which is the body of the robot and system
+control, operational characteristics (the values of speed and
+of cables with pulleys and winches mounted at this cage.
+acceleration may reach, respectively, 13 m/s and 43g), linear
+Sometimes elements of the robot can be mounted at the walls
+dimensions (tens of centimeters and tens of meters), ability to
+ofbuildingsoratanyspatialstructures.Forlarge-sizedrobots
+carry a payload of various weights, and so on, see [12], [13].
+towersormastscanbeusedinsteadofcagestomountwinches
+Anotherproblemismodelingofcables.Theconventionalway
+and pulleys at proximal anchor points, Fig. 1. Cable-driven
+is describing wire ropes and cables as catenary with different
+robots are easily scalable and usually used in practical tasks
+properties, see[14]. Several methodsare proposedto describe
+of moving payloads in large volume of workspace of the
+cables in model of cable-driven parallel robot, cables can be
+robot.Typicalapplicationsforlarge-sizedcable-drivenparallel
+described as catenaries, or as elastic rods, or as stiff rods, all
+robots are warehousing, positioning of large objects, video
+this methods have advantages as well as disadvantages, see
+recording at stadiums and so on. Middle-sized cable-driven
+[15]. The most complete descriptions of cable-driven parallel
+parallelrobotscanbeusedforexampleasexosceletons.Small-
+robots are given in [16], [17]. The typical ways to improve
+sizedcable-drivenparallelrobotsareusuallyusedforscientific
+accuracyofcable-drivenparallelrobotsaregiven,forexample,
+research in laboratories or as prototypes when designing new
+inworks[18],[19].Thesemethodsbasedonreadingsofforce
+systems.
+sensors with further processing the data with Kalman filter or
+II. CABLE-DRIVENPARALLELROBOTS with ANN and sometimes also with additional observation by
+cameras.
+Cable-driven parallel robots combine simplicity of rope
+This work proposes simple geometrical approach to esti-
+hoists and efficiency of modern automatic control systems.
+mate the errors of large-sized cable-driven parallel robot with
+Cable-driven parallel robots are similar with mechanisms of
+sufficientaccuracyviareadingsofforcesensorsonlyoflower
+cable cranes which have been used since the end of the XIX
+cables for specific configuration of cable system.
+century [1]. Moreover, lifting mechanisms as winches were
+well-known in the ancient world and their basics have not
+III. DESIGNANDMODELING
+changedsignificantlyuptonowadays[2].Theonlydifferences
+It should be understood that in a real cable-driven robot the
+are sources of power and the lack of automatic control in pre-
+dynamics of real cable structures will differ from oscillations
+vious generations. The traditional Korean crane “Geojunggi”
+of rod systems with unilateral constraints which is supposed
+TheworkhasbeensupportedbytheRSF(GrantNo.22-29-01618). in the most of models. To provide an acceptable complexitywhere f is force of tension in i-th cable, ∆l is deformation
+of i-th cable, a and b some coefficients.
+Deformations of cables are defined according to Hook law.
+Each i-th cable is considered as viscoelastic body according
+to Voigt model:
+∆l ∆l˙
+f =ES +ηS (4)
+l l
+0 0
+whereE isYoungmodulus,η isdynamicviscosityofmaterial
+of cable, S is cross-section of cable, and l is length of
+0
+unloaded cable.
+Therefore, dynamics of cable-driven parallel robot can be
+described in terms of damping oscillations, where damping
+factors are viscosities of material of cables and media:
+Mq¨+Dq˙ +g =−w +JTf (5)
+c p
+Fig.1. ModelofthebuildingcomplexoftheUniversityofInnopolis.
+whereMismassmatrix,Disdampingmatrix,g isfactorof
+c
+centripetal force and angular moments, w is outer wrench,
+of the mathematical model and the feasibility of the problem, p
+JT is transposed Jacobian, f is vector of forces in cables, and
+we ought to abandon a more adequate model of the Irvin’s
+q is vector of generalized coordinates.
+cables in favor of the rods. It is assumed that the rod model
+Finally, substitute (1) - (4) into (5):
+withunilateralconstraintsmatchesthemainpropertiesofhigh-
+loaded cable.
+(cid:20) (cid:21)
+1
+A. Cable System Mq¨+Dq˙ +g =−w +JTf ◦ (6)
+c p 1+ea−b∆l
+Strictly speaking cables have properties of structural and
+geometrical nonlinearity, but some of them in special cases For solving (6) most of methods of numerical integration
+may be supposed negligible. It is assumed that cables are work well and ode45 is supposed to be the conventional way.
+highly stressed and not sagging, so cables are represented as
+elastic rods. With this assumption geometrical nonlinearity is
+B. Towers as Bernoulli Beams
+cancelled out. Thus we only have the problem of structural
+nonlinearity,whichisdiscussedincontextofdynamics.There- Appropriate models of towers can be given with finite
+fore, the basics of kinematics of cable-driven parallel robot elements, but these methods have very high computational
+may be described in terms of linear algebra with conventional cost.WemaygiveroughapproximationoftowersasBernoulli
+methods. We are interested in lengths of cables which are: beams, more exactly, vertical uniform cantilever beams. We
+do not know coordinates of the top of deformed tower, but
+l =a −Rb −r (1) we may assume that the direction of vector of force which
+i i i
+is applied to the tower at proximal anchor point does not
+whererisradiusvectorconnectingoriginofworldframewith
+change significantly after deformation of the tower. Then we
+origin of tool frame, a is vector connecting origin of world
+i suppose vector of force coinciding with given direction of
+framewithi-thproximalanchorpoint,b isvectorconnecting
+i cable and find horizontal projection of the force, and obtain
+origin of tool frame with i-th distal anchor point, and R is
+the deflection of the free end of the beam:
+transformation matrix.
+Also we will use transposed Jacobian matrix, which is: L3
+∆x= F (7)
+(cid:34) l1 ... l8 (cid:35) 3EI A
+JT = ∥l1∥2 ∥l8∥2 (2)
+b 1 × ∥l l 1 1 ∥2 ... b 8 × ∥l l 8 8 ∥2 where L is the length of a beam; E is Young modulus; I A
+is the moment of area which depends on the shape of cross-
+As we said earlier, cables have properties of structural
+sectional area of a beam; F is the force which is applied
+nonlinearity and may resist only to stretching but not to
+perpendicular to a beam [20].
+pressing. This property is included in mathematical model
+We also may assume that impact of deformation of each
+via activation function which argument is deformation of i-
+tower on the system can be represented via elongation of the
+th cable:
+corresponding cable and this elongation is equal to obtained
+(cid:20) 1 (cid:21) ∆x. These assumptions are included in the numerical model
+f =f · (3)
+1+ea−b∆l of the robot and used in simulation.C. Estimation the Errors The height of the third trapezoid is the estimated position
+error in vertical coordinate. Strictly speaking this is not a
+The idea is based on supposing the errors in positions of
+frustum and not trapezoids. But comparing with the lengths
+lower proximal anchor points negligibly small. Considering
+of segments of cables the differences are small and we can
+thetowerhaspropertiesofverticalcantileverbeamwesuppose
+suppose the assumption is correct. In general case for n lower
+that deformations in the lower part of the beam are signif-
+cableswealsosupposeafrustumwithntrapezoidalsidefaces
+icantly fewer than ones in the upper half, especially at the
+but some additional calculations are required.
+top. The condition of deformations of towers is included in
+Such way we can calculate only the absolute value of
+the model but for real structures it is hard to obtain precise
+estimated error and we do not know signs of segments of
+positionofupperproximalanchorpoints.Thenthemethodsof
+the curve. How can we know if the center of mass of the
+linear algebra which are conventional in design and modeling
+mobile platform upper or lower relatively to given position?
+of cable-driven parallel robots become unusable. To avoid the
+Ofcourse,ifonlythegravityforceactsonthemobileplatform
+uncertainty we may exclude upper cables from calculations
+then the center of mass can be only lower. But in the case of
+anduseonlylowercables.Thenecessaryconditionissuchthat
+overshooting of automatic control system it can be upper too.
+all Tait-Bryan angles for given orientation of mobile platform
+Theendsofcableswhichareconnectedtodistalanchorpoints
+must be equal to zero.
+havetobeequippedwithelectroniclevels.Thiswayweknow
+Letusconsiderahorizontalplaneandfourlowercablesare
+the direction of each cable relatively to their proximal anchor
+lyinginthisplanewhenmobileplatformmeetsgivenposition.
+points:upwardordownward.Thealgorithmwhichisproposed
+If cables deform under the payload then plane transforms to
+below allows to define the signs of segments of the curve via
+truncated rectangular right pyramid, Fig. 2.
+positive or negative angles of rising cables in vertical plane:
+n
+(cid:88)
+α= α (11)
+i
+i=1
+f(α)=sign(α) (12)
+where α is the angle of rising of i-th cable.
+i
+To smooth function of signum out we approximate it with
+Fig.2. Geometryoflowercables. sigmoid step function. It has a form:
+Now we can find the heights of any two trapezoids which 2
+σ(α)= −1 (13)
+are opposite faces of obtained truncated rectangular pyramid: 1+e−k(α−c)
+(cid:118) where k,c are some constants.
+(cid:117) (cid:32) (cid:33)2
+(cid:117) (d−a)2+l∗2−l∗2 Multiplying the functions we obtain estimated error for
+h =(cid:116)l∗2− 4 1 (8)
+1 4 2(d−a) vertical coordinate of center of mass of the mobile platform:
+(cid:118) h=f(l 1 ∗,l 2 ∗,l 3 ∗,l 4 ∗) (14)
+(cid:117) (cid:32) (cid:33)2
+(cid:117) (d−a)2+l∗2−l∗2
+h =(cid:116)l∗2− 3 2 (9)
+2 3 2(d−a)
+∆h=h·σ(α) (15)
+wherel∗,l∗,l∗,l∗ arelengthsofsegmentsofdeformedcables;
+1 2 3 4 the result is shown in Fig. 3
+aisthedistancebetweentwoneighbourdistalanchorpoints;d
+Errors in heights of distal anchor points relatively to given
+isthedistancebetweentwoneighbourproximalanchorpoints.
+positions in tool frame are defined via application of rotation
+The length of each segment l∗ is obtained as sum of the
+n matrix to given vectors of distal anchor points:
+givenlengthofthesegmentwithelongationofthecablewhich
+is calculated through Hook law.  x∗ 
+x
+
+Then we can find the height of the third trapezoid having b b
+two edges the heights of previous two trapezoids:
+y
+b
+∗ =Ry b (16)
+z∗ z
+b b
+(cid:118)
+(cid:117) (cid:32) (cid:33)2
+h= (cid:117) (cid:116)h2− (c−b)2+h2 2 −h2 1 (10) ∆z b =z b ∗−z b (17)
+2 2(c−b)
+where x ,y ,z are coordinates of i-th distal anchor point in
+b b b
+where b is the distance between two neighbour distal anchor tool frame; R is rotation matrix.
+points; c is the distance between two neighbour proximal So, if distal anchor points meet their given vertical coordi-
+anchor points. nates then pitch and roll angles also meet given ones.0.05
+
+0.2
+0.1
+0
+0
+0 50 100 150 200 250 300 350 400 450 500
+0.05
+-0.05
+
+0 50 100 150 200 250 300 350 400 450 500
+0
+
+0.05
+-0.05
+0 50 100 150 200 250 300 350 400 450 500
+0.05
+0
+0
+-0.05
+0 50 100 150 200 250 300 350 400 450 500 -0.05
+
+0
+
+-0.05
+0 50 100 150 200 250 300 350 400 450 500 -0.05
+0 50 100 150 200 250 300 350 400 450 500
+Fig.3. Estimationofpositionerrorinz-axis. Fig.5. Orientationerrors.
+D. Error Compensation to minimize the error in height of each distal anchor point.
+It is also run with PID regulation. So, the method is suitable
+The idea of error compensation is based on the next as-
+withoutanyadditionsiftherearenoexternaldisturbancessuch
+sumptions:
+aswindpulsationsandsoon.Inothercasesadditionalfiltering
+• lower proximal anchor points meet their given positions;
+of signals of the errors is required.
+• configuration of cable system meets the configuration
+described above; E. Wind Pulsations
+• given orientation angles are equal to zero.
+We have a model of cable-driven parallel robot with elastic
+Then two processes have to be executed simultaneously, the
+cables and deformable towers, and now is the time to add a
+first one is compensation of error in vertical coordinate of
+factor of some external disturbance in the model, say, wind
+center of mass of the mobile platform and the second one is
+pulsations. In this model wind pulsations are supposed having
+compensation of errors in pitch and roll angles. Examples of
+properties of white noise. Therefore, signals of the errors
+position and orientation errors for motion of mobile platform
+become noisy and control system works unstable. It has been
+without and with error compensations are given in Fig. 4, 5.
+carried out that sufficient configuration of the filter for the
+given model includes two channels with transfer functions
+as low-pass filters. In such a way output signals have some
+0.05
+
+weights and output signal of the filtering block is the sum
+of these weighted signals. This configuration is used as for
+0
+regulation the error in vertical coordinate as for compensation
+oferrorsinpitchandrollangles.Thecoefficientsandweights
+-0.05
+forthesetwodifferenttypesofregulatorsobviouslyshouldbe
+-0.1
+
+different.
+0 50 100 150 200 250 300 350 400 450 500
+The numerical experiment has been carried out. The con-
+figuration has been tested with moving the mobile platform
+0.05
+
+in different areas of workspace of the robot and the results
+0 are shown in Fig. 6, 7. Position errors with errors in pitch
+and roll angles could be compensated satisfactory but almost
+-0.05 uncontrollable rotation around vertical axis provided torsional
+vibrations and these vibrations impact on all dynamic system.
+-0.1
+
+0 50 100 150 200 250 300 350 400 450 500 To get rid of the oscillations in position errors the torsional
+vibrations have to be reduced. Possible way to reduce these
+Fig.4. Positionerrors. torsional oscillations is adding dynamic damper to the mobile
+platform [21].
+The mobile platform have to be equipped with gyroscope.
+F. Dynamic Damper
+The first process is executed via synchronized lifting of all
+upper cables. It is run with PID regulation. The second The idea of dynamic damping is to absorb the vibration
+process is executed via separated lifting of each upper cable energy bypassing the primary system. Dynamic dampers re-thedynamicdamperareassumedasco-axedcylinders.Graphs
+0.05 for errors with attached dynamic damper are given in Fig. 8.
+
+Graphsformomentsandanglesofrotationaroundverticalaxis
+0
+are given in Fig. 9. Because of noisy moment of the mobile
+platform M there is also shown M which is filtered M, and
+-0.05 f
+M is moment of the damper.
+d
+-0.1
+
+0 50 100 150 200 250 300 350 400 450 500
+0.05
+
+0.05
+0
+0
+-0.05
+-0.05
+-0.1
+
+0
+-0.05
+-0.05
+-0.1
+0 50 100 150 200 250 300 350 400 450 500
+-0.1
+
+0 50 100 150 200 250 300 350 400 450 500
+
+Fig.6. Positionerrorswithwindpulsations. 0.1
+0
+
+0.1 -0.1
+0 50 100 150 200 250 300 350 400 450 500
+0
+Fig.8. Positionandorientationerrorswithdamping.
+-0.1
+
+0 50 100 150 200 250 300 350 400 450 500
+
+0.1 0.2
+0 0
+-0.1 -0.2
+
+0.1 0.2
+0 0
+-0.1 -0.2
+
+0 50 100 150 200 250 300 350 400 450 500 0 50 100 150 200 250 300 350 400 450 500
+2
+
+Fig.7. Orientationerrorswithwindpulsations.
+1
+duce vibration in the specific frequency domain of oscillating 0
+object.Thesystemofdifferentialequationsdescribesdynamic -1
+damping for torsional oscillations:
+-2
+
+0 50 100 150 200 250 300 350 400 450 500
+(cid:40)
+Jϕ¨+b (ϕ˙−ϕ˙ )+cϕ+c (ϕ−ϕ )=M eiωt
+d d d d 0 (18) Fig.9. Anglesofrotationandmomentsfordamperandplatform.
+J ϕ¨ +b (ϕ˙ −ϕ˙)+c (ϕ −ϕ)=0
+d d d d d d
+where J is moment of inertia of the damper; b and c are
+IV. SIMULATION
+d d d
+viscoelasticpropertiesofthedamper;ϕ isangleofrotationof The simulation has been run with the given properties of
+d
+the damper; the same letters without indexes mark the values cable-driven parallel robot which are listed below:
+for mobile platform of the robot; the right part of the first • H is height of towers,
+equation is some external periodic torque. H =15 m;
+Therefore, parameters b d and c d have to be given, moment • c,d are distances between two neighbour towers,
+of inertia J of the damper is also given, variables ϕ˙ and ϕ c=20 m,d=20 m;
+d
+are inputs, so, solving the second differential equation we can • m is mass of mobile platform,
+find ϕ˙ and ϕ . m=350 kg;
+d d
+There is used a passive dynamic damper with given con- • m d is mass of the dynamic damper,
+stants as viscoelastic properties. The object of damping and m =50 kg;
+d• J is moment of inertia of mobile platform, V. SUMMARY
+J =28 kg·m2;
+The main obtained result is significant reducing of position
+• J d is moment of inertia of the dynamic damper, andorientationerrorsofmobileplatforminmodeloftherobot.
+J =4 kg·m2;
+It has been shown that impact of deformable structures of
+• E S is Young modulus for material of towers, steel, the robot and some external disturbances can be substantially
+E =200 GPa;
+S reduced with controlling the cable system and attachment
+• E D is Young modulus for material of cables, Dayneema, passive dynamic damper to the mobile platform.
+E =130 GPa;
+D The next stage is to design robust control for the robot
+• c d is torsion spring constant of the dynamic damper, because stable work is obligatory condition for industrial
+c =3.0728 N ·m·rad−1;
+d applications in robotics.
+• b d is angular damping constant of the dynamic damper,
+b =0.6171 Joule·s·rad−1; REFERENCES
+d
+The platform is moving on planar curvilinear trajectory at [1] I.Samset,“TheHistoryofRopeTransportation”,SpringerNetherlands,
+1985.
+height 4 m and upper limit for smoothly changing speed of
+[2] I.McNeil,“AnEncyclopaediaofthehistoryoftechnology”,Routledge,
+motion is 0.15 m·s−1. 1996.
+[3] P.W.Kim,“ScientificDisciplinesofGeojunggi(theTraditionalCrane)
+The results of simulation are shown in Fig. 10, 11.
+inKoreanScience,TechnologyandHistoryClass”,EURASIAJournal
+of Mathematics Science and Technology Education, 13(9), pp. 6147–
+6163,2017.
+[4] S.E. Landsberger, “Design and construction of a cable-controlled, par-
+0.05
+
+allellinkmanipulator”,MassachusettsInstituteofTechnology,1984.
+[5] J.S.Albus,“Cablearrangementandliftingplatformforstabilizedload
+0 lifting”,USPatentNo.4883184,Nov.28,1989.
+[6] S. Kawamura, W. Choe, S. Tanaka, and S.R. Pandian, “Development
+of an ultrahigh speed robot FALCON using wire drive system”, Pro-
+-0.05
+ceedings of 1995 IEEE International Conference on Robotics and
+Automation,volume1,pp.215–220,1995.
+-0.1
+
+[7] K.Maeda,S.Tadokoro,T.Takamori,M.Hiller,andR.Verhoeven,“On
+0 1000 2000 3000 4000 5000 6000
+design of a redundant wire-driven parallel robot WARP manipulator”,
+Proceedings 1999 IEEE International Conference on Robotics and
+Automation,volume1,pp.895–900,1999.
+
+0.1 [8] T. Bruckmann, A. Pott, and M. Hiller, “Calculating force distributions
+forredundantlyactuatedtendon-basedStewartplatforms”,Advancesin
+RobotKinematics,pp.403–412,2006.
+0
+[9] A. Pott, H. Mu¨therich, W. Kraus, V. Schmidt, P. Miermeister, and A.
+Verl,“IPAnema:AfamilyofCable-DrivenParallelRobotsforIndustrial
+-0.1 Applications”,Cable-DrivenParallelRobots.MechanismsandMachine
+
+Science,volume12,pp.19–34,2012.
+0 1000 2000 3000 4000 5000 6000 [10] M.Rodriguez,“ParallelCableRoboticsforImprovingMaintenanceand
+LogisticsofLarge-ScaleProducts,”Tecnalia,2013.
+[11] P.Tempel,P.Herve,O.Tempier,M.Gouttefarde,andA.Pott,“Estimat-
+Fig.10. Positionandorientationerrors.
+inginertialparametersofsuspendedcable-drivenparallelrobots—Use
+caseonCoGiRo”,2017IEEEInternationalConferenceonRoboticsand
+Automation(ICRA),pp.6093–6098,2017.
+[12] E. Marchuk, Ya. Kalinin, and A. Maloletov, “Mathematical Modeling
+of Eight-Cable-Driven Parallel Robot”, 2021 International Conference
+5000 ”Nonlinearity,InformationandRobotics”(NIR),pp.1–5,2021.
+4000 [13] A.Akhmetzyanov,M.Rassabin,A.Maloletov,M.Fadeev,A.Klimchik,
+“Deeplearningwithtransferlearningmethodforerrorcompensationof
+3000 cable-driven robot,” ICINCO 2020 - Proceedings of the 17th Interna-
+2000 tionalConferenceonInformaticsinControl,AutomationandRobotics,
+pp.553-564,2020.
+1000 [14] M.Irvine,“CableStructures”,DoverPublications,1992.
+0 [15] Ya.V.Kalinin,E.A.Marchuk,“SpecifityofIncludingofStructuralNon-
+0 1000 2000 3000 4000 5000 6000 linearityinModelofDynamicsofCable-DrivenRobot”,Mekhatronika,
+Avtomatizatsiya,Upravlenie,volume22,10,pp.547–552,2021.
+[16] A. Pott, “Cable-Driven Parallel Robots: Theory and Application,”
+
+SpringerInternationalPublishing,2018.
+0.04
+[17] B. Zi, S. Qian, “Design, Analysis and Control of Cable-Suspended
+ParallelRobotsandItsApplications”,SpringerSingapore,2017.
+[18] J.Piao,E.-S.Kim,H.Choi,Ch.-B.Moon,E.Choi,J.-O.Park,andCh.-S.
+0.02
+Kim,“IndirectForceControlofaCable-DrivenParallelRobot:Tension
+Estimation using Artificial Neural Network trained by Force Sensor
+Measurements,”Sensors,19(11),p.2520,2019.
+0
+
+0 1000 2000 3000 4000 5000 6000 [19] M.H. Haghighipanah, “Estimation of Position and External Force of
+CableDrivenSurgicalRobots”,UniversityofWashington,2017.
+[20] R.S.Esfandiary,B.Lu,“ModelingandAnalysisofDynamicSystems”,
+Fig.11. Tensionsincablesanddeflectionsoftowers. CRCPress,2018.
+[21] L.Meirovitch,“FundamentalsofVibrations”,McGraw-Hill,2001.

@@ -1,0 +1,80 @@
+Full Name:
+variant
+
+Innopolis University
+Introduction to Optimization
+
+1
+
+Duration:
+
+Fall 2023
+Final Exam
+19.12.2023
+
+120 Minutes
+
+You need to perform this exam alone and without the use of any equipment
+or book, apart from this booklet, A5 cheat sheet, a calculator and pens.
+Please do not consult any person or use any equipment, otherwise you will be
+disqualified from this exam at the very first attempt.
+Good Luck!
+Grade Table (for teacher use only)
+Question:
+
+1
+
+2
+
+3
+
+Total
+
+Points:
+
+9
+
+5
+
+6
+
+20
+
+Score:
+
+1. We want to solve the following optimization problem using two methods: bisection and golden section.
+Minimize f (x) = x3 − 4x2 − x + 10
+subject to
+1≤x≤4
+(a) (1 point) Write general formulas for calculation of x1 and x2 for each bisection and golden section
+methods.
+(b) (1 point) Write formulas for determination of minimum number, n, of iterations for each of these
+methods needed to achieve the required tolerance ϵ.
+(c) (2 points) Determine minimum number, n, of iterations for each of these methods needed to
+achieve the required tolerance ϵ = 0.05.
+(d) (5 points) Complete the first iteration for both methods with ∆ = 0.05 to determine the second
+interval, i.e. I1 . Write your solutions with 3 decimals.
+
+Full Name:
+
+Final Exam - Variant 1
+
+2. (5 points) Use the gradient method starting with (x0 , y0 ) = (0, 0) to solve the following optimization
+problem.
+Maximize f (x, y) = 8x − x2 − 12y − 2y 2 + 2xy
+p.s. Complete the first iteration of the gradient method, i.e. determine (x1 , y1 ).
+
+Full Name:
+
+Final Exam - Variant 1
+
+3. Consider the following optimization problem.
+Maximize f (x, y) = 8x − x2 + 4y − y 2
+subject to
+x+y ≤2
+x, y ≥ 0
+(a) (1 point) Explain, why we can use quadratic programming to solve such problem.
+(b) (5 points) Solve the given optimization problem using quadratic programming.
+p.s. Write your (complete) solution till end of the first iteration of phase - I.
+
+

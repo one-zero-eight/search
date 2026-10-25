@@ -1,0 +1,16 @@
+{
+ "title": "Образовательная программа высшего образования – программа магистратуры 15.04.06 Мехатроника и робототехника, направленность (профиль) Робототехника",
+ "url": "https://innopolis.university/upload/iblock/47b/74ipw3oiez31rj1c9pu7clj2sd5myaae/16.%20%D0%A0%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82%D1%8B_%D0%BE%D0%BF%D1%80%D0%BE%D1%81%D0%B0_%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BE%D0%B4%D0%B0%D1%82%D0%B5%D0%BB%D0%B5%D0%B8%CC%86_15.04.06_%D0%A0%D0%BE%D0%B1%D0%BE%D1%82%D0%BE%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D0%BA%D0%B0.pdf",
+ "sha256": "ff8d6ca16561682abf6f5985571c90b1e6918a37c969db08341828309516d9ce",
+ "method": "text layer (pdfplumber)",
+ "chars": 3415,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:56:47+00:00",
+ "remote": {
+  "etag": "\"68c932ae-3ff30\"",
+  "modified": "Tue, 16 Sep 2025 09:49:34 GMT",
+  "size": "261936"
+ }
+}

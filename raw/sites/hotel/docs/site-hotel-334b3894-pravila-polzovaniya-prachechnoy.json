@@ -1,0 +1,16 @@
+{
+ "title": "ПРАВИЛА ПОЛЬЗОВАНИЯ ПРАЧЕЧНОЙ",
+ "url": "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D0%A0%D0%90%D0%92%D0%98%D0%9B%D0%90%20%D0%9F%D0%9E%D0%9B%D0%AC%D0%97%D0%9E%D0%92%D0%90%D0%9D%D0%98%D0%AF%20%D0%9F%D0%A0%D0%90%D0%A7%D0%95%D0%A7%D0%9D%D0%9E%D0%99.pdf",
+ "sha256": "a61c54a127d7eab787c380f916bec931063c557516765c9c0507c135b280704b",
+ "method": "text layer (pdfplumber)",
+ "chars": 6358,
+ "section": "site/hotel",
+ "context": "",
+ "fetched_at": "2026-10-24T22:04:01+00:00",
+ "remote": {
+  "etag": "\"5a6b7-5ee35698f2860\"",
+  "modified": "Thu, 24 Nov 2022 11:07:35 GMT",
+  "size": "370359"
+ },
+ "tables": 3
+}

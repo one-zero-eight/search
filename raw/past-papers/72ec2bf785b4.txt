@@ -1,0 +1,149 @@
+Innopolis University
+Academic Year 2024/2025
+The Midterm Exam of Computer Networks
+ANSWERS
+The 21st of March 2025
+Duration: 60 minutes
+
+Student Full Name:
+Student Telegram:
+Exam Room:
+
+Question
+Question 1
+Question 2
+Question 3
+Question 4
+Question 5
+Question 6
+Question 7
+Question 8
+Total (max: 12 points)
+
+For Instructors Use: Grade Summary
+Grade
+
+Please write very clearly your names and your solution. What will not be understood will be
+considered wrong.
+You need to perform this exam alone and without the use of any equipment or book, apart from
+this booklet and pens. Please do not consult any person or use any equipment, otherwise you
+will be disqualified from this exam at the very first attempt.
+Student’s signature:
+
+Student Full Name:
+
+Question 1. (1 point) Do you agree that, due to a significantly increasing number of network devices,
+currently there is a lack of the Internet Protocol version 6 (IPv6) addresses?
+a) Agree;
+b) Disagree (correct)
+Grading criteria: 1 or 0
+Question 2. (1 point) Do you agree that a wireless communication is typically faster than a wired one?
+a) Agree;
+b) Disagree (correct)
+Grading criteria: 1 or 0
+Question 3. (1 point) To which protocol corresponds a network packet format below?
+a) DNS
+b) TCP (correct)
+c) HTTP
+d) FTP
+Grading note: 1 or 0
+Question 4. (1 point) Consider the terminology listed in the left column of the table below. These terms
+refer to a data packet at a specific TCP/IP reference model layer. Match the terms at the left to an
+appropriate TCP/IP layer at the right.
+a)
+b)
+c)
+d)
+
+Frame;
+Datagram;
+Message;
+Segment
+
+1)
+2)
+3)
+4)
+
+Application layer;
+Transport layer;
+Network layer;
+Data Link layer
+
+Answer:
+a) 4
+
+b) 3
+
+c) 1
+
+d) 2
+
+Grading criteria: 0.25 – for every correctly filled cell
+
+Computer Networks: The Midterm Exam 2025
+
+2
+
+Student Full Name:
+Question 5. (2 points) What is the principle of a “packet-switching” mechanism for computer networks?
+Support your descriptive answer with an illustration on the diagram below. What key advantage does
+“packet-switching” provide?
+Principle:
+Data packets within the same communication session of two
+same two hosts might be delivered through different network
+paths, considering network load.
+Advantage:
+An increased efficiency of network utilization and a decreased
+average delivery time for packets
+Grading criteria:
+Correct/partially correct “Principle” – 1/0.5;
+Correct/partially correct “Advantage” – 0.5/0.25
+Clear illustration on the diagram – 0.5
+Question 6. (2 points) Fill-in the following table by describing the key purpose of each application-layer
+protocol listed:
+Protocol
+Key Purpose (Brief)
+HTTP
+
+To retrieve web-pages
+
+SMTP
+
+Emails sending from a client to a server, or between servers
+
+POP
+
+Emails receival by a client (emails are downloaded to a client)
+
+DNS
+
+Translation of host names to IP addresses
+
+Grading criteria: 0.5 – for every correct protocol description
+
+Question 7. (2 points) Consider the code listing below. Choose its valid characteristics and justify your
+choice by providing a line number, or a function name, or some input option.
+
+Computer Networks: The Midterm Exam 2025
+
+3
+
+Student Full Name:
+1) Type of a network host to run this code (underline): client (correct) / server / both
+Justification: no “bind()” in the code, “sendto()” and no “recvfrom(…)” before in line 13, other
+2) Transport layer protocol used in this C socket program (underline): UDP (correct) / TCP
+Justification: “SOCK_DGRAM” in line 4, “sendto()” in line 13, other
+Grading note: 1 – for every correct point, that is both choice and justification are correct. A correct choice
+without justification is 0.
+Question 8. (2 points) List any four functions provided by the transport layer of the TCP/IP reference
+model. Limit your answer to a brief function naming without a detailed description.
+
+Grading note: 0.5 – for every correct function named.
+This is the end of the student book
+
+Computer Networks: The Midterm Exam 2025
+
+4
+
+

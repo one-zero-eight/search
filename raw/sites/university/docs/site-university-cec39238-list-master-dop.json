@@ -1,0 +1,16 @@
+{
+ "title": "Список зачисленных на программы магистратуры (дополнительный набор)",
+ "url": "https://innopolis.university/upload/iblock/61e/80te03x8ece7rrrygpx5km9crpda4knu/list_master_dop.pdf",
+ "sha256": "460884c251136b377fd6d20fbe64a753cd24d3332ed71c89a87dc157c8497444",
+ "method": "text layer (pdfplumber)",
+ "chars": 460,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:59:01+00:00",
+ "remote": {
+  "etag": "\"671fb9ce-1e77e\"",
+  "modified": "Mon, 28 Oct 2024 16:20:30 GMT",
+  "size": "124798"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "Read the article [NIR_2022_optimization-dictionary]",
+ "url": "https://innopolis.university/filespublic/NIR_2022_optimization-dictionary.pdf",
+ "sha256": "a4388751223fc2931fb23c1a40f39af205151d8d5d91386fd0ba89781c4a3561",
+ "method": "text layer (pdfplumber)",
+ "chars": 14680,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:45:16+00:00",
+ "remote": {
+  "etag": "\"2a782-5f25c577860e6\"",
+  "modified": "Mon, 16 Jan 2023 07:15:01 GMT",
+  "size": "173954"
+ }
+}

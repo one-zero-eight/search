@@ -1,0 +1,328 @@
+Differential Equations
+Test 1
+Innopolis University
+September 29, 2023
+
+Variant 1
+1. (2 points) Draw a direction field for the differential equation and locate the trajectory which
+starts a given point:
+y′ =
+
+y
+,
+x+y
+
+(x0 , y0 ) = (0, 1)
+
+2. (3 points) Solve the initial value problem:
+√
+p
+ 1 − x2 ydy = −x 3 + y 2 dx
+y(0) = 0
+3. (2 points) Solve the Bernoulli equation:
+y ′ + 2y = y 2 ex
+4. (2 points) Check the equation on homogeneity and solve it:
+xy ′ − y = x tan
+
+y
+x
+
+5. (1 point) Indicate errors, if any, in TheB.AI’s answer to the following question: Please check if
+the differential equation is exact and solve it: exp(−y)dx − (2y + x exp(−y))dy = 0. Provide your
+solution by step-by-step explanations using LaTeX notation.
+The answer. To check if the given differential equation is exact, we need to verify if it satisfies the condition:
+
+∂M
+∂y
+
+= ∂N
+∂x . Let’s start by identifying M and N in the differential equation:
+
+M = exp(−y), N = −2y − x exp(−y)
+∂N
+Now, we will calculate the partial derivatives: ∂M
+∂y = − exp(−y), ∂x = − exp(−y)
+∂N
+Comparing the two partial derivatives, we have: ∂M
+∂y = ∂x = − exp(−y). Since the two sides are
+
+equal, the given differential equation is exact. To solve the exact differential equation, we need to
+∂F
+find a function F (x, y) such that: ∂F
+∂x = M , ∂y = N
+
+Let’s integrate the first equation with respect to x to find F (x, y): F (x, y) =
+
+R
+
+M dx =
+
+R
+
+exp(−y)dx =
+
+x exp(−y) + C1 (y), where C1 (y) is the constant of integration with respect to y.
+Now, we can differentiate F (x, y) partially with respect to y and equate it to N to find the con∂C1
+∂
+stant: ∂F
+∂y = N , ∂y (x exp(−y) + C1 (y)) = −2y − x exp(−y), −x exp(−y) + ∂y = −2y − x exp(−y).
+
+Comparing the terms, we get:
+
+∂C1
+∂y
+
+= −2y. Integrating both sides with respect to y, we have:
+
+2
+
+C1 (y) = −y + C2 , where C2 is a constant of integration.
+Substituting the value of C1 (y) back into F (x, y), we obtain: F (x, y) = x exp(−y) − y 2 + C2
+Therefore, the solution to the given differential equation is x exp(−y) − y 2 + C2 = 0, where C2 is
+an arbitrary constant.
+
+Variant 2
+1. (2 points) Draw a direction field for the differential equation and locate the trajectory which
+starts a given point:
+y′ =
+
+y − 3x
+,
+x + 3y
+
+(x0 , y0 ) = (−1, 2)
+
+2. (3 points) Solve the initial value problem:
+
+xy ′ = −y ln y
+y(1) = e
+3. (2 points) Solve the Bernoulli equation:
+y ′ − y tan x = y 4 cos x
+4. (2 points) Check the equation on homogeneity and solve it:
+xy ′ = y − x exp
+
+y
+x
+
+5. (1 point) Indicate errors, if any, in TheB.AI’s answer to the following question: Please check
+3
+
+if the differential equation is exact and solve it: 3x2 (1 + log(y))dx = (2y − xy )dy. Provide your
+solution by step-by-step explanations using LaTeX notation.
+The answer.
+
+To check if the given differential equation is exact, we need to verify if the
+
+following condition holds:
+
+∂M
+∂y
+
+= ∂N
+∂x , where the given differential equation is in the form of
+
+M (x, y)dx + N (x, y)dy = 0
+2
+
+2
+
+3x
+∂N
+3x
+Let’s find the partial derivatives of M and N : ∂M
+∂y = y , ∂x = 6x(1 + log(y)) − y 2
+
+∂N
+Since ∂M
+∂y ̸= ∂x , the differential equations is not exact. To solve this equation, we need to find an
+
+integrating factor µ(x, y) such that when we multiply both sides of the equation by µ(x, y), the
+resulting equation becomes exact.
+To find the integrating factor, we can use the formula: µ(x, y) = e
+
+R
+
+∂M − ∂N
+∂y
+∂x
+dx
+N
+
+Substituting the values of M and N and simplifying, we get µ(x, y) = e
+
+R −3y
+2x3
+
+dx
+
+3
+
+3
+
+= e− 2 log(x)+ 2 log(y) =
+
+3
+y2
+3
+x2
+
+3
+√
+2
+Multiplying both sides of the differential equation by y 3 , we get: 3x(1 + log(y))ydx = 2y 2 xdy −
+2
+x
+√
+x2 ydx
+√
+√
+∂N
+Now, we can check if this equation is exact: ∂M
+∂y = 3x(1 + log(y)), ∂x = 2y x − x y
+
+∂N
+Since ∂M
+∂y = ∂x , the equation is exact.
+
+To solve the equation, we need to find a function ϕ(x, y) such that: ∂ϕ
+= M and ∂ϕ
+∂y = N
+R ∂x
+R
+Integrating the first equation with respect to x, we get: ϕ(x, y) = M dx = 3x(1 + log(y)) dx =
+3 2
+2 x (1 + log(y)) + C(y), where C(y) is the constant of integration with respect to x.
+3 21
+Differentiating ϕ(x, y) with respect to y and equating it to N , we get: ∂ϕ
+∂y = 2 x y = N
+
+√
+√ 3 21
+∂
+3 2
+Substituting the value of ϕ(x, y), we get: ∂y
+2 x (1 + log(y)) + C(y) = 2y x − x y, 2 x y +
+√
+√
+′
+′
+
+C (y) = 2y x − x y where C (y) is the derivative of C(y) with respect to y.
+5
+
+1
+
+Simplifying and solving for C(y), we get: C(y) = 54 y 2 − 32 x3 y 2 − 32 x2 log(y) + K, where K is the
+constant of integration with respect to y.
+5
+1
+Therefore, the general solution of the differential equation is: 32 x2 (1 + log(y)) + 45 y 2 − 23 x3 y 2 −
+3 2
+2 x log(y) = K, where K is the constant of integration.
+
+Variant 3
+1. (2 points) Draw a direction field for the differential equation and locate the trajectory which
+starts a given point:
+(x2 + y 2 )y ′ = 4x,
+
+(x0 , y0 ) = (−1, 1)
+
+2. (3 points) Solve the initial value problem:
+
+y ′ sin 2y sin x2 = − cos x
+y(π/2) = 0
+3. (2 points) Solve the Bernoulli equation:
+y′ +
+
+2
+y = −x4 y 3 exp x
+x
+
+4. (2 points) Check the equation on homogeneity and solve it:
+y 2 + x2 y ′ = xyy ′
+5. (1 point) Indicate errors, if any, in TheB.AI’s answer to the following question: Please check if
+2
+
+3
+
+2
+
+dx − 2x y−5y
+dy = 0. Provide your solution by
+the differential equation is exact and solve it: 3x y+y
+2
+3
+step-by-step explanations using LaTeX notation.
+The answer. To check if the given differential equation is exact, we need to verify if the follow∂N
+ing condition holds: ∂M
+∂y = ∂x , where the given differential equation is in the form M (x, y)dx +
+
+N (x, y)dy = 0.
+∂
+Let’s find the partial derivatives of M and N : ∂M
+∂y = ∂y
+
+
+
+3x2 +y 2
+y2
+
+
+
+2
+
+2
+
+3
+
+2x −5y
+∂
+= − 2(3xy3+y ) , ∂N
+)=
+∂x = ∂x (−
+y3
+
+2
+
+− 6x
+y3 .
+∂N
+Now, equating these partial derivatives: ∂M
+∂y = ∂x
+
+2
+−2(3x2 +y 2 )
+= − 6x
+y3
+y3
+2
+2
+
+Canceling out the common terms and rearranging: 3x +y = 0. However, the equation 3x2 +y 2 = 0
+does not hold for all values of x and y. Hence, we conclude that the given differential equation is
+not exact.
+To solve this equation, we can try to find an integrating factor to make it exact. We can use
+R ∂N − ∂M
+∂N
+the integrating factor: µ(x) = exp( ∂x N ∂y dx). Substituting the values of ∂M
+∂y and ∂x , we get:
+!
+2
+R 2(3xy23+y2 ) + 6x
+y3
+µ(x) = exp
+dx
+3
+− 2x y−5y
+3
+ R
+
+2
++y 2
+Simplifying the integral and canceling out terms, we have: µ(x) = exp − x33x
+dx
+−2.5xy 3
+Finding an exact integrating factor for this equation is quite complex, and it may not be feasible
+to find one algebraically. Therefore, we will use an alternative method to solve the equation...
+
+

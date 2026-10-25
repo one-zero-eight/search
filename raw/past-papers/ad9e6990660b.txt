@@ -1,0 +1,171 @@
+Networks – Midterm F21
+1. TCP supports no network fairness mechanisms unlike UDP.
+a. True
+b. False
+2. Choose the stateless application layer protocols.
+a. DNS
+b. IMAP
+c. SMTP
+d. HTTP
+e. FTP
+3. Chose the socket calls used for connectionless communication.
+a. socket(AF_INET, SOCK_STREAM, 0)
+b. socket(AF_INET, SOCK_DGRAM, 0)
+c. socket(AF_NET, SOCK_STREAM, 0)
+4. Which C socket function is used to specify the maximum queue size for clients waiting for TCP
+connection?
+a. socket()
+b. bind()
+c. listen()
+d. connect()
+e. accept()
+
+5. Write C socket functions names (without specifying parameters)
+Used to create master socket on server side
+Used to connect to a server
+Used to link system ports and process sockets
+Used to send data from server to client through a UDP connection.
+
+6. Choose advantages of peer-to-peer over client/server architecture.
+a. Peer-to-peer is optimized only for FTP while client/server - for HTTP, SMTP, POP, IMAP.
+b. Client/server architecture is typically faster than peer-to-peer for distributing large data files
+c. Peer-to-peer network has no single point of failure, unlink client/server.
+d. For client/server architecture, any node can act either as a server or a client, while in peer-topeer, any node can act as a server and a client simultaneously.
+
+7. Choose valid statements about mail protocol suite.
+a. IMAP is designed to receive emails while SMTP and POP are used to send emails.
+b. Unlike IMAP, POP typically downloads incoming emails to a mail user agent machine, then
+deletes them from server, unless configured otherwise.
+c. POP is stateful, while SMTP and IMAP are stateless protocols.
+d. No choice is correct.
+
+8. Choose valid statements about FTP.
+a. FTP typically runs on top of TCP.
+b. Unlike HTTP, FTP uses two types of connections, control and data connection.
+c. FTP usage is restricted to peer-to-peer applications only, such as BitTorrent.
+d. FTP is stateful.
+e. No choice is correct.
+
+9. Choose valid statements about TCP.
+a. Unlike UDP, TCP is unreliable but is intended for faster data transfer.
+b. TCP provides congestion and flow control to improve network performance.
+c. TCP uses three-way-handshake for connection establishment between nodes.
+d. TCP is intended for usage in client/server architecture, while UDP, for both client/server and
+peer-to-peer.
+e. TCP sequence number is calculated based on the number of bytes transferred.
+
+10. Consider the following HTTP GET request
+GET cs453/index.html HTTP/1.1<cr><lf>
+Host: gaia.cs.umass.edu<cr><lf>
+User-Agent: Firefox/3.6.10<cr><lf>
+Accept: text/html,application/xhtml+xml<cr><lf>
+Accept-Language: en-us,en;q=0.5<cr><lf>
+Accept-Encoding: gzip,deflate<cr><lf>
+Accept-Charset: ISO-8859-1,utf-8;q=0.7<cr><lf>
+Keep-Alive: 300<cr><lf>
+Connection: keep-alive<cr><lf>
+<cr><lf>
+
+a. Write the URL of the requested document.
+b. Is this connection persistent or not? Explain your answer.
+
+11. Consider the following session. Which protocol is being used?
+a.
+b.
+c.
+d.
+e.
+f.
+g.
+h.
+
+HTTP
+FTP
+SMTP
+DNS
+TCP
+UDP
+POP
+IMAP
+
+client: telnet server 110
+server: +OK server ready
+client: user username
+server: +OK
+client: pass password
+server: +OK user successfully logged in
+client: list
+server: 1 498
+server: 2 912
+server: .
+client: dele 1
+server: +OK
+client: quit
+server: +OK server signing off
+
+12. Consider the following application layer session. Which protocol is being used?
+a.
+b.
+c.
+d.
+e.
+f.
+g.
+h.
+
+HTTP
+FTP
+SMTP
+DNS
+TCP
+UDP
+POP
+IMAP
+
+server: 220 welcome to my server.
+client: USER username
+server: 331 User username OK, password required
+client: PASS password
+server: 230 OK, current directory is /
+client: TYPE I
+server: 200, type is not binary.
+client: EPSV
+server: +OK, extended passive mode OK [//30007/]
+
+13. Assume your application only requirement is speed. Which Transport layer protocol will you use and
+why?
+a. UDP since it uses 2 RTT so it will be faster.
+b. UDP since it uses 1 RTT so it will be faster.
+c. TCP since it uses 1 RTT so it will be faster.
+d. TCP since connection establishment will be faster.
+e. UDP since no overhead, only checksum calculation
+f. TCP since it is faster, encrypted and reliable.
+g. Speed is not affected by protocol choice.
+
+14. Choose all the services that are not a job of any TCP/IP suite layer.
+a. Throughput control
+b. Multiplexing
+c. Bandwidth management
+d. Routing
+e. Encryption
+f. Address translation (software/hardware)
+g. Reliability
+h. Error detection
+i. Intrusion detection
+j. Fragmentation
+k. Application development
+l. Segmentation
+m. Confidentiality
+15. Consider an e-commerce site that wants to keep a purchase record for each of its customers. Describe
+how that can be achieved using cookies.
+16. DNS queries can be Iterative/Recursive. Where (in the network) and when they are used?
+
+17. Why do we need separate addressing mechanisms at transport, network, and data link layers? We can
+use only one addressing mechanism and access it through all layers. Do you agree? Why or why not.
+Furthermore, explain what domain names are used for?
+
+18. Imagine you are designing an application; will you choose Go-Back-N or Selective Repeat as your
+congestion avoidance strategy and why? Write your answer based on the application requirements
+you specified.
+
+

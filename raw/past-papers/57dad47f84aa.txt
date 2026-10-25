@@ -1,0 +1,533 @@
+Data Structures and Algorithms · Spring 2021 · Midterm Exam
+
+Question P (10 points)
+Variant 1
+Implement an algorithm (write pseudocode) that takes a list of values and
+modifies it by removing all duplicates. You can use only the List ADT
+methods1 .
+Assuming that input list is implemented as ArrayList, determine worst-case
+time complexity of your algorithm using big-O notation. Provide justification
+for the time complexity.
+Solution. Below algorithm has complexity O(n3 ) since for each of the n
+elements we perform a linear scan and for each duplicate we perform remove
+operation that is linear for ArrayList.
+remove_duplicates(A,n):
+i = 0
+while i < A.size():
+j = i + 1
+while j < A.size():
+if A.get(i) == A.get(j):
+A.remove(j)
+else:
+j = j + 1
+
+1
+
+add(i,e), set(i,e), remove(i,e), get(i), size(), isEmpty()
+
+Data Structures and Algorithms · Spring 2021 · Midterm Exam
+
+Variant 2
+Implement an algorithm (write pseudocode) that takes a list of values and
+modifies it by duplicating (adding a copy of) each element that occurs exactly
+once in the input list. You can use only the List ADT methods2 .
+Assuming that input list is implemented as DoublyLinkedList, determine
+worst-case time complexity of your algorithm using big-O notation. Provide
+justification for the time complexity.
+Solution. Below algorithm has complexity O(n3 ) since for each of the n
+elements we perform a linear scan, but we use A.get(j) for each step in the
+scan which is linear for DoublyLinkedList.
+duplicate_unique(A,n):
+i = 0
+while i < A.size():
+j = i + 1
+is_unique = True
+while j < A.size():
+if A.get(i) == A.get(j):
+is_unique = False
+break
+else:
+j = j + 1
+if is_unique:
+A.addLast(A.get(i))
+
+2
+
+add(i,e), set(i,e), remove(i,e), get(i), size(), isEmpty()
+
+Data Structures and Algorithms · Spring 2021 · Midterm Exam
+
+Variant 3
+Implement an algorithm (write pseudocode) that takes a list of values
+and modifies it by rotating it by k positions (for example, rotating array
+{1,2,3,4,5,6,7} by 3 positions will result in {5,6,7,1,2,3,4}). You can
+use only the List ADT methods3 .
+Assuming that input list is implemented as LinkedList, determine worst-case
+time complexity of your algorithm using big-O notation (in terms of k and
+size of the input list). Provide justification for the time complexity.
+Solution. Below algorithm has worst-case complexity O(nk) since getting
+and removing elements from the end of a LinkedList is linear and adding
+elements to the beginning is constant time.
+rotate(A,n,k):
+for i from 1 to k:
+A.add(0, A.get(n))
+A.remove(n)
+
+3
+
+add(i,e), set(i,e), remove(i,e), get(i), size(), isEmpty()
+
+Data Structures and Algorithms · Spring 2021 · Midterm Exam
+
+Question M (15 points)
+Variant 1
+The following array (array is indexed from 0) represents the internal array of
+keys for the hashtable:
+6
+
+0
+
+0
+
+0
+
+23
+
+11
+
+0
+
+0
+
+3
+
+15
+
+5
+
+4
+
+The hashtable uses Linear Probing to handle hash collisions, and uses the
+following hash function
+hash(x) = (x + 5)
+
+mod 12
+
+Determine the order in which keys have been added to the hashtable (assuming
+there were no removals). If many orders are possible, specify any one.
+Solution. The keys may have been inserted in the following order:
+3, 5, 23, 11, 15, 4, 6
+Justification (not required from students):
+1. Only 3, 5 and 23 are at the correct places according to the hash function.
+This means that other keys have caused hash collision.
+2. 11 has the same hash as 23 and is next to 23 in the array so could have
+been inserted right after 23
+3. Similarly, 15 could be inserted next, since it has the same hash as 3 and
+is located right next to it.
+4. 4 should have been where 15 is, but is not, so it should have been
+inserted after 15.
+5. 6 should have been where 4 landed, but is not, so it should have been
+inserted after 4.
+
+Data Structures and Algorithms · Spring 2021 · Midterm Exam
+
+Variant 2
+The following array (array is indexed from 0) represents the internal array of
+keys for the hashtable:
+13
+
+3
+
+0
+
+15
+
+0
+
+11
+
+6
+
+16
+
+6
+
+8
+
+The hashtable uses Linear Probing to handle hash collisions, and uses the
+following hash function
+hash(x) = (2x + 3)
+
+mod 10
+
+Determine the order in which keys have been added to the hashtable (assuming
+there were no removals). If many orders are possible, specify any one.
+Solution. The keys may have been inserted in the following order:
+8, 11, 15, 6, 16, 6, 13, 3
+Justification (not required from students):
+1. Only 15, 11 and 8 are at the correct places according to the hash
+function. This means that other keys have caused hash collision.
+2. 6 has the same hash as 11 and is next to 11 in the array so could have
+been inserted right after 11.
+3. Similarly, 16 could be inserted next, since it has the same hash as 6 and
+is located right next to it.
+4. Second 6 could be inserted next (although in a hashmap we should not
+have duplicate keys!).
+5. 13 should have been where (second) 6 is, but is not, so it should have
+been inserted after (second) 6.
+6. 3 should have been where (second) 6 landed, but is not, so it should
+have been inserted after 13.
+
+Data Structures and Algorithms · Spring 2021 · Midterm Exam
+
+Variant 3
+The following array (array is indexed from 0) represents the internal array of
+keys for the hashtable:
+7
+
+14
+
+26
+
+10
+
+0
+
+5
+
+19
+
+The hashtable uses Quadratic Probing4 to handle hash collisions, and uses
+the following hash function
+hash(x) = x mod 7
+Determine the order in which keys have been added to the hashtable (assuming
+there were no removals). If many orders are possible, specify any one.
+Solution. The keys may have been inserted in the following order:
+5, 7, 10,
+Justification (not required from students):
+1. Only 7, 10 and 5 are at the correct places according to the hash function.
+This means that other keys have caused hash collision.
+2. 19 has the same hash as 5 and is next to 5 in the array so could have
+been inserted right after 5 (with +1 shift).
+3. Similarly, 14 could be inserted next, since it has the same hash as 7 and
+is located right next to it (with +1 shift).
+4. 26 has the same hash as 5, but that cell is occupied, next cell (with
+shift +1) is occupied by 19, the next cell (with shift +4) is vacant, so
+that’s where 26 lands.
+
+4
+
+using simple sequence of square shifts: i + 1, i + 4, i + 9, i + 16, . . .
+
+Data Structures and Algorithms · Spring 2021 · Midterm Exam
+
+Question F (15 points)
+Variant 1
+Assuming that f (n) = nk which of the following statements are true? Assume
+that k ≥ 1 and c > 1 are constants. Give justification for each statement.
+1. f (n) = O(cn )
+2. f (n) = Ω(cn )
+3. f (n) = Θ(cn )
+4. f (n) = o(n)
+5. f (n) = ω(cn )
+Hint: you can rely on facts about growth rate of common functions. For
+example, you do not need to prove that n log n = o(n2 ).
+Solution.
+1. True. nk is a polynomial function, and cn is a exponential function.
+We know that polynomials always grow more slowly than exponential.
+Due to this fact it can be true.
+
+Figure 1: A graph that compares the two functions (with k=2 and c=2),
+where we can clearly see the difference in growth
+2. False. because polynomials always grow slower than exponentials, and
+we could see in the example graph
+3. False. By definition O and Ω should be same to make this case true.
+In this case it is not.
+
+Data Structures and Algorithms · Spring 2021 · Midterm Exam
+
+4. False. The given term is less than f (n) so it is not true.
+5. False. The given term is greater than f (n) so it is not true.
+
+Data Structures and Algorithms · Spring 2021 · Midterm Exam
+
+Variant 2
+Assuming that f (n) = n3 log n which of the following statements are true?
+Give justification for each statement.
+1. f (n) = O(3n log n)
+2. f (n) = Ω(3n log n)
+3. f (n) = Θ(3n log n)
+4. f (n) = o(1)
+5. f (n) = ω(n5 )
+Hint: you can rely on facts about growth rate of common functions. For
+example, you do not need to prove that n log n = o(n2 ).
+Solution.
+1. False. n3 log n is a function that multiplies a cubic factor by a logarithmic factor, and 3n log n is a function that multiplies a linear factor by
+a logarithmic factor.
+
+Figure 2: A graph that compares the two functions, where we can clearly see
+the difference in growth, once n > 2.
+2. True. because n3 will grow faster than the 3n term, and the logarithmic
+factors are essentially the same.
+3. False. By definition O and Ω should be same to make this case true.
+In this case it is not.
+4. False. The given term is less than f (n) so it is not true.
+5. False. The given term is greater than f (n) so it is not true.
+
+Data Structures and Algorithms · Spring 2021 · Midterm Exam
+
+Question B (20 points)
+Variant 1
+Given the following recursive algorithm
+1. Express the running time of the algorithm T (n) as a recurrence relation.
+2. Find the asymptotic complexity of T (n) using Master Theorem. Specify
+the case of Master Theorem that is applicable (if any) and provide full
+justification.
+MyFunction(A, i, j):
+if (i + 1) >= j:
+return
+k = [(j - i + 1)/6]
+# round up
+MyFunction(A, i,
+i + 2 * k)
+MyFunction(A, i +
+k, i + 3 * k)
+MyFunction(A, i + 2 * k, i + 4 * k)
+MyFunction(A, i + 3 * k, i + 5 * k)
+MyFunction(A, i + 4 * k, j)
+for a from i to j:
+for b from a+1 to j:
+if A[a] = A[b]:
+A[b] = 0
+Solution. Recurrence relation:
+n
++ f (n) where f (n) = Θ(n2 )
+3
+
+ 
+
+T (n) = 5T
+
+Here Case 3 of Master Theorem applies, since
+1. f (n) = Ω(nlog3 5+ ) where  = 2 − log3 5 > 0
+ 2
+2. Regularity condition holds: 5 n3 ≤ kn2 for k = 59 < 1 and sufficiently
+large n
+Therefore, T (n) = Θ(n2 ).
+
+Data Structures and Algorithms · Spring 2021 · Midterm Exam
+
+Variant 2
+Given the following recursive algorithm
+1. Express the running time of the algorithm T (n) as a recurrence relation.
+2. Find the asymptotic complexity of T (n) using Master Theorem. Specify
+the case of Master Theorem that is applicable (if any) and provide full
+justification.
+MyFunction(A, i, j):
+if (i + 1) >= j:
+return
+k = [(j - i + 1)/3]
+# round up
+MyFunction(A, i,
+i + k)
+MyFunction(A, i +
+k, i + 2 * k)
+MyFunction(A, i + 2 * k, j)
+for a from i to j:
+for b from a+1 to j:
+if A[a] > A[b]:
+swap A[a] with A[b]
+Solution. Recurrence relation:
+n
++ f (n) where f (n) = Θ(n2 )
+3
+
+ 
+
+T (n) = 3T
+
+Here Case 3 of Master Theorem applies, since
+1. f (n) = Ω(nlog3 3+ ) where  = 1 > 0
+ 2
+2. Regularity condition holds: 3 n3 ≤ kn2 for k = 13 < 1 and sufficiently
+large n
+Therefore, T (n) = Θ(n2 ).
+
+Data Structures and Algorithms · Spring 2021 · Midterm Exam
+
+Variant 3
+Given the following recursive algorithm
+1. Express the running time of the algorithm T (n) as a recurrence relation.
+2. Find the asymptotic complexity of T (n) using Master Theorem. Specify
+the case of Master Theorem that is applicable (if any) and provide full
+justification.
+MyFunction(A, i, j):
+if (i + 1) >= j:
+return
+k = [(j - i + 1)/4]
+# round up
+MyFunction(A, i,
+i + k)
+MyFunction(A, i +
+k, i + 2 * k)
+MyFunction(A, i + 2 * k, i + 3 * k)
+MyFunction(A, i + 3 * k, j)
+for a from i to j:
+m = i
+for b from i to j:
+if A[b] > A[m]:
+m = b
+swap A[m] with A[a]
+Solution. Recurrence relation:
+n
++ f (n) where f (n) = Θ(n2 )
+4
+
+ 
+
+T (n) = 4T
+
+Here Case 3 of Master Theorem applies, since
+1. f (n) = Ω(nlog4 4+ ) where  = 1 > 0
+ 2
+2. Regularity condition holds: 4 n4 ≤ kn2 for k = 14 < 1 and sufficiently
+large n
+Therefore, T (n) = Θ(n2 ).
+
+Data Structures and Algorithms · Spring 2021 · Midterm Exam
+
+Question N (40 points)
+Variant 1
+The National Health Council wants to improve health care in three of the
+most underdeveloped regions. Currently it has five medical teams available to
+allocate among such regions to improve their medical care, health education,
+and training programs. Therefore, the council needs to determine how many
+teams (if any) to allocate to each of these regions to maximize the total
+effectiveness of the five teams. The teams must be kept intact, so the number
+allocated to each region must be an integer.
+The measure of performance being used is additional person-years of life.
+(For a particular region, this measure equals the increased life expectancy in
+years times the region’s population.) The following table gives the estimated
+additional person-years of life (in multiples of 1,000) for each region for each
+possible allocation of medical teams.
+Medical Teams
+
+Region A
+
+Region B
+
+Region C
+
+0
+1
+2
+3
+4
+5
+
+0
+45
+70
+90
+105
+120
+
+0
+50
+70
+80
+100
+130
+
+0
+20
+45
+75
+110
+150
+
+1. Describe a general algorithm for any number M of available medical
+teams, any number R of regions and table E with estimates:
+1. Summarize the idea for a recursive algorithm.
+2. Identify overlapping subproblems.
+3. Write down pseudocode for the dynamic programming algorithm
+that solves the problem (top-down or bottom-up). It is enough to
+compute maximum performance without specifying team allocation.
+4. Provide asymptotic worst-case time complexity of the algorithm.
+2. Apply the algorithm to an instance of the problem above.
+
+Data Structures and Algorithms · Spring 2021 · Midterm Exam
+
+Solution. We can solve this problem recursively, by considering, for each
+region, how many teams we will send there. The subproblems will take as
+input the number of leftover teams and number of regions we consider. To
+solve a problem with 5 teams and 3 regions (A, B, C) we need to consider
+subproblems with k teams and 2 regions (A, B) for all k from 0 to 5. For each
+k we need to compute solution of the subproblem and add to that value the
+estimated performance of sending n − k teams to region C. Out of 6 options
+we will choose the maximum one and that will give us the solution.
+Bottom-up implementation for the algorithm:
+# M — number of available medical teams
+# R — number of regions
+# E is a given R×(M+1) array with estimated performance
+solve(E, M, R)
+A = new R×(M+1) array
+for i from 0 to R-1:
+for j from 0 to M:
+if i == 0:
+A[i][j] = E[i][j]
+else:
+max_performance = A[i-1][j]
+for k from 0 to j-1:
+performance = A[i-1][k] + E[i][M-k-1]
+if performance > max_performance:
+max_performance = performance
+A[i][j] = max_performance
+return A[R-1][M-1]
+Let M be the number of available teams and R — the number of regions to
+consider. Then for each cell in an M × R table, we will compute its value
+in O(M ) time since we will compare M + 1 solutions. This means that the
+overall complexity of Dynamic Programming algorithm will be O(M 2 R).
+Applying the algorithm to the instance of the problem above we get maximum
+performance of 170:
+
+Data Structures and Algorithms · Spring 2021 · Midterm Exam
+
+Medical
+Teams
+
+Region A
+
+Regions A and B
+
+Regions A, B, C
+
+0
+1
+2
+3
+4
+5
+
+0
+45 1A
+70 2A
+90 3A
+105 4A
+120 5A
+
+0
+50 1B
+95 1A1B
+120 2A1B
+140 2A2B
+160 3A2B
+
+0
+50 1B
+95 1A1B
+120 2A1B
+140 2A2B
+170 1A1B3C
+
+

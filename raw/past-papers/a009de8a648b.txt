@@ -1,0 +1,188 @@
+Name Surname: _______________________________
+
+Pieced together by B23 for generations to come.
+
+Task 1 (6 points)
+Write the Isaac Asimov’s laws of robotics.
+
+Group: __________
+
+Name Surname: _______________________________
+
+Group: __________
+
+Task 2 (10 points)
+Apply Hill Climber to the given 8-puzzle problem by sliding numbers vertically or
+horizontally to an empty cell. Define heuristics. Provide step-by-step solution.
+
+3
+
+1
+
+2
+
+4
+
+5
+
+8
+
+6
+Heuristics:
+
+Solution:
+
+7
+
+→
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+Name Surname: _______________________________
+
+Group: __________
+
+Task 3 (12 points)
+The provided PDDL domain definition names school_domain outlines a simple
+model for managing teachers, students, lessons, and rooms in a school-like
+setting. Fill in the gaps in the following code.
+
+
+
+
+
+
+
+(room_empty ?r): indicates whether a room ?r is empty
+(student_at ?s ?r): indicates whether a student ?s in a room ?r
+(teacher_at ?t ?r): indicates whether a teacher ?t in a room ?r
+(lesson_scheduled ?l ?r): indicates whether a lesson ?l in scheduled in a room ?r
+(student_enrolled ?s ?l): indicates whether a student ?s in enrolled in a lesson ?l
+(lesson_started ?l): indicates whether a lesson ?l is started
+
+domain.pddl (8 points)
+
+problem.pddl (4 points)
+
+Define the following actions:
+ schedule_lesson: schedules a lesson in a room
+ enroll student: enrolls a student in a lesson
+ start_lesson: starts a lesson
+
+Define the goal for the system: one of the
+students is enrolled in math, another
+student is enrolled in intro_ai, and each
+course is scheduled in a different room
+(101 and 102).
+
+(define (domain school_domain)
+(:requirements :strips)
+(:predicates
+(room_empty ?r)
+(student_at ?s ?r)
+(teacher_at ?t ?r)
+(lesson_sheduled ?l ?r)
+(student_enrolled ?s ?l)
+(lesson_started ?l)
+)
+
+(define (problem school_problem)
+(:domain school_domain)
+(:objects
+student1 student2 – student
+room101 room 102 – room
+math intro_ai – lesson
+)
+(:init
+(room_empty room101)
+(room_empty room102)
+(student_at student1 room101)
+(student_at student2 room102)
+)
+
+(:action schedule_lesson
+:parameters (?l ?r)
+:precondition (and (______________________)
+(______________________))
+:effect (and (______________________)
+(______________________))
+
+(:goal
+(and
+(______________________)
+(______________________)
+(______________________)
+(______________________)
+)
+)
+
+)
+(:action enroll_student
+:parameters (?s ?l ?r)
+:precondition (and (______________________)
+(______________________)
+(lesson_scheduled ?l ?r))
+:effect (student_enrolled ?s ?l)
+)
+; ignore the necessity of the students
+(:action start_lesson
+:parameters (?t ?l ?r)
+:precondition (and (teacher_at ?t ?r)
+(______________________))
+:effect (______________________)
+)
+)
+
+)
+
+Name Surname: _______________________________
+
+Group: __________
+
+Task 4 (12 points)
+Provide a pseudo-code for a general Evolutionary Algorithm (EA). Describe which
+special operations can be applied in GP, provide examples of these operations.
+a. EA pseudo-code (6 points).
+
+b. Provide a description of the following for Genetic Programming (4 points).
+1. Representation:
+
+2. Selection:
+
+3. Crossover:
+
+4. Mutation:
+
+c. Special operations in Genetic Programming with examples (2 points).
+
+Name Surname: _______________________________
+
+Group: __________
+
+Task 5 (10 points)
+Consider the following fully connected neural network:
+
+All the Neurons (𝑁1 , 𝑁2 , 𝑁3 , 𝑁4 , 𝑁5 ) use Leaky ReLU (𝝈) as an activation function.
+Consider a hyperparameter equal to 0.1.
+Write the answers to the following questions:
+1. Output after activation of 𝑁1 | 𝜎(𝑁1 ) = ______________
+2. Output after activation of 𝑁2 | 𝜎(𝑁2 ) = ______________
+3. Output after activation of 𝑁3 | 𝜎(𝑁3 ) = ______________
+4. Output after activation of 𝑁4 | 𝜎(𝑁4 ) = ______________
+5. Output after activation of 𝑁5 | 𝜎(𝑁5 ) = ______________
+
+

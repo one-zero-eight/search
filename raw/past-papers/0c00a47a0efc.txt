@@ -1,0 +1,1052 @@
+22.01.2024, 14:30
+
+Final Exam 2023: Attempt review
+
+Started on Monday, 15 May 2023, 1:10 PM
+State Finished
+Completed on
+
+Monday, 15 May 2023, 1:59 PM
+
+Time taken 48 mins 30 secs
+Marks
+
+24.75/38.00
+
+Grade 22.80 out of 35.00 (65.13%)
+Question 1
+Correct
+Mark 1.00 out of 1.00
+
+Which of the listed pattern designs best matches the following image?
+
+a. Singleton
+b. Facade
+c. Factory
+d. Builder
+
+Your answer is correct.
+The correct answer is:
+Facade
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=166623&cmid=93274
+
+1/24
+
+22.01.2024, 14:30
+
+Final Exam 2023: Attempt review
+
+Question 2
+Incorrect
+Mark 0.00 out of 1.00
+
+Which of the given statements is FALSE?
+a. Factory is used to make lots of little objects.
+b. Unlike Facade, Proxy has the same interface as its service object, which makes them
+
+
+
+interchangeable.
+c. Adapter usually wraps just one object, while Facade works with an entire subsystem of objects.
+
+Your answer is incorrect.
+The correct answer is:
+Factory is used to make lots of little objects.
+
+Question 3
+Incorrect
+Mark 0.00 out of 1.00
+
+Which of the listed pattern designs is the best choice for implementation of the Depth-first search (DFS) and
+the Breadth-first search (BFS)?
+a. Visitor 
+b. Chain of responsibility
+c. Strategy
+d. Iterator
+
+Your answer is incorrect.
+The correct answer is:
+Iterator
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=166623&cmid=93274
+
+2/24
+
+22.01.2024, 14:30
+
+Final Exam 2023: Attempt review
+
+Question 4
+Partially correct
+Mark 0.50 out of 1.00
+
+Match the following statements with TRUE or FALSE.
+We can use Visitor along with Iterator to traverse a complex data structure and execute
+some operation over its elements, even if they all have different classes.
+We can use Memento along with Iterator to capture the current iteration state and roll it
+back if necessary.
+
+True
+
+
+True
+
+
+
+Using the Iterator design pattern, we cannot iterate over the same collection in parallel
+because each iterator object contains its own iteration state.
+
+True
+
+
+False
+
+We can use Iterators to traverse Composite trees.
+
+
+Your answer is partially correct.
+You have correctly selected 2.
+The correct answer is:
+We can use Visitor along with Iterator to traverse a complex data structure and execute some operation over
+its elements, even if they all have different classes. → True,
+We can use Memento along with Iterator to capture the current iteration state and roll it back if necessary. →
+True,
+Using the Iterator design pattern, we cannot iterate over the same collection in parallel because each iterator
+object contains its own iteration state. → False,
+We can use Iterators to traverse Composite trees. → True
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=166623&cmid=93274
+
+3/24
+
+22.01.2024, 14:30
+
+Final Exam 2023: Attempt review
+
+Question 5
+Correct
+Mark 1.00 out of 1.00
+
+Which design pattern is presented in the following code?
+
+a. Composite
+b. Proxy
+c. Memento
+d. Decorator
+e. Factory
+f.
+
+Singleton
+
+g. Visitor
+
+Your answer is correct.
+The correct answer is:
+Proxy
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=166623&cmid=93274
+
+4/24
+
+22.01.2024, 14:30
+
+Final Exam 2023: Attempt review
+
+Question 6
+Incorrect
+Mark 0.00 out of 1.00
+
+Is the following statement TRUE or FALSE?
+"Adapter provides a different interface to the wrapped object, Proxy provides it with the same interface, and
+Decorator provides it with an enhanced interface."
+a. False 
+b. True
+
+Your answer is incorrect.
+The correct answer is:
+True
+
+Question 7
+Correct
+Mark 1.00 out of 1.00
+
+Which design pattern is presented in the following pseudocode?
+
+a. Singleton
+b. Visitor
+c. Memento
+d. Proxy
+
+Your answer is correct.
+The correct answer is:
+Singleton
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=166623&cmid=93274
+
+5/24
+
+22.01.2024, 14:30
+
+Final Exam 2023: Attempt review
+
+Question 8
+Complete
+Not graded
+
+Match the following statements about the Singleton design pattern with TRUE or FALSE.
+The pattern requires special treatment in a multithreaded environment so that multiple threads
+won’t create a singleton object several times.
+
+True
+
+We can be sure that a class has only a single instance.
+
+True
+
+You gain a global access point to that instance.
+
+False
+
+The singleton object is initialized only when it’s requested for the first time.
+
+True
+
+Your answer is partially correct.
+The correct answer is:
+The pattern requires special treatment in a multithreaded environment so that multiple threads won’t create a
+singleton object several times. → True,
+We can be sure that a class has only a single instance. → True,
+You gain a global access point to that instance. → True,
+The singleton object is initialized only when it’s requested for the first time. → True
+
+Question 9
+Incorrect
+Mark 0.00 out of 1.00
+
+Choose the missing word in the following sentence:
+The
+
+Visitor
+
+ pattern is used to provide a way to access the elements of an aggregate
+
+object sequentially without exposing its underlying representation.
+
+Your answer is incorrect.
+The correct answer is:
+Choose the missing word in the following sentence:
+The [Iterator] pattern is used to provide a way to access the elements of an aggregate object sequentially
+without exposing its underlying representation.
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=166623&cmid=93274
+
+6/24
+
+22.01.2024, 14:30
+
+Final Exam 2023: Attempt review
+
+Question 10
+Correct
+Mark 1.00 out of 1.00
+
+Builder belongs to:
+a. Behavioral design patterns
+b. Structural design patterns
+c. Creational design patterns
+
+Your answer is correct.
+The correct answer is:
+Creational design patterns
+
+Question 11
+Complete
+Not graded
+
+Match the following statements about the Builder design pattern with TRUE or FALSE.
+It hides the creation logic from the client the same way as factory pattern.
+
+True
+
+It allows to separate the representation of objects from their construction.
+
+False
+
+It is used to create complex objects with multiple options.
+
+True
+
+It enforces object immutability.
+
+False
+
+Your answer is partially correct.
+The correct answer is:
+It hides the creation logic from the client the same way as factory pattern. → False,
+It allows to separate the representation of objects from their construction. → True,
+It is used to create complex objects with multiple options. → True,
+It enforces object immutability. → True
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=166623&cmid=93274
+
+7/24
+
+22.01.2024, 14:30
+
+Final Exam 2023: Attempt review
+
+Question 12
+Correct
+Mark 1.00 out of 1.00
+
+What is the purpose of using the Flyweight design pattern?
+a. Optimizing RAM usage
+b. Optimizing CPU usage
+c. Creating a single instance of an object
+
+Your answer is correct.
+The correct answer is:
+Optimizing RAM usage
+
+Question 13
+Partially correct
+Mark 0.75 out of 1.00
+
+Match the following statements about the Singleton and Flyweight design patterns with TRUE or FALSE.
+True
+
+They both return a single instance of a given object.
+
+
+False
+
+They both return a single instance of a given object and a single state.
+
+They both return a single instance of a given object, and Singleton can return different
+states.
+
+True
+
+
+True
+
+They both return a single instance of a given object, and Flyweight returns different states.
+
+
+Your answer is partially correct.
+You have correctly selected 3.
+The correct answer is:
+They both return a single instance of a given object. → True,
+They both return a single instance of a given object and a single state. → False,
+They both return a single instance of a given object, and Singleton can return different states. → False,
+They both return a single instance of a given object, and Flyweight returns different states. → True
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=166623&cmid=93274
+
+8/24
+
+22.01.2024, 14:30
+
+Final Exam 2023: Attempt review
+
+Question 14
+Correct
+Mark 1.00 out of 1.00
+
+Which design pattern is presented in the following code?
+
+a. Proxy
+b. Mediator
+c. Facade
+d. Memento
+e. Visitor
+f.
+
+Command
+
+g. Chain of Responsibility
+h. Observer
+
+Your answer is correct.
+The correct answer is:
+Mediator
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=166623&cmid=93274
+
+9/24
+
+22.01.2024, 14:30
+
+Final Exam 2023: Attempt review
+
+Question 15
+Correct
+Mark 1.00 out of 1.00
+
+Match the following statements with TRUE or FALSE.
+Mediator has a single failure point (if it fails, the entire system may get affected).
+
+True
+
+
+
+Mediator manages the communication process among objects.
+
+True
+
+
+
+Mediator’s strongest drawback is that it increases coupling between components.
+
+False
+
+
+
+Your answer is correct.
+The correct answer is:
+Mediator has a single failure point (if it fails, the entire system may get affected). → True,
+Mediator manages the communication process among objects. → True,
+Mediator’s strongest drawback is that it increases coupling between components. → False
+
+Question 16
+Incorrect
+Mark 0.00 out of 1.00
+
+Which design pattern allows adding new operations to a class hierarchy without changing the existing classes
+themselves?
+a. Chain of Responsibility
+b. Visitor
+c. Composite
+d. Decorator 
+e. Strategy
+
+Your answer is incorrect.
+The correct answer is:
+Visitor
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=166623&cmid=93274
+
+10/24
+
+22.01.2024, 14:30
+
+Final Exam 2023: Attempt review
+
+Question 17
+Correct
+Mark 1.00 out of 1.00
+
+Is the following statement TRUE or FALSE?
+"Visitor design pattern respects Open-closed principle."
+a. False
+b. True
+
+Your answer is correct.
+The correct answer is:
+True
+
+Question 18
+Correct
+Mark 1.00 out of 1.00
+
+Choose the missing word in the following sentence:
+The
+
+Flyweight
+
+ pattern is used to reduce the number of objects created by sharing objects
+
+to improve performance.
+
+Your answer is correct.
+The correct answer is:
+Choose the missing word in the following sentence:
+The [Flyweight] pattern is used to reduce the number of objects created by sharing objects to improve
+performance.
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=166623&cmid=93274
+
+11/24
+
+22.01.2024, 14:30
+
+Final Exam 2023: Attempt review
+
+Question 19
+Incorrect
+Mark 0.00 out of 1.00
+
+Choose the missing word in the following sentence:
+The
+
+Adapter
+
+ pattern defines a common interface for communicating between objects
+
+in a system.
+
+Your answer is incorrect.
+The correct answer is:
+Choose the missing word in the following sentence:
+The [Mediator] pattern defines a common interface for communicating between objects in a system.
+
+Question 20
+Incorrect
+Mark 0.00 out of 1.00
+
+What is the purpose of the Chain of Responsibility design pattern?
+a. To manipulate a single object that handles a request.
+b. To refuse/allow access to the data handlers.
+c. To decouple the sender and receiver of a request, such that sender does not have to know which
+object can handle data it sent.
+d. To provide chain of interfaces that connect altogether all objects that handles data in a strict and
+never changeable pipeline.
+
+
+
+Your answer is incorrect.
+The correct answer is:
+To decouple the sender and receiver of a request, such that sender does not have to know which object can
+handle data it sent.
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=166623&cmid=93274
+
+12/24
+
+22.01.2024, 14:30
+
+Final Exam 2023: Attempt review
+
+Question 21
+Incorrect
+Mark 0.00 out of 1.00
+
+What is the main (single) drawback of the Chain of Responsibility pattern?
+a. High degree of dependence 
+b. The request is not guaranteed to be handled
+c. The code complexity increases
+d. The high level of abstraction
+
+Your answer is incorrect.
+The correct answer is:
+The request is not guaranteed to be handled
+
+Question 22
+Correct
+Mark 1.00 out of 1.00
+
+When is the Command design pattern useful?
+a. To limit the access to the data handling procedures.
+b. To encapsulate requests as objects, and allow clients to be parametrized with different requests.
+c. To shift the responsibility of data handling on the next stage.
+d. To extend the functionality of the object.
+
+Your answer is correct.
+The correct answer is:
+To encapsulate requests as objects, and allow clients to be parametrized with different requests.
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=166623&cmid=93274
+
+13/24
+
+22.01.2024, 14:30
+
+Final Exam 2023: Attempt review
+
+Question 23
+Incorrect
+Mark 0.00 out of 1.00
+
+Which of the following is the example of using the Command design pattern?
+a. Object functionality extension
+b. Login realization
+c. GUI buttons and menu items
+d. Traversing in the shopping list 
+
+Your answer is incorrect.
+The correct answers are:
+Login realization,
+GUI buttons and menu items
+
+Question 24
+Correct
+Mark 1.00 out of 1.00
+
+Which problem does the Composite design pattern solve?
+a. Removing the coupling between clients and the internal components
+b. Tree-structure representation of the objects' hierarchy
+c. Delegation of creation of objects to subclasses
+d. Simplification of a class that includes creating a complex object
+
+Your answer is correct.
+The correct answer is:
+Tree-structure representation of the objects' hierarchy
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=166623&cmid=93274
+
+14/24
+
+22.01.2024, 14:30
+
+Final Exam 2023: Attempt review
+
+Question 25
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following are the objects of the Composite design pattern?
+a. Composite
+b. Client 
+c. Component
+d. Creator
+e. Leaf
+
+Your answer is correct.
+The correct answers are:
+Leaf,
+Component,
+Composite
+
+Question 26
+Correct
+Mark 1.00 out of 1.00
+
+Match the following statements about the State design pattern with TRUE or FALSE.
+New states should affect the behavior of existing states.
+
+False
+
+
+
+New states should not affect the behavior of existing states.
+
+True
+
+
+
+An object should not change its behavior when its internal state changes.
+
+False
+
+
+
+An object should change its behavior when its internal state changes.
+
+True
+
+
+
+Your answer is correct.
+The correct answer is:
+New states should affect the behavior of existing states. → False,
+New states should not affect the behavior of existing states. → True,
+An object should not change its behavior when its internal state changes. → False,
+An object should change its behavior when its internal state changes. → True
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=166623&cmid=93274
+
+15/24
+
+22.01.2024, 14:30
+
+Final Exam 2023: Attempt review
+
+Question 27
+Correct
+Mark 1.00 out of 1.00
+
+Match the following statements with TRUE or FALSE.
+State pattern implies creating only one object of a class.
+
+False
+
+
+
+State pattern reduces the need for if and switch statements.
+
+True
+
+
+
+State pattern allows object to be notified whenever there is any change.
+
+False
+
+
+
+Your answer is correct.
+The correct answer is:
+State pattern implies creating only one object of a class. → False,
+State pattern reduces the need for if and switch statements. → True,
+State pattern allows object to be notified whenever there is any change. → False
+
+Question 28
+Correct
+Mark 1.00 out of 1.00
+
+Choose the missing word in the following sentence:
+In the
+
+Chain of Responsibility
+
+ pattern, each handler decides whether to process a request and
+
+whether to pass it on to the next handler.
+
+Your answer is correct.
+The correct answer is:
+Choose the missing word in the following sentence:
+In the [Chain of Responsibility] pattern, each handler decides whether to process a request and whether to
+pass it on to the next handler.
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=166623&cmid=93274
+
+16/24
+
+22.01.2024, 14:30
+
+Final Exam 2023: Attempt review
+
+Question 29
+Correct
+Mark 1.00 out of 1.00
+
+Choose the missing word in the following sentence:
+The
+
+Command
+
+ pattern allows you to encapsulate a request as an object, making it easier
+
+to parameterize clients with different requests and support undoable operations.
+
+Your answer is correct.
+The correct answer is:
+Choose the missing word in the following sentence:
+The [Command] pattern allows you to encapsulate a request as an object, making it easier to parameterize
+clients with different requests and support undoable operations.
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=166623&cmid=93274
+
+17/24
+
+22.01.2024, 14:30
+
+Final Exam 2023: Attempt review
+
+Question 30
+Incorrect
+Mark 0.00 out of 1.00
+
+Which SOLID Principle(s) the following class violates?
+
+a. Single Responsibility Principle (SRP)
+b. Liskov Substitution Principle (LSP) 
+c. Dependency Inversion Principle (DIP)
+d. Interface Segregation Principle (ISP)
+e. Open-Closed Principle (OCP)
+
+Your answer is incorrect.
+The correct answers are:
+Single Responsibility Principle (SRP),
+Open-Closed Principle (OCP),
+Dependency Inversion Principle (DIP)
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=166623&cmid=93274
+
+18/24
+
+22.01.2024, 14:30
+
+Final Exam 2023: Attempt review
+
+Question 31
+Correct
+Mark 1.00 out of 1.00
+
+What design pattern does the following code represent?
+
+a. Proxy
+b. Adapter
+c. Bridge
+d. Visitor
+e. Comand
+
+Your answer is correct.
+The correct answer is:
+Adapter
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=166623&cmid=93274
+
+19/24
+
+22.01.2024, 14:30
+
+Final Exam 2023: Attempt review
+
+Question 32
+Incorrect
+Mark 0.00 out of 1.00
+
+What design pattern does the following code represent?
+
+a. Singleton
+b. Command
+c. Template method
+d. Proxy
+e. None of the above 
+
+Your answer is incorrect.
+The correct answer is:
+Template method
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=166623&cmid=93274
+
+20/24
+
+22.01.2024, 14:30
+
+Final Exam 2023: Attempt review
+
+Question 33
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following statements is TRUE about the Decorator design pattern?
+a. It allows objects to be composed into a tree structure to represent part-whole hierarchies.
+b. It is used to separate the construction of a complex object from its representation.
+c. It is a creational design pattern that provides an interface for creating families of related or dependent
+objects.
+d. It is used to add new functionality to an existing object without altering its structure.
+
+Your answer is correct.
+The correct answer is:
+It is used to add new functionality to an existing object without altering its structure.
+
+Question 34
+Incorrect
+Mark 0.00 out of 1.00
+
+Which of the following is NOT a benefit of using the Factory design pattern?
+a. Increased coupling between classes
+b. Encapsulation of object creation
+c. Flexibility in changing object types 
+d. Improved code readability and maintainability
+
+Your answer is incorrect.
+The correct answer is:
+Increased coupling between classes
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=166623&cmid=93274
+
+21/24
+
+22.01.2024, 14:30
+
+Final Exam 2023: Attempt review
+
+Question 35
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following is NOT a participant in the Memento design pattern?
+a. Originator
+b. Caretaker
+c. Observer
+d. Memento
+
+Your answer is correct.
+The correct answer is:
+Observer
+
+Question 36
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following statements is TRUE about the Strategy design pattern?
+a. It allows for dynamic selection of algorithms at runtime.
+b. It is only useful in situations where there are a limited number of possible algorithms.
+c. It is not useful in situations where the algorithm selection needs to be changed frequently.
+d. It can only be implemented using inheritance.
+
+Your answer is correct.
+The correct answer is:
+It allows for dynamic selection of algorithms at runtime.
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=166623&cmid=93274
+
+22/24
+
+22.01.2024, 14:30
+
+Final Exam 2023: Attempt review
+
+Question 37
+Partially correct
+Mark 0.50 out of 1.00
+
+Which of the following is/are potential benefit(s) of the Bridge design pattern?
+It tightens the coupling between classes.
+
+True
+
+
+
+It improves extensibility – can independently vary an interface and its implementation.
+
+True
+
+
+
+It reduces the complexity by decoupling an abstraction from its implementation.
+
+True
+
+
+
+It provides a clean separation of the interface and implementation.
+
+False
+
+
+
+Your answer is partially correct.
+You have correctly selected 2.
+The correct answer is:
+It tightens the coupling between classes. → False,
+It improves extensibility – can independently vary an interface and its implementation. → True,
+It reduces the complexity by decoupling an abstraction from its implementation. → True,
+It provides a clean separation of the interface and implementation. → True
+
+Question 38
+Correct
+Mark 1.00 out of 1.00
+
+Match the following statements about the Prototype design pattern with TRUE or FALSE.
+It is a creational design pattern.
+
+True
+
+
+
+It is useful when object creation is time-consuming or costly.
+
+True
+
+
+
+It involves creating new objects by cloning an existing object.
+
+True
+
+
+
+It requires each subclass to implement a clone-related method.
+
+True
+
+
+
+Your answer is correct.
+The correct answer is:
+It is a creational design pattern. → True,
+It is useful when object creation is time-consuming or costly. → True,
+It involves creating new objects by cloning an existing object. → True,
+It requires each subclass to implement a clone-related method. → True
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=166623&cmid=93274
+
+23/24
+
+22.01.2024, 14:30
+
+Final Exam 2023: Attempt review
+
+Question 39
+Correct
+Mark 1.00 out of 1.00
+
+Imagine you have a class "Duck" and a class "RubberDuck" which inherits from "Duck". The "Duck" class has a
+method called "quack". What would violate the Liskov Substitution Principle?
+a. The method "quack" in the "RubberDuck" class makes a quacking sound.
+b. The "RubberDuck" class does not implement the "quack" method.
+c. The "RubberDuck" class has an additional method "float".
+d. The method "quack" in the "RubberDuck" class makes a squeaking sound.
+
+Your answer is correct.
+The correct answer is:
+The "RubberDuck" class does not implement the "quack" method.
+
+Question 40
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following statement(s) best define the Interface Segregation Principle (ISP)?
+a.
+
+A class should only have one reason to change.
+
+b. Functions that use pointers of references to base classes must be able to use objects of derived classes
+without knowing it.
+c. Many specific interfaces are better than one general-purpose interface.
+d. A client should never be forced to implement methods that it doesn't use.
+
+Your answer is correct.
+The correct answers are:
+Many specific interfaces are better than one general-purpose interface.,
+A client should never be forced to implement methods that it doesn't use.
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=166623&cmid=93274
+
+24/24
+
+

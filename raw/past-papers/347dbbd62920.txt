@@ -1,0 +1,660 @@
+5/19/2021
+
+Final Exam 2021: Attempt review
+
+Dashboard / My courses / [S21]N / Misc / Final Exam 2021
+
+Started on Wednesday, 12 May 2021, 10:28 AM
+State Finished
+Completed on Wednesday, 12 May 2021, 11:47 AM
+Time taken 1 hour 19 mins
+Grade 38.50 out of 50.00 (77%)
+Question 1
+Correct
+Mark 1.00 out of 1.00
+
+(1 point, 2 mins) Which IP addresses can be assigned to hosts in subnet 90.100.0.8/30?
+
+a. 90.100.0.8
+
+b. 90.100.0.9
+
+
+
+c. 90.100.0.10
+
+
+
+d. 90.100.0.12
+
+e. 90.100.0.11
+
+Your answer is correct.
+The correct answers are:
+90.100.0.9
+
+,
+90.100.0.10
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=79690&cmid=62659#question-85160-21
+
+1/19
+
+5/19/2021
+
+Final Exam 2021: Attempt review
+
+Question 2
+Correct
+Mark 1.00 out of 1.00
+
+(1 point, 2 mins) What is the key advantage of stateful over stateless communication protocols?
+
+a. The support of IPv6 addresses;
+
+b. The ability to keep information about previous client connections;
+
+
+
+c. No statement is valid
+
+d. The support of NAT translation mechanisms;
+
+Your answer is correct.
+The correct answer is:
+The ability to keep information about previous client connections;
+
+Question 3
+Complete
+Mark 1.00 out of 1.00
+
+(1 point, 2 mins) How many hosts can be on subnet 10.0.10.8/27?
+
+30
+
+Comment:
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=79690&cmid=62659#question-85160-21
+
+2/19
+
+5/19/2021
+
+Final Exam 2021: Attempt review
+
+Question 4
+Correct
+Mark 1.00 out of 1.00
+
+(1 point, 2 mins) What is the primary aim of TLS protocol?
+
+a. No choice is correct
+
+b. To support an efficient routing of data packets over a local network
+
+c. To provide a secure data communication mechanism
+
+
+
+d. To provide advanced error checking mechanisms
+
+e. To support mail retrieval from a local mail server (the mail is downloaded to a local mail client)
+
+Your answer is correct.
+The correct answer is:
+To provide a secure data communication mechanism
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=79690&cmid=62659#question-85160-21
+
+3/19
+
+5/19/2021
+
+Final Exam 2021: Attempt review
+
+Question 5
+Correct
+Mark 1.00 out of 1.00
+
+(1 point, 2 mins) What is/are the purpose(s) of a router forwarding table?
+
+a. To support NAT address translation
+
+b. To provide an IP address of a local SMTP server
+
+c. No choice is correct
+
+d. To determine a router output link a given packet should be forwarded to
+
+
+
+e. To retrieve an IP address of a given URL
+
+Your answer is correct.
+The correct answer is:
+To determine a router output link a given packet should be forwarded to
+
+Question 6
+Correct
+Mark 1.00 out of 1.00
+
+(1 point, 1 min) Do you agree that both, POP and IMAP mail suit protocols can be used to access emails from a mail server (either to
+download them locally or to view directly on a server side)?
+
+Select one:
+True 
+False
+
+The correct answer is 'True'.
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=79690&cmid=62659#question-85160-21
+
+4/19
+
+5/19/2021
+
+Final Exam 2021: Attempt review
+
+Question 7
+Incorrect
+Mark 0.00 out of 2.00
+
+(2 points, 2 mins) Consider the following function call to create C socket for network communication:
+int sckt = socket(PF_INET, SOCK_DGRAM, 0)
+
+Choose valid statements for the function call above:
+
+a. A socket is created to handle IPv4 addresses
+
+b. The function with provided arguments can be invoked on a server side only (but not on a client side)
+
+c. A socket is created for a TCP connection
+
+d. The function with provided arguments can be invoked on a client side only (but not on a server side)
+
+e. No choice is correct
+
+
+
+Your answer is incorrect.
+The correct answer is:
+A socket is created to handle IPv4 addresses
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=79690&cmid=62659#question-85160-21
+
+5/19
+
+5/19/2021
+
+Final Exam 2021: Attempt review
+
+Question 8
+Correct
+Mark 2.00 out of 2.00
+
+(2 points, 2 mins) C socket programming for network communication allows to limit the size of a server waiting queue of pending clients.
+Which function in the list below provides such a functionality?
+
+a. close(...)
+
+b. accept(…)
+
+c. socket(…)
+
+d. listen(…)
+
+
+
+e. bind(…)
+
+Your answer is correct.
+The correct answer is:
+listen(…)
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=79690&cmid=62659#question-85160-21
+
+6/19
+
+5/19/2021
+
+Final Exam 2021: Attempt review
+
+Question 9
+Complete
+Mark 2.00 out of 2.00
+
+(2 points, 2 mins) Several IP addresses are reserved for special purposes. Match special-purpose IP addresses below to their purpose:
+IP addresses:
+1) 255.255.255.255
+2) 127.0.0.1
+3) 0.0.0.0
+
+Use cases:
+a) An invalid IP address (that is typically used before a valid IP is assigned to a node by a DHCP server)
+
+b) A broadcast IP address (e.g. a message with such a destination IP is delivered to all other nodes on the same local network);
+c) An IP address of a local host (“this host IP”);
+
+Answer (in the form of a number to letter correspondence, e.g. 5 - F):
+
+1-b
+2-c
+3-a
+
+Comment:
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=79690&cmid=62659#question-85160-21
+
+7/19
+
+5/19/2021
+
+Final Exam 2021: Attempt review
+
+Question 10
+Correct
+Mark 2.00 out of 2.00
+
+(2 points, 2 mins) Choose valid statements for IPv4 and IPv6 addresses:
+
+a. As opposed to Pv4, IPv6 addresses can be used for both TCP and UDP communication;
+
+b. No statement is valid
+
+c. Unlike IPv4, IPv6 requires the use of NAT-enabled routers;
+
+d. The binary size of IPv6 addresses is four times larger than for IPv4 addresses;
+
+
+
+e. Despite the lack of available IPv4 addresses, IPv4 remains to be a dominant protocol version, rather than IPv6;
+
+
+
+Your answer is correct.
+The correct answers are:
+The binary size of IPv6 addresses is four times larger than for IPv4 addresses;
+,
+Despite the lack of available IPv4 addresses, IPv4 remains to be a dominant protocol version, rather than IPv6;
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=79690&cmid=62659#question-85160-21
+
+8/19
+
+5/19/2021
+
+Final Exam 2021: Attempt review
+
+Question 11
+Partially correct
+Mark 1.50 out of 3.00
+
+(3 points, 2 mins) Consider the list of multiple access communication protocols below. Which protocol(s) do(es) not support multiple network
+nodes (that is more than one sender) to communicate simultaneously over the same shared communication medium?
+
+a. TDM
+
+
+
+b. CDMA
+
+c. CSMA
+
+
+
+d. FDM
+
+
+
+e. CSMA/CD
+
+
+
+Your answer is partially correct.
+You have selected too many options.
+The correct answers are:
+TDM
+,
+CSMA
+,
+CSMA/CD
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=79690&cmid=62659#question-85160-21
+
+9/19
+
+5/19/2021
+
+Final Exam 2021: Attempt review
+
+Question 12
+Complete
+Mark 3.00 out of 3.00
+
+(3 points, 4 mins) What is the difference between “ACTIVE MODE” and “PASSIVE MODE” in FTP data connection? Explain which mode we
+can use in networks with PAT (port address translation)?
+
+in active mode the client
+connects from a random
+port and sends PORT
+command with the
+information about which
+port the server should
+connect to to the server,
+and then the server replies
+back on that client-side
+port.
+in passive the client
+requests a port from the
+server by sending PASV
+and then the server replies
+ith th
+t it
+df
+Comment:
+
+Question 13
+Complete
+Mark 3.00 out of 3.00
+
+(3 points, 5 mins) How does ARP protocol resolve an IP address to an Ethernet MAC address? Explain step by step.
+
+1- the host checks its ARP
+table for the intended IP
+address, if it's not there the
+host sends a broadcast
+ARP packet to all the
+devices in the local
+network.
+2- Each device in the
+network receives the ARP
+request packet and
+matches the target IP
+address with its own IP
+address, if it's a miss, it
+drops the packet and if it's
+hit it
+t
+l
+Comment:
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=79690&cmid=62659#question-85160-21
+
+10/19
+
+5/19/2021
+
+Final Exam 2021: Attempt review
+
+Question 14
+Complete
+Mark 4.00 out of 4.00
+
+(4 points, 5 mins) Let two nodes communicate by using CDMA protocol. Let a receiver get the following signal after the interference with
+other signals: -2 0 2 0 0 0 2 2 2 0 2 0 2 -2 0 0 (signals are ordered by their time arrival; signals on the right arrive later in time). Assuming that
+the CDMA code of a sender is 111-11-1-1-1, what is the signal destined to a receiver? Provide your answer in 0/1 notation.
+
+01
+
+Comment:
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=79690&cmid=62659#question-85160-21
+
+11/19
+
+5/19/2021
+
+Final Exam 2021: Attempt review
+
+Question 15
+Complete
+Mark 1.00 out of 4.00
+
+(4 points, 6 mins) Let network nodes, denoted by A, B, C, and D, communicate by a shared communication bus using CSMA/CD protocol.
+The network layout with a physical distance between nodes (in distance units) is schematically depicted below; nodes are connected
+sequentially. Let a propagation delay be equal to 2 time units per 1 distance unit.
+
+A <--- 5 dist. units ---> B <--- 4 units ---> C <--- 6 units ---> D
+Consider the following scenario. Node A starts data transmission at time instant 2 into a shared communication bus, and keeps
+transmitting for the next 50 time units. Node D starts data transmission at time instant 3, and keeps transmitting for the next 20 time units.
+1. Will a data collision occur in such a scenario?
+2. If yes, at what time instant node A detects such a data collision?
+
+Hint: Use a time-space diagram to answer the questions above.
+
+1- yes
+2- at time instant 10
+
+Comment:
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=79690&cmid=62659#question-85160-21
+
+12/19
+
+5/19/2021
+
+Final Exam 2021: Attempt review
+
+Question 16
+Complete
+Mark 3.00 out of 3.00
+
+(3 points, 8 mins):
+ISP provides you the following network IP address: 10.0.10.0/24. Your task is to organize 3 subnets in this network. The first subnet should
+contain at least 100 computers. The second subnet should contain at least 50 computers. The third subnet should contain at least 50
+computers. How will you organize such subnets?
+Provide your answer in the following form:
+
+First subnet address:
+First subnet minHost address:
+First subnet maxHost address:
+First subnet number of hosts:
+
+Second subnet address:
+Second subnet minHost address:
+Second subnet maxHost address:
+Second subnet number of hosts:
+
+Third subnet address:
+Third subnet minHost address:
+Third subnet maxHost address:
+Third subnet number of hosts:
+
+First subnet address:
+10.0.10.0/25
+First subnet minHost
+address: 10.0.10.1
+First subnet maxHost
+address: 10.10.10.126
+First subnet number of
+hosts: 126
+
+Second subnet address:
+10 0 10 128
+Comment:
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=79690&cmid=62659#question-85160-21
+
+13/19
+
+5/19/2021
+
+Final Exam 2021: Attempt review
+
+Question 17
+Correct
+Mark 3.00 out of 3.00
+
+(3 points, 5 mins):
+
+Router R1 is configured with static NAT. Addressing on the router and the web server are correctly configured, but there is no connectivity
+between the web server and PC1.
+
+R1(config)# ip nat inside source static 192.168.11.200 200.100.200.1
+R1(config)#interface GigabitEthernet0/0
+R1(config-if)#ip nat inside
+R1(config-if)#interface GigabitEthernet0/1
+R1(config-if)#ip nat outside
+What is a possible reason for this lack of connectivity?
+
+a. The router NAT configuration has an incorrect inside local address
+
+b. Interface GigabitEthernet0/0 should be configured with the command IP nat outside
+
+c. The NAT configuration on interface GigabitEthernet0/1 is incorrect
+
+d. The inside global address is incorrect
+
+
+
+Your answer is correct.
+The correct answer is:
+The router NAT configuration has an incorrect inside local address
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=79690&cmid=62659#question-85160-21
+
+14/19
+
+5/19/2021
+
+Final Exam 2021: Attempt review
+
+Comment:
+
+Question 18
+Complete
+Mark 3.00 out of 3.00
+
+(3 points, 4 mins) IP addresses are used for routing by routers. How about MAC addresses, can we use a MAC address for routing? How
+can we use it? Or why cannot we use it? Give specific and valid reasons.
+
+MAC addresses are used by
+link-layer protocols and
+cannot be used in routing.
+one reason for that is the
+scalability of routing table, it
+would need to contain routes
+for every node at the network
+another reason for that is that
+routing occures at the
+network layer and MAC
+addresses are available at
+the link layer.
+
+Comment:
+**
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=79690&cmid=62659#question-85160-21
+
+15/19
+
+5/19/2021
+
+Final Exam 2021: Attempt review
+
+Question 19
+Complete
+Mark 1.00 out of 3.00
+
+(1+2 points, 6 mins): We are transmitting a bitstream 11001101 and need to calculate Cyclic Redundancy Check (CRC) for this bitstream.
+The generator for CRC is x^3+x+1
+. Answer the following questions.
+Write the actual bitstream transmitted to the destination?
+Suppose the fourth bit from the left is inverted (corrupted) during the transmission for any reason, how is this error detected at the
+destination?
+
+Hint1: The division is module 2 in binary
+Hint2: x^3+x+1 is a polynomial where every term from right to left corresponds to the bit positions with a power of 2 (1 is 2^0, x is 2^1, and
+so on)
+
+11001101110
+
+Comment:
+Incomplete answer.
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=79690&cmid=62659#question-85160-21
+
+16/19
+
+5/19/2021
+
+Final Exam 2021: Attempt review
+
+Question 20
+Complete
+Mark 4.00 out of 4.00
+
+(4 points, 6 mins) Port addressing is used at the transport layer of TCP/IP protocol stack for processes identification (just like an IP address
+is used at IP layer). On the other hand, we have process IDs in each system that can also be used as process addresses. We note that the
+process IDs were present before the transport layer protocols were designed. Do we really need port numbers in the presence of the process
+IDs?
+
+yes, port numbers are
+necessary because:
+- a standard protocol is
+necessary because
+process ids depend on
+end-systems.
+- Special types of services
+need to run on specific,
+well-known ports (ex: 80
+for HTTP). The operating
+system does not guarantee
+that a specific process will
+always run on a specific
+t th t th
+t
+Comment:
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=79690&cmid=62659#question-85160-21
+
+17/19
+
+5/19/2021
+
+Final Exam 2021: Attempt review
+
+Question 21
+Complete
+Mark 0.00 out of 3.00
+
+(3 points, 8 mins) Consider the following diagram where a host A is connected to router R1 which is further connected to router R2 which is
+then connected to Host B. Let suppose a 940 bytes packet (including minimum IP header of 20 bytes) is to be sent from Host A to Host B.
+The first link (between A and R1) supports maximum frame size of 1024 bytes (including 14-byte frame header), the link between R1 and R2
+allows the maximum frame size equal to 512 bytes (including 8-byte frame header) and the link between R2 and B allows maximum frame
+size of 512 bytes (including 12-byte frame header). For each link, what are the values of the fields total length, identification, DF (Don’t
+Fragment), MF (More Fragments), and Fragment Offset of the IP header for each packet.
+
+Hint 1: For the identification, use any imaginary number you like.
+Hint 2: Consider the shortest IP header of 20 B.
+
+Link A-R1:
+Length = ?; ID = ?; DF = ?; MF = ?; Offset = ?
+Link R1-R2:
+(1) Length = ?; ID = ?; DF = ?; MF = ?; Offset = ?
+(2) Length = ?; ID = ?; DF = ?; MF = ?; Offset = ?
+Link R2-B:
+(1) Length = ?; ID = ?; DF = ?; MF = ?; Offset = ?
+(2) Length = ?; ID = ?; DF = ?; MF = ?; Offset = ?
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=79690&cmid=62659#question-85160-21
+
+18/19
+
+5/19/2021
+
+Final Exam 2021: Attempt review
+
+Comment:
+Not attempted.
+
+◄ Tutorial Week 16 (extra week) slides
+Jump to...
+
+Data retention summary
+Get the mobile app
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=79690&cmid=62659#question-85160-21
+
+19/19
+
+

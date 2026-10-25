@@ -1,0 +1,377 @@
+Тест начат
+
+Thursday, 7 March 2024, 11:26
+
+Состояние Завершены
+Завершен Thursday, 7 March 2024, 12:14
+Прошло 48 мин. 7 сек.
+времени
+Оценка 16,00 из 20,00 (80%)
+Вопрос 1
+Частично правильный
+Баллов: 0,67 из 1,00
+
+Which of the following statements about FST is/are TRUE?
+
+a. The translation may happen only to the accepted strings
+b. The reading power of FST overcomes FSA’s power
+c. It is an FSA with input and output tapes
+d. The acceptance criteria does not differ from FSA
+e. Input and output alphabets have to match
+f.
+
+FST stands for finite-state transgressor
+
+Правильные ответы:
+It is an FSA with input and output tapes,
+The translation may happen only to the accepted strings,
+The acceptance criteria does not differ from FSA
+
+Вопрос 2
+Верно
+Баллов: 1,00 из 1,00
+
+Suppose that language L is regular with critical value m. Is m+1 also a critical value? Which of the following proofs is valid?
+
+a. No. Take string s ∈ L of length |s| ≥ m. According to condition (m is a critical value), there is a split s = x y z with |x y| ≤ m
+and |y| ≥ 1. If we consider m+1 to be the critical value, it would also allow splits with |x y| ≤ m+1, in particular ─ |x y| =
+m+1, which are not covered by the condition, q.e.d.
+
+b. Yes. Take string s ∈ L of length |s| ≥ m+1 ≥ m. According to condition (m is a critical value), there is a split s = x y 
+z with |x y| ≤ m ≤ m+1 and |y| ≥ 1, such that for all i, x yi z ∈ L, q.e.d.
+
+c. Yes. Take string s ∈ L of length |s| ≥ m+1. Ignore the first symbol c of s and name the new string s’ (i.e. s = cs’). |s’|
+= |s| - 1 ≤ m. According to condition (m is a critical value), there is a split s’ = x y z with |x y| ≤ m and |y| ≥ 1,
+such that for all i, x yi z ∈ L. Thus, we can make a split s = cx y z, |cx y| = |x y| + 1 ≤ m+1, |y| ≤ 1, q.e.d.
+
+d. No. The condition states that for all strings s ∈ L with length |s| ≥ m there is a split. However, if we take m+1 to be the critical
+value, it will only consider strings s ∈ L with length |s| ≥ m+1, it will not cover strings s with length |s| = m, q.e.d.
+
+
+Правильный ответ: Yes. Take string s ∈ L of length |s| ≥ m+1 ≥ m. According to condition (m is a critical value), there is a
+split s = x y z with |x y| ≤ m ≤ m+1 and |y| ≥ 1, such that for all i, x yi z ∈ L, q.e.d.
+
+Вопрос 3
+Верно
+Баллов: 1,00 из 1,00
+
+Which of the following languages suits the drawn PDA
+
+a. L = { anb2nan | n ∈ N \ {0} }
+b. L = { a2nbnan | n ∈ N \ {0} }
+c. L = { anb2na | n ∈ N \ {0} }
+d. L = { a2nbna | n ∈ N \ {0} }
+
+Правильный ответ:
+L = { anb2na | n ∈ N \ {0} }
+
+Вопрос 4
+Верно
+Баллов: 1,00 из 1,00
+
+Find the rule transitions X and Y such that the following PDA recognizes the language L= {0n1n+1 | n ∈ N \ {0} }
+
+a. X = “0, Z0 / AZ0”, Y = “1, A / A”
+b. X = “0, Z0 / AZ0”, Y = “1, A / ϵ”
+c. X = “0, Z0 / Z0”, Y = “1, A / ϵ”
+d. X = “0, Z0 / Z0”, Y = “1, A / A”
+
+Правильный ответ:
+X = “0, Z0 / AZ0”, Y = “1, A / A”
+
+
+
+Вопрос 5
+Верно
+Баллов: 1,00 из 1,00
+
+Match the FSAs with the languages that may be accepted by them (Σ = {0, 1}).
+
+L = {w ∈ Σ* | in w each 1 is preceded by double 0 ∧ w starts from 0}
+
+
+
+L = {w ∈ Σ* | w starts from 0 ∧ w ends with 1 ∧ w does NOT contain substrings of the same symbols w
+
+
+
+L = {w ∈ Σ* | w contains the substring 1001}
+
+
+
+L = {w ∈ Σ* | w does NOT contain the substring 1001}
+
+
+
+Правильный ответ:
+
+→ L = {w ∈ Σ* | in w each 1 is preceded by double 0 ∧ w starts from 0},
+
+→ L = {w ∈ Σ* | w starts from 0 ∧ w ends with 1 ∧ w does NOT contain substrings of
+
+the same symbols with the length 2 ∧ |w| > 1},
+
+→ L = {w ∈ Σ* | w contains the substring 1001},
+
+→ L = {w ∈ Σ* | w does NOT contain the substring 1001}
+
+
+
+Вопрос 6
+Верно
+Баллов: 1,00 из 1,00
+
+While applying Pumping lemma over a language, we consider a string s that belongs to L and has the following property:
+
+a. |s| ≤ |I| with I being the input alphabet of the FSA recognizing L
+b. |s| ≥ 1
+c. |s| > |Q| with Q being the set of states of the FSA recognizing L
+d. |s| ≥ |Q| with Q being the set of states of the FSA recognizing L
+
+Правильный ответ: |s| ≥ |Q| with Q being the set of states of the FSA recognizing L
+
+Вопрос 7
+Частично правильный
+Баллов: 0,67 из 1,00
+
+Which of the following languages require(s) unbounded memory to be recognized?
+
+a. L = {ww | w ∈ {a, b}∗ ∧ |w| > 0}
+b. anbm (n, m ∈ N)
+c. anbn (n ∈ N)
+d. an! (n ∈ N)
+
+Правильные ответы:
+anbn (n ∈ N),
+an! (n ∈ N),
+L = {ww | w ∈ {a, b}∗ ∧ |w| > 0}
+
+Вопрос 8
+Частично правильный
+Баллов: 0,67 из 1,00
+
+Which of the following statements about FSA is/are TRUE?
+
+a. Each complete FSA is also deterministic
+b. Reaching final state always means accepting the string 
+c. The sets of initial and accepting states can never intersect
+d. An FSA with a total transition function is called complete
+e. In complete FSA the number of transitions from each state matches the number of symbols in the alphabet (assume no 
+ε-moves)
+
+Правильные ответы:
+An FSA with a total transition function is called complete,
+In complete FSA the number of transitions from each state matches the number of symbols in the alphabet (assume no ε-moves)
+
+
+
+Вопрос 9
+Неверно
+Баллов: 0,00 из 1,00
+
+Consider the union of 2 DFSTs. Given language L1 = {w ∈ Σ∗ | w is a binary string representing integer powers of 2, not starting with
+0s ∧ |w|>0 } with Σ = {0, 1}. Accepted L1 string has to be translated into the binary string divided by 2 and still has to remain an
+integer value using upper rounding, if needed. Given language L2 = {w ∈ Σ∗ | w is a binary string representing integers composed
+of even number of 1s ∧ |w|>1 } with Σ = {0, 1}. Accepted L2 string has to be translated into the binary string replacing each second
+1 with double 0.
+Given the incomplete DFST type the missing transitions and translations with its input and output state indices, e.g. for missing
+transition qy = (qx, 1) and translation into epsilon you should type x(1/eps)y. If multiple transitions are missing, use only comma as a
+delimiter and use numerical order for initial states (0-5), transitions (0-1) and translations (eps, 0, 1).
+
+Ответ:
+
+3(0/00)4,3(1/01)1,5(0/eps)3,2(1/000)4
+
+
+
+Правильный ответ: 2(1/eps)3,3(0/eps)3,3(1/eps)3,5(0/eps)3
+
+Вопрос 10
+Частично правильный
+Баллов: 0,67 из 1,00
+
+Which of the following is/are true?
+
+a.
+
+If language L is regular, there exists an FSA that accepts all and only s ∈ L.
+
+b. If language L is regular, there is an FSA that accepts all s ∈ L and rejects all s ∉ L.
+c. If language L is not regular, there is an FSA that accepts all s ∈ L and rejects all s ∉ L.
+d. If language L is not regular, there is an FSA that accepts all s ∈ L.
+
+Правильные ответы: If language L is regular, there exists an FSA that accepts all and only s ∈ L., If language L is not regular, there
+is an FSA that accepts all s ∈ L.,
+If language L is regular, there is an FSA that accepts all s ∈ L and rejects all s ∉ L.
+
+
+
+Вопрос 11
+Верно
+Баллов: 1,00 из 1,00
+
+What is a context-free language?
+
+a. A language requiring an unbounded memory to be recognized 
+b. A language that has no grammar rules
+c. A language that can be spoken in any context
+d. A language for which you can apply Pumping Lemma
+
+Правильный ответ:
+A language requiring an unbounded memory to be recognized
+
+Вопрос 12
+Верно
+Баллов: 1,00 из 1,00
+
+Relate the following statement: All sufficiently long words in a regular language can have a middle section of words repeated a
+number of times to produce a new word which also lies within the same language. We know this statement as:
+
+a. Myhill–Nerode theorem
+b. Kleene's algorithm
+c. Thompson's construction
+d. None of the above
+
+Правильный ответ:
+None of the above
+
+
+
+Вопрос 13
+Верно
+Баллов: 1,00 из 1,00
+
+The following PDA recognizes L={ aibjck | i, j, k ∈ N \ {0} & RULL}. Find “RULL”.
+
+a. RULL = “ k + j = i ”
+b. RULL = “ j + i = k ”
+c. RULL = “ i + i = k ”
+d. RULL = “ i + k = j ”
+
+Правильный ответ:
+RULL = “ j + i = k ”
+
+Вопрос 14
+Верно
+Баллов: 1,00 из 1,00
+
+Which of the following languages suits the drawn PDA?
+
+a. L = { (01)n1 | n>0 & n is odd }
+b. L = { (01)n1 | n>0 & n is even }
+c. L = { (01)n0 | n>0 & n is odd }
+d. L = { (01)n0 | n>0 & n is even }
+
+
+Правильный ответ: L = { (01)n0 | n>0 & n is odd }
+
+Вопрос 15
+Частично правильный
+Баллов: 0,33 из 1,00
+
+Which of the following is/are always true for language L over alphabet Σ?
+
+a. L ⊆ P(Σ)
+b. L ∈ Σ*
+c. L ⊆ Σ*
+d. L ⊆ P(Σ*) 
+e. L ∈ Σ
+f.
+
+L⊆Σ
+
+g. L ∈ P(Σ*)
+h. L ∈ P(Σ)
+
+Правильные ответы:
+L ⊆ Σ*,
+L ∈ P(Σ*)
+
+Вопрос 16
+Верно
+Баллов: 1,00 из 1,00
+
+Which of the following one can relate to the following statement: if n items are put in m containers with n>m, then at least
+one container will contain more than one item:
+
+a. Myhill–Nerode theorem
+b. Rice Theorem
+c. Pumping Lemma
+d. Pigeonhole principle
+
+Правильный ответ:
+Pigeonhole principle
+
+
+
+Вопрос 17
+Верно
+Баллов: 1,00 из 1,00
+
+For a string x belonging to the language L, let us consider the split x = ywz that we used in the definition of Pumping
+Lemma. If the diagram below is the FSA recognizing the language L with
+a is an initial state
+d is its only final state
+I = {p, q, r, s} is its alphabet
+Which of the following statements is correct?
+
+a. y=p, w=qr, z=s
+b. y=p, w=ε, z=qrs
+c. y=pr, w=r, z=s
+d. All of the above
+
+Правильный ответ:
+y=p, w=qr, z=s
+
+
+
+Вопрос 18
+Неверно
+Баллов: 0,00 из 1,00
+
+Which of the following languages with Σ = {a, b, c} suits the drawn FSA?
+
+a. L = {w ∈ Σ∗ | the substring abc in w occurs an odd number of times}
+b. L = {w ∈ Σ∗ | the substring abc in w occurs an even number of times}
+c. L = {w ∈ Σ∗ | the substring abc in w occurs an even number of times ∧ |w| > 0} 
+d. L = {w ∈ Σ∗ | the substring abc in w occurs an odd number of times ∧ |w| > 0}
+e. None of the above
+
+Правильный ответ:
+None of the above
+
+
+
+Вопрос 19
+Верно
+Баллов: 1,00 из 1,00
+
+Which of the following languages suits the drawn PDA?
+
+a. L = {wcwR | w ∈ {a, b} & |w| > 0}
+b. L = {wcwR | w ∈ {a, b}* & |w| ≥ 0}
+c. L = {wcwR | w ∈ {a, b}* & |w| > 0}
+d. L = {wcwR | w ∈ {a, b}* & |w| = 0}
+e. L = {wcwR | w ∈ {a, b} & |w| ≥ 0}
+
+Правильный ответ:
+L = {wcwR | w ∈ {a, b}* & |w| > 0}
+
+Вопрос 20
+Верно
+Баллов: 1,00 из 1,00
+
+We use Pumping Lemma to prove that the languages are:
+
+a. Context-free
+b. Regular
+c. Non-regular
+d. Slavic
+e. Context-sensitive
+
+Правильный ответ:
+Non-regular
+
+
+
+

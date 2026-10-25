@@ -1,0 +1,26 @@
+Differential Equations
+Test 1
+Innopolis University
+September 27, 2024
+
+Variant 1
+1. (3 points) Compose differential equations of these families of lines:
+(x − a)2 + by 2 = 1
+2. (3 points) Solve the following differential equation:
+2x2 yy ′ + y 2 = 2 y(1) =
+
+√
+
+e+2
+
+3. (3 points) Solve the following differential equation:
+y ′ − xy = xy 3/2
+
+y(1) = 4
+
+4. (3 points) Check the following differential equation on homogeneity and solve:
+(1 − 2xy)y ′ = y(y − 1)
+5. (3 points) Solve the following differential equation:
+x2 y(ydx + xdy) = 2ydx + xdy
+
+

@@ -1,0 +1,59 @@
+Full Name:
+Variant 1
+Group:
+Duration:
+
+Innopolis University
+Introduction to Optimization
+Fall 2024
+Test 2
+16.11.2024
+
+120 Minutes
+
+You need to perform this exam alone and without the use of any equipment
+or book, apart from this booklet, A5 cheat sheet, a calculator and pens.
+Please do not consult any person or use any equipment, otherwise you will be
+disqualified from this exam at the very first attempt.
+Good Luck!
+Grade Table (for teacher use only)
+Question:
+
+1
+
+2
+
+3
+
+Total
+
+Points:
+
+5
+
+10
+
+5
+
+20
+
+Score:
+
+1. (5 points) Use Newton-Raphson to determine the extreme points of the following function.
+f (x1 , x2 ) = ...
+Hint: use (−, −) and (−, −) as starting points and write − iterations.
+2. Consider the problem
+Maximize
+f (x, y, z) = ...
+subject to
+
+g1 (x, y, z) = ... = 0
+g2 (x, y, z) = ... = 0
+(a) (4 points) Use Jacobian method to solve the problem using x and y as dependent variables and
+apply the sufficient condition to determine the type of the resulting stationary point.
+(b) (1 point) Determine the sensitivity coefficients given the solution in previous part.
+(c) (5 points) Verify your answers for previous parts using Lagrangian method.
+3. (5 points) Use the sufficiency condition to identify the extreme points.
+f (x, y) = ...
+
+

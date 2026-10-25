@@ -1,0 +1,456 @@
+Midterm
+
+1 of 13
+
+http://localhost:63342/InnoML/md.html?_ijt=ib76il99e7julv...
+
+1. [S24]NatureInspiredComputing
+2. Midterm (Theory Part)
+
+Midterm (Theory Part)
+Тест начат
+
+Friday, 15 March 2024, 09:23
+
+Состояние
+
+Завершены
+
+Завершен
+
+Friday, 15 March 2024, 09:48
+
+Прошло времени 25 мин. 45 сек.
+Оценка
+
+19,00 из 25,00 (76%)
+
+Вопрос 1
+Неверно
+Баллов: 0,00 из 1,00
+Отметить вопрос
+Текст вопроса
+If the following statement is True then select True otherwise False
+Heuristics do not use problem-speciﬁc knowledge to achieve eﬃciency.
+Вопрос 1 Выберите один ответ:
+Верно
+Неверно
+Отзыв
+Правильный ответ: Неверно
+
+Вопрос 2
+Верно
+Баллов: 1,00 из 1,00
+Отметить вопрос
+Текст вопроса
+
+06.03.2025, 14:18
+
+Midterm
+
+2 of 13
+
+http://localhost:63342/InnoML/md.html?_ijt=ib76il99e7julv...
+
+If the following statement is True then select True otherwise False.
+Metaheuristics are high-level strategies that combine lower-level techniques for
+exploring and exploiting the search space.
+
+Вопрос 2 Выберите один ответ:
+Верно
+Неверно
+Отзыв
+Правильный ответ: Верно
+
+Вопрос 3
+Верно
+Баллов: 1,00 из 1,00
+Отметить вопрос
+Текст вопроса
+If the following statement is True then select True otherwise False.
+Metaheuristics are speciﬁc to a particular type of problem.
+Вопрос 3 Выберите один ответ:
+Верно
+Неверно
+Отзыв
+Правильный ответ: Неверно
+
+Вопрос 4
+Верно
+Баллов: 1,00 из 1,00
+Отметить вопрос
+Текст вопроса
+If the following statement is True then select True otherwise False.
+In Genetic Programming, the Grow method allows for a variety of tree structures in the
+initial population, which can be helpful for the genetic program to explore a wider
+
+06.03.2025, 14:18
+
+Midterm
+
+3 of 13
+
+http://localhost:63342/InnoML/md.html?_ijt=ib76il99e7julv...
+
+search space and potentially ﬁnd better solutions.
+
+Вопрос 4 Выберите один ответ:
+Верно
+Неверно
+Отзыв
+Правильный ответ: Верно
+
+Вопрос 5
+Верно
+Баллов: 1,00 из 1,00
+Отметить вопрос
+Текст вопроса
+If the following statement is True then select True otherwise False.
+Particles in Particle Swarm Optimization (PSO) directly communicate with each other to
+share information about their positions and velocities.
+
+Вопрос 5 Выберите один ответ:
+Верно
+Неверно
+Отзыв
+Правильный ответ: Неверно
+
+Вопрос 6
+Верно
+Баллов: 1,00 из 1,00
+Отметить вопрос
+Текст вопроса
+If the following statement is True then select True otherwise False.
+In Genetic Algorithm (GA), one-point crossover is suitable for the Travelling Salesman
+06.03.2025, 14:18
+
+Midterm
+
+4 of 13
+
+http://localhost:63342/InnoML/md.html?_ijt=ib76il99e7julv...
+
+Problem (TSP).
+
+Вопрос 6 Выберите один ответ:
+Верно
+Неверно
+Отзыв
+Правильный ответ: Неверно
+
+Вопрос 7
+Верно
+Баллов: 1,00 из 1,00
+Отметить вопрос
+Текст вопроса
+If the following statement is True then select True otherwise False.
+If you make absolutely no assumption about the data, then there is no reason to prefer
+one model over any other. This is known as no free lunch theorem
+
+Вопрос 7 Выберите один ответ:
+Верно
+Неверно
+Отзыв
+Правильный ответ: Верно
+
+Вопрос 8
+Верно
+Баллов: 1,00 из 1,00
+Отметить вопрос
+Текст вопроса
+What characterizes nature-inspired algorithms?
+06.03.2025, 14:18
+
+Midterm
+
+5 of 13
+
+http://localhost:63342/InnoML/md.html?_ijt=ib76il99e7julv...
+
+Вопрос 8 Ответ
+a.
+They are guaranteed to ﬁnd the absolute best solution
+b.
+They are exact algorithms that provide deterministic results.
+c.
+They are inspired by natural processes and use randomization for problem solving.
+Отзыв
+Your answer is correct.
+Правильный ответ: They are inspired by natural processes and use randomization for
+problem solving.
+
+Вопрос 9
+Верно
+Баллов: 1,00 из 1,00
+Отметить вопрос
+Текст вопроса
+Which of the following is NOT an example of a nature-inspired algorithm?
+Вопрос 9 Ответ
+a.
+Genetic Algorithm
+b.
+Linear Regression
+c.
+Ant Colony Optimization
+
+Отзыв
+Your answer is correct.
+06.03.2025, 14:18
+
+Midterm
+
+6 of 13
+
+http://localhost:63342/InnoML/md.html?_ijt=ib76il99e7julv...
+
+Правильный ответ:
+Linear Regression
+
+Вопрос 10
+Верно
+Баллов: 1,00 из 1,00
+Отметить вопрос
+Текст вопроса
+In Ant Colony Optimzation (ACO), what does the pheromone level on an edge represent?
+Вопрос 10 Ответ
+a.
+The distance between the two nodes connected by the edge.
+b.
+The desirability of using that edge in a potential solution path.
+c.
+The number of times an ant has traversed that edge.
+
+Отзыв
+Your answer is correct.
+Правильный ответ:
+The desirability of using that edge in a potential solution path.
+
+Вопрос 11
+Неверно
+Баллов: 0,00 из 1,00
+Отметить вопрос
+Текст вопроса
+What is the role of the evaporation rate in Ant Colony Optimization?
+
+06.03.2025, 14:18
+
+Midterm
+
+7 of 13
+
+http://localhost:63342/InnoML/md.html?_ijt=ib76il99e7julv...
+
+Вопрос 11 Ответ
+a.
+To increase the pheromone level on all edges over time.
+b.
+To prevent pheromone trails from becoming too dominant, encouraging exploration.
+c.
+To control the speed at which ants move through the problem space.
+Отзыв
+Your answer is incorrect.
+Правильный ответ: To prevent pheromone trails from becoming too dominant,
+encouraging exploration.
+
+Вопрос 12
+Неверно
+Баллов: 0,00 из 1,00
+Отметить вопрос
+Текст вопроса
+Which of the following problem categories is well-suited for Genetic Programming?
+Вопрос 12 Ответ
+a.
+Symbolic Regression
+b.
+Classiﬁcation
+c.
+Game playing strategies
+d.
+Robot navigation
+e.
+All of above
+Отзыв
+06.03.2025, 14:18
+
+Midterm
+
+8 of 13
+
+http://localhost:63342/InnoML/md.html?_ijt=ib76il99e7julv...
+
+Your answer is incorrect.
+Правильный ответ: All of above
+
+Вопрос 13
+Верно
+Баллов: 1,00 из 1,00
+Отметить вопрос
+Текст вопроса
+Which one is not the characteristics of swarm intelligence?
+Вопрос 13 Ответ
+a.
+Composed of many individuals
+b.
+Individuals are heterogenous
+c.
+Local interaction based on simple rules
+Отзыв
+Your answer is correct.
+Правильный ответ: Individuals are heterogenous
+
+Вопрос 14
+Верно
+Баллов: 3,00 из 3,00
+Отметить вопрос
+Текст вопроса
+Consider a Genetic Algorithm with a population of 5 individuals. The individual ﬁtness
+scores are as follows:
+• Individual 1: 25
+• Individual 2: 40
+• Individual 3: 10
+• Individual 4: 15
+• Individual 5: 30
+
+06.03.2025, 14:18
+
+Midterm
+
+9 of 13
+
+http://localhost:63342/InnoML/md.html?_ijt=ib76il99e7julv...
+
+Using the roulette wheel selection method, Which one of the following is the probability
+of selecting Individual 3 for reproduction.
+Вопрос 14 Ответ
+a.
+0.20
+b.
+0.33
+c.
+0.08
+d.
+0.12
+Отзыв
+Your answer is correct.
+Правильный ответ: 0.08
+
+Вопрос 15
+Верно
+Баллов: 3,00 из 3,00
+Снять флажок
+Текст вопроса
+You are working with a genetic algorithm that uses binary representation for
+chromosomes (0s and 1s). Each chromosome has a length of 8 bits. Here are two parent
+chromosomes selected for crossover:
+• Parent 1: 10110001
+• Parent 2: 01001110
+Perform uniform crossover on the parent chromosomes using the crossover mask:
+01101000. Which one is possible oﬀspring of this operation?
+
+Вопрос 15 Ответ
+a.
+01010110
+06.03.2025, 14:18
+
+Midterm
+
+10 of 13
+
+http://localhost:63342/InnoML/md.html?_ijt=ib76il99e7julv...
+
+b.
+11001110
+c.
+10110001
+Отзыв
+Your answer is correct.
+Правильный ответ: 01010110
+
+Вопрос 16
+Верно
+Баллов: 3,00 из 3,00
+Отметить вопрос
+Текст вопроса
+The following question is related to Particle Swarm Optimization (PSO)
+Consider the following two positions and associated velocities of the particles:
+x1 = (5,5), x2 = (8,3)
+v1 = (2,2), v2 = (3,3)
+
+The individual and global best positions are given as:
+x*1 = (5,5), x*2 = (7,3)
+Global best position: g* = (5,5)
+For above illustrative example consider Vmax = 10, random numbers e1 = e2 = 0.5 and
+alpha = beta = 1.
+What would be the next position of each particle after one iteration of the PSO
+algorithm?
+
+Hint:
+
+06.03.2025, 14:18
+
+Midterm
+
+11 of 13
+
+http://localhost:63342/InnoML/md.html?_ijt=ib76il99e7julv...
+
+Вопрос 16 Ответ
+a.
+x1 = (5, 5), x2 = (8, 3)
+b.
+x1 = (7, 7), x2 = (9, 7)
+c.
+x1 = (5, 7), x2 = (8, 7)
+
+Отзыв
+Your answer is correct.
+Правильный ответ:
+x1 = (7, 7), x2 = (9, 7)
+
+Вопрос 17
+Неверно
+Баллов: 0,00 из 3,00
+Отметить вопрос
+Текст вопроса
+You're working with Ant Colony Optimization (ACO) to solve a Traveling Salesman
+Problem (TSP) on a graph with 5 cities: 1, 2, 3, 4 and 5. The distance matrix representing
+the distances between each pair of cities is provided:
+
+06.03.2025, 14:18
+
+Midterm
+
+12 of 13
+
+http://localhost:63342/InnoML/md.html?_ijt=ib76il99e7julv...
+
+Calculate the pheromone level update for the path 1 -> 4 -> 3 -> 5 -> 2 -> 1 after one
+iteration, assuming the following parameters:
+• Evaporation rate: 0.5
+• Initial pheromone level:
+
+Hint:
+
+Based on the obtained pheromone value, draw the conclusion either it is:
+Вопрос 17 Ответ
+a.
+Increased
+b.
+Decreased
+
+06.03.2025, 14:18
+
+Midterm
+
+13 of 13
+
+http://localhost:63342/InnoML/md.html?_ijt=ib76il99e7julv...
+
+Отзыв
+Your answer is incorrect.
+Правильный ответ:
+Decreased
+
+06.03.2025, 14:18
+
+

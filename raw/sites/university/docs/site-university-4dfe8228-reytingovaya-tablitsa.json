@@ -1,0 +1,16 @@
+{
+ "title": "Рейтинговая таблица - Результаты заключительного этапа ВсОШ по информатике 223/2024",
+ "url": "https://innopolis.university/upload/iblock/300/tnltitf1i1brjywepe5rqe713ani6aws/%D0%A0%D0%B5%D0%B9%D1%82%D0%B8%D0%BD%D0%B3%D0%BE%D0%B2%D0%B0%D1%8F%20%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D0%B0.pdf",
+ "sha256": "27cb6593c0bee39086cd4400b1007bcea15d21d5667133294ceb8b4ac518c1f6",
+ "method": "ocr (tesseract rus)",
+ "chars": 69770,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:55:52+00:00",
+ "remote": {
+  "etag": "\"661fc346-7f1cfe\"",
+  "modified": "Wed, 17 Apr 2024 12:40:38 GMT",
+  "size": "8330494"
+ }
+}

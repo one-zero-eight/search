@@ -1,0 +1,607 @@
+4/21/22, 1:49 PM
+
+Final: Attempt review
+
+Dashboard / Courses / University / 2021-2022 / Fall 2021 / Bachelors / 2 block / [F21] SSA&D_Y-2 / Topic 13 / Final
+
+Started on Friday, 10 December 2021, 12:00 PM
+State Finished
+Completed on Friday, 10 December 2021, 1:01 PM
+Time taken 1 hour 1 min
+Marks 38.00/40.00
+Grade 9.50 out of 10.00 (95%)
+Question 1
+Correct
+Mark 1.00 out of 1.00
+
+Adapter pattern…
+a. Provides a unified access to various objects
+b. Is a way of making two independently designed classes work together
+
+
+
+c. Connects an abstraction and its (numerous) implementations
+
+Question 2
+Correct
+Mark 1.00 out of 1.00
+
+At what phase of Software development should we start applying Use-case modelling?
+a. At the deployment phase
+b. At the requirements activities phase
+
+
+
+c. At the test phase
+d. At the development phase
+
+Question 3
+Correct
+Mark 1.00 out of 1.00
+
+Choose the best description for a use-case in Use-case modelling
+a. Functional requirement
+
+
+
+b. Bugs found in the Project
+c. Non-functional requirement
+d. Issues reported by users
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=102799&cmid=73284
+
+1/11
+
+4/21/22, 1:49 PM
+
+Final: Attempt review
+
+Question 4
+Correct
+Mark 1.00 out of 1.00
+
+Choose the option which contains UML diagram types
+a. Behavior diagrams, Interaction diagram
+b. Static diagrams, Behavior diagrams
+c. Structure diagrams, Class diagrams
+d. Structure diagrams, Behavior diagrams
+
+
+
+Question 5
+Incorrect
+Mark 0.00 out of 1.00
+
+Choose the wrong statement about Extend relationship in UML activity diagrams:
+a. The extending use case is dependent on the extended (base) use case.
+
+
+
+b. The extending use case extends the class hierarchy of the base use case.
+c. The extending use case is usually optional and can be triggered conditionally.
+d. The extended (base) use case must be meaningful on its own.
+
+Question 6
+Correct
+Mark 1.00 out of 1.00
+
+Choose the wrong statement about Include relationship in UML activity diagrams:
+a. The included use case is mandatory and not optional.
+b. The included use case is incomplete without the base use case.
+
+
+
+c. Include relationship represents an invocation of one use case by the other.
+d. The base use case is incomplete without the included use case.
+
+Question 7
+Correct
+Mark 1.00 out of 1.00
+
+Define the skeleton of an algorithm in an operation, delegating some steps to subclasses. It allows subclasses to redefine specific steps of an
+algorithm without changing the algorithm's structure.
+a. Template method
+
+
+
+b. Prototype
+c. Interpretor
+d. Chain of responsibility
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=102799&cmid=73284
+
+2/11
+
+4/21/22, 1:49 PM
+
+Final: Attempt review
+
+Question 8
+Incorrect
+Mark 0.00 out of 1.00
+
+Design patterns integration into a project is:
+a. Highly desirable
+
+
+
+b. Not recommended
+c. Mandatory
+d. Completely optional
+
+Question 9
+Correct
+Mark 1.00 out of 1.00
+
+Find the correct description of the Association in the UML class diagram.
+a. Group of attributes associated with an attribute type
+b. Relationship between classes
+
+
+
+c. Group of classes
+d. Relationship between class attributes
+
+Question 10
+Correct
+Mark 1.00 out of 1.00
+
+How the Bridge pattern separates abstract interface from its implementation?
+a. By overloading -&gt; and * operators in the derived class
+b. By using pointer to abstract class in the derived class
+c. By defining the interface as an abstract class and inheriting it in the derived class with implementation
+
+
+
+Question 11
+Correct
+Mark 1.00 out of 1.00
+
+In the class diagram, the package visibility of attributes is indicated by which symbol?
+a. #
+b. c. +
+d. ~
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=102799&cmid=73284
+
+
+
+3/11
+
+4/21/22, 1:49 PM
+
+Final: Attempt review
+
+Question 12
+Correct
+Mark 1.00 out of 1.00
+
+Pattern Flyweight is used…
+a. When there are a lot of derived classes with deep level of inheritance
+b. When there are a lot of simple and small objects in the program
+
+
+
+c. When objects compose a very complex structure (as trees/graphs etc.)
+
+Question 13
+Correct
+Mark 1.00 out of 1.00
+
+The reason to introduce an interface in class hierarchy can be:
+a. All of the above
+
+
+
+b. To use it as a ‘mask’ (restrict an access to class methods)
+c. None of the above
+d. To provide a common API among different classes
+
+Question 14
+Correct
+Mark 1.00 out of 1.00
+
+The Visitor pattern…
+a. Allows to get unified access to elements of a complex structure
+b. Allows to define multiple actions on a complex structure without changing t
+
+
+
+c. Replaces a class interface for a more appropriate one
+
+Question 15
+Correct
+Mark 1.00 out of 1.00
+
+There are three basic categories of patterns (choose the wrong category)
+a. Creational
+b. Compositional
+
+
+
+c. Structural
+d. Behavioral
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=102799&cmid=73284
+
+4/11
+
+4/21/22, 1:49 PM
+
+Final: Attempt review
+
+Question 16
+Correct
+Mark 1.00 out of 1.00
+
+What are basic notions/concepts that are fundamental for all patterns?
+a. OOP: inheritance &amp; polymorphism
+
+
+
+b. Upcasting &amp; downcasting
+c. Multiple inheritance
+d. The notion of type
+
+Question 17
+Correct
+Mark 1.00 out of 1.00
+
+What are the main common conceptual basis for Iterator and Visitor patterns?
+a. They both use Bridge to decouple an abstraction from its implementation
+b. They both use Strategy for separating structural and behavioral aspects
+
+
+
+c. They both use inheritance
+
+Question 18
+Correct
+Mark 1.00 out of 1.00
+
+What are the main feature used in implementing Proxy in C++?
+a. Overriding virtual functions (override)
+b. Virtual inheritance (class D: virtual B { …)
+c. Multiple inheritance (class D: public B1, private B2 { …)
+d. Operator overloading (-&gt; and *)
+
+
+
+Question 19
+Correct
+Mark 1.00 out of 1.00
+
+What are the two kinds of entities that are used in the Composite pattern?
+a. Dynamically created and statically declared objects
+b. Base and derived classes
+c. Objects that contain and not contain other objects
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=102799&cmid=73284
+
+
+
+5/11
+
+4/21/22, 1:49 PM
+
+Final: Attempt review
+
+Question 20
+Correct
+Mark 1.00 out of 1.00
+
+What is the appropriate subject for applying the Visitor pattern?
+a. Any class that is derived from another class
+b. Any class whose instances are created dynamically
+c. An instance of a class that has a member of some other class
+d. Any complex structure
+
+
+
+Question 21
+Correct
+Mark 1.00 out of 1.00
+
+What is the main purpose of integrating design patterns into a project?
+a. To improve documentation of code
+b. To improve code security
+c. To improve scalability and maintainability of code
+
+
+
+d. None of the above
+
+Question 22
+Correct
+Mark 1.00 out of 1.00
+
+What’s the difference between Proxy and Adapter patterns?
+a. Adapter provides a different interface to the object whereas Proxy provides the same interface as its subject.
+
+
+
+b. Adapter is actually a generalization of Proxy.
+c. Adapter deals with composite objects whereas Proxy applies to terminal objects
+
+Question 23
+Correct
+Mark 1.00 out of 1.00
+
+What’s the difference between Proxy and Decorator patterns?
+a. Decorator is actually a generalization of Proxy.
+b. Decorator and Proxy are completely different patterns and serve for different purposes.
+c. Decorator adds one or more responsibilities to an object, whereas Proxy controls access to an object
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=102799&cmid=73284
+
+
+
+6/11
+
+4/21/22, 1:49 PM
+
+Final: Attempt review
+
+Question 24
+Correct
+Mark 1.00 out of 1.00
+
+Which Design Pattern should you use when a snapshot of (some portion of) an object's state must be saved so that it can be restored to that
+state later, and a direct interface to obtaining the state would expose implementation details and break the object's encapsulation.
+a. State
+b. Memento
+
+
+
+c. Observer
+d. Command
+
+Question 25
+Correct
+Mark 1.00 out of 1.00
+
+Which Design Pattern should you use when many related classes differ only in their behavior or you need different variants of an algorithm.
+For example, you might define algorithms reflecting different space/time trade-offs.
+a. Strategy
+
+
+
+b. Factory Method
+c. Proxy
+d. Composite
+
+Question 26
+Correct
+Mark 1.00 out of 1.00
+
+Which Design Pattern should you use when the construction process must allow different representations for the object that's constructed.
+a. Builder
+
+
+
+b. Decorator
+c. Composite
+d. Singleton
+
+Question 27
+Correct
+Mark 1.00 out of 1.00
+
+Which Design Pattern should you use when you want to parameterize objects by an action to perform ?
+a. Command
+
+
+
+b. Builder
+c. Strategy
+d. Prototype
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=102799&cmid=73284
+
+7/11
+
+4/21/22, 1:49 PM
+
+Final: Attempt review
+
+Question 28
+Correct
+Mark 1.00 out of 1.00
+
+Which Design Pattern should you use when you want to represent part-whole hierarchies of objects.
+a. Iterator
+b. Abstract Factory
+c. Composite
+
+
+
+d. Flyweight
+
+Question 29
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following describes the Abstract Factory pattern correctly?
+a. This pattern creates object without exposing the creation logic to the client and refer to newly created object using a common
+interface.
+b. In this pattern an interface is responsible for creating a factory of related objects without explicitly specifying their classes.
+
+
+
+c. This pattern is used when we want to pass data with multiple attributes in one shot from client to server.
+d. This pattern involves a single class which is responsible to create an object while making sure that only single object gets created.
+
+Question 30
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following describes the Bridge pattern correctly?
+a. This pattern is used when we need to decouple an abstraction from its implementation so that the two can vary independently.
+
+
+
+b. This pattern builds a complex object using simple objects and using a step by step approach.
+c. This pattern is used when creation of object directly is costly.
+d. This pattern refers to creating duplicate object while keeping performance in mind.
+
+Question 31
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following describes the Observer pattern correctly?
+a. This pattern is used to restore state of an object to a previous state.
+b. This pattern is used to reduce communication complexity between multiple objects or classes.
+c. This pattern is used when there is one-to-many relationship between objects such as if one object is modified, its depenedent
+objects are to be notified automatically.
+
+
+
+d. This pattern is used to get a way to access the elements of a collection object in sequential manner without any need to know its
+underlying representation.
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=102799&cmid=73284
+
+8/11
+
+4/21/22, 1:49 PM
+
+Final: Attempt review
+
+Question 32
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following describes the Visitor pattern correctly?
+a. This pattern is used to decouple presentation tier and business tier.
+b. This pattern is used to separate application's concerns.
+c. This pattern is used in EJB persistence mechanism.
+d. In this pattern, a visitor class is used which changes the executing algorithm of an element class.
+
+
+
+Question 33
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following pattern creates a chain of receiver objects for a request?
+a. Chain of Responsibility Pattern
+
+
+
+b. Interpreter Pattern
+c. Proxy Pattern
+d. Command Pattern
+
+Question 34
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following pattern refers to the creation of duplicate objects while maintaining performance?
+a. Builder Pattern
+b. Prototype Pattern
+
+
+
+c. Filter Pattern
+d. Bridge Pattern
+
+Question 35
+Correct
+Mark 1.00 out of 1.00
+
+Which pattern defines a placeholder for another object without changing its interface?
+a. Proxy
+
+
+
+b. Visitor
+c. Flyweight
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=102799&cmid=73284
+
+9/11
+
+4/21/22, 1:49 PM
+
+Final: Attempt review
+
+Question 36
+Correct
+Mark 1.00 out of 1.00
+
+Which pattern defines the unified interface for hierarchy elements?
+a. Iterator
+b. Composite
+
+
+
+c. Facade
+
+Question 37
+Correct
+Mark 1.00 out of 1.00
+
+Which pattern helps defining an algorithm on a hierarchical structure?
+a. Facade
+b. Flyweight
+c. Interpreter
+
+
+
+d. Composite
+
+Question 38
+Correct
+Mark 1.00 out of 1.00
+
+Which pattern helps implementing hierarchical structures?
+a. Adapter
+b. Interpreter
+c. Composite
+
+
+
+Question 39
+Correct
+Mark 1.00 out of 1.00
+
+Which pattern is for decoupling an abstraction from its implementation?
+a. Bridge
+
+
+
+b. Iterator
+c. Flyweight
+d. Proxy
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=102799&cmid=73284
+
+10/11
+
+4/21/22, 1:49 PM
+
+Final: Attempt review
+
+Question 40
+Correct
+Mark 1.00 out of 1.00
+
+Data retention summary
+Get the mobile app
+Which patterns can dynamically assign additional responsibilities to an object. By offering a more versatile alternative to subclassing for
+extending functionality.
+a. Chain of responsibility
+b. Composite
+c. Adapter
+d. Decorator
+
+
+
+◄ Assignment 3
+Jump to...
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=102799&cmid=73284
+
+11/11
+
+

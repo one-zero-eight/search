@@ -1,0 +1,508 @@
+Innopolis University
+Final Exam
+Databases S24
+
+Date: May 6, 2024
+
+Duration: 90 minutes
+
+Total Marks: 40
+
+Instructions
+• Do not open the question paper until instructed.
+• Make sure to write your full name and group on every page.
+• The use of external materials, electronic devices, and communication during the exam is
+prohibited. Any violation of this rule will result in a grade of 0 (zero) for the exam.
+• Each question should be answered on paper assigned for this question.
+• Write your answers clearly and concisely.
+
+Good luck!
+
+Full Name:
+
+Group:
+
+Task 1. SQL & Relational Algebra [7 points]
+We have a hospital database that contains information about their doctors, the medicine they
+have at hand, and information about the patients they treat represented by the following schema:
+Patients (SSN, Name, Address, City, BirthDate)
+Doctors (DoctorID, Name, Speciality, Salary)
+Medicine (MedicineName, Description, Main-Ingredient)
+Prescription (DoctorID*, SSN*, MedicineName*, Date, Description, Cost)
+Note: Bold and underlined text represents primary keys, while asterisk symbol (*) represents foreign keys.
+
+Part A [4 points]:
+Write SQL queries for the following statements:
+
+1. Retrieve the number of doctors in the hospital for each speciality. Your output should
+have two columns: speciality and number of doctors with this speciality.
+
+2. Retrieve names of all doctors who have not given any prescriptions (had 0 consultations).
+
+3. Retrieve the names of all doctors who have salaries lower than the average.
+
+1
+
+Full Name:
+
+Group:
+
+4. Retrieve the number of consultations for each speciality (each consultation should result
+in a final prescription). Your output should have two columns: speciality and number
+consultations for this speciality.
+
+Part B [3 points]:
+Write Relational Algebra expressions for the following statements:
+
+1. Retrieve the name and description for all medicines that have penicillin as a main ingredient and have been prescribed by a doctor with DoctorID = 234.
+
+2. Retrieve name, date, description, and cost for all prescriptions which doctor John has
+written to a patient with SSN = 1234.
+
+3. Retrieve the list of doctors specializing in cardiology who have prescribed medicine more
+expensive than 100 rubles. Your output should have four columns: doctor name, speciality,
+medicine name, and prescription cost.
+
+2
+
+Full Name:
+
+Group:
+
+Task 2. Functions & Procedures [7 points]
+
+In this task, you need to consider the following relation called company.
+
+id
+
+name
+
+age
+
+country
+
+salary
+
+1
+
+Paul
+
+24
+
+Russia
+
+2000
+
+2
+
+Allen
+
+26
+
+USA
+
+1400
+
+3
+
+John
+
+31
+
+Canada
+
+3000
+
+4
+
+Mark
+
+45
+
+Australia
+
+4500
+
+5
+
+Nick
+
+18
+
+Germany
+
+1100
+
+6
+
+Kim
+
+22
+
+China
+
+3100
+
+7
+
+James
+
+25
+
+USA
+
+2800
+
+Part A [4 points]:
+Complete a function which returns the total number of employees in company relation that
+have salary above (>) average.
+
+CREATE OR REPLACE FUNCTION aboveAverageRows()
+AS $$
+
+RETURNS
+DECLARE
+
+BEGIN
+
+END;
+$$ LANGUAGE plpgsql;
+3
+
+Full Name:
+
+Group:
+
+Part B [3 points]:
+Your task is to complete a procedure which inserts a new employee with the given parameters
+to the company relation.
+
+CREATE OR REPLACE PROCEDURE insert employee(
+e id INTEGER,
+e name VARCHAR(50),
+e age INTEGER,
+e country VARCHAR(50),
+e salary INTEGER)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+
+END;
+$$;
+
+Write a command to call the procedure that you completed in the previous step.
+
+4
+
+Full Name: _________________________
+
+Group: __________________
+
+Task 3. Transactions [10 points]
+Consider the given table called grade.
+id
+
+name
+
+grade rank letter
+
+penalty
+
+1
+
+John
+
+90
+
+1 A
+
+0.00
+
+2
+
+Alice
+
+80
+
+2 B
+
+2.50
+
+3
+
+Bob
+
+70
+
+3 C
+
+5.00
+
+4
+
+Emily
+
+60
+
+4 D
+
+7.50
+
+5
+
+David
+
+50
+
+5 F
+
+10.00
+
+Your task is to fill the table on the next page with the outputs of the queries which are marked by letters (A,
+B, C, D…). The code sessions should be executed from left to right.
+
+Session 1
+
+Session 2
+
+BEGIN;
+UPDATE grade SET grade = grade 200 WHERE id = 1;
+UPDATE grade SET penalty =
+penalty - 200 WHERE id > 3 or
+rank<2;
+
+SELECT name,
+CASE
+WHEN grade >= 1000 THEN 'High'
+WHEN grade >= 500 THEN 'Medium'
+ELSE 'Low'
+END AS counter_category
+FROM grade
+WHERE grade= '70' AND id >= 3;
+
+SELECT name,grade*2 FROM grade
+WHERE penalty < '0';
+
+Output A
+
+Output B
+
+COMMIT;
+
+COMMIT;
+
+UPDATE grade SET rank = rank + 200 WHERE
+id = 2;
+SELECT rank/2 FROM grade WHERE id = 3;
+
+UPDATE grade SET rank = rank +
+200 WHERE id = 3;
+UPDATE grade SET rank = rank 100 WHERE name= 'David';
+SELECT name FROM grade WHERE
+letter LIKE 'D%';
+
+Output C
+
+Output D
+
+COMMIT;
+
+5
+
+Full Name: _________________________
+
+Group: __________________
+
+SELECT name FROM grade WHERE id
+% 2 = 1 and rank < 800;
+
+SELECT rank*3 FROM grade WHERE name=
+'David';
+
+Output E
+
+Output F
+
+BEGIN ISOLATION LEVEL REPEATABLE
+READ;
+UPDATE grade SET rank = 800
+WHERE id = 3;
+
+BEGIN;
+UPDATE grade SET rank = 200 WHERE id =
+3;
+INSERT INTO grade VALUES
+(6, 'Top G', 100, 800, 'G', 100);
+SELECT ROUND(rank, -2) FROM grade WHERE
+name = 'Emily';
+COMMIT;
+
+SELECT 'The grade of student
+Emily is $' || rank*0.1 FROM
+grade WHERE name = 'Emily';
+COMMIT;
+
+Output G
+
+Output H
+
+SELECT rank+100 FROM grade WHERE name=
+'John';
+
+COMMIT;
+
+Output I
+
+BEGIN ISOLATION LEVEL
+SERIALIZABLE;
+UPDATE grade SET grade = 1000
+WHERE id = 2;
+SELECT sum(grade) FROM grade;
+
+BEGIN;
+UPDATE grade SET grade = 600 WHERE id =
+2;
+SELECT grade FROM grade WHERE name=
+'David';
+
+Output J
+
+Output K
+
+Outputs:
+A
+
+B
+
+C
+
+D
+
+E
+
+G
+
+H
+
+I
+
+J
+
+K
+
+6
+
+F
+
+Full Name:
+
+Group:
+
+Task 4. Normalization [3 points]
+
+Part A [1 point]:
+List at least two requirements that the relation schema must meet to satisfy the conditions
+for the First Normal Form (1NF).
+
+Part B [2 points]:
+Consider the following relation R:
+R (CarID, CarName, CarBrand, CarColor, OwnerID, OwnerName, OwnerDateOfBirth,
+ServiceID[], ServiceName[], ServiceAddress[])
+The relation R has a composite primary key consisting of two attributes: CarID and
+OwnerID. The relation represents information about a car, its owner, and the list of services
+where the car can be maintained. A single owner could have multiple cars, but a car can have
+only one owner. Each service can maintain multiple cars, and each car can be maintained in
+several services.
+Task: Normalize the relation R to the Third Normal Form (3NF) and specify its database
+schema. Underline the primary key(s) in each relation.
+
+7
+
+Full Name:
+
+Group:
+
+Task 5. MongoDB [4 points]
+
+Assume the database of games (called games) in the following format:
+{
+title: "Half-Life",
+developer: "Valve",
+publisher: {
+name: "Valve",
+location: "Bellevue, WA"
+},
+releaseYear: 1998,
+genre: "First-person shooter",
+rating: 9.3,
+tags: ["Sci-Fi", "Aliens", "Action"]
+}
+
+Part 1. [2 points] Describe the given MongoDB query in plain text:
+db.games.find(
+{
+releaseYear: { $gt: 2000 },
+tags: "Action"
+},
+{
+title: 1,
+developer: 1,
+}
+)
+
+Part 2. [2 points] Write MongoDB query that increments the rating of all games released
+before the year 2000 by 0.1.
+
+8
+
+Full Name:
+
+Group:
+
+Task 6. Neo4j [9 points]
+You are given the following CREATE statements:
+CREATE (alice:Student {name: ’Alice’, age: 22})
+CREATE (bob:Student {name: ’Bob’, age: 21})
+CREATE (cs:Department {name: ’Computer Science’})
+CREATE (datasci:Course {name: ’Data Science’, code: ’CS101’})
+CREATE (ml:Course {name: ’Machine Learning’, code: ’CS102’})
+CREATE (drSmith:Professor {name: ’Dr. Smith’})
+CREATE (drJones:Professor {name: ’Dr. Jones’})
+CREATE (alice)-[:ENROLLED IN]->(datasci)
+CREATE (bob)-[:ENROLLED IN]->(ml)
+CREATE (drSmith)-[:TEACHES]->(datasci)
+CREATE (drJones)-[:TEACHES]->(ml)
+CREATE (datasci)-[:BELONGS TO]->(cs)
+CREATE (ml)-[:BELONGS TO]->(cs)
+
+Part A [3 points]:
+Draw a graph based on the CREATE statements that represents all nodes and relationships.
+
+9
+
+Full Name:
+
+Group:
+
+Part B [6 points]:
+Write the output of the following Neo4j queries:
+1. MATCH (p:Professor)-[:TEACHES]->(c:Course)<-[:ENROLLED IN]-(s:Student)
+WITH p, MIN(s.age) AS minAge
+MATCH (p)-[:TEACHES]->()<-[:ENROLLED IN]-(s)
+WHERE s.age = minAge
+RETURN p.name
+
+2. MATCH (c:Course)-[:BELONGS TO]->(d:Department name: ’Computer Science’)
+MATCH (c)<-[:ENROLLED IN]-(s:Student)
+WITH c, COUNT(s) AS studentCount
+WHERE studentCount >1
+RETURN c.name, studentCount
+
+3. MATCH (p:Professor)-[:TEACHES]->(c:Course)<-[:ENROLLED IN]-(s:Student)
+WHERE s.age >20
+MATCH (c)-[:BELONGS TO]->(d:Department)
+RETURN p.name, COUNT(DISTINCT c) as CourseCount, d.name
+
+10
+
+

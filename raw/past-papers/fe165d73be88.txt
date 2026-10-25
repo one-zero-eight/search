@@ -1,0 +1,193 @@
+Innopolis University
+Academic Year 2023/2024
+Prefinal Exam of Computer Architecture
+7th December 2023
+Exam Duration: 75 minutes
+
+Student Full Name:
+Student Group:
+Telegram Alias:
+Midterm missed (underline): No / Yes
+
+Question
+Question 1
+Question 2
+Question 3
+Question 4
+Question 5
+Question 6
+Question 7
+Question 8
+Question 9
+Total
+
+Grade Summary (for instructors fill)
+Grade
+
+Maximum score: 14 points
+
+Please write clearly your name and your solutions. What will not be understood will be
+considered wrong. All answers must be provided in English.
+This is a closed-book exam. You are not allowed to use any reference materials or electronic
+equipment, apart from this booklet and pens. You are not allowed to consult any person,
+otherwise you will be disqualified from this exam at the very first attempt.
+Good Luck!
+Signature:
+
+Computer Architecture – Prefinal 2023
+
+Student Full Name:
+Distribution of grades:
+
+Question 1. (1 point) Briefly describe the purpose of the PC special-purpose processor
+register in RISC-V architecture.
+Answer:
+PC (Program Counter) special purpose register is used to store the address of the next
+instruction to be executed by a CPU (or the address of a currently executing instruction by a
+CPU).
+Note on grading:
+Partially correct answer – (+0.5)
+
+Question 2. (1 point) Choose valid characteristic(s) for RISC-V processor architecture:
+1) RISC-V is a stack-based processor architecture;
+2) The length of the binary representation of RISC-V processor instructions is 32 bits;
+3) RISC-V processor has 32 floating-point registers
+Answer: Choices 2 and 3 are correct.
+Notes on grading:
+Every correct option – (+0.5)
+An incorrect option “1” – (-0.5)
+Computer Architecture – Prefinal 2023
+
+Page 2 of 6
+
+Student Full Name:
+Question 3. (1 point) Do you agree that in all modern computer architectures the same L1
+cache is shared by multiple CPU chips?
+1) Agree
+2) Disagree
+Answer: Option “2” is correct.
+
+Question 4. (1 point) In the list below, choose pseudo instruction(s) for RISC-V processor
+architecture:
+1) addi
+2) mv
+3) lw
+4) sb
+5) No choice is correct
+Answer: Option “2” is correct.
+Notes on grading:
+Option “2” – (+1)
+Options “1”,”3”,”4” – (-0.2) each
+Option “5” – (-1)
+
+Question 5. (1 point) A classical data path representation for RISC-V processors typically
+contains PC register, instruction memory, register file, ALU, and data memory. In the list below,
+choose instruction(s), which do not use data memory:
+1) add
+2) sub
+3) lw
+4) beq
+5) No choice is correct
+Answer: Options “1”, “2”, and “4” are correct.
+Notes on grading:
+Options “1”, “2”, “4” – (+0.33) each;
+Option “3” – (-0.33);
+Option “5” – (-1)
+
+Computer Architecture – Prefinal 2023
+
+Page 3 of 6
+
+Student Full Name:
+Question 6. (2 points) Flynn’s taxonomy identifies four major types for computer
+architectures. List all these types together with the corresponding examples for each type.
+A possible answer:
+
+Notes on grading:
+Correct Flynn’s type name – (+0.25) each;
+Correct example per type – (+0.25) each;
+A partially correct example – (+0.125)
+Question 7. The diagram below represents the organization of a simple processor cache.
+Assume that such a cache contains eight cache blocks, with each block corresponding to a single
+data word from the system memory. Answer the following questions:
+(1 point) Fill in the missing names of the cache block fields in the grey cells below.
+(2 points) Let one word of data denoted by 𝑊 having system memory address 11110101 be
+loaded from the system memory into such a cache. Fill in all values in the corresponding cache
+block entry/entries of the diagram below with 𝑊 denoting the data loaded from the system
+memory.
+Block
+Index
+000
+001
+010
+011
+100
+101
+110
+111
+
+Validity
+Flag
+
+Y
+
+Address Tag
+
+11110
+
+Computer Architecture – Prefinal 2023
+
+Data Words
+
+W
+
+Page 4 of 6
+
+Student Full Name:
+
+Notes on grading:
+Correct field name – (+0.33) each;
+Partially correct field name – (+0.2);
+Incorrect field name – (0)
+Incorrect block entry filled – (-0.5);
+Incorrect field value – (-0.5) each
+Question 8. (1+1 points) Draw a high-level conceptual diagram illustrating the key aspects of
+a CPU-GPU heterogeneous computer architecture with a focus on the memories system
+organization (do not draw the details regarding the internal organization of GPU processor chip
+itself).
+Then, by relying on such a diagram, describe the data flow details corresponding to the
+following scenario. First, there is some program data loaded into the main system memory. This
+program data must be processed by the GPU processor chip (and not by CPU). Briefly describe
+the data flow steps for such a GPU execution case, including the stage of storing the computation
+result.
+Answer:
+
+Notes on grading:
+CPU, GPU, System Memory, GPU Memory units drawn with correct connections – (+0.25)
+each;
+Description of the key data flow steps – (+1);
+Data flow arrows without descriptions – (+0.5)
+
+Computer Architecture – Prefinal 2023
+
+Page 5 of 6
+
+Student Full Name:
+Question 9. (2 points) Write a RISC-V assembly language program for computing the factorial
+of a given positive value n. Assume that an input value n is already loaded into register s0, as
+well as the computation result should be stored into register s1. Fill in the missing code.
+A possible answer:
+
+Notes on grading:
+Minor incorrections are not penalized;
+Minor logic mistakes – (-0.5) each;
+Major logic mistake – (-1) each;
+Incorrect instructions, instructions misuse, misuse of registers – (-0.5) each
+This is the end of the student book
+Draft (will NOT be checked)
+
+Computer Architecture – Prefinal 2023
+
+Page 6 of 6
+
+

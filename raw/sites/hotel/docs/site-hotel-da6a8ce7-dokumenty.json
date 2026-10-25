@@ -1,0 +1,15 @@
+{
+ "title": "Приказ о перечне документов, необходимых для размещения в жилом комплексе АНО ВО \"Университет Иннополис\"",
+ "url": "https://hotel.innopolis.university/upload/docs-hotel/%D0%94%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D1%8B.pdf",
+ "sha256": "f9f8c9ef6b2071f4d7411e1b96e4693127097332c93a3a0e240144cdd53908e2",
+ "method": "ocr (tesseract rus)",
+ "chars": 22637,
+ "section": "site/hotel",
+ "context": "",
+ "fetched_at": "2026-10-24T22:03:39+00:00",
+ "remote": {
+  "etag": "\"252302-631f252f25555\"",
+  "modified": "Fri, 04 Apr 2025 11:38:23 GMT",
+  "size": "2433794"
+ }
+}

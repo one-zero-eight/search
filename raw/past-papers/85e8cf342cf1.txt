@@ -1,0 +1,78 @@
+Innopolis University, Academic Year 2016/2017
+Written Exam of Operating Systems – Retake 1
+18th January 2017
+Questions and Solutions
+Max 20 points + 6 points (30%) extra credit – Total time: 90 minutes
+1. (3 points) For each of the following system calls, give a condition that causes it to fail: fork,
+exec, and unlink.
+Fork can fail if there are no free slots left in the process table (and possibly if there is no memory
+or swap space left). Exec can fail if the file name given does not exist or is not a valid executable
+file. Unlink can fail if the file to be unlinked does not exist or the calling process does not have the
+authority to unlink it.
+2. (3 points) A computer has 4 GB of RAM of which the operating system occupies 512 MB.
+The processes are all 256 MB (for simplicity) and have the same characteristics. If the goal is
+99% CPU utilization, what is the maximum I/O wait that can be tolerated?
+There is enough room for 14 processes in memory. If a process has an I/O of p, then the
+probability that they are all waiting for I/O is p14. By equating this to 0.01, we get the equation
+p14 = 0.01. Solving this, we get p = 0.72, so we can tolerate processes with up to 72% I/O wait.
+3. (3 points) Suppose that we have a message-passing system using mailboxes. When sending
+to a full mailbox or trying to receive from an empty one, a process does not block. Instead, it
+gets an error code back. The process responds to the error code by just trying again, over and
+over, until it succeeds. Does this scheme lead to race conditions? Explain.
+It does not lead to race conditions (nothing is ever lost), but it is effectively busy waiting.
+4. (3 points) Suppose that a machine has 48-bit virtual addresses and 32-bit physical
+addresses.
+a) If pages are 4 KB, how many entries are in the page table if it has only a single level?
+Explain.
+b) Suppose this same system has a TLB (Translation Lookaside Buffer) with 32 entries.
+Furthermore, suppose that a program contains instructions that fit into one page and it
+sequentially reads long integer elements from an array that spans thousands of pages.
+How effective will the TLB be for this case?
+Under these circumstances:
+a) We need one entry for each page, or 224 = 16 × 1024 × 1024 entries, since there are 36 =
+48 − 12 bits in the page number field.
+b) Instruction addresses will hit 100% in the TLB. The data pages will have a 100 hit rate
+until the program has moved onto the next data page. Since a 4-KB page contains 1,024
+long integers, there will be one TLB miss and one extra memory access for every 1,024
+data references..
+5. (3 points) Given a disk-block size of 4 KB and block-pointer address value of 4 bytes, what
+is the largest file size (in bytes) that can be accessed using 10 direct addresses and one
+indirect block?
+The indirect block can hold 1024 addresses. Added to the 10 direct addresses, there are 1034
+addresses in all. Since each one points to a 4-KB disk block, the largest file is 4,235,264 bytes.
+
+OS Exam
+
+Page 1 of 2
+
+6. (3 points) In order to control traffic, a network router, A periodically sends a message to its
+neighbor, B, telling it to increase or decrease the number of packets that it can handle. At
+some point in time, Router A is flooded with traffic and sends B a message telling it to cease
+sending traffic. It does this by specifying that the number of bytes B may send (A’s window
+size) is 0. As traffic surges decrease, A sends a new message, telling B to restart transmission.
+It does this by increasing the window size from 0 to a positive number. That message is lost.
+As described, neither side will ever transmit. What type of deadlock is this?
+This is clearly a communication deadlock, and can be controlled by having A time out and
+retransmit its enabling message (the one that increases the window size) after some period of
+time (a heuristic). It is possible, however, that B has received both the original and the duplicate
+message. No harm will occur if the update on the window size is given as an absolute value and
+not as a differential. Sequence numbers on such messages are also effective to detect duplicates..
+7. (30% extra credit)
+A bitmap terminal contains 1600 by 1200 pixels. To scroll a window, the CPU (or controller)
+must move all the lines of text upward by copying their bits from one part of the video RAM to
+another. If a particular window is 80 lines high by 80 characters wide (6400 characters, total),
+and a character’s box is 8 pixels wide by 16 pixels high, how long does it take to scroll the
+whole window at a copying rate of 50 nsec per byte? If all lines are 80 characters long, what is
+the equivalent baud rate of the terminal? Putting a character on the screen takes 5 μsec. How
+many lines per second can be dis- played?
+Scrolling the window requires copying 79 lines of 80 characters or 6320 characters. Copying 1
+character (16 bytes) takes 800 nsec, so the whole window takes 5.056 msec. Writing 80
+characters to the screen takes 400 nsec, so scrolling and displaying a new line take 5.456 msec.
+This gives about 183.2 lines/sec.
+This is the end of the questions and solutions of the exam.
+
+OS Exam
+
+Page 2 of 2
+
+

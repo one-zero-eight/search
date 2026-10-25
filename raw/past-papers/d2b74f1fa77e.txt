@@ -1,0 +1,73 @@
+AGLA2 2024 Final
+Variant 2
+May 8, 2024
+1. (4 pts). Diagonalize matrix A by finding its eigenvalues and its eigenvectors.
+(1 pt). Find A inverse.
+
+
+
+8
+−1 + i
+A=
+−1 − i
+7
+2. (5 pts). Show that A and B are similar B = M 1 AM by finding matrix M :
+
+
+
+
+8
+−1 + i
+7 − i 1 − 2i
+A=
+B=
+−1 − i
+7
+1+i 8+i
+3. (5 pts) For which α and β quadratic form Q(x, y, z) is positive definite:
+Q(x, y, z) = 2αx2 + y 2 + z 2 − 2βxy + 4xz
+4. (5 pts) Solve the second order differential equation system:
+ 2
+d x(t)
+
+= 8x(t) − (1 − i)y(t)
+
+dt2
+
+
+ d2 y(t) = −(1 + i)x(t) + 7y(t)
+dt2
+
+x(0) = 1, x′ (0) = 0
+
+
+
+ y(0) = 1,
+y ′ (0) = 0
+5. (5 pts). Using least squares method to find the coefficients a and b of the curve:
+f (x) = a sin(x) + b cos(x), that best fits following points:
+x
+f (x)
+
+0
+−0.8
+
+π/4
+0
+
+π/2
+1
+
+
+
+A −B
+6. (5 pts) If A + iB is Hermitian matrix (A and B are real) show that
+is
+B A
+symmetric matrix.
+7. (5 points) Prove that any real square matrix can be factored into A = QS, where Q is
+orthogonal and S is symmetric positive semidefinite.
+
+1
+
+

@@ -1,0 +1,16 @@
+{
+ "title": "Дайджест №1, декабрь 2021 г. «В цифре событий» Смотреть",
+ "url": "https://innopolis.university/filespublic/Dajdzhest_po_proektu_cifrovoj_ekonomiki.pdf",
+ "sha256": "fb718a6da1e53aa58ca36dc72252c8a61305f4812f041a7327be5e8f8b087c82",
+ "method": "text layer (pdfplumber)",
+ "chars": 106503,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:44:31+00:00",
+ "remote": {
+  "etag": "\"732429-5e337846d4961\"",
+  "modified": "Thu, 07 Jul 2022 14:01:08 GMT",
+  "size": "7545897"
+ }
+}

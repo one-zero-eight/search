@@ -1,0 +1,863 @@
+9/25/21, 6:10 PM
+
+Midterm: Attempt review
+
+Dashboard / My courses / [F20]PSS1 / Week 5 - Midterm evaluation / Midterm
+
+Started on Tuesday, 29 September 2020, 11:01 AM
+State Finished
+Completed on Tuesday, 29 September 2020, 11:40 AM
+Time taken 39 mins 28 secs
+Marks 35.00/40.00
+Grade 8.75 out of 10.00 (88%)
+Question 1
+Correct
+Mark 1.00 out of 1.00
+
+Are there bugs in the following code?
+int* f(int p)
+{
+int* ptr = (int*)malloc(2*sizeof(int));
+*ptr = p;
+*(ptr+1) = p*p;
+return ptr;
+}
+Select one:
+a. Some bugs (perhaps 1 or 2)
+b. No bugs
+
+
+
+The correct answer is: No bugs
+
+Question 2
+Correct
+Mark 1.00 out of 1.00
+
+Given the following code:
+struct S
+{
+int a, b;
+} s = { .a = 7, .b = 77 };
+int res = s.a + (&s)->b;
+What’s the value of res after the assigning?
+
+Select one:
+a. 77
+b. 7
+c. 84
+
+
+
+The correct answer is: 84
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=31777&cmid=42848
+
+1/16
+
+9/25/21, 6:10 PM
+
+Midterm: Attempt review
+
+Question 3
+Correct
+Mark 1.00 out of 1.00
+
+Given the following code:
+struct S
+{
+int a, b;
+};
+struct S s = { .a = 7, .b = 77 };
+struct S* ptr1 = &s;
+int* ptr2 = &s.a;
+int res = ptr1->b + *ptr2;
+What’s the value of res?
+
+Select one:
+a. 7
+b. 84
+
+
+
+c. 77
+
+The correct answer is: 84
+
+Question 4
+Incorrect
+Mark 0.00 out of 1.00
+
+Given the following declarations:
+long square(long i) { return i*i; }
+typedef long (*F)(long);
+Which declaration from the following below is incorrect?
+
+Select one:
+a. F f1 = &amp;square;
+
+
+
+b. F f3 = square(3);
+c. F f2 = square;
+
+The correct answer is: F f3 = square(3);
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=31777&cmid=42848
+
+2/16
+
+9/25/21, 6:10 PM
+
+Midterm: Attempt review
+
+Question 5
+Correct
+Mark 1.00 out of 1.00
+
+How many bugs are there in the following code?
+void f(int p)
+{
+int* ptr = (int*)malloc(sizeof(int));
+*(ptr+1) = p;
+}
+
+Select one:
+a. 0
+b. 1
+c. More
+d. 2 (Access to non-allocated memory, and memory leak)
+
+
+
+The correct answer is: 2 (Access to non-allocated memory, and memory leak)
+
+Question 6
+Correct
+Mark 1.00 out of 1.00
+
+How many entities are declared in the following code?
+struct S { int a, int b; } A[10];
+
+Select one:
+a. 4
+
+
+
+b. 1
+c. 2
+d. 3
+
+The correct answer is: 4
+
+Question 7
+Correct
+Mark 1.00 out of 1.00
+
+If a variable school is a pointer to an object of a struct type, how can we access its field named room?
+Select one:
+a. school.room
+b. school-&gt;room
+
+
+
+c. school(room)
+d. school/room
+
+The correct answer is: school-&gt;room
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=31777&cmid=42848
+
+3/16
+
+9/25/21, 6:10 PM
+
+Midterm: Attempt review
+
+Question 8
+Correct
+Mark 1.00 out of 1.00
+
+If school is a variable of a struct type, how can we access its field named room?
+Select one:
+a. school-&gt;room
+b. school/room
+c. school.room
+
+
+
+d. school(room)
+
+The correct answer is: school.room
+
+Question 9
+Correct
+Mark 1.00 out of 1.00
+
+Is there a bug in the following code?
+int f(int p)
+{
+int* ptr = (int*)malloc(sizeof(int));
+*ptr = p;
+return p*2;
+}
+
+Select one:
+a. Yes: Memory leak: no way to access dynamic memory after returning from f
+
+
+
+b. No bugs
+c. Yes: Cannot allocate dynamic memory for integer values
+
+The correct answer is: Yes: Memory leak: no way to access dynamic memory after returning from f
+
+Question 10
+Correct
+Mark 1.00 out of 1.00
+
+Question: What should be the type of expression in the switch statement:
+switch ( expression ) statement
+Select one:
+a. any type
+b. float
+c. char
+d. int
+
+
+
+The correct answers are: char, int
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=31777&cmid=42848
+
+4/16
+
+9/25/21, 6:10 PM
+
+Midterm: Attempt review
+
+Question 11
+Correct
+Mark 1.00 out of 1.00
+
+What are differences malloc() and calloc() memory allocation functions?
+Select one:
+a. Both allocates memory from heap area/dynamic memory. By default, malloc fills the allocated memory with 0’s.
+b. Both allocate memory from heap area/dynamic memory. By default, calloc fills the allocated memory with 0’s.
+
+
+
+c. The malloc() function is used to reallocate the memory to the new size, calloc() to cancel allocation.
+
+The correct answer is: Both allocate memory from heap area/dynamic memory. By default, calloc fills the allocated memory with 0’s.
+
+Question 12
+Correct
+Mark 1.00 out of 1.00
+
+Given the following code
+int A[5] = { 7, 6, 5, 4, 3 };
+int i = *(A+2);
+What is the value of i?
+Select one:
+a. 7
+b. 6
+c. 5
+
+
+
+d. 4
+
+The correct answer is: 5
+
+Question 13
+Correct
+Mark 1.00 out of 1.00
+
+What does the declaration of p mean?
+int v;
+const int* p = &v;
+Select one:
+a. declaration of the pointer to an integer
+b. declaration of the constant pointer to an integer
+c. declaration of the pointer to a constant integer
+
+
+
+The correct answer is: declaration of the pointer to a constant integer
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=31777&cmid=42848
+
+5/16
+
+9/25/21, 6:10 PM
+
+Midterm: Attempt review
+
+Question 14
+Correct
+Mark 1.00 out of 1.00
+
+What does the declaration of p mean?
+int v;
+int *const p = &v;
+Select one:
+a. declaration of the pointer to a constant integer
+b. declaration of the pointer to an integer
+c. declaration of the constant pointer to an integer
+
+
+
+The correct answer is: declaration of the constant pointer to an integer
+
+Question 15
+Incorrect
+Mark 0.00 out of 1.00
+
+What entity is declared in the following code?
+struct { int a, b; }* g(int (*)());
+Select one:
+a. a function
+b. a pointer to a structure
+
+
+
+c. a structure
+d. a pointer to a function
+
+The correct answer is: a function
+
+Question 16
+Correct
+Mark 1.00 out of 1.00
+
+What is the correct value to return to the operating system upon the successful completion of a program?
+Select one:
+a. 1
+b. -1
+c. Programs do not return a value.
+d. 0
+
+
+
+The correct answer is: 0
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=31777&cmid=42848
+
+6/16
+
+9/25/21, 6:10 PM
+
+Midterm: Attempt review
+
+Question 17
+Correct
+Mark 1.00 out of 1.00
+
+What is the value of x after the following code is preprocessed, compiled and executed?
+int x, y = 7;
+#define M(a) if (a) x = a; else x = 1
+M(y>10);
+
+Select one:
+a. 7
+b. 0
+c. 1
+
+
+
+The correct answer is: 1
+
+Question 18
+Incorrect
+Mark 0.00 out of 1.00
+
+What kind of entity is declared here?
+typedef double (*X)(int[10]);
+Select one:
+a. A type denoting a pointer to a function that accepts arrays of ten doubles
+b. An array of ten doubles
+c. A type denoting a pointer to an array of ten doubles
+d. A pointer to a function that accepts arrays of ten doubles
+
+
+
+e. A pointer to an array of ten doubles
+
+The correct answer is: A type denoting a pointer to a function that accepts arrays of ten doubles
+
+Question 19
+Incorrect
+Mark 0.00 out of 1.00
+
+What’s declared in the following code?
+double* (*f)(int,int);
+Select one:
+a. A function with two parameters returning double
+
+
+
+b. A pointer to a function with two parameters returning double
+
+The correct answer is: A pointer to a function with two parameters returning double
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=31777&cmid=42848
+
+7/16
+
+9/25/21, 6:10 PM
+
+Midterm: Attempt review
+
+Question 20
+Correct
+Mark 1.00 out of 1.00
+
+Which actions are performed by the following standard function call on the pointer ptr?
+free(ptr);
+Select one:
+a. releases the memory pointed to by ptr
+
+
+
+b. re-allocates memory pointed to by ptr
+c. allocates memory pointed to by ptr
+d. allocates memory pointed to by ptr, and fills memory cells with zeros
+
+The correct answer is: releases the memory pointed to by ptr
+
+Question 21
+Correct
+Mark 1.00 out of 1.00
+
+Which C library should we add in order to use malloc() function?
+Select one:
+a. stdlib.h
+
+
+
+b. strings.h
+c. no library is necessary
+d. stdio.h
+
+The correct answer is: stdlib.h
+
+Question 22
+Correct
+Mark 1.00 out of 1.00
+
+Which expression in the for statement is evaluated before each of execution of the for body?
+for ( expression1 ; expression2 ; expression3 ) statement
+Select one:
+a. expression2
+
+
+
+b. expression3
+c. all of them
+d. expression1
+
+The correct answer is: expression2
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=31777&cmid=42848
+
+8/16
+
+9/25/21, 6:10 PM
+
+Midterm: Attempt review
+
+Question 23
+Correct
+Mark 1.00 out of 1.00
+
+Consider the following array:
+int a[10];
+Is the following expression correct for the array?
+*(2 + a) = 2;
+Select one:
+a. incorrect
+b. correct
+
+
+
+The correct answer is: correct
+
+Question 24
+Correct
+Mark 1.00 out of 1.00
+
+Which expression in the for statement is evaluated first, and only once?
+for ( expression1 ; expression2 ; expression3 ) statement
+Select one:
+a. all of them
+b. expression2
+c. expression1
+
+
+
+d. expression3
+
+The correct answer is: expression1
+
+Question 25
+Incorrect
+Mark 0.00 out of 1.00
+
+Which is not a proper function prototype?
+Select one:
+a. All of them are correct
+b. double funct(char );
+
+
+
+c. char x();
+d. int funct(char x, char y);
+e. void funct(void);
+
+The correct answer is: All of them are correct
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=31777&cmid=42848
+
+9/16
+
+9/25/21, 6:10 PM
+
+Midterm: Attempt review
+
+Question 26
+Correct
+Mark 1.00 out of 1.00
+
+Which kind of statements are used for breaking the current loop iteration and to jump the next iteration?
+Select one:
+a. continue
+
+
+
+b. break
+c. empty (null) statements
+d. if
+e. return
+f.
+
+goto
+
+The correct answer is: continue
+
+Question 27
+Correct
+Mark 1.00 out of 1.00
+
+Which kind of statements is used for specifying iterations in C?
+Select one:
+a. empty (null) statement
+b. for, while, do
+
+
+
+c. goto, return
+d. if, switch
+
+The correct answer is: for, while, do
+
+Question 28
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following is a correct comment?
+Select one:
+a. { Comment }
+b. */ Comment /*
+c. ** Comment **
+d. /* Comment */
+
+
+
+The correct answer is: /* Comment */
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=31777&cmid=42848
+
+10/16
+
+9/25/21, 6:10 PM
+
+Midterm: Attempt review
+
+Question 29
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following is considered TRUE in C?
+Select one:
+a. All of the above
+
+
+
+b. .1
+c. 1
+d. 42
+e. -1
+
+The correct answer is: All of the above
+
+Question 30
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following is not C variable type?
+Select one:
+a. float
+b. real
+
+
+
+c. int
+d. double
+
+The correct answer is: real
+
+Question 31
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following is the correct operator to compare two variables?
+Select one:
+a. :=
+b. ?=
+c. +=
+d. =
+e. ==
+
+
+
+The correct answer is: ==
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=31777&cmid=42848
+
+11/16
+
+9/25/21, 6:10 PM
+
+Midterm: Attempt review
+
+Question 32
+Correct
+Mark 1.00 out of 1.00
+
+Which of the increments is executed first when used in expressions: \n ++a \n a++
+Select one:
+a. both (a++ and ++a) increments are executed first then their value used in expressions
+b. ++a increment is executed first then its value used in expressions
+
+
+
+c. a++ increment is executed first then its value used in expressions
+
+The correct answer is: ++a increment is executed first then its value used in expressions
+
+Question 33
+Correct
+Mark 1.00 out of 1.00
+
+Which of the loop structures guarantees to execute the body at least once?
+Select one:
+a. all of the above
+b. none
+c. while
+d. do … while
+
+
+
+e. for
+
+The correct answer is: do … while
+
+Question 34
+Correct
+Mark 1.00 out of 1.00
+
+Evaluate !(1 && !(0 || 1))
+Select one:
+a. True
+
+
+
+b. False
+c. Syntax error
+
+The correct answer is: True
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=31777&cmid=42848
+
+12/16
+
+9/25/21, 6:10 PM
+
+Midterm: Attempt review
+
+Question 35
+Correct
+Mark 1.00 out of 1.00
+
+Which operator (or operators) helps us exit from a loop?
+Select one:
+a. all statements can be used to exit a loop
+
+
+
+b. break
+c. return
+d. goto
+
+The correct answer is: all statements can be used to exit a loop
+
+Question 36
+Correct
+Mark 1.00 out of 1.00
+
+Find the error(s) in the following code. Reply with the number of the line with the error.
+1 double A[5];
+2 for ( int i=0; i<5; i++)
+3 *(A+i) = i; 4 for ( int i=1; i<=5; i++ ) \
+5 A[i-1] = (i>1 ? A[i-2] : 1) * A[i];
+Select one:
+a. 1 (line 3)
+b. 3 (lines 3, 4, 5)
+
+
+
+c. 1 (line 2)
+d. 0 (no bugs)
+e. 2 (lines 3 &amp; 5)
+
+The correct answers are: 0 (no bugs), 1 (line 2), 1 (line 3), 2 (lines 3 &amp; 5), 3 (lines 3, 4, 5)
+
+Question 37
+Correct
+Mark 1.00 out of 1.00
+
+Given the following code:
+int A[5] = { 1, 2, 3, 4, 5 };
+int* ptr1 = A;
+int* ptr2 = &A[4];
+int x = *ptr1 + *ptr2;
+What is the value of x?
+Select one:
+a. 8
+b. 6
+
+
+
+c. 1
+
+The correct answer is: 6
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=31777&cmid=42848
+
+13/16
+
+9/25/21, 6:10 PM
+
+Midterm: Attempt review
+
+Question 38
+Correct
+Mark 1.00 out of 1.00
+
+Given the following code:
+int a=9, b=8, c=7;
+int* A[3] = { &a, &b, &c };
+int res = **(A+2);
+What is the value of res?
+Select one:
+a. 7
+
+
+
+b. 9
+c. 8
+
+The correct answer is: 7
+
+Question 39
+Correct
+Mark 1.00 out of 1.00
+
+Given the following code:
+int square(int p) { return p*p; }
+int sum(int* p, int len, int (*f)(int))
+{
+int res= 0;
+for (int i=0; i<len; i++)
+res += f(p[i]);
+return res;
+}
+int main()
+{
+int A[5] = { 1, 2, 3, 4, 5 };
+int squares = sum(A,5,square);
+}
+What’s the value of squares?
+Select one:
+a. 55
+
+
+
+b. 78
+c. 100
+
+The correct answer is: 55
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=31777&cmid=42848
+
+14/16
+
+9/25/21, 6:10 PM
+
+Midterm: Attempt review
+
+Question 40
+Correct
+Mark 1.00 out of 1.00
+
+Given the following code:
+long identity(long i) { return i; }
+long square(long i) { return i*i; }
+long cube(long i) { return i*i*i; }
+typedef long (*F)(long);
+F A[3] = { identity, square, cube };
+long res= 0;
+for (int i=0; i<3; i++)
+res += A[i](i+1);
+What’s the value of res after executing this code?
+Select one:
+a. 32
+
+
+
+b. 31
+c. 6
+
+The correct answer is: 32
+
+◄ Codetest assignment: Week 4
+Jump to...
+Lecture and tutorial slides ►
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=31777&cmid=42848
+
+15/16
+
+9/25/21, 6:10 PM
+
+Midterm: Attempt review
+
+Data retention summary
+Get the mobile app
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=31777&cmid=42848
+
+16/16
+
+

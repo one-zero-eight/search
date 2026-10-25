@@ -1,0 +1,16 @@
+{
+ "title": "Opisanie processov zhiznennogo cikla PO SintezPlyus",
+ "url": "https://innopolis.university/filespublic/Opisanie_processov_zhiznennogo_cikla_PO_SintezPlyus.pdf",
+ "sha256": "704cc179083189972d847c02da50cf7b2affc7b488a19f4a15f62cbae5f83448",
+ "method": "text layer (pdfplumber)",
+ "chars": 25981,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:45:52+00:00",
+ "remote": {
+  "etag": "\"4526b-5f0794c796c3b\"",
+  "modified": "Fri, 23 Dec 2022 06:57:28 GMT",
+  "size": "283243"
+ }
+}

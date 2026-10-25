@@ -1,0 +1,16 @@
+{
+ "title": "report-2013",
+ "url": "https://innopolis.university/upload/files/report-2013.pdf",
+ "sha256": "fead17a7af2da233d6b1561cafbd2c1944e5736679c23493af00d0ae23cd2a91",
+ "method": "text layer (pdfplumber)",
+ "chars": 61549,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:49:41+00:00",
+ "remote": {
+  "etag": "\"69b964c9-3fdc6c\"",
+  "modified": "Tue, 17 Mar 2026 14:27:21 GMT",
+  "size": "4185196"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "Федеральный государственный образовательный стандарт среднего общего образования",
+ "url": "https://innopolis.university/upload/iblock/139/clwt2297prkp8q71oishz3i624l0mzlg/%D0%A4%D0%93%D0%9E%D0%A1_%D0%A1%D0%9E%D0%9E.pdf",
+ "sha256": "1f57f1790a1a86b58ddfdcad6582849c955e28efd205709dc9d9fb23d28dbc6f",
+ "method": "text layer (pdfplumber)",
+ "chars": 219248,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:52:11+00:00",
+ "remote": {
+  "etag": "\"634fed94-fbfa8\"",
+  "modified": "Wed, 19 Oct 2022 12:29:08 GMT",
+  "size": "1032104"
+ }
+}

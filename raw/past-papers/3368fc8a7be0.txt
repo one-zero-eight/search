@@ -1,0 +1,125 @@
+AGLA 1. TEST 1. VARIANT 1. 15 points, 60 minutes
+Rules:
+• no talking AT ALL is allowed during the Test
+• no cheat-sheets are allowed
+• any electronic devices are not allowed except for a simple non-programmable calculator
+Full name:
+
+Group:
+
+Task:
+Score:
+
+1
+
+2
+
+3
+
+4
+
+Signature:
+
+Total
+
+1. (2 points) Given two vectors p = (1, 2, 3) and q = (1, −2, 2).
+(a) Decompose the vector p into two components that are parallel and perpendicular to the vector q.
+(b) Find the angle between p and q.
+2. (3 points)
+
+5 −1
+1 2 5
+2
+,B=x
+(a) Find the matrix product AB if A =
+3 7 x
+−3 −1
+
+
+
+
+
+
+(b) Find the largest and the smallest possible value of determinant |AB|.
+3. (4 points) For which values x, vectors a and b are basis of some space? Explain
+youranswer.
+
+
+
+1−x
+1−x
+,b=
+a=
+−2
+x
+4. (6 points) Given a parallelogram ABCD. Point N is the crossing of its diagonals. The old coordinate system has origin A and the basis AB, AD.
+(a) Define a new coordinate system formed by the point D and two new basis
+vectors: DB and DC.
+(b) Compute the transitions matrix A from the old basis to the new basis.
+(c) Calculate coordinates of point N in both bases, using the transition matrix
+A.
+End of Test 1
+
+AGLA 1. TEST 1. VARIANT 2. 15 points, 60 minutes
+Rules:
+• no talking AT ALL is allowed during the Test
+• no cheat-sheets are allowed
+• any electronic devices are not allowed except for a simple non-programmable calculator
+Full name:
+
+Group:
+
+Task:
+Score:
+
+1
+
+2
+
+3
+
+4
+
+Signature:
+
+Total
+
+1. (2 points) Given two vectors p = (2, 4, 6) and q = (1, 2, −2).
+(a) Decompose the vector p into two components that are parallel and perpendicular to the vector q.
+(b) Find the angle between p and q.
+2. (3 points)
+
+1 x
+2 x 5
+, B = −3 2 
+(a) Find the matrix product AB if A =
+4 3 −2
+−1 2
+
+
+
+
+
+
+(b) Find the largest and the smallest possible value of determinant |AB|.
+3. (4 points) For which values x, vectors a and b are basis of some space? Explain
+youranswer.
+
+ 
+−x
+x−6
+,b=
+a=
+−1
+x−4
+4. (6 points) Given a parallelogram ABCD. Point N is the crossing of its diagonals. The old coordinate system has origin A and the basis AN , AD.
+(a) Define a new coordinate system formed by the point C and two new basis
+vectors: CN and CD.
+(b) Compute the transitions matrix A from the old basis to the new basis.
+(c) Calculate coordinates of point N in both bases, using the transition matrix
+A.
+End of Test 1
+
+Page 2
+
+

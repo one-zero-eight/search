@@ -1,0 +1,146 @@
+Tid Term Exam. Variant 1 Innopolis University
+
+Full Name: AG&LAII
+Group #: Spring 2024
+Duration: 120 Minutes 13.03.2024
+
+You need to perform this exam alone and without the use of any equipment, apart from this booklet and
+pens. You can use only 1 sheet of A4 paper with formulas on both sides. Please do not consult any person
+or use any equipment, except for a simple non-programmable calculator. Otherwise, you will be
+disqualitied from this exam at the first attempt.
+
+Good Luek!
+Grade Table (for teacher use only)
+Question 1 T 2 3 4 5 6 7 Total
+| Points 3 6 4 6 6 6 4 35
+Score
+
+1. (3 points) Let§; = {x,y,z : x—2y—z=8andS, ={x,y,z: x—y+2z=2}
+
+X
+Find the line of intersection of the planes S, and S in vector form; V= [y]
+z
+
+2. Considering the matrix, A and the vector b,
+
+-1 1 2
+o1 e
+A=ty 1| b=ilg
+
+-1 -1 1
+
+(a) (4 points) Find the projection of b onto the column space of A.
+(b) (1 points) Split b into p + e, with p in the column space and e orthogonal to that space.
+
+(c) (1 point) Which of the four fundamental spaces of A contains e.
+
+3. Considering the following measurements:
+tl2 1 1 2
+b|-1 0 1 1
+(a) (4 points) Find the best straight-line fit (Least squares) to the measurements.
+(b) (2 point) Find the projection matrix P onto the column space of matrix 4:
+
+1 -2
+
+L =1
+A—1 1|
+
+1 2
+
+4. (6 points) Find the dimensions of the four fundamental subspaces associated with A,
+depending on the parameters a and j.
+
+a 7 5 10
+131 8 4
+A=l 11 2
+
+8 5 3 6
+
+5. Find an orthonormal basis for the subspace spanned by the vectors: a,, a, and asz (4 points).
+Then express A = [y, z, as] in the form of QR (2 points).
+
+6. (4 points) Prove that the matrix A(m X n) has the same nullspace as ATA
+
+7. (4 points) Prove that if the matrix A(n X n) is symmetric the dot product of the vectors x €
+R™ and Ay is the same as the vectors Ax and y € R"
+Innopolis University
+AG&LAII
+Spring 2024
+
+Mid Term Exam. Variant 2
+Full Name:
+Group #:
+
+Duration: 120 Minutes 13.03.2024
+
+You need to perform this exam alone and without the use of any equipment, apart from this booklet and
+pens. You can use only 1 sheet of A4 paper with formulas on both sides. Please do not consult any person
+or use any equipment, except for a simple non-programmable calculator. Otherwise, you will be
+disqualified from this exam at the first attempt.
+
+Good Luck!
+
+Grade Table (for teacher use only)
+
+Question 1 2 3 4 5 6 7 Total
+Points | 3 6 4 6 6 5 4 35
+Score
+
+1. (3 points) Let S; = {x,y,z: x+y—4z=8}and §, ={x,y,z: x + 2y + 2z = 2}
+
+X
+Find the line of intersection of the planes S; and S, in vector form: ¥ = {y]
+
+Z
+
+2. Considering the matrix, A and the vector b,
+
+1 1 3
+-1 1| #_]2
+A= _1 O,b— 1
+0 2 -1
+
+(a) (4 points) Find the projection of b onto the column space of A.
+(b) (1 points) Split b into p + e, with p in the column space and e orthogonal to that space.
+(¢) (1 point) Which of the four fundamental spaces of A contains e.
+
+3. Considering the following measurements:
+
+t | -1
+
+0 1
+
+52
+
+2
+0 I I
+
+(a) (4 points) Find the best straight-line fit (Least squares) to the measurements,
+(b) (2 point) Find the projection matrix P onto the column space of matrix A:
+
+1 -1
+|t o
+A‘11
+1 2
+
+4. (6 points) Find the dimensions of the four fundamental subspaces associated with 4,
+
+depending on the parameters e and /3.
+
+2 11 2
+sl 8 6 12
+118 0
+9 5 4 8
+
+5. Find an orthonormal basis for the subspace spanned by the vectors: a,, a, and az (4 points).
+
+Then express A = [ay, a,, a;] in the form of QR (2 points).
+
+—2] 4 1
+a1=[1 ,a2=[1],a3=[—-2].
+2 -1 2
+
+6. (4 points) Prove that the matrix AT(n X m) has the same nullspace as AAT
+
+7. (4 points) Prove that if the matrix A(n X n) is symmetric the dot product of the vectors x €
+R™ and Ay is the same as the vectors Ax and y € R"

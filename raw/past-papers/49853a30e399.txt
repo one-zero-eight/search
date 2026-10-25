@@ -1,0 +1,179 @@
+The second grading assignment (oral poll) on Mathematical Analysis
+(Innopolis University, Fall semester 2023, BS-I)
+
+Description
+Overall cost of the assignment is 15 points. This assignment is designed to evaluate how do we understand
+each other during study weeks 5-6 of
+• real sequences, their convergence and limits,
+• limits of real functions at real and infinite points, and
+• basic theorems about sequence’ and function’ convergence,
+and how we are ready to continue our studies of the continuity of functions.
+The Assignments consist of the following.
+1. Build a table of size 9x2 where for each of 9 exercises from the list below and indicate in the table
+your belief
+a. whether you don’t understand the exercise’ task/question (by putting 0),
+b. or understand the task/question but not sure how to solve/answer it (by putting 1),
+c. or you believe that you understand and can solve/answer the task/question (by putting 2).
+2. Provide solutions for 2 (not more than 2!) exercises (preferably from different sub-topics) that you
+think that you understand and can solve as a proof/evidence/justification for your belief (in the filledin table).
+
+Submission and grading rules
+Please write your table and solutions on a paper in readable way, make photos/scan, and upload as a
+single pdf-document to Moodle by the midnight from Sunday October 15 to Monday October 16,
+2023. File-name convention: submitted file should be named by student first name and surname (for
+example NikolayShilov.pdf).
+The main grading criterions
+•
+•
+•
+•
+•
+•
+
+human readable but concise written solutions (and its pdf-version)
+well-structuredness of the written solutions (up to 3 points for each solution)
+instructor may ask about oral presentation of any of 2 tasks that student believes knowing how to
+solve (according to student’s table to validate the table and student’s self-assessment)
+correct and complete oral presentation (up to 4 points for each correct solution)
+table itself costs 1 point while originality of presented solutions may be awarded too by 1 point
+non-crucial computational errors will be treated as tiny mistake (at most 1 point deduction for overall)
+
+Timeline and late submission policy
+•
+•
+•
+•
+•
+
+Publication of the Assignment document: Saturday October 7, 2023.
+Consultation on the technical issues related to the assignment: Saturday October 14, 2023 (time and
+venue to be decide).
+Due time for uploading of papers: the midnight from Sunday October 15 to Monday October 16, 2023.
+Individual oral polls for all students: Saturday October 21 and 28, 2023, from 9:00 to 17:00; procedure
+how to reserve a time slot will be announce by Saturday October 14, 2023.
+Students who will not upload (without a legal excuse) their papers by the due date may do it till Sanday
+October 22, 2023, and then have oral by Saturday October 29, but with 30% deduction from the grade
+for this assignment.
+
+Exercises: Questions & tasks
+In the following tasks and exercises natural number 𝑀 stays for a parameter which value is 𝑑𝑎𝑦 +
+𝑚𝑜𝑛𝑡ℎ where 𝑑𝑎𝑦 and 𝑚𝑜𝑛𝑡ℎ are the day and month of your personal birthdate. (For example, 𝑀 = 28
+if the day and the month are April 24.)
+1. Write your own opinion why you as a student of IT-University should/shouldn’t learn/study the
+second order theory of real numbers? What do you think about a need of theory of limits in IT,
+Software Engineering, Computer Science, Robotics, and/or Data Science? – Proof a need by
+example(s) but refute a need with a comprehensive proof.
+2. Does (2 +
+3.
+4.
+
+(−1)𝑛 𝑀
+
+)
+
+has a limit? Prove your answer using the definition of the sequence’ limit.
+
+√𝑛+1 𝑛∈𝑵
+𝑀
+Does (𝑛 − 𝑛+1)
+has a real limit? Prove your answer using Cauchy’ test.
+𝑛∈𝑵
+𝑎 +𝑎
+Let 𝑎0 = 1, 𝑎1 = 𝑀 and 𝑎𝑛+2 = 𝑛 2 𝑛+1 for all natural 𝑛. Is this sequence monotone, antimonotone,
+
+converging? Prove your answer using any theory covered in the lectures.
+5. An open set of reals is any set that contains a neighborhood of each of its points. A closed set is the
+set-theoretic complement in 𝑹 of an open set. Draw (sketch) on the real axis the following sets (a)
+a. |𝑥 + 2| < 𝑀
+b. |2𝑥 − 𝑀| ≥ 3
+c. 1 ≤ |𝑥 − 𝑀| < 𝑀.
+Which of them are open, close, or are neither open nor closed. Prove your answer.
+6. Indicate which of the following sequences does converge and what is the limit in this case? Prove
+your answer for any two of these sequences using any theory covered in the lectures.
+1
+
+𝑛
+
+a. ((1 + 𝑀𝑛) )
+b.
+
+𝑛∈𝑁,𝑛>0
+1 𝑀𝑛
+((1 + 𝑛) )
+𝑛∈𝑁,𝑛>0
+1 𝑀𝑛
+
+c. ((1 + 𝑛2 )
+
+)
+
+𝑛∈𝑁,𝑛>0
+2
+
+d.
+
+1 𝑛
+((1 + 𝑀𝑛) )
+𝑛∈𝑁,𝑛>0
+
+7. Examine and indicate whether the following functions have limits at points {0, −1, 𝑀, −∞}, prove
+(using definition of the limit) your findings for one of the following 3 items.
+a. 𝜆𝑥 ∈ 𝑹. 𝑀𝑥 and 𝜆𝑥 ∈ 𝑹. 𝑥 𝑀
+b. 𝜆𝑥 ∈ 𝑹. √𝑀𝑥 and 𝜆𝑥 ∈ 𝑹. (1⁄𝑀𝑥 )
+c. 𝜆𝑥 ∈ 𝑹. sin(𝑀𝑥) and 𝜆𝑥 ∈ 𝑹. cos(𝑥⁄𝑀)
+8. Indicate which of the following limits does exist and what is the limit in this case? Prove your answer
+for any two of these limits using any theory covered in the lectures.
+a.
+b.
+c.
+d.
+
+lim
+
+𝑥 2 −(1+√𝑀)𝑥+√𝑀
+
+𝑥→𝑀
+
+lim
+
+𝑥 2 −𝑀
+𝑥 2 −(1+√𝑀)𝑥+√𝑀
+
+𝑥 2 −𝑀
+𝑥 2 −3𝑥+2
+lim
+𝑥→+∞ 𝑀𝑥 2 −1
+2
+lim (1 − 𝑀𝑥) ⁄𝑥
+𝑥→0
+
+𝑥→√𝑀
+
+9. Indicate which of the following limits does exist and what is the limit in this case? Prove your answer
+for any two of these limits using any theory covered in the lectures.
+a.
+b.
+c.
+
+sin(𝑀𝑥)
+𝑥
+𝑥→+∞
+𝑥2
+lim
+𝑥→0 tan(𝑀𝑥)
+1−(cos(𝑀𝑥))2
+lim
+𝑥2
+𝑥→0
+
+lim
+
+d.
+
+sin 𝑥−sin 𝑀
+𝑥−𝑀
+𝑥→𝑀
+
+lim
+
+

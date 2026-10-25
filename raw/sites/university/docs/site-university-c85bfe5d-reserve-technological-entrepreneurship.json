@@ -1,0 +1,16 @@
+{
+ "title": "Вступительное испытание по программе магистратуры \"Технологическое предпринимательство\" 16.08.2024-17.08.2024",
+ "url": "https://innopolis.university/upload/iblock/de8/mvfbd7m63pj67nfx9g4v23xoap08h03z/reserve_technological_entrepreneurship.pdf",
+ "sha256": "ea5db919873199f6882d14e8592497a8cde0f10d686adabd5f626e5f1bf8741e",
+ "method": "text layer (pdfplumber)",
+ "chars": 1137,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-25T00:02:21+00:00",
+ "remote": {
+  "etag": "\"66c4445d-ad13\"",
+  "modified": "Tue, 20 Aug 2024 07:23:09 GMT",
+  "size": "44307"
+ }
+}

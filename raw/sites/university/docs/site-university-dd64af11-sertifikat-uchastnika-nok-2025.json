@@ -1,0 +1,16 @@
+{
+ "title": "Сертификат участника НОК 2025",
+ "url": "https://innopolis.university/upload/iblock/769/lwccuho5chovibzn63g0yjzp11x7de9h/%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82_%D1%83%D1%87%D0%B0%D1%81%D1%82%D0%BD%D0%B8%D0%BA%D0%B0_%D0%9D%D0%9E%D0%9A_2025.pdf",
+ "sha256": "e6fd61aa4fc9fdce0fad0144d37cd27b9f59ab212d0218d9caa8fc12e9645414",
+ "method": "text layer (pdfplumber)",
+ "chars": 502,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:59:41+00:00",
+ "remote": {
+  "etag": "\"69304444-8b33b\"",
+  "modified": "Wed, 03 Dec 2025 14:08:04 GMT",
+  "size": "570171"
+ }
+}

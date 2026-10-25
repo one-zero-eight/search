@@ -1,0 +1,108 @@
+AGLA 1. 2022. MIDTERM. I VARIANT
+
+Full name:
+Task: 1 2 3 4 5
+Score:
+
+Group:
+Extra
+
+Total
+of 30 pts.
+
+extra
+
+1. (6 points) Find the equation of a plane which is perpendicular to the plane
+= y−3
+= z+1
+.
+x + 4y − 3z + 7 = 0 and crosses the straight line x−2
+5
+1
+2
+2. (6 points) There are three points A(4i + j + 2k), B(2i), C(−2i + 3j − 5k)). Find
+the equation of the triangle’s altitude passing through the point B.
+3. (6 points) Solve the system
+(a) Aw = b,
+ 
+
+
+ 
+x
+1 −3 1
+4
+where w = y  A = −1 2 −5, b = 3 .
+z
+5 −13 13
+8
+(b) Find rank of the matrix A.
+(c) Explain relative positions of the planes that correspond to equations.
+4. (6 points) In the triangle ABC points K, L, M are placed on the sides AB,
+BC and AC respectively such that AK : KB = 2 : 1, BL : LC = 4 : 1,
+−→ −→
+CM : M A = 3 : 1. Find the transition matrix from the basis AC, AB to
+−−→ −−→
+the basis M L, KL. Express new basis vectors in terms of the old ones using
+matrix-vector notation.
+5. (6 points) The coordinates of the vertices of a tetrahedron are given: A(3, 2, 1),
+B(1, 4, −2), C(3, 7, 6), D(5, 8, 4). Find the coordinates of the intersection of
+the altitude dropped down from the vertex B to the plane ACD and its length.
+The answer may contain roots.
+6. (Extra, 5 points) Draw figure that represents the set of points of the plane
+(x, y) which satisfies the inequality x3 + xy 2 ≥ x.
+
+AGLA 2022. MIDTERM. II VARIANT
+Full name:
+Task: 1 2 3 4 5
+Score:
+
+Group:
+Extra
+
+Total
+of 30 pts.
+
+extra
+
+1. (6 points) Find the equation of a plane which is perpendicular to the plane x
+= y−9
+= z−5
++ 5y - 3z + 12 = 0 and crosses the straight line x−4
+6
+1
+3
+2. (6 points) There are three points A(2i + 4j + 2k), B(3i), C(−2i + j − 5k)). Find
+the equation of the triangle altitude passing through the point B.
+3. (6 points) Solve the system
+(a) Aw = b,
+ 
+
+
+ 
+x
+1
+2 1
+1
+where w = y , A = −2 −3 1, b= 1.
+z
+9 15 0
+0
+(b) Find rank of the matrix A.
+(c) Explain relative positions of the planes that correspond to equations.
+4. (6 points) In the triangle ABC points K, L, M are placed on the sides AB,
+BC and AC respectively such that AK : KB = 4 : 1, BL : LC = 3 : 2,
+−→ −→
+CM : M A = 1 : 3. Find the transition matrix from the basis CA, AB to
+−−→ −−→
+the basis LK, M L. Express new basis vectors in terms of the old ones using
+matrix-vector notation.
+5. (6 points) The coordinates of the vertices of a tetrahedron are given: A(3, 2, 1),
+B(1, 4, −2), C(3, 7, 6), D(5, 8, 4). Find the coordinates of the intersection of
+the altitude dropped down from the vertex C to the plane ABD and its length.
+The answer may contain roots.
+6. (Extra, 5 points) Draw figure that represents the set of points of the plane
+(x, y) which satisfies the inequality y 3 + yx2 ≥ y.
+
+Page 2
+
+

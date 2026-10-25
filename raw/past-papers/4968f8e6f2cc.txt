@@ -1,0 +1,199 @@
+Surname:
+-_
+
+(s}
+
+Lis Mathematical Analysis 11 Eroup:
+
+INNIO
+i versi Midterm
+
+[U]
+
+2
+
+e-mail:
+
+Date: Friday, March 17t 2023
+
+o The first test lasts 1,5 hours (90 minutes).
+
+o Any cheating, any attempt to cheat, assisting others to cheat, or participat-
+ing therein will result in the cancellation of the test.
+
+o The use of any smart devices (¢.g. mobile phones, tablets, laptops, smart
+watches and etc.) is strictly prohibited and will be considered as an attempt
+
+to cheat.
+
+¢ No cheat sheets, calculators nor books are allowed.
+
+& Model #1
+
+1. (5 pts) Compute the Fourier series of the function f(t) = 72 — 2 on the interval I — (=m,m).
+
+e (1pt) correct ag coefficient
+
+e (1pt) correct a, coefficients
+
+e (1pt) correct b, coefficients
+
+o (2pt) correct Series in terms of n
+Surname:
+
+% Mathematical Analysis 1 8™
+ltq Midterm
+
+e-mail:
+
+Date: Friday, March 17t*, 2023
+Model #1
+
+2. (5 pts) Find the critical points of the function f(z,y) = z* + y* — 4zy + 1 and classify them as
+local minima, local maxima, and/or saddle points.
+o (1pt) correct partial derivative computation
+® (1pt) correct number critical points
+® (3pt) correct classification
+Surname:
+
+invopolis Mathematical Analysis I &™UP*
+tENNerSAtq Midterm
+
+e-mail:
+
+Date: Friday, March 17¢*, 2023
+Model #1
+3. (5 pts) Compute the linear model that best fits the data
+
+|1 3 5 7 10 12 13 16 18 20
+vy|4d 5 6 5 8 7 6 9 12 11
+
+o (1pt) correct algebraic formulation
+¢ (2pt) correct slope
+o (2pt) correct intercept
+Surname:
+
+) ; ; group:
+INND olis Mathematical Analysis IT
+@Naversd:q Midterm '
+e-mail:
+Date: Friday, March 17", 2023
+Model #1
+
+4. (5 pts) Compute the Taylor series expansion of second degree of the function f(z,y) = € In(1+y)
+at the origin.
+e (1pt) correct derivative computations
+e (2pt) correct linear term
+e (2pt) correct quadratic term
+Surname:
+
+lN\lDPDLls Mathematical Analysis II group:
+UNNEI’SIEL‘ Midterm .
+. e-mail:
+Date: Friday, March 17", 2023
+Model #1
+
+5. (5 pts) Minimize the function f(z,y,2) = 22+ + 22 subject to 2> +y? =land x+y+2z = 1.
+e (1pt) correct problem formulation
+e (2pt) correct candidate point(s)
+
+e (2pt) correct minimum value(s)
+Surname:
+
+|mo£'ell\;}§rs¢q Mathematical Analysis 11 8°UP!
+
+Midterm .
+e-mail:
+
+Date: Friday, March 17t*, 2023
+
+® The first test lasts 1,5 hours (90 minutes).
+
+® Any cheating, any attempt to cheat, assisting others to cheat, or participat-
+ing therein will result in the cancellation of the test.
+
+e Usage of any smart devices (e.g. mobile phones, tablets, laptops, smart
+
+watches and etc.) is strictly prohibited and will be considered as an attempt
+to cheat.
+
+o No cheat sheets, calculators nor books are allowed.
+
+Model #2
+
+4 . '
+1. (5 pts) Compute the Fourier series of the function f(t) = mt(:&w—t) on the interval I = [0, 2)
+
+e (1pt) ag coefficient
+
+e (1pt) a, coefficients
+
+o (1pt) b, coefficients
+
+o (2pt) Series in terms of n
+Surname:
+
+! " . group:
+INNIO olis Mathematical Analysis 1T
+L?vaersttq Midterm
+
+e-mail:
+
+Date: Friday, March 17t%, 2023
+Model #2
+
+2. (5 pts) Find the critical points of the function f(z,y) = 23y — 323 + 8y and classify them as
+local minima, local maxima, and/or saddle points.
+¢ (1pt) correct partial derivative computation
+e (1pt) correct number critical points
+e (3pt) correct classification
+Surname:
+
+group:
+
+mjslo olis Mathematical Analysis II
+NNV Ersity Midterm
+
+e-mail:
+
+Date: Friday, March 17t*, 2023
+Model #2
+
+3. (5 pts) Compute the linear model that best fits the data
+
+z|5 10 15 20 25 30 35 40 45 50
+y |16 25 32 33 38 36 39 40 42 42
+
+e (1pt) correct algebraic formulation
+e (2pt) correct slope
+® (2pt) correct intercept
+Surname:
+
+II\NDPDLES Mathematical Analysis I 5"°UP*
+SR Midterm
+
+e-mail:
+
+Date: Friday, March 17", 2023
+Model #2
+
+4. (5 pts) Compute the Taylor series expansion of second degree of the function f(z,y) = € sin(y)
+at the point (1,7/2).
+o (1pt) correct derivative computations
+o (2pt) correct linear term
+e (2pt) correct quadratic term
+Surname:
+
+group:
+
+INNOPO Lis Mathematical Analysis IT
+university Midterm -
+
+Date: Friday, March 17, 2023
+Model #2
+
+5. (5 pts) Minimize the function f(z,y,z,w) = 22+ % + 22 + w? subject to z+y +2z+w = 10 and
+g—~y+2+3w==6.
+e (1pt) correct problem formulation
+e (2pt) correct candidate point(s)
+-e (2pt) correct minimum value(s)

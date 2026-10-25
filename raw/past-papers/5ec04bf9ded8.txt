@@ -1,0 +1,869 @@
+22.01.2024, 14:29
+
+Midterm: Attempt review
+
+Started on Tuesday, 14 March 2023, 10:03 AM
+State Finished
+Completed on
+
+Tuesday, 14 March 2023, 11:12 AM
+
+Time taken 1 hour 8 mins
+Marks
+
+28.83/39.00
+
+Grade 36.97 out of 50.00 (73.93%)
+Question 1
+Correct
+Mark 2.00 out of 2.00
+
+Does this code have an error?
+
+a. Yes
+b. NO
+
+The correct answer is:
+Yes
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=158414&cmid=91816
+
+1/25
+
+22.01.2024, 14:29
+
+Midterm: Attempt review
+
+Question 2
+Partially correct
+Mark 0.50 out of 1.00
+
+Which of the following statements are correct regarding upcasting and downcasting in C++?
+a. Upcasting and downcasting are only possible when the base class and derived class are in the
+
+
+
+same inheritance hierarchy.
+b. Downcasting is the process of converting a base class object to a derived class object
+c.
+
+Upcasting is the process of converting a derived class object to a base class object.
+
+d. Upcasting and downcasting can cause runtime errors if the objects being casted are not of the
+correct type.
+
+
+
+The correct answers are:
+Upcasting is the process of converting a derived class object to a base class object.,
+Downcasting is the process of converting a base class object to a derived class object,
+Upcasting and downcasting can cause runtime errors if the objects being casted are not of the correct type.,
+Upcasting and downcasting are only possible when the base class and derived class are in the same
+inheritance hierarchy.
+
+Question 3
+Correct
+Mark 1.00 out of 1.00
+
+The value of a string variable can be surrounded by single quotes in C++.
+a. False
+b. True
+
+The correct answer is:
+False
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=158414&cmid=91816
+
+2/25
+
+22.01.2024, 14:29
+
+Midterm: Attempt review
+
+Question 4
+Correct
+Mark 2.00 out of 2.00
+
+What is the output of this program?
+
+a. 10,20,30,40,50,
+b. Error will occur
+
+
+
+c. 5,10,20,30,40,50,
+d. 10,20,30,30,30,
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=158414&cmid=91816
+
+3/25
+
+22.01.2024, 14:29
+
+Midterm: Attempt review
+
+The correct answer is:
+10,20,30,40,50,
+
+Question 5
+Complete
+Not graded
+
+Which of the following is correct regarding Inheritance
+a. The order of the base classes listed in the derived class declaration can affect the behavior of the
+derived class.
+b. In C++, a derived class can call the constructors of multiple base classes in the derived class
+constructor initialization list.
+c. Multiple inheritance can be used to implement interfaces in C++
+d. In multiple inheritance, a derived class can inherit the implementation of the same method from
+multiple base classes.
+
+The correct answers are:
+
+Multiple inheritance can be used to implement interfaces in C++,
+In C++, a derived class can call the constructors of multiple base classes in the derived class constructor
+initialization list.,
+The order of the base classes listed in the derived class declaration can affect the behavior of the derived
+class.,
+In multiple inheritance, a derived class can inherit the implementation of the same method from multiple base
+classes.
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=158414&cmid=91816
+
+4/25
+
+22.01.2024, 14:29
+
+Midterm: Attempt review
+
+Question 6
+Complete
+Not graded
+
+Which of the following classes show polymorphism
+
+a. class topper
+b. class average
+c. class failed
+d. class Student
+
+The correct answers are:
+class Student,
+class average,
+class topper
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=158414&cmid=91816
+
+5/25
+
+22.01.2024, 14:29
+
+Midterm: Attempt review
+
+Question 7
+Complete
+Not graded
+
+Which among the following best defines abstraction?
+a.
+
+Hiding the implementation
+
+b.
+
+Showing the important data
+
+c. Hiding the implementation and showing only the features
+d. Hiding the important data
+
+The correct answer is:
+Hiding the implementation and showing only the features
+
+Question 8
+Correct
+Mark 1.00 out of 1.00
+
+What is the purpose of virtual inheritance
+a. To ensure that only one copy of a base class's member variables are inherited by grandchild
+derived classes
+
+
+
+b. To allow a derived class to inherit from multiple base classes
+
+c. To provide a mechanism for creating abstract classes
+d. To allow a derived class to override virtual functions in its base class
+
+The correct answer is:
+To ensure that only one copy of a base class's member variables are inherited by grandchild derived classes
+
+Question 9
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following is correct an example of a pure virtual function?
+a. virtual void display() = 0;
+b. virtual void display() {}
+
+The correct answer is:
+virtual void display() = 0;
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=158414&cmid=91816
+
+
+
+6/25
+
+22.01.2024, 14:29
+
+Midterm: Attempt review
+
+Question 10
+Complete
+Not graded
+
+What is the output of the following question?
+
+a. Its base class Its derived class
+b. Its base classIts derived class
+c. Its derived classIts base class
+
+The correct answer is:
+Its base classIts derived class
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=158414&cmid=91816
+
+7/25
+
+22.01.2024, 14:29
+
+Midterm: Attempt review
+
+Question 11
+Correct
+Mark 1.00 out of 1.00
+
+Which of the following is a valid pointer to a pointer to a pointer to int declaration?
+a. int ***ptr1;
+b. int ****ptr4;
+c. int pt2**;
+d.
+
+ptr***=ptr5;
+
+e. **ptr=ptr3;
+
+The correct answer is:
+int ***ptr1;
+
+Question 12
+Correct
+Mark 1.00 out of 1.00
+
+Abstraction principle tell us to
+a.
+
+Use abstraction whenever possible to avoid duplication
+
+b. Use abstraction whenever possible to achieve OOP
+c. Use abstraction to avoid longer codes
+d. Use abstraction at its minimum
+
+The correct answer is:
+Use abstraction whenever possible to avoid duplication
+
+Question 13
+Correct
+Mark 1.00 out of 1.00
+
+which of the following are true in C++
+a. Always use references instead of pointers
+b. A namespace is the same as a class with static members
+
+c. Function overloading means having multiple functions with the same name but with different parameters
+
+
+The correct answer is:
+Function overloading means having multiple functions with the same name but with different parameters
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=158414&cmid=91816
+
+8/25
+
+22.01.2024, 14:29
+
+Midterm: Attempt review
+
+Question 14
+Correct
+Mark 2.00 out of 2.00
+
+Based on the requirement below, which of the diagram is correct ?
+One use case could be "Withdraw Cash", which allows a customer to withdraw cash from their account.
+Another use case could be "Authenticate User", which verifies the identity of the customer before allowing
+them to withdraw cash. For a user to withdraw cash, they should be Authenticated
+
+a. Diagram 1
+b. Diagram 3
+c. Diagram 2
+d. Diagram 4
+
+The correct answer is:
+Diagram 3
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=158414&cmid=91816
+
+9/25
+
+22.01.2024, 14:29
+
+Midterm: Attempt review
+
+Question 15
+Complete
+Not graded
+
+Select the correct statement about Template:
+a. Templates are evaluated at runtime
+b. Templates allow to optimize the code by reducing the amount of generated code
+c. Templates make code more understandable
+d. Templates allow to avoid code duplication
+
+The correct answers are:
+Templates allow to avoid code duplication,
+Templates allow to optimize the code by reducing the amount of generated code
+
+Question 16
+Complete
+Not graded
+
+Which option correctly matches the access modifier with the corresponding access level?
+protected
+
+Class, Package and Subclass
+
+no modifier
+
+Class, Package, Subclass and Other classes
+
+public
+
+Class, Package and Subclass
+
+private
+
+Class and Package
+
+– Class
+– Class and Package
+– Class, Package and Subclass
+– Class, Package, Subclass and Other classes
+
+The correct answer is:
+protected → Class, Package and Subclass,
+no modifier → Class and Package,
+public → Class, Package, Subclass and Other classes,
+private → Class
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=158414&cmid=91816
+
+10/25
+
+22.01.2024, 14:29
+
+Midterm: Attempt review
+
+Question 17
+Partially correct
+Mark 1.33 out of 2.00
+
+We have below code, what is the output of each of the following:
+
+cout << "x= " << x << endl;
+
+Error will occur
+
+
+
+cout << "q " << *q << endl;
+
+The memory address of x
+
+
+
+cout << "q " << *(&q ) << endl;
+
+The memory address of p
+
+
+
+– The memory address of x
+– The memory address of p
+– some random double value
+
+The correct answer is:
+cout << "x= " << x << endl; → some random double value,
+cout << "q " << *q << endl; → The memory address of x,
+cout << "q " << *(&q ) << endl; → The memory address of p
+
+Question 18
+Complete
+Not graded
+
+Why are headers used for?
+a. Reusing code
+b. Ease maintenance of code
+c. Separating function declaration from function implementation
+d. Optimizing the compilation process
+
+The correct answers are:
+Separating function declaration from function implementation,
+Ease maintenance of code,
+Reusing code
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=158414&cmid=91816
+
+
+
+11/25
+
+22.01.2024, 14:29
+
+Midterm: Attempt review
+
+Question 19
+Correct
+Mark 2.00 out of 2.00
+
+What is the output of this program?
+
+a. 10
+b. 5
+c. Compile-time error
+d. Random value
+
+The correct answer is:
+Compile-time error
+
+Question 20
+Correct
+Mark 1.00 out of 1.00
+
+In which of the following cases should template specialization be avoided in C++?
+a. When the implementation of a template is simple and does not need any customization
+b.
+
+When a template implementation can handle all types efficiently
+
+c. When the template implementation can be modified to handle specific cases efficiently
+
+The correct answer is:
+When a template implementation can handle all types efficiently
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=158414&cmid=91816
+
+12/25
+
+22.01.2024, 14:29
+
+Midterm: Attempt review
+
+Question 21
+Correct
+Mark 2.00 out of 2.00
+
+if we have the following requirement, which diagram will better represent it?
+Library that contains multiple Books. The Library class owns the Books, but the Books can exist independently of
+the Library.
+
+a. Diagram 1
+b. Diagram 2
+c. Diagram 3
+d. Diagram 4
+
+The correct answer is:
+Diagram 1
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=158414&cmid=91816
+
+13/25
+
+22.01.2024, 14:29
+
+Midterm: Attempt review
+
+Question 22
+Correct
+Mark 2.00 out of 2.00
+
+Based on the following requirement, what will be the correct UML class diagram that can represent it
+Requirement: A computer has a screen, and the screen cannot exist without the computer.
+
+a. Diagram 4
+b. Diagram 1
+c. Diagram 3
+d. Diagram 2
+
+The correct answer is:
+Diagram 3
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=158414&cmid=91816
+
+14/25
+
+22.01.2024, 14:29
+
+Midterm: Attempt review
+
+Question 23
+Complete
+Not graded
+
+Based on the Following requirements, what will be written on the arrow, that best describe the requirement?
+consider an online shopping system. One use case could be "Place Order", which allows a customer to place
+an order for items. Another use case could be "Apply Discount Code", which allows a customer to enter a
+discount code to receive a discount on their order. Assume a user places an order.
+
+a. Needs
+b. Extends
+c. Using
+d. Generalization
+e. Includes
+
+The correct answer is:
+Extends
+
+Question 24
+Incorrect
+Mark 0.00 out of 1.00
+
+Abstraction can apply to ____________
+a. Only control
+b. Control and data
+c.
+
+Only data
+
+d. functions 
+
+The correct answer is:
+Control and data
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=158414&cmid=91816
+
+15/25
+
+22.01.2024, 14:29
+
+Midterm: Attempt review
+
+Question 25
+Incorrect
+Mark 0.00 out of 1.00
+
+What is the main reason to use namespaces?
+a. to prevent name collisions
+b. to collect all code in one place
+c. to avoid exceptions 
+d. to save more memory
+
+The correct answer is:
+to prevent name collisions
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=158414&cmid=91816
+
+16/25
+
+22.01.2024, 14:29
+
+Midterm: Attempt review
+
+Question 26
+Incorrect
+Mark 0.00 out of 2.00
+
+What is the output of the following question
+
+a. Parent Function 1
+Parent Function 2
+
+b. Child Function 1
+Child Function 2
+
+c. Child Function 1
+Parent Function 2
+
+d. Parent Function 1
+Child Function 2
+
+e. Error will occur 
+
+The correct answer is: Child Function 1
+Parent Function 2
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=158414&cmid=91816
+
+17/25
+
+22.01.2024, 14:29
+
+Midterm: Attempt review
+
+Question 27
+Correct
+Mark 2.00 out of 2.00
+
+Take a look of the following code and answer following questions:
+
+Calling Car() will set m_year = 0 and m_make = ""
+
+False
+
+
+
+The class can have more than one constructor because they have different signatures
+
+True
+
+
+
+Car(int year, string make) is default constructor of the class
+
+False
+
+
+
+true / false
+
+The correct answer is:
+Calling Car() will set m_year = 0 and m_make = "" → False,
+The class can have more than one constructor because they have different signatures → True,
+Car(int year, string make) is default constructor of the class → False
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=158414&cmid=91816
+
+18/25
+
+22.01.2024, 14:29
+
+Midterm: Attempt review
+
+Question 28
+Correct
+Mark 2.00 out of 2.00
+
+What does this Function do?
+
+a. Finds the largest common divisor of two numbers n and i
+b. Calculates the factorial of a given number n
+c. Calculates the nth Fibonacci number
+d. Determines whether a number n is prime or not
+
+The correct answer is:
+Determines whether a number n is prime or not
+
+Question 29
+Correct
+Mark 1.00 out of 1.00
+
+What is the difference between pointers and references?
+a. reference stores an address to the value and pointer is just another name of variable. Both can be
+used as parameters to a function
+b. reference stores an address to the value and pointer is just another name of variable. Both can not be
+used as parameters to a function
+c. pointer stores an address to the value and reference is just another name of variable. Both can be 
+used as parameters to a function
+d. pointer stores an address to the value and reference is just another name of variable. Both can not be
+used as parameters to a function
+
+The correct answer is:
+pointer stores an address to the value and reference is just another name of variable. Both can be used as
+parameters to a function
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=158414&cmid=91816
+
+19/25
+
+22.01.2024, 14:29
+
+Midterm: Attempt review
+
+Question 30
+Incorrect
+Mark 0.00 out of 2.00
+
+What is the output of the following program , assume that all the necessary libraries and namespaces were
+included in the code
+
+a. 45
+b. 25
+c. 55
+d. 0.0 
+e. Error will occur
+
+The correct answer is:
+55
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=158414&cmid=91816
+
+20/25
+
+22.01.2024, 14:29
+
+Midterm: Attempt review
+
+Question 31
+Complete
+Not graded
+
+Which of the following statements is true regarding template specialization in C++
+a. Template specialization is used to define a different implementation of a template for a specific data
+type.
+b. Template specialization is used to restrict the types that can be used with a template.
+c. Template specialization is a technique where the same implementation of a template is used for all
+data types.
+
+The correct answers are:
+Template specialization is used to define a different implementation of a template for a specific data type.,
+Template specialization is used to restrict the types that can be used with a template.
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=158414&cmid=91816
+
+21/25
+
+22.01.2024, 14:29
+
+Midterm: Attempt review
+
+Question 32
+Correct
+Mark 2.00 out of 2.00
+
+What is the output of the following code?
+
+a. It's education system
+b. It's school education systemIt's education system
+c. It's education systemIt's school education system
+d. It's school education system
+
+The correct answer is:
+It's school education system
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=158414&cmid=91816
+
+22/25
+
+22.01.2024, 14:29
+
+Midterm: Attempt review
+
+Question 33
+Incorrect
+Mark 0.00 out of 2.00
+
+What is the output of this program?
+
+a.
+
+Aticleworld
+
+b. Random value 
+c. A
+d. Runtime error
+
+The correct answer is:
+A
+
+
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=158414&cmid=91816
+
+23/25
+
+22.01.2024, 14:29
+
+Midterm: Attempt review
+
+Question 34
+Incorrect
+Mark 0.00 out of 1.00
+
+The program below contain an error, how can you fix this program?
+
+a.
+
+b.
+
+c.
+
+void printSum(int a, int b){...}
+
+printSum(*a, *b);
+
+
+
+
+
+void printSum(int &a, int &b){...}
+
+d. printSum(&a, &b);
+
+The correct answer is:
+printSum(&a, &b);
+
+Question 35
+Correct
+Mark 1.00 out of 1.00
+
+The correct statement for a function that takes pointer to a float, a pointer to a pointer to a char and returns a
+pointer to a pointer to an integer is:
+a. int *fun(float*, char*)
+b. int ***fun(*float, **char)
+c. int **fun(float**, char**)
+d. int **fun(float*, char**)
+
+The correct answer is:
+int **fun(float*, char**)
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=158414&cmid=91816
+
+
+
+24/25
+
+

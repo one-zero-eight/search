@@ -1,0 +1,264 @@
+[2020] Physics I. Mechanics
+
+Quiz 1 - Kinematics
+Problem 1 (25 pts) – Velocity and Acceleration
+Plot the velocity of the object whose acceleration is shown in Fig. 1, left.
+Problem 2 (25 pts) – Velocities
+A drop of rain falls at an angle of 30º to the vertical axis when the wind speed is u1 = 10 m/s.
+The Innopolis wind intensifies. What is the wind speed u2 if the drop falls at an angle of 60º?
+
+v (m/s)
+
+2 4
+
+6
+
+9 t (s)
+
+a (m/s2)
+5
+o
+
+vy 30 v1
+2 4
+
+9
+
+6
+
+o
+
+vy 60
+
+v2
+
+t (s)
+
+-5
+
+u1
+
+u2
+
+Figure 1: Diagrams for Problem 1 (left) and Problem 2 (right)
+Problem 3 (25 points) – Shooting Ships
+Two ships are moving parallel to each other in the opposite directions with speeds v1 and v2,
+respectively (Figure 2, left). The first ship shoots at the second. Find the aiming angle 
+required to hit the target if the shot is made when the distance between the ships is the
+shortest (shown in the figure). Assume the speed of the projectile v0 is constant.
+Hint: you do not need to calculate distances but only need to consider relative motion of one
+ship with respect to the other.
+Problem 4 (25 pts) – Projectile
+A rock thrown at an angle α = 30º to the horizon has the same height at time instants t1 = 3 s
+and t2 = 5 s after the throw (Fig. 2, right). Find the initial rock speed v0.
+
+v2
+
+v1
+
+shot
+
+y
+
+=?
+
+vy
+
+0
+
+v0
+
+vx
+
+t1
+
+t2
+
+Figure 2: Diagrams for Problem 3 (left) and Problem 4 (right)
+
+x
+
+[2020] Physics I. Mechanics
+
+Quiz 1 - Kinematics
+Problem 1 (25 pts) – Velocity and Acceleration
+Plot the velocity of the object whose acceleration is shown in Fig. 1.
+Problem 2 (25 pts) – Velocities
+A cart is propelled over an xy plane with acceleration components ax = – 4 m/s2 and ay = 2
+m/s2. Its initial velocity has components v0x = 8 m/s and voy = 12 m/s. In unit-vector notation,
+what is the velocity of the cart when it reaches its greatest x coordinate?
+
+v (m/s)
+
+2.5
+5
+
+10
+
+t (s)
+
+a (m/s2)
+5
+5 10
+t (s)
+Figure 1: Diagram for Problem 1
+Problem 3 (25 points) – Ships Roundtrip
+A boat travels up and down a straight part of a river between the cities A-ville and Z-burg at a
+constant speed of vb = 10 km/h (Fig. 2, left). The distance between the cities is 42 km. What
+is the river speed vr if the boat completes the roundtrip between the cities in 10 hours?
+Problem 4 (25 pts) – Projectile
+A basketball player is performing a free throw lying down on the floor, with the ball launched
+at an angle α = 60º to the ground (Fig. 2, right). What should be the initial velocity of the
+ball v0 (assuming zero initial position) if the player wants to hit the hoop that is located 4.6 m
+away from her and 3.05 m above the ground?
+
+Z-burg
+
+vb -vb
+
+y
+
+42 km
+
+v0
+60o
+
+3.05 m
+
+A-ville
+
+0
+
+4.6 m
+vr
+Figure 2: Diagrams for Problem 3 (left) and Problem 4 (right)
+
+x
+
+[2020] Physics I. Mechanics
+
+Quiz 1 - Kinematics
+Problem 1 (25 pts) – Velocity and Acceleration
+Plot the velocity of the object whose acceleration is shown in Fig. 1.
+Problem 2 (25 pts) – Velocities
+Which velocity has the largest magnitude (speed)?
+a) 𝑣 = 1𝑖̂ − 15𝑘̂,
+
+c) 𝑣 = 8𝑗̂ + 4𝑘̂ ,
+
+b) 𝑣 = −6𝑖̂ − 7𝑗̂,
+
+d) 𝑣 = −3𝑖̂ + 9𝑗̂.
+
+v (m/s)
+
+-1
+
+2 4
+
+6
+
+8 t (s)
+
+a (m/s2)
+2
+2
+
+4
+
+6
+
+t (s)
+
+8
+
+Figure 1: Diagram for Problem 1
+Problem 3 (25 points) – Rock Drop
+A rock is dropped (from rest) from the top of a 60-m-tall building (Figure 2, left). How far
+above the ground is the rock 1.5 s before it reaches the ground?
+Problem 4 (25 pts) – Projectile
+A person throws a ball with a speed of v0 = 12 m/s at a target that is at height h = 5 m above
+the ball’s level (Fig. 2, right). You want the ball’s velocity to be horizontal (vy = 0 m/s) at
+the instant it reaches the target. At what angle θ above the ground must you throw the ball?
+
+y
+
+v
+
+v0
+
+60 m
+
+h=?
+
+q=?
+
+5m
+
+0
+
+Figure 2: Diagrams for Problem 3 (left) and Problem 4 (right)
+
+x
+
+[2020] Physics I. Mechanics
+
+Quiz 1 - Kinematics
+Problem 1 (25 pts) – Velocity and Acceleration
+Plot the velocity of the object whose acceleration is shown in Fig. 1.
+
+v (m/s)
+
+2 4
+
+6
+
+8 t (s)
+
+4 6 8
+
+t (s)
+
+a (m/s2)
+2
+1
+2
+-3
+Figure 1: Diagram for Problem 1
+Problem 2 (25 points) – Ball Drop
+A ball is tossed vertically to a height H. To what height must the ball be tossed if it is to
+spend twice as much time in the air?
+Problem 3 (25 pts) – Car Velocities
+A vehicle car moving with constant acceleration covered the distance between two points
+60 m apart in 6 s (Figure 2, left). Its speed v1 as it passed the second point was 15.0 m/s.
+What was the speed v0 at the first point?
+Problem 4 (25 pts) – Projectile
+A shot is fired with an initial speed v0 = 30 m/s from the ground at a target that is at distance
+R = 20 m, as shown in Fig. 2, right. What are the (a) least low and (b) greatest high launch
+angles that will allow the projectile to hit the target?
+
+y
+v0
+
+v1
+x
+60 m
+
+High shot
+
+v0
+
+v0
+
+Low shot
+
+low = ?
+0 high = ?
+
+R
+
+Figure 2: Diagrams for Problem 3 (left) and Problem 4 (right)
+
+x
+
+

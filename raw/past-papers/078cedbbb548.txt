@@ -1,0 +1,139 @@
+The final assignment (final overall examination) on Mathematical Analysis
+(Innopolis University, Fall semester 2023, BS-I)
+
+Assignment Description
+Overall cost of the assignment is 40 points. This assignment is designed to evaluate how do we understand
+topics of the course and each other during the Fall semester of Academic Year 2023/24. It covers the
+following topics:
+• Varieties of number systems (axiomatic and set-theoretic approaches)
+• Theory of limits and continuity
+• Differentiation, derivatives, and differential
+• Indefinite and definite (Reimann) integral
+
+Assignment Specification
+1. It comprises the Consent Question and 12 tasks (3 for each topic listed above). The question is about
+students’ consent to skip solving tasks (to get the final grade on base of 4 assignments during the
+semester) or (exclusive) to attempt tasks (claiming to include this assignment grade and all bonus
+points earned during the semester to the final grade).
+2. Student attempting the tasks must build a table of size 12x2 where for each of 12 exercises from the
+list below and indicate in the table his/her belief
+a. whether he/she doesn’t understand the task (by putting 0),
+b. or he/she understands the task but not sure how to solve the task (by putting 1),
+c. or he/she can solve the task (by putting 2).
+3. The table must be accompanied by solutions for 2 (not more than 2!) tasks (each from different topics)
+that you think that you understand and can solve as a proof/evidence/justification for your belief (in
+the filled-in table).
+
+Submission and grading rules
+Please write your table and solutions on a paper in readable way, make photos/scan, and upload as a
+single pdf-document to Moodle by the midnight from Sunday December 17 to Monday December 18,
+2023. File-name convention: submitted file should be named by student first name and surname (for
+example NikolayShilov.pdf).
+The main grading criterions
+•
+•
+•
+
+Human readable but concise well-structuredness written explained solutions of 2 tasks.
+Instructor may ask about oral presentation of any of 2 tasks that student believes knowing how to
+solve (according to student’s table to validate the table and student’s self-assessment).
+Correct and complete oral presentation, while non-crucial computational errors will be treated as tiny
+mistake (at most 1 point deduction for overall).
+
+Timeline and late submission policy
+•
+•
+•
+•
+•
+
+Publication of the Assignment document: Saturday December 9, 2023.
+Consultation on the technical issues related to the assignment: Monday December 11, 2023, from
+19:20 to 20:00 in class 108.
+Due time for uploading of papers: the midnight from Sunday December 17 to Monday December 18,
+2023.
+Individual oral polls for all students: Monday December 18 and Tuesday December 19, 2023, from
+9:00 to 17:00 in class 107.
+Schedulers for registration for oral polls will be published on Saturday December 16, 2023.
+
+Late Submission Policy
+According to the Syllabus, the Late Submission Policy is not applicable to the final examination.
+
+Consent Question
+Please read and put “YES” or “NO” respectively in each line below:
+
+#
+1
+
+2
+•
+•
+
+Statement
+Your answer
+I claim to get the final overall grade for the course on base of the 4
+assignments during the semester using the following formular
+5
+× (sum of all points for all four semester assignments)
+3
+to compute the expected overall number of points (without attempting this
+final assignment and all bonus points earned during the semester)
+I attempt tasks and claim to include this assignment grade and all bonus
+points earned during the semester to the final grade
+If your answers are 1 – YES and 2 – NO then you do not need to solve any task below but just submit
+your paper with these answers to Moodle.
+Otherwise, you should make a table and present 2 solutions as written above in the section
+Assignment Specification.
+
+Tasks
+In the following tasks and exercises natural number 𝑀 stays for a parameter which value is 𝑑𝑎𝑦 +
+𝑚𝑜𝑛𝑡ℎ where 𝑑𝑎𝑦 and 𝑚𝑜𝑛𝑡ℎ are the day and month of your personal birthdate. (For example, 𝑀 = 28
+if the day and the month are April 24.)
+Important notice: firstly, instantiate your actual value of this parameters into your task and just then
+solve this concrete instance (not a parameterized version)! For example, if a parameterized task is to
+solve linear equation 𝑀𝑥 = 100 then you need firstly instantiate actual value of 𝑀 (let it be 28 as
+above), then write the instance of the task (“Solve equation 28𝑥 = 100”), and finally – solve the
+instance.
+1. Find decimal representation for rational number 1⁄𝑀, proof correctness of this representation.
+2. Is real number 1⁄
+irrational? (Prove your answer!)
+√𝑀
+3. Prove that each complex number 𝑀𝑖 has a square root (i.e., √𝑀𝑖 does exist).
+𝑛𝑀
+
+4. Using the definition of the sequence limit, proof that lim 𝑀𝑛 = 0.
+𝑛→∞
+
+5. Using definition, study continuity (including points of discontinuities) of the function 𝜆𝑥 ∈
+𝑹. 1⁄(𝑥
+.
+− 𝑀)
+6. Find (if any) lim (𝑀𝑥 − √𝑀𝑥 2 − 𝑀) and explain geometric interpretation of your finding.
+𝑥→∞
+
+7. Find (using definition) derivative of the function 𝜆𝑥 ∈ 𝑹. (√𝑀𝑥(𝑥 + 𝑀)).
+8. Find (using any properties of the derivatives) the second derive of the function 𝜆𝑥 ∈ 𝑹. 𝑥 −𝑀 𝑒 𝑀𝑥 .
+𝑀
+9. Analyze the graph of the function 𝜆𝑥 ∈ 𝑹. ( √𝑥 − 1⁄𝑀 ) and sketch its graph on [−3, +3].
+√𝑥
+10. Does the function 𝜆𝑥 ∈ 𝑹. (√𝑀𝑥(𝑥 + 𝑀)) has any antiderivative? Find all antiderivatives for the
+function 𝜆𝑥 ∈ ]0, 𝑀[. (𝑀⁄𝑥 ) that are equal to 𝑀 at point 𝑒.
+1
+𝜋
+𝑑𝑥
+11. Evaluate the following definite integrals: (a)∫0 (√𝑀𝑥(𝑥 + 𝑀)) 𝑑𝑥; (b) ∫𝑒 (𝑥−1)(𝑥+𝑀); (c)
+1
+
+𝑑𝑥
+
+∫0 √𝑥 2 −𝑀2.
+
+0
+
+𝑀
+
+𝑑𝐼
+
+12. Let 𝐼 = 𝜆𝑥 ∈ 𝑹. ∫𝑥 𝑒 𝑡 𝑑𝑡. Find 𝑑𝑥 at point 𝑥 = 5.
+
+

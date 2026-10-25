@@ -1,0 +1,16 @@
+{
+ "title": "Read the article [NIR_2022_stiffness-analysis]",
+ "url": "https://innopolis.university/filespublic/NIR_2022_stiffness-analysis.pdf",
+ "sha256": "b4cee548cca7cfefc9bd5ede05fc5c14696e12ac7372424ee361a6c1488e8e22",
+ "method": "text layer (pdfplumber)",
+ "chars": 22021,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:45:43+00:00",
+ "remote": {
+  "etag": "\"c141a-5e724a40ab8d5\"",
+  "modified": "Fri, 26 Aug 2022 13:10:40 GMT",
+  "size": "791578"
+ }
+}

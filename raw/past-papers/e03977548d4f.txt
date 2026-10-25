@@ -1,0 +1,553 @@
+Тест начат
+
+Thursday, 2 May 2024
+
+Вопрос 1
+Верно
+Баллов: 1,00 из 1,00
+
+Complete the following statement with identification of what definition is it:
+“Every_______ property of the recursively enumerable languages is undecidable”
+
+a. nontrivial (this is the definition of Rice theorem)
+b. nontrivial (this is the definition of Halting problem)
+c. nontrivial (this is the definition of undecidable problem)
+d. syntactic (this is the definition of Rice theorem)
+
+Your answer is correct.
+Правильный ответ:
+nontrivial (this is the definition of Rice theorem)
+
+Вопрос 2
+Верно
+Баллов: 1,00 из 1,00
+
+Match NPDA with its description:
+
+Выберите...
+
+Выберите...
+
+Выберите...
+
+Выберите...
+
+Your answer is correct.
+Правильный ответ:
+
+→ L = {wwR | w ∈ {a,b}*}, where wR is the reversed string w ∧ w starts
+
+from a,
+
+→ L = {wwR | w ∈ {a,b}*} where wR is the reversed string w,
+
+→ L = {wwR | w ∈ {a,b}+} where wR is the reversed string w,
+
+→ L = {wwR | w ∈ {a,b}*}, where wR is the reversed string w ∧ w starts
+
+from a and ends with b
+
+Вопрос 3
+Верно
+Баллов: 1,00 из 1,00
+
+If L*= L , then which of the languages below could be L?
+a. L = {0, 1}*
+b. L = {w | w ∈ {0, 1}*, |w|≥ 1}
+c. L = {0, 1, 00, 11, 000, 111, 0000, 1111 ...}
+d. L = {w | w ∈ {0,1}* |w|= 2}
+
+e. L = {w | w ∈ {0,1}*, |w|= 5}
+
+Your answer is correct.
+Правильный ответ:
+L = {0, 1}*
+
+Вопрос 4
+Верно
+Баллов: 1,00 из 1,00
+
+What is the minimum number of states required by Turing Machine to accept strings which consist of an even
+number of 1’s?
+
+Ответ:
+
+Правильный ответ: 2
+
+Вопрос 5
+Верно
+Баллов: 1,00 из 1,00
+
+The
+
+problem, formulated by Alan Turing, demonstrates the existence of undecidable problems—
+
+problems for which no algorithm can determine whether a given program ends or runs indefinitely on all
+inputs.
+
+Правильный ответ: halting
+
+Вопрос 6
+Верно
+Баллов: 1,00 из 1,00
+
+Select all that apply:
+a. Deterministic PDA are NOT closed under union.
+b. The complement of a NPDA can be gotten by swapping final and non-final states.
+c. The class of languages recognized by deterministic PDAs is closed under complement.
+d. Every PDA can be transformed into an equivalent acyclic PDA.
+
+Your answer is correct.
+Правильные ответы:
+Deterministic PDA are NOT closed under union.,
+The class of languages recognized by deterministic PDAs is closed under complement.,
+Every PDA can be transformed into an equivalent acyclic PDA.
+
+Вопрос 7
+Верно
+Баллов: 1,00 из 1,00
+
+Match NTM with its description:
+
+Выберите...
+
+Выберите...
+
+Выберите...
+
+Выберите...
+
+Your answer is correct.
+Правильный ответ:
+
+→ L = {ww | w ∈ {a,b}+},
+
+→ L = {wwR | w ∈ {a,b}+}, where wR is the reversed string w ∧ w ends
+
+with b and doesn't contain ‘aa’ substring,
+
+→ L = {wwR | w ∈ {a,b}+}, where wR is the reversed string w,
+
+→ L = {ww | w ∈ {a,b}+}, where w ends with b
+
+Вопрос 8
+Верно
+Баллов: 1,00 из 1,00
+
+How many states will be at least created after conversion of the following NFSA into DFSA?
+
+Ответ:
+
+Правильный ответ: 5
+
+Вопрос 9
+Верно
+Баллов: 1,00 из 1,00
+
+Suppose you apply Kleene’s algorithm on an FSA with states q0, q1, …, q5. The state q0 is initial, q3 and q5 are
+accepting states. Which of the following part(s) belong(s) to the resulting Regular Expression union?
+a. R60,5
+b. R55,0
+c. R63,0
+d. R60,3
+e. R50,3
+f.
+
+R50,5
+
+g. R65,0
+h. R53,0
+
+Your answer is correct.
+Правильные ответы:
+R50,3,
+R50,5
+
+Вопрос 10
+Верно
+Баллов: 1,00 из 1,00
+
+What is the primary purpose of Thompson's Construction Algorithm in automata theory?
+a. To convert a NFSA into a regular expression
+b. To convert a regular expression into a NFSA
+c. To convert a regular grammar into a DFSA
+d. To convert a DFSA into a regular expression
+
+Your answer is correct.
+Правильный ответ:
+To convert a regular expression into a NFSA
+
+Вопрос 11
+Верно
+Баллов: 1,00 из 1,00
+
+Complete the following statement:
+“Context-free grammars have played a central role in compiler technology since the 1960s. There is an
+automaton-like notation, called the “
+
+”, that also describes all and only the context-free
+
+languages - John E. Hopcroft, Rajeev Motwani and Jeffrey D. Ullman”
+
+Правильный ответ: pushdown automaton
+
+Вопрос 12
+Верно
+Баллов: 1,00 из 1,00
+
+Select all that apply for the given PDT over a language L:
+
+a. This PDT is deterministic
+b. L includes { a(n+1)b3n | n > 0 }
+c. All of the above
+d. All strings from L will be translated into strings with exactly 1 b
+e. L includes { a(n+2)b4n | n > 0 }
+f.
+
+L includes { a(n+10)bn | n > 0 }
+
+g. An input string aaabbbbbb will be translated into aab
+
+Your answer is correct.
+Правильные ответы:
+L includes { a(n+1)b3n | n > 0 },
+L includes { a(n+2)b4n | n > 0 },
+All strings from L will be translated into strings with exactly 1 b,
+An input string aaabbbbbb will be translated into aab
+
+Вопрос 13
+Верно
+Баллов: 1,00 из 1,00
+
+Let L = {a, ab}. Find L3
+a. { aaa, aab, aba, abb, baa, bab, bba, bbb }
+b. { aaa, aaab, aaba, aabab, abaa, abaab, ababa, ababab }
+c. { aaa, ababab }
+d. None of the above
+
+Your answer is correct.
+Правильный ответ:
+{ aaa, aaab, aaba, aabab, abaa, abaab, ababa, ababab }
+
+Вопрос 14
+Верно
+Баллов: 1,00 из 1,00
+
+Give the most simplified regular expression that describes the language accepted by the following automata:
+
+Ответ:
+
+Правильный ответ: 1
+
+Вопрос 15
+Верно
+Баллов: 1,00 из 1,00
+
+Match table variables by states for the NFSA converted to DFSA:
+
+Y
+
+Выберите...
+
+W
+
+Выберите...
+
+X
+
+Выберите...
+
+Z
+
+Выберите...
+
+Your answer is correct.
+Правильный ответ:
+Y → {q0,q1},
+W → {q0},
+X → {q0,q2},
+Z → {q0,q3}
+
+Вопрос 16
+Верно
+Баллов: 1,00 из 1,00
+
+Which of the following is/are NOT a computational problem(s) solvable by a Turing machine?
+a. Finding the largest element in a list of numbers
+b. Halting Problem
+c. Determining whether a given string is a palindrome
+d. A brute-force search algorithm
+
+Your answer is correct.
+Правильный ответ:
+Halting Problem
+
+Вопрос 17
+Верно
+Баллов: 1,00 из 1,00
+
+Select all that apply for the formal definition of a PDA < Q, ∑, Γ, δ, q0, Z0, F >
+a. q0 ∈ ∑
+b.
+Z0 ∉ Γ
+
+c.
+F ⊆ Q
+
+d.
+
+∗
+
+δ : Q × (Σ ∪ {ϵ}) × Γ → Q × Γ
+
+Your answer is correct.
+Правильные ответы:
+F ⊆ Q
+
+,
+∗
+
+δ : Q × (Σ ∪ {ϵ}) × Γ → Q × Γ
+
+Вопрос 18
+Верно
+Баллов: 1,00 из 1,00
+
+Which statements about FSA is/are FALSE?
+a. FSA can recognize all the languages
+b. There can be more than 1 initial state
+
+c. Final states and accepting states have no intersection
+
+d. The power of FSA is unlimited
+
+e. Partial transition function may not define some transitions from all the states
+
+Your answer is correct.
+Правильные ответы:
+
+The power of FSA is unlimited,
+
+Final states and accepting states have no intersection,
+
+There can be more than 1 initial state,
+FSA can recognize all the languages
+
+Вопрос 19
+Верно
+Баллов: 1,00 из 1,00
+
+Apply Thompson’s Construction on the following regular expression: (a*|c). How many ε-transitions does the
+resulting FSA have?
+a. 4
+b. 12
+c. 2
+d. 10
+e. 14
+f.
+
+6
+
+g. 8
+
+Your answer is correct.
+Правильный ответ:
+8
+
+Вопрос 20
+Верно
+Баллов: 1,00 из 1,00
+
+A⊆B means that...
+a. A and B have the same number of elements
+b. Every element of B is an element of A
+c. A = B
+d. A and B have exactly the same elements
+e. Every element of A is an element of B
+
+Your answer is correct.
+Правильный ответ:
+Every element of A is an element of B
+
+Вопрос 21
+Верно
+Баллов: 1,00 из 1,00
+
+Which type(s) of grammar allow(s) a production rule with the form XY->XZ?
+a. Unrestricted
+b. Context-sensitive
+c. Recursive
+d. Context-free
+e. Regular
+
+Your answer is correct.
+Правильные ответы:
+Context-sensitive,
+Unrestricted
+
+Вопрос 22
+Верно
+Баллов: 1,00 из 1,00
+
+Which of the following grammars does generate language L={a2nbn | n > 0}?
+a. S -> bSaa | baa
+b. S -> aaSb | ε
+c. S -> aaSb | aab
+d. S -> bSaa | ε
+
+Your answer is correct.
+Правильный ответ:
+S -> aaSb | aab
+
+Вопрос 23
+Верно
+Баллов: 1,00 из 1,00
+
+are the most powerful formal grammars in the Chomsky hierarchy, capable of generating
+recursively enumerable languages, reflecting the highest level of computational complexity.
+
+Правильный ответ: Unrestricted grammars
+
+Вопрос 24
+Верно
+Баллов: 1,00 из 1,00
+
+Which of the following sets DOES NOT have cardinality aleph-1?
+a. The set of all real numbers
+b. The set of all functions from the natural numbers to the natural numbers
+c. The set of all subsets of the natural numbers
+d. The set of all natural numbers
+
+Your answer is correct.
+Правильный ответ:
+The set of all natural numbers
+
+Вопрос 25
+Верно
+Баллов: 1,00 из 1,00
+
+Complete the following statement:
+“There is no
+
+Enumerable formalism that can define all computable total functions, and only
+
+them”
+
+Правильный ответ: Recursively
+
+Вопрос 26
+Верно
+Баллов: 1,00 из 1,00
+
+Suppose that α, β and γ are sequences of terminals and non-terminals. Match production rule schema to the
+corresponding generative grammars:
+αAβ → αγβ
+
+Выберите...
+
+A→γ
+
+Выберите...
+
+α→β
+
+Выберите...
+
+A → bB, A → b, A → ε
+
+Выберите...
+
+Your answer is correct.
+Правильный ответ:
+αAβ → αγβ → Context-sensitive grammar,
+A → γ → Context-free grammar,
+α → β → Unrestricted grammar,
+A → bB, A → b, A → ε → Regular grammar
+
+Вопрос 27
+Верно
+Баллов: 1,00 из 1,00
+
+Which of the following statements is/are TRUE assuming that continuum hypothesis holds?
+a. The cardinality of the set of all real numbers is EQUAL to the cardinality of the POWERSET of the natural
+numbers
+b. The cardinality of the set of all real numbers is GREATER than the cardinality of the set of all natural
+numbers
+c. The cardinality of the set of all real numbers is NOT EQUAL to the cardinality of the set of all subsets of
+the natural numbers
+d. The cardinality of the set of all real numbers is LESS than the cardinality of the set of all natural numbers
+
+Your answer is correct.
+Правильные ответы:
+The cardinality of the set of all real numbers is EQUAL to the cardinality of the POWERSET of the natural
+numbers,
+The cardinality of the set of all real numbers is GREATER than the cardinality of the set of all natural numbers
+
+Вопрос 28
+Верно
+Баллов: 1,00 из 1,00
+
+Which type(s) of the following grammars can generate language L={anbncndn | n > 0}?
+a. Unbounded
+b. Context-sensitive
+c. Regular
+d. Unrestricted
+e. Context-free
+
+Your answer is correct.
+Правильные ответы:
+Context-sensitive,
+Unrestricted
+
+Вопрос 29
+Верно
+Баллов: 1,00 из 1,00
+
+Specify regular expression part R010 for the given FSA (use ‘e’ instead of ε, use ‘{}’ instead of ∅, apply
+optimizations to make it as short as possible and use ascending lexicographical order with ε in the end (if
+applied), Kleene+ is not allowed).
+
+Ответ:
+
+Правильный ответ: {}
+
+Вопрос 30
+Частично правильный
+Баллов: 0,50 из 1,00
+
+Choose ALL THE PRODUCTIONS which generate the language L={s ∈{a,b}* | “a” and “b” are alternating}.
+a. B->bX | ε
+b. A->aA | ε
+c. A->aX | ε
+d. X->bA | ε
+e. A->aB
+f.
+
+A->aX
+
+g. S->B
+h. B->bA
+i.
+
+S->A
+
+j.
+
+A->aB | ε
+
+k. S->X
+l.
+
+X->bB
+
+m. X->aA | ε
+
+Your answer is partially correct.
+Вы выбрали правильных вариантов: 2.
+Правильные ответы:
+S->A,
+S->X,
+A->aX | ε,
+X->bA | ε
+
+

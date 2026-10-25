@@ -1,0 +1,16 @@
+{
+ "title": "Приказ Центр ИТ",
+ "url": "https://innopolis.university/upload/iblock/260/7twgc0r3blb2nu2x00ggycuyu5cg5jad/%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7__%D0%A6%D0%B5%D0%BD%D1%82%D1%80_%D0%98%D0%A2.pdf",
+ "sha256": "0293e904f80ce4abb8b8a208672b3a35344c26a8102ca0443fc2f0b42dc9c39a",
+ "method": "text layer (pdfplumber)",
+ "chars": 8628,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:54:33+00:00",
+ "remote": {
+  "etag": "\"69e76b94-13c286\"",
+  "modified": "Tue, 21 Apr 2026 12:20:36 GMT",
+  "size": "1294982"
+ }
+}

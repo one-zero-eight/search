@@ -1,0 +1,16 @@
+{
+ "title": "Сроки проведения",
+ "url": "https://innopolis.university/upload/iblock/2e4/o7m1jau76klgptz1chegulu2d85hyfaj/date.pdf",
+ "sha256": "61623949a0c5f4199ebb732980372e0a94352cd800ffee986d95196f51ab418f",
+ "method": "text layer (pdfplumber)",
+ "chars": 1820,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:54:40+00:00",
+ "remote": {
+  "etag": "\"66e7d12e-19e9c\"",
+  "modified": "Mon, 16 Sep 2024 06:33:18 GMT",
+  "size": "106140"
+ }
+}

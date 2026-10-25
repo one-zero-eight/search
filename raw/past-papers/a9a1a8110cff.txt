@@ -1,0 +1,182 @@
+The third grading assignment (oral poll) on Mathematical Analysis
+(Innopolis University, Fall semester 2023, BS-I)
+
+Description
+Overall cost of the assignment is 15 points. This assignment is designed to evaluate how do we understand
+each other during study weeks 11-13 of
+•
+•
+•
+
+•
+
+Antiderivative and indefinite integral
+Reimann integral, its relations with antiderivative (the fundamental theorem of Calculus)
+Applications of the definite integral
+Improper integrals.
+
+The Assignments consist of the following.
+1. Build a table of size 9x2 where for each of 9 exercises from the list below and indicate in the table
+your belief
+a. whether you don’t understand the exercise’ task/question (by putting 0),
+b. or understand the task/question but not sure how to solve/answer it (by putting 1),
+c. or you believe that you understand and can solve/answer the task/question (by putting 2).
+2. Provide solutions for 2 (not more than 2!) exercises (preferably from different sub-topics) that you
+think that you understand and can solve as a proof/evidence/justification for your belief (in the filledin table).
+
+Submission and grading rules
+Please write your table and solutions on a paper in readable way, make photos/scan, and upload as a
+single pdf-document to Moodle by the midnight from Friday December 8 to Saturday December 9,
+2023. File-name convention: submitted file should be named by student first name and surname (for
+example NikolayShilov.pdf).
+The main grading criterions
+•
+•
+•
+•
+•
+•
+
+human readable but concise written solutions (and its pdf-version)
+well-structuredness of the written solutions (up to 3 points for each solution)
+instructor may ask about oral presentation of any of 2 tasks that student believes knowing how to
+solve (according to student’s table to validate the table and student’s self-assessment)
+correct and complete oral presentation (up to 4 points for each correct solution)
+table itself costs 1 point while originality of presented solutions may be awarded too by 1 point
+non-crucial computational errors will be treated as tiny mistake (at most 1 point deduction for overall)
+
+Timeline and late submission policy
+•
+•
+•
+•
+•
+
+Publication of the Assignment document: Friday December 1, 2023.
+Consultation on the technical issues related to the assignment: Monday December 4, 2023, from
+11:20 to 12:20 in class 108.
+Due time for uploading of papers: the midnight from Friday December 8 to Saturday December 9,
+2023.
+Individual oral polls for all students: Saturday December 9, 2023, from 9:00 to 17:00; procedure how
+to reserve a time slot will be announce by Wednesday December 6, 2023.
+Students who will not upload (without a legal excuse) their papers by the due date may do it till Friday
+December 15, 2023, and then have oral poll the same day as the final examination, but with 30%
+deduction from the grade for this assignment.
+
+Exercises: Questions & tasks
+In the following tasks and exercises natural number 𝑀 stays for a parameter which value is 𝑑𝑎𝑦 +
+𝑚𝑜𝑛𝑡ℎ where 𝑑𝑎𝑦 and 𝑚𝑜𝑛𝑡ℎ are the day and month of your personal birthdate. (For example, 𝑀 = 28
+if the day and the month are April 24.)
+Important notice: firstly, instantiate your actual value of this parameters into your task and just then
+solve this concrete instance (not a parameterized version)! For example, if a parameterized task is to
+solve linear equation 𝑀𝑥 = 100 then you need firstly instantiate actual value of 𝑀 (let it be 28 as
+above), then write the instance of the task (“Solve equation 28𝑥 = 100”), and finally – solve the
+instance.
+
+1. The lecture notes on integration ended with three paradoxes:
+a. 𝜋 = 4 because of the perimeters of some polygons converging to the
+circle should converge to the circumference,
+b. a finite volume of a color paints a surface of a solid body of rotation of
+𝑦 = 1⁄𝑥, 𝑥 ∈ [1, +∞[, around axes (𝑂𝑥) that has an infinite area,
+𝑏
+c. every definite integral ∫𝑎 𝑓(𝑡)𝑑𝑡 equals to 0 because after substitution
+𝑢(𝑏)=0
+
+𝑢 = (𝑥 − 𝑎)(𝑥 − 𝑏) it equals to ∫𝑢(𝑎)=0 𝑔(𝑢)𝑑𝑢 (for some appropriate
+function 𝑔).
+Please explain what is wrong with any of these paradoxes.
+2. Find any antiderivative(s)…
+a. Any antiderivative for 𝜆𝑥 ∈ 𝑹. (𝑥 2 − 𝑀𝑥 + 𝑀) that gets value 𝑀 at point
+𝑥 = 1.
+b. All antiderivatives for 𝜆𝑥 ∈ ]0,2[.
+
+𝑥−2√𝑥+𝑀
+3
+
+𝑀𝑥 2 √𝑥
+
+that gets value 1 at point 𝑥 =
+
+1.
+3. Find ∫ 𝑓(𝑥)𝑑𝑥 for the following 𝑓(𝑥):
+a.
+
+(𝑀+𝑥)2
+𝑀+𝑥 2
+𝑀
+
+;
+
+b. 2
+.
+𝑥 −𝑀𝑥+6
+4. Using variable substitution find ∫ 𝑓(𝑥)𝑑𝑥 for the following 𝑓(𝑥):
+𝑀
+a.
+;
+𝑀+√𝑥
+𝑀
+
+b.
+.
+1+𝑀𝑒 𝑥
+5. Using any integration technique find ∫ 𝑓(𝑥)𝑑𝑥 for the following 𝑓(𝑥):
+a. (sin 𝑥)(cos 𝑥)𝑀 ;
+b. (sin(𝑀𝑥) )2 (cos(𝑀𝑥))3 ;
+1
+c. (cos(𝑀𝑥))4.
+6. Evaluate the following definite integrals:
+𝑀
+a. ∫0 𝑥 𝑀 𝑑𝑥;
+𝑀𝑒 𝑑𝑥
+
+b. ∫1
+c.
+
+;
+
+𝑥
+𝑀 𝑑𝑥
+∫1 𝑀 .
+√𝑥
+
+𝑦
+
+𝑀
+
+7. Let 𝐼 = 𝜆𝑥, 𝑦 ∈ 𝑹. ∫𝑥 𝑒 𝑡 𝑑𝑡. Find
+
+𝑑𝐼
+𝑑𝑥
+
+and
+
+𝑑𝐼
+𝑑𝑦
+
+.
+
+8. Using integration compute the area of the region between hyperbola 𝑥 2 −
+𝑦2
+
+= 1 and line 𝑥 = 𝑀.
+9. Evaluate the following improper integrals:
++∞
+a. ∫0 𝑒 −𝑀𝑥 𝑑𝑥;
+𝑀
+
+√𝑀
+
+b. ∫0
+c.
+
+𝑑𝑥
+
+;
+
+√𝑀−𝑥 2
++∞
+𝑑𝑥
+∫0 𝑥 2 +𝑀𝑥+1.
+
+

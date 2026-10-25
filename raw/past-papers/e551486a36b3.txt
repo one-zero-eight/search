@@ -1,0 +1,120 @@
+F2epe,  Ud cpan et b0
+
+O/hz)
+
+=
+
+The following algorithm takes as input an array, and returns the array
+
+with all the duplicate elements removed. For example, if the input array is 2 ‘% ﬁ’ &
+{1,3,3,2,4,2} then the algorithm returns {1,3,2,4}.
+S = new empty set
+A = new empty dynamic array
+
+for every element x in the input array A: [ﬁ_ ‘ (L_ ]
+
+if not S.member(x) then
+
+Question 1 (10 points)
+
+S.insert(x) o
+A.append(x) < W
+return A
+What is the Big-O complexity of this algorithm if the set S is implemented as
+=5 a Red-Black Tree
+7 n unordered Doubly-Linked List
+
+Write the complexity in terms of n and m, where n is the size of the input
+array and m is the number of distinct elements in the input array.
+
+Tw case of Ciet & wi(C ée
+
+O(V\W\\/ Bocote We widl check et x
+existence iy & which ¥2€ tends o w i
+
+& Tt |
+S%, Are.: [O(nim
+
+2 M)) 2o v aud we do i times,
+
+Co resull 4y conplenity @ the 3QW€:
+s Ske Coog O\ = :
+QT e e pan Got lon g <D
+
+% z
+Question 2 (20 points)
+
+Provide short answers (with justification!) to the following questions:
+
+1) Is it possible for selection sort to run in time O(n) on some input?
+ﬁ xplain how to sort n integers in the range from 0 to (n® — 1) in O(n)
+tme.  Wwith  quickceo
+
+1 @ln Kruskal’s algorithm, at what point the greedy choice is made and
+[ what condition is checked?
+| 14.) What does “memoization” refer to in Dynamic Programming? V
+§ 5. Express T(n) in terms of Big-Theta, if T'(n) = 8T(n/3) + n?.
+: o an a weighted undirected graph with 4 nodes have more than 8 distinct
+| minimum spanning trees? l
+colt choose &
+
+2) No , decause eol. heesled €lewn
+% T Litmes, anol vbe douces @), s0
+
+- Ruult hime o [r\,)
+3))4% e time 1+ Brkes ‘49*‘56@’%%?5
+takes edge with min weight-
+
+onditlon 1o that  new =dge must e
+conheoked with vicibed @pomfg 2ot
+
+(1) 1% refrove, to vi Ifé% -
+\(‘e,e_,“% U(:QV\ %}\v@;ﬁq‘dﬁ*s . CO‘V\‘F({éeO[
+S)E S 2 case f
+
+ond also - &
+B 2o )= efa)e i ”®
+mz’nmr T Retake NeI, Innopolis Ui lﬂ‘a\
+
+6>/\/o/ M3T 55 wnique each avaph
+
+Question 3 (20 points) 5 @i jfk;
+
+Consider the flow network in Figure 1 and perform the following:
+
+@ Draw residual network for the given flow network.
+Find the max flow and compute its value.
+
+73.\Prove that the flow is maximum by applying max flow min cut theorem
+and demonstrating the min cut.
+
+\Sepa Stepan
+
+/L/ﬁ Question 4 (15 points)
+Given a directed weighted graph G, perform the following:
+
+@Write down representation of G as an adjacency matrix;
+
+A\
+l/ {M 2. Find lengths of shortest paths between every pair of vertices in G using
+; Floyd-Warshall algorithm. Provide your solution by constructing a
+
+matrix after every iteration of the algorithm (by iteration here we mean, ‘///
+
+a choice of the intermediate vertex). The solution should have exactly
+
+matrices (1 initial + 4 iterations). M
+
+B = C :
+e \2 Graph e,r é{;gm
+£ ] JNF 2
+)
+=N L
+& 4 D
+
+Thevation
+
+(&
+
+\ " DSA Spring 2022 Final Exam Retake Ne1, Innopolis University
+

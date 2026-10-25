@@ -1,0 +1,16 @@
+{
+ "title": "Правила проживания",
+ "url": "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BA%20%D0%BF%D1%80%D0%B8%D0%BA%D0%B0%D0%B7%D1%83_%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%B8%20%D0%BF%D1%80%D0%BE%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%202025%20%D0%B3%D0%BE%D0%B4%20%282%29.pdf",
+ "sha256": "eb44b9e8e1b9a4407094245c14de4ecac3ff9a682ea07e83f99c97a3a543ffba",
+ "method": "text layer (pdfplumber)",
+ "chars": 27045,
+ "section": "site/hotel",
+ "context": "",
+ "fetched_at": "2026-10-24T22:05:48+00:00",
+ "remote": {
+  "etag": "\"3816f-62c5c865647b2\"",
+  "modified": "Thu, 23 Jan 2025 09:49:22 GMT",
+  "size": "229743"
+ },
+ "tables": 3
+}

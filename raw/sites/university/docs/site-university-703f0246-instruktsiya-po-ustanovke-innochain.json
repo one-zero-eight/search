@@ -1,0 +1,16 @@
+{
+ "title": "Инструкция по установке InnoChain",
+ "url": "https://innopolis.university/filespublic/%D0%98%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F_%D0%BF%D0%BE_%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B5_InnoChain.pdf",
+ "sha256": "f09846887f0816528771c279f3c2dd6e90291996e4ebb174c5d881918e9fa8e4",
+ "method": "text layer (pdfplumber)",
+ "chars": 11406,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:42:04+00:00",
+ "remote": {
+  "etag": "\"1cc549-6348748c0e4b7\"",
+  "modified": "Wed, 07 May 2025 08:11:46 GMT",
+  "size": "1885513"
+ }
+}

@@ -1,0 +1,444 @@
+Student Name:
+Student email:
+
+Innopolis University
+Academic Year 2022/2023
+Midterm Exam of Computer Architecture
+27th October 2022
+
+Student Name:
+Student email:
+
+Question
+Question 1
+Question 2
+Question 3
+Question 4
+Question 5
+Question 6
+Question 7
+Total
+
+Grade Summary (for instructors fill)
+Grade
+
+Maximum score: 14 points
+
+Please write very clearly your names and your solution. What will not be understood will be
+considered wrong. All answers must be provided in English.
+You need to perform this exam alone and without the use of any equipment or book, apart
+from this booklet and pens. Please do not consult any person or use any equipment, otherwise
+you will be disqualified from this exam at the very first attempt.
+if you need to leave the room during the written part of the exam, you will not be able to
+return to the written exam.
+Good Luck!
+Signature:
+
+Computer Architecture – Midterm 2022
+
+Page 1 of 11
+
+Student Name:
+Student email:
+
+Grades Summary for the Midterm Exam
+
+Computer Architecture – Midterm 2022
+
+Page 2 of 11
+
+Student Name:
+Student email:
+Question 1. (1 point) Do you agree that L2 processor cache is typically faster than L1
+processor cache? (Choose one)
+
+mputer Architecture
+a) Agree
+
+b) Disagree
+
+CPU
+Increasing
+memory
+access
+speed
+
+Cache L1
+…
+
+Cache L(i)
+System Memory
+
+Remote Storage Devices
+
+Increasing
+storage
+capacity
+
+(SSD Disk, NAND Flash Memory, others)
+
+4
+
+Computer Architecture – Midterm 2022
+
+Page 3 of 11
+
+Student Name:
+Student email:
+Question 2. (1 point) What is the key idea of Moore’s law? (Choose one)
+a) The storage capacity of L1 cache doubles roughly every two years
+b) The number of transistors on a processor chip doubles roughly every 2 years,
+and consequently, a processor speed doubles roughly every two years as well
+c) The number of processor cores in a computer doubles roughly every two years
+
+The number of transistors on a CPU chip doubled every 18-24 months until ~2010 (?)
+(leading to an increased CPU speed).
+
+Moore’s Law Stagnation
+
+CPU speed and
+single-thread
+performance seem
+not to increase
+since ~2008
+
+The number of cores
+increases instead
+
+10
+
+Image is taken from https://www.quora.com/Why-is-Moores-law-no-longer-valid
+
+Computer Architecture – Midterm 2022
+
+Page 4 of 11
+
+Student Name:
+Student email:
+Question 3. (1 point) Choose valid statement for RISC-V processor architecture:
+(Choose one)
+a) RISC-V is an example of a stack-based processor architecture
+b) RISC-V has 32 directly addressable integer registers
+c) The length of a binary representation of RISC-V processor instructions is 128 bits
+d) No choice is correct
+RISC-V is a load/store architecture (not stack-based!), that is all instructions, except memory
+access, operate on registers
+
+RISC-V Registers
+32 directly addressable integer registers:
+- Have their names (x0..x31)
+- 64 bits per register, by default
+- Directly addressable
+- Reserved for different purposes
+
+Clock
+
+PC
+
+x0
+
+x4
+
+…
+
+…
+
+Integer Registers
+
+x19
+
+…
+
+x31
+
+: Floating-Point Registers for RISC-V Architecture
+
+Other (floating point and special-purpose) registers are available as well:
+
+4
+
+Program Counter
+special-purpose
+register
+Clock
+
+PC
+
+x4
+
+x0
+
+…
+
+x19
+
+x31
+
+Integer Registers
+
+f0
+
+f1
+
+f2
+
+…
+
+f31
+
+Floating-Point Registers
+(to deal with floating-point instructions)
+
+Computer Architecture – Midterm 2022
+
+Page 5 of 11
+
+Student Name:
+Student email:
+Question 3. (1 point) Choose valid statement for RISC-V processor architecture:
+(Choose one)
+a) RISC-V is an example of a stack-based processor architecture
+b) RISC-V has 32 directly addressable integer registers
+c) The length of a binary representation of RISC-V processor instructions is 128 bits
+d) No choice is correct
+
+Some Types of RISC-V Instructions: R, I, and S
+All RISC-V instructions are 32 bit long in their binary representation;
+The difference is in the number of fields, their meaning, and sizes
+
+R-type
+
+funct7
+
+rs2
+
+rs1
+
+funct3
+
+rd
+
+opcode
+
+add, sub, …
+
+rs1
+
+funct3
+
+rd
+
+opcode
+
+addi, ld, …
+
+rs1
+
+funct3
+
+imm[0:4]
+
+opcode
+
+sd, …
+
+(“register”, or “regular”)
+
+I-type
+
+immediate
+
+(“immediate”)
+
+S-type
+
+immediate[11:5]
+
+rs2
+
+(“store”)
+
+32 bits (1 RISC-V word, a total instruction length)
+
+57
+
+Computer Architecture – Midterm 2022
+
+Page 6 of 11
+
+Student Name:
+Student email:
+Question 4. (2 point) What is a Program Counter (PC) register of a processor?
+Answer:
+
+Program
+Counterfor
+(PC)RISC-V
+register
+– the register containing the index/address of a program
+p: Floating-Point
+Registers
+Architecture
+
+instruction being executed by a processor at a current time (or of the next instruction to be
+executed)
+
+Program Counter
+special-purpose
+register
+Clock
+
+PC
+
+x4
+
+x0
+
+…
+
+x19
+
+x31
+
+Integer Registers
+
+f0
+
+f1
+
+f2
+
+…
+
+f31
+
+Floating-Point Registers
+(to deal with floating-point instructions)
+
+Computer Architecture – Midterm 2022
+
+7
+
+Page 7 of 11
+
+Student Name:
+Student email:
+Question 4. (2 point) What is a Program Counter (PC) register of a processor?
+Answer:
+Program Counter (PC) register – the register containing the index/address of a program
+instruction being executed by a processor at a current time (or of the next instruction to be
+executed)
+PC-relative addressing:
+This mode can be used to load a register with a value stored in program memory
+Target address = PC + offset × 4 (each RISC-V instruction takes 4 bytes)
+PC already incremented by 4 by this time
+Datapath
+PC register
+in CPU
+circuit design (more details will be studied later):
+Simplified
+view:
+
+NOTE:
+
+Datapath and Control Signals
+
+PC is Program Counter. It is also known as instruction pointer.
+
+Final view:
+Details on the circuit above will be provided later in tutorials
+A. Tormasov
+
+5 / 48
+
+NOTE: More details in later tutorials
+A. Tormasov
+
+Computer Architecture – Midterm 2022
+
+11 / 48
+
+Page 8 of 11
+
+Student Name:
+Student email:
+Question 5. (2 points) Latency and throughput are two performance metrics for computers.
+Briefly describe what latency is, and what throughput is, illustrating with (an) example(s).
+Answer:
+Latency (or response time): How long does it take for a job to run?
+
+Latency vs. Throughput:
+Throughput: How many jobs
+machine can run at once?
+Interpretation
+
+The image is taken from:
+http://avinashmaurya.com/a-primer-on-GPGPU/
+Latency - a time delay between the cause and the start of the effect:
+A. Tormasov
+
+•
+•
+•
+
+13 / 48
+
+Synonym to ”delay” and ”response time”
+But not ”execution time”! The latter includes ”latency” together with additional timing
+overheads;
+A precise definition depends on the context
+
+Note:
+We cannot say what is better, having a higher latency or having a higher throughput. It is
+implementation dependent. Different applications might require different criteria.
+
+Computer Architecture – Midterm 2022
+
+Page 9 of 11
+
+Student Name:
+Student email:
+Question 6. (3 points) Translate the following pseudocode expression into RISC-V code:
+𝑓 = ℎ − 𝑚𝑦𝐴𝑟𝑟𝑎𝑦[20] + 7
+Assume that 𝑚𝑦𝐴𝑟𝑟𝑎𝑦 denotes the array of long long int elements (having size of 64 bits, or
+“double word”, each).
+Assume the following registers assignment:
+Register 𝑠0 – for variable ℎ
+Register 𝑠1 – for the base address of array 𝑚𝑦𝐴𝑟𝑟𝑎𝑦
+Register 𝑠2 – for variable 𝑓
+Assume that variables ℎ and 𝑓 are declared as long long int type (meaning that they take 64
+bits each), value of variable ℎ is already loaded into register 𝑠0, and the base address of
+𝑚𝑦𝐴𝑟𝑟𝑎𝑦 is already loaded into register 𝑠1.
+Answer:
+
+A possible implementation (out of many other):
+
+ld
+t0, 160(s1)
+sub s0, s0, t0
+addi s2, s0, 7
+
+Computer Architecture – Midterm 2022
+
+Page 10 of 11
+
+Student Name:
+Student email:
+Question 7. (4 points) What is a transparent S/R latch? Specify the truth table of a S/R latch.
+Draw the logic circuit of a S/R latch by using NAND and NOT logic gates. Provide a finite state
+machine for a S/R latch, demonstrating the transitions between its states.
+Answer:
+A transparent S/R latch – a digital circuit to store 1 bit of information.
+Truth table:
+S, R – inputs
+Q – output
+S = 1, R = 0, then Q = 1
+S = 0, R = 1, then Q = 0
+S = 0, R = 0, then Q = Qprev
+S = 1, R = 1 – invalid input combination or undefined state, or something similar
+
+Computer Architecture – Midterm 2022
+
+Page 11 of 11
+
+

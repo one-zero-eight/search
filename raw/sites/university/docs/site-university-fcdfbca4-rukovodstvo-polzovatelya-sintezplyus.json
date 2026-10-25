@@ -1,0 +1,16 @@
+{
+ "title": "Rukovodstvo polzovatelya SintezPlyus",
+ "url": "https://innopolis.university/filespublic/Rukovodstvo_polzovatelya_SintezPlyus.pdf",
+ "sha256": "0b0b8fecb4082d75bf7da19dc4dfc627258f7ee3193d70ab2922ddd1067d9de1",
+ "method": "text layer (pdfplumber)",
+ "chars": 13645,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:46:12+00:00",
+ "remote": {
+  "etag": "\"4e2c5-5f0794c79646b\"",
+  "modified": "Fri, 23 Dec 2022 06:57:28 GMT",
+  "size": "320197"
+ }
+}

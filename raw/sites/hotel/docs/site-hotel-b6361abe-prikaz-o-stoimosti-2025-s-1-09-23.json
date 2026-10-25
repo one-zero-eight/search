@@ -1,0 +1,16 @@
+{
+ "title": "Стоимость услуг размещения",
+ "url": "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7_%D0%BE_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8__2025_%D1%81_1_09_-2-3.pdf",
+ "sha256": "93eb52b6ea3fc128c5cd5213ff3d25b0c30f160a44979fc9259294dcb6d9061c",
+ "method": "text layer (pdfplumber)",
+ "chars": 2459,
+ "section": "site/hotel",
+ "context": "",
+ "fetched_at": "2026-10-24T22:05:44+00:00",
+ "remote": {
+  "etag": "\"5a298-63d44f8a17564\"",
+  "modified": "Tue, 26 Aug 2025 13:51:38 GMT",
+  "size": "369304"
+ },
+ "tables": 3
+}

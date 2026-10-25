@@ -1,0 +1,16 @@
+{
+ "title": "Расписание вступительных испытаний",
+ "url": "https://innopolis.university/upload/iblock/911/9pd0z6mpbdqb2jiirm11bpmlgu0tcyih/timetable.pdf",
+ "sha256": "3d13bd056566c4665c56282b3154238e8a1b2178db3e6287a7acd507ac18d435",
+ "method": "text layer (pdfplumber)",
+ "chars": 4127,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-25T00:00:29+00:00",
+ "remote": {
+  "etag": "\"66e7d14b-1a780\"",
+  "modified": "Mon, 16 Sep 2024 06:33:47 GMT",
+  "size": "108416"
+ }
+}

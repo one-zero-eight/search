@@ -1,0 +1,16 @@
+{
+ "title": "3. Что такое терроризм",
+ "url": "https://innopolis.university/public/files/antiterror/chto.takoe.terror.pdf",
+ "sha256": "dd3df34e5cc8339413c6421417c878df285000daea1bad38a2f192c05febe01d",
+ "method": "text layer (pdfplumber)",
+ "chars": 80693,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:49:03+00:00",
+ "remote": {
+  "etag": "\"63bdbe-5d18899f0b600\"",
+  "modified": "Wed, 24 Nov 2021 13:11:52 GMT",
+  "size": "6536638"
+ }
+}

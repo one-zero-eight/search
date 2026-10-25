@@ -1,0 +1,200 @@
+Innopolis University
+Academic Year 2023/2024
+Midterm Exam of Computer Architecture
+2nd November 2023
+
+Student Full Name:
+Student Group:
+
+Question
+Question 1
+Question 2
+Question 3
+Question 4
+Question 5
+Question 6
+Question 7
+Question 8
+Total
+
+Grade Summary (for instructors fill)
+Grade
+
+Maximum score: 12 points
+
+Please write clearly your name and your solutions. What will not be understood will be
+considered wrong. All answers must be provided in English.
+This is a closed-book exam. You are not allowed to use any reference materials or electronic
+equipment, apart from this booklet and pens. You are not allowed to consult any person,
+otherwise you will be disqualified from this exam at the very first attempt.
+Good Luck!
+Signature:
+
+Computer Architecture – Midterm 2023
+
+Student Full Name:
+Grades Distribution:
+
+Question 1. (1 point) Processor A has 4 cores of 2.3 GHz frequency each, processor B has 2
+cores of 2.1 GHz each, and processor C has 4 cores of 2.2 GHz each. Which processor has an
+“overall better performance” from a theoretical perspective?
+a) Processor A (correct)
+b) Processor B
+c) Processor C
+Note on grading:
+The only correct option chosen – 1 point, otherwise 0
+Question 2. (1 point) What is the major objective of a pipelined execution for processor
+instructions?
+a) To increase reliability through redundancy
+b) To facilitate performance by speculative execution
+c) To resolve underflow exceptions
+d) To speed-up an overall program execution (correct)
+e) To increase the energy consumption
+f) To facilitate the use of two’s complement notation for signed numbers
+g) No choice is correct
+Note on grading:
+Correct option “d” chosen – 1 point, and for every incorrect option, except “g”, penalty (-0.2)
+points. If option “g” chosen – 0.
+Computer Architecture – Midterm 2023
+
+Page 2 of 6
+
+Student Full Name:
+Question 3. (1 point) Fill-in the following comparison table for S/R latch and D flip-flop
+circuits:
+Criteria
+Storage capacity (in bits)
+Output synchronization with
+clock (write “yes” or “no”)
+Power consumption
+(write “higher” or “lower”)
+
+S/R latch
+
+D flip-flop
+1 bit
+
+1 bit
+
+NO
+
+YES
+
+LOWER
+
+HIGHER
+
+Note on grading:
+Mistakes in “Output synchronization…” or “Power consumption…” rows – penalty of (-0.5) for
+each row. Mistakes in “Storage capacity…” – penalty of (-0.5) for each cell with incorrect value.
+Question 4. (1 point) Convert decimal value "-14" into 8-bit two's complement notation for
+representing signed numbers. It is mandatory to illustrate the key computation steps in the
+“solution” field.
+Answer:
+1
+
+1
+
+1
+
+1
+
+0
+
+0
+
+1
+
+0
+
+Note on grading: ALL cells of the “Answer” field (the question requires to provide the answer
+in 8-bit format) are filled with correct values (8 bits in total) and the solution is provided – 1
+point, in any other case – 0.
+Solution (mandatory):
+a) Find the binary representation of 14: 00001110
+b) Invert the bits (Change 0s to 1s and 1s to 0s): 11110001
+c) Add 1 to the result: 11110010
+Question 5. (2 point) What is the key difference between Von Neumann and Harvard
+computer architectures? Illustrate with diagrams.
+Answer:
+The key difference is the following: Harvard architecture assumes two separate memory
+units: one – for program instructions, and one – for program data, while Von Neumann
+architecture assumes the same memory unit to be used for program instructions and data.
+
+Note on grading:
+For both architectures correct diagrams with comprehensive labeling is provided – 2 points;
+No diagrams are provided, but the difference is described correctly in words – 1 point;
+Mistake of any type – penalty of (-1) point;
+Otherwise 0 points
+Computer Architecture – Midterm 2023
+
+Page 3 of 6
+
+Student Full Name:
+Question 6. (2 points) Name at least 4 key differences between CPU and FPGA chips.
+Some possible answers are the following:
+
+Notes on grading:
+Every correct (out of 4) comparison is 0.5 points, and partially incorrect formulation is 0.25
+points
+Question 7. (2 points) Consider the following logic circuit:
+
+Draw the signal curve in the timing diagram below for 𝑄!"#$% output pin:
+Answer:
+
+Computer Architecture – Midterm 2023
+
+Page 4 of 6
+
+Student Full Name:
+Notes on grading:
+A fully correct diagram – 2 points;
+As well as these only two diagrams are considered as partially correct and graded with 1
+point:
+
+Question 8. (2 points) Provide the logic circuit of 2-to-4 decoder by using AND and NOT logic
+gates. Describe such a logic circuit design in Verilog HDL
+Logic circuit design
+
+Verilog HDL implementation
+module decoder2x4 (
+input wire [1:0] in
+output reg [3:0] out
+);
+always @ (*) begin
+case (in)
+2'b00: out = 4'b0001;
+2'b01: out = 4'b0010;
+2'b10: out = 4'b0100;
+2'b11: out = 4'b1000;
+endcase
+end
+endmodule
+
+Computer Architecture – Midterm 2023
+
+Page 5 of 6
+
+Student Full Name:
+Notes on grading:
+Both correct: Logic circuit + Verilog design = 1 + 1 points = 2 points in total;
+A fully correct logic circuit – 1 point, any mistake (even minor) in logic circuit is penalized
+with (-1) point;
+A fully correct Verilog HDL design – 1 point, otherwise Verilog errors are penalized as follows:
+No proper module declaration – (-0.5 points);
+Minor mistakes related to module declaration – (-0.2 points);
+Misuse of always, case, assign, if statements – (-0.4 points);
+Misuse of “begin/end” constructs – (-0.2 points);
+Misuse of logic gates declarations, missing declarations of wires and related – (-0.2
+points);
+Other minor syntax mistakes – (-0.2 points)
+Misuse or lack of “reg” keyword, missing “;” in the line ends – not penalized
+
+This is the end of the student book
+Draft (will NOT be checked)
+
+Computer Architecture – Midterm 2023
+
+Page 6 of 6
+
+

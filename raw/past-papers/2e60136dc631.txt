@@ -1,0 +1,79 @@
+DSA 2020 Retake №2 of Final Exam
+Dear student,
+Welcome to the Retake №2 of Final Exam of «Data Structures and Algorithms»
+course!
+Please make sure that you have joined Zoom meeting with camera and
+microphone on for the entire duration of the exam. Your face should be
+clearly visible on camera. To avoid distractions you can turn off audio on
+your computer. In case of poor Internet connection, start self-recording for
+the entire duration of the exam. In case of recording on a mobile device make
+sure to turn on “Do Not Disturb” mode to avoid interruptions in recording.
+This document contains 3 questions. Please read each question carefully and
+provide the solutions as directed.
+Solutions should be written by hand on paper, using pen or pencil. Be sure
+to make your writing clear and readable. After writing solutions down, you
+should take a high quality photo of every page and submit those photos as a
+ZIP archive on Moodle.
+In case Moodle is not available, you should submit the archive via email to
+n.kudasov@innopolis.ru using subject “DSA Final Exam: Student Name”.
+Please make sure to leave at least 5 minutes before the end of the exam to
+properly submit your solutions! Submissions sent after the end of the
+exam will not be accepted.
+
+DSA 2020 Retake №2 of Final Exam
+
+Question 1 (15 points)
+Let A and B be two arrays of integer elements (possibly with duplicates).
+Write down in pseudocode an in-place algorithm that computes set difference
+of A and B in O(n) time, where n is the total number of elements in A and
+B combined. That is, the result of the algorithm should be a sequence of
+elements of A that do not occur in B. The result should not contain duplicate
+elements. The algorithm should be in-place, meaning that the result must
+be stored in one of the input arrays and only constant amount of additional
+memory is allowed.
+
+Question 2 (15 points)
+Given a directed weighted graph G, perform the following:
+1. Write down representation of G as an adjacency matrix;
+2. Find lengths of shortest paths between every pair of vertices in G using
+Floyd-Warshall algorithm. Provide your solution by constructing a
+matrix after every iteration of the algorithm (by iteration here we mean,
+a choice of the intermediate vertex). The solution should have exactly
+5 matrices (1 initial + 4 iterations).
+A
+8
+
+3
+9
+
+B
+
+C
+2
+5
+
+3
+
+D
+Figure 1: Graph G.
+
+DSA 2020 Retake №2 of Final Exam
+
+Question 3 (20 points)
+Let N be a flow network with a set of vertices V and set of edges E. Let
+N − (v) = {u ∈ V |(u, v) ∈ E}. Let us assign to each vertex v ∈ V a real value
+cap(v). We need to compute a flow f of maximum value such that it satisfies
+an extra constraint: for all v ∈ V the incoming flow for v is at most cap(v),
+in other words:
+X
+
+f (u, v) ≤ cap(v)
+
+u∈N − (v)
+
+Is it possible to find such a flow my computing regular maximum flow on
+some network derived from N ? If yes, provide a corresponding algorithm
+and prove its correctness. If no, give a counterexample and prove why its
+impossible to find a flow by using regular maximum flow algorithms.
+
+

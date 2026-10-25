@@ -1,0 +1,139 @@
+e
+i
+
+Student Name:
+Student email
+
+Question 1. (1 point) Consider the logic circuit depicted below, which is implemented by using
+
+NOR universal logic gates:
+
+What is the corresponding logic gate among the following, which corresponds to the circuit
+above? ”
+
+O [
+
+) XOR,
+-
+
+Question 2, (1 point) Choose valid statement(s) for MIPS32 processor architecture:
+
+a) MIPS32 is a CISC architecture
+
+®) The storage capacity of each MIPS32 register is 32 bytes
+¢) MIPS32 is a load/store architecture
+
+d) No choice is correct (]
+
+Question 3. (1 point) Consider MIPS registers listed below. Which register(s) is reserved for a
+system call (“syscall”) code?
+
+$s0 $s1 $t7 ($v0) $a3  Ssp |
+
+~pf
+
+TIT,OI ¢ Question 4. (1 point) For each processor architecture listed below, specify its respective type
+~ CISC or RISC:
+MIPS: RISC
+Intel x86: CISC
+ARM: RISC
+
+Computer Architecture - Midterm 2021 Page 2 of 6
+
+AL\ N Ao
+
+Student Name:
+Student email:
+
+We use #w outhatechure i ot
+
+Question 5.
+What is (he(zepoénu) Briefly describe at least 2 major principles of Von Neumann architecture.
+y difference between Von Neumann and Harvard architectures; illustrate with
+
+conceptual diagrams
+’ng)'re ; dada ""/
+
+one place
+13 kJ PrmtIPlef
+
+5&3
+
+‘ 00;‘)\1_ Ll
+
+[
+
+[ $ystem menior / yigE [ .
+Kud priceip (%
+Tnstuelion gwve ceparale
+
+n 6. (3 points) Translate the following pseudocode expression into MIPS assembly code;
+f=@+h/p=7
+
+Assume the following registers assignment:
+
+Questio:
+
+$s0-for g
+$s1-forh
+$s2 - forp
+$s3 - for f
+Assume that all variables are restricted to integers, and values for variables g, h, and p are
+
+already loaded into respective MIPS registers. Assume “/" to denote integer division.
+
+aAdA $4p £, $s,
+
+Computer Architecture - Midterm 2021 Page 3 of 6
+
+e e
+
+i
+
+Slael oot shachere
+
+us 28" Se ppor funchion,
+cedls ﬂm S
+ahd 4
+
+Values whith we puad i
+frofrom
+
+Student Name:
+Student email:
+
+Question 7. (3 points) Provide the logic circuit for 2-to-1 multiplexer implemented by v
+AND, OR and NOT logic gate types.
+
+inf“LrLA:@
+
+Question 8. (3 points) Explain how a stack data structure is used to support . cti
+computer program. Briefly explain the notion of a stack frame and types of data it
+conceptual diagrams to support/illustrate your answer.
+
+Student Name:
+Student emaijl;
+
+Question 9,
+
+(4 points) peser,
+Provide the
+
+circuit for addin
+
+ibe the differenc,
+8 2-bit two input arguments.
+
+¢ J 9,’\' v
+i cor*d”
+, 9
+
+e between half-adder and full-adder logic circuits.
+
+This is the end of the exam paper
+
+Page 5 of 6
+Computer Architecture - Midterm 2021
+
+e
+

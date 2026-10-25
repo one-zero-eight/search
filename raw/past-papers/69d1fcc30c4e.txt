@@ -1,0 +1,653 @@
+Тест начат
+
+Tuesday, 12 March 2024, 09:23
+
+Состояние Завершены
+Завершен Tuesday, 12 March 2024, 10:05
+Прошло 42 мин. 1 сек.
+времени
+Баллы 22,58/30,00
+Оценка 18,82 из 25,00 (75,28%)
+Вопрос 1
+Верно
+Баллов: 1,00 из 1,00
+
+What is the output for the provided code?
+
+a. 20 20
+b. Error
+c. Undefined
+d. 20 10
+e. 10 10
+
+Правильный ответ:
+10 10
+
+
+
+Вопрос 2
+Верно
+Баллов: 1,00 из 1,00
+
+Which of the following statements is/are TRUE about pointers and references in C++?
+a. Pointers cannot be non-initialized
+b. It is not possible to have a pointer to a reference
+c. Pointers’ values are addresses of objects
+d. It is not possible to have a reference to a pointer
+e. Pointers are not objects but synonyms to objects
+
+Правильные ответы:
+It is not possible to have a pointer to a reference,
+Pointers’ values are addresses of objects
+
+Вопрос 3
+Неверно
+Баллов: 0,00 из 1,00
+
+Which of the following statements about references is/are TRUE?
+a. References themselves do not have values
+b. References can be constant 
+c. It is not possible to have an array of references
+d. It is possible to have a reference to a reference
+
+Правильные ответы:
+References themselves do not have values,
+It is not possible to have an array of references
+
+
+
+Вопрос 4
+Верно
+Баллов: 1,00 из 1,00
+
+Match the given lines of code with the corresponding explanations
+Initializes a pointer with the address of a variable
+
+int *a = &b;
+
+
+
+Allocates memory dynamically on the heap
+
+int *a = new int;
+
+
+
+Creates a reference to an existing variable
+
+int &a = b;
+
+
+
+Declares a pointer to a pointer
+
+int **a = &b;
+
+
+
+Правильный ответ:
+Initializes a pointer with the address of a variable → int *a = &b;,
+Allocates memory dynamically on the heap → int *a = new int;,
+Creates a reference to an existing variable → int &a = b;,
+Declares a pointer to a pointer → int **a = &b;
+
+Вопрос 5
+Верно
+Баллов: 1,00 из 1,00
+
+How to remove objects created in the stack in C++?
+a. Use the keyword free
+b. Use the keyword delete
+c. Use the keyword remove
+d. Use the keyword deallocate
+e. None of the above
+
+Правильный ответ:
+None of the above
+
+
+
+Вопрос 6
+Частично правильный
+Баллов: 0,33 из 1,00
+
+Which of these is/are representing an array of five elements where each element is a function pointer that
+takes one integer value (not reference or pointer) and returns double?
+a. using MyType = double (*)(int); MyType a[5];
+b. using MyType = int (*)(double); MyType a[5];
+c. double ( *a[5] )(int);
+d. int (*)(double) a[5];
+e. double ( *( a[5] ) )(int*);
+f.
+
+int ( *( a[5] ) )(double*);
+
+g. double (*)(int) a[5]; 
+h. int ( *a[5] )(double);
+
+Правильные ответы:
+double ( *a[5] )(int);,
+using MyType = double (*)(int); MyType a[5];
+
+
+
+Вопрос 7
+Верно
+Баллов: 1,00 из 1,00
+
+Read the following code then choose the correct statement(s).
+
+a. The output of the program is:
+Node A destroyed
+Node B destroyed
+Node C destroyed
+b. Node object associated with `c` is stored both on the heap and stack
+c. The output of the program is:
+Node A destroyed
+Node C destroyed
+Node B destroyed
+d. The constructors used are conversion constructors
+e. Variable `a` is a pointer to a Node object
+f.
+
+The constructors used are default constructors
+
+g. Node object associated with `b` is stored on the heap
+h. The keyword `new` is an operator that enables to statically create objects
+
+Правильные ответы:
+The constructors used are conversion constructors,
+Variable `a` is a pointer to a Node object,
+Node object associated with `b` is stored on the heap
+
+
+
+Вопрос 8
+Частично правильный
+Баллов: 0,17 из 1,00
+
+Which of those statements is/are TRUE?
+a. It’s recommended to call the destructor of a class explicitly
+b. int arr1[10];
+
+
+
+int *arr2 = arr1;
+arr1 and arr2 have the same type
+c. float y{x1};
+This is an example of assignment
+d. It’s allowed to have multiple conversion constructors in the same class
+e. constexpr const double N = 51.5;
+Here const is not adding any additional meaning and can be omitted
+
+Правильные ответы:
+constexpr const double N = 51.5;
+Here const is not adding any additional meaning and can be omitted,
+It’s allowed to have multiple conversion constructors in the same class
+
+
+
+Вопрос 9
+Верно
+Баллов: 1,00 из 1,00
+
+Assume the necessary headers and namespaces are used. What is the output for the next code?
+
+a. 12 14 16 18 20
+b. 2 4 6 8 10
+c. 6 8 10
+d. 1 2 3 4 5
+
+Правильный ответ:
+6 8 10
+
+
+
+Вопрос 10
+Верно
+Баллов: 1,00 из 1,00
+
+Select valid lambda call expression(s) for the given code
+
+a. Capturing by value [=] creates a snapshot of x and y at the point of the lambda's creation,
+
+
+
+preventing any modifications to the original variables by lambda expression.
+b. Capturing by reference [&] ensures that the lambda does not have access to any variables outside its
+scope, enhancing its portability and reducing dependencies.
+c. Capturing by reference [&] allows the lambda to access and modify the values of x and y within its 
+body, reflecting changes in the original variables.
+d. Capturing by value [=] allows the lambda to access and modify the values of x and y within its body,
+reflecting changes in the original variables.
+
+Правильные ответы:
+Capturing by reference [&] allows the lambda to access and modify the values of x and y within its body,
+reflecting changes in the original variables.,
+Capturing by value [=] creates a snapshot of x and y at the point of the lambda's creation, preventing any
+modifications to the original variables by lambda expression.
+
+Вопрос 11
+Неверно
+Баллов: 0,00 из 1,00
+
+Select valid lambda call expression(s) for the given code
+
+a. int result = (*func)(5);
+b. int result = func->operator()(5);
+c. int result = []func(5); 
+d. int result = func(5);
+
+Правильные ответы:
+int result = func(5);,
+int result = (*func)(5);
+
+
+
+Вопрос 12
+Верно
+Баллов: 1,00 из 1,00
+
+Match the OOP principles with the right descriptions in C++
+C++ has that concept, which enables a single function to operate in different ways on
+different data types or objects, through mechanisms like virtual functions, allowing for
+dynamic binding at runtime.
+C++ utilizes that concept to allow one class (derived class) to use attributes and
+behaviors from another one or more classes (base classes), facilitating code reuse and
+the creation of a hierarchical organization of classes.
+In C++ it is achieved by defining interfaces with classes and pure virtual functions,
+allowing developers to focus on what an object does rather than how it does it, by
+separating the interface from the implementation.
+C++ enforces that notion through the use of classes, allowing data and methods to be
+bundled together in a way that restricts access to certain components, thereby
+protecting the internal state of an object.
+
+Polymorphism
+
+
+Inheritance
+
+
+Abstraction
+
+
+Encapsulation
+
+
+
+Правильный ответ:
+C++ has that concept, which enables a single function to operate in different ways on different data types or
+objects, through mechanisms like virtual functions, allowing for dynamic binding at runtime. → Polymorphism,
+C++ utilizes that concept to allow one class (derived class) to use attributes and behaviors from another one
+or more classes (base classes), facilitating code reuse and the creation of a hierarchical organization of
+classes. → Inheritance,
+In C++ it is achieved by defining interfaces with classes and pure virtual functions, allowing developers to focus
+on what an object does rather than how it does it, by separating the interface from the implementation. →
+Abstraction,
+C++ enforces that notion through the use of classes, allowing data and methods to be bundled together in a
+way that restricts access to certain components, thereby protecting the internal state of an object. →
+Encapsulation
+
+Вопрос 13
+Неверно
+Баллов: 0,00 из 1,00
+
+Which of the following statements about initializing bases and initializing class members in a constructor in C++
+is TRUE?
+a. There is no difference between initializing bases and initializing class members.
+b. Initializing bases involves assigning values to member variables, while initializing members involves
+calling the base class constructor explicitly.
+
+
+
+c. Initializing bases and initializing class members are essentially the same process.
+d. None of the above
+
+Правильный ответ:
+None of the above
+
+
+
+Вопрос 14
+Неверно
+Баллов: 0,00 из 1,00
+
+In C++, given a class A, what is the type of this pointer used in a non-const member function of class A?
+a. A * const
+b. const * A
+c. void * A 
+d. const A * const
+
+Правильный ответ:
+A * const
+
+Вопрос 15
+Верно
+Баллов: 1,00 из 1,00
+
+What is the difference between a static_cast and a dynamic_cast in C++?
+a. static_cast is used for implicit type conversions, while dynamic_cast is used for explicit type conversions.
+b. static_cast performs type conversions that can be checked at compile time, while dynamic_cast
+performs type conversions that require runtime type information.
+
+
+
+c. static_cast performs implicit conversions between related types, while dynamic_cast performs explicit
+conversions between unrelated types.
+d. static_cast performs type checking at runtime, while dynamic_cast performs type checking at compile
+time.
+
+Правильный ответ:
+static_cast performs type conversions that can be checked at compile time, while dynamic_cast performs
+type conversions that require runtime type information.
+
+
+
+Вопрос 16
+Верно
+Баллов: 1,00 из 1,00
+
+What are the advantages of using "delete" and "default" specifiers for member functions in C++?
+a. delete specifier explicitly deletes a member function, preventing its use, while default specifier
+allows to choose default implementations for special member functions.
+
+
+
+b. delete specifier forces a function to be called, while default specifier allows the compiler to generate
+special member functions automatically.
+c. delete specifier prevents the function from being called, while default specifier ensures default
+initialization of member variables.
+d. delete specifier allows a function to be called only if certain conditions are met, while default specifier
+ensures default arguments for member functions.
+
+Правильный ответ:
+delete specifier explicitly deletes a member function, preventing its use, while default specifier allows to
+choose default implementations for special member functions.
+
+Вопрос 17
+Верно
+Баллов: 1,00 из 1,00
+
+Which of the following smart pointers automatically deletes the object it points to when the smart pointer goes
+out of scope?
+a. shared_ptr
+b. weak_ptr
+c. unique_ptr
+d. All of the above
+
+Правильный ответ:
+unique_ptr
+
+
+
+Вопрос 18
+Частично правильный
+Баллов: 0,33 из 1,00
+
+Match the following smart pointer types with their appropriate scenarios or characteristics:
+Utilized in situations where it's necessary to observe or access an object managed by
+
+shared_ptr
+
+shared ownership without extending its lifetime, particularly useful in breaking or avoiding
+cycles of dependency that could lead to memory leaks.
+
+
+
+Ideal for use cases where an object needs to be shared across multiple parts of a program,
+but there's a need to avoid dangling pointers (pointing to nowhere) or memory leaks by
+tracking the object's lifecycle through a robust mechanism.
+
+weak_ptr
+
+
+
+Best suited for exclusive ownership scenarios where an object is managed by a single entity
+
+unique_ptr
+
+at a time, allowing efficient resource management, particularly when transferring
+ownership is a requirement.
+
+
+
+Правильный ответ:
+Utilized in situations where it's necessary to observe or access an object managed by shared ownership
+without extending its lifetime, particularly useful in breaking or avoiding cycles of dependency that could lead
+to memory leaks. → weak_ptr,
+Ideal for use cases where an object needs to be shared across multiple parts of a program, but there's a need
+to avoid dangling pointers (pointing to nowhere) or memory leaks by tracking the object's lifecycle through a
+robust mechanism. → shared_ptr,
+Best suited for exclusive ownership scenarios where an object is managed by a single entity at a time, allowing
+efficient resource management, particularly when transferring ownership is a requirement. → unique_ptr
+
+
+
+Вопрос 19
+Верно
+Баллов: 1,00 из 1,00
+
+Consider the following code:
+
+Given these definitions, consider the usage of the max function and Wrapper class in the following scenarios:
+
+Select all statements that are TRUE regarding the code above:
+a. Without explicit template specialization for const char*, comparing string literals in Scenario 3 would 
+result in comparing pointer addresses rather than the strings' contents.
+b. Scenario 3 utilizes the specialized max function for const char* to compare C-style string literals
+
+
+
+based on their lexicographical order.
+c. In Scenario 1, T is deduced as int, and the generic max function template is used to compare
+
+
+
+integers.
+d. Scenario 2 successfully compiles and executes because the Wrapper class provides an overloaded 
+operator> for comparison.
+e. The max function, when used with Wrapper<int> instances in Scenario 2, relies on implicit type
+conversion to deduce T as int.
+
+Правильные ответы:
+In Scenario 1, T is deduced as int, and the generic max function template is used to compare integers.,
+Scenario 2 successfully compiles and executes because the Wrapper class provides an overloaded operator>
+for comparison.,
+Scenario 3 utilizes the specialized max function for const char* to compare C-style string literals based on their
+lexicographical order.,
+Without explicit template specialization for const char*, comparing string literals in Scenario 3 would result in
+comparing pointer addresses rather than the strings' contents.
+
+
+
+Вопрос 20
+Верно
+Баллов: 1,00 из 1,00
+
+Which of the following is TRUE about template partial specialization in C++?
+a. Partial specialization can be applied to function templates but not to class templates.
+b. It is used to completely disable template instantiation for specific types.
+c. Partial specialization is automatically generated by the compiler for all templates.
+d. It allows the creation of a template specialization that depends on a subset of the template
+parameters.
+
+
+
+Правильный ответ:
+It allows the creation of a template specialization that depends on a subset of the template parameters.
+
+Вопрос 21
+Неверно
+Баллов: 0,00 из 1,00
+
+What is the output of the following code?
+
+a. 6.6 3 2.5
+b. 6 2 2.5
+c. 6 2 2
+d. 6.6 3 2 
+e. 6.6 2 2
+f.
+
+6 3 2.5
+
+g. 6.6 2 2.5
+h. 6 3 2
+
+Правильный ответ:
+6.6 2 2
+
+
+
+Вопрос 22
+Верно
+Баллов: 1,00 из 1,00
+
+Which of the following statements about the given code is/are TRUE?
+
+a. Variable result1 will be of type int
+b. The Max function template can only compare values of the same type
+c. Variable result3 will be of type double
+d. Variable result2 will be of type double
+
+Правильные ответы:
+Variable result1 will be of type int,
+Variable result2 will be of type double,
+The Max function template can only compare values of the same type
+
+Вопрос 23
+Верно
+Баллов: 1,00 из 1,00
+
+Which of the following statements about templates is/are TRUE?
+a. C++ templates can be divided into two main categories: function templates and class templates.
+b. Partial template specialization can be used only for function templates.
+c. Partial template specialization is a partial function implementation within a template.
+d. Template instantiation can be implicit and explicit.
+
+Правильные ответы:
+Template instantiation can be implicit and explicit.,
+C++ templates can be divided into two main categories: function templates and class templates.
+
+
+
+Вопрос 24
+Верно
+Баллов: 1,00 из 1,00
+
+Which of those statements is/are TRUE?
+a. An iterator has all operators a pointer has
+b. Bidirectional iterators can access elements non-sequentially, allowing direct access to any element
+c. The only difference between a forward iterator and an input iterator is the ability to write to the
+
+
+
+pointed-to element
+d. A pointer has all operators an iterator has
+
+Правильные ответы:
+A pointer has all operators an iterator has,
+The only difference between a forward iterator and an input iterator is the ability to write to the pointed-to
+element
+
+Вопрос 25
+Верно
+Баллов: 1,00 из 1,00
+
+Which of the following is NOT a type of iterator?
+a. Input iterator
+b. Circular iterator
+c. Random access iterator
+d. Output Iterator
+
+Правильный ответ:
+Circular iterator
+
+
+
+Вопрос 26
+Частично правильный
+Баллов: 0,75 из 1,00
+
+Choose second order components in C++
+a. Traits
+b. Iterators
+c. Functional objects (functors)
+d. Operators
+e. Lambda expressions
+f.
+
+Adaptors
+
+g. Allocators
+h. Containers
+i.
+
+Algorithms
+
+Правильные ответы:
+Adaptors,
+Traits,
+Functional objects (functors),
+Allocators
+
+Вопрос 27
+Верно
+Баллов: 1,00 из 1,00
+
+What is the main reason to use namespaces?
+a. to prevent name collisions
+b. to save more memory
+c. to collect all code in one place
+d. to avoid exceptions
+
+Правильный ответ:
+to prevent name collisions
+
+
+
+Вопрос 28
+Верно
+Баллов: 1,00 из 1,00
+
+Which of the following is a correct example of a pure virtual function in C++?
+a. virtual void display() = 0;
+b. virtual void display() {}
+c. abstract virtual display();
+d. pure virtual display() {}
+
+Правильный ответ:
+virtual void display() = 0;
+
+Вопрос 29
+Верно
+Баллов: 1,00 из 1,00
+
+In which of the following cases template specialization should be avoided in C++?
+a. When a template implementation can handle all types efficiently
+b. When the implementation of a template is simple and does not need any customization
+c. When the template implementation can be modified to handle specific cases efficiently
+d. None of the above
+
+Правильный ответ:
+When a template implementation can handle all types efficiently
+
+
+
+Вопрос 30
+Верно
+Баллов: 1,00 из 1,00
+
+What is the output of this program?
+
+a. 10
+b. Compile-time error
+c. 5
+d. Random value
+
+Правильный ответ:
+Compile-time error
+
+
+
+

@@ -1,0 +1,16 @@
+{
+ "title": "№ СДС СР СК.499-2022 Сертификат соответствия на разработку, проектирования и производство продукции от 22.04.2022 Оригинал сертификата",
+ "url": "https://innopolis.university/upload/iblock/f47/k1ulqiw6wk9y06gic8oc1dxcf4qh5hlh/499%20%D0%A1%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82%20%D0%98%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D0%BB%D0%B8%D1%81.pdf",
+ "sha256": "851d7f7599c332ccc490dc2afcbadb8b044628208065b62c9413c08108d3312d",
+ "method": "ocr (tesseract rus)",
+ "chars": 1469,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-25T00:02:54+00:00",
+ "remote": {
+  "etag": "\"6267c556-30616b\"",
+  "modified": "Tue, 26 Apr 2022 10:11:34 GMT",
+  "size": "3170667"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "Read the article [NIR_2022_preliminarystudy]",
+ "url": "https://innopolis.university/filespublic/NIR_2022_preliminarystudy.pdf",
+ "sha256": "cf6a07a0010aabcf262f0f01a68044756170d8917b434810c6177b20b5cc3017",
+ "method": "text layer (pdfplumber)",
+ "chars": 28101,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:45:31+00:00",
+ "remote": {
+  "etag": "\"9cf32-5e724a40ab4ed\"",
+  "modified": "Fri, 26 Aug 2022 13:10:40 GMT",
+  "size": "642866"
+ }
+}

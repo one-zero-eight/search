@@ -1,0 +1,120 @@
+[2021] Physics 2. Electrical Engineering
+
+Quiz 4 – Transient Analysis. Filters
+Problem 1 (10 pts) – RL Circuit
+t t < 0, the current in a series RL circuit is zero. Find the steady state current after the switch is
+turned on, assuming that the values are V = 10 V, L = 10 mH, R = 3 k.
+
+A
+
+Problem 2 (10 pts) – Mechanical and Electrical
+rovide an example of how the analogies between mechanical parameters (mass, damping,
+compliance) and electrical parameters (inductance, resistance, capacitance) can be used to help
+solving practical engineering problems.
+
+P
+
+Problem 3 (15 pts) – RC Filter
+esistor rating used in a low-pass filter R = 1 M. Assuming C = 10-6 F, at what frequency will the
+filter’s magnitude response be equal to 0.5?
+
+R
+
+Problem 4 (20 pts) – Dynamic Circuit 1
+
+I
+
+n the circuit shown in Fig. 1 (left), plot the frequency response. Assume any values for R,L,C.
+
+Figure 1. Circuits for Problem 2 (left) and Problem 6 (right)
+Problem 5 (13 pts) – Light Bulbs and Transient Response
+bulbs invention is widely attributed to Thomas Edison, which is not exactly true. In what year
+Light
+did Edison receive his patent No. 223,898 entitled “Electric Lamp”?
+Problem 6 (25 pts) – Dynamic Circuit 2
+ind the differential equation describing VO in the circuit shown in Fig. 1 (right).
+
+F
+
+Problem 7 (9 pts) – Bandpass Filters
+one popular application of bandpass filters is to tune into music on the radio. What is the best music
+genre?
+
+O
+
+Problem 8 (12 pts) – Mysterious Component
+ften held but seldom touched, always wet but never rusts, often bites but seldom bit, to use me well
+you must have wit. What am I?
+
+O
+
+1
+0
+
+L
+
+Amplitude
+
+Problem 9 (42 pts) – Low-Pass Filter
+ast question: determine the filter type by his frequency response shown below.
+
+Frequency
+
+[2021] Physics 2. Electrical Engineering
+
+Quiz 4 – Transient Analysis. Filters
+Problem 1 (10 pts) – Mechanical vs Electrical
+Provide an example of how the analogies between mechanical parameters (mass, damping, compliance)
+and electrical parameters (inductance, resistance, capacitance) can be used to help solving practical
+engineering problems.
+Problem 2 (25 pts) – Transient Response I
+At t < 0, the circuit shown in Fig. 1 (left) is at steady state. The switch is pressed at t = 0. Assuming that
+the values are VS = 12 V, L = 10 mH, R1 = 2 k, R2 = 1 k do the following:
+1. Write the differential equation for inductor current iL (15 pts)
+2. Find the time constant of the circuit for t > 0 (5 pts)
+3. Sketch the transient response of inductor current iL (5 pts)
+Problem 3 (40 pts) – Transient Response II
+For the circuit shown in Fig. 2 (right), do the following:
+1. Write the differential equation to calculate vC (25 pts)
+2. Assuming IS = 2 A, R = 500 , C = 2 F, and L = 2 H, find the natural frequency 𝜔𝑛 and
+damping ratio 𝜁 (15 pts).
+Recall that the general form of a second-order differential equation is
+1 𝑑2 𝑥(𝑡) 2𝜁 𝑑𝑥(𝑡)
++
++ 𝑥(𝑡) = 𝐾𝑆 𝑓(𝑡)
+𝜔𝑛 𝑑𝑡
+𝜔𝑛2 𝑑𝑡 2
+
+t=0
+
+t=0
+R1
+VS
+
++
+-
+
+R
+
+R2
+
+L
+
+C
+
+IS
+
+L +
+vC = ?
+-
+
+Figure 1. Circuits for Problem 2 (left) and Problem 3 (right)
+Problem 4 (25 pts) – Low-Pass Filter
+Determine the required resistance rating R so that the conventional RC (low-pass) filter shown below
+has the magnitude response of |vout /vin| = 1/√2 at  = 1000 rad/s. Assume C = 10-6 F.
+
+vin(t)
+
+vout(t)
+
+

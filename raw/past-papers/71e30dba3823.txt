@@ -1,0 +1,56 @@
+Analytic Geometry. Test 1.
+Variant 1
+
+. Point A has coordinates (1, —1,—19) in the old coordinate system. Find its coordinates in the new
+coordinate system obtained from the initial one by transferring the origin to the point N that has
+coordinates (4, —5,2) in the old coordinate system.
+
+5 -1
+);B: Tz 2
+-3 -1
+
+8] ot
+
+. (a) Find matrix product AB if A = < :1)) ?
+
+(b) Find the largest possible value of the determinant AB.
+
+3. It’s known that |a] =7, |b| =13, |c| =12 and a+ b + ¢ = 0. Find the valueofa-b+b-c+c-a.
+
+. In the triangle ABC points K, L, M are placed on the sides AB, BC and AC respectively such that
+AK : KB =BL:LC =CM : MA = 3 : 1. The medians of the triangle intersect in the point P.
+Find the coordinates of the vector AP in the basis of vectors LK and LM.
+
+5. Check whether the vectors 1, m, n are coplanar. If so get the linear dependency.
+
+l1=2a-b-c
+m=2b—-c—a
+n=2c—a—-b
+
+(a, b, c are three noncoplanar vectors)
+Analytic Geometry. Test 1.
+Variant 2
+
+. Point A has coordinates (2, —4,6) in the old coordinate system. Find its coordinates in the new
+coordinate system obtained from the initial one by transferring the origin to the point N that has
+coordinates (7,1, —4) in the old coordinate system.
+
+- 1 =z
+. (a) Find matrix product AB if A = < i g 32 ); B=| -3 2
+-1 2
+
+(b) Find the largest possible value of the determinant AB.
+
+3. It’s known that |a| =2, |b| =3, |c] =4 and a+ b + ¢ = 0. Find the valueofa-b+b-c+c-a.
+
+. In the triangle ABC' the point M is the middle of AC. Points K and L are placed on the sides AB
+and BC respectively such that AK : KB =3:5and BL: LC =2 : 3. Find the coordinates of the
+vector BM in the basis of vectors AL and CK.
+
+5. Check whether the vectors 1, m, n are coplanar. If so get the linear dependency.
+
+l=a+b+c
+m=b+c
+n=-a+c
+
+(a, b, c are three noncoplanar vectors)

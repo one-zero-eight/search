@@ -1,0 +1,258 @@
+Full name:
+Linear Algebra–II
+Midterm
+
+e-mail:
+Date: March 10th , 2020
+
+Variant #1
+1. (5 pts) Solve the system of equations with the use of Gaussian elimination process (without
+pivoting). Describe your solution in terms of matrix operations (after the final matrix operation
+you have to obtain augmented matrix in the form [I|x] ):
+
+
+x1 + 2x2 + 4x3 = 31
+5x1 + x2 + 2x3 = 29
+
+
+3x1 − x2 + x3 = 10
+
+Full name:
+Linear Algebra–II
+Midterm
+
+e-mail:
+Date: March 10th , 2020
+
+Variant #1
+2. (5 pts) Solve the given system of equations with the use of Cholesky decomposition (in other
+words, find decomposition A = LLT and then solve equations Ly = b, LT x = y):
+
+
+81x1 − 45x2 + 45x3 = 531
+−45x1 + 50x2 − 15x3 = −460
+
+
+45x1 − 15x2 + 38x3 = 193
+
+Full name:
+Linear Algebra–II
+Midterm
+
+e-mail:
+Date: March 10th , 2020
+
+Variant #1
+3. (5 pts) Forward elimination changes Ax = b to a row echelon form Rx = d. Compose the vector
+d and
+solution
+ the
+ matrix
+ R
+ if the complete
+
+
+ is the following:
+4
+−3
+−8
+−1
+2
+−3
+−6
+7
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+y = 0 + c1  1  + c2  0  + c3 
+0
+0
+0
+1
+0
+0
+0
+0
+1
+
+Full name:
+Linear Algebra–II
+Midterm
+
+e-mail:
+Date: March 10th , 2020
+
+Variant #1
+4. (5 pts)
+ Solve
+ thegiven
+ system Ax = b with the use of least-square approximation:
+1 4
+5
+A = 1 5; b = 6.
+0 0
+0
+
+Full name:
+Linear Algebra–II
+Midterm
+
+e-mail:
+Date: March 10th , 2020
+
+Variant #1
+5. (5 pts) Represent a matrix as a QR decomposition according to Gramm-Schmidt orthogonalization: 
+
+1 1
+1
+A = 1 −1 1 .
+1 1 −1
+
+Full name:
+Linear Algebra–II
+Midterm
+
+e-mail:
+Date: March 10th , 2020
+
+Variant #1
+6. (extra 5 pts) Prove the following statement: if a matrix A is symmetric then the dot product
+of two vectors x and y satisfies the property x · Ay = y · Ax.
+
+Full name:
+Linear Algebra–II
+Midterm
+
+e-mail:
+Date: March 10th , 2020
+
+Variant #2
+1. (5 pts) Solve the system of equations with the use of Gaussian elimination process (without
+pivoting). Describe your solution in terms of matrix operations (after the final matrix operation
+you have to obtain augmented matrix in the form [I|x] ):
+
+
+−x1 + x2 − 4x3 = −11
+3x1 + 2x2 + x3 = 10
+
+
+x1 − x2 + 2x3 = 5
+
+Full name:
+Linear Algebra–II
+Midterm
+
+e-mail:
+Date: March 10th , 2020
+
+Variant #2
+2. (5 pts) Solve the given system of equations with the use of Cholesky decomposition (in other
+words, find decomposition A = LLT and then solve equations Ly = b, LT x = y):
+
+
+36x1 + 30x2 + 18x3 = 288
+30x1 + 41x2 + 23x3 = 296
+
+
+18x1 + 23x2 + 14x3 = 173
+
+Full name:
+Linear Algebra–II
+Midterm
+
+e-mail:
+Date: March 10th , 2020
+
+Variant #2
+3. (5 pts) Forward elimination changes Ax = b to a row echelon form Rx = d. Compose the vector
+d and
+solution
+ the
+ matrix
+ R
+ if the complete
+
+
+ is the following:
+1
+−3
+−4
+6
+3
+−2
+2
+−3
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+y = 0 + c1  1  + c2  0  + c3 
+0
+0
+0
+1
+0
+0
+0
+0
+1
+
+Full name:
+Linear Algebra–II
+Midterm
+
+e-mail:
+Date: March 10th , 2020
+
+Variant #2
+4. (5 pts)
+ Solve
+ thegiven
+ system Ax = b with the use of least-square approximation:
+1 3
+4
+A = 1 4; b = 5.
+0 0
+0
+
+Full name:
+Linear Algebra–II
+Midterm
+
+e-mail:
+Date: March 10th , 2020
+
+Variant #2
+5. (5 pts) Represent a matrix as a QR decomposition according to Gramm-Schmidt orthogonalization: 
+
+1 −1 0
+A = 0 1 2.
+1 0 1
+
+Full name:
+Linear Algebra–II
+Midterm
+
+e-mail:
+Date: March 10th , 2020
+
+Variant #2
+6. (extra 5 pts) Prove the following statement: if a matrix A is symmetric then the dot product
+of two vectors x and y satisfies the property x · Ay = y · Ax.
+
+

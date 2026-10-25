@@ -1,0 +1,239 @@
+Variant 1
+
+First Name, Surname
+Group Number
+Block A (12 points + 2 extra points)
+Task 0 (2 extra points) What is the name of the lecturer?
+a) Andrey Frolov
+b) Andrey Frolov
+c) Andrey Frolov
+d) Andrey Frolov
+
+Please note that if you will fail this task, you will fail the midterm exam!!
+Task 1 (2 points) What is the name of formula A & (B & C) ≡ (A & B) & C?
+a) De Morgan’s Law
+b) Commutative Law
+c) Associative Law
+d) Distributive Law
+Task 2 (2 points) What is a DNF?
+a) A disjunction of disjunctive terms
+b) A disjunction of conjuctive terms
+c) A conjunction of conjuctive terms
+d) A conjunction of disjunctive terms
+
+1
+
+First Name, Surname
+Group Number
+Task 3 (2 points) which of the following is/are true?
+a) ¬∃xP (x) ≡ ∃x¬P (x)
+b) ¬∃xP (x) ≡ ¬∃x¬P (x)
+c) ¬∃xP (x) ≡ ∀x¬P (x)
+d) ¬∃xP (x) ≡ ¬∀x¬P (x)
+Task 4 (2 points) What is the Power Set of a set?
+a) The empty set
+b) The universal set
+c) The set of all subsets
+d) The set of all supersets
+Task 5 (2 points) What is the number of all k-permutations of n objects?
+a) n!
+b) n!
+k!
+n!
+c) (n−k)!
+n!
+d) k!(n−k)!
+
+Task 6 (2 points) Choose the character for an+3 = 2an+2 − an+1 + 3an
+a) x3 + 2x2 − x + 3
+b) x3 − 2x2 + x − 3
+c) 2x2 − x + 3
+d) −1 + 2x − x2 + 3x3
+2
+
+First Name, Surname
+Group Number
+Block B (14 points)
+Task 7 (2 points) Find a DNF (simplification is not necessary) from truth
+table f (x, y, z) = (01101110)
+
+Task 8 (3 points) Find Algebraic Normal Form for (a → b) & (a ∨ c)
+
+3
+
+First Name, Surname
+Group Number
+Task 9 (3 points) List set P ({apple, banana, coconut}) \ P ({apple, coconut})
+and count its cardinality.
+
+Task 10 (3 points) Eight runners are running in a race. In how many ways
+can a gold, silver, and bronze medals be awarded? Note that we give only one gold,
+one silver medal, but we could give one or two bronze medal.
+
+4
+
+First Name, Surname
+Group Number
+Task 11 (3 points) Find a general solution of an+2 = 4an+1 + an
+
+Block C (14 points)
+Task 12 (3 points) Prove that A & (B ∨ C) ≡ (A & B) ∨ (A & C)
+
+5
+
+First Name, Surname
+Group Number
+Task 13 (2 points) Prove that A × A ̸= A
+
+Task 14 (3 points) Prove that ∃x∀yP (x, y) ̸≡ ∀y∃xP (x, y)
+
+6
+
+First Name, Surname
+Group Number
+Task 15 (3 points) Prove (by induction) that
+13 + 2 3 + 3 3 + · · · + n 3 =
+
+7
+
+
+
+n(n + 1)
+2
+
+2
+
+First Name, Surname
+Group Number
+Task 16 (3 points) Prove that
+n
+X
+
+(a0 + id) = na0 + d
+
+i=0
+
+8
+
+n(n + 1)
+2
+
+Variant 2
+
+First Name, Surname
+Group Number
+Block A (12 points + 2 extra points)
+Task 0 (2 extra points) What is the name of the lecturer?
+a) Andrey Frolov
+b) Andrey Frolov
+c) Andrey Frolov
+d) Andrey Frolov
+
+Please note that if you will fail this task, you will fail the midterm exam!!
+Task 1 (2 points) What is the name of formula A ∨ B ≡ B ∨ A?
+a) De Morgan’s Law
+b) Commutative Law
+c) Associative Law
+d) Distributive Law
+Task 2 (2 points) What is a CNF?
+a) A disjunction of disjunctive terms
+b) A disjunction of conjuctive terms
+c) A conjunction of conjuctive terms
+d) A conjunction of disjunctive terms
+
+1
+
+First Name, Surname
+Group Number
+Task 3 (2 points) which of the following is/are true?
+a) ¬∀xP (x) ≡ ∃x¬P (x)
+b) ¬∀xP (x) ≡ ¬∃x¬P (x)
+c) ¬∀xP (x) ≡ ∀x¬P (x)
+d) ¬∀xP (x) ≡ ¬∀x¬P (x)
+Task 4 (2 points) What is the cardinality of a set?
+a) 0
+b) The number of all elements
+c) The number of all subsets
+d) The number of all supersets
+Task 5 (2 points) What is the number of all k-combinations of n objects?
+a) n!
+b) n!
+k!
+n!
+c) (n−k)!
+n!
+d) k!(n−k)!
+
+Task 6 (2 points) Choose the character for an+3 = 3an+2 + an+1 − 2an
+a) x3 + 3x2 + x − 2
+b) x3 − 3x2 − x + 2
+c) 3x2 + x − 2
+d) −1 + 3x + x2 − 2x3
+2
+
+First Name, Surname
+Group Number
+Block B (14 points)
+Task 7 (2 points) Find a CNF (simplification is not necessary) from truth
+table f (x, y, z) = (11000010)
+
+Task 8 (3 points) Find Algebraic Normal Form for (a ∨ b) & (b → c)
+
+3
+
+First Name, Surname
+Group Number
+Task 9 (3 points) List set P ({work, wall, window}) \ P ({wall, window}) and
+count its cardinality.
+
+Task 10 (3 points) Which numbers from 1 to 1 000 000 are more frequent:
+those in whose notations 1 occurs, or those in which it does not occur?
+
+4
+
+First Name, Surname
+Group Number
+Task 11 (3 points) Find a general solution of an+2 = 8an+1 + 2an
+
+Block C (14 points)
+Task 12 (3 points) Prove that A ∨ (B & C) ≡ (A ∨ B) & (A ∨ C)
+
+5
+
+First Name, Surname
+Group Number
+Task 13 (2 points) Prove that A × B ̸= B × A
+
+Task 14 (3 points) Prove that ∃x(P (x) & R(x)) ̸≡ ∃xP (x) & ∃xR(x)
+
+6
+
+First Name, Surname
+Group Number
+Task 15 (3 points) Prove (by induction) that
+13 + 2 3 + 3 3 + · · · + n 3 =
+
+7
+
+
+
+n(n + 1)
+2
+
+2
+
+First Name, Surname
+Group Number
+Task 16 (3 points) Prove that
+n
+X
+
+tn+1 − 1
+(a0 t ) = a0
+t−1
+i=0
+i
+
+8
+
+

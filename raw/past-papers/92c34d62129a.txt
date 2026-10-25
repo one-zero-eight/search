@@ -1,0 +1,113 @@
+Innopolis University
+Academic Year 2022/2023
+Final Exam of Computer Architecture
+15th December 2022
+Exam Duration: 60 minutes
+
+Student Name:
+Student Email:
+Student Group:
+
+Question
+Question 1
+Question 2
+Question 3
+Question 4
+Question 5
+Question 6
+Question 7
+Total (max: 12 points)
+
+For Instructors Use: Grade Summary
+Grade
+
+Please write very clearly your names and your solution. What will not be understood
+will be considered wrong.
+You need to perform this exam alone and without the use of any equipment or book, apart
+from this booklet and pens. Please do not consult any person or use any equipment, otherwise
+you will be disqualified from this exam at the very first attempt.
+Student’s signature:
+
+Student Name:
+
+Computer Architecture – Final Exam 2022
+
+Page 2 of 8
+
+Student Name:
+Question 1. (1 point) For each memory unit listed below, identify its type – “SRAM” or
+“DRAM”:
+a) Main System Memory: _____DRAM______
+b) CPU Cache: _____SRAM_____
+
+Question 2. (1 point) There are several types of RISC-V processor instructions available,
+including “R”, “I”, “J”, and others. What is the type of “addi” RISC-V processor instruction?
+Answer: ___I___
+
+Question 3. (1 point) Do you agree that the storage capacity of L1 cache for modern CPUs
+typically significantly exceeds 8 GB?
+Answer:
+a) Agree
+b) Disagree - Correct
+
+Question 4. (1+1 points) Briefly describe the major difference between Von Neumann and
+Harvard computer architectures. Provide conceptual diagrams illustrating such a difference.
+Answer:
+The major difference: Unlike Harvard architecture, Von Neumann architecture assumes that
+both program instructions and data are stored in the same memory unit.
+
+Computer Architecture – Final Exam 2022
+
+Page 3 of 8
+
+Student Name:
+Question 5. (1+1 points) Briefly describe the major difference between Half Adder and Full
+Adder computation circuits. Provide implementations for each of these circuits by using XOR,
+AND, and OR logic gates (the use of NOT and other logic gates is prohibited).
+Answer:
+The key difference: Unlike Full Adder, Half Adder computation circuit does not take carry-in
+value (for addition operation), and is used for adding the least significant bits of input
+arguments.
+
+Computer Architecture – Final Exam 2022
+
+Page 4 of 8
+
+Student Name:
+Question 6. (1+1 points) Describe the purpose and the main principles of a function calling
+convention. Which data does a function stack frame contain?
+Answer:
+The answer should be based on the following slides.
+The purpose and the main principles of a function calling convention:
+
+Slide related to data, which is contained in a function call frame:
+
+Computer Architecture – Final Exam 2022
+
+Page 5 of 8
+
+Student Name:
+Question 7. (1 x 3 points) Describe the specific properties and differences for the following
+processor architectures: register-set based, accumulator-set based, and stack-based.
+Answer:
+The answers should be based on the following slides:
+
+Computer Architecture – Final Exam 2022
+
+Page 6 of 8
+
+Student Name:
+
+This is the end of the student book
+Computer Architecture – Final Exam 2022
+
+Page 7 of 8
+
+Student Name:
+Draft (will not be checked)
+
+Computer Architecture – Final Exam 2022
+
+Page 8 of 8
+
+

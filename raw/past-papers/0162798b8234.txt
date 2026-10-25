@@ -1,0 +1,1459 @@
+Вопрос 1
+
+Match the following patterns and their descriptions
+Used where we need to treat a group of objects in a
+similar way as a single object
+Allows classes with incompatible interfaces to work
+together by wrapping their interface around that of
+an already existing class
+A behavioral design pattern that reduces complex
+conditional logic by defining a family of algorithms,
+encapsulates each one and makes them
+interchangeable
+
+Выберите...
+
+Выберите...
+
+Выберите...
+
+Правильный ответ:
+Used where we need to treat a group of objects in a similar way as a
+single object → Composite,
+Allows classes with incompatible interfaces to work together by
+wrapping their interface around that of an already existing class →
+Adapter,
+A behavioral design pattern that reduces complex conditional logic
+by defining a family of algorithms, encapsulates each one and makes
+them interchangeable → Strategy
+
+Вопрос 2
+
+Select all that apply for Strategy, Adapter, and Composite patterns.
+a. The Strategy pattern allows for encapsulating interchangeable
+behaviors and selecting them at runtime based on the context
+b. The Adapter pattern facilitates the integration of incompatible
+interfaces by providing a bridge between them
+c. The Strategy pattern is primarily used for linking incompatible
+interfaces between classes
+d. The Composite pattern is only suitable for representing simple
+individual objects, not complex objects
+e. The Composite pattern enables the construction of tree-like
+structures where individual objects and compositions of objects
+are treated uniformly
+f.
+
+The Adapter pattern requires modifying the source code of the
+existing classes to make them compatible with each other
+
+Правильные ответы:
+The Strategy pattern allows for encapsulating interchangeable
+behaviors and selecting them at runtime based on the context,
+The Adapter pattern facilitates the integration of incompatible
+interfaces by providing a bridge between them,
+The Composite pattern enables the construction of tree-like structures
+where individual objects and compositions of objects are treated
+uniformly
+
+Вопрос 3
+
+Match the components of the Decorator pattern with their respective
+descriptions.
+Implements additional functionality to the
+component
+Represents the core functionality of the
+object
+Defines the basic interface for all objects
+Facilitates the attachment of additional
+responsibilities
+Implements the base behavior and can
+have additional responsibilities
+
+Выберите...
+
+Выберите...
+Выберите...
+Выберите...
+
+Выберите...
+
+Правильный ответ:
+Implements additional functionality to the component → Concrete
+Decorator,
+Represents the core functionality of the object → Concrete
+Component,
+Defines the basic interface for all objects → Component Interface,
+Facilitates the attachment of additional responsibilities → Decorator,
+Implements the base behavior and can have additional responsibilities
+→ Concrete Component
+
+Вопрос 4
+
+Suggest the design pattern to be applied.
+You are developing a framework for generating reports in various
+formats (e.g., PDF, CSV, HTML), and each report format requires a
+specific generation algorithm, but they all share common steps such
+as data retrieval and formatting.
+Ответ:
+
+Правильный ответ: Template Method
+
+Вопрос 5
+
+Select all that apply
+a. The Template Method pattern allows subclasses to change the
+algorithm's structure, violating the "Open/Closed Principle"
+b. The Mediator pattern promotes loose coupling between
+objects by encapsulating their interaction within a mediator
+object
+c. The Mediator pattern increases dependencies between
+objects by centralizing communication logic
+d. The Abstract Factory pattern provides an interface for creating
+families of related or dependent objects without specifying
+their concrete classes
+e. The Template Method pattern is commonly used in frameworks
+where the overall algorithm structure is fixed, but specific steps
+may vary
+f.
+
+The Abstract Factory pattern is often used in scenarios where
+there is a single object that needs to be created via a factory
+method
+
+Правильные ответы:
+The Mediator pattern promotes loose coupling between objects by
+encapsulating their interaction within a mediator object,
+The Abstract Factory pattern provides an interface for creating families
+of related or dependent objects without specifying their concrete
+classes,
+The Template Method pattern is commonly used in frameworks where
+the overall algorithm structure is fixed, but specific steps may vary
+
+Вопрос 6
+
+Imagine that you have a home entertainment system with multiple
+devices like a TV, speakers, and a DVD player. Instead of managing
+each device separately, you use a remote control that acts as a
+Facade, simplifying the interaction. Which statement(s) is/are TRUE
+about the use of the Facade pattern in the home entertainment
+system example?
+a. The Facade pattern removes the need for individual remote
+controls in the system
+b. The Facade pattern exposes all the internal details of the
+devices to the user
+c. The Facade pattern is only useful for a small-scale
+entertainment setups
+d. The Facade pattern simplifies the control of the home
+entertainment system
+e. The Facade pattern increases the complexity of using the
+home entertainment system
+f.
+
+The Facade pattern can be used to hide the complexities of
+managing individual remote controls manually
+
+Правильные ответы:
+The Facade pattern simplifies the control of the home entertainment
+system,
+The Facade pattern can be used to hide the complexities of
+managing individual remote controls manually
+
+Вопрос 7
+
+Suggest the design pattern to be applied.
+You are developing a multimedia streaming application where users
+can access videos from a remote server, but you want to control
+access to certain videos based on user permissions or subscription
+levels.
+Ответ:
+
+Правильный ответ: Proxy
+
+Вопрос 8
+
+Analyze the Java program with Adapter and provide missing line(s).
+
+Вопрос 9
+
+Which of the following statements is/are TRUE regarding the similarities
+between the State and Strategy design patterns?
+a. Both patterns encapsulate varying behavior for an object
+based on its internal state
+b. Both patterns involve a context object that maintains a
+reference to different behaviors
+c. Both patterns allow for dynamic changes in behavior at
+runtime
+d. Both patterns require the client to select the appropriate
+behavior explicitly
+
+Правильные ответы:
+Both patterns encapsulate varying behavior for an object based on its
+internal state,
+Both patterns allow for dynamic changes in behavior at runtime
+
+Вопрос 10
+
+Suggest the design pattern to be applied.
+You are building a graphical user interface (GUI) framework where
+components like buttons, text fields, and checkboxes need to be
+arranged in a hierarchical structure, and you want to treat individual
+components and composite structures uniformly.
+Ответ:
+
+Правильный ответ: Composite
+
+Вопрос 11
+
+Match names and surnames
+Mohammad
+
+Выберите...
+
+Munir
+
+Выберите...
+
+Ahror
+
+Выберите...
+
+Marko
+
+Выберите...
+
+Eugene
+
+Выберите...
+
+Asem
+
+Выберите...
+
+Daniel
+
+Выберите...
+
+Правильный ответ:
+Mohammad → Shahin,
+Munir → Makhmutov,
+Ahror → Jabborov,
+Marko → Pezer,
+Eugene → Zouev,
+Asem → Abdelhady,
+Daniel → Atonge
+
+Вопрос 12
+
+In which of the following scenarios the Bridge design pattern would be
+most appropriate?
+a. When there is a need to decouple an abstraction from its
+implementation, allowing them to vary independently
+b. When there is a need to ensure that only one instance of a
+class is created, providing global access to that instance
+c. When there is a need to represent abstraction and
+implementation hierarchies of objects with increasing levels of
+specialization
+d. When there is a need to encapsulate a family of algorithms
+and make them interchangeable
+e. When there is a need to group similar objects together into a
+single object, providing a simplified interface to the client
+
+Правильные ответы:
+When there is a need to decouple an abstraction from its
+implementation, allowing them to vary independently,
+When there is a need to represent abstraction and implementation
+hierarchies of objects with increasing levels of specialization
+
+Вопрос 13
+
+Analyze the C++ code below and write the missing line. There must be
+only ONE statement in your answer. Don’t add any meaningless
+spaces.
+
+Ответ:
+
+Правильный ответ: return collection[current++];
+
+Вопрос 14
+
+Match the following design patterns and statements about them.
+It is useful in scenarios where multiple
+orthogonal dimensions of variation exist, such
+as platform independence or feature
+
+Выберите...
+
+variations. Promotes flexibility and extensibility
+It centralizes communication logic between
+objects, simplifying complex communication
+
+Выберите...
+
+scenarios between them
+It is often used in scenarios where there are
+multiple families of related objects that need to
+
+Выберите...
+
+be created together
+It separates intrinsic state (shared across
+multiple objects) from extrinsic state (unique to
+
+Выберите...
+
+each object)
+It allows clients to create objects without
+knowing their concrete implementations,
+
+Выберите...
+
+enabling flexibility in object creation and
+reducing dependencies
+Defines the skeleton of an algorithm in a
+method, deferring some steps to subclasses
+
+Выберите...
+
+Captures an object's internal state without
+violating encapsulation, allowing it to be
+restored to a previous state later
+
+Выберите...
+
+Правильный ответ:
+It is useful in scenarios where multiple orthogonal dimensions of
+variation exist, such as platform independence or feature variations.
+Promotes flexibility and extensibility → Bridge,
+It centralizes communication logic between objects, simplifying
+complex communication scenarios between them → Mediator,
+It is often used in scenarios where there are multiple families of related
+objects that need to be created together → Abstract Factory,
+It separates intrinsic state (shared across multiple objects) from extrinsic
+state (unique to each object) → Flyweight,
+It allows clients to create objects without knowing their concrete
+implementations, enabling flexibility in object creation and reducing
+dependencies → Factory,
+Defines the skeleton of an algorithm in a method, deferring some steps
+to subclasses → Template Method,
+Captures an object's internal state without violating encapsulation,
+allowing it to be restored to a previous state later → Memento
+
+Вопрос 15
+
+What design pattern is used in following Java code?
+
+Ответ:
+
+Правильный ответ: Command
+
+Вопрос 16
+
+Suggest the design pattern to be applied.
+
+You are building a chat application where users can communicate in
+real-time, but managing the direct communication between each
+user becomes complex as the number of users increases.
+Ответ:
+
+Правильный ответ: Mediator
+
+Вопрос 17
+
+Suggest the design pattern to be applied.
+You are building a text editor application where individual characters
+are represented as objects, and there are a large number of
+repeating characters in the document, leading to high memory
+consumption.
+Ответ:
+
+Правильный ответ: Flyweight
+
+Вопрос 18
+
+Choose the correct statement(s) about the Observer design pattern.
+a. The Observer design pattern is a behavioral design pattern that
+allows an observable object, known as the subject, to notify a
+list of dependent objects, known as observers, about any
+changes in its state.
+b. In the Observer design pattern, observers are tightly coupled to
+the subject, meaning changes in the subject's implementation
+might affect the observers.
+c. The Observer design pattern is useful when changes in the
+state of one object require other objects to be notified or
+updated automatically.
+d. The Observer design pattern can be used to implement
+distributed event handling systems, such as systems with event
+listeners.
+
+Правильные ответы:
+The Observer design pattern is a behavioral design pattern that allows
+an observable object, known as the subject, to notify a list of
+dependent objects, known as observers, about any changes in its
+state.,
+The Observer design pattern is useful when changes in the state of one
+object require other objects to be notified or updated automatically.,
+The Observer design pattern can be used to implement distributed
+event handling systems, such as systems with event listeners.
+
+Вопрос 19
+
+What design pattern is applied in the following Java code?
+
+Ответ:
+
+Правильный ответ: Prototype
+
+Вопрос 20
+
+Which of the following statements is/are TRUE about the Single
+Responsibility Principle (SRP)?
+a. It increases the impact of change within the software
+b. It leads to fewer conflicts when working in a team environment
+c. It states that a class should only have one reason to change
+d. It suggests that classes should gain additional functionality
+through inheritance
+
+Правильные ответы:
+It leads to fewer conflicts when working in a team environment,
+It states that a class should only have one reason to change
+
+Вопрос 21
+
+Вопрос 22
+
+Вопрос 23
+
+Analyze the Java program and provide answers to the comments.
+
+Write missing Java code so that only one instance of the class
+DatabaseConnector can be obtained (without lazy initialization).
+
+Which of these statements is/are TRUE about the Visitor design
+pattern?
+a. Visitors might lack the necessary access to the private fields
+and methods of the elements that they’re supposed to work
+with
+b. It’s best suited when we need to define a grammatical
+representation for a language
+c. It’s best suited when it’s required to pass through a data
+structure in a new fashion
+d. It’s best suited when new operations need to be added
+without modifying existing structures
+
+Правильные ответы:
+It’s best suited when new operations need to be added without
+modifying existing structures,
+Visitors might lack the necessary access to the private fields and
+methods of the elements that they’re supposed to work with
+
+Вопрос 24
+
+Вопрос 25
+
+Analyze the C++ code below and write the missing lines.
+
+Match each category of design patterns with the appropriate
+definition
+These patterns explain how to assemble
+objects and classes into larger structures, while
+keeping these structures flexible and efficient
+
+Выберите...
+
+These patterns are concerned with algorithms
+and the assignment of responsibilities
+between objects. They describe not just
+patterns of objects or classes but also the
+patterns of communication between them
+
+Выберите...
+
+These patterns provide mechanisms for
+creating objects in a manner suitable to the
+situation
+
+Выберите...
+
+Правильный ответ:
+These patterns explain how to assemble objects and classes into larger
+structures, while keeping these structures flexible and efficient →
+Structural Patterns,
+These patterns are concerned with algorithms and the assignment of
+responsibilities between objects. They describe not just patterns of
+objects or classes but also the patterns of communication between
+them → Behavioral Patterns,
+These patterns provide mechanisms for creating objects in a manner
+suitable to the situation → Creational Patterns
+
+Вопрос 26
+
+5
+Turn the light on and print the boolean light status.
+
+Вопрос 27
+
+Match the following SOLID principles to their correct
+scenarios/violations.
+Violation: A base class that throws
+a not implemented exception for
+a method, which must be
+implemented by all derived
+classes but is not relevant for some
+
+Выберите...
+
+Scenario: Refactoring a huge class
+handling user data processing,
+logging, and error handling into
+separate classes
+
+Выберите...
+
+Scenario: Building a software
+component that uses an abstract
+database service layer, allowing
+switching between different
+database technologies without
+altering the business logic layer
+
+Выберите...
+
+Scenario: Implementing a graphics
+rendering module that can be
+extended to support additional
+rendering techniques without
+altering existing code
+
+Выберите...
+
+Правильный ответ:
+Violation: A base class that throws a not implemented exception for a
+method, which must be implemented by all derived classes but is not
+relevant for some → Liskov Substitution Principle,
+Scenario: Refactoring a huge class handling user data processing,
+logging, and error handling into separate classes → Single
+Responsibility Principle,
+Scenario: Building a software component that uses an abstract
+database service layer, allowing switching between different
+database technologies without altering the business logic layer →
+Dependency Inversion Principle,
+Scenario: Implementing a graphics rendering module that can be
+extended to support additional rendering techniques without altering
+existing code → Open/Closed Principle
+
+Вопрос 28
+
+Carefully analyze the following Java program and write what design
+pattern it contains.
+
+Ответ:
+
+Правильный ответ: Strategy
+
+Вопрос 29
+
+The following Java program with the Chain of Responsibility should
+print
+
+Standard Console::Logger: This is an information.
+Standard Console::Logger: This is an error information.
+Error Console::Logger: This is an error information.
+
+Complete the missing code to be able to do that.
+
+Вопрос 30
+
+Suggest the design pattern to be applied.
+You have a payment processing system where different payment
+methods having a unified interface have to be supported (e.g., credit
+card, PayPal, bank transfer), and you want to easily add new
+payment methods with the ability to pay in the future without
+modifying existing code.
+Ответ:
+
+Правильный ответ: Strategy
+
+Вопрос 31
+
+Match the following patterns and the gaps in the statements.
+…pattern provides a way to access the elements of
+an aggregate object sequentially without exposing
+its underlying representation
+
+Выберите...
+
+…pattern allows for new operations to be
+implemented without changing the classes of the
+elements on which it operates
+
+Выберите...
+
+…pattern is specifically designed for parsing and
+evaluating sentences in a language or grammar
+
+Выберите...
+
+You want to create a calculator program that can
+interpret and evaluate arithmetic expressions written
+in this language. The suitable pattern is…
+
+Выберите...
+
+You want to introduce postorder traversal in a treelike data structure. The suitable pattern is…
+
+Выберите...
+
+Правильный ответ:
+…pattern provides a way to access the elements of an aggregate
+object sequentially without exposing its underlying representation →
+Iterator,
+…pattern allows for new operations to be implemented without
+changing the classes of the elements on which it operates → Visitor,
+…pattern is specifically designed for parsing and evaluating sentences
+in a language or grammar → Interpreter,
+You want to create a calculator program that can interpret and
+evaluate arithmetic expressions written in this language. The suitable
+pattern is… → Interpreter,
+You want to introduce postorder traversal in a tree-like data structure.
+The suitable pattern is… → Iterator
+
+Вопрос 32
+
+Suggest the design pattern to be applied.
+You are developing a drawing application where shapes (e.g., circles,
+squares) need to be rendered on different platforms (e.g., desktop,
+web, mobile), and you want to decouple the shape abstraction from
+its implementation.
+Ответ:
+
+Правильный ответ: Bridge
+
+Вопрос 33
+
+Analyze the Java code below and write the missing lines.
+
+Вопрос 34
+
+Suggest the design pattern to be applied.
+You're designing a coffee shop application where customers can
+customize their orders with various options such as adding flavors,
+toppings, or adjusting the strength of the coffee. However, you want
+to maintain flexibility in adding new options without creating a
+multitude of subclasses for each combination.
+
+Ответ:
+
+Правильный ответ: Decorator
+
+Вопрос 35
+
+Match the design patterns with appropriate descriptions
+Allowing
+components to
+communicate
+through a central
+object while also
+being able to
+observe changes
+
+Выберите...
+
+in each other's
+states and be
+able to notify the
+states via the
+central object
+Facilitates
+communication
+between
+components
+without them
+being directly
+coupled to each
+other
+
+Выберите...
+
+A schema for an
+algorithm with a
+step to create
+and objects
+based on the
+subclass without
+alternating the
+superclass
+
+Выберите...
+
+What factory
+method mostly
+reaches when
+the number of
+products
+increases and
+one single
+factory would
+not do the job
+
+Выберите...
+
+Defines a one-tomany
+dependency
+between objects,
+so that when one
+object changes
+state, all its
+dependents are
+notified and
+updated
+automatically
+
+Выберите...
+
+Правильный ответ:
+Allowing components to communicate through a central object while
+also being able to observe changes in each other's states and be able
+to notify the states via the central object → Mediator with Observer
+combined,
+Facilitates communication between components without them being
+directly coupled to each other → Mediator,
+A schema for an algorithm with a step to create and objects based on
+the subclass without alternating the superclass → Template Method
+with Factory Method combined,
+What factory method mostly reaches when the number of products
+increases and one single factory would not do the job → Abstract
+Factory,
+Defines a one-to-many dependency between objects, so that when
+one object changes state, all its dependents are notified and
+updated automatically → Observer
+
+Вопрос 1
+
+Match the following patterns and their descriptions
+Used where we need to treat a group of objects in a
+similar way as a single object
+Allows classes with incompatible interfaces to work
+together by wrapping their interface around that of
+an already existing class
+A behavioral design pattern that reduces complex
+conditional logic by defining a family of algorithms,
+encapsulates each one and makes them
+interchangeable
+
+Выберите...
+
+Выберите...
+
+Выберите...
+
+Правильный ответ:
+Used where we need to treat a group of objects in a similar way as a
+single object → Composite,
+Allows classes with incompatible interfaces to work together by
+wrapping their interface around that of an already existing class →
+Adapter,
+A behavioral design pattern that reduces complex conditional logic
+by defining a family of algorithms, encapsulates each one and makes
+them interchangeable → Strategy
+
+Вопрос 2
+
+Select all that apply for Strategy, Adapter, and Composite patterns.
+a. The Strategy pattern allows for encapsulating interchangeable
+behaviors and selecting them at runtime based on the context
+b. The Adapter pattern facilitates the integration of incompatible
+interfaces by providing a bridge between them
+c. The Strategy pattern is primarily used for linking incompatible
+interfaces between classes
+d. The Composite pattern is only suitable for representing simple
+individual objects, not complex objects
+e. The Composite pattern enables the construction of tree-like
+structures where individual objects and compositions of objects
+are treated uniformly
+f.
+
+The Adapter pattern requires modifying the source code of the
+existing classes to make them compatible with each other
+
+Правильные ответы:
+The Strategy pattern allows for encapsulating interchangeable
+behaviors and selecting them at runtime based on the context,
+The Adapter pattern facilitates the integration of incompatible
+interfaces by providing a bridge between them,
+The Composite pattern enables the construction of tree-like structures
+where individual objects and compositions of objects are treated
+uniformly
+
+Вопрос 3
+
+Match the components of the Decorator pattern with their respective
+descriptions.
+Implements additional functionality to the
+component
+Represents the core functionality of the
+object
+Defines the basic interface for all objects
+Facilitates the attachment of additional
+responsibilities
+Implements the base behavior and can
+have additional responsibilities
+
+Выберите...
+
+Выберите...
+Выберите...
+Выберите...
+
+Выберите...
+
+Правильный ответ:
+Implements additional functionality to the component → Concrete
+Decorator,
+Represents the core functionality of the object → Concrete
+Component,
+Defines the basic interface for all objects → Component Interface,
+Facilitates the attachment of additional responsibilities → Decorator,
+Implements the base behavior and can have additional responsibilities
+→ Concrete Component
+
+Вопрос 4
+
+Suggest the design pattern to be applied.
+You are developing a framework for generating reports in various
+formats (e.g., PDF, CSV, HTML), and each report format requires a
+specific generation algorithm, but they all share common steps such
+as data retrieval and formatting.
+Ответ:
+
+Правильный ответ: Template Method
+
+Вопрос 5
+
+Select all that apply
+a. The Template Method pattern allows subclasses to change the
+algorithm's structure, violating the "Open/Closed Principle"
+b. The Mediator pattern promotes loose coupling between
+objects by encapsulating their interaction within a mediator
+object
+c. The Mediator pattern increases dependencies between
+objects by centralizing communication logic
+d. The Abstract Factory pattern provides an interface for creating
+families of related or dependent objects without specifying
+their concrete classes
+e. The Template Method pattern is commonly used in frameworks
+where the overall algorithm structure is fixed, but specific steps
+may vary
+f.
+
+The Abstract Factory pattern is often used in scenarios where
+there is a single object that needs to be created via a factory
+method
+
+Правильные ответы:
+The Mediator pattern promotes loose coupling between objects by
+encapsulating their interaction within a mediator object,
+The Abstract Factory pattern provides an interface for creating families
+of related or dependent objects without specifying their concrete
+classes,
+The Template Method pattern is commonly used in frameworks where
+the overall algorithm structure is fixed, but specific steps may vary
+
+Вопрос 6
+
+Imagine that you have a home entertainment system with multiple
+devices like a TV, speakers, and a DVD player. Instead of managing
+each device separately, you use a remote control that acts as a
+Facade, simplifying the interaction. Which statement(s) is/are TRUE
+about the use of the Facade pattern in the home entertainment
+system example?
+a. The Facade pattern removes the need for individual remote
+controls in the system
+b. The Facade pattern exposes all the internal details of the
+devices to the user
+c. The Facade pattern is only useful for a small-scale
+entertainment setups
+d. The Facade pattern simplifies the control of the home
+entertainment system
+e. The Facade pattern increases the complexity of using the
+home entertainment system
+f.
+
+The Facade pattern can be used to hide the complexities of
+managing individual remote controls manually
+
+Правильные ответы:
+The Facade pattern simplifies the control of the home entertainment
+system,
+The Facade pattern can be used to hide the complexities of
+managing individual remote controls manually
+
+Вопрос 7
+
+Suggest the design pattern to be applied.
+You are developing a multimedia streaming application where users
+can access videos from a remote server, but you want to control
+access to certain videos based on user permissions or subscription
+levels.
+Ответ:
+
+Правильный ответ: Proxy
+
+Вопрос 8
+
+Analyze the Java program with Adapter and provide missing line(s).
+
+Вопрос 9
+
+Which of the following statements is/are TRUE regarding the similarities
+between the State and Strategy design patterns?
+a. Both patterns encapsulate varying behavior for an object
+based on its internal state
+b. Both patterns involve a context object that maintains a
+reference to different behaviors
+c. Both patterns allow for dynamic changes in behavior at
+runtime
+d. Both patterns require the client to select the appropriate
+behavior explicitly
+
+Правильные ответы:
+Both patterns encapsulate varying behavior for an object based on its
+internal state,
+Both patterns allow for dynamic changes in behavior at runtime
+
+Вопрос 10
+
+Suggest the design pattern to be applied.
+You are building a graphical user interface (GUI) framework where
+components like buttons, text fields, and checkboxes need to be
+arranged in a hierarchical structure, and you want to treat individual
+components and composite structures uniformly.
+Ответ:
+
+Правильный ответ: Composite
+
+Вопрос 11
+
+Match names and surnames
+Mohammad
+
+Выберите...
+
+Munir
+
+Выберите...
+
+Ahror
+
+Выберите...
+
+Marko
+
+Выберите...
+
+Eugene
+
+Выберите...
+
+Asem
+
+Выберите...
+
+Daniel
+
+Выберите...
+
+Правильный ответ:
+Mohammad → Shahin,
+Munir → Makhmutov,
+Ahror → Jabborov,
+Marko → Pezer,
+Eugene → Zouev,
+Asem → Abdelhady,
+Daniel → Atonge
+
+Вопрос 12
+
+In which of the following scenarios the Bridge design pattern would be
+most appropriate?
+a. When there is a need to decouple an abstraction from its
+implementation, allowing them to vary independently
+b. When there is a need to ensure that only one instance of a
+class is created, providing global access to that instance
+c. When there is a need to represent abstraction and
+implementation hierarchies of objects with increasing levels of
+specialization
+d. When there is a need to encapsulate a family of algorithms
+and make them interchangeable
+e. When there is a need to group similar objects together into a
+single object, providing a simplified interface to the client
+
+Правильные ответы:
+When there is a need to decouple an abstraction from its
+implementation, allowing them to vary independently,
+When there is a need to represent abstraction and implementation
+hierarchies of objects with increasing levels of specialization
+
+Вопрос 13
+
+Analyze the C++ code below and write the missing line. There must be
+only ONE statement in your answer. Don’t add any meaningless
+spaces.
+
+Ответ:
+
+Правильный ответ: return collection[current++];
+
+Вопрос 14
+
+Match the following design patterns and statements about them.
+It is useful in scenarios where multiple
+orthogonal dimensions of variation exist, such
+as platform independence or feature
+
+Выберите...
+
+variations. Promotes flexibility and extensibility
+It centralizes communication logic between
+objects, simplifying complex communication
+
+Выберите...
+
+scenarios between them
+It is often used in scenarios where there are
+multiple families of related objects that need to
+
+Выберите...
+
+be created together
+It separates intrinsic state (shared across
+multiple objects) from extrinsic state (unique to
+
+Выберите...
+
+each object)
+It allows clients to create objects without
+knowing their concrete implementations,
+
+Выберите...
+
+enabling flexibility in object creation and
+reducing dependencies
+Defines the skeleton of an algorithm in a
+method, deferring some steps to subclasses
+
+Выберите...
+
+Captures an object's internal state without
+violating encapsulation, allowing it to be
+restored to a previous state later
+
+Выберите...
+
+Правильный ответ:
+It is useful in scenarios where multiple orthogonal dimensions of
+variation exist, such as platform independence or feature variations.
+Promotes flexibility and extensibility → Bridge,
+It centralizes communication logic between objects, simplifying
+complex communication scenarios between them → Mediator,
+It is often used in scenarios where there are multiple families of related
+objects that need to be created together → Abstract Factory,
+It separates intrinsic state (shared across multiple objects) from extrinsic
+state (unique to each object) → Flyweight,
+It allows clients to create objects without knowing their concrete
+implementations, enabling flexibility in object creation and reducing
+dependencies → Factory,
+Defines the skeleton of an algorithm in a method, deferring some steps
+to subclasses → Template Method,
+Captures an object's internal state without violating encapsulation,
+allowing it to be restored to a previous state later → Memento
+
+Вопрос 15
+
+What design pattern is used in following Java code?
+
+Ответ:
+
+Правильный ответ: Command
+
+Вопрос 16
+
+Suggest the design pattern to be applied.
+
+You are building a chat application where users can communicate in
+real-time, but managing the direct communication between each
+user becomes complex as the number of users increases.
+Ответ:
+
+Правильный ответ: Mediator
+
+Вопрос 17
+
+Suggest the design pattern to be applied.
+You are building a text editor application where individual characters
+are represented as objects, and there are a large number of
+repeating characters in the document, leading to high memory
+consumption.
+Ответ:
+
+Правильный ответ: Flyweight
+
+Вопрос 18
+
+Choose the correct statement(s) about the Observer design pattern.
+a. The Observer design pattern is a behavioral design pattern that
+allows an observable object, known as the subject, to notify a
+list of dependent objects, known as observers, about any
+changes in its state.
+b. In the Observer design pattern, observers are tightly coupled to
+the subject, meaning changes in the subject's implementation
+might affect the observers.
+c. The Observer design pattern is useful when changes in the
+state of one object require other objects to be notified or
+updated automatically.
+d. The Observer design pattern can be used to implement
+distributed event handling systems, such as systems with event
+listeners.
+
+Правильные ответы:
+The Observer design pattern is a behavioral design pattern that allows
+an observable object, known as the subject, to notify a list of
+dependent objects, known as observers, about any changes in its
+state.,
+The Observer design pattern is useful when changes in the state of one
+object require other objects to be notified or updated automatically.,
+The Observer design pattern can be used to implement distributed
+event handling systems, such as systems with event listeners.
+
+Вопрос 19
+
+What design pattern is applied in the following Java code?
+
+Ответ:
+
+Правильный ответ: Prototype
+
+Вопрос 20
+
+Which of the following statements is/are TRUE about the Single
+Responsibility Principle (SRP)?
+a. It increases the impact of change within the software
+b. It leads to fewer conflicts when working in a team environment
+c. It states that a class should only have one reason to change
+d. It suggests that classes should gain additional functionality
+through inheritance
+
+Правильные ответы:
+It leads to fewer conflicts when working in a team environment,
+It states that a class should only have one reason to change
+
+Вопрос 21
+
+Вопрос 22
+
+Вопрос 23
+
+Analyze the Java program and provide answers to the comments.
+
+Write missing Java code so that only one instance of the class
+DatabaseConnector can be obtained (without lazy initialization).
+
+Which of these statements is/are TRUE about the Visitor design
+pattern?
+a. Visitors might lack the necessary access to the private fields
+and methods of the elements that they’re supposed to work
+with
+b. It’s best suited when we need to define a grammatical
+representation for a language
+c. It’s best suited when it’s required to pass through a data
+structure in a new fashion
+d. It’s best suited when new operations need to be added
+without modifying existing structures
+
+Правильные ответы:
+It’s best suited when new operations need to be added without
+modifying existing structures,
+Visitors might lack the necessary access to the private fields and
+methods of the elements that they’re supposed to work with
+
+Вопрос 24
+
+Вопрос 25
+
+Analyze the C++ code below and write the missing lines.
+
+Match each category of design patterns with the appropriate
+definition
+These patterns explain how to assemble
+objects and classes into larger structures, while
+keeping these structures flexible and efficient
+
+Выберите...
+
+These patterns are concerned with algorithms
+and the assignment of responsibilities
+between objects. They describe not just
+patterns of objects or classes but also the
+patterns of communication between them
+
+Выберите...
+
+These patterns provide mechanisms for
+creating objects in a manner suitable to the
+situation
+
+Выберите...
+
+Правильный ответ:
+These patterns explain how to assemble objects and classes into larger
+structures, while keeping these structures flexible and efficient →
+Structural Patterns,
+These patterns are concerned with algorithms and the assignment of
+responsibilities between objects. They describe not just patterns of
+objects or classes but also the patterns of communication between
+them → Behavioral Patterns,
+These patterns provide mechanisms for creating objects in a manner
+suitable to the situation → Creational Patterns
+
+Вопрос 26
+
+5
+Turn the light on and print the boolean light status.
+
+Вопрос 27
+
+Match the following SOLID principles to their correct
+scenarios/violations.
+Violation: A base class that throws
+a not implemented exception for
+a method, which must be
+implemented by all derived
+classes but is not relevant for some
+
+Выберите...
+
+Scenario: Refactoring a huge class
+handling user data processing,
+logging, and error handling into
+separate classes
+
+Выберите...
+
+Scenario: Building a software
+component that uses an abstract
+database service layer, allowing
+switching between different
+database technologies without
+altering the business logic layer
+
+Выберите...
+
+Scenario: Implementing a graphics
+rendering module that can be
+extended to support additional
+rendering techniques without
+altering existing code
+
+Выберите...
+
+Правильный ответ:
+Violation: A base class that throws a not implemented exception for a
+method, which must be implemented by all derived classes but is not
+relevant for some → Liskov Substitution Principle,
+Scenario: Refactoring a huge class handling user data processing,
+logging, and error handling into separate classes → Single
+Responsibility Principle,
+Scenario: Building a software component that uses an abstract
+database service layer, allowing switching between different
+database technologies without altering the business logic layer →
+Dependency Inversion Principle,
+Scenario: Implementing a graphics rendering module that can be
+extended to support additional rendering techniques without altering
+existing code → Open/Closed Principle
+
+Вопрос 28
+
+Carefully analyze the following Java program and write what design
+pattern it contains.
+
+Ответ:
+
+Правильный ответ: Strategy
+
+Вопрос 29
+
+The following Java program with the Chain of Responsibility should
+print
+
+Standard Console::Logger: This is an information.
+Standard Console::Logger: This is an error information.
+Error Console::Logger: This is an error information.
+
+Complete the missing code to be able to do that.
+
+Вопрос 30
+
+Suggest the design pattern to be applied.
+You have a payment processing system where different payment
+methods having a unified interface have to be supported (e.g., credit
+card, PayPal, bank transfer), and you want to easily add new
+payment methods with the ability to pay in the future without
+modifying existing code.
+Ответ:
+
+Правильный ответ: Strategy
+
+Вопрос 31
+
+Match the following patterns and the gaps in the statements.
+…pattern provides a way to access the elements of
+an aggregate object sequentially without exposing
+its underlying representation
+
+Выберите...
+
+…pattern allows for new operations to be
+implemented without changing the classes of the
+elements on which it operates
+
+Выберите...
+
+…pattern is specifically designed for parsing and
+evaluating sentences in a language or grammar
+
+Выберите...
+
+You want to create a calculator program that can
+interpret and evaluate arithmetic expressions written
+in this language. The suitable pattern is…
+
+Выберите...
+
+You want to introduce postorder traversal in a treelike data structure. The suitable pattern is…
+
+Выберите...
+
+Правильный ответ:
+…pattern provides a way to access the elements of an aggregate
+object sequentially without exposing its underlying representation →
+Iterator,
+…pattern allows for new operations to be implemented without
+changing the classes of the elements on which it operates → Visitor,
+…pattern is specifically designed for parsing and evaluating sentences
+in a language or grammar → Interpreter,
+You want to create a calculator program that can interpret and
+evaluate arithmetic expressions written in this language. The suitable
+pattern is… → Interpreter,
+You want to introduce postorder traversal in a tree-like data structure.
+The suitable pattern is… → Iterator
+
+Вопрос 32
+
+Suggest the design pattern to be applied.
+You are developing a drawing application where shapes (e.g., circles,
+squares) need to be rendered on different platforms (e.g., desktop,
+web, mobile), and you want to decouple the shape abstraction from
+its implementation.
+Ответ:
+
+Правильный ответ: Bridge
+
+Вопрос 33
+
+Analyze the Java code below and write the missing lines.
+
+Вопрос 34
+
+Suggest the design pattern to be applied.
+You're designing a coffee shop application where customers can
+customize their orders with various options such as adding flavors,
+toppings, or adjusting the strength of the coffee. However, you want
+to maintain flexibility in adding new options without creating a
+multitude of subclasses for each combination.
+
+Ответ:
+
+Правильный ответ: Decorator
+
+Вопрос 35
+
+Match the design patterns with appropriate descriptions
+Allowing
+components to
+communicate
+through a central
+object while also
+being able to
+observe changes
+
+Выберите...
+
+in each other's
+states and be
+able to notify the
+states via the
+central object
+Facilitates
+communication
+between
+components
+without them
+being directly
+coupled to each
+other
+
+Выберите...
+
+A schema for an
+algorithm with a
+step to create
+and objects
+based on the
+subclass without
+alternating the
+superclass
+
+Выберите...
+
+What factory
+method mostly
+reaches when
+the number of
+products
+increases and
+one single
+factory would
+not do the job
+
+Выберите...
+
+Defines a one-tomany
+dependency
+between objects,
+so that when one
+object changes
+state, all its
+dependents are
+notified and
+updated
+automatically
+
+Выберите...
+
+Правильный ответ:
+Allowing components to communicate through a central object while
+also being able to observe changes in each other's states and be able
+to notify the states via the central object → Mediator with Observer
+combined,
+Facilitates communication between components without them being
+directly coupled to each other → Mediator,
+A schema for an algorithm with a step to create and objects based on
+the subclass without alternating the superclass → Template Method
+with Factory Method combined,
+What factory method mostly reaches when the number of products
+increases and one single factory would not do the job → Abstract
+Factory,
+Defines a one-to-many dependency between objects, so that when
+one object changes state, all its dependents are notified and
+updated automatically → Observer
+
+

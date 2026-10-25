@@ -1,0 +1,16 @@
+{
+ "title": "Read the article [NIR_2022_robot-skill-transfer-learning]",
+ "url": "https://innopolis.university/filespublic/NIR_2022_robot-skill-transfer-learning.pdf",
+ "sha256": "9010a1d97fb3ffa2cc25daed6d5166b94d6261b4b27a04979d1250fcc6fc55ac",
+ "method": "text layer (pdfplumber)",
+ "chars": 26914,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:45:34+00:00",
+ "remote": {
+  "etag": "\"14b2dd-5e75e9bbd5fdf\"",
+  "modified": "Mon, 29 Aug 2022 10:20:09 GMT",
+  "size": "1356509"
+ }
+}

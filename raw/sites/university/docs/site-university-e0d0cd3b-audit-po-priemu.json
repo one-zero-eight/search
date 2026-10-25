@@ -1,0 +1,16 @@
+{
+ "title": "Аудит организации приема на обучение по образовательным программам высшего образования (от 30.09.2025)",
+ "url": "https://innopolis.university/upload/iblock/438/w89jdspqz8fbdzmmyz53chxjpzgg85n5/%D0%90%D1%83%D0%B4%D0%B8%D1%82_%D0%BF%D0%BE_%D0%BF%D1%80%D0%B8%D0%B5%D0%BC%D1%83.pdf",
+ "sha256": "6310811b815c643b903ec486db436364816d84e541d61bed171500249e8a8b18",
+ "method": "text layer (pdfplumber)",
+ "chars": 84078,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:56:10+00:00",
+ "remote": {
+  "etag": "\"69fb1eff-e7ae1\"",
+  "modified": "Wed, 06 May 2026 10:59:11 GMT",
+  "size": "948961"
+ }
+}

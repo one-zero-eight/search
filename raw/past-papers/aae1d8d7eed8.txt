@@ -1,0 +1,463 @@
+Started on Wednesday, 6 March 2024
+Question 1
+
+In the Entity-Relationship (ER) model weak relationships are used to connect two weak entities. True or false?
+a. False
+b. True
+
+The correct answer is:
+False
+
+Question 2
+
+Match the given terms with the corresponding statements.
+Primary
+key
+
+Choose...
+
+Candidate
+key
+
+Choose...
+
+Super key
+
+Choose...
+
+The correct answer is:
+Primary key → a set of one or more attributes chosen by the database designer to uniquely identify an entity in
+an entity set,
+Candidate key → a minimal set of attributes that can uniquely identify an entity in an entity set,
+Super key → a set of one or more attributes that can uniquely identify an entity in an entity set
+
+
+
+Question 3
+
+Which of the following statements correctly describe the total participation in the ER model?
+a. An entity with total participation can exist independently of the relationship.
+b. Total participation is indicated in ER diagrams by a double line connecting the entity to the
+relationship.
+c. Total participation is a scenario where only some instances of an entity are involved in a relationship.
+d. Total participation means that every entity in a relationship must participate in at least one relationship
+instance.
+
+The correct answers are:
+Total participation means that every entity in a relationship must participate in at least one relationship
+instance.,
+Total participation is indicated in ER diagrams by a double line connecting the entity to the relationship.
+
+Question 4
+
+How many tables will be created after mapping the following ER diagram to the relational schema?
+
+a. 4
+b. 3
+c. 5
+d. 1
+e. 2
+
+The correct answer is:
+4
+
+
+
+Question 5
+
+Consider tables created by the following script and the given query:
+CREATE TABLE Employees (
+EmployeeID INT PRIMARY KEY,
+FullName VARCHAR(100),
+DepartmentID INT,
+Salary DECIMAL(10, 2)
+);
+CREATE TABLE Departments (
+DepartmentID INT PRIMARY KEY,
+DepartmentName VARCHAR(100)
+);
+
+Query:
+SELECT DepartmentId, AVG(Salary)
+FROM Employees
+GROUP BY DepartmentId
+HAVING AVG(Salary) < 60000;
+
+This query returns the average salary for each department where the average salary is less than 60000,
+including departments with no employees. True or false?
+a. True
+b. False
+
+The correct answer is:
+False
+
+
+
+Question 6
+
+Considering given relations, what is the output of the query?
+
+Query:
+SELECT Product.name, Purchase.store
+FROM Product
+LEFT OUTER JOIN Purchase
+ON Product.name = Purchase.prodName;
+
+a.
+
+
+
+b.
+
+c.
+
+The correct answer is:
+
+
+
+Question 7
+
+How is a weak entity characterized in an ER diagram using Chen notation? Select everything that is correct.
+a. It is identifying relationship is a weak relationship.
+b. It always has a total participation constraint in at least one relationship.
+c. It has a unique primary key independent of other entities.
+d. It is specified with a rectangular with a dotted border.
+
+The correct answers are:
+It always has a total participation constraint in at least one relationship.,
+It is identifying relationship is a weak relationship.
+
+Question 8
+
+Which of the following approaches is correct when we map multivalued attributes from an Entity-Relationship
+(ER) model to a Relational model?
+a. Duplicate the row for each value of the multivalued attribute, changing only the value of the
+multivalued attribute in each duplicate.
+b. Store all values of the multivalued attribute in a single column separated by commas.
+c. Create a new relation (table) that includes a foreign key to the original entity and a column for each
+value of the multivalued attribute.
+
+The correct answer is:
+Create a new relation (table) that includes a foreign key to the original entity and a column for each value of
+the multivalued attribute.
+
+
+
+Question 9
+
+Which of the following queries is monotonic?
+a. SELECT CustomerID, SUM(TotalAmount) FROM Orders
+GROUP BY CustomerID
+HAVING SUM(TotalAmount) > 1000;
+
+b. SELECT EmployeeID, FirstName, LastName
+FROM Employees
+WHERE Salary > ALL (
+SELECT Salary
+FROM Employees
+WHERE Department = 'Marketing'
+);
+
+c. SELECT DISTINCT ProductName
+FROM Products WHERE CategoryID NOT IN
+(SELECT CategoryID FROM Categories WHERE CategoryName = 'Electronics');
+
+The correct answer is:
+SELECT CustomerID, SUM(TotalAmount) FROM Orders
+GROUP BY CustomerID
+HAVING SUM(TotalAmount) > 1000;
+
+
+
+Question 10
+
+We have the following schema:
+Product (name, category)
+Purchase (prodName, month, store)
+
+Which expression(s) provides an SQL statement that computes, for each product, the total number of sales in
+'March'?
+
+a. SELECT Product.name, count(*)
+FROM Product LEFT OUTER JOIN Purchase
+ON Product.name = Purchase.prodName
+WHERE Purchase.month = 'March'
+GROUP BY Product.name;
+
+b. SELECT Product.name, count(*)
+FROM Product INNER JOIN Purchase ON Product.name = Purchase.prodName
+WHERE Purchase.month = 'March'
+GROUP BY Product.name;
+
+c. SELECT p.name, (
+SELECT COUNT(*)
+FROM Purchase
+WHERE Product.name = Purchase.prodName AND Purchase.month = 'March'
+) AS total_sales_in_march
+FROM Product p;
+
+The correct answer is:
+SELECT Product.name, count(*)
+FROM Product LEFT OUTER JOIN Purchase
+ON Product.name = Purchase.prodName
+WHERE Purchase.month = 'March'
+GROUP BY Product.name;
+
+
+
+Question 11
+
+Which operations in relational algebra form a complete set from which all other operations can be expressed?
+Select all that apply.
+a. Cartesian Product
+b. Join
+c. Minus (Difference)
+d. Renaming
+e. Projection
+f.
+
+Union
+
+g. Intersection
+h. Selection
+
+The correct answers are:
+Selection,
+Projection,
+Union,
+Renaming,
+Minus (Difference),
+Cartesian Product
+
+Question 12
+
+In an EERD for a company's organizational structure, the 'Employee' entity is specialized into 'Full-Time' and
+'Part-Time' subclasses. This specialization ensures that an employee cannot be both full-time and part-time
+simultaneously. How is this specialization best classified?
+
+a. Disjoint, Total
+b. Overlapping, Total
+c. Overlapping, Partial
+d. Disjoint, Partial
+
+The correct answer is:
+Disjoint, Total
+
+
+
+Question 13
+
+Consider the following tables in a database:
+Suppliers (sid: integer, sname: string, address: string)
+Parts (pid: integer, pname: string, color: string)
+Catalog (sid: integer, pid: integer, cost: real)
+
+Which of the following statements best describes the result of the inner join operation between Suppliers and
+Catalog?
+
+a. It includes all suppliers, whether they have parts in the catalog or not.
+b. It includes only suppliers who have parts in the catalog, along with the corresponding parts.
+c. It includes all parts, whether they are supplied by a supplier or not.
+d. It includes all suppliers and parts, with null values for suppliers without parts in the catalog.
+
+The correct answer is:
+It includes only suppliers who have parts in the catalog, along with the corresponding parts.
+
+Question 14
+
+Which of these is not a basic relational algebra operator?
+a. Cartesian product
+b. Set difference
+c. Join
+d. Rename
+
+The correct answer is: Join
+
+
+
+Question 15
+
+Given the tables:
+Worker (WORKER_ID: integer, FIRST_NAME: string, LAST_NAME: string, SALARY: real)
+Title (TITLE_ID: integer, WORKER_REF_ID: integer, WORKER_TITLE: string)
+
+What would be the result of the following query?
+SELECT DISTINCT W.FIRST_NAME, T.WORKER_TITLE
+FROM Worker W
+INNER JOIN Title T
+ON W.WORKER_ID = T.WORKER_REF_ID
+AND T.WORKER_TITLE IN ('Manager', 'Supervisor');
+
+a. All workers with titles 'Manager' and 'Supervisor'
+b. Workers with title 'Supervisor' and their corresponding titles
+c. Workers with title 'Manager' and 'Supervisor' in any order
+d. Workers with title 'Manager' and their corresponding titles
+
+The correct answers are:
+Workers with title 'Manager' and their corresponding titles,
+Workers with title 'Supervisor' and their corresponding titles
+
+Question 16
+
+According to the given relations, answer to the following query by relational algebra. (Pid is the foreign key of
+Person relation in Parent relation).
+Person(Pid, Pname, Age)
+Parent(Pid, PPid, Gender)
+Find the name of the 'grandmother' of 'Robert'.
+
+a.
+
+b.
+
+c.
+
+The correct answer is:
+
+
+
+Question 17
+
+What operation should be applied on relations A(x, y) and B(y) to result in C(X)?
+
+a. A ÷ B (Division)
+b. A ⨝ B (Cartesian Product)
+c. A - B (Difference)
+d. A ∩ B (Intersection)
+
+The correct answer is:
+A ÷ B (Division)
+
+Question 18
+
+Which of the following statements is NOT CORRECT?
+a. A relation is in 3NF if it is in BCNF and no prime attribute type of R is transitively dependent on the
+primary key.
+b. The Boyce Codd normal form is more strict than the third normal form.
+c. A foreign key can be NULL.
+d. In mapping an EER N:M relationship type to the relational model, we create a new relation R. Its
+primary key is the combination of the foreign keys referring to the primary keys of the relations
+corresponding to the participating entity types.
+
+The correct answer is:
+A relation is in 3NF if it is in BCNF and no prime attribute type of R is transitively dependent on the primary key.
+
+
+
+Question 19
+
+Which of the following statements is CORRECT?
+a. In mapping an EER N:M relationship type to the relational model, we create a new relation R. Its
+primary key is the combination of the foreign keys referring to the primary keys of the relations
+corresponding to the participating entity types.
+b. A relation cannot have more than 1 foreign key.
+c. A relation is in 4NF if it is in 3NF and no non-prime attribute type of R is transitively dependent on the
+primary key.
+d. Every relation must have a foreign key.
+
+The correct answer is:
+In mapping an EER N:M relationship type to the relational model, we create a new relation R. Its primary key is
+the combination of the foreign keys referring to the primary keys of the relations corresponding to the
+participating entity types.
+
+
+
+Question 20
+
+Consider the following table:
+Faculty (facName, dept, office, rank, dateHired)
+
+https://moodle.innopolis.university/pluginfile.php/190019/question/questiontext/243955/1/169122/image.png
+Assume that no faculty member within a single department has the same name. Each faculty member is
+placed in one office (faculty members do not share offices), considering FACNAME as primary key.
+Which of the following statements is true about the faculty table?
+a. Not in 3NF, not in BCNF
+b. In 3NF, in BCNF
+c. Not in 3NF, in BCNF
+d. In 3NF, not in BCNF
+
+The table is in 3NF, because every non prime attributes is fully functionally dependent on the primary key,
+which is facName, and it is not in BCNF because the functionally dependency office → dept shows that a
+non-prime attribute (dept) is dependent on something other than a superkey, since office is not a candidate
+key or part of one, as BCNF requires that for every functional dependency, the left-hand side should be a
+superkey, which is not the case for office.
+The correct answer is:
+In 3NF, not in BCNF
+
+
+
+Question 21
+
+Given the following (normalized) relational model (primary keys are bolded; foreign keys are in italics):
+EMPLOYEE(SSN, ENAME, EADDRESS, SEX, DATE_OF_BIRTH, SUPERVISOR, DNR)
+SUPERVISOR: foreign key, refers to SSN in EMPLOYEE, NULL value not allowed
+DNR: foreign key, refers to DNR in DEPARTMENT, NULL value not allowed
+DEPARTMENT(DNR, DNAME, DLOCATION, MGNR)
+MGNR: foreign key, refers to SSN in EMPLOYEE, NULL value not allowed
+PROJECT(PNR, PNAME, PDURATION, DNR)
+DNR: foreign key, refers to DNR in DEPARTMENT, NULL value not allowed
+WORKS_ON(SSN, PNR, HOURS)
+SSN: foreign key, refers to SSN in EMPLOYEE, NULL value not allowed
+PNR: foreign key, refers to PNR in PROJECT, NULL value not allowed
+
+Which statement is NOT CORRECT?
+a. A department has always exactly one manager.
+b. Every employee must be always supervised by exactly one other employee.
+c. An employee must work in the same department that he/she manages.
+d. Every project is always assigned to exactly one department.
+
+The correct answer is:
+An employee must work in the same department that he/she manages.
+
+
+
+Question 22
+
+Considering given diagram, which statement is correct?
+
+a. The partial inheritance relationship between STUDENT and REPRESENTATIVE can be perfectly mapped
+to the relational model by the following two relations: STUDENT(StudentID, FirstName, LastName) and
+REPRESENTATIVE (S-StudentID, Email) whereby S-StudentID refers to StudentID in STUDENT.
+b. When mapping the EER relationship type PARTICIPATE between GROUP ASSIGNMENT and STUDENT to
+the relational model, a new relation needs to be introduced. The 4 cardinalities of this EER relationship
+type can be perfectly mapped to the relational model.
+c. When mapping the EER relationship type IS_ENROLLED between COURSE and STUDENT to the relational
+model, a new relation needs to be introduced. The relation is identified by GRADE as its primary key.
+d. When mapping the EER relationship type INVOLVE between COURSE and ASSIGNMENT to the relational
+model, a new relation needs to be introduced. The 1..1 cardinalities of this relationship type cannot be
+enforced in the relational model.
+
+The correct answer is:
+The partial inheritance relationship between STUDENT and REPRESENTATIVE can be perfectly mapped to the
+relational model by the following two relations: STUDENT(StudentID, FirstName, LastName) and REPRESENTATIVE
+(S-StudentID, Email) whereby S-StudentID refers to StudentID in STUDENT.
+
+
+
+Question 23
+
+Suppose we represent this generalization / specialization by the following relational model:
+Discipline (Disciplinenr, Name)
+Individual sport (Disciplinenr) Disciplinenr refers to Disciplinenr in Discipline
+Teamsport (Disciplinenr, Number players) Disciplinenr refers to Disciplinenr in Discipline
+Note that primary keys are bolded and foreign keys are italics.
+Consider the following 4 statements:
+1. The relational model does not allow to enforce the completeness constraint; the disjointness constraint
+can be enforced.
+2. The relational model does not allow to enforce both the completeness constraint and the disjointness
+constraint.
+3. By dropping the relation ‘Discipline’ in the relational model, the completeness constraint can be
+enforced.
+4. The relational model allows the specialization to be partial.
+Which of the following options is CORRECT?
+
+a. Statement 1 and 2 are both correct.
+b. Only statement 1 is incorrect, the other statements are correct.
+c. Only statement 4 is incorrect, the other statements are correct.
+d. Statement 1 and 4 are both incorrect.
+
+The correct answer is:
+Only statement 1 is incorrect, the other statements are correct.
+
+
+
+

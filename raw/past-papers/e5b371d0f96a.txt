@@ -1,0 +1,69 @@
+22/02/2024, 08:37 Midterm submission 2 ('Moodle Test": Tasks 4-6): Attempt review
+
+Started on Thursday, 4 March 2021, 10:16 AM
+State Finished
+Completed on Thursday, 4 March 2021, 10:30 AM
+Time taken 13 mins 7 secs
+Grade 9.0 out of 10.0 (90%)
+
+Question 1
+Complete
+
+Mark 6.0 out of 6.0
+
+[multiple choice question, +1 point for each correct answer -1 for each incorrect answer, minimum 0 points
+total]
+
+Which of the following statements are frue about PDA:
+
+1. It has an external memory with an initial start symbol
+
+2. It has an external memory that follows First in First Out Policy (FIFO)
+
+3. It can manipulate the external memory as part of performing a transition
+4. It uses the external memory to decide which transition has to be made
+5. It can be used for parsing programming languages
+
+6. Regular languages are not recognized by PDA’s
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=65075&cmid=60787 12
+22/02/2024, 08:37 Midterm submission 2 ('Moodle Test": Tasks 4-6): Attempt review
+Question 2
+Complete
+
+Mark 3.0 out of 3.0
+
+[multiple choice question, +1 point for each correct answer -1 for each incorrect answer, minimum 0 points
+total]
+
+Mark the conditions needed to complete the Pumping lemma:
+
+Let L be aregular language. Then there exists an integer m 2 1 such that every string w in L of length at least m
+can be written as w = xyz, satisfying the following conditions:
+
+1. |xy|<m
+2. |yl 21
+3. |yl 20
+
+4. |xyz|<m
+5 Vi20xyzel
+6. 3i20xy'zel
+
+7. 3i20xy'z¢l
+
+Viz0xy'z¢l
+
+Question 3
+Complete
+
+Mark 0.0 out of 1.0
+
+IsL ={a" | nis even} aregularlanguage?
+
+1. Yes, which can be proved using pumping lemma
+2. No, which can be proved using pumping lemma
+3. Yes, but we cannot prove it using pumping lemma
+
+4. No, but we cannot prove it using pumping lemma
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=65075&cmid=60787 2/2

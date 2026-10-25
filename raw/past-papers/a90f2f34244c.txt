@@ -1,0 +1,159 @@
+Full Name: Innopolis University
+
+Test 2 AG&LA T
+Variant 1 Spring 2025
+Duration: 90 Minutes 08.04 2025
+
+You need to perform this exam alone and without the use of any equipment or book, apart
+from this booklet and pens. Please do not consult any person or use any equipment,
+otherwise you will be disqualified from this exam at the very first attempt.
+
+Good Luck'
+
+Grade Table (for teacher use only
+Question 1 2 3 4 5 6 | Total
+Points 7 2 3 3 2 2 19
+Score
+
+Exercises
+
+. Consider the matrix A,
+
+2 1-i
+A‘(l+i 3 )
+
+(a) (6 points) Diagonalize matrix A by constructing its eigenvalue matrix A and its eigenvector matrix
+S
+
+(b) (1 point) Find A inverse using results from previous part.
+. (2 points) Find all eigenvalues of matrix A;
+
+1 2 3
+A= -3 -2 -1
+£1 0
+. (3 points) If eigenvalues of matrix A are \; = =2, ), = 2 Ay = 7, find all eigenvectors of matrix A;
+
+113
+A=10 20
+6 3 4
+
+. (3 points) Solve the 4 by 4 system, Fyc = y, if the right-hand sides are yo = 2, yy = 0,43 = 2, ys = 0
+(2 points) (EXTRA points) Find all roots of the equation 2* + i = 0.
+. (2 points) (EXTRA points) Find the lengths of u,v € C*.
+
+OnlinePhotoScanner.com
+Full Name: Innopolis University
+Test 2 AG&LA T
+
+Variant 2 Spring 2025
+Duration: 90 Minutes 0R.04 2025
+
+";Yuu need l;p:f:rm this exam alone and without the use of any equipment or book, apart
+
+fromn this booklet and pens. Please do not consult any person or use any equipment,
+otherwise you will be disqualified from this exam at the very first attempt.
+Good Luck!
+
+Grade Tuble (for teacher use only
+Question: 1 2 3 4 5 6 | Total
+Points: 7 2 3 3 2 2 19
+Score:
+
+Exercises
+
+A (2+8n/§ 2-4“/5)
+
+(a) (6 points) Diagonalize this matrix by constructing its cigenvalue matrix A and its eigenvector
+matrix S
+
+(b) (1 point) Find A inverse.
+(2 points) Find all cigenvalues of matrix A;
+
+1 -1 2
+A=[2 0 3
+0 -2 -§
+
+. (3 points) If cigenvalues of matrix A are A} = =3, Ay = =2, Ay = —1, find all eigenvectors of matrix
+
+A;
+-3 0 0
+A= 1 2 -4
+-2 3 -5
+
+(3 points) Solve the 4 by 4 system, Fyc = y. if the right-hand sidesare yg =0,y = ~21, py =0, 3 =
+-2
+
+. (2 points) (EXTRA points) Find all roots of the equation z* — i = 0.
+. (2 points) (EXTRA points) Find the lengths of u,v € C*.
+
+OnlinePhotoScanner.com
+Pall Namst oo lnnopolis University
+
+Tem 2 ACLLA I
+
+Vu~3 Spring 2025
+
+Duration: %0 Mmutes 08 04 2025
+==
+
+i Yaﬂhwﬁ-huhdwm-dqwam;w;]
+’i from this hooklet and pens. Please do not consult amy person or use any equipment, |
+i} otherwise you will be disqualified from this exam at the very first sttempt. ]
+li Good Lasck! |
+
+= =
+
+Grade Table (for teacher wee only)
+{Quesion | 1 | 2 | 3 | 4 5
+(Pomte | 7 | 2 { 2
+pP—
+
+4
+4
+
+E
+
+6
+2
+
+-
+3
+
+3 | 3
+
+’'.
+
+._...“..‘.
+.
+T -
+
+N S .
+
+J
+
+1
+-
+1
+
+A
+
+3-1 =2
+"[ ‘ -l-c]
+(a) (6 points) Diagonalize this matrix by constructing its eigenvalue matrix A and its eigemvector
+matrix §
+
+(b) (1 point) Find A inverse
+2. (2 potnts) Find all eigenvalues of matrix A;
+
+3. (3 points) Hf eigenvalues of matrix A are ); = 0,Ay = 1, A3 = 3, find all eigenvectors of matrix A;
+
+1 -1 0
+A=|-1 2 -1
+0 -1 1
+4 (3 points) Soive the 4 by 4 system, Fec = y, if the right-hand sides are o = 1 +im. 3y = Oy =
+1-mm =0
+
+5. (2 points) Find all roots of the equation z* + 1 =0.
+6. (2 poimts) Find the lengths of u,v € C.
+
+OnlinePhotoScanner.com

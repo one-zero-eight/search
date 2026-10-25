@@ -1,0 +1,16 @@
+{
+ "title": "Read the article [NIR_2022_mpc-control]",
+ "url": "https://innopolis.university/filespublic/NIR_2022_mpc-control.pdf",
+ "sha256": "7b8aeab7fc1d8af7a8c45069a81095ae3d6c180e9e38f5a2abd861e12c4ef5b0",
+ "method": "text layer (pdfplumber)",
+ "chars": 13503,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:45:10+00:00",
+ "remote": {
+  "etag": "\"4c31f-5e724a40ab105\"",
+  "modified": "Fri, 26 Aug 2022 13:10:40 GMT",
+  "size": "312095"
+ }
+}

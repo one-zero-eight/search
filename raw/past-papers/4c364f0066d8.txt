@@ -1,0 +1,125 @@
+Linear Algebra. Final exam. Variant 1.
+First name
+
+Last name
+
+Group
+BS1-
+
+Points#1
+
+I am, _____ (initials), confirming that I have read the following rules and agree to comply with them, that all solutions on this paper is my own
+work.
+________________ (signature)
+Rules:
+−
+−
+−
+−
+
+no talking AT ALL is allowed during the exam and after it (if you are still in the room)
+when time is up, you have to put down your pen (pencil) and do NOT write anything else
+you can NOT leave your seat till the end of the test
+any electronic devices are not allowed except for a simple non-programmable calculator
+
+4 3
+.
+1 2 
+
+1. (5 points) Find 𝑑𝑒𝑡(𝑒 𝐴 ) for A = 
+
+Linear Algebra. Final exam. Variant 1.
+First name
+
+Last name
+
+Group
+BS1-
+
+2. (5 points). Show that A and B are similar B = M −1 AM by finding matrix M :
+
+4 3
+3 4 
+A=
+B=
+
+
+1 2
+1 3
+
+Points#2
+
+Linear Algebra. Final exam. Variant 1.
+First name
+
+Last name
+
+Group
+BS1-
+
+3. (4 points) Which symmetric matrix 𝐴(3 × 3) produced this quadratic:
+𝑥 𝑇 𝐴𝑥 = 2(𝑥12 + 𝑥22 + 𝑥32 − 𝑥1 𝑥2 − 𝑥2 𝑥3 )
+(1 points) Is matrix 𝐴(3 × 3) positive definite?
+
+Points#3
+
+Linear Algebra. Final exam. Variant 1.
+First name
+
+Last name
+
+Group
+BS1-
+
+Points#4
+
+4. (4 points) Write down the first order equation system for the following differential equation
+and solve it:
+ y − y − 2 y = 0
+
+ y(0) = 6, y(0) = 0, y(0) = 3
+(1 points) Is the solution of this system will be stable?
+
+Linear Algebra. Final exam. Variant 1.
+First name
+
+Last name
+
+Group
+BS1-
+
+5. (5 points). Prove that all the eigenvalues of a Hermitian matrix are real.
+
+Points#5
+
+Linear Algebra. Final exam. Variant 1.
+First name
+
+Last name
+
+Group
+BS1-
+
+ −1 1
+6. (4 points) Find the SVD and the pseudoinverse (1 points) of the matrix A = 
+ 0 −1
+
+Points#6
+
+0
+1 
+
+Linear Algebra. Final exam. Variant 1.
+First name
+
+Last name
+
+Group
+BS1-
+
+Points#8
+
+7. (5 points) Prove that for any square matrix 𝐴(𝑛 × 𝑛) with eigenvalues {𝜆1 , 𝜆2 , . . . , 𝜆𝑛 } the
+multiplication: (𝐴 − 𝜆1 𝐼)(𝐴 − 𝜆2 𝐼) ⋅⋅⋅ (𝐴 − 𝜆𝑛 𝐼) produces the zero matrix.
+
+

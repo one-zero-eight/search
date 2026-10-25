@@ -1,0 +1,189 @@
+Optimization of the Brain Command Dictionary in
+Silent Speech Recognition Task Based on Statistical
+Proximity Criterion.
+Alexandra Bernadotte Alexandr Mazurin
+Faculty of Mechanics and Mathematics Faculty of Mechanics and Mathematics
+Moscow State University. 119991 Moscow, Russia Moscow State University. 119991 Moscow, Russia
+Dep. of Information Technologies and Computer Sciences Email: ADmMazurin@sberbank.ru
+National University of Science and Technology MISIS
+119049 Moscow, Russia
+Neurosputnik LLC, Russia
+Email: bernadotte.alexandra@intsys.msu.ru
+Abstract—In our work, we focus on silent speech recognition electroencephalographic signal data [1], [2], [3], [4]. Earlier,
+in electroencephalography (EEG) in order to develop a new we showed that this silent speech classification problem can
+brain-computer interface (BCI) with a manipulator which will
+be overcome by selecting a dictionary of well-recognized and
+be capable of assisting people with physical disabilities.
+accurately classified words. Previously, our group presented a
+We have previously shown that the silent speech of some
+wordsleadstoalmostidenticaldistributionsofelectroencephalo- graph dictionary selection algorithm and the applicability of
+graphic signal data. In this paper, we continue to develop the this algorithm to our data [3].
+previously proposed research topic of algorithmic maximization Theselectionofadictionaryitselfisaratherlaborioustask,
+of the semantic load of a dictionary for BCI. We propose a
+and we had an idea to develop a certain criterion that would
+predictive criterion for the accuracy of classifying words in a
+allow us to predict the behavior of a neural network and at
+dictionary whose aim is to estimate the classifiers’ behavior
+onlybymeasuringstatisticalcriterion(TheKolmogorov-Smirnov the same time would be quite convenient in terms of time
+method) of the data. and resource. Thus, we were looking for our criterion in the
+The application of this predictive criterion helps to achieve field of statistical methods that were less expensive in terms
+higher levels of accuracy for neural network classifiers.
+of calculating resources.
+The use of the proposed approach makes it possible to form
+The new study presented in this paper is based on the
+a dictionary for the EEG-based BCIs, taking into account the
+analysis of classification behavior of neural network models
+semanticandphoneticproximityofwordswiththepossibilityof
+increasing the silent speech recognition accuracy. trained on the set of EEG-data recordings during several
+sessionscorrespondingtosilentspeechpronunciationofwords
+I. INTRODUCTION
+“up”, “down”, “vira” and “myna”. These words are semanti-
+Inourwork,wearedevelopinganEEG-basedBCIfocused cally divided into two classes: {“up”, “vira”} and {“down”,
+onrecognizingmentalcommandsofmovement.Thisinterface “myna”}.Toavoidtime-andGPUresourceconsumingdictio-
+isespeciallyimportantforpeoplewithdamageorunderdevel- naryselectionitwasinterestingforustoconsidertheexistence
+opmentofthemotorcortex.Bearingthisprobleminourmind, of a predictive criterion by which we could predict the results
+we decided to develop a BCI that recognizes silent speech; of the binary classification of a neural network.
+that is, patterns of brain activity in the temporal lobe of the Thinking about the predictive criterion for neural network
+cortex, or rather, in Broca’s area (the anterior speech cortex). classification accuracy, we formulated the following hypothe-
+Inourstudy,silentspeechwasasetofcommands(dictionary) sis:
+given by the inner voice. To control the manipulator, these Hypothesis. The Kolmogorov-Smirnov method on EEG-
+commands should not be numerous, but the dictionary should data of silent speech with reduced dimension can statistically
+be well recognized by the BCI. predict the behavior (accuracy) of a neural network classifier
+However, we found that some commands pronounced by on the same EEG-data of a higher dimension.
+theinnervoice(silentspeech)arepoorlydistinguishablefrom Confirming this hypothesis and gaining new knowledge
+eachotheranddemonstratelowaccuracyofclassificationbya about the patterns of brain activity aims at improving our
+neuralnetworkofBCI.Wehypothesizedthatthissilentspeech classification results, not only by trying to tune various neural
+classification problem is due to semantic and phonetic prox- network architectures but also by intelligently tuning the
+imity of the words. We have previously shown that the silent dictionary with particular attention to statistical proximity of
+speechofsomewordsleadstoalmostidenticaldistributionsof the classes in the dictionary [3].Moreover,provingHypothesisdirectlyleadstothefactthat We used 3D−space. The Kolmogorov-Smirnov test, indepen-
+thereexistsapredictivecriterionfortheclassificationaccuracy dentofthenatureofthedistribution,wasappliedtothesetof
+of the models based on the overall statistical separability of distributions in 3D−space by computing the set of pairwise
+the classes in the dataset. In particular, we show that the sum p−values on train and validation sets. Each component (each
+of all p−values computed pairwise for every two classes in dimension) gave its own p−value, the minimum p−value was
+the train dataset can be used to make an estimation of the taken from this set. The existing pairs of synonyms were
+accuracy rate levels of a given network. organized in ascending order of p−values.
+We were looking for our criterion in the field of statistical Thepredictivecriterionwasbasedonstatisticsofdimension
+methods that were less expensive in terms of calculating reduced data: on the set of all possible p−values of the
+resources. Kolmogorov-Smirnov test on PCA dimension reduced distri-
+butions from validation and train sets, the p−value and the
+II. METHODS
+networkbinaryclassificationaccuracyareinverselycorrelated.
+A. Dataset This absolute accuracy (average or median) depends on the
+All subjects had reached adulthood, were healthy, network architecture and has a variance depending on the
+and signed voluntary a consent to the study. The subjects network architecture.
+could interrupt the study at any time without explanation.
+D. Neural Network Classifiers
+The subjects provided their data, which included: gender,
+age, education, and occupation. The exclusionary criteria for Neural network classification models which were tested for
+the study were a history of head trauma, alcohol or other multiclass classification of various sets of word commands
+intoxication, and epilepsy. included Image Transformer and ResNext 18 deep architec-
+The dataset we used for our study consisted of 32−channel turesadaptedforthepreprocesseddatasetconsistingofsquare
+EEG signal recordings completed at 250Hz during several 256×256 tensors. We further briefly describe the mentioned
+sessions of silent and vocalized speech of 105 subjects. deep learning architectures.
+The dry plastic electrodes (Datwyler’s SoftPulseTM Medium,
+E. ResNet-18 Network Classifier
+brush type electrode) were placed according to the traditional
+10−20 scheme. The ‘Afz’-channel was used as a reference The main feature that makes ResNext model differ from
+electrode. A word presentation signal was also captured via a conventionalresidualnetsistheintroductionofthecardinality
+light sensor and included in data files as a mark. hyperparameter [1] [5], which separates the channels of the
+Thedataweredividedintothreesets:train(70%),validation inputtensorsintoseveralgroups,witheachonebeingoperated
+(20%), and test(10%). by its own convolutional kernel. This architecture adopts both
+the strategy of repeating layers, which is a common property
+B. Data processing of VGGs/ResNets, and the split-transform-merge strategy first
+Datapreprocessingmethodsincluded:1)Eyenoisefiltering applied in Inception model architectures. ResNext models are
+procedure consisting of morphological selection of eye sensi- mainly constructed from building blocks each performing a
+tive channels, Independent Component Analysis (ICA), and set of convolutional transformations on a low-dimensional
+further detection and removal of the eye noise component us- embedding and aggregating their outputs by summation [5].
+ingofFastFourierTransform(FFT),Savitskiy-Galeyfiltering Model configurations differ by complexity and the number of
+and Inverse FFT; 2) Filtering out the tensors with high noise buildingblocksinthearchitecture.WechoseResNet-18model
+levelbymeansofapplyingtwofiltersbythesumofthemoduli which consists of 4 modules, each containing 2 convolutional
+ofthesignalamplitudes;3)Downsamplingthesamplerateby blocks (see Fig. 1.a for the detailed architecture scheme).
+using index masks on the original EEG data; 4) Separating
+F. Vision Transformer Network Classifier
+theelectrodesintoleftandrighthemispheres;5)Reorganizing
+the elements of the data tensors and combining the described We decided to use the Vision Transformer neural network
+above operations in order to form a two-dimensional matrix classifierbasedoncolleaguespaper[6]aswellasconvolution-
+from every tensor in the dataset [1]. based architectures. This version of transformer architecture
+By applying the described above procedures, we were able is specifically designed for the task of image classification.
+totransformanyrawsignaltensorofsize32×1024(32stands Vision Transformer contains a solid number of self-attention
+forthenumberofelectrodes(channels)usedinEEGrecording blocks,themainpurposeofwhichiscomputationofpointwise
+procedure; 1024 is the number of time stamps corresponding scalar products between the values of all square (16 × 16)
+to signal discretization procedure) to a square 2D matrix of fragments of the preprocessing 256×256 matrix and vectors
+size 256×256. consistingoftrainableweights.Suchasolutionmayallowthe
+networktofindhiddenpatternsintheinformationprovidedby
+C. Predictive criterion
+the whole input matrix, not only in its neighboring fragments,
+Beforeusingthecriterion,itisstronglyrecommendedtouse which grants it a benefit when compared to convolutional
+principal component analysis (PCA). After PCA, we looked neural networks (CNNs). Moreover, the self-attention blocks
+atdistributionsofmentalwordsasdistributionsinkD−space. ofVisionTransformernetareconnectedsuccessively,forminga chain which makes the process of finding deeper patterns 3) if p val > 4 ∗ e−40 and p tr ≤ 4.41 ∗ e−117, then
+easier. accuracy ∼0.79;
+The architecture of Vision Transformer (see Fig. 1.b) is 4) if p val > 4∗e−40 and 4.41∗e−117 < p tr < 0.38,
+aimed at dealing with square images by means of initial crop- then accuracy ∼0.59.
+ping into a number of square patches of smaller size. These
+IV. CONCLUSION
+patches serve as inputs to the trainable part of the network,
+which mainly consists of self-attention blocks responsible for In this work, we have shown the fundamental possibility
+findingconnectionsbetweenthemanddecidingwhichofthem of working with low-dimensional data and reducing resource
+aremostimportantforcompletingtheprocessofclassification. consumptionforselectingtheoptimaldictionaryforBCIbased
+We use N = 6 transformer encoder blocks, h = 8 as the onEEG-dataandsilentspeechrecognition.Weformulatedand
+number of neurons in the hidden layer of the MLP block and confirmed the hypothesis about the existence of a predictive
+p=6 as the number of heads in the multi-head self-attention criterion based on distribution statistics of data with reduced
+layer. The experiments showed that increasing the complexity dimension and predicting the accuracy of classification by a
+of the model did not result in higher results for validation and neural network on the same data of a higher dimension.
+test classification.
+III. RESULTS
+A. Predictive criterion for Vision Transformer and ResNet-18
+The results of the predictive criterion and classification
+accuracy are listed in the Table I.
+
+| wordspair | p−value p−value medianacc. medianacc. Vision ResNet-18 Transformer |
+| --- | --- |
+| wordspair | train val test test |
+| ‘up’/‘down’ ‘vira’/‘myna’ ‘up’/‘myna’ ‘up’/‘vira’ ‘down’/‘vira’ ‘down’/‘myna’ | 4×e−1 2×e−1 0.49 0.5 5×e−1 1×e−1 0.49 0.5 2×e−114 4×e−10 0.91 0.7 4×e−117 1×e−16 0.84 0.79 3×e−116 1×e−16 0.87 0.6 4×e−114 1×e−41 0.92 0.78 |
+
+TABLE I: Predictive criterion and accuracy for Vision Trans-
+former and ResNet-18.
+We see an inverse correlation between the p−value and the
+classification accuracy of the neural network.
+B. Predictive criterion for Vision Transformer
+Consider a pair of words i,j. Let’s denote p tr as p−value
+on the train sets, p val as p−value on the validation sets,
+p test as p−value on the test sets. Then the following
+estimates hold for the median accuracy a of the binary
+classification of words i,j:
+1) if p tr ≥0.38, then accuracy ∼0.49;
+2) if p tr <0.38 and 4∗e−40 <p val≤1.11∗e−16, then
+accuracy ∼0.85;
+3) if p tr < 0.38 and p val ≤ 4 ∗ e−40, then accuracy
+∼0.915.
+C. Predictive criterion for ResNet-18
+Consider a pair of words i,j. Let’s denote p tr as p−value
+on the train sets, p val as p−value on the validation sets,
+p test as p−value on the test sets. Then the following
+estimates hold for the median accuracy a of the binary
+classification of words i,j:
+1) if p tr ≥0.38, then accuracy ∼0.5;
+2) if p val≤4∗e−40, then accuracy ≥0.69;REFERENCES
+[1] DaryaVorontsova,IvanMenshikov,AleksandrZubov,KirillOrlov,Peter
+Rikunov,EkaterinaZvereva,LevFlitman,AntonLanikin,AnnaSokolova,
+Sergey Markov and Alexandra Bernadotte. Silent EEG-Speech Recog-
+nition Using Convolutional and Recurrent Neural Network With 85%
+Accuracyof9WordsClassificationSensors2021,21.20,6744.
+[2] Mazurin A., Bernadotte A.. Clustering quality criterion based on
+the features extraction of a tagged sample with an application in
+the field of brain-computer interface development // Intelligent sys-
+tems. Theory and Applications (formerly: Intelligent Systems by 2014,
+No. 2, ISSN 2075-9460), vol. 25(4), pp. 322-327, 2021. Available:
+http://intsysjournal.org/pdfs/25-4/MazurinBernadott.pdf
+[3] Bernadotte A. The Algorithm that maximizes the accuracy of
+k−classification on the set of representatives of the k equiva-
+lence classes // Mathematics, vol. 10(15), p. 2810, 2022, DOI:
+https://doi.org/10.3390/math10152810
+[4] Zubov A. Isaeva M. Bernadotte A.. Neural network classifier of
+EEG−data from people who have undergone COVID-19 and have not
+// Intelligent systems. Theory and Applications (formerly: Intelligent
+Systemsby2014,No.2,ISSN2075-9460),vol.25(4),pp.318-322,2021.
+Available:http://intsysjournal.org/pdfs/25-4/ZubovIsaevaBernadott.pdf
+[5] Saining Xie et al. Aggregated Residual Transformations for Deep Neu-
+ral Networks In: CoRR abs/1611.05431 arXiv 2016, 1611.05431, url:
+http://arxiv.org/abs/1611.05431.

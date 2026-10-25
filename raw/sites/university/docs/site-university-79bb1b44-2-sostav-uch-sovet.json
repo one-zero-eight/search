@@ -1,0 +1,16 @@
+{
+ "title": "Полномочия Ученого совета",
+ "url": "https://innopolis.university/upload/iblock/9f8/1hcj26ql9f1s8mxmfqm1c4f9ahtjgjwz/2_sostav_uch_sovet.pdf",
+ "sha256": "c2b7cabc26b76d22313f22492484f25f6f4451e49d6d274434541fb1f8775cca",
+ "method": "text layer (pdfplumber)",
+ "chars": 4017,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-25T00:00:45+00:00",
+ "remote": {
+  "etag": "\"653bac2e-1d9cd\"",
+  "modified": "Fri, 27 Oct 2023 12:25:18 GMT",
+  "size": "121293"
+ }
+}

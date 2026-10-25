@@ -3,11 +3,12 @@
  "url": "https://innopolis.university/upload/iblock/94f/osb458fkdh07uzyvxznou2viyo5glxk9/poryadok_pa_bakmag_eodot_02.08.2022.pdf",
  "sha256": "64f65c4b4bbb57ef672b659f6c1a6f57218e91302eb59485f4464c3b249246e0",
  "method": "text layer (pdfplumber)",
- "chars": 17498,
+ "chars": 17384,
  "fetched_at": "2026-10-22T12:08:02+00:00",
  "remote": {
   "etag": "\"66335ac3-4377a\"",
   "modified": "Thu, 02 May 2024 09:20:03 GMT",
   "size": "276346"
- }
+ },
+ "tables": 3
 }

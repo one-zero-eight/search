@@ -1,0 +1,66 @@
+Full Name:
+
+Innopolis University
+
+Group:
+Introduction to Optimization
+Fall 2025
+Test 2
+15.11.2025
+
+Variant Sample
+Duration:
+
+120 Minutes
+
+You need to perform this exam alone and without the use of any equipment
+or book, apart from this booklet, A5 cheat sheet, a calculator and pens.
+Please do not consult any person or use any equipment, otherwise you will be
+disqualified from this exam at the very first attempt.
+Good Luck!
+Grade Table (for teacher use only)
+Question:
+
+1
+
+2
+
+3
+
+Total
+
+Points:
+
+5
+
+15
+
+5
+
+25
+
+Score:
+
+1. (5 points) Consider the following function.
+f (x, y) = · · ·
+Use Newton-Raphson to determine the extreme point for the given starting point (1, 1) and identify
+its type.
+Hints:
+• write the first iteration.
+• use one decimal after conduction first iteration (i.e. instead of 0.231 use 0.2).
+2. Consider the problem Maximize
+f (x, y, z) = · · ·
+subject to
+
+g1 (x, y, z) = · · · = 0
+g2 (x, y, z) = · · · = 0
+(a) (6 points) Use Jacobian method to solve the problem using x and y as dependent variables and
+apply the sufficient condition to determine the type of the resulting stationary point.
+(b) (1 point) Determine the sensitivity coefficients given the solution in previous part.
+(c) (3 points) Write Lagrangian function and necessary conditions to find extreme points. (It is not
+needed to solve using Lagrangian method.)
+(d) (5 points) (Extra points) Write Bordered Hessian Matrix, and explain why we need it.
+3. (5 points) Use the sufficiency condition to identify the extreme points.
+f (x, y) = · · ·
+
+

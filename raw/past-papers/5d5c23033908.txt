@@ -1,0 +1,184 @@
+2.3
+
+Test 2
+Mathematical Analysis I. Test 2. Problem Set 1
+
+ATTENTION! You may use the following list of integrals without deriving them on your test. All the other
+integrals
+be solved using substitutions, transformations of the integrand, etc.
+R ↵ have to
+x↵+1
+x dx = ↵+1 + C, ↵ 6= 1;
+R x
+x
+a dx = lna a + C, a > 0, a 6= 1;
+R dx
+R x+a = ln |x + a| + C;
+R sin x dx = cos x + C;
+x dx = sin x + C;
+R cos
+dx
+2 x = tan x + C;
+R cos
+dx
+= cot x + C;
+R sin2 x
+R sinh x dx = cosh x + C;
+x dx = sinh x + C;
+R cosh
+dx
+= tanh x + C;
+2
+x
+R cosh
+dx
+= coth x + C;
+2
+x
+R sinh
+dx
+1
+x
+2 = a arctan a + C, a 6= 0;
+R x2 +a
+p dx
+= arcsin xa + C, a 6= 0;
+a 2 x2
+p
+R dx
+p
+=
+ln
+x
++
+x2 + a + C, a 6= 0;
+2
+p
+p
+R px +a
+x2 + a dx = 12 x x2 + a + a ln x2 + a + x + C, a 6= 0;
+p
+Rp
+a2 x2 dx = 12 x a2 x2 + a2 arcsin xa + C, a 6= 0.
+⇣p ⌘
+R 4x2 +13x+4
+R
+3
+1. Find the indefinite integrals: (a) (2x+3)(x
+dx;
+(b)
+x
+cos
+x2 dx.
+2 +2x+4)
+2. Find the length of a curve given by y = ln cos x, ⇡6 6 x 6 ⇡4 .
+3. Find all values of parameter ↵ such that integral
+
++1
+R x arcsin
+
+1
+(x+1)2
+
+↵
+
+0
+
+ln (x+1)
+
+dx converges.
+
+Mathematical Analysis I. Test 2. Problem Set 2
+1. Find the indefinite integrals: (a)
+
+R
+
+x2 4x 12
+dx;
+(3x 2)(x2 2x+8)
+
+(b)
+
+R sinh( 4px)
+p
+4
+x
+
+dx.
+
+2. Find the length of a curve given by y = 12 (ln cos x + ln sin x), ⇡6 6 x 6 ⇡3 .
+3. Find all values of parameter ↵ such that integral
+
++1
+R
+ln↵ (ex x)
+p
+dx converges.
+x2↵ ( x+1)
+0
+
+Mathematical Analysis I. Test 2. Problem Set 3
+1. Find the indefinite integrals: (a)
+
+R
+
+4x2 +13x 11
+dx;
+(3x+1)(x2 4x+6)
+
+(b)
+
+R
+
+p
+sin ( 3 x) dx.
+
+2. Find the length of a curve given by y = ln sin x, ⇡4 6 x 6 ⇡2 .
+3. Find all values of parameter ↵ such that integral
+
++1 ↵
+R
+ln (cosh x) dx
+0
+
+x↵ (1+x2 )
+
+converges.
+
+Mathematical Analysis I. Test 2. Problem Set 4
+1. Find the indefinite integrals: (a)
+
+R
+
+13x2 +15x+13
+dx;
+(4x+1)(x2 4x+9)
+
+(b)
+
+Rp
+
+p
+x cosh ( x) dx.
+
+2. Find the length of a curve given by y = ln cos x2 + ln sin x2 , ⇡2 6 x 6 2⇡
+.
+3
+3. Find all values of parameter ↵ such that integral
+
++1
+R x↵ arctan↵
+0
+
+⇣
+
+1+x2
+
+x
+1+x2
+
+⌘
+
+dx converges.
+
+

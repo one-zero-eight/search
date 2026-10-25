@@ -1,0 +1,819 @@
+Full name:
+CSE 206 — Probability and statistics
+Final exam
+
+e-mail:
+group:
+Date: December 10th , 2024
+
+• The test lasts 3 hours (180 minutes).
+• There is a total number of 63 points up for grabs.
+• Any cheating, any attempt to cheat, assisting others to cheat, or participating
+therein will be penalized with a null score on the test.
+• The use of any smart devices (e.g. mobile phones, tablets, laptops, smart watches
+and etc.) is strictly prohibited and will be considered as an attempt to cheat.
+• Non-graphing calculators are allowed, but sharing them is forbidden.
+
+Model #1
+1. (7 pts) This is a table of the pmf of random vector (ξ1 , ξ2 ):
+ξ1
+ξ2
+0
+1
+
+0
+
+1
+
+1/6
+2/6
+
+2/6
+1/6
+
+The random variable η is defined by this procedure: a fair coin is tossed. If the outcome is heads, η = ξ1 +ξ2 ,
+and if it is tails, then η = ξ1 − ξ2 . The coin toss is independent of both ξ1 and ξ2 .
+(a) (2 pts) Find E[η|ξ1 = 0].
+Solution.The event {ξ1 = 0} is further split into E1 = {ξ1 = 0, heads} and E2 = {ξ1 = 0, tails}, which are
+equiprobable. On E1 , η = ξ2 , while on E2 , η = −ξ2 . Therefore, the looked-for expected value is 0.
+Answer. 0.
+(b) (2 pt) Are the random variables ξ1 and ξ2 dependent?
+Answer. Yes.
+(c) (3 pt) Find Cov(η, ξ1 ).
+Solution.
+Cov(η, ξ1 ) = Cov(ηI(heads), ξ1 ) + Cov(ηI(tails), ξ1 ) = Cov((ξ1 + ξ2 )I(heads), ξ1 ) + Cov((ξ1 − ξ2 )I(tails), ξ1 )
+= Cov(ξ1 I(heads), ξ1 ) + Cov(ξ2 I(heads), ξ1 ) + Cov(ξ1 I(tails), ξ1 ) + Cov(ξ2 I(tails), ξ1 ).
+
+Now we want the distribution of the random variables ξj I(heads), ξj I(tails), j = 1, 2. This is easy: by
+looking at the marginals, we see that each random variable ξ1 and ξ2 is a Bernoulli random variable. Since
+the coin toss is independent of ξj , we have
+(
+1 with probability 1/4
+ξj I(heads) = ξj I(tails) =
+0 with probability 3/4.
+We will need the expected value. We immediately see E(ξj I(heads)) = 14 and likewise for E(ξj I(tails)),
+j = 1, 2. Now,
+E(ξ1 I(heads)ξ1 ) = E(ξ12 I(heads)) = E(ξ1 I(heads)) =
+
+1
+,
+4
+
+Full name:
+CSE 206 — Probability and statistics
+Final exam
+
+e-mail:
+group:
+Date: December 10th , 2024
+
+since ξ12 = ξ1 . Also, Eξ1 = Eξ2 = 12 . And, by independence,
+E(ξ1 I(heads)ξ2 ) =
+
+1
+11
+1
+E(ξ1 ξ2 ) =
+=
+,
+2
+26
+12
+
+and similarly for E(ξ1 I(tails)ξ2 ). Therefore,
+Cov(η, ξ1 ) = Cov(ξ1 I(heads), ξ1 ) + Cov(ξ2 I(heads), ξ1 ) + Cov(ξ1 I(tails), ξ1 ) + Cov(ξ2 I(tails), ξ1 )
+= E[ξ12 I(heads)] − E(ξ1 I(heads))E(ξ1 ) + E[ξ2 ξ1 I(heads)] − E(ξ2 I(heads))E(ξ1 )
++ E[ξ12 I(tails)] − E(ξ1 I(tails))E(ξ1 ) + E[ξ2 ξ1 I(tails)] − E(ξ2 I(tails))E(ξ1 )
+1
+1 1
+1 1 1
++2
+− ·
+=2 − ·
+4 4 2
+12 4 2
+1
+= .
+6
+Answer. 16 .
+
+Full name:
+CSE 206 — Probability and statistics
+Final exam
+
+e-mail:
+group:
+Date: December 10th , 2024
+Model #1
+
+2. (5 pts) The randomness of a very large sphere can be modeled by the assumption that its radius R is a
+random variable having a distribution R ∼ N (r, r13 ), where r is its mean radius. Knowing that r = 3 (in
+some units), find the mean of the volume of the sphere. Round to the nearest integer. The volume of a
+sphere is four thirds of π times the radius cubed.
+Solution. Here:
+E(R3 ) = E((R − r + r)3 ) = E((R − r)3 + 3(R − r)2 r + 3(R − r)r2 + r3 )
+3
+1
+= 0 + 3 3 r + 0 + r3 = 2 + r3 .
+r
+r
+Thus,
+ 4
+4
+4
+3
+E( πR3 ) = π 2 + r3 = π · 27.33 ≈ 114.
+3
+3 r
+3
+
+Full name:
+CSE 206 — Probability and statistics
+Final exam
+
+e-mail:
+group:
+Date: December 10th , 2024
+Model #1
+
+3. (5 pts) The average number of visitors per hour at the Wildberries pick-up point between 2pm and 3pm in
+Innopolis is 40. Find the probability that during a one-minute span in that interval, four or more customers
+show up. Give your answer with accuracy to the third decimal place.
+Solution. With ξ denoting the number of visitors during a one-minute interval, ξ ∼ Poi(2/3). So
+P(ξ ≥ 4) = 1 − P(ξ < 3) = 1 −
+
+3
+X
+(2/3)k e−2/3
+k=0
+
+k!
+
+= 1 − (e−2/3 + (2/3) · e−2/3 +
+≈ 1 − 0.995 ≈ 0.005.
+Answer. 0.005.
+
+(2/3)2 −2/3 (2/3)3 −2/3
+·e
++
+·e
+)
+2
+6
+
+Full name:
+CSE 206 — Probability and statistics
+Final exam
+
+e-mail:
+group:
+Date: December 10th , 2024
+Model #1
+
+4. (3 pts) Snowfall is going to start soon. A disk with radius 10 cm is painted out there on the ground. Find
+the probability that the first snowflake that falls on the disk will fall within 2cm of the disk’s border. Give
+an exact decimal answer.
+Solution. Uniform distribution on the disk. The area of the disk is 100π, the area of the 2cm-width outer
+ring is 100π − 64π = 36π.
+Answer. 0.36.
+
+Full name:
+CSE 206 — Probability and statistics
+Final exam
+
+e-mail:
+group:
+Date: December 10th , 2024
+Model #1
+
+5. (7 pts) Let (ξ1 , ξ2 ) ∼ N
+
+2
+
+
+
+
+
+3
+(0, 1),
+−1
+
+−1
+2
+
+
+.
+
+(a) (3 pts) Let η1 = ξ1 , η2 = ξ1 − 1. Find E[η12 η2 ].
+(b) (4 pts) Find E[ξ12 ξ2 ].
+Solution. (a) E[η12 η2 ] = Eξ13 − Eξ12 = 0 − 3 = −3.
+(b) Setting ζ1 = ξ1 , ζ2 = ξ2 − 1, we have (ζ1 , ζ2 ) ∼ N
+
+2
+
+
+
+
+
+3
+(0, 0),
+−1
+
+
+−1
+, exactly the same as in Test 2.
+2
+
+Thus (doing the same as was done there), Eζ12 ζ2 = 0.
+Therefore
+0 = Eζ12 ζ2 = Eξ12 (ξ2 − 1) = Eξ12 ξ2 − Eξ12
+= Eξ12 ξ2 − (Var ξ1 + (Eξ1 )2 ) = Eξ12 ξ2 − 3
+=⇒ Eξ12 ξ2 = 3.
+Answers. (a) -3.
+(b) 3.
+
+Full name:
+CSE 206 — Probability and statistics
+Final exam
+
+e-mail:
+group:
+Date: December 10th , 2024
+Model #1
+
+6. (5 pts) ξ is a random variable with finite second moment. Find and upper bound for the probability
+that the absolute difference between the random variable and its mean is no less than twice the standard
+deviation of ξ. Give your answer in exact decimal form.
+Solution. Immediate by Chebyshev’s inequality. Denote the mean Eξ by µ and the variance by σ 2 , where
+σ is the standard deviation (i.e. the square root of variance). Then
+P(|ξ − µ| ≥ 2σ) ≤
+Answer. 0.25.
+
+1
+σ2
+= .
+(2σ)2
+4
+
+Full name:
+CSE 206 — Probability and statistics
+Final exam
+
+e-mail:
+group:
+Date: December 10th , 2024
+Model #1
+
+7. (7 pts) ξ1 , ξ2 , . . . is a sequence of independent, identically distributed random variables with unit variance
+and zero mean. Put Sn = ξ1 + . . . + ξn . Let y be a fixed positive real number. To what number convergences
+the sequence
+P
+
+
+Sn
+≤y
+1/3
+n
+
+as n → ∞?
+Solution. Denoting (for now) the mean by µ and the standard deviation by σ, we have, since y is positive,
+P √
+
+
+
+
+√
+Sn
+Sn − nµ
+Sn
+√
+≤
+≤ y = P √ ≤ yn−1/6 = P Sn − nµ ≤ nyn−1/6 − nµ = P
+−1/6
+nn
+n
+σ n
+
+By the CLT, in the limit the sequence becomes indistinguishable from the sequence
+√
+nyn−1/6 − nµ
+√
+) = P(Z ≤ yn−1/6 ),
+P(Z ≤
+σ n
+where Z ∼ N (0, 1). Thus, the limit is 1/2.
+Answer. 1/2.
+
+√
+
+nyn−1/6 − nµ 
+√
+σ n
+
+Full name:
+CSE 206 — Probability and statistics
+Final exam
+
+e-mail:
+group:
+Date: December 10th , 2024
+Model #1
+
+8. (5 pts) Consider the three numbers
+0
+
+1
+
+1000.
+
+Assume this a sample from a normal random variable whose mean is known to be 2. Find a 95% confidence
+interval for the variance. Give your answer with integer number approximation, and in the interval form
+(for example: “(5, 9)”).
+Solution. Here n = 3, α = 0.05, µ = 2, vn = 22 + 12 + 9982 = 996009, w1−α/2 = w0.975 = 9.348,
+wα/2 = w0.025 = 0.216 and the confidence interval is
+
+
+996009 996009
+,
+.
+9.348 0.216
+Answer. (106547, 4611152).
+If you calculated the CI for the standard deviation, which is (326, 2147), you won’t be penalized.
+If you calculated using the second row of the table, your answer will be (134997, 19529588) for variance, or
+(367, 4419) for standard deviation.
+
+Full name:
+CSE 206 — Probability and statistics
+Final exam
+
+e-mail:
+group:
+Date: December 10th , 2024
+Model #2
+
+9. (8 pts) A coin toss is modeled by the random variable Bernoulli(θ) (0 for tails and 1 for heads); we say
+the coin is fair if θ = 1/2. To test the hypothesis of fairness, you decide to toss the coin five times.
+P5
+(a) [4 pts] Let ξ1 , ξ2 , ξ3 , ξ4 , ξ5 be the outcomes of the five tosses and S5 = j=1 ξj . Assuming θ = 1/2, find
+the smallest value of x such that P(S5 ≥ x) ≤ 0.04.
+(b) [1 pt] With H0 : θ = 1/2, and α = 0.04, find the critical value t1−α .
+(c) [1 pt] In the experiment you got s5 = x1 + x2 + x3 + x4 + x5 = 4. Do you reject or not reject the
+hypothesis H0 ?
+(d) [2 pt] The manufacturer tells you in secret that the only possible alternative is that θ = 2/3. What is
+the probability of a Type II error (that is, of incorrectly accepting H0 )? Give your answer with two decimal
+place accuracy.
+Solution. (a) Draft up a quick table for the pmf of S5 , from which it is easy to see that the smallest such
+x is x = 5, for which P(S5 ≥ 5) = P(S5 = 5) = 0.03125.
+(b) Simply according to the previous answer, t0.97 = 5.
+(c) This means we didn’t fall into the critical region. Thus, we do not reject the hypothesis.
+(d) It is
+P(S5 ≤ 4 under assumption that θ = 2/3)
+= 1 − P(S5 = 5 under assumption θ = 2/3)
+= 1 − (2/3)5
+= 0.87.
+Answers. (a) 5.
+(b) 5.
+(c) Not reject.
+(d) 0.87.
+
+Full name:
+CSE 206 — Probability and statistics
+Final exam
+
+e-mail:
+group:
+Date: December 10th , 2024
+Model #1
+
+10. (11 pts) The cdf of a random variable ξ has this plot:
+
+(a) [2 pts] Mark the correct option:
+(i) This is a continuous random variable. (ii) This is discrete random variable. (iii) This is both a continuous
+and a discrete random variable. (iv) This is neither a continuous nor a discrete random variable.
+Answer the following questions. Give your answer in fraction form.
+(b) [2 pts] P(ξ = 0.8) = ?
+(c) [2 pts] P(ξ ≥ 0.2) = ?
+(d) [2 pts] P(1 ≤ ξ ≤ 3) = ?
+(e) [1 pt] P(0.6 ≤ ξ ≤ 4) = ?
+(f ) [2 pts] P(ξ ≤ 0.2) = ?
+Answers. (a) (iv).
+(b) 0.
+(c) 1.
+(d) 3/10.
+(e) 6/10.
+(f ) 2/10.
+
+Full name:
+CSE 206 — Probability and statistics
+Final exam
+
+e-mail:
+group:
+Date: December 10th , 2024
+
+• The test lasts 3 hours (180 minutes).
+• There is a total number of 63 points up for grabs.
+• Any cheating, any attempt to cheat, assisting others to cheat, or participating
+therein will be penalized with a null score on the test.
+• The use of any smart devices (e.g. mobile phones, tablets, laptops, smart watches
+and etc.) is strictly prohibited and will be considered as an attempt to cheat.
+• Non-graphing calculators are allowed, but sharing them is forbidden.
+
+Model #2
+1. (7 pts) This is a table of the pmf of random vector (ξ1 , ξ2 ):
+ξ1
+ξ2
+0
+1
+
+0
+
+1
+
+2/10
+3/10
+
+3/10
+2/10
+
+The random variable η is defined by this procedure: a fair coin is tossed. If the outcome is heads, η = ξ1 +ξ2 ,
+and if it is tails, then η = ξ1 − ξ2 . The coin toss is independent of both ξ1 and ξ2 .
+(a) (2 pts) Find E[η|ξ1 = 0].
+Solution. The event {ξ1 = 0} is further split into E1 = {ξ1 = 0, heads} and E2 = {ξ1 = 0, tails}, which are
+equiprobable. On E1 , η = ξ2 , while on E2 , η = −ξ2 . Therefore, the looked-for expected value is 0.
+Answer. 0.
+(b) (2 pt) Are the random variables ξ1 and ξ2 dependent?
+Answer. Yes.
+(c) (3 pt) Find Cov(η, ξ1 ).
+Solution.
+Cov(η, ξ1 ) = Cov(ηI(heads), ξ1 ) + Cov(ηI(tails), ξ1 ) = Cov((ξ1 + ξ2 )I(heads), ξ1 ) + Cov((ξ1 − ξ2 )I(tails), ξ1 )
+= Cov(ξ1 I(heads), ξ1 ) + Cov(ξ2 I(heads), ξ1 ) + Cov(ξ1 I(tails), ξ1 ) + Cov(ξ2 I(tails), ξ1 ).
+
+Now we want the distribution of the random variables ξj I(heads), ξj I(tails), j = 1, 2. This is easy: by
+looking at the marginals, we see that each random variable ξ1 and ξ2 is a Bernoulli random variable. Since
+the coin toss is independent of ξj , we have
+(
+1 with probability 1/4
+ξj I(heads) = ξj I(tails) =
+0 with probability 3/4.
+We will need the expected value. We immediately see E(ξj I(heads)) = 41 and likewise for E(ξj I(tails)),
+j = 1, 2. Now,
+E(ξ1 I(heads)ξ1 ) = E(ξ12 I(heads)) = E(ξ1 I(heads)) =
+
+1
+,
+4
+
+Full name:
+CSE 206 — Probability and statistics
+Final exam
+
+e-mail:
+group:
+Date: December 10th , 2024
+
+since ξ12 = ξ1 . Also, Eξ1 = Eξ2 = 12 . And, by independence,
+E(ξ1 I(heads)ξ2 ) =
+
+1
+1 2
+1
+E(ξ1 ξ2 ) =
+=
+,
+2
+2 10
+10
+
+and similarly for E(ξ1 I(tails)ξ2 ). Therefore,
+Cov(η, ξ1 ) = Cov(ξ1 I(heads), ξ1 ) + Cov(ξ2 I(heads), ξ1 ) + Cov(ξ1 I(tails), ξ1 ) + Cov(ξ2 I(tails), ξ1 )
+= E[ξ12 I(heads)] − E(ξ1 I(heads))E(ξ1 ) + E[ξ2 ξ1 I(heads)] − E(ξ2 I(heads))E(ξ1 )
++ E[ξ12 I(tails)] − E(ξ1 I(tails))E(ξ1 ) + E[ξ2 ξ1 I(tails)] − E(ξ2 I(tails))E(ξ1 )
+1
+1 1
+1 1 1
++2
+− ·
+=2 − ·
+4 4 2
+10 4 2
+1
+= .
+5
+Answer. 15 .
+
+Full name:
+CSE 206 — Probability and statistics
+Final exam
+
+e-mail:
+group:
+Date: December 10th , 2024
+Model #2
+
+2. (5 pts) The randomness of a very large sphere can be modeled by the assumption that its radius R is a
+random variable having a distribution R ∼ N (r, r14 ), where r is its mean radius. Knowing that r = 4 (in
+some units), find the mean of the volume of the sphere. Round to the nearest integer. The volume of a
+sphere is four thirds of π times the radius cubed.
+Solution. Here:
+E(R3 ) = E((R − r + r)3 ) = E((R − r)3 + 3(R − r)2 r + 3(R − r)r2 + r3 )
+3
+1
+= 0 + 3 4 r + 0 + r3 = 3 + r3 .
+r
+r
+Thus,
+ 4
+4
+4
+3
+E( πR3 ) = π 3 + r3 ≈ π · 64.05 ≈ 268.
+3
+3 r
+3
+
+Full name:
+CSE 206 — Probability and statistics
+Final exam
+
+e-mail:
+group:
+Date: December 10th , 2024
+Model #2
+
+3. (5 pts) The average number of visitors per hour at the Ozon pick-up point between 2pm and 3pm in
+Innopolis is 15. Find the probability that during a one-minute span in that interval, no more than three
+customers show up. Give your answer with accuracy to the third decimal place.
+Solution. With ξ denoting the number of visitors during a one-minute interval, ξ ∼ Poi(1/4). So
+P(ξ ≤ 3) =
+
+3
+X
+(1/4)k e−1/4
+k=0
+
+k!
+
+= e−1/4 + (1/4) · e−1/4 +
+≈ 0.999987 ≈ 1.000
+Answer. 1.000. If you wrote 1, it’s ok too.
+
+(1/4)2 −1/4 (1/4)3 −1/4
+·e
++
+e
+=
+2
+6
+
+Full name:
+CSE 206 — Probability and statistics
+Final exam
+
+e-mail:
+group:
+Date: December 10th , 2024
+Model #2
+
+4. (3 pts) You bought a new washing machine. The manufacturer assures the machine lasts on average 2
+years before needing repair. Find the probability that your new machine will need repair in the first year.
+Give your answer with accuracy to the second decimal place.
+Solution. We’re dealing with ξ ∼ Exp(1/2), where ξ is the time before first repair.
+Z 1
+P(ξ ≤ 1) =
+0
+
+Answer. 0.39.
+
+1
+1 −1x
+e 2 dx = 1 − e− 2 .
+2
+
+Full name:
+CSE 206 — Probability and statistics
+Final exam
+
+e-mail:
+group:
+Date: December 10th , 2024
+Model #2
+
+5. (7 pts) Let (ξ1 , ξ2 ) ∼ N
+
+2
+
+
+
+
+
+−1
+2
+
+3
+(1, 0),
+−1
+
+
+.
+
+(a) (3 pts) Let η1 = ξ1 − 1 and η2 = ξ2 . Find E[η12 η2 ].
+(b) (4 pts) Find Eξ12 ξ2 .
+
+
+3
+Solution. (a) In this case (η1 , η2 ) ∼ N (0, 0),
+−1
+the same as was done there), Eη12 η2 = 0.
+2
+
+
+−1
+, exactly the same as in Test 2. Thus (doing
+2
+
+(b) Therefore
+0 = Eη12 η2 = E(ξ1 − 1)2 ξ2 = E[(ξ12 − 2ξ1 + 1)ξ2 ]
+= Eξ12 ξ2 − 2Eξ1 ξ2 + Eξ2
+= Eξ12 ξ2 − 2(Cov(ξ1 , ξ2 ) + Eξ1 Eξ2 )
+= Eξ12 ξ2 − 2(−1 + 0)
+=⇒ Eξ12 ξ2 = −2.
+Answers. (a) 0.
+(b) -2.
+
+Full name:
+CSE 206 — Probability and statistics
+Final exam
+
+e-mail:
+group:
+Date: December 10th , 2024
+Model #2
+
+6. (5 pts) ξ is a random variable with finite second moment. Find a lower bound for the probability that the
+absolute difference between the random variable and its mean is at most three times the standard deviation
+of ξ. Give your answer in fractional form.
+Solution. Immediate by Chebyshev’s inequality. Denote the mean Eξ by µ and the variance by σ 2 , where
+σ is the standard deviation (i.e. the square root of variance). Then
+P(|ξ − µ| > 3σ) ≤
+
+1
+σ2
+= .
+(3σ)2
+9
+
+But then
+P(|ξ − µ| ≤ 3σ) ≥ 1 −
+Answer. 89 .
+
+8
+1
+= .
+9
+9
+
+Full name:
+CSE 206 — Probability and statistics
+Final exam
+
+e-mail:
+group:
+Date: December 10th , 2024
+Model #2
+
+7. (7 pts) ξ1 , ξ2 , . . . is a sequence of independent, identically distributed random variables with unit variance
+and zero mean. Put Sn = ξ1 + . . . + ξn . Let y be a fixed positive real number. To what number convergences
+the sequence
+P
+
+
+Sn
+≤y
+2/3
+n
+
+as n → ∞?
+Solution. Denoting (for now) the mean by µ and the standard deviation by σ, we have, since y is positive,
+P √
+
+
+
+
+√
+Sn
+Sn − nµ
+Sn
+√
+≤
+≤ y = P √ ≤ yn1/6 = P Sn − nµ ≤ nyn1/6 − nµ = P
+1/6
+nn
+n
+σ n
+
+By the CLT, in the limit the sequence becomes indistinguishable from the sequence
+√
+nyn1/6 − nµ
+√
+) = P(Z ≤ yn1/6 ),
+P(Z ≤
+σ n
+where Z ∼ N (0, 1). Thus, the limit is 1.
+Answer. 1.
+
+√
+nyn1/6 − nµ 
+√
+σ n
+
+Full name:
+CSE 206 — Probability and statistics
+Final exam
+
+e-mail:
+group:
+Date: December 10th , 2024
+Model #2
+
+8. (5 pts) Consider the three numbers
+−100
+
+0
+
+1.
+
+Assume this a sample from a normal random variable whose standard deviation is known to be 1. Find a
+95% confidence interval for the mean. Give your answer with accuracy up to one decimal, and in the interval
+form (for example: “(1.3, 1.7)”).
+Solution. Here n = 3, α = 0.05, σ = 1, sn = −99, z1−α/2 = z0.975 = 1.96, so zα/2 = −1.96 and the
+confidence interval is
+1.96
+1.96
+(−33 − √ , −33 + √ ).
+3
+3
+Answer. (−34.1, −31.9).
+
+Full name:
+CSE 206 — Probability and statistics
+Final exam
+
+e-mail:
+group:
+Date: December 10th , 2024
+Model #2
+
+9. (8 pts) A coin toss is modeled by the random variable Bernoulli(θ) (0 for tails and 1 for heads); we say
+the coin is fair if θ = 1/2. To test the hypothesis of fairness, you decide to toss the coin five times.
+P5
+(a) [4 pts] Let ξ1 , ξ2 , ξ3 , ξ4 , ξ5 be the outcomes of the five tosses and S5 = j=1 ξj . Assuming θ = 1/2, find
+the smallest value of x such that P(S5 ≥ x) ≤ 0.04.
+(b) [1 pt] With H0 : θ = 1/2, and α = 0.04, find the critical value t1−α .
+(c) [1 pt] In the experiment you got s5 = x1 + x2 + x3 + x4 + x5 = 4. Do you reject or not reject the
+hypothesis H0 ?
+(d) [2 pt] The manufacturer tells you in secret that the only possible alternative is that θ = 2/3. What is
+the probability of a Type II error (that is, of incorrectly accepting H0 )? Give your answer with two decimal
+place accuracy.
+Solution. (a) Draft up a quick table for the pmf of S5 , from which it is easy to see that the smallest such
+x is x = 5, for which P(S5 ≥ 5) = P(S5 = 5) = 0.03125.
+(b) Simply according to the previous answer, t0.97 = 5.
+(c) This means we didn’t fall into the critical region. Thus, we do not reject the hypothesis.
+(d) It is
+P(S5 ≤ 4 under assumption that θ = 2/3)
+= 1 − P(S5 = 5 under assumption θ = 2/3)
+= 1 − (2/3)5
+= 0.87.
+Answers. (a) 5.
+(b) 5.
+(c) Not reject.
+(d) 0.87.
+
+Full name:
+CSE 206 — Probability and statistics
+Final exam
+
+e-mail:
+group:
+Date: December 10th , 2024
+Model #2
+
+10. (11 pts) The cdf of a random variable ξ has this plot:
+
+(a) [2 pts] Mark the correct option:
+(i) This is a continuous random variable. (ii) This is discrete random variable. (iii) This is both a continuous
+and a discrete random variable. (iv) This is neither a continuous nor a discrete random variable.
+Answer the following questions. Give your answer in fraction form.
+(b) [2 pts] P(ξ = 0.4) = ?
+(c) [2 pts] P(ξ = 0.2) = ?
+(d) [2 pts] P(0.2 ≤ ξ ≤ 0.4) = ?
+(e) [1 pt] P(0.44 ≤ ξ ≤ 0.55) = ?
+(f ) [2 pts] P(0.8 ≤ ξ ≤ 1.35) = ?
+Answers. (a) (iv).
+(b) 0.
+(c) 4/10.
+(d) 8/10.
+(e) 0.
+(f ) 2/15.
+
+

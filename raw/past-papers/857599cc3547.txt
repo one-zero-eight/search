@@ -1,0 +1,66 @@
+First mid-term examination on Ordinary Differential Equations
+(Innopolis University, Fall semester 2020, BS-III)
+
+Description
+It is distance asynchronous individual written test to check that students understand and can
+apply main definitions, concepts and techniques covered in the lectures on weeks 5-9. According
+to the Syllabus, (https://moodle.innopolis.university/mod/resource/view.php?id=29351), the each
+mid-term and the final examination cost is 20 points each. Examination has one (parameterized)
+variant for all enrolled students with 2 obligatory (to attempt) tasks and 1 bonus task (for
+volunteers to enjoy a piece of theory – to be awarded by bonus points at the discretion of the
+lecturer). The timeline of the examination follows:
+-
+
+Examination problems to be uploaded to Moodle by Saturday October 31, 2020.
+Consultation on technical issues of the examination – on Friday November 6, 2020, at regular
+lecture class time 9:00-10:30 using hybrid mode.
+Individual solutions to be uploaded to Moodle for grading by Friday November 6, 2020.
+Submissions to be graded by Saturday November 14, 2020.
+
+The main grading criterion for written test will be “proof of individual work” while computational
+errors will be treated as tiny mistakes (at most one-point deduction for each individual task).
+
+Rules
+1. “Proof of individual work” rule means that
+- students must upload individual solutions in two files: the source file (in one of 3 formats
+Word 2007 document .docx, Word document .doc, or application/x-tex .tex with any plain
+class like article) and the result of PDF-conversion of the source file (i.e. pdf file);
+- solutions must be well-structured and formatted, concise (each task – at most 2 pages with
+font 12pt) but detailed at least at level of lecture notes for the weeks (for example – see
+slides
+6-7
+and
+10-11
+in
+lecture
+notes
+for
+week
+at
+https://moodle.innopolis.university/mod/resource/view.php?id=43151).
+2. Each submitted file should be named by student first name and surname (for example
+NikolayShilov.docx and NikolayShilov.pdf)
+3. On the top of the front page of each submission should start with student first name and
+surname followed by birthdate (in the format 𝑑𝑎𝑦. 𝑚𝑜𝑛𝑡ℎ. 𝑦𝑒𝑎𝑟, for example 24.04.1961).
+4. Submissions with scanned or photo images of hand-written solutions will be discarded
+without consideration!
+
+Tasks
+Task 1 (10 points)
+Characterize equation 𝑦 ′′ 𝑦 ′ = 1⁄2 in terms introduced in lectures for weeks 1-3 and 8-9. Since it
+matches two patterns for order reduction, solve the following initial value problem 𝑦(1) =
+(𝑑𝑎𝑦) and 𝑦 ′ (1) = (𝑚𝑜𝑛𝑡ℎ) for this equation using any of these two methods that guarantees
+
+uniqueness of the solution; use any of these method if you cannot guaranty uniqueness of the
+solution but declare it explicitly. The solution process must be explained!
+Task 2 (10 points)
+Characterize equation 𝑦 ′′ + (𝑚𝑜𝑛𝑡ℎ)𝑦 ′ − (𝑑𝑎𝑦)𝑦 = 0 in terms introduced in lectures for weeks
+1-3 and 8-9. Solve the equation analytically, i.e. find a solution as general as you can (i.e. if it is
+the most general then your solution must prove it explicitly). The solution process must be
+explained!
+Bonus Task (a piece of theory for volunteers)
+Let 𝑎 < 𝑏 be real numbers, and 𝑓: [𝑎, 𝑏] → 𝑹 be a continuous function. Solve analytically the
+equation 𝑦 ′′ = 𝑓(𝑦), i.e. find a real-valued solution as general as you can (i.e. if it is the most
+general then your solution must proof it explicitly). The solution process must be explained!
+
+

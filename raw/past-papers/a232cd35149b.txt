@@ -1,0 +1,24 @@
+Programming Software Systems I - 2020
+Eugene Zouev, Sirojiddin Komolov and Mansur Khazeev
+FINAL EXAM
+Question 1 (10 points)​ - Implement the classes, interfaces, abstract classes and enumerator shown below.
+
+Question 2 (10 points) -​ In complement to question 1, implement the following requirements:
+A. Two classes: ​UniversityMember ​and ​Professor ​- being ​UniversityMember ​the superclass of both
+Professor ​and ​Student ​classes
+a. UniversityMember and Professor have the very same attributes as Student
+B. Create a void method​ initializeMembers()​ in a certain class ​Program ​that:
+a. Declares a ​Collection<UniversityMember> members
+b. Initialize ​members ​with the correct class type (e.g. LinkedList)
+c. Add two non-null objects to ​members
+C. Create a void method ​displayMembers()​ that prints out each element in ​members
+Question 3 (10 points) ​- Create the method main() in the class Program (see question 2). In this method:
+1. Create an array of ​containers ​(size 2) which have as the type parameter the class ​UniversityMember
+2. Initialize one ​student ​and one ​professor
+3. Initialize two ​containers ​(see question 1) using the objects of step 2
+4. Add the two ​containers ​of step 3 into the array of step 1
+5. Create a foreach loop that prints out the content of ​toString() ​of each container of the array
+6. Create an ​Exception ​by trying to access an out of bounds position of the array. This code should be
+within a try-catch structure
+
+

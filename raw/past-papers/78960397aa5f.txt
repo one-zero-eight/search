@@ -1,0 +1,95 @@
+Mathematical Analysis I. Final Examination. Problem 1
+30 MINUTES
+Find the limit:
+sin(x cos x) arctan x
+p
+3
+x!0 etan x
+1 + 3x + 3 ln cos x
+lim
+
+Mathematical Analysis I. Final Examination. Problem 2
+30 MINUTES
+Find the indefinite integral:
+Z
+
+sin x ln(1 + sin x) dx
+
+Mathematical Analysis I. Final Examination. Problem 3
+30 MINUTES
+Find all values of parameter ↵ such that the integral converges:
+Z+1 x arcsin
+
+1
+(x+1)2
+
+ln↵ (x + 1)
+
+0
+
+dx
+
+Mathematical Analysis I. Final Examination. Problem 4
+20 MINUTES
+Find out if the series converges:
+1
+X
+12 · 42 · 72 · ... · (3n + 1)2
+n=1
+
+(2n)!
+
+· arctan
+
+1
+2n
+
+Mathematical Analysis I. Final Examination. Problem 5
+30 MINUTES
+Find the sum of the following series:
+1
+X
+n=1
+
+ln
+
+(n + 1)(3n 1)
+n(3n + 2)
+
+Mathematical Analysis I. Final Examination. Problem 6-7
+70 MINUTES
+6. A curvilinear trapezoid given by inequalities 0  y 
+around Ox. Find the volume of a solid of revolution.
+
+p
+4
+
+1 + e3x ,
+
+ln
+
+p
+3
+
+5  x  ln
+
+p
+3
+
+9 is revolved
+
+7. It is known that
+3t 2
+t2
+x=
+, y=
+.
+(t 1)(t 2)
+t 1
+a) Find the asymptotes of a curve determined by the equations.
+00
+b) Find yx0 and yxx
+.
+c) Draw the graph of the curve (indicate maxima/minima, inflection points, cusps if there any).
+
+

@@ -1,0 +1,16 @@
+{
+ "title": "Вступительное испытание на программам бакалавриата \"Информатика\" 15.08.2024, 17.08.2024",
+ "url": "https://innopolis.university/upload/iblock/562/ms0308u7jivtuj6i4zmkhw95de9fa6y6/reserve_informatics.pdf",
+ "sha256": "936283b26cdff4b030d7b6fa554ff6605276dddaa7901b3f8f0242016c321a80",
+ "method": "text layer (pdfplumber)",
+ "chars": 1077,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:58:10+00:00",
+ "remote": {
+  "etag": "\"66c30009-a8c2\"",
+  "modified": "Mon, 19 Aug 2024 08:19:21 GMT",
+  "size": "43202"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "Вступительное испытание по программе магистратуры Управление на основе данных 08.08.2024",
+ "url": "https://innopolis.university/upload/iblock/5a9/zgi48rv57ddwl7kq5vyaqic5j0gdo3n2/unod_08_08.pdf",
+ "sha256": "d5a8e1d9d7d7c9fde0f9cf44cfcdb454971463dbc863c780b4d5c5234dcf88c5",
+ "method": "text layer (pdfplumber)",
+ "chars": 1065,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:58:14+00:00",
+ "remote": {
+  "etag": "\"66bdc3d1-a9c1\"",
+  "modified": "Thu, 15 Aug 2024 09:01:05 GMT",
+  "size": "43457"
+ }
+}

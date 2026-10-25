@@ -1,0 +1,75 @@
+Innopolis University, Academic Year 2017/2018
+Written Exam of Operating Systems
+6th December 2017
+Questions and Solutions
+Max 20 points + 6 points (30%) extra credit – Total time: 90 minutes
+1. (3 points) Is there any reason why you might want to mount a file system on a nonempty
+directory? If so, what is it??
+Mounting a file system makes any files already in the mount-point directory inaccessible, so
+mount points are normally empty. Howev er, a system administrator might want to copy some of
+the most important files normally located in the mounted directory to the mount point so they
+could be found in their normal path in an emergency when the mounted device was being
+repaired.
+2. (3 points) Multiple jobs can run in parallel and finish faster than if they had run
+sequentially. Suppose that two jobs, each needing 20 minutes of CPU time, start
+simultaneously. How long will the last one take to complete if they run sequentially? How long
+if they run in parallel? Assume 50% I/O wait.
+If each job has 50% I/O wait, then it will take 40 minutes to complete in the absence of
+competition. If run sequentially, the second one will finish 80 minutes after the first one starts.
+With two jobs, the approximate CPU utilization is 1 − 0. 52. Thus, each one gets 0.375 CPU
+minute per minute of real time. To accumulate 20 minutes of CPU time, a job must run for
+20/0.375 minutes, or about 53.33 minutes. Thus running sequentially the jobs finish after 80
+minutes, but running in parallel they finish after 53.33 minutes.
+3. (3 points) What is the biggest advantage of implementing threads in user space? What is
+the biggest disadvantage?
+The biggest advantage is the efficiency. No traps to the kernel are needed to switch threads. The
+biggest disadvantage is that if one thread blocks, the entire process blocks..
+4. (3 points) A machine has a 32-bit address space and an 8-KB page. The page table is
+entirely in hardware, with one 32-bit word per entry. When a process starts, the page table is
+copied to the hardware from memory, at one word every 100 nsec. If each process runs for
+100 msec (including the time to load the page table), what fraction of the CPU time is devoted
+to loading the page tables?.
+The page table contains 232/213 entries, which is 524,288. Loading the page table takes 52 msec.
+If a process gets 100 msec, this consists of 52 msec for loading the page table and 48 msec for
+running. Thus 52% of the time is spent loading page tables.
+5. (3 points) Suppose that a machine has 48-bit virtual addresses and 32-bit physical
+addresses.
+(a) If pages are 4 KB, how many entries are in the page table if it has only a single level?
+Explain.
+(b) Suppose this same system has a TLB (Translation Lookaside Buffer) with 32 entries.
+Furthermore, suppose that a program contains instructions that fit into one page and it
+sequentially reads long integer elements from an array that spans thousands of pages.
+How effective will the TLB be for this case?
+
+OS Exam
+
+Page 1 of 2
+
+Under these circumstances:
+(a) We need one entry for each page, or 224 = 16 × 1024 × 1024 entries, since there are 36 =
+48 − 12 bits in the page number field.
+(b) Instruction addresses will hit 100% in the TLB. The data pages will have a 100 hit rate
+until the program has moved onto the next data page. Since a 4-KB page contains 1,024
+long integers, there will be one TLB miss and one extra memory access for every 1,024
+data references..
+6. (3 points) Suppose that there is a resource deadlock in a system. Give an example to show
+that the set of processes deadlocked can include processes that are not in the circular chain in
+the corresponding resource allocation graph.?
+Consider three processes, A, B and C and two resources R and S. Suppose A is waiting for I that is
+held by B, B is waiting for S held by A, and C is waiting for R held by A. All three processes, A, B
+and C are deadlocked. However, only A and B belong to the circular chain..
+7. (30% extra credit)
+The banker’s algorithm is being run in a system with m resource classes and n processes. In
+the limit of large m and n , the number of operations that must be performed to check a state
+for safety is proportional to manb . What are the values of a and b ?
+Comparing a row in the matrix to the vector of available resources takes m operations. This step
+must be repeated on the order of n times to find a process that can finish and be marked as done.
+Thus, marking a process as done takes on the order of mn steps. Repeating the algorithm for all
+n processes means that the number of steps is then mn2. Thus, a = 1 and b = 2.
+This is the end of the questions and solutions of the exam.
+
+OS Exam
+
+Page 2 of 2
+
+

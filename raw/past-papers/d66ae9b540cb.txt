@@ -1,0 +1,65 @@
+Linear Algebra. Test 2. Variant 1.
+
+First name Last name : Group Points#1
+I'am, __ (initials), confirming that | have read the following rules and agree to comply with
+them, that all solutions on this paper is my own work.
+(signaturey
+Rules:
+- no talking AT ALL is allowed during the exam and after it (if you are stilf in the room)
+— You can use 1 sheet of A4 paper with formulas on both sides
+— any electronic devices are not allowed except for a simple non-programmable czlc_lator
+- when time is up, you have to put down your pen (pencil) and do NOT write anythirg eise
+— you can NOT leave your seat till the end of the test
+1. Find matrix e4 (4 points) and det(e*) (1 points):
+-3 4 0
+A=|1 0 0|
+0 1 0
+2. Write down the first order equation system for the following differential equation and
+solve it (4 points):
+y +3y"—4y' =0
+=2 y(©)=0 y0)=-1
+Is the solution of this system will be stable? (1 points)
+3. For what number a is the matrix A positive definite?
+
+A=
+
+1 1 2
+1 a+1 -2
+
+2 -2 a-2
+Linear Algebra. Test 2. Variant 2.
+
+First name Last name GI’OUp Points#1
+
+lam, __ (initials), confirming that | have read the following rules and agree to comply with
+them, that all solutions on this paper is my own work.
+
+(signature)
+Rules;
+
+- no talking AT ALL is allowed during the exam and after it (if you are still in the room)
+- Yyou can use 1 sheet of A4 paper with formulas on both sides
+- any electronic devices are not allowed except for a simple non-programmable calculator
+
+- when time is up, you have to put down your pen (pencil) and do NOT write anything else
+— Yyou can NOT leave your seat till the end of the test
+
+1. Find matrix e/ (4 points) and det(e4) (1 points):
+-2 3 0
+
+A=]1 0 0]
+0 10
+
+2. Write down the first order equation system for the following differential equation and
+solve it (4 points):
+
+Yy +2y"=3y'=0
+©=3 y©)=0 y0)=1
+Is the solution of this system will be stable? (1 points)
+
+3. For what number a is the matrix A positive definite?
+
+1 1 2
+A=|1 a-1 2
+
+2 2 a+1

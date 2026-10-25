@@ -1,0 +1,197 @@
+Innopolis University
+Academic Year 2022/2023
+Prefinal Exam of Computer Architecture
+08th December 2022
+Exam Duration: 60 minutes
+
+Student Name:
+Student Email:
+Student Group:
+
+Question
+Question 1
+Question 2
+Question 3
+Question 4
+Question 5
+Question 6
+Question 7
+Total (max: 12 points)
+
+For Instructors Use: Grade Summary
+Grade
+
+Please write very clearly your names and your solution. What will not be understood
+will be considered wrong.
+You need to perform this exam alone and without the use of any equipment or book, apart
+from this booklet and pens. Please do not consult any person or use any equipment, otherwise
+you will be disqualified from this exam at the very first attempt.
+Student’s signature:
+
+Student Name:
+
+Grades Summary for the Pre-Final Exam
+
+Computer Architecture - Prefinal
+
+Page 2 of 7
+
+Student Name:
+Question 1. (1 point) Do you agree that, according to "a memory wall problem", the key
+performance bottleneck of modern computer platforms is a slow memory access speed,
+rather than a slow CPU execution speed?
+Select one:
+• True - correct
+• False
+
+Question 2.
+Note: This question was graded “correct” to all students (due to typo in RISC-V
+instruction name, “sll” should be “slli”)
+(1 point) Assume that two RISC-V processor integer registers, t0 and t1, contain the following
+binary data (for simplicity, we assume 8-bit registers, rather than 32):
+t0:
+t1:
+
+00100000
+01010101
+
+What is the value of register t1 after the execution of the following RISC-V instruction?:
+sll t1, t0, 3
+Answer:
+
+Question 3. (1 point) Convert decimal value "-4" into 4 bit one's complement notation for
+representing signed numbers.
+Answer:
+
+1 0 1 1
+
+Question 4. (1+1 points) What is a “universal logic gate”? Provide the names of two universal
+logic gates.
+Answer:
+A universal logic gate is the one, which can be used to implement any other logic gate
+
+2 examples of universal logic gates:
+
+NAND
+
+NOR
+
+(XOR without constant “1” is considered incorrect)
+
+Computer Architecture - Prefinal
+
+Page 3 of 7
+
+Student Name:
+Question 5. (2 points) Briefly describe at least 4 key differences between CPU and GPU
+computer units.
+Answer:
+Possible (but clearly not all) differences are summarized in the table below.
+Multicore CPU / Multiprocessor GPU
+Data parallelism
+Task parallelism
+Parallelism Type
+(A small set of relatively simple
+(A concurrent execution of
+Supported
+totally different programs/tasks) operations repeated over large volumes
+of data)
+Single Instruction Multiple Data (SIMD)
+Parallelism Model
+Multiple Instructions Multiple
+Single Instruction Multiple Threads
+(Flynn’s taxonomy)
+Data (MIMD)
+(SIMT)
+Efficient for multitasking
+Efficient for processing large volumes of
+Target
+Inefficient for processing large
+data Less efficient for multitasking
+volumes of data
+Cores Number
+Several (~2-10) cores
+Multiple (~100s) smaller cores
+~10s of relatively heavyweight ~10’000s of lightweight threads on
+Parallelism Scope
+threads on ~10s CPU cores
+~100s/1000s of GPU cores
+Each thread is managed and
+Threads are managed and scheduled by
+Thread Management
+scheduled explicitly
+hardware by means of threads groups
+Each thread is programmed
+Threads are programmed in batches (by
+Thread Programming
+individually
+using kernels)
+
+Computer Architecture - Prefinal
+
+Page 4 of 7
+
+Student Name:
+Question 6. (1+1 points) Provide a circuit implementation of 2-to-4 demultiplexer by using
+AND, OR, and NOT logic gates (use all or only some of them). Provide implementation of such
+a circuit in Verilog HDL.
+Answer:
+Circuits assumed to be correct:
+2-to-4 demultiplexer, 2-to-4 decoder, or 1-to-4 demultiplexer
+2-to-4 decoder:
+
+1-to-4 demultiplexer:
+
+2-to-4 demultiplexer:
+
+One of the possible Verilog implementations:
+
+Computer Architecture - Prefinal
+
+Page 5 of 7
+
+Student Name:
+Question 7. (1 x 3 points) Briefly describe three major types of CPU pipeline hazards,
+together with conceptual illustrations helping to understand your answers. For each hazard
+type, provide at least one solution.
+Answer:
+Hazard types: structural, data, control
+Structural hazard – hazard caused by attempt to use the same (hardware) resource by two
+or more instructions at the same time
+
+Solutions:
+•
+•
+
+Stall cycle – the delay the second access by one clock cycle, or
+provide separate memories for instructions and data ( “Harvard Architecture”)
+
+Computer Architecture - Prefinal
+
+Page 6 of 7
+
+Student Name:
+Data hazard – caused by an attempt to use data before it is ready
+Example:
+
+Solutions:
+•
+•
+•
+
+Forwarding
+Stalling
+Compiler Scheduling
+
+Control Hazards – caused by an attempt to make branching decisions before branch
+condition is evaluated
+
+Solutions:
+• Stalls
+• Branch Prediction / Compiler directives (e.g. likely-unlikely) (for the minimization of
+misprediction cases)
+Computer Architecture - Prefinal
+
+Page 7 of 7
+
+

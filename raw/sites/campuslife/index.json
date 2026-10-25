@@ -1,0 +1,180 @@
+{
+ "docs": {},
+ "pages": {
+  "aboutsu": {
+   "fetched_at": "2026-10-24T22:02:04+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:04 GMT",
+   "sha256": "098b80a6a59c94bd545d13ed36decfec50a8c99726794030715720d6e2869c18",
+   "title": "Student Union",
+   "url": "https://campuslife.innopolis.ru/aboutsu"
+  },
+  "art-clubs": {
+   "fetched_at": "2026-10-24T22:02:20+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:05 GMT",
+   "sha256": "ae5ca83d8b5d8c83aeffec74c1b75ca522c7ec4188c88bf09fe2ab6ff954ebc1",
+   "title": "Art / Culture Clubs",
+   "url": "https://campuslife.innopolis.ru/art_clubs"
+  },
+  "clubleaders": {
+   "fetched_at": "2026-10-24T22:02:43+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:07 GMT",
+   "sha256": "7aa8e7e238bfb9afe676e461692156901b1798a62df4aa02453ee966d93b4227",
+   "title": "Club Leaders",
+   "url": "https://campuslife.innopolis.ru/clubleaders"
+  },
+  "clubs": {
+   "fetched_at": "2026-10-24T22:02:02+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:04 GMT",
+   "sha256": "20d0b1191996a1501003d8dc8c2219aebca61d92e557b1e41473befb95431483",
+   "title": "Innopolis University Student Clubs",
+   "url": "https://campuslife.innopolis.ru/clubs"
+  },
+  "contacts": {
+   "fetched_at": "2026-10-24T22:02:50+00:00",
+   "last_modified": "Fri, 04 Sep 2026 13:43:06 GMT",
+   "sha256": "6a249fadfb7a6396b1687ececcd3b47c146de09726c90a3bb23373934e14a0a6",
+   "title": "Contacts",
+   "url": "https://campuslife.innopolis.ru/contacts"
+  },
+  "events": {
+   "fetched_at": "2026-10-24T22:02:06+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:04 GMT",
+   "sha256": "b6310a1aaa38acf021f43e25bb0addc795f5d78f5ac074c8584bf7d220650f5c",
+   "title": "Innopolis Campuslife Events",
+   "url": "https://campuslife.innopolis.ru/events"
+  },
+  "faq": {
+   "fetched_at": "2026-10-24T22:02:10+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:04 GMT",
+   "sha256": "254e7e10b7d20e212927d751effbbd32641edeaa70960964e4c4277b277ca616",
+   "title": "Freequently Asked Questions",
+   "url": "https://campuslife.innopolis.ru/faq"
+  },
+  "faq-categories": {
+   "fetched_at": "2026-10-24T22:02:25+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:05 GMT",
+   "sha256": "b490d4c52c564fb9d4d8237dfc49fc5c1878b9575b6b4d84af7ca75063e77ae8",
+   "title": "Frequently Asked Questions (old)",
+   "url": "https://campuslife.innopolis.ru/faq/categories"
+  },
+  "fellowship": {
+   "fetched_at": "2026-10-24T22:02:37+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:07 GMT",
+   "sha256": "9ad10da9a6dc9f239081eda72a970367b9f68d767c19e370a4917e1260cea066",
+   "title": "Innopolis FELLOWSHIP",
+   "url": "https://campuslife.innopolis.ru/fellowship"
+  },
+  "football-club": {
+   "fetched_at": "2026-10-24T22:02:31+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:06 GMT",
+   "sha256": "2b567df36f50d5cc386175016f19b87795acd8d928a3f9b0f90d6ee6fdc26b13",
+   "title": "Football Club",
+   "url": "https://campuslife.innopolis.ru/football_club"
+  },
+  "handbook": {
+   "fetched_at": "2026-10-24T22:02:41+00:00",
+   "last_modified": "Mon, 17 Aug 2026 14:20:41 GMT",
+   "sha256": "552c81a1e380c52f5ac54df613af7f725fd747b0fe409afe1d95b3e18c8eb3d7",
+   "title": "HANDBOOK",
+   "url": "https://campuslife.innopolis.ru/handbook"
+  },
+  "hobby-clubs": {
+   "fetched_at": "2026-10-24T22:02:18+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:05 GMT",
+   "sha256": "b94e751e494114e6264e258db68886047b9e877b2eb4a1163b9f22eea508cad6",
+   "title": "Special Interest Clubs",
+   "url": "https://campuslife.innopolis.ru/hobby_clubs"
+  },
+  "home": {
+   "fetched_at": "2026-10-24T22:01:59+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:04 GMT",
+   "sha256": "374afc65d67ebe407aa525c550d5ebc13ab5ec019493d10b69b98cc327ab3c5a",
+   "title": "Campus Life at Innopolis University",
+   "url": "https://campuslife.innopolis.ru/"
+  },
+  "innostudents": {
+   "fetched_at": "2026-10-24T22:02:29+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:06 GMT",
+   "sha256": "62fff3f6d5fa5bc0ea0c3e0cb6c9c38fb623774359daa269047e0fed6750abce",
+   "title": "InnoStudents",
+   "url": "https://campuslife.innopolis.ru/innostudents"
+  },
+  "opportunities": {
+   "fetched_at": "2026-10-24T22:02:08+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:04 GMT",
+   "sha256": "e13263321a702ddcaed1a9dfe88e594694deee8495ee88c24aa1436e08ea65df",
+   "title": "Opportunities",
+   "url": "https://campuslife.innopolis.ru/opportunities"
+  },
+  "psychology": {
+   "fetched_at": "2026-10-24T22:02:27+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:05 GMT",
+   "sha256": "df9624816c4ccbfcbac7e3fec8f1668394e70aa2472c8ff779ec0b69c4a901b4",
+   "title": "Psychology Services",
+   "url": "https://campuslife.innopolis.ru/psychology"
+  },
+  "scholarship": {
+   "fetched_at": "2026-10-24T22:02:35+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:07 GMT",
+   "sha256": "86d4dcca9fa7bb547fc51ee151d8d9671b5d68539510a8ab7c81e1b5eadc803d",
+   "title": "Student Affairs Scholarship",
+   "url": "https://campuslife.innopolis.ru/scholarship"
+  },
+  "sport-clubs": {
+   "fetched_at": "2026-10-24T22:02:16+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:05 GMT",
+   "sha256": "9d97a06346b04a9f9816ce5dc1d35eef0e1e8ad2ebf0e191a89f8df6d70254e8",
+   "title": "Sport Clubs",
+   "url": "https://campuslife.innopolis.ru/sport_clubs"
+  },
+  "sport-services": {
+   "fetched_at": "2026-10-24T22:02:12+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:05 GMT",
+   "sha256": "f8814339c2e25f141d94b3e19fafa0310c1666c9611e3459a320ea874b7eb0a4",
+   "title": "Sport Services in Innopolis",
+   "url": "https://campuslife.innopolis.ru/sport_services"
+  },
+  "studentreps": {
+   "fetched_at": "2026-10-24T22:02:45+00:00",
+   "last_modified": "Wed, 22 Jul 2026 20:21:55 GMT",
+   "sha256": "a1b00a6f6c8d6370089f676bd35939425924624c78fa8b905fbbd2e8518e3e2f",
+   "title": "Student Reps",
+   "url": "https://campuslife.innopolis.ru/studentreps"
+  },
+  "talkspace": {
+   "fetched_at": "2026-10-24T22:02:48+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:07 GMT",
+   "sha256": "c32dc0ec58f963f609321786ddf25100362a6c4f9295c603f6513ba33d81e4fb",
+   "title": "Talk Space",
+   "url": "https://campuslife.innopolis.ru/talkspace"
+  },
+  "tech-clubs": {
+   "fetched_at": "2026-10-24T22:02:14+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:05 GMT",
+   "sha256": "b6888e019cb8ce58e16b42b985e9b521e65b7c7f17a463221068cdd2c2765c32",
+   "title": "Tech Clubs",
+   "url": "https://campuslife.innopolis.ru/tech_clubs"
+  },
+  "toastmasters": {
+   "fetched_at": "2026-10-24T22:02:33+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:06 GMT",
+   "sha256": "1866c4b988388308b0d90519bc17241d8ba786691f363d3d58289c1f5f1ca37b",
+   "title": "Inno Toastmasters",
+   "url": "https://campuslife.innopolis.ru/toastmasters"
+  },
+  "tutorshpiprus": {
+   "fetched_at": "2026-10-24T22:02:39+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:07 GMT",
+   "sha256": "34a7eda293fcc6a7b7481307b776d547e9d26dce6c391fc5601451ac1c81c941",
+   "title": "Тьюторская программа",
+   "url": "https://campuslife.innopolis.ru/tutorshpiprus"
+  },
+  "volunteering": {
+   "fetched_at": "2026-10-24T22:02:23+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:05 GMT",
+   "sha256": "8dbc10569c53a93d864bb7ccff6928b80dd4c80420467fd7b7bb13699dfa391c",
+   "title": "Volunteering at IU",
+   "url": "https://campuslife.innopolis.ru/volunteering"
+  }
+ }
+}

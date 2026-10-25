@@ -1,0 +1,173 @@
+Innopolis University
+Academic Year 2025/2026
+Pre-Final Exam of Computer Architecture
+ANSWERS
+th
+12 December 2025
+Duration: 60 minutes
+
+Student Full Name:
+Student Group:
+Exam Room:
+Telegram Alias:
+Midterm missed (underline): No / Yes
+Missed the course beginning due to Visa issues: No / Yes
+
+Question
+Question 1
+Question 2
+Question 3
+Question 4
+Question 5
+Question 6
+Question 7
+Question 8 [Optional]
+Total
+
+Grade Summary (for instructors fill)
+Grade
+
+Maximum score: 12 points
+
+Please write clearly your name and your solutions. What will not be understood will be
+considered wrong. All answers must be provided in English.
+This is a closed-book exam. You are not allowed to use any reference materials or electronic
+equipment, apart from this booklet and pens. You are not allowed to consult any person,
+otherwise you will be disqualified from this exam at the very first attempt.
+Good Luck!
+Signature:
+
+Computer Architecture – Pre-Final 2025
+
+Student Surname:
+
+Page 2 of 4
+Computer Architecture – Pre-Final 2025
+
+Student Surname:
+Question 1. (1 point) Do you agree that, unlike an S/R latch, a flip-flop does not synchronize
+the update of its output with a clock signal?
+a) Agree;
+b) Disagree (correct)
+Grading: 0/1
+Question 2. (1 point) The SystemVerilog design below describes one of the standard hardware
+building blocks, which is extensively used in electrical computer components. Name this
+corresponding hardware building block circuit, together with its graphical diagram.
+Answer (circuit name): 2-to-1 Multiplexer
+Circuit diagram:
+
+Grading:
+(+0.5) – correct circuit name;
+(+0.5) – circuit implementation
+Question 3. (2 points) Data in a processor cache is organized by means of cache lines,
+comprised of several fields, as schematically depicted below. Fill-in the missing field names,
+and also briefly describe the purpose of the “validity flag” field.
+Names of cache line fields:
+
+A “validity flag” field purpose (brief):
+To indicate that data in a specific cache line is actual, that is initialized and updated according to
+a program execution.
+Grading:
+(-0.5) – for every incorrect field name (the specified order does not matter, similar names are
+considered as correct);
+(-0.5) – in “purpose” description only data initialization is mentioned, but “actual/recently
+updated / etc.” is not mentioned
+(+1) – for a fully correct “purpose” description
+Page 3 of 4
+Computer Architecture – Pre-Final 2025
+
+Student Surname:
+Question 4. (2 points) The ALU unit of a RISC-V processor has a so-called “Zero” output pin.
+What is its purpose? Provide the name of any RISC-V instruction, that uses this “Zero” output
+pin during its execution.
+The purpose of the “Zero” output pin (brief, at most 2 sentences):
+Indicates either two inputs for ALU are equal (“Zero pin” is set to 1 in this case, otherwise to 0).
+This “Zero” pin is used when executing “branch if equal” and “branch if not equal” like instructions.
+The name of any RISC-V instruction using the “Zero” output pin: beq, bne (among others)
+Grading:
+0.5 (for entire question) – no correct RISC-V instruction name is provided, but “branch” key word
+is present; the “purpose” description in this case is not checked and graded by 0; “less than” and
+“greater than” like instructions are incorrect answers;
+(+1) – for a correct RISC-V instruction name;
+(+1) – for a fully correct “purpose” description;
+(-0.5) – for mentioning “jump”-type instructions in the “purpose” description, what is incorrect,
+but the RISC-V instruction name is correct
+
+Question 5. (2 points) Flynn’s taxonomy identifies four computational models for computer
+systems. List these four models in the table at the left. Then, for each processing unit type listed
+in the table at the right, specify the corresponding Flynn’s taxonomy model.
+Computation Model
+1
+
+SISD: Single Instruction Single Data
+
+2
+
+MISD: Multiple Instruction Single Data
+
+3
+
+SIMD: Single Instruction Multiple Data
+
+4
+
+MIMD: Multiple Instruction Multiple Data
+
+Processing Unit
+
+Flynn’s Taxonomy
+
+GPU
+
+SIMD
+
+Multi-Core CPU MIMD
+Single-Core
+CPU
+
+SISD
+
+Grading:
+(+0.25) – for every correct “Computation Model”;
+(-0.5) – for every incorrect “Flynn’s Taxonomy” name specified in the column at the right
+
+Page 4 of 4
+Computer Architecture – Pre-Final 2025
+
+Student Surname:
+Question 6. (2 points) Parallel and speculative executions of processor instructions are two
+widely used efficient techniques for optimizing computers performance. Describe the key
+principle behind each of these techniques, together with examples, from the perspective of a
+single computer program execution (do not consider a simultaneous execution of multiple
+independent programs in your answer).
+
+Grading:
+(+0.5) – for every correctly filled table cell
+Question 7. (2 points) Graphically describe the multiplicator circuit taking two input
+arguments of two bits each. To simplify your design, reuse Half- and Full-adder circuits as
+“black boxes” without describing their internal organization. In addition, use any other logic
+gates required for your multiplicator design.
+Answer:
+
+Grading:
+(+1) – 4 input pins, 4 output pins, 4 ANDs, 2 Half-Adders are all present;
+(+1) – all wires are correctly connected
+Page 4 of 4
+Computer Architecture – Pre-Final 2025
+
+Student Surname:
+[Optional] Question 8. (1 point) Below is the fragment of a schematic design for a multi-cycle
+RISC-V processor. Fill-in the missing part of the design, which implements the execution of R
+and I types of RISC-V processor instructions.
+
+Grading:
+0 – in case of no pipeline registers are present (that is single-cycle CPU is depicted);
+(+0.5) – 3 pipeline registers, register file, ALU, multiplexer for the 2d ALU input pin are all present
+(+0.5) – wires are correctly connected
+
+This is the end of the student book
+
+Page 4 of 4
+Computer Architecture – Pre-Final 2025
+
+

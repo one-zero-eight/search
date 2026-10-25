@@ -1,0 +1,137 @@
+Email:
+
+Name:
+
+Q1. Which of the following best describes a software development
+methodology? (1 Point)
+A. A programming language used to implement software systems
+B. A set of methods or techniques used to complete phases of the software
+life cycle
+C. A testing tool used to identify defects in software
+D. A database management system used to store project information
+Lecture 1, Slide 17
+Q2. List and explain 2 factors that should be considered when choosing a
+software life cycle model for a project. (2 Points)
+1. Business factors (0.5 Point listing + 0.5 Point for explanation)
+2. Technological factors (0.5 Point listing + 0.5 Point for explanation)
+
+Lecture 3, Slide 4
+Q3. A company has an old software system that is no longer supported and must
+be replaced. The company still needs some of the functionality and data
+provided by the old system.
+What should be considered during the decommissioning of the old software
+system. Briefly explain 2 types of costs that may affect the replacement
+decision. (2 Points)
+1. Cost of changing technologies
+2. Costs of training personnel
+3. Costs developing/supporting
+
+(0.5 Point listing + 0.5 Point for explanation)
+Lecture 2, Slide 27
+Q4. List 3 principles of RUP and briefly describe how each principle can
+contribute to successful software development. (3 Points)
+(0.5 Point listing + 0.5 Point for explanation)
+Lecture 4, Slide 15
+
+Software Architecture Midterm 26 | Closed-book exam. Cheating and talking are strictly prohibited.
+
+1
+
+Email:
+
+Name:
+
+Q5. Which software life cycle model is characterized by multiple iterations
+that include risk analysis? (1 Point)
+A. Waterfall model
+B. Code-and-Fix model
+C. Spiral model
+D. Incremental model
+Lecture 3, Slide 25-28
+Q6. Briefly describe 2 characteristics of the Code-and-Fix approach. Why is
+this approach generally unsuitable for large software projects? (2 Point)
+
+• Peculiarities: (0.5 point per characteristics)
+• Flaws: (1 point)
+Lecture 3, Slide 6
+Q7. List and briefly explain the 2 core analysis principles formulated by
+Pressman (1977) that guide the modelling of software expected by a client. (2
+Points)
+(0.5 Point listing + 0.5 Point for explanation)
+Lecture 7, Slide 3
+Q8. Define what a Data Dictionary is in the context of data flow analysis. In 1
+sentence what specific project conditions is a data dictionary considered
+redundant, and what is its composition typically dependent upon? (2 Points)
+(1 Point listing + 1 Point for justification)
+Lecture 7, Slide 8
+
+Software Architecture Midterm 26 | Closed-book exam. Cheating and talking are strictly prohibited.
+
+2
+
+Email:
+
+Name:
+
+Q9. In the Boston (BCG) Matrix, which two dimensions are used to classify a
+product or software product? (1 Point)
+A. Market growth rate and relative market share
+B. Development cost and software complexity
+C. Number of developers and project duration
+D. Customer satisfaction and defect density
+Lecture 2, Slide 8
+Q10. What is the difference between Incremental, and Spiral life cycle
+models. For each model, describe one important characteristic that distinguishes
+it from the other. (2 Points)
+
+1
+
+2
+
+Incremental
+
+Spiral
+
+Breaks software into successive
+releases; each development
+cycles produce a working
+software
+Deliver a working product at
+every stage
+
+Based on waterfall and risk
+analysis
+Focuses on risk analysis
+
+Lecture 3, Slides 16-18, Slide 25-28
+(0.5 Point for each cell)
+
+Software Architecture Midterm 26 | Closed-book exam. Cheating and talking are strictly prohibited.
+
+3
+
+Email:
+
+Name:
+
+Q11. A software company is developing a large system for a customer whose
+requirements are expected to change during development. The project also
+contains several significant technical risks.
+Which characteristics of a suitable software development approach would help
+the team manage this project? Explain your answer by referring to iteration,
+risk management, feedback, and adaptation to change. (2 Points)
+(0.5 Point listing + 0.5 Point for explanation)
+Lecture 3, Slide 25-28 (Spiral), Lecture 4, slides 62-65 (Agile), Slides 29-43
+(Scrum), Slides 44-61 (XP)
+Q12. Provide the names of the Three-tier client-server architecture models (1
+Point)
+
+---Thin----------
+
+-----Fat-----(0.5 Point for each correct name)
+Lecture 5, Slide 21-26 * Corrected
+Software Architecture Midterm 26 | Closed-book exam. Cheating and talking are strictly prohibited.
+
+4
+
+

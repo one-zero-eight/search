@@ -1,0 +1,86 @@
+[2021] Physics 2. Electrical Engineering
+
+Quiz 3 – AC Circuits
+Problem 1 (10 pts) – Voltage Ratings
+Why do North American countries predominantly use 120 V-rated AC voltage for home appliances, as
+opposed to 220 V used throughout most of the world?
+Problem 2 (10 pts) – Danger, High Voltage!
+Why is having high voltage beneficial to reduce power losses in long-distance power transmission?
+Isn’t electrical power calculated as P = VI = V2/R?
+Problem 3 (15 pts) – Inductor Current
+The current iL(t) shown in Fig. 1, left, is applied to a 100-mH inductor. Find the voltage through the
+inductor vL.
+Problem 4 (15 pts) – Capacitor Current
+Voltage waveform across a 1000-F capacitor is shown in Fig. 1 (right). Plot capacitor current iC (t).
+
+vC(t) (V)
+
+iL(t)
+
+15
+1A
+
+0
+
+1
+
+2
+
+3
+
+4
+
+5
+
+t(s)
+
+2
+
+t (ms)
+
+-1 A
+
+2
+
+5
+
+10
+
+Figure 1. Time charts for Problem 3 (left) and Problem 4 (right)
+Problem 5 (25 pts) – Mysterious AC Element
+The current through and the voltage across a series circuit (Fig. 2, left) that contains a resistor R and
+some unknown element Z are
+i = I 0 cos(t +  / 4)
+
+v = V0 cos t
+where V0 = 423 mV, I0 = 3 mA,  = 1000 rad/s. Do the following:
+• Find the resistance R (10 pts)
+• Determine if the unknown element inductor or capacitor, and calculate its value (15 pts)
+Problem 6 (25 pts) – Frequency
+Determine the frequency  so that the current Iin and the voltage Vout in the circuit shown in Fig. 2
+(right) are in phase. Given values: ZS = 50 Ohm, R = 100 Ohm, L = 200 H, C = 400  F.
+
+L
+
+Iin
+Zs
+
+i
+
+AC
+
+?
+Z
+
+R
+
+C
+
+Vout
+
+v
+Figure 2. Circuits for Problem 5 (left) and Problem 6 (right)
+
+R
+
+

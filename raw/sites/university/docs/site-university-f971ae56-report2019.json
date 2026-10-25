@@ -1,0 +1,16 @@
+{
+ "title": "report-2019",
+ "url": "https://innopolis.university/upload/files/report-2019.pdf",
+ "sha256": "b0dcb2fef6861104db96d1d52aa27919c6cd3ec29ae0a3f53192e6fecbd33d9a",
+ "method": "text layer (pdfplumber)",
+ "chars": 805571,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:51:19+00:00",
+ "remote": {
+  "etag": "\"69b964c8-5a95fa\"",
+  "modified": "Tue, 17 Mar 2026 14:27:20 GMT",
+  "size": "5936634"
+ }
+}

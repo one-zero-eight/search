@@ -1,0 +1,458 @@
+State Observer for Tensegrity Structures
+Kirill Glinskiy Sergei Savin
+Center for Technologies in Robotics Center for Technologies in Robotics
+and Mechatronics Components and Mechatronics Components
+Innopolis University Innopolis University
+Innopolis, 420500 Innopolis, 420500
+Email: k.glinsky@innopolis.university Email: s.savin@innopolis.ru
+Abstract—Thispaperproposesastateobserverdesignmethod tensegrity dynamics, resembling a system of independent but
+for tensegrity structures based on joint use of non-minimal interacting rigid bodies, rather than a kinematic chain, and
+representationofthestructure’smodelandorthogonaldecompo-
+in non-linear properties of the elastic elements, making local
+sition method. Tensegrity structures have a number of potential
+linearization more difficult.
+applications in robotics, from drones to planetary probes, and
+at the same time their use poses a number of open research One of the areas that have been given relatively little
+problems. Effective state observer design is one of them. As attentionisthestateestimationoftensegrityrobots.Whilethe
+evidentbysuccessofmodel-basedstateestimatordesignmethods taskhaswell-knownconnectionstocontroldesignproblems,it
+in various areas of robotics, computational problems posed by
+neverthelessstandsaloneasanopenproblem.Inthispaperwe
+complexdynamicscanbeovercome;oftentheyareovercomewith
+aimtoproposeamethodbasedontwochangesofcoordinates
+theuse ofsimplifications, projections andappropriate choicesof
+state variables. The use of so-called node-distance coordinates describing the position of tensegrity structure, allowing 1) to
+can simplify the dynamics equations of tensegrity structures. isolateinternalvariables,suchasrelativepositionsoftherobot
+The resulting model (and its linearized form) will include elements, from the global ones, such as the position of the
+explicit constraints, which can be dealt with using orthogonal
+center of mass of the whole structure, which it might not be
+decomposition methods. Resulting linear equations can be used
+possibletoestimateand2)describethelinearizeddynamicsin
+to design state observer by solving Riccati equation. The paper
+presents simulation results illustrating the work of the proposed minimal coordinates where optimal control methods provide
+observer. observer design tools.
+Index Terms—Tensegrity, state observer design, non-minimal
+coordinates, orthogonal decomposition II. CONTROLOFTENSEGRITYSTRUCTURES:STATEOF
+THEART
+I. INTRODUCTION
+Early attempts at designing control and state estimators
+Tensegrity structures have often been seen as both very
+for tensegrity structures can be found in [15], where Out-
+promising in terms of their properties and very complex in
+put Variance Constraint control, reduced to LQG (Linear
+terms of their design and use. They present special interest in
+Quadratic Gaussian) control was formulated and solved for a
+robotics applications because of their mechanical properties:
+two-stage six-bar tensegrity structure. Proposed models were
+light-weight,foldability,andhighstiffness-to-massratio[1].In
+furtheremployedin[16]whereequilibriummanifoldwasused
+mobile robotics especially, their ability to internally distribute
+in the deployment of the tensegrity structure. These works
+forces and withstand collisions make them interesting struc-
+established a framework for controlling a type of tensegrity
+tural elements for robots moving in uncertain environments
+towerstructures,furtherdevelopedin[17]forstructuresbased
+[2]–[4]. Design of tensegrity robots is an actively investigated
+ontensegrityprismandin[18]forclass-2tensegritystructures,
+researcharea,withavarietyofrobotdesignsinvestigate:from
+also in a form of a grounded tower.
+leggedrobotstoplanetaryprobestoflyingrobots[5]–[8].Most
+The linearization-based approach introduced in [15] was
+of those studies are focused on general design principles and
+further developed in [19], where a descriptor model was used
+prototypes, a wide deployment of tensegrity robots to solve
+in order to formulate a convex optimization-based control
+practical tasks has not yet been achieved.
+design problem. As in [15], a linear controller with an in-
+Studies in control of tensegrity robots are also limited to
+ternal state was proposed, allowing dealing with both control
+particular areas, such as gait generation for rolling robots or
+andstateestimationproblems.Time-optimalcontrolproblems
+mid-flight morphing, with active use of machine learning or
+were tackled in [20] for the deployment of a tensegrity struc-
+data-driven methods [9]–[12]. Model-predictive control and
+ture from a folded position; the paper proposed a numerical
+optimization-based control designs have also been proposed
+approach to solving the problem and highlighted some of the
+[13], [14]. The difficulties with the direct adaptation of the
+computational challenges such problem formulation poses. In
+traditional control approaches lie in the complexity of the
+[21], linearized model and h-infinity control methods based
+on solving linear matrix inequalities were used to control the
+The research is supported by grant of the Russian Science Foundation
+(projectNo:19-79-10246). proposed tensegrity telescope.In article [22], active control scheme for extraterrestrial all such distances in a single vector δ gives us node-distance
+applications of tensegrity structures was proposed. In [23] coordinates. These coordinates were originally introduced in
+a proportional-integral-derivative (PID) controller was used. [26]. Concatenating node positions r into a single vector r
+i
+Paper [24] proposed control for morphing tensegrity airfoils. gives us node-position coordinates. Connection between the
+two sets of coordinates is given by the relation:
+A. Models of Tensegrity Structures
+δ =Dr (1)
+Asthissectionalreadyimplied,modelshavebeenplayinga
+key role in the development of control methods for tensegrity where D is mapping matrix. In node-position coordinates
+structures.Inparticular,papers[16],[20],[25]madeactiveuse dynamics, in the absence of external forces, takes form:
+of the vector form of Lagrange equations of motion, known
+H¨r=D⊤f (2)
+as manipulator equations in Robotics literature. In [15], [19],
+[21] linearized models played a key role. We should note where H is inertia matrix and f is vector of elastic forces. In
+that linearized models are usually built on nonlinear models, node-distance coordinates the same dynamics can be written
+linking the two. as:
+In [26], a new type of non-minimal parametrization (choice   H δ δ¨=f +Lλ
+ofthesetofcoordinatesthatdescribethecurrentconfiguration M¨r =0 (3)
+C
+ofthestructure)fortensegritystructureswasproposed,allow- L⊤δ¨=0
+ing for a simpler formulation of its dynamics. In particular,
+where L is a Lagrange multiplier Jacobian matrix and λ are
+one of the appeals of the proposed method is more structured
+Lagrange multiplier, both appearing in the equations because
+linearmodels.Inthispaper,wetakeadvantageofthismethod.
+the node-distance coordinates are non-minimal, requiring ex-
+Wenotethatratherthandepartingfromthestandardapproach,
+(cid:80)
+plicit constraints; M= (m )I - inertia matrix of the whole
+weaugmentitwithanewstep:insteadofbuildingmanipulator i
+systeminCartesiancoordinates,m isthemassofai-thnode,
+equations and then linearizing them, we use a new set of i
+and r is the position of the center of mass of the system.
+coordinates, build equations of motion in terms of these C
+Note that in node-distance coordinates the expression for
+coordinates and then linearize the resulting nonlinear ODEs.
+the elastic forces takes the following form:
+B. Orthogonal decomposition methods δ
+f =−µ (||δ ||−ρ ) ij −γ δ˙ (4)
+One of the typical problems with models described in non- ij ij ij ij ||δ || ij ij
+ij
+minimal coordinates is the difficulty of finding control laws
+where µ and γ are stiffness and dissipative coefficients,
+ij ij
+basedoncriteriadevelopedforminimalmodels;infact,iftwo
+and ρ is a rest length of the elastic element connecting i-th
+ij
+coordinatesareinaffinerelation,bothcannotgotozeroatthe
+and j-th nodes.
+sametime,makingcontroldesignmethodsbasedonLyapunov
+The important property of (4) is that each component of
+theory hard to apply directly. Non-minimal parametrization in
+f depends only on a single component of δ, which becomes
+[26] introduces exactly this type of affine constraints.
+important when we build a linearized model of the system.
+This problem has been tackled previously in a number of
+A. Coordinates ordering
+ways. For example, control design methods for descriptor
+systems solve a related but more general problem [27]–[29]. There are multiple ways to order the elements in the vector
+In walking robotics, a similar problem was tackled using δ. Let us consider the following ordering:
+orthogonal projections [30]. The method allows us to decom- δ = (cid:2) δx δy δz δx δy δz ... (cid:3)⊤ (5)
+pose dynamics into its orthogonal components via projections 1,2 1,2 1,2 1,3 1,3 1,3
+onto smaller-dimensional subspaces, and obtain a minimal r= (cid:2) rx ry rz rx ry rz ... (cid:3)⊤ (6)
+1 1 1 2 2 2
+representation that can be used in conjunction with standard
+where (cid:2) δx δy δz (cid:3)⊤ =r −r .WiththatwecanfindD:
+Lyapunov theory-based control methods. In [31] for instance, i,j i,j i,j j i
+this method was used to derive a state estimator for the full  −I I 0 0 0 ... 
+state of the robot. −I 0 I 0 0 ...
+In this paper we use the orthogonal decomposition method  −I 0 0 I 0 ...  
+to propose an observer design for tensegrity structures, using D=   ...   (7)
+non-minimal coordinates. We should note that this is not   0 −I I 0 0 ...  
+a trivial extension of existing methods, as the nature of   0 −I 0 I 0 ...  
+constraintsarisingfromouruseofnon-minimalrepresentation ...
+is different compared to what was previously tackled with the
+where I∈R3×3 is an identity matrix.
+orthogonal decomposition methods.
+An alternative ordering in δ is:
+III. NODE-DISTANCECOORDINATES δ = (cid:2) δx δx δx ... δz δz δz ... (cid:3)⊤ (8)
+1,2 1,3 1,4 1,2 1,3 1,4
+Letr bepositionofthei-thnode.Thenwecandefineδ as
+i ij r= (cid:2) rx rx rx ... rz rz rz ... (cid:3)⊤ (9)
+vectorpointingfromthenoder i tothenoder j .Concatenating 1 2 3 1 2 3Let us define matrix D which is given by taking formula where C , C are observation matrices. In minimal coordi-
+0 1 2
+(7) replacing I with 1; then mapping D for (8) is given as: nates the expression for y becomes:
+ 
+D 0 0 y=C Nz+C Nz˙ (18)
+0 1 2
+D= 0 D 0 I  (10) We can define system state x and observer state as xˆ:
+0 0 D
+0
+x= (cid:2) z⊤ z˙⊤(cid:3)⊤ (19)
+IV. LINEARIZEDMODEL
+As mentioned before, node-distance coordinates are non- xˆ = (cid:2) zˆ⊤ zˆ˙⊤ (cid:3)⊤ (20)
+minimal; we can define minimal coordinates z and an or-
+With that we can define observation matrix and Luenberger
+thonormal basis N = col(D) serving as a map from z to
+observer:
+δ, where col(·) is an operation returning orthonormal basis in (cid:2) (cid:3)
+C= C N C N (21)
+1 2
+the column space of D:
+x˙ =Ax+LC(x−xˆ)+c (22)
+δ =Nz (11)
+where c is the affine component of the system dynamics, and
+Eq. (11) implies that z=N⊤δ. Combining (1) and (2) we L is observer gain matrix, which can be found by solving
+write a system of equations that can be solved for δ¨: Riccati eq.
+(cid:20) H 0 (cid:21)(cid:20) ¨r (cid:21) (cid:20) D⊤f (cid:21) VI. SIMULATIONSTUDY
+= (12)
+−D I δ¨ 0 InthissectionweconsideranX-shapedtensegritystructure,
+referred to as ”X tensegrity” or ”Cross tensegrity”, as well as
+We can solve this for δ¨using Schur compliment:
+an ”X module”, emphasizing the limits of the standalone use
+δ¨=DH−1D⊤f (13) of such simple structures in a 3D environment [32], [33]. The
+structure consists of two bars and four cables, connected via
+With that, we can construct dynamics in minimal coordi- four nodes. A render of the structure is shown in Fig. 1.
+nates:
+z¨=N⊤DH−1D⊤f (14)
+Note that the only non-linear component of (13) is f, and
+linearization of f is computationally simple, as ∂f = ∂fN,
+∂z ∂δ
+where A = ∂f is:
+δ ∂δ
+ 
+∂f1,2 0 ... 0
+∂δ1,2
+∂f   0 ∂f1,3 ... 0  
+A δ = ∂δ =  ... ∂δ .. 1 . ,3 ... ...   (15)
+ 
+0 0 ...
+∂fn,(n−1)
+∂δn,(n−1)
+Note that the expression (15) corresponds to the ordering
+(5).WecanfindA = ∂f inasimilarway.Thuswecanwrite
+δ˙ ∂δ˙
+linearization of the system dynamics as:
+(cid:20) (cid:21)
+0 I
+A= (16) Fig.1. Xtensegrity;1-4arenodes
+N⊤DH−1D⊤A N N⊤DH−1D⊤A N
+δ δ˙
+For simplicity we consider planar motion of the structure,
+This gives as a linear model of the system. Control matrix
+using two coordinates to describe position of each node r .
+i
+of the system can be found in a similar manner, and affine
+Assuming that the node positions are given as r = [0, 0],
+1
+component of the dynamics can be found as a discrepancy
+r = [0.5, 0], r = [0, 0.8], and r = [0.5, 0.8]. This gives
+2 3 4
+between the linear model and the full model of the system at
+us the following δ and D:
+the evaluation point.
+δ =[ 1 0 0 4 1 4 −1 4 0 4 1 0 ] (23)
+2 5 2 5 2 5 5 2
+V. NODE-DISTANCEOBSERVER
+ 
+In this section we tackle the problem of designing state −I I 0 0
+observer for a system whose dynamics is described in node- −I 0 I 0
+ 
+distance coordinates. We assume that the measurements are −I 0 0 I
+D=  (24)
+linear with respect to position and velocity variables:  0 −I I 0
+ 
+ 0 −I 0 I
+y=C 1 δ+C 2 δ˙ (17) 0 0 −I Iwhere 0, I ∈ R2×2 are zero and identity matrices. Column control design process available through the orthogonal de-
+space of D is six-dimensional. composition method. Note that a number of problems remain
+We assume that the rest lengths of the cables are 1m, open,includingmodelparameterestimation,robustnessissues
+the stiffness coefficients µ are 0.5 N/m, and the dissipation and identifying limits of linear model-based control and state
+coefficients γ are 0.2 N·s/m. We only measure r −r , giving estimation procedures for tensegrity structures.
+2 1
+us observation matrices C and C :
+1 2
+REFERENCES
+ 
+I 0 0 0 0 0
+C
+1
+=0 0 0 0 0 0, (25) [1]
+I
+M
+A
+.
+SS
+Bo
+S
+u
+y
+d
+m
+e
+p
+rb
+o
+a
+s
+l
+i
+a
+um
+and
+on
+R
+D
+.M
+ep
+o
+lo
+tr
+y
+o
+a
+,
+b
+“
+l
+F
+e
+o
+S
+ld
+tr
+i
+u
+n
+c
+g
+tu
+te
+re
+n
+s
+s
+:
+eg
+T
+r
+h
+it
+e
+y
+o
+s
+r
+y
+y
+st
+a
+e
+n
+m
+d
+s,
+A
+”
+p
+i
+p
+n
+li
+I
+c
+U
+a
+T
+ti
+A
+o
+M
+ns
+-
+.
+0 0 0 0 0 0
+Springer,2000,pp.27–36.
+[2] K. Caluwaerts, J. Despraz, A. Is¸c¸en, A. P. Sabelhaus, J. Bruce,
+ 
+0 0 0 0 0 0 B. Schrauwen, and V. SunSpiral, “Design and control of compliant
+C
+2
+=0 0 0 0 0 0. (26) tensegrityrobotsthroughsimulationandhardwarevalidation,”Journal
+oftheroyalsocietyinterface,vol.11,no.98,p.20140520,2014.
+0 0 0 0 0 0
+[3] C. Paul, F. J. Valero-Cuevas, and H. Lipson, “Design and control
+Defining cost function as J = (cid:82) (cid:0) x⊤Qx+u⊤Ru (cid:1) dt, of tensegrity robots for locomotion,” IEEE Transactions on Robotics,
+vol.22,no.5,pp.944–957,2006.
+where Q = 100 · I and R = 2 · I we can solve [4] J.Zha,X.Wu,J.Kroeger,N.Perez,andM.W.Mueller,“Acollision-
+12×12 6×6
+Riccati eq. to find L. resilient aerial vehicle with icosahedron tensegrity structure,” in 2020
+IEEE/RSJ International Conference on Intelligent Robots and Systems
+Fig. 2 shows simulation results based on closed-loop dy-
+(IROS). IEEE,2020,pp.1407–1412.
+namics with the linearized model. Initial error is e = 0.03 [5] C.Paul,J.W.Roberts,H.Lipson,andF.V.Cuevas,“Gaitproductionin
+i
+for each coordinate (in minimal coordinates). atensegritybasedrobot,”inICAR’05.Proceedings.,12thInternational
+ConferenceonAdvancedRobotics,2005. IEEE,2005,pp.216–222.
+[6] V. SunSpiral, G. Gorospe, J. Bruce, A. Iscen, G. Korbel, S. Milam,
+A.Agogino,D.Atkinsonetal.,“Tensegritybasedprobesforplanetary
+exploration: Entry, descent and landing (edl) and surface mobility
+analysis,”InternationalJournalofPlanetaryProbes,vol.7,p.13,2013.
+[7] J. Bruce, A. P. Sabelhaus, Y. Chen, D. Lu, K. Morse, S. Milam,
+K.Caluwaerts,A.M.Agogino,andV.SunSpiral,“Superball:Exploring
+tensegritiesforplanetaryprobes,”inInternationalSymposiumonArti-
+ficial Intelligence, Robotics and Automation in Space (i-SAIRAS), no.
+ARC-E-DAA-TN15338,2014.
+[8] S.Savin,A.AlBadr,D.Devitt,R.Fedorenko,andA.Klimchik,“Mixed-
+integer-based path and morphing planning for a tensegrity drone,”
+AppliedSciences,vol.12,no.11,p.5588,2022.
+[9] D.Hustig-Schultz,V.SunSpiral,andM.Teodorescu,“Morphologicalde-
+signforcontrolledtensegrityquadrupedlocomotion,”in2016IEEE/RSJ
+International Conference on Intelligent Robots and Systems (IROS).
+IEEE,2016,pp.4714–4719.
+[10] C. M. Rennie, “Designing and learning cpg gaits for spherical tenseg-
+Fig.2. Simulationresults:Stateestimationerrornormasafunctionoftime rity robots using bayesian optimization,” Ph.D. dissertation, Rutgers
+University-SchoolofGraduateStudies,2018.
+[11] M. Zhang, X. Geng, J. Bruce, K. Caluwaerts, M. Vespignani, V. Sun-
+As fig. 2 indicates, the error approaches zero. We should
+Spiral, P. Abbeel, and S. Levine, “Deep reinforcement learning for
+note that the applicability of this result to non-linear case tensegrity robot locomotion,” in 2017 IEEE International Conference
+depends on how well the linearization represents the structure onRoboticsandAutomation(ICRA). IEEE,2017,pp.634–641.
+[12] S.SavinandA.Klimchik,“Morphing-enabledpathplanningforflying
+alongitstrajectory(ornearthelinearizationpoint),andshould
+tensegrityrobotsasasemidefiniteprogram,”FrontiersinRoboticsand
+bestudiedseparatelyforparticularcases.Whatwebelievethe AI,p.28,2022.
+presentstudyindicatesisthepossibilitytorepresenttensegrity [13] A. P. Sabelhaus, H. Zhao, E. L. Zhu, A. K. Agogino, and A. M.
+Agogino, “Model-predictive control with inverse statics optimization
+structures, famous for the complexity of their dynamics, in
+for tensegrity spine robots,” IEEE Transactions on Control Systems
+a simplified minimal coordinate form, via a combination Technology,vol.29,no.1,pp.263–277,2020.
+of node-distance representation and orthogonal projections, [14] R.Wang,R.Goyal,S.Chakravorty,andR.E.Skelton,“Modelanddata
+yielding a structured dynamical model. based approaches to the control of tensegrity robots,” IEEE Robotics
+andAutomationLetters,vol.5,no.3,pp.3846–3853,2020.
+[15] R. T. Skelton and C. Sultan, “Controllable tensegrity: a new class of
+VII. CONCLUSIONS
+smartstructures,”inSmartStructuresandMaterials1997:Mathematics
+In this paper, a state observer design process for tensegrity and Control in Smart Structures, V. V. Varadan and J. Chandra, Eds.,
+vol.3039,InternationalSocietyforOpticsandPhotonics. SPIE,1997,
+structures was proposed. The key aspects of the proposed
+pp.166–177.[Online].Available:https://doi.org/10.1117/12.276535
+method include the use of node-distance coordinates, a pre- [16] C. Sultan and R. Skelton, “Deployment of tensegrity structures,” In-
+viously introduced non-minimal coordinate representation of ternational Journal of Solids and Structures, vol. 40, pp. 4637–4657,
+September2003.
+tensegrities. Another aspect is the use of orthogonal de-
+[17] J.-P.Pinaud,M.Masic,andR.Skelton,“Pathplanningforthedeploy-
+composition to build minimal linear model. In order to use mentoftensegritystructures,”ProceedingsofSPIE-TheInternational
+the method, a transformation of the nonlinear model was SocietyforOpticalEngineering,vol.5049,July2003.
+[18] J.-P. Pinaud, S. Solari, and R. Skelton, “Deployment of a class 2
+performed. Resulting method retains simplicity of derivation
+tensegrity boom,” Proceedings of SPIE - The International Society for
+inherent to the node-distance coordinates, and streamlined OpticalEngineering,vol.5390,July2004.[19] R. Goyal, M. Majji, and R. E. Skelton, “Integrating 2215–2234,April2002.
+structure, information architecture and control design: Application [26] S.SavinandR.Khusainov,“Sparsenode-distancecoordinaterepresen-
+to tensegrity systems,” Mechanical Systems and Signal tationfortensegritystructures,”RussianJournalofNonlinearDynamics,
+Processing, vol. 161, p. 107913, 2021. [Online]. Available: p.14,2022.
+https://www.sciencedirect.com/science/article/pii/S0888327021003083 [27] I.Masubuchi,Y.Kamitane,A.Ohara,andN.Suda,“H-infinitycontrol
+[20] C.SultanandR.T.Skelton,“Tendoncontroldeploymentoftensegrity for descriptor systems: A matrix inequalities approach,” Automatica,
+structures,” in Smart Structures and Materials 1998: Mathematics and vol.33,no.4,pp.669–673,1997.
+ControlinSmartStructures,V.V.Varadan,Ed.,vol.3323,International [28] A.Bunse-Gerstner,R.Byers,V.Mehrmann,andN.K.Nichols,“Feed-
+Society for Optics and Photonics. SPIE, 1998, pp. 455 – 466. backdesignforregularizingdescriptorsystems,”Linearalgebraandits
+[Online].Available:https://doi.org/10.1117/12.316325 applications,vol.299,no.1-3,pp.119–151,1999.
+[21] C. Sultan, M. Corless, and R. T. Skelton, “Peak-to-peak control of an [29] P. C. Mu¨ller, “Stability and optimal control of nonlinear descriptor
+adaptivetensegrityspacetelescope,”inSmartStructuresandMaterials systems:Asurvey,”1998.
+1999:MathematicsandControlinSmartStructures,V.V.Varadan,Ed., [30] S.Mason,N.Rotella,S.Schaal,andL.Righetti,“Balancingandwalking
+vol.3667,InternationalSocietyforOpticsandPhotonics. SPIE,1999, usingfulldynamicslqrcontrolwithcontactconstraints,”in2016IEEE-
+pp.190–201.[Online].Available:https://doi.org/10.1117/12.350075 RAS16thInternationalConferenceonHumanoidRobots(Humanoids).
+[22] S. Djouadi, R. Motro, J. Pons, and B. Crosnier, “Active control of IEEE,2016,pp.63–68.
+tensegrity systems,” Journal of Aerospace Engineering, vol. 11, no. 2, [31] S.Savin,O.Balakhnov,R.Khusainov,andA.Klimchik,“Stateobserver
+pp.37–44,1998. for linear systems with explicit constraints: Orthogonal decomposition
+[23] M.ArsenaultandC.M.Gosselin,“Kinematic,static,anddynamicanal- method,”Sensors,vol.21,no.18,p.6312,2021.
+ysisofaplanarone-degree-of-freedomtensegritymechanism,”Journal [32] J. Begey, M. Vedrines, P. Renaud, and N. Andreff, “Modeling and
+ofMechanicalDesign,vol.127,no.6,pp.1152–1160,2005. control of a redundant tensegrity-based manipulator,” in International
+[24] M. Chen, J. Liu, and R. E. Skelton, “Design and symposium on Advances in Robot Kinematics. Springer, 2020, pp.
+control of tensegrity morphing airfoils,” Mechanics Research 49–56.
+Communications, vol. 103, p. 103480, 2020. [Online]. Available: [33] L. Zhang, S. Zhu, N. Kong, and X. Niu, “Deployments of tensegrity
+https://www.sciencedirect.com/science/article/pii/S0093641320300094 towersdrivingbylengthchangesofstructuralcomponents,”inThe22nd
+[25] C. Sultan and R. Skelton, “Symmetrical reconfiguration of tensegrity Annual Conference of HKSTAM 2018 The 14th Shanghai-Hong Kong
+structures,”InternationalJournalofSolidsandStructures,vol.39,pp. ForumonMechanicsandItsApplication,p.31.

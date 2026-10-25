@@ -1,0 +1,16 @@
+{
+ "title": "2. Указ Президента Российской Федерации от 15 февраля 2006 года №116 «О мерах по противодействию терроризму»",
+ "url": "https://innopolis.university/public/files/antiterror/ukazpresident.docx",
+ "sha256": "71c61c197b6999f2cfa2b64e247f2d9cdcc0d52d45f208b0be9f3d23973f6ca7",
+ "method": "text layer (pdfplumber)",
+ "chars": 16098,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:49:19+00:00",
+ "remote": {
+  "etag": "\"75b9-5d18899f0b600\"",
+  "modified": "Wed, 24 Nov 2021 13:11:52 GMT",
+  "size": "30137"
+ }
+}

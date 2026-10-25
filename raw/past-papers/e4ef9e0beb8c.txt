@@ -1,0 +1,55 @@
+Project Assignment: System and Network
+administration
+Project description
+In this group project, you will work on the idea, which should be related to the materials
+covered in the course. This is the time where you can apply your system and
+administration skills.
+
+Dividing into groups
+Firstly, group your teammates (3-4) people. Then use this link where you fill the project
+details. The deadline for project approval is by Thursday 02.11.2021. Once the project is
+approved you can start to work on it.
+
+Project Report
+The report should contain the following sections:
+I.
+Goal/Tasks of the Project - what are you going to solve
+II.
+Execution plan/Methodology - plan for the solution
+III.
+Utilization of solution/Tests - explanation of the solution
+IV.
+Difficulties faced
+V.
+Your conclusion, your contemplations and judgement
+Be aware to include all important links to open repos as the proof of concept and
+demonstration video. Long appendixes are ok in the report
+
+Deliverables
+The report should be uploaded in the Moodle by each member of the group (the same
+pdf file and a demo). The demo should contain proof of concepts, to demonstrate what
+has been done, implemented solution.
+Also, you can use open repos such as GitHub, Docker hub etc. for storing scripts,
+configurations files, dockerfiles/containers etc.
+● Summary
+○ Project proposal deadline - by December, 2nd
+○ No more than 3 or 4 members per group
+○ Project reports deadline - by December, 13th
+○ Report + demo should be submitted
+
+Some examples of project ideas that can be taken
+The following is a list of common projects that can be implemented within the project:
+● Deployment of VPC with firewall rules to VM in AWS
+● Deployment of VPC with firewall rules to VM in GCP
+● Deployment of VPC with firewall rules to VM in Yandex
+● Implementation load-balancer with backend in VM (DB, web server) in AWS
+● Implementation load-balancer with backend in VM (DB, web server) in GCP
+● Implementation load-balancer with backend in VM (DB, web server) in Yandex
+● Implementation PostgreSQL cluster using Patroni (link for repo will be provided)
+● Implementations of Nginx load balancer with backends
+● Implementations of HAproxy load balancer with backends
+● Using Docker-Compose to deploy your application with frontend and backend
+● Implementations of Nginx as a proxy for backends
+Note: You can choose only one topic per group
+
+

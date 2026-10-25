@@ -1,0 +1,16 @@
+{
+ "title": "Федеральный государственный образовательный стандарт основного общего образования",
+ "url": "https://innopolis.university/upload/iblock/6a1/o987iez2lzk121c5gvusy0p0yx1unaqb/fgos_ooo.pdf",
+ "sha256": "362c0483cbce0806d5ef05d0d9355d8d113020093074553f168c42cdb83150ae",
+ "method": "text layer (pdfplumber)",
+ "chars": 259966,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:59:26+00:00",
+ "remote": {
+  "etag": "\"64f1ee02-b6339\"",
+  "modified": "Fri, 01 Sep 2023 13:58:26 GMT",
+  "size": "746297"
+ }
+}

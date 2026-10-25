@@ -1,0 +1,467 @@
+Comparative Analysis of the Dynamics of a
+Spherical Robot with a Balanced Internal Platform
+Taking into Account Different Models of Contact
+Friction
+Gasan R. Saypulaev Boris I. Adamov Alexander I. Kobrin
+Dept. of Robotics, Mechatronics, Dept. of Robotics, Mechatronics, Dept. of Robotics, Mechatronics,
+Dynamics and Machine Strength Dynamics and Machine Strength Dynamics and Machine Strength
+National Research University “MPEI” National Research University “MPEI” National Research University “MPEI”
+Moscow, Russia Moscow, Russia Moscow, Russia
+saypulaevgr@mail.ru adamoff.b@yandex.ru kobrinai@yandex.ru
+Abstract—The object of research is a spherical robot with an thesphere);equippingwithinternalomnidirectionalplatforms
+internalplatformwithfourclassic-typeomni-wheels.Themotion (omni-platforms) with omni-wheels.
+of the spherical robot on the horizontal surface is considered
+Studies of the dynamics and control of spherical robots are
+and its kinematics is described. The aim of the research is to
+closely related to the researches on the ball motion and the
+study the dynamics of the spherical robot with different levels
+of detailing of the contact friction model. Nonholonomic models classical problems of billiards or Chaplygin ball [4]–[8]. In
+of the dynamics of the robot with different levels of detailing these studies, the dynamics of the ball is described using the
+of the contact friction model are constructed. The programmed methods of nonholonomic mechanics (under the conditions
+controlofthemovementofthesphericalrobotusingelementary
+of non-slip contact points with the floor or the absence of
+maneuvers is proposed. The simulation of motion was carried
+spinning). Motion along a plane, a cylindrical surface, and
+out and the efficiency of the proposed control was confirmed.
+It is shown that at low speeds of movement of ther spherical an ellipsoid is considered. The papers [7], [8] discuss the
+robot,itisallowedtouseamodelobtainedundertheassumption controllability of the Chaplygin ball using three gyrostats in
+of no slipping between the sphere and the floor. The influence two cases: under the condition that the ball rolls without
+of the contact friction model at high-speed movements of the
+slipping at the contact point; and in the presence of friction
+spherical robot on its dynamics under programmed control is
+forces. In the second case, the viscous friction model and the
+demonstrated. This influence leads to the need to develop more
+accuratemodelsofthemotionofasphericalrobotanditscontact Coulomb dry friction model are considered.
+interaction with the supporting surface in order to increase the In works [9], [10], for a ball with an internal pendulum,
+accuracy of motion control based on these models. a feedback motion control law is proposed. Limitations are
+Index Terms—spherical robot, dynamics model, kinematics shown when using such a control, due to technological diffi-
+model, omni-wheel, omni-platform, multicomponent friction
+cultiesinthemanufactureofasphericalrobotwithapendulum
+inside.
+I. INTRODUCTION
+In this regard, a promising direction in the development of
+Currently, research on mobile wheeled robots that are ca- spherical robots is the creation of spherical robots driven by
+pable of omnidirectional movement has become popular. One internalomni-platforms[11]–[14].Inthesearticles,aspherical
+of the most widely used ways to achieve the possibility of robot with an internal platform equipped with three mecanum
+omnidirectional movement is the use of spherical or omnidi- wheels is considered (see Fig. 1). The work [11] presents a
+rectional wheels [1]. In this article, we will consider a mobile kinematic model that can be used to calculate the angular
+wheeled robot in the form of a sphere. velocities of the platform wheels for rectilinear trajectories
+Inthedevelopmentandstudyofthemechanicsofspherical at arbitrary speeds; and for curvilinear trajectories — only in
+robots, an important role is occupied by issues related to the case of low speeds.
+solving the problems of motion control and navigation of As a direction for further research, it is singled out to
+such robots. An overview of the principles of spherical robots develop of a dynamic model, which take into account the
+control can be found in more detail in [2], [3]. One of the slippage of the omni-wheel rollers, the characteristics of the
+most common control principles is associated with changing floor, and the design of an control algorithm based on this
+the center of mass of a spherical robot (for example, using a model.
+pendulumlocatedinsidethesphere);thecreationofgyrostatic It was shown in [12] that the displacement of the center of
+moments (for example, the rotation of rotors fixed inside massoftheinternalomni-platformleadstoasignificantdevia-tionfromthegiventrajectoryintheprocessofmovement.The
+article [13] presents the equations of dynamics of a spherical
+robot with an internal omni-platform, taking into account the
+displacement of the center of mass of the platform, described
+intheframeworkofnonholonomicmechanics,andatrajectory
+tracking algorithm is developed. However, when using the
+proposedalgorithm,aftertherollingalongthegiventrajectory
+is completed and the control is turned off, the spherical robot
+continuesfreemovement,whichinthegeneralcaseischaotic.
+Fig. 2. Kinematic scheme of the spherical robot with an internal platform
+Toeliminatethisshortcoming,itisproposedtouseelementary havingfouromni-wheels:a)sideview;b)frontview;c)topview
+maneuvers (gates) that allow the robot to switch from one
+stationary movement to another.
+Describing the motion of the spherical robot, the following
+assumptions are made:
+• the centers of mass of the spherical shell and the internal
+omni-platform coincide and are located in the geometric
+center of the sphere C;
+• dependingonthelevelofdetailofthecontactinteraction,
+the contact of the sphere with the supporting surface is a
+point contact or is represented by a contact area with the
+center at point P;
+• the omni-platform move translationally [11], [12], [14];
+• asimplifiedmodelofomni-wheels[18]isusedandthere
+is no slippage at the contact points of the omni-wheel
+Fig. 1. Spherical robot with an internal platform having three mecanum
+rollers along their axes with a spherical shell.
+wheels[11].
+Todescribethemovement,amovingcoordinateframeCXYZ
+Amulticomponentfrictionmodelcanbeusedfordescribing of spherical robot with a center at the geometric center C of
+the contact interaction forces of a spherical robot with a the sphere is introduced, and a fixed coordinate frame xyz,
+supporting surface (floor), taking into account sliding, rolling which differs byrotation by an angle ψ relative to thevertical
+and spinning of sphere. For example, in papers [15]–[17] the z-axis.
+motion of a ball along a horizontal plane is described using
+the multicomponent friction model. B. Kinematic Model
+Inthisarticle,theobjectofresearchisasphericalrobotwith
+Let’s find expressions that relate the velocities of the plat-
+an internal platform equipped with four classic-type omni-
+formtotherotationvelocitiesofwheels.Avectorequationthat
+wheels. The aim of the research is to study the dynamics of a
+expressestheconditionofnon-slipofthecontactingrollersof
+spherical robotwith differentlevels ofdetailing of thecontact
+i-th omni-wheel (i=1,4) relative to the spherical shell is
+friction model. To achieve the aim of the study dynamic
+using:
+equations with various detailing of the contact friction model
+is constructed and program control laws for a spherical robot
+(ω ×r +ω ×r −ω ×r )·e =0, (1)
+with an internal platform equipped with four omni-wheels is
+P CCi i CiKi S CKi i
+obtained. where the following notations are introduced:
+The relevance of the study is related to the use of spher-
+• ω P = 0,ω S = (ω SX ,ω SY ,ω SZ )T,ω i — vectors of
+ical mobile robots in observation, environmental monitoring,
+angular velocities of the omni-platform, spherical shell
+patrolling, underwater and planetary research.
+and i-th omni-wheel, respectively;
+It is expected that the contact friction model, which takes
+into account the sliding, rolling and spinning of the sphere,
+• r CCi = r CKi −r CiKi — radius vector connecting the
+geometric center of the sphere and the center of mass of
+will significantly affect the dynamics of the robot.
+the i-th omni-wheel C ;
+i
+II. DESCRIPTIONOFTHESPHERICALROBOT • r CiKi —radiusvectorconnectingthepointC i andpoint
+of contact K of the i-th omni-wheel with the sphere;
+(cid:16) i (cid:17)
+A. Robot Design and Assumptions • r CKi = R R W S r CiKi — radius vector connecting the
+Inthisarticle,weconsiderasphericalrobotwithaninternal geometric center of the sphere and the point K ;
+i
+omnidirectional platform (Fig. 2). In contrast to the known • e i — unit vector of the axis of the contact roller of the
+designsforthesphericalrobot,theomni-platformoftherobot i-th omni-wheel.
+is equipped with four symmetrically arranged omni-wheels of • R W — omni-wheel radius;
+the classical type. • R S — spherical shell radius;TheprojectionsofthesevectorsonthemovingaxesCXYZ thesphericalshell,theinternalplatformandfouromni-wheels,
+have the form: according to the formula:
+ω S =(ω SX ,ω SY ,ω SZ )T, V C =(V X ,V Y ,0)T, S = 1 J (cid:104) (ω˙ −ω ω )2+(ω˙ +ω ω )2+ω˙2 (cid:105) +
+ω =(ϕ˙ cosα,0,ϕ˙ sinα)T, e =(0,−1,0)T, 2 S SX SZ SY SY SZ SX SZ
+1 1 1 1 1 (cid:20)(cid:16) (cid:17)2 (cid:16) (cid:17)2 (cid:21)
+ω 2 =(0,ϕ˙ 2 cosα,ϕ˙ 2 sinα)T, e 2 =(−1,0,0)T, + 2 m R V˙ X −ω SZ V Y + V˙ Y +ω SZ V X +
+ω 3 =(−ϕ˙ 3 cosα,0,ϕ˙ 3 sinα)T, e 3 =(0,1,0)T,
++
+1
+J
+(cid:0) ϕ¨2+ϕ¨2+ϕ¨2+ϕ¨2(cid:1)
+.
+ω =(0,−ϕ˙ cosα,ϕ˙ sinα)T, e =(1,0,0)T, (2) 2 W 1 2 3 4
+4 4 4 4
+(6)
+r =R (sinα,0,−cosα)T,
+C1K1 W
+wherem =m +m +4m isthetotalmassofthesphere,
+r =R (0,sinα,−cosα)T, R S P W
+C2K2 W theplatformandfouromni-wheels;J
+S
+ismomentofinertiaof
+r =R (−sinα,0,−cosα)T, a spherical shell; J is moment of inertia of the omniwheel
+C3K3 W W
+r =R (0,−sinα,−cosα)T, around its own axis.
+C4K4 W
+Taking into account the equations of the nonholonomic
+where α=|∠(CZ,r CCi )| is the angle between the planes of constraints (3), we can write the acceleration energy of the
+the omni-wheel and the vertical axis CZ; ϕ i is angle of the spherical robot (6) in the form:
+i-th omni-wheel (i=1,4) rotation relative the platform.
+1 (cid:104) (cid:105)
+Equations (1) in projections onto the moving axes CXYZ S = 2 J S (ω˙ SX −ω SZ ω SY )2+(ω˙ SY +ω SZ ω SX )2+ω˙ S 2 Z +
+taking into account expressions (2) can be written as: 1 (cid:20)(cid:16) (cid:17)2 (cid:16) (cid:17)2 (cid:21)
++ m V˙ −ω V + V˙ +ω V +
+ϕ˙ = R S (ω cosα+ω sinα), 2 R X SZ Y Y SZ X
+1 R
+R W
+SX SZ
++ 1 J
+(cid:18)
+R S
+(cid:19)2
+(cid:2) 2 (cid:0) ω˙2 +ω˙2 (cid:1) cos2α+4ω˙2 sin2α (cid:3) .
+ϕ˙ = S (ω cosα+ω sinα), 2 W R SX SY SZ
+2 R SY SZ W
+W (3) (7)
+R
+ϕ˙ = S (−ω cosα+ω sinα), The following equation for the power of the active forces
+3 R SX SZ
+W is used to find the generalized forces:
+R
+ϕ˙ 4 = R S (−ω SY cosα+ω SZ sinα). (cid:88) 4
+W N = (M −µ ϕ˙ )ϕ˙ +Ffr(V −R ω )+
+a i W i i X X S SY
+Considering the nonholonomic model of the motion of the
+i=1 (8)
+spherical shell, the following the non-slip conditions for the +Ffr(V +R ω )+Mfrω +
+contact point of the sphere with the supporting surface are Y Y S SX X SX
++Mfrω +Mfrω ,
+used: Y SY Z SZ
+V =R ω , V =−R ω . (4) where M are the control torques created by the omni-
+X S SY Y S SX i
+wheel drives; µ is coefficient of the linear friction in the
+W
+The resulting kinematic equations (3) and (4) are used to platform–wheel joints; Ffr,Ffr are the projections of the
+describe the model of the spherical robot dynamics. sliding friction force on X the a Y xes CX and CY; Mfr,Mfr
+X Y
+III. NONHOLONOMICDYNAMICMODELSOFTHE are projections of the moment of rolling friction on the axes
+SPHERICALROBOT CX and CY; M
+Z
+fr is the moment of spinning friction.
+Now we present the generalized forces taking into ac-
+Consider two cases of describing the dynamics of the
+count the expressions for the rotation velocities of the omni-
+sphericalrobot:thecaseofthespheremovingwithoutslipping
+wheels (3):
+atthepointofcontactwiththesupportingsurface;andthecase
+of taking into account sliding, spinning and rolling during the Π VX =F X fr, Π VY =F Y fr,
+spherical robot motion. To obtain the equations of dynamics R
+Π =Mfr+FfrR + S (M −M )cosα−
+of the spherical robot, the Appel formalism [19] is used. ωSX X Y S R 1 3
+W
+2µ R2 cos2α
+A. Model of Dynamics of the Spherical Robot Taking into − W S ω ,
+Account Sliding, Spinning and Rolling Friction in the Contact
+R2 SX
+W
+Spot Π =Mfr−FfrR + R S (M −M )cosα−
+ωSY Y X S R 2 4 (9)
+Appel’s equation of the robot motion have the form: W
+2µ R2 cos2α
+∂S − W S ω ,
+=Π, (5) R2 SY
+∂π¨ W
+R
+where Π is the vector of the generalized forces; π¨ = Π =Mfr+ S (M +M +M +M )sinα−
+ωSZ Z R 1 2 3 4
+(V˙ ,V˙ ,ω˙ ,ω˙ ,ω˙ )T is the quasi-acceleration vector; W
+X Y SX SY SZ 4µ R2 sin2α
+and the expression for the acceleration energy of the system − W S ω .
+R2 SZ
+can be calculated as the sum of the acceleration energies of WHere, the reduction of friction coefficients to pseudovelocities Differentiating the energy of accelerations (7) and taking
+is performed similarly to how it was done in [20]. into account expressions (9), we obtain the equations of
+Differentiating the energy of accelerations (7) taking into dynamics in the form:
+account expressions (9), we obtain the equations of dynamics (cid:18) J (cid:19)(cid:16) (cid:17) 2J cos2α
+in the form: m + S V˙ −ω V + W V˙ +
+R R2 X SZ Y R2 X
+(cid:16) (cid:17) (cid:16) (cid:17) S W
+m R V˙ X −ω SZ V Y =F X fr, m R V˙ Y +ω SZ V X =F Y fr, + 2µ W cos2α V = cosα (M −M ),
+(cid:18) J + S F + f 2 r J R WR + R W 2 S 2 R c S os ( 2 M α (cid:19) − (ω˙ M SX ) − co ω s S α Z − ω S 2 Y µ ) W = R M S 2 c X f o r s + 2α ω , (cid:18) m R + R J S S 2 R (cid:19) W 2 (cid:16) V˙ Y + X ω SZ V R X W (cid:17) + 2J 2 W R c W 2 os 4 2α V˙ Y +
+(cid:18) J S + Y 2J W S R R W 2 S 2 R c W os2α (cid:19) 1 (ω˙ SY 3 +ω SZ ω SX )= R M W 2 Y fr− SX (cid:18) J + +4 2 J µ W R (cid:18) c W 2 o R s2 S 2 α (cid:19) V Y sin = 2α c R o (cid:19) s W ω α ˙ (M + 3 − 4µ M W 1 R ) S 2 , sin2α ω =
+−FfrR + R S (M −M )cosα− 2µ W R S 2 cos2α ω , S W R W 2 SZ R W 2 SZ
+(cid:18) X S (cid:18) R R 2 W (cid:19) 2 (cid:19) 4 R W 2 SY = R R W S (M 1 +M 2 +M 3 +M 4 )sinα.
+J +4J S sin2α ω˙ =Mfr+ (13)
+S W R2 SZ Z
+W
+R 4µ R2 sin2α According to the obtained model, it is clear that the motion
++ R S (M 1 +M 2 +M 3 +M 4 )sinα− W R S 2 ω SZ . of the spherical robot can be described by a system of three
+W W dynamic equations (13) and six kinematic equations (3), (4)
+(10)
+in case of the absence of slippage.
+In the case of taking into account the sliding, rolling and
+spinning of the spherical shell relative to the floor (contact
+IV. CONTROLOFTHEMOVEMENTOFTHESPHERICAL
+patch), the motion of the spherical robot can be described
+ROBOT
+using a system of five dynamics equations (10) and four To perform elementary maneuvers, the control torques can
+kinematic equations (3). In this case, to close the system of be calculated in the form of program control. For this, it is
+equations (10), it is necessary to redefine the friction model. convenienttousethedynamicsmodel(13),havingpreviously
+rewritten them in the form:
+B. Model of the Dynamics of the Spherical Robot, Obtained
+R R
+Under the Condition of Non-slippage of the Sphere at the M −M = W F , M −M = W F ,
+2 4 cosα X 3 1 cosα Y
+Contact Point (14)
+R
+M +M +M +M = W M .
+Intheabsenceofslipatthecontactpointofthespherewith 1 2 3 4 R sinα Z
+S
+thefloor(4),theexpressionfortheaccelerationenergy(7)can
+Here F ,F ,M denote the left hand sides of the equa-
+be written as: X Y Z
+tions of dynamics (13), which are functions of velocities
+S = V ,V ,ω , which are given as functions of time for the
+X Y SZ
+1 (cid:18) J (cid:19)(cid:20)(cid:16) (cid:17)2 (cid:16) (cid:17)2 (cid:21) program motion.
+= m + S V˙ −ω V + V˙ +ω V +
+2 R R2 X SZ Y Y SZ X Using the pseudoinverse matrix method, the system (14) is
+S
+solved with respect to the control torques:
+J J R2 (cid:104) (cid:16) (cid:17) (cid:105)
++ 2 Sω˙ S 2 Z + 2 W R W 2 S 2 V˙ X 2 +V˙ Y 2 cos2α+4ω˙ S 2 Z sin2α . M = R W (cid:18) − 2 F + 1 M (cid:19) ,
+(11) 1 4 cosα Y R sinα Z
+S
+(cid:18) (cid:19)
+R 2 1
+Now we present the generalized forces taking into ac- M = W F + M ,
+2 4 cosα X R sinα Z
+count the expressions for the rotation velocities of the omni- S (15)
+(cid:18) (cid:19)
+wheels (3): M = R W 2 F + 1 M ,
+3 4 cosα Y R sinα Z
+1 2µ cos2α S
+Π = (M −M )cosα− W V , R (cid:18) 2 1 (cid:19)
+VX R 2 4 R2 X M = W − F + M .
+W W 4 4 cosα X R sinα Z
+1 2µ cos2α S
+Π = (M −M )cosα− W V ,
+VY R 3 1 R2 Y To evaluate the performance of the obtained control, we
+W W (12) numerically integrate the equations of dynamics (10) and (13)
+R
+Π = S (M +M +M +M )sinα− for one of the movements of the spherical robot with control
+ωSZ R 1 2 3 4
+W actionsgivenbyformulas(15).Inthiscase,forthemodelde-
+4µ R2 sin2α
+− W S ω . scribed by equations (10), as the model of contact interaction,
+R2 SZ
+W weconsiderthemodelofmulticomponentfriction[21],whichtakes into account the sliding and spinning of the spherical ω ,rad/s
+SY
+shell (Mfr =Mfr =0):
+
+X Y 3.0
+Ffr =−fm g V PX , 2.5
+X R (cid:112) V2 +V2 +ε+ (cid:0) 8 (cid:1) χ|ω |
+PX PY 3π SZ 2.0
+V
+F Y fr =−fm R g (cid:112) V2 +V2 + P ε Y + (cid:0) 8 (cid:1) χ|ω | , 1.5
+PX PY 3π SZ
+χω 1.0
+Mfr =−fm gχ SZ ,
+Z R 5 (cid:112) V P 2 X +V P 2 Y +ε+ (cid:0) 3 1 π 6(cid:1) χ|ω SZ | 0.5
+V PX =V X −R S ω SY , V PY =V Y +R S ω SX . t
+
+,s
+(16) 2 4 6 8 10 12 14
+Here ε is a small parameter introduced to regularize expres-
+Fig.4. DependenceωSY obtainedfromtheresultsofmodelingequations(13)
+sions (16) near zero; χ is the radius of the contact spot; f is (graysolidline)andequations(10)(blackdashedline)withcontroltorques
+coefficient of friction. calculatedatlowprogramspeed.
+V. SIMULATIONRESULTS V X,m/s
+Let’s simulate the motion of the spherical robot with the
+
+3.0
+found program control. As an example of motion, consider a
+2.5
+programmed movement along a straight line along the CX
+axisattheconstantspeedV.Forcomparison,weconsiderthe 2.0
+movement with low (V = 0.6 m/s) and high (V = 3.0 m/s)
+1.5
+values of speed.
+During the simulation, we numerically integrate the equa- 1.0
+tions of motion for model (13), which does not take into 0.5
+accountslippageatpointcontactofthespherewiththesupport
+t
+
+,s
+surface, and model (10), which takes into account the sliding 2 4 6 8 10 12 14
+and spinning of the sphere, and control torques (15). The
+following numerical values of the other parameters are used: Fig.5. DependenceVX obtainedfromtheresultsofmodelingequations(13)
+(graysolidline)andequations(10)(blackdashedline)withcontroltorques
+m =7.8kg,J =0.144kg·m2,R =0.2m,f =0.1, calculatedathighprogramspeed.
+R S S
+R =0.04m,α=45◦,J =0.25·10−3 kg·m2,
+W W
+χ=0.03m,µ =0.05N·m·s,ε=10−8 m2/s2. ω SY ,rad/s
+W
+
+15
+The simulation results are shown at Fig. 3, 4 (for the case
+of low speed) and Fig. 5, 6 (for high speed case).
+10
+V X,m/s
+0.6
+5
+0.5
+0.4
+t
+
+0.6
+5
+0.5
+0.4
+t,s
+0.3 2 4 6 8 10 12 14
+0.2
+Fig.6. DependenceωSY obtainedfromtheresultsofmodelingequations(13)
+(graysolidline)andequations(10)(blackdashedline)withcontroltorques
+0.1
+calculatedathighprogramspeed.
+t
+
+,s
+2 4 6 8 10 12 14
+use model (13), obtained under the condition of non-slippage
+Fig.3. DependenceVX obtainedfromtheresultsofmodelingequations(13) of the sphere and under the assumption of point contact;
+(graysolidline)andequations(10)(blackdashedline)withcontroltorques
+and at high speeds of movement of the spherical robot (see
+calculatedatlowprogramspeed.
+Fig. 5, 6), the influence of the model of contact friction of
+It can be seen from the graphs that the found program the spherical robot with the supporting surface is manifested.
+control provides program movement at the end of transients. This conclusion is consistent with the results obtained in [10]
+Based on the simulation results, it can be concluded that at whenconsideringthesphericalrobotwithaninternalplatform
+lowspeedsofthesphericalrobot(seeFig.3,4)itisallowedto equipped with three mecanum wheels.VI. CONCLUSION [13] Yu.L. Karavaev, A.A. Kilin, “Dynamics of a spherical robot with an
+internalomniwheelplatform”,Nelin.Dynam.,vol.11,no.1,pp.187–
+This article proposes a design of the spherical robot with
+204,2015.(inRussian)
+an internal platform equipped with four classic-type omni- [14] Yu.L. Karavaev, A.A. Kilin, “The dynamics and control of a spheri-
+wheels. The motion of the spherical robot on the horizontal cal robot with an internal omniwheel platform”, Regular and chaotic
+dynamics,vol.20,no.2,pp.134–152,2015.
+surface is considered. Dynamic models of the spherical robot
+[15] A.V. Karapetyan, “Modelling of frictional forces in the dynamics of a
+with different levels of detail of the contact friction model are sphere on a plane”, Journal of Applied Mathematics and Mechanics,
+constructed. vol.74,no.4,pp.380–383,2010.
+[16] M.V. Ishkhanyan, A.V. Karapetyan, “Dynamics of a Homogeneous
+Proposedprogramcontrolofthemovementofthespherical
+Sphere on a Horizontal Plane with Sliding, Spinning, and Rolling
+robot using of elementary maneuvers. The simulation of Friction Considered”, Mechanics of Solids, no. 2, pp. 3–14, 2010. (in
+motion was carried out and the operability of the proposed Russian)
+[17] A.P.Ivanov,“ComparativeAnalysisofFrictionModelsinDynamicsof
+control was confirmed. It is shown that at low speeds of the
+a Ball on a Plane”, Nelin. Dynam., vol. 6, no. 4, pp. 907–912, 2010.
+spherical robot it is allowed to use the model obtained under (inRussian)
+the condition that there is no slippage between the sphere and [18] A.V. Borisov, A.A. Kilin, I.S. Mamaev, “An omni-wheel vehicle on a
+planeandasphere”,Nelin.Dynam.,vol.7,no.4,pp.785–801,2011.
+the surface. The influence of the model of contact friction
+(inRussian)
+at high speeds of the spherical robot on its dynamics under [19] A.P.Markeev,Theoreticalmechanics.M.,Izhevsk:RegularandChaotic
+program control is demonstrated. This influence leads to the Mechanics,2019,592p.(inRussian)
+[20] B.I. Adamov, “A study of the controlled motion of four-wheeled
+need to refine the models of the motion of the spherical robot
+mecanumplatform”,RussianJournalofNonlinearDynamics,vol.14,
+and its contact interaction with the supporting surface for no.2,pp.265–290,2018.
+the subsequent synthesis of control, which provides a higher [21] V.P. Zhuravlev, D.M. Klimov, “Global motion of the celt”, Mechanics
+ofsolids,vol.43,no.3,pp. 320–327,2008.
+accuracy of motion.
+Further work will be devoted to taking into account the
+displacement of the center of mass of the internal platform
+and the construction of the control that compensates for the
+effect of slippage at the points of contact.
+ACKNOWLEDGMENT
+This work is supported by the Russian Science Foundation
+under grant 22-21-00831.
+REFERENCES
+[1] A.V. Borisov, I.S. Mamaev, A.A. Kilin, Yu.L. Karavaev,“Spherical
+robots: mechanics and control”, Proceedings of the IV International
+School-Conference for Young Scientists ”Nonlinear Dynamics of Ma-
+chines”(School-NDM2017),pp.477–482,2017.(inRussian)
+[2] R.Chase,A.Pandya,“AReviewofActiveMechanicalDrivingPrinci-
+plesofSphericalRobots”,Robotics,no.1,pp.3–23,2012.
+[3] R.H. Armour, J.F.V. Vincent, “Rolling in Nature and Robotics: A
+Review”,JournalofBionicEngineering,no.1,pp.195–208,2006.
+[4] A.V.Borisov,A.A.Kilin,I.S.Mamaev,“Onthemodelofnon-holonomic
+billiard”,Nelin.Dynam.,vol.6,no.2,pp.373–385,2010.(inRussian)
+[5] A.V.Bolsinov,A.V.Borisov,I.S.Mamaev,“Rollingwithoutspinningof
+aballonaplane:theabsenceofaninvariantmeasureinasystemwith
+acompletesetofintegrals”,Nelin.Dynam.,vol.8,no.3,pp.605–616,
+2012.(inRussian)
+[6] A.A. Kilin, “The dynamics of Chaplygin ball: the qualitative and
+computer analysis”, Regular and chaotic dynamics, vol. 6, no. 3, pp.
+291–306,2001.
+[7] A.V.Borisov,A.A.Kilin,I.S.Mamaev,“HowtocontroltheChaplygin
+sphereusingrotors.I.”,Nelin.Dynam.,vol.8,no.2,pp.289–307,2012.
+(inRussian)
+[8] A.V.Borisov,A.A.Kilin,I.S.Mamaev,“HowtocontroltheChaplygin
+sphereusingrotors.II.”,Nelin.Dynam.,vol.9,no.1,pp.59–76,2013.
+(inRussian)
+[9] T.B. Ivanova, A.A. Kilin, E.N. Pivovarova, “Controlled motion of a
+spherical robot with feedback. I. ”, Journal of Dynamical and Control
+systems,no.24,pp.497–510,2018.
+[10] T.B. Ivanova, A.A. Kilin, E.N. Pivovarova, “Controlled motion of a
+sphericalrobotwithfeedback.II.”,JournalofDynamicalandControl
+systems,no.25,pp.1–16,2018.
+[11] A.A. Kilin, Yu.L. Karavaev, A.V. Klekovkin, “Kinematic control of a
+high manoeuvrable mobile spherical robot with internal omni-wheeled
+platform”,Nelin.Dynam.,vol.10,no.1,pp.113–126,2014.(inRussian)
+[12] A.A.Kilin,Yu.L.Karavaev,“Kinematiccontrolofasphericalrobotwith
+anunbalancedomni-wheelplatform”,Nelin.Dynam.,vol.10,no.4,pp.
+497–511,2014.(inRussian)

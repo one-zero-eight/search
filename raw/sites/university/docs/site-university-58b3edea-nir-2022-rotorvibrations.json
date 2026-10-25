@@ -1,0 +1,16 @@
+{
+ "title": "Read the article [NIR_2022_rotor-vibrations]",
+ "url": "https://innopolis.university/filespublic/NIR_2022_rotor-vibrations.pdf",
+ "sha256": "8598f8e4e2e9056af73bdf484898a72644af912392f1bd0bc64da20ee7b48144",
+ "method": "text layer (pdfplumber)",
+ "chars": 21468,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:45:37+00:00",
+ "remote": {
+  "etag": "\"d0a03-5e75e9bbd63c7\"",
+  "modified": "Mon, 29 Aug 2022 10:20:09 GMT",
+  "size": "854531"
+ }
+}

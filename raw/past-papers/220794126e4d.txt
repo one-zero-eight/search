@@ -1,0 +1,83 @@
+Innopolis University, Academic Year 2016/2017
+Written Exam of Operating Systems – Retake 2
+7th February 2017
+Questions and Solutions
+Max 20 points + 6 points (30%) extra credit – Total time: 90 minutes
+1. (3 points) Is there any reason why you might want to mount a file system on a nonempty
+direc- tory? If so, what is it??
+Mounting a file system makes any files already in the mount-point directory inaccessible, so
+mount points are normally empty. However, a system administrator might want to copy some of
+the most important files normally located in the mounted directory to the mount point so they
+could be found in their nor- mal path in an emergency when the mounted device was being
+repaired.
+2. (3 points) Consider a real-time system with two voice calls of periodicity 5 msec each with
+CPU time per call of 1 msec, and one video stream of periodicity 33 ms with CPU time per call
+of 11 msec. Is this system schedulable?
+Each voice call needs 200 samples of 1 msec or 200 msec. Together they use 400 msec of CPU
+time. The video needs 11 msec 33 1/3 times a second for a total of about 367 msec. The sum is
+767 msec per second of real time so the system is schedulable.
+3. (3 points) Measurements of a certain system have shown that the average process runs for
+a time T before blocking on I/O. A process switch requires a time S, which is effectively
+wasted (overhead). For round-robin scheduling with quantum Q, give a formula for the CPU
+efficiency for each of the following:
+(a) Q = ∞
+(b) Q > T
+(c) S < Q < T (d) Q = S
+(e) Q nearly 0
+The CPU efficiency is the useful CPU time divided by the total CPU time. When Q ≥ T , the basic
+cycle is for the process to run for T and undergo a process switch for S. Thus, (a) and (b) have an
+efficiency of T /(S + T ). When the quantum is shorter than T, each run of T will require T /Q
+process switches, wasting a time ST /Q. The efficiency here is then(T/(T + ST/Q))
+4. (3 points) Consider the following C program:
+int X[N];
+int step = M; /* M is some predefined constant */
+for (int i = 0; i < N; i += step) X[i] = X[i] + 1;
+(a) If this program is run on a machine with a 4-KB page size and 64-entry TLB, what values of
+M and N will cause a TLB miss for every execution of the inner loop?
+(b) Would your answer in part (a) be different if the loop were repeated many times?
+Explain.
+For these sizes:
+(a) M has to be at least 4096 to ensure a TLB miss for every access to an element of X. Since N
+affects only how many times X is accessed, any value of N will do.
+(b) M should still be at least 4,096 to ensure a TLB miss for every access to an element of X. But
+now N should be greater than 64K to thrash the TLB, that is, X should exceed 256 KB.
+
+OS Exam
+
+Page 1 of 2
+
+5. (3 points) A certain file system uses 4-KB disk blocks. The median file size is 1 KB. If all files
+were exactly 1 KB, what fraction of the disk space would be wasted? Do you think the wastage
+for a real file system will be higher than this number or lower than it? Explain your answer.
+If all files were 1 KB, then each 4-KB block would contain one file and 3 KB of wasted space.
+Trying to put two files in a block is not allowed because the unit used to keep track of data is the
+block, not the semiblock. This leads to 75% wasted space. In practice, every file system has large
+files as well as many small ones, and these files use the disk much more efficiently. For ex- ample,
+a 32,769-byte file would use 9 disk blocks for storage, given a space efficiency of 32,769/36,864,
+which is about 89%.
+6. (3 points) A distributed system using mailboxes has two IPC primitives, send and receive.
+The latter primitive specifies a process to receive from and blocks if no message from that
+process is available, even though messages may be waiting from other processes. There are
+no shared resources, but processes need to communicate frequently about other matters. Is
+deadlock possible? Discuss.
+Yes. Suppose that all the mailboxes are empty. Now A sends to B and waits for a reply, B sends to
+C and waits for a reply, and C sends to A and waits for a reply. All the conditions for a
+communications deadlock are now fulfilled.
+7. (30% extra credit)
+(a) Describe a situation in which balloon drivers do not work.
+(b) A thin-client terminal is used to display a Web page containing an animated cartoon of size
+400 pixels × 160 pixels running at 10 frames/sec. What fraction of a 100-Mbps Fast Ethernet
+is consumed by displaying the cartoon?
+(a) Balloon drivers do not work if the hypervisor does not know anything about the guest
+operating systems running on its virtual machines. It also does not work if there is no way to
+include a balloon driver in them, for example, if they do not support loadable drivers and the
+source code is not available so they cannot be recompiled to include the balloon driver..
+(b) The display size is 400 × 160 × 3 bytes, which is 192,000 bytes. At 10 fps this is 1,920,000
+bytes/sec or 15,360,000 bits/sec. This consumes 15% of the Fast Ethernet.
+This is the end of the questions and solutions of the exam.
+
+OS Exam
+
+Page 2 of 2
+
+

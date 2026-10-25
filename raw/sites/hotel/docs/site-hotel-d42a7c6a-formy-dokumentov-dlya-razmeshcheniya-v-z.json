@@ -1,0 +1,16 @@
+{
+ "title": "Перечень документов для несовершеннолетних гостей (до 18 лет)",
+ "url": "https://hotel.innopolis.university/upload/docs-hotel/%D0%A4%D0%BE%D1%80%D0%BC%D1%8B_%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%BE%D0%B2_%D0%B4%D0%BB%D1%8F_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F_%D0%B2_%D0%96%D0%B8%D0%BB%D0%BE%D0%BC_%D0%BA%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%81%D0%B5_%D0%BD%D0%B5%D1%81%D0%BE%D0%B2%D0%B5%D1%80%D1%88%D0%B5%D0%BD%D0%BD%D0%BE%D0%BB%D0%B5%D1%82%D0%BD%D0%B8%D0%B5.pdf",
+ "sha256": "3745212006ee515c5af765b4f3d5923eaec7f925f204fdcc5c41ca7d1229bd2b",
+ "method": "text layer (pdfplumber)",
+ "chars": 15445,
+ "section": "site/hotel",
+ "context": "",
+ "fetched_at": "2026-10-24T22:06:02+00:00",
+ "remote": {
+  "etag": "\"3f13a-5dd38e2483370\"",
+  "modified": "Fri, 22 Apr 2022 07:07:47 GMT",
+  "size": "258362"
+ },
+ "tables": 3
+}

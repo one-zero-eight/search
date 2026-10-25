@@ -1,0 +1,274 @@
+Innopolis University
+Academic Year 2024/2025
+Computer Architecture Course
+Midterm Exam
+Answers
+th
+25 October 2024
+Duration: 60 mins
+
+Student Full Name:
+Student Telegram:
+Student Group:
+Exam Room:
+
+Question
+Question 1
+Question 2
+Question 3
+Question 4
+Question 5
+Question 6
+Question 7
+Optional Question 8
+Total
+
+Summary (for instructors fill)
+Grade
+
+Please write clearly your name and your solutions. What will not be understood will be
+considered wrong. All answers must be provided in English, everything written in Russian
+will be ignored.
+This is a closed-book exam. You are not allowed to use any reference materials or electronic
+equipment, apart from this booklet and pens. You are not allowed to consult any person,
+otherwise you will be disqualified from this exam at the very first attempt.
+Student Signature:
+
+Midterm Exam of Computer Architecture 2024
+
+Page 1 of 6
+
+Question 1 (1 point). What is the key idea of Moore’s law? Provide ONE sentence answer.
+Answer:
+The number of transistors on a CPU chip doubles every 18-24 months, and thus a CPU speed
+doubles as well.
+Grading notes:
+(+1) – for a fully correct answer, which includes words “doubles” or “increases twice”, as well as
+“CPU” or “processor chip”.
+0 – for an incorrect answer, or for an answer with some key details missing.
+
+Question 2 (1 point). Provide any two key differences between FPGA and CPU chips:
+
+Grading notes:
+(+0.5) – for every row with correct comparison and relevant criteria;
+1 point at most for this question
+Midterm Exam of Computer Architecture 2024
+
+Page 2 of 6
+
+Na
+me
+
+Circuit
+
+Question 3 (2 points). Below are the diagrams of standard hardware building blocks for
+computer components. Specify commonly used names under the corresponding circuits:
+
+1-to-2
+Demultiplexer
+
+2-to-4 Decoder
+
+4-to-2 Encoder
+
+4-to-1 Multiplexer
+
+Grading notes:
+(+0.5) – for every correctly named circuit;
+(0) – for an incorrect circuit name or misspelled term.
+Question 4 (2 points). What is the key difference between Harvard and Von-Neumann
+computer architectures? Illustrate your answer with diagrams. Which one is used by typical
+modern computers?
+Answer:
+
+Key difference (0.5 point):
+Unlike Harvard, Von Neumann architecture stores program instructions and associated data
+in the same system memory unit
+Underline the architecture type of modern computers (0.5 point): Harvard / Von Neumann
+Grading notes:
+(+0.5) – for each correct diagram of considered architectures;
+(+0.5) – for a correct key difference;
+(+0.5) – for a correct option.
+Midterm Exam of Computer Architecture 2024
+
+Page 3 of 6
+
+Question 5 (2 points). Choose typical ranges of performance metrics for an average
+laptop/desktop computer below:
+CPU
+Frequency
+16-32 MHz
+2-4 KB
+2.0-4.0 GHz
+
+Cores Number
+
+L1 Cache Storage
+
+4-8
+32-64
+1000-2000
+
+32 bits
+32-128 KB
+16 bits
+
+System Memory
+Access Speed
+18-36 GB/sec
+1-2 bits/sec
+1-2 bytes/sec
+
+Storage Capacity
+8-32 GB
+1024 MHz
+16-32 bytes/sec
+
+Volatility
+Volatile
+Non-volatile
+
+Storage Device (e.g. SSD)
+Access Speed
+1024 MHz
+0.5-2 GB/sec
+0.5-2 bits/sec
+
+Storage Capacity
+250-500 GB
+500-2000 TB
+8-12 GB
+
+Volatility
+Volatile
+Non-volatile
+Can be both
+
+Grading notes:
+(+2) – if absolutely all options are correct, otherwise
+(+0.65) – for every correct row, and
+(0) – for every row with at least one incorrect choice.
+Question 6 (2 points). Below each graphical representation, choose the corresponding
+computer hardware component or peripheral device name:
+
+CPU
+CPU cooler
+System memory
+Solid-state drive
+Communication bus
+USB stick
+
+CPU
+CPU cooler
+System memory
+Solid-state drive
+Communication bus
+USB stick
+
+CPU
+CPU cooler
+System memory
+Solid-state drive
+Communication bus
+USB stick
+
+CPU
+CPU cooler
+System memory
+Solid-state drive
+Communication bus
+USB stick
+
+CPU
+CPU cooler
+System memory
+Solid-state drive
+Communication bus
+USB stick
+
+CPU
+CPU cooler
+System memory
+Solid-state drive
+Communication bus
+USB stick
+
+Midterm Exam of Computer Architecture 2024
+
+Page 4 of 6
+
+Grading notes:
+(+2) – if absolutely all options are correct, otherwise
+(+0.1) – for every correct option.
+Question 7 (2 points). Answer the following questions regarding flip-flops and S/R latches
+by filling-in the following table and the time diagram below:
+Question
+
+Answer
+
+(0.25 point) What is a flip-flop?
+
+Flip-flop is a synchronous (sequential) logic circuit to store
+one bit of data, with its output update synchronized with a
+clock signal
+
+(0.25 point) What is the key
+difference of a flip-flop from a S/R
+latch?
+
+Unlike a flip-flop, the update of an output value for a S/R
+latch is not synchronized with a clock signal, but updates
+immediately after the change of its input signals
+
+(1 point) Draw the flip-flop
+circuit by using S/R latches and
+other needed logic gates.
+S/R latches can be represented
+by simply rectangles with “S/R
+Latch” labels.
+
+(0.5 point) Fill-in the timing diagram below for QFinal, assuming the following pin meaning:
+a) S, R, and QFinal are flip-flop input pins and the output pin, respectively;
+b) CLK is a input clock signal;
+c) 𝑆′, 𝑅′, and 𝑆’’, 𝑅” are the inputs of the master and slave S/R latches, respectively
+
+Grading notes:
+(+0.25) – for the correct definition of a flip-flop, which mentions that it is a memory unit for 1
+bit of data, synchronous/has clock, otherwise (+0.15) – if the only one key detail is missed;
+(+0.25) – for a correct key difference, that is referring to synchrononicity/clock or similar;
+(+1) – for a correct flip-flop circuit, otherwise (-0.5 penalty) – for every not conceptual mistake;
+(+0.5) – for a fully correct time diagram.
+====================================
+
+The end of the mandatory tasks
+
+Midterm Exam of Computer Architecture 2024
+
+======================================
+
+Page 5 of 6
+
+Question 8 OPTIONAL (1 point). Express the 2-inputs NAND logic gate through the 2-inputs
+NOR gates. Support your answer with a truth table.
+Grading policy:
+Fill-in the answer field below only if you confirm the circuit correctness (use draft paper), otherwise:
+(+ 1 point) – for a fully correct answer, if the total grade for Questions 1-7 is less than 12;
+(0 point) – for an answer field left empty;
+(- 1 point) – the penalty for an answer with any mistake (independently of the total grade for Questions 1-7)
+
+Answer:
+One of the possible circuit implementations:
+
++ Truth table corresponding to your specific implementation
+Grading notes:
+(+1) – for a fully correct answer, if the total grade for Questions 1-7 is less than 12;
+(+0) - for an answer field left empty or answer without truth table;
+(-1) – the penalty for an answer with any mistake (independently of the total grade for
+Questions 1-7).
+
+This is the end of the student book
+Midterm Exam of Computer Architecture 2024
+
+Page 6 of 6
+
+

@@ -1,0 +1,16 @@
+{
+ "title": "Сертификат участника НОК 2022",
+ "url": "https://innopolis.university/upload/iblock/08d/hqvf3x93gnvdarfbiry15l4buofsuoh3/2_certificate_nok_2022.pdf",
+ "sha256": "41227cf45225dbdc4c2318316fc38026fccea752e737c6645cd6cd374ebbe4e1",
+ "method": "text layer (pdfplumber)",
+ "chars": 780,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:52:02+00:00",
+ "remote": {
+  "etag": "\"64cb9e67-472f9\"",
+  "modified": "Thu, 03 Aug 2023 12:32:39 GMT",
+  "size": "291577"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "Общее собрание работников и обучающихся Университета",
+ "url": "https://innopolis.university/upload/iblock/678/c1j1jbxjh08n2gq435qeyhhymv4a6pk3/1_polnomoch_obsch_sobr_rabot_obuch.pdf",
+ "sha256": "254c3855e506a522c9f306448251c1ec840b3407a9fd01c8136080734a8ebfe0",
+ "method": "text layer (pdfplumber)",
+ "chars": 310,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:59:13+00:00",
+ "remote": {
+  "etag": "\"65295795-11345\"",
+  "modified": "Fri, 13 Oct 2023 14:43:33 GMT",
+  "size": "70469"
+ }
+}

@@ -1,0 +1,40 @@
+Name
+Group
+Course Name: Theoretical Computer Science
+Midterm exam: paper-based part
+Instructor: Manuel Mazzara
+
+Year: 2020-2021 (Spring Semester)
+Time allowed: 20 minutes
+Max grade: 15 points
+
+Exam Instructions
+1. The exam consists of 3 parts:
+1) Paper – based (15 points) - 20 minutes + 5 min for submission
+2) Moodle test (10 points) – 10 minutes
+3) JFLAP implementation – 20 minutes.
+2. During the paper-based part you will have to construct several FSAs on a paper in the provided space. Use of
+any device is prohibited at this stage. Further you will have to take a picture of your solution and submit it to
+Moodle in a single .pdf file (you have 5 mins for the submission process). Afterwards you leave the paper with
+the solution on the edge of the desk (it will be collected by the exam proctors).
+Make sure to sign all your papers (name, last name and your group)
+3. During the Moodle-based part you will have to answer several theoretical multiple-choice questions. Use of
+any applications, apart from Moodle, is prohibited at this stage.
+4. During the JFLAP implementation you will have to implement in JFLAP7.1 the solutions that you submitted
+in pdf in the paper-based stage. The implemented solutions should be exactly the same as in the submitted
+paper version (if the difference is detected, the task will be evaluated to 0). Please follow the naming pattern and
+submit 3 separate files in *.jff format (no archives etc.)
+5. You are not allowed to go to leave the room during the exam.
+
+Name
+Group
+Consider an FSA M1 over the alphabet {0, 1}:
+
+Task 1 (5 points). Construct a complement of M1
+
+Task 2 (5 points). Construct a complete FSA M2 over the alphabet {0,1} that accepts the
+strings ending with 01. The FSA should have not more than 3 states.
+
+Task 3 (5 points). Construct an intersection of M1 and M2
+
+

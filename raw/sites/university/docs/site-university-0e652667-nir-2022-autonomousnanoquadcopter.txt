@@ -1,0 +1,564 @@
+Test of Obstacle Avoidance Capabilities on an
+Autonomous Nano Quadcopter
+Tagir Muslimov Evgeny Kozlov Mark Akbashev
+Ufa State Aviation Technical University Ufa State Aviation Technical University Ufa State Aviation Technical University
+Ufa, Russia Ufa, Russia Ufa, Russia
+tagir.muslimov@gmail.com geny.kozlov@mail.ru markakbashev@yandex.ru
+Abstract—This paper presents collision avoidance implemen- quadcopter to avoid collisions in [8]. Paper [9] successfully
+tation on a Crazyflie 2.1 nano quadcopter featuring modular implemented an artificial potential field method.
+architecture. Autonomous navigation was implemented using
+Thus, overview of related works draws a conclusion that
+specialdecks.Oneofthosedeckscanaccuratelymeasuredistance
+theymainly focuson globallocalizationsystems. Armedwith
+to surrounding objects in four directions. The second deck can
+measure the distance to the surface below the quad and pick the global knowledge of the environment, a quadcopter can
+up the coordinates onboard. A simple algorithm was developed retrieve obstacle coordinates and geometry readings for much
+to avoid collision with single obstacles; the algorithm has since easier navigation. However, implementing collision avoidance
+beentestedonanactualnanoquadcopter.Thepaperpresentsthe
+on a limited-sensor quadcopter with no global knowledge of
+resultsofthattest.Accordingtotheresults,thetestedequipment
+obstacle localization could be interesting. This is the subject
+is suitable for indoor collision avoidance implementation on
+autonomous quadcopters. matter of this work. We implemented a simple navigation
+Index Terms—obstacle avoidance, autonomous navigation, algorithm for an autonomous nano quadcopter flying in an
+UAV control environment with obstacles while lacking access to a global
+navigation system. The goal hereof was to find whether such
+I. INTRODUCTION
+an algorithm was implementable.
+A. Motivation
+Numerouspaperscovercollisionavoidanceimplementation II. COLLISIONAVOIDANCEIMPLEMENTATION
+for unmanned aerial vehicles (UAVs). Several factors such as
+A. Equipment Used
+dronetype,environment,andonboardequipmentinfluencethe
+way the problem could be solved. The problem is even more Crazyflie 2.1 is an open-source nano quadcopter used by
+relevantincaseofsmallandverysmallUAVsthathavelimited researchersworldwide.Ithasamodulararchitecture,allowing
+onboardcapacity.Manypaperscoverplanningtheindoorflight useofvariousnavigationsystems.Thus,forglobalnavigation
+path of such small quadcopters [1]. However, some tasks it can use the Lighthouse positioning system. This system
+requireuseofquadcoptersinflocks,e.g.,rescueoperations[2]. accurately calculates the coordinates onboard the aircraft.
+Whengroupedtogether,severalUAVshavetoavoidcollisions However, in this research we intentionally limited ourselves
+with each other and with other obstacles. Thus, UAVs have to to the Multiranger rangefinder deck. According to the official
+moveinagroupwhilealsoavoidingcollisions[3].Inthiscase, documentation [10], this expansion deck can measure the
+preferred are the so-called reactive methods where the aircraft distanceinfivedirectionsaroundthequadcopter;themarginof
+generates its flyby trajectory using environmental data and errorisafewmmatdistancesofupto4m.WealsousedFlow
+sensorreadings.Collisionavoidancealgorithmsforfixed-wing deck v2 that measures the distance to surface below with the
+UAVs [4] are drastically different from such algorithms for samesensorasMultiranger.Besides,Flowdeckv2isequipped
+rotary-wing UAVs [5]. This is due to the movement dynamics with an optical stream sensor that implements an extended
+that creates benefits of better maneuverability. Kalmanfiltertopickthequadcoptercoordinatesinflight.Such
+measurementstendtodrift;however,theyareaccurateenough
+B. Related Works
+for a flyby maneuver over a short distance. Fig. 1 shows the
+Paper [6] shows using decision trees for collision avoid- generalviewwiththeMultirangerdeckinstalled.Fig.2shows
+ance implementation; paper [7] covers proportional integral the general view with the Flow deck v2 installed.
+differential (PID) controllers that control quadcopter trajec-
+The device can be controlled from a PC via a dedicated
+tory in obstacle-aware flight. A stereo cam enabled a micro
+radiochannel.Thecontrolalgorithmcanbeprogrammedwith
+a special Python API. Flight data are received over radio as
+ThisworkwassupportedbytheMinistryofScienceandHigherEducation
+oftheRussianFederation(AgreementNo.075-15-2021-1016). well.TABLEI Algorithm: OBSTACLEAVOIDANCE
+PARAMETERS
+Input: safety radius ρ, mission, drone position
+estimation x.Estimate,y.Estimate
+Parameter Symbol Value Output: mission completion
+1 initiate forward movement
+Safety radius, [m] ρ 0.4 2 while D front <ρ do
+3 initiate rightward movement at the set speed v avoid
+Additional distance, [m] ∆D 0.2
+4 if there was a loss of beam then
+Collision avoidance speed, [m/s] v 0.1 5 move to the right by the additional distance
+avoid
+∆D
+6 proceed to move forward at the set speed v avoid
+B. Simple Collision Avoidance Algorithm 7 while D left <ρ do
+8 continue moving at the set speed v avoid and keep a
+The core idea behind the algorithm is as follows. The
+safe distance
+quadcopter is tasked to fly straight to the target and then
+9 if there was a loss of beam then
+land. It encounters an obstacle on the way and has to avoid
+10 move forward by the additional distance ∆D
+it. Mission is considered completed successfully if the unit
+can take off at Point A, fly, and land once the estimated 11 go back to the initial path
+coordinates exceed the preset value. The unit must not collide 12 complete the mission
+withanobstacleinthisprocess.Forsimplicity,weonlytested 13 return flight data
+a rectangular obstacle. Multiranger was used to detect the
+copter’s entrance in the zone defined by the safety radius ρ
+around the obstacle. The drone would then start to move right
+until losingthe beam;thus, it woulddetect theright boundary
+of the obstacle. Then it would need to fly a distance sufficient
+for collision avoidance; we set it at 0.2 m. A certain flight
+time would need to be determined accordingly. After beam
+loss, the quad would fly over this determined time to ensure
+having a safe path for further flight forward. When moving
+to the right of the obstacle, the drone would measure the
+distance to the left in order to pick the beam loss moment.
+Then it would move forward additionally and then go back to
+the initial rectilinear flight trajectory.
+The algorithm is presented below as pseudocode. In this
+algorithm, D is the Multiranger-measured distance to
+front
+the obstacle in front of the copter; D is the Multiranger-
+left
+measureddistancetotheobstacletotheleftofthecopter.Table
+1 shows the parameters of the experiment. These parameters
+were found by trial and error over a series of experiments.
+Thealgorithmwasimplementedusingahigh-levelPythonAPI
+Fig.1. Crazyflie2.1NanoquadcopterwithMultirangerdistancemeasurement
+with the open-source code provided by the Crazyflie develop-
+deck
+ers.Thenthesetpointsweretransmittedtotheautopilotovera
+radio channel; the autopilot would process the setpoints using
+low-level velocity control. For a more detailed description three-dimensional (3D) representation of these estimates. Fig.
+of control implementation, refer to the official documentation 6 shows quadcopter-measured distance to the nearest objects
+[10]. in three directions (in millimeters). Here, range.front is
+the distance to the nearest object in front, range.left is
+III. RESULTSANDDISCUSSION the distance to the left, range.zrange is the distance to the
+Fig. 3 shows the obstacle and the UAV in flight. In the surface below the aircraft. Fig. 7 is a 3D representation of
+tests, the drone was able to bypass the obstacle and land theseestimates.Fig.8showsEuleranglesasmeasuredbythe
+after returning to the initial flight path. The drone takes off, quadcopter in flight. Here, stabilizer.roll is the roll angle,
+bypasses obstacles, and lands. Fig. 4 shows applying Kalman stabilizer.pitchisthepitchangle,stabilizer.yaw istheyaw
+filters to estimate quadcopter coordinates in meters. Here, angle; time is measured in milliseconds.
+stateEstimate.x is the X-axis coordinate, stateEstimate.y The graphs show that the coordinate estimates have poor
+is the Y-axis coordinate, stateEstimate.z is the Z-axis co- accuracy and tend to drift. Notably, the Multiranger deck can
+ordinate, and time is measured in milliseconds. Fig. 5 is a measure distance to objects up to 4 m away; graphs in Fig. 6stateEstimate.x
+1.00 stateEstimate.y
+stateEstimate.z
+0.75
+0.50
+0.25
+0.00
+−0.25
+−0.50
+0 5000 10000 15000 20000
+timestamp
+Fig.4. Quadcopter’sin-flightcoordinateestimates
+Fig.2. Crazyflie2.1NanoquadcopterwithOpticalNavigationFlowdeckV2
+confirm that. Front-sensor beam loss and the later left-sensor
+beam loss can be accurately pinpointed to specific moments
+of time in the graph.
+Tests have shown that more complex collision avoidance
+methods such as the potential field method can be difficult
+to implement when using an autonomous navigation system.
+This is why research into such methods mostly relies on a 0.20
+m]
+g
+i
+a
+n
+t
+l
+t
+o
+r
+r
+b
+a
+e
+c
+a
+l
+t
+l
+a
+i
+t
+n
+o
+i
+a
+o
+n
+v
+n
+.
+i
+A
+g
+to
+a
+u
+t
+t
+i
+o
+t
+o
+h
+n
+n
+e
+o
+s
+m
+e
+y
+n
+s
+o
+d
+t
+u
+e
+p
+s
+m
+o
+n
+in
+t
+a
+h
+t
+v
+,
+a
+i
+t
+g
+w
+a
+a
+h
+c
+ti
+c
+i
+o
+c
+u
+n
+h
+ra
+s
+i
+t
+y
+s
+e
+s
+l
+t
+y
+a
+e
+l
+m
+s
+lo
+o
+s
+ca
+k
+s
+t
+n
+u
+e
+o
+c
+s
+w
+h
+th
+n
+a
+e
+s
+a
+q
+t
+s
+h
+u
+e
+a
+p
+d
+o
+o
+c
+i
+p
+o
+n
+t
+p
+t
+ic
+t
+o
+e
+a
+f
+r
+l 0
+0
+.
+.
+1
+1
+0
+5
+stateEsti
+mate.z, [
+system that comes with Flow deck V2 tend to drift over time. 0.05
+Thiscompromisescoordinateaccuracyinlong-distanceflight.
+0.0
+T po h t u e s n , ti f a o l r in a c u o to m n b o i m ni o n u g s si q m ua p d le co ru p l t e e - r ba c s o e n d tr a o l l g , o w ri e thm se s e w a ith gr m ea o te re r state 0 Es .2 tim 0 a . t 4 e.x 0 , . [ 6 m] 0.8 1.0 −0.5 −0.4 st − at 0 e . E 3 stim − a 0 t . e 2 .y, [ − m 0 ] .1 0.0
+complexsolutionssuchasthepotentialfieldmethod.Forbetter
+autonomousnavigation,quadcoptersshouldalsobecapableto
+refining their coordinate estimates in long-distance flight. Fig.5. Quadcopter’sin-flightcoordinateestimatesin3D
+range.front
+range.left
+4000 range.zrange
+3000
+2000
+1000
+0
+0 5000 10000 15000 20000
+timestamp
+Fig.6. Multirangerdeck-measureddistancestosurroundingobjects
+Fig.3. Quadcopterflightwithcollisionavoidance[5] C. Berger, P. Rudol, M. Wzorek, and A. Kleiner, “Evaluation of
+reactiveobstacleavoidancealgorithmsforaquadcopter,”in201614th
+InternationalConferenceonControl,Automation,RoboticsandVision
+(ICARCV),2016,pp.1–6.
+[6] C.-W.Chen,P.-H.Hsieh,andW.-H.Lai,“Applicationofdecisiontree
+on collision avoidance system design and verification for quadcopter,”
+200 m] Int. Arch. Photogramm. Remote Sens. Spat. Inf. Sci., vol. XLII-2/W6,
+m
+1
+1
+0
+5
+0
+0 range.zrange, [
+[7]
+n
+“
+V
+A
+A
+o
+e
+.
+.
+h
+lg
+V
+i
+2
+c
+o
+.
+W
+l
+r
+e
+P
+it
+6
+a
+h
+w
+,
+r
+m
+fi
+i
+p
+t
+r
+h
+p
+y
+f
+.
+t
+e
+o
+h
+7
+v
+r
+e
+1
+,
+–
+P
+C
+I
+7
+.
+o
+o
+5
+N
+s
+n
+,
+s
+t
+.
+i
+A
+r
+b
+o
+I
+i
+u
+l
+s
+l
+l
+g
+i
+c
+i
+t
+h
+n
+.
+y
+u
+g
+2
+o
+k
+0
+f
+,
+t
+1
+h
+F
+7
+A
+e
+l
+.
+y
+.
+i
+T
+V
+n
+r
+g
+.
+aj
+D
+A
+ec
+u
+r
+t
+o
+s
+o
+h
+u
+r
+k
+n
+y
+i
+d
+n
+o
+,
+O
+f
+a
+b
+n
+s
+a
+d
+t
+n
+ac
+S
+l
+U
+e
+.
+s
+n
+D
+,”
+m
+.
+i
+a
+n
+S
+n
+m
+n
+2
+e
+0
+o
+d
+2
+ly
+0
+a
+A
+I
+k
+E
+e
+o
+r
+E
+v
+ia
+a
+E
+l
+,
+50
+ConferenceofRussianYoungResearchersinElectricalandElectronic
+Engineering(EIConRus),2020,pp.2395–2400.
+3500 [8] A. U. Haque and A. Nejadpak, “Obstacle Avoidance Using Stereo
+3000
+5001000 r 1 a 5 n 0 g 0 e 2 .f 0 ro 0 n 0 t, 2 [ 5 m 0 m 0 ] 3000 3500 4000 500 1000 15 r 0 an 0 2 g 0 e 0 .le 0 2 ft 5 , [ 0 m 0 m] [9] C t 2 R o 0 a . r 1 m L u 7 . n er G - m a 2 a , a ” l 0 n v 1 n M e 7 e z a d I y e E a t e 2 E a r 0 l E i . 1 a , l 7 R “ v . O e e g b h i s i o c ta n le c 1 l u e 0 s a i C n v g o o i n a d f r a e t n i r fi e c c n e i c a a e l l , g p o 2 o r 0 t i e 1 th n 7 m t , ia p l f p o fi . r e 2 s ld 3 w s 0 a , 7 ” r – m i 2 n 3 o T 1 f E 2 q N . u C ad O ro N -
+4500
+[10] “Bitcraze Official Website.” [Online]. Available:
+https://www.bitcraze.io/.
+Fig.7. Multirangerdeck-measureddistancestosurroundingobjectsin3D
+stabilizer.roll
+6 stabilizer.pitch
+stabilizer.yaw
+4
+2
+0
+−2
+0 5000 10000 15000 20000
+timestamp
+Fig.8. Quadcopter’sin-flightEulerangleestimates
+IV. CONCLUSIONS
+The paper demonstrates a successfully tested simple colli-
+sionavoidancealgorithmforanautonomousnanoquadcopter.
+Flight tests were conducted, and the results showed that
+the quadcopter accomplished the intended mission without
+collisions. Further research could focus on more complex
+obstacle avoidance algorithms, such as the artificial potential
+field method.
+REFERENCES
+[1] V. M. Respall, D. Devitt, R. Fedorenko, and A. Klimchik, “Fast
+Sampling-based Next-Best-View Exploration Algorithm for a MAV,”
+Proc.-IEEEInt.Conf.Robot.Autom.,vol.2021–May,pp.89–95,2021.
+[2] R.V.Meshcheryakovetal.,“Anapplicationofswarmofquadcoptersfor
+searchingoperations,”IFAC-PapersOnLine,vol.52,no.25,pp.14–18,
+Jan.2019.
+[3] V. Izhboldina and I. Lebedev, “Group movement of UAVs in environ-
+mentwithdynamicobstacles:asurvey,”Int.J.Intell.UnmannedSyst.,
+Mar.2022.
+[4] V.D.Berdonosov,A.A.Zivotova,D.O.Zhuravlev,andZ.H.Naing,
+“ImplementationoftheSpeedApproachforUAVCollisionAvoidance
+in Dynamic Environment,” in 2018 International Multi-Conference on
+Industrial Engineering and Modern Technologies (FarEastCon), 2018,
+pp.1–6.

@@ -1,0 +1,16 @@
+{
+ "title": "Общее руководство InnoChain",
+ "url": "https://innopolis.university/filespublic/%D0%9E%D0%B1%D1%89%D0%B5%D0%B5_%D1%80%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_InnoChain.pdf",
+ "sha256": "0c3e96d9ec76b646517ff34eccb0a3d454c8684bb14e79ec5d320361cf259f47",
+ "method": "text layer (pdfplumber)",
+ "chars": 13639,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:42:12+00:00",
+ "remote": {
+  "etag": "\"328c58-6348748c05bff\"",
+  "modified": "Wed, 07 May 2025 08:11:46 GMT",
+  "size": "3312728"
+ }
+}

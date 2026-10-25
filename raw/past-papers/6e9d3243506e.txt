@@ -1,0 +1,165 @@
+Innopolis University
+Academic Year 2024/2025
+The Pre-Final Exam of Computer Networks
+The 24th of April 2025
+Duration: 60 minutes
+
+Student Full Name:
+Student Telegram:
+Exam Room:
+
+Question
+Question 1
+Question 2
+Question 3
+Question 4
+Question 5
+Question 6
+Question 7
+Question 8
+Total (max: 14 points)
+
+For Instructors Use: Grade Summary
+Grade
+
+Please write very clearly your name and answers. What will not be understood will be
+considered wrong.
+You need to perform this exam alone and without the use of any equipment or book, apart from
+this booklet and pens. Please do not consult any person or use any equipment, otherwise you
+will be disqualified from this exam at the very first attempt.
+Student’s signature:
+
+Student Full Name:
+
+Question 1. (1 point) What is the key difference between IPv4 and IPv6 protocols?
+Brief answer: The bitsize of IPv4 and IPv6 addresses are different: IPv4 is 32 bits, and IPv6 is 128 bits long.
+Grading criteria: 1/0, in rare cases of minor uncertainties in the answer formulation – (-0.5) penalty.
+Question 2. (1 point) Let four user agents, denoted by A1-A4, exchange (an) email(s), according to a
+scenario schematically depicted below (for each link, a used protocol is specified). What agent(s) can be
+(an) email sender(s)?
+Answer:
+a) A1
+b) A2 (correct)
+c) A3 (correct)
+d) A4
+Grading criteria:
+(+0.5) – for every correct option;
+(-0.5) – for every incorrect option,
+But not less than 0.
+Question 3. (1 point) In the table below, every row is to contain a network protocol name and a
+corresponding TCP/IP reference model layer name. Fill-in the empty cells in each table row.
+Answer:
+Grading criteria:
+(+0.2) – for every correct row
+
+Computer Networks: Pre-Final Exam 2025
+
+2
+
+Student Full Name:
+Question 4. (1 point) Consider the following string of ASCII characters that were captured by
+
+Wireshark when the browser sent an HTTP GET message (i.e., this is the actual content of an
+HTTP GET message). The characters <cr><lf> are carriage return and line-feed characters (i.e., the
+placeholder <cr> in the text below represents a single carriage-return character that was present
+at that location in the HTTP request). Did the browser request a non-persistent or a persistent
+connection? Explain your choice.
+GET /cs453/index.html HTTP/1.1<cr><lf>Host:
+gaia.cs.umass.edu<cr><lf>User-Agent: Mozilla/5.0 (Windows;U; Windows NT
+5.1; en-US; rv:1.7.2) Gecko/20040804 Netscape/7.2 (ax)
+<cr><lf>Accept:ext/xml, application/xml, application/xhtml+xml,
+text/html;q=0.9, text/plain;q=0.8,image/png,*/*;q=0.5
+<cr><lf>Accept-Language: en-us,en;q=0.5<cr><lf>Accept-Encoding:zip,
+deflate<cr><lf>Accept-Charset: ISO-88591,utf8;q=0.7,*;q=0.7<cr><lf>Keep-Alive: 300<cr><lf>Connection:keepalive<cr><lf><cr><lf>
+Answer (underline):
+
+non-persistent / persistent (correct)
+
+Explanation: “Connection:keep-alive” indicates the “persistent” connection type.
+Grading criteria: If both the correct answer and explanation are provided, then (+1), otherwise 0.
+Question 5. (2 points) What is the key purpose of the Network Address Translation (NAT) mechanism, and
+what does the term “translation” actually mean? For a diagram below, which illustrates the key steps of
+the NAT translation, fill-in the “Source” (S) and “Destination” (D) addresses for the packets at steps 2,3,
+and 4.
+Answer for Key NAT purpose:
+The NAT mechanism allows to use a single public IP address for identifying a private network hidden
+behind a NAT-enabled router.
+The meaning of “translation”: private IP addresses are translated into public IP address(-es) through using
+a NAT translation table typically managed by a NAT-enabled gateway router.
+
+Diagram to be filled-in with “Source” (S) and “Destination” (D) addresses for packets 2, 3, and 4:
+
+Grading criteria:
+(+1) – for correct key NAT purpose;
+(+0.5) – for correct “translation” explanation;
+(+0.5) – for all correctly filled packets, otherwise (+0.15) for every correctly filled packet.
+
+Computer Networks: Pre-Final Exam 2025
+
+3
+
+Student Full Name:
+Question 6. (2 points) For the TCP/IP Data Link layer, all protocols are divided into two major categories
+listed in the table below. Briefly describe a specific characteristic of each protocol group.
+Data-Link Protocol
+Group
+
+Key Characteristic
+
+Channel
+Partitioning
+
+Share communication medium based on periodic time
+slots, frequency, codes, or similar. Typically, do not
+employ randomly generally delays and token passing
+approaches.
+
+Random Access
+
+Use randomly generated delays, to resolve collisions
+
+Protocol Examples
+(2 per each group)
+
+TDM, FDM, CDMA, …
+
+CSMA, CSMA/CD,
+ALOHA, …
+
+Grading criteria:
+(+0.5) – for a correctly described Key Characteristic for every protocol group;
+(+0.25) – for every correct protocol example, but not more than 0.5 for every protocol group.
+Question 7. (3 points) Consider the diagram below, which illustrates the key steps of the CDMA protocol
+work. In this scenario we have two Senders, which simultaneously send data. The data of both Senders,
+the Sender’s 1 CDMA code, as well as the resulted interfered signal are known and specified on the
+diagram. Answer the following questions and provide the final results in -1/1 CDMA notation:
+Q1: What is the CDMA code of Sender 2, in -1/1 notation?
+Q2: What is the data received and decoded from Sender 1, in -1/1 notation? Provide clear detailed
+computations together with explanations.
+Answer:
+
+Grading criteria:
+(+1) - for the correct Q1, Q2a, and Q2b sub-question answers each;
+(-0.5) – in case of minor uncertainties, in very rare cases.
+
+Computer Networks: Pre-Final Exam 2025
+
+4
+
+Student Full Name:
+Question 8. (3 points) Below is the template of a Finite-State Machine for the TCP Congestion Control
+mechanism. On this diagram, fill-in the missing names of two states, as well as briefly characterize the
+purpose/function of each state near an associated state symbol. Note that a formal detailed description
+with exact TCP variable/field names, as well as equations formulations, etc., are not needed.
+Answer:
+
+Grading criteria:
+(+0.5) – for every correctly labeled state out of two;
+(+1) – for a correct characteristic of the “Fast Recovery” state;
+(+0.5) – for the correct characteristic of “Slow Start” and “Congestion Avoidance” per each.
+
+Computer Networks: Pre-Final Exam 2025
+
+5
+
+

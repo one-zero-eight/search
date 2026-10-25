@@ -1,0 +1,183 @@
+The first grading midterm (written & oral) on Mathematical Analysis
+(Innopolis University, Fall semester 2024, BS24)
+
+Description
+Overall cost of the assignment is 30 points. This assignment is designed to evaluate how do we
+understand each other during study on weeks 7-12 the following topics:
+• limits and continuity of real functions,
+• derivative and differentiation (including applications),
+• basic properties of differentiation,
+• analysis of function’ graphs,
+and how we are ready to continue our studies of (of theory of integration).
+The Assignments consist of the following.
+1. Build a table of size 12x2 where for each of 12 exercises from the list below and indicate in
+the table your belief
+a. whether you don’t understand the exercise’ task/question (by putting 0),
+b. or understand the task/question but not sure how to solve/answer it (by putting 1),
+c. or you believe that you understand and can solve/answer the task/question (by
+putting 2).
+2. Provide solutions/answers for 3 (not more than three) exercises (preferably from different
+sub-topics) that you think that you understand and can solve as proof/evidence/justification
+for your belief (in the filled-in table).
+a. the first of provided solution/answer should be for any of exercises 1-6,
+b. the second one – for any of exercises 7-11,
+c. the last one is obligatory – for the exercise 12.
+
+Submission and grading rules
+Please write your table and solutions on a paper in a readable way, make photos/scan, and
+upload as a single pdf-document to Moodle by midnight from Sunday November 17 to Monday
+November 18, 2024. File-name convention: submitted file should be named by student first name
+and surname (for example NikolayShilov.pdf).
+The main grading criterions
+•
+•
+•
+•
+•
+•
+
+human readable but concise written solutions (and its pdf-version)
+well-structuredness of the written solutions (up to 6 points for each solution)
+instructor may ask about oral presentation of any of 3 tasks that student believes knowing
+how to solve (according to student’s table to validate the table and student’s self-assessment)
+correct and complete oral presentation (up to 8 points for each correct solution)
+table itself costs 1 point (assuming it reflect student’s actual knowledge) while originality of
+presented solutions may be awarded by 1 point too
+non-crucial computational errors will be treated as tiny mistake (at most 1-point deduction
+for overall)
+
+Timeline and late submission policy
+•
+
+Publication of the Assignment document: Monday November 11, 2024.
+
+•
+•
+•
+•
+
+Consultation on topics covered in the assignment and the technical issues related to the
+assignment: Saturday November 16, 2024, from 9:00 to 11:00 in lecture theater 106.
+Due time for uploading of papers: the midnight from Sunday November 17 to Monday
+November 18, 2024.
+Individual oral polls for all students: on the week November 18-23, 2024, during classes
+Monday November 18 and on Saturday November 23 (to be advertised on Moodle with
+reservations via schedulers).
+Students who will not upload (without a legal excuse) their papers by the due date may do it
+till Friday November 22, 2024, and then have oral poll by appointment, but with 30%
+deduction from the grade for this assignment.
+
+Exercises (questions/tasks)
+In the following tasks and exercises natural number 𝑀 (to be referred as your individual 𝑀) stays
+for a parameter which value is 𝑑𝑎𝑦 + 𝑚𝑜𝑛𝑡ℎ where 𝑑𝑎𝑦 and 𝑚𝑜𝑛𝑡ℎ are the day and month of
+your personal birthdate. (For example, 𝑀 = 28 if the day and the month are April 24.)
+Important notice: firstly, instantiate your actual value of these parameters into your task and
+just then solve this concrete instance (not a parameterized version)! For example, if a
+parameterized task is to solve linear equation 𝑀𝑥 = 100 then you need firstly instantiate actual
+value of 𝑀 (let it be 28 as above), then write the instance of the task (“Solve equation 28𝑥 =
+100”), and finally – solve the instance.
+1. Examine and indicate whether the following functions have finite limits at points
+{0, −1, 𝑀, −∞}, prove (using definition of the limit) your findings for one of the following 3
+items: (a) 𝜆𝑥 ∈ 𝑹. 𝑀𝑥 and 𝜆𝑥 ∈ 𝑹. 𝑥 𝑀 , (b) 𝜆𝑥 ∈ 𝑹. √𝑀𝑥 and 𝜆𝑥 ∈ 𝑹. (1⁄𝑀𝑥), (c) 𝜆𝑥 ∈
+𝑹. sin(𝑀𝑥) and 𝜆𝑥 ∈ 𝑹. cos(𝑥⁄𝑀).
+2. Find the following limits:
+(a) lim
+
+𝑥→𝑀
+
+𝑥 2 −𝑀𝑥+2
+
+, (b) lim
+𝑥 2 −𝑀
+
+𝑥→𝑀
+
+𝑥 2 −(𝑀+1)𝑥+𝑀
+𝑥 2 −𝑀2
+
+, (c) lim
+
+𝑥 2 −𝑀𝑥+2
+
+𝑥→∞ 𝑀𝑥 2 −1
+
+𝑀
+
+, (d) lim (1 + 𝑀𝑥) ⁄𝑥
+𝑥→0
+
+3. Find the following limits:
+(a) lim
+
+𝑥→∞
+
+𝑀 sin(𝑀𝑥)
+
+𝑀 sin(𝑀𝑥)
+
+𝑥
+
+𝑥
+
+, (b) lim
+
+𝑥→0
+
+, (c) lim
+
+𝑥→0
+
+1−cos(𝑀𝑥)
+𝑀𝑥 2
+
+, (d) lim
+
+𝑥→𝑀
+
+sin 𝑥−sin 𝑀
+𝑥−𝑀
+
+4. Find (if any) lim (𝑀𝑥 − √𝑥 2 − 𝑀) and explain geometric interpretation of your finding.
+𝑥→∞
+
+5. Study continuity (including points of discontinuities) of functions 𝜆𝑥 ∈ 𝑹. 𝑦(𝑥) where
+expression 𝑦(𝑥) is defined as follows:
+𝑥3
+(a)𝑦 = |𝑀𝑥|, (b) 𝑦 = √𝑀𝑥, (c) 𝑦 = (𝑥+𝑀+1)(𝑥+𝑀+2)(𝑥+𝑀+3), (d) 𝑦 = 𝑥⁄sin(𝑀𝑥).
+6. Study behavior of both roots of quadratic form 𝑎𝑥 2 + 𝑀𝑥 − 𝑀 with real coefficient 𝑎 → 0.
+7. The first example (in the lecture notes) about the origins and applications of the derivatives
+is about tangent line. It uses infinitesimal values (numbers). Are the infinitesimal values valid
+“citizens (with full rights)” or contradictory/illegal objects in our course “Mathematical
+Analysis”? (Explain/prove your answer!) How tangent line should be defined without using
+infinitesimals?
+
+′
+
+8. Prove (using the definition of the derivative) that (𝑥 𝑀 )′ = 𝑀𝑥 𝑀−1 and (1⁄𝑥 𝑀 ) =
+− 𝑀⁄ (𝑀+1) .
+𝑥
+9. Knowing that tan 𝑥 = sin 𝑥⁄cos 𝑥 and cot 𝑥 = cos 𝑥⁄sin 𝑥 (of course, when these
+expressions make sense), study (using any theory from lecture notes) when (tan(𝑀𝑥))′ =
+𝑀⁄
+𝑀⁄ ) )′ = 𝑀
+and
+(cot(
+2.
+2
+𝑥
+⁄
+(cos(𝑀𝑥))
+(𝑥 sin(𝑀⁄𝑥))
+10. Using any theory (from lecture notes) prove that (𝑀 𝑥 )′ = 𝑀 𝑥 ln 𝑀 for and that (log 𝑀 𝑥)′ =
+1⁄
+(𝑥 ln 𝑀).
+𝑥2
+
+11. Write equation for the tangent and normal lines to the curve 𝑀 + (−1)𝑀 𝑦 2 = 1 at point
+(𝑥1 , 𝑦1 ). – Your solutions should be self-explanatory and proof-carrying!
+1 3
+12. Analyze graph of a function 𝜆𝑥 ∈ 𝑹. (𝑀√𝑥 + 𝑀 √𝑥 2 − 1⁄𝑀 ) and sketch it on [−3, +3]
+√𝑥
+(using pen and paper).
+
+

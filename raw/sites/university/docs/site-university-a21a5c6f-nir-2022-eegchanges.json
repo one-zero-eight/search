@@ -1,0 +1,16 @@
+{
+ "title": "Read the article [NIR_2022_eeg-changes]",
+ "url": "https://innopolis.university/filespublic/NIR_2022_eeg-changes.pdf",
+ "sha256": "0a2556941fb235af36d321864a8ea59d56d40bbb30219f9d305d85d04a876e98",
+ "method": "text layer (pdfplumber)",
+ "chars": 13975,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:44:54+00:00",
+ "remote": {
+  "etag": "\"8c8da-5f25c57e48ba1\"",
+  "modified": "Mon, 16 Jan 2023 07:15:09 GMT",
+  "size": "575706"
+ }
+}

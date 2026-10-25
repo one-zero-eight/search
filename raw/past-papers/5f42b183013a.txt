@@ -1,0 +1,101 @@
+[2020] Physics I. Mechanics
+
+Quiz 4 – Center of Mass. Momentum. Impulse
+
+Unless specified otherwise, assume g = 9.81 m/s2. All problems are worth 25 points.
+
+Section 1 - Center of Mass
+Problem 1
+A rod whose length is 10 meters has the density given by 𝜌(𝑥) = (𝑥 + 1) kg/m3 at location 𝑥
+on the rod. Find the center of mass of the rod. Recall that
+𝑏
+
+𝑥COM =
+
+∫𝑎 𝑥 ∙ 𝜌(𝑥)𝑑𝑥
+𝑏
+
+∫𝑎 𝜌(𝑥) 𝑑𝑥
+
+Problem 2
+A heavy metal ball of mass m2 = 5 kg and radius 8 cm is attached to a uniform rod of length
+l= 80 cm and mass m1 = 1.5 kg, as shown below. The system is balanced on top of a pointy
+pyramid. Find the distance x.
+
+Problem 3
+An object of unknown mass m2 is suspended on a massless bar at distance l/4 from its center
+(see the figure below). The bar itself is balanced on the rope attached to it at the middle. The
+other two objects have masses m1 = 3.5 kg and m3 = 5 kg and are suspended at the opposite
+ends of the bar. Find mass m2.
+
+[2020] Physics I. Mechanics
+
+Section 2 – Motion of CoM
+Problem 4
+Two projectiles are flying such projectile A is always above projectile B. Their masses are
+mA= 10 kg and mB = 6 kg, respectively, while the initial velocities are 𝑣𝐴 = 20 m/s and 𝑣
+⃗⃗⃗⃗𝐵 =
+10𝑖̂ m/s, respectively. What is the maximum height ymax that the center of mass of this twoprojectile system will reach? Assume zero air drag.
+
+Problem 5
+A person of mass mp = 80 kg is sitting on a seat of a stationary boat in front of his dog of
+mass md. The boat has a symmetric shape and the mass of mb = 30 kg, and the seats are
+located symmetrically with respect to the boat’s center of mass at distance of d = 3 m from
+each other. The person and the dog switch seats, and the boat moves by 0.4 m with respect to
+its initial position. Knowing that the dog is lighter than the person, find the dog’s mass md.
+Assume zero drag.
+
+Problem 6
+A cat of mass mc = 3 kg starts walking from one end of an initially stationary raft of mass M=
+12 kg to the other, walking a total of d = 2.4 m along the raft, as shown below. What will be
+the cat’s total displacement x? Assume zero drag and friction.
+
+[2020] Physics I. Mechanics
+
+Section 3 – Collision and Impulse
+Problem 7
+In a famous circus trick, one athlete equipped with a heavy hammer
+of mass m1 strikes an anvil of mass m2 that is placed on the chest of
+another athlete, as shown on the right. The anvil is 50 times heavier
+than the hammer. Assuming that the collision is completely elastic,
+find the final velocities of hammer v1f and anvil v2f, given that the
+hammer was initially moving with the speed v1i and the anvil was
+stationary.
+
+Problem 8
+A cable of a stationary elevator snaps which sends the cabin with a passenger of mass m = 90
+kg falling down from the height of x = 36 m. The collision is over in 5 milliseconds. What
+are the impulse and average force on the passenger during the collision?
+
+Problem 9
+An ice hockey player hits a puck of mass m = 250 g with the average force of F = 400 N
+during the time interval of 40 milliseconds. Assuming that before the hit the puck was
+coming toward the player with the speed of v1 = 10 m/s, what will be the puck’s speed v2
+after the hit?
+
+[2020] Physics I. Mechanics
+
+Section 4 – Conservation of Linear Momentum
+
+Problem 10
+A mini-wrecking ball of mass m1 = 0.5 kg is released from a horizontal position and swings
+on a string into a stationary brick of mass m2 = 2.5 kg, performing a purely elastic collision,
+as shown below. What angle 𝜃 will the ball swing back to after the collision? The length of
+the string is l=70 cm. Assume zero losses.
+
+Problem 11
+An object of mass m1 = 300 gram slides to the right with the speed of v1i = 2 m/s on a
+frictionless surface and collides with another object of mass m2 = 400 gram (figure below,
+left). The collision is purely elastic and happens at x = 0. The second object then slides for a
+= 70 cm before hitting the wall, bouncing back with no loss of speed (figure on the right).
+Find position on the x axis d where the second object will catch up with the first object.
+
+Problem 12
+In an experiment aimed at investigation of the law of conservation, a puck of mass m1 is
+placed stationary on a frictionless ramp at an initial height of 2.5 m, as shown below. Once
+released, it slides down and collides with a stationary puck of mass m2 = 2m1. Immediately
+after the collision, the second puck start moving along the surface with the coefficient of
+kinetic friction μk = 0.5 and comes to a stop at distance d. Find the distance d, assuming the
+collision to be fully elastic.
+
+

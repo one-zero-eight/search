@@ -1,0 +1,16 @@
+{
+ "title": "Образовательная программа высшего образования – программа магистратуры 09.04.01 Информатика и вычислительная техника, направленность (профиль) Инженерия безопасности систем и сетей",
+ "url": "https://innopolis.university/upload/iblock/a49/y56x9pkylvu05663pnxgbg3jw9ix0uve/3_%D0%A0%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82%D1%8B_%D0%B0%D0%BD%D0%BA%D0%B5%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F_%D0%9F%D0%9F%D0%A1_09.04.01_%D0%98%D0%91%D0%A1%D0%B8%D0%A1.pdf",
+ "sha256": "9efa193a7326e9cf874e1fc2f158ea5de18a138c4a614e8838d727aee9757f73",
+ "method": "text layer (pdfplumber)",
+ "chars": 4015,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-25T00:01:12+00:00",
+ "remote": {
+  "etag": "\"69721df9-404ee\"",
+  "modified": "Thu, 22 Jan 2026 12:54:17 GMT",
+  "size": "263406"
+ }
+}

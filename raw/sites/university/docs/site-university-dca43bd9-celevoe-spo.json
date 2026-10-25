@@ -1,0 +1,16 @@
+{
+ "title": "Целевое обучение СПО",
+ "url": "https://innopolis.university/filespublic/celevoe_spo.pdf",
+ "sha256": "3bd12391530ceb2b9aa8155c126ebb1efd7685dd32464de712782e580cb29d5e",
+ "method": "text layer (pdfplumber)",
+ "chars": 3779,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:46:22+00:00",
+ "remote": {
+  "etag": "\"97fce4-63385b5a909a0\"",
+  "modified": "Thu, 24 Apr 2025 12:53:51 GMT",
+  "size": "9960676"
+ }
+}

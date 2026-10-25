@@ -1,0 +1,16 @@
+{
+ "title": "Вступительное испытание по программе магистратуры \"Управление разработкой компьютерных игр\" 28.08.2024",
+ "url": "https://innopolis.university/upload/iblock/f8b/jpuvhru6f4ly6muvrclqv5cg17ez6x32/computer_game_development_management_28_08_2024.pdf",
+ "sha256": "9938e68395b165beb1337fceb408a633cd2243caa01868235618f5e0db9892b0",
+ "method": "text layer (pdfplumber)",
+ "chars": 1184,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-25T00:03:00+00:00",
+ "remote": {
+  "etag": "\"66f3cd6c-ad14\"",
+  "modified": "Wed, 25 Sep 2024 08:44:28 GMT",
+  "size": "44308"
+ }
+}

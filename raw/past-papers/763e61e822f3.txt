@@ -1,0 +1,598 @@
+11/27/21, 9:04 PM
+
+Pre-Final: Attempt review
+
+Dashboard / My courses / [F20]FoCA / Week 14 - 03 December 2020 / Pre-Final
+
+Started on Thursday, 3 December 2020, 12:41 PM
+State
+
+Finished
+
+Completed on Thursday, 3 December 2020, 1:31 PM
+Time taken 49 mins 29 secs
+Grade 76.50 out of 100.00
+Question 1
+Correct
+Mark 3.00 out of 3.00
+
+Please select the “True” if the following statement is true otherwise “False.”
+Loader is a system program, that combines independently assembled machine language programs and resolves all undefined
+labels into an executable file.
+
+Select one:
+True
+False 
+
+The correct answer is 'False'.
+
+Question 2
+Correct
+Mark 3.00 out of 3.00
+
+Which parallel programming model(s) exist(s)?
+Select one or more:
+a. Single Instruction, Multiple Threads
+
+
+
+b. Single Instruction, Multiple Data
+
+
+
+c. Simultaneous Multithreading
+
+
+
+d. None of the above
+
+Your answer is correct.
+The correct answers are: Single Instruction, Multiple Threads, Single Instruction, Multiple Data, Simultaneous Multithreading
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=51092&cmid=45937
+
+1/13
+
+11/27/21, 9:04 PM
+
+Pre-Final: Attempt review
+
+Question 3
+Partially correct
+Mark 2.00 out of 3.00
+
+Which of those statements about RISC is/are FALSE?
+Select one or more:
+a. Pipelining is easy
+b. It has many specialized instructions, some of which may only be rarely used in practical programs
+c. It simplifies the processor by efficiently implementing only the instructions that are frequently used in programs, while the
+less common operations are implemented as subroutines
+d. Complexity lies in microprogram
+
+
+
+e. Emphasis on hardware
+
+
+
+Your answer is partially correct.
+You have correctly selected 2.
+The correct answers are: Complexity lies in microprogram, It has many specialized instructions, some of which may only be rarely
+used in practical programs, Emphasis on hardware
+
+Question 4
+Incorrect
+Mark 0.00 out of 3.00
+
+Select types of hazards in a pipelined processor
+Select one or more:
+a. Control hazards
+
+
+
+b. Structural hazards
+
+
+
+c. Pipeline hazards
+
+
+
+d. Data hazards
+
+
+
+Your answer is incorrect.
+The correct answers are: Structural hazards, Data hazards, Control hazards
+
+Question 5
+Incorrect
+Mark 0.00 out of 3.00
+
+Please select the “True” if the following statement is true otherwise “False.”
+An edge-triggered clocking methodology means that any values stored in a combinational logic element are updated only on
+a clock edge, which is a quick transition from low to high or vice-versa.
+Select one:
+True 
+False
+
+The correct answer is 'False'.
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=51092&cmid=45937
+
+2/13
+
+11/27/21, 9:04 PM
+
+Pre-Final: Attempt review
+
+Question 6
+Correct
+Mark 3.00 out of 3.00
+
+Please select the “True” if the following statement is true otherwise “False.”
+Caching can be considered as an example of one of the great ideas of prediction.
+
+Select one:
+True 
+False
+
+The correct answer is 'True'.
+
+Question 7
+Incorrect
+Mark 0.00 out of 3.00
+
+What about the following statement: is it correct for a load instruction?
+MemtoReg should be set to cause the correct register destination to be sent to the register file.
+Refer to the following diagram:
+
+Select one:
+True 
+False
+
+The correct answer is 'False'.
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=51092&cmid=45937
+
+3/13
+
+11/27/21, 9:04 PM
+
+Pre-Final: Attempt review
+
+Question 8
+Incorrect
+Mark 0.00 out of 3.00
+
+Please select the “True” if the following statement is true otherwise “False.”
+In most computer systems, the memory is a true hierarchy, meaning that data cannot be present in level i unless it is also present
+in level i + 1.
+
+Select one:
+True
+False 
+
+The correct answer is 'True'.
+
+Question 9
+Correct
+Mark 3.00 out of 3.00
+
+Please select the “True” if the following statement is true otherwise “False.”
+In memory hierarchy structure the distance from the processor increases, the size of the memories and the access time both
+increase.
+
+Select one:
+True 
+False
+
+The correct answer is 'True'.
+
+Question 10
+Correct
+Mark 3.00 out of 3.00
+
+Select the arithmetic-logical instructions in MIPS:
+Select one:
+a. beq, j
+b. add, sub, AND, OR, and slt
+
+
+
+c. lw, sw
+
+Your answer is correct.
+The correct answer is: add, sub, AND, OR, and slt
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=51092&cmid=45937
+
+4/13
+
+11/27/21, 9:04 PM
+
+Pre-Final: Attempt review
+
+Question 11
+Correct
+Mark 3.00 out of 3.00
+
+Please select the “True” if the following statement is true otherwise “False.”
+The term cache is also used to refer any storage managed to take advantage of locality of access.
+
+Select one:
+True 
+False
+
+The correct answer is 'True'.
+
+Question 12
+Incorrect
+Mark 0.00 out of 3.00
+
+Which of those statement(s) about decoders is/are FALSE?
+Select one or more:
+a. Decoder has an n-bit input and 2*n outputs
+b. Decoder is a logic block
+
+
+
+c. All of the above
+
+Your answer is incorrect.
+The correct answer is: Decoder has an n-bit input and 2*n outputs
+
+Question 13
+Correct
+Mark 3.00 out of 3.00
+
+Which instruction field(s) is/are contained in MIPS I-format Instructions?
+Select one or more:
+a. Function code (funct)
+b. Destination register number (rd)
+c. Target register number (rt)
+
+
+
+d. Operation code (op)
+
+
+
+e. Source register number (rs)
+
+
+
+f.
+
+
+
+Constant or address
+
+Your answer is correct.
+The correct answers are: Operation code (op), Source register number (rs), Target register number (rt), Constant or address
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=51092&cmid=45937
+
+5/13
+
+11/27/21, 9:04 PM
+
+Pre-Final: Attempt review
+
+Question 14
+Correct
+Mark 3.00 out of 3.00
+
+Which of those statement(s) about D-latch is/are FALSE?
+Select one or more:
+a. D-latch has 3 inputs
+
+
+
+b. If CLK is 0, Q holds its previous value
+c. D-latch can be built based on SR-latch
+d. D-latch is made of 2 SR Latches
+
+
+
+e. If CLK is 1, Q holds its previous value
+
+
+
+Your answer is correct.
+The correct answers are: D-latch is made of 2 SR Latches, D-latch has 3 inputs, If CLK is 1, Q holds its previous value
+
+Question 15
+Correct
+Mark 13.00 out of 13.00
+
+Translate the below statement into MIPS assembly language instruction. You can assume that counter is the label of an integer
+(one 32-bit word) stored in main memory.
+
+counter++;
+
+Select one:
+a.
+
+b.
+
+
+
+c.
+
+Your answer is correct.
+
+The correct answer is:
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=51092&cmid=45937
+
+6/13
+
+11/27/21, 9:04 PM
+
+Pre-Final: Attempt review
+
+Question 16
+Incorrect
+Mark 0.00 out of 3.00
+
+Please select the “True” if the following statement is true otherwise “False.”
+All unconditional jumps are considered as taken branches.
+Select one:
+True
+False 
+
+The correct answer is 'True'.
+
+Question 17
+Incorrect
+Mark 0.00 out of 3.00
+
+What about the following statement: is it correct for a load instruction?
+MemtoReg should be set to cause the data from memory to be sent to the register file.
+Refer to the following diagram:
+
+Select one:
+True
+False 
+
+The correct answer is 'True'.
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=51092&cmid=45937
+
+7/13
+
+11/27/21, 9:04 PM
+
+Pre-Final: Attempt review
+
+Question 18
+Correct
+Mark 3.00 out of 3.00
+
+Please select the “True” if the following statement is true otherwise “False.”
+Temporal locality principle states that if a data location is referenced then it will tend to be referenced again soon.
+
+Select one:
+True 
+False
+
+The correct answer is 'True'.
+
+Question 19
+Correct
+Mark 3.00 out of 3.00
+
+What is the difference between jump and branch instructions
+Select one or more:
+a. Branch instructions are all pseudo-instructions, but jump is not
+b. Jumps doesn’t have conditions
+
+
+
+c. Branch is an alias for jump
+d. Jump can make bigger $pc shifts
+
+
+
+Your answer is correct.
+The correct answers are: Jump can make bigger $pc shifts, Jumps doesn’t have conditions
+
+Question 20
+Correct
+Mark 3.00 out of 3.00
+
+Please select the “True” if the following statement is true otherwise “False.”
+A clocking methodology is designed to make hardware predictable.
+
+Select one:
+True 
+False
+
+The correct answer is 'True'.
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=51092&cmid=45937
+
+8/13
+
+11/27/21, 9:04 PM
+
+Pre-Final: Attempt review
+
+Question 21
+Correct
+Mark 3.00 out of 3.00
+
+What about the following statement: is it correct for a load instruction?
+We do not care about the setting of MemtoReg for loads.
+Refer to the following diagram:
+
+Select one:
+True
+False 
+
+The correct answer is 'False'.
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=51092&cmid=45937
+
+9/13
+
+11/27/21, 9:04 PM
+
+Pre-Final: Attempt review
+
+Question 22
+Correct
+Mark 12.00 out of 12.00
+
+Consider the following Verilog code:
+module circuit(a,b,c,f,g);
+input a,b,c;
+output f,g;
+wire x,p,q;
+assign x = a ^ b;
+assign p = c & x;
+assign q = a & b;
+assign f = c ^ x;
+assign g = p|q;
+end module
+Which one is the correct circuit for above code?
+Select one:
+a.
+
+
+
+b.
+
+Your answer is correct.
+
+The correct answer is:
+
+Question 23
+Correct
+Mark 3.00 out of 3.00
+
+A cache structure in which each memory location is mapped to exactly one location in the cache is known as:
+Select one:
+a. Direct-mapped cache
+
+
+
+b. Fully associative cache
+c. None of these
+
+Your answer is correct.
+The correct answer is: Direct-mapped cache
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=51092&cmid=45937
+
+10/13
+
+11/27/21, 9:04 PM
+
+Pre-Final: Attempt review
+
+Question 24
+Correct
+Mark 3.00 out of 3.00
+
+____ are building blocks of sequential circuits, they are edge-sensitive.
+Select one:
+a. Flip-flops
+
+
+
+b. Latches
+c. D-latches
+d. SR-latches
+
+Your answer is correct.
+The correct answer is: Flip-flops
+
+Question 25
+Correct
+Mark 3.00 out of 3.00
+
+Express the decimal integer –1 in four-bit two’s complement notation.
+Select one:
+a. 1111
+
+
+
+b. 0001
+c. 0101
+d. 1011
+
+Your answer is correct.
+The correct answer is: 1111
+
+Question 26
+Partially correct
+Mark 1.50 out of 3.00
+
+Below is a list of possible vulnerability attacks. Choose the one(s) that explore(s) vulnerabilities in a speculative execution of
+modern processors:
+Select one or more:
+a. Spectre
+
+
+
+b. Foreshadow
+
+
+
+c. Cold boot attack
+
+
+
+d. Meltdown
+
+Your answer is partially correct.
+You have selected too many options.
+The correct answers are: Spectre, Foreshadow
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=51092&cmid=45937
+
+11/13
+
+11/27/21, 9:04 PM
+
+Pre-Final: Attempt review
+
+Question 27
+Correct
+Mark 3.00 out of 3.00
+
+For MIPS instruction set architecture (ISA), each register is reserved for a specific purpose. which register is " To pass arguments to
+a system call ":
+Select one:
+a. $v0
+b. $s0-$s7
+c. $t0-$t7
+d. $a0-$a3
+
+
+
+Your answer is correct.
+The correct answer is: $a0-$a3
+
+◄ Lab 13
+Jump to...
+Lecture ►
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=51092&cmid=45937
+
+12/13
+
+11/27/21, 9:04 PM
+
+Pre-Final: Attempt review
+
+Data retention summary
+Get the mobile app
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=51092&cmid=45937
+
+13/13
+
+

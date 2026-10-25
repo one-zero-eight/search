@@ -1,0 +1,231 @@
+Problem 1 (4 points)
+Let (ξ1 , ξ2 ) be a discrete random vector with joint distribution given by the table below:
+ξ1 \ξ2 0 1
+1
+2
+[
+(0)
+0
+8
+8
+2
+3
+1
+8
+8
+(a) Find P (ξ2 = 1)
+
+(1 pt)
+
+(b) Find E[ξ1 ]
+
+(1 pt)
+
+(c) Find E[ξ2 | ξ1 = 1]
+
+(1 pt)
+
+(d) Find Cov(ξ1 , ξ2 )
+
+(1 pt)
+
+Problem 2 (4 points)
+Let X ∼ Unif(1, c).
+(a) Write down the probability density function of X
+
+(1 pt)
+
+(b) Find the probability density function of X 2
+
+(1 pt)
+
+(c) Given that E[X] = 3, find the value of c
+R5
+(d) Compute 41 1 x2 dx
+
+(0.5 pt)
+(0.5 pt)
+
+Problem 3 (3 points)
+A deck contains 20 cards, of which 5 are red and 15 are black. Cards are drawn with
+replacement until the first red card appears.
+(a) Identify the distribution of the number of draws
+
+(1 pt)
+
+(b) Find E[X]
+
+(1 pt)
+
+(c) Find P (X > 4)
+
+(1 pt)
+
+Problem 4 (3 points)
+Let η be the waiting time between two successive events with mean equal to 3 years.
+(a) Identify the distribution of η
+
+(1 pt)
+
+(b) Find the value of the distribution parameter
+
+(1 pt)
+
+(c) Find Var(η)
+
+(1 pt)
+1
+
+Problem 5 (4 points)
+Let (ε1 , ε2 , ε3 )be a multivariate
+normal vector with mean µ = (1, 2, −1) and covariance
+
+2 1
+0
+matrix [ Σ = 1 3 −1 . Define η = ε1 + 2ε2 − ε3 .
+0 −1 2
+(a) Identify the distribution of η
+
+(1 pt)
+
+(b) Find E[η]
+
+(1 pt)
+
+(c) Find Var(η)
+
+(1 pt)
+
+(d) Write the density of a normal distribution with mean 6 and variance 16
+
+(1 pt)
+
+Problem 6 (3 points)
+Let ξ be a random variable whose standard deviation is not greater than 5 and whose mean
+is not less than 10.
+(a) Find the value of σ
+
+(1 pt)
+
+(b) Write the inequality used to bound probabilities
+
+(1 pt)
+
+(c) Compute the bound obtained from this inequality
+
+(1 pt)
+
+Problem 7 (3 points)
+Let X1 , . . . , X100 be i.i.d. random variables with mean 200 and variance 25. Define S100 =
+P
+100
+i=1 Xi .
+(a) State the theorem used to approximate the distribution of S100
+
+(1 pt)
+
+(b) Standardize S100
+
+(1 pt)
+
+(c) Approximate P (19900 < S100 < 20100)
+
+(1 pt)
+
+Problem 8 (3 points)
+Let X1 , . . . , Xn be i.i.d. with density f (x; λ) = λe−λx , x > 0.
+(a) Write the likelihood function
+
+(1 pt)
+
+(b) Write the log-likelihood function
+
+(1 pt)
+
+(c) Find the maximum likelihood estimator of λ
+
+(1 pt)
+
+2
+
+Problem 9 (4 points)
+A sample of size n = 16 from a normal population has sample variance s2 = 18.
+(a) Identify the distribution used
+
+(1 pt)
+
+(b) State the degrees of freedom
+
+(1 pt)
+
+(c) Write the formula for a confidence interval for the variance
+
+(1 pt)
+
+(d) Write the resulting confidence interval
+
+(1 pt)
+
+Problem 10 (6 points)
+Battery lifetimes are normally distributed.
+
+Part I
+The claimed mean lifetime is µ = 500, the standard deviation is unknown. It is suspected
+that batteries last less than claimed.
+(a) State the alternative hypothesis H1
+
+(1 pt)
+
+(b) Choose the appropriate test distribution
+
+(1 pt)
+
+(c) Write the test statistic
+
+(1 pt)
+
+Part II
+Given n = 9, x̄ = 485, s = 24, and α = 0.05.
+(a) State the degrees of freedom
+
+(1 pt)
+
+(b) Find the critical value
+
+(1 pt)
+
+(c) State the test conclusion
+
+(1 pt)
+
+Problem 11 (2 points)
+(
+2
+Cxe−x /8 , 0 ≤ x ≤ 2,
+A random variable has density [ f(x)=
+0,
+otherwise.
+
+(a) Find the cumulative distribution function
+
+(1 pt)
+
+(b) Find the constant C
+
+(1 pt)
+
+3
+
+Problem 12 (2 points)
+Three independent components A, B, C work with probabilities 0.9, 0.7, and 0.8 respectively.
+(a) Find P (A and B work, C fails)
+
+(1 pt)
+
+(b) Find P (A works, B and C fail)orP (A and B works, C fail)
+
+(1 pt)
+
+4
+
+

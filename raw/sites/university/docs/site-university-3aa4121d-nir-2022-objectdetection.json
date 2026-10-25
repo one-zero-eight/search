@@ -1,0 +1,16 @@
+{
+ "title": "Read the article [NIR_2022_object-detection]",
+ "url": "https://innopolis.university/filespublic/NIR_2022_object-detection.pdf",
+ "sha256": "461cde74c2d46c9f915b9d86a9bad3468f52ccf014fe657ec4d76ac83d990bdb",
+ "method": "text layer (pdfplumber)",
+ "chars": 37506,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:45:13+00:00",
+ "remote": {
+  "etag": "\"a5d97-5e724a40ab4ed\"",
+  "modified": "Fri, 26 Aug 2022 13:10:40 GMT",
+  "size": "679319"
+ }
+}

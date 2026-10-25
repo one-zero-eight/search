@@ -1,0 +1,130 @@
+Database Systems 2021 - Midterm Exam
+12/03/2021
+Instructions:
+1. This exam contains 13 questions (a total of 20 points) to be answered in 35
+minutes.
+2. Do not forget to write your name on the answer sheet.
+3. If you have doubts about a question, ask the instructors.
+4. Any communication with another person besides your instructors is considered
+cheating.
+5. Some questions are worth 2 points. Manage your time wisely.
+
+Q1. (2 points) Assume the following banking system:
+branch (branch-name, branch-city, assets)
+customer (customer-name, customer-street, customer-only)
+account (account-number, branch-name, balance)
+loan (loan-number, branch-name, amount)
+depositor (customer-name, account-number)
+borrower (customer-name, loan-number)
+Find the names of all customers who have a loan at the “Kazan” branch. Select one or
+more options:
+
+a.∏​customer-name​(σ​loan.loan-number = borrower.loan-number​((σ​branch-name = “Kazan”​(loan)) x
+borrower))
+B. ∏​customer-name​(σ​branch-name​ ​= “Kazan”​(σ​borrower.loan-number = loan.loan-number​(borrower​ x​
+loan)))
+C. ∏​customer-name​(σ​branch-name​ ​= “Kazan”​(σ​borrower.loan-number =
+loan.loan-number​(borrower))x loan)
+D. ∏​customer-name​(σ​branch-name​ ​= “Kazan”(​σ​borrower.loan-number = loan.loan-number​(borrower​ x​
+loan)))
+
+E. ∏​customer-name​(σ​branch-name = “Kazan”​(σ​borrower.loan-number​ ​= loan.loan-number​(borrower​ x​
+loan))) – ∏​customer-name​(depositor)
+Q2: (1 point) Define what the following relational algebra means
+
+given the following relations:
+Student (​sid​, name, surname, birthday)
+Course (​cid​, year. semester)
+Mark (​cid, sid​, mark)
+Select the correct option:
+A. Find names and birthdays of all students who had courses in the first semester in
+2014
+B. Find names and birthdays of all students who had each course in the first semester
+in 2014
+C. Find names and birthdays of all students who had courses in the first semester or in
+2014
+D. This expression is incorrect
+
+Q3: (1 point) For the following table
+users (userId, Name, age, Address)
+And the query below
+SELECT * from users WHERE Name LIKE ‘R%’ and
+age<=40 ;
+
+age>20 or
+
+What are the best indexes to apply for minimum cost? Select all the options which are
+correct.
+a. Btree on Name
+b. Btree on age
+c. Hash on Name
+
+d. Hash on Age
+e. GIN on Age
+f. GIN on Name
+
+Q4: (2 points) Explain what cost is. What is the difference between the ‘estimated
+startup cost’ and the ‘estimated total cost’?
+
+Q5: (2 points) Answer the following questions on query optimization:
+A. Replace the EXISTS in the SQL query below by an equivalent JOIN
+B. Draw the starting query tree using the join of item (a)
+C. Optimize the query tree:
+a. Assume that the number of records in EMPLOYEE is smaller than
+DEPENDENTS
+b. Apply the heuristics of pushing projection and selection down the tree
+D. Draw the resultant equivalent query tree after (c)
+SELECT E.Fname, E.Lname
+FROM EMPLOYEE AS E
+WHERE EXISTS ( SELECT *
+FROM DEPENDENT AS D
+WHERE E.Ssn = D.Essn AND E.Sex = D.Sex
+AND E.Fname = D.Dependent_name);
+
+Q6: (1 point) Select the incorrect statements:
+A. Materialized views are virtual tables that do not exist in the physical form
+B. Triggers are used to monitor activities on the database such as the insertion and
+deletion of record but not update operations
+C. Correlated and uncorrelated nested queries always incur in similar query
+overhead
+D. A NATURAL JOIN between two tables can always be rewritten as an INNER
+JOIN on the attributes with different names
+
+Q7. (1 point) Regarding file organizations, answer:
+A. In which conditions a sorted file is more efficient than a hashed file?
+B. Can a sorted file be applied to a view? Why?
+
+Q8. (2 points) Explain the relationship between (i) the efficiency of B+-tree indexes and
+(ii) seek time and latency in IO.
+
+Q9. (1 point) Explain the relationship between the blocking factor of the data file and the
+index file. Which one is bigger and why.
+
+Q10. (2 points) In which cases would you recommend:
+A. The creation and use of a view
+B. The use of a B+-tree
+C. A bitmap index
+D. A hash index
+
+Q11. (2 points) What is the expected number of block reads for searching an individual
+record on the table STUDENTS using a primary index? Use the information below:
+●
+●
+●
+●
+●
+
+Number of records in STUDENTS: 1,000,000
+Block size: 4,096 bytes
+Ordering key field: 10 bytes
+Block pointer: 6 bytes
+Assume that the binary search will be used
+
+Q12. (1 point) In which conditions would you NOT recommend to create indexes? Why?
+
+Q13. (2 points) For the query ​A ⨝​a=b​ B​, the index-based nested-loop join algorithm is
+used since there is an index on the attribute b of table B. Visualizing the query as a
+nested for-loop (i.e. a for-loop within a for-loop), which table would be in the outer-loop
+and why.
+
+

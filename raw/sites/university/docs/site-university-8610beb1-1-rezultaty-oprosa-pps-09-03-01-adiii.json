@@ -1,0 +1,16 @@
+{
+ "title": "Образовательная программа высшего образования – программа бакалавриата 09.03.01 Информатика и вычислительная техника, направленность (профиль) Анализ данных и искусственный интеллект [1. Результаты опроса ППС_09.03.01_АДиИИ]",
+ "url": "https://innopolis.university/upload/iblock/883/87nz14twj4ivunt0fbzrnloyexrzd3nx/1.%20%D0%A0%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82%D1%8B%20%D0%BE%D0%BF%D1%80%D0%BE%D1%81%D0%B0%20%D0%9F%D0%9F%D0%A1_09.03.01_%D0%90%D0%94%D0%B8%D0%98%D0%98.pdf",
+ "sha256": "f15d552066458acb6841de1e88d21dbf6a049930c46a0c22f1c8ece4e0c78e26",
+ "method": "text layer (pdfplumber)",
+ "chars": 3500,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-25T00:00:14+00:00",
+ "remote": {
+  "etag": "\"68c93366-3ff90\"",
+  "modified": "Tue, 16 Sep 2025 09:52:38 GMT",
+  "size": "262032"
+ }
+}

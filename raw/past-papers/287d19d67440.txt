@@ -1,0 +1,171 @@
+Innopolis University
+Academic Year 2024/2025
+The Final Exam of Computer Networks
+The 10th of May 2025
+Duration: 60 minutes
+
+Student Full Name:
+Student Telegram:
+Exam Room:
+Midterm missed due to a legal reason?
+
+Question
+Question 1
+Question 2
+Question 3
+Question 4
+Question 5
+Question 6
+Question 7
+Question 8
+Total (max: 14 points)
+
+yes / no
+
+For Instructors Use: Grade Summary
+Grade
+
+Please write very clearly your name and answers. What will not be understood will be
+considered wrong.
+You need to perform this exam alone and without the use of any equipment or book, apart from
+this booklet and pens. Please do not consult any person or use any equipment, otherwise you
+will be disqualified from this exam at the very first attempt.
+Student’s signature:
+
+Student Full Name:
+Grades Distribution (pre-final not considered):
+
+Question 1. (1 point) What is the purpose of the “255.255.255.255” IPv4 address?
+Brief answer: Indicates broadcast communication over a local area network.
+Grading: 1/0 – correct/incorrect
+
+Question 2. (1 point) Switches and routers are used to direct data packets across a network. Do you agree
+that switches are typically used to connect nodes within the same LAN, while routers - across multiple
+LANs and other networks.
+a) Agree (correct)
+b) Disagree
+Grading: 1/0 – correct/incorrect
+
+Question 3. (1 point) Expand the following major abbreviations of the Computer Network terms:
+
+Grading: (+0.125) for each correct row
+Computer Networks: Final Exam 2025
+
+2
+
+Student Full Name:
+Question 4. (2 points) When connecting to a network, a new host discovers a local DHCP server for
+obtaining required data for network communication. What data is typically provided by a DHCP server?
+Name any four types of data.
+Brief answer:
+
+Grading: (+0.5) – for every correct data type to be provided by DHCP
+
+Question 5. (2 points) Answer the following questions regarding the TDM data-link layer protocol.
+Answer:
+a) What is the key purpose of the TDM protocol?
+To provide access to multiple network nodes over a shared communication channel.
+b) What is its major drawback?
+Every time slot is reserved for a specific node to send data. Even in case that specific node does not
+send data, other nodes must wait for their time slots before sending data, what drastically decreases
+the network channel utilization efficiency.
+c) Briefly illustrate its principle graphically for the case of four network nodes:
+
+d)
+
+What is the major difference of TDM from FDM protocol?
+
+TDM allows only one node to send data at a time, while FDM allows multiple nodes to send data
+simultaneously.
+Grading: (+0.5) – for every correctly answered sub-question (a)-(d).
+
+Computer Networks: Final Exam 2025
+
+3
+
+Student Full Name:
+Question 6. (2 points) Below is the comparison table of diﬀerent network applicaYon-layer
+
+protocols. Fill-in the empty cells with appropriate statements.
+
+Grading:
+(+0.4) for every correct row
+Question 7. (2 points) Consider a client-server network architecture for distributing a file among 𝑁
+
+clients. Consider that:
+
+- 𝐹 is a file size;
+- 𝑈!max is the maximum upload speed of a server;
+- 𝑑ℓmax is the maximum download speed of every client.
+The plot below demonstrates the dependency of a file distribution time on the number of clients
+in case of a fair simultaneous download scenario.
+Provide any valid combination of 𝐹, 𝑈!max , 𝑑ℓmax values satisfying such a scenario. Support your
+answer with computations. Note that multiple correct answers are possible, you need to provide just one.
+Answer:
+Parameter Value
+𝐹
+60 ∗ 10& bits
+𝑈!max
+30 ∗ 10' bits/sec
+max
+𝑑ℓ
+2 ∗ 10'
+bits/sec
+Other combinations are accepted, if satisfying the
+following relations:
+𝑈!max = 15 ∗ 𝑑ℓmax
+𝐹 = 30 ∗ 10( ∗ 𝑑ℓmax
+Computations: Based on the equations specified
+in the plot at the left.
+Grading:
+
+) max
+
+(+1) – for the correct relation *!max = 15
+ℓ
+
++
+
+(+1) – for the correct relation *max = 30000
+ℓ
+
+Computer Networks: Final Exam 2025
+
+4
+
+Student Full Name:
+(-0.5) – for the incorrect power of 10, in the answer
+0 – for the entire question, if no computations are provided (we check and accept computations in
+the draft paper as well)
+Question 8. (3 points) Let four nodes, which are denoted by A, B, C, and D, communicate by using the
+CSMA/CD data-link layer protocol. Below is a time-space diagram for communication. Nodes A and D send
+data starting at times 𝑡!start and 𝑡&start at the same sending speed. In the diagram, illustrate graphically the
+following:
+a) Time of a collision start for nodes A and D;
+b) Collision duration and its corresponding visualization space;
+c) Termination of data transmission.
+Explain the major difference between CSMA and CSMA/CD and visualize it graphically on the diagram.
+Answer:
+
+Difference description between CSMA and CSMA/CD:
+Unlike CSMA/CD (CD = collision detection), in case of the CSMA protocol, a node, after its transmission
+start, does not monitor the channel for its data packets collision to occur, and keeps transmission until all
+packets are sent.
+Grading:
+start
+(+0.7) – if 𝑡collision
+is indicated correctly;
+(+0.7) – if collision area is indicated correctly;
+start
+(+0.6) – if 𝑡collision
+is indicated correctly;
+2 - If all three above are correct
+(+1) – If the difference is described correctly
+
+This is the end of the student book
+
+Computer Networks: Final Exam 2025
+
+5
+
+

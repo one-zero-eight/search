@@ -1,0 +1,497 @@
+Innopolis University
+Academic Year 2025/2026
+Final Exam of Computer Architecture
+22nd December 2025
+ANSWERS
+Duration: 60 minutes
+
+Student Full Name:
+Student Group:
+Exam Room:
+Telegram Alias:
+Midterm missed (underline): No / Yes
+Missed the course beginning due to Visa issues: No / Yes
+
+Question
+Question 1
+Question 2
+Question 3
+Question 4
+Question 5
+Question 6
+Question 7
+Total
+
+Grade Summary (for instructors fill)
+Grade
+
+Maximum score: 12 points
+
+Please write clearly your name and your solutions. What will not be understood will be
+considered wrong. All answers must be provided in English.
+This is a closed-book exam. You are not allowed to use any reference materials or electronic
+equipment, apart from this booklet and pens. You are not allowed to consult any person,
+otherwise you will be disqualified from this exam at the very first attempt.
+Good Luck!
+Signature:
+
+Computer Architecture – Final 2025
+
+Student Surname:
+
+Successfully passed the Course: 219 out of 269 students
+
+Question 1. (1 point) Do you agree that a USB drive typically provides a higher access speed
+compared to a System Memory of a computer device?
+a) Agree
+
+b) Disagree (correct)
+
+Grading: 0/1
+
+Question 2. (1 point) What is the key idea of Moore’s law?
+Brief Answer: Every 18-24 months the number of transistors on a CPU chip increases / CPU
+speed doubles, or similar.
+Grading criteria:
+(+0.5) – a correct time interval;
+(+0.5) – a correct increase of the number of transistors / speed-up
+
+Computer Architecture – Final 2025
+
+Page 2 of 7
+
+Student Surname:
+Question 3. (2 points) Draw a logic circuit of a 1-to-2 decoder by using any required logic gates
+out of AND, OR, and NOT types. Write the SystemVerilog design for such a circuit.
+Answer:
+1-to-2 Decoder Circuit
+
+SystemVerilog Design
+(one out of multiple possible)
+module decoder(
+input i1,
+);
+
+output o1, o2
+
+assign o1 = i1;
+assign o2 = ~i1;
+endmodule
+Grading criteria:
+(+1) – a correct circuit representation;
+(+1) – a correct SystemVerilog design;
+(-0.5) – a single syntax-related error in the SystemVerilog design
+
+Question 4. (2 points) Briefly explain the general purpose of a communication bus in a
+computer. Support your answer with an illustration. Then, provide an example of a
+communication bus (formally, a communication bus protocol) and the purpose it is used for.
+Answer:
+General Communication Bus Purpose (1 point)
+
+Illustration (0.5 point)
+
+To provide data communication between
+different computer components (including
+peripheral devices)
+
+Example of a communication bus (name only, 0.25 point):
+PCI (Peripheral Component Interconnect),
+and its specific usage purpose (0.25 point):
+To connect Southbridge chipset to the I/O peripheral devices.
+Computer Architecture – Final 2025
+
+Page 3 of 7
+
+Student Surname:
+Grading criteria:
+(+1) – a correct definition of a general communication bus purpose;
+(-0.5) – for a specific instead of a general communication bus purpose specified;
+(+0.5) – for a correct illustration (a specific case of two components with a communication bus
+explicitly pointed out);
+(+0.25) – a correct protocol name;
+(+0.25) – a correct purpose of a protocol description
+Question 5. (2 points) What is the key reason for DRAM memory units to be slower than SRAM
+memory units? Graphically illustrate an internal physical organization of a single memory cell.
+Based on this illustration, describe the key process steps of storing data into this memory cell.
+Answer:
+a) The key reason for DRAM to be slower than SRAM (1.5 points, (+0.25) – for partially correct):
+Unlike SRAM memory, DRAM relies on capacitors, which take more time for
+charge/discharge.
+b) Cell physical organization and data storage procedure:
+DRAM cell physical organization (0.25 point)
+
+Steps of data storage procedure (0.25 point)
+Step 1: Wordline is activated, to activate the
+base pin of a cell transistor
+Step 2: Bitline is activated or deactivated,
+depending on data to be stored into a
+capacitor
+(continue in the same format)
+
+Step 3: Bitline and wordlines are disactivated,
+after a certain timeout required for a cell
+capacitor charge/discharge
+
+Grading criteria:
+See in the “Answers” field above.
+
+Computer Architecture – Final 2025
+
+Page 4 of 7
+
+Student Surname:
+Question 6. (2 points) Below is a schematic representation of the System Memory content:
+“Addr.” column corresponds to a memory cell address (of 4 bits), and
+“Data” – to the data stored into that memory cell (of 1 byte).
+Considering that System Memory data given in the table at the left, fill-in the System Memory
+data in the table at the bottom, which results after executing the RISC-V program at the right.
+Note that, for your convenience:
+a) Constant values in the RISC-V program are provided in a decimal format;
+a) “la” instruction takes an input address as an immediate value
+System Memory: Before
+Addr.
+0000
+0001
+0010
+0011
+0100
+
+Data
+
+00010001
+00001000
+00000001
+00001010
+00000101
+
+Addr.
+
+0101
+0110
+0111
+1000
+1001
+
+Data
+
+00001010
+00000110
+00010001
+00000011
+00001010
+
+RISC-V Program
+li
+la
+sw
+lw
+addi
+sw
+
+t3, 2
+t1, 4
+t3, 2(t1)
+t3, 1(t1)
+t3, t3, 1
+t3, 0(t1)
+
+Answer:
+Case 1:
+System Memory: Resulted (to be filled-in)
+Addr. Data
+0000
+0001
+0010
+0011
+0100
+
+00010001
+00001000
+00000001
+00001010
+00001011
+
+Addr. Data
+
+0101
+0110
+0111
+1000
+1001
+
+00000010
+00000000
+00000000
+00000000
+00000000
+
+Case 2 (If a 1 byte data portion is erroneously
+considered instead of one “word” = 4 bytes for
+“sw” and “lw” instructions ):
+
+System Memory: Resulted (to be filled-in)
+Addr. Data
+0000
+0001
+0010
+0011
+0100
+
+00010001
+00001000
+00000001
+00001010
+00001011
+
+Addr. Data
+
+0101
+0110
+0111
+1000
+1001
+
+00001010
+00000010
+00010001
+00000011
+00001010
+
+Grading criteria:
+(-0.5) – for every incorrectly filled cell in the system memory table;
+Case 2 is equality considered correct to Case 1, despite being erroneous;
+
+Computer Architecture – Final 2025
+
+Page 5 of 7
+
+Student Surname:
+Question 7. (2 points) Consider the following RISC-V machine language program:
+0
+0
+0
+0
+
+0
+0
+0
+0
+
+0
+0
+0
+0
+
+0
+0
+0
+0
+
+1
+0
+0
+1
+
+1
+0
+0
+1
+
+1
+0
+0
+1
+
+1
+0
+0
+0
+
+0
+1
+0
+0
+
+0
+0
+0
+1
+
+0
+0
+0
+0
+
+0
+1
+1
+1
+
+1
+1
+0
+1
+
+0
+0
+0
+0
+
+0
+1
+1
+0
+
+1
+0
+0
+1
+
+0
+1
+1
+0
+
+0
+0
+0
+0
+
+1
+0
+0
+1
+
+1
+0
+0
+1
+
+0
+0
+0
+1
+
+0
+0
+0
+0
+
+1
+1
+1
+0
+
+0
+0
+0
+0
+
+1
+1
+1
+0
+
+0
+0
+0
+0
+
+0
+1
+0
+1
+
+0
+1
+1
+0
+
+0
+0
+0
+0
+
+0
+0
+0
+0
+
+1
+1
+1
+1
+
+1
+1
+1
+1
+
+Restore a RISC-V assembly language program, which corresponds to a RISC-V machine code
+above. To support your answer, provide comments above every instruction with comments,
+which illustrate your reasoning, near every binary instruction representation. All necessary
+reference material to be used is provided below.
+
+Answer:
+Binary 1
+
+0 0 0 0 1 1 1 1 0 0 0 0 1 0 0 1 0 0 1 1 0 0 1 0 1 0 0 0 0 0 1 1
+
+Assembly
+
+ld x5, 240(x18) or ld t0, 240(s2)
+
+Binary 2
+
+0 0 0 0 0 0 0 0 1 0 0 1 1 0 1 0 1 0 0 0 0 0 1 0 1 0 1 1 0 0 1 1
+
+Assembly
+
+add x5, x21, x9 or add t0, s5, s1
+
+Binary 3
+
+0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 1 0 0 0 0 0 1 0 1 0 0 1 0 0 1 1
+
+Assembly
+
+addi x5, x5, 1 or addi t0, t0, 1
+
+Binary 4
+
+0 0 0 0 1 1 1 0 0 1 0 1 1 0 0 1 0 0 1 1 1 0 0 0 0 0 1 0 0 0 1 1
+
+Assembly
+
+sd x5, 240(x18) or sd t0, 240(s2)
+
+Reasoning/
+Comment
+
+Reasoning/
+Comment
+
+Reasoning/
+Comment
+
+Reasoning/
+Comment
+
+Grading criteria:
+(+0.5) – for every correct instruction with arguments;
+(+0.1) – for every correct instruction name, but incorrect arguments;
+Misplaced names for source registers are not penalized;
+Computer Architecture – Final 2025
+
+Page 6 of 7
+
+Student Surname:
+Additional note:
+(+0.5) – To all works, “Christmas” points to compensate a typo in Lecture Week 13, Part
+III, Slide 63 for a binary representation for the second RISC-V instruction
+
+Computer Architecture – Final 2025
+
+Page 7 of 7
+
+

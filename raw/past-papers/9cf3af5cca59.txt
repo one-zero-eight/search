@@ -1,0 +1,42 @@
+Final examination on Discrete Mathematics & Logic
+(Innopolis University, December 2, 2019, BS-I)
+
+Task 1
+Look at a line diagram depicted to the right.
+a) Is this diagram a line diagram of an algebraic lattice?
+b) Is the depicted array a result of topological sorting of the
+depicted ordered set? What is
+𝑎 𝑒 𝑏 𝑓 𝑐 𝑔 𝑑
+probability that topological sorting
+algorithm outputs this result?
+c) Is the depicted array a result of topological sorting of the depicted ordered set? What is
+probability that topological sorting algorithm outputs this result? 𝑏 𝑒 𝑎 𝑓 𝑐 𝑔 𝑑
+
+Task 2
+Consider the following (parametrized) propositional formula 𝜑𝑛 :
+(𝑝1 ⋁𝑝2𝑛+1 )&(¬𝑝1 ⋁¬𝑝2 )&(¬𝑝1 ⋁𝑝2 ⋁𝑝3 )&(¬𝑝1 ⋁𝑝2 ⋁¬𝑝3 ⋁¬𝑝4 )&
+&(¬𝑝1 ⋁𝑝2 ⋁¬𝑝3 ⋁𝑝4 ⋁𝑝5 )& … &(¬𝑝1 ⋁𝑝2 ⋁¬𝑝3 ⋁𝑝4 ⋁¬𝑝5 ⋁ … ⋁¬𝑝2𝑛 )&
+&(¬𝑝1 ⋁𝑝2 ⋁¬𝑝3 ⋁𝑝4 ⋁¬𝑝5 ⋁ … ⋁𝑝2𝑛 ⋁𝑝2𝑛+1 ).
+where 𝑛 ≥ 0 and all 𝑝1 , … 𝑝2𝑛+1 are propositional variables.
+Question: For which 𝑛 ≥ 0 the formula 𝜑𝑛 is satisfiable? What method for checking the
+satisfiability do you use? (- Please name it.) Do you know any other method? (- Please name it.)
+
+Task 3
+Let 𝐴 < 𝐵 be positive real numbers, 𝑥0 = 𝐴, 𝑥1 = 𝐵, and 𝑥𝑛+2 =
+
+3𝑥𝑛 +2𝑥𝑛+1
+5
+
+for all 𝑛 ≥ 0.
+
+Find the explicit formula for this sequence. Does the sequence (𝑥𝑛 ) have a limit? If it is the
+case, then what is this limit?
+
+Task 4
+Suppose 𝐺 is a simple undirected graph with 𝑛 vertices, each having degree 5.
+a) For which values of 𝑛 does this make sense?
+b) For which values of 𝑛 does the graph have a Euler path?
+c) What is the smallest value of 𝑛 for which the graph might be planar?
+Explain your answers!
+
+

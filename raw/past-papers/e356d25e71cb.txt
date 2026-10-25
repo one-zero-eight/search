@@ -1,0 +1,91 @@
+Name CIOIRIRIE|cI] [LlolL|ulTTiTolIN
+Group
+
+Course Name: Theoretical Computer Science Year: 2021-2022 (Spring Semester)
+
+Midterm exam '«ﬂ Time allowed: 80 minutes
+Instructor: Manuel Mazzara ‘
+
+Max grade: 20 points
+ropolis
+ONiversity
+
+Task 1 (4 points). Construct in a graphical form a DFSA which corresponds to M; U Mp:
+
+(NDFSA solutions will get 0 points)
+
+Name CORPRECT SOLUTYON
+
+Group |
+
+Task 2 (3 points). Complete the Pumping Lemma (multiple options are correct in (3)):
+
+Let L be a regular language. Then Cl) integer m > 1 such that (2)
+string w in L of length at least m can be written as w = xyz, satisfying the following conditions:
+3)
+(I@there exists
+b) for every
+(2) a) there exists
+
+every
+
+G a)ly=0
+
+® =1
+
+c) |xyz| <m
+@yl <m
+€)3i>0xyize¢ L
+HVi>0xyizgL
+g 3i>0xyiz€L
+@ViEOxyizeL
+
+Task 3 (2 points). Construct a complement of M1 over the alphabet {0, 1}:
+
+oA
+Name
+
+COoRRECT S OLUT I ON
+
+Group
+
+Task 4 (4 points). Construct a complete DFSA over the alphabet {0,1} that accepts the
+words including a substring 00101.
+
+Task 5 (1 point). Which of the following statements are true about PDA:
+a) It has an external memory with an initial start symbol
+b) It has an external memory that follows First in First Out Policy (FIFO)
+g It can manipulate the external memory as part of performing a transition
+d
+
+) It uses the external memory to decide which transition has to be made
+
+(©) It can be used for parsing programming languages
+@ Regular languages are recognized by PDAs
+
+Task 6 (1 point). Is L = {a™b"| n > 0,m > 0} a regular language?
+
+a) Yes, which can be proved using pumping lemma
+@ Yes, but we cannot prove it using pumping lemma
+¢) No, but we cannot prove it using pumping lemma
+
+d) No, which can be proved using pumping lemma
+
+Name CORRECT SO L UT Il ON
+
+Group
+
+Task 7 (5 points). Solve ONE of the exercises:
+
+a) Construct a DPDA that recognizes the language:
+L={a™p"cPd(mn, p, ¢ 2 1) A(m+q =n+p))
+
+b,® /66 B/od
+o, AJAA b2 /P2, gi%;bzo
+a2e/A2, bA/s CAs dbjs
+
+‘ , | <. 2%/P2, ;
+
+b) Construct a DPDA that recognizes the language:
+L={a™b"a™|(m=0) A (n=0)}
+

@@ -1,0 +1,66 @@
+Differential Equations
+Midterm
+Innopolis University
+October 25, 2024
+
+Variant 1
+1. (6 points) Solve the following equations by finding an integrating factor of suitable form, or by
+making a suitable change of variables:
+xy 2 (xy ′ + y) = 1
+2. (6 points) Solve given equation using an additional parameter:
+y ′3 = 3(xy ′ − y)
+3. (6 points) Find a solution of the differential equation using the method of variation of parameter:
+y ′′ − 2y ′ + y =
+
+ex
+x
+
+4. (6 points) Find the solution to the given initial value problem:
+y ′′ + y = 4ex ,
+
+y(0) = 4,
+
+y ′ (0) = −3
+
+5. (6 points) Find the solution of the given boundary value problem:
+y ′′ − y = 2x,
+
+y(0) = 0,
+
+y(1) = −1
+
+Variant 2
+1. (6 points) Solve the following equations by finding an integrating factor of suitable form, or by
+making a suitable change of variables:
+
+1  y′
+y−
++
+=0
+x
+y
+2. (6 points) Solve given equation using an additional parameter:
+y = y ′2 + 2y ′3
+3. (6 points) Find a solution of the differential equation using the method of variation of parameter:
+y ′′ + y =
+
+2
+cos3 x
+
+4. (6 points) Find the solution to the given initial value problem:
+y ′′ + y = 4ex ,
+
+y(0) = 1,
+
+y ′ (0) = −1
+
+5. (6 points) Find the solution of the given boundary value problem:
+y ′′ + y = 1,
+
+y(0) = 0,
+
+2
+
+y(π) = −1
+
+

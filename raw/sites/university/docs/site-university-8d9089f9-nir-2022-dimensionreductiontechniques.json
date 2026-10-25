@@ -1,0 +1,16 @@
+{
+ "title": "Read the article [NIR_2022_dimension-reduction-techniques]",
+ "url": "https://innopolis.university/filespublic/NIR_2022_dimension-reduction-techniques.pdf",
+ "sha256": "5366f8e6617083ef699b482766c18dce2618afd226a94375f0f1e1a4d5683d03",
+ "method": "text layer (pdfplumber)",
+ "chars": 20377,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:44:51+00:00",
+ "remote": {
+  "etag": "\"202a0b-5e75e9bbd34e8\"",
+  "modified": "Mon, 29 Aug 2022 10:20:09 GMT",
+  "size": "2107915"
+ }
+}

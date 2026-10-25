@@ -1,0 +1,125 @@
+VARIANT 1
+Full name:
+
+Group:
+
+Task:
+Score:
+
+1
+
+2
+
+3
+
+4
+
+Total
+
+1. (5 points)
+Find the equations of dircetrices, the length of the latus rectum and coordinates of focus (or
+foci) of the following curves:
+2
+
+2
+
+(a) x27 − y48 = 3
+(b) 12x2 − 4y 2 − 24x + 32y = 127
+2. (5 points)
+Find the canonical equation of parabola if it is known that the equation of directrix 2x + y =
+−1. Focus of the parabola has coordinates (2, 1).
+3. (3 points)
+Find the equations of the tangent and normal lines to the curve defined by the equation
+2
+(x+3)2
++ y9 = 1 at the point with coordinates (−1.4, 1.8).
+4
+4. (5 points)
+Determine whether the statement is true or false. Explain your answer.
+(a) A hyperbola is the set of all points in the plane that are equidistant from a fixed line
+and a fixed point not on the line.
+(b) If an ellipse is not a circle, then the foci of an ellipse lie on the major axis of the ellipse.
+(c) The hyperbola (y 2 /a2 ) − x2 = 1 has asymptotes the lines y = ±x/a.
+
+VARIANT 2
+Full name:
+
+Group:
+
+Task:
+Score:
+
+1
+
+2
+
+3
+
+4
+
+Total
+
+1. (5 points)
+Find the equations of dircetrices, the length of the latus rectum and coordinates of focus (or
+foci) of the following curves:
+(a) 4x2 + 2y 2 = 16
+(b) x2 − 2xy + y 2 − 2x + 6y + 4 = 0
+2. (5 points)
+Find the canonical equation of hyperbola if it is known that the angle between the asymptotes
+that contains a focus equals 30◦ and the distance from the vertex to the nearest directrix is
+equal to 3.
+3. (3 points)
+Find the equations of the tangent and normal lines to the the curve defined by the equation
+x2 − 8xy + y 2 + 3x + y = 0 at the point with coordinates (0, −1).
+4. (5 points)
+Determine whether the statement is true or false. Explain your answer.
+(a) Angle θ = π/3 will eliminate the xy-term in 2x2 + xy + 2y 2 + x − y = 0
+(b) The graph of the given equation is a parabola: 25x2 − 14xy + 25y 2 − 288 = 0
+(c) The set of points in the plane, the sum of whose distances to two fixed points is a
+positive constant greater than the distance between the fixed points is an ellipse.
+
+Page 2
+
+VARIANT 3
+Full name:
+
+Group:
+
+Task:
+Score:
+
+1
+
+2
+
+3
+
+4
+
+Total
+
+1. (5 points)
+Find the equations of dircetrices, the length of the latus rectum and coordinates of focus (or
+foci) of the following curves:
+(a) 8x2 + 2y 2 = 18
+(b) x2 + 4xy + y 2 + 2x − y = 0
+2. (5 points)
+Find the canonical equation of hyperbola if it is known that the angle between the asymptotes
+that contains a√ focus equals 60◦ and the distance from the vertex to the nearest directrix is
+equal to 52 − 5 4 3 .
+3. (3 points)
+Find the equations of the tangent and normal lines to the the curve defined by the equation
+−9x2 − y 2 + 6xy − x + y = 0 at the point with coordinates (3, 7).
+4. (5 points)
+Determine whether the statement is true or false. Explain your answer.
+√
+(a) Angle θ = π/3 will eliminate the xy-term in x2 + 2 3xy + 3y 2 − 2x + y = 1
+√
+√
+(b) The graph of the given equation is a parabola: x2 + 2 3xy + 3y 2 + 16 3x − 16y − 96 = 0
+(c) The set of points in the plane, the sum of whose distances to two fixed points is a
+positive constant greater than the distance between the fixed points is a parabola.
+
+Page 3
+
+

@@ -1,0 +1,16 @@
+{
+ "title": "rukovodstvo polzovatelya platforma cardledger",
+ "url": "https://innopolis.university/filespublic/rukovodstvo_polzovatelya_platforma_cardledger.pdf",
+ "sha256": "75822a1ae6db597bc364a49fb3e47548c5b2a954ccd9b58cc7afc4ff1f10863b",
+ "method": "text layer (pdfplumber)",
+ "chars": 41263,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:47:46+00:00",
+ "remote": {
+  "etag": "\"3c4ced-5ff42d8d364d1\"",
+  "modified": "Thu, 29 Jun 2023 11:17:34 GMT",
+  "size": "3951853"
+ }
+}

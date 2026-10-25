@@ -1,0 +1,16 @@
+{
+ "title": "practice",
+ "url": "https://innopolis.university/filespublic/practice.pdf",
+ "sha256": "c3d3a6c0384b6ca0a967e7adfcbc57d769ef200be42ea0fc755883cf17132b9a",
+ "method": "text layer (pdfplumber)",
+ "chars": 7075,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:47:42+00:00",
+ "remote": {
+  "etag": "\"261aa-638f01f5a8c17\"",
+  "modified": "Wed, 02 Jul 2025 10:57:09 GMT",
+  "size": "156074"
+ }
+}

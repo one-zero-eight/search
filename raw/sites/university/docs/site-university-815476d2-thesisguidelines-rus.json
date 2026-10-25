@@ -1,0 +1,16 @@
+{
+ "title": "ThesisGuideLines rus",
+ "url": "https://innopolis.university/upload/iblock/9db/j81ik6w0r7b4ep3q2od84tgtz3arx7xo/ThesisGuideLines_rus.pdf",
+ "sha256": "4c9874e09c27388fd0c7b990961da3f99f34dae25bf47cc775cdb72d8db84deb",
+ "method": "text layer (pdfplumber)",
+ "chars": 17871,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-25T00:00:41+00:00",
+ "remote": {
+  "etag": "\"6790997f-5680e\"",
+  "modified": "Wed, 22 Jan 2025 07:08:47 GMT",
+  "size": "354318"
+ }
+}

@@ -1,0 +1,384 @@
+FINAL EXAM
+DATABASES 2023
+
+POINTS
+Name and Surname
+
+Task 1
+
+Task 2
+
+Task 3
+
+Task 4
+
+Task 5
+
+Total
+
+Task 1. For the given relations turn the statements into relational algebra queries and into SQL
+queries. Consider ClubHead as a foreign key to StudentID
+STUDENT(StudentID, Name, Surname, AdmissionYear)
+CLUB(ClubID, ClubName, ClubHead)
+CLUB_ROLE(StudentID, ClubID, RoleInClub)
+COURSE(CourseID, CourseName)
+GRADE(StudentID, CourseID, LetterGrade)
+GRADE_INFO(LetterGrade, GradeTranscript)
+a. Find student IDs which have only ‘A’ grades and which are heads of at least 1 club
+RA query/queries:
+(ΠStudentID (σLetterGrade=’A’(STUDENT⋈STUDENT.StudentID=GRADE.StudentIDGRADE))) ∩
+(ΠStudentID (σClubRole=’Head’(STUDENT⋈STUDENT.StudentID=CLUB_ROLE.StudentIDCLUB_ROLE)))
+SQL query/queries:
+SELECT studentID
+FROM student AS s INNER JOIN grade AS g
+WHERE s.studentID = g.studentID
+INTERSECT
+SELECT studentID
+FROM student AS s INNER JOIN club_role AS cr
+WHERE s.studentID = cr.studentID
+b. Find all names and surnames of the ‘Programmers’ club members except its ‘Head’
+RA query/queries:
+ρ(R1, (ΠStudentID (σClubName=’Programmers’(CLUB⋈CLUB.ClubID=CLUB_ROLE.ClubIDCLUB_ROLE)) \
+ΠClubHead→StudentId (σClubName=’Programmers’(CLUB))))
+ρ(R2, (ΠName,Surname(R1⋈R1.StudentID=STUDENT.StudentIDSTUDENT)))
+SQL query/queries:
+SELECT s.name, s.surname
+FROM student AS s INNER JOIN
+(SELECT studentID
+
+FROM club AS c INNER JOIN club_role AS cr
+WHERE c.clubName = ‘Programmers’) AS r1
+WHERE s.studentID = r1.studentID
+c. Find student IDs which are studying since 2021 and got NOT less than ‘B’ grade for
+‘Databases’ course being NOT involved into any clubs
+RA query/queries:
+ρ(R1, (ΠStudentID(σAdmissionYear=2021(STUDENT))))
+ρ(R2, (ΠCourseID(σCourseName=’Databases’(COURSE))))
+ρ(R3, (R1⋈R1.StudentID=GRADE.StudentIDGRADE))
+ρ(R4, (ΠStudentID(σLetterGrade=’A’ OR LetterGrade=’B’(R2⋈R2.CourseID=R3.CourseIDR3)))) \
+ΠStudentID(CLUB_ROLE)
+SQL query/queries:
+
+Task 2. SQL Stored procedure. Write a SQL Stored Procedure for an International Money
+Transfer System
+Given the diagram below, your task is to create a stored procedure called
+sp_ProcessInternationalTransfer that will help the bank staff process international transfers
+effectively while ensuring compliance with various regulations. The stored procedure should
+include input parameters such as IDs of the sender and recipient accounts, the transfer amount,
+currency, date, and the reason for the transfer. The procedure must first verify that the sender’s
+account has a sufficient balance in the specified currency. For transfers exceeding 10,000 USD
+(or equivalent in the transfer currency), the procedure must also verify that the necessary
+compliance checks were completed over the sender’s account as indicated in the Customers
+table. If the sender's and recipient's accounts have different currencies, the procedure must apply
+a conversion rate between the sender's currency and the recipient's currency, using the
+ExchangeRates table. Once all conditions have been met, the procedure must deduct the transfer
+amount from the sender's account and credit the recipient's account in their respective currencies.
+The transfer details must then be logged in the Transfers table. If any of the conditions are not
+met, the procedure must return an appropriate error message.
+
+Grading creteria:
+1. Check for account existence: The stored procedure should check that both the sender
+and recipient accounts exist in the Accounts table.
+Check for sender account balance: The stored procedure should check that the sender
+account has sufficient balance in the specified currency to cover the transfer amount.
+2. Compliance check: For transfers exceeding 10,000 USD (or equivalent), the stored
+procedure should check the compliance status of the sender account.
+3. Currency conversion: If the sender and recipient accounts have different currencies, the
+stored procedure should apply currency conversion using the exchange rates in the
+ExchangeRates table.
+4. Deduct transfer amount and update accounts: The stored procedure should deduct the
+transfer amount from the sender account and credit the recipient account, and update the
+Accounts table accordingly.
+5. Insert transfer record: The stored procedure should insert a record into the Transfers
+table with the transfer details.
+6. Exception handling: The stored procedure should handle exceptions and throw
+appropriate error messages if any of the checks or operations fail.
+7. Transaction handling: The stored procedure should group the necessary database
+operations into a transaction to ensure data consistency and atomicity.
+
+Task 3. Transactions :
+You have the following table:
+
+You need to write what is the values
+Fill the output in the table, Execute from left to right →
+Session 1
+
+Session 2
+
+BEGIN;
+UPDATE accounts SET counter = counter
+- 200 WHERE id = 1;
+UPDATE accounts SET counter = counter
+- 200 WHERE id = 3;
+
+SELECT name,
+CASE
+WHEN counter >= 1000 THEN 'High'
+WHEN counter >= 500 THEN 'Medium'
+ELSE 'Low'
+END AS counter_category
+FROM accounts
+WHERE zoom_id = '1001' AND id >= 1;
+
+SELECT counter*2 FROM accounts
+WHERE zoom_id ~ '^10';
+
+Output = alice,High; A
+
+Output =1600;B
+
+COMMIT;
+
+UPDATE accounts SET counter = counter
++ 200 WHERE id = 2;
+SELECT counter/2 FROM accounts
+WHERE zoom_id LIKE '10%';
+
+COMMIT;
+
+Output= 400 ; C
+
+Output: there is no transaction in progress.; D
+
+UPDATE accounts SET counter = counter
++ 200 WHERE id = 3;
+UPDATE accounts SET counter = counter
+- 100 WHERE zoom_id= '2001';
+SELECT name FROM accounts WHERE
+zoom_id LIKE '20%';
+COMMIT;
+
+UPDATE accounts SET counter = counter*2 + 200
+WHERE id = 3;
+
+Output =bob,bob; E
+
+COMMIT;
+
+SELECT counter FROM accounts
+WHERE id % 2 = 1 and counter = 800;
+
+SELECT counter FROM accounts WHERE zoom_id=
+'2001';
+
+Output =800; F
+
+Output =200; G
+
+BEGIN;
+UPDATE accounts SET counter = 200
+WHERE id = 3;
+INSERT INTO accounts VALUES
+(4, '3001', 'Top G', 100);
+SELECT ROUND(counter, -2) FROM
+accounts WHERE zoom_id = '2002';
+COMMIT;
+
+BEGIN ISOLATION LEVEL REPEATABLE
+READ;
+UPDATE accounts SET counter = 800 WHERE id =
+3;
+
+SELECT 'The balance of account 2002 is
+not $' || counter*0.1 FROM accounts
+WHERE zoom_id = '2002';
+COMMIT;
+
+COMMIT;
+
+Output= The balance of account 2002 is
+not 20; H
+
+SELECT counter+100 FROM accounts WHERE
+zoom_id= '1001';
+
+COMMIT;
+
+Output= 900; I
+
+BEGIN;
+UPDATE accounts SET counter =600
+WHERE id = 2;
+SELECT counter FROM accounts
+WHERE zoom_id= '2001';
+
+BEGIN ISOLATION LEVEL SERIALIZABLE;
+UPDATE accounts SET counter =1000 WHERE id
+= 2;
+SELECT sum(counter) FROM accounts;
+
+output= 600; J
+
+COMMIT;
+SELECT sum(counter) FROM accounts;
+
+-----
+
+output=1300; K
+
+A
+
+B
+
+C
+
+alice,High
+
+1600
+
+400
+
+D
+there is no
+transaction in
+
+E
+bob,bob
+
+progress.
+F
+
+G
+
+H
+
+I
+
+J
+
+K
+
+800
+
+200
+
+The balance
+of account
+2002 is not
+20
+
+900
+
+600
+
+1300
+
+Code for Session 1
+-- BEGIN;
+-- UPDATE accounts SET counter = counter - 200 WHERE id = 1;
+-- UPDATE accounts SET counter = counter - 200 WHERE id = 3;
+-- SELECT counter*2 FROM accounts WHERE zoom_id ~ '^10';
+-- UPDATE accounts SET counter = counter + 200 WHERE id = 2;
+-- SELECT counter/2 FROM accounts WHERE zoom_id LIKE '10%';
+-- UPDATE accounts SET counter = counter + 200 WHERE id = 3;
+-- UPDATE accounts SET counter = counter - 100 WHERE zoom_id= '2001';
+-- SELECT name FROM accounts WHERE zoom_id LIKE '20%';
+-- COMMIT;
+-- SELECT counter FROM accounts WHERE id % 2 = 1 and counter = 800;
+-- SELECT counter FROM accounts WHERE id % 2 = 1 and counter = 800;
+-- BEGIN;
+-- UPDATE accounts SET counter = 200 WHERE id = 3;
+-- INSERT INTO accounts VALUES
+-- (4, '3001', 'Top G', 100);
+-- SELECT ROUND(counter, -2) FROM accounts WHERE zoom_id = '2002';
+-- COMMIT;
+-- -- SELECT 'The balance of account 2002 is ' || counter*0.1 FROM accounts WHERE zoom_id
+= '2002';
+-- -- COMMIT;
+-- COMMIT;
+-- BEGIN;
+-- UPDATE accounts SET counter =600 WHERE id = 2;
+-- SELECT counter FROM accounts WHERE zoom_id= '2001';
+Code for Session 2
+
+-- SELECT name,
+-CASE
+-WHEN counter >= 1000 THEN 'High'
+-WHEN counter >= 500 THEN 'Medium'
+-ELSE 'Low'
+-END AS counter_category
+-- FROM accounts
+-- WHERE zoom_id = '1001' AND id >= 1;
+-- COMMIT;
+-- COMMIT
+-- UPDATE accounts SET counter = counter*2 + 200 WHERE id = 3;
+-- Commit
+-- SELECT counter FROM accounts WHERE zoom_id= '2001';
+-- BEGIN ISOLATION LEVEL REPEATABLE READ;
+-- UPDATE accounts SET counter = 800 WHERE id = 3;
+-- COMMIT;
+-- SELECT counter+100 FROM accounts WHERE zoom_id= '1001';
+-- COMMIT;
+-- BEGIN ISOLATION LEVEL SERIALIZABLE;
+-- UPDATE accounts SET counter =1000 WHERE id = 2;
+-- SELECT sum(counter) FROM accounts;
+-- commit
+-- SELECT sum(counter) FROM accounts;
+
+TASK 4. NoSQL (Graph database) [7 pts]
+Consider the following neo4j (graph database) query:
+CREATE
+(a:Person{name:'A', amount:20}), (b:Person{name:'B', amount:10}),
+(c:Person{name:'C', amount:22}), (d:Person{name:'D', amount:13}),
+(e:Person{name:'E', amount:43}), (f:Person{name:'F', amount:21}),
+(g:Person{name:'G', amount:0}), (j:Person{name:'A', amount:20}),
+(a)-[:pays]->(b), (b)-[:pays]->(c), (a)-[:pays]->(c),(b)-[:pays]->(d),
+(c)-[:pays]->(b), (j)-[:pays]->(b), (f)-[:pays]->(g), (a)-[:pays]->(c),
+(f)-[:pays]->(g), (g)-[:pays]->(f)
+Subtasks:
+A. Draw the graph which will be created by the presented query. Drawn nodes should
+contain only names without amount. [4 pts]
+B. Write a query for the following request [2 pts]
+Find all names of people who payed to person with the name “B”. The response should be one
+column, the column’s name does not matter.
+C. Write a response of the previous request [1 pts]:
+names
+
+Point assignment:
+A. Draw the graph which will be created by the presented query. Drawn nodes should
+contain only names without amount. [4 pts in total]
+a. There are two “A” nodes with relations [1 pts]
+b. There are four correct relationships for node “C” [1 pts]
+c. The nodes “G” and “F” does not have external connection to another nodes [1 pts]
+d. Everything else drawn correctly inc number of relations [1 pts]
+e. -0.5 for amount in plot
+B. Write a query for the following request [2 pts]
+a. -1 if small mistake
+C. Write a response of the previous request [1 pts]
+a. -0.5 if J in response
+
+Expected answer:
+1.
+
+2. Possible answers (maybe some other also exists)
+● MATCH (p:Person)-[:pays]->(pp:Person WHERE pp.name='B' ) RETURN p.name
+● MATCH (p:Person)-[:pays]->(pp:Person) WHERE pp.name = 'B' RETURN p.name
+3. Three people:
+names
+‘A’
+‘A’
+‘C’
+
+Task 5. MongoDB
+Assume the database of books (called books) in the following format:
+{
+title: "The Great Gatsby",
+author: "F. Scott Fitzgerald",
+publisher: {
+name: "Charles Scribner's Sons",
+location: "New York, NY"
+},
+publishedYear: 1925,
+genre: "Classic",
+rating: 4.5,
+tags: ["American literature", "Romance", "Tragedy"]
+}
+Write the following queries for MongoDB.
+a) Find all books published by the publisher "Charles Scribner's Sons".
+db.books.find({"publisher.name": "Charles Scribner's Sons"})
+b) Update the rating of "The Great Gatsby" to 4.5:
+db.books.updateOne({title: "The Great Gatsby"}, {$set: {rating: 4.5}})
+c) Delete the book "The Hobbit"
+db.books.deleteOne({title: "The Hobbit"})
+
+

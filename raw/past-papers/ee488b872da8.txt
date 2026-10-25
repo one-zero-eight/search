@@ -1,0 +1,64 @@
+First mid-term examination on Ordinary Differential Equations
+(Innopolis University, Spring semester 2020, BS-III)
+
+Description
+It is distance asynchronous individual written test to check that students understand and can
+apply main definitions, concepts and techniques covered in the lectures on weeks 1-3. According
+to the Syllabus, (https://moodle.innopolis.university/mod/resource/view.php?id=29351), the each
+mid-term and the final examination cost is 20 points each. Examination has one (parameterized)
+variant for all enrolled students with 2 obligatory (to attempt) tasks and 1 bonus task (for
+volunteers to enjoy a piece of theory – to be awarded by bonus points at the discretion of the
+lecturer). The timeline of the examination follows:
+-
+
+Examination problems to be uploaded to Moodle by Saturday September 5, 2020.
+Individual solutions to be uploaded to Moodle for grading by Friday September 11, 2020.
+Submissions to be graded by Thursday September 17, 2020.
+
+The main grading criterion for written test will be “proof of individual work” while computational
+errors will be treated as tiny mistakes (at most one-point deduction for each individual task).
+
+Rules
+1. “Proof of individual work” rule means that
+- students must upload individual solutions in two files: the source file (in one of 5 formats
+Word 2007 document .docx, Word document .doc, PowerPoint 2007 presentation .pptx,
+PowerPoint presentation .ppt without macros, or application/x-tex .tex with plain class) and
+the result of PDF-conversion of the source file (i.e. pdf file);
+- solutions must be well-structured and formatted, concise (each task – at most 4 slides with
+font 20pt or 2 pages with font 12pt) but detailed at least at level of lecture notes for week
+2 (https://moodle.innopolis.university/mod/resource/view.php?id=40685).
+2. Each submitted file should be named by student first name and surname (for example
+NikolayShilov.docx and NikolayShilov.pdf)
+3. On the top of the front page of each submission should start with student first name and
+surname followed by birthdate (in the format 𝑑𝑎𝑦. 𝑚𝑜𝑛𝑡ℎ. 𝑦𝑒𝑎𝑟, for example 24.04.1961).
+4. Submissions with scanned or photo images of hand-written solutions will be discarded
+without consideration!
+
+Tasks
+Task 1 (10 points)
+Characterize (in terms introduced in lectures for weeks 1-3) and solve (using methods introduced
+in lectures for weeks 1-3) equation (𝑑𝑎𝑦)𝑥 2 + (𝑚𝑜𝑛𝑡ℎ)𝑦 2 + (𝑦𝑒𝑎𝑟)𝑥𝑦 𝑦 ′ = 0. (I.e., you are
+asked to find (or progress/proceed as much as you can towards to) an explicit (it will be better)
+or an implicit form for the most general solution of the equation with instantiated values for
+parameters 𝑑𝑎𝑦, 𝑚𝑜𝑛𝑡ℎ, and 𝑦𝑒𝑎𝑟 – for example, the equation 24𝑥 2 + 4𝑦 2 + 1961𝑥𝑦 𝑦 ′ = 0
+in case of the birthdate 24.04.1961; the solution process must be explained!)
+
+Task 2 (10 points)
+Characterize (in terms introduced in lectures for weeks 1-3) and solve (using methods introduced
+in lectures for weeks 1-3) equation 𝑑𝑦 − 𝑦(𝑑𝑎𝑦 + 𝑥𝑦 𝑚𝑜𝑛𝑡ℎ )𝑑𝑥 = 0. (I.e., you are asked to find
+(or progress/proceed as much as you can towards to) an explicit (it will be better) or an implicit
+form for the most general solution of the equation with instantiated values for parameters 𝑑𝑎𝑦
+and 𝑚𝑜𝑛𝑡ℎ – for example, the equation 𝑑𝑦 − 𝑦(24 + 𝑥𝑦 4 )𝑑𝑥 = 0 in case of the birthdate
+24.04.1961; the solution process must be explained!)
+Bonus Task (a piece of theory for volunteers)
+Characterize (in terms introduced in lectures for weeks 1-3) the equation (𝑑𝑎𝑦)𝑦 ′′ +
+(𝑚𝑜𝑛𝑡ℎ)𝑦 = 0 (with instantiated values for parameters 𝑑𝑎𝑦 and 𝑚𝑜𝑛𝑡ℎ – for example, the
+equation 24𝑦 ′′ + 4𝑦 = 0 in case of the birthdate 24.04.1961). Using your knowledge from Real
+𝑑𝑎𝑦
+
+𝑑𝑎𝑦
+
+Analysis (BS-I), prove or refute that 𝑦 = 𝐶1 sin (√𝑚𝑜𝑛𝑡ℎ 𝑥) + 𝐶2 cos (√𝑚𝑜𝑛𝑡ℎ 𝑥) is the most
+general solution of the equation.
+
+

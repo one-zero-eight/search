@@ -1,0 +1,1051 @@
+Тест начат
+
+Tuesday, 24 October 2023, 09:26
+
+Состояние Завершены
+Завершен Tuesday, 24 October 2023, 10:23
+Прошло 57 мин. 11 сек.
+времени
+Баллы 32,58/39,00
+Оценка 33,42 из 40,00 (83,55%)
+Вопрос 1
+Верно
+Баллов: 1,00 из 1,00
+
+Given the following code:
+int A[6] = {5, 7, -1, 2, 3, 5};
+int i = *(A+2);
+
+What is the value of i?
+a. 7
+b. 2
+c. 5
+d. Unpredictable value
+e. -1
+
+Your answer is correct.
+Правильный ответ:
+-1
+
+
+
+Вопрос 2
+Верно
+Баллов: 1,00 из 1,00
+
+Given the following code:
+signed int a=-1, b=3, c=0;
+signed int* A[2] = {&a, &b};
+signed int res = **(A+3);
+
+What is the value of res?
+a. 4
+b. Unpredictable value
+c. 0
+d. 3
+
+Your answer is correct.
+Правильный ответ:
+Unpredictable value
+
+Вопрос 3
+Верно
+Баллов: 1,00 из 1,00
+
+Is there a bug in the following code?
+short f(short p)
+{
+short* ptr = (short*)malloc(sizeof(short));
+*ptr = p;
+return p * (int)6;
+}
+
+a. Yes: casting to int instead of short
+b. No bugs
+c. Yes: Memory leak: no way to access dynamic memory after returning from f
+d. Yes: Cannot allocate dynamic memory for short values
+
+Your answer is correct.
+Правильный ответ:
+Yes: Memory leak: no way to access dynamic memory after returning from f
+
+
+
+Вопрос 4
+Верно
+Баллов: 1,00 из 1,00
+
+Which of the following statements is/are TRUE about union?
+a. It is not allowed to declare unions inside functions
+b. A union is a data structure in C that allows storing different data types in the same memory location
+c. A union can be a member of a structure or another union
+d. All union members must be of the same data type
+
+Your answer is correct.
+Правильные ответы:
+A union is a data structure in C that allows storing different data types in the same memory location,
+A union can be a member of a structure or another union
+
+Вопрос 5
+Верно
+Баллов: 1,00 из 1,00
+
+What is the output of this code?
+int M = 3;
+int *p = &M;
+int *y = p;
+int z = *y;
+z = 10;
+printf("%d", M);
+
+a. 10
+b. Compilation error
+c. The address of M
+d. 3
+
+Your answer is correct.
+Правильный ответ:
+3
+
+
+
+Вопрос 6
+Выполнен
+Не оценен
+
+Match the following operations with their descriptions knowing that p is defined as follows:
+int *p = &i;
+
+*p
+
+dereferences the pointer p to get the value stored at the memory location it points to
+
+p++
+
+increments the pointer p to point to the next element of the type it points to
+
+(*p)++
+
+dereferences the pointer p to get the value stored at the memory location it points to
+
+&p
+
+gives the memory address of the pointer p
+
+Your answer is partially correct.
+Правильный ответ:
+*p
+
+→ dereferences the pointer p to get the value stored at the memory location it points to,
+p++
+
+→ increments the pointer p to point to the next element of the type it points to,
+(*p)++
+
+→ A function that with two parameters returning a pointer to a long,
+&p
+
+→ gives the memory address of the pointer p
+
+Вопрос 7
+Верно
+Баллов: 1,00 из 1,00
+
+What is declared in the following code?
+long* (*f)(char, long);
+
+a. Incorrect syntax
+b. A function with two parameters returning long
+c. A function that with two parameters returning a pointer to a long
+d. A pointer to a function with two parameters returning a pointer to a long
+
+Your answer is correct.
+Правильный ответ:
+A pointer to a function with two parameters returning a pointer to a long
+
+
+
+Вопрос 8
+Верно
+Баллов: 1,00 из 1,00
+
+Match the following about variables and statements about them:
+global
+non-static
+
+object
+global
+static
+object
+
+It can only be accessed from the translation unit it belongs to
+
+
+
+automatic
+
+It is produced each time the function is called and "belong" to the scope in which it is declared
+
+local
+object
+
+
+
+global
+
+It is presumed that the object is (actually) specified in another translation unit
+
+external
+object
+
+It is available throughout the program
+
+
+
+Your answer is correct.
+Правильный ответ:
+global non-static object → It is available throughout the program,
+global static object → It can only be accessed from the translation unit it belongs to,
+automatic local object → It is produced each time the function is called and "belong" to the scope in which it is
+declared,
+global external object → It is presumed that the object is (actually) specified in another translation unit
+
+Вопрос 9
+Верно
+Баллов: 1,00 из 1,00
+
+Match the following statements and definitions:
+Pointer to object of some struct type
+
+struct S* x
+
+
+
+Pointer to integer pointer
+
+int** x
+
+
+
+Pointer to value of any type
+
+void* x
+
+
+
+Pointer to function
+
+int (*x)(int)
+
+
+
+Pointer to integer variable
+
+int* x
+
+
+
+Your answer is correct.
+Правильный ответ:
+Pointer to object of some struct type → struct S* x,
+Pointer to integer pointer → int** x,
+Pointer to value of any type → void* x,
+Pointer to function → int (*x)(int),
+Pointer to integer variable → int* x
+
+
+
+Вопрос 10
+Неверно
+Баллов: 0,00 из 1,00
+
+What is the output of the next program?
+#define SIZE 6
+typedef enum {
+RED,
+GREEN,
+BLUE
+} Colors;
+void printColor(Colors color) {
+char result[SIZE] = "";
+switch (color) {
+case RED:
+strcpy(result, "Red");
+case GREEN:
+strcpy(result, "Green");
+case BLUE:
+strcpy(result, "Blue");
+}
+printf("%s", result);
+}
+int main() {
+printColor(RED);
+return 0;
+}
+
+a. BLUE 
+b. GREEN
+c. Red
+d. Compilation error
+e. Green
+f.
+
+Blue
+
+g. RED
+
+Your answer is incorrect.
+Правильный ответ:
+Blue
+
+
+
+Вопрос 11
+Верно
+Баллов: 1,00 из 1,00
+
+Given the following code:
+struct S
+{
+int a, b;
+} s = { .a = 3, .b = 10 };
+int res = s.a **&(&s)->b;
+
+What’s the value of res after the assignment?
+a. 30
+b. 13
+c. 3
+d. Unpredictable value
+e. 10
+f.
+
+Compilation error
+
+Your answer is correct.
+Правильный ответ:
+30
+
+Вопрос 12
+Верно
+Баллов: 1,00 из 1,00
+
+Are there any bugs in the following code?
+int* f(int p)
+{
+int* ptr = (int*)malloc(2*sizeof(int));
+*ptr = p;
+*(ptr+1) = p*p;
+return ptr;
+}
+
+a. No bugs
+b. There is more than 1 bug (perhaps 2 or more)
+c. There is a bug
+
+Your answer is correct.
+Правильный ответ:
+No bugs
+
+
+
+Вопрос 13
+Верно
+Баллов: 1,00 из 1,00
+
+What is the output of the next program?
+int *ptr = 100;
+printf("%d ", *(ptr - 100));
+printf("%d", *ptr);
+
+a. Segmentation fault
+b. Compilation error
+c. 0 then an unpredictable value
+d. Unpredictable value(s)
+
+Your answer is correct.
+Правильный ответ:
+Segmentation fault
+
+Вопрос 14
+Неверно
+Баллов: 0,00 из 1,00
+
+Given the following code:
+long addFive(long i) { return i + 5; }
+long addTen(long i) { return i + 10; }
+long add(long i) { return addFive(i) + addTen(i); }
+typedef long (*F)(long);
+int main() {
+F A[3] = {addFive, addTen, add};
+long res = 0;
+for (int i=0; i<3; i++)
+res += A[i](i+1);
+}
+
+What’s the value of res after executing this code?
+a. 39
+b. 35
+c. 36 
+d. 12
+e. 30
+
+Your answer is incorrect.
+Правильный ответ:
+39
+
+
+
+Вопрос 15
+Верно
+Баллов: 1,00 из 1,00
+
+Which of the following statements is/are TRUE about memory in C?
+a. Dynamic objects are allocated in the heap
+b. It is NOT the programmer’s responsibility to release memory
+c. The system tracks memory
+d. Local objects are allocated in the stack
+e. Objects from the stack are not released by the system
+f.
+
+All of the above
+
+Your answer is correct.
+Правильные ответы:
+Dynamic objects are allocated in the heap,
+Local objects are allocated in the stack
+
+Вопрос 16
+Верно
+Баллов: 1,00 из 1,00
+
+What entity is declared in the following code?
+struct {char a; int b;}* m(char (*f)());
+
+a. a pointer to a function
+b. a structure
+c. a function
+d. a pointer to a structure
+
+Your answer is correct.
+Правильный ответ:
+a function
+
+
+
+Вопрос 17
+Верно
+Баллов: 1,00 из 1,00
+
+Given the following code:
+int square(int p) { return p*p; }
+int sum(int* p, int len, int (*f)(int))
+{
+int res = 0;
+for (int i=0; i<len; i++)
+res += f(p[i]);
+return res;
+}
+int main()
+{
+int A[5] = { 1, 2, 3, 4, 5 };
+int squares = sum(A,5,square);
+}
+
+What’s the value of squares?
+a. 15
+b. 78
+c. 30
+d. 100
+e. 55
+
+Your answer is correct.
+Правильный ответ:
+55
+
+
+
+Вопрос 18
+Верно
+Баллов: 1,00 из 1,00
+
+Given the following declarations:
+long square(long i) { return i*i; }
+typedef long (*F)(long);
+
+Which declaration(s) from the following below is/are INCORRECT?
+A) F f1 = &square;
+B) F f2 = square;
+
+a. B
+b. A and B
+c. A
+d. Both A and B are correct
+
+Your answer is correct.
+Правильный ответ:
+Both A and B are correct
+
+Вопрос 19
+Верно
+Баллов: 1,00 из 1,00
+
+Which of the following is considered TRUE in C?
+a. 1
+b. 42
+c. -1
+d. .1
+e. All of the above
+
+Your answer is correct.
+Правильный ответ:
+All of the above
+
+
+
+Вопрос 20
+Верно
+Баллов: 1,00 из 1,00
+
+How many potential bugs are there in the following code?
+void f(int p)
+{
+int* ptr = (int*)malloc(sizeof(int));
+*(ptr+1) = p;
+}
+
+a. 1 (Access to non-allocated memory)
+b. 1 (Memory leak)
+c. 0
+d. 2 (Access to non-allocated memory and memory leak)
+e. More
+
+Your answer is correct.
+Правильный ответ:
+2 (Access to non-allocated memory and memory leak)
+
+Вопрос 21
+Неверно
+Баллов: 0,00 из 1,00
+
+If a variable school is a pointer to an object of a struct type, how can we access its field named room?
+a. school->room
+b. school(room)
+c. school.room 
+d. school/room
+
+Your answer is incorrect.
+Правильный ответ:
+school->room
+
+
+
+Вопрос 22
+Верно
+Баллов: 1,00 из 1,00
+
+Match the next codes and their outputs:
+int a = 1, b = 2, c = 3;
+int temp = a;
+a = b;
+b = c;
+c = temp;
+
+2, 3, 1
+
+
+
+3, 1, 1
+
+
+
+1, 2, 3
+
+
+
+2, 3, 2
+
+
+
+printf("%d, %d, %d\n", a, b, c);
+
+int a = 1, b = 2, c = 3;
+int *temp = &b;
+b = a;
+a = c;
+c = *temp;
+printf("%d, %d, %d\n", a, b, c);
+int a = 1, b = 2, c = 3;
+int *pa = &a, *pb = &b, *pc = &c;
+int *temp = pa;
+pa = pb;
+pb = pc;
+pc = temp;
+printf("%d, %d, %d\n", a, b, c);
+
+int a = 1, b = 2, c = 3;
+int *temp = &a;
+a = b;
+b = c;
+c = *temp;
+printf("%d, %d, %d\n", a, b, c);
+
+Your answer is correct.
+Правильный ответ:
+int a = 1, b = 2, c = 3;
+int temp = a;
+a = b;
+b = c;
+c = temp;
+printf("%d, %d, %d\n", a, b, c);
+
+→ 2, 3, 1,
+int a = 1, b = 2, c = 3;
+int *temp = &b;
+b = a;
+a = c;
+c = *temp;
+printf("%d, %d, %d\n", a, b, c);
+
+→ 3, 1, 1,
+int a = 1, b = 2, c = 3;
+int *pa = &a, *pb = &b, *pc = &c;
+int *temp = pa;
+pa = pb;
+pb = pc;
+pc = temp;
+printf("%d, %d, %d\n", a, b, c);
+
+→ 1, 2, 3,
+
+
+
+int a = 1, b = 2, c = 3;
+int *temp = &a;
+a = b;
+b = c;
+c = *temp;
+printf("%d, %d, %d\n", a, b, c);
+
+→ 2, 3, 2
+
+Вопрос 23
+Верно
+Баллов: 1,00 из 1,00
+
+Which of the following statements is/are FALSE about structures in C?
+a. Nested structures are not supported
+b. The synonym for struct may be created by using typedef
+c. Unnamed structures can be initialized
+d. Structures can contain functions as members
+e. All of the above
+
+Your answer is correct.
+Правильные ответы:
+Nested structures are not supported,
+Structures can contain functions as members
+
+
+
+Вопрос 24
+Частично правильный
+Баллов: 0,75 из 1,00
+
+Which of the following statements is/are TRUE about the following code?
+int array[5] = {10, 20, 30, 40, 50};
+int *p = array;
+int **pp = &p;
+
+a. *(array+3) points to the fourth element of the array
+b. *p points to the first element of the array
+c. **pp points to the first element of the array
+d. *p++ gives the second element of the array and increments the pointer to the next element
+e. *pp points to the address of the first element of the array
+
+Your answer is partially correct.
+Вы выбрали правильных вариантов: 3.
+Правильные ответы:
+*p points to the first element of the array,
+*(array+3) points to the fourth element of the array,
+*pp points to the address of the first element of the array,
+**pp points to the first element of the array
+
+Вопрос 25
+Неверно
+Баллов: 0,00 из 1,00
+
+Which of the following is/are primitive types in C?
+a. signed int
+b. signed long long int
+c. unsigned float 
+d. string 
+e. int
+f.
+
+unsigned char
+
+Your answer is incorrect.
+Правильные ответы:
+int,
+signed int,
+signed long long int,
+unsigned char
+
+
+
+Вопрос 26
+Верно
+Баллов: 1,00 из 1,00
+
+Which of the following statements about pointers is/are TRUE in C?
+a. Pointers can only point to integers and cannot point to other data types like float, char, etc.
+b. Pointers can be incremented and decremented
+c. Pointers are indeed variables that store the memory address of another variable
+d. The * operator is used for dereferencing to get the value stored in the address kept in the pointer
+e. Pointers can store the address of functions
+
+Your answer is correct.
+Правильные ответы:
+Pointers are indeed variables that store the memory address of another variable,
+The * operator is used for dereferencing to get the value stored in the address kept in the pointer,
+Pointers can be incremented and decremented,
+Pointers can store the address of functions
+
+Вопрос 27
+Верно
+Баллов: 1,00 из 1,00
+
+Read the following code and match the printing commands with their outputs:
+char buf1[100] = "Innopolis";
+
+char buf2[100] = "University";
+char *ptr1 = buf1 + 2;
+char *ptr2 = buf2 + 3;
+strcpy(ptr1, buf2);
+strcpy(ptr2, buf1);
+
+printf("%s\n", buf1);
+printf("%s\n", buf2);
+printf("%s\n", ptr1);
+
+InUniversity
+
+
+
+UniInUniversity
+
+
+
+University
+
+
+
+Your answer is correct.
+Правильный ответ:
+printf("%s\n", buf1);
+
+→ InUniversity,
+printf("%s\n", buf2);
+
+→ UniInUniversity,
+printf("%s\n", ptr1);
+
+→ University
+
+
+
+Вопрос 28
+Верно
+Баллов: 1,00 из 1,00
+
+The size of a union is determined by the size of the ________.
+a. Biggest member in the union
+b. Sum of the sizes of all members
+c. Last member in the union
+d. First member in the union
+
+Your answer is correct.
+Правильный ответ:
+Biggest member in the union
+
+Вопрос 29
+Верно
+Баллов: 1,00 из 1,00
+
+How many statements are in the following code?
+a = b + c - k;
+a. 4
+b. 3
+c. 1
+d. 2
+
+Your answer is correct.
+Правильный ответ:
+1
+
+
+
+Вопрос 30
+Верно
+Баллов: 1,00 из 1,00
+
+Which of the statements about increments ++a and a++ is/are FALSE?
+a. For both (a++ and ++a) increment is executed after the initial value being used in expression
+b. For ++a the value of a is used in expression and then the increment is executed
+c. For a++ the value of a is used in expression and then the increment is executed
+d. For both (a++ and ++a) increment is executed first, then the value used in expression
+
+Your answer is correct.
+Правильные ответы:
+For ++a the value of a is used in expression and then the increment is executed,
+For both (a++ and ++a) increment is executed first, then the value used in expression,
+For both (a++ and ++a) increment is executed after the initial value being used in expression
+
+Вопрос 31
+Верно
+Баллов: 1,00 из 1,00
+
+What are the specific outcomes of invoking the standard function "free(ptr)" on the pointer ptr?
+free(ptr);
+
+a. allocates memory at the location pointed to by ptr
+b. re-allocates memory at the location pointed to by ptr
+c. allocates memory at the location where the ptr is pointing to and sets its content to zeros
+d. deallocates the memory at the location pointed to by ptr
+e. None of the above
+
+Your answer is correct.
+Правильный ответ:
+deallocates the memory at the location pointed to by ptr
+
+
+
+Вопрос 32
+Частично правильный
+Баллов: 0,17 из 1,00
+
+Which operator(s) is/are utilized to break out of a loop?
+a. continue
+b. return
+c. goto
+d. end 
+e. do
+
+Your answer is partially correct.
+Вы выбрали правильных вариантов: 1.
+Правильные ответы:
+goto,
+return
+
+Вопрос 33
+Верно
+Баллов: 1,00 из 1,00
+
+Which value does the function print?
+void example()
+{
+int x = 3, y = 1;
+x = y+=2, x-=y;
+printf("%d",x);
+}
+
+a. 2
+b. 0
+c. 3
+d. 4
+
+Your answer is correct.
+Правильный ответ:
+0
+
+
+
+Вопрос 34
+Верно
+Баллов: 1,00 из 1,00
+
+Match the following codes and their outputs:
+struct S { int a; long* b; };
+struct S s = {.a = 32, .b = NULL};
+printf("%x", s.a);
+
+20
+
+
+
+Unpredictable value
+
+
+
+6
+
+
+
+5
+
+
+
+16
+
+
+
+union U { char s[5]; unsigned int x:3; } u;
+u.x = 5;
+printf("%d", u.s[1]);
+
+enum Metal {GOLD, SILVER, BRONZE};
+enum Metal metal = 6;
+printf("%d\n", metal);
+
+struct W { short b; char s[4]; } w;
+w.b = 5;
+printf("%d", w.b);
+struct B { int : 0; unsigned int z : 5; } b;
+b.z = 16;
+printf("%d", b.z);
+
+Your answer is correct.
+Правильный ответ:
+struct S { int a; long* b; };
+struct S s = {.a = 32, .b = NULL};
+printf("%x", s.a);
+
+→ 20,
+union U { char s[5]; unsigned int x:3; } u;
+u.x = 5;
+printf("%d", u.s[1]);
+
+→ Unpredictable value,
+enum Metal {GOLD, SILVER, BRONZE};
+enum Metal metal = 6;
+printf("%d\n", metal);
+
+→ 6,
+struct W { short b; char s[4]; } w;
+w.b = 5;
+printf("%d", w.b);
+
+→ 5,
+struct B { int : 0; unsigned int z : 5; } b;
+b.z = 16;
+printf("%d", b.z);
+
+
+→ 16
+
+Вопрос 35
+Верно
+Баллов: 1,00 из 1,00
+
+Consider the following code, what will be the output?
+enum days {MON = 10, TUE, WED, THU = 9, FRI=13, SAT, SUN};
+printf("%d %d\n", WED, SUN);
+
+a. Unpredictable values
+b. 12 12
+c. 12 15
+d. Compilation error
+e. 2 4
+
+Your answer is correct.
+Правильный ответ:
+12 15
+
+Вопрос 36
+Неверно
+Баллов: 0,00 из 1,00
+
+Which value does the function print?
+void example()
+{
+int arr[100];
+int* p1 = arr[40];
+int* p2 = p1 + 20;
+printf("%d\n", p2-p1);
+}
+
+a. 60
+b. 40
+c. Unpredictable value
+d. 80 
+e. 20
+
+Your answer is incorrect.
+Правильный ответ:
+20
+
+
+
+Вопрос 37
+Частично правильный
+Баллов: 0,67 из 1,00
+
+Which of the following statements is/are TRUE about pointers in C?
+a. Pointers for the same machine can be of different sizes depending on the data type they point to
+b. Pointers can be incremented or decremented by a fixed number of bytes
+c. Pointers can be compared using comparison operators (e.g., == and <)
+d. Pointers can be used to directly access the memory location of any variable 
+e. Pointers are automatically initialized to NULL if not explicitly assigned a value
+
+Your answer is partially correct.
+Вы выбрали слишком много вариантов.
+Правильные ответы:
+Pointers can be compared using comparison operators (e.g., == and <),
+Pointers can be incremented or decremented by a fixed number of bytes
+
+Вопрос 38
+Верно
+Баллов: 1,00 из 1,00
+
+Evaluate the following expression:
+!(!1 && 0 && 1)
+
+a. False
+b. Syntax error
+c. True
+
+Your answer is correct.
+Правильный ответ:
+True
+
+
+
+Вопрос 39
+Верно
+Баллов: 1,00 из 1,00
+
+Which of the following statements is/are TRUE about while loop?
+a. The loop body will be executed at least once
+b. There's no guarantee that the loop body will run at least once
+c. It always evaluates the condition expression
+d. The body's execution will be terminated when the condition is no longer met
+
+Your answer is correct.
+Правильные ответы:
+There's no guarantee that the loop body will run at least once,
+The body's execution will be terminated when the condition is no longer met,
+It always evaluates the condition expression
+
+Вопрос 40
+Верно
+Баллов: 1,00 из 1,00
+
+Which of those declarations is/are proper function prototype?
+a. int func(char x, char y) 
+b. double ptr func(char)
+c. void func(void) 
+d. long f() 
+e. char func[]
+
+Your answer is correct.
+Правильные ответы:
+long f()
+
+,
+int func(char x, char y)
+
+,
+void func(void)
+
+
+
+

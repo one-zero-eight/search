@@ -1,0 +1,16 @@
+{
+ "title": "Polozhenie o reklamnoj rassylke",
+ "url": "https://innopolis.university/filespublic/Polozhenie_o_reklamnoj_rassylke.pdf",
+ "sha256": "76e9405975de5230579c3a4d20a7f7b4656286ecd03b3150620e1fa60c949c59",
+ "method": "ocr (tesseract rus)",
+ "chars": 10184,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:46:05+00:00",
+ "remote": {
+  "etag": "\"13905d-631da25a0039d\"",
+  "modified": "Thu, 03 Apr 2025 06:47:44 GMT",
+  "size": "1282141"
+ }
+}

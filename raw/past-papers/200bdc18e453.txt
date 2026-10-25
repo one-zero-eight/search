@@ -1,0 +1,84 @@
+[2021] Physics 2. Electrical Engineering
+
+Final Exam
+Problem 1 (20 pts) – Resistive Circuits
+For the circuit shown in Figure 1 (left), do the following:
+1. Find the equivalent resistance (10 pts)
+2. Determine how much power is delivered by the source (10 pts)
+Problem 2 (20 pts) – Network Analysis
+Using the Mesh Current Method, find the unknown voltage v on the current source of the circuit shown in
+Figure 1 (right). Given quantities are R1 = 1 , R2 = 3 , R3 = 2 , R4 = 1 , R5 = 4 , VS = 3 V, I = 2 A.
+
+
+
+
+
+4V
+
+
+
+
+
+
+Vs
+
+R4
+
+R3
+
+R1
+
+I
+
+R2
+
+v
+
+R5
+
+
+
+Figure 1. Circuits for Problem 1 (left) and Problem 2 (right)
+Problem 3 (20 pts) – AC Circuits
+For the circuit shown in Fig. 2 (left), determine at what frequency will the total impedance of the circuit
+become purely resistive (zero reactance). The given quantities are R = 1 k, L = 100 H, C = 1 F.
+Problem 4 (20 pts) – Transient Analysis
+For the circuit depicted in Fig. 2 (right), write the differential equation to calculate iL. Assume IS is DC.
+
+t=0
+
+R
+IS
+
+L
+
+R
+AC
+
+C
+
+C
+
+L +
+iL = ?
+-
+
+Figure 2. Circuits for Problem 3 (left) and Problem 4 (right)
+Problem 5 (20 pts) – Semiconductor Diodes
+For the circuit below, find the range of Vin for which diode D1 is forward-biased. Assume ideal diodes.
+
++
+Vin
+
+-
+
+1 k
+
+D2
+
+2V
+
+D1
+500 
+
+

@@ -1,0 +1,16 @@
+{
+ "title": "Вступительное испытание на программам бакалавриата \"Основы информатики\" 15.08.2024, 17.08.2024",
+ "url": "https://innopolis.university/upload/iblock/e1e/mnvgp1bizq8eyj83v7swwtwl9r3x10gb/reserve_basics_informatics.pdf",
+ "sha256": "5c76da295681d23a90628c9f5060267f8dd44742f95126287a952fef33612f91",
+ "method": "text layer (pdfplumber)",
+ "chars": 1029,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-25T00:02:30+00:00",
+ "remote": {
+  "etag": "\"66c2ffce-a969\"",
+  "modified": "Mon, 19 Aug 2024 08:18:22 GMT",
+  "size": "43369"
+ }
+}

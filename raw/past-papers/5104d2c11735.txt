@@ -1,0 +1,202 @@
+Variant for Ahmed Nouralla (a.shaaban@innopolis.university)
+Dear Ahmed Nouralla,
+Welcome to the Final Exam of «Data Structures and Algorithms» course!
+This document contains 4 questions: question D, question B, question N and
+question J. Please read each question carefully and provide the solutions as
+directed.
+Solutions should be written by hand on paper, using pen or pencil. Be sure
+to make your writing clear and readable. After writing down the solutions,
+you should take a high quality photo of every page and submit those photos
+as a ZIP archive on Moodle.
+In case Moodle is not available, you should submit the archive via email to
+n.kudasov@innopolis.ru using subject “DSA Final Exam: Ahmed Nouralla”.
+Please make sure to leave at least 5 minutes before the end of the exam to
+properly submit your solutions! Submissions sent after the end of the
+exam will not be accepted.
+
+DSA Spring 2020 Final Exam, Innopolis University
+
+Variant for Ahmed Nouralla (a.shaaban@innopolis.university)
+
+Question D (10 points)
+Given a sequence of integer values, build a binary max heap, by inserting
+elements in given order:
+1, 43, 47, 28, 33, 13, 20, 24, 3, 27
+Draw the underlying tree of the heap as well as its array representation after
+every insertion.
+
+Question B (10 points)
+You have a project written in DSA programming language with source files,
+which depend on each other. You are given headers of these files.
+Mu.dsa
+import Gamma.dll
+...
+...
+Gamma.dsa
+import Beta.dll
+...
+...
+
+Xi.dsa
+...
+...
+...
+Lambda.dsa
+...
+...
+...
+
+Eta.dsa
+import Delta.dll
+...
+...
+Omega.dsa
+import Eta.dll
+import Beta.dll
+...
+
+Delta.dsa
+import Lambda.dll
+import Xi.dll
+...
+Beta.dsa
+import Xi.dll
+...
+...
+
+Command
+DSA [sourcename.dsa]
+creates [sorcename.dll] file if and only if all dependencies are met. What
+application of graph can we use in such problems? Apply that application
+to this problem to determine the order that will compile the whole project
+with respect to dependencies. Mention if no such order exists. Support your
+answer with a drawing of the graph for the given problem.
+
+DSA Spring 2020 Final Exam, Innopolis University
+
+Variant for Ahmed Nouralla (a.shaaban@innopolis.university)
+
+Question N (15 points)
+Compute shortest paths from e to all other vertices using Dijkstra algorithm
+in two directed weighted graphs given below, if possible. On every step of
+the algorithm
+• show considered edge (e.g. hu, vi)
+• and for every vertex
+– show computed distances
+– and currently known shortest path from g (e.g. e → . . . → v).
+Enter these values into a corresponding table for each graph.
+Graph G1 = (V1 , E1 )
+• V1 = {a, b, c, d, e, f, g}
+• E1 = {(g, d, 3), (a, g, 2), (g, f, 5), (g, e, 5), (g, a, 5)
+(d, g, 5), (f, e, 2), (e, f, 2), (b, g, 3), (c, g, 4)
+(g, b, 1), (f, g, 5), (e, g, 5), (g, c, 4), (f, d, 3)}
+Table 1: Steps of Dijkstra’s algorithm for G1 .
+Edge
+
+a
+
+b
+
+c
+
+d
+
+e
+
+f
+
+g
+
+...
+
+∞
+...
+
+∞
+...
+
+∞
+...
+
+∞
+...
+
+0
+...
+
+∞
+...
+
+∞
+...
+
+Graph G2 = (V2 , E2 )
+• V2 = {a, b, c, d, e, f, g}
+• E2 = {(e, f, 5), (c, g, 2), (g, b, 2), (g, f, 2), (b, g, 3)
+(f, e, 2), (f, g, −2), (g, c, 2), (g, a, 5), (g, e, 4)
+(d, g, 2), (a, g, 3), (f, d, 3), (g, d, 3), (e, g, 1)}
+Table 2: Steps of Dijkstra’s algorithm for G2 .
+Edge
+
+a
+
+b
+
+c
+
+d
+
+e
+
+f
+
+g
+
+...
+
+∞
+...
+
+∞
+...
+
+∞
+...
+
+∞
+...
+
+0
+...
+
+∞
+...
+
+∞
+...
+
+DSA Spring 2020 Final Exam, Innopolis University
+
+Variant for Ahmed Nouralla (a.shaaban@innopolis.university)
+
+Question J (15 points)
+Given the network N = (V, E) below, you should find its max-flow using
+Fold-Fulkerson algorithm. Your answer should contain:
+1. A drawing of the initial network N .
+2. The step-by-step of your solution, that is, a series of flows and respective
+residual graphs.
+3. The final (maximal) flow and its residual graph.
+4. A partition whose cut capacity is equal to the max-flow.
+Note: Not providing the step-by-step of your solution will incur in ZERO
+grade.
+V = {s, t, a, b, c, d}
+E = {(a, d), (s, c), (d, t), (b, d), (b, t), (a, b)
+(c, a), (c, d), (s, a)}
+Capacities:
+(c, d).c = 3 (d, t).c = 10 (b, t).c = 5 (c, a).c = 1
+(s, c).c = 11 (a, d).c = 3 (a, b).c = 6 (b, d).c = 4
+(s, a).c = 9
+
+DSA Spring 2020 Final Exam, Innopolis University
+
+

@@ -1,0 +1,196 @@
+Procedure
+Solve all tasks the best you can. Incomplete solution will also be graded.
+For remote students only:
+In 60 minutes after the beginning of the exam you should submit your
+solutions to email of your professor (s.savin@innopolis.ru) and your TA
+(v.skvortsova@innopolis.university, s.sellami@innopolis.university,
+s.nedelchev@innopolis.university).
+Good luck and do your best!
+
+1
+
+Task 1
+
+You have a linear system:
+
+ẋ =
+
+
+ 
+1
+1
+x+
+u
+−2
+0
+
+5
+0
+
+(1)
+
+∗
+∗
+We want to find an affine control law
+ u = −K(x −x ) + u that would drive
+
+
+−7
+1
+the system towards the points 1) x∗ =
+, 2) x∗ =
+, where K = 10 10 .
+0
+1
+Is there such u∗ that the resulting control law would achieve this goal?
+
+1. Yes/No
+2. Yes/No
+
+2
+
+Task 2
+
+You have a linear dynamical system.
+ẋ = 2x + u
+Given cost function:
+
+(2)
+
+Z
+J=
+
+g(x, u)dt
+
+(3)
+
+where g(x, u) = 5x2 + u2 , and knowing that optimal cost-to-go is J ∗ = sx2 , find
+the value of s and the optimal linear feedback control u = −kx that stabilizes
+the origin by solving Algebraic Riccati equation.
+• s =?
+• k =?
+
+1
+
+3
+
+Task 3
+
+Given linear dynamical system:
+
+"
+#
+" #
+
+−1
+1
+1
+
+ẋ =
+x+
+u
+0 −1
+0
+h
+i
+
+
+y = 2 0.5 x
+
+(4)
+
+
+
+and control law u = − 1 1 x̃, find if the following observer will make the
+state dynamics and observer error dynamics stable (if x will approach origin,
+and x̃ will approach x):
+
+
+ 
+
+
+˙x̃ = −1 1 x̃ + 1 u + L 2 0.5 (x − x̃)
+(5)
+0 −1
+0
+ 
+2
+For L =
+. Prove that this observer and controller produce a stable linear
+0
+system, and if not - propose a different choice of L that does.
+
+4
+
+Lookup info
+
+4.1
+
+Determinant
+|A| =
+
+4.2
+
+a
+c
+
+Eigenvalues
+|A − λI| =
+
+4.3
+
+b
+= ad − bc
+d
+
+a−λ
+c
+
+b
+=0
+d−λ
+
+Quadratic eq.
+√
+
+2
+
+b −4ac
+For scalar quadratic eq. ax2 + bx + c = 0, the roots are x = −b± 2a
+.
+
+4.4
+
+Hamilton-Jacobi-Bellman eq.
+
+Hamilton-Jacobi-Bellman eq. for system ẋ = f (x, u) and cost J =
+has the form:
+
+
+∂J ∗
+f (x, u)
+u∗ = arg min g(x, u) +
+∂x
+u
+It would achieve extremum if:
+
+( 
+∂
+∂J ∗
+∂u g(x, u) + ∂x f (x, u) = 0
+∗
+
+g(x, u) + ∂J
+∂x f (x, u) = 0
+
+2
+
+R∞
+0
+
+g(x, u)dt
+(6)
+
+(7)
+
+

@@ -1,0 +1,128 @@
+Probability & Statistics. Test 2. November 2, 2021. Problem Set 1. Part 1
+Solutions for each part of the test have to be written on a separate sheet! Do not forget to sign all the
+sheets you submit.
+I am aware that using any electronic devices (except for calculators), books etc. during the test, as well as
+communicating with other students, is strictly prohibited. Only one handwritten informational sheet is allowed.
+Any violation of these rules immediately leads to test cancellation. Signature
+⎛
+⎞
+3 𝑎 −2
+1. Matrix 𝐾 = ⎝ 2 5 7 ⎠ is a covariance matrix of a random vector. Find all possible values of
+−2 7 𝑏
+parameters 𝑎 and 𝑏.
+2. Function 𝑓𝜉,𝜂 (𝑥; 𝑦) = 𝐶𝑥𝑒−5𝑥−2𝑦 𝐼{𝑥 > 0, 𝑦 > 0} is a probability density of random vector of (𝜉, 𝜂).
+(a) Find the value of constant 𝐶.
+(b) Find marginal probability densities 𝑓𝜉 (𝑥) and 𝑓𝜂 (𝑦).
+(c) Find 𝐸 (𝜉 2 + 𝜂 2 ) and 𝐸(𝜉𝜂).
+
+Probability & Statistics. Test 2. November 2, 2021. Problem Set 1. Part 2
+Solutions for each part of the test have to be written on a separate sheet! Do not forget to sign all the
+sheets you submit.
+I am aware that using any electronic devices (except for calculators), books etc. during the test, as well as
+communicating with other students, is strictly prohibited. Only one handwritten informational sheet is allowed.
+Any violation of these rules immediately leads to test cancellation. Signature
+(︂ )︂
+(︂
+)︂
+−2
+2 −1
+3. Find the probability density of a normal vector with parameters 𝜇 =
+and 𝐾 =
+.
+1
+−1 3
+4. Playing DOTA every night, the chances of getting expelled from the university become frighteningly
+high and are estimated as 53% at university 𝐴 and 58% at university 𝐵.
+(a) A group of 1000 students from university 𝐴 play DOTA every night. Find the shortest interval
+such that the number of expelled students belongs to this interval with 99% probability.
+(b) According to the survey, there are 1000 students who play DOTA every night at each of the
+universities 𝐴 and 𝐵. Out of them, 560 students dropped out in one university, and 580 students
+dropped out in another university. Estimate the probability that these numbers refer to the first
+and the second universities respectively.
+
+Probability & Statistics. Test 2. November 2, 2021. Problem Set 2. Part 1
+Solutions for each part of the test have to be written on a separate sheet! Do not forget to sign all the
+sheets you submit.
+I am aware that using any electronic devices (except for calculators), books etc. during the test, as well as
+communicating with other students, is strictly prohibited. Only one handwritten informational sheet is allowed.
+Any violation of these rules immediately leads to test cancellation. Signature
+⎛
+⎞
+7 2 −1
+1. Matrix 𝐾 = ⎝ 2 3 𝑎 ⎠ is a covariance matrix of a random vector. Find all possible values of
+−1 1 𝑏
+parameters 𝑎 and 𝑏.
+2. Function 𝑓𝜉,𝜂 (𝑥; 𝑦) = 𝐶𝑦𝑒−4𝑥−𝑦 𝐼{𝑥 > 0, 𝑦 > 0} is a probability density of random vector of (𝜉, 𝜂).
+(a) Find the value of constant 𝐶.
+(b) Find marginal probability densities 𝑓𝜉 (𝑥) and 𝑓𝜂 (𝑦).
+(c) Find 𝐸 (𝜉 2 + 𝜂 2 ) and 𝐸(𝜉𝜂).
+
+Probability & Statistics. Test 2. November 2, 2021. Problem Set 2. Part 2
+Solutions for each part of the test have to be written on a separate sheet! Do not forget to sign all the
+sheets you submit.
+I am aware that using any electronic devices (except for calculators), books etc. during the test, as well as
+communicating with other students, is strictly prohibited. Only one handwritten informational sheet is allowed.
+Any violation of these rules immediately leads to test cancellation. Signature
+(︂ )︂
+(︂
+)︂
+4
+4 2
+3. Find the probability density of a normal vector with parameters 𝜇 =
+and 𝐾 =
+.
+−1
+2 3
+4. Playing DOTA every night, the chances of getting expelled from the university become frighteningly
+high and are estimated as 46% at university 𝐴 and 51% at university 𝐵.
+(a) A group of 1000 students from university 𝐴 play DOTA every night. Find the shortest interval
+such that the number of expelled students belongs to this interval with 98% probability.
+(b) According to the survey, there are 1000 students who play DOTA every night at each of the
+universities 𝐴 and 𝐵. Out of them, 500 students dropped out in one university, and 490 students
+dropped out in another university. Estimate the probability that these numbers refer to the first
+and the second universities respectively.
+
+Probability & Statistics. Test 2. November 2, 2021. Problem Set 3. Part 1
+Solutions for each part of the test have to be written on a separate sheet! Do not forget to sign all the
+sheets you submit.
+I am aware that using any electronic devices (except for calculators), books etc. during the test, as well as
+communicating with other students, is strictly prohibited. Only one handwritten informational sheet is allowed.
+Any violation of these rules immediately leads to test cancellation. Signature
+⎛
+⎞
+6 4
+1
+1. Matrix 𝐾 = ⎝ 𝑏 3 −1⎠ is a covariance matrix of a random vector. Find all possible values of
+1 −1 𝑎
+parameters 𝑎 and 𝑏.
+2. Function 𝑓𝜉,𝜂 (𝑥; 𝑦) = 𝐶𝑥𝑒−2𝑥−3𝑦 𝐼{𝑥 > 0, 𝑦 > 0} is a probability density of random vector of (𝜉, 𝜂).
+(a) Find the value of constant 𝐶.
+(b) Find marginal probability densities 𝑓𝜉 (𝑥) and 𝑓𝜂 (𝑦).
+(c) Find 𝐸 (𝜉 2 + 𝜂 2 ) and 𝐸(𝜉𝜂).
+
+Probability & Statistics. Test 2. November 2, 2021. Problem Set 3. Part 2
+Solutions for each part of the test have to be written on a separate sheet! Do not forget to sign all the
+sheets you submit.
+I am aware that using any electronic devices (except for calculators), books etc. during the test, as well as
+communicating with other students, is strictly prohibited. Only one handwritten informational sheet is allowed.
+Any violation of these rules immediately leads to test cancellation. Signature
+(︂ )︂
+(︂
+)︂
+1
+1 −4
+3. Find the probability density of a normal vector with parameters 𝜇 =
+and 𝐾 =
+.
+−5
+−4 17
+4. Playing DOTA every night, the chances of getting expelled from the university become frighteningly
+high and are estimated as 56% at university 𝐴 and 62% at university 𝐵.
+(a) A group of 1000 students from university 𝐴 play DOTA every night. Find the shortest interval
+such that the number of expelled students belongs to this interval with 95% probability.
+(b) According to the survey, there are 1000 students who play DOTA every night at each of the
+universities 𝐴 and 𝐵. Out of them, 600 students dropped out in one university, and 610 students
+dropped out in another university. Estimate the probability that these numbers refer to the first
+and the second universities respectively.
+
+

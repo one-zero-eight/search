@@ -1,0 +1,223 @@
+Analytical Geometry and Linear Algebra I. Final Exam. December 11, 2024
+VARIANT 1
+Full name:
+
+Group:
+
+In each sheet, you should write your last name, first name, variant number, and group number in the upper
+right corner. Unsigned sheets or sheets without the information above will NOT BE graded. This assignment
+sheet must also be submitted along with your solution.
+Practice. Maximum 40 points, 120 minutes
+1 Vector operations / Matrices
+(a) (2 points) Suppose A, B and C are 3x3 matrices, and |A| = −2, |B| = 3, |C| = 5.
+|AB| − |A−1 B| + |2C|.
+
+Find
+
+(b) (4 points) Find a vector that is orthogonal to both v1 = (1, 0, 1) and v2 = (1, 3, 0) and which dot
+product with vector v3 = (1, 1, 0) equals to 8.
+(c) (6 points) Let
+
+0
+
+A = 0
+1
+
+1
+0
+0
+
+
+0
+
+1
+0
+
+Find All Natural numbers (k ∈ N) where Ak = A−1 (Also, you need to check if A is invertible),
+Note that Ak = A
+· . . . · A}
+| · A {z
+k times
+
+2 Lines / Planes
+(a) (2 points) Find the angle between the planes 2x − y + z = 6, x + y + 2z = 3.
+(b) (4 points) What is the general equation of the plane which contains the following two parallel lines:
+y−2
+y+4
+x−3
+x+1
+6 = 7 = z and 6 = 7 = z − 1
+(c) (6 points) A point A lies on the line x−1
+= y3 = z+1
+2
+1 . The distance from a point A to the plane
+√
+x + y + z + 3 = 0 equals 3. Find all the possible coordinates of A.
+3 Conics
+(a) (3 points) What are the coordinates of the vertices of the hyperbola: 4x2 − 9y 2 − 40x + 54y − 17 = 0?
+(b) (5 points) Compose the equation of the hyperbola which axes coincide with the axes of coordinate
+√
+system if it is known that it passes through a point (4, −2 2) and touches the line 3x + y + 8 = 0.
+4 Coordinates / Affine Transformations
+(a) (2 points) What is the equation of the line y = 1 in a polar coordinate system?
+√
+
+7 3
+43 2
+2
+(b) (6 points) Determine the type of conic 19
+4 x + 12 y + 6 xy = 48. Compose the canonical equation
+and the transition matrix to canonical coordinate system. Find the coordinates of its foci in the
+source coordinate system.
+
+5 Surfaces
+(a) (4 points) Find the radius of the circle defined by the following equations:
+x2 + y 2 + z 2 − 8x + 4y + 8z − 45 = 0, x − 2y + 2z = 3.
+(b) (6 points) Show that the plane 2x−2y+z+12 = 0 touches the sphere x2 +y 2 +z 2 −2x−4y+2z+3 = 0.
+Find the point of contact.
+End of Exam
+
+Analytical Geometry and Linear Algebra I. Final Exam. December 11, 2024
+VARIANT 2
+Full name:
+
+Group:
+
+In each sheet, you should write your last name, first name, variant number, and group number in the upper
+right corner. Unsigned sheets or sheets without the information above will NOT BE graded. This assignment
+sheet must also be submitted along with your solution.
+Practice. Maximum 40 points, 120 minutes
+1 Vector operations / Matrices
+(a) (2 points) Suppose A, B and C are 4x4 matrices, and |A| = 2, |B| = 5, |C| = 3.
+|AB| − |A−1 B| + |2C|.
+
+Find
+
+(b) (4 points) Find a vector that is orthogonal to both v1 = (0, 1, 1) and v2 = (3, 0, 1) and which dot
+product with vector v3 = (1, 0, 1) equals to 8.
+(c) (6 points) Let
+
+0
+
+A = 1
+0
+
+0
+0
+1
+
+
+1
+
+0
+0
+
+Find All Natural numbers (k ∈ N) where Ak = A−1 (Also, you need to check if A is invertible),
+Note that Ak = |A · A {z
+· . . . · A}
+k times
+
+2 Lines / Planes
+(a) (2 points) Find the angle between the planes 4x − 2y + 2z = 1, x + y + 2z = 2.
+(b) (4 points) What is the general equation of the plane which contains the following two parallel lines:
+y−2
+y+4
+x+1
+x−3
+z−3
+6 = 7 = z and 12 = 14 = 2
+(c) (6 points) A point A lies on the line x−1
+= y3 = z+1
+2
+1 . The distance from a point A to the plane
+√
+x + y + z + 3 = 0 equals 3. Find all the possible coordinates of A.
+3 Conics
+(a) (3 points) What are the coordinates of the foci of the ellipse: 4x2 − 24x + 9y 2 − 18y + 9 = 0
+(b) (5 points) Compose all possible equations of an ellipse which axes coincide with the axes of coordinate
+system if it is known that it passes through a point (0, 1) and touches the line y = 3.
+4 Coordinates / Affine Transformations
+(a) (2 points) What is the equation of the line x = 1 in a polar coordinate system?
+(b) (6 points) Determine the type of curve given by the equation x2 + 2xy + y 2 − 5x − 5y + 4 = 0. Find
+its canonical coordinate system (i.e., indicate the coordinates of the origin and new basis vectors in
+the initial coordinate system) and its canonical equation.
+5 Surfaces
+(a) (4 points) Find the radius of the circle defined by the following equations:
+x2 + y 2 + z 2 − 8x + 4y + 8z − 45 = 0, x − 2y + 2z = 6.
+(b) (6 points) Show that the plane 2x−2y+z+12 = 0 touches the sphere x2 +y 2 +z 2 −2x−4y+2z+3 = 0.
+Find the point of contact.
+End of Exam
+
+Analytical Geometry and Linear Algebra I. Final Exam. December 11, 2024
+VARIANT 3
+Full name:
+
+Group:
+
+In each sheet, you should write your last name, first name, variant number, and group number in the upper
+right corner. Unsigned sheets or sheets without the information above will NOT BE graded. This assignment
+sheet must also be submitted along with your solution.
+Practice. Maximum 40 points, 120 minutes
+1 Vector operations / Matrices
+(a) (2 points) Suppose A, B and C are 3x3 matrices, and |A| = 2, |B| = 5, |C| = 3.
+|AB| − |A−1 B| + |2C|.
+
+Find
+
+(b) (4 points) Find a vector that is orthogonal to both v1 = (1, 1, 0) and v2 = (0, 1, 3) and which dot
+product with vector v3 = (0, 1, 1) equals to 8.
+(c) (6 points) Let
+
+0
+
+A = 0
+1
+
+0
+1
+0
+
+
+1
+
+0
+0
+
+Find All Natural numbers (k ∈ N) where Ak = A−1 (Also, you need to check if A is invertible),
+Note that Ak = |A · A {z
+· . . . · A}
+k times
+
+2 Lines / Planes
+(a) (2 points) Find the angle between the planes 4x − 2y + 2z = 1, 3x + 3y + 6z = 2.
+(b) (4 points) What is the general equation of the plane which contains the following two parallel lines:
+y−2
+y+4
+x+1
+x−3
+6 = 4 = z and 6 = 4 = z − 3
+(c) (6 points) A point A lies on the line x−1
+= y3 = z+1
+2
+1 . The distance from a point A to the plane
+√
+x + y + z + 3 = 0 equals 3. Find all the possible coordinates of A.
+3 Conics
+(a) (3 points) What are the coordinates of the vertex and directrix of the parabola:
+4x2 − 24x − 18y + 9 = 0
+(b) (5 points) Compose all possible equations of a parabola which directrix is orthogonal to an axis
+of coordinate system if it is known that its vertex at a point (1, 0) and the curve touches the line
+y = −x/2 + 1/4.
+4 Coordinates / Affine Transformations
+(a) (2 points) What is the equation of the line ϕ = π/4 in a Cartesian coordinate system?
+(b) (6 points) Determine the type of curve given by the equation 25x2 − 30xy + 9y 2 + 68x + 19 = 0. Find
+its canonical coordinate system (i.e., indicate the coordinates of the origin and new basis vectors in
+the initial coordinate system) and its canonical equation.
+5 Surfaces
+(a) (4 points) Find the radius of the circle defined by the following equations:
+x2 + y 2 + z 2 − 8x + 4y + 8z − 45 = 0, x − 2y + 2z = 9.
+(b) (6 points) Show that the plane 2x−2y+z+12 = 0 touches the sphere x2 +y 2 +z 2 −2x−4y+2z+3 = 0.
+Find the point of contact.
+End of Exam
+
+

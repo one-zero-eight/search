@@ -1,0 +1,16 @@
+{
+ "title": "Правила пользования прачечными",
+ "url": "https://hotel.innopolis.university/upload/docs-hotel/%D0%98%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F_%D0%BF%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8E_%D0%BF%D1%80%D0%B0%D1%87%D0%B5%D1%87%D0%BD%D1%8B%D0%BC%D0%B8.pdf",
+ "sha256": "a61c54a127d7eab787c380f916bec931063c557516765c9c0507c135b280704b",
+ "method": "text layer (pdfplumber)",
+ "chars": 6358,
+ "section": "site/hotel",
+ "context": "",
+ "fetched_at": "2026-10-24T22:03:42+00:00",
+ "remote": {
+  "etag": "\"5a6b7-62dde2d832071\"",
+  "modified": "Tue, 11 Feb 2025 13:55:29 GMT",
+  "size": "370359"
+ },
+ "tables": 3
+}

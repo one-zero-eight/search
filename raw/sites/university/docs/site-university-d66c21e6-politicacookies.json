@@ -1,0 +1,16 @@
+{
+ "title": "Политика конфиденциальности",
+ "url": "https://innopolis.university/files/politicacookies.pdf",
+ "sha256": "ce80842e6dc90312b65637f489dafcb20fc8cf12c0e5ba0f8f6457d43c784aef",
+ "method": "text layer (pdfplumber)",
+ "chars": 47857,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:42:00+00:00",
+ "remote": {
+  "etag": "\"1da7bb-653e3fa555c6b\"",
+  "modified": "Wed, 10 Jun 2026 10:48:02 GMT",
+  "size": "1943483"
+ }
+}

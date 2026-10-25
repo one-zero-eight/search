@@ -1,0 +1,211 @@
+Surname:
+
+group:
+
+IO Lis Mathematical Analysis 11
+LEISNEI’SIh_' Midterm
+
+e-mail:
+
+Date: Friday, March 29", 2024
+
+e The first test lasts 1,6 hours (90 minutes).
+
+e Any cheating, any attempt to cheat, assisting others to cheat, or participat-
+ing therein will result in the cancellation of the test.
+
+e The use of any smart devices (e.g. mobile phones, tablets, laptops, smart
+watches and etc.) is strictly prohibited and will be considered as an attempt
+to cheat.
+
+o No cheat sheets, calculators nor books are allowed.
+
+Model #1
+1. (5 pts) Compute the Fourier scries of the function f(t) = 72 — t2 on the interval 1 = (—m, 7).
+
+e (1pt) correct ag coefficient
+e (1pt) correct a, coefficients
+e (1pt) correct b, coefficients
+
+e (2pt) correct Series in terms of 7
+Surname;
+
+lN\'OPDrl-‘,SE b Mathematical Analysis 11 &'
+on dasss | Midterm
+
+e-mail:
+
+Date: Friday, March 29", 2024
+Model #1
+
+2. (5 pts) Find the critical points of the function fx,y) = 2* +y* —4zy + 1 and classify them as
+local minima, local maxima, and/or saddle points.
+e (1pt) correct partial derivative computation
+o (1pt) correct number critical points
+o (
+
+3pt) correct classification
+Mathematical Analysis 11
+NIVEI’Sltl.' Midterm
+
+Model #1
+
+Surname:
+
+group:
+
+e-mail:
+
+Date: Friday, March 29", 2024
+
+3. (5 pts) Compute the linear model that best fits the data
+
+e (1pt) correct algebraic formulation
+e (2pt) correct slope
+e (2pt) correct intercept
+
+z 1Y
+210
+2|1
+6 |2
+8 |3
+10]3
+
+Surname:
+
+II\NDPDLIS Mathematical Analysis II group:
+UNIVEI'SItL' Midterm
+
+e-mail:
+
+Date: Friday, March 29, 2024
+
+Model #1
+
+4. (5 pts) Compute the Taylor series expansion of second degree of the function f(z,y) = ¢* In(1+y)
+at the origin.
+o (1pt) correct partial derivative computations
+e (1pt) correct linear term
+e (2pt) correct quadratic term
+
+o (1pt) correct Taylor series approximation
+Surname:
+
+o OLIS Mathematical Analysis IT group:
+s lENNel'SltL{ Midterm
+
+e-mail:
+
+Date: Friday, March 29", 2024
+Model #1
+
+5. (5 pts) Minimize the function f(z.y) = 22 + 4y? — 2z + By subject to z + 2y =7
+
+o (1pt) correct problem formulation
+o (2pt) correct candidate point and Lagrange multiplier
+
+o (2pt) correct point classification and value
+Surname:
+
+group:
+
+nvopolis Mathematical Analysis 11
+onNversity Midterm
+
+e-mail:
+
+Date: Friday, March 29'", 2024
+
+e The first test lasts 1,5 hours (90 minutes). —‘
+
+Any cheating. any attempt to cheat, assisting others to cheat. or participat-
+ing therein will result in the cancellation of the test.
+
+e Usage of any smart devices (c.g. mobile phones, tablots, Iaptops, smart
+watches and etc.) is strictly prohibited and will be considered as an attempt
+
+to cheat.
+
+No cheat sheets, calculators nor books are allowed.
+
+B
+
+Model #2
+1. (5 pts) Compute the Fourier series of the function f@t)= 4%1‘,(471-—1‘,) on the interval I = [0, 27).
+T
+
+e (1pt) ag coefficient
+(1pt) a,, coefficients
+(1pt) b, coefficients
+
+(2pt) Series in terms of n
+Surname:
+
+lN\InLEI\DIL|SI'SItL| I\’Iatlmmnt'icnl Analysis 1T Eroup:
+e Midterm :
+e-mail:
+Date: Friday, March 20" 2024
+Model #2
+
+2. (5 pts) Find the critical points of the function F(zy) = 2%y — 3y 4 8y and classify them as
+local minima. local maxima, and/or saddle points.
+e (1pt) correct partial derivative computation
+® (1pt) correct number critical points
+
+* (3pt) correct classification
+n
+
+'N\D&\?leers&q
+
+Surname:
+
+Mathematical Analysis 11 group:
+
+Midterm
+
+e-mail:
+
+Date: Friday, March 29'", 2024
+Model #2
+
+3. (5 pts) Compute the linear model that best fits the data
+
+G W N =R
+3 00w =
+
+e (1pt) correct algebraic formulation
+
+e (2pt) correct slope
+e (2pt) correct intercept
+Surname:
+
+lN\lu’EOLls Mathematical Analysis 11 57U
+
+Midterm :
+e-mail:
+
+Date: Friday, March 29'", 2024
+Model #2
+
+4. (5 pts) Compute the Taylor series expansion of second degree of the function f(z.y) = e*sin(y)
+at the point (1,7/2).
+e (1pt) correct partial derivative computations
+e (1pt) correct linear term
+
+® (2pt) correct quadratic term
+
+(1pt) correct Taylor series approximation
+Surname:
+
+lN\lDLIl:hD“l\-}ErSltL' I\/Iatl)emat.ica,l Analysis 11 870!
+Midterm .
+e-mail:
+Date: Friday, March 29", 2024
+Model #2
+
+5. (5 pts) Minimize the function [(z,y) = 2%y — In(x) subject to 8z + 3y = 0.
+e (1pt) correct problem formulation
+
+e (2pt) correct candidate point and Lagrange multiplier
+
+e (2pt) correct point classification and value

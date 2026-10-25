@@ -1,0 +1,153 @@
+The first grading midterm (written & oral) on Mathematical Analysis
+(Innopolis University, Fall semester 2024, B24)
+
+Description
+Overall cost of the assignment is 30 points. This assignment is designed to evaluate how do we understand
+each other during study on weeks 1-6 the following topics:
+• proof techniques,
+• basics of Naïve Set Theory,
+• set-theoretic representation of the natural numbers,
+• real sequences, their convergence and limits in reals and infinities.
+The Assignments consist of the following.
+1. Build a table of size 12x2 where for each of 12 exercises from the list below and indicate in the table
+your belief
+a. whether you don’t understand the exercise’ task/question (by putting 0),
+b. or understand the task/question but not sure how to solve/answer it (by putting 1),
+c. or you believe that you understand and can solve/answer the task/question (by putting 2).
+2. Provide solutions/answers for 2 (not more than 2!) exercises (preferably from different sub-topics)
+that you think that you understand and can solve as a proof/evidence/justification for your belief (in
+the filled-in table); one of provided solution/answer should be for any of exercises 1-6, another one –
+for any of exercises 7-12.
+
+Submission and grading rules
+Please write your table and solutions on a paper in readable way, make photos/scan, and upload as a
+single pdf-document to Moodle by the midnight from Sunday October 6 to Monday October 7, 2024. Filename convention: submitted file should be named by student first name and surname (for example
+NikolayShilov.pdf).
+The main grading criterions
+•
+•
+•
+•
+•
+•
+
+human readable but concise written solutions (and its pdf-version)
+well-structuredness of the written solutions (up to 6 points for each solution)
+instructor may ask about oral presentation of any of 2 tasks that student believes knowing how to
+solve (according to student’s table to validate the table and student’s self-assessment)
+correct and complete oral presentation (up to 8 points for each correct solution)
+table itself costs 1 point while originality of presented solutions may be awarded too by 1 point
+non-crucial computational errors will be treated as tiny mistake (at most 1-point deduction for overall)
+
+Timeline and late submission policy
+•
+•
+•
+•
+•
+
+Publication of the Assignment document: Sunday September 29, 2024.
+Consultation on the technical issues related to the assignment: Monday September 30, 2024, at the
+end of online lecture & tutorial from 11:30 to 12:10.
+Due time for uploading of papers: the midnight from Sunday October 6 to Monday October 7, 2024.
+Individual oral polls for all students: on the week October 7-13, 2024, during classes and on Saturday
+(to be advertised with schedulers on Moodle).
+Students who will not upload (without a legal excuse) their papers by the due date may do it till Friday
+October 11, 2024, and then have oral poll by appointment, but with 30% deduction from the grade
+for this assignment.
+
+Exercises (questions/tasks)
+In the following tasks and exercises natural number 𝑀 (to be referred as your individual 𝑀) stays for a
+parameter which value is 𝑑𝑎𝑦 + 𝑚𝑜𝑛𝑡ℎ where 𝑑𝑎𝑦 and 𝑚𝑜𝑛𝑡ℎ are the day and month of your personal
+birthdate. (For example, 𝑀 = 28 if the day and the month are April 24.)
+Important notice: firstly, instantiate your actual value of this parameters into your task and just then
+solve this concrete instance (not a parameterized version)! For example, if a parameterized task is to
+solve linear equation 𝑀𝑥 = 100 then you need firstly instantiate actual value of 𝑀 (let it be 28 as
+above), then write the instance of the task (“Solve equation 28𝑥 = 100”), and finally – solve the
+instance.
+
+1. What does Mathematical Analysis study? (Compare with high school algebra.) How do you
+understand terms “first-order theory” and “second-order theory”? Give examples of the
+first-, second- and (optionally) third-order statements in Mathematical Analysis.
+2. Write your own opinion why you as a student of IT-University should/shouldn’t learn/study
+the second order theory of real numbers? What do you think about a need of theory of
+limits in IT, Software Engineering, Computer Science, Robotics, and/or Data Science? – Proof
+a need by example(s) but refute a need with a comprehensive proof.
+3. What is naïve set theory and why we need to learn it in Mathematical Analysis? Could you
+please present 2-3 its postulates and explain? Is any collection a set (according to the naïve
+set theory)? Prove that union and intersection of any three sets is a set again. Can you prove
+that Cartesian product of any two sets is a set too? – If you cannot, then try to prove that
+Cartesian product of any two finite sets is a set.
+4. Construct the set representation for natural numbers 0, 1, 2, 3 and prove by construction
+that these representations are sets indeed. Prove that set-theoretic representation 𝑆 of your
+individual number 𝑀 is a set indeed. What is cardinality of 𝑆? What is cardinality of 2𝑆 ?
+5. Find the largest number 𝑚 ∈ 𝑵 that is not greater than (𝑀 + 24) such that √𝑚 is irrational
+(and prove the irrationality).
+6. Using Tarski axiomatization for reals, find the first 5 digits in binary representation of a
+rational number corresponding to ratio 𝑀⁄46. (Explain your answer!)
+7. Does (2 +
+
+(−1)𝑛 𝑀
+√𝑛+1
+
+)
+
+𝑛∈𝑵
+
+has a limit? Prove your answer using the definition of the sequence’
+
+limit.
+𝑀
+
+8. Does (𝑛 − 𝑛+1)
+
+𝑛∈𝑵
+
+has a real limit? – Prove your answer using Cauchy’ test. Does the
+
+sequence have a limit? – Prove your answer using the appropriate definition.
+𝑎 −𝑀
+9. Given any real sequence (𝑎𝑛 )𝑛∈𝑵 , knowing that lim 𝑎𝑛+𝑀 = 0, prove or disprove
+𝑛→∞ 𝑛
+
+convergence of the sequence (and find lim 𝑎𝑛 in case of convergence).
+𝑛→∞
+𝑎𝑛 +(𝑀−1)×𝑎𝑛+1
+
+10. Let 𝑎0 = 1, 𝑎1 = 2 and 𝑎𝑛+2 =
+for all natural 𝑛. Is this sequence monotone,
+𝑀
+antimonotone, converging? Prove your answer using any theory covered in the lectures.
+11. An open set of reals is any set that contains a neighborhood of each of its points. A closed
+set is the set-theoretic complement in 𝑹 of an open set. Draw (sketch) on the real axis the
+following sets (a)
+a. |𝑥 + 𝑀| < 2
+b. |2𝑥 − 2| ≥ 𝑀
+c. 𝑀 − 1 ≤ |𝑥 + 𝑀| < 𝑀.
+Which of these sets are open, close, or are neither open nor closed? Prove your answer.
+12. Indicate which of the following sequences does converge and what is the limit in this case?
+Prove your answer for these sequences using any theory covered in the lectures.
+
+1
+
+𝑛
+
+a. ((1 + 𝑛⁄𝑀) )
+
+𝑛∈𝑁,𝑛>0
+
+1 𝑛⁄𝑀
+
+b. ((1 + 𝑛)
+1
+
+)
+𝑛∈𝑁,𝑛>0
+
+𝑛2
+
+c. ((1 + 𝑀𝑛) )
+
+𝑛∈𝑁,𝑛>0
+
+

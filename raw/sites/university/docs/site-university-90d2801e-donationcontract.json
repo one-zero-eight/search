@@ -1,0 +1,16 @@
+{
+ "title": "Договор пожертвования",
+ "url": "https://innopolis.university/public/files/donation-contract.pdf",
+ "sha256": "6f79bc65c0c94a03c3db3d0a7086e1204c00130aecfd5ba65d11606f07100ed7",
+ "method": "ocr (tesseract rus)",
+ "chars": 6168,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:49:27+00:00",
+ "remote": {
+  "etag": "\"188787-5d18899fff840\"",
+  "modified": "Wed, 24 Nov 2021 13:11:53 GMT",
+  "size": "1607559"
+ }
+}

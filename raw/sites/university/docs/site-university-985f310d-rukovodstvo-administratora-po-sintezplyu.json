@@ -1,0 +1,16 @@
+{
+ "title": "Rukovodstvo administratora PO SintezPlyus",
+ "url": "https://innopolis.university/filespublic/Rukovodstvo_administratora_PO_SintezPlyus.pdf",
+ "sha256": "a4c7096cd4fe3e4f5da429f182b19a303032582cd73fa23f2bd8e26df754af5d",
+ "method": "text layer (pdfplumber)",
+ "chars": 40285,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:46:09+00:00",
+ "remote": {
+  "etag": "\"7ce54-5f0794c796853\"",
+  "modified": "Fri, 23 Dec 2022 06:57:28 GMT",
+  "size": "511572"
+ }
+}

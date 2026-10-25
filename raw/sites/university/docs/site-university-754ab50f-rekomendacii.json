@@ -1,0 +1,16 @@
+{
+ "title": "2. Научно-методические рекомендации по своевременному выявлению обучающихся, подверженных воздействию идеологии терроризма, в образовательных организациях высшего и среднего профессионального образования",
+ "url": "https://innopolis.university/public/files/antiterror/rekomendacii.pdf",
+ "sha256": "2b2de292725066383785ea52da7ce420a97337baa1dac2f540673958fca3e7f5",
+ "method": "text layer (pdfplumber)",
+ "chars": 99964,
+ "tables": 3,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-24T23:49:12+00:00",
+ "remote": {
+  "etag": "\"133328-5d18899f0b600\"",
+  "modified": "Wed, 24 Nov 2021 13:11:52 GMT",
+  "size": "1258280"
+ }
+}

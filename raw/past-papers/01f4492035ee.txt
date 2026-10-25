@@ -1,0 +1,44 @@
+Mid-term examination on Discrete Mathematics & Logic
+(Innopolis University, October 14, 2019, BS-I)
+Task 1 (7 points)
+Prove in algebra of binary relations equalities according to your variant.
+(𝑑𝑑 + 𝑚𝑚) is odd
+•
+•
+
+(𝑃°𝑄)°𝑅 = 𝑃°(𝑄°𝑅)
+((𝑃− )− )− = 𝑃−
+
+(𝑑𝑑 + 𝑚𝑚) is even
+•
+•
+
+(𝑃°𝑄)− = 𝑄 − °𝑃−
+(𝑃 ∪ 𝑄)− = 𝑃− ∪ 𝑄 −
+
+Task 2 (5 points)
+Someone puts 4 apples on 3 plates randomly. what is the probability that there are no apples
+on the first plate?
+Task 3 (6 points)
+• [Variant (𝒅𝒅 + 𝒎𝒎) is odd] How many diagonals does a convex polygon with 31-vertexes have?
+•
+
+For example, hexagon has 9 diagonals.
+[Variant (𝒅𝒅 + 𝒎𝒎) is even] In how many ways we can rearrange letters in the word “midterm”
+such that there will be two consonants between two vowels?
+
+Problem 4 (7 points)
+[Variant (𝒅𝒅 + 𝒎𝒎) is odd] The relation 𝑅 on set S = {3,4,9} is defines as: x𝑅y ⇔ x mod y is odd.
+(Note: “a mod b” stands for the modulo operation that finds the remainder after division of a by b.)
+a) Express 𝑅 using set-builder notation, and then write it down as a set with all of its elements.
+b) Check if 𝑅 is reflexive, irreflexive, symmetric, anti-symmetric, asymmetric, and/or transitive.
+Conclude whether it is a relation of equivalence or not.
+c) Build reflexive-transitive closure of the relation R.
+
+[Variant (𝒅𝒅 + 𝒎𝒎) is even] The relation 𝑅 on set S = {0,3,5,6} is defined as: x𝑅y ⇔ y-x = |3|.
+a) Express 𝑅 using set-builder notation, and then write it down as a set with all of its elements.
+b) Check if 𝑅 is reflexive, irreflexive, symmetric, anti-symmetric, asymmetric, and/or transitive.
+Conclude whether it is a relation of equivalence or not.
+c) Build reflexive-transitive closure of the relation R.
+
+

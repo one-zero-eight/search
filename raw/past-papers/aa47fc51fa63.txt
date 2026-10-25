@@ -1,0 +1,495 @@
+Midterm course: Attempt review
+
+Стр. 1 из 11
+
+Started on
+State
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=109...
+
+Friday, 11 March 2022, 10:45 AM
+Finished
+
+Completed on Friday, 11 March 2022, 11:13 AM
+Time taken
+
+28 mins 39 secs
+
+Marks
+
+39.00/40.00
+
+Grade
+
+9.75 out of 10.00 (97.5%)
+
+Question 1
+Complete
+Mark 1.00 out of 1.00
+
+Choose the correct statement:
+a. A derived class can access all members of its base class
+b. A derived class can access public and protected members of its base class
+c. A derived class can access only protected members of its base class
+
+Question 2
+Complete
+Mark 1.00 out of 1.00
+
+The new operator creates an instance of the class specified after the new keyword. Which actions are
+performed while creation an instance?
+a. Memory for the new object is allocated, and the constructor is invoked for the memory just allocated.
+b. Memory for the new object is allocated
+c. A constructor of the class whose name was mentioned in new is invoked
+
+Question 3
+Complete
+Mark 1.00 out of 1.00
+
+What are the basic OOP features:
+a. Encapsulation, inheritance &amp; polymorphism
+b. Abstraction &amp; access control
+c. Virtuality &amp; genericity
+
+
+
+13.02.2024, 20:31
+
+Midterm course: Attempt review
+
+Стр. 2 из 11
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=109...
+
+Question 4
+Complete
+Mark 1.00 out of 1.00
+
+Dot notation applies:
+a. Only to class (static) members;
+b. Only to instance (non-static) members;
+c. To all methods and attributes.
+
+Question 5
+Complete
+Mark 1.00 out of 1.00
+
+Programs written in C++ normally get compiled…
+a. To a special intermediate form which is to be executed by the special system software
+b. Directly to machine code (assembler)
+
+Question 6
+Complete
+Mark 1.00 out of 1.00
+
+The notion of dynamic type applies only for instances of base/derived classes
+a. Yes
+b. No.
+
+Question 7
+Complete
+Mark 1.00 out of 1.00
+
+Memory for class (“static”) members:
+a. Is reserved once and doesn’t depend on class instances
+b. Is allocated each time a new class instance is created
+
+
+
+13.02.2024, 20:31
+
+Midterm course: Attempt review
+
+Стр. 3 из 11
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=109...
+
+Question 8
+Complete
+Mark 1.00 out of 1.00
+
+Choose correct statement:
+a. Class (“static”) functions of a class can be invoked only from other class (“static”) methods.
+b. Class (“static”) functions of a class can be invoked from any method from the same class;
+c. Class (“static”) functions of a class can be invoked from any program method throughout the whole
+program;
+
+Question 9
+Complete
+Mark 1.00 out of 1.00
+
+A declaration like С с;
+a. Declares a new class instance using the default constructor
+b. Creates a null pointer to a new class instance
+
+Question 10
+Complete
+Mark 1.00 out of 1.00
+
+Normally, the C/C++ use the following memory model:
+a. Register/Cash model
+b. Code/Stack/Heap model
+c. A model based on using a file system of an underlying OS
+
+Question 11
+Complete
+Mark 0.00 out of 1.00
+
+Choose the incorrect statement:
+a. The class is a language construct describing (possibly unlimited) number of run-time objects
+b. The class declaration describes the state and behavior of the instances of that class
+c. The class specifies only type interface
+d. The class is a system-defined or user-defined type
+
+
+
+13.02.2024, 20:31
+
+Midterm course: Attempt review
+
+Стр. 4 из 11
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=109...
+
+Question 12
+Complete
+Mark 1.00 out of 1.00
+
+Choose the correct statement:
+a. Functions in C++ can be declared either as class members of as standalone functions.
+b. Functions in C++ can be declared within classes only;
+c. Functions in C++ can be declared within classes or within blocks;
+
+Question 13
+Complete
+Mark 1.00 out of 1.00
+
+Public/private/protected specifiers:
+a. Apply only to non-static members.
+b. Apply only for static members
+c. Apply to all class members
+
+Question 14
+Complete
+Mark 1.00 out of 1.00
+
+The type conversion from a derived class to the base class is…
+a. Legal and is called upcasting
+b. Illegal
+c. Legal and is called downcasting
+
+Question 15
+Complete
+Mark 1.00 out of 1.00
+
+The single inheritance model assumes that a class…
+a. Must contain class (static) method(s)
+b. Should contain default constructor.
+c. Must inherit exactly one other class
+d. Can inherit at most one base class
+
+
+
+13.02.2024, 20:31
+
+Midterm course: Attempt review
+
+Стр. 5 из 11
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=109...
+
+Question 16
+Complete
+Mark 1.00 out of 1.00
+
+“Functional type” is…
+a. Any class whose value can be passed to a function as a parameter.
+b. Any class that has a member function in its body
+c. Any class that has operator() defined
+
+Question 17
+Complete
+Mark 1.00 out of 1.00
+
+The dynamic type of a class instance can change while program execution
+a. Yes
+b. No.
+
+Question 18
+Complete
+Mark 1.00 out of 1.00
+
+Choose incorrect statement:
+a. C++ class instances are always allocated in the heap
+b. C++ Class instances can be located either in the heap or in the stack
+
+Question 19
+Complete
+Mark 1.00 out of 1.00
+
+Two pointers to class instances can point to the same instance.
+a. Yes
+b. No.
+
+
+
+13.02.2024, 20:31
+
+Midterm course: Attempt review
+
+Стр. 6 из 11
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=109...
+
+Question 20
+Complete
+Mark 1.00 out of 1.00
+
+What are the ways for creating C++ objects of any type:
+a. Dynamically or statically, by the object declaration
+b. Statically, by object declaration
+c. Dynamically, by using new operator
+
+Question 21
+Complete
+Mark 1.00 out of 1.00
+
+The call to an overridden function is resolved statically, in compile time
+a. No.
+b. Yes
+
+Question 22
+Complete
+Not graded
+
+Suppose there is the data member x declared in a class. Are constructs “x” and “this->x” semantically
+identical?
+a. No.
+b. Yes
+
+Question 23
+Complete
+Mark 1.00 out of 1.00
+
+The main aspect of each programming language is its syntax rules; its semantics is not that important.
+a. No, the language is the composition of its syntax and semantics.
+b. Yes, the language if fully defined by its grammar.
+
+
+
+13.02.2024, 20:31
+
+Midterm course: Attempt review
+
+Стр. 7 из 11
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=109...
+
+Question 24
+Complete
+Mark 1.00 out of 1.00
+
+Instance static type is the type that is specified
+a. By the declaration of a pointer to a class.
+b. By the declaration of a class instance
+
+Question 25
+Complete
+Mark 1.00 out of 1.00
+
+Choose the incorrect statement
+a. A reference to a reference is a valid construct
+b. A pointer to a pointer is a valid construct
+c. A pointer to a function is a valid construct
+
+Question 26
+Complete
+Mark 1.00 out of 1.00
+
+The call to an overloaded function is resolved statically, in compile type
+a. Yes
+b. No.
+
+Question 27
+Complete
+Mark 1.00 out of 1.00
+
+Suppose we have the following code: class One { int x; }; class Two { int f(One& one) { return one.x; } }; What’s
+wrong with this code? Add one keyword to the code to make it correct.
+a. make One’s ‘x’ private
+b. make Two’s ‘f’ public
+c. make Two’s ‘f’ private
+d. make One’s ‘x’ public
+
+
+
+13.02.2024, 20:31
+
+Midterm course: Attempt review
+
+Стр. 8 из 11
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=109...
+
+Question 28
+Complete
+Mark 1.00 out of 1.00
+
+Choose the correct statement:
+a. Class instances are subjects for removing; if an instance is not needed anymore it should be explicitly
+destroyed by a special operator;
+b. Instances that are not referenced anymore normally are not removed (destroyed) explicitly; memory
+cleaning is performed automatically.
+
+Question 29
+Complete
+Mark 1.00 out of 1.00
+
+Overloaded member functions are…
+a. The functions with the same name but different signatures declared in the same class
+b. The functions declared in different classes that have the same signature
+
+Question 30
+Complete
+Mark 1.00 out of 1.00
+
+Choose the correct statement:
+a. Inheritance is the way to make programming easier
+b. Inheritance is a means to represent relationships between objects in a program
+c. Inheritance is the way to make programs more compact and faster
+
+Question 31
+Complete
+Mark 1.00 out of 1.00
+
+For the moment, let’s consider classes just as containers of data and algorithms. What is the most important
+idea behind such a view at classes?
+a. The idea of simplicity
+b. The idea of genericity
+c. Separating interface and implementation
+
+
+
+13.02.2024, 20:31
+
+Midterm course: Attempt review
+
+Стр. 9 из 11
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=109...
+
+Question 32
+Complete
+Mark 1.00 out of 1.00
+
+The multiple inheritance model…
+a. Required that a class should have a default constructor.
+b. Allows a class to inherit several base classes
+c. Requires that a class must inherit from two or more base classes
+
+Question 33
+Complete
+Mark 1.00 out of 1.00
+
+Stack is the data structure whose elements are accessed using:
+a. The FIFO discipline (“first in – first out”)
+b. The LIFO discipline (“last in – first out”)
+
+Question 34
+Complete
+Mark 1.00 out of 1.00
+
+C++ is based on ideas, mechanisms and idioms taken from:
+a. Java and Assembler
+b. Python
+c. C and Simula-67
+
+Question 35
+Complete
+Mark 1.00 out of 1.00
+
+Choose the correct answer:
+a. The dynamic type of a class instance is either its static type or a type of a derived class.
+b. The dynamic type of a class instance is some class type other than its static type.
+c. The dynamic type of a class instance is either its static type or the type of the base class.
+
+
+
+13.02.2024, 20:31
+
+Midterm course: Attempt review
+
+Стр. 10 из 11
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=109...
+
+Question 36
+Complete
+Mark 1.00 out of 1.00
+
+Consider the following code snippet: double x = 3.14; auto f = [](int y) { return ++x; } Is this code correct?
+Choose the answer:
+a. Yes, f is initialized by the correct lambda-expression
+b. No, lambda accesses x therefore it should be mentioned within [].
+c. No, the type of f should be specified explicitly
+
+Question 37
+Complete
+Mark 1.00 out of 1.00
+
+Stackframe is a runtime structure containing:
+a. Class (“static”) members.
+b. Function arguments and local variables
+c. Usual (“non-static”) class members
+
+Question 38
+Complete
+Mark 1.00 out of 1.00
+
+The static type of a class instance can change while program execution
+a. Yes
+b. No.
+
+Question 39
+Complete
+Mark 1.00 out of 1.00
+
+Choose the correct statement:
+a. The this keyword is the pointer to an object for which the method was called;
+b. The this keyword can be used both in static and in instance methods.
+c. The this keyword is the pointer to class (“static”) members of the class;
+
+
+
+13.02.2024, 20:31
+
+Midterm course: Attempt review
+
+Стр. 11 из 11
+
+https://moodle.innopolis.university/mod/quiz/review.php?attempt=109...
+
+Question 40
+Complete
+Mark 1.00 out of 1.00
+
+Overridden functions are…
+a. Functions in classes that do not have constructors.
+b. Functions with the same signature declared in a base class and in the classes derived from the base
+c. The same as overloaded functions
+
+Question 41
+Complete
+Mark 1.00 out of 1.00
+
+Choose incorrect statement:
+a. There is no restrictions on the block nesting level;
+b. Blocks in function bodies can be nested;
+c. Functions in C++ cannot nest (i.e., no local functions).
+d. Each block should contain a (local) declaration;
+
+
+
+13.02.2024, 20:31
+
+
