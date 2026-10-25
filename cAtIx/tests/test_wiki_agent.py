@@ -262,14 +262,33 @@ def test_a_quote_is_found_whatever_the_case_the_punctuation_and_a_mended_typo():
     assert agent.find_quote("отпуск по уходу за ребёнком до трёх лет", text) is None
 
 
-def test_a_quote_not_in_the_page_or_in_another_clause_or_of_a_few_words_is_refused():
+def test_a_quote_not_in_the_page_or_in_another_clause_or_of_a_few_words_not_found_once_is_refused():
     idx = bundle()
     found = lambda body: agent.problems(body, idx, quotes=True)
     assert any("not in /regulations/leave.md#2.2" in p for p in found(f'Up to 12 months [п. 2.2]({REG}#2.2 "students may take it as often as they like").'))
     # a near quote with a number changed is found, and the number is checked against the page's own words there
     assert any("number 24" in p for p in found(f'Up to 24 months [п. 2.2]({REG}#2.2 "leave is granted for up to 24 months").'))
     assert any("but not in its clause 2.3" in p for p in found(f'Up to 12 months [п. 2.3]({REG}#2.3 "{QUOTE}").'))
-    assert any("quote is 2 words" in p for p in found(f'Up to 12 months [п. 2.2]({REG}#2.2 "12 months").'))
+    assert any("quote is 2 words" in p for p in found(f'Up to 12 months [п. 2.2]({REG}#2.2 "twelve months").'))
+    assert found(f'Up to 12 months [п. 2.2]({REG}#2.2 "12 months").') == []  # short, but once in the clause: it can mean only that
+
+
+def test_a_long_quote_that_is_on_the_page_is_cut_by_code_to_the_words_with_the_numbers():
+    words = " ".join(["lorem", "ipsum", "dolor"] * 50)
+    where = f"Intro {words} leave is granted for up to 12 months {words} end."
+    long = where[:-5]  # 300+ words, all of them on the page
+    cut = agent.fit_quote(long, where, "Leave lasts up to 12 months.")
+    assert len(agent.words_of(cut)) == agent.QUOTE_WORDS[1] and "12 months" in cut and agent.find_quote(cut, where)
+    assert agent.fit_quote("not on the page " * 30, where, "x") == "not on the page " * 30  # (the check says what is wrong)
+
+
+def test_a_task_that_keeps_being_refused_is_given_up(monkeypatch):
+    idx = bundle()
+    tools = {t.name: t for t in agent._tools([idx], [])}
+    agent.TASK.refused = 0
+    answers = [tools["write_card"].invoke({"slug": "academic-leave", "title": "t", "description": "d", "body": "No citation here."})
+               for _ in range(agent.MAX_REFUSED + 2)]
+    assert answers[0].startswith("NOT written") and answers[agent.MAX_REFUSED - 1] == agent.GIVE_UP == answers[-1]
 
 
 def test_the_numbers_of_a_quoted_sentence_are_checked_against_its_quote():

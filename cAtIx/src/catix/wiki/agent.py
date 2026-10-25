@@ -153,6 +153,50 @@ def quoted_text(quote: str, text: str) -> str | None:
     return " ".join(words_of(text)[found[0]: found[1] + 1]) if found else None
 
 
+def occurrences(quote: str, text: str) -> int:
+    """How many times the words of the quote stand in the text, word for word."""
+    q = " ".join(words_of(quote))
+    return f" {' '.join(words_of(text))} ".count(f" {q} ") if q else 0
+
+
+def fit_quote(quote: str, where: str, claim: str) -> str:
+    """A quote longer than QUOTE_WORDS that is on the page, cut by code to the longest piece it may be: the words of the page
+    there (as they stand, not the model's copy) that hold most of the sentence's numbers. Any other quote as it is: the
+    check says what is wrong with it. A local model sent back to shorten a quote mostly wrote another long one."""
+    if len(words_of(quote)) <= QUOTE_WORDS[1] or not (found := find_quote(quote, where)):
+        return quote
+    low = where.lower().replace("ё", "е")
+    if len(low) != len(where):
+        return quote
+    spans = [m.span() for m in re.finditer(r"[^\W_]+", low)]
+    first, last, size = found[0], found[1], QUOTE_WORDS[1]
+    wanted = numbers_in(claim)
+    hits = [i for i in range(first, last + 1) if numbers_in(where[spans[i][0]:spans[i][1]]) & wanted]
+    middle = hits[len(hits) // 2] if hits else first + size // 2  # (the window is centred on the sentence's numbers)
+    start = min(max(middle - size // 2, first), last - size + 1)
+    return re.sub(r"\s+", " ", where[spans[start][0]:spans[start + size - 1][1]]).replace('"', "»").strip()
+
+
+def fit_quotes(body: str, idx: Index) -> str:
+    """Every quote of a card's links through fit_quote, against the clause (or page) it cites."""
+    clause_cache: dict[str, dict[str, str]] = {}
+
+    def line_of(line: str) -> str:
+        claim = LINK.sub(" ", line)
+
+        def one(m: re.Match) -> str:
+            label, page, clause, quote = m.groups()
+            if not quote or page not in idx.meta:
+                return m.group(0)
+            where = clause_cache.setdefault(page, clauses_of(idx, page)).get(clause, "") if clause else course_text(idx, page)
+            new = fit_quote(quote, where, claim) if where else quote
+            return m.group(0) if new == quote else f'[{label}]({page}{"#" + clause if clause else ""} "{new}")'
+
+        return LINK.sub(one, line)
+
+    return "\n".join(line_of(line) for line in body.split("\n"))
+
+
 def lines_of(quote: str, page_text: str) -> str:
     """'lines 118–119' of the page file where the quote stands ('' when it is not found): a reader opens the file there."""
     lines = page_text.splitlines()
@@ -325,7 +369,9 @@ def problems(body: str, idx: Index, quotes: bool = False) -> list[str]:
                                f'[п. {clause or "N"}]({page}{"#" + clause if clause else ""} "verbatim words of the page"): {short}')
                 continue
             n = len(words_of(quote))
-            if not QUOTE_WORDS[0] <= n <= QUOTE_WORDS[1]:
+            if n < QUOTE_WORDS[0] and occurrences(quote, where) == 1:
+                said.append(" ".join(words_of(quote)))  # (short, but it stands once in what it cites: it can only mean that place)
+            elif not QUOTE_WORDS[0] <= n <= QUOTE_WORDS[1]:
                 out.append(f"the quote is {n} words: quote {QUOTE_WORDS[0]} to {QUOTE_WORDS[1]} words, the ones this sentence rests on: {short}")
             elif (page_words := quoted_text(quote, where)) is not None:
                 said.append(page_words)
@@ -363,6 +409,7 @@ def write(slug: str, title: str, description: str, body: str, tags: list[str], a
     if len(body) > MAX_BODY:
         return [f"the card is too long ({len(body)} characters, at most {MAX_BODY}): split it into cards on narrower subjects "
                 "(e.g. who may apply / the stages / the documents), linked under ## See also"]
+    body = fit_quotes(body, idx)  # (a long quote that is on the page is cut by code, not sent back)
     if found := problems(body, idx, quotes=settings.wiki_agent_quotes):
         return found
     if gone := lost(slug, body, dropped or [], idx):
@@ -457,6 +504,8 @@ def _tools(idx_box: list, written: list, refused: Counter | None = None):
         """Write a card (new, or the whole new text of an existing one: keep what it said). audience: some of student,
         postgraduate, applicant, teacher, staff, management, public. dropped: citations of the old text you leave out on
         purpose, as '/regulations/x.md#5.3' (a page without clauses: just its path). Returns 'written' or the problems to fix."""
+        if getattr(TASK, "refused", 0) >= MAX_REFUSED:
+            return GIVE_UP
         with WRITING:  # tasks run at once: the old text a new one is checked against is the one on disk
             found = write(slug, title, description, body, tags or [], audience or [], idx_box[0], dropped or [])
             refused["attempts"] += 1
@@ -467,7 +516,12 @@ def _tools(idx_box: list, written: list, refused: Counter | None = None):
             else:
                 written.append(slug)
         if found:
+            TASK.refused = getattr(TASK, "refused", 0) + 1
             print(f"  write_card {slug} refused: " + " | ".join(p[:160] for p in found[:2]), flush=True)
+            if TASK.refused >= MAX_REFUSED:
+                with WRITING:
+                    refused["gave up"] += 1
+                return GIVE_UP
             return "NOT written, fix these:\n" + "\n".join(f"- {p}" for p in found[:12])
         index_card(slug)
         return f"written: /{FOLDER}/{slug}.md"
@@ -488,6 +542,10 @@ def index_card(slug: str) -> None:
         print(f"  card {slug} written, not indexed: {type(e).__name__}: {str(e)[:160]}", flush=True)
 
 
+MAX_REFUSED = 15  # refused write_card calls a task: then it is given up (a local model repeated one mistake for an hour)
+GIVE_UP = (f"STOP: {MAX_REFUSED} attempts of this task were refused. Do not call write_card again. "
+           "Answer now with one line: DONE: gave up.")
+TASK = threading.local()  # .refused: the refused writes of the task this thread works on
 WRITING = threading.Lock()  # a card's check and its write, the queue, the counters: one task at a time
 
 
@@ -543,6 +601,7 @@ def _invoke(agent, task: str, callbacks: list | None = None, name: str = "wiki a
     config = {"recursion_limit": settings.wiki_agent_steps, "callbacks": callbacks or [],  # (a thread does not inherit the run's callbacks)
               "run_name": name, "metadata": {"session_id": RUN_ID}}  # a trace a task, the tasks of a run one session
     messages, last, sent_back = [HumanMessage(task)], "", False
+    TASK.refused = 0
     for _ in range(1 + CONTINUES):
         try:
             out = agent.invoke({"messages": messages}, config)
@@ -556,6 +615,8 @@ def _invoke(agent, task: str, callbacks: list | None = None, name: str = "wiki a
         last = str(out["messages"][-1].content).strip()
         if DONE.search(last):
             return last[:300]
+        if TASK.refused >= MAX_REFUSED:
+            return f"GAVE UP after {MAX_REFUSED} refused writes: {last[:200]}"
         if sent_back and not any(getattr(m, "tool_calls", None) for m in out["messages"][len(messages):]):
             return f"DONE (nothing left to do): {last[:280]}"
         print(f"  stopped before DONE ({last[:80]!r}): sent back to work", flush=True)
@@ -694,7 +755,7 @@ def _run(pages: list[str] | None, limit: int | None, usage) -> dict:
             break
     print(f"== agent: write_card in all: {describe(refused)}", flush=True)
     return {"pages": len(todo), "cards written": len(written), "cards broken": len(check_all()),
-            "write attempts": refused["attempts"], "refused": refused["refused"], "unfinished tasks": refused["unfinished"]}
+            "write attempts": refused["attempts"], "refused": refused["refused"], "unfinished tasks": refused["unfinished"], "tasks given up": refused["gave up"]}
 
 
 def describe(counts: Counter) -> str:
