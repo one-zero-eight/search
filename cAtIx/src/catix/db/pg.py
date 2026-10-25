@@ -110,7 +110,7 @@ def rerank(query: str, documents: list[str]) -> list[float]:
                                                                       "document_chars": sum(map(len, documents))}):
         response = _http.post(
             f"{str(settings.reranker_route).rstrip('/')}/rerank",
-            json={"model": settings.reranker_model, "query": query, "documents": documents},
+            json={"model": settings.reranker_model, "query": query, "documents": documents, "raw_scores": True},  # (Infinity: logits, as llama.cpp gives)
         )
         response.raise_for_status()
     scores = [0.0] * len(documents)
