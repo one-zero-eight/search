@@ -295,9 +295,6 @@ def _embed_all(queries: list[str]) -> list[list[float]]:
 
 
 def _vector(vector: list[float], ids: list[int] | None, date_from: str | None, date_to: str | None) -> list[int]:
-    if "harrier" in settings.embeddings_model.lower():
-        log.warning("Skipping BGE message vectors for a Harrier query; use HARRIER_ROUTE for the wiki instead")
-        return []
     filters, params = _filters("e.chat_id", "m.date", ids, date_from, date_to)
     # Dates live on the message, not on its vector.
     join = " JOIN messages m ON m.id = e.message_id" if date_from or date_to else ""

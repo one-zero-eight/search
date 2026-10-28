@@ -91,17 +91,15 @@ def connect() -> Connection:
     return conn
 
 
-def embed(texts: list[str], *, query: bool = False, route=None, model: str | None = None) -> list[list[float]]:
-    """Vectors for a batch of texts from the embeddings server, in the same order."""
+def embed(texts: list[str], *, query: bool = False) -> list[list[float]]:
+    """Vectors for a batch of texts from the embeddings server, in the same order. A query gets EMBEDDINGS_QUERY_PREFIX."""
     if not texts:
         return []
-    endpoint = str(route or settings.embeddings_route).rstrip('/')
-    model = model or settings.embeddings_model
+    endpoint = str(settings.embeddings_route).rstrip('/')
+    model = settings.embeddings_model
     verify_embedder(endpoint, model)
-    prefix = settings.embeddings_query_prefix
-    if prefix is None:
-        prefix = "Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery: " if "harrier" in model.lower() else ""
-    texts = [(prefix if query else "") + (text[: settings.embeddings_max_chars].strip() or " ") for text in texts]
+    prefix = settings.embeddings_query_prefix if query else ""
+    texts = [prefix + (text[: settings.embeddings_max_chars].strip() or " ") for text in texts]
     with tracing.span("embed", "EMBEDDING", input=texts, **{"embedding.model_name": model}):
         response = _http.post(
             f"{endpoint}/embeddings",

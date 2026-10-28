@@ -1,7 +1,6 @@
 from datetime import time
 from functools import cached_property
 from pathlib import Path
-from typing import Literal
 from zoneinfo import ZoneInfo
 
 from pydantic import AliasChoices, Field, HttpUrl, SecretStr
@@ -121,10 +120,7 @@ class Settings(BaseSettings):
     # OpenAI-compatible /v1/embeddings server (llama.cpp --embedding, bge-m3) on the GPU machine.
     embeddings_route: HttpUrl = HttpUrl("http://localhost:8081/v1")
     embeddings_model: str = "bge-m3"
-    embeddings_query_prefix: str | None = None
-    harrier_route: HttpUrl | None = None
-    harrier_model: str = "mradermacher/harrier-oss-v1-0.6b-GGUF:Q8_0"
-    wiki_vector_mode: Literal["bge-m3", "harrier", "ensemble"] = "bge-m3"
+    embeddings_query_prefix: str = ""  # before a query (not a document), for a model that wants an instruction; bge-m3 does not
     search_candidates: int = Field(30, gt=0)
     wiki_search_candidates: int = Field(30, gt=0)
     search_ef: int = Field(400, ge=1, le=1000)

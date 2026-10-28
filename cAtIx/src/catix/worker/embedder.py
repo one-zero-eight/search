@@ -37,8 +37,6 @@ def embed_batch() -> int:
         rows = pg.rows(conn, QueuedMessage, CLAIM, (settings.embed_batch,))
         if not rows:
             return 0
-        if "harrier" in settings.embeddings_model.lower():
-            raise RuntimeError("Do not overwrite BGE message vectors with Harrier; use HARRIER_ROUTE for the wiki")
         vectors = pg.embed([r.text for r in rows])  # Raises on failure: the transaction rolls back, rows stay queued.
         with conn.cursor() as cur:
             cur.executemany(

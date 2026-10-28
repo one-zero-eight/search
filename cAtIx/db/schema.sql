@@ -300,23 +300,8 @@ CREATE TABLE IF NOT EXISTS wiki_chunk_embeddings (
     chunk_id  bigint PRIMARY KEY REFERENCES wiki_chunks (id) ON DELETE CASCADE,
     embedding vector(1024) NOT NULL
 );
-CREATE TABLE IF NOT EXISTS wiki_chunk_embeddings_harrier (
-    chunk_id bigint PRIMARY KEY,
-    embedding vector(1024) NOT NULL
-);
-DO $$ BEGIN
-    IF NOT EXISTS (SELECT 1 FROM pg_constraint
-                   WHERE conrelid = 'wiki_chunk_embeddings_harrier'::regclass
-                     AND conname = 'wiki_chunk_embeddings_harrier_chunk_id_fkey') THEN
-        ALTER TABLE wiki_chunk_embeddings_harrier ADD CONSTRAINT wiki_chunk_embeddings_harrier_chunk_id_fkey
-            FOREIGN KEY (chunk_id) REFERENCES wiki_chunks (id) ON DELETE CASCADE NOT VALID;
-    END IF;
-END $$;
-ALTER TABLE wiki_chunk_embeddings_harrier VALIDATE CONSTRAINT wiki_chunk_embeddings_harrier_chunk_id_fkey;
--- (m=32, ef_construction=200: the graph is denser than the BGE index's defaults, which matters most where a filter by
--- trust or course programmes leaves the scan few rows to choose from.)
-CREATE INDEX IF NOT EXISTS wiki_chunk_embeddings_harrier_hnsw ON wiki_chunk_embeddings_harrier
-    USING hnsw (embedding vector_cosine_ops) WITH (m = 32, ef_construction = 200);
+-- (harrier-oss-v1 was tried as a second vector space and found worse than bge-m3 on the wiki: its table is gone.)
+DROP TABLE IF EXISTS wiki_chunk_embeddings_harrier;
 CREATE TABLE IF NOT EXISTS wiki_embedding_queue (
     chunk_id  bigint PRIMARY KEY REFERENCES wiki_chunks (id) ON DELETE CASCADE,
     queued_at timestamptz NOT NULL DEFAULT now()
@@ -330,7 +315,6 @@ CREATE OR REPLACE FUNCTION enqueue_wiki_embedding() RETURNS trigger LANGUAGE plp
 BEGIN
     INSERT INTO wiki_embedding_queue (chunk_id) VALUES (NEW.id)
         ON CONFLICT (chunk_id) DO UPDATE SET queued_at = excluded.queued_at;
-    DELETE FROM wiki_chunk_embeddings_harrier WHERE chunk_id = NEW.id;
     RETURN NEW;
 END $$;
 DROP TRIGGER IF EXISTS wiki_chunks_enqueue_insert ON wiki_chunks;

@@ -14,7 +14,7 @@ def client(monkeypatch, payload):
         import json
 
         if request.method == "GET":
-            return httpx.Response(200, json={"data": [{"id": settings.embeddings_model}, {"id": settings.harrier_model}]})
+            return httpx.Response(200, json={"data": [{"id": settings.embeddings_model}]})
         requests.append(json.loads(request.content))
         return httpx.Response(200, content=json.dumps(payload))
 
@@ -22,19 +22,9 @@ def client(monkeypatch, payload):
     return requests
 
 
-def test_harrier_instruction_only_applies_to_queries(monkeypatch):
-    monkeypatch.setattr(settings, "embeddings_model", "mradermacher/harrier-oss-v1-0.6b-GGUF:Q8_0")
-    monkeypatch.setattr(settings, "embeddings_query_prefix", None)
-    requests = client(monkeypatch, {"data": [{"index": 0, "embedding": [1.0] * 1024}]})
-    pg.embed(["пересдачи"], query=True)
-    pg.embed(["пересдачи"])
-    assert requests[0]["input"] == ["Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery: пересдачи"]
-    assert requests[1]["input"] == ["пересдачи"]
-
-
 def test_bge_queries_remain_unprefixed(monkeypatch):
     monkeypatch.setattr(settings, "embeddings_model", "bge-m3")
-    monkeypatch.setattr(settings, "embeddings_query_prefix", None)
+    monkeypatch.setattr(settings, "embeddings_query_prefix", "")
     requests = client(monkeypatch, {"data": [{"index": 0, "embedding": [1.0] * 1024}]})
     pg.embed(["пересдачи"], query=True)
     assert requests[0]["input"] == ["пересдачи"]
@@ -45,7 +35,8 @@ def test_custom_query_prefix_does_not_consume_text_limit(monkeypatch):
     monkeypatch.setattr(settings, "embeddings_max_chars", 5)
     requests = client(monkeypatch, {"data": [{"index": 0, "embedding": [1.0] * 1024}]})
     pg.embed(["abcdef"], query=True)
-    assert requests[0]["input"] == ["query: abcde"]
+    pg.embed(["abcdef"])
+    assert requests[0]["input"] == ["query: abcde"] and requests[1]["input"] == ["abcde"]
 
 
 @pytest.mark.parametrize("data", [[], [{"index": 1, "embedding": [1.0] * 1024}],
@@ -83,7 +74,7 @@ def test_reranker_rejects_nonfinite_scores(monkeypatch):
 
 
 def test_embedding_checks_the_actual_server_model(monkeypatch):
-    monkeypatch.setattr(settings, "embeddings_model", "harrier")
+    monkeypatch.setattr(settings, "embeddings_model", "another-model")
     paths = []
 
     def respond(request):

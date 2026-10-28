@@ -1,4 +1,4 @@
-"""Compare production retrieval backends, optionally against a saved wiki.py implementation."""
+"""The wiki's search on quality.QUESTIONS or a generated set, optionally against a saved wiki.py implementation."""
 
 import argparse
 import importlib.util
@@ -31,7 +31,6 @@ def main() -> None:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--dataset", type=Path)
     parser.add_argument("--baseline-source", type=Path)
-    parser.add_argument("--modes", nargs="+", choices=["bge-m3", "harrier", "ensemble"], default=["bge-m3", "harrier", "ensemble"])
     parser.add_argument("--limit", type=int, default=10)
     args = parser.parse_args()
     if args.limit <= 0:
@@ -49,7 +48,7 @@ def main() -> None:
     questions = [json.loads(line) for line in args.dataset.read_text(encoding="utf-8").splitlines() if line.strip()] if args.dataset else [
         {"reader": reader, "question": question, "page": page, "text": text} for reader, question, page, text in QUESTIONS
     ]
-    results = {mode: [] for mode in (["baseline"] if baseline else []) + args.modes}
+    results = {mode: [] for mode in (["baseline"] if baseline else []) + ["current"]}
     skipped = []
     try:
         for question in questions:
@@ -70,7 +69,6 @@ def main() -> None:
                 continue
             firsts = []
             for mode, rows in results.items():
-                settings.wiki_vector_mode = "bge-m3" if mode == "baseline" else mode
                 started = time.monotonic()
                 hits = (baseline if mode == "baseline" else wiki).search(question["question"], limit=args.limit)
                 relevance = [matches(hit) for hit in hits]

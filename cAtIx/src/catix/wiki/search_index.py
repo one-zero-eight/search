@@ -10,9 +10,8 @@ A piece whose text stands on other pages too (the course programme of each intak
 the others are marked as its copies (mark_copies) and shown as the places it also stands.
 
 New pieces are found by words at once; their vectors come from a queue (wiki_embedding_queue, filled by a trigger), which
-this command drains at the end and the embedding workers drain too (worker/embedder.py). A piece without a Harrier vector
-is put back in that queue, so the parallel index stays complete. When the embeddings model
-changes, the legacy index is preserved and the switch is refused. Harrier has its own parallel table.
+this command drains at the end and the embedding workers drain too (worker/embedder.py). When the embeddings model
+changes, every vector is dropped and every piece is queued again.
 
     catix-wiki index              # sync the database with wiki/ and compute the missing vectors
     catix-wiki index --no-embed   # sync only; the workers compute the vectors
@@ -117,14 +116,14 @@ def write_page(conn, rel: str, sha: str, meta: dict, chunks: list[Chunk]) -> tup
 
 
 def check_model(conn) -> None:
-    """Never silently replace the legacy vector space with another model."""
+    """Vectors of another embeddings model cannot be compared with new ones: drop them all and queue every piece."""
     model = pg.scalar(conn, "SELECT value FROM wiki_meta WHERE key = 'embeddings_model'")
     if model == settings.embeddings_model:
         return
     if model is not None:
-        raise RuntimeError("Legacy embedding model mismatch; configure HARRIER_ROUTE and WIKI_VECTOR_MODE instead of replacing BGE-M3")
-    if "harrier" in settings.embeddings_model.lower():
-        raise RuntimeError("Harrier belongs in its own table; configure HARRIER_ROUTE instead")
+        conn.execute("DELETE FROM wiki_chunk_embeddings")
+        conn.execute("INSERT INTO wiki_embedding_queue (chunk_id) SELECT id FROM wiki_chunks ON CONFLICT DO NOTHING")
+        print(f"embeddings model changed ({model} -> {settings.embeddings_model}): every piece is embedded again")
     conn.execute("INSERT INTO wiki_meta (key, value) VALUES ('embeddings_model', %s) ON CONFLICT (key) DO UPDATE SET value = excluded.value",
                  (settings.embeddings_model,))
 
@@ -199,21 +198,13 @@ def embed_batch(size: int = EMBED_BATCH) -> int:
 
 
 def _embed_rows(conn, rows: list[dict]) -> None:
-    texts = [record["search_text"] for record in rows]
-    vectors = pg.embed(texts)
+    vectors = pg.embed([record["search_text"] for record in rows])
     with conn.cursor() as cur:
         cur.executemany(
             """INSERT INTO wiki_chunk_embeddings (chunk_id, embedding) VALUES (%s, %s)
                ON CONFLICT (chunk_id) DO UPDATE SET embedding = excluded.embedding""",
             [(record["id"], vector) for record, vector in zip(rows, vectors, strict=True)],
         )
-        if settings.harrier_route is not None:
-            harrier = pg.embed(texts, route=settings.harrier_route, model=settings.harrier_model)
-            cur.executemany(
-                """INSERT INTO wiki_chunk_embeddings_harrier (chunk_id, embedding) VALUES (%s, %s)
-                   ON CONFLICT (chunk_id) DO UPDATE SET embedding = excluded.embedding""",
-                [(record["id"], vector) for record, vector in zip(rows, harrier, strict=True)],
-            )
 
 
 def index_page(rel: str, bundle: Path = BUNDLE) -> int:
@@ -249,27 +240,8 @@ def queued() -> int:
         return pg.scalar(conn, "SELECT count(*) FROM wiki_embedding_queue")
 
 
-def queue_missing_harrier() -> int:
-    """Queue the pieces without a Harrier vector (the table was created after them, the server was down, the trigger dropped
-    the vector of a piece whose text changed while HARRIER_ROUTE was unset): the next embedding run computes them. 0 when
-    Harrier is not configured, so the invariants stay as they were."""
-    if settings.harrier_route is None:
-        return 0
-    with pg.connection() as conn:
-        if not pg.scalar(conn, "SELECT to_regclass('wiki_chunk_embeddings_harrier')"):
-            return 0
-        return conn.execute("""INSERT INTO wiki_embedding_queue (chunk_id)
-                               SELECT c.id FROM wiki_chunks c
-                               LEFT JOIN wiki_chunk_embeddings_harrier h ON h.chunk_id = c.id
-                               WHERE h.chunk_id IS NULL
-                               ON CONFLICT (chunk_id) DO NOTHING""").rowcount
-
-
 def status() -> None:
     with pg.connection() as conn:
-        if pg.scalar(conn, "SELECT to_regclass('wiki_chunk_embeddings_harrier')"):
-            counts = conn.execute("SELECT count(*) AS chunks, count(h.chunk_id) AS harrier_vectors FROM wiki_chunks c LEFT JOIN wiki_chunk_embeddings_harrier h ON h.chunk_id=c.id").fetchone()
-            print(f"Harrier: {counts['harrier_vectors']}/{counts['chunks']} vectors; search mode: {settings.wiki_vector_mode}")
         for r in conn.execute("""SELECT p.trust, count(DISTINCT p.path) AS pages, count(c.id) AS pieces, count(e.chunk_id) AS vectors
                                  FROM wiki_pages p LEFT JOIN wiki_chunks c ON c.path = p.path
                                  LEFT JOIN wiki_chunk_embeddings e ON e.chunk_id = c.id GROUP BY p.trust ORDER BY p.trust""").fetchall():
@@ -293,13 +265,10 @@ def export(path: Path) -> None:
     commit = subprocess.run(["git", "-C", str(BUNDLE.parent), "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
     with pg.connection() as conn, conn.transaction(), tarfile.open(path, "w:gz") as tar:
         conn.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ")  # (one snapshot of all four tables)
-        tables = (*TABLES, "wiki_chunk_embeddings_harrier") if pg.scalar(conn, "SELECT to_regclass('wiki_chunk_embeddings_harrier')") else TABLES
         manifest = {"embeddings_model": pg.scalar(conn, "SELECT value FROM wiki_meta WHERE key = 'embeddings_model'"),
                     "wiki_commit": commit or None, "scheme": SCHEME, "exported_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
-                    "columns": {t: _columns(conn, t) for t in tables}, "rows": {}}
-        if "wiki_chunk_embeddings_harrier" in tables:
-            manifest["harrier_model"] = settings.harrier_model
-        for table in tables:
+                    "columns": {t: _columns(conn, t) for t in TABLES}, "rows": {}}
+        for table in TABLES:
             data = io.BytesIO()
             cols = ", ".join(manifest["columns"][table])
             with conn.cursor().copy(f"COPY (SELECT {cols} FROM {table}) TO STDOUT (FORMAT binary)") as copy:  # noqa: S608 - names from the catalog
@@ -326,17 +295,14 @@ def import_(path: Path) -> None:
         manifest = json.loads(tar.extractfile("manifest.json").read())
         if manifest["embeddings_model"] != settings.embeddings_model:
             sys.exit(f"the vectors of {path} are of {manifest['embeddings_model']}, this database uses {settings.embeddings_model}")
-        tables = (*TABLES, "wiki_chunk_embeddings_harrier") if "wiki_chunk_embeddings_harrier" in manifest["columns"] else TABLES
-        if "wiki_chunk_embeddings_harrier" in tables and manifest.get("harrier_model") != settings.harrier_model:
-            sys.exit("the archive's Harrier model does not match HARRIER_MODEL")
         started = time.monotonic()
         with pg.connection() as conn, conn.transaction():
-            for table in tables:
+            for table in TABLES:
                 # (by name: COPY names the columns, and a column added later by ALTER stands last in an older database)
                 if set(here := _columns(conn, table)) != set(manifest["columns"][table]):
                     sys.exit(f"{table} has other columns here ({here}) than in {path}: apply db/schema.sql of the same version")
             conn.execute("TRUNCATE wiki_pages, wiki_meta CASCADE")  # (pieces, vectors and the queue go with the pages)
-            for table in tables:
+            for table in TABLES:
                 cols = ", ".join(manifest["columns"][table])
                 # The pieces' ids are generated: they come through a staging table, so that the vectors keep their pieces.
                 target = "stage" if table == "wiki_chunks" else table
@@ -350,10 +316,7 @@ def import_(path: Path) -> None:
                     conn.execute(f"INSERT INTO wiki_chunks ({cols}) OVERRIDING SYSTEM VALUE SELECT {cols} FROM stage")  # noqa: S608
                     conn.execute("SELECT setval(pg_get_serial_sequence('wiki_chunks', 'id'), coalesce(max(id), 1)) FROM wiki_chunks")
                 print(f"  {table}: {manifest['rows'][table]} rows ({time.monotonic() - started:.0f}s)", flush=True)
-            if settings.harrier_route is None:
-                conn.execute("DELETE FROM wiki_embedding_queue q USING wiki_chunk_embeddings e WHERE e.chunk_id = q.chunk_id")
-            else:
-                conn.execute("DELETE FROM wiki_embedding_queue q USING wiki_chunk_embeddings e, wiki_chunk_embeddings_harrier h WHERE e.chunk_id=q.chunk_id AND h.chunk_id=q.chunk_id")
+            conn.execute("DELETE FROM wiki_embedding_queue q USING wiki_chunk_embeddings e WHERE e.chunk_id = q.chunk_id")
             conn.execute("INSERT INTO wiki_meta (key, value) VALUES ('imported_from', %s) ON CONFLICT (key) DO UPDATE SET value = excluded.value",
                          (manifest["wiki_commit"] or "?",))
     print(f"imported {path} (wiki commit {str(manifest['wiki_commit'])[:12]}) in {time.monotonic() - started:.0f}s")
@@ -375,8 +338,6 @@ def main() -> None:
         print(", ".join(f"{v} {k}" for k, v in counts.items()) or "nothing to do", f"({time.monotonic() - started:.0f}s)")
         with pg.connection() as conn:
             print(f"{mark_copies(conn)} pieces marked again as copies or not")
-        if missing := queue_missing_harrier():
-            print(f"{missing} pieces have no Harrier vector yet: queued")
         if "--no-embed" not in args:
             print(f"{embed_all()} pieces embedded")
         status()

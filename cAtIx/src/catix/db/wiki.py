@@ -69,14 +69,9 @@ def _bm25(words: str, trust: list[str], courses: bool = False) -> list[int]:
         return found
 
 
-def _vector(vector: list[float], trust: list[str], courses: bool = False, *, model: str = "bge-m3") -> list[int]:
-    if model not in {"bge-m3", "harrier"}:
-        raise ValueError("Unknown wiki vector space")
-    table = "wiki_chunk_embeddings_harrier" if model == "harrier" else "wiki_chunk_embeddings"
+def _vector(vector: list[float], trust: list[str], courses: bool = False) -> list[int]:
     with tracing.span("vector course programmes" if courses else "vector", "RETRIEVER") as done, pg.connection() as conn, conn.transaction():
-        if not pg.scalar(conn, "SELECT to_regclass(%s)", (table,)):
-            return []
-        if model == "bge-m3" and pg.scalar(conn, "SELECT value FROM wiki_meta WHERE key='embeddings_model'") != settings.embeddings_model:
+        if pg.scalar(conn, "SELECT value FROM wiki_meta WHERE key='embeddings_model'") != settings.embeddings_model:
             log.warning("Skipping wiki vectors whose model does not match EMBEDDINGS_MODEL")
             return []
         conn.execute("SET LOCAL hnsw.iterative_scan = strict_order")
@@ -85,7 +80,7 @@ def _vector(vector: list[float], trust: list[str], courses: bool = False, *, mod
         conn.execute("SELECT set_config('hnsw.ef_search', %s, true)", (str(settings.search_ef),))
         found = pg.column(
             conn,
-            f"""SELECT e.chunk_id FROM {table} e JOIN wiki_chunks c ON c.id = e.chunk_id
+            """SELECT e.chunk_id FROM wiki_chunk_embeddings e JOIN wiki_chunks c ON c.id = e.chunk_id
                WHERE c.trust = ANY(%(t)s) AND (c.path LIKE %(c)s) = %(courses)s AND c.copy_of IS NULL ORDER BY e.embedding <=> %(v)s::vector LIMIT %(n)s""",
             {"v": vector, "t": trust, "n": settings.wiki_search_candidates, "c": COURSES, "courses": courses},
         )
@@ -195,16 +190,6 @@ def _resolve_cites(hits: list[WikiHit]) -> None:
                 h.based_on.append({"page": page["path"], "title": page["title"], "link": page["resource"], "trust": page["trust"]})
 
 
-def _embed_harrier(queries: list[str]) -> list[list[float]]:
-    if settings.harrier_route is None:
-        return []
-    try:
-        return pg.embed(queries, query=True, route=settings.harrier_route, model=settings.harrier_model)
-    except Exception:
-        log.warning("Harrier unavailable; keeping the other retrieval methods", exc_info=True)
-        return []
-
-
 def search(queries: str | list[str], *, trust: Collection[str] | None = None, limit: int = 8, original: str | None = None) -> list[WikiHit]:
     """The `limit` pieces that answer the queries best. `trust` keeps only some kinds of pages (official, guide, wiki).
     `original` is the user's own question: one more angle that counts double (as in store.search)."""
@@ -219,16 +204,10 @@ def search(queries: str | list[str], *, trust: Collection[str] | None = None, li
     kinds = [t for t in (trust or TRUST) if t in TRUST]
     if not queries or not kinds or limit <= 0:
         return []
-    mode = settings.wiki_vector_mode
-    with ThreadPoolExecutor(max_workers=2) as executor:
-        bge_job = executor.submit(tracing.carry(_embed_all), queries) if mode != "harrier" else None
-        harrier_job = executor.submit(tracing.carry(_embed_harrier), queries) if mode != "bge-m3" else None
-        vectors = bge_job.result() if bge_job else []
-        harrier = harrier_job.result() if harrier_job else []
-    with tracing.span("hybrid", "RETRIEVER", input=queries), ThreadPoolExecutor(max_workers=6) as executor:
+    vectors = _embed_all(queries)
+    with tracing.span("hybrid", "RETRIEVER", input=queries), ThreadPoolExecutor(max_workers=4) as executor:
         jobs = [(i, executor.submit(tracing.carry(_bm25), _words(q), kinds, pool),
-                 executor.submit(tracing.carry(_vector), vectors[i], kinds, pool) if vectors else None,
-                 executor.submit(tracing.carry(_vector), harrier[i], kinds, pool, model="harrier") if harrier else None)
+                 executor.submit(tracing.carry(_vector), vectors[i], kinds, pool) if vectors else None)
                 for i, q in enumerate(queries) for pool in POOLS]
         per_query = [{item: (2 if original and i == 0 else 1) * value for item, value in _rrf(*[job.result() for job in pair if job]).items()}
                      for i, *pair in jobs]
