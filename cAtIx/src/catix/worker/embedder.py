@@ -37,12 +37,14 @@ def embed_batch() -> int:
         rows = pg.rows(conn, QueuedMessage, CLAIM, (settings.embed_batch,))
         if not rows:
             return 0
+        if "harrier" in settings.embeddings_model.lower():
+            raise RuntimeError("Do not overwrite BGE message vectors with Harrier; use HARRIER_ROUTE for the wiki")
         vectors = pg.embed([r.text for r in rows])  # Raises on failure: the transaction rolls back, rows stay queued.
         with conn.cursor() as cur:
             cur.executemany(
                 """INSERT INTO message_embeddings (message_id, chat_id, embedding) VALUES (%s, %s, %s)
                    ON CONFLICT (message_id) DO UPDATE SET embedding = excluded.embedding""",
-                [(r.id, r.chat_id, v) for r, v in zip(rows, vectors)],
+                [(record.id, record.chat_id, vector) for record, vector in zip(rows, vectors, strict=True)],
             )
         conn.execute("DELETE FROM embedding_queue WHERE message_id = ANY(%s::bigint[])", ([r.id for r in rows],))
         return len(rows)

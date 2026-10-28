@@ -77,9 +77,34 @@ QUESTIONS = [
 ]  # fmt: skip
 
 
-def relevant(conn, page: str, text: str) -> set[int]:
-    return {r["id"] for r in conn.execute(
-        "SELECT c.id FROM wiki_chunks c JOIN wiki_pages p ON p.path = c.path WHERE (c.path ~* %s OR p.title ~* %s) AND c.search_text ~* %s", (page, page, text))}
+@dataclass
+class Relevant:
+    """The pieces that answer a question. A piece the search finds in place of one of them (search_index.mark_copies)
+    answers too when the agent can get from it to the page: one of the same course (the programme of another intake, the
+    same text), or one whose list of pages with the same text shows that page."""
+
+    ids: set[int]
+    pages: set[str]
+    courses: set[str]
+    mains: set[int]
+
+    @classmethod
+    def of(cls, rows: list[dict]) -> "Relevant":
+        return cls({r["id"] for r in rows}, {r["path"] for r in rows}, {c for r in rows if (c := wiki.course_of(r["path"], r["title"]))},
+                   {r["copy_of"] for r in rows if r["copy_of"]})
+
+    def __contains__(self, hit) -> bool:
+        return hit.id in self.ids or hit.id in self.mains and (
+            wiki.course_of(hit.path, hit.title) in self.courses or any(a["page"] in self.pages for a in hit.also_in[:wiki.ALSO_SHOWN]))
+
+    def __len__(self) -> int:
+        return len(self.ids)
+
+
+def relevant(conn, page: str, text: str) -> Relevant:
+    return Relevant.of(conn.execute(
+        "SELECT c.id, c.path, p.title, c.copy_of FROM wiki_chunks c JOIN wiki_pages p ON p.path = c.path "
+        "WHERE (c.path ~* %s OR p.title ~* %s) AND c.search_text ~* %s", (page, page, text)).fetchall())
 
 
 @dataclass
@@ -95,7 +120,7 @@ def score() -> Score:
     firsts, missed = [], []
     for _, question, page, text in QUESTIONS:
         rel = relevant(conn, page, text)
-        first = next((i for i, h in enumerate(wiki.search([question], limit=10), 1) if h.id in rel), None)
+        first = next((i for i, h in enumerate(wiki.search([question], limit=10), 1) if h in rel), None)
         firsts.append(first)
         if not first:
             missed.append(question)

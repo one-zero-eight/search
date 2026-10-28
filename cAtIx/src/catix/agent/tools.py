@@ -582,6 +582,10 @@ def _wiki_item(hit, collector: Collector, text_limit: int = WIKI_TEXT) -> dict:
         item["for"] = hit.audience
     if hit.based_on:
         item["based_on"] = [{"document": b["title"], "page": b["page"]} for b in hit.based_on[:3]]
+    if also := getattr(hit, "also_in", None):  # the same text in other documents (the programme of other intakes, other courses)
+        shown = wiki_store.ALSO_SHOWN
+        item["same_text_also_in"] = [{"document": a["title"], "page": a["page"]} for a in also[:shown]] + (
+            [f"and {len(also) - shown} more"] if len(also) > shown else [])
     if warnings := _warnings(hit):
         item["warnings"] = warnings
     item["page"] = hit.path
@@ -593,7 +597,9 @@ class SearchWikiArgs(BaseModel):
         min_length=1,
         max_length=8,
         description="2 to 6 search queries from different angles, in Russian AND English (the documents are Russian, the guides "
-        "English): the words a rule would use ('академический отпуск', 'academic leave', 'пересдача', 'retake').",
+        "English): the words a rule would use ('академический отпуск', 'academic leave', 'пересдача', 'retake'). One of them is "
+        "a sentence as the document itself would say the answer ('Обучающийся вправе пройти повторную промежуточную аттестацию "
+        "не более ...'): its numbers may be guesses, its wording finds the clause.",
     )
     kinds: list[Literal["official", "guide", "wiki"]] | None = Field(
         None, description="Only these kinds of pages: official (documents of the university), guide (summaries), wiki (eduwiki). Default: all."

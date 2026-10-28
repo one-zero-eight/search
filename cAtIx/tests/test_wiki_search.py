@@ -93,7 +93,7 @@ def test_an_older_version_is_found_only_when_its_year_is_asked(monkeypatch):
     new = hit(id=2, sha="b", title="Правила приема на 2026/2027 учебный год")
     monkeypatch.setattr(wiki, "_embed_all", lambda queries: [])
     monkeypatch.setattr(wiki, "_bm25", lambda words, kinds, courses=False: [] if courses else [1, 2])
-    monkeypatch.setattr(wiki, "_hits", lambda ids: [old, new])
+    monkeypatch.setattr(wiki, "_hits", lambda ids, queries=(): [old, new])
     monkeypatch.setattr(wiki.settings, "reranker_route", None)
     assert [h.id for h in wiki.search("правила приема магистратура")] == [2]
     assert [h.id for h in wiki.search("правила приема 2024 года")] == [1, 2]

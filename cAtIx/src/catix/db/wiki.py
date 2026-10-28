@@ -15,7 +15,7 @@ from datetime import date
 
 from catix.agent import tracing
 from catix.db import pg
-from catix.db.store import CANDIDATES, MAX_QUERIES, RERANK_QUERIES, _combine, _embed_all, _rrf, _words
+from catix.db.store import MAX_QUERIES, _combine, _embed_all, _rrf, _words
 from catix.settings import settings
 
 log = logging.getLogger("catix.wiki")
@@ -45,6 +45,7 @@ class WikiHit:
     issued: date | None
     based_on: list[dict] = field(default_factory=list)  # a guide piece: the pages it cites, with their titles and originals
     newer: str | None = None  # the title of a later version of the document ("на 2026/2027 учебный год" for one of 2024/2025)
+    also_in: list[dict] = field(default_factory=list)  # the other pages that hold the same text ({title, page}), those the queries name first
 
 
 # The course programmes (wiki/sources/rpd.py) are 700 pages of the same shape that use every word of study ("курс", "дисциплина",
@@ -60,25 +61,33 @@ def _bm25(words: str, trust: list[str], courses: bool = False) -> list[int]:
             conn,
             """SELECT id FROM wiki_chunks
                WHERE (search_text ||| %(q)s OR search_text::pdb.alias('search_text_en') ||| %(q)s) AND trust = ANY(%(t)s)
-                 AND (path LIKE %(c)s) = %(courses)s
+                 AND (path LIKE %(c)s) = %(courses)s AND copy_of IS NULL
                ORDER BY pdb.score(id) DESC LIMIT %(n)s""",
-            {"q": words, "t": trust, "n": CANDIDATES, "c": COURSES, "courses": courses},
+            {"q": words, "t": trust, "n": settings.wiki_search_candidates, "c": COURSES, "courses": courses},
         )
         done(len(found))
         return found
 
 
-def _vector(vector: list[float], trust: list[str], courses: bool = False) -> list[int]:
+def _vector(vector: list[float], trust: list[str], courses: bool = False, *, model: str = "bge-m3") -> list[int]:
+    if model not in {"bge-m3", "harrier"}:
+        raise ValueError("Unknown wiki vector space")
+    table = "wiki_chunk_embeddings_harrier" if model == "harrier" else "wiki_chunk_embeddings"
     with tracing.span("vector course programmes" if courses else "vector", "RETRIEVER") as done, pg.connection() as conn, conn.transaction():
-        conn.execute("SET LOCAL hnsw.iterative_scan = relaxed_order")  # a filter by trust must not leave too few rows
+        if not pg.scalar(conn, "SELECT to_regclass(%s)", (table,)):
+            return []
+        if model == "bge-m3" and pg.scalar(conn, "SELECT value FROM wiki_meta WHERE key='embeddings_model'") != settings.embeddings_model:
+            log.warning("Skipping wiki vectors whose model does not match EMBEDDINGS_MODEL")
+            return []
+        conn.execute("SET LOCAL hnsw.iterative_scan = strict_order")
         # The default 40 found 0 to 2 of the true 30 nearest pieces once a filter left out the course programmes (measured
         # against an exact scan, 88k pieces); 200 finds 29-30 of them in under 10 ms.
-        conn.execute("SET LOCAL hnsw.ef_search = 200")
+        conn.execute("SELECT set_config('hnsw.ef_search', %s, true)", (str(settings.search_ef),))
         found = pg.column(
             conn,
-            """SELECT e.chunk_id FROM wiki_chunk_embeddings e JOIN wiki_chunks c ON c.id = e.chunk_id
-               WHERE c.trust = ANY(%(t)s) AND (c.path LIKE %(c)s) = %(courses)s ORDER BY e.embedding <=> %(v)s::vector LIMIT %(n)s""",
-            {"v": vector, "t": trust, "n": CANDIDATES, "c": COURSES, "courses": courses},
+            f"""SELECT e.chunk_id FROM {table} e JOIN wiki_chunks c ON c.id = e.chunk_id
+               WHERE c.trust = ANY(%(t)s) AND (c.path LIKE %(c)s) = %(courses)s AND c.copy_of IS NULL ORDER BY e.embedding <=> %(v)s::vector LIMIT %(n)s""",
+            {"v": vector, "t": trust, "n": settings.wiki_search_candidates, "c": COURSES, "courses": courses},
         )
         done(len(found))
         return found
@@ -89,7 +98,7 @@ HIT = """SELECT c.id, c.path, c.seq, c.heading, c.clause, c.sha, c.text, c.cites
          FROM wiki_chunks c JOIN wiki_pages p ON p.path = c.path"""
 
 
-def _hits(ids: list[int]) -> list[WikiHit]:
+def _hits(ids: list[int], queries: list[str] = ()) -> list[WikiHit]:
     with pg.connection() as conn:
         rows = pg.rows(conn, WikiHit, HIT + " WHERE c.id = ANY(%s::bigint[])", (ids,))
     by_id = {r.id: r for r in rows}
@@ -101,7 +110,45 @@ def _hits(ids: list[int]) -> list[WikiHit]:
             hits.append(by_id[i])
     _resolve_cites(hits)
     _mark_newer(hits)
-    return hits
+    return _copies(hits, queries)
+
+
+ALSO_SHOWN = 5  # of the other pages that hold a piece's text, those the agent is shown
+
+
+def course_of(path: str, title: str) -> str | None:
+    """The course a course programme is of ('Операционные системы'), the same for every intake and programme."""
+    return (m.group(1) if (m := re.search(r"«([^»]+)»", title)) else title) if path.startswith(COURSES[:-1]) else None
+
+
+def _copies(hits: list[WikiHit], queries: list[str] = ()) -> list[WikiHit]:
+    """The search finds one piece of a text that several pages hold. When the title of another of them has more of the
+    queries' words (the course asked about), that one is given instead; the others are named, those the queries name first
+    (the agent sees only ALSO_SHOWN of them)."""
+    with pg.connection() as conn:
+        rows = conn.execute("SELECT DISTINCT ON (p.path, c.copy_of) c.id, c.copy_of, p.title, p.path FROM wiki_chunks c "
+                            "JOIN wiki_pages p ON p.path = c.path WHERE c.copy_of = ANY(%s::bigint[]) ORDER BY p.path, c.copy_of, c.seq",
+                            ([h.id for h in hits],)).fetchall()
+    if not rows:
+        return hits
+    stems = {w[:5] for w in re.findall(r"[^\W\d_]{4,}", " ".join(queries).lower())}
+    named = lambda title: sum(w[:5] in stems for w in set(re.findall(r"[^\W\d_]{4,}", title.lower())))  # noqa: E731
+    others: dict[int, list[dict]] = {}
+    for r in sorted(rows, key=lambda r: (-named(r["title"]), r["title"])):
+        others.setdefault(r["copy_of"], []).append(r)
+    swap = {h.id: others[h.id][0]["id"] for h in hits if h.id in others and named(others[h.id][0]["title"]) > named(h.title)}
+    if swap:
+        with pg.connection() as conn:
+            copies = {c.id: c for c in pg.rows(conn, WikiHit, HIT + " WHERE c.id = ANY(%s::bigint[])", (list(swap.values()),))}
+    out = []
+    for h in hits:
+        shown = copies[swap[h.id]] if h.id in swap else h
+        if h.id in swap:  # (what the found piece carried: the guide's sources, a later version)
+            shown.based_on, shown.newer = h.based_on, h.newer
+        shown.also_in = [{"title": r["title"], "page": r["path"]} for r in [{"title": h.title, "path": h.path}, *others.get(h.id, [])]
+                         if r["path"] != shown.path and r["title"] != shown.title]
+        out.append(shown)
+    return out
 
 
 ACADEMIC_YEAR = re.compile(r"(\d{4})\s*/\s*\d{4}")
@@ -148,6 +195,16 @@ def _resolve_cites(hits: list[WikiHit]) -> None:
                 h.based_on.append({"page": page["path"], "title": page["title"], "link": page["resource"], "trust": page["trust"]})
 
 
+def _embed_harrier(queries: list[str]) -> list[list[float]]:
+    if settings.harrier_route is None:
+        return []
+    try:
+        return pg.embed(queries, query=True, route=settings.harrier_route, model=settings.harrier_model)
+    except Exception:
+        log.warning("Harrier unavailable; keeping the other retrieval methods", exc_info=True)
+        return []
+
+
 def search(queries: str | list[str], *, trust: Collection[str] | None = None, limit: int = 8, original: str | None = None) -> list[WikiHit]:
     """The `limit` pieces that answer the queries best. `trust` keeps only some kinds of pages (official, guide, wiki).
     `original` is the user's own question: one more angle that counts double (as in store.search)."""
@@ -160,22 +217,30 @@ def search(queries: str | list[str], *, trust: Collection[str] | None = None, li
     else:
         original = ""
     kinds = [t for t in (trust or TRUST) if t in TRUST]
-    if not queries or not kinds:
+    if not queries or not kinds or limit <= 0:
         return []
-    vectors = _embed_all(queries)
-    with tracing.span("hybrid", "RETRIEVER", input=queries), ThreadPoolExecutor(max_workers=4) as executor:
+    mode = settings.wiki_vector_mode
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        bge_job = executor.submit(tracing.carry(_embed_all), queries) if mode != "harrier" else None
+        harrier_job = executor.submit(tracing.carry(_embed_harrier), queries) if mode != "bge-m3" else None
+        vectors = bge_job.result() if bge_job else []
+        harrier = harrier_job.result() if harrier_job else []
+    with tracing.span("hybrid", "RETRIEVER", input=queries), ThreadPoolExecutor(max_workers=6) as executor:
         jobs = [(i, executor.submit(tracing.carry(_bm25), _words(q), kinds, pool),
-                 executor.submit(tracing.carry(_vector), vectors[i], kinds, pool) if vectors else None)
+                 executor.submit(tracing.carry(_vector), vectors[i], kinds, pool) if vectors else None,
+                 executor.submit(tracing.carry(_vector), harrier[i], kinds, pool, model="harrier") if harrier else None)
                 for i, q in enumerate(queries) for pool in POOLS]
         per_query = [{item: (2 if original and i == 0 else 1) * value for item, value in _rrf(*[job.result() for job in pair if job]).items()}
                      for i, *pair in jobs]
     per_query = [scores for scores in per_query if scores]
     reranking = settings.reranker_route is not None
-    fused = _combine(per_query, max(limit, settings.rerank_candidates) if reranking else limit)
+    # One reserved hit per query pool (see _combine): an equal share of 30 candidates is the whole list here, because
+    # each query comes twice (course programmes and the rest), and the combined score then adds nothing.
+    fused = _combine(per_query, max(limit, settings.wiki_rerank_candidates) if reranking else limit, reserve=1)
     if not fused:
         return []
     with tracing.span("load pieces", input=len(fused)):
-        hits = _hits(fused)
+        hits = _hits(fused, queries)
     # An earlier version of a document is left out unless a query names its year: the helper cited the admission rules of
     # 2024/2025 next to those of 2026/2027 even with the warning that they are replaced.
     asked = " ".join(queries)
@@ -184,10 +249,10 @@ def search(queries: str | list[str], *, trust: Collection[str] | None = None, li
 
 
 def _rerank(queries: list[str], hits: list[WikiHit], limit: int) -> list[WikiHit]:
-    if len(hits) <= 1:
+    if not hits or limit <= 0:
         return hits[:limit]
-    documents = [f"{h.title}\n{h.heading}\n{h.text[:1000]}" for h in hits]
-    queries = queries[:RERANK_QUERIES]
+    documents = [f"{h.title}\n{h.heading}\n{h.text[:settings.rerank_max_chars]}" for h in hits]
+    queries = queries[:settings.rerank_queries]
     try:
         with tracing.span("rerank", "RERANKER", input=queries, documents=len(documents)), ThreadPoolExecutor(max_workers=len(queries)) as executor:
             scores = list(executor.map(tracing.carry(lambda q: pg.rerank(q, documents)), queries))

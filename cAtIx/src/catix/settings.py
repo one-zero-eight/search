@@ -1,6 +1,7 @@
 from datetime import time
 from functools import cached_property
 from pathlib import Path
+from typing import Literal
 from zoneinfo import ZoneInfo
 
 from pydantic import AliasChoices, Field, HttpUrl, SecretStr
@@ -120,12 +121,25 @@ class Settings(BaseSettings):
     # OpenAI-compatible /v1/embeddings server (llama.cpp --embedding, bge-m3) on the GPU machine.
     embeddings_route: HttpUrl = HttpUrl("http://localhost:8081/v1")
     embeddings_model: str = "bge-m3"
+    embeddings_query_prefix: str | None = None
+    harrier_route: HttpUrl | None = None
+    harrier_model: str = "mradermacher/harrier-oss-v1-0.6b-GGUF:Q8_0"
+    wiki_vector_mode: Literal["bge-m3", "harrier", "ensemble"] = "bge-m3"
+    search_candidates: int = Field(30, gt=0)
+    wiki_search_candidates: int = Field(30, gt=0)
+    search_ef: int = Field(400, ge=1, le=1000)
     # OpenAI-compatible /v1/rerank server (llama.cpp --reranking, bge-reranker-v2-m3). Without a route the search
     # keeps the order of the hybrid ranking. With one, `rerank_candidates` messages are re-scored against the
     # query and the best few go to the model.
     reranker_route: HttpUrl | None = None
     reranker_model: str = "bge-reranker-v2-m3"
     rerank_candidates: int = Field(30, gt=0)
+    wiki_rerank_candidates: int = Field(30, gt=0)
+    rerank_queries: int = Field(9, gt=0)
+    # How much of a piece the reranker reads. At 1000 the answer of a piece that puts it near the end was cut off: on the
+    # 57-question set 2000 kept hit@5 as it was and found the answer in the top 8 for 1.8 points more of the questions,
+    # on the 159 generated ones it raised hit@1 by 3 points and MRR from 0.561 to 0.583.
+    rerank_max_chars: int = Field(2000, gt=0)
     # The chat search (store.py) does without the reranker by default: on experiments/eval_search.py the fused ranking
     # alone found every answer in the first 10 (the reranker's cutoff dropped one) in 0.05 s instead of 0.85 s, and the
     # agent reads all 15 hits anyway. The wiki search always reranks: without it hit@5 falls from 91% to 75%.

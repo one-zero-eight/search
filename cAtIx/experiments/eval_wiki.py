@@ -50,7 +50,7 @@ def main() -> None:
             started = time.perf_counter()
             result = fn(q)
             times[name].append(time.perf_counter() - started)
-            first = next((i for i, x in enumerate(result, 1) if x in rel), None)
+            first = next((i for i, x in enumerate(result, 1) if x in rel.ids or x in rel.mains), None)  # (ids: no list of copies to check)
             ranks[name].append(first)
             by_reader.setdefault(reader, {m: [] for m in methods})[name].append(first)
             cells.append(f"{first:>2}" if first else " -")

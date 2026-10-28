@@ -280,7 +280,7 @@ def _bm25(words: str, ids: list[int] | None, date_from: str | None, date_to: str
               WHERE (text ||| %(q)s OR text::pdb.alias('text_en') ||| %(q)s){filters}
               ORDER BY pdb.score(id) DESC LIMIT %(n)s"""
     with tracing.span("bm25", "RETRIEVER", input=words) as done, pg.connection() as conn:
-        found = pg.column(conn, sql, {"q": words, "n": CANDIDATES, **params})
+        found = pg.column(conn, sql, {"q": words, "n": settings.search_candidates, **params})
         done(len(found))
         return found
 
@@ -288,13 +288,16 @@ def _bm25(words: str, ids: list[int] | None, date_from: str | None, date_to: str
 def _embed_all(queries: list[str]) -> list[list[float]]:
     """Vectors for all queries in one request; empty if the embeddings server is unavailable."""
     try:
-        return pg.embed(queries)
+        return pg.embed(queries, query=True)
     except Exception:  # noqa: BLE001 - search must keep working on words alone if the embeddings server is down
         log.warning("embeddings server unavailable, searching by words only", exc_info=True)
         return []
 
 
 def _vector(vector: list[float], ids: list[int] | None, date_from: str | None, date_to: str | None) -> list[int]:
+    if "harrier" in settings.embeddings_model.lower():
+        log.warning("Skipping BGE message vectors for a Harrier query; use HARRIER_ROUTE for the wiki instead")
+        return []
     filters, params = _filters("e.chat_id", "m.date", ids, date_from, date_to)
     # Dates live on the message, not on its vector.
     join = " JOIN messages m ON m.id = e.message_id" if date_from or date_to else ""
@@ -303,8 +306,9 @@ def _vector(vector: list[float], ids: list[int] | None, date_from: str | None, d
               ORDER BY e.embedding <=> %(v)s::vector LIMIT %(n)s"""
     with tracing.span("vector", "RETRIEVER") as done, pg.connection() as conn, conn.transaction():
         # With a selective filter (the chats a user may see) HNSW would return too few rows; this keeps scanning.
-        conn.execute("SET LOCAL hnsw.iterative_scan = relaxed_order")
-        found = pg.column(conn, sql, {"v": vector, "n": CANDIDATES, **params})
+        conn.execute("SET LOCAL hnsw.iterative_scan = strict_order")
+        conn.execute("SELECT set_config('hnsw.ef_search', %s, true)", (str(settings.search_ef),))
+        found = pg.column(conn, sql, {"v": vector, "n": settings.search_candidates, **params})
         done(len(found))
         return found
 
@@ -329,13 +333,20 @@ def _rrf(*rankings: list[int]) -> dict[int, float]:
     return score
 
 
-def _combine(per_query: list[dict[int, float]], limit: int) -> list[int]:
+def _combine(per_query: list[dict[int, float]], limit: int, reserve: int | None = None) -> list[int]:
     """Merge the queries' scores into one list of `limit` messages.
 
     Every query first gets its own best hits reserved (coverage: the query about one course must not lose its
     message to generic ones); the rest of the list is filled by a combined score, where a message counts mostly
     for its best query and a little for the others. The result is ordered by that combined score.
+
+    `reserve` caps what one entry may claim (None = an equal share of the list). The wiki hands two entries per query
+    (course programmes and the rest), so at 30 candidates and 3 queries the equal shares are the whole list: the
+    combined score never got to add anything. One reserved hit per entry raised hit@5 from 87.7% to 89.5% and hit@8
+    from 89.5% to 91.2% on quality.QUESTIONS.
     """
+    if not per_query or limit <= 0:
+        return []
     found: dict[int, list[float]] = {}
     for scores in per_query:
         for item, value in scores.items():
@@ -344,6 +355,8 @@ def _combine(per_query: list[dict[int, float]], limit: int) -> list[int]:
 
     reserved: list[int] = []
     per_each = max(1, limit // len(per_query))
+    if reserve is not None:
+        per_each = min(per_each, reserve)
     for scores in per_query:
         for item in sorted(scores, key=lambda item: scores[item], reverse=True)[:per_each]:
             if item not in reserved:
@@ -385,7 +398,7 @@ def search(
         queries = [original, *[q for q in queries if q != original]]  # Not counted in MAX_QUERIES.
     else:
         original = ""
-    if not queries:
+    if not queries or limit <= 0:
         return []
     ids = _resolve_chats(chat, chat_ids)
     if ids is not None and not ids:
@@ -430,11 +443,11 @@ def _rerank(queries: list[str], hits: list[MessageHit], limit: int) -> list[Mess
 
     If the reranker server is down the hybrid ranking stays as it was.
     """
-    if len(hits) <= 1:
+    if not hits or limit <= 0:
         return hits[:limit]
     # A short reply ("да, в пятницу") means little without the message it answers.
-    documents = [f"{h.parent_text[:200]}\n{h.text[:600]}" if h.parent_text else h.text[:600] for h in hits]
-    queries = queries[:RERANK_QUERIES]  # The reranker server works through requests one by one: each query costs ~1 s.
+    documents = [f"{h.parent_text[:settings.rerank_max_chars]}\n{h.text[:settings.rerank_max_chars]}" if h.parent_text else h.text[:settings.rerank_max_chars] for h in hits]
+    queries = queries[:settings.rerank_queries]
     try:
         with tracing.span("rerank", "RERANKER", input=queries, documents=len(documents)), ThreadPoolExecutor(max_workers=len(queries)) as executor:
             scores = list(executor.map(tracing.carry(lambda q: pg.rerank(q, documents)), queries))

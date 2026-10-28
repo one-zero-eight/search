@@ -53,7 +53,7 @@ def main() -> None:
     # The production code paths of store.py: words only, meaning only, and the real hybrid search.
     methods = {
         "B bm25 (words)": lambda q: store._bm25(store._words(q), None, None, None)[:TOP],
-        "C vector (meaning)": lambda q: store._vector(pg.embed([q])[0], None, None, None)[:TOP],
+        "C vector (meaning)": lambda q: store._vector(pg.embed([q], query=True)[0], None, None, None)[:TOP],
         "D hybrid (store.search)": lambda q: [r.ref_id for r in store.search([q], limit=TOP)],
     }
     ranks = {m: [] for m in methods}

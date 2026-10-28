@@ -1,5 +1,6 @@
 """Postgres connection pool and the embeddings client."""
 
+import math
 import threading
 from collections.abc import Mapping, Sequence
 from typing import Any, LiteralString, TypeVar, cast
@@ -90,21 +91,45 @@ def connect() -> Connection:
     return conn
 
 
-def embed(texts: list[str]) -> list[list[float]]:
+def embed(texts: list[str], *, query: bool = False, route=None, model: str | None = None) -> list[list[float]]:
     """Vectors for a batch of texts from the embeddings server, in the same order."""
-    texts = [t[: settings.embeddings_max_chars].strip() or " " for t in texts]
-    with tracing.span("embed", "EMBEDDING", input=texts, **{"embedding.model_name": settings.embeddings_model}):
+    if not texts:
+        return []
+    endpoint = str(route or settings.embeddings_route).rstrip('/')
+    model = model or settings.embeddings_model
+    verify_embedder(endpoint, model)
+    prefix = settings.embeddings_query_prefix
+    if prefix is None:
+        prefix = "Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery: " if "harrier" in model.lower() else ""
+    texts = [(prefix if query else "") + (text[: settings.embeddings_max_chars].strip() or " ") for text in texts]
+    with tracing.span("embed", "EMBEDDING", input=texts, **{"embedding.model_name": model}):
         response = _http.post(
-            f"{str(settings.embeddings_route).rstrip('/')}/embeddings",
-            json={"input": texts, "model": settings.embeddings_model},
+            f"{endpoint}/embeddings",
+            json={"input": texts, "model": model},
         )
         response.raise_for_status()
     data = sorted(response.json()["data"], key=lambda item: item["index"])
-    return [item["embedding"] for item in data]
+    if [item["index"] for item in data] != list(range(len(texts))):
+        raise ValueError("Embeddings response must contain exactly one vector per input")
+    vectors = [item["embedding"] for item in data]
+    if any(len(vector) != 1024 or not all(math.isfinite(value) for value in vector) or not any(vector) for vector in vectors):
+        raise ValueError("Expected finite, nonzero 1024-dimensional embeddings")
+    return vectors
+
+
+def verify_embedder(route: str, model: str) -> None:
+    response = _http.get(f"{route.rstrip('/')}/models")
+    response.raise_for_status()
+    models = {name for item in response.json()["data"] for name in [item["id"], *item.get("aliases", [])]}
+    expected = {model, "ggml-org/bge-m3-Q8_0-GGUF"} if model == "bge-m3" else {model}
+    if not expected.intersection(models):
+        raise ValueError(f"Configured model {model!r} is not served by {route}: {sorted(models)}")
 
 
 def rerank(query: str, documents: list[str]) -> list[float]:
     """Relevance of every document to the query from the reranker server (llama.cpp --reranking), in the same order."""
+    if not documents:
+        return []
     with tracing.span("rerank request", "RERANKER", input=query, **{"reranker.model_name": settings.reranker_model,
                                                                       "reranker.query": query, "documents": len(documents),
                                                                       "document_chars": sum(map(len, documents))}):
@@ -113,7 +138,10 @@ def rerank(query: str, documents: list[str]) -> list[float]:
             json={"model": settings.reranker_model, "query": query, "documents": documents, "raw_scores": True},  # (Infinity: logits, as llama.cpp gives)
         )
         response.raise_for_status()
-    scores = [0.0] * len(documents)
-    for item in response.json()["results"]:
-        scores[item["index"]] = item["relevance_score"]
+    results = sorted(response.json()["results"], key=lambda item: item["index"])
+    if [item["index"] for item in results] != list(range(len(documents))):
+        raise ValueError("Reranker response must score every document exactly once")
+    scores = [item["relevance_score"] for item in results]
+    if not all(math.isfinite(score) for score in scores):
+        raise ValueError("Reranker returned non-finite scores")
     return scores

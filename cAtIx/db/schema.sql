@@ -106,7 +106,8 @@ CREATE TABLE IF NOT EXISTS embedding_queue (
 );
 CREATE OR REPLACE FUNCTION enqueue_embedding() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
-    INSERT INTO embedding_queue (message_id) VALUES (NEW.id) ON CONFLICT DO NOTHING;
+    INSERT INTO embedding_queue (message_id) VALUES (NEW.id)
+        ON CONFLICT (message_id) DO UPDATE SET queued_at = excluded.queued_at;
     RETURN NEW;
 END $$;
 DROP TRIGGER IF EXISTS messages_enqueue_insert ON messages;
@@ -291,10 +292,31 @@ CREATE TABLE IF NOT EXISTS wiki_chunks (
     cites       jsonb NOT NULL DEFAULT '[]'         -- a guide's [n] resolved to the pages it cites
 );
 CREATE INDEX IF NOT EXISTS wiki_chunks_path_idx ON wiki_chunks (path);
+-- A piece whose text another page holds too (the course programme of every intake, a site's header): the search finds only
+-- the piece it is a copy of, and shows where else it stands (search_index.mark_copies).
+ALTER TABLE wiki_chunks ADD COLUMN IF NOT EXISTS copy_of bigint REFERENCES wiki_chunks (id) ON DELETE SET NULL;
+CREATE INDEX IF NOT EXISTS wiki_chunks_copy_of_idx ON wiki_chunks (copy_of) WHERE copy_of IS NOT NULL;
 CREATE TABLE IF NOT EXISTS wiki_chunk_embeddings (
     chunk_id  bigint PRIMARY KEY REFERENCES wiki_chunks (id) ON DELETE CASCADE,
     embedding vector(1024) NOT NULL
 );
+CREATE TABLE IF NOT EXISTS wiki_chunk_embeddings_harrier (
+    chunk_id bigint PRIMARY KEY,
+    embedding vector(1024) NOT NULL
+);
+DO $$ BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_constraint
+                   WHERE conrelid = 'wiki_chunk_embeddings_harrier'::regclass
+                     AND conname = 'wiki_chunk_embeddings_harrier_chunk_id_fkey') THEN
+        ALTER TABLE wiki_chunk_embeddings_harrier ADD CONSTRAINT wiki_chunk_embeddings_harrier_chunk_id_fkey
+            FOREIGN KEY (chunk_id) REFERENCES wiki_chunks (id) ON DELETE CASCADE NOT VALID;
+    END IF;
+END $$;
+ALTER TABLE wiki_chunk_embeddings_harrier VALIDATE CONSTRAINT wiki_chunk_embeddings_harrier_chunk_id_fkey;
+-- (m=32, ef_construction=200: the graph is denser than the BGE index's defaults, which matters most where a filter by
+-- trust or course programmes leaves the scan few rows to choose from.)
+CREATE INDEX IF NOT EXISTS wiki_chunk_embeddings_harrier_hnsw ON wiki_chunk_embeddings_harrier
+    USING hnsw (embedding vector_cosine_ops) WITH (m = 32, ef_construction = 200);
 CREATE TABLE IF NOT EXISTS wiki_embedding_queue (
     chunk_id  bigint PRIMARY KEY REFERENCES wiki_chunks (id) ON DELETE CASCADE,
     queued_at timestamptz NOT NULL DEFAULT now()
@@ -306,7 +328,9 @@ CREATE TABLE IF NOT EXISTS wiki_meta (
 );
 CREATE OR REPLACE FUNCTION enqueue_wiki_embedding() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
-    INSERT INTO wiki_embedding_queue (chunk_id) VALUES (NEW.id) ON CONFLICT DO NOTHING;
+    INSERT INTO wiki_embedding_queue (chunk_id) VALUES (NEW.id)
+        ON CONFLICT (chunk_id) DO UPDATE SET queued_at = excluded.queued_at;
+    DELETE FROM wiki_chunk_embeddings_harrier WHERE chunk_id = NEW.id;
     RETURN NEW;
 END $$;
 DROP TRIGGER IF EXISTS wiki_chunks_enqueue_insert ON wiki_chunks;
