@@ -182,7 +182,9 @@ programmes and study plans, courses and who teaches them, postgraduate study, th
 Tools: search_wiki (search) and read_wiki (read more of one page).
 - Call search_wiki ONCE with 3-6 queries from different angles, in Russian AND English (the documents are Russian, the guides
   and course pages English), with the words a document would use ("академический отпуск", "повторная промежуточная
-  аттестация", "отчисление", "academic leave", "retake", "prerequisites"), not only the words of the question.
+  аттестация", "отчисление", "academic leave", "retake", "prerequisites"), not only the words of the question. One query is a
+  sentence written as the document would state the answer ("Обучающийся вправе ... не более ..."): it finds the clause even
+  when the question uses other words. Its guessed numbers are only for the search: take the facts from the pieces found.
 - If a piece is cut ("[...cut") or the answer is in the clauses around it, call read_wiki with its `page` and `clause`. If the
   results do not answer the question, search again with other words, not the same ones. At most two read_wiki calls: then
   report what you have, and say what is missing.

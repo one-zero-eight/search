@@ -23,6 +23,7 @@ import sys
 import threading
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
+from contextvars import ContextVar
 from datetime import datetime, timezone
 
 from catix.settings import settings
@@ -151,6 +152,19 @@ def quoted_text(quote: str, text: str) -> str | None:
     """The words of the text the quote stands for (None when it is not there)."""
     found = find_quote(quote, text)
     return " ".join(words_of(text)[found[0]: found[1] + 1]) if found else None
+
+
+def quoted_span(quote: str, text: str) -> str | None:
+    """The text itself where the quote stands, as the page has it (None when it is not there): its numbers whole, "496,3"
+    and "1 856" as written, not the words "496" "3" the comparison splits them into."""
+    found = find_quote(quote, text)
+    if not found:
+        return None
+    low = text.lower().replace("ё", "е")
+    if len(low) != len(text):
+        return " ".join(words_of(text)[found[0]: found[1] + 1])
+    spans = [m.span() for m in re.finditer(r"[^\W_]+", low)]
+    return text[spans[found[0]][0]:spans[found[1]][1]]
 
 
 def occurrences(quote: str, text: str) -> int:
@@ -370,10 +384,10 @@ def problems(body: str, idx: Index, quotes: bool = False) -> list[str]:
                 continue
             n = len(words_of(quote))
             if n < QUOTE_WORDS[0] and occurrences(quote, where) == 1:
-                said.append(" ".join(words_of(quote)))  # (short, but it stands once in what it cites: it can only mean that place)
+                said.append(quoted_span(quote, where) or quote)  # (short, but it stands once in what it cites: it can only mean that place)
             elif not QUOTE_WORDS[0] <= n <= QUOTE_WORDS[1]:
                 out.append(f"the quote is {n} words: quote {QUOTE_WORDS[0]} to {QUOTE_WORDS[1]} words, the ones this sentence rests on: {short}")
-            elif (page_words := quoted_text(quote, where)) is not None:
+            elif (page_words := quoted_span(quote, where)) is not None:
                 said.append(page_words)
             elif clause and find_quote(quote, course_text(idx, page)):
                 out.append(f"the quote is in {page}, but not in its clause {clause}: cite the clause it is in: {short}")
@@ -504,7 +518,10 @@ def _tools(idx_box: list, written: list, refused: Counter | None = None):
         """Write a card (new, or the whole new text of an existing one: keep what it said). audience: some of student,
         postgraduate, applicant, teacher, staff, management, public. dropped: citations of the old text you leave out on
         purpose, as '/regulations/x.md#5.3' (a page without clauses: just its path). Returns 'written' or the problems to fix."""
-        if getattr(TASK, "refused", 0) >= MAX_REFUSED:
+        counted = TASK.get(None)
+        if counted is None:  # (a call outside _invoke: the tests)
+            TASK.set(counted := {"refused": 0})
+        if counted["refused"] >= MAX_REFUSED:
             return GIVE_UP
         with WRITING:  # tasks run at once: the old text a new one is checked against is the one on disk
             found = write(slug, title, description, body, tags or [], audience or [], idx_box[0], dropped or [])
@@ -516,9 +533,9 @@ def _tools(idx_box: list, written: list, refused: Counter | None = None):
             else:
                 written.append(slug)
         if found:
-            TASK.refused = getattr(TASK, "refused", 0) + 1
+            counted["refused"] += 1
             print(f"  write_card {slug} refused: " + " | ".join(p[:160] for p in found[:2]), flush=True)
-            if TASK.refused >= MAX_REFUSED:
+            if counted["refused"] >= MAX_REFUSED:
                 with WRITING:
                     refused["gave up"] += 1
                 return GIVE_UP
@@ -545,8 +562,43 @@ def index_card(slug: str) -> None:
 MAX_REFUSED = 15  # refused write_card calls a task: then it is given up (a local model repeated one mistake for an hour)
 GIVE_UP = (f"STOP: {MAX_REFUSED} attempts of this task were refused. Do not call write_card again. "
            "Answer now with one line: DONE: gave up.")
-TASK = threading.local()  # .refused: the refused writes of the task this thread works on
+# The refused writes of the task being run. Not a threading.local: the graph runs the tools in threads of its own, which copy
+# the task's context (and so share this dict) but not its thread-locals: each counted apart, 51 refusals passed the cap.
+TASK: ContextVar[dict] = ContextVar("wiki_agent_task")
 WRITING = threading.Lock()  # a card's check and its write, the queue, the counters: one task at a time
+SAME_CALLS = 4  # one tool call with the same arguments this many times in a row ends the task
+NO_SUBAGENTS = "task"  # deepagents' tool that hands work to a subagent: off (its subagent ran without these guards)
+
+
+def _guard():
+    """Middleware of the agent: no subagents, and a task that repeats one tool call SAME_CALLS times in a row (a local model
+    read one offloaded file every two seconds for a quarter of an hour, ignoring what came back) ends: the next model
+    call answers DONE itself."""
+    from langchain.agents.middleware import AgentMiddleware
+    from langchain_core.messages import AIMessage
+
+    def name_of(t) -> str:
+        return getattr(t, "name", None) or (t.get("name") or t.get("function", {}).get("name", "") if isinstance(t, dict) else "")
+
+    class Guard(AgentMiddleware):
+        def wrap_model_call(self, request, handler):
+            counted = TASK.get(None)
+            if counted and counted.get("repeating"):
+                return AIMessage(f"DONE: gave up: {counted['repeating']}")
+            return handler(request.override(tools=[t for t in request.tools if name_of(t) != NO_SUBAGENTS]))
+
+        def wrap_tool_call(self, request, handler):
+            counted = TASK.get(None)
+            if counted is not None:
+                call = json.dumps([request.tool_call["name"], request.tool_call.get("args")], ensure_ascii=False, sort_keys=True, default=str)
+                counted["same"] = counted.get("same", 0) + 1 if counted.get("last") == call else 1
+                counted["last"] = call
+                if counted["same"] >= SAME_CALLS:
+                    counted["repeating"] = f"{request.tool_call['name']} called {SAME_CALLS} times with the same arguments"
+                    print(f"  {counted['repeating']}: the task ends", flush=True)
+            return handler(request)
+
+    return Guard()
 
 
 def build_agent(idx_box: list, written: list, refused: Counter | None = None):
@@ -573,6 +625,7 @@ def build_agent(idx_box: list, written: list, refused: Counter | None = None):
         backend=CompositeBackend(default=FilesystemBackend(root_dir=BUNDLE, virtual_mode=True),
                                  routes={"/conversation_history/": StateBackend(), "/large_tool_results/": StateBackend()}),
         permissions=[FilesystemPermission(operations=["write"], paths=["/**"], mode="deny")],  # cards go through write_card only
+        middleware=[_guard()],
         name="wiki-agent",
     )
 
@@ -601,7 +654,8 @@ def _invoke(agent, task: str, callbacks: list | None = None, name: str = "wiki a
     config = {"recursion_limit": settings.wiki_agent_steps, "callbacks": callbacks or [],  # (a thread does not inherit the run's callbacks)
               "run_name": name, "metadata": {"session_id": RUN_ID}}  # a trace a task, the tasks of a run one session
     messages, last, sent_back = [HumanMessage(task)], "", False
-    TASK.refused = 0
+    counted = {"refused": 0}
+    TASK.set(counted)
     for _ in range(1 + CONTINUES):
         try:
             out = agent.invoke({"messages": messages}, config)
@@ -615,7 +669,7 @@ def _invoke(agent, task: str, callbacks: list | None = None, name: str = "wiki a
         last = str(out["messages"][-1].content).strip()
         if DONE.search(last):
             return last[:300]
-        if TASK.refused >= MAX_REFUSED:
+        if counted["refused"] >= MAX_REFUSED:
             return f"GAVE UP after {MAX_REFUSED} refused writes: {last[:200]}"
         if sent_back and not any(getattr(m, "tool_calls", None) for m in out["messages"][len(messages):]):
             return f"DONE (nothing left to do): {last[:280]}"

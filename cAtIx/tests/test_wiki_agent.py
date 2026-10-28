@@ -1,7 +1,9 @@
 """The wiki's agent writes cards only through a check by code (wiki/agent.py): every sentence cites a source page and,
 for a regulation, a clause that exists; every number is in what it cites; cards and guides are not evidence. No model here."""
 
+import contextvars
 from collections import Counter
+from concurrent.futures import ThreadPoolExecutor
 from types import SimpleNamespace
 
 import pytest
@@ -285,9 +287,11 @@ def test_a_long_quote_that_is_on_the_page_is_cut_by_code_to_the_words_with_the_n
 def test_a_task_that_keeps_being_refused_is_given_up(monkeypatch):
     idx = bundle()
     tools = {t.name: t for t in agent._tools([idx], [])}
-    agent.TASK.refused = 0
-    answers = [tools["write_card"].invoke({"slug": "academic-leave", "title": "t", "description": "d", "body": "No citation here."})
-               for _ in range(agent.MAX_REFUSED + 2)]
+    agent.TASK.set({"refused": 0})
+    call = {"slug": "academic-leave", "title": "t", "description": "d", "body": "No citation here."}
+    with ThreadPoolExecutor(4) as pool:  # each call in a thread of its own, with the task's context: as the graph runs tools
+        answers = [pool.submit(contextvars.copy_context().run, tools["write_card"].invoke, call).result()
+                   for _ in range(agent.MAX_REFUSED + 2)]
     assert answers[0].startswith("NOT written") and answers[agent.MAX_REFUSED - 1] == agent.GIVE_UP == answers[-1]
 
 
@@ -324,3 +328,25 @@ def test_a_card_on_a_list_of_people_is_written_without_their_codes(tmp_path):
     assert agent.write("exam-results", "Exam results", "d", f"One result: 40 for 12547673170 [п. 2.2]({REG}#2.2).", [], [], idx) == []
     text = agent.card_path("exam-results").read_text()
     assert "12547673170" not in text and "40 for [скрыто]" in text
+
+
+def test_a_task_that_repeats_one_tool_call_ends_and_has_no_subagents():
+    guard = agent._guard()
+    agent.TASK.set({"refused": 0, "calls": set()})
+    request = SimpleNamespace(tool_call={"name": "read_file", "args": {"file_path": "/large_tool_results/x", "offset": 2}})
+    for _ in range(agent.SAME_CALLS):
+        guard.wrap_tool_call(request, lambda r: "the same lines")
+    seen = []
+    model = SimpleNamespace(tools=[SimpleNamespace(name="task"), {"name": "write_card"}], override=lambda tools: seen.append(tools))
+    assert guard.wrap_model_call(model, lambda r: "called").content.startswith("DONE: gave up: read_file called")
+    agent.TASK.set({"refused": 0, "calls": set()})
+    assert guard.wrap_model_call(model, lambda r: "called") == "called" and seen == [[{"name": "write_card"}]]
+
+
+def test_the_numbers_of_a_quote_are_read_from_the_page_not_from_its_words_run_together():
+    # Its words joined, "корпус 1 | 496,3" was "корпус 1 496 3": a group of thousands, 1496, and no 496.
+    idx = bundle()
+    idx.meta[REG]["body"] = "**2.2.** | Столовая кампуса | ул. Университетская, д.1, корпус 1 | 496,3 | 90 | Да |\n"
+    quote = "Столовая кампуса | ул. Университетская, д.1, корпус 1 | 496,3 | 90"
+    assert agent.problems(f'The campus canteen (496.3 m², 90 seats) is in building 1 [п. 2.2]({REG}#2.2 "{quote}").', idx, quotes=True) == []
+    assert any("number 95" in p for p in agent.problems(f'The canteen has 95 seats [п. 2.2]({REG}#2.2 "{quote}").', idx, quotes=True))
