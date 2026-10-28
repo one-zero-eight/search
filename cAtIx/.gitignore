@@ -23,6 +23,9 @@ raw/*.db*
 /raw/regulations
 /raw/rpd
 /raw/sveden
+/raw/sites
+/raw/past-papers
+/raw/knowledge-queue.json
 /raw/topics.json
 experiments/.wiki-demo-site/
 wiki-index.tar.gz
