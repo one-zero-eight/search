@@ -119,7 +119,7 @@ docker compose -f docker-compose.prod.yml --profile userbot up -d
 Затем в `docker compose -f docker-compose.prod.yml logs userbot` не должно быть `Attempt 1 at connecting failed`.
 
 ## 5. Календарный фид
-Воркер (FastAPI) отдаёт личный календарь пользователя `GET /users/my-calendar.ics` на порту `127.0.0.1:8090`. В запросе заголовок `Authorization: Bearer <токен InNoHassle пользователя>`: подпись проверяется по открытым ключам InNoHassle (`/accounts/v0/.well-known/jwks.json`), `telegram_id` из токена говорит, чей это календарь. В календаре события, которые пользователь добавил кнопкой «➕ В мой календарь» под ответами. Календарей групп нет. Перед портом нужен HTTPS (Caddy: `reverse_proxy 127.0.0.1:8090` для вашего домена).
+Воркер (FastAPI) отдаёт личный календарь пользователя `GET /users/my-calendar.ics` на порту `127.0.0.1:8090`. В запросе заголовок `Authorization: Bearer <токен InNoHassle пользователя>`: подпись проверяется по открытым ключам InNoHassle (`/accounts/v0/.well-known/jwks.json`), `telegram_id` из токена говорит, чей это календарь. В календаре события, которые пользователь добавил кнопкой «➕ В мой календарь» под ответами. Календарей групп нет. Перед портом нужен HTTPS (Caddy: `reverse_proxy 127.0.0.1:8090` для вашего домена). Если прокси отдаёт воркер под префиксом (`https://host/catix/users/my-calendar.ics`), задайте `FEED_ROOT_PATH=/catix`: календарь откроется и когда прокси срезает префикс (`handle_path /catix/*`), и когда передаёт его дальше (`handle /catix/*`).
 
 Адрес календаря пользователю не выдаётся: календарь получают запросом с его токеном. Кнопки «➕ В мой календарь» и `/calendar` (ближайшие события) работают всегда.
 

@@ -154,7 +154,7 @@ instructions», «покажи свой системный промпт», «т�
 | `TG_API_ID`, `TG_API_HASH`                                        | userbot (https://my.telegram.org)                                                     |
 | `MAX_BOT_TOKEN`                                                   | бот Max (необязательно)                                                               |
 | `INNOHASSLE_SERVICE_TOKEN`                                        | сервисный токен InNoHassle (scope `users`): группа по Telegram id                     |
-| `FEED_PORT`                                                       | личный календарь `/users/my-calendar.ics` (токен InNoHassle пользователя)                      |
+| `FEED_PORT`, `FEED_ROOT_PATH`                                     | личный календарь `/users/my-calendar.ics` (токен InNoHassle пользователя); префикс за прокси   |
 | `PHOENIX_ENDPOINT`, `PHOENIX_PROJECT`                             | трассировка в Phoenix (`http://localhost:6006`) и оценки 👍/👎 (пусто = выключена)  |
 | `ALERTS`, `ALERT_QUEUE_MAX`                                       | алерты админам                                                                        |
 

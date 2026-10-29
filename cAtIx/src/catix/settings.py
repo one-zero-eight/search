@@ -110,6 +110,9 @@ class Settings(BaseSettings):
     admin_telegram_ids: list[int] = []
     # The worker serves the users' personal calendars at /users/my-calendar.ics on feed_port (127.0.0.1), behind an HTTPS proxy.
     feed_port: int = 8090
+    # The prefix the proxy serves the worker under (e.g. /catix for https://host/catix/users/my-calendar.ics), whether it
+    # strips the prefix or passes it on. Empty: the worker is at the root of the domain.
+    feed_root_path: str = Field("", pattern=r"^(/\S*[^/])?$")
     # Start time of a change whose message names only the day: the calendar does not show all-day events.
     changes_default_time: time = time(9, 0)
 

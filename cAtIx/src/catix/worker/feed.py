@@ -21,7 +21,7 @@ log = logging.getLogger("catix.feed")
 JWKS_URL = f"{str(settings.innohassle_api).rstrip('/')}/accounts/v0/.well-known/jwks.json"
 _keys = jwt.PyJWKClient(JWKS_URL, cache_keys=True, lifespan=3600)
 
-app = FastAPI(title="cAtIx calendar", docs_url=None, redoc_url=None, openapi_url=None)
+app = FastAPI(title="cAtIx calendar", docs_url=None, redoc_url=None, openapi_url=None, root_path=settings.feed_root_path)
 bearer = HTTPBearer()
 
 
@@ -56,5 +56,5 @@ class _Server(uvicorn.Server):
 
 
 async def serve() -> None:
-    log.info("calendar on 127.0.0.1:%s/users/my-calendar.ics", settings.feed_port)
+    log.info("calendar on 127.0.0.1:%s%s/users/my-calendar.ics", settings.feed_port, settings.feed_root_path)
     await _Server(uvicorn.Config(app, host="127.0.0.1", port=settings.feed_port, log_level="warning")).serve()
