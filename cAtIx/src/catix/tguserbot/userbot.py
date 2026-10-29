@@ -14,14 +14,17 @@ TG_CHATS and TG_TOPICS from .env are only the starting list: they are copied onc
 
 import argparse
 import asyncio
+import contextlib
 import getpass
 import json
+import random
 import sys
 import time
 from datetime import datetime, timedelta, timezone
 from urllib.parse import unquote, urlsplit
 
 import redis.asyncio as aioredis
+from python_socks import ProxyError
 from telethon import TelegramClient, errors, events, utils
 from telethon.tl.custom.message import Message as TgMessage
 from telethon.tl.functions.auth import ResendCodeRequest, SendCodeRequest
@@ -68,7 +71,7 @@ def proxy_args(url: str | None) -> dict:
     raise ValueError(f"TG_PROXY: unknown scheme {parts.scheme!r}; one of {', '.join(PROXY_SCHEMES)}, mtproxy")
 
 
-def _client() -> TelegramClient:
+def _client(**options: object) -> TelegramClient:
     if not settings.tg_api_id or not settings.tg_api_hash:
         sys.exit("Set TG_API_ID and TG_API_HASH in .env (https://my.telegram.org -> API development tools).")
     try:
@@ -76,7 +79,7 @@ def _client() -> TelegramClient:
     except ValueError as e:
         sys.exit(str(e))
     settings.tg_session.parent.mkdir(parents=True, exist_ok=True)
-    return TelegramClient(str(settings.tg_session), settings.tg_api_id, settings.tg_api_hash.get_secret_value(), **proxy)
+    return TelegramClient(str(settings.tg_session), settings.tg_api_id, settings.tg_api_hash.get_secret_value(), **proxy, **options)
 
 
 def _link(entity: Channel | Chat, msg_id: int) -> str | None:
@@ -352,10 +355,35 @@ def _in_topic(row: store.Message, topic_id: int) -> bool:
 
 POLL_SECONDS = 15  # How often the choice made in the bot is looked at.
 DIALOGS_EVERY = 600  # How often the list of chats offered in the bot is refreshed (it is also refreshed on request).
+RECONNECT_DELAYS = (10, 30, 60, 120, 300)  # Seconds before the next try to reach Telegram, longer while it keeps failing.
+STABLE_SECONDS = 300  # A connection that lasted this long was a working one: the pauses start from the shortest again.
+HEARTBEAT_SECONDS = 20  # How often live_search.ONLINE is refreshed; well under its TTL.
 
 
 async def listen() -> None:
-    async with _client() as client:
+    """Listen for as long as the process lives. When Telegram or the proxy cannot be reached it tries again after a pause
+    instead of exiting: docker restarted an exiting userbot at once, and each try to a dead proxy holds a slot of rootless
+    docker's network for minutes (its connect goes on after Telethon gives up), until the other services' connections
+    were dropped too."""
+    failures = 0
+    while True:
+        began = time.monotonic()
+        try:
+            await _listen_once()
+            problem = "disconnected"
+        except (OSError, ProxyError) as e:  # Telethon's ConnectionError, a proxy that is down or refuses
+            problem = repr(e)
+        if time.monotonic() - began > STABLE_SECONDS:
+            failures = 0
+        delay = RECONNECT_DELAYS[min(failures, len(RECONNECT_DELAYS) - 1)] * random.uniform(0.8, 1.2)
+        failures += 1
+        print(f"No connection to Telegram ({problem}); next try in {delay:.0f} s.", file=sys.stderr)
+        await asyncio.sleep(delay)
+
+
+async def _listen_once() -> None:
+    # Two tries to connect and one to reconnect (Telethon counts them so): the pauses between rounds are listen()'s.
+    async with _client(connection_retries=1) as client:
         await client.start()
         await _publish_dialogs(client)
         await _seed(client)
@@ -374,12 +402,34 @@ async def listen() -> None:
         client.add_event_handler(save, events.MessageEdited())
         follower = asyncio.create_task(_follow_choice(client, entities))
         searching = asyncio.create_task(_serve_search(client))
+        heartbeat = asyncio.create_task(_heartbeat(client))
         print("Listening. The chats are chosen in the bot: /listen. Ctrl+C to stop.")
         try:
             await client.run_until_disconnected()
         finally:
             follower.cancel()
             searching.cancel()
+            heartbeat.cancel()
+
+
+async def _heartbeat(client: TelegramClient) -> None:
+    """Keep live_search.ONLINE set while the client is connected: the bot sends its searches only then, and the worker
+    tells the admins when it is gone."""
+    if not settings.redis_url:
+        return
+    redis_client = aioredis.from_url(settings.redis_url, socket_timeout=10)
+    try:
+        while True:
+            try:
+                if client.is_connected():
+                    await redis_client.set(live_search.ONLINE, "1", ex=live_search.ONLINE_TTL)
+            except Exception as e:  # noqa: BLE001 - Redis away for a moment must not stop listening
+                print(f"Heartbeat: {e!r}", file=sys.stderr)
+            await asyncio.sleep(HEARTBEAT_SECONDS)
+    finally:
+        with contextlib.suppress(Exception):
+            await redis_client.delete(live_search.ONLINE)
+        await redis_client.aclose()
 
 
 async def _follow_choice(client: TelegramClient, entities: dict[int, Channel | Chat]) -> None:

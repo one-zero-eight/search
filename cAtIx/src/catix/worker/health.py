@@ -1,8 +1,9 @@
 """Tells the admins in Telegram when something the bot depends on stops working, and when it works again.
 
-Every ALERT_CHECK_SECONDS it asks the llama.cpp servers (chat model, embeddings, reranker if configured) for /health and
-looks at the embedding queue. A problem is reported after two failed checks in a row (a restart or a hiccup does not
-wake anybody), once, and again every REMIND_HOURS while it lasts; the recovery is reported too. Runs inside `catix-worker`.
+Every ALERT_CHECK_SECONDS it asks the llama.cpp servers (chat model, embeddings, reranker if configured) for /health,
+looks at the embedding queue and, where the userbot is set up (TG_API_ID), whether it is connected to Telegram. A problem
+is reported after two failed checks in a row (a restart or a hiccup does not wake anybody), once, and again every
+REMIND_HOURS while it lasts; the recovery is reported too. Runs inside `catix-worker`.
 """
 
 import asyncio
@@ -12,9 +13,11 @@ import time
 from collections.abc import Awaitable, Callable
 
 import httpx
+import redis.asyncio as aioredis
 from aiogram import Bot
 from aiogram.exceptions import TelegramAPIError
 
+from catix import live_search
 from catix.settings import settings
 from catix.worker import changes, embedder
 
@@ -24,6 +27,7 @@ FAILS_BEFORE_ALERT = 2
 QUEUE_CHECKS_BEFORE_ALERT = 3  # The queue is long for this many checks in a row: the embedders do not keep up.
 REMIND_HOURS = 6
 QUEUE = "очередь эмбеддингов"
+USERBOT = "userbot (поиск в Telegram)"
 
 
 def _health_url(route: object) -> str:
@@ -91,6 +95,8 @@ async def run() -> None:
         return
     bot = Bot(settings.tg_bot_token.get_secret_value())  # Only sends; the bot app polls.
     monitor = Monitor(await _notifier(bot))
+    # The userbot runs where it has an account to run with; it says it is connected through Redis (live_search.ONLINE).
+    userbot = aioredis.from_url(settings.redis_url, socket_timeout=10) if settings.tg_api_id and settings.redis_url else None
     try:
         async with httpx.AsyncClient(timeout=5) as client:
             while True:
@@ -99,6 +105,8 @@ async def run() -> None:
                         await monitor.step(name, await probe(client, url), "не отвечает на /health")
                     backlog = await asyncio.to_thread(embedder.backlog)
                     await monitor.step(QUEUE, backlog <= settings.alert_queue_max, f"{backlog} сообщений ждут вектора, эмбеддеры не успевают")
+                    if userbot:
+                        await monitor.step(USERBOT, bool(await userbot.exists(live_search.ONLINE)), "нет связи с Telegram")
                 except asyncio.CancelledError:
                     raise
                 except Exception:  # noqa: BLE001 - a failing check must not stop the monitoring
@@ -106,3 +114,5 @@ async def run() -> None:
                 await asyncio.sleep(settings.alert_check_seconds)
     finally:
         await bot.session.close()
+        if userbot:
+            await userbot.aclose()

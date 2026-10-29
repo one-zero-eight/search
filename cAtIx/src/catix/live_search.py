@@ -3,6 +3,7 @@
 The userbot's account is the only thing that can use Telegram's own search, and its session cannot be opened by two
 processes, so the bot asks the userbot through Redis: it pushes a request to a list and waits for the answer on a list of
 its own (`request`); the userbot serves the requests next to listening (`tguserbot/userbot.py`, `_serve_search`).
+While it is connected to Telegram it keeps ONLINE set, so a request is not sent (and waited for) when nobody can answer.
 Telegram's search matches words (with their forms) in one chat at a time and returns the newest first, so the model's
 queries are turned into a few keywords, every keyword is searched in every live chat, and the hits are ordered by the
 reranker (newest first without it) before the best go to the model.
@@ -26,6 +27,8 @@ log = logging.getLogger("catix.live_search")
 
 REQUESTS = "catix:search:requests"
 REQUEST_TTL = 30  # Seconds: a request older than this is not worth answering (nobody waits any more).
+ONLINE = "catix:userbot:online"  # Set by the userbot while it is connected to Telegram (also read by worker/health.py).
+ONLINE_TTL = 60  # Seconds the key outlives the userbot's last word: it refreshes it more often than this.
 MAX_KEYWORDS = 5
 STOPWORDS = {
     "когда", "где", "как", "что", "это", "для", "или", "при", "про", "кто", "какой", "какая", "какие", "будет", "есть",
@@ -71,6 +74,8 @@ def request(chat_ids: list[int], words: list[str], date_from: str | None = None,
         "date_from": date_from, "date_to": date_to, "sent": time.time(),
     }
     try:
+        if not client.exists(ONLINE):
+            return [], "the userbot is not connected to Telegram right now, live search is unavailable"
         client.rpush(REQUESTS, json.dumps(payload))
         answer = client.blpop([reply_key(request_id)], timeout=max(1, int(timeout)))
     except redis.RedisError as e:
