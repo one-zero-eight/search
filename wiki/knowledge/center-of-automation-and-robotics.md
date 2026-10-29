@@ -91,11 +91,6 @@ In carrying out their activity the Centre's employees have the right to:
 - The Centre is responsible for preparing reports on НИР, ОКР, НИОКТР, industrial projects and grants and for passing them in time to the University's internal subdivisions [44].
 - The Centre reports as required by federal executive authorities, executive authorities of the subjects of the Russian Federation, the NTI Projects Support Fund and other bodies, agencies and organisations, in accordance with obligations under grants (subsidies) provided from the budgets of the budget system of the Russian Federation, and in other cases provided by law; in other cases reporting is determined by the contracts concluded with third parties [45].
 
-## See also
-
-- [Industrial Automation Sector (Сектор промышленной автоматизации) — place, tasks, functions and rights](/knowledge/industrial-automation-sector.md)
-- [Laboratory of Multi-Agent Systems (regulation)](/knowledge/multi-agent-systems-laboratory.md)
-
 # Citations
 
 1. [Центр автоматизации и роботизации — Положение](/regulations/sveden-27c4a9f1-938268-pdf.md)

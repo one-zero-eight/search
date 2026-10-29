@@ -104,13 +104,6 @@ Labour disputes and disagreements between the attested worker and the members of
 
 The page carries the forms: Annex 1 — minutes of a sitting of the attestation commission (those present and absent, the agenda, the report, the questions, the decision, the recommendations and the results of the vote) [1]; Annex 2 — the schedule of attestation with the worker's signature confirming acquaintance with it [1]; Annex 3 — the representation on the worker (position, service record, education documents, the decision of the previous attestation, an assessment of his business qualities and results, a reasoned assessment, proposals on his further business purpose) [1]; Annex 4 — the act on refusal to sign the representation or the extract [1]; Annex 5 — the extract from the minutes [1].
 
-## See also
-
-- [Competition for teaching staff positions (конкурс на замещение должностей ППС)](/knowledge/teaching-staff-competition.md)
-- [Competition Commission (конкурсная комиссия) — status, composition, meetings and voting](/knowledge/competition-commission.md)
-- [Internal labour regulations (Правила внутреннего трудового распорядка) — document, hiring, transfer and dismissal](/knowledge/internal-labour-regulations.md)
-- [Staff rewards, disciplinary and material liability (Правила внутреннего трудового распорядка)](/knowledge/staff-discipline-and-liability.md)
-
 # Citations
 
 1. [Положение об аттестационной комиссии по проведению аттестации работников, занимающих должности педагогических работников, относящихся к профессорско-преподавательскому составу, в автономной некоммерческой организации высшего образования "Университет Иннополис",](/regulations/sveden-8365b415-pdf.md)

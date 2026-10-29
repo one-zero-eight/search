@@ -62,9 +62,7 @@ A separate protocol on the wiki covers the entrance examination «Информа
 ## See also
 
 - [Entrance examination «Основы математики» for bachelor programmes (July 2024) — published results](/knowledge/basics-of-mathematics-entrance-exam-results-2024.md)
-- [Entrance examination «Основы физики» for bachelor programmes (22 July 2024) — published results](/knowledge/basics-of-physics-entrance-exam-results-2024.md)
 - [Entrance examinations for bachelor's and master's admission 2026/2027 — lists, points, procedure and appeals](/knowledge/bachelor-master-entrance-examinations-2026-2027.md)
-
 # Citations
 
 1. [Вступительное испытание на программам бакалавриата "Основы информатики" 09.07.2024](/regulations/sveden-73a35c7f-basics-of-computer-science-09-.md)

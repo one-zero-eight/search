@@ -75,10 +75,6 @@ On the basis of the relevant local acts, orders and instructions the Center may,
 ## See also
 
 - [Administration of the university — place, tasks, functions and rights](/knowledge/administration.md)
-- [Recruitment and Employment Department — place, tasks, functions and rights](/knowledge/recruitment-and-employment-department.md)
-- [Distance learning in additional professional education programmes (ДПО with ДОТ)](/knowledge/dpo-distance-learning.md)
-- [Sector for Support of Educational Projects — place, tasks, functions and rights](/knowledge/educational-projects-support-sector.md)
-
 # Citations
 
 1. [Центр образовательного партнерства — Положение](/regulations/sveden-0d813194-958333-pdf.md)

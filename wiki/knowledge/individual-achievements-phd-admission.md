@@ -61,10 +61,7 @@ The current rules of admission to aspirantura programmes contain the same provis
 ## See also
 
 - [Entrance examinations for PhD aspirantura admission (2026 admission rules)](/knowledge/phd-entrance-examinations.md)
-- [Application for PhD aspirantura admission (budget places)](/knowledge/phd-admission-application.md)
 - [Admission to PhD aspirantura 2026/2027 — places, competitions, applications and documents](/knowledge/phd-admission-2026-2027.md)
-- [PhD targeted admission (целевая квота) 2026/2027](/knowledge/phd-target-admission-2026-2027.md)
-
 # Citations
 
 1. [Перечень индивидуальных достижений поступающих, учитываемых при приеме на обучение, и порядок учета указанных достижений](/regulations/sveden-1b9872b0-docx.md), clause 40

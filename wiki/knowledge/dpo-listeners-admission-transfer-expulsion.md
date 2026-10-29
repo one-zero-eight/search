@@ -118,9 +118,7 @@ The regulation on distance learning under additional professional programmes say
 
 ## See also
 
-- [Distance learning in additional professional education programmes (ДПО with ДОТ)](/knowledge/dpo-distance-learning.md)
 - [Termination of educational relations](/knowledge/termination-of-educational-relations.md)
-
 # Citations
 
 1. [Порядок приёма, восстановления, перевода и отчисления слушателей по дополнительным профессиональным программам в АНО ВО «Университет Иннополис»](/regulations/sveden-1f59cf74-pdf.md), clause 1.1

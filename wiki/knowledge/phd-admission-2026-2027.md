@@ -85,10 +85,6 @@ Admission is based on the results of entrance examinations, whose list and form 
 
 - [Entrance examinations for PhD aspirantura admission (2026 admission rules)](/knowledge/phd-entrance-examinations.md)
 - [Individual achievements in PhD aspirantura admission](/knowledge/individual-achievements-phd-admission.md)
-- [Application for PhD aspirantura admission (budget places)](/knowledge/phd-admission-application.md)
-- Lists, consent and enrollment in PhD aspirantura admission 2026/2027
-- [PhD aspirantura admission quotas for 2026/27 (budget places)](/knowledge/phd-admission-quotas-2026-2027.md)
-
 # Citations
 
 1. [ПРАВИЛА ПРИЕМА НА ОБУЧЕНИЕ ПО ОБРАЗОВАТЕЛЬНЫМ ПРОГРАММАМ ВЫСШЕГО ОБРАЗОВАНИЯ – ПРОГРАММАМ ПОДГОТОВКИ НАУЧНЫХ И НАУЧНО-ПЕДАГОГИЧЕСКИХ КАДРОВ В АСПИРАНТУРЕ В АНО ВО «УНИВЕРСИТЕТ ИННОПОЛИС» НА 2026/2027 УЧЕБНЫЙ ГОД [Правила приема аспирантуры 2026]](/regulations/sveden-7a13c41e-2026-pdf.md)

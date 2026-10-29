@@ -88,11 +88,7 @@ How reliable the reading is: in the extracted text the rows of these tables are 
 
 - [Admission to bachelor's and master's programmes 2026/2027 — programmes, places and quotas (rules of 10 April 2026)](/knowledge/bachelor-master-admission-2026-2027.md)
 - [Number of places under contracts for education (paid places) by bachelor's and master's programme](/knowledge/paid-places-by-programme.md)
-- [Admission within the separate quota (отдельная квота) 2024/2025 — who may apply, the two lists and enrolment](/knowledge/separate-quota-admission-2024-2025.md)
 - [Admission to PhD aspirantura 2026/2027 — places, competitions, applications and documents](/knowledge/phd-admission-2026-2027.md)
-- [PhD aspirantura admission quotas for 2026/27 (budget places)](/knowledge/phd-admission-quotas-2026-2027.md)
-- [Higher education tuition cost for 2026/2027 (first and later courses)](/knowledge/higher-education-tuition-2026-2027.md)
-
 # Citations
 
 1. [Количество мест для приема на обучение по различным условиям поступления в рамках контрольных цифр](/regulations/sveden-5846192f-pdf.md)

@@ -130,10 +130,7 @@ On the basis of the relevant local normative acts, orders and instructions the D
 ## See also
 
 - [Center of Educational Content — place, tasks, functions and rights](/knowledge/center-of-educational-content.md)
-- [Final state certification with distance learning technologies (bachelor's and master's programmes)](/knowledge/gia-distance-learning.md)
 - [Remote interim assessment](/knowledge/remote-assessment.md)
-- [Overall regulations (index of key university documents)](/knowledge/overall-regulations.md)
-
 # Citations
 
 1. [Методический отдел — Положение](/regulations/sveden-22e29abe-937882-pdf.md)

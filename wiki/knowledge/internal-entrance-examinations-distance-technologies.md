@@ -63,9 +63,6 @@ The page is the University's information document «Информация о пр
 ## See also
 
 - [Entrance examinations for bachelor's and master's admission 2026/2027 — lists, points, procedure and appeals](/knowledge/bachelor-master-entrance-examinations-2026-2027.md)
-- [Special conditions at PhD entrance examinations and appeals](/knowledge/phd-admission-exam-special-conditions-and-appeals.md)
-- [Final state certification with distance learning technologies (bachelor's and master's programmes)](/knowledge/gia-distance-learning.md)
-
 # Citations
 
 1. [Информация о проведении вступительных испытаний очно и (или) с использованием дистанционных технологий](/regulations/sveden-6ee6e4d0-docx.md)

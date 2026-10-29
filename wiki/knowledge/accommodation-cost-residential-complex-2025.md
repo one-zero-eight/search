@@ -82,10 +82,7 @@ The amending order changes only these points; the other rates and discounts of A
 ## See also
 
 - [Academic leave](/knowledge/academic-leave.md)
-- [Higher education tuition cost for 2026/2027](/knowledge/higher-education-tuition-2026-2027.md)
 - [Paid educational services — the procedure](/knowledge/paid-educational-services-procedure.md)
-- [College tuition cost for 2025/2026](/knowledge/college-tuition-2025-2026.md)
-
 # Citations
 
 1. [Приказ АНО ВО «Университет Иннополис» от 29.08.2025 № ОД/АД-01/2025/08/29 «Об утверждении стоимости услуг размещения в жилом комплексе АНО ВО «Университет Иннополис»](/regulations/sveden-7fa2f471-29-08-25-pdf.md)

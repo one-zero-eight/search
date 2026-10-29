@@ -78,9 +78,6 @@ The annex is headed by the direction of training 1.2.2 «Математичес�
 - [Admission to PhD aspirantura 2026/2027 — places, competitions, applications and documents](/knowledge/phd-admission-2026-2027.md)
 - [Entrance examinations for PhD aspirantura admission (2026 admission rules)](/knowledge/phd-entrance-examinations.md)
 - [Individual achievements in PhD aspirantura admission](/knowledge/individual-achievements-phd-admission.md)
-- PhD target admission (целевая квота) 2026/2027
-- Admission of foreign citizens and stateless persons to PhD aspirantura
-
 # Citations
 
 1. [ПРАВИЛА ПРИЕМА НА ОБУЧЕНИЕ ПО ОБРАЗОВАТЕЛЬНЫМ ПРОГРАММАМ ВЫСШЕГО ОБРАЗОВАНИЯ – ПРОГРАММАМ ПОДГОТОВКИ НАУЧНЫХ И НАУЧНО-ПЕДАГОГИЧЕСКИХ КАДРОВ В АСПИРАНТУРЕ В АНО ВО «УНИВЕРСИТЕТ ИННОПОЛИС» НА 2026/2027 УЧЕБНЫЙ ГОД [Правила приема аспирантуры 2026]](/regulations/sveden-7a13c41e-2026-pdf.md)

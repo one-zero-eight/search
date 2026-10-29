@@ -45,12 +45,6 @@ The Regulation on the procedure for developing and approving the University's hi
 - the labour intensity of an educational programme (or of its part) in credit units characterises the volume of the programme (or of its part), and the volume of a part of the programme must be a whole number of credit units [6];
 - the University itself sets the value of the credit unit in astronomical or academic hours (with an academic hour of 40 or 45 minutes) within 24 to 30 astronomical hours, unless otherwise established by a federal state educational standard of higher education, and the value set is the same within the curriculum [7].
 
-## See also
-
-- [Educational process document and its version for an academic year](/knowledge/educational-process-document.md)
-- [Individual curriculum (индивидуальный учебный план) for bachelor, master and aspirantura students](/knowledge/individual-curriculum.md)
-- [Credit transfer](/knowledge/credit-transfer.md)
-
 # Citations
 
 1. [Об установлении величины зачетной единицы в АНО ВО "Университет Иннополис"](/regulations/sveden-65b76d47-pdf.md)

@@ -118,8 +118,6 @@ An earlier version of the same Regulation was approved by order of the Director 
 
 - [Academic failure and retakes](/knowledge/academic-failure-and-retakes.md)
 - [Termination of educational relations](/knowledge/termination-of-educational-relations.md)
-- [Final state certification with distance learning technologies](/knowledge/gia-distance-learning.md)
-
 # Citations
 
 1. [Положение о порядке проведения государственной итоговой аттестации (бакалавриат и магистратура)](/regulations/final-attestation-regulation.md), clause 1.1

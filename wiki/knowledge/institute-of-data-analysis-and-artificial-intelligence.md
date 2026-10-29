@@ -90,11 +90,7 @@ In their activity the Institute's employees have the right to:
 
 ## See also
 
-- [Center of Top-Level Educational Programs in Artificial Intelligence](/knowledge/center-of-ai-education-programs.md)
-- [Laboratory of Machine Learning and Data Representation](/knowledge/machine-learning-and-data-representation-laboratory.md)
-- [Institute of Robotics and Computer Vision](/knowledge/institute-of-robotics-and-computer-vision.md)
 - [Institute of Software Development and Software Engineering](/knowledge/institute-of-software-development-and-software-engineering.md)
-
 # Citations
 
 1. [Институт анализа данных и искусственного интеллекта — Положение](/regulations/sveden-97a6ba82-pdf.md), clause 1.1

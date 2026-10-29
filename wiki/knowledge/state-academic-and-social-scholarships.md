@@ -75,12 +75,8 @@ Control over the execution of the order is placed on the vice-rector — head of
 
 ## See also
 
-- [Scholarships and other forms of material support — the Regulation of 28 May 2025](/knowledge/scholarships-and-material-support.md)
 - [University scholarships: the academic scholarship of the University and the increased scholarships](/knowledge/university-scholarships.md)
-- [Competition for the increased state academic scholarship](/knowledge/increased-state-academic-scholarship.md)
 - [Academic leave](/knowledge/academic-leave.md)
-- [Maternity and childcare leave](/knowledge/maternity-and-childcare-leave.md)
-
 # Citations
 
 1. [Положение о стипендиях и иных формах материальной поддержки студентов и аспирантов АНО ВО «Университет Иннополис»;](/regulations/sveden-4940ff25-pdf.md), clause 4.1

@@ -57,9 +57,7 @@ A separate protocol on the wiki covers the entrance examination «Основы �
 ## See also
 
 - [Entrance examination «Основы информатики» for bachelor programmes (9 July 2024) — published results](/knowledge/basics-of-informatics-entrance-exam-results-2024.md)
-- [Entrance examinations for bachelor's and master's admission 2024/2025 — lists, points, procedure and appeals](/knowledge/bachelor-master-entrance-examinations-2024-2025.md)
 - [Reserve sittings of entrance examinations (August 2024) — published results](/knowledge/reserve-entrance-exam-results-2024.md)
-
 # Citations
 
 1. [Вступительное испытание на программам бакалавриата "Информатика и ИКТ" 09.07.2024](/regulations/sveden-f6950ff8-informatics-09-07-2024-pdf.md)

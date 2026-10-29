@@ -112,10 +112,6 @@ To inform students about its charter documents, local normative acts and study d
 ## See also
 
 - [Academic leave](/knowledge/academic-leave.md)
-- [Rules of conduct and discipline in the University](/knowledge/student-conduct-rules.md)
-- [Duties of students under the Rules of internal order for students](/knowledge/student-duties.md)
-- [Rewards and disciplinary measures for students](/knowledge/student-rewards-and-disciplinary-measures.md)
-
 # Citations
 
 1. [Положение по применению дисциплинарных взысканий за нарушения академической добропорядочности](/regulations/academic-integrity-regulation.md), clause 2.1

@@ -81,8 +81,6 @@ The Institute of Software Development and Software Engineering's own Regulation 
 ## See also
 
 - [Institute of Software Development and Software Engineering — place, tasks, functions and rights](/knowledge/institute-of-software-development-and-software-engineering.md)
-- [Institute of Additional Education (ИДО) — its Regulation and the new edition approved on 16 January 2026](/knowledge/institute-of-additional-education.md)
-
 # Citations
 
 1. [Магистерская программа "Управление разработкой ПО" — Положение](/regulations/sveden-6e56cf90-pdf.md), clause 1.1

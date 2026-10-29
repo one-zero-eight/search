@@ -91,11 +91,6 @@ The Regulation is approved by order of the Director or another authorised person
 ## See also
 
 - [PhD aspirantura final certification procedure](/knowledge/phd-final-certification.md) — the procedure under the Regulation of 25.02.2025: the Expert-Attestation Commission and the conclusion on the thesis
-- [Final attestation on PhD aspirantura programmes without state accreditation — the Regulation of 4 September 2017](/knowledge/final-attestation-non-accredited-aspirantura.md)
-- [PhD aspirantura appeal procedure](/knowledge/phd-appeal.md)
-- [PhD thesis requirements and evaluation](/knowledge/phd-thesis-requirements.md)
-- [Adapted educational programs for students with disabilities and health limitations](/knowledge/adapted-educational-programs.md)
-
 # Citations
 
 1. [Положение о проведении государственной итоговой аттестации по образовательным программам высшего образования - программам подготовки научно-педагогических кадров в аспирантуре в АНО ВО "Университет Иннополис"](/regulations/sveden-da4a5b60-pdf.md)

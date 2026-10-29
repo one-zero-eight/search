@@ -54,7 +54,6 @@ The information in the contract must correspond to the information published on 
 - [Termination of educational relations](/knowledge/termination-of-educational-relations.md)
 - [Academic leave](/knowledge/academic-leave.md)
 - [Paid educational services — the procedure](/knowledge/paid-educational-services-procedure.md)
-
 # Citations
 
 1. [Порядок оформления возникновения, приостановления и прекращения отношений Автономной некоммерческой организации высшего образования "Университет Иннополис" и обучающимися и (или) родителями (законными представителями) несовершеннолетних обучающихся,](/regulations/sveden-ce5f71c4-pdf.md)

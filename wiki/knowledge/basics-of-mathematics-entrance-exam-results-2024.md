@@ -46,10 +46,7 @@ Neither page states a pass mark, a minimum score or any decision on admission [2
 ## See also
 
 - [Reserve sittings of entrance examinations (August 2024) — published results](/knowledge/reserve-entrance-exam-results-2024.md)
-- [Entrance examination for the master's programme «Программная инженерия» (5–6 August 2024) — published results](/knowledge/software-engineering-entrance-exam-results-2024.md)
 - [Entrance examination for the master's programme «Управление разработкой компьютерных игр» (August 2024) — published results](/knowledge/game-development-entrance-exam-results-2024.md)
-- [Entrance examination for the master's programme «Технологическое предпринимательство» (5–6 August 2024) — published results](/knowledge/technological-entrepreneurship-entrance-exam-results-2024.md)
-
 # Citations
 
 1. [Вступительное испытание на программам бакалавриата "Основы математики" 03.07.2024](/regulations/sveden-53d6e365-basics-maths-03-07-pdf.md)

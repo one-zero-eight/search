@@ -128,9 +128,7 @@ On the basis of the relevant local acts, orders and instructions, the department
 ## See also
 
 - [Administration of the university — place, tasks, functions and rights](/knowledge/administration.md)
-- [Recruitment and Employment Department — place, tasks, functions and rights](/knowledge/recruitment-and-employment-department.md)
 - [Center for Faculty Recruitment and Support (Центр привлечения и поддержки ППС) — place, tasks, functions and rights](/knowledge/center-of-faculty-recruitment-and-support.md)
-
 # Citations
 
 1. [Управление развития университета — Положение](/regulations/sveden-11b89e3c-748759-pdf.md)

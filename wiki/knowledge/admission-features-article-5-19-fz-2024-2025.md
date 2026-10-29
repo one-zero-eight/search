@@ -78,14 +78,6 @@ For aspirantura Annex 3, part 3, provides for scientific specialty 1.2.2 «Ма�
 
 Both pages are scans read by OCR [2], [1]. In the Особенности of 14 April 2023 point 7 refers to the persons «указанным в пункте 8», while point 8 refers to the persons «указанных в пункте 6», and in Annex 3 the minimum and maximum points of the master's programmes are not legible; the numbers should be checked against the PDF [2].
 
-## See also
-
-- [Admission to bachelor's and master's programmes 2024/2025 — programmes, places and quotas](/knowledge/bachelor-master-admission-2024-2025.md)
-- [Entrance examinations for bachelor's and master's admission 2024/2025 — lists, points, procedure and appeals](/knowledge/bachelor-master-entrance-examinations-2024-2025.md)
-- [Applications and documents in bachelor's and master's admission 2024/2025](/knowledge/bachelor-master-admission-applications-and-documents-2024-2025.md)
-- [Lists and enrolment in bachelor's and master's admission 2024/2025 — stages and deadlines](/knowledge/bachelor-master-admission-lists-and-enrollment-2024-2025.md)
-- [Special rights and individual achievements in bachelor's and master's admission 2024/2025 — the competitive score](/knowledge/bachelor-master-admission-priorities-and-individual-achievements-2024-2025.md)
-
 # Citations
 
 1. [Особенности приема на обучение по программам бакалавриата, программам магистратуры, предусмотренные статьей 5 Федерального закона от 17 февраля 2023 г. № 19-ФЗ](/regulations/sveden-b00eed25-reception-pdf.md)

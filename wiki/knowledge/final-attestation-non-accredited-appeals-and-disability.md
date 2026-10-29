@@ -80,9 +80,7 @@ A disabled student submits a written application on the need to create special c
 
 - [Final attestation for bachelor's and master's programmes without state accreditation — procedure and organisation (regulation of 27 April 2024)](/knowledge/final-attestation-non-accredited-programmes.md)
 - [Final state certification (ГИА)](/knowledge/final-state-certification.md)
-- [Adapted educational programs for students with disabilities and health limitations](/knowledge/adapted-educational-programs.md)
 - [Campus accessibility for people with disabilities](/knowledge/campus-accessibility-for-disabled.md)
-
 # Citations
 
 1. [Сведения о наличии оборудованных объектов для проведения практических занятий — Положение о порядке проведения итоговой аттестации по не имеющим государственной аккредитации образовательным программам высшего образования – программам бакалавриата, программам магистратуры в АНО ВО «Университет Иннополис»](/regulations/sveden-4d11336b-polozh-ia-bakmag-27-04-2024-pd.md)

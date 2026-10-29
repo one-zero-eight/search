@@ -6,7 +6,7 @@ okf_version: "0.2"
 
 Knowledge about Innopolis University compiled from [eduwiki](https://eduwiki.innopolis.university), the [disclosure section](https://innopolis.university/sveden/) of the university's site, the course programmes and the sites of [campus life](https://campuslife.innopolis.ru) and [the campus hotel](https://hotel.innopolis.university), and past exam papers the students collected.
 
-- [knowledge](/knowledge/index.md): Knowledge cards: what many regulations say on one topic, every sentence cited, 267 pages
+- [knowledge](/knowledge/index.md): Knowledge cards: what many regulations say on one topic, every sentence cited, 66 pages
 - [regulations](/regulations/index.md): Regulations, orders and other official documents, 1176 pages
 - [course-programmes](/course-programmes/index.md): Course programmes (РПД) by programme, cohort and semester, 1876 pages
 - [sites](/sites/index.md): Pages of the sites of the university's services: campus life, the campus hotel, 352 pages

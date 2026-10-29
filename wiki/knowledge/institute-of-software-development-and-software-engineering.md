@@ -85,9 +85,7 @@ Within its activity the Institute is responsible for preparing and keeping up to
 
 ## See also
 
-- [Governance of Innopolis University — Founders, Supervisory Council, Operations Council, Director and Academic council](/knowledge/university-governance.md)
 - [Administration of the university — place, tasks, functions and rights](/knowledge/administration.md)
-
 # Citations
 
 1. [Институт разработки ПО и программной инженерии — Положение](/regulations/sveden-560db599-pdf.md)

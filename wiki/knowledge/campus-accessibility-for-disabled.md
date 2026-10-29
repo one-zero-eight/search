@@ -116,10 +116,8 @@ The expected result is an increase in the share of accessibility of the object a
 
 ## See also
 
-- [Adapted educational programs for students with disabilities and health limitations](/knowledge/adapted-educational-programs.md)
 - [Remote interim assessment](/knowledge/remote-assessment.md)
 - [Final state certification (ГИА)](/knowledge/final-state-certification.md)
-
 # Citations
 
 1. [Паспорт доступности для инвалидов объекта и предоставляемых на нем услуг в сфере образования, а также оказания им при этом необходимой помощи](/regulations/sveden-0933ae0d-pasport-dostupnosti-ovz-31-05-.md)

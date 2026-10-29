@@ -91,11 +91,7 @@ Annex 1 is the approximate form of the individual work plan in Russian and annex
 
 ## See also
 
-- [Organisation of PhD aspirantura programmes — the Regulation of 2022](/knowledge/phd-aspirantura-programme-organisation.md)
-- [Individual curriculum (индивидуальный учебный план) for bachelor, master and aspirantura students](/knowledge/individual-curriculum.md)
 - [Interim assessment in PhD aspirantura (2018 and 2022 regulations)](/knowledge/phd-interim-assessment.md)
-- [PhD thesis requirements and evaluation](/knowledge/phd-thesis-requirements.md)
-
 # Citations
 
 1. [Положение об индивидуальном плане работы аспиранта в автономной некоммерческой организации высшего образования «Университет Иннополис»](/regulations/sveden-d8ce08d8-pdf.md)

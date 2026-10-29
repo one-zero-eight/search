@@ -88,14 +88,8 @@ The general criteria are knowledge (terms, principles, volume of material, compl
 
 ## See also
 
-- [Organisation of educational activity under secondary vocational education (СПО) programmes — the Regulation of 27 January 2025 (ППССЗ)](/knowledge/spo-educational-activity-organisation.md)
-- Forms of interim assessment in the College: pass, exam, module, demonstration and qualification exams
-- College academic debt, repeat assessment and retakes
 - [Ongoing assessment (current academic performance monitoring)](/knowledge/ongoing-assessment.md)
 - [Interim assessment](/knowledge/interim-assessment.md)
-- [Final state certification for secondary vocational education (College)](/knowledge/college-final-state-certification.md)
-- [College — place, tasks, functions and rights](/knowledge/college.md)
-
 # Citations
 
 1. [Положение о формах, периодичности и порядке текущего контроля успеваемости и промежуточной аттестации обучающихся, осваивающих образовательные программы среднего профессионального образования в автономной некоммерческой организации высшего образования «Университет Иннополис»](/regulations/sveden-3a1d8da9-pdf.md)

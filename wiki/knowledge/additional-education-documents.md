@@ -110,11 +110,8 @@ A listener who has successfully mastered an additional professional programme an
 
 ## See also
 
-- [Additional professional programmes (ДПП) — the University Regulation](/knowledge/additional-professional-programmes.md)
 - [Final attestation of listeners of additional professional programmes (ДПП)](/knowledge/dpo-final-attestation.md)
-- [Additional general education programmes (ДОП) — purpose, design and delivery](/knowledge/additional-general-education-programmes.md)
 - [Paid educational services — the procedure](/knowledge/paid-educational-services-procedure.md)
-
 # Citations
 
 1. [Положение об установлении образцов документов и порядка их выдачи по результатам освоения дополнительных образовательным программ в АНО ВО "Университет Иннополис",](/regulations/sveden-d032492c-pdf.md)

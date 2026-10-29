@@ -115,14 +115,9 @@ These rules stand in the part of the Regulation on the procedure for registering
 
 ## See also
 
-- [Distance learning in additional professional education programmes (ДПО with ДОТ)](/knowledge/dpo-distance-learning.md)
-- [Final state certification with distance learning technologies (bachelor's and master's programmes)](/knowledge/gia-distance-learning.md)
 - [Remote interim assessment](/knowledge/remote-assessment.md)
-- [Study regime and class schedule](/knowledge/study-regime-and-class-schedule.md)
 - [Interim assessment](/knowledge/interim-assessment.md)
-- [IT Department — place, tasks, functions and rights](/knowledge/it-department.md)
 - [Accessibility of the campus and of services for people with disabilities (accessibility passport and roadmap)](/knowledge/campus-accessibility-for-disabled.md)
-
 # Citations
 
 1. [Положение об электронной информационно-образовательной среде АНО ВО «Университет Иннополис»](/regulations/sveden-6868183d-polozh-eios-03-2026-pdf.md)

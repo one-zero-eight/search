@@ -76,11 +76,7 @@ Appendix 4 to the 2026/2027 admission rules is published in the same extract fro
 
 - [Admission to bachelor's and master's programmes 2026/2027 — programmes, places and quotas](/knowledge/bachelor-master-admission-2026-2027.md)
 - [Entrance examinations for bachelor's and master's admission 2026/2027](/knowledge/bachelor-master-entrance-examinations-2026-2027.md)
-- [Lists, consent and enrolment in bachelor's and master's admission 2026/2027](/knowledge/bachelor-master-admission-lists-and-enrollment-2026-2027.md)
-- [Olympiads counted for the special rights and the special advantage in bachelor's admission 2026](/knowledge/olympiads-special-rights-bachelor-admission-2026.md)
 - [Individual achievements in PhD aspirantura admission](/knowledge/individual-achievements-phd-admission.md)
-- [Competition for the increased scholarship of the University](/knowledge/increased-university-scholarship.md)
-
 # Citations
 
 1. [ПРАВИЛА ПРИЕМА НА ОБУЧЕНИЕ ПО ОБРАЗОВАТЕЛЬНЫМ ПРОГРАММАМ ВЫСШЕГО ОБРАЗОВАНИЯ – ПРОГРАММАМ БАКАЛАВРИАТА И ПРОГРАММАМ МАГИСТРАТУРЫ В АНО ВО «УНИВЕРСИТЕТ ИННОПОЛИС» НА 2026/2027 УЧЕБНЫЙ ГОД [Правила_приема_ВО_новая_редакция]](/regulations/sveden-62dee06c-pdf.md)

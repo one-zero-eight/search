@@ -105,11 +105,7 @@ The requirements to the internal evaluation of the quality of mastering addition
 
 ## See also
 
-- [Additional professional programmes (ДПП) — the University Regulation](/knowledge/additional-professional-programmes.md)
-- [Distance learning in additional professional education programmes (ДПО with ДОТ)](/knowledge/dpo-distance-learning.md)
 - [Admission, reinstatement, transfer and expulsion of additional professional education (ДПО) listeners](/knowledge/dpo-listeners-admission-transfer-expulsion.md)
-- [Institute of Additional Education (ИДО)](/knowledge/institute-of-additional-education.md)
-
 # Citations
 
 1. [Положение об итоговой аттестации слушателей по дополнительным профессиональным программам в АНО ВО "Университет Иннополис",](/regulations/sveden-7dae4238-pdf.md)

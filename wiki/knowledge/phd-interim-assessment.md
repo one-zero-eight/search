@@ -91,8 +91,6 @@ The regulation is approved by order of the director of the University or an auth
 - [Interim assessment](/knowledge/interim-assessment.md)
 - [Ongoing assessment (current academic performance monitoring)](/knowledge/ongoing-assessment.md)
 - [Academic failure and retakes](/knowledge/academic-failure-and-retakes.md)
-- [Candidate examinations (PhD aspirantura)](/knowledge/candidate-examinations.md)
-
 # Citations
 
 1. [Положение о текущем контроле успеваемости и промежуточной аттестации обучающихся по образовательным программам высшего образования – программам подготовки кадров высшей квалификации в аспирантуре в Автономной некоммерческой организации высшего образования "Университет Иннополис"](/regulations/sveden-117f90c4-pdf.md), clause 1.1

@@ -88,15 +88,6 @@ A graduate who has passed the final attestation receives the conclusion and a ce
 ## The document
 
 The Regulation on the final certification on aspirantura programmes was approved by order of the University of 25 February 2025 No. ОД/УД-01/2025/02/25 [19]; it is approved by order of the Director or a person authorised by him and enters into force from the moment of approval, and changes are made by order of the Director or an authorised person [60], [61].
-
-## See also
-
-- [Adapted educational programs](/knowledge/adapted-educational-programs.md) — for students with disabilities
-- [PhD aspirantura appeal procedure](/knowledge/phd-appeal.md)
-- [PhD thesis requirements and evaluation](/knowledge/phd-thesis-requirements.md)
-- [Organisation of PhD aspirantura programmes](/knowledge/phd-aspirantura-programme-organisation.md)
-- [Support of aspirantura graduates in presenting the thesis for defence](/knowledge/phd-graduate-thesis-support.md)
-
 # Citations
 
 1. [Положение об итоговой аттестации по программам подготовки научных и научно-педагогических кадров в аспирантуре в автономной некоммерческой организации высшего образования «Университет Иннополис»](/regulations/sveden-a2611be0-pdf.md), clause 1.3

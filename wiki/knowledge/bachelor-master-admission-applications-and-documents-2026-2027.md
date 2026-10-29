@@ -112,11 +112,7 @@ The documents referred to in clauses 155–157 are those presented in addition b
 - [Admission to bachelor's and master's programmes 2026/2027 — programmes, places and quotas](/knowledge/bachelor-master-admission-2026-2027.md)
 - [Entrance examinations for bachelor's and master's admission 2026/2027](/knowledge/bachelor-master-entrance-examinations-2026-2027.md)
 - [Special rights, individual achievements and the competitive score in bachelor's and master's admission 2026/2027](/knowledge/bachelor-master-admission-priorities-and-individual-achievements-2026-2027.md)
-- [Lists, consent and enrolment in bachelor's and master's admission 2026/2027](/knowledge/bachelor-master-admission-lists-and-enrollment-2026-2027.md)
-- [Admission of foreign citizens and stateless persons to bachelor's and master's programmes 2026/2027](/knowledge/bachelor-master-admission-foreign-citizens-2026-2027.md)
 - [Submitting application documents for admission — ways, postal address and receipt](/knowledge/admission-documents-submission.md)
-- [Application for master's admission under paid education contracts — sample form](/knowledge/masters-admission-application-paid-contracts.md)
-
 # Citations
 
 1. [ПРАВИЛА ПРИЕМА НА ОБУЧЕНИЕ ПО ОБРАЗОВАТЕЛЬНЫМ ПРОГРАММАМ ВЫСШЕГО ОБРАЗОВАНИЯ – ПРОГРАММАМ БАКАЛАВРИАТА И ПРОГРАММАМ МАГИСТРАТУРЫ В АНО ВО «УНИВЕРСИТЕТ ИННОПОЛИС» НА 2026/2027 УЧЕБНЫЙ ГОД [Правила_приема_ВО_новая_редакция]](/regulations/sveden-62dee06c-pdf.md)

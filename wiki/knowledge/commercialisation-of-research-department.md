@@ -76,11 +76,8 @@ In carrying out their activity the Department's employees have the right to:
 
 ## See also
 
-- [Digital Solutions Promotion Center (Центр продвижения цифровых решений) — place, tasks, functions and rights](/knowledge/digital-solutions-promotion-center.md)
 - [Intersectoral Technology Transfer Center (МЦТТ) — place, tasks, functions and rights](/knowledge/intersectoral-technology-transfer-center.md)
-- [Intellectual property and technology transfer policy (IP-Policy) — scope, aims and bodies](/knowledge/intellectual-property-policy.md)
 - [Centre for Automation and Robotics (Центр автоматизации и роботизации) — place, tasks, functions and rights](/knowledge/center-of-automation-and-robotics.md)
-
 # Citations
 
 1. [Отдел по коммерциализации научно-исследовательских работ — Положение](/regulations/sveden-d6fcaf5c-pdf.md)

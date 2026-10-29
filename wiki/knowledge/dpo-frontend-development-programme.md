@@ -68,10 +68,7 @@ The order of 12 January 2021 No. ОД/ДПО-04/2021/01/12 approves the terms of
 
 ## See also
 
-- [Additional professional programmes (ДПП) — the University Regulation](/knowledge/additional-professional-programmes.md)
-- [Distance learning in additional professional education programmes (ДПО with ДОТ)](/knowledge/dpo-distance-learning.md)
 - [Paid educational services — the procedure](/knowledge/paid-educational-services-procedure.md)
-
 # Citations
 
 1. [«Frontend-разработка с применением CSS, HTML и JavaScript»](/regulations/sveden-d05cfb55-frontent-pdf.md)

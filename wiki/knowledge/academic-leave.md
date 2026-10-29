@@ -87,9 +87,7 @@ The two documents differ: the procedure sets a single maximum of two years for a
 
 ## See also
 
-- [Maternity and childcare leave](/knowledge/maternity-and-childcare-leave.md) — the same regulation also governs leave for pregnancy and childbirth and leave to care for a child up to three years.
 - [Termination of educational relations](/knowledge/termination-of-educational-relations.md)
-
 # Citations
 
 1. [Положение о предоставлении академического отпуска, отпуска по беременности и родам, отпуска по уходу за ребенком](/regulations/academic-leave-regulation.md), clause 2.1

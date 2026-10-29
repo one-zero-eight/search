@@ -107,13 +107,6 @@ The centre interacts with all structural subdivisions of the University and rece
 
 On the basis of the relevant local normative acts, orders and instructions, the centre may, within its activity, be responsible for preparing and keeping up to date information, including certificates and reports — among them the income received from commercialisation of results of intellectual activity, the number of filed applications for РИД and the number of РИД registered and commercialised with the centre's assistance, and others [62].
 
-## See also
-
-- [Intellectual property and technology transfer policy (IP-Policy) — scope, aims and bodies](/knowledge/intellectual-property-policy.md)
-- [Rights to intellectual results: service, initiative and student results](/knowledge/intellectual-property-rights-to-results.md)
-- [Duties, confidentiality and liability in intellectual property](/knowledge/intellectual-property-duties-and-confidentiality.md)
-- [Software Development Sector of the Integration Department (Сектор разработки программного обеспечения)](/knowledge/software-development-sector-integration-department.md)
-
 # Citations
 
 1. [Межотраслевой центр трансфера технологий — Положение](/regulations/sveden-99d039d4-pdf.md), clause 1.1

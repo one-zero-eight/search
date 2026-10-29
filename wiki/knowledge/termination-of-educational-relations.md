@@ -123,11 +123,6 @@ The Regulation on the procedure and grounds for the transfer, expulsion and rest
 
 [Academic leave](/knowledge/academic-leave.md)
 
-- Restoration (reinstatement) of students
-- Transfer from Innopolis University to another educational organisation
-- Transfer within the University
-- [Student rewards and disciplinary measures](/knowledge/student-rewards-and-disciplinary-measures.md)
-
 # Citations
 
 1. [Порядок оформления возникновения, приостановления и прекращения отношений Автономной некоммерческой организации высшего образования "Университет Иннополис" и обучающимися и (или) родителями (законными представителями) несовершеннолетних обучающихся,](/regulations/sveden-ce5f71c4-pdf.md)

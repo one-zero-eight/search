@@ -49,11 +49,7 @@ A separate protocol on the wiki covers the entrance examination for the master's
 
 ## See also
 
-- [Entrance examination for the master's programme «Управление на основе данных» (13 June 2024) — published results](/knowledge/data-driven-management-entrance-exam-results-13-june-2024.md)
-- [Entrance examination for the master's programme «Управление Цифровым продуктом» (18 September 2024) — published results](/knowledge/digital-product-management-entrance-exam-results-2024.md)
-- [Entrance examination for the master's programme «Программная инженерия» (5–6 August 2024) — published results](/knowledge/software-engineering-entrance-exam-results-2024.md)
 - [Entrance examinations for bachelor's and master's admission 2026/2027 — lists, points, procedure and appeals](/knowledge/bachelor-master-entrance-examinations-2026-2027.md)
-
 # Citations
 
 1. [Вступительное испытание по программе магистратуры "Управление на основе данных" 22.08.2024](/regulations/sveden-74531166-unod-22-08-2024-pdf.md)

@@ -92,12 +92,7 @@ The regulation, amendments and additions to it are approved by the University di
 
 ## See also
 
-- [Credit transfer](/knowledge/credit-transfer.md)
 - [Termination of educational relations](/knowledge/termination-of-educational-relations.md)
-- Restoration (reinstatement) of students
-- Transfer from Innopolis University to another educational organisation
-- Transfer within the University
-
 # Citations
 
 1. [Положение о порядке и сроках проведения конкурсного отбора при переводе обучающихся в Автономную некоммерческую организацию высшего образования "Университет Иннополис" из организаций, осуществляющих образовательную деятельность по образовательным программам высшего образования,](/regulations/sveden-08e4b66a-1-pdf.md)

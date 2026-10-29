@@ -111,9 +111,6 @@ On the University's initiative the contract may be terminated unilaterally in th
 
 - [Enrollment contract](/knowledge/enrollment-contract.md)
 - [Termination of educational relations](/knowledge/termination-of-educational-relations.md)
-- [Higher education tuition cost for 2024/2025 (first-course admission)](/knowledge/higher-education-tuition-2024-2025.md)
-- [College tuition cost for 2025/2026 (secondary vocational education)](/knowledge/college-tuition-2025-2026.md)
-
 # Citations
 
 1. [Приказ об утверждении порядка оказания платных образовательных услуг;](/regulations/sveden-384defd7-pdf.md)

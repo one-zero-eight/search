@@ -79,13 +79,7 @@ The sizes are set by the order of the University No. ОД/УД‐03/2025/12/02 o
 
 ## See also
 
-- [Scholarships and other forms of material support — the Regulation of 28 May 2025](/knowledge/scholarships-and-material-support.md)
-- [Competition for the increased scholarship of the University](/knowledge/increased-university-scholarship.md)
-- [Competition for the increased state academic scholarship](/knowledge/increased-state-academic-scholarship.md)
-- [Material assistance under the Regulation on scholarships](/knowledge/material-assistance-scholarship-regulation.md)
-- [Master's grant competition](/knowledge/masters-grant-competition.md)
 - [State academic, social and increased social scholarships](/knowledge/state-academic-and-social-scholarships.md)
-
 # Citations
 
 1. [Положение о стипендиях и иных формах материальной поддержки студентов и аспирантов АНО ВО «Университет Иннополис»;](/regulations/sveden-4940ff25-pdf.md)

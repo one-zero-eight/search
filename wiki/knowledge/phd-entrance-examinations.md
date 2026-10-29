@@ -71,13 +71,6 @@ A separate document — «Расписание вступительных исп
 A separate document is an annex to the admission rules for studies under higher education programmes — programmes for the training of scientific and scientific-pedagogical staff in aspirantura — at ANO VO «Innopolis University» for the 2026/2027 academic year; it lists the entrance examinations with their maximum and minimum points, priority, form, languages of taking and programmes [19].
 
 For scientific specialty 1.2.2 «Математическое моделирование, численные методы и комплексы программ» the annex shows two entrance examinations in order of priority, one of them in the subject «Основы научных исследований» [19]. The figures and conditions given for the examinations are a minimum of 60 and a maximum of 100 points, the form of holding "in person or with the use of distance technologies", and Russian or English as the languages in which the examination is taken [19]. The forms of entrance examination named in the annex are computer testing (компьютерное тестирование) and an interview (собеседование) [19]. In the wiki copy the cells of the table are scrambled by extraction, so which form belongs to which examination cannot be read reliably from it and the annex itself should be consulted [19].
-
-## See also
-
-- Individual achievements in PhD aspirantura admission
-- [Application for PhD aspirantura admission (budget places)](/knowledge/phd-admission-application.md)
-- [Candidate examinations (PhD aspirantura)](/knowledge/candidate-examinations.md)
-
 # Citations
 
 1. [Перечень индивидуальных достижений поступающих, учитываемых при приеме на обучение, и порядок учета указанных достижений](/regulations/sveden-1b9872b0-docx.md), clause 23

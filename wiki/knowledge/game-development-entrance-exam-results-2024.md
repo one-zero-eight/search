@@ -39,7 +39,6 @@ The examination was also held on 15.08.2024, and that protocol records ten resul
 
 - [Reserve sittings of entrance examinations (August 2024) — published results](/knowledge/reserve-entrance-exam-results-2024.md)
 - [Entrance examinations for PhD aspirantura admission (2026 admission rules)](/knowledge/phd-entrance-examinations.md)
-
 # Citations
 
 1. [Вступительное испытание по программе магистратуры "Управление разработкой компьютерных игр" 02.08.2024](/regulations/sveden-193f9cda-computer-game-development-mana.md)

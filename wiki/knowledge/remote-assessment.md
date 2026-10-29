@@ -168,8 +168,6 @@ The Order enters into force from 1 September 2022; it is approved by order of th
 ## See also
 
 - [Interim assessment](/knowledge/interim-assessment.md)
-- [Study regime and class schedule](/knowledge/study-regime-and-class-schedule.md)
-
 # Citations
 
 1. [Порядок проведения промежуточной аттестации с применением дистанционных образовательных технологий по образовательным программам высшего образования – программам бакалавриата и программам магистратуры в автономной некоммерческой организации высшего образования «Университет Иннополис»](/regulations/sveden-9312cfff-poryadok-pa-bakmag-eodot-02-08.md), clause 1.1

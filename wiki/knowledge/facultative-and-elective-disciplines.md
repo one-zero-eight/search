@@ -114,9 +114,6 @@ The College procedure is approved by order of the Director or of a person author
 ## See also
 
 - [Interim assessment](/knowledge/interim-assessment.md)
-- [Study regime and class schedule](/knowledge/study-regime-and-class-schedule.md)
-- [Credit transfer](/knowledge/credit-transfer.md)
-
 # Citations
 
 1. [Порядок освоения факультативных и элективных дисциплин (модулей) при реализации образовательных программ высшего образования – программ бакалавриата, программ магистратуры и программ подготовки научных и научно-педагогических кадров в аспирантуре в АНО ВО «Университет Иннополис»](/regulations/sveden-21777590-pdf.md), clause 1.1

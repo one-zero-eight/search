@@ -85,13 +85,6 @@ No entrance examinations are held for admission to the specialities 09.02.11 Р�
 
 The same rules are also published on a second page of the wiki, whose metadata title names the 2025/2026 academic year while its clauses, annexes and citations are those of the 2026/2027 rules (its п. 1.1 and its annexes are headed «на 2026/2027 учебный год») and whose text repeats the same clauses, dates, places and annexes [34], [35]. The two pages give the same content [36], [37].
 
-## See also
-
-- [College admission 2026/2027 — ranked lists, the certificate competition, individual achievements and enrolment](/knowledge/college-admission-competition-and-enrollment-2026-2027.md)
-- [College — place, tasks, functions and rights](/knowledge/college.md)
-- [College tuition cost for 2025/2026 (secondary vocational education)](/knowledge/college-tuition-2025-2026.md)
-- [Admission committee (приёмная комиссия) — status, composition, powers and work](/knowledge/admission-committee.md)
-
 # Citations
 
 1. [ПРАВИЛА ПРИЕМА НА ОБУЧЕНИЕ ПО ОБРАЗОВАТЕЛЬНЫМ ПРОГРАММАМ СРЕДНЕГО ПРОФЕССИОНАЛЬНОГО ОБРАЗОВАНИЯ В АНО ВО «УНИВЕРСИТЕТ ИННОПОЛИС» НА 2026/2027 УЧЕБНЫЙ ГОД](/regulations/sveden-5c0f421f-2026-2027-pdf.md), clause 1.1

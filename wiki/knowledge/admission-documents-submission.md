@@ -53,12 +53,7 @@ Under the bachelor's and master's extract, if the documents needed for admission
 
 ## See also
 
-- [Admission committee (приёмная комиссия) — status, composition, powers and work](/knowledge/admission-committee.md)
 - [Admission to PhD aspirantura 2026/2027 — places, competitions, applications and documents](/knowledge/phd-admission-2026-2027.md)
-- [Application for bachelor's admission under paid education contracts — sample form](/knowledge/bachelors-admission-application-paid-contracts.md)
-- [Application for master's admission under paid education contracts — sample form](/knowledge/masters-admission-application-paid-contracts.md)
-- [Overall regulations (index of key university documents)](/knowledge/overall-regulations.md)
-
 # Citations
 
 1. [Информация о местах приема документов, о почтовых адресах для направления документов, необходимых для поступления, об электронных адресах для взаимодействия с поступающими](/regulations/sveden-68f6b922-2026-docx.md)

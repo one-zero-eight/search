@@ -100,7 +100,6 @@ The list of forms, their procedure and frequency, the tools and technologies use
 - [Interim assessment in PhD aspirantura (2018 and 2022 regulations)](/knowledge/phd-interim-assessment.md)
 - [Academic failure and retakes](/knowledge/academic-failure-and-retakes.md)
 - [Remote interim assessment](/knowledge/remote-assessment.md)
-
 # Citations
 
 1. [Положение о формах, периодичности и порядке проведения текущего контроля успеваемости и промежуточной аттестации (бакалавриат и магистратура)](/regulations/attestation-regulation.md), clause 1.1

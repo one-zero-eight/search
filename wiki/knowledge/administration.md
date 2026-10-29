@@ -102,14 +102,6 @@ Interaction of the Administration with the University's other structural subdivi
 
 On the basis of the relevant local normative acts of the University and relevant assignments, the Administration may, within its activity, be responsible for preparing information, certificates and reports and for keeping them up to date [35].
 
-## See also
-
-- [Sector for Support of the Administration's Activity — place, tasks, functions and rights](/knowledge/administration-support-sector.md)
-- [Documentation Department of Managerial Activity — place, tasks, functions and rights](/knowledge/documentation-department.md)
-- [Recruitment and Employment Department — place, tasks, functions and rights](/knowledge/recruitment-and-employment-department.md)
-- [College — place, tasks, functions and rights](/knowledge/college.md)
-- [Overall regulations (index of key university documents)](/knowledge/overall-regulations.md)
-
 # Citations
 
 1. [Администрация — Положение [Положение об Администрации]](/regulations/sveden-6f35d86a-pdf.md), clause 1.1

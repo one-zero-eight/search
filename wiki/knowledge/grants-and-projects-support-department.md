@@ -81,9 +81,7 @@ On the basis of the relevant local acts, orders and instructions, the Department
 
 ## See also
 
-- [Overall regulations (index of key university documents)](/knowledge/overall-regulations.md)
 - [Administration of the university — place, tasks, functions and rights](/knowledge/administration.md)
-
 # Citations
 
 1. [Отдел поддержки грантов и проектов — Положение](/regulations/sveden-6f3b7072-pdf.md), clause 1.1

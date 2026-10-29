@@ -102,8 +102,6 @@ The form offers two alternative grounds to choose from — studying in the form 
 
 - [Interim assessment](/knowledge/interim-assessment.md)
 - [Final state certification (ГИА)](/knowledge/final-state-certification.md)
-- [Individual curriculum](/knowledge/individual-curriculum.md)
-
 # Citations
 
 1. [Положение об условиях и порядке зачисления экстернов в АНО ВО «Университет Иннополис», сроках прохождения ими промежуточной и государственной итоговой аттестации](/regulations/sveden-50bb9ee8-polozh-extern-27-04-2024-pdf.md)

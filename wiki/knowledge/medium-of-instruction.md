@@ -62,11 +62,6 @@ Being English the official medium of instruction does not prevent the use of oth
 ## Status of the document
 
 Staff, teachers and students commit to use English for classes and other major educational situations [1]. The manifesto presents itself as a chapter of the teaching regulations that collects suggested practices for staff, teachers and students [1]. It is listed among the key university documents collected on the Overall Regulations page [2].
-
-## See also
-
-- Overall regulations
-
 # Citations
 
 1. [Innopolis University Manifesto on Medium of Instruction](/regulations/innopolisuniversitymanifestoonmedium.md)

@@ -94,11 +94,7 @@ Admission is announced on the strength of the licence for educational activity N
 - [Entrance examinations for bachelor's and master's admission 2026/2027](/knowledge/bachelor-master-entrance-examinations-2026-2027.md)
 - [Special rights, individual achievements and the competitive score in bachelor's and master's admission 2026/2027](/knowledge/bachelor-master-admission-priorities-and-individual-achievements-2026-2027.md)
 - [Applications and documents in bachelor's and master's admission 2026/2027](/knowledge/bachelor-master-admission-applications-and-documents-2026-2027.md)
-- [Lists, consent and enrolment in bachelor's and master's admission 2026/2027](/knowledge/bachelor-master-admission-lists-and-enrollment-2026-2027.md)
-- [Admission of foreign citizens and stateless persons to bachelor's and master's programmes 2026/2027](/knowledge/bachelor-master-admission-foreign-citizens-2026-2027.md)
 - [Control figures for admission (КЦП) for 2026/27](/knowledge/admission-control-figures-2026-2027.md)
-- [Higher education tuition cost for 2026/2027](/knowledge/higher-education-tuition-2026-2027.md)
-
 # Citations
 
 1. [ПРАВИЛА ПРИЕМА НА ОБУЧЕНИЕ ПО ОБРАЗОВАТЕЛЬНЫМ ПРОГРАММАМ ВЫСШЕГО ОБРАЗОВАНИЯ – ПРОГРАММАМ БАКАЛАВРИАТА И ПРОГРАММАМ МАГИСТРАТУРЫ В АНО ВО «УНИВЕРСИТЕТ ИННОПОЛИС» НА 2026/2027 УЧЕБНЫЙ ГОД [Правила_приема_ВО_новая_редакция]](/regulations/sveden-62dee06c-pdf.md)

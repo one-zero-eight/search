@@ -93,11 +93,8 @@ The University also publishes the applicant's calendar («Календарь а�
 
 ## See also
 
-- [Lists, consent and enrolment in bachelor's and master's admission 2026/2027 — stages and deadlines](/knowledge/bachelor-master-admission-lists-and-enrollment-2026-2027.md)
 - [Admission to bachelor's and master's programmes 2026/2027 — programmes, places and quotas](/knowledge/bachelor-master-admission-2026-2027.md)
 - [Applications and documents in bachelor's and master's admission 2026/2027](/knowledge/bachelor-master-admission-applications-and-documents-2026-2027.md)
-- [Additional admission to bachelor's and master's programmes for 2026/2027](/knowledge/additional-admission-2026-2027.md)
-
 # Citations
 
 1. [ПРАВИЛА ПРИЕМА НА ОБУЧЕНИЕ ПО ОБРАЗОВАТЕЛЬНЫМ ПРОГРАММАМ ВЫСШЕГО ОБРАЗОВАНИЯ – ПРОГРАММАМ БАКАЛАВРИАТА И ПРОГРАММАМ МАГИСТРАТУРЫ В АНО ВО «УНИВЕРСИТЕТ ИННОПОЛИС» НА 2026/2027 УЧЕБНЫЙ ГОД [Правила_приема_ВО_новая_редакция]](/regulations/sveden-62dee06c-pdf.md)

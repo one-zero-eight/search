@@ -74,9 +74,6 @@ For «Управление цифровым продуктом», «Управл
 
 - [Admission to bachelor's and master's programmes 2026/2027 — programmes, places and quotas](/knowledge/bachelor-master-admission-2026-2027.md)
 - [Control figures for admission (КЦП) to higher education programmes for 2026/27 — budget places by area of study](/knowledge/admission-control-figures-2026-2027.md)
-- [Higher education tuition cost for 2026/2027 (first and later courses)](/knowledge/higher-education-tuition-2026-2027.md)
-- [Additional admission to bachelor's and master's programmes for 2026/2027](/knowledge/additional-admission-2026-2027.md)
-
 # Citations
 
 1. [Количество мест по договорам об образовании (платные места) [Количество_платных_мест_ВО]](/regulations/sveden-78b3a844-docx.md)

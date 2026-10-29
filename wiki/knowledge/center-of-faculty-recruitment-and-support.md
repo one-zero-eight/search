@@ -106,9 +106,6 @@ The Center is responsible for compliance with the legislation on personal data w
 ## See also
 
 - [Development Department (Управление развития) — place, tasks, functions and rights](/knowledge/university-development-department.md)
-- [Competition for teaching staff positions (конкурс на замещение должностей ППС)](/knowledge/teaching-staff-competition.md)
-- [Recruitment and Employment Department — place, tasks, functions and rights](/knowledge/recruitment-and-employment-department.md)
-
 # Citations
 
 1. [Центр привлечения и поддержки ППС — Положение](/regulations/sveden-88263cb8-pdf.md)

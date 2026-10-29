@@ -110,12 +110,9 @@ Interim assessment of aspirants is governed by separate aspirantura documents �
 
 ## See also
 
-- Interim assessment in PhD aspirantura (2018 and 2022 regulations)
 - [Ongoing assessment (current academic performance monitoring)](/knowledge/ongoing-assessment.md)
 - [Academic failure and retakes](/knowledge/academic-failure-and-retakes.md)
 - [Remote interim assessment](/knowledge/remote-assessment.md)
-- [Study regime and class schedule](/knowledge/study-regime-and-class-schedule.md)
-
 # Citations
 
 1. [Положение о формах, периодичности и порядке проведения текущего контроля успеваемости и промежуточной аттестации обучающихся по образовательным программам высшего образования - программам бакалавриата и программам магистратуры автономной некоммерческой организации высшего образования "Университет Иннополис"](/regulations/sveden-d40bccec-pdf.md)

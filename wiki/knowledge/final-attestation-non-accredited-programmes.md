@@ -95,7 +95,6 @@ The results of each attestation test are graded «отлично», «хорош
 - [Final state certification (ГИА)](/knowledge/final-state-certification.md)
 - [Academic failure and retakes](/knowledge/academic-failure-and-retakes.md)
 - [Termination of educational relations](/knowledge/termination-of-educational-relations.md)
-
 # Citations
 
 1. [Сведения о наличии оборудованных объектов для проведения практических занятий — Положение о порядке проведения итоговой аттестации по не имеющим государственной аккредитации образовательным программам высшего образования – программам бакалавриата, программам магистратуры в АНО ВО «Университет Иннополис»](/regulations/sveden-4d11336b-polozh-ia-bakmag-27-04-2024-pd.md)

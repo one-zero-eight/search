@@ -89,7 +89,6 @@ Under it, unsatisfactory results of interim assessment in one or more discipline
 - [Interim assessment in PhD aspirantura (2018 and 2022 regulations)](/knowledge/phd-interim-assessment.md)
 - [Ongoing assessment (current academic performance monitoring)](/knowledge/ongoing-assessment.md)
 - [Termination of educational relations](/knowledge/termination-of-educational-relations.md)
-
 # Citations
 
 1. [Положение о формах, периодичности и порядке проведения текущего контроля успеваемости и промежуточной аттестации (бакалавриат и магистратура)](/regulations/attestation-regulation.md), clause 3.5

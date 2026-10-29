@@ -102,9 +102,7 @@ An order of 1 September 2025 № ОД/АД-02/2025/09/01, signed by the Director
 
 - [Methodological Department — place, tasks, functions and rights](/knowledge/methodological-department.md)
 - [Center of Educational Partnership (Institute of Additional Education) — place, tasks, functions and rights](/knowledge/center-of-educational-partnership.md)
-- [IT Department — place, tasks, functions and rights](/knowledge/it-department.md)
 - [Administration of the university — place, tasks, functions and rights](/knowledge/administration.md)
-
 # Citations
 
 1. [Центр образовательного контента — Положение](/regulations/sveden-16d900c1-pdf.md)
