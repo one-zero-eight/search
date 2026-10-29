@@ -86,43 +86,43 @@ def test_a_name_two_cards_answer_to_is_left_alone_and_reported(_cards_dir):
     assert "](/knowledge/" not in card_of(_cards_dir, "goer")  # nothing invented, nothing guessed
 
 
-def test_the_phrases_of_a_text_leave_out_the_prose_the_labels_and_the_document_heads():
-    text = ("Interim assessment evaluates the work of a student. The Ministry of Science and Higher Education approved "
-            "the rules. Правила_приема_ВО_новая_редакция ПРОГРАММАМ. The Director for Development and HR signed it.")
-    found = links.phrases_of(text)
-    assert "Ministry of Science and Higher" in found  # a name of two capitals and more
-    assert "Director for Development" in found  # a name met inside a sentence
-    assert not any(p.startswith("Interim assessment evaluates") for p in found)  # a sentence, not a name
-    assert not any("Правила" in p or "ПРОГРАММАМ" in p for p in found)  # a label of a document, a head in capitals
-    assert links.phrases_of("The higher education programme is approved.", common={"higher", "education", "programme"}) == set()
+def test_a_document_names_its_subjects_in_its_headings_and_the_leads_of_its_clauses():
+    text = ("---\ntype: regulation\ntitle: \"X\"\n---\n\n# X\n\n## Пересдача промежуточной аттестации\n\n"
+            "**5.3.** Академический отпуск предоставляется на срок не более 12 месяцев.\n\n# Citations\n\n"
+            "1. [X](/regulations/x.md)\n")
+    spans = links.names_of_document(text)
+    assert "Пересдача промежуточной аттестации" in spans  # a section names a subject
+    assert any(span.startswith("5.3.") for span in spans)  # a clause names its own
+    assert "12 месяцев" not in spans  # the prose of the clause is not read: it repeats the template of the document
 
 
-def test_a_name_the_cards_repeat_without_an_artifact_is_the_candidate_for_a_card(_cards_dir):
-    write_card(_cards_dir, "student", "A student's duties", "The Student Council is consulted before the rules change [1].")
-    write_card(_cards_dir, "rules", "Rules of the university", "The Student Council approves the plan of events [1].")
+def test_a_phrase_two_documents_name_in_a_heading_and_no_artifact_answers_is_a_card(_cards_dir):
+    for folder, name in (("regulations", "a"), ("procedures", "b")):
+        ( _cards_dir / folder).mkdir(exist_ok=True)
+        ( _cards_dir / folder / f"{name}.md").write_text(
+            f'---\ntype: regulation\ntitle: "Документ {name}"\n---\n\n# Документ {name}\n\n## Академический отпуск порядок оформления\n',
+            encoding="utf-8")
+    write_card(_cards_dir, "leave", "Leave", "The order of it [1].")
     report = links.candidates(_cards_dir)
-    found = [c for c in report.items if c.phrase == "Student Council"]
-    assert found and found[0].cards == ["rules", "student"]
-    assert found[0].verdict == "mention"  # one document cannot carry a card: it would be that document again
-    assert "candidate of a card" in found[0].example or found[0].example  # the sentence, for the reader of the report
+    found = [c for c in report.items if "Академический отпуск" in c.phrase]
+    assert found and found[0].verdict == "card"
+    assert found[0].documents == 2 and found[0].folders == 2
+    assert found[0].cards == []  # the card names it in its title, not in its headings or its prose
 
 
-def test_a_candidate_two_documents_speak_of_is_a_card_and_one_the_bundle_answers_to_is_an_alias(_cards_dir):
-    write_card(_cards_dir, "student", "A student's duties", "The Student Council is consulted before the rules change [1].",
-               sources=("/regulations/a.md", "/regulations/b.md"))
-    write_card(_cards_dir, "rules", "Rules of the university", "The Student Council approves the plan of events [1]. "
-               "The Methodological department keeps the programmes [1].", sources=("/regulations/a.md", "/courses/c.md"))
-    ( _cards_dir / "regulations").mkdir(exist_ok=True)
-    ( _cards_dir / "regulations" / "methodological.md").write_text(
-        '---\ntype: regulation\ntitle: "Methodological department — place and tasks"\n---\n\n# Methodological department\n', encoding="utf-8")
-    write_card(_cards_dir, "other", "Other subject", "The Methodological department keeps the programmes [1].")
+def test_a_phrase_the_bundle_answers_to_is_an_alias_not_a_card(_cards_dir):
+    for folder, name in (("regulations", "a"), ("procedures", "b")):
+        ( _cards_dir / folder).mkdir(exist_ok=True)
+        ( _cards_dir / folder / f"{name}.md").write_text(
+            f'---\ntype: regulation\ntitle: "Документ {name}"\n---\n\n# Документ {name}\n\n## Академический отпуск порядок оформления\n',
+            encoding="utf-8")
+    ( _cards_dir / "pages").mkdir(exist_ok=True)
+    ( _cards_dir / "pages" / "leave.md").write_text(
+        '---\ntype: page\ntitle: "Академический отпуск порядок оформления"\n---\n\n# Академический отпуск порядок оформления\n',
+        encoding="utf-8")
     report = links.candidates(_cards_dir)
-    by_phrase = {c.phrase: c for c in report.items}
-    assert by_phrase["Student Council"].verdict == "card"
-    assert by_phrase["Student Council"].pages == ["/courses/c.md", "/regulations/a.md", "/regulations/b.md"]
-    assert by_phrase["Methodological department"].verdict == "alias"
-    assert by_phrase["Methodological department"].artifact == "/regulations/methodological.md"
-    assert report.by_verdict["card"] == 1 and report.by_verdict["alias"] == 1
+    found = [c for c in report.items if "Академический отпуск" in c.phrase]
+    assert found and found[0].verdict == "alias" and found[0].artifact == "/pages/leave.md"
 
 
 def test_the_front_matter_is_never_touched(_cards_dir):

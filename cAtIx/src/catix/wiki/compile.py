@@ -315,6 +315,16 @@ def compile_page(pid: str, entry: dict, aliases: list[str]) -> Path | None:
     return path
 
 
+def worth_reading(meta: dict) -> bool:
+    """Whether a page of the sources may hold what readers ask about (WIKI_AGENT_SECTIONS): not a survey or a curriculum."""
+    if meta.get("type") in {"card"}:
+        return False
+    if meta.get("type") == "course-programme":
+        return settings.wiki_agent_course_programmes
+    section = meta.get("section")
+    return section is None or str(section) in settings.wiki_agent_sections
+
+
 def front_of(text: str) -> dict:
     """The front matter as a dict, whatever form the YAML has (an editor such as Obsidian rewrites quotes and lists)."""
     return (yaml.safe_load(text.split("---\n", 2)[1]) or {}) if text.startswith("---\n") else {}

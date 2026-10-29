@@ -29,7 +29,7 @@ from datetime import datetime, timezone
 
 from catix.settings import settings
 from catix.wiki import links
-from catix.wiki.compile import BUNDLE, PRODUCER, clean_audience, clean_tags, front_of, model_name, yaml_value
+from catix.wiki.compile import BUNDLE, PRODUCER, clean_audience, clean_tags, front_of, model_name, worth_reading, yaml_value
 from catix.wiki.graph import BLOCK, Index, split_front
 from catix.wiki.paths import RAW
 
@@ -733,16 +733,6 @@ def hide_ids(text: str, people: bool) -> str:
     """A СНИЛС anywhere, and in a card on a list of people (`people`) every applicant's code of 6 to 14 digits too, as [скрыто]."""
     text = SNILS.sub(HIDDEN, text)
     return LONG_ID.sub(HIDDEN, text) if people else text
-
-
-def worth_reading(meta: dict) -> bool:
-    """Whether a source page may hold what readers ask about (WIKI_AGENT_SECTIONS): not a survey or a curriculum."""
-    if meta.get("type") in NOT_EVIDENCE:
-        return False
-    if meta.get("type") == "course-programme":
-        return settings.wiki_agent_course_programmes
-    section = meta.get("section")
-    return section is None or str(section) in settings.wiki_agent_sections
 
 
 def enqueue(pages: list[str]) -> int:
