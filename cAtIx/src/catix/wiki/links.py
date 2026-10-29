@@ -1,6 +1,14 @@
 """Links between the cards of the bundle, written by code — the model cannot write them.
 
     catix-wiki agent links [--dry-run]      # the links of every card, and the names it left alone
+    catix-wiki agent candidates [--phrases] # what the cards name that no artifact answers: the cards still to write
+
+The report ranks, it does not decide. What it tells apart by itself: a phrase the bundle already answers to under another
+name (an alias to add to that card or page), a phrase the cards of two and more cards name while two and more documents
+speak of it (the evidence a card would have), and the rest. What it cannot tell apart is a subject of the university from
+an outside body or a law ("Labour Code", "Ministry of Science") and from a turn of a sentence the model wrote twice
+("university ensures"): a model or a person reads the list and says which is which. Measured on the 66 cards of 2026-10-29,
+the strict pass gives 181 phrases of 3139 before the filters, of which the useful reading is the head of the list.
 
 The bundle is read by people: wiki/ is an Obsidian vault, and the readers of a card are helped most by the cards it should
 lead to. The model cannot write these links: its task shows it the titles of the cards, not their aliases, and what it
@@ -19,13 +27,16 @@ written, a quote of a document or its code; a name that two cards answer to is l
 has to say which card is meant.
 """
 
+import json
 import re
 import sys
+from collections import defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
 
 from catix.wiki.compile import BUNDLE, front_of
 from catix.wiki.graph import split_front
+from catix.wiki.paths import DATA
 
 FOLDER = "knowledge"
 WORD = re.compile(r"[^\W_]+", re.UNICODE)  # a word, however the text spells it
@@ -211,6 +222,185 @@ def cards_by_slug(cards: list[Card]) -> dict[str, str]:
     return {c.slug: c.title for c in cards}
 
 
+# ---- what the cards name that no artifact answers: the criterion for a card ----
+
+NOISE = {  # a word a name does not begin with, and a word that carries no subject (a phrase of them names nothing)
+    "the", "a", "an", "this", "these", "those", "their", "its", "his", "her", "our", "your", "such", "some", "any",
+    "what", "when", "where", "which", "who", "whom", "whose", "how", "why", "if", "and", "or", "but", "for", "from",
+    "with", "without", "within", "in", "into", "on", "at", "to", "of", "by", "as", "is", "are", "was", "were", "be",
+    "been", "not", "may", "must", "shall", "can", "does", "do", "has", "have", "had", "under", "over", "after",
+    "before", "during", "until", "also", "then", "than", "that", "it", "they", "we", "you", "he", "she", "one", "two",
+    "three", "more", "most", "other", "others", "each", "both", "same", "only", "about", "according", "и", "или", "в",
+    "во", "на", "по", "от", "до", "из", "за", "для", "при", "о", "об", "со", "к", "ко", "с", "не", "что", "как", "кто",
+    "где", "когда", "если", "это", "эти", "тот", "та", "те", "их", "его", "ее", "её", "свой", "также", "либо", "лишь",
+    "только", "таких", "такой", "такая", "данного", "данной", "данные", "указанных", "быть", "может", "должен", "все",
+}
+LABEL = re.compile(r"\d|_|[/|]")  # a number, an underscore or a table bar: a label the extraction printed, not a name
+CAPITAL = re.compile(r"^[A-ZА-ЯЁ]")
+CANDIDATE_WORDS = (3, 2)  # a subject is named by two or three words in a row ("Director for Development and HR")
+MIN_CARDS = 2  # cards a phrase must be named in to be looked at: what one card says once is that card's own phrasing
+MIN_PAGES = 2  # documents those cards rest on (a card rests on more than one page: SOURCES)
+COMMON = 0.35  # a word of the genre, named in this share of the cards ("education", "programme"): a phrase of them
+# names the corpus itself, not a subject ("higher education", "federal law", "educational activity")
+SENTENCE = re.compile(r"(?<=[.!?])\s+|\n+")  # a phrase does not run across two sentences
+RUN = re.compile(r"[^\W_]+(?: [^\W_]+)*")  # words joined by single spaces: a name holds no comma or bracket inside
+
+
+@dataclass
+class Candidate:
+    """A phrase the cards name, and what the bundle has for it."""
+
+    phrase: str
+    cards: list[str]  # the cards that name it
+    pages: list[str]  # the documents those cards rest on (the evidence a card of it would have)
+    verdict: str  # 'alias': an artifact answers to another name | 'card': two documents and more | 'mention': one
+    artifact: str = ""  # the path of the artifact an alias would be added to
+    example: str = ""  # the sentence it was met in
+
+
+@dataclass
+class Candidates:
+    """The report: what the cards name that no card answers, by how much evidence there would be for it."""
+
+    phrases: int = 0  # phrases the cards name in two cards and more
+    items: list[Candidate] = field(default_factory=list)
+    by_verdict: dict[str, int] = field(default_factory=dict)
+    output: str = ""
+
+
+def readable(text: str) -> str:
+    """What of a card may name a subject: its prose alone — no front matter, no citations, no machine sections, and
+    nothing already marked as not ours (a link, code, a quote of a document, a heading)."""
+    rest = text
+    if text.startswith("---\n") and "\n---\n" in text:
+        _, rest = split_front(text)
+    body = rest.partition(CITATIONS)[0]
+    body, _ = see_also_of(body)
+    for pattern in TAKEN:
+        body = pattern.sub(" ", body)
+    return body
+
+
+def phrases_of(text: str, common: set[str] | None = None, named_only: bool = True) -> set[str]:
+    """The phrases of a text that a card could be about (see Candidate): two and three words, still readable.
+
+    A phrase that begins or ends in a word carrying no subject is a piece of a sentence, not a name; one holding a
+    number, an underscore or a one-letter token ("University's" is "University" and "s") is not a name either; a word in
+    capitals is the head of a document as the extraction printed it ("ПРОГРАММАМ"). `common` is the words of the genre
+    (named in COMMON of the cards): a phrase of them alone names the corpus, not a subject. With `named_only` only a
+    phrase that begins with a capital is taken — a name — else every repeated phrase of content words is (Russian names
+    a subject without capitals, but that pass reads a lot of prose to find a few).
+    """
+    words_by_sentence = [[word for word in run.split()] for sentence in SENTENCE.split(text) for run in RUN.findall(sentence)]
+    common = common or set()
+    out = set()
+    for words in words_by_sentence:  # a name runs without punctuation: "Federation the Labour" is two names and a comma
+        for size in CANDIDATE_WORDS:
+            for i in range(len(words) - size + 1):
+                tokens = words[i:i + size]
+                if any(len(t) < 2 or LABEL.search(t) or (t.isupper() and len(t) > 1) for t in tokens):
+                    continue
+                if tokens[0].lower() in NOISE or tokens[-1].lower() in NOISE:
+                    continue
+                if sum(1 for t in tokens if t.lower() in NOISE) > 1:  # "Director for Development", not "as for the"
+                    continue
+                substantive = [t.lower() for t in tokens if t.lower() not in NOISE]
+                if len(substantive) < 2 or all(t in common for t in substantive):
+                    continue
+                caps = sum(1 for t in tokens if CAPITAL.match(t))
+                if named_only and not (caps >= 2 or (caps == 1 and i > 0)):
+                    # a name, not the first word of a sentence: "Interim assessment evaluates the work" is prose
+                    continue
+                out.add(" ".join(tokens))
+    return out
+
+
+def common_words(cards: list[Card], share: float = COMMON) -> set[str]:
+    """The words of the genre: a word named in this share of the cards belongs to how the corpus speaks, not to a subject."""
+    seen: dict[str, int] = defaultdict(int)
+    for card in cards:
+        for word in {w.lower() for w in WORD.findall(readable(card.text))}:
+            seen[word] += 1
+    return {word for word, n in seen.items() if n >= share * len(cards)}
+
+
+def rests_on(text: str) -> list[str]:
+    """The pages a card rests on: the sources of its citations."""
+    cites = text.partition(CITATIONS)[2]
+    return list(dict.fromkeys(re.findall(r"^\s*\d+\.\s+\[[^\]]*\]\((/[^)\s#]+\.md)\)", cites, re.M)))
+
+
+def sentence_of(text: str, phrase: str) -> str:
+    """The sentence a phrase was met in, for the report: a person reading it decides in a second what it means."""
+    at = text.lower().find(phrase.lower())
+    if at < 0:
+        return ""
+    before = [text.rfind(end, 0, at) for end in ".!?\n"]
+    end = [found for found in (text.find(stop, at) for stop in ".!?\n") if found >= 0]
+    start = max(before) + 1 if max(before) >= 0 else 0
+    return " ".join(text[start:end[0] + 1 if end else len(text)].split())[:200]
+
+
+def page_names(bundle: Path = BUNDLE) -> dict[str, str]:
+    """Every concept of the bundle by a name a reader may follow to it (its title and its aliases) -> its path.
+
+    A phrase the bundle already answers to, under another name, is an alias to add, not a card to write: the cards are in
+    here too, so the report tells the two apart.
+    """
+    names: dict[str, str] = {}
+    for path in sorted(bundle.rglob("*.md")):
+        if any(part.startswith(".") for part in path.relative_to(bundle).parts):
+            continue
+        meta = front_of(path.read_text(encoding="utf-8"))
+        for key in [str(meta.get("title", "")), *[str(a) for a in meta.get("aliases") or []]]:
+            for part in [key, HEAD.split(key)[0]]:  # a title that explains itself names the artifact by its head
+                name = norm(part)
+                if len(name.split()) >= MIN_WORDS or len(name) >= MIN_KEY:
+                    names.setdefault(name, "/" + path.relative_to(bundle).as_posix())
+    return names
+
+
+def candidates(bundle: Path = BUNDLE, output: Path | None = None, named_only: bool = True) -> Candidates:
+    """The phrases the cards name that no card answers, with the evidence a card of each would have.
+
+    The criterion this report is: a subject deserves a card when the cards themselves name it (two and more cards, so a
+    reader arrives at it from both sides) and two and more documents speak of it (SOURCES: a card rests on more than one
+    page). A phrase the bundle answers to already — the title or an alias of some page or card — is an alias to add to
+    that artifact instead, and is reported as one. Nothing here writes anything: a person (or the agent, told to) decides.
+    """
+    cards = read_cards(bundle)
+    names, _ = registry(cards)
+    artifacts = {**page_names(bundle), **names}
+    common = common_words(cards)
+    met: dict[str, set[str]] = defaultdict(set)
+    rests: dict[str, set[str]] = defaultdict(set)
+    example: dict[str, str] = {}
+    for card in cards:
+        text = readable(card.text)
+        pages = set(rests_on(card.text))
+        for phrase in phrases_of(text, common, named_only):
+            key = norm(phrase)
+            met[key].add(card.slug)
+            rests[key] |= pages
+            example.setdefault(key, sentence_of(text, phrase))
+    report = Candidates(phrases=sum(1 for slugs in met.values() if len(slugs) >= MIN_CARDS))
+    order = {"alias": 0, "card": 1, "mention": 2}
+    for key, slugs in met.items():
+        if len(slugs) < MIN_CARDS:
+            continue
+        artifact = artifacts.get(key) or next((path for name, path in artifacts.items() if name in key), "")
+        verdict = "alias" if artifact else ("card" if len(rests[key]) >= MIN_PAGES else "mention")
+        report.items.append(Candidate(key, sorted(slugs), sorted(rests[key]), verdict, artifact, example.get(key, "")))
+        report.by_verdict[verdict] = report.by_verdict.get(verdict, 0) + 1
+    # the order a reader works in: what an alias settles today, then what a card would have the evidence for, then the rest
+    report.items.sort(key=lambda c: (order[c.verdict], -len(c.pages), -len(c.cards), c.phrase))
+    if output:
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(json.dumps([c.__dict__ for c in report.items], ensure_ascii=False, indent=1), encoding="utf-8")
+        report.output = str(output)
+    return report
+
+
 @dataclass
 class Report:
     """What a pass over the cards did: the links written, and the names it left alone."""
@@ -245,7 +435,21 @@ def apply(bundle: Path = BUNDLE, dry_run: bool = False) -> Report:
 
 
 def main() -> None:
-    report = apply(dry_run="--dry-run" in sys.argv[2:])
+    args = sys.argv[2:]
+    if "candidates" in args:
+        output = Path(args[args.index("--output") + 1]) if "--output" in args else DATA / ".knowledge-candidates.json"
+        found = candidates(output=output, named_only="--phrases" not in args)
+        counts = ", ".join(f"{n} {v}" for v, n in sorted(found.by_verdict.items(), key=lambda kv: -kv[1]))
+        print(f"{found.phrases} phrases the cards name in two cards and more: {counts or 'nothing'}")
+        print("an alias settles these (the artifact already answers to another name):")
+        for item in [i for i in found.items if i.verdict == "alias"][:12]:
+            print(f"  {item.phrase} -> {item.artifact}")
+        print("a card would have the evidence of these:")
+        for item in [i for i in found.items if i.verdict == "card"][:15]:
+            print(f"  {len(item.cards)} cards, {len(item.pages)} documents: {item.phrase} — {item.example[:100]}")
+        print(f"the whole report: {found.output}")
+        return
+    report = apply(dry_run="--dry-run" in args)
     print(f"{report.links} links between cards: {report.cards_linked} of {report.cards} cards link to another one "
           f"({report.names} names in the registry; {len(report.changed)} files rewritten)")
     if report.ambiguous:

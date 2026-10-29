@@ -12,12 +12,13 @@ def _cards_dir(tmp_path):
     return tmp_path
 
 
-def write_card(bundle, slug, title, body, aliases=(), tags=("tests",)):
+def write_card(bundle, slug, title, body, aliases=(), tags=("tests",), sources=("/regulations/x.md",)):
     front = ["---", "type: card", f'title: "{title}"', "tags: " + str(list(tags)).replace("'", '"'), 'audience: ["student"]']
     if aliases:
         front += ["aliases:", *[f'  - "{a}"' for a in aliases]]
-    front += ["sources:", "  - resource: /regulations/x.md", "status: draft", "---"]
-    text = "\n".join([*front, "", f"# {title}", "", body, "", "# Citations", "", "1. [Regulation](/regulations/x.md), п. 1.1", ""])
+    front += ["sources:", *[f"  - resource: {s}" for s in sources], "status: draft", "---"]
+    cites = [f"{n}. [Regulation {n}]({s}), п. 1.1" for n, s in enumerate(sources, 1)]
+    text = "\n".join([*front, "", f"# {title}", "", body, "", "# Citations", "", *cites, ""])
     (bundle / links.FOLDER / f"{slug}.md").write_text(text, encoding="utf-8")
     return text
 
@@ -83,6 +84,45 @@ def test_a_name_two_cards_answer_to_is_left_alone_and_reported(_cards_dir):
     report = links.apply(_cards_dir)
     assert report.ambiguous == ["entrance examination"] and report.cards_linked == 0
     assert "](/knowledge/" not in card_of(_cards_dir, "goer")  # nothing invented, nothing guessed
+
+
+def test_the_phrases_of_a_text_leave_out_the_prose_the_labels_and_the_document_heads():
+    text = ("Interim assessment evaluates the work of a student. The Ministry of Science and Higher Education approved "
+            "the rules. Правила_приема_ВО_новая_редакция ПРОГРАММАМ. The Director for Development and HR signed it.")
+    found = links.phrases_of(text)
+    assert "Ministry of Science and Higher" in found  # a name of two capitals and more
+    assert "Director for Development" in found  # a name met inside a sentence
+    assert not any(p.startswith("Interim assessment evaluates") for p in found)  # a sentence, not a name
+    assert not any("Правила" in p or "ПРОГРАММАМ" in p for p in found)  # a label of a document, a head in capitals
+    assert links.phrases_of("The higher education programme is approved.", common={"higher", "education", "programme"}) == set()
+
+
+def test_a_name_the_cards_repeat_without_an_artifact_is_the_candidate_for_a_card(_cards_dir):
+    write_card(_cards_dir, "student", "A student's duties", "The Student Council is consulted before the rules change [1].")
+    write_card(_cards_dir, "rules", "Rules of the university", "The Student Council approves the plan of events [1].")
+    report = links.candidates(_cards_dir)
+    found = [c for c in report.items if c.phrase == "Student Council"]
+    assert found and found[0].cards == ["rules", "student"]
+    assert found[0].verdict == "mention"  # one document cannot carry a card: it would be that document again
+    assert "candidate of a card" in found[0].example or found[0].example  # the sentence, for the reader of the report
+
+
+def test_a_candidate_two_documents_speak_of_is_a_card_and_one_the_bundle_answers_to_is_an_alias(_cards_dir):
+    write_card(_cards_dir, "student", "A student's duties", "The Student Council is consulted before the rules change [1].",
+               sources=("/regulations/a.md", "/regulations/b.md"))
+    write_card(_cards_dir, "rules", "Rules of the university", "The Student Council approves the plan of events [1]. "
+               "The Methodological department keeps the programmes [1].", sources=("/regulations/a.md", "/courses/c.md"))
+    ( _cards_dir / "regulations").mkdir(exist_ok=True)
+    ( _cards_dir / "regulations" / "methodological.md").write_text(
+        '---\ntype: regulation\ntitle: "Methodological department — place and tasks"\n---\n\n# Methodological department\n', encoding="utf-8")
+    write_card(_cards_dir, "other", "Other subject", "The Methodological department keeps the programmes [1].")
+    report = links.candidates(_cards_dir)
+    by_phrase = {c.phrase: c for c in report.items}
+    assert by_phrase["Student Council"].verdict == "card"
+    assert by_phrase["Student Council"].pages == ["/courses/c.md", "/regulations/a.md", "/regulations/b.md"]
+    assert by_phrase["Methodological department"].verdict == "alias"
+    assert by_phrase["Methodological department"].artifact == "/regulations/methodological.md"
+    assert report.by_verdict["card"] == 1 and report.by_verdict["alias"] == 1
 
 
 def test_the_front_matter_is_never_touched(_cards_dir):

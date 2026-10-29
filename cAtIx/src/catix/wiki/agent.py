@@ -862,7 +862,7 @@ def main() -> None:
             print(f"{slug}:\n  " + "\n  ".join(found[:8]))
         print(f"{len(all_cards())} cards, {len(broken)} do not hold")
         sys.exit(1 if broken else 0)
-    elif cmd == "links":
+    elif cmd == "links" or cmd == "candidates":
         links.main()
     elif cmd == "all":
         print(f"{enqueue(source_pages(args or None))} pages queued, {len(load_queue())} in the queue")
