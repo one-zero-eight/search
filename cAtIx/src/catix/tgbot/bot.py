@@ -57,6 +57,7 @@ from catix.tgbot import stream
 from catix.agent import events as calendar_events
 from catix.agent import tracing
 from catix.agent.core import build_agent, final_answer
+from catix.agent.questions import QuestionQueue
 from catix.common.render import chunks as _chunks
 from catix.common.render import to_html as _to_html
 from catix.settings import settings
@@ -65,6 +66,8 @@ from catix.agent.tools import AgentContext
 log = logging.getLogger("catix.bot")
 router = Router()
 agent = build_agent()
+# Private chats, groups and inline queries take turns at the agent (agent/questions.py).
+questions = QuestionQueue(settings.agent_parallel_questions)
 # Set after every write: tells the embedding workers there is something new to embed.
 writer = ingest.Writer()
 
@@ -177,10 +180,12 @@ async def _run_agent(
         brief=brief,
         study_group=None if group == groups.ALL else group,
     )
-    with tracing.question(thread_id, str(user_id) if user_id else None, question) as traced:
-        state = await stream.run(agent, {"messages": [{"role": "user", "content": question}]}, config, context, streamer)
-        answer = final_answer(state["messages"], state.get("sources") or {}) or "Не получилось сформулировать ответ."
-        traced.answer(answer)
+    on_wait = streamer.queued if streamer else None
+    async with questions.turn(f"tg:{user_id or 0}", on_wait, stream.QUEUE_REPEAT_SECONDS):
+        with tracing.question(thread_id, str(user_id) if user_id else None, question) as traced:
+            state = await stream.run(agent, {"messages": [{"role": "user", "content": question}]}, config, context, streamer)
+            answer = final_answer(state["messages"], state.get("sources") or {}) or "Не получилось сформулировать ответ."
+            traced.answer(answer)
     return answer, traced.id
 
 

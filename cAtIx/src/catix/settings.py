@@ -40,6 +40,9 @@ class Settings(BaseSettings):
     abuse_pause_max_hours: int = Field(24, gt=0)
     abuse_forget_days: int = Field(7, gt=0, description="After this long without a pause the next one is short again.")
     agent_max_model_calls: int = Field(6, gt=0, description="Model calls per question, including tool rounds.")
+    # Questions the agent answers at once in a bot; the others wait their turn (agent/questions.py). On the V100 several at
+    # once are answered no faster than one after another, so with 1 the first ones in line get their answer early.
+    agent_parallel_questions: int = Field(1, gt=0)
     # Old tool results dominate the context of long chats; above this size (approximate tokens)
     # all but the last `agent_keep_tool_results` are replaced by a placeholder. Every replacement changes the start of the
     # context, and the model server reads all after it again (~750 tokens/s on the V100): at 6000 a question with two

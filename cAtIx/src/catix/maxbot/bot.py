@@ -27,6 +27,7 @@ from catix.agent import sqlquery
 from catix.db import store
 from catix.agent import tracing
 from catix.agent.core import build_agent, final_answer
+from catix.agent.questions import QuestionQueue
 from catix.common.render import chunks, to_html
 from catix.db.rows import ChatGroup
 from catix.settings import settings
@@ -50,6 +51,7 @@ GREETING = (
 )
 
 agent = build_agent()
+questions = QuestionQueue(settings.agent_parallel_questions)  # turns at the agent (agent/questions.py); waiting shows typing
 writer = ingest.Writer()
 
 
@@ -225,12 +227,13 @@ async def _answer(max_: Max, chat_id: int, user_id: int, question: str, reply_mi
             user_telegram_id=-user_id,  # Never a Telegram id
             study_group=None if group == groups.ALL else group,
         )
-        with tracing.question(thread_id, str(user_id), question) as traced:
-            state = await agent.ainvoke(
-                {"messages": [{"role": "user", "content": question}]}, tracing.run_config(thread_id, str(user_id)), context=context
-            )
-            answer = final_answer(state["messages"], state.get("sources") or {}) or "Не получилось сформулировать ответ."
-            traced.answer(answer)
+        async with questions.turn(f"max:{user_id}"):
+            with tracing.question(thread_id, str(user_id), question) as traced:
+                state = await agent.ainvoke(
+                    {"messages": [{"role": "user", "content": question}]}, tracing.run_config(thread_id, str(user_id)), context=context
+                )
+                answer = final_answer(state["messages"], state.get("sources") or {}) or "Не получилось сформулировать ответ."
+                traced.answer(answer)
     except Exception:
         log.exception("agent failed")
         answer = "Не получилось ответить: ошибка на стороне ассистента. Попробуйте ещё раз позже."

@@ -27,9 +27,11 @@ from catix.agent.core import SUPERVISOR_NAME
 log = logging.getLogger("catix.stream")
 
 INTERVAL_SECONDS = 0.7  # Between drafts: Telegram limits how fast a bot may send.
+QUEUE_REPEAT_SECONDS = 20.0  # The queue status is sent again this often: a draft lives 30 seconds.
 MAX_CHARS = 4000  # A message holds 4096; the markup added by the HTML conversion needs room.
 
 # What the user sees while a tool runs, between the model deciding to call it and the answer starting.
+QUEUED = "⏳ Отвечаю на другие вопросы, ваш в очереди. Перед вами: {ahead}"
 CHECKING = "🛡 Проверяю запрос…"
 WRITING = "✍️ Формулирую ответ…"
 STATUS = {
@@ -82,8 +84,15 @@ class DraftStreamer:
             return
         self._last = time.monotonic()
 
+    async def queued(self, ahead: int) -> None:
+        """The question waits in the queue (agent/questions.py) behind `ahead` others. Sent even when unchanged: the queue
+        calls it again before the draft's 30 seconds run out."""
+        if self.enabled:
+            self._status = QUEUED.format(ahead=ahead)
+            await self._send(self._status, html=False)
+
     async def start(self) -> None:
-        """The first thing the user sees: the screen is checking the question."""
+        """The first thing the user sees once the question's turn comes: the screen is checking it."""
         self._status = CHECKING
         await self._send(CHECKING, html=False)
 
