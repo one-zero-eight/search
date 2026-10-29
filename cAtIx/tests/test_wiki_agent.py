@@ -1,5 +1,6 @@
 """The wiki's agent writes cards only through a check by code (wiki/agent.py): every sentence cites a source page and,
-for a regulation, a clause that exists; every number is in what it cites; cards and guides are not evidence. No model here."""
+for a regulation, a clause that exists; every number is in what it cites; cards and guides are not evidence; a card rests on
+more than one page. No model here."""
 
 import contextvars
 from collections import Counter
@@ -17,6 +18,7 @@ def _no_real_wiki(tmp_path, monkeypatch):
     monkeypatch.setattr(agent, "BUNDLE", tmp_path)
     monkeypatch.setattr(agent, "QUEUE", tmp_path / "knowledge-queue.json")
     monkeypatch.setattr(agent.settings, "wiki_agent_quotes", False)  # (the tests of quotes turn them on)
+    monkeypatch.setattr(agent.settings, "wiki_agent_two_sources", False)  # (the tests of that rule turn it on)
 
 REG = "/regulations/leave.md"
 COURSE = "/course-programmes/calc-2026.md"
@@ -350,3 +352,61 @@ def test_the_numbers_of_a_quote_are_read_from_the_page_not_from_its_words_run_to
     quote = "Столовая кампуса | ул. Университетская, д.1, корпус 1 | 496,3 | 90"
     assert agent.problems(f'The campus canteen (496.3 m², 90 seats) is in building 1 [п. 2.2]({REG}#2.2 "{quote}").', idx, quotes=True) == []
     assert any("number 95" in p for p in agent.problems(f'The canteen has 95 seats [п. 2.2]({REG}#2.2 "{quote}").', idx, quotes=True))
+
+
+# ---- a card rests on more than one page: what one document owns stays in that document ------------------------
+
+REG3 = "/regulations/rules.md"
+SITE = "/sites/hotel.md"
+DOC_CLAUSES = 8
+
+
+def many_page_bundle(clauses: int = DOC_CLAUSES) -> SimpleNamespace:
+    """A regulation of many clauses, the site page that publishes it, and the card the agent may link."""
+    page = lambda typ, body, title: {"meta": {"type": typ, "title": title, "sources": [{"id": "abc", "last_modified": "2026-01-01"}]}, "body": body}
+    return SimpleNamespace(meta={
+        REG3: page("regulation", "".join(f"**3.{n}.** Clause {n} of the document, a rule of it.\n\n" for n in range(1, clauses + 1)), "Rules of the university"),
+        SITE: page("page", "The hotel applies the rules of the university, as the page of the university says.", "Hotel"),
+        "/knowledge/rules-of-the-university.md": page("card", "", "Rules"),
+    })
+
+
+def card_of_the_whole_document(pad: int = 0) -> str:
+    """One sentence a clause, all of them, with filler to make it long."""
+    lines = " ".join(f"Clause {n} of the document is restated here in other words [п. 3.{n}]({REG3}#3.{n})." for n in range(1, DOC_CLAUSES + 1))
+    return lines + (" This filler says nothing new and states no number at all." * pad if pad else "")
+
+
+def test_a_card_that_rests_on_one_page_is_refused(monkeypatch):
+    idx = many_page_bundle()
+    body = card_of_the_whole_document(pad=45)
+    found = agent.problems(body, idx, two_sources=True)
+    assert len(found) == 1 and found[0].startswith(f"this card rests on one page ({REG3})")
+    assert agent.kind_of(found[0]) == "rests on one page"
+    assert agent.problems(body, idx) == []  # without the rule: the cards written before it still hold
+    monkeypatch.setattr(agent.settings, "wiki_agent_two_sources", True)  # what write() does with the setting on
+    assert agent.write("rules", "Rules", "d", body, [], [], idx) != []
+    with_second = body + f" The page of the hotel states the same for its guests [source]({SITE})."
+    assert agent.write("rules", "Rules", "d", with_second, [], [], idx) == []  # two pages: what a card is for
+
+
+def test_a_short_card_of_one_page_is_refused_too():
+    """A pointer into a document is not a card either: the search returns the document's own clauses."""
+    idx = many_page_bundle()
+    pointer = f"The rules apply to every resident [п. 3.1]({REG3}#3.1). Clause 2 says the same [п. 3.2]({REG3}#3.2)."
+    assert len(pointer) < 300  # short, few clauses: the shape the old rule let pass
+    assert agent.problems(pointer, idx, two_sources=True)[0].startswith(f"this card rests on one page ({REG3})")
+    assert agent.problems(pointer + f" The hotel says so too [source]({SITE}).", idx, two_sources=True) == []
+
+
+def test_check_reports_a_card_that_rests_on_one_page_only_when_asked(tmp_path):
+    idx = many_page_bundle()
+    cites = "\n".join(f"{n}. [Rules of the university]({REG3}), п. 3.{n}" for n in range(1, DOC_CLAUSES + 1))
+    body = " ".join(f"Clause {n} of the document is restated here in other words [{n}]." for n in range(1, DOC_CLAUSES + 1))
+    card = tmp_path / agent.FOLDER / "rules.md"
+    card.parent.mkdir(parents=True, exist_ok=True)
+    card.write_text("\n".join(["---", "type: card", 'title: "Rules"', 'description: "d"', "tags: []", 'audience: ["student"]',
+                               "sources:", f"  - resource: {REG3}", "status: draft", "---", "", "# Rules", "", body, "",
+                               "# Citations", "", cites, ""]))
+    assert agent.check_all(idx) == {}  # a card written before the rule is not reported
+    assert list(agent.check_all(idx, two_sources=True)) == ["rules"]

@@ -199,6 +199,9 @@ class Settings(BaseSettings):
     wiki_agent_max_tokens: int = Field(16000, gt=0)
     # Every link of a card to a source carries a verbatim quote of it, found by code; the numbers are checked against the quote.
     wiki_agent_quotes: bool = True
+    # A card answers a subject, and a subject is what more than one page speaks of: a card resting on a single source page
+    # is refused (the wiki would hold that page twice, its verbatim text and a paraphrase of it). See agent.SOURCES.
+    wiki_agent_two_sources: bool = True
     # Tasks (batches of pages) the agent works on at once: an API takes several, the local server shares its slots with
     # the assistant (unset: 4 with WIKI_LLM_ROUTE, else 1).
     wiki_agent_parallel: int | None = Field(None, gt=0)

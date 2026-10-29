@@ -3,7 +3,7 @@
     catix-wiki agent [PATH ...]       # what these source pages say goes into the cards (paths like /regulations/x.md)
     catix-wiki agent queue            # the pages waiting in raw/knowledge-queue.json (the wiki's run puts the changed ones there)
     catix-wiki agent all [FOLDER ...] # put every source page (of these folders: regulations, course-programmes, ...) in the queue
-    catix-wiki agent check            # every card against the bundle: citations, clauses, numbers
+    catix-wiki agent check [--two-sources]  # every card against the bundle: citations, clauses, numbers; --two-sources adds the cards resting on one page
 
 The source pages (regulations, course programmes, eduwiki) are made by code and stay as the documents say; the agent only
 reads them (the files, and the search the assistant uses) and keeps cards: one subject per card (a procedure, a rule, a
@@ -43,6 +43,11 @@ CLAUSE = re.compile(rf"^\*\*(\d{{1,2}}(?:\.\d{{1,2}}){{0,4}})\.?\*\*\s*(.*?)(?=\
 BATCH = 3  # source pages per task of the agent
 MAX_BODY = 20000  # characters of a card: a longer one is split (about 6k tokens, well under WIKI_AGENT_MAX_TOKENS, so the tool call is not cut)
 READ_LIMIT = 12_000  # characters read_page returns at once
+# A card brings together what the pages say of one subject, so it rests on more than one page: a card of a single page is
+# that page again — the wiki holds the document twice (its verbatim text and a paraphrase of it) and the search has to
+# choose between them. A subject that one document owns stays in that document: its pieces are already cut by clause
+# (chunks.py) and cited verbatim, so a card adds only an English middleman between the question and the document.
+SOURCES = 2  # pages a card must rest on
 
 INSTRUCTIONS = """You keep the knowledge cards of the wiki of Innopolis University. The wiki's pages are the university's documents
 (regulations: /regulations/, course programmes: /course-programmes/, the teaching wiki: /courses/, /people/, ...);
@@ -67,6 +72,9 @@ programme, a course across its programmes and cohorts. It brings together what e
   leaves out (the date or number of a law it names). Keep conditions and exceptions.
   When pages differ (two cohorts, two versions of a document), say so and say which page says what.
 - A card answers one subject: at most 20000 characters. A long document on several subjects makes several cards.
+- A card rests on more than one page: a card of a single page is that page again, and it is refused. Bring in what other
+  pages say of the subject (another year, another programme, the procedure that applies it, the site that publishes it); when
+  one document owns the subject, write nothing — the search returns that document's own clauses, verbatim.
 - English, plain markdown: ## sections, short paragraphs and lists. No title heading, no front matter, no Citations section.
 - Updating a card, keep what it says: write_card refuses a text that drops citations of the old one. Leave one out only
   when it is wrong for the card, and then name it in `dropped`.
@@ -327,15 +335,33 @@ def numbers_in(text: str) -> set[str]:
     return digits | spelled_numbers(text) | russian
 
 
-def problems(body: str, idx: Index, quotes: bool = False) -> list[str]:
+def one_source(places: set[tuple[str, str]]) -> str | None:
+    """The problem of a card that rests on a single source page; None when the card is a card. A card brings together what
+    the pages say of one subject (INSTRUCTIONS); a card of one page is that page again — the wiki holds the document twice,
+    its verbatim text and a paraphrase of it, and the search has to choose between them. A subject that one document owns
+    stays in that document: its pieces are already cut by clause (chunks.py) and cite the document verbatim, so nothing is
+    lost by writing no card. Asked for with `two_sources` (settings.wiki_agent_two_sources): the cards written before the
+    rule still hold."""
+    pages = {page for page, _ in places}
+    if len(pages) >= SOURCES:
+        return None
+    return (f"this card rests on one page ({', '.join(sorted(pages)) or 'none'}): a subject is what more than one page speaks "
+            f"of, so a card of one page is that page again and the wiki holds it twice. Add what other pages say of the subject "
+            f"(another year, another programme, the procedure that applies it, the site that publishes it), or write nothing: the "
+            f"page's own clauses are what the search returns, verbatim and cited by clause")
+
+
+def problems(body: str, idx: Index, quotes: bool = False, two_sources: bool = False) -> list[str]:
     """What is wrong with a card in the agent's form; [] when it may be written. With `quotes` every link to a source carries the
     words of the page it rests on (the agent's cards since quotes; older cards hold without them until they are written again).
+    With `two_sources` a card resting on a single page is refused too (one_source).
     A quote is looked for in the clause it names (or the page); the numbers of the sentence must be in its quotes."""
     out = []
     if re.search(r"^# ", body, re.M):
         out.append("no '# ' headings: the title and the Citations section are written by the program")
     clause_cache: dict[str, dict[str, str]] = {}
     section, cited_any = "", False
+    places: set[tuple[str, str]] = set()  # the (page, clause) a sentence of the card rests on
     lead: list[tuple[str, str, str]] = []  # the evidence of a line that ends with ':' and opens a list: its items rest on it
     for line in (l.rstrip() for l in body.splitlines()):
         if not line.strip() or re.fullmatch(r"\|?[\s:|-]+\|?", line):
@@ -364,6 +390,7 @@ def problems(body: str, idx: Index, quotes: bool = False) -> list[str]:
                 out.append(f"no citation of a source page: {short}")
             continue
         cited_any = True
+        places |= {(page, clause) for page, clause, _ in evidence}
         support, said = [], []
         for page, clause, quote in evidence:
             if clause:
@@ -401,15 +428,18 @@ def problems(body: str, idx: Index, quotes: bool = False) -> list[str]:
         missing = sorted(numbers_in(claim) - numbers_in(" ".join(support + titles)))
         if missing and support:
             out.append(f"number {missing[0]} is not in what the sentence cites: {short}")
+    if two_sources and cited_any and (one := one_source(places)):
+        out.insert(0, one)  # the costliest thing to fix, and the one a wrong number must not hide
     if not cited_any and not out:
         out.append("the card cites nothing")
     return out
 
 
-def check_all(idx: Index | None = None) -> dict[str, list[str]]:
-    """Every card against the bundle as it is now: a page that changed or went away shows up here."""
+def check_all(idx: Index | None = None, two_sources: bool = False) -> dict[str, list[str]]:
+    """Every card against the bundle as it is now: a page that changed or went away shows up here. With `two_sources` the cards
+    that rest on a single page show up too (reported, not rewritten: they are the ones written before the rule)."""
     idx = idx or Index()
-    return {slug: found for slug in all_cards() if (card := read_file_card(slug)) and (found := problems(card["body"], idx))}
+    return {slug: found for slug in all_cards() if (card := read_file_card(slug)) and (found := problems(card["body"], idx, two_sources=two_sources))}
 
 
 def write(slug: str, title: str, description: str, body: str, tags: list[str], audience: list[str], idx: Index,
@@ -424,7 +454,7 @@ def write(slug: str, title: str, description: str, body: str, tags: list[str], a
         return [f"the card is too long ({len(body)} characters, at most {MAX_BODY}): split it into cards on narrower subjects "
                 "(e.g. who may apply / the stages / the documents), linked under ## See also"]
     body = fit_quotes(body, idx)  # (a long quote that is on the page is cut by code, not sent back)
-    if found := problems(body, idx, quotes=settings.wiki_agent_quotes):
+    if found := problems(body, idx, quotes=settings.wiki_agent_quotes, two_sources=settings.wiki_agent_two_sources):
         return found
     if gone := lost(slug, body, dropped or [], idx):
         return [f"the new text leaves out what the card cited, though the pages still say it: {', '.join(gone[:10])}. Keep the sentences "
@@ -465,7 +495,8 @@ def write(slug: str, title: str, description: str, body: str, tags: list[str], a
 KINDS = [("no citation", "no citation"), ("number", "number not in what it cites"), ("has no clause", "clause does not exist"),
          ("no such page", "page does not exist"), ("is a card", "cited a card"), ("leaves out", "lost old citations"),
          ("no quote", "no quote"), ("the quote is not in", "quote not in the page"), ("but not in its clause", "quote in another clause"),
-         ("the quote is", "quote too short or long"), ("slug", "bad slug"), ("title", "no title or description"), ("headings", "title or Citations heading"), ("too long", "too long")]
+         ("the quote is", "quote too short or long"), ("slug", "bad slug"), ("title", "no title or description"), ("headings", "title or Citations heading"),
+         ("too long", "too long"), ("rests on one page", "rests on one page")]
 
 
 def kind_of(problem: str) -> str:
@@ -821,7 +852,7 @@ def describe(counts: Counter) -> str:
 def main() -> None:
     cmd, *args = sys.argv[2:] or ["queue"]
     if cmd == "check":
-        broken = check_all()
+        broken = check_all(two_sources="--two-sources" in args)
         for slug, found in broken.items():
             print(f"{slug}:\n  " + "\n  ".join(found[:8]))
         print(f"{len(all_cards())} cards, {len(broken)} do not hold")
