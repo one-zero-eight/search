@@ -89,8 +89,8 @@ starts with DONE: and says what you wrote (DONE: nothing, if the pages hold noth
 # ---- cards on disk: the agent's form (inline links) <-> the file (numbered [n] and a Citations section) ----------
 
 
-def card_path(slug: str):
-    return BUNDLE / FOLDER / f"{slug}.md"
+def card_path(slug: str, folder: str = FOLDER):
+    return BUNDLE / folder / f"{slug}.md"
 
 
 def to_file_body(body: str) -> tuple[str, list[tuple[str, str, str]]]:
@@ -233,8 +233,9 @@ def lines_of(quote: str, page_text: str) -> str:
     return f"line {first}" if first == last else f"lines {first}–{last}"
 
 
-def read_file_card(slug: str) -> dict | None:
-    path = card_path(slug)
+def read_file_card(slug: str, folder: str = FOLDER) -> dict | None:
+    """A card (or a note: the same shape of file, another folder) as the agent writes it: its body with its links."""
+    path = card_path(slug, folder)
     if not path.exists():
         return None
     text = path.read_text(encoding="utf-8")
@@ -854,6 +855,10 @@ def main() -> None:
         sys.exit(1 if broken else 0)
     elif cmd == "links" or cmd == "candidates":
         links.main()
+    elif cmd == "notes":
+        from catix.wiki import notes as note_pages
+
+        note_pages.main()
     elif cmd == "all":
         print(f"{enqueue(source_pages(args or None))} pages queued, {len(load_queue())} in the queue")
     elif cmd == "queue":
