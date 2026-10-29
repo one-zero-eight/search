@@ -49,7 +49,11 @@ def test_a_sentence_without_a_source_a_missing_clause_or_a_number_not_cited_is_r
 
 def test_a_card_is_not_evidence():
     found = agent.problems("Leave lasts 12 months [c](/knowledge/academic-leave.md).", bundle())
-    assert any("is a card" in p for p in found) and any("no citation" in p for p in found)
+    assert any("no citation of a source page (a card is not evidence)" in p for p in found)
+    # beside the page the sentence rests on a card link is navigation only (links.py writes them): the check goes on
+    body = f"Leave lasts up to 12 months [п. 2.2]({REG}#2.2), as [the card on leave](/knowledge/academic-leave.md) says."
+    assert agent.problems(body, bundle()) == []
+    assert any("number 24" in p for p in agent.problems(body.replace("12", "24"), bundle()))  # the numbers are still checked
 
 
 def test_the_file_numbers_the_links_and_the_agent_gets_them_back():

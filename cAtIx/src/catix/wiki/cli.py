@@ -9,7 +9,7 @@
     catix-wiki papers fetch|compile|status  # past exam papers from the students' Notion database, see sources/pastpapers.py
     catix-wiki autopilot [--loop] [--source NAME ...] [--no-push] [--no-answers]   # the wiki maintains itself and commits to its branch (see autopilot.py)
     catix-wiki build [--offline]       # the whole chain, re-running only what changed (see build.py)
-    catix-wiki agent [queue|all [FOLDER]|check [--two-sources]|PATH ...]   # the wiki's agent keeps the knowledge cards (wiki/knowledge/), see agent.py
+    catix-wiki agent [queue|all [FOLDER]|check [--two-sources]|links [--dry-run]|PATH ...]   # the wiki's agent keeps the knowledge cards (wiki/knowledge/), see agent.py and links.py
     catix-wiki graph                   # relations between concepts (prerequisites, teachers), see graph.py
     catix-wiki lint                    # check wiki/ against OKF v0.2
     catix-wiki index [status|--no-embed]   # the bundle in the database for the agent's search (see search_index.py)

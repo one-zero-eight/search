@@ -4,6 +4,7 @@
     catix-wiki agent queue            # the pages waiting in raw/knowledge-queue.json (the wiki's run puts the changed ones there)
     catix-wiki agent all [FOLDER ...] # put every source page (of these folders: regulations, course-programmes, ...) in the queue
     catix-wiki agent check [--two-sources]  # every card against the bundle: citations, clauses, numbers; --two-sources adds the cards resting on one page
+    catix-wiki agent links [--dry-run]       # the links between the cards, written by code from their names (links.py)
 
 The source pages (regulations, course programmes, eduwiki) are made by code and stay as the documents say; the agent only
 reads them (the files, and the search the assistant uses) and keeps cards: one subject per card (a procedure, a rule, a
@@ -27,6 +28,7 @@ from contextvars import ContextVar
 from datetime import datetime, timezone
 
 from catix.settings import settings
+from catix.wiki import links
 from catix.wiki.compile import BUNDLE, PRODUCER, clean_audience, clean_tags, front_of, model_name, yaml_value
 from catix.wiki.graph import BLOCK, Index, split_front
 from catix.wiki.paths import RAW
@@ -64,9 +66,10 @@ programme, a course across its programmes and cohorts. It brings together what e
   without clauses. In quotes after the path goes a quote: 4 to 80 words copied from the page as they stand (in the page's
   language, its typos too; no " inside, write « » instead), the very words the sentence rests on, with its numbers. The
   program finds the quote in the clause and checks the sentence's numbers against it. Never write a person's identifier
-  (a СНИЛС, an applicant's code) into a card: say what a list holds, not whose; the program hides any left. Only
-  source pages are evidence, never cards; a link to another card ([title](/knowledge/slug.md)) is only
-  navigation and goes in a section "## See also".
+  (a СНИЛС, an applicant's code) into a card: say what a list holds, not whose; the program hides any left.
+- Only source pages are evidence, never cards: a sentence rests on the pages it quotes, whatever else the line links.
+  Links between cards are written by the program, from the cards' names, so write none yourself and no "## See also"
+  section: name a card in your own words where you mean it (the case, the programme, the procedure).
 - Write only what the cited text says. Every number must be in the text you cite for it: do not count what a page lists
   without counting it ("two kinds", "three conditions": name them instead), and do not add from memory what a page
   leaves out (the date or number of a law it names). Keep conditions and exceptions.
@@ -381,13 +384,13 @@ def problems(body: str, idx: Index, quotes: bool = False, two_sources: bool = Fa
             lead = evidence if line.endswith(":") else []
         elif not evidence:
             evidence = lead
-        if bad := [page for _, page, _, _ in links if page in idx.meta and idx.meta[page]["meta"].get("type") in NOT_EVIDENCE and section != "see also"]:
-            out.append(f"{bad[0]} is a card: cite the source pages it rests on: {short}")
+        cards_linked = [page for _, page, _, _ in links if page in idx.meta and idx.meta[page]["meta"].get("type") in NOT_EVIDENCE]
         if section == "see also":
             continue
         if not evidence:
             if not line.endswith(":"):
-                out.append(f"no citation of a source page: {short}")
+                why = " (a card is not evidence)" if cards_linked else ""  # a card link is navigation (links.py), never proof
+                out.append(f"no citation of a source page{why}: {short}")
             continue
         cited_any = True
         places |= {(page, clause) for page, clause, _ in evidence}
@@ -838,8 +841,10 @@ def _run(pages: list[str] | None, limit: int | None, usage) -> dict:
         except Exception as e:  # noqa: BLE001
             print(f"  failed: {type(e).__name__}: {e}", flush=True)
             break
+    made = links.apply()  # the links between the cards: code writes them once the text stops changing (links.py)
+    print(f"== agent: {made.links} links between cards ({made.cards_linked} cards), {len(made.changed)} files rewritten", flush=True)
     print(f"== agent: write_card in all: {describe(refused)}", flush=True)
-    return {"pages": len(todo), "cards written": len(written), "cards broken": len(check_all()),
+    return {"pages": len(todo), "cards written": len(written), "cards broken": len(check_all()), "links": made.links,
             "write attempts": refused["attempts"], "refused": refused["refused"], "unfinished tasks": refused["unfinished"], "tasks given up": refused["gave up"]}
 
 
@@ -857,6 +862,8 @@ def main() -> None:
             print(f"{slug}:\n  " + "\n  ".join(found[:8]))
         print(f"{len(all_cards())} cards, {len(broken)} do not hold")
         sys.exit(1 if broken else 0)
+    elif cmd == "links":
+        links.main()
     elif cmd == "all":
         print(f"{enqueue(source_pages(args or None))} pages queued, {len(load_queue())} in the queue")
     elif cmd == "queue":
