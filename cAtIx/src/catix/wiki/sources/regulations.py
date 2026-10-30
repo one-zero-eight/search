@@ -1,7 +1,7 @@
 """Official regulations (PDF files on innopolis.university/sveden/document) as a second source of the bundle.
 
-    catix-wiki regs fetch       # download the PDFs, extract the text (text layer, else OCR with tesseract rus) into raw/regulations/
-    catix-wiki regs reextract   # extract the text of the downloaded PDFs again (after the extraction got better)
+    catix-wiki regs fetch       # download the PDFs, extract the text (the text layer as opendataloader reads it, else OCR by chandra-ocr-2, or tesseract rus without its server) into raw/regulations/
+    catix-wiki regs reextract   # extract the text of the downloaded PDFs again (after the extraction got better; the scans tesseract read, by chandra)
     catix-wiki regs refresh     # ask the site (HEAD) whether a downloaded document changed; a changed one is downloaded again by fetch
     catix-wiki regs compile     # raw/regulations -> wiki/raw/regulations/<key>.md
 
@@ -92,6 +92,7 @@ def changed(old: dict | None, new: dict) -> bool:
 
 
 SIGNED = re.compile(r"\s*\(документ подписан (?:ПЭП|простой электронной подписью|электронной подписью)\)", re.I)  # says nothing about the content
+GLUED = re.compile(r"^(\s*\d{1,2}(?:\.\d{1,2}){1,4}\.)(?=[^\W\d_]|«)|^(\s*\d{1,2}\.)(?=[А-ЯЁA-Z])", re.M)  # '3.2.Аспирант', '8.Во время'
 
 
 def all_docs() -> dict[str, dict]:
@@ -146,8 +147,9 @@ def to_pdf(path: Path) -> Path:
     return pdf
 
 
-TEXT_LAYER = "text layer (pdfplumber)"
-TABLES = 4  # the reading of tables: when it changes, `regs reextract` reads the text layers again (2: cells merged across columns, 3: a line on a table's edge once, 4: a table of one column is text)
+TEXT_LAYER = "text layer (opendataloader)"
+PDFPLUMBER = "text layer (pdfplumber)"  # a PDF opendataloader could not read, or read too little of
+TABLES = 5  # the reading of the text layer: when it changes, `regs reextract` reads the text layers again (2: cells merged across columns, 3: a line on a table's edge once, 4: a table of one column is text, 5: opendataloader)
 
 
 def _cell(value: str | None) -> str:
@@ -227,18 +229,34 @@ def text_layer(pdf: Path) -> str:
     return "\f".join(pages)
 
 
-def extract(pdf: Path, ocr_left: int) -> tuple[str | None, str, int]:
-    """(text, method, OCR pages used): the text layer when there is one, else OCR of the page images; None when OCR is not allowed now."""
-    pages = pages_of(pdf)
+def plumbed(pdf: Path) -> tuple[str, str]:
+    """The text layer as pdfplumber reads it (pdftotext for a PDF it cannot parse)."""
     try:
-        text, method = text_layer(pdf), TEXT_LAYER
+        return text_layer(pdf), PDFPLUMBER
     except Exception as e:  # noqa: BLE001 - a PDF pdfplumber cannot parse is read the old way
         print(f"  pdfplumber failed ({e}), pdftotext instead")
-        text, method = subprocess.run(["pdftotext", "-layout", str(pdf), "-"], capture_output=True, text=True, check=True).stdout, "text layer"
+        return subprocess.run(["pdftotext", "-layout", str(pdf), "-"], capture_output=True, text=True, check=True).stdout, "text layer"
+
+
+def extract(pdf: Path, ocr_left: int, converted: Path | None = None) -> tuple[str | None, str, int]:
+    """(text, method, OCR pages used): the text layer when there is one (opendataloader; pdfplumber when it could not read
+    it, or read too little), else OCR of the page images; None when OCR is not allowed now. `converted`: the PDF's JSON when
+    reextract converted many at once."""
+    from catix.wiki.sources import opendataloader
+
+    pages = pages_of(pdf)
+    text = opendataloader.text_of_pdf(pdf, converted)
+    if text is not None and len(text.strip()) > 300 * pages:
+        return text, TEXT_LAYER, 0
+    text, method = plumbed(pdf)
     if len(text.strip()) > 300 * pages:
         return text, method, 0
     if pages > MAX_OCR_PAGES or pages > ocr_left:
         return None, "ocr deferred" if pages <= MAX_OCR_PAGES else "scan too long for OCR", 0
+    from catix.wiki.sources import chandra
+
+    if (text := chandra.text_of_pdf(pdf, pdf.with_suffix(".chandra"))) is not None:  # (its pages' HTML beside the PDF)
+        return text, chandra.METHOD, pages
     work = pdf.with_suffix(".ocr")
     work.mkdir(exist_ok=True)
     subprocess.run(["pdftoppm", "-r", "200", "-png", str(pdf), str(work / "p")], check=True)
@@ -353,6 +371,7 @@ def refresh(prefix: str = "") -> int:
 def to_markdown(text: str) -> str:
     """Layout text -> markdown: chapters '## N. Title', clauses as paragraphs starting with their bold number, 3-space-gapped rows as tables."""
     out, para, table, made = [], [], [], []
+    text = GLUED.sub(lambda m: f"{m.group(1) or m.group(2)} ", text)  # a clause's number glued to its words (the text layer, OCR)
     flat = not re.search(r"^\s*\d+\.\d+\.?\s", text, re.M)  # numbering 1., 2., 3. without chapters: every number opens a clause
 
     def flush() -> None:
@@ -426,8 +445,10 @@ def describe(title: str, text: str, kind: str = "Russian document of a universit
 
 
 def readable(text: str) -> bool:
-    """Enough words to be worth a page (a scan that OCR could not read, a form with only lines and boxes, is not)."""
-    return len(re.findall(r"[^\W\d_]{3,}", text)) >= 60
+    """Enough words to be worth a page (a scan that OCR could not read, a form with only lines and boxes, is not), or a table
+    of data under its heading (an exam's results, the places for admission: few words, the rows say it)."""
+    words = len(re.findall(r"[^\W\d_]{3,}", text))
+    return words >= 60 or words >= 30 and re.search(r"^\|.*\d.*\|$", text, re.M) is not None
 
 
 def compile_all() -> None:
@@ -483,37 +504,55 @@ def compile_all() -> None:
 
 def reextract() -> None:
     """The text of every downloaded PDF that has a text layer, extracted again if it was read the old way or before the
-    reading of tables changed (TABLES). OCR is not repeated: it is slow and the same. A text that comes out the same is
-    not written: its page does not change."""
-    done = 0
+    reading of tables changed (TABLES); and every scan not read by chandra, when its server answers (hours: a scan is
+    written as soon as it is read, so a stopped run goes on where it was). A text that comes out the same is not written:
+    its page does not change. opendataloader reads them a hundred at a time (a JVM a run)."""
+    from catix.wiki.sources import chandra, opendataloader
+
+    todo, scans = [], []
     for key, d in all_docs().items():
         root: Path = d["root"]
         meta_path = root / f"{key}.json"
         meta = json.loads(meta_path.read_text(encoding="utf-8")) if meta_path.exists() else {}
-        if not str(meta.get("method", "")).startswith("text layer") or (meta.get("method") == TEXT_LAYER and meta.get("tables") == TABLES):
+        method = str(meta.get("method", ""))
+        if not (root / f"{key}.pdf").exists():
             continue
-        pdf = root / f"{key}.pdf"
-        if not pdf.exists():
-            continue
-        try:
-            text, method, _ = extract(pdf, 0)
-        except (ValueError, subprocess.SubprocessError) as e:
-            print(f"{key}: {e}")
-            continue
-        if text is None:
-            continue
-        txt = root / f"{key}.txt"
-        same = txt.exists() and txt.read_text(encoding="utf-8") == text
-        if not same:
-            txt.write_text(text, encoding="utf-8")
-        meta_path.write_text(json.dumps({**meta, "method": method, "chars": len(text), "tables": TABLES}, ensure_ascii=False, indent=1), encoding="utf-8")
-        if same:
-            continue
-        print(f"  {key}: the text changed", flush=True)
-        done += 1
-        if done % 25 == 0:
-            print(f"  {done} extracted again", flush=True)
+        if method.startswith("ocr") and method != chandra.METHOD:
+            scans.append((key, root, meta_path, meta))
+        elif method.startswith("text layer") and not (method in (TEXT_LAYER, PDFPLUMBER) and meta.get("tables") == TABLES):
+            todo.append((key, root, meta_path, meta))
+    print(f"{len(todo)} documents to read again", flush=True)
+    with opendataloader.converted([root / f"{key}.pdf" for key, root, _, _ in todo]) as jsons:
+        done = sum(read_again(key, root, meta_path, meta, jsons.get(root / f"{key}.pdf")) for key, root, meta_path, meta in todo)
     print(f"{done} documents read again came out different")
+    if scans and not chandra.available():
+        print(f"{len(scans)} scans not read by {chandra.METHOD}: its server ({settings.ocr_route}) does not answer, left as they are")
+    elif scans:
+        print(f"{len(scans)} scans to read again by {chandra.METHOD} ({sum(pages_of(root / f'{key}.pdf') for key, root, _, _ in scans)} pages)", flush=True)
+        done = 0
+        for n, (key, root, meta_path, meta) in enumerate(scans, 1):
+            print(f"[{n}/{len(scans)}] {key}", flush=True)
+            done += read_again(key, root, meta_path, meta, None, MAX_OCR_PAGES)
+        print(f"{done} scans read again came out different")
+
+
+def read_again(key: str, root: Path, meta_path: Path, meta: dict, converted: Path | None, ocr_left: int = 0) -> bool:
+    """A document read again (reextract): whether its text changed. A scan is read again only with `ocr_left` pages."""
+    try:
+        text, method, _ = extract(root / f"{key}.pdf", ocr_left, converted)
+    except (ValueError, subprocess.SubprocessError) as e:
+        print(f"{key}: {e}")
+        return False
+    if text is None:
+        return False
+    txt = root / f"{key}.txt"
+    same = txt.exists() and txt.read_text(encoding="utf-8") == text
+    if not same:
+        txt.write_text(text, encoding="utf-8")
+    meta_path.write_text(json.dumps({**meta, "method": method, "chars": len(text), "tables": TABLES}, ensure_ascii=False, indent=1), encoding="utf-8")
+    if not same:
+        print(f"  {key}: the text changed ({method})", flush=True)
+    return not same
 
 
 def main() -> None:
