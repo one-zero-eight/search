@@ -387,3 +387,17 @@ def test_a_page_the_model_cannot_describe_gets_its_first_sentence_and_the_model_
 def test_the_first_sentence_of_a_page_is_not_the_invitation_to_sign_in():
     words = "Use your Innopolis account to access InNoHassle services.\nAll university services of the student in one place, found by what they are for."
     assert sites.pending_description("Dashboard", words) == "All university services of the student in one place, found by what they are for."
+
+
+def test_the_index_of_the_sites_lists_the_pages_of_every_site_folder(tmp_path):
+    from catix.wiki import compile as wc
+
+    for site, slug in (("hotel", "home"), ("campuslife", "faq")):
+        page = tmp_path / "raw" / "sites" / site / f"{slug}.md"
+        page.parent.mkdir(parents=True, exist_ok=True)
+        page.write_text(f'---\ntype: page\ntitle: "{slug} of {site}"\ndescription: "d"\nsection: "site/{site}"\n---\n\n# {slug}\n', encoding="utf-8")
+    wc.write_index(wc.concepts(tmp_path), tmp_path)
+    listing = (tmp_path / "raw" / "sites" / "index.md").read_text(encoding="utf-8")
+    assert "(/raw/sites/hotel/home.md)" in listing and "(/raw/sites/campuslife/faq.md)" in listing
+    assert "## site/hotel" in listing and "## site/campuslife" in listing  # (a section for every site)
+    assert "(/raw/sites/index.md): " in (tmp_path / "index.md").read_text(encoding="utf-8")

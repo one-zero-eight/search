@@ -356,7 +356,7 @@ def concepts(bundle: Path | None = None) -> list[tuple[Path, dict]]:
 FOLDERS = {  # directory of the documents (wiki/raw/) -> what it holds, for the indexes
     "regulations": "Regulations, orders and other official documents",
     "course-programmes": "Course programmes (РПД) by programme, cohort and semester",
-    "sites": "Pages of the sites of the university's services: campus life, the campus hotel",
+    "sites": "Pages of the sites of the university and its services: the university, admissions, campus life, the campus hotel, InNoHassle",
     "past-papers": "Past exam papers by subject, as the students collected them (not official)",
     "courses": "Course descriptions from eduwiki",
     "programs": "Study plans",
@@ -427,7 +427,7 @@ def write_index(found: list[tuple[Path, dict]], bundle: Path | None = None) -> N
              f"else cites ([all of them](/{DOCS_FOLDER}/index.md)).", ""]
     for directory in [*FOLDERS, *(d for d in TYPES.values() if d not in FOLDERS)]:
         folder = docs_dir / directory
-        items = [(p, m) for p, m in found if p.parent == folder]
+        items = [(p, m) for p, m in found if folder in p.parents]  # (the sites keep a folder each below sites/)
         if not items:
             (folder / "index.md").unlink(missing_ok=True)
             continue
