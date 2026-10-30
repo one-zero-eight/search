@@ -3,7 +3,7 @@
     catix-wiki regs fetch       # download the PDFs, extract the text (text layer, else OCR with tesseract rus) into raw/regulations/
     catix-wiki regs reextract   # extract the text of the downloaded PDFs again (after the extraction got better)
     catix-wiki regs refresh     # ask the site (HEAD) whether a downloaded document changed; a changed one is downloaded again by fetch
-    catix-wiki regs compile     # raw/regulations -> wiki/regulations/<key>.md
+    catix-wiki regs compile     # raw/regulations -> wiki/raw/regulations/<key>.md
 
 The text of a regulation is NOT rewritten by the model: the program only turns the layout into markdown (chapters, clauses, tables)
 and the clause numbers stay, so that a card can quote 'п. 5.3'. The model is asked only for a one-sentence description and tags.
@@ -24,7 +24,8 @@ import httpx
 from urllib.parse import unquote
 
 from catix.settings import settings
-from catix.wiki.compile import AUDIENCES, BUNDLE, PRODUCER, clean_audience, clean_tags, front_of, _llm, model_name, yaml_value
+from catix.wiki.compile import AUDIENCES, PRODUCER, clean_audience, clean_tags, front_of, _llm, model_name, yaml_value
+from catix.wiki import paths
 from catix.wiki.paths import RAW
 
 ROOT = RAW / "regulations"
@@ -146,7 +147,7 @@ def to_pdf(path: Path) -> Path:
 
 
 TEXT_LAYER = "text layer (pdfplumber)"
-TABLES = 3  # the reading of tables: when it changes, `regs reextract` reads the text layers again (2: cells merged across columns, 3: a line on a table's edge once)
+TABLES = 4  # the reading of tables: when it changes, `regs reextract` reads the text layers again (2: cells merged across columns, 3: a line on a table's edge once, 4: a table of one column is text)
 
 
 def _cell(value: str | None) -> str:
@@ -171,6 +172,8 @@ def table_markdown(rows: list[list[str | None]], wide: list[list[bool]] | None =
     out = [r + [""] * (width - len(r)) for r in out]
     keep = [i for i in range(width) if any(r[i] for r in out)]
     out = [[r[i] for i in keep] for r in out]
+    if len(keep) == 1:  # a frame around text, not a table: its lines are text (a regulation in a box lost its clauses: '| 1.1. ... |')
+        return "\n".join(r[0] for r in out)
     return "\n".join(["| " + " | ".join(out[0]) + " |", "|" + " --- |" * len(keep)] + ["| " + " | ".join(r) + " |" for r in out[1:]])
 
 
@@ -428,12 +431,12 @@ def readable(text: str) -> bool:
 
 
 def compile_all() -> None:
-    """Every kept document -> wiki/regulations/<key>.md. The model writes only the description, tags and audience, once per
+    """Every kept document -> wiki/raw/regulations/<key>.md. The model writes only the description, tags and audience, once per
     version of the file; everything else (title, date, text, tables) is made by code on every run, so that a better
     extraction or a better title reaches the pages without asking the model again."""
-    BUNDLE.joinpath("regulations").mkdir(parents=True, exist_ok=True)
+    paths.DOCS.joinpath("regulations").mkdir(parents=True, exist_ok=True)
     docs = all_docs()
-    for page in BUNDLE.joinpath("regulations").glob("sveden-*.md"):
+    for page in paths.DOCS.joinpath("regulations").glob("sveden-*.md"):
         if page.stem not in docs:  # the document is no longer kept (a new decision of the triage, or it left the site)
             page.unlink()
             print(f"{page.stem}: no longer kept, page removed")
@@ -443,7 +446,7 @@ def compile_all() -> None:
         if not (root / f"{key}.json").exists():
             continue
         meta = json.loads((root / f"{key}.json").read_text(encoding="utf-8"))
-        target = BUNDLE / "regulations" / f"{key}.md"
+        target = paths.DOCS / "regulations" / f"{key}.md"
         if "sha256" not in meta:
             continue
         title = docs[key]["title"]  # (not the one stored at download time: the titles are made unique across all documents)

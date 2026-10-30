@@ -1,6 +1,6 @@
 """A note on a page: what a document is and whom it concerns, written by the model, kept beside the document.
 
-    catix-wiki agent notes /regulations/x.md ...    # the model writes the note of each page it is given
+    catix-wiki agent notes /raw/regulations/x.md ...    # the model writes the note of each page it is given
 
 A page of the sources is evidence: its text is the document's, cards quote it, and the search marks it `official`. A note
 is not evidence and never becomes one. It is the orientation a reader needs before 800 KB of a regulation: three to five
@@ -15,6 +15,7 @@ every writer of a page stays as it is, and the model gets one file it owns whole
 (`link_pages`), and the note itself names its page under `## See also`.
 """
 
+import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -23,17 +24,22 @@ from catix.settings import settings
 from catix.wiki import agent
 from catix.wiki.compile import BUNDLE, front_of, yaml_value
 from catix.wiki.graph import split_front
+from catix.wiki.paths import DOCS_FOLDER, is_document
 
 FOLDER = "notes"
 NOTE_CHARS = 1200  # characters of a note: an orientation, not a summary — the document is one click away
 NOTE_COVERAGE = 0.3  # clauses of the document a note may cite: above this it is a rewrite of the document
 SEE_ALSO = "## See also"
 CITATIONS = "\n# Citations\n"
+MARK = "<!-- catix:notes -->"
+BLOCK = re.compile(r"\n*<!-- catix:notes -->.*?<!-- /catix:notes -->\n?", re.S)  # code's block in a document: its notes
 
 
 def rel(page: str) -> str:
-    """A page path as the bundle writes it."""
-    return page if page.endswith(".md") else f"{page}.md"
+    """A page path as the bundle writes it: a document is under /raw/ ('/regulations/x' is '/raw/regulations/x.md')."""
+    page = "/" + page.strip().lstrip("/")
+    page = page if page.endswith(".md") else f"{page}.md"
+    return page if is_document(page) else f"/{DOCS_FOLDER}{page}"
 
 
 def path_of(page: str) -> Path:
@@ -70,9 +76,13 @@ def write(page: str, title: str, description: str, body: str, idx) -> list[str]:
         return [f"no such page {page}"]
     if not title.strip() or not description.strip():
         return ["a title and a one-sentence description are needed"]
+    body, placed = agent.place_quotes(body.strip(), idx, settings.wiki_agent_quotes)  # (the lines the model pointed at, as quotes)
+    if placed:
+        return placed
+    body = agent.fit_quotes(body, idx)
     if found := note_problems(body, idx, page):
         return found
-    text, refs = agent.to_file_body(body.strip())  # inline links -> [n], a Citations section written by code
+    text, refs = agent.to_file_body(body)  # inline links -> [n], a Citations section written by code
     meta = idx.meta[page]["meta"]
     source = (meta.get("sources") or [{}])[0]
     page_title = str(meta.get("title", page))
@@ -84,7 +94,8 @@ def write(page: str, title: str, description: str, body: str, idx) -> list[str]:
              f"  at: {yaml_value(datetime.now(timezone.utc).isoformat(timespec='seconds'))}", "status: draft", "---"]
 
     def citation(n: int, file: str, clause: str, quote: str) -> str:
-        at = agent.lines_of(quote, (BUNDLE / file.lstrip("/")).read_text(encoding="utf-8")) if quote else ""
+        path = BUNDLE / file.lstrip("/")
+        at = agent.lines_of(quote, path.read_text(encoding="utf-8")) if quote and path.exists() else ""
         return (f"{n}. [{page_title}]({file})" + (f", п. {clause}" if clause else "") + (f", {at}" if at else "")
                 + (f": «{quote}»" if quote else ""))
 
@@ -96,9 +107,9 @@ def write(page: str, title: str, description: str, body: str, idx) -> list[str]:
     return []
 
 
-def notes(bundle: Path = BUNDLE) -> dict[str, str]:
+def notes(bundle: Path | None = None) -> dict[str, str]:
     """Note file -> the page it is of."""
-    out = {}
+    bundle, out = bundle or BUNDLE, {}
     for path in sorted((bundle / FOLDER).glob("*.md")):
         if path.name == "index.md":
             continue
@@ -108,15 +119,19 @@ def notes(bundle: Path = BUNDLE) -> dict[str, str]:
     return out
 
 
-def link_pages(bundle: Path = BUNDLE, dry_run: bool = False) -> int:
+def link_pages(bundle: Path | None = None, dry_run: bool = False) -> int:
     """Every page that has a note leads to it, under `## See also` (code writes the page, the note is the model's).
 
     Idempotent: the section is rebuilt from the notes that exist, so a note that goes away takes its line with it.
     """
+    bundle = bundle or BUNDLE
     by_page: dict[str, list[tuple[str, str]]] = {}
     for note, page in notes(bundle).items():
         title = str(front_of((bundle / note.lstrip("/")).read_text(encoding="utf-8")).get("title", note))
         by_page.setdefault(page, []).append((title, note))
+    for file in (bundle / DOCS_FOLDER).rglob("*.md") if (bundle / DOCS_FOLDER).exists() else []:  # a page whose note went away
+        if MARK in file.read_text(encoding="utf-8"):
+            by_page.setdefault("/" + file.relative_to(bundle).as_posix(), [])
     written = 0
     for page, links in by_page.items():
         file = bundle / page.lstrip("/")
@@ -125,9 +140,10 @@ def link_pages(bundle: Path = BUNDLE, dry_run: bool = False) -> int:
         text = file.read_text(encoding="utf-8")
         front, rest = split_front(text)
         body, _, tail = rest.partition(CITATIONS)
-        body = body.split(SEE_ALSO)[0].rstrip("\n")  # the section is code's: written again from the notes there are
+        body = BLOCK.sub("\n", body).rstrip("\n")  # the block is code's: written again from the notes there are
         lines = "\n".join(f"- [Note: {title}]({note})" for title, note in sorted(links))
-        new = f"{front}{body}\n\n{SEE_ALSO}\n\n{lines}\n\n{CITATIONS}{tail}"
+        block = f"\n\n{MARK}\n{SEE_ALSO}\n\n{lines}\n<!-- /catix:notes -->\n" if links else "\n"
+        new = f"{front}{body}{block}" + (f"{CITATIONS}{tail}" if tail or CITATIONS in rest else "")
         if new != text:
             written += 1
             if not dry_run:
@@ -136,14 +152,15 @@ def link_pages(bundle: Path = BUNDLE, dry_run: bool = False) -> int:
 
 
 NOTES_INSTRUCTIONS = """A note on one page of the wiki of Innopolis University: what the document is, whom it concerns, what a
-reader finds in it. You are given the path of the page; read it (read_file, or read_page for one clause of it) and write its
+reader finds in it. You are given the path of the page; read it (read_page: its lines numbered, or one clause of it) and write its
 note with write_note. The page is a document of the university: its text is evidence, your note is not.
 
 - Three to five sentences, at most {chars} characters. English, plain markdown, no headings, no front matter, no Citations
   section (the program writes those).
-- Every sentence cites a clause of THIS page and nothing else: [п. 5.3](/regulations/x.md#5.3 "words of the clause, 4 to 80,
-  copied as they stand, the numbers of your sentence among them"). The program finds the quote in the clause and checks your
-  numbers against it, so do not state a number the clause does not.
+- Every sentence cites THIS page and nothing else. Point at the place, do not copy it: read_page numbers the lines of the
+  document, and [source](/raw/regulations/x.md#L118-L120) points at lines 118 to 120 — the few lines the sentence rests on.
+  A short clause may be pointed at whole: [п. 5.3](/raw/regulations/x.md#5.3). The program copies the words of that place
+  into the citation and checks your numbers against them, so do not state a number those lines do not.
 - Say what a reader needs before reading the document: what it governs, whom it binds, what it establishes, what has to be
   done and by when. Do not walk through the clauses: at most {share:.0%} of them may be cited, and the document is one click
   away.
@@ -164,20 +181,10 @@ def _tools(idx_box: list, written: list, refused: dict):
     from langchain_core.tools import tool
 
     @tool
-    def read_page(page: str, clause: str = "") -> str:
-        """The text of a page (/regulations/x.md), or of one clause of it ("5.3"). A long page is cut: read it by clauses."""
-        idx = idx_box[0]
-        page = rel(page)
-        if page not in idx.meta:
-            return f"no such page {page}"
-        if clause:
-            return agent.clauses_of(idx, page).get(clause, f"{page} has no clause {clause}")
-        text = agent.course_text(idx, page)
-        title = idx.meta[page]["meta"].get("title", "")
-        if len(text) <= agent.READ_LIMIT:
-            return f"{title}\n\n{text}"
-        listing = "\n".join(f"{n}: {t[:120]}" for n, t in list(agent.clauses_of(idx, page).items())[:200])
-        return f"{title}\n\n{text[:agent.READ_LIMIT]}\n\n[...cut. Clauses of the page (read one with clause=...):]\n{listing}"
+    def read_page(page: str, clause: str = "", offset: int = 0) -> str:
+        """A page (/raw/regulations/x.md) with the numbers of its lines, or one clause of it ("5.3"). A long page is cut: read
+        on with offset=the line to start at. Cite a sentence by the lines it rests on: [source](/raw/x.md#L118-L120)."""
+        return agent.read_document(idx_box[0], rel(page), clause, offset)
 
     @tool
     def write_note(page: str, title: str, description: str, body: str) -> str:
@@ -209,6 +216,7 @@ def _build(idx_box: list, written: list, refused: dict):
         temperature=0,
         max_tokens=settings.wiki_agent_max_tokens,
         **({"extra_body": {"chat_template_kwargs": {"enable_thinking": False}}} if local else {}),
+        **agent.server_context(),
     )
     return create_deep_agent(
         model=model,
@@ -217,7 +225,7 @@ def _build(idx_box: list, written: list, refused: dict):
         backend=CompositeBackend(default=FilesystemBackend(root_dir=BUNDLE, virtual_mode=True),
                                  routes={"/conversation_history/": StateBackend(), "/large_tool_results/": StateBackend()}),
         permissions=[FilesystemPermission(operations=["write"], paths=["/**"], mode="deny")],  # a note goes through write_note only
-        middleware=[agent._guard()],
+        middleware=[agent._guard(lambda page, line: agent.read_document(idx_box[0], page, offset=line))],
         name="wiki-notes",
     )
 
@@ -236,7 +244,7 @@ def run(pages: list[str]) -> dict:
     return {"pages": len(pages), "notes written": len(written), "pages linked": linked}
 
 
-def check_all(bundle: Path = BUNDLE) -> dict[str, list[str]]:
+def check_all(bundle: Path | None = None) -> dict[str, list[str]]:
     """Every note against its page as the bundle is now: a page that changed shows up here (the note no longer holds)."""
     idx = agent.Index()
     out: dict[str, list[str]] = {}

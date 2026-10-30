@@ -39,10 +39,10 @@ def test_a_tiny_section_is_packed_with_the_next_one_under_its_heading():
 
 def test_a_guide_cites_the_pages_its_numbers_point_to():
     text = ('---\ntype: guide\ntitle: "Retakes"\n---\n\n# Retakes\n\n## Limits\n\nTwo retakes are allowed [5].\n\n'
-            "# Citations\n\n5. [Положение о контроле](/regulations/attestation-regulation.md)\n")
+            "# Citations\n\n5. [Положение о контроле](/raw/regulations/attestation-regulation.md)\n")
     _, cs = cut(text)
     assert len(cs) == 1 and "Citations" not in cs[0].text
-    assert cs[0].cites == [{"n": 5, "title": "Положение о контроле", "href": "/regulations/attestation-regulation.md"}]
+    assert cs[0].cites == [{"n": 5, "title": "Положение о контроле", "href": "/raw/regulations/attestation-regulation.md"}]
 
 
 def test_the_fingerprint_follows_the_text_not_the_position():
@@ -75,7 +75,7 @@ def test_a_text_that_stands_on_several_pages_is_searched_once_on_the_latest_inta
 
     title = "Рабочая программа «Тестовый {}» (Б1.О.01) — бакалавриат 09.03.01, набор {}, 3 семестр"
     made = [("Альфакурс", 2024), ("Альфакурс", 2026), ("Альфакурс", 2025), ("Бетакурс", 2023)]
-    pages = {f"/course-programmes/test-copies-{i}.md": title.format(course, intake) for i, (course, intake) in enumerate(made)}
+    pages = {f"/raw/course-programmes/test-copies-{i}.md": title.format(course, intake) for i, (course, intake) in enumerate(made)}
     texts = ["Объём дисциплины 72 часа.", "Объём  дисциплины 72 ЧАСА.", "Объём дисциплины 72 часа.", "Объём дисциплины 72 часа."]
     with pg.connection() as conn, conn.transaction(force_rollback=True):
         for (rel, name), text in zip(pages.items(), texts):
@@ -86,12 +86,12 @@ def test_a_text_that_stands_on_several_pages_is_searched_once_on_the_latest_inta
             mark_copies(conn, across_courses=across)
             searched = conn.execute("SELECT path, id FROM wiki_chunks WHERE path = ANY(%s) AND copy_of IS NULL", (list(pages),)).fetchall()
             ids = {r["path"]: r["id"] for r in searched}
-            assert set(ids) == ({"/course-programmes/test-copies-1.md"} if across else {"/course-programmes/test-copies-1.md", "/course-programmes/test-copies-3.md"})
-            return wiki._hits([ids["/course-programmes/test-copies-1.md"]], [question])[0]
+            assert set(ids) == ({"/raw/course-programmes/test-copies-1.md"} if across else {"/raw/course-programmes/test-copies-1.md", "/raw/course-programmes/test-copies-3.md"})
+            return wiki._hits([ids["/raw/course-programmes/test-copies-1.md"]], [question])[0]
 
         hit = found("сколько часов", across=False)
-        assert hit.path == "/course-programmes/test-copies-1.md"
-        assert [a["title"] for a in hit.also_in] == [pages["/course-programmes/test-copies-0.md"], pages["/course-programmes/test-copies-2.md"]]
+        assert hit.path == "/raw/course-programmes/test-copies-1.md"
+        assert [a["title"] for a in hit.also_in] == [pages["/raw/course-programmes/test-copies-0.md"], pages["/raw/course-programmes/test-copies-2.md"]]
         hit = found("сколько часов у курса Бетакурс", across=True)
-        assert hit.path == "/course-programmes/test-copies-3.md"  # the course asked about, not the latest intake of another
-        assert hit.also_in[0]["page"] == "/course-programmes/test-copies-1.md" and len(hit.also_in) == 3
+        assert hit.path == "/raw/course-programmes/test-copies-3.md"  # the course asked about, not the latest intake of another
+        assert hit.also_in[0]["page"] == "/raw/course-programmes/test-copies-1.md" and len(hit.also_in) == 3

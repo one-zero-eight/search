@@ -66,7 +66,7 @@ QUESTIONS = [
     ("management", "какие результаты промежуточной аттестации студентов за последний год", r"sveden-4f1f0456", r"промежуточн\w+ аттестац"),
     ("management", "как организована практика студентов и ее результаты", r"sveden-b3da8fdf", r"практик"),
     ("public", "how is the bachelor programme structured into tracks", r"programs/|bsc-structure", r"track|stream|software engineering"),
-    # course programmes (РПД, wiki/course-programmes)
+    # course programmes (РПД, wiki/raw/course-programmes)
     ("student", "как оценивается курс вычислительная математика", r"vychislitelnaya-matematika", r"критери\w+ оценивания|«отлично»"),
     ("student", "сколько зачетных единиц и часов у дисциплины вычислительная математика", r"vychislitelnaya-matematika", r"зачетн\w+ единиц"),
     ("student", "какие темы изучаются в курсе компьютерные сети", r"kompyuternye-seti|networks", r"содержани\w+ дисциплин|тем\w* \d|раздел"),

@@ -12,7 +12,7 @@ def _cards_dir(tmp_path):
     return tmp_path
 
 
-def write_card(bundle, slug, title, body, aliases=(), tags=("tests",), sources=("/regulations/x.md",)):
+def write_card(bundle, slug, title, body, aliases=(), tags=("tests",), sources=("/raw/regulations/x.md",)):
     front = ["---", "type: card", f'title: "{title}"', "tags: " + str(list(tags)).replace("'", '"'), 'audience: ["student"]']
     if aliases:
         front += ["aliases:", *[f'  - "{a}"' for a in aliases]]
@@ -89,7 +89,7 @@ def test_a_name_two_cards_answer_to_is_left_alone_and_reported(_cards_dir):
 def test_a_document_names_its_subjects_in_its_headings_and_the_leads_of_its_clauses():
     text = ("---\ntype: regulation\ntitle: \"X\"\n---\n\n# X\n\n## Пересдача промежуточной аттестации\n\n"
             "**5.3.** Академический отпуск предоставляется на срок не более 12 месяцев.\n\n# Citations\n\n"
-            "1. [X](/regulations/x.md)\n")
+            "1. [X](/raw/regulations/x.md)\n")
     spans = links.names_of_document(text)
     assert "Пересдача промежуточной аттестации" in spans  # a section names a subject
     assert any(span.startswith("5.3.") for span in spans)  # a clause names its own
@@ -98,8 +98,8 @@ def test_a_document_names_its_subjects_in_its_headings_and_the_leads_of_its_clau
 
 def test_a_phrase_two_documents_name_in_a_heading_and_no_artifact_answers_is_a_card(_cards_dir):
     for folder, name in (("regulations", "a"), ("procedures", "b")):
-        ( _cards_dir / folder).mkdir(exist_ok=True)
-        ( _cards_dir / folder / f"{name}.md").write_text(
+        ( _cards_dir / "raw" / folder).mkdir(parents=True, exist_ok=True)
+        ( _cards_dir / "raw" / folder / f"{name}.md").write_text(
             f'---\ntype: regulation\ntitle: "Документ {name}"\n---\n\n# Документ {name}\n\n## Академический отпуск порядок оформления\n',
             encoding="utf-8")
     write_card(_cards_dir, "leave", "Leave", "The order of it [1].")
@@ -112,17 +112,17 @@ def test_a_phrase_two_documents_name_in_a_heading_and_no_artifact_answers_is_a_c
 
 def test_a_phrase_the_bundle_answers_to_is_an_alias_not_a_card(_cards_dir):
     for folder, name in (("regulations", "a"), ("procedures", "b")):
-        ( _cards_dir / folder).mkdir(exist_ok=True)
-        ( _cards_dir / folder / f"{name}.md").write_text(
+        ( _cards_dir / "raw" / folder).mkdir(parents=True, exist_ok=True)
+        ( _cards_dir / "raw" / folder / f"{name}.md").write_text(
             f'---\ntype: regulation\ntitle: "Документ {name}"\n---\n\n# Документ {name}\n\n## Академический отпуск порядок оформления\n',
             encoding="utf-8")
-    ( _cards_dir / "pages").mkdir(exist_ok=True)
-    ( _cards_dir / "pages" / "leave.md").write_text(
-        '---\ntype: page\ntitle: "Академический отпуск порядок оформления"\n---\n\n# Академический отпуск порядок оформления\n',
+    ( _cards_dir / "raw" / "pages").mkdir(parents=True, exist_ok=True)
+    ( _cards_dir / "raw" / "pages" / "leave.md").write_text(
+        '---\ntype: page\ntitle: "Академический отпуск"\n---\n\n# Академический отпуск\n',  # (a name of two words: a phrase of the report holds it)
         encoding="utf-8")
     report = links.candidates(_cards_dir)
     found = [c for c in report.items if "Академический отпуск" in c.phrase]
-    assert found and found[0].verdict == "alias" and found[0].artifact == "/pages/leave.md"
+    assert found and found[0].verdict == "alias" and found[0].artifact == "/raw/pages/leave.md"
 
 
 def test_the_front_matter_is_never_touched(_cards_dir):

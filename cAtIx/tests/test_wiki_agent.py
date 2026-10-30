@@ -20,8 +20,8 @@ def _no_real_wiki(tmp_path, monkeypatch):
     monkeypatch.setattr(agent.settings, "wiki_agent_quotes", False)  # (the tests of quotes turn them on)
     monkeypatch.setattr(agent.settings, "wiki_agent_two_sources", False)  # (the tests of that rule turn it on)
 
-REG = "/regulations/leave.md"
-COURSE = "/course-programmes/calc-2026.md"
+REG = "/raw/regulations/leave.md"
+COURSE = "/raw/course-programmes/calc-2026.md"
 
 
 def bundle():
@@ -39,21 +39,28 @@ def test_a_card_that_cites_what_it_says_passes():
     assert agent.problems(body, bundle()) == []
 
 
-def test_a_sentence_without_a_source_a_missing_clause_or_a_number_not_cited_is_refused():
+def test_a_card_citing_nothing_a_missing_clause_or_a_number_not_cited_is_refused():
     idx = bundle()
-    assert any("no citation" in p for p in agent.problems("Academic leave lasts a year.", idx))
+    assert agent.problems("Academic leave lasts a year.", idx) == ["the card cites nothing"]
     assert any("no clause 9.9" in p for p in agent.problems(f"Leave lasts 12 months [п. 9.9]({REG}#9.9).", idx))
     assert any("number 24" in p for p in agent.problems(f"Leave lasts 24 months [п. 2.2]({REG}#2.2).", idx))
-    assert any("no such page" in p for p in agent.problems("Leave [x](/regulations/none.md).", idx))
+    assert any("no such page" in p for p in agent.problems("Leave [x](/raw/regulations/none.md).", idx))
 
 
 def test_a_card_is_not_evidence():
-    found = agent.problems("Leave lasts 12 months [c](/knowledge/academic-leave.md).", bundle())
-    assert any("no citation of a source page (a card is not evidence)" in p for p in found)
+    assert agent.problems("Leave lasts 12 months [c](/knowledge/academic-leave.md).", bundle()) == ["the card cites nothing"]
     # beside the page the sentence rests on a card link is navigation only (links.py writes them): the check goes on
     body = f"Leave lasts up to 12 months [п. 2.2]({REG}#2.2), as [the card on leave](/knowledge/academic-leave.md) says."
     assert agent.problems(body, bundle()) == []
     assert any("number 24" in p for p in agent.problems(body.replace("12", "24"), bundle()))  # the numbers are still checked
+
+
+def test_a_line_without_a_link_rests_on_what_the_card_cites():
+    # a model lists its sources at the end: the lines above are not refused, but their numbers must be in what the card cites
+    listed = f"Academic leave lasts up to 12 months.\n\nIt may be taken twice.\n\n[п. 2.2]({REG}#2.2)\n[п. 2.3]({REG}#2.3)"
+    assert agent.problems(listed, bundle()) == []
+    found = agent.problems(listed.replace("12 months", "18 months"), bundle())
+    assert found == ["number 18 is not in anything the card cites: Academic leave lasts up to 18 months."]
 
 
 def test_the_file_numbers_the_links_and_the_agent_gets_them_back():
@@ -70,7 +77,7 @@ def test_a_card_is_written_with_its_front_matter_and_citations_and_read_back(tmp
     text = (tmp_path / "knowledge" / "academic-leave.md").read_text()
     front = text.split("\n---\n")[0]
     assert "type: card" in front and REG in front and "academic-leave" not in front  # its sources are the pages it cites
-    assert "# Citations\n\n1. [Regulation on academic leave](/regulations/leave.md), п. 2.2" in text
+    assert "# Citations\n\n1. [Regulation on academic leave](/raw/regulations/leave.md), п. 2.2" in text
     assert agent.read_file_card("academic-leave")["body"] == body
     assert agent.write("Bad Slug", "t", "d", body, [], [], bundle()) != []
 
@@ -116,6 +123,10 @@ def test_refusals_are_counted_by_kind():
 def test_numbers_written_as_russian_words_count():
     assert {"4", "7", "18"} <= agent.numbers_in("до четырёх месяцев, в течение семи дней, старше восемнадцати лет")
     assert agent.numbers_in("в течение семестра в пятницу") == set()  # whole words only
+    # a number inside a word: the card's "four-person two-room", "24-hour" are "четырехместный двухкомнатный", "круглосуточная"
+    assert {"4", "2", "24"} <= agent.numbers_in("Четырехместный двухкомнатный номер, круглосуточная прачечная")
+    assert "18" in agent.numbers_in("Перечень документов для совершеннолетних гостей")  # "guests over 18"
+    assert agent.numbers_in("двухсторонний договор") == set()  # (a word that is not a count of places, rooms, days...)
 
 
 def test_a_card_too_long_is_split():
@@ -159,7 +170,7 @@ def test_the_index_of_the_cards_is_not_a_card(tmp_path, monkeypatch):
     (tmp_path / agent.FOLDER).mkdir()
     (tmp_path / agent.FOLDER / "index.md").write_text("# knowledge\n")
     (tmp_path / agent.FOLDER / "a.md").write_text("---\ntype: card\n---\n")
-    assert agent.all_cards() == ["a"]
+    assert agent.all_cards() == ["/knowledge/a.md"]
 
 
 class _Model:
@@ -192,7 +203,7 @@ def test_tasks_run_at_once_and_each_leaves_the_queue_when_done(monkeypatch):
     import threading
     import time
 
-    agent.save_queue([f"/regulations/r{i}.md" for i in range(9)])
+    agent.save_queue([f"/raw/regulations/r{i}.md" for i in range(9)])
     seen, at_once, lock = [], [0, 0], threading.Lock()
 
     def invoke(_agent, task, callbacks=None, name=""):
@@ -225,6 +236,16 @@ def test_a_card_written_goes_into_the_search_at_once(monkeypatch):
     write_card = {t.name: t for t in agent._tools([bundle()], [], Counter())}["write_card"]
     assert write_card.invoke({"slug": "academic-leave", "title": "t", "description": "d", "body": "b"}).startswith("written")
     assert indexed == ["/knowledge/academic-leave.md"]
+
+
+def test_a_write_that_changes_nothing_says_so():
+    # a local model wrote one card six times over, the same each time
+    write_card = {t.name: t for t in agent._tools([bundle()], [], Counter())}["write_card"]
+    card = {"slug": "academic-leave", "title": "Academic leave", "description": "How long leave lasts.",
+            "body": f"Academic leave lasts up to 12 months [п. 2.2]({REG}#2.2)."}
+    assert write_card.invoke(card) == "written: /knowledge/academic-leave.md"
+    assert "unchanged: it said all this already" in write_card.invoke(card)
+    assert write_card.invoke({**card, "description": "How long academic leave lasts."}) == "written: /knowledge/academic-leave.md"
 
 
 def test_a_bold_date_from_a_line_break_does_not_end_a_clause():
@@ -273,7 +294,7 @@ def test_a_quote_is_found_whatever_the_case_the_punctuation_and_a_mended_typo():
 def test_a_quote_not_in_the_page_or_in_another_clause_or_of_a_few_words_not_found_once_is_refused():
     idx = bundle()
     found = lambda body: agent.problems(body, idx, quotes=True)
-    assert any("not in /regulations/leave.md#2.2" in p for p in found(f'Up to 12 months [п. 2.2]({REG}#2.2 "students may take it as often as they like").'))
+    assert any("not in /raw/regulations/leave.md#2.2" in p for p in found(f'Up to 12 months [п. 2.2]({REG}#2.2 "students may take it as often as they like").'))
     # a near quote with a number changed is found, and the number is checked against the page's own words there
     assert any("number 24" in p for p in found(f'Up to 24 months [п. 2.2]({REG}#2.2 "leave is granted for up to 24 months").'))
     assert any("but not in its clause 2.3" in p for p in found(f'Up to 12 months [п. 2.3]({REG}#2.3 "{QUOTE}").'))
@@ -310,38 +331,45 @@ def test_the_numbers_of_a_quoted_sentence_are_checked_against_its_quote():
 
 
 def test_a_quote_goes_into_the_citations_with_its_lines_and_comes_back(quotes, tmp_path):
-    (tmp_path / "regulations").mkdir()
-    (tmp_path / "regulations" / "leave.md").write_text("---\ntype: regulation\n---\n\n**2.2.** Academic leave is granted\nfor up to 12 months.\n")
+    (tmp_path / "raw" / "regulations").mkdir(parents=True)
+    (tmp_path / "raw" / "regulations" / "leave.md").write_text("---\ntype: regulation\n---\n\n**2.2.** Academic leave is granted\nfor up to 12 months.\n")
     body = f'Leave lasts up to 12 months [п. 2.2]({REG}#2.2 "{QUOTE}").'
     assert agent.write("academic-leave", "Academic leave", "d", body, [], [], bundle()) == []
     assert f"п. 2.2, lines 5–6: «{QUOTE}»" in agent.card_path("academic-leave").read_text()
     assert agent.read_file_card("academic-leave")["body"] == body
 
 
-def test_identifiers_of_people_are_hidden_and_paths_and_money_are_not():
-    line = "Score 40 against 159-606-560 98 and 12547673170, codes 156793 [1]; see [x](/regulations/sveden-35518743-pdf.md); 1150000 rubles, 4.33"
-    people = agent.hide_ids(line, people=True)
-    assert "159-606-560" not in people and "12547673170" not in people and "156793" not in people
-    assert "sveden-35518743" in people and "4.33" in people and "40" in people
-    other = agent.hide_ids(line, people=False)
-    assert "159-606-560" not in other and "12547673170" in other and "1150000" in other  # only a СНИЛС outside a list of people
-
-
-def test_a_card_on_a_list_of_people_is_written_without_their_codes(tmp_path):
+def test_a_card_on_a_list_of_people_keeps_their_codes_as_the_document_has_them(tmp_path):
     idx = bundle()
     idx.meta[REG]["meta"]["title"] = "Вступительное испытание по программе магистратуры «Кибербезопасность» 15.08.2024"
-    idx.meta[REG]["body"] = "**2.2.** № 1, 12547673170, 40 (Сорок).\n"
+    idx.meta[REG]["body"] = "**2.2.** № 1, 12547673170, 159-606-560 98, 40 (Сорок).\n"
     assert agent.write("exam-results", "Exam results", "d", f"One result: 40 for 12547673170 [п. 2.2]({REG}#2.2).", [], [], idx) == []
-    text = agent.card_path("exam-results").read_text()
-    assert "12547673170" not in text and "40 for [скрыто]" in text
+    assert "40 for 12547673170" in agent.card_path("exam-results").read_text()  # the university publishes the lists so
 
 
 def test_a_task_that_repeats_one_tool_call_ends_and_has_no_subagents():
     guard = agent._guard()
     agent.TASK.set({"refused": 0, "calls": set()})
     request = SimpleNamespace(tool_call={"name": "read_file", "args": {"file_path": "/large_tool_results/x", "offset": 2}})
-    for _ in range(agent.SAME_CALLS):
-        guard.wrap_tool_call(request, lambda r: "the same lines")
+    from langchain_core.messages import ToolMessage
+
+    page = lambda r: ToolMessage("the same lines of a page " * 20, tool_call_id="c1")  # noqa: E731
+    first = {"name": "read_page", "args": {"page": "/raw/a.md"}, "id": "c1"}
+    assert guard.wrap_tool_call(SimpleNamespace(tool_call=first), page).content.startswith("the same lines")
+    again = {"name": "read_page", "args": {"page": "/raw/a.md", "offset": 20}, "id": "c1"}  # (other arguments, the same answer)
+    assert guard.wrap_tool_call(SimpleNamespace(tool_call=again), page).content == agent.SEEN  # it is a few calls above
+    offered = []
+    writer = SimpleNamespace(tools=[{"name": "read_page"}, {"name": "write_card"}], override=lambda tools: offered.append(tools))
+    for _ in range(agent.WRITE_TURNS + 1):
+        guard.wrap_model_call(writer, lambda r: "called")
+    assert offered == [[{"name": "write_card"}]] * agent.WRITE_TURNS + [[{"name": "read_page"}, {"name": "write_card"}]]
+    assert guard.wrap_tool_call(request, lambda r: "the same lines") == "the same lines"
+    for n in range(agent.RECENT):
+        other = SimpleNamespace(tool_call={"name": "read_page", "args": {"page": f"/raw/{n}.md"}, "id": "c2"})
+        guard.wrap_tool_call(other, lambda r: ToolMessage(f"page {chr(97 + n)} " * 60, tool_call_id="c2"))
+    assert guard.wrap_tool_call(request, lambda r: "the same lines").endswith(agent.AGAIN)  # told from the second time
+    guard.wrap_tool_call(request, lambda r: "the same lines")
+    guard.wrap_tool_call(request, lambda r: "the same lines")  # (not in a row: in a task)
     seen = []
     model = SimpleNamespace(tools=[SimpleNamespace(name="task"), {"name": "write_card"}], override=lambda tools: seen.append(tools))
     assert guard.wrap_model_call(model, lambda r: "called").content.startswith("DONE: gave up: read_file called")
@@ -360,8 +388,8 @@ def test_the_numbers_of_a_quote_are_read_from_the_page_not_from_its_words_run_to
 
 # ---- a card rests on more than one page: what one document owns stays in that document ------------------------
 
-REG3 = "/regulations/rules.md"
-SITE = "/sites/hotel.md"
+REG3 = "/raw/regulations/rules.md"
+SITE = "/raw/sites/hotel.md"
 DOC_CLAUSES = 8
 
 
@@ -413,4 +441,4 @@ def test_check_reports_a_card_that_rests_on_one_page_only_when_asked(tmp_path):
                                "sources:", f"  - resource: {REG3}", "status: draft", "---", "", "# Rules", "", body, "",
                                "# Citations", "", cites, ""]))
     assert agent.check_all(idx) == {}  # a card written before the rule is not reported
-    assert list(agent.check_all(idx, two_sources=True)) == ["rules"]
+    assert list(agent.check_all(idx, two_sources=True)) == ["/knowledge/rules.md"]

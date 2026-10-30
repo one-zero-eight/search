@@ -165,7 +165,7 @@ def derive(idx: Index, use_model: bool = True) -> dict[str, dict[str, list]]:
     for path, item, target in pending:
         level = idx.level(path)
         target = idx.canon.get(target, target) if target else None
-        if not target and (link := re.match(r"^\[[^\]]*\]\((/courses/[^)]+)\)", item)) and link.group(1) in idx.meta:
+        if not target and (link := re.match(r"^\[[^\]]*\]\((/raw/courses/[^)]+)\)", item)) and link.group(1) in idx.meta:
             target = link.group(1)  # the line already links the course
         if not target and (m := CODE.search(item)) and len(codes[m.group(1)]) == 1 and not re.search(r"\b(or|OR)\b", item):
             target = next(iter(codes[m.group(1)]))  # 'CSE101' alone: the code is known from the lists that spell it out

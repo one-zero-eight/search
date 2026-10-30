@@ -40,14 +40,14 @@ def test_the_rows_come_with_their_subject_year_exam_and_files(monkeypatch):
 def test_a_subject_is_one_page_newest_paper_first(tmp_path, monkeypatch):
     monkeypatch.setattr(pastpapers, "ROOT", tmp_path / "raw")
     monkeypatch.setattr(pastpapers, "INDEX", tmp_path / "raw" / "index.json")
-    monkeypatch.setattr(pastpapers, "BUNDLE", tmp_path / "wiki")
+    monkeypatch.setattr(pastpapers, "DOCS", tmp_path / "wiki" / "raw")
     pastpapers.save({
         "a": {"subject": "AGLA 1", "year": "2021", "exam": "Test 1", "files": {"k1": {"name": "t1.pdf", "sha256": "0", "method": "text layer"}}},
         "b": {"subject": "AGLA 1", "year": "2024", "exam": "Final", "files": {"k2": {"name": "f.pdf", "skipped": "nothing readable"}}},
     })
     (tmp_path / "raw" / "k1.txt").write_text("# 1. Find det(A)\nwhere A is 2x2", encoding="utf-8")
     pastpapers.compile_all()
-    page = (tmp_path / "wiki" / "past-papers" / "agla-1.md").read_text(encoding="utf-8")
+    page = (tmp_path / "wiki" / "raw" / "past-papers" / "agla-1.md").read_text(encoding="utf-8")
     assert 'title: "Past exam papers: AGLA 1"' in page and "source_kind: community" in page
     assert page.index("## 2024: Final") < page.index("## 2021: Test 1")
     assert "\\# 1. Find det(A)" in page  # a line of the paper is not a heading of the page

@@ -96,10 +96,10 @@ def test_a_checkout_without_the_downloads_keeps_the_pages(tmp_path, monkeypatch)
     cell = "магистратуры: 09.04.01 Информатика; Направленность программы (профиль) – Кибербезопасность* — 2026 — Рабочие программы дисциплин"
     monkeypatch.setattr(rpd.sveden, "load", lambda path: [{"url": "https://x/a.7z", "ext": "7z", "title": "1 семестр", "context": cell}])
     monkeypatch.setattr(rpd, "ROOT", tmp_path / "raw")
-    monkeypatch.setattr(rpd, "BUNDLE", tmp_path / "wiki")
+    monkeypatch.setattr(rpd, "DOCS", tmp_path / "wiki" / "raw")
     monkeypatch.setattr(rpd, "load", lambda: {"rpd-1-x": {"archive": "https://x/a.7z", "sha256": "0" * 64}})
-    (tmp_path / "wiki" / rpd.FOLDER).mkdir(parents=True)
-    page = tmp_path / "wiki" / rpd.FOLDER / "rpd-1-x.md"
+    (tmp_path / "wiki" / "raw" / rpd.FOLDER).mkdir(parents=True)
+    page = tmp_path / "wiki" / "raw" / rpd.FOLDER / "rpd-1-x.md"
     page.write_text("page")
     rpd.compile_all()
     assert page.read_text() == "page"

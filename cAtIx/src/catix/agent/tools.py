@@ -639,7 +639,7 @@ def _calls_this_turn(runtime: ToolRuntime[AgentContext], name: str) -> int:
 
 
 class ReadWikiArgs(BaseModel):
-    page: str = Field(description="The `page` of a search result ('/regulations/attestation-regulation.md'), or words of a document's title.")
+    page: str = Field(description="The `page` of a search result ('/raw/regulations/attestation-regulation.md'), or words of a document's title.")
     clause: str | None = Field(None, description="A clause number to read ('5.3'; '5' reads chapter 5).")
     section: str | None = Field(None, description="Words of a section heading to read.")
 

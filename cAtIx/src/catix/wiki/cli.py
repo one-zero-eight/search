@@ -14,6 +14,11 @@
     catix-wiki lint                    # check wiki/ against OKF v0.2
     catix-wiki index [status|--no-embed]   # the bundle in the database for the agent's search (see search_index.py)
     catix-wiki compile ...             # snapshot -> OKF bundle in wiki/ (see compile.py)
+    catix-wiki layout [--dry-run]      # the documents into wiki/raw/, every path that led to them with them (see layout.py)
+
+The bundle (paths.py): wiki/raw/ holds the documents, written by code and never by the model; wiki/notes/ the model's notes
+on single documents; every other folder is the model's: knowledge/ (cards of subjects) and the folders it makes for the
+entities the documents name (people/, positions/, units/, ...), declared in wiki/folders.json.
 
 The code is laid out by what each part does:
     sources/       what the wiki is made from: each module asks one source what is new and brings it into raw/
@@ -22,7 +27,8 @@ The code is laid out by what each part does:
     compile.py     eduwiki snapshot -> pages (the model turns wikitext into markdown); also what every part shares
                    (the bundle's folder, the model client, front matter)
     graph.py       relations between pages (code; the model only resolves a prerequisite line to a course)
-    agent.py       the wiki's agent (deepagents): reads the pages and keeps knowledge cards; code checks every card
+    agent.py       the wiki's agent (deepagents): reads the documents and keeps the cards of subjects and of entities;
+                   code checks every card;  layout.py: the move of the documents into wiki/raw/
     lint.py        OKF checks;  search_index.py, chunks.py: the bundle in the database for the agent's search
     build.py       the whole chain;  autopilot.py: the wiki's own run that commits to the `wiki` branch
 """
@@ -81,6 +87,10 @@ def main() -> None:
         from catix.wiki import lint
 
         lint.main()
+    elif cmd == "layout":
+        from catix.wiki import layout
+
+        layout.main()
     elif cmd == "index":
         from catix.wiki import search_index
 

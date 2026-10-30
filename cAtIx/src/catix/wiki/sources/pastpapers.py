@@ -2,7 +2,7 @@
 Materials", Past Papers [EN programs]), with the subject, the year, the name of the exam and its file.
 
     catix-wiki papers fetch      # the rows of the database and the files not read yet -> raw/past-papers/ (one request every PAUSE seconds)
-    catix-wiki papers compile    # raw/past-papers -> wiki/past-papers/<subject>.md, one page per subject
+    catix-wiki papers compile    # raw/past-papers -> wiki/raw/past-papers/<subject>.md, one page per subject
     catix-wiki papers status
 
 Not an official source: the students collected the papers, a paper may be a variant or a reconstruction. The pages are
@@ -22,8 +22,8 @@ from urllib.parse import quote
 
 import httpx
 
-from catix.wiki.compile import BUNDLE, PRODUCER, yaml_value
-from catix.wiki.paths import RAW
+from catix.wiki.compile import PRODUCER, yaml_value
+from catix.wiki.paths import DOCS, RAW
 from catix.wiki.sources import regulations
 from catix.wiki.sources.rpd import latin
 
@@ -164,7 +164,7 @@ def _year(entry: dict) -> int:
 
 def compile_all() -> None:
     """One page per subject: its papers, newest first, each with its link and the start of its text."""
-    out = BUNDLE / FOLDER
+    out = DOCS / FOLDER
     out.mkdir(parents=True, exist_ok=True)
     by_subject: dict[str, list[tuple[str, dict]]] = defaultdict(list)
     for row_id, entry in load().items():

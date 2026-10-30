@@ -5,9 +5,9 @@
   sources  (not with --offline) every source asks what is new or changed (sources/): the wiki, the documents of
            innopolis.university/sveden (kept or skipped by the model), the regulations, the course programmes
   regs     regulations -> wiki/regulations (the text as it is; the model writes only the description)
-  rpd      course programmes of every cohort -> wiki/course-programmes (by code only)
-  sites    pages of the services' sites -> wiki/sites (the text as it is; the model writes only the description)
-  papers   past exam papers -> wiki/past-papers, one page per subject (by code only)
+  rpd      course programmes of every cohort -> wiki/raw/course-programmes (by code only)
+  sites    pages of the services' sites -> wiki/raw/sites (the text as it is; the model writes only the description)
+  papers   past exam papers -> wiki/raw/past-papers, one page per subject (by code only)
   compile  pages whose revision is not in the bundle yet (the model)
   link     links between concepts, index.md
   graph    prerequisites, teachers, duplicates (the model only for lines it has not seen; answers are cached)

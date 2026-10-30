@@ -1,7 +1,7 @@
 """Course programmes (РПД, рабочие программы дисциплин) from the archives of innopolis.university/sveden/education.
 
     catix-wiki rpd fetch [--all-years] [--limit N]   # the archives of every cohort (or the latest, see below) -> raw/rpd/ (text and meta of every PDF)
-    catix-wiki rpd compile [--all-years] # raw/rpd -> wiki/course-programmes/<key>.md
+    catix-wiki rpd compile [--all-years] # raw/rpd -> wiki/raw/course-programmes/<key>.md
     catix-wiki rpd refresh               # ask the site (HEAD) whether an archive read before changed; fetch reads a changed one again
     catix-wiki rpd status                # archives found and taken, programmes read
 
@@ -29,8 +29,8 @@ import httpx
 
 from catix.settings import settings
 from catix.wiki.sources import regulations, sveden
-from catix.wiki.compile import BUNDLE, PRODUCER, yaml_value
-from catix.wiki.paths import RAW
+from catix.wiki.compile import PRODUCER, yaml_value
+from catix.wiki.paths import DOCS, RAW
 
 ROOT = RAW / "rpd"
 INDEX = ROOT / "index.json"  # course key -> where it comes from and how it was read (in git; the files are not)
@@ -265,9 +265,9 @@ def refresh() -> int:
 
 
 def compile_all(all_years: bool | None = None) -> None:
-    """Every read programme of the archives taken now -> wiki/course-programmes/<key>.md, by code only (no model). A cohort
+    """Every read programme of the archives taken now -> wiki/raw/course-programmes/<key>.md, by code only (no model). A cohort
     that is no longer taken (a newer one came, or the one before replaced dead links) loses its pages."""
-    out = BUNDLE / FOLDER
+    out = DOCS / FOLDER
     out.mkdir(parents=True, exist_ok=True)
     index, written, keep = load(), 0, set()
     taken = {a["url"] for a in archives(all_years, dead_links(index))}

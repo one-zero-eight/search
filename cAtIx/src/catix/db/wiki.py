@@ -51,7 +51,7 @@ class WikiHit:
 # The course programmes (wiki/sources/rpd.py) are 700 pages of the same shape that use every word of study ("курс", "дисциплина",
 # "зачет"): searched together with the rest they took the candidates of the regulations (the rules of credit transfer
 # fell out of the first ten). They are a pool of their own; both pools give candidates, the reranker orders them together.
-COURSES = "/course-programmes/%"
+COURSES = "/raw/course-programmes/%"
 POOLS = (False, True)  # (not course programmes, course programmes)
 
 
@@ -269,7 +269,7 @@ def page(path: str) -> list[WikiHit]:
 
 
 def find_page(name: str) -> str | None:
-    """A page by its path ('/regulations/x.md', 'regulations/x') or, failing that, by words of its title."""
+    """A page by its path ('/raw/regulations/x.md', 'raw/regulations/x') or, failing that, by words of its title."""
     path = "/" + name.strip().lstrip("/")
     path = path if path.endswith(".md") else path + ".md"
     with pg.connection() as conn:

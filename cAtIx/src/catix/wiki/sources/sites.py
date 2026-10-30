@@ -6,13 +6,13 @@ Russian), campuslife.innopolis.ru
 dormitories; Russian).
 
     catix-wiki sites fetch      # the pages of every site -> raw/sites/<site>/ (one request every PAUSE seconds); the number that changed
-    catix-wiki sites compile    # raw/sites -> wiki/sites/<site>-<slug>.md
+    catix-wiki sites compile    # raw/sites -> wiki/raw/sites/<site>-<slug>.md
     catix-wiki sites status     # pages and documents found on every site
 
 A page's text is kept as the site shows it: the program turns the markup into markdown and drops what every page of the
 site repeats (menus, footers); the model writes only the description, once per version of the text. The documents a site
 links (PDF, DOCX: the rules of the dormitories, their prices) go the way of the regulations (regulations.py, which asks
-`docs()`): wiki/regulations/, quoted by clause, `source_kind: official-document`. The pages themselves are `website`.
+`docs()`): wiki/raw/regulations/, quoted by clause, `source_kind: official-document`. The pages themselves are `website`.
 Every run reads all pages again and compares their text: these sites say nothing reliable about changes.
 """
 
@@ -29,8 +29,8 @@ from urllib.parse import quote, unquote, urljoin, urlsplit
 
 import httpx
 
-from catix.wiki.compile import BUNDLE, PRODUCER, front_of, yaml_value
-from catix.wiki.paths import RAW
+from catix.wiki.compile import PRODUCER, front_of, yaml_value
+from catix.wiki.paths import DOCS, RAW
 from catix.wiki.sources import regulations
 from catix.wiki.sources.rpd import latin
 
@@ -324,9 +324,9 @@ def language_of(site: Site, slug: str) -> str:
 
 
 def compile_all() -> None:
-    """Every page read -> wiki/sites/<site>-<slug>.md. The model writes only the description, tags and audience, once per
+    """Every page read -> wiki/raw/sites/<site>-<slug>.md. The model writes only the description, tags and audience, once per
     version of the text; a page gone from its site loses its page."""
-    out = BUNDLE / FOLDER
+    out = DOCS / FOLDER
     out.mkdir(parents=True, exist_ok=True)
     keep, written = set(), 0
     for name, site in SITES.items():

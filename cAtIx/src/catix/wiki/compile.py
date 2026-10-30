@@ -26,7 +26,7 @@ import yaml
 from catix.settings import settings
 from catix.wiki.sources.eduwiki import PAGES, load_manifest
 from catix.wiki.markup import convert
-from catix.wiki.paths import BUNDLE  # (the other modules take it from here)
+from catix.wiki.paths import BUNDLE, DOCS_FOLDER, NOTES_FOLDER, model_folders  # (the other modules take BUNDLE from here)
 from catix.wiki.tables import TOKEN, extract
 
 
@@ -37,7 +37,7 @@ MIN_TEXT = 80  # pages with less text than this (after redirects) carry nothing 
 MIN_LETTERS = 60  # letters of prose and tables left after markup and links are removed; fewer is an embed, a stub or a title (a teacher page with just an e-mail is content)
 FRESH_DAYS = {"calendar": 365, "schedule": 365}  # how long a page of this type is trusted after its last edit (default: 2 years)
 
-TYPES = {  # type -> directory of the bundle
+TYPES = {  # type -> directory of the documents (wiki/raw/): written by code, never by the model
     "course": "courses",
     "person": "people",
     "study-plan": "programs",
@@ -47,7 +47,6 @@ TYPES = {  # type -> directory of the bundle
     "calendar": "calendars",
     "schedule": "schedules",
     "page": "pages",
-    "card": "knowledge",  # written by the wiki's agent (agent.py) from what many pages say
 }
 
 # Old versions and drafts live next to the current page and contradict it: not content.
@@ -236,7 +235,7 @@ def filename(page: dict) -> str:
 
 def compiled(page: dict) -> bool:
     """This revision of the page is already in the bundle."""
-    for p in BUNDLE.glob(f"*/{filename(page)}.md"):
+    for p in (BUNDLE / DOCS_FOLDER).glob(f"*/{filename(page)}.md"):
         src = (front_of(p.read_text(encoding="utf-8")).get("sources") or [{}])[0]
         if str(src.get("id")) == str(page["revid"]) and str(src.get("title")) == page["title"]:
             return True
@@ -258,7 +257,7 @@ def compile_page(pid: str, entry: dict, aliases: list[str]) -> Path | None:
     context = f"\nStart of the first table (for context, do not copy):\n{tables[0][:700]}" if tables else ""
     answer, finish = _llm(SYSTEM, f"Title: {page['title']}\n<page>\n{parts[0]}\n</page>{context}")
     meta, body = parse_answer(answer)
-    if meta.get("type", "").lower() == "skip" or meta.get("type", "").lower() not in TYPES or meta.get("type", "").lower() == "card":
+    if meta.get("type", "").lower() == "skip" or meta.get("type", "").lower() not in TYPES:
         print(f"  skipped ({meta.get('type', 'no TYPE line')})")
         return None
     truncated = finish == "length"
@@ -308,7 +307,7 @@ def compile_page(pid: str, entry: dict, aliases: list[str]) -> Path | None:
         f"stale_after: {yaml_value((datetime.fromisoformat(page['timestamp']) + timedelta(days=FRESH_DAYS.get(typ, 730))).isoformat(timespec='seconds'))}",
     ]
     text = "---\n" + "\n".join(front) + f"\n---\n\n# {title}\n\n{body}\n\n# Citations\n\n1. [{page['title']}]({url}), revision {page['revid']}\n"
-    path = BUNDLE / TYPES[typ] / f"{filename(page)}.md"
+    path = BUNDLE / DOCS_FOLDER / TYPES[typ] / f"{filename(page)}.md"
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
     print(f"  -> {path.relative_to(BUNDLE)}{'  (TRUNCATED)' if truncated else ''}")
@@ -317,7 +316,7 @@ def compile_page(pid: str, entry: dict, aliases: list[str]) -> Path | None:
 
 def worth_reading(meta: dict) -> bool:
     """Whether a page of the sources may hold what readers ask about (WIKI_AGENT_SECTIONS): not a survey or a curriculum."""
-    if meta.get("type") in {"card"}:
+    if meta.get("type") in {"card", "note"}:  # the model's own: never read as a source
         return False
     if meta.get("type") == "course-programme":
         return settings.wiki_agent_course_programmes
@@ -325,9 +324,12 @@ def worth_reading(meta: dict) -> bool:
     return section is None or str(section) in settings.wiki_agent_sections
 
 
+YAML_LOADER = getattr(yaml, "CSafeLoader", yaml.SafeLoader)  # libyaml: the pure-Python loader took 1.3 ms a card, a list of 280 cards 0.4 s
+
+
 def front_of(text: str) -> dict:
     """The front matter as a dict, whatever form the YAML has (an editor such as Obsidian rewrites quotes and lists)."""
-    return (yaml.safe_load(text.split("---\n", 2)[1]) or {}) if text.startswith("---\n") else {}
+    return (yaml.load(text.split("---\n", 2)[1], Loader=YAML_LOADER) or {}) if text.startswith("---\n") else {}
 
 
 def drop_key(front: str, key: str) -> str:
@@ -335,10 +337,10 @@ def drop_key(front: str, key: str) -> str:
     return re.sub(rf"^{re.escape(key)}:.*\n(?:(?:[ \t]+.*|- .*)\n)*", "", front, flags=re.M)
 
 
-def concepts() -> list[tuple[Path, dict]]:
+def concepts(bundle: Path | None = None) -> list[tuple[Path, dict]]:
     """Every concept of the bundle with the few front matter fields the linker needs."""
     out = []
-    for path in sorted(BUNDLE.rglob("*.md")):
+    for path in sorted((bundle or BUNDLE).rglob("*.md")):
         if path.name in {"index.md", "log.md", "README.md"}:  # README.md describes the bundle, it is not a concept
             continue
         fm = front_of(path.read_text(encoding="utf-8"))
@@ -346,12 +348,12 @@ def concepts() -> list[tuple[Path, dict]]:
         out.append((path, {"type": fm.get("type", ""), "title": str(fm.get("title", "")), "description": str(fm.get("description", "")),
                            "source_title": str(sources[0].get("title", "")), "aliases": [str(a) for a in fm.get("aliases") or []],
                            "section": str(fm.get("section") or "eduwiki"), "programme": str(fm.get("programme", "")),
-                           "cohort": fm.get("cohort") or 0, "semester": fm.get("semester") or 0}))
+                           "cohort": fm.get("cohort") or 0, "semester": fm.get("semester") or 0, "kind": str(fm.get("kind") or ""),
+                           "relations": [r for r in fm.get("relations") or [] if isinstance(r, dict)]}))
     return out
 
 
-FOLDERS = {  # directory -> what it holds, for the root index
-    "knowledge": "Knowledge cards: what many regulations say on one topic, every sentence cited",
+FOLDERS = {  # directory of the documents (wiki/raw/) -> what it holds, for the indexes
     "regulations": "Regulations, orders and other official documents",
     "course-programmes": "Course programmes (РПД) by programme, cohort and semester",
     "sites": "Pages of the sites of the university's services: campus life, the campus hotel",
@@ -364,16 +366,19 @@ FOLDERS = {  # directory -> what it holds, for the root index
     "people": "People",
     "pages": "Other pages",
 }
+NOTES_ABOUT = "Notes on documents: what a document is and whom it concerns, a few sentences beside it"
 
 
 def _groups(directory: str, items: list[tuple[Path, dict]]) -> list[tuple[str, list[tuple[Path, dict]]]]:
     """The sections of a folder's index: course programmes by programme, cohort and semester, regulations by the section
-    of the site they come from, everything else in one list."""
+    of the site they come from, the entities of the model by their kind, everything else in one list."""
     if directory == "course-programmes":
         key = lambda m: (m["programme"], -int(m["cohort"]), int(m["semester"]))  # noqa: E731 - the newest cohort first
         name = lambda m: f"{m['programme']}, набор {m['cohort']}, {m['semester']} семестр"  # noqa: E731
     elif directory in {"regulations", "sites"}:
         key = name = lambda m: m["section"]  # noqa: E731
+    elif len({m["kind"] for _, m in items}) > 1:
+        key = name = lambda m: m["kind"]  # noqa: E731
     else:
         return [("", items)]
     groups: dict = {}
@@ -382,35 +387,76 @@ def _groups(directory: str, items: list[tuple[Path, dict]]) -> list[tuple[str, l
     return list(groups.items())
 
 
-def write_index(found: list[tuple[Path, dict]]) -> None:
+def _folder_index(folder: Path, directory: str, about: str, items: list[tuple[Path, dict]], titles: dict[str, str], bundle: Path,
+                  inverse: dict[str, list[str]] | None = None) -> None:
+    """index.md of one folder: its pages, and for an entity what it is related to (the register: a position and who holds it),
+    by its own relations and by those of the cards leading to it (`inverse`: a person who "holds" a post the post is "held by")."""
+    lines = [f"# {directory}", "", f"{about}. Back to [the wiki](/index.md).", ""]
+    for heading, group in _groups(directory, items):
+        lines += [f"## {heading}", ""] if heading else []
+        short = directory == "course-programmes"  # the heading already names the programme, cohort and semester
+        for p, m in group:
+            line = f"- [{m['title'].split(' — ')[0] if short else m['title']}](/{p.relative_to(bundle).as_posix()})"
+            line += "" if short or m["description"].strip() == m["title"].strip() else f": {m['description']}"  # (a post's card says its name twice)
+            related = [f"{r['relation']} [{titles[r['to']]}]({r['to']})" for r in m["relations"] if r.get("to") in titles]
+            related = list(dict.fromkeys([*related, *(inverse or {}).get("/" + p.relative_to(bundle).as_posix(), [])]))
+            lines.append(line + (f" — {'; '.join(related)}" if related else ""))
+        lines.append("")
+    (folder / "index.md").write_text("\n".join(lines), encoding="utf-8")
+
+
+def write_index(found: list[tuple[Path, dict]], bundle: Path | None = None) -> None:
     """index.md of every folder of the bundle with the pages in it, and the root index.md with the folders (OKF: only the
-    root one has front matter)."""
+    root one has front matter). The documents (wiki/raw/) come first, then what the model wrote of them."""
+    bundle = bundle or BUNDLE
+    docs_dir = bundle / DOCS_FOLDER
     root = ["---", 'okf_version: "0.2"', "---", "", "# Innopolis University wiki", "",
             "Knowledge about Innopolis University compiled from [eduwiki](https://eduwiki.innopolis.university), "
             "the [disclosure section](https://innopolis.university/sveden/) of the university's site, the course programmes and the sites of "
             "[campus life](https://campuslife.innopolis.ru) and [the campus hotel](https://hotel.innopolis.university), and past exam papers the students collected.", ""]
+    titles = {"/" + p.relative_to(bundle).as_posix(): m["title"] for p, m in found}
+    inverse: dict[str, list[str]] = {}  # an entity -> what the cards leading to it are to it ("held by [X](/people/x.md)")
+    for p, m in found:
+        for r in m.get("relations") or []:
+            if r.get("inverse") and r.get("to") in titles:
+                rel = "/" + p.relative_to(bundle).as_posix()
+                inverse.setdefault(r["to"], []).append(f"{r['inverse']} [{titles[rel]}]({rel})")
+    docs = ["# raw", "", "The documents as the sources publish them, written by code and never by the model: the evidence the rest "
+            "of the wiki cites. Back to [the wiki](/index.md).", ""]
+    root += ["## Documents", "", f"The university's documents as their sources publish them, written by code: the evidence everything "
+             f"else cites ([all of them](/{DOCS_FOLDER}/index.md)).", ""]
     for directory in [*FOLDERS, *(d for d in TYPES.values() if d not in FOLDERS)]:
-        items = [(p, m) for p, m in found if p.parent == BUNDLE / directory]
+        folder = docs_dir / directory
+        items = [(p, m) for p, m in found if p.parent == folder]
         if not items:
-            (BUNDLE / directory / "index.md").unlink(missing_ok=True)
+            (folder / "index.md").unlink(missing_ok=True)
             continue
-        root.append(f"- [{directory}](/{directory}/index.md): {FOLDERS.get(directory, directory)}, {len(items)} pages")
-        lines = [f"# {directory}", "", f"{FOLDERS.get(directory, directory)}. Back to [the wiki](/index.md).", ""]
-        for heading, group in _groups(directory, items):
-            lines += [f"## {heading}", ""] if heading else []
-            short = directory == "course-programmes"  # the heading already names the programme, cohort and semester
-            lines += [f"- [{m['title'].split(' — ')[0] if short else m['title']}](/{p.relative_to(BUNDLE).as_posix()})"
-                      + ("" if short else f": {m['description']}") for p, m in group]
-            lines.append("")
-        (BUNDLE / directory / "index.md").write_text("\n".join(lines), encoding="utf-8")
+        line = f"- [{directory}](/{DOCS_FOLDER}/{directory}/index.md): {FOLDERS.get(directory, directory)}, {len(items)} pages"
+        root.append(line)
+        docs.append(line)
+        _folder_index(folder, directory, FOLDERS.get(directory, directory), items, titles, bundle)
+    if docs_dir.exists():
+        (docs_dir / "index.md").write_text("\n".join([*docs, ""]), encoding="utf-8")
+    root += ["", "## Written by the wiki", "", "What the wiki's model made of the documents: every sentence cites them, and code "
+             "checks every citation.", ""]
+    for directory, about in [*model_folders(bundle).items(), (NOTES_FOLDER, NOTES_ABOUT)]:
+        folder = bundle / directory
+        items = [(p, m) for p, m in found if p.parent == folder]
+        if not items:
+            (folder / "index.md").unlink(missing_ok=True)
+            continue
+        root.append(f"- [{directory}](/{directory}/index.md): {about}, {len(items)} pages")
+        _folder_index(folder, directory, about, items, titles, bundle, inverse)
     root.append("")
-    (BUNDLE / "index.md").write_text("\n".join(root), encoding="utf-8")
+    (bundle / "index.md").write_text("\n".join(root), encoding="utf-8")
 
 
 def link() -> None:
     found = concepts()
     by_title = {}
     for path, meta in found:
+        if BUNDLE / DOCS_FOLDER not in path.parents:  # a link of eduwiki leads to a document; a card's first source is not its name
+            continue
         for t in [meta["source_title"], *meta["aliases"]]:
             by_title[t.replace("_", " ").lower()] = "/" + path.relative_to(BUNDLE).as_posix()
 
@@ -423,6 +469,8 @@ def link() -> None:
         return f"[{m.group(1)}]({target})" if target else m.group(0)  # not in the bundle: keep the URL, it still works
 
     for path, _ in found:
+        if BUNDLE / DOCS_FOLDER not in path.parents:  # (the model's files are the model's)
+            continue
         text = path.read_text(encoding="utf-8")
         body_start = text.index("---\n", 4) + 4
         head, body = text[:body_start], text[body_start:]

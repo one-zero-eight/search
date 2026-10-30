@@ -151,7 +151,7 @@ def cut(text: str) -> tuple[dict, list[Chunk]]:
     """Front matter and the pieces of one concept file."""
     _, body = split_front(text)
     meta = front_of(text)
-    body = re.sub(r"<!-- /?catix:relations -->", "", body)  # the relations block is plain text for the search: keep it, drop the markers
+    body = re.sub(r"<!-- /?catix:\w+ -->", "", body)  # code's blocks (relations, notes) are plain text for the search: keep them, drop the markers
     body, refs = citations(body)
     path: list[tuple[int, str]] = []  # (level, title) of the headings above
     units: list[tuple[str, str, str, bool]] = []  # (heading, clause, text, continues a clause started before)

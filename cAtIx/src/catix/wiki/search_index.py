@@ -42,7 +42,7 @@ EMBED_BATCH = 32
 
 
 def files(bundle: Path = BUNDLE) -> dict[str, Path]:
-    """Bundle path ('/regulations/x.md') -> file, for every concept (not the index, the log, the README, Obsidian's or the claims' folders)."""
+    """Bundle path ('/raw/regulations/x.md', '/knowledge/x.md') -> file, for every concept (not the index, the log, the README, Obsidian's or the claims' folders)."""
     return {"/" + p.relative_to(bundle).as_posix(): p for p in sorted(bundle.rglob("*.md"))
             if p.name not in SKIP and not any(part.startswith(".") for part in p.relative_to(bundle).parts)}
 
@@ -163,7 +163,7 @@ def sync(bundle: Path = BUNDLE) -> dict[str, int]:
 ACROSS_COURSES = False
 COPIES = r"""
 WITH keyed AS (
-    SELECT c.id, md5(c.trust || '|' || CASE WHEN c.path LIKE '/course-programmes/%%' AND NOT %(across)s
+    SELECT c.id, md5(c.trust || '|' || CASE WHEN c.path LIKE '/raw/course-programmes/%%' AND NOT %(across)s
                                           THEN coalesce(substring(p.title FROM '«([^»]+)»'), p.title) ELSE '' END
                      || '|' || regexp_replace(lower(c.text), '\s+', ' ', 'g')) AS key,
            substring(p.title FROM 'набор (\d{4})')::int AS intake, p.issued

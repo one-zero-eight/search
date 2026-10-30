@@ -15,7 +15,10 @@ invented were dangling links to cards that do not exist (136 of them, removed 20
 from a registry of the titles and aliases of the cards, deterministically: the same text gives the same links, and a
 second run changes nothing.
 
-Only cards are linked. A card is prose, not evidence, so a link inside it changes nothing that agent.problems() checks.
+Only cards are linked: the cards of the model's folders (knowledge/ and the folders of its entities, paths.card_folders).
+A card is prose, not evidence, so a link inside it changes nothing that agent.problems() checks. The relations of an entity
+(its front matter: "held by" /people/x.md) are written here too, as a `## Relations` section of both cards: the card that
+names the relation and the card it leads to, which shows it from its side ("holds").
 The source pages are evidence and nothing here touches them: a link inside a clause puts the words of its own address into
 the word stream (agent.words_of), and the quotes of the cards that rest on that clause stop being found. A page that
 should lead somewhere gets a block of its own, the way graph.py writes `## Relations`.
@@ -35,9 +38,12 @@ from pathlib import Path
 
 from catix.wiki.compile import BUNDLE, front_of, worth_reading
 from catix.wiki.graph import split_front
-from catix.wiki.paths import DATA
+from catix.wiki.paths import DATA, card_folders, folder_of, is_document
 
 FOLDER = "knowledge"
+CARD_LINK = re.compile(r"\[([^\]]*)\]\((/(?!raw/|notes/)[a-z][a-z0-9-]*/[^)\s/]+\.md)\)")  # a link to a card of the model
+RELATIONS = "## Relations"
+RELATIONS_BLOCK = re.compile(r"\n## Relations\n.*?(?=\n## |\n# Citations|\Z)", re.S)  # written here, from the front matter
 WORD = re.compile(r"[^\W_]+", re.UNICODE)  # a word, however the text spells it
 TAKEN = [re.compile(r"\[[^\]]*\]\([^)]*\)"),  # a link already written
          re.compile(r"`[^`]*`"),  # code
@@ -53,21 +59,27 @@ HEAD = re.compile(r"\s+[—–]\s+|\s*[(«:]")  # a title is a name and, after t
 
 @dataclass
 class Card:
-    """A card as a reader meets it: its slug, the names a link may rest on, and the whole file."""
+    """A card as a reader meets it: its path ('/knowledge/x.md', '/people/y.md'), the names a link may rest on, the whole file."""
 
-    slug: str
+    path: str
     title: str
     keys: list[str]
     text: str
+    relations: list[dict] = field(default_factory=list)  # an entity's: [{relation, inverse, to}] (agent.write_entity)
+
+    @property
+    def slug(self) -> str:
+        return Path(self.path).stem
 
 
 @dataclass
 class Written:
     """What one card got: the links written into it, and the names that were left alone."""
 
-    slug: str
-    links: list[tuple[str, str]] = field(default_factory=list)  # (the words as the card has them, the slug they lead to)
+    path: str
+    links: list[tuple[str, str]] = field(default_factory=list)  # (the words as the card has them, the card they lead to)
     ambiguous: list[str] = field(default_factory=list)
+    relations: int = 0
 
 
 def norm(text: str) -> str:
@@ -96,26 +108,29 @@ def keys_of(meta: dict) -> list[str]:
 
 
 def read_cards(bundle: Path = BUNDLE) -> list[Card]:
-    """Every card of the bundle, with the names a link may rest on."""
+    """Every card of the model's folders (knowledge/ and the entities'), with the names a link may rest on."""
     cards = []
-    for path in sorted((bundle / FOLDER).glob("*.md")):
-        if path.name == "index.md":
-            continue
-        text = path.read_text(encoding="utf-8")
-        cards.append(Card(path.stem, str(front_of(text).get("title", "")), keys_of(front_of(text)), text))
+    for folder in card_folders(bundle):
+        for path in sorted((bundle / folder).glob("*.md")):
+            if path.name == "index.md":
+                continue
+            text = path.read_text(encoding="utf-8")
+            meta = front_of(text)
+            cards.append(Card("/" + path.relative_to(bundle).as_posix(), str(meta.get("title", "")), keys_of(meta), text,
+                              [r for r in meta.get("relations") or [] if isinstance(r, dict) and r.get("to")]))
     return cards
 
 
 def registry(cards: list[Card]) -> tuple[dict[str, str], set[str]]:
-    """Name -> the slug it leads to, and the names two cards answer to (they are not linked until an alias says which)."""
+    """Name -> the card it leads to, and the names two cards answer to (they are not linked until an alias says which)."""
     names: dict[str, str] = {}
     ambiguous: set[str] = set()
     for card in cards:
         for name in card.keys:
-            if (there := names.get(name)) and there != card.slug:
+            if (there := names.get(name)) and there != card.path:
                 ambiguous.add(name)
             else:
-                names[name] = card.slug
+                names[name] = card.path
     return {n: s for n, s in names.items() if n not in ambiguous}, ambiguous
 
 
@@ -158,38 +173,64 @@ def see_also_of(text: str) -> tuple[str, list[str]]:
         return text, []
     head, rest = text.split(SEE_ALSO, 1)
     section, _, tail = rest.partition("\n# ")
-    return head.rstrip("\n") + "\n" + (f"\n# {tail}" if tail else ""), [m.group(2) for m in re.finditer(r"\[([^\]]*)\]\(/knowledge/([^)\s]+)\.md\)", rest)]
+    return head.rstrip("\n") + "\n" + (f"\n# {tail}" if tail else ""), [m.group(2) for m in CARD_LINK.finditer(section)]
 
 
-def write_see_also(text: str, cards: dict[str, str], also: list[str]) -> str:
-    """The links this card leads to, as the `## See also` section: the cards its text names, and the ones it named before."""
+def write_see_also(text: str, cards: dict[str, str], also: list[str], related: frozenset[str] = frozenset()) -> str:
+    """The links this card leads to, as the `## See also` section: the cards its text names, and the ones it named before,
+    but for the ones `## Relations` leads to already (`related`)."""
     body, _, cites = text.partition(CITATIONS)
-    leading = [m.group(2) for m in re.finditer(r"\[([^\]]*)\]\(/knowledge/([^)\s]+)\.md\)", body)]
-    targets = [s for s in dict.fromkeys([*leading, *also]) if s in cards]
+    leading = [m.group(2) for m in CARD_LINK.finditer(body)]
+    targets = [s for s in dict.fromkeys([*leading, *also]) if s in cards and s not in related]
     if not targets:
         return text
-    lines = "\n".join(f"- [{cards[s]}](/knowledge/{s}.md)" for s in sorted(targets, key=lambda s: cards[s].lower()))
+    lines = "\n".join(f"- [{cards[s]}]({s})" for s in sorted(targets, key=lambda s: cards[s].lower()))
     return f"{body.rstrip(chr(10))}\n\n{SEE_ALSO}\n\n{lines}\n\n{CITATIONS}{cites}"
 
 
-def link_card(card: Card, names: dict[str, str], ambiguous: set[str], cards: dict[str, str]) -> tuple[str, Written]:
+def relations_of(card: Card, cards: list[Card], titles: dict[str, str]) -> list[str]:
+    """The lines of a card's `## Relations`: what its front matter says it is to other entities ("held by: [X](/people/x.md)"),
+    and what the others say they are to it, seen from here ("holds: [Director](/positions/d.md)")."""
+    out = [f"- {r.get('relation', 'related to')}: [{titles[r['to']]}]({r['to']})" for r in card.relations if r["to"] in titles]
+    for other in cards:
+        for r in other.relations:
+            if r["to"] == card.path and other.path != card.path:
+                out.append(f"- {r['inverse']}: [{other.title}]({other.path})" if r.get("inverse")
+                           else f"- [{other.title}]({other.path}): {r.get('relation', 'related to')}")
+    return list(dict.fromkeys(out))
+
+
+def write_relations(text: str, lines: list[str]) -> str:
+    """The `## Relations` section, before `## See also` (or the citations): code's, written again from the front matter."""
+    if not lines:
+        return text
+    section = f"{RELATIONS}\n\n" + "\n".join(lines) + "\n\n"
+    at = text.find(f"\n{SEE_ALSO}\n")
+    at = at if at >= 0 else text.find(CITATIONS)
+    at = at if at >= 0 else len(text)
+    return text[:at].rstrip("\n") + "\n\n" + section + text[at:].lstrip("\n")
+
+
+def link_card(card: Card, names: dict[str, str], ambiguous: set[str], cards: dict[str, str],
+              relations: list[str] | None = None) -> tuple[str, Written]:
     """One card with its links written: the first mention of every name, the longest name first, one to a paragraph.
 
     The front matter is never touched — a tag or a title is not a sentence a reader follows — and neither are the
     citations (code writes them, and they name pages, not cards). A name two cards answer to is not linked: the report
     says which names those are, and an alias settles it.
     """
-    written = Written(card.slug)
+    written = Written(card.path)
     front, rest = split_front(card.text)
     body, _, cites = rest.partition(CITATIONS)
     body, also = see_also_of(body)
+    body = RELATIONS_BLOCK.sub("\n", body)  # (written again below)
     frozen, there, words, paras = frozen_spans(body), linked_spans(body), words_of(body), paragraphs(body)
     planned = set()  # the paragraph of every link this pass plans: the plan must not depend on what was written before
     linked: set[str] = set()
     places: list[tuple[int, int, str, str, bool]] = []  # (start, end, the words as the card has them, slug, already there)
     for name in sorted(names, key=lambda n: (-len(n.split()), n)):  # the longest name first, then by name: the same twice
         slug = names[name]
-        if slug == card.slug or slug in linked:
+        if slug == card.path or slug in linked:
             continue
         if name in ambiguous:
             written.ambiguous.append(name)
@@ -210,15 +251,17 @@ def link_card(card: Card, names: dict[str, str], ambiguous: set[str], cards: dic
     for start, end, said, slug, done in sorted(places, reverse=True):  # from the last to the first: the places stay valid
         if done:  # a link written before (the model's, or the run before): nothing to write here
             continue
-        body = f"{body[:start]}[{said}](/knowledge/{slug}.md){body[end:]}"
+        body = f"{body[:start]}[{said}]({slug}){body[end:]}"
         written.links.append((said, slug))
-    text = front + write_see_also(body + CITATIONS + cites, cards, also)
-    return text, written
+    related = frozenset(m.group(2) for line in relations or [] for m in CARD_LINK.finditer(line))
+    text = write_relations(write_see_also(body + CITATIONS + cites, cards, also, related), relations or [])
+    written.relations = len(relations or [])
+    return front + text, written
 
 
 def cards_by_slug(cards: list[Card]) -> dict[str, str]:
-    """Slug -> the title a reader sees in a link."""
-    return {c.slug: c.title for c in cards}
+    """Card ('/people/x.md') -> the title a reader sees in a link."""
+    return {c.path: c.title for c in cards}
 
 
 # ---- what the corpus names that no artifact answers: the criterion for a card ----
@@ -324,7 +367,7 @@ def concepts(bundle: Path = BUNDLE, skip: tuple[str, ...] = SKIP) -> list[tuple[
     return out
 
 
-HEADING = re.compile(r"^\s{0,3}#{1,6}\s+(.+?)\s*$", re.M)  # a section of a document names its subject
+HEADING = re.compile(r"^\s{0,3}#{2,6}\s+(.+?)\s*$", re.M)  # a section of a document names its subject (the '# ' one is its title: its own name)
 LEAD = re.compile(r"^\s{0,3}\*\*([^*\n]{4,90})\*\*", re.M)  # a clause of a regulation names its own ("**5.3.** …")
 
 
@@ -433,7 +476,7 @@ def candidates(bundle: Path = BUNDLE, output: Path | None = None, limit: int = L
     subject and how many cards already name it: a subject of fifty documents no card mentions is what the wiki owes most.
     """
     documents = concepts(bundle, skip)
-    pages = [(path, text) for path, text, _ in documents if text and not path.startswith(f"/{FOLDER}/")]
+    pages = [(path, text) for path, text, _ in documents if text and is_document(path)]
     cards = read_cards(bundle)
     allowed = head_words([names_of_document(text) for _, text in pages], len(pages) or 1)
     artifacts = artifacts_of(names_of(documents))  # a name answers wherever it stands, the skipped folders too
@@ -443,7 +486,7 @@ def candidates(bundle: Path = BUNDLE, output: Path | None = None, limit: int = L
     surface: dict[tuple[str, ...], Counter] = defaultdict(Counter)
     example: dict[tuple[str, ...], str] = {}
     for path, text in pages:
-        folder = path.split("/")[1]
+        folder = folder_of(path)
         for span in names_of_document(text):
             for form, key in phrase_keys(span, allowed):
                 docs[key].add(path)
@@ -456,8 +499,8 @@ def candidates(bundle: Path = BUNDLE, output: Path | None = None, limit: int = L
     for card, spans in zip(cards, card_spans):
         for span in spans:
             for _, key in phrase_keys(span, card_allowed):
-                in_cards[key].add(card.slug)
-    totals = Counter(path.split("/")[1] for path, _ in pages)
+                in_cards[key].add(card.path)
+    totals = Counter(folder_of(path) for path, _ in pages)
     template = {key for key, counts in in_folder.items()
                 if any(n >= TEMPLATE * total and total >= TEMPLATE_MIN for folder, n in counts.items() if (total := totals[folder]))}
     report = Candidates(phrases=sum(1 for key, paths in docs.items() if len(paths) >= MIN_PAGES
@@ -491,26 +534,29 @@ class Report:
     cards_linked: int = 0
     ambiguous: list[str] = field(default_factory=list)  # names two cards answer to
     cards_with_an_ambiguity: int = 0
+    relations: int = 0  # lines of the `## Relations` sections
     changed: list[str] = field(default_factory=list)  # cards whose file the pass rewrites
 
 
 def apply(bundle: Path = BUNDLE, dry_run: bool = False) -> Report:
-    """Every card with the links between it and the cards it speaks of; with `dry_run` nothing is written."""
+    """Every card with the links between it and the cards it speaks of, and an entity with its relations; with `dry_run`
+    nothing is written."""
     cards = read_cards(bundle)
     names, ambiguous = registry(cards)
     titles = cards_by_slug(cards)
     report = Report(cards=len(cards), names=len(names), ambiguous=sorted(ambiguous))
     for card in cards:
-        text, written = link_card(card, names, ambiguous, titles)
+        text, written = link_card(card, names, ambiguous, titles, relations_of(card, cards, titles))
+        report.relations += written.relations
         if written.links:
             report.cards_linked += 1
             report.links += len(written.links)
         if written.ambiguous:
             report.cards_with_an_ambiguity += 1
         if text != card.text:
-            report.changed.append(card.slug)
+            report.changed.append(card.path)
             if not dry_run:
-                (bundle / FOLDER / f"{card.slug}.md").write_text(text, encoding="utf-8")
+                (bundle / card.path.lstrip("/")).write_text(text, encoding="utf-8")
     return report
 
 

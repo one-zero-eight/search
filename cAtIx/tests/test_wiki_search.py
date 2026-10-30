@@ -8,7 +8,7 @@ from catix.db.wiki import WikiHit, holds
 
 
 def hit(**kw) -> WikiHit:
-    base = dict(id=7, path="/regulations/att.md", seq=3, heading="6. Пересдача", clause="6.1–6.3", sha="s", text="**6.1.** Пересдача ...",
+    base = dict(id=7, path="/raw/regulations/att.md", seq=3, heading="6. Пересдача", clause="6.1–6.3", sha="s", text="**6.1.** Пересдача ...",
                 cites=[], title="Положение о контроле", type="regulation", trust="official", audience=["student"],
                 resource="https://innopolis.university/x.pdf", status="draft", review=None, source_warning=None,
                 stale_after=None, issued=date(2025, 6, 30))
@@ -35,10 +35,10 @@ def test_an_official_piece_is_marked_official_and_cited_with_its_clause():
 
 def test_a_guide_is_cited_with_the_documents_it_rests_on_and_never_called_official():
     guide = hit(trust="guide", title="Retakes", resource=None, clause="", path="/guides/retakes.md",
-                based_on=[{"page": "/regulations/att.md", "title": "Положение о контроле", "link": "https://innopolis.university/x.pdf", "trust": "official"}])
+                based_on=[{"page": "/raw/regulations/att.md", "title": "Положение о контроле", "link": "https://innopolis.university/x.pdf", "trust": "official"}])
     collector = tools.Collector(runtime())
     item = tools._wiki_item(guide, collector)
-    assert "official" not in item and item["based_on"] == [{"document": "Положение о контроле", "page": "/regulations/att.md"}]
+    assert "official" not in item and item["based_on"] == [{"document": "Положение о контроле", "page": "/raw/regulations/att.md"}]
     line = sources.cite(f"Две пересдачи [{item['ref']}].", collector.new).splitlines()[-1]
     assert line == "[1] «Retakes» (сводка cAtIx по документам: [«Положение о контроле»](https://innopolis.university/x.pdf))"
 

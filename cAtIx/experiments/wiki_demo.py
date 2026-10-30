@@ -76,7 +76,7 @@ def show_commit(before: str) -> None:
         print("    no commit in this run (see the lines above)")
         return
     print(git("log", "-1", "--format=%n    commit %h by %an%n%n%B"))
-    for path in git("diff", "--name-only", "HEAD~1", "HEAD", "--", "wiki/guides", "wiki/regulations/mock-*").splitlines():
+    for path in git("diff", "--name-only", "HEAD~1", "HEAD", "--", "wiki/guides", "wiki/raw/regulations/mock-*").splitlines():
         print(f"    --- {path}")
         diff = git("diff", "--unified=0", "HEAD~1", "HEAD", "--", path).splitlines()
         lines = [line for line in diff if line[:1] in "+-" and not line.startswith(("+++", "---"))]

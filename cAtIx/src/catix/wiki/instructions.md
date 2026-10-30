@@ -18,5 +18,8 @@ facilities and support, admission, international activity, survey results and st
 Lower priority: legal acts of the state that the university only repeats, near-empty forms and templates.
 
 Never: personal data of named people or lists of people (students, applicants, staff), scans without readable content.
+Who holds an official role is not personal data: the rector, the directors, the heads of units and bodies, the teachers of a course, as the
+documents name them (orders of appointment, the structure of the university), nor are the contacts the university publishes for
+them (a work phone, an e-mail, a Telegram). The wiki connects positions, units and their holders.
 
 Documents of the same kind that differ only by year or version: keep them; the wiki marks the newest.

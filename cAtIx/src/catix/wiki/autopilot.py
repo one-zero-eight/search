@@ -6,6 +6,7 @@ and the result is committed to the `wiki` branch and pushed.
     catix-wiki autopilot discard   # a person disagrees: the changes are thrown away, the search index follows the branch again
 
 One run:
+  0. a checkout whose documents are still beside the model's folders is laid out first (layout.py: into wiki/raw/);
   1. the sources that are due (sources/, each with its own interval; `--source` asks the named ones now, e.g. when
      something tells the wiki that a source changed);
   2. if one brought something, or the data still has changes an earlier run could not commit: build.rebuild(), then the
@@ -33,7 +34,7 @@ from pathlib import Path
 
 from catix.settings import settings
 from catix.wiki import build, quality, sources
-from catix.wiki.paths import DATA, REPO
+from catix.wiki.paths import DATA, DOCS_FOLDER, REPO
 
 ALLOWED = ("wiki/", "raw/")  # the only paths a commit of the wiki's own run may touch
 STATE = DATA / ".autopilot.json"
@@ -68,12 +69,13 @@ def outside(paths: list[str]) -> list[str]:
 
 
 def summary(name_status: str) -> str:
-    """'wiki/regulations: 3 new, 2 changed' from `git diff --name-status`."""
+    """'wiki/raw/regulations: 3 new, 2 changed' from `git diff --name-status`."""
     words = {"A": "new", "M": "changed", "D": "removed", "R": "renamed"}
     by = Counter()
     for line in name_status.splitlines():
         status, *paths = line.split("\t")
-        folder = "/".join(paths[-1].split("/")[:2]) if paths[-1].count("/") > 1 else paths[-1]
+        depth = 3 if paths[-1].startswith(f"wiki/{DOCS_FOLDER}/") else 2  # a document's folder is under wiki/raw/
+        folder = "/".join(paths[-1].split("/")[:depth]) if paths[-1].count("/") >= depth else paths[-1]
         by[folder, words.get(status[:1], status)] += 1
     folders = dict.fromkeys(f for f, _ in sorted(by))
     return "\n".join(f"{f}: " + ", ".join(f"{n} {w}" for (g, w), n in sorted(by.items()) if g == f) for f in folders)
@@ -119,11 +121,12 @@ def check(report: build.Report, answers: bool) -> Checks:
 
 
 def changed_pages() -> list[str]:
-    """Source pages the run added or changed ('/regulations/x.md'), from git: what the wiki's agent reads next."""
+    """Documents the run added or changed ('/raw/regulations/x.md'), from git: what the wiki's agent reads next. Only the
+    documents: what the model wrote (its cards, notes and folders) is never a source."""
     out = []
-    for line in git("status", "--porcelain", "-uall", "--", "wiki").splitlines():  # (-uall: a new folder is its files, not one line)
+    for line in git("status", "--porcelain", "-uall", "--", f"wiki/{DOCS_FOLDER}").splitlines():  # (-uall: a new folder is its files, not one line)
         status, path = line[:2], line[3:].split(" -> ")[-1].strip('"')
-        if "D" in status or not path.endswith(".md") or path.startswith("wiki/knowledge/") or path.rsplit("/", 1)[-1] in {"index.md", "log.md"}:
+        if "D" in status or not path.endswith(".md") or path.rsplit("/", 1)[-1] in {"index.md", "log.md"}:
             continue
         out.append("/" + path.removeprefix("wiki/"))
     return out
@@ -149,6 +152,10 @@ def run_once(names: list[str] | None = None, push: bool = True, answers: bool = 
     state, now = load_state(), datetime.now(timezone.utc)
     asked = [s for s in sources.SOURCES if s.name in names] if names else due(state, now)
     changed: dict[str, int] = {}
+    from catix.wiki import layout
+
+    if moved := layout.migrate():  # a checkout of the layout before wiki/raw/: its documents move before anything writes new ones
+        changed["layout"] = len(moved)
     for source in asked:
         print(f"== source {source.name}: {source.about}", flush=True)
         try:

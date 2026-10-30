@@ -2,10 +2,10 @@
 
     eduwiki.py      eduwiki.innopolis.university: a snapshot of the pages (compile.py makes the bundle's pages of it)
     sveden.py       innopolis.university/sveden: every document the site discloses; the model decides which to keep
-    regulations.py  the kept documents (PDF): text, then wiki/regulations/ by code (the model writes only a description)
-    rpd.py          course programmes (РПД) from the archives of sveden/education: wiki/course-programmes/, by code only
-    sites.py        the sites of the university's services (campus life, the campus hotel): wiki/sites/, their documents as regulations
-    pastpapers.py   past exam papers the students keep in Notion: wiki/past-papers/, one page per subject, by code only
+    regulations.py  the kept documents (PDF): text, then wiki/raw/regulations/ by code (the model writes only a description)
+    rpd.py          course programmes (РПД) from the archives of sveden/education: wiki/raw/course-programmes/, by code only
+    sites.py        the sites of the university's services (campus life, the campus hotel): wiki/raw/sites/, their documents as regulations
+    pastpapers.py   past exam papers the students keep in Notion: wiki/raw/past-papers/, one page per subject, by code only
     mock.py         a stand-in site for showing and testing the wiki's run (WIKI_MOCK_SITE)
 
 

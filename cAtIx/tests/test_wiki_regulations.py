@@ -50,3 +50,12 @@ def test_a_cell_merged_across_columns_heads_a_group_of_rows_and_is_not_the_row_a
     rows = [["№", "Услуга", "Периодичность"], ["Расходные материалы", None, None], ["4", "Мыло", "при заезде"]]
     wide = [[False] * 3, [False, True, True], [False] * 3]
     assert table_markdown(rows, wide).splitlines()[2:] == ["| Расходные материалы |  |  |", "| 4 | Мыло | при заезде |"]
+
+
+def test_a_table_of_one_column_is_text_and_its_clauses_are_clauses():
+    # a regulation in a frame came out as a table of one column, and its clauses as rows: '| 1.1. Колледж ... |'
+    from catix.wiki.sources.regulations import table_markdown, to_markdown
+
+    rows = [["1.1. Колледж является структурным"], ["подразделением Университета."], [None], ["1.2. Настоящее Положение регулирует"], ["деятельность Колледжа."]]
+    assert to_markdown(table_markdown(rows)).split("\n\n") == ["**1.1.** Колледж является структурным подразделением Университета.",
+                                                             "**1.2.** Настоящее Положение регулирует деятельность Колледжа."]

@@ -29,7 +29,7 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from catix.settings import settings
-from catix.wiki.paths import BUNDLE
+from catix.wiki.paths import BUNDLE, card_folders
 from eval_claims import CLAUSE, JUDGE_PROMPT, MISSING_JUDGE_PROMPT, VERDICTS, ask
 
 SOURCE = re.compile(r"^(\d+)\. \[.*?\]\((/[^)\s]+\.md)\)(.*)$", re.M)  # a title may hold [brackets]
@@ -208,7 +208,7 @@ def cited(path: str, tail: str, cache: dict) -> dict | None:
 def sentences(cache: dict) -> list[dict]:
     """The cited sentences of every card with their context in the card and what their citations point at."""
     rows = []
-    for card in sorted((BUNDLE / "knowledge").glob("*.md")):
+    for card in sorted(p for folder in card_folders(BUNDLE) for p in (BUNDLE / folder).glob("*.md") if p.name != "index.md"):
         text = card.read_text(encoding="utf-8")
         sources = {n: (path, tail) for n, path, tail in SOURCE.findall(text)}
         body = text.split("\n---\n", 1)[-1].split("\n# Citations", 1)[0]
