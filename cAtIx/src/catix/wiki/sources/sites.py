@@ -594,7 +594,8 @@ def pending_description(title: str, words: str) -> str:
     """The first sentence of a page's text, for a page the model has not described: what the page begins with, not a guess."""
     for line in words.splitlines():
         line = line.strip()
-        if len(line) > 40 and not line.startswith(("#", "|", "-", ">", "!", "[")) and len(re.findall(r"[^\W\d_]{3,}", line)) >= 6:
+        if len(line) > 40 and not line.startswith(("#", "|", "-", ">", "!", "[")) and len(re.findall(r"[^\W\d_]{3,}", line)) >= 6 \
+                and not re.search(r"(?i)\bsign in\b|\blog ?in\b|account to access", line):  # (not the invitation to sign in)
             return (re.split(r"(?<=[.!?])\s", line)[0])[:200]
     return title[:200]
 

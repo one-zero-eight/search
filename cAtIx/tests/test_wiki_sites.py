@@ -382,3 +382,8 @@ def test_a_page_the_model_cannot_describe_gets_its_first_sentence_and_the_model_
     sites.compile_all()
     again = (out / "hotel" / "home.md").read_text(encoding="utf-8")
     assert "the model's words" in again and "pending" not in again
+
+
+def test_the_first_sentence_of_a_page_is_not_the_invitation_to_sign_in():
+    words = "Use your Innopolis account to access InNoHassle services.\nAll university services of the student in one place, found by what they are for."
+    assert sites.pending_description("Dashboard", words) == "All university services of the student in one place, found by what they are for."
