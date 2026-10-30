@@ -69,7 +69,7 @@ SITES = {
     "innohassle": Site("https://innohassle.ru/", "en", "InNoHassle, the student ecosystem of Innopolis University made by the one-zero-eight community: clubs and their leaders, scholarship, room-booking rules, sport, maps, music room",
                        r"(^|/)(admin|account|auth|forms|drafts|submissions|profile|trainer|print|scan)(/|$)|^guard/(create|copy|files)|^when2meet/new"
                        r"|^$|^(start|schedule|maps|workshops|timetable|tabletennis|events)(/|$)|^clubs($|/(?!(league|new)(/|$)))|^music-room($|/(?!instructions(/|$)))"
-                       r"|^(calendar|search|sport|when2meet|student-affairs|board-games|timer)($|/)|^room-booking($|/(?!(list|rules)(/|$)))",  # (login walls: 'Use your Innopolis account to access InNoHassle services'; board-games and timer: no text)
+                       r"|^(calendar|search|sport|when2meet|student-affairs|board-games|timer)($|/)|^room-booking($|/(?!rules(/|$)))",  # (login walls: 'Use your Innopolis account to access InNoHassle services'; board-games and timer: no text)
                        max_pages=300, render=True),  # (an app: the browser runs its scripts; the pages behind a login show 'Sign in' and are dropped as pages of no words)
     "hotel": Site("https://hotel.innopolis.university/", "ru", "the campus of Innopolis University: dormitories, their rules, prices and documents",
                   r"zayavka|bitrix|upload/", sitemap=False, english="en"),

@@ -307,9 +307,9 @@ def test_innohassle_keeps_the_pages_of_text_and_leaves_the_lists_of_data():
     app = SITES["innohassle"]
     for path in ("", "start", "schedule", "schedule/core-courses", "maps", "workshops", "timetable", "tabletennis/players", "events", "events/p/6ab2",
                  "clubs", "clubs/innopolis-tatars", "music-room", "admin/users", "forms", "account",
-                 "calendar", "search/ask", "sport/faq", "when2meet", "student-affairs", "room-booking", "room-booking/rooms", "board-games", "timer"):  # (login walls)
+                 "calendar", "search/ask", "sport/faq", "when2meet", "student-affairs", "room-booking", "room-booking/rooms", "room-booking/list", "board-games", "timer"):  # (login walls)
         assert not sites._taken(app, f"https://innohassle.ru/{path}"), path
-    for path in ("clubs/league", "clubs/new", "music-room/instructions", "room-booking/list", "room-booking/rules", "extension", "guard", "dashboard", "about", "dorms", "printers", "scholarship"):
+    for path in ("clubs/league", "clubs/new", "music-room/instructions", "room-booking/rules", "extension", "guard", "dashboard", "about", "dorms", "printers", "scholarship"):
         assert sites._taken(app, f"https://innohassle.ru/{path}"), path
 
 
