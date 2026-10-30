@@ -64,7 +64,9 @@ class Settings(BaseSettings):
     # USD per 1M tokens of the wiki's model, for the costs in Phoenix: {"input": .., "cache_read": .., "output": ..}. Phoenix
     # keeps one price a model, so an API with peak and off-peak prices gets the ones its runs are billed at.
     wiki_llm_prices: dict[str, float] = {}
-    wiki_phoenix_project: str = "catix-wiki"  # the wiki's builds and its agent (catix-wiki), apart from the assistant's questions
+    wiki_phoenix_project: str = (
+        "catix-wiki"  # the wiki's builds and its agent (catix-wiki), apart from the assistant's questions
+    )
 
     innohassle_api: HttpUrl = HttpUrl("https://api.innohassle.ru")
     # Token of a service with the `users` scope: it lets us ask InNoHassle which study group a Telegram id belongs to.
@@ -126,14 +128,16 @@ class Settings(BaseSettings):
     # OpenAI-compatible /v1/embeddings server (llama.cpp --embedding, bge-m3) on the GPU machine.
     embeddings_route: HttpUrl = HttpUrl("http://localhost:8081/v1")
     embeddings_model: str = "bge-m3"
-    embeddings_query_prefix: str = ""  # before a query (not a document), for a model that wants an instruction; bge-m3 does not
+    embeddings_query_prefix: str = (
+        ""  # before a query (not a document), for a model that wants an instruction; bge-m3 does not
+    )
     search_candidates: int = Field(30, gt=0)
     wiki_search_candidates: int = Field(30, gt=0)
     search_ef: int = Field(400, ge=1, le=1000)
     # OpenAI-compatible /v1/rerank server (llama.cpp --reranking, bge-reranker-v2-m3). Without a route the search
     # keeps the order of the hybrid ranking. With one, `rerank_candidates` messages are re-scored against the
     # query and the best few go to the model.
-    reranker_route: HttpUrl | None = None
+    reranker_route: HttpUrl = HttpUrl("http://localhost:8083/v1")
     reranker_model: str = "bge-reranker-v2-m3"
     rerank_candidates: int = Field(30, gt=0)
     wiki_rerank_candidates: int = Field(30, gt=0)
@@ -199,17 +203,28 @@ class Settings(BaseSettings):
     wiki_agent_max_tokens: int = Field(16000, gt=0)
     # Every link of a card to a source carries a verbatim quote of it, found by code; the numbers are checked against the quote.
     wiki_agent_quotes: bool = True
-    # A card answers a subject, and a subject is what more than one page speaks of: a card resting on a single source page
-    # is refused (the wiki would hold that page twice, its verbatim text and a paraphrase of it). See agent.SOURCES.
-    wiki_agent_two_sources: bool = True
+    # With it a card resting on a single source page is refused (a subject is what more than one page speaks of). Off since
+    # 2026-10-30: it refused the cards of people that one page names, and got in the way more than it helped. See agent.SOURCES.
+    wiki_agent_two_sources: bool = False
     # Tasks (batches of pages) the agent works on at once: an API takes several, the local server shares its slots with
     # the assistant (unset: 4 with WIKI_LLM_ROUTE, else 1).
     wiki_agent_parallel: int | None = Field(None, gt=0)
     # The documents of the site the agent reads, by the section they come from: rules, procedures, admission, fees,
     # grants, the units' regulations, the pages of the university's site and of its site for applicants, the sites of campus life and the campus hotel. Left out: sveden/rating-system (surveys) and sveden/education (curricula, programme
     # descriptions); a page of the teaching wiki has no section and is always read. Course programmes only when asked.
-    wiki_agent_sections: list[str] = ["document", "sveden/document", "sveden/apply", "sveden/paid_edu", "sveden/grants",
-                                      "sveden/objects", "sveden/struct", "site/university", "site/apply", "site/campuslife", "site/hotel"]
+    wiki_agent_sections: list[str] = [
+        "document",
+        "sveden/document",
+        "sveden/apply",
+        "sveden/paid_edu",
+        "sveden/grants",
+        "sveden/objects",
+        "sveden/struct",
+        "site/university",
+        "site/apply",
+        "site/campuslife",
+        "site/hotel",
+    ]
     wiki_agent_course_programmes: bool = False
 
     # Old SQLite file, only read by `catix-db migrate`.
