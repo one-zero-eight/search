@@ -1,5 +1,11 @@
 """The sites of the university's services (sources/sites.py): what code reads from a page, which links it follows, which documents it hands on."""
 
+import dataclasses
+import hashlib
+
+import httpx
+import pytest
+
 from catix.wiki.sources import sites
 from catix.wiki.sources.sites import SITES, boilerplate, canonical, read
 
@@ -39,9 +45,11 @@ def test_one_file_written_three_ways_is_one_document_with_its_fullest_name():
 def test_past_events_old_copies_and_the_other_language_are_not_followed():
     campus, hotel = SITES["campuslife"], SITES["hotel"]
     assert sites._taken(campus, "https://campuslife.innopolis.ru/handbook")
-    assert not sites._taken(campus, "https://campuslife.innopolis.ru/springball2022")
+    assert sites._taken(campus, "https://campuslife.innopolis.ru/springball2022")  # (past events are the wiki's record)
+    assert sites._taken(campus, "https://campuslife.innopolis.ru/innobootcamp2022") and sites._taken(campus, "https://campuslife.innopolis.ru/ibc")
     assert not sites._taken(campus, "https://campuslife.innopolis.ru/handbook_old")
-    assert not sites._taken(hotel, "https://hotel.innopolis.university/en/contacts/")
+    assert sites._taken(hotel, "https://hotel.innopolis.university/en/contacts/")  # (its English copy is a text of its own)
+    assert sites.language_of(hotel, "en-contacts") == "en" and sites.language_of(hotel, "contacts") == "ru"
     assert not sites._taken(hotel, "https://hotel.innopolis.university/zayavkanabronirovanie/")
     assert not sites._taken(hotel, "https://example.com/")
     assert not sites._taken(hotel, "https://hotel.innopolis.university/upload/docs-hotel/x.pdf")  # (a document, not a page)
@@ -78,3 +86,299 @@ def test_a_table_row_is_one_line_with_its_header_marked_whatever_breaks_its_cell
             "<tr><td>Бегишева А. А.</td><td><p>Высшее: учитель географии</p><p>Высшее: инженер</p></td></tr></table><p>После</p>")
     _, text, _ = read(html, "https://innopolis.university/sveden/employees")
     assert text.splitlines() == ["| ФИО | Образование |", "| --- | --- |", "| Бегишева А. А. | Высшее: учитель географии Высшее: инженер |", "После"]
+
+
+MEDIA = """<html><head><title>Бакалавриат</title></head><body>
+<h1>Бакалавриат</h1>
+<p>Подробнее о <a href="/bachelors/ds-ai/">Data Science</a> и <a href="https://example.org/a b(1)">внешней странице</a>, <a href="#top">наверх</a>, <a href="mailto:a@b.ru">почта</a>.</p>
+<a href="/grant/"><div>Подать заявку на грант</div></a>
+<a href="/photo/"><img src="/i/small.jpg" data-original="https://cdn.example/big/campus.jpg" alt="Кампус [летом]"></a>
+<img src="data:image/gif;base64,AAAA"><img src="/img/logo.png" alt="logo"><img src="/i/px.jpg" width="1" height="1"><img src="/a/menu.svg">
+<iframe src="https://www.youtube.com/embed/abc123"></iframe><iframe src="https://maps.example/embed?x=1"></iframe>
+<video><source src="/media/tour.mp4"></video>
+<div data-videolazy-id="xyz" data-videolazy-type="youtube"></div>
+<table><tr><th>Программа</th></tr><tr><td><a href="/p/1/">Магистратура</a></td></tr></table>
+</body></html>"""
+
+
+def test_links_stay_in_the_text_where_the_page_has_them():
+    lines = read(MEDIA, "https://apply.innopolis.university/bachelors/")[1].splitlines()
+    assert ("Подробнее о [Data Science](https://apply.innopolis.university/bachelors/ds-ai/) и "
+            "[внешней странице](https://example.org/a%20b%281%29), наверх, почта.") in lines  # (a fragment and a mailto: are words)
+    assert "[Подать заявку на грант](https://apply.innopolis.university/grant/)" in lines  # (a block inside the link)
+    assert "| [Магистратура](https://apply.innopolis.university/p/1/) |" in lines  # (a link in a table cell)
+
+
+def test_pictures_and_videos_are_links_and_the_decorations_are_not():
+    text = read(MEDIA, "https://apply.innopolis.university/bachelors/")[1]
+    assert "[![Кампус летом](https://cdn.example/big/campus.jpg)](https://apply.innopolis.university/photo/)" in text  # (the picture of Tilda, in a link)
+    assert text.count("![") == 2 and "![logo](https://apply.innopolis.university/img/logo.png)" in text  # (a data: picture, a pixel and an svg are not content; a logo is: a partner's)
+    assert "[▶ video](https://www.youtube.com/watch?v=abc123)" in text and "maps.example" not in text
+    assert "[▶ video](https://apply.innopolis.university/media/tour.mp4)" in text
+    assert "[▶ video](https://www.youtube.com/watch?v=xyz)" in text
+
+
+def test_the_hash_of_a_page_is_of_its_words_not_of_its_links_and_pictures():
+    bare = "## Бакалавриат\nПодробнее о Data Science и внешней странице\n| Магистратура |"
+    marked = ("## Бакалавриат\nПодробнее о [Data Science](https://x.org/a) и ![](https://x.org/i.jpg) внешней странице\n"
+              "![alt](https://x.org/only.jpg)\n| [Магистратура](https://x.org/m) |")
+    assert sites.plain(marked) == bare
+
+
+def test_a_link_leads_into_the_bundle_when_the_page_is_there_and_stays_live_otherwise():
+    where = {sites.address("https://hotel.innopolis.university/rooms"): "/raw/sites/hotel/rooms.md"}
+    body = ("[Номера](https://hotel.innopolis.university/rooms/#prices) [нет](https://hotel.innopolis.university/zayavka/) "
+            "[![Номер](https://hotel.innopolis.university/rooms)](https://hotel.innopolis.university/rooms/)")
+    assert sites.resolve(body, where) == ("[Номера](/raw/sites/hotel/rooms.md) [нет](https://hotel.innopolis.university/zayavka/) "
+                                         "[![Номер](https://hotel.innopolis.university/rooms)](/raw/sites/hotel/rooms.md)")  # (a picture keeps its own address)
+
+
+WORDS = " ".join(f"слово{chr(1072 + i % 26)}{chr(1072 + i // 26)}ы" for i in range(40))
+
+
+def _site_root(tmp_path, monkeypatch, pages):
+    monkeypatch.setattr(sites, "ROOT", tmp_path / "cache")
+    monkeypatch.setattr(sites, "DOCS", tmp_path / "wiki" / "raw")
+    monkeypatch.setattr(sites.regulations, "describe", lambda title, text, kind="": ("desc", ["t"], ["student"]))
+    monkeypatch.setattr(sites, "SITES", {"hotel": sites.SITES["hotel"]})
+    index = {"pages": {}, "docs": {}}
+    for slug, (url, text) in pages.items():
+        (tmp_path / "cache" / "hotel").mkdir(parents=True, exist_ok=True)
+        (tmp_path / "cache" / "hotel" / f"{slug}.md").write_text(text, encoding="utf-8")
+        index["pages"][slug] = {"url": url, "title": slug.title(), "sha256": "a" * 64, "fetched_at": "2026-10-30T00:00:00+00:00"}
+    sites.save("hotel", index)
+    return tmp_path / "wiki" / "raw" / "sites"
+
+
+def test_the_pages_of_a_site_go_to_a_folder_of_their_own_and_link_each_other(tmp_path, monkeypatch):
+    out = _site_root(tmp_path, monkeypatch, {
+        "home": ("https://hotel.innopolis.university/", f"{WORDS} [Номера](https://hotel.innopolis.university/rooms/) ![Фото](https://cdn.example/a.jpg)"),
+        "rooms": ("https://hotel.innopolis.university/rooms/", f"{WORDS} [На главную](https://hotel.innopolis.university/) [Скрытая](https://hotel.innopolis.university/gone/)"),
+    })
+    sites.compile_all()
+    home, rooms = (out / "hotel" / "home.md").read_text(encoding="utf-8"), (out / "hotel" / "rooms.md").read_text(encoding="utf-8")
+    assert "[Номера](/raw/sites/hotel/rooms.md)" in home and "![Фото](https://cdn.example/a.jpg)" in home
+    assert "[На главную](/raw/sites/hotel/home.md)" in rooms and "[Скрытая](https://hotel.innopolis.university/gone/)" in rooms
+
+
+def test_a_page_moved_into_its_folder_keeps_its_description_and_the_old_file_goes(tmp_path, monkeypatch):
+    out = _site_root(tmp_path, monkeypatch, {"home": ("https://hotel.innopolis.university/", WORDS)})
+    sites.compile_all()
+    (out / "hotel-home.md").write_text((out / "hotel" / "home.md").read_text(encoding="utf-8"), encoding="utf-8")
+    (out / "hotel" / "home.md").unlink()
+    monkeypatch.setattr(sites.regulations, "describe", lambda *a, **k: pytest.fail("the model is asked again"))
+    sites.compile_all()
+    assert "desc" in (out / "hotel" / "home.md").read_text(encoding="utf-8")
+    assert not (out / "hotel-home.md").exists()
+
+
+def test_a_link_to_a_document_of_a_site_leads_to_its_page_of_regulations_once_there_is_one(tmp_path, monkeypatch):
+    url = "https://hotel.innopolis.university/upload/docs-hotel/Правила проживания.pdf"
+    out = _site_root(tmp_path, monkeypatch, {"home": ("https://hotel.innopolis.university/", f"{WORDS} [Правила]({url.replace(' ', '%20')})")})
+    index = sites.load("hotel")
+    index["docs"] = {sites.canonical(url): "Правила проживания"}
+    sites.save("hotel", index)
+    sites.compile_all()
+    assert f"({url.replace(' ', '%20')})" in (out / "hotel" / "home.md").read_text(encoding="utf-8")  # (not converted yet: the site's own file)
+    (key,) = sites.docs()
+    (tmp_path / "wiki" / "raw" / "regulations").mkdir(parents=True)
+    (tmp_path / "wiki" / "raw" / "regulations" / f"{key}.md").write_text("x", encoding="utf-8")
+    sites.compile_all()
+    assert f"[Правила](/raw/regulations/{key}.md)" in (out / "hotel" / "home.md").read_text(encoding="utf-8")
+
+
+def test_a_link_around_a_heading_keeps_the_heading_a_heading_and_a_picture_without_an_address_is_none():
+    html = ('<a href="/s/marina/"><img src="" alt="x"><h2>Marina Ivanova</h2></a>'
+            '<a href="/s/ananga/"><p>&lt;p&gt; Though my &lt;b&gt;exchange&lt;/b&gt;&lt;br&gt; &lt;/p&gt;</p></a>')
+    text = read(html, "https://innopolis.university/success-stories/x/")[1]
+    assert "## [Marina Ivanova](https://innopolis.university/s/marina/)" in text.splitlines()
+    assert "![" not in text  # (an empty src is not the page itself)
+    assert "[Though my exchange](https://innopolis.university/s/ananga/)" in text
+
+
+BITRIX = """<html><body>
+<div class="landing-block-node-video g-video-preview" data-src="//www.youtube.com/embed/0USWAsrY9uk?autoplay=1&amp;mute=1" data-source="https://youtu.be/0USWAsrY9uk"
+ style="background-image: url('//img.youtube.com/vi/0USWAsrY9uk/sddefault.jpg');"></div>
+<section style="background-image: url('//innopolis.university/upload/landing/944/7881@1x.jpg'); background-image: -webkit-image-set(url('//innopolis.university/upload/landing/944/7881@1x.jpg') 1x, url('//innopolis.university/upload/landing/c64/7881@2x.jpg') 2x);">
+<h2>Кампус</h2><img src="/upload/landing/120/Visa_Inc._logo.svg@1x.png" alt=""></section></body></html>"""
+
+
+def test_a_video_block_of_bitrix_and_a_banner_in_a_style_are_in_the_text():
+    text = read(BITRIX, "https://hotel.innopolis.university/")[1]
+    assert text.count("[▶ video](https://www.youtube.com/watch?v=0USWAsrY9uk)") == 1  # (the preview of the video is not a picture)
+    assert text.count("![](https://innopolis.university/upload/landing/944/7881@1x.jpg)") == 1  # (the first address of the banner, once)
+    assert "![](https://hotel.innopolis.university/upload/landing/120/Visa_Inc._logo.svg@1x.png)" in text  # (a partner's logo is content)
+    assert sites.video_url("https://youtu.be/abc") == "https://www.youtube.com/watch?v=abc"
+    assert sites.video_url("https://example.org/page") is None
+
+
+def test_the_lines_every_page_repeats_are_a_page_of_their_own_which_each_page_names(tmp_path, monkeypatch):
+    menu = "- [Меню](https://hotel.innopolis.university/menu/)\nТелефон: +7 967 462 82 39"
+    pages = {slug: (f"https://hotel.innopolis.university/{slug}/", f"{WORDS} {slug}\n{menu}") for slug in ("a", "b", "c", "d")}
+    out = _site_root(tmp_path, monkeypatch, pages)
+    sites.compile_all()
+    shared = (out / "hotel" / "_shared.md").read_text(encoding="utf-8")
+    assert "Телефон: +7 967 462 82 39" in shared and "- [Меню](https://hotel.innopolis.university/menu/)" in shared
+    page = (out / "hotel" / "a.md").read_text(encoding="utf-8")
+    assert "Телефон" not in page and "[/raw/sites/hotel/_shared.md](/raw/sites/hotel/_shared.md)" in page
+    assert "type: page" in shared and "source_kind: website" in shared
+
+
+TILDA = """<html><body>
+<div class="t-bgimg" data-original="https://static.tildacdn.com/tild6236-6361-4035-b530-623565653634/_.png"
+ style="background-image:url('https://thb.tildacdn.com/tild6236-6361-4035-b530-623565653634/-/resizeb/20x/_.png');"></div>
+<div style="background-image:url('https://thb.tildacdn.com/tild3064-3161-4639-b230-333438613336/-/resizeb/20x/photo.jpg');"></div>
+<img data-original="https://static.tildacdn.com/tild1111-2222-3333-4444-555555555555/a.jpg" src="https://thb.tildacdn.com/tild1111-2222-3333-4444-555555555555/-/resize/20x/a.jpg" alt="A">
+</body></html>"""
+
+
+def test_a_tilda_picture_is_the_file_and_not_its_twenty_pixel_preview():
+    text = read(TILDA, "https://campuslife.innopolis.ru/")[1]
+    assert "![](https://static.tildacdn.com/tild6236-6361-4035-b530-623565653634/_.png)" in text  # (data-original of the block)
+    assert "![](https://static.tildacdn.com/tild3064-3161-4639-b230-333438613336/photo.jpg)" in text  # (no original: the preview's own file)
+    assert text.count("![A](https://static.tildacdn.com/tild1111-2222-3333-4444-555555555555/a.jpg)") == 1 and text.count("![") == 3
+    assert "thb.tildacdn" not in text
+
+
+def test_a_page_of_an_events_site_is_about_the_year_its_title_or_address_names():
+    campus, hotel = SITES["campuslife"], SITES["hotel"]
+    assert sites.year_of(campus, "springball2022", "Spring Ball", "text") == 2022
+    assert sites.year_of(campus, "ibc", "InnoBootCamp 2018", "text") == 2018
+    assert sites.year_of(campus, "ibc", "IBC", "05.08-18.08 #InnoBootCamp2018 - Bachelors") == 2018  # (its first lines)
+    assert sites.year_of(campus, "faq", "FAQ", "no year here" + " word" * 100 + " 2019") is None  # (not a year far into the text)
+    assert sites.year_of(hotel, "prikaz-2021", "Приказ 2021", "text") is None  # (a site where a year says nothing of the page)
+
+
+def test_a_page_of_a_past_year_says_so_and_the_search_gets_its_date_and_its_review_date(tmp_path, monkeypatch):
+    out = _site_root(tmp_path, monkeypatch, {"ball2022": ("https://hotel.innopolis.university/ball2022/", WORDS),
+                                             "now": ("https://hotel.innopolis.university/now/", WORDS + " now")})
+    monkeypatch.setitem(sites.SITES, "hotel", dataclasses.replace(sites.SITES["hotel"], dated=True))
+    sites.compile_all()
+    past, current = (out / "hotel" / "ball2022.md").read_text(encoding="utf-8"), (out / "hotel" / "now.md").read_text(encoding="utf-8")
+    assert "stale_after: \"2023-01-01T00:00:00+00:00\"" in past and "last_modified: \"2022-01-01T00:00:00+00:00\"" in past
+    assert "> Страница относится к 2022 году" in past
+    assert "stale_after" not in current and "Страница относится" not in current and "last_modified: \"2026" in current
+
+
+def test_an_address_with_a_no_break_space_is_still_one_link():
+    html = '<a href="/upload/Образец данных\u00a0несовершеннолетнего.docx">Образец</a>'
+    text = read(html, "https://innopolis.university/sveden/apply/")[1]
+    assert text == "[Образец](https://innopolis.university/upload/Образец%20данных%C2%A0несовершеннолетнего.docx)"
+    assert sites.plain(text) == "Образец"
+
+
+def test_a_large_site_shares_what_a_quarter_of_its_pages_repeat_a_small_one_what_half_do():
+    section = [f"Menu\nSection menu\nPage {i}" for i in range(12)]  # (12 of 48: a quarter)
+    others = [f"Menu\nPage {i}" for i in range(12, 48)]
+    assert boilerplate(section + others) == {"Menu", "Section menu"}
+    assert boilerplate(section[:6] + others[:6]) == {"Menu", "Section menu"}  # (12 pages: half of them, enough)
+    assert boilerplate(section[:5] + others[:7]) == {"Menu"}  # (5 of 12 is less than half)
+
+
+def test_a_title_that_many_pages_share_is_the_templates_and_the_first_heading_names_the_page(tmp_path, monkeypatch):
+    pages = {f"p{i}": (f"https://hotel.innopolis.university/p{i}/", f"![](https://x.org/{i}.jpg)\n### Имя {i}\n{WORDS} {i}") for i in range(10)}
+    out = _site_root(tmp_path, monkeypatch, pages)
+    index = sites.load("hotel")
+    for p in index["pages"].values():
+        p["title"] = "Шапка"
+    sites.save("hotel", index)
+    sites.compile_all()
+    assert 'title: "Имя 3"' in (out / "hotel" / "p3.md").read_text(encoding="utf-8")
+
+
+def test_a_site_that_is_an_app_is_read_through_the_browser_and_the_others_through_http(monkeypatch):
+    seen = []
+    monkeypatch.setattr(sites, "render_page", lambda url: seen.append(url) or "<html><title>Clubs</title><h1>Clubs</h1></html>")
+
+    class Client:
+        def get(self, url):
+            raise AssertionError("an app is not asked over http")
+
+    app = sites.SITES["innohassle"]
+    assert app.render and not sites.SITES["hotel"].render
+    resp = sites.get_page(Client(), app, "https://innohassle.ru/clubs")
+    assert resp.status_code == 200 and "Clubs" in resp.text and resp.headers["content-type"].startswith("text/html") and seen == ["https://innohassle.ru/clubs"]
+    monkeypatch.setattr(sites, "render_page", lambda url: None)
+    assert sites.get_page(Client(), app, "https://innohassle.ru/nothing").status_code == 404  # (the browser gave nothing: a page that is not there)
+    assert not sites._taken(app, "https://innohassle.ru/admin/users") and sites._taken(app, "https://innohassle.ru/clubs/league")
+
+
+def test_innohassle_keeps_the_pages_of_text_and_leaves_the_lists_of_data():
+    app = SITES["innohassle"]
+    for path in ("", "start", "schedule", "schedule/core-courses", "maps", "workshops", "timetable", "tabletennis/players", "events", "events/p/6ab2",
+                 "clubs", "clubs/innopolis-tatars", "music-room", "admin/users", "forms", "account",
+                 "calendar", "search/ask", "sport/faq", "when2meet", "student-affairs", "room-booking", "room-booking/rooms", "board-games", "timer"):  # (login walls)
+        assert not sites._taken(app, f"https://innohassle.ru/{path}"), path
+    for path in ("clubs/league", "clubs/new", "music-room/instructions", "room-booking/list", "room-booking/rules", "extension", "guard", "dashboard", "about", "dorms", "printers", "scholarship"):
+        assert sites._taken(app, f"https://innohassle.ru/{path}"), path
+
+
+JS = ("x={url:`https://moodle.innopolis.university/my/`,resource:`Moodle`,resourceRu:`Moodle`,title:null,titleRu:null,description:`Access official course "
+      "materials and tests.`,descriptionRu:`Материалы курсов.`,icon:`icon-[a]`,category:`Academic`,frequency:9},"
+      "{url:`https://telegram.me/hoteluni`,resource:`Dormitory`,resourceRu:`Общежитие`,title:`Administration`,titleRu:`Администрация`,"
+      "description:`Contact the hotel administration.`,descriptionRu:`Связь с администрацией.`,category:`Housing`,frequency:2}")  # (no icon in the second)
+
+
+def test_the_whole_catalog_of_services_is_taken_from_the_script_of_the_dashboard():
+    services = sites.service_catalog(JS)
+    assert [s["name"] for s in services] == ["Moodle", "Dormitory"]
+    text = sites.catalog_markdown(services)
+    assert "### Academic" in text and "- [Moodle](https://moodle.innopolis.university/my/): Access official course materials and tests. / Материалы курсов." in text
+    assert "- [Dormitory: Administration](https://telegram.me/hoteluni) (Общежитие: Администрация): Contact the hotel administration. / Связь с администрацией." in text
+
+    class Client:
+        def get(self, url):
+            assert url == "https://innohassle.ru/assets/app.js"
+            return type("R", (), {"text": JS})()
+
+    page = '<script type="module" crossorigin src="/assets/app.js"></script>'
+    out = sites.dashboard_with_catalog(Client(), page, "https://innohassle.ru/dashboard", "## Dashboard\n\n## All University Services\n\nAll\n\n## Filter\n\n[Sport](u)\n")
+    assert out.startswith("## Dashboard") and "### Housing" in out and "[Sport](u)" not in out  # (the six cards the page shows give way to the catalog)
+
+
+class _Site:
+    """A client that answers every page with the same HTML (the page behind a login: the shell)."""
+
+    def __init__(self, html):
+        self.html = html
+
+    def get(self, url):
+        return httpx.Response(200, headers={"content-type": "text/html"}, text=self.html, request=httpx.Request("GET", url))
+
+
+def test_a_page_a_person_wrote_is_not_written_over_by_the_crawl(tmp_path, monkeypatch):
+    monkeypatch.setattr(sites, "ROOT", tmp_path)
+    monkeypatch.setattr(sites, "PAUSE", 0)
+    site = sites.Site("https://app.example/", "en", "an app", "^nothing$", sitemap=False, max_pages=3)
+    shell = "<html><title>My bookings</title><h1>Bookings</h1><h2>Sign in to get access</h2><p>Use your account.</p></html>"
+    sites.fetch_site("app", site, _Site(shell))
+    cache = next((tmp_path / "app").glob("*.md"))
+    assert sites.load("app")["pages"][cache.stem]["file_sha"]
+    cache.write_text("## Booking rules\nStudents can book rooms up to 3 hours.\n", encoding="utf-8")  # (a person put the page behind the login in)
+    sites.fetch_site("app", site, _Site(shell.replace("Bookings", "Bookings today")))  # (the page changed, the crawl sees the shell)
+    assert cache.read_text(encoding="utf-8") == "## Booking rules\nStudents can book rooms up to 3 hours.\n"
+    page = sites.load("app")["pages"][cache.stem]
+    assert page["manual"] and page["sha256"] == hashlib.sha256(sites.plain(cache.read_text(encoding="utf-8")).encode()).hexdigest()
+    sites.fetch_site("app", site, _Site(shell))  # (and the next time too: the mark stays)
+    assert "Booking rules" in cache.read_text(encoding="utf-8")
+
+
+def test_a_page_the_model_cannot_describe_gets_its_first_sentence_and_the_model_describes_it_on_the_next_run(tmp_path, monkeypatch):
+    sentence = "Students settle in the rooms of the campus and pay for the room every month."
+    out = _site_root(tmp_path, monkeypatch, {"home": ("https://hotel.innopolis.university/", f"{sentence} {WORDS}"),
+                                             "rooms": ("https://hotel.innopolis.university/rooms/", f"{WORDS} rooms")})
+    asked = []
+
+    def down(*a, **k):
+        asked.append(1)
+        raise httpx.ConnectError("no model")
+
+    monkeypatch.setattr(sites.regulations, "describe", down)
+    sites.compile_all()
+    home = (out / "hotel" / "home.md").read_text(encoding="utf-8")
+    assert f'description: "{sentence}"' in home or f"description: {sentence}" in home
+    assert "description pending" in home and len(asked) == 1  # (it asked once and did not wait for 40 more pages)
+    monkeypatch.setattr(sites.regulations, "describe", lambda title, text, kind="": ("the model's words", ["t"], ["student"]))
+    sites.compile_all()
+    again = (out / "hotel" / "home.md").read_text(encoding="utf-8")
+    assert "the model's words" in again and "pending" not in again
