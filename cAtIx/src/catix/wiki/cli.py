@@ -5,7 +5,7 @@
     catix-wiki sveden discover|triage|status|override   # all documents of innopolis.university/sveden (see sources/sveden.py)
     catix-wiki regs fetch|compile      # official regulations (PDF) as a second source, see sources/regulations.py
     catix-wiki rpd fetch|compile|status   # course programmes (РПД) from the archives of sveden/education, see sources/rpd.py
-    catix-wiki sites fetch|compile|status   # campuslife.innopolis.ru, hotel.innopolis.university, see sources/sites.py
+    catix-wiki sites fetch [SITE ...]|compile|status   # the sites of the university, its services and the city, see sources/sites.py
     catix-wiki papers fetch|compile|status  # past exam papers from the students' Notion database, see sources/pastpapers.py
     catix-wiki autopilot [--loop] [--source NAME ...] [--no-push] [--no-answers]   # the wiki maintains itself and commits to its branch (see autopilot.py)
     catix-wiki build [--offline]       # the whole chain, re-running only what changed (see build.py)

@@ -35,6 +35,14 @@ def test_a_number_in_a_block_of_its_own_opens_its_item():
     assert "**1.** Final exams are scheduled within the exam period." in text.splitlines()
 
 
+def test_a_counter_is_not_an_item():
+    html = ("<html><body><p>110</p><p>бюджетных мест в бакалавриате</p><p>50</p><p>бюджетных мест в магистратуре</p>"
+            "<p>1</p><p>Apply online.</p><p>2</p><h2>Pass the exams</h2></body></html>")
+    lines = read(html, "https://new.innopolis.university/en/grant/")[1].splitlines()
+    assert "50" in lines and "бюджетных мест в магистратуре" in lines  # (new.innopolis.university: a count of places, not item 50)
+    assert "**1.** Apply online." in lines and "## **2.** Pass the exams" in lines
+
+
 def test_one_file_written_three_ways_is_one_document_with_its_fullest_name():
     _, _, links = read(PAGE, "https://hotel.innopolis.university/studentaccommodation/")
     files = {canonical(url) for url, _ in links if url.endswith(".pdf")}

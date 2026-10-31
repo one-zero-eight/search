@@ -2,10 +2,12 @@
 site, every page in Russian and English; of its disclosure section /sveden/ sveden.py reads the documents, this the text of
 the pages: the staff, the structure), apply.innopolis.university (for applicants: programmes, admission, grants, olympiads;
 Russian), campuslife.innopolis.ru
-(student life: the handbook, the FAQ, scholarships, clubs; English) and hotel.innopolis.university (the campus and its
-dormitories; Russian).
+(student life: the handbook, the FAQ, scholarships, clubs; English), hotel.innopolis.university (the campus and its
+dormitories; Russian), new.innopolis.university/en/ (international applicants; English), media.innopolis.university (the
+news and events), stc.innopolis.university (IT courses), edu.innopolis.university (programmes for schools and teachers) and
+innopolis.com (the city and its special economic zone; Russian and English).
 
-    catix-wiki sites fetch      # the pages of every site -> raw/sites/<site>/ (one request every PAUSE seconds); the number that changed
+    catix-wiki sites fetch [SITE ...]   # the pages of every site (or of those named) -> raw/sites/<site>/ (one request every Site.pause seconds); the number that changed
     catix-wiki sites compile    # raw/sites -> wiki/raw/sites/<site>/<slug>.md
     catix-wiki sites status     # pages and documents found on every site
 
@@ -29,6 +31,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from html.parser import HTMLParser
 from urllib.parse import parse_qs, quote, unquote, urldefrag, urljoin, urlsplit
+from urllib.robotparser import RobotFileParser
 
 import httpx
 
@@ -56,6 +59,8 @@ class Site:
     english: str | None = None  # the path of the English copy of a Russian site: its pages are `language: en`
     dated: bool = False  # a year in the title or the address of a page is the year it is about (events: 'Spring Ball 2022')
     render: bool = False  # the site is an app: its HTML is an empty shell, the text comes from scripts (a headless browser runs them)
+    robots: bool = False  # the pages its robots.txt disallows are not taken (Tilda lists there the pages it does not publish: tests, old webinars)
+    pause: float = PAUSE  # seconds between requests (innopolis.com asks for 10: Crawl-delay)
 
 
 SITES = {
@@ -73,6 +78,16 @@ SITES = {
                        max_pages=300, render=True),  # (an app: the browser runs its scripts; the pages behind a login show 'Sign in' and are dropped as pages of no words)
     "hotel": Site("https://hotel.innopolis.university/", "ru", "the campus of Innopolis University: dormitories, their rules, prices and documents",
                   r"zayavka|bitrix|upload/", sitemap=False, english="en"),
+    "international": Site("https://new.innopolis.university/en/", "en", "admission of international applicants to Innopolis University (in English): bachelor's, master's and PhD programmes, grants, olympiad bonuses, applicants from the CIS, FAQ",
+                          r"^(?!en(/|$))|(^|/)(search|personal|auth|login|bitrix|upload|local|include)(/|$)", sitemap=False, max_pages=200),  # (only /en/ is there: / is a 404, and its sitemap is apply's)
+    "media": Site("https://media.innopolis.university/", "ru", "the news and events of Innopolis University",
+                  r"^(?!(news|events)(/|$))[^/]+", max_pages=5000, dated=True),  # (the rest of it is innopolis.university again: about, sveden, success-stories; its /en/ lists the Russian news)
+    "stc": Site("https://stc.innopolis.university/", "ru", "IT courses of Innopolis University for adults and children: professions, programmes, their prices and the blog",
+                r"^(tilda|members)/|^page\d+\.html$", max_pages=300, robots=True),
+    "edu": Site("https://edu.innopolis.university/", "ru", "programmes of Innopolis University for schools, colleges, universities and teachers: short courses, internships, strategy sessions, staff assessment",
+                r"^(tilda|members)/|^page\d+\.html$", max_pages=200, robots=True),
+    "city": Site("https://innopolis.com/ru/", "ru", "the city of Innopolis and its special economic zone: living and housing, transport, services, schools, business, news and events",
+                 r"^(?!(ru|en)(/|$))", sitemap=False, max_pages=600, english="en", dated=True, pause=10),  # (an address without ru/ or en/ is a redirect to /ru/site/typicle?slug=...)
 }
 
 
@@ -401,10 +416,12 @@ def read(html: str, url: str) -> tuple[str, str, list[tuple[str, str]]]:
     parser.feed(html)
     parser.close()
     parser._flush()
-    lines = []
+    lines, item = [], 0
     for line in parser.lines:
-        if lines and re.fullmatch(r"\d{1,2}", lines[-1]):
-            lines[-1] = f"**{lines[-1]}.** {line}"  # a numbered item whose number sits in a block of its own: 'item 2' can be quoted
+        if lines and re.fullmatch(r"\d{1,2}", lines[-1]) and int(lines[-1]) in (1, item + 1):  # (not a counter: '110 places', '50 places')
+            item = int(lines[-1])
+            hashes, words = re.match(r"(#+ )?(.*)", line).groups()  # (a step whose words are a heading: '### **1.** Submit an application')
+            lines[-1] = f"{hashes or ''}**{lines[-1]}.** {words}"  # a numbered item whose number sits in a block of its own: 'item 2' can be quoted
             continue
         lines.append(line)
         for k in range(1, 9):  # Tilda repeats a block (of up to a few lines) for phones: the second copy goes
@@ -420,6 +437,26 @@ def _taken(site: Site, url: str) -> bool:
     if parts.scheme not in {"http", "https"} or parts.netloc != urlsplit(site.base).netloc or DOC.search(parts.path):
         return False
     return not re.search(site.skip, unquote(parts.path).lstrip("/"), re.I)
+
+
+def repaired(site: Site, loc: str) -> str:
+    """An address of a sitemap with the host written twice, as media's lists its news
+    ('http://media.innopolis.universitymedia.innopolis.university/news/...'): the host once."""
+    host = re.escape(urlsplit(site.base).netloc)
+    return re.sub(rf"^(https?://){host}(?={host}/)", r"\1", loc)
+
+
+def robots_of(site: Site, client: httpx.Client) -> RobotFileParser | None:
+    """The rules of the site's robots.txt, for a site that asks to follow them (Site.robots); None: every page may be read."""
+    if not site.robots:
+        return None
+    rules = RobotFileParser()
+    try:
+        rules.parse(client.get(urljoin(site.base, "/robots.txt")).text.splitlines())
+    except httpx.HTTPError as e:
+        print(f"  no robots.txt ({e}): every page is read")
+        return None
+    return rules
 
 
 def load(name: str) -> dict:
@@ -444,15 +481,16 @@ def fetch_site(name: str, site: Site, client: httpx.Client) -> int:
                 if not maps:
                     break
                 for loc in re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", client.get(maps.pop(0)).text):
-                    (maps if loc.endswith(".xml") else todo).append(loc)
-                time.sleep(PAUSE)
+                    (maps if loc.endswith(".xml") else todo).append(repaired(site, loc))
+                time.sleep(site.pause)
         except httpx.HTTPError as e:
             print(f"  {name}: no sitemap ({e})")
-        time.sleep(PAUSE)
+        time.sleep(site.pause)
+    rules = robots_of(site, client)
     seen, read_slugs, read_ok, changed, docs = set(), set(), 0, 0, {}
     while todo and len(seen) < site.max_pages:
         url = canonical(todo.pop(0))
-        if url in seen or not _taken(site, url):
+        if url in seen or not _taken(site, url) or rules and not rules.can_fetch(regulations.HEADERS["User-Agent"], url):
             continue
         seen.add(url)
         slug = slug_of(site, url)
@@ -460,7 +498,7 @@ def fetch_site(name: str, site: Site, client: httpx.Client) -> int:
             slug = f"{slug[:50]}-{hashlib.sha1(url.encode()).hexdigest()[:6]}"
         try:
             resp = get_page(client, site, url)
-            time.sleep(PAUSE)
+            time.sleep(site.pause)
         except (httpx.HTTPError, subprocess.TimeoutExpired) as e:
             print(f"  FAILED {url}: {e}")
             continue
@@ -512,10 +550,15 @@ def fetch_site(name: str, site: Site, client: httpx.Client) -> int:
     return changed
 
 
-def fetch() -> int:
+def fetch(names: list[str] | None = None) -> int:
+    """The sites named (every site when none is), one after another; the number of pages that are new, changed or gone."""
+    if unknown := [n for n in names or [] if n not in SITES]:
+        sys.exit(f"no site {', '.join(unknown)}: the sites are {', '.join(SITES)}")
     total = 0
     with httpx.Client(headers=regulations.HEADERS, timeout=60, follow_redirects=True) as client:
         for name, site in SITES.items():
+            if names and name not in names:
+                continue
             print(f"== {name}: {site.base}")
             total += fetch_site(name, site, client)
     return total
@@ -724,9 +767,9 @@ def status() -> None:
 
 
 def main() -> None:
-    cmd, *_ = sys.argv[2:] or ["status"]
+    cmd, *args = sys.argv[2:] or ["status"]
     if cmd == "fetch":
-        fetch()
+        fetch(args)
     elif cmd == "compile":
         compile_all()
     elif cmd == "status":
