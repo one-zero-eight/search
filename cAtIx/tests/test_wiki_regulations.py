@@ -196,3 +196,38 @@ def test_a_scan_as_chandra_reads_it_is_text_as_a_text_layer_is():
         "Положение о практике", "1. Общие положения",
         "| Вид | Сроки |  |\n| --- | --- | --- |\n| Вид | начало | конец |\n| учебная | 1 июля | 14 июля |",
         "1.1. Студент проходит практику в\nорганизации.", "– отчёт;", "– дневник.", "Директор", "К.В. Семенихин"]
+
+
+def test_a_login_page_given_for_a_document_is_not_the_document_and_the_document_waits(monkeypatch, tmp_path):
+    import contextlib
+
+    import httpx
+
+    from catix.wiki.sources import opendataloader, regulations
+
+    url = "https://help.university.innopolis.ru/documents/reglament.pdf"
+    monkeypatch.setattr(regulations, "all_docs", lambda: {"site-help-1-reglament": {"title": "Регламент", "url": url, "root": tmp_path, "section": "site/help", "ext": "pdf"}})
+    login = httpx.Response(200, html="<!DOCTYPE html><html><body>Sign in</body></html>", request=httpx.Request("GET", "https://sso.university.innopolis.ru/adfs/ls"))
+    monkeypatch.setattr(regulations.httpx, "get", lambda *a, **k: login)
+    monkeypatch.setattr(regulations, "PAUSE", 0)
+    monkeypatch.setattr(opendataloader, "converted", lambda pdfs: contextlib.nullcontext({}))
+    assert regulations.fetch() == 0
+    assert list(tmp_path.iterdir()) == []  # no file, and no note that would keep it skipped
+
+
+def test_a_broken_link_the_site_answers_with_its_page_is_skipped(monkeypatch, tmp_path):
+    import contextlib
+    import json
+
+    import httpx
+
+    from catix.wiki.sources import opendataloader, regulations
+
+    url = "https://innopolis.university/sveden/upload/iblock/e9e/x/10.pdf"
+    monkeypatch.setattr(regulations, "all_docs", lambda: {"site-university-1-10": {"title": "Результаты опроса", "url": url, "root": tmp_path, "section": "site/university", "ext": "pdf"}})
+    page = httpx.Response(200, html="<!DOCTYPE html><html><title>Сведения</title></html>", request=httpx.Request("GET", url))
+    monkeypatch.setattr(regulations.httpx, "get", lambda *a, **k: page)
+    monkeypatch.setattr(regulations, "PAUSE", 0)
+    monkeypatch.setattr(opendataloader, "converted", lambda pdfs: contextlib.nullcontext({}))
+    assert regulations.fetch() == 0
+    assert [f.name for f in tmp_path.iterdir()] == ["site-university-1-10.json"] and "skipped" in json.loads((tmp_path / "site-university-1-10.json").read_text())

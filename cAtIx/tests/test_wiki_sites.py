@@ -207,6 +207,18 @@ def test_the_name_of_the_site_leaves_the_titles_and_the_way_to_the_next_post_lea
     assert 'title: "Новость 0"' in page and "Дальше" not in page
 
 
+def test_the_pages_of_a_site_read_elsewhere_stay_and_the_links_to_them_lead_there(tmp_path, monkeypatch):
+    out = _site_root(tmp_path, monkeypatch, {"home": ("https://hotel.innopolis.university/", f"{WORDS} [VPN](https://help.example/ru/vpn)")})
+    monkeypatch.setattr(sites, "SITES", {"hotel": SITES["hotel"], "help": dataclasses.replace(SITES["hotel"], base="https://help.example/")})
+    (out / "help").mkdir(parents=True)
+    vpn = '---\ntype: page\ntitle: "VPN"\nresource: "https://help.example/ru/vpn"\n---\n\n# VPN\n'
+    (out / "help" / "ru-vpn.md").write_text(vpn, encoding="utf-8")
+    (out / "help" / "_shared.md").write_text('---\nresource: "https://help.example/"\n---\n', encoding="utf-8")
+    sites.compile_all()  # (no cache of help here: its browser read it on another machine)
+    assert (out / "help" / "ru-vpn.md").read_text(encoding="utf-8") == vpn and (out / "help" / "_shared.md").exists()
+    assert "[VPN](/raw/sites/help/ru-vpn.md)" in (out / "hotel" / "home.md").read_text(encoding="utf-8")
+
+
 def test_a_site_may_keep_its_sitemap_elsewhere(tmp_path, monkeypatch):
     monkeypatch.setattr(sites, "ROOT", tmp_path)
     monkeypatch.setattr(sites, "PAUSE", 0)

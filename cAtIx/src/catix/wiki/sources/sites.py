@@ -911,7 +911,18 @@ def compile_all() -> None:
     out.mkdir(parents=True, exist_ok=True)
     entries: dict[tuple[str, str], dict] = {}
     shared: dict[tuple[str, str], list[str]] = {}  # (site, language) -> the lines its pages repeat, in the order they come
+    kept: dict[str, str] = {}  # the address of a page of a site not read here -> its page, as it is
+    untouched: set = set()  # the files of those sites
     for name, site in SITES.items():
+        if not (ROOT / name / "index.json").exists():  # (read elsewhere: a site behind a login, by the person's browser) its pages stay as they are
+            files = [f for f in sorted((out / name).glob("*.md")) if f.name != "index.md"] if (out / name).is_dir() else []
+            untouched |= set(files)
+            for page in files:
+                if not page.name.startswith("_") and (url := re.search(r'^resource: "?([^"\n]+?)"?$', page.read_text(encoding="utf-8"), re.M)):
+                    kept[address(url.group(1))] = page_path(name, page.stem)  # (not the shared blocks: their address is the site's)
+            if files:
+                print(f"{name}: not read here (no {ROOT.name}/{name}/index.json), its {len(files)} pages kept as they are")
+            continue
         pages = {slug: p for slug, p in load(name)["pages"].items() if not p.get("gone") and (ROOT / name / f"{slug}.md").exists()}
         texts = {slug: (ROOT / name / f"{slug}.md").read_text(encoding="utf-8") for slug in pages}
         common = {lang: boilerplate([t for slug, t in texts.items() if language_of(site, slug) == lang]) for lang in {"ru", "en"}}  # (each language has its menu)
@@ -940,7 +951,7 @@ def compile_all() -> None:
             if len(re.findall(r"[^\W\d_]{3,}", plain("\n".join(lines)))) < MIN_WORDS:
                 continue  # a page of pictures and buttons
             entries[name, slug] = {"site": site, "page": p, "title": title, "lang": lang, "lines": lines}
-    where = {address(e["page"]["url"]): page_path(name, slug) for (name, slug), e in entries.items()}
+    where = kept | {address(e["page"]["url"]): page_path(name, slug) for (name, slug), e in entries.items()}
     for key, doc in docs().items():  # (a document of a site, once it is a page of regulations)
         if (DOCS / "regulations" / f"{key}.md").exists():
             where[address(doc["url"])] = f"/{DOCS.name}/regulations/{key}.md"
@@ -974,6 +985,7 @@ def compile_all() -> None:
         if page != (target.read_text(encoding="utf-8") if target.exists() else ""):
             target.write_text(page, encoding="utf-8")
             written += 1
+    keep |= untouched
     for page in out.rglob("*.md"):
         if page not in keep and page.name != "index.md":
             page.unlink()

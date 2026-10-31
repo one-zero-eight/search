@@ -303,6 +303,14 @@ def fetch(limit: int | None = None) -> int:
                     print(f"  too big ({len(resp.content) // 1_000_000} MB), skipped")
                     skip(d, meta, "file too big")
                     continue
+                if ext not in ("htm", "html") and re.match(rb"\s*<(!doctype html|html)\b", resp.content[:200], re.I):
+                    if resp.url.host != httpx.URL(d["url"]).host:  # sent to a login (help: to the university's SSO): not skipped, read once someone logged in fetches it
+                        print(f"  sent to {resp.url.host}, a page, not the file: left for a run that can open it")
+                    else:  # a broken link the site answers with one of its pages
+                        print("  the site answers with a page, not the file, skipped")
+                        skip(d, meta, "a page, not the file")
+                    time.sleep(PAUSE)
+                    continue
             except httpx.HTTPError as e:  # a moved file must not stop the others
                 print(f"  FAILED: {e}")
                 if isinstance(e, httpx.HTTPStatusError) and e.response.status_code == 404:  # a dead link on the site itself
