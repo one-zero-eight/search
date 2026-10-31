@@ -61,6 +61,10 @@ class Site:
     render: bool = False  # the site is an app: its HTML is an empty shell, the text comes from scripts (a headless browser runs them)
     robots: bool = False  # the pages its robots.txt disallows are not taken (Tilda lists there the pages it does not publish: tests, old webinars)
     pause: float | None = None  # seconds between requests, PAUSE when None (innopolis.com asks for 10: Crawl-delay)
+    headings: str | None = None  # the classes of a block that is a heading on a site that writes no <h2> (innopolis.com: <div class="article__title">)
+    bare: bool = False  # a link without a language is the page in the language of the page it is on (innopolis.com writes '/media/news/x', '/services')
+    listing: str | None = None  # the query that turns the pages of a list (innopolis.com: '?page=2'): they are read for their links, not kept
+    end: str | None = None  # where the text of a page ends and the site's blocks of the day it was read begin (media: 'Новости по теме')
 
 
 SITES = {
@@ -81,13 +85,15 @@ SITES = {
     "international": Site("https://new.innopolis.university/en/", "en", "admission of international applicants to Innopolis University (in English): bachelor's, master's and PhD programmes, grants, olympiad bonuses, applicants from the CIS, FAQ",
                           r"^(?!en(/|$))|(^|/)(search|personal|auth|login|bitrix|upload|local|include)(/|$)", sitemap=False, max_pages=200),  # (only /en/ is there: / is a 404, and its sitemap is apply's)
     "media": Site("https://media.innopolis.university/", "ru", "the news and events of Innopolis University",
-                  r"^(?!(news|events)(/|$))[^/]+", max_pages=5000, dated=True),  # (the rest of it is innopolis.university again: about, sveden, success-stories; its /en/ lists the Russian news)
+                  r"^(?!(news|events)(/|$))[^/]+|^(news|events)/[^/]+/.", max_pages=5000, dated=True, end=r"(?m)^(\[Читать далее\]\([^)]*\)\n)?Новости по теме$"),  # (the rest of it is innopolis.university again: about, sveden, success-stories; its /en/ lists the Russian news;
+                  # an address below a news item is a link written without 'https://' ('news/x/www.kuka.ru'): the site answers it with its list of news)
     "stc": Site("https://stc.innopolis.university/", "ru", "IT courses of Innopolis University for adults and children: professions, programmes, their prices and the blog",
                 r"^(tilda|members)/|^page\d+\.html$", max_pages=300, robots=True),
     "edu": Site("https://edu.innopolis.university/", "ru", "programmes of Innopolis University for schools, colleges, universities and teachers: short courses, internships, strategy sessions, staff assessment",
                 r"^(tilda|members)/|^page\d+\.html$", max_pages=200, robots=True),
     "city": Site("https://innopolis.com/ru/", "ru", "the city of Innopolis and its special economic zone: living and housing, transport, services, schools, business, news and events",
-                 r"^(?!(ru|en)(/|$))", sitemap=False, max_pages=600, english="en", dated=True, pause=10),  # (an address without ru/ or en/ is a redirect to /ru/site/typicle?slug=...)
+                 r"^(?!(ru|en)(/|$))", sitemap=False, max_pages=800, english="en", dated=True, pause=10,  # (an address without ru/ or en/ is a redirect to /ru/site/typicle?slug=..., a page that fails)
+                 headings=r"\b(section_head|section_text|article|history)__title\b", bare=True, listing="page"),
 }
 
 
@@ -231,9 +237,10 @@ class _Markdown(HTMLParser):
     HIDDEN = {"script", "style", "noscript", "svg", "form", "select", "button", "template", "iframe", "head"}
     BLOCK = {"p", "div", "section", "article", "br", "ul", "ol", "blockquote", "dd", "dt"}
 
-    def __init__(self, base: str) -> None:
+    def __init__(self, base: str, headings: str | None = None) -> None:
         super().__init__(convert_charrefs=True)
         self.base, self.lines, self.line, self.hidden = base, [], "", 0
+        self.headings = headings  # (Site.headings)
         self.links: list[tuple[str, str]] = []  # (url, text)
         self.href: str | None = None
         self.anchor = ""
@@ -347,6 +354,8 @@ class _Markdown(HTMLParser):
             return
         if tag == "a":
             self.href, self.anchor, self.url, self.mark = a.get("href"), "", None, None
+            if re.match(r"(?i)javascript:", re.sub(r"[\s*]", "", self.href or "")):  # (a script, not a link; media writes it 'jav * ascript:void(0)', an address of every page)
+                self.href = None
             if self.href and not self.hidden:
                 url = urljoin(self.base, self.href.strip())
                 if urlsplit(url).scheme in {"http", "https"} and urldefrag(url)[0] != urldefrag(self.base)[0]:
@@ -372,6 +381,8 @@ class _Markdown(HTMLParser):
                 self.line = "### "
             elif tag == "li":
                 self.line = "- "
+            elif self.headings and re.search(self.headings, a.get("class", "")):
+                self.line = "## "
 
     def handle_endtag(self, tag: str) -> None:
         if tag == "title":
@@ -410,9 +421,9 @@ class _Markdown(HTMLParser):
             self.anchor += data
 
 
-def read(html: str, url: str) -> tuple[str, str, list[tuple[str, str]]]:
-    """(title, markdown lines, links) of a page."""
-    parser = _Markdown(url)
+def read(html: str, url: str, headings: str | None = None) -> tuple[str, str, list[tuple[str, str]]]:
+    """(title, markdown lines, links) of a page; `headings`: Site.headings."""
+    parser = _Markdown(url, headings)
     parser.feed(html)
     parser.close()
     parser._flush()
@@ -444,6 +455,15 @@ def repaired(site: Site, loc: str) -> str:
     ('http://media.innopolis.universitymedia.innopolis.university/news/...'): the host once."""
     host = re.escape(urlsplit(site.base).netloc)
     return re.sub(rf"^(https?://){host}(?={host}/)", r"\1", loc)
+
+
+def languaged(site: Site, url: str, page: str) -> str:
+    """A link of the site written without a language (Site.bare): the page in the language of the page it is on;
+    a file is not in a language ('/uploads/x.jpg')."""
+    parts, lang = urlsplit(url), re.match(r"/([a-z]{2})(/|$)", urlsplit(page).path)
+    if not site.bare or not lang or parts.netloc != urlsplit(site.base).netloc or re.match(r"/[a-z]{2}(/|$)", parts.path) or re.search(r"\.\w+$", parts.path):
+        return url
+    return url.replace(parts.netloc, f"{parts.netloc}/{lang.group(1)}", 1)
 
 
 def robots_of(site: Site, client: httpx.Client) -> RobotFileParser | None:
@@ -490,7 +510,9 @@ def fetch_site(name: str, site: Site, client: httpx.Client) -> int:
     seen, read_slugs, read_ok, changed, docs = set(), set(), 0, 0, {}
     first: dict[str, str] = {}  # the words of a page (their hash) -> the page read with them first in this run
     while todo and len(seen) < site.max_pages:
-        url = canonical(todo.pop(0))
+        link = todo.pop(0)
+        number = re.search(rf"[?&]{site.listing}=(\d+)", link) if site.listing else None
+        url = canonical(link) + (f"?{site.listing}={number.group(1)}" if number and number.group(1) != "1" else "")  # (a page of a list, after its first)
         if url in seen or not _taken(site, url) or rules and not rules.can_fetch(regulations.HEADERS["User-Agent"], url):
             continue
         seen.add(url)
@@ -514,7 +536,10 @@ def fetch_site(name: str, site: Site, client: httpx.Client) -> int:
             continue
         read_ok += 1
         read_slugs.add(slug)
-        title, text, links = read(resp.text, str(resp.url))
+        title, text, links = read(resp.text, str(resp.url), site.headings)
+        if site.bare:
+            links = [(languaged(site, link, str(resp.url)), anchor) for link, anchor in links]
+            text = re.sub(r"(!\[[^\]]*\]\([^)\s]*\))|(?<=\]\()https?://[^)\s]+", lambda m: m.group(1) or languaged(site, m.group(), str(resp.url)), text)  # (not a picture)
         if (extra := EXTRAS.get((name, slug))):
             text = extra(client, resp.text, str(resp.url), text)
         for link, anchor in links:
@@ -523,6 +548,8 @@ def fetch_site(name: str, site: Site, client: httpx.Client) -> int:
                 docs[doc] = max(docs.get(doc, ""), anchor, key=len)  # the fullest of the link texts: 'Правила проживания', not 'Правила'
             elif _taken(site, link):
                 todo.append(link)
+        if "?" in url:  # (a page of a list: its links are taken, it is not kept)
+            continue
         sha = hashlib.sha256(plain(text).encode()).hexdigest()  # (the words: a new link or picture is not a new version)
         if first.setdefault(sha, slug) != slug:  # the page read before under another address (Tilda: '/Vue-js-framework' is '/vue-js-framework')
             if old and not old.get("gone"):
@@ -694,12 +721,16 @@ def compile_all() -> None:
             for line in texts[slug].splitlines():
                 if line in common[lang] and line not in shared.setdefault((name, lang), []):
                     shared[name, lang].append(line)
-            lines = [line for line in texts[slug].splitlines() if line not in common[lang]]
-            title = re.sub(r"\s*[|—–-]\s*(Campus Life|Кампус.*|Университет Иннополис|Innopolis University)$", "", p["title"]).strip() or p["title"]
+            own = re.split(site.end, texts[slug], maxsplit=1)[0] if site.end else texts[slug]  # (the related and popular news are not the page's: they change by the day)
+            lines = [line for line in own.splitlines() if line not in common[lang]]
+            title = re.sub(r"\s*[|—–-]\s*(Campus Life|Кампус.*|Университет Иннополис|Innopolis University|Иннополис|Innopolis)$", "", p["title"]).strip() or p["title"]  # (innopolis.com: 'Аренда жилья - Иннополис')
             if same[p["title"]] >= 5 and len(pages) >= 10:
                 title = next((h for h in (plain(line).lstrip("# ").strip() for line in lines if re.match(r"#{2,3} ", line)) if h), title)  # its first heading names the page
-            if lines and plain(lines[0]).lstrip("# ").lower() == title.lower():
-                lines = lines[1:]  # (the page's own heading: the title says it)
+            head = next((i for i, line in enumerate(lines[:3]) if plain(line).lstrip("# ").lower() == title.lower()), None)
+            if head is not None:  # (the page's own heading: the title says it)
+                del lines[head]
+                if 0 < head < len(lines) and lines[head - 1] == lines[head]:
+                    del lines[head]  # (the date of a news item before its heading and after it)
             if len(re.findall(r"[^\W\d_]{3,}", plain("\n".join(lines)))) < MIN_WORDS:
                 continue  # a page of pictures and buttons
             entries[name, slug] = {"site": site, "page": p, "title": title, "lang": lang, "lines": lines}

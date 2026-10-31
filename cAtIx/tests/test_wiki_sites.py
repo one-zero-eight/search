@@ -43,6 +43,20 @@ def test_a_counter_is_not_an_item():
     assert "**1.** Apply online." in lines and "## **2.** Pass the exams" in lines
 
 
+def test_a_script_written_as_a_link_is_no_link():
+    html = '<html><body><p><a href="jav * ascript:void(0)">Скачать PDF, содержащий материалы страницы</a></p></body></html>'
+    _, text, links = read(html, "https://media.innopolis.university/news/x/")
+    assert text == "Скачать PDF, содержащий материалы страницы" and links == []
+
+
+def test_a_block_a_site_names_a_heading_is_one():
+    html = ('<html><body><div class="article__title">Стоимость квартир</div><div class="article__text">от 17 000 ₽ в месяц</div>'
+            '<div class="facts_item__title">3 минуты</div></body></html>')
+    lines = read(html, "https://innopolis.com/ru/life/housing/rental", SITES["city"].headings)[1].splitlines()
+    assert lines == ["## Стоимость квартир", "от 17 000 ₽ в месяц", "3 минуты"]  # (a fact's title is no heading)
+    assert read(html, "https://innopolis.com/ru/life/housing/rental")[1].splitlines()[0] == "Стоимость квартир"  # (another site: a div)
+
+
 def test_one_file_written_three_ways_is_one_document_with_its_fullest_name():
     _, _, links = read(PAGE, "https://hotel.innopolis.university/studentaccommodation/")
     files = {canonical(url) for url, _ in links if url.endswith(".pdf")}
@@ -167,6 +181,18 @@ def test_the_pages_of_a_site_go_to_a_folder_of_their_own_and_link_each_other(tmp
     home, rooms = (out / "hotel" / "home.md").read_text(encoding="utf-8"), (out / "hotel" / "rooms.md").read_text(encoding="utf-8")
     assert "[Номера](/raw/sites/hotel/rooms.md)" in home and "![Фото](https://cdn.example/a.jpg)" in home
     assert "[На главную](/raw/sites/hotel/home.md)" in rooms and "[Скрытая](https://hotel.innopolis.university/gone/)" in rooms
+
+
+def test_a_news_item_ends_where_the_related_news_begin_and_says_its_heading_and_date_once(tmp_path, monkeypatch):
+    out = _site_root(tmp_path, monkeypatch, {
+        "rooms": ("https://hotel.innopolis.university/rooms/", f"29 октября 2026\n## Rooms\n29 октября 2026\n{WORDS}\n[Читать далее](https://hotel.innopolis.university/next/)\n"
+                                                                "Новости по теме\n[Другая новость дня](https://hotel.innopolis.university/other/)"),
+    })
+    monkeypatch.setattr(sites, "SITES", {"hotel": dataclasses.replace(SITES["hotel"], end=SITES["media"].end)})
+    sites.compile_all()
+    body = (out / "hotel" / "rooms.md").read_text(encoding="utf-8").split("---\n", 2)[2]
+    assert body.count("29 октября 2026") == 1 and "## Rooms" not in body and WORDS in body
+    assert "Читать далее" not in body and "Другая новость дня" not in body
 
 
 def test_a_page_moved_into_its_folder_keeps_its_description_and_the_old_file_goes(tmp_path, monkeypatch):
@@ -385,6 +411,30 @@ def test_a_page_under_two_addresses_is_kept_once(tmp_path, monkeypatch):
 
     sites.fetch_site("courses", site, Client())
     assert sorted(sites.load("courses")["pages"]) == ["home", "vue"]  # (Tilda answers '/Vue' with '/vue')
+
+
+def test_the_pages_of_a_list_lead_to_its_news_and_a_link_without_a_language_is_in_the_page_s_one(tmp_path, monkeypatch):
+    monkeypatch.setattr(sites, "ROOT", tmp_path)
+    monkeypatch.setattr(sites, "PAUSE", 0)
+    site = sites.Site("https://city.example/ru/", "ru", "the city", r"^(?!(ru|en)(/|$))", sitemap=False, max_pages=20, bare=True, listing="page")
+    pages = {"/ru/": '<p>Город.</p><a href="/ru/news">Новости</a>',
+             "/ru/news": '<p>Новости города.</p><a href="/news/a">Первая</a> <a href="/ru/news?page=2&per-page=10">2</a>',
+             "/ru/news?page=2": '<p>Новости города.</p><a href="/news/b">Вторая</a> <a href="/ru/news?page=1&per-page=10">1</a>',
+             "/ru/news/a": '<p>Первая новость.</p><a href="/services">Услуги</a>', "/ru/news/b": "<p>Вторая новость.</p>",
+             "/ru/services": "<p>Услуги города.</p>"}
+    asked = []
+
+    class Client:
+        def get(self, url):
+            parts = httpx.URL(url)
+            asked.append(path := parts.raw_path.decode())
+            found = path in pages
+            return httpx.Response(200 if found else 500, headers={"content-type": "text/html"}, text=f"<html>{pages.get(path, '')}</html>", request=httpx.Request("GET", url))
+
+    sites.fetch_site("city", site, Client())
+    assert sorted(sites.load("city")["pages"]) == ["ru", "ru-news", "ru-news-a", "ru-news-b", "ru-services"]  # (the second page of the list is not a page)
+    assert asked.count("/ru/news") == 1 and "/services" not in asked  # (its first page is the list itself)
+    assert "[Услуги](https://city.example/ru/services)" in (tmp_path / "city" / "ru-news-a.md").read_text(encoding="utf-8")
 
 
 def test_a_page_the_model_cannot_describe_gets_its_first_sentence_and_the_model_describes_it_on_the_next_run(tmp_path, monkeypatch):
