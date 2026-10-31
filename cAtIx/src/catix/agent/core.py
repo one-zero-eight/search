@@ -9,6 +9,7 @@ from datetime import datetime
 from typing import Annotated, Iterable
 from urllib.parse import unquote
 
+import httpx
 from langchain.agents import create_agent
 from langchain.agents.middleware import (
     AgentMiddleware,
@@ -245,6 +246,23 @@ def parse_text_tool_calls(text: str, known_tools: set[str]) -> list[dict]:
     return calls
 
 
+_tool_call_token: list[int | None] = []  # the server's answer, once it gave one
+
+
+def tool_call_token() -> int | None:
+    """The token Qwen's tool call markup starts with (`<tool_call>`, 248058 in Qwen3.5's vocabulary), from the model server's
+    /tokenize (llama.cpp and vLLM both have one, each reading its own field); None if the markup is not one token there (another
+    model) or the server did not answer, asked again next time then."""
+    if not _tool_call_token:
+        try:
+            body = {"model": settings.llm_model, "prompt": "<tool_call>", "add_special_tokens": False, "content": "<tool_call>", "parse_special": True}
+            tokens = httpx.post(str(settings.llm_route).rstrip("/").removesuffix("/v1") + "/tokenize", json=body, timeout=5).json()["tokens"]
+        except Exception:  # noqa: BLE001 - not up, or no /tokenize: no ban this time
+            return None
+        _tool_call_token.append(tokens[0] if len(tokens) == 1 and isinstance(tokens[0], int) else None)
+    return _tool_call_token[0]
+
+
 def _repair_text_tool_call(message: AIMessage, known_tools: set[str] | None = None) -> AIMessage | None:
     """A message with a tool call written as text becomes a message with a real tool call; None if it is fine."""
     text = message.text
@@ -381,6 +399,7 @@ class RunGuardMiddleware(AgentMiddleware):
       again, its markup and why that call was not made after the conversation; the markup never reaches the user. Asked
       the same request again, the model wrote the same markup (the server had it cached: 0.7 s), and a forced report came
       back as TOOL_FAILURE_ANSWER (the docs helper wrote a third read on 'как перезачесть курсы, пройденные в другом вузе').
+      So a call that may not call tools may not start the markup either (`_no_markup`).
     - On the last model call the model may not call tools (`tool_choice` "none") and is told to answer, instead of the run
       being cut off by the call limit with an error message as the "answer". The tools stay in the request and the hint
       goes after the conversation: the tool list and the system prompt are at the start of what the model server reads,
@@ -473,9 +492,22 @@ class RunGuardMiddleware(AgentMiddleware):
         hint = UNKNOWN_TOOL_HINT if allow_calls else NOT_MADE_HINT
         return request.override(messages=[*request.messages, markup, HumanMessage(hint)])
 
+    @staticmethod
+    def _no_markup(request: ModelRequest, allow_calls: bool) -> ModelRequest:
+        """A call that may not call tools may not start one as text either: `<tool_call>` gets a logit bias of -100.
+        Forced to report, Sage in NVFP4 on vLLM wrote a read as text 8 times in 4 of 24 questions, again when asked
+        again, and 'как перезачесть курсы, пройденные в другом вузе' was answered TOOL_FAILURE_ANSWER (once in 24 on
+        llama.cpp). With the bias: no markup in 26 questions, that one answered 3 times of 3, median 18.6 s (20.7 before).
+        The bias is a sampling setting: the server's cache of the request's start stays."""
+        token = None if allow_calls else tool_call_token()
+        if token is None:
+            return request
+        return request.override(model_settings={**request.model_settings, "logit_bias": {str(token): -100}})
+
     def wrap_model_call(self, request, handler):
         request = self._final(request)
         allow = bool(request.tools) and request.tool_choice != "none"
+        request = self._no_markup(request, allow)
         response, ok = self._check(handler(request), allow)
         if not ok:
             response, ok = self._check(handler(self._again(request, response, allow)), allow)
@@ -485,6 +517,7 @@ class RunGuardMiddleware(AgentMiddleware):
     async def awrap_model_call(self, request, handler):
         request = self._final(request)
         allow = bool(request.tools) and request.tool_choice != "none"
+        request = self._no_markup(request, allow)
         response, ok = self._check(await handler(request), allow)
         if not ok:
             response, ok = self._check(await handler(self._again(request, response, allow)), allow)

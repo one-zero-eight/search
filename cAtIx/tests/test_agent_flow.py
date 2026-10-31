@@ -7,6 +7,7 @@ call is not executed again, a tool call written as text is repaired, the last mo
 
 import types
 
+import pytest
 from deepeval import assert_test
 from deepeval.test_case import LLMTestCase
 from langchain.agents.middleware.types import ModelResponse
@@ -20,12 +21,19 @@ SEARCH = {"name": "search_chats", "args": {"queries": ["мидтерм итп"]}
 TOOLS = [types.SimpleNamespace(name="search_chats"), types.SimpleNamespace(name="search_userbot_chats")]
 
 
+@pytest.fixture(autouse=True)
+def no_model_server(monkeypatch):
+    """No /tokenize asked: no logit bias, unless a test gives the token."""
+    monkeypatch.setattr(core, "tool_call_token", lambda: None)
+
+
 class Req:
     """A ModelRequest with the few things the guard reads, and `override` like the real one."""
 
     def __init__(self, ai_messages: int, system="base prompt"):
         self.messages = [HumanMessage("вопрос"), *[AIMessage(content="", tool_calls=[SEARCH]) for _ in range(ai_messages)]]
         self.tools, self.system_message, self.tool_choice = TOOLS, types.SimpleNamespace(text=system), None
+        self.model_settings = {}
 
     def override(self, **changes):
         clone = Req(0)
@@ -205,6 +213,33 @@ def test_markup_on_a_call_without_tools_is_asked_again_with_why_it_was_not_made(
     assert seen[1].messages[: len(seen[0].messages)] == seen[0].messages and seen[1].tool_choice == "none"
     assert seen[1].messages[-2].content == markup.content
     assert_test(LLMTestCase(input="", actual_output=str(seen[1].messages[-1].content)), [ContainsAll(["was not made"], name="WhyNotMade")])
+
+
+def test_a_call_that_may_not_call_tools_may_not_start_the_markup_either(monkeypatch):
+    """Sage in NVFP4 wrote a read as text when forced to report, asked again too: `<tool_call>` gets a logit bias of -100 on
+    such a call, and only there (a bias is a sampling setting, the server's cache stays)."""
+    monkeypatch.setattr(core, "tool_call_token", lambda: 248058)
+    seen = []
+    model = lambda request: seen.append(request) or ModelResponse(result=[AIMessage(content="Мидтерм в среду [m1].")])
+    RunGuardMiddleware().wrap_model_call(Req(core.settings.agent_max_model_calls - 1), model)
+    RunGuardMiddleware().wrap_model_call(Req(1), model)
+    assert seen[0].tool_choice == "none" and seen[0].model_settings == {"logit_bias": {"248058": -100}}
+    assert seen[1].tool_choice is None and seen[1].model_settings == {}
+
+
+def test_the_markup_token_is_asked_of_the_server_once_and_another_model_gets_no_ban(monkeypatch):
+    monkeypatch.undo()
+    asked = []
+
+    def post(url, json, timeout):
+        asked.append(url)
+        return types.SimpleNamespace(json=lambda: {"tokens": tokens})
+
+    monkeypatch.setattr(core.httpx, "post", post)
+    for tokens, expected in (([248058], 248058), ([27, 14172, 28541, 29], None)):
+        monkeypatch.setattr(core, "_tool_call_token", [])
+        assert core.tool_call_token() == expected and core.tool_call_token() == expected
+    assert asked == [str(core.settings.llm_route).removesuffix("/").removesuffix("/v1") + "/tokenize"] * 2
 
 
 def test_after_a_call_that_only_repeated_earlier_ones_the_next_is_the_report():
