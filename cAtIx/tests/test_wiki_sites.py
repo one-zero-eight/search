@@ -161,7 +161,6 @@ WORDS = " ".join(f"слово{chr(1072 + i % 26)}{chr(1072 + i // 26)}ы" for i 
 def _site_root(tmp_path, monkeypatch, pages):
     monkeypatch.setattr(sites, "ROOT", tmp_path / "cache")
     monkeypatch.setattr(sites, "DOCS", tmp_path / "wiki" / "raw")
-    monkeypatch.setattr(sites.regulations, "describe", lambda title, text, kind="": ("desc", ["t"], ["student"]))
     monkeypatch.setattr(sites, "SITES", {"hotel": sites.SITES["hotel"]})
     index = {"pages": {}, "docs": {}}
     for slug, (url, text) in pages.items():
@@ -183,6 +182,48 @@ def test_the_pages_of_a_site_go_to_a_folder_of_their_own_and_link_each_other(tmp
     assert "[На главную](/raw/sites/hotel/home.md)" in rooms and "[Скрытая](https://hotel.innopolis.university/gone/)" in rooms
 
 
+def test_a_link_to_the_old_name_of_a_site_leads_to_its_page_when_there_is_one(tmp_path, monkeypatch):
+    out = _site_root(tmp_path, monkeypatch, {
+        "home": ("https://hotel.innopolis.university/", f"{WORDS} [Номера](https://hotel.innopolis.ru/rooms/) [Старое](https://hotel.innopolis.ru/old/)"),
+        "rooms": ("https://hotel.innopolis.university/rooms/", WORDS),
+    })
+    monkeypatch.setattr(sites, "SITES", {"hotel": dataclasses.replace(SITES["hotel"], aliases=("hotel.innopolis.ru",))})
+    sites.compile_all()
+    home = (out / "hotel" / "home.md").read_text(encoding="utf-8")
+    assert "[Номера](/raw/sites/hotel/rooms.md)" in home and "[Старое](https://hotel.innopolis.ru/old/)" in home  # (no page: the link as written)
+
+
+def test_the_name_of_the_site_leaves_the_titles_and_the_way_to_the_next_post_leaves_the_text(tmp_path, monkeypatch):
+    centre = " — Центр робототехники"
+    out = _site_root(tmp_path, monkeypatch, {f"p{i}": (f"https://hotel.innopolis.university/p{i}/", f"{WORDS} {i}\n[Дальше](https://hotel.innopolis.university/p{i + 1}/)") for i in range(6)})
+    index = sites.load("hotel")
+    for i, page in enumerate(index["pages"].values()):
+        page["title"] = f"Новость {i}{centre}"
+    sites.save("hotel", index)
+    monkeypatch.setattr(sites, "SITES", {"hotel": dataclasses.replace(SITES["hotel"], drop=SITES["robotics"].drop)})
+    sites.compile_all()
+    page = (out / "hotel" / "p0.md").read_text(encoding="utf-8")
+    assert 'title: "Новость 0"' in page and "Дальше" not in page
+
+
+def test_a_site_may_keep_its_sitemap_elsewhere(tmp_path, monkeypatch):
+    monkeypatch.setattr(sites, "ROOT", tmp_path)
+    monkeypatch.setattr(sites, "PAUSE", 0)
+    site = sites.Site("https://wp.example/", "ru", "a centre", r"^nothing$", sitemap="wp-sitemap.xml", max_pages=10)
+    maps = {"/wp-sitemap.xml": "<sitemapindex><sitemap><loc>https://wp.example/wp-sitemap-posts-team-1.xml</loc></sitemap></sitemapindex>",
+            "/wp-sitemap-posts-team-1.xml": "<urlset><url><loc>https://wp.example/team/ivanov/</loc></url></urlset>"}
+
+    class Client:
+        def get(self, url):
+            path = httpx.URL(url).path
+            if path in maps:
+                return httpx.Response(200, headers={"content-type": "application/xml"}, text=maps[path], request=httpx.Request("GET", url))
+            return httpx.Response(200, headers={"content-type": "text/html"}, text=f"<html><p>{WORDS} {path}</p></html>", request=httpx.Request("GET", url))
+
+    sites.fetch_site("wp", site, Client())
+    assert "team-ivanov" in sites.load("wp")["pages"]  # (no link leads there: the sitemap does)
+
+
 def test_a_news_item_ends_where_the_related_news_begin_and_says_its_heading_and_date_once(tmp_path, monkeypatch):
     out = _site_root(tmp_path, monkeypatch, {
         "rooms": ("https://hotel.innopolis.university/rooms/", f"29 октября 2026\n## Rooms\n29 октября 2026\n{WORDS}\n[Читать далее](https://hotel.innopolis.university/next/)\n"
@@ -195,15 +236,12 @@ def test_a_news_item_ends_where_the_related_news_begin_and_says_its_heading_and_
     assert "Читать далее" not in body and "Другая новость дня" not in body
 
 
-def test_a_page_moved_into_its_folder_keeps_its_description_and_the_old_file_goes(tmp_path, monkeypatch):
+def test_a_page_moved_into_its_folder_leaves_no_old_file(tmp_path, monkeypatch):
     out = _site_root(tmp_path, monkeypatch, {"home": ("https://hotel.innopolis.university/", WORDS)})
     sites.compile_all()
     (out / "hotel-home.md").write_text((out / "hotel" / "home.md").read_text(encoding="utf-8"), encoding="utf-8")
-    (out / "hotel" / "home.md").unlink()
-    monkeypatch.setattr(sites.regulations, "describe", lambda *a, **k: pytest.fail("the model is asked again"))
     sites.compile_all()
-    assert "desc" in (out / "hotel" / "home.md").read_text(encoding="utf-8")
-    assert not (out / "hotel-home.md").exists()
+    assert (out / "hotel" / "home.md").exists() and not (out / "hotel-home.md").exists()
 
 
 def test_a_link_to_a_document_of_a_site_leads_to_its_page_of_regulations_once_there_is_one(tmp_path, monkeypatch):
@@ -437,30 +475,18 @@ def test_the_pages_of_a_list_lead_to_its_news_and_a_link_without_a_language_is_i
     assert "[Услуги](https://city.example/ru/services)" in (tmp_path / "city" / "ru-news-a.md").read_text(encoding="utf-8")
 
 
-def test_a_page_the_model_cannot_describe_gets_its_first_sentence_and_the_model_describes_it_on_the_next_run(tmp_path, monkeypatch):
+def test_the_description_of_a_page_is_its_first_sentence_and_no_model_is_asked(tmp_path, monkeypatch):
     sentence = "Students settle in the rooms of the campus and pay for the room every month."
-    out = _site_root(tmp_path, monkeypatch, {"home": ("https://hotel.innopolis.university/", f"{sentence} {WORDS}"),
-                                             "rooms": ("https://hotel.innopolis.university/rooms/", f"{WORDS} rooms")})
-    asked = []
-
-    def down(*a, **k):
-        asked.append(1)
-        raise httpx.ConnectError("no model")
-
-    monkeypatch.setattr(sites.regulations, "describe", down)
+    out = _site_root(tmp_path, monkeypatch, {"home": ("https://hotel.innopolis.university/", f"{sentence} {WORDS}")})
+    monkeypatch.setattr(sites.httpx, "post", lambda *a, **k: pytest.fail("a model is asked"))
     sites.compile_all()
     home = (out / "hotel" / "home.md").read_text(encoding="utf-8")
-    assert f'description: "{sentence}"' in home or f"description: {sentence}" in home
-    assert "description pending" in home and len(asked) == 1  # (it asked once and did not wait for 40 more pages)
-    monkeypatch.setattr(sites.regulations, "describe", lambda title, text, kind="": ("the model's words", ["t"], ["student"]))
-    sites.compile_all()
-    again = (out / "hotel" / "home.md").read_text(encoding="utf-8")
-    assert "the model's words" in again and "pending" not in again
+    assert f'description: "{sentence}"' in home and "tags:" not in home and "pending" not in home
 
 
 def test_the_first_sentence_of_a_page_is_not_the_invitation_to_sign_in():
     words = "Use your Innopolis account to access InNoHassle services.\nAll university services of the student in one place, found by what they are for."
-    assert sites.pending_description("Dashboard", words) == "All university services of the student in one place, found by what they are for."
+    assert sites.first_sentence("Dashboard", words) == "All university services of the student in one place, found by what they are for."
 
 
 def test_the_index_of_the_sites_lists_the_pages_of_every_site_folder(tmp_path):
@@ -479,9 +505,8 @@ def test_the_index_of_the_sites_lists_the_pages_of_every_site_folder(tmp_path):
 
 def test_a_person_can_name_the_readers_of_a_page(tmp_path, monkeypatch):
     out = _site_root(tmp_path, monkeypatch, {"faq": ("https://hotel.innopolis.university/faq/", WORDS)})
-    monkeypatch.setattr(sites.regulations, "describe", lambda title, text, kind="": ("d", ["t"], ["public"]))
     index = sites.load("hotel")
     index["pages"]["faq"]["audience"] = ["student"]
     sites.save("hotel", index)
     sites.compile_all()
-    assert 'audience: ["student"]' in (out / "hotel" / "faq.md").read_text(encoding="utf-8")  # (the model said public: the person's word stands)
+    assert 'audience: ["student"]' in (out / "hotel" / "faq.md").read_text(encoding="utf-8")  # (not everyone: the person's word stands)
