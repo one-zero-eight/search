@@ -2,6 +2,7 @@
 
 import dataclasses
 import hashlib
+import re
 
 import httpx
 import pytest
@@ -510,3 +511,26 @@ def test_a_person_can_name_the_readers_of_a_page(tmp_path, monkeypatch):
     sites.save("hotel", index)
     sites.compile_all()
     assert 'audience: ["student"]' in (out / "hotel" / "faq.md").read_text(encoding="utf-8")  # (not everyone: the person's word stands)
+
+
+def test_a_site_behind_a_login_shows_nothing_of_the_person_and_stops_when_the_session_ends(tmp_path, monkeypatch):
+    my = SITES["my"]
+    shown = "RU\n### Иван Иванов\nivan@innopolis.university\n## Меню\n[Магазин](https://my.innopolis.university/store)\n## Магазин\n## Носки\n200\nБаланс:\n15\n## Привет, Иван Иванов!\n## Уведомления\nУ вас 2 новых\nсообщения\n"
+    kept = re.sub(my.private, "", shown, flags=re.M)
+    assert "Иван" not in kept and "ivan@" not in kept and "Баланс" not in kept and "сообщения" not in kept
+    assert "## Носки\n200" in kept and "## Меню" in kept
+    taken = lambda path: sites._taken(my, f"https://my.innopolis.university/{path}")  # noqa: E731
+    assert taken("store") and taken("event/details/abc") and not taken("store/purchases") and not taken("event/my") and not taken("event/history") and not taken("personal")
+    monkeypatch.setenv(my.profile, str(tmp_path))
+    monkeypatch.setattr(sites, "render_live", lambda url, profile: '<h1 class="x"><span>Авторизация</span></h1>')
+    with pytest.raises(RuntimeError, match="session"):
+        sites.get_page(None, my, "https://my.innopolis.university/store")
+
+
+def test_a_page_that_does_not_exist_is_a_404_even_when_the_site_answers_200(tmp_path, monkeypatch):
+    help_ = SITES["help"]
+    monkeypatch.setenv(help_.profile, str(tmp_path))
+    monkeypatch.setattr(sites, "render_live", lambda url, profile: "<h1>Не найдено</h1><p>Эта страница не существует.</p>")
+    assert sites.get_page(None, help_, "https://help.university.innopolis.ru/ru/VPN/x").status_code == 404
+    monkeypatch.setattr(sites, "render_live", lambda url, profile: "<h1>VPN</h1>")
+    assert sites.get_page(None, help_, "https://help.university.innopolis.ru/ru/VPN").status_code == 200

@@ -33,6 +33,7 @@ dependencies = [
     "segno>=1.6.6",
     "telethon>=1.45.0",
     "uvicorn>=0.54.0",
+    "websockets>=16.1.1",
 ]
 
 [project.scripts]

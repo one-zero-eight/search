@@ -73,6 +73,10 @@ class Site:
     end: str | None = None  # where the text of a page ends and the site's blocks of the day it was read begin (media: 'Новости по теме')
     drop: str | None = None  # the lines of a page that lead to the next post, not its text (robotics: 'Дальше', the next post's name)
     profile: str | None = None  # the environment variable that names a Chromium profile a person logged in to: the site is behind a login, its pages are read as that person sees them
+    audience: tuple[str, ...] | None = None  # who the pages of the site are for, when it is not everyone (the IT instructions of help are for the staff); a page's own `audience` in the index is stronger
+    discover: str | None = None  # a script the logged-in browser runs on the site's start page; it returns the JSON list of the pages' addresses (Wiki.js: the pages its GraphQL lists; the menu is drawn by scripts, no link leads to them)
+    missing: str | None = None  # what a page that does not exist looks like, when the site answers it with 200 (Wiki.js: 'Эта страница не существует')
+    signin: str | None = None  # what the page of the login looks like in the DOM (the session ended: the portal shows 'Авторизация' in place of the page): the crawl stops, the form is not a page
     private: str | None = None  # what the pages show of the person who is logged in (name, mail, balance, notifications): cut from every page before anything is kept
     aliases: tuple[str, ...] = ()  # other hosts of the site, an old name or a mirror: a link to one leads to the site's page of the same path, when there is one
 
@@ -114,8 +118,13 @@ SITES = {
                  r"^(?!(ru|en)(/|$))", sitemap=False, max_pages=800, english="en", dated=True, pause=10,  # (an address without ru/ or en/ is a redirect to /ru/site/typicle?slug=..., a page that fails)
                  headings=r"\b(section_head|section_text|article|history)__title\b", bare=True, listing="page", aliases=("innopolis.ru",)),  # (innopolis.ru: the same site)
     "my": Site("https://my.innopolis.university/", "ru", "My University, the student portal of Innopolis University: the events (volunteering, innopoints) and the store of merch",
-               r"^(?!(store|event)(/|$))[^/]+|^store/(purchases|transactions)|^event/(my|history)", sitemap=False, max_pages=100, profile="CATIX_CHROMIUM_PROFILE",
-               private=r"^RU\n### .+\n\S+@\S+\n|^Баланс:\n\d+\n|^## Уведомления\n(?s:.*)\Z"),  # (a login; the pages of the person: purchases, transactions, my events, history of participation)
+               r"^(?!(store|event)(/|$))[^/]+|^store/(purchases|transactions)|^event/(my|history)", sitemap=False, max_pages=100, profile="CATIX_CHROMIUM_PROFILE", audience=("student",), signin=r"<h1[^>]*>(?:\s*<[^>]+>)*\s*Авторизация",
+               private=r"^RU\n### .+\n\S+@\S+\n|^## Привет, .+\n|^Баланс:\n\d+\n|^## Уведомления\n(?s:.*)\Z"),  # (a login; the pages of the person: purchases, transactions, my events, history of participation)
+    "help": Site("https://help.university.innopolis.ru/", "ru", "ITHelp Wiki, the IT instructions for the staff of Innopolis University: VPN, Wi-Fi, mail, printers, remote connections, software, regulations of IT support",
+                 r"^$|^([aehpst]|login|logout|register|search|tags)(/|$)|(^|/)test", sitemap=False, max_pages=300, english="en", profile="CATIX_CHROMIUM_PROFILE", audience=("staff",),
+                 signin=r"<title>Sign In</title>", missing=r"Эта страница не существует|This page does not exist",
+                 discover="fetch('/graphql',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({query:'{pages{list(orderBy:PATH){path locale}}}'})})"
+                         ".then(r=>r.json()).then(d=>JSON.stringify(d.data.pages.list.map(p=>'/'+p.locale+'/'+p.path)))"),  # (behind the university's SSO; Wiki.js)
     # the sites the pages link most that were not read (experiments/link_stats.py --group university, 2026-10-31)
     "career": Site("https://career.innopolis.university/", "ru", "careers at Innopolis University: vacancies, the competition for teaching posts, relocation to Innopolis",
                    only("job", "konkursnyezayavkiprofessorskoprepodavatelskogosostava", "relocation"), sitemap=False, max_pages=300),  # (its sitemap and the rest of it: innopolis.university again)
@@ -192,58 +201,97 @@ LIVE_WAIT = 30  # seconds: the longest a page of an app behind a login is given 
 LOGIN_FORM = re.compile(r"""<input[^>]+type=["']?password""", re.I)
 
 
-def render_live(url: str, profile: str) -> str:
-    """The page as a person logged in to the Chromium profile sees it: the browser (with the profile) opens the page and the DOM is
-    taken when it stops changing. Not the virtual-time budget of render_page: an app behind a login polls, and the budget never ends.
-    Raises when the profile is not logged in (the page asks for a password) or the page did not load (its title is still '{eventName}')."""
-    if not CHROMIUM:
-        raise RuntimeError("a site with a profile needs Chromium (chromium, chromium-browser or google-chrome on the PATH)")
-    with socket.socket() as probe:
-        probe.bind(("127.0.0.1", 0))
-        port = probe.getsockname()[1]
-    browser = subprocess.Popen([CHROMIUM, "--headless=new", "--disable-gpu", "--no-sandbox", f"--user-data-dir={profile}", f"--remote-debugging-port={port}", "about:blank"],
-                               stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    try:
-        for _ in range(100):
-            try:
-                tab = next(t for t in httpx.get(f"http://127.0.0.1:{port}/json").json() if t["type"] == "page")
+class LiveBrowser:
+    """One Chromium with the profile of a person who logged in, kept for the whole crawl: a portal that gives a session a few minutes
+    lives longer in one browser than in a new one for every page (the pages are opened in one tab, one after another)."""
+
+    def __init__(self, profile: str):
+        if not CHROMIUM:
+            raise RuntimeError("a site with a profile needs Chromium (chromium, chromium-browser or google-chrome on the PATH)")
+        with socket.socket() as probe:
+            probe.bind(("127.0.0.1", 0))
+            port = probe.getsockname()[1]
+        self.profile = profile
+        self.process = subprocess.Popen([CHROMIUM, "--headless=new", "--disable-gpu", "--no-sandbox", f"--user-data-dir={profile}", f"--remote-debugging-port={port}", "about:blank"],
+                                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        self.loop = asyncio.new_event_loop()
+        try:
+            for _ in range(100):
+                try:
+                    tab = next(t for t in httpx.get(f"http://127.0.0.1:{port}/json").json() if t["type"] == "page")
+                    break
+                except (httpx.HTTPError, StopIteration):
+                    time.sleep(0.2)
+            else:
+                raise httpx.TransportError("the browser did not start")
+            self.ws = self.loop.run_until_complete(websockets.connect(tab["webSocketDebuggerUrl"], max_size=None))
+        except BaseException:
+            self.close()
+            raise
+        self.ids = iter(range(1, 10**9))
+
+    async def call(self, method: str, **params) -> dict:
+        n = next(self.ids)
+        await self.ws.send(json.dumps({"id": n, "method": method, "params": params}))
+        while (answer := json.loads(await self.ws.recv())).get("id") != n:
+            pass
+        return answer
+
+    async def load(self, url: str) -> str:
+        await self.call("Page.navigate", url=url)
+        last, still = "", 0
+        for second in range(LIVE_WAIT):
+            await asyncio.sleep(1)
+            html = (await self.call("Runtime.evaluate", expression="document.documentElement.outerHTML", returnByValue=True))["result"]["result"]["value"]
+            still = still + 1 if html == last else 0
+            last = html
+            if still >= 3 and second >= 4:  # (unchanged for three seconds, and not the empty shell of the first ones)
                 break
-            except (httpx.HTTPError, StopIteration):
-                time.sleep(0.2)
-        else:
-            raise httpx.TransportError("the browser did not start")
+        return last
 
-        async def ask() -> str:
-            async with websockets.connect(tab["webSocketDebuggerUrl"], max_size=None) as ws:
-                ids = iter(range(1, 10**6))
+    def evaluate(self, script: str) -> str:
+        """What a script returns in the page that is open (a promise is waited for)."""
+        answer = self.loop.run_until_complete(self.call("Runtime.evaluate", expression=script, awaitPromise=True, returnByValue=True))
+        return answer["result"]["result"]["value"]
 
-                async def call(method: str, **params) -> dict:
-                    n = next(ids)
-                    await ws.send(json.dumps({"id": n, "method": method, "params": params}))
-                    while (answer := json.loads(await ws.recv())).get("id") != n:
-                        pass
-                    return answer
+    def get(self, url: str) -> str:
+        """The page after it stopped changing. Raises when the page asks for a password or did not finish loading (its title is still '{eventName}')."""
+        html = self.loop.run_until_complete(self.load(url))
+        if re.search(r"<title>[^<]*\{\w+\}", html):  # (the page asked for its data and had no answer yet: once more)
+            html = self.loop.run_until_complete(self.load(url))
+        if LOGIN_FORM.search(html):
+            raise RuntimeError(f"the profile {self.profile} is not logged in: {url} asks for a password")
+        if re.search(r"<title>[^<]*\{\w+\}", html):
+            raise httpx.TransportError(f"{url} did not finish loading")
+        return html
 
-                await call("Page.navigate", url=url)
-                last, still = "", 0
-                for second in range(LIVE_WAIT):
-                    await asyncio.sleep(1)
-                    html = (await call("Runtime.evaluate", expression="document.documentElement.outerHTML", returnByValue=True))["result"]["result"]["value"]
-                    still = still + 1 if html == last else 0
-                    last = html
-                    if still >= 3 and second >= 4:  # (unchanged for three seconds, and not the empty shell of the first ones)
-                        break
-                return last
+    def close(self) -> None:
+        if hasattr(self, "ws"):
+            self.loop.run_until_complete(self.ws.close())
+        self.process.terminate()
+        self.process.wait()
+        self.loop.close()
 
-        html = asyncio.run(ask())
-    finally:
-        browser.terminate()
-        browser.wait()
-    if LOGIN_FORM.search(html):
-        raise RuntimeError(f"the profile {profile} is not logged in: {url} asks for a password")
-    if re.search(r"<title>[^<]*\{\w+\}", html):
-        raise httpx.TransportError(f"{url} did not finish loading")
-    return html
+
+LIVE: dict[str, LiveBrowser] = {}  # profile -> its browser, open during a crawl
+
+
+def render_live(url: str, profile: str) -> str:
+    """The page as the person logged in to the profile sees it (the browser is opened on the first page and kept: close_live)."""
+    if profile not in LIVE:
+        LIVE[profile] = LiveBrowser(profile)
+    return LIVE[profile].get(url)
+
+
+def profile_of(site: Site) -> str:
+    if not (profile := os.environ.get(site.profile or "")):
+        raise RuntimeError(f"a site with a login needs {site.profile}: the Chromium profile a person logged in to")
+    return os.path.expanduser(profile)
+
+
+def close_live() -> None:
+    while LIVE:
+        LIVE.popitem()[1].close()
 
 
 def service_catalog(js: str) -> list[dict]:
@@ -290,10 +338,11 @@ EXTRAS = {("innohassle", "dashboard"): dashboard_with_catalog}  # (site, page) -
 def get_page(client: httpx.Client, site: "Site", url: str) -> httpx.Response:
     """The answer for a page: the site's own, or (for an app) what the browser made of it, as if it were the answer."""
     if site.profile:
-        if not (profile := os.environ.get(site.profile)):
-            raise RuntimeError(f"a site with a login needs {site.profile}: the Chromium profile a person logged in to")
-        html = render_live(url, os.path.expanduser(profile))
-        return httpx.Response(200, headers={"content-type": "text/html; charset=utf-8"}, text=html, request=httpx.Request("GET", url))
+        profile = profile_of(site)
+        html = render_live(url, profile)
+        if site.signin and re.search(site.signin, html):
+            raise RuntimeError(f"the session of the profile {profile} has ended: {url} shows the login")
+        return httpx.Response(404 if site.missing and re.search(site.missing, html) else 200, headers={"content-type": "text/html; charset=utf-8"}, text=html, request=httpx.Request("GET", url))
     if not site.render:
         return client.get(url)
     html = render_page(url)
@@ -646,6 +695,10 @@ def fetch_site(name: str, site: Site, client: httpx.Client) -> int:
         except httpx.HTTPError as e:
             print(f"  {name}: no sitemap ({e})")
         time.sleep(PAUSE if site.pause is None else site.pause)
+    if site.discover:  # (the pages no link leads to: the browser lists them)
+        render_live(site.base, profile_of(site))
+        todo += [urljoin(site.base, path) for path in json.loads(LIVE[profile_of(site)].evaluate(site.discover))]
+        print(f"  {name}: {len(todo)} pages listed")
     rules = robots_of(site, client)
     seen, read_slugs, read_ok, changed, docs = set(), set(), 0, 0, {}
     first: dict[str, str] = {}  # the words of a page (their hash) -> the page read with them first in this run
@@ -736,7 +789,10 @@ def fetch(names: list[str] | None = None) -> int:
             if names and name not in names:
                 continue
             print(f"== {name}: {site.base}")
-            total += fetch_site(name, site, client)
+            try:
+                total += fetch_site(name, site, client)
+            finally:
+                close_live()
     return total
 
 
@@ -833,7 +889,7 @@ def write_shared(out, name: str, lang: str, body: str, at: str, keep: set) -> in
     sha = hashlib.sha256(plain(body).encode()).hexdigest()[:12]
     front = ["---", "type: page", f"title: {yaml_value(title)}",
              f"description: {yaml_value('The menu, header, footer and contact lines that every page of the site repeats, kept once.')}",
-             f"resource: {yaml_value(site.base)}", "tags: [\"site\", \"menu\", \"footer\", \"contacts\"]", f"audience: {yaml_value(list(AUDIENCES))}",
+             f"resource: {yaml_value(site.base)}", "tags: [\"site\", \"menu\", \"footer\", \"contacts\"]", f"audience: {yaml_value(list(site.audience or AUDIENCES))}",
              "source_kind: website", f"language: {lang}", f"section: {yaml_value(f'site/{name}')}",
              "sources:", f"  - resource: {yaml_value(site.base)}", f"    id: {yaml_value(sha)}", f"    title: {yaml_value(title)}", f"    last_modified: {yaml_value(at)}",
              "generated:", f"  by: {yaml_value(PRODUCER + ' sites (code: the lines the pages repeat)')}", f"  at: {yaml_value(at)}", "status: draft", "---"]
@@ -901,7 +957,7 @@ def compile_all() -> None:
         target = out / name / f"{slug}.md"
         keep.add(target)
         target.parent.mkdir(parents=True, exist_ok=True)
-        audience = [str(a) for a in p.get("audience") or AUDIENCES]  # (everyone, unless a person named its readers: sport/faq is for students)
+        audience = [str(a) for a in p.get("audience") or site.audience or AUDIENCES]  # (everyone, unless a person named the readers of the page (sport/faq: students) or of the site)
         front = ["---", "type: page", f"title: {yaml_value(title)}", f"description: {yaml_value(first_sentence(title, plain(body)))}", f"resource: {yaml_value(p['url'])}",
                  f"audience: {yaml_value(audience)}", "source_kind: website", f"language: {lang}",
                  f"section: {yaml_value(f'site/{name}')}",
