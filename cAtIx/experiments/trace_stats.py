@@ -22,7 +22,8 @@ import httpx
 PHOENIX = "http://localhost:6006"
 FORCED = ("You have used your tool budget",)  # core.FINAL_HINT: the guard's order to answer
 AGAIN = ("That tool call was not made",)  # core.NOT_MADE_HINT / UNKNOWN_TOOL_HINT: asked again after a call written as text
-SCREEN = ("С этим я помогать не буду", "I won't help with that", "Я помогаю только с вопросами", "I only help with questions")  # guardrail.REFUSALS
+SCREEN = ("С этим я помогать не буду", "I won't help with that", "Я помогаю только с вопросами", "I only help with questions",
+          "Такие задачи я не выполняю", "I don't do tasks like that")  # guardrail.REFUSALS
 
 
 def gql(query: str, **variables) -> dict:

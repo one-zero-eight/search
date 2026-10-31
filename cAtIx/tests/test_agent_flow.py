@@ -33,7 +33,7 @@ class Req:
     def __init__(self, ai_messages: int, system="base prompt"):
         self.messages = [HumanMessage("вопрос"), *[AIMessage(content="", tool_calls=[SEARCH]) for _ in range(ai_messages)]]
         self.tools, self.system_message, self.tool_choice = TOOLS, types.SimpleNamespace(text=system), None
-        self.model_settings = {}
+        self.model_settings, self.state = {}, {}
 
     def override(self, **changes):
         clone = Req(0)
@@ -225,6 +225,24 @@ def test_a_call_that_may_not_call_tools_may_not_start_the_markup_either(monkeypa
     RunGuardMiddleware().wrap_model_call(Req(1), model)
     assert seen[0].tool_choice == "none" and seen[0].model_settings == {"logit_bias": {"248058": -100}}
     assert seen[1].tool_choice is None and seen[1].model_settings == {}
+
+
+def test_a_message_with_nothing_to_look_up_is_answered_without_a_helper(monkeypatch):
+    """The screen said small_talk ("привет!", "что ты умеешь?"): the supervisor's call may not call tools, with no order to answer
+    (it is not out of budget), and the reminder after the message is the one for answering alone."""
+    from catix.agent.core import ALONE_REMINDER, ROLE_REMINDER, QuestionNoteMiddleware
+
+    monkeypatch.setattr(core, "tool_call_token", lambda: 248058)
+    alone = Req(0)
+    alone.state = {"answer_alone": True}
+    seen = []
+    RunGuardMiddleware().wrap_model_call(alone, lambda request: seen.append(request) or ModelResponse(result=[AIMessage(content="Привет!")]))
+    assert seen[0].tool_choice == "none" and seen[0].messages == alone.messages and seen[0].model_settings == {"logit_bias": {"248058": -100}}
+    note = QuestionNoteMiddleware(reminder=ROLE_REMINDER, alone=ALONE_REMINDER)
+    asked = Req(0)
+    assert note._with_hint(alone).messages[0].content.endswith(f"[{ALONE_REMINDER.format(language='Russian')}]")  # ("вопрос")
+    assert note._with_hint(asked).messages[0].content.endswith(f"[{ROLE_REMINDER}]")
+    assert RunGuardMiddleware()._final(asked).tool_choice is None
 
 
 def test_the_markup_token_is_asked_of_the_server_once_and_another_model_gets_no_ban(monkeypatch):

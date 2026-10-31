@@ -25,7 +25,7 @@ from catix.settings import settings
 
 log = logging.getLogger("catix.abuse")
 
-COUNTED = {"prompt_injection", "abuse"}  # the screen's two ways to stop a message; the agent refuses off-topic requests itself
+COUNTED = {"prompt_injection", "abuse"}  # the attacks the screen stops; an off-topic task (off_topic) is refused, not counted
 KEEP_DAYS = 30
 PREVIEW_CHARS = 200
 
