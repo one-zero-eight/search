@@ -62,6 +62,24 @@ def test_the_last_call_may_not_call_tools_and_has_an_order_to_answer():
     assert_test(LLMTestCase(input="", actual_output=str(last.messages[-1].content)), [ContainsAll(["You have used your tool budget"], name="OrderToAnswer")])
 
 
+def test_once_the_reads_are_spent_the_next_call_is_the_report():
+    """Told in read_wiki's result to report, the model read on (the trace of 'регламент организации ИТ-поддержки'): after
+    MAX_READS reads that gave text the docs helper may not call tools. A read that found nothing does not count."""
+    import json
+
+    def read(n: int, pieces: list) -> list:
+        call = {"name": "read_wiki", "args": {"page": "/raw/x.md", "clause": str(n)}, "id": f"r{n}", "type": "tool_call"}
+        return [AIMessage(content="", tool_calls=[call]), ToolMessage(content=json.dumps({"pieces": pieces}), tool_call_id=f"r{n}", name="read_wiki")]
+
+    guard = RunGuardMiddleware({"search_wiki", "read_wiki"})
+    req = Req(0)
+    req.messages = [HumanMessage("регламент ИТ-поддержки"), *read(1, [{"text": "…"}]), *read(2, [])]
+    assert guard._final(req).tool_choice is None  # one read gave text, one found nothing: one more may be made
+    req.messages += read(3, [{"text": "…"}])
+    assert guard._final(req).tool_choice == "none" and guard._final(req).tools == TOOLS
+    assert RunGuardMiddleware({"search_chats"})._final(req).tool_choice is None  # (a helper without read_wiki)
+
+
 def test_a_repeated_tool_call_is_not_executed_again():
     first = {**SEARCH, "id": "a"}
     again = {**SEARCH, "id": "b"}

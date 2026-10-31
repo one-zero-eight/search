@@ -629,10 +629,15 @@ MAX_READS = 2  # read_wiki calls that gave text, per question
 
 
 def _reads_this_turn(runtime: ToolRuntime[AgentContext]) -> int:
+    return reads_done(runtime.state.get("messages", []))
+
+
+def reads_done(messages: list) -> int:
     """How many read_wiki calls gave text since the last question (the helper's run). One that found no such page or section
-    costs nothing: the model guesses a heading from a table of contents, and a scan's chapter may be no heading."""
+    costs nothing: the model guesses a heading from a table of contents, and a scan's chapter may be no heading. When they
+    are MAX_READS, the helper's next model call is its report (core.RunGuardMiddleware)."""
     count = 0
-    for message in reversed(runtime.state.get("messages", [])):
+    for message in reversed(messages):
         if getattr(message, "type", "") == "human":
             break
         if getattr(message, "type", "") == "tool" and getattr(message, "name", "") == "read_wiki":

@@ -34,7 +34,7 @@ from typing_extensions import NotRequired
 from catix import userbot_config
 from catix.agent import claims, roles, sources
 from catix.agent.guardrail import GuardrailMiddleware
-from catix.agent.tools import TOOLS, AgentContext
+from catix.agent.tools import MAX_READS, TOOLS, AgentContext, reads_done
 from catix.common import courses
 from catix.settings import settings
 
@@ -310,6 +310,9 @@ class RunGuardMiddleware(AgentMiddleware):
       being cut off by the call limit with an error message as the "answer". The tools stay in the request and the hint
       goes after the conversation: the tool list and the system prompt are at the start of what the model server reads,
       and changing them made it read the whole conversation again (12k tokens, 20 s on the V100).
+    - So too once the reads of a helper with read_wiki are spent (MAX_READS that gave text): told in the tool's result to
+      report, the model read on, was refused, read on again (a trace of 'регламент организации ИТ-поддержки'); now its next
+      call is its report, from what the searches and the reads above found.
     """
 
     def __init__(self, tool_names: Iterable[str] | None = None) -> None:
@@ -317,10 +320,13 @@ class RunGuardMiddleware(AgentMiddleware):
         self.tool_names = set(tool_names) if tool_names is not None else None
 
     def _final(self, request: ModelRequest) -> ModelRequest:
-        used = sum(isinstance(m, AIMessage) for m in _this_run(request.messages))
-        if used < settings.agent_max_model_calls - 1:
+        run = _this_run(request.messages)
+        if sum(isinstance(m, AIMessage) for m in run) >= settings.agent_max_model_calls - 1:
+            log.info("last model call of this run: no tool calls, the model must answer")
+        elif "read_wiki" in (self.tool_names or ()) and reads_done(run) >= MAX_READS:
+            log.info("the reads of this run are spent: no tool calls, the model must answer")
+        else:
             return request
-        log.info("last model call of this run: no tool calls, the model must answer")
         return request.override(tool_choice="none", messages=[*request.messages, HumanMessage(FINAL_HINT)])
 
     def _duplicate(self, request: ToolCallRequest) -> ToolMessage | None:
