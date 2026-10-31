@@ -97,3 +97,33 @@ def test_an_older_version_is_found_only_when_its_year_is_asked(monkeypatch):
     monkeypatch.setattr(wiki.settings, "reranker_route", None)
     assert [h.id for h in wiki.search("правила приема магистратура")] == [2]
     assert [h.id for h in wiki.search("правила приема 2024 года")] == [1, 2]
+
+
+def test_a_section_asked_as_the_table_of_contents_names_it_is_read_and_a_read_that_finds_nothing_costs_nothing(monkeypatch):
+    """The trace of 'регламент организации ИТ-поддержки': a scan's chapter is the line '4 Процесс получения технической
+    поддержки', no heading; the model asks for '4. Процесс …' and must get it, not the table of contents, not nothing."""
+    import json
+
+    from langchain_core.messages import HumanMessage
+
+    path = "/raw/regulations/site-help-it.md"
+    pieces = [hit(id=1, path=path, seq=0, heading="6. Контроль исполнения", clause="", text="| 4 | Процесс получения технической поддержки ..... | 16 |"),
+              hit(id=2, path=path, seq=1, heading="6. Контроль исполнения", clause="3.3", text="**3.3.2** Списание техники.\n\n4 Процесс получения технической поддержки\n\n**4.1** Описание процесса"),
+              hit(id=3, path=path, seq=2, heading="4. Требования к срокам:", clause="", text="- – в течение 1 (одного) часа")]
+    monkeypatch.setattr(tools.wiki_store, "find_page", lambda page: path)
+    monkeypatch.setattr(tools.wiki_store, "page", lambda p: pieces)
+    rt = runtime()
+    rt.state["messages"] = [HumanMessage("регламент организации ИТ-поддержки")]
+
+    def read(**kw) -> dict:
+        message = tools.read_wiki.func(page=path, runtime=rt, **kw).update["messages"][0]
+        rt.state["messages"].append(message)
+        return json.loads(message.content)
+
+    out = read(section="4. Процесс получения технической поддержки")
+    assert [p["text"][:9] for p in out["pieces"]] == ["**3.3.2**", "- – в теч"]  # from the chapter's line on, not from the contents
+    assert out["reads_left"] == 1
+    assert read(section="7. Нет такого раздела")["pieces"] == []
+    last = read(section="требования к срокам")  # (the failed read did not count: this is the second)
+    assert last["pieces"] and last["reads_left"] == 0 and "last read" in last["note"]
+    assert "error" in read(clause="4.1")  # two reads gave text: no more

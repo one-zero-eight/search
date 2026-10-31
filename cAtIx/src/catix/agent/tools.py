@@ -625,17 +625,28 @@ def search_wiki(queries: list[str], runtime: ToolRuntime[AgentContext], kinds: l
     return collector.result(result, "search_wiki")
 
 
-MAX_READS = 2  # read_wiki calls per question
+MAX_READS = 2  # read_wiki calls that gave text, per question
 
 
-def _calls_this_turn(runtime: ToolRuntime[AgentContext], name: str) -> int:
-    """How many results of tool `name` came back since the last question (the helper's run)."""
+def _reads_this_turn(runtime: ToolRuntime[AgentContext]) -> int:
+    """How many read_wiki calls gave text since the last question (the helper's run). One that found no such page or section
+    costs nothing: the model guesses a heading from a table of contents, and a scan's chapter may be no heading."""
     count = 0
     for message in reversed(runtime.state.get("messages", [])):
         if getattr(message, "type", "") == "human":
             break
-        count += getattr(message, "type", "") == "tool" and getattr(message, "name", "") == name
+        if getattr(message, "type", "") == "tool" and getattr(message, "name", "") == "read_wiki":
+            try:
+                count += bool(json.loads(message.content).get("pieces"))
+            except (TypeError, ValueError, AttributeError):
+                count += 1
     return count
+
+
+def _words(text: str) -> str:
+    """A heading or a line as its words, to find a section by its name: no markdown, no dots after the numbers ('**4.1.**
+    Описание', '4.1 Описание' and '4.1. Описание' are the same words)."""
+    return " " + " ".join(re.findall(r"\w+", text.lower())) + " "
 
 
 class ReadWikiArgs(BaseModel):
@@ -649,7 +660,7 @@ def read_wiki(page: str, runtime: ToolRuntime[AgentContext], clause: str | None 
     """Read more of one page of the knowledge base: a clause cut off in the search results, the clauses around it, or a
     section. Without clause and section: the start of the page and its list of sections."""
     collector = Collector(runtime)
-    if _calls_this_turn(runtime, "read_wiki") >= MAX_READS:
+    if _reads_this_turn(runtime) >= MAX_READS:
         # The prompt says so too, but a small model keeps reading and runs out of its budget without a report.
         return collector.result({"error": "No more reading in this question: report now with what you have, and say what is missing."}, "read_wiki")
     path = wiki_store.find_page(page)
@@ -663,10 +674,14 @@ def read_wiki(page: str, runtime: ToolRuntime[AgentContext], clause: str | None 
         chosen = [p for p in pieces if wiki_store.holds(p.clause, number)
                   or any(re.match(rf"{re.escape(number)}(?:\.\d+)*\.?\s", h) for h in p.heading.split(" > "))]
     elif section:
-        # From the first piece whose heading or text has the words on: a section is read on, as a person would read it
-        # ("Приложение 1" is often a line in the text, not a heading).
-        want = section.lower()
-        start = next((i for i, p in enumerate(pieces) if want in p.heading.lower() or want in p.text.lower()), None)
+        # From the first piece whose heading has the words, or else a line of its text (not a row of a table first: a table of
+        # contents names every section), on: a section is read on, as a person would read it ("Приложение 1" is often a
+        # line in the text, not a heading; so is a scan's chapter '4 Процесс получения …' that the model asks as '4. Процесс …').
+        want = _words(section)
+        found = (lambda p: want in _words(p.heading),
+                 lambda p: any(want in _words(line) for line in p.text.splitlines() if not line.startswith("|")),
+                 lambda p: want in _words(p.text))
+        start = next((i for has in found for i, p in enumerate(pieces) if has(p)), None)
         chosen = pieces[start:] if start is not None else []
     else:
         chosen = pieces
@@ -686,6 +701,11 @@ def read_wiki(page: str, runtime: ToolRuntime[AgentContext], clause: str | None 
     result["pieces"] = out
     if not clause and not section or not chosen:
         result["sections"] = list(dict.fromkeys(p.heading for p in pieces if p.heading))[:60]
+    # Said with every read, so the model chooses what to read instead of running into the end of its reading.
+    result["reads_left"] = left = MAX_READS - _reads_this_turn(runtime) - bool(out)
+    if out and not left:
+        result["note"] = "That was the last read in this question: report now with what you have" + (
+            " (the page goes on: say what was not read, if it matters)." if "note" in result else ".")
     return collector.result(result, "read_wiki")
 
 
