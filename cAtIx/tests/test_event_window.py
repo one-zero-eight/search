@@ -27,3 +27,9 @@ def test_loose_words_count_relative_to_the_day_written():
 
 def test_resolve_still_gives_the_same_lines():
     assert dates.resolve(ANNOUNCEMENT, datetime(2026, 10, 5, tzinfo=TZ), NOW) == ["'23 October 2026' = 2026-10-23 Fri (in 2 days)"]
+
+
+def test_tonight_is_the_evening_of_the_day_written():
+    """'room 108 tonight between 18:30-19:10' was told as 'в ночь с 23 на 24 октября': tonight is the day itself."""
+    posted = datetime(2026, 10, 23, 17, 26, tzinfo=TZ)
+    assert dates.resolve("you can pass by to the room 108 tonight between 18:30-19:10", posted, NOW) == ["'tonight' = 2026-10-23 Fri (in 2 days)"]

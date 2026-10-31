@@ -28,6 +28,8 @@ _WEEKDAYS = {
 _RELATIVE = {
     "позавчера": -2, "вчера": -1, "сегодня": 0, "завтра": 1, "послезавтра": 2,
     "yesterday": -1, "today": 0, "tomorrow": 1,
+    # The evening of the day written: "room 108 tonight between 18:30-19:10" was told as "в ночь с 23 на 24 октября".
+    "tonight": 0, "this evening": 0, "this morning": 0,
 }  # fmt: skip
 
 _MONTH_NAMES = "|".join(sorted(_MONTHS, key=len, reverse=True))
