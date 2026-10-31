@@ -371,6 +371,22 @@ def test_a_page_a_person_wrote_is_not_written_over_by_the_crawl(tmp_path, monkey
     assert "Booking rules" in cache.read_text(encoding="utf-8")
 
 
+def test_a_page_under_two_addresses_is_kept_once(tmp_path, monkeypatch):
+    monkeypatch.setattr(sites, "ROOT", tmp_path)
+    monkeypatch.setattr(sites, "PAUSE", 0)
+    site = sites.Site("https://courses.example/", "ru", "courses", "^nothing$", sitemap=False, max_pages=10)
+    home = '<html><title>Курсы</title><p>Курсы для взрослых и детей.</p><a href="/vue">Vue</a> <a href="/Vue">Vue</a></html>'
+    vue = "<html><title>Vue</title><p>Курс по фреймворку Vue для тех, кто пишет интерфейсы.</p></html>"
+
+    class Client:
+        def get(self, url):
+            html = home if url.rstrip("/").endswith("example") else vue
+            return httpx.Response(200, headers={"content-type": "text/html"}, text=html, request=httpx.Request("GET", url))
+
+    sites.fetch_site("courses", site, Client())
+    assert sorted(sites.load("courses")["pages"]) == ["home", "vue"]  # (Tilda answers '/Vue' with '/vue')
+
+
 def test_a_page_the_model_cannot_describe_gets_its_first_sentence_and_the_model_describes_it_on_the_next_run(tmp_path, monkeypatch):
     sentence = "Students settle in the rooms of the campus and pay for the room every month."
     out = _site_root(tmp_path, monkeypatch, {"home": ("https://hotel.innopolis.university/", f"{sentence} {WORDS}"),

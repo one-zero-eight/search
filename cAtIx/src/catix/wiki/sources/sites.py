@@ -60,7 +60,7 @@ class Site:
     dated: bool = False  # a year in the title or the address of a page is the year it is about (events: 'Spring Ball 2022')
     render: bool = False  # the site is an app: its HTML is an empty shell, the text comes from scripts (a headless browser runs them)
     robots: bool = False  # the pages its robots.txt disallows are not taken (Tilda lists there the pages it does not publish: tests, old webinars)
-    pause: float = PAUSE  # seconds between requests (innopolis.com asks for 10: Crawl-delay)
+    pause: float | None = None  # seconds between requests, PAUSE when None (innopolis.com asks for 10: Crawl-delay)
 
 
 SITES = {
@@ -482,12 +482,13 @@ def fetch_site(name: str, site: Site, client: httpx.Client) -> int:
                     break
                 for loc in re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", client.get(maps.pop(0)).text):
                     (maps if loc.endswith(".xml") else todo).append(repaired(site, loc))
-                time.sleep(site.pause)
+                time.sleep(PAUSE if site.pause is None else site.pause)
         except httpx.HTTPError as e:
             print(f"  {name}: no sitemap ({e})")
-        time.sleep(site.pause)
+        time.sleep(PAUSE if site.pause is None else site.pause)
     rules = robots_of(site, client)
     seen, read_slugs, read_ok, changed, docs = set(), set(), 0, 0, {}
+    first: dict[str, str] = {}  # the words of a page (their hash) -> the page read with them first in this run
     while todo and len(seen) < site.max_pages:
         url = canonical(todo.pop(0))
         if url in seen or not _taken(site, url) or rules and not rules.can_fetch(regulations.HEADERS["User-Agent"], url):
@@ -498,7 +499,7 @@ def fetch_site(name: str, site: Site, client: httpx.Client) -> int:
             slug = f"{slug[:50]}-{hashlib.sha1(url.encode()).hexdigest()[:6]}"
         try:
             resp = get_page(client, site, url)
-            time.sleep(site.pause)
+            time.sleep(PAUSE if site.pause is None else site.pause)
         except (httpx.HTTPError, subprocess.TimeoutExpired) as e:
             print(f"  FAILED {url}: {e}")
             continue
@@ -523,6 +524,11 @@ def fetch_site(name: str, site: Site, client: httpx.Client) -> int:
             elif _taken(site, link):
                 todo.append(link)
         sha = hashlib.sha256(plain(text).encode()).hexdigest()  # (the words: a new link or picture is not a new version)
+        if first.setdefault(sha, slug) != slug:  # the page read before under another address (Tilda: '/Vue-js-framework' is '/vue-js-framework')
+            if old and not old.get("gone"):
+                index["pages"][slug] = {**old, "gone": True}
+                changed += 1
+            continue
         (ROOT / name).mkdir(parents=True, exist_ok=True)
         if keep_by_hand(name, slug, old):  # (a person wrote this page: the crawl does not write over it; its words are the page's words now)
             mine = ROOT / name / f"{slug}.md"
