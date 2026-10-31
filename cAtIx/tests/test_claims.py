@@ -125,3 +125,18 @@ def test_a_message_signed_by_the_administration_backs_the_attribution():
     answer = "Администрация сообщает, что смена белья сегодня с 14:00 до 17:00 [m1]."
     evidence = results("Смена белья сегодня с 14:00 до 17:00. С уважением, администрация жилого комплекса")
     assert_test(checked(answer, evidence), [ContainsAll(["Администрация сообщает"], name="Backed")])
+
+
+def test_a_link_written_unescaped_is_kept_and_a_line_left_with_only_its_label_goes():
+    """A document's link is %-escaped in the results; written with its Cyrillic as letters it is the same link. A link the
+    model garbled is cut, and 'Ссылка на шаблон:' left without it goes, its ref joining the line above."""
+    from langchain_core.messages import ToolMessage
+
+    from catix.agent.core import clean
+
+    link = "https://help.university.innopolis.ru/documents/%D1%80%D0%B5%D0%B3%D0%BB%D0%B0%D0%BC%D0%B5%D0%BD%D1%82.pdf"
+    turn = [ToolMessage(content=json.dumps({"pieces": [{"ref": "m1", "text": f"Регламент: {link}"}]}), tool_call_id="r", name="read_wiki")]
+    kept = clean(turn, "Регламент: https://help.university.innopolis.ru/documents/регламент.pdf [m1]")
+    assert "documents/регламент.pdf" in kept
+    cut = clean(turn, "Шаблон записки — в Приложении 2 [m1].\n\nСсылка на шаблон: https://help.university.innopolis.ru/documents/регламнт.pdf [m2]")
+    assert_test(LLMTestCase(input="", actual_output=cut), [ContainsAll(["Приложении 2 [m1]. [m2]"], name="RefKept"), ContainsNone(["Ссылка на шаблон", "регламнт"], name="LabelGone")])

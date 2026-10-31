@@ -7,6 +7,7 @@ import time
 import uuid
 from datetime import datetime
 from typing import Annotated, Iterable
+from urllib.parse import unquote
 
 from langchain.agents import create_agent
 from langchain.agents.middleware import (
@@ -592,6 +593,7 @@ class LoggingMiddleware(AgentMiddleware):
 
 
 URL_RE = re.compile(r"https?://[^\s)\]>\"']+")
+LABEL_ONLY = re.compile(r"[^\n\[\]]{0,80}:\**\s*(?:\[m\d+\]\s*)*")  # "Ссылка на шаблон: [m3]", what is left once its link is cut
 
 
 def _urls_in(content: object) -> set[str]:
@@ -622,19 +624,29 @@ def clean(turn: list[BaseMessage], answer: str) -> str:
     The prompt forbids invented links and asks for careful wording, but small models do neither reliably, so both are
     enforced in code.
     """
-    known = {url for m in turn if isinstance(m, ToolMessage) for url in _urls_in(m.content)}
+    # Compared unescaped: a document's link is %-escaped in the results, and the model may write its Cyrillic as letters.
+    known = {unquote(url) for m in turn if isinstance(m, ToolMessage) for url in _urls_in(m.content)}
 
     def keep_known(match: re.Match) -> str:
         url = match.group(0).rstrip(".,;:")
-        if url in known:
+        if unquote(url) in known:
             return match.group(0)
         log.warning("removed invented url: %s", url)
         return ""
 
-    answer = re.sub(
-        r"\[([^\]]+)\]\((https?://[^)\s]+)\)", lambda m: m.group(0) if m.group(2) in known else m.group(1), answer
-    )
-    answer = URL_RE.sub(keep_known, answer)
+    lines: list[str] = []
+    for line in answer.split("\n"):
+        kept = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", lambda m: m.group(0) if unquote(m.group(2)) in known else m.group(1), line)
+        kept = URL_RE.sub(keep_known, kept)
+        if kept != line and LABEL_ONLY.fullmatch(kept):
+            # The link was all the line had ("Ссылка на шаблон: <url> [m3]"): the line goes, its refs join the line above.
+            refs = "".join(re.findall(r"\[m\d+\]", kept))
+            above = [i for i, text in enumerate(lines) if text.strip()]
+            if refs and above:
+                lines[above[-1]] = f"{lines[above[-1]].rstrip()} {refs}"
+            continue
+        lines.append(kept)
+    answer = "\n".join(lines)
     # Sentences that attribute something to the administration, the dean's office or an "official source", or say that
     # something was "not announced", must be backed by the results of this turn (agent/claims.py).
     evidence = "\n".join(str(m.content) for m in turn if isinstance(m, ToolMessage))
