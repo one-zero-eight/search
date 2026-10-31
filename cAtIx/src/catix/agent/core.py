@@ -299,6 +299,30 @@ class CiteMiddleware(AgentMiddleware):
         return await handler(self._again(request, last)) if last else response
 
 
+EMPTY_SEARCHES = 2  # model calls in a row whose searches all found nothing; then the next one is the report
+
+
+def empty_searches(run: list[BaseMessage]) -> int:
+    """How many of the run's last model calls in a row searched and found nothing: every tool call of theirs a search_* whose
+    result has total 0 (two searches side by side in one call are one try)."""
+    results = {m.tool_call_id: m for m in run if isinstance(m, ToolMessage)}
+
+    def empty(result: ToolMessage | None) -> bool:
+        if result is None or not (result.name or "").startswith("search_"):
+            return False
+        try:
+            return json.loads(result.content).get("total") == 0
+        except (TypeError, ValueError, AttributeError):
+            return False
+
+    count = 0
+    for message in reversed([m for m in run if isinstance(m, AIMessage) and m.tool_calls]):
+        if not all(empty(results.get(call["id"])) for call in message.tool_calls):
+            break
+        count += 1
+    return count
+
+
 class RunGuardMiddleware(AgentMiddleware):
     """Keeps a run from ending without an answer. It never decides which tool the model calls: that is the model's choice.
 
@@ -313,6 +337,8 @@ class RunGuardMiddleware(AgentMiddleware):
     - So too once the reads of a helper with read_wiki are spent (MAX_READS that gave text): told in the tool's result to
       report, the model read on, was refused, read on again (a trace of 'регламент организации ИТ-поддержки'); now its next
       call is its report, from what the searches and the reads above found.
+    - So too after EMPTY_SEARCHES model calls in a row whose searches all found nothing: the chats helper reworded an empty
+      search four times (a trace of 'как получить права администратора на компьютер'); one rewording is what the prompt asks.
     """
 
     def __init__(self, tool_names: Iterable[str] | None = None) -> None:
@@ -325,6 +351,8 @@ class RunGuardMiddleware(AgentMiddleware):
             log.info("last model call of this run: no tool calls, the model must answer")
         elif "read_wiki" in (self.tool_names or ()) and reads_done(run) >= MAX_READS:
             log.info("the reads of this run are spent: no tool calls, the model must answer")
+        elif empty_searches(run) >= EMPTY_SEARCHES:
+            log.info("%d searches in a row found nothing: no tool calls, the model must answer", EMPTY_SEARCHES)
         else:
             return request
         return request.override(tool_choice="none", messages=[*request.messages, HumanMessage(FINAL_HINT)])

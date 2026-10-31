@@ -80,6 +80,27 @@ def test_once_the_reads_are_spent_the_next_call_is_the_report():
     assert RunGuardMiddleware({"search_chats"})._final(req).tool_choice is None  # (a helper without read_wiki)
 
 
+def test_after_two_empty_searches_in_a_row_the_next_call_is_the_report():
+    """The chats helper reworded an empty search four times ('как получить права администратора на компьютер'): one
+    rewording is allowed, then it reports. Two searches side by side in one call are one try; one that found something
+    starts the count again."""
+    import json
+
+    def turn(n: int, *totals: int) -> list:
+        calls = [{"name": "search_chats", "args": {"queries": [f"q{n}{i}"]}, "id": f"s{n}{i}", "type": "tool_call"} for i in range(len(totals))]
+        return [AIMessage(content="", tool_calls=calls), *(ToolMessage(content=json.dumps({"total": t, "messages": []}), tool_call_id=c["id"], name="search_chats")
+                                                           for c, t in zip(calls, totals))]
+
+    guard = RunGuardMiddleware({"search_chats", "search_userbot_chats"})
+    req = Req(0)
+    req.messages = [HumanMessage("права администратора"), *turn(1, 0, 0)]
+    assert guard._final(req).tool_choice is None  # one empty try (two searches side by side): one rewording may follow
+    req.messages += turn(2, 0)
+    assert guard._final(req).tool_choice == "none"
+    req.messages = [HumanMessage("права администратора"), *turn(1, 0), *turn(2, 3), *turn(3, 0)]
+    assert guard._final(req).tool_choice is None  # (the second found something: the empty ones are not in a row)
+
+
 def test_a_repeated_tool_call_is_not_executed_again():
     first = {**SEARCH, "id": "a"}
     again = {**SEARCH, "id": "b"}
