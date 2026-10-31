@@ -69,7 +69,7 @@ SITES = {
     "innohassle": Site("https://innohassle.ru/", "en", "InNoHassle, the student ecosystem of Innopolis University made by the one-zero-eight community: clubs and their leaders, scholarship, room-booking rules, sport, maps, music room",
                        r"(^|/)(admin|account|auth|forms|drafts|submissions|profile|trainer|print|scan)(/|$)|^guard/(create|copy|files)|^when2meet/new"
                        r"|^$|^(start|schedule|maps|workshops|timetable|tabletennis|events)(/|$)|^clubs($|/(?!(league|new)(/|$)))|^music-room($|/(?!instructions(/|$)))"
-                       r"|^(calendar|search|sport|when2meet|student-affairs|board-games|timer)($|/)|^room-booking($|/(?!rules(/|$)))",  # (login walls: 'Use your Innopolis account to access InNoHassle services'; board-games and timer: no text)
+                       r"|^(calendar|search|when2meet|student-affairs|board-games|timer)($|/)|^sport($|/(?!faq(/|$)))|^room-booking($|/(?!rules(/|$)))",  # (login walls: 'Use your Innopolis account to access InNoHassle services'; board-games and timer: no text)
                        max_pages=300, render=True),  # (an app: the browser runs its scripts; the pages behind a login show 'Sign in' and are dropped as pages of no words)
     "hotel": Site("https://hotel.innopolis.university/", "ru", "the campus of Innopolis University: dormitories, their rules, prices and documents",
                   r"zayavka|bitrix|upload/", sitemap=False, english="en"),
@@ -690,6 +690,8 @@ def compile_all() -> None:
                 model_up = False
                 desc, tags, audience = pending_description(title, words), [], list(regulations.AUDIENCES)
                 by = f"{PRODUCER} sites (code, no model: description {PENDING})"
+        if p.get("audience"):  # (a page whose readers a person named: sport/faq is for students)
+            audience = [str(a) for a in p["audience"]]
         front = ["---", "type: page", f"title: {yaml_value(title)}", f"description: {yaml_value(desc)}", f"resource: {yaml_value(p['url'])}",
                  f"tags: {yaml_value(tags)}", f"audience: {yaml_value(audience)}", "source_kind: website", f"language: {lang}",
                  f"section: {yaml_value(f'site/{name}')}",

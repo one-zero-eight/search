@@ -307,9 +307,9 @@ def test_innohassle_keeps_the_pages_of_text_and_leaves_the_lists_of_data():
     app = SITES["innohassle"]
     for path in ("", "start", "schedule", "schedule/core-courses", "maps", "workshops", "timetable", "tabletennis/players", "events", "events/p/6ab2",
                  "clubs", "clubs/innopolis-tatars", "music-room", "admin/users", "forms", "account",
-                 "calendar", "search/ask", "sport/faq", "when2meet", "student-affairs", "room-booking", "room-booking/rooms", "room-booking/list", "board-games", "timer"):  # (login walls)
+                 "calendar", "search/ask", "sport", "sport/history", "when2meet", "student-affairs", "room-booking", "room-booking/rooms", "room-booking/list", "board-games", "timer"):  # (login walls)
         assert not sites._taken(app, f"https://innohassle.ru/{path}"), path
-    for path in ("clubs/league", "clubs/new", "music-room/instructions", "room-booking/rules", "extension", "guard", "dashboard", "about", "dorms", "printers", "scholarship"):
+    for path in ("clubs/league", "clubs/new", "music-room/instructions", "sport/faq", "room-booking/rules", "extension", "guard", "dashboard", "about", "dorms", "printers", "scholarship"):
         assert sites._taken(app, f"https://innohassle.ru/{path}"), path
 
 
@@ -401,3 +401,13 @@ def test_the_index_of_the_sites_lists_the_pages_of_every_site_folder(tmp_path):
     assert "(/raw/sites/hotel/home.md)" in listing and "(/raw/sites/campuslife/faq.md)" in listing
     assert "## site/hotel" in listing and "## site/campuslife" in listing  # (a section for every site)
     assert "(/raw/sites/index.md): " in (tmp_path / "index.md").read_text(encoding="utf-8")
+
+
+def test_a_person_can_name_the_readers_of_a_page(tmp_path, monkeypatch):
+    out = _site_root(tmp_path, monkeypatch, {"faq": ("https://hotel.innopolis.university/faq/", WORDS)})
+    monkeypatch.setattr(sites.regulations, "describe", lambda title, text, kind="": ("d", ["t"], ["public"]))
+    index = sites.load("hotel")
+    index["pages"]["faq"]["audience"] = ["student"]
+    sites.save("hotel", index)
+    sites.compile_all()
+    assert 'audience: ["student"]' in (out / "hotel" / "faq.md").read_text(encoding="utf-8")  # (the model said public: the person's word stands)
