@@ -46,6 +46,7 @@ class MessageHit:
     chat_group: str  # `all` or a study group code: whom the chat is for
     parent_sender: str | None
     parent_text: str | None
+    relevance: float | None = None  # (not a column) its second best score of the reranker over the queries, from store._rerank
 
 
 @dataclass(frozen=True, slots=True)

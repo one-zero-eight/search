@@ -103,11 +103,12 @@ class Collector:
             return [self.rewrite(item) for item in value]
         return value
 
-    def result(self, payload: dict, tool_name: str) -> Command:
-        """The tool's result for the model, and the new sources for the state."""
+    def result(self, payload: dict, tool_name: str, artifact: dict | None = None) -> Command:
+        """The tool's result for the model, and the new sources for the state; `artifact` goes with it, unseen by the model."""
         import json
 
-        message = ToolMessage(content=json.dumps(payload, ensure_ascii=False, default=str), tool_call_id=self.runtime.tool_call_id, name=tool_name)
+        message = ToolMessage(content=json.dumps(payload, ensure_ascii=False, default=str), tool_call_id=self.runtime.tool_call_id,
+                              name=tool_name, artifact=artifact)
         return Command(update={"messages": [message], "sources": self.new})
 
 

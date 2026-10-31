@@ -310,7 +310,11 @@ def search_chats(
             item["in_reply_to"] = f"{row.parent_sender}: {row.parent_text[:200]}"
         messages.append(item)
     result = {"total": len(messages), "messages": messages}
-    return collector.result(result, "search_chats")
+    # The refs of those about the question, for the guard: two searches in a row with none it had not found before end the
+    # searching (core.empty_searches).
+    scored = any(row.relevance is not None for row in rows)
+    relevant = [item["ref"] for item, row in zip(messages, rows) if row.relevance is not None and row.relevance >= settings.chat_relevant_score]
+    return collector.result(result, "search_chats", {"relevant": relevant} if scored else None)
 
 
 def _question(runtime: ToolRuntime[AgentContext]) -> str | None:

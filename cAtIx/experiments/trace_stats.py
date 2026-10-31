@@ -54,11 +54,12 @@ def spans_of(project: str, trace: str) -> list[dict]:
 
 
 def tool_result(span: dict) -> dict | None:
-    """The JSON a tool gave the model, or None (a helper's report is text)."""
+    """The JSON a tool gave the model, or None (a helper's report is text); its artifact, unseen by the model, as `artifact`."""
     try:
         out = json.loads((span.get("output") or {}).get("value") or "{}")
-        content = out["update"]["messages"][0]["data"]["content"] if "update" in out else out
-        return json.loads(content) if isinstance(content, str) else content
+        data = out["update"]["messages"][0]["data"] if "update" in out else {"content": out}
+        content = json.loads(data["content"]) if isinstance(data["content"], str) else data["content"]
+        return {**content, "artifact": data["artifact"]} if isinstance(content, dict) and data.get("artifact") else content
     except (KeyError, IndexError, TypeError, ValueError):
         return None
 
@@ -107,7 +108,7 @@ def summary(spans: list[dict]) -> dict:
         out["tools"].append((s["startTime"][11:19], who, name, (s.get("input") or {}).get("value", ""), res))
         if name.startswith("search_"):
             rounds.setdefault(who, set()).add(s["parentId"])  # (the calls of one model turn share the tools node)
-            out["empty"][who] += total == 0
+            out["empty"][who] += total == 0 or (res.get("artifact") or {}).get("relevant") == []  # (none about the question)
         if name == "read_wiki" and isinstance(res, dict) and res.get("pieces"):
             out["reads"][who] += 1
         if isinstance(res, dict) and res.get("error"):
@@ -130,7 +131,7 @@ def show_trace(project: str, trace: str) -> None:
     for when, who, name, args, res in s["tools"]:
         if isinstance(res, dict):
             items = res.get("pieces") or res.get("messages") or res.get("rows") or []
-            found = f"total {res.get('total', len(items))}" + (f", error: {res['error'][:70]}" if res.get("error") else "") + (f", {res['note'][:70]}" if res.get("note") else "")
+            found = f"total {res.get('total', len(items))}" + (f", relevant {res['artifact']['relevant']}" if "relevant" in (res.get("artifact") or {}) else "") + (f", error: {res['error'][:70]}" if res.get("error") else "") + (f", {res['note'][:70]}" if res.get("note") else "")
         else:
             found = "(text)"
         print(f"  {when} {who:>10} {name}({args[:110]})\n{'':22}-> {found}")

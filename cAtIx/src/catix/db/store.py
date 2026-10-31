@@ -8,7 +8,7 @@ import logging
 import re
 from collections.abc import Collection, Iterable
 from concurrent.futures import ThreadPoolExecutor
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import datetime
 
 from catix import userbot_config
@@ -438,6 +438,10 @@ def search(
 def _rerank(queries: list[str], hits: list[MessageHit], limit: int) -> list[MessageHit]:
     """The `limit` messages the reranker finds closest to any of the queries (its best score counts), above the cutoff.
 
+    Each message keeps its second best score as `relevance`, how well two angles agree that it is about the question. The
+    best alone says little: a model's 'администратор университет иннополис' gave 3.09 to a notice on housing contracts
+    (-2.31 the second); the question alone neither: 'что писали в чатах про физкультуру для первокурсников?' gave -2.84 to
+    the post on physical education for first-years (2.07 the second, from the model's 'физкультура первокурсники').
     If the reranker server is down the hybrid ranking stays as it was.
     """
     if not hits or limit <= 0:
@@ -456,7 +460,8 @@ def _rerank(queries: list[str], hits: list[MessageHit], limit: int) -> list[Mess
     log.debug("rerank scores of %s: %s", queries, [round(best[i], 2) for i in order])
     if settings.rerank_min_score is not None:
         order = [i for i in order if best[i] >= settings.rerank_min_score]
-    return [hits[i] for i in order]
+    agreed = [sorted(column, reverse=True)[1 if len(column) > 1 else 0] for column in zip(*scores)]
+    return [replace(hits[i], relevance=agreed[i]) for i in order]
 
 
 def chat_groups(chat_ids: list[int]) -> dict[int, str]:

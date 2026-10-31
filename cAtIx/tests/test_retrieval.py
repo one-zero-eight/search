@@ -7,6 +7,18 @@ from catix.db import pg, store, wiki
 from catix.settings import settings
 
 
+def hit(search, text: str):
+    """A hit of `search`: a chat message (store) or a piece of the wiki."""
+    if search is store:
+        from datetime import datetime
+
+        from catix.db.rows import MessageHit
+
+        return MessageHit(ref_id=1, chat_id=1, msg_id=1, date=datetime(2026, 6, 1), edit_date=None, sender_name=None, reply_to=None,
+                          text=text, link=None, chat_title="Campus", chat_official=True, chat_group="all", parent_sender=None, parent_text=None)
+    return SimpleNamespace(title="Title", heading="Heading", text=text, parent_text=None)
+
+
 def client(monkeypatch, payload):
     requests = []
 
@@ -91,8 +103,7 @@ def test_embedding_checks_the_actual_server_model(monkeypatch):
 def test_single_irrelevant_hit_still_passes_through_reranker(monkeypatch, search):
     monkeypatch.setattr(settings, "rerank_min_score", -3.0)
     monkeypatch.setattr(pg, "rerank", lambda query, documents: [-10.0])
-    hit = SimpleNamespace(title="Title", heading="Heading", text="irrelevant", parent_text=None)
-    assert search._rerank(["question"], [hit], 10) == []
+    assert search._rerank(["question"], [hit(search, "irrelevant")], 10) == []
 
 
 @pytest.mark.parametrize("search", [store, wiki])
@@ -107,9 +118,20 @@ def test_reranking_keeps_tail_and_fourth_query(monkeypatch, search):
         return [2.0 if query == "fourth" and "answer at the end" in document else -10.0 for document in documents]
 
     monkeypatch.setattr(pg, "rerank", rerank)
-    hit = SimpleNamespace(title="Title", heading="Heading", text="prefix " * 180 + "answer at the end", parent_text=None)
-    assert search._rerank(["first", "second", "third", "fourth"], [hit], 10) == [hit]
+    found = hit(search, "prefix " * 180 + "answer at the end")
+    assert [h.text for h in search._rerank(["first", "second", "third", "fourth"], [found], 10)] == [found.text]
     assert len(seen) == 4
+
+
+def test_each_message_keeps_how_well_two_angles_agree_it_is_about_the_question(monkeypatch):
+    """A model's 'администратор университет иннополис' gave 3.09 to a notice on housing contracts, the rest -2.31 at most:
+    the cutoff keeps the best, `relevance` is the second best. With one query it is that query's score."""
+    scores = {"как получить права администратора": -2.31, "администратор университет иннополис": 3.09, "права на ПК": -6.0}
+    monkeypatch.setattr(settings, "rerank_min_score", -3.0)
+    monkeypatch.setattr(pg, "rerank", lambda query, documents: [scores[query]])
+    notice = hit(store, "договор на услуги размещения в АНО ВО «Университет Иннополис»")
+    assert [h.relevance for h in store._rerank(list(scores), [notice], 5)] == [-2.31]
+    assert [h.relevance for h in store._rerank(["администратор университет иннополис"], [notice], 5)] == [3.09]
 
 
 def test_empty_fusion_and_zero_limit():
@@ -125,6 +147,5 @@ def test_reranker_failure_keeps_hybrid_ranking(monkeypatch, search):
         raise httpx.ConnectError("offline")
 
     monkeypatch.setattr(pg, "rerank", unavailable)
-    hits = [SimpleNamespace(title="Title", heading="Heading", text="first", parent_text=None),
-            SimpleNamespace(title="Title", heading="Heading", text="second", parent_text=None)]
+    hits = [hit(search, "first"), hit(search, "second")]
     assert search._rerank(["question"], hits, 1) == hits[:1]

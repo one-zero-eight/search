@@ -202,6 +202,10 @@ DUPLICATE_HINT = (
     "This exact call was already made in this conversation turn and gave you its result above. Do not repeat it: "
     "change the words or the angle, or answer with what you have."
 )
+ASKED_HINT = (
+    "This helper already reported above with sources in this question, and it is not asked again: what it found is what "
+    "there is. Answer now from its report, and say what it did not find."
+)
 NOT_MADE_HINT = (
     "That tool call was not made: no more tool calls in this question. Write your answer now as plain text, with what "
     "the tool results above contain, citing refs as usual."
@@ -309,23 +313,44 @@ EMPTY_SEARCHES = 2  # model calls in a row whose searches all found nothing; the
 
 def empty_searches(run: list[BaseMessage]) -> int:
     """How many of the run's last model calls in a row searched and found nothing: every tool call of theirs a search_* whose
-    result has total 0 (two searches side by side in one call are one try)."""
+    result has total 0, or none of whose messages about the question is one an earlier search had not found (search_chats:
+    the refs `relevant` in the result's artifact, which the model does not see). Two searches side by side in one call are
+    one try."""
     results = {m.tool_call_id: m for m in run if isinstance(m, ToolMessage)}
+    found: set[str] = set()  # the refs about the question that the searches so far found
 
     def empty(result: ToolMessage | None) -> bool:
         if result is None or not (result.name or "").startswith("search_"):
             return False
+        if isinstance(result.artifact, dict) and isinstance(relevant := result.artifact.get("relevant"), list):
+            new = set(relevant) - found
+            found.update(relevant)
+            return not new
         try:
             return json.loads(result.content).get("total") == 0
         except (TypeError, ValueError, AttributeError):
             return False
 
     count = 0
-    for message in reversed([m for m in run if isinstance(m, AIMessage) and m.tool_calls]):
-        if not all(empty(results.get(call["id"])) for call in message.tool_calls):
-            break
-        count += 1
+    for message in [m for m in run if isinstance(m, AIMessage) and m.tool_calls]:
+        turn = [empty(results.get(call["id"])) for call in message.tool_calls]  # (each result read once, in order)
+        count = count + 1 if all(turn) else 0
     return count
+
+
+def repeated(run: list[BaseMessage]) -> bool:
+    """Whether none of the calls of the run's last model call was executed: each was made before (DUPLICATE_HINT) or asked
+    a helper that had already reported with sources (ASKED_HINT)."""
+    results = {m.tool_call_id: m for m in run if isinstance(m, ToolMessage)}
+    last = next((m for m in reversed(run) if isinstance(m, AIMessage) and m.tool_calls), None)
+
+    def refused(call: dict) -> bool:
+        return any(hint in str(getattr(results.get(call["id"]), "content", "")) for hint in (DUPLICATE_HINT, ASKED_HINT))
+
+    return last is not None and all(refused(call) for call in last.tool_calls)
+
+
+SOURCED = re.compile(r"\[m\d+\]")  # a ref in a helper's report: it found something
 
 
 SOURCED_ROUNDS = 2  # the supervisor's model calls whose helpers reported with sources; then the next one is the answer
@@ -336,7 +361,7 @@ def sourced_rounds(run: list[BaseMessage]) -> int:
     results = {m.tool_call_id: m for m in run if isinstance(m, ToolMessage)}
 
     def sourced(result: ToolMessage | None) -> bool:
-        return result is not None and (result.name or "").startswith("ask_") and bool(re.search(r"\[m\d+\]", str(result.content)))
+        return result is not None and (result.name or "").startswith("ask_") and bool(SOURCED.search(str(result.content)))
 
     return sum(any(sourced(results.get(call["id"])) for call in m.tool_calls) for m in run if isinstance(m, AIMessage) and m.tool_calls)
 
@@ -359,9 +384,18 @@ class RunGuardMiddleware(AgentMiddleware):
       call is its report, from what the searches and the reads above found.
     - So too after EMPTY_SEARCHES model calls in a row whose searches all found nothing: the chats helper reworded an empty
       search four times (a trace of 'как получить права администратора на компьютер'); one rewording is what the prompt asks.
+      A chat search whose messages are all off the question is empty too: on 'какие требования к компьютеру и камере на
+      дистанционном экзамене' every search found 3 to 6 (midterm notices, arrival in Russia) and it searched 5 rounds. So is
+      one whose messages about the question were all found before: on 'сколько нужно заниматься физкультурой' the chats
+      helper found the post on physical education again and again, looking for a number of hours the chats do not give.
+    - So too after a model call that only repeated calls already made: it has nothing new to look for. The chats helper
+      repeated its one search four times, each refused with DUPLICATE_HINT ('что писали в чатах про физкультуру для
+      первокурсников?').
     - So too for the supervisor after SOURCED_ROUNDS calls whose helpers reported with sources: given a report with
       sources, it asked the docs helper for more details four times over (137 s for 'как перезачесть курсы, пройденные в
-      другом вузе'). One more round, to another helper or for what the first report missed, is left to it.
+      другом вузе'). A helper that reported with sources is not asked again in the same question (ASKED_HINT, and the
+      next call is the answer): the supervisor reworded 'сколько нужно заниматься физкультурой' to 'сколько часов в неделю…'
+      for the docs helper, 25 s more for what the first report had. Another helper may still be asked.
     """
 
     def __init__(self, tool_names: Iterable[str] | None = None) -> None:
@@ -376,6 +410,8 @@ class RunGuardMiddleware(AgentMiddleware):
             log.info("the reads of this run are spent: no tool calls, the model must answer")
         elif empty_searches(run) >= EMPTY_SEARCHES:
             log.info("%d searches in a row found nothing: no tool calls, the model must answer", EMPTY_SEARCHES)
+        elif repeated(run):
+            log.info("the model only repeated earlier calls: no tool calls, the model must answer")
         elif sourced_rounds(run) >= SOURCED_ROUNDS:
             log.info("helpers reported with sources %d times: no tool calls, the model must answer", SOURCED_ROUNDS)
         else:
@@ -448,11 +484,22 @@ class RunGuardMiddleware(AgentMiddleware):
             response, ok = self._check(await handler(self._again(request, response, allow)), allow)
         return response if ok else self._with_last(response, AIMessage(content=TOOL_FAILURE_ANSWER))
 
+    @staticmethod
+    def _asked_again(request: ToolCallRequest) -> ToolMessage | None:
+        current = request.tool_call
+        if not current["name"].startswith("ask_"):
+            return None
+        for message in _this_run(request.state["messages"]):
+            if isinstance(message, ToolMessage) and message.name == current["name"] and SOURCED.search(str(message.content)):
+                log.info("%s already reported with sources: not asked again", current["name"])
+                return ToolMessage(content=json.dumps({"error": ASKED_HINT}), tool_call_id=current["id"], name=current["name"])
+        return None
+
     def wrap_tool_call(self, request, handler):
-        return self._duplicate(request) or handler(request)
+        return self._duplicate(request) or self._asked_again(request) or handler(request)
 
     async def awrap_tool_call(self, request, handler):
-        return self._duplicate(request) or await handler(request)
+        return self._duplicate(request) or self._asked_again(request) or await handler(request)
 
 
 class LoggingMiddleware(AgentMiddleware):

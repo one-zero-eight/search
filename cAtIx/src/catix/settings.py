@@ -161,6 +161,13 @@ class Settings(BaseSettings):
     # -3.0 comes from a handful of real queries with bge-reranker-v2-m3: answers sit at about -0.5..+1, off-topic
     # noise at -4..-5.
     rerank_min_score: float | None = -3.0
+    # A message of a chat search is about the question when its second best score over the queries (two angles agree)
+    # is this or above. A search with none, or with none that an earlier search had not found, is empty for the guard
+    # (agent/core.py), and two in a row end the searching. On 47 searches of the traces and the labelled set, those that
+    # found what was asked (physical education, bed linen, the military office, the map) gave -1.32 or above, those the
+    # chats helper reworded in vain (a camera for an online exam, administrator rights, choosing electives) -2.02 at
+    # best. Called empty wrongly, a search costs little: what it found stays before the model, which reports a round earlier.
+    chat_relevant_score: float = -1.5
     # Longer messages are cut before embedding: the start carries the meaning, and cost grows with length.
     embeddings_max_chars: int = Field(2000, gt=0)
     embed_workers: int = Field(2, gt=0, description="Parallel embedding requests; ~2-4 saturates the GPU server.")

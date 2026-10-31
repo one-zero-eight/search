@@ -101,6 +101,33 @@ def test_after_two_empty_searches_in_a_row_the_next_call_is_the_report():
     assert guard._final(req).tool_choice is None  # (the second found something: the empty ones are not in a row)
 
 
+def test_a_chat_search_with_nothing_about_the_question_it_had_not_found_before_is_empty():
+    """On 'какие требования к компьютеру и камере на дистанционном экзамене' every chat search found 3 to 6 messages (midterm
+    notices, arrival in Russia) and the helper searched 5 rounds; on 'сколько нужно заниматься физкультурой' it found the
+    one post on physical education again and again. The refs of the messages about the question go with the result as its
+    artifact, which the model does not see."""
+    import json
+
+    def turn(n: int, relevant: list | None) -> list:
+        call = {"name": "search_chats", "args": {"queries": [f"q{n}"]}, "id": f"s{n}", "type": "tool_call"}
+        result = ToolMessage(content=json.dumps({"total": 4, "messages": [{}] * 4}), tool_call_id=f"s{n}", name="search_chats",
+                             artifact=None if relevant is None else {"relevant": relevant})
+        return [AIMessage(content="", tool_calls=[call]), result]
+
+    guard = RunGuardMiddleware({"search_chats", "search_userbot_chats"})
+    req = Req(0)
+    req.messages = [HumanMessage("требования к камере"), *turn(1, []), *turn(2, [])]
+    assert guard._final(req).tool_choice == "none"
+    req.messages = [HumanMessage("требования к камере"), *turn(1, []), *turn(2, ["m1"])]
+    assert guard._final(req).tool_choice is None  # (one is about the question)
+    req.messages = [HumanMessage("физкультура"), *turn(1, ["m1"]), *turn(2, ["m1"]), *turn(3, ["m1"])]
+    assert guard._final(req).tool_choice == "none"  # (the same post, found again twice)
+    req.messages = [HumanMessage("физкультура"), *turn(1, ["m1"]), *turn(2, ["m1"]), *turn(3, ["m1", "m5"])]
+    assert guard._final(req).tool_choice is None
+    req.messages = [HumanMessage("требования к камере"), *turn(1, None), *turn(2, None)]
+    assert guard._final(req).tool_choice is None  # (not scored: the reranker was down)
+
+
 def test_after_two_rounds_of_reports_with_sources_the_supervisor_answers():
     """Given a report with sources, the supervisor asked the docs helper for more details four times over ('как
     перезачесть курсы, пройденные в другом вузе', 137 s). One more round is its choice, then it answers; a report without
@@ -118,6 +145,28 @@ def test_after_two_rounds_of_reports_with_sources_the_supervisor_answers():
     assert guard._final(req).tool_choice == "none" and guard._final(req).tools == TOOLS
 
 
+def test_a_helper_that_reported_with_sources_is_not_asked_again_and_the_next_call_is_the_answer():
+    """The supervisor reworded 'сколько нужно заниматься физкультурой' to 'сколько часов в неделю…' for the docs helper: 25 s
+    more for what the first report had. A helper that failed or found nothing may be asked again, another helper too."""
+
+    def ask(n: int, helper: str = "ask_docs") -> dict:
+        return {"name": helper, "args": {"question": f"q{n}"}, "id": f"a{n}", "type": "tool_call"}
+
+    def report(n: int, text: str) -> ToolMessage:
+        return ToolMessage(content=text, tool_call_id=f"a{n}", name="ask_docs")
+
+    guard = RunGuardMiddleware({"ask_docs", "ask_chats", "ask_campus"})
+    messages = [HumanMessage("сколько нужно заниматься физкультурой"), AIMessage(content="", tool_calls=[ask(1)]), report(1, core.TOOL_FAILURE_ANSWER)]
+    assert guard._asked_again(types.SimpleNamespace(tool_call=ask(2), state={"messages": messages})) is None  # (the first one failed)
+    messages += [AIMessage(content="", tool_calls=[ask(2)]), report(2, "2 часа в неделю [m1]."), AIMessage(content="", tool_calls=[ask(3)])]
+    refused = guard._asked_again(types.SimpleNamespace(tool_call=ask(3), state={"messages": messages}))
+    assert_test(LLMTestCase(input="", actual_output=str(refused.content)), [ContainsAll(["not asked again"], name="AskedHint")])
+    assert guard._asked_again(types.SimpleNamespace(tool_call=ask(4, "ask_chats"), state={"messages": messages})) is None
+    req = Req(0)
+    req.messages = [*messages, refused]
+    assert guard._final(req).tool_choice == "none"
+
+
 def test_markup_on_a_call_without_tools_is_asked_again_with_why_it_was_not_made():
     """Forced to report, the docs helper wrote a third read as text; asked the same again it wrote the same (the server's
     cache), and the report was TOOL_FAILURE_ANSWER. Its markup and the reason go after the conversation, the start stays."""
@@ -130,6 +179,23 @@ def test_markup_on_a_call_without_tools_is_asked_again_with_why_it_was_not_made(
     assert seen[1].messages[: len(seen[0].messages)] == seen[0].messages and seen[1].tool_choice == "none"
     assert seen[1].messages[-2].content == markup.content
     assert_test(LLMTestCase(input="", actual_output=str(seen[1].messages[-1].content)), [ContainsAll(["was not made"], name="WhyNotMade")])
+
+
+def test_after_a_call_that_only_repeated_earlier_ones_the_next_is_the_report():
+    """The chats helper repeated its one search four times, each refused ('что писали в чатах про физкультуру для
+    первокурсников?'): it had nothing new to look for. A call with one new search among the repeats goes on."""
+    import json
+
+    first, again, other = {**SEARCH, "id": "a"}, {**SEARCH, "id": "b"}, {**SEARCH, "args": {"queries": ["спорт"]}, "id": "c"}
+    refused = ToolMessage(content=json.dumps({"error": core.DUPLICATE_HINT}), name="search_chats", tool_call_id="b")
+    guard = RunGuardMiddleware({"search_chats"})
+    req = Req(0)
+    req.messages = [HumanMessage("физкультура"), AIMessage(content="", tool_calls=[first]), ToolMessage(content='{"total": 3}', name="search_chats", tool_call_id="a")]
+    assert guard._final(req).tool_choice is None
+    req.messages += [AIMessage(content="", tool_calls=[again]), refused]
+    assert guard._final(req).tool_choice == "none"
+    req.messages[-2:] = [AIMessage(content="", tool_calls=[again, other]), refused, ToolMessage(content='{"total": 2}', name="search_chats", tool_call_id="c")]
+    assert guard._final(req).tool_choice is None
 
 
 def test_a_repeated_tool_call_is_not_executed_again():
