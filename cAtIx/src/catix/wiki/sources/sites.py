@@ -799,14 +799,17 @@ def fetch(names: list[str] | None = None) -> int:
 def docs() -> dict[str, dict]:
     """The documents the sites link, as regulations.all_docs wants them."""
     out = {}
-    for name in SITES:
+    for name, site in SITES.items():
         for url, anchor in load(name)["docs"].items():
             file = unquote(url.rsplit("/", 1)[-1])
             stem = re.sub(r"[_]+", " ", file.rsplit(".", 1)[0]).strip()
+            if re.search(r"(?i)\.(pdf|docx?|xlsx?|pptx?|rtf|odt)$", anchor):  # the link says the file's name (help: 'Приказ ад-01.2019.12.23 регламент_процесса_….pdf')
+                anchor = re.sub(r"_+", " ", anchor.rsplit(".", 1)[0]).strip()
             title = anchor if len(anchor) >= 12 and not re.fullmatch(r"(?i)(скачать|здесь|тут|download|here|подробнее|ссылк\w*)", anchor) else stem
             title = re.sub(r"\s+", " ", re.sub(r"\s*\(\d\)$", "", title)).strip()  # ('… 2025 год (2)': the second copy of a file)
             key = f"site-{name}-" + hashlib.sha1(url.encode()).hexdigest()[:8] + "-" + (latin(stem)[:40].strip("-") or "doc")
-            out[key] = {"title": title, "url": url, "root": ROOT / name / "docs", "section": f"site/{name}", "ext": file.rsplit(".", 1)[-1].lower()}
+            out[key] = {"title": title, "url": url, "root": ROOT / name / "docs", "section": f"site/{name}", "ext": file.rsplit(".", 1)[-1].lower(),
+                        **({"audience": list(site.audience)} if site.audience else {})}  # (the regulations of help are for the staff, as its pages)
     return out
 
 

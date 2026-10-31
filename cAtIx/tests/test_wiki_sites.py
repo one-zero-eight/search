@@ -91,7 +91,7 @@ def test_the_documents_of_a_site_go_to_the_regulations_with_a_readable_key(tmp_p
     (key, doc), = sites.docs().items()
     assert key.startswith("site-hotel-") and "-prilozhenie-k-prikazu-pravila" in key
     assert doc["title"] == "Приложение к приказу Правила размещения 2025 год"  # the link text says too little: the file's name
-    assert doc["section"] == "site/hotel" and doc["ext"] == "pdf"
+    assert doc["section"] == "site/hotel" and doc["ext"] == "pdf" and "audience" not in doc  # (the hotel names no readers: everyone)
 
 
 def test_the_university_site_reads_the_pages_of_its_disclosure_section_too_and_has_an_english_copy():
@@ -546,3 +546,12 @@ def test_a_page_that_does_not_exist_is_a_404_even_when_the_site_answers_200(tmp_
     assert sites.get_page(None, help_, "https://help.university.innopolis.ru/ru/VPN/x").status_code == 404
     monkeypatch.setattr(sites, "render_live", lambda url, profile: "<h1>VPN</h1>")
     assert sites.get_page(None, help_, "https://help.university.innopolis.ru/ru/VPN").status_code == 200
+
+
+def test_a_document_named_by_its_file_is_titled_without_it_and_is_for_the_readers_of_its_site(tmp_path, monkeypatch):
+    monkeypatch.setattr(sites, "ROOT", tmp_path)
+    url = canonical("https://help.university.innopolis.ru/documents/регламент_процесса_организации_ит.pdf")
+    sites.save("help", {"pages": {}, "docs": {url: "Приказ ад-01.2019.12.23 регламент_процесса_организации_ит-поддержки.pdf"}})
+    (doc,) = sites.docs().values()
+    assert doc["title"] == "Приказ ад-01.2019.12.23 регламент процесса организации ит-поддержки"
+    assert doc["audience"] == ["staff"]

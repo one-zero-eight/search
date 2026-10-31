@@ -494,7 +494,7 @@ def compile_all() -> None:
             print(f"{key}: no readable text, skipped")
             continue
         old = target.read_text(encoding="utf-8") if target.exists() else ""
-        audience = AUDIENCE_OF_SECTION.get(d["section"], [])
+        audience = d.get("audience") or AUDIENCE_OF_SECTION.get(d["section"], [])  # (a site that names its readers names those of its documents)
         body = to_markdown(text)
         issued = issued_of(text, meta["fetched_at"])
         ocr = meta["method"].startswith("ocr")
