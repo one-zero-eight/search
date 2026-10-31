@@ -97,25 +97,36 @@ def summary(spans: list[dict]) -> dict:
     out["passed"] = bool(sup and asks and sup[-1]["startTime"] < asks[-1]["startTime"])  # no model call after the report
     if sup and not out["passed"]:
         out["final"] = (sup[-1]["latencyMs"] or 0) / 1000
+    calls_of = {who: [s for s in llm if helper(s) == who] for who in {helper(s) for s in llm}}
+
+    def turn(span: dict, who: str) -> str | None:
+        """The model call that made a tool call: the last one of the same agent that started before it. (Parallel calls of
+        one turn do not share a parent span: each runs in a node of its own.)"""
+        before = [c for c in calls_of.get(who, []) if c["startTime"] < span["startTime"]]
+        return before[-1]["spanId"] if before else None
+
     rounds: dict[str, set] = {}
+    asked: set = set()
     for s in spans:
         if s["spanKind"] != "tool":
             continue
         who, name = helper(s), s["name"]
         if name.startswith("ask_"):
             out["helpers"][name[4:]] += 1
+            asked.add(turn(s, who))
             continue
         res = tool_result(s)
         total = res.get("total") if isinstance(res, dict) else None
         out["tools"].append((s["startTime"][11:19], who, name, (s.get("input") or {}).get("value", ""), res))
         if name.startswith("search_"):
-            rounds.setdefault(who, set()).add(s["parentId"])  # (the calls of one model turn share the tools node)
+            rounds.setdefault(who, set()).add(turn(s, who))
             out["empty"][who] += total == 0 or (res.get("artifact") or {}).get("relevant") == []  # (none about the question)
         if name == "read_wiki" and isinstance(res, dict) and res.get("pieces"):
             out["reads"][who] += 1
         if isinstance(res, dict) and res.get("error"):
             out["errors"].append(f"{who}/{name}: {str(res['error'])[:60]}")
-    out["rounds"] = Counter({who: len(parents) for who, parents in rounds.items()})
+    out["rounds"] = Counter({who: len(turns) for who, turns in rounds.items()})
+    out["ask_rounds"] = len(asked)
     return out
 
 
@@ -158,6 +169,7 @@ def main() -> None:
     for trace, s in rows:
         helpers = " ".join(f"{h}{'×' + str(k) if k > 1 else ''}:{s['calls'][h]}/{s['rounds'][h]},{s['empty'][h]}/{s['reads'][h]}"
                            for h, k in s["helpers"].items()) or ("SCREENED" if s["screened"] else "-")
+        helpers += f" ({s['ask_rounds']} rounds)" if s["ask_rounds"] > 1 else ""
         forced, again = sum(s["forced"].values()), sum(s["again"].values())
         final = " pass" if s["passed"] else f"{s['final']:5.1f}"
         print(f"{s['when']:16} {s['seconds']:5.1f} {sum(s['calls'].values()):5} {final}  {helpers:44} {forced or '':>6} {again or '':>5} {len(s['errors']) or '':>6}  {s['question'][:60]!r}  {trace}")
@@ -173,6 +185,8 @@ def main() -> None:
     rewritten = [s for s in one if not s["passed"]]
     print(f"the supervisor's last call: {sum(s['final'] for s in asked) / sum(secs):.0%} of all the time; {len(one)} questions asked "
           f"one helper only, {passed} answered with its report" + (f", {len(rewritten)} rewritten ({statistics.mean(s['final'] for s in rewritten):.1f} s each)" if rewritten else ""))
+    after = [s for s in asked if s["ask_rounds"] > 1]
+    print(f"the supervisor asked helpers in more than one round: {len(after)} questions ({statistics.mean(s['seconds'] for s in after):.1f} s each)" if after else "")
     again = [s for s in asked if any(k > 1 for k in s["helpers"].values())]
     print(f"the supervisor asked one helper again: {len(again)} questions ({statistics.mean(s['seconds'] for s in again):.1f} s each)" if again else "")
     loops = [(t, s) for t, s in rows if any(n >= 3 for n in s["rounds"].values())]
