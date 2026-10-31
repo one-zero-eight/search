@@ -6,7 +6,7 @@
     catix-wiki regs compile     # raw/regulations -> wiki/raw/regulations/<key>.md
 
 The text of a regulation is NOT rewritten by the model: the program only turns the layout into markdown (chapters, clauses, tables)
-and the clause numbers stay, so that a card can quote 'п. 5.3'. The model is asked only for a one-sentence description and tags.
+and the clause numbers stay, so that a card can quote 'п. 5.3'. No model writes any of the page (compile_all).
 These concepts carry `source_kind: official-document`; a scanned one also `extraction: ocr` and a `review:` note.
 """
 
@@ -24,7 +24,7 @@ import httpx
 from urllib.parse import unquote
 
 from catix.settings import settings
-from catix.wiki.compile import AUDIENCES, PRODUCER, clean_audience, clean_tags, front_of, _llm, model_name, yaml_value
+from catix.wiki.compile import AUDIENCES, PRODUCER, clean_audience, clean_tags, _llm, model_name, yaml_value  # (model_name: sites.py)
 from catix.wiki import paths
 from catix.wiki.paths import RAW
 
@@ -72,6 +72,15 @@ MAX_BYTES, MAX_PAGES, MAX_OCR_PAGES = 25_000_000, 150, 40  # one document may no
 MAX_FAILURES = 5  # network errors in a row before a run gives up
 PAUSE = 2  # seconds between requests: the site blocked us once after a burst, so stay well below what it tolerates
 OCR_BUDGET = 200  # pages of OCR per run of `regs fetch`; documents left over are done by the next run
+AUDIENCE_OF_SECTION = {  # who a document is for, by the section of the site that lists it; a section of every kind of document names no one (everyone)
+    "sveden/education": ["student", "postgraduate", "applicant", "teacher"],  # programmes, study plans, practice
+    "sveden/eduStandarts": ["student", "postgraduate", "applicant", "teacher"],
+    "sveden/apply": ["applicant"],
+    "sveden/grants": ["student", "postgraduate"],  # scholarships, material support
+    "sveden/paid_edu": ["student", "postgraduate", "applicant", "public"],  # contracts and prices, courses for anyone
+    "sveden/struct": ["staff", "management"],  # the units' regulations
+    "site/hotel": ["student", "postgraduate", "applicant", "public"],  # the dormitory's rules and prices, its guests
+}
 
 
 HEADERS = {"User-Agent": "catix-wiki/0.1 (Innopolis University assistant; polite crawl)"}
@@ -267,8 +276,14 @@ def extract(pdf: Path, ocr_left: int, converted: Path | None = None) -> tuple[st
 
 
 def fetch(limit: int | None = None) -> int:
-    """Download and read the documents not read yet (and those `refresh` found changed); the number read."""
-    docs, ocr_left, done, failures = all_docs(), OCR_BUDGET, 0, 0
+    """Download the documents not read yet (and those `refresh` found changed), then read them: the text layers all at once
+    (one run of opendataloader's JVM, not one a file), the scans after them; the number read."""
+    from catix.wiki.sources import opendataloader
+
+    def skip(d: dict, meta: Path, why: str) -> None:
+        meta.write_text(json.dumps({"title": d["title"], "url": d["url"], "skipped": why}), encoding="utf-8")
+
+    docs, failures, downloaded = all_docs(), 0, []
     for key, d in docs.items():
         root: Path = d["root"]
         root.mkdir(parents=True, exist_ok=True)
@@ -277,21 +292,21 @@ def fetch(limit: int | None = None) -> int:
         old = json.loads(meta.read_text(encoding="utf-8")) if meta.exists() else {}
         if old and ((root / f"{key}.txt").exists() or "skipped" in old) and not old.get("refetch"):
             continue  # (a document that changed on the site is noticed by `regs refresh`; a skipped one stays skipped)
-        if limit is not None and done >= limit:
+        if limit is not None and len(downloaded) >= limit:
             break
-        print(key)
+        print(key, flush=True)
         if not src.exists():
             try:
                 resp = httpx.get(d["url"], timeout=120, follow_redirects=True, headers=HEADERS)
                 resp.raise_for_status()
                 if len(resp.content) > MAX_BYTES:
                     print(f"  too big ({len(resp.content) // 1_000_000} MB), skipped")
-                    meta.write_text(json.dumps({"title": d["title"], "url": d["url"], "skipped": "file too big"}), encoding="utf-8")
+                    skip(d, meta, "file too big")
                     continue
             except httpx.HTTPError as e:  # a moved file must not stop the others
                 print(f"  FAILED: {e}")
                 if isinstance(e, httpx.HTTPStatusError) and e.response.status_code == 404:  # a dead link on the site itself
-                    meta.write_text(json.dumps({"title": d["title"], "url": d["url"], "skipped": "404 on the site"}), encoding="utf-8")
+                    skip(d, meta, "404 on the site")
                 failures = 0 if isinstance(e, httpx.HTTPStatusError) and e.response.status_code == 404 else failures + 1
                 if failures >= MAX_FAILURES:  # the site refuses connections: going on would only hammer it
                     print(f"{failures} failures in a row: the site is not answering, stopped (the rest is fetched by the next run)")
@@ -308,21 +323,31 @@ def fetch(limit: int | None = None) -> int:
             pdf = to_pdf(src)
             if not pdf.exists() or pages_of(pdf) > MAX_PAGES:
                 raise ValueError("cannot read or too long")
-            text, method, used = extract(pdf, ocr_left)
         except (ValueError, subprocess.SubprocessError, AttributeError) as e:
             print(f"  skipped: {e}")
-            meta.write_text(json.dumps({"title": d["title"], "url": d["url"], "skipped": str(e)}), encoding="utf-8")
+            skip(d, meta, str(e))
             continue
-        if text is None:
-            print(f"  {method}")
-            continue
-        ocr_left -= used
-        sha = hashlib.sha256(src.read_bytes()).hexdigest()
-        (root / f"{key}.txt").write_text(text, encoding="utf-8")
-        meta.write_text(json.dumps({"title": d["title"], "url": d["url"], "sha256": sha, "method": method, "chars": len(text), "tables": TABLES, "section": d["section"], "context": d.get("context", ""),
-                                    "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "remote": remote}, ensure_ascii=False, indent=1), encoding="utf-8")
-        done += 1
-        print(f"  {len(text)} chars by {method}" + (" (a new version)" if old.get("sha256") and old["sha256"] != sha else ""))
+        downloaded.append((key, d, src, pdf, meta, old, remote))
+    print(f"{len(downloaded)} documents to read", flush=True)
+    ocr_left, done = OCR_BUDGET, 0
+    with opendataloader.converted([pdf for _, _, _, pdf, _, _, _ in downloaded]) as jsons:
+        for key, d, src, pdf, meta, old, remote in downloaded:
+            try:
+                text, method, used = extract(pdf, ocr_left, jsons.get(pdf))
+            except (ValueError, subprocess.SubprocessError, AttributeError) as e:
+                print(f"{key}: skipped: {e}")
+                skip(d, meta, str(e))
+                continue
+            if text is None:
+                print(f"{key}: {method}")
+                continue
+            ocr_left -= used
+            sha = hashlib.sha256(src.read_bytes()).hexdigest()
+            (d["root"] / f"{key}.txt").write_text(text, encoding="utf-8")
+            meta.write_text(json.dumps({"title": d["title"], "url": d["url"], "sha256": sha, "method": method, "chars": len(text), "tables": TABLES, "section": d["section"], "context": d.get("context", ""),
+                                        "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "remote": remote}, ensure_ascii=False, indent=1), encoding="utf-8")
+            done += 1
+            print(f"{key}: {len(text)} chars by {method}" + (" (a new version)" if old.get("sha256") and old["sha256"] != sha else ""), flush=True)
     print(f"{done} documents fetched; OCR pages left in the budget: {ocr_left}")
     return done
 
@@ -452,9 +477,9 @@ def readable(text: str) -> bool:
 
 
 def compile_all() -> None:
-    """Every kept document -> wiki/raw/regulations/<key>.md. The model writes only the description, tags and audience, once per
-    version of the file; everything else (title, date, text, tables) is made by code on every run, so that a better
-    extraction or a better title reaches the pages without asking the model again."""
+    """Every kept document -> wiki/raw/regulations/<key>.md, made by code on every run (title, date, audience, text, tables), so
+    that a better extraction or a better title reaches the pages. No model: a description would retell the document's own
+    title in English, its tags nothing reads; the audience follows from the section that lists it (AUDIENCE_OF_SECTION)."""
     paths.DOCS.joinpath("regulations").mkdir(parents=True, exist_ok=True)
     docs = all_docs()
     for page in paths.DOCS.joinpath("regulations").glob("sveden-*.md"):
@@ -476,28 +501,21 @@ def compile_all() -> None:
             print(f"{key}: no readable text, skipped")
             continue
         old = target.read_text(encoding="utf-8") if target.exists() else ""
-        fm = front_of(old) if old else {}
-        if f"id: {yaml_value(meta['sha256'][:12])}" in old and fm.get("description") and fm.get("audience"):
-            desc, tags, audience = str(fm["description"]), [str(t) for t in fm.get("tags") or []], [str(a) for a in fm["audience"]]
-            by = (fm.get("generated") or {}).get("by")  # (the model that wrote them, not the one of this run: else every page changes)
-        else:  # a new file or a new version of it: the model reads it
-            desc, tags, audience = describe(title, text)
-            by = None
-        by = by or f"{PRODUCER} regulations ({model_name()}: description, tags and audience only)"
+        audience = AUDIENCE_OF_SECTION.get(d["section"], [])
         body = to_markdown(text)
         issued = issued_of(text, meta["fetched_at"])
         ocr = meta["method"].startswith("ocr")
-        front = ["---", "type: regulation", f"title: {yaml_value(title)}", f"description: {yaml_value(desc)}", f"resource: {yaml_value(meta['url'])}", f"tags: {yaml_value(tags)}", f"audience: {yaml_value(audience)}",
+        front = ["---", "type: regulation", f"title: {yaml_value(title)}", f"resource: {yaml_value(meta['url'])}", *([f"audience: {yaml_value(audience)}"] if audience else []),
                  "source_kind: official-document", "language: ru", f"section: {yaml_value(meta.get('section', 'document'))}",
                  "sources:", f"  - resource: {yaml_value(meta['url'])}", f"    id: {yaml_value(meta['sha256'][:12])}", f"    title: {yaml_value(title)}", f"    last_modified: {yaml_value(issued)}",
-                 "generated:", f"  by: {yaml_value(by)}", f"  at: {yaml_value(meta['fetched_at'])}",
+                 "generated:", f"  by: {yaml_value(PRODUCER + ' regulations')}", f"  at: {yaml_value(meta['fetched_at'])}",
                  f"extraction: {yaml_value(meta['method'])}", "status: draft",
                  *(['review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"'] if ocr else []), "---"]
         page = "\n".join(front) + f"\n\n# {title}\n\n{body}\n\n# Citations\n\n1. [{title}]({meta['url']}), file {meta['sha256'][:12]}\n"
         if page != old:
             target.write_text(page, encoding="utf-8")
             written += 1
-            if not old or not fm.get("description"):
+            if not old:
                 print(f"{key}: {len(body)} chars of markdown")
     print(f"{written} pages written")
 

@@ -397,7 +397,7 @@ def _folder_index(folder: Path, directory: str, about: str, items: list[tuple[Pa
         short = directory == "course-programmes"  # the heading already names the programme, cohort and semester
         for p, m in group:
             line = f"- [{m['title'].split(' — ')[0] if short else m['title']}](/{p.relative_to(bundle).as_posix()})"
-            line += "" if short or m["description"].strip() == m["title"].strip() else f": {m['description']}"  # (a post's card says its name twice)
+            line += "" if short or m["description"].strip() in ("", m["title"].strip()) else f": {m['description']}"  # (a post's card says its name twice; a document has none)
             related = [f"{r['relation']} [{titles[r['to']]}]({r['to']})" for r in m["relations"] if r.get("to") in titles]
             related = list(dict.fromkeys([*related, *(inverse or {}).get("/" + p.relative_to(bundle).as_posix(), [])]))
             lines.append(line + (f" — {'; '.join(related)}" if related else ""))

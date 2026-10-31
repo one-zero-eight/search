@@ -230,3 +230,4 @@ experiments/   скрипты оценки качества поиска и да
 ## TODO
 
 - Change InMemorySaver to AsyncPostgresSaver
+- OCR limit: `MAX_OCR_PAGES = 40` and `OCR_BUDGET = 200` (`src/catix/wiki/sources/regulations.py`) were set for tesseract; with chandra (~8 s a page) raise them, so that `regs fetch` reads the scans longer than 40 pages it leaves now (6 of them, 42–78 pages)
