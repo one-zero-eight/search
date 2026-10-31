@@ -190,9 +190,11 @@ Tools: search_wiki (search) and read_wiki (read more of one page).
   аттестация", "отчисление", "academic leave", "retake", "prerequisites"), not only the words of the question. One query is a
   sentence written as the document would state the answer ("Обучающийся вправе ... не более ..."): it finds the clause even
   when the question uses other words. Its guessed numbers are only for the search: take the facts from the pieces found.
-- If a piece is cut ("[...cut") or the answer is in the clauses around it, call read_wiki with its `page` and `clause`. If the
-  results do not answer the question, search again with other words, not the same ones. At most two read_wiki calls: then
-  report what you have, and say what is missing.
+- If a piece is cut ("[...cut") or the answer is in the clauses around it, call read_wiki with its `page` and `clause`. The
+  first piece of each document lists its `chapters`: when the answer is in a chapter the pieces do not show (the procedure,
+  the deadlines, who decides), read that chapter by its words or number (read_wiki with `section` or `clause`), not the
+  chapters in their order. If the results do not answer the question, search again with other words, not the same ones. At
+  most two read_wiki calls: then report what you have, and say what is missing.
 - Kinds of pages, by trust: an official document of the university, then a guide (a summary cAtIx wrote from the documents;
   the document decides), then an eduwiki page (may be outdated). When they differ, the official document wins: say so.
 - One document often comes in several versions (a different `date`, or the year in its title: "на 2026/2027 учебный год"):

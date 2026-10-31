@@ -624,6 +624,13 @@ def search_wiki(queries: list[str], runtime: ToolRuntime[AgentContext], kinds: l
     hits = wiki_store.search(queries, trust=kinds, limit=MAX_WIKI, original=_question(runtime))
     collector = Collector(runtime)
     result = {"total": len(hits), "pieces": [_wiki_item(h, collector) for h in hits]}
+    # The first piece of each document lists its chapters: asked about IT support, the helper read chapters 1 and 2 of the
+    # regulation in order and never reached chapter 4, the procedure and its deadlines.
+    contents = wiki_store.chapters({h.path for h in hits}) if hits else {}
+    for item in result["pieces"]:
+        if len(headings := contents.pop(item["page"], [])) > 1:
+            shown = wiki_store.CHAPTERS_SHOWN
+            item["chapters"] = [h[:80] for h in headings[:shown]] + ([f"and {len(headings) - shown} more"] if len(headings) > shown else [])
     if not hits:
         result["note"] = "Nothing found: try other words, in Russian and in English."
     # The refs of the pieces about the question, for the guard (as in search_chats).

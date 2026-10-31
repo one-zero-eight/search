@@ -8,7 +8,7 @@ page and the headings are part of what is searched, so "5.3. The term is ..." is
 
 import logging
 import re
-from collections.abc import Collection
+from collections.abc import Collection, Iterable
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from datetime import date
@@ -262,6 +262,22 @@ def holds(clause_range: str, number: str) -> bool:
     want = _clause_key(number)
     lo, hi = _clause_key(first), _clause_key(last or first)
     return lo[: len(want)] <= want <= hi[: len(want)]
+
+
+CHAPTERS_SHOWN = 15  # headings of a page given with a search result: the chapters of a regulation fit
+
+
+def chapters(paths: Iterable[str]) -> dict[str, list[str]]:
+    """The headings of each page in their order: its table of contents, as its pieces have it."""
+    with pg.connection() as conn:
+        rows = conn.execute(
+            "SELECT path, heading FROM wiki_chunks WHERE path = ANY(%s) AND heading <> '' GROUP BY path, heading ORDER BY path, min(seq)",
+            (list(paths),),
+        ).fetchall()
+    out: dict[str, list[str]] = {}
+    for row in rows:
+        out.setdefault(row["path"], []).append(row["heading"])
+    return out
 
 
 def page(path: str) -> list[WikiHit]:

@@ -127,3 +127,19 @@ def test_a_section_asked_as_the_table_of_contents_names_it_is_read_and_a_read_th
     last = read(section="требования к срокам")  # (the failed read did not count: this is the second)
     assert last["pieces"] and last["reads_left"] == 0 and "last read" in last["note"]
     assert "error" in read(clause="4.1")  # two reads gave text: no more
+
+
+def test_the_first_piece_of_each_document_found_lists_its_chapters(monkeypatch):
+    """Asked about IT support, the helper read chapters 1 and 2 of the regulation in order and never reached chapter 4, the
+    procedure and its deadlines: the search names a document's chapters with its first piece, once."""
+    import json
+
+    path, other = "/raw/regulations/site-help-it.md", "/raw/regulations/one.md"
+    found = [hit(id=1, path=path, heading="1. Общие положения", clause="1.1"), hit(id=2, path=other, heading="Текст", clause=""),
+             hit(id=3, path=path, heading="5. Цели и показатели", clause="5.1")]
+    contents = {path: ["1. Общие положения", "2. Общее описание процесса", "4. Описание операций процесса", "5. Цели и показатели"], other: ["Текст"]}
+    monkeypatch.setattr(tools.wiki_store, "search", lambda *args, **kwargs: found)
+    monkeypatch.setattr(tools.wiki_store, "chapters", lambda paths: {p: contents[p] for p in paths})
+    pieces = json.loads(tools.search_wiki.func(queries=["регламент ИТ-поддержки"], runtime=runtime()).update["messages"][0].content)["pieces"]
+    assert pieces[0]["chapters"] == contents[path] and "chapters" not in pieces[2]  # (once per document)
+    assert "chapters" not in pieces[1]  # (one heading is no table of contents)
