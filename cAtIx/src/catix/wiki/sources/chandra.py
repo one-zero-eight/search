@@ -225,8 +225,6 @@ def text_of_pdf(pdf: Path, keep: Path | None = None) -> str | None:
     """The text of a scanned PDF, its pages read at once as the server has slots; None when the server is away or a page
     could not be read (the caller reads the document by tesseract). `keep`: a folder for the HTML of each page as chandra
     answered it (p-001.html, ...), to look at, or to make the text again without reading the scan again."""
-    from catix.wiki.sources import opendataloader
-
     if not available():
         return None
     with tempfile.TemporaryDirectory(prefix="chandra-") as work:
@@ -244,4 +242,17 @@ def text_of_pdf(pdf: Path, keep: Path | None = None) -> str | None:
             old.unlink()
         for n, html in enumerate(pages, 1):
             (keep / f"p-{n:03d}.html").write_text(html, encoding="utf-8")
-    return opendataloader.text_of({"kids": [node for html in pages for node in nodes_of(html)]})
+    return text_of_pages(pages)
+
+
+def text_of_pages(pages: list[str]) -> str:
+    """The text of a scan from chandra's HTML of its pages, its headings (its Section-Header blocks) marked."""
+    from catix.wiki.sources import opendataloader
+
+    return opendataloader.text_of({"kids": [node for html in pages for node in nodes_of(html)]}, headings=True)
+
+
+def kept_text(keep: Path) -> str | None:
+    """The text of a scan made again from the HTML kept of its pages (p-001.html, ...), without reading the scan again."""
+    pages = sorted(keep.glob("p-*.html")) if keep.is_dir() else []
+    return text_of_pages([p.read_text(encoding="utf-8") for p in pages]) if pages else None

@@ -147,9 +147,18 @@ def table_grid(table: dict, words: frozenset[str] | set[str]) -> tuple[list[list
     return grid, wide
 
 
-def text_of(doc: dict, known: frozenset[str] | set[str] | None = None) -> str:
+def heading_mark(title: str) -> str:
+    """A heading the OCR found, as markdown: its depth from its number ('4' ##, '4.1' ###, deeper ####), not from the OCR's
+    h2/h3/h4, which differ for headings of one level (chandra: '2.2' h2, '2.3' h3, '2.4' h4); one with no number ##."""
+    m = re.match(r"(\d{1,2}(?:\.\d{1,2})*)\.?\s", title)
+    return "#" * (min(m.group(1).count(".") + 2, 4) if m else 2) + " " + title
+
+
+def text_of(doc: dict, known: frozenset[str] | set[str] | None = None, headings: bool = False) -> str:
     """The text of a document's JSON: a block of lines per heading, paragraph, item of a list, caption; a table as markdown.
-    `known`: the words that decide a broken word (the documents' by default), beside the document's own."""
+    `known`: the words that decide a broken word (the documents' by default), beside the document's own. `headings`: its
+    headings marked as markdown ('## 4 Процесс …'), to be taken as they are (chandra's: opendataloader's own take a page
+    number, a line of a formula, half of a title for one), not guessed again from the numbers of the lines."""
     from catix.wiki.sources.regulations import table_markdown
 
     nodes = doc.get("kids") or []
@@ -183,6 +192,9 @@ def text_of(doc: dict, known: frozenset[str] | set[str] | None = None) -> str:
                         elif isinstance(kid.get("content"), str):
                             lines.append(kid["content"])
                     add("\n".join(lines))
+            elif kind == "heading" and headings and isinstance(node.get("content"), str):
+                if title := " ".join(lines_of(node["content"])):
+                    blocks.append(("heading", [heading_mark(title)]))
             elif kind in ("heading", "paragraph", "caption") and isinstance(node.get("content"), str):
                 add(node["content"])
             elif kind == "text block":

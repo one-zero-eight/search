@@ -231,3 +231,32 @@ def test_a_broken_link_the_site_answers_with_its_page_is_skipped(monkeypatch, tm
     monkeypatch.setattr(opendataloader, "converted", lambda pdfs: contextlib.nullcontext({}))
     assert regulations.fetch() == 0
     assert [f.name for f in tmp_path.iterdir()] == ["site-university-1-10.json"] and "skipped" in json.loads((tmp_path / "site-university-1-10.json").read_text())
+
+
+def test_the_headings_chandra_found_are_the_headings_of_the_page_and_none_is_guessed_from_a_number():
+    """The regulation of IT help: its chapter '4 Процесс …' has no dot, so the guess missed it, and took the items of a list
+    '1. Начало процесса:' for chapters; chandra's Section-Header blocks say which is which (their h2/h3/h4 do not). A section
+    of a chapter stays a clause, by its number, as the cards cite it."""
+    from catix.wiki.sources.chandra import nodes_of
+    from catix.wiki.sources.opendataloader import text_of
+    from catix.wiki.sources.regulations import to_markdown
+
+    page = ('<div data-label="Text"><p>3.3.2 Списание техники.</p></div>'
+            '<div data-label="Section-Header"><h2><b>4 Процесс получения технической поддержки</b></h2></div>'
+            '<div data-label="Section-Header"><h4>4.1 Описание процесса</h4></div>'
+            '<div data-label="Text"><p>1. Начало процесса: возникшая необходимость в ИТ-поддержке.</p></div>'
+            '<div data-label="Text"><p>3. Результат процесса:</p></div>'
+            '<div data-label="List-Group"><ul><li>– заявка закрыта.</li></ul></div>'
+            '<div data-label="Section-Header"><h2>Приложение 1</h2></div>')
+    md = to_markdown(text_of({"kids": nodes_of(page)}, set(), headings=True))
+    assert md.split("\n\n") == ["**3.3.2** Списание техники.", "## 4 Процесс получения технической поддержки", "**4.1** Описание процесса",
+                                "1. Начало процесса: возникшая необходимость в ИТ-поддержке.", "3. Результат процесса:", "- – заявка закрыта.",
+                                "## Приложение 1"]
+    assert to_markdown("1. Общие положения\n\n1.1. Текст") == "## 1. Общие положения\n\n**1.1.** Текст"  # (the text layer: guessed, as before)
+
+
+def test_a_flat_numbering_past_99_keeps_its_clauses():
+    from catix.wiki.sources.regulations import to_markdown
+
+    assert to_markdown("99. Зачисление проводится в 2 этапа.\n\n100. На каждом этапе определяется приоритет.") == (
+        "**99.** Зачисление проводится в 2 этапа.\n\n**100.** На каждом этапе определяется приоритет.")

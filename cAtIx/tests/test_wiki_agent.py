@@ -442,3 +442,14 @@ def test_check_reports_a_card_that_rests_on_one_page_only_when_asked(tmp_path):
                                "# Citations", "", cites, ""]))
     assert agent.check_all(idx) == {}  # a card written before the rule is not reported
     assert list(agent.check_all(idx, two_sources=True)) == ["/knowledge/rules.md"]
+
+
+def test_a_chapter_numbered_in_its_heading_is_its_clause_and_a_clause_past_99_is_one():
+    """A scan whose chapters chandra found ('## 4. Содержание …', paragraphs, no 4.1): a card cites the chapter as clause 4,
+    unless a clause 4 in bold stands before it. The rules of admission count their clauses to 130."""
+    text = ("## 1. Общие положения\n\n**1.** Положение.\n\n## 4. Содержание программы\n\nСодержание определяется программой.\n\n"
+            "Не противоречит закону № 273-ФЗ.\n\n## Приложение\n\n**4.** Программа регламентирует требования.\n\n**99.** Зачисление.\n\n**100.** Этапы.")
+    idx = SimpleNamespace(meta={"/raw/x.md": {"body": text}})
+    clauses = agent.clauses_of(idx, "/raw/x.md")
+    assert "273-ФЗ" in clauses["4"] and "регламентирует" not in clauses["4"]
+    assert clauses["99"] == "Зачисление." and clauses["100"] == "Этапы."

@@ -64,8 +64,11 @@ ENTITY_KINDS = ("person", "position", "unit", "body", "programme", "place", "org
 CLAUSE_REF = re.compile(r"(?:\bп\.|\bпп?\.|пункт\w*|\bclauses?|\bsections?|\bparagraphs?|\bitems?|раздел\w*|§)\s*\d+(?:\.\d+)*\.?", re.I)
 LINK = re.compile(r'\[([^\]]*)\]\((/[^)\s#]+\.md)(?:#([\w.\-]+))?(?:\s+"([^"]*)")?\)')  # [п. 2.2](/x.md#2.2 "the words it rests on")
 REF = re.compile(r"\[(\d{1,3})\]")
-NUMBER = r"\*\*\d{1,2}(?:\.\d{1,2}){0,4}\.?\*\*"  # a clause's number in bold; a bold date ('**29.12.2012**', a PDF's line break) is not one
-CLAUSE = re.compile(rf"^\*\*(\d{{1,2}}(?:\.\d{{1,2}}){{0,4}})\.?\*\*\s*(.*?)(?=\n{NUMBER}|\n## |\n# Citations|\Z)", re.S | re.M)
+NUMBER = r"\*\*\d{1,3}(?:\.\d{1,2}){0,4}\.?\*\*"  # a clause's number in bold; a bold date ('**29.12.2012**', a PDF's line break) is not one
+CLAUSE = re.compile(rf"^\*\*(\d{{1,3}}(?:\.\d{{1,2}}){{0,4}})\.?\*\*\s*(.*?)(?=\n{NUMBER}|\n## |\n# Citations|\Z)", re.S | re.M)
+# A chapter whose number is its heading's ('## 4. Содержание …'): clause 4 is the whole chapter, to the next chapter, unless a
+# clause 4 in bold stands before it. A scan whose headings chandra found has its chapters so (a chapter of paragraphs, no 4.1).
+CHAPTER = re.compile(r"^## (\d{1,2})\.?\s+(.*?)(?=\n## |\n# |\Z)", re.S | re.M)
 BATCH = 3  # source pages per task of the agent
 MAX_BODY = 20000  # characters of a card: a longer one is split (about 6k tokens, well under WIKI_AGENT_MAX_TOKENS, so the tool call is not cut)
 READ_LIMIT = 12_000  # characters read_page returns at once
@@ -302,7 +305,7 @@ def fit_quotes(body: str, idx: Index) -> str:
 # against the words of the document later, wherever the lines move to.
 
 LINES = re.compile(r"^L(\d{1,5})(?:-L?(\d{1,5}))?$")  # '#L118' or '#L118-L120'
-CLAUSE_START = re.compile(r"^\*\*(\d{1,2}(?:\.\d{1,2}){0,4})\.?\*\*")
+CLAUSE_START = re.compile(r"^\*\*(\d{1,3}(?:\.\d{1,2}){0,4})\.?\*\*")
 # A row of a table whose first cell is a clause's number ('| 1.1 | Аудит ... |'): a plan converted again into a table kept its
 # numbers there, and the cards citing its clauses no longer held. A row is the clause; '| 1 | ... |' is a list, not one.
 ROW_START = re.compile(r"^\|\s*(\d{1,2}(?:\.\d{1,2}){1,4})\.?\s*\|")
@@ -336,6 +339,11 @@ def clause_spans(page: str) -> dict[str, tuple[int, int]]:
                 out.setdefault(row.group(1), (n, n))  # (a row is its clause, whole)
     if current:
         out.setdefault(current, (start, last))
+    chapters = [(n, m.group(1)) for n in range(first, last + 1) if (m := CHAPTER.match(lines[n - 1]))]
+    for n, num in chapters:  # (a chapter by its heading, as clauses_of: the first of a number in the text)
+        end = next((k - 1 for k in range(n + 1, last + 1) if re.match(r"#{1,2} ", lines[k - 1])), last)
+        if num not in out or n < out[num][0]:
+            out[num] = (n, end)
     return out
 
 
@@ -606,8 +614,8 @@ def clauses_of(idx: Index, page: str) -> dict[str, str]:
     of a table's row)."""
     out: dict[str, str] = {}
     text = course_text(idx, page)
-    for num, said in CLAUSE.findall(text):
-        out.setdefault(num, re.sub(r"\s+", " ", said).strip())
+    for _, num, said in sorted((m.start(), m.group(1), m.group(2)) for regex in (CLAUSE, CHAPTER) for m in regex.finditer(text)):
+        out.setdefault(num, re.sub(r"\s+", " ", said).strip())  # (the first of a number in the text: a clause, or a chapter)
     for row in re.finditer(r"^\|.*$", text, re.M):
         if m := ROW_START.match(row.group(0)):
             out.setdefault(m.group(1), re.sub(r"\s+", " ", row.group(0)[m.end():].replace("|", " ")).strip())

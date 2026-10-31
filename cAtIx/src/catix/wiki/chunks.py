@@ -22,7 +22,7 @@ MAX = 1200  # characters of a piece (about 300-400 tokens)
 MIN = 300  # a smaller piece is packed with the next one of the same section
 
 HEADING = re.compile(r"^(#{1,6})\s+(.*\S)\s*$")
-CLAUSE = re.compile(r"^\*\*(\d{1,2}(?:\.\d{1,2}){0,4})\.?\*\*")  # the same form as agent.CLAUSE
+CLAUSE = re.compile(r"^\*\*(\d{1,3}(?:\.\d{1,2}){0,4})\.?\*\*")  # the same form as agent.CLAUSE
 PROGRAMME_CODE = re.compile(r"\d\d\.0\d\.\d\d")  # '09.04.01' is a field of study, not a clause
 CITE = re.compile(r"\[(\d{1,3})\]")
 LINK = re.compile(r"\[([^\]]+)\]\(([^)\s]+)\)")

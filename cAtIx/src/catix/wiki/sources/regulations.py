@@ -1,7 +1,7 @@
 """Official regulations (PDF files on innopolis.university/sveden/document) as a second source of the bundle.
 
     catix-wiki regs fetch       # download the PDFs, extract the text (the text layer as opendataloader reads it, else OCR by chandra-ocr-2, or tesseract rus without its server) into raw/regulations/
-    catix-wiki regs reextract   # extract the text of the downloaded PDFs again (after the extraction got better; the scans tesseract read, by chandra)
+    catix-wiki regs reextract   # extract the text of the downloaded PDFs again (after the extraction got better; the scans tesseract read, by chandra; those chandra read, from the HTML kept of their pages)
     catix-wiki regs refresh     # ask the site (HEAD) whether a downloaded document changed; a changed one is downloaded again by fetch
     catix-wiki regs compile     # raw/regulations -> wiki/raw/regulations/<key>.md
 
@@ -402,10 +402,13 @@ def refresh(prefix: str = "") -> int:
 
 
 def to_markdown(text: str) -> str:
-    """Layout text -> markdown: chapters '## N. Title', clauses as paragraphs starting with their bold number, 3-space-gapped rows as tables."""
+    """Layout text -> markdown: chapters '## N. Title', clauses as paragraphs starting with their bold number, 3-space-gapped rows as tables.
+    A text whose headings the OCR marked ('## 4 Процесс …', chandra) keeps them, and no line is guessed a chapter from its number:
+    the guess took '1. Начало процесса:' (an item of a list) for one and missed '4 Процесс …' (a chapter with no dot)."""
     out, para, table, made = [], [], [], []
     text = GLUED.sub(lambda m: f"{m.group(1) or m.group(2)} ", text)  # a clause's number glued to its words (the text layer, OCR)
-    flat = not re.search(r"^\s*\d+\.\d+\.?\s", text, re.M)  # numbering 1., 2., 3. without chapters: every number opens a clause
+    flat = not re.search(r"^\s*(#{2,4} )?\d+\.\d+\.?\s", text, re.M)  # numbering 1., 2., 3. without chapters: every number opens a clause
+    marked = re.search(r"^#{2,4} \S", text, re.M)  # (not '# Решение', a comment in the code of a course programme)
 
     def flush() -> None:
         nonlocal para, table, made
@@ -426,6 +429,14 @@ def to_markdown(text: str) -> str:
         if not line or re.fullmatch(r"\d{1,3}", line):  # blank, or a page number
             flush()
             continue
+        if marked and (heading := re.match(r"#{2,4} (\S.*)", line)):
+            flush()
+            if re.match(r"\d+(\.\d+)+\.?\s", title := heading.group(1)):  # a section of a chapter ('2.4 Работа в ЛВС') is a clause, as
+                num, _, rest = title.partition(" ")                         # in the text layer: the cards cite it by its number
+                para = [f"**{num}**", rest]
+            else:
+                out.append(f"## {title}")
+            continue
         if line.startswith("| ") and line.endswith(" |") or re.fullmatch(r"\|( --- \|)+", line):  # a table the extraction already made
             if para or table:
                 flush()
@@ -441,11 +452,11 @@ def to_markdown(text: str) -> str:
             continue
         if table:
             flush()
-        if flat and re.match(r"^\d{1,2}\.\s+\S", line):
+        if flat and re.match(r"^\d{1,3}\.\s+\S", line):  # (the rules of admission count to 130)
             flush()
             num, _, rest = line.partition(" ")
             para = [f"**{num}**", rest]
-        elif re.match(r"^\d{1,2}\.\s+[А-ЯЁA-Z]", line) and not re.match(r"^\d+\.\d", line) and len(line) < 150 and not line.endswith((";", ",")):
+        elif not marked and re.match(r"^\d{1,2}\.\s+[А-ЯЁA-Z]", line) and not re.match(r"^\d+\.\d", line) and len(line) < 150 and not line.endswith((";", ",")):
             flush()
             out.append(f"## {line}")
         elif re.match(r"^\d+(\.\d+)+\.?\s", line):
@@ -520,7 +531,7 @@ def reextract() -> None:
     its page does not change. opendataloader reads them a hundred at a time (a JVM a run)."""
     from catix.wiki.sources import chandra, opendataloader
 
-    todo, scans = [], []
+    todo, scans, remade = [], [], 0
     for key, d in all_docs().items():
         root: Path = d["root"]
         meta_path = root / f"{key}.json"
@@ -528,10 +539,14 @@ def reextract() -> None:
         method = str(meta.get("method", ""))
         if not (root / f"{key}.pdf").exists():
             continue
-        if method.startswith("ocr") and method != chandra.METHOD:
+        if method == chandra.METHOD:  # made again from the HTML kept of its pages: the way it becomes text may have changed
+            if (text := chandra.kept_text(root / f"{key}.chandra")) is not None:
+                remade += store(key, root, meta_path, meta, text, method)
+        elif method.startswith("ocr"):
             scans.append((key, root, meta_path, meta))
         elif method.startswith("text layer") and not (method in (TEXT_LAYER, PDFPLUMBER) and meta.get("tables") == TABLES):
             todo.append((key, root, meta_path, meta))
+    print(f"{remade} scans read by {chandra.METHOD} came out different from the HTML of their pages")
     print(f"{len(todo)} documents to read again", flush=True)
     with opendataloader.converted([root / f"{key}.pdf" for key, root, _, _ in todo]) as jsons:
         done = sum(read_again(key, root, meta_path, meta, jsons.get(root / f"{key}.pdf")) for key, root, meta_path, meta in todo)
@@ -554,8 +569,11 @@ def read_again(key: str, root: Path, meta_path: Path, meta: dict, converted: Pat
     except (ValueError, subprocess.SubprocessError) as e:
         print(f"{key}: {e}")
         return False
-    if text is None:
-        return False
+    return text is not None and store(key, root, meta_path, meta, text, method)
+
+
+def store(key: str, root: Path, meta_path: Path, meta: dict, text: str, method: str) -> bool:
+    """A text read again, written when it differs: whether it did."""
     txt = root / f"{key}.txt"
     same = txt.exists() and txt.read_text(encoding="utf-8") == text
     if not same:
