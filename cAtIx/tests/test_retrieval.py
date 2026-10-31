@@ -134,6 +134,16 @@ def test_each_message_keeps_how_well_two_angles_agree_it_is_about_the_question(m
     assert [h.relevance for h in store._rerank(["администратор университет иннополис"], [notice], 5)] == [3.09]
 
 
+def test_each_wiki_piece_keeps_how_well_two_angles_agree_it_is_about_the_question(monkeypatch):
+    """As for the chats: the cutoff keeps the best score, `relevance` is the second best (a misspelt name found the list of
+    teachers at -3.24 at best: nothing about the question)."""
+    scores = {"кто такой Лисоввкий": -3.24, "Лисоввкий преподаватель": -1.0, "Лисоввкий": -5.0}
+    monkeypatch.setattr(settings, "rerank_min_score", -3.0)
+    monkeypatch.setattr(pg, "rerank", lambda query, documents: [scores[query]])
+    piece = hit(wiki, "| Мелехова Анна Леонидовна | Доцент |")
+    assert [h.relevance for h in wiki._rerank(list(scores), [piece], 5)] == [-3.24]
+
+
 def test_empty_fusion_and_zero_limit():
     assert store._combine([], 10) == []
     assert store._combine([{1: 1.0}], 0) == []

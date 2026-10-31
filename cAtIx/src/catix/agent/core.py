@@ -313,9 +313,9 @@ EMPTY_SEARCHES = 2  # model calls in a row whose searches all found nothing; the
 
 def empty_searches(run: list[BaseMessage]) -> int:
     """How many of the run's last model calls in a row searched and found nothing: every tool call of theirs a search_* whose
-    result has total 0, or none of whose messages about the question is one an earlier search had not found (search_chats:
-    the refs `relevant` in the result's artifact, which the model does not see). Two searches side by side in one call are
-    one try."""
+    result has total 0, or none of whose messages or pieces about the question is one an earlier search had not found
+    (search_chats, search_wiki: the refs `relevant` in the result's artifact, which the model does not see). Two searches
+    side by side in one call are one try."""
     results = {m.tool_call_id: m for m in run if isinstance(m, ToolMessage)}
     found: set[str] = set()  # the refs about the question that the searches so far found
 

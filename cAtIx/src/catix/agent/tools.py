@@ -626,7 +626,10 @@ def search_wiki(queries: list[str], runtime: ToolRuntime[AgentContext], kinds: l
     result = {"total": len(hits), "pieces": [_wiki_item(h, collector) for h in hits]}
     if not hits:
         result["note"] = "Nothing found: try other words, in Russian and in English."
-    return collector.result(result, "search_wiki")
+    # The refs of the pieces about the question, for the guard (as in search_chats).
+    scored = any(h.relevance is not None for h in hits)
+    relevant = [item["ref"] for item, h in zip(result["pieces"], hits) if h.relevance is not None and h.relevance >= settings.wiki_relevant_score]
+    return collector.result(result, "search_wiki", {"relevant": relevant} if scored else None)
 
 
 MAX_READS = 2  # read_wiki calls that gave text, per question

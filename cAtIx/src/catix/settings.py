@@ -168,6 +168,12 @@ class Settings(BaseSettings):
     # chats helper reworded in vain (a camera for an online exam, administrator rights, choosing electives) -2.02 at
     # best. Called empty wrongly, a search costs little: what it found stays before the model, which reports a round earlier.
     chat_relevant_score: float = -1.5
+    # The same for a piece of the wiki (search_wiki). Here the score tells apart only a search for what the wiki does not
+    # hold (a misspelt name, the age of a teacher: -3.24 to -4.12 at best, the list of teachers coming back each time):
+    # a piece the docs helper cited in its report scored as low as -1.86, and searches it cited nothing of scored as high
+    # as 2.64. Of 159 generated questions, the 90 that found their source page found it at -0.63 or above; the two
+    # below -2.5 did not find it.
+    wiki_relevant_score: float = -2.5
     # Longer messages are cut before embedding: the start carries the meaning, and cost grows with length.
     embeddings_max_chars: int = Field(2000, gt=0)
     embed_workers: int = Field(2, gt=0, description="Parallel embedding requests; ~2-4 saturates the GPU server.")

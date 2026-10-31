@@ -46,6 +46,7 @@ class WikiHit:
     based_on: list[dict] = field(default_factory=list)  # a guide piece: the pages it cites, with their titles and originals
     newer: str | None = None  # the title of a later version of the document ("на 2026/2027 учебный год" for one of 2024/2025)
     also_in: list[dict] = field(default_factory=list)  # the other pages that hold the same text ({title, page}), those the queries name first
+    relevance: float | None = None  # its second best score of the reranker over the queries, from _rerank (as store.MessageHit)
 
 
 # The course programmes (wiki/sources/rpd.py) are 700 pages of the same shape that use every word of study ("курс", "дисциплина",
@@ -228,6 +229,8 @@ def search(queries: str | list[str], *, trust: Collection[str] | None = None, li
 
 
 def _rerank(queries: list[str], hits: list[WikiHit], limit: int) -> list[WikiHit]:
+    """The `limit` pieces the reranker finds closest to any of the queries (its best score counts), above the cutoff; each
+    keeps its second best score as `relevance`, how well two angles agree that it is about the question (see store._rerank)."""
     if not hits or limit <= 0:
         return hits[:limit]
     documents = [f"{h.title}\n{h.heading}\n{h.text[:settings.rerank_max_chars]}" for h in hits]
@@ -242,6 +245,8 @@ def _rerank(queries: list[str], hits: list[WikiHit], limit: int) -> list[WikiHit
     order = sorted(range(len(hits)), key=lambda i: best[i], reverse=True)[:limit]
     if settings.rerank_min_score is not None:
         order = [i for i in order if best[i] >= settings.rerank_min_score]
+    for i, column in enumerate(zip(*scores)):
+        hits[i].relevance = sorted(column, reverse=True)[1 if len(column) > 1 else 0]
     return [hits[i] for i in order]
 
 
