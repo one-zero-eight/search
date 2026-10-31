@@ -1412,17 +1412,22 @@ def _guard(documents=None):
 
 
 def server_context() -> dict:
-    """The profile of the local model: the context of one slot of its llama.cpp server (/props), so that deepagents
-    summarises a long task at 85% of it. Without one it waits for 170k tokens, and a slot of 22k overflowed first. {} for an
-    API (its own profile knows) or a server that does not say."""
+    """The profile of the local model: the context one request may have on its server, a slot of llama.cpp (/props) or
+    vLLM's max_model_len (/v1/models), so that deepagents summarises a long task at 85% of it. Without one it waits for 170k
+    tokens, and a slot of 22k overflowed first. {} for an API (its own profile knows) or a server that does not say."""
     if settings.wiki_llm_route is not None:
         return {}
     import httpx
 
+    base = str(settings.llm_route).rstrip("/").removesuffix("/v1")
     try:
-        props = httpx.get(str(settings.llm_route).rstrip("/").removesuffix("/v1") + "/props", timeout=5).json()
+        props = httpx.get(base + "/props", timeout=5).json()
         return {"profile": {"max_input_tokens": int(props["default_generation_settings"]["n_ctx"])}}
-    except Exception:  # noqa: BLE001 - not a llama.cpp server, or not up yet: deepagents' defaults
+    except Exception:  # noqa: BLE001 - not a llama.cpp server (vLLM answers 404), or not up yet
+        pass
+    try:
+        return {"profile": {"max_input_tokens": int(httpx.get(base + "/v1/models", timeout=5).json()["data"][0]["max_model_len"])}}
+    except Exception:  # noqa: BLE001 - not vLLM either, or not up yet: deepagents' defaults
         return {}
 
 

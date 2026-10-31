@@ -453,3 +453,23 @@ def test_a_chapter_numbered_in_its_heading_is_its_clause_and_a_clause_past_99_is
     clauses = agent.clauses_of(idx, "/raw/x.md")
     assert "273-ФЗ" in clauses["4"] and "регламентирует" not in clauses["4"]
     assert clauses["99"] == "Зачисление." and clauses["100"] == "Этапы."
+
+
+def test_the_context_of_one_request_comes_from_llama_cpp_or_vllm(monkeypatch):
+    """llama.cpp says its slot's n_ctx in /props; vLLM has no /props (404) and says max_model_len in /v1/models."""
+    import httpx
+
+    monkeypatch.setattr(agent.settings, "wiki_llm_route", None)
+    for answers, expected in (
+        ({"/props": {"default_generation_settings": {"n_ctx": 22016}}}, {"profile": {"max_input_tokens": 22016}}),
+        ({"/props": {"detail": "Not Found"}, "/v1/models": {"data": [{"id": "local", "max_model_len": 32768}]}}, {"profile": {"max_input_tokens": 32768}}),
+        ({}, {}),
+    ):
+        def get(url, timeout, answers=answers):
+            path = next((p for p in answers if url.endswith(p)), None)
+            if path is None:
+                raise httpx.ConnectError("down")
+            return SimpleNamespace(json=lambda: answers[path])
+
+        monkeypatch.setattr(httpx, "get", get)
+        assert agent.server_context() == expected
