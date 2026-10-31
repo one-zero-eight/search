@@ -101,6 +101,37 @@ def test_after_two_empty_searches_in_a_row_the_next_call_is_the_report():
     assert guard._final(req).tool_choice is None  # (the second found something: the empty ones are not in a row)
 
 
+def test_after_two_rounds_of_reports_with_sources_the_supervisor_answers():
+    """Given a report with sources, the supervisor asked the docs helper for more details four times over ('как
+    перезачесть курсы, пройденные в другом вузе', 137 s). One more round is its choice, then it answers; a report without
+    a source (the helper failed, or found nothing) does not count."""
+
+    def ask(n: int, report: str) -> list:
+        call = {"name": "ask_docs", "args": {"question": f"q{n}"}, "id": f"a{n}", "type": "tool_call"}
+        return [AIMessage(content="", tool_calls=[call]), ToolMessage(content=report, tool_call_id=f"a{n}", name="ask_docs")]
+
+    guard = RunGuardMiddleware({"ask_docs", "ask_chats", "ask_campus"})
+    req = Req(0)
+    req.messages = [HumanMessage("как перезачесть курсы"), *ask(1, core.TOOL_FAILURE_ANSWER), *ask(2, "Решает аттестационная комиссия [m1].")]
+    assert guard._final(req).tool_choice is None
+    req.messages += ask(3, "Заявление подаётся председателю комиссии [m8][m9].")
+    assert guard._final(req).tool_choice == "none" and guard._final(req).tools == TOOLS
+
+
+def test_markup_on_a_call_without_tools_is_asked_again_with_why_it_was_not_made():
+    """Forced to report, the docs helper wrote a third read as text; asked the same again it wrote the same (the server's
+    cache), and the report was TOOL_FAILURE_ANSWER. Its markup and the reason go after the conversation, the start stays."""
+    markup = AIMessage(content="<tool_call>\n<function=search_chats>\n<parameter=queries>[\"мидтерм итп\"]</parameter>\n</function>\n</tool_call>")
+    report = AIMessage(content="Мидтерм в среду [m1].")
+    seen = []
+    before = Req(core.settings.agent_max_model_calls - 1)
+    result = RunGuardMiddleware().wrap_model_call(before, lambda request: seen.append(request) or ModelResponse(result=[markup if len(seen) == 1 else report]))
+    assert result.result[-1] is report
+    assert seen[1].messages[: len(seen[0].messages)] == seen[0].messages and seen[1].tool_choice == "none"
+    assert seen[1].messages[-2].content == markup.content
+    assert_test(LLMTestCase(input="", actual_output=str(seen[1].messages[-1].content)), [ContainsAll(["was not made"], name="WhyNotMade")])
+
+
 def test_a_repeated_tool_call_is_not_executed_again():
     first = {**SEARCH, "id": "a"}
     again = {**SEARCH, "id": "b"}

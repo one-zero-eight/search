@@ -202,6 +202,11 @@ DUPLICATE_HINT = (
     "This exact call was already made in this conversation turn and gave you its result above. Do not repeat it: "
     "change the words or the angle, or answer with what you have."
 )
+NOT_MADE_HINT = (
+    "That tool call was not made: no more tool calls in this question. Write your answer now as plain text, with what "
+    "the tool results above contain, citing refs as usual."
+)
+UNKNOWN_TOOL_HINT = "That tool call was not made: call one of the tools you are given, or write your answer as plain text."
 
 
 # Qwen writes a tool call as text: <tool_call><function=NAME><parameter=KEY>VALUE</parameter></function></tool_call>.
@@ -323,13 +328,28 @@ def empty_searches(run: list[BaseMessage]) -> int:
     return count
 
 
+SOURCED_ROUNDS = 2  # the supervisor's model calls whose helpers reported with sources; then the next one is the answer
+
+
+def sourced_rounds(run: list[BaseMessage]) -> int:
+    """How many of the run's model calls asked helpers (ask_*) and got back a report that cites a source ([m3])."""
+    results = {m.tool_call_id: m for m in run if isinstance(m, ToolMessage)}
+
+    def sourced(result: ToolMessage | None) -> bool:
+        return result is not None and (result.name or "").startswith("ask_") and bool(re.search(r"\[m\d+\]", str(result.content)))
+
+    return sum(any(sourced(results.get(call["id"])) for call in m.tool_calls) for m in run if isinstance(m, AIMessage) and m.tool_calls)
+
+
 class RunGuardMiddleware(AgentMiddleware):
     """Keeps a run from ending without an answer. It never decides which tool the model calls: that is the model's choice.
 
     - A tool call identical to an earlier one in the same run is not executed again; the model gets a hint instead.
       Small models repeat a failing query instead of rewording it, and burn the whole budget that way.
     - A tool call the model wrote as text (`<tool_call>…`, a quirk of Qwen) is turned into a real one, or the model is asked
-      again; the markup never reaches the user.
+      again, its markup and why that call was not made after the conversation; the markup never reaches the user. Asked
+      the same request again, the model wrote the same markup (the server had it cached: 0.7 s), and a forced report came
+      back as TOOL_FAILURE_ANSWER (the docs helper wrote a third read on 'как перезачесть курсы, пройденные в другом вузе').
     - On the last model call the model may not call tools (`tool_choice` "none") and is told to answer, instead of the run
       being cut off by the call limit with an error message as the "answer". The tools stay in the request and the hint
       goes after the conversation: the tool list and the system prompt are at the start of what the model server reads,
@@ -339,6 +359,9 @@ class RunGuardMiddleware(AgentMiddleware):
       call is its report, from what the searches and the reads above found.
     - So too after EMPTY_SEARCHES model calls in a row whose searches all found nothing: the chats helper reworded an empty
       search four times (a trace of 'как получить права администратора на компьютер'); one rewording is what the prompt asks.
+    - So too for the supervisor after SOURCED_ROUNDS calls whose helpers reported with sources: given a report with
+      sources, it asked the docs helper for more details four times over (137 s for 'как перезачесть курсы, пройденные в
+      другом вузе'). One more round, to another helper or for what the first report missed, is left to it.
     """
 
     def __init__(self, tool_names: Iterable[str] | None = None) -> None:
@@ -353,6 +376,8 @@ class RunGuardMiddleware(AgentMiddleware):
             log.info("the reads of this run are spent: no tool calls, the model must answer")
         elif empty_searches(run) >= EMPTY_SEARCHES:
             log.info("%d searches in a row found nothing: no tool calls, the model must answer", EMPTY_SEARCHES)
+        elif sourced_rounds(run) >= SOURCED_ROUNDS:
+            log.info("helpers reported with sources %d times: no tool calls, the model must answer", SOURCED_ROUNDS)
         else:
             return request
         return request.override(tool_choice="none", messages=[*request.messages, HumanMessage(FINAL_HINT)])
@@ -399,13 +424,19 @@ class RunGuardMiddleware(AgentMiddleware):
             return self._with_last(response, repaired), True
         return response, False
 
+    def _again(self, request: ModelRequest, response, allow_calls: bool) -> ModelRequest:
+        """The request once more, with the model's markup and why it was not made after the conversation."""
+        log.warning("unusable tool call markup in the model's answer, asking again")
+        markup = AIMessage(content=self._last(response).text)
+        hint = UNKNOWN_TOOL_HINT if allow_calls else NOT_MADE_HINT
+        return request.override(messages=[*request.messages, markup, HumanMessage(hint)])
+
     def wrap_model_call(self, request, handler):
         request = self._final(request)
         allow = bool(request.tools) and request.tool_choice != "none"
         response, ok = self._check(handler(request), allow)
         if not ok:
-            log.warning("unusable tool call markup in the model's answer, asking again")
-            response, ok = self._check(handler(request), allow)
+            response, ok = self._check(handler(self._again(request, response, allow)), allow)
         # Never show the markup to the user.
         return response if ok else self._with_last(response, AIMessage(content=TOOL_FAILURE_ANSWER))
 
@@ -414,8 +445,7 @@ class RunGuardMiddleware(AgentMiddleware):
         allow = bool(request.tools) and request.tool_choice != "none"
         response, ok = self._check(await handler(request), allow)
         if not ok:
-            log.warning("unusable tool call markup in the model's answer, asking again")
-            response, ok = self._check(await handler(request), allow)
+            response, ok = self._check(await handler(self._again(request, response, allow)), allow)
         return response if ok else self._with_last(response, AIMessage(content=TOOL_FAILURE_ANSWER))
 
     def wrap_tool_call(self, request, handler):
