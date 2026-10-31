@@ -16,6 +16,7 @@ from langchain.agents.middleware import (
     ContextEditingMiddleware,
     ModelCallLimitMiddleware,
     ModelRequest,
+    ModelResponse,
     SummarizationMiddleware,
     ToolCallRequest,
     ToolErrorMiddleware,
@@ -61,11 +62,15 @@ def _last_question(request: ModelRequest) -> str:
     return ""
 
 
-def _last_question_language(request: ModelRequest) -> str:
-    """Language of the user's last message, decided in code: a long Russian history otherwise pulls answers into Russian."""
-    letters = [c for c in _last_question(request) if c.isalpha()]
+def _language(text: str) -> str:
+    letters = [c for c in text if c.isalpha()]
     cyrillic = sum("\u0400" <= c <= "\u04ff" for c in letters)
     return "English" if letters and cyrillic * 2 < len(letters) else "Russian"
+
+
+def _last_question_language(request: ModelRequest) -> str:
+    """Language of the user's last message, decided in code: a long Russian history otherwise pulls answers into Russian."""
+    return _language(_last_question(request))
 
 
 BRIEF_PROMPT = """
@@ -502,6 +507,46 @@ class RunGuardMiddleware(AgentMiddleware):
         return self._duplicate(request) or self._asked_again(request) or await handler(request)
 
 
+class PassReportMiddleware(AgentMiddleware):
+    """The supervisor's last model call is left out when it asked one helper once and the report cites its sources: the
+    report is the answer. Rewriting it took 2 to 10 s at the end of every such question (the time grows with the length:
+    9.7 s for 2950 characters); of 30 of them in the traces the supervisor copied 10 reports unchanged, shortened the
+    rest, and dropped the refs of 7 from the text. The report is checked as an answer is (final_answer).
+
+    The supervisor still writes the answer in brief mode (the inline card wants at most about 40 words), when the report
+    is in another language than the user's last message, when it cites nothing (nothing found, or the helper failed: the
+    supervisor may ask another helper), and when several helpers or rounds have to be put together. It sits before
+    QuestionNoteMiddleware, whose English reminder at the end of the user's message would change its language.
+    """
+
+    @staticmethod
+    def _report(request: ModelRequest) -> str | None:
+        context = request.runtime.context if request.runtime else None
+        if not settings.agent_pass_report or (context and context.brief):
+            return None
+        run = _this_run(request.messages)
+        answers = [m for m in run if isinstance(m, AIMessage)]
+        if len(answers) != 1 or len(calls := answers[0].tool_calls) != 1 or not calls[0]["name"].startswith("ask_"):
+            return None
+        result = next((m for m in run if isinstance(m, ToolMessage) and m.tool_call_id == calls[0]["id"]), None)
+        report = str(result.content).strip() if result is not None else ""
+        if not SOURCED.search(report) or _language(report) != _last_question_language(request):
+            return None
+        return report
+
+    def wrap_model_call(self, request, handler):
+        if (report := self._report(request)) is None:
+            return handler(request)
+        log.info("one helper reported with sources: its report is the answer")
+        return ModelResponse(result=[AIMessage(content=report, name=SUPERVISOR_NAME)])
+
+    async def awrap_model_call(self, request, handler):
+        if (report := self._report(request)) is None:
+            return await handler(request)
+        log.info("one helper reported with sources: its report is the answer")
+        return ModelResponse(result=[AIMessage(content=report, name=SUPERVISOR_NAME)])
+
+
 class LoggingMiddleware(AgentMiddleware):
     """Logs context size and duration of every model call, and every tool call with its arguments."""
 
@@ -749,6 +794,7 @@ def build_agent(model=None, *, guardrail: bool = True):
         middleware=[
             *([GuardrailMiddleware()] if guardrail else []),  # first: a blocked message costs the agent nothing
             prompt_for(None),
+            PassReportMiddleware(),  # before the reminder is added to the user's message (see there)
             QuestionNoteMiddleware(reminder=ROLE_REMINDER),
             TurnStartSummarization(
                 ChatOpenAI(

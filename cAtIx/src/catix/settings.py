@@ -40,6 +40,9 @@ class Settings(BaseSettings):
     abuse_pause_max_hours: int = Field(24, gt=0)
     abuse_forget_days: int = Field(7, gt=0, description="After this long without a pause the next one is short again.")
     agent_max_model_calls: int = Field(6, gt=0, description="Model calls per question, including tool rounds.")
+    # One helper asked once that reported with sources: its report is the answer, the supervisor does not write it again
+    # (agent/core.py PassReportMiddleware). Off, the supervisor rewrites every report: shorter, 2 to 10 s later.
+    agent_pass_report: bool = True
     # Questions the agent answers at once in a bot; the others wait their turn (agent/questions.py). On the V100 several at
     # once are answered no faster than one after another, so with 1 the first ones in line get their answer early.
     agent_parallel_questions: int = Field(1, gt=0)

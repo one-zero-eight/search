@@ -5,7 +5,7 @@
 For each question (a `question` span): its time, the model calls of the supervisor and of each helper it asked, the tools
 the helpers ran (search rounds, the empty ones, reads that gave text), the tool results that were an error or a refusal
 ("No more reading", a repeated call), the calls the guard made the report (its order to answer in the model's input), the
-calls asked again after a tool call written as text (`again`), and how long the supervisor's last call took (it writes the answer again from the helper's report). Then the totals: where the
+calls asked again after a tool call written as text (`again`), and how long the supervisor's last call took (it writes the answer again from the helper's report; `pass` when the one report was the answer, core.PassReportMiddleware). Then the totals: where the
 time goes, how often a helper searched round after round, which questions the screen stopped.
 
 `--trace ID` prints one question's tool calls in order, with what each found.
@@ -93,7 +93,9 @@ def summary(spans: list[dict]) -> dict:
         elif any(hint in given for hint in FORCED):
             out["forced"][who] += 1
     sup = [s for s in llm if helper(s) == "supervisor" and not any(p["name"] == "guardrail" for p in _parents(s, by_id))]
-    if sup:
+    asks = [s for s in spans if s["spanKind"] == "tool" and s["name"].startswith("ask_") and helper(s) == "supervisor"]
+    out["passed"] = bool(sup and asks and sup[-1]["startTime"] < asks[-1]["startTime"])  # no model call after the report
+    if sup and not out["passed"]:
         out["final"] = (sup[-1]["latencyMs"] or 0) / 1000
     rounds: dict[str, set] = {}
     for s in spans:
@@ -157,7 +159,8 @@ def main() -> None:
         helpers = " ".join(f"{h}{'×' + str(k) if k > 1 else ''}:{s['calls'][h]}/{s['rounds'][h]},{s['empty'][h]}/{s['reads'][h]}"
                            for h, k in s["helpers"].items()) or ("SCREENED" if s["screened"] else "-")
         forced, again = sum(s["forced"].values()), sum(s["again"].values())
-        print(f"{s['when']:16} {s['seconds']:5.1f} {sum(s['calls'].values()):5} {s['final']:5.1f}  {helpers:44} {forced or '':>6} {again or '':>5} {len(s['errors']) or '':>6}  {s['question'][:60]!r}  {trace}")
+        final = " pass" if s["passed"] else f"{s['final']:5.1f}"
+        print(f"{s['when']:16} {s['seconds']:5.1f} {sum(s['calls'].values()):5} {final}  {helpers:44} {forced or '':>6} {again or '':>5} {len(s['errors']) or '':>6}  {s['question'][:60]!r}  {trace}")
     asked = [s for _, s in rows if not s["screened"]]
     if not asked:
         return
@@ -166,8 +169,10 @@ def main() -> None:
     print(f"\n{len(rows)} questions, {len(rows) - len(asked)} stopped by the screen")
     print(f"time: median {statistics.median(secs):.1f} s, mean {statistics.mean(secs):.1f} s, max {max(secs):.1f} s; "
           f"model calls: median {statistics.median(sum(s['calls'].values()) for s in asked)}")
-    print(f"the supervisor's last call: {sum(s['final'] for s in asked) / sum(secs):.0%} of all the time; "
-          f"{len(one)} questions asked one helper only ({statistics.mean(s['final'] for s in one):.1f} s of rewriting each)" if one else "")
+    passed = sum(s["passed"] for s in asked)
+    rewritten = [s for s in one if not s["passed"]]
+    print(f"the supervisor's last call: {sum(s['final'] for s in asked) / sum(secs):.0%} of all the time; {len(one)} questions asked "
+          f"one helper only, {passed} answered with its report" + (f", {len(rewritten)} rewritten ({statistics.mean(s['final'] for s in rewritten):.1f} s each)" if rewritten else ""))
     again = [s for s in asked if any(k > 1 for k in s["helpers"].values())]
     print(f"the supervisor asked one helper again: {len(again)} questions ({statistics.mean(s['seconds'] for s in again):.1f} s each)" if again else "")
     loops = [(t, s) for t, s in rows if any(n >= 3 for n in s["rounds"].values())]

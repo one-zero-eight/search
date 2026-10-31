@@ -167,6 +167,32 @@ def test_a_helper_that_reported_with_sources_is_not_asked_again_and_the_next_cal
     assert guard._final(req).tool_choice == "none"
 
 
+def test_the_report_of_the_one_helper_asked_is_the_answer_unless_the_supervisor_has_to_write_one():
+    """Rewriting a report took the supervisor 2 to 10 s, and it copied 10 of 30 unchanged. It still writes the answer in
+    brief mode, when the report cites nothing or is in another language, and when several helpers reported."""
+    from catix.agent.core import SUPERVISOR_NAME, PassReportMiddleware
+
+    def req(question: str, *reports: tuple[str, str], brief: bool = False) -> Req:
+        calls = [{"name": name, "args": {"question": question}, "id": f"a{i}", "type": "tool_call"} for i, (name, _) in enumerate(reports)]
+        request = Req(0)
+        request.messages = [HumanMessage(question), AIMessage(content="", tool_calls=calls),
+                            *(ToolMessage(content=text, tool_call_id=f"a{i}", name=name) for i, (name, text) in enumerate(reports))]
+        request.runtime = types.SimpleNamespace(context=types.SimpleNamespace(brief=brief))
+        return request
+
+    report = "Пересдать экзамен можно не более двух раз [m1]."
+    written = ModelResponse(result=[AIMessage(content="ответ supervisor")])
+    seen = []
+    model = lambda request: seen.append(request) or written  # noqa: E731
+    result = PassReportMiddleware().wrap_model_call(req("сколько раз можно пересдавать экзамен", ("ask_docs", report)), model)
+    assert result.result[-1].content == report and result.result[-1].name == SUPERVISOR_NAME and not seen
+    for request in (req("сколько раз можно пересдавать экзамен", ("ask_docs", report), brief=True),
+                    req("сколько раз можно пересдавать экзамен", ("ask_docs", "Ничего не найдено о пересдачах.")),
+                    req("how many times can I retake an exam", ("ask_docs", report)),
+                    req("когда пересдача по матану и сколько попыток", ("ask_docs", report), ("ask_chats", "Пересдача 12 ноября [m2]."))):
+        assert PassReportMiddleware().wrap_model_call(request, model) is written
+
+
 def test_markup_on_a_call_without_tools_is_asked_again_with_why_it_was_not_made():
     """Forced to report, the docs helper wrote a third read as text; asked the same again it wrote the same (the server's
     cache), and the report was TOOL_FAILURE_ANSWER. Its markup and the reason go after the conversation, the start stays."""
