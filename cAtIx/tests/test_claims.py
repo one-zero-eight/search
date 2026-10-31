@@ -140,3 +140,11 @@ def test_a_link_written_unescaped_is_kept_and_a_line_left_with_only_its_label_go
     assert "documents/регламент.pdf" in kept
     cut = clean(turn, "Шаблон записки — в Приложении 2 [m1].\n\nСсылка на шаблон: https://help.university.innopolis.ru/documents/регламнт.pdf [m2]")
     assert_test(LLMTestCase(input="", actual_output=cut), [ContainsAll(["Приложении 2 [m1]. [m2]"], name="RefKept"), ContainsNone(["Ссылка на шаблон", "регламнт"], name="LabelGone")])
+
+
+def test_a_tool_name_written_as_a_ref_goes():
+    """The campus helper cited find_room, whose results have no refs: '… в корпусе «East» [find_room].'"""
+    from catix.agent.core import clean
+
+    assert clean([], "Кабинет 108 — большая лекционная аудитория на 1 этаже [find_room].") == "Кабинет 108 — большая лекционная аудитория на 1 этаже."
+    assert clean([], "Пересдача 12 ноября [m2], см. также [ask_docs]") == "Пересдача 12 ноября [m2], см. также"
