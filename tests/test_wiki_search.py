@@ -143,3 +143,20 @@ def test_the_first_piece_of_each_document_found_lists_its_chapters(monkeypatch):
     pieces = json.loads(tools.search_wiki.func(queries=["регламент ИТ-поддержки"], runtime=runtime()).update["messages"][0].content)["pieces"]
     assert pieces[0]["chapters"] == contents[path] and "chapters" not in pieces[2]  # (once per document)
     assert "chapters" not in pieces[1]  # (one heading is no table of contents)
+
+
+def test_a_page_without_clauses_is_cited_with_its_section():
+    """The rector's phone and mail are one table of the 'Руководство' page: a link to the whole page did not say where to look."""
+    page = dict(path="/raw/sites/university/sveden-managers.md", clause="", type="website", trust="wiki", title="Руководство",
+                resource="https://innopolis.university/sveden/managers", issued=None)
+    heading = "Информация о руководителе образовательной организации, его заместителях:"
+    collector = sources.Collector(runtime())
+    a = tools._wiki_item(hit(**page, heading=heading), collector)
+    b = tools._wiki_item(hit(**page, id=8, seq=4, heading="Информация о руководителях филиалов образовательной организации:"), collector)
+    c = tools._wiki_item(hit(**page, id=9, seq=5, heading="Руководство"), collector)  # (the heading of the title itself says nothing)
+    line = sources.cite(f"Ректор: rector@innopolis.ru [{a['ref']}].", collector.new).splitlines()[-1]
+    assert line == ("[1] [«Руководство»](https://innopolis.university/sveden/managers), раздел «Информация о руководителе "
+                    "образовательной организации, его заместителях» (innopolis.university)")
+    both = sources.cite(f"Ректор [{a['ref']}], филиалы [{b['ref']}][{c['ref']}].", collector.new).splitlines()[-1]
+    assert ", разделы «Информация о руководителе" in both and "«Информация о руководителях филиалов" in both and "«Руководство»]" in both
+    assert both.count("«Руководство»") == 1  # (only as the title)

@@ -87,7 +87,7 @@ class Collector:
     def add_wiki(self, hit) -> str:
         """A piece of the wiki (db/wiki.py WikiHit): the document, the clause and the original, so that the source line
         points to the university's own document; a guide's piece names the documents it rests on."""
-        fields = {"wiki": True, "title": hit.title, "clause": hit.clause, "link": hit.resource, "trust": hit.trust,
+        fields = {"wiki": True, "title": hit.title, "clause": hit.clause, "section": hit.heading, "link": hit.resource, "trust": hit.trust,
                   "site": hit.path.startswith("/raw/sites/"),
                   "based_on": [{"title": b["title"], "link": b["link"]} for b in hit.based_on if b.get("link")][:2]}
         return self._add(f"wiki:{hit.id}", fields)
@@ -124,6 +124,7 @@ def cite(answer: str, registry: dict[str, dict]) -> str:
     numbers: dict[object, int] = {}
     first: dict[object, str] = {}  # identity -> the first ref of it (its source fields)
     clauses: dict[object, list[str]] = {}
+    sections: dict[object, list[str]] = {}  # the headings of the pages quoted from a document that has no clauses (a site, a table)
 
     def renumber(match: re.Match) -> str:
         used: set[int] = set()
@@ -135,6 +136,9 @@ def cite(answer: str, registry: dict[str, dict]) -> str:
                 clause = registry[item].get("clause")
                 if clause and clause not in clauses.setdefault(key, []):
                     clauses[key].append(clause)
+                section = registry[item].get("section")
+                if section and not clause and section not in sections.setdefault(key, []):
+                    sections[key].append(section)
             else:
                 log.warning("dropping unknown source ref %s", item)
         return f"[{', '.join(map(str, sorted(used)))}]" if used else ""
@@ -150,7 +154,7 @@ def cite(answer: str, registry: dict[str, dict]) -> str:
     for key, number in numbers.items():
         source = registry[first[key]]
         if source.get("wiki"):
-            source = {**source, "clause": ", ".join(clauses.get(key, []))}
+            source = {**source, "clause": ", ".join(clauses.get(key, [])), "sections": sections.get(key, [])}
         if source.get("message_id"):
             row = stored.get(source["message_id"])
             if not row:
@@ -171,10 +175,32 @@ def _link(title: str, link: str | None) -> str:
     return f"[{title.replace('[', '(').replace(']', ')')}]({link})" if link else title
 
 
+MAX_SECTIONS = 3  # headings named in one line
+SECTION_CHARS = 90
+
+
+def _place(source: dict) -> str:
+    """Where in the document the facts are: the clauses (", п. 5.3"), or, for a page without clauses (a site, a table of staff
+    and their contacts), the headings of its sections (', раздел «Информация о руководителе…»'): a link to a whole page does
+    not say where on it to look."""
+    if source.get("clause"):
+        return f", п. {source['clause']}"
+    if source.get("trust") == "guide":
+        return ""  # (a card's own headings are not a place in a document of the university)
+    shown = []
+    for heading in source.get("sections") or []:
+        heading = re.sub(r"\s+", " ", heading).strip(" :.#").replace("[", "(").replace("]", ")")
+        if heading and heading != source.get("title") and heading not in shown:
+            shown.append(heading if len(heading) <= SECTION_CHARS else heading[:SECTION_CHARS].rstrip() + "…")
+    if not shown:
+        return ""
+    return (", разделы " if len(shown) > 1 else ", раздел ") + ", ".join(f"«{h}»" for h in shown[:MAX_SECTIONS])
+
+
 def _wiki_line(number: int, source: dict) -> str:
     """[n] «Положение о …», п. 5.3 (документ университета) — or a guide with the documents it rests on, a page of a site
     (its host: media.innopolis.university) or an eduwiki page."""
-    line = f"[{number}] {_link(source['title'], source.get('link'))}" + (f", п. {source['clause']}" if source.get("clause") else "")
+    line = f"[{number}] {_link(source['title'], source.get('link'))}" + _place(source)
     if source.get("trust") == "official":
         return line + " (документ университета)"
     if source.get("trust") == "guide":
