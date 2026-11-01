@@ -18,7 +18,6 @@ from langgraph.types import Command
 from pydantic import BaseModel, Field, field_validator
 
 from catix import official
-from catix.agent import sqlquery
 from catix.agent.sources import Collector
 from catix.common import courses, dates
 from catix.db import store
@@ -291,30 +290,101 @@ def search_chats(
             if start <= r.date.astimezone(settings.tz).date() <= end or dates.mentions_between(r.text, r.date, now, start, end)
         ][: MAX_MESSAGES if settings.reranker_route is None else MAX_MESSAGES_RERANKED]
     for row in rows:
-        item = {
-            "ref": collector.add_db(row.ref_id),
-            "chat": row.chat_title,
-            "official": row.chat_official,  # true only for chats an admin marked official
-            "group": row.chat_group,  # `all` (for everybody) or the study group of the chat
-            "date": _fmt(row.date),
-            "from": row.sender_name,
-            # The stamp is in the text itself, so "завтра" is read next to the day it was written on.
-            "text": row.text[:600],
-        }
-        _subject_fields(item, row.text, row.chat_title, asked)
-        if row.edit_date:
-            item["edited"] = _fmt(row.edit_date)
-        if settings.annotate_dates and (resolved := dates.resolve(row.text, row.date, now)):
-            item["dates_in_text"] = resolved
-        if row.parent_text:
-            item["in_reply_to"] = f"{row.parent_sender}: {row.parent_text[:200]}"
-        messages.append(item)
+        messages.append(_message_item(row, collector, asked, now))
     result = {"total": len(messages), "messages": messages}
     # The refs of those about the question, for the guard: two searches in a row with none it had not found before end the
     # searching (core.empty_searches).
     scored = any(row.relevance is not None for row in rows)
     relevant = [item["ref"] for item, row in zip(messages, rows) if row.relevance is not None and row.relevance >= settings.chat_relevant_score]
     return collector.result(result, "search_chats", {"relevant": relevant} if scored else None)
+
+
+def _message_item(row, collector: Collector, asked: list[str], now: datetime, text_limit: int = 600) -> dict:
+    """A chat message as the model sees it, with a ref to cite."""
+    item = {
+        "ref": collector.add_db(row.ref_id),
+        "chat": row.chat_title,
+        "official": row.chat_official,  # true only for chats an admin marked official
+        "group": row.chat_group,  # `all` (for everybody) or the study group of the chat
+        "date": _fmt(row.date),
+        "from": row.sender_name,
+        # The stamp is in the text itself, so "завтра" is read next to the day it was written on.
+        "text": row.text[:text_limit],
+    }
+    _subject_fields(item, row.text, row.chat_title, asked)
+    if row.edit_date:
+        item["edited"] = _fmt(row.edit_date)
+    if settings.annotate_dates and (resolved := dates.resolve(row.text, row.date, now)):
+        item["dates_in_text"] = resolved
+    if row.parent_text:
+        item["in_reply_to"] = f"{row.parent_sender}: {row.parent_text[:200]}"
+    return item
+
+
+MAX_READ = 50  # messages read_chats returns at most
+READ_TEXT = 300  # characters of a message when it returns more than MAX_MESSAGES: 50 of 600 would fill a third of the context
+
+
+class ReadChatsArgs(BaseModel):
+    chat: str | None = Field(None, description="Part of a chat title or its @username, from the list of chats. Omit for all chats.")
+    official_only: bool = Field(False, description="Only the official chats: the announcements of the university.")
+    words: list[str] | None = Field(
+        None,
+        description="Only messages with any of these words, in any form ('тест' also finds 'тесты', 'теста'), Russian and "
+        "English ('мидтерм', 'midterm'). Omit to read every message.",
+    )
+    sender: str | None = Field(None, description="Only messages of the person whose name contains this ('Новиков').")
+    date_from: date | None = Field(None, description="YYYY-MM-DD: only messages written on or after this day.")
+    date_to: date | None = Field(None, description="YYYY-MM-DD inclusive: only messages written on or before this day.")
+    limit: int = Field(10, description=f"How many of the newest messages to return, 1 to {MAX_READ}.")
+
+    @field_validator("limit", mode="before")
+    @classmethod
+    def _clamp(cls, value):
+        try:
+            return min(max(int(value), 1), MAX_READ)
+        except (TypeError, ValueError):
+            return 10
+
+
+@tool(args_schema=ReadChatsArgs)
+def read_chats(
+    runtime: ToolRuntime[AgentContext],
+    chat: str | None = None,
+    official_only: bool = False,
+    words: list[str] | None = None,
+    sender: str | None = None,
+    date_from: date | None = None,
+    date_to: date | None = None,
+    limit: int = 10,
+) -> Command:
+    """The newest messages of the chats, newest first, and how many pass the filters in all (`total`). For "what is new",
+    the latest announcements (official_only), the last messages of one chat or of one person, what was written today, a
+    full list of the messages with some words over a period ("all tests since September") and counts ("how many messages
+    about deadlines this month"). Not for a question about a topic: search_chats finds messages by meaning, whatever their
+    date."""
+    collector = Collector(runtime)
+    found = store.latest(
+        chat=chat,
+        chat_ids=runtime.context.allowed_chat_ids if runtime.context else None,
+        official_only=official_only,
+        words=words,
+        sender=sender,
+        date_from=date_from and date_from.isoformat(),
+        date_to=date_to and date_to.isoformat(),
+        limit=limit,
+    )
+    if found is None:
+        return collector.result({"error": f"No chat matches {chat!r}: take a title from the list of chats."}, "read_chats")
+    total, rows = found
+    asked, now = _asked_courses(runtime), datetime.now(settings.tz)
+    text_limit = 600 if limit <= MAX_MESSAGES else READ_TEXT
+    result = {"total": total, "shown": len(rows), "messages": [_message_item(r, collector, asked, now, text_limit) for r in rows]}
+    if total > len(rows):
+        result["note"] = f"The newest {len(rows)} of {total}: narrow the period or the words, or raise the limit, to see more."
+    elif not total and chat:
+        result["note"] = "Nothing here: a chat that is not stored is searched with search_userbot_chats, by words."
+    return collector.result(result, "read_chats")
 
 
 def _question(runtime: ToolRuntime[AgentContext]) -> str | None:
@@ -534,18 +604,6 @@ def get_schedule(
     return result
 
 
-class QueryDbArgs(BaseModel):
-    sql: str = Field(description="One SQLite SELECT statement with LIMIT.")
-
-
-@tool(args_schema=QueryDbArgs, description=sqlquery.DESCRIPTION)
-def query_db(sql: str, runtime: ToolRuntime[AgentContext]) -> Command:
-    result = sqlquery.run(sql, runtime.context.allowed_chat_ids if runtime.context else None)
-    # The views name messages by database id ("m5127"): the model gets this conversation's refs instead.
-    collector = Collector(runtime)
-    return collector.result(collector.rewrite(result), "query_db")
-
-
 # ---- the wiki: documents of the university, guides, eduwiki ------------------------------------------------------
 
 MAX_WIKI = 8
@@ -742,7 +800,7 @@ def read_wiki(page: str, runtime: ToolRuntime[AgentContext], clause: str | None 
 TOOLS = [
     get_schedule,
     search_chats,
-    query_db,
+    read_chats,
     get_clubs,
     get_university_events,
     find_room,

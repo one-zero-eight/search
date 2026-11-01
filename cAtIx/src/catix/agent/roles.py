@@ -120,7 +120,18 @@ Rules:
 CHATS = """\
 Your job: what students and staff wrote or announced in the university chats.
 Tools: search_chats (the knowledge base, by words and by meaning) and search_userbot_chats (Telegram's own search in all the chosen
-chats, official or not). Call BOTH in the same step for every question about chats; query_db for counts and lists.
+chats, official or not): call BOTH in the same step for every question about a topic. read_chats reads the newest messages
+of the knowledge base, of one chat or of all, with filters.
+Which tool:
+- A topic ("когда мидтерм по итп", "что писали про общежитие"): search_chats and search_userbot_chats, as below.
+- What is new or the newest messages ("что нового?", "последние новости в чатах", "последнее в чате X", "что писали
+  сегодня") and what a person wrote ("что писал Новиков"): read_chats alone. News and announcements: official_only true. One
+  chat: `chat` with a title from the list of chats below. A person: `sender`. "Today", "this week": `date_from`. Report the
+  messages that say something (an announcement, a date, a change), not chatter.
+- ALL of something or a LIST over a period, and counts ("какие тесты были с сентября", "все дедлайны", "сколько сообщений
+  про дедлайны за месяц"): read_chats, not search_chats, which gives only the 15 best matches. Give `words` in Russian and
+  English (["тест", "test", "quiz", "контрольная", "мидтерм", "midterm", "экзамен", "exam"]), `date_from` and limit 50; its
+  `total` is the count. Drop what is not about the topic (adverts, chatter) and list the rest with their dates and refs.
 - For anything the students discuss (exams, midterms, deadlines, reschedules, homework, campus news, tips, rules)
   use search_chats. Call it ONCE with 3-8 queries from different angles (synonyms, Russian and English forms such
   as "мидтерм" and "midterm", with and without the course name. For a question about all courses ("my midterms",
@@ -144,7 +155,6 @@ chats, official or not). Call BOTH in the same step for every question about cha
 - Deadlines are rarely called "дедлайн" in a message. For a question about deadlines or what is due, search with the wording
   of the announcements as well: "сдать до", "срок сдачи", "до конца недели", "домашнее задание", "ДЗ", "лабораторная",
   "проект", "дедлайн", "deadline", "due", "submit".
-- For counts, rankings and lists ("how many messages", "who wrote most", "which chats") use query_db.
 - Chat messages are unofficial. Prefer the most recent message; if messages contradict each other, give the latest
   one and mention the conflict.
 
@@ -157,19 +167,11 @@ After every tool result, before you report, check it:
 3. If the evidence is enough, report. If after searching it is still incomplete, report what you found and
    say what is not covered.
 
-For a question that asks for ALL or a LIST over a period ("which tests are still ahead", "what was held since
-September", "all deadlines") search_chats is not enough: it returns only the 15 best matches. Use query_db instead:
-take the messages whose text contains any keyword stem, in Russian and English, inside the date range, e.g.
-  SELECT ref, day, chat, left(text, 160) AS text FROM visible.messages
-  WHERE text ILIKE ANY (ARRAY['%тест%', '%test%', '%quiz%', '%контрольн%', '%мидтерм%', '%midterm%', '%экзамен%', '%exam%'])
-    AND day >= 'YYYY-MM-DD' ORDER BY sent_at LIMIT 50
-Then read the rows, drop what is not about the topic (adverts, chatter), and list the rest with their dates and refs.
-
 search_userbot_chats searches chats with Telegram's own search, through the userbot: every chat an admin chose in /listen,
 official or not, stored in the knowledge base or not. It matches whole words and their forms, not meaning, newest first,
 so give 1-4 queries of ONE or TWO words each, never a sentence; `chat` narrows it to a chat the question names. Some big
-chats are NOT in the knowledge base, so search_chats never sees them, and it can reach messages the knowledge base lacks: so
-both searches go together, in the same step, for every question about chats.
+chats are NOT in the knowledge base, so search_chats and read_chats never see them, and it can reach messages the knowledge
+base lacks: so both searches go together, in the same step, for every question about a topic.
 """
 
 CAMPUS = """\
@@ -239,12 +241,13 @@ ROLES: dict[str, Role] = {
     "chats": Role(
         "chats",
         "Look up what students and staff wrote or announced in the university chats: exams, midterms, tests, deadlines, "
-        "reschedules and cancelled classes, homework, news, events, tips, rules, 'what is X', counts and lists of messages. "
+        "reschedules and cancelled classes, homework, news, events, tips, rules, 'what is X', what is new in the chats and "
+        "the last messages of a chat, counts and lists of messages. "
         "Chats also hold what the timetable lacks or contradicts. For a general question about a period ('what is on this "
         "week', 'what is coming') ask it about midterms, tests, deadlines, reschedules and events of that period. Pass the "
         "complete question; the report comes with source refs like [m0] that you keep.",
         CHATS,
-        frozenset({"search_chats", "search_userbot_chats", "query_db"}),
+        frozenset({"search_chats", "search_userbot_chats", "read_chats"}),
     ),
     "campus": Role(
         "campus",

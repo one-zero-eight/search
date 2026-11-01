@@ -39,6 +39,7 @@ from catix.agent import claims, questions, roles, sources
 from catix.agent.guardrail import GuardrailMiddleware
 from catix.agent.tools import MAX_READS, TOOLS, AgentContext, reads_done
 from catix.common import courses
+from catix.db import store
 from catix.settings import settings
 
 log = logging.getLogger("catix.agent")
@@ -107,6 +108,21 @@ everybody), and each chat message says the `group` of its chat. The timetable of
 question needs it."""
 
 
+CHATS_PROMPT = """
+
+The chats of the knowledge base the asker may see (for `chat` of read_chats and search_chats):
+{chats}"""
+
+
+def _chats_prompt(context: AgentContext | None) -> str:
+    """The list of chats, so that read_chats can be given one without a call to list them: there are 25 (2026-11-01)."""
+    chats = store.visible_chats(context.allowed_chat_ids if context else None)
+    lines = [f"- {c['title']}" + (f" (@{c['username']})" if c["username"] else "") + f" · group {c['group_code']}"
+             + (" · official" if c["official"] else "") + ("" if c["stored"] else " · not stored: search_userbot_chats only")
+             for c in chats]
+    return CHATS_PROMPT.format(chats="\n".join(lines)) if lines else ""
+
+
 def prompt_for(role: str | None):
     """The system prompt of the supervisor (`role` None) or of the helper with that role."""
 
@@ -124,6 +140,7 @@ def prompt_for(role: str | None):
                 roles.prompt(role),  # Same for everybody: its start stays in the model server's cache.
                 COURSES_PROMPT.format(glossary=courses.glossary()) if courses.courses() else "",
                 GROUP_PROMPT.format(group=context.study_group) if context and context.study_group else NO_GROUP_PROMPT,
+                _chats_prompt(context) if "read_chats" in roles.ROLES[role].tools else "",
             ]
         parts.append(
             TAIL_PROMPT.format(

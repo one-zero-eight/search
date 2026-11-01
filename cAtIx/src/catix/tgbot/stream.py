@@ -46,7 +46,7 @@ STATUS = {
     "get_clubs": "🎯 Смотрю клубы…",
     "get_university_events": "📅 Смотрю события…",
     "find_room": "🗺 Ищу на карте…",
-    "query_db": "🧮 Считаю по базе сообщений…",
+    "read_chats": "📜 Читаю последние сообщения чатов…",
 }
 
 REF_GROUP = re.compile(r"\[\s*m\d+(?:\s*[,;]\s*m\d+)*\s*\]")

@@ -72,6 +72,16 @@ def test_the_search_tool_never_leaves_the_allowed_chats(grouped_chat):
     assert payload["messages"] == []
 
 
+def test_reading_the_chats_never_leaves_the_allowed_chats(grouped_chat):
+    from catix.agent.tools import AgentContext, read_chats
+
+    context = AgentContext(allowed_chat_ids=frozenset({grouped_chat + 1}))
+    runtime = SimpleNamespace(context=context, state={"messages": []}, config={"configurable": {"thread_id": "t"}}, tool_call_id="c")
+    named = json.loads(read_chats.func(runtime=runtime, chat="synthetic").update["messages"][0].content)
+    every = json.loads(read_chats.func(runtime=runtime, limit=50).update["messages"][0].content)
+    assert "messages" not in named and every["total"] == 0
+
+
 def test_query_db_shows_the_group_and_only_the_allowed_chats(grouped_chat):
     seen = sqlquery.run(f"SELECT chat_id, chat_group FROM visible.chats WHERE chat_id = {CHAT_ID} LIMIT 5", {grouped_chat})
     assert seen["rows"] == [[CHAT_ID, OTHER]] or seen["rows"] == [{"chat_id": CHAT_ID, "chat_group": OTHER}], seen

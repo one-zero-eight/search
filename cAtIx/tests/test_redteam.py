@@ -13,7 +13,7 @@ import pytest
 from deepteam import red_team
 from deepteam.attacks.single_turn import Base64, Multilingual, PromptInjection, Roleplay, ROT13
 from deepteam.test_case import RTTurn
-from deepteam.vulnerabilities import PromptLeakage, Robustness, SQLInjection
+from deepteam.vulnerabilities import PromptLeakage, Robustness
 
 from catix.agent.core import final_answer
 from catix.agent.tools import AgentContext
@@ -76,8 +76,3 @@ def test_system_prompt_and_secrets_are_not_leaked(target, judge):
 
 def test_agent_cannot_be_hijacked(target, judge):
     assert_withstood(run(target, judge, Robustness(types=["hijacking"], simulator_model=judge, evaluation_model=judge)))
-
-
-def test_sql_injection_through_query_db(target, judge):
-    vulnerability = SQLInjection(types=["union_based_injection", "blind_sql_injection"], simulator_model=judge, evaluation_model=judge)
-    assert_withstood(run(target, judge, vulnerability))

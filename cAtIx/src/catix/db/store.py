@@ -367,6 +367,13 @@ def _combine(per_query: list[dict[int, float]], limit: int, reserve: int | None 
     return sorted(chosen, key=lambda item: total[item], reverse=True)
 
 
+HITS = """SELECT m.id AS ref_id, m.chat_id, m.msg_id, m.date, m.edit_date, m.sender_name, m.reply_to, m.text, m.link,
+                  c.title AS chat_title, c.official AS chat_official, c.group_code AS chat_group, p.sender_name AS parent_sender, p.text AS parent_text
+           FROM messages m
+           JOIN chats c ON c.chat_id = m.chat_id
+           LEFT JOIN messages p ON p.chat_id = m.chat_id AND p.msg_id = m.reply_to"""
+
+
 def search(
     queries: str | list[str],
     *,
@@ -419,17 +426,7 @@ def search(
     if not fused:
         return []
     with tracing.span("load messages", input=len(fused)), pg.connection() as conn:
-        rows = pg.rows(
-            conn,
-            MessageHit,
-            """SELECT m.id AS ref_id, m.chat_id, m.msg_id, m.date, m.edit_date, m.sender_name, m.reply_to, m.text, m.link,
-                      c.title AS chat_title, c.official AS chat_official, c.group_code AS chat_group, p.sender_name AS parent_sender, p.text AS parent_text
-               FROM messages m
-               JOIN chats c ON c.chat_id = m.chat_id
-               LEFT JOIN messages p ON p.chat_id = m.chat_id AND p.msg_id = m.reply_to
-               WHERE m.id = ANY(%s::bigint[])""",
-            (fused,),
-        )
+        rows = pg.rows(conn, MessageHit, HITS + " WHERE m.id = ANY(%s::bigint[])", (fused,))
     by_id = {r.ref_id: r for r in rows}
     hits = [by_id[i] for i in fused if i in by_id]
     return _rerank(queries, hits, limit) if reranking else hits
@@ -462,6 +459,50 @@ def _rerank(queries: list[str], hits: list[MessageHit], limit: int) -> list[Mess
         order = [i for i in order if best[i] >= settings.rerank_min_score]
     agreed = [sorted(column, reverse=True)[1 if len(column) > 1 else 0] for column in zip(*scores)]
     return [replace(hits[i], relevance=agreed[i]) for i in order]
+
+
+def latest(
+    *,
+    chat: str | None = None,
+    chat_ids: Collection[int] | None = None,
+    official_only: bool = False,
+    words: list[str] | None = None,
+    sender: str | None = None,
+    date_from: str | None = None,
+    date_to: str | None = None,
+    limit: int = 10,
+) -> tuple[int, list[MessageHit]] | None:
+    """The newest `limit` messages that pass the filters, newest first, and how many pass them in all; None if `chat`
+    names no chat the asker may see. `words` keeps the messages with any of them in any form (the BM25 index stems them:
+    'тесты' finds 'тест'), not their substrings: the model's `ILIKE '%дм%'` found every word with those letters."""
+    ids = _resolve_chats(chat, chat_ids)
+    if chat and not ids:
+        return None
+    filters, params = _filters("m.chat_id", "m.date", ids, date_from, date_to)
+    if official_only:
+        filters += " AND c.official"
+    if words and (query := _words(" ".join(words))):
+        filters += " AND m.id IN (SELECT id FROM messages WHERE text ||| %(q)s OR text::pdb.alias('text_en') ||| %(q)s)"
+        params["q"] = query
+    if sender:
+        filters += " AND m.sender_name ILIKE %(sender)s"
+        params["sender"] = f"%{sender}%"
+    with pg.connection() as conn:
+        total = pg.scalar(conn, f"SELECT count(*) FROM messages m JOIN chats c ON c.chat_id = m.chat_id WHERE true{filters}", params)
+        rows = pg.rows(conn, MessageHit, f"{HITS} WHERE true{filters} ORDER BY m.date DESC LIMIT %(n)s", {**params, "n": limit})
+    return total or 0, rows
+
+
+def visible_chats(chat_ids: Collection[int] | None) -> list[dict]:
+    """The chats of the knowledge base the asker may see (all of them for None), the official ones first. `stored` is false
+    for a chat the userbot only searches in Telegram (/listen `search`): the knowledge base has its title, not its messages."""
+    with pg.connection() as conn:
+        return [dict(r) for r in conn.execute(
+            """SELECT title, username, group_code, official, EXISTS (SELECT 1 FROM messages m WHERE m.chat_id = c.chat_id) AS stored
+               FROM chats c
+               WHERE %(ids)s::bigint[] IS NULL OR chat_id = ANY(%(ids)s::bigint[]) ORDER BY official DESC, title""",
+            {"ids": None if chat_ids is None else list(chat_ids)},
+        ).fetchall()]
 
 
 def chat_groups(chat_ids: list[int]) -> dict[int, str]:

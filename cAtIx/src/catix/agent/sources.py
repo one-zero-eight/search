@@ -13,7 +13,6 @@ import re
 import threading
 import time
 from datetime import datetime
-from typing import Any
 from urllib.parse import urlsplit
 
 from langchain.tools import ToolRuntime
@@ -28,9 +27,6 @@ log = logging.getLogger("catix.sources")
 # [m0], [m0, m1], [ m0 ; m1 ]
 GROUP_RE = re.compile(r"\[\s*(m\d+(?:\s*[,;]\s*m\d+)*)\s*\]")
 FORWARDER_RE = re.compile(r"\s*\(forwarded by .*\)$")
-DB_REF_RE = re.compile(r"^m\d+$")
-# Keys under which tools put refs; message texts cannot forge a key.
-REF_KEYS = {"ref", "source_ref"}
 MAX_SOURCES = 300  # A very long conversation forgets its oldest sources (their refs are then dropped as unknown).
 
 
@@ -93,17 +89,6 @@ class Collector:
                   "site": hit.path.startswith("/raw/sites/"),
                   "based_on": [{"title": b["title"], "link": b["link"]} for b in hit.based_on if b.get("link")][:2]}
         return self._add(f"wiki:{hit.id}", fields)
-
-    def rewrite(self, value: Any) -> Any:
-        """Tool output that carries database refs ('m5127', from the SQL views) with this conversation's refs."""
-        if isinstance(value, dict):
-            return {
-                key: (self.add_db(int(item[1:])) if key in REF_KEYS and isinstance(item, str) and DB_REF_RE.match(item) else self.rewrite(item))
-                for key, item in value.items()
-            }
-        if isinstance(value, list):
-            return [self.rewrite(item) for item in value]
-        return value
 
     def result(self, payload: dict, tool_name: str, artifact: dict | None = None) -> Command:
         """The tool's result for the model, and the new sources for the state; `artifact` goes with it, unseen by the model."""
