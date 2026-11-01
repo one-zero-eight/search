@@ -38,7 +38,7 @@ CHATS_ROUTE = [
     "когда пересдача по английскому",
     "какие тесты были на этой неделе",
     "сколько сообщений в чате про дедлайны за месяц",
-    "что такое did?",
+    "что пишут в чатах про did?",
     "what happened with the agla test",
     "кто-нибудь писал про смену белья в корпусе 9",
     "какие дедлайны на этой неделе",
@@ -60,6 +60,8 @@ DOCS_ROUTE = [
 ]
 # The sites publish the news and the chats announce it: both helpers. The chats helper alone was asked them, while the docs
 # helper's knowledge base holds 2191 news items of media.innopolis.university.
+# "What is X" goes to the docs helper alone; the chats helper is asked after it only if it found nothing (FallbackMiddleware).
+WHAT_IS_ROUTE = ["что такое did?", "кто такой Тьюринг", "что такое kubernetes"]
 DOCS_AND_CHATS_ROUTE = [
     "какие последние новости?",
     "какие последние новости в иннополисе?",
@@ -122,7 +124,7 @@ def test_a_question_goes_to_the_helper_and_its_report_comes_back():
     assert names == ["ask_chats"]
     report = next(m for m in out["messages"] if isinstance(m, ToolMessage))
     assert "invented.example" not in report.content, "an invented link in a helper's report must be cut"
-    assert report.artifact == {"tools": [], "calls": [], "results": []}
+    assert report.artifact == {"tools": [], "calls": [], "results": [], "found": None}
     assert final_answer(out["messages"], out.get("sources") or {}) == "Мидтерм 22 октября."
 
 
@@ -159,6 +161,15 @@ def test_a_question_about_the_chats_goes_to_the_chats_helper(agent, text):
 def test_a_question_about_rules_programmes_or_admission_goes_to_the_docs_helper(agent, text):
     answer = ask(agent, text)
     assert_test(LLMTestCase(input=text, actual_output="docs" if "ask_docs" in answer.helpers else ",".join(answer.helpers) or "none", expected_output="docs"), [SameLabel()])
+
+
+@pytest.mark.model
+@pytest.mark.parametrize("text", WHAT_IS_ROUTE, ids=[t[:40] for t in WHAT_IS_ROUTE])
+def test_what_is_x_goes_to_the_docs_helper_first_and_to_the_chats_only_after_it(agent, text):
+    answer = ask(agent, text)
+    first, later = (answer.steps or [[]])[0], [h for step in answer.steps[1:] for h in step]
+    assert_test(LLMTestCase(input=text, actual_output=",".join(first) or "none", expected_output="ask_docs"), [SameLabel()])
+    assert set(later) <= {"ask_chats"}, answer.steps
 
 
 @pytest.mark.model
