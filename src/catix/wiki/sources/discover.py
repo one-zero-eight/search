@@ -1,6 +1,7 @@
 """New sites of the university, found by the wiki's run in the links of the pages it already reads.
 
-    catix-wiki sites discover [--dry-run]   # the hosts the pages link that no source reads yet, and what the probe says of them (--dry-run keeps nothing)
+    catix-wiki sites discover [--dry-run] [--all]   # the hosts the pages link that no source reads yet, and what the probe says of them
+                                                    # (--dry-run keeps nothing; --all: every candidate, however many, failed ones again)
 
 A host is a candidate when
   - it is a host of the university (innopolis.university, innopolis.ru, innopolis.edu.ru, innopolis.com, innopolis.college,
@@ -154,9 +155,11 @@ def write(found: dict) -> None:
         sites.DISCOVERED.write_text(text, encoding="utf-8")
 
 
-def discover(rejected: set[str] = frozenset(), client: httpx.Client | None = None, dry_run: bool = False, pause: float = sites.PAUSE) -> int:
+def discover(rejected: set[str] = frozenset(), client: httpx.Client | None = None, dry_run: bool = False, pause: float = sites.PAUSE,
+             everything: bool = False) -> int:
     """Probe the candidates, keep the ones that pass as pending sites; how many were found. `dry_run` probes and says what it
-    would do, but keeps nothing (the file of found sites is not written, SITES does not change)."""
+    would do, but keeps nothing (the file of found sites is not written, SITES does not change). `everything`: no limit of hosts or
+    of sites for the run, and the hosts that failed a probe lately are probed again (a night's run by hand)."""
     now = datetime.now(timezone.utc)
     found = sites.discovered()
     own = client or httpx.Client(headers=regulations.HEADERS, timeout=20, follow_redirects=True,
@@ -164,9 +167,9 @@ def discover(rejected: set[str] = frozenset(), client: httpx.Client | None = Non
     added = probes = 0
     try:
         for host, kind, pages in candidates(set(rejected)):
-            if added >= MAX_NEW or probes >= MAX_PROBES:
+            if not everything and (added >= MAX_NEW or probes >= MAX_PROBES):
                 break
-            if retry_later(found, host, now):
+            if not everything and retry_later(found, host, now):
                 continue
             probes += 1
             result = probe(host, own)
@@ -206,7 +209,7 @@ def main(args: list[str]) -> None:
 
     rejected = set(autopilot.load_state().get("rejected_sites", []))
     dry = "--dry-run" in args
-    found = discover(rejected, dry_run=dry)
+    found = discover(rejected, dry_run=dry, everything="--all" in args)
     print(f"{found} new sites" + (" would be kept (dry run: nothing was written)" if dry else ""))
     if pending := pending_hosts():
         print("pending a person's look: " + ", ".join(pending), file=sys.stderr)

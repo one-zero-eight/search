@@ -187,3 +187,25 @@ def test_every_host_the_code_names_is_known():
     broken = {"media.innopolis.universitymedia.innopolis.university"}  # (the example of a repaired link in sites.repaired's docstring)
     assert named - broken - discover.known_hosts() == set()
     assert {"eduwiki.innopolis.university", "api.innohassle.ru", "innopolis.university"} <= discover.read_by_code()
+
+
+def lately_failed(host: str) -> None:
+    sites.DISCOVERED.parent.mkdir(parents=True, exist_ok=True)
+    entry = {"status": "failed", "reason": "a login page", "tried": datetime.now(timezone.utc).isoformat()}
+    sites.DISCOVERED.write_text(json.dumps({"sites": {host: entry}}), encoding="utf-8")
+
+
+def test_a_normal_run_takes_few_and_leaves_a_host_that_failed_lately(bundle):
+    hosts = [f"s{i}.innopolis.university" for i in range(discover.MAX_PROBES + 4)]
+    bundle("a", *[f"https://{h}/" for h in hosts])
+    lately_failed(hosts[0])
+    assert discover.discover(client=client({f"https://{h}/": html() for h in hosts}), pause=0) == discover.MAX_NEW
+    assert hosts[0] not in discover.pending_hosts()
+
+
+def test_everything_has_no_limits_and_asks_failed_hosts_again(bundle):
+    hosts = [f"s{i}.innopolis.university" for i in range(discover.MAX_PROBES + 4)]
+    bundle("a", *[f"https://{h}/" for h in hosts])
+    lately_failed(hosts[0])
+    assert discover.discover(client=client({f"https://{h}/": html() for h in hosts}), pause=0, everything=True) == len(hosts)
+    assert len(discover.pending_hosts()) == len(hosts)
