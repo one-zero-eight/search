@@ -209,3 +209,24 @@ def test_everything_has_no_limits_and_asks_failed_hosts_again(bundle):
     lately_failed(hosts[0])
     assert discover.discover(client=client({f"https://{h}/": html() for h in hosts}), pause=0, everything=True) == len(hosts)
     assert len(discover.pending_hosts()) == len(hosts)
+
+
+def test_only_new_reads_the_pending_sites_and_not_on_a_schedule(bundle, monkeypatch):
+    from catix.wiki import sources as registry
+    from catix.wiki.sources import regulations
+
+    bundle("a", "https://lab.innopolis.university/", "https://third.innopolis.university/")
+    discover.discover(client=client({f"https://{h}.innopolis.university/": html() for h in ("lab", "third")}), pause=0)
+    found = sites.discovered()
+    found["lab.innopolis.university"]["status"] = "accepted"  # (a person accepted it: the weekly run reads it)
+    discover.write(found)
+    assert discover.pending_hosts() == ["third.innopolis.university"]
+
+    asked = []
+    monkeypatch.setattr(sites, "fetch", lambda names=None: asked.append(names) or 5)
+    monkeypatch.setattr(regulations, "fetch", lambda *args, **kwargs: 1)  # (the documents the new pages link)
+    assert registry.ON_REQUEST[0].name == "new-sites" and registry.ON_REQUEST[0].update() == 6
+    assert asked == [["third"]]
+
+    assert "new-sites" not in [s.name for s in registry.SOURCES]
+    assert [s.name for s in autopilot.due({}, datetime.now(timezone.utc))] == [s.name for s in registry.SOURCES]  # (never due by itself)

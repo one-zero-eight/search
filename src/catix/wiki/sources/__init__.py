@@ -75,6 +75,16 @@ def _sites() -> int:
     return sites.fetch() + regulations.refresh(prefix="site-") + regulations.fetch()
 
 
+def _new_sites() -> int:
+    """Only the sites found by discover.py that wait for a person's look: their pages and the documents they link (`autopilot
+    --only-new`, after `catix-wiki sites discover --all`). The weekly `sites` reads every site again, which takes hours."""
+    from catix.wiki.sources import discover, regulations, sites
+
+    names = [sites.site_name(host) for host in discover.pending_hosts()]
+    print(f"  {len(names)} pending sites: {', '.join(names) or 'none'}", flush=True)
+    return sites.fetch(names) + regulations.fetch() if names else 0
+
+
 def _papers() -> int:
     from catix.wiki.sources import pastpapers
 
@@ -89,6 +99,10 @@ SOURCES = [
     Source("sites", timedelta(days=7), _sites, "campuslife.innopolis.ru, hotel.innopolis.university: pages and the documents they link"),
     Source("papers", timedelta(days=7), _papers, "past exam papers in the students' Notion database: new rows and their files"),
 ]
+
+
+# Asked by name only (`autopilot --source NAME`, or its own flag), never by the schedule.
+ON_REQUEST = [Source("new-sites", timedelta(days=36500), _new_sites, "the sites discover.py found that wait for a person's look, and only them")]
 
 
 def _mock() -> int:
