@@ -16,6 +16,9 @@ One run:
   4. a commit in the checkout of the `wiki` branch (settings.wiki_root), where only wiki/ and raw/ may change. All checks
      passed: pushed to `wiki`. One failed: the same changes go to a branch `wiki-review/<time>` for a person, and `wiki`
      stays as it was; the working tree keeps them, and the next run checks them again together with what is new.
+New sites: the `discover` source (sources/discover.py) finds hosts of the university in the links of the pages and reads them with safe
+limits. They are pending: whatever such a run brought goes to the review branch and the admins are told in Telegram; `accept` keeps
+the sites, `discard` forgets them for good (.autopilot.json: rejected_sites).
 Runs one at a time (a lock file). Its state (when each source was asked, the changes last sent for review) is in
 .autopilot.json next to the data, not committed.
 """
@@ -32,9 +35,11 @@ from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+from catix import admins
 from catix.settings import settings
 from catix.wiki import build, quality, sources
 from catix.wiki.paths import DATA, DOCS_FOLDER, REPO
+from catix.wiki.sources import discover
 
 ALLOWED = ("wiki/", "raw/")  # the only paths a commit of the wiki's own run may touch
 STATE = DATA / ".autopilot.json"
@@ -104,6 +109,8 @@ def answers_pass() -> bool:
 def check(report: build.Report, answers: bool) -> Checks:
     checks = Checks()
     checks.add(report.lint_errors == 0, f"lint: {report.lint_errors} errors")
+    if pending := discover.pending_hosts():  # before the early returns below: a new site never reaches `wiki` without a person
+        checks.add(False, f"new sites wait for a person's look: {', '.join(pending)} (accept: the sites are read from now on; discard: they are forgotten)")
     if not settings.database_url:
         checks.add(False, "search: not checked (no DATABASE_URL)")
         return checks
@@ -204,7 +211,40 @@ def run_once(names: list[str] | None = None, push: bool = True, answers: bool = 
         git("push", "-q", settings.wiki_remote, f"{commit}:refs/heads/{branch}")
     state["review_tree"] = tree
     save_state(state)
+    if pending := discover.pending_hosts():
+        tell_admins(f"🌐 Вики нашла новые сайты университета: {', '.join(pending)}.\nСтраницы прочитаны и лежат в ветке {branch} (до {sites_limit()} на сайт), в `wiki` их нет. "
+                    "Посмотрите и на сервере выполните: catix-wiki autopilot accept (оставить) или discard (забыть).")
     return f"checks failed, changes sent to {branch} for review: " + "; ".join(checks.failed)
+
+
+def sites_limit() -> int:
+    from catix.wiki.sources import sites
+
+    return sites.DISCOVERED_PAGES
+
+
+def tell_admins(text: str) -> None:
+    """A message to the admins of the bot (they set up the alerts too); the run goes on if it cannot be sent."""
+    if not settings.tg_bot_token:
+        print(f"(no TG_BOT_TOKEN: the admins are not told) {text}", flush=True)
+        return
+    import asyncio
+
+    from aiogram import Bot
+
+    async def send() -> None:
+        ids = list(dict.fromkeys([*settings.admin_telegram_ids, *(admins.added() if settings.database_url else [])]))
+        async with Bot(settings.tg_bot_token.get_secret_value()) as bot:
+            for admin in ids:
+                try:
+                    await bot.send_message(admin, text, parse_mode=None)
+                except Exception as e:  # noqa: BLE001 - blocked the bot, never started it, ...
+                    print(f"admin {admin} was not told: {e}", flush=True)
+
+    try:
+        asyncio.run(send())
+    except Exception:  # noqa: BLE001
+        traceback.print_exc()
 
 
 def working_tree() -> str:
@@ -217,7 +257,8 @@ def working_tree() -> str:
 
 
 def accept(push: bool = True) -> str:
-    """The changes waiting for review, committed to `wiki` as a person accepted them."""
+    """The changes waiting for review, committed to `wiki` as a person accepted them. The pending sites become accepted."""
+    discover.accept_pending()
     git("add", "-A")
     if bad := outside(git("diff", "--cached", "--name-only").splitlines()):
         git("reset", "-q")
@@ -235,7 +276,11 @@ def accept(push: bool = True) -> str:
 
 def discard() -> str:
     """The changes waiting for review, thrown away: the files of the branch come back (downloads, which git ignores, stay) and
-    the search index follows them."""
+    the search index follows them. The pending sites are rejected: no later run finds them again."""
+    state = load_state()
+    if pending := discover.pending_hosts():
+        state["rejected_sites"] = sorted({*state.get("rejected_sites", []), *pending})
+        save_state(state)
     git("checkout", "--", ".")
     git("clean", "-fdq", "--", *ALLOWED)  # (new pages of the run; ignored files are not touched without -x)
     state = load_state()

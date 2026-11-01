@@ -5,6 +5,7 @@
     regulations.py  the kept documents (PDF): text, then wiki/raw/regulations/ by code (the model writes only a description)
     rpd.py          course programmes (РПД) from the archives of sveden/education: wiki/raw/course-programmes/, by code only
     sites.py        the sites of the university's services (campus life, the campus hotel): wiki/raw/sites/, their documents as regulations
+    discover.py     new sites of the university in the links of the pages: pending a person's look (autopilot accept | discard)
     pastpapers.py   past exam papers the students keep in Notion: wiki/raw/past-papers/, one page per subject, by code only
     mock.py         a stand-in site for showing and testing the wiki's run (WIKI_MOCK_SITE)
 
@@ -59,6 +60,14 @@ def _files() -> int:
     return changed and regulations.fetch() + rpd.fetch()
 
 
+def _discover() -> int:
+    """New sites of the university in the links of the pages already read: pending a person's look (discover.py)."""
+    from catix.wiki import autopilot
+    from catix.wiki.sources import discover
+
+    return discover.discover(set(autopilot.load_state().get("rejected_sites", [])))
+
+
 def _sites() -> int:
     """The pages of the services' sites read again, then the documents they link that are new or changed."""
     from catix.wiki.sources import regulations, sites
@@ -76,6 +85,7 @@ SOURCES = [
     Source("eduwiki", timedelta(hours=6), _eduwiki, "eduwiki.innopolis.university: pages whose revision changed"),
     Source("sveden", timedelta(days=1), _sveden, "innopolis.university/sveden: documents and course programmes added to the site"),
     Source("files", timedelta(days=7), _files, "documents and archives read before that changed on the site (HEAD, ~1 request every 2 s)"),
+    Source("discover", timedelta(days=7), _discover, "new hosts of the university in the links of the pages: probed, then read and sent for a person's look"),
     Source("sites", timedelta(days=7), _sites, "campuslife.innopolis.ru, hotel.innopolis.university: pages and the documents they link"),
     Source("papers", timedelta(days=7), _papers, "past exam papers in the students' Notion database: new rows and their files"),
 ]

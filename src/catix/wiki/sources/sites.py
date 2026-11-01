@@ -11,6 +11,7 @@ projects the pages link most (career, corporate, dovuz, progmatica, the college,
     catix-wiki sites fetch [SITE ...]   # the pages of every site (or of those named) -> raw/sites/<site>/ (one request every Site.pause seconds); the number that changed
     catix-wiki sites compile    # raw/sites -> wiki/raw/sites/<site>/<slug>.md
     catix-wiki sites status     # pages and documents found on every site
+    catix-wiki sites discover   # new sites of the university in the links of the pages (discover.py)
 
 A page's text is kept as the site shows it: the program turns the markup into markdown and drops what every page of the
 site repeats (menus, footers); no model is asked: the description is the page's first sentence. The documents a site
@@ -180,6 +181,38 @@ SITES = {
                      drop=r"\[(Дальше|Перейти к следующей теме в этом разделе|\(:ru\)[^\]]*)\]\([^)]*\)"),  # (its English is mostly the Russian text marked '(Русский)'; a person's page is a name and
                      # a post, a publication's its title: /science/ lists them with their authors; the language is a cookie, see fetch)
 }
+
+
+DISCOVERED = RAW / "sites-discovered.json"  # the sites discover.py found: {"sites": {host: {"status": "pending" | "accepted" | "failed", ...}}}
+DISCOVERED_PAGES = 30  # pages a found site may have until a person has read what it gave and raised its limits in SITES
+DISCOVERED_PAUSE = 3
+
+
+def site_name(host: str) -> str:
+    """The name of a found site (its folder in raw/sites/): 'dovuz' for dovuz.innopolis.university, 'innopolis-college' for innopolis.college."""
+    return host.removesuffix(".innopolis.university") if host.endswith(".innopolis.university") else host.replace(".", "-")
+
+
+def discovered() -> dict[str, dict]:
+    return json.loads(DISCOVERED.read_text(encoding="utf-8")).get("sites", {}) if DISCOVERED.exists() else {}
+
+
+def load_discovered() -> int:
+    """Add the found sites (pending a person's look, or accepted) to SITES, with the settings that cannot do harm: the pages
+    its robots.txt allows, few of them, a slow pace, Tilda's service pages left out. A person gives a site a line of its own in
+    SITES when it needs more. The number of sites added."""
+    added = 0
+    for host, found in discovered().items():
+        name = site_name(host)
+        if found.get("status") not in ("pending", "accepted") or name in SITES:
+            continue
+        SITES[name] = Site(f"https://{host}/", found.get("language", "ru"), f"{host}, found by the wiki's run: {found.get('title') or host}", TILDA,
+                           max_pages=DISCOVERED_PAGES, robots=True, pause=DISCOVERED_PAUSE)
+        added += 1
+    return added
+
+
+load_discovered()
 
 
 CHROMIUM = shutil.which("chromium") or shutil.which("chromium-browser") or shutil.which("google-chrome")
@@ -1012,5 +1045,9 @@ def main() -> None:
         compile_all()
     elif cmd == "status":
         status()
+    elif cmd == "discover":
+        from catix.wiki.sources import discover
+
+        discover.main(args)
     else:
         sys.exit(__doc__)
