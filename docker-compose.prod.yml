@@ -12,8 +12,10 @@ x-app: &app
   restart: unless-stopped
   env_file: .env
   environment:
-    # The services find each other by name; these override the development values in .env.
-    DATABASE_URL: postgresql://ctx:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}@db:5432/ctx
+    # The services find each other by name; these override the development values in .env. The password is not in the URL
+    # (libpq reads PGPASSWORD): a password with / @ : # ? would break the URL ('failed to resolve host').
+    DATABASE_URL: postgresql://ctx@db:5432/ctx
+    PGPASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
     REDIS_URL: redis://redis:6379/0
   volumes:
     - catix_data:/app/data
@@ -74,7 +76,8 @@ services:
     restart: "no"
     command: ["catix-wiki", "index", "--no-embed"]
     environment:
-      DATABASE_URL: postgresql://ctx:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}@db:5432/ctx
+      DATABASE_URL: postgresql://ctx@db:5432/ctx
+      PGPASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
       WIKI_ROOT: /wiki-data
     volumes:
       - ${WIKI_DIR:-../catix-wiki}:/wiki-data:ro
@@ -100,7 +103,8 @@ services:
     <<: *app
     command: ["catix-api"]
     environment:
-      DATABASE_URL: postgresql://ctx:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}@db:5432/ctx
+      DATABASE_URL: postgresql://ctx@db:5432/ctx
+      PGPASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
       REDIS_URL: redis://redis:6379/0
       API_HOST: 0.0.0.0
     ports:
