@@ -212,7 +212,8 @@ def load_discovered() -> int:
     added = 0
     for host, found in discovered().items():
         name = site_name(host)
-        if found.get("status") not in ("pending", "accepted") or name in SITES:
+        have = {(urlsplit(site.base).hostname or "").removeprefix("www.") for site in SITES.values()} | {a for site in SITES.values() for a in site.aliases}
+        if found.get("status") not in ("pending", "accepted") or name in SITES or host in have:  # (a site with a line of its own in SITES is read by that line)
             continue
         SITES[name] = Site(f"https://{host}/", found.get("language", "ru"), f"{host}, found by the wiki's run: {found.get('title') or host}", TILDA,
                            max_pages=DISCOVERED_PAGES, robots=True, pause=DISCOVERED_PAUSE)

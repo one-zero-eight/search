@@ -219,6 +219,13 @@ def accept_pending(hosts: list[str] | None = None) -> list[str]:
     return hosts
 
 
+def unread_hosts() -> list[str]:
+    """Pending and accepted sites of SITES that have no pages read yet."""
+    return [host for host, entry in sorted(sites.discovered().items())
+            if entry.get("status") in ("pending", "accepted") and (name := sites.site_name(host)) in sites.SITES
+            and not (sites.ROOT / name / "index.json").exists()]
+
+
 def explore(rejected: set[str], max_rounds: int = 10, max_sites: int = 60, client: httpx.Client | None = None, pause: float = sites.PAUSE) -> list[str]:
     """Rounds, until a round finds nothing new: probe every candidate, read the sites that passed, make their pages (the links
     of a page are read from the made pages, not from the database: no search index is needed between rounds), look in them for
@@ -228,8 +235,8 @@ def explore(rejected: set[str], max_rounds: int = 10, max_sites: int = 60, clien
         before = set(pending_hosts())
         print(f"== round {number}", flush=True)
         discover(rejected, client=client, pause=pause, everything=True, since=started)
-        # (a pending site nobody has read yet counts too: one a person added with `sites add`)
-        unread = [h for h in pending_hosts() if h not in attempted and not (sites.ROOT / sites.site_name(h) / "index.json").exists()]
+        # (a site nobody has read yet counts too: one a person added with `sites add`, or accepted before it was read)
+        unread = [h for h in unread_hosts() if h not in attempted]
         new = sorted(set(pending_hosts()) - before)
         if not new and not unread:
             print("nothing new: the search is over", flush=True)

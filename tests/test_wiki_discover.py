@@ -388,3 +388,17 @@ def test_the_documents_of_the_universitys_hosts_that_other_sites_link_are_collec
     assert sorted(sites.load("career")["docs"]) == ["https://innopolis.university/upload/b/944225_%D0%9F%D0%98%D0%A8.pdf", "https://innopolis.university/upload/iblock/a/%D0%9E%D0%B1%D1%80%D0%B0%D0%B7%D0%B5%D1%86%20%D1%81%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D1%8F.docx"]
     assert list(sites.load("apply")["docs"]) == ["https://apply.innopolis.university/upload/files/guide.pdf"]
     assert sites.collect_linked_docs() == 0  # (nothing twice)
+
+
+def test_a_site_with_a_line_of_its_own_is_not_read_twice_and_an_accepted_unread_site_is(web, monkeypatch):
+    discover.write({
+        "sport.innopolis.ru": {"status": "accepted", "kind": "university", "language": "ru"},  # (sport has its own line in SITES)
+        "late.innopolis.university": {"status": "accepted", "kind": "university", "language": "ru"},  # (accepted, never read)
+        "gone.innopolis.university": {"status": "failed", "reason": "x", "tried": "2020-01-01T00:00:00+00:00"},
+    })
+    monkeypatch.setitem(sites.SITES, "sport", sites.Site("https://sport.innopolis.ru/", "ru", "sport", ""))
+    sites.load_discovered()
+    assert "sport-innopolis-ru" not in sites.SITES and "late" in sites.SITES
+    assert discover.unread_hosts() == ["late.innopolis.university"]
+    found = discover.explore(set(), client=web("x.innopolis.university"), pause=0)
+    assert "late" in web.read and discover.unread_hosts() == []  # (read in the first round)
