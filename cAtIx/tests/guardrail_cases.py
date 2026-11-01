@@ -91,4 +91,8 @@ LOOKUP = [q for q in ALLOW if q not in SMALL_TALK] + [
     "где в кампусе купить салфетки?",
     "в столовой есть борщ?",
     "можно ли держать хомяка в общежитии?",
+    "what are the prerequisites of control theory",  # a course, not a maths problem
+    "какие пререквизиты у курса машинного обучения",
+    "кто такой Эйнштейн",
+    "кто такой Илон Маск",
 ]
