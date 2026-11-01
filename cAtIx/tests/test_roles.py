@@ -42,7 +42,6 @@ CHATS_ROUTE = [
     "what happened with the agla test",
     "кто-нибудь писал про смену белья в корпусе 9",
     "какие дедлайны на этой неделе",
-    "what are the rules for retaking a midterm",
 ]
 DOCS_ROUTE = [
     "сколько раз можно пересдавать экзамен",
@@ -55,6 +54,7 @@ DOCS_ROUTE = [
     "сколько часов в зачетной единице",
     "what are the prerequisites of control theory",
     "кто директор университета",
+    "what are the rules for retaking a midterm",
 ]
 
 
