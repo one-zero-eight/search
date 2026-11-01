@@ -38,7 +38,7 @@ CHATS_ROUTE = [
     "когда пересдача по английскому",
     "какие тесты были на этой неделе",
     "сколько сообщений в чате про дедлайны за месяц",
-    "что такое did?",
+    "что пишут в чатах про did?",
     "what happened with the agla test",
     "кто-нибудь писал про смену белья в корпусе 9",
     "какие дедлайны на этой неделе",
@@ -60,6 +60,8 @@ DOCS_ROUTE = [
 ]
 # The sites publish the news and the chats announce it: both helpers. The chats helper alone was asked them, while the docs
 # helper's knowledge base holds 2191 news items of media.innopolis.university.
+# "What is X" goes to the docs helper alone; the chats helper is asked after it only if it found nothing (FallbackMiddleware).
+WHAT_IS_ROUTE = ["что такое did?", "кто такой Тьюринг", "что такое kubernetes"]
 DOCS_AND_CHATS_ROUTE = [
     "какие последние новости?",
     "какие последние новости в иннополисе?",
@@ -122,7 +124,7 @@ def test_a_question_goes_to_the_helper_and_its_report_comes_back():
     assert names == ["ask_chats"]
     report = next(m for m in out["messages"] if isinstance(m, ToolMessage))
     assert "invented.example" not in report.content, "an invented link in a helper's report must be cut"
-    assert report.artifact == {"tools": [], "calls": [], "results": []}
+    assert report.artifact == {"tools": [], "calls": [], "results": [], "found": None}
     assert final_answer(out["messages"], out.get("sources") or {}) == "Мидтерм 22 октября."
 
 
@@ -159,6 +161,15 @@ def test_a_question_about_the_chats_goes_to_the_chats_helper(agent, text):
 def test_a_question_about_rules_programmes_or_admission_goes_to_the_docs_helper(agent, text):
     answer = ask(agent, text)
     assert_test(LLMTestCase(input=text, actual_output="docs" if "ask_docs" in answer.helpers else ",".join(answer.helpers) or "none", expected_output="docs"), [SameLabel()])
+
+
+@pytest.mark.model
+@pytest.mark.parametrize("text", WHAT_IS_ROUTE, ids=[t[:40] for t in WHAT_IS_ROUTE])
+def test_what_is_x_goes_to_the_docs_helper_first_and_to_the_chats_only_after_it(agent, text):
+    answer = ask(agent, text)
+    first, later = (answer.steps or [[]])[0], [h for step in answer.steps[1:] for h in step]
+    assert_test(LLMTestCase(input=text, actual_output=",".join(first) or "none", expected_output="ask_docs"), [SameLabel()])
+    assert set(later) <= {"ask_chats"}, answer.steps
 
 
 @pytest.mark.model
@@ -262,6 +273,29 @@ def test_refs_the_supervisor_left_out_go_under_the_answer():
     answer = final_answer(messages, {"m7": rules, "m9": rules})
     assert answer.startswith("Компьютерное тестирование, минимальный балл 40. [1]")
     assert answer.endswith("[1] [«Правила приема 2026/2027»](https://innopolis.university/r.pdf) (документ университета)")
+
+
+def test_a_run_of_refs_keeps_at_most_five_sources():
+    """The chats helper cited 26 messages for one sentence, the supervisor lost them, and all went under the answer: 28 sources
+    ("что такое пчз?"). A run of refs keeps its first MAX_RUN sources, in the text and under it; two clauses of one
+    document are one source."""
+    from catix.agent.sources import MAX_RUN
+
+    registry = {f"m{i}": {"wiki": True, "title": f"Документ {i}", "clause": "", "link": f"https://innopolis.university/{i}.pdf", "trust": "official"} for i in range(8)}
+    registry["m8"] = {**registry["m0"], "clause": "п. 2"}
+    run = "".join(f"[m{i}]" for i in (0, 8, *range(1, 8)))
+    messages = [
+        HumanMessage("что такое пчз?"),
+        _ask("ask_chats", "что такое пчз?"),
+        ToolMessage(content=f"ПЧЗ — канал первокурсников {run}.", tool_call_id="c1", name="ask_chats"),
+        AIMessage(content="ПЧЗ — канал первокурсников."),
+    ]
+    answer = final_answer(messages, registry)
+    assert answer.startswith("ПЧЗ — канал первокурсников. [1][2][3][4][5]\n"), answer
+    assert answer.count("innopolis.university/") == MAX_RUN == 5 and "/5.pdf" not in answer
+    messages[3] = AIMessage(content=f"ПЧЗ — канал [m0][m1], первокурсников {run}.")
+    answer = final_answer(messages, registry)
+    assert "канал [1][2], первокурсников [1][2][3][4][5]." in answer  # two runs, each cut by itself
 
 
 def test_a_report_without_refs_is_asked_again_only_when_the_tools_gave_sources():

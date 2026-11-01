@@ -191,7 +191,7 @@ def test_the_report_of_the_one_helper_asked_is_the_answer_unless_the_supervisor_
     report = "Пересдать экзамен можно не более двух раз [m1]."
     written = ModelResponse(result=[AIMessage(content="ответ supervisor")])
     seen = []
-    model = lambda request: seen.append(request) or written  # noqa: E731
+    model = lambda request: seen.append(request) or written
     result = PassReportMiddleware().wrap_model_call(req("сколько раз можно пересдавать экзамен", ("ask_docs", report)), model)
     assert result.result[-1].content == report and result.result[-1].name == SUPERVISOR_NAME and not seen
     for request in (req("сколько раз можно пересдавать экзамен", ("ask_docs", report), brief=True),
@@ -199,6 +199,69 @@ def test_the_report_of_the_one_helper_asked_is_the_answer_unless_the_supervisor_
                     req("how many times can I retake an exam", ("ask_docs", report)),
                     req("когда пересдача по матану и сколько попыток", ("ask_docs", report), ("ask_chats", "Пересдача 12 ноября [m2]."))):
         assert PassReportMiddleware().wrap_model_call(request, model) is written
+
+
+def test_when_the_docs_helper_found_nothing_the_chats_helper_is_asked_next_without_a_model_call():
+    """The documents first, the chats as a fallback: a report that cites nothing, or cites pieces none of which the reranker
+    found about the question, sends the same question to the chats helper; a useful report, or another helper asked, does not."""
+    from catix.agent.core import FallbackMiddleware
+
+    def req(*reports: tuple[str, str, bool | None]) -> Req:
+        calls = [{"name": name, "args": {"question": "что такое DID?"}, "id": f"a{i}", "type": "tool_call"} for i, (name, _, _) in enumerate(reports)]
+        request = Req(0)
+        request.messages = [HumanMessage("что такое DID?"), AIMessage(content="", tool_calls=calls),
+                            *(ToolMessage(content=text, tool_call_id=f"a{i}", name=name, artifact={"found": found})
+                              for i, (name, text, found) in enumerate(reports))]
+        return request
+
+    written = ModelResponse(result=[AIMessage(content="ответ supervisor")])
+    seen = []
+    model = lambda request: seen.append(request) or written
+    for nothing in (("ask_docs", "В документах ничего не найдено о DID.", None), ("ask_docs", "Есть общие правила [m1].", False),
+                    ("ask_docs", core.TOOL_FAILURE_ANSWER, None)):
+        call = FallbackMiddleware().wrap_model_call(req(nothing), model).result[-1].tool_calls[0]
+        assert call["name"] == "ask_chats" and call["args"] == {"question": "что такое DID?"} and not seen
+    for useful in (req(("ask_docs", "DID — это … [m1].", True)), req(("ask_docs", "DID — это … [m1].", None)),
+                   req(("ask_docs", "Ничего.", None), ("ask_chats", "Ничего.", None)), req(("ask_campus", "Ничего.", None))):
+        assert FallbackMiddleware().wrap_model_call(useful, model) is written
+
+
+def test_after_the_fallback_its_report_is_the_answer():
+    """The docs helper found nothing and the chats helper, asked by FallbackMiddleware, cites: its report is passed on. The
+    supervisor rewriting the two reports dropped the refs ("что такое пчз?"). A second helper the supervisor asked itself
+    still makes it write the answer."""
+    from catix.agent.core import FALLBACK_ID, SUPERVISOR_NAME, PassReportMiddleware
+
+    def req(second_id: str) -> Req:
+        request = Req(0)
+        request.messages = [
+            HumanMessage("что такое пчз?"),
+            AIMessage(content="", tool_calls=[{"name": "ask_docs", "args": {"question": "что такое пчз?"}, "id": "a0", "type": "tool_call"}]),
+            ToolMessage(content="В документах нет расшифровки ПЧЗ.", tool_call_id="a0", name="ask_docs"),
+            AIMessage(content="", tool_calls=[{"name": "ask_chats", "args": {"question": "что такое пчз?"}, "id": second_id, "type": "tool_call"}]),
+            ToolMessage(content="ПЧЗ — «Полезная часть зоопарка», канал первокурсников [m6].", tool_call_id=second_id, name="ask_chats"),
+        ]
+        request.runtime = types.SimpleNamespace(context=types.SimpleNamespace(brief=False))
+        return request
+
+    written = ModelResponse(result=[AIMessage(content="ответ supervisor")])
+    seen = []
+    model = lambda request: seen.append(request) or written
+    passed = PassReportMiddleware().wrap_model_call(req(f"{FALLBACK_ID}1"), model).result[-1]
+    assert passed.content.endswith("[m6].") and passed.name == SUPERVISOR_NAME and not seen
+    assert PassReportMiddleware().wrap_model_call(req("a1"), model) is written
+
+
+def test_a_helper_found_something_when_a_scored_search_or_a_read_brought_it():
+    from catix.agent.core import found_anything
+
+    def result(name: str, content: str = "{}", relevant=None) -> ToolMessage:
+        return ToolMessage(content=content, tool_call_id="c", name=name, artifact=None if relevant is None else {"relevant": relevant})
+
+    assert found_anything([result("search_wiki", relevant=[])]) is False
+    assert found_anything([result("search_wiki", relevant=[]), result("read_wiki", '{"pieces": [{"ref": "m1"}]}')]) is True
+    assert found_anything([result("search_chats", relevant=["m3"])]) is True
+    assert found_anything([result("find_room", '{"total": 0}')]) is None  # nothing scored: the report decides
 
 
 def test_markup_on_a_call_without_tools_is_asked_again_with_why_it_was_not_made():

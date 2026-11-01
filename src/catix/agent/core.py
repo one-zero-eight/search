@@ -582,7 +582,9 @@ class PassReportMiddleware(AgentMiddleware):
 
     The supervisor still writes the answer in brief mode (the inline card wants at most about 40 words), when the report
     is in another language than the user's last message, when it cites nothing (nothing found, or the helper failed: the
-    supervisor may ask another helper), and when several helpers or rounds have to be put together. It sits before
+    supervisor may ask another helper), and when several helpers or rounds have to be put together. The report of a helper
+    asked by FallbackMiddleware is passed too: the first one found nothing, and the supervisor rewriting the two reports
+    dropped the refs ("что такое пчз?", 28 sources then put under the answer). It sits before
     QuestionNoteMiddleware, whose English reminder at the end of the user's message would change its language.
     """
 
@@ -593,6 +595,8 @@ class PassReportMiddleware(AgentMiddleware):
             return None
         run = _this_run(request.messages)
         answers = [m for m in run if isinstance(m, AIMessage)]
+        if answers and any((c.get("id") or "").startswith(FALLBACK_ID) for c in answers[-1].tool_calls):
+            answers = answers[-1:]  # the helper asked first found nothing (FallbackMiddleware): the next one's report is all there is
         if len(answers) != 1 or len(calls := answers[0].tool_calls) != 1 or not calls[0]["name"].startswith("ask_"):
             return None
         result = next((m for m in run if isinstance(m, ToolMessage) and m.tool_call_id == calls[0]["id"]), None)
@@ -612,6 +616,67 @@ class PassReportMiddleware(AgentMiddleware):
             return await handler(request)
         log.info("one helper reported with sources: its report is the answer")
         return ModelResponse(result=[AIMessage(content=report, name=SUPERVISOR_NAME)])
+
+
+def found_anything(messages: list[BaseMessage]) -> bool | None:
+    """Whether a helper's run found something about the question: a search with results the reranker scored as about it
+    (`relevant` in its artifact, as for core.empty_searches) or a page read; None when nothing of it was scored."""
+    verdicts = []
+    for message in messages:
+        if not isinstance(message, ToolMessage):
+            continue
+        if message.name == "read_wiki":
+            try:
+                verdicts.append(bool(json.loads(message.content).get("pieces")))
+            except (TypeError, ValueError, AttributeError):
+                verdicts.append(False)
+        elif isinstance(message.artifact, dict) and isinstance(relevant := message.artifact.get("relevant"), list):
+            verdicts.append(bool(relevant))
+    return any(verdicts) if verdicts else None
+
+
+# The helper asked next, in code, when the one asked found nothing: the documents first, the chats as a fallback.
+FALLBACK = {"ask_docs": "ask_chats"}
+FALLBACK_ID = "fallback-"  # the id of the call FallbackMiddleware makes
+
+
+class FallbackMiddleware(AgentMiddleware):
+    """When the supervisor asked one helper (FALLBACK) and it found nothing, the next helper is asked the same question,
+    without a model call. The documents come first and the chats are the fallback ("что такое DID?", "кто такая Инна?"): the
+    prompt said to ask both for "what is X", and the supervisor asked one of them in 6 of 6 tries, docs or chats by chance;
+    a rule with a condition ("if the docs helper found nothing, ask the chats one") is followed less still by a small model.
+
+    "Found nothing": the report cites no source, or the helper's searches were scored and none of their results was about
+    the question (`found` in the report's artifact, `found_anything`). It sits before PassReportMiddleware: a report that
+    cites pieces of no use is not the answer.
+    """
+
+    @staticmethod
+    def _next(request: ModelRequest) -> AIMessage | None:
+        run = _this_run(request.messages)
+        calls = [c for m in run if isinstance(m, AIMessage) for c in m.tool_calls]
+        asked = {c["name"] for c in calls}
+        if len(asked) != 1 or (helper := next(iter(asked))) not in FALLBACK:
+            return None
+        reports = [m for m in run if isinstance(m, ToolMessage) and m.name == helper]
+        if not reports or any(SOURCED.search(str(m.content)) and (m.artifact or {}).get("found") is not False for m in reports):
+            return None
+        question = calls[-1]["args"].get("question")
+        if not question:
+            return None
+        log.info("%s found nothing: %s is asked the same question", helper, FALLBACK[helper])
+        call = {"name": FALLBACK[helper], "args": {"question": question}, "id": f"{FALLBACK_ID}{uuid.uuid4().hex[:12]}", "type": "tool_call"}
+        return AIMessage(content="", tool_calls=[call], name=SUPERVISOR_NAME)
+
+    def wrap_model_call(self, request, handler):
+        if (message := self._next(request)) is None:
+            return handler(request)
+        return ModelResponse(result=[message])
+
+    async def awrap_model_call(self, request, handler):
+        if (message := self._next(request)) is None:
+            return await handler(request)
+        return ModelResponse(result=[message])
 
 
 class PriorityMiddleware(AgentMiddleware):
@@ -871,6 +936,7 @@ def _helper_tool(role: roles.Role, model) -> BaseTool:
             "tools": [c["name"] for m in messages if isinstance(m, AIMessage) for c in m.tool_calls],
             "calls": [c for m in messages if isinstance(m, AIMessage) for c in m.tool_calls],
             "results": [str(m.content) for m in messages if isinstance(m, ToolMessage)],
+            "found": found_anything(messages),
         }
         message = ToolMessage(content=report, tool_call_id=runtime.tool_call_id, name=f"ask_{role.name}", artifact=used)
         return Command(update={"messages": [message], "sources": out.get("sources") or {}})
@@ -898,6 +964,7 @@ def build_agent(model=None, *, guardrail: bool = True):
         middleware=[
             *([GuardrailMiddleware()] if guardrail else []),  # first: a blocked message costs the agent nothing
             prompt_for(None),
+            FallbackMiddleware(),  # before PassReportMiddleware: a report of no use is not passed on as the answer
             PassReportMiddleware(),  # before the reminder is added to the user's message (see there)
             QuestionNoteMiddleware(reminder=ROLE_REMINDER, alone=ALONE_REMINDER),
             TurnStartSummarization(

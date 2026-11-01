@@ -26,6 +26,8 @@ log = logging.getLogger("catix.sources")
 
 # [m0], [m0, m1], [ m0 ; m1 ]
 GROUP_RE = re.compile(r"\[\s*(m\d+(?:\s*[,;]\s*m\d+)*)\s*\]")
+RUN_RE = re.compile(rf"{GROUP_RE.pattern}(?:[ \t]*{GROUP_RE.pattern})*")  # [m6][m11] [m12]: refs at one place of the answer
+MAX_RUN = 5  # Sources at one place: a claim needs a few, and of 28 in a row ("что такое пчз?") none would be opened.
 FORWARDER_RE = re.compile(r"\s*\(forwarded by .*\)$")
 MAX_SOURCES = 300  # A very long conversation forgets its oldest sources (their refs are then dropped as unknown).
 
@@ -105,6 +107,18 @@ def _identity(ref: str, source: dict) -> object:
     return ("wiki", source.get("title"), source.get("link")) if source.get("wiki") else ref
 
 
+def _capped(run: re.Match, registry: dict[str, dict]) -> str:
+    """A run of refs with at most MAX_RUN sources, the first ones written. Such runs came of a helper that cited every message
+    of a channel for one sentence, and of final_answer, which puts all refs of the reports under an answer that lost them."""
+    refs = re.findall(r"m\d+", run.group(0))
+    keys = list(dict.fromkeys(_identity(ref, registry[ref]) for ref in refs if ref in registry))
+    if len(keys) <= MAX_RUN:
+        return run.group(0)
+    log.info("a run of %d sources is cut to %d", len(keys), MAX_RUN)
+    kept = set(keys[:MAX_RUN])
+    return "".join(f"[{ref}]" for ref in dict.fromkeys(refs) if ref in registry and _identity(ref, registry[ref]) in kept)
+
+
 def cite(answer: str, registry: dict[str, dict]) -> str:
     """Replace refs in the answer by numbers and append the numbered source list."""
     numbers: dict[object, int] = {}
@@ -125,7 +139,7 @@ def cite(answer: str, registry: dict[str, dict]) -> str:
                 log.warning("dropping unknown source ref %s", item)
         return f"[{', '.join(map(str, sorted(used)))}]" if used else ""
 
-    answer = GROUP_RE.sub(renumber, answer)
+    answer = GROUP_RE.sub(renumber, RUN_RE.sub(lambda run: _capped(run, registry), answer))
     answer = re.sub(r"(\[\d+(?:, \d+)*\])(?:\s*\1)+", r"\1", answer)  # [1][1]: two clauses of one document became one number
     answer = re.sub(r"[ \t]+([.,;:!?])", r"\1", answer)  # Where a dropped ref left a gap.
     if not numbers:
