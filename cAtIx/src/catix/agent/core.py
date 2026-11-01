@@ -645,6 +645,8 @@ URL_RE = re.compile(r"https?://[^\s)\]>\"']+")
 LABEL_ONLY = re.compile(r"[^\n\[\]]{0,80}:\**\s*(?:\[m\d+\]\s*)*")  # "Ссылка на шаблон: [m3]", what is left once its link is cut
 # A tool's name written as a ref ("…аудитория в корпусе «East» [find_room]": a find_room result has no ref to cite).
 TOOL_REF = re.compile(r"\s*\[(?:%s)\]" % "|".join(sorted({t.name for t in TOOLS} | {f"ask_{r}" for r in roles.ROLES}, key=len, reverse=True)))
+# Sage wraps a report in <answer>…</answer> now and then, and a lone report is the answer the user gets.
+ANSWER_TAG = re.compile(r"</?answer>")
 
 
 def _urls_in(content: object) -> set[str]:
@@ -686,7 +688,7 @@ def clean(turn: list[BaseMessage], answer: str) -> str:
         return ""
 
     lines: list[str] = []
-    for line in answer.split("\n"):
+    for line in ANSWER_TAG.sub("", answer).strip().split("\n"):
         kept = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", lambda m: m.group(0) if unquote(m.group(2)) in known else m.group(1), line)
         kept = URL_RE.sub(keep_known, kept)
         kept = TOOL_REF.sub("", kept)

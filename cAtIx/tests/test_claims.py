@@ -148,3 +148,10 @@ def test_a_tool_name_written_as_a_ref_goes():
 
     assert clean([], "Кабинет 108 — большая лекционная аудитория на 1 этаже [find_room].") == "Кабинет 108 — большая лекционная аудитория на 1 этаже."
     assert clean([], "Пересдача 12 ноября [m2], см. также [ask_docs]") == "Пересдача 12 ноября [m2], см. также"
+
+
+def test_an_answer_tag_goes():
+    """The docs helper wrapped its report in <answer>…</answer>, and the lone report reached the user with the tags."""
+    from catix.agent.core import clean
+
+    assert clean([], "<answer>\nПересдача не более 2 раз [m1].\n</answer>") == "Пересдача не более 2 раз [m1]."
