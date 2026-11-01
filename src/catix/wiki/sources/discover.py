@@ -31,7 +31,8 @@ from urllib.robotparser import RobotFileParser
 import httpx
 
 from catix.wiki.paths import DOCS
-from catix.wiki.sources import eduwiki, regulations, sites
+from catix.settings import settings
+from catix.wiki.sources import eduwiki, regulations, sites, sveden
 
 UNIVERSITY = ("innopolis.university", "innopolis.ru", "innopolis.edu.ru", "innopolis.com", "innopolis.college")
 INNO = re.compile(r"(^|[.-])inno(polis|hassle)?([.-]|$)|innopolis|innohassle")
@@ -58,9 +59,16 @@ def kind_of(host: str) -> str | None:
     return "inno" if INNO.search(host) else None
 
 
+def read_by_code() -> set[str]:
+    """The hosts the code reads without a line in SITES: a source of its own (the eduwiki's API, the disclosure section and the
+    documents of the university) or the agent's tools (the InNoHassle API: clubs, events, maps). They come from the constants the
+    code reads them by; tests/test_wiki_discover.py fails when the code names a host that is not here."""
+    return {host_of(url) for url in (eduwiki.API, sveden.BASE, regulations.BASE, str(settings.innohassle_api))}
+
+
 def known_hosts() -> set[str]:
-    """The hosts that are read already or must not be asked: every site of SITES with its aliases, and the found ones."""
-    known = {host_of(eduwiki.API)}  # (read by a source of its own, not through SITES)
+    """The hosts that are read already or must not be asked: what the code reads, every site of SITES with its aliases, and the found ones."""
+    known = read_by_code()
     for site in sites.SITES.values():
         known |= {host_of(site.base), *site.aliases}
     return known | {host for host, entry in sites.discovered().items() if entry.get("status") != "failed"}  # (a failed one is asked again later: retry_later)

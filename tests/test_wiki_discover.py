@@ -168,3 +168,22 @@ def test_a_host_that_did_not_answer_is_tried_again_sooner():
              "login.innopolis.ru": {"status": "failed", "reason": "a login page ('Вход')", "tried": tried}}
     assert not discover.retry_later(found, "down.innopolis.ru", now)  # (a week has passed: asked again)
     assert discover.retry_later(found, "login.innopolis.ru", now)  # (a login does not change in a week)
+
+
+def test_every_host_the_code_names_is_known():
+    """A new source or tool that reads another host must be listed in discover.read_by_code (or be a site of SITES), or the
+    run would find that host in a link and read it a second time."""
+    import re
+    from pathlib import Path
+
+    root = Path(discover.__file__).resolve().parents[2]  # src/catix
+    named = set()
+    for path in root.rglob("*.py"):
+        if path.name == "discover.py":
+            continue
+        for url in re.findall(r"https?://[A-Za-z0-9.-]+", path.read_text(encoding="utf-8")):
+            if discover.kind_of(discover.host_of(url)):
+                named.add(discover.host_of(url))
+    broken = {"media.innopolis.universitymedia.innopolis.university"}  # (the example of a repaired link in sites.repaired's docstring)
+    assert named - broken - discover.known_hosts() == set()
+    assert {"eduwiki.innopolis.university", "api.innohassle.ru", "innopolis.university"} <= discover.read_by_code()
