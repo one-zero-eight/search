@@ -14,6 +14,7 @@ import threading
 import time
 from datetime import datetime
 from typing import Any
+from urllib.parse import urlsplit
 
 from langchain.tools import ToolRuntime
 from langchain_core.messages import ToolMessage
@@ -89,6 +90,7 @@ class Collector:
         """A piece of the wiki (db/wiki.py WikiHit): the document, the clause and the original, so that the source line
         points to the university's own document; a guide's piece names the documents it rests on."""
         fields = {"wiki": True, "title": hit.title, "clause": hit.clause, "link": hit.resource, "trust": hit.trust,
+                  "site": hit.path.startswith("/raw/sites/"),
                   "based_on": [{"title": b["title"], "link": b["link"]} for b in hit.based_on if b.get("link")][:2]}
         return self._add(f"wiki:{hit.id}", fields)
 
@@ -171,13 +173,16 @@ def _link(title: str, link: str | None) -> str:
 
 
 def _wiki_line(number: int, source: dict) -> str:
-    """[n] «Положение о …», п. 5.3 (документ университета) — or a guide with the documents it rests on, or an eduwiki page."""
+    """[n] «Положение о …», п. 5.3 (документ университета) — or a guide with the documents it rests on, a page of a site
+    (its host: media.innopolis.university) or an eduwiki page."""
     line = f"[{number}] {_link(source['title'], source.get('link'))}" + (f", п. {source['clause']}" if source.get("clause") else "")
     if source.get("trust") == "official":
         return line + " (документ университета)"
     if source.get("trust") == "guide":
         based = ", ".join(_link(b["title"], b["link"]) for b in source.get("based_on") or [])
         return line + " (сводка cAtIx" + (f" по документам: {based})" if based else ")")
+    if source.get("site"):
+        return line + (f" ({host})" if (host := urlsplit(source.get("link") or "").hostname) else " (сайт)")
     return line + " (eduwiki)"
 
 

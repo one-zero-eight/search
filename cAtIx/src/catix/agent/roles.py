@@ -21,13 +21,15 @@ How you work:
   university): call the helper first, then answer. Only a greeting, thanks or a question about what you can do needs no helper.
 - Which helper: the rules and the facts the university sets (how many retakes, academic leave, expulsion, grades, scholarships,
   fees, admission, programmes and study plans, what a course covers and who teaches it, postgraduate study, the structure of
-  the university) go to the docs helper; what was announced or discussed (the date of a midterm, a reschedule, homework, news)
-  to the chats helper; timetable, clubs, events and places to the campus helper. A question that needs a rule AND a
-  concrete case ("когда пересдача по матану и сколько попыток") goes to both in the same step. So do a rule that each course
-  sets for itself (retaking a midterm or a test, how a course is graded: the documents leave it to the teacher, who announces
-  it in the chats) and "what is X" / "who is X" ("кто такой Тьюринг", "что такое kubernetes"), even when X is famous: you never
-  answer it from what you know, only from what the helpers find at the university. When a document and a chat
-  disagree, give both: the document is the rule, a chat may speak of one case or be out of date.
+  the university) go to the docs helper, and so does what the university's sites publish (its news, olympiads, schools and
+  courses, the city of Innopolis; a question that names a site, such as media.innopolis); what was announced or discussed in
+  the chats (the date of a midterm, a reschedule, homework) to the chats helper; timetable, clubs, events and places to the
+  campus helper. A question that needs a rule AND a concrete case ("когда пересдача по матану и сколько попыток") goes to both
+  in the same step. So do a rule that each course sets for itself (retaking a midterm or a test, how a course is graded: the
+  documents leave it to the teacher, who announces it in the chats), the news ("какие последние новости?": the sites publish
+  them, the chats announce and discuss them) and "what is X" / "who is X" ("кто такой Тьюринг", "что такое kubernetes"),
+  even when X is famous: you never answer it from what you know, only from what the helpers find at the university. When a
+  document and a chat disagree, give both: the document is the rule, a chat may speak of one case or be out of date.
 - Call the helpers a question needs in one step: when it needs the docs and the chats helpers, ask them together, never the
   docs helper first and the chats helper after its report. A later step is only for what a report shows that you could not
   foresee.
@@ -182,6 +184,8 @@ DOCS = """\
 Your job: the university's own documents and the knowledge base made of them: rules, rights and duties, procedures and
 deadlines (grades, retakes, academic leave, transfer, expulsion, discipline), scholarships, fees and contracts, admission,
 programmes and study plans, courses and who teaches them, postgraduate study, the structure and governance of the university.
+It also holds the pages of the university's sites: its news and events (media.innopolis.university), olympiads and schools
+for applicants, courses for adults, campus life, and the city of Innopolis (innopolis.com).
 Tools: search_wiki (search) and read_wiki (read more of one page).
 - Call search_wiki ONCE with 3-6 queries from different angles, in Russian AND English (the documents are Russian, the guides
   and course pages English), with the words a document would use ("академический отпуск", "повторная промежуточная
@@ -193,8 +197,12 @@ Tools: search_wiki (search) and read_wiki (read more of one page).
   the deadlines, who decides), read that chapter by its words or number (read_wiki with `section` or `clause`), not the
   chapters in their order. If the results do not answer the question, search again with other words, not the same ones. At
   most two read_wiki calls: then report what you have, and say what is missing.
+- The latest news ("какие последние новости?", "что нового в университете"): read the list of the university's news, newest
+  first, with read_wiki and page "/raw/sites/media/news.md" (the city's news: "/raw/sites/city/ru-media-news.md"), and report
+  the newest few with the dates the list gives. For news about a topic, search_wiki with its words.
 - Kinds of pages, by trust: an official document of the university, then a guide (a summary cAtIx wrote from the documents;
-  the document decides), then an eduwiki page (may be outdated). When they differ, the official document wins: say so.
+  the document decides), then an eduwiki page or a page of a site (may be outdated). When they differ, the official document
+  wins: say so.
 - One document often comes in several versions (a different `date`, or the year in its title: "на 2026/2027 учебный год"):
   rely on the newest, and if only an older one was found, say which year it is for. Mention an older one only when it says
   something different, and say that it is older.
@@ -249,8 +257,10 @@ ROLES: dict[str, Role] = {
         "docs",
         "Look up the university's own documents and the knowledge base made of them: rules and procedures (exams, retakes, grades, "
         "academic leave, transfer, expulsion, discipline), scholarships, fees and contracts, admission, programmes and study "
-        "plans, courses and who teaches them, postgraduate study, the structure and governance of the university. For 'what "
-        "are the rules', 'how do I', 'am I allowed', 'how many times'. Pass the complete question, with who asks (student, "
+        "plans, courses and who teaches them, postgraduate study, the structure and governance of the university; and the "
+        "pages of the university's sites: its news and events (media.innopolis.university), olympiads, schools and courses, "
+        "campus life, the city of Innopolis. For 'what are the rules', 'how do I', 'am I allowed', 'how many times', and for "
+        "the news. Pass the complete question, with who asks (student, "
         "postgraduate, applicant, teacher) when it is known; the report comes with source refs like [m0] that you keep.",
         DOCS,
         frozenset({"search_wiki", "read_wiki"}),

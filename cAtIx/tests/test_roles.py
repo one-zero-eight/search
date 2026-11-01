@@ -55,6 +55,14 @@ DOCS_ROUTE = [
     "what are the prerequisites of control theory",
     "кто директор университета",
     "what are the rules for retaking a midterm",
+    "какие есть олимпиады?",  # (the sites: the chats helper alone was asked it and found students' talk)
+    "а что в медиа иннополис?",
+]
+# The sites publish the news and the chats announce it: both helpers. The chats helper alone was asked them, while the docs
+# helper's knowledge base holds 2191 news items of media.innopolis.university.
+DOCS_AND_CHATS_ROUTE = [
+    "какие последние новости?",
+    "какие последние новости в иннополисе?",
 ]
 
 
@@ -151,6 +159,14 @@ def test_a_question_about_the_chats_goes_to_the_chats_helper(agent, text):
 def test_a_question_about_rules_programmes_or_admission_goes_to_the_docs_helper(agent, text):
     answer = ask(agent, text)
     assert_test(LLMTestCase(input=text, actual_output="docs" if "ask_docs" in answer.helpers else ",".join(answer.helpers) or "none", expected_output="docs"), [SameLabel()])
+
+
+@pytest.mark.model
+@pytest.mark.parametrize("text", DOCS_AND_CHATS_ROUTE, ids=[t[:40] for t in DOCS_AND_CHATS_ROUTE])
+def test_the_news_goes_to_the_docs_and_the_chats_helpers(agent, text):
+    answer = ask(agent, text)
+    asked = sorted({h for h in answer.helpers if h in ("ask_docs", "ask_chats")})
+    assert_test(LLMTestCase(input=text, actual_output=",".join(asked) or "none", expected_output="ask_chats,ask_docs"), [SameLabel()])
 
 
 @pytest.mark.parametrize("text", CAMPUS_ROUTE[:-2], ids=[t[:40] for t in CAMPUS_ROUTE[:-2]])

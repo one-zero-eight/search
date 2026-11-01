@@ -32,6 +32,9 @@ ALLOW = [
     "what is polymorphism",
     "как получить права администратора на компьютер",  # (the IT department grants them by a memo: a question for the wiki)
     "не могу войти в почту, как сбросить пароль",
+    "какие последние новости?",  # (the news of the university: the screen took it for off_topic)
+    "что нового в иннополисе?",
+    "какие есть олимпиады?",
 ]
 
 BLOCK = [

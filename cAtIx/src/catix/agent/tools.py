@@ -556,6 +556,14 @@ KINDS = {
     "guide": "guide: a summary that cAtIx wrote from the documents it names (check the clause in the document)",
     "wiki": "eduwiki page (the university's teaching wiki, edited by staff; may be outdated)",
 }
+# Most pages of the kind `wiki` are not the eduwiki but the pages of the sites (news, olympiads, admission, the city):
+# 4061 of 4490 on 2026-11-01. Labelled eduwiki, a news item of media.innopolis.university was cited as an eduwiki page.
+SITE_KIND = "a page of a site of the university or of Innopolis (news, events, admission, courses; may be outdated)"
+SITES = "/raw/sites/"
+
+
+def _kind(hit) -> str:
+    return SITE_KIND if hit.trust == "wiki" and hit.path.startswith(SITES) else KINDS[hit.trust]
 
 
 def _warnings(hit) -> list[str]:
@@ -572,8 +580,9 @@ def _warnings(hit) -> list[str]:
 
 
 def _wiki_item(hit, collector: Collector, text_limit: int = WIKI_TEXT) -> dict:
-    item = {"ref": collector.add_wiki(hit), "document": hit.title, "kind": KINDS[hit.trust]}
-    if hit.issued:
+    item = {"ref": collector.add_wiki(hit), "document": hit.title, "kind": _kind(hit)}
+    # (A site page's date is the day it was read, or the 1st of January of a past year it is about: its text has its own.)
+    if hit.issued and not hit.path.startswith(SITES):
         item["date"] = f"{hit.issued:%Y-%m-%d}"  # of the document (or of the guide): a newer one replaces an older one
     if hit.trust == "official":
         item["official"] = True  # a document of the university: "official" may be said of it
@@ -606,7 +615,8 @@ class SearchWikiArgs(BaseModel):
         "не более ...'): its numbers may be guesses, its wording finds the clause.",
     )
     kinds: list[Literal["official", "guide", "wiki"]] | None = Field(
-        None, description="Only these kinds of pages: official (documents of the university), guide (summaries), wiki (eduwiki). Default: all."
+        None, description="Only these kinds of pages: official (documents of the university), guide (summaries), wiki (eduwiki and the "
+        "pages of the sites: news, olympiads, admission, the city). Default: all."
     )
 
     @field_validator("queries", mode="before")
@@ -618,9 +628,10 @@ class SearchWikiArgs(BaseModel):
 @tool(args_schema=SearchWikiArgs)
 def search_wiki(queries: list[str], runtime: ToolRuntime[AgentContext], kinds: list[str] | None = None) -> Command:
     """Search the university's knowledge base: its official documents (regulations, orders, rules of admission, study plans,
-    programmes, reports), guides that summarise them, and the eduwiki (courses, teachers, procedures). Returns pieces of
-    pages with the document, the clause number and a ref to cite. For rules, rights, deadlines, procedures, programmes,
-    courses, admission, structure of the university."""
+    programmes, reports), guides that summarise them, the eduwiki (courses, teachers, procedures) and the pages of the
+    sites (the news and events of media.innopolis.university, olympiads, admission, courses, campus life, the city of
+    Innopolis). Returns pieces of pages with the document, the clause number and a ref to cite. For rules, rights,
+    deadlines, procedures, programmes, courses, admission, structure of the university, news."""
     hits = wiki_store.search(queries, trust=kinds, limit=MAX_WIKI, original=_question(runtime))
     collector = Collector(runtime)
     result = {"total": len(hits), "pieces": [_wiki_item(h, collector) for h in hits]}
@@ -705,7 +716,7 @@ def read_wiki(page: str, runtime: ToolRuntime[AgentContext], clause: str | None 
     else:
         chosen = pieces
     first = pieces[0] if pieces else None
-    result: dict = {"document": first.title if first else page, "kind": KINDS[first.trust] if first else None, "page": path}
+    result: dict = {"document": first.title if first else page, "kind": _kind(first) if first else None, "page": path}
     if first and first.resource:
         result["original"] = first.resource
     if not chosen:
