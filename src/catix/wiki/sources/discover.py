@@ -56,7 +56,7 @@ PASSWORD_FIELD = re.compile(r"""(?i)<input[^>]+type=["']?password""")
 
 
 def host_of(url: str) -> str:
-    return (urlsplit(url).hostname or "").lower().removeprefix("www.")
+    return (urlsplit(url).hostname or "").lower().rstrip(".").removeprefix("www.")  # (a name may end with a dot: 'innopoliscamp.ru.')
 
 
 def kind_of(host: str) -> str | None:

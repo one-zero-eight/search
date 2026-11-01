@@ -402,3 +402,7 @@ def test_a_site_with_a_line_of_its_own_is_not_read_twice_and_an_accepted_unread_
     assert discover.unread_hosts() == ["late.innopolis.university"]
     found = discover.explore(set(), client=web("x.innopolis.university"), pause=0)
     assert "late" in web.read and discover.unread_hosts() == []  # (read in the first round)
+
+
+def test_a_name_with_a_dot_at_the_end_is_the_same_host():
+    assert discover.host_of("https://InnopolisCamp.ru./page") == "innopoliscamp.ru" == discover.host_of("https://www.innopoliscamp.ru/")
