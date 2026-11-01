@@ -230,3 +230,84 @@ def test_only_new_reads_the_pending_sites_and_not_on_a_schedule(bundle, monkeypa
 
     assert "new-sites" not in [s.name for s in registry.SOURCES]
     assert [s.name for s in autopilot.due({}, datetime.now(timezone.utc))] == [s.name for s in registry.SOURCES]  # (never due by itself)
+
+
+# --- explore: rounds until nothing is new, then a person chooses ---
+
+
+@pytest.fixture
+def web(bundle, tmp_path, monkeypatch):
+    """A chain of sites: the page of each links the next one. 'Reading' a site makes its page in the bundle, as sites.fetch and
+    compile_all do; a log tells what was read."""
+    from catix.wiki import autopilot
+
+    monkeypatch.setattr(autopilot, "STATE", tmp_path / ".autopilot.json")
+    monkeypatch.setattr(sites, "ROOT", tmp_path / "raw" / "sites")
+    read, chain = [], {}
+
+    def fetch(names=None):
+        for name in names:
+            host = f"{name}.innopolis.university"
+            read.append(name)
+            page = discover.DOCS / sites.FOLDER / name / "home.md"
+            page.parent.mkdir(parents=True, exist_ok=True)
+            page.write_text(f"[next]({chain[host]})" if chain.get(host) else "no links", encoding="utf-8")
+            (sites.ROOT / name).mkdir(parents=True, exist_ok=True)
+            (sites.ROOT / name / "index.json").write_text(json.dumps({"pages": {"home": {"title": f"Home of {name}"}}, "docs": {}}), encoding="utf-8")
+        return len(names)
+
+    monkeypatch.setattr(sites, "fetch", fetch)
+    monkeypatch.setattr(sites, "compile_all", lambda: None)
+
+    def make(*hosts: str):
+        for here, there in zip(hosts, [*hosts[1:], None]):
+            chain[here] = f"https://{there}/" if there else ""
+        bundle("start", f"https://{hosts[0]}/")
+        return client({f"https://{h}/": html() for h in hosts})
+
+    make.read = read
+    return make
+
+
+def test_explore_follows_the_links_of_the_sites_it_found_until_nothing_is_new(web):
+    http = web("a.innopolis.university", "b.innopolis.university", "c.innopolis.university")
+    found = discover.explore(set(), client=http, pause=0)
+    assert found == ["a.innopolis.university", "b.innopolis.university", "c.innopolis.university"]  # (a's page led to b, b's to c)
+    assert web.read == ["a", "b", "c"] and discover.pending_hosts() == found
+
+
+def test_explore_stops_at_the_limit_of_sites_and_of_rounds(web):
+    hosts = [f"s{i}.innopolis.university" for i in range(6)]
+    assert discover.explore(set(), max_sites=2, client=web(*hosts), pause=0) == hosts[:2]
+
+
+def test_explore_asks_a_host_that_failed_once_only(web):
+    http = web("a.innopolis.university", "b.innopolis.university")
+    discover.DOCS.joinpath("sites", "apply", "dead.md").write_text("[x](https://dead.innopolis.university/)", encoding="utf-8")
+    probed = []
+    real = discover.probe
+    discover.probe = lambda host, c: probed.append(host) or real(host, c)
+    try:
+        discover.explore(set(), client=http, pause=0)
+    finally:
+        discover.probe = real
+    assert probed.count("dead.innopolis.university") == 1  # (round 2 and 3 did not ask it again)
+
+
+def test_a_person_accepts_some_and_rejects_the_rest(web, capsys):
+    from catix.wiki import autopilot
+
+    discover.explore(set(), client=web("a.innopolis.university", "b.innopolis.university", "c.innopolis.university"), pause=0)
+    discover.review()
+    out = capsys.readouterr().out
+    assert "a   a.innopolis.university" in out and "1 pages read" in out and "Home of b" in out
+
+    assert discover.accept_pending(discover.resolve(["a"])) == ["a.innopolis.university"]  # (a name does as well as a host)
+    discover.reject(discover.resolve(["c.innopolis.university"]))
+    assert discover.pending_hosts() == ["b.innopolis.university"]
+    assert sites.discovered()["a.innopolis.university"]["status"] == "accepted" and "c.innopolis.university" not in sites.discovered()
+    assert not (sites.ROOT / "c").exists() and not (discover.DOCS / sites.FOLDER / "c").exists() and "c" not in sites.SITES  # (what was read of it is gone)
+    assert (sites.ROOT / "a").exists()
+    assert autopilot.load_state()["rejected_sites"] == ["c.innopolis.university"]
+    with pytest.raises(SystemExit):
+        discover.resolve(["c"])  # (nothing pending by that name any more)

@@ -11,7 +11,7 @@ projects the pages link most (career, corporate, dovuz, progmatica, the college,
     catix-wiki sites fetch [SITE ...]   # the pages of every site (or of those named) -> raw/sites/<site>/ (one request every Site.pause seconds); the number that changed
     catix-wiki sites compile    # raw/sites -> wiki/raw/sites/<site>/<slug>.md
     catix-wiki sites status     # pages and documents found on every site
-    catix-wiki sites discover [--dry-run] [--all]   # new sites of the university in the links of the pages (discover.py)
+    catix-wiki sites discover | explore | review | accept | reject   # new sites of the university in the links of the pages (discover.py)
 
 A page's text is kept as the site shows it: the program turns the markup into markdown and drops what every page of the
 site repeats (menus, footers); no model is asked: the description is the page's first sentence. The documents a site
@@ -1045,9 +1045,9 @@ def main() -> None:
         compile_all()
     elif cmd == "status":
         status()
-    elif cmd == "discover":
+    elif cmd in ("discover", "explore", "review", "accept", "reject"):
         from catix.wiki.sources import discover
 
-        discover.main(args)
+        discover.main(args if cmd == "discover" else [cmd, *args])
     else:
         sys.exit(__doc__)

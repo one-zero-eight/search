@@ -2,6 +2,10 @@
 
     catix-wiki sites discover [--dry-run] [--all]   # the hosts the pages link that no source reads yet, and what the probe says of them
                                                     # (--dry-run keeps nothing; --all: every candidate, however many, failed ones again)
+    catix-wiki sites explore [--rounds 10] [--max-sites 60]   # discover --all, read what was found, look in its pages for more, again, until a round finds nothing
+    catix-wiki sites review                                   # what the pending sites gave: pages read, titles, who links them
+    catix-wiki sites accept HOST_OR_NAME ... | --all          # worth keeping: read from now on (then `autopilot --build` makes the pages, the index, the review)
+    catix-wiki sites reject HOST_OR_NAME ... | --all          # not worth it: forgotten for good, with the pages read
 
 A host is a candidate when
   - it is a host of the university (innopolis.university, innopolis.ru, innopolis.edu.ru, innopolis.com, innopolis.college,
@@ -156,10 +160,11 @@ def write(found: dict) -> None:
 
 
 def discover(rejected: set[str] = frozenset(), client: httpx.Client | None = None, dry_run: bool = False, pause: float = sites.PAUSE,
-             everything: bool = False) -> int:
+             everything: bool = False, since: datetime | None = None) -> int:
     """Probe the candidates, keep the ones that pass as pending sites; how many were found. `dry_run` probes and says what it
     would do, but keeps nothing (the file of found sites is not written, SITES does not change). `everything`: no limit of hosts or
-    of sites for the run, and the hosts that failed a probe lately are probed again (a night's run by hand)."""
+    of sites for the run, and the hosts that failed a probe lately are probed again (a night's run by hand), except those that
+    failed since `since` (the earlier rounds of `explore`)."""
     now = datetime.now(timezone.utc)
     found = sites.discovered()
     own = client or httpx.Client(headers=regulations.HEADERS, timeout=20, follow_redirects=True,
@@ -171,6 +176,8 @@ def discover(rejected: set[str] = frozenset(), client: httpx.Client | None = Non
                 break
             if not everything and retry_later(found, host, now):
                 continue
+            if since and found.get(host, {}).get("tried", "") >= since.isoformat(timespec="seconds"):
+                continue  # (this run of explore asked it already)
             probes += 1
             result = probe(host, own)
             if isinstance(result, str):
@@ -194,9 +201,9 @@ def pending_hosts() -> list[str]:
     return sorted(host for host, entry in sites.discovered().items() if entry.get("status") == "pending")
 
 
-def accept_pending() -> list[str]:
-    """A person read what the pending sites gave: they are accepted (and need no look again)."""
-    found, hosts = sites.discovered(), pending_hosts()
+def accept_pending(hosts: list[str] | None = None) -> list[str]:
+    """A person read what the pending sites gave: they are accepted (and need no look again). `hosts`: only these."""
+    found, hosts = sites.discovered(), [h for h in pending_hosts() if hosts is None or h in hosts]
     for host in hosts:
         found[host]["status"] = "accepted"
     if hosts:
@@ -204,10 +211,97 @@ def accept_pending() -> list[str]:
     return hosts
 
 
+def explore(rejected: set[str], max_rounds: int = 10, max_sites: int = 60, client: httpx.Client | None = None, pause: float = sites.PAUSE) -> list[str]:
+    """Rounds, until a round finds nothing new: probe every candidate, read the sites that passed, make their pages (the links
+    of a page are read from the made pages, not from the database: no search index is needed between rounds), look in them for
+    hosts again. The sites found, all of them pending a person's look (`sites review`, `sites accept`, `sites reject`)."""
+    started, total = datetime.now(timezone.utc), []
+    for number in range(1, max_rounds + 1):
+        before = set(pending_hosts())
+        print(f"== round {number}", flush=True)
+        discover(rejected, client=client, pause=pause, everything=True, since=started)
+        new = sorted(set(pending_hosts()) - before)
+        if not new:
+            print("nothing new: the search is over", flush=True)
+            break
+        total += new
+        names = [sites.site_name(host) for host in new]
+        print(f"== reading {', '.join(names)}", flush=True)
+        try:
+            sites.fetch(names)
+        except Exception as e:  # noqa: BLE001 - one site down must not end the night's run; its pages are what was read
+            print(f"  reading stopped: {type(e).__name__}: {e}", flush=True)
+        sites.compile_all()
+        if len(total) >= max_sites:
+            print(f"{len(total)} sites found, the limit of this run ({max_sites}): enough for now", flush=True)
+            break
+    else:
+        print(f"{max_rounds} rounds: there may be more, run it again", flush=True)
+    return total
+
+
+def resolve(names: list[str]) -> list[str]:
+    """Pending hosts by a host or a name of a site ('lab' for lab.innopolis.university)."""
+    pending = pending_hosts()
+    by_name = {sites.site_name(h): h for h in pending}
+    unknown = [n for n in names if n not in pending and n not in by_name]
+    if unknown:
+        sys.exit(f"not pending: {', '.join(unknown)}; pending are {', '.join(by_name) or 'none'}")
+    return [n if n in pending else by_name[n] for n in names]
+
+
+def reject(hosts: list[str]) -> list[str]:
+    """A person looked and the sites are not worth it: forgotten for good, with what was read of them."""
+    import shutil
+
+    from catix.wiki import autopilot
+
+    state = autopilot.load_state()
+    state["rejected_sites"] = sorted({*state.get("rejected_sites", []), *hosts})
+    autopilot.save_state(state)
+    found = sites.discovered()
+    for host in hosts:
+        found.pop(host, None)
+        name = sites.site_name(host)
+        sites.SITES.pop(name, None)
+        for folder in (sites.ROOT / name, DOCS / sites.FOLDER / name):
+            shutil.rmtree(folder, ignore_errors=True)
+    write(found)
+    return hosts
+
+
+def review() -> None:
+    """What the pending sites gave, to decide which are worth keeping."""
+    found = sites.discovered()
+    for host in pending_hosts():
+        entry, name = found[host], sites.site_name(host)
+        index = sites.load(name)
+        pages = [p for p in index["pages"].values() if not p.get("gone")]
+        titles = "; ".join(p["title"][:50] for p in pages[:4])
+        print(f"{name}   {host}   [{entry.get('kind')}] linked from {entry.get('pages')} pages, e.g. {(entry.get('examples') or ['?'])[0]}")
+        print(f"   '{entry.get('title')}': {len(pages)} pages read, {len(index['docs'])} documents linked")
+        print(f"   {titles or 'no page read yet (sites fetch ' + name + ')'}")
+    if not pending_hosts():
+        print("nothing waits for a look")
+
+
 def main(args: list[str]) -> None:
     from catix.wiki import autopilot
 
     rejected = set(autopilot.load_state().get("rejected_sites", []))
+    option = lambda name, default: int(args[args.index(name) + 1]) if name in args else default  # noqa: E731
+    if args[:1] == ["explore"]:
+        total = explore(rejected, option("--rounds", 10), option("--max-sites", 60))
+        print(f"{len(total)} sites found; `catix-wiki sites review` shows what they gave")
+        return
+    if args[:1] == ["review"]:
+        return review()
+    if args[:1] in (["accept"], ["reject"]):
+        names = [a for a in args[1:] if not a.startswith("--")]
+        hosts = pending_hosts() if "--all" in args else resolve(names)
+        done = accept_pending(hosts) if args[0] == "accept" else reject(hosts)
+        print(f"{'accepted' if args[0] == 'accept' else 'rejected'}: {', '.join(done) or 'none'}")
+        return
     dry = "--dry-run" in args
     found = discover(rejected, dry_run=dry, everything="--all" in args)
     print(f"{found} new sites" + (" would be kept (dry run: nothing was written)" if dry else ""))

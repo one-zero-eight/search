@@ -1,7 +1,7 @@
 """The wiki maintains itself: its sources are asked on their schedule, what changed becomes pages and knowledge cards, checks decide,
 and the result is committed to the `wiki` branch and pushed.
 
-    catix-wiki autopilot [--loop] [--source NAME ...] [--only-new] [--no-push] [--no-answers]
+    catix-wiki autopilot [--loop] [--source NAME ...] [--only-new] [--build] [--no-push] [--no-answers]
     catix-wiki autopilot accept    # a person read the review branch and agrees: the changes are committed to `wiki` and pushed
     catix-wiki autopilot discard   # a person disagrees: the changes are thrown away, the search index follows the branch again
 
@@ -16,6 +16,7 @@ One run:
   4. a commit in the checkout of the `wiki` branch (settings.wiki_root), where only wiki/ and raw/ may change. All checks
      passed: pushed to `wiki`. One failed: the same changes go to a branch `wiki-review/<time>` for a person, and `wiki`
      stays as it was; the working tree keeps them, and the next run checks them again together with what is new.
+`--build`: no source is asked; the pages read by hand (`catix-wiki sites explore`, `sites accept`) are built, checked and committed.
 `--only-new`: only the pending sites are read (the source `new-sites`), not all of them like the weekly `sites`: after `catix-wiki sites discover --all`, a run takes minutes.
 New sites: the `discover` source (sources/discover.py) finds hosts of the university in the links of the pages and reads them with safe
 limits. They are pending: whatever such a run brought goes to the review branch and the admins are told in Telegram; `accept` keeps
@@ -317,6 +318,8 @@ def main() -> None:
     names = [a for a in args[args.index("--source") + 1:] if not a.startswith("--")] if "--source" in args else None
     if "--only-new" in args:
         names = [*(names or []), "new-sites"]
+    if "--build" in args:
+        names = names or ["build-only"]  # no source is asked (a name that is none): what the working tree holds is built, checked and committed or sent for review
     with LOCK.open("w") as lock:
         try:
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
