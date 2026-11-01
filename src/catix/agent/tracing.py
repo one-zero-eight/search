@@ -63,15 +63,16 @@ class Question:
 
 
 @contextlib.contextmanager
-def question(thread_id: str, user_id: str | None, text: str) -> Iterator[Question]:
-    """`with tracing.question(thread, user, text) as q:` around the agent call. The spans of the run nest under it."""
+def question(thread_id: str, user_id: str | None, text: str, name: str = "question", kind: str = "AGENT") -> Iterator[Question]:
+    """`with tracing.question(thread, user, text) as q:` around the agent call. The spans of the run nest under it.
+    The API's search is a root span of its own (`name="search"`, `kind="RETRIEVER"`): its steps nest under it the same way."""
     if _provider is None:
         yield Question()
         return
-    attributes = {"openinference.span.kind": "AGENT", "session.id": thread_id, "input.value": text}
+    attributes = {"openinference.span.kind": kind, "session.id": thread_id, "input.value": text}
     if user_id:
         attributes["user.id"] = user_id
-    with _provider.get_tracer("catix").start_as_current_span("question", attributes=attributes) as span:
+    with _provider.get_tracer("catix").start_as_current_span(name, attributes=attributes) as span:
         context = span.get_span_context()
         yield Question(id=format(context.span_id, "016x"), trace_id=format(context.trace_id, "032x"), _span=span)
 

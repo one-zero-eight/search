@@ -1,6 +1,7 @@
 """GET /search/search: the knowledge base of cAtIx (its wiki) as cards that link to the sources."""
 
 import asyncio
+import json
 import logging
 import time
 from typing import Literal
@@ -8,6 +9,7 @@ from urllib.parse import urlsplit
 
 from fastapi import APIRouter, HTTPException, Query
 
+from catix.agent import tracing
 from catix.api import state
 from catix.api.auth import VerifiedDep
 from catix.api.schemas import (
@@ -74,14 +76,17 @@ async def find(query: str, sources: list[InfoSources], limit: int) -> list[Searc
 
 @router.get("/search", responses={200: {"description": "Success"}, 408: {"description": "Search timed out"}})
 async def search_by_query(
-    _auth: VerifiedDep,
+    user: VerifiedDep,
     query: str,
     sources: list[InfoSources] = Query(default=[]),
     response_types: list[Literal["pdf", "link_to_source"]] = Query(...),  # Currently ignored
     limit: int = 10,
 ) -> SearchResponses:
     started = time.monotonic()
-    responses = await find(query, sources, limit)
+    # A trace of its own in Phoenix: the query, the cards found (title and link), and the steps of the search under it.
+    with tracing.question("api-search", user.innohassle_id, query, name="search", kind="RETRIEVER") as traced:
+        responses = await find(query, sources, limit)
+        traced.answer(json.dumps([{"title": r.source.display_name, "url": r.source.url} for r in responses], ensure_ascii=False))
     log.info("search for `%s` (%d ms)", query, round((time.monotonic() - started) * 1000))
     return SearchResponses(searched_for=query, responses=responses, search_query_id=state.remember_search(len(responses)))
 
