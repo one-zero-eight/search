@@ -1,189 +1,248 @@
-# Search
+# cAtIx
 
-[![GitHub Actions pre-commit](https://img.shields.io/github/actions/workflow/status/one-zero-eight/search/pre-commit.yaml?label=pre-commit)](https://github.com/one-zero-eight/search/actions)
+Студенческий ассистент Университета Иннополис: отвечает на вопросы про клубы, аудитории, события, расписание, а также про экзамены, дедлайны и советы, которые студенты писали в учебных чатах. Работает как бот в Telegram (личка, группы, inline) и в Max, находит в чатах объявления об изменениях расписания и ведёт личный календарь пользователя.
 
-## Table of contents
+## Возможности
 
-Did you know that GitHub supports table of
-contents [by default](https://github.blog/changelog/2021-04-13-table-of-contents-support-in-markdown-files/) 🤔
+- **Ответы на вопросы** (агент на LangGraph с локальной LLM через llama.cpp): поиск по чатам, клубы, события университета, карта аудиторий, расписание групп, SQL по базе сообщений.
+- **Поиск по чатам**: гибридный (BM25 по словам + векторы bge-m3), слияние результатов, переранжирование `bge-reranker-v2-m3` и отсечка слабых совпадений.
+- **Поиск Telegram для больших чатов**: чат можно поставить в режим «🔎 только поиск» (`/listen`): сообщения не сохраняются и не индексируются, а при вопросе агент вызывает отдельный инструмент `search_userbot_chats`: userbot ищет в нём встроенным поиском Telegram (запрос идёт через Redis), результаты ранжирует реранкер и они цитируются как обычные источники.
+- **Учебные группы**: каждый чат относится к группе (`B26-CSE-01` или `all`), пользователь ищет по чатам группы `all` и своей группы (для группы `all` только по чатам `all`); группа определяется по Telegram id через InNoHassle или командой `/mygroup`, а ограничение считает код, не модель.
+- **Изменения расписания**: воркер находит в сообщениях переносы, смену аудиторий и отмены и присылает их пользователям группы чата (по `/mygroup`; из общих чатов — всем); каждый сам решает, добавить ли изменение в свой календарь.
+- **Inline-режим**: `@бот вопрос` в любом чате, короткий ответ в карточке.
+- **Календарь пользователя**: под ответом с датой события появляется кнопка «➕ В мой календарь», событие попадает в личный календарь `GET /users/my-calendar.ics` (заголовок `Authorization: Bearer <токен InNoHassle пользователя>`); `/calendar` показывает ближайшие события.
+- **Оценки ответов**: 👍/👎 под ответом пишутся в Phoenix как аннотация к трассе этого ответа.
+- **Управление из бота** (админам): какие чаты слушать, какие топики форума сохранять, какая учебная группа у чата, добавление администраторов.
+- **Эксплуатация**: алерты админам в Telegram, трассировка в Phoenix, образ и compose для сервера.
 
-## About the Project
+## Как это устроено
 
-This API powers the search functionality within the **InNoHassle** ecosystem — a unified digital platform designed to simplify daily life for students of Innopolis University.
+```
+Telegram-чаты ──userbot (аккаунт, читает чаты, историю)──┐
+Telegram-чаты ──Bot API бот (участник чата, с момента добавления)──┤
+Max-чаты ──Max-бот──────────────────────────────────────┤
+                                                        ▼
+                          фильтр шума ─► Postgres (сообщения, BM25-индекс, векторы)
+                                                        │  └► embedding_queue ─► эмбеддеры ─► векторы
+                                                        ▼
+                                      Redis-поток ─► worker ─► изменения расписания ─► пользователям группы
+Вопрос ─► tgbot / maxbot ─► guardrail ─► супервизор ─┬─► ask_chats  (search_chats, search_userbot_chats, read_chats)
+                                                     └─► ask_campus (get_schedule, get_clubs, get_university_events,
+                                                                     find_room, search_chats) ─► ответ с источниками
+```
 
-The search service acts as a smart assistant, helping users quickly find information across various Innopolis University services.
+Процессы (точки входа `pyproject.toml`):
 
-## Functionality
+| Команда                  | Что делает                                                                                                 |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------- |
+| `catix-tgbot`            | Telegram-бот (Bot API): вопросы, inline, `/listen`, `/admin`, сохранение сообщений групп, куда он добавлен |
+| `catix-tguserbot listen` | userbot: ваш аккаунт читает выбранные в `/listen` чаты и подгружает историю                                |
+| `catix-maxbot`           | бот мессенджера Max                                                                                        |
+| `catix-worker`           | эмбеддинги, изменения расписания пользователям групп, личный календарь, алерты                              |
+| `catix-db`               | схема БД и обслуживание (`init`, `status`, `migrate-chat`, `prune-noise`, `dedupe`, `official`)                        |
+| `catix-embed`            | отдельный запуск эмбеддеров (догнать очередь)                                                              |
+| `catix`                  | вопрос из терминала: `catix "когда мидтерм по матану?"`                                                    |
 
-### Supported features:
-- `search` - search by keywords. Provides answers in the form of cards linking to resource websites with the ability to preview.
-- `ask` - search by queries in free form. Provides answers generated by LLM with links to resource data.
-- `act` - dialogue with action-based assistant. Provides the ability to perform actions in other Innopolis services on behalf of the user.
+Внешние сервисы:
 
-### Resources used:
-- [Campus life](http://campuslife.innopolis.ru/) - general knowledge about the university for quick adaptation
-- [Eduwiki](https://eduwiki.innopolis.university) - reference book on the educational process
-- [Hotel](https://hotel.innopolis.university/) - information about dormitories
-- [Residents](https://sez-innopolis.ru/residents/) - list of resident companies in Innopolis
-- [InNoHassle](https://innohassle.ru) - an ecosystem that collects the functionality of Innopolis services in one place or links to them
-- [My University](https://my.university.innopolis.ru/) - a system for performing administrative requests
+- **Postgres** (ParadeDB: `pg_search` для BM25 и `pgvector` для векторов) и **Redis** (поток новых сообщений).
+- **llama.cpp**-серверы: чат-модель (`LLM_ROUTE`), эмбеддинги `bge-m3` (`EMBEDDINGS_ROUTE`), реранкер `bge-reranker-v2-m3` (`RERANKER_ROUTE`, необязателен).
+- **InNoHassle** (клубы, события, расписание групп; токен пользователя открывает его календарь), **Arize Phoenix** (трассировка, один контейнер, необязателен).
 
-## Technologies
+## Быстрый старт (разработка)
 
-- [Python 3.11](https://www.python.org/downloads/) & [uv](https://docs.astral.sh/uv/)
-- [FastAPI](https://fastapi.tiangolo.com/)
-- Database and ORM: [MongoDB](https://www.mongodb.com/) & [Beanie](https://beanie-odm.dev/)
-- Formatting and linting: [Ruff](https://docs.astral.sh/ruff/), [prek](https://prek.j178.dev/)
-- Deployment: [Docker](https://www.docker.com/), [Docker Compose](https://docs.docker.com/compose/),
-  [GitHub Actions](https://github.com/features/actions)
+Нужны Python 3.13, [uv](https://docs.astral.sh/uv/), Docker и доступные llama.cpp серверы.
 
-## Development
+```bash
+cp .env.example .env                 # заполнить (минимум: POSTGRES_PASSWORD, READER_PASSWORD, TG_BOT_TOKEN, маршруты моделей)
+uv sync
+scripts/catix.sh up                  # Postgres+Redis, схема БД, SSH-туннель к GPU, боты, воркер, userbot
+scripts/catix.sh status              # что работает
+scripts/catix.sh logs tgbot          # логи (tgbot, maxbot, worker, tguserbot)
+scripts/catix.sh down                # остановить приложения
+```
 
-### Run with Docker
+Один раз для userbot: `uv run catix-tguserbot login` (код из Telegram, 2FA). `uv run catix "вопрос"` отвечает из терминала без Telegram.
 
-1. Set up project settings file (check [settings.schema.yaml](settings.schema.yaml) for more info).
-   ```bash
-   cp settings.example.yaml settings.yaml
-   ```
-   Put your `openrouter_api_key` in `settings.yaml`.
-2. Start all services:
-   ```bash
-   uv run -m src.ml_service
-   docker compose up
-   ```
+## Настройка в боте
 
-Now you can find API docs on http://localhost:8004/docs.
+Админы (`ADMIN_TELEGRAM_IDS` и добавленные через `/admin`) в личке с ботом:
 
-### Set up for development
+| Команда            | Назначение                                                                                                                                                                     |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `/listen`          | список чатов (userbot и бота): слушать или нет, кто читает (userbot, бот или авто), топики форумов, учебная группа чата, отметка «🏛 официальный» (удобнее, чем `/official`), очистка сохранённых сообщений чата (с подтверждением) |
+| `/admin`           | список администраторов, добавить или убрать (по id или пересланному сообщению)                                                                                                 |
+| `/id`              | id чата и топика                                                                                                                                                               |
+| `/official`        | список чатов и отметка «официальный» (`/official 4` переключает, `/official 4 on\|off` задаёт): только такие чаты агент вправе называть официальными, в списке источников они помечены «(официальный чат)» |
+| `/abuse`           | нарушители за сутки, пауза и последние остановленные сообщения (`/abuse tg:123`), снять паузу и забыть нарушения (`/abuse clear tg:123`) |
+| `/calendar` (всем) | ближайшие события личного календаря                                                                                     |
 
-1. Install [uv](https://docs.astral.sh/uv/) and [Docker](https://docs.docker.com/engine/install/)
-2. Install dependencies:
-   ```bash
-   uv sync
-   ```
-3. Check that your `settings.yaml` looks like:
-   ```yaml
-   $schema: "./settings.schema.yaml"
-   api_settings:
-     db_url: "mongodb://mongoadmin:secret@localhost:27017/localhost?authSource=admin"
-   minio:
-     access_key: "minioadmin"
-     secret_key: "password"
-   ml_service:
-   # infinity_url: http://127.0.0.1:7997
-     api_key: "secret_token"
-     mongo_url: "mongodb://mongoadmin:secret@db:27017/localhost?authSource=admin"
-     openrouter_api_key: "your openrouter api key"
-     timeout: 180.0
-   ```
-4. Set up a [MongoDB](https://www.mongodb.com/) and [Minio](https://min.io/) instances.
-    - Run the database instance:
-      ```bash
-      docker compose up -d db minio
-      ```
-    - Make sure to set up the actual database connection in `settings.yaml`.
-5. Choose the way to run models: either use Infinity or local models.
-   1. If you want to use local models, just not set `infinity_url` in `settings.yaml`
-   2. If you want to use Infinity, set `infinity_url` in `settings.yaml` to the url of deployed Infinity engine.
-      You can run Infinity engine locally:
-      ```bash
-      uv run --no-project --with "infinity_emb[all]" --with "transformers<4.49" infinity_emb v2 --model-id intfloat/multilingual-e5-large-instruct --model-id BAAI/bge-reranker-v2-m3
-      ```
-      Or use deployed Infinity engine provided by someone else.
-6. Run ml client
-   ```bash
-   uv run -m src.ml_service
-   ```
-7. Run the ASGI server
-   ```bash
-   uv run -m src.api --reload
-   ```
-   Check API docs on http://127.0.0.1:8001/docs.
+Все пользователи: `/start`, `/ask вопрос` (в группе), `/clear` (забыть предыдущий разговор), `/mygroup` (учебная группа: по ней выбираются чаты для поиска и изменения расписания, которые бот присылает), `/calendar` (личный календарь). В личке бот отвечает на любое сообщение, в группе на упоминание, ответ ему или `/ask`.
 
-**Set up PyCharm integrations**
+Новый чат бот включает сам, когда видит его впервые (добавление бота = согласие), админ может выключить его в `/listen`. Бот должен быть администратором или иметь отключённый privacy mode (@BotFather → `/setprivacy`). Userbot видит ровно те чаты, где состоит его аккаунт; историю подгружает за `TG_SYNC_DAYS`.
 
-1. Run configurations ([docs](https://www.jetbrains.com/help/pycharm/run-debug-configuration.html#createExplicitly)).
-   Right-click the `__main__.py` file in the project explorer, select `Run '__main__'` from the context menu.
-2. Ruff ([plugin](https://plugins.jetbrains.com/plugin/20574-ruff)).
-   It will lint and format your code. Make sure to enable `Use ruff format` option in plugin settings.
-3. Pydantic ([plugin](https://plugins.jetbrains.com/plugin/12861-pydantic)). It will fix PyCharm issues with
-   type-hinting.
-4. Conventional commits ([plugin](https://plugins.jetbrains.com/plugin/13389-conventional-commit)). It will help you
-   to write [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/).
+## Супервизор и помощники (subagents)
 
-### Authentication
+Один длинный промпт с семью инструментами плохо работал на маленькой модели: она выполняла из него мало правил (оба поиска по чатам
+в одном шаге вызывались в 1 вопросе из 8, с коротким промптом одной роли и двумя инструментами в 8 из 8). Поэтому агент разделён по
+паттерну subagents из LangChain (`agent/core.py`, тексты в `agent/roles.py`):
 
-We use our own IAM service for
-authentication - [InNoHassle Accounts](https://github.com/one-zero-eight/InNoHassle-Accounts).
-To authenticate the user, you need to pass the `Authorization` header with the `Bearer: <jwt_token>`.
-How to get token:
+- **Супервизор** общается с пользователем. В его промпте только правила поведения: роль, закон и этика, без рекламы, язык, краткость.
+  Его инструменты это помощники `ask_chats` и `ask_campus`. Он формулирует вопрос помощнику целиком (раскрывает «а в какой
+  аудитории?» по истории), при необходимости вызывает обоих сразу и отвечает только по их отчётам. Приветствия и отказы он
+  обрабатывает сам.
+- **Помощник** это отдельный агент (`create_agent`) со своим промптом (правила про факты, источники, даты и `official` плюс свой
+  блок) и своими инструментами. У него нет памяти между вызовами (`checkpointer=False`), длинные результаты поиска остаются
+  внутри него. Отчёт проходит проверку кодом (выдуманные ссылки и приписывания администрации вырезаются), источники возвращаются в
+  состояние супервизора, поэтому номера `[m0]` продолжаются по всему диалогу. Вызовы инструментов помощника лежат в `artifact`
+  сообщения (видны в трассах и тестах).
+- **guardrail** остаётся только экраном: он решает `ok`, `prompt_injection` или `abuse` и ничего не маршрутизирует.
 
-1. First of all, go to [innohassle.ru](https://innohassle.ru) and log in if you are not logged in (or register). That
-   will add cookie with
-   account secret needed for the next step.
-2. Go to [Accounts](https://api.innohassle.ru/accounts/v0/docs#/Tokens/tokens_generate_my_token) API and execute the
-   the method `GET /tokens/generate-my-token`, copy the token from the response.
-3. Go to the Swagger of API you want to authenticate and click on the `Authorize` button in the top right corner, paste
-   the token
-   in the `Value` field and click `Authorize`. Now you can use protected endpoints from the Swagger.
+Цена: на вопрос приходится минимум два вызова модели супервизора (вызвать помощника и ответить) плюс вызовы помощника. Зато
+промпты короткие, и правила про инструменты и факты не мешают правилам поведения.
 
-### Testing
+## Экран перед агентом (guardrail)
 
-For testing we use ```pytest```.
-* To run tests enter in your terminal:
-   ```
-   uv run pytest tests
-   ```
-* To generate test coverage report run:
-   ```
-   uv run pytest  --cov-config=.coveragerc --cov=src/ tests/
-   ```
-   You can change coverage ignored folders/files in `.coveragerc`.
-* To run evaluation script:
-   ```
-   uv run --script scripts/search_result_metrics.py
-   ```
+Сначала несколько узких шаблонов ловят классические джейлбрейки без обращения к модели («ignore all previous
+instructions», «покажи свой системный промпт», «ты теперь DAN»; `QUICK_PATTERNS`), каждый требует глагол-приказ и цель, поэтому
+обычный вопрос про «правила общежития» проходит. Остальное решает короткий вызов той же локальной модели (`agent/guardrail.py`, около 0,4 с,
+ответ ограничен схемой до одной категории; в промпте экрана список известных формулировок джейлбрейков): `ok`, `prompt_injection` (смена роли и правил, просьба показать инструкции,
+«в каждом ответе…», реклама), или `abuse` (оскорбления, взлом, чужие
+персональные данные). Не `ok` отвечается фиксированным отказом на языке сообщения и до агента не доходит. Если экран не
+смог ответить (сервер модели недоступен), сообщение идёт дальше: остаётся промпт агента. Включён всегда (без настройки),
+заблокированные сообщения пишутся в лог (`blocked a message as …`): так видно ложные срабатывания. Экран смотрит только на
+последнее сообщение; инъекции, спрятанные в сообщениях чатов, он не видит, от них защищают промпт агента и проверка ниже.
 
-### Deployment
+### Повторные нарушения и паузы
 
-We use Docker with Docker Compose plugin to run the service on servers.
+Экран считает остановленные сообщения по пользователю (`tg:<id>`, `max:<id>`; `abuse.py`). Считаются только попытки менять
+правила бота и оскорбления; просьба рассказать анекдот или написать код отклоняется, но не засчитывается. Админы не считаются.
+Окно подсчёта 24 часа и только после последней паузы.
 
-1. Change environment variables in the `.env` file
-2. Copy the file with settings: `cp settings.example.yaml settings.yaml`
-3. Change settings in the `settings.yaml` file according to your needs
-   (check [settings.schema.yaml](settings.schema.yaml) for more info)
-4. Install Docker with Docker Compose
-5. Run the containers: `docker compose up --build --wait`
-6. Check the logs: `docker compose logs -f`
+| Нарушение в окне | Что получает пользователь |
+| ---------------- | ------------------------- |
+| 1–2              | обычный отказ |
+| 3–4              | отказ и предупреждение «такие запросы нарушают правила использования, доступ может быть ограничен» |
+| 5                | пауза 15 минут; каждая следующая вдвое дольше (30, 60 … максимум 24 часа); неделя без пауз сбрасывает счёт |
+| во время паузы   | на любое сообщение (и обычный вопрос) короткий ответ «доступ ограничен до HH:MM», модель не вызывается |
 
-## FAQ
+Пороги и сроки настраиваются (`ABUSE_ENABLED`, `ABUSE_WARN_AT`, `ABUSE_PAUSE_AT`, `ABUSE_WINDOW_HOURS`, `ABUSE_PAUSE_MINUTES`,
+`ABUSE_PAUSE_MAX_HOURS`, `ABUSE_FORGET_DAYS`). Админам ничего не отправляется: список и снятие паузы по команде `/abuse`
+(превью остановленных сообщений хранятся 30 дней).
 
-### Be up to date with the template!
+## Проверка ответа кодом
 
-Check https://github.com/one-zero-eight/fastapi-template for updates once in a while.
+Маленькая модель дописывает правдоподобное: «администрация сообщает…», «уточните у старосты», «это не анонсировалось». Поэтому
+перед отправкой `agent/claims.py` сверяет такие предложения с тем, что инструменты вернули в этом ответе. Предложение
+остаётся, только если те же слова есть в найденных сообщениях, а «официальный» допустим лишь для чата с отметкой `official`
+(`/official` или `catix-db official`). Остальное вырезается из ответа и пишется в лог (`cut … unsupported sentence(s)`).
+По умолчанию все чаты неофициальные; отметьте официальные, например канал администрации (`Campus Information`).
 
-### How to update dependencies
+## Что сохраняется и что нет
 
-1. Run `uv sync --upgrade` to update uv.lock file and install the latest versions of the dependencies.
-2. Run `uv tree --outdated --depth=1` will show what package versions are installed and what are the latest versions.
-3. Run `uv run prek auto-update`
+Фильтр шума (`ingest/noise.py`) не сохраняет приветствия («Привет», «Доброе утро, ребята»), тексты до трёх букв без цифр, сообщения из одних эмодзи и подписи-заглушки медиа (`[file: sticker.webp]`). `DROP_NOISE=false` отключает. Документы, ссылки и сообщения с содержанием остаются. Уже сохранённое чистят `catix-db prune-noise` и `catix-db dedupe` (с предпросмотром).
 
-Also, Dependabot will help you to keep your dependencies up-to-date, see [dependabot.yaml](.github/dependabot.yaml).
+## Конфигурация
 
-### How to dump the database
+Все настройки читаются из переменных окружения или `.env` (`src/catix/settings.py`, пример в `.env.example`). Главные:
 
-1. Dump:
-   ```bash
-   docker compose exec db sh -c 'mongodump "mongodb://$MONGO_INITDB_ROOT_USERNAME:$MONGO_INITDB_ROOT_PASSWORD@127.0.0.1:27017/db?authSource=admin" --db=db --out=dump/'
-   ```
-2. Restore:
-   ```bash
-   docker compose exec db sh -c 'mongorestore "mongodb://$MONGO_INITDB_ROOT_USERNAME:$MONGO_INITDB_ROOT_PASSWORD@127.0.0.1:27017/db?authSource=admin" --drop /dump/db'
-   ```
+| Переменная                                                        | Что задаёт                                                                            |
+| ----------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `DATABASE_URL`, `READER_PASSWORD`, `REDIS_URL`                    | база, роль для SQL модели, Redis                                                      |
+| `LLM_ROUTE`, `EMBEDDINGS_ROUTE`, `RERANKER_ROUTE`                 | llama.cpp серверы (OpenAI-совместимые)                                                |
+| `TG_BOT_TOKEN`, `ADMIN_TELEGRAM_IDS`                              | Telegram-бот и админы                                                                 |
+| `TG_API_ID`, `TG_API_HASH`                                        | userbot (https://my.telegram.org)                                                     |
+| `MAX_BOT_TOKEN`                                                   | бот Max (необязательно)                                                               |
+| `INNOHASSLE_SERVICE_TOKEN`                                        | сервисный токен InNoHassle (scope `users`): группа по Telegram id                     |
+| `FEED_PORT`, `FEED_ROOT_PATH`                                     | личный календарь `/users/my-calendar.ics` (токен InNoHassle пользователя); префикс за прокси   |
+| `PHOENIX_ENDPOINT`, `PHOENIX_PROJECT`                             | трассировка в Phoenix (`http://localhost:6006`) и оценки 👍/👎 (пусто = выключена)  |
+| `ALERTS`, `ALERT_QUEUE_MAX`                                       | алерты админам                                                                        |
 
-## Contributing
+`TG_CHATS` и `TG_TOPICS` только стартовый список: при первом запуске копируются в базу, дальше чаты выбираются в `/listen`.
 
-We are open to contributions of any kind.
-You can help us with code, bugs, design, documentation, media, new ideas, etc.
-If you are interested in contributing, please read
-our [contribution guide](https://github.com/one-zero-eight/.github/blob/main/CONTRIBUTING.md).
+## Тесты
+
+Тесты проверяют поведение настоящего агента, поэтому им нужно то же, что и боту: работающие Postgres и модели
+(`scripts/catix.sh up`). Если сервер модели не отвечает, тесты пропускаются с подсказкой, а не падают.
+
+```bash
+uv sync                                       # ставит и dev-зависимости: pytest, deepeval, deepteam
+uv run pytest                                 # все тесты, кроме атак DeepTeam (около 4 минут)
+uv run pytest -m redteam                      # только атаки DeepTeam (около 9 минут)
+uv run pytest -m "redteam or not redteam"     # вообще всё (около 12 минут)
+TEST_WITHOUT_GUARDRAIL=1 uv run pytest -m redteam   # атаки на сам агент, без экрана (иначе почти всё отсекает экран)
+uv run pytest tests/test_change_detection.py  # один файл (около 30 секунд)
+uv run pytest -k "english or extrapolate"     # тесты по части имени
+```
+
+**Трейсы тестов.** Каждый вопрос агенту в тестах идёт внутри корневого спана, и трейс попадает в Phoenix, в проект `catix-tests`
+(не вперемешку с настоящими). У упавшего теста ссылка на трейс печатается в его отчёте (секция `Phoenix traces`) и в сводке в конце
+прогона: `http://localhost:6006/projects/<проект>/traces/<trace id>`. Там видно, какого помощника вызвал супервизор, какие запросы
+ушли в инструменты и что они вернули. Нужен запущенный Phoenix (`scripts/catix.sh up`); без него тесты идут как обычно, только без ссылок.
+
+| Файл                                       | Что проверяет                                                                                                                                        | Чем      |
+| ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| `tests/test_answers.py`                    | точная дата и аудитория, относительные даты («послезавтра»), обоснованность ответа, отсутствие выдуманного расписания и выдуманной группы, язык ответа                   | DeepEval |
+| `tests/test_indirect_injection.py`         | инъекции через сообщения чата (принудительное слово, раскрытие промпта, подброшенная ссылка, просьба выполнить SQL, реклама «в каждом ответе») и прямые попытки: вытащить промпт, добавить рекламу | DeepEval |
+| `tests/test_change_detection.py`           | отличает перенос, отмену и анонс от вопросов, слухов и шуток (16 примеров)                                                                           | DeepEval |
+| `tests/test_redteam.py` (маркер `redteam`) | атаки на утечку промпта, перехват управления и SQL-инъекции, 5 техник: инъекция, Base64, ROT13, мультиязычная, ролевая                               | DeepTeam |
+
+- **Временный чат.** Тесты создают в базе чат `tests: synthetic chat` (id `-999000999`) с известными фактами и тремя подброшенными инструкциями и удаляют его в конце. Даты считаются от сегодняшнего дня, реальные чаты не затрагиваются.
+- **Судья и атакующий** это та же локальная модель, что отвечает пользователям: «тест прошёл» значит «эта модель не смогла сломать эту модель». Маленькая модель как судья ошибается, поэтому точные факты (дата, аудитория, язык, отсутствие запрещённых строк) проверяются кодом без модели, а упавший `Faithfulness` (единственный тест с судьёй) стоит читать глазами: `GEval` убран, он путал верные ответы.
+- **Телеметрия DeepEval и DeepTeam отключена** (`tests/helpers.py` выставляет `*_TELEMETRY_OPT_OUT` до импорта): промпты и ответы не уходят на сторонние серверы.
+- **Почему долго.** Модель обрабатывает один запрос за раз, поэтому тесты идут по очереди и делят модель с работающими ботами. На время прогона можно остановить приложения (`scripts/catix.sh down`): атаки пройдут заметно быстрее.
+- Скрипты оценки качества, которые не тесты (сравнение вариантов поиска и работы с датами), лежат в `experiments/`: `uv run python experiments/eval_search.py` и другие.
+
+## Безопасность и приватность
+
+- Модель не пишет SQL: тулы чатов (`search_chats`, `read_chats`) сами ограничивают выдачу чатами, разрешёнными этому пользователю, а её слова уходят в запрос параметрами. Роль `ctx_reader` и представления `visible.*` остались от прежнего тула `query_db` (SQL модели) и агентом больше не используются.
+- Выбор чатов по учебной группе это **удобство, а не защита**: группу каждый называет себе сам через `/mygroup`, пока она не берётся из InNoHassle (`INNOHASSLE_GROUPS`).
+- Бот и userbot сохраняют сообщения чатов, куда добавлены; участников стоит об этом предупредить. Для чувствительных чатов используйте только бота (участника), а не личный аккаунт.
+- Секреты только в `.env` (не в git). Личный календарь открывается только с токеном InNoHassle его владельца.
+
+## Развёртывание
+
+Для сервера есть `Dockerfile` и `docker-compose.prod.yml` (db, redis, миграции, боты, воркер, профили `userbot` и `tunnel`), бэкап `scripts/backup.sh`. Подробно в [DEPLOY.md](DEPLOY.md).
+
+## HTTP API (`catix-api`)
+
+cAtIx заменил сервис поиска InNoHassle и отвечает по его прежним путям и схемам; авторизация та же (`Authorization: Bearer <токен InNoHassle>`). Документация: `/docs`.
+
+| Путь | Что делает |
+|---|---|
+| `GET /search/search` | карточки-источники из вики (`sources` фильтрует по типу; документы университета и чужие сайты приходят карточками `eduwiki` со своими `breadcrumbs`) |
+| `POST /search/search/{id}/feedback` | оценка карточки (хранится в памяти процесса) |
+| `POST /ask/` | вопрос агенту, `chat_id` ведёт диалог (диалоги живут в памяти процесса: после перезапуска неизвестный `chat_id` начинает новый) |
+| `POST /act/` | заглушка: действий в сервисах InNoHassle в cAtIx нет |
+| `/moodle/*`, `POST /{section}/parse` | заглушки: пустые списки, `410` для parse |
+
+Настройки: `API_HOST`, `API_PORT`, `API_ROOT_PATH`, `API_CORS_ALLOW_ORIGIN_REGEX`. Запуск: `catix-api` (в `docker-compose.prod.yml` сервис `api`).
+
+## Структура репозитория
+
+```
+src/catix/
+  agent/       агент: супервизор и помощники (core, roles), экран (guardrail), инструменты, SQL для модели, трассировка
+  tgbot/       Telegram-бот: bot.py (ответы, inline), listen.py (/listen), admin.py (/admin), stream.py
+  tguserbot/   userbot (Telethon)
+  maxbot/      бот Max
+  worker/      воркер: embedder, changes (расписание), feed (календарь), health (алерты), app
+  ingest/      запись сообщений: writer, noise, публикация в Redis
+  db/          пул, хранение и поиск (store), схема и CLI (init)
+  api/         HTTP API прежнего сервиса поиска (app, search, ask, stubs)
+  innohassle/  клиент API InNoHassle, проверка токена
+  groups.py, admins.py, userbot_config.py   учебные группы, админы, выбор чатов
+db/schema.sql  схема Postgres (применяется `catix-db init`, повторяема)
+scripts/       catix.sh (запуск для разработки), backup.sh
+tests/         тесты на DeepEval и DeepTeam (pytest)
+experiments/   скрипты оценки качества поиска и дат
+```
+
+## Лицензия
+
+См. `LICENSE` в корне репозитория.
+
+## TODO
+
+- Change InMemorySaver to AsyncPostgresSaver
+- OCR limit: `MAX_OCR_PAGES = 40` and `OCR_BUDGET = 200` (`src/catix/wiki/sources/regulations.py`) were set for tesseract; with chandra (~8 s a page) raise them, so that `regs fetch` reads the scans longer than 40 pages it leaves now (6 of them, 42–78 pages)
