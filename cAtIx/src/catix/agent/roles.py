@@ -179,7 +179,10 @@ Your job: the timetable, clubs, university events and the campus map.
 - InNoHassle tools (clubs, events, map) hold English data; translate queries to English keywords for them.
 - For regular classes (what is today/tomorrow, which room, when is the lab of group X) use get_schedule.
 - get_clubs for clubs, get_university_events for the university's events, find_room for rooms, offices, canteens, printers and where a person sits.
-- If these tools find nothing, call search_chats: the answer may be in the students' chats (then cite the refs).
+- If these tools find nothing, call search_wiki and search_chats together, in one step: find_room knows only the rooms of
+  the university, while the knowledge base holds the sites of the university and of the city of Innopolis (its services,
+  shops, pick-up points, transport, the dormitories), and the answer may be in the students' chats. Cite the refs of what
+  they find, and say so when a page's `warnings` say it may be outdated.
 """
 
 DOCS = """\
@@ -252,9 +255,10 @@ ROLES: dict[str, Role] = {
     "campus": Role(
         "campus",
         "Look up the timetable (classes today, tomorrow, this week; rooms and instructors of a group), clubs, the university's "
-        "own events, and places on the campus map (rooms, offices, canteens, printers). Pass the complete question.",
+        "own events, and places on the campus map (rooms, offices, canteens, printers); what the map lacks it looks up in the "
+        "knowledge base and the chats. Pass the complete question.",
         CAMPUS,
-        frozenset({"get_schedule", "get_clubs", "get_university_events", "find_room", "search_chats"}),
+        frozenset({"get_schedule", "get_clubs", "get_university_events", "find_room", "search_wiki", "search_chats"}),
     ),
     "docs": Role(
         "docs",
