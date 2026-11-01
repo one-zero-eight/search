@@ -1,5 +1,11 @@
 """The HTTP API (api/): the search service's paths answered by cAtIx. The wiki and the agent are replaced, the token is faked."""
 
+import asyncio
+from types import SimpleNamespace
+
+import httpx
+import asyncio
+
 import pytest
 from fastapi.testclient import TestClient
 from langchain_core.messages import AIMessage, HumanMessage
@@ -75,12 +81,87 @@ def test_ask_keeps_a_chat_for_its_owner(client, monkeypatch):
     assert unknown["chat_id"] != "0" * 24  # a forgotten chat starts a new one
 
 
+@pytest.mark.parametrize("path", ["/ask/", "/ask/stream"])
+@pytest.mark.parametrize("query", ["", "   \n"])
+def test_ask_needs_a_question(client, path, query):
+    assert client.post(path, json={"query": query}, headers=AUTH).status_code == 422
+
+
 def test_ask_failure_is_a_502(client, monkeypatch):
     async def run(query, chat_id, user):
         raise RuntimeError("model is down")
 
     monkeypatch.setattr(ask, "run", run)
     assert client.post("/ask/", json={"query": "x"}, headers=AUTH).status_code == 502
+
+
+def test_ask_stream_sends_the_work_and_the_final_answer(client, monkeypatch):
+    async def run(query, chat_id, user, events):
+        await events.put(("status", {"text": "checking"}))
+        await events.put(("answer", {"text": "ans"}))
+        return "answer", [], []
+
+    monkeypatch.setattr(ask, "run", run)
+    response = client.post("/ask/stream", json={"query": "hi"}, headers=AUTH)
+    assert response.headers["content-type"].startswith("text/event-stream")
+    names = [line.removeprefix("event: ") for line in response.text.splitlines() if line.startswith("event: ")]
+    assert names == ["status", "answer", "done"]
+    assert '"answer": "answer"' in response.text
+
+
+def test_ask_stream_runs_through_the_queue(client, monkeypatch):
+    monkeypatch.setattr(ask, "agent", lambda: type("A", (), {"aget_state": lambda self, c: _state()})())
+    monkeypatch.setattr(ask, "questions", ask.QuestionQueue(1))
+
+    async def stream_agent(inputs, config, context, events):
+        return {"messages": [AIMessage("a")], "sources": {}}
+
+    monkeypatch.setattr(ask, "stream_agent", stream_agent)
+    monkeypatch.setattr(ask.groups, "scoped_chat_ids", lambda *a: [])
+    monkeypatch.setattr(ask.groups, "effective_group", lambda *a: ask.groups.ALL)
+    response = client.post("/ask/stream", json={"query": "hi"}, headers=AUTH)
+    assert "event: done" in response.text
+
+
+def test_stream_agent_shows_what_the_bot_shows(monkeypatch):
+    from langchain_core.messages import AIMessageChunk, ToolMessage
+
+    from catix.agent.core import SUPERVISOR_NAME
+    from catix.common.status import CHECKING, STATUS, WRITING
+
+    model = {"langgraph_node": "model", "lc_agent_name": SUPERVISOR_NAME}
+
+    class FakeAgent:
+        async def astream(self, *args, **kwargs):
+            yield "custom", {"tool": "search_chats"}
+            yield "messages", (ToolMessage("report", name="ask_chats", tool_call_id="1"), {})
+            yield "messages", (AIMessageChunk(content="Ответ [m1]", id="a"), model)
+            yield "values", {"messages": [AIMessage("Ответ")]}
+
+    monkeypatch.setattr(ask, "agent", lambda: FakeAgent())
+    events: asyncio.Queue = asyncio.Queue()
+    result = asyncio.run(ask.stream_agent({}, {}, None, events))
+    sent = [events.get_nowait() for _ in range(events.qsize())]
+    assert sent == [
+        ("status", {"text": CHECKING}),
+        ("status", {"text": STATUS["search_chats"]}),
+        ("status", {"text": WRITING}),
+        ("answer", {"text": "Ответ"}),
+    ]
+    assert result["messages"][0].text == "Ответ"
+
+
+async def _state():
+    return type("S", (), {"values": {}, "config": {"configurable": {}}})()
+
+
+def test_ask_stream_failure_is_an_error_event(client, monkeypatch):
+    async def run(query, chat_id, user, events):
+        raise RuntimeError("model is down")
+
+    monkeypatch.setattr(ask, "run", run)
+    response = client.post("/ask/stream", json={"query": "x"}, headers=AUTH)
+    assert "event: error" in response.text and "model is down" in response.text
 
 
 def test_history_has_only_questions_and_answers():
@@ -105,3 +186,101 @@ def test_mocks(client):
     assert client.get("/moodle/courses", headers=AUTH).json() == []
     assert client.post("/moodle/batch-courses", json={"courses": []}, headers=AUTH).status_code == 200
     assert client.post("/hotel/parse", headers=AUTH).status_code == 410
+
+
+# --- one client's questions in a line, and cancelling ---
+
+
+def two_users(monkeypatch):
+    claims = {"good": {"uid": "u1", "email": "a@innopolis.university", "telegram_id": 7},
+              "other": {"uid": "u2", "email": "b@innopolis.university", "telegram_id": 8}}
+    monkeypatch.setattr(token, "claims", lambda t: claims.get(t))
+    return httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://test")
+
+
+def test_a_clients_questions_are_answered_one_at_a_time_in_order(monkeypatch):
+    log = []
+
+    async def fake(query, chat_id, user, events=None):
+        log.append(("start", query))
+        await asyncio.sleep(0.05)
+        log.append(("end", query))
+        return f"a:{query}", [], []
+
+    monkeypatch.setattr(ask, "_run", fake)
+
+    async def go():
+        async with two_users(monkeypatch) as c:
+            post = lambda q, who="good": c.post("/ask/", json={"query": q}, headers={"Authorization": f"Bearer {who}"})  # noqa: E731
+            return await asyncio.gather(post("1"), post("2"), post("3"), post("x", "other"))
+
+    responses = asyncio.run(go())
+    assert [r.status_code for r in responses] == [200] * 4
+    mine = [e for e in log if e[1] != "x"]
+    assert mine == [("start", "1"), ("end", "1"), ("start", "2"), ("end", "2"), ("start", "3"), ("end", "3")]
+    assert log.index(("start", "x")) < log.index(("end", "1"))  # another client does not wait for them
+    assert not ask._gates and not ask.pending
+
+
+def test_cancel_stops_the_running_and_the_waiting_questions_of_a_chat(monkeypatch):
+    started = []
+
+    async def fake(query, chat_id, user, events=None):
+        started.append(query)
+        await asyncio.Event().wait()
+
+    monkeypatch.setattr(ask, "_run", fake)
+    state.chats["c1"] = "u1"
+
+    async def go():
+        async with two_users(monkeypatch) as c:
+            h = {"Authorization": "Bearer good"}
+            asks = [asyncio.create_task(c.post("/ask/", json={"query": q, "chat_id": "c1"}, headers=h)) for q in ("1", "2")]
+            while len(ask.pending.get("c1", ())) < 2 or not started:
+                await asyncio.sleep(0.01)
+            stranger = await c.post("/ask/c1/cancel", headers={"Authorization": "Bearer other"})
+            cancelled = await c.post("/ask/c1/cancel", headers=h)
+            return stranger, cancelled, await asyncio.gather(*asks)
+
+    stranger, cancelled, asks = asyncio.run(go())
+    assert stranger.status_code == 404
+    assert cancelled.json()["cancelled"] == 2
+    assert [r.status_code for r in asks] == [409, 409]
+    assert started == ["1"]  # the second never got its turn
+    assert not ask._gates and not ask.pending
+
+
+def test_a_cancelled_question_leaves_the_thread_as_it_found_it(monkeypatch):
+    deleted = []
+    checkpoint = {"id": None}
+
+    class FakeAgent:
+        checkpointer = SimpleNamespace(delete_thread=deleted.append)
+
+        async def aget_state(self, config):
+            return SimpleNamespace(values={}, config={"configurable": {"checkpoint_id": checkpoint["id"]}})
+
+        async def ainvoke(self, *args, **kwargs):
+            await asyncio.Event().wait()
+
+    monkeypatch.setattr(ask, "agent", lambda: FakeAgent())
+    monkeypatch.setattr(ask.groups, "scoped_chat_ids", lambda key, telegram_id: set())
+    monkeypatch.setattr(ask.groups, "effective_group", lambda key, telegram_id: ask.groups.ALL)
+    user = ask.UserTokenData(innohassle_id="u1", email="a@innopolis.university", telegram_id=7)
+
+    async def cancel_after_start(chat_id):
+        task = asyncio.create_task(ask.run("q", chat_id, user))
+        while chat_id not in ask.pending:
+            await asyncio.sleep(0.01)
+        await asyncio.sleep(0.05)
+        for pending in list(ask.pending[chat_id]):
+            pending.cancel()
+        with pytest.raises(ask.AskCancelled):
+            await task
+
+    asyncio.run(cancel_after_start("fresh"))
+    assert deleted == ["api:fresh"] and "fresh" not in state.resume_from  # no history: nothing to keep
+
+    checkpoint["id"] = "cp-1"
+    asyncio.run(cancel_after_start("old"))
+    assert state.resume_from["old"] == "cp-1"  # the next question forks from the last finished one

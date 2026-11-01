@@ -23,6 +23,9 @@ _lock = threading.Lock()
 searches: dict[str, list[str | None]] = _Bounded()
 # chat_id -> InNoHassle id of the owner; the agent's thread of the chat is `api:<chat_id>`
 chats: dict[str, str] = _Bounded()
+# chat_id -> the checkpoint of the agent's thread to go on from: a question that was cancelled (or failed) halfway leaves
+# its messages in the thread, and a tool call without its result would break the next question; the next one forks from here
+resume_from: dict[str, str] = _Bounded()
 
 
 def new_id() -> str:

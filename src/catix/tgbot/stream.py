@@ -23,31 +23,13 @@ from aiogram.exceptions import TelegramAPIError
 from langchain_core.messages import AIMessageChunk, ToolMessage
 
 from catix.agent.core import SUPERVISOR_NAME
+from catix.common.status import CHECKING, HELPER_TOOLS, QUEUED, STATUS, WRITING
 
 log = logging.getLogger("catix.stream")
 
 INTERVAL_SECONDS = 0.7  # Between drafts: Telegram limits how fast a bot may send.
 QUEUE_REPEAT_SECONDS = 20.0  # The queue status is sent again this often: a draft lives 30 seconds.
 MAX_CHARS = 4000  # A message holds 4096; the markup added by the HTML conversion needs room.
-
-# What the user sees while a tool runs, between the model deciding to call it and the answer starting.
-QUEUED = "⏳ Отвечаю на другие вопросы, ваш в очереди. Перед вами: {ahead}"
-CHECKING = "🛡 Проверяю запрос…"
-WRITING = "✍️ Формулирую ответ…"
-STATUS = {
-    "ask_chats": "💬 Спрашиваю помощника по чатам…",
-    "ask_campus": "🧭 Спрашиваю помощника по кампусу…",
-    "ask_docs": "📚 Спрашиваю помощника по документам…",
-    "search_wiki": "📚 Ищу в документах университета…",
-    "read_wiki": "📖 Читаю документ…",
-    "search_chats": "🔎 Ищу в базе знаний…",
-    "search_userbot_chats": "🔎 Ищу в чатах…",
-    "get_schedule": "🗓 Смотрю расписание…",
-    "get_clubs": "🎯 Смотрю клубы…",
-    "get_university_events": "📅 Смотрю события…",
-    "find_room": "🗺 Ищу на карте…",
-    "read_chats": "📜 Читаю последние сообщения чатов…",
-}
 
 REF_GROUP = re.compile(r"\[\s*m\d+(?:\s*[,;]\s*m\d+)*\s*\]")
 PARTIAL_REF = re.compile(r"\[[m\d,;\s]*$")  # "[m12" at the end: the ref is still being written
@@ -109,7 +91,7 @@ class DraftStreamer:
     async def feed(self, chunk, metadata: dict | None = None) -> None:
         """One streamed piece: a part of a model call (AIMessageChunk) or a tool result, with its metadata."""
         if isinstance(chunk, ToolMessage):  # A helper came back: the supervisor now writes the answer.
-            if chunk.name in (n for n in STATUS if n.startswith("ask_")):
+            if chunk.name in HELPER_TOOLS:
                 await self._show_status(WRITING)
             return
         # The user's message and other things in the stream do not count: only the model's text does.
