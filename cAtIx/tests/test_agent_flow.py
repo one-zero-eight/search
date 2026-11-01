@@ -226,6 +226,32 @@ def test_when_the_docs_helper_found_nothing_the_chats_helper_is_asked_next_witho
         assert FallbackMiddleware().wrap_model_call(useful, model) is written
 
 
+def test_after_the_fallback_its_report_is_the_answer():
+    """The docs helper found nothing and the chats helper, asked by FallbackMiddleware, cites: its report is passed on. The
+    supervisor rewriting the two reports dropped the refs ("что такое пчз?"). A second helper the supervisor asked itself
+    still makes it write the answer."""
+    from catix.agent.core import FALLBACK_ID, SUPERVISOR_NAME, PassReportMiddleware
+
+    def req(second_id: str) -> Req:
+        request = Req(0)
+        request.messages = [
+            HumanMessage("что такое пчз?"),
+            AIMessage(content="", tool_calls=[{"name": "ask_docs", "args": {"question": "что такое пчз?"}, "id": "a0", "type": "tool_call"}]),
+            ToolMessage(content="В документах нет расшифровки ПЧЗ.", tool_call_id="a0", name="ask_docs"),
+            AIMessage(content="", tool_calls=[{"name": "ask_chats", "args": {"question": "что такое пчз?"}, "id": second_id, "type": "tool_call"}]),
+            ToolMessage(content="ПЧЗ — «Полезная часть зоопарка», канал первокурсников [m6].", tool_call_id=second_id, name="ask_chats"),
+        ]
+        request.runtime = types.SimpleNamespace(context=types.SimpleNamespace(brief=False))
+        return request
+
+    written = ModelResponse(result=[AIMessage(content="ответ supervisor")])
+    seen = []
+    model = lambda request: seen.append(request) or written
+    passed = PassReportMiddleware().wrap_model_call(req(f"{FALLBACK_ID}1"), model).result[-1]
+    assert passed.content.endswith("[m6].") and passed.name == SUPERVISOR_NAME and not seen
+    assert PassReportMiddleware().wrap_model_call(req("a1"), model) is written
+
+
 def test_a_helper_found_something_when_a_scored_search_or_a_read_brought_it():
     from catix.agent.core import found_anything
 

@@ -582,7 +582,9 @@ class PassReportMiddleware(AgentMiddleware):
 
     The supervisor still writes the answer in brief mode (the inline card wants at most about 40 words), when the report
     is in another language than the user's last message, when it cites nothing (nothing found, or the helper failed: the
-    supervisor may ask another helper), and when several helpers or rounds have to be put together. It sits before
+    supervisor may ask another helper), and when several helpers or rounds have to be put together. The report of a helper
+    asked by FallbackMiddleware is passed too: the first one found nothing, and the supervisor rewriting the two reports
+    dropped the refs ("что такое пчз?", 28 sources then put under the answer). It sits before
     QuestionNoteMiddleware, whose English reminder at the end of the user's message would change its language.
     """
 
@@ -593,6 +595,8 @@ class PassReportMiddleware(AgentMiddleware):
             return None
         run = _this_run(request.messages)
         answers = [m for m in run if isinstance(m, AIMessage)]
+        if answers and any((c.get("id") or "").startswith(FALLBACK_ID) for c in answers[-1].tool_calls):
+            answers = answers[-1:]  # the helper asked first found nothing (FallbackMiddleware): the next one's report is all there is
         if len(answers) != 1 or len(calls := answers[0].tool_calls) != 1 or not calls[0]["name"].startswith("ask_"):
             return None
         result = next((m for m in run if isinstance(m, ToolMessage) and m.tool_call_id == calls[0]["id"]), None)
@@ -633,6 +637,7 @@ def found_anything(messages: list[BaseMessage]) -> bool | None:
 
 # The helper asked next, in code, when the one asked found nothing: the documents first, the chats as a fallback.
 FALLBACK = {"ask_docs": "ask_chats"}
+FALLBACK_ID = "fallback-"  # the id of the call FallbackMiddleware makes
 
 
 class FallbackMiddleware(AgentMiddleware):
@@ -660,7 +665,7 @@ class FallbackMiddleware(AgentMiddleware):
         if not question:
             return None
         log.info("%s found nothing: %s is asked the same question", helper, FALLBACK[helper])
-        call = {"name": FALLBACK[helper], "args": {"question": question}, "id": f"fallback-{uuid.uuid4().hex[:12]}", "type": "tool_call"}
+        call = {"name": FALLBACK[helper], "args": {"question": question}, "id": f"{FALLBACK_ID}{uuid.uuid4().hex[:12]}", "type": "tool_call"}
         return AIMessage(content="", tool_calls=[call], name=SUPERVISOR_NAME)
 
     def wrap_model_call(self, request, handler):

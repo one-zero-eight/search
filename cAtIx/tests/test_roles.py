@@ -275,6 +275,29 @@ def test_refs_the_supervisor_left_out_go_under_the_answer():
     assert answer.endswith("[1] [«Правила приема 2026/2027»](https://innopolis.university/r.pdf) (документ университета)")
 
 
+def test_a_run_of_refs_keeps_at_most_five_sources():
+    """The chats helper cited 26 messages for one sentence, the supervisor lost them, and all went under the answer: 28 sources
+    ("что такое пчз?"). A run of refs keeps its first MAX_RUN sources, in the text and under it; two clauses of one
+    document are one source."""
+    from catix.agent.sources import MAX_RUN
+
+    registry = {f"m{i}": {"wiki": True, "title": f"Документ {i}", "clause": "", "link": f"https://innopolis.university/{i}.pdf", "trust": "official"} for i in range(8)}
+    registry["m8"] = {**registry["m0"], "clause": "п. 2"}
+    run = "".join(f"[m{i}]" for i in (0, 8, *range(1, 8)))
+    messages = [
+        HumanMessage("что такое пчз?"),
+        _ask("ask_chats", "что такое пчз?"),
+        ToolMessage(content=f"ПЧЗ — канал первокурсников {run}.", tool_call_id="c1", name="ask_chats"),
+        AIMessage(content="ПЧЗ — канал первокурсников."),
+    ]
+    answer = final_answer(messages, registry)
+    assert answer.startswith("ПЧЗ — канал первокурсников. [1][2][3][4][5]\n"), answer
+    assert answer.count("innopolis.university/") == MAX_RUN == 5 and "/5.pdf" not in answer
+    messages[3] = AIMessage(content=f"ПЧЗ — канал [m0][m1], первокурсников {run}.")
+    answer = final_answer(messages, registry)
+    assert "канал [1][2], первокурсников [1][2][3][4][5]." in answer  # two runs, each cut by itself
+
+
 def test_a_report_without_refs_is_asked_again_only_when_the_tools_gave_sources():
     from catix.agent.core import CiteMiddleware
 
