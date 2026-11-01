@@ -136,6 +136,14 @@ class SearchResponses(BaseModel):
     "Assigned search query index"
 
 
+class PageText(BaseModel):
+    title: str
+    url: str
+    "Address of the original page."
+    text: str
+    "The page as markdown."
+
+
 class AskResponses(BaseModel):
     query: str
     answer: str

@@ -11,7 +11,8 @@ projects the pages link most (career, corporate, dovuz, progmatica, the college,
     catix-wiki sites fetch [SITE ...]   # the pages of every site (or of those named) -> raw/sites/<site>/ (one request every Site.pause seconds); the number that changed
     catix-wiki sites compile    # raw/sites -> wiki/raw/sites/<site>/<slug>.md
     catix-wiki sites status     # pages and documents found on every site
-    catix-wiki sites discover | explore | review | accept | reject   # new sites of the university in the links of the pages (discover.py)
+    catix-wiki sites docs       # the documents of the university's hosts that the pages link and no site has yet: to be downloaded by `regs fetch`
+    catix-wiki sites discover | explore | add | review | accept | reject   # new sites of the university in the links of the pages (discover.py)
 
 A page's text is kept as the site shows it: the program turns the markup into markdown and drops what every page of the
 site repeats (menus, footers); no model is asked: the description is the page's first sentence. The documents a site
@@ -52,6 +53,11 @@ FOLDER = "sites"
 PAUSE = 2  # seconds between requests
 MAX_PAGES = 60  # per site: the crawl follows the links of the site, this stops a calendar or a catalogue from running away
 DOC = re.compile(r"\.(pdf|docx?|rtf)$", re.I)
+UNIVERSITY = ("innopolis.university", "innopolis.ru", "innopolis.edu.ru", "innopolis.com", "innopolis.college")  # the hosts of the university and of the city
+
+
+def university_host(host: str) -> bool:
+    return any(host == s or host.endswith("." + s) for s in UNIVERSITY)
 MIN_WORDS = 10  # a page with fewer words (after the shared lines) is a page of pictures and buttons; a heading and a few links to its sections is a page
 
 
@@ -118,6 +124,8 @@ SITES = {
     "city": Site("https://innopolis.com/ru/", "ru", "the city of Innopolis and its special economic zone: living and housing, transport, services, schools, business, news and events",
                  r"^(?!(ru|en)(/|$))", sitemap=False, max_pages=800, english="en", dated=True, pause=10,  # (an address without ru/ or en/ is a redirect to /ru/site/typicle?slug=..., a page that fails)
                  headings=r"\b(section_head|section_text|article|history)__title\b", bare=True, listing="page", aliases=("innopolis.ru",)),  # (innopolis.ru: the same site)
+    "sport": Site("https://sport.innopolis.ru/", "ru", "the sports centre «Иннополис»: fitness zones, the pool, club cards and prices, the schedule, the rules of visiting, trainers, how to freeze a card",
+                  TILDA + r"|^(old|policy|header|footer|notfound)$", max_pages=60, robots=True),  # (a Tilda site with a sitemap of 23 pages; /old is the previous version of the site, /policy the privacy policy)
     "my": Site("https://my.innopolis.university/", "ru", "My University, the student portal of Innopolis University: the events (volunteering, innopoints) and the store of merch",
                r"^(?!(store|event)(/|$))[^/]+|^store/(purchases|transactions)|^event/(my|history)", sitemap=False, max_pages=100, profile="CATIX_CHROMIUM_PROFILE", audience=("student",), signin=r"<h1[^>]*>(?:\s*<[^>]+>)*\s*Авторизация",
                private=r"^RU\n### .+\n\S+@\S+\n|^## Привет, .+\n|^Баланс:\n\d+\n|^## Уведомления\n(?s:.*)\Z"),  # (a login; the pages of the person: purchases, transactions, my events, history of participation)
@@ -771,7 +779,7 @@ def fetch_site(name: str, site: Site, client: httpx.Client) -> int:
         if (extra := EXTRAS.get((name, slug))):
             text = extra(client, resp.text, str(resp.url), text)
         for link, anchor in links:
-            if DOC.search(urlsplit(link).path) and urlsplit(link).netloc == urlsplit(site.base).netloc:
+            if DOC.search(urlsplit(link).path) and (urlsplit(link).netloc == urlsplit(site.base).netloc or university_host(urlsplit(link).hostname or "")):
                 doc = canonical(link)
                 docs[doc] = max(docs.get(doc, ""), anchor, key=len)  # the fullest of the link texts: 'Правила проживания', not 'Правила'
             elif _taken(site, link):
@@ -827,6 +835,34 @@ def fetch(names: list[str] | None = None) -> int:
             finally:
                 close_live()
     return total
+
+
+LINKED_DOC = re.compile(r"\[([^\]]*)\]\((https?://[^)\s]+)\)")
+
+
+def collect_linked_docs() -> int:
+    """The documents of the university's hosts that the pages of the bundle link and no site has among its documents yet (a page
+    of `apply` or `dovuz` linking a PDF of innopolis.university: fetch_site took only the documents of the site's own host
+    before): added to the documents of the site whose page links them, to be downloaded by `regs fetch`. The links are read from
+    the pages as they are in the bundle, so the sites need not be read again. The number added."""
+    have = {canonical(u) for name in SITES for u in load(name)["docs"]}
+    added = 0
+    for name in SITES:
+        folder = DOCS / FOLDER / name
+        if not folder.is_dir() or not (ROOT / name / "index.json").exists():
+            continue
+        index, found = load(name), {}
+        for page in sorted(folder.glob("*.md")):
+            for label, link in LINKED_DOC.findall(page.read_text(encoding="utf-8")):
+                if DOC.search(urlsplit(link).path) and university_host(urlsplit(link).hostname or "") and canonical(link) not in have:
+                    found[canonical(link)] = max(found.get(canonical(link), ""), label, key=len)
+        if found:
+            index["docs"].update(found)
+            save(name, index)
+            have |= set(found)
+            added += len(found)
+            print(f"  {name}: {len(found)} documents of the university's hosts added")
+    return added
 
 
 def docs() -> dict[str, dict]:
@@ -1045,7 +1081,9 @@ def main() -> None:
         compile_all()
     elif cmd == "status":
         status()
-    elif cmd in ("discover", "explore", "review", "accept", "reject"):
+    elif cmd == "docs":
+        print(f"{collect_linked_docs()} documents added; `catix-wiki regs fetch` downloads and reads them")
+    elif cmd in ("discover", "explore", "add", "review", "accept", "reject"):
         from catix.wiki.sources import discover
 
         discover.main(args if cmd == "discover" else [cmd, *args])

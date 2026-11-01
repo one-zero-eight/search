@@ -289,6 +289,13 @@ def page(path: str) -> list[WikiHit]:
     return hits
 
 
+def page_of_resource(resource: str) -> list[WikiHit]:
+    """All pieces of the page that is the wiki's copy of the original at `resource`; empty if the wiki has none."""
+    with pg.connection() as conn:
+        path = pg.scalar(conn, "SELECT path FROM wiki_pages WHERE resource = %s ORDER BY length(path) LIMIT 1", (resource,))
+    return page(path) if path else []
+
+
 def find_page(name: str) -> str | None:
     """A page by its path ('/raw/regulations/x.md', 'raw/regulations/x') or, failing that, by words of its title."""
     path = "/" + name.strip().lstrip("/")

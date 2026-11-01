@@ -65,6 +65,24 @@ def test_search_feedback(client, monkeypatch):
     assert client.post("/search/search/nope/feedback", params={"response_index": 0, "feedback": "like"}, headers=AUTH).status_code == 404
 
 
+def test_page_by_url_gives_the_text_of_the_page(client, monkeypatch):
+    pieces = [hit("/raw/sites/university/team-rector.md", "Ректор", "https://innopolis.university/team-rector/")] * 2
+    monkeypatch.setattr(search.wiki_store, "page_of_resource", lambda url: pieces if url == pieces[0].resource else [])
+    found = client.get("/search/page", params={"url": pieces[0].resource}, headers=AUTH).json()
+    assert found["title"] == "Ректор" and found["text"] == "text of Ректор\n\ntext of Ректор"
+    assert client.get("/search/page", params={"url": "https://x.example/"}, headers=AUTH).status_code == 404
+
+
+def test_a_table_cut_out_of_a_page_is_text():
+    cut = "| a | b |\n\n| --- | --- |\n\n| Гасников | Ректор |"
+    assert search.table_as_text(cut).split() == ["a", "·", "b", "Гасников", "·", "Ректор"]
+
+
+def test_page_pieces_keep_a_table_together():
+    pieces = ["text", "| a | b |\n\n### Title\n\n| - | - |", "| 1 | 2 |\n\n| 3 | 4 |", "end"]
+    assert search.join_pieces(pieces) == "text\n\n| a | b |\n| - | - |\n| 1 | 2 |\n| 3 | 4 |\n\nend"
+
+
 def test_ask_keeps_a_chat_for_its_owner(client, monkeypatch):
     async def run(query, chat_id, user):
         return f"answer to {query}", [], [{"role": "user", "content": query}]

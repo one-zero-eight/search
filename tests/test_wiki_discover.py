@@ -60,8 +60,10 @@ def test_candidates_need_enough_pages_and_are_not_read_yet(bundle):
     bundle("b", "https://inno-shop.ru/b", "https://rejected.innopolis.university/", "https://university.innopolis.ru/")
     bundle("c", "https://inno-shop.ru/c")
     found = discover.candidates({"rejected.innopolis.university"})
-    assert [(h, k) for h, k, _ in found] == [("lab2.innopolis.university", "university"), ("inno-shop.ru", "inno")]  # (a host of the university first)
+    assert [(h, k) for h, k, _ in found] == [("lab2.innopolis.university", "university"), ("inno-shop.ru", "inno")]  # (a host of the university first; one link is enough)
     assert found[1][2] == ["/raw/sites/apply/a.md", "/raw/sites/apply/b.md", "/raw/sites/apply/c.md"]
+    bundle("d", "https://innopoliscinema.ru/")
+    assert "innopoliscinema.ru" in [h for h, _, _ in discover.candidates(set())]  # (a host with `inno` linked by a single page)
 
 
 def test_the_probe_takes_a_page_of_words_and_refuses_the_rest(monkeypatch):
@@ -107,7 +109,7 @@ def test_discover_keeps_a_found_site_pending_with_safe_settings(bundle):
     assert discover.discover(client=client(routes), pause=0) == 1
     found = json.loads(sites.DISCOVERED.read_text(encoding="utf-8"))["sites"]
     assert found["lab.innopolis.university"]["status"] == "pending" and found["lab.innopolis.university"]["examples"] == ["/raw/sites/apply/a.md"]
-    assert found["login.innopolis.university"]["status"] == "failed"
+    assert found["login.innopolis.university"]["status"] == "closed"  # (a login page needs access, it is not a failure)
     site = sites.SITES["lab"]  # (read from now on, with the settings that cannot do harm)
     assert (site.base, site.robots, site.max_pages, site.pause) == ("https://lab.innopolis.university/", True, sites.DISCOVERED_PAGES, sites.DISCOVERED_PAUSE)
     assert discover.pending_hosts() == ["lab.innopolis.university"]
@@ -115,7 +117,7 @@ def test_discover_keeps_a_found_site_pending_with_safe_settings(bundle):
 
 
 def test_discover_takes_few_sites_a_run_and_tries_a_failed_one_again_later(bundle):
-    hosts = [f"s{i}.innopolis.university" for i in range(5)]
+    hosts = [f"s{i}.innopolis.university" for i in range(discover.MAX_NEW + 2)]
     bundle("a", *[f"https://{h}/" for h in hosts])
     routes = {f"https://{h}/": html() for h in hosts}
     assert discover.discover(client=client(routes), pause=0) == discover.MAX_NEW
@@ -311,3 +313,78 @@ def test_a_person_accepts_some_and_rejects_the_rest(web, capsys):
     assert autopilot.load_state()["rejected_sites"] == ["c.innopolis.university"]
     with pytest.raises(SystemExit):
         discover.resolve(["c"])  # (nothing pending by that name any more)
+
+
+# --- hosts that need access ---
+
+
+def test_a_login_or_401_403_is_a_host_that_needs_access(monkeypatch):
+    monkeypatch.setattr(discover, "public", lambda host: True)
+    for status in (401, 403):
+        assert discover.probe("pay.innopolis.university", client({"https://pay.innopolis.university/": httpx.Response(status)})) == f"{discover.CLOSED} (HTTP {status})"
+    assert discover.probe("lk.innopolis.university", client({"https://lk.innopolis.university/": html(LOGIN)})).startswith(discover.CLOSED)
+    assert not discover.probe("x.innopolis.university", client({"https://x.innopolis.university/": httpx.Response(404)})).startswith(discover.CLOSED)  # (404: nothing to open)
+
+
+def test_closed_hosts_are_listed_with_who_links_them_and_can_be_forgotten(bundle, capsys, monkeypatch):
+    from catix.wiki import autopilot
+
+    monkeypatch.setattr(autopilot.settings, "database_url", None)  # (check would measure the real search)
+
+    bundle("a", "https://pay.innopolis.university/", "https://lab.innopolis.university/", "https://gone.innopolis.university/")
+    routes = {"https://pay.innopolis.university/": httpx.Response(403), "https://lab.innopolis.university/": html()}
+    assert discover.discover(client=client(routes), pause=0) == 1  # (lab; gone answers 404: failed)
+
+    found = sites.discovered()
+    assert found["pay.innopolis.university"]["status"] == "closed" and found["pay.innopolis.university"]["examples"] == ["/raw/sites/apply/a.md"]
+    assert found["gone.innopolis.university"]["status"] == "failed" and "examples" not in found["gone.innopolis.university"]
+    assert discover.closed_hosts() == ["pay.innopolis.university"] and discover.pending_hosts() == ["lab.innopolis.university"]  # (a closed host does not hold up the review)
+    assert "pay" not in sites.SITES and "pay.innopolis.university" not in discover.known_hosts()  # (asked again later, not read)
+    assert autopilot.check(SimpleNamespace(lint_errors=0, agent=None), False).failed  # (the pending lab does)
+
+    capsys.readouterr()  # (what discover said)
+    discover.review()
+    out = capsys.readouterr().out
+    assert "== need access (1)" in out and "pay.innopolis.university   [university] HTTP 403; linked from 1 pages, e.g. /raw/sites/apply/a.md" in out
+    assert "gone.innopolis.university" not in out
+
+    discover.reject(discover.resolve(["pay"], closed=True))
+    assert "pay.innopolis.university" not in sites.discovered()
+    with pytest.raises(SystemExit):
+        discover.resolve(["pay"])  # (not pending; closed ones only when asked for)
+
+
+# --- documents, and sites a person added ---
+
+
+def test_explore_reads_a_site_a_person_added_and_only_the_documents_of_the_sites_it_read(web, monkeypatch):
+    from catix.wiki.sources import regulations
+
+    http = web("a.innopolis.university")
+    found = {"mine.innopolis.ru": {"status": "pending", "kind": "manual", "language": "ru"}}
+    discover.write(found)  # (added by hand with `sites add`: no page links it)
+    sites.load_discovered()
+    prefixes_seen = []
+    monkeypatch.setattr(regulations, "fetch", lambda limit=None, prefixes=None: prefixes_seen.append(prefixes) or 0)
+    discover.explore(set(), client=http, pause=0)
+    assert "mine-innopolis-ru" in web.read and "a" in web.read  # (the added one was read in the first round, the found one too)
+    assert prefixes_seen and all(p is not None and all(x.startswith("site-") for x in p) for p in prefixes_seen)
+    assert prefixes_seen[0] == ("site-a-", "site-mine-innopolis-ru-")  # (the documents of these two sites, not of all the others)
+
+
+def test_the_documents_of_the_universitys_hosts_that_other_sites_link_are_collected(tmp_path, monkeypatch):
+    docs = tmp_path / "wiki" / "raw"
+    monkeypatch.setattr(sites, "DOCS", docs)
+    monkeypatch.setattr(sites, "ROOT", tmp_path / "raw" / "sites")
+    monkeypatch.setattr(sites, "SITES", {n: sites.SITES["career"] for n in ("career", "apply")})
+    for name, body in (("career", "[Образец](https://innopolis.university/upload/iblock/a/Образец%20согласия.docx) [x](https://example.org/a.pdf) [ПИШ](https://innopolis.university/upload/b/944225_ПИШ.pdf)"),
+                       ("apply", "[Guide](https://apply.innopolis.university/upload/files/guide.pdf) [Образец](https://innopolis.university/upload/iblock/a/%D0%9E%D0%B1%D1%80%D0%B0%D0%B7%D0%B5%D1%86%20%D1%81%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D1%8F.docx)")):
+        (docs / "sites" / name).mkdir(parents=True)
+        (docs / "sites" / name / "home.md").write_text(body, encoding="utf-8")
+        (sites.ROOT / name).mkdir(parents=True)
+        (sites.ROOT / name / "index.json").write_text(json.dumps({"pages": {}, "docs": {}}), encoding="utf-8")
+
+    assert sites.collect_linked_docs() == 3  # (the same file spelled two ways is one; a document of another domain is not taken)
+    assert sorted(sites.load("career")["docs"]) == ["https://innopolis.university/upload/b/944225_%D0%9F%D0%98%D0%A8.pdf", "https://innopolis.university/upload/iblock/a/%D0%9E%D0%B1%D1%80%D0%B0%D0%B7%D0%B5%D1%86%20%D1%81%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D1%8F.docx"]
+    assert list(sites.load("apply")["docs"]) == ["https://apply.innopolis.university/upload/files/guide.pdf"]
+    assert sites.collect_linked_docs() == 0  # (nothing twice)

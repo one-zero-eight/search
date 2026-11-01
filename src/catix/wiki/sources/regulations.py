@@ -275,9 +275,10 @@ def extract(pdf: Path, ocr_left: int, converted: Path | None = None) -> tuple[st
     return "\f".join(out), "ocr (tesseract rus)", pages
 
 
-def fetch(limit: int | None = None) -> int:
+def fetch(limit: int | None = None, prefixes: tuple[str, ...] | None = None) -> int:
     """Download the documents not read yet (and those `refresh` found changed), then read them: the text layers all at once
-    (one run of opendataloader's JVM, not one a file), the scans after them; the number read."""
+    (one run of opendataloader's JVM, not one a file), the scans after them; the number read. `prefixes`: only the documents
+    whose key starts with one of them ('site-lab-': the documents of one site)."""
     from catix.wiki.sources import opendataloader
 
     def skip(d: dict, meta: Path, why: str) -> None:
@@ -285,6 +286,8 @@ def fetch(limit: int | None = None) -> int:
 
     docs, failures, downloaded = all_docs(), 0, []
     for key, d in docs.items():
+        if prefixes and not key.startswith(prefixes):
+            continue
         root: Path = d["root"]
         root.mkdir(parents=True, exist_ok=True)
         ext = d.get("ext", "pdf")
