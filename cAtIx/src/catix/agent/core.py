@@ -35,7 +35,7 @@ from pydantic import BaseModel, Field
 from typing_extensions import NotRequired
 
 from catix import userbot_config
-from catix.agent import claims, roles, sources
+from catix.agent import claims, questions, roles, sources
 from catix.agent.guardrail import GuardrailMiddleware
 from catix.agent.tools import MAX_READS, TOOLS, AgentContext, reads_done
 from catix.common import courses
@@ -597,6 +597,26 @@ class PassReportMiddleware(AgentMiddleware):
         return ModelResponse(result=[AIMessage(content=report, name=SUPERVISOR_NAME)])
 
 
+class PriorityMiddleware(AgentMiddleware):
+    """Sends the priority of the question (agent/questions.py PRIORITY) with each model call when LLM_PRIORITY is on.
+
+    It goes in `extra_body`, which replaces the model's own, so the model's (enable_thinking) is kept in it."""
+
+    @staticmethod
+    def _with(request: ModelRequest) -> ModelRequest:
+        priority = questions.PRIORITY.get()
+        if priority is None or not settings.llm_priority:
+            return request
+        extra = {**(getattr(request.model, "extra_body", None) or {}), **request.model_settings.get("extra_body", {}), "priority": priority}
+        return request.override(model_settings={**request.model_settings, "extra_body": extra})
+
+    def wrap_model_call(self, request, handler):
+        return handler(self._with(request))
+
+    async def awrap_model_call(self, request, handler):
+        return await handler(self._with(request))
+
+
 class LoggingMiddleware(AgentMiddleware):
     """Logs context size and duration of every model call, and every tool call with its arguments."""
 
@@ -804,6 +824,7 @@ def _helper_tool(role: roles.Role, model) -> BaseTool:
             LookUpFirstMiddleware(),
             RunGuardMiddleware(role.tools),
             CiteMiddleware(),  # inside the guard: the second answer is checked for tool call markup too
+            PriorityMiddleware(),
             LoggingMiddleware(),
             ToolErrorMiddleware(on_error=_tool_error),
             ModelCallLimitMiddleware(run_limit=settings.agent_max_model_calls, exit_behavior="end"),
@@ -878,6 +899,7 @@ def build_agent(model=None, *, guardrail: bool = True):
             ),
             SourcesMiddleware(),
             RunGuardMiddleware(t.name for t in helpers),
+            PriorityMiddleware(),
             LoggingMiddleware(),
             ToolErrorMiddleware(on_error=_tool_error),
             ModelCallLimitMiddleware(run_limit=settings.agent_max_model_calls, exit_behavior="end"),

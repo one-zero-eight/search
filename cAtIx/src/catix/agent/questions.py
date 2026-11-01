@@ -1,10 +1,11 @@
 """A queue of questions in front of the agent: at most AGENT_PARALLEL_QUESTIONS are answered at once, the rest wait their turn.
 
-The model server answers several questions at once no faster than one after another: the agent's work is mostly reading
-long prompts (prefill), which takes the whole GPU, and the MoE model gains little from decoding several answers together
-(experiments/load_agent.py: 6 questions at once took 134 s, one after another 136 s). Answered all at once, everybody
-waits for the slowest; in turn, the first ones get their answer early (a mean wait of 72 s instead of 114 s). Questions
-that run together also take each other's slots on the model server and lose its cache of their context.
+The model server gains little from several questions at once: the agent's work is mostly reading long prompts (prefill),
+which takes the whole GPU, and the MoE model gains little from decoding several answers together. On llama.cpp 6
+questions at once took 134 s, one after another 136 s (experiments/load_agent.py). On 1Cat-vLLM 12 at once were done in
+106-111 s 4 at a time and in 136 s one at a time, with about the same mean wait (71 s, 74 s); answered all at once,
+everybody waits for the slowest. While a question runs, its model calls carry its priority (PRIORITY): vLLM serves the
+calls of a question that started earlier first.
 
 Turns go round the users: a user's second question waits behind the first questions of everybody else, so one person
 sending many messages does not hold the others up. The queue lives in one process: the Telegram and the Max bot keep one each.
@@ -12,6 +13,7 @@ sending many messages does not hold the others up. The queue lives in one proces
 
 import asyncio
 import contextlib
+import contextvars
 import itertools
 import logging
 import time
@@ -19,6 +21,15 @@ from collections.abc import AsyncIterator, Awaitable, Callable
 from dataclasses import dataclass, field
 
 log = logging.getLogger("catix.questions")
+
+# The priority of the model calls of the question being answered (LLM_PRIORITY, agent/core.py PriorityMiddleware): the
+# moment it got its turn, in ms and below zero. vLLM serves the lowest first and gives 0 to a call without one, so the
+# calls of a question that started earlier go first, and those of every question before other work (the wiki agent).
+PRIORITY: contextvars.ContextVar[int | None] = contextvars.ContextVar("question_priority", default=None)
+
+
+def priority_now() -> int:
+    return int(time.time() * 1000) - 10**13
 
 
 @dataclass
@@ -86,9 +97,11 @@ class QuestionQueue:
                     self._waiting.remove(ticket)
                     self._changed.notify_all()
             raise
+        priority = PRIORITY.set(priority_now())
         try:
             yield
         finally:
+            PRIORITY.reset(priority)
             async with self._changed:
                 self._running.remove(ticket)
                 self._changed.notify_all()

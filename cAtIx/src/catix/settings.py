@@ -43,9 +43,13 @@ class Settings(BaseSettings):
     # One helper asked once that reported with sources: its report is the answer, the supervisor does not write it again
     # (agent/core.py PassReportMiddleware). Off, the supervisor rewrites every report: shorter, 2 to 10 s later.
     agent_pass_report: bool = True
-    # Questions the agent answers at once in a bot; the others wait their turn (agent/questions.py). On the V100 several at
-    # once are answered no faster than one after another, so with 1 the first ones in line get their answer early.
-    agent_parallel_questions: int = Field(1, gt=0)
+    # Questions the agent answers at once in a bot; the others wait their turn (agent/questions.py). 12 questions at once
+    # on 1Cat-vLLM (2026-11-01; mean wait, first and last answer): 1 at a time 74 s, 13 s, 136 s; 4 at once 71 s, 25 s,
+    # 106-111 s; 6 at once 70-78 s, 37 s, 97-105 s; 2 or 3 at once no sooner than 1.
+    agent_parallel_questions: int = Field(4, gt=0)
+    # Send each model call the priority of its question (agent/questions.py PRIORITY), for a server started with
+    # --scheduling-policy priority. 1Cat-vLLM without it accepted one too; upstream vLLM may refuse it.
+    llm_priority: bool = True
     # Old tool results dominate the context of long chats; above this size (approximate tokens)
     # all but the last `agent_keep_tool_results` are replaced by a placeholder. Every replacement changes the start of the
     # context, and the model server reads all after it again (~750 tokens/s on the V100): at 6000 a question with two

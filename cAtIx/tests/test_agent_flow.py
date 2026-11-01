@@ -227,6 +227,31 @@ def test_a_call_that_may_not_call_tools_may_not_start_the_markup_either(monkeypa
     assert seen[1].tool_choice is None and seen[1].model_settings == {}
 
 
+def test_a_call_carries_the_priority_of_its_question_with_the_models_extra_body(monkeypatch):
+    """With LLM_PRIORITY the model call gets the priority of the question it belongs to (agent/questions.py), and the
+    model's own extra_body (enable_thinking) is kept: a call's extra_body replaces the model's. Off, or outside a question,
+    nothing is added (vLLM without priority scheduling may refuse one)."""
+    from catix.agent import questions
+    from catix.agent.core import PriorityMiddleware
+
+    seen = []
+    model = lambda request: seen.append(request) or ModelResponse(result=[AIMessage(content="ok")])
+    request = Req(0)
+    request.model = types.SimpleNamespace(extra_body={"chat_template_kwargs": {"enable_thinking": False}})
+    request.model_settings = {"logit_bias": {"1": -100}}
+    monkeypatch.setattr(core.settings, "llm_priority", True)
+    PriorityMiddleware().wrap_model_call(request, model)  # outside a question
+    token = questions.PRIORITY.set(-5)
+    try:
+        PriorityMiddleware().wrap_model_call(request, model)
+        monkeypatch.setattr(core.settings, "llm_priority", False)
+        PriorityMiddleware().wrap_model_call(request, model)
+    finally:
+        questions.PRIORITY.reset(token)
+    assert seen[0].model_settings == seen[2].model_settings == {"logit_bias": {"1": -100}}
+    assert seen[1].model_settings == {"logit_bias": {"1": -100}, "extra_body": {"chat_template_kwargs": {"enable_thinking": False}, "priority": -5}}
+
+
 def test_a_message_with_nothing_to_look_up_is_answered_without_a_helper(monkeypatch):
     """The screen said small_talk ("привет!", "что ты умеешь?"): the supervisor's call may not call tools, with no order to answer
     (it is not out of budget), and the reminder after the message is the one for answering alone."""

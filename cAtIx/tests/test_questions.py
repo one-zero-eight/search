@@ -144,3 +144,29 @@ def test_the_draft_shows_the_queue_and_sends_it_again_to_keep_it_alive():
     _run(drafts.start())
     assert drafts.sent == [stream.QUEUED.format(ahead=2)] * 2 + [stream.CHECKING]
     assert "2" in drafts.sent[0]
+
+
+def test_a_question_that_got_its_turn_earlier_has_the_lower_priority():
+    """vLLM serves the lowest priority first and gives 0 to a call without one: the calls of every question go before
+    those, and of two questions the one that started first goes first. Outside a turn there is none."""
+    from catix.agent.questions import PRIORITY
+
+    async def scenario():
+        queue, seen, release = QuestionQueue(2), {}, asyncio.Event()
+
+        async def ask(name):
+            async with queue.turn(name):
+                seen[name] = PRIORITY.get()
+                await release.wait()
+
+        first = asyncio.create_task(ask("u0"))
+        await _settle()
+        await asyncio.sleep(0.01)  # the priority is in ms
+        second = asyncio.create_task(ask("u1"))
+        await _settle()
+        release.set()
+        await asyncio.gather(first, second)
+        return seen, PRIORITY.get()
+
+    seen, after = _run(scenario())
+    assert seen["u0"] < seen["u1"] < 0 and after is None

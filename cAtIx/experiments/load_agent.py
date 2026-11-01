@@ -9,6 +9,8 @@ and prints, for every question, its total time, the number of model calls and th
 agent's own log). Run it where the bot runs, against the same model server:
 
     PHOENIX_PROJECT=catix-loadtest python experiments/load_agent.py 6 all questions=2 questions=3
+
+With LLM_PRIORITY=1 (a vLLM with --scheduling-policy priority) the calls of a question that started earlier go first.
 """
 
 import asyncio
@@ -21,6 +23,7 @@ import uuid
 from collections import defaultdict
 
 from catix.agent.core import build_agent, final_answer
+from catix.agent.questions import PRIORITY, priority_now
 from catix.agent.tools import AgentContext
 
 QUESTIONS = [
@@ -59,6 +62,7 @@ agent = build_agent()
 async def ask(no: int, question: str, limit: asyncio.Semaphore, t0: float) -> float:
     async with limit:
         question_no.set(no)  # the helpers' threads get a copy of the context, so their log lines carry it too
+        PRIORITY.set(priority_now())  # as QuestionQueue.turn does; sent only with LLM_PRIORITY
         config = {"configurable": {"thread_id": f"load-{uuid.uuid4().hex}"}}
         state = await agent.ainvoke({"messages": [{"role": "user", "content": question}]}, config, context=AgentContext())
         final_answer(state["messages"], state.get("sources") or {})
