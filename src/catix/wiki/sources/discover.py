@@ -1,6 +1,6 @@
 """New sites of the university, found by the wiki's run in the links of the pages it already reads.
 
-    catix-wiki sites discover [--dry-run]   # the hosts the pages link that no site of SITES reads yet, and what the probe says of them
+    catix-wiki sites discover [--dry-run]   # the hosts the pages link that no source reads yet, and what the probe says of them (--dry-run keeps nothing)
 
 A host is a candidate when
   - it is a host of the university (innopolis.university, innopolis.ru, innopolis.edu.ru, innopolis.com, innopolis.college,
@@ -31,7 +31,7 @@ from urllib.robotparser import RobotFileParser
 import httpx
 
 from catix.wiki.paths import DOCS
-from catix.wiki.sources import regulations, sites
+from catix.wiki.sources import eduwiki, regulations, sites
 
 UNIVERSITY = ("innopolis.university", "innopolis.ru", "innopolis.edu.ru", "innopolis.com", "innopolis.college")
 INNO = re.compile(r"(^|[.-])inno(polis|hassle)?([.-]|$)|innopolis|innohassle")
@@ -40,6 +40,8 @@ MAX_NEW = 3  # sites found in one run
 MAX_PROBES = 8  # hosts probed in one run
 MIN_WORDS = 30  # words of the start page without the lines every page of the site repeats
 RETRY_DAYS = 30  # a host that failed its probe is probed again after this long
+RETRY_UNREACHABLE_DAYS = 7  # ... and one that did not answer (an outage, a name that did not resolve), sooner
+UNREACHABLE = ("no answer", "the name does not resolve")
 LINK = re.compile(r"\]\((https?://[^)\s]+)\)")
 LOGIN_TITLE = re.compile(r"(?i)авториз|личный кабинет|вход\b|регистрац|sign.?in|log.?in|account")
 PASSWORD_FIELD = re.compile(r"""(?i)<input[^>]+type=["']?password""")
@@ -58,7 +60,7 @@ def kind_of(host: str) -> str | None:
 
 def known_hosts() -> set[str]:
     """The hosts that are read already or must not be asked: every site of SITES with its aliases, and the found ones."""
-    known = set()
+    known = {host_of(eduwiki.API)}  # (read by a source of its own, not through SITES)
     for site in sites.SITES.values():
         known |= {host_of(site.base), *site.aliases}
     return known | {host for host, entry in sites.discovered().items() if entry.get("status") != "failed"}  # (a failed one is asked again later: retry_later)
@@ -89,7 +91,10 @@ def candidates(rejected: set[str]) -> list[tuple[str, str, list[str]]]:
 
 def retry_later(found: dict, host: str, now: datetime) -> bool:
     entry = found.get(host)
-    return bool(entry) and entry.get("status") == "failed" and now - datetime.fromisoformat(entry["tried"]) < timedelta(days=RETRY_DAYS)
+    if not entry or entry.get("status") != "failed":
+        return False
+    days = RETRY_UNREACHABLE_DAYS if entry.get("reason", "").startswith(UNREACHABLE) else RETRY_DAYS
+    return now - datetime.fromisoformat(entry["tried"]) < timedelta(days=days)
 
 
 def public(host: str) -> bool:
@@ -142,7 +147,8 @@ def write(found: dict) -> None:
 
 
 def discover(rejected: set[str] = frozenset(), client: httpx.Client | None = None, dry_run: bool = False, pause: float = sites.PAUSE) -> int:
-    """Probe the candidates, keep the ones that pass as pending sites; how many were found."""
+    """Probe the candidates, keep the ones that pass as pending sites; how many were found. `dry_run` probes and says what it
+    would do, but keeps nothing (the file of found sites is not written, SITES does not change)."""
     now = datetime.now(timezone.utc)
     found = sites.discovered()
     own = client or httpx.Client(headers=regulations.HEADERS, timeout=20, follow_redirects=True,
@@ -154,16 +160,13 @@ def discover(rejected: set[str] = frozenset(), client: httpx.Client | None = Non
                 break
             if retry_later(found, host, now):
                 continue
-            if dry_run:
-                print(f"  {host} ({kind}): linked from {len(pages)} pages, e.g. {pages[0]}")
-                continue
             probes += 1
             result = probe(host, own)
             if isinstance(result, str):
                 print(f"  {host}: not taken: {result}")
                 found[host] = {"status": "failed", "kind": kind, "reason": result, "tried": now.isoformat(timespec="seconds")}
             else:
-                print(f"  {host}: found, '{result['title']}', {result['words']} words, linked from {len(pages)} pages")
+                print(f"  {host}: {'would be found' if dry_run else 'found'}, '{result['title']}', {result['words']} words, linked from {len(pages)} pages")
                 found[host] = {"status": "pending", "kind": kind, "found": now.date().isoformat(), "pages": len(pages), "examples": pages[:3], **result}
                 added += 1
             time.sleep(pause)
@@ -196,6 +199,6 @@ def main(args: list[str]) -> None:
     rejected = set(autopilot.load_state().get("rejected_sites", []))
     dry = "--dry-run" in args
     found = discover(rejected, dry_run=dry)
-    print("(dry run: the candidates above are not probed)" if dry else f"{found} new sites")
+    print(f"{found} new sites" + (" would be kept (dry run: nothing was written)" if dry else ""))
     if pending := pending_hosts():
         print("pending a person's look: " + ", ".join(pending), file=sys.stderr)

@@ -144,3 +144,27 @@ def test_a_pending_site_never_reaches_the_branch_by_itself(bundle, monkeypatch):
     assert discover.accept_pending() == ["lab.innopolis.university"]  # (a person accepted: no look again)
     assert sites.discovered()["lab.innopolis.university"]["status"] == "accepted" and not discover.pending_hosts()
     assert not any("new sites" in f for f in autopilot.check(report, False).failed)
+
+
+def test_a_host_another_source_reads_is_known(bundle):
+    bundle("a", "https://eduwiki.innopolis.university/index.php/Page", "https://lab.innopolis.university/")
+    assert "eduwiki.innopolis.university" in discover.known_hosts()  # (the eduwiki has a source of its own, not a line of SITES)
+    assert [h for h, _, _ in discover.candidates(set())] == ["lab.innopolis.university"]
+
+
+def test_a_dry_run_probes_but_keeps_nothing(bundle, capsys):
+    bundle("a", "https://lab.innopolis.university/", "https://sso.innopolis.university/")
+    routes = {"https://lab.innopolis.university/": html()}  # (the other one answers 404)
+    assert discover.discover(client=client(routes), dry_run=True, pause=0) == 1
+    out = capsys.readouterr().out
+    assert "lab.innopolis.university: would be found" in out and "sso.innopolis.university: not taken: HTTP 404" in out
+    assert not sites.DISCOVERED.exists() and "lab" not in sites.SITES
+
+
+def test_a_host_that_did_not_answer_is_tried_again_sooner():
+    now = datetime.now(timezone.utc)
+    tried = (now - timedelta(days=discover.RETRY_UNREACHABLE_DAYS + 1)).isoformat()
+    found = {"down.innopolis.ru": {"status": "failed", "reason": "no answer (ConnectError)", "tried": tried},
+             "login.innopolis.ru": {"status": "failed", "reason": "a login page ('Вход')", "tried": tried}}
+    assert not discover.retry_later(found, "down.innopolis.ru", now)  # (a week has passed: asked again)
+    assert discover.retry_later(found, "login.innopolis.ru", now)  # (a login does not change in a week)
