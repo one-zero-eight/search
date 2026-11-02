@@ -2,12 +2,13 @@
  "title": "Положение о порядке и основаниях перевода, отчисления и восстановления обучающихся",
  "url": "https://innopolis.university/upload/iblock/c06/49xocpxyo6mx0dri7yd8c5y0zwdmp4pz/Положение_о_порядке_и_основаниях_перевода__отчисления_и_восстановления.pdf",
  "sha256": "e968173979d80dd9dddd3f4eec45bd39c753ca46017ad8bd2a5c1142ccdd969d",
- "method": "ocr (tesseract rus)",
- "chars": 62562,
+ "method": "ocr (chandra-ocr-2)",
+ "chars": 62058,
  "fetched_at": "2026-10-22T11:52:40+00:00",
  "remote": {
   "etag": "\"6a1fcbc5-791e1f\"",
   "modified": "Wed, 03 Jun 2026 06:37:57 GMT",
   "size": "7937567"
- }
+ },
+ "tables": 5
 }

@@ -1,0 +1,16 @@
+{
+ "title": "Объявление о конкурсном отборе от 15.04.2022",
+ "url": "https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2015.04.2022.pdf",
+ "sha256": "c3d87dd4bb607c76c64a4ca896fcf6fa9ec1d577a331cb688f630cba77a2a321",
+ "method": "ocr (tesseract rus)",
+ "chars": 14815,
+ "tables": 5,
+ "section": "site/career",
+ "context": "",
+ "fetched_at": "2026-11-01T23:14:34+00:00",
+ "remote": {
+  "etag": "\"1a686a-5e816309ff73b\"",
+  "modified": "Wed, 07 Sep 2022 13:21:26 GMT",
+  "size": "1730666"
+ }
+}

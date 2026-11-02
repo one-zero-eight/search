@@ -1,0 +1,16 @@
+{
+ "title": "contest-38183-ru",
+ "url": "https://lk-dovuz.innopolis.university/public/files/contest-38183-ru.pdf",
+ "sha256": "a9e0fed1360ad368765efdaa9095d09b2d6ddc5aa43ebf04bf88b126044ce47d",
+ "method": "text layer (opendataloader)",
+ "chars": 11955,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:20+00:00",
+ "remote": {
+  "etag": "\"1ef492-60bf960cbdfc0\"",
+  "modified": "Fri, 08 Dec 2023 06:05:59 GMT",
+  "size": "2028690"
+ }
+}

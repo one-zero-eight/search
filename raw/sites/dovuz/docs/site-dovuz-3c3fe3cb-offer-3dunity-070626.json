@@ -1,0 +1,16 @@
+{
+ "title": "offer 3dunity 070626",
+ "url": "https://lk-dovuz.innopolis.university/public/files/offer_3dunity_070626.pdf",
+ "sha256": "7575fa6141202d9807f1e8ec51a3205af215679ed18a11796e70a58d5ed58663",
+ "method": "text layer (opendataloader)",
+ "chars": 33775,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"35e6a-64b28f779e5c0\"",
+  "modified": "Thu, 19 Feb 2026 08:19:43 GMT",
+  "size": "220778"
+ }
+}

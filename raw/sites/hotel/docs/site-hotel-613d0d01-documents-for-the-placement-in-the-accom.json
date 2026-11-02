@@ -1,0 +1,16 @@
+{
+ "title": "List of documents for adult guests",
+ "url": "https://hotel.innopolis.university/upload/docs-hotel/Documents%20for%20the%20placement%20in%20the%20accommodation%20.pdf",
+ "sha256": "c7aebd1daaf3786d25c4cd8cd4e751143a5474b091ecf6b7edbb93fc7453e4d5",
+ "method": "text layer (opendataloader)",
+ "chars": 8513,
+ "tables": 5,
+ "section": "site/hotel",
+ "context": "",
+ "fetched_at": "2026-10-31T00:26:16+00:00",
+ "remote": {
+  "etag": "\"284e4-5c376fb54dc94\"",
+  "modified": "Sat, 29 May 2021 12:17:53 GMT",
+  "size": "165092"
+ }
+}

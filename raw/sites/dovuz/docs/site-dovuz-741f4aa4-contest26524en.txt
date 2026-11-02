@@ -1,0 +1,229 @@
+Innopolis Open 2021-2022
+Final round
+Russia, Innopolis, February 20, 2022
+
+Problem Tutorial: “Designing a New Logo”
+
+For the first subtask, you can fill the logo from top to bottom taking two horizontally adjacent cells at a
+time.
+
+For the second subtask, select cells (2,2),(2,3),(2,4),...(2,2b) (this gives you b black and b − 1 white
+cells). Then, add white cells adjacent to selected black cells. Since we can add any number of white cells
+up to 2b + 2 white cells, we can get to any number of white cells.
+
+For the third subtask, select cells (2,j) (2 ≤ j ≤ 4m − 2), then cells (i,2) (3 ≤ i ≤ 4n − 2). Similarly,
+add adjacent white cells to the base solution to match the required count. This solution gets up to
+b = (2m − 1) + (2n − 2) black cells, with b − 1 white cells between them, then we can add any number of
+white cells up to 2b + 2.
+
+For the last subtask, again, start with the base solution that looks like (2,j) (2 ≤ j ≤ 4m − 2), and
+(i,2 + 4j) (3 ≤ i ≤ 4n − 2,2 ≤ 2 + 4j ≤ 4m − 2), then add the necessary amount of white cells. The
+number of black cells in this solution is bounded by b = (2m − 1) + (2n − 2) · m = 2nm − 1 ≥ nm, which
+is enough to solve the problem.
+
+Problem Tutorial: “Even Tree”
+
+First, note that the problem asks to find a spanning tree with an even number of edges of odd weight.
+Consider the connected components restricted to only even edges. Within each component, we can exactly
+choose a spanning tree with all even edges, or a spanning tree with exactly one odd edge, if a connected
+component contains one. So there are three cases:
+
+1. We have an odd number of even-edge connected components — then we need to build each internal
+part of the components from all even parts and connect all the components;
+
+2. We have an even number of components, and there are no odd edges inside the components (that
+is, between two vertices from the same component) — then we can’t build a spanning tree of even
+weight;
+
+3. We have an even number of components, and there is an odd edge inside the components — then
+we must take this edge and take the remaining edges in the same way as in the first case (that is,
+we will replace one even edge with an odd one).
+
+This process can be implemented, for example, as follows: let’s build a tree traversal in the DFS order. If
+this tree is already even (that is, the total weight of the edges is even), then we output it. Otherwise, we
+need to find a back edge (in the DFS tree) that can be replaced by an edge of different parity. If we fail
+to find such a pair of edges, the answer does not exist.
+
+Problem Tutorial: “Primle”
+
+Let’s discuss solutions for all subtasks in order.
+
+The first two subtasks were designed to make any non-trivial solution pass. For example, you can ask
+random numbers/random primes and then figure out the answer based on the information received. With
+high probability, we will see at least one + in each of the five positions. To do it in hard mode, you need
+to be able to generate a random prime number.
+
+In the third and fourth subtasks, you can come up with a set of 9 numbers such that every position contains
+nine out of ten digits. In easy mode you can use 11111, 22222, ..., 99999. In hard mode, you should find
+nine numbers with these properties (except for the least significant digit). Given this information, you
+can find out the secret prime number.
+
+In the fifth and sixth subtasks, you can optimize the previous solution. Ask 01234 and 56789 (or 65423
+and 91807 in hard mode). We learn the set (without multiplicities) of digits in the secret prime using
+the responses to these queries. Similarly to the previous solution, figure out the answer using only four
+queries.
+
+Finally, there are many possible solutions for the last two subtasks. Let’s describe one possible approach.
+During the process of guessing the number, at each step, we have a set of prime numbers that satisfy
+all the information we have. Every query splits this set into 35 subsets, out of which we only retain one.
+Whenever the current set has only one number left, it is the secret prime. Since the problem asks for you
+to find the secret prime in L queries for all possible secret prime, it makes sense that we want to make
+the "worst"possible case as good as possible. Thus, let’s pick a new guess in such a way that minimizes
+the maximum of all 243 sets. If you follow this strategy, you solve almost all primes in ≤ 4 queries, and
+only about 50 primes will require 5.
+
+Bonus: come up with a strategy that solves any prime number in 4 queries.
+
+Problem Tutorial: “Add and Multiply”
+
+First, if ai ≤ bi for all i (or the other way around), the solution exists if and only if the two input arrays
+are the same. In this case, print ci = 0, otherwise, there is no solution.
+
+Now, we will constructively prove that if there is a pair i, j, such that ai < bi and aj > bj, then there is
+a solution.
+
+First, let’s solve for n = 2. Without loss of generality, a1 < b1, a2 > b2. Consider c1,c2 ≥ 0, where
+(a1+c1)(a2+c2) = (b1+c1)(b2+c2) ⇒ (a1+c1)(a2+c2)−(b1+c1)(b2+c2) = 0. Expanding the products,
+we get a1a2−b1b2+c1(a2−b2)+c2(a1−b1) = 0. Rearranging the terms, c1(a2−b2)−c2(b1−a1) = a1a2−b1b2.
+Turns out, this linear Diophantine equation always has a nonnegative solution.
+
+Let’s apply the extended Euclidean algorithm. Recall that for this algorithm to work, we need a1a2 −b1b2
+to be divisible by d = gcd(a2−b2,b1−a1). This is always true, since if a2 = b2 (mod d), b1 = a1 (mod d),
+then a1a2 − b1b2 = b1b2 − b1b2 = 0 (mod d). Since a2 − b2 > 0 and b1 − a1 > 0, by taking the solution
+of (a2 − b2)x − (b1 − a1)y = 0 and repeatedly adding it to the base solution, we can always make it
+nonnegative.
+
+Let’s solve the general case. To do it, we will basically merge all i with ai > bi into a single pair. Consider
+the example:
+
+| a | 9 | 10 |
+| --- | --- | --- |
+| b | 5 | 3 |
+
+Notice that if we add 6 to the second column, and take the product, 9 cancels out:
+
+| a | 9 | 16 |
+| --- | --- | --- |
+| b | 5 | 9 |
+
+Now we can replace these two pairs with a pair a = 16 and b = 5. Adding x to the new pair is the same
+as adding x to both original pairs.
+
+In general, take all columns with ai > bi, sort them in order of decreasing bi, and, in this order, make ai
+and bi+1 equal. On each step we add some nonnegative number to ci, because bi+1 ≤ bi < ai. Thus, in
+O(n) time we turn all columns with ai > bi into one. We apply a similar process to pairs with ai < bi. All
+that’s left is to solve for two pairs.
+
+Problem Tutorial: “Draft Laws”
+
+In this problem, we need to find the number of ways to color the tree in k (modulo a prime number),
+given colors for some vertices.
+
+Subtask 1 can be solved with brute force over all kn colorings.
+
+Subtask 2 is based on the fact that there are precisely two ways to color a tree in two colors: after fixing
+the color of vertex 1, the colors of all other vertices can be determined uniquely. Thus, we can try both
+colorings and check whenever they satisfy the conditions.
+
+In subtask 3 there are no pre-colored vertices. It is easy to see that the answer is k(k − 1)n−1: for vertex
+1, we can choose any of k colors; then, for all neighbors of vertex 1 we can choose any of k − 1 remaining
+colors; for all vertices at a distance 2 from the first vertex we also have k − 1 possible options, and so on.
+
+Subtasks starting from 4 can be solved by a dynamic programming approach. Root the tree at the vertex
+1. Let dpv,c be the number of ways to color the subtree of v (satisfying all conditions) such that vertex
+v has color c. Then, the value dpv,c can be calculated knowing the dp values of all children. In the case
+av = 0 we get:
+dpv,c =
+dpu,d
+u is a child of v d =c
+because for each child u we can independently choose any color d = c. In the case av = 0 the formula is
+the same except that dpv,c = 0 when c = av.
+The naive way of calculating this dp gives an O(nk2) solution (for each of n − 1 edges we go through all
+O(k2) pairs of colors (c,d)), which passes subtask 4.
+
+We can easily optimize this solution in the following way: when calculating dpv,c and when child u is
+fixed, instead of calculating the sum over all d = c, let’s also calculate sumv = kc=1 dpv,c for all vertices
+beforehand. Then, we can just take sumu−dpu,c instead. This is an O(nk) solution, which solves subtask 5.
+To solve other subtasks, we need to remove k from the time complexity. Out of all k colors, only at most
+n are present in the tree (on pre-colored vertices). Let v be any vertex. Note that if c1 and c2 are two
+colors that are not present in the subtree of v, then the following equality holds:
+dpv,c1 = dpv,c2
+
+We can prove it by establishing a one-to-one correspondence between colorings of the subtree of v, where
+v has color c1, and colorings, where v has color c2: it is sufficient to swap colors c1 and c2 (color in c2
+all vertices which were colored in c1 and vice versa). This transformation doesn’t break any constraints.
+Thus, there are equally many of these colorings. This gives us the key idea: for all colors which are not
+present in the v subtree, we store one common dp value, which we denote as otherv.
+
+To solve subtask 6, it is sufficient to get rid of all colors which are not present on the entire tree.
+Let’s implement “coordinate compression”: re-enumerate all colors present on the tree with numbers
+0,1,...,D − 1, where D is the number of distinct colors in the tree. Then we calculate similar dpv,c,
+but with 0 ≤ c < D, and at the same time calculating and considering otherv. Thus, when av = 0 we get:
+dpv,c =
+u is a child of v
+sumu + (k − D) · otheru − dpu,c
+
+This solution works in O(nD) (where D is the number of distinct colors on the tree). In particular, we
+can estimate this as O(n · min(n,k)) or as O(n2).
+
+In subtask 7 the tree is a path (a bamboo). Let’s split it into parts surrounded by pre-colored vertices.
+Previously we calculate Am — the number of colorings of a path with m vertices, where the colors of
+ending vertices are fixed and equal; and Bm — the same quantity, but if the colors of ending vertices are
+fixed and different. We can calculate those using the following recurrence relations:
+
+Am = (k − 1)Bm−1, A1 = 1
+Bm = Am−1 + (k − 2)Bm−1, B1 = 0
+
+Each part can be independently colored in Am or Bm ways (depending on the colors of the ending vertices).
+Thus we can take the product over all parts.
+
+Now let’s move to full solution. In the same way we will be calculating subtree dp. For vertex v we will
+store values dpv,c (for colors c which are present in the subtree of v) in an associative array Hv (for
+example, std::map in C++) in which colors c will be keys and numbers dpv,c will be values. We will also
+store sumv — the sum of all the values in Hv, cntv — the number of values in Hv and otherv — the dp
+value for all other colors.
+
+We will use the “smaller to larger” technique. For each vertex v we consider its child b with the largest
+size of Hb. Firstly, in O(1) we set Hv := Hb (with some details to make values correct), and then for all
+other children u = b we will move all elements of Hu into Hv straight-forward, by going through all of the
+container Hu. We claim that these iterations in subtrees of other children will take O(nlog n) moves in
+total. It is because we always move an element into a container that previously had more elements. So,
+the size of the container of color c at least doubles each time c is moved. It means that color c will move
+at most O(log n) times.
+
+At first, let’s figure out how to achieve the initial dp values for vertex v from values in Hb. For each color
+c in Hb, we want to calculate:
+dpv,c := sumb + (k − cntb) · otherb − dpb,c
+
+In other words, if we denote T = sumb + (k − cntb) · otherb, we need to firstly set Hv := Hb and then for
+each value x in Hv we need to apply linear function:
+x → −x + T
+
+These operations can be performed in a “lazy” way: instead of applying this function for all values by
+manually going through them, we will save this function next to the container and denote it as fv(x). To
+get the actual value of dpv,c we just need to apply function fv(x) to the number that is actually stored
+in Hv. Initially, fv(x) is equal to the identity function x → x. When operation “apply linear function
+g(x) = px + q to all values in Hv” takes place, we will update coefficients of fv(x) and values of sumv and
+otherv in such way (before we had fv(x) = ax + b):
+fv(x) := g(fv(x)) = (pa)x + (pb + q)
+sumv := p · sumv + q · cntv
+otherv := p · otherv + q
+Thus, processing child b is now a single operation that we perform lazily in O(1) time.
+Now consider other children u = b. If color c is not in Hu, then
+dpv,c := dpv,c · (sumu + (k − cntu − 1) · otheru)
+Or, if we denote Q = sumu + (k − cntu − 1) · otheru:
+dpv,c := dpv,c · Q
+If c is in Hu, then:
+dpv,c := dpv,c · (sumu + (k − cntu) · otheru − dpu,c)
+
+Let’s first apply linear function x → Qx to all values in Hv. Then, we will manually go through all colors
+c in the subtree of u, and for each one of them we will make the following change:
+dpv,c := dpv,c · Q−1 · (sumu + (k − cntu) · otheru − dpu,c)
+Here, Q−1 is the multiplicative inverse of Q modulo M = 109 + 7. However, this fails when Q ≡ 0
+
+(mod M). In this case we proceed the other way: let’s first calculate and save the new values of dpv,c
+for all colors c in Hu. After operation “multiply all the values in Hv by 0” all values in Hv will become
+zero. So, we can completely clear Hv and also set sumv = otherv = 0 and set fv(x) equal to the identity
+function x → x. After that we can again go through all colors c in Hu and set the previously saved values.
+Finally, we achieved an O(nlog2 n) solution. Note that we can also get O(nlog n) by using
+std::unordered_map instead of std::map. However, in practice it is usually slower.

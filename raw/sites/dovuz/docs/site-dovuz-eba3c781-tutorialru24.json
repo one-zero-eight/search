@@ -1,0 +1,16 @@
+{
+ "title": "tutorial-ru24",
+ "url": "https://lk-dovuz.innopolis.university/public/files/tutorial-ru24.pdf",
+ "sha256": "50299d42406c43aa16852ef5b4d9930751b54087cd6af7c0578cbe9c31d36ac4",
+ "method": "text layer (opendataloader)",
+ "chars": 33630,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:27+00:00",
+ "remote": {
+  "etag": "\"44e2e-60abf492d49c0\"",
+  "modified": "Wed, 22 Nov 2023 15:22:23 GMT",
+  "size": "282158"
+ }
+}

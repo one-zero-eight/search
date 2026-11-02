@@ -1,0 +1,16 @@
+{
+ "title": "Ссылка на договор оферты [Оферта_Группа_В_с_14.02.26_24.12.26]",
+ "url": "https://innopolis.university/filespublic/%D0%9E%D1%84%D0%B5%D1%80%D1%82%D0%B0_%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0_%D0%92_%D1%81_14.02.26_24.12.26.docx",
+ "sha256": "c72c013545fe7a3c64b4a0b0722e93ceefcad7792ef39a9498b4045dfa9fd091",
+ "method": "text layer (opendataloader)",
+ "chars": 29426,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:17+00:00",
+ "remote": {
+  "etag": "\"b55b-6582137cd9415\"",
+  "modified": "Mon, 03 Aug 2026 09:32:33 GMT",
+  "size": "46427"
+ }
+}

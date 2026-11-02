@@ -1,0 +1,16 @@
+{
+ "title": "ССЫЛКА НА PDF",
+ "url": "https://lk-dovuz.innopolis.university/public/files/conspectArduino.pdf",
+ "sha256": "a6243feaefec75346bf923d6d42bdfbec964019cc210813a18e84ab061fba429",
+ "method": "text layer (opendataloader)",
+ "chars": 3166,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:20+00:00",
+ "remote": {
+  "etag": "\"24e3d-634eaaf29ae80\"",
+  "modified": "Mon, 12 May 2025 06:47:06 GMT",
+  "size": "151101"
+ }
+}

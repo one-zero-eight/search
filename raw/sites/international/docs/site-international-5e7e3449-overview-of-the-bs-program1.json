@@ -1,0 +1,16 @@
+{
+ "title": "Download the curriculum [Overview_of_the_BS_Program1]",
+ "url": "https://innopolis.university/filespublic/Overview_of_the_BS_Program1.pdf",
+ "sha256": "e70f2487116c80f14db6fb6974cb9dae95ae233916d47e8769cb9a6ce2fc45be",
+ "method": "text layer (opendataloader)",
+ "chars": 3006,
+ "tables": 5,
+ "section": "site/international",
+ "context": "",
+ "fetched_at": "2026-11-01T23:00:23+00:00",
+ "remote": {
+  "etag": "\"3314ad-61dd575ce5469\"",
+  "modified": "Mon, 22 Jul 2024 12:48:21 GMT",
+  "size": "3347629"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "results final step robo23 24",
+ "url": "https://lk-dovuz.innopolis.university/public/files/results_final_step_robo23_24.pdf",
+ "sha256": "1c02e79e95149190d5facaeea3092db981769d049f7f898e27cf342cbde3b9d6",
+ "method": "text layer (opendataloader)",
+ "chars": 4359,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:25+00:00",
+ "remote": {
+  "etag": "\"2bec3-6178cf4315d00\"",
+  "modified": "Fri, 03 May 2024 13:47:00 GMT",
+  "size": "179907"
+ }
+}

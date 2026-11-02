@@ -1,0 +1,16 @@
+{
+ "title": "done2tour-en24inf",
+ "url": "https://lk-dovuz.innopolis.university/public/files/done2tour-en24inf.pdf",
+ "sha256": "cc5fce35913a4bfccecbcdae1619464ec19bb81d7ee22acfe7e7caa7dfe78319",
+ "method": "text layer (opendataloader)",
+ "chars": 23865,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:20+00:00",
+ "remote": {
+  "etag": "\"47a3e-60d024e4c8fc0\"",
+  "modified": "Thu, 21 Dec 2023 10:10:15 GMT",
+  "size": "293438"
+ }
+}

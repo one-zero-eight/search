@@ -1,0 +1,16 @@
+{
+ "title": "materials infobez",
+ "url": "https://lk-dovuz.innopolis.university/public/files/materials_infobez.pdf",
+ "sha256": "594febf196e74802073368b29cf5f43b2ee980f52924906808e604c90c422fda",
+ "method": "text layer (opendataloader)",
+ "chars": 40276,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"e66a4-5faca5dc3bcc0\"",
+  "modified": "Wed, 03 May 2023 13:52:27 GMT",
+  "size": "943780"
+ }
+}

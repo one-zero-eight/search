@@ -1,0 +1,16 @@
+{
+ "title": "final tasks ioinformatics25",
+ "url": "https://lk-dovuz.innopolis.university/public/files/final_tasks_ioinformatics25.pdf",
+ "sha256": "eac084db60e84857004d39e0ed7068bb35c16a772918f1a69348ce9a82ec126c",
+ "method": "text layer (opendataloader)",
+ "chars": 12806,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:21+00:00",
+ "remote": {
+  "etag": "\"364b3-62ea53d0ce240\"",
+  "modified": "Fri, 21 Feb 2025 11:24:49 GMT",
+  "size": "222387"
+ }
+}

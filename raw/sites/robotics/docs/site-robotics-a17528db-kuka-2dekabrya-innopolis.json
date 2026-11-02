@@ -1,0 +1,16 @@
+{
+ "title": "KUKA. Роботизация — основа технологического развития",
+ "url": "https://robotics.innopolis.university/wp-content/uploads/2021/12/KUKA_2-dekabrya_Innopolis.pdf",
+ "sha256": "d9d3cea6b6b09015218e5ebcbf21558bb2cc202e100eacf52d9e49fb488459fe",
+ "method": "text layer (opendataloader)",
+ "chars": 15436,
+ "tables": 5,
+ "section": "site/robotics",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:32+00:00",
+ "remote": {
+  "etag": "\"414f8f-5d3a35649d4f7\"",
+  "modified": "Tue, 21 Dec 2021 07:56:04 GMT",
+  "size": "4280207"
+ }
+}

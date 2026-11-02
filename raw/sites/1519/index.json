@@ -1,0 +1,29 @@
+{
+ "docs": {},
+ "pages": {
+  "applicant": {
+   "fetched_at": "2026-11-02T08:04:03+00:00",
+   "file_sha": "2480bd90deb5aac2c0535955db86aeef8a691cc06c9a2ed49b5bdf7f6c580123",
+   "last_modified": "",
+   "sha256": "2480bd90deb5aac2c0535955db86aeef8a691cc06c9a2ed49b5bdf7f6c580123",
+   "title": "1519 scholarship",
+   "url": "https://1519.innopolis.university/applicant"
+  },
+  "en": {
+   "fetched_at": "2026-11-02T08:03:59+00:00",
+   "file_sha": "e1d5c8255755b6045adf0081355dbd82d652fe3f63784bf9f44a16b02ad6fc71",
+   "last_modified": "",
+   "sha256": "98d06fcf8270ffbf4e65a7ead80d91723ac95e3474a2875e5567398e62b12597",
+   "title": "1519 scholarship",
+   "url": "https://1519.innopolis.university/en"
+  },
+  "home": {
+   "fetched_at": "2026-11-02T08:03:55+00:00",
+   "file_sha": "0b63389da0cba21f5017f13f3e7f103b5e56925e6c745e1b5be3471392ea866d",
+   "last_modified": "",
+   "sha256": "6035b8a6353b49ff8bc406f117cfd4b248f5841c9ca890bff5c1f361e1092e25",
+   "title": "1519 scholarship",
+   "url": "https://1519.innopolis.university/"
+  }
+ }
+}

@@ -1,10 +1,10 @@
-Campus Life
-Handbook
-Clubs ↗
-Events
-Opportunities
-FAQ
-Contacts
+[Campus Life](https://campuslife.innopolis.ru/)
+[Handbook](https://campuslife.innopolis.ru/handbook)
+[Clubs ↗](https://innohassle.ru/clubs)
+[Events](https://campuslife.innopolis.ru/events)
+[Opportunities](https://campuslife.innopolis.ru/opportunities)
+[FAQ](https://campuslife.innopolis.ru/faq)
+[Contacts](https://campuslife.innopolis.ru/contacts)
 Innopolis University
 Scholarship
 Types
@@ -14,21 +14,21 @@ Criteria grant agreement
 Period January-July, August-December (depending on the end of the finals)
 Appointment procedure scholarship is assigned automatically by the University
 Reason for cancellation
-Rules published on website
+Rules published on [website](https://innopolis.university/sveden/grants)
 Scholarship amount per month 6000 rub.
 Recipients bachelors and masters
 Criteria
 Period
 Appointment procedure
 Reason for cancellation
-Rules published on website
+Rules published on [website](https://innopolis.university/sveden/grants)
 Scholarship amount per month 10000 rub.
 Recipients bachelors
 Criteria
 Period
 Appointment procedure
 Reason for cancellation
-Rules published on website
+Rules published on [website](https://innopolis.university/sveden/grants)
 About assigned based on the final exam results
 Scholarship amount per month 2800 rub. (for bachelors and masters) / 9000 rub. (for PhD)
 Recipients students of a budgetary places
@@ -61,8 +61,9 @@ Reason for cancellation:
 1. grades of finals C, D, F, Неявка
 2. academic leave
 3. expulsion from the University.
-Rules published on website
+Rules published on [website](https://docs.cntd.ru/document/917041611)
 Name of Scholarship; Rules; Amount; Recipients; Criteria; Period; Appointment procedure; Reason for cancellation
 University Scholarship; published on website; based on the final exam results; students with scholarship; grant agreement; January-July, August-December (depending on the end of the finals); assigned automatically by the University;
-Made on
-Tilda
+[Made on](https://tilda.cc/)
+[![](https://static.tildacdn.com/img/tildacopy.png)](https://tilda.cc/)
+[Tilda](https://tilda.cc/)

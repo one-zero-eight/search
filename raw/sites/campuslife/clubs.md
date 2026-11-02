@@ -1,18 +1,23 @@
-Campus Life
-Handbook
-Clubs ↗
-Events
-Opportunities
-FAQ
-Contacts
+[Campus Life](https://campuslife.innopolis.ru/)
+[Handbook](https://campuslife.innopolis.ru/handbook)
+[Clubs ↗](https://innohassle.ru/clubs)
+[Events](https://campuslife.innopolis.ru/events)
+[Opportunities](https://campuslife.innopolis.ru/opportunities)
+[FAQ](https://campuslife.innopolis.ru/faq)
+[Contacts](https://campuslife.innopolis.ru/contacts)
 Student Clubs Catalogue
 Find the club that suits you.
-Tech Clubs
-Sport Clubs
-Special Interest Clubs
-Art / Culture Clubs
+[![](https://static.tildacdn.com/tild3363-6638-4564-b564-383566613833/IMG_2380.jpg)](https://campuslife.innopolis.ru/tech_clubs)
+[Tech Clubs](https://campuslife.innopolis.ru/tech_clubs)
+[![](https://static.tildacdn.com/tild3434-3035-4739-b932-373635343266/5b914356aab30_1920.jpg)](https://campuslife.innopolis.ru/sport_clubs)
+[Sport Clubs](https://campuslife.innopolis.ru/sport_clubs)
+[![](https://static.tildacdn.com/tild6234-3235-4034-b737-633036323064/DSC_7825-5.jpg)](https://campuslife.innopolis.ru/hobby_clubs)
+[Special Interest Clubs](https://campuslife.innopolis.ru/hobby_clubs)
+[![](https://static.tildacdn.com/tild3033-3330-4534-a535-376235366530/Social_Dance.JPG)](https://campuslife.innopolis.ru/art_clubs)
+[Art / Culture Clubs](https://campuslife.innopolis.ru/art_clubs)
+![](https://static.tildacdn.com/tild3634-3539-4934-b133-616562393536/POL_6603.JPG)
 Create your own Community
-Create my Club For Club Leaders
+[Create my Club](https://forms.yandex.ru/u/68aeb40ceb614608b252337e) [For Club Leaders](http://campuslife.innopolis.ru/clubleaders)
 You'll learn more about yourself
 Joining a student organization contributes to your self-awareness, as well as presents many opportunities to learn more about yourself, your goals, and your strengths. You can learn from how other students handle certain situations and test your current knowledge.
 You'll develop soft skills
@@ -32,10 +37,14 @@ Being part of student club environment and culture, you subconsciously contribut
 You'll have fun!
 Another simple reason to join a student club is to have fun. Meeting new people, making new friends, and participating in activities will help you enjoy your stay at Innopolis University.
 Would you like to start your own club? Then write me and I'll help you.
+![](https://static.tildacdn.com/tild3431-3631-4961-b331-316338366666/_.jpg)
 Evgeniia Dyuzhakova
 @dyuzhakovajane
 Student Clubs Advisor
+![](https://static.tildacdn.com/tild6236-6361-4035-b530-623565653634/_.png)
 *This schedule presents regular club meetings at the territory of University building. There are more clubs, which meet occasionally - please contact club leaders. Club's timetable is subject to change, so check the times regularly to keep informed.
+![](https://static.tildacdn.com/tild6163-3233-4435-a337-356164333237/_.png)
 *This schedule presents regular club meetings at the Sport Complex. There are more clubs, which meet occasionally - please contact club leaders. Club's timetable is subject to change, so check the times regularly to keep informed.
-Made on
-Tilda
+[Made on](https://tilda.cc/)
+[![](https://static.tildacdn.com/img/tildacopy.png)](https://tilda.cc/)
+[Tilda](https://tilda.cc/)

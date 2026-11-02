@@ -1,0 +1,16 @@
+{
+ "title": "1-2-roboai-cond ru",
+ "url": "https://lk-dovuz.innopolis.university/public/files/1-2-roboai-cond_ru.pdf",
+ "sha256": "26421be4abcfa6c2068b7141d8017f74f5faeb958d462e6d753e0390bf62ffe7",
+ "method": "text layer (opendataloader)",
+ "chars": 9054,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:18+00:00",
+ "remote": {
+  "etag": "\"46427-60d6a18fa1140\"",
+  "modified": "Tue, 26 Dec 2023 13:59:57 GMT",
+  "size": "287783"
+ }
+}

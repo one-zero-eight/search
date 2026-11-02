@@ -1,0 +1,16 @@
+{
+ "title": "Олимпиадное программирование. Начальный уровень группы В",
+ "url": "https://lk-dovuz.innopolis.university/public/files/offer-spring-olimpiad-groupb.pdf",
+ "sha256": "22ed7e81e00534a19772cea65e3a0bb883f74a1f7f6f4b9842072d8d10a59b0b",
+ "method": "text layer (opendataloader)",
+ "chars": 32874,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"36ad5-64971ab56f9c0\"",
+  "modified": "Wed, 28 Jan 2026 12:13:35 GMT",
+  "size": "223957"
+ }
+}

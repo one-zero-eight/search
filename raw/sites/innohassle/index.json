@@ -1,0 +1,206 @@
+{
+ "docs": {},
+ "pages": {
+  "about": {
+   "fetched_at": "2026-10-30T23:31:04+00:00",
+   "file_sha": "4e103752c0b2206d3588fb5ec0606428bf78f92a99b202d79ff2c04cd8147934",
+   "last_modified": "",
+   "sha256": "0939aae13abfb8f4f226b680e6da2fcd5b166b70b22d737ca53971b705f90144",
+   "title": "About one-zero-eight — InNoHassle",
+   "url": "https://innohassle.ru/about"
+  },
+  "board-games": {
+   "fetched_at": "2026-10-30T23:12:30+00:00",
+   "last_modified": "",
+   "sha256": "51364379eabc2e0d7d623150aa341757376d1b20841db93a55c509dbc3e1c43a",
+   "title": "403 Forbidden",
+   "url": "https://innohassle.ru/board-games"
+  },
+  "calendar": {
+   "fetched_at": "2026-10-30T23:12:53+00:00",
+   "gone": true,
+   "last_modified": "",
+   "sha256": "c40e65ccdba07dff054f456bd09174819f778a1bb1467eac81b9f6493badbe53",
+   "title": "Personal calendar — InNoHassle",
+   "url": "https://innohassle.ru/calendar"
+  },
+  "clubs-league": {
+   "fetched_at": "2026-10-30T23:13:16+00:00",
+   "last_modified": "",
+   "sha256": "dbccf239f4a512613f1b1948d48acf939fd22fcd7b3e3ac8ae9dffda821aec05",
+   "title": "Clubs — InNoHassle",
+   "url": "https://innohassle.ru/clubs/league"
+  },
+  "clubs-new": {
+   "fetched_at": "2026-10-30T23:13:39+00:00",
+   "last_modified": "",
+   "sha256": "5e836777a41005013d6ed22d147e7b2d14f6d48d25900909d0b9febb0c9ec83d",
+   "title": "Clubs — InNoHassle",
+   "url": "https://innohassle.ru/clubs/new"
+  },
+  "dashboard": {
+   "fetched_at": "2026-10-30T23:14:02+00:00",
+   "last_modified": "",
+   "sha256": "1070a07c109905fda212f62252d2ac5b9ca9701df4df2771d00256ca2bdd9c53",
+   "title": "Dashboard — InNoHassle",
+   "url": "https://innohassle.ru/dashboard"
+  },
+  "dorms": {
+   "fetched_at": "2026-10-30T23:14:25+00:00",
+   "last_modified": "",
+   "sha256": "47036b94373e308882883141ce018d06e1f368914a58e27d512d1258516bec64",
+   "title": "Dorms — InNoHassle",
+   "url": "https://innohassle.ru/dorms"
+  },
+  "extension": {
+   "fetched_at": "2026-10-30T23:14:48+00:00",
+   "last_modified": "",
+   "sha256": "9bc2b9e8406c0527475d2f3408002c72947ff8ebf80c584b3010deb604b22f8b",
+   "title": "Browser extension — InNoHassle",
+   "url": "https://innohassle.ru/extension"
+  },
+  "guard": {
+   "fetched_at": "2026-10-30T23:15:12+00:00",
+   "last_modified": "",
+   "sha256": "245492298e3e0f1c3c1d764e8fffc8091ed4ecc867822acdfe11f8fa44ab28e8",
+   "title": "Guard — InNoHassle",
+   "url": "https://innohassle.ru/guard"
+  },
+  "menu": {
+   "fetched_at": "2026-10-30T23:15:34+00:00",
+   "last_modified": "",
+   "sha256": "929c31b6dbf3e89280c5b96d87654e922423af56a6854ba96c4b6c55cc234c5a",
+   "title": "Menu — InNoHassle",
+   "url": "https://innohassle.ru/menu"
+  },
+  "music-room-instructions": {
+   "fetched_at": "2026-10-30T23:15:58+00:00",
+   "last_modified": "",
+   "sha256": "3a5ab79ef64f53bb7d012d26f21b131272f8a855cc1a5dad9cb63b32ad62ba47",
+   "title": "Music room — InNoHassle",
+   "url": "https://innohassle.ru/music-room/instructions"
+  },
+  "printers": {
+   "fetched_at": "2026-10-30T23:16:21+00:00",
+   "last_modified": "",
+   "sha256": "83ba2b7ae9069946058c864ae0ccd5a5cd7b0ab638ed6db428e0c23af32f065a",
+   "title": "Printers — InNoHassle",
+   "url": "https://innohassle.ru/printers"
+  },
+  "room-booking": {
+   "fetched_at": "2026-10-30T23:16:44+00:00",
+   "gone": true,
+   "last_modified": "",
+   "sha256": "fdf6d37829e77a9bd76baa9d038bc43d9d92691baa3a0d279d0040ef290400a3",
+   "title": "Room booking — InNoHassle",
+   "url": "https://innohassle.ru/room-booking"
+  },
+  "room-booking-list": {
+   "fetched_at": "2026-10-30T23:17:07+00:00",
+   "file_sha": "6bab5b177bc650b19285c2715695b0a4866cf78deca1c2ac724377acdf53a616",
+   "gone": true,
+   "last_modified": "",
+   "manual": true,
+   "sha256": "37527bc2d5e4dad3a0e73048e7823af0c50129060539e0c994179e82c2979b71",
+   "title": "My bookings — InNoHassle",
+   "url": "https://innohassle.ru/room-booking/list"
+  },
+  "room-booking-rooms": {
+   "fetched_at": "2026-10-30T23:17:30+00:00",
+   "gone": true,
+   "last_modified": "",
+   "sha256": "fdf6d37829e77a9bd76baa9d038bc43d9d92691baa3a0d279d0040ef290400a3",
+   "title": "Rooms list — InNoHassle",
+   "url": "https://innohassle.ru/room-booking/rooms"
+  },
+  "room-booking-rules": {
+   "fetched_at": "2026-10-30T23:17:53+00:00",
+   "last_modified": "",
+   "sha256": "a065b6bab56e6fcbb99d170ff40810d2d90d205c011646b285787a46df97768b",
+   "title": "Room booking rules — InNoHassle",
+   "url": "https://innohassle.ru/room-booking/rules"
+  },
+  "scholarship": {
+   "fetched_at": "2026-10-30T23:18:16+00:00",
+   "last_modified": "",
+   "sha256": "fd91e645ca867053ee1af5706c158a35f2fbae9e2671cdf81dbb9d69686f385f",
+   "title": "Scholarship calculator — InNoHassle",
+   "url": "https://innohassle.ru/scholarship"
+  },
+  "search": {
+   "fetched_at": "2026-10-30T23:18:39+00:00",
+   "gone": true,
+   "last_modified": "",
+   "sha256": "e9e6596c319bc6171554a8417efe5c0ff4fa6374ee79eac2cb455ba2d90a267c",
+   "title": "Search — InNoHassle",
+   "url": "https://innohassle.ru/search"
+  },
+  "search-act": {
+   "fetched_at": "2026-10-30T23:19:02+00:00",
+   "gone": true,
+   "last_modified": "",
+   "sha256": "e9e6596c319bc6171554a8417efe5c0ff4fa6374ee79eac2cb455ba2d90a267c",
+   "title": "Act — InNoHassle",
+   "url": "https://innohassle.ru/search/act"
+  },
+  "search-ask": {
+   "fetched_at": "2026-10-30T23:19:25+00:00",
+   "gone": true,
+   "last_modified": "",
+   "sha256": "e9e6596c319bc6171554a8417efe5c0ff4fa6374ee79eac2cb455ba2d90a267c",
+   "title": "Ask — InNoHassle",
+   "url": "https://innohassle.ru/search/ask"
+  },
+  "sport": {
+   "fetched_at": "2026-10-30T23:19:48+00:00",
+   "gone": true,
+   "last_modified": "",
+   "sha256": "d6ef172b8f264a637c09cffdfcd9ac3ddf81a1006c025ee98d14f330779ca2dd",
+   "title": "Sport — InNoHassle",
+   "url": "https://innohassle.ru/sport"
+  },
+  "sport-faq": {
+   "audience": [
+    "student"
+   ],
+   "fetched_at": "2026-10-31T00:52:04+00:00",
+   "file_sha": "cac6a90a493562bd5fdaa5ed75aef23249e64836712ef7fb6389ae0454940e03",
+   "last_modified": "",
+   "manual": true,
+   "sha256": "6833ce2637464fa882cc0ba551762d097a949a2c13d7617994a5c42a535a45c3",
+   "title": "Sport FAQ — InNoHassle",
+   "url": "https://innohassle.ru/sport/faq"
+  },
+  "sport-history": {
+   "fetched_at": "2026-10-30T23:20:34+00:00",
+   "gone": true,
+   "last_modified": "",
+   "sha256": "d6ef172b8f264a637c09cffdfcd9ac3ddf81a1006c025ee98d14f330779ca2dd",
+   "title": "Sport history — InNoHassle",
+   "url": "https://innohassle.ru/sport/history"
+  },
+  "student-affairs": {
+   "fetched_at": "2026-10-30T23:20:57+00:00",
+   "gone": true,
+   "last_modified": "",
+   "sha256": "df967e7494e90e3d4848def28d78b4b932dd051924eb617377723fe639d9c98e",
+   "title": "InNoHassle",
+   "url": "https://innohassle.ru/student-affairs"
+  },
+  "timer": {
+   "fetched_at": "2026-10-30T23:21:20+00:00",
+   "last_modified": "",
+   "sha256": "3c01176b3425cd66667337ad5fa0d13ad58431c5b66f8c1c31bc97b674ddce55",
+   "title": "Timer — InNoHassle",
+   "url": "https://innohassle.ru/timer"
+  },
+  "when2meet": {
+   "fetched_at": "2026-10-30T23:21:44+00:00",
+   "gone": true,
+   "last_modified": "",
+   "sha256": "601361bbb4a61ba187815a36f4ad2887e5a8664b4d4b0653f483b8fd5fddcf78",
+   "title": "When2Meet — InNoHassle",
+   "url": "https://innohassle.ru/when2meet"
+  }
+ }
+}

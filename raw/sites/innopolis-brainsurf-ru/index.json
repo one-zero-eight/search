@@ -1,0 +1,21 @@
+{
+ "docs": {},
+ "pages": {
+  "home": {
+   "fetched_at": "2026-11-01T22:36:56+00:00",
+   "file_sha": "00480ce7f81bd923868334523e838ca7e16a15f09d8f62098bbc6c02d9f594ba",
+   "last_modified": "",
+   "sha256": "69a918a550446589ad893d539f1cd758fffd2123ef54376aa2aeb1d18d540a70",
+   "title": "Главная страница - Иннополис",
+   "url": "https://innopolis.brainsurf.ru/"
+  },
+  "rating": {
+   "fetched_at": "2026-11-01T22:36:59+00:00",
+   "file_sha": "2a89b8f02af37fe394d3014522e6f3bb7c5e6903f6371432f2075187ff33a22c",
+   "last_modified": "",
+   "sha256": "a5a497cfedc68655d4ad2389297730e66e6c46b0f443026ac40628bba4648bc0",
+   "title": "Общий рейтинг - Иннополис",
+   "url": "https://innopolis.brainsurf.ru/rating/"
+  }
+ }
+}

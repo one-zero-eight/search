@@ -1,0 +1,16 @@
+{
+ "title": "innoopen24informatics final razbor",
+ "url": "https://lk-dovuz.innopolis.university/public/files/innoopen24informatics_final_razbor.pdf",
+ "sha256": "d0eebcc422f12455e8e78a21367f642ad5ad29f0827e2e2448820d8486d8b8ab",
+ "method": "text layer (opendataloader)",
+ "chars": 20486,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:21+00:00",
+ "remote": {
+  "etag": "\"4dceb-6335b147c60c0\"",
+  "modified": "Tue, 22 Apr 2025 10:02:19 GMT",
+  "size": "318699"
+ }
+}

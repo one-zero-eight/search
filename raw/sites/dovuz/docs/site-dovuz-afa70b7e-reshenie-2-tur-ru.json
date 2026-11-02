@@ -1,0 +1,16 @@
+{
+ "title": "reshenie 2 tur ru",
+ "url": "https://lk-dovuz.innopolis.university/public/files/reshenie_2_tur_ru.pdf",
+ "sha256": "b8a9882e5701c289ee2c4dfd5d2019431f90878ba448b47f482d2168ad55211d",
+ "method": "text layer (opendataloader)",
+ "chars": 15005,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:24+00:00",
+ "remote": {
+  "etag": "\"4a03f-64ff83d77a980\"",
+  "modified": "Tue, 21 Apr 2026 13:17:42 GMT",
+  "size": "303167"
+ }
+}

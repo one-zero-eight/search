@@ -1,0 +1,16 @@
+{
+ "title": "Гайд Как агументировать обучение за счет работодателя",
+ "url": "https://innopolis.university/filespublic/%D0%93%D0%B0%D0%B8%CC%86%D0%B4_%D0%9A%D0%B0%D0%BA_%D0%B0%D0%B3%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C_%D0%BE%D0%B1%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5_%D0%B7%D0%B0_%D1%81%D1%87%D0%B5%D1%82_%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BE%D0%B4%D0%B0%D1%82%D0%B5%D0%BB%D1%8F.pdf",
+ "sha256": "a7069c8f7d2a622c8da70538850c94773f9f35a8e7b25f243f268b659d0bb673",
+ "method": "text layer (opendataloader)",
+ "chars": 4050,
+ "tables": 5,
+ "section": "site/ido",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:28+00:00",
+ "remote": {
+  "etag": "\"2331a-63c61861a849b\"",
+  "modified": "Fri, 15 Aug 2025 06:30:19 GMT",
+  "size": "144154"
+ }
+}

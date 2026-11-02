@@ -1,0 +1,291 @@
+---
+type: regulation
+title: "Accommodation rules at the Residential Complex"
+resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BA_%D0%BF%D1%80%D0%B8%D0%BA%D0%B0%D0%B7%D1%83_%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F_%D0%B8_%D0%BF%D1%80%D0%BE%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F_2025_%D0%B3%D0%BE%D0%B4_eng.pdf"
+audience: ["student", "postgraduate", "applicant", "public"]
+source_kind: official-document
+language: ru
+section: "site/hotel"
+sources:
+  - resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BA_%D0%BF%D1%80%D0%B8%D0%BA%D0%B0%D0%B7%D1%83_%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F_%D0%B8_%D0%BF%D1%80%D0%BE%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F_2025_%D0%B3%D0%BE%D0%B4_eng.pdf"
+    id: "2c4230ddb724"
+    title: "Accommodation rules at the Residential Complex"
+    last_modified: "2026-10-31T00:26:16+00:00"
+generated:
+  by: "catix-wiki/0.1 regulations"
+  at: "2026-10-31T00:26:16+00:00"
+extraction: "text layer (opendataloader)"
+status: draft
+---
+
+# Accommodation rules at the Residential Complex
+
+Rules of accommodation and residency in the residential complex ANO HE "University Innopolis"
+
+Innopolis 2025
+
+## 1. General Provisions
+
+**1.1.** These Rules of accommodation and residence in the residential complex of ANO HE "University Innopolis" (hereinafter referred to as the Rules) determine the procedure for accommodation and residence in the residential complex of ANO HE "University Innopolis", located at the address: Republic of Tatarstan, Verkhneuslonsky municipal district, Innopolis, Universitetskaya st., 1, buildings 1-7 (hereinafter referred to as the Complex), and are mandatory for all categories of residents (hereinafter referred to as Residents).
+
+**1.2.** Accommodation in the Complex is made on the basis of an agreement on the provision of accommodation services or on the basis of an affiliation agreement on the provision of accommodation services by signing an accession consent – a registration card (hereinafter referred to as the Agreement).
+
+**1.3.** In order to implement the statutory activities of Autonomous Non – Profit
+
+Organization HE "Innopolis University" (hereinafter referred to as the University), these Rules establish the following order of accommodation for Residents in the Complex:
+
+- – first of all, students studying at the University (hereinafter referred to as Students)
+
+are placed. The contract with Students is concluded for one academic year, excluding summer holidays (until May 31 of the corresponding year). The term of the provision of services may be extended for the summer holidays if the student receives a document confirming the need to extend the Contract 14 (fourteen) days before the expiration of the Contract, and if there are vacant places in the Complex.
+
+Students who arrive at the Complex with their spouse and children will be accommodated in a room of the appropriate capacity.
+
+The following persons can stay in the Complex during the summer holidays (from August 1 to August 31 of the corresponding year):
+
+- • preferential categories of Students: orphans, left without parental care; disabled
+
+people of groups I and II; victims of the Chernobyl accident; forced to leave the territories of the Kursk, Belgorod and Bryansk regions due to an emergency;
+
+- • students who pass the summer test and examination session or final attestation
+
+(according to the schedule);
+
+- • students who receive a diploma;
+
+- • students who are sent for an industrial internship in Innopolis.
+
+For these reasons, contracts are extended until the relevant date (end of the session, internship, graduation, etc.) by filling out a new registration card.
+
+- – in the second place, persons who have completed their studies at the University
+
+(hereinafter referred –to as Graduates) are placed, provided that the Students are fully provided with places for placement. The contract with Graduates is concluded for one calendar year from the date of graduation;
+
+- - in the third place, participants of socially significant and other events held at the
+
+University in accordance with the calendar of events are placed;
+
+- – University employees are placed in the fourth place.
+
+- – all other categories of persons, including students on academic leave, are placed in
+
+the Complex subject to availability.
+
+**1.4.** Residents are provided with services for temporary accommodation in residential premises of the Complex (hereinafter referred to as the Rooms) that meet sanitary requirements, strictly upon presentation of the original passport of the state of which they area citizen, minor Residents upon presentation of the original birth certificate or original passport (from the age of 14), as well as other documents specified in the order "On approval of the forms of documents for placement in the residential complex of ANO HE "Innopolis University".
+
+**1.5.** These Rules are approved by the order of the Director of the University. The current version of the Rules is published on the Internet on the site of the Complex at: https://hotel.innopolis.university (hereinafter referred to as the Site). The paper version of these Rules is available at the reception of the Complex administration in Building No. 5 of the Complex.
+
+**1.6.** Accommodation is made on a paid basis. The University has the right to set a differentiated cost of accommodation for different groups of Residents (students, participants of University events, etc.). The cost of accommodation is determined by the rates approved by the relevant order in force at the time of conclusion of the Contract (rates are posted at the administration counter in building No. 5 of the Complex and on the Website).
+
+**1.7.** Accommodation of the Residents in the Rooms is carried out by the administration of the Complex (hereinafter – the structural division of the University responsible for organizing accommodation and stay in the Complex). Each resident is assigned a specific room number or a bed.
+
+**1.8.** It is prohibited to share a room with minors of different genders or minors and adults of different genders.
+
+**1.9.** In case of changes and additions to these Rules, the administration of the Complex will notify the Residents within 3 (three) days from the date of approval of such changes and additions by e-mail of the Resident.
+
+**1.10.** For non-compliance with these Rules, residents are liable in the form of fines in the amounts determined by the University in the order on the amount of fines and the cost of inventory of the Complex (hereinafter referred to as the Fine System).
+
+## 2. The procedure for the provision of services and the procedure for settlements
+
+**2.1.** Billing period: from 14:00 of the current day (check-in time) to 12: 00 of the next day (check-out time). Opening hours of the Complex administration: from 09:00 to 19:30 daily, place for registration of Residents: building No. 5, floor 1, department of accommodation organization.
+
+**2.2.** The start date for the provision of services is determined in accordance with the Agreement or the registration card.
+
+**2.3.** Payment for accommodation services is carried out within the time limits established by the relevant Agreement.
+
+## 3. Procedure for access to the Complex
+
+**3.1.** For access to the Complex, adult Residents are issued with passes (access cards) of the sample established by the University. It is forbidden to transfer the pass to third parties, as well as copy it in any way. Residents take the responsibility for the transfer of the pass, provided for by the System of Fines. For access to the Complex for minor Residents, a pass is issued on the basis of an application from a legal representative, issued in a free form, indicating their consent to these Rules.
+
+**3.2.** Guests can visit the Complex accompanied by a Resident during daytime hours from 07: 00 to 23: 30 after registering in the visitors ' log at the security post on the basis of an identity document. At the same time, the Resident is responsible for the timely departure of invited persons and their compliance with these Rules.
+
+**3.3.** When personal items are brought into the building of the Complex, Residents and their guests provide personal items for inspection by scanning them through an introscope. In case of refusal of voluntary inspection, items that have not passed the inspection, or persons who have refused the inspection, are not allowed to enter the building of the Complex.
+
+**3.4.** Requirements of security personnel aimed at ensuring the safety of people and the safety of inventory items and material values are mandatory for all persons located on the territory of the Complex. The full list of requirements is provided in the Rules of access and stay in the Educational and laboratory building and residential complex of ANO HE "Innopolis University" (hereinafter - the Access Rules). The current version of the Access Rules is published on the Website, while the paper version is available at the administration desk in building 5 of the Complex.
+
+**3.5.** Bringing in / taking out of material values by Residents is possible only if there is a material pass issued by the administration of the Complex. The full list of material assets, subject to mandatory registration at the time of entry / removal, is specified in the Access Rules.
+
+## 4. Rights and obligations of Residents of the Complex
+
+**4.1.** Rights of Residents of the Complex
+
+**4.1.1.** Residents have the right to apply a service request to the Website for troubleshooting technical problems in the Room, making a temporary registration and receiving other services.
+
+**4.1.2.** Residents have the right to cancel scheduled cleaning in their apartment once by submitting an application on the Website.
+
+**4.1.3.** Residents have the right to access educational and residential premises using their pass (access card) and use inventory, furniture and equipment, without moving them outside theseйpremises, subject to compliance with clause 4.2.17 of these Rules.
+
+**4.1.4.** Residents have the right to use the premises for storing drinking water and take one bottle of drinking water to the Room.
+
+**4.1.5.** Residents have the right to apply to the administration of the Complex for approval of the operation of electrical equipment with a capacity of more than 3 kW by submitting an appropriate application on the Website.
+
+**4.1.6.** In order to avoid violating clause 4.2.20 of these Rules, Residents have the right to use temporary storage boxes for personal items located in the hall of each building of the Complex.
+
+**4.1.7.** A resident has the right to invite an employee of a medical organization to provide medical care in accordance with the procedure provided for in clause 3.2 of these Rules.
+
+**4.1.8.** Students have the right to apply to the collegial body created for the purpose of effective interaction between the administration of the Complex and Residents (hereinafter referred to as the Committee) to resolve household and other issues.
+
+**4.2.** Obligations of residents of the Complex
+
+**4.2.1.** Residents are required to carefully use furniture and equipment accepted for use, as well as installed in public areas of the Complex. For violation of this paragraph of these Rules Residents bear responsibility as provided for in the Fine System.
+
+**4.2.2.** Residents of the Complex are required to comply with the orders, regulations, rules and procedures adopted by the University, the current versions of which can be found on the Website.
+
+**4.2.3.** If the Resident (categories: Students and Graduates) is absent for more than 10 (ten) days, the Resident must notify the administration of the Complex.
+
+**4.2.4.** Residents are required to use the premises for their direct functional purpose. On the territory of the Complex, it is forbidden to conduct any commercial activity, engage in all types of production activities (including mining) for personal or commercial purposes.
+
+**4.2.5.** Residents are not allowed to move furniture and equipment between Rooms and the public areas where they are installed.
+
+**4.2.6.** Residents are required to observe cleanliness and order in their Rooms and public areas, including taking out garbage in designated containers in equipped places. For violation of this paragraph of these Rules Residents bear responsibility as provided for in the Fine System.
+
+**4.2.7.** Residents are required to provide access to authorized representatives of the Complex in the residential premises provided to them to perform maintenance actions to the Room or check compliance with these Rules and Instructions for compliance with fire safety measures in the residential complex of ANO HE "University of Innopolis".
+
+**4.2.8.** Residents are required to use water and electricity sparingly. Close water taps, windows, turn off lights and other electrical appliances when leaving the Room.
+
+**4.2.9.** To avoid overloading the network, Residents are allowed to operate only serviceable electrical appliances. It is forbidden to use several electrical appliances at the same time, the total power of which exceeds 3 kW per outlet and 5 kW per unit.
+
+**4.2.10.** Residents are prohibited from making interior and structural changes, including installation (dismantling) of wall shelves, hooks, moving sockets, replacing cylinders in locks, installing additional locks, etc. It is forbidden to place any objects on the walls, the operation or removal of which may damage the integrity of the wall covering. It is prohibited to carry out repairs of furniture, equipment, painting works independently, or to involve third parties to carry out these works. For violation of this paragraph of these Rules, Residents bear responsibility as provided for in the Fine System.
+
+**4.2.11.** Residents are required to immediately inform the administration of the Complex about equipment malfunctions in residential and public areas, that may lead to fire, flood or other emergencies. Residents are required to report to the administration of the Complex all known violations of these Rules by service personnel or other Residents.
+
+**4.2.12.** Residents are prohibited from storing their personal belongings in public areas, blocking corridors and emergency exits.
+
+**4.2.13.** Residents are prohibited from performing actions that may lead to damage to the equipment of automatic fire protection installations, disabling (disabling, closing, etc.) voice sounders of the fire warning and evacuation management system, fire detectors (manual and smoke), and fire alarm systems. For violation of this paragraph of these Rules, Residents bear responsibility as provided for in the Fine System.
+
+**4.2.14.** Residents are prohibited from storing large items in their Rooms that exceed 150 cm in the sum of three dimensions (length, width and height), including sports equipment, scooters and baby strollers, with the exception of suitcases, easel backpacks, skis and snowboards (in cases).
+
+**4.2.15.** Residents are not allowed to bring bicycles into the Property.
+
+**4.2.16.** Residents are not allowed to move into an empty Room without permission, move from Room to Room, or move citizens – family members or other temporary residents into the occupied residential premises without permission. For violation of this paragraph of these Rules, Residents bear responsibility as provided for in the Fine System.
+
+**4.2.17.** Residents are prohibited from performing work or other activities on the territory of the Complex that create increased noise and vibration, which violate normal living conditions. From 22:00 to 07:00 hours, the use of audio equipment and other sound reproducing devices is allowed only if the volume is reduced to a degree that does not disturb the peace of other Residents.
+
+**4.2.18.** Residents are required to maintain an atmosphere of goodwill, cooperation and mutual respect, observe generally accepted moral and ethical standards, avoid conflict situations, do not use profanity, do not speak rudely towards the staff of the Complex and the University, as well as to other persons living or staying on the territory of the Complex, both in person and in official chats University. It is forbidden to wear or display signs or other symbols, aimed at inciting racial, social, national or religious hatred, to place posters or announcements containing national, immoral or political overtones on the territory of the Complex, including in the Rooms.
+
+**4.2.19.** Residents are prohibited from placing and distributing information content products (ads, posters, leaflets, etc.) on the territory of public areas of the Complex), including on the entrance doors of Rooms, without the consent of the administration of the Complex.
+
+**4.2.20.** Residents are prohibited from bringing in, storing, or consuming alcoholic beverages, hookahs, or narcotic substances on the territory of the Complex; bringing in and storing firearms and cold weapons (including axes, hunting knives, etc.), explosive, flammable, or toxic substances. For violation of this paragraph of these Rules, Residents bear responsibility as provided for in the Fine System.
+
+**4.2.21.** Residents are prohibited from smoking on the territory of the Complex, including electronic cigarettes, hookahs and other tobacco products. Smoking is allowed only in designated areas in the surrounding area marked with "Smoking area" signs. For violation of this paragraph of these Rules, Residents bear responsibility as provided for in the Fine System.
+
+**4.2.22.** Residents are not allowed to bring or keep animals in the Complex: dogs, cats, rabbits, parrots, fish, etc.
+
+**4.2.23.** In order to avoid accidents, Residents are required to strictly observe safety regulations. It is forbidden to move in the buildings of the Complex on scooters, roller skates and other means of transportation, run on stairwells, sit on window sills, lean out of windows, walk on window frames and roofs (including the roofs of building transitions) to avoid injuries and accidents, as well as throw or hang out any objects outside the window, store personal items and food on the window sills.
+
+**4.2.24.** Residents with signs of acute respiratory illness, including those with a confirmed diagnosis of coronavirus infection COVID-19, are required to inform the administration of the Complex about their health status by e-mail hoteluni@innopolis.ru. If they are in a serious condition, call an ambulance team and stay in the room where they live. If a Resident is assigned a lockdown regime, he / she must inform the administration of the Complex about this, presenting a supporting medical document.
+
+**4.2.25.** When concluding an Agreement for a period of more than 90 (ninety) days, Residents, citizens of the Russian Federation, are required to register at the place of temporary stay, guided by the order of ANO HE "Innopolis University" "On approval of the Procedure for issuing a package of documents for temporary registration of citizens of the Russian Federation at the place of stay in the residential complex of ANO HE "Innopolis University".
+
+**4.2.26.** At the conclusion of the Agreement, Residents who are citizens of other states are required to register at the place of temporary stay in accordance with the terms established by the current legislation.
+
+**4.2.27.** Upon eviction/relocation from the room, the Resident is obliged to hand it over in proper condition with a full set of inventory items (hereinafter referred to as goods and materials) transferred to him for temporary use on the basis of the act of acceptance and transfer. For violation of this paragraph of these Rules, bear responsibility as provided for in the Fine System.
+
+## 5. Rights and obligations of the University (Administration of the Complex)
+
+**5.1.** Rights of the Complex administration
+
+**5.1.1.** The administration of the Complex has the right to instruct Residents on compliance with these Rules, Instructions for fire safety, labor protection (the fact of familiarization is confirmed by the Resident's signature), as well as to conduct training alarms for evacuation from the Rooms.
+
+**5.1.2.** The administration of the Complex has the right to conduct rounds to check the operability of the fire warning system, to take inventory of inventory items located in the Rooms, and to inspect the Rooms for compliance with these Rules.
+
+**5.1.3.** For the purpose of implementing statutory activities, aimed at providing the necessary conditions (social, cultural, sports and recreational infrastructure) for training, creative development and preserving the health of students, as well as to ensure that students are protected from all forms of physical and mental violence, personal insults, and protection of life and health the administration of the Complex has the right to refuse accommodation to a person in a state of alcoholic and narcotic intoxication, or in cases of risks of spreading infectious diseases and deterioration of the sanitary and epidemiological situation. In this case, the use of visual inspection and sensory organs of the administrator can be a confirmation of this condition.
+
+**5.1.4.** In case of refusal of Residents to provide access to the Room or inability to contact them to obtain the specified access, the administration of the Complex has the right to use a duplicate key and conduct an inspection of the Room, guided by the requirements specified in the order of ANO HE "University of Innopolis" " On ordering access to the rooms of the Residential Complex ANO HE" University of Innopolis " for representatives of the administration and employees of service organizations".
+
+**5.1.5.** The administration of the Complex has the right to conduct an independent assessment and demand compensation for damage caused to the Complex by the actions of Residents or persons for whose actions the Residents are responsible on the territory of the Complex.
+
+**5.1.6.** The administration of the Complex has the right to request documentation from Residents for the electrical appliances they operate. In the absence of documentation or refusal to provide аit, the administration of the Complex has the right to demand the removal of this electrical equipment from the Complex.
+
+**5.1.7.** If unsatisfactory sanitary condition is detected in the residential complex, the Complex administration has the right to carry out an unscheduled cleaning of the Room and demand payment in accordance with the order of ANO HE "University of Innopolis" "On approval of the list and cost of additional services in the residential complex of ANO HE "University of Innopolis" within 2 (two) days from the moment of detection of this fact.
+
+**5.1.8.** If foreign objects are found in public areas and common areas, the administration of the Complex has the right to consider them forgotten and act in accordance with the order of ANO HE "University of Innopolis" "On approval of the Procedure for registration, storage and return of forgotten things in the residential complex of ANO HE "University of Innopolis".
+
+**5.1.9.** The administration of the Complex has the right to refuse to approve the distribution of products with informational content (ads, posters, leaflets, etc.) without giving reasons.
+
+**5.1.10.** The administration of the Complex has the right to call the emergency medical service if external signs of unsatisfactory health of the Resident are detected.
+
+**5.1.11.** The administration of the Complex has the right to move the Resident in case of illness to a separate isolated Room, in other cases to another bed, if his/her stay with other Residents creates a threat to their health or discomfort.
+
+**5.1.12.** If the Resident requests a separate Room for permanent residence for health reasons while maintaining the established differentiated cost of accommodation, the administration of the Complex has the right to request documentary confirmation of the disease (medical certificate, extract from the sick list, etc.). At the same time, the Resident is responsible for the authenticity of the provided documents.
+
+**5.1.13.** In the event of incomplete occupancy of the Room, where payment is made for one bed by each Resident, the administration of the Complex has the right to relocate or resettle the Residents in other Rooms in accordance with the order of ANO HE "Innopolis University ""On approval of the procedure for relocating resident students and graduates in the Residential complex of ANO HE "Innopolis University", If the Resident refuses to relocate, the University has the right to demand payment for free beds at the cost approved by the order of ANO HE "University of Innopolis" "On approval of the cost of accommodation services in the residential complex of ANO HE "University of Innopolis".
+
+**5.1.14.** The administration of the Complex has the right to terminate the Contract with the Resident in case of suspicion of alcohol or other type of intoxication.
+
+**5.1.15.** The administration of the Complex is not responsible for personal belongings of Residents stored in the Room, as well as left unattended on the territory of the Complex.
+
+**5.1.16.** The administration of the Complex has the right to involve members of the Committee (the head of the Committee and the prefects of buildings) to participate in monitoring compliance with these Rules.
+
+**5.1.17.** If there is a breakdown or shortage of material values in the Room after check
+
+- – out, the administrator of the Complex has the right to form an act on violation of the rules
+
+of accommodation in the residential complex of ANO HE "University Innopolis" (hereinafter-the Act) and collect a fine, guided by the approved cost of material values in the Rooms of the residential complex of ANO HE "University Innopolis".
+
+**5.2.** Responsibilities of the Complex administration
+
+**5.2.1.** The administration of the Complex is obliged to provide accommodation for Residents in accordance with the requirements of sanitary standards and the terms of the Contract, in accordance with these Rules, subject to availability.
+
+**5.2.2.** To ensure compliance with sanitary standards, the administration of the Complex is obliged to organize daily cleaning of common areas, periodic cleaning of the Rooms, weekly replacement of bed linen, except for the cases provided for in clause 4.1.2 of these Rules.
+
+**5.2.3.** To ensure the safety of Residents and their guests, the University must organize access control and round-the-clock security posts at the entrance to the Complex.
+
+**5.2.4.** In order to meet the household needs of Residents, the administration of the Complex is obliged to maintain the equipment of laundry rooms and living rooms in good condition.
+
+**5.2.5.** The administration of the Complex is obliged to accept for consideration service requests received through the Website.
+
+**5.2.6.** If the Agreement is terminated on the initiative of the administration of the Complex, in cases provided for by the Agreement, these Rules or the current legislation unilaterally, the administration of the Complex is obliged to notify the Resident about this by e-mail specified in the registration card, by sending a postal item, or to inform personally 5 (five) calendar days before the date of termination of the Agreement.
+
+**5.2.7.** Upon receipt of a request for temporary registration from Residents who have entered into an Agreement for a period of more than 90 (ninety) days and have paid for the period of stay specified in it, the administration of the Complex must prepare a package of necessary documents for submission to the Migration Department of the Ministry of Internal Affairs of the Russian Federation.
+
+## 6. Responsibility for violation of these Rules
+
+**6.1.** On the facts of non-fulfillment by Residents of these Rules, the administration of the Complex draws up an act on violation of the rules of accommodation in the residential complex of Autonomous Non-profit Organization HE "University Innopolis".
+
+The act is drawn up for by the commission in the composition of at least 3 (three) employees from the administration of the Complex (hereinafter referred to as the Commission). On the initiative of the head of the Complex, employees of other departments of the University, members of the Committee and other residents may also be invited to join the Commission. If the Resident refuses to get acquainted with the Act and/or does not sign it, the Commission makes a corresponding entry in the Act and transmits the information to the University staff responsible for interaction with students and graduates. If the administration of the Complex draws up 3 (three) or more Acts in respect of a Resident within 6 (six) months or one act of gross violation of the Rules, the University has the right to terminate the Contract with him / her.
+
+Violations of the provisions specified in paragraphs are considered gross. 4.2.4, 4.2.17, 4.2.18, 4.2.20, 4.2.21, 4.2.25, 4.2.26 of these Rules.
+
+**6.2.** In case of causing material damage to the Complex or creating conditions for its infliction by third parties, the Resident is obliged to compensate it in full on the basis of the amount of damage specified in the Act, within 5 (five) calendar days from the date of drawing up the Act or within the period specified in the Act. Refusal of the Resident from compensation for damages or violation of the terms of such compensation may result in termination of the Contract and recovery of damages in court.
+
+**6.3.** In case of absence of the Resident at the time of the Agreement, the administration of the Complex has the right to register the things left in the Room by the Resident as forgotten, in accordance with the Procedure for forgotten things.
+
+**6.4.** The absence of a signed valid Agreement on the provision of accommodation services in the Complex for the Resident is the basis for the Administration of the Complex to charge the Resident the full cost of accommodation in the Complex, according to the current order on the cost of accommodation services in the Complex.
+
+APPROVED by order of ANO HE "Innopolis University" from 20.12.202.12.2024 no. Director ___________________ I.I. Bariev
+
+Form of the act of violation of the rules of accommodation in the residential complex of ANO HE "University of Innopolis"
+
+Start of the form __________________________________________________________________________ act about violation of the rules of accommodation in the residential complex of ANO HE "Innopolis University"
+
+"__" __________ 20___
+
+By me, ___________________________, in the presence of __________________________, the administrator, ______________________________, living in the Complex in the room _ _ _ _ _ _ _ this act is drawn up on the following:
+
+__.__._____ city of _____________________________, an inspection of the room was carried out, during the time interval ___________ _ _ _ _ _ _ , in room # _ _ _ _ _ _ _ _ was found:
+
+1. _______________________________________________________________________
+
+2. _______________________________________________________________________, what is a violation of clause _ _ _ _ of the Rules of accommodation and residency in the residential complex of ANO HE "Innopolis University" (or clause _ _ _ _ _ "Instructions for compliance with fire safety measures").
+
+A commission consisting of ________________________, head of department _______________________, ____________________ the administrator, ____________________, the administrator decided to collect a fine ____________ rubles based on the Compliance Instructions fire safety measures.
+
+The specified amount is due to be paid within one month___ (_______________) days from the date of drawing up this act.
+
+This act was drawn up by: _________________________ ________________ ________________________ position name signature transcript of signature
+
+I confirm the content of this act: _________________________ ________________ ________________________ position name signature transcript of signature
+
+_________________________ ________________ ________________________ position name signature transcript of signature
+
+I have read and agree to the act: ________________________ ____________________ signature transcript of signature
+
+________________________ ____________________ signature transcript of signature
+
+________________________ ____________________ signature transcript of signature
+
+___________________________________________________________________ End of the form
+
+# Citations
+
+1. [Accommodation rules at the Residential Complex](https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BA_%D0%BF%D1%80%D0%B8%D0%BA%D0%B0%D0%B7%D1%83_%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F_%D0%B8_%D0%BF%D1%80%D0%BE%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F_2025_%D0%B3%D0%BE%D0%B4_eng.pdf), file 2c4230ddb724

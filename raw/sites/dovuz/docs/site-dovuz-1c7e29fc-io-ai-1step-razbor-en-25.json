@@ -1,0 +1,16 @@
+{
+ "title": "io ai 1step razbor en 25",
+ "url": "https://lk-dovuz.innopolis.university/public/files/io_ai_1step_razbor_en_25.pdf",
+ "sha256": "1e51fdc7db6770e0d9a96565b2352be521f4d6e1a2700ff7ad1a29dbe0315cdf",
+ "method": "text layer (opendataloader)",
+ "chars": 19141,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:22+00:00",
+ "remote": {
+  "etag": "\"41491-62a1979b94d40\"",
+  "modified": "Wed, 25 Dec 2024 14:59:25 GMT",
+  "size": "267409"
+ }
+}

@@ -1,0 +1,37 @@
+{
+ "docs": {
+  "https://lk-dovuz.innopolis.university/public/files/cpm_final_mladshaya3_2025.pdf": "Скачать pdf-файл с результатами",
+  "https://lk-dovuz.innopolis.university/public/files/cpm_final_srednyaya1_2025.pdf": "Скачать pdf-файл с результатами",
+  "https://lk-dovuz.innopolis.university/public/files/cpm_final_starshaya1_2025.pdf": "Скачать pdf-файл с результатами",
+  "https://lk-dovuz.innopolis.university/public/files/cpm_final_starshaya2_2025.pdf": "Скачать pdf-файл с результатами",
+  "https://lk-dovuz.innopolis.university/public/files/inno_cpm_final_2026.pdf": "Скачать pdf-файл с результатами",
+  "https://lk-dovuz.innopolis.university/public/files/protokoly_ocpm_270126.pdf": "Скачать pdf-файл с результатами",
+  "https://olymp.innopolis.ru/camp/upload/rules.pdf": "правилами пребывания"
+ },
+ "pages": {
+  "cpm": {
+   "fetched_at": "2026-10-31T08:38:02+00:00",
+   "file_sha": "05fc571899e02fb8b1acf1362988113c5cd55552d01032d143334f2a6f2f2849",
+   "last_modified": "Tue, 01 Sep 2026 13:34:00 GMT",
+   "sha256": "00970c1b3ff1c17ac16670ecc8d471eb3f9c0b6d92fb4104e504453922f0bc14",
+   "title": "Олимпиада по робототехнике ЦПМ",
+   "url": "https://olymp.innopolis.university/cpm"
+  },
+  "home": {
+   "fetched_at": "2026-10-31T08:37:58+00:00",
+   "file_sha": "ce84d168c20ea52b737013007ca67b3b24b1826c97542427a0f9c1a3665a4643",
+   "last_modified": "Thu, 29 Oct 2026 11:02:31 GMT",
+   "sha256": "0b70253e74c904e40574b589c7409bbd4374df5bc3caac3ed217f19b82698f35",
+   "title": "Республиканская командная олимпиада по программированию",
+   "url": "https://olymp.innopolis.university/"
+  },
+  "informatics2020": {
+   "fetched_at": "2026-10-31T08:38:00+00:00",
+   "file_sha": "591c3b415471b364c20ed0e840f8747384a516997db93f5648703ee62159dc9c",
+   "last_modified": "Thu, 16 Oct 2025 11:31:41 GMT",
+   "sha256": "544ed71ac7549572604165d4a3028a901a0dc3068f8596d740b7cfe91cc3b308",
+   "title": "Школа олимпиадной подготовки Университета Иннополис Информатика",
+   "url": "https://olymp.innopolis.university/informatics2020"
+  }
+ }
+}

@@ -1,21 +1,21 @@
-Меню Закрыть EN
-Войти
+Меню Закрыть [EN](https://new.innopolis.university/en/)
+[Войти](https://profile.innopolis.university/)
 - Образование
 - Контакты
 С 2012 года готовим высококвалифицированные кадры в области информационных технологий, искусственного интеллекта и робототехники
-О возможностях образования
+[О возможностях образования](https://apply.innopolis.university/possibilities/)
 Поступающим
-Абитуриенту Бакалавриат Магистратура Онлайн-магистратура Аспирантура Колледж
+[Абитуриенту](https://apply.innopolis.university/) [Бакалавриат](https://apply.innopolis.university/bachelors/) [Магистратура](https://apply.innopolis.university/masters/) [Онлайн-магистратура](https://apply.innopolis.university/msonline/) [Аспирантура](https://apply.innopolis.university/postgraduate-study/) [Колледж](https://innopolis.college/)
 Гранты и стипендии
-Возможности поступления Стипендии Олимпиадные бонусы
+[Возможности поступления](https://apply.innopolis.university/possibilities/) [Стипендии](https://apply.innopolis.university/scholarship/) [Олимпиадные бонусы](https://apply.innopolis.university/olympiad-bonus/)
 Другие возможности поступления
-Квоты Поступление после СПО Поступление граждан СНГ
+[Квоты](https://apply.innopolis.university/quotas/) [Поступление после СПО](https://apply.innopolis.university/spo/) [Поступление граждан СНГ](https://apply.innopolis.university/sng/)
 Посетить иннополис
-Дни открытых дверей
+[Дни открытых дверей](https://apply.innopolis.university/open-day/)
 Проживание в университете
-Кампус
+[Кампус](https://apply.innopolis.university/campus/)
 Довузовская подготовка
-Олимпиады Онлайн-курсы подготовки к поступлению Очные программы для школьников
+[Олимпиады](https://dovuz.innopolis.university/pre-olympiads/innopolis-open) [Онлайн-курсы подготовки к поступлению](https://dovuz.innopolis.university/preparation) [Очные программы для школьников](https://dovuz.innopolis.university/offline-programms)
 режим работы
 пн-пт, 09:00–18:00 (Мск)
 Телефон
@@ -25,9 +25,9 @@ university@innopolis.ru
 адрес
 420500, г. Иннополис
 ул.Университетская, д.1
-Все контакты
-Главная страница Аспирантура Математическое моделирование, численные методы и комплексы программ
-выбирай будущее,
+[Все контакты](https://innopolis.university/contacts/)
+[Главная страница](https://apply.innopolis.university/) [Аспирантура](https://apply.innopolis.university/postgraduate-study/) Математическое моделирование, численные методы и комплексы программ
+![](https://apply.innopolis.university/local/js/innopolis/dist/images/program-intro/2.webp) выбирай будущее, ![](https://apply.innopolis.university/local/js/innopolis/dist/images/program-intro/1.webp)
 поступай в Университет Иннополис
 ## математическое моделирование, численные методы и комплексы программ
 язык обучения
@@ -44,29 +44,38 @@ university@innopolis.ru
 от 0 ₽/год при участии в грантовом конкурсе
 платных мест в 2026
 **10.** бюджетных мест в 2026
-**10.** Подать документы Подать заявку на грант Поступление иностранных граждан
+**10.** [Подать документы](https://www.gosuslugi.ru/vuzonline) [Подать заявку на грант](https://profile.innopolis.university) [Поступление иностранных граждан](https://my.university.innopolis.ru/app/enrollee-form/general)
 ## О профиле подготовки
 НА АНГЛИЙСКОМ
 ## Математическое моделирование, численные методы и комплексы программ
 Профиль для исследователей и инженеров, стремящихся к научной карьере в области компьютерного моделирования и вычислительных наук.
 Программа готовит ученых к проведению вычислительных экспериментов и разработке инструментов компьютерного моделирования. Студенты освоят создание математических моделей, численных методов и программных решений для исследования физических и технических систем.
+![](https://apply.innopolis.university/local/js/innopolis/dist/images/about-profile.webp)
 ## Преподавательский состав
+![](https://apply.innopolis.university/upload/resize_cache/iblock/17a/sy36jl1wfxjf81fld27n2w38cnqkda9h/470_540_2/3.jpg)
 ## Адил Хан
 Профессор Института анализа данных и искусственного интеллекта, начальник Лаборатории машинного обучения и представления данных
 Руководил более чем десятью исследовательскими проектами, опубликовал свыше 80 научных работ
+![](https://apply.innopolis.university/upload/resize_cache/iblock/e03/3rqukj9g30id1ro1ac42qfn0mtf4vyi0/470_540_2/7.jpg)
 ## Александр Гасников
 Ректор Университета Иннополис, доктор физико-математических наук, член-корреспондент РАН, профессор МФТИ. Обладатель международной премии Talent Funding Award (2023)
 Автор более 200 научных публикаций.
+![](https://apply.innopolis.university/upload/resize_cache/iblock/e42/ymsqvxdd17brtyle5fq8a62yjisq78y7/470_540_2/37.jpg)
 ## Владимир Иванов
 Директор института разработки ПО и программной инженерии, доцент, PhD. Кандидат физико-математических наук (2009). Научные интересы: анализ данных, машинное обучение, разработка ПО, компьютерная лингвистика
+![](https://apply.innopolis.university/upload/resize_cache/iblock/2b8/hl4hs9gnlkky9y7yjg73uxd9hp2b2r9i/470_540_2/43.jpg)
 ## Джианкарло Суччи
 Доктор наук в сфере Вычислительной техники и электротехники. Более 10 лет работал в Свободном Университете Больцано-Бозен (Италия), последние 3 года был деканом факультета компьютерных наук. Автор 5 и редактор 12 книг, более 370 публикаций
+![](https://apply.innopolis.university/upload/resize_cache/iblock/c81/o4m8hteww0i2c80r8xymn4z9kf7n2ab5/470_540_2/65.jpg)
 ## Мануэль Маццара
 PhD, University of Bologna, Италия, профессор, декан факультета, руководитель отдела международного и академического сотрудничества Получил степень магистра (2002) и PhD (2006) в Университете Болоньи. Разрабатывал программное обеспечение в компании Майкрософт и работал в Университете Ньюкасла над проектом Deploy
+![](https://apply.innopolis.university/upload/resize_cache/iblock/337/10r0k64dt8kgiuxk2c77v2frf8sv8aqs/470_540_2/67.jpg)
 ## Мохаммад Реза Бахрами
 Кандидат технических наук, доцент, руководитель Лаборатории кибер-физических систем. Обладатель аспирантских и преподавательских грантов по программе 5-100.
+![](https://apply.innopolis.university/upload/resize_cache/iblock/e13/m0v6h1fzhkpdposds68keb50bpb1zg7i/470_540_2/102.jpg)
 ## Никола Златанов
 Доктор философии в Университете Британской Колумбии (Канада, 2015). Занимал академические позиции в Университете Монаш (Австралия). Редактор ведущих международных журналов: IEEE Communications Letters (2015–2018) и IEEE Wireless Communications Letters (2020–2023). Сфера научных интересов: машинное обучение и беспроводная связь.
+![](https://apply.innopolis.university/upload/resize_cache/iblock/bde/b08q4khuigbeg49219fmu5gqwcy6jcr8/470_587_2/i-0005%20%282%29.jpg)
 ## Анна Масловская
 Д.ф-м.н., профессор. Автор более 60 публикаций в международных изданиях, член редакционной коллегии журналов «Информатика и системы управления» и «International Journal of Mathematical Modelling and Numerical Optimisation», программных комитетов научных конференций. Научные интересы: математические модели и in silico исследования микробиологических систем.
 ## Смотрите видео о программе подготовки
@@ -92,7 +101,7 @@ PhD, University of Bologna, Италия, профессор, декан фак�
 Оценка диссертации на соискание ученой степени кандидата наук на предмет ее соответствия критериям, установленным в соответствии с Федеральным законом от 23.08.1996 № 127-ФЗ «О науке и государственной научно-технической политике»
 ## Подайте заявку на обучение
 Станьте востребованным специалистом в сфере ИТ-технологий
-Подать заявку
+[Подать заявку](https://profile.innopolis.university/)
 ## Направления исследований
 - Разработка новых математических методов моделирования объектов и явлений (физико-математические науки).
 - Разработка, обоснование и тестирование эффективных вычислительных методов с применением современных компьютерных технологий.
@@ -111,8 +120,8 @@ COMSOL MULTIPHYSICS
 ### FEA-системы
 MSC Nastran
 ### PDE-моделирование
-PDE toolbox Matlab
-FLEX PDE
+![](https://apply.innopolis.university/upload/iblock/5c6/idtjn5vxe1umzc1a1go8r72nbq87z4pc/Matlab_Logo.png) PDE toolbox Matlab
+![](https://apply.innopolis.university/upload/iblock/c6e/63k8n9js4jazb0f5j7zqqfvpp79by5yx/flex-pde.png) FLEX PDE
 ## Навыки
 Создание и руководство собственными научными проектами — от идеи до диссертации
 Подготовка научных статей и заявок на патенты
@@ -145,6 +154,7 @@ FLEX PDE
 ## Международная академическая среда
 Обучение и исследования ведутся на английском языке, что открывает путь к стажировкам, научным публикациям и исследованиям за рубежом
 ## Где проходит практика
+![](https://apply.innopolis.university/local/js/innopolis/dist/images/practice-companies/ak-bars.webp)
 ## Часто задаваемые вопросы
 В 2026-2027 учебном году АНО ВО «Университет Иннополис» осуществляет прием по программе подготовки кадров высшей квалификации в аспирантуре:
 1.2.2 Математическое моделирование, численные методы и комплексы программ
@@ -155,26 +165,27 @@ FLEX PDE
 Это регламентируется подпунктом «а» части 2 статьи 24 Федерального закона от 28.03.1998 № 53-ФЗ «О воинской обязанности и военной службе».
 Если ранее предоставлялась отсрочка при обучении на соответствующем уровне образования, то повторно она не предоставляется.
 Осенью студентов Университета в установленном порядке ставят на воинский учет в Верхнем Услоне Республики Татарстан. Дополнительно информацию вам сообщат после поступления
-Здесь вы найдете примеры заданий прошлых лет, которые помогут подготовиться к участию в конкурсе
+[Здесь](https://photostorage.innopolis.university/index.php/s/4iCYtCKwENbFXep) вы найдете примеры заданий прошлых лет, которые помогут подготовиться к участию в конкурсе
 ## Стажировки и программы обмена
 Участие в международных конференциях, программы в вузах-партнерах и проекты с индустрией
-Подробнее о возможностях
+[Подробнее о возможностях](https://innopolis.university/international-relations-office/)
 ## Полезное
-## Об университете
-## Возможности обучения
-## Кампус
-## Поступление граждан СНГ
-## Стипендии
-## День открытых дверей
-## Магистратура
-## Онлайн-магистратура
+## [Об университете](https://innopolis.university/)
+## [Возможности обучения](https://apply.innopolis.university/possibilities/master/)
+## [Кампус](https://apply.innopolis.university/campus/)
+## [Поступление граждан СНГ](https://apply.innopolis.university/sng/)
+## [Стипендии](https://apply.innopolis.university/scholarship/)
+## [День открытых дверей](https://apply.innopolis.university/open-day/)
+## [Магистратура](https://apply.innopolis.university/masters/)
+## [Онлайн-магистратура](https://apply.innopolis.university/msonline/)
+![](https://apply.innopolis.university/upload/landing/b57/t27b97ath2oa4odbgqyhix1i455zpgl2/1674231072_1x.png)
 Приемная комиссия Университета Иннополис
-Связаться в телеграм
+[Связаться в телеграм](https://t.me/iu_support)
 круглосуточно
 8 843 203 92 53 (д.102)
 круглосуточно
-t.me/iu_support
-max.ru/uni_support_bot
+[t.me/iu_support](https://t.me/iu_support)
+[max.ru/uni_support_bot](https://max.ru/uni_support_bot)
 круглосуточно
 admissions@innopolis.ru
 © 2012–2026
@@ -183,24 +194,24 @@ admissions@innopolis.ru
 - admissions@innopolis.ru
 420500, г. Иннополис,
 ул. Университетская, 1
-- VK
-- Telegram
-- Youtube
-- VK Video
-- Об университете
-- Бакалавриат
-- Магистратура
-- Аспирантура
-- Колледж
-- Возможности поступления
-- День открытых дверей
-- Сведения об образовательной организации
-- Политика конфиденциальности
-- Антитеррористическая деятельность
-- Министерство цифрового развития, связи и массовых коммуникаций РФ
-- Министерство науки и высшего образования Российской Федерации
-- Министерство просвещения Российской Федерации
-## Спасибо!
+- [VK](https://vk.com/innopolisadmissions)
+- [Telegram](https://t.me/apply_innopolis)
+- [Youtube](https://youtube.com/@innopolisu)
+- [VK Video](https://vkvideo.ru/@innopolisadmissions)
+- [Об университете](https://innopolis.university/about/)
+- [Бакалавриат](https://apply.innopolis.university/bachelors/)
+- [Магистратура](https://apply.innopolis.university/masters/)
+- [Аспирантура](https://apply.innopolis.university/postgraduate-study/)
+- [Колледж](https://innopolis.college/)
+- [Возможности поступления](https://apply.innopolis.university/possibilities/)
+- [День открытых дверей](https://apply.innopolis.university/open-day/)
+- [Сведения об образовательной организации](https://innopolis.university/sveden/)
+- [Политика конфиденциальности](https://innopolis.university/files/politicacookies.pdf)
+- [Антитеррористическая деятельность](https://innopolis.university/antiterror/)
+- [Министерство цифрового развития, связи и массовых коммуникаций РФ](https://digital.gov.ru/ru/)
+- [Министерство науки и высшего образования Российской Федерации](https://minobrnauki.gov.ru/)
+- [Министерство просвещения Российской Федерации](https://edu.gov.ru/)
+## ![](https://apply.innopolis.university/local/js/innopolis/dist/images/status-ok-dark.webp) Спасибо!
 Ваше обращение получено. Мы свяжемся с Вами в ближайшее время.
-## Ошибка
+## ![](https://apply.innopolis.university/local/js/innopolis/dist/images/status-error-dark.webp) Ошибка
 Не удалось отправить Ваше обращение. Попробуйте повторно или отправьте обращение на почту innopolis@help.ru.

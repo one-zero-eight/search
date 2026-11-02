@@ -1,0 +1,345 @@
+---
+type: regulation
+title: "Information systems USER'S Manual"
+resource: "https://help.university.innopolis.ru/documents/annex_1_is_user%27s_manual.pdf"
+audience: ["staff"]
+source_kind: official-document
+language: ru
+section: "site/help"
+sources:
+  - resource: "https://help.university.innopolis.ru/documents/annex_1_is_user%27s_manual.pdf"
+    id: "c3928f785ca2"
+    title: "Information systems USER'S Manual"
+    last_modified: "2026-10-31T11:14:54+00:00"
+generated:
+  by: "catix-wiki/0.1 regulations"
+  at: "2026-10-31T11:14:54+00:00"
+extraction: "text layer (opendataloader)"
+status: draft
+---
+
+# Information systems USER'S Manual
+
+APPROVED by order of ANO HE “Innopolis University” as of 5 October 2020 No. OD/AD-01/2020/10/05
+
+Director ________________________ / K.V. Semenikhin
+
+ANO HE “Innopolis University” information systems USER’S MANUAL
+
+Innopolis 2020
+
+TABLE OF CONTENTS Terms, definitions and abbreviations ......................................................................3
+
+## 1. GENERAL PROVISIONS.........................................................................................4
+
+## 2. USER RESPONSIBILITIES.......................................................................................4
+
+## 3. USER RIGHTS .......................................................................................................5
+
+## 4. RULES AND RESTRICTIONS...................................................................................6
+
+## 5. PASSWORDS........................................................................................................7
+
+## 6. ANTIVIRUS PROTECTION .....................................................................................8
+
+## 7. WORK WITH INFORMATION SYSTEMS, ON THE INTERNET, WITH E-MAIL ...........9
+
+## 8. FINAL LIABILITIES...............................................................................................10
+
+Annex 1 to ANO HE “Innopolis University” information systems user’s manual....11
+
+Terms, definitions and abbreviations
+
+INFOSEC (information security) — the practice of preventing unauthorized access, usage, disclosure, distortion, alteration, search, recording or destruction of information.
+
+CT (computer technology) is a set of software and technical elements of data processing systems capable of functioning independently or as part of other systems.
+
+IS (information system) — a system designed for storing, searching and processing information, and the corresponding organizational resources (human, technical, financial, etc.) that provide and disseminate information (i.e., e-mail, corporate portal, Internet).
+
+ITO — Information Technology Office, Department of Administrative Policy and IT Support, ANO HE “Innopolis University”.
+
+External storage media — any type of media intended for recording or reading information from a computer or any similar device.
+
+Учетная запись — запись, содержащая сведения для идентификации пользователя при подключении к информационным системам, сведения для авторизации и учета (логин).
+
+Personal account — a record containing data for identifying a user when connecting to information systems, information for authorization and accounting (login).
+
+## 1. GENERAL PROVISIONS
+
+**1.1.** The present ANO HE “Innopolis University” information systems user’s manual (hereinafter referred to as the User’s manual) defines the general rules for working with information systems and in networks of ANO HE “Innopolis University” (hereinafter referred to as the Organization).
+
+**1.2.** This User’s manual is developed in accordance with the requirements of the Information security policy of ANO HE “Innopolis University” (hereinafter — the INFOSEC Policy), instructions and other internal regulatory documents of the Organization. The terms, definitions and abbreviations used in this User’s manual are in accordance with the INFOSEC Policy.
+
+**1.3.** IS users are all employees of the Organization and third parties participating in data processing and having access to information resources and information systems (computing and network equipment, hardware, software, data and means of their protection) of the Organization.
+
+**1.4.** The users in their work are guided by the regulatory legal acts of the Russian Federation governing the processing of data in information systems, the Charter of the Organization, the INFOSEC Policy, this User’s manual, local regulatory legal acts of the subdivision in which they work, their job descriptions, and other documents of the Organization that regulate data processing in information systems, the terms of contracts and agreements.
+
+**1.5.** Information generated in the course of labor and other activities of the user is the property of the Organization and is not subject to use for the personal purposes of the user or other persons and organizations.
+
+## 2. USER RESPONSIBILITIES
+
+A user has responsibility to:
+
+**2.1.** Know and comply with the regulatory legal acts of the Russian Federation, the terms of contracts and agreements governing the observance of copyright and related rights to intellectual property in the field of software, as well as in relation to scientific and other works, papers and materials, other objects of intellectual property.
+
+**2.2.** Know and adhere to the requirements of the legislation of the Russian
+
+Federation, this User’s manual and other internal documents of the Organization regulating work in information systems.
+
+**2.3.** Perform at one’s workplace using computer technology (hereinafter referred to as CT) only data processing procedures determined by one’s job description, official or contractual obligations.
+
+**2.4.** Use the information resources of the Organization and the technical means of storing, processing and transmitting information transferred to the user’s disposal only to perform the assigned work, and official or contractual obligations.
+
+**2.5.** Take appropriate measures to protect internal (service) information on external storage media, lock the screen (work session) before leaving one’s workplace.
+
+**2.6.** Upon completion or termination of work (labor relations), all physical storage media containing service information (USB drives, magnetic and optical disks, printouts, drafts, blueprints, film and photographic materials, models and mockups, samples, etc.) must be transferred to the user’s direct supervisor or to the ITO.
+
+## 3. USER RIGHTS
+
+The user has the right to:
+
+**3.1.** Send to his (her) direct supervisor substantiated proposals for the purchase and installation of new software and hardware.
+
+**3.2.** Send to his (her) direct supervisor substantiated proposals for upgrade or modernization (replacement with new analogues) of the software and hardware used.
+
+**3.3.** Receive from his (her) direct supervisor or ITO staff advice on rules and regulations for working with information resources, systems, network services and databases of the Organization.
+
+**3.4.** Request the rights of an administrator of an information system or a CT provided prior approval of his (her) direct supervisor by a memo in the form approved by the annex to this User’s manual, using an application form on the Bitrix corporate portal addressed to the head of ITO with justification of the need and indicating the required validity period, in cases when an information system or a CT are mandatory for fulfillment of the user’s official duties.
+
+**3.5.** Request help and advice to resolve issues related to the use of IS from IOT by e-mail: it@innopolis.university, via Telegram: @iuithelp, tel: 8 (843) 203-92-53 (ext. 200) or in the ITSM requests management system - https://it.innopolis.university/.
+
+## 4. RULES AND RESTRICTIONS
+
+The user is prohibited to:
+
+**4.1.** Violate the rules for working in information systems and networks established in the Organization.
+
+**4.2.** Receive (bring, download), store, install and use unlicensed software.
+
+**4.3.** Violate copyright and related intellectual property rights in relation to software, scientific, literary, artistic, cinematographic, musical and other works, papers and materials, other objects of intellectual property.
+
+**4.4.** Use software and hardware of the Organization for non-business (personal) purposes.
+
+**4.5.** Change the composition and configuration of the used software and hardware, install and modify software and hardware without the consent of the user’s direct supervisor and ITO.
+
+**4.6.** Perform actions aimed at obtaining unauthorized access to information systems, computers, servers and networks of the Organization, as well as to Internet resources.
+
+**4.7.** Disable, change settings of information protection tools (including firewall and antivirus protection applications and settings).
+
+**4.8.** Use unregulated (not related to work, not authorized by the head of ITO) programs and resources that create an excessive load on the network (games, P2P clients), designed to distribute or receive information in violation of copyright and related rights, as well as remote administration tools, etc.
+
+**4.9.** Without the consent of ITO, create shared network resources (folders and shared files), change the content of network resources or access rights to them without the permission of their owners, grant rights to any resources in the form of “full access for everyone”, allow unauthorized (anonymous, guest) access to network resources with the right to write (modify) content.
+
+**4.10.** Eliminate independently malfunctions in the computing or network equipment of the Organization.
+
+**4.11.** To prevent officials and responsible employees of the Organization from conducting inspections and official investigations related to ensuring information security, inventory or audit.
+
+**4.12.** Delete, alter or distort programs and files with service data.
+
+**4.13.** Use undocumented properties and errors in software or in protection settings that can lead to any incident.
+
+**4.14.** Use accounts with administrator rights, except in cases when such rights are required to perform the user’s official duties.
+
+**4.15.** Use accounts with administrator rights without a password or with an empty password.
+
+**4.16.** Install and use software that is not required for the job.
+
+**4.17.** Connect personal computer equipment, mobile and network devices to the networks of the Organization, as well as change IP addresses, MAC addresses and other network settings of any equipment without the consent of the direct supervisor and ITO.
+
+**4.18.** Distribute without permission confidential information containing personal data, official or commercial secrets, as well as information about the essence of an invention, research, development, model or industrial design prior to the official publication of information about them.
+
+**4.19.** Distribute and receive materials that contradict the laws of the Russian
+
+Federation and the internal rules of the Organization. Publish information of extremist, racist and offensive content.
+
+## 5. PASSWORDS
+
+**5.1.** General requirements for passwords.
+
+**5.1.1.** The minimum password length is eight characters.
+
+**5.1.2.** The minimum requirement for a password is to contain characters from three of the four categories listed below:  capital letters;  lowercase letters;  numbers (from 0 to 9);  characters other than letters and numbers (for example,!, $, #,%).
+
+**5.1.3.** The new password must not be the same as the old one.
+
+**5.1.4.** The password should not coincide with the account name (login), contain parts of the username longer than two adjacent characters and contain easily guessed words and numbers (names, dates of birth, company names, etc.), common abbreviations, document numbers, etc. other information about the user available to third parties.
+
+**5.1.5.** It is not allowed to use one character repeatedly or a repeating combination of several characters as a password.
+
+**5.1.6.** It is not allowed to use a combination of characters typed in a regular order on the keyboard (123456, qwerty, qazwsxedc, etc.) as a password.
+
+**5.1.7.** User password replacement period: once every six months.
+
+**5.2.** Rules for the use of passwords.
+
+**5.2.1.** The user is prohibited to:
+
+- • disclose his (her) password to third parties;
+
+- • give other employees of the Organization and third parties access to CT
+
+and information systems under their own account and password;
+
+- • write down and store passwords in easily accessible places: in a desk
+
+drawer, on a monitor, on sheets of paper, on the back of the keyboard, in a shared folder, etc.;
+
+- • store the password on personal electronic devices;
+
+- • use the accounts of other employees in the performance of official duties.
+
+**5.2.2.** The user is obliged to:
+
+- • change his (her) password at the request of the operating system,
+
+information system or ITO;
+
+- • when entering a password, exclude the possibility of reading it by an
+
+unauthorized persons or by technical means;
+
+- • immediately change the password and inform his (her) direct supervisor
+
+and ITO in case of loss, leakage, unauthorized change of the password.
+
+**5.2.3.** Unscheduled replacement or deletion of the user's password is performed in the following cases:
+
+- • in case of suspicion of compromise (disclosure, leakage) of the password;
+
+- • when a password expires;
+
+- • upon termination of authorities (dismissal, change of duties);
+
+- • at the direction of ITO.
+
+**5.2.4.** Upon dismissal or change of duties of a user who, in addition to his account, has access to other resources (network equipment, servers, administrative accounts, etc.), an unscheduled change of passwords to these resources is also performed.
+
+## 6. ANTIVIRUS PROTECTION
+
+**6.1.** The user is obliged to perform antivirus scanning of all files received by him (her) in any way and from any sender.
+
+**6.2.** In case of suspicion of a computer virus (atypical operation of programs, the appearance of graphic and sound effects, distortion and disappearance of data, frequent error messages, etc.), the user should not take any action with the CT (do not turn off, do not restart), but immediately report it to his (her) direct supervisor and ITO.
+
+## 7. WORK WITH INFORMATION SYSTEMS, ON THE INTERNET, WITH E-MAIL
+
+**7.1.** General provisions for work with IS.
+
+**7.1.1.** The access to information systems (e-mail of the Organization, the Internet) is provided only if it does not contradict the requirements of the INFOSEC Policy and other regulatory documents of the Organization.
+
+**7.1.2.** The technical capability to gain access to information resources or services does not guarantee that the requested resource or service is allowed to the user by the policies and rules of the Organization.
+
+**7.1.3.** The basis for user access to information systems is a request sent to it@innopolis.university with an indication of the required resource and type of access rights to it.
+
+**7.1.4.** After receiving the request, ITO provides the user's access to the specified information resources in accordance with the Regulation on providing access to an IS.
+
+**7.1.5.** ITO exercises control over the use of information systems in the Organization.
+
+**7.1.6.** The user's CT can be disconnected from the information resources of the Organization and the network on the basis of:
+
+- • violation by the user of this User’s manual, the INFOSEC Policy and other
+
+information security regulations of the Organization;
+
+- • violation by the user of the current information technology legislation, as
+
+well as of copyright and related rights;
+
+- • dismissal of the user or change of his (her) duties;
+
+- • detection and investigation of unauthorized access attempts, virus and
+
+other attacks;
+
+- • carrying out maintenance and technical work.
+
+**7.2.** Regulations of work on the Internet.
+
+**7.2.1.** The use of Internet services in the Organization is carried out for the performance of official duties.
+
+**7.2.2.** Information about Internet resources visited by users is recorded and can be provided to the management for analysis and action.
+
+**7.2.3.** When using Internet resources, it is prohibited to:
+
+- • provide third parties with access to the Internet from their CT, including by
+
+software and hardware methods;
+
+- • get access to the Internet on a CT in any way other than provided by the
+
+Organization (unauthorized 3G/4G modems, Wi-Fi devices, etc.).
+
+**7.3.** Regulations of work with e-mail.
+
+**7.3.1.** The Organization's e-mail is intended for the fulfillment of duties.
+
+**7.3.2.** When working with the Organization's e-mail, it is prohibited:
+
+- • send mail messages to multiple addresses simultaneously, except for
+
+service announcements;
+
+- • use a different return address when sending mail;
+
+- • send messages with unethical or illegal content;
+
+- • use offensive language in messages;
+
+- • send unsolicited or unverified information;
+
+- • use a work email address to subscribe to unofficial mailing lists
+
+(commercial, entertainment, etc.), as well as to register on third-party sites (forums, clubs, etc.);
+
+- • send and open executable or system files upon receipt (in particular, with
+
+the extensions bas, bat, bin, cab, cat, cmd, com, cpl, csh, dat, dll, dpl, drv, exe, inf, ins, inx, ipa, isu, jar, job, js, jse, ksh, lib, lnk, mdz, msc, msi, msp, mst, msu, nls, olb, osx, out, paf, pif, prg, pwz, reg, rgs, rom, run, scr, sct, sh, shb, shs, sys, tlb, vb, vbe, vbs, vbscript, vxd, workflow, ws, wsf, wsh), including as part of archive files;
+
+- • open any attached files without first checking it with antivirus tools;
+
+- • open attachments and links sent from unknown senders or without prior
+
+request.
+
+**7.3.3.** When working with e-mail, it is recommended to create a notification for the period of a long absence, in which you indicate the period of absence and contact information of the substitute employee.
+
+## 8. FINAL LIABILITIES
+
+**8.1.** The user bears personal (disciplinary, material, civil, administrative, criminal) responsibility for his (her) actions or inaction that will or may result in disclosure or loss of confidential (official, commercial, personal and other) data, as well as malfunction of information systems, information and telecommunications network of the Organization or its individual components, unauthorized access to information or violation of copyright and related rights in accordance with the regulations of the Organization and the legislation of the Russian Federation.
+
+Приложение 1 к Инструкции пользователя информационных систем АНО ВО «Университет Иннополис» / Annex 1 to ANO HE “Innopolis University” information systems user’s manual
+
+СЛУЖЕБНАЯ ЗАПИСКА MEMO
+
+«____» ______________ 20___ г.
+
+КОМУ: TO:
+
+Директору АНО ВО «Университет Иннополис» Семенихину К.В. Director of ANO HE “Innopolis University” Semenikhin K. V.
+
+ОТ: FROM: Должностьруководителя,ФИОруководителя/Jobtitleandfullnameoftheheadoftheunit ТЕМА: TOPIC:
+
+О предоставлении прав доступа к информационной системе/СВТ On granting access to an information system/CT
+
+В связи с необходимостью осуществления / Due to the need to fulfill the job duties viz. ________________________________________________________________________ перечень выполняемых работ / list of activities ____________________________________________________________________________________________________________________ прошу вас предоставить права / I kindly ask you to grant the access with the right to ________________________________________________________________________ на чтение, на запись, администратора / read, record, administer к / to ___________________________________________________________________ название информационной системы, ресурса, СВТ / name of information system, resource, CT
+
+_______________________________________________________________________ сроком до / for the period until _____________________________________________ указать число, меся, год / на постоянной основе / date, month, year, or on a constant basis
+
+____________________________________________________________________________________________________________________ ФИО работника, должность которому предоставляются права / full name and job title of an employee who needs the access
+
+________________________ ___________________ /___________________/
+
+Должность руководителя Подпись ФИО руководителя Job title of the head of the unit Signature Surname and inituals of the head of the unit
+
+СОГЛАСОВАНО / APPROVED:
+
+Руководитель Отдела информационных технологий Head of Information Technology Office __________________ /________________________/
+
+Подпись ФИО Signature Last name and initials
+
+С инструкцией пользователя информационных систем АНО ВО «Университет Иннополис» ознакомлен / I have read the ANO HE “Innopolis University” information systems user’s manual. __________________ /_____________________/
+
+Подпись работника ФИО работника Employee’s signature Employee’s last name and initials
+
+# Citations
+
+1. [Information systems USER'S Manual](https://help.university.innopolis.ru/documents/annex_1_is_user%27s_manual.pdf), file c3928f785ca2

@@ -1,0 +1,16 @@
+{
+ "title": "io robo 25 results 9 11 classes 1step",
+ "url": "https://lk-dovuz.innopolis.university/public/files/io_robo_25_results_9_11_classes_1step.pdf",
+ "sha256": "4f2fc697767477b53e7cb832e31f7a3f783e78805566a67b85a4b17afcec1865",
+ "method": "text layer (opendataloader)",
+ "chars": 7092,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:22+00:00",
+ "remote": {
+  "etag": "\"2e2bb-62d78b2c75fc0\"",
+  "modified": "Thu, 06 Feb 2025 12:51:19 GMT",
+  "size": "189115"
+ }
+}

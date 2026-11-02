@@ -1,21 +1,21 @@
-Меню Закрыть EN
-Войти
+Меню Закрыть [EN](https://new.innopolis.university/en/)
+[Войти](https://profile.innopolis.university/)
 - Образование
 - Контакты
 С 2012 года готовим высококвалифицированные кадры в области информационных технологий, искусственного интеллекта и робототехники
-О возможностях образования
+[О возможностях образования](https://apply.innopolis.university/possibilities/)
 Поступающим
-Абитуриенту Бакалавриат Магистратура Онлайн-магистратура Аспирантура Колледж
+[Абитуриенту](https://apply.innopolis.university/) [Бакалавриат](https://apply.innopolis.university/bachelors/) [Магистратура](https://apply.innopolis.university/masters/) [Онлайн-магистратура](https://apply.innopolis.university/msonline/) [Аспирантура](https://apply.innopolis.university/postgraduate-study/) [Колледж](https://innopolis.college/)
 Гранты и стипендии
-Возможности поступления Стипендии Олимпиадные бонусы
+[Возможности поступления](https://apply.innopolis.university/possibilities/) [Стипендии](https://apply.innopolis.university/scholarship/) [Олимпиадные бонусы](https://apply.innopolis.university/olympiad-bonus/)
 Другие возможности поступления
-Квоты Поступление после СПО Поступление граждан СНГ
+[Квоты](https://apply.innopolis.university/quotas/) [Поступление после СПО](https://apply.innopolis.university/spo/) [Поступление граждан СНГ](https://apply.innopolis.university/sng/)
 Посетить иннополис
-Дни открытых дверей
+[Дни открытых дверей](https://apply.innopolis.university/open-day/)
 Проживание в университете
-Кампус
+[Кампус](https://apply.innopolis.university/campus/)
 Довузовская подготовка
-Олимпиады Онлайн-курсы подготовки к поступлению Очные программы для школьников
+[Олимпиады](https://dovuz.innopolis.university/pre-olympiads/innopolis-open) [Онлайн-курсы подготовки к поступлению](https://dovuz.innopolis.university/preparation) [Очные программы для школьников](https://dovuz.innopolis.university/offline-programms)
 режим работы
 пн-пт, 09:00–18:00 (Мск)
 Телефон
@@ -25,9 +25,9 @@ university@innopolis.ru
 адрес
 420500, г. Иннополис
 ул.Университетская, д.1
-Все контакты
-Главная страница Бакалавриат Анализ данных и искусственный интеллект
-выбирай будущее,
+[Все контакты](https://innopolis.university/contacts/)
+[Главная страница](https://apply.innopolis.university/) [Бакалавриат](https://apply.innopolis.university/bachelors/) Анализ данных и искусственный интеллект
+![](https://apply.innopolis.university/local/js/innopolis/dist/images/program-intro/2.webp) выбирай будущее, ![](https://apply.innopolis.university/local/js/innopolis/dist/images/program-intro/1.webp)
 поступай в Университет Иннополис
 ## анализ данных и искусственный интеллект
 язык обучения
@@ -42,7 +42,7 @@ university@innopolis.ru
 1 сентября 2026
 стоимость обучения
 от 0 ₽/год при участии в грантовом конкурсе
-Подать документы Подать заявку на грант Поступление иностранных граждан
+[Подать документы](https://www.gosuslugi.ru/vuzonline) [Подать заявку на грант](https://profile.innopolis.university) [Поступление иностранных граждан](https://my.university.innopolis.ru/app/enrollee-form/general)
 Реализуется в рамках федерального проекта «Искусственный интеллект» национального проекта «Экономика данных и цифровая трансформация государства»
 ## О профиле подготовки
 НА АНГЛИЙСКОМ
@@ -50,18 +50,25 @@ university@innopolis.ru
 Этот профиль для тех, кто хочет не просто использовать готовые AI-решения, а создавать их с нуля, задавая новые стандарты в технологиях.
 Вы получите фундаментальные знания в области анализа данных, глубокого обучения и разработки интеллектуальных систем — от компьютерного зрения и обработки естественных языков до объяснимого ИИ и работы с супермассивами данных.
 Образовательная программа разработана в рамках гранта «ТОП-ИИ», который реализуется Аналитическим центром при Правительстве Российской Федерации совместно с Минцифры России в целях достижения результата «Обеспечено обучение студентов по образовательным программам высшего образования для топ-специалистов в сфере искусственного интеллекта» федерального проекта «Искусственный интеллект», входящего в состав национального проекта «Экономика данных и цифровая трансформация государства».
+![](https://apply.innopolis.university/local/js/innopolis/dist/images/about-profile.webp)
 ## Преподавательский состав
+![](https://apply.innopolis.university/upload/resize_cache/iblock/17a/sy36jl1wfxjf81fld27n2w38cnqkda9h/470_540_2/3.jpg)
 ## Адил Хан
 Профессор Института анализа данных и искусственного интеллекта, начальник Лаборатории машинного обучения и представления данных
 Руководил более чем десятью исследовательскими проектами, опубликовал свыше 80 научных работ
+![](https://apply.innopolis.university/upload/resize_cache/iblock/e42/ymsqvxdd17brtyle5fq8a62yjisq78y7/470_540_2/37.jpg)
 ## Владимир Иванов
 Директор института разработки ПО и программной инженерии, доцент, PhD. Кандидат физико-математических наук (2009). Научные интересы: анализ данных, машинное обучение, разработка ПО, компьютерная лингвистика
+![](https://apply.innopolis.university/upload/resize_cache/iblock/337/10r0k64dt8kgiuxk2c77v2frf8sv8aqs/470_540_2/67.jpg)
 ## Мохаммад Реза Бахрами
 Кандидат технических наук, доцент, руководитель Лаборатории кибер-физических систем. Обладатель аспирантских и преподавательских грантов по программе 5-100.
+![](https://apply.innopolis.university/upload/resize_cache/iblock/e13/m0v6h1fzhkpdposds68keb50bpb1zg7i/470_540_2/102.jpg)
 ## Никола Златанов
 Доктор философии в Университете Британской Колумбии (Канада, 2015). Занимал академические позиции в Университете Монаш (Австралия). Редактор ведущих международных журналов: IEEE Communications Letters (2015–2018) и IEEE Wireless Communications Letters (2020–2023). Сфера научных интересов: машинное обучение и беспроводная связь.
+![](https://apply.innopolis.university/upload/resize_cache/iblock/5d1/xkbdxfv824btrnm6s5fpeyis6fjk9vf2/470_540_2/74.jpg)
 ## Рустам Лукманов
 PhD по физике в Бернском университете, удостоен награды «Молодые лидеры БРИКС и ШОС». Сфера научных интересов: анализ данных, машинное обучение, биоинформатика, анализ данных и объяснимость моделей ИИ. Основной преподаватель курсов бакалавриата по объяснимому ИИ и представлению данных и знаний
+![](https://apply.innopolis.university/upload/resize_cache/iblock/d5d/e5w2vio3df1wno2gil0h5gtetkc662dy/470_540_2/88.jpg)
 ## Ярослав Холодов
 Доктор наук, профессор Института анализа данных и искусственного интеллекта, заведующий лабораторией анализа данных и биоинформатики. Автор более 50 публикаций в рецензируемых журналах
 ## Смотрите видео о программе подготовки
@@ -104,7 +111,7 @@ PhD по физике в Бернском университете, удосто
 - Теория игр
 ## Подайте заявку на обучение
 Станьте востребованным специалистом в сфере ИТ-технологий
-Подать заявку
+[Подать заявку](https://www.gosuslugi.ru/vuzonline)
 ## Программа обучения
 ## Обязательные дисциплины
 - Физическая культура и спорт
@@ -280,7 +287,13 @@ Mendeley
 ## Диплом о высшем образовании Университета Иннополис
 Выпускники получают диплом государственного образца одного из ведущих ИТ-вузов России
 ## Где проходит практика
+![](https://apply.innopolis.university/local/js/innopolis/dist/images/practice-companies/ak-bars.webp)
 ## Партнеры программы
+![](https://apply.innopolis.university/upload/landing/f77/3cwqr513an20gsuvalo3mfn3ek8eqhkz/mintsifry_1x.png)
+![](https://apply.innopolis.university/upload/landing/ed6/qugj1ziikyhckso4qptdgkdb85men61s/analiticheskiy_tsentr_1x.png)
+![](https://apply.innopolis.university/upload/landing/4c0/yavo6o3eezwtw3asref54glyaz2cngsf/rostelekom_1x.png)
+![](https://apply.innopolis.university/upload/landing/f45/80434xjlq8k4w0iy7p028thu0darmtu8/ooo_pochtovye_tekhnologii_pochtatekh_1x.png)
+![](https://apply.innopolis.university/upload/landing/e64/kunkvj2sgg9v3nthn6jpm7au6u2q4sml/mts_1x.png)
 ## Часто задаваемые вопросы
 Необходимо сдать ЕГЭ по трем предметам: математика (профиль), русский язык, а также информатику или физику на выбор
 Приемная кампания начинается с 20 июня и длится до 23 августа 2026
@@ -302,39 +315,40 @@ Mendeley
 Это регламентируется подпунктом «а» части 2 статьи 24 Федерального закона от 28.03.1998 № 53-ФЗ «О воинской обязанности и военной службе».
 Если у вас была отсрочка при обучении на соответствующем уровне образования, то повторно она не предоставляется. Если отсрочка была при обучении на СПО, то при поступлении на бакалавриат отсрочка не сохраняется.
 Осенью студентов Университета в установленном порядке ставят на воинский учет в Верхнем Услоне Республики Татарстан. Дополнительно информацию сообщат после поступления.
-Здесь вы найдете примеры заданий прошлых лет и их разборы. Это поможет вам подготовиться к участию в конкурсе
+[Здесь](https://photostorage.innopolis.university/index.php/s/4iCYtCKwENbFXep) вы найдете примеры заданий прошлых лет и их разборы. Это поможет вам подготовиться к участию в конкурсе
 ## Стажировки и программы обмена
 Участие в международных конференциях, программы в вузах-партнерах и проекты с индустрией
-Подробнее о возможностях
+[Подробнее о возможностях](https://innopolis.university/international-relations-office/)
 ## Другие программы
-## Математические основы искусственного интеллекта
-Получите глубокие теоретические знания и освойте современные технологии машинного обучения
-Подробнее
-## AI360: инженерия данных
-Вы научитесь трансформировать большие данные в работающие ИИ-системы и сервисы
-Подробнее
-## Робототехника
-Изучите полный цикл разработки — от проектирования до автономного поведения — и создадите интеллектуальные робототехнические системы
-Подробнее
-## Инженерия информационных систем
-Погрузитесь в архитектуру, разработку и кибербезопасность ИТ-систем. Программа готовит универсальных инженеров для создания надежных цифровых продуктов
-Подробнее
+## [Математические основы искусственного интеллекта](https://apply.innopolis.university/bachelors/DS-MAI/)
+[Получите глубокие теоретические знания и освойте современные технологии машинного обучения](https://apply.innopolis.university/bachelors/DS-MAI/)
+[Подробнее](https://apply.innopolis.university/bachelors/DS-MAI/)
+## [AI360: инженерия данных](https://apply.innopolis.university/bachelors/AI-360/)
+[Вы научитесь трансформировать большие данные в работающие ИИ-системы и сервисы](https://apply.innopolis.university/bachelors/AI-360/)
+[Подробнее](https://apply.innopolis.university/bachelors/AI-360/)
+## [Робототехника](https://apply.innopolis.university/bachelors/mechatronics-robotics/)
+[Изучите полный цикл разработки — от проектирования до автономного поведения — и создадите интеллектуальные робототехнические системы](https://apply.innopolis.university/bachelors/mechatronics-robotics/)
+[Подробнее](https://apply.innopolis.university/bachelors/mechatronics-robotics/)
+## [Инженерия информационных систем](https://apply.innopolis.university/bachelors/information-systems-engineering/)
+[Погрузитесь в архитектуру, разработку и кибербезопасность ИТ-систем. Программа готовит универсальных инженеров для создания надежных цифровых продуктов](https://apply.innopolis.university/bachelors/information-systems-engineering/)
+[Подробнее](https://apply.innopolis.university/bachelors/information-systems-engineering/)
 ## Полезное
-## Об университете
-## Подать заявку на грант
-## Возможности обучения
-## Кампус
-## Олимпиадные бонусы
-## День открытых дверей
-## Стипендии
-## Все программы
+## [Об университете](https://innopolis.university/)
+## [Подать заявку на грант](https://profile.innopolis.university/)
+## [Возможности обучения](https://apply.innopolis.university/possibilities/)
+## [Кампус](https://apply.innopolis.university/campus/)
+## [Олимпиадные бонусы](https://apply.innopolis.university/olympiad-bonus/)
+## [День открытых дверей](https://apply.innopolis.university/open-day/)
+## [Стипендии](https://apply.innopolis.university/scholarship/)
+## [Все программы](https://apply.innopolis.university/bachelors/)
+![](https://apply.innopolis.university/upload/landing/842/c87oyu22eofs0z6f4vn4jad8xeb0riut/1674231072_1x.png)
 Приемная комиссия Университета Иннополис
-Связаться в телеграм
+[Связаться в телеграм](https://t.me/iu_support)
 круглосуточно
 8 843 203 92 53 (д.102)
 круглосуточно
-t.me/iu_support
-max.ru/uni_support_bot
+[t.me/iu_support](https://t.me/iu_support)
+[max.ru/uni_support_bot](https://max.ru/uni_support_bot)
 круглосуточно
 admissions@innopolis.ru
 © 2012–2026
@@ -343,24 +357,24 @@ admissions@innopolis.ru
 - admissions@innopolis.ru
 420500, г. Иннополис,
 ул. Университетская, 1
-- VK
-- Telegram
-- Youtube
-- VK Video
-- Об университете
-- Бакалавриат
-- Магистратура
-- Аспирантура
-- Колледж
-- Возможности поступления
-- День открытых дверей
-- Сведения об образовательной организации
-- Политика конфиденциальности
-- Антитеррористическая деятельность
-- Министерство цифрового развития, связи и массовых коммуникаций РФ
-- Министерство науки и высшего образования Российской Федерации
-- Министерство просвещения Российской Федерации
-## Спасибо!
+- [VK](https://vk.com/innopolisadmissions)
+- [Telegram](https://t.me/apply_innopolis)
+- [Youtube](https://youtube.com/@innopolisu)
+- [VK Video](https://vkvideo.ru/@innopolisadmissions)
+- [Об университете](https://innopolis.university/about/)
+- [Бакалавриат](https://apply.innopolis.university/bachelors/)
+- [Магистратура](https://apply.innopolis.university/masters/)
+- [Аспирантура](https://apply.innopolis.university/postgraduate-study/)
+- [Колледж](https://innopolis.college/)
+- [Возможности поступления](https://apply.innopolis.university/possibilities/)
+- [День открытых дверей](https://apply.innopolis.university/open-day/)
+- [Сведения об образовательной организации](https://innopolis.university/sveden/)
+- [Политика конфиденциальности](https://innopolis.university/files/politicacookies.pdf)
+- [Антитеррористическая деятельность](https://innopolis.university/antiterror/)
+- [Министерство цифрового развития, связи и массовых коммуникаций РФ](https://digital.gov.ru/ru/)
+- [Министерство науки и высшего образования Российской Федерации](https://minobrnauki.gov.ru/)
+- [Министерство просвещения Российской Федерации](https://edu.gov.ru/)
+## ![](https://apply.innopolis.university/local/js/innopolis/dist/images/status-ok-dark.webp) Спасибо!
 Ваше обращение получено. Мы свяжемся с Вами в ближайшее время.
-## Ошибка
+## ![](https://apply.innopolis.university/local/js/innopolis/dist/images/status-error-dark.webp) Ошибка
 Не удалось отправить Ваше обращение. Попробуйте повторно или отправьте обращение на почту innopolis@help.ru.

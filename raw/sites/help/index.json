@@ -1,0 +1,835 @@
+{
+ "docs": {
+  "https://help.university.innopolis.ru/documents/%D0%BF%D1%80%D0%B8%D0%BA%D0%B0%D0%B7_%D0%B0%D0%B4-01.2019.12.23_%D1%80%D0%B5%D0%B3%D0%BB%D0%B0%D0%BC%D0%B5%D0%BD%D1%82_%D0%BF%D1%80%D0%BE%D1%86%D0%B5%D1%81%D1%81%D0%B0_%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8_%D0%B8%D1%82-%D0%BF%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D0%B8.pdf": "Приказ ад-01.2019.12.23 регламент_процесса_организации_ит-поддержки.pdf",
+  "https://help.university.innopolis.ru/documents/%D1%80%D0%B5%D0%B3%D0%BB%D0%B0%D0%BC%D0%B5%D0%BD%D1%82_%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%D0%B8%D1%80%D0%B8%D0%B2%D0%B7%D0%B0%D0%B8%D0%BC%D0%BE%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%D1%81%D0%B4%D0%B8%D1%82.pdf": "Регламент использования информационных ресурсов и взаимодействие с Департаментом ИТ.pdf",
+  "https://help.university.innopolis.ru/documents/%D1%80%D0%B5%D0%B3%D0%BB%D0%B0%D0%BC%D0%B5%D0%BD%D1%82_%D0%BF%D1%80%D0%BE%D1%86%D0%B5%D1%81%D1%81%D0%B0_%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8_%D0%B8%D1%82.pdf": "Регламент процесса организации ИТ поддержки в Университете Иннополис.pdf",
+  "https://help.university.innopolis.ru/documents/%D1%81%D0%BB%D1%83%D0%B6%D0%B5%D0%B1%D0%BD%D0%B0%D1%8F_%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%BA%D0%B0_%D0%BD%D0%B0_%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BF%D1%80%D0%B0%D0%B2_%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%B0_eng.pdf": "Служебная записка о предоставлении прав администратора.pdf",
+  "https://help.university.innopolis.ru/documents/annex_1_is_user%27s_manual.pdf": "Information systems USER'S Manual.pdf"
+ },
+ "pages": {
+  "en-contacts": {
+   "fetched_at": "2026-10-31T10:07:20+00:00",
+   "file_sha": "5c4235e2f4664d836307e41ecd8c7b0516acfbe45c31082af982c9f026e39ddc",
+   "last_modified": "",
+   "sha256": "9f2651e9b8cf16bfdbd27fe16a808265716ca9c4b96ed36d723bb80a7d6535e4",
+   "title": "Contact Information | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Contacts"
+  },
+  "en-home": {
+   "fetched_at": "2026-10-31T10:18:24+00:00",
+   "file_sha": "cb702c2d26c662fa21035e241bbe17ddcd56eebd5894779c4e9b0246cfb7998c",
+   "last_modified": "",
+   "sha256": "6b2a7ffdef0595e3f45e5f2b27fdfffa138fac74a5cdd869261e873946174f55",
+   "title": "Welcome! | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/home"
+  },
+  "en-mail": {
+   "fetched_at": "2026-10-31T10:07:34+00:00",
+   "file_sha": "2e69b05e930b42d47fb97574be02d114ead56ce0025518d6272ade0f161e9929",
+   "last_modified": "",
+   "sha256": "cfdea49801d7ab964713944dc7cd59feb3742e466d502b3911094d87b280aac2",
+   "title": "Mail | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Mail"
+  },
+  "en-mail-cant-log-into-outlook": {
+   "fetched_at": "2026-10-31T10:07:41+00:00",
+   "file_sha": "94d6c916b95938f8cdde7d0b5ba6356717454a2c34640c617c0301d3573a5b58",
+   "last_modified": "",
+   "sha256": "3532c367df1edc3629f0d7a6384bc36cbab87b72de2097936a297f9c1a690270",
+   "title": "Outlook application can't open / doesn't accept password | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Mail/Cant_log_into_Outlook"
+  },
+  "en-mail-create-new-mail-profile": {
+   "fetched_at": "2026-10-31T10:07:56+00:00",
+   "file_sha": "63ed4cbd8136ec0064731423a3adec828bdb8704a8124388c82c6c11dd575414",
+   "last_modified": "",
+   "sha256": "51429193761bcd2d93bdc5e722f35c0b907601c3eb4838d59655e8d546f6aa99",
+   "title": "Create new mail Profile | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Mail/Create_new_mail_Profile"
+  },
+  "en-mail-create-new-mail-profile-macos-exchange": {
+   "fetched_at": "2026-10-31T10:08:46+00:00",
+   "file_sha": "24ef5bc5c756c3cdc8c2d167497a33298116b5b4950e17d2c000a55f9f3498a2",
+   "last_modified": "",
+   "sha256": "3f0abd88da1a1aa9210b6f8e5df2c71fc60aafe5fd1c7b2dccf9f849e6f15794",
+   "title": "Create new mail Profile on macOS | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Mail/Create_new_mail_Profile/macOS_Exchange"
+  },
+  "en-mail-create-new-mail-profile-mobile-exchange": {
+   "fetched_at": "2026-10-31T10:08:17+00:00",
+   "file_sha": "fb310c290cc7597ca871a106f36d5b12ae50b4ed996c2fe1ce307f694440bd33",
+   "last_modified": "",
+   "sha256": "c0dbe32f8b17eecaacf3f88f8f67adc93c1d5b7215f6684f84b26c9ecb154105",
+   "title": "Create new mail Profile on mobile device | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Mail/Create_new_mail_Profile/Mobile_Exchange"
+  },
+  "en-mail-create-new-mail-profile-windows-exchange": {
+   "fetched_at": "2026-10-31T10:08:32+00:00",
+   "file_sha": "1818b04bdfe15c20e621f09a6636c6abf021514055147b1e32b77c8ebcbb8c77",
+   "last_modified": "",
+   "sha256": "f6de1740f4f01b334447d214d8e404efcadc1c44a1a616ae3084e57c0449f9fa",
+   "title": "Create new mail Profile on Windows | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Mail/Create_new_mail_Profile/Windows_Exchange"
+  },
+  "en-mail-from-field": {
+   "fetched_at": "2026-10-31T10:09:00+00:00",
+   "file_sha": "9c9417be4ac48ca5d5ca21c02eb5e406cd4c93714d5ea0e0cbbe1f472380ade8",
+   "last_modified": "",
+   "sha256": "a0a5c2a006136ccb7d7342ef0ca5ab984e378c4944ca034ad8455e6a576c7bb7",
+   "title": "Adding the FROM field Outlook | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Mail/From_Field"
+  },
+  "en-mail-it-innopolis-ru": {
+   "fetched_at": "2026-10-31T10:19:36+00:00",
+   "file_sha": "0329785606dbe506b3a388ef518aaa628d827646d4362ca34e6aff137c4291c7",
+   "last_modified": "",
+   "sha256": "0329785606dbe506b3a388ef518aaa628d827646d4362ca34e6aff137c4291c7",
+   "title": "help.university.innopolis.ru",
+   "url": "https://help.university.innopolis.ru/en/Mail/it%40innopolis.ru"
+  },
+  "en-mail-mail-innopolis-ru": {
+   "fetched_at": "2026-10-31T10:19:29+00:00",
+   "file_sha": "105f9bb1587268e000e42ba33c32e2ce3ac0ae68cabb4a53de192461c426dc6d",
+   "last_modified": "",
+   "sha256": "105f9bb1587268e000e42ba33c32e2ce3ac0ae68cabb4a53de192461c426dc6d",
+   "title": "help.university.innopolis.ru",
+   "url": "https://help.university.innopolis.ru/en/Mail/mail.innopolis.ru"
+  },
+  "en-mail-settings-exchange": {
+   "fetched_at": "2026-10-31T10:09:07+00:00",
+   "file_sha": "cac750516dbfaf99989d7fcfbb3376e80231b16a5b4f0a925925e7d17e9edf9b",
+   "last_modified": "",
+   "sha256": "ee3df30754dcec7e25266c703114a8b6b1f5da3bc6ac68cc50dbc7a384caba4f",
+   "title": "Exchange settings connection | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Mail/Settings_Exchange"
+  },
+  "en-printers-and-scanners": {
+   "fetched_at": "2026-10-31T10:09:32+00:00",
+   "file_sha": "3637b8c3438181130bca08676ad498cbd1a72ec7934d90fccc6e32a2cbf2c744",
+   "last_modified": "",
+   "sha256": "ffee6eb1c2c3384ce0fb3cab615c142bc05fea2f177701fe558a2e7de78674d3",
+   "title": "Printers and Scanners | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Printers_and_Scanners"
+  },
+  "en-printers-and-scanners-connecting-the-printer-to-a-pc": {
+   "fetched_at": "2026-10-31T10:09:46+00:00",
+   "file_sha": "b4e7b09d932f46405d78a7997c77d4e1449edabc6eca3b1ae36d2c1b1976f20f",
+   "last_modified": "",
+   "sha256": "5e187674deee9e3deccf3d6cb9b6397adcae5db95bc9f0268e050b77929abee8",
+   "title": "Connecting the printer to a PC | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Printers_and_Scanners/Connecting_the_printer_to_a_PC"
+  },
+  "en-printers-and-scanners-scanning-documents-on-a-samsung-ftp": {
+   "fetched_at": "2026-10-31T10:10:15+00:00",
+   "file_sha": "8dd1198b534a6420415aa185caca8c312f634a74f22f81e8cf113d891910f9db",
+   "last_modified": "",
+   "sha256": "03974871f0172e08b7c0d94272133df6716813a11daec9922231df50edba7697",
+   "title": "Scanning documents on a Samsung printer via FTP | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Printers_and_Scanners/Scanning_documents_on_a_Samsung_FTP"
+  },
+  "en-regulations-information-systems-user-s-manual": {
+   "fetched_at": "2026-10-31T10:10:43+00:00",
+   "file_sha": "3f03b751fbb5dbb013b3c6570116cda6ac7c4f1260cdfd0829edf50949ef7022",
+   "last_modified": "",
+   "sha256": "49cd07d4353942aa3e14a994e371600650ed79c0d531b5f92e676d55ea47f077",
+   "title": "Information systems USER’S MANUAL | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Regulations/Information_systems_USER%E2%80%99S_MANUAL"
+  },
+  "en-regulations-nda": {
+   "fetched_at": "2026-10-31T10:10:50+00:00",
+   "file_sha": "27559aa893084a65d094516e7ca5b5f9b5eabeeeff0b2ebc031baf1f8067bf3b",
+   "last_modified": "",
+   "sha256": "24eea036aa957ec49de0dba9e998e8f6205920f6c1ed607ad30e2e78f298a88f",
+   "title": "Access for non-employees of the IU | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Regulations/NDA"
+  },
+  "en-regulations-regulations-for-access-to-folders": {
+   "fetched_at": "2026-10-31T10:11:19+00:00",
+   "file_sha": "bcaad4f75cdcc659f7cf05f7714709f6da54bc3f459bf5a047b9e70e70ab1891",
+   "last_modified": "",
+   "sha256": "d65bcacca59e52c053166853fee4008eead53540fe85c3beff33c4417fcfc1fb",
+   "title": "Regulations for access permissions to folders on drive P | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Regulations/Regulations_for_access_to_folders"
+  },
+  "en-regulations-regulations-it-support": {
+   "fetched_at": "2026-10-31T10:11:05+00:00",
+   "file_sha": "85d201150da45a8641863282fb28f75a9bc41b5bb72330a137a83a612b5cdb48",
+   "last_modified": "",
+   "sha256": "6bf08b9668648f511846bd182f241bdc8596c5a578d7f35137ac352078b86d30",
+   "title": "Regulations for the IT support process of Innopolis University | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Regulations/Regulations_IT_support"
+  },
+  "en-remote-connections": {
+   "fetched_at": "2026-10-31T10:11:26+00:00",
+   "file_sha": "4b81264d49b94ae6b43bd274443c54f1cde1c64829c5cc54b8e18808faf4335e",
+   "last_modified": "",
+   "sha256": "34f31d1e8534c1560bdb1c2271620a0b043c94eed36f56814b5dc7267d292612",
+   "title": "Remote connections | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Remote_Connections"
+  },
+  "en-remote-connections-connections-to-pc": {
+   "fetched_at": "2026-10-31T10:11:41+00:00",
+   "file_sha": "9287fc742e4c9b04818ced1fa30c74645dc6de728bfffca08616ba18aadee793",
+   "last_modified": "",
+   "sha256": "7ef6bf71b7772307cb6f91b84267d36ce132ea3ec37532f7ce6cab3051184f35",
+   "title": "Remote connection to a workstation (PC) | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Remote_Connections/Connections_to_PC"
+  },
+  "en-remote-connections-network-drives": {
+   "fetched_at": "2026-10-31T10:11:55+00:00",
+   "file_sha": "a645c8669485e02dc27b8bee4e9c7266d985ca917968f57c160b202360a48c27",
+   "last_modified": "",
+   "sha256": "f90b858ed4a3187cd3b2116e84d4935f994afde69fe6449f8756c353bc037bff",
+   "title": "Network Drives | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Remote_Connections/Network_drives"
+  },
+  "en-remote-connections-network-drives-diskp-disk-p-win10": {
+   "fetched_at": "2026-10-31T10:12:38+00:00",
+   "file_sha": "53729a5a5dc0d56ede990ee73a32e9affb511da5575efd766509be467e406882",
+   "last_modified": "",
+   "sha256": "32c259642cf53a8a3c30dfd71dff57be1f13e2e97560477db125675df229665c",
+   "title": "How to connect to drive P(OS win 10) | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Remote_Connections/Network_drives/DiskP/Disk_P_win10"
+  },
+  "en-software": {
+   "fetched_at": "2026-10-31T10:13:07+00:00",
+   "file_sha": "b63e7adb6cbb6d85d2b5e682a35edcfacca5b115cd55833327fccdc9d3f4c033",
+   "last_modified": "",
+   "sha256": "39b49b33507fcd9411947a4baca584872a895b62d4715e9e3dff5c337f40e780",
+   "title": "Software | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Software"
+  },
+  "en-software-ms-teams-get-started": {
+   "fetched_at": "2026-10-31T10:13:21+00:00",
+   "file_sha": "7c832e6ea4b39a888632b9a16da06ea45a610de3fe31095a0c096a0c2141c24b",
+   "last_modified": "",
+   "sha256": "21b28037800af9b8e2e26c04c84ad12d81362867bc1236b593e28adbb92d151c",
+   "title": "Get started with Microsoft Teams | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Software/MS_Teams/Get_started"
+  },
+  "en-software-ms-teams-teams-meeting-in-outlook": {
+   "fetched_at": "2026-10-31T10:13:52+00:00",
+   "file_sha": "e45642b804d2a1c139947f58006b21bd8201fab8cfd10b3a5971dc7b7d149980",
+   "last_modified": "",
+   "sha256": "b802d3f9a64ca57c73b352835fe2c385c3108303140d0f8db117e5ea1a88e88f",
+   "title": "How to create a Teams Meeting in Outlook | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Software/MS_Teams/Teams_Meeting_in_Outlook"
+  },
+  "en-software-ms-teams-video-conferencing": {
+   "fetched_at": "2026-10-31T10:13:59+00:00",
+   "file_sha": "7a42d2982a84e325707d0ff67aa824e7497b0f28a9653513d37d8641e5c6a605",
+   "last_modified": "",
+   "sha256": "bbcf5e590d2a352ebc56af1232278fa9c49d27712cb7e57cc02f307644cf648e",
+   "title": "How to Set Up Video Conferencing | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Software/MS_Teams/Video_Conferencing"
+  },
+  "en-virtualization": {
+   "fetched_at": "2026-10-31T10:16:37+00:00",
+   "file_sha": "e5e94d6c7e27045ba432af8b6cea3eecc3e6bac64c8101609e0ebdf362168165",
+   "last_modified": "",
+   "sha256": "57af014a41324999f4c493dad5bf3254756bea9e7673f128062ca2f22dff9f5c",
+   "title": "Virtualization | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Virtualization"
+  },
+  "en-virtualization-vm-template": {
+   "fetched_at": "2026-10-31T10:16:44+00:00",
+   "file_sha": "64e84227c4f932154305811c118a14dd5c0fd5667fe433b79ce219f9d13ccec3",
+   "last_modified": "",
+   "sha256": "4a1a796980c2691d14c3c76d620e177862b9964aec154abcd48dbf7336e52108",
+   "title": "VM creation request template | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/Virtualization/VM_template"
+  },
+  "en-vpn": {
+   "fetched_at": "2026-10-31T10:14:28+00:00",
+   "file_sha": "f17495f3a397c434c9caab5240dff830e6c7fa1bcf62b12dcfe7caa1457800e5",
+   "last_modified": "",
+   "sha256": "cd22aa0b20d76c85cbbf8df415fbc339394cef828c49606beb131d1c479fea53",
+   "title": "VPN | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/VPN"
+  },
+  "en-vpn-openvpn": {
+   "fetched_at": "2026-10-31T10:14:49+00:00",
+   "file_sha": "4ca0e24ba95357491ea1470b250379a2a6c5b419fecd0cc1c890ce71203c0165",
+   "last_modified": "",
+   "sha256": "deaa9adb07f4e195ea14ff33e33a085a40ead6023cce9cbc2c097a73f5ddcbc2",
+   "title": "OpenVPN connection | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/VPN/OpenVPN"
+  },
+  "en-vpn-vpn-errors-problems-with-vpn-connection": {
+   "fetched_at": "2026-10-31T10:15:04+00:00",
+   "file_sha": "c41b35b9de5865940491011af59b44f289ebec9c42ac5025651232fa90475864",
+   "last_modified": "",
+   "sha256": "e133abc505a9452a1b82b672a76b6ef7e225d026e3eb665fb02a22d61fc90111",
+   "title": "If there are problems with the VPN connection | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/VPN/VPN_Errors/Problems_with_VPN_connection"
+  },
+  "en-vpn-vpn-errors-traffic-via-vpn": {
+   "fetched_at": "2026-10-31T10:15:18+00:00",
+   "file_sha": "110e737f9b333330cdf8f421691444116c4a2ae680f79d7ba8a2259151ec1fa2",
+   "last_modified": "",
+   "sha256": "400417a86a761ae09f5efdd0060a0af9bb571fa33cdac859790ff20dd339e342",
+   "title": "When connecting to the VPN server, nothing is pingable. | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/VPN/VPN_Errors/Traffic_via_VPN"
+  },
+  "en-vpn-vpn-macos": {
+   "fetched_at": "2026-10-31T10:15:32+00:00",
+   "file_sha": "6bd6fd2063586711f21edc15bc053370a61caa6e096c54ce6d9d513aa8b7c78b",
+   "last_modified": "",
+   "sha256": "dddb0c478c6d1f1c305ef5868e7e1a5a4cf734c0dc7c8c93beb4de3e31ea3a84",
+   "title": "Connecting a VPN on OS MacOS | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/VPN/VPN_MACOS"
+  },
+  "en-vpn-vpn-ubuntu": {
+   "fetched_at": "2026-10-31T10:15:54+00:00",
+   "file_sha": "b11f65c521a7361597cb0e605bc0a90bd58c9a06db94fb5e7ff95283c75c027a",
+   "last_modified": "",
+   "sha256": "d5e8bca39582e54b950c3e49b9f08f98e5dfab3cc180b88f2a93200112e9a30c",
+   "title": "Connecting a VPN on OS Ubuntu | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/VPN/VPN_Ubuntu"
+  },
+  "en-vpn-vpn-windows": {
+   "fetched_at": "2026-10-31T10:16:08+00:00",
+   "file_sha": "ffb37b6aa4763c604bc8cd9e6859782231381e2360357e05c22641d7e7c906e1",
+   "last_modified": "",
+   "sha256": "28ee4e108447a6d67bed46d57ebcf9f8246429ba672e20a266fa160d8bac3f58",
+   "title": "Connecting a VPN on OS Windows 10 | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/VPN/VPN_Windows"
+  },
+  "en-vpn-vpn-windows7": {
+   "fetched_at": "2026-10-31T10:16:22+00:00",
+   "file_sha": "7012116e4a180d3c7e6742a84655489d5c3c949f11c701403b59c3f16d566dd3",
+   "last_modified": "",
+   "sha256": "aaf4903ddf110b82feeec319e0ff6f934aa47ea6f500f70c0f77fcdc10a28709",
+   "title": "Connecting a VPN on OS Windows 7 | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/VPN/VPN_Windows7"
+  },
+  "en-wifi-android11": {
+   "fetched_at": "2026-10-31T10:17:05+00:00",
+   "file_sha": "8e0595976e16aeeb977db255dcba7f7fdc57db5c3b3ffbe7134d2958f0930969",
+   "last_modified": "",
+   "sha256": "c8f9b9c99d40dc194295ad879b2fd8dbf52d61d8a1bca6b5dce33fe77b122637",
+   "title": "Connecting wifi on Android 11 | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/WIFI/Android11"
+  },
+  "en-wifi-android9-10": {
+   "fetched_at": "2026-10-31T10:17:13+00:00",
+   "file_sha": "8c812fc42b3c12a4f6c1a3477b0f814296184bf7af148d206a31d68ec8b89d69",
+   "last_modified": "",
+   "sha256": "5612b3f34bd1b7ff9ac8e751d48efd4d597b8b1c7085fbae16ded0d8d2900f45",
+   "title": "Connecting wifi on Android 9 & 10 | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/WIFI/Android9-10"
+  },
+  "en-wifi-ios": {
+   "fetched_at": "2026-10-31T10:17:27+00:00",
+   "file_sha": "910c8c2a8eda75847e66406625633a2c46b67f038151a65f7952255f5c8ec3d5",
+   "last_modified": "",
+   "sha256": "8aa7a672572baf0ff7976aebc4ed50cf51693fad03d0b99e50c8e4fe17520183",
+   "title": "Connecting wifi on IOS | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/WIFI/IOS"
+  },
+  "en-wifi-macos": {
+   "fetched_at": "2026-10-31T10:17:41+00:00",
+   "file_sha": "a00c49008dc7a05725ac4ab1954c09fc711b636a934800e4fb5ab57ae1d1f770",
+   "last_modified": "",
+   "sha256": "b81b33bbe86db2b659a566d9c2aff2670d69c42dd4684d59fc257ae706231ce9",
+   "title": "Connecting wifi on macOS | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/WIFI/MacOS"
+  },
+  "en-wifi-ubuntu-gui": {
+   "fetched_at": "2026-10-31T10:18:03+00:00",
+   "file_sha": "6f957597e6cba19a782d6c4428bf0cdb084b5389d16704bb713bf019ca564871",
+   "last_modified": "",
+   "sha256": "fe3cb2772f873a27a2040ac509a2963ae9827b4e0f4f9be7f073b43fa1dea412",
+   "title": "Connecting wifi on Ubuntu (GUI) | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/WIFI/Ubuntu%28GUI%29"
+  },
+  "en-wifi-windows10": {
+   "fetched_at": "2026-10-31T10:18:10+00:00",
+   "file_sha": "e5ad051dab57cbafde55c15910a44afe29497de6e3cf460e80cf198d6ab68ee6",
+   "last_modified": "",
+   "sha256": "05120300936f1e088f7c893edf90fc71ed0698eccdc050fe8e2e0efdda89a3df",
+   "title": "Connecting wifi on Windows 10 | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/en/WIFI/Windows10"
+  },
+  "ru": {
+   "fetched_at": "2026-10-31T10:19:00+00:00",
+   "file_sha": "cbca7033a8bc3c6f43ed9e9127bb80f415604c01cbbbc3e14d441340665dfff1",
+   "last_modified": "",
+   "sha256": "4e72185b15e83c4412e0c210c1901cfbeb97a8b300d5d467ffd23305bb8b71e1",
+   "title": "Отпуск | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/%D0%9F%D0%BE%D1%80%D1%82%D0%B0%D0%BB/%D0%9E%D1%82%D0%BF%D1%83%D1%81%D0%BA"
+  },
+  "ru-azuredevops-azuredevops-error-ssh": {
+   "fetched_at": "2026-10-31T10:19:07+00:00",
+   "file_sha": "2e78aa62ec87f31ac3c5055954aaf705a3a8f7d8bb5fab76a326565d89981558",
+   "last_modified": "",
+   "sha256": "db1c87a22970f6b4570a1fc6154b3530f4aa804181bd011249f1af16178c9e18",
+   "title": "Ошибки при работе в AzureDevOps (SSH доступы) | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/%D0%A1%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D1%8B/AzureDevOps/AzureDevOps_Error_SSH"
+  },
+  "ru-contacts": {
+   "fetched_at": "2026-10-31T10:07:13+00:00",
+   "file_sha": "639e5651260933393df8ec9ff956bcb17c79e5b09af7a4d455a3b3e05041e527",
+   "last_modified": "",
+   "sha256": "79fe392d91c2c0aab11c0670dda4522b5a0ad8f7cfd3ff216a709c0e1f8a1497",
+   "title": "Контактная информация | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Contacts"
+  },
+  "ru-home": {
+   "fetched_at": "2026-10-31T10:18:31+00:00",
+   "file_sha": "e29e09ae8a308271cafeccec7045f25116454723b48fbb87195e36f81c80a91d",
+   "last_modified": "",
+   "sha256": "ce5fe5d053bfd86b1a73b01bbed463d90aad44ae39c67b9f048531ab411248ba",
+   "title": "Добро пожаловать! | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/home"
+  },
+  "ru-mail": {
+   "fetched_at": "2026-10-31T10:07:27+00:00",
+   "file_sha": "fdc116207940d0a94192b96b81afd5271504c1f1f220c6cb0c49fff024b369f9",
+   "last_modified": "",
+   "sha256": "661ebf4618bf043eb86854593c595afe85932af65c9c34480dd76e629b5847e8",
+   "title": "Почта | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Mail"
+  },
+  "ru-mail-cant-log-into-outlook": {
+   "fetched_at": "2026-10-31T10:07:49+00:00",
+   "file_sha": "433cecf3f4752e5a3b07390423dd80e7fec217c960bec8434180c9bad110edb7",
+   "last_modified": "",
+   "sha256": "832af1823bc7f451d10c9e475aedd8ba51161d59738b2f39b0a55e708df03e69",
+   "title": "Не заходит/не принимает пароль Outlook | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Mail/Cant_log_into_Outlook"
+  },
+  "ru-mail-create-new-mail-profile": {
+   "fetched_at": "2026-10-31T10:08:03+00:00",
+   "file_sha": "c43472bb5234b393b031ebbe9baef9d53b52b7da28a243635c6cbc99da9bac62",
+   "last_modified": "",
+   "sha256": "90bc703d207660a89ec24a08f777360830d957c8f1db6fdd5241bd218a5735e2",
+   "title": "Подключение нового почтового профиля | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Mail/Create_new_mail_Profile"
+  },
+  "ru-mail-create-new-mail-profile-macos-exchange": {
+   "fetched_at": "2026-10-31T10:08:39+00:00",
+   "file_sha": "03ce74706ae00b3aeadaa32518ac8f18c8e030b999aeed5282ef4f9342fd377b",
+   "last_modified": "",
+   "sha256": "ca385dc0ad05233c16d4c04636842ab1913367aa332cd14078c3886a786e6a7b",
+   "title": "Добавление учетной записи Exchange на MacOS | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Mail/Create_new_mail_Profile/macOS_Exchange"
+  },
+  "ru-mail-create-new-mail-profile-mobile-exchange": {
+   "fetched_at": "2026-10-31T10:08:10+00:00",
+   "file_sha": "cd6fb56a1297f131cb961a04cafdbc6b1d90d5e03a48138a5f567f8fe0f5046c",
+   "last_modified": "",
+   "sha256": "a5040b3608ebcb3a390d61d655738a54c3c7481f13ffcbc1e4fce34bdce38199",
+   "title": "Добавление учетной записи Exchange на телефон | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Mail/Create_new_mail_Profile/Mobile_Exchange"
+  },
+  "ru-mail-create-new-mail-profile-windows-exchange": {
+   "fetched_at": "2026-10-31T10:08:24+00:00",
+   "file_sha": "04d5eaa1b21431f46155bf6892ca3cb35b3c79a62bd9fb392dc3a6108ac2c452",
+   "last_modified": "",
+   "sha256": "7f3e5a04c2e70fb89771766815ceaef9c3ae9a755f8dfad314599055c53e42fb",
+   "title": "Добавление учетной записи Exchange на Windows 10 | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Mail/Create_new_mail_Profile/Windows_Exchange"
+  },
+  "ru-mail-from-field": {
+   "fetched_at": "2026-10-31T10:08:53+00:00",
+   "file_sha": "61d5cbf5fa41df034a1f54b8a70a60a6ede2e055d0ac93d0862de54924a104dc",
+   "last_modified": "",
+   "sha256": "0f1b45bfd8e9b6264de46d983ec5c598f4c13bf64430cbe25ddec336ca51a204",
+   "title": "Добавление поля ОТ | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Mail/From_Field"
+  },
+  "ru-mail-mail-innopolis-ru": {
+   "fetched_at": "2026-10-31T10:19:43+00:00",
+   "file_sha": "9cb8a39ee393f34c76a38955540d84e33605e1bff47d8b4d5cf52e56e347b597",
+   "last_modified": "",
+   "sha256": "9cb8a39ee393f34c76a38955540d84e33605e1bff47d8b4d5cf52e56e347b597",
+   "title": "help.university.innopolis.ru",
+   "url": "https://help.university.innopolis.ru/ru/Mail/mail.innopolis.ru"
+  },
+  "ru-mail-settings-exchange": {
+   "fetched_at": "2026-10-31T10:09:15+00:00",
+   "file_sha": "9b0d1029ec885b74515c7cbc27d6542e486aaae3e9a520bf6aaa833286b13800",
+   "last_modified": "",
+   "sha256": "e3088c5f726a09ef451e2f8a94f38527adad4882875bbe8e88db8def06b0ee7a",
+   "title": "Настройка подключения Exchange | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Mail/Settings_Exchange"
+  },
+  "ru-mail-update-your-address-book-in-outlook": {
+   "fetched_at": "2026-10-31T10:09:22+00:00",
+   "file_sha": "348bdca6fea6376bcddda1c9b7524395b092f19c2e6fd7a54fc637314f5a282f",
+   "last_modified": "",
+   "sha256": "6a1af99209cfe7b42006b6ee0b530a67966bf1a1a347fdb6da81ea9e4df9d9a7",
+   "title": "Обновление адресной книги в Outlook | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Mail/Update_your_address_book_in_Outlook"
+  },
+  "ru-operating-system": {
+   "fetched_at": "2026-10-31T10:18:38+00:00",
+   "file_sha": "267d6808ac96192f6dde46280019982c41ac29dd64ab1c70a48b0faf6282876f",
+   "last_modified": "",
+   "sha256": "5011211148d62367366a8b6a6a8a827e0ec510093c2624f9658795c6170616e2",
+   "title": "Операционная система | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/operating_system"
+  },
+  "ru-operating-system-out-of-disk-space": {
+   "fetched_at": "2026-10-31T10:18:46+00:00",
+   "file_sha": "4be6dbc58952a3d4e9ad05d0a9756670c5af639841212956ae1d22a8f18d7eba",
+   "last_modified": "",
+   "sha256": "9dd0326d5a0f6654f8771f651d4f704c3ceb71ea6c1d570f1fedb2b4a772a2d0",
+   "title": "Закончилось место на диске компьютера(ноутбука) | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/operating_system/Out_of_disk_space"
+  },
+  "ru-operating-system-white-bar-at-the-top-of-windows": {
+   "fetched_at": "2026-10-31T10:18:53+00:00",
+   "file_sha": "7c6eb546011f11123c26651d91f75dc30e8d0863495f59b9cb5c01a70d0a7628",
+   "last_modified": "",
+   "sha256": "5d1bbfd882553743a69f9b86062aaba6650d19bdf34f1109312eb56d18c23ccb",
+   "title": "Белая полоса на верхней части экрана | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/operating_system/white_bar_at_the_top_of_windows"
+  },
+  "ru-printers-and-scanners": {
+   "fetched_at": "2026-10-31T10:09:39+00:00",
+   "file_sha": "90215fc2e10bba4b39bd364ede1923e5ff574a53b8d042742a7f67084fdb6a45",
+   "last_modified": "",
+   "sha256": "ccef105cb003c392e71412d919cea16dbf9aac27f6d1571df00395833a47e825",
+   "title": "Принтеры и сканеры | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Printers_and_Scanners"
+  },
+  "ru-printers-and-scanners-connecting-the-printer-to-a-pc": {
+   "fetched_at": "2026-10-31T10:09:53+00:00",
+   "file_sha": "c59e064ee57ad72d97ab82e8ff6fad8cefac559ed52a2349af88da79d2dc6a43",
+   "last_modified": "",
+   "sha256": "3f05a1e1c1d459955c04091fc4baefe00196af2265edc3dca9170590d2630bea",
+   "title": "Подключение принтера к ПК | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Printers_and_Scanners/Connecting_the_printer_to_a_PC"
+  },
+  "ru-printers-and-scanners-how-to-add-email-to-address-book": {
+   "fetched_at": "2026-10-31T10:10:00+00:00",
+   "file_sha": "70ceffab6d1d55008301d530080434134fb61e71370204ca55fb999f1580be3d",
+   "last_modified": "",
+   "sha256": "76fec144da989465562d28bf18ea1813913c9979c54d4d88d8dc45c088101105",
+   "title": "Как добавить email в адресную книгу на принтере | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Printers_and_Scanners/How_to_add_email_to_address_book"
+  },
+  "ru-printers-and-scanners-scanning-documents-on-a-samsung-ftp": {
+   "fetched_at": "2026-10-31T10:10:07+00:00",
+   "file_sha": "1e32b837c71a9158175afadcaeb199f19e7fa545b5d0188415dfeca015fa942f",
+   "last_modified": "",
+   "sha256": "ece46bb1adfbf2f0ed514036ad038ab752c20d5bf9fabc39d20b874d8165e665",
+   "title": "Сканирование документов на принтере Samsung через FTP | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Printers_and_Scanners/Scanning_documents_on_a_Samsung_FTP"
+  },
+  "ru-printers-and-scanners-the-printing-settings-in-1c": {
+   "fetched_at": "2026-10-31T10:10:22+00:00",
+   "file_sha": "8aac96c09fa04e124c11784189b16389b3aa663abdf13503166e45d9b349c868",
+   "last_modified": "",
+   "sha256": "e2b0d061f661cbe6c60c489dae2b2da8667ab5b2b11d815221b3de60536b7b89",
+   "title": "Сбились настройки печати в 1С | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Printers_and_Scanners/The_printing_settings_in_1C"
+  },
+  "ru-regulations": {
+   "fetched_at": "2026-10-31T10:10:29+00:00",
+   "file_sha": "b4f74b05c4a949374c98d8ff1d5fc23eb248ad02d25351383d93700ca2592450",
+   "last_modified": "",
+   "sha256": "ed46a71f0105ae0e7c67c6722f1027bd15a941b1e040b88b542312e6857a0d2b",
+   "title": "Регламенты | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Regulations"
+  },
+  "ru-regulations-information-systems-user-s-manual": {
+   "fetched_at": "2026-10-31T10:10:36+00:00",
+   "file_sha": "d67d9625c88b3dd3dceb17d02faa68443a80de1d0e10d964eb3c5be1e42fdb1e",
+   "last_modified": "",
+   "sha256": "a323b7ef88aa19de8d2cc800b2ec07e82e2eb9144e584306593a8618238cb355",
+   "title": "Инструкция пользователя информационных систем | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Regulations/Information_systems_USER%E2%80%99S_MANUAL"
+  },
+  "ru-regulations-nda": {
+   "fetched_at": "2026-10-31T10:10:58+00:00",
+   "file_sha": "d8ff1c2221a5e34023d8b906c351d038245209c3c49ab538a78cfaa5355472fe",
+   "last_modified": "",
+   "sha256": "b2236fa9c43d7805d85c53930fbda4e0fed39c9522626280c1f189d293926912",
+   "title": "Регламент предоставления прав доступа к ИС несотрудникам УИ | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Regulations/NDA"
+  },
+  "ru-regulations-regulations-for-access-to-folders": {
+   "fetched_at": "2026-10-31T10:11:12+00:00",
+   "file_sha": "fb17b31e7a25564be72d0a86170024064c95a152a504ae5be08080dc84706e1d",
+   "last_modified": "",
+   "sha256": "db77d6be6e83190214659092cd06e230c6e2893c189e0cc1f972b0a3ba88d37d",
+   "title": "Регламент прав доступа на папки диска P | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Regulations/Regulations_for_access_to_folders"
+  },
+  "ru-remote-connections": {
+   "fetched_at": "2026-10-31T10:11:33+00:00",
+   "file_sha": "ff1fc512eb07f6d380d0c4c6a63279366ef8a5102f07338ae7e2f6fd9a761b82",
+   "last_modified": "",
+   "sha256": "c8ee7b541eb2491926e1f5b787ad5c56d8ebd96cfd6a14c1c169cfd8d9951465",
+   "title": "Удаленные подключения | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Remote_Connections"
+  },
+  "ru-remote-connections-connections-to-pc": {
+   "fetched_at": "2026-10-31T10:11:48+00:00",
+   "file_sha": "5fea01efea1b198523b62d69c105257588186652f52c89c79d272826daf1088b",
+   "last_modified": "",
+   "sha256": "952de27b180a6938548e2a8b043064b1e112b2d28687b64c23c754030c9b2229",
+   "title": "Удаленное подключение к рабочей станции(ПК) | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Remote_Connections/Connections_to_PC"
+  },
+  "ru-remote-connections-network-drives": {
+   "fetched_at": "2026-10-31T10:12:02+00:00",
+   "file_sha": "7b51f889f24b1f28e0d507874392df834c91d417ec99c86e56dce0519ded7b16",
+   "last_modified": "",
+   "sha256": "4b45112964fcf8ac550e85868212d2e6f75308bb1682220dcbd4c7125662b4ca",
+   "title": "Сетевые диски | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Remote_Connections/Network_drives"
+  },
+  "ru-remote-connections-network-drives-diskm-cdo-media": {
+   "fetched_at": "2026-10-31T10:12:09+00:00",
+   "file_sha": "d2aaef5160305d2a2127b309ec3f2164d4ac7fb1db5799e7b20e4d1e9f8df480",
+   "last_modified": "",
+   "sha256": "67878953c1691aed0ea9e4a443bd9aa2749b4e602ac648a17a18a382e8e3a2ea",
+   "title": "Подключение диска M на Windows 10 | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Remote_Connections/Network_drives/DiskM/cdo-media"
+  },
+  "ru-remote-connections-network-drives-diskp-access-to-the-sca": {
+   "fetched_at": "2026-10-31T10:12:16+00:00",
+   "file_sha": "5dcfed9ee8ecb415854e944261f1dea1a2eccb48d361f92e2b1f63498ccf9c7f",
+   "last_modified": "",
+   "sha256": "12170a7b892e51fab245ffa3f690166efbee06decf50544bb583fcb96dce9ecc",
+   "title": "Доступ к папке Scan через браузер | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Remote_Connections/Network_drives/DiskP/Access_to_the_Scan_folder_via_browser"
+  },
+  "ru-remote-connections-network-drives-diskp-disk-p-macos": {
+   "fetched_at": "2026-10-31T10:12:24+00:00",
+   "file_sha": "c6a21379fe113795a6427c0aad7303b85b3bc80410f2e1ce6bdb136d78866c9c",
+   "last_modified": "",
+   "sha256": "fd11d17ac8e996f0e7bc77de23d71148e0a2c4468ce6d8e501f0b8700b73ac46",
+   "title": "Подключение диска Р на MacOS | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Remote_Connections/Network_drives/DiskP/Disk_P_macOS"
+  },
+  "ru-remote-connections-network-drives-diskp-disk-p-ubuntu": {
+   "fetched_at": "2026-10-31T10:12:31+00:00",
+   "file_sha": "1827238af7a0c68911cb16a89fc2728d594938bd692f406ce8e4875b5e1ef61a",
+   "last_modified": "",
+   "sha256": "e3444ed8d91e1a082868d756cb11c6c1bcd6ac6dbc308aaa4b88c286147135fc",
+   "title": "Подключение диска Р на Linux Ubuntu | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Remote_Connections/Network_drives/DiskP/Disk_P_ubuntu"
+  },
+  "ru-remote-connections-network-drives-diskp-disk-p-win10": {
+   "fetched_at": "2026-10-31T10:12:45+00:00",
+   "file_sha": "170cbd04993a0ce0d6e931333fca823f0b0d50bbd70c5616049f3a53604dcc86",
+   "last_modified": "",
+   "sha256": "2e057ce6c97cbc910f52694cd058f3219f956bbfa9b6cbee2a1ae3bdd7413753",
+   "title": "Подключение диска Р на Windows10 | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Remote_Connections/Network_drives/DiskP/Disk_P_win10"
+  },
+  "ru-remote-connections-update-shortcuts-work-resources": {
+   "fetched_at": "2026-10-31T10:12:52+00:00",
+   "file_sha": "2a170e0c93ff62f62c868ef4a44b4a66e6328ebdbf84e330b0a663c5897747ad",
+   "last_modified": "",
+   "sha256": "02b5800426773130c0dab6daa60bb0f2a6e8b8b594d3d9fbf4c2de3c5cc54175",
+   "title": "Обновление ярлыков в папке Work Resources | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Remote_Connections/Update_shortcuts_Work_Resources"
+  },
+  "ru-software": {
+   "fetched_at": "2026-10-31T10:13:00+00:00",
+   "file_sha": "545252c35f066f4df4a21d5dc07d54ce8def3a5efaec5a06ef3646bf9504471a",
+   "last_modified": "",
+   "sha256": "73628633b943383415280be0f67609291e5a9335b8d8c5ccaffa71cc9ca3a28f",
+   "title": "Программное обеспечение | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Software"
+  },
+  "ru-software-7-zip": {
+   "fetched_at": "2026-10-31T10:13:14+00:00",
+   "file_sha": "2f0c8289a9399b7f083d963fb522b7ad4f35f4568d663b05e0a7f6ca0ca9b02a",
+   "last_modified": "",
+   "sha256": "0cf311a5f0123ecd1dbff7b55c08cdd8d5dd33b31f1bca74ecd2c9b1f043213a",
+   "title": "Автоматическое открытие архивов с помощью 7-Zip | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Software/7-Zip"
+  },
+  "ru-software-ms-teams-get-started": {
+   "fetched_at": "2026-10-31T10:13:28+00:00",
+   "file_sha": "6bab13f087082260fa66b2f531c45a447dd6fb3a15ce704449968162223825e0",
+   "last_modified": "",
+   "sha256": "3a42720f173df55a438e369de89027801b1f7ad535907651eaedcab7f325880c",
+   "title": "Вход в Teams и начало работы | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Software/MS_Teams/Get_started"
+  },
+  "ru-software-ms-teams-problem-with-login-teams": {
+   "fetched_at": "2026-10-31T10:13:35+00:00",
+   "file_sha": "c015df667c3695d37114ce2afa8b3ea97af8773617f5dcf3bf432c7f0645d8ca",
+   "last_modified": "",
+   "sha256": "f239234bbc34444233e55bcec801e4dea00ea3c8dc0a3ca083f6f6603f38cd0e",
+   "title": "Проблема со входом в Microsoft Teams | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Software/MS_Teams/Problem_with_login_Teams"
+  },
+  "ru-software-ms-teams-teams-meeting-in-outlook": {
+   "fetched_at": "2026-10-31T10:13:43+00:00",
+   "file_sha": "4726277a780e86aa5906301678f7fab40e84dd402e2583aa85c17e1db885ee03",
+   "last_modified": "",
+   "sha256": "3f71ffcf9807e6b19efb972008e183d7872fc476009eae399f70c4b91db9e45f",
+   "title": "Создание Teams Meeting в Outlook | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Software/MS_Teams/Teams_Meeting_in_Outlook"
+  },
+  "ru-software-ms-teams-video-conferencing": {
+   "fetched_at": "2026-10-31T10:14:06+00:00",
+   "file_sha": "a142c3008934da58d4071e69b110109631c72e61c70ee7dcfc95dbfcddaf698a",
+   "last_modified": "",
+   "sha256": "94516b7360a07fbc105dd70fde5ebde6589d142fac438784ab38208d9d82d50b",
+   "title": "Создание видеоконференции в MS Teams | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Software/MS_Teams/Video_Conferencing"
+  },
+  "ru-software-organization-of-zoom-youtube-broadcasts": {
+   "fetched_at": "2026-10-31T10:14:13+00:00",
+   "file_sha": "6a2aa99933e048c73eac269c30dc9cd8bccb93281fa34cb440e8c3adfc7da309",
+   "last_modified": "",
+   "sha256": "ee9616d0ba3cb0fd8e8b9e07934f5f42f46ab7d9a02da26b1d46dff5cc7729f9",
+   "title": "Организация Zoom-Youtube трансляции | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Software/Organization_of_Zoom_Youtube_broadcasts"
+  },
+  "ru-software-pdf-editor": {
+   "fetched_at": "2026-10-31T10:14:21+00:00",
+   "file_sha": "58088f7d09c785497d0c39eebbe13ff78e419559f2eff9dd0eb54281c22191ee",
+   "last_modified": "",
+   "sha256": "2dcc54d4317f2af0272ad7443a4739c199ce51c3a3395b333becf48f20d2e33b",
+   "title": "Редактирование PDF документов | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Software/PDF_Editor"
+  },
+  "ru-virtualization": {
+   "fetched_at": "2026-10-31T10:16:30+00:00",
+   "file_sha": "b10ec84a7a961ab4ab8b767d27ba3f8e15ac2e6b2b2f66b8510e9c8bc9d22cfb",
+   "last_modified": "",
+   "sha256": "6fb85553c606e800bd55357bc0b166bd0283141da46881ba5dc612cf496ecd08",
+   "title": "Виртуализация | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Virtualization"
+  },
+  "ru-virtualization-vm-template": {
+   "fetched_at": "2026-10-31T10:16:51+00:00",
+   "file_sha": "f200143cb944f8339b9a3b9369c0da538ecae06e924bf51c0d6066916809ec77",
+   "last_modified": "",
+   "sha256": "5b887747becd7d52963ec1f508540dda321d1fcafe330bed612a59ce43c335cf",
+   "title": "Шаблон заявки на создание ВМ | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/Virtualization/VM_template"
+  },
+  "ru-vpn": {
+   "fetched_at": "2026-10-31T10:14:35+00:00",
+   "file_sha": "877af3fae33ffac238e44577bf268228650443524bc11fc4c86ab0546daf1ed8",
+   "last_modified": "",
+   "sha256": "7cf5fee256675189e462be89acff057dcbfc71ea0e2df0f55bc8392d467623c7",
+   "title": "VPN | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/VPN"
+  },
+  "ru-vpn-openvpn": {
+   "fetched_at": "2026-10-31T10:14:42+00:00",
+   "file_sha": "3930312106e9f26bb0bbb85cef4f5f845e754140c66eab833c0fc4633b127ebf",
+   "last_modified": "",
+   "sha256": "6fc618fd2875d2859a9b2cf15205d04631eb1ced5263641357cd0689472752ab",
+   "title": "Подключение OpenVPN в Казанском офисе | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/VPN/OpenVPN"
+  },
+  "ru-vpn-vpn-errors-problems-with-vpn-connection": {
+   "fetched_at": "2026-10-31T10:14:56+00:00",
+   "file_sha": "6268c295a0bb4b8d9089276c52bffa556ed09fe3e80ad34a59f82110afbeacca",
+   "last_modified": "",
+   "sha256": "80b0c2493e6f22b2a4bea518a9d0dea2217cc2ffd5cdd4e78c3d75fff6233019",
+   "title": "Если есть проблемы с VPN подключением | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/VPN/VPN_Errors/Problems_with_VPN_connection"
+  },
+  "ru-vpn-vpn-errors-traffic-via-vpn": {
+   "fetched_at": "2026-10-31T10:15:11+00:00",
+   "file_sha": "16465b6e8d9f8b1a6ddc08433211fba139d2d0dbd6e84c5d68dd755cc756e29f",
+   "last_modified": "",
+   "sha256": "a3e742e25983d22bec7fc98123fa92f04c0c6ab1b636f74912cc0fe4fa12cf39",
+   "title": "Отправлять весь трафик через VPN | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/VPN/VPN_Errors/Traffic_via_VPN"
+  },
+  "ru-vpn-vpn-macos": {
+   "fetched_at": "2026-10-31T10:15:25+00:00",
+   "file_sha": "07f2ff39d53015ebb2b233555a2ebf35618a67ad49fb277df4623cdddf72a59b",
+   "last_modified": "",
+   "sha256": "65501752f1a468db88e75a41644b9cb9bd352c890faa1cf2a5b377a3f3e4fab7",
+   "title": "Подключение VPN к MacOS | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/VPN/VPN_MACOS"
+  },
+  "ru-vpn-vpn-manjaro": {
+   "fetched_at": "2026-10-31T10:15:39+00:00",
+   "file_sha": "d36f8127184c43f7efbb93accde9bfa7243644f788f580b299c1f2e4e6ee861b",
+   "last_modified": "",
+   "sha256": "23619d8a58998695a2a27c9fb7ead306462a7c2f779bc229fba559fabdcb0f57",
+   "title": "Подключение VPN к Manjaro | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/VPN/VPN_Manjaro"
+  },
+  "ru-vpn-vpn-ubuntu": {
+   "fetched_at": "2026-10-31T10:15:47+00:00",
+   "file_sha": "7bfc1e765e6d18668fee77c1ad6f1ce2d32a03ca8b0bc84f541a5abdfa609124",
+   "last_modified": "",
+   "sha256": "fa76c7e401781212a24286f752712f6ddcbf9d36f73c8fd7e6e3da8004d1522c",
+   "title": "Подключение VPN к Ubuntu GUI | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/VPN/VPN_Ubuntu"
+  },
+  "ru-vpn-vpn-windows": {
+   "fetched_at": "2026-10-31T10:16:01+00:00",
+   "file_sha": "f7bdc18062d202ceaf51b6e09f2ca26964636304954a347f94c772a54ea16048",
+   "last_modified": "",
+   "sha256": "4911dc144e585ed8eef6d521c9903990a4e9b83e9b2fd3ea8ad8871ff503a27e",
+   "title": "Подключение VPN к Windows10 | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/VPN/VPN_Windows"
+  },
+  "ru-vpn-vpn-windows7": {
+   "fetched_at": "2026-10-31T10:16:15+00:00",
+   "file_sha": "148d160da37e7e1f022cc2759a429c9ddbc45c9bd82cc8b382b622d1e9374d25",
+   "last_modified": "",
+   "sha256": "0d6ae0040c0b70e7cfbf8d8595ef2b8eb24e14d097e6844c2fa830bf85dd3749",
+   "title": "Подключение VPN к Windows7 | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/VPN/VPN_Windows7"
+  },
+  "ru-wifi-android11": {
+   "fetched_at": "2026-10-31T10:16:58+00:00",
+   "file_sha": "3d2579d979edb9c4e98257a337d2563397444d539167a9073ef2fa53eba117b1",
+   "last_modified": "",
+   "sha256": "9ede39caa4257f06b822278f07600ad671f2f2501fe14229b2563f7e2f8e0de4",
+   "title": "Подключение WIFI на Android 11 | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/WIFI/Android11"
+  },
+  "ru-wifi-android9-10": {
+   "fetched_at": "2026-10-31T10:17:20+00:00",
+   "file_sha": "03996dc7e90da23ecfdabf5f9e9c14262eef6bfc9c7e079091753937c7f0c2e1",
+   "last_modified": "",
+   "sha256": "80a702242a2717fef89d219fdf7b434b46f8aae2d34100eb7c9062c9bf8328fd",
+   "title": "Подключение WIFI на Android 9 & 10 | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/WIFI/Android9-10"
+  },
+  "ru-wifi-ios": {
+   "fetched_at": "2026-10-31T10:17:34+00:00",
+   "file_sha": "031235fd4ba0fca910f13f584c4f87b03f1c3d40eafc8578feae347652feead7",
+   "last_modified": "",
+   "sha256": "7c776f2063911638fce41196c1f13d06b00498892782147702c6a6b551366f7a",
+   "title": "Подключение WIFI на IOS | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/WIFI/IOS"
+  },
+  "ru-wifi-macos": {
+   "fetched_at": "2026-10-31T10:17:48+00:00",
+   "file_sha": "6427dbc434f400042ce7f3519e6d7f7741546477bf6ba7712995ac5f653f88c7",
+   "last_modified": "",
+   "sha256": "ebe1eb66ead21301037fd4b109f1048526cacfaad6d98d8520c1f97547d7bfaa",
+   "title": "Подключение WiFi на macOS | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/WIFI/MacOS"
+  },
+  "ru-wifi-ubuntu-gui": {
+   "fetched_at": "2026-10-31T10:17:56+00:00",
+   "file_sha": "a361078afa51a7ef3eb8fe2fff24c3f99fb7d9ca09e976e112329455111d4cc3",
+   "last_modified": "",
+   "sha256": "836f432f291adf1f1d117d9dfddb859820d4a46ccdfc54e82c349b38a8c0c5ee",
+   "title": "Подключение WIFI на Ubuntu (GUI) | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/WIFI/Ubuntu%28GUI%29"
+  },
+  "ru-wifi-windows10": {
+   "fetched_at": "2026-10-31T10:18:17+00:00",
+   "file_sha": "82c5f2da2d90f2382f528b7c277b44b4cf6b4c7b57bf5c5342cdf9f9d14387bb",
+   "last_modified": "",
+   "sha256": "0cc08ed7a82faf3b43ce28548c6d2b407ea5a533ee391a6d913487c0775be1f9",
+   "title": "Подключение WIFI на Windows 10 | ITHelp Wiki",
+   "url": "https://help.university.innopolis.ru/ru/WIFI/Windows10"
+  }
+ }
+}

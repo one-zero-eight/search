@@ -1,0 +1,16 @@
+{
+ "title": "Базу импортозамещения ПО, используемого в организациях высшего образования",
+ "url": "https://innopolis.university/filespublic/baza_dannyh.pdf",
+ "sha256": "87f0b6c5af71787ff0408b7582162de6b69eed1ecf183af156954e63fd7d0165",
+ "method": "text layer (opendataloader)",
+ "chars": 116019,
+ "tables": 5,
+ "section": "site/media",
+ "context": "",
+ "fetched_at": "2026-11-01T23:09:39+00:00",
+ "remote": {
+  "etag": "\"10785f-5ea5f0ad22024\"",
+  "modified": "Thu, 06 Oct 2022 15:06:47 GMT",
+  "size": "1079391"
+ }
+}

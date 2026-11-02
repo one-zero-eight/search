@@ -1,0 +1,61 @@
+{
+ "docs": {},
+ "pages": {
+  "admin-tool-dataprivacy-summary-php": {
+   "fetched_at": "2026-11-01T22:36:09+00:00",
+   "file_sha": "c7d479690c0e2fb55cecd620c88503f3d6e385da28bfe1c5929dfba9ddf06908",
+   "last_modified": "",
+   "sha256": "caffdea539dacbd496c6497d829fb972ce1a291caf776a52cc7d9fd115cce3c1",
+   "title": "Registry configuration summary | IU Moodle",
+   "url": "https://moodle.innopolis.university/admin/tool/dataprivacy/summary.php"
+  },
+  "course-index-php": {
+   "fetched_at": "2026-11-01T22:36:19+00:00",
+   "file_sha": "e7bcf50e06425ae7f2078e3be0765382e169bedb5733506d3259aeb29cb11738",
+   "last_modified": "",
+   "sha256": "9afdbae4ed91e2a35ee73266f51e5089978560f7e11b04539eeab1ccf77d0845",
+   "title": "Course categories | IU Moodle",
+   "url": "https://moodle.innopolis.university/course/index.php"
+  },
+  "course-search-php": {
+   "fetched_at": "2026-11-01T22:36:03+00:00",
+   "file_sha": "55da371372a16b6af7d9902bc1119c022c02cc32f418f6dbfd4e0fc93f38ad40",
+   "last_modified": "",
+   "sha256": "6c59b715df197d9c017c89a877090ac033c78e21b4b41fd3da6c4305b89e2d77",
+   "title": "Search | IU Moodle",
+   "url": "https://moodle.innopolis.university/course/search.php"
+  },
+  "home": {
+   "fetched_at": "2026-11-01T22:35:56+00:00",
+   "file_sha": "4e8e0c8d45be464df4562d8969abfbe0fc5b52c0522db411e74bbbbf52c729d7",
+   "last_modified": "Sun, 01 Nov 2026 22:35:53 GMT",
+   "sha256": "9be4ab4efdb2acfcb91990187082568366b8cdafd90c966ad0d9d5d0e8e94618",
+   "title": "Home | IU Moodle",
+   "url": "https://moodle.innopolis.university/"
+  },
+  "login-forgot-password-php": {
+   "fetched_at": "2026-11-01T22:36:13+00:00",
+   "file_sha": "76c312c393f21dcf6c298eb5334a068674802e823b46d884a02f4383c89662ba",
+   "last_modified": "",
+   "sha256": "f2c3e7864c3737d1ba3a04d08945c6a19a59e5f21889606013cdafadd2270151",
+   "title": "Forgotten password | IU Moodle",
+   "url": "https://moodle.innopolis.university/login/forgot_password.php"
+  },
+  "login-index-php": {
+   "fetched_at": "2026-11-01T22:36:00+00:00",
+   "file_sha": "770cb6a2f03505e96a6ff9c3e4a377db02ff0c2d7d4dc7b75cb59235b6091bf2",
+   "last_modified": "Sun, 01 Nov 2026 22:35:56 GMT",
+   "sha256": "68bc4b9229d536243deb044b53a3369e22df4c8b159e26cfa021801c70f21af4",
+   "title": "Log in to the site | IU Moodle",
+   "url": "https://moodle.innopolis.university/login/index.php"
+  },
+  "user-contactsitesupport-php": {
+   "fetched_at": "2026-11-01T22:36:06+00:00",
+   "file_sha": "7233de1b96a70a3e7bf880e4dbc8bc28136a4a4007c07be801455d14c2d7d41b",
+   "last_modified": "",
+   "sha256": "2490b15ad2883d2e25f389c34b034371b6d647dae3149cbc31520c4464431632",
+   "title": "Contact site support | IU Moodle",
+   "url": "https://moodle.innopolis.university/user/contactsitesupport.php"
+  }
+ }
+}

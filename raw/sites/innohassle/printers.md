@@ -1,0 +1,42 @@
+[Dashboard](https://innohassle.ru/dashboard)
+[Calendar](https://innohassle.ru/calendar)
+[Maps](https://innohassle.ru/maps)
+[Room booking](https://innohassle.ru/room-booking)
+[Schedule](https://innohassle.ru/schedule)
+[Events](https://innohassle.ru/events)
+[Clubs](https://innohassle.ru/clubs)
+Printers
+[When2meet](https://innohassle.ru/when2meet)
+[NEW](https://innohassle.ru/when2meet)
+[Timer](https://innohassle.ru/timer)
+[Scholarship](https://innohassle.ru/scholarship)
+[Dorms](https://innohassle.ru/dorms)
+[Music room](https://innohassle.ru/music-room)
+[Extension](https://innohassle.ru/extension)
+[Student Affairs](https://innohassle.ru/student-affairs)
+[Moodle](https://moodle.innopolis.university)
+[Baam](https://baam.tatar/s)
+[Innopa](https://innopa.ru/about)
+[My University](https://my.innopolis.university)
+[About us](https://innohassle.ru/about)
+[Leave feedback](https://forms.gle/2vMmu4vSoVShvbMw6)
+## Printers
+Info[Print](https://innohassle.ru/printers/print)[Scan](https://innohassle.ru/printers/scan)
+Print and scan on university printers from your browser — upload a file or place a document on the glass, choose a device, and go.
+- Automatic conversion of PDF, Word, Excel, images, and more for printing
+- Smart crop that detects document edges when scanning
+[Print](https://innohassle.ru/printers/print)
+[Upload a file, pick a printer, send the job](https://innohassle.ru/printers/print)
+[Scan](https://innohassle.ru/printers/scan)
+[Scan pages and download a PDF](https://innohassle.ru/printers/scan)
+## Locations
+Two printers are available on campus right now:
+- 319 — 3rd floor · [Show on map](https://innohassle.ru/maps?scene=university-floor-3&area=printer-319)
+- VK Zone — 5th floor · [Show on map](https://innohassle.ru/maps?scene=university-floor-5&area=printer-5f)
+[Telegram bot](https://telegram.me/InnoPrintBot)
+[Print and scan via @InnoPrintBot](https://telegram.me/InnoPrintBot)
+[Dashboard](https://innohassle.ru/dashboard)
+[Calendar](https://innohassle.ru/calendar)
+[Maps](https://innohassle.ru/maps)
+[Booking](https://innohassle.ru/room-booking)
+[More](https://innohassle.ru/menu)

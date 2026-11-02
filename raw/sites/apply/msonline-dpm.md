@@ -1,21 +1,21 @@
-Меню Закрыть EN
-Войти
+Меню Закрыть [EN](https://new.innopolis.university/en/)
+[Войти](https://profile.innopolis.university/)
 - Образование
 - Контакты
 С 2012 года готовим высококвалифицированные кадры в области информационных технологий, искусственного интеллекта и робототехники
-О возможностях образования
+[О возможностях образования](https://apply.innopolis.university/possibilities/)
 Поступающим
-Абитуриенту Бакалавриат Магистратура Онлайн-магистратура Аспирантура Колледж
+[Абитуриенту](https://apply.innopolis.university/) [Бакалавриат](https://apply.innopolis.university/bachelors/) [Магистратура](https://apply.innopolis.university/masters/) [Онлайн-магистратура](https://apply.innopolis.university/msonline/) [Аспирантура](https://apply.innopolis.university/postgraduate-study/) [Колледж](https://innopolis.college/)
 Гранты и стипендии
-Возможности поступления Стипендии Олимпиадные бонусы
+[Возможности поступления](https://apply.innopolis.university/possibilities/) [Стипендии](https://apply.innopolis.university/scholarship/) [Олимпиадные бонусы](https://apply.innopolis.university/olympiad-bonus/)
 Другие возможности поступления
-Квоты Поступление после СПО Поступление граждан СНГ
+[Квоты](https://apply.innopolis.university/quotas/) [Поступление после СПО](https://apply.innopolis.university/spo/) [Поступление граждан СНГ](https://apply.innopolis.university/sng/)
 Посетить иннополис
-Дни открытых дверей
+[Дни открытых дверей](https://apply.innopolis.university/open-day/)
 Проживание в университете
-Кампус
+[Кампус](https://apply.innopolis.university/campus/)
 Довузовская подготовка
-Олимпиады Онлайн-курсы подготовки к поступлению Очные программы для школьников
+[Олимпиады](https://dovuz.innopolis.university/pre-olympiads/innopolis-open) [Онлайн-курсы подготовки к поступлению](https://dovuz.innopolis.university/preparation) [Очные программы для школьников](https://dovuz.innopolis.university/offline-programms)
 режим работы
 пн-пт, 09:00–18:00 (Мск)
 Телефон
@@ -25,9 +25,9 @@ university@innopolis.ru
 адрес
 420500, г. Иннополис
 ул.Университетская, д.1
-Все контакты
-Главная страница Онлайн-магистратура Управление цифровым продуктом
-выбирай будущее,
+[Все контакты](https://innopolis.university/contacts/)
+[Главная страница](https://apply.innopolis.university/) [Онлайн-магистратура](https://apply.innopolis.university/msonline/) Управление цифровым продуктом
+![](https://apply.innopolis.university/local/js/innopolis/dist/images/program-intro/2.webp) выбирай будущее, ![](https://apply.innopolis.university/local/js/innopolis/dist/images/program-intro/1.webp)
 поступай в Университет Иннополис
 ## управление цифровым продуктом
 язык обучения
@@ -42,27 +42,36 @@ university@innopolis.ru
 1 сентября 2026
 стоимость обучения
 450 000 ₽ в год
-Подать документы День открытых дверей Получить консультацию
+Подать документы [День открытых дверей](https://apply.innopolis.university/open-day/) [Получить консультацию](https://t.me/IU_Dinara)
 ## О профиле подготовки
 НА РУССКОМ
 ## Управление цифровым продуктом
 Профиль для тех, кто стремится стать лидером в создании и развитии цифровых продуктов.
 Студенты научатся управлять полным циклом жизни продукта — от исследования рынка и формирования гипотез до запуска и масштабирования. Освоят современные инструменты продуктового менеджмента, аналитики и управления командами.
+![](https://apply.innopolis.university/local/js/innopolis/dist/images/about-profile.webp)
 ## Преподавательский состав
+![](https://apply.innopolis.university/upload/resize_cache/iblock/1f8/xts3jufga4i84el6zg9k45gb457j4i3p/470_540_2/71.jpg)
 ## Павел Гращенко
 Руководитель продуктового направления в СберЗдоровье. Имеет более 16 лет опыта разработки и запуска внутренних и внешних продуктов в сферах MedTech, EdTech, HoReCa&Entertaiment, маркетинг. Магистр молекулярной и биологической физики (МФТИ)
+![](https://apply.innopolis.university/upload/resize_cache/iblock/6ea/syt0d5len3llfe32qz63ato23qr8x4jy/470_540_2/Александр%20Песенко%201.png)
 ## Александр Песенко
 Соучредитель, директор по развитию ИТ-компании «Пятый Элемент». Более 12 лет работы с ИТ-продуктами и стартапами, экс-директор проектов ПАО Сбер. Управлял продуктовыми командами и запускал международные проекты в Альфа-Банке, Райффайзенбанке, Хоум Банке и финансовой группе БКС.
+![](https://apply.innopolis.university/upload/resize_cache/iblock/813/ezxrr8hp9yv2w2z894yp02839xq04s6z/470_540_2/16.jpg)
 ## Алеся Бикбулатова
 Руководитель отдела обучения компании ICL Services. Преподаватель в НИУ ВШЭ, разработчик и преподаватель Soft skills для продакт-менеджеров
+![](https://apply.innopolis.university/upload/resize_cache/iblock/17b/9qmk0zn2js7563af4055ne2osex3jl1u/470_540_2/70.jpg)
 ## Николай Филатов
 Директор HR проектов в MOLGA Consulting, академический руководитель магистерской программы Национального исследовательского университета «Высшая школа экономики»
+![](https://apply.innopolis.university/upload/resize_cache/iblock/a80/cujcs4z207880eowrjwptlt5lh7m97c4/470_583_2/Илина%20Нигматулина.png)
 ## Илина Нигматуллина
 CPO в Algatop. Работала с крупными российскими и международными компаниями: Fujitsu, Opentext, Ростех, Сбер, ВТБ. Получила премию «Лучшее решение года» в РФ. Ментор в бизнес-инкубаторе ВШЭ. Консультант стартапов и компаний по продуктовому менеджменту. Спикер российских и международных конференций. Основатель международного ИТ-сообщества, более 4000 участников, более 100 мероприятий.
+![](https://apply.innopolis.university/upload/resize_cache/iblock/236/ushkd8iadekh8vp44as66smwqwqk6vnw/470_470_2/Илья%20Головко.jpg)
 ## Илья Головко
 Более 9 лет в ИТ и продакт-менеджменте. Экс-CPO Платежей Альфа-Банка, экс-руководитель продукта в Сбер. Кейсы: Альфа-Банк Финтех — сбор платежей и ИИ-трансформация платежной инфраструктуры, УГМК&СУЭК — проекты по интеграции машинного обучения и ИИ
+![](https://apply.innopolis.university/upload/resize_cache/iblock/f73/qlz7qnbwczdws08h774pkgapoki3p5r3/470_704_2/Леонид%20Шашков.jpeg)
 ## Леонид Шашков
 Эксперт в сфере ИИ в ИТ-продуктах, процессах и личной эффективности. Опыт: 1C, DHL, «Я.Маркет», «Ренессанс Страхование», Сбер. MBA в сфере технологий стратегического прорыва и цифровой трансформации. Основал B2B-стартап AI Product для ИИ-трансформации компаний. Преподаватель: ЦУ, МГИМО, РАНХиГС, Сколково, СберУниверситет
+![](https://apply.innopolis.university/upload/resize_cache/iblock/2fb/eh22l7w7dboow5fsqkik4ttn52881pnq/470_445_2/Максим%20Попов.jpg)
 ## Максим Попов
 Продакт-лид в платежном агрегаторе (латино-американский регион). Опыт: менеджмент ИТ-продуктов и перформанс-маркетинг (преимущественно финтех). Магистр Университета Иннополис, преподаватель курса юнит-экономика.
 ## Смотрите видео о программе подготовки
@@ -152,7 +161,13 @@ AppMetrica
 ## Диплом о высшем образовании Университета Иннополис
 Выпускники получают диплом государственного образца одного из ведущих ИТ-вузов России
 ## Где проходит практика
+![](https://apply.innopolis.university/local/js/innopolis/dist/images/practice-companies/ak-bars.webp)
 ## Партнеры программы
+![](https://apply.innopolis.university/upload/landing/796/vnvyoaoh1sfvti6zlqm1morx5n1jc93s/megafon_1x.png)
+![](https://apply.innopolis.university/upload/landing/2e4/yef5f9qhyn2ytnb9m56dtmd78h6o4hrm/akbars_didzhital_1x.png)
+![](https://apply.innopolis.university/upload/landing/52a/cq8hhkjkydg4nbzz4lg4kr4evfkk150y/mts_1x.png)
+![](https://apply.innopolis.university/upload/landing/2b9/up2dnq5bf497z6rmkq10b9d7nrfnbcpk/innodata_1x.png)
+![](https://apply.innopolis.university/upload/landing/a33/837fwfqidhq8k6jptrkyukgokg6za8vr/clip_path_group_1x.png)
 ## Часто задаваемые вопросы
 По окончании обучения вы получите диплом магистра государственного образца
 Формат дистанционного обучения позволяет учиться удаленно из любого города, приезжать в Иннополис не нужно даже на вручение диплома.
@@ -169,32 +184,33 @@ AppMetrica
 Обучение по программам онлайн-магистратуры начинается 1 сентября
 ## Стажировки и программы обмена
 Участие в международных конференциях, программы в вузах-партнерах и проекты с индустрией
-Подробнее о возможностях
+[Подробнее о возможностях](https://innopolis.university/international-relations-office/)
 ## Другие программы
-## Информационное технологическое предпринимательство
-Станьте технологическим предпринимателем: изучите весь потенциал использования ИИ для создания и масштабирования цифровых продуктов
-Подробнее
-## Кибербезопасность
-Освойте полный цикл кибербезопасности на практике: от атак до защиты и управления SOC в партнёрстве с Positive Technologies
-Подробнее
-## Управление на основе данных
-Научитесь управлять компаниями и проектами, используя современные методы анализа данных
-Подробнее
-## Управление разработкой компьютерных игр
-Программа для тех, кто хочет создавать успешные игровые проекты и строить карьеру в многомиллиардной индустрии геймдева
-Подробнее
+## [Информационное технологическое предпринимательство](https://apply.innopolis.university/msonline/zerocoder/)
+[Станьте технологическим предпринимателем: изучите весь потенциал использования ИИ для создания и масштабирования цифровых продуктов](https://apply.innopolis.university/msonline/zerocoder/)
+[Подробнее](https://apply.innopolis.university/msonline/zerocoder/)
+## [Кибербезопасность](https://apply.innopolis.university/msonline/cybersecurity/)
+[Освойте полный цикл кибербезопасности на практике: от атак до защиты и управления SOC в партнёрстве с Positive Technologies](https://apply.innopolis.university/msonline/cybersecurity/)
+[Подробнее](https://apply.innopolis.university/msonline/cybersecurity/)
+## [Управление на основе данных](https://apply.innopolis.university/msonline/ddm/)
+[Научитесь управлять компаниями и проектами, используя современные методы анализа данных](https://apply.innopolis.university/msonline/ddm/)
+[Подробнее](https://apply.innopolis.university/msonline/ddm/)
+## [Управление разработкой компьютерных игр](https://apply.innopolis.university/msonline/gamedev/)
+[Программа для тех, кто хочет создавать успешные игровые проекты и строить карьеру в многомиллиардной индустрии геймдева](https://apply.innopolis.university/msonline/gamedev/)
+[Подробнее](https://apply.innopolis.university/msonline/gamedev/)
 ## Полезное
-## Об университете
-## Все программы
-## Очная магистратура
-## Аспирантура
+## [Об университете](https://innopolis.university/)
+## [Все программы](https://apply.innopolis.university/msonline/)
+## [Очная магистратура](https://apply.innopolis.university/masters/)
+## [Аспирантура](https://apply.innopolis.university/postgraduate-study/)
+![](https://apply.innopolis.university/upload/landing/842/c87oyu22eofs0z6f4vn4jad8xeb0riut/1674231072_1x.png)
 Приемная комиссия Университета Иннополис
-Связаться в телеграм
+[Связаться в телеграм](https://t.me/iu_support)
 круглосуточно
 8 843 203 92 53 (д.911)
 круглосуточно
-t.me/iu_support
-max.ru/uni_support_bot
+[t.me/iu_support](https://t.me/iu_support)
+[max.ru/uni_support_bot](https://max.ru/uni_support_bot)
 круглосуточно
 admissions@innopolis.ru
 ## Оставьте заявку или получите консультацию
@@ -207,24 +223,24 @@ admissions@innopolis.ru
 - admissions@innopolis.ru
 420500, г. Иннополис,
 ул. Университетская, 1
-- VK
-- Telegram
-- Youtube
-- VK Video
-- Об университете
-- Бакалавриат
-- Магистратура
-- Аспирантура
-- Колледж
-- Возможности поступления
-- День открытых дверей
-- Сведения об образовательной организации
-- Политика конфиденциальности
-- Антитеррористическая деятельность
-- Министерство цифрового развития, связи и массовых коммуникаций РФ
-- Министерство науки и высшего образования Российской Федерации
-- Министерство просвещения Российской Федерации
-## Спасибо!
+- [VK](https://vk.com/innopolisadmissions)
+- [Telegram](https://t.me/apply_innopolis)
+- [Youtube](https://youtube.com/@innopolisu)
+- [VK Video](https://vkvideo.ru/@innopolisadmissions)
+- [Об университете](https://innopolis.university/about/)
+- [Бакалавриат](https://apply.innopolis.university/bachelors/)
+- [Магистратура](https://apply.innopolis.university/masters/)
+- [Аспирантура](https://apply.innopolis.university/postgraduate-study/)
+- [Колледж](https://innopolis.college/)
+- [Возможности поступления](https://apply.innopolis.university/possibilities/)
+- [День открытых дверей](https://apply.innopolis.university/open-day/)
+- [Сведения об образовательной организации](https://innopolis.university/sveden/)
+- [Политика конфиденциальности](https://innopolis.university/files/politicacookies.pdf)
+- [Антитеррористическая деятельность](https://innopolis.university/antiterror/)
+- [Министерство цифрового развития, связи и массовых коммуникаций РФ](https://digital.gov.ru/ru/)
+- [Министерство науки и высшего образования Российской Федерации](https://minobrnauki.gov.ru/)
+- [Министерство просвещения Российской Федерации](https://edu.gov.ru/)
+## ![](https://apply.innopolis.university/local/js/innopolis/dist/images/status-ok-dark.webp) Спасибо!
 Ваше обращение получено. Мы свяжемся с Вами в ближайшее время.
-## Ошибка
+## ![](https://apply.innopolis.university/local/js/innopolis/dist/images/status-error-dark.webp) Ошибка
 Не удалось отправить Ваше обращение. Попробуйте повторно или отправьте обращение на почту innopolis@help.ru.

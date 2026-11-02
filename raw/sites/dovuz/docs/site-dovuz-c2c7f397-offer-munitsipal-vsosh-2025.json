@@ -1,0 +1,16 @@
+{
+ "title": "договором оферты [offer_munitsipal_vsosh_2025]",
+ "url": "https://lk-dovuz.innopolis.university/public/files/offer_munitsipal_vsosh_2025.pdf",
+ "sha256": "cc7156e1cea9557b2136a0cd52c074c226ae43c44c087b79375772a196fee521",
+ "method": "text layer (opendataloader)",
+ "chars": 29531,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"32fe3-63a7102812f00\"",
+  "modified": "Mon, 21 Jul 2025 14:08:28 GMT",
+  "size": "208867"
+ }
+}

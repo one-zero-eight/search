@@ -1,0 +1,213 @@
+{
+ "docs": {},
+ "pages": {
+  "event": {
+   "fetched_at": "2026-10-31T09:51:11+00:00",
+   "file_sha": "b4bbe8469bb0a99dab3e22e01b95be59e23034e07069685eca07e4c156607f88",
+   "last_modified": "",
+   "sha256": "78bb37af519d661ba0dcc49395faff1150a1254bcd9e23888e86b85701b8b0cb",
+   "title": "Мероприятия | Все мероприятия",
+   "url": "https://my.innopolis.university/event"
+  },
+  "event-details-089bc8ff-a276-4d77-8d95-a4877167c578": {
+   "fetched_at": "2026-10-31T09:52:15+00:00",
+   "file_sha": "d140717bb2674629cf26755b5bdfcd0fbad66fe794b09cad6e7d573f5dfc4675",
+   "last_modified": "",
+   "sha256": "5ab69e0f3bd547126ab76505afdf1f842b01af94a4192c958aeab220ec3ce052",
+   "title": "Мероприятия | Финал Международного чемпионата РуКод по алгоритмическому программированию «РуКод. Финал»",
+   "url": "https://my.innopolis.university/event/details/089bc8ff-a276-4d77-8d95-a4877167c578"
+  },
+  "event-details-12de13ea-0096-4b00-82e6-eae795a94705": {
+   "fetched_at": "2026-10-31T09:52:49+00:00",
+   "file_sha": "33a45015a5454386953c2e46ec798a9ef6349c857047a7c3355514c92fdb6a7e",
+   "last_modified": "",
+   "sha256": "79c609cf14e848c9bf3ddf09c0d640b399ab06b0d89003294e0cdae480c6317e",
+   "title": "Мероприятия | Подготовка к конкурсу театральных постановок \"ПрофилАрт\"",
+   "url": "https://my.innopolis.university/event/details/12de13ea-0096-4b00-82e6-eae795a94705"
+  },
+  "event-details-2cb1e160-b437-4ab9-8143-c220cf543ec4": {
+   "fetched_at": "2026-10-31T09:52:01+00:00",
+   "file_sha": "76279f3f43183630da74a4583702b6a21c95c2ebd3c116dc897d42f122951f07",
+   "last_modified": "",
+   "sha256": "1fe7acd890df511281ae4be74e065042b7a026702b033fd5fc16950f114f55dd",
+   "title": "Мероприятия | Амбассадоры УИ 2026",
+   "url": "https://my.innopolis.university/event/details/2cb1e160-b437-4ab9-8143-c220cf543ec4"
+  },
+  "event-details-33b93dcd-be9b-4860-98e6-de8bf5063c13": {
+   "fetched_at": "2026-10-31T09:51:40+00:00",
+   "file_sha": "43602c8ca9d02cedff953415e43751ac52e2426a8ec425b03a2262c4985bf389",
+   "last_modified": "",
+   "sha256": "d792d8142c9103350836785ea896dcde5795813b59aa283e8ed0c63d70f52121",
+   "title": "Мероприятия | Autumn Concert 2026",
+   "url": "https://my.innopolis.university/event/details/33b93dcd-be9b-4860-98e6-de8bf5063c13"
+  },
+  "event-details-55032167-b745-4234-bf50-1ef6e799e946": {
+   "fetched_at": "2026-10-31T09:52:30+00:00",
+   "file_sha": "f0fa4d272695e7df9523aa99e60f5a4cc967f1069eb5920b76b56eef1ffd58af",
+   "last_modified": "",
+   "sha256": "1b40a6c37a649551469b40ede2ac889486d81728755a355bfa017788296bdd7d",
+   "title": "Мероприятия | Фестиваль \"Физмат прорыв\"",
+   "url": "https://my.innopolis.university/event/details/55032167-b745-4234-bf50-1ef6e799e946"
+  },
+  "event-details-6d0d9147-357a-408c-98f1-30f4f0eee26e": {
+   "fetched_at": "2026-10-31T09:52:23+00:00",
+   "file_sha": "1b78ac8e36a5d9e82bca403de9654f116760ffa07db6e9a5d60236992a27100e",
+   "last_modified": "",
+   "sha256": "892a39a3f19208370184f75b2f8e4a0e32267a5f9e660910f68afa697637b304",
+   "title": "Мероприятия | Закрытый стол г-на Демона",
+   "url": "https://my.innopolis.university/event/details/6d0d9147-357a-408c-98f1-30f4f0eee26e"
+  },
+  "event-details-7b461673-0422-433f-963d-9af85291e7e9": {
+   "fetched_at": "2026-10-31T09:52:56+00:00",
+   "file_sha": "ba3907db58f94e705cdecab49755bac5441b821c10ec18196e781312b430f084",
+   "last_modified": "",
+   "sha256": "4f28bf40fe22b0b60fdc64d5560832cf6282b2a8cda0b8f15c68f58aeaafa849",
+   "title": "Мероприятия | Introduction to Academic Tutorship",
+   "url": "https://my.innopolis.university/event/details/7b461673-0422-433f-963d-9af85291e7e9"
+  },
+  "event-details-a3bea140-d275-4725-bdc9-d135faad1f5f": {
+   "fetched_at": "2026-10-31T09:51:33+00:00",
+   "file_sha": "8f7cb3c344bab78183f94cfd55f88863946f8f5211b738fcad514169cdfd1d6e",
+   "last_modified": "",
+   "sha256": "5be105b9222accc4d1d85ba2f915a60bacec978dffd78be107859385c09fb4b5",
+   "title": "Мероприятия | Всероссийский хакатон «ИНОГЛОБАЛХАК — 2026»",
+   "url": "https://my.innopolis.university/event/details/a3bea140-d275-4725-bdc9-d135faad1f5f"
+  },
+  "event-details-ab5f068f-f7ee-42c4-807a-7b1895e254c3": {
+   "fetched_at": "2026-10-31T09:52:42+00:00",
+   "file_sha": "6f9ce67d7323c108642d9adc96d512a77d39dd761c708789b827a8f82b222715",
+   "last_modified": "",
+   "sha256": "a3a59a2672590ad2724df79eadba9eb281e103b50439256692fbc4456301dc4f",
+   "title": "Мероприятия | Club Fest: Клубная мультивселенная",
+   "url": "https://my.innopolis.university/event/details/ab5f068f-f7ee-42c4-807a-7b1895e254c3"
+  },
+  "event-details-b81d86d9-d30c-45aa-bb42-838f0e11196e": {
+   "fetched_at": "2026-10-31T09:51:26+00:00",
+   "file_sha": "5981cc48701a591e61e397274c9e3346b8cbbb801799b90e449361462fdb2fff",
+   "last_modified": "",
+   "sha256": "c3bd29d68735c01d7bc2c86c1c99ce6f0a100f6de5ca670a130e7b427f757149",
+   "title": "Мероприятия | Республиканская командная олимпиада школьников 2026",
+   "url": "https://my.innopolis.university/event/details/b81d86d9-d30c-45aa-bb42-838f0e11196e"
+  },
+  "event-details-bfc57c27-d0bd-4a5a-a8ff-3d04780a26e8": {
+   "fetched_at": "2026-10-31T09:52:08+00:00",
+   "file_sha": "72c60e0318ddaa640210ef47412b5e59e2ce5350470c45c487f51a176c50a5d0",
+   "last_modified": "",
+   "sha256": "1ada8330815335ff5ebad5f5ecfbc3802a5759d21cf5cf33dfd2e6dfff2abd5d",
+   "title": "Мероприятия | Фотосессия нового мерча",
+   "url": "https://my.innopolis.university/event/details/bfc57c27-d0bd-4a5a-a8ff-3d04780a26e8"
+  },
+  "event-details-c9834eb3-81f6-4bc0-9b9a-dba674c73c58": {
+   "fetched_at": "2026-10-31T09:51:47+00:00",
+   "file_sha": "3323cea98e94e3132ebcac1f40b3c48b79af2574273e5a9817c4e53bf26d4cc4",
+   "last_modified": "",
+   "sha256": "40260716a24fb98b283ba1354157cbefe4d2153ea318c3ccb4c4843adfdff3d1",
+   "title": "Мероприятия | Отборочный этап Киберсоревнования по захвату флага \"InnoCTF Юниор/Junior\"",
+   "url": "https://my.innopolis.university/event/details/c9834eb3-81f6-4bc0-9b9a-dba674c73c58"
+  },
+  "event-details-eac8aaa2-1c7c-41d9-b9dd-1e23989c15be": {
+   "fetched_at": "2026-10-31T09:51:54+00:00",
+   "file_sha": "e1df76e224e8da1b3ab2aeac17ba6b5afecfe155f1e58669c19a659dda020029",
+   "last_modified": "",
+   "sha256": "d217a7ac6995d86bc7d48960fefbb9852a3b0e6231fd2ddb2e6d1c968dbc6e59",
+   "title": "Мероприятия | Секция \"Цифровой образовательного контента\" в рамках DID_2026",
+   "url": "https://my.innopolis.university/event/details/eac8aaa2-1c7c-41d9-b9dd-1e23989c15be"
+  },
+  "event-details-ef738ab7-e661-4c28-9e8f-5086ed540132": {
+   "fetched_at": "2026-10-31T09:53:03+00:00",
+   "file_sha": "b9165a7bda313f3c454df33ede22af88a80005370f850c6d18420aac38b94c52",
+   "last_modified": "",
+   "sha256": "094b9c72633295a4cc580f7602e36106f69b064e6c0bc9a8565ada7bb72df91d",
+   "title": "Мероприятия | Выпускной онлайн магистратуры",
+   "url": "https://my.innopolis.university/event/details/ef738ab7-e661-4c28-9e8f-5086ed540132"
+  },
+  "home": {
+   "fetched_at": "2026-10-31T09:51:04+00:00",
+   "file_sha": "85c22e8a034d9a34eb6b5290ac1860a5750be62512abf20454984eea2efdbb8f",
+   "last_modified": "",
+   "sha256": "e5c168edb0fffde89dd73d8a300a5ff30c545b4c07aaeb6922bf353be192a859",
+   "title": "My University",
+   "url": "https://my.innopolis.university/"
+  },
+  "store": {
+   "fetched_at": "2026-10-31T09:51:19+00:00",
+   "file_sha": "6bf81ae7291b1c274d8aaf02511575bf24773a1bd2c31ac76bacf66cceb8019f",
+   "last_modified": "",
+   "sha256": "6a005bac1720722ca5b35fc2adfd774884b7fc7e228bed280afcd3ec464b1610",
+   "title": "Магазин | Товары",
+   "url": "https://my.innopolis.university/store"
+  },
+  "store-item-09b870bf-41aa-4105-bb9f-3bcb8ffe6c16": {
+   "fetched_at": "2026-10-31T09:54:07+00:00",
+   "file_sha": "c8d61a52c961192a8957ebbf7c8ba63d9bc7445f69e8653304656612345c2c4a",
+   "last_modified": "",
+   "sha256": "3363e6222f6495f1eacc06e9e92909e93e2037e76c551f5bad2ab2ad1e8be558",
+   "title": "Магазин | Шнур для телефона",
+   "url": "https://my.innopolis.university/store/item/09b870bf-41aa-4105-bb9f-3bcb8ffe6c16"
+  },
+  "store-item-1a0929de-bed2-4973-9d88-5cdba9dd4f25": {
+   "fetched_at": "2026-10-31T09:53:17+00:00",
+   "file_sha": "a00e7b9bfcda54611ee18aa1c9b410087d1022fca0d976128b131d6dc4270a5a",
+   "last_modified": "",
+   "sha256": "5a7223a200d1d3586a090fd7b40ed956071a1454f9221fc883cc1aa7d0819d6a",
+   "title": "Магазин | Носки",
+   "url": "https://my.innopolis.university/store/item/1a0929de-bed2-4973-9d88-5cdba9dd4f25"
+  },
+  "store-item-23d4df2c-c8d3-4e7d-a63b-99d2d16ee7cd": {
+   "fetched_at": "2026-10-31T09:53:10+00:00",
+   "file_sha": "fd3ddab27c3499c5b744f5c06489ee898fef8bc9c825eb5b8d307f8e49c3bc87",
+   "last_modified": "",
+   "sha256": "197b68beb4983d6e4fb851c924f8c686d0792e05f8a3d4a111896e9daf824332",
+   "title": "Магазин | Ретрактор",
+   "url": "https://my.innopolis.university/store/item/23d4df2c-c8d3-4e7d-a63b-99d2d16ee7cd"
+  },
+  "store-item-4d7cfbfc-d463-4863-9717-cb33ca17975c": {
+   "fetched_at": "2026-10-31T09:53:31+00:00",
+   "file_sha": "7c19c395483430067bcfb9f4949df07546f86d082f2dc902efd9d3e46a779f8c",
+   "last_modified": "",
+   "sha256": "142def86ee8b9f4f9272da6f3d906d1a6632dd3f56c7f6624bed8dbd422de2c8",
+   "title": "Магазин | Футболка с поясом",
+   "url": "https://my.innopolis.university/store/item/4d7cfbfc-d463-4863-9717-cb33ca17975c"
+  },
+  "store-item-55f71846-9bc0-414b-94f2-9e27afb7726d": {
+   "fetched_at": "2026-10-31T09:53:24+00:00",
+   "file_sha": "55901a3a24b57a9cbc5d7dfb47cd4a719b7be85a5c74b21721c879271983dabe",
+   "last_modified": "",
+   "sha256": "d42823f88ab88b0c1bbad5b400fa4f55ea14a8b473368adb32dcb435bbda738c",
+   "title": "Магазин | Футболка оверсайз",
+   "url": "https://my.innopolis.university/store/item/55f71846-9bc0-414b-94f2-9e27afb7726d"
+  },
+  "store-item-57ba7b04-9c97-45d4-99ea-bff55d51c34c": {
+   "fetched_at": "2026-10-31T09:53:53+00:00",
+   "file_sha": "a365189fea9990adff428e3f9015f4a0aba9427bee3bda01dcf2be655961fc2c",
+   "last_modified": "",
+   "sha256": "2e115528e6ca396918a8d95d05c99d05023a7cc1b5304da82756b97c1053c3f1",
+   "title": "Магазин | Бафф с нашивкой",
+   "url": "https://my.innopolis.university/store/item/57ba7b04-9c97-45d4-99ea-bff55d51c34c"
+  },
+  "store-item-980eea51-8ddc-446d-8825-4599c633a559": {
+   "fetched_at": "2026-10-31T09:53:38+00:00",
+   "file_sha": "21e25e446f529e7694a506963762a8923a2690ca12d9c0484bd285206bb7b37d",
+   "last_modified": "",
+   "sha256": "6bcb8ad85126aeacb74edbdca104f998c911f5a74e213d68cdbf34a1cd019bf2",
+   "title": "Магазин | Худи с капюшоном",
+   "url": "https://my.innopolis.university/store/item/980eea51-8ddc-446d-8825-4599c633a559"
+  },
+  "store-item-aff8dcbf-0707-4d18-a256-ee60e18d4216": {
+   "fetched_at": "2026-10-31T09:53:45+00:00",
+   "file_sha": "9f4b5ea3fb335086501e3f00b39efe159d26d4c10c44f69eace0bde83b4afa0b",
+   "last_modified": "",
+   "sha256": "3a7bfebba7d243b6f672133abbce4e5c22fafb2e90c3f90b71350948f3aba777",
+   "title": "Магазин | Худи с капюшоном",
+   "url": "https://my.innopolis.university/store/item/aff8dcbf-0707-4d18-a256-ee60e18d4216"
+  },
+  "store-item-eaff5970-c599-48f1-ac87-2fdf490029f7": {
+   "fetched_at": "2026-10-31T09:54:00+00:00",
+   "file_sha": "ad4ace3069601b761346350f3fc422a32ba8532c36c870beb9ce6a791528c739",
+   "last_modified": "",
+   "sha256": "d900f1d4f190a31d5f514cd4a94548b5f57cb7cc383cd7f228184af7bf0051ca",
+   "title": "Магазин | Термокружка с капхолдером",
+   "url": "https://my.innopolis.university/store/item/eaff5970-c599-48f1-ac87-2fdf490029f7"
+  }
+ }
+}

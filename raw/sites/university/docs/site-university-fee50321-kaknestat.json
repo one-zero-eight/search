@@ -4,7 +4,7 @@
  "sha256": "116f672f6f36e103563f3309fc3e02fdc81ad1ab6b138e8b309b0267f468cc67",
  "method": "text layer (pdfplumber)",
  "chars": 8902,
- "tables": 3,
+ "tables": 5,
  "section": "site/university",
  "context": "",
  "fetched_at": "2026-10-24T23:49:06+00:00",

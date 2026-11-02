@@ -1,0 +1,229 @@
+{
+ "docs": {},
+ "pages": {
+  "en": {
+   "fetched_at": "2026-11-01T22:33:10+00:00",
+   "file_sha": "a64d79ff8f08eb97ab2b40e66bd9c6fae89a1b9fd09bbf7b89640a706fdb72bf",
+   "last_modified": "",
+   "sha256": "961b7112b2a3d0e72613ba587d8fbfa06eb12b31bfa4e5796454e0130d02566a",
+   "title": "Innopolis Cinema Lounge",
+   "url": "https://innopoliscinema.ru/en"
+  },
+  "en-contacts": {
+   "fetched_at": "2026-11-01T22:34:21+00:00",
+   "file_sha": "4b57ea0336fc58b0300ad8f2ccbb2bf4f23491ad732821b5784fdf65625c2651",
+   "last_modified": "",
+   "sha256": "59b46f3d16e9030ebf28d1a290e347a518ac53e8516596fba5cb4accf0bd4931",
+   "title": "Innopolis Cinema Lounge | Contacts",
+   "url": "https://innopoliscinema.ru/en/contacts"
+  },
+  "en-films": {
+   "fetched_at": "2026-11-01T22:34:12+00:00",
+   "file_sha": "0fa59e74a915695de66b17486795bdbd2250c965065759613882970fafc93a8a",
+   "last_modified": "",
+   "sha256": "6862a81d434d684d509922eec400c68164cb0dfca660cdd16e0e5efbc6816907",
+   "title": "Innopolis Cinema Lounge | Films",
+   "url": "https://innopoliscinema.ru/en/films"
+  },
+  "en-films-pushkin-card": {
+   "fetched_at": "2026-11-01T22:34:15+00:00",
+   "file_sha": "c0c7f1ae8766fe2c15be20752c84696fc196553cba5fa7ede1eed6f0321882b9",
+   "last_modified": "",
+   "sha256": "2d2d3c123c6467920e4eb974fda126c94d89efb5f7886fdeeb149bd3b65a88ff",
+   "title": "Innopolis Cinema Lounge | Пушкинская карта",
+   "url": "https://innopoliscinema.ru/en/films/pushkin_card"
+  },
+  "en-screenings": {
+   "fetched_at": "2026-11-01T22:34:09+00:00",
+   "file_sha": "68b0f17b5898870da26c699a27df5844aa1900900e2031892b3677189931404d",
+   "last_modified": "",
+   "sha256": "89e0ec6c2800f74d53c00ca7c7160959b6bf38c834651cb0fa98e690614437d7",
+   "title": "Innopolis Cinema Lounge | Screenings",
+   "url": "https://innopoliscinema.ru/en/screenings"
+  },
+  "en-special-screenings": {
+   "fetched_at": "2026-11-01T22:34:18+00:00",
+   "file_sha": "8298d406e66a1a045ed505de292ae948bf2a1ce4c82cedf67d44e11637e43c6f",
+   "last_modified": "",
+   "sha256": "41ed088d52dba28673afe20fd36d3b97af1ee286f59ac1444a8a7f61317400fb",
+   "title": "Innopolis Cinema Lounge | Events",
+   "url": "https://innopoliscinema.ru/en/special_screenings"
+  },
+  "home": {
+   "fetched_at": "2026-11-01T22:32:51+00:00",
+   "file_sha": "5259a6c4272ddb42efa99a3c9a0a255589f2b202f0a2ce33b0320909ac3dee43",
+   "last_modified": "",
+   "sha256": "17b478a5822be90ff797b5cc211b39529d817669fa738725c85036116464a953",
+   "title": "«Кино&Театр» в Иннополисе",
+   "url": "https://innopoliscinema.ru/"
+  },
+  "ru-contacts": {
+   "fetched_at": "2026-11-01T22:33:06+00:00",
+   "file_sha": "7626d10a7950c309364ae5d9960e227c26ac9544be593812fadda7b2c854da09",
+   "last_modified": "",
+   "sha256": "28b400f44c205b86c53658bb0b4b3bf3b2578d23138d8eb4d3ca4635b8ba4ac1",
+   "title": "«Кино&Театр» в Иннополисе | Контакты",
+   "url": "https://innopoliscinema.ru/ru/contacts"
+  },
+  "ru-dates-2026-11-03": {
+   "fetched_at": "2026-11-01T22:33:16+00:00",
+   "file_sha": "66f46877c72f80e4c37a99b15944510d01e86a04a13978df9cae163cdaafe6bc",
+   "last_modified": "",
+   "sha256": "09d85198dff66b0d6c0988a94562bf081eb22a989d739951e485e17f3918cd7d",
+   "title": "«Кино&Театр» в Иннополисе",
+   "url": "https://innopoliscinema.ru/ru/dates/2026-11-03"
+  },
+  "ru-dates-2026-11-04": {
+   "fetched_at": "2026-11-01T22:33:20+00:00",
+   "file_sha": "fac33a92a210494142fc2ef70b4e228f31ce492f12ac8302690e3bccc3e82d1c",
+   "last_modified": "",
+   "sha256": "795394eb05a53939a80c786eeae4f7dd2413ff7e861f21e29fc47cb772edb41d",
+   "title": "«Кино&Театр» в Иннополисе",
+   "url": "https://innopoliscinema.ru/ru/dates/2026-11-04"
+  },
+  "ru-dates-2026-11-05": {
+   "fetched_at": "2026-11-01T22:33:23+00:00",
+   "file_sha": "2ddf3b6bfbd8dbaef3103ba8097383572fb3c63a933fa748216987c0b3e6e554",
+   "last_modified": "",
+   "sha256": "7e4776514232ceb8a3cb33f7a9144350a2bec8e6e872cd78df2d18ccb8018098",
+   "title": "«Кино&Театр» в Иннополисе",
+   "url": "https://innopoliscinema.ru/ru/dates/2026-11-05"
+  },
+  "ru-dates-2026-11-06": {
+   "fetched_at": "2026-11-01T22:33:26+00:00",
+   "file_sha": "ef2887da456e87389bdc733eb238fc64f649cbf332154906cf903a688863fd8d",
+   "last_modified": "",
+   "sha256": "88f8643cf9b85d46d6479418f839c9c8defed7650073e9256fac00673831b327",
+   "title": "«Кино&Театр» в Иннополисе",
+   "url": "https://innopoliscinema.ru/ru/dates/2026-11-06"
+  },
+  "ru-dates-2026-11-07": {
+   "fetched_at": "2026-11-01T22:33:29+00:00",
+   "file_sha": "e7791b3573193bf49fc8cdfdc036c334ac850c4c02aef4edf7c11dcd9098fa2d",
+   "last_modified": "",
+   "sha256": "0fb6eb6cb724a7b391ad559f37cf7ef90f8c3c51b8b28104fbfdd945b41c7199",
+   "title": "«Кино&Театр» в Иннополисе",
+   "url": "https://innopoliscinema.ru/ru/dates/2026-11-07"
+  },
+  "ru-dates-2026-11-08": {
+   "fetched_at": "2026-11-01T22:33:33+00:00",
+   "file_sha": "89f343bd4a45e6fdf620f8a2b3bf43792c7ec0addbe339b6f3a420e1f7e05b44",
+   "last_modified": "",
+   "sha256": "19c0d82c4915d74564e9bc30d6176a646a8acaa9eddb8e66bb37de215bfd6e01",
+   "title": "«Кино&Театр» в Иннополисе",
+   "url": "https://innopoliscinema.ru/ru/dates/2026-11-08"
+  },
+  "ru-dates-2026-11-10": {
+   "fetched_at": "2026-11-01T22:33:36+00:00",
+   "file_sha": "27f68ad9647307078e6c3554bb60879c579fd8946583217feb30e6469f02929d",
+   "last_modified": "",
+   "sha256": "2931cdd39af1f16574cd7eec12114fba0ef44489ef405002dca3fb96d071387b",
+   "title": "«Кино&Театр» в Иннополисе",
+   "url": "https://innopoliscinema.ru/ru/dates/2026-11-10"
+  },
+  "ru-dates-2026-11-11": {
+   "fetched_at": "2026-11-01T22:33:39+00:00",
+   "file_sha": "0caf3d7964a267cc0e441e4eb9895705d8d88096fcf36f549469158dad9881b5",
+   "last_modified": "",
+   "sha256": "04eb294710ad4cc90ca7cf808a8f840192042cd7f4a53bea38a8e78abd2db460",
+   "title": "«Кино&Театр» в Иннополисе",
+   "url": "https://innopoliscinema.ru/ru/dates/2026-11-11"
+  },
+  "ru-films": {
+   "fetched_at": "2026-11-01T22:32:57+00:00",
+   "file_sha": "6a470cf2fc5b51d5708986dde7158188bd68a146f0f8608763ea1c1bc461ed9a",
+   "last_modified": "",
+   "sha256": "1cd48234657a35f609dde7836f2d517d705b287c576374ef0a5a89493adba961",
+   "title": "«Кино&Театр» в Иннополисе | Репертуар",
+   "url": "https://innopoliscinema.ru/ru/films"
+  },
+  "ru-films-bitva-motorov": {
+   "fetched_at": "2026-11-01T22:33:59+00:00",
+   "file_sha": "268e04402c6f94a01ce36e45b3df60d2088f68d359fb094929eac31774b9620c",
+   "last_modified": "",
+   "sha256": "505c013f272e607dbb5f2f172e900d2e93cae261ef6d6bac8562b0b1b528b2d3",
+   "title": "«Кино&Театр» в Иннополисе | Битва моторов",
+   "url": "https://innopoliscinema.ru/ru/films/bitva-motorov"
+  },
+  "ru-films-fjord": {
+   "fetched_at": "2026-11-01T22:33:56+00:00",
+   "file_sha": "ba9b0dea0e87c4778f51f69f888dd2e30e3df8fe68e50adac06d262b9123dadc",
+   "last_modified": "",
+   "sha256": "346a14ff3f459d245b5c63d6c12756e7d39c0debbf7d3bf4b1ff8118ce09fd64",
+   "title": "«Кино&Театр» в Иннополисе | Фьорд",
+   "url": "https://innopoliscinema.ru/ru/films/fjord"
+  },
+  "ru-films-morozko": {
+   "fetched_at": "2026-11-01T22:33:43+00:00",
+   "file_sha": "da5e722fe0276440019f8ae035a5625e8823628693acc07d81b96c132dcb19c0",
+   "last_modified": "",
+   "sha256": "b98840ed028147e23fd6909dc347830250c9bccd7d403a957c4c7095397de367",
+   "title": "«Кино&Театр» в Иннополисе | Морозко",
+   "url": "https://innopoliscinema.ru/ru/films/morozko"
+  },
+  "ru-films-pranker": {
+   "fetched_at": "2026-11-01T22:33:53+00:00",
+   "file_sha": "84c5b781608f91ec3a4d0fc271cf2cc737a0ecb028ff42386689df9b3ca3cec6",
+   "last_modified": "",
+   "sha256": "0ef34d50e35d8544cda1d0051411e7f7fa24283dfcd4354dc3e3bb2c601e0b10",
+   "title": "«Кино&Театр» в Иннополисе | Пранкер",
+   "url": "https://innopoliscinema.ru/ru/films/pranker"
+  },
+  "ru-films-pushkin-card": {
+   "fetched_at": "2026-11-01T22:33:00+00:00",
+   "file_sha": "1da328cbf9f3837a3c2c4ed637d4b04c5072482b71eff7bf3ba1f7c0a572865c",
+   "last_modified": "",
+   "sha256": "5ab5c553538834b68484a4ed5f97c7dc5d641c09346226ff957ef3cd5f4cd4da",
+   "title": "«Кино&Театр» в Иннополисе | Пушкинская карта",
+   "url": "https://innopoliscinema.ru/ru/films/pushkin_card"
+  },
+  "ru-films-rozhdenie-imperii": {
+   "fetched_at": "2026-11-01T22:33:49+00:00",
+   "file_sha": "34ea5986fa53689ca53e59467ab972ccee3b4516123d91cebbe435563b54f57a",
+   "last_modified": "",
+   "sha256": "a4c29b8f48e180093a7db065b174db33e8f7d3622d92c240a8e0bca95c08ca15",
+   "title": "«Кино&Театр» в Иннополисе | Рождение империи",
+   "url": "https://innopoliscinema.ru/ru/films/rozhdenie-imperii"
+  },
+  "ru-films-skazka-o-poteryannom-vremeni": {
+   "fetched_at": "2026-11-01T22:33:46+00:00",
+   "file_sha": "69eff42e30d5fe701026948e5b3645066ccabdc9baa0c70f608ad77cc1b56898",
+   "last_modified": "",
+   "sha256": "fba99f0ee98e29eb2af41ac9d8b527383646f07ef76de6afebde34f19a8f45b6",
+   "title": "«Кино&Театр» в Иннополисе | Сказка о потерянном времени",
+   "url": "https://innopoliscinema.ru/ru/films/skazka-o-poteryannom-vremeni"
+  },
+  "ru-films-wicker": {
+   "fetched_at": "2026-11-01T22:34:03+00:00",
+   "file_sha": "ecda88b91d319515e2895cbf1e0d8c0b97d3d6f82809c605e0eee42adb44ac9c",
+   "last_modified": "",
+   "sha256": "e6310ffeca24efe1dc5847021f93f87c4b3f5c64a74a209178538d2b8989700c",
+   "title": "«Кино&Театр» в Иннополисе | Плетёный муж",
+   "url": "https://innopoliscinema.ru/ru/films/wicker"
+  },
+  "ru-newsletter": {
+   "fetched_at": "2026-11-01T22:34:06+00:00",
+   "file_sha": "e771c285d5fe7f112298af25effa0d79ade1edbbdd7c3f262bfa1cd94eb35ff2",
+   "last_modified": "",
+   "sha256": "fe82c0fcd8e3ab78cf7c52b3a5c159b0d8901c772befeacca4f7923aebe17742",
+   "title": "«Кино&Театр» в Иннополисе | Подписаться на новости",
+   "url": "https://innopoliscinema.ru/ru/newsletter"
+  },
+  "ru-screenings": {
+   "fetched_at": "2026-11-01T22:32:54+00:00",
+   "file_sha": "34a03ba8b6ddfa61a4c405f97e69aa924c8b5dadef30794e0b0060c6f1799127",
+   "last_modified": "",
+   "sha256": "8f6df79a3771dfd7f8b78de0da3fac7102492c2e60cf8e838c6ba756417389d4",
+   "title": "«Кино&Театр» в Иннополисе | Расписание",
+   "url": "https://innopoliscinema.ru/ru/screenings"
+  },
+  "ru-special-screenings": {
+   "fetched_at": "2026-11-01T22:33:03+00:00",
+   "file_sha": "d7f395bbbb9d684d4c5a64079c4f6d4e7d33e72606aee83200bf82692303bfa8",
+   "last_modified": "",
+   "sha256": "76aef9974800d1b236e9ead38592e9c6c224de0ac30512ab7e134f12314393d9",
+   "title": "«Кино&Театр» в Иннополисе | События",
+   "url": "https://innopoliscinema.ru/ru/special_screenings"
+  }
+ }
+}

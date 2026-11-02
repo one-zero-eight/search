@@ -1,0 +1,16 @@
+{
+ "title": "reshenie 2 23",
+ "url": "https://lk-dovuz.innopolis.university/public/files/reshenie_2_23.pdf",
+ "sha256": "d4b43503912eafa56ef1a7e8fe93998400f41ae89f2391ad0ea5e3cff49cb145",
+ "method": "text layer (opendataloader)",
+ "chars": 32886,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:24+00:00",
+ "remote": {
+  "etag": "\"836f9-606532d84e400\"",
+  "modified": "Wed, 27 Sep 2023 08:42:56 GMT",
+  "size": "538361"
+ }
+}

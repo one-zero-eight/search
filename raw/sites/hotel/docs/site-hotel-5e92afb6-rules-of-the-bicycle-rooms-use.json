@@ -1,0 +1,16 @@
+{
+ "title": "Rules of the bicycle rooms use",
+ "url": "https://hotel.innopolis.university/upload/docs-hotel/Rules%20of%20the%20bicycle%20rooms%20use.pdf",
+ "sha256": "8b52b02b91acbff03d390a00b0add5bc25e0ccbe6226d7d19a662aedd83f003b",
+ "method": "text layer (opendataloader)",
+ "chars": 2053,
+ "tables": 5,
+ "section": "site/hotel",
+ "context": "",
+ "fetched_at": "2026-10-31T00:26:16+00:00",
+ "remote": {
+  "etag": "\"108ce-5c72a48b4ebb1\"",
+  "modified": "Thu, 15 Jul 2021 14:28:25 GMT",
+  "size": "67790"
+ }
+}

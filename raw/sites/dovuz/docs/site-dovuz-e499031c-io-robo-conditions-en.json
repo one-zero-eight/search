@@ -1,0 +1,16 @@
+{
+ "title": "io robo conditions en",
+ "url": "https://lk-dovuz.innopolis.university/public/files/io_robo_conditions_en.pdf",
+ "sha256": "2bb92d75403e6abbf8c8f0ef9c26d3e5bd3804f03f9320b307e17f0129c14fb1",
+ "method": "text layer (opendataloader)",
+ "chars": 21597,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:22+00:00",
+ "remote": {
+  "etag": "\"3e154-62a3c8588bfc0\"",
+  "modified": "Fri, 27 Dec 2024 08:48:07 GMT",
+  "size": "254292"
+ }
+}

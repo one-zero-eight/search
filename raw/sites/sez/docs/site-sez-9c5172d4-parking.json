@@ -1,0 +1,16 @@
+{
+ "title": "Правила пользования подземным паркингом",
+ "url": "https://sezinnopolis.ru/upload/new-files/rent/parking.docx",
+ "sha256": "70b0ebbf5ff651e3e33f64f082d8993ddc4406255ff3069f96b1b4aff9ad7447",
+ "method": "text layer (opendataloader)",
+ "chars": 9510,
+ "tables": 5,
+ "section": "site/sez",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:31+00:00",
+ "remote": {
+  "etag": "\"6984579a-4a08\"",
+  "modified": "Thu, 05 Feb 2026 08:40:58 GMT",
+  "size": "18952"
+ }
+}

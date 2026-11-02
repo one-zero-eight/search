@@ -1,0 +1,32 @@
+[![Innopolis](https://robotics.innopolis.university/wp-content/uploads/2023/04/cropped-_-A-G-B-B-_-ZH-V-.png)](https://university.innopolis.ru) [![Innopolis3](https://robotics.innopolis.university/wp-content/uploads/2022/05/nacprojectr.png)](https://национальныепроекты.рф)
+- [О центре НТИ](https://robotics.innopolis.university/about/)
+- [Образование](https://robotics.innopolis.university/learn/)
+- [Проекты](https://robotics.innopolis.university/projects/)
+- [Консорциум](https://robotics.innopolis.university/consortium/)
+- [Наука](https://robotics.innopolis.university/science/)
+- [лаборатории](http://robotics.innopolis.university/struct/)
+- [новости](http://robotics.innopolis.university/events/)
+- [контакты](http://robotics.innopolis.university/contacts/)
+RU EN
+[![](https://robotics.innopolis.university/wp-content/uploads/2022/05/NTI.png)](https://nti.fund/) [![](https://robotics.innopolis.university/wp-content/uploads/2022/05/nti.png)](https://nti2035.ru/) [![](https://robotics.innopolis.university/wp-content/uploads/2022/05/miobrnauki.png)](https://minobrnauki.gov.ru/) [![](https://robotics.innopolis.university/wp-content/uploads/2022/05/npr_logo_w.png)](https://национальныепроекты.рф)
+- О центре
+- [Общая информация](https://robotics.innopolis.university/about/)
+- [Структура](https://robotics.innopolis.university/struct/)
+- [Оборудование](https://robotics.innopolis.university/equipment/)
+- [Карьера](https://robotics.innopolis.university/career/)
+- [Контакты](https://robotics.innopolis.university/contacts/)
+- [Образование](https://robotics.innopolis.university/learn/)
+- [Проекты](https://robotics.innopolis.university/projects/)
+- [Консорциум](https://robotics.innopolis.university/consortium/)
+- [Наука](https://robotics.innopolis.university/science/)
+- [Новости](https://robotics.innopolis.university/events/)
+- [Контакты](https://robotics.innopolis.university/contacts/)
+[Вернуться](https://robotics.innopolis.university/events)
+## В Университете Иннополис обсудят междисциплинарные исследования в сфере нейронауки, генетики и искусственного интеллекта
+03.02.2020
+Научный семинар пройдёт в ИТ-вузе 3—4 февраля. С лекциями выступят исполнительный директор Отраслевого союза «Нейронет» Александр Семёнов, профессор Нижегородского университета имени Лобачевского Михаил Иванченко, начальник научного отдела Саратовского университета им. Разумовского Антон Киселев и старший научный сотрудник Института когнитивных нейронаук Денис Захаров. Вместе с сотрудниками Лаборатории нейронауки и когнитивных технологий Университета Иннополис они запланируют совместные исследования и проекты для изучения процесса старения, генетики и строения мозга.
+Вход на лекции свободный для сотрудников и студентов университета. Программа: [https://clck.ru/M8QEu](https://vk.com/away.php?to=https%3A%2F%2Fclck.ru%2FM8QEu&post=-56385969_9067&cc_key=)
+![](https://robotics.innopolis.university/wp-content/uploads/2020/02/ud9fyanOrs-300x200.jpg)
+[Дальше](https://robotics.innopolis.university/news/gde-u-robota-myshtsy-i-chto-takoe-plotnost-robotizatsii-test-ko-dnyu-robototehniki/)
+[Где у робота мышцы и что такое плотность роботизации — тест ко дню робототехники](https://robotics.innopolis.university/news/gde-u-robota-myshtsy-i-chto-takoe-plotnost-robotizatsii-test-ko-dnyu-robototehniki/)
+[Перейти к следующей теме в этом разделе](https://robotics.innopolis.university/news/gde-u-robota-myshtsy-i-chto-takoe-plotnost-robotizatsii-test-ko-dnyu-robototehniki/)

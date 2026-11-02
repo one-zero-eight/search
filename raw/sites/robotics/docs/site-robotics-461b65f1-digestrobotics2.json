@@ -1,0 +1,16 @@
+{
+ "title": "Digest-Robotics2",
+ "url": "https://robotics.innopolis.university/wp-content/uploads/2021/02/Digest-Robotics2.pdf",
+ "sha256": "72d0a93399e1c81367de6d1a27a3df049b93bcb65a7e7ab88d5a3034f4b56aaf",
+ "method": "text layer (opendataloader)",
+ "chars": 343789,
+ "tables": 5,
+ "section": "site/robotics",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:32+00:00",
+ "remote": {
+  "etag": "\"7fc3e1-5bb23e3486e04\"",
+  "modified": "Fri, 12 Feb 2021 13:48:14 GMT",
+  "size": "8373217"
+ }
+}

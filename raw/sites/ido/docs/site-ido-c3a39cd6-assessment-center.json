@@ -1,0 +1,16 @@
+{
+ "title": "Assessment Center",
+ "url": "https://innopolis.university/filespublic/Assessment_Center.pdf",
+ "sha256": "d0733840d84d2f3ea43b40f363a5b792c844149d5987ecb8845901b51bd5440e",
+ "method": "text layer (opendataloader)",
+ "chars": 3526,
+ "tables": 5,
+ "section": "site/ido",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:28+00:00",
+ "remote": {
+  "etag": "\"f92466-62cffe450b248\"",
+  "modified": "Fri, 31 Jan 2025 12:43:39 GMT",
+  "size": "16327782"
+ }
+}

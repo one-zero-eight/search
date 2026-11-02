@@ -1,0 +1,16 @@
+{
+ "title": "iorobotasks2step",
+ "url": "https://lk-dovuz.innopolis.university/public/files/iorobotasks2step.pdf",
+ "sha256": "628338a1f8c835dd07b5d4567fa246a9373f9e719219a3317dd1d813660366a1",
+ "method": "text layer (opendataloader)",
+ "chars": 95281,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:22+00:00",
+ "remote": {
+  "etag": "\"1f495d-6327bbe387080\"",
+  "modified": "Fri, 11 Apr 2025 07:35:14 GMT",
+  "size": "2050397"
+ }
+}

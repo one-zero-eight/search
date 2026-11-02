@@ -1,0 +1,36 @@
+[![Innopolis](https://robotics.innopolis.university/wp-content/uploads/2023/04/cropped-_-A-G-B-B-_-ZH-V-.png)](https://university.innopolis.ru) [![Innopolis3](https://robotics.innopolis.university/wp-content/uploads/2022/05/nacprojectr.png)](https://национальныепроекты.рф)
+- [О центре НТИ](https://robotics.innopolis.university/about/)
+- [Образование](https://robotics.innopolis.university/learn/)
+- [Проекты](https://robotics.innopolis.university/projects/)
+- [Консорциум](https://robotics.innopolis.university/consortium/)
+- [Наука](https://robotics.innopolis.university/science/)
+- [лаборатории](http://robotics.innopolis.university/struct/)
+- [новости](http://robotics.innopolis.university/events/)
+- [контакты](http://robotics.innopolis.university/contacts/)
+RU EN
+[![](https://robotics.innopolis.university/wp-content/uploads/2022/05/NTI.png)](https://nti.fund/) [![](https://robotics.innopolis.university/wp-content/uploads/2022/05/nti.png)](https://nti2035.ru/) [![](https://robotics.innopolis.university/wp-content/uploads/2022/05/miobrnauki.png)](https://minobrnauki.gov.ru/) [![](https://robotics.innopolis.university/wp-content/uploads/2022/05/npr_logo_w.png)](https://национальныепроекты.рф)
+- О центре
+- [Общая информация](https://robotics.innopolis.university/about/)
+- [Структура](https://robotics.innopolis.university/struct/)
+- [Оборудование](https://robotics.innopolis.university/equipment/)
+- [Карьера](https://robotics.innopolis.university/career/)
+- [Контакты](https://robotics.innopolis.university/contacts/)
+- [Образование](https://robotics.innopolis.university/learn/)
+- [Проекты](https://robotics.innopolis.university/projects/)
+- [Консорциум](https://robotics.innopolis.university/consortium/)
+- [Наука](https://robotics.innopolis.university/science/)
+- [Новости](https://robotics.innopolis.university/events/)
+- [Контакты](https://robotics.innopolis.university/contacts/)
+[Вернуться](https://robotics.innopolis.university/events)
+## Эксперты Кружкового движения НТИ и Университета Иннополис оценили оборудование для кружков робототехники
+17.08.2021
+![](https://robotics.innopolis.university/wp-content/uploads/2021/08/kruzhkovoe-dvizhenie-NTI_red-768x508.png)
+Специалисты разработали методику оценивания и процедуру тестирования, что поможет кружкам выбирать наборы для подготовки и участия школьников в инженерных соревнованиях. В первый сборник вошли результаты оценки 11 наборов разных направлений, которые используют в российской образовательной робототехнике.
+Оценка робототехнического оборудования состояла из девяти этапов: эксперты проверяли комплектность и качество изготовления деталей, инструкции и методики, входящие в набор, обновления методик и информации на сайте продукта, обновления прошивок и ПО на сайте технической поддержки. Также специалисты проходили уроки и упражнения, описанные в инструкциях и рекомендациях, искали открытую информацию об оборудовании, его распространённости и применении на занятиях и для подготовки к соревнованиям, собирали информацию от организаторов соревнований по применению на них данных наборов.
+Мария Тезина, заместитель директора Центра подготовки и привлечения абитуриентов Университета Иннополис: «Часто мы сталкиваемся с просьбой помочь с выбором оборудования для кружков, оптимально закрывающего образовательные потребности и спектр соревнований. Данный проект — наша попытка помочь преподавателям и руководителям кружков осознанно подойти к построению инфраструктуры кружка и выбору образовательных треков. Также для нас было важной задачей дать обратную связь разработчикам оборудования по применимости и удобству использования робототехнических конструкторов в образовательных проектах. Одним словом, проделанная работа это наша первая ласточка в формировании в России осознанной образовательной среды в области робототехники».
+Специалисты Кружкового движения НТИ и российского ИТ-вуз продолжат тестировать оборудование, результаты новых исследований будут представлены в следующих версиях сборника.
+«Нами сделана первая попытка систематизировать область соревнований и конструкторов для них. Начав с робототехники и самого популярного формата — подготовки к инженерным соревнованиям, мы в дальнейшем будем расширять тематики и форматы, — подчеркнул Президент Ассоциации участников технологических кружков Алексей Федосеев. — Президент России поручил создать в стране сеть технологических кружков по модели Кружкового движения НТИ. Данное исследование позволит, в том числе, оснастить наставников, руководителей кружков и представителей региональных систем образования прикладными инструментами для развития кружков робототехники».
+Кружковое движение НТИ и Университет Иннополис с 2016 года совместно организуют Олимпиаду Кружкового движения НТИ по направлению «Интеллектуальные робототехнические системы». В 2020/2021 учебном году этому профилю был присвоен первый уровень РСОШ, благодаря чему победители и призеры могут получить 100 баллов ЕГЭ при поступлении в вузы. В 2020 году также совместно разработан и проведен конкурс компетенций школьников «Талант 20.35» по направлению «Программная робототехника».
+[Дальше](https://robotics.innopolis.university/news/dronoport-universiteta-innopolis-rabotaet-pri-temperaturah-ot-20-do-50-gradusov-nochyu-i-pri-poryvistom-vetre/)
+[Дронопорт Университета Иннополис работает при температурах от -20 до +50 градусов, ночью и при порывистом ветре](https://robotics.innopolis.university/news/dronoport-universiteta-innopolis-rabotaet-pri-temperaturah-ot-20-do-50-gradusov-nochyu-i-pri-poryvistom-vetre/)
+[Перейти к следующей теме в этом разделе](https://robotics.innopolis.university/news/dronoport-universiteta-innopolis-rabotaet-pri-temperaturah-ot-20-do-50-gradusov-nochyu-i-pri-poryvistom-vetre/)

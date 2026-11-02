@@ -1,0 +1,16 @@
+{
+ "title": "Opisanie protsessov zhiznennogo tsikla 13 05 26",
+ "url": "https://innopolis.university/filespublic/Opisanie_protsessov_zhiznennogo_tsikla_13_05_26.pdf",
+ "sha256": "397b4bb0c7805e152f3f379102c6a51e2d68221900d85fcedbb0725aada0471e",
+ "method": "text layer (opendataloader)",
+ "chars": 15470,
+ "tables": 5,
+ "section": "site/ipservices",
+ "context": "",
+ "fetched_at": "2026-11-01T22:40:27+00:00",
+ "remote": {
+  "etag": "\"914fd-6529ec723a0b5\"",
+  "modified": "Mon, 25 May 2026 06:49:19 GMT",
+  "size": "595197"
+ }
+}

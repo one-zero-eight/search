@@ -1,0 +1,16 @@
+{
+ "title": "Скачать программу [programm_vshb_2026]",
+ "url": "https://lk-dovuz.innopolis.university/public/files/programm_vshb_2026.pdf",
+ "sha256": "f3087ea28e807aadcc7727bf13508ab5213a223dabcce7be3c5492d4f2a75f8a",
+ "method": "text layer (opendataloader)",
+ "chars": 1677,
+ "tables": 5,
+ "section": "site/teamproject",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:43+00:00",
+ "remote": {
+  "etag": "\"ac769-64b2761ce9440\"",
+  "modified": "Thu, 19 Feb 2026 06:26:17 GMT",
+  "size": "706409"
+ }
+}

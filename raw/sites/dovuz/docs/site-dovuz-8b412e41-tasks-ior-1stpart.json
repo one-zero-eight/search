@@ -1,0 +1,16 @@
+{
+ "title": "tasks ior 1stpart",
+ "url": "https://lk-dovuz.innopolis.university/public/files/tasks_ior_1stpart.pdf",
+ "sha256": "9209a5f7227ddaf710bd546c796a0b2d9c8c5e9fb281b6f9a6f8a961dec8e8ec",
+ "method": "text layer (opendataloader)",
+ "chars": 21259,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:27+00:00",
+ "remote": {
+  "etag": "\"3f58c-6297198de1b40\"",
+  "modified": "Tue, 17 Dec 2024 06:42:13 GMT",
+  "size": "259468"
+ }
+}

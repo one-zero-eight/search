@@ -1,0 +1,16 @@
+{
+ "title": "Заявление на получение статуса «резидент»",
+ "url": "https://sezinnopolis.ru/upload/new-files/forcompanies-status.docx",
+ "sha256": "8effc446b589164bb4126a22a65e905fd019a6e2d86b939171f42acaf64f3a7e",
+ "method": "text layer (opendataloader)",
+ "chars": 559,
+ "tables": 5,
+ "section": "site/sez",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:31+00:00",
+ "remote": {
+  "etag": "\"6984579a-3d80\"",
+  "modified": "Thu, 05 Feb 2026 08:40:58 GMT",
+  "size": "15744"
+ }
+}

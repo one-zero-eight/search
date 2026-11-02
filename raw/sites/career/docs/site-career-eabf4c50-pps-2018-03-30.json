@@ -1,0 +1,16 @@
+{
+ "title": "Объявление о конкурсном отборе от 30.03.2018",
+ "url": "https://career.innopolis.university/public/files/pps/PPS%202018.03.30.pdf",
+ "sha256": "1fda860aa6cba1b172aea7ca5b2343b7f1c603e0a7633edc167b1fbe7a5ff400",
+ "method": "ocr (chandra-ocr-2)",
+ "chars": 11849,
+ "tables": 5,
+ "section": "site/career",
+ "context": "",
+ "fetched_at": "2026-10-31T09:32:40+00:00",
+ "remote": {
+  "etag": "\"149848-5d18899fff840\"",
+  "modified": "Wed, 24 Nov 2021 13:11:53 GMT",
+  "size": "1349704"
+ }
+}

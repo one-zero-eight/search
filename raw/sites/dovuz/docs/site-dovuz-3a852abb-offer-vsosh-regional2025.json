@@ -1,0 +1,16 @@
+{
+ "title": "договором оферты [offer_vsosh_regional2025]",
+ "url": "https://lk-dovuz.innopolis.university/public/files/offer_vsosh_regional2025.pdf",
+ "sha256": "a5e090409b254b0d686ba9a087065bee0add5f822c2bfee5f86fc8dab24012f5",
+ "method": "text layer (opendataloader)",
+ "chars": 29536,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"32fe9-63b51299feb40\"",
+  "modified": "Fri, 01 Aug 2025 17:33:57 GMT",
+  "size": "208873"
+ }
+}

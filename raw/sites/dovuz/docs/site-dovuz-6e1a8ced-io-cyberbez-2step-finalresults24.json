@@ -1,0 +1,16 @@
+{
+ "title": "io cyberbez 2step finalresults24",
+ "url": "https://lk-dovuz.innopolis.university/public/files/io_cyberbez_2step_finalresults24.pdf",
+ "sha256": "0031e6e7bbe061a0f3b0ac6bd93065ce50cfea279f0fdf2e40fd4e3417519e4f",
+ "method": "text layer (opendataloader)",
+ "chars": 7304,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:22+00:00",
+ "remote": {
+  "etag": "\"30937-62c5c4811bf80\"",
+  "modified": "Thu, 23 Jan 2025 09:31:58 GMT",
+  "size": "198967"
+ }
+}

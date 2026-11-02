@@ -1,0 +1,16 @@
+{
+ "title": "Олимпиадное программирование. Начальный уровень группы D",
+ "url": "https://lk-dovuz.innopolis.university/public/files/offer-spring-olimpiad-groupd.pdf",
+ "sha256": "c9c2c14ecff2534c30daee02ee063345833c4e0e137bfa55f2400f43fcc1a644",
+ "method": "text layer (opendataloader)",
+ "chars": 32874,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"6c396-64d2246b8b1c0\"",
+  "modified": "Mon, 16 Mar 2026 11:11:11 GMT",
+  "size": "443286"
+ }
+}

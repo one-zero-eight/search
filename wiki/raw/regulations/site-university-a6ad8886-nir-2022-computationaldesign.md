@@ -1,0 +1,388 @@
+---
+type: regulation
+title: "Read the article [NIR_2022_computationaldesign]"
+resource: "https://innopolis.university/filespublic/NIR_2022_computationaldesign.pdf"
+source_kind: official-document
+language: ru
+section: "site/university"
+sources:
+  - resource: "https://innopolis.university/filespublic/NIR_2022_computationaldesign.pdf"
+    id: "7b00cef9a796"
+    title: "Read the article [NIR_2022_computationaldesign]"
+    last_modified: "2026-10-24T23:44:48+00:00"
+generated:
+  by: "catix-wiki/0.1 regulations"
+  at: "2026-10-24T23:44:48+00:00"
+extraction: "text layer (opendataloader)"
+status: draft
+---
+
+# Read the article [NIR_2022_computationaldesign]
+
+Computational Design of Closed-Chain Linkages: Synthesis of Ergonomic Spine Support Module of Exosuit
+
+Olga V. Borisova1, Ivan I. Borisov1, Konstantin A. Nuzhdin1, Alexey M. Ledykov1, Sergey A. Kolyubin1
+
+Abstract—Closed chain linkages, that contain one or more kinematic loops, admit a much greater variety than open chains; thus, their analysis and synthesis are consequently more complicated. Within this paper, we propose a general algorithm for structural-parametric synthesis of linkages with closed kinematic chains. The proposed method, previously used for synthesis of anthropomorphic grippers’ fingers’ linkages and galloping robots’ legs’ mechanisms, was applied to synthesize the mechanics of an exosuit spine module to ensure ergonomics. Wearable robots such as exosuits are used to reduce fatigue and injuries, as well as increase the productivity of industry workers. Exosuits’ design is challenging since human motion is not as deterministic and precision as traditional robots’ motion. The proposed method gives instructions for design steps and uses non-gradient optimization techniques, such as genetic algorithms, for topology, parametric, and control co-design. In the considered example, an exosuit spine model has to not only compensate loads, but also does not interfere with the natural human motions. We have used a dataset that contains participants’ whole-body kinematics in order to check the ergonomics of an existing exosuit and improve its ergonomics using the proposed method. The article contains general decryption of the proposed method, an elaborated example with structural and parametric synthesis for an exosuit design, and simulation results.
+
+Keywords – Exosuit, optimisation, genetic algorithms, mechatronic systems, ergonomics.
+
+I. INTRODUCTION
+
+Design of mechatronic and robotic systems is a non-trivial creative activity, which is often not formalized. Results of such activity strongly depend on experience, creativity and engineering insights of a particular designer. Manual design results’ can be compared with a local optimum in a vast space of potential solutions. Algorithms and methods for mechanisms’ generation of mechatronic and robotic systems can potentially allow to do better exploration of vast space of potential solutions to find better sub-optimal solution. Automation of the design process makes it possible to effectively search for a global optimum in the space of solutions [1].
+
+Industrial exosuits are designed to support a person in performing physically exhausting routine operations. Over the past two decades, researchers have demonstrated that industrial exoskeletons can reduce overall labor intensities, fatigue and workload while simultaneously improving productivity and quality of work [2], [3], [4]. The main source of injuries and aches is the combination of lifting and relocating heavy
+
+*This work is supported by the Russian President Grant (no. MK- 2081.2022.4).
+
+1 Olga V. Borisova, Ivan I. Borisov, Konstantin A. Nuzhdin, Alexey M. Ledykov, Sergey A. Kolyubin are with the Biomechatronics and Energy-Efficient Robotics Lab, ITMO University, Saint Petersburg, Russia e-mail: {ovborisova, borisovii, s.kolyubin}@itmo.ru
+
+Fig. 1: Render of a CAD model of a designed industrial exosuit. Sequences of pictures show which movements the exosuit allows to perform for the torso unit loads, and the resulting injuries are not only difficult to recover but also have a high risk of relapse even after successful treatment [5], since workers are constantly exposed to the same environmental factors and perform the same tasks. A significant part of the employees who often have to perform hard work in manufacturing and industrial conditions suffer from lower spine pain or related injuries, which lead to significant losses for the industry [2].
+
+Many exosuits have been developed to assist laborers in the industrial sector: to reduce their fatigue during assembly and technological operations, to prevent potential disorders of the musculoskeletal system, in particular, in lifting heavy objects, laying on pallets and assembling overhead. For most of them, the electric motor is directly connected to the joint via a rigid gearbox, such as a harmonic gear, to create the high torques necessary for lifting, while keeping the actuator as light and compact as possible [6], [7]. Pneumatic and hydraulic drives are used [8], [9] as an alternative to the gear motor. However, they are heavy and bulky, since the compressor or pump must be installed on the exosuit. Another option is to put the compressor stationary, which adds undesired external restrictions that can disturb the work and cause discomfort.
+
+Fig. 2: Kinematic diagram of a exosuit’s torso unit
+
+One of the studies suggests using a twisted string actuator to support a spine lower part [10]. The researchers have developed a device that uses the variable nature of the gear ratio of twisted strings: high when untwisting and decreasing when twisting, which corresponds to the profile of the connection torque required to lift the load. In [11], an electric exoskeleton for spine support is presented, which reduces muscle activity in the lumbar vertebral by 30%. As an alternative, a passive exoskeleton for the spine is proposed with an increase in the range of movement of the torso in the sagittal plane by 25% compared to the rigid power design [12].
+
+For the industrial exosuits, motion transformation and load compensation are mainly provided by linkage mechanisms with integrated elastic elements, variable stiffness joints, and actuators. Automatic synthesis of generation of linkage mechanisms is a way to speed up the design process and at the same time to better explore a vast space of potential solutions. However, topology generation, optimization of geometric, kinematic, and dynamic parameters, choice of actuation and joints’ trajectories generation are challenging.
+
+For parametric optimization, some studies suggest using evolutionary algorithms, for instance, to synthesize a linkage mechanism [13] by combining differential evolution with a real-valued genetic algorithm, Or, in [14], the optimal dimensional synthesis is used in the case of planar mechanisms using also differential evolution, wherein path generation, function generation and motion generation are taken into account. In [15] optimal design parameters of a mechanism with flexible elements been found by a combined optimization process using Genetic Algorithm, Imperialist Competitive Algorithm, Artificial Bee Colony, Ant Colony, Differential Evolution, and Simulating Annealing techniques. In addition to parametric optimization, a more challenging task is the problem of topology generation. For example, [16] presents a fully automated approach for generating optimized robot structures to traverse given terrains; however, the generation of physically reproducible robots remains a problem here.
+
+Within this paper, we propose a general method for automatic structural-parametric synthesis of closed-chain linkage mechanisms and give an example how to use it to ensure ergonomics of a designed industrial exosuit. The paper is organized as follows. The section II presents a designed industrial exosuit, whose ergonomics should be improved. The section III presents general method and algorithm for the structural-parametric synthesis of closed kinematics mechanisms, and the section IV presents the results of the synthesis of the exosuit spine module as an example of validation of the developed method regarding a field of wearable robots
+
+II. EXOSUIT DESIGN
+
+Fig. 1 shows renders of a CAD model of a designed industrial exosuit, whose ergonomics should be improved. Sequences of pictures show which movements the exosuit allows to perform for a torso unit. Within this study, we consider a spine support module only.
+
+The kinematic scheme of the exosuit is shown in Fig. 2. The upper part 10 consists of connected links of the shoulder girdle, resting on the shoulders of a person at points N and P and on the chest at point M. The lower part is an arc 9 and a number of passive hinges of the pelvic region 5-8. The upper part can rotate around the lower part by means of a pair of hinges K and L. An elastic rod 19 is used to apply support when the back is bent, which is fixed in the hinge T, associated with the lower part. The rod bends and has the ability to slide along its axis using guide S. The base of the back 9 is attached to link 8 with the help of hinge J, which has a lock with the ability to change the position on the vertical rod - in this way it is possible to adjust the position of the upper shoulder girdle of the suit relative to the pelvic part.
+
+Spine module supports a user thanks to an elastic element integrated into the structure in accordance with studies of [17] [18], [19]. To use an elastic element of a spine module, the upper and lower parts of an exosuit do not have to be connected to each other, besides to the elastic element itself. However, in order to remove loads from the shoulder girdle and arms and redistribute them between the torso, pelvis and legs, the upper and lower parts of the exosuit must be mechanically connected. Thus, the task is to search for a topology and geometric parameters of the mechanisms that connect the upper and lower parts of the spine support module. Within this study, we have considered only kinematics and ergonomics of an exosuit’s spine module.
+
+III. SYNTHESIS ALGORITHM
+
+The proposed method and algorithm for structural-parametric synthesis of linkages with closed kinematic chains is general and can be utilized for different kinds of robotic and mechatronic systems. We have applied the developed method for synthesis of closed-chain linkage mechanisms for a number of mechatronic systems: (a) anthropomorphic gripping devices [20], [21], (b) galloping and jumping robots [22], [23] and (c) wearable exosuits.
+
+E
+
+D
+
+D
+
+E
+
+E
+
+F τ l
+
+C
+
+C
+
+B
+
+H l
+
+τ
+
+B
+
+τ
+
+F
+
+F
+
+A
+
+A
+
+(a) (b) (с) (d) (f)
+
+(e)
+
+Fig. 3: General design procedure’s stages: (a) defining a fully-actuated open-chain mechanism; (b) linkage closure for some cyclic trajectory t1 and (c) another cyclic trajectory t2; (d) linkage closure to ensure both trajectories t1, t2, and a smooth transition between them; (e) introduction of under-actuation as a prismatic joint, or (f) revolute joint within a passive variable length link structure. Red dots indicate motors, black dots mean passive revolute joints
+
+In [20] a general method of structural-parametric synthesis of closed-chain linkage mechanisms is proposed. In particular, the paper considers examples of finger mechanisms synthesis for versatile adaptive grippers capable of performing both fundamental types of gripping: precise pinching and force encompassing, thanks to the use of variable-length links and mechanical decomposition of control channels.
+
+The algorithm of structural-parametric synthesis of closed-chain linkage mechanisms consists of three steps: (1) synthesis of fully actuated open-chain kinematics, (2) synthesis of fully actuated closed-chain kinematics, and (3) introduction of underactuation.
+
+A. Fully actuated open-chain kinematics At the first step we need to set a topology of the open-chain mechanism, set geometric parameters, set trajectories profiles for mechanism’s joints to provide the required motion. Each of the indicated parameters can be set in advance or found as a result of the optimization task.
+
+As a result of the first stage of synthesis, a fully actuated open-chain mechanism should be obtained that performs the required movement. For clarity, the Fig. 3, (a) shows an abstract fully actuated open-chain mechanism with three degrees of freedom; red circles represent drives. B. Fully actuated closed-chain kinematics
+
+At the second stage we need to find a topology for groups of links to be attached, to set a search for points of connection to the open-chain kinematics mechanism and set an optimization task to find geometric parameters. We have to obtain a fully actuated closed-chain mechanism with the required number of motors at this stage.
+
+The essence of the synthesis stage is as follows: we consider the links ni and ni+2 are connected to each other through the intermediary link ni+1 or connected through a group of intermediary links, and look for a pair of points pi and pi+2 belonging to them, respectively. If the distance between points is constant throughout the entire cycle of movement, then the points pi and pi+2 can be connected by a fixed length link. An addition of holonomic constraints allow to remove redundant motors. The Fig. 3, (b) shows the closed-chain linkage mechanism obtained by attaching the link EF to the links 3 and 1 at points p3 and p1, which coincide with joints E and F. As a result, a closed-chain kinematics mechanism with a reduced number of motors was obtained: only two motors are needed to follow the same trajectory instead of three.
+
+If a mechanism has to perform not a single cyclic trajectory t1, but a range of cyclic trajectories t ∈ {t1,t2,...tn}, then such points pi and pi+2 can be found to which links with lengths l1, l2, ... ln can be attached to execute trajectories t1,t2,...tn respectively. The figure 3, (b) shows a closed-chain kinematics mechanism with l2 > l1 to ensure motion along a different cyclic trajectory t2.
+
+If all trajectories t ∈ {t1,t2,...tn} are required, then instead of a link of fixed length, a group of links can be attached, imposing a similar number of connection conditions, but allowing reconfiguring the length between the found points pi and pi+2. In the Figure 3, (d), instead of a fixed-length link, a group of two links EHF is attached (in [20] alternative variants of the attached groups are presented) with a motor in the joint H. As a result, a mechanism was obtained with the original number of motors, but relocated to a different position.
+
+Following the second stage of synthesis, a closed-chain kinematics mechanism should be obtained which can perform the required movement (possibly partially reproducing only the required kinematics) using the necessary number of motors. Besides the topology and geometric parameters, the joints’ trajectory profiles must be found; thus, all steps of optimization focus on co-design problems of mechanics and control. This step can be performed to relocate motors, for example, closer to a body to minimize mechanism’s inertia, and/or reduce a number of motors. The operation can be repeated recursively several times.
+
+C7 LSHO
+
+RSHO
+
+CLAV
+
+Z
+
+Z
+
+Z
+
+Y X
+
+Y X
+
+Y X
+
+RBAK
+
+Z
+
+Z
+
+Z
+
+Ψ
+
+Ψ
+
+Ψ
+
+Y X
+
+Y X
+
+Y X
+
+T10
+
+U
+
+U
+
+U
+
+Ψ
+
+Ψ
+
+Ψ
+
+L
+
+L
+
+L
+
+STRN
+
+RPSI LPSI
+
+Ψ
+
+Z
+
+Z
+
+Z
+
+LASI
+
+Ψ
+
+Y X
+
+Y X
+
+Y X
+
+R
+
+R
+
+Ψ
+
+Ψ
+
+Ψ
+
+R
+
+Ψ
+
+B
+
+B
+
+B
+
+RASI
+
+Z
+
+Z
+
+Z
+
+Y X
+
+Y X
+
+Y X
+
+(a) (b) (c)
+
+Fig. 4: An original Exosuit provided for verification (a), motion capture markers together with primitives representing an upper and bottom torso parts (b), and the Exosuit with the markers and primitives
+
+C. Introduction of underactuation
+
+The linkages’ joints can be both active and passive. In the case of passive joints, the mechanism is treated as underactuated. Underactuation can enhance the mechanism’s performance. It is possible to introduce underactuation with the help of passive elastic elements: tension or compression springs, including as part of variable length links (Figure 3, (e)), or rotation springs (Figure 3, (f)).
+
+This operation allows to get a mechanically adaptive mechanism, passively generate torque, and/or ensure energy recuperation. As a result of the third stage of synthesis, an underactuated closed-chain linkage mechanism has to be synthesized that performs the required motion fully.
+
+IV. SYNTHESIS OF THE EXOSUIT SPINE MODULE MECHANISMS
+
+We have tested the proposed method to synthesize mechanics of the torso unit for an exosuit. The algorithm allows to search for the optimal topology of a mechanism and perform parametric optimization of the geometric parameters of linkage mechanisms. The criteria of optimally is to ensure ergonomics.
+
+The Fig. 4, (a) shows a three-dimensional model of the spine module of the exosuit being developed. The spine module consists of upper part with frame ΨU and bottom part with frame ΨB. The upper and bottom parts are connected by rotational joints on right ΨR and left ΨL sides. For an upper body we consider that ΨU, ΨR, and ΨL belongs to a rigid body. The revolute joints give rotational mobility along the yˆ axis, while mobility along the zˆ and xˆ axis is carried out by joints of the lower part. Here we are interested in points of connection of upper and bottom parts, that are depicted red ΨR and green ΨL frames (Fig. 4, (a)).
+
+The dataset [24] was used to verify ergonomics numerically. Fig. 4, (b) shows motion capture markers that move along trajectories from the dataset, and cubic primitives indicating an upper and bottom parts of torso1. Fig. 4, (c) shows the exosuit model, primitives and markers all together. The [25] provides a description of a default marker’s attachment pattern.
+
+1The materials below are presented for the file Participant 541 Setup A Seq 5 Trial 5.qualisys
+
+A. Initial state of original design
+
+Fig. 5, (a) demonstrates the initial position corresponding to the ”T” pose. We can notice the proper location of the markers relative to the box primitives and spine module of the exosuit. Also, we can see that the connection points are coincide (highlighted with a pink circle). However, during the animation sequence the connection points moves away from each other (figure 5, e-i). Fig. 6, (a) shows the distance between the joints for the left rotational joint ll∗ and the right rotational joint lr∗ ll = (xlb −xlu)2 +(ybl −yul )2 +(zbl −zul )2, lr = (xrb −xru)2 +(ybr −yur)2 +(zbr −zur)2, where xlb is x coordinate for the left bottom frame, xlu is x coordinate for the left upper frame, both expressed in the frame fixed in space. It can be seen that the distance between the joints for both the left and right parts are located in the proximity of zero only in the initial position. At the peak, the difference between the joints corresponds to greater than 8 cm (Fig. 5, (b)). Throughout the recorded movement from the dataset of 100 sec, the joints never returned to their original position. The designed structure, due to engineering insight, is not optimal in accordance with the ergonomics criterion. B. Intermediate state of original design Before using the proposed method of synthesis for closed-chain linkage mechanisms, an attempt was made to carry out parametric optimization with the topology given initially.
+
+Fig. 6, (b) shows the results of minimization of the following fitness function
+
+C. Optimization of new design
+
+1+ll ·lr
+
+F = −
+
+.
+
+The right and left frames have the same geometric parameters, the only difference is the sign for distance along yˆ axis. The idea is to find parameters such that ll ·lr = 0. The optimization been set up for the first 4 seconds of simulation, when an operator stands still. This been done to verify the fitness function, since we know for sure that an optimal solution exists for a stance pose. We have used genetic algorithms from Global Optimization Toolbox of MATLAB. The program has found parameters that provides the distances between the frames in the proximity of zero. However, we can see that for the rest of animation sequence the deviation has increased up to almost 14 cm.
+
+Then we ran the same optimization task but for the first 30 seconds. Fig. 6, (c) shows the result for the whole animation sequence, however the distances between the frames are not in the proximity of zero.
+
+The developed algorithm was used to synthesize the linkage mechanism, i.e., to integrate an intermediate link between the frames that belong to upper and bottom parts of a spine module. Here a human body was considered as an analogue of
+
+(a) Initial ”T” pose, before optimization (b) Intermediate pose, before optimization (c) Initial pose, after optimization
+
+Fig. 5: A sequence of images of exosuit before and after optimization
+
+0 10 20 30 40 50 60 70 80 90 100
+
+0 10 20 30 40 50 60 70 80 90 100
+
+(a)
+
+(с)
+
+0 10 20 30 40 50 60 70 80 90 100
+
+0 10 20 30 40 50 60 70 80 90 100
+
+(d)
+
+(b)
+
+Fig. 6: Comparison of the distances between the attachment points of the upper and lower parts of the exosuit spine module: for the left rotational joint ll∗ and the right rotational joint lr∗ before optimization and for the left ll and right lr sides after optimization. Before optimization, the joints are aligned only at the initial moment of time when there is no movement. After optimization, the distance throughout the entire movement fluctuates around the initial value of l0 = 3 cm the open kinematics mechanism, in which the bottom (pelvis) primitive was considered as a link n1, the upper (chest) primitive as a link n3, which are connected by the a set of intermediate link (loin) n2. The movement of ”open kinematics mechanism” is determined by the data from the dataset.
+
+According to the second stage of synthesis, it is necessary to find the points C and D belonging to the primitives n1 and n3, respectively, the variety in the distance between which tends to zero over the entire range of motion. The square of the average distance between points per cycle of movement:
+
+N l2 =
+
+N
+
+∑
+
+||pC(t)− pD(t)||2, i where l is the scalar value of the shortest distance between points, pD(t) ∈ R3 is the position vector of the point D, pC(t) ∈ R3 is the position vector of the point C, N – the number of discrete measurements.
+
+The objective function is the quadratic losses function between the actual distance at the time of measurement i between points with an average value of l
+
+N δ =
+
+N
+
+∑
+
+(||pC(t)− pD(t)||2 −l2)2. i
+
+The Fig. 6, (d) shows the distance between the points
+
+D and C for the left ll and right lr sides. It can be seen that throughout the entire movement, the distance fluctuates around the initial value of l0 = 3.2 cm. At time points t ∈ [5,10]∪[30,44]∪[58,65]∪[82,95], these movements are very noisy due to sudden movements of the actor and fluctuations of markers. The data interval t ∈[0,30] was used for optimization. Genetic algorithms were used to solve the optimization task.
+
+Fig. 5, (c) shows the location of frames C and D in front, side, top, and in isometrical. The Fig. 5, (c) shows a scheme similar to the Fig. 3, (b). The link CD can be implemented as a rigid link or a link of variable length.
+
+V. CONCLUSIONS
+
+The synthesized mechanism of the exosuit spine module introduces significantly fewer restrictions on the movement of the exosuit user, providing greater ergonomics. The developed algorithm of structural-parametric synthesis makes it possible to synthesize various mechanisms for gripping devices, galloping robots, and wearable robots. This example uses manual design; however, machine learning techniques can be used in conjunction with this kind of approach to explore the vast design space of possible solutions more effectively.
+
+On the example of the exosuit spinal module design, it is showed that developing a mechatronic device using common methods, in other words using only engineering experience and insight, it is not always possible to achieve the desired outcome. As a result, the design constrains a range of movements. After carrying out the proposed synthesis, optimizing the parameters, and adding elastic elements to the structure, it turned out to achieve higher ergonomics.
+
+This work could be intended and helpful for use by researchers developing modern robots that collaborate with human or unstructured environment to provide safe and energy-efficient interaction.
+
+REFERENCES
+
+[1] F. Chen and M. Y. Wang, “Design optimization of soft robots: A review of the state of the art,” IEEE Robotics & Automation Magazine, vol. 27, no. 4, pp. 27–43, 2020.
+
+[2] M. Looze, T. Bosch, F. Krause, K. Stadler, and L. O’Sullivan, “Exoskeletons for industrial application and their potential effects on physical work load,” Ergonomics, vol. 59, pp. 1–11, 10 2015.
+
+[3] B. Costa and E. Vieira, “Risk factors for work-related musculoskeletal disorders: A systematic review of recent longitudinal studies,” American journal of industrial medicine, vol. 53, pp. 285–323, 11 2009.
+
+[4] A. G. Marin, M. S. Shourijeh, P. E. Galibarov, M. Damsgaard, L. Fritzsch, and F. Stulp, “Optimizing contextual ergonomics models in human-robot interaction,” in 2018 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2018, pp. 1–9.
+
+[5] I. Budihardjo, Studies of compressive forces on L5/S1 during dynamic manual lifting, 2002.
+
+[6] H. Yu, I. Choi, K.-L. Han, J. Choi, G. Chung, and J. Suh, “Development of a stand-alone powered exoskeleton robot suit in steel manufacturing,” ISIJ International, vol. 55, pp. 2609–2617, 12 2015.
+
+[7] S. Toxiri, J. Ortiz, J. Masood, J. Fern´andez, L. Mateos, and D. Caldwell, A Powered Low-Back Exoskeleton for Industrial Handling: Considerations on Controls, 10 2017, pp. 287–291.
+
+[8] A. Zoss, H. Kazerooni, and A. Chu, “Biomechanical design of the berkeley lower extremity exoskeleton (bleex),” IEEE/ASME Transactions on Mechatronics, vol. 11, no. 2, pp. 128–138, 2006.
+
+[9] N. Tsagarakis, D. Caldwell, and G. Medrano-Cerda, “A 7 dof pneumatic muscle actuator (pma) powered exoskeleton,” in 8th IEEE International Workshop on Robot and Human Interaction. RO-MAN ’99 (Cat. No.99TH8483), 1999, pp. 327–333.
+
+[10] H.-S. Seong, D.-H. Kim, I. Gaponov, and J.-H. Ryu, “Development of a twisted string actuator-based exoskeleton for hip joint assistance in lifting tasks,” in 2020 IEEE International Conference on Robotics and Automation (ICRA), 2020, pp. 761–767.
+
+[11] S. Toxiri, A. Koopman, M. Lazzaroni, J. Ortiz, V. Power, M. Looze, L. O’Sullivan, and D. Caldwell, “Rationale, implementation and evaluation of assistive strategies for an active back-support exoskeleton,” Frontiers in Robotics and AI, vol. 5, 05 2018.
+
+[12] M. B. N¨af, A. S. Koopman, S. Baltrusch, C. Rodriguez-Guerrero, B. Vanderborght, and D. Lefeber, “Passive back support exoskeleton improves range of motion using flexible beams,” Frontiers in Robotics and AI, vol. 5, 2018.
+
+[13] W.-Y. Lin, “A ga-de hybrid evolutionary algorithm for path synthesis of four-bar linkage,” Mechanism and Machine Theory, vol. 45, pp. 1096– 1107, 08 2010.
+
+[14] F. Penunuri, R. Pe´on-Escalante, C. Villanueva L´opez, and D. Pech-Oy, “Synthesis of mechanism for single- and hybrid-tasks using differential evolution,” Computing Research Repository - CORR, vol. 46, 02 2011.
+
+[15] M. A. Ben Abdallah, I. Khemili, and N. Aifaoui, “Flexible slider crank mechanism synthesis using meta-heuristic optimization techniques: a new designer tool assistance for a compliant mechanism synthesis,” Artificial Intelligence Review, vol. 53, 04 2020.
+
+[16] A. Zhao, J. Xu, M. Konakovi´c-Lukovi´c, J. Hughes, A. Spielberg, D. Rus, and W. Matusik, “Robogrammar: graph grammar for terrain-optimized robot design,” ACM Transactions on Graphics (TOG), vol. 39, no. 6, pp. 1–16, 2020.
+
+[17] M. B. N¨af, K. Junius, M. Rossini, C. Rodriguez-Guerrero, B. Vanderborght, and D. Lefeber, “Misalignment compensation for full human-exoskeleton kinematic compatibility: state of the art and evaluation,” Applied Mechanics Reviews, vol. 70, no. 5, 2018.
+
+[18] M. B. N¨af, A. S. Koopman, S. Baltrusch, C. Rodriguez-Guerrero, B. Vanderborght, and D. Lefeber, “Passive back support exoskeleton improves range of motion using flexible beams,” Frontiers in Robotics and AI, vol. 5, p. 72, 2018.
+
+[19] A. S. Koopman, M. N¨af, S. J. Baltrusch, I. Kingma, C. Rodriguez-Guerrero, J. Babiˇc, M. P. de Looze, and J. H. van Die¨en, “Biomechanical evaluation of a new passive back support exoskeleton,” Journal of Biomechanics, vol. 105, p. 109795, 2020.
+
+[20] I. I. Borisov, E. E. Khomutov, S. A. Kolyubin, and S. Stramigioli, “Computational design of reconfigurable underactuated linkages for adaptive grippers,” in 2021 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS). IEEE, pp. 6117–6123.
+
+[21] I. I. Borisov, E. E. Khomutov, D. V. Ivolga, N. A. Molchanov, I. A. Maksimov, and S. A. Kolyubin, “Reconfigurable underactuated adaptive gripper designed by morphological computation,” in 2022 IEEE/RSJ International Conference on Robotics and Automation (ICRA). IEEE.
+
+[22] I. I. Borisov, I. A. Kulagin, A. E. Larkina, A. A. Egorov, S. A. Kolyubin, and S. Stramigioli, “Study on elastic elements allocation for energy-efficient robotic cheetah leg,” in 2019 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS). IEEE, 2019, pp. 1696–1701.
+
+[23] R. A. Zashchitin, I. I. Borisov, O. V. Borisova, and S. A. Kolyubin, “Energy-efficiency in legged robots locomotion: Open versus closed chains,” in 2020 International Conference Nonlinearity, Information and Robotics (NIR). IEEE, 2020, pp. 1–6.
+
+[24] P. Maurice, A. Malais´e, C. Amiot, N. Paris, G.-J. Richard, O. Rochel, and S. Ivaldi, “Human movement and ergonomics: An industry-oriented dataset for collaborative robotics,” The International Journal of Robotics Research, vol. 38, no. 14, pp. 1529–1537, 2019.
+
+[25] “KIT Whole-Body Human Motion Database,” https://motion-database.humanoids.kit.edu/markerset/, 2022.
+
+# Citations
+
+1. [Read the article [NIR_2022_computationaldesign]](https://innopolis.university/filespublic/NIR_2022_computationaldesign.pdf), file 7b00cef9a796

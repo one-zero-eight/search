@@ -1,0 +1,29 @@
+{
+ "docs": {},
+ "pages": {
+  "eng": {
+   "fetched_at": "2026-10-31T08:40:57+00:00",
+   "file_sha": "7ac73588c233be431e6140ee537166384e52493ad3577c63201b08f849831f66",
+   "last_modified": "Tue, 10 Oct 2023 08:26:34 GMT",
+   "sha256": "507e55b7efed3b42d558e27161713e699c7ec01aae4507e770a05a64c8a26f97",
+   "title": "eng",
+   "url": "https://onboarding.innopolis.ru/eng"
+  },
+  "home": {
+   "fetched_at": "2026-10-31T08:40:55+00:00",
+   "file_sha": "7dfc436dfa6cd2259de3eb11e5c39a7d15dded53be8292a6b78699b402453ae7",
+   "last_modified": "Fri, 20 Feb 2026 06:13:25 GMT",
+   "sha256": "26cabee9766ce390d72f291d9ff9a210d6b0de70f12ffd05fbffe59b283a72de",
+   "title": "Иннополис — город твоих идей",
+   "url": "https://onboarding.innopolis.ru/"
+  },
+  "page30889143-html": {
+   "fetched_at": "2026-10-31T09:04:13+00:00",
+   "file_sha": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "last_modified": "Wed, 05 Jul 2023 09:31:26 GMT",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "title": "Footer",
+   "url": "https://onboarding.innopolis.ru/page30889143.html"
+  }
+ }
+}

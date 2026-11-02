@@ -1,0 +1,618 @@
+{
+ "docs": {
+  "https://innopolis.university/upload/iblock/b6f/ozxoa1j463v3s0m55w9kdc1qc0z31zfr/%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%B2%D1%8B%D0%BF%D0%B8%D1%81%D0%BA%D0%B0.pdf": "Выписка из реестра лицензий",
+  "https://innopolis.university/upload/iblock/d7f/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B4%D0%B5%D1%8F%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C.pdf": "Лицензионное соглашение"
+ },
+ "pages": {
+  "admin-red-os": {
+   "fetched_at": "2026-10-31T01:22:08+00:00",
+   "file_sha": "f11a3f89f12eb6a0e246a8081b87868098240da655593b39c955d91f85fb182d",
+   "last_modified": "Tue, 27 Oct 2026 07:42:07 GMT",
+   "sha256": "62e5f924202137d7aa7ad2e6d301aa3fb5982104e09a00a2a7284b2bcebf317a",
+   "title": "Онлайн-курс «Основы администрирования в РЕД ОС»",
+   "url": "https://stc.innopolis.university/admin-red-os"
+  },
+  "ai-architect": {
+   "fetched_at": "2026-10-31T01:20:44+00:00",
+   "file_sha": "e9c4bd0269e0b56fee87a17c62802b912c334aec46ab9628905453b7c46e15ee",
+   "last_modified": "Tue, 27 Oct 2026 07:31:27 GMT",
+   "sha256": "cc359d556945e72b3720993c0cdcc9351960d4a80c5c269690c5505203f5edba",
+   "title": "Курс «Архитектор в области искусственного интеллекта» Софинансирование",
+   "url": "https://stc.innopolis.university/ai-architect"
+  },
+  "ai-data-analitika": {
+   "fetched_at": "2026-10-31T01:20:06+00:00",
+   "file_sha": "e9798d89ebb4b6d875ef459e2b42a9fe216cf24467ed6ace5b7f6a9e30870129",
+   "last_modified": "Tue, 27 Oct 2026 07:36:17 GMT",
+   "sha256": "fe4f08ddffa0dcb3c7bae02a7bdc6c0665a0010225ed0a294a1692e95895318d",
+   "title": "Искусственный интеллект и основы аналитики больших данных",
+   "url": "https://stc.innopolis.university/ai_data_analitika"
+  },
+  "ai-in-python": {
+   "fetched_at": "2026-10-31T01:20:11+00:00",
+   "file_sha": "2eba2ced1f5855da5fc15804aa8b21e7f5eadc05d4d35f24c3e1dff3f007a9e3",
+   "last_modified": "Tue, 27 Oct 2026 07:36:54 GMT",
+   "sha256": "55019a7a823d596430457dd21e87d1ae9efb486ae60309db06fd8065aeb6497d",
+   "title": "Курс «Нейросети: разработка собственных проектов на Python»",
+   "url": "https://stc.innopolis.university/ai-in-python"
+  },
+  "ai-in-school": {
+   "fetched_at": "2026-10-31T01:22:27+00:00",
+   "file_sha": "9f2c938f3619c35734cd7ff91960141a3058711bd880b122e6835bd6df8e2df2",
+   "last_modified": "Thu, 06 Aug 2026 14:26:52 GMT",
+   "sha256": "e490c8c7a8618e548f2fc979d27bd2f96505c072181ed7aeaafc49990d889a85",
+   "title": "Код будущего 2026 — Партнёрство для учителей | Университет Иннополис",
+   "url": "https://stc.innopolis.university/ai_in_school"
+  },
+  "ai-project-manager": {
+   "fetched_at": "2026-10-31T01:20:49+00:00",
+   "file_sha": "989037a96e90f0d6e4b7ca73d3b03f2281c424e33d43063b13bb6058ebb30e95",
+   "last_modified": "Tue, 27 Oct 2026 07:31:42 GMT",
+   "sha256": "3e783a3246bd1b387cfcbc33c7746c6a2743a6a1dfdb5c31a993dfc2a0d65fb5",
+   "title": "Курс «Руководитель проектов в области ИИ» Софинансирование",
+   "url": "https://stc.innopolis.university/ai-project-manager"
+  },
+  "anketa": {
+   "fetched_at": "2026-10-31T01:21:52+00:00",
+   "file_sha": "d4d8280366d8131a3c2f6a8419ddccb0bd666db3df739ecfad3749ff6403c76a",
+   "last_modified": "Thu, 22 Jan 2026 11:05:37 GMT",
+   "sha256": "47e09f1248a196add58051c929c76d61c97c6246f11d85fa5362fc0b16f63d86",
+   "title": "Спасибо! Мы получили вашу заявку на курс.",
+   "url": "https://stc.innopolis.university/anketa"
+  },
+  "architect-ai": {
+   "fetched_at": "2026-10-31T01:20:53+00:00",
+   "file_sha": "70dcc5fdc9429f4b57839510443a1140eb060fd95cb997910a596e34ef7bddc7",
+   "last_modified": "Tue, 27 Oct 2026 07:31:56 GMT",
+   "sha256": "4f06b736c97d9d511bdcd183742f3c7d7d8d726c89a8bd7fff5c972dc30c3185",
+   "title": "Онлайн-курс «Архитектор в области искусственного интеллекта»",
+   "url": "https://stc.innopolis.university/architect-ai"
+  },
+  "backend-developer": {
+   "fetched_at": "2026-10-31T01:20:34+00:00",
+   "file_sha": "d1070e9baafc6018ae14b4ffb131d93ea8838b1fddcf9cabf0ed248a2058e1fe",
+   "last_modified": "Tue, 27 Oct 2026 07:38:12 GMT",
+   "sha256": "b6429c925356c63f0c689573150b2d0f583317e056fd3d07f07f7ba9270bb387",
+   "title": "Курс «Backend-разработчик.net» с возможностью трудоустройства от Университета Иннополис.",
+   "url": "https://stc.innopolis.university/backend-developer"
+  },
+  "bas": {
+   "fetched_at": "2026-10-31T01:20:36+00:00",
+   "file_sha": "4e89fc6bf05eae06e203cb4361509ddfdc191f9d39ed1863b73b9fa245962e43",
+   "last_modified": "Tue, 27 Oct 2026 07:38:19 GMT",
+   "sha256": "12de9b4c8107051a10e24c244ad6ceb89fd370548598128a6bfff1719e802dcf",
+   "title": "Курсы по беспилотным авиационным системам (БАС) от Иннополис",
+   "url": "https://stc.innopolis.university/bas"
+  },
+  "base-red-os": {
+   "fetched_at": "2026-10-31T01:22:06+00:00",
+   "file_sha": "ae1c486399024a7a80218ff701e61c3045a6dea63ea22c80d5f07a81c22b57cc",
+   "last_modified": "Tue, 27 Oct 2026 07:42:03 GMT",
+   "sha256": "8a5580929b79fc131628c50f26f9905a44595bc92cbc9ae1f5c575002e1668ec",
+   "title": "Онлайн-курс «Основы работы в РЕД ОС» от Университета Иннополис",
+   "url": "https://stc.innopolis.university/base-red-os"
+  },
+  "blog": {
+   "fetched_at": "2026-10-31T01:21:20+00:00",
+   "file_sha": "bfc1524a0b5d7729d24c02f361187f0ea2f58315ff0186ccc7615d3bcc910483",
+   "last_modified": "Tue, 27 Oct 2026 07:34:23 GMT",
+   "sha256": "e1fcc39abaae4ee6946d3a5937e6b794a591475d921689c8c1f54b2cecc8e21f",
+   "title": "Блог STC",
+   "url": "https://stc.innopolis.university/blog"
+  },
+  "blog-start-new-life-from-first-jan-part-3": {
+   "fetched_at": "2026-10-31T01:21:35+00:00",
+   "file_sha": "96eef57c0543a2409964ddad7379db1a75769a1e82b6bdadc8152d01b37df876",
+   "last_modified": "Thu, 22 Jan 2026 11:04:20 GMT",
+   "sha256": "97c1cc1d31fceb38480db79d9dbbc4a772095d7a9de0123b79b14e040505dc25",
+   "title": "Как начать новую жизнь с 1 января (или хотя бы с 9)? Советы выпускников",
+   "url": "https://stc.innopolis.university/blog/start-new-life-from-first-jan-part-3"
+  },
+  "blog-who-is-web-designer": {
+   "fetched_at": "2026-10-31T01:21:27+00:00",
+   "file_sha": "6d3ab24cbf0ea3d01186ea2cc9b9029a489f147d68b43bb362349d37bf6b525d",
+   "last_modified": "Tue, 27 Oct 2026 07:34:36 GMT",
+   "sha256": "4c3f1c9b7b597a903e1cceb5315b352f2f4f3e868e48bceb5787fb367ffbce51",
+   "title": "Кто такой веб-верстальщик, чем он занимается и как им стать?",
+   "url": "https://stc.innopolis.university/blog/who-is-web-designer"
+  },
+  "careerinit": {
+   "fetched_at": "2026-10-31T01:20:47+00:00",
+   "file_sha": "d36d98386061fb77b30806de79e1bca7869e9de5058e8d62b2e0a3875f277cb7",
+   "last_modified": "Tue, 27 Oct 2026 07:31:33 GMT",
+   "sha256": "8647264be41046de275691eeb04dbbf9cc23d2599b253564c49b6cfa1fad170e",
+   "title": "Карьерный консультант в ИТ | онлайн-курс от Иннополис",
+   "url": "https://stc.innopolis.university/careerinit"
+  },
+  "code-ai": {
+   "fetched_at": "2026-10-31T01:21:08+00:00",
+   "file_sha": "05d1ca5da9f5ec10675cd3710f9505c1d5f89532dc0b590d4c2095c59c3c719a",
+   "last_modified": "Thu, 22 Jan 2026 10:59:05 GMT",
+   "sha256": "63a22da6905768d80f5194262451e50781071f866b256264fca6a91af0ca4729",
+   "title": "Курсы по программированию для школьников от Университета Иннополис",
+   "url": "https://stc.innopolis.university/code-ai"
+  },
+  "code-to-innopolis-university": {
+   "fetched_at": "2026-10-31T01:22:25+00:00",
+   "file_sha": "4e7849f58da1e730e8199f36b88039fb36a42f3371de9c3cb78e8cc877baa2c9",
+   "last_modified": "Tue, 27 Oct 2026 07:35:07 GMT",
+   "sha256": "29e297c8caf1858777645b75d9a23730bc30cc56f0f5a266d0507ec24ee531f4",
+   "title": "От «Кода будущего» до поступления в Университет Иннополис",
+   "url": "https://stc.innopolis.university/code-to-innopolis-university"
+  },
+  "codeschool": {
+   "fetched_at": "2026-10-31T01:21:16+00:00",
+   "file_sha": "72e108b4338e4355f88f4f5bef1c43732c84ef260cb8fc169a189542d3562d81",
+   "last_modified": "Thu, 22 Jan 2026 10:59:46 GMT",
+   "sha256": "826749d1c5df3d13ae835a665a9c623fea0f36cd8a641843d8571caacd55e2c2",
+   "title": "Бесплатные курсы по программированию для школьников",
+   "url": "https://stc.innopolis.university/codeschool"
+  },
+  "codeschool03": {
+   "fetched_at": "2026-10-31T01:20:57+00:00",
+   "file_sha": "08984b67fd50b143b5f91c6a29caa3af88cf8e7d50310c670009200b014c4bf6",
+   "last_modified": "Tue, 20 Oct 2026 15:34:45 GMT",
+   "sha256": "7ad777228bbf8ad5d87c6438187b57d6c730dd2a7fbb160a8ff66769fbba118c",
+   "title": "Код будущего 2023 | Бесплатные курсы по программированию для школьников от Университета Иннополис",
+   "url": "https://stc.innopolis.university/codeschool03"
+  },
+  "command-management": {
+   "fetched_at": "2026-10-31T01:22:04+00:00",
+   "file_sha": "e817caa5d756d58ccf0336e11e23ab72f17329dd82c29a19380c884678bdc27c",
+   "last_modified": "Tue, 27 Oct 2026 07:34:16 GMT",
+   "sha256": "7042f01f361ebdd234b71cfd81b8369ba91ca17b2765a8ea9cf720ea6da20b38",
+   "title": "Онлайн-курс «Управление командой» от Университета Иннополис",
+   "url": "https://stc.innopolis.university/command_management"
+  },
+  "data-analytics-machine": {
+   "fetched_at": "2026-10-31T01:20:55+00:00",
+   "file_sha": "53bf1e1da693c76f87033a4b00fd581c69abbc4d10d8dea2bed68eb10e292e7f",
+   "last_modified": "Tue, 27 Oct 2026 07:32:25 GMT",
+   "sha256": "4215c4d19dbcc8f1b8b0263fc784b9629a84ec590e549c3a15aca86944aff623",
+   "title": "Онлайн-курс «Аналитика данных и машинное обучение»",
+   "url": "https://stc.innopolis.university/data-analytics-machine"
+  },
+  "datascience": {
+   "fetched_at": "2026-10-31T01:20:40+00:00",
+   "file_sha": "6ef16d620e75bac68b60e4b1edec9bb9f8a1f7795877cccd13ecd91e4d1fbe64",
+   "last_modified": "Tue, 27 Oct 2026 07:39:50 GMT",
+   "sha256": "c234d3d5d94df056df10a3b673787ecf073d6f99fe94953759ab1cf6846eaaf1",
+   "title": "Курс «Data Science и машинное обучение» в Университете Иннополис",
+   "url": "https://stc.innopolis.university/datascience"
+  },
+  "digital-teacher": {
+   "fetched_at": "2026-10-31T01:22:02+00:00",
+   "file_sha": "7976d7951aaaa4b0c98245a5370dd275216a40d4491c7a2d74e49cbb0f232007",
+   "last_modified": "Tue, 27 Oct 2026 07:34:03 GMT",
+   "sha256": "fa3d66e650b0d0b91741644b418385b3336509e5e849a0985db3143de1dd3ef2",
+   "title": "Онлайн-курс Цифровая грамотность педагога от Университета Иннополис",
+   "url": "https://stc.innopolis.university/digital_teacher"
+  },
+  "engineer-ai": {
+   "fetched_at": "2026-10-31T01:22:21+00:00",
+   "file_sha": "6573f454f1159cc57be1f4dc584c920a8b4292a40c0028a5527e5e8f5f87ff07",
+   "last_modified": "Tue, 27 Oct 2026 07:32:02 GMT",
+   "sha256": "9403ab35942060ded7d56fe3a6847fb15bde03ea03020ae38ad69a8ca87dee6a",
+   "title": "Инженер-архитектор в области искусственного интеллекта",
+   "url": "https://stc.innopolis.university/engineer-ai"
+  },
+  "exceltest": {
+   "fetched_at": "2026-10-31T01:20:04+00:00",
+   "file_sha": "63cca36ad4d0b7b69cd49f3617a918cf866a152fc2fc5ffd2351e7bf7ae14389",
+   "last_modified": "Tue, 27 Oct 2026 07:36:23 GMT",
+   "sha256": "c8b1c8b3260d0aeb9bff07d8f44071d0b517f18347cfe2ed74c7e3a97ecdf709",
+   "title": "Excel и электронные таблицы l курс от Университета Иннополис",
+   "url": "https://stc.innopolis.university/exceltest"
+  },
+  "feedback": {
+   "fetched_at": "2026-10-31T01:21:25+00:00",
+   "file_sha": "d2c30e7d6b0d1aa810ad4895ccbe9b4cbb1170ec785b376ddd83f0bea914fca7",
+   "last_modified": "Tue, 27 Oct 2026 07:34:32 GMT",
+   "sha256": "e3e8ee1dc6a3a7e89bc0fb1541f15777a5b8a2008b5a5618f0a238c3fa2a727d",
+   "title": "Отзывы",
+   "url": "https://stc.innopolis.university/feedback"
+  },
+  "fullstack-razrabotka": {
+   "fetched_at": "2026-10-31T01:20:25+00:00",
+   "file_sha": "f10253979b4bde969c4706d8b7fcebf4e82dcc51b3840ab954b35cd2a7e0278a",
+   "last_modified": "Tue, 27 Oct 2026 07:37:39 GMT",
+   "sha256": "07ed131ea81fa7cd1ebb9af2be61b7a6f3c5aa616bfd1b4c41a065b78f2800e9",
+   "title": "Онлайн-курс «Fullstack-разработчик» от Университа Иннополис",
+   "url": "https://stc.innopolis.university/fullstack-razrabotka"
+  },
+  "google-searches-for-beginners": {
+   "fetched_at": "2026-10-31T01:21:29+00:00",
+   "file_sha": "2762d7a445ae4f06d900581b131c60ddea9f15058a2e488cc7e97a547d3c8952",
+   "last_modified": "Tue, 27 Oct 2026 07:34:40 GMT",
+   "sha256": "df17fdfad573bb6e4d980317ebddbd4cc9cc77b349ceb45a09e9e18482bd69e6",
+   "title": "Зачем новичку уметь гуглить информацию - Университет Иннополис",
+   "url": "https://stc.innopolis.university/google-searches-for-beginners"
+  },
+  "graduate-paramedic-to-data-engineer": {
+   "fetched_at": "2026-10-31T01:21:58+00:00",
+   "file_sha": "1a3212f1461df294d30388d94141648dd3be1bda2c420d29e3e5de2b0edcfa72",
+   "last_modified": "Thu, 22 Jan 2026 11:06:09 GMT",
+   "sha256": "b9ca2558d71d40c91b4998c839229eea872a000000fd7461b3c2f388b464d074",
+   "title": "От фельдшера до data-инженера в одном из подразделений Минздрава РФ",
+   "url": "https://stc.innopolis.university/graduate-paramedic-to-data-engineer"
+  },
+  "graduate-started-working-after-internship": {
+   "fetched_at": "2026-10-31T01:21:56+00:00",
+   "file_sha": "2063e0f77ee9f768b6470c7c3dba6605665920631d74cf37def65a031ccb80fc",
+   "last_modified": "Thu, 22 Jan 2026 11:06:01 GMT",
+   "sha256": "1c73bb98907ea23834210038d517dd9b89f72c05ad5130cba8e2ae0eacc53e8e",
+   "title": "Найти работу в ИТ через стажировку — опыт выпускницы курсов по тестированию ПО",
+   "url": "https://stc.innopolis.university/graduate-started-working-after-internship"
+  },
+  "graduate-started-working-at-sberbank": {
+   "fetched_at": "2026-10-31T01:21:41+00:00",
+   "file_sha": "3fd6208c26c2cc8d1c45cb37936727688fec88b886237caa3cf9b4c85b5ed6f0",
+   "last_modified": "Thu, 22 Jan 2026 11:04:43 GMT",
+   "sha256": "02246f720203586234d4a827c2303d05c098e4a3ac1b5149fbfa5befdae07783",
+   "title": "Как выпускник курса по тестированию ПО стал специалистом технической поддержки в дочке Сбера",
+   "url": "https://stc.innopolis.university/graduate-started-working-at-sberbank"
+  },
+  "graduate-started-working-at-sberbank-f3aef4": {
+   "fetched_at": "2026-10-31T01:22:40+00:00",
+   "file_sha": "3fd6208c26c2cc8d1c45cb37936727688fec88b886237caa3cf9b4c85b5ed6f0",
+   "gone": true,
+   "last_modified": "Thu, 22 Jan 2026 11:04:43 GMT",
+   "sha256": "02246f720203586234d4a827c2303d05c098e4a3ac1b5149fbfa5befdae07783",
+   "title": "Как выпускник курса по тестированию ПО стал специалистом технической поддержки в дочке Сбера",
+   "url": "https://stc.innopolis.university/graduate-started-working-at-Sberbank"
+  },
+  "home": {
+   "fetched_at": "2026-10-31T01:20:00+00:00",
+   "file_sha": "1cdba89dd4c99f9c818b5cc87a06b5ed98c09e191ce011e2614edb8d2272b6cf",
+   "last_modified": "Tue, 27 Oct 2026 07:31:03 GMT",
+   "sha256": "fb3ee9c0d1b63d2e7c8b0c0e9f96c9f96a6c2d18396629e71e757c4817743e77",
+   "title": "ИТ-курсы в Университете Иннополис",
+   "url": "https://stc.innopolis.university/"
+  },
+  "it-for-kids": {
+   "fetched_at": "2026-10-31T01:22:17+00:00",
+   "file_sha": "ccaf214e8ed55f792ff377cfc06970cca28c309e1c933c105e9da58593c9ceff",
+   "last_modified": "Tue, 27 Oct 2026 07:32:54 GMT",
+   "sha256": "9d43560a073268947f6085bf9509b25b865aa83212adb5eb13297cdc8823588d",
+   "title": "Код будущего: бесплатные ИТ-курсы от Университета Иннополис",
+   "url": "https://stc.innopolis.university/it_for_kids"
+  },
+  "it-for-kids-reg": {
+   "fetched_at": "2026-10-31T01:22:19+00:00",
+   "file_sha": "85cd5179b7f13e6babbab043b95304404ca89b2b241830bb6d83b1c53ba579c9",
+   "last_modified": "Mon, 22 Jun 2026 11:34:48 GMT",
+   "sha256": "d1a0b36297ab4d328d146436b60998967031d7fde24b92f3b6cae0ffcba2f2b5",
+   "title": "Код будущего. Бесплатные курсы по программированию от Университета Иннополис",
+   "url": "https://stc.innopolis.university/it_for_kids/reg"
+  },
+  "it-for-kids0": {
+   "fetched_at": "2026-10-31T01:21:18+00:00",
+   "file_sha": "4654aa83721e1401d8275bfb7c3bd8c0356dff5dad8e06e646c74315cf1ad2e7",
+   "last_modified": "Mon, 24 Aug 2026 13:41:59 GMT",
+   "sha256": "9a4cfef82ae498ef2161637764c4191f41b95d513c35b9dcd5a2265750b65fd2",
+   "title": "Курсы по программированию для школьников от Университета Иннополис",
+   "url": "https://stc.innopolis.university/it_for_kids0"
+  },
+  "it-project-management": {
+   "fetched_at": "2026-10-31T01:20:32+00:00",
+   "file_sha": "33bb5fd555ecf9916924ab4b1dd96d9b110ae1f503e7255c2949da9cce086ce9",
+   "last_modified": "Tue, 27 Oct 2026 07:38:01 GMT",
+   "sha256": "63d83d00f7dc7eca0aa6982e25ab10bd2c9265b71bd8591dd4f1c503e1d96eb0",
+   "title": "Онлайн-курс \"Управление проектами в ИТ-сфере\" от ИННОПОЛИС",
+   "url": "https://stc.innopolis.university/it_project_management"
+  },
+  "java-qa-automation": {
+   "fetched_at": "2026-10-31T01:20:13+00:00",
+   "file_sha": "97ddbaa786b423f10cd8e17ac8c723ffd15ea9f90eaf6201f0fd63fcfb563f96",
+   "last_modified": "Tue, 27 Oct 2026 07:36:59 GMT",
+   "sha256": "c27b6ebec56c444d63e3a9fd0a7f65fe61712a27385ba8319f885834476fa5cf",
+   "title": "Курс по автоматизации тестирования на Java. Университет Иннополис",
+   "url": "https://stc.innopolis.university/java-qa-automation"
+  },
+  "kak-kurs-po-ii-pomogaet": {
+   "fetched_at": "2026-10-31T01:22:29+00:00",
+   "file_sha": "012b7e26e36612c7ee614aba83830ddd9cdae62f31e2d7a4a9d999231a313549",
+   "last_modified": "Tue, 27 Oct 2026 07:35:01 GMT",
+   "sha256": "afdfbf5a4ed4db9e7ac0191a13453ae13475395919037015151695627bef6692",
+   "title": "Как курс по искусственному интеллекту помогает в написании кандидатской на стыке машинного обучения и информационной безопасности?",
+   "url": "https://stc.innopolis.university/kak-kurs-po-ii-pomogaet"
+  },
+  "kiberbezopasnost": {
+   "fetched_at": "2026-10-31T01:20:38+00:00",
+   "file_sha": "0cbbc9d5827197c55bebfc773a27a52416a22c52728a6e92bfac7771f938138a",
+   "last_modified": "Tue, 27 Oct 2026 07:39:39 GMT",
+   "sha256": "7e0b2e9c30fcf9fd820175eea9f34fe34c0615b1dcb27f96415d28db9dd93a88",
+   "title": "Продвинутый курс по кибербезопасности от Университета Иннополис",
+   "url": "https://stc.innopolis.university/kiberbezopasnost"
+  },
+  "lichnostnye-instrumenty-pedagoga": {
+   "fetched_at": "2026-10-31T01:20:30+00:00",
+   "file_sha": "32f9aa1d242a7fdbad6abfbafa53a0268d52e20228a2ec1a071eb8205b365e18",
+   "last_modified": "Tue, 27 Oct 2026 07:37:50 GMT",
+   "sha256": "386a9657c60fc6d2d8ae9d7d85fd2560a364dcb7d3a774e47b7443a4b541306e",
+   "title": "Онлайн-курс «Личностные инструменты педагога» от Иннополис",
+   "url": "https://stc.innopolis.university/lichnostnye-instrumenty-pedagoga"
+  },
+  "metody-rassledovaniya-atakuyushchego-trafika": {
+   "fetched_at": "2026-10-31T01:20:08+00:00",
+   "file_sha": "21db25af12f52bb6d52be2967137a4f46921185abb2b7098c05d67282025d9b7",
+   "last_modified": "Tue, 27 Oct 2026 07:36:47 GMT",
+   "sha256": "a41f5dd5e76b61f3948db94c37df266aba5ea243c670d94e3ada8d981c55423c",
+   "title": "Методы расследования атакующего трафика — Innostage",
+   "url": "https://stc.innopolis.university/metody-rassledovaniya-atakuyushchego-trafika"
+  },
+  "middle-go-developer": {
+   "fetched_at": "2026-10-31T01:20:17+00:00",
+   "file_sha": "cb8a8050dd730d9f3790fb063f3662687b65b1428d7369581c88af9e730d69b9",
+   "last_modified": "Tue, 27 Oct 2026 07:37:11 GMT",
+   "sha256": "1588dda1b14ffda2cf64aa01c4950cfb051b77ba6b45858b7e48de5e79735a18",
+   "title": "Онлайн-курс «Middle Go-разработчик»",
+   "url": "https://stc.innopolis.university/middle_go_developer"
+  },
+  "mk": {
+   "fetched_at": "2026-10-31T01:22:00+00:00",
+   "file_sha": "4d15ecd223ea75f69556d0c7d61feb0cb7ebfa9d232794252c0681163bacf877",
+   "last_modified": "Tue, 27 Oct 2026 07:33:58 GMT",
+   "sha256": "3a5ff5a54abfa2e858ff426699434463698f5c11a7c07edfa01a949b05e06b15",
+   "title": "Обучитесь цифровым инструментам преподавателя на практическом МК",
+   "url": "https://stc.innopolis.university/mk"
+  },
+  "optimizaciya": {
+   "fetched_at": "2026-10-31T01:22:31+00:00",
+   "file_sha": "3f0767af9ff42e34a209491e02cdd2f17a319102dd9444f1f91f8baa72c6d0af",
+   "last_modified": "Fri, 30 Oct 2026 07:40:13 GMT",
+   "sha256": "1d85c7270c711a41ff6a060a8fa39ce5aaf9030c8335249158037356416b9aa0",
+   "title": "Оптимизация рабочих процессов с помощью искусственного интеллекта",
+   "url": "https://stc.innopolis.university/optimizaciya"
+  },
+  "parsers-interface-pyt": {
+   "fetched_at": "2026-10-31T01:21:03+00:00",
+   "file_sha": "6cde85cd628027b6f5931b4856a2191b142700b51debbc9b898f9a2448243bba",
+   "last_modified": "Thu, 22 Jan 2026 10:58:48 GMT",
+   "sha256": "f83fb51b8f8105c02aea089f6cca2be5e477226abdc31682b1e0032ce267bc4e",
+   "title": "Проект «Код будущего» | Создание графических интерфейсов на Python",
+   "url": "https://stc.innopolis.university/parsers-interface-pyt"
+  },
+  "pogruzhenie-ml-llm": {
+   "fetched_at": "2026-10-31T01:22:23+00:00",
+   "file_sha": "8ec936fbff3fcc4825ab8876ef61aa18a30c2fb926abfa489e532a00b7b7c4c9",
+   "last_modified": "Tue, 27 Oct 2026 07:32:08 GMT",
+   "sha256": "93a04983471478d4e7788c3be583e612460ebc85dcd3ad29bf7c4182b6b96c84",
+   "title": "Погружение в искусственный интеллект: от машинного обучения до больших языковых моделей",
+   "url": "https://stc.innopolis.university/pogruzhenie-ml-llm"
+  },
+  "profession-java": {
+   "fetched_at": "2026-10-31T01:20:02+00:00",
+   "file_sha": "2b522162b809df7f8aa964bcb7229c70c6389f48b93900e770a876ac676ce6e2",
+   "last_modified": "Tue, 27 Oct 2026 07:35:12 GMT",
+   "sha256": "2afde6414ba5f8c03336ac5dc52c08c0811be70222bca99b39fcdb1c367e760d",
+   "title": "Обучаем Java-разработке с нуля. Курс от Университета Иннополис",
+   "url": "https://stc.innopolis.university/profession-java"
+  },
+  "profession-ml-engineer": {
+   "fetched_at": "2026-10-31T01:20:42+00:00",
+   "file_sha": "c46d050d979b04d2d6a662332ae31ef0cfc4fe36eb809db180c8dd243d3fd003",
+   "last_modified": "Thu, 29 Oct 2026 10:14:25 GMT",
+   "sha256": "9799f10e6a826028074b1036dda0534f9bf572f768f476bc580d4a38f4e99a71",
+   "title": "Бесплатный курс «Профессия ML-инженер» от Университета Иннополис.",
+   "url": "https://stc.innopolis.university/profession_ml_engineer"
+  },
+  "proforient-webinar": {
+   "fetched_at": "2026-10-31T01:21:14+00:00",
+   "file_sha": "ba7841693597601c63260164334a83386f8d8accb4e8fc3cdcce87851c9b86d5",
+   "last_modified": "Thu, 22 Jan 2026 10:59:35 GMT",
+   "sha256": "ccedb8d974c4975d386d183dd5a7a0070f81798c29024b37adcbb11f1955d23e",
+   "title": "Профориентация: помогаем подростку выбрать профессию. Разбор ответов теста",
+   "url": "https://stc.innopolis.university/proforient_webinar"
+  },
+  "project-manager-ai": {
+   "fetched_at": "2026-10-31T01:20:51+00:00",
+   "file_sha": "72986d57ad78cd251001aec87a9e7eccfefa0baa942b68cb54131e1ad83e0b6c",
+   "last_modified": "Tue, 27 Oct 2026 07:31:49 GMT",
+   "sha256": "01caaab81619fec5f05518d9016d5f3f95c9ba2f6393448b14ffd019429551d9",
+   "title": "Курс «Руководитель проектов в области искусственного интеллекта»",
+   "url": "https://stc.innopolis.university/project-manager-ai"
+  },
+  "pygame": {
+   "fetched_at": "2026-10-31T01:20:59+00:00",
+   "file_sha": "f524d4a061aa8ee6779df1ed35e6087de18eeb13e706e48c701fa1985b31800f",
+   "last_modified": "Thu, 22 Jan 2026 10:58:18 GMT",
+   "sha256": "ba34f42239eb7f7c147e7631b5e5cd3c03029ec45d1c825966e61047a0d82d6b",
+   "title": "Проект «Код будущего» | Разработка 2D-игр на Python | Университет",
+   "url": "https://stc.innopolis.university/pygame"
+  },
+  "pyqt-python": {
+   "fetched_at": "2026-10-31T01:21:12+00:00",
+   "file_sha": "2e3b40e1fc700076206d86c6a1f6d8e43e5fba08404e81b17b7ed5efe3b98db3",
+   "last_modified": "Thu, 22 Jan 2026 10:59:25 GMT",
+   "sha256": "fd372e3f399d4f5c76f1b3752bd37af7eae3697874478fffde5fa0bba9fa7cd3",
+   "title": "Проект «Код будущего 2023» | Разработка 2D-игр на Python | Университет Иннополис",
+   "url": "https://stc.innopolis.university/pyqt-python"
+  },
+  "pytbot": {
+   "fetched_at": "2026-10-31T01:21:01+00:00",
+   "file_sha": "183e2084f4edd1cf7ed59a80692654a1d2994cc46618c8da92e51d49a1e515f5",
+   "last_modified": "Thu, 22 Jan 2026 10:58:39 GMT",
+   "sha256": "f94438288fd0ef00c271068b2c852e8eb7d53e1f262a7d74214e0b010b9d0c5a",
+   "title": "Проект «Код будущего 2023» | Разработка 2D-игр на Python | Университет Иннополис",
+   "url": "https://stc.innopolis.university/pytbot"
+  },
+  "python-cybersec": {
+   "fetched_at": "2026-10-31T01:21:06+00:00",
+   "file_sha": "460d67dcd4dbbae2c482670d4ec6a7b99455f053ee546339998cffcb688114f5",
+   "last_modified": "Thu, 22 Jan 2026 10:58:56 GMT",
+   "sha256": "5f837d1e94f1f230a48b22c4656c0992987f9ca57835d2fd6b657f87c1bb1ee6",
+   "title": "Проект «Код будущего 2023» | Разработка 2D-игр на Python | Университет Иннополис",
+   "url": "https://stc.innopolis.university/python-cybersec"
+  },
+  "python-developer": {
+   "fetched_at": "2026-10-31T01:20:21+00:00",
+   "file_sha": "bd5eb3145a80df515e19b479ae7fffe29cec35a3775ed3c784cc8dad81920fbe",
+   "last_modified": "Tue, 27 Oct 2026 07:37:20 GMT",
+   "sha256": "d58ed7d2d7f65f43f1a4f4dce98903df4dede519d455a0ed369c008b0ecae677",
+   "title": "Профессия «Python-разработчик» от Университета Иннополис",
+   "url": "https://stc.innopolis.university/python_developer"
+  },
+  "python-developer-pro": {
+   "fetched_at": "2026-10-31T01:20:23+00:00",
+   "file_sha": "43631361420048e3f8d61606511ba33da38c2fee377bb73dabf898e16817415c",
+   "last_modified": "Tue, 27 Oct 2026 07:37:27 GMT",
+   "sha256": "1dfb3e206b6e67efaeda9f6b0147704cf652be0e8987798c7b4ed0f033705c1e",
+   "title": "Курс Python-разработчик PRO от Университета Иннополис",
+   "url": "https://stc.innopolis.university/python-developer-pro"
+  },
+  "python-parser": {
+   "fetched_at": "2026-10-31T01:21:10+00:00",
+   "file_sha": "f97e5ec973e3224aec9c731ba595e0ccef651301f760b7498fd8452aa9ceaed4",
+   "last_modified": "Thu, 22 Jan 2026 10:59:17 GMT",
+   "sha256": "c30a870e1c6e680333ee8500ee710a339e44b94da33c29e9219368794dd5ffd4",
+   "title": "Проект «Код будущего 2023» | Разработка 2D-игр на Python | Университет Иннополис",
+   "url": "https://stc.innopolis.university/python-parser"
+  },
+  "qa-engineer": {
+   "fetched_at": "2026-10-31T01:20:15+00:00",
+   "file_sha": "12a25206c7fc77a138b5bc664c201175a1d3a4c5473c6a55acd8bd0466c8e557",
+   "last_modified": "Tue, 27 Oct 2026 07:37:05 GMT",
+   "sha256": "042cf9c3acad7b5be3f25d6b4a27a11cf5663073f6e02a105d2c2b411caa083a",
+   "title": "Онлайн-курс \"QA-engineer: уровень Middle\" от Университета Иннополис",
+   "url": "https://stc.innopolis.university/qa-engineer"
+  },
+  "red-os-pro": {
+   "fetched_at": "2026-10-31T01:22:11+00:00",
+   "file_sha": "a7ca1a65c969c430c9de0b8d580b81251ea815b27095afa7f8db72905bd1e242",
+   "last_modified": "Tue, 27 Oct 2026 07:42:21 GMT",
+   "sha256": "7470e8a0f3b39d1c565766a2e3420a711531b99e772bb599b0ffb23757401c59",
+   "title": "Онлайн-курс «Расширенное администрирование РЕД ОС»",
+   "url": "https://stc.innopolis.university/red-os-pro"
+  },
+  "red-virtual": {
+   "fetched_at": "2026-10-31T01:22:13+00:00",
+   "file_sha": "d293306ebcb9793da2927f2a162b1f756a4b5bbb185ecb761b5270acdeadbb9a",
+   "last_modified": "Tue, 27 Oct 2026 07:42:25 GMT",
+   "sha256": "b30be1968200b30cf28bda2a7123c43c3b5b2d6584591190fa72bcee7465536b",
+   "title": "Онлайн-курс «РЕД Виртуализация» от Университета Иннополис",
+   "url": "https://stc.innopolis.university/red-virtual"
+  },
+  "school-students-about-it-projects": {
+   "fetched_at": "2026-10-31T01:21:39+00:00",
+   "file_sha": "1013b27853acb0949903cb5d38362ccfbbee5a416d3b194bc1e08dfd2dbd6568",
+   "last_modified": "Thu, 22 Jan 2026 11:04:37 GMT",
+   "sha256": "02d7bd85ea6f8fd8a8d7e06562c6dc70177e37c1f89391bd8780a02f205682ff",
+   "title": "Школьники курсов программирования Университета Иннополис — о своих проектах",
+   "url": "https://stc.innopolis.university/school-students-about-it-projects"
+  },
+  "sistem-red-adm": {
+   "fetched_at": "2026-10-31T01:22:15+00:00",
+   "file_sha": "21935489a54d68139508b516eb27adbce80c3ba0df73a6567b586b914f61038f",
+   "last_modified": "Tue, 27 Oct 2026 07:42:28 GMT",
+   "sha256": "cafc2f229b97556084ad8224c646c814d0447e4e7341211c1524cd49e7ee72d2",
+   "title": "Курс «Администрирование инфраструктуры, система управления РЕД АДМ»",
+   "url": "https://stc.innopolis.university/sistem-red-adm"
+  },
+  "software-architecture": {
+   "fetched_at": "2026-10-31T01:22:34+00:00",
+   "file_sha": "e87913f7a5b4e9538913cdf853ff6b5fcfad03b4ca5ba71f337eb17ae6e71d41",
+   "last_modified": "Tue, 27 Oct 2026 07:40:46 GMT",
+   "sha256": "e8fd9b8a2a5f230a6379448d99167020b0d2a9c35f0a6048bc33c8df5f4369b2",
+   "title": "Онлайн-курс «Архитектура программных систем» от Иннополис",
+   "url": "https://stc.innopolis.university/software_architecture"
+  },
+  "start-new-life-from-first-jan-part-1": {
+   "fetched_at": "2026-10-31T01:21:31+00:00",
+   "file_sha": "1d9294754965e3eefe6c1e7084e879477c10fab926c11c6ef4907e2db0e7bbd5",
+   "last_modified": "Thu, 22 Jan 2026 11:03:51 GMT",
+   "sha256": "2ae57b05f94dc2cb0ecbc6711206ca094b9d056686c4ed1f3e1cf9464bc16cd9",
+   "title": "Как начать новую жизнь с 1 января (или хотя бы с 9)? Советы преподавателей. Часть 1",
+   "url": "https://stc.innopolis.university/start-new-life-from-first-jan-part-1"
+  },
+  "start-new-life-from-first-jan-part-2": {
+   "fetched_at": "2026-10-31T01:21:33+00:00",
+   "file_sha": "3e4ad3013331da0e602fe832d2f3cce1527a2cec4e6f24cb51fe0a96fa34b589",
+   "last_modified": "Thu, 22 Jan 2026 11:04:01 GMT",
+   "sha256": "98a4c3e2eaf1d968f4b42d9eb5ce6c1a7e859ca963f5d9f05865e8845dff6eec",
+   "title": "Как начать новую жизнь с 1 января (или хотя бы с 9)? Советы преподавателей. Часть 2",
+   "url": "https://stc.innopolis.university/start-new-life-from-first-jan-part-2"
+  },
+  "success": {
+   "fetched_at": "2026-10-31T01:21:54+00:00",
+   "file_sha": "0df90c03d9edb86d586a25db6c66667c3decd0a3e628a16e607842b31802aba6",
+   "last_modified": "Thu, 30 Jul 2026 12:01:30 GMT",
+   "sha256": "1c3c169ad3dff04c6562fcbcb2b6982c156d5bd84528dd3edd32078ad29a3687",
+   "title": "Истории успеха",
+   "url": "https://stc.innopolis.university/success"
+  },
+  "tuition-refund": {
+   "fetched_at": "2026-10-31T01:21:43+00:00",
+   "file_sha": "971087edd638066da96485b50940f3f6ad54af3b0ad25e8e4c14802bc97ced20",
+   "last_modified": "Thu, 22 Jan 2026 11:04:57 GMT",
+   "sha256": "68aed42451f73bda88f46b4f2eb3464fdb67667205eadc2ce87fe7390eda9d28",
+   "title": "Как вернуть деньги за обучение?",
+   "url": "https://stc.innopolis.university/tuition-refund"
+  },
+  "ux-professions": {
+   "fetched_at": "2026-10-31T01:21:50+00:00",
+   "file_sha": "05d32aa00edd0d21c848c25ed6eab8297356902445079df2751d37e8f24b5529",
+   "last_modified": "Thu, 22 Jan 2026 11:05:29 GMT",
+   "sha256": "8f1ce58fb61e7fdb07907fbff60012dbf514cce4c10c6dc047786a84f154ff7f",
+   "title": "Обзор UX-профессий — от аналитика до разработчика графических интерфейсов",
+   "url": "https://stc.innopolis.university/ux-professions"
+  },
+  "vue-js-framework": {
+   "fetched_at": "2026-10-31T01:21:45+00:00",
+   "file_sha": "ab1d929417cc5a7ae2f653694a33a2870eac834d8cf8fb668f53d1b47d543248",
+   "last_modified": "Thu, 22 Jan 2026 11:05:04 GMT",
+   "sha256": "f0395756f4f7a793f1754610dbb4faaaf92ccfcd5e8da084a8629b539decc954",
+   "title": "Vue.js: обзор фреймворка для frontend-разработки",
+   "url": "https://stc.innopolis.university/vue-js-framework"
+  },
+  "vue-js-framework-68c113": {
+   "fetched_at": "2026-10-31T01:22:38+00:00",
+   "file_sha": "ab1d929417cc5a7ae2f653694a33a2870eac834d8cf8fb668f53d1b47d543248",
+   "gone": true,
+   "last_modified": "Thu, 22 Jan 2026 11:05:04 GMT",
+   "sha256": "f0395756f4f7a793f1754610dbb4faaaf92ccfcd5e8da084a8629b539decc954",
+   "title": "Vue.js: обзор фреймворка для frontend-разработки",
+   "url": "https://stc.innopolis.university/Vue-js-framework"
+  },
+  "web-designer": {
+   "fetched_at": "2026-10-31T01:20:19+00:00",
+   "file_sha": "1be604dfae594d89fc5fe9b2922859a860f0ed4bffded9f80beac9d9964c0ab2",
+   "last_modified": "Tue, 27 Oct 2026 07:37:16 GMT",
+   "sha256": "93fe5fdb48752c6c5ece44038d6a5246fdf09d892063c719ebf67309627e23cb",
+   "title": "Онлайн курс «Веб дизайнер» от Университета Иннополис",
+   "url": "https://stc.innopolis.university/web_designer"
+  },
+  "web-razrabotka": {
+   "fetched_at": "2026-10-31T01:20:28+00:00",
+   "file_sha": "a5cc253965920b5d35fd918c24775cc77c31b488ccedc2314978d25c3c2efca7",
+   "last_modified": "Wed, 21 Oct 2026 08:12:42 GMT",
+   "sha256": "825edf1e15bfc48204c6a59e5e280138f8e226b7a668ec08bba0f24e7306e476",
+   "title": "Курс «Веб-разработчик: профессия с нуля» от Иннополис",
+   "url": "https://stc.innopolis.university/web-razrabotka"
+  },
+  "webinars": {
+   "fetched_at": "2026-10-31T01:21:22+00:00",
+   "file_sha": "07a2c6ef1b6eaaf290a5dcf6d4cc8d99bb9bc7d4b8006fadbff05bfb2578ebae",
+   "last_modified": "Tue, 27 Oct 2026 07:34:28 GMT",
+   "sha256": "7a567117b04f5a292c0cba7b3226fab4354aa6b2832ad08d83a27f109db16cf6",
+   "title": "Вебинары и интенсивы центра ИТ-подготовки Университета Иннополис",
+   "url": "https://stc.innopolis.university/webinars"
+  },
+  "who-is-1-programmer": {
+   "fetched_at": "2026-10-31T01:21:48+00:00",
+   "file_sha": "8a4da24fb0acac9c255a9980a2ba5307285e6488d8385c6e1f67e17e83ed72cf",
+   "last_modified": "Thu, 22 Jan 2026 11:05:13 GMT",
+   "sha256": "dab2e99c3fd7c97307b1e276c32bade5d8c6095d655f85e8a8b465987e617caa",
+   "title": "Кто такой 1С-программист: чем занимается и как им стать",
+   "url": "https://stc.innopolis.university/who_is_1_programmer"
+  },
+  "who-is-data-analyst": {
+   "fetched_at": "2026-10-31T01:21:37+00:00",
+   "file_sha": "6515cc24847de19780cba8dea8ee956674facb39497b4e863d8c1132018709bd",
+   "last_modified": "Thu, 22 Jan 2026 11:04:30 GMT",
+   "sha256": "e87b62389c9267dc4cabe3eead8ff6aa6f50d24951fbfa4727415d0187ecfcb3",
+   "title": "Профессия: дата-аналитик",
+   "url": "https://stc.innopolis.university/who-is-data-analyst"
+  }
+ }
+}

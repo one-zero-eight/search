@@ -1,0 +1,189 @@
+{
+ "docs": {},
+ "pages": {
+  "ai-in-busines": {
+   "fetched_at": "2026-10-31T01:28:29+00:00",
+   "file_sha": "f90619b38fa3bdf60f209992deecae4c9fa6548e8e42e53869baa0c70d7f09e1",
+   "last_modified": "Thu, 25 Jun 2026 07:17:50 GMT",
+   "sha256": "e91d26ac7c59c0301d120ee5a81773866c6b49287af60004aef9d83dad8de238",
+   "title": "Практическое применение искусственного интеллекта в бизнесе",
+   "url": "https://edu.innopolis.university/ai_in_busines"
+  },
+  "ai-in-digital-transformation": {
+   "fetched_at": "2026-10-31T01:28:33+00:00",
+   "file_sha": "fe61d6d4f224535235328d8190e06372a872f35e3c9e7503e6fd2de5e9f9c742",
+   "last_modified": "Thu, 25 Jun 2026 07:27:30 GMT",
+   "sha256": "a98a2ad87847a31e67229de5cfe36b0ef5c996fcd50243755cc9acb5b72b0984",
+   "title": "Курс: ИИ в государственном управлении от Университета Инноолис",
+   "url": "https://edu.innopolis.university/ai-in-digital-transformation"
+  },
+  "cdto": {
+   "fetched_at": "2026-10-31T01:28:27+00:00",
+   "file_sha": "63536a2571e070433a96883a30c231d4fb60b562bac862f865d91d4645e5db67",
+   "last_modified": "Thu, 22 Jan 2026 14:12:48 GMT",
+   "sha256": "2cd36f56bd1ce8a4c53fa652c205ec5971cd8642c2753c4bef7e5c8cfb34b187",
+   "title": "Курс «CDTO | Управление цифровой трансформацией 2024»",
+   "url": "https://edu.innopolis.university/cdto"
+  },
+  "cybersecurity-research-protect": {
+   "fetched_at": "2026-10-31T01:28:25+00:00",
+   "file_sha": "9bc30d5715dc3659a1af7cf9020490dac76265dbab7e22dccb0fee1e0fc36e9b",
+   "last_modified": "Tue, 27 Oct 2026 07:56:50 GMT",
+   "sha256": "1dcd8da50379c3783bc76c3bf00698d7e0a0bb21998df773b557bf918d8c8eca",
+   "title": "Кибербезопасность: исследование и защита на Иннокиберполигоне",
+   "url": "https://edu.innopolis.university/cybersecurity-research-protect"
+  },
+  "data-driven-management": {
+   "fetched_at": "2026-10-31T01:28:31+00:00",
+   "file_sha": "b08407a4358d52e71c213193e2f887c7a2dbd1417451808a18768d2aa5193ba1",
+   "last_modified": "Thu, 25 Jun 2026 07:26:46 GMT",
+   "sha256": "de8baaa09c3268c6e47f30b1de977c1bf4e252065d4519f0fe22be106c1732bf",
+   "title": "Управление на основе данных | Университет Иннополис",
+   "url": "https://edu.innopolis.university/data_driven_management"
+  },
+  "digital-tools": {
+   "fetched_at": "2026-10-31T01:28:16+00:00",
+   "file_sha": "5edc2c8022005f3952e18432a02390be7ee42894b85eff0a9f387c4e2ac6563f",
+   "last_modified": "Tue, 27 Oct 2026 07:53:36 GMT",
+   "sha256": "1f2a0a1d737dda39f9e73d7f20fef540180fe5cb0633de52a50d1d833dfcb667",
+   "title": "Цифровые инструменты в научных исследованиях",
+   "url": "https://edu.innopolis.university/digital-tools"
+  },
+  "engineers": {
+   "fetched_at": "2026-10-31T01:28:05+00:00",
+   "file_sha": "640060845638c1d845aec6ece756e2ccac962e9cea90c259e60cbf0eefcda6d6",
+   "last_modified": "Tue, 27 Oct 2026 07:51:41 GMT",
+   "sha256": "8f1cae741838e8882b2df8470949e2170c466b7d59162b54d57127a17a87086f",
+   "title": "Передовая инженерная школа Университета Иннополис",
+   "url": "https://edu.innopolis.university/engineers"
+  },
+  "home": {
+   "fetched_at": "2026-10-31T01:27:53+00:00",
+   "file_sha": "2f59a52cb518ba8d22fdb45925f582dcff2164624e652340ff4d9670caaaf2cc",
+   "last_modified": "Tue, 27 Oct 2026 08:10:35 GMT",
+   "sha256": "c57a34724d3f3e04559d738914ef1b88f72148ae9a01013b2f29db94a920acee",
+   "title": "Программы для образовательных организаций и педагогов",
+   "url": "https://edu.innopolis.university/"
+  },
+  "ido": {
+   "fetched_at": "2026-10-31T01:28:03+00:00",
+   "file_sha": "adfbba92da0fd1d2e20cf839bc886082e314aa43bedcd82857570139c5152c93",
+   "last_modified": "Thu, 25 Jun 2026 07:30:27 GMT",
+   "sha256": "ecb4a383e6be4f062328705ba4bf73eeeb3265458db5e3eb9f288d2b04cf6be9",
+   "title": "Курс «Эффективный руководитель в эпоху цифровой трансформации»",
+   "url": "https://edu.innopolis.university/ido"
+  },
+  "it-leader": {
+   "fetched_at": "2026-10-31T01:28:14+00:00",
+   "file_sha": "ac8df00d63c5e26a9d3b1f0c69cf11435caf9ab6109a76bc625547a935c7dfcf",
+   "last_modified": "Tue, 27 Oct 2026 07:53:31 GMT",
+   "sha256": "16c7311d00730499c13f991594354d6454af4119fb82876dbc32666fed97a370",
+   "title": "ИТ-Лидер: набор методик для успешной команды",
+   "url": "https://edu.innopolis.university/it-leader"
+  },
+  "itbm": {
+   "fetched_at": "2026-10-31T01:28:39+00:00",
+   "file_sha": "8d629e942528bb71f619f18c1c008535b196af38b624a4e1f0bc2154e9a2b4e8",
+   "last_modified": "Thu, 22 Jan 2026 14:17:54 GMT",
+   "sha256": "a8818eba98b0bf68add6af6c32fb13e8c0727ea3251e0886f03f6d38073237ff",
+   "title": "Обучайтесь цифровизации проектов в Университете Иннополис",
+   "url": "https://edu.innopolis.university/itbm"
+  },
+  "kratkosrochnye-programmy": {
+   "fetched_at": "2026-10-31T01:27:55+00:00",
+   "file_sha": "bd0acaa2c88736a53f6b079a2b2845a2faa9aa3f0755e5d2008c06db4e1c8fe8",
+   "last_modified": "Thu, 25 Jun 2026 07:16:49 GMT",
+   "sha256": "988c6f15d307e4c50c41a70dde7177f9e41e601f81b43958d5b21b1ec9e70240",
+   "title": "Программы повышения квалификации для руководителей вузов",
+   "url": "https://edu.innopolis.university/kratkosrochnye_programmy"
+  },
+  "leaders-future": {
+   "fetched_at": "2026-10-31T01:28:20+00:00",
+   "file_sha": "4192c96796020460fce1fe81bd684dd6634688323d900953686318e40cc8cfaa",
+   "last_modified": "Tue, 27 Oct 2026 07:56:24 GMT",
+   "sha256": "376be641dbe46b48d995344f4774563efb5a9a1feca64520beac95e14c171b27",
+   "title": "ИТ-лидеры будущего",
+   "url": "https://edu.innopolis.university/leaders-future"
+  },
+  "manufacturing-tech": {
+   "fetched_at": "2026-10-31T01:28:12+00:00",
+   "file_sha": "dcad358372745160da35182616e34c63339f9539f9865d95a717d647d4e3ac8d",
+   "last_modified": "Tue, 27 Oct 2026 07:51:55 GMT",
+   "sha256": "130a2472f6f93abe46b87ae0c43311305e15fe2c9b9159e092137903b249106f",
+   "title": "Новые производственные технологии",
+   "url": "https://edu.innopolis.university/manufacturing-tech"
+  },
+  "ocenka-kadrov": {
+   "fetched_at": "2026-10-31T01:28:01+00:00",
+   "file_sha": "2944b0b1d014d2539c6fa5c6766bd63e7f622575b8f4e77274f27ef0712f64a4",
+   "last_modified": "Thu, 25 Jun 2026 07:30:31 GMT",
+   "sha256": "2f9518dfd67b6d195b07e3a858babbd0cd72af0fb66fb0cce4f01b5abe89653d",
+   "title": "Комплексная оценка от Ассесмент-центра Университета Иннополис.",
+   "url": "https://edu.innopolis.university/ocenka_kadrov"
+  },
+  "ooc": {
+   "fetched_at": "2026-10-31T01:28:37+00:00",
+   "file_sha": "923f48ba6bbdcbbd3ab54cb4f94c5a8b786507ee0a092208fe47b8efa6bc7695",
+   "last_modified": "Thu, 22 Jan 2026 14:17:44 GMT",
+   "sha256": "5b1a32ab771fabd699cb85a023ec21173dc3dc11812459098fa14206eede0344",
+   "title": "Опорный образовательный центр",
+   "url": "https://edu.innopolis.university/ooc"
+  },
+  "professional-growth": {
+   "fetched_at": "2026-10-31T01:28:23+00:00",
+   "file_sha": "55a07df2fa27032bce8d42580d63685b5d22ae0070e7140d83473e9f1db1cbcd",
+   "last_modified": "Tue, 27 Oct 2026 07:56:46 GMT",
+   "sha256": "7d7541ea48816541d77050a31d3118b43c1f7d95fc00d08082ed078d9da5688b",
+   "title": "Профессиональное развитие: всё о работе с цифрой",
+   "url": "https://edu.innopolis.university/professional-growth"
+  },
+  "project-management": {
+   "fetched_at": "2026-10-31T01:28:18+00:00",
+   "file_sha": "c59175db5575cf12c56378f29fabaa148cd53e367895cb79647face8ed96b6d9",
+   "last_modified": "Tue, 27 Oct 2026 07:55:32 GMT",
+   "sha256": "7a0059f66cfbb0945fa7ab8238d60a658c174d0c41b8f998faaffe19c4302790",
+   "title": "Управление проектами и командами: стратегии успеха",
+   "url": "https://edu.innopolis.university/project-management"
+  },
+  "protocoltechnologies": {
+   "fetched_at": "2026-10-31T01:28:35+00:00",
+   "file_sha": "f6b9e327bd9730d76e9ea3f0a5c607a80029cd64a3f1080cdd56e9d3b56de1d4",
+   "last_modified": "Thu, 25 Jun 2026 07:27:33 GMT",
+   "sha256": "c4bf74b424c60e4b1edf3d8beb196fd90a7f50c096f48262bfdf3da15363bfe7",
+   "title": "Современные протокольные технологии: нормы и правила",
+   "url": "https://edu.innopolis.university/protocoltechnologies"
+  },
+  "software-dev": {
+   "fetched_at": "2026-10-31T01:28:08+00:00",
+   "file_sha": "4e9cfc34a4d2a2888ed445b75c47c3cf15d65f0d42bdd06ee2a296a2bf37c31a",
+   "last_modified": "Tue, 27 Oct 2026 07:51:46 GMT",
+   "sha256": "4dbdd54384fe5fefda6e54945b616319703660cf67966eb2f9c5e00f91bfdd46",
+   "title": "Разработка ПО",
+   "url": "https://edu.innopolis.university/software-dev"
+  },
+  "stazhirovki": {
+   "fetched_at": "2026-10-31T01:27:57+00:00",
+   "file_sha": "6e2546b242ef233b6e582a04ab7edb6f1d236b00db7d380ea2997d02a912c479",
+   "last_modified": "Thu, 25 Jun 2026 07:30:52 GMT",
+   "sha256": "91b290ccc352cbfb9bfc74c5e0a1b4582084d6cf9d1bee48fe40d50fd3764a0d",
+   "title": "Стажировка в Университете ИННОПОЛИС для образовательных организаций",
+   "url": "https://edu.innopolis.university/stazhirovki"
+  },
+  "stratsessii": {
+   "fetched_at": "2026-10-31T01:27:59+00:00",
+   "file_sha": "e07c26c65ee190bb9bf42e9ffdbec60eabf869ada631a1d8bfffe836f0da5dae",
+   "last_modified": "Thu, 25 Jun 2026 07:30:55 GMT",
+   "sha256": "9c6ee0949f48214ed54071414cf0280120ace0cfafa02368e15192da3dab5554",
+   "title": "Стратегические сессии для образовательных организаций",
+   "url": "https://edu.innopolis.university/stratsessii"
+  },
+  "theory-practice-innocyber": {
+   "fetched_at": "2026-10-31T01:28:10+00:00",
+   "file_sha": "91d4af7eb43c78e9962097f93694efe43e7284338c4250d6e261d677d82a1378",
+   "last_modified": "Tue, 27 Oct 2026 07:51:50 GMT",
+   "sha256": "d4986c0fbe338024b8c5b6f5183d6cc1475f85cd2d76973cdf86a148e287f7c4",
+   "title": "От теории к практике на Иннокиберполигоне: основы информационной безопасности",
+   "url": "https://edu.innopolis.university/theory-practice-innocyber"
+  }
+ }
+}

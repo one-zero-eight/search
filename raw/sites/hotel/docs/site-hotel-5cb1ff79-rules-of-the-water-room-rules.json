@@ -1,0 +1,16 @@
+{
+ "title": "Rules of the water room use",
+ "url": "https://hotel.innopolis.university/upload/docs-hotel/Rules%20of%20the%20water%20room%20rules.pdf",
+ "sha256": "67bd3fcc169d239b195e4ec4e8b5226c63398f70beab817294a3ddaae88f3184",
+ "method": "text layer (opendataloader)",
+ "chars": 1019,
+ "tables": 5,
+ "section": "site/hotel",
+ "context": "",
+ "fetched_at": "2026-10-31T00:26:16+00:00",
+ "remote": {
+  "etag": "\"7fbf-5c72a48b4ef99\"",
+  "modified": "Thu, 15 Jul 2021 14:28:25 GMT",
+  "size": "32703"
+ }
+}

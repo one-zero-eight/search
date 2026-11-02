@@ -1,0 +1,16 @@
+{
+ "title": "summercamp ai 0507",
+ "url": "https://lk-dovuz.innopolis.university/public/files/summercamp_ai_0507.pdf",
+ "sha256": "a56690afec2364553c2aed3b39cf62ec18df044f73b80100843f9a9da76e0e1a",
+ "method": "text layer (opendataloader)",
+ "chars": 33706,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:26+00:00",
+ "remote": {
+  "etag": "\"6c15b-64c0ae6cf6780\"",
+  "modified": "Mon, 02 Mar 2026 13:52:46 GMT",
+  "size": "442715"
+ }
+}

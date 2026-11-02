@@ -1,0 +1,177 @@
+{
+ "docs": {
+  "https://innopolis.university/filespublic/%D0%A0%D0%B0%D1%81%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5_%D0%BB%D0%B5%D1%82%D0%BD%D0%B5%D0%B8%CC%86_%D1%81%D0%B5%D1%81%D1%81%D0%B8%D0%B8_2_%D1%81%D0%B5%D0%BC%D0%B5%D1%81%D1%82%D1%80.pdf": "Расписание занятий",
+  "https://innopolis.university/filespublic/09_02_11_%D0%A0%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0_%D0%B8_%D1%83%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%BD%D1%8B%D0%BC_%D0%BE%D0%B1%D0%B5%D1%81%D0%BF%D0%B5%D1%87%D0%B5%D0%BD%D0%B8%D0%B5%D0%BC.pdf": "09.02.11 Разработка и управление программным обеспечением",
+  "https://innopolis.university/filespublic/15_02_10_%D0%9C%D0%B5%D1%85%D0%B0%D1%82%D1%80%D0%BE%D0%BD%D0%B8%D0%BA%D0%B0_%D0%B8_%D1%80%D0%BE%D0%B1%D0%BE%D1%82%D0%BE%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D0%BA%D0%B0_%D0%BF%D0%BE_%D0%BE%D1%82%D1%80%D0%B0%D1%81%D0%BB%D1%8F%D0%BC.pdf": "15.02.10 Мехатроника и робототехника (по отраслям)"
+ },
+ "pages": {
+  "applicant": {
+   "fetched_at": "2026-10-31T08:48:15+00:00",
+   "file_sha": "5d6d52ce98211d32b0eac89c2d4f6f9208feba5e64742bc09ade6f27039f407c",
+   "last_modified": "Tue, 20 Oct 2026 11:57:18 GMT",
+   "sha256": "2c02076e0628eaf72e7d1c5412891f3892c19e4e798f278b13780565d5c7d0c9",
+   "title": "Абитуриенту Колледжа Иннополис",
+   "url": "https://innopolis.college/applicant"
+  },
+  "daria-gleb": {
+   "fetched_at": "2026-10-31T08:48:42+00:00",
+   "file_sha": "cbf97914dd08c32b4558001ad7d111376621e1301f1b25f58c290849751e9846",
+   "last_modified": "Tue, 20 Oct 2026 09:17:44 GMT",
+   "sha256": "da55cd114dc89e28a3d7475a6e8824801d5f1915f9b7e11b35607ccab29e46c9",
+   "title": "Студенты Колледжа Иннополис взяли призовые места на республиканских олимпиадах",
+   "url": "https://innopolis.college/daria-gleb"
+  },
+  "dostizheniya-studentov": {
+   "fetched_at": "2026-10-31T08:48:40+00:00",
+   "file_sha": "c333089b45e658d0303c41c4ebc1ad42ed8be82bc3e7f562a59b7344b31c34d1",
+   "last_modified": "Tue, 20 Oct 2026 09:17:43 GMT",
+   "sha256": "f6ebabf145c60372f2038ca3fa9f1c399012bb556ccc931e3440f70c8febb1f2",
+   "title": "Достижения студентов Колледжа Иннополис",
+   "url": "https://innopolis.college/dostizheniya-studentov"
+  },
+  "educational-loan": {
+   "fetched_at": "2026-10-31T08:48:21+00:00",
+   "file_sha": "9c4f40405616bc8be70c8dc9007b6353de86b7a1dfdfde612440f7f8cd3e50db",
+   "last_modified": "Tue, 20 Oct 2026 12:25:39 GMT",
+   "sha256": "e768042f244604505dd8dbc29d8b4b72a5881223f72ac696f8f195f7d10b132d",
+   "title": "Образовательный кредит с государственной поддержкой в Колледже Иннополис",
+   "url": "https://innopolis.college/educational_loan"
+  },
+  "ekosistema": {
+   "fetched_at": "2026-10-31T08:48:51+00:00",
+   "file_sha": "fa4c4a418773924202b6f7d86c17e08f8ec20e72f6c70400dce2757a3e3e8f03",
+   "last_modified": "Tue, 20 Oct 2026 09:17:46 GMT",
+   "sha256": "f033d8514781ad0dbf3574d397e68bbf6d697c027e10d68e2d2f4d6318d2453c",
+   "title": "Студенческая и городская инфраструктура Колледжа Иннополис",
+   "url": "https://innopolis.college/ekosistema"
+  },
+  "filamentin": {
+   "fetched_at": "2026-10-31T08:48:34+00:00",
+   "file_sha": "5764515e530520767e2529fd1530d199e43dfe5b779246c36638240c5dfd468b",
+   "last_modified": "Tue, 20 Oct 2026 09:17:41 GMT",
+   "sha256": "1c383abb5dd78a398a02a5e2dd767f089739e7d7bb88c48b860b44ff9a197aa6",
+   "title": "Студент Колледжа Иннополис создал «Филаментин»",
+   "url": "https://innopolis.college/filamentin"
+  },
+  "grantovik-rt": {
+   "fetched_at": "2026-10-31T08:48:38+00:00",
+   "file_sha": "ae498e1fdf18b79f17febbe6367f02a81510523d07c52817e34957a4463b069c",
+   "last_modified": "Tue, 20 Oct 2026 09:17:43 GMT",
+   "sha256": "926c038998c4076b0fc3dc796bdbcc569b3da7c0a690e36abf0f3a990eb2e777",
+   "title": "Экосистема осознанного потребления",
+   "url": "https://innopolis.college/grantovik-rt"
+  },
+  "home": {
+   "fetched_at": "2026-10-31T08:48:08+00:00",
+   "file_sha": "cacc94b7763ec0141428987049eabf4cfc277a19b085ca988c405ede7822cf2a",
+   "last_modified": "Fri, 23 Oct 2026 09:21:55 GMT",
+   "sha256": "87d3b21506accec9937d8a615eb9af5d9304afd34f00d33c38f4b975e1a42bc0",
+   "title": "Колледж Иннополис. Поступите в 2026 с аттестатом за 9 класс!",
+   "url": "https://innopolis.college/"
+  },
+  "innohakaton": {
+   "fetched_at": "2026-10-31T08:48:36+00:00",
+   "file_sha": "7028dc09706c2a01d4cdc359f43b8f50c644f67c286b5196f183174b625b63a0",
+   "last_modified": "Tue, 20 Oct 2026 09:17:42 GMT",
+   "sha256": "73531fa4848a001c84498f598aa3c8a0562b7f348811b1152b24cd23a6e393c2",
+   "title": "Отличный результат на Иннохакатоне Трёх столиц",
+   "url": "https://innopolis.college/innohakaton"
+  },
+  "lists": {
+   "fetched_at": "2026-10-31T08:48:17+00:00",
+   "file_sha": "59056c2af9eddbf314424c62de0d179529f4a6213b35eb96d6db37aaccf1fd5a",
+   "last_modified": "Tue, 20 Oct 2026 09:17:25 GMT",
+   "sha256": "48d0a66cd2202e087c93e36379a3f89914979ab442c92f25e450c737e9c4eb58",
+   "title": "Приказ о зачислении",
+   "url": "https://innopolis.college/lists"
+  },
+  "media": {
+   "fetched_at": "2026-10-31T08:48:23+00:00",
+   "file_sha": "5655148f7c9a39ef8614c69687bb1abe380fa9c1a0f3ac25fbc104597f1ebc73",
+   "last_modified": "Tue, 20 Oct 2026 09:17:26 GMT",
+   "sha256": "b8330f51df6f11ad7f86f10c84c39fd3e40143352e27d3849ec5f65df6bbe998",
+   "title": "Медиа Колледжа Иннополис",
+   "url": "https://innopolis.college/media"
+  },
+  "media-chto-delat-posle-kolledzha": {
+   "fetched_at": "2026-10-31T08:48:25+00:00",
+   "file_sha": "2844bd3b320a7edb9b289878e5a900d6b5d3bb48d83921e341705c9b565709d5",
+   "last_modified": "Wed, 21 Oct 2026 10:33:21 GMT",
+   "sha256": "266ea79b95dd84d8853a52bbea9df8dc0b04b05d70b52eaf3c4a419604298f93",
+   "title": "Что делать после колледжа? Карьерные и учебные треки для выпускников",
+   "url": "https://innopolis.college/media/chto-delat-posle-kolledzha"
+  },
+  "media-kakie-predmety-nuzhno-sdavat": {
+   "fetched_at": "2026-10-31T08:48:30+00:00",
+   "file_sha": "e72a5e36e96a32678288ba05d21f085d2dceb152a5b05939e3585e55c017b556",
+   "last_modified": "Tue, 20 Oct 2026 12:46:39 GMT",
+   "sha256": "e697a7741d123ccadffe7822a4dfff6b15400e85fc9f874770d9086dc9df5850",
+   "title": "Какие сдавать экзамены, чтобы поступить в Колледж Иннополис?",
+   "url": "https://innopolis.college/media/kakie-predmety-nuzhno-sdavat"
+  },
+  "media-polina-khrisanova": {
+   "fetched_at": "2026-10-31T08:48:28+00:00",
+   "file_sha": "551502cf30f2f5c1a697e5964521c462e2e7076e436567a0b7f8ead3fedce3b7",
+   "last_modified": "Tue, 20 Oct 2026 09:17:34 GMT",
+   "sha256": "378ecf14db68736c4530443b6e1e2d68f245c6163236627464cfe33650d6fcf1",
+   "title": "Полина Хрисанова: «Интерес к ИТ привёл меня в Колледж Иннополис»",
+   "url": "https://innopolis.college/media/polina-khrisanova"
+  },
+  "media-stoimost-obucheniya": {
+   "fetched_at": "2026-10-31T08:48:32+00:00",
+   "file_sha": "1422c2134e48d16fd1e77a4250b7f60ea9e5dca6d67faa4a31c2b59c57863044",
+   "last_modified": "Tue, 20 Oct 2026 09:17:36 GMT",
+   "sha256": "7da372dcfc32c9bdf39dc76910226aac3cded612d225e82b1fcf16b5591fa9ab",
+   "title": "Стоимость обучения в Колледже Иннополис",
+   "url": "https://innopolis.college/media/stoimost-obucheniya"
+  },
+  "openday": {
+   "fetched_at": "2026-10-31T08:48:12+00:00",
+   "file_sha": "8042397d3599ca9a97ec3fed9650365b0841a515b52c7c2dc2b315e8e8b6c7fb",
+   "last_modified": "Thu, 29 Oct 2026 08:17:05 GMT",
+   "sha256": "a3dedfc7247309bfbce272157d82a6868f7527cd43bb616ce22bcb120b8d75bc",
+   "title": "Дни открытых дверей Колледжа Иннополис. Мы вас ждем!",
+   "url": "https://innopolis.college/openday"
+  },
+  "otkrytaya-trenirovka-po-mehatronike": {
+   "fetched_at": "2026-10-31T08:48:44+00:00",
+   "file_sha": "1ce91e09598d8f69243ab9fb34cd4665a4f12b5df0dab3d06db0903cffe06ef9",
+   "last_modified": "Tue, 20 Oct 2026 09:17:45 GMT",
+   "sha256": "b753a91817352df4639d161d5f99cf676865a5233e1a9ba264ec145791585b86",
+   "title": "Открытая тренировка по мехатронике в Колледже Иннополис",
+   "url": "https://innopolis.college/otkrytaya-trenirovka-po-mehatronike"
+  },
+  "reviews-mechatronics-robotics-2026": {
+   "fetched_at": "2026-10-31T08:48:47+00:00",
+   "file_sha": "804db956429dcd08cd45270a4995edce03310dcec64177dd2aac2555c0230eb5",
+   "last_modified": "Tue, 20 Oct 2026 09:17:46 GMT",
+   "sha256": "ac4d8d6d43fa1c49d2584c3ed82361620a2b49e1d08d44f116c311ae7cf716f3",
+   "title": "Год в Колледже Иннополис глазами первокурсников: роботы, экзамены и студенческая жизнь",
+   "url": "https://innopolis.college/reviews-mechatronics-robotics-2026"
+  },
+  "robototehnika-2026": {
+   "fetched_at": "2026-10-31T08:48:49+00:00",
+   "file_sha": "c9eab288d53d5d031800bbdcc1682591af6934b43dbd0b91dc2c9571510acd9b",
+   "last_modified": "Tue, 20 Oct 2026 12:37:18 GMT",
+   "sha256": "85af8b14c4052434ed01dd598592aacf99661c88c27e9e4f061ce0da94e1091a",
+   "title": "Стоит ли идти на мехатронику и робототехнику в 2027?",
+   "url": "https://innopolis.college/robototehnika-2026"
+  },
+  "studentu": {
+   "fetched_at": "2026-10-31T08:48:19+00:00",
+   "file_sha": "fff5201492f9fc81f25f16cb73fa7e21eda7ed209e3555eb72895a534bd366cb",
+   "last_modified": "Tue, 20 Oct 2026 09:17:44 GMT",
+   "sha256": "630255ab9628bf3d2a25d2ce8ec63c6f168a6e94cf1a566c6895de4c83023907",
+   "title": "Студенту Колледжа Иннополис",
+   "url": "https://innopolis.college/studentu"
+  },
+  "success": {
+   "fetched_at": "2026-10-31T08:48:10+00:00",
+   "file_sha": "8ddfedab095d2800d656cf4ae4f24f5d87d962e1f2f0348350db5cedbd5b54af",
+   "last_modified": "Tue, 20 Oct 2026 09:17:22 GMT",
+   "sha256": "1e386a2780421c2ec959699d780ec6b339582ed603d4d54aa077be71f5a40b48",
+   "title": "Спасибо!",
+   "url": "https://innopolis.college/success"
+  }
+ }
+}

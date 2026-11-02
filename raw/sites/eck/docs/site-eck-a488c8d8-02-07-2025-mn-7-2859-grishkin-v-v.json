@@ -1,0 +1,16 @@
+{
+ "title": "02 07 2025 МН 7 2859 Гришкин В В",
+ "url": "https://innopolis.university/filespublic/02_07_2025_%D0%9C%D0%9D_7_2859_%D0%93%D1%80%D0%B8%D1%88%D0%BA%D0%B8%D0%BD_%D0%92_%D0%92.pdf",
+ "sha256": "b33fde086bbcaf5c6c78bbcfae8098c142a03372e7e326c38d7c51aa69452f4c",
+ "method": "text layer (opendataloader)",
+ "chars": 13049,
+ "tables": 5,
+ "section": "site/eck",
+ "context": "",
+ "fetched_at": "2026-11-01T22:40:22+00:00",
+ "remote": {
+  "etag": "\"c7d97-63f0049b1e295\"",
+  "modified": "Wed, 17 Sep 2025 14:45:29 GMT",
+  "size": "818583"
+ }
+}

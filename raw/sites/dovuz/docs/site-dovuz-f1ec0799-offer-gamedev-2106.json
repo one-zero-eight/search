@@ -1,0 +1,16 @@
+{
+ "title": "offer gamedev 2106",
+ "url": "https://lk-dovuz.innopolis.university/public/files/offer_gamedev_2106.pdf",
+ "sha256": "2b9d923c1cccf831f804bc411e61754b303df5d6c49a1916744e0e20fac4e7f9",
+ "method": "text layer (opendataloader)",
+ "chars": 33710,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"6bfa6-64b295325ea40\"",
+  "modified": "Thu, 19 Feb 2026 08:45:21 GMT",
+  "size": "442278"
+ }
+}

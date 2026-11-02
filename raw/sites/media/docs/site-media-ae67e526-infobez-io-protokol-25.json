@@ -1,0 +1,16 @@
+{
+ "title": "infobez io protokol 25",
+ "url": "https://lk-dovuz.innopolis.university/public/files/infobez_io_protokol_25.pdf",
+ "sha256": "173884244f05a19282e7cb26fd31f4fd1a97f02d9c7ea297439e5977f86e0262",
+ "method": "text layer (opendataloader)",
+ "chars": 6564,
+ "tables": 5,
+ "section": "site/media",
+ "context": "",
+ "fetched_at": "2026-11-01T23:10:11+00:00",
+ "remote": {
+  "etag": "\"30574-62f1e5e7c6940\"",
+  "modified": "Thu, 27 Feb 2025 11:55:41 GMT",
+  "size": "198004"
+ }
+}

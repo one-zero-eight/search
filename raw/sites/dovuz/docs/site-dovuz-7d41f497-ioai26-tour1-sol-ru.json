@@ -1,0 +1,16 @@
+{
+ "title": "ioai26 tour1 sol ru",
+ "url": "https://lk-dovuz.innopolis.university/public/files/ioai26_tour1_sol_ru.pdf",
+ "sha256": "529aeaed413a605f30fb8682e0976e7df6436076e04b9412303116dcdfc7cdc3",
+ "method": "text layer (opendataloader)",
+ "chars": 24879,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:22+00:00",
+ "remote": {
+  "etag": "\"809d1-6445ccf3faa40\"",
+  "modified": "Mon, 24 Nov 2025 20:14:25 GMT",
+  "size": "526801"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "statements-ru24",
+ "url": "https://lk-dovuz.innopolis.university/public/files/statements-ru24.pdf",
+ "sha256": "18ae2d8a057f51d66cbb0d8971fea48dbf64916e3711a1508cc8a1a03ccdbc69",
+ "method": "text layer (opendataloader)",
+ "chars": 17283,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:26+00:00",
+ "remote": {
+  "etag": "\"887ea-60abf492d49c0\"",
+  "modified": "Wed, 22 Nov 2023 15:22:23 GMT",
+  "size": "559082"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "io robo 25 2ndstepresults",
+ "url": "https://lk-dovuz.innopolis.university/public/files/io_robo_25_2ndstepresults.pdf",
+ "sha256": "af68493e338b8f9093b1265c1c9a0b94b44d436977cee40e7c659e4daf1c201b",
+ "method": "text layer (opendataloader)",
+ "chars": 9373,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:22+00:00",
+ "remote": {
+  "etag": "\"2f752-62e02057aa540\"",
+  "modified": "Thu, 13 Feb 2025 08:41:17 GMT",
+  "size": "194386"
+ }
+}

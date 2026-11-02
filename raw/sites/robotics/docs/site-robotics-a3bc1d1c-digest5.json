@@ -1,0 +1,16 @@
+{
+ "title": "digest5",
+ "url": "https://robotics.innopolis.university/wp-content/uploads/2023/06/digest5.pdf",
+ "sha256": "15b80adc063a6fc691a9737c7472f0c4e430ad40880a264c5ff72647eac25a54",
+ "method": "text layer (opendataloader)",
+ "chars": 267349,
+ "tables": 5,
+ "section": "site/robotics",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:39+00:00",
+ "remote": {
+  "etag": "\"e792d6-5fecab0ccfbe2\"",
+  "modified": "Fri, 23 Jun 2023 11:56:26 GMT",
+  "size": "15176406"
+ }
+}

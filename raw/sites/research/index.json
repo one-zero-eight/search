@@ -1,0 +1,29 @@
+{
+ "docs": {},
+ "pages": {
+  "consult": {
+   "fetched_at": "2026-10-31T08:38:28+00:00",
+   "file_sha": "0a0cef214bd87054bc1a7eb0659c6c0ed0e1a31bedd9d634ad55817d75ede7cc",
+   "last_modified": "Thu, 06 Feb 2025 06:47:20 GMT",
+   "sha256": "139d133635345bf3c2221b3530cd0924dee03582bb244d1714adc5248303f589",
+   "title": "Form",
+   "url": "https://research.innopolis.university/consult"
+  },
+  "home": {
+   "fetched_at": "2026-10-31T08:38:24+00:00",
+   "file_sha": "a5fad8fec7fc62280aedcb73408d72fb43462766cf31b9ccace4329e0a9cacf5",
+   "last_modified": "Wed, 21 May 2025 11:04:59 GMT",
+   "sha256": "cd2c5da78088546503f14bd213fb52d5ff587c3b826c92d21305afb648eb2272",
+   "title": "Сектор аналитических исследований",
+   "url": "https://research.innopolis.university/"
+  },
+  "issledovaniya": {
+   "fetched_at": "2026-10-31T08:38:26+00:00",
+   "file_sha": "13c6e4296b69d8d81e1a00ad14eb393eacf2b2e88b3ab024906654a834b3dc78",
+   "last_modified": "Fri, 29 Dec 2023 09:04:42 GMT",
+   "sha256": "16aef154091f2f499107a44c1a428ce4efd7253b25abe94262272f779a3ed82d",
+   "title": "Исследования",
+   "url": "https://research.innopolis.university/issledovaniya"
+  }
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "Согласие на обработку персональных данных",
+ "url": "https://sezinnopolis.ru/upload/new-files/forcompanies-personal.docx",
+ "sha256": "4e906e03facc6ce8b6ea0192838bc3972dc2ee8e451036b25637672a736bd677",
+ "method": "text layer (opendataloader)",
+ "chars": 3856,
+ "tables": 5,
+ "section": "site/sez",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:31+00:00",
+ "remote": {
+  "etag": "\"6984579a-407a\"",
+  "modified": "Thu, 05 Feb 2026 08:40:58 GMT",
+  "size": "16506"
+ }
+}

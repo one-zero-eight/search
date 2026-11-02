@@ -1,0 +1,16 @@
+{
+ "title": "Скачать сборник 2023",
+ "url": "https://innopolis.university/filespublic/sbornik_ck_iu.pdf",
+ "sha256": "fc0d02dcb938ad4cffe1a62497f50d08ace10d5bc023c6c00801935e548603f1",
+ "method": "text layer (opendataloader)",
+ "chars": 42716,
+ "tables": 5,
+ "section": "site/events",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:28+00:00",
+ "remote": {
+  "etag": "\"b9b196-60395b4094284\"",
+  "modified": "Wed, 23 Aug 2023 11:49:25 GMT",
+  "size": "12169622"
+ }
+}

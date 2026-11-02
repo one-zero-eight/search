@@ -1,0 +1,16 @@
+{
+ "title": "https://innopolis.university/filespublic/dannye bez opasnosti",
+ "url": "https://innopolis.university/filespublic/dannye_bez_opasnosti.pdf",
+ "sha256": "017d22d4d9f8542077640eb01c8fbfacfd0644f9b5226c8558ebfb1d260b6a35",
+ "method": "text layer (opendataloader)",
+ "chars": 182692,
+ "tables": 5,
+ "section": "site/media",
+ "context": "",
+ "fetched_at": "2026-11-01T23:10:11+00:00",
+ "remote": {
+  "etag": "\"8e5409-607995df29552\"",
+  "modified": "Fri, 13 Oct 2023 13:52:27 GMT",
+  "size": "9327625"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "Innopolis Open in artificial intelligence. Second elimination round.2020-2021",
+ "url": "https://lk-dovuz.innopolis.university/public/files/ii/Innopolis%20Open%20in%20artificial%20intelligence.%20Second%20elimination%20round.2020-2021.pdf",
+ "sha256": "5d32fa1882b1cdfbc9705a84686fa43d559caed5cffebc8ce471e50c177640d2",
+ "method": "text layer (opendataloader)",
+ "chars": 1280,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:21+00:00",
+ "remote": {
+  "etag": "\"1bf38-5c24677164240\"",
+  "modified": "Fri, 14 May 2021 08:59:45 GMT",
+  "size": "114488"
+ }
+}

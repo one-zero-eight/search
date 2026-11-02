@@ -1,0 +1,2038 @@
+7𝑡ℎ degree
+
+Task 1.
+
+1. Хромая ладья (может передвигаться по горизонтали или вертикали, но только на одну клетку за ход), находясь в черной клетке, мгновенно перекрашивает все соседние белые клетки
+в красный цвет. Какое наибольшее число клеток бесконечной шахматной доски можно перекрасить в красный цвет, сделав 40 ходов хромой ладьей? Изначально хромая ладья находилась в белой клетке.
+A lame rook (can move horizontally or vertically, but only one square per move), being in a black
+cell, instantly repaints all adjacent white cells into red color. What is the largest number of squares
+on an infinite chessboard that can be repainted with red by making 40 moves with a lame rook?
+Initially, the lame rook was in a white square.
+Answer: 61
+
+2. Хромая ладья (может передвигаться по горизонтали или вертикали, но только на одну клетку за ход), находясь в черной клетке, мгновенно перекрашивает все соседние белые клетки
+в красный цвет. Какое наибольшее число клеток бесконечной шахматной доски можно перекрасить в красный цвет, сделав 50 ходов хромой ладьей? Изначально хромая ладья находилась в белой клетке.
+A lame rook (can move horizontally or vertically, but only one square per move), being in a black
+cell, instantly repaints all adjacent white cells into red color. What is the largest number of squares
+on an infinite chessboard that can be repainted with red by making 50 moves with a lame rook?
+Initially, the lame rook was in a white square.
+Answer: 76
+
+3. Хромая ладья (может передвигаться по горизонтали или вертикали, но только на одну клетку за ход), находясь в черной клетке, мгновенно перекрашивает все соседние белые клетки
+в красный цвет. Какое наибольшее число клеток бесконечной шахматной доски можно перекрасить в красный цвет, сделав 45 ходов хромой ладьей? Изначально хромая ладья находилась в белой клетке.
+A lame rook (can move horizontally or vertically, but only one square per move), being in a black
+cell, instantly repaints all adjacent white cells into red color. What is the largest number of squares
+on an infinite chessboard that can be repainted with red by making 45 moves with a lame rook?
+Initially, the lame rook was in a white square.
+Answer: 70
+
+4. Хромая ладья (может передвигаться по горизонтали или вертикали, но только на одну клетку за ход), находясь в черной клетке, мгновенно перекрашивает все соседние белые клетки
+в красный цвет. Какое наибольшее число клеток бесконечной шахматной доски можно перекрасить в красный цвет, сделав 57 ходов хромой ладьей? Изначально хромая ладья находилась в белой клетке.
+
+A lame rook (can move horizontally or vertically, but only one square per move), being in a black
+cell, instantly repaints all adjacent white cells into red color. What is the largest number of squares
+on an infinite chessboard that can be repainted with red by making 57 moves with a lame rook?
+Initially, the lame rook was in a white square.
+
+Answer: 88
+
+Solution (RUS). (представлено решение варианта №1, остальные решаются аналогично) Сделав 40 ходов из белой клетки, хромая ладья побывает на 20 черных клетках, каждым ходом меняя
+цвет клетки, на которой стоит. Каждая черная клетка изначально окружена 4-мя белыми, но та
+белая, из которой ладья попала в очередную черную, уже перекрашена (за исключением начальной клетки) – значит, каждым ходом в черную клетку (за исключением первого) хромая ладья
+может перекрасить не более 3-х белых клеток.
+
+Итак, количество белых клеток, которые может перекрасить ладья, не превышает 4+19·3 = 61.
+Такого количества можно добиться, если не менять направление движения ладьи.
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly) After
+making 40 moves from a white square, the lame rook will visit 20 black squares, switching its cell’s color
+each move. Each black cell is initially surrounded by 4 white ones, but the white one from which the
+rook got into the next black one has already been repainted (except for the initial square), which means
+that with each move to a black cell (except for the first one) a lame rook can repaint no more than 3
+white cells.
+
+So, the number of white cells that the rook can repaint does not exceed 4+19·3 = 61. This amount
+can be achieved if you do not change the direction of the rook’s movement.
+
+Task 2.
+
+1. Сеть автобусных маршрутов города Иннополиса устроена так:
+❼ общее количество автобусных остановок в городе – 9 штук, и любые две из них соединены дорогой;
+❼ на каждом маршруте должны быть ровно 3 остановки (включая начало и конец маршрута);
+❼ любые два автобусных маршрута имеют либо одну общую остановку, либо ни одной.
+Какое наибольшее количество автобусных маршрутов может иметь город Иннополис?
+The bus routes web in the town of Innopolis is built as follows:
+❼ the total number of bus stops in the town is 9 with any two of them connected with a road;
+❼ each route must have exactly 3 stops (including the beginning and end of the route);
+❼ any two bus routes have either one common stop or none.
+What is the largest number of bus routes the town of Innopolis can have?
+Answer: 12
+
+2. Сеть автобусных маршрутов города Иннополиса устроена так:
+
+❼ общее количество автобусных остановок в городе – 9 штук, и любые две из них соединены дорогой;
+
+❼ на каждом маршруте должны быть ровно 4 остановки (включая начало и конец маршрута);
+
+❼ любые два автобусных маршрута имеют либо одну общую остановку, либо ни одной.
+Какое наибольшее количество автобусных маршрутов может иметь город Иннополис?
+
+The bus routes web in the town of Innopolis is built as follows:
+
+❼ the total number of bus stops in the town is 9 with any two of them connected with a road;
+
+❼ each route must have exactly 4 stops (including the beginning and end of the route);
+
+❼ any two bus routes have either one common stop or none.
+What is the largest number of bus routes the town of Innopolis can have?
+
+Answer: 3
+
+3. Сеть автобусных маршрутов города Иннополиса устроена так:
+❼ общее количество автобусных остановок в городе – 10 штук, и любые две из них соединены дорогой;
+❼ на каждом маршруте должны быть ровно 3 остановки (включая начало и конец маршрута);
+❼ любые два автобусных маршрута имеют либо одну общую остановку, либо ни одной.
+Какое наибольшее количество автобусных маршрутов может иметь город Иннополис?
+The bus routes web in the town of Innopolis is built as follows:
+❼ the total number of bus stops in the town is 10 with any two of them connected with a road;
+❼ each route must have exactly 3 stops (including the beginning and end of the route);
+❼ any two bus routes have either one common stop or none.
+What is the largest number of bus routes the town of Innopolis can have?
+Answer: 13
+
+4. Сеть автобусных маршрутов города Иннополиса устроена так:
+
+❼ общее количество автобусных остановок в городе – 12 штук, и любые две из них соединены дорогой;
+
+❼ на каждом маршруте должны быть ровно 4 остановки (включая начало и конец маршрута);
+
+❼ любые два автобусных маршрута имеют либо одну общую остановку, либо ни одной.
+Какое наибольшее количество автобусных маршрутов может иметь город Иннополис?
+
+The bus routes web in the town of Innopolis is built as follows:
+
+❼ the total number of bus stops in the town is 12 with any two of them connected with a road;
+
+❼ each route must have exactly 4 stops (including the beginning and end of the route);
+
+❼ any two bus routes have either one common stop or none.
+
+What is the largest number of bus routes the town of Innopolis can have?
+
+Answer: 9
+
+Solution (RUS). (представлено решение варианта №1, остальные решаются аналогично) «Зафиксируем» автобусную остановку 𝑋 – одну из 9-и. Кроме нее, в городе есть еще 8 остановок, и на
+каждом автобусном маршруте, проходящем через 𝑋, есть еще 2 остановки, причем эти маршруты
+не могут иметь других общих остановок, кроме 𝑋 – значит, таких маршрутов не более 8 : 2 = 4.
+
+Теперь занумеруем автобусные остановки числами от 1 до 9. Пусть в Иннополисе всего 𝑛
+автобусных маршрутов, из них 𝑛1 проходят через остановку 1, 𝑛2 – через остановку 2, и т.д. На
+каждом маршруте 3 остановки – значит, 𝑛1 + 𝑛2 + ··· + 𝑛9 = 3𝑛, при этом 𝑛𝑖 ≤ 4 для любого 𝑖
+согласно доказанному выше. Следовательно, 3𝑛 ≤ 4 · 9, откуда 𝑛 ≤ 12.
+
+Покажем, как провести 12 маршрутов (цифры обозначают номера остановок, а трехзначные
+числа – автобусные маршруты): 123, 456, 789, 147, 258, 369, 249, 168, 267, 348, 159, 357.
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly) Lets
+«fix» bus stop 𝑋 – one of the 9. In addition to it, there are 8 more bus stops in the city, and on each bus
+route passing through 𝑋, there are 2 more stops, and these routes cannot have other stops in common
+except 𝑋 – therefore, there are no more than 8 : 2 = 4 such routes.
+
+Now let’s enumerate the bus stops with numbers from 1 to 9. Let there be only 𝑛 bus routes in
+Innopolis, of which 𝑛1 go through stop 1, 𝑛2 go through stop 2, etc. There are 3 stops on each route –
+by that, 𝑛1 +𝑛2 +···+𝑛9 = 3𝑛, while 𝑛𝑖 ≤ 4 for any 𝑖 according to what was proven above. Therefore,
+3𝑛 ≤ 4 · 9, thus 𝑛 ≤ 12.
+
+Finally, lets show how to establish the 12 routes (digits indicate bus stops, and three-digit numbers
+indicate bus routes): 123, 456, 789, 147, 258, 369, 249, 168, 267, 348, 159, 357.
+
+Task 3.
+
+1. Дан набор из 10 палочек длины 1,2,3,...,10 (по одной палочке каждой длины). Сколькими
+способами можно составить из этих палочек треугольник?
+Given a set of 10 sticks of lengths 1,2,3,...,10 (one stick of each length). How many ways are
+there to form a triangle from these sticks?
+Answer: 50
+
+2. Дан набор из 12 палочек длины 1,2,3,...,12 (по одной палочке каждой длины). Сколькими
+способами можно составить из этих палочек треугольник?
+Given a set of 12 sticks of lengths 1,2,3,...,12 (one stick of each length). How many ways are
+there to form a triangle from these sticks?
+Answer: 95
+
+3. Дан набор из 14 палочек длины 1,2,3,...,14 (по одной палочке каждой длины). Сколькими
+способами можно составить из этих палочек треугольник?
+
+Given a set of 14 sticks of lengths 1,2,3,...,14 (one stick of each length). How many ways are
+there to form a triangle from these sticks?
+
+Answer: 161
+
+4. Дан набор из 16 палочек длины 1,2,3,...,16 (по одной палочке каждой длины). Сколькими
+способами можно составить из этих палочек треугольник?
+
+Given a set of 16 sticks of lengths 1,2,3,...,16 (one stick of each length). How many ways are
+there to form a triangle from these sticks?
+
+Answer: 252
+
+Solution (RUS). (представлено решение варианта №1, остальные решаются аналогично) Пусть
+
+1 ≤ 𝑎 < 𝑏 < 𝑐 ≤ 10 – стороны треугольника. Чтобы этот треугольник существовал и был невырожденным, требуется выполнение неравенства треугольника, причем достаточно соблюсти его
+только для наибольшей стороны: 𝑐 < 𝑎 + 𝑏. Также очевидно, что 𝑐 ≥ 4: действительно, если 𝑐 = 3,
+то 𝑎 = 1, 𝑏 = 2 и треугольник получается вырожденным (все его вершины лежат на одной прямой),
+а про меньшие 𝑐 и сказать нечего.
+
+При каждом 𝑐 число 𝑎 может меняться от 1 до 𝑏 − 1, при этом 𝑎 > 𝑐 − 𝑏 из неравенства
+треугольника – значит, 𝑎 принимает все натуральные значения от 𝑐 − 𝑏 + 1 до 𝑏 − 1 включительно
+
+– итого 𝑏 − 1 − (𝑐 − 𝑏 + 1) + 1 = 2𝑏 − 𝑐 − 1 значений.
+Число 𝑏 должно быть таким, чтобы 2𝑏 − 𝑐 − 1 было неотрицательным, т.к. 𝑏 ≥ 𝑎 + 1 ≥ 𝑐 − 𝑏 + 1 –
+а значит, 𝑐+12 ≤ 𝑏 ≤ 𝑐 − 1.
+
+Значит, количество треугольников, которые можно составить из данных в условии палочек
+при фиксированном 𝑐, равно
+
+∑︁𝑐−1
+
+(︀
+
+)︀
+
+2𝑏 − 𝑐 − 1
+
+𝑆𝑐 =
+𝑏≥(𝑐+1)/2
+
+Если 𝑐 = 2𝑘 (для некоторого натурального 𝑘), то эта сумма равна
+
+2∑︁𝑘−1
+
+2∑︁𝑘−1
+
+2∑︁𝑘−1
+
+1
+4
+
+1 = (𝑘 − 1)2 =
+
+(𝑐 − 2)2
+
+(2𝑏 − 2𝑘 − 1) = 2
+𝑏 − (2𝑘 + 1)
+
+𝑆𝑐 =
+𝑘+1
+𝑘+1
+𝑘+1
+
+Если же 𝑐 – нечетное, т.е. 𝑐 = 2𝑘 − 1 для некоторого натурального 𝑘, то получим сумму
+
+2∑︁𝑘−2
+
+2∑︁𝑘−2
+
+2∑︁𝑘−2
+
+1
+4
+
+(2𝑏 − 2𝑘) = 2
+𝑏 − 2𝑘
+
+1 = (𝑘 − 1)(𝑘 − 2) =
+
+(𝑐 − 1)(𝑐 − 3)
+
+𝑆𝑐 =
+𝑘
+𝑘
+𝑘
+
+Осталось подсчитать соответствующие суммы для 𝑐 = 4,5,...,10 и сложить их:
+
+∑︁10
+
+𝑆𝑐 = 50
+𝑐=4
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly) Let
+1 ≤ 𝑎 < 𝑏 < 𝑐 ≤ 10 be the sides of the triangle. For this triangle to exist and be non-degenerate, the
+triangle inequality must be satisfied, and it is enough to satisfy it only for the largest side: 𝑐 < 𝑎 + 𝑏. It
+is also obvious that 𝑐 ≥ 4: indeed, if 𝑐 = 3, then 𝑎 = 1, 𝑏 = 2 and the triangle turns out to be degenerate
+(all its vertices lie on the same line), and there is nothing to say about smaller 𝑐.
+
+For each 𝑐, the number 𝑎 can change from 1 to 𝑏 − 1, while 𝑎 > 𝑐 − 𝑏 from the triangle inequality
+means 𝑎 takes all positive integer values from 𝑐−𝑏+1 up to 𝑏−1 – total of 𝑏−1−(𝑐−𝑏+1)+1 = 2𝑏−𝑐−1
+values.
+The number 𝑏 must be such that 2𝑏 − 𝑐 − 1 is non-negative, because 𝑏 ≥ 𝑎 + 1 ≥ 𝑐 − 𝑏 + 1 – which
+means 𝑐+12 ≤ 𝑏 ≤ 𝑐 − 1.
+
+By that, the number of triangles that can be formed from the task’s formulation for a fixed 𝑐 is
+equal to
+
+∑︁𝑐−1
+
+(︀
+
+)︀
+
+2𝑏 − 𝑐 − 1
+
+𝑆𝑐 =
+𝑏≥(𝑐+1)/2
+
+If 𝑐 = 2𝑘 (for some positive integer 𝑘), then this sum is equal to
+
+2∑︁𝑘−1
+
+2∑︁𝑘−1
+
+2∑︁𝑘−1
+
+1
+4
+
+(𝑐 − 2)2
+
+1 = (𝑘 − 1)2 =
+
+(2𝑏 − 2𝑘 − 1) = 2
+𝑏 − (2𝑘 + 1)
+
+𝑆𝑐 =
+𝑘+1
+𝑘+1
+𝑘+1
+
+If 𝑐 is odd, i.e. 𝑐 = 2𝑘 − 1 for some positive integer 𝑘, then we get the sum
+
+2∑︁𝑘−2
+
+2∑︁𝑘−2
+
+2∑︁𝑘−2
+
+1
+4
+
+(𝑐 − 1)(𝑐 − 3)
+
+(2𝑏 − 2𝑘) = 2
+𝑏 − 2𝑘
+
+1 = (𝑘 − 1)(𝑘 − 2) =
+
+𝑆𝑐 =
+𝑘
+𝑘
+𝑘
+
+It remains to calculate the corresponding sums for 𝑐 = 4,5,...,10 and add them up:
+
+Task 4.
+
+∑︁10
+
+𝑆𝑐 = 50
+𝑐=4
+
+1. В кондитерской есть наборы пирожных по 1,2,3,4,5 штук в коробке. Покупатель, пятиголовый пятирук, хочет купить 5 коробок (по одной в каждую руку) так, чтобы общее число
+пирожных делилось на 5 (поровну каждой голове). Сколькими способами он сможет это
+сделать? Все пирожные одинаковые, наборы с одинаковым количеством пирожных считаем
+неразличимыми, каждый набор в кондитерской имеется как минимум в 5 экземплярах, и
+неважно, какой набор в какой руке находится.
+The bakery has sets of cakes for 1,2,3,4,5 pieces per box. The five-headed five-handed buyer
+wants to buy 5 boxes (one for each hand) such that the total number of cakes in them is divisible
+by 5 (equally for each head). How many ways there are for the buyer to do this? All cakes are
+the same; boxes with the same number of cakes are indistinguishable; each box in the bakery is
+available in at least 5 copies, and it doesn’t matter which box which hand holds.
+Answer: 26
+
+2. В кондитерской есть наборы пирожных по 1,2,3,4,5 штук в коробке. Покупатель, шестиголовый пятирук, хочет купить 5 коробок (по одной в каждую руку) так, чтобы общее число
+пирожных делилось на 6 (поровну каждой голове). Сколькими способами он сможет это
+сделать? Все пирожные одинаковые, наборы с одинаковым количеством пирожных считаем
+неразличимыми, каждый набор в кондитерской имеется как минимум в 5 экземплярах, и
+неважно, какой набор в какой руке находится.
+
+The bakery has sets of cakes for 1,2,3,4,5 pieces per box. The six-headed five-handed buyer wants
+to buy 5 boxes (one for each hand) such that the total number of cakes in them is divisible by 6
+(equally for each head). How many ways there are for the buyer to do this? All cakes are the same;
+boxes with the same number of cakes are indistinguishable; each box in the bakery is available in
+at least 5 copies, and it doesn’t matter which box which hand holds.
+
+Answer: 20
+
+3. В кондитерской есть наборы пирожных по 1,2,3,4,5 штук в коробке. Покупатель, семиголовый пятирук, хочет купить 5 коробок (по одной в каждую руку) так, чтобы общее число
+пирожных делилось на 7 (поровну каждой голове). Сколькими способами он сможет это
+сделать? Все пирожные одинаковые, наборы с одинаковым количеством пирожных считаем
+неразличимыми, каждый набор в кондитерской имеется как минимум в 5 экземплярах, и
+неважно, какой набор в какой руке находится.
+The bakery has sets of cakes for 1,2,3,4,5 pieces per box. The seven-headed five-handed buyer
+wants to buy 5 boxes (one for each hand) such that the total number of cakes in them is divisible
+by 7 (equally for each head). How many ways there are for the buyer to do this? All cakes are
+the same; boxes with the same number of cakes are indistinguishable; each box in the bakery is
+available in at least 5 copies, and it doesn’t matter which box which hand holds.
+Answer: 18
+
+4. В кондитерской есть наборы пирожных по 1,2,3,4,5 штук в коробке. Покупатель, восьмиголовый пятирук, хочет купить 5 коробок (по одной в каждую руку) так, чтобы общее число
+пирожных делилось на 8 (поровну каждой голове). Сколькими способами он сможет это
+сделать? Все пирожные одинаковые, наборы с одинаковым количеством пирожных считаем
+неразличимыми, каждый набор в кондитерской имеется как минимум в 5 экземплярах, и
+неважно, какой набор в какой руке находится.
+
+The bakery has sets of cakes for 1,2,3,4,5 pieces per box. The eight-headed five-handed buyer
+wants to buy 5 boxes (one for each hand) such that the total number of cakes in them is divisible
+by 8 (equally for each head). How many ways there are for the buyer to do this? All cakes are
+the same; boxes with the same number of cakes are indistinguishable; each box in the bakery is
+available in at least 5 copies, and it doesn’t matter which box which hand holds.
+
+Answer: 15
+
+Solution (RUS). (представлено решение варианта №1, остальные решаются аналогично) Общее количество пирожных, которые может купить пятиголовый пятирук, не меньше 5 (5 наборов
+по 1 шт.) и не больше 25 (5 наборов по 5 шт.). Чтобы это число делилось на 5, оно должно равняться 𝑛 = 5,10,15,20 или 25. Подсчитаем количество способов набрать соответствующее число
+пирожных, купив 5 наборов. Для удобства (и чтобы было ясно, что мы ничего не упустили) упорядочим содержания наборов по возрастанию (для каждого 𝑛) количеств пирожных в коробках:
+
+❼ 𝑛 = 5: 1 + 1 + 1 + 1+ (1 способ);
+
+❼ 𝑛 = 10: 1+1+1+2+5 = 1+1+1+3+4 = 1+1+2+2+4 = 1+1+2+3+3 = 1+2+2+2+3 =
+
+2 + 2 + 2 + 2 + 2 (6 способов);
+
+❼ 𝑛 = 15: 1+1+3+5+5 = 1+1+4+4+5 = 1+2+2+5+5 = 1+2+3+4+5 = 1+2+4+4+4 =
+
+1 + 3 + 3 + 3 + 5 = 1 + 3 + 3 + 4 + 4 = 2 + 2 + 2 + 4 + 5 = 2 + 2 + 3 + 3 + 5 = 2 + 2 + 3 + 4 + 4 =
+
+2 + 3 + 3 + 3 + 4 = 3 + 3 + 3 + 3 + 3 (12 способов);
+
+❼ 𝑛 = 20: 1+4+5+5+5 = 2+3+5+5+5 = 2+4+4+5+5 = 3+3+4+5+5 = 3+4+4+4+5 =
+
+4 + 4 + 4 + 4 + 4 (6 способов);
+
+❼ 𝑛 = 25: 5 + 5 + 5 + 5 + 5 (1 способ).
+Итого 1 + 6 + 12 + 6 + 1 = 26 способов.
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly) The
+total number of cakes that a five-headed five-handed customer can buy is not less than 5 (i.e. 5 sets of
+1 piece) and not more than 25 (i.e. 5 sets of 5 pieces). For this number to be divisible by 5, it must
+be equal to 𝑛 = 5,10,15,20 or 25. Let’s count the number of ways to get the corresponding number of
+cakes by purchasing 5 sets. For convenience (and to make it clear that we have not missed anything),
+we will order the numers of cakes of the sets in ascending order (for each 𝑛):
+
+❼ 𝑛 = 5: 1 + 1 + 1 + 1+ (1 way);
+
+❼ 𝑛 = 10: 1+1+1+2+5 = 1+1+1+3+4 = 1+1+2+2+4 = 1+1+2+3+3 = 1+2+2+2+3 =
+
+2 + 2 + 2 + 2 + 2 (6 ways);
+
+❼ 𝑛 = 15: 1+1+3+5+5 = 1+1+4+4+5 = 1+2+2+5+5 = 1+2+3+4+5 = 1+2+4+4+4 =
+
+1 + 3 + 3 + 3 + 5 = 1 + 3 + 3 + 4 + 4 = 2 + 2 + 2 + 4 + 5 = 2 + 2 + 3 + 3 + 5 = 2 + 2 + 3 + 4 + 4 =
+
+2 + 3 + 3 + 3 + 4 = 3 + 3 + 3 + 3 + 3 (12 ways);
+
+❼ 𝑛 = 20: 1+4+5+5+5 = 2+3+5+5+5 = 2+4+4+5+5 = 3+3+4+5+5 = 3+4+4+4+5 =
+
+4 + 4 + 4 + 4 + 4 (6 ways);
+
+❼ 𝑛 = 25: 5 + 5 + 5 + 5 + 5 (1 way).
+Thus, there are 1 + 6 + 12 + 6 + 1 = 26 ways in total.
+
+Task 5.
+
+1. Людоед поймал двух математиков и сказал им следующее:
+«Завтра я напишу на этой доске полный квадрат натурального числа – некоторое 𝑚2, потом
+приведу одного из вас, и он допишет справа столько последовательных квадратов (𝑚 +
+1)2,(𝑚+2)2,..., сколько захочет, но не менее 10. После этого я уведу его и приведу второго:
+он расставит между выписанными квадратами знаки ’+’ и ’−’ по своему усмотрению. Если
+значение получившегося выражения будет равно нулю, я отпущу вас обоих, а если нет –
+обоих съем. Времени на переговоры я вам не дам ни сегодня, ни завтра.»
+Смогут ли математики спастись независимо от значения 𝑚? Обоснуйте свой ответ.
+The cannibal caught two mathematicians and told them the following:
+«Tomorrow I will write on this board the complete square of a positive integer, i.e. some 𝑚2, then I
+will bring one of you, and he will add to the right as many consecutive squares (𝑚+1)2,(𝑚+2)2,...
+as he wants, but not less than 10 of them. After that, I will take him away and bring in a second
+one of you: he will place the signs ’+’ and ’−’ between the written squares at his discretion. If the
+value of the resulting expression will be equal to zero, then I will let you both go, and if the value
+will not be zero, then I will eat both of you. I won’t give you time for discussions either today or
+tomorrow.»
+Can mathematicians save themselves regardless of the number the cannibal writes down? Explain
+your answer.
+
+2. Людоед поймал двух математиков и сказал им следующее:
+
+«Завтра я напишу на этой доске полный квадрат натурального числа – некоторое 𝑚2, потом
+приведу одного из вас, и он допишет справа столько последовательных квадратов (𝑚 +
+1)2,(𝑚+2)2,..., сколько захочет, но не менее 30. После этого я уведу его и приведу второго:
+он расставит между выписанными квадратами знаки ’+’ и ’−’ по своему усмотрению. Если
+значение получившегося выражения будет равно нулю, я отпущу вас обоих, а если нет –
+обоих съем. Времени на переговоры я вам не дам ни сегодня, ни завтра.»
+
+Смогут ли математики спастись независимо от значения 𝑚? Обоснуйте свой ответ.
+
+The cannibal caught two mathematicians and told them the following:
+
+«Tomorrow I will write on this board the complete square of a positive integer, i.e. some 𝑚2, then I
+will bring one of you, and he will add to the right as many consecutive squares (𝑚+1)2,(𝑚+2)2,...
+as he wants, but not less than 30 of them. After that, I will take him away and bring in a second
+one of you: he will place the signs ’+’ and ’−’ between the written squares at his discretion. If the
+value of the resulting expression will be equal to zero, then I will let you both go, and if the value
+will not be zero, then I will eat both of you. I won’t give you time for discussions either today or
+tomorrow.»
+
+Can mathematicians save themselves regardless of the number the cannibal writes down? Explain
+your answer.
+
+3. Людоед поймал двух математиков и сказал им следующее:
+«Завтра я напишу на этой доске полный квадрат натурального числа – некоторое 𝑚2, потом
+приведу одного из вас, и он допишет справа столько последовательных квадратов (𝑚 +
+1)2,(𝑚+2)2,..., сколько захочет, но не менее 17. После этого я уведу его и приведу второго:
+он расставит между выписанными квадратами знаки ’+’ и ’−’ по своему усмотрению. Если
+значение получившегося выражения будет равно нулю, я отпущу вас обоих, а если нет –
+обоих съем. Времени на переговоры я вам не дам ни сегодня, ни завтра.»
+Смогут ли математики спастись независимо от значения 𝑚? Обоснуйте свой ответ.
+The cannibal caught two mathematicians and told them the following:
+«Tomorrow I will write on this board the complete square of a positive integer, i.e. some 𝑚2, then I
+will bring one of you, and he will add to the right as many consecutive squares (𝑚+1)2,(𝑚+2)2,...
+as he wants, but not less than 17 of them. After that, I will take him away and bring in a second
+one of you: he will place the signs ’+’ and ’−’ between the written squares at his discretion. If the
+value of the resulting expression will be equal to zero, then I will let you both go, and if the value
+will not be zero, then I will eat both of you. I won’t give you time for discussions either today or
+tomorrow.»
+Can mathematicians save themselves regardless of the number the cannibal writes down? Explain
+your answer.
+
+4. Людоед поймал двух математиков и сказал им следующее:
+
+«Завтра я напишу на этой доске полный квадрат натурального числа – некоторое 𝑚2, потом
+приведу одного из вас, и он допишет справа столько последовательных квадратов (𝑚 +
+1)2,(𝑚+2)2,..., сколько захочет, но не менее 20. После этого я уведу его и приведу второго:
+он расставит между выписанными квадратами знаки ’+’ и ’−’ по своему усмотрению. Если
+значение получившегося выражения будет равно нулю, я отпущу вас обоих, а если нет –
+обоих съем. Времени на переговоры я вам не дам ни сегодня, ни завтра.»
+
+Смогут ли математики спастись независимо от значения 𝑚? Обоснуйте свой ответ.
+
+The cannibal caught two mathematicians and told them the following:
+
+«Tomorrow I will write on this board the complete square of a positive integer, i.e. some 𝑚2, then I
+will bring one of you, and he will add to the right as many consecutive squares (𝑚+1)2,(𝑚+2)2,...
+as he wants, but not less than 20 of them. After that, I will take him away and bring in a second
+one of you: he will place the signs ’+’ and ’−’ between the written squares at his discretion. If the
+value of the resulting expression will be equal to zero, then I will let you both go, and if the value
+will not be zero, then I will eat both of you. I won’t give you time for discussions either today or
+tomorrow.»
+
+Can mathematicians save themselves regardless of the number the cannibal writes down? Explain
+your answer.
+
+Solution (RUS). (представлено решение варианта №1, остальные решаются аналогично) Заметим, что для любого 𝑛 выполнено 𝑛2 − (𝑛 + 1)2 − (𝑛 + 2)2 + (𝑛 + 3)2 = 4. Из этого следует, что
+𝑚2 − (𝑚 + 1)2 − (𝑚 + 2)2 + (𝑚 + 3)2 − (𝑚 + 4)2 + (𝑚 + 5)2 + (𝑚 + 6)2 − (𝑚 + 7)2 = 0 для любого 𝑚.
+
+Чтобы спастись, математики могут действовать следующим образом: первый дописывает, например, 95 последовательных квадратов ((𝑚 + 1)2,(𝑚 + 2)2,...,(𝑚 + 95)2), а второй расставляет
+знаки перед ними следующим образом: −−+−++−+ и т.д., повторяя указанную последовательность восьми знаков. Тогда первые 8 слагаемых дадут в сумме 0, как и следующие 8 слагаемых,
+и т.д. – общая сумма также будет равна 0.
+
+Критерии оценивания:
+
+❼ показано, что разности последовательных квадратов – последовательные нечетные числа –
+1 балл;
+
+❼ показано, что разности последовательных квадратов – последовательные нечетные числа,
+но знаки между квадратами расставлены неверно – 2 балла;
+
+❼ доказано, что группы по 8 последовательных квадратов могут давать 0, но не указаны знаки
+между ними – 3 балла;
+
+❼ приведено решение для 8 квадратов, но не сказано про группы по 8, либо допущена арифметическая ошибка на последнем этапе решения – 4 балла;
+
+❼ задача решена полностью верно – 5 баллов.
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly) Note
+that for any 𝑛 we have 𝑛2 − (𝑛 + 1)2 − (𝑛 + 2)2 + (𝑛 + 3)2 = 4. By that, 𝑚2 − (𝑚 + 1)2 − (𝑚 + 2)2 +
+(𝑚 + 3)2 − (𝑚 + 4)2 + (𝑚 + 5)2 + (𝑚 + 6)2 − (𝑚 + 7)2 = 0 for any 𝑚.
+
+To save themselves, mathematicians can act as follows: the first one adds, for example, 95 consecutive
+squares ((𝑚 + 1)2,(𝑚 + 2)2,...,(𝑚 + 95)2), and the second one places the signs in front of them as
+follows: −−+−++−+, etc., repeating the specified sequence of eight signs. Then the first 8 terms will
+add up to 0, as will the next 8 terms, etc. – the total sum will also be 0.
+
+Criteria:
+
+❼ it is shown that the differences of consecutive squares are consecutive odd numbers – 1 point;
+
+❼ it is shown that the differences between consecutive squares are consecutive odd numbers, but the
+signs between the squares are placed incorrectly – 2 points;
+
+❼ it is proven that groups of 8 consecutive squares can give 0, but the signs between them are not
+indicated – 3 points;
+
+❼ the solution for 8 squares is given, but not indicated for many group of 8 squares, or an arithmetic
+error was made at the last stage of the solution – 4 points;
+
+❼ the solution is full and correct – 5 points.
+
+Task 6.
+
+1. Игорь, администратор технической поддержки ВКонтакте, помогает восстанавливать аккаунты пользователей и попутно отвечает на их вопросы. За одну минуту Игорь может сделать
+одно из следующих действий:
+❼ восстановить один аккаунт, но тогда еще один аккаунт сломается (возможно, тот же);
+❼ восстановить два аккаунта – тогда появится новый вопрос от пользователя;
+❼ ответить на один вопрос пользователя – тогда появятся два новых вопроса;
+❼ восстановить один аккаунт и ответить на один вопрос – тогда сломается один аккаунт
+(возможно, тот же).
+Изначально были проблемы с 10 аккаунтами пользователей, и 15 пользователей написали в
+техподдержку свои вопросы. Если Игорю удастся в какой-то момент свести к нулю и проблемы с аккаунтами, и количество вопросов пользователей, то новых проблем и вопросов
+сегодня уже не будет. Сможет ли Игорь добиться этого? Обоснуйте свой ответ.
+Igor, who is VKontakte technical support administrator, helps restore user accounts and answers
+their questions along the way. In one minute, Igor can do one of the following actions:
+❼ restore one account, but then another account will break (possibly the restored one);
+❼ restore two accounts – then a new question from the user will appear;
+❼ answer one user question – then two new questions will appear;
+❼ restore one account and answer one question – then one account (possibly the restored one)
+will break.
+Initially, there were problems with 10 user accounts, and 15 users wrote to technical support
+with their questions. If at some point Igor manages to reduce problems with accounts and the
+number of user questions to zero, then there will be no new problems and questions today. Can
+Igor manage to do that? Explain your answer.
+
+2. Игорь, администратор технической поддержки ВКонтакте, помогает восстанавливать аккаунты пользователей и попутно отвечает на их вопросы. За одну минуту Игорь может сделать
+одно из следующих действий:
+
+❼ восстановить один аккаунт, но тогда еще один аккаунт сломается (возможно, тот же);
+
+❼ восстановить два аккаунта – тогда появится новый вопрос от пользователя;
+❼ ответить на один вопрос пользователя – тогда появятся два новых вопроса;
+❼ восстановить один аккаунт и ответить на один вопрос – тогда сломается один аккаунт
+
+(возможно, тот же).
+
+Изначально были проблемы с 14 аккаунтами пользователей, и 15 пользователей написали в
+техподдержку свои вопросы. Если Игорю удастся в какой-то момент свести к нулю и проблемы с аккаунтами, и количество вопросов пользователей, то новых проблем и вопросов
+сегодня уже не будет. Сможет ли Игорь добиться этого? Обоснуйте свой ответ.
+
+Igor, who is VKontakte technical support administrator, helps restore user accounts and answers
+their questions along the way. In one minute, Igor can do one of the following actions:
+
+❼ restore one account, but then another account will break (possibly the restored one);
+
+❼ restore two accounts – then a new question from the user will appear;
+
+❼ answer one user question – then two new questions will appear;
+
+❼ restore one account and answer one question – then one account (possibly the restored one)
+will break.
+
+Initially, there were problems with 14 user accounts, and 15 users wrote to technical support
+with their questions. If at some point Igor manages to reduce problems with accounts and the
+number of user questions to zero, then there will be no new problems and questions today. Can
+Igor manage to do that? Explain your answer.
+
+3. Игорь, администратор технической поддержки ВКонтакте, помогает восстанавливать аккаунты пользователей и попутно отвечает на их вопросы. За одну минуту Игорь может сделать
+одно из следующих действий:
+❼ восстановить один аккаунт, но тогда еще один аккаунт сломается (возможно, тот же);
+❼ восстановить два аккаунта – тогда появится новый вопрос от пользователя;
+❼ ответить на один вопрос пользователя – тогда появятся два новых вопроса;
+❼ восстановить один аккаунт и ответить на один вопрос – тогда сломается один аккаунт
+(возможно, тот же).
+Изначально были проблемы с 12 аккаунтами пользователей, и 17 пользователей написали в
+техподдержку свои вопросы. Если Игорю удастся в какой-то момент свести к нулю и проблемы с аккаунтами, и количество вопросов пользователей, то новых проблем и вопросов
+сегодня уже не будет. Сможет ли Игорь добиться этого? Обоснуйте свой ответ.
+Igor, who is VKontakte technical support administrator, helps restore user accounts and answers
+their questions along the way. In one minute, Igor can do one of the following actions:
+❼ restore one account, but then another account will break (possibly the restored one);
+❼ restore two accounts – then a new question from the user will appear;
+❼ answer one user question – then two new questions will appear;
+❼ restore one account and answer one question – then one account (possibly the restored one)
+will break.
+Initially, there were problems with 12 user accounts, and 17 users wrote to technical support
+with their questions. If at some point Igor manages to reduce problems with accounts and the
+number of user questions to zero, then there will be no new problems and questions today. Can
+Igor manage to do that? Explain your answer.
+
+4. Игорь, администратор технической поддержки ВКонтакте, помогает восстанавливать аккаунты пользователей и попутно отвечает на их вопросы. За одну минуту Игорь может сделать
+одно из следующих действий:
+
+❼ восстановить один аккаунт, но тогда еще один аккаунт сломается (возможно, тот же);
+
+❼ восстановить два аккаунта – тогда появится новый вопрос от пользователя;
+❼ ответить на один вопрос пользователя – тогда появятся два новых вопроса;
+❼ восстановить один аккаунт и ответить на один вопрос – тогда сломается один аккаунт
+
+(возможно, тот же).
+
+Изначально были проблемы с 15 аккаунтами пользователей, и 10 пользователей написали в
+техподдержку свои вопросы. Если Игорю удастся в какой-то момент свести к нулю и проблемы с аккаунтами, и количество вопросов пользователей, то новых проблем и вопросов
+сегодня уже не будет. Сможет ли Игорь добиться этого? Обоснуйте свой ответ.
+
+Igor, who is VKontakte technical support administrator, helps restore user accounts and answers
+their questions along the way. In one minute, Igor can do one of the following actions:
+
+❼ restore one account, but then another account will break (possibly the restored one);
+
+❼ restore two accounts – then a new question from the user will appear;
+
+❼ answer one user question – then two new questions will appear;
+
+❼ restore one account and answer one question – then one account (possibly the restored one)
+will break.
+
+Initially, there were problems with 15 user accounts, and 10 users wrote to technical support
+with their questions. If at some point Igor manages to reduce problems with accounts and the
+number of user questions to zero, then there will be no new problems and questions today. Can
+Igor manage to do that? Explain your answer.
+
+Solution (RUS). (представлено решение варианта №1, остальные решаются аналогично) Вот
+как может действовать Игорь, чтобы добиться желаемого:
+
+1) 15 раз выполнить операцию №4: в результате не останется вопросов пользователей, но останутся
+10 «сломанных» аккаунтов;
+
+2) по 4 раза (поочередно) выполнить пару операций №2 и №4: в результате останутся только 2
+«сломанных» аккаунта;
+
+3) выполнить операцию №2: в результате не останется ни «сломанных» аккаунтов, ни вопросов
+пользователей.
+
+Критерии оценивания:
+
+❼ условие интерпретировано в терминах пар неотрицательных целых чисел – 1 балл;
+
+❼ показаны первыедействия с использованием только операций 2 и 4 – 2 балла;
+
+❼ приведена в целом верная последовательность действий, но одна из операциф использована
+некорректно (например, операция 4 при отсутствии «сломанных» аккаунтов) – 3 балла;
+
+❼ решение не до конца обосновано, либо присутствует арифметическая ошибка на последнем
+этапе – 4 балла;
+
+❼ решение полностью верное – 5 баллов.
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly) Here’s
+how Igor can act to achieve the goal:
+
+1) perform operation 4 fifteen times: as a result, there will be no user questions left, but 10 unrestored
+accounts will remain;
+
+2) perform a pair of operations 2 and 4 four times (alternately): as a result, only 2 unrestored accounts
+will remain;
+
+3) perform operation 2: as a result, there will be no unrestored accounts and user questions left.
+Criteria:
+
+❼ the task’s formulation is interpreted in terms of pairs of non-negative integers – 1 point;
+
+❼ the first actions are shown using only operations 2 and 4 – 2 points;
+
+❼ the generally correct sequence of actions is given, but one of the operations is used incorrectly (for
+example, operation 4 in the absence of unrestored accounts) – 3 points;
+
+❼ the solution is not full, or there is an arithmetic error at its last stage – 4 points;
+
+❼ the solution is full and correct – 5 points.
+
+8-9𝑡ℎ degree
+
+Task 1.
+
+1. Сеть автобусных маршрутов города Иннополиса устроена так:
+❼ общее количество автобусных остановок в городе – 9 штук, и любые две из них соединены дорогой;
+❼ на каждом маршруте должны быть ровно 3 остановки (включая начало и конец маршрута);
+❼ любые два автобусных маршрута имеют либо одну общую остановку, либо ни одной.
+Какое наибольшее количество автобусных маршрутов может иметь город Иннополис?
+The bus routes web in the town of Innopolis is built as follows:
+❼ the total number of bus stops in the town is 9 with any two of them connected with a road;
+❼ each route must have exactly 3 stops (including the beginning and end of the route);
+❼ any two bus routes have either one common stop or none.
+What is the largest number of bus routes the town of Innopolis can have?
+Answer: 12
+
+2. Сеть автобусных маршрутов города Иннополиса устроена так:
+❼ общее количество автобусных остановок в городе – 9 штук, и любые две из них соединены дорогой;
+❼ на каждом маршруте должны быть ровно 4 остановки (включая начало и конец маршрута);
+❼ любые два автобусных маршрута имеют либо одну общую остановку, либо ни одной.
+Какое наибольшее количество автобусных маршрутов может иметь город Иннополис?
+The bus routes web in the town of Innopolis is built as follows:
+❼ the total number of bus stops in the town is 9 with any two of them connected with a road;
+❼ each route must have exactly 4 stops (including the beginning and end of the route);
+❼ any two bus routes have either one common stop or none.
+What is the largest number of bus routes the town of Innopolis can have?
+Answer: 3
+
+3. Сеть автобусных маршрутов города Иннополиса устроена так:
+
+❼ общее количество автобусных остановок в городе – 10 штук, и любые две из них соединены дорогой;
+
+❼ на каждом маршруте должны быть ровно 3 остановки (включая начало и конец маршрута);
+
+❼ любые два автобусных маршрута имеют либо одну общую остановку, либо ни одной.
+
+Какое наибольшее количество автобусных маршрутов может иметь город Иннополис?
+
+The bus routes web in the town of Innopolis is built as follows:
+
+❼ the total number of bus stops in the town is 10 with any two of them connected with a road;
+
+❼ each route must have exactly 3 stops (including the beginning and end of the route);
+
+❼ any two bus routes have either one common stop or none.
+What is the largest number of bus routes the town of Innopolis can have?
+
+Answer: 13
+
+4. Сеть автобусных маршрутов города Иннополиса устроена так:
+
+❼ общее количество автобусных остановок в городе – 12 штук, и любые две из них соединены дорогой;
+
+❼ на каждом маршруте должны быть ровно 4 остановки (включая начало и конец маршрута);
+
+❼ любые два автобусных маршрута имеют либо одну общую остановку, либо ни одной.
+Какое наибольшее количество автобусных маршрутов может иметь город Иннополис?
+
+The bus routes web in the town of Innopolis is built as follows:
+
+❼ the total number of bus stops in the town is 12 with any two of them connected with a road;
+
+❼ each route must have exactly 4 stops (including the beginning and end of the route);
+
+❼ any two bus routes have either one common stop or none.
+What is the largest number of bus routes the town of Innopolis can have?
+
+Answer: 9
+
+Solution (RUS). (представлено решение варианта №1, остальные решаются аналогично) «Зафиксируем» автобусную остановку 𝑋 – одну из 9-и. Кроме нее, в городе есть еще 8 остановок, и на
+каждом автобусном маршруте, проходящем через 𝑋, есть еще 2 остановки, причем эти маршруты
+не могут иметь других общих остановок, кроме 𝑋 – значит, таких маршрутов не более 8 : 2 = 4.
+
+Теперь занумеруем автобусные остановки числами от 1 до 9. Пусть в Иннополисе всего 𝑛
+автобусных маршрутов, из них 𝑛1 проходят через остановку 1, 𝑛2 – через остановку 2, и т.д. На
+каждом маршруте 3 остановки – значит, 𝑛1 + 𝑛2 + ··· + 𝑛9 = 3𝑛, при этом 𝑛𝑖 ≤ 4 для любого 𝑖
+согласно доказанному выше. Следовательно, 3𝑛 ≤ 4 · 9, откуда 𝑛 ≤ 12.
+
+Покажем, как провести 12 маршрутов (цифры обозначают номера остановок, а трехзначные
+числа – автобусные маршруты): 123, 456, 789, 147, 258, 369, 249, 168, 267, 348, 159, 357.
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly) Lets
+«fix» bus stop 𝑋 – one of the 9. In addition to it, there are 8 more bus stops in the city, and on each bus
+route passing through 𝑋, there are 2 more stops, and these routes cannot have other stops in common
+except 𝑋 – therefore, there are no more than 8 : 2 = 4 such routes.
+
+Now let’s enumerate the bus stops with numbers from 1 to 9. Let there be only 𝑛 bus routes in
+Innopolis, of which 𝑛1 go through stop 1, 𝑛2 go through stop 2, etc. There are 3 stops on each route –
+by that, 𝑛1 +𝑛2 +···+𝑛9 = 3𝑛, while 𝑛𝑖 ≤ 4 for any 𝑖 according to what was proven above. Therefore,
+3𝑛 ≤ 4 · 9, thus 𝑛 ≤ 12.
+
+Finally, lets show how to establish the 12 routes (digits indicate bus stops, and three-digit numbers
+indicate bus routes): 123, 456, 789, 147, 258, 369, 249, 168, 267, 348, 159, 357.
+
+Task 2.
+
+1. Дано число 𝑛 = 25 · 137. Найдите количество натуральных делителей 𝑛2, не являющихся
+делителями 𝑛.
+Given 𝑛 = 25 · 137. Find the number of positive integer divisors of 𝑛2 that are not divisors of 𝑛.
+Answer: 117
+
+2. Дано число 𝑛 = 59 · 138. Найдите количество натуральных делителей 𝑛2, не являющихся
+делителями 𝑛.
+Given 𝑛 = 59 · 138. Find the number of positive integer divisors of 𝑛2 that are not divisors of 𝑛.
+Answer: 233
+
+3. Дано число 𝑛 = 76 · 1711. Найдите количество натуральных делителей 𝑛2, не являющихся
+делителями 𝑛.
+Given 𝑛 = 76 · 1711. Find the number of positive integer divisors of 𝑛2 that are not divisors of 𝑛.
+Answer: 215
+
+4. Дано число 𝑛 = 37 · 710. Найдите количество натуральных делителей 𝑛2, не являющихся
+делителями 𝑛.
+
+Given 𝑛 = 37 · 710. Find the number of positive integer divisors of 𝑛2 that are not divisors of 𝑛.
+
+Answer: 227
+
+Solution (RUS). (представлено решение варианта №1, остальные решаются аналогично) Пусть
+дано число 𝑁 = 𝑎𝑥 · 𝑏𝑦 для натуральных 𝑥,𝑦 и различных простых 𝑎,𝑏. Докажем, что 𝑁 имеет
+ровно (𝑥 + 1)(𝑦 + 1) натуральных делителей.
+
+Для начала заметим, что любой делитель 𝑑 числа 𝑁 имеет вид 𝑑 = 𝑎𝑢 · 𝑏𝑣 для целых неотрицательных 𝑢 ≤ 𝑥, 𝑣 ≤ 𝑦. Действительно, других простых делителей 𝑑 иметь не может, а степени
+вхождения в него простых 𝑎,𝑏 ограничены таковыми у 𝑁. Более того, каждая пара 𝑢,𝑣 взаимооднозначно определяет 𝑑 – а значит, количество таких пар равно количеству делителей числа 𝑁.
+Т.н. «правило умножения» подсказывает, что количество таких пар равно (𝑥 + 1)(𝑦 + 1), что и
+требовалось доказать.
+
+Теперь заметим, что любой делитель 𝑛 является делителем 𝑛2 – значит, искомое количество
+равно разности количеств делителей 𝑛2 и 𝑛, т.е. (2 · 5 + 1)(2 · 7 + 1) − (5 + 1)(7 + 1) = 117.
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly) Consider
+a number 𝑁 = 𝑎𝑥 · 𝑏𝑦 for positive integers 𝑥,𝑦 and primes 𝑎,𝑏 (𝑎 ̸= 𝑏). Lets prove that 𝑁 has exactly
+(𝑥 + 1)(𝑦 + 1) positive integer divisors.
+
+Note that any divisor 𝑑 of a number 𝑁 has the form 𝑑 = 𝑎𝑢 · 𝑏𝑣 for non-negative integers 𝑢 ≤ 𝑥,
+𝑣 ≤ 𝑦. Indeed, 𝑑 cannot have any other prime divisors, and the degrees of occurrence of primes 𝑎,𝑏 in it
+are limited to those of 𝑁. Moreover, each pair 𝑢,𝑣 determines 𝑑 one-to-one, which means the number
+of such pairs is equal to the number of divisors of the number 𝑁. The so-called «multiplication rule»
+states that the number of such pairs is equal to (𝑥 + 1)(𝑦 + 1), which is what needed to be proven.
+
+Note that any divisor 𝑛 is a divisor of 𝑛2 – by that, the required quantity is equal to the difference
+between the numbers of divisors of 𝑛2 and such for 𝑛, i.e. (2 · 5 + 1)(2 · 7 + 1) − (5 + 1)(7 + 1) = 117.
+
+Task 3.
+
+1. На клетчатой бумаге со стороной клетки, равной 1, нарисован треугольник так, что его стороны с длинами 5 и 12 лежат на сторонах клеток. Через сколько вершин клеток пройдет
+биссектриса наименьшего угла этого треугольника? Помните, что вершина угла, из которого
+проведена биссектриса, тоже является ее частью.
+On checkered paper with the side of the cell equal to 1, a triangle is drawn in such way that its
+legs with lengths 5 and 12 lie on the sides of the cells. How many cell vertices will the bisector
+of the smallest angle of this triangle intersect? Remember that the vertex of the angle which the
+bisector is drawn from is also part of it.
+Answer: 3
+
+2. На клетчатой бумаге со стороной клетки, равной 0.2, нарисован треугольник так, что его
+стороны с длинами 5 и 12 лежат на сторонах клеток. Через сколько вершин клеток пройдет
+биссектриса наименьшего угла этого треугольника? Помните, что вершина угла, из которого
+проведена биссектриса, тоже является ее частью.
+On checkered paper with the side of the cell equal to 0.2, a triangle is drawn in such way that its
+legs with lengths 5 and 12 lie on the sides of the cells. How many cell vertices will the bisector
+of the smallest angle of this triangle intersect? Remember that the vertex of the angle which the
+bisector is drawn from is also part of it.
+Answer: 13
+
+3. На клетчатой бумаге со стороной клетки, равной 1, нарисован треугольник так, что его стороны с длинами 20 и 21 лежат на сторонах клеток. Через сколько вершин клеток пройдет
+биссектриса наименьшего угла этого треугольника? Помните, что вершина угла, из которого
+проведена биссектриса, тоже является ее частью.
+On checkered paper with the side of the cell equal to 1, a triangle is drawn in such way that its
+legs with lengths 20 and 21 lie on the sides of the cells. How many cell vertices will the bisector
+of the smallest angle of this triangle intersect? Remember that the vertex of the angle which the
+bisector is drawn from is also part of it.
+Answer: 5
+
+4. На клетчатой бумаге со стороной клетки, равной 0.5, нарисован треугольник так, что его
+стороны с длинами 7 и 24 лежат на сторонах клеток. Через сколько вершин клеток пройдет
+биссектриса наименьшего угла этого треугольника? Помните, что вершина угла, из которого
+проведена биссектриса, тоже является ее частью.
+
+On checkered paper with the side of the cell equal to 0.5, a triangle is drawn in such way that its
+legs with lengths 7 and 24 lie on the sides of the cells. How many cell vertices will the bisector
+of the smallest angle of this triangle intersect? Remember that the vertex of the angle which the
+bisector is drawn from is also part of it.
+
+Answer: 7
+
+Solution (RUS). (представлено решение варианта №1, остальные решаются аналогично) Наименьшим является угол напротив меньшего катета 𝐴𝐶 = 5 (см. рис.). Находим гипотенузу 𝐵𝐶 =
+13 по катетам и, используя свойство биссектрисы угла треугольника о делении ею противоположной стороны, находим отношение отрезков, на которые она делит 𝐴𝐶: 𝐵𝐴𝐵′
+
+′𝐶 = 𝐵𝐶𝐴𝐵 = 1213.
+
+Зная 𝐴𝐶 и используя найденное отношение, найдем 𝐴𝐵′ = 𝐴𝐶 · 𝐴𝐵𝐴𝐵+𝐵𝐶 = 2.4. Найдем тангенс
+половины меньшего угла треугольника, прилежащего к катету:
+
+𝐴𝐵′
+𝐴𝐵
+
+2.4
+12
+
+1
+5
+
+=
+
+=
+
+Получим, что каждую клетку «вниз» от точки 𝐵 (см. рис.) биссектриса будет пересекать клетку
+в узле. Значит, количество узлов сетки, которые пересекает биссектриса, равно
+
+[︀125 ]︀
+
++1 = 3 (здесь
+[𝑡] обозначает целую часть 𝑡, т.е. наибольшее целое число, не превосходящее 𝑡).
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly) The
+smallest angle is the angle opposite the smaller side 𝐴𝐶 = 5 (see picture). We find the hypotenuse
+𝐵𝐶 = 13 by the cathetes, then we use the property of the angle bisector we find the ratio of the
+segments into which it divides the side 𝐵𝐴𝐵′
+
+′𝐶 = 𝐵𝐶𝐴𝐵 = 1213.
+
+Knowing 𝐴𝐶 and the ratio of the segments, we find 𝐴𝐵′ = 𝐴𝐶· 𝐴𝐵𝐴𝐵+𝐵𝐶 = 2.4. Lets calculate the tangent
+of the half of the smaller angle of the triangle:
+
+𝐴𝐵′
+𝐴𝐵
+
+2.4
+12
+
+1
+5
+
+=
+
+=
+
+We get that every cell «down» (see the triangle’s orientation on the picture) from the point 𝐵 the
+bisector will intersect a cell at a node. So, the number of nodes of the grid that the bisector intersects
+is equal to
+
+[︀125 ]︀
+
++ 1 = 3 (here [𝑡] denotes the integer part of 𝑡, i.e. the largest integer not exceeding 𝑡).
+
+Task 4.
+
+1. Игорь, администратор технической поддержки ВКонтакте, помогает восстанавливать аккаунты пользователей и попутно отвечает на их вопросы. За одну минуту Игорь может сделать
+одно из следующих действий:
+
+❼ восстановить один аккаунт, но тогда еще один аккаунт сломается (возможно, тот же);
+
+❼ восстановить два аккаунта – тогда появится новый вопрос от пользователя;
+❼ ответить на один вопрос пользователя – тогда появятся два новых вопроса;
+❼ восстановить один аккаунт и ответить на один вопрос – тогда сломается один аккаунт
+
+(возможно, тот же).
+
+Изначально были проблемы с 10 аккаунтами пользователей, и 15 пользователей написали в
+техподдержку свои вопросы. Если Игорю удастся в какой-то момент свести к нулю и проблемы с аккаунтами, и количество вопросов пользователей, то новых проблем и вопросов
+сегодня уже не будет. За какое минимальное время (в минутах) Игорь сможет добиться этого?
+
+Igor, who is VKontakte technical support administrator, helps restore user accounts and answers
+their questions along the way. In one minute, Igor can do one of the following actions:
+
+❼ restore one account, but then another account will break (possibly the restored one);
+
+❼ restore two accounts – then a new question from the user will appear;
+
+❼ answer one user question – then two new questions will appear;
+
+❼ restore one account and answer one question – then one account (possibly the restored one)
+will break.
+
+Initially, there were problems with 10 user accounts, and 15 users wrote to technical support with
+their questions. If at some point Igor manages to reduce problems with accounts and the number of
+user questions to zero, then there will be no new problems and questions today. In what minimum
+amount of time (in minutes) can Igor achieve this?
+
+Answer: 24
+
+2. Игорь, администратор технической поддержки ВКонтакте, помогает восстанавливать аккаунты пользователей и попутно отвечает на их вопросы. За одну минуту Игорь может сделать
+одно из следующих действий:
+❼ восстановить один аккаунт, но тогда еще один аккаунт сломается (возможно, тот же);
+❼ восстановить два аккаунта – тогда появится новый вопрос от пользователя;
+❼ ответить на один вопрос пользователя – тогда появятся два новых вопроса;
+❼ восстановить один аккаунт и ответить на один вопрос – тогда сломается один аккаунт
+(возможно, тот же).
+Изначально были проблемы с 14 аккаунтами пользователей, и 15 пользователей написали в
+техподдержку свои вопросы. Если Игорю удастся в какой-то момент свести к нулю и проблемы с аккаунтами, и количество вопросов пользователей, то новых проблем и вопросов
+сегодня уже не будет. За какое минимальное время (в минутах) Игорь сможет добиться этого?
+Igor, who is VKontakte technical support administrator, helps restore user accounts and answers
+their questions along the way. In one minute, Igor can do one of the following actions:
+❼ restore one account, but then another account will break (possibly the restored one);
+❼ restore two accounts – then a new question from the user will appear;
+❼ answer one user question – then two new questions will appear;
+❼ restore one account and answer one question – then one account (possibly the restored one)
+will break.
+Initially, there were problems with 14 user accounts, and 15 users wrote to technical support with
+their questions. If at some point Igor manages to reduce problems with accounts and the number of
+user questions to zero, then there will be no new problems and questions today. In what minimum
+amount of time (in minutes) can Igor achieve this?
+Answer: 28
+
+3. Игорь, администратор технической поддержки ВКонтакте, помогает восстанавливать аккаунты пользователей и попутно отвечает на их вопросы. За одну минуту Игорь может сделать
+одно из следующих действий:
+
+❼ восстановить один аккаунт, но тогда еще один аккаунт сломается (возможно, тот же);
+
+❼ восстановить два аккаунта – тогда появится новый вопрос от пользователя;
+❼ ответить на один вопрос пользователя – тогда появятся два новых вопроса;
+❼ восстановить один аккаунт и ответить на один вопрос – тогда сломается один аккаунт
+
+(возможно, тот же).
+
+Изначально были проблемы с 12 аккаунтами пользователей, и 18 пользователей написали в
+техподдержку свои вопросы. Если Игорю удастся в какой-то момент свести к нулю и проблемы с аккаунтами, и количество вопросов пользователей, то новых проблем и вопросов
+сегодня уже не будет. За какое минимальное время (в минутах) Игорь сможет добиться этого?
+
+Igor, who is VKontakte technical support administrator, helps restore user accounts and answers
+their questions along the way. In one minute, Igor can do one of the following actions:
+
+❼ restore one account, but then another account will break (possibly the restored one);
+
+❼ restore two accounts – then a new question from the user will appear;
+
+❼ answer one user question – then two new questions will appear;
+
+❼ restore one account and answer one question – then one account (possibly the restored one)
+will break.
+
+Initially, there were problems with 12 user accounts, and 18 users wrote to technical support with
+their questions. If at some point Igor manages to reduce problems with accounts and the number of
+user questions to zero, then there will be no new problems and questions today. In what minimum
+amount of time (in minutes) can Igor achieve this?
+
+Answer: 29
+
+4. Игорь, администратор технической поддержки ВКонтакте, помогает восстанавливать аккаунты пользователей и попутно отвечает на их вопросы. За одну минуту Игорь может сделать
+одно из следующих действий:
+
+❼ восстановить один аккаунт, но тогда еще один аккаунт сломается (возможно, тот же);
+
+❼ восстановить два аккаунта – тогда появится новый вопрос от пользователя;
+❼ ответить на один вопрос пользователя – тогда появятся два новых вопроса;
+❼ восстановить один аккаунт и ответить на один вопрос – тогда сломается один аккаунт
+
+(возможно, тот же).
+
+Изначально были проблемы с 15 аккаунтами пользователей, и 10 пользователей написали в
+техподдержку свои вопросы. Если Игорю удастся в какой-то момент свести к нулю и проблемы с аккаунтами, и количество вопросов пользователей, то новых проблем и вопросов
+сегодня уже не будет. За какое минимальное время (в минутах) Игорь сможет добиться этого?
+
+Igor, who is VKontakte technical support administrator, helps restore user accounts and answers
+their questions along the way. In one minute, Igor can do one of the following actions:
+
+❼ restore one account, but then another account will break (possibly the restored one);
+
+❼ restore two accounts – then a new question from the user will appear;
+
+❼ answer one user question – then two new questions will appear;
+
+❼ restore one account and answer one question – then one account (possibly the restored one)
+will break.
+
+Initially, there were problems with 15 user accounts, and 10 users wrote to technical support with
+their questions. If at some point Igor manages to reduce problems with accounts and the number of
+user questions to zero, then there will be no new problems and questions today. In what minimum
+amount of time (in minutes) can Igor achieve this?
+
+Answer: 23
+
+Solution (RUS). (представлено решение варианта №1, остальные решаются аналогично) Пусть
+есть 𝑚 «сломанных» аккаунтов и 𝑛 вопросов пользователей – сопоставим паре (𝑚,𝑛) точку с соответствующими координатами на плоскости. Тогда действиям Игоря (и описанным в условии
+последствиям этих действий) поставим в соответствие векторы:
+
+❼ вектор −→𝑎 = (0,0): «восстановить один аккаунт, но тогда еще один аккаунт сломается (возможно, тот же)»;
+
+❼ вектор −→𝑏 = (−2,1): «восстановить два аккаунта – тогда появится новый вопрос от пользователя»;
+
+❼ вектор −→𝑐 = (0,1): «ответить на один вопрос пользователя – тогда появятся два новых вопроса»;
+
+❼ вектор −→𝑑 = (0,−1): «восстановить один аккаунт и ответить на один вопрос – тогда сломается
+один аккаунт (возможно, тот же)».
+
+Т.е. выполнить действие – значит переместиться вдоль соответствующего вектора, при этом не
+нарушая условия неотрицательности координат его концов (кол-ва аккаунтов и вопросов – целые
+неотрицательные числа). Цель – попасть в точку (0,0) – это будет означать, что не осталось
+проблем с аккаунтами и вопросами пользователей.
+
+Сразу заметим, что действия, соответствующие векторам −→𝑎 и −→𝑐 , не приводят к приближению
+к (0,0), кроме случаев, когда эти действия выполняются из точек (1,0) и (0,1), соответственно.
+Иными словами, из этих действий Игорю пригодится не более одного, причем если и пригодится,
+то только 1 раз – в самую последнюю минуту.
+
+Чтобы переместиться в точку (0,0) действиями, соответствующими векторам −→𝑏 и −→𝑑 , нужно находиться в точках (2,0) и (1,1), соответственно.
+
+Итак, при помощи векторов −→𝑏 и −→𝑑 необходимо переместиться из точки (10,15) в точку (2,0),
+либо (1,1), либо (1,0), либо (0,1) за минимальное количество «шагов», после чего потребуется еще
+один шаг для перемещения в (0,0).
+
+Рассмотрим случай перемещения в (2,0): пусть для этого потребовалось 𝑥 векторов −→𝑏 и 𝑦
+векторов −→𝑑 , т.е. 𝑥 ·
+
+−→𝑏 + 𝑦 ·
+
+−→𝑑 = (−8,−15), или
+{︃−2𝑥 + 0𝑦 = −8
+1𝑥 − 1𝑦 = −15
+
+,
+откуда 𝑥 = 4, 𝑦 = 19, т.е. всего Игорю потребуется 4+19+1 = 24 действия. Аналогичным образом
+рассмотрев точки (1,1), (1,0), (0,1), получим, что найденные 24 действия – самый быстрый из
+возможных способов.
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly) Let
+there be 𝑚 «broken» accounts and 𝑛 user questions – match the (𝑚,𝑛) pair to a point with the
+corresponding coordinates on the plane. Then we will associate Igor’s actions (and the consequences of
+these actions described in the task’s formulation) with the following vectors:
+
+❼ vector −→𝑎 = (0,0): «restore one account, but then another account will break (possibly the restored
+one)»;
+
+❼ vector −→𝑏 = (−2,1): «restore two accounts – then a new question from the user will appear»;
+
+❼ vector −→𝑐 = (0,1): «answer one user question – then two new questions will appear»;
+
+❼ vector −→𝑑 = (0,−1): «restore one account and answer one question – then one account (possibly
+the restored one) will break».
+
+To perform an action means to move along the corresponding vector, without violating the condition
+of non-negativity of the coordinates of its ends (the number of accounts and questions are non-negative
+integers). The goal is to get to the point (0,0) – by that, there will be no problems left with accounts
+and user questions.
+
+Note that the actions corresponding to the vectors −→𝑎 and −→𝑐 do not lead to (0,0), except when
+these actions are performed from points (1,0) and (0,1), respectively. In other words, Igor will need no
+more than one of these actions, and if he does, it will be only once – at the very last minute.
+To move to the point (0,0) by actions corresponding to vectors −→𝑏 and −→𝑑 , you need to be at points
+(2,0) and (1,1) , respectively.
+
+So, it is necessary to use the vectors −→𝑏 and −→𝑑 to move from point (10,15) to point (2,0), or (1,1), or
+
+(1,0) or (0,1) in a minimum number of «steps», after which it would take another step to move to (0,0).
+
+Consider the case of moving to (2,0): let this require 𝑥 vectors −→𝑏 and 𝑦 vectors −→𝑑 , i.e. 𝑥·
+
+−→𝑏 +𝑦·
+
+−→𝑑 =
+
+(−8,−15), or {︃−2𝑥 + 0𝑦 = −8
+1𝑥 − 1𝑦 = −15
+
+,
+thus 𝑥 = 4, 𝑦 = 19, i.e. Igor will need 4 + 19 + 1 = 24 actions in total. Having similarly considered the
+points (1,1), (1,0), (0,1), we find that the 24 actions just found are the fastest possible way to achieve
+the goal.
+
+Task 5.
+
+1. Анна утверждает, что можно записать число, кратное 20232024, не используя цифры «0» и
+последовательностей цифр «13» и «666», а суеверный Тимур говорит, что это невозможно.
+Кто из них прав? Обоснуйте свой ответ с помощью математики, а не суеверий.
+Anna claims that it is possible to write a number that is a multiple of 20232024 without using
+the digit «0» and the sequences of digits «13» and «666», but superstitious Timur says that it’s
+impossible. Who is right? Explain your answer using mathematics, not superstition.
+
+2. Анна утверждает, что можно записать число, кратное 20232023, не используя цифры «0» и
+последовательностей цифр «13» и «666», а суеверный Тимур говорит, что это невозможно.
+Кто из них прав? Обоснуйте свой ответ с помощью математики, а не суеверий.
+Anna claims that it is possible to write a number that is a multiple of 20232023 without using
+the digit «0» and the sequences of digits «13» and «666», but superstitious Timur says that it’s
+impossible. Who is right? Explain your answer using mathematics, not superstition.
+
+3. Анна утверждает, что можно записать число, кратное 202320232023, не используя цифры «0»
+и последовательностей цифр «13» и «666», а суеверный Тимур говорит, что это невозможно.
+Кто из них прав? Обоснуйте свой ответ с помощью математики, а не суеверий.
+
+Anna claims that it is possible to write a number that is a multiple of 202320232023 without using
+the digit «0» and the sequences of digits «13» and «666», but superstitious Timur says that it’s
+impossible. Who is right? Explain your answer using mathematics, not superstition.
+
+4. Анна утверждает, что можно записать число, кратное 202320242023, не используя цифры «0»
+и последовательностей цифр «13» и «666», а суеверный Тимур говорит, что это невозможно.
+Кто из них прав? Обоснуйте свой ответ с помощью математики, а не суеверий.
+
+Anna claims that it is possible to write a number that is a multiple of 202320242023 without using
+the digit «0» and the sequences of digits «13» and «666», but superstitious Timur says that it’s
+impossible. Who is right? Explain your answer using mathematics, not superstition.
+
+Solution (RUS). (представлено решение варианта №1, остальные решаются аналогично) Докажем, что требуемое число можно записать при помощи только цифры «1» – а значит, Анна
+права.
+
+Итак, пусть 𝑎𝑛 – натуральное число, десятичная запись которого состоит из 𝑛 «единиц», т.е.
+𝑎1 = 1, 𝑎2 = 11, 𝑎3 = 111, .... Пусть 𝑟𝑛 – остатки от деления 𝑎𝑛 на 20232024 при всевозможных
+натуральных 𝑛. Если среди 𝑟1,𝑟2,...,𝑟20232024 есть 𝑟𝑘 = 0, то соответствующее 𝑎𝑘 кратно 20232024,
+что доказывает правоту Анны.
+
+Если же среди 𝑟1,𝑟2,...,𝑟20232024 нет «0», то, согласно принципу Дирихле, найдутся 𝑟𝑖 = 𝑟𝑗 (𝑖 ̸= 𝑗.
+Не ограничивая общности, будем считать 𝑖 < 𝑗). Тогда 𝑎𝑗 −𝑎𝑖 = 𝑎𝑗−𝑖 ·10𝑖 кратно 20232024, при этом
+10 взаимно просто с 2023 – а значит, 𝑎𝑗−𝑖 кратно 20232024, что доказывает правоту Анны.
+
+Критерии оценивания:
+
+❼ присутствует идея использовать в записи числа только одну цифру – 1 балл;
+
+❼ при рассмотрении остатков использован принцип Дирихле – 2 балла;
+
+❼ при рассмотрении остатков использован принцип Дирихле, доказано, что остаток при делении 𝑎𝑛 на нужное число может быть равен 0 – 3 балла;
+
+❼ верный ответ при незначительных ошибках в решении – 4 балла;
+
+❼ полностью верные решение и ответ – 5 баллов.
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly) Let’s
+prove that the required number can be written using only the digit «1», which means Anna is right.
+
+First, let 𝑎𝑛 be a positive integer which decimal notation consists of 𝑛 digits «1», i.e. 𝑎1 = 1, 𝑎2 = 11,
+𝑎3 = 111, .... Let 𝑟𝑛 be the remainders from dividing 𝑎𝑛 by 20232024 for all possible integers 𝑛. If among
+𝑟1,𝑟2,...,𝑟20232024 there is 𝑟𝑘 = 0, then the corresponding 𝑎𝑘 is a multiple of 20232024, which proves Anna
+is right.
+
+If among 𝑟1,𝑟2,...,𝑟20232024 there is no «0», then, according to the Dirichlet’s principle, there exist
+𝑟𝑖 = 𝑟𝑗 (𝑖 ̸= 𝑗; without loss of generality, we assume 𝑖 < 𝑗). Then 𝑎𝑗 − 𝑎𝑖 = 𝑎𝑗−𝑖 · 10𝑖 is a multiple of
+20232024, while 10 is coprime with 2023 – thus, 𝑎𝑗−𝑖 is a multiple of 20232024, which proves Anna is right.
+
+Criteria:
+
+❼ there is an idea to use only one digit to write the required number – 1 point;
+
+❼ when considering remainders, the Dirichlet principle was used – 2 points;
+
+❼ when considering remainders, the Dirichlet principle was used, also it was proven that the remainder
+when dividing 𝑎𝑛 by the required number can be equal to 0 – 3 points;
+
+❼ correct answer with minor errors in the solution – 4 points;
+
+❼ completely correct solution and answer – 5 points.
+
+Task 6.
+
+1. Из б´oльшего правильного 8-угольника вырезали меньший правильный 6-угольник. Обязательно ли можно провести прямую так, чтобы она разделила оставшуюся фигуру на две
+равновеликие (т.е. равные по площади) фигуры?
+From the larger regular 8-gon a smaller regular 6-gon was cut out. Is it always possible to draw a
+straight line that divides the remaining figure into two figures with equal areas?
+
+2. Из б´oльшего правильного 6-угольника вырезали меньший правильный 10-угольник. Обязательно ли можно провести прямую так, чтобы она разделила оставшуюся фигуру на две
+равновеликие (т.е. равные по площади) фигуры?
+From the larger regular 6-gon a smaller regular 10-gon was cut out. Is it always possible to draw
+a straight line that divides the remaining figure into two figures with equal areas?
+
+3. Из б´oльшего правильного 8-угольника вырезали меньший правильный 10-угольник. Обязательно ли можно провести прямую так, чтобы она разделила оставшуюся фигуру на две
+равновеликие (т.е. равные по площади) фигуры?
+From the larger regular 8-gon a smaller regular 10-gon was cut out. Is it always possible to draw
+a straight line that divides the remaining figure into two figures with equal areas?
+
+4. Из б´oльшего правильного 10-угольника вырезали меньший правильный 6-угольник. Обязательно ли можно провести прямую так, чтобы она разделила оставшуюся фигуру на две
+равновеликие (т.е. равные по площади) фигуры?
+
+From the larger regular 10-gon a smaller regular 6-gon was cut out. Is it always possible to draw
+a straight line that divides the remaining figure into two figures with equal areas?
+
+Solution (RUS). (представлено решение варианта №1, остальные решаются аналогично) Здесь
+и далее будем называть центром правильного 2𝑛-угольника центр описанной около него окружности – он располагается на пересечении наибольших диагоналей 2𝑛-угольника. Заметим, что
+произвольная прямая 𝑙, проходящая через центр правильного 2𝑛-угольника, делит его на два
+равных (а значит, и равновеликих) многоугольника: они совмещаются поворотом вокруг центра
+исходного 2𝑛-угольника на 180∘.
+
+Пусть 𝐴 – центр исходного (б´oльшего) 8-угольника, а 𝐵 – центр меньшего 6-угольника. Тогда
+прямая 𝐴𝐵 делит каждый из них на два равновеликих многоугольника, т.е. по каждую сторону 𝐴𝐵
+лежит половина площади каждого из двух упомянутых многоугольников – а значит, эта прямая
+удовлетворяет условиям задачи.
+
+Критерии оценивания:
+
+❼ доказано, что если центры многоугольников совпадают, то любая прямая, проходящая через
+эти центры, делит фигуру на равновеликие – 1 балл;
+
+❼ показано, что прямая, проходящая через центр правильного 2𝑛-угольника, делит его на два
+равных/равновеликих – 3 балла;
+
+❼ доказано, что требуемая прямая соединяет центры многоугольников – 5 баллов.
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly) Here
+and later we will call the center of a regular 2𝑛-gon the center of its circumcircle – it is located at the
+intersection of the largest diagonals of the 2𝑛-gon. Note that an arbitrary line 𝑙 passing through the
+center of a regular 2𝑛-gon divides it into two equal (and therefore having equal areas) polygons: they
+coincide after rotating around the center of the original 2𝑛-gon by 180∘ .
+
+Let 𝐴 be the center of the original (larger) octagon, and 𝐵 the center of the smaller 6-gon. Then
+the line 𝐴𝐵 divides each of them into two equal polygons, i.e. by each side from 𝐴𝐵 lies half the area
+of each of the two polygons, which means that the line satisfies the task’s conditions.
+
+Criteria:
+
+❼ it has been proven that if the centers of the polygons coincide, then any line passing through these
+centers divides the figure into two with equal areas – 1 point;
+
+❼ it is shown that a line passing through the center of a regular 2𝑛-gon divides it into two equal/equal-sized – 3 points;
+
+❼ it is proved that the required line connects the centers of the polygons – 5 points.
+
+10-12𝑡ℎ degree
+
+Task 1.
+
+1. Игорь, администратор технической поддержки ВКонтакте, помогает восстанавливать аккаунты пользователей и попутно отвечает на их вопросы. За одну минуту Игорь может сделать
+одно из следующих действий:
+❼ восстановить один аккаунт, но тогда еще один аккаунт сломается (возможно, тот же);
+❼ восстановить два аккаунта – тогда появится новый вопрос от пользователя;
+❼ ответить на один вопрос пользователя – тогда появятся два новых вопроса;
+❼ восстановить один аккаунт и ответить на один вопрос – тогда сломается один аккаунт
+(возможно, тот же).
+Изначально были проблемы с 10 аккаунтами пользователей, и 15 пользователей написали в
+техподдержку свои вопросы. Если Игорю удастся в какой-то момент свести к нулю и проблемы с аккаунтами, и количество вопросов пользователей, то новых проблем и вопросов
+сегодня уже не будет. За какое минимальное время (в минутах) Игорь сможет добиться этого?
+Igor, who is VKontakte technical support administrator, helps restore user accounts and answers
+their questions along the way. In one minute, Igor can do one of the following actions:
+❼ restore one account, but then another account will break (possibly the restored one);
+❼ restore two accounts – then a new question from the user will appear;
+❼ answer one user question – then two new questions will appear;
+❼ restore one account and answer one question – then one account (possibly the restored one)
+will break.
+Initially, there were problems with 10 user accounts, and 15 users wrote to technical support with
+their questions. If at some point Igor manages to reduce problems with accounts and the number of
+user questions to zero, then there will be no new problems and questions today. In what minimum
+amount of time (in minutes) can Igor achieve this?
+Answer: 24
+
+2. Игорь, администратор технической поддержки ВКонтакте, помогает восстанавливать аккаунты пользователей и попутно отвечает на их вопросы. За одну минуту Игорь может сделать
+одно из следующих действий:
+
+❼ восстановить один аккаунт, но тогда еще один аккаунт сломается (возможно, тот же);
+
+❼ восстановить два аккаунта – тогда появится новый вопрос от пользователя;
+❼ ответить на один вопрос пользователя – тогда появятся два новых вопроса;
+❼ восстановить один аккаунт и ответить на один вопрос – тогда сломается один аккаунт
+
+(возможно, тот же).
+
+Изначально были проблемы с 14 аккаунтами пользователей, и 15 пользователей написали в
+техподдержку свои вопросы. Если Игорю удастся в какой-то момент свести к нулю и проблемы с аккаунтами, и количество вопросов пользователей, то новых проблем и вопросов
+сегодня уже не будет. За какое минимальное время (в минутах) Игорь сможет добиться этого?
+
+Igor, who is VKontakte technical support administrator, helps restore user accounts and answers
+their questions along the way. In one minute, Igor can do one of the following actions:
+
+❼ restore one account, but then another account will break (possibly the restored one);
+
+❼ restore two accounts – then a new question from the user will appear;
+
+❼ answer one user question – then two new questions will appear;
+
+❼ restore one account and answer one question – then one account (possibly the restored one)
+will break.
+
+Initially, there were problems with 14 user accounts, and 15 users wrote to technical support with
+their questions. If at some point Igor manages to reduce problems with accounts and the number of
+user questions to zero, then there will be no new problems and questions today. In what minimum
+amount of time (in minutes) can Igor achieve this?
+
+Answer: 28
+
+3. Игорь, администратор технической поддержки ВКонтакте, помогает восстанавливать аккаунты пользователей и попутно отвечает на их вопросы. За одну минуту Игорь может сделать
+одно из следующих действий:
+
+❼ восстановить один аккаунт, но тогда еще один аккаунт сломается (возможно, тот же);
+
+❼ восстановить два аккаунта – тогда появится новый вопрос от пользователя;
+❼ ответить на один вопрос пользователя – тогда появятся два новых вопроса;
+❼ восстановить один аккаунт и ответить на один вопрос – тогда сломается один аккаунт
+
+(возможно, тот же).
+
+Изначально были проблемы с 12 аккаунтами пользователей, и 18 пользователей написали в
+техподдержку свои вопросы. Если Игорю удастся в какой-то момент свести к нулю и проблемы с аккаунтами, и количество вопросов пользователей, то новых проблем и вопросов
+сегодня уже не будет. За какое минимальное время (в минутах) Игорь сможет добиться этого?
+
+Igor, who is VKontakte technical support administrator, helps restore user accounts and answers
+their questions along the way. In one minute, Igor can do one of the following actions:
+
+❼ restore one account, but then another account will break (possibly the restored one);
+
+❼ restore two accounts – then a new question from the user will appear;
+
+❼ answer one user question – then two new questions will appear;
+
+❼ restore one account and answer one question – then one account (possibly the restored one)
+will break.
+
+Initially, there were problems with 12 user accounts, and 18 users wrote to technical support with
+their questions. If at some point Igor manages to reduce problems with accounts and the number of
+user questions to zero, then there will be no new problems and questions today. In what minimum
+amount of time (in minutes) can Igor achieve this?
+
+Answer: 29
+
+4. Игорь, администратор технической поддержки ВКонтакте, помогает восстанавливать аккаунты пользователей и попутно отвечает на их вопросы. За одну минуту Игорь может сделать
+одно из следующих действий:
+
+❼ восстановить один аккаунт, но тогда еще один аккаунт сломается (возможно, тот же);
+
+❼ восстановить два аккаунта – тогда появится новый вопрос от пользователя;
+❼ ответить на один вопрос пользователя – тогда появятся два новых вопроса;
+❼ восстановить один аккаунт и ответить на один вопрос – тогда сломается один аккаунт
+
+(возможно, тот же).
+
+Изначально были проблемы с 15 аккаунтами пользователей, и 10 пользователей написали в
+техподдержку свои вопросы. Если Игорю удастся в какой-то момент свести к нулю и проблемы с аккаунтами, и количество вопросов пользователей, то новых проблем и вопросов
+сегодня уже не будет. За какое минимальное время (в минутах) Игорь сможет добиться этого?
+
+Igor, who is VKontakte technical support administrator, helps restore user accounts and answers
+their questions along the way. In one minute, Igor can do one of the following actions:
+
+❼ restore one account, but then another account will break (possibly the restored one);
+
+❼ restore two accounts – then a new question from the user will appear;
+
+❼ answer one user question – then two new questions will appear;
+
+❼ restore one account and answer one question – then one account (possibly the restored one)
+will break.
+
+Initially, there were problems with 15 user accounts, and 10 users wrote to technical support with
+their questions. If at some point Igor manages to reduce problems with accounts and the number of
+user questions to zero, then there will be no new problems and questions today. In what minimum
+amount of time (in minutes) can Igor achieve this?
+
+Answer: 23
+Solution (RUS). (представлено решение варианта №1, остальные решаются аналогично) Пусть
+есть 𝑚 «сломанных» аккаунтов и 𝑛 вопросов пользователей – сопоставим паре (𝑚,𝑛) точку с соответствующими координатами на плоскости. Тогда действиям Игоря (и описанным в условии
+последствиям этих действий) поставим в соответствие векторы:
+
+❼ вектор −→𝑎 = (0,0): «восстановить один аккаунт, но тогда еще один аккаунт сломается (возможно, тот же)»;
+
+❼ вектор −→𝑏 = (−2,1): «восстановить два аккаунта – тогда появится новый вопрос от пользователя»;
+
+❼ вектор −→𝑐 = (0,1): «ответить на один вопрос пользователя – тогда появятся два новых вопроса»;
+
+❼ вектор −→𝑑 = (0,−1): «восстановить один аккаунт и ответить на один вопрос – тогда сломается
+один аккаунт (возможно, тот же)».
+
+Т.е. выполнить действие – значит переместиться вдоль соответствующего вектора, при этом не
+нарушая условия неотрицательности координат его концов (кол-ва аккаунтов и вопросов – целые
+неотрицательные числа). Цель – попасть в точку (0,0) – это будет означать, что не осталось
+проблем с аккаунтами и вопросами пользователей.
+
+Сразу заметим, что действия, соответствующие векторам −→𝑎 и −→𝑐 , не приводят к приближению
+к (0,0), кроме случаев, когда эти действия выполняются из точек (1,0) и (0,1), соответственно.
+Иными словами, из этих действий Игорю пригодится не более одного, причем если и пригодится,
+то только 1 раз – в самую последнюю минуту.
+
+Чтобы переместиться в точку (0,0) действиями, соответствующими векторам −→𝑏 и −→𝑑 , нужно находиться в точках (2,0) и (1,1), соответственно.
+
+Итак, при помощи векторов −→𝑏 и −→𝑑 необходимо переместиться из точки (10,15) в точку (2,0),
+либо (1,1), либо (1,0), либо (0,1) за минимальное количество «шагов», после чего потребуется еще
+один шаг для перемещения в (0,0).
+
+Рассмотрим случай перемещения в (2,0): пусть для этого потребовалось 𝑥 векторов −→𝑏 и 𝑦
+векторов −→𝑑 , т.е. 𝑥 ·
+
+−→𝑏 + 𝑦 ·
+
+−→𝑑 = (−8,−15), или
+{︃−2𝑥 + 0𝑦 = −8
+1𝑥 − 1𝑦 = −15
+
+,
+откуда 𝑥 = 4, 𝑦 = 19, т.е. всего Игорю потребуется 4+19+1 = 24 действия. Аналогичным образом
+рассмотрев точки (1,1), (1,0), (0,1), получим, что найденные 24 действия – самый быстрый из
+возможных способов.
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly) Let
+there be 𝑚 «broken» accounts and 𝑛 user questions – match the (𝑚,𝑛) pair to a point with the
+corresponding coordinates on the plane. Then we will associate Igor’s actions (and the consequences of
+these actions described in the task’s formulation) with the following vectors:
+
+❼ vector −→𝑎 = (0,0): «restore one account, but then another account will break (possibly the restored
+one)»;
+
+❼ vector −→𝑏 = (−2,1): «restore two accounts – then a new question from the user will appear»;
+
+❼ vector −→𝑐 = (0,1): «answer one user question – then two new questions will appear»;
+
+❼ vector −→𝑑 = (0,−1): «restore one account and answer one question – then one account (possibly
+the restored one) will break».
+
+To perform an action means to move along the corresponding vector, without violating the condition
+of non-negativity of the coordinates of its ends (the number of accounts and questions are non-negative
+integers). The goal is to get to the point (0,0) – by that, there will be no problems left with accounts
+and user questions.
+
+Note that the actions corresponding to the vectors −→𝑎 and −→𝑐 do not lead to (0,0), except when
+these actions are performed from points (1,0) and (0,1), respectively. In other words, Igor will need no
+more than one of these actions, and if he does, it will be only once – at the very last minute.
+To move to the point (0,0) by actions corresponding to vectors −→𝑏 and −→𝑑 , you need to be at points
+
+(2,0) and (1,1) , respectively.
+So, it is necessary to use the vectors −→𝑏 and −→𝑑 to move from point (10,15) to point (2,0), or (1,1), or
+
+(1,0) or (0,1) in a minimum number of «steps», after which it would take another step to move to (0,0).
+
+Consider the case of moving to (2,0): let this require 𝑥 vectors −→𝑏 and 𝑦 vectors −→𝑑 , i.e. 𝑥·
+
+−→𝑏 +𝑦·
+
+−→𝑑 =
+
+(−8,−15), or {︃−2𝑥 + 0𝑦 = −8
+1𝑥 − 1𝑦 = −15
+
+,
+thus 𝑥 = 4, 𝑦 = 19, i.e. Igor will need 4 + 19 + 1 = 24 actions in total. Having similarly considered the
+points (1,1), (1,0), (0,1), we find that the 24 actions just found are the fastest possible way to achieve
+the goal.
+
+Task 2.
+
+1. В остроугольном △𝐴𝐵𝐶 высота, опущенная на сторону 𝐵𝐶, равна 10. На меньших дугах
+𝐴𝐵,𝐴𝐶 окружности, описанной около △𝐴𝐵𝐶, отмечены точки 𝑃,𝑄 (соответственно) так,
+что расстояния от точки 𝐴 до прямых 𝐵𝑃,𝐶𝑄 соответственно равны 4 и 6. Найдите расстояние от точки 𝐴 до прямой 𝑃𝑄. Ответ запишите в виде целого числа или десятичной дроби,
+округленной до сотых.
+
+In an acute-angled △𝐴𝐵𝐶 the height to its side 𝐵𝐶 is equal to 10. On the lesser arcs 𝐴𝐵,𝐴𝐶 of
+the △𝐴𝐵𝐶 circumcircle, points 𝑃,𝑄 are marked respectively such that the distances from point
+𝐴 to lines 𝐵𝑃,𝐶𝑄 are equal to 4 and 6, respectively. Calculate the distance from point 𝐴 to line
+𝑃𝑄. Write your answer as an integer or a decimal rounded to the nearest hundredth.
+
+Answer: 2.4
+
+2. В остроугольном △𝐴𝐵𝐶 высота, опущенная на сторону 𝐵𝐶, равна 10. На меньших дугах
+𝐴𝐵,𝐴𝐶 окружности, описанной около △𝐴𝐵𝐶, отмечены точки 𝑃,𝑄 (соответственно) так,
+что расстояния от точки 𝐴 до прямых 𝐵𝑃,𝐶𝑄 соответственно равны 7 и 5. Найдите расстояние от точки 𝐴 до прямой 𝑃𝑄. Ответ запишите в виде целого числа или десятичной дроби,
+округленной до сотых.
+
+In an acute-angled △𝐴𝐵𝐶 the height to its side 𝐵𝐶 is equal to 10. On the lesser arcs 𝐴𝐵,𝐴𝐶 of
+the △𝐴𝐵𝐶 circumcircle, points 𝑃,𝑄 are marked respectively such that the distances from point
+𝐴 to lines 𝐵𝑃,𝐶𝑄 are equal to 7 and 5, respectively. Calculate the distance from point 𝐴 to line
+𝑃𝑄. Write your answer as an integer or a decimal rounded to the nearest hundredth.
+
+Answer: 3.5
+
+3. В остроугольном △𝐴𝐵𝐶 высота, опущенная на сторону 𝐵𝐶, равна 8. На меньших дугах
+𝐴𝐵,𝐴𝐶 окружности, описанной около △𝐴𝐵𝐶, отмечены точки 𝑃,𝑄 (соответственно) так,
+что расстояния от точки 𝐴 до прямых 𝐵𝑃,𝐶𝑄 соответственно равны 4 и 6. Найдите расстояние от точки 𝐴 до прямой 𝑃𝑄. Ответ запишите в виде целого числа или десятичной дроби,
+округленной до сотых.
+
+In an acute-angled △𝐴𝐵𝐶 the height to its side 𝐵𝐶 is equal to 8. On the lesser arcs 𝐴𝐵,𝐴𝐶 of
+the △𝐴𝐵𝐶 circumcircle, points 𝑃,𝑄 are marked respectively such that the distances from point
+𝐴 to lines 𝐵𝑃,𝐶𝑄 are equal to 4 and 6, respectively. Calculate the distance from point 𝐴 to line
+𝑃𝑄. Write your answer as an integer or a decimal rounded to the nearest hundredth.
+
+Answer: 3
+
+4. В остроугольном △𝐴𝐵𝐶 высота, опущенная на сторону 𝐵𝐶, равна 6. На меньших дугах
+𝐴𝐵,𝐴𝐶 окружности, описанной около △𝐴𝐵𝐶, отмечены точки 𝑃,𝑄 (соответственно) так,
+что расстояния от точки 𝐴 до прямых 𝐵𝑃,𝐶𝑄 соответственно равны 5 и 3. Найдите расстояние от точки 𝐴 до прямой 𝑃𝑄. Ответ запишите в виде целого числа или десятичной дроби,
+округленной до сотых.
+
+In an acute-angled △𝐴𝐵𝐶 the height to its side 𝐵𝐶 is equal to 6. On the lesser arcs 𝐴𝐵,𝐴𝐶 of
+the △𝐴𝐵𝐶 circumcircle, points 𝑃,𝑄 are marked respectively such that the distances from point
+
+𝐴 to lines 𝐵𝑃,𝐶𝑄 are equal to 5 and 3, respectively. Calculate the distance from point 𝐴 to line
+𝑃𝑄. Write your answer as an integer or a decimal rounded to the nearest hundredth.
+
+Answer: 2.5
+
+Solution (RUS). (представлено решение варианта №1, остальные решаются аналогично) Пусть
+𝐷,𝐸,𝐹,𝐻 – основания перпендикуляров, проведенных из точки 𝐴 к прямым 𝐵𝐶,𝐵𝑃,𝐶𝑄,𝑃𝑄 соответственно.
+Тогда точки 𝐴,𝐻,𝑃,𝐸 лежат на одной окружности c диаметром 𝐴𝑃, т.к. ∠𝐴𝐸𝑃 = ∠𝐴𝐻𝑃 = 90∘;
+аналогично показываем, что точки 𝐴,𝐷,𝐶,𝐹 лежат на одной окружности с диаметром 𝐴𝐶. Тогда
+∠𝐴𝐸𝐻 = ∠𝐴𝑃𝐻 = ∠𝐴𝐶𝑄 = ∠𝐴𝐷𝐹; также ∠𝐸𝐴𝐻 = 180∘ − ∠𝐸𝑃𝐻 = ∠𝐵𝑃𝑄 = 180∘ − ∠𝐷𝐶𝑄 =
+∠𝐷𝐴𝐹.
+
+Следовательно, треугольники 𝐴𝐸𝐻 и 𝐴𝐷𝐹 подобны по двум углам, откуда 𝐴𝐻𝐴𝐹 = 𝐴𝐷𝐴𝐸 ⇒ 𝐴𝐻 =
+
+𝐴𝐹·𝐴𝐸
+
+𝐴𝐷 = 2.4.
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly) Let
+𝐷,𝐸,𝐹,𝐻 be the bases of the perpendiculars drawn from the point 𝐴 to the lines 𝐵𝐶,𝐵𝑃,𝐶𝑄,𝑃𝑄,
+respectively.
+Then the points 𝐴,𝐻,𝑃,𝐸 lie on the same circle with diameter 𝐴𝑃, because ∠𝐴𝐸𝑃 = ∠𝐴𝐻𝑃 = 90∘;
+similarly, the points 𝐴,𝐷,𝐶,𝐹 lie on the same circle with diameter 𝐴𝐶. Then ∠𝐴𝐸𝐻 = ∠𝐴𝑃𝐻 =
+∠𝐴𝐶𝑄 = ∠𝐴𝐷𝐹; also ∠𝐸𝐴𝐻 = 180∘ − ∠𝐸𝑃𝐻 = ∠𝐵𝑃𝑄 = 180∘ − ∠𝐷𝐶𝑄 = ∠𝐷𝐴𝐹.
+
+Therefore, triangles 𝐴𝐸𝐻 and 𝐴𝐷𝐹 are similar, whence 𝐴𝐻𝐴𝐹 = 𝐴𝐷𝐴𝐸 ⇒ 𝐴𝐻 = 𝐴𝐹𝐴𝐷·𝐴𝐸 = 2.4.
+
+Task 3.
+
+1. Найдите минимальное натуральное 𝑘, при котором 𝑘! нацело делится на 22024. По определению 𝑘! = 1 · 2 · 3···(𝑘 − 1) · 𝑘.
+Find the smallest positive integer 𝑘 such that 𝑘! is divisible by 22024. By definition 𝑘! = 1 · 2 ·
+3···(𝑘 − 1) · 𝑘.
+Answer: 2032
+
+2. Найдите минимальное натуральное 𝑘, при котором 𝑘! нацело делится на 22026. По определению 𝑘! = 1 · 2 · 3···(𝑘 − 1) · 𝑘.
+Find the smallest positive integer 𝑘 such that 𝑘! is divisible by 22026. By definition 𝑘! = 1 · 2 ·
+3···(𝑘 − 1) · 𝑘.
+Answer: 2034
+
+3. Найдите минимальное натуральное 𝑘, при котором 𝑘! нацело делится на 22032. По определению 𝑘! = 1 · 2 · 3···(𝑘 − 1) · 𝑘.
+
+Find the smallest positive integer 𝑘 such that 𝑘! is divisible by 22032. By definition 𝑘! = 1 · 2 ·
+3···(𝑘 − 1) · 𝑘.
+
+Answer: 2040
+
+4. Найдите минимальное натуральное 𝑘, при котором 𝑘! нацело делится на 22021. По определению 𝑘! = 1 · 2 · 3···(𝑘 − 1) · 𝑘.
+
+Find the smallest positive integer 𝑘 such that 𝑘! is divisible by 22021. By definition 𝑘! = 1 · 2 ·
+3···(𝑘 − 1) · 𝑘.
+
+Answer: 2028
+
+Solution (RUS). (представлено решение варианта №1, остальные решаются аналогично) Сначала докажем, что для любого натурального 𝑛 число (2𝑛)! кратно 2(2𝑛−1), но не кратно 22𝑛.
+В произведении (2𝑛)! = 1 · 2···(2𝑛 − 1) · (2𝑛) есть ровно 2𝑛/2 = 2𝑛−1 четных сомножителей (добавляют 1 к степени двойки в разложение (2𝑛)! на простые множители), 2𝑛/4 = 2𝑛−2 сомножителей, кратных 4 (добавляют еще по 1 к степени двойки в разложение (2𝑛)! на простые множители), 2𝑛−3 сомножителей, кратных 8, ..., 2𝑛−𝑛 = 1 сомножитель, кратный 2𝑛 (еще +1 к
+степени двойки) – итак, число 2 входит в разложение (2𝑛)! на простые множители в степени
+2𝑛−1 + 2𝑛−2 + ··· + 21 + 20 = 2𝑛 − 1, что доказывает требуемое.
+
+В нашей задаче нужно подобрать такое 𝑛, что (2𝑛 − 1) ближе всего к 2024. Это 11 и 𝑘 = 211 =
+2048; тогда (211 − 1) = 2047. Нам нужно найти минимальное 𝑘 такое, чтобы 𝑘! было кратно 22024.
+Будем уменьшать 𝑘 и смотреть, как уменьшается степень двойки в разложении 𝑘!. Например,
+2047! имеет на 11 двоек в разложении меньше, чем 2048! – нет множителя 2048 = 211; 2033! имеет на 22 двойки меньше (нет множителей с 2034 по 2048, их произведение кратно 222) – значит,
+2033! делится на 22025. А вот выбросить следующий чётный множитель, 2032, мы не можем – 2032
+делится на 8, и 2031! будет кратно лишь 22023. Поэтому минимальное 𝑘, при котором 𝑘! нацело
+делится на 22024, равно 2032.
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly) Lets
+prove that for any positive integer 𝑛 the number (2𝑛)! is a multiple of 2(2𝑛−1), but not a multiple of 22𝑛.
+The product (2𝑛)! = 1 · 2···(2𝑛 − 1) · (2𝑛) has exactly 2𝑛/2 = 2𝑛−1 even factors (adding 1 to the power
+of 2 in the representation of (2𝑛)! as a product of primes), 2𝑛/4 = 2𝑛−2 factors that are multiples of 4
+(add another 1 to the power of 2 in the representation of (2𝑛)! as a product of primes), 2𝑛−3 factors are
+multiples of 8, ..., 2𝑛−𝑛 = 1 factor is a multiple of 2𝑛 (+1 more to the power of 2) – so, the number 2 is
+included in the representation of (2𝑛)! into prime factors in the power of 2𝑛−1+2𝑛−2+···+21+20 = 2𝑛−1,
+which proves what is required.
+
+In the task presented, we need to find a number 𝑛 such that (2𝑛 − 1) is closest to 2024. This is 11
+with 𝑘 = 211 = 2048; then (211 − 1) = 2047. We need to find a minimum 𝑘 such that 𝑘! is a multiple of
+22024. We will reduce 𝑘 and see how the number of powers of two in the expansion of 𝑘! decreases. For
+example, 2047! has 11 fewer twos in the expansion than 2048! – there is no multiplier 2048; 2033! has
+22 fewer 2s (there are no multipliers 2034 through 2048, their product is a multiple of 222). So, 2033!
+is divisible by 22025. But we can’t throw away the next even multiplier 2032 since is divisible by 8, and
+2031! will only be a multiple of 22023. Therefore, the smallest 𝑘 such that 𝑘! is divisible by 22024 is 2032.
+
+Task 4.
+
+1. Тройка натуральных чисел (𝑥,𝑦,𝑧) удовлетворяет уравнению
+𝑥2 + 2023𝑦2 = 𝑧2
+
+Также известно, что 𝑦 > 113 – простое число, а 𝑧 – наименьшее при данном 𝑦. Чему равно
+𝑥2 + 2023𝑦2 = 𝑧2
+
+наибольшее возможное значение 𝑥𝑧? Запишите ответ в виде целого числа или десятичной
+дроби, округленной до сотых.
+
+Triple of positive integers (𝑥,𝑦,𝑧) satisfies the equation
+
+It is also known that 𝑦 > 113 is a prime number, and 𝑧 is the smallest number for a given 𝑦. What
+is the largest possible value of 𝑥𝑧? Write your answer as an integer or a decimal rounded to the
+nearest hundredth.
+
+Answer: 1.33
+
+2. Тройка натуральных чисел (𝑥,𝑦,𝑧) удовлетворяет уравнению
+𝑥2 + 845𝑦2 = 𝑧2
+Также известно, что 𝑦 > 61 – простое число, а 𝑧 – наименьшее при данном 𝑦. Чему равно
+наибольшее возможное значение 𝑥𝑧? Запишите ответ в виде целого числа или десятичной
+дроби, округленной до сотых.
+Triple of positive integers (𝑥,𝑦,𝑧) satisfies the equation
+𝑥2 + 845𝑦2 = 𝑧2
+It is also known that 𝑦 > 61 is a prime number, and 𝑧 is the smallest number for a given 𝑦. What
+is the largest possible value of 𝑥𝑧? Write your answer as an integer or a decimal rounded to the
+nearest hundredth.
+Answer: 1.5
+
+3. Тройка натуральных чисел (𝑥,𝑦,𝑧) удовлетворяет уравнению
+𝑥2 + 3179𝑦2 = 𝑧2
+Также известно, что 𝑦 > 181 – простое число, а 𝑧 – наименьшее при данном 𝑦. Чему равно
+наибольшее возможное значение 𝑥𝑧? Запишите ответ в виде целого числа или десятичной
+дроби, округленной до сотых.
+Triple of positive integers (𝑥,𝑦,𝑧) satisfies the equation
+𝑥2 + 3179𝑦2 = 𝑧2
+It is also known that 𝑦 > 181 is a prime number, and 𝑧 is the smallest number for a given 𝑦. What
+is the largest possible value of 𝑥𝑧? Write your answer as an integer or a decimal rounded to the
+nearest hundredth.
+Answer: 1.2
+
+4. Тройка натуральных чисел (𝑥,𝑦,𝑧) удовлетворяет уравнению
+𝑥2 + 1859𝑦2 = 𝑧2
+
+Также известно, что 𝑦 > 139 – простое число, а 𝑧 – наименьшее при данном 𝑦. Чему равно
+𝑥2 + 1859𝑦2 = 𝑧2
+
+It is also known that 𝑦 > 139 is a prime number, and 𝑧 is the smallest number for a given 𝑦. What
+is the largest possible value of 𝑥𝑧? Write your answer as an integer or a decimal rounded to the
+nearest hundredth.
+
+Answer: 1.2
+
+Solution (RUS). (представлено решение варианта №1, остальные решаются аналогично) Так
+как 𝑧2 > 𝑥2, пусть 𝑧 = 𝑥 + 𝑘, где 𝑘 – натуральное число:
+𝑥2 + 2023𝑦2 = (𝑥 + 𝑘)2
+𝑥2 + 2023𝑦2 = 𝑥2 + 2𝑘𝑥 + 𝑘2
+2𝑘𝑥 = 2023𝑦2 − 𝑘2
+
+2023𝑦2 − 𝑘2
+2𝑘
+𝑥 =
+
+, (1)
+откуда
+
+2023𝑦2 + 𝑘2
+2𝑘
+
+(2)
+Из равенства (1) и того, что 𝑥 – натуральное, делаем следующие выводы:
+𝑧 =
+𝑘 < 45𝑦 (3)
+(︀
+
+)︀ ... 2 (4)
+(︀
+
+2023𝑦2 − 𝑘2
+
+)︀ ... 𝑘 (5)
+Если выбранное значение 𝑘 удовлетворяет (3)-(5), то оно дает нам решение исходного уравнения.
+Теперь покажем, что при увеличении значения 𝑘 значение 𝑧 уменьшается для любого 𝑦. Под-
+
+2023𝑦2 − 𝑘2
+ставим в выражение (2) значения 𝑘 и 𝑘 + 1 и получим следующее неравенство:
+
+2023𝑦2 + (𝑘 + 1)2
+2(𝑘 + 1) ∨
+
+2023𝑦2 + 𝑘2
+2𝑘
+
+(здесь вместо ∨ должен стоять знак неравенства), которое сводится к:
+𝑘 ∨ 4046𝑦2 − 1
+Соединяя с неравенством (3), получаем:
+
+0 ∨ 4046𝑦2 − 45𝑦 − 1
+
+Для любого натурального 𝑦 вместо ∨ здесь должен стоять знак <, что и требовалось доказать. Таким образом, вопрос задачи сводится к нахождению наибольшего значения 𝑘, удовлетворяющего
+критериям (3)-(5).
+
+2023 = 7 · 172. Значения 𝑘 = 7 · 17𝑦,172𝑦, 7 · 172𝑦, 17𝑦2, 7 · 17𝑦2,172𝑦2, 7 · 172𝑦2 не подходят под
+критерий (3). Также под него не подходит 𝑘 = 𝑦2, т.к. 𝑦2 > 45𝑦 (𝑦 > 113 > 45). Под перечисленные
+критерии подходят только 1,7,17,7·17 = 119,172 = 289,𝑦,7𝑦,17𝑦. Если сравнить их между собой,
+то получится, что 17𝑦 > 2023 (т.к. 𝑦 > 119). Значит, 𝑘 = 17𝑦 является наибольшим из подходящих,
+и
+
+2023𝑦2 + 289𝑦2
+2023𝑦2 − 289𝑦2
+
+4
+3 ≈ 1.33
+𝑧
+𝑥
+
+=
+
+=
+max
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly) Since
+𝑧2 > 𝑥2, let 𝑧 = 𝑥 + 𝑘 for some is a positive integer 𝑘:
+𝑥2 + 2023𝑦2 = (𝑥 + 𝑘)2
+𝑥2 + 2023𝑦2 = 𝑥2 + 2𝑘𝑥 + 𝑘2
+2𝑘𝑥 = 2023𝑦2 − 𝑘2
+
+2023𝑦2 − 𝑘2
+2𝑘
+𝑥 =
+
+, (1)
+thus
+
+2023𝑦2 + 𝑘2
+2𝑘
+
+(2)
+From (1) and the fact 𝑥 ∈ N we get
+𝑧 =
+𝑘 < 45𝑦 (3)
+(︀
+
+)︀ ... 2 (4)
+(︀
+
+2023𝑦2 − 𝑘2
+
+)︀ ... 𝑘 (5)
+If some 𝑘 satisfies (3)-(5), then it gives us a solution to the initial equation.
+
+2023𝑦2 − 𝑘2
+
+Lets show that as the value of 𝑘 increases, the value of 𝑧 decreases for any 𝑦. We substitute the
+values 𝑘 and 𝑘 + 1 into expression (2) and obtain the following inequality:
+
+2023𝑦2 + (𝑘 + 1)2
+2(𝑘 + 1) ∨
+
+2023𝑦2 + 𝑘2
+2𝑘
+
+(there should be an inequality sign instead of ∨), which simplifies to:
+𝑘 ∨ 4046𝑦2 − 1
+Combining with inequality (3), we get:
+
+0 ∨ 4046𝑦2 − 45𝑦 − 1
+
+For any positive integer 𝑦, instead of ∨ there must be a sign <, which is what we needed to prove. Thus,
+the task is reduced to finding the largest value of 𝑘 that satisfies criteria (3)-(5).
+
+2023 = 7 · 172. The values 𝑘 = 7 · 17𝑦,172𝑦, 7 · 172𝑦, 17𝑦2, 7 · 17𝑦2,172𝑦2, 7 · 172𝑦2 do not meet the
+criteria (3). Also, 𝑘 = 𝑦2 does not fit it since 𝑦2 > 45𝑦 (𝑦 > 113 > 45). Only 1,7,17,7 · 17 = 119,172 =
+289,𝑦,7𝑦,17𝑦 fit the criteria. If we compare them with each other, it turns out that 17𝑦 > 2023 (since
+𝑦 > 119). By that, 𝑘 = 17𝑦 is the largest suitable one, and
+
+Task 5.
+𝑧
+𝑥
+max
+
+2023𝑦2 + 289𝑦2
+2023𝑦2 − 289𝑦2
+
+=
+
+4
+3 ≈ 1.33
+
+=
+
+1. Анна утверждает, что можно записать число, кратное 20232024, не используя цифры «0» и
+последовательностей цифр «13» и «666», а суеверный Тимур говорит, что это невозможно.
+Кто из них прав? Обоснуйте свой ответ с помощью математики, а не суеверий.
+
+Anna claims that it is possible to write a number that is a multiple of 20232024 without using
+the digit «0» and the sequences of digits «13» and «666», but superstitious Timur says that it’s
+impossible. Who is right? Explain your answer using mathematics, not superstition.
+
+2. Анна утверждает, что можно записать число, кратное 20232023, не используя цифры «0» и
+последовательностей цифр «13» и «666», а суеверный Тимур говорит, что это невозможно.
+Кто из них прав? Обоснуйте свой ответ с помощью математики, а не суеверий.
+Anna claims that it is possible to write a number that is a multiple of 20232023 without using
+the digit «0» and the sequences of digits «13» and «666», but superstitious Timur says that it’s
+impossible. Who is right? Explain your answer using mathematics, not superstition.
+
+3. Анна утверждает, что можно записать число, кратное 202320232023, не используя цифры «0»
+и последовательностей цифр «13» и «666», а суеверный Тимур говорит, что это невозможно.
+Кто из них прав? Обоснуйте свой ответ с помощью математики, а не суеверий.
+Anna claims that it is possible to write a number that is a multiple of 202320232023 without using
+the digit «0» and the sequences of digits «13» and «666», but superstitious Timur says that it’s
+impossible. Who is right? Explain your answer using mathematics, not superstition.
+
+4. Анна утверждает, что можно записать число, кратное 202320242023, не используя цифры «0»
+и последовательностей цифр «13» и «666», а суеверный Тимур говорит, что это невозможно.
+Кто из них прав? Обоснуйте свой ответ с помощью математики, а не суеверий.
+
+Anna claims that it is possible to write a number that is a multiple of 202320242023 without using
+the digit «0» and the sequences of digits «13» and «666», but superstitious Timur says that it’s
+impossible. Who is right? Explain your answer using mathematics, not superstition.
+
+Solution (RUS). (представлено решение варианта №1, остальные решаются аналогично) Докажем, что требуемое число можно записать при помощи только цифры «1» – а значит, Анна
+права.
+
+Итак, пусть 𝑎𝑛 – натуральное число, десятичная запись которого состоит из 𝑛 «единиц», т.е.
+𝑎1 = 1, 𝑎2 = 11, 𝑎3 = 111, .... Пусть 𝑟𝑛 – остатки от деления 𝑎𝑛 на 20232024 при всевозможных
+натуральных 𝑛. Если среди 𝑟1,𝑟2,...,𝑟20232024 есть 𝑟𝑘 = 0, то соответствующее 𝑎𝑘 кратно 20232024,
+что доказывает правоту Анны.
+
+Если же среди 𝑟1,𝑟2,...,𝑟20232024 нет «0», то, согласно принципу Дирихле, найдутся 𝑟𝑖 = 𝑟𝑗 (𝑖 ̸= 𝑗;
+не ограничивая общности, будем считать 𝑖 < 𝑗). Тогда 𝑎𝑗 −𝑎𝑖 = 𝑎𝑗−𝑖 ·10𝑖 кратно 20232024, при этом
+10 взаимно просто с 2023 – а значит, 𝑎𝑗−𝑖 кратно 20232024, что доказывает правоту Анны.
+
+Критерии оценивания:
+
+❼ присутствует идея использовать в записи числа только одну цифру – 1 балл;
+
+❼ при рассмотрении остатков использован принцип Дирихле – 2 балла;
+
+❼ при рассмотрении остатков использован принцип Дирихле, доказано, что остаток при делении 𝑎𝑛 на нужное число может быть равен 0 – 3 балла;
+
+❼ верный ответ при незначительных ошибках в решении – 4 балла;
+
+❼ полностью верные решение и ответ – 5 баллов.
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly) Let’s
+prove that the required number can be written using only the digit «1», which means Anna is right.
+
+First, let 𝑎𝑛 be a positive integer which decimal notation consists of 𝑛 digits «1», i.e. 𝑎1 = 1, 𝑎2 = 11,
+𝑎3 = 111, .... Let 𝑟𝑛 be the remainders from dividing 𝑎𝑛 by 20232024 for all possible integers 𝑛. If among
+𝑟1,𝑟2,...,𝑟20232024 there is 𝑟𝑘 = 0, then the corresponding 𝑎𝑘 is a multiple of 20232024, which proves Anna
+is right.
+
+If among 𝑟1,𝑟2,...,𝑟20232024 there is no «0», then, according to the Dirichlet’s principle, there exist
+𝑟𝑖 = 𝑟𝑗 (𝑖 ̸= 𝑗; without loss of generality, we assume 𝑖 < 𝑗). Then 𝑎𝑗 − 𝑎𝑖 = 𝑎𝑗−𝑖 · 10𝑖 is a multiple of
+20232024, while 10 is coprime with 2023 – thus, 𝑎𝑗−𝑖 is a multiple of 20232024, which proves Anna is right.
+
+Criteria:
+
+❼ there is an idea to use only one digit to write the required number – 1 point;
+
+❼ when considering remainders, the Dirichlet principle was used – 2 points;
+
+❼ when considering remainders, the Dirichlet principle was used, also it was proven that the remainder
+when dividing 𝑎𝑛 by the required number can be equal to 0 – 3 points;
+
+❼ correct answer with minor errors in the solution – 4 points;
+
+❼ completely correct solution and answer – 5 points.
+
+Task 6.
+
+1. Из бo´льшего правильного 8-угольника вырезали меньший правильный 6-угольник. Опишите,
+как при помощи только математической линейки провести прямую так, чтобы она разделила
+оставшуюся фигуру на две равновеликие (т.е. равные по площади) фигуры. Помните, что
+математическая линейка позволяет проводить прямые через две отмеченные точки, а также
+отмечать пересечения прямых (отрезков, лучей), но не позволяет измерять длины отрезков.
+From the larger regular 8-gon a smaller regular 6-gon was cut out. Describe how to use a
+mathematical ruler to draw a straight line that divides the remaining figure into two figures
+with equal areas. Remember that a mathematical ruler allows you to draw straight lines through
+two marked points, as well as mark the intersections of straight lines (segments, rays), but does
+not allow you to measure the lengths of segments.
+
+2. Из б´oльшего правильного 6-угольника вырезали меньший правильный 10-угольник. Опишите, как при помощи только математической линейки провести прямую так, чтобы она разделила оставшуюся фигуру на две равновеликие (т.е. равные по площади) фигуры. Помните,
+что математическая линейка позволяет проводить прямые через две отмеченные точки, а
+также отмечать пересечения прямых (отрезков, лучей), но не позволяет измерять длины отрезков.
+From the larger regular 6-gon a smaller regular 10-gon was cut out. Describe how to use a
+mathematical ruler to draw a straight line that divides the remaining figure into two figures
+with equal areas. Remember that a mathematical ruler allows you to draw straight lines through
+two marked points, as well as mark the intersections of straight lines (segments, rays), but does
+not allow you to measure the lengths of segments.
+
+3. Из б´oльшего правильного 8-угольника вырезали меньший правильный 10-угольник. Опишите, как при помощи только математической линейки провести прямую так, чтобы она разделила оставшуюся фигуру на две равновеликие (т.е. равные по площади) фигуры. Помните,
+что математическая линейка позволяет проводить прямые через две отмеченные точки, а
+также отмечать пересечения прямых (отрезков, лучей), но не позволяет измерять длины отрезков.
+
+From the larger regular 8-gon a smaller regular 10-gon was cut out. Describe how to use a
+mathematical ruler to draw a straight line that divides the remaining figure into two figures
+with equal areas. Remember that a mathematical ruler allows you to draw straight lines through
+two marked points, as well as mark the intersections of straight lines (segments, rays), but does
+not allow you to measure the lengths of segments.
+
+4. Из б´oльшего правильного 10-угольника вырезали меньший правильный 6-угольник. Опишите, как при помощи только математической линейки провести прямую так, чтобы она разделила оставшуюся фигуру на две равновеликие (т.е. равные по площади) фигуры. Помните,
+что математическая линейка позволяет проводить прямые через две отмеченные точки, а
+также отмечать пересечения прямых (отрезков, лучей), но не позволяет измерять длины отрезков.
+
+From the larger regular 10-gon a smaller regular 6-gon was cut out. Describe how to use a
+mathematical ruler to draw a straight line that divides the remaining figure into two figures
+with equal areas. Remember that a mathematical ruler allows you to draw straight lines through
+two marked points, as well as mark the intersections of straight lines (segments, rays), but does
+not allow you to measure the lengths of segments.
+
+Solution (RUS). (представлено решение варианта №1, остальные решаются аналогично) Здесь
+и далее будем называть центром правильного 2𝑛-угольника центр описанной около него окружности – он располагается на пересечении наибольших диагоналей 2𝑛-угольника. Заметим, что
+произвольная прямая 𝑙, проходящая через центр правильного 2𝑛-угольника, делит его на два
+равных (а значит, и равновеликих) многоугольника: они совмещаются поворотом вокруг центра
+исходного 2𝑛-угольника на 180∘.
+
+Пусть 𝐴 – центр исходного (б´oльшего) 8-угольника, а 𝐵 – центр меньшего 6-угольника. Тогда
+прямая 𝐴𝐵 делит каждый из них на два равновеликих многоугольника, т.е. по каждую сторону 𝐴𝐵
+лежит половина площади каждого из двух упомянутых многоугольников – а значит, эта прямая
+удовлетворяет условиям задачи.
+
+Чтобы провести такую прямую, найдем точки 𝐴,𝐵: для этого проведем по две наибольшие
+диагонали исходных 8-угольника и 6-угольника. Теперь остается только отметить точки 𝐴,𝐵 пересечения упомянутых диагоналей, и затем провести прямую 𝐴𝐵.
+
+Критерии оценивания:
+
+❼ описана требуемая прямая, но не представлен алгоритм ее построения – 1 балл;
+
+❼ представлен алгоритм построения без доказательства – 3 балла;
+
+❼ представлен алгоритм построения с доказательством – 5 баллов.
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly) Here
+and later we will call the center of a regular 2𝑛-gon the center of its circumcircle – it is located at the
+intersection of the largest diagonals of the 2𝑛-gon. Note that an arbitrary line 𝑙 passing through the
+center of a regular 2𝑛-gon divides it into two equal (and therefore having equal areas) polygons: they
+coincide after rotating around the center of the original 2𝑛-gon by 180∘ .
+
+Let 𝐴 be the center of the original (larger) octagon, and 𝐵 the center of the smaller 6-gon. Then
+the line 𝐴𝐵 divides each of them into two equal polygons, i.e. by each side from 𝐴𝐵 lies half the area
+of each of the two polygons, which means that the line satisfies the task’s conditions.
+
+To draw such a line, we find points 𝐴,𝐵: to do that, we draw the two largest diagonals of the original
+octagon and hexagon. Now all that remains is to mark the intersection points 𝐴,𝐵 of the diagonals,
+and then draw the line 𝐴𝐵.
+
+Criteria:
+
+❼ the required line is described, but the algorithm for its construction is not presented – 1 point;
+
+❼ the construction algorithm is presented without proof – 3 points;
+
+❼ the construction algorithm with proof is presented – 5 points.

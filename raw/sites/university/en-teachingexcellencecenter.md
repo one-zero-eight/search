@@ -6,42 +6,42 @@ Twitter
 Instagram
 habr
 - University
-- About
-- Supervisory board
-- University team
-- Organizational structure
-- Educational and research departments
-- Technological centers
-- Academic staff
-- Faculty positions
-- Careers
-- Campus
-- Contacts
+- [About](https://innopolis.university/en/about/)
+- [Supervisory board](https://innopolis.university/en/board/)
+- [University team](https://innopolis.university/en/team/)
+- [Organizational structure](https://innopolis.university/en/team-structure/)
+- [Educational and research departments](https://innopolis.university/en/team-structure/education-academics/)
+- [Technological centers](https://innopolis.university/en/team-structure/techcenters/)
+- [Academic staff](https://innopolis.university/en/faculty/)
+- [Faculty positions](https://career.innopolis.university/en/job/)
+- [Careers](https://career.innopolis.university/en/)
+- [Campus](https://innopolis.university/en/campus)
+- [Contacts](https://innopolis.university/en/contacts/)
 ## Innopolis University
 Education, research and development in the field of IT and Robotics
 - Education
-- International applicants
+- [International applicants](https://apply.innopolis.university/en/)
 - Higher education
-- Bachelor's program
-- Master's programs
-- Postgraduate study
-- International relations office
-- Incoming Students
-- Outgoing Students
+- [Bachelor's program](https://apply.innopolis.university/en/bachelors/)
+- [Master's programs](https://apply.innopolis.university/en/masters/)
+- [Postgraduate study](https://apply.innopolis.university/en/postgraduate-study/)
+- [International relations office](https://innopolis.university/en/international-relations-office/)
+- [Incoming Students](https://innopolis.university/en/incomingstudents/)
+- [Outgoing Students](https://innopolis.university/en/outgoingstudents/)
 - Teaching Excellence Center
-- Writing Hub
+- [Writing Hub](https://innopolis.university/en/writinghubhome/)
 IU Writing Hub (WH) offers editing and proofreading service for IU faculty, researchers and students.
-- ALUMNI
+- [ALUMNI](https://alumni.innopolis.university/)
 ## Education
 World-class IT education in Russia in English
 - Research
-- Scientific Research activities
+- [Scientific Research activities](https://innopolis.university/en/science/)
 - Faculties
-- Faculty of Computer Science and Engineering
-- Faculty of Humanities and Social Sciences
-- NIR 2022
+- [Faculty of Computer Science and Engineering](https://innopolis.university/en/team-structure/team-faculty/)
+- [Faculty of Humanities and Social Sciences](https://innopolis.university/en/team-structure/team-faculty2/)
+- [NIR 2022](https://innopolis.university/en/nir2022/)
 Proceedings of the third international conference “Nonlinearity, information and robotics 2022”, August 24, 2022
-- Dissertation Council
+- [Dissertation Council](https://dissovet.innopolis.university/)
 Dissertation Council 75.2.113.01
 The Council was established at Innopolis University
 The Dissertation Council accepts doctoral and candidate dissertations for defense in the following scientific specialties:
@@ -49,31 +49,32 @@ The Dissertation Council accepts doctoral and candidate dissertations for defens
 ## Science
 Innopolis University has 17 laboratories and 9 research centers, which conduct research in the field of artificial intelligence, robotics, big data, software development, information security
 - Innovation
-- Project-based activities
-- Technological centers
-- Startup studio
+- [Project-based activities](https://innopolis.university/en/proekty/activity/)
+- [Technological centers](https://innopolis.university/en/team-structure/techcenters/)
+- [Startup studio](https://innopolis.university/en/startupstudio/)
 Development and support of student technology startups by creating a successful startup community; assistance in providing favorable conditions from external partners for investment and development of ideas.
 ## Innovation
 The university’s project-based activities are aimed at implementing grant-based and commercial projects, as well as at enhancing the availability of education in IT areas.
 - Cooperation
-- International partners
-- Event management
+- [International partners](https://innopolis.university/en/internationalpartners/)
+- [Event management](https://innopolis.university/en/organizatsiya-i-provedenie-meropriyatiy/)
 ## Innopolis University
 Education, research and development in the field of IT and Robotics
 - Account
-- Applicants personal account
-- Corporate mail
-- Corporate portal
-- IT-help portal
-- MY UNIVERSITY
-- School students personal account
+- [Applicants personal account](https://profile.innopolis.university/auth/login)
+- [Corporate mail](https://mail.innopolis.ru/owa/auth/logon.aspx?replaceCurrent=1&url=https%3a%2f%2fmail.innopolis.ru%2fowa%2f)
+- [Corporate portal](https://portal.university.innopolis.ru/)
+- [IT-help portal](https://it.university.innopolis.ru/otrs/customer.pl)
+- [MY UNIVERSITY](https://my.university.innopolis.ru/)
+- [School students personal account](https://dovuz.innopolis.university/login/)
 If you have problems with authorization, please contact it@innopolis.ru
-Personal account
-## Education
+[Personal account](https://innopolis.university/lk/)
+![](https://innopolis.university/upload/landing/096/image_5@1x.jpeg)
+## [Education](https://innopolis.university/en/#block1133)
 ## Teaching Excellence Center
 ## Center's Mission
 Teaching Excellence Center at Innopolis University functions as a community of practice and aims to contribute to professional development of teaching staff through synchronous and a-synchronous scheduled and on-demand trainings and mentoring.
-For TAs For Faculty Trainings
+[For TAs](https://innopolis.university/en/teachingexcellencecenter/fortas/) [For Faculty](https://innopolis.university/en/teachingexcellencecenter/forfaculty/) [Trainings](https://innopolis.university/en/teachingexcellencecenter/trainings/)
 TEACHING EXCELLENCE FROM STUDENTS' PERSEPCTIVE
 ## From students' perspective
 — Cooperation with students
@@ -168,43 +169,45 @@ Teaching excellence should penetrate all the levels of course organization:
 2. Conduct: this is one of the more important parts of the lecture, since poor material delivery may nullify excellent preparation, demotivate the students to attend the class and basically cancel out any potential benefits of the course, with the students reverting to online learning instead. The delivery must be engaging, the material interactive where possible, ideally with examples linking EVERY lecture with real-life cases or demonstrating how each lecture slots into the bigger picture of the course and IU curriculum as a whole, as well as serving as an important prerequisite for future classes.
 3. Feedback and knowledge assessment: the professor must listen and process student feedback, in a TIMELY manner. Assignments must be graded and the scores announced in as short time period as possible so that the students can quickly adapt their learning, which is especially true for the block system. Graded assignments must be designed in such a way so that they give a reasonable challenge to the students, potentially delving a bit deeper into material or requiring some self-study if the deadlines are adequate. As a good option to keep everyone engaged, there might be bonus assignments of higher complexity so that the best students feel engaged as well.
 4. Constant quality improvement: an excellent teacher must always work on their courses, adding new material and research results, following up on students' feedback and professor's own reflection after each course, and integrating new teaching techniques and approaches.
+![](https://innopolis.university/upload/landing/4e6/image_5_@2x.jpeg)
 ## Workshops For Teaching Assistants
 As a part of TA's professional development and to establish the connection between the faculty and junior staff, during the whole year we organize meetings, talks and workshops for IU TAs engaging the representatives of the Dean's office.
 The aims of these activities are to identify the needs of the TAs and provide support from the faculty side. Any ideas and suggestions from TAs can be discussed at the regular Dean's Office meetings and University Academic Council and further implemented in the university life.
 For the talks and workshops, we invite speakers from IU faculty to share their experience and expertise in teaching, research and career progression with the junior staff.
+![](https://innopolis.university/upload/landing/a87/0BwETRT6NhYT5N3ZWZHJyWDI0Z0k@2x.png)
 ## Instructional skills workshops
-The Instructional Skills Workshops (ISW) was founded in 1979 in British Colombia, Canada, to quickly give classroom instruction skills to Engineers who had never had teachers training. The process is an intensive introduction to teaching in a higher educational setting and focuses on practical in-class skillsets and course delivery.
+The [Instructional Skills Workshops](https://www.iswnetwork.ca) (ISW) was founded in 1979 in British Colombia, Canada, to quickly give classroom instruction skills to Engineers who had never had teachers training. The process is an intensive introduction to teaching in a higher educational setting and focuses on practical in-class skillsets and course delivery.
 This process was brought over to Russia via Innopolis University in 2017 and has since been the critical training unit for Innopolis Faculty at all ranks.
 Innopolis University’s Trainers are the regional “local representatives” of the program for Russia. Our first faculty received their Trainer qualifications, from David Tickner, a founding member of the process, in 2018 meaning that we are entirely self-sufficient in the program.
-Read more
+[Read more](https://innopolis.university/en/teachingexcellencecenter/trainings/)
 ## Teaching Excellence Centre
 Oksana Zhirosh
 o.zhirosh@innopolis.ru
 Director of Institute of Humanities and Social Sciences
 502b room
-Telegram
-VK
-YouTube
-- About university
-- Applicants
-- Project-based activities
-- Career
+[Telegram](https://t.me/universityinnopolis)
+[VK](https://vk.com/innopolisu)
+[YouTube](https://www.youtube.com/user/InnopolisU)
+- [About university](https://innopolis.university/en/about/)
+- [Applicants](https://apply.innopolis.university/)
+- [Project-based activities](https://innopolis.university/en/proekty/activity/)
+- [Career](https://career.innopolis.university/en/job/)
 Contacts
 - +7 (843) 203-92-53
 - university@innopolis.ru
 - 420500 Innopolis, Russia, 1, Universitetskaya Str.
-- More contacts
-- t.me/universityinnopolisbot
-- Virtual tour
+- [More contacts](https://innopolis.university/en/contacts/)
+- [t.me/universityinnopolisbot](https://t.me/universityinnopolisbot)
+- [Virtual tour](https://panoroo.com/virtual-tours/NvQZM6B2)
 For press
 - pr@innopolis.ru
 Useful links
-- Documents
-- Ministry of Digital Development, Communications and Mass Media of the Russian Federation
-- Ministry of Education of the Russian Federation
-- Ministry of Science and Higher Education of the Russian Federation
-- Vacant positions of teaching staff
-- Privacy Policy
+- [Documents](https://innopolis.university/sveden/)
+- [Ministry of Digital Development, Communications and Mass Media of the Russian Federation](https://digital.gov.ru/en/)
+- [Ministry of Education of the Russian Federation](https://edu.gov.ru/en/)
+- [Ministry of Science and Higher Education of the Russian Federation](https://minobrnauki.gov.ru/)
+- [Vacant positions of teaching staff](https://career.innopolis.university/en/job/)
+- [Privacy Policy](https://innopolis.university/public/files/Consent_to_the_processing_of_PD_for_UI.pdf)
 - Download PDF containing the page materials
 ## We use cookies
-This website uses cookies to ensure you get best experience on our website. By continuing to use this site, you agree to this cookie usage. You can learn more in the privacy policy.
+This website uses cookies to ensure you get best experience on our website. By continuing to use this site, you agree to this cookie usage. You can learn more in the [privacy policy](https://innopolis.university/public/files/Consent_to_the_processing_of_PD_for_UI.pdf).

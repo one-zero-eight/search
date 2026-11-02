@@ -1,0 +1,16 @@
+{
+ "title": "Final robo contest",
+ "url": "https://lk-dovuz.innopolis.university/public/files/Final_robo_contest.pdf",
+ "sha256": "1a13302a42dd083ab0b0e53fa838ed8b384c4e86ea51e53c49e07e7eeefc6516",
+ "method": "text layer (opendataloader)",
+ "chars": 90014,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:18+00:00",
+ "remote": {
+  "etag": "\"1d3ba5-64ff952457a80\"",
+  "modified": "Tue, 21 Apr 2026 14:35:06 GMT",
+  "size": "1915813"
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "title": "Information systems USER'S Manual.pdf",
+ "url": "https://help.university.innopolis.ru/documents/annex_1_is_user%27s_manual.pdf",
+ "sha256": "c3928f785ca2caa9a974896544940d858511a6c13d4222c197ee82e04d748011",
+ "method": "text layer (opendataloader)",
+ "chars": 19930,
+ "tables": 5,
+ "section": "site/help",
+ "context": "",
+ "fetched_at": "2026-10-31T11:14:54+00:00",
+ "remote": {}
+}

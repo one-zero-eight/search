@@ -1,0 +1,16 @@
+{
+ "title": "«Кто водит?»",
+ "url": "https://robotics.innopolis.university/wp-content/uploads/2020/09/Dajdzhest.pdf",
+ "sha256": "eb657d7baebe0b7cd42f05c62a04a24321f278c89303cb3b72e82d7bcc0dd0bf",
+ "method": "text layer (opendataloader)",
+ "chars": 239283,
+ "tables": 5,
+ "section": "site/robotics",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:32+00:00",
+ "remote": {
+  "etag": "\"108835a-5af870d59228f\"",
+  "modified": "Thu, 17 Sep 2020 19:04:22 GMT",
+  "size": "17335130"
+ }
+}

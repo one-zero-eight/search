@@ -1,0 +1,16 @@
+{
+ "title": "ководство по эксплуатации",
+ "url": "https://robotics.innopolis.university/wp-content/uploads/2024/04/Rukovodstvo_po_ustanovke_i_ekspluatatsii.pdf",
+ "sha256": "db217e778b9a7fd4e53743f203b0f9776ada55c047a76ea2395dc48c5697709f",
+ "method": "text layer (opendataloader)",
+ "chars": 6315,
+ "tables": 5,
+ "section": "site/robotics",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:39+00:00",
+ "remote": {
+  "etag": "\"5c55c-615033a4605b4\"",
+  "modified": "Mon, 01 Apr 2024 06:37:47 GMT",
+  "size": "378204"
+ }
+}

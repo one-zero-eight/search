@@ -1,0 +1,15 @@
+{
+ "title": "Инструкция о пропускном режиме в технопарке им. Попова",
+ "url": "https://sezinnopolis.ru/upload/consumers-files/instr-prop-pop.pdf",
+ "sha256": "34e2453758bd4595cfc6e9eec25f6499c43d8dfc2a210703beb818d029409a70",
+ "method": "text layer (opendataloader)",
+ "chars": 51625,
+ "tables": 5,
+ "section": "site/sez",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:31+00:00",
+ "remote": {
+  "etag": "W/\"69845751-c812b\"",
+  "modified": "Thu, 05 Feb 2026 08:39:45 GMT"
+ }
+}

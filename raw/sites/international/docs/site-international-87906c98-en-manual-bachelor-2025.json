@@ -1,0 +1,16 @@
+{
+ "title": "Download the admission manual [en_manual_bachelor_2025]",
+ "url": "https://apply.innopolis.university/upload/files/en_manual_bachelor_2025.pdf",
+ "sha256": "52c365b2b6f158d8cb99514348555f658f1e917d7bc9a09e34753aea9e6168b1",
+ "method": "text layer (opendataloader)",
+ "chars": 3499,
+ "tables": 5,
+ "section": "site/international",
+ "context": "",
+ "fetched_at": "2026-11-01T23:00:23+00:00",
+ "remote": {
+  "etag": "\"67625d21-1540f2\"",
+  "modified": "Wed, 18 Dec 2024 05:26:57 GMT",
+  "size": "1392882"
+ }
+}

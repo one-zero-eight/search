@@ -1,0 +1,16 @@
+{
+ "title": "statements-en24",
+ "url": "https://lk-dovuz.innopolis.university/public/files/statements-en24.pdf",
+ "sha256": "e65acae1b7e3cfc8ecedc72c01fb8e9ef5672647a3c227ef80b5079d27868dd4",
+ "method": "text layer (opendataloader)",
+ "chars": 17473,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:26+00:00",
+ "remote": {
+  "etag": "\"47856-60abf492d49c0\"",
+  "modified": "Wed, 22 Nov 2023 15:22:23 GMT",
+  "size": "292950"
+ }
+}

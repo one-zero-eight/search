@@ -1,0 +1,16 @@
+{
+ "title": "Презентация МФТИ «Операционные системы и технологии искусственного интеллекта в робототехнике»",
+ "url": "https://robotics.innopolis.university/wp-content/uploads/2022/04/MFTI_Operatsionnye-sistemy-i-tehnologiiII-v-robototehnike-v-pdf.pdf",
+ "sha256": "85fb154721e7bae025e5acebb85e8dcfba1e2ada4ae080caae9d706f53e3bded",
+ "method": "text layer (opendataloader)",
+ "chars": 7454,
+ "tables": 5,
+ "section": "site/robotics",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:38+00:00",
+ "remote": {
+  "etag": "\"295e80-5dbd70f71a2ef\"",
+  "modified": "Mon, 04 Apr 2022 17:00:07 GMT",
+  "size": "2711168"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "ссылка на оферту [offer_egemath_module4]",
+ "url": "https://lk-dovuz.innopolis.university/public/files/offer_egemath_module4.pdf",
+ "sha256": "8dfe59c4ccbe480cbacb8bb5c586f046869a4779a55234689ed2705f39d448a9",
+ "method": "text layer (opendataloader)",
+ "chars": 30893,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"5e7b3-6499c1b89b780\"",
+  "modified": "Fri, 30 Jan 2026 14:51:26 GMT",
+  "size": "386995"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "Rules for using the study room",
+ "url": "https://hotel.innopolis.university/upload/docs-hotel/RULES%20OF%20THE%20STUDY%20ROOM%20USE.pdf",
+ "sha256": "55a16464d02b627d5f48f57147b7c8097fc866d4795835e31d3d91dd2e1cd0b4",
+ "method": "text layer (opendataloader)",
+ "chars": 1418,
+ "tables": 5,
+ "section": "site/hotel",
+ "context": "",
+ "fetched_at": "2026-10-31T00:26:16+00:00",
+ "remote": {
+  "etag": "\"3485-5c727f1c7b7ea\"",
+  "modified": "Thu, 15 Jul 2021 11:40:57 GMT",
+  "size": "13445"
+ }
+}

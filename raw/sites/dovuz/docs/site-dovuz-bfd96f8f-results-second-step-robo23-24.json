@@ -1,0 +1,16 @@
+{
+ "title": "results second step robo23 24",
+ "url": "https://lk-dovuz.innopolis.university/public/files/results_second_step_robo23_24.pdf",
+ "sha256": "712ff625387df0d3290acc46c8c69fa18ba4413ea6aaff536755b483b2df5b95",
+ "method": "text layer (opendataloader)",
+ "chars": 5200,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:26+00:00",
+ "remote": {
+  "etag": "\"2c52a-6178b31f07880\"",
+  "modified": "Fri, 03 May 2024 11:41:06 GMT",
+  "size": "181546"
+ }
+}

@@ -1,0 +1,9 @@
+[![](https://static.tildacdn.com/tild6338-6163-4661-a564-643039303632/Group_277132945_1.png)](https://dissovet.innopolis.university/)
+[О совете](https://dissovet.innopolis.university/)
+[Объявления о защитах](https://dissovet.innopolis.university/zashita)
+[Работы, подготовленные к рассмотрению](https://dissovet.innopolis.university/theses)
+[Информация для соискателей](https://dissovet.innopolis.university/documenty)
+[Архив](https://dissovet.innopolis.university/page135655296.html)
+Архив
+![](https://static.tildacdn.com/tild3437-3236-4437-b638-643063356536/Group_4783.png)
+[Иванов И.И. "Квантовая физика"](https://dissovet.innopolis.university/page119332426.html)

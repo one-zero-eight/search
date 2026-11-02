@@ -1,0 +1,162 @@
+{
+ "docs": {
+  "https://innopolis.university/filespublic/%D0%A1%D0%B1%D0%BE%D1%80%D0%BD%D0%B8%D0%BA_%D0%9C%D0%B0%D1%80%D0%B0%D1%84%D0%BE%D0%BD2.0_.pdf": "Скачать сборник 2024",
+  "https://innopolis.university/filespublic/%D0%BF%D1%80%D0%B8%D0%BA%D0%B0%D0%B7%20%D0%BE%D1%82%2007.03.2023%20%E2%84%96%20%D0%9E%D0%94_%D0%90%D0%94-01.pdf": "Положение о порядке проведения мероприятия",
+  "https://innopolis.university/filespublic/cifrovye_kafedry.pdf": "Подробнее о проекте «Цифровые кафедры»",
+  "https://innopolis.university/filespublic/sbornik_ck_iu.pdf": "Скачать сборник 2023"
+ },
+ "pages": {
+  "ai-art": {
+   "fetched_at": "2026-10-31T08:36:47+00:00",
+   "file_sha": "52933b4c9d4443dad5eb889f5604a2462d96e2b8de276aaec585c4348502582a",
+   "last_modified": "Thu, 22 Jan 2026 14:37:02 GMT",
+   "sha256": "84db49db38e6abbe95ff521b38a4ba0ee97bba8aac02215c9ed3edb858a1e35a",
+   "title": "Мероприятия Университета Иннополис",
+   "url": "https://events.innopolis.university/ai-art"
+  },
+  "ai-avatar": {
+   "fetched_at": "2026-10-31T08:36:51+00:00",
+   "file_sha": "3ccb8e7a424f0d84cab0f3c04ecbc2519a87fe73accc2108943591c43a16da32",
+   "last_modified": "Thu, 22 Jan 2026 14:37:12 GMT",
+   "sha256": "b7a7df86c37b54b7c3df395dd40c5d8da46dc65ef50423d2947ba207a2ba42c6",
+   "title": "Мероприятия Университета Иннополис",
+   "url": "https://events.innopolis.university/ai-avatar"
+  },
+  "coffee-robot": {
+   "fetched_at": "2026-10-31T08:36:57+00:00",
+   "file_sha": "8adf71f566b99b621bd70bc30ac032c7996f8daca71e9bbf2adc132aa322d164",
+   "last_modified": "Thu, 22 Jan 2026 14:37:26 GMT",
+   "sha256": "d2c282687b3c4f87f3cddb229b2a409e46a31a180421259505368b8313f1f6c1",
+   "title": "Мероприятия Университета Иннополис",
+   "url": "https://events.innopolis.university/coffee-robot"
+  },
+  "digital-mirror": {
+   "fetched_at": "2026-10-31T08:36:45+00:00",
+   "file_sha": "7e3ab46bcbc74cea0099ac39d22ac284c98cbf877882273b752cb7d60fc64a8c",
+   "last_modified": "Thu, 22 Jan 2026 14:36:58 GMT",
+   "sha256": "c0a5ce70a4386c151da81e850a6f7e79ae9216a7d7066c88e3d9d4ad13cf9f0b",
+   "title": "Мероприятия Университета Иннополис",
+   "url": "https://events.innopolis.university/digital-mirror"
+  },
+  "drone": {
+   "fetched_at": "2026-10-31T08:36:40+00:00",
+   "file_sha": "75b4706fd717de429228b926c2c505b249180610b5a4d607be941e0fa07f1067",
+   "last_modified": "Thu, 22 Jan 2026 14:36:48 GMT",
+   "sha256": "551ba2c7419a0831a16d7922863dcf8bca173cc80e2a6036b18b14e4f4d089cd",
+   "title": "Мероприятия Университета Иннополис",
+   "url": "https://events.innopolis.university/drone"
+  },
+  "home": {
+   "fetched_at": "2026-10-31T08:36:28+00:00",
+   "file_sha": "f9020fde71ad6ce919c84ef6547ad06595863f06fa2e7fe5a344d729069a86cc",
+   "last_modified": "Fri, 06 Mar 2026 12:27:08 GMT",
+   "sha256": "7e897f4c561660468cd11b08054962fe6670e04bc8bdffa860b7c528a0ebc61b",
+   "title": "Мероприятия Университета Иннополис",
+   "url": "https://events.innopolis.university/"
+  },
+  "imagestock": {
+   "fetched_at": "2026-10-31T08:36:34+00:00",
+   "file_sha": "864e0553b2110339159dc6484f98631f414f92f0e1011b65dbdae02a7883c571",
+   "last_modified": "Thu, 22 Jan 2026 14:36:34 GMT",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "title": "Blank page",
+   "url": "https://events.innopolis.university/imagestock"
+  },
+  "innoproducts": {
+   "fetched_at": "2026-10-31T08:36:38+00:00",
+   "file_sha": "e576a7137e983e4e9f3be51f158efacef3c2afa4c0f40f71d97e38bb3ab8e983",
+   "last_modified": "Thu, 22 Jan 2026 14:36:44 GMT",
+   "sha256": "0fb4720831b0422ff1687e19c08a6463695a627a3b213681fe1389c88cece97f",
+   "title": "Инновационные решения в сфере проведения мероприятий",
+   "url": "https://events.innopolis.university/innoproducts"
+  },
+  "marathon-dd": {
+   "fetched_at": "2026-10-31T08:36:32+00:00",
+   "file_sha": "51f3fc552fbd061cd5d983e0ef3f5d181c400a527eb348aca87234f1fb3468ea",
+   "last_modified": "Thu, 22 Jan 2026 14:35:46 GMT",
+   "sha256": "d023e227f895cecb975ee52a3edd13a93533dd00ab61dbd501ec11b455ad5b97",
+   "title": "Марафон «цифровых кафедр» | Организаторы Университет Иннополис и Минцифры",
+   "url": "https://events.innopolis.university/marathon_dd"
+  },
+  "marathon-dd20": {
+   "fetched_at": "2026-10-31T08:37:06+00:00",
+   "file_sha": "d982ac960af8f262e6d506490a59ade209c4f05a7a0195dd4c28e79967cec08f",
+   "last_modified": "Mon, 13 Apr 2026 12:19:39 GMT",
+   "sha256": "af2afddca26d247dcd37580f312a2a5cd25bd9bdfa417b5719b4e9ea7b68f5e6",
+   "title": "Марафон «цифровых кафедр» 2.0 | Организаторы Иннополис и Минцифры",
+   "url": "https://events.innopolis.university/marathon_dd20"
+  },
+  "photobot": {
+   "fetched_at": "2026-10-31T08:36:49+00:00",
+   "file_sha": "150c1701d2cde3196318e150c17bb8821663ad17c77b577ce68aad7b96e976db",
+   "last_modified": "Thu, 22 Jan 2026 14:37:07 GMT",
+   "sha256": "e13fba5503008e4431e9f636269b5310bae2518d34aeb5f49050fabeaeff6d5d",
+   "title": "Мероприятия Университета Иннополис",
+   "url": "https://events.innopolis.university/photobot"
+  },
+  "pmgf2022": {
+   "fetched_at": "2026-10-31T08:36:30+00:00",
+   "file_sha": "072617e1eb149213759c940f2867b6bf1dbd822e733d047f30a9a18b6e0ace97",
+   "last_modified": "Thu, 22 Jan 2026 14:35:37 GMT",
+   "sha256": "9edec3850ec2375f4bdf51285a1018e69e13a433ea51ddfa49c6cfa7b74d746e",
+   "title": "ПМГФ22. Университет Иннополис",
+   "url": "https://events.innopolis.university/pmgf2022"
+  },
+  "products": {
+   "fetched_at": "2026-10-31T08:36:36+00:00",
+   "file_sha": "d78afa7860ea46f856b0a3c061107eb52fc15a6cf26c94dcd6bda16a433404d5",
+   "last_modified": "Thu, 22 Jan 2026 14:36:40 GMT",
+   "sha256": "defcb339d0cb5c7d121f3c48a108c855b110e3dcdbb7e5cfcf73bc74b8b8009a",
+   "title": "Мероприятия Университета Иннополис",
+   "url": "https://events.innopolis.university/products"
+  },
+  "robohand": {
+   "fetched_at": "2026-10-31T08:36:43+00:00",
+   "file_sha": "48079959f65d8dcdc3109a81442d4caf595590aa6dc8d1f74070fb50d86d06eb",
+   "last_modified": "Thu, 22 Jan 2026 14:36:53 GMT",
+   "sha256": "e25293595051f9296d3d00e4a717f393a4decb55a86bce2ee5a57d354d71ed11",
+   "title": "Мероприятия Университета Иннополис",
+   "url": "https://events.innopolis.university/robohand"
+  },
+  "robot-director": {
+   "fetched_at": "2026-10-31T08:36:55+00:00",
+   "file_sha": "02e3f2965f48fff87142bd5ae907ef41788fec52ace88fa3416a61a25da84423",
+   "last_modified": "Thu, 22 Jan 2026 14:37:21 GMT",
+   "sha256": "e73475efdaff9f82fe4079da05cc562a631f5e29fff140611685c7f6bed91392",
+   "title": "Мероприятия Университета Иннополис",
+   "url": "https://events.innopolis.university/robot-director"
+  },
+  "robot-dj": {
+   "fetched_at": "2026-10-31T08:36:53+00:00",
+   "file_sha": "a111892b9aaa19e74796c5a9246ba0004e6c82f542672da638fec50badae98f3",
+   "last_modified": "Thu, 22 Jan 2026 14:37:16 GMT",
+   "sha256": "cd6b8ba4f46306cfb20a868d74b0fa8401d4e38e9e0a5c2a6ecfb4b2850aca64",
+   "title": "Мероприятия Университета Иннополис",
+   "url": "https://events.innopolis.university/robot-dj"
+  },
+  "startup-catalog": {
+   "fetched_at": "2026-10-31T08:37:04+00:00",
+   "file_sha": "8dc08ec01855e4bdff1e3837faecbc7c0cc3b564d7118832b9c24a975629c2b7",
+   "last_modified": "Fri, 16 Jan 2026 12:42:38 GMT",
+   "sha256": "aa80fa9fdf9664404649d5790586c92548f4242fdba518b8016bf96bb778952a",
+   "title": "Каталог",
+   "url": "https://events.innopolis.university/startup_catalog"
+  },
+  "startup-store": {
+   "fetched_at": "2026-10-31T08:37:01+00:00",
+   "file_sha": "94d67e2f33a08f372e6a9a3ff2650954771b3db457f30661f369035eedf946a2",
+   "last_modified": "Fri, 16 Jan 2026 12:39:22 GMT",
+   "sha256": "ab0b012f592f8d6bd4ed0f4ccbbaa61d11ae4f2ccfb51c3b83cfe6e062bada1c",
+   "title": "STARTUP_STORE",
+   "url": "https://events.innopolis.university/startup_store"
+  },
+  "startuphouse": {
+   "fetched_at": "2026-10-31T08:36:59+00:00",
+   "file_sha": "03e528330982415dcbd7bb1124f7a81c777fe89a5119c357106f58b6197c9bf3",
+   "last_modified": "Fri, 16 Jan 2026 12:08:01 GMT",
+   "sha256": "2a795f507281b3b9de7d27c45c0cb80a5ec654d9fa4bc9b2bd0f3b2cdf379e84",
+   "title": "ДУС - акселератор Университета Иннополис",
+   "url": "https://events.innopolis.university/startuphouse"
+  }
+ }
+}

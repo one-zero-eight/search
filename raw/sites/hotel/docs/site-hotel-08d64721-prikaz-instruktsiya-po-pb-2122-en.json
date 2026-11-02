@@ -1,0 +1,16 @@
+{
+ "title": "Fire safety instruction of the residential complex",
+ "url": "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7_%D0%98%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F%20%D0%BF%D0%BE%20%D0%9F%D0%91%2021-22%20%28en%29.pdf",
+ "sha256": "784f6b497caf18bfaa80313dbbb6a105b9f2486de50460e319bc23fce24dc5bc",
+ "method": "text layer (opendataloader)",
+ "chars": 12694,
+ "tables": 5,
+ "section": "site/hotel",
+ "context": "",
+ "fetched_at": "2026-10-31T00:26:16+00:00",
+ "remote": {
+  "etag": "\"c629-5d1e8fbf2054e\"",
+  "modified": "Mon, 29 Nov 2021 08:11:13 GMT",
+  "size": "50729"
+ }
+}

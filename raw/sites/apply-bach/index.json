@@ -1,0 +1,42 @@
+{
+ "docs": {
+  "https://innopolis.university/files/politicacookies.pdf": "Пользовательское соглашение",
+  "https://innopolis.university/upload/iblock/bc8/l0b9z5qtn57k3xvif2l0dbxcl0q9l3x7/%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_2024_AI360%20%D0%A3%D0%9F%2021082025%20%D1%81%D0%B0%D0%B8%CC%86%D1%82.pdf": "Учебный план",
+  "https://innopolis.university/upload/iblock/fd1/jup48fvs6hwxujs90uhuc1y7c51tcn0g/%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_2025_%D0%9C%D0%9E%D0%98%D0%98_%D0%A3%D0%9F_21082025%20%D1%81%D0%B0%D0%B8%CC%86%D1%82.pdf": "Учебный план",
+  "https://lk-dovuz.innopolis.university/public/files/Mat-osnovy-ai.pdf": "Ознакомиться с книгой"
+ },
+ "pages": {
+  "ai-360": {
+   "fetched_at": "2026-11-01T22:27:32+00:00",
+   "file_sha": "c380f4cb52ea3d363279067313147e00734c7066c206d4456a768673ec33fcac",
+   "last_modified": "Fri, 26 Dec 2025 11:33:07 GMT",
+   "sha256": "b923a06e16b75e78734f8ec79e8e5014374bf577041cd955bb5ddac051c3a38f",
+   "title": "Бакалавриат «AI360» — Университет Иннополис",
+   "url": "https://apply-bach.innopolis.university/ai-360"
+  },
+  "ds-mai": {
+   "fetched_at": "2026-11-01T22:27:28+00:00",
+   "file_sha": "bc1e63887d946f7ea37c4abc907883057baffed24f658145994679e861a15e58",
+   "last_modified": "Fri, 26 Dec 2025 11:29:27 GMT",
+   "sha256": "3f34be88804f014501efe888336e2dea91f49524d78bcde527d664257d9a53c7",
+   "title": "Бакалавриат «Математические основы ИИ» — Университет Иннополис",
+   "url": "https://apply-bach.innopolis.university/ds-mai"
+  },
+  "ds-mai-media": {
+   "fetched_at": "2026-11-01T22:27:35+00:00",
+   "file_sha": "db3d112595824fa14c8f17e07122b26d3b341acd1e8068785abd5152de786827",
+   "last_modified": "Sun, 15 Jun 2025 11:22:24 GMT",
+   "sha256": "20ccf9fa5ac868ecc9cf9046a64e3ccb9cce4d12ef5e6c5ec23b247345fa2c53",
+   "title": "Бакалавриат «Математические основы ИИ» — Университет Иннополис",
+   "url": "https://apply-bach.innopolis.university/ds-mai/media"
+  },
+  "home": {
+   "fetched_at": "2026-11-01T22:27:25+00:00",
+   "file_sha": "0c75ac1411bcf35320524636634d1774c821e59b07f2c4db226fff59e96368b7",
+   "last_modified": "Fri, 26 Dec 2025 11:31:45 GMT",
+   "sha256": "5f287e25f857221606444acc9143284b59fa7c5067bcadbe7e1bd157b3bc305c",
+   "title": "Бакалавриат УИ",
+   "url": "https://apply-bach.innopolis.university/"
+  }
+ }
+}

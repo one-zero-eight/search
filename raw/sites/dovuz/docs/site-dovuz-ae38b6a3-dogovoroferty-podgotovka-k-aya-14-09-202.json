@@ -1,0 +1,16 @@
+{
+ "title": "Читать документ [Договор-оферты_Подготовка_к_АЯ__14.09.2026-25.12.2026_]",
+ "url": "https://innopolis.university/filespublic/%D0%94%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80-%D0%BE%D1%84%D0%B5%D1%80%D1%82%D1%8B_%D0%9F%D0%BE%D0%B4%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%BA%D0%B0_%D0%BA_%D0%90%D0%AF__14.09.2026-25.12.2026_.docx",
+ "sha256": "9a6313836f94f563eba3c8a22194abbdfeab3547cd32d92ecb2a421ff2e1ae36",
+ "method": "text layer (opendataloader)",
+ "chars": 31151,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:17+00:00",
+ "remote": {
+  "etag": "\"bacf-65964ae4f742e\"",
+  "modified": "Wed, 19 Aug 2026 11:26:56 GMT",
+  "size": "47823"
+ }
+}

@@ -1,0 +1,29 @@
+{
+ "docs": {},
+ "pages": {
+  "audiogid-info": {
+   "fetched_at": "2026-11-01T22:34:54+00:00",
+   "file_sha": "867d8175f44a3b24958ea006aa9535d36f04a58933e8d334aeadc1cbdf19967c",
+   "last_modified": "Tue, 28 Jul 2026 08:44:24 GMT",
+   "sha256": "a7118ad63b3a8d8f2bc6987b31c11cf647133a120d1665e8036d30e30f19395d",
+   "title": "Аудиогид инфо",
+   "url": "https://innopolistravel.com/audiogid_info"
+  },
+  "excurse": {
+   "fetched_at": "2026-11-01T22:34:51+00:00",
+   "file_sha": "5e87feedfcf9d4f1c3fae24e4e84405571d7ecffd502271480fc57fb8a944d72",
+   "last_modified": "Thu, 11 Dec 2025 10:01:04 GMT",
+   "sha256": "303496e82be57d61f8890a1c2a67e06d6f6f1ce944ac98abe025e87cb9374810",
+   "title": "Запись на групповую экскурсию",
+   "url": "https://innopolistravel.com/excurse"
+  },
+  "home": {
+   "fetched_at": "2026-11-01T22:34:47+00:00",
+   "file_sha": "9829c9fe296c0fa425cd0c94dc2a9f3448f8a67b320276683254b2ed9c138cf7",
+   "last_modified": "Wed, 08 Apr 2026 12:25:38 GMT",
+   "sha256": "b740e257d0c0a05d3a111b21774541972062b973ba33ae26cd3694d4708f5ca8",
+   "title": "Innotravel — экскурсии по Иннополису",
+   "url": "https://innopolistravel.com/"
+  }
+ }
+}

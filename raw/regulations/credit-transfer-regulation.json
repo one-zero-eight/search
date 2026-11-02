@@ -2,13 +2,13 @@
  "title": "Положение о порядке зачета результатов освоения обучающимися учебных предметов, курсов, дисциплин (модулей), практики",
  "url": "https://innopolis.university/upload/iblock/d7e/txxukdacbjlc0ym3x1qyy2vmhxfmu4wf/Положение_о_порядке_зачета_АНО_ВО__Университет_Иннополис__результатов_освоения_обучающимися_учебных_предметов__курсо.pdf",
  "sha256": "1cfc1cb8c095e514ece44d78a97fc306490538be1287a48f43c5ef83fb5f843b",
- "method": "text layer (pdfplumber)",
- "chars": 19338,
+ "method": "text layer (opendataloader)",
+ "chars": 19421,
  "fetched_at": "2026-10-22T12:08:05+00:00",
  "remote": {
   "etag": "\"6931788d-2676aa\"",
   "modified": "Thu, 04 Dec 2025 12:03:25 GMT",
   "size": "2520746"
  },
- "tables": 3
+ "tables": 5
 }

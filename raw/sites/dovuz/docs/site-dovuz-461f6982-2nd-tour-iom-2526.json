@@ -1,0 +1,16 @@
+{
+ "title": "2nd tour IOM 25-26",
+ "url": "https://lk-dovuz.innopolis.university/public/files/2nd_tour_IOM_25-26.pdf",
+ "sha256": "a202b13ec20dc27b48f2a7c990252b22a0a0d1a59315364ec1652deed2912c96",
+ "method": "text layer (opendataloader)",
+ "chars": 111325,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:18+00:00",
+ "remote": {
+  "etag": "\"89fc2-64ff874f59840\"",
+  "modified": "Tue, 21 Apr 2026 13:33:13 GMT",
+  "size": "565186"
+ }
+}

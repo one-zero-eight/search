@@ -1,0 +1,16 @@
+{
+ "title": "Читать исследование [Presentation Gamedev 12.03]",
+ "url": "https://innopolis.university/filespublic/Presentation%20Gamedev%2012.03.pdf",
+ "sha256": "d3613959cae6dd6129eacb88a2b998cba78717f6903bcdeb00368e39d8612c72",
+ "method": "ocr (tesseract rus)",
+ "chars": 15519,
+ "tables": 5,
+ "section": "site/media",
+ "context": "",
+ "fetched_at": "2026-11-01T23:09:38+00:00",
+ "remote": {
+  "etag": "\"89cd61-63127daba7fbd\"",
+  "modified": "Tue, 25 Mar 2025 10:05:03 GMT",
+  "size": "9031009"
+ }
+}

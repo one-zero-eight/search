@@ -1,0 +1,75 @@
+Приложение 1
+к Инструкции пользователя
+информационных систем
+АНО ВО «Университет
+Иннополис» /
+Annex 1
+to ANO HE “Innopolis University”
+information systems user’s manual
+
+СЛУЖЕБНАЯ ЗАПИСКА
+MEMO
+
+«____» ______________ 20___ г.
+
+КОМУ:
+TO:
+
+Директору АНО ВО «Университет Иннополис» Бариеву И.И.
+Director of ANO HE “Innopolis University” Bariev I.I
+
+ОТ:
+FROM: Должностьруководителя,ФИОруководителя/Jobtitleandfullnameoftheheadoftheunit
+ТЕМА:
+TOPIC:
+
+О предоставлении прав доступа к информационной системе/СВТ
+On granting access to an information system/CT
+
+В связи с необходимостью осуществления / Due to the need to fulfill the job duties viz.
+________________________________________________________________________
+перечень выполняемых работ / list of activities
+____________________________________________________________________________________________________________________
+прошу вас предоставить права / I kindly ask you to grant the access with the right to
+________________________________________________________________________
+на чтение, на запись, администратора / read, record, administer
+к / to ___________________________________________________________________
+название информационной системы, ресурса, СВТ / name of information system, resource, CT
+
+_______________________________________________________________________
+сроком до / for the period until _____________________________________________
+указать число, меся, год / на постоянной основе / date, month, year, or on a constant basis
+
+____________________________________________________________________________________________________________________
+ФИО работника, должность которому предоставляются права / full name and job title of an employee who needs the access
+
+________________________ ___________________ /___________________/
+
+Должность руководителя Подпись ФИО руководителя
+Job title of the head of the unit Signature Surname and inituals of the head of the unit
+
+СОГЛАСОВАНО / APPROVED:
+
+Руководитель Отдела
+информационных технологий
+Head of Information
+Technology Office __________________ /________________________/
+
+Подпись ФИО
+Signature Last name and initials
+
+Cпециалист по
+информационной
+безопасности
+Information security
+specialist __________________ /________________________/
+
+Подпись ФИО
+Signature Last name and initials
+
+С инструкцией пользователя информационных систем АНО ВО «Университет
+Иннополис» ознакомлен / I have read the ANO HE “Innopolis University” information
+systems user’s manual. __________________ /_____________________/
+
+Подпись работника ФИО работника
+Employee’s signature Employee’s last name and initials

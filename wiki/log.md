@@ -1,9 +1,5 @@
 # Log
 
-## 2026-10-29
-
-- **Cleanup** removed 209 knowledge cards that rested on a single source page (a card rests on more than one page: agent.py); 66 cards remain, the links to the removed ones are gone from their "See also", the indexes follow
-
 ## 2026-10-24
 
 - **Update** compiled 1 pages from eduwiki: bsc-old-template

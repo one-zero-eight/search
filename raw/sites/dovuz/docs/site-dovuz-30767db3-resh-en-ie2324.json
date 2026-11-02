@@ -1,0 +1,16 @@
+{
+ "title": "resh en ie2324",
+ "url": "https://lk-dovuz.innopolis.university/public/files/resh_en_ie2324.pdf",
+ "sha256": "c2a9d31a9524213ebe6550da5811daf86a981110ffcdba37f33fbfae6b5dbc1b",
+ "method": "text layer (opendataloader)",
+ "chars": 10114,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:24+00:00",
+ "remote": {
+  "etag": "\"42560-60bf960cbdfc0\"",
+  "modified": "Fri, 08 Dec 2023 06:05:59 GMT",
+  "size": "271712"
+ }
+}

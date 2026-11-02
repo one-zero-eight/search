@@ -1,0 +1,16 @@
+{
+ "title": "1st round 22",
+ "url": "https://lk-dovuz.innopolis.university/public/files/1st%20round%2022.pdf",
+ "sha256": "8fc73758450d5d6e0722b4944c80d8fe4b95b0b003a9c8be1c076ba5c8375887",
+ "method": "text layer (opendataloader)",
+ "chars": 14962,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:18+00:00",
+ "remote": {
+  "etag": "\"40404-5d23ba5bbb940\"",
+  "modified": "Fri, 03 Dec 2021 10:48:29 GMT",
+  "size": "263172"
+ }
+}

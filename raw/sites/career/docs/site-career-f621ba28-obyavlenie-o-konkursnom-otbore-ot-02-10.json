@@ -1,0 +1,16 @@
+{
+ "title": "Объявление о конкурсном отборе от 02.10.2023",
+ "url": "https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2002.10.2023.pdf",
+ "sha256": "b69a2ee833354de6377b59d1186486782bd524b45b319ef2140953aa17757d6f",
+ "method": "ocr (tesseract rus)",
+ "chars": 33126,
+ "tables": 5,
+ "section": "site/career",
+ "context": "",
+ "fetched_at": "2026-11-01T23:10:59+00:00",
+ "remote": {
+  "etag": "\"3e06fb-60a920b1d122b\"",
+  "modified": "Mon, 20 Nov 2023 09:23:48 GMT",
+  "size": "4065019"
+ }
+}

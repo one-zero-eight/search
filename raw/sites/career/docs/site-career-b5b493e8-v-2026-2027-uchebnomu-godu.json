@@ -1,0 +1,16 @@
+{
+ "title": "В 2026/2027 учебном году",
+ "url": "https://innopolis.university/files/%D0%92_2026_2027_%D1%83%D1%87%D0%B5%D0%B1%D0%BD%D0%BE%D0%BC%D1%83_%D0%B3%D0%BE%D0%B4%D1%83.pdf",
+ "sha256": "45d7fe272f2c5f0eb84695660ef1b9cd9463c042726171b77deb22803790ee49",
+ "method": "text layer (opendataloader)",
+ "chars": 6786,
+ "tables": 5,
+ "section": "site/career",
+ "context": "",
+ "fetched_at": "2026-11-01T23:10:26+00:00",
+ "remote": {
+  "etag": "\"1c1142-64e753a5c6348\"",
+  "modified": "Thu, 02 Apr 2026 07:34:17 GMT",
+  "size": "1839426"
+ }
+}

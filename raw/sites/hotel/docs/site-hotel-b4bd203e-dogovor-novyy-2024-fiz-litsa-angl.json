@@ -1,0 +1,16 @@
+{
+ "title": "Agreement on the provision of placementservices for individuals",
+ "url": "https://hotel.innopolis.university/upload/docs-hotel/%D0%94%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80_%D0%BD%D0%BE%D0%B2%D1%8B%D0%B9_2024_%D1%84%D0%B8%D0%B7_%D0%BB%D0%B8%D1%86%D0%B0_%D0%B0%D0%BD%D0%B3%D0%BB.pdf",
+ "sha256": "dc8a177358e0f65ddf4ecbc694d0d7c6e9da05929a54593e2e3805d3d76bcf0d",
+ "method": "text layer (opendataloader)",
+ "chars": 17228,
+ "tables": 5,
+ "section": "site/hotel",
+ "context": "",
+ "fetched_at": "2026-10-31T00:26:16+00:00",
+ "remote": {
+  "etag": "\"1f5e4-626a1e11f9929\"",
+  "modified": "Mon, 11 Nov 2024 12:02:48 GMT",
+  "size": "128484"
+ }
+}

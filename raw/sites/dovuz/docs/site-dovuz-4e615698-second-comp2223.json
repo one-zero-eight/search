@@ -1,0 +1,16 @@
+{
+ "title": "second comp2223",
+ "url": "https://lk-dovuz.innopolis.university/public/files/second_comp2223.pdf",
+ "sha256": "e1dc761c47b9eda622116c4619b922c599f9e448e7a7ef3420ee81eb94926686",
+ "method": "text layer (opendataloader)",
+ "chars": 7994,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:26+00:00",
+ "remote": {
+  "etag": "\"88fab-5f9b0f8e6f840\"",
+  "modified": "Wed, 19 Apr 2023 14:09:29 GMT",
+  "size": "561067"
+ }
+}

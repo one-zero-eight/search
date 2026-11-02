@@ -1,0 +1,16 @@
+{
+ "title": "offer groupc 2106",
+ "url": "https://lk-dovuz.innopolis.university/public/files/offer_groupc_2106.pdf",
+ "sha256": "fb5b110b284acc126b3630161bd69ef96706dcf7e009c0d34c2d889e5f1b13f9",
+ "method": "text layer (opendataloader)",
+ "chars": 33719,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"6bcc3-64b2933056d80\"",
+  "modified": "Thu, 19 Feb 2026 08:36:22 GMT",
+  "size": "441539"
+ }
+}

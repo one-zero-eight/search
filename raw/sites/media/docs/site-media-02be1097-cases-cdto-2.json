@@ -1,0 +1,16 @@
+{
+ "title": "cases cdto 2",
+ "url": "https://innopolis.university/filespublic/cases_cdto_2.pdf",
+ "sha256": "062aa6fb7552893c17e5bd472999f9c4f4c5fd49aa6145ce3a0dd5818eaff7ee",
+ "method": "ocr (tesseract rus)",
+ "chars": 15038,
+ "tables": 5,
+ "section": "site/media",
+ "context": "",
+ "fetched_at": "2026-11-01T23:10:10+00:00",
+ "remote": {
+  "etag": "\"591b27-5f0b7d15695fa\"",
+  "modified": "Mon, 26 Dec 2022 09:32:45 GMT",
+  "size": "5839655"
+ }
+}

@@ -1,0 +1,37 @@
+---
+type: page
+title: "Anna Maslovskaya"
+description: "Doctor of Sciences, Russia, Saint Petersburg State University, Full Professor, Chief Research Fellow at the Lab of Computer Modeling and Intelligent Analysis of Complex Systems, Institute of Data Anal"
+resource: "https://innopolis.university/en/professor/anna-maslovskaya-1/"
+audience: ["student", "postgraduate", "applicant", "teacher", "staff", "management", "public"]
+source_kind: website
+language: en
+section: "site/university"
+sources:
+  - resource: "https://innopolis.university/en/professor/anna-maslovskaya-1/"
+    id: "35b01a1815de"
+    title: "Anna Maslovskaya"
+    last_modified: "2026-10-24T23:11:47+00:00"
+generated:
+  by: "catix-wiki/0.1 sites"
+  at: "2026-10-24T23:11:47+00:00"
+status: draft
+---
+
+# Anna Maslovskaya
+
+![](https://innopolis.university/upload/resize_cache/iblock/7a2/uu89p2ohod8fewhox4psv470uoqajexr/330_420_2/A510F655-8722-4CD3-981B-CB34EC7D695F.JPEG)
+
+Doctor of Sciences, Russia, Saint Petersburg State University, Full Professor, Chief Research Fellow at the Lab of Computer Modeling and Intelligent Analysis of Complex Systems, Institute of Data Analysis and Artificial Intelligence
+
+Saint Petersburg State University
+
+Anna Maslovskaya's research interests encompass mathematical modeling and in silico studies of microbiological systems, methods for the intelligent analysis of biomedical signals and images, and the modeling of field effects in functional materials. She graduated from Amur State University with a degree in Applied Mathematics. In 2014, she defended her Doctor of Sciences dissertation in "Mathematical Modeling, Numerical Methods, and Software Systems" at St. Petersburg State University, and in 2022, she was awarded the academic title of Professor in the same field. Her core teaching disciplines include mathematical and simulation modeling, numerical methods, differential equations for engineers, data processing techniques, intelligent time series analysis, and the methodology and organization of scientific research. Professor Maslovskaya has supervised four Ph.D. candidates and is the author of over 60 publications in international journals, 4 monographs, and 28 registered computer programs. She is a member of three dissertation councils and serves on the editorial boards of the journals "Informatics and Control Systems" (RU) and the "International Journal of Mathematical Modelling and Numerical Optimisation" (UK). She also acts as a reviewer for scientific journals published by Elsevier, Springer, MDPI, as well as various Russian academic journals, and is a member of the program committees for international scientific conferences.
+
+[back](/raw/sites/university/faculty.md)
+
+_The menu, footer and other blocks that the pages of the site repeat are kept in one place: [/raw/sites/university/_shared-en.md](/raw/sites/university/_shared-en.md)._
+
+# Citations
+
+1. [Anna Maslovskaya](https://innopolis.university/en/professor/anna-maslovskaya-1/), read 2026-10-24

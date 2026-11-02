@@ -1,0 +1,16 @@
+{
+ "title": "offer pythonbase 2106",
+ "url": "https://lk-dovuz.innopolis.university/public/files/offer_pythonbase_2106.pdf",
+ "sha256": "54f8692bb802e9fff1c0ed3ff73be4fef0c440ae6d7dc4c0fb805c9f4e0e5da7",
+ "method": "text layer (opendataloader)",
+ "chars": 33698,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"6c1ab-64b293f4cbd00\"",
+  "modified": "Thu, 19 Feb 2026 08:39:48 GMT",
+  "size": "442795"
+ }
+}

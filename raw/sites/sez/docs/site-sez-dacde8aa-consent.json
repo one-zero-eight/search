@@ -1,0 +1,16 @@
+{
+ "title": "Пользовательское соглашение",
+ "url": "https://sezinnopolis.ru/upload/consent.docx",
+ "sha256": "2005a8a3d2c437b6a4a14183b7b8b1da6573eea412058a2b052bca86fb26a2aa",
+ "method": "text layer (opendataloader)",
+ "chars": 3858,
+ "tables": 5,
+ "section": "site/sez",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:31+00:00",
+ "remote": {
+  "etag": "\"69845751-4a9c\"",
+  "modified": "Thu, 05 Feb 2026 08:39:45 GMT",
+  "size": "19100"
+ }
+}

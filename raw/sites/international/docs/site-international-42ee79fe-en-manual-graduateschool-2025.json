@@ -1,0 +1,16 @@
+{
+ "title": "Download the admission manual [en_manual_graduateschool_2025]",
+ "url": "https://apply.innopolis.university/upload/files/en_manual_graduateschool_2025.pdf",
+ "sha256": "187bdc00c65c63856ec5bd8a83f6a3bfebd3be77ba16a53cd163863d573acfc2",
+ "method": "text layer (opendataloader)",
+ "chars": 2886,
+ "tables": 5,
+ "section": "site/international",
+ "context": "",
+ "fetched_at": "2026-11-01T23:00:23+00:00",
+ "remote": {
+  "etag": "\"67625d21-117fa3\"",
+  "modified": "Wed, 18 Dec 2024 05:26:57 GMT",
+  "size": "1146787"
+ }
+}

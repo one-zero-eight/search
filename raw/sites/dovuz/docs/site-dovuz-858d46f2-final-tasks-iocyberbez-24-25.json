@@ -1,0 +1,16 @@
+{
+ "title": "final tasks iocyberbez 24 25",
+ "url": "https://lk-dovuz.innopolis.university/public/files/final_tasks_iocyberbez_24_25.pdf",
+ "sha256": "84430a6b7a9b97498d65e1b46e5c2e1a792d455b6abdc45812aedc96ece0671b",
+ "method": "text layer (opendataloader)",
+ "chars": 28388,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:21+00:00",
+ "remote": {
+  "etag": "\"1493b8-630ae394c2c00\"",
+  "modified": "Wed, 19 Mar 2025 08:58:24 GMT",
+  "size": "1348536"
+ }
+}

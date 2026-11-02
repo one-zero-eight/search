@@ -1,0 +1,16 @@
+{
+ "title": "Информация по земельным участкам не сданным в аренду [inno2]",
+ "url": "https://sezinnopolis.ru/upload/industrial%20files/inno2.doc",
+ "sha256": "a851ff543b984494d9d756f711ffdc7d5a335693e8fd81156691d90bb67a73e4",
+ "method": "text layer (opendataloader)",
+ "chars": 1056,
+ "tables": 5,
+ "section": "site/sez",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:31+00:00",
+ "remote": {
+  "etag": "\"6abd2075-b000\"",
+  "modified": "Wed, 30 Sep 2026 14:45:09 GMT",
+  "size": "45056"
+ }
+}

@@ -1,0 +1,130 @@
+---
+type: regulation
+title: "Read the article [NIR_2022_eeg-changes]"
+resource: "https://innopolis.university/filespublic/NIR_2022_eeg-changes.pdf"
+source_kind: official-document
+language: ru
+section: "site/university"
+sources:
+  - resource: "https://innopolis.university/filespublic/NIR_2022_eeg-changes.pdf"
+    id: "0a2556941fb2"
+    title: "Read the article [NIR_2022_eeg-changes]"
+    last_modified: "2026-10-24T23:44:54+00:00"
+generated:
+  by: "catix-wiki/0.1 regulations"
+  at: "2026-10-24T23:44:54+00:00"
+extraction: "text layer (opendataloader)"
+status: draft
+---
+
+# Read the article [NIR_2022_eeg-changes]
+
+EEG patterns of COVID-19 in frequency, time and spatial domains
+
+Darya Vorontsova
+
+SberDevices, PJSC Sberbank 121165 Moscow, Russia Email: DVVorontsova@sberbank.ru
+
+Aleksandr Zubov
+
+SberDevices, PJSC Sberbank Dep. of Information Technologies and Computer Sciences National University of Science and Technology MISIS 119049 Moscow, Russia Email: AIZubov@sberbank.ru
+
+Ivan Menshikov
+
+Faculty of Mechanics and Mathematics Moscow State University 119991 Moscow, Russia Email: menshivan@phystech.edu
+
+Marina Isaeva
+
+SberDevices, PJSC Sberbank Coll. of Information Technologies and Computer Sciences National University of Science and Technology MISIS Email: sm.ec@misis.ru
+
+Alexandra Bernadotte
+
+SberDevices, PJSC Sberbank Dep. of Information Technologies and Computer Sciences National University of Science and Technology MISIS Faculty of Mechanics and Mathematics Moscow State University Email: bernadotte.alexandra@intsys.msu.ru (Corresponding author)
+
+Abstract—In our work, we used data analysis and indirect application of neural networks to identify patterns in the frequency, time and spatial domains of brain electrical activity that characterize COVID−19.
+
+We found a predominance of α−rhythm patterns in the left hemisphere in healthy people compared to people who have had COVID−19. Moreover, we observe a significant decrease in the left hemisphere contribution to the speech center area in people who have undergone COVID−19 when performing speech tasks.
+
+The findings show that the signal in healthy subjects is more spatially localized and synchronized between hemispheres when performing tasks compared to people who recovered from COVID−19. We also observed a decrease in low frequencies in both hemispheres after COVID−19.
+
+EEG-patterns of COVID−19 are detectable in an unusual frequency domain. What is usually considered noise in EEG-data carries information that can be used to determine whether or not a person has had COVID−19. These patterns can be interpreted as signs of hemispheric desynchronization, premature brain aging, and greater brain strain when solving simple tasks compared to people who did not have COVID−19.
+
+I. INTRODUCTION
+
+While developing the EEG-based brain-computer interface, we came across a significant inhomogeneity of the EEG-data. Given the epidemiological situation, we hypothesized that this heterogeneity may be related to the neurological consequences of COVID−19.
+
+In 2022, there are seven Human coronaviruses; some are associated with severe respiratory diseases mostly: Middle East respiratory syndrome CoV (MERS-CoV), SARS-CoV-1, SARS-CoV- 2; while the others are associated with neurological complications: CoV-229E, HCoV-OC43, SARS-CoV-
+
+1, and SARS-CoV-2 (COVID−19). HCoV-229E and HCoV-OC43 RNA were shown to be detected significantly more frequently in brain tissue autopsied from Multiple Sclerosis (MS) patients than in the brain of the donors who had no obvious clinical symptoms of MS [3] [6]. The scientific community saw the first published data regarding neurological complications linked to SARS-CoV-
+
+2 (COVID−19) in 2020. Neuronal damage appears to be caused by direct, virus-mediated, and non-virus-mediated in-jury. There are acute lesions, such as CNS demyelinating events, encephalitis meningitis and myelitis, Guillain–Barre’ syndrome, Bell’s palsy, myasthenic disorders, hemorrhagic stroke and subarachnoid hemorrhage, multiple ischemic in-farcts, and epileptic status, [3] [4] [5].
+
+Previously, we showed that despite the noisy signal, the EEG data reveals patterns characteristic of the internal pro-nunciation of word-movement commands [1]. That is, despite the prejudice against the noisiness of the EEG-signal, this signal provides meaningful data about very subtle processes of mental functioning.
+
+It is known that the alpha rhythm (α−rhythm) of electrical activity of the brain with a frequency of 8 to 14Hz is best expressed in the occipital areas of the brain. This α−rhythm has the greatest amplitude in a state of quite wakefulness, especially with eyes closed in a darkened room. Decreased α−rhythm is characteristic of concentration (especially visual) or mental activity. We wondered whether there were changes in α−rhythm in people who had undergone COVID−19. We were also interested in other patterns of frequency, time and space domains. EEG-data make it possible to analyze a noisy signal presented from different parts of the brain in different frequency domains over a fairly long period of time — one recording lasts about one hour.
+
+An interesting frequency domain in the EEG-data is the signal with a frequency greater than 50Hz. In the classical approach to EEG analysis, this frequency range is not of interest; however, there is data showing that the contribution of this signal (> 50Hz) to the frequency patterns of EEG-data increases with age and may indicate neurological changes [2]. We hypothesized that this increased presence of high frequencies may characterize the neurological consequences of COVID−19. In addition, we were interested in the detection of spatial features of electrical activity of the brain after COVID−19.
+
+II. METHODS
+
+A. Collecting the EEG Data All subjects were of legal age, in good health, and voluntary signed a consent to participate in the study. The subjects could interrupt the study at any time without giving a reason. The subjects provided information which included gender, age, education, and occupation. The exclusion criteria for the study were a history of head trauma, alcohol or other intoxication, and epilepsy. The dataset we used for the study consisted of 32−channel recordings of EEG signal made at 250Hz during several sessions of silent and vocalized speech of 105 subjects. The dry plastic electrodes (Datwyler’s SoftPulseTM Medium, brush type electrode) were placed according to the traditional 10−20 scheme. The ‘Afz’-channel was used as a reference electrode. The word presentation signal was also captured with a light sensor and included in data files as a mark. Each experiment lasted from 5 to 14 sessions, depending on the subject’s condition. Each session consisted of showing ten words from the training dictionary in random order, with repetitions allowed. During each session, the subjects were asked to pronounce the words shown on the screen aloud (verbalized speech) or silently (imaginary speech) without removing the EEG equipment.
+
+B. Eye Noise Filtering We used the eye noise filtering based on a three-step algorithm presented earlier [1]. For our study, we decided to consider eye noise independently of brain activity.
+
+C. Separation of Electrodes Into Left and Right Hemispheres The separation of the electrodes into the left and right hemispheres was performed taking into account the spatial balance between the hemispheres and can be seen in Figure 1.
+
+D. Downsampling
+
+The sampling rate was downsampled using index masks on the original EEG-data. For example, when we performed downsampling from 250 Hz to 125 Hz, the first array contained elements with even indices, and the second — with odd indices. In the case of lowering the frequency to 62.5 Hz, the indices were selected according to the remainder when divided by 4.
+
+E. Presenting the EEG-Data as a Two-Dimensional Vector First, we cut the EEG-data into 2D vectors — 1024 long (which is about 4 s, considering the sampling rate is equal to 250 Hz) and 32 wide (which is the number of EEG channels). Second, we duplicated six ‘eye-noisy’ channels. Third, using the downsampling algorithms presented above, the sampling rate was downsampled from 250 Hz to 125 Hz and the data were split into two separate samples (let us call them ‘Sample 01’ and ‘Sample 02’) with dimensions of 40 × 512. Fourth, using the downsampling algorithms presented above, we downsampled Sample 01 (Sample 02 separately) from 250 Hz to 125 Hz and packed the resulting samples into a 2D vector (80 × 512) and cut the first half into a 2D vector (80 × 256) each. In parallel, the sampling rate was downsampled from 125 Hz to 62.5 Hz for Sample 01 (Sample 02 separately) and the resulting samples were packed into a 2D vector (160 × 256). Fifth, in parallel, using the Eye Noise Filtering presented above, we obtained six components of eye noise (6 × 256) from six groups of channels from Sample 01 (Sample 02). Sixth, taking into account the separation of electrodes into the left and right hemispheres, we combined vectors into a 2D vector (256 × 256). All the obtained vectors were combined according to the following order: eye noise of the left hemisphere, downsampled tensors from the left hemisphere, median from ‘Ft7’ and ‘T3’ channels, downsampled tensors from the left and right hemispheres respectively, median from ‘Ft8’ and ‘T4’ channels, downsampled tensors from the right hemisphere, eye noise of the right hemisphere. The complete preprocessing scheme can be seen in Figure 2.
+
+F. Neural Networks
+
+We used a model including convolutional neural networks ResNet with 2 layers of controlled recurrent units — Gated Recurrent Unit (GRU) [7] [1]. The collected dataset was split into three parts necessary for the training and evaluation process of neural network models as follows. First, the set of all the individuals who provided EEG recordings for our study was split to form two disjoint groups of different size. The data recordings corresponding to the smaller one formed the test dataset, which consisted of 10% of the total dataset. A larger group of recordings was mixed and split to form training (70% of the initial data) and validation datasets (20%). In other words, the train and validation datasets were constructed in a classical way, while the test part of the dataset was formed using an out-of-sample approach.
+
+Fig. 1. Separation of electrodes into the left and right hemispheres with number of channels and spatial balance between hemispheres.
+
+G. Detection of a pattern of Neural Networks perception through the nullifying kernel.
+
+For the 2D vector (256×256) we applied a nullifying kernel of size (32×32) with a stride equal to 12 and a padding equal to 0.
+
+The function applied to the kernel was the accuracy of the binary classification of the trained neural network obtained on the test dataset when this section of each 2D vector (256×256) was zeroed on the test dataset. Thus, we obtained the contribution of a certain area of a 2D vector (256×256) (frequency, temporal and spatial domains patterns) to the accuracy of binary classification (data from participants with diagnosed COVID−19 history vs data from participants without such a diagnosis).
+
+The resulting vector was (16 × 16) and can be seen in Figure 3 for healthy people (left) and people who have undergone COVID−19.
+
+III. RESULTS
+
+Representing the signals from 32 EEG-channels as a set of features of the frequency and time domain, we found a predominance of α−rhythm patterns in the left hemisphere in healthy people compared with people who have had COVID−19. We see a significant decrease in the contribution of the α−rhythm in the EEG-signal in both hemispheres in people who have undergone COVID−19. Moreover, we observe a significant decrease in the contribution of the left hemisphere in the area of the speech center in people who have had COVID−19 when performing speech tasks. Normally, loss of α−rhythm indicates overstrain of the brain while concentrating on a task. A decrease in the α−rhythm in people who have had COVID−19 can be interpreted as signs of severe brain tension when solving simple tasks.
+
+The data show that the signal in healthy people is more spatially localized and synchronized between the hemispheres when performing tasks, than in people who have undergone COVID−19. There is no frequency synchronization of the hemispheres and there is a decrease in low frequencies in
+
+Fig. 2. Presenting EEG-data as two-dimensional vectors.
+
+Fig. 3. Patterns in time, space and frequency for healthy people (left) and participants with diagnosed COVID−19 history (right). The darker the color, the higher the contribution of this pattern to the binary classification accuracy of the convolutional neural network. the activity of both hemispheres in people who have had COVID−19. This pattern can renew the already remaining data on hemispheric desynchronization and signs of demyelination.
+
+We observe a significant increase in the contribution of high frequencies (> 80Hz) to the EEG-signal in the right hemisphere in people who have had COVID−19. What is commonly thought of as noise in EEG data carries information that can be used to determine if a person has had a COVID−19. or not. An increase in this frequency domain may indicate signs of premature brain aging.
+
+IV. CONCLUSION
+
+In our work, we have shown that EEG-patterns in the temporal, spatial and frequency domains differ in people who did not have COVID−19. and those who had. These patterns can be interpreted as signs of hemispheric desynchronization, premature brain aging and more brain stress when solving simple tasks compared to people who did not have COVID−19.
+
+REFERENCES
+
+[1] D. Vorontsova, I. Menshikov, A. Zubov, K. Orlov, P. Rikunov, E. Zvereva, L. Flitman, A. Lanikin, A. Sokolova, S. Markov, A. Bernadotte. “Silent EEG-speech recognition using convolutional and recurrent neural network with 85% accuracy of 9 words classification”, Sensors, 21(20), 6744, Oct. 2021.
+
+[2] B. Voytek, M.A. Kramer, J. Case, K.Q. Lepage, Z.R. Tempesta, R.T. Knight, and A. Gazzaley. “Age-related changes in 1/f neural electro-physiological noise”, Journal of Neuroscience, 35(38), pp.13257-13265, Sept. 2015.
+
+[3] N. Arbour, R. Day, J. Newcombe, and P.J. Talbot. “Neuroinvasion by human respiratory coronaviruses”, Journal of Virology, 74(19), pp.8913- 8921, Nov.2000.
+
+[4] M. Patone. “Neurological complications after first dose of COVID- 19 vaccines and SARS-CoV-2 infection”, Nature Medicine, 27, pp.2144–2153,Oct.2021.
+
+[5] R.S. Murray, B. Brown, D. Brian, and G.F. Cabirac. “Detection of coronavirus RNA and antigen in multiple sclerosis brain”, Ann Neurol, 31(5), pp.525–533, May 1992.
+
+[6] A. Salmi, B. Ziola, T. Hovi, and M. Reunanen. “Antibodies to coronaviruses OC43 and 229E in multiple sclerosis patients”, Neurology, 32(3), pp.292–295, Mar.1982.
+
+[7] K. He,X. Zhang, S. Ren, and J. Sun. “Deep residual learning for image recognition”, in Proc. IEEE Conference on Computer Vision and Pattern Recognition, Las Vegas, NV, USA, 2016.
+
+# Citations
+
+1. [Read the article [NIR_2022_eeg-changes]](https://innopolis.university/filespublic/NIR_2022_eeg-changes.pdf), file 0a2556941fb2

@@ -1,0 +1,16 @@
+{
+ "title": "all tasks cyberbez23-24",
+ "url": "https://lk-dovuz.innopolis.university/public/files/all_tasks_cyberbez23-24.pdf",
+ "sha256": "b9ae19256c98e5297d1c8471cab703b01d47d7e7fbefc8172bbf8a20cc740608",
+ "method": "text layer (opendataloader)",
+ "chars": 44953,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:20+00:00",
+ "remote": {
+  "etag": "\"2499d3-6177152bb16c0\"",
+  "modified": "Thu, 02 May 2024 04:49:07 GMT",
+  "size": "2398675"
+ }
+}

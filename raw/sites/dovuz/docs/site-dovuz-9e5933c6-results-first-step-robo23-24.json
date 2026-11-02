@@ -1,0 +1,16 @@
+{
+ "title": "results first step robo23 24",
+ "url": "https://lk-dovuz.innopolis.university/public/files/results_first_step_robo23_24.pdf",
+ "sha256": "f883ba03fb38d377775dfc97a9a9222b48c893377b1c847ec15d41c709376125",
+ "method": "text layer (opendataloader)",
+ "chars": 14696,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:25+00:00",
+ "remote": {
+  "etag": "\"58dad-6178bbe11e240\"",
+  "modified": "Fri, 03 May 2024 12:20:17 GMT",
+  "size": "363949"
+ }
+}

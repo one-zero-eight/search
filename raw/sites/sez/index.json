@@ -1,0 +1,807 @@
+{
+ "docs": {
+  "https://sezinnopolis.ru/upload/arenda/presentation-v2.pdf": "скачать презентацию",
+  "https://sezinnopolis.ru/upload/arenda/rules-cowork1.docx": "Правила использования коворкинга",
+  "https://sezinnopolis.ru/upload/arenda/rules-office.doc": "Правила использования офисных помещений",
+  "https://sezinnopolis.ru/upload/consent.docx": "Пользовательское соглашение",
+  "https://sezinnopolis.ru/upload/consumers-files/instr-prop-lob.pdf": "Инструкция о пропускном режиме в технопарке им. Лобачевского",
+  "https://sezinnopolis.ru/upload/consumers-files/instr-prop-pop.pdf": "Инструкция о пропускном режиме в технопарке им. Попова",
+  "https://sezinnopolis.ru/upload/industrial%20files/inno2.doc": "Информация по земельным участкам не сданным в аренду",
+  "https://sezinnopolis.ru/upload/industrial%20files/laishevo2.doc": "Информация по земельным участкам не сданным в аренду",
+  "https://sezinnopolis.ru/upload/new-files/forcompanies-dormap.docx": "Дорожная карта получения статуса «резидент»",
+  "https://sezinnopolis.ru/upload/new-files/forcompanies-personal.docx": "Согласие на обработку персональных данных",
+  "https://sezinnopolis.ru/upload/new-files/forcompanies-presentation.pdf": "Презентация ОЭЗ «Иннополис»",
+  "https://sezinnopolis.ru/upload/new-files/forcompanies-resume.docx": "Резюме проекта - с 25 до 29 года",
+  "https://sezinnopolis.ru/upload/new-files/forcompanies-status.docx": "Заявление на получение статуса «резидент»",
+  "https://sezinnopolis.ru/upload/new-files/rent/dog-banket-room.pdf": "Договор публичной оферты для банкетной комнаты",
+  "https://sezinnopolis.ru/upload/new-files/rent/dog-kids-room.pdf": "Договор публичной оферты для детской игровой комнаты \"Облака\"",
+  "https://sezinnopolis.ru/upload/new-files/rent/parking.docx": "Правила пользования подземным паркингом",
+  "https://sezinnopolis.ru/upload/new-files/rent/peregovor-room.docx": "Правила предоставления переговорной комнаты",
+  "https://sezinnopolis.ru/upload/new-files/rent/popup-mebel.docx": "Правила предоставления мебели в пользование",
+  "https://sezinnopolis.ru/upload/new-files/rent/popup-obor-office.docx": "Правила пользования оборудованием",
+  "https://sezinnopolis.ru/upload/new-files/rent/rules-kids-room.pdf": "Правила нахождения в детской игровой комнате",
+  "https://sezinnopolis.ru/upload/news/PPR%20.pdf": "Перспективный план развития особой экономической зоны технико-внедренческого типа «Иннополис» на период до 2035 года",
+  "https://sezinnopolis.ru/upload/politic.pdf": "Конфиденциальность"
+ },
+ "pages": {
+  "anticorruption": {
+   "fetched_at": "2026-10-31T08:38:01+00:00",
+   "file_sha": "2fb553c21ac6df25ce677b69f3f64c1b53b2c8ff84c7fce38f8a108a7809b870",
+   "last_modified": "",
+   "sha256": "89abfafd33b13adfd7b2736079ea26b1695ba1b3c46a9961410652a2d2c7aa52",
+   "title": "Антикоррупционная деятельность",
+   "url": "https://sezinnopolis.ru/anticorruption/"
+  },
+  "events": {
+   "fetched_at": "2026-10-31T08:37:18+00:00",
+   "file_sha": "5e98dee9ba3780996532b4a688ec864557b8aebebd955b8f838d9e6e0ec5ad0b",
+   "last_modified": "",
+   "sha256": "8e89ddd416883b0d0647634833e5b752af52339e9d554d547fba39e2e30020f6",
+   "title": "Проведение мероприятий на площадках технопарков",
+   "url": "https://sezinnopolis.ru/events/"
+  },
+  "forcompanies": {
+   "fetched_at": "2026-10-31T08:37:04+00:00",
+   "file_sha": "516da5ac1d839e37a543c0d86e940a46722a0467030c6db4635cda6a9e901106",
+   "last_modified": "",
+   "sha256": "66c51b462d290ba5e64421ebb947256a3e6f76be9f76177862ff6c21777b301e",
+   "title": "ИТ-компаниям ОЭЗ «Иннополис»: официальный сайт особой экономической зоны",
+   "url": "https://sezinnopolis.ru/forcompanies/"
+  },
+  "home": {
+   "fetched_at": "2026-11-01T22:18:38+00:00",
+   "file_sha": "39d8dae60d82605e246504e50a7a485b6383f27eb83e5dfa75d50ed72bcba721",
+   "last_modified": "",
+   "sha256": "cf127996e322342b8afd363a7b73ee0ba7bdf00c76a119816571841b78202f1f",
+   "title": "ОЭЗ «Иннополис»: официальный сайт особой экономической зоны",
+   "url": "https://sezinnopolis.ru/"
+  },
+  "industrial": {
+   "fetched_at": "2026-10-31T08:37:11+00:00",
+   "file_sha": "5bd0933bf0e970e9588446d252bfb493b9c88ad0e34be15db14e6179c8885992",
+   "last_modified": "",
+   "sha256": "b940e02ba4d34a0f197144557226fc590af5f2b1da8fc7b486ac17245a79a35e",
+   "title": "Индустриальная долина ОЭЗ «Иннополис»: официальный сайт особой экономической зоны",
+   "url": "https://sezinnopolis.ru/industrial/"
+  },
+  "laishevo": {
+   "fetched_at": "2026-10-31T08:37:09+00:00",
+   "file_sha": "6ff9f91b38d4faa0abcfaf34afbeb7674c965089cbbb20fecd400019e0a083d0",
+   "last_modified": "",
+   "sha256": "c807c0bbc13a0124e6b4365e3df92f2ef8ff9b57e0eadac4a13105053a1d80ae",
+   "title": "Индустриальный парк «Лаишево» ОЭЗ \"Иннополис\": официальный сайт особой экономической зоны",
+   "url": "https://sezinnopolis.ru/laishevo/"
+  },
+  "news": {
+   "fetched_at": "2026-11-01T22:18:55+00:00",
+   "file_sha": "e02898d092437d7f538b5e468fc71354321eef514a057f07655f07544829478a",
+   "last_modified": "",
+   "sha256": "ef483812f078459151aa4a0c033d633ba656ab4d365020d02fc1cba2a951a93e",
+   "title": "Пресс центр",
+   "url": "https://sezinnopolis.ru/news/"
+  },
+  "news-10-aya-vstrecha-ministrov-svyazi-briks-i-tsifrovoy-foru": {
+   "fetched_at": "2026-11-01T22:20:10+00:00",
+   "file_sha": "0beef353deaef677058ff4381a00c99ddf2db8b6dba7e9e115a2a162430ee303",
+   "last_modified": "",
+   "sha256": "9892bc70869693caf0b90f23425bf0945ecb4b71e6266985e59908eb224e3302",
+   "title": "10-ая встреча министров связи БРИКС и Цифровой форум БРИКС",
+   "url": "https://sezinnopolis.ru/news/10-aya-vstrecha-ministrov-svyazi-briks-i-tsifrovoy-forum-briks/"
+  },
+  "news-bespilotnaya-logistika-novye-gorizonty-razvitiya-v-ross": {
+   "fetched_at": "2026-11-01T22:19:08+00:00",
+   "file_sha": "269c5f21b22a48e20c534f0e780bf99c227973c16a0350bb3b8ab19dde5a24a0",
+   "last_modified": "",
+   "sha256": "7ada25a59b04fbaf353c8e819c3b539e44fb7bdcfbb0bdffd2bb13ab95d7ec97",
+   "title": "Беспилотная логистика: новые горизонты развития в России",
+   "url": "https://sezinnopolis.ru/news/bespilotnaya-logistika-novye-gorizonty-razvitiya-v-rossii-/"
+  },
+  "news-chleny-pravitelstva-rossii-v-tekhnoparke-v-sfere-vysoki": {
+   "fetched_at": "2026-11-01T22:20:08+00:00",
+   "file_sha": "cc5f36fcbcd18ea003b3bd8b547b864f60c36af8b6ee0a821c6ce992530a8524",
+   "last_modified": "",
+   "sha256": "0891b844ba38f5769452bf86b600222377f6b00b3388dbab0e3f4638c3ef7896",
+   "title": "Члены Правительства России в технопарке в сфере высоких технологий «ИнноПарк»",
+   "url": "https://sezinnopolis.ru/news/chleny-pravitelstva-rossii-v-tekhnoparke-v-sfere-vysokikh-tekhnologiy-innopark/"
+  },
+  "news-ii-mezhdunarodnyy-forum-rostki-rossiya-i-kita-9def38": {
+   "fetched_at": "2026-11-01T22:21:31+00:00",
+   "file_sha": "76b476733cbcfbad9861fe389493854782254c54a72b148226a4eb43e658e3af",
+   "last_modified": "",
+   "sha256": "f054c40a77ddd18408e43e348994cda8262da8d1f562b23c6767758b66d63101",
+   "title": "II международный форум «РОСТКИ: Россия и Китай – взаимовыгодное сотрудничество»",
+   "url": "https://sezinnopolis.ru/news/ii-mezhdunarodnyy-forum-rostki-rossiya-i-kitay--vzaimovygodnoe-sotrudnichestvo/"
+  },
+  "news-ii-mezhdunarodnyy-forum-rostki-rossiya-i-kitay-vzaimovy": {
+   "fetched_at": "2026-11-01T22:20:02+00:00",
+   "file_sha": "7e889e7af7e5a2fc50934ee387f0c49ab2be921b7b13e202f57edcde53a78ae4",
+   "last_modified": "",
+   "sha256": "7eea966c42b08f4bf914d8b6f8b28dcf113ae7f0b791f839b80a8519f8f10d56",
+   "title": "II международный форум «РОСТКИ: Россия и Китай – взаимовыгодное сотрудничество»",
+   "url": "https://sezinnopolis.ru/news/ii-mezhdunarodnyy-forum-rostki-rossiya-i-kitay-vzaimovygodnoe-sotrudnichestvo/"
+  },
+  "news-innosfera-stanet-platformoy-dlya-sotrudnichestva-s-rezi": {
+   "fetched_at": "2026-11-01T22:21:44+00:00",
+   "file_sha": "962d32d7b7b523fa091763e997432189e71795442d901de14d87663921cc524e",
+   "last_modified": "",
+   "sha256": "e03fbe0f0f42c6010497a8c2fec7ed8fff1a315e5793ccd4302cf704b630b69e",
+   "title": "«ИННОСФЕРА» станет платформой для сотрудничества с резидентами ОЭЗ «Иннополис» и заключения сделок",
+   "url": "https://sezinnopolis.ru/news/innosfera-stanet-platformoy-dlya-sotrudnichestva-s-rezidentami-oez-innopolis-i-zaklyucheniya-sdelok/"
+  },
+  "news-innovatsionnyy-tsentr-innopolis-predstavit-na-kazan-dig": {
+   "fetched_at": "2026-11-01T22:21:40+00:00",
+   "file_sha": "9fc593ee87093eb76972f822bf1ee9e9f83183f8c0b518bf38ce0b8cc98a1da3",
+   "last_modified": "",
+   "sha256": "2e56d533cfc3f98d763d5df340bdef15312b97e82762b1a42e8ef92cea9b61a2",
+   "title": "Инновационный центр Иннополис представит на Kazan Digital Week 2024 перспективные разработки и передовые технологии",
+   "url": "https://sezinnopolis.ru/news/innovatsionnyy-tsentr-innopolis-predstavit-na-kazan-digital-week-2024-perspektivnye-razrabotki-i-per/"
+  },
+  "news-kazan-digital-week-2024": {
+   "fetched_at": "2026-11-01T22:20:12+00:00",
+   "file_sha": "5eb6538c119323d35e6b532c7f9fa4df371e07b9c5340f4289063b2303c572e4",
+   "last_modified": "",
+   "sha256": "0f282471bd502db64c89c65d4a0ef8e42292075bce3dc5aee5f60047bbdad11a",
+   "title": "Kazan Digital Week 2024",
+   "url": "https://sezinnopolis.ru/news/kazan-digital-week-2024/"
+  },
+  "news-novye-startapy-oez-innopolis": {
+   "fetched_at": "2026-11-01T22:21:42+00:00",
+   "file_sha": "2c8e225ef852e661c9bc0a5505bbd848dd6830bf2538df91038dc011253d173e",
+   "last_modified": "",
+   "sha256": "7adbd526df2c7693217536db45da50cf7ea1fefcb9c91b9990c4b1ba086918a2",
+   "title": "Новые стартапы ОЭЗ «Иннополис»",
+   "url": "https://sezinnopolis.ru/news/novye-startapy-oez-innopolis/"
+  },
+  "news-platforma-vmesto-analoga-kak-avrora-formiruet-ekosistem": {
+   "fetched_at": "2026-11-01T22:19:04+00:00",
+   "file_sha": "cea9aa609c486a69cca49464b0fc4b34acfef57962af7b4479cc2d80abdf37fc",
+   "last_modified": "",
+   "sha256": "1deb6ce0e0fb7988b144b67da33b725acdd95d248673615e2df39ddb7b7dd9f5",
+   "title": "Платформа вместо аналога: как «Аврора» формирует экосистему для технологического суверенитета",
+   "url": "https://sezinnopolis.ru/news/platforma-vmesto-analoga-kak-avrora-formiruet-ekosistemu-dlya-tekhnologicheskogo-suvereniteta/"
+  },
+  "news-prezident-respubliki-serbskoy-posetil-innovat-99414b": {
+   "fetched_at": "2026-11-01T22:21:34+00:00",
+   "file_sha": "a75594e78af18adeac781d6c953912d7decd80a7ccf4e7ed19f04222d7d075fe",
+   "last_modified": "",
+   "sha256": "5b789b2da53a8317f7fac4f7a9b252b5bdc7e456ed790579588d80b3f7c1e0f8",
+   "title": "Президент Республики Сербской посетил Инновационный центр «Иннополис»",
+   "url": "https://sezinnopolis.ru/news/prezident-respubliki-serbskoy-posetil-innovatsionnyy-tsentr-innopolis/"
+  },
+  "news-prezident-respubliki-serbskoy-posetil-innovatsionnyy-ts": {
+   "fetched_at": "2026-11-01T22:20:06+00:00",
+   "file_sha": "360141272986a07f73aa3d92f8417dcb66fad37b333228ec386b6540d7a9f3f8",
+   "last_modified": "",
+   "sha256": "f0d02ef88895d097ee247fa1efe178c160f9713c001947804bf45253dedbd49f",
+   "title": "Президент Республики Сербской посетил Инновационный центр «Иннополис»",
+   "url": "https://sezinnopolis.ru/news/prezident-respubliki-serbskoy-posetil-innovatsionnyy-tsentr-innopolis9057/"
+  },
+  "news-rezidenty-oez-innopolis-smogut-kompensirovat-chast-zarp": {
+   "fetched_at": "2026-10-31T08:38:24+00:00",
+   "file_sha": "5f0179c08f6cb5b95a5548f23efaa07defc28c9c7a611bc879509bffa6b2d053",
+   "gone": true,
+   "last_modified": "",
+   "sha256": "c95e14619cd1cf33dc36d02b5761947dd61d5d736808c2a96ed6afb442e5c6ce",
+   "title": "Резиденты ОЭЗ «Иннополис» смогут компенсировать часть зарплат специалистов из других регионов",
+   "url": "https://sezinnopolis.ru/news/rezidenty-oez-innopolis-smogut-kompensirovat-chast-zarplat-spetsialistov-iz-drugikh-regionov/"
+  },
+  "news-rossiyskie-iiservisy-dronykurery-i-tsifrovye-dvoyniki-c": {
+   "fetched_at": "2026-11-01T22:19:13+00:00",
+   "file_sha": "f4e8e12c043694088f5303819b985997b6a75cfdd3dee30c903fc09d8c2fce62",
+   "last_modified": "",
+   "sha256": "0768b74e0b6cef286c2eb472d00cfeb6981bbeabb70e9c2b8975d24162e88944",
+   "title": "Российские ИИ-сервисы, дроны-курьеры и цифровые двойники: что покажет ОЭЗ «Иннополис» в Казани на форуме Kazan Digital Week 2026",
+   "url": "https://sezinnopolis.ru/news/rossiyskie-iiservisy-dronykurery-i-tsifrovye-dvoyniki-chto-pokazhet-oez-innopolis-v-kazani-na-forume/"
+  },
+  "news-rossiyskiy-meditsinskiy-ii-ot-pilotov-v-tatarstane-do-m": {
+   "fetched_at": "2026-11-01T22:19:10+00:00",
+   "file_sha": "bcb8d540b920c29cf3c0905d0a8a489c2626f076656ed671d3b4be1a306d7202",
+   "last_modified": "",
+   "sha256": "1109e94c4b6ff7ca0e97af8af0749c1f85856e04bb46db851eccabc15f279c98",
+   "title": "Российский медицинский ИИ: от пилотов в Татарстане до массового применения в 70 регионах России",
+   "url": "https://sezinnopolis.ru/news/rossiyskiy-meditsinskiy-ii-ot-pilotov-v-tatarstane-do-massovogo-primeneniya-v-70-regionakh-rossii/"
+  },
+  "news-uchastnikam-10oy-vstrechi-ministrov-svyazi-briks-i-tsif": {
+   "fetched_at": "2026-11-01T22:21:38+00:00",
+   "file_sha": "7c5174b23dcc259eb0c00a5c7ebacbef5bdb1196968e4ccb2d1320b1d30db7aa",
+   "last_modified": "",
+   "sha256": "5ac90a0e58889eb7dacaf41cb6cbb186a6d45465dae24ffd335de6849d0240cb",
+   "title": "Участникам 10-ой встречи министров связи БРИКС и Цифрового форума БРИКС представили инновационные разработки резидентов ОЭЗ «Иннополис»",
+   "url": "https://sezinnopolis.ru/news/uchastnikam-10oy-vstrechi-ministrov-svyazi-briks-i-tsifrovogo-foruma-briks-predstavili-innovatsionny/"
+  },
+  "news-v-ramkakh-digital-innopolis-days-2024-chleny-pravitelst": {
+   "fetched_at": "2026-11-01T22:21:36+00:00",
+   "file_sha": "aa326732bc5069d7202e9f0063043a69c82b2d511a16819e340f85a9452aabeb",
+   "last_modified": "",
+   "sha256": "618575142f237f9a0f794232febed2e8b65a3825a45240b693b6f470739dfb2f",
+   "title": "В рамках Digital Innopolis Days 2024 члены Правительства России посетили «ИнноПарк»",
+   "url": "https://sezinnopolis.ru/news/v-ramkakh-digital-innopolis-days-2024-chleny-pravitelstva-rossii-posetili-innopark/"
+  },
+  "news-v-tatarstane-podpisan-memorandum-o-lokalizatsii-proizvo": {
+   "fetched_at": "2026-11-01T22:19:59+00:00",
+   "file_sha": "309a887270554f4c61c7edbe3c674a35e813b693cf7f1b71099677fe86605361",
+   "last_modified": "",
+   "sha256": "bc75d6f5a7af82fbdb441d3ce4ec742ba5ec78a63faebe9fd60e817cd0905f65",
+   "title": "В Татарстане подписан меморандум о локализации производства ангиографических систем",
+   "url": "https://sezinnopolis.ru/news/-v-tatarstane-podpisan-memorandum-o-lokalizatsii-proizvodstva-angiograficheskikh-sistem/"
+  },
+  "news-vystavka-sdelano-v-tatarstane-v-ramkakh-xvi-sammita-bri": {
+   "fetched_at": "2026-11-01T22:20:04+00:00",
+   "file_sha": "01f4f0d65b8aae3945e56c1fd18763e4108b4b77bca24d86f3470ee67aabf286",
+   "last_modified": "",
+   "sha256": "9a3faaa71b1af28836e31b6774de55fd7edd75f1b884a8a6020149e9826044ea",
+   "title": "Выставка «Сделано в Татарстане» в рамках XVI саммита БРИКС",
+   "url": "https://sezinnopolis.ru/news/vystavka-sdelano-v-tatarstane-v-ramkakh-xvi-sammita-briks/"
+  },
+  "news-xxxi-ekspertnyy-sovet-po-otboru-startapov-v-oez-innopol": {
+   "fetched_at": "2026-11-01T22:19:06+00:00",
+   "file_sha": "f2355f3b0891653b72604c39defb32e178619f254a6f9d6a2fcfa77a9a654063",
+   "last_modified": "",
+   "sha256": "6d0165a5475f7465d3aba704c47e011d3f7092b62791f8ec99761f3c88a7cbbb",
+   "title": "XXXI Экспертный совет по отбору стартапов в ОЭЗ «Иннополис»",
+   "url": "https://sezinnopolis.ru/news/xxxi-ekspertnyy-sovet-po-otboru-startapov-v-oez-innopolis-/"
+  },
+  "rentandservice": {
+   "fetched_at": "2026-10-31T08:37:13+00:00",
+   "file_sha": "f826ce7e54f90bd4199362768780d6b79e54f32a792dcb59666836792fca9115",
+   "last_modified": "",
+   "sha256": "dbe3f7df7fcd56c210d6100998333259d7767f2eaddccaa736f82e3d87627d8c",
+   "title": "Аренда и сервисы ОЭЗ \"Иннополис\": официальный сайт особой экономической зоны",
+   "url": "https://sezinnopolis.ru/rentandservice/"
+  },
+  "res": {
+   "fetched_at": "2026-10-31T08:37:22+00:00",
+   "file_sha": "94693f785abd9382fa5c739780d2ab706f58815076c681f69738c7f267fd101a",
+   "last_modified": "",
+   "sha256": "c4c2d9be7928dae961d6e6675a77509ce5ade289a80d666dc1ec5570335c098e",
+   "title": "Резиденты",
+   "url": "https://sezinnopolis.ru/res/"
+  },
+  "res-akbarsdigital": {
+   "fetched_at": "2026-10-31T08:39:23+00:00",
+   "file_sha": "548ec0c5d84dd8a9ec372bd64c68335937f66a327a29b4044d64a644854437b0",
+   "last_modified": "",
+   "sha256": "e23f767787277bb3e144b057de9bee7ad0949b463ac3348c18fedb263b53f639",
+   "title": "ООО «Ак Барс Цифровые Технологии»",
+   "url": "https://sezinnopolis.ru/res/akbarsdigital/"
+  },
+  "res-ao-niias": {
+   "fetched_at": "2026-10-31T08:39:55+00:00",
+   "file_sha": "d1fa63482647907d05d315b2f74d17234c90de6e84ee77b8e25a3274121df561",
+   "last_modified": "",
+   "sha256": "d26cb42744d8f0a9bd89eff9988f3e4d8e3dcd6dc7f63532f859cf2536d14f56",
+   "title": "АО \"НИИАС\"",
+   "url": "https://sezinnopolis.ru/res/ao-niias/"
+  },
+  "res-aom": {
+   "fetched_at": "2026-10-31T08:39:53+00:00",
+   "file_sha": "ab4592f908357cbcb21f95533664252259b2aa4d03f8a47952b610a295e2bd58",
+   "last_modified": "",
+   "sha256": "21bdcc858d15779ce71a339aa0a8d6b95a680f34268d9c95b72c6fc38ac7799f",
+   "title": "ООО \"АОМ\"",
+   "url": "https://sezinnopolis.ru/res/aom/"
+  },
+  "res-bars-grup": {
+   "fetched_at": "2026-10-31T08:38:45+00:00",
+   "file_sha": "81901c8e4a5f282b351dd99d37c1bd516f1160ba998d8e9c0b996ed32bc92ab1",
+   "last_modified": "",
+   "sha256": "4cdf8c88dab4dea733ec4e85c28a6499a6447be4618b8886995db0380a4e802f",
+   "title": "АО «БАРС Груп»",
+   "url": "https://sezinnopolis.ru/res/bars-grup/"
+  },
+  "res-bipium": {
+   "fetched_at": "2026-11-01T22:19:32+00:00",
+   "file_sha": "15823a858b4bd74c147d7f0eb587a67798f308ed9ddcf1f78b0f719d0e7318d6",
+   "last_modified": "",
+   "sha256": "b92c0480ecb2edc633d3e94e1e5a9fa1b39cbd36642505fba3465465f68f11d7",
+   "title": "ООО \"Бипиум\"",
+   "url": "https://sezinnopolis.ru/res/bipium/"
+  },
+  "res-eora-data-lab": {
+   "fetched_at": "2026-10-31T08:39:41+00:00",
+   "file_sha": "e0c86f92e88304c54a9209ae43c96239cc7cce351fb873021420334fcd20da24",
+   "last_modified": "",
+   "sha256": "6d53fac9b5da57de2558c5cd714a98616a0df808c1874c45dd2d27ab0c6394e1",
+   "title": "ООО \"Еора Дата Лаб\"",
+   "url": "https://sezinnopolis.ru/res/eora-data-lab/"
+  },
+  "res-iva-technologies": {
+   "fetched_at": "2026-10-31T08:39:06+00:00",
+   "file_sha": "b6baeadc445a4f417344b1a33c17d14ec2579e2cdcaeaf65adc4895f839db0a3",
+   "last_modified": "",
+   "sha256": "0dee6f769470d3e2c34f2b47f8a4295d6e4c9b0a7594addc5ce1861c95d2fdac",
+   "title": "ПАО \"ИВА\"",
+   "url": "https://sezinnopolis.ru/res/iva-technologies/"
+  },
+  "res-kproekty": {
+   "fetched_at": "2026-10-31T08:38:49+00:00",
+   "file_sha": "2e2eec2078f0cbef5b4755b20e8a01bec19ac190579b4d81369a1a23a8c392dd",
+   "last_modified": "",
+   "sha256": "7a70476ec56b5d7805eb19201affbb35a808cf2161e8beaa45a73dfe549edd52",
+   "title": "ООО \"К-Проекты\"",
+   "url": "https://sezinnopolis.ru/res/kproekty/"
+  },
+  "res-lemon-technologies-group": {
+   "fetched_at": "2026-10-31T08:39:09+00:00",
+   "file_sha": "697dfb4870acc734c3bdd3ccb36a0ec6b693b09e6f95dd756a8ee09ac659a895",
+   "last_modified": "",
+   "sha256": "b8e14780dfdb20a537c43430a5f2794a1d8938ce95956abf1d6605c6054d4f09",
+   "title": "ООО \"Лемон Технолоджис Груп\"",
+   "url": "https://sezinnopolis.ru/res/lemon-technologies-group/"
+  },
+  "res-nii-voskhod": {
+   "fetched_at": "2026-11-01T22:19:27+00:00",
+   "file_sha": "258881c971ad4c7d887d608eb1c6d595d4a5197152669d99b7f385c54388d9fa",
+   "last_modified": "",
+   "sha256": "8d10205f33a7958768f5a5dbb94d566ba4205d59b8f33d7333e7dcddda95f6fd",
+   "title": "ФГАУ НИИ \"Восход\"",
+   "url": "https://sezinnopolis.ru/res/nii-voskhod/"
+  },
+  "res-ooo-algaritm": {
+   "fetched_at": "2026-10-31T08:39:47+00:00",
+   "file_sha": "70fb0d5fcffdfbd2b1ae20869fb6d6d22de0da831568c15960e45ffe0075bb69",
+   "last_modified": "",
+   "sha256": "c7cb9c1c1965fc8c213248fe453fffb96fc9b0ca475e4a296c7d425fee7b5dfa",
+   "title": "ООО \"АлгаРитм\"",
+   "url": "https://sezinnopolis.ru/res/ooo-algaritm/"
+  },
+  "res-ooo-delokub": {
+   "fetched_at": "2026-10-31T08:37:50+00:00",
+   "file_sha": "db57d016595fea43a9c5c4bd13e1d3289a54af5b4e70eadeb128fcb96f65c2e2",
+   "gone": true,
+   "last_modified": "",
+   "sha256": "10148167603aa71546cab7f0c71f6c0072e3f2f8657fdee282d17987b10b0eac",
+   "title": "ООО \"Делокуб\"",
+   "url": "https://sezinnopolis.ru/res/ooo-delokub/"
+  },
+  "res-ooo-diskaver-soft": {
+   "fetched_at": "2026-10-31T08:38:15+00:00",
+   "file_sha": "972e7d8b20fa9caef1908379f654d60a878c657e0c977d67513eca59c8fdac10",
+   "last_modified": "",
+   "sha256": "7858d36207596c5d93ce34c755d8a6c8c0a5bda7437d004a395b71f31a189adc",
+   "title": "ООО \"Дискавер софт\"",
+   "url": "https://sezinnopolis.ru/res/ooo-diskaver-soft/"
+  },
+  "res-ooo-duglissaas": {
+   "fetched_at": "2026-10-31T08:38:13+00:00",
+   "file_sha": "92c36b2781a096b79d1a569ebab6267ec2d35d26b4dfdb488167e6fb31ae04f1",
+   "last_modified": "",
+   "sha256": "469c4058af3af1041472d13c99705390978a2bb751af0bacd9ae5c8b7e8a59ec",
+   "title": "ООО \"Дуглис-СААС\"",
+   "url": "https://sezinnopolis.ru/res/ooo-duglissaas/"
+  },
+  "res-ooo-edinye-bankovskie-tekhnologii": {
+   "fetched_at": "2026-10-31T08:37:48+00:00",
+   "file_sha": "a7bcafd3c0564498ddd1db4f05a6c480f8a587ba1470ec6810899aaf8c86d7f8",
+   "gone": true,
+   "last_modified": "",
+   "sha256": "3d6ef7424556bd8610f20629790e96e630b59a2ef06f73503f8a14e9af4ef7ca",
+   "title": "ООО \"Единые банковские технологии\"",
+   "url": "https://sezinnopolis.ru/res/ooo-edinye-bankovskie-tekhnologii/"
+  },
+  "res-ooo-edtekh-innovatsii": {
+   "fetched_at": "2026-10-31T08:39:38+00:00",
+   "file_sha": "9a39e77cc8795b1dc80306240ba4046502880bd804c9107d4ef0dd307b68985b",
+   "last_modified": "",
+   "sha256": "567f994f2316357722a6d86b0386fbd34e4b64feb95790d5c0c4413acccb42c0",
+   "title": "ООО \"Эдтех Инновации\"",
+   "url": "https://sezinnopolis.ru/res/ooo-edtekh-innovatsii/"
+  },
+  "res-ooo-fakkt-servis": {
+   "fetched_at": "2026-10-31T08:39:13+00:00",
+   "file_sha": "472e81cc6a082989e340020bba8d313d7261a017bc8bb10818418b390b0023ef",
+   "last_modified": "",
+   "sha256": "d2620de21793dfbca7165c4f1f29e80f5a88507a4fce52dcf25af452bc487c3e",
+   "title": "ООО \"Ф.А.К.К.Т. Сервис\"",
+   "url": "https://sezinnopolis.ru/res/ooo-fakkt-servis/"
+  },
+  "res-ooo-foton-servis": {
+   "fetched_at": "2026-11-01T22:19:23+00:00",
+   "file_sha": "5a6b497b9e23d552a1c9078bb99c47554a3961ff4124d750abc6bf5b8a3d7145",
+   "last_modified": "",
+   "sha256": "34ee4d5138804ef7b67b60935e07d8bcf614c9e89a98c9cdca814325e726d47b",
+   "title": "ООО \"Фотон Сервис\"",
+   "url": "https://sezinnopolis.ru/res/ooo-foton-servis/"
+  },
+  "res-ooo-fudzhital": {
+   "fetched_at": "2026-10-31T08:39:32+00:00",
+   "file_sha": "399effb9c2385080b6685adae1995b2c413eb9bcdc102e585e4a1677a2bcaa14",
+   "last_modified": "",
+   "sha256": "7cb2f12d061edd0fa1074693143335455b4ea58ea65dd22c5eb0a8f0ed4a5a02",
+   "title": "ООО \"Фуджитал\"",
+   "url": "https://sezinnopolis.ru/res/ooo-fudzhital/"
+  },
+  "res-ooo-gazprom-vniigaz": {
+   "fetched_at": "2026-10-31T08:37:39+00:00",
+   "file_sha": "16932a05752c44d36ba318b65f5949052613b7683eace7d602b00bec41238031",
+   "gone": true,
+   "last_modified": "",
+   "sha256": "4cc112227c4976ce9fda1e65af9d013fe7759cabc8184f766880c57981c1f67e",
+   "title": "ООО \"Газпром ВНИИГАЗ\"",
+   "url": "https://sezinnopolis.ru/res/ooo-gazprom-vniigaz/"
+  },
+  "res-ooo-grin-grous": {
+   "fetched_at": "2026-10-31T08:37:58+00:00",
+   "file_sha": "e566f036f31ca4dd2bdfd09021617205de1f5672e1f86057a370c5a77b008a49",
+   "gone": true,
+   "last_modified": "",
+   "sha256": "8f1d7d54bc64995836b2b039cc11f6dc9ec2ce5f86badc085d5271ab4bae0751",
+   "title": "ООО \"Грин Гроус\"",
+   "url": "https://sezinnopolis.ru/res/ooo-grin-grous/"
+  },
+  "res-ooo-indasoft-innovatsii": {
+   "fetched_at": "2026-10-31T08:39:00+00:00",
+   "file_sha": "df3efdcf704004d26bcac73527227310329cc7f7705529103218dec7743ed6cd",
+   "last_modified": "",
+   "sha256": "99de768b6018c31f0ba51c7f979225bf7d256f1d36dd50bed9757c29e56cad55",
+   "title": "ООО \"Индасофт Инновации\"",
+   "url": "https://sezinnopolis.ru/res/ooo-indasoft-innovatsii/"
+  },
+  "res-ooo-innodata": {
+   "fetched_at": "2026-10-31T08:39:11+00:00",
+   "file_sha": "45ab9cc84d55b08e1d135aee973bf562dce55530fd94b855826ae656eb24d84b",
+   "last_modified": "",
+   "sha256": "cb0fcfea56c17939c9302cc1db5a95e3fb276ca37bc6d88fa73151db8820f3cb",
+   "title": "ООО \"Иннодата\"",
+   "url": "https://sezinnopolis.ru/res/ooo-innodata/"
+  },
+  "res-ooo-innoprog": {
+   "fetched_at": "2026-11-01T22:19:34+00:00",
+   "file_sha": "39fd89be002bd3cd9b38eb97251d8288df3908a32c2b17b010f9c5c21604b846",
+   "last_modified": "",
+   "sha256": "35b2b5cbfb6b4d7801838e176b5da8d02fc9deecb5b3c1acea1df11cb1a298eb",
+   "title": "ООО \"Иннопрог\"",
+   "url": "https://sezinnopolis.ru/res/ooo-innoprog/"
+  },
+  "res-ooo-intelsors": {
+   "fetched_at": "2026-10-31T08:38:20+00:00",
+   "file_sha": "81154cbc415643f3367029eac2040f7d60f0e29f0e4025271cc8b7c7b902541a",
+   "last_modified": "",
+   "sha256": "c5292e7f4615051bd20e810fb3924699fb43887f155883b2cdcd165406365710",
+   "title": "ООО «ИнтелСорс»",
+   "url": "https://sezinnopolis.ru/res/ooo-intelsors/"
+  },
+  "res-ooo-keshbekfors": {
+   "fetched_at": "2026-10-31T08:37:41+00:00",
+   "file_sha": "f0be91c9fcf0d4d016c2d3399b2f9cfe2b9edef40abfdee7c547fdd90671076b",
+   "gone": true,
+   "last_modified": "",
+   "sha256": "c94a36d3cb9d6057fe0e8bb9d96d968ae71737c7fe0b6bfc5750ac039783a599",
+   "title": "ООО \"КЭШБЭКФОРС\"",
+   "url": "https://sezinnopolis.ru/res/ooo-keshbekfors/"
+  },
+  "res-ooo-kibertsekh-evolyushen": {
+   "fetched_at": "2026-10-31T08:39:43+00:00",
+   "file_sha": "e8b41a1606fd4dd6f0e5ce0cc8f1c67171d4a053dab09b5bf57d50c7bd1ca0e5",
+   "last_modified": "",
+   "sha256": "4f9887d40824838be015eaaaecdf497ee30ac0ca4b1d10e173b86d83a2b81883",
+   "title": "АО \"Киберцех Эволюшен\"",
+   "url": "https://sezinnopolis.ru/res/ooo-kibertsekh-evolyushen/"
+  },
+  "res-ooo-kontur-innovatsii": {
+   "fetched_at": "2026-10-31T08:39:15+00:00",
+   "file_sha": "ee7e41d3dd4e9307d109d9ff76a66573e1554069820d878e59eb12adc441f74e",
+   "last_modified": "",
+   "sha256": "2f7d92dbeb08f57e057723f2e5583d14775b5cbb0bb67f147e72f29fa90ee15d",
+   "title": "ООО «Контур Инновации»",
+   "url": "https://sezinnopolis.ru/res/ooo-kontur-innovatsii/"
+  },
+  "res-ooo-kravt-robotiks": {
+   "fetched_at": "2026-10-31T08:38:05+00:00",
+   "file_sha": "8766d62378e02d98949566f5d1bda1490a340431fd5715ecfae6265b61b91eff",
+   "last_modified": "",
+   "sha256": "41e77cd4a3411a4b9d2dced87d8567d096ebbed965b31423ccf829958dd3c0e4",
+   "title": "ООО \"Кравт Роботикс\"",
+   "url": "https://sezinnopolis.ru/res/ooo-kravt-robotiks/"
+  },
+  "res-ooo-lp-tekhnologii": {
+   "fetched_at": "2026-10-31T08:38:11+00:00",
+   "file_sha": "6d735badf74570722e6ba99d839448fd8fbf7bcaa82c1c9491fb13ee6acfa17e",
+   "last_modified": "",
+   "sha256": "66918fc0ca7550fa766bf7feffce2fe770d9cc74dbf692572acab0c02f56bd3d",
+   "title": "ООО \"ЛП Технологии\"",
+   "url": "https://sezinnopolis.ru/res/ooo-lp-tekhnologii/"
+  },
+  "res-ooo-magnit-it-lab": {
+   "fetched_at": "2026-10-31T08:39:28+00:00",
+   "file_sha": "06bca5e0a615de7cacb20cfa62eedf53ec53cdef4da709a65f060d3d14099058",
+   "last_modified": "",
+   "sha256": "754b48677cde2f72ade9bd89bb2cf7853c8816088306eb2f2532a3bdf55f7a26",
+   "title": "ООО \"Магнит ИТ Лаб\"",
+   "url": "https://sezinnopolis.ru/res/ooo-magnit-it-lab/"
+  },
+  "res-ooo-metador-dev": {
+   "fetched_at": "2026-10-31T08:38:17+00:00",
+   "file_sha": "529ab0cecf6a6b2e5143e517ff86c6599c7642e1e08fd43313a3b54ea71c17aa",
+   "last_modified": "",
+   "sha256": "bfb1a4a55f2de50a8882bdd02f7102c624f09db94e877e58517ab22a3db8524d",
+   "title": "ООО \"МЕТАДОР ДЕВ\"",
+   "url": "https://sezinnopolis.ru/res/ooo-metador-dev/"
+  },
+  "res-ooo-novye-oblachnye-tekhnologii": {
+   "fetched_at": "2026-10-31T08:38:39+00:00",
+   "file_sha": "94bfd2d01a3475e4a04aa0d91b49d24079867c03fad702eb0ceaca393d0d719a",
+   "last_modified": "",
+   "sha256": "eaa5fe3ce8cdfcc6be775cfec8a49b88e541e85943bd760c572e16389a2b02d3",
+   "title": "МойОфис (ООО «Новые облачные технологии»)",
+   "url": "https://sezinnopolis.ru/res/ooo-novye-oblachnye-tekhnologii/"
+  },
+  "res-ooo-npo-vzor": {
+   "fetched_at": "2026-10-31T08:37:44+00:00",
+   "file_sha": "6ca221515234f1d0848ca2077c2ef849605cc73dc7cd15c59f213c3d88797fba",
+   "gone": true,
+   "last_modified": "",
+   "sha256": "1dfd870da10b993a2f6a40b151d29bc7c16b71fabd0993e5efe3780d4e1d4f5e",
+   "title": "ООО \"НПО \"Взор\"",
+   "url": "https://sezinnopolis.ru/res/ooo-npo-vzor/"
+  },
+  "res-ooo-o": {
+   "fetched_at": "2026-10-31T08:39:49+00:00",
+   "file_sha": "753e49e57426b2431b1cd776ec4252b444314cbac5592e712e09cc2ad368f7bf",
+   "last_modified": "",
+   "sha256": "e1dd2ec23d0b273a2c5a8b67a729e8aba3dbd1807699e59cd12e49466a02a3ec",
+   "title": "ООО \"О\"",
+   "url": "https://sezinnopolis.ru/res/ooo-o/"
+  },
+  "res-ooo-orlan-didzhital": {
+   "fetched_at": "2026-11-01T22:19:19+00:00",
+   "file_sha": "bf67acd1c12a3791e050a344c9ae2162119542309d1437c4fa9e80eb2dcf3f20",
+   "last_modified": "",
+   "sha256": "47fb7fcd4459827632ee9c1ad32beeedc6499e838cd79ccb6209703e63f16022",
+   "title": "ООО \"Орлан диджитал\"",
+   "url": "https://sezinnopolis.ru/res/ooo-orlan-didzhital/"
+  },
+  "res-ooo-oun": {
+   "fetched_at": "2026-11-01T22:19:25+00:00",
+   "file_sha": "bbb36670a0be4bec500367649dae05076f3eff3713e1f43e39ed10681944d356",
+   "last_modified": "",
+   "sha256": "b8eac4c8f7056199eac9cf69c31f697aef546f79082ab68736f4998036dbb6f3",
+   "title": "ООО \"Оун\"",
+   "url": "https://sezinnopolis.ru/res/ooo-oun/"
+  },
+  "res-ooo-radius-issledovaniya": {
+   "fetched_at": "2026-11-01T22:19:15+00:00",
+   "file_sha": "82cb3585b46e0f6e8f81077d23840e92114adfc34e06aab6d504be5dd6588801",
+   "last_modified": "",
+   "sha256": "3b8d0d09ee962e46df3eed3e0f23597dfb5d6ccad1088b413c4eec3dd60a74da",
+   "title": "ООО \"Радиус Исследования\"",
+   "url": "https://sezinnopolis.ru/res/ooo-radius-issledovaniya/"
+  },
+  "res-ooo-reylyuks": {
+   "fetched_at": "2026-10-31T08:39:51+00:00",
+   "file_sha": "84745e1a76daf7da56a8f94e602e39b5ed464332c52b4d14e69bd9139736e673",
+   "last_modified": "",
+   "sha256": "fbaa271b905c1c37edb8d591506a284e45a3bd05a23957820e70411404186d85",
+   "title": "ООО «Рэйлюкс»",
+   "url": "https://sezinnopolis.ru/res/ooo-reylyuks/"
+  },
+  "res-ooo-riel-tsifrovye-tekhnologii": {
+   "fetched_at": "2026-10-31T08:39:02+00:00",
+   "file_sha": "3019b43d72c26d3e5d0fac0bffbedabc1a6fb4c6d92b505ecb43cf6780dd2188",
+   "last_modified": "",
+   "sha256": "81d4416c29a86a9d5837d4b7338428a46ed89457328b160583c73069408d4653",
+   "title": "ООО \"Риэль Цифровые Технологии\"",
+   "url": "https://sezinnopolis.ru/res/ooo-riel-tsifrovye-tekhnologii/"
+  },
+  "res-ooo-roadar": {
+   "fetched_at": "2026-10-31T08:39:36+00:00",
+   "file_sha": "d54d486c5a862489aff827bf5d4c501f6f3b11707a50fdffe64b0dfa0deaf132",
+   "last_modified": "",
+   "sha256": "3035d30d9781c08dfd4adf34a80afea148c12ce56af8e81907ec2f4768b5b298",
+   "title": "ООО \"Роадар\"",
+   "url": "https://sezinnopolis.ru/res/ooo-roadar/"
+  },
+  "res-ooo-rtk-soft-labs": {
+   "fetched_at": "2026-10-31T08:39:26+00:00",
+   "file_sha": "9e7e2c46767848a5b79e5368c838ad30fcc3301c44b883caecd5fbe61b225c4b",
+   "last_modified": "",
+   "sha256": "df3eb7bd849b082cfb9e0531eb12f279f710779a493fc4790a2fbea662ce9d1f",
+   "title": "ООО \"РТК Софт Лабс\"",
+   "url": "https://sezinnopolis.ru/res/ooo-rtk-soft-labs/"
+  },
+  "res-ooo-rusdronoport": {
+   "fetched_at": "2026-10-31T08:38:22+00:00",
+   "file_sha": "b9ca20dab38359b3d1fadd3722cf0f5f0bc473258d28fbfff298a712ad3e5e8e",
+   "last_modified": "",
+   "sha256": "e4a017f9cef217b546d167f290b0a3a693728854b3ecbdeab8c66ec2af83114a",
+   "title": "ООО «РУСДРОНОПОРТ»",
+   "url": "https://sezinnopolis.ru/res/ooo-rusdronoport/"
+  },
+  "res-ooo-shattl-link": {
+   "fetched_at": "2026-10-31T08:37:52+00:00",
+   "file_sha": "9c950dac7eda7f8e7ee46a6bafe5bdf3993a0912d54e395bb2d297bad2625422",
+   "gone": true,
+   "last_modified": "",
+   "sha256": "13632764849805049c7eeb2f367cc4943012e73ce7735449cdef9da1216aab29",
+   "title": "ООО \"Шаттл Линк\"",
+   "url": "https://sezinnopolis.ru/res/ooo-shattl-link/"
+  },
+  "res-ooo-sinergiya-soft": {
+   "fetched_at": "2026-10-31T08:37:46+00:00",
+   "file_sha": "f7610717fa92da3c4d3900b245a5a30738a3fd8dd53fda57eb352c69d48794f9",
+   "gone": true,
+   "last_modified": "",
+   "sha256": "fd7dcf9103630f64ef22f24f2b42e56c3f33328b2cea26a04418214c9922f69b",
+   "title": "ООО \"Синергия Софт\"",
+   "url": "https://sezinnopolis.ru/res/ooo-sinergiya-soft/"
+  },
+  "res-ooo-sizidzhi-krieyshen": {
+   "fetched_at": "2026-10-31T08:38:09+00:00",
+   "file_sha": "5a3d0044247da357e35253a3ddcc4b556182a4d15e816bd13c8f9f8a991a421f",
+   "last_modified": "",
+   "sha256": "51d736de5d86f70d6d069ab4418efa6f201eb9087cf0b342ac7bacf0e3901ced",
+   "title": "ООО \"СиЗиДжи Криейшен\"",
+   "url": "https://sezinnopolis.ru/res/ooo-sizidzhi-krieyshen/"
+  },
+  "res-ooo-skb-infomatika": {
+   "fetched_at": "2026-10-31T08:38:56+00:00",
+   "file_sha": "b817662a265acb23001127a923f5a532e26bc3b683670e20b127105371cb9484",
+   "last_modified": "",
+   "sha256": "4f60ba4ba071881d7dad0c86796e03b850785a510b3bceffbfe2057281efdd4e",
+   "title": "ООО \"СКБ \"Инфоматика\"",
+   "url": "https://sezinnopolis.ru/res/ooo-skb-infomatika/"
+  },
+  "res-ooo-trikster": {
+   "fetched_at": "2026-10-31T08:38:07+00:00",
+   "file_sha": "b3d5e9df83ba5b2be4110ccfc0f88bcfda7e4e335fe436fd76c02a13b1745886",
+   "last_modified": "",
+   "sha256": "43c80147425477229d5412de7d70377be568dfacd365b673b7dbe857b112bfc5",
+   "title": "ООО \"Трикстер\"",
+   "url": "https://sezinnopolis.ru/res/ooo-trikster/"
+  },
+  "res-ooo-tsok-nti": {
+   "fetched_at": "2026-10-31T08:38:52+00:00",
+   "file_sha": "1f50e6270c11dc2f0b1307d580d09ba7c428360c07188d98b9586d9cd7197e15",
+   "last_modified": "",
+   "sha256": "9b40b72545c8fe70564d609bf6fbdf9447a00cea25d5699e4451e68360bea13d",
+   "title": "ООО \"ЦОК НТИ\"",
+   "url": "https://sezinnopolis.ru/res/ooo-tsok-nti/"
+  },
+  "res-ooo-universalnaya-finansovaya-sistema": {
+   "fetched_at": "2026-10-31T08:37:54+00:00",
+   "file_sha": "d1a0f243c3251f363f37cd428043e61c9a886c20efa232dc4d4455ffe1359dcb",
+   "gone": true,
+   "last_modified": "",
+   "sha256": "4c8f67bb2c435dc236183afcb9869c63bfe8ab31652f9cac5943bce841f20fb2",
+   "title": "ООО \"Универсальная финансовая система\"",
+   "url": "https://sezinnopolis.ru/res/ooo-universalnaya-finansovaya-sistema/"
+  },
+  "res-ooo-vimmi": {
+   "fetched_at": "2026-11-01T22:19:17+00:00",
+   "file_sha": "cc6b1ab10440f520d8ce855b431bdc088c3d23c5db50ba41d0b93672206f0ec5",
+   "last_modified": "",
+   "sha256": "4e51790c4c65f9216fb76163edf8e2e511597366dd92d0f963dedd51537d116c",
+   "title": "ООО \"Вимми\"",
+   "url": "https://sezinnopolis.ru/res/ooo-vimmi/"
+  },
+  "res-ooo-viziolodzhi-tekhnologii": {
+   "fetched_at": "2026-10-31T08:38:58+00:00",
+   "file_sha": "fd356d1d1634eb6fe966aa92be4dbeee62ae581dd6d5eacde4fb7ac6a704312d",
+   "last_modified": "",
+   "sha256": "00582dd78de0a17dd89052979cb6a6ecbbe7df27c5ec1e763748ab6f97631cd5",
+   "title": "ООО \"Визиолоджи Технологии\"",
+   "url": "https://sezinnopolis.ru/res/ooo-viziolodzhi-tekhnologii/"
+  },
+  "res-ooo-yoloko": {
+   "fetched_at": "2026-11-01T22:19:30+00:00",
+   "file_sha": "5fb4de341e5eb494f63504920a111ee079141ebd6b0cff30b26e75cc84877db3",
+   "last_modified": "",
+   "sha256": "4d865e2d600c9a94199621130d4b1af514375bd4828597bb9ae53038a8b855f1",
+   "title": "ООО \"Йолоко\"",
+   "url": "https://sezinnopolis.ru/res/ooo-yoloko/"
+  },
+  "res-ooo-zed-soft-labs": {
+   "fetched_at": "2026-10-31T08:38:54+00:00",
+   "file_sha": "97e1a540909cc0837bc2af552cd15d21822950735a43af03f632dc069c241b51",
+   "last_modified": "",
+   "sha256": "050ffc36a0700fa42edfff9705be7926c618a2434ddc2ce1db63f70cb5949c19",
+   "title": "ООО \"Зед Софт Лабс\"",
+   "url": "https://sezinnopolis.ru/res/ooo-zed-soft-labs/"
+  },
+  "res-ooo-zilant-robotiks": {
+   "fetched_at": "2026-10-31T08:39:45+00:00",
+   "file_sha": "129ae12cb1536b143adb36ea0fbe9f140ab085fe99032dd06933b05ea4a04189",
+   "last_modified": "",
+   "sha256": "5d10a5f4d136e5b73d1bcb37e1f70b3f7ff73fdbc6756d6fcbf67fc339e1a808",
+   "title": "ООО \"Зилант роботикс\"",
+   "url": "https://sezinnopolis.ru/res/ooo-zilant-robotiks/"
+  },
+  "res-otkrytaya-mobilnaya-platforma": {
+   "fetched_at": "2026-10-31T08:38:41+00:00",
+   "file_sha": "bae7e90191ce34141dff12ef173b28d411344ca7a70d0f65fe72c266aaadcf7a",
+   "last_modified": "",
+   "sha256": "7dadb69e0f9b2282ddddff6a10c72bb445c3131ff0b0e7801fc68a87d271fd21",
+   "title": "ООО «Открытая мобильная платформа»",
+   "url": "https://sezinnopolis.ru/res/otkrytaya-mobilnaya-platforma/"
+  },
+  "res-pao-gazprom-avtomatizatsiya": {
+   "fetched_at": "2026-10-31T08:37:56+00:00",
+   "file_sha": "bccf1483d30db4bac841fd5efc7e13052276f7a75f54f2d0c4d5ed671d148e88",
+   "gone": true,
+   "last_modified": "",
+   "sha256": "481a28d51963fa3ba742196e791ffe4fbf090b19238b99452b7a995596b79805",
+   "title": "ПАО \"Газпром автоматизация\"",
+   "url": "https://sezinnopolis.ru/res/pao-gazprom-avtomatizatsiya-/"
+  },
+  "res-redmadrobot": {
+   "fetched_at": "2026-10-31T08:38:47+00:00",
+   "file_sha": "f93379f545afdd2f631612952fbf4e3caa49ac093c0dc13f6dfd031d6388cc09",
+   "last_modified": "",
+   "sha256": "2b1b02e38306187623cc869bfaa39e78c3bbaa09d257b9ff956fe3ae96bc3e62",
+   "title": "ООО \"Рэдмэдробот Инновации\"",
+   "url": "https://sezinnopolis.ru/res/redmadrobot/"
+  },
+  "res-sbertech-ao-sberbank-tekhnologii": {
+   "fetched_at": "2026-10-31T08:39:19+00:00",
+   "file_sha": "a0fce549bf9de00d3bc49250a84d7f40865d58d213a0daf2348a45c1d5d1ea33",
+   "last_modified": "",
+   "sha256": "098c67ab33ff9cfaa81ad8633f43467e769a5c9990416397c1832dfed84db0b2",
+   "title": "ПАО \"Сбербанк России\"",
+   "url": "https://sezinnopolis.ru/res/sbertech-ao-sberbank-tekhnologii/"
+  },
+  "res-studiya-lids": {
+   "fetched_at": "2026-10-31T08:39:17+00:00",
+   "file_sha": "4e2595b4569dec77d1af025601cbf6d075c26e1b860f5dd6d705f260f2e21996",
+   "last_modified": "",
+   "sha256": "eeb5fca61d9c9ab80afb32e17e59896ae79b1fa3058c92ea3987ee798a880389",
+   "title": "ООО \"Студия Лидс\"",
+   "url": "https://sezinnopolis.ru/res/studiya-lids/"
+  },
+  "res-tinkoff": {
+   "fetched_at": "2026-10-31T08:39:21+00:00",
+   "file_sha": "1659fb0045362e6f04c6ee48923d7745f1d68706e0647f1531f08e416a4c658d",
+   "last_modified": "",
+   "sha256": "9c59ebe0fe55bbea093fe070fdb7febc3792be630ef0960f30e69ea7aba8f5fc",
+   "title": "ООО «ТЦР»",
+   "url": "https://sezinnopolis.ru/res/tinkoff/"
+  },
+  "res-tocteam": {
+   "fetched_at": "2026-10-31T08:39:04+00:00",
+   "file_sha": "f35b9f8aecf54a2cdc3fcac72fec1a4919f0f7d460c945c345a8a1f4fc768911",
+   "last_modified": "",
+   "sha256": "8853af8e26edd45aabc0cfb26257508449a76dda77d06b9b7e08dd971c0f31d0",
+   "title": "ООО \"Би Пи Эм Энвайронмент\"",
+   "url": "https://sezinnopolis.ru/res/tocteam/"
+  },
+  "res-transparent-technology": {
+   "fetched_at": "2026-10-31T08:38:03+00:00",
+   "file_sha": "eb07745a00849f26b1e43fb2f44f37ddbf4b83c047ec91af71ef0489797d3b5d",
+   "last_modified": "",
+   "sha256": "71a45a361855c2b890a8f7e3dc60bf22c62751c0fce80aea6abf5acc15f03324",
+   "title": "ООО \"Транспэрент Технолоджи\"",
+   "url": "https://sezinnopolis.ru/res/transparent-technology/"
+  },
+  "res-warefly": {
+   "fetched_at": "2026-10-31T08:39:34+00:00",
+   "file_sha": "6087a177a7e50284c3161f30e4487a2a5e646e728d227171905a5fd3967c443c",
+   "last_modified": "",
+   "sha256": "b9ef87783df083c4c1c7bdac1eafa7e162bdbdf2ee54605b3d69b42230d5bd1b",
+   "title": "ООО \"ВФ-Инно\"",
+   "url": "https://sezinnopolis.ru/res/warefly/"
+  },
+  "res-yandeks": {
+   "fetched_at": "2026-10-31T08:38:43+00:00",
+   "file_sha": "116d68fa7019334b1e7ed2c67025e58555f07e3ca9bc4b0e981090fff3de4025",
+   "last_modified": "",
+   "sha256": "b762fd0932b89ed412c7fff0cb455833d949ec62549a180024826ee2b76ed67d",
+   "title": "ООО \"Яндекс\"",
+   "url": "https://sezinnopolis.ru/res/yandeks/"
+  },
+  "startapam": {
+   "fetched_at": "2026-10-31T08:37:07+00:00",
+   "file_sha": "18cc3c8b99669e7c2fcc304f74f5c8e79e3037a0ba6ad1a068fb9e40cffa51d3",
+   "last_modified": "",
+   "sha256": "63532c94fc51f774aa842f5159fad476d91b3f3201bf7f5c144731158ebac61c",
+   "title": "Стартапам ОЭЗ \"Иннополис\": официальный сайт особой экономической зоны",
+   "url": "https://sezinnopolis.ru/startapam/"
+  },
+  "venture": {
+   "fetched_at": "2026-10-31T08:37:15+00:00",
+   "file_sha": "bef4b0f9b51ad0b4841222bca8b46b18cbe78dfacacfd88b058b164b149910c2",
+   "last_modified": "",
+   "sha256": "69920383997a08d4131a41daead33c009f857e4ac7d918f926655ab19fe913c5",
+   "title": "Венчурные инвесторы & Корпорации ОЭЗ \"Иннополис\": официальный сайт особой экономической зоны",
+   "url": "https://sezinnopolis.ru/venture/"
+  }
+ }
+}

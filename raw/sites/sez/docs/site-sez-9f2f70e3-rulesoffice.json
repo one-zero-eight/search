@@ -1,0 +1,16 @@
+{
+ "title": "Правила использования офисных помещений",
+ "url": "https://sezinnopolis.ru/upload/arenda/rules-office.doc",
+ "sha256": "c6883a3da61b9d65cc6ecfebe3b0cee0bda5b50e03ab7b55b399fa993ceca91d",
+ "method": "text layer (opendataloader)",
+ "chars": 8942,
+ "tables": 5,
+ "section": "site/sez",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:31+00:00",
+ "remote": {
+  "etag": "\"69845751-13e00\"",
+  "modified": "Thu, 05 Feb 2026 08:39:45 GMT",
+  "size": "81408"
+ }
+}

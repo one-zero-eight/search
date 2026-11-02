@@ -1,0 +1,279 @@
+---
+type: regulation
+title: "Read the article [NIR_2022_vbframework]"
+resource: "https://innopolis.university/filespublic/NIR_2022_vbframework.pdf"
+source_kind: official-document
+language: ru
+section: "site/university"
+sources:
+  - resource: "https://innopolis.university/filespublic/NIR_2022_vbframework.pdf"
+    id: "571c0250ec28"
+    title: "Read the article [NIR_2022_vbframework]"
+    last_modified: "2026-10-24T23:45:49+00:00"
+generated:
+  by: "catix-wiki/0.1 regulations"
+  at: "2026-10-24T23:45:49+00:00"
+extraction: "text layer (opendataloader)"
+status: draft
+---
+
+# Read the article [NIR_2022_vbframework]
+
+Vision-based Two-robot Framework for Deforming Flexible Linear Objects
+
+Karam Almaghout and Alexandr Klimchik
+
+Robotics and Computer Vision Institute Innopolis University Innopolis, Russia k.almaghout@innopolis.university, a.klimchik@innopolis.ru
+
+Abstract—Although deformable linear objects (DLOs), like cables, are widely used in the majority of life fields and activities, the robotic manipulation of these objects is considerably more complex compared to the rigid-body manipulation and still an open challenge. In this paper, we introduce a new framework using two robotic arms cooperatively manipulating a DLO from an initial shape to a desired one. Based on visual servoing and computer vision techniques, a perception approach is proposed to detect and sample the DLO as a set of virtual feature points. Then, a manipulation planning approach is introduced to map between the motion of the manipulators end-effectors and the DLO points by a Jacobian matrix. To avoid excessive stretching of the DLO, the planning approach generates a path for each DLO point forming profiles between the initial and desired shapes. It is guaranteed that all these inter-shape profiles are reachable and maintain the cable length constraint. The framework including the aforementioned approaches are validated in real-life experiments.
+
+Index Terms—Robotic co-manipulation, deformable linear objects, shape control, visual servoing.
+
+I. INTRODUCTION
+
+Deformable linear objects (DLOs), like cables, ropes, and sutures, are involved in innumerable everyday life scenarios, such as cable management in industry or at home, thread packing in production lines, suturing in medical surgeries. Due to the fact that DLOs have high degree of freedoms, which makes the modeling and controlling of these objects highly difficult and expensive, the automation of DLOs manipulation is still an open challenge in robotics community. Over the past several years there has been an increase interest in the research conducted into the robotic manipulation of DLOs. [1]–[3].
+
+Shape control of a DLO is a common task which has many practical implementations, such as cable routing in automotive industry [4] and cable management [5]. The shape control task aims to deform the DLO into a designated shape. This task consists of two main stacks, which are perception and manipulation planning of the DLO [6].
+
+Perception of DLOs includes recognition, state estimation, and tracking using sensory systems like vision, force, tactile, and others [7], [8]. Vision sensors are widely used for perception in the robotic manipulation since they are affordable and proper for tasks that include objects detection and position localization for both rigid and deformable objects [9], [10]. In the vision-based robotic manipulation of DLOs, a group of researches considers to use add-on markers as feature points and manipulate these points [11]–[13]. The issue with this method is that it is not a practically feasible to add these markers each time a DLO manipulation is needed. The other group deals with the DLO contour points as the DLO features [14], [15]. This method is more practical than the former, but it requires more computations since it deals with relatively larger number of points (the contour points).
+
+The manipulation planning stack, also known as the control stack, is to predict or compute how the DLO will behave and deform under the effects of certain of manipulation sequences of the robotic system. Some researches discussed the manipulation planning of DLOs using single-robot systems. Researchers in [12] presented a model-based shape control for DLOs grasped by a manipulator. The DLO has markers as feature points, and the proposed method manipulates these feature points towards their reference points in a sequential manner. In [16] a cell concept to robotize the wire routing task using a single manipulator equipped with an innovated light weight end-effector is developed. Multi-robot systems also used for the shape control tasks, since they improve the performance of the systems in terms of accuracy, computational cost, and flexibility. Thus, they have superiority over single-robot systems in such tasks [17]. In [18] dynamic control schemes are developed based on the discrete elastic rod model of the DLO to achieve the shape control of a flexible cable using human-like robotic system. Other works proposed manipulation planning approaches based on an online estimation of the local deformation model of DLOs, assuming that small change of the DLO is linearly related to a small displacement of the robot [14], [19], [20].
+
+In this paper, we introduce a new framework to achieve shape control of a DLO based on bi-manual manipulation. For the simplicity, we will use the word ”cable” to refer to DLOs throughout the rest of the paper. Based on visual feedback and classical image processing methods a featureless cable is captured and modeled as a set of points uniformly distributed. An approximate model of Jacobian matrix that mapping between these cable points and the robots end-effectors configuration is developed as the manipulation planning model. The aim of this Jacobian is to compute the required motion of the robots end-effectors to deform the cable into a desired shape. The desired shape is passed to the system at the beginning of the task. The proposed framework is illustrated in Fig. 1. Experiments are
+
+Fig. 1. The proposed framework. carried out on real system to validate the performance of the developed framework. The main contributions of this work are:
+
+**1.** Develop a new framework for shaping featureless DLOs.
+
+**2.** Propose a new virtual feature points generation algorithm for DLOs representation and tracking.
+
+**3.** Introduce a new manipulation planning approach that describes the motion of the DLO feature points as a function of the motion of the robots, and maintains the DLO length constraint during the manipulation.
+
+**4.** Validate the proposed framework in real-world experiments
+
+The remainder of this paper is organized as follows: Section II presents the preliminaries including cable representation and the considered assumptions. The perception and manipulation planning methods are described in section III. The details of experiments and the results are discussed in section IV. Finally, section V ends the paper with a conclusion and future works.
+
+II. PRELIMINARIES
+
+Fig. 2 shows a cable grasped by two manipulators at its two ends and the desired shape. The cable and the desired shape are represented by N points uniformly distributed. ls is the distance between each two points. Let P = pT1 pT2 pT3 ... pTN T ∈ ℜ2N×1 be the set of cable points coordinates and T = tT1 tT2 tT3 ... tTN T ∈ ℜ2N×1 be the desired shape points coordinates; where pi = xpi ypi T and ti = xti yti T, for i = 1,2,...,N. Let R = r1T r2T T ∈ ℜ6×1 be the configuration set of the robots end-effectors; where rm = xm ym φm T, for m = 1, 2.
+
+Let Dim be the Euclidean distance between pi and rm when the cable is fully stretched, Fig. 3a; and dim be the Euclidean distance between pi and rm at any configuration of the cable,
+
+Fig. 3a. Dim and dim are given as follows: dim = pi − rm (1)
+
+Dim = nimls (2) where nim is the order of pi with respect to rm. Hence, we have Dim − dim ≥ 0 for all cable configurations.
+
+The objective of the task is to deform the cable to fit the desired shape. In other words, to guide the cable points towards the desired ones. The cable points are continuously tracked by an RGB camera placed perpendicularly over the workspace plane. Since we are able to control the end-effectors configuration, we need to formulate the motion of the cable points as a function of the end-effectors motion. In this study we consider the following assumptions:
+
+- • The manipulation is quasi-static, which means that the
+
+robots manipulate the cable in a relatively slow velocity.
+
+- • The cable ends are fixed to the end-effectors, the grasping
+
+task is out of the paper scope.
+
+- • The cable is unstretchable.
+
+- • Both the initial and desired shapes are reachable for the
+
+robots within the workspace and the camera frame.
+
+Fig. 2. Schematic of the robots end-effectors, the cable (grey), and the desired shape (green).
+
+(a) The cable at full-stretched configuration.
+
+(b) The cable at any random configuration.
+
+Fig. 3. The cable grasped by two robots in fully-stretched and random configurations.
+
+III. METHODOLOGY A. Visual Feature Points Generation
+
+In this work, we are dealing with a featureless cable, where no markers or any features are added on it. A new cable perception method is developed to generate a visual feature points to be tracked during the manipulation. Thus, the method can be considered as a better practical solution compared to those methods that use different kind of physical markers [11]–[13]. Furthermore, it requires less computations than the methods that consider the cable contour [14], [15], since it deals with significantly less number of data compared with contour points. Based on classical image processing techniques, the proposed method takes a colored image as an input. This image includes the cable attached to end-effector tools, where one of the tools is marked by a colored square,
+
+Fig. 4. Then it detects the cable, samples into an N virtual feature points, and returns the coordinates of these points. The algorithm starts sampling the cable from the end that grasped by that marked tool towards the other end of the cable. Thus the order of the generated points is guaranteed during the manipulation, and the change in each point coordinates can be tracked.
+
+Fig. 4. The algorithm input: a camera frame contents a cable grasped by two end-effector tools.
+
+The cable is detected and segmented by a sequence of edge-detection method, and morphological operations. Once we got the cable segmented, we apply Guo-Hall thinning algorithm [21] to get the center line of the cable with a one-pixle width. The marked tool is detected by color-based segmentation. Then, we apply a mask window, shown in Fig. 5, starting from the marked tool by placing the center of the mask at the center of the marked tool. Then, the intersection point between the cable and the mask is the first virtual feature point. The mask slides to the obtained point to detect the next feature point. The algorithm repeats this process till it reaches the end of the cable, where no new intersection point is detected. This process is illustrated in Fig. 6. Finally, we have a cable modeled by N feature points uniformly distributed, where the distance between each two points ls equals the radius of the mask, and the algorithm returns the coordinates of these generated points.
+
+Fig. 5. The mask window.
+
+B. Manipulation Planning
+
+Once the cable is sampled into N feature points, the desired shape can be represented similarly by N desired points. Thus, the manipulation planning stack can be re-stated as guiding the cable points towards the desired ones. The key problem of this planning is to compute the Jacobian matrix that maps the motion of these cable points to the motion of the robots end-effectors. In this work, we propose an approximate model to compute the Jacobian matrix based on the diminishing rigidity property of the cables. First, let us consider that each cable point pi is rigidly connected to the robot’s end-effector rm, at
+
+Fig. 6. Feature points generation process. the fully-stretched configuration. Thus, the coordinates of pim can be given as: pim = xrm + Dim cosθm yrm + Dim sinθm where θ1 = φ1, θ2 = π − φ2. Then, taking the first derivative of Eq. 3:
+
+(3) p˙im = x ˙rm − βmφ˙mDim sinθm y˙rm + βmφ˙mDim cosθm
+
+(4) where β1 = 1 and β2 = −1. Eq. 3 can be reformulated in a way that the motion of pi is a function of the robot rm motion:
+
+ 
+
+  (5) x˙rm y˙rm φ˙rm
+
+1 0 −βmDim sinθm 0 1 βmDim cosθm x ˙pi y˙pi
+
+=
+
+Thus, the Jacobian that mapping between pi and rm assuming that they are rigidly connected is given as:
+
+Jim =
+
+1 0 −βmDim sinθm 0 1 βmDim cosθm
+
+(6)
+
+It can be observed that this rigid connection undergoes two factors:
+
+- a) The diminishing rigidity property of the cable, which
+
+means that the rigid connection between pi and rm is inversely proportional to the order of pi with respect to rm. In another expression, the grasped points move rigidly with the end-effectors, the points nearby the grasped ones move almost rigidly and the farther points move less rigidly. Berenson, In [22], showed that this descent in the rigidity is exponentially proportional to the distance from the grasped points.
+
+- b) The cable point pi, shown in Fig. 3, tends to behave like
+
+it is rigidly connected to rm as much as Dmi − dmi converges to zero,
+
+Based on the above, we define a new factor that represents the diminishing rigidity as an exponential function: µim = e−κ im(Dim−dim) (7) where κim is the rate of decreasing the rigidity. Since the cable is guided by its two ends, the motion of point pi is subject to the motion of the both end-effectors r1 and r2. Thus, an additional factor αim, that describes the motion of pi as a ratio of the motion of end-effector rm: nim N
+
+(8) αim = 1 −
+
+Then, we multiply the Jacobian Jim in Eq. 6 by αim and µim to obtain the final formula that maps the motion between the pi and rm:
+
+1 0 −βmDim sinθm 0 1 βmDim cosθm
+
+(9)
+
+Jim = αimµim
+
+Finally, the Jacobian of pi undergoes the guidance of two robots is given as:
+
+Ji = Ji1 Ji2 2×6 (10) Since the cable is manipulated in a low velocity (quasi-static manipulation), we re-write Eq. 5 as:
+
+∆Pi = Ji∆R (11) and the formula for all cable points is:
+
+∆P2N×1 = J2N×6∆R6×1 (12)
+
+Then, the end-effectors motion required to guide the cable towards the desired shape is:
+
+∆R = J+∆P (13) where J+ is the Moore-Penrose pseudo-inverse:
+
+J+ = (JTJ)−1JT (14) and ∆P is given as:
+
+∆P = T − P (15)
+
+∆R is bounded to avoid any excessive changes in motion during the manipulation.
+
+C. Intermediate Profiles Generation:
+
+To avoid excessive stretching and maintain the length constraint of the cable during the manipulation, we propose an algorithm that generates waypoints of the cable points starting from the initial shape towards the desired one. These waypoints are represented as set of intermediate profiles where all are reachable and the length of these profiles equals the cable length. Thus, the cable will move along these profiles towards the desired one and the cable length constraint will be maintained. This algorithm computes the distance dis between each cable point and its corresponding point in the desire profile. Then, the number of the intermediate profiles is obtained by dividing the maximum distance dismax by a user-defined step λ. Then, for each generated intermediate profile, the algorithm checks whether it equals the cable length, otherwise the step size is reduced.
+
+Once the intermediate profiles are generated, The method starts computing the required ∆R to guide the cable from the current shape to the desired shape along the intermediate ones.
+
+An average error, eavg, and maximum error, emax, are considered as the metrics of the algorithm performance.
+
+N
+
+N eavg = i=1 ti − pi (16) emax = max( T − P ) (17) where • is the element-wise absolute value. IV. EXPERIMENTS RESULTS
+
+A. System Setup The experimental setup of this work is shown in Fig. 7. Two KUKA LBR iiwa 14 manipulators are used. Each manipulator has 7 degrees of freedom and equipped with a special tool to attach the cable’s end. The utilized camera is Intel Realsense D435. Images are captured at rate of 16 frames per seconds with a size of 640 × 480. The camera is mounted perpendicularly to the workspace plane. The robots are connected to a computer via a LAN network. The algorithms pipeline is built in the Robotic Operating System (ROS) framework [23], where the image processing node is written in Python based on the OpenCV library [24], and the robots control computation and command nodes are written in C++ based on the ROS metapackage for the KUKA LBR iiwa developed by Hennersperger et al [25]. The robots linear and angular velocities are limited to 0.030m/s and 0.050rad/s, respectively. Fig. 7. The hardware setup.
+
+B. Results
+
+The camera detects and tracks the cable during the manipulation. Using conventional image processing techniques, such as morphological operations and color-based segmentation, the cable is sampled into N points. To keep tracking the points order, one of the end-effector tools is marked in blue. Fig. 8 presents the cable perception algorithm steps. First, the algorithm detects the marked tool to determine the starting point, Fig. 8b; Next, it segments the cable and apply thinning algorithm, Fig. 8c. Finally, it starts sliding the mask, shown in Fig. 5, along the segmented cable to create the feature points. The generated points are plotted on the output frame of the algorithm, Fig. 8d.
+
+The next step is generating the intermediate profiles, which are the waypoints of the cable points. Fig. 9 shows the generated intermediate profiles for two different desired shapes. It can be seen that the generated profiles has the same length of the cable and they have small step among each other which ensure that the robots will not make any undesirable large displacement that may lead to over stretching the cable. Thus the cable length constraint will be maintained.
+
+Once the intermediate profiles are generated, the robots start cooperatively manipulating the cable towards the designated shape throughout these profiles. Fig. 10 and Fig. 11 show two experiments. In both experiments, the cable approached the desired shape well. However, in the second experiment we got a more accurate shape compared to the first one.
+
+The average and maximum errors of these experiments are listed in Table I. Fig. 12 shows how the errors decrease during the manipulation.
+
+According to carried out experiments, it can be observed that the perception algorithm has a reliable performance in the manner of accuracy and speed. It was able to detect and sample the cable even for cases where the cable at the border of the image frame. However, it fails when the cable is partially out of the frame or occluded. The planning model was able to guide the cable towards the designated shape. Even though the model were not able to finalize the task with high accuracy, it shows a stable performance, where the robots did not move unpredictably or diverge from the desired shape.
+
+(a) Input frame.
+
+(b) Starting point segmentation (inverted colors).
+
+(c) Cable segmentation (inverted colors).
+
+(d) Output frame including the generated feature points.
+
+Fig. 8. The image processing node input and output.
+
+(a) (b)
+
+Fig. 9. The generated intermediate profiles (light blue) between the cable initial configuration (red) and the desired shape (green)
+
+TABLE I AVERAGE AND MAXIMUM ERRORS (eavg AND emax)
+
+|  | Experiment 1 (Fig. 10) | Experiment 2 (Fig. 11) |
+| --- | --- | --- |
+| eavg[mm] | 7.76 | 6.54 |
+| emax[mm] | 10.9 | 8.61 |
+
+V. CONCLUSION
+
+In this paper, we introduced a new framework for shape control problem of a cable on a 2D plane using two manipulators. The framework has two main algorithms for the cable perception and manipulation. The perception algorithm utilizes an RGB camera to detect and track the cable, then it samples the cable as set of N points using classical image processing methods. These points are considered as virtual feature points. The manipulation planning algorithm computes the Jacobian matrix, that maps between the cable points and the robots end-effectors configuration, considering the order of the points with respect to each end-effector and the diminishing rigidity property of DLOs. Furthermore, avoiding over-stretching and maintaining the cable length constraint is considered by introducing an additional algorithm to generate a set of intermediate profiles between the cable initial shape and the desired shapes. These profiles guarantee that the cable will not undergo any over stretching. Real-life experiments are carried out to evaluate the proposed framework. The experiments showed an adequate performance of the system. In the future, the perception algorithm will be improved to tackle the case when part of the cable is hidden. The manipulation planning algorithm will be further enhanced to obtain higher accurate and robust performance. Additional future work are exploiting force sensors to improve the manipulation performance and consider environment interaction during the manipulation.
+
+REFERENCES
+
+[1] J. Zhu, A. Cherubini, C. Dune, D. Navarro-Alarcon, F. Alambeigi, D. Berenson, F. Ficuciello, K. Harada, J. Kober, X. Li et al., “Challenges and outlook in robotic manipulation of deformable objects,” IEEE Robotics and Automation Magazine, 2021.
+
+[2] P. Cirillo, G. Laudante, and S. Pirozzi, “Vision-based robotic solution for wire insertion with an assigned label orientation,” IEEE Access, vol. 9, pp. 102278–102289, 2021.
+
+[3] P. Chang and T. Padır, “Model-based manipulation of linear flexible objects: Task automation in simulation and real world,” Machines, vol. 8, no. 3, p. 46, 2020.
+
+[4] J. Zhu, B. Navarro, R. Passama, P. Fraisse, A. Crosnier, and A. Cherubini, “Robotic manipulation planning for shaping deformable linear objects withenvironmental contacts,” IEEE Robotics and Automation Letters, vol. 5, no. 1, pp. 16–23, 2019.
+
+[5] J. R. White, P. E. Satterlee Jr, K. L. Walker, and H. W. Harvey, “Remotely controlled and/or powered mobile robot with cable management arrangement,” Apr. 12 1988, uS Patent 4,736,826.
+
+(a) (b) (c)
+
+Fig. 10. Experiments 1: (a) initial shape; (b) intermediate stage of the manipulation; (c) final shape. (a) (b) (c)
+
+Fig. 11. Experiments 2: (a) initial shape; (b) intermediate stage of the manipulation; (c) final shape.
+
+(a) (b) Fig. 12. The average and maximum errors of Experiment 2.
+
+[6] H. Yin, A. Varava, and D. Kragic, “Modeling, learning, perception, and control methods for deformable object manipulation,” Science Robotics, vol. 6, no. 54, p. eabd8803, 2021. [7] J. Sanchez, K. Mohy El Dine, J. A. Corrales, B.-C. Bouzgarrou, and Y. Mezouar, “Blind manipulation of deformable objects based on force sensing and finite element modeling,” Frontiers in Robotics and AI, vol. 7, p. 73, 2020.
+
+[8] A. Delgado, J. A. Corrales, Y. Mezouar, L. Lequievre, C. Jara, and F. Torres, “Tactile control based on gaussian images and its application in bi-manual manipulation of deformable objects,” Robotics and Autonomous systems, vol. 94, pp. 148–161, 2017.
+
+[9] K. Almaghout, R. A. Boby, M. Othman, A. Shaarawy, and A. Klimchik, “Robotic pick and assembly using deep learning and hybrid vision/force control,” in 2021 International Conference” Nonlinearity, Information and Robotics”(NIR). IEEE, 2021, pp. 1–6.
+
+[10] J. Sanchez, J.-A. Corrales, B.-C. Bouzgarrou, and Y. Mezouar, “Robotic manipulation and sensing of deformable objects in domestic and industrial applications: a survey,” The International Journal of Robotics Research, vol. 37, no. 7, pp. 688–716, 2018.
+
+[11] T. Tang, C. Wang, and M. Tomizuka, “A framework for manipulating deformable linear objects by coherent point drift,” IEEE Robotics and Automation Letters, vol. 3, no. 4, pp. 3426–3433, 2018.
+
+[12] X. Li, Z. Wang, and Y.-H. Liu, “Sequential robotic manipulation for active shape control of deformable linear objects,” in 2019 IEEE International Conference on Real-time Computing and Robotics (RCAR). IEEE, 2019, pp. 840–845.
+
+[13] Y. Yang, J. A. Stork, and T. Stoyanov, “Learning to propagate interaction effects for modeling deformable linear objects dynamics,” in 2021 IEEE International Conference on Robotics and Automation (ICRA). IEEE, 2021, pp. 1950–1957.
+
+[14] J. Zhu, B. Navarro, P. Fraisse, A. Crosnier, and A. Cherubini, “Dual-arm robotic manipulation of flexible cables,” in 2018 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS). IEEE, 2018, pp. 479–484.
+
+[15] J. Zhu, D. Navarro-Alarcon, R. Passama, and A. Cherubini, “Vision-based manipulation of deformable and rigid objects using subspace projections of 2d contours,” Robotics and Autonomous Systems, vol. 142, p. 103798, 2021.
+
+[16] P. Heisler, P. Steinmetz, I. S. Yoo, and J. Franke, “Automatization of the cable-routing-process within the automated production of wiring systems,” in Applied Mechanics and Materials, vol. 871. Trans Tech Publ, 2017, pp. 186–192.
+
+[17] R. Herguedas, G. L´opez-Nicol´as, R. Arag¨u´es, and C. Sag¨u´es, “Survey on multi-robot manipulation of deformable objects,” in 2019 24th IEEE International Conference on Emerging Technologies and Factory Automation (ETFA). IEEE, 2019, pp. 977–984.
+
+[18] N. Lv, J. Liu, and Y. Jia, “Coordinated control of flexible cables with human-like dual manipulators,” Journal of Dynamic Systems, Measurement, and Control, vol. 143, no. 8, 2021.
+
+[19] S. Jin, C. Wang, and M. Tomizuka, “Robust deformation model approximation for robotic cable manipulation,” in 2019 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS). IEEE, 2019, pp. 6586–6593.
+
+[20] R. Lagneau, A. Krupa, and M. Marchal, “Automatic shape control of deformable wires based on model-free visual servoing,” IEEE Robotics and Automation Letters, vol. 5, no. 4, pp. 5252–5259, 2020.
+
+[21] Z. Guo and R. W. Hall, “Fast fully parallel thinning algorithms,” CVGIP: image understanding, vol. 55, no. 3, pp. 317–328, 1992.
+
+[22] D. Berenson, “Manipulation of deformable objects without modeling and simulating deformation,” in 2013 IEEE/RSJ International Conference on Intelligent Robots and Systems. IEEE, 2013, pp. 4525–4532.
+
+[23] Stanford Artificial Intelligence Laboratory et al., “Robotic operating system.” [Online]. Available: https://www.ros.org
+
+[24] G. Bradski, “The OpenCV Library,” Dr. Dobb’s Journal of Software Tools, 2000.
+
+[25] C. Hennersperger, B. Fuerst, S. Virga, O. Zettinig, B. Frisch, T. Neff, and N. Navab, “Towards mri-based autonomous robotic us acquisitions: a first feasibility study,” IEEE transactions on medical imaging, vol. 36, no. 2, pp. 538–548, 2017.
+
+# Citations
+
+1. [Read the article [NIR_2022_vbframework]](https://innopolis.university/filespublic/NIR_2022_vbframework.pdf), file 571c0250ec28

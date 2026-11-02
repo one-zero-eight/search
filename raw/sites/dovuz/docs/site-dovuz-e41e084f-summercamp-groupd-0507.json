@@ -1,0 +1,16 @@
+{
+ "title": "summercamp groupd 0507",
+ "url": "https://lk-dovuz.innopolis.university/public/files/summercamp_groupd_0507.pdf",
+ "sha256": "daf10342f2135a7b894ced2bf566733568d023293c2f81427928ae2a12186a19",
+ "method": "text layer (opendataloader)",
+ "chars": 33719,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:27+00:00",
+ "remote": {
+  "etag": "\"6c445-64c0b073c2f80\"",
+  "modified": "Mon, 02 Mar 2026 14:01:50 GMT",
+  "size": "443461"
+ }
+}

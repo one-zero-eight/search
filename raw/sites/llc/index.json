@@ -1,0 +1,29 @@
+{
+ "docs": {},
+ "pages": {
+  "dod": {
+   "fetched_at": "2026-10-31T08:40:31+00:00",
+   "file_sha": "1f4965fe8dd63367feba88eb2a1597b0359cedc130ad472c721521932b85cfb3",
+   "last_modified": "Fri, 23 Oct 2026 12:06:18 GMT",
+   "sha256": "6e78c2e587552d1f0608c93a8e0011b55540a0b4e90e85180c4f88c42db1b758",
+   "title": "День открытых дверей в Университете Иннополис. Очный и онлайн",
+   "url": "https://llc.innopolis.university/dod"
+  },
+  "home": {
+   "fetched_at": "2026-10-31T08:40:29+00:00",
+   "file_sha": "d5eaebf4c3d77548d2b5e05d04e9a2ee37bec7e9d24b09eeda130b3125efbb8b",
+   "last_modified": "Fri, 23 Oct 2026 12:06:16 GMT",
+   "sha256": "0a3b58818e8daddbce417a73ed9fd37dc6759b4a1d46a88a010b8c8284184b0a",
+   "title": "Центр непрерывного обучения. Университет Иннополис.",
+   "url": "https://llc.innopolis.university/"
+  },
+  "magistratura-dogovor": {
+   "fetched_at": "2026-10-31T08:40:33+00:00",
+   "file_sha": "42b782ced65040468d3ddaf9c6b28b1090a3c9cd171907624b83ac3956369a54",
+   "last_modified": "Fri, 23 Oct 2026 12:06:19 GMT",
+   "sha256": "4dcec9654fbb8e52ea63393ed3a06cd5cacaec9ea77f387767151eb7025ec972",
+   "title": "Заявки на заключение договоров. Магистратура",
+   "url": "https://llc.innopolis.university/magistratura-dogovor"
+  }
+ }
+}

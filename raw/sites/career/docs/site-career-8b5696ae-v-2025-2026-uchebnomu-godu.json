@@ -1,0 +1,16 @@
+{
+ "title": "В 2025/2026 учебном году",
+ "url": "https://innopolis.university/files/%D0%92_2025_2026_%D1%83%D1%87%D0%B5%D0%B1%D0%BD%D0%BE%D0%BC%D1%83_%D0%B3%D0%BE%D0%B4%D1%83.pdf",
+ "sha256": "fc471e081afb902a377b3cd4d78e082aa64193a5d3d52033b3acc177316a4eb7",
+ "method": "ocr (tesseract rus)",
+ "chars": 2950,
+ "tables": 5,
+ "section": "site/career",
+ "context": "",
+ "fetched_at": "2026-11-01T23:10:26+00:00",
+ "remote": {
+  "etag": "\"8d0b6-636d1427b9a15\"",
+  "modified": "Thu, 05 Jun 2025 11:17:31 GMT",
+  "size": "577718"
+ }
+}

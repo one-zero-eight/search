@@ -1,0 +1,16 @@
+{
+ "title": "contest-en",
+ "url": "https://lk-dovuz.innopolis.university/public/files/contest-en.pdf",
+ "sha256": "7a75ccdde34a818ece5992c57b1633feab6af6ec8916a4c3e365da31df10e036",
+ "method": "text layer (opendataloader)",
+ "chars": 24606,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:20+00:00",
+ "remote": {
+  "etag": "\"49d53-64ff91b231940\"",
+  "modified": "Tue, 21 Apr 2026 14:19:41 GMT",
+  "size": "302419"
+ }
+}

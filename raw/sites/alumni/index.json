@@ -1,0 +1,17 @@
+{
+ "docs": {
+  "https://alumni.innopolis.university/filespublic/Polozhenie_o_reklamnoj_rassylke.pdf": "",
+  "https://alumni.innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%9F%D0%94%D0%BD%20%D0%B4%D0%BB%D1%8F%20%D0%A3%D0%98.pdf": "условиями использования",
+  "https://alumni.innopolis.university/public/files/Consent_to_the_processing_of_PD_for_UI.pdf": ""
+ },
+ "pages": {
+  "home": {
+   "fetched_at": "2026-10-31T08:37:00+00:00",
+   "file_sha": "4721321bacefee761fb70c3f18907eb024c40776ea70cfe33f3c50ef2b57da26",
+   "last_modified": "",
+   "sha256": "4ffdfd7e6bcf9af6da7fb92380f885d4c1a0cd4978f29a291f7d0220d5279c04",
+   "title": "Alumni Innopolis University",
+   "url": "https://alumni.innopolis.university/"
+  }
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "Price list for services, provided in the residential complex",
+ "url": "https://hotel.innopolis.university/upload/docs-hotel/Price%20list%20for%20services%2C%20provided%20in%20the%20residential%20complex%20.pdf",
+ "sha256": "0bccadc2e7fba1370e3997e420b30e42a29ddee73cc05e3f1d1fd9ebed0db7a4",
+ "method": "text layer (opendataloader)",
+ "chars": 1908,
+ "tables": 5,
+ "section": "site/hotel",
+ "context": "",
+ "fetched_at": "2026-10-31T00:26:16+00:00",
+ "remote": {
+  "etag": "\"12ae2-5c376fb54d4c4\"",
+  "modified": "Sat, 29 May 2021 12:17:53 GMT",
+  "size": "76514"
+ }
+}

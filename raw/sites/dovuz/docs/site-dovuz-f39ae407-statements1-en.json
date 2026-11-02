@@ -1,0 +1,16 @@
+{
+ "title": "statements-1 (en)",
+ "url": "https://lk-dovuz.innopolis.university/public/files/statements-1%20%28en%29.pdf",
+ "sha256": "6560bebaf39afd562030f3f13d2a8360ff724e9a316b632dd7c909432f097df9",
+ "method": "text layer (opendataloader)",
+ "chars": 11845,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:26+00:00",
+ "remote": {
+  "etag": "\"4431a-5c221050cfd80\"",
+  "modified": "Wed, 12 May 2021 12:19:18 GMT",
+  "size": "279322"
+ }
+}

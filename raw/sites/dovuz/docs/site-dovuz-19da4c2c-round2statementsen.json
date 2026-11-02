@@ -1,0 +1,16 @@
+{
+ "title": "round2-statements-en",
+ "url": "https://lk-dovuz.innopolis.university/public/files/round2-statements-en.pdf",
+ "sha256": "48a07dd486d4ed7a5aa0740ebbdce05df216ee6e6f306703a1455a17c1477d24",
+ "method": "text layer (opendataloader)",
+ "chars": 12539,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:26+00:00",
+ "remote": {
+  "etag": "\"4056e-5f1d1438805c0\"",
+  "modified": "Mon, 09 Jan 2023 09:19:27 GMT",
+  "size": "263534"
+ }
+}

@@ -1,0 +1,580 @@
+Documented procedure: Rules of access and stay in the Educational and Laboratory building and
+residential complex of ANO HE "Innopolis University”
+DP --------------01
+“ ” 2018y.
+
+Appendix № 1
+to Order № AD-01/2018/12/20 of 20.12.2018
+
+DOCUMENTED PROCEDURE
+Rules
+of access and stay in the Educational and Laboratory building and residential
+complex of the ANO HE "Innopolis University"
+
+DP - - - 02
+document type department process version
+
+Document passport
+
+| Business process: |  |
+| --- | --- |
+| Department - owner of the document: | Organizational and technical department |
+| Process owner: | Director of administrative and economic activities |
+| Document developer: | Business process development and optimization department |
+| Entered: |  |
+| Scheduled update period: | “ ” 2019 y. |
+
+Innopolis
+2018
+
+1. General provisions
+
+1.1. Terms and definitions
+
+| Terms and abbreviations | Definition |
+| --- | --- |
+| University | ANO HE "Innopolis University” |
+| ELC | Educational and laboratory complex of the University located at the address: Innopolis, Universitetskaya str., 1 |
+| Residential University complex | Buildings №1, № 2, №3 and № 4 of the Innopolis University residential complex |
+| Objects | Buildings of the ELC and buildings №1, № 2, № 3 and № 4 of the University's residential complex |
+| Property owner | Innopolis JSC, which transferred all or part of the Facilities to the University under lease agreements |
+| Third-party organizations | Legal entities that fulfill obligations under civil law contracts concluded with the University |
+| ELC reception | Registration area located at the address: Innopolis, Universitetskaya str., 1, hall of the 1st floor |
+| Visitors or Guests | People who wish to gain access to Objects or are located on the territory of Objects that are not employees and students of the University |
+| ACMS | Access control and management system |
+| EP (Access card) | Electronic pass |
+| TP | Temporary pass |
+| OTP | One-time electronic pass |
+| MVP | A pass for material values |
+| User | A person who has received a University pass |
+
+1.2. These Rules are developed for the purpose of organizing a unified procedure for organizing the access
+system and staying at the Facilities of an Autonomous non-profit organization of higher education
+
+"Innopolis University" is designed to ensure the safety of people located on this territory, as well as to reduce the likelihood
+of emergencies and it is mandatory for all categories of University employees (administrative and managerial, scientific
+and pedagogical (teaching staff, researchers), educational and auxiliary, administrative and economic and other
+personnel), students (students, trainees), University graduates, employees of organizations that rent premises at
+University facilities, University visitors (people who perform work (provide services) under civil contracts, employees
+of the third-party organizations that fulfill obligations under civil contracts concluded with the University, guests of the
+University).
+
+2. The Rules are approved by the order of the director of the University, the current version of the Rules is
+available at the reception of the ELC.
+
+Types, forms and marking of passes that are valid on Objects
+
+2.1 The University has the following EP marking, depending on the access level:
+
+➢ RED – round-the-clock access to any premises and common areas of the Objects
+(set for university employees);
+
+➢ YELLOW – access in the daytime from 07.00 to 23.30 in the ELC, round-the-clock access to the premises
+of the yellow zone (reading room, meeting rooms, etc.) of the ELC, buildings №1, №2, №3 and №4 of the
+residential complex (set for students);
+
+➢ GREEN – round-the-clock access to the premises of canteens and buildings №1 and № 4, installed for
+employees of food service operators, to any premises for employees of the cleaning company; access in
+the daytime from 07.00 to 23.30 to the Educational and Laboratory building, round-the-clock access to the
+premises of the yellow zone (reading room, meeting rooms, etc.) of the Educational and Laboratory building,
+buildings №1, №2, №3 and № 4 of the residential complex with passes with the inscription: "Regular guest".
+
+➢ BLUE-round-the-clock access to buildings №1,№ 2, № 3 and № 4 of the residential complex is established
+for permanent residents in the buildings of the residential complex);
+
+➢ Without a color stripe – access in the daytime from 07.00 to 23.30 to the Educational and Laboratory
+building, round-the-clock access to the yellow zone (reading room, meeting rooms, etc.) of the Educational
+and Laboratory building, building №1, №2, №3 and №4 of the residential complex (set for Guests and
+participants of one-day events, participants of multi-day events living in the residential buildings of the
+University).
+
+2.2 The pass form is developed by the University and agreed with the owner of the Facilities.
+
+2.3 Types of passes used at the University Facilities before the approval of this version of these Rules and
+continue to be valid until replaced by the passes listed in paragraph 2.4.
+
+Type of pass Pass form Distinctive features Deadline actions To whom it is issued
+
+| Employee's electronic pass | ✓ red color bar ✓ title: "Employee" ✓ Employee's full name ✓ employee's photo | For the period of work in the University | Employees accepted to work at the University |
+| --- | --- | --- | --- |
+| Electronic pass of the student | ✓ yellow color bar ✓ title: "Student" ✓ Student's full name ✓ employee's photo | For the training period | People undergoing training in the University |
+| Electronic pass of an employee of a contracting organization (food service operator, cleaning company, etc. category pass "Regular guest") | ✓ green color bar ✓ title: "name of the contractor company" ✓ Employee's full name | For the period of rendering services/perfor ming works under the contract with University | Employees of organizations that perform the following tasks: obligations under agreements concluded with the University. |
+
+| Electronic pass Resident | ✓ blue color bar ✓ title: "Resident" ✓ Full name of the resident ✓ photo of the resident | For the duration of the contract for accommodation services in a residential complex of the University | Living in a residential complex of the University for more than 30 consecutive days |
+| --- | --- | --- | --- |
+| Temporary resident pass | ✓ title: "Guest" ✓ individual number on the card | For the duration of the contract for accommodation services in a residential complex of the University | Living in a residential complex of the University for up to 30 days |
+
+| One-time Guest pass |  | ✓ title: "Guest" | For the duration of the visit Single pass/exit University | University visitors |
+| --- | --- | --- | --- | --- |
+| Temporary pass of the participant of the event |  | ✓ title: "Participant of the event" ✓ individual number on the card | For the duration of the event | Event participants |
+| Temporary pass on paper "Participant of the event" | The form of the pass can be changed at the discretion of the event organizer | ✓ custom design ✓ bar code for food accounting ✓ name of the event ✓ guest category (organizer, participant, etc.) | For the duration of the event | Event participants |
+| Pass to the mat. values | Pass form in Appendix 4 | ✓ individual serial number ✓ signature of the person who issued the pass (director of administrative and economic activity or | At the time of import export material values for one year working day | 1. Employees of the University when moving material resources values; 2. Employees of third-party organizations, |
+
+the person replacing it) performing construction, repair, delivery and relocation work own material assets on the basis of agreements concluded with the University 3. Residents in cases of entry or removal of personal belongings in accordance with the Appendix № 5
+
+2.4 Types of passes used at University Facilities from the date of approval of this version of the Rules:
+
+| Type of pass | Pass form | Distinctive features | Deadline actions | To whom it is issued |
+| --- | --- | --- | --- | --- |
+| Employee's electronic pass |  | ✓ red color bar ✓ title: "Employee" ✓ Employee's full name ✓ employee's photo | For the period of work in the University | Employees accepted to work at the University |
+
+| Electronic pass of the student | ✓ yellow color bar ✓ title: "Student" ✓ Student's full name ✓ employee's photo | For the training period | People undergoing training in the University |
+| --- | --- | --- | --- |
+| Electronic pass of a contractor employee (food service operator, cleaning company, category "Regular guest") | ✓ green color bar ✓ title: "name of the contractor company" ✓ Employee's full name | For the period of rendering services/perfor ming works under the contract with the University | Employees of organizations that perform the following tasks: obligations under agreements concluded with the University. |
+
+| Electronic pass Resident | ✓ blue color bar ✓ title: "Resident" ✓ Full name of the resident ✓ photo of the resident | For the duration of the contract for accommodation services in a residential complex of the University | Living in a residential complex of the University for more than 30 consecutive days |
+| --- | --- | --- | --- |
+| Temporary resident pass | ✓ title: "Guest" ✓ individual number on the card | For the duration of the contract for accommodation services in a residential complex of the University | Living in a residential complex of the University for up to 30 days |
+
+| One-time Guest pass |  | ✓ title: "Guest" | For the duration of the visit Single pass/exit university | University visitors |
+| --- | --- | --- | --- | --- |
+| Temporary pass of the participant of the event |  | ✓ title: "Participant of the event" ✓ individual number on the card | For the duration of the event | Event participants |
+| Temporary pass on paper "Participant of the event" | The form of the pass can be changed at the discretion of the event organizer | ✓ custom design ✓ bar code for food accounting ✓ name of the event ✓ guest category (organizer, participant, etc.) | For the duration of the event | Event participants |
+| Pass to the mat. values | Pass form in Appendix 4 | ✓ individual serial number ✓ signature of the person who issued the pass (director of administrative and economic activity or | At the time of import-export material values for one working day | 1. Employees of the University when moving material resources values; 2. Employees of third-party organizations, |
+
+the person replacing it) performing construction, repair, delivery and relocation work own material assets on the basis of agreements concluded with the University 3. Residents in cases of entry or removal of personal belongings in accordance with the Appendix № 5
+
+3. Order of access to Objects
+
+3.1 At the Facilities a checkpoint mode is established, a controlled managed access system (CMAS) operates,
+which provides electronic accounting of entry and exit, management of access categories (assignment of an access
+group, a time period, access points and a stay mode). The electronic pass (EP) is the main element of the CMAS, has
+an identification number. The EP allows you to freely pass to the University Facilities on the basis of a registered access
+right in accordance with the general operating mode of the University.
+
+3.2 Access to the objects is carried out on the basis of passes, the types and duration of which are defined in
+paragraphs 2.1, 2.3, 2.4 of these Rules. The electronic pass (access card) is individual, its transfer to other people, as
+well as copying in any way is prohibited.
+
+If necessary, at the request of the security officer citizens are required to present state-issued documents with a
+photo of the owner to identify the owner of the pass. The documents are presented in a detailed form, without finding
+papers and documents in them that make it difficult to verify. The visitor must stop in front of the security officer and
+give him the opportunity to verify the authenticity of the documents presented. People who are not employees and
+students of the University can pass through the security post accompanied by a person who has the right of access,
+after presenting a passport or other identity document and a note in the registration Log at the security post. A log is
+kept at each security post.
+
+3.3 Visitors can pass through the security post of the ELC without an accompanying person, after presenting a
+passport or other identity document and a note in the registration Log at the security post, if the information about their
+visit was transmitted to the security post in advance in the form of a list/email, in other cases they are forwarded by the
+security officer to the employee of the University reception service at the reception of the ELC.
+
+3.4 After 23:30 employees and students of the University can continue their activities in the premises of the
+
+"yellow" access level of the ELC and move freely around the Facilities. For these purposes
+the passages between the ELC and building №1 of the residential complex, as well as between all other residential
+buildings are open around the clock without placing a security post.
+
+3.5 The main entrances to buildings №1, № 2, №3 and №4 of the University's residential complex are open
+around the clock. At the same time unhindered access from 23:30 to 07:00 is carried out only with passes of the
+appropriate access level.
+
+3.6 Access to the objects from 23:00 to 7:00 on the TP on paper of the current event is carried out upon
+presentation of an identity document. The data in the submitted document is compared with the lists of residents at the
+security post.
+
+3.7 All Visitors are required to leave the Facilities before 23:30 and can do so without an escort.
+
+3.8 After 23:30 the security guards make regular rounds of the premises and have the right to demand to show
+a pass from the remaining persons, including the TP on paper with the presentation of an identity document. If people
+who do not have a pass of the appropriate level of access are found in the premises, the security officer is obliged to
+reflect this fact in the log of the bypass and accompany such a citizen to the premises corresponding to his level of
+access. People without a pass must be escorted to the exit.
+
+3.9 In cases of detection of expired validity or obvious signs of forgery of internal documents (passes,
+certificates, student cards), the security officer is obliged to withdraw them for transfer to the University administration.
+In cases of detection of forgery of state-issued documents (passport, driver's license, military ID), this information is
+brought to the attention of law enforcement agencies.
+
+3.10 It is strictly prohibited to use roller skates, bicycles, scooters, skateboards and other means of individual
+movement, with the exception of special means for people with disabilities (a low-mobility group of the population).
+
+3.11 When bringing personal items to the Objects, security officers have the right to offer to voluntarily present
+things for inspection. In case of refusal of voluntary inspection, items that have not passed the inspection or people
+who have refused to be inspected are not allowed to enter the Objects.
+
+3.12 When removing furniture and large items from the building, it is necessary to hand over to the security
+officers of the MP for the removal of property, signed by an authorized employee of the University.
+
+4. Registration, issue and return of the EP
+4.1. Registration of the EP, issuance of duplicates of lost or damaged EP is carried out by the Organizational
+and technical department of the University.
+
+EP are issued to students and employees of the University, employees of contractors performing work on
+Objects, living in a residential complex, as well as other people visiting University Facilities (Users) in accordance with
+these Rules. The types, forms and features of the passes are shown in paragraph 2.3. of these Rules.
+
+The EP is the property of the University. The user must carefully and accurately store the EP.
+
+4.2. Registration and issuance of EP to students:
+
+4.2.1 The application for the release of the EP for students who have entered the University for the first time
+is prepared by the Department of student support and development on the basis of the Order on
+enrollment signed by the director and sent to the administrator of the reception of the ELC. The
+application must include the full name of the students and a photo of their faces taken on a light
+background.
+
+4.2.2 The EP for students are prepared by the administrator and handed over in accordance with the
+submitted list to the authorized employee of the student support and development Department, who is
+responsible for further distributing the EP personally to each student and conducting instructions on its
+use.
+
+4.3. Registration and issue of EP to employees:
+
+4.3.1 The application for the release of the EP to the University employees is submitted by an authorized
+employee of the personnel Department on the basis of the employment Order.
+
+4.3.2 For employees of companies that perform work on Facilities under contracts with the University, an
+application for the release of an EP is submitted by a responsible employee of this company. For
+individuals who provide services directly to the University on the basis of a civil contract, an application
+for the release of an EP is submitted by an authorized employee of the personnel Department
+
+4.3.3 The reception administrator prepares a pass and issues it personally to the new employee upon
+presentation of an identity document. When transferring the EP, the administrator gives a brief
+instruction on how to use the access card.
+
+4.4. Registration and issuance of the EP to residents:
+
+4.4.1 An application for the issue of an EP to a resident of a residential complex of the University who is not
+a student or employee of the University is submitted by the administrator of the accommodation
+organization Department on the basis of a signed Agreement for the provision of accommodation
+services with a resident for a period of more than 30 consecutive days.
+
+4.4.2 The reception administrator prepares a pass and issues it to the administrator of the accommodation
+organization Department, who is responsible for further distribution of the EP to the resident and
+conducting instructions on its use.
+
+4.4.3 If the placement lasts less than 30 days, the administrator of the residential complex independently
+issues the TP to the resident, entering information about the issue in the 1C:The hotel accounting
+program.
+
+4.5. Issuance of OTP to other persons, guests of the University:
+
+4.5.1. An employee of the University informs the administrator of the reception of the ELC orally during a personal
+meeting or in writing about the need to provide the OTP to the guest, indicating the full name of the visitor.
+In case of oral information, the employee is obliged to personally meet and accompany the guest, taking
+responsibility for his actions during his stay on the territory of the Objects.
+
+4.6.1. The visitor presents an identity document to the reception administrator, after which he receives the OTP
+and information on its use.
+
+4.6. At the end of the validity period of the EP, the user is obliged to return it to the place of receipt:
+
+4.6.1 When the student is expelled or at the end of the training period, the EP must be returned to the student
+support and development Department.
+
+4.6.2 An employee who has left the University is obliged to return the EP to the administrator at the reception
+of the ELC. An individual who provided services/performed work for the University under a civil contract,
+independently returns the EP to the reception of the ELC. If an employee is dismissed from a company
+that provides services under a contract with the University, the EP is returned by an authorized
+representative of the company.
+
+4.6.3 When using the OTP, it is lowered into the cabinet and remains there until the administrator removes it.
+
+4.6.4 Those who live in a residential complex when leaving, hand over the EP or OTP received during
+placement to the administrator of the residential complex.
+
+4.7. In case of non-return the EP is blocked and access to the University Facilities is not allowed on it.
+
+4.8 In case of non-functioning of the EP when passing to the University Facilities, the security officer removes
+the non-working EP and passes it to the administrator at the reception of the ELC or residential complex,
+depending on where the EP was found and seized. At the same time the entrance is allowed only by the
+OTP.
+
+To clarify the situation the EP user should contact the administrator at the reception of the ELC or RC.
+
+5 Restoring the EP
+
+5.1 In case of failure, loss or damage of the EP, the user writes a statement (Appendix 3).
+
+5.2 To receive a duplicate of the EP, the User pays for its production in accordance with the Price List approved
+by the University. Payment is made at the cash desk at the administrator of the residential complex in building №3.
+
+5.3 The production of a duplicate is provided by the administrator of the ELC, subject to the submission of an
+application and confirmation of payment.
+6 Registration and issuance of the OTP on paper "Participant of the event"
+
+6.1 When organizing and conducting events, it is permissible to use the OTP on paper.
+
+6.2 The design of the paper pass layout is prepared by the organizer of the event and agreed with the owner of
+the Objects.
+
+6.3 The OTP forms on paper with the description of access are brought to the security service and placed at
+each security post during the event.
+
+6.4 The issue of the OTP on paper is carried out by the organizer of the event. Since each paper-based OTP
+form has a limited validity period (as a rule, this is the duration of the event), the return of the paper-based OTP is not
+required, unless otherwise agreed by the event organizer.
+
+7 Registration and issuance of a pass for material values
+
+7.1 A pass for material values is a document that gives permission for the introduction/removal of material
+values to the Objects of the University. The MP (the form in Appendix 4) is certified by the signature of the responsible
+employee (the Director of administrative and economic activities, the manager for work with external contractors or the
+administrator of the residential complex).
+
+7.2 The MP can be issued to:
+
+7.2.1 Employees of third-party organizations who, in order to perform work under contracts concluded with
+the University, need to bring in inventory, materials etc., which later must be removed from the Facilities;
+
+7.2.2 Employees of the University who take out goods and materials belonging to the University and which
+must be returned.
+
+7.2.3 Those living in a Residential complex of the University, bringing in or taking out material values
+according to the list specified in Appendix No. 5.
+
+7.3 Registration, issuance and accounting of MP is carried out by the administrator of the Residential complex
+in the RC or a specialist in working with external contractors in the ELC in agreement with the storekeeper of the
+University or a specialist of the information technology department. The original is transferred to the responsible
+security post, the scanned copy is transferred to the storekeeper.
+
+8 Rules of behavior on Objects
+
+8.1 All employees, students and visitors who are at the Facilities are required to strictly comply with the current
+legislation in the field of safety, fire safety, labor protection standards, regulations on compliance with sanitary
+standards and rules of public order in the Premises, public areas and the surrounding area.
+
+8.2 It is forbidden to independently dismantle and repair equipment, control mechanisms of engineering and
+electrical networks and life support systems, to interfere with or disrupt their functioning.
+
+8.3 It is forbidden to use public areas, service and evacuation corridors for the purpose of storing any property.
+
+8.4 It is prohibited to place any property on the escape routes and approaches to them.
+
+8.5 Installation of additional heavy-duty or energy-intensive equipment, installation of additional partitions is
+allowed with the prior written consent of the owner of the Objects.
+
+8.6 Employees, students and visitors are required to observe public order and generally accepted norms of
+behavior, not to allow actions that may pose a danger to others.
+
+8.7 Staff, students and visitors are required to keep the premises and common areas clean. At the end of the
+event garbage bags should be placed in containers installed in specially designated areas. Large containers, cardboard
+boxes should be disassembled and also placed in containers. It is forbidden to leave bags with garbage, container
+packaging in rooms, in corridors, passageways, on staircases, platforms and other public areas.
+
+8.8 On the territory of the Objects the import and use of alcoholic and low-alcohol beverages, narcotic and
+psychotropic substances, smoking in any form, including using hookahs and electronic means, as well as the presence
+of citizens with obvious signs of intoxication are strictly prohibited.
+
+8.9 In case of detection by security officers of obvious signs of intoxication in citizens living in the buildings,
+security officers draw up a report in the prescribed form, the resident is accompanied to his room and on weekdays from
+9.00 to 18.00 - immediately, the rest of the time – on the next working day, the report is transmitted to the University
+administration.
+
+8.10 Employees, students and visitors are obliged to take care of the structural elements of buildings,
+property, household items, interior, plumbing, electrical appliances, communications and fire alarm systems,
+engineering communications etc., not to obstruct the use of public areas by other persons.
+
+8.11 It is forbidden to interfere with the normal functioning of engineering communications (fire protection
+systems, ventilation, heating, air conditioning, power supply, etc.) by using them for other purposes, independently
+disabling, enabling or modifying them.
+
+8.12 It is prohibited to place ads, posters and other products of advertising and informational content on the
+territory of the Objects without the written permission of the University administration.
+
+8.13 It is prohibited to apply or display signs or other symbols aimed at inciting racial, social, national and
+religious discord on the territory of the Objects.
+
+8.14 It is prohibited to bring firearms and edged weapons, gas, traumatic, signal and pneumatic pistols and
+revolvers, stun guns of all types, aerosol devices and cylinders equipped with tear or irritating substances, piercing,
+cutting, as well as other objects that can be used to cause bodily harm, explosive devices, pyrotechnic products,
+explosive, radioactive, flammable, toxic and strongly smelling substances, psychotropic substances, hookahs, alcoholic
+and low - alcohol beverages (hereinafter referred to as Prohibited items).
+
+8.15 In case of detection by the security officer of Prohibited items and objects, the person who is found to
+have Prohibited items and objects is not allowed to enter the territory of the Object until the reasons for which the
+person is denied admission are eliminated.
+
+8.16 It is not allowed to leave unattended Prohibited items and objects in the part of the building located
+between the entrance to the building and the security post or in the territory adjacent to the Objects. In case of detection
+of things and objects left unattended and prohibited for carrying, the latter are subject to disposal or delivery to the MIA
+in accordance with the procedure provided for by law.
+
+8.17 The use of unmanned aerial vehicles on the territory of the Facilities is prohibited without the written
+consent of the University administration.
+
+8.18 Smoking is allowed only on the street in designated smoking areas.
+
+9 Issuance of keys to people entering the University Residential complex at night (from 20:00 to 9:00)
+
+9.1 During the non-working hours of the administrators of the University residential complex, the keys are
+issued to the newly settled persons by the security officers of the Residential complex.
+
+9.2 Before the end of the working shift the administrator gives the security officer a reservation sheet, which
+contains the full name of the persons who check in at night, the building number and the room number.
+
+9.3 Keys for check-in between 20:00 and 9:00 are transferred in a special tray along with the booking sheet.
+
+9.4 To check in at night you must present an identity document to the security officer to check with the
+reservation sheet and issue a room key indicated opposite the name of the person checking in.
+
+9.5 A pass with the appropriate level of access can be obtained by the person who has checked in during
+business hours at the reception desk of the Residential complex.
+
+10 Final provisions
+
+10.1 When holding mass events with a number of participants of more than 100 people, the authorized
+employees of the University are obliged to inform the administration of the owner of the Objects no later than 7(seven)
+calendar days before the date of the event. The University provides the participants of the events with passes of the
+appropriate level of access or submits the lists of participants to the security service in advance.
+
+10.2 When making changes to these Rules, the University informs the authorized employees of the owner
+of the Objects no later than 7 (seven) calendar days before the date of the changes.
+
+10.3 In the event of emergency situations involving the need to evacuate buildings, security personnel act in
+accordance with a special provision that requires the immediate opening of all evacuation exits.
+
+10.4 Control over the implementation of the Rules and their changes is assigned to the director of
+administrative and economic activities of the University.
+
+| res | idential complex of ANO HE "Innopolis University” Documented procedure: Rules of access and stay in the Educational and Laboratory building and residential complex of ANO HE "Innopolis University” |  |  |
+| --- | --- | --- | --- |
+| DP | --------------DP -------------01 01 | “ | “” ” 2018y.2018y. |
+
+Appendix 2
+to the Rules of access and stay in the
+Educational and laboratory building
+and residential complex of ANO HE
+"Innopolis University”
+
+Instruction manual
+of the user with an electronic university pass
+
+An electronic pass (hereinafter referred to as an EP) is issued to the user (employee, student) for access to the
+University's facilities and it is also a means of confirming access to the University's services (library, canteens, sports
+complex, equipment collection point).
+
+1. Activation of the EP.
+When you receive a new access Card, its activation and access to the services are regulated by the terms:
+
+- the function "entrance-exit" through the turnstiles and access to the premises (offices) of the University – within
+two working days after receiving a new pass. Until the moment of activation of the EP the entrance to the University
+facilities is possible with a one-time pass, which can be obtained from the reception administrators on the 1st floor of
+the Educational and laboratory building;
+
+- the "payment for travel" function for employees (the ability to pay for work trips on the bus on the route Kazan-Innopolis-Kazan in accordance with the "Regulations on compensation for the cost of paying for travel to and from
+work" of the University) - on the next working day after receiving a new pass;
+
+2. The order of use.
+To pass through the turnstile, it is necessary to bring the access Card to the reader (the "red cross" sign) on the
+turnstile, while the ACMS records that the employee is inside the Object.
+
+Exit from the Site is carried out in the same way by bringing the access Card to the reader on the turnstile, while
+the ACMS records that the employee is outside the Object.
+
+It is forbidden to pass together with groups of participants of events through open turnstiles without using an
+access Card at the entrance, since the system does not recognize the presence of an employee inside the Object
+and as a result will not work when using the EP at the exit.
+
+In case of failure of the turnstile or the door:
+
+- retry the pass after 15 seconds;
+
+- if the next attempt to pass is unsuccessful, contact the security officer or the reception administrator on the
+
+1st floor of the Educational and laboratory building presenting the EP.
+
+University staff have daily access to the Facilities (including weekends and holidays) from 07:00 to 23:30. Access
+to the University premises equipped with ACMS is possible under the condition of using the EP, with the exception
+of rooms where access is configured for a limited list of persons.
+
+3. Actions in case of failure, loss or damage to the EP.
+The duplicate is issued to the user on the basis of his personal application (Appendix №3 to these Regulations)
+and payment of the amount approved by the Price List to the cashier.
+
+The EP is the property of the University. The user must carefully and accurately store the EP. At the end of the
+period of study or work at the University, it is mandatory to return to the reception or to the student relations
+department. In case of non-return the EP is blocked and access to the University Facilities is not allowed on it.
+
+It is prohibited to enter the University facilities using the EP of another user, transfer the EP to another person,
+as well as copy the EP in any way. If a violation is detected, the EP is withdrawn by a security officer or a
+representative of the facility administration. Persons identified in violation of the established procedure for using the
+EP are subject to disciplinary action. In this case access to the University facilities will be allowed only with a one-time pass issued in accordance with the established procedure.
+
+Any attempt to transfer information from the Card to other media or devices is prohibited.
+
+4. The procedure for handling the EP.
+
+The EP contains a built-in electronic device and requires careful handling and storage. For EP it is not
+recommended to:
+
+- be subject to cooling below-40° C and heating above +60° C;
+
+- be placed in a humid and aggressive environment;
+
+- be subject to mechanical action;
+
+- be exposed to electromagnetic fields;
+
+| Documented procedure: Rules of access and stay in the Educational and laboratory building and residential complex of ANO HE "Innopolis University” |  |
+| --- | --- |
+| DP --------------01 | “ ” 2018y. |
+
+Appendix 5
+to the Rules of access and stay in the
+Educational and laboratory building and
+residential complex of ANO HE
+"Innopolis University”
+
+List of material assets that require registration of the MP
+
+1. Furniture: tables, chairs, armchairs, cabinets, shelves and other furniture
+
+2. Items whose sum of three dimensions exceeds 150 cm
+
+3. MFD
+
+4. Monoblocks
+
+5. Computer monitors
+
+6. System blocks of personal computers
+
+7. Flip charts
+
+8. Floor magnetic marker boards
+
+9. Outdoor speaker systems
+
+10. Outdoor and desktop coolers
+
+11. TV sets
+
+12. Refrigerators
+
+13. Coffee machines
+
+14. Electric and induction cookers
+
+15. Professional kitchen equipment.
+List of material assets that do not require registration of the MP
+
+1. Smartphones
+
+2. Laptops
+
+3. Tablets
+
+4. Mobile speaker systems
+
+5. Keyboards
+
+6. Mice
+
+7. Network filters
+
+8. MP3 players
+
+9. Photo and video cameras
+
+10. Sports equipment
+
+11. Microwave ovens
+
+12. Teapots
+
+13. Slow cookers.
+
+When taking out material values not listed above, the security guard has the right to demand to present
+a material pass.

@@ -1,0 +1,16 @@
+{
+ "title": "io robo 23 1.1",
+ "url": "https://lk-dovuz.innopolis.university/public/files/io_robo_23_1.1.pdf",
+ "sha256": "1bf987332a3cae19da75d308a98d47c8ce8d9725396d590a0e0d08a437d45730",
+ "method": "text layer (opendataloader)",
+ "chars": 13676,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:22+00:00",
+ "remote": {
+  "etag": "\"6fd0b-5f635d8e2e000\"",
+  "modified": "Mon, 06 Mar 2023 07:00:16 GMT",
+  "size": "457995"
+ }
+}

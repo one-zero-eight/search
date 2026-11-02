@@ -1,0 +1,16 @@
+{
+ "title": "Информация по земельным участкам не сданным в аренду [laishevo2]",
+ "url": "https://sezinnopolis.ru/upload/industrial%20files/laishevo2.doc",
+ "sha256": "e6455dfcc92ee3da6ac0a13d95bf15aa46c35fb350ff94ffe64f966591b02776",
+ "method": "text layer (opendataloader)",
+ "chars": 926,
+ "tables": 5,
+ "section": "site/sez",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:31+00:00",
+ "remote": {
+  "etag": "\"6abd1fd3-ae00\"",
+  "modified": "Wed, 30 Sep 2026 14:42:27 GMT",
+  "size": "44544"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "round1-solutions-ru",
+ "url": "https://lk-dovuz.innopolis.university/public/files/round1-solutions-ru.pdf",
+ "sha256": "58939abaff30dfde6996ab8ab12d8e3f31891b65bfe24b638f8dc134814122aa",
+ "method": "text layer (opendataloader)",
+ "chars": 8683,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:26+00:00",
+ "remote": {
+  "etag": "\"3282c-5f1d1438805c0\"",
+  "modified": "Mon, 09 Jan 2023 09:19:27 GMT",
+  "size": "206892"
+ }
+}

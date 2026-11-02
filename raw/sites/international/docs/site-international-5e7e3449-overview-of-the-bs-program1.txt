@@ -1,0 +1,157 @@
+All tracks All tracks All tracks
+
+All tracks All tracks
+
+Year 3 Subject
+T1 T2
+Overview of the BS Program
+
+Year 1 Subject
+
+Year 2 Subject
+
+T1 T2
+T1 T2
+T3
+T3
+Philosophy (Logic + Discrete Maths)
+Fundamentals of Computer Architecture
+Mathematical Analysis I
+Analytical Geometry and Linear Algebra I
+Introduction to Programming
+English
+Data Structures and Algorithms
+Mathematical Analysis II
+Analytical Geometry and Linear Algebra
+II
+Theoretical Computer Science
+Software System Analysis and Design
+English
+Software Project
+Tech Elective 1
+Hum Elective 1
+Physical education and sport
+History (history of Russia, world
+history)
+Philosophy 2 (Introduction to AI)
+Probability and Statistics
+Physics I (Mechanics)
+Operating Systems
+Differential Equations
+Introduction to Optimization
+
+Tech Elective 2
+
+Tech Elective 3
+Hum Elective 2
+Life Safety
+Elective disciplines (modules)
+in physical education and sport
+
+Networks
+Introduction to Machine Learning
+Databases
+Distributed and Network Programming
+Statistical Techniques
+DS
+Networks
+Introduction to Machine Learning
+Databases
+Reinforcement Learning
+Nature Inspired Computing
+AAI
+Introduction to Machine Learning
+Physics II (Electrical Engineering)
+Control Theory
+Theoretical Mechanics
+Fundamentals of Robotics
+R
+Networks
+Introduction to Machine Learning
+Databases
+Distributed and Network Programming
+System and Network Administration
+SD
+Networks
+Introduction to Machine Learning
+Databases
+Distributed and Network Programming
+System and Network Administration
+CS
+DS
+AAI
+R
+SD
+CS
+DS
+AAI
+R
+SD
+CS
+Information Retrieval
+Introduction to Computer Vision
+Natural Language Processing
+Practical Machine Learning and Deep
+Learning
+Tech Elective 4
+Information Retrieval
+Introduction to Computer Vision
+Natural Language Processing
+Practical Machine Learning and Deep
+Learning
+Tech Elective 4
+Information Retrieval
+Programming Paradigms
+Fundamental of Computer Security
+Network and Cyber Security
+Tech Elective 4
+Information Retrieval
+Programming Paradigms
+Compiler Construction
+Lean Software Development
+Tech Elective 4
+Introduction to Computer Vision
+Practical Machine Learning and Deep
+Learning
+Mechanics & Machines
+Tech Elective 4
+Data Mining
+Data and Knowledge Representation
+Big Data
+Game Theory
+Academic and Research Writing
+Human-AI Interaction Design
+Explainable and Fair AI
+Big Data
+Game Theory
+Academic and Research Writing
+Signals and Systems
+DevOps Engineering
+Secure System Development
+Software Quality, Reliability and Security
+Academic and Research Writing
+Signals and Systems
+DevOps Engineering
+Software Quality, Reliability and Security
+Advanced compiler construction and
+program analysis
+Academic and Research Writing
+Autonomous Robotics
+Robotic Systems
+Sensors & Sensing
+Signals and Systems
+Academic and Research Writing
+
+Year 4 Subject
+
+Full-time industrial internship in a company
+Thesis with a university supervisor
+
+*Abbreviation for tracks
+
+DS - Data Science
+AAI - Applied Artificial Intelligence
+R - Robotics
+
+SD - Software Development
+CS - Cyber Security

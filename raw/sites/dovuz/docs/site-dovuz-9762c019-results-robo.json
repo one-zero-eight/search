@@ -1,0 +1,16 @@
+{
+ "title": "results robo",
+ "url": "https://lk-dovuz.innopolis.university/public/files/results_robo.pdf",
+ "sha256": "4999611e1ab7937d0217836989261d526a420419a43a7e0124b0e939e50d37ca",
+ "method": "text layer (opendataloader)",
+ "chars": 3768,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:26+00:00",
+ "remote": {
+  "etag": "\"11185-64ff955e843c0\"",
+  "modified": "Tue, 21 Apr 2026 14:36:07 GMT",
+  "size": "70021"
+ }
+}

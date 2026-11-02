@@ -1,0 +1,12 @@
+{
+ "title": "Ученый совет Университета:",
+ "url": "https://innopolis.university/upload/iblock/dc2/x1g9cn1l0ucibw5frr11uf7ajc09d50w/1_prikaz_uch_sovet.pdf",
+ "sha256": "22977682c67035b2488f2f719f562ed554389b84eeb9be5296abb42ecd45bec3",
+ "method": "ocr (chandra-ocr-2)",
+ "chars": 21820,
+ "tables": 5,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-31T00:22:11+00:00",
+ "remote": {}
+}

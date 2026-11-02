@@ -1,0 +1,16 @@
+{
+ "title": "2nd tour iom24-25 tasks razbor",
+ "url": "https://lk-dovuz.innopolis.university/public/files/2nd_tour_iom24-25_tasks_razbor.pdf",
+ "sha256": "a1c92b9315b70b470cd14005fa249b1ed141b1121cdc961a6046101cc8a45621",
+ "method": "text layer (opendataloader)",
+ "chars": 82272,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:18+00:00",
+ "remote": {
+  "etag": "\"654fe-62a40bc519280\"",
+  "modified": "Fri, 27 Dec 2024 13:49:46 GMT",
+  "size": "414974"
+ }
+}

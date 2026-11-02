@@ -1,0 +1,16 @@
+{
+ "title": "ior 1stpart 7 8 classes 2",
+ "url": "https://lk-dovuz.innopolis.university/public/files/ior_1stpart_7_8_classes_2.pdf",
+ "sha256": "d3f938a4e34c00ba210dc79aab33abffe202ca88c028f17f1112599c02f9875e",
+ "method": "text layer (opendataloader)",
+ "chars": 3414,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:22+00:00",
+ "remote": {
+  "etag": "\"6b846-6297217f1d840\"",
+  "modified": "Tue, 17 Dec 2024 07:17:45 GMT",
+  "size": "440390"
+ }
+}

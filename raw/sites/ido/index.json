@@ -1,0 +1,324 @@
+{
+ "docs": {
+  "https://innopolis.university/filespublic/%D0%93%D0%B0%D0%B8%CC%86%D0%B4_%D0%9A%D0%B0%D0%BA_%D0%B0%D0%B3%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C_%D0%BE%D0%B1%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5_%D0%B7%D0%B0_%D1%81%D1%87%D0%B5%D1%82_%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BE%D0%B4%D0%B0%D1%82%D0%B5%D0%BB%D1%8F.pdf": "Скачать",
+  "https://innopolis.university/filespublic/%D0%98%D0%98_%D0%B2_%D0%B1%D0%B8%D0%B7%D0%BD%D0%B5%D1%81%D0%B5_%D0%BA%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC_%D0%A3%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%D0%98%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D0%BB%D0%B8%D1%81.pdf": "Скачать каталог",
+  "https://innopolis.university/filespublic/%D0%9E%D1%84%D0%B5%D1%80%D1%82%D0%B0_%D0%9D%D0%B5%D0%B9%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8.pdf": "Оферта",
+  "https://innopolis.university/filespublic/%D0%A0%D0%B0%D1%81%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D1%8B_%D0%98%D0%BD%D0%BD%D0%BE%D0%B2%D0%B0%D1%86%D0%B8%D0%B8_%D0%B2_%D0%BE%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B8_%D0%A3%D0%98.pdf": "Скачать подробное расписание",
+  "https://innopolis.university/filespublic/Assessment_Center.pdf": "Assessment",
+  "https://innopolis.university/filespublic/programma_kursa_upravlenie_proektami.pdf": "Скачать программу"
+ },
+ "pages": {
+  "admin-1c": {
+   "fetched_at": "2026-10-31T08:48:02+00:00",
+   "file_sha": "4518f019d2754a00e829bce0fedf5953f2d5add0d74524024a6eeb6464dcccbc",
+   "last_modified": "Tue, 27 Oct 2026 09:14:42 GMT",
+   "sha256": "1a19c484c7751ce9dee45f3fc771a66a0660cd03feffbac1356ab527b3bbfa2e",
+   "title": "Администрирование системы «1С:Предприятие 8.3»",
+   "url": "https://ido.innopolis.university/admin-1c"
+  },
+  "ai": {
+   "fetched_at": "2026-10-31T08:47:39+00:00",
+   "file_sha": "7eba1edb2f6a9ea59ac0c3f1f058d654829aabd42e5a5b0e863b8922e061c400",
+   "last_modified": "Tue, 27 Oct 2026 09:10:21 GMT",
+   "sha256": "99ed4e23ff6acf8af57d443a9c33812bddd519b4ec872580ae7e8de9b1baaeae",
+   "title": "Курсы по искусственному интеллекту от Университета Иннополис",
+   "url": "https://ido.innopolis.university/ai"
+  },
+  "ai-corporate": {
+   "fetched_at": "2026-10-31T08:47:07+00:00",
+   "file_sha": "d1c0deb415f002399ef05adcecb7757d6fb15979e3934cf075777670233f61fa",
+   "last_modified": "Tue, 27 Oct 2026 09:12:27 GMT",
+   "sha256": "86f409d141eec525c65a4d1e2352363ae54a97f8091d40cf63d9edd83994c436",
+   "title": "Искусственный интеллект в бизнесе",
+   "url": "https://ido.innopolis.university/ai-corporate"
+  },
+  "azy-programmirovaniya-1c": {
+   "fetched_at": "2026-10-31T08:48:00+00:00",
+   "file_sha": "864c4250c1682cb23974fc219124c06f8fd31d65a0fecb615df7d7c16959495a",
+   "last_modified": "Tue, 27 Oct 2026 09:14:47 GMT",
+   "sha256": "428517b758fd0fff7654ca7df9c2e9abb08358ec087b92073df6692c1854e9ff",
+   "title": "Азы программирования в системе «1С:Предприятие 8.3»",
+   "url": "https://ido.innopolis.university/azy-programmirovaniya-1c"
+  },
+  "biznes-processy": {
+   "fetched_at": "2026-10-31T08:47:05+00:00",
+   "file_sha": "e246aa0b4e5fc0093fd67388794eda1d44ef89ddffaedf7fde766e8d5c945fad",
+   "last_modified": "Tue, 27 Oct 2026 09:11:58 GMT",
+   "sha256": "e2b8bcecb4bd94d290411ea8c07f0b3962873be2d8400baef77aec030025808e",
+   "title": "Онлайн-курс «Бизнес-процессы» от Университета ИННОПОЛИС",
+   "url": "https://ido.innopolis.university/biznes-processy"
+  },
+  "business-mission": {
+   "fetched_at": "2026-10-31T08:47:20+00:00",
+   "file_sha": "0404e4cbe06d2b932e92948fe01018b59dbc7bb8d002b05fb4f8e0c0c6a8bbd3",
+   "last_modified": "Tue, 27 Oct 2026 09:14:27 GMT",
+   "sha256": "3c7cbd04b82b80d4044ff64156e3cb106719c7415cb09c6fedaa6c3c64e8311a",
+   "title": "Бизнес-миссии Университета Иннополис",
+   "url": "https://ido.innopolis.university/business-mission"
+  },
+  "china-innovationvuz": {
+   "fetched_at": "2026-10-31T08:47:22+00:00",
+   "file_sha": "e3f3a273fcc9f0fa01fd70cd592d3b83a7c24159f677d4bce32d31c2f842efa5",
+   "last_modified": "Tue, 27 Oct 2026 09:14:33 GMT",
+   "sha256": "951b60be260b049204d9277b7f73c614bb07ea9a8334405d4dd2bf261e43b097",
+   "title": "«Инновации в высшем образовании» выездная образовательная программа для вузов",
+   "url": "https://ido.innopolis.university/china-innovationvuz"
+  },
+  "complex-konfigurirovanie-1c": {
+   "fetched_at": "2026-10-31T08:46:44+00:00",
+   "file_sha": "b402b198993e0c848225eac6f79ec00c24d9c039010741753825ef959c421422",
+   "last_modified": "Tue, 27 Oct 2026 09:15:30 GMT",
+   "sha256": "5c16825eb26369e12b98607a5626c77eca2f322f1bd9b2ba283e7d83e569f84e",
+   "title": "Комплексный курс \"Конфигурирование в системе \"1С:Предприятие8\". Версия 8.3",
+   "url": "https://ido.innopolis.university/complex-konfigurirovanie-1c"
+  },
+  "consult": {
+   "fetched_at": "2026-10-31T08:46:48+00:00",
+   "file_sha": "151dd149c28d1b4926159dc2a11a00409340cbdd6d8e53c58ac2561b5738fdcd",
+   "last_modified": "Tue, 27 Oct 2026 09:10:07 GMT",
+   "sha256": "358cce547617d044c1fb58e19c04d693d9e7b59cc501b62ab29ae3cf29b5774a",
+   "title": "Бесплатная консультация по курсам дополнительного образования",
+   "url": "https://ido.innopolis.university/consult"
+  },
+  "cv-web": {
+   "fetched_at": "2026-10-31T08:47:47+00:00",
+   "file_sha": "bdbabd0281bb1a38c9d9ac9e082b30c6c75f5e5cb3c195396070cb548a02bbf7",
+   "last_modified": "Thu, 01 Oct 2026 08:52:29 GMT",
+   "sha256": "f619c57e3ea471506f0a422dc5948b4fe6e68e7119ed1e8e4e5ef65e92541500",
+   "title": "Learning Elements Университет Иннополис",
+   "url": "https://ido.innopolis.university/cv_web"
+  },
+  "did-lead-mag": {
+   "fetched_at": "2026-10-31T08:47:43+00:00",
+   "file_sha": "35483188e2d3b74b2733a0763a18774f55455b504e396072a6617291682bb740",
+   "last_modified": "Tue, 27 Oct 2026 09:10:36 GMT",
+   "sha256": "3d09457942d35cf9e976f8474aef92a28b8b8304791d4ac5890548409e51136d",
+   "title": "Доступ к записанным лекциям \"Внедрение нейросетей в рабочией процессы\"",
+   "url": "https://ido.innopolis.university/did-lead-mag"
+  },
+  "digital-literacy": {
+   "fetched_at": "2026-10-31T08:47:03+00:00",
+   "file_sha": "26657682ff6ab2d4b1e37f2320db3f9bc1b1e4215f9e4173f8feffbe044ec6c8",
+   "last_modified": "Tue, 27 Oct 2026 09:11:27 GMT",
+   "sha256": "4af6b9e6327e414ca418f22823a4a5005a25f03d7b2ad751d0180f96aad37c14",
+   "title": "Онлайн-курс «Цифровая грамотность» от Университета Иннополис",
+   "url": "https://ido.innopolis.university/digital-literacy"
+  },
+  "eng": {
+   "fetched_at": "2026-10-31T08:46:46+00:00",
+   "file_sha": "32210e50e7f27e26215d2e7f68df2d703f6c09e52eaeff400c5661806d61646a",
+   "last_modified": "Tue, 27 Oct 2026 09:09:58 GMT",
+   "sha256": "9de636628d5378bcef83d9e89373c51932ac0c3dfdeab1599f9b61fa1de9f5f1",
+   "title": "Courses in Programming, IT and Management from Innopolis University",
+   "url": "https://ido.innopolis.university/eng"
+  },
+  "excursion": {
+   "fetched_at": "2026-10-31T08:47:32+00:00",
+   "file_sha": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "last_modified": "Tue, 27 Oct 2026 09:10:13 GMT",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "title": "редирект",
+   "url": "https://ido.innopolis.university/excursion"
+  },
+  "gen-ai-v-nauke-kurs": {
+   "fetched_at": "2026-10-31T08:47:30+00:00",
+   "file_sha": "a7c0ddf593d4e64e1bdd0d249e67913929bcb55f07684432a790a15893aa9458",
+   "last_modified": "Tue, 27 Oct 2026 09:13:08 GMT",
+   "sha256": "43dca7c81da7ce80c8bdd69dc1c140d397fd7468617f7b061cc3d9008dd63298",
+   "title": "Технологии искусственного интеллекта в научных исследованиях",
+   "url": "https://ido.innopolis.university/gen_ai_v_nauke_kurs"
+  },
+  "gen-ai-v-nauke-vorkshop": {
+   "fetched_at": "2026-10-31T08:47:28+00:00",
+   "file_sha": "7d5c478900a5cb69808a14f4a553b2cd6fb6882adeed0ffd44b6b7af4b79ae22",
+   "last_modified": "Tue, 27 Oct 2026 09:13:03 GMT",
+   "sha256": "d34e0ce96d394c675e7fb5513c7a05b983901690881a3c65a575fcb4e23b59c3",
+   "title": "Генеративный искусственный интеллект для всех: от чат-ботов до научных открытий",
+   "url": "https://ido.innopolis.university/gen_ai_v_nauke_vorkshop"
+  },
+  "global": {
+   "fetched_at": "2026-10-31T08:47:09+00:00",
+   "file_sha": "f8c8da31af33752fe147c8ebb2cb2a38d7da9efc243b3883b3bef4984f4a2412",
+   "last_modified": "Tue, 27 Oct 2026 09:14:00 GMT",
+   "sha256": "7074609b7a4f154533686f1e00f1818ee56f566942dfd0d77d5e2f9bb6b3678d",
+   "title": "Международные программы Университета Иннополис",
+   "url": "https://ido.innopolis.university/global"
+  },
+  "global-education": {
+   "fetched_at": "2026-10-31T08:47:11+00:00",
+   "file_sha": "42539ad7d60c30d199492a12a263fde8251760d9fc3261a1a8671f2b9c51d3c7",
+   "last_modified": "Tue, 27 Oct 2026 09:14:04 GMT",
+   "sha256": "1ae5a99437782ee44acf0e2199b588780786cd5bb9cb74cfd016a82f67dff227",
+   "title": "Выездные образовательные программы в Китай",
+   "url": "https://ido.innopolis.university/global-education"
+  },
+  "global-research-china": {
+   "fetched_at": "2026-10-31T08:47:15+00:00",
+   "file_sha": "6b381128772cec66a5f4395122b38e8c8fff56e3a7223fff191e5553abcf93eb",
+   "last_modified": "Tue, 27 Oct 2026 09:14:14 GMT",
+   "sha256": "85d84a167efc0aa7433440b9d08ef23786317e5ecd201ebf9722272c0ec836dd",
+   "title": "Исследование \"Китай как рынок для российского бизнеса\"",
+   "url": "https://ido.innopolis.university/global/research/china"
+  },
+  "global-webinar-innovationvuz": {
+   "fetched_at": "2026-10-31T08:47:18+00:00",
+   "file_sha": "b3cab8f4c0f1d380f9cff5e1d81df96b0479d18e38618646f777c872809dedd4",
+   "last_modified": "Tue, 27 Oct 2026 09:14:20 GMT",
+   "sha256": "b6381e63e4cec293ba9d7eb0ebc00d97b8cf166c0e4f8d8f3f6a1a8a66b85748",
+   "title": "Вебинар \"Инновации в высшем образовании: передовые практики Китая\"",
+   "url": "https://ido.innopolis.university/global/webinar/innovationvuz"
+  },
+  "home": {
+   "fetched_at": "2026-10-31T08:46:42+00:00",
+   "file_sha": "bf5728ee301dc0d729335de9e8cce0f2827e603d0b183857a5914bcfe1e2fe9a",
+   "last_modified": "Tue, 27 Oct 2026 09:09:51 GMT",
+   "sha256": "7b962338b497846df719ca22717d05680d2c47f09d0dcafd677f5076e74e7728",
+   "title": "Онлайн-курсы по программированию, IT и менеджменту от Иннополис",
+   "url": "https://ido.innopolis.university/"
+  },
+  "innovation": {
+   "fetched_at": "2026-10-31T08:47:24+00:00",
+   "file_sha": "8f1c60fb2f50a1d3aad8d7c6dd020a8e7074b783416dfeaba0b06fa673ebd0ba",
+   "last_modified": "Tue, 27 Oct 2026 09:12:47 GMT",
+   "sha256": "8c2b7213a91cf361e3f5ee97824287e31c9280b6db7299fd6c90dd0ca9889cc9",
+   "title": "Курс «Управление инновациями и интеллектуальной собственностью: от разработки до коммерциализации»",
+   "url": "https://ido.innopolis.university/innovation"
+  },
+  "innovation-gos": {
+   "fetched_at": "2026-10-31T08:47:26+00:00",
+   "file_sha": "f86ff73f4f26ad920660d0befc2f8f951ccf84bcd7e9fc3d2f4dbcf2e881a15d",
+   "last_modified": "Tue, 27 Oct 2026 09:12:55 GMT",
+   "sha256": "386fc9fcc9a2d42fe09d79f5c539b84e081fbaf46a319dc0db43cf93c7883a59",
+   "title": "Курс \"Инструменты управления интеллектуальной собственностью - драйвер развития муниципальных образований\"",
+   "url": "https://ido.innopolis.university/innovation-gos"
+  },
+  "international-programs": {
+   "fetched_at": "2026-10-31T08:47:13+00:00",
+   "file_sha": "bbf70ae14e5eb04df286224c32a9516e0ea891c4d48de1a7169e344fb3241fed",
+   "last_modified": "Tue, 27 Oct 2026 09:14:12 GMT",
+   "sha256": "fd0fb6e930c475c58d214500b0994ba4f979ba240282c71b715104a895e1957d",
+   "title": "Business Missions and Corporate training courses for Business and Government",
+   "url": "https://ido.innopolis.university/international-programs"
+  },
+  "kolibri-arm": {
+   "fetched_at": "2026-10-31T08:47:36+00:00",
+   "file_sha": "5418a87ca64746d44b3f4a754bdde11ea788b36fd69858b9bcac65b73fcf796b",
+   "last_modified": "Tue, 27 Oct 2026 09:44:15 GMT",
+   "sha256": "22d03ed0da972ce9d0b74b3d36c4795c22223a2a0a3b161b922871a5cf4115e7",
+   "title": "Обучение и сертификация администратор Колибри-АРМ",
+   "url": "https://ido.innopolis.university/kolibri-arm"
+  },
+  "le-mk": {
+   "fetched_at": "2026-10-31T08:47:41+00:00",
+   "file_sha": "1f241de44d4806ca99fc062d3a721657a20590d8f5a8554d812e9300b399d89b",
+   "last_modified": "Tue, 09 Jun 2026 06:27:59 GMT",
+   "sha256": "994fb963f32d1a384a95d91eac1949a95300c14886827e9ccfab48bc62968b6b",
+   "title": "Learning Elements Университет Иннополис",
+   "url": "https://ido.innopolis.university/le_mk"
+  },
+  "management-university": {
+   "fetched_at": "2026-10-31T08:46:56+00:00",
+   "file_sha": "ad955904e1f304604b7383a102fea6a6d50c66debc66745faccab0ee8603d06e",
+   "last_modified": "Tue, 27 Oct 2026 09:11:03 GMT",
+   "sha256": "bf478549f2b8004ee7ba27c8ba56791faaa55359924fda735ad1fa78fcee0518",
+   "title": "Онлайн-курс «Управление информационной инфраструктурой вуза»",
+   "url": "https://ido.innopolis.university/management_university"
+  },
+  "mk": {
+   "fetched_at": "2026-10-31T08:47:34+00:00",
+   "file_sha": "672c8ab1e5d1bce37c4755c2f45cf3c49c6f39ddd0a5d64dd04d9bd0fab4869b",
+   "last_modified": "Tue, 27 Oct 2026 09:13:22 GMT",
+   "sha256": "dc40e6ec0fe75233bb650c1b854ea350526fd6d88f318ce413e0977bd8e602a3",
+   "title": "Обучитесь цифровым инструментам преподавателя на практическом МК",
+   "url": "https://ido.innopolis.university/mk"
+  },
+  "nejroseti-kontent": {
+   "fetched_at": "2026-10-31T08:46:54+00:00",
+   "file_sha": "0d3ffbed73cf2f43914c9fb9c71919431d4638e276bfefc5ebccc9f7bf7f0468",
+   "last_modified": "Tue, 27 Oct 2026 09:10:57 GMT",
+   "sha256": "1940fac9d06eee41f7606ceb0b656e187e0d25d143db1736b337df9afea52fd3",
+   "title": "Онлайн-курс «Нейросети для создания контента» от Иннополис",
+   "url": "https://ido.innopolis.university/nejroseti-kontent"
+  },
+  "product-management": {
+   "fetched_at": "2026-10-31T08:46:59+00:00",
+   "file_sha": "27d4749922f19b4fb4082d9c5acf7c128642f2fa8871a8179f5afe83f0406682",
+   "last_modified": "Tue, 27 Oct 2026 09:11:17 GMT",
+   "sha256": "f4560b2584137a58e046394b1a0823b5d34617f1532a25469c981330d152123c",
+   "title": "Онлайн-курс \"Управление продуктом\" научит делать качественный продукт",
+   "url": "https://ido.innopolis.university/product_management"
+  },
+  "project-management": {
+   "fetched_at": "2026-10-31T08:46:52+00:00",
+   "file_sha": "6d58b4576fbaf0edb58b50bb9398bc83feb26297fabdf130b822b26f1c32fb7a",
+   "last_modified": "Tue, 27 Oct 2026 09:10:53 GMT",
+   "sha256": "676a80cab8f730569baf8af4c48b9647d4be0a6a6b3176b5b6da9eb913f52a51",
+   "title": "Онлайн-курс «Управление проектами» от Университета Иннополис",
+   "url": "https://ido.innopolis.university/project-management"
+  },
+  "reshenie-buhgalterskih-konfigurirovanie-1c": {
+   "fetched_at": "2026-10-31T08:47:55+00:00",
+   "file_sha": "8b134a0693268a229aec33c995ba899ba0103a68b36a257e1d88f92221121933",
+   "last_modified": "Tue, 27 Oct 2026 09:15:19 GMT",
+   "sha256": "abbd151d9b399e1c5cb068aecc0233836f1679d12ca864d700250aad0ff85546",
+   "title": "Конфигурирование в системе «1С:Предприятие 8.3». Решение бухгалтерских задач",
+   "url": "https://ido.innopolis.university/reshenie-buhgalterskih-konfigurirovanie-1c"
+  },
+  "reshenie-operativnih-konfigurirovanie-1c": {
+   "fetched_at": "2026-10-31T08:47:53+00:00",
+   "file_sha": "6f39c9767f4f5b864853aae19726788a6eb8f85215b0a236ae69993c33c36ef5",
+   "last_modified": "Tue, 27 Oct 2026 09:46:32 GMT",
+   "sha256": "8002faad28e01c784a4368aae65f24069f8b5de70518200a58ebbce2aa9f2350",
+   "title": "Конфигурирование в системе «1С:Предприятие 8.3». Решение оперативных задач",
+   "url": "https://ido.innopolis.university/reshenie-operativnih-konfigurirovanie-1c"
+  },
+  "reshenie-raschet-konfigurirovanie-1c": {
+   "fetched_at": "2026-10-31T08:47:57+00:00",
+   "file_sha": "dde2759a20fdcda867c3bf9321d25409a08e0e122a9b963a19117bf1ea921d44",
+   "last_modified": "Tue, 27 Oct 2026 09:14:53 GMT",
+   "sha256": "c91c4f587a91d7a8059922a886ac76c33b44c1f4b5fac148d23767ee7e2c7046",
+   "title": "Конфигурирование в системе «1С:Предприятие 8.3». Решение расчетных задач",
+   "url": "https://ido.innopolis.university/reshenie-raschet-konfigurirovanie-1c"
+  },
+  "thanks": {
+   "fetched_at": "2026-10-31T08:46:50+00:00",
+   "file_sha": "93a0984cc5d22ed59f2f337420d82b8c4a880b692d17d2f28bf8efac97cb599e",
+   "last_modified": "Tue, 02 Jun 2026 07:43:42 GMT",
+   "sha256": "7ed01fbbc94e9c34dd77d170a5f9c3e3fe91202c95657ef884f0632986fc3616",
+   "title": "Онлайн-курсы от Университета Иннополис",
+   "url": "https://ido.innopolis.university/thanks"
+  },
+  "upravlenie-dannymi": {
+   "fetched_at": "2026-10-31T08:47:01+00:00",
+   "file_sha": "7eb86a322b5abe94179a386dc9de8fea28eb7d56ec97bbfa60031e63687d708a",
+   "last_modified": "Tue, 27 Oct 2026 09:11:21 GMT",
+   "sha256": "b023f3e7ebc82854da37d59287ae05cc35764031e08430aefa5eecdb0a332219",
+   "title": "Онлайн-курс «Управление данными» от Университета ИННОПОЛИС",
+   "url": "https://ido.innopolis.university/upravlenie-dannymi"
+  },
+  "upravlenie-nauchimi-prikladnimi-proetami-ii": {
+   "fetched_at": "2026-10-31T08:47:49+00:00",
+   "file_sha": "925876fbbef08a09788b20335d05d15e9e1bb79280a755019d1f4a5a8cf4651b",
+   "last_modified": "Tue, 27 Oct 2026 09:13:46 GMT",
+   "sha256": "9426245dac897886939163112901edf309639f76797170c26b6e9e8d7bedb099",
+   "title": "Управление научными и прикладными проектами генеративного ИИ и больших языковых моделей",
+   "url": "https://ido.innopolis.university/upravlenie-nauchimi-prikladnimi-proetami-ii"
+  },
+  "vvedenie-konfigurirovanie-1c": {
+   "fetched_at": "2026-10-31T08:47:51+00:00",
+   "file_sha": "9c16e42b38798e127d0ffb3359a2833eca53ceddf34f9a3f7684a67523c898a1",
+   "last_modified": "Tue, 27 Oct 2026 09:15:27 GMT",
+   "sha256": "52c43ea8c4c5efd1068c382027daa51c9b21f9295e4e01053d846919e4c48087",
+   "title": "Введение в конфигурирование в системе «1С:Предприятие 8.3». Основные объекты",
+   "url": "https://ido.innopolis.university/vvedenie-konfigurirovanie-1c"
+  },
+  "webinar-cv-v-promyshlennosti": {
+   "fetched_at": "2026-10-31T08:47:45+00:00",
+   "file_sha": "89e4dca0eb47c16ecdae0824d096d82a462b9492b417426a0fe988e737d09bb9",
+   "last_modified": "Mon, 06 Jul 2026 10:13:40 GMT",
+   "sha256": "a4f72d8eebbbfb99ed4768312e41ef9a0d9b97913f7781154ded3a3c99943ee5",
+   "title": "Бесплатная онлайн-конференция «CV в промышленности»",
+   "url": "https://ido.innopolis.university/webinar/cv-v-promyshlennosti"
+  }
+ }
+}

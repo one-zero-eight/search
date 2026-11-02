@@ -1,0 +1,16 @@
+{
+ "title": "Правила использования коворкинга",
+ "url": "https://sezinnopolis.ru/upload/arenda/rules-cowork1.docx",
+ "sha256": "8b0129fcb23730c5fe13524af3366258f72ea6ea85cf66f562a9b8965bc9e983",
+ "method": "text layer (opendataloader)",
+ "chars": 4106,
+ "tables": 5,
+ "section": "site/sez",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:31+00:00",
+ "remote": {
+  "etag": "\"69845751-70a9\"",
+  "modified": "Thu, 05 Feb 2026 08:39:45 GMT",
+  "size": "28841"
+ }
+}

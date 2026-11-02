@@ -1,0 +1,41 @@
+---
+type: page
+title: "Андрей Садовых"
+description: "PhD, Sorbonne University, Франция , Доцент, Институт разработки ПО и программной инженерии, Лаборатория промышленной разработки ПО"
+resource: "https://innopolis.university/en/professor/andrey-sadovykh/"
+audience: ["student", "postgraduate", "applicant", "teacher", "staff", "management", "public"]
+source_kind: website
+language: en
+section: "site/university"
+sources:
+  - resource: "https://innopolis.university/en/professor/andrey-sadovykh/"
+    id: "8854b77e25b1"
+    title: "Андрей Садовых"
+    last_modified: "2026-10-25T00:43:26+00:00"
+generated:
+  by: "catix-wiki/0.1 sites"
+  at: "2026-10-25T00:43:26+00:00"
+status: draft
+---
+
+# Андрей Садовых
+
+![](https://innopolis.university/upload/resize_cache/iblock/193/330_420_2/IMG_7599.jpg)
+
+PhD, Sorbonne University, Франция , Доцент, Институт разработки ПО и программной инженерии, Лаборатория промышленной разработки ПО
+
+Country:
+
+Россия
+
+Университет Сорбонна, Франция
+
+Андрей Садовых получил степень магистра в области прикладной математики и информационных технологий в МФТИ (Россия) в 2001 году, степень PhD (по программе с компанией Airbus) в области компьютерных наук в Университете Сорбонна (Франция) в 2005 году и степень МВА в области цифрового бизнеса в Высшей школе бизнеса (Франция) в 2014 году. Андрей Садовых работал Начальником отдела научных исследований SOFTEAM (2016 – 2018). Во время своей работы он вел исследования в области управления разработкой ПО и систем с помощью моделей в более чем 15 проектах, координировал 5 проектов, внес вклад в стандартизацию совместно с компанией OMG, внес вклад в разработку продуктов для Modelio. Андрей Садовых имеет 10-тилетний опыт разработки научных проектов в области информационных технологий с учетом международного и межкультурного контекста, а также большой опыт в НИОКР и в Издании программного обеспечения (Software publishing). Он успешно ведет несколько международных консорциумов в совместных проектах, включающих большие отрасли промышленности, малые и средние компании, а также партнеров из числа академических кругов.
+
+[About laboratory](/raw/sites/university/lab-industrializing-software.md) [back](/raw/sites/university/faculty.md)
+
+_The menu, footer and other blocks that the pages of the site repeat are kept in one place: [/raw/sites/university/_shared-en.md](/raw/sites/university/_shared-en.md)._
+
+# Citations
+
+1. [Андрей Садовых](https://innopolis.university/en/professor/andrey-sadovykh/), read 2026-10-25

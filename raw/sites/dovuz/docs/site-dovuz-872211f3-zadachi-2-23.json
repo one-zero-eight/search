@@ -1,0 +1,16 @@
+{
+ "title": "zadachi 2 23",
+ "url": "https://lk-dovuz.innopolis.university/public/files/zadachi_2_23.pdf",
+ "sha256": "67361da3f9cb1864383be41533e8d1aac7cbd9dc9b5cdb72d21e5ba4d458162f",
+ "method": "text layer (opendataloader)",
+ "chars": 14668,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:27+00:00",
+ "remote": {
+  "etag": "\"8cdac-606532d84e400\"",
+  "modified": "Wed, 27 Sep 2023 08:42:56 GMT",
+  "size": "576940"
+ }
+}

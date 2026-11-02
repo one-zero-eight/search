@@ -1,0 +1,16 @@
+{
+ "title": "Ознакомиться с книгой",
+ "url": "https://lk-dovuz.innopolis.university/public/files/Mat-osnovy-ai.pdf",
+ "sha256": "75bc36e3d9bfbdbaf9e856defe878b921092cfd37b966aba41d0bd65b602e945",
+ "method": "text layer (opendataloader)",
+ "chars": 13192,
+ "tables": 5,
+ "section": "site/apply-bach",
+ "context": "",
+ "fetched_at": "2026-11-01T22:40:21+00:00",
+ "remote": {
+  "etag": "\"591d4-6169edb7844c0\"",
+  "modified": "Sun, 21 Apr 2024 17:43:23 GMT",
+  "size": "365012"
+ }
+}

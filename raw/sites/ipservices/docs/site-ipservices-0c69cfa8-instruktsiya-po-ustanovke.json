@@ -1,0 +1,16 @@
+{
+ "title": "Инструкция по установке [Инструкция_по_установке]",
+ "url": "https://innopolis.university/filespublic/%D0%98%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F_%D0%BF%D0%BE_%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B5.pdf",
+ "sha256": "dacf024d509a00c82d00cd7e8f5314577c860df63411ea1b5311cd45258dcfa1",
+ "method": "text layer (opendataloader)",
+ "chars": 8825,
+ "tables": 5,
+ "section": "site/ipservices",
+ "context": "",
+ "fetched_at": "2026-11-01T22:40:22+00:00",
+ "remote": {
+  "etag": "\"8a4d7-652f299232ddd\"",
+  "modified": "Fri, 29 May 2026 10:49:25 GMT",
+  "size": "566487"
+ }
+}

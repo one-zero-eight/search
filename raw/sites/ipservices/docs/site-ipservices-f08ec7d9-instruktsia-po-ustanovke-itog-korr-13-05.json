@@ -1,0 +1,16 @@
+{
+ "title": "Instruktsia po ustanovke ITOG korr 13 05 26",
+ "url": "https://innopolis.university/filespublic/Instruktsia_po_ustanovke_ITOG_korr_13_05_26.pdf",
+ "sha256": "4396d61ee6f4fbd5be8259abcb9cb6249eddec48ea166f8534233e438928515e",
+ "method": "text layer (opendataloader)",
+ "chars": 8741,
+ "tables": 5,
+ "section": "site/ipservices",
+ "context": "",
+ "fetched_at": "2026-11-01T22:40:27+00:00",
+ "remote": {
+  "etag": "\"fcfa4-6529ec722e91e\"",
+  "modified": "Mon, 25 May 2026 06:49:19 GMT",
+  "size": "1036196"
+ }
+}

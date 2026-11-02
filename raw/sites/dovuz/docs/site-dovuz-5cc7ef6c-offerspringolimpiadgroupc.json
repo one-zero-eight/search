@@ -1,0 +1,16 @@
+{
+ "title": "Олимпиадное программирование. Начальный уровень группы C",
+ "url": "https://lk-dovuz.innopolis.university/public/files/offer-spring-olimpiad-groupc.pdf",
+ "sha256": "94a14a502cdf14090e4810b9a3cd4af5f50715762da99821c6afaa3e30e8b0cd",
+ "method": "text layer (opendataloader)",
+ "chars": 32874,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"36acb-64971ab56f9c0\"",
+  "modified": "Wed, 28 Jan 2026 12:13:35 GMT",
+  "size": "223947"
+ }
+}

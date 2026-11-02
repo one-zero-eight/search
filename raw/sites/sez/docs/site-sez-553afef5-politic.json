@@ -1,0 +1,15 @@
+{
+ "title": "Конфиденциальность",
+ "url": "https://sezinnopolis.ru/upload/politic.pdf",
+ "sha256": "9f7bf0fa7dfd51e09f392df807d4837071f2e65953f9c9b9ce17e4af4ebec142",
+ "method": "text layer (opendataloader)",
+ "chars": 21624,
+ "tables": 5,
+ "section": "site/sez",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:32+00:00",
+ "remote": {
+  "etag": "W/\"69845751-405a6\"",
+  "modified": "Thu, 05 Feb 2026 08:39:45 GMT"
+ }
+}

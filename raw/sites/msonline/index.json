@@ -1,0 +1,50 @@
+{
+ "docs": {
+  "https://innopolis.university/upload/iblock/27a/nn127g88tdo27pjwt1468zdxvmionugp/%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_2025%2038.04.05_2025_%D0%A3%D0%BD%D0%9E%D0%94_%D0%A3%D0%9F_28102024_%D0%A1%D0%B0%D0%B9%D1%82.pdf": "Учебный план",
+  "https://innopolis.university/upload/iblock/37b/9w9xlbogdmifglg25hspmdo6suf85afz/%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_2025_CS%20%D0%A3%D0%9F_28102024_%D0%A1%D0%B0%D0%B9%D1%82_28.10.2024.pdf": "Учебный план",
+  "https://innopolis.university/upload/iblock/bac/skbidzq82sn9ugx5u44al04are90ze13/%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_2025_GD%20%D0%A3%D0%9F_28102024_%D0%A1%D0%B0%D0%B9%D1%82_28.10.2024.pdf": "Учебный план",
+  "https://lk-dovuz.innopolis.university/public/files/ucp_uch24-25.pdf": "Учебный план"
+ },
+ "pages": {
+  "cybersecurity": {
+   "fetched_at": "2026-10-31T08:38:15+00:00",
+   "file_sha": "e97c5966317f9b8a98b976b2de30d89bdb157e1784b54185df44e5651c94e0ed",
+   "last_modified": "Fri, 26 Dec 2025 11:44:59 GMT",
+   "sha256": "3a6bb1236316218ddbb1093bb6975182d2e2a594d79f235474328015ffed01d0",
+   "title": "Кибербез",
+   "url": "https://msonline.innopolis.university/cybersecurity"
+  },
+  "ddm": {
+   "fetched_at": "2026-10-31T08:38:13+00:00",
+   "file_sha": "a1ce529948d2ea5f9eb74d2353ee9d7633f0dd50e50c964775ef0665c0fe04e6",
+   "last_modified": "Fri, 26 Dec 2025 11:44:24 GMT",
+   "sha256": "d91cd228bb7122bb6a1babf0de85d0c0c9bb98e34e8802cad01e11439b6d17b4",
+   "title": "Управление на основе данных",
+   "url": "https://msonline.innopolis.university/ddm"
+  },
+  "dpm": {
+   "fetched_at": "2026-10-31T08:38:11+00:00",
+   "file_sha": "ae805333b7ef4f35864ae906af85192661a8dbbac7f5cd3c4ff0c440efb7f3bc",
+   "last_modified": "Fri, 26 Dec 2025 11:43:28 GMT",
+   "sha256": "f8006d57d595a01f9f2f884963acdead91723af18a9b8b0f2cc44bc0cfaf059a",
+   "title": "Управление цифровым продуктом",
+   "url": "https://msonline.innopolis.university/dpm"
+  },
+  "gamedev": {
+   "fetched_at": "2026-10-31T08:38:17+00:00",
+   "file_sha": "2d9829387684d6beacc1f06c2f0bcf8646bbb30086cd428698daffba472fc85b",
+   "last_modified": "Fri, 26 Dec 2025 11:45:42 GMT",
+   "sha256": "b29d47a79b4244003c0f0e0758a7857d01b4ab2959de9d37733fe7b811781279",
+   "title": "Управление разработкой компьютерных игр",
+   "url": "https://msonline.innopolis.university/gamedev"
+  },
+  "home": {
+   "fetched_at": "2026-10-31T08:38:09+00:00",
+   "file_sha": "7942655190453e7c20260e4aa6b037846dc5a7d3274fcd4fd5438e0a6ce30275",
+   "last_modified": "Fri, 26 Dec 2025 11:42:41 GMT",
+   "sha256": "c33e432e1aa98f8c8d52976d5bc998b16bdc329f715866077f1f9307d83d12ee",
+   "title": "Онлайн-магистратура",
+   "url": "https://msonline.innopolis.university/"
+  }
+ }
+}

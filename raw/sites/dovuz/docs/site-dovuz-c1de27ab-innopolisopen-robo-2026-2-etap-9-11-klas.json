@@ -1,0 +1,16 @@
+{
+ "title": "innopolis-open robo 2026 2 etap 9 11 klass",
+ "url": "https://lk-dovuz.innopolis.university/public/files/innopolis-open_robo_2026_2_etap_9_11_klass.pdf",
+ "sha256": "550e24e1801f75d35fa52fb6b4071cf1d3f56be4c5ad16397e2e2991cff03266",
+ "method": "text layer (opendataloader)",
+ "chars": 4941,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:21+00:00",
+ "remote": {
+  "etag": "\"306fc-6505e50fa6900\"",
+  "modified": "Sun, 26 Apr 2026 15:04:36 GMT",
+  "size": "198396"
+ }
+}

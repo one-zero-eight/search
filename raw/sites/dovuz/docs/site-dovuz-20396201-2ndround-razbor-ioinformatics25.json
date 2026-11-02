@@ -1,0 +1,16 @@
+{
+ "title": "2nd-round razbor ioinformatics25",
+ "url": "https://lk-dovuz.innopolis.university/public/files/2nd-round_razbor_ioinformatics25.pdf",
+ "sha256": "459a75c22ab803d19c440e23dfc9a47549e3fb53ddc32e9611e2d84347c68b54",
+ "method": "text layer (opendataloader)",
+ "chars": 11082,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:18+00:00",
+ "remote": {
+  "etag": "\"2fc7b-62ea53d0ce240\"",
+  "modified": "Fri, 21 Feb 2025 11:24:49 GMT",
+  "size": "195707"
+ }
+}

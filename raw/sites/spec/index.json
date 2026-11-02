@@ -1,0 +1,345 @@
+{
+ "docs": {
+  "https://innopolis.university/upload/files/%D0%9F%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0%20%D0%BA%D0%BE%D0%BD%D1%84%D0%B8%D0%B4%D0%B5%D0%BD%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8.pdf": "политикой конфиденциальности",
+  "https://robotics.innopolis.university/wp-content/uploads/2021/12/Digest3.pdf": "Первый выпуск про промышленную робототехнику В сборнике «6 степеней свободы» от 2021 года эксперты анализируют рынок промышленной робототехники в России и в мире, технологии, образовательную деятельность и опыт лидеров индустрии — KUKА, FANUC, «КАМАЗ», Национальной Ассоциации Участников Рынка Робототехники и других.",
+  "https://robotics.innopolis.university/wp-content/uploads/2022/08/Didgestmicroelectronika.pdf": "Скачать"
+ },
+ "pages": {
+  "ai-conference": {
+   "fetched_at": "2026-10-31T08:46:09+00:00",
+   "file_sha": "2dd3624d20da1b90acfcc2881220d175b1026a4907012afcad4312862c0f1928",
+   "last_modified": "Mon, 29 May 2023 10:31:19 GMT",
+   "sha256": "0ad2a4d987648b30d5d7319a9a6457e10873f714cbd1671fcc656ebbae14bda7",
+   "title": "Как мы собрали 40 экспертов, внедряющих искусственный интеллект в производство",
+   "url": "https://spec.innopolis.university/ai_conference"
+  },
+  "aiin2023": {
+   "fetched_at": "2026-10-31T08:46:22+00:00",
+   "file_sha": "cb0805681074b01acddfcabdfd71f8110d3f326deeba042d3c19ca90d201bcfa",
+   "last_modified": "Tue, 26 Sep 2023 12:01:31 GMT",
+   "sha256": "21733af3b1e1d9fe8dc821ddc59e848c23ade0522a98439a89815dccec3a3f43",
+   "title": "AI IN 2023",
+   "url": "https://spec.innopolis.university/aiin2023"
+  },
+  "aitimer": {
+   "fetched_at": "2026-10-31T08:46:15+00:00",
+   "file_sha": "edee24d7b765e81efd103b1a3033edb16eb0b1889c83406425ac23d92d183c99",
+   "last_modified": "Tue, 18 Jul 2023 14:15:56 GMT",
+   "sha256": "267f7e9ff2b9184dc182be4150008cbb4d447c2bf3e2f1c099bc794c752a9528",
+   "title": "Айтимер| Как с помощью одного сервиса сделать дешевле и эффективнее геофизические исследования",
+   "url": "https://spec.innopolis.university/aitimer"
+  },
+  "blockchainwp": {
+   "fetched_at": "2026-10-31T08:45:48+00:00",
+   "file_sha": "586fb881aa764abf8be23e9ede0ce3c3c8fb9bbe85d3dacdd78bfd9e7f95e3b4",
+   "last_modified": "Mon, 29 May 2023 10:30:59 GMT",
+   "sha256": "1546fc9a7efe7e719647dfac5cdc81bca343f9244e8d6b82ce3dfcd5f3ce81ec",
+   "title": "Блокчейн. На страже вашей информации",
+   "url": "https://spec.innopolis.university/blockchainwp"
+  },
+  "case-innopolis": {
+   "fetched_at": "2026-10-31T08:45:32+00:00",
+   "file_sha": "0f66720ac3b000b16b5e60e72598f662cc9a460f9307269bae0dfc49d21239a8",
+   "last_modified": "Thu, 01 Jun 2023 08:07:56 GMT",
+   "sha256": "e956fcf1ef8e242ae183ab4c594db44092429e6f65a2b2a1b20b8ae75be18db5",
+   "title": "Кейс ОЭЗ «Иннополис»: как мы заселили джавистами целый город",
+   "url": "https://spec.innopolis.university/case/innopolis"
+  },
+  "case-java": {
+   "fetched_at": "2026-10-31T08:45:34+00:00",
+   "file_sha": "3d8d14a174eebbc5e10f17e28efe902ca1f8d282b2b37c4e82fbcb2578b939bd",
+   "last_modified": "Mon, 29 May 2023 10:30:41 GMT",
+   "sha256": "c96ab27b34abd3a35cad1fa0320333f466b740b12c565317d0979c8d923fb8ab",
+   "title": "Кейс: Как мы обучили более 55 Java-разработчиков для одной ИТ-компании",
+   "url": "https://spec.innopolis.university/case/java"
+  },
+  "case-map": {
+   "fetched_at": "2026-10-31T08:45:30+00:00",
+   "file_sha": "128a91b6826518d72d040e2bfa923a32f677edbdb1f0c9ecde2fd8399eff991d",
+   "last_modified": "Mon, 29 May 2023 10:30:38 GMT",
+   "sha256": "21855020eb6fa0e85bb20cbd3a30818fee6c35fe05d10d621f6473ab86e4ed6e",
+   "title": "Кейс: Как мы разработали дорожную карту роботизации производства для машиностроительного холдинга",
+   "url": "https://spec.innopolis.university/case/map"
+  },
+  "case-roboticcomplex": {
+   "fetched_at": "2026-10-31T08:45:50+00:00",
+   "file_sha": "d3cc8848e1354a03fc9f9af58db5ec28c1e7bf879538f29bc47644fcdce95b26",
+   "last_modified": "Mon, 29 May 2023 10:31:02 GMT",
+   "sha256": "2e0ef135b3d51ed5f0345abe0e24cfd7c5a32b5e1d4ba84fb6b58205146d35ee",
+   "title": "Как мы разработали фрезеровочный комплекс для автомобильной промышленности",
+   "url": "https://spec.innopolis.university/case/roboticcomplex"
+  },
+  "cases": {
+   "fetched_at": "2026-10-31T08:45:10+00:00",
+   "file_sha": "1f5002f043172418ff10c0c4f518aa6abaf85989ea09486127894cb6866d7839",
+   "last_modified": "Mon, 31 Jul 2023 08:34:32 GMT",
+   "sha256": "17288ee117695cfa9dcba1cc31a403cd0105fa28f286e3cc47e8fed1514922ef",
+   "title": "Кейсы",
+   "url": "https://spec.innopolis.university/cases"
+  },
+  "digest": {
+   "fetched_at": "2026-10-31T08:45:36+00:00",
+   "file_sha": "e28e842055ad57d38563f9c6ce116a00cfb764e48bf2d8a080a17399cae4ed8c",
+   "last_modified": "Tue, 29 Oct 2024 06:37:18 GMT",
+   "sha256": "236f7e899c60af54758349aa1db784f9124fad60887be74ea30b926cc4359cc4",
+   "title": "Дайджест «Кто водит?»",
+   "url": "https://spec.innopolis.university/digest"
+  },
+  "digest2": {
+   "fetched_at": "2026-10-31T08:45:42+00:00",
+   "file_sha": "c14264d44fd2b7140234a6a1c78f684d680e25a3a15b755445d48cd0c4306fbb",
+   "last_modified": "Tue, 29 Oct 2024 06:37:38 GMT",
+   "sha256": "9860ef18b0a40bbd7d9508d2455237fb8372973c5e9b67c13b631c1db1b9d522",
+   "title": "Дайджест \"БПЛА. Что мы увидим в небе\"",
+   "url": "https://spec.innopolis.university/digest2"
+  },
+  "digest3": {
+   "fetched_at": "2026-10-31T08:45:54+00:00",
+   "file_sha": "96f27cfbc485e2b704226eb6134c79e3da2aa7d7323efb2e40462c3d82ad3fd8",
+   "last_modified": "Tue, 29 Oct 2024 06:38:16 GMT",
+   "sha256": "6c2af7e576896bfc2620c73a44204b3eda129a3cd340866044bf8762d102cf2d",
+   "title": "6 степеней свободы. Промышленная робототехника",
+   "url": "https://spec.innopolis.university/digest3"
+  },
+  "digest4": {
+   "fetched_at": "2026-10-31T08:46:05+00:00",
+   "file_sha": "4b873b96b25dbdb5e1354c20957898cff9081b668ba346c6fda557657f7071dd",
+   "last_modified": "Tue, 29 Oct 2024 06:38:38 GMT",
+   "sha256": "cb961f4c2d0c89dec3b3f0dbcec74a671639fb4f0253411928184158aaa5b7fc",
+   "title": "Дайджест «Чем меньше, тем лучше. Микроэлектроника»",
+   "url": "https://spec.innopolis.university/digest4"
+  },
+  "digest5": {
+   "fetched_at": "2026-10-31T08:46:13+00:00",
+   "file_sha": "5fec503077fb28756356baae72acdcd96b8cd073a310e4339f90fb6565fa2324",
+   "last_modified": "Tue, 29 Oct 2024 06:38:56 GMT",
+   "sha256": "87928f872d31828d8c2b318509ac60b2acdbd3e3dcc953b9a5997228f7fce606",
+   "title": "Дайджест 6 степеней свободы. Перезагрузка",
+   "url": "https://spec.innopolis.university/digest5"
+  },
+  "hackathon": {
+   "fetched_at": "2026-10-31T08:46:01+00:00",
+   "file_sha": "0be718456400a943fceca2f0a66d6c324a9cd77b20c2f287c6954efd3cb87632",
+   "last_modified": "Mon, 29 May 2023 10:31:11 GMT",
+   "sha256": "807243afc278bfa9ea5189112105e8ee83f063e2fff16792ed50dcbd1bee5807",
+   "title": "Как мы провели хакатон по искусственному интеллекту Global AI Challenge",
+   "url": "https://spec.innopolis.university/hackathon"
+  },
+  "home": {
+   "fetched_at": "2026-10-31T08:45:02+00:00",
+   "file_sha": "915f768866bf7cb10c312a50e750280b7eee2b22b7c4236f651c2d93aec37ceb",
+   "last_modified": "Fri, 30 May 2025 11:51:19 GMT",
+   "sha256": "7de382212fbe3495c293b360ee7c016333c26e6b31df8e57a35dc5f1130c66d7",
+   "title": "Университет Иннополис",
+   "url": "https://spec.innopolis.university/"
+  },
+  "innocyberpolygon": {
+   "fetched_at": "2026-10-31T08:46:24+00:00",
+   "file_sha": "46d601dd6d097217bf9abc7bf57b8fa5abe5bfffe15bd8a6e9796fd68ca8ebe3",
+   "last_modified": "Wed, 28 Feb 2024 12:34:08 GMT",
+   "sha256": "0897cb9f3c9a006a1ed49275d70c67147e4bf35071800dcfbc9b2325ccc477ee",
+   "title": "Иннокиберполигон",
+   "url": "https://spec.innopolis.university/innocyberpolygon"
+  },
+  "insta": {
+   "fetched_at": "2026-10-31T08:45:25+00:00",
+   "file_sha": "4d774e5445d1dbcae237b73daafc0627eeccce744d67161fe2f6c756e3551288",
+   "last_modified": "Mon, 29 May 2023 10:30:33 GMT",
+   "sha256": "9f9e1c9907d2762c14b44be1101117f302f73436700df7dc99bd0e240ce348e2",
+   "title": "Спецпроекты Университета Иннополис",
+   "url": "https://spec.innopolis.university/insta"
+  },
+  "kak-robotizaciya-povysila-effektivnost-proizvodstva-mashinos": {
+   "fetched_at": "2026-10-31T08:46:11+00:00",
+   "file_sha": "b91a3badfa96b814c414defa07f27a85155c25dc6d867a14cdefafd49331d3aa",
+   "last_modified": "Wed, 28 Feb 2024 12:35:08 GMT",
+   "sha256": "09dc382564533115642bef130ce69da3d984cdb922b2fc413060ae9b45174568",
+   "title": "Кейс: Как роботизация повысила эффективность производства машиностроительного холдинга",
+   "url": "https://spec.innopolis.university/kak-robotizaciya-povysila-effektivnost-proizvodstva-mashinostroitelnogo-holdinga"
+  },
+  "khsenia": {
+   "fetched_at": "2026-10-31T08:45:52+00:00",
+   "file_sha": "8ed5a602d848aa9533484a5cfe32b805ea4735daa988d4829cd3cb95f9e95a54",
+   "last_modified": "Mon, 29 May 2023 10:31:05 GMT",
+   "sha256": "b6c99684ae3ec3345b3c2dfa50bb598faae2b42ae3d18f359cb441150b4e46c6",
+   "title": "Ксения Шашкина: «Свой руль никому не отдам»",
+   "url": "https://spec.innopolis.university/khsenia"
+  },
+  "monitoringvl": {
+   "fetched_at": "2026-10-31T08:46:26+00:00",
+   "file_sha": "4e273d34d6211e019ee8c8d36d1790c3dbf97b384d0633b30ffcaa8ace727343",
+   "last_modified": "Fri, 12 Apr 2024 06:53:22 GMT",
+   "sha256": "152c5638ad02735251a89229e88b4b8d0847cb3eafb70f9b76c0fcf4436074bb",
+   "title": "Сокол AI — система мониторинга ЛЭП",
+   "url": "https://spec.innopolis.university/monitoringvl"
+  },
+  "page20883940-html": {
+   "fetched_at": "2026-10-31T09:06:44+00:00",
+   "file_sha": "626ef7d3aa9eee19373a174de2ff46d5fbb02ebd6c8601204578ddf20a3c21b8",
+   "last_modified": "Mon, 29 May 2023 10:30:57 GMT",
+   "sha256": "a154618f2ca81ea924c13b011b2ad52fb725ac61709c04b33abfae4d0618d59d",
+   "title": "Что тебя ждёт в ИТ-сфере",
+   "url": "https://spec.innopolis.university/page20883940.html"
+  },
+  "policy": {
+   "fetched_at": "2026-10-31T08:45:04+00:00",
+   "file_sha": "58a674b7a18f626ea60408e1029a3719b5e78f0d3c6b75071e29925705f14f72",
+   "last_modified": "Fri, 05 Mar 2021 13:53:00 GMT",
+   "sha256": "51d50d31c575658cf92da726e1e8468c392fd2d9d5673fe9aa6388a47790c011",
+   "title": "Политика конфиденциальности",
+   "url": "https://spec.innopolis.university/policy"
+  },
+  "promrobotics": {
+   "fetched_at": "2026-10-31T08:45:19+00:00",
+   "file_sha": "c164a91b4624ddd8e0cd20cb14808431c9a287ef1a30a1c45917f7f7e0d38ccf",
+   "last_modified": "Mon, 29 May 2023 10:30:27 GMT",
+   "sha256": "1ce04da3b044d7ffdcdd76bb3d65f0145967004e06ed0215f63a7d2cb3944031",
+   "title": "Промышленная робототехника",
+   "url": "https://spec.innopolis.university/promrobotics"
+  },
+  "promrobotics-webinar": {
+   "fetched_at": "2026-10-31T08:45:21+00:00",
+   "file_sha": "0d8594c2d6438b2a30b396921ef4ec09c69e7976bbb0b56f30c0274b6ffa8c6e",
+   "last_modified": "Mon, 29 May 2023 10:30:29 GMT",
+   "sha256": "e092672b06670a9af5f68f94f9a94e87f1968ed43520c85919c1c17b8b140e7f",
+   "title": "Промышленная робототехника",
+   "url": "https://spec.innopolis.university/promrobotics_webinar"
+  },
+  "qsar": {
+   "fetched_at": "2026-10-31T08:46:17+00:00",
+   "file_sha": "a72dce23e40dfe94680b0eaae7d526ce03fd517e8af4ad2d535c006271deafb1",
+   "last_modified": "Thu, 28 Mar 2024 06:35:11 GMT",
+   "sha256": "0bab3d53ace211977ae99d6a582ef5db7af023c84defbbf5532322c8e7ea7867",
+   "title": "QSAR-модели в фармацевтике",
+   "url": "https://spec.innopolis.university/qsar"
+  },
+  "ruslan-lukin": {
+   "fetched_at": "2026-10-31T08:45:59+00:00",
+   "file_sha": "83503cca286441f57909647ad6efa33d1515e2bfe4e06e1c0737c248b4635cc0",
+   "last_modified": "Mon, 29 May 2023 10:31:09 GMT",
+   "sha256": "699756015cd187d6863ee91877bcc3d9c33ccb472592cf3e798442d80ad2f3eb",
+   "title": "«Хочется через науку изменить мир к лучшему»",
+   "url": "https://spec.innopolis.university/ruslan_lukin"
+  },
+  "ruslanlkn": {
+   "fetched_at": "2026-10-31T08:46:07+00:00",
+   "file_sha": "e72fbf5f52bcfa36edca482a371619b9ebe42fe398848ef9c4b992d9424aba03",
+   "last_modified": "Mon, 29 May 2023 10:31:18 GMT",
+   "sha256": "0f23920ae09a4c9af4127b78dd7d02c8df281f0ceb5fb392e2ff2a736da8fa5b",
+   "title": "Сотрудник Университета Иннополис перенял опыт центра Хиллерааса",
+   "url": "https://spec.innopolis.university/ruslanlkn"
+  },
+  "science": {
+   "fetched_at": "2026-10-31T08:45:12+00:00",
+   "file_sha": "12d5ef0f694317b3a0747e2f5d93a7b02398d903c2a88bfc9f4c7f51e1e70e03",
+   "last_modified": "Mon, 29 May 2023 10:30:19 GMT",
+   "sha256": "7e553a9bc25b19149b9af903bbdeec39b0c2190409e2f324b1a6d676742db6c2",
+   "title": "Истории",
+   "url": "https://spec.innopolis.university/science"
+  },
+  "science-elena-pitsik": {
+   "fetched_at": "2026-10-31T08:45:40+00:00",
+   "file_sha": "c44475200d7db2ef305fa6c693941876008bec4bb0ab6e39f4f88f93b587bbd2",
+   "last_modified": "Mon, 29 May 2023 10:30:51 GMT",
+   "sha256": "c2a3deb819b97318ecd3c1beae24b987f160d848605640545c3ddeac9322d3fc",
+   "title": "Елена Пицик: «Наука — это не про личные достижения»",
+   "url": "https://spec.innopolis.university/science/elena-pitsik"
+  },
+  "science-igor-gaponov": {
+   "fetched_at": "2026-10-31T08:45:27+00:00",
+   "file_sha": "0dd9a66173cac24af32b6a493c675e5276f20f10e08a250fa682941ee3431d3e",
+   "last_modified": "Mon, 29 May 2023 10:30:36 GMT",
+   "sha256": "2d1be1405981445ab9182cfa9ef0608f115bb0f14b7d9ab5ac6188345958522e",
+   "title": "Игорь Гапонов: «Нельзя защитить докторскую диссертацию, если ты умный, но ничего не делаешь»",
+   "url": "https://spec.innopolis.university/science/igor-gaponov"
+  },
+  "science-kuleev": {
+   "fetched_at": "2026-10-31T08:45:46+00:00",
+   "file_sha": "3d8e74a9c2e7bbc9aa5a1be5679421103f3332b29ab972e8253ad51b5a477eda",
+   "last_modified": "Mon, 29 May 2023 10:30:56 GMT",
+   "sha256": "9d678733a50d21087418ce722718b768bfb216f630d6ed5bacb3d426b191dc41",
+   "title": "Рамиль Кулеев: «Всегда шел по ИТ-тематике. От программирования до искусственного интеллекта.»",
+   "url": "https://spec.innopolis.university/science/kuleev"
+  },
+  "science-maksimenko": {
+   "fetched_at": "2026-10-31T08:45:14+00:00",
+   "file_sha": "5bd563ae5572258111d79eeeee704911787b35aca111da1cd9f9523b092d1813",
+   "last_modified": "Mon, 29 May 2023 10:30:23 GMT",
+   "sha256": "bd35f42cce4ecf507a5cbdb3a85ed927b3b1a0d0dc0898d667486604257b4e87",
+   "title": "«Счастье — субъективное понятие, которое идет от головы»",
+   "url": "https://spec.innopolis.university/science/maksimenko"
+  },
+  "science-stanislav-protasov": {
+   "fetched_at": "2026-10-31T08:45:44+00:00",
+   "file_sha": "dfcdc5d64c1c7d2ac4b2128a738371562a9b6c3138317148608cd3dbfde50f90",
+   "last_modified": "Mon, 29 May 2023 10:30:54 GMT",
+   "sha256": "e45af5db234418b75d8753f3e1b75b49cb752eca2bd8b1db08249489648478b4",
+   "title": "Станислав Протасов: «Всю жизнь одной ногой в науке, другой в индустрии»",
+   "url": "https://spec.innopolis.university/science/stanislav-protasov"
+  },
+  "sidorova-alena": {
+   "fetched_at": "2026-10-31T08:46:03+00:00",
+   "file_sha": "98e531c63552e9c641fa1678fa631eb392533923a76544eb5376f73f8183af9f",
+   "last_modified": "Mon, 29 May 2023 10:31:14 GMT",
+   "sha256": "ce591a290680343518c23e7b4d98090b3d3c858a5d6c37786f35e33a40f9f5d8",
+   "title": "Алена Сидорова: «В промышленной робототехнике восхищает масштаб»",
+   "url": "https://spec.innopolis.university/sidorova_alena"
+  },
+  "sintez": {
+   "fetched_at": "2026-10-31T08:46:19+00:00",
+   "file_sha": "33877010bda4b8805159322773a7194b7c71e1d8265119007d71035953b919f9",
+   "last_modified": "Wed, 28 Feb 2024 12:34:31 GMT",
+   "sha256": "a15ccfab3fbfb240c2c439055e7fb6f168f538fc389eece16576a948b34d5ddb",
+   "title": "Синтез+| Как с помощью одного сервиса сделать дешевле и эффективнее геофизические исследования",
+   "url": "https://spec.innopolis.university/sintez"
+  },
+  "spec": {
+   "fetched_at": "2026-10-31T08:45:06+00:00",
+   "file_sha": "3c696d3d3ea2ec17eb0decba91418a33a65fc62f36ae1c0cf8e9a11178c0fdfe",
+   "last_modified": "Tue, 06 Feb 2024 10:03:49 GMT",
+   "sha256": "3df3d92299bf1721336257e5c82e4ec53b3ec24ff763e6172dcf75f6da83e8ea",
+   "title": "Спецпроекты Университета Иннополис",
+   "url": "https://spec.innopolis.university/spec"
+  },
+  "tatyana-reshetnikova": {
+   "fetched_at": "2026-10-31T08:45:57+00:00",
+   "file_sha": "781e8b1d7252739a9430496a551b68457f7021a30e226040922668ca8e33e5a8",
+   "last_modified": "Mon, 29 May 2023 10:31:08 GMT",
+   "sha256": "270f8661ca81c6af25362843d5d5d4c8a126a5920fe47a1882593a87f3878da2",
+   "title": "Моя суперспособность — окружать себя профессионалами",
+   "url": "https://spec.innopolis.university/tatyana_reshetnikova"
+  },
+  "uv": {
+   "fetched_at": "2026-10-31T08:45:17+00:00",
+   "file_sha": "b0694811441d62323783145acc2540ddc013f4c69dc90f3ba4b3aaa587df8485",
+   "last_modified": "Mon, 29 May 2023 10:30:25 GMT",
+   "sha256": "7623159e1c47d19733c673e41421e812f0f45a9f4f4ec79179256fcd5d40450e",
+   "title": "Беспилотный транспорт",
+   "url": "https://spec.innopolis.university/uv"
+  },
+  "webinar": {
+   "fetched_at": "2026-10-31T08:45:08+00:00",
+   "file_sha": "4f57e961037e79f63d02ddbeed4381e04661947d4866f06bf01f4157d10051f1",
+   "last_modified": "Mon, 29 May 2023 10:30:16 GMT",
+   "sha256": "fb080529744823af1e6bddcf850c3a1b41930e59585de35c51189c5feadd1822",
+   "title": "Вебинары",
+   "url": "https://spec.innopolis.university/webinar"
+  },
+  "webinarreview": {
+   "fetched_at": "2026-10-31T08:45:23+00:00",
+   "file_sha": "c2a178ef35378233604c73f0a8a2c88aa0bb95020583a03faf633a040f73c16a",
+   "last_modified": "Mon, 29 May 2023 10:30:31 GMT",
+   "sha256": "25b464bffbc2b7a0a3fec067b77842dc026aa6cfbc5f185870db0287699152ed",
+   "title": "Итоги цикла вебинаров Роботизация 202X",
+   "url": "https://spec.innopolis.university/webinarreview"
+  },
+  "wp-ai": {
+   "fetched_at": "2026-10-31T08:45:38+00:00",
+   "file_sha": "0209a5be5529d57dc8c8213df397b0b19c9c2a8be3fc8bd67e7044ba29fd7f7e",
+   "last_modified": "Mon, 29 May 2023 10:30:46 GMT",
+   "sha256": "ea397437e847a0b48bd2fbc5db0c00a4d408ca4f5b15a62dd1deba3e5693d0ec",
+   "title": "Предприятие как датасет для искусственного интеллекта",
+   "url": "https://spec.innopolis.university/wp/ai"
+  }
+ }
+}

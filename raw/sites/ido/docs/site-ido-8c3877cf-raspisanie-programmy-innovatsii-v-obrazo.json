@@ -1,0 +1,16 @@
+{
+ "title": "Скачать подробное расписание",
+ "url": "https://innopolis.university/filespublic/%D0%A0%D0%B0%D1%81%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D1%8B_%D0%98%D0%BD%D0%BD%D0%BE%D0%B2%D0%B0%D1%86%D0%B8%D0%B8_%D0%B2_%D0%BE%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B8_%D0%A3%D0%98.pdf",
+ "sha256": "77e2a149be0250caf0146bafda52e2d4cafd41b256198fbe44b5f4ad25c5d848",
+ "method": "text layer (opendataloader)",
+ "chars": 2620,
+ "tables": 5,
+ "section": "site/ido",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:28+00:00",
+ "remote": {
+  "etag": "\"4d628f-63e5ca215199f\"",
+  "modified": "Tue, 09 Sep 2025 11:30:37 GMT",
+  "size": "5071503"
+ }
+}

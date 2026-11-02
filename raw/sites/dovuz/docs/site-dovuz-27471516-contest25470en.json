@@ -1,0 +1,16 @@
+{
+ "title": "contest-25470-en",
+ "url": "https://lk-dovuz.innopolis.university/public/files/contest-25470-en.pdf",
+ "sha256": "4469020fa327b3a61c5c64615e367eb89bfeaa10df87d0ee5be4ee2b63106fa7",
+ "method": "text layer (opendataloader)",
+ "chars": 6878,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:20+00:00",
+ "remote": {
+  "etag": "\"31d88-5d3a4238b9200\"",
+  "modified": "Tue, 21 Dec 2021 08:53:28 GMT",
+  "size": "204168"
+ }
+}

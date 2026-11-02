@@ -1,0 +1,16 @@
+{
+ "title": "robo contest 9-11",
+ "url": "https://lk-dovuz.innopolis.university/public/files/robo_contest_9-11.pdf",
+ "sha256": "ce6dc4569e64ffefbe0431adf61dd3545fd64bb30acdc55224b9eb35ba16d3c2",
+ "method": "text layer (opendataloader)",
+ "chars": 107733,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:26+00:00",
+ "remote": {
+  "etag": "\"23cc2a-64ff94b987e80\"",
+  "modified": "Tue, 21 Apr 2026 14:33:14 GMT",
+  "size": "2346026"
+ }
+}

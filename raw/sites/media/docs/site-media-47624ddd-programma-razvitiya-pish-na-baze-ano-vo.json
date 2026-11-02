@@ -1,0 +1,16 @@
+{
+ "title": "Programma razvitiya PISH na baze ANO VO Universitet Innopolis",
+ "url": "https://innopolis.university/filespublic/Programma_razvitiya_PISH_na_baze_ANO_VO_Universitet_Innopolis.pdf",
+ "sha256": "efb4a40083e6d338d0716b49a0e200ebb4ef5cda7a4dbd743064ac3b4a540d23",
+ "method": "text layer (opendataloader)",
+ "chars": 155059,
+ "tables": 5,
+ "section": "site/media",
+ "context": "",
+ "fetched_at": "2026-11-01T23:09:39+00:00",
+ "remote": {
+  "etag": "\"486813-5e7607adb9a44\"",
+  "modified": "Mon, 29 Aug 2022 12:34:07 GMT",
+  "size": "4745235"
+ }
+}

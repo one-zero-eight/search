@@ -1,0 +1,16 @@
+{
+ "title": "io2526 infobez protokolfinal",
+ "url": "https://lk-dovuz.innopolis.university/public/files/io2526_infobez_protokolfinal.pdf",
+ "sha256": "ee3a554ed29f6969f5cd2556b69b46c6df7d886e23730999ac816a6cfe145209",
+ "method": "text layer (opendataloader)",
+ "chars": 8119,
+ "tables": 5,
+ "section": "site/media",
+ "context": "",
+ "fetched_at": "2026-11-01T23:10:11+00:00",
+ "remote": {
+  "etag": "\"36064-64bbad42d4200\"",
+  "modified": "Thu, 26 Feb 2026 14:20:56 GMT",
+  "size": "221284"
+ }
+}

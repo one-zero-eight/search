@@ -1,0 +1,881 @@
+{
+ "sites": {
+  "1519.innopolis.university": {
+   "examples": [],
+   "found": "2026-11-02",
+   "kind": "manual",
+   "language": "ru",
+   "pages": 0,
+   "render": true,
+   "status": "accepted",
+   "title": "1519 scholarship",
+   "words": 128
+  },
+  "2019.olymp.innopolis.ru": {
+   "kind": "university",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "2021.digitalinnopolisdays.ru": {
+   "kind": "inno",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "2022summer.digitalinnopolisdays.ru": {
+   "kind": "inno",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "2ndchance.university.innopolis.ru": {
+   "kind": "university",
+   "reason": "HTTP 500, not a page",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "3dtour.innopolis.university": {
+   "kind": "university",
+   "reason": "HTTP 500, not a page",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "4d.university.innopolis.ru": {
+   "kind": "university",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "aistudy.innopolis.university": {
+   "examples": [
+    "/raw/sites/media/news-admed-2024.md",
+    "/raw/sites/media/news-ai-energy-2023.md",
+    "/raw/sites/media/news-ai-ethics-summer-school-iu.md"
+   ],
+   "kind": "university",
+   "pages": 11,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "api.lyceuminnopolis.ru": {
+   "kind": "inno",
+   "reason": "HTTP 503, not a page",
+   "status": "failed",
+   "tried": "2026-11-02T08:04:53+00:00"
+  },
+  "apply-bach.innopolis.university": {
+   "examples": [
+    "/raw/sites/media/news-new-bachelor-s-degree-ai360-iu.md"
+   ],
+   "found": "2026-11-01",
+   "kind": "university",
+   "language": "ru",
+   "pages": 1,
+   "status": "accepted",
+   "title": "Бакалавриат УИ",
+   "words": 197
+  },
+  "apply.university.innopolis.ru": {
+   "kind": "university",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "azure.university.innopolis.ru": {
+   "kind": "university",
+   "reason": "no answer (ReadTimeout)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "bitrix.sezinnopolis.ru": {
+   "kind": "inno",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "booking-innodatahub.innopolis.university": {
+   "kind": "university",
+   "reason": "no answer (ReadTimeout)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "bricsmathconf.innopolis.ru": {
+   "kind": "university",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "code.university.innopolis.ru": {
+   "examples": [
+    "/raw/sites/help/en-home.md",
+    "/raw/sites/help/ru-home.md"
+   ],
+   "kind": "university",
+   "pages": 2,
+   "reason": "needs access (HTTP 401)",
+   "status": "closed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "commercial.innopolis.ru": {
+   "kind": "university",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "cup.innopolis.ru": {
+   "kind": "university",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "digitalinnopolisdays.ru": {
+   "examples": [
+    "/raw/sites/city/ru-media-news-na-did-2023-obsudat-fidzital-obrazovanie-razvi.md",
+    "/raw/sites/city/ru-media-news-ziteli-innopolisa-vyberut-novye-tehnologii-dla.md",
+    "/raw/sites/events/home.md"
+   ],
+   "found": "2026-11-01",
+   "kind": "inno",
+   "language": "ru",
+   "pages": 24,
+   "status": "accepted",
+   "title": "Цифровые Дни Иннополиса | Digital Innopolis Days 2026",
+   "words": 622
+  },
+  "disk.university.innopolis.ru": {
+   "examples": [
+    "/raw/sites/help/en-remote-connections-network-drives-diskp-disk-p-win10.md",
+    "/raw/sites/help/ru-remote-connections-network-drives-diskp-access-to-the-sca.md",
+    "/raw/sites/help/ru-remote-connections-network-drives-diskp-disk-p-win10.md"
+   ],
+   "kind": "university",
+   "pages": 3,
+   "reason": "needs access (a login page: 'Sign In')",
+   "status": "closed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "dk.robotics.innopolis.university": {
+   "kind": "university",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "eck.innopolis.university": {
+   "examples": [
+    "/raw/sites/media/news-unified-career-center.md"
+   ],
+   "found": "2026-11-01",
+   "kind": "university",
+   "language": "ru",
+   "pages": 1,
+   "status": "accepted",
+   "title": "Единый центр карьеры",
+   "words": 180
+  },
+  "fintech2017.innopolis.ru": {
+   "kind": "university",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "fizmat.innopolis.university": {
+   "examples": [
+    "/raw/sites/fmp/_shared.md"
+   ],
+   "found": "2026-11-02",
+   "kind": "university",
+   "language": "ru",
+   "pages": 1,
+   "render": true,
+   "status": "accepted",
+   "title": "Физмат прорыв",
+   "words": 587
+  },
+  "freshmen-guide.university.innopolis.ru": {
+   "kind": "university",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "future-formula-innopolis.ru": {
+   "kind": "inno",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "get-in.innopolis.ru": {
+   "kind": "university",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "gitlab.pg.innopolis.university": {
+   "examples": [
+    "/raw/sites/engineerschool/devops.md",
+    "/raw/sites/innohassle/dashboard.md"
+   ],
+   "kind": "university",
+   "pages": 2,
+   "reason": "needs access (a login page: 'Sign in · GitLab')",
+   "status": "closed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "globalai.innopolis.university": {
+   "kind": "university",
+   "reason": "HTTP 402, not a page",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "gorsovetinnopolis.ru": {
+   "kind": "inno",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "hack.innopolis.university": {
+   "kind": "university",
+   "reason": "HTTP 402, not a page",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "hr.university.innopolis.ru": {
+   "kind": "university",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "huawei.innopolis.university": {
+   "kind": "university",
+   "reason": "HTTP 404, not a page",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "industrix.sezinnopolis.ru": {
+   "kind": "inno",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "inno-data-hub.innopolis.university": {
+   "kind": "university",
+   "reason": "no answer (ReadTimeout)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "inno-stand-up-club.timepad.ru": {
+   "examples": [
+    "/raw/sites/city/en-media-events-events-of-the-week-67.md",
+    "/raw/sites/city/ru-media-events-events-of-the-week-67.md"
+   ],
+   "found": "2026-11-01",
+   "kind": "inno",
+   "language": "ru",
+   "pages": 2,
+   "status": "accepted",
+   "title": "Inno Stand Up Club / TimePad.ru",
+   "words": 547
+  },
+  "innoctf.university.innopolis.ru": {
+   "kind": "university",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "innopolis-my.sharepoint.com": {
+   "kind": "inno",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "innopolis-newsletter.tilda.ws": {
+   "examples": [
+    "/raw/sites/media/news-data-science-camp.md"
+   ],
+   "kind": "inno",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "innopolis-school.ru": {
+   "kind": "inno",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "innopolis-university.timepad.ru": {
+   "examples": [
+    "/raw/sites/media/news-aleksey-savvateev.md",
+    "/raw/sites/media/news-china-ai-open-source.md",
+    "/raw/sites/media/news-game-day-2025.md"
+   ],
+   "found": "2026-11-01",
+   "kind": "inno",
+   "language": "ru",
+   "pages": 10,
+   "status": "accepted",
+   "title": "Innopolis University / TimePad.ru",
+   "words": 1083
+  },
+  "innopolis.brainsurf.ru": {
+   "examples": [
+    "/raw/sites/city/en-media-events-events-of-the-week-67.md",
+    "/raw/sites/city/ru-media-events-events-of-the-week-67.md"
+   ],
+   "found": "2026-11-01",
+   "kind": "inno",
+   "language": "ru",
+   "pages": 2,
+   "status": "accepted",
+   "title": "Главная страница - Иннополис",
+   "words": 1213
+  },
+  "innopolis.timepad.ru": {
+   "examples": [
+    "/raw/sites/city/en-media-events-events-of-the-week-67.md",
+    "/raw/sites/city/en-media-events-presentation-of-the-film-business-to-be.md",
+    "/raw/sites/city/en-media-news-a-game-development-meetup-will-be-held-in-inno.md"
+   ],
+   "found": "2026-11-01",
+   "kind": "inno",
+   "language": "ru",
+   "pages": 16,
+   "status": "accepted",
+   "title": "Иннополис / TimePad.ru",
+   "words": 749
+  },
+  "innopoliscamp.ru": {
+   "examples": [
+    "/raw/sites/city/en-services-innocamp.md",
+    "/raw/sites/city/ru-services-innocamp.md"
+   ],
+   "found": "2026-11-01",
+   "kind": "inno",
+   "language": "ru",
+   "pages": 2,
+   "status": "accepted",
+   "title": "Детский IT-лагерь INNOCAMP в Иннополисе",
+   "words": 926
+  },
+  "innopoliscamp.ru.": {
+   "kind": "inno",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-01T22:40:41+00:00"
+  },
+  "innopoliscinema.ru": {
+   "examples": [
+    "/raw/sites/city/en-life-artspace.md",
+    "/raw/sites/city/en-media-events-autumn-holidays-in-innopolis-2.md",
+    "/raw/sites/city/en-services-cinemalounge-innopolis.md"
+   ],
+   "found": "2026-11-01",
+   "kind": "inno",
+   "language": "ru",
+   "pages": 7,
+   "status": "accepted",
+   "title": "«Кино&Театр» в Иннополисе",
+   "words": 272
+  },
+  "innopolislife.ru": {
+   "examples": [
+    "/raw/sites/city/en-media-news-a-city-award-with-the-participation-of-robots-.md",
+    "/raw/sites/city/en-media-news-innopolis-summed-up-the-results-of-the-city-aw.md",
+    "/raw/sites/city/ru-media-news-a-city-award-with-the-participation-of-robots-.md"
+   ],
+   "found": "2026-11-01",
+   "kind": "inno",
+   "language": "ru",
+   "pages": 4,
+   "status": "accepted",
+   "title": "Городская премия Иннополис 2025",
+   "words": 110
+  },
+  "innopolistravel.com": {
+   "examples": [
+    "/raw/sites/city/en-services-innotravel.md",
+    "/raw/sites/city/en-services-local-guides.md",
+    "/raw/sites/city/ru-services-innotravel.md"
+   ],
+   "found": "2026-11-01",
+   "kind": "inno",
+   "language": "ru",
+   "pages": 4,
+   "status": "accepted",
+   "title": "Innotravel — экскурсии по Иннополису",
+   "words": 975
+  },
+  "innostar.innopolis.university": {
+   "kind": "university",
+   "reason": "is dovuz.innopolis.university (a site read already)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "inter.innopolis.university": {
+   "kind": "university",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "ioai.innopolis.ru": {
+   "kind": "university",
+   "reason": "HTTP 404, not a page",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "ipservices.innopolis.university": {
+   "examples": [
+    "/raw/sites/media/news-drone-market-analysis.md",
+    "/raw/sites/university/technologytransfercenter.md"
+   ],
+   "found": "2026-11-01",
+   "kind": "university",
+   "language": "ru",
+   "pages": 2,
+   "status": "accepted",
+   "title": "Межотраслевой центр трансфера технологий АНО ВО «Университет Иннополис»",
+   "words": 820
+  },
+  "ipts.innopolis.university": {
+   "kind": "university",
+   "reason": "no answer (ReadTimeout)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "it.innopolis.university": {
+   "examples": [
+    "/raw/sites/help/ru-regulations-information-systems-user-s-manual.md",
+    "/raw/sites/innohassle/dashboard.md"
+   ],
+   "kind": "university",
+   "pages": 2,
+   "reason": "needs access (a login page: 'Login to Innopolis Customer Portal - ITSM 2.0')",
+   "status": "closed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "it.university.innopolis.ru": {
+   "examples": [
+    "/raw/sites/help/en-home.md",
+    "/raw/sites/help/ru-home.md",
+    "/raw/sites/university/_shared-en.md"
+   ],
+   "kind": "university",
+   "pages": 4,
+   "reason": "needs access (a login page: 'Login to Innopolis Customer Portal - ITSM 2.0')",
+   "status": "closed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "itschool.innopolis.university": {
+   "kind": "university",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "java.innopolis.university": {
+   "kind": "university",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "learn.innopolis.university": {
+   "kind": "university",
+   "reason": "redirects to lms.unionepro.ru",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "leto.innopolis.ru": {
+   "kind": "university",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "lk-dovuz.innopolis.university": {
+   "examples": [
+    "/raw/sites/apply-bach/ds-mai.md",
+    "/raw/sites/apply/bachelors-ds-mai.md",
+    "/raw/sites/dovuz/_shared.md"
+   ],
+   "kind": "university",
+   "pages": 56,
+   "reason": "needs access (a login page: 'Страница авторизации - регистрации')",
+   "status": "closed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "lk.aiconf.innopolis.ru": {
+   "examples": [
+    "/raw/sites/aiconf/eng.md",
+    "/raw/sites/aiconf/home.md",
+    "/raw/sites/aiconf/privacy-policy-eng.md"
+   ],
+   "kind": "university",
+   "pages": 6,
+   "reason": "needs access (a login page: 'DID 2026')",
+   "status": "closed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "lyceuminnopolis.ru": {
+   "examples": [
+    "/raw/sites/onboarding/home.md"
+   ],
+   "found": "2026-11-02",
+   "kind": "inno",
+   "language": "ru",
+   "pages": 1,
+   "render": true,
+   "status": "accepted",
+   "title": "Лицей Иннополис",
+   "words": 559
+  },
+  "mail.innopolis.ru": {
+   "examples": [
+    "/raw/sites/help/en-home.md",
+    "/raw/sites/help/en-mail-cant-log-into-outlook.md",
+    "/raw/sites/help/en-mail-settings-exchange.md"
+   ],
+   "kind": "university",
+   "pages": 12,
+   "reason": "needs access (a login page: 'Outlook')",
+   "status": "closed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "moodle.innopolis.university": {
+   "examples": [
+    "/raw/sites/help/en-home.md",
+    "/raw/sites/help/ru-home.md",
+    "/raw/sites/innohassle/_shared.md"
+   ],
+   "found": "2026-11-01",
+   "kind": "university",
+   "language": "ru",
+   "pages": 7,
+   "status": "accepted",
+   "title": "Home | IU Moodle",
+   "words": 68
+  },
+  "my.university.innopolis.ru": {
+   "kind": "university",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "nir.innopolis.university": {
+   "kind": "university",
+   "reason": "HTTP 402, not a page",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "oez-innopolis.timepad.ru": {
+   "examples": [
+    "/raw/sites/city/en-media-events-events-of-the-week-67.md",
+    "/raw/sites/city/ru-media-events-events-of-the-week-67.md"
+   ],
+   "found": "2026-11-01",
+   "kind": "inno",
+   "language": "ru",
+   "pages": 2,
+   "status": "accepted",
+   "title": "ОЭЗ Иннополис / TimePad.ru",
+   "words": 864
+  },
+  "oldapply.innopolis.university": {
+   "kind": "university",
+   "reason": "HTTP 404, not a page",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "olymp.innopolis.ru": {
+   "kind": "university",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "online.digitalinnopolisdays.ru": {
+   "examples": [
+    "/raw/sites/events/home.md",
+    "/raw/sites/media/news-did-online-2023.md",
+    "/raw/sites/media/news-did-online-2024.md"
+   ],
+   "kind": "inno",
+   "pages": 5,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "oocfs.innopolis.university": {
+   "kind": "university",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "osen.innopolis.ru": {
+   "kind": "university",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "pay.innopolis.university": {
+   "examples": [
+    "/raw/sites/progmatica/courses-robotics.md",
+    "/raw/sites/stc/data-analytics-machine.md",
+    "/raw/sites/stc/project-manager-ai.md"
+   ],
+   "kind": "university",
+   "pages": 3,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-01T22:21:45+00:00"
+  },
+  "pcms.university.innopolis.ru": {
+   "kind": "university",
+   "reason": "the start page has 22 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "photostorage.innopolis.university": {
+   "kind": "university",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "physcon2019.innopolis.university": {
+   "kind": "university",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "pk.university.innopolis.ru": {
+   "kind": "university",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "pki.university.innopolis.ru": {
+   "kind": "university",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "portal.university.innopolis.ru": {
+   "kind": "university",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "postcodehack.innopolis.university": {
+   "examples": [
+    "/raw/sites/media/news-iu-russian-post-ai-hackathon-2026.md"
+   ],
+   "found": "2026-11-01",
+   "kind": "university",
+   "language": "ru",
+   "pages": 1,
+   "status": "accepted",
+   "title": "PostCode Challenge от Почтатеха",
+   "words": 626
+  },
+  "profile.innopolis.university": {
+   "examples": [
+    "/raw/sites/apply-bach/_shared.md",
+    "/raw/sites/apply-bach/ai-360.md",
+    "/raw/sites/apply-bach/ds-mai.md"
+   ],
+   "kind": "university",
+   "pages": 35,
+   "reason": "needs access (a login page: 'Вход')",
+   "status": "closed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "psi.university.innopolis.ru": {
+   "kind": "university",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "rds.university.innopolis.ru": {
+   "kind": "university",
+   "reason": "the start page has 1 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "reg.digitalinnopolisdays.ru": {
+   "examples": [
+    "/raw/sites/digitalinnopolisdays-ru/_shared.md",
+    "/raw/sites/digitalinnopolisdays-ru/offer.md"
+   ],
+   "kind": "inno",
+   "pages": 2,
+   "reason": "needs access (a login page: 'DID 2026')",
+   "status": "closed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "rent.sezinnopolis.ru": {
+   "kind": "inno",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "rnd.innopolis.university": {
+   "kind": "university",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "sp.university.innopolis.ru": {
+   "examples": [
+    "/raw/sites/help/en-home.md",
+    "/raw/sites/help/ru-home.md"
+   ],
+   "kind": "university",
+   "pages": 2,
+   "reason": "needs access (HTTP 401)",
+   "status": "closed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "sport.innopolis.ru": {
+   "examples": [
+    "/raw/sites/city/en-services-innopolis-sport-centre.md",
+    "/raw/sites/city/ru-services-innopolis-sport-centre.md",
+    "/raw/sites/onboarding/eng.md"
+   ],
+   "found": "2026-11-01",
+   "kind": "university",
+   "language": "ru",
+   "pages": 5,
+   "status": "accepted",
+   "title": "СК «Иннополис» | Фитнес, бассейн, тренажерный зал",
+   "words": 486
+  },
+  "sport.innopolis.university": {
+   "examples": [
+    "/raw/sites/campuslife/clubleaders.md",
+    "/raw/sites/campuslife/faq.md",
+    "/raw/sites/campuslife/sport-clubs.md"
+   ],
+   "kind": "university",
+   "pages": 4,
+   "reason": "needs access (a login page: 'Sign In')",
+   "status": "closed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "sso.university.innopolis.ru": {
+   "kind": "university",
+   "reason": "HTTP 404, not a page",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "ssp.innopolis.university": {
+   "examples": [
+    "/raw/sites/help/en-remote-connections-connections-to-pc.md",
+    "/raw/sites/help/ru-remote-connections-connections-to-pc.md"
+   ],
+   "kind": "university",
+   "pages": 2,
+   "reason": "needs access (a login page: 'Sign In')",
+   "status": "closed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "start.innopolis.university": {
+   "examples": [
+    "/raw/sites/college/home.md",
+    "/raw/sites/dovuz/_shared.md",
+    "/raw/sites/dovuz/innoctfjunior.md"
+   ],
+   "kind": "university",
+   "pages": 27,
+   "reason": "needs access (a login page: 'Личный кабинет школьника | Университет Иннополис')",
+   "status": "closed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "stem.innopolis.ru": {
+   "kind": "university",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "storage.innohassle.ru": {
+   "examples": [
+    "/raw/sites/innohassle/about.md"
+   ],
+   "kind": "inno",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "t.meinnopolishelp": {
+   "kind": "inno",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "tabletennis.innopolis.university": {
+   "kind": "university",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "tfs.university.innopolis.ru": {
+   "examples": [
+    "/raw/sites/help/ru-azuredevops-azuredevops-error-ssh.md"
+   ],
+   "kind": "university",
+   "pages": 1,
+   "reason": "needs access (HTTP 401)",
+   "status": "closed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "tools2019.innopolis.ru": {
+   "kind": "university",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "unidrive.innopolis.university": {
+   "kind": "university",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "university-innopolis.antiplagiat.ru": {
+   "kind": "inno",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "video.innopolis.university": {
+   "kind": "university",
+   "reason": "the start page has 0 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "vm.innopolis.university": {
+   "examples": [
+    "/raw/sites/innohassle/dashboard.md"
+   ],
+   "kind": "university",
+   "pages": 1,
+   "reason": "needs access (a login page: 'Sign In')",
+   "status": "closed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "vpn.university.innopolis.ru": {
+   "kind": "university",
+   "reason": "no answer (RemoteProtocolError)",
+   "status": "failed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  },
+  "wiki.innopolis.university": {
+   "examples": [
+    "/raw/sites/university/en-teachingexcellencecenter-forfaculty.md",
+    "/raw/sites/university/en-teachingexcellencecenter-fortas.md"
+   ],
+   "kind": "university",
+   "pages": 2,
+   "reason": "needs access (a login page: 'Sign In')",
+   "status": "closed",
+   "tried": "2026-11-02T07:55:00+00:00"
+  }
+ }
+}

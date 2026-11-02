@@ -1,0 +1,16 @@
+{
+ "title": "ioai 1step preliminary results 9 11 classes 24 25",
+ "url": "https://lk-dovuz.innopolis.university/public/files/ioai_1step_preliminary_results_9_11_classes_24_25.pdf",
+ "sha256": "9f75071c412064388ac2ae8d0da321cf8c515b5c15b30753568b576b5f295212",
+ "method": "text layer (opendataloader)",
+ "chars": 3944,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:22+00:00",
+ "remote": {
+  "etag": "\"62afc-629aea9cb8680\"",
+  "modified": "Fri, 20 Dec 2024 07:33:30 GMT",
+  "size": "404220"
+ }
+}

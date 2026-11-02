@@ -1,0 +1,16 @@
+{
+ "title": "materials final ai",
+ "url": "https://lk-dovuz.innopolis.university/public/files/materials_final_ai.pdf",
+ "sha256": "f46b7d7ebc9c67aef0c1273955f121a275c117084ec53d00a676ca3118df7255",
+ "method": "text layer (opendataloader)",
+ "chars": 55650,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"172a60-650aceae90280\"",
+  "modified": "Thu, 30 Apr 2026 12:51:06 GMT",
+  "size": "1518176"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "offer oge module4 06042026",
+ "url": "https://lk-dovuz.innopolis.university/public/files/offer_oge_module4_06042026.pdf",
+ "sha256": "c015a0c78503884bc278e01d835d2c8d9c2e9a903f79759bdb38c31d65a261f0",
+ "method": "text layer (opendataloader)",
+ "chars": 31185,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"66141-64b4088a886c0\"",
+  "modified": "Fri, 20 Feb 2026 12:26:43 GMT",
+  "size": "418113"
+ }
+}

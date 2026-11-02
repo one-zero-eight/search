@@ -1,0 +1,16 @@
+{
+ "title": "io26 math zadachyresheniya",
+ "url": "https://lk-dovuz.innopolis.university/public/files/io26_math_zadachyresheniya.pdf",
+ "sha256": "672a207b9679df29cc1efaaeca13dc34a1fa5f3cff7dff3c2a6eec0b37986efc",
+ "method": "text layer (opendataloader)",
+ "chars": 114032,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:22+00:00",
+ "remote": {
+  "etag": "\"af808-64c59f8309e00\"",
+  "modified": "Fri, 06 Mar 2026 12:12:40 GMT",
+  "size": "718856"
+ }
+}

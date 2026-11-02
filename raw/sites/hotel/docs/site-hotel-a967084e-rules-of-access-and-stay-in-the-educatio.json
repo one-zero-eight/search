@@ -1,0 +1,16 @@
+{
+ "title": "Rules of access and stay in the Educational and Laboratory building and residential complex",
+ "url": "https://hotel.innopolis.university/upload/docs-hotel/Rules%20of%20access%20and%20stay%20in%20the%20Educational%20and%20Laboratory%20building%20and%20residential%20complex%20.pdf",
+ "sha256": "7d9a675e1afc74834bc2c2e43f04439263aa35fc5a03faf27604a4c7abc98654",
+ "method": "text layer (opendataloader)",
+ "chars": 35788,
+ "tables": 5,
+ "section": "site/hotel",
+ "context": "",
+ "fetched_at": "2026-10-31T00:26:16+00:00",
+ "remote": {
+  "etag": "\"6967b-5c376fb54ccf4\"",
+  "modified": "Sat, 29 May 2021 12:17:53 GMT",
+  "size": "431739"
+ }
+}

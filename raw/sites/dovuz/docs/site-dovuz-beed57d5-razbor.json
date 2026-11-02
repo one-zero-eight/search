@@ -1,0 +1,16 @@
+{
+ "title": "разбор",
+ "url": "https://lk-dovuz.innopolis.university/public/files/%D1%80%D0%B0%D0%B7%D0%B1%D0%BE%D1%80.pdf",
+ "sha256": "404109c28e25b977386bf39b02fffd0f2362011a6293f05c8da95b5933418548",
+ "method": "text layer (opendataloader)",
+ "chars": 13212,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:18+00:00",
+ "remote": {
+  "etag": "\"348e5-5c21db7ea9ec0\"",
+  "modified": "Wed, 12 May 2021 08:22:59 GMT",
+  "size": "215269"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "conditions-en",
+ "url": "https://lk-dovuz.innopolis.university/public/files/conditions-en%282%29.pdf",
+ "sha256": "a9937dbf815783592b588e3dda31fbc16cc2252b1ba4a246303975a6a931b3a8",
+ "method": "text layer (opendataloader)",
+ "chars": 9366,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:20+00:00",
+ "remote": {
+  "etag": "\"3a4d8-5f1d0b8c58fc0\"",
+  "modified": "Mon, 09 Jan 2023 08:40:39 GMT",
+  "size": "238808"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "ссылка на оферту [offer_egeinf_module4]",
+ "url": "https://lk-dovuz.innopolis.university/public/files/offer_egeinf_module4.pdf",
+ "sha256": "38e2ca64ae9a7375e302c442f08e5877a09aac1295484967e166dee38c0160eb",
+ "method": "text layer (opendataloader)",
+ "chars": 30895,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"5e7a6-6499c1b89b780\"",
+  "modified": "Fri, 30 Jan 2026 14:51:26 GMT",
+  "size": "386982"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "robo sec tour condit en",
+ "url": "https://lk-dovuz.innopolis.university/public/files/robo_sec_tour_condit_en.pdf",
+ "sha256": "91e6d9bde5e60f78d96c9a55a095b8c62d52b4017de47b0f99b9e1d1caa8427c",
+ "method": "text layer (opendataloader)",
+ "chars": 9366,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:26+00:00",
+ "remote": {
+  "etag": "\"39c9b-5f9c231db98c0\"",
+  "modified": "Thu, 20 Apr 2023 10:42:19 GMT",
+  "size": "236699"
+ }
+}

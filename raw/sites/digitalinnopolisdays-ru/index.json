@@ -1,0 +1,55 @@
+{
+ "docs": {
+  "https://innopolis.university/filespublic/%D0%9F%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0_%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B8_%D0%BF%D0%B5%D1%80%D1%81%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85_did.pdf": "политикой обработки персональных данных"
+ },
+ "pages": {
+  "forum": {
+   "fetched_at": "2026-11-01T22:27:54+00:00",
+   "file_sha": "d7936744125a129695c05194be3da37721ea75255979bf1be6819b831a7626a1",
+   "last_modified": "Mon, 19 Oct 2026 19:45:11 GMT",
+   "sha256": "f6aca80567262a2c34189e325f5b31fad9cb1fa8e202fef7b7ed6f10035eb6e5",
+   "title": "Цифровые Дни Иннополиса | Digital Innopolis Days 2026 — Программа 1 октября",
+   "url": "https://digitalinnopolisdays.ru/forum"
+  },
+  "home": {
+   "fetched_at": "2026-11-01T22:27:47+00:00",
+   "file_sha": "fd1c665d189cbae106c39a25e5ea56112f3b6ce22ddcc5c6b65bfb433c82fac3",
+   "last_modified": "Thu, 08 Oct 2026 08:57:13 GMT",
+   "sha256": "f87d46158a2cf199ff0939f03d866f5f7dc5b7e6e3da19228967025399db9134",
+   "title": "Цифровые Дни Иннополиса | Digital Innopolis Days 2026",
+   "url": "https://digitalinnopolisdays.ru/"
+  },
+  "offer": {
+   "fetched_at": "2026-11-01T22:28:00+00:00",
+   "file_sha": "acafd8cb0778ecc726a6756d5917e871d502a53cfd1ce8832e0856388e3519f2",
+   "last_modified": "Thu, 17 Sep 2026 13:08:56 GMT",
+   "sha256": "6ca88a1b72fa48c031cf299d242df2010a2fc31013c2735c59d361c0028c9420",
+   "title": "Публичная оферта",
+   "url": "https://digitalinnopolisdays.ru/offer"
+  },
+  "program-october-8": {
+   "fetched_at": "2026-11-01T22:27:51+00:00",
+   "file_sha": "ad437bb73124819f34f999d66d7fe9c17923fd00608bb646d5953a7b52b8977e",
+   "last_modified": "Mon, 19 Oct 2026 19:25:03 GMT",
+   "sha256": "ac09792338767346c256e4cb8745d81b132cddb7d94a96f9e8678e4c917ce26f",
+   "title": "Цифровые Дни Иннополиса | Digital Innopolis Days 2026 — Программа 8 октября",
+   "url": "https://digitalinnopolisdays.ru/program/october-8"
+  },
+  "program-october-9": {
+   "fetched_at": "2026-11-01T22:27:57+00:00",
+   "file_sha": "83a8948f0a2a3b29b68484f54ce8a94b8cdb378cd376531fc426f8295c0188c4",
+   "last_modified": "Mon, 19 Oct 2026 19:47:04 GMT",
+   "sha256": "d514cf2f4c246d50c4b4062f0ba08a5cc158710f1fcdee7ee8df0e9dfed9546c",
+   "title": "Цифровые Дни Иннополиса | Digital Innopolis Days 2026 — Программа 9 октября",
+   "url": "https://digitalinnopolisdays.ru/program/october-9"
+  },
+  "travel-support": {
+   "fetched_at": "2026-11-01T22:28:03+00:00",
+   "file_sha": "d3c8179f6eaa4626b1524aa4c32eb0a544ff533fe50ecaf23d425e21a53f997f",
+   "last_modified": "Wed, 07 Oct 2026 06:53:43 GMT",
+   "sha256": "dfffe99d0c8ace18c594d1e388b42bac63b0108df322bbeaaad1369e8a47ef59",
+   "title": "Тревел поддержка",
+   "url": "https://digitalinnopolisdays.ru/travel-support"
+  }
+ }
+}

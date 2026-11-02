@@ -1,0 +1,15 @@
+{
+ "title": "Правила нахождения в детской игровой комнате",
+ "url": "https://sezinnopolis.ru/upload/new-files/rent/rules-kids-room.pdf",
+ "sha256": "1464298dec1f1608da75b3efcc121b29693741ddbbed6c8621733045aebe8d7b",
+ "method": "text layer (opendataloader)",
+ "chars": 6127,
+ "tables": 5,
+ "section": "site/sez",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:31+00:00",
+ "remote": {
+  "etag": "W/\"6984579a-27560\"",
+  "modified": "Thu, 05 Feb 2026 08:40:58 GMT"
+ }
+}

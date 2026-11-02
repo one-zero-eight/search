@@ -1,0 +1,645 @@
+{
+ "docs": {},
+ "pages": {
+  "00001": {
+   "fetched_at": "2026-10-31T08:41:28+00:00",
+   "file_sha": "9323cdc83475eb7f62dba83914955d8c58691cf36ede69f9111e485e76f40d0c",
+   "last_modified": "Thu, 27 Aug 2026 06:48:38 GMT",
+   "sha256": "18df752fa51b4d2ec5dce85e8bc520d5fdad0d9e1eda07903a93555583cf83f2",
+   "title": "Тест",
+   "url": "https://progmatica.innopolis.university/00001"
+  },
+  "about": {
+   "fetched_at": "2026-10-31T08:43:07+00:00",
+   "file_sha": "928083d07a331b603fd635d7fe9a1f67d1f261707a855579f222def54c7880c5",
+   "last_modified": "Thu, 02 Jul 2026 11:32:47 GMT",
+   "sha256": "f26fd2a0d1f23a4706941ce4fbb4c814027e08de02ff8a689b14c924f5b3fbeb",
+   "title": "О школе",
+   "url": "https://progmatica.innopolis.university/about"
+  },
+  "bonus-event": {
+   "fetched_at": "2026-10-31T08:41:36+00:00",
+   "file_sha": "45c0ed22f2324a6bae1ca1e4b0a0074a3913ae669fa0663ee48ce9222d663061",
+   "last_modified": "Tue, 18 Aug 2026 09:26:26 GMT",
+   "sha256": "e89960e6bee085cfbd7b476a532f45d25cc0fcf3b25af8469fe6c7a5687ec062",
+   "title": "Успейте забронировать скидку на онлайн-курсы от ИТ-школы Университета Иннополис!",
+   "url": "https://progmatica.innopolis.university/bonus_event"
+  },
+  "contacts": {
+   "fetched_at": "2026-10-31T08:43:09+00:00",
+   "file_sha": "5b0655404917cb1b32a7db51e7c9c304ac2a8cccb0bea6479a371c6337e85664",
+   "last_modified": "Thu, 02 Jul 2026 11:32:47 GMT",
+   "sha256": "cbd40f4f8eeab0f10daf53a0ecd1a6b6f10b59ccf3b26b23f7c325f9de1fd8dc",
+   "title": "Контакты ИТ-школы Прогматика",
+   "url": "https://progmatica.innopolis.university/contacts"
+  },
+  "courses-basic-cplus": {
+   "fetched_at": "2026-10-31T08:43:40+00:00",
+   "file_sha": "936dcc7341f8eb7f7e5dab1a7f753992e23bf409d1ec76b05006b9344c6ce80c",
+   "last_modified": "Thu, 02 Jul 2026 11:32:52 GMT",
+   "sha256": "db92ce485d62b624575ecfbe2831eb25a0fef50154343100cb2bb2661e339e46",
+   "title": "Онлайн-курс по программированию на С++ для 6—11 классов",
+   "url": "https://progmatica.innopolis.university/courses/basic/cplus"
+  },
+  "courses-basic-java": {
+   "fetched_at": "2026-10-31T08:43:42+00:00",
+   "file_sha": "88295ae079ef67762eab0971c997ba847a6a01b21ff0b192f1ded59595be1d0b",
+   "last_modified": "Thu, 02 Jul 2026 11:32:52 GMT",
+   "sha256": "f02f3f8f25275cfd802848f3ec33a22937ec5b152980062994517c84c4c5c679",
+   "title": "Онлайн-курс по программированию на Java для 6—11 классов",
+   "url": "https://progmatica.innopolis.university/courses/basic/java"
+  },
+  "courses-basic-python": {
+   "fetched_at": "2026-10-31T08:43:38+00:00",
+   "file_sha": "b04cb37c2ed7548adf7d2bb764646e261f6177a5bb26a6a3fa6655b9aa62349d",
+   "last_modified": "Thu, 02 Jul 2026 11:32:51 GMT",
+   "sha256": "496d8d6dfb338895eb527a707c1f89244720650a513fe16b1906b17aef1384a3",
+   "title": "Онлайн-курс по программированию на Python для 6—11 классов",
+   "url": "https://progmatica.innopolis.university/courses/basic/python"
+  },
+  "courses-basic-roblox": {
+   "fetched_at": "2026-10-31T08:43:36+00:00",
+   "file_sha": "c0a1c39cb29111b26b443a2f0c95f7ffeafb217791a320420cc17973991faea8",
+   "last_modified": "Fri, 10 Jul 2026 07:49:09 GMT",
+   "sha256": "19a893e9c1aeafb66e95de5b2d2fd7db3734d55b1ed4f33f37a56c022f085f2c",
+   "title": "Онлайн-курс по разработке игр на Roblox для 3—6 классов",
+   "url": "https://progmatica.innopolis.university/courses/basic/roblox"
+  },
+  "courses-basic-web": {
+   "fetched_at": "2026-10-31T08:43:44+00:00",
+   "file_sha": "7b21e46ec3d94330e87dc87010ee4550e912d6293bde6bd3d3622d9595216324",
+   "last_modified": "Thu, 02 Jul 2026 11:32:53 GMT",
+   "sha256": "1b210ba69cbb8d11f7da8ef680b203c33c84a9e6f40e3805de8fe4af36071fef",
+   "title": "Онлайн-курс по Web-разработке на HTML, CSS, JavaScript для 6—11 классов",
+   "url": "https://progmatica.innopolis.university/courses/basic/web"
+  },
+  "courses-gia-ogeinformatics2023": {
+   "fetched_at": "2026-10-31T08:43:51+00:00",
+   "file_sha": "77d988073cea4247761c222b79030bca4671cd7603078479518ba8876de1faa8",
+   "last_modified": "Thu, 02 Jul 2026 11:32:53 GMT",
+   "sha256": "ee01fc5d0e3afc18c9faf7af1cd6f536759e51097db21c9b8b3cac5a20fb9b51",
+   "title": "Онлайн-курс по подготовке к ОГЭ по информатике для 8—9 классов",
+   "url": "https://progmatica.innopolis.university/courses/gia/ogeinformatics2023"
+  },
+  "courses-instruction-before-lesson": {
+   "fetched_at": "2026-10-31T08:43:48+00:00",
+   "file_sha": "83e7ae5e5824c6ad4a47e6c87aa8a17c0bda9d66777087aacc42de3d1e1763e1",
+   "last_modified": "Thu, 02 Jul 2026 11:32:53 GMT",
+   "sha256": "88c851b09f1e3b269429f123cf8e3fdd5b5a6a65d8a445edb469b9588cead8db",
+   "title": "Инструкция по подготовке к пробному/диагностическому уроку в ИТ-школе Университета Иннополис",
+   "url": "https://progmatica.innopolis.university/courses/instruction/before_lesson"
+  },
+  "courses-instruction-roblox": {
+   "fetched_at": "2026-10-31T08:43:46+00:00",
+   "file_sha": "60850346927c883ad100d62354494dbc55f06336c783da9d298f7e7b2c103c33",
+   "last_modified": "Thu, 02 Jul 2026 11:32:53 GMT",
+   "sha256": "862898aef5c401c6892cb00537afb0e3edabe72d4030d2faadc5bf88f2648a00",
+   "title": "Инструкция для участия в пробном уроке по разработке игр на Roblox для 3—6 классов",
+   "url": "https://progmatica.innopolis.university/courses/instruction/roblox"
+  },
+  "courses-olympiad-start": {
+   "fetched_at": "2026-10-31T08:43:53+00:00",
+   "file_sha": "3dcc7d09fafcae5c029b6381057b932bc2e7bdb06308bf35a2f4bffa7a5220bc",
+   "last_modified": "Thu, 02 Jul 2026 11:32:54 GMT",
+   "sha256": "47952da7bd420c37e37359a3f86dfe19f90d827e655690e85ca11ad1c7194d5a",
+   "title": "Онлайн-курс по олимпиадному программированию для 6—11 классов",
+   "url": "https://progmatica.innopolis.university/courses/olympiad/start"
+  },
+  "courses-robotics": {
+   "fetched_at": "2026-10-31T08:44:03+00:00",
+   "file_sha": "07569244ed71eb2755f36c7bd9f79765d37b872adc9c6352eadfedf348b4499f",
+   "last_modified": "Thu, 02 Jul 2026 11:32:55 GMT",
+   "sha256": "d0f1387d721d28280543b915402e788bd97414636dfda617a65a2e175dadfcd0",
+   "title": "Онлайн-курс по основам робототехники: образовательный ликбез для школьников и взрослых",
+   "url": "https://progmatica.innopolis.university/courses/robotics"
+  },
+  "dd": {
+   "fetched_at": "2026-10-31T08:42:19+00:00",
+   "file_sha": "77d24c313a85b6d0635f510d7e5292bb4e90ddb7a2d405717ca681efe21a6672",
+   "last_modified": "Thu, 02 Jul 2026 11:32:41 GMT",
+   "sha256": "63bd7d2b9c65beb8ede1f64522f29b70aa9c415a2adf740486417de4a3f9b255",
+   "title": "Дайджест ближайших курсов от ИТ–школы",
+   "url": "https://progmatica.innopolis.university/dd"
+  },
+  "ege": {
+   "fetched_at": "2026-10-31T08:42:21+00:00",
+   "file_sha": "954876a804f7b03d8690f5f265ec3c7f60a0c86cf9b67688781dbab50b1d6deb",
+   "last_modified": "Thu, 02 Jul 2026 11:32:41 GMT",
+   "sha256": "576e0f6fe243483fda5daba1fe954fbf38565d81008f5b5592df5fe287aa0aae",
+   "title": "ЕГЭ или БВИ?",
+   "url": "https://progmatica.innopolis.university/ege"
+  },
+  "group-course": {
+   "fetched_at": "2026-10-31T08:43:23+00:00",
+   "file_sha": "7b3e1cfd652088253a7bb77348e97527a039d76df87d8262251374adefd88cb9",
+   "last_modified": "Thu, 08 Oct 2026 14:28:46 GMT",
+   "sha256": "c445704ae6916eb892b03ce9e23d75c8f7834792ed9a5f9ed0f640fbf933d69d",
+   "title": "Групповые занятия в ИТ-школе Университета Иннополис для школьников 2–11 классов",
+   "url": "https://progmatica.innopolis.university/group_course"
+  },
+  "home": {
+   "fetched_at": "2026-10-31T08:41:26+00:00",
+   "file_sha": "4374702b2df875d3b20a7d0111248083304195b16ed567c9d62de9c245dbe488",
+   "last_modified": "Fri, 18 Sep 2026 19:19:31 GMT",
+   "sha256": "903be52f8381cfb5a395bc2824cd38893f5e826ea4e1c644ec8beed3a72be6fd",
+   "title": "ИТ-школа Университета Иннополис «Прогматика»",
+   "url": "https://progmatica.innopolis.university/"
+  },
+  "individual-course": {
+   "fetched_at": "2026-10-31T08:43:21+00:00",
+   "file_sha": "a14bf0092a486b098b328e832f17318b9ffe77ea5f54368093f055f08eb21a50",
+   "last_modified": "Thu, 08 Oct 2026 14:27:48 GMT",
+   "sha256": "97174b8e72bc767292979e189d801274a654fd9b1509f3a8c92daebea635f6eb",
+   "title": "Индивидуальные занятия в ИТ-школе Университета Иннополис для школьников 2–11 классов",
+   "url": "https://progmatica.innopolis.university/individual_course"
+  },
+  "intensive-ai": {
+   "fetched_at": "2026-10-31T08:44:01+00:00",
+   "file_sha": "4b34459e873d2a0f493d577d6121f9029c7a3cbbc628c4ab86cefe0556b654b2",
+   "last_modified": "Thu, 02 Jul 2026 11:32:55 GMT",
+   "sha256": "ecefce511c27110abc187f71d484603e49caea56ca857f7ceba39c94f178151a",
+   "title": "Онлайн-интенсив по искусственному интеллекту для 6–11 классов",
+   "url": "https://progmatica.innopolis.university/intensive/ai"
+  },
+  "intensive-blender": {
+   "fetched_at": "2026-10-31T08:43:57+00:00",
+   "file_sha": "488dc91e3b1edee4ff864e73330867aa1ee8bbba47453bb540a1d1e842dc3ec9",
+   "last_modified": "Thu, 02 Jul 2026 11:32:54 GMT",
+   "sha256": "2dbb288850f044ab54d86a90757dfe585db5384d5acf74aae5740e20909bea34",
+   "title": "Онлайн-интенсив по 3D-моделированию в Blender для 7–11 классов",
+   "url": "https://progmatica.innopolis.university/intensive/blender"
+  },
+  "intensive-computer-literacy": {
+   "fetched_at": "2026-10-31T08:43:55+00:00",
+   "file_sha": "1174539437b92d3bc2c684054b576e4f765a2679e381c3f9da7909b2996cf3dd",
+   "last_modified": "Thu, 02 Jul 2026 11:32:54 GMT",
+   "sha256": "d774db6b6d541d5dc0e4d6c05d10a68d5dbc93df8735092badfe4f810e01242d",
+   "title": "Онлайн-интенсив по компьютерной грамотности для 1–4 классов",
+   "url": "https://progmatica.innopolis.university/intensive/computer_literacy"
+  },
+  "intensive-python": {
+   "fetched_at": "2026-10-31T08:43:59+00:00",
+   "file_sha": "bdeee6bfca14d33df76e9d2d27d900139b0ef08ba70265961f85c279a9bd9261",
+   "last_modified": "Thu, 02 Jul 2026 11:32:54 GMT",
+   "sha256": "c0e0ae1b4fd8468048d96207f474ad0de4863843f9acdf73f632efbd39839978",
+   "title": "Онлайн-интенсив по программированию на языке Python для 6–11 классов",
+   "url": "https://progmatica.innopolis.university/intensive/python"
+  },
+  "intensive-roblox": {
+   "fetched_at": "2026-10-31T08:44:05+00:00",
+   "file_sha": "b72c9001c3d5ced238d74beff42a39011abf8737baa735bf3bebd4605c531696",
+   "last_modified": "Thu, 02 Jul 2026 11:34:53 GMT",
+   "sha256": "5dce0d58ba23a0b032dbcc05c3579030ba7bbc7e4275bd0d1a9e8f6bc6bdbb90",
+   "title": "Онлайн-интенсив по разработке игр на Roblox для 3–6 классов",
+   "url": "https://progmatica.innopolis.university/intensive/roblox"
+  },
+  "longread": {
+   "fetched_at": "2026-10-31T08:42:01+00:00",
+   "file_sha": "462f1b522c5b079608917b02d441387546d26bc0653900d4d54bb11cb915bef4",
+   "last_modified": "Thu, 02 Jul 2026 11:32:39 GMT",
+   "sha256": "7b37af4af1e5d8801df33cd0c7e2b4206771992f46704cbcb930748a760bc568",
+   "title": "Статьи",
+   "url": "https://progmatica.innopolis.university/longread"
+  },
+  "longread-advice-for-it-kids-parents": {
+   "fetched_at": "2026-10-31T08:42:29+00:00",
+   "file_sha": "7ec2e51384367d724dd9e289da03371840b5e89067fb2cb6902cd79bb8d0a1c4",
+   "last_modified": "Thu, 02 Jul 2026 11:32:42 GMT",
+   "sha256": "e702dbe50acdad49f89dfd16d65e79b36dbe7ad04e6d3ac37262461d75c5fe30",
+   "title": "Топ–8 советов для родителей будущих программистов: от дошколят до 11 класса",
+   "url": "https://progmatica.innopolis.university/longread/advice_for_it_kids_parents"
+  },
+  "longread-balance": {
+   "fetched_at": "2026-10-31T08:42:58+00:00",
+   "file_sha": "4afe44af509d7a863dc9b5cda8f7167f1f68af1e624b94458cf438774f33c9cd",
+   "last_modified": "Thu, 02 Jul 2026 11:32:46 GMT",
+   "sha256": "9ab73d3f7968658b13a8aea8aeb823a4176df84d324ae5122aa5d13564ced97b",
+   "title": "Баланс между учёбой и отдыхом у детей",
+   "url": "https://progmatica.innopolis.university/longread/balance"
+  },
+  "longread-capabilities-for-it": {
+   "fetched_at": "2026-10-31T08:42:42+00:00",
+   "file_sha": "41f2b06f021b84b999567776de41a8d037f0a7d712de03722a1f771566bd079a",
+   "last_modified": "Thu, 02 Jul 2026 11:32:44 GMT",
+   "sha256": "99e6ef95afbe3f8ce4674517647489898a9aab418b2126aae35670bdef4ddbb6",
+   "title": "Как понять, что у ребёнка есть способности к программированию?",
+   "url": "https://progmatica.innopolis.university/longread/capabilities_for_it"
+  },
+  "longread-career": {
+   "fetched_at": "2026-10-31T08:42:13+00:00",
+   "file_sha": "049a21247da11cda9ee6a315de82f1e48a5c62d1bb5d179b9bb6ed48740fc096",
+   "last_modified": "Thu, 02 Jul 2026 11:32:40 GMT",
+   "sha256": "4d43480f4f55b7d3eb27adbe125fbaf4604cd640ccab7249869de4e37a10b2d4",
+   "title": "ИТ-профессии",
+   "url": "https://progmatica.innopolis.university/longread/career"
+  },
+  "longread-choice": {
+   "fetched_at": "2026-10-31T08:43:00+00:00",
+   "file_sha": "d6f387e9ebac8b014cb7ec35abad45993af685ce6aa0719a65f3dcb981e1684a",
+   "last_modified": "Thu, 02 Jul 2026 11:32:46 GMT",
+   "sha256": "b43cc2bf6e8e3848454eb560081ac303e6612969041c0fd9cf52e0cab2308914",
+   "title": "Какой язык программирования учить: эволюция, популярность, тренд",
+   "url": "https://progmatica.innopolis.university/longread/choice"
+  },
+  "longread-computernaya-gramotnost": {
+   "fetched_at": "2026-10-31T08:42:56+00:00",
+   "file_sha": "7b56ba91ae9760e7b061aa6f3afc2b21aaeafb6bc268b2d44c495094b4fe51bb",
+   "last_modified": "Thu, 02 Jul 2026 11:32:46 GMT",
+   "sha256": "1af217298c9b581613400e6382575af46feab56ac450be111a6689e12f03ad75",
+   "title": "Компьютерная грамотность для детей: введение в цифровой мир",
+   "url": "https://progmatica.innopolis.university/longread/computernaya_gramotnost"
+  },
+  "longread-criterias": {
+   "fetched_at": "2026-10-31T08:42:54+00:00",
+   "file_sha": "cfc2bdca655c991d3c5dbe9ef87c2f5b0ed032cb6ca8e3d876e67a87017ed271",
+   "last_modified": "Thu, 02 Jul 2026 11:32:45 GMT",
+   "sha256": "2b8aaea588164bfde43672f80e109b48c7bf1fc8d77604b290f0b4152c27b8cb",
+   "title": "Как выбрать качественные образовательные программы для детей в области ИТ",
+   "url": "https://progmatica.innopolis.university/longread/criterias"
+  },
+  "longread-critical-thinking": {
+   "fetched_at": "2026-10-31T08:43:05+00:00",
+   "file_sha": "52fd64299b78fb3b33c46ff4ebd9b55901e57b942ba33c3612d4da4ae1cf2039",
+   "last_modified": "Thu, 02 Jul 2026 11:32:47 GMT",
+   "sha256": "95d95e3ef50201a16719dc1d3792215388d9b5b148c03f0293639872c1791063",
+   "title": "Как развить критическое мышление у ребёнка: 10 практических советов для родителей",
+   "url": "https://progmatica.innopolis.university/longread/critical_thinking"
+  },
+  "longread-cyrillic-programming-language": {
+   "fetched_at": "2026-10-31T08:42:38+00:00",
+   "file_sha": "c9b523e54536c6933c4610212e6a6a46760bdac1dea272134e6c5c11b637e1b4",
+   "last_modified": "Thu, 02 Jul 2026 11:32:43 GMT",
+   "sha256": "7f5074415cc9a7926efb6ae508ad504dca505497f7f09688b2ba10efbfa18cb4",
+   "title": "Дракон, КуМир и Рапира: какие существуют языки программирования на кириллице",
+   "url": "https://progmatica.innopolis.university/longread/cyrillic_programming_language"
+  },
+  "longread-extra-skills": {
+   "fetched_at": "2026-10-31T08:42:44+00:00",
+   "file_sha": "32575b94dd0a209409032a521eaed613d5aa5fee430e62b4a672b0f018b213d6",
+   "last_modified": "Thu, 02 Jul 2026 11:32:44 GMT",
+   "sha256": "a87bc5841d8754f61098c3a42b6db716bac47c518b9834a2c27a0d43b09e1ada",
+   "title": "Чем занять будущего программиста?",
+   "url": "https://progmatica.innopolis.university/longread/extra_skills"
+  },
+  "longread-first-steps-in-it": {
+   "fetched_at": "2026-10-31T08:42:27+00:00",
+   "file_sha": "b522ee93623591703193cfad3e13d3ec1d6d1dfb23b2ba448ae2c521e69a29c9",
+   "last_modified": "Thu, 02 Jul 2026 11:32:42 GMT",
+   "sha256": "9c23b87c03eed850fb9195155c1f047b2a5bd17f8556e2291b81b75b631b0ce2",
+   "title": "Как помочь ребёнку сделать первые шаги в мире ИТ",
+   "url": "https://progmatica.innopolis.university/longread/first_steps_in_it"
+  },
+  "longread-game-dev": {
+   "fetched_at": "2026-10-31T08:42:40+00:00",
+   "file_sha": "76d9361d4097350bcba893f16756c9c8e79d179f3aff520e4e7abea00924b96f",
+   "last_modified": "Thu, 02 Jul 2026 11:32:44 GMT",
+   "sha256": "dfabf94351e735e0a9e55137bba76b9191fb947beae485b1ed9550d33dde6d2d",
+   "title": "От Scratch до создания полноценных игр: как стать гейм-разработчиком",
+   "url": "https://progmatica.innopolis.university/longread/game_dev"
+  },
+  "longread-history": {
+   "fetched_at": "2026-10-31T08:42:15+00:00",
+   "file_sha": "c89497b47214f8c9a9da011d3dce54edf2d8bc1873bae6a66f012b8205cc8a14",
+   "last_modified": "Thu, 02 Jul 2026 11:32:40 GMT",
+   "sha256": "851dcfe60c5515f633d369d5bd126b0f3a6a1faec9404d48f8bf9235cf61d822",
+   "title": "История",
+   "url": "https://progmatica.innopolis.university/longread/history"
+  },
+  "longread-interesting": {
+   "fetched_at": "2026-10-31T08:42:17+00:00",
+   "file_sha": "df5724aab494bbc31df4b34ddf0113fbbe611cd0a4f655e54e52cc23b2d4bf45",
+   "last_modified": "Thu, 02 Jul 2026 11:32:41 GMT",
+   "sha256": "cbb87513709cdeff716b1aa2f3ee9baa116557d0e2a368ecab5050386280dccb",
+   "title": "Интересное",
+   "url": "https://progmatica.innopolis.university/longread/interesting"
+  },
+  "longread-interviews": {
+   "fetched_at": "2026-10-31T08:42:03+00:00",
+   "file_sha": "1bc9d8aa2f8108b27a33619b94698b35487187e70bcab37414155555c3846d46",
+   "last_modified": "Thu, 02 Jul 2026 11:32:39 GMT",
+   "sha256": "76d2de477ef763f35e93bea403efddafe7ad3a6837b322bbb32cad0520e42169",
+   "title": "Интервью",
+   "url": "https://progmatica.innopolis.university/longread/interviews"
+  },
+  "longread-it-from-origins-to-modernity": {
+   "fetched_at": "2026-10-31T08:42:23+00:00",
+   "file_sha": "911c8e2257079821613e7050ee324523e5298e2288369ddc858c18c1682d73ef",
+   "last_modified": "Thu, 02 Jul 2026 11:32:41 GMT",
+   "sha256": "2c98a0ccd64e15072b289bbb9078f4016c3cfef988f4386cbb87d66fadf59571",
+   "title": "ИТ сквозь время: от истоков к современности",
+   "url": "https://progmatica.innopolis.university/longread/it_from_origins_to_modernity"
+  },
+  "longread-it-jobs": {
+   "fetched_at": "2026-10-31T08:42:36+00:00",
+   "file_sha": "75f72095996abdde26603cd73246fd739b9b8642f7b23903a06da33fc4b658ad",
+   "last_modified": "Thu, 02 Jul 2026 11:32:43 GMT",
+   "sha256": "2a81137475b3626c29148d5ad3f335ebebe259685355342b1d7415334ea751d3",
+   "title": "Кем работать в ИТ? Разбираем восемь самых популярных профессий",
+   "url": "https://progmatica.innopolis.university/longread/it_jobs"
+  },
+  "longread-it-person": {
+   "fetched_at": "2026-10-31T08:42:06+00:00",
+   "file_sha": "c1a3d6cb6720665afd0c9a71a405c22303cc806db919a7297c4ca83149fd565e",
+   "last_modified": "Thu, 02 Jul 2026 11:32:40 GMT",
+   "sha256": "0827e9a793758cec3b495fdee6a5c129fc32fe19a633aa5bf967d0b82a7b1cfa",
+   "title": "ИТ-персона",
+   "url": "https://progmatica.innopolis.university/longread/it_person"
+  },
+  "longread-it-person-berners-lee": {
+   "fetched_at": "2026-10-31T08:42:46+00:00",
+   "file_sha": "fe0edc5df2ca3fae35d35f0685e8f1d2eceac5e942bb0f243cb714d88c11bd73",
+   "last_modified": "Thu, 02 Jul 2026 11:32:44 GMT",
+   "sha256": "faec7282b19d3ba00d6368e79400a067b4bc539803f7d81694e85b0ce7637961",
+   "title": "Тим Бернерс-Ли: отец Всемирной паутины и создатель первого сайта",
+   "url": "https://progmatica.innopolis.university/longread/it_person_berners_lee"
+  },
+  "longread-it-person-stroustrup-and-van-rossum": {
+   "fetched_at": "2026-10-31T08:42:34+00:00",
+   "file_sha": "fe158f4cabee531a635fd02a84a988d15f86cfd45775e0d90518be61c58ab258",
+   "last_modified": "Thu, 02 Jul 2026 11:32:43 GMT",
+   "sha256": "1da754b67fcf55e432924cc493115880fd2ee25d51fd338147eb68c3bcea2f01",
+   "title": "Кто придумал C++ и Python? Рассказываем о создателях популярных языков программирования",
+   "url": "https://progmatica.innopolis.university/longread/it_person_stroustrup_and_van_rossum"
+  },
+  "longread-matcapital": {
+   "fetched_at": "2026-10-31T08:42:50+00:00",
+   "file_sha": "df0e42642ddae55669d1420fd25f3da5da2c19a34f62b6aa4cd14dbe849835b5",
+   "last_modified": "Thu, 02 Jul 2026 11:32:45 GMT",
+   "sha256": "d23190be3831dce9a5fe420a744ef3dccfa67cf2891d72743a101f5eb913d370",
+   "title": "Материнский капитал. Как оплатить онлайн-обучение для ребёнка по программированию?",
+   "url": "https://progmatica.innopolis.university/longread/matcapital"
+  },
+  "longread-podcast": {
+   "fetched_at": "2026-10-31T08:42:48+00:00",
+   "file_sha": "00f1d12925235989082a147deacba809c485cbda9b83a388e069265618ecdf45",
+   "last_modified": "Thu, 02 Jul 2026 11:32:45 GMT",
+   "sha256": "ba24d3999528825f14d60ecb73a30e478091bf132ae07bec102945cbac0af072",
+   "title": "Мы сделали подкаст для детей «Айтишечка»! Рассказываем подробнее",
+   "url": "https://progmatica.innopolis.university/longread/podcast"
+  },
+  "longread-return-13": {
+   "fetched_at": "2026-10-31T08:42:31+00:00",
+   "file_sha": "f47ccc34d6236cdeeace499f0ad53ca01be2d836e62f0cbd06a20e4c2c568164",
+   "last_modified": "Thu, 02 Jul 2026 11:32:42 GMT",
+   "sha256": "3e8e2a75a98189dde00b1e939f003bef062e248e343d76c205a6ce16190df2c0",
+   "title": "Как учиться дешевле? Рассказываем, как вернуть часть денег за оплату обучения",
+   "url": "https://progmatica.innopolis.university/longread/return_13"
+  },
+  "longread-role-of-parents-in-education": {
+   "fetched_at": "2026-10-31T08:42:52+00:00",
+   "file_sha": "563e9e63dd3a03b488ac8ce03e6d5c6ff16ed1ffaed6ebaab2ce902f33e0f0e1",
+   "last_modified": "Thu, 02 Jul 2026 11:32:45 GMT",
+   "sha256": "b556dde17b17192b2fa946d4634454bdac263543568dee80aacd0317a8ef4010",
+   "title": "Роль родителей в образовании",
+   "url": "https://progmatica.innopolis.university/longread/role_of_parents_in_education"
+  },
+  "longread-social-media": {
+   "fetched_at": "2026-10-31T08:43:03+00:00",
+   "file_sha": "105cbb0e0bd621f1a3135018a33eceb5612ebd327308eeed2ef216ab53815ce2",
+   "last_modified": "Thu, 02 Jul 2026 11:32:46 GMT",
+   "sha256": "82c723f85218fd3e66c761e971b1a3ab3951b7ed61fc1cd4651afe9c7d1b46b3",
+   "title": "Как социальные сети влияют на наших детей",
+   "url": "https://progmatica.innopolis.university/longread/social_media"
+  },
+  "longread-soft-skills": {
+   "fetched_at": "2026-10-31T08:42:25+00:00",
+   "file_sha": "7dfc00a3e6d5c00f3dce62e546d36400898e753519e28ad49cb800bf6907940e",
+   "last_modified": "Thu, 02 Jul 2026 11:32:42 GMT",
+   "sha256": "7cd3e1250a01f0e4ff0a02c50bcaf6b1a04a1d0fd966ebe3664c1dc33786e99a",
+   "title": "Что такое soft skills и почему они важны?",
+   "url": "https://progmatica.innopolis.university/longread/soft_skills"
+  },
+  "longread-study": {
+   "fetched_at": "2026-10-31T08:42:08+00:00",
+   "file_sha": "56177d49188de32d925a5f6fee423896c763e62505ce46b9b981d69d9b94be95",
+   "last_modified": "Thu, 02 Jul 2026 11:32:40 GMT",
+   "sha256": "1cb18ff751f13c207ef67f1f972e88e7b2eaa768416f9d64c828d71338b3146b",
+   "title": "Учиться выгодно",
+   "url": "https://progmatica.innopolis.university/longread/study"
+  },
+  "longread-tips-for-parents": {
+   "fetched_at": "2026-10-31T08:42:11+00:00",
+   "file_sha": "6d16662ca54257a57350bd88fa9b4e84eddda518f5510927fbf6597a0fc3a528",
+   "last_modified": "Thu, 02 Jul 2026 11:32:40 GMT",
+   "sha256": "a15ad5c8c55a72d417d1c1424bedb508e3eb36f6540537eeb5f11f4f28076edb",
+   "title": "Советы родителям",
+   "url": "https://progmatica.innopolis.university/longread/tips_for_parents"
+  },
+  "mk060926": {
+   "fetched_at": "2026-10-31T08:41:57+00:00",
+   "file_sha": "e652cb89d310d16e544c01a6b5f15dade9878c0b1d4424f11840d4b43ce84f41",
+   "last_modified": "Mon, 31 Aug 2026 08:17:12 GMT",
+   "sha256": "61313ac991531cfbcd0da61ffd57188e146c0144f2b7813f8310acdd1184c4b4",
+   "title": "Бесплатный мастер-класс «Создайте свою первую игру-платформер на Roblox»‎ от ИТ-школы Университета Иннополис",
+   "url": "https://progmatica.innopolis.university/mk060926"
+  },
+  "mk111026": {
+   "fetched_at": "2026-10-31T08:44:09+00:00",
+   "file_sha": "84788422f03c1e25da668a5cc9e877bd5dc1c4375720652de940d2bf3b74fdc0",
+   "last_modified": "Fri, 25 Sep 2026 10:17:42 GMT",
+   "sha256": "1faecd5f59e7a3fc5bd0ce4817518dd52055f1fcc5cff9f2c42e159b624ff360",
+   "title": "Бесплатный мастер-класс «Создайте первое приложение на Java с использованием библиотеки Swing‎»‎ от ИТ-школы Университета Иннополис",
+   "url": "https://progmatica.innopolis.university/mk111026"
+  },
+  "mk221126": {
+   "fetched_at": "2026-10-31T08:44:14+00:00",
+   "file_sha": "7c69d4c135e0e2b68c647cac83249513b79f3138161c6ccdcf6ef79d20e79d2d",
+   "last_modified": "Tue, 20 Oct 2026 11:25:21 GMT",
+   "sha256": "6cb5ec7539b98c48cad8c496cf697f1277bf07d143b17cfafdee7c80570f4395",
+   "title": "Бесплатный мастер-класс «Решение задач по программированию в ОГЭ по информатике»‎ от ИТ-школы Университета Иннополис",
+   "url": "https://progmatica.innopolis.university/mk221126"
+  },
+  "mk230826": {
+   "fetched_at": "2026-10-31T08:41:55+00:00",
+   "file_sha": "3df677474a887e67843a979291da8a1129ae3315c7ee618df10dffc2f1d276af",
+   "last_modified": "Fri, 21 Aug 2026 14:06:55 GMT",
+   "sha256": "a80a38eb8760e902dacac17d0939152a8e12841733f839893e3ffa79b364f450",
+   "title": "Бесплатный мастер-класс «Разработка игры \"Морской бой\" на языке С++ с применением принципов ООП»‎ от ИТ-школы Университета Иннополис",
+   "url": "https://progmatica.innopolis.university/mk230826"
+  },
+  "mk240526": {
+   "fetched_at": "2026-10-31T08:41:42+00:00",
+   "file_sha": "f8d93207a4831ac3cf6e2424d84cf407ad5bb1f1c45ff324eda5e42f3e3a0663",
+   "last_modified": "Thu, 02 Jul 2026 11:32:59 GMT",
+   "sha256": "38cc4521992eced812784cdee6a586483cebe0752602164fb2e9ebc7cb0f2ef7",
+   "title": "Бесплатный мастер-класс «‎Создание рисунков с помощью модуля Turtle (Тёртл)»‎",
+   "url": "https://progmatica.innopolis.university/mk240526"
+  },
+  "mk260726": {
+   "fetched_at": "2026-10-31T08:41:51+00:00",
+   "file_sha": "27b75d6dec07db9058dddeb711419a2bd0eedc362ca709ba497a3fb1addbd2ed",
+   "last_modified": "Thu, 02 Jul 2026 11:33:00 GMT",
+   "sha256": "e44be96884c3e5d5a120877ffdf6d1ff4b5bb141c81837e806090f07e29f3802",
+   "title": "Бесплатный мастер-класс «‎Пишем \"Умный калькулятор возрастов\" на языке Python»‎",
+   "url": "https://progmatica.innopolis.university/mk260726"
+  },
+  "mk280626": {
+   "fetched_at": "2026-10-31T08:41:46+00:00",
+   "file_sha": "1a85ac90c331d6074b3d00157f57a5dd7b1bf7032eba84c61064c0d6dc738502",
+   "last_modified": "Thu, 02 Jul 2026 11:32:59 GMT",
+   "sha256": "b4bafe19cb1258ddd8b3dc04f09f26c2598a350d254921fbf9b4598d8ad1e744",
+   "title": "Бесплатный мастер-класс «‎Создайте свой первый космический веб-сайт на JavaScript, HTML, CSS»‎ от ИТ-школы Университета Иннополис",
+   "url": "https://progmatica.innopolis.university/mk280626"
+  },
+  "offerta": {
+   "fetched_at": "2026-10-31T08:41:30+00:00",
+   "file_sha": "59afaf8ec3680c099e20b7379c98ab788a932e123a2ba1bcbb3c90d6ba7f0d5a",
+   "last_modified": "Thu, 02 Jul 2026 11:32:38 GMT",
+   "sha256": "0885ed4b580a514a564d92fef816e598e87209028580a20142da7340908da3a2",
+   "title": "ИТ-школа. Предварительный и основной договор",
+   "url": "https://progmatica.innopolis.university/offerta"
+  },
+  "pay-course-month22": {
+   "fetched_at": "2026-10-31T08:43:11+00:00",
+   "file_sha": "0c05884f44cfeab5d3dcb922d02890c60be2f7e0c904ef1544f2e93068f9d143",
+   "last_modified": "Thu, 02 Jul 2026 11:32:49 GMT",
+   "sha256": "40658f15ef6423babc22c698f41f16e6f21fbaee8b20957ca0dbd0afb76db185",
+   "title": "ИТ-школа Прогматика | Помесячная оплата курсов 2022/2023",
+   "url": "https://progmatica.innopolis.university/pay_course_month22"
+  },
+  "politica": {
+   "fetched_at": "2026-10-31T08:41:32+00:00",
+   "file_sha": "33d45cbcf3d68ce37f9e217b99aebb5b8d117fb371cc1ec7bc255354755b1ec6",
+   "last_modified": "Thu, 02 Jul 2026 11:32:38 GMT",
+   "sha256": "197a1d476aaee5e777eabc7fb5561b57e0e63307a951cb69a8df7a7cc481cd82",
+   "title": "Политика в отношении обработки и защиты персональных данных пользователей",
+   "url": "https://progmatica.innopolis.university/politica"
+  },
+  "programs-all-events": {
+   "fetched_at": "2026-10-31T08:43:31+00:00",
+   "file_sha": "775658014b9105562c35f56359f5b14633abdaa14abf806fb92ed69e8d20f29c",
+   "last_modified": "Tue, 20 Oct 2026 11:43:56 GMT",
+   "sha256": "494594d13490876f5759c4df111504a611981fe4386861aaf8df1027e162439a",
+   "title": "График мероприятий от ИТ-школы Университета Иннополис «‎Прогматика‎»‎",
+   "url": "https://progmatica.innopolis.university/programs/all_events"
+  },
+  "programs-courses": {
+   "fetched_at": "2026-10-31T08:43:25+00:00",
+   "file_sha": "eee4676d6b9b5f4da4601c8ca7119347fdf265f024c5aaac934a9cd13a15e51e",
+   "last_modified": "Fri, 10 Jul 2026 08:52:50 GMT",
+   "sha256": "d692301d25c1099578dfc5f59656e21e35004335341578dc08383fe16fdb0f16",
+   "title": "Онлайн-курсы для школьников от ИТ-школы Университета Иннополис «‎Прогматика‎»‎",
+   "url": "https://progmatica.innopolis.university/programs/courses"
+  },
+  "programs-intensives": {
+   "fetched_at": "2026-10-31T08:43:34+00:00",
+   "file_sha": "bbe2034cd8a378e174161ba2429109465b9c815781d32846f4e7b0d5b7b0111d",
+   "last_modified": "Tue, 20 Oct 2026 11:44:29 GMT",
+   "sha256": "38aa92987666fea69c7a99b12ce48344a7883a47a03cc8df01291f4abd324256",
+   "title": "Интенсивы для школьников от ИТ-школы Университета Иннополис «‎Прогматика‎»‎",
+   "url": "https://progmatica.innopolis.university/programs/intensives"
+  },
+  "programs-master-classes": {
+   "fetched_at": "2026-10-31T08:43:29+00:00",
+   "file_sha": "5f454ea96e9b831427d92040692392f062eac2a03af22741a876e846a0ac110d",
+   "last_modified": "Tue, 20 Oct 2026 11:37:12 GMT",
+   "sha256": "89a4a38f4f079901a2a2112271ebf53efdb0060df66045c5e05de405d09e9fbc",
+   "title": "Мастер-классы для школьников от ИТ-школы Университета Иннополис «‎Прогматика‎»‎",
+   "url": "https://progmatica.innopolis.university/programs/master_classes"
+  },
+  "programs-webinars": {
+   "fetched_at": "2026-10-31T08:43:27+00:00",
+   "file_sha": "6ddc0c9438ed12c5e3e30c0487a7bac2d5aea1476e43ccd100628458e39f9d50",
+   "last_modified": "Thu, 29 Oct 2026 13:28:17 GMT",
+   "sha256": "921dad9f6549d78d0d784d33b797fe3ea25618245c0c9ace541ce01e02415782",
+   "title": "Вебинары для родителей от ИТ-школы Университета Иннополис «‎Прогматика‎»‎",
+   "url": "https://progmatica.innopolis.university/programs/webinars"
+  },
+  "promo-program": {
+   "fetched_at": "2026-10-31T08:41:38+00:00",
+   "file_sha": "15137784312a39e8d428f314a56d67875628211e7b5c7bc97bc45b6c807beeb1",
+   "last_modified": "Thu, 08 Oct 2026 15:39:33 GMT",
+   "sha256": "152aaf331cae13003998cadd57b9cddd244d9c5a20a3feeb20a26f45b08b4b11",
+   "title": "Программирование для школьников. Бесплатный пробный урок",
+   "url": "https://progmatica.innopolis.university/promo/program"
+  },
+  "record-on-starts": {
+   "fetched_at": "2026-10-31T08:41:34+00:00",
+   "file_sha": "5889210c0b17f1c37446d9511091b096ac24a3b4f6aa8605dba531ce0cac8ca3",
+   "last_modified": "Thu, 02 Jul 2026 11:32:38 GMT",
+   "sha256": "97b6ff466888f8e8c6c644fb6af51077c621484e9738d49b5b75ddd72f07f1f1",
+   "title": "Запись на ближайший старт курса в ИТ-школе «‎Прогматика»",
+   "url": "https://progmatica.innopolis.university/record_on_starts"
+  },
+  "registration-individual-course": {
+   "fetched_at": "2026-10-31T08:43:17+00:00",
+   "file_sha": "3df44a57ff7236bcddcb87f297ffa8a2a0a829cbeab8e9a001b57046cc3a1fff",
+   "last_modified": "Thu, 02 Jul 2026 11:32:49 GMT",
+   "sha256": "8afa45a0e590d8c7fe64f47ea598ed4534a7ca62bf8074c674d7776864fbcf42",
+   "title": "Запись на индивидуальные занятия",
+   "url": "https://progmatica.innopolis.university/registration_individual_course"
+  },
+  "registration-mini-group-course": {
+   "fetched_at": "2026-10-31T08:43:19+00:00",
+   "file_sha": "31c1f7c7e78aaeee0c52c14658517f7a774a82318bcd9db0426805cdf08384b4",
+   "last_modified": "Thu, 02 Jul 2026 11:32:49 GMT",
+   "sha256": "984cbce8924a9abf7b7aae6be8effad58ac456bbf5aec0627e5b96100ca7cf03",
+   "title": "Запись на занятия в мини-группах",
+   "url": "https://progmatica.innopolis.university/registration_mini_group_course"
+  },
+  "summer-intensive26": {
+   "fetched_at": "2026-10-31T08:44:07+00:00",
+   "file_sha": "38db40b791ce6ed316ab9f9c6c8c584d2c654d36102c88eeba46fa17fc6c7905",
+   "last_modified": "Wed, 05 Aug 2026 08:35:20 GMT",
+   "sha256": "409c708df81bc1baf458df56c056fa7cf02fdc4cb3a80a7ae288e5e62d3e10b0",
+   "title": "Летние интенсивы по программированию, 3D-моделированию, Roblox и другим ИТ-направлениям для школьников",
+   "url": "https://progmatica.innopolis.university/summer_intensive26"
+  },
+  "web060826": {
+   "fetched_at": "2026-10-31T08:41:53+00:00",
+   "file_sha": "c8338f8cb568c4f3aaba8c4479502cc49f4c01f4d1ab23abde7f21e6f4fbd31b",
+   "last_modified": "Mon, 03 Aug 2026 07:49:38 GMT",
+   "sha256": "394d723722654bbbc1710da5b5c560e0fea6366fd9db55f8a853e9fc23ec012f",
+   "title": "Вебинар: «Программирование для детей: ключ к логике, творчеству и успешной профессии»",
+   "url": "https://progmatica.innopolis.university/web060826"
+  },
+  "web090726": {
+   "fetched_at": "2026-10-31T08:41:49+00:00",
+   "file_sha": "24f9088471e3f8ebe24e8283738c612a517d9618bc0f3ab909d421aea89eb543",
+   "last_modified": "Thu, 02 Jul 2026 14:35:31 GMT",
+   "sha256": "fc8e22304eb163ac7dd67bcc3a5914b19b75c474541815f15e984a8f5ccc20f2",
+   "title": "Вебинар: «Почему стоит выбрать ИТ-школу для развития навыков вашего ребёнка»",
+   "url": "https://progmatica.innopolis.university/web090726"
+  },
+  "web121126": {
+   "fetched_at": "2026-10-31T08:44:16+00:00",
+   "file_sha": "0a31b19847fb101f4e384091787e5349c9e14f42e4b8f86cd23423cc6a905bb9",
+   "last_modified": "Tue, 20 Oct 2026 11:24:55 GMT",
+   "sha256": "90b541c1b65dbf5f43c824c520ba24b21828a3597097d44d210cde54290ab23b",
+   "title": "Вебинар: «Как правильно использовать ИИ при подготовке школьных проектов и докладов?»",
+   "url": "https://progmatica.innopolis.university/web121126"
+  },
+  "web140526": {
+   "fetched_at": "2026-10-31T08:41:40+00:00",
+   "file_sha": "1d47284d07793a8f90831cf871017b3601f0c5c905739515ba4879acc051961e",
+   "last_modified": "Thu, 02 Jul 2026 11:32:58 GMT",
+   "sha256": "3a53b3ef2bade71822f2552f8c23f0c1dadbb48446fb89834e4e3bc6d350df19",
+   "title": "Вебинар: «‎Чем занять ребёнка летом? Советы для родителей школьников»‎",
+   "url": "https://progmatica.innopolis.university/web140526"
+  },
+  "web170926": {
+   "fetched_at": "2026-10-31T08:41:59+00:00",
+   "file_sha": "bed91865ddc63f21dea12091f4204589348f06e2585367d4ee6eff6ea981c538",
+   "last_modified": "Mon, 24 Aug 2026 06:11:02 GMT",
+   "sha256": "d547346d708f9aef510b2b68fe0e491a5c22e8252792dee108fc65b7a092c9d7",
+   "title": "Вебинар: «Гид по миру ИТ-образования: как выбрать подходящий курс для вашего ребёнка»",
+   "url": "https://progmatica.innopolis.university/web170926"
+  },
+  "web180626": {
+   "fetched_at": "2026-10-31T08:41:44+00:00",
+   "file_sha": "a7e29ab80b2e83fc4f0569d0d5d4c7ce45cdd5b87dee056dca3ac2bd19f20326",
+   "last_modified": "Thu, 02 Jul 2026 11:32:59 GMT",
+   "sha256": "69daf9fd8fa8c8a4e3628707160b3dad299336a712e39e23329128f5370746c4",
+   "title": "Вебинар: «‎Осознанное цифровое потребление: как научить ребёнка грамотному использованию гаджетов и обезопасить его в интернете»‎",
+   "url": "https://progmatica.innopolis.university/web180626"
+  },
+  "web221026": {
+   "fetched_at": "2026-10-31T08:44:11+00:00",
+   "file_sha": "f12e7e4749a84f6eb10a34b049ea4b314480d6f32a3ac44956f1988a9c36772f",
+   "last_modified": "Wed, 14 Oct 2026 08:48:59 GMT",
+   "sha256": "2dd6be0086a9b52e9b1e9e2835a5842e1896ae174c425459f6bc876ace3cd72a",
+   "title": "Вебинар: «ИТ для творчества: как 3D-графика и веб-дизайн раскрывают таланты»",
+   "url": "https://progmatica.innopolis.university/web221026"
+  }
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "materials cyber2223",
+ "url": "https://lk-dovuz.innopolis.university/public/files/materials_cyber2223.pdf",
+ "sha256": "2843171fc8f6a7ef4ff97333b50c6c76941e4270ae3a886f97f1a7e0cbbe722f",
+ "method": "text layer (opendataloader)",
+ "chars": 38523,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:22+00:00",
+ "remote": {
+  "etag": "\"1e03df-5f9b0f8e6f840\"",
+  "modified": "Wed, 19 Apr 2023 14:09:29 GMT",
+  "size": "1967071"
+ }
+}

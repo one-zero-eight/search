@@ -1,0 +1,21 @@
+{
+ "docs": {},
+ "pages": {
+  "home": {
+   "fetched_at": "2026-11-02T08:04:43+00:00",
+   "file_sha": "137207213b63362f4a78ba6d1f218a3eaa74ed60f9141bd7b902cdd09b56b221",
+   "last_modified": "",
+   "sha256": "9c45d8140119f1275dff6cb0952ce7de27fbdad3f0ee3b9f8e4ba91a515bc1fb",
+   "title": "Лицей Иннополис",
+   "url": "https://lyceuminnopolis.ru/"
+  },
+  "sitemap-xml": {
+   "fetched_at": "2026-11-02T08:04:46+00:00",
+   "file_sha": "5cdff5c21afd5424dc436e9e1d6a9b135dbbf9f79d232abb9c7abe3ee2ae8fb3",
+   "last_modified": "",
+   "sha256": "5cdff5c21afd5424dc436e9e1d6a9b135dbbf9f79d232abb9c7abe3ee2ae8fb3",
+   "title": "https://lyceuminnopolis.ru/sitemap.xml",
+   "url": "https://lyceuminnopolis.ru/sitemap.xml"
+  }
+ }
+}

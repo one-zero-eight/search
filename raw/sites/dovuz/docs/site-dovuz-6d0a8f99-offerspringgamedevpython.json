@@ -1,0 +1,16 @@
+{
+ "title": "Основы Gamedev на Python",
+ "url": "https://lk-dovuz.innopolis.university/public/files/offer-spring-gamedev-python.pdf",
+ "sha256": "2376574be6cb3e696ec28f72f89bb7213d8c6cbd44ed57256aeef84a3bf308f1",
+ "method": "text layer (opendataloader)",
+ "chars": 32776,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"378a6-64971ab56f9c0\"",
+  "modified": "Wed, 28 Jan 2026 12:13:35 GMT",
+  "size": "227494"
+ }
+}

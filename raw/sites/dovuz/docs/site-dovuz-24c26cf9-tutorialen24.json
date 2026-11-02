@@ -1,0 +1,16 @@
+{
+ "title": "tutorial-en24",
+ "url": "https://lk-dovuz.innopolis.university/public/files/tutorial-en24.pdf",
+ "sha256": "fda100e501a3afca2a5ae312743edf48567154ad83cb09c0a9bccd38a65b46d0",
+ "method": "text layer (opendataloader)",
+ "chars": 35864,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:27+00:00",
+ "remote": {
+  "etag": "\"42ec3-60abf492d49c0\"",
+  "modified": "Wed, 22 Nov 2023 15:22:23 GMT",
+  "size": "274115"
+ }
+}

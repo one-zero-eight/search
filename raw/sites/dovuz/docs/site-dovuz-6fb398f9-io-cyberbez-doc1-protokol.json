@@ -1,0 +1,16 @@
+{
+ "title": "io cyberbez doc1 protokol",
+ "url": "https://lk-dovuz.innopolis.university/public/files/io_cyberbez_doc1_protokol.pdf",
+ "sha256": "e3bfeba62ca39ea834e89a7cfeab581a7cc90dcfc94054dbf75215ab0d24e8d8",
+ "method": "text layer (opendataloader)",
+ "chars": 19750,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:22+00:00",
+ "remote": {
+  "etag": "\"49da3-64684b1dde280\"",
+  "modified": "Mon, 22 Dec 2025 06:39:54 GMT",
+  "size": "302499"
+ }
+}

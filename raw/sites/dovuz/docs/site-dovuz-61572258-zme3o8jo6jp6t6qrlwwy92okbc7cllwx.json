@@ -1,0 +1,16 @@
+{
+ "title": "Скачать положение олимпиады [zme3o8jo6jp6t6qrlwwy92okbc7cllwx]",
+ "url": "https://start.innopolis.university/upload/sprint.editor/85c/zme3o8jo6jp6t6qrlwwy92okbc7cllwx.pdf",
+ "sha256": "bf36cead2ff20d92905d644e1dee8a0373243c28b2622856c0cc17cbc9c021cd",
+ "method": "text layer (opendataloader)",
+ "chars": 18287,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:27+00:00",
+ "remote": {
+  "etag": "\"6a902ed6-2e0b9\"",
+  "modified": "Thu, 27 Aug 2026 12:34:30 GMT",
+  "size": "188601"
+ }
+}

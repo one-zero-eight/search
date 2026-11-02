@@ -1,0 +1,340 @@
+Innopolis Open 2024-2025
+Final round
+Russia, Innopolis, February 15, 2025
+
+Information
+
+Memory limit
+
+Here is the translation:
+
+• In problem A: 256 megabytes
+
+• In problem B: 1024 megabytes
+
+• In problem C: 256 megabytes
+
+• In problem D: 256 megabytes
+
+• In problem E: 1024 megabytes
+
+Source code limit
+
+The size of each solution source code can’t exceed 256 KiB.
+
+Submissions limit
+
+You can submit at most 50 solutions for each problem.
+You can submit a solution to each task at most once per 30 seconds. This restriction does not apply in
+the last 15 minutes of the contest round.
+
+Scoring
+
+Each problem consists of several subtasks. The subtask score is awarded if all tests in the subtask are
+passed.
+
+The number of points scored for the problem is the total number of points scored on each of its subtasks.
+The score for the subtask is the maximum number of points earned for this subtask among all the solutions
+submitted.
+
+Feedback
+
+To get feedback for your solution, go to “Runs” tab in PCMS2 Web Client and use “View Feedback” link.
+In each problem of the contest you will see the score for each subtask, or the verdict for the first failed
+test.
+
+Scoreboard
+
+The contestants’ scoreboard is available during the contest. Use “Monitor” link in PCMS2 Web Client to
+access the scoreboard. The standings provided in PCMS2 Web Client are not final.
+
+Problem A. OGD
+
+Time limit: 1 second
+
+Cat Miston has grown tired of powers of two and the number 2 in general. However, he still likes GCD
+(greatest common divisor). So he came up with OGD — the odd greatest divisor.
+
+The cat knows a thing or two about math. So he can find the OGD of a number. Therefore, help him
+answer a more complex question: what is the sum of OGD of numbers from l to r? To simplify your task,
+calculate this sum modulo 109 + 9.
+
+Input
+
+The first line contains an integer t — the number of questions (1 ≤ t ≤ 105).
+In the i-th of the following t lines, two integers li and ri are given (1 ≤ li ≤ ri ≤ 1018).
+
+Output
+
+Output t numbers (one per line) — the answers to the questions.
+
+Scoring
+
+| Subtask | Points | Additional constraints |  | Required subgroups |
+| --- | --- | --- | --- | --- |
+| Subtask | Points | t | li and ri | Required subgroups |
+| 1 | 10 | t = 1 | li = ri ≤ 106 |  |
+| 2 | 10 | t = 1 | li = ri ≤ 1012 | 1 |
+| 3 | 20 | t = 1 | ri − li ≤ 5 · 106 | 1, 2 |
+| 4 | 20 | t = 1 | ri − li ≤ 108 | 1, 2, 3 |
+| 5 | 10 | – | ri ≤ 105 |  |
+| 6 | 5 | – | ri ≤ 109 | 1, 5 |
+| 7 | 25 | – | – | 1–6 |
+
+Example
+
+| standard input | standard output |
+| --- | --- |
+| 2 1 13 1000001 1001499 | 63 639972 |
+
+Explanation
+
+The answer to the first question is OGD(1) + OGD(2) + OGD(3) + ... + OGD(13) = 1 + 1 + 3 + 1 +
+5 + 3 + 7 + 1 + 9 + 5 + 11 + 3 + 13 = 63
+
+Problem B. Total Ambiguity
+
+Time limit: 2 seconds
+
+We call an array ambiguous if there exists strictly more than one way to split it into two non-empty
+subarrays such that both of these subarrays are permutations. Note that each element of the array must
+belong to exactly one subarray of the split, and each subarray must consist of consecutive elements of the
+original array.
+
+For example, the array [1,2,1] is ambiguous; it can be split into [1] + [2,1] as well as [1,2] + [1].
+
+You are given an array a1,a2,...,an. In one operation, you can change any element of the array to any
+integer from 1 to n. What is the minimum number of operations required to make the array a1,a2,...,an
+ambiguous?
+
+Recall that an array p1,p2,...,pn is called a permutation if for each x from 1 to n, there exists exactly
+one i such that pi = x.
+
+Input
+
+The first line of input contains an integer n (3 ≤ n ≤ 107) — the length of the array a and an integer f,
+which describes the format in which the array a will be given.
+
+If f = 1, the format is standard, and then:
+The second line of input contains n integers a1,a2,...,an (1 ≤ ai ≤ n) — the elements of the array a.
+
+If f = 2, the format is as follows:
+
+The second line of input contains an integer m (3 ≤ m ≤ min(n,2 · 105)) and three integers x,y,z
+(0 ≤ x,y,z < n).
+
+The third line of input contains m integers b1,b2,...,bm (1 ≤ bi ≤ n).
+The values a1,a2,...,an — the array for which you need to find the answer to the problem, are calculated
+as follows:
+
+• For 1 ≤ i ≤ m: ai = bi
+
+• For m < i ≤ n: ai = 1 + (x · ai−2 + y · ai−1 + z) mod n
+
+Output
+
+In a single line, output one number — the answer to the problem.
+
+Scoring
+
+| Subtask | Points | Additional Constraints |  |  |  | Required Subgroups |
+| --- | --- | --- | --- | --- | --- | --- |
+| Subtask | Points | n | a | f | Additional | Required Subgroups |
+| 1 | 15 | n ≤ 7 | – | f = 1 | – |  |
+| 2 | 7 | n ≤ 2000 | – | f = 1 | The answer does not exceed 1 |  |
+| 3 | 21 | n ≤ 2000 | – | f = 1 | – | 1,2 |
+| 4 | 4 | n ≤ 2 · 105 | ai = i | f = 1 | – |  |
+| 5 | 4 | n ≤ 2 · 105 | ai = 1 | f = 1 | – |  |
+| 6 | 15 | n ≤ 2 · 105 | – | f = 1 | The answer does not exceed 1 | 2 |
+| 7 | 18 | n ≤ 2 · 105 | – | f = 1 | – | 1-6 |
+| 8 | 16 | – | – | f = 2 | – |  |
+
+Examples
+
+| standard input | standard output |
+| --- | --- |
+| 7 1 2 2 1 4 3 7 7 | 3 |
+| 4 1 1 2 2 1 | 1 |
+| 3 1 1 1 1 | 1 |
+| 3 1 1 2 3 | 1 |
+| 15 2 6 12 5 11 10 9 8 7 1 1 | 6 |
+
+Note
+
+In the first test case, the following three operations can be performed:
+
+• Replace the first element of the array with 3
+
+• Replace the sixth element of the array with 2
+
+• Replace the seventh element of the array with 1
+
+After the operations, the array looks like this: [3,2,1,4,3,2,1], and it is easy to see that this array is
+ambiguous.
+
+Problem C. Elephant Filimon and the Very Important
+Message
+
+Time limit: 2 seconds
+
+Once, Elephant Filimon wrote a Very Important Message consisting of letters from the Russian alphabet
+on a piece of paper. After that, he encrypted it as follows: instead of each letter, he wrote its ordinal
+number in the alphabet, thus obtaining an array of numbers from 1 to 33.
+
+Many years later, Elephant Filimon found the encrypted Very Important Message again. Possessing a
+magnificent memory, he recalled what was what. Deciding that his old cipher was too weak, he wanted
+to encrypt the message even more strongly, and for this, he wanted to calculate the following tricky
+characteristic, and he needs your help with this!
+
+Given an array a1,a2,...,an of numbers from 1 to 33.
+
+In one operation, you can combine two adjacent elements of the array into one element equal to the sum
+of the combined elements. However, the operation can only be performed if the new element is a prime
+number.
+
+For example, from the array [1,2,3,4,5], you can obtain the arrays [3,3,4,5],[1,5,4,5],[1,2,7,5] in one
+operation. However, it is not possible to obtain the array [1,2,3,9], since 9 is not a prime number.
+
+How many different arrays can be obtained after applying some number of operations (possibly zero)? If
+one array can be obtained in several ways, it is still counted only once. Since the answer can be quite
+large, find it modulo 333333333.
+
+Input
+
+The first line of input contains one integer n (1 ≤ n ≤ 333333) — the length of the array a.
+The second line contains n integers a1,a2,...,an (1 ≤ ai ≤ 33) — the elements of the array a.
+
+Output
+
+In a single line, output the answer to the problem — the number of arrays that can be reached through
+operations, modulo 333333333.
+
+Scoring
+
+| Subtask | Points | Additional constraints |  | Necessary Groups |
+| --- | --- | --- | --- | --- |
+| Subtask | Points | n | a | Necessary Groups |
+| 1 | 12 | n ≤ 10 | – | – |
+| 2 | 12 | n ≤ 18 | – | 1 |
+| 3 | 13 | n ≤ 500 | – | 1-2 |
+| 4 | 11 | n ≤ 5000 | ai > 1 | – |
+| 5 | 10 | n ≤ 5000 | – | 1-4 |
+| 6 | 11 | n ≤ 105 | ai > 1 | 4 |
+| 7 | 10 | n ≤ 105 | – | 1-6 |
+| 8 | 12 | – | ai = 1 | – |
+| 9 | 9 | – | – | 1-8 |
+
+Examples
+
+| standard input | standard output |
+| --- | --- |
+| 1 1 | 1 |
+| 5 1 2 3 4 5 | 5 |
+| 3 33 33 33 | 1 |
+| 9 1 1 1 1 1 1 1 1 1 | 180 |
+| 11 19 13 16 15 22 10 13 10 14 16 15 | 80 |
+
+Problem D. Caesar’s Palindrome
+
+Time limit: 1.5 seconds
+
+Percy, a shark in the world of programming, became interested in ciphers. Recently, he read an article
+about the Caesar cipher, where all letters are cyclically shifted backward by a fixed step d. For example,
+with d = 1, the letter ”b” becomes ”a”, and the letter ”a” becomes ”z”. If the alphabet consists of the first k
+letters (for example, k = 26 for the Latin alphabet), the shift occurs within these k symbols. For instance,
+with k = 4, the alphabet consists of the characters a, b, c, d. In this case:
+
+• With d = 1: b → a, a → d.
+
+• With d = 2: c → a, a → c.
+
+At this time, Spotty gifted Percy a string s consisting of lowercase Latin letters. Percy became curious:
+if within the segment [l,r] he chooses any substring and shifts all characters in it by step d (as in the
+Caesar cipher), what is the maximum length of a palindrome substring that can be obtained in the entire
+string? The step d is chosen by Percy himself. Spotty has q such questions, and an answer is required for
+each of them.
+
+A palindrome is a string that reads the same forwards and backwards. For example, the strings abacaba,
+aaaa, abba, racecar are palindromes.
+
+Input
+
+Each test consists of several sets of input data. The first line contains a single integer t (1 ≤ t ≤ 105), the
+number of input data sets. The description of the input data sets follows.
+
+The first line of each input data set contains the string s (1 ≤ |s| ≤ 105) — the string gifted to Percy.
+The second line of each input data set contains an integer k (1 ≤ k ≤ 26) — the size of the alphabet. It
+is guaranteed that the string s consists only of the first k letters of the Latin alphabet.
+The third line of each input data set contains an integer q (1 ≤ q ≤ 105) — the number of queries.
+In the next q lines of each input data set, there are two integers l and r (1 ≤ l ≤ r ≤ |s|) describing the
+segment.
+It is guaranteed that the sum of |s| and the sum of q across all input data sets does not exceed 105.
+
+Output
+
+For each query, output the length of the longest palindrome.
+
+Scoring
+
+| Subtask | Points | Additional Constraints |  |  |  |  | Required Subgroups |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Subtask | Points | /s/ | q | /s/ | q | l and r | Required Subgroups |
+| 1 | 5 | /s/ ≤ 10 | q ≤ 10 | /s/ ≤ 30 | q ≤ 30 | – | – |
+| 2 | 8 | /s/ ≤ 50 | q ≤ 50 | /s/ ≤ 100 | q ≤ 100 | – | 1 |
+| 3 | 13 | /s/ ≤ 100 | q ≤ 100 | /s/ ≤ 200 | q ≤ 200 | – | 1, 2 |
+| 4 | 23 | /s/ ≤ 103 | q ≤ 103 | – | – | – | 1–3 |
+| 5 | 16 | – | – | /s/ ≤ 104 | – | l = r | – |
+| 6 | 35 | – | – | – | – | – | 1–5 |
+
+Example
+
+| standard input | standard output |
+| --- | --- |
+| 1 abbccacccc 3 10 6 8 7 10 1 5 3 10 5 6 1 5 3 10 5 9 4 7 3 7 | 7 9 9 9 7 9 9 7 7 7 |
+
+Problem E. Coins on a Tree
+
+Time limit: 8 seconds
+
+You are given a tree with n vertices, initially, there is exactly one coin in each vertex of the tree.
+A total of n − 2 operations will be performed. In each operation, one of the coins is removed from the
+tree.
+
+After each operation, find the minimum distance between any two different coins on the tree and the
+number of pairs of coins that achieve this minimum distance. The distance between coins is defined as
+the number of edges on the simple path between the vertices containing these coins.
+
+Input
+
+The first line of input contains two integers n and t (3 ≤ n ≤ 5 · 105, 0 ≤ t ≤ 1) — the number of vertices
+in the tree, and a special parameter that determines how the queries are specified.
+
+Each of the following n−1 lines of the input file contains two integers u and v, representing the next edge
+(u,v) in the tree (1 ≤ u,v ≤ n).
+
+Each of the following n−2 lines contains an integer x . The vertex number from which the coin is removed
+in this query is calculated using the formula: x = x ⊕ (lastans · t), where ⊕ denotes the bitwise XOR
+operation. Initially, lastans = 0, and after each query, lastans equals the number of pairs from the answer
+to the previous query (1 ≤ x ≤ n, it is guaranteed that all values of x are distinct).
+Output
+
+Output n−2 lines, each containing two integers: the minimum distance and the number of pairs of vertices
+that achieve this minimum distance.
+
+Scoring
+
+| Group | Points | Additional constraints |  |  | Required subgroups |
+| --- | --- | --- | --- | --- | --- |
+| Group | Points | n | t | u and v | Required subgroups |
+| 1 | 11 | n ≤ 100 | t = 0 | – |  |
+| 2 | 13 | n ≤ 1000 | t = 0 | – | 1 |
+| 3 | 28 | n ≤ 2 · 105 | t = 0 | – | 1,2 |
+| 4 | 15 | n ≤ 2 · 105 | – | u + 1 = v |  |
+| 5 | 16 | n ≤ 2 · 105 | – | – | 1-4 |
+| 6 | 17 | n ≤ 5 · 105 | – | – | 1-5 |
+
+Example
+
+| standard input | standard output |
+| --- | --- |
+| 5 0 2 1 2 3 3 4 5 4 2 4 3 | 1 2 2 2 4 1 |

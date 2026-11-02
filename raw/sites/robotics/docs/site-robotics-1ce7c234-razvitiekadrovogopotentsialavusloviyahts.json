@@ -1,0 +1,16 @@
+{
+ "title": "Презентация «Развитие кадрового потенциала в условиях цифровой трансформации»",
+ "url": "https://robotics.innopolis.university/wp-content/uploads/2022/04/Razvitie-kadrovogo-potentsiala-v-usloviyah-tsifrovoj-transformatsii.pdf",
+ "sha256": "1a40771f7e7e41a69283c07a4d19ee5eeb360bfa35df77c5a6c83902a49e5459",
+ "method": "text layer (opendataloader)",
+ "chars": 6861,
+ "tables": 5,
+ "section": "site/robotics",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:38+00:00",
+ "remote": {
+  "etag": "\"a3b1f-5dbd71d992577\"",
+  "modified": "Mon, 04 Apr 2022 17:04:04 GMT",
+  "size": "670495"
+ }
+}

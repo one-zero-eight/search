@@ -1,0 +1,291 @@
+---
+type: page
+title: "Каталог"
+description: "Оплата покупки осуществляется через сервис ЮMoney"
+resource: "https://events.innopolis.university/startup_catalog"
+audience: ["student", "postgraduate", "applicant", "teacher", "staff", "management", "public"]
+source_kind: website
+language: ru
+section: "site/events"
+sources:
+  - resource: "https://events.innopolis.university/startup_catalog"
+    id: "aa80fa9fdf96"
+    title: "Каталог"
+    last_modified: "2026-10-31T08:37:04+00:00"
+generated:
+  by: "catix-wiki/0.1 sites"
+  at: "2026-10-31T08:37:04+00:00"
+status: draft
+---
+
+# Каталог
+
+[main](/raw/sites/events/startup-store.md)
+
+catalog
+
+![](https://static.tildacdn.com/tild3864-6463-4131-b938-376338323931/IMG_1702.JPG)
+
+Футболка "SHU"
+
+1800 р.
+
+![](https://static.tildacdn.com/tild6361-6535-4339-a439-663634353932/_08112.jpg)
+
+Шоппер
+
+600 р.
+
+Носки
+
+420 р.
+
+![](https://static.tildacdn.com/tild3839-3932-4335-a437-303131356165/photo_2022-10-25_16-.jpg)
+
+Толстовка "SHU"
+
+3500 р.
+
+![](https://static.tildacdn.com/tild6365-6163-4535-b165-363566393438/IMG_1681.JPG)
+
+Бутылка
+
+1300 р.
+
+![](https://static.tildacdn.com/tild6538-6134-4963-a436-653766633639/IMG_1690.JPG)
+
+Толстовка "SHU"
+
+3500 р.
+
+![](https://static.tildacdn.com/tild3765-3433-4764-b966-663233353530/photo_2022-11-10_08-.jpg)
+
+2200 р.
+
+Подушка дорожная
+
+![](https://static.tildacdn.com/tild3762-6333-4133-a164-326666316338/IMG_1694.JPG)
+
+Плед
+
+1400 р.
+
+![](https://static.tildacdn.com/tild6463-3536-4361-b030-646535383439/photo_2022-11-12_10-.jpg)
+
+доставка
+
+возврат
+
+контакты
+
+[![](https://static.tildacdn.com/tild6431-3735-4732-b530-346139383130/_x0020_1.png)](/raw/sites/events/startuphouse.md)
+
+![](https://static.tildacdn.com/tild3034-3739-4338-a531-336639316134/_2.png)
+
+заказ
+
+Связаться с менеджером:
+
+доставка
+
+возврат
+
+[![](https://static.tildacdn.com/tild3866-3262-4530-b038-373636326361/_1934973290176.png)](/raw/sites/events/startuphouse.md)
+
+Оплата покупки осуществляется через сервис ЮMoney
+
+Доставка
+
+Доставка осуществляется по всей России оператором "Почта России"
+
+При оформлении заказа можно будет выбрать одну из опций:
+
+- Обычный - доставка в пункт выдачи
+
+- Ускоренный - доставка в короткий срок в пункт выдачи
+
+- EMS - доставка курьером до двери
+
+Доставка оплачивается отдельно.
+
+Бесплатная доставка при заказе от 5000 рублей.
+
+Рассчитать стоимость доставки можно на [сайте Почты России](https://www.pochta.ru/parcels)
+
+Как сделать заказ?
+
+Чтобы сделать заказ на сайте необходимо:
+
+- Нажать на карточку понравившегося товара
+
+- Изучить его описание, выбрать размер и нажать на кнопку "Купить". После этого товар отобразится в вашей корзине. Иконка корзины появляется, только если добавить товар с помощью кнопки "Купить"
+
+- Проверьте заказ и нажмите кнопку "Оплатить"
+
+- Оплатите заказ
+
+- Дождитесь подтверждения заказа через электронную почту
+
+- Оплатите доставку по квитанции
+
+- Ожидайте посылку
+
+Если у Вас возникли какие-либо вопросы, Вы можете обратиться к менеджеру через [Telegram](https://t.me/p_ulyana) или [WhatsApp](https://wa.me/79274079920?text=)
+
+Заявка на возврат
+
+Если у Вас возникли проблемы с товаром или не подошел размер, заполните форму и менеджер оперативно свяжется с Вами.
+
+Я согласен с [политикой в отношении обработки персональных данных](https://events.innopolis.university/confidence)
+
+![](https://static.tildacdn.com/tild6564-6562-4266-a666-653835663466/IMG_1674.JPG)
+
+Толстовка "SHU"
+
+Цвет: белый
+
+3500
+
+р.
+
+Размер
+
+Белая толстовка - утепленная (флис)
+
+Состав: 70% хлопок, 30% полиэстер
+
+Посмотреть [размерную сетку](https://drive.google.com/file/d/1VE-HBuNR5POXiSYga7XqJ2MhcjCp5bUk/view?usp=sharing)
+
+Купить
+
+![](https://static.tildacdn.com/tild3635-3862-4264-a266-613831313064/IMG_1682.JPG)
+
+![](https://static.tildacdn.com/tild6432-6438-4339-a439-346465396534/IMG_1707.JPG)
+
+![](https://static.tildacdn.com/tild3137-3564-4337-a164-653265323339/IMG_1705.JPG)
+
+Толстовка "SHU"
+
+Цвет: фиолетовый
+
+3500
+
+р.
+
+Размер
+
+Толстовка без утепления
+
+Состав: 70% хлопок, 30% полиэстер
+
+Посмотреть [размерную сетку](https://drive.google.com/file/d/1VE-HBuNR5POXiSYga7XqJ2MhcjCp5bUk/view?usp=sharing)
+
+Купить
+
+![](https://static.tildacdn.com/tild6232-3261-4333-b630-313066656330/IMG_1676.JPG)
+
+![](https://static.tildacdn.com/tild3031-6238-4962-b133-646433303561/IMG_1675.JPG)
+
+![](https://static.tildacdn.com/tild6465-6561-4136-b838-616433643737/IMG_1711.JPG)
+
+Футболка "SHU"
+
+черная
+
+1800
+
+р.
+
+Размер
+
+Состав: 92% хлопок, 8% лайкра
+
+Посмотреть [размерную сетку](https://drive.google.com/file/d/1VE-HBuNR5POXiSYga7XqJ2MhcjCp5bUk/view?usp=sharing)
+
+Купить
+
+![](https://static.tildacdn.com/tild6166-3561-4138-a133-306363343131/IMG_1685.JPG)
+
+![](https://static.tildacdn.com/tild6165-6237-4133-a430-316339656632/IMG_1690.JPG)
+
+Бутылка для воды
+
+1300
+
+р.
+
+Материал: пластик
+
+Купить
+
+![](https://static.tildacdn.com/tild3833-6564-4836-a639-323131306463/_08112.jpg)
+
+![](https://static.tildacdn.com/tild3665-6239-4432-a365-383436393837/_0811.jpg)
+
+Шоппер
+
+Цвет надписи: зеленый, фиолетовый
+
+600
+
+р.
+
+Цвет
+
+Размер шоппера: 35х38х5 см
+
+Купить
+
+![](https://static.tildacdn.com/tild6638-3361-4239-b063-373535666637/photo_2022-10-25_16-.jpg)
+
+![](https://static.tildacdn.com/tild6132-3866-4832-b932-343433356564/photo_2022-11-13_12-.jpg)
+
+Носки
+
+Цвет: белый, фиолетовый
+
+420
+
+р.
+
+Цвет
+
+Размер
+
+Купить
+
+![](https://static.tildacdn.com/tild6461-3461-4435-a665-303464653537/photo_2022-11-12_10-.jpg)
+
+Плед
+
+Цвет: фиолетовый
+
+1400
+
+р.
+
+Размер: 130х150 см, флис
+
+Купить
+
+![](https://static.tildacdn.com/tild6366-3161-4037-a561-626564386366/IMG_1692.JPG)
+
+![](https://static.tildacdn.com/tild6534-3163-4331-b230-323534616666/IMG_1697.JPG)
+
+![](https://static.tildacdn.com/tild3939-3330-4164-a136-616336326435/IMG_1696.JPG)
+
+Подушка
+
+Цвет: серый
+
+2200
+
+р.
+
+Купить
+
+_Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/events/_shared.md](/raw/sites/events/_shared.md)._
+
+# Citations
+
+1. [Каталог](https://events.innopolis.university/startup_catalog), read 2026-10-31

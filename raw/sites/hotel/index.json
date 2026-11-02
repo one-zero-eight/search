@@ -1,32 +1,55 @@
 {
  "docs": {
+  "https://hotel.innopolis.university/upload/docs-hotel/%D0%90%D0%9D%D0%93%D0%9B_%D0%A0%D0%B0%D1%81%D1%87%D0%B5%D1%82_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F_%D0%BD%D0%BE%D0%B220251.pdf": "TARIFF SCHEDULE FOR STUDENTS (DORMS 5-7)",
+  "https://hotel.innopolis.university/upload/docs-hotel/%D0%90%D0%9D%D0%93%D0%9B_%D0%A0%D0%B0%D1%81%D1%87%D0%B5%D1%82_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F_%D1%81%D1%82%D0%B0%D1%80_20251.pdf": "TARIFF SCHEDULE FOR STUDENTS(Dorms 1-4)",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%94%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80_%D0%BD%D0%BE%D0%B2%D1%8B%D0%B9_2024_%D1%84%D0%B8%D0%B7_%D0%BB%D0%B8%D1%86%D0%B0.pdf": "Договор оферты для физических лиц",
+  "https://hotel.innopolis.university/upload/docs-hotel/%D0%94%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80_%D0%BD%D0%BE%D0%B2%D1%8B%D0%B9_2024_%D1%84%D0%B8%D0%B7_%D0%BB%D0%B8%D1%86%D0%B0_%D0%B0%D0%BD%D0%B3%D0%BB.pdf": "Agreement on the provision of placementservices for individuals",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%94%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80_%D0%BD%D0%BE%D0%B2%D1%8B%D0%B9_2024_%D1%8E%D1%80_%D0%BB%D0%B8%D1%86%D0%B0.docx": "Договор оферты для юридических лиц",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%94%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D1%8B.pdf": "Приказ о перечне документов, необходимых для размещения в жилом комплексе АНО ВО \"Университет Иннополис\"",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%98%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F_%D0%BF%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8E_%D0%BF%D1%80%D0%B0%D1%87%D0%B5%D1%87%D0%BD%D1%8B%D0%BC%D0%B8.pdf": "Правила пользования прачечными",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D1%8F%20%D0%BE%D0%B1%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B5.pdf": "Информация об онлайн оплате",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%9A%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%82%D0%B0%D1%86%D0%B8%D1%8F%20%D0%BD%D0%BE%D0%BC%D0%B5%D1%80%D0%BE%D0%B2.pdf": "КЛИНИНГ НОМЕРОВ",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%9E%D0%B1_%D1%83%D1%82%D0%B2%D0%B5%D1%80%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D0%B8_%D0%98%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B9_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8_%D1%83%D1%81%D0%BB%D1%83%D0%B3_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F_%D0%BE%D0%BA%D1%82%D1%8F%D0%B1%D1%80%D1%8C.pdf": "Стоимость услуг размещения для льготных категорий",
+  "https://hotel.innopolis.university/upload/docs-hotel/%D0%9E%D0%B1_%D1%83%D1%82%D0%B2%D0%B5%D1%80%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D0%B8_%D0%98%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B9_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8_%D1%83%D1%81%D0%BB%D1%83%D0%B3_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F_%D0%BE%D0%BA%D1%82%D1%8F%D0%B1%D1%80%D1%8C_eng.pdf": "The cost of accommodation services in the residential complex for privileged residents",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%9E%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8_%D0%A2%D0%9C%D0%A6.pdf": "Система штрафов",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D0%A0%D0%90%D0%92%D0%98%D0%9B%D0%90%20%D0%9F%D0%9E%D0%9B%D0%AC%D0%97%D0%9E%D0%92%D0%90%D0%9D%D0%98%D0%AF%20%D0%9F%D0%A0%D0%90%D0%A7%D0%95%D0%A7%D0%9D%D0%9E%D0%99.pdf": "ПРАЧЕЧНЫЕ",
+  "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D0%B5%D1%80%D0%B5%D1%87%D0%B5%D0%BD%D1%8C_%D1%83%D1%81%D0%BB%D1%83%D0%B3-%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D1%8B-2.pdf": "ROOM CLEANING",
+  "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D0%BE%D1%80%D1%8F%D0%B4%D0%BE%D0%BA_%D0%B2%D0%B7%D0%B0%D0%B8%D0%BC%D0%BE%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F_%D0%BE%D1%82%D0%B4%D0%B5%D0%BB%D0%B0_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F_%D0%B8_%D0%9F%D1%80%D0%BE%D0%B6%D0%B8%D0%B2%D0%B0%D1%8E%D1%89%D0%B8%D1%85_%D0%B8%D1%82%D0%BE%D0%B3_09_01en.pdf": "The procedure for interaction of employees of the Accommodation Officety with students",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D0%BE%D0%B3%D0%BE%20%D1%85%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F.pdf": "Правила хранения багажа",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%B0%20%D0%B8%20%D0%BF%D1%80%D0%B5%D0%B1%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%202022.pdf": "Правила доступа в УЛК и ЖК",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%BA%D0%BE%D0%BC%D0%BD%D0%B0%D1%82%D0%BE%D0%B9%20%D0%B4%D0%BB%D1%8F%20%D0%B2%D0%BE%D0%B4%D1%8B.pdf": "ПИТЬЕВАЯ ВОДА",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D1%83%D1%87.%D0%BA%D0%BE%D0%BC%D0%BD%D0%B0%D1%82%D0%BE%D0%B9.pdf": "Правила пользования учебными комнатами",
+  "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%BF%D1%80%D0%BE%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%2022_en.pdf": "ACCOMMODATION ON CAMPUS",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F_%D0%BA%D0%BE%D0%BC%D0%BD%D0%B0%D1%82%D0%BE%D0%B9_%D0%B4%D0%BB%D1%8F_%D0%B2%D0%B5%D0%BB%D0%BE.pdf": "Правила пользования велокомнатой",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F_%D0%BA%D0%BE%D0%BC%D0%BD%D0%B0%D1%82%D0%BE%D0%B9_%D0%B4%D0%BB%D1%8F_%D0%B2%D0%BE%D0%B4%D1%8B.pdf": "Правила пользования комнатой для воды",
+  "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0_%D1%85%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F-%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D1%8B-2-5%2C10.pdf": "LUGGAGE STORAGE",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7_%D0%98%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F%20%D0%BF%D0%BE%20%D0%9F%D0%91%202021-22.pdf": "Инструкция по пожарной безопасности",
+  "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7_%D0%98%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F%20%D0%BF%D0%BE%20%D0%9F%D0%91%2021-22%20%28en%29.pdf": "Fire safety instruction of the residential complex",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7_%D0%9A%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%82%D0%B0%D1%86%D0%B8%D1%8F_%D0%BD%D0%BE%D0%BC%D0%B5%D1%80%D0%BE%D0%B2_%D0%BF%D0%B5%D1%80%D0%B8%D0%BE%D0%B4_%D1%83%D0%B1%D0%BE%D1%80%D0%BA%D0%B8_%D1%80%D0%B5%D0%B4%203.pdf": "Перечень и периодичность оказываемых услуг проживающим",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7_%D0%9F%D0%BE%D1%80%D1%8F%D0%B4%D0%BE%D0%BA_%D0%B7%D0%B0%D1%81%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F_%D0%B8_%D0%B2%D1%8B%D1%81%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F_%D1%81%D1%82%D1%83%D0%B4%D0%B5%D0%BD%D1%82%D0%BE%D0%B2_2025%20%283%29.pdf": "Порядок заселения, переселения и выселения",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7_%D0%BD%D0%B0_%20%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D1%83%D1%81%D0%BB%D1%83%D0%B3%D0%B8_%D0%B2%20%D0%96%D0%9A%20%281%29.pdf": "Дополнительные платные услуги",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7_%D0%BE_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8__2025_%D1%81_1_09_-2-3.pdf": "Стоимость услуг размещения",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BA%20%D0%BF%D1%80%D0%B8%D0%BA%D0%B0%D0%B7%D1%83_%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%B8%20%D0%BF%D1%80%D0%BE%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%202025%20%D0%B3%D0%BE%D0%B4%20%282%29.pdf": "Правила проживания",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0_%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%B0_%D0%B2_%D0%BD%D0%BE%D0%BC%D0%B5%D1%80%D0%B0.pdf": "Порядок доступа в номера Жилого комплекса",
+  "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BA_%D0%BF%D1%80%D0%B8%D0%BA%D0%B0%D0%B7%D1%83_%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F_%D0%B8_%D0%BF%D1%80%D0%BE%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F_2025_%D0%B3%D0%BE%D0%B4_eng.pdf": "Accommodation rules at the Residential Complex",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%A0%D0%B0%D1%81%D1%87%D0%B5%D1%82_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F_%D0%BD%D0%BE%D0%B220251.pdf": "СТОИМОСТЬ ПРОЖИВАНИЯ ДЛЯ СТУДЕНТОВ/СОТРУДНИКОВ (КОРПУСА 5-7)",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%A0%D0%B0%D1%81%D1%87%D0%B5%D1%82_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F_%D1%81%D1%82%D0%B0%D1%80_20251.pdf": "СТОИМОСТЬ ПРОЖИВАНИЯ ДЛЯ СТУДЕНТОВ/СОТРУДНИКОВ (КОРПУСА 1-4)",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%A4%D0%BE%D1%80%D0%BC%D1%8B%20%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%BE%D0%B2%20%D0%B4%D0%BB%D1%8F%20%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%B2%20%D0%96%D0%B8%D0%BB%D0%BE%D0%BC%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%81%D0%B5%20%D1%81%D0%BE%D0%B2%D0%B5%D1%80%D1%88.pdf": "Перечень документов для совершеннолетних гостей",
+  "https://hotel.innopolis.university/upload/docs-hotel/%D0%A4%D0%BE%D1%80%D0%BC%D1%8B%20%D0%BD%D0%B5%D1%81%D0%BE%D0%B2%D0%B5%D1%80%D1%88%D0%B5%D0%BD%D0%BD%D0%BE%D0%BB%D0%B5%D1%82%D0%BD%D0%B8%D0%B5%20en.pdf": "List of documents for minor guests",
   "https://hotel.innopolis.university/upload/docs-hotel/%D0%A4%D0%BE%D1%80%D0%BC%D1%8B_%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%BE%D0%B2_%D0%B4%D0%BB%D1%8F_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F_%D0%B2_%D0%96%D0%B8%D0%BB%D0%BE%D0%BC_%D0%BA%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%81%D0%B5_%D0%BD%D0%B5%D1%81%D0%BE%D0%B2%D0%B5%D1%80%D1%88%D0%B5%D0%BD%D0%BD%D0%BE%D0%BB%D0%B5%D1%82%D0%BD%D0%B8%D0%B5.pdf": "Перечень документов для несовершеннолетних гостей (до 18 лет)",
-  "https://hotel.innopolis.university/upload/docs-hotel/%D0%BF%D1%80%D0%B8%D0%BA%D0%B0%D0%B7%20%D0%BE%D1%82%2015.12.2022%20%E2%84%96%20%D0%9E%D0%94_%D0%90%D0%94-02-3-7.pdf": "Порядок взаимодействия администрации и комитета кампуса"
+  "https://hotel.innopolis.university/upload/docs-hotel/%D0%BE%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8_%D0%A2%D0%9C%D0%A6_eng.pdf": "System of fines",
+  "https://hotel.innopolis.university/upload/docs-hotel/%D0%BF%D1%80%D0%B8%D0%BA%D0%B0%D0%B7%20%D0%BE%D1%82%2015.12.2022%20%E2%84%96%20%D0%9E%D0%94_%D0%90%D0%94-02-3-7.pdf": "Порядок взаимодействия администрации и комитета кампуса",
+  "https://hotel.innopolis.university/upload/docs-hotel/%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D0%B3%D0%BE%D1%81%D1%82%D0%B8_%D1%8F%D0%BD%D0%B2%D0%B0%D1%80%D1%8C_2025_en.pdf": "The cost of accommodation services in the residential complex",
+  "https://hotel.innopolis.university/upload/docs-hotel/Documents%20for%20the%20placement%20in%20the%20accommodation%20.pdf": "List of documents for adult guests",
+  "https://hotel.innopolis.university/upload/docs-hotel/Price%20list%20for%20services%2C%20provided%20in%20the%20residential%20complex%20.pdf": "Price list for services, provided in the residential complex",
+  "https://hotel.innopolis.university/upload/docs-hotel/RULES%20OF%20THE%20STUDY%20ROOM%20USE.pdf": "Rules for using the study room",
+  "https://hotel.innopolis.university/upload/docs-hotel/Room%20access%20rules%20at%20the%20residential%20complex.pdf": "Rules for access to the rooms of the Residential Complex",
+  "https://hotel.innopolis.university/upload/docs-hotel/Rules%20for%20the%20use%20of%20public%20spaces%20in%20the%20residential%20complex.pdf": "Rules for the use of laundries in the residential complex",
+  "https://hotel.innopolis.university/upload/docs-hotel/Rules%20of%20access%20and%20stay%20in%20the%20Educational%20and%20Laboratory%20building%20and%20residential%20complex%20.pdf": "Rules of access and stay in the Educational and Laboratory building and residential complex",
+  "https://hotel.innopolis.university/upload/docs-hotel/Rules%20of%20the%20bicycle%20rooms%20use.pdf": "Rules of the bicycle rooms use",
+  "https://hotel.innopolis.university/upload/docs-hotel/Rules%20of%20the%20water%20room%20rules.pdf": "Rules of the water room use",
+  "https://hotel.innopolis.university/upload/docs-hotel/The%20list%20of%20toiletries%2C%20bedding%20items%2C%20their%20replacement%20terms%20and%20the%20cleaning%20services%20schedule%20at%20the%20residential%20complex%20.pdf": "The list of toiletries, bedding items, their replacement terms and the cleaning services schedule",
+  "https://hotel.innopolis.university/upload/docs-hotel/The%20order%20of%20settlement%20of%20students%20in%20the%20residential%20complex%20.pdf": "The order of settlement of students in the residential complex"
  },
  "pages": {
   "contacts": {
@@ -43,8 +66,43 @@
    "title": "Документы",
    "url": "https://hotel.innopolis.university/dokumenty/"
   },
+  "en": {
+   "fetched_at": "2026-10-30T21:14:29+00:00",
+   "last_modified": "",
+   "sha256": "3a88fe83612d76b761cff0153011ddf4ba4a1fcef860c4cbd4f7d1ebd2327356",
+   "title": "Главная страница",
+   "url": "https://hotel.innopolis.university/en"
+  },
+  "en-contacts": {
+   "fetched_at": "2026-10-30T21:14:31+00:00",
+   "last_modified": "",
+   "sha256": "a9cba4214eac9be481d7b764314673df0e57d4e4a5e946f64ec78fd8ac6affd9",
+   "title": "Контакты",
+   "url": "https://hotel.innopolis.university/en/contacts/"
+  },
+  "en-dokumenty": {
+   "fetched_at": "2026-10-30T21:14:40+00:00",
+   "last_modified": "",
+   "sha256": "413ffd46f0bf80ff1c2c85492123202316bff36efdac175394fa73dc92c5953b",
+   "title": "Документы",
+   "url": "https://hotel.innopolis.university/en/dokumenty/"
+  },
+  "en-roomfund": {
+   "fetched_at": "2026-10-30T21:14:35+00:00",
+   "last_modified": "",
+   "sha256": "ecca3af25aedb4b1cda4a7d5e1e13807e884e1054b725269232aa321307eb5a8",
+   "title": "Номерной фонд",
+   "url": "https://hotel.innopolis.university/en/roomfund/"
+  },
+  "en-studentaccommodation": {
+   "fetched_at": "2026-10-30T21:14:38+00:00",
+   "last_modified": "",
+   "sha256": "c26fc904db3e430eea175b3a1bcc72e7f6490f7a84d47c087bbbb8271f7a4dce",
+   "title": "Проживание студентов",
+   "url": "https://hotel.innopolis.university/en/studentaccommodation/"
+  },
   "home": {
-   "fetched_at": "2026-10-24T22:02:52+00:00",
+   "fetched_at": "2026-10-30T21:07:15+00:00",
    "last_modified": "",
    "sha256": "49637797a7446205491cc52b5de7ba885b108721ff56e730c977e71b998e85dd",
    "title": "Главная страница",

@@ -1,0 +1,16 @@
+{
+ "title": "innopolis tour2 analysis en",
+ "url": "https://lk-dovuz.innopolis.university/public/files/innopolis_tour2_analysis_en.pdf",
+ "sha256": "9b0ef6a9ddad7ae8e08ab177d67c55b674bd9fe1ab13b6ae32b993edb3a07ddc",
+ "method": "text layer (opendataloader)",
+ "chars": 8797,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:21+00:00",
+ "remote": {
+  "etag": "\"271af-62ce9696cbd00\"",
+  "modified": "Thu, 30 Jan 2025 09:54:28 GMT",
+  "size": "160175"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "Скачать pdf-файл с результатами [inno_cpm_final_2026]",
+ "url": "https://lk-dovuz.innopolis.university/public/files/inno_cpm_final_2026.pdf",
+ "sha256": "da23609cc8a2d5663a8ceb5ff1f913d3bbcdba443359a9e868e41191cc7579a8",
+ "method": "text layer (opendataloader)",
+ "chars": 5066,
+ "tables": 5,
+ "section": "site/olymp",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:40+00:00",
+ "remote": {
+  "etag": "\"1466c-649e5344c0680\"",
+  "modified": "Tue, 03 Feb 2026 06:03:54 GMT",
+  "size": "83564"
+ }
+}

@@ -1,91 +1,91 @@
-Все медиа
-ВКонтакте
-Telegram
-YouTube
+[Все медиа](https://apply.innopolis.university)
+[ВКонтакте](https://vk.com/innopolisu)
+[Telegram](https://t.me/universityinnopolis)
+[YouTube](https://www.youtube.com/user/InnopolisU)
 - Университет
-- Об университете
-- Органы управления
-- Учредители
-- Наблюдательный совет
-- Команда университета
-- Организационная структура
-- Образовательные и научные подразделения
-- Технологические центры
-- Преподавательский состав
-- Профессорско-преподавательский состав
-- Вакантные должности ППС
-- Работа в университете
-- Вакансии
-- Релокация в Иннополис
-- Кампус
+- [Об университете](https://innopolis.university/about/)
+- [Органы управления](https://innopolis.university/board/)
+- [Учредители](https://innopolis.university/board/)
+- [Наблюдательный совет](https://innopolis.university/board/)
+- [Команда университета](https://innopolis.university/team/)
+- [Организационная структура](https://innopolis.university/team-structure/)
+- [Образовательные и научные подразделения](https://innopolis.university/team-structure/education-academics/)
+- [Технологические центры](https://innopolis.university/team-structure/techcenters/)
+- [Преподавательский состав](https://innopolis.university/faculty/)
+- [Профессорско-преподавательский состав](https://innopolis.university/faculty/)
+- [Вакантные должности ППС](https://career.innopolis.university/en/job/)
+- [Работа в университете](https://career.innopolis.university)
+- [Вакансии](https://career.innopolis.university/job)
+- [Релокация в Иннополис](https://career.innopolis.university/relocation/)
+- [Кампус](https://innopolis.university/campus)
 ## Кампус
 Информация о жилом, учебном и спортивном комплексах, медцентре, питании и досуге на территории города и Университета Иннополис. Ответы на часто задаваемые вопросы
-- Сведения об образовательной организации
+- [Сведения об образовательной организации](https://innopolis.university/sveden/)
 ## Сведения об образовательной организации
 Информация об образовательной деятельности, приёмной кампании, структуре и органах управления университетом, финансово-хозяйственной деятельности
-- Сувениры и одежда
+- [Сувениры и одежда](http://iustore.innopolis.ru)
 Мерч Университета Иннополис
 ## Университет Иннополис
 Специализируется на образовании, исследованиях и разработках в области информационных технологий и робототехники
 - Образование
-- Абитуриентам
-- Приемная кампания 26/27
-- Информирование о приеме на обучение
-- День открытых дверей
-- Образовательный грант
-- Олимпиадные бонусы
-- О механизме целевого обучения и правилах приема на целевое обучение
+- [Абитуриентам](https://apply.innopolis.university/)
+- [Приемная кампания 26/27](https://apply.innopolis.university/)
+- [Информирование о приеме на обучение](https://innopolis.university/sveden/apply/)
+- [День открытых дверей](https://apply.innopolis.university/open-day/)
+- [Образовательный грант](https://apply.innopolis.university/grant/)
+- [Олимпиадные бонусы](https://apply.innopolis.university/possibilities/)
+- [О механизме целевого обучения и правилах приема на целевое обучение](https://apply.innopolis.university/quotas/)
 - Высшее образование
-- Бакалавриат
-- Магистратура
-- Очная онлайн-магистратура
-- Аспирантура
-- Колледж
+- [Бакалавриат](https://apply.innopolis.university/bachelors/)
+- [Магистратура](https://apply.innopolis.university/masters/)
+- [Очная онлайн-магистратура](https://apply.innopolis.university/msonline/)
+- [Аспирантура](https://apply.innopolis.university/postgraduate-study/)
+- [Колледж](https://innopolis.college/)
 ## Колледж
 Среднее профессиональное образование на базе Университета Иннополис. Специальности: «Информационные системы и программирование», «Мехатроника и робототехника»
-- Довузовское образование
-- Образовательные программы для школьников
-- Олимпиада Иннополис Опен
-- Курсы ИТ-школы «Прогматика»
-- Проект «Партнерские школы»
-- Курсы повышения квалификации
-- Программирование и ИТ профессии
-- Бизнесу
-- Преподавателям и методистам
-- Специалистам по работе с персоналом
-- Опорный образовательный центр
-- Корпоративное обучение
+- [Довузовское образование](https://dovuz.innopolis.university/)
+- [Образовательные программы для школьников](https://dovuz.innopolis.university/)
+- [Олимпиада Иннополис Опен](https://dovuz.innopolis.university/pre-olympiads/innopolis-open)
+- [Курсы ИТ-школы «Прогматика»](https://progmatica.innopolis.university/)
+- [Проект «Партнерские школы»](https://dovuz.innopolis.university/partnerschools)
+- [Курсы повышения квалификации](https://innopolis.university/dpo-courses/)
+- [Программирование и ИТ профессии](https://stc.innopolis.university/)
+- [Бизнесу](https://corporate.innopolis.university/education/)
+- [Преподавателям и методистам](https://unionepro.ru/)
+- [Специалистам по работе с персоналом](https://stc.innopolis.university/careerinit)
+- [Опорный образовательный центр](https://innopolis.university/ooc/)
+- [Корпоративное обучение](https://corporate.innopolis.university/education/)
 ## Корпоративное обучение
 Образовательные программы для бизнеса по темам ИТ, цифровой трансформации, управления продуктами и инновациями. Ускоренная подготовка ИТ-специалистов
-- Институт дополнительного образования
-- Об Институте
-- Центр ИТ подготовки
-- Центр корпоративного обучения
-- Центр проектов и практик
+- [Институт дополнительного образования](https://innopolis.university/ido/)
+- [Об Институте](https://innopolis.university/ido/)
+- [Центр ИТ подготовки](https://stc.innopolis.university/)
+- [Центр корпоративного обучения](https://corporate.innopolis.university/education/)
+- [Центр проектов и практик](https://innopolis.university/ppcenter/)
 - Студентам
-- Стажировки и трудоустройство
-- Студенческая жизнь
-- Целевое обучение СПО
-- Стипендия 1519
-- Клуб выпускников
+- [Стажировки и трудоустройство](https://innopolis.university/upload/iblock/47a/eo2pz5s7rl9b2x8u57bu6qtp0gys52f0/partners.pdf)
+- [Студенческая жизнь](https://campuslife.innopolis.ru/main/)
+- [Целевое обучение СПО](https://innopolis.university/filespublic/celevoe_spo.pdf)
+- [Стипендия 1519](https://1519.innopolis.university/)
+- [Клуб выпускников](https://alumni.innopolis.university/)
 Stay in touch with your course mates and remain part of Inno-community
 ## Образование
 Программы обучения разработаны совместно с мировыми экспертами в сфере информатики, робототехники и программной инженерии с опытом работы в топ-100 вузов мира в партнерстве с компаниями IT‑индустрии
-- Абитуриентам
+- [Абитуриентам](https://apply.innopolis.university/)
 - Наука
-- Научная деятельность
+- [Научная деятельность](https://innopolis.university/science)
 ## Научная деятельность
 Сведения о научных разработках и инновационных проектах, осуществляемых учеными Университета Иннополис
 - Факультеты
-- Факультет компьютерных и инженерных наук
-- Факультет гуманитарных и социальных наук
-- Публикации
-- Международный студенческий обмен
-- Семинары
+- [Факультет компьютерных и инженерных наук](https://innopolis.university/team-structure/team-faculty/)
+- [Факультет гуманитарных и социальных наук](https://innopolis.university/team-structure/team-faculty2/)
+- [Публикации](https://innopolis.university/publikatsii)
+- [Международный студенческий обмен](https://innopolis.university/international-relations-office/)
+- [Семинары](https://innopolis.university/seminars/)
 Открытые научные семинары Университета Иннополис
-- НИР 2022
+- [НИР 2022](https://innopolis.university/nir2022/)
 Материалы третьей международной конференции «Нелинейность, информатика, робототехника 2022», 24 августа 2022 года
-- Диссертационный совет
+- [Диссертационный совет](https://dissovet.innopolis.university/)
 Диссертационный совет 75.2.113.01
 Совет создан на базе Университета Иннополис
 Принимает к защите докторские и кандидатские диссертации по следующим научным специальностям:
@@ -94,49 +94,51 @@ Stay in touch with your course mates and remain part of Inno-community
 ## Наука
 В Университете Иннополис действуют 17 лабораторий и 9 научных центров, в которых ведется исследовательская работа в области искусственного интеллекта, робототехники, big data, разработки ПО, информационной безопасности
 - Проекты
-- Проектная деятельность
+- [Проектная деятельность](https://innopolis.university/proekty/activity/)
 Проектная деятельность университета направлена на реализацию грантовых, частных и частно-государственных коммерческих проектов, а также на повышение доступности образования в сфере ИТ.
-- Технологические центры
-- Институт искусственного интеллекта
-- Центр геоинформационных систем
-- Центр индустриальных и промышленных решений
-- Центр информационной безопасности
-- Центр развития промышленной робототехники
-- Консалтинг
+- [Технологические центры](https://innopolis.university/team-structure/techcenters/)
+- [Институт искусственного интеллекта](https://innopolis.university/center-ai3/)
+- [Центр геоинформационных систем](https://innopolis.university/centergis/)
+- [Центр индустриальных и промышленных решений](https://innopolis.university/center-oil/)
+- [Центр информационной безопасности](https://innopolis.university/center-cybersecurity/)
+- [Центр развития промышленной робототехники](https://robotics-center.ru/)
+- [Консалтинг](https://innopolis.university/proekty/consulting/)
 Мы ориентированы на практический результат: научные исследования приводят к цифровым решениям, востребованным бизнесом и государством.
-- Стартап-студия
+- [Стартап-студия](https://innopolis.university/startupstudio/)
 Развитие и поддержка студенческих технологических стартапов: создаём стартап-комьюнити студентов и помогаем в поиске партнеров и инвестиций.
-- Трансфер технологий
+- [Трансфер технологий](https://innopolis.university/technologytransfercenter)
 Мы создаём условия для того, чтобы технологии и разработки Университета эффективно внедрялись в реальные секторы экономики.
-- Передовая инженерная школа
+- [Передовая инженерная школа](https://engineerschool.innopolis.university/)
 Подготовка нового поколения ИТ-инженеров для ускоренной разработки и внедрения российского программного обеспечения
 ## Проекты
 Исследуем и проектируем новые технологические решения совместно с ведущими ИТ-компаниями России, вендорами и 297 ведущих ИТ-компаний в партнерстве.
 - Сотрудничество
-- Организация мероприятий
+- [Организация мероприятий](https://innopolis.university/organizatsiya-i-provedenie-meropriyatiy/)
 Университет Иннополис — инновационная площадка для проведения форумов и конференций, деловых встреч и стратегических сессий, пленарных заседаний и обучающих семинаров, хакатонов и олимпиад.
-- Партнерские школы Университета Иннополис
+- [Партнерские школы Университета Иннополис](https://dovuz.innopolis.university/partnerschools)
 Станьте школой-партнером, чтобы вместе с нами обеспечить возможность детям получать качественное IT-образование независимо от места проживания ребенка.
-- Стать спонсором
+- [Стать спонсором](https://innopolis.university/sponsorship/)
 ## Университет Иннополис
 активно взаимодействует с партнерами по всему миру
-- Контакты
+- [Контакты](https://innopolis.university/contacts/)
 - ЛК
-- MY UNIVERSITY
-- Корпоративная почта
-- Корпоративный портал
-- Личный кабинет абитуриента
-- Личный кабинет школьника
-- Портал IT-help
+- [MY UNIVERSITY](https://my.university.innopolis.ru/)
+- [Корпоративная почта](https://mail.innopolis.ru/owa/auth/logon.aspx?replaceCurrent=1&url=https%3a%2f%2fmail.innopolis.ru%2fowa%2f)
+- [Корпоративный портал](https://portal.university.innopolis.ru/)
+- [Личный кабинет абитуриента](https://profile.innopolis.university/auth/login)
+- [Личный кабинет школьника](https://lk-dovuz.innopolis.university/profile/)
+- [Портал IT-help](https://it.university.innopolis.ru/otrs/customer.pl)
 Если у вас возникли проблемы с авторизацией, обратитесь в it@innopolis.ru
-Личный кабинет
-## Университет Иннополис
+[Личный кабинет](https://innopolis.university/lk/)
+![](https://innopolis.university/upload/landing/b7c/zbce69p05xshuuhwwv5g2m3rc6mvmsbk/IMG_2920@1x.jpg)
+## [Университет Иннополис](https://innopolis.university/)
 ## Стартап-студия
 TAKE OFF AND FLY
 Получить консультацию
 ## НАША Цель
 развитие и поддержка студенческих технологических стартапов путем создания успешного стартап комьюнити студентов и выпускников Университета, а также содействие в предоставлении выгодных условий от внешних партнеров по развитию стартапов и инвестициям.
 ## Команда
+![Кирилл Владимирович Семенихин](https://innopolis.university/upload/landing/a5a/_DSC9403@2x.jpg)
 Руководитель стартап-студии Университета Иннополис
 ## Усов Артем
 направления
@@ -154,8 +156,17 @@ TAKE OFF AND FLY
 · Рабочее место
 · Доступ к технологическим ресурсам университета (3D принтеры, VR/AR, стенд для испытаний)
 Получить консультацию
+![](https://innopolis.university/upload/landing/515/IMG_6967@2x.jpg)
+![](https://innopolis.university/upload/landing/f57/2@2x.jpeg)
+![](https://innopolis.university/upload/landing/bb7/photo_2021-04-20_16-34-46@2x.jpg)
+![](https://innopolis.university/upload/landing/f57/2@2x.jpeg)
+![](https://innopolis.university/upload/landing/311/4@2x.jpg)
+![](https://innopolis.university/upload/landing/bb6/20210913213357_IMG_7590@2x.jpg)
+![](https://innopolis.university/upload/landing/1fc/IMG_1767@2x.jpg)
+![](https://innopolis.university/upload/landing/38d/IMG_9374@2x.jpg)
 Жизнь офиса
 ## Стартап компании, созданные выпускниками Университета Иннополис
+![](https://innopolis.university/upload/landing/4a7/qiqe26v582rxexpr1660vrjhwawsgf08/image_2022-01-20_14-48-57@2x.png)
 ## ООО «Шварцтхаль Тех»
 ### Георгий Емельянов, технический директор
 g.emelyanov@schwarzthal.com
@@ -171,7 +182,8 @@ Startupbootcamp's FinTech & CyberSecurity
 Университет Иннополис помогподготовиться и пройти экспертный совет ОЭЗ «Иннополис», получить места в коворкинге по льготной цене.
 Пожелания студентам Университета Иннополис, которые планируют создать свой стартап
 Никогда ничего не бойтесь. Кайфуйте! Жизнь одна!
-https://schwarzthal.tech/ru
+[https://schwarzthal.tech/ru](https://schwarzthal.tech/ru)
+![](https://innopolis.university/upload/landing/5c2/talknow-min@2x.jpg)
 ## TalkNow: audio dating
 ### Юрий Зарубин, CEO
 Иван Абрамов, CTO
@@ -188,6 +200,7 @@ Sber Student & Stanford Online, Business Weekend, StartupHouse
 Пожелания студентам Университета Иннополис, которые планируют создать свой стартап
 Главное не бояться совершать ошибки, не жалеть о прошлом и продолжать двигаться к своей цели! Соберите сильную команду и верьте в свой успех, уделяя почти все свое время стартапу.
 &nbsp;
+![](https://innopolis.university/upload/landing/0e1/wimmi_1_@2x.jpg)
 ## ООО "Вимми"
 ### Павел Сарпов, генеральный директор
 pavelsarpov@gmail.com
@@ -199,7 +212,8 @@ pavelsarpov@gmail.com
 Университет Иннополис дал возможность защитить идею стартапа перед приемной комиссией и получить статус стартапа в ОЭЗ. Спасибо Университету за знакомство с людьми, активно принимавшими участие в развитие нашего проекта и нетворкинге компании.
 Пожелания студентам Университета Иннополис, которые планируют создать свой стартап
 Студенчество - лучшее время, чтобы сделать свое дело. Вы живете в городе, где есть все необходимое, чтобы изменить свою жизнь и жизни миллионов людей на планете. Первый шаг - самый сложный шаг. Он отличает достигателей от мечтателей. Первое падение - самое больное падение. Оно отличает слабых духом от неваляшек. И сейчас у вас то самое время, чтобы стать достигателем-неваляшкой.
-&nbsp;
+[&nbsp;](https://innopolis.university/startupstudio/#block4585)
+![](https://innopolis.university/upload/landing/1a8/centrrazrabotokc_1_@2x.jpg)
 ## ООО "Центр разработок Си"
 ### Илья Сухоплюев, директор
 suhoy@gramend.ru
@@ -209,7 +223,8 @@ R&D подразделение для ООО "Вторая лаборатори�
 Университет Иннополис оазрешил зарегистрироваться, предоставил льготную аренду.
 Пожелания студентам Университета Иннополис, которые планируют создать свой стартап
 Не бойтесь пробовать больше
-&nbsp;
+[&nbsp;](https://innopolis.university/startupstudio/#block4585)
+![](https://innopolis.university/upload/landing/5fe/edgevision_1_@2x.jpg)
 ## Edge Vision
 ### Вячеслав Лукин, CEO
 slava@edgevision.pro
@@ -222,11 +237,13 @@ slava@edgevision.pro
 100% команды разработки состоит из выпускников Университета. Плотное сотрудничество с профессорами помогало на разных этапах, где-то советом, где-то в реализации реальных проектов.
 Пожелания студентам Университета Иннополис, которые планируют создать свой стартап
 Доверяй себе. Никто лучше фаундера не знает, что нужно для твоего стартапа. Пробуй, ошибайся и пробуй снова. Читай книги и прислушивайся к мнению опытных, но решение всегда принимай сам(а)!
-&nbsp;
+[&nbsp;](https://innopolis.university/startupstudio/#block4585)
+![](https://innopolis.university/upload/landing/35e/Kevin_Handa_1@2x.jpg)
 ## ООО «Маркетплейс Технология». KazanExpress
 ### Кевин Ханда
 KazanExpress — самый быстро растущий маркетплейс в России и Восточной Европе. Первая компания-единорог в Иннополисе.
-https://kazanexpress.ru/
+[https://kazanexpress.ru/](https://kazanexpress.ru/)
+![](https://innopolis.university/upload/landing/ea4/Navruza_Tolkunova@2x.jpg)
 ## ООО «ФЕРМОПОЛИС»
 ### Навруза Тулкунова
 ### Дата основания компании: 05.02.2019
@@ -234,14 +251,16 @@ https://kazanexpress.ru/
 • Победа в конкурсе ФСИ СТАРТ1 «Цифровая платформа».
 • Грант на НИОКР первого года — 3 млн рублей.
 • Грант в форме субсидий на реализацию научных исследований и разработок в области агропромышленного комплекса от Министерства сельского хозяйства и продовольствия РТ — 1,6 млн рублей
-https://fermopolis.ru/
+[https://fermopolis.ru/](https://fermopolis.ru/)
+![](https://innopolis.university/upload/landing/9f6/Clofit@2x.jpg)
 ## ООО «КЛОФИТ»
 ### Арсений Поезжаев, Никита Ложников, Олег Дурыгин
 ### Дата основания компании: 09.09.2020
 ООО «КЛОФИТ» — виртуальная примерочная одежды в мобильном телефоне.
 • Победа в конкурсе ФСИ СТАРТ1 “Цифровая платформа”.
 • Грант на НИОКР первого года — 3 млн рублей.
-https://clofit.me/
+[https://clofit.me/](https://clofit.me/)
+![](https://innopolis.university/upload/landing/aff/Без-названия@2x.jpg)
 ## Lipsar Studio LLC
 ### Федосеев Кирилл Николаевич, CEO
 k.fedoseev@lipsar.studio
@@ -252,7 +271,8 @@ Lipsar Studio делает потрясающие игры с более чем 
 Знания и коммьюнити
 Пожелания студентам Университета Иннополис, которые планируют создать свой стартап
 Пробуйте и не бойтесь
-&nbsp;
+[&nbsp;](https://innopolis.university/startupstudio/#block4585)
+![](https://innopolis.university/upload/landing/32e/Без-названия-_1_@2x.jpg)
 ## ООО "Инди Геймдев Клаб"
 ### Скударнов Антон, генеральный директор
 Верташ Валерия, операционный директор
@@ -269,22 +289,26 @@ indiegamedev.club@gmail.com
 Пожелания студентам Университета Иннополис, которые планируют создать свой стартап
 Начинайте думать об этом сразу. Создавать стартап лучше на 2-3 курсе, пока еще есть учеба и можно научиться всему мягко, или передумать :) Но раннее начало дает хороший старт в момент выпуска, да и к тому времени научитесь лучше управлять своим временем.
 &nbsp;
+![](https://innopolis.university/upload/landing/cf7/e27x8v93mzs3k6bezgyytic4wg20v6qx/photo_2022-03-29_10-25-53@2x.jpg)
 ## ООО «О»
 ### Михаил Ткаченко, CEO
 No-code платформа для создания маркетплейсов
-&nbsp;
+[&nbsp;](https://schwarzthal.tech/ru)
+![](https://innopolis.university/upload/landing/d70/3060ba3jswv0odn50r9sxdpcu9plqpfk/photo_2022-03-29_10-24-39@2x.jpg)
 ## ООО «Движ»
 ### Михаил Иванов, CEO
 Приложение для создания мероприятий
-App Store
+[App Store](https://apps.apple.com/ru/app/%D0%B4%D0%B2%D0%B8%D0%B6/id1505614363)
+![](https://innopolis.university/upload/landing/4e3/rnubj72xqnvv7f0p53pgvv4s96kt1faq/photo_2022-03-29_10-29-31@2x.jpg)
 ## ООО «Айджент»
 ### Вадим Гилемзянов, CTO and Co-founder
 Разработка обучающихся ботов для компаний на основе искусственного интеллекта
-https://www.igent.tech
+[https://www.igent.tech](https://www.igent.tech)
+![](https://innopolis.university/upload/landing/6bb/lod75tn8ojgh3lp4inmtf14wpd2tvrlj/photo_2022-03-29_10-09-03@2x.jpg)
 ## ООО «Алонг Студио»
 ### Дмитрий Цапля – CEO, Полушин Дмитрий - СОО
 Партнер для начинающих стартапов, который помогает запустить правильное MVP продукта с минимальным бюджетом и time-to-market
-https://along.pw/
+[https://along.pw/](https://along.pw/)
 ## Наши услуги
 ## 01.
 ТРЕКШН-ВСТРЕЧА С БИЗНЕС-ТРЕКЕРОМ
@@ -292,68 +316,73 @@ https://along.pw/
 • Бесплатно
 • Онлайн
 • Регулярно
-Отправь заявку
+[Отправь заявку](https://innopolis.university/startupstudio/#block4577)
 ## 02.
 МЕНТОРСТВО С ЭКСПЕРТОМ
 Участие в программе помогает студенту системно и осознанно выстраивать траекторию развития своего бизнеса вместе с ментором, который уже прошёл этот путь и подскажет, как не ошибиться.
 • Бесплатно
 • Онлайн
 • Регулярно
-Отправь заявку
+[Отправь заявку](https://innopolis.university/startupstudio/#block4577)
 На Rusbase вышла статья о 15 российских венчур-билдерах, которые помогут превратить идею в действующий бизнес.
-Читать подробнее
+[Читать подробнее](https://rb.ru/list/15-rossijskih-venchur-bilderov/)
 ## Новости
 23 апреля в Университете Иннополис пройдет Innothon - хакатон, на котором будут создавать новые идеи. Опытные наставники помогут студентам презентовать свои проекты экспертному жюри.
-Читать подробнее
+[Читать подробнее](https://media.innopolis.university/events/innothon/)
 На Хайтек вышла статья о пяти стартапах Иннополиса. Стартапы студентов и выпускницы Университета Иннополис стали обладателями номинаций: «Креатив года: «Фермополис», «Трендсеттер года: «TalkNow» 🚀
-Читать подробнее
+[Читать подробнее](https://hightech.fm/2022/01/07/farmer-dating-startups-of-the-year)
 ## ПРОГРАММЫ ПОДДЕРЖКИ ИННОВАЦИОННЫХ ПРОЕКТОВ РАННИХ СТАДИЙ В РЕСПУБЛИКЕ ТАТАРСТАН
+![](https://innopolis.university/upload/landing/23a/6zk8a1b7mrho305g2qe2ax6spujcphyw/photo_2022-11-03_10-00-38@2x.jpg)
 В целях информирования научно-технических проектов о мерах поддержки со стороны республиканских и федеральных институтов развития предлагается презентация, содержащая информацию о различных грантах и конкурсах, а также примерах реализации и истории успеха.
-Смотреть презентацию
+[Смотреть презентацию](https://digital.tatarstan.ru/file/digital/File/%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D1%8B_%D0%BF%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D0%B8_%D0%B8%D0%BD%D0%BD%D0%BE%D0%B2%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D1%85_%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%BE%D0%B2_%D1%80%D0%B0%D0%BD%D0%BD%D0%B8%D1%85_%D1%81%D1%82%D0%B0%D0%B4%D0%B8%D0%B9_%D0%B2_%D0%A0%D0%B5%D1%81%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B5.pdf)
 ## Индустриальный межвузовский акселератор «StartupHouse»
 Собираем 50 студенческих идей стартапов со всей России и прокачиваем на офлайн акселераторе. По итогу интенсива отбираем 20 проектов в трехмесячную акселерационную программу Университета Иннополис.
 Ключевая цель Акселератора — проверка гипотез и упаковка продукта для привлечения инвесторов. Мы собрали крутую команду кураторов, экспертов и инвесторов, добавили образовательный блок и неформальное общение со специалистами из разных компаний.
-Подробнее
+[Подробнее](https://events.innopolis.university/startuphouse#rec340322840)
 186 представителей вузов и сузов Консорциума ООЦ
 35 российских образовательных учреждений
 ## наши партнеры
+![](https://innopolis.university/upload/landing/d65/B8@2x.png)
+![YellowRockets](https://innopolis.university/upload/landing/237/YellowRockets@2x.png)
+![](https://innopolis.university/upload/landing/88f/sez_logo_rus_вертикальный@2x.png)
+![](https://innopolis.university/upload/landing/feb/qVkzxM_X@2x.png)
 ## Контакты
 По вопросам сотрудничества
 startupstudio@innopolis.ru
 Адрес
 420500, г. Иннополис, ул.Университетская, д.1
-Telegram
-VK
-YouTube
-Max
-- Об университете
-- Абитуриентам
-- Курсы повышения квалификации
-- Проектная деятельность
-- Передовая инженерная школа
-- Вакансии
-- Мерч
-- Виртуальная экскурсия
-- Онлайн-курсы и повышение квалификации
+[Telegram](https://t.me/universityinnopolis)
+[VK](https://vk.com/innopolisu)
+[YouTube](https://www.youtube.com/channel/UCvCTv7cC1yFBFofSm2xWHCQ/videos)
+[Max](https://max.ru/id1655258235_biz)
+- [Об университете](https://innopolis.university/about/)
+- [Абитуриентам](https://apply.innopolis.university/?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
+- [Курсы повышения квалификации](https://innopolis.university/dpo-courses/?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
+- [Проектная деятельность](https://innopolis.university/proekty/activity/)
+- [Передовая инженерная школа](https://engineerschool.innopolis.university/)
+- [Вакансии](https://career.innopolis.university/job?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
+- [Мерч](http://iustore.innopolis.ru/?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
+- [Виртуальная экскурсия](https://panoroo.com/virtual-tours/NvQZM6B2?lang=ru&id=12&site=s1&template=university24&landing_mode=edit)
+- [Онлайн-курсы и повышение квалификации](https://t.me/inno_university_it_bot)
 Контакты
 - +7 (843) 203-92-53
 - university@innopolis.ru
 - 420500, г. Иннополис ул.Университетская, д.1
-- Как добраться
+- [Как добраться](http://www.innopolis.com/city/how-to-get/?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
 - Ещё контакты
 Пресс-служба
 - pr@innopolis.ru
-- Новости
-- Мероприятия
+- [Новости](https://media.innopolis.university/?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
+- [Мероприятия](https://media.innopolis.university/events/?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
 Полезные ссылки
-- Сведения об образовательной организации
-- Министерство цифрового развития, связи и массовых коммуникаций РФ
-- Министерство науки и высшего образования Российской Федерации
-- Министерство просвещения Российской Федерации
-- Конкурс на замещение вакантных должностей ППС
-- Политика конфиденциальности
-- «Горячая линия» ситуационного центра (COVID-2019): +7 (495) 198-00-00
-- Антитеррористическая деятельность
+- [Сведения об образовательной организации](https://innopolis.university/sveden/)
+- [Министерство цифрового развития, связи и массовых коммуникаций РФ](https://digital.gov.ru/ru/?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
+- [Министерство науки и высшего образования Российской Федерации](https://minobrnauki.gov.ru/?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
+- [Министерство просвещения Российской Федерации](https://edu.gov.ru/)
+- [Конкурс на замещение вакантных должностей ППС](https://career.innopolis.university/konkursnyezayavkiprofessorskoprepodavatelskogosostava/)
+- [Политика конфиденциальности](https://innopolis.university/files/politicacookies.pdf?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
+- [«Горячая линия» ситуационного центра (COVID-2019): +7 (495) 198-00-00](https://www.minobrnauki.gov.ru/action/situational_center/?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
+- [Антитеррористическая деятельность](https://innopolis.university/antiterror/)
 - Скачать PDF, содержащий материалы страницы
 ## Мы используем файлы cookies
-Они помогают улучшить работу сайта и сделать его удобнее. Посещая страницы сайта, вы соглашаетесь с условиями использования файлов cookie.
+Они помогают улучшить работу сайта и сделать его удобнее. Посещая страницы сайта, вы соглашаетесь с [условиями использования](https://innopolis.university/public/files/Согласие%20на%20обработку%20ПДн%20для%20УИ.pdf) файлов cookie.

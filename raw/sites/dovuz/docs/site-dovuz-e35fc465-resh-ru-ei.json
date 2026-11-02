@@ -1,0 +1,16 @@
+{
+ "title": "resh ru ei",
+ "url": "https://lk-dovuz.innopolis.university/public/files/resh_ru_ei.pdf",
+ "sha256": "990cca3a80f8ae37200bca6e9914faee73007eaf1c86cfadd67639a2157e32dd",
+ "method": "text layer (opendataloader)",
+ "chars": 10241,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:24+00:00",
+ "remote": {
+  "etag": "\"3af68-60bf960cbdfc0\"",
+  "modified": "Fri, 08 Dec 2023 06:05:59 GMT",
+  "size": "241512"
+ }
+}

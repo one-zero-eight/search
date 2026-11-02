@@ -1,0 +1,16 @@
+{
+ "title": "Постановлении Правительства РФ",
+ "url": "https://innopolis.university/filespublic/resolution.pdf",
+ "sha256": "0364c12b7769a507b1163d55cc6daf3a215fada2df01b4827bccf978819a2431",
+ "method": "text layer (opendataloader)",
+ "chars": 27939,
+ "tables": 5,
+ "section": "site/trud",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:40+00:00",
+ "remote": {
+  "etag": "\"4acc1-63036ea3f8a0b\"",
+  "modified": "Thu, 13 Mar 2025 10:37:56 GMT",
+  "size": "306369"
+ }
+}

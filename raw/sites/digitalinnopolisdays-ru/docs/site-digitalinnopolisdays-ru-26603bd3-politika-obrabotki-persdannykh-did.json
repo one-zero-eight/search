@@ -1,0 +1,16 @@
+{
+ "title": "политикой обработки персональных данных [Политика_обработки_персданных_did]",
+ "url": "https://innopolis.university/filespublic/%D0%9F%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0_%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B8_%D0%BF%D0%B5%D1%80%D1%81%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85_did.pdf",
+ "sha256": "09b3c04fa3fc8d94a83d45a0239b386e87b3646c80361fe627dc6eeb36808698",
+ "method": "text layer (opendataloader)",
+ "chars": 17473,
+ "tables": 5,
+ "section": "site/digitalinnopolisdays-ru",
+ "context": "",
+ "fetched_at": "2026-11-01T22:40:21+00:00",
+ "remote": {
+  "etag": "\"206319-638c66e6a99cf\"",
+  "modified": "Mon, 30 Jun 2025 09:12:47 GMT",
+  "size": "2122521"
+ }
+}

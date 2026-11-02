@@ -1,0 +1,16 @@
+{
+ "title": "Первый выпуск про промышленную робототехнику В сборнике «6 степеней свободы» от 2021 года эксперты анализируют рынок промышленной робототехники в России и в мире, технологии, образовательную деятельность и опыт лидеров индустрии — KUKА, FANUC, «КАМАЗ», Национальной Ассоциации Участников Рынка Робототехники и других.",
+ "url": "https://robotics.innopolis.university/wp-content/uploads/2021/12/Digest3.pdf",
+ "sha256": "f8d5f16df17e31ede9fd74903dbda205f614c77fbd4ed46ba4e7cfb32bbc2ebb",
+ "method": "text layer (opendataloader)",
+ "chars": 289198,
+ "tables": 5,
+ "section": "site/spec",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:27+00:00",
+ "remote": {
+  "etag": "\"ef251a-5d29fe3871c07\"",
+  "modified": "Wed, 08 Dec 2021 10:24:02 GMT",
+  "size": "15672602"
+ }
+}

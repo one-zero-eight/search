@@ -1,0 +1,16 @@
+{
+ "title": "io 24 25 informatics tasks ru",
+ "url": "https://lk-dovuz.innopolis.university/public/files/io_24_25_informatics_tasks_ru.pdf",
+ "sha256": "6abaaf11511d6c8fac1c78083a22c32cbdd91360a1958c76b5028140f2816066",
+ "method": "text layer (opendataloader)",
+ "chars": 14860,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:22+00:00",
+ "remote": {
+  "etag": "\"105f1a-62849e12fe500\"",
+  "modified": "Mon, 02 Dec 2024 13:53:56 GMT",
+  "size": "1072922"
+ }
+}

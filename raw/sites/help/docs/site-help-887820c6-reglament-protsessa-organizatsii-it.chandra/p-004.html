@@ -1,0 +1,81 @@
+<div data-bbox="212 53 328 86" data-label="Page-Header">
+<p><b>innopolis</b><br/>UNIVERSITY</p>
+</div>
+<div data-bbox="338 40 697 62" data-label="Page-Header">
+<p>Регламент процесса: Организация ИТ-поддержки в Университете Иннополис</p>
+</div>
+<div data-bbox="338 81 397 101" data-label="Page-Header">
+<p>РП 3.7.1-01</p>
+</div>
+<div data-bbox="546 80 644 101" data-label="Page-Header">
+<p>“23” декабря 2019 г.</p>
+</div>
+<div data-bbox="81 154 205 178" data-label="Section-Header">
+<h3>3. Схема процесса</h3>
+</div>
+<div data-bbox="50 182 920 853" data-label="Diagram">
+<p>Организация ИТ-поддержки в Университете Иннополис</p>
+<img alt="Swimlane diagram of the IT support organization process. It shows four swimlanes: Applicant, Coordinator, OTRS, and Responsible Employee. The process starts with the Applicant creating a request, followed by the Coordinator processing it and routing it to OTRS. The Responsible Employee then takes over, updating the status, planning the work, executing it, and closing the ticket. There are feedback loops for reassignment and resumption of work."/>
+<pre>
+graph TD
+    subgraph Applicant [Заявитель]
+        Start((Возникшая необходимость в ИТ-поддержке)) --&gt; Form[Формирование и направление заявки]
+    end
+
+    subgraph Coordinator [Координатор]
+        Form --&gt; Info[Получена информация о создании новой заявки]
+        Info --&gt; Process[Обработка заявки]
+        Process --&gt; Decision{Определен Исполнитель в ОИТ}
+        Decision --&gt; Send[Направление заявки в подразделение, функционал которого включает запрашиваемую поддержку]
+        Send --&gt; End1((Заявка перенаправлена в другое подразделение))
+        Decision --&gt; End2((Критерии заявки, постановка ответственного))
+    end
+
+    subgraph OTRS [ОТРС]
+        Send --&gt; Status[Смена статуса заявки, сообщение для заявителя]
+        Status --&gt; Info2[Получена информация о поступлении новой заявки (на почту и в системе)]
+        Info2 --&gt; Plan[Плановая дата выполнения заявки]
+        Plan --&gt; Exec[Выполнение заявки]
+        Exec --&gt; Close[Заккрытие заявки]
+        Close --&gt; End3((Заявка закрыта))
+    end
+
+    subgraph Responsible [Ответственный исполнитель]
+        Info2 --&gt; Learn[Ознакомление с заявкой, уточнение вопросов у заявителя, определение плана выполнения]
+        Learn --&gt; Plan
+        Plan --&gt; Exec
+        Exec --&gt; Close
+        Close --&gt; Resum[Возобновление заявки заявителем]
+        Resum --&gt; Exec
+        Exec --&gt; Ret[Повторное выполнение заявки]
+        Ret --&gt; Exec
+    end
+
+    Info --&gt; Info2
+    Status --&gt; Info2
+    Info2 --&gt; Plan
+    Plan --&gt; Exec
+    Exec --&gt; Close
+    Close --&gt; End3
+    Ret --&gt; Exec
+    Resum --&gt; Exec
+    </pre>
+<p><b>Swimlanes and Roles:</b></p>
+<ul>
+<li><b>Заявитель (Applicant):</b> Initiates the process by identifying a need for IT support and creating a request.</li>
+<li><b>Координатор (Coordinator):</b> Receives the request, processes it, and determines the responsible IT department. It also handles the routing of the request to the appropriate department.</li>
+<li><b>ОТРС (OTRS):</b> Manages the request through the system, updates the status, and provides communication to the applicant. It also tracks the planned execution date.</li>
+<li><b>Ответственный исполнитель (Responsible Employee):</b> Takes ownership of the request, clarifies details with the applicant, and executes the work. It also handles the resumption of work if necessary.</li>
+</ul>
+<p><b>Key Process Steps:</b></p>
+<ul>
+<li>Формирование и направление заявки (Forming and sending the request)</li>
+<li>Обработка заявки (Request processing)</li>
+<li>Направление заявки в подразделение, функционал которого включает запрашиваемую поддержку (Routing the request to the department whose functionality includes the requested support)</li>
+<li>Ознакомление с заявкой, уточнение вопросов у заявителя, определение плана выполнения (Familiarization with the request, clarification of questions with the applicant, determination of the execution plan)</li>
+<li>Выполнение заявки (Execution of the request)</li>
+<li>Заккрытие заявки (Closing the request)</li>
+<li>Возобновление заявки заявителем (Resumption of the request by the applicant)</li>
+<li>Повторное выполнение заявки (Repeated execution of the request)</li>
+</ul>
+</div>

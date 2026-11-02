@@ -1,0 +1,16 @@
+{
+ "title": "Учебный план [ucp_uch24-25]",
+ "url": "https://lk-dovuz.innopolis.university/public/files/ucp_uch24-25.pdf",
+ "sha256": "9e92ebbcdbd304f9d9091741b69518f5f9de2aed6ac9e4ec56b0cd81ffaed900",
+ "method": "text layer (opendataloader)",
+ "chars": 1141,
+ "tables": 5,
+ "section": "site/msonline",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:40+00:00",
+ "remote": {
+  "etag": "\"733aa-623de0651cd00\"",
+  "modified": "Mon, 07 Oct 2024 07:32:36 GMT",
+  "size": "471978"
+ }
+}

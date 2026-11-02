@@ -1,0 +1,17 @@
+Tariff schedule for students moving into a residential complex
+ANO HE "Innopolis University" *
+
+The full order on the cost of accommodation services is published on the campus website https://hotel.innopolis.university/
+
+| Employee/student accommodation options | double standard | quadruple room |
+| --- | --- | --- |
+| Employee/student accommodation options | 4 200р. rubl per day per room | 8 000р. rubl per day per room |
+| Employee/student accommodation options | 2 100р. rubl per day per bed | 2 000р. rubl per day per bed |
+| An employee/student (e/s) lives in a room with another student | 210 rubl per day - discount 90% (e/s) for a bed 6 300 rubl per month | 200 rubl per day - discount 90% (e/s) for a bed 6 000 rubl per month |
+| An employee/student lives in a room alone | 420 rubl per day - discount 90% (e/s) for a room 12 600 rubl per month |  |
+| The employee/student lives in a room with a spouse | 210 rubl+420 rubl=630 rubl per day discount 90% (e/s) and 80% discount - to the spouse for a bed 18 900 rubl per month |  |
+| The employee/student lives in a room with a spouse and child (the child lives for free without providing additional bed) | 210 rubl+420 rubl=630 rubl per day discount 90% (e/s) and 80% discount - to the spouse for a bed 18 900 rubl per month |  |
+| The employee/student lives in a room with a spouse, two or more children |  | 200 rubl+600 rubl=800 rubl per day discount 90% (e/s) and 70% for a spouse and children for a beds 24 000 rubl per month |
+| The employee/student lives in a room with a person who is not related to the activities of the University (boyfriend/girlfriend, etc.) | 210 rubl+1 470 rubl=1 680 rubl per day discount 90% (e/s) and 30% to a co-resident for a bed 50 400 rubl per month |  |
+
+*The price is based on 30 days per month.

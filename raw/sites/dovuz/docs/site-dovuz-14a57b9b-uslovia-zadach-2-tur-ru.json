@@ -1,0 +1,16 @@
+{
+ "title": "uslovia zadach 2 tur ru",
+ "url": "https://lk-dovuz.innopolis.university/public/files/uslovia_zadach_2_tur_ru.pdf",
+ "sha256": "e0ecfa9727cc250a58076f4dc0285ea6918c70021070d85700ba1917ff878591",
+ "method": "text layer (opendataloader)",
+ "chars": 14654,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:27+00:00",
+ "remote": {
+  "etag": "\"3e626-64ff8334668c0\"",
+  "modified": "Tue, 21 Apr 2026 13:14:51 GMT",
+  "size": "255526"
+ }
+}

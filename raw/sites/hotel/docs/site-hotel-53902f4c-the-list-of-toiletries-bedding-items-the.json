@@ -1,0 +1,16 @@
+{
+ "title": "The list of toiletries, bedding items, their replacement terms and the cleaning services schedule",
+ "url": "https://hotel.innopolis.university/upload/docs-hotel/The%20list%20of%20toiletries%2C%20bedding%20items%2C%20their%20replacement%20terms%20and%20the%20cleaning%20services%20schedule%20at%20the%20residential%20complex%20.pdf",
+ "sha256": "5cd927551cdde9e4b1a3d73e9f883af6fa3d9fb3cebf7a073524de43c510bdf6",
+ "method": "text layer (opendataloader)",
+ "chars": 2657,
+ "tables": 5,
+ "section": "site/hotel",
+ "context": "",
+ "fetched_at": "2026-10-31T00:26:16+00:00",
+ "remote": {
+  "etag": "\"1f1fb-5c376fb54c13c\"",
+  "modified": "Sat, 29 May 2021 12:17:53 GMT",
+  "size": "127483"
+ }
+}

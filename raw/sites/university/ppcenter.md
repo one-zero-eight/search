@@ -1,91 +1,91 @@
-Все медиа
-ВКонтакте
-Telegram
-YouTube
+[Все медиа](https://apply.innopolis.university)
+[ВКонтакте](https://vk.com/innopolisu)
+[Telegram](https://t.me/universityinnopolis)
+[YouTube](https://www.youtube.com/user/InnopolisU)
 - Университет
-- Об университете
-- Органы управления
-- Учредители
-- Наблюдательный совет
-- Команда университета
-- Организационная структура
-- Образовательные и научные подразделения
-- Технологические центры
-- Преподавательский состав
-- Профессорско-преподавательский состав
-- Вакантные должности ППС
-- Работа в университете
-- Вакансии
-- Релокация в Иннополис
-- Кампус
+- [Об университете](https://innopolis.university/about/)
+- [Органы управления](https://innopolis.university/board/)
+- [Учредители](https://innopolis.university/board/)
+- [Наблюдательный совет](https://innopolis.university/board/)
+- [Команда университета](https://innopolis.university/team/)
+- [Организационная структура](https://innopolis.university/team-structure/)
+- [Образовательные и научные подразделения](https://innopolis.university/team-structure/education-academics/)
+- [Технологические центры](https://innopolis.university/team-structure/techcenters/)
+- [Преподавательский состав](https://innopolis.university/faculty/)
+- [Профессорско-преподавательский состав](https://innopolis.university/faculty/)
+- [Вакантные должности ППС](https://career.innopolis.university/en/job/)
+- [Работа в университете](https://career.innopolis.university)
+- [Вакансии](https://career.innopolis.university/job)
+- [Релокация в Иннополис](https://career.innopolis.university/relocation/)
+- [Кампус](https://innopolis.university/campus)
 ## Кампус
 Информация о жилом, учебном и спортивном комплексах, медцентре, питании и досуге на территории города и Университета Иннополис. Ответы на часто задаваемые вопросы
-- Сведения об образовательной организации
+- [Сведения об образовательной организации](https://innopolis.university/sveden/)
 ## Сведения об образовательной организации
 Информация об образовательной деятельности, приёмной кампании, структуре и органах управления университетом, финансово-хозяйственной деятельности
-- Сувениры и одежда
+- [Сувениры и одежда](http://iustore.innopolis.ru)
 Мерч Университета Иннополис
 ## Университет Иннополис
 Специализируется на образовании, исследованиях и разработках в области информационных технологий и робототехники
 - Образование
-- Абитуриентам
-- Приемная кампания 26/27
-- Информирование о приеме на обучение
-- День открытых дверей
-- Образовательный грант
-- Олимпиадные бонусы
-- О механизме целевого обучения и правилах приема на целевое обучение
+- [Абитуриентам](https://apply.innopolis.university/)
+- [Приемная кампания 26/27](https://apply.innopolis.university/)
+- [Информирование о приеме на обучение](https://innopolis.university/sveden/apply/)
+- [День открытых дверей](https://apply.innopolis.university/open-day/)
+- [Образовательный грант](https://apply.innopolis.university/grant/)
+- [Олимпиадные бонусы](https://apply.innopolis.university/possibilities/)
+- [О механизме целевого обучения и правилах приема на целевое обучение](https://apply.innopolis.university/quotas/)
 - Высшее образование
-- Бакалавриат
-- Магистратура
-- Очная онлайн-магистратура
-- Аспирантура
-- Колледж
+- [Бакалавриат](https://apply.innopolis.university/bachelors/)
+- [Магистратура](https://apply.innopolis.university/masters/)
+- [Очная онлайн-магистратура](https://apply.innopolis.university/msonline/)
+- [Аспирантура](https://apply.innopolis.university/postgraduate-study/)
+- [Колледж](https://innopolis.college/)
 ## Колледж
 Среднее профессиональное образование на базе Университета Иннополис. Специальности: «Информационные системы и программирование», «Мехатроника и робототехника»
-- Довузовское образование
-- Образовательные программы для школьников
-- Олимпиада Иннополис Опен
-- Курсы ИТ-школы «Прогматика»
-- Проект «Партнерские школы»
-- Курсы повышения квалификации
-- Программирование и ИТ профессии
-- Бизнесу
-- Преподавателям и методистам
-- Специалистам по работе с персоналом
-- Опорный образовательный центр
-- Корпоративное обучение
+- [Довузовское образование](https://dovuz.innopolis.university/)
+- [Образовательные программы для школьников](https://dovuz.innopolis.university/)
+- [Олимпиада Иннополис Опен](https://dovuz.innopolis.university/pre-olympiads/innopolis-open)
+- [Курсы ИТ-школы «Прогматика»](https://progmatica.innopolis.university/)
+- [Проект «Партнерские школы»](https://dovuz.innopolis.university/partnerschools)
+- [Курсы повышения квалификации](https://innopolis.university/dpo-courses/)
+- [Программирование и ИТ профессии](https://stc.innopolis.university/)
+- [Бизнесу](https://corporate.innopolis.university/education/)
+- [Преподавателям и методистам](https://unionepro.ru/)
+- [Специалистам по работе с персоналом](https://stc.innopolis.university/careerinit)
+- [Опорный образовательный центр](https://innopolis.university/ooc/)
+- [Корпоративное обучение](https://corporate.innopolis.university/education/)
 ## Корпоративное обучение
 Образовательные программы для бизнеса по темам ИТ, цифровой трансформации, управления продуктами и инновациями. Ускоренная подготовка ИТ-специалистов
-- Институт дополнительного образования
-- Об Институте
-- Центр ИТ подготовки
-- Центр корпоративного обучения
+- [Институт дополнительного образования](https://innopolis.university/ido/)
+- [Об Институте](https://innopolis.university/ido/)
+- [Центр ИТ подготовки](https://stc.innopolis.university/)
+- [Центр корпоративного обучения](https://corporate.innopolis.university/education/)
 - Центр проектов и практик
 - Студентам
-- Стажировки и трудоустройство
-- Студенческая жизнь
-- Целевое обучение СПО
-- Стипендия 1519
-- Клуб выпускников
+- [Стажировки и трудоустройство](https://innopolis.university/upload/iblock/47a/eo2pz5s7rl9b2x8u57bu6qtp0gys52f0/partners.pdf)
+- [Студенческая жизнь](https://campuslife.innopolis.ru/main/)
+- [Целевое обучение СПО](https://innopolis.university/filespublic/celevoe_spo.pdf)
+- [Стипендия 1519](https://1519.innopolis.university/)
+- [Клуб выпускников](https://alumni.innopolis.university/)
 Stay in touch with your course mates and remain part of Inno-community
 ## Образование
 Программы обучения разработаны совместно с мировыми экспертами в сфере информатики, робототехники и программной инженерии с опытом работы в топ-100 вузов мира в партнерстве с компаниями IT‑индустрии
-- Абитуриентам
+- [Абитуриентам](https://apply.innopolis.university/)
 - Наука
-- Научная деятельность
+- [Научная деятельность](https://innopolis.university/science)
 ## Научная деятельность
 Сведения о научных разработках и инновационных проектах, осуществляемых учеными Университета Иннополис
 - Факультеты
-- Факультет компьютерных и инженерных наук
-- Факультет гуманитарных и социальных наук
-- Публикации
-- Международный студенческий обмен
-- Семинары
+- [Факультет компьютерных и инженерных наук](https://innopolis.university/team-structure/team-faculty/)
+- [Факультет гуманитарных и социальных наук](https://innopolis.university/team-structure/team-faculty2/)
+- [Публикации](https://innopolis.university/publikatsii)
+- [Международный студенческий обмен](https://innopolis.university/international-relations-office/)
+- [Семинары](https://innopolis.university/seminars/)
 Открытые научные семинары Университета Иннополис
-- НИР 2022
+- [НИР 2022](https://innopolis.university/nir2022/)
 Материалы третьей международной конференции «Нелинейность, информатика, робототехника 2022», 24 августа 2022 года
-- Диссертационный совет
+- [Диссертационный совет](https://dissovet.innopolis.university/)
 Диссертационный совет 75.2.113.01
 Совет создан на базе Университета Иннополис
 Принимает к защите докторские и кандидатские диссертации по следующим научным специальностям:
@@ -94,43 +94,44 @@ Stay in touch with your course mates and remain part of Inno-community
 ## Наука
 В Университете Иннополис действуют 17 лабораторий и 9 научных центров, в которых ведется исследовательская работа в области искусственного интеллекта, робототехники, big data, разработки ПО, информационной безопасности
 - Проекты
-- Проектная деятельность
+- [Проектная деятельность](https://innopolis.university/proekty/activity/)
 Проектная деятельность университета направлена на реализацию грантовых, частных и частно-государственных коммерческих проектов, а также на повышение доступности образования в сфере ИТ.
-- Технологические центры
-- Институт искусственного интеллекта
-- Центр геоинформационных систем
-- Центр индустриальных и промышленных решений
-- Центр информационной безопасности
-- Центр развития промышленной робототехники
-- Консалтинг
+- [Технологические центры](https://innopolis.university/team-structure/techcenters/)
+- [Институт искусственного интеллекта](https://innopolis.university/center-ai3/)
+- [Центр геоинформационных систем](https://innopolis.university/centergis/)
+- [Центр индустриальных и промышленных решений](https://innopolis.university/center-oil/)
+- [Центр информационной безопасности](https://innopolis.university/center-cybersecurity/)
+- [Центр развития промышленной робототехники](https://robotics-center.ru/)
+- [Консалтинг](https://innopolis.university/proekty/consulting/)
 Мы ориентированы на практический результат: научные исследования приводят к цифровым решениям, востребованным бизнесом и государством.
-- Стартап-студия
+- [Стартап-студия](https://innopolis.university/startupstudio/)
 Развитие и поддержка студенческих технологических стартапов: создаём стартап-комьюнити студентов и помогаем в поиске партнеров и инвестиций.
-- Трансфер технологий
+- [Трансфер технологий](https://innopolis.university/technologytransfercenter)
 Мы создаём условия для того, чтобы технологии и разработки Университета эффективно внедрялись в реальные секторы экономики.
-- Передовая инженерная школа
+- [Передовая инженерная школа](https://engineerschool.innopolis.university/)
 Подготовка нового поколения ИТ-инженеров для ускоренной разработки и внедрения российского программного обеспечения
 ## Проекты
 Исследуем и проектируем новые технологические решения совместно с ведущими ИТ-компаниями России, вендорами и 297 ведущих ИТ-компаний в партнерстве.
 - Сотрудничество
-- Организация мероприятий
+- [Организация мероприятий](https://innopolis.university/organizatsiya-i-provedenie-meropriyatiy/)
 Университет Иннополис — инновационная площадка для проведения форумов и конференций, деловых встреч и стратегических сессий, пленарных заседаний и обучающих семинаров, хакатонов и олимпиад.
-- Партнерские школы Университета Иннополис
+- [Партнерские школы Университета Иннополис](https://dovuz.innopolis.university/partnerschools)
 Станьте школой-партнером, чтобы вместе с нами обеспечить возможность детям получать качественное IT-образование независимо от места проживания ребенка.
-- Стать спонсором
+- [Стать спонсором](https://innopolis.university/sponsorship/)
 ## Университет Иннополис
 активно взаимодействует с партнерами по всему миру
-- Контакты
+- [Контакты](https://innopolis.university/contacts/)
 - ЛК
-- MY UNIVERSITY
-- Корпоративная почта
-- Корпоративный портал
-- Личный кабинет абитуриента
-- Личный кабинет школьника
-- Портал IT-help
+- [MY UNIVERSITY](https://my.university.innopolis.ru/)
+- [Корпоративная почта](https://mail.innopolis.ru/owa/auth/logon.aspx?replaceCurrent=1&url=https%3a%2f%2fmail.innopolis.ru%2fowa%2f)
+- [Корпоративный портал](https://portal.university.innopolis.ru/)
+- [Личный кабинет абитуриента](https://profile.innopolis.university/auth/login)
+- [Личный кабинет школьника](https://lk-dovuz.innopolis.university/profile/)
+- [Портал IT-help](https://it.university.innopolis.ru/otrs/customer.pl)
 Если у вас возникли проблемы с авторизацией, обратитесь в it@innopolis.ru
-Личный кабинет
-## Институт дополнительного образования
+[Личный кабинет](https://innopolis.university/lk/)
+![](https://innopolis.university/upload/landing/e9d/image_125@1x.jpg)
+## [Институт дополнительного образования](https://innopolis.university/ido/)
 ## Центр проектов и практик
 ## Наш опыт
 ## Реализация обучения в рамках федерального проекта «Кадры для Цифровой экономики»
@@ -143,23 +144,24 @@ Stay in touch with your course mates and remain part of Inno-community
 образовательных организаций подготовлено
 ### Образовательные программы для субъектов Российской Федерации
 Повышение квалификации представителей органов государственной власти и местного самоуправления, подведомственных организаций, а также подготовка регионов к цифровой трансформации.
-Узнать подробнее
+[Узнать подробнее](https://edu.innopolis.university/regions2022)
 ### Стратегические сессии
 Поможем сформировать единое для всех участников представление о желаемом будущем компании и составить план мероприятий на пути к нему
-Узнать подробнее
+[Узнать подробнее](https://corporate.innopolis.university/stratsession/)
 ### Аудит и ассесмент кадров. Комплексная диагностика процессов и кадров
 - Оценка готовности компании к автоматизации процесса
 - Оценка кадрового потенциала текущих сотрудников
 - Формирование кадрового резерва
 - Построение индивидуальных образовательных траекторий
-Узнать подробнее
+[Узнать подробнее](https://corporate.innopolis.university/assessment/)
 ### Образовательные программы по цифровой трансформации
 Обучение управленцев и команд CDO/CDTO-менеджеров в соответствии с требованиями цифровой экономики
 Узнать подробнее
 ## Управление цифровой трансформацией образовательных организаций
+![Вы обучаете сотрудников сами](https://innopolis.university/upload/landing/f90/druxtg7jmufnw4kpjdt3f6600zofx36o/i-79_1_@2x.jpg)
 Центр проектов и практик Университета Иннополис открыл пятый поток обучения на программу повышения квалификации «Управление цифровой трансформацией образовательных организаций». К участию приглашаются команды вузов и ссузов.
 После обучения образовательные учреждения получат профессиональную команду специалистов, которые смогут успешно и эффективно провести цифровую трансформацию учебного заведения. Проект стратегии цифровой трансформации обучающиеся разработают вместе с экспертами курса.
-Подробнее
+[Подробнее](https://edu.innopolis.university/cdtovuz)
 ## Образовательные программы по цифровой трансформации
 Введение в цифровую трансформацию
 Подготовка квалифицированных управленческих кадров органов власти и государственного управления: базовая программа.
@@ -174,7 +176,7 @@ Stay in touch with your course mates and remain part of Inno-community
 – Адаптация к меняющимся внешним условиям и обстоятельствам цифровой экономики
 – Развитие культуры работы с данными (сбор, хранение, обработка данных и принятие решений на основе данных)
 – Использование отраслевых цифровых продуктов в профессиональной деятельности
-Узнать подробнее
+[Узнать подробнее](https://edu.innopolis.university/regions/indt)
 Управление, основанное на данных
 Подготовка квалифицированных управленческих кадров органов власти и государственного управления.
 Для кого:сотрудники органов государственной власти всех уровней и подведомственных им организаций
@@ -265,7 +267,7 @@ CDO (Chief Data Officer) – руководитель по работе с да�
 — Управление данными и использование данных
 — Внедрение и сопровождение цифровых сервисов; Информационная безопасность
 — Подготовка проектов
-Узнать подробнее
+[Узнать подробнее](https://edu.innopolis.university/cdtovuz)
 Специалист по работе с данными
 Для кого: для экономистов и маркетологов, работников в сфере услуг, образовании и науке.
 Содержание программы:
@@ -281,13 +283,15 @@ CDO (Chief Data Officer) – руководитель по работе с да�
 - - полный курс лекций и практических занятий работа с наставником;
 - - выполнение практических заданий под контролем опытных наставников – практиков в области работы с данными;
 - - сопровождение на всех этапах обучения опытным и доброжелательным тьютором, который будет всегда на связи.
-Узнать подробнее
+[Узнать подробнее](https://edu.innopolis.university/dataspecialist)
+![](https://innopolis.university/upload/landing/309/IMG_4558@1x.jpg)
 ## Формирование команд для цифровой трансформации
 ## CDTO— CDO— дата-аналитик
 В ходе обучения формируются команды (CDTO — CDO — дата-аналитик), которые разрабатывают кейсы,
 актуальные для цифрового развития компании
-Смотреть презентацию
+[Смотреть презентацию](https://innopolis.university/filespublic/%D0%9A%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%81%D0%BD%D0%BE%D0%B5_%D0%BF%D1%80%D0%B5%D0%B4%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_%D1%80%D0%B5%D0%B3%D0%B8%D0%BE%D0%BD%D0%B0%D0%BC_25_03_2022.pdf)
 ## Подготовка образовательного контента
+![Вы обучаете сотрудников сами](https://innopolis.university/upload/landing/6a1/IMG_8910@2x.jpg)
 ## Разработка образовательных программ
 Составим программу обучения, разработаем дизайн, организуем съемку онлайн-курсов для системы корпоративного обучения (LMS)
 Наши компетенции:
@@ -303,43 +307,43 @@ CDO (Chief Data Officer) – руководитель по работе с да�
 ## Контакты
 Центр проектов и практик
 +7 (843) 203-95-22
-Telegram
+[Telegram](https://t.me/innokadriu)
 cpp@innopolis.ru
 Адрес
 420500, г. Иннополис, ул.Университетская, д.1,каб. 207
-Корпоративное обучение
+[Корпоративное обучение](https://corporate.innopolis.university/education/)
 24 образовательные программы
-Стратегическая сессия
+[Стратегическая сессия](https://corporate.innopolis.university/stratsession/)
 Анализируем производственные и бизнес-процессы
-Telegram
-VK
-YouTube
-- Об университете
-- Абитуриентам
-- Курсы повышения квалификации
-- Проектная деятельность
-- Передовая инженерная школа
-- Вакансии
-- Мерч УИ
-- Виртуальная экскурсия
-- Онлайн-курсы и повышение квалификации
+[Telegram](https://t.me/innokadriu?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
+[VK](https://vk.com/edtechiu?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
+[YouTube](https://www.youtube.com/user/InnopolisU?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
+- [Об университете](https://innopolis.university/about/)
+- [Абитуриентам](https://apply.innopolis.university/?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
+- [Курсы повышения квалификации](https://innopolis.university/dpo-courses/?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
+- [Проектная деятельность](https://innopolis.university/proekty/activity/)
+- [Передовая инженерная школа](https://engineerschool.innopolis.university/)
+- [Вакансии](https://career.innopolis.university/job?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
+- [Мерч УИ](http://iustore.innopolis.ru/?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
+- [Виртуальная экскурсия](https://panoroo.com/virtual-tours/NvQZM6B2?lang=ru&id=12&site=s1&template=university24&landing_mode=edit)
+- [Онлайн-курсы и повышение квалификации](https://t.me/inno_university_it_bot)
 Контакты
 - +7 (843) 203-92-53
 - university@innopolis.ru
-- 420500, г. Иннополис ул.Университетская, д.1
-- Как добраться
-- Ещё контакты
+- [420500, г. Иннополис ул.Университетская, д.1](https://innopolis.university/bitrix/admin/landing_view.php?lang=ru&id=396&site=s1&template=university24&landing_mode=edit#landing151?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
+- [Как добраться](http://www.innopolis.com/city/how-to-get/?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
+- [Ещё контакты](https://innopolis.university/contacts/)
 Пресс-служба
 - pr@innopolis.ru
-- Новости
-- Мероприятия
+- [Новости](https://media.innopolis.university/?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
+- [Мероприятия](https://media.innopolis.university/events/?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
 Полезные ссылки
-- Сведения об образовательной организации
-- Министерство цифрового развития, связи и массовых коммуникаций РФ
-- Министерство науки и высшего образования РФ
-- Конкурс на замещение вакантных должностей ППС
-- Политика конфиденциальности
-- «Горячая линия» ситуационного центра (COVID-2019): +7 (495) 198-00-00
-- Антитеррористическая деятельность
+- [Сведения об образовательной организации](https://innopolis.university/sveden/?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
+- [Министерство цифрового развития, связи и массовых коммуникаций РФ](https://digital.gov.ru/ru/?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
+- [Министерство науки и высшего образования РФ](https://minobrnauki.gov.ru/?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
+- [Конкурс на замещение вакантных должностей ППС](https://career.innopolis.university/konkursnyezayavkiprofessorskoprepodavatelskogosostava/)
+- [Политика конфиденциальности](https://innopolis.university/files/politicacookies.pdf?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
+- [«Горячая линия» ситуационного центра (COVID-2019): +7 (495) 198-00-00](https://www.minobrnauki.gov.ru/action/situational_center/?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
+- [Антитеррористическая деятельность](https://innopolis.university/antiterror/?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
 ## Мы используем файлы cookies
-Они помогают улучшить работу сайта и сделать его удобнее. Посещая страницы сайта, вы соглашаетесь с условиями использования файлов cookie.
+Они помогают улучшить работу сайта и сделать его удобнее. Посещая страницы сайта, вы соглашаетесь с [условиями использования](https://innopolis.university/public/files/Согласие%20на%20обработку%20ПДн%20для%20УИ.pdf) файлов cookie.

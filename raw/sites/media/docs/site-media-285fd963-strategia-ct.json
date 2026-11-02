@@ -1,0 +1,16 @@
+{
+ "title": "nnopolis.university/public/files/strategia ct",
+ "url": "https://innopolis.university/public/files/strategia_ct.pdf",
+ "sha256": "f45539399a8d0282194021e7500b1b7f49fd99ba37cbe9a7d2567319415ddebf",
+ "method": "text layer (opendataloader)",
+ "chars": 62084,
+ "tables": 5,
+ "section": "site/media",
+ "context": "",
+ "fetched_at": "2026-11-01T23:10:11+00:00",
+ "remote": {
+  "etag": "\"3d257c-61312d2412e29\"",
+  "modified": "Thu, 07 Mar 2024 14:23:38 GMT",
+  "size": "4007292"
+ }
+}

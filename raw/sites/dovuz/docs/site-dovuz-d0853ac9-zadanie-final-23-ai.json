@@ -1,0 +1,16 @@
+{
+ "title": "zadanie final 23 ai",
+ "url": "https://lk-dovuz.innopolis.university/public/files/zadanie_final_23_ai.pdf",
+ "sha256": "c6d20971f1e0b73a21c671937d01b27ba4f5c2dd0d72ea988ec3ee03a6da9835",
+ "method": "text layer (opendataloader)",
+ "chars": 11882,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:27+00:00",
+ "remote": {
+  "etag": "\"311e2-5fbb51cd61dc0\"",
+  "modified": "Mon, 15 May 2023 05:56:15 GMT",
+  "size": "201186"
+ }
+}

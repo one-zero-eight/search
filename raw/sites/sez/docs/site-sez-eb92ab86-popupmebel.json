@@ -1,0 +1,16 @@
+{
+ "title": "Правила предоставления мебели в пользование",
+ "url": "https://sezinnopolis.ru/upload/new-files/rent/popup-mebel.docx",
+ "sha256": "4f7644870dd88ad56b751f29a23e7ab5cc0dac7db7e25ffcfabbe36723859a60",
+ "method": "text layer (opendataloader)",
+ "chars": 3260,
+ "tables": 5,
+ "section": "site/sez",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:31+00:00",
+ "remote": {
+  "etag": "\"6984579a-16200\"",
+  "modified": "Thu, 05 Feb 2026 08:40:58 GMT",
+  "size": "90624"
+ }
+}

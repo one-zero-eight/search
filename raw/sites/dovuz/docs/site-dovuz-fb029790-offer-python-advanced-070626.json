@@ -1,0 +1,16 @@
+{
+ "title": "offer python advanced 070626",
+ "url": "https://lk-dovuz.innopolis.university/public/files/offer_python_advanced_070626.pdf",
+ "sha256": "2e516e7d1a01d4cd84e5fd3f0fdd387459d6b6a3f8a083ff1f7220b104a73b5d",
+ "method": "text layer (opendataloader)",
+ "chars": 33751,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"6c24e-64b290c473700\"",
+  "modified": "Thu, 19 Feb 2026 08:25:32 GMT",
+  "size": "442958"
+ }
+}

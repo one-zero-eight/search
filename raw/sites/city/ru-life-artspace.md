@@ -1,0 +1,187 @@
+О городе Переезд в Иннополис Образование Бизнес Еще
+Рус
+[Медицина](https://innopolis.com/ru/life/medicine)
+[Туризм](https://innopolis.com/ru/tourism)
+[Организации и услуги](https://innopolis.com/ru/services)
+[Фото и видео](https://innopolis.com/ru/media/gallery)
+[Для СМИ](https://innopolis.com/ru/media)
+[Мерч Иннополиса](https://innopolis.com/ru/merch)
+[Eng](https://innopolis.com/en/life/artspace)
+[Тат](https://innopolis.com/tt/life/artspace)
+[История города](https://innopolis.com/ru/city/history)
+[Как добраться](https://innopolis.com/ru/city/how-to-get)
+[Расписание автобусов](https://innopolis.com/ru/city/bus-schedule)
+[Карта города](https://innopolis.com/ru/city/map)
+[О городе](https://innopolis.com/ru/city)
+[Приезжайте в гости!](https://innopolis.com/ru/tourism)
+[Мы проводим экскурсии](https://innopolis.com/ru/tourism)
+[![](https://innopolis.com/uploads/headmenu/bgmenu1-5655e06adf.jpg)](https://innopolis.com/ru/tourism)
+Полезное
+[Мероприятия](https://innopolis.com/ru/media/events)
+[Вакансии](https://innopolis.com/ru/life/vacancies)
+Культурная жизнь
+[Жильё](https://innopolis.com/ru/life/housing)
+[Как переехать](https://innopolis.com/ru/life/how-to-relocation)
+[Истории жителей](https://innopolis.com/ru/life/stories)
+[Переезд в Иннополис](https://innopolis.com/ru/life)
+[Только переехали? Посмотрите онбординг для нового жителя](https://onboarding.innopolis.ru)
+[![](https://innopolis.com/uploads/headmenu/bgmenu2-05fb66b255.jpg)](https://onboarding.innopolis.ru)
+Полезное
+[Аренда жилья](https://innopolis.com/ru/life/housing/rental)
+[Покупка квартир](https://innopolis.com/ru/life/housing/apartments)
+[Таунхаусы](https://innopolis.com/ru/life/housing/townhouses)
+[Университет Иннополис](https://innopolis.com/ru/services/innopolis-university)
+[Лицей Иннополис](https://innopolis.com/ru/services/innopolis-lyceum)
+[Школа](https://innopolis.com/ru/services/innopolis-school)
+[Детский сад](https://innopolis.com/ru/services/kindergarten)
+[Детская школа искусств](https://innopolis.com/ru/services/childrens-school-of-art)
+[Колледж Иннополис](https://innopolis.com/ru/services/innopolis-college)
+[Участвуйте в грантовом конкурсе на поступление в университет](https://innopolis.com/ru/services/innopolis-university)
+[![](https://innopolis.com/uploads/headmenu/bgmenu3-11f7008f0d.jpg)](https://innopolis.com/ru/services/innopolis-university)
+А еще у нас есть
+[IT-курсы](https://innopolis.com/ru/services/it-courses)
+[IT-лагерь Innocamp](https://innopolis.com/ru/services/innocamp)
+[Языковая школа Ispeaker](https://innopolis.com/ru/services/language-school-ispeaker)
+[Центр для детей «Белый лис»](https://innopolis.com/ru/services/the-white-fox-childrens-center)
+[Особая экономическая зона](https://innopolis.com/ru/business/sez)
+[Технопарки](https://innopolis.com/ru/business/sez/technoparks)
+[Будущие проекты](https://innopolis.com/ru/business/future)
+[Городской бизнес](https://innopolis.com/ru/business/in-city)
+[Бизнес](https://innopolis.com/ru/business)
+[73,8 млрд рублей привлеченных инвестиций](https://innopolis.com/ru/business/sez)
+[![](https://innopolis.com/uploads/headmenu/bgmenu4-ea3077792c.jpg)](https://innopolis.com/ru/business/sez)
+Для IT-компаний
+[Стать резидентом](https://sezinnopolis.ru/forcompanies/)
+[Стартапам](https://sezinnopolis.ru/startapam/)
+[Сервисы ОЭЗ](https://sezinnopolis.ru/rentandservice/)
+[Главная](https://innopolis.com/ru/) [Переезд в Иннополис](https://innopolis.com/ru/life) Артспейс
+## Артспейс
+Центр культурной жизни Иннополиса
+![](https://innopolis.com/uploads/thumbs/artspejs-e8383b38c1-6ccfb74d781cdb7499fd86cd9dc69e89.jpeg)
+25 творческих секций
+Для детей и взрослых
+[Записаться](https://t.me/ArtSpaceInno)
+120 киносеансов
+в месяц
+Фестивальное и популярное кино
+[Расписание и билеты](https://innopoliscinema.ru)
+268 событий в год
+Мастер-классы, концерты, воркшопы
+[Ближайшие события](https://t.me/ArtSpaceEvents)
+## Площадка для творческого развития
+Городское пространство «Артспейс» отвечает за культурную жизнь города. Здесь проходят концерты, спектакли, вечеринки и выставки. Также в Артспейсе находятся студия звукозаписи и мастерская, проводятся творческие занятия для детей и взрослых
+## Кино&Театр
+С 2021 года в Артспейсе работает «Кино&Театр». Там показывают фестивальные и популярные фильмы в русской или оригинальной озвучках. Программу фильмов составляет петербургский «Кино&Театр» в Англетере.
+[Репертуар](https://innopoliscinema.ru/ru/films)
+## Возможности площадки
+В городском пространстве можно провести концерт, конференцию и даже свадьбу
+[Смотреть презентацию](https://disk.yandex.ru/i/dRBaf6U5nPaBoQ)
+![](https://innopolis.com/uploads/pages/inno5-cea8f0f40f.jpg)
+## Чем заняться
+Более 25 кружков для взрослых и детей
+[посмотреть все](https://innopolis.com/ru/services/?type[]=14)
+[![](https://innopolis.com/uploads/thumbs/img9481-b47efa8379-6c0f4f3218ded9517d7fc0e6212f55fb.jpeg)](https://innopolis.com/ru/services/dancing-and-gymnastics)
+[Танцы и гимнастика](https://innopolis.com/ru/services/dancing-and-gymnastics)
+[ул.Парковая, 1](https://innopolis.com/ru/services/dancing-and-gymnastics)
+[![](https://innopolis.com/uploads/thumbs/zhv0183-402b2f4600-72bc1c65053a6930ede8b162d24a9e2d.jpeg)](https://innopolis.com/ru/services/vocal-classes-for-both-children-and-adults)
+[Вокал для детей и взрослых](https://innopolis.com/ru/services/vocal-classes-for-both-children-and-adults)
+[ул.Парковая, 1](https://innopolis.com/ru/services/vocal-classes-for-both-children-and-adults)
+[![](https://innopolis.com/uploads/thumbs/photo25-8c67d76747-96f15fb92143af14d123a05bf857946d.jpeg)](https://innopolis.com/ru/services/language-learning)
+[Изучение языков](https://innopolis.com/ru/services/language-learning)
+[ул.Парковая, 1](https://innopolis.com/ru/services/language-learning)
+## Иннополис, сейчас
+[Все мероприятия](https://innopolis.com/ru/media/events/)
+[26 октября — 01 ноября 2026](https://innopolis.com/ru/media/events/events-of-the-week-67)
+[Мероприятия недели](https://innopolis.com/ru/media/events/events-of-the-week-67)
+[![](https://innopolis.com/uploads/thumbs/frame-72-21-c35268024d-d6bae6fc5ec2b352ea70591060d3006a.jpeg)](https://innopolis.com/ru/media/events/events-of-the-week-67)
+[29 октября — 08 ноября 2026](https://innopolis.com/ru/media/events/autumn-holidays-in-innopolis-2)
+[Осенние каникулы в Иннополисе](https://innopolis.com/ru/media/events/autumn-holidays-in-innopolis-2)
+[![](https://innopolis.com/uploads/thumbs/frame-72-20-63da87e772-4f006d6f9246b8f2aca888eb1eca3186.jpeg)](https://innopolis.com/ru/media/events/autumn-holidays-in-innopolis-2)
+Приезжайте в гости
+[Организации и услуги](https://innopolis.com/ru/services)
+[Бытовые услуги](https://innopolis.com/ru/services?type[]=17)
+[Городские сервисы](https://innopolis.com/ru/services?type[]=16)
+[Кафе и рестораны](https://innopolis.com/ru/services?type[]=11)
+[Кружки и секции](https://innopolis.com/ru/services?type[]=14)
+[Магазины](https://innopolis.com/ru/services?type[]=6)
+[Медицина](https://innopolis.com/ru/services?type[]=7)
+[Образование](https://innopolis.com/ru/services?type[]=9)
+[Спортивные услуги](https://innopolis.com/ru/services?type[]=12)
+[О городе](https://innopolis.com/ru/city)
+[История города](https://innopolis.com/ru/city/history)
+[Мероприятия](https://innopolis.com/ru/media/events)
+[Расписание автобусов](https://innopolis.com/ru/city/bus-schedule)
+[Вакансии](https://innopolis.com/ru/life/vacancies)
+[Университет Иннополис](https://innopolis.com/ru/services/innopolis-university)
+[Как поступить](https://innopolis.university)
+[IT-курсы](https://innopolis.com/ru/services/it-courses)
+Сервис заботы о жителях
+и гостях города
+Поможем найти ответ на твой вопрос
++7 (800) 222-22-87
+[t.me/InnopolisHelp](https://t.me/InnopolisHelp)
+Мы открыты для твоих идей
+Пиши, если знаешь, как сделать город лучше
+helpme@innopolis.ru
+© Иннополис, 2026
+[Дизайн и разработка Pinkman](https://pinkman.ru)
+О городе
+[История города](https://innopolis.com/ru/city/history)
+[Как добраться](https://innopolis.com/ru/city/how-to-get)
+[Расписание автобусов](https://innopolis.com/ru/city/bus-schedule)
+[Карта города](https://innopolis.com/ru/city/map)
+[О городе](https://innopolis.com/ru/city)
+[Приезжайте в гости!](https://innopolis.com/ru/tourism)
+[Мы проводим экскурсии](https://innopolis.com/ru/tourism)
+[![](https://innopolis.com/uploads/headmenu/bgmenu1-5655e06adf.jpg)](https://innopolis.com/ru/tourism)
+Полезное
+[Мероприятия](https://innopolis.com/ru/media/events)
+[Вакансии](https://innopolis.com/ru/life/vacancies)
+Культурная жизнь
+Переезд в Иннополис
+[Жильё](https://innopolis.com/ru/life/housing)
+[Как переехать](https://innopolis.com/ru/life/how-to-relocation)
+[Истории жителей](https://innopolis.com/ru/life/stories)
+[Переезд в Иннополис](https://innopolis.com/ru/life)
+[Только переехали? Посмотрите онбординг для нового жителя](https://onboarding.innopolis.ru)
+[![](https://innopolis.com/uploads/headmenu/bgmenu2-05fb66b255.jpg)](https://onboarding.innopolis.ru)
+Полезное
+[Аренда жилья](https://innopolis.com/ru/life/housing/rental)
+[Покупка квартир](https://innopolis.com/ru/life/housing/apartments)
+[Таунхаусы](https://innopolis.com/ru/life/housing/townhouses)
+Образование
+[Университет Иннополис](https://innopolis.com/ru/services/innopolis-university)
+[Лицей Иннополис](https://innopolis.com/ru/services/innopolis-lyceum)
+[Школа](https://innopolis.com/ru/services/innopolis-school)
+[Детский сад](https://innopolis.com/ru/services/kindergarten)
+[Детская школа искусств](https://innopolis.com/ru/services/childrens-school-of-art)
+[Колледж Иннополис](https://innopolis.com/ru/services/innopolis-college)
+[Участвуйте в грантовом конкурсе на поступление в университет](https://innopolis.com/ru/services/innopolis-university)
+[![](https://innopolis.com/uploads/headmenu/bgmenu3-11f7008f0d.jpg)](https://innopolis.com/ru/services/innopolis-university)
+А еще у нас есть
+[IT-курсы](https://innopolis.com/ru/services/it-courses)
+[IT-лагерь Innocamp](https://innopolis.com/ru/services/innocamp)
+[Языковая школа Ispeaker](https://innopolis.com/ru/services/language-school-ispeaker)
+[Центр для детей «Белый лис»](https://innopolis.com/ru/services/the-white-fox-childrens-center)
+Бизнес
+[Особая экономическая зона](https://innopolis.com/ru/business/sez)
+[Технопарки](https://innopolis.com/ru/business/sez/technoparks)
+[Будущие проекты](https://innopolis.com/ru/business/future)
+[Городской бизнес](https://innopolis.com/ru/business/in-city)
+[Бизнес](https://innopolis.com/ru/business)
+[73,8 млрд рублей привлеченных инвестиций](https://innopolis.com/ru/business/sez)
+[![](https://innopolis.com/uploads/headmenu/bgmenu4-ea3077792c.jpg)](https://innopolis.com/ru/business/sez)
+Для IT-компаний
+[Стать резидентом](https://sezinnopolis.ru/forcompanies/)
+[Стартапам](https://sezinnopolis.ru/startapam/)
+[Сервисы ОЭЗ](https://sezinnopolis.ru/rentandservice/)
+[Медицина](https://innopolis.com/ru/life/medicine)
+[Туризм](https://innopolis.com/ru/tourism)
+[Организации и услуги](https://innopolis.com/ru/services)
+[Фото и видео](https://innopolis.com/ru/media/gallery)
+[Для СМИ](https://innopolis.com/ru/media)
+[Мерч Иннополиса](https://innopolis.com/ru/merch)
+Рус
+Мы используем [cookies](https://innopolis.com/ru/cookies)
+[![](https://innopolis.com/assets/35e2bb10/img/content/ill-telegram.png)](https://t.me/InnopolisHelp)
+[Есть вопросы?Напишите нам](https://t.me/InnopolisHelp)

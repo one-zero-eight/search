@@ -1,0 +1,16 @@
+{
+ "title": "usloviya zadach 1 tur ru",
+ "url": "https://lk-dovuz.innopolis.university/public/files/usloviya_zadach_1_tur_ru.pdf",
+ "sha256": "422656d3ff0accf1cf7f34f18fb22c589f1d6cbffd6c1c1f2dfccb4ae164cef4",
+ "method": "text layer (opendataloader)",
+ "chars": 14143,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:27+00:00",
+ "remote": {
+  "etag": "\"e5d8e-64ff81cbe9640\"",
+  "modified": "Tue, 21 Apr 2026 13:08:33 GMT",
+  "size": "941454"
+ }
+}

@@ -1,21 +1,21 @@
-Меню Закрыть EN
-Войти
+Меню Закрыть [EN](https://new.innopolis.university/en/)
+[Войти](https://profile.innopolis.university/)
 - Образование
 - Контакты
 С 2012 года готовим высококвалифицированные кадры в области информационных технологий, искусственного интеллекта и робототехники
-О возможностях образования
+[О возможностях образования](https://apply.innopolis.university/possibilities/)
 Поступающим
-Абитуриенту Бакалавриат Магистратура Онлайн-магистратура Аспирантура Колледж
+[Абитуриенту](https://apply.innopolis.university/) [Бакалавриат](https://apply.innopolis.university/bachelors/) [Магистратура](https://apply.innopolis.university/masters/) [Онлайн-магистратура](https://apply.innopolis.university/msonline/) [Аспирантура](https://apply.innopolis.university/postgraduate-study/) [Колледж](https://innopolis.college/)
 Гранты и стипендии
-Возможности поступления Стипендии Олимпиадные бонусы
+[Возможности поступления](https://apply.innopolis.university/possibilities/) [Стипендии](https://apply.innopolis.university/scholarship/) [Олимпиадные бонусы](https://apply.innopolis.university/olympiad-bonus/)
 Другие возможности поступления
-Квоты Поступление после СПО Поступление граждан СНГ
+[Квоты](https://apply.innopolis.university/quotas/) [Поступление после СПО](https://apply.innopolis.university/spo/) [Поступление граждан СНГ](https://apply.innopolis.university/sng/)
 Посетить иннополис
-Дни открытых дверей
+[Дни открытых дверей](https://apply.innopolis.university/open-day/)
 Проживание в университете
-Кампус
+[Кампус](https://apply.innopolis.university/campus/)
 Довузовская подготовка
-Олимпиады Онлайн-курсы подготовки к поступлению Очные программы для школьников
+[Олимпиады](https://dovuz.innopolis.university/pre-olympiads/innopolis-open) [Онлайн-курсы подготовки к поступлению](https://dovuz.innopolis.university/preparation) [Очные программы для школьников](https://dovuz.innopolis.university/offline-programms)
 режим работы
 пн-пт, 09:00–18:00 (Мск)
 Телефон
@@ -25,9 +25,9 @@ university@innopolis.ru
 адрес
 420500, г. Иннополис
 ул.Университетская, д.1
-Все контакты
-Главная страница Онлайн-магистратура Управление разработкой компьютерных игр
-выбирай будущее,
+[Все контакты](https://innopolis.university/contacts/)
+[Главная страница](https://apply.innopolis.university/) [Онлайн-магистратура](https://apply.innopolis.university/msonline/) Управление разработкой компьютерных игр
+![](https://apply.innopolis.university/local/js/innopolis/dist/images/program-intro/2.webp) выбирай будущее, ![](https://apply.innopolis.university/local/js/innopolis/dist/images/program-intro/1.webp)
 поступай в Университет Иннополис
 ## управление разработкой компьютерных игр
 язык обучения
@@ -42,37 +42,51 @@ university@innopolis.ru
 1 сентября 2026
 стоимость обучения
 390 000 ₽ в год
-Подать документы День открытых дверей Получить консультацию
+Подать документы [День открытых дверей](https://apply.innopolis.university/open-day/) [Получить консультацию](https://t.me/IU_Dinara)
 ## О профиле подготовки
 НА РУССКОМ
 ## Управление разработкой компьютерных игр
 Это профиль для тех, кто хочет создавать успешные игровые проекты и строить карьеру в многомиллиардной индустрии геймдева.
 Студенты научатся управлять полным циклом разработки игр — от генерации идей и прототипирования до публикации и монетизации. Освоят геймдизайн, игровую экономику, менеджмент игровых проектов и методы продвижения на глобальном рынке.
+![](https://apply.innopolis.university/local/js/innopolis/dist/images/about-profile.webp)
 ## Преподавательский состав
+![](https://apply.innopolis.university/upload/resize_cache/iblock/965/t2dedvxf9vq3aadxq36i8eu0fp25z5w1/470_540_2/20.jpg)
 ## Андрей Зыков
 Доктор философии в Техасском университете в Остине, работал в компании Cadence Design Systems. Имеет значительный опыт исследовательской работы в области компьютерной инженерии, работы в международных проектах
+![](https://apply.innopolis.university/upload/resize_cache/iblock/04f/6mf2b4odyvklwjorys6n9g8n0i035xwg/470_540_2/36.jpg)
 ## Виктор Звягинский
 Геймдиректор инди-студии Террабайт Геймс, основал свой стартап, с известным блогером разрабатывает игру «Убеги от меня. Александра»
+![](https://apply.innopolis.university/upload/resize_cache/iblock/fca/78o8xxxle8haxdjs9f85pttbae2y1tae/470_540_2/38.jpg)
 ## Вячеслав Уточкин
 Игровой продюсер, со-основатель и генеральный продюсер игровой студии разработки и издательства мобильных игр Geeky House
+![](https://apply.innopolis.university/upload/resize_cache/iblock/ae2/fgctrshox2kv0m5pea0mx0nlsbm7knno/470_540_2/40.jpg)
 ## Гульнара Сахибгареева
 Продакт-менеджер и нарративный дизайнер студий Винторог и Contrast Games, ведущий нарративный дизайнер игры Breathedge: Cosmic Cluck
+![](https://apply.innopolis.university/upload/resize_cache/iblock/35c/lp02r7uz26dpeyzy4koxqkstnqqvxvn5/470_540_2/45.jpg)
 ## Евгений Пономарев
 Продюсер и руководитель студии Earworm studio, основатель Enplex games и Earworm studio, работал в компаниях Nival, mail.ru, Disney. Участвовал в разработке тайтлов Бойцовский клуб, Аллоды онлайн, HOMM5, Population Zero
+![](https://apply.innopolis.university/upload/resize_cache/iblock/1ca/ejrwwm1awx1qce1yh2t6w2r3s3afaxse/470_540_2/48.jpg)
 ## Иван Белявцев
 Ведущий разработчик в BIFIT Mitigator. До 2022 года работал в NVIDIA старшим инженером по развитию технологий в компьютерной графике
+![](https://apply.innopolis.university/upload/resize_cache/iblock/6ce/3ledeyrd6quihzkj3rpi58hp99hulwr4/470_540_2/54.jpg)
 ## Искандер Гатауллин
 Кандидат наук, доцент КФУ, нарративный дизайнер в компании «Винторог», геймдизайнер в B2B и B2C секторах
+![](https://apply.innopolis.university/upload/resize_cache/iblock/398/y3icdzk3635skyx2z1fq54v2svdzzatq/470_540_2/60.jpg)
 ## Константин Кондюков
 Программист, технический директор в геймдев-стартапе, тимлид в компании «Фоксфорд», разработчик собственной игры Sumo Tatami, директор по развитию фонда IndieGo
+![](https://apply.innopolis.university/upload/resize_cache/iblock/ce6/8e563wwm44ypyghc8d2nqwpv5jk586e0/470_540_2/61.jpg)
 ## Константин Сахнов
 Основатель российской студии Vengeance Games, директор по геймдизайну в студии Amazon Prime Gaming, директор студии Datcroft Games
+![](https://apply.innopolis.university/upload/resize_cache/iblock/b8d/4qrfzp52bzzwug87r8kb0kue5ub83q96/470_540_2/64.jpg)
 ## Максим Николаев
 Продюсер, сооснователь компании «ГостТим», бывший руководитель киберспортивного направления World of Tanks, исполнительный продюсер департамента R&D в Wargaming
+![](https://apply.innopolis.university/upload/resize_cache/iblock/7c7/3h317wn1nwwvpanzxnh1b9jfk8i57x3s/470_540_2/77.jpg)
 ## Сергей Гимельрейх
 Основатель творческого пространства авторов игр «Индикатор», сооснователь проекта «Манжеты ГД», участвовал в разработке игр: «Шарарам», «Стальная Ярость: Харьков 1943»
+![](https://apply.innopolis.university/upload/resize_cache/iblock/056/0uw3x2ctzpdld2no68jom61rnttwqwnt/470_540_2/78.jpg)
 ## Сергей Голубкин
 Основатель издательства настольных игр GEMENOT, бывший продюсер Nival и Ubisoft, ведущий научный сотрудник лаборатории искусственного интеллекта и больших данных МФТИ
+![](https://apply.innopolis.university/upload/resize_cache/iblock/f3e/zndkzhjxavdyw9qxco8gs5xot4sq5tj1/470_540_2/83.jpg)
 ## Филипп Мищенко
 Эксперт в области инвестиционного права и издательской деятельности, руководитель игрового направления в компании GMT Legal, Chief Business Development Officer в компании Artstorm FZE
 ## Смотрите видео о программе подготовки
@@ -140,7 +154,7 @@ Adobe Photoshop
 Affinity Designer
 Affinity Photo
 Figma
-Mixamo
+![](https://apply.innopolis.university/upload/iblock/3a6/mwkwztat7cuc5ih87k2dc3vrnzqllmvh/Mixamo_Logo%201.png) Mixamo
 GIMP
 ## Навыки
 Создавать 2D- и 3D-игры
@@ -178,7 +192,9 @@ GIMP
 ## Диплом о высшем образовании Университета Иннополис
 Выпускники получают диплом государственного образца одного из ведущих ИТ-вузов России
 ## Где проходит практика
+![](https://apply.innopolis.university/local/js/innopolis/dist/images/practice-companies/ak-bars.webp)
 ## Партнеры программы
+![](https://apply.innopolis.university/upload/landing/408/iwd2r6y52g4go0bxykkwty88gczrsk6c/vk_play_1x.png)
 ## Часто задаваемые вопросы
 По окончании обучения вы получите диплом магистра государственного образца
 Формат дистанционного обучения позволяет учиться удаленно из любого города, приезжать в Иннополис не нужно даже на вручение диплома.
@@ -195,32 +211,33 @@ GIMP
 Обучение по программам онлайн-магистратуры начинается 1 сентября
 ## Стажировки и программы обмена
 Участие в международных конференциях, программы в вузах-партнерах и проекты с индустрией
-Подробнее о возможностях
+[Подробнее о возможностях](https://innopolis.university/international-relations-office/)
 ## Другие программы
-## Информационное технологическое предпринимательство
-Станьте технологическим предпринимателем: изучите весь потенциал использования ИИ для создания и масштабирования цифровых продуктов
-Подробнее
-## Управление цифровым продуктом
-Станьте продуктовым лидером: изучите полный цикл создания цифрового продукта от идеи до масштабирования
-Подробнее
-## Кибербезопасность
-Освойте полный цикл кибербезопасности на практике: от атак до защиты и управления SOC в партнёрстве с Positive Technologies
-Подробнее
-## Управление на основе данных
-Научитесь управлять компаниями и проектами, используя современные методы анализа данных
-Подробнее
+## [Информационное технологическое предпринимательство](https://apply.innopolis.university/msonline/zerocoder/)
+[Станьте технологическим предпринимателем: изучите весь потенциал использования ИИ для создания и масштабирования цифровых продуктов](https://apply.innopolis.university/msonline/zerocoder/)
+[Подробнее](https://apply.innopolis.university/msonline/zerocoder/)
+## [Управление цифровым продуктом](https://apply.innopolis.university/msonline/dpm/)
+[Станьте продуктовым лидером: изучите полный цикл создания цифрового продукта от идеи до масштабирования](https://apply.innopolis.university/msonline/dpm/)
+[Подробнее](https://apply.innopolis.university/msonline/dpm/)
+## [Кибербезопасность](https://apply.innopolis.university/msonline/cybersecurity/)
+[Освойте полный цикл кибербезопасности на практике: от атак до защиты и управления SOC в партнёрстве с Positive Technologies](https://apply.innopolis.university/msonline/cybersecurity/)
+[Подробнее](https://apply.innopolis.university/msonline/cybersecurity/)
+## [Управление на основе данных](https://apply.innopolis.university/msonline/ddm/)
+[Научитесь управлять компаниями и проектами, используя современные методы анализа данных](https://apply.innopolis.university/msonline/ddm/)
+[Подробнее](https://apply.innopolis.university/msonline/ddm/)
 ## Полезное
-## Об университете
-## Все программы
-## Очная магистратура
-## Аспирантура
+## [Об университете](https://innopolis.university/)
+## [Все программы](https://apply.innopolis.university/msonline/)
+## [Очная магистратура](https://apply.innopolis.university/masters/)
+## [Аспирантура](https://apply.innopolis.university/postgraduate-study/)
+![](https://apply.innopolis.university/upload/landing/842/c87oyu22eofs0z6f4vn4jad8xeb0riut/1674231072_1x.png)
 Приемная комиссия Университета Иннополис
-Связаться в телеграм
+[Связаться в телеграм](https://t.me/iu_support)
 круглосуточно
 8 843 203 92 53 (д.911)
 круглосуточно
-t.me/iu_support
-max.ru/uni_support_bot
+[t.me/iu_support](https://t.me/iu_support)
+[max.ru/uni_support_bot](https://max.ru/uni_support_bot)
 круглосуточно
 admissions@innopolis.ru
 ## Оставьте заявку или получите консультацию
@@ -233,24 +250,24 @@ admissions@innopolis.ru
 - admissions@innopolis.ru
 420500, г. Иннополис,
 ул. Университетская, 1
-- VK
-- Telegram
-- Youtube
-- VK Video
-- Об университете
-- Бакалавриат
-- Магистратура
-- Аспирантура
-- Колледж
-- Возможности поступления
-- День открытых дверей
-- Сведения об образовательной организации
-- Политика конфиденциальности
-- Антитеррористическая деятельность
-- Министерство цифрового развития, связи и массовых коммуникаций РФ
-- Министерство науки и высшего образования Российской Федерации
-- Министерство просвещения Российской Федерации
-## Спасибо!
+- [VK](https://vk.com/innopolisadmissions)
+- [Telegram](https://t.me/apply_innopolis)
+- [Youtube](https://youtube.com/@innopolisu)
+- [VK Video](https://vkvideo.ru/@innopolisadmissions)
+- [Об университете](https://innopolis.university/about/)
+- [Бакалавриат](https://apply.innopolis.university/bachelors/)
+- [Магистратура](https://apply.innopolis.university/masters/)
+- [Аспирантура](https://apply.innopolis.university/postgraduate-study/)
+- [Колледж](https://innopolis.college/)
+- [Возможности поступления](https://apply.innopolis.university/possibilities/)
+- [День открытых дверей](https://apply.innopolis.university/open-day/)
+- [Сведения об образовательной организации](https://innopolis.university/sveden/)
+- [Политика конфиденциальности](https://innopolis.university/files/politicacookies.pdf)
+- [Антитеррористическая деятельность](https://innopolis.university/antiterror/)
+- [Министерство цифрового развития, связи и массовых коммуникаций РФ](https://digital.gov.ru/ru/)
+- [Министерство науки и высшего образования Российской Федерации](https://minobrnauki.gov.ru/)
+- [Министерство просвещения Российской Федерации](https://edu.gov.ru/)
+## ![](https://apply.innopolis.university/local/js/innopolis/dist/images/status-ok-dark.webp) Спасибо!
 Ваше обращение получено. Мы свяжемся с Вами в ближайшее время.
-## Ошибка
+## ![](https://apply.innopolis.university/local/js/innopolis/dist/images/status-error-dark.webp) Ошибка
 Не удалось отправить Ваше обращение. Попробуйте повторно или отправьте обращение на почту innopolis@help.ru.

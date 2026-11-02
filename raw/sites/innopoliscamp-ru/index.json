@@ -1,0 +1,77 @@
+{
+ "docs": {},
+ "pages": {
+  "fizteh": {
+   "fetched_at": "2026-11-01T22:38:07+00:00",
+   "file_sha": "6d5463ff1410d9b7649028aef18ae55bb1133103718fe3d55521a40efb031550",
+   "last_modified": "",
+   "sha256": "0efff6ecd3444b9e469bcf23cc3477ce5d7e3735bb5aaacd02043d7047b3ad8d",
+   "title": "Детский IT-лагерь INNOCAMP в Иннополисе",
+   "url": "https://innopoliscamp.ru/fizteh"
+  },
+  "glavnaya": {
+   "fetched_at": "2026-11-01T22:38:00+00:00",
+   "file_sha": "3bad3b13ef281791582e6b28fb872d9a61fca925a8f78e2a78221b148dd07b97",
+   "last_modified": "",
+   "sha256": "5bdb5c62152565038059d541a74532389b237aeaba923800fa84a8acb4de213e",
+   "title": "8-967-773-05-89mail@innopoliscamp.ru",
+   "url": "https://innopoliscamp.ru/glavnaya"
+  },
+  "home": {
+   "fetched_at": "2026-11-01T22:37:57+00:00",
+   "file_sha": "d4b290fe6ed2d74790e0be9d9c9fbe6baa07207d1be83388ef190dc28777669b",
+   "last_modified": "",
+   "sha256": "507319df7bd0aa3678fd2836f16b9ae2aa647b2daec4a7a803ddfd7c0100dd7b",
+   "title": "Детский IT-лагерь INNOCAMP в Иннополисе",
+   "url": "https://innopoliscamp.ru/"
+  },
+  "ofertafizteh": {
+   "fetched_at": "2026-11-01T22:38:13+00:00",
+   "file_sha": "ab2aab8ef76a5fd1bab77e59134528bb9b4212fa1d0d60cf87b9a12f09e23aac",
+   "last_modified": "",
+   "sha256": "72069e92f3ad301425fb9d5a39173adf1dad57faa991588e5371fefe82db93ed",
+   "title": "+7-967-773-05-89mail@innopoliscamp.ru",
+   "url": "https://innopoliscamp.ru/ofertafizteh"
+  },
+  "ofertainnopolis": {
+   "fetched_at": "2026-11-01T22:38:10+00:00",
+   "file_sha": "ff2e7d9533e48717a182fd688f73ae7f9874bd59bb64e9d8118f443df5d592a3",
+   "last_modified": "",
+   "sha256": "62a96a78d9c7b385daafc4cc4cef5d1016158b685fbb104429bb3e5d61ab9c0a",
+   "title": "+7-967-773-05-89mail@innopoliscamp.ru",
+   "url": "https://innopoliscamp.ru/ofertainnopolis"
+  },
+  "personal-data": {
+   "fetched_at": "2026-11-01T22:38:19+00:00",
+   "file_sha": "f3a7b63d020610fec9cb00cacbc9b4d7a22bb4b088a43e1a7f618584681dbd8c",
+   "last_modified": "",
+   "sha256": "f9ea71784ee87bb2d1973eb2905c27baf3b3b1605a8e617619178e49ddbe9d5b",
+   "title": "Детский IT-лагерь INNOCAMP в Иннополисе",
+   "url": "https://innopoliscamp.ru/personal_data"
+  },
+  "stat-vozhatym": {
+   "fetched_at": "2026-11-01T22:38:22+00:00",
+   "file_sha": "4f15f1dee393be70509014f97ced4b9e76c6741211f11c0c7d62b5f27fa98b53",
+   "last_modified": "",
+   "sha256": "d7a7662ac51d77be92b57b82f8e392a2ee32f3c81cb388b9092e68a7930f7ddd",
+   "title": "Детский IT-лагерь в Иннополисе",
+   "url": "https://innopoliscamp.ru/stat_vozhatym"
+  },
+  "stazhirovki": {
+   "fetched_at": "2026-11-01T22:38:16+00:00",
+   "file_sha": "748f0d86650a3b259055da34c211980ab6ef4fdab05c1d94b45434e27c3f4a45",
+   "last_modified": "",
+   "sha256": "3fcbe6d55d9eef82d08af00e783fa2b6eb8fb4ddbc58c4e88d6c5f45669005a5",
+   "title": "8-967-773-05-89mail@innopoliscamp.ru",
+   "url": "https://innopoliscamp.ru/stazhirovki"
+  },
+  "zapis": {
+   "fetched_at": "2026-11-01T22:38:25+00:00",
+   "file_sha": "d3e896f31e9689835951fef48f898fa4c7ddb102da20ea036b7d6fe963014807",
+   "last_modified": "",
+   "sha256": "d3e896f31e9689835951fef48f898fa4c7ddb102da20ea036b7d6fe963014807",
+   "title": "Заявка в Детский IT-лагерь INNOCAMP",
+   "url": "https://innopoliscamp.ru/zapis"
+  }
+ }
+}

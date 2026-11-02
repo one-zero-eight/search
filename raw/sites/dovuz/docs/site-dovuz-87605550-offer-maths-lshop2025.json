@@ -1,0 +1,16 @@
+{
+ "title": "договором оферты [offer_maths_lshop2025]",
+ "url": "https://lk-dovuz.innopolis.university/public/files/offer_maths_lshop2025.pdf",
+ "sha256": "981c482c1f983176c09f477caadcd2e97cd6a3071da28908626211b3baa193c0",
+ "method": "text layer (opendataloader)",
+ "chars": 35570,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"37af3-631399f134100\"",
+  "modified": "Wed, 26 Mar 2025 07:16:52 GMT",
+  "size": "228083"
+ }
+}

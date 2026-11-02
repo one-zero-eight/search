@@ -1,0 +1,16 @@
+{
+ "title": "tasks IOM 24-25",
+ "url": "https://lk-dovuz.innopolis.university/public/files/tasks_IOM_24-25.pdf",
+ "sha256": "a55ceeb698477a9b9a961c03499e16c3d7d04bef7d28ce4a5a71803264365e77",
+ "method": "text layer (opendataloader)",
+ "chars": 48094,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:27+00:00",
+ "remote": {
+  "etag": "\"9514f-62f98e8b56380\"",
+  "modified": "Wed, 05 Mar 2025 14:07:26 GMT",
+  "size": "610639"
+ }
+}

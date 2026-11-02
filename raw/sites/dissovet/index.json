@@ -1,0 +1,87 @@
+{
+ "docs": {},
+ "pages": {
+  "arhiv": {
+   "fetched_at": "2026-10-31T08:38:43+00:00",
+   "file_sha": "bd624080e21625e9dbfe2153707da653901d8f841d1e7cea92314cf7c77ac8bb",
+   "last_modified": "Fri, 24 Apr 2026 08:16:17 GMT",
+   "sha256": "0177fa0a79f584d1c9c9addaf932cb34d1349007c8cc43dc387da8056d92fda2",
+   "title": "Архив",
+   "url": "https://dissovet.innopolis.university/arhiv"
+  },
+  "documenty": {
+   "fetched_at": "2026-10-31T08:38:41+00:00",
+   "file_sha": "6fb9136e5b8e91b7bd13b29bb652dfba5c7581b74ea0508832822a6064e8b23d",
+   "last_modified": "Tue, 27 Oct 2026 12:38:43 GMT",
+   "sha256": "7fa4d298fede5f74edc539a35efbaf16cd7813c88f67075b94ebf619eb80373e",
+   "title": "Информация для соискателей",
+   "url": "https://dissovet.innopolis.university/documenty"
+  },
+  "home": {
+   "fetched_at": "2026-10-31T08:38:34+00:00",
+   "file_sha": "8973d93c4c3872f37770d9f99ea6daa5fce4f54ca34287ff218b05dc5ec404ad",
+   "last_modified": "Sun, 19 Apr 2026 13:57:40 GMT",
+   "sha256": "db15c5b59aeaafee78c2f8fb1886ad28a1190769a4e82892c83b77b1b5304c3b",
+   "title": "Диссертационный совет",
+   "url": "https://dissovet.innopolis.university/"
+  },
+  "page119332426-html": {
+   "fetched_at": "2026-10-31T09:07:48+00:00",
+   "file_sha": "3faaa5c8e208ed16b91d9bf041b1c04fa009c85d5b9c0fa9596222cc1057b42a",
+   "last_modified": "Thu, 27 Aug 2026 17:10:37 GMT",
+   "sha256": "e790d97be8c4d78d4a2a97d094822f7b1a6db925414a46e1a91115cd790c654d",
+   "title": "Джером Отобонг Бэсси Готово",
+   "url": "https://dissovet.innopolis.university/page119332426.html"
+  },
+  "page135641906-html": {
+   "fetched_at": "2026-10-31T09:07:50+00:00",
+   "file_sha": "72a636b60ffbbbd5ae5b140750f1ee22f46568a4f5c8eb19973b2443258b9c03",
+   "gone": true,
+   "last_modified": "Fri, 24 Apr 2026 08:10:33 GMT",
+   "sha256": "96c47e629a3812a5f02ca9e103ae1fa2c2c895b42973c30ca68701e62b2cc0ba",
+   "title": "Иванов И.И. Готовая защита",
+   "url": "https://dissovet.innopolis.university/page135641906.html"
+  },
+  "page135655296-html": {
+   "fetched_at": "2026-10-31T09:07:58+00:00",
+   "file_sha": "d2bb08085a0bf43f0927dc11d4f6242a5eb9323c7adc1f575ce598ad616cb1a5",
+   "last_modified": "Fri, 24 Apr 2026 08:16:17 GMT",
+   "sha256": "b2b33f87f151ed8d1e31db0e3715717d2f390bb9f39c636e9886b66ebedd493c",
+   "title": "Архив",
+   "url": "https://dissovet.innopolis.university/page135655296.html"
+  },
+  "page136990946-html": {
+   "fetched_at": "2026-10-31T09:07:54+00:00",
+   "file_sha": "5fd92e861c7fff4ad2917d8ac728df9d69977a7f3854b6ecbb8d33992b626072",
+   "gone": true,
+   "last_modified": "Fri, 24 Apr 2026 08:18:39 GMT",
+   "sha256": "0935ac6e3cb14ad7a00d56550f79e3c605eaa176057c18b7347f1dda5d0efb14",
+   "title": "Джером",
+   "url": "https://dissovet.innopolis.university/page136990946.html"
+  },
+  "page154712506-html": {
+   "fetched_at": "2026-10-31T09:07:56+00:00",
+   "file_sha": "672a3a64e328a492dcc7ea3f8dc96049a6759592542802111367987e868902a8",
+   "last_modified": "Fri, 17 Jul 2026 12:23:18 GMT",
+   "sha256": "9e1395a107f8a3898bd839e19b8ae5ebb36bc155f7e58bddf3d166db68e641cf",
+   "title": "Джером Отобонг Бэсси Готово на рассмотрении",
+   "url": "https://dissovet.innopolis.university/page154712506.html"
+  },
+  "theses": {
+   "fetched_at": "2026-10-31T08:38:39+00:00",
+   "file_sha": "dc5ddda31192121da6c8b9f42ece4ff9ca4d3b8dff0819c3b61dadf3a70356e7",
+   "last_modified": "Fri, 17 Jul 2026 12:23:25 GMT",
+   "sha256": "9e778bfba15e4a4ccfff235dd2e690d40bf6d6fd850421019699379a830ad10c",
+   "title": "Работы, подготовленные к рассмотрению",
+   "url": "https://dissovet.innopolis.university/theses"
+  },
+  "zashita": {
+   "fetched_at": "2026-10-31T08:38:36+00:00",
+   "file_sha": "43ce63f970da1699b6ee10cd9cdad5f086b514500a55ac40eec4317e7b2628ad",
+   "last_modified": "Wed, 22 Jul 2026 10:23:05 GMT",
+   "sha256": "4793a975b483ba0b1fb0fe18684a8fe310f56a7036fc079c19697f678e1a5d0f",
+   "title": "Объявления о защитах",
+   "url": "https://dissovet.innopolis.university/zashita"
+  }
+ }
+}

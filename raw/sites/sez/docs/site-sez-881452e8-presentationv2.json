@@ -1,0 +1,15 @@
+{
+ "title": "скачать презентацию",
+ "url": "https://sezinnopolis.ru/upload/arenda/presentation-v2.pdf",
+ "sha256": "ea512ee3006b2f93a819e2ed8a8689dad402b4693f84f40297fd67572faba3a0",
+ "method": "text layer (opendataloader)",
+ "chars": 3305,
+ "tables": 5,
+ "section": "site/sez",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:31+00:00",
+ "remote": {
+  "etag": "W/\"6ab4e09b-c68f5\"",
+  "modified": "Thu, 24 Sep 2026 08:34:35 GMT"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "Письмо МЗ РФ от 08.08.2025 г 16-1.4680",
+ "url": "https://innopolis.university/filespublic/%D0%9F%D0%B8%D1%81%D1%8C%D0%BC%D0%BE_%D0%9C%D0%97_%D0%A0%D0%A4_%D0%BE%D1%82_08.08.2025_%D0%B3___16-1.4680.pdf",
+ "sha256": "360e71281c79a349647f545fd9a4b3de063a9ba0271d56b7a0334a2f123076f0",
+ "method": "text layer (opendataloader)",
+ "chars": 144626,
+ "tables": 5,
+ "section": "site/eck",
+ "context": "",
+ "fetched_at": "2026-11-01T22:40:22+00:00",
+ "remote": {
+  "etag": "\"6aec9e-63f0049b88d92\"",
+  "modified": "Wed, 17 Sep 2025 14:45:29 GMT",
+  "size": "7007390"
+ }
+}

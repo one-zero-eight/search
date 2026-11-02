@@ -1,0 +1,16 @@
+{
+ "title": "System of fines",
+ "url": "https://hotel.innopolis.university/upload/docs-hotel/%D0%BE%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8_%D0%A2%D0%9C%D0%A6_eng.pdf",
+ "sha256": "2671a9145dc4a7d5e505dc0254670cbaa17d707fdbe903b98a873885419f4cea",
+ "method": "text layer (opendataloader)",
+ "chars": 8102,
+ "tables": 5,
+ "section": "site/hotel",
+ "context": "",
+ "fetched_at": "2026-10-31T00:26:16+00:00",
+ "remote": {
+  "etag": "\"343e1-62d78e98af15e\"",
+  "modified": "Thu, 06 Feb 2025 13:06:37 GMT",
+  "size": "213985"
+ }
+}

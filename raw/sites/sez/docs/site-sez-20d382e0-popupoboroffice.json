@@ -1,0 +1,16 @@
+{
+ "title": "Правила пользования оборудованием",
+ "url": "https://sezinnopolis.ru/upload/new-files/rent/popup-obor-office.docx",
+ "sha256": "c9cfd9721a0b4d5f0fc9b4d89c7f8aefa5b27c5247e0956ed06609e9f39f5954",
+ "method": "text layer (opendataloader)",
+ "chars": 4778,
+ "tables": 5,
+ "section": "site/sez",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:31+00:00",
+ "remote": {
+  "etag": "\"6984579a-3da9\"",
+  "modified": "Thu, 05 Feb 2026 08:40:58 GMT",
+  "size": "15785"
+ }
+}

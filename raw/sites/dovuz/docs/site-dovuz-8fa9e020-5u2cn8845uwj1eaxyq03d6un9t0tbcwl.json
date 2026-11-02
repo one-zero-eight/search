@@ -1,0 +1,16 @@
+{
+ "title": "5u2cn8845uwj1eaxyq03d6un9t0tbcwl",
+ "url": "https://start.innopolis.university/upload/sprint.editor/13e/5u2cn8845uwj1eaxyq03d6un9t0tbcwl.pdf",
+ "sha256": "49103e2f96d3fae4531dc61cc4ec04adf571925d8b733fd2f71ef4c42141a06c",
+ "method": "text layer (opendataloader)",
+ "chars": 20763,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:27+00:00",
+ "remote": {
+  "etag": "\"6aaaad24-1d691f\"",
+  "modified": "Wed, 16 Sep 2026 14:52:20 GMT",
+  "size": "1927455"
+ }
+}

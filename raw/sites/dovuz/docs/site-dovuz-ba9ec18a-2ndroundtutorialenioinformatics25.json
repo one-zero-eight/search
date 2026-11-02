@@ -1,0 +1,16 @@
+{
+ "title": "2nd-round-tutorial-en-ioinformatics25",
+ "url": "https://lk-dovuz.innopolis.university/public/files/2nd-round-tutorial-en-ioinformatics25.pdf",
+ "sha256": "f36aa312dc70e64b2953f4d196ae1c8beb4ba8bc99080e90b9262ee1b07d89a1",
+ "method": "text layer (opendataloader)",
+ "chars": 11999,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:18+00:00",
+ "remote": {
+  "etag": "\"2dcdb-62ea53d0ce240\"",
+  "modified": "Fri, 21 Feb 2025 11:24:49 GMT",
+  "size": "187611"
+ }
+}

@@ -1,0 +1,34 @@
+[![Innopolis](https://robotics.innopolis.university/wp-content/uploads/2023/04/cropped-_-A-G-B-B-_-ZH-V-.png)](https://university.innopolis.ru) [![Innopolis3](https://robotics.innopolis.university/wp-content/uploads/2022/05/nacprojectr.png)](https://национальныепроекты.рф)
+- [О центре НТИ](https://robotics.innopolis.university/about/)
+- [Образование](https://robotics.innopolis.university/learn/)
+- [Проекты](https://robotics.innopolis.university/projects/)
+- [Консорциум](https://robotics.innopolis.university/consortium/)
+- [Наука](https://robotics.innopolis.university/science/)
+- [лаборатории](http://robotics.innopolis.university/struct/)
+- [новости](http://robotics.innopolis.university/events/)
+- [контакты](http://robotics.innopolis.university/contacts/)
+RU EN
+[![](https://robotics.innopolis.university/wp-content/uploads/2022/05/NTI.png)](https://nti.fund/) [![](https://robotics.innopolis.university/wp-content/uploads/2022/05/nti.png)](https://nti2035.ru/) [![](https://robotics.innopolis.university/wp-content/uploads/2022/05/miobrnauki.png)](https://minobrnauki.gov.ru/) [![](https://robotics.innopolis.university/wp-content/uploads/2022/05/npr_logo_w.png)](https://национальныепроекты.рф)
+- О центре
+- [Общая информация](https://robotics.innopolis.university/about/)
+- [Структура](https://robotics.innopolis.university/struct/)
+- [Оборудование](https://robotics.innopolis.university/equipment/)
+- [Карьера](https://robotics.innopolis.university/career/)
+- [Контакты](https://robotics.innopolis.university/contacts/)
+- [Образование](https://robotics.innopolis.university/learn/)
+- [Проекты](https://robotics.innopolis.university/projects/)
+- [Консорциум](https://robotics.innopolis.university/consortium/)
+- [Наука](https://robotics.innopolis.university/science/)
+- [Новости](https://robotics.innopolis.university/events/)
+- [Контакты](https://robotics.innopolis.university/contacts/)
+[Вернуться](https://robotics.innopolis.university/projects)
+## Анализ адаптивных механизмов функциональной сети мозга при продолжительной когнитивной нагрузке с использованием спектроскопии ближнего инфракрасного диапазона
+![](https://robotics.innopolis.university/wp-content/uploads/2019/05/Artem-Badarin-300x300.jpg)
+Бадарин Артем
+руководитель проекта
+| Финансирование: | МИНИСТЕРСТВО НАУКИ И ВЫСШЕГО ОБРАЗОВАНИЯ РОССИЙСКОЙ ФЕДЕРАЦИИ (Грант Президента РФ) |
+| --- | --- |
+| Лаборатория: | [Лаборатория нейронауки и когнитивных технологий](https://robotics.innopolis.university/labs/laboratoriya-nejronauki-i-kognitivnyh-tehnologij/) |
+| Статус: | Выполняется |
+[Дальше](https://robotics.innopolis.university/project/fiziko-matematicheskie-metody-monitoringa-pertseptivnoj-aktivnosti-golovnogo-mozga-dlya-predskazaniya-oshibok-prinyatiya-reshenij/)
+[Физико-математические методы мониторинга перцептивной активности головного мозга для предсказания ошибок принятия решений](https://robotics.innopolis.university/project/fiziko-matematicheskie-metody-monitoringa-pertseptivnoj-aktivnosti-golovnogo-mozga-dlya-predskazaniya-oshibok-prinyatiya-reshenij/)

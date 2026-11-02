@@ -1,0 +1,16 @@
+{
+ "title": "ioai26 task tour1 en",
+ "url": "https://lk-dovuz.innopolis.university/public/files/ioai26_task_tour1_en.pdf",
+ "sha256": "0f3f37b25f840dfa957465a58a8f1e5c09257d95a97364819390224c1d7bb068",
+ "method": "text layer (opendataloader)",
+ "chars": 31310,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:22+00:00",
+ "remote": {
+  "etag": "\"e34b7-6445ccf3faa40\"",
+  "modified": "Mon, 24 Nov 2025 20:14:25 GMT",
+  "size": "930999"
+ }
+}

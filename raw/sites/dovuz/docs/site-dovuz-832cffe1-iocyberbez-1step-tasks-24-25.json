@@ -1,0 +1,16 @@
+{
+ "title": "iocyberbez 1step tasks 24 25",
+ "url": "https://lk-dovuz.innopolis.university/public/files/iocyberbez_1step_tasks_24_25.pdf",
+ "sha256": "dfe43ca3ebb89ac3d953c1d8db3d93aa386d15ba627dd81a056782e21e01fd4d",
+ "method": "text layer (opendataloader)",
+ "chars": 41767,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:22+00:00",
+ "remote": {
+  "etag": "\"2ff327-6299bf12a12c0\"",
+  "modified": "Thu, 19 Dec 2024 09:13:23 GMT",
+  "size": "3142439"
+ }
+}

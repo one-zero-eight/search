@@ -1,0 +1,45 @@
+{
+ "docs": {},
+ "pages": {
+  "devops": {
+   "fetched_at": "2026-10-31T08:37:38+00:00",
+   "file_sha": "2cb422c3b1cb3b9f90cfe8cee165738c0541dbefbbff0695f0e781469144e11e",
+   "last_modified": "Wed, 10 Jul 2024 21:23:58 GMT",
+   "sha256": "e046fc9d4010f584243883af5a0ff99bf017c3f0af59dfc8135cc730d184854c",
+   "title": "DevOps Playground",
+   "url": "https://engineerschool.innopolis.university/devops"
+  },
+  "home": {
+   "fetched_at": "2026-10-31T08:37:34+00:00",
+   "file_sha": "4ae3c132e52d5708b02e08f10692b7538df1937e9303a276d35acbf6dfbc909d",
+   "last_modified": "Fri, 23 Oct 2026 12:51:36 GMT",
+   "sha256": "5bf5af8191365487c66033618b572d774ef4b330e4e7904fdb31f3e8990bd0e1",
+   "title": "Передовая инженерная школа УИ",
+   "url": "https://engineerschool.innopolis.university/"
+  },
+  "industry": {
+   "fetched_at": "2026-10-31T08:37:42+00:00",
+   "file_sha": "58eb6f693260a9166b238bfe3f0280edb7641eed52b75fd307607ead2d8a478f",
+   "last_modified": "Fri, 14 Mar 2025 12:02:10 GMT",
+   "sha256": "1e75db78e71400d3f5a0a7503fcb48767304c30af3c295792b4886de0e266f65",
+   "title": "Industry 4.0",
+   "url": "https://engineerschool.innopolis.university/industry"
+  },
+  "innodatahub": {
+   "fetched_at": "2026-10-31T08:37:40+00:00",
+   "file_sha": "36f378b48ac3450cd41b397bb525e062cdded53cb18de84fff15ac97e5f56bb4",
+   "last_modified": "Wed, 16 Apr 2025 10:38:49 GMT",
+   "sha256": "c86aa38f7516a35849a0f64c804fc4f04b13161ec8dd08769ba987f9786cd628",
+   "title": "InnoDataHub",
+   "url": "https://engineerschool.innopolis.university/innodatahub"
+  },
+  "news": {
+   "fetched_at": "2026-10-31T08:37:36+00:00",
+   "file_sha": "1f83899e443e51ed4f6147b93d33fcb92f3855989c784f0cd4ea951331ae0984",
+   "last_modified": "Wed, 31 Jan 2024 14:34:08 GMT",
+   "sha256": "873a6b3cf680de0d2483e230daf66a7d0c0ef4b139655c9d757fe8fc4d719f35",
+   "title": "Новости ПИШ",
+   "url": "https://engineerschool.innopolis.university/news"
+  }
+ }
+}

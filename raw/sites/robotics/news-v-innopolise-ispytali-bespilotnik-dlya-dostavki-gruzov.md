@@ -1,0 +1,33 @@
+[![Innopolis](https://robotics.innopolis.university/wp-content/uploads/2023/04/cropped-_-A-G-B-B-_-ZH-V-.png)](https://university.innopolis.ru) [![Innopolis3](https://robotics.innopolis.university/wp-content/uploads/2022/05/nacprojectr.png)](https://национальныепроекты.рф)
+- [О центре НТИ](https://robotics.innopolis.university/about/)
+- [Образование](https://robotics.innopolis.university/learn/)
+- [Проекты](https://robotics.innopolis.university/projects/)
+- [Консорциум](https://robotics.innopolis.university/consortium/)
+- [Наука](https://robotics.innopolis.university/science/)
+- [лаборатории](http://robotics.innopolis.university/struct/)
+- [новости](http://robotics.innopolis.university/events/)
+- [контакты](http://robotics.innopolis.university/contacts/)
+RU EN
+[![](https://robotics.innopolis.university/wp-content/uploads/2022/05/NTI.png)](https://nti.fund/) [![](https://robotics.innopolis.university/wp-content/uploads/2022/05/nti.png)](https://nti2035.ru/) [![](https://robotics.innopolis.university/wp-content/uploads/2022/05/miobrnauki.png)](https://minobrnauki.gov.ru/) [![](https://robotics.innopolis.university/wp-content/uploads/2022/05/npr_logo_w.png)](https://национальныепроекты.рф)
+- О центре
+- [Общая информация](https://robotics.innopolis.university/about/)
+- [Структура](https://robotics.innopolis.university/struct/)
+- [Оборудование](https://robotics.innopolis.university/equipment/)
+- [Карьера](https://robotics.innopolis.university/career/)
+- [Контакты](https://robotics.innopolis.university/contacts/)
+- [Образование](https://robotics.innopolis.university/learn/)
+- [Проекты](https://robotics.innopolis.university/projects/)
+- [Консорциум](https://robotics.innopolis.university/consortium/)
+- [Наука](https://robotics.innopolis.university/science/)
+- [Новости](https://robotics.innopolis.university/events/)
+- [Контакты](https://robotics.innopolis.university/contacts/)
+[Вернуться](https://robotics.innopolis.university/events)
+## В Иннополисе испытали беспилотник для доставки грузов
+Сотрудники Университета Иннополис в сотрудничестве с компанией ЭНИКС провели испытания беспилотника в условиях ограниченной видимости и отрицательных температур.
+03.04.2018
+За час дрон доставил почтовый груз на расстояние 38 км и вернулся обратно. Аппарат двигался со скоростью 65 км/ч на высоте 500 м. Во время апробации технологии беспилотной доставки грузов использовался дрон Т16 компании ЭНИКС, который способен летать на расстояние 150 км с предельной скоростью 130 км/ч на высоте до 4 км. Общая дальность испытательного полета составила 76 км. Сотрудники Университета Иннополис уверяют, что беспилотник легко доставит груз из района казанского логистического почтового центра Почты России до почтового отделения Иннополиса и за один полёт сможет преодолеть такое расстояние 4 раза.«Мы доказали, что способны доставлять грузы беспилотниками, поэтому будем предлагать наши решения коммерческим заказчикам, беря на себя техническую сторону вопроса и разрабатывая системы управления. Вместе с нашим партнёром — компанией ЭНИКС, конструирующей беспилотные аппараты, — мы сможем решать сложные технологические задачи, — говорит Александр Климчик, руководитель Центра развития робототехники. — Осталось заручиться поддержкой команды юристов, которые помогут быстро решать административные и юридические вопросы, связанные с согласованием маршрутов полётов. Только законодательная база отделяет наш проект от масштабирования и коммерческого внедрения, поэтому мы надеемся на поддержку со стороны государственных властей для реализации таких проектов».
+![](https://robotics.innopolis.university/wp-content/uploads/2019/06/02-04-300x168.jpg)
+Учёный пояснил, что помимо почтовых грузов беспилотники могут доставлять медикаменты, провизию и любую другую корреспонденцию в места, где нет дорог: «Иногда, чтобы наземным способом доставить груз, нужно ехать в объезд 200—300 км, преодолеть горы, реки и т.п. Беспилотник же сэкономит деньги и доставит груз напрямую, сократив расстояние до 25—30 км». Александр Климчик пояснил: «Для того, чтобы дрон понимал, где он находится, при необходимости корректировал курс и определял дальнейшее направление движения, нужна система управления с искусственным интеллектом, которую мы и разрабатываем в Университете Иннополис. Благодаря ей мы можем не просто задать точку на карте, но и адаптировать движение дрона в реальном времени, наблюдать и корректировать траекторию движения в зависимости от текущей обстановки, реагируя на препятствия, которых не должно было быть изначально». Руководитель центра подчеркнул, что несмотря на расчётный радиус сбрасывания груза в 50 метров, точность доставки груза во время испытаний достигла расстояния в 1 метр: «Сейчас наша команда решает задачу доставки в городской среде с точностью до сантиметра». Все тестовые полёты проводились над специальной территорией в марте 2018 года.
+[Дальше](https://robotics.innopolis.university/news/innopolis-stanet-tsentrom-rossijskoj-robototehniki/)
+[Иннополис станет центром российской робототехники](https://robotics.innopolis.university/news/innopolis-stanet-tsentrom-rossijskoj-robototehniki/)
+[Перейти к следующей теме в этом разделе](https://robotics.innopolis.university/news/innopolis-stanet-tsentrom-rossijskoj-robototehniki/)

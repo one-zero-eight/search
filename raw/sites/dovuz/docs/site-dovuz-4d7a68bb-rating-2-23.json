@@ -1,0 +1,16 @@
+{
+ "title": "rating 2 23",
+ "url": "https://lk-dovuz.innopolis.university/public/files/rating_2_23.pdf",
+ "sha256": "8f4a9055943779ab30f235f32a184800b320b5dbc9f29413a20bf4536a21c293",
+ "method": "text layer (opendataloader)",
+ "chars": 2573,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:24+00:00",
+ "remote": {
+  "etag": "\"1e909-606532d84e400\"",
+  "modified": "Wed, 27 Sep 2023 08:42:56 GMT",
+  "size": "125193"
+ }
+}

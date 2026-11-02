@@ -1,0 +1,93 @@
+---
+type: page
+title: "Del Yan"
+description: "The learning process took place offline, after almost 2 years of online learning it was very cool to return to this."
+resource: "https://innopolis.university/success-stories/del-yan/"
+audience: ["student", "postgraduate", "applicant", "teacher", "staff", "management", "public"]
+source_kind: website
+language: ru
+section: "site/university"
+sources:
+  - resource: "https://innopolis.university/success-stories/del-yan/"
+    id: "6085094d37d8"
+    title: "Del Yan"
+    last_modified: "2026-10-30T22:07:46+00:00"
+generated:
+  by: "catix-wiki/0.1 sites"
+  at: "2026-10-30T22:07:46+00:00"
+status: draft
+---
+
+# Del Yan
+
+![](https://innopolis.university/upload/iblock/50c/txlr1uyokrwiukzhxtyp16crigs2nbf9/5_Del%20Yan.jpeg)
+
+International Information Technology University, Kazakhstan
+
+Fall Semester 2021/22
+
+## Знакомство с Иннополисом
+
+The learning process took place offline, after almost 2 years of online learning it was very cool to return to this. Live learning and communication more than ever allow to fully immerse yourself in work and learning. We worked on several team projects. It was a good experience especially for developing communication skills and not only.
+
+As for accommodation, the conditions in Innopolis are simply gorgeous, with the high-speed Internet access and modern equipment in the rooms.
+
+This is not my first time in Russia, but Innopolis made me feel great surprise, the city, although small, makes you feel like you are in some kind of movie about the future. Something like American college campuses. In general, everything I heard about the city justified itself.
+
+## другие истории
+
+## [Eduardo Fernandes](/raw/sites/university/success-stories-eduardo-fernandes.md)
+
+[Innopolis University seemed like a great place for innovation and thinking outside the box. The infrastructure also appeared state-of-the-art, and the university staff is represented by the most respected professors and researchers in their fields. Furthermore, the idea of a city built as the IT center of Russia was very attractive, alongside all the great new technologies being built and tested here. I was expecting to be challenged to think and work outside my comfort zone, develop my ideas using the latest technologies and to learn a lot along the way in a practical manner. Fortunately, all my expectations were met and sometimes even surpassed.](/raw/sites/university/success-stories-eduardo-fernandes.md)
+
+## [Zhakubayev Azat](/raw/sites/university/success-stories-zhakubayev-azat.md)
+
+[I chose Innopolis University because it was interesting for me to see Russia, to see the city of Innopolis, to get acquainted with the teaching methods at IU, since this university is one of the newest and most developed ones in the country.](/raw/sites/university/success-stories-zhakubayev-azat.md)
+
+## [Bekhruz Nutfilloyev](/raw/sites/university/success-stories-bekhruz-nutfilloyev.md)
+
+[I did a lot of research and I chose Innopolis because the environment and atmosphere here is great. All my expectations were met. Most importantly, high quality education. I really liked the study system, focused on team projects and research.](/raw/sites/university/success-stories-bekhruz-nutfilloyev.md)
+
+## [Shokhrukhbek Yursunjonov](/raw/sites/university/success-stories-shokhrukhbek-yursunjonov.md)
+
+[I have chosen Innopolis University for several reasons: First reason is networking. I already knew some people from Uzbekistan who were studying here or who had graduated this university back before and their recommendations about this university in Russia inspired me to apply for this program.](/raw/sites/university/success-stories-shokhrukhbek-yursunjonov.md)
+
+## [Nils Becker](/raw/sites/university/success-stories-nils-becker.md)
+
+[I chose Russia as a country, because I always wanted to travel to Russia and Russia is a global player in terms of IT. The decision on Innopolis University fell shortly after. The overall presentation of the university on the website caught my attention. The young and contemporary profile as well as the available subjects at IU convinced me to apply. Furthermore, the possibility of on-campus accommodation and the access to the sports complex were a big plus for me.](/raw/sites/university/success-stories-nils-becker.md)
+
+## [Ramazan Bolat](/raw/sites/university/success-stories-ramazan-bolat.md)
+
+[I have chosen Russia because of the location and resemblance in terms of mentality. I had not been to Russia before, just did a one-day transfer in St. Petersburg.](/raw/sites/university/success-stories-ramazan-bolat.md)
+
+## [Yaroslav Mustafin](/raw/sites/university/success-stories-yaroslav-mustafin.md)
+
+[For me, the availability of education and housing is important. Compared to all other exchange programs, Innopolis is the best option in terms of price / quality ratio. I am a resident of Kazakhstan, Russian is my native language, and I am also Tatar, this also played a role.](/raw/sites/university/success-stories-yaroslav-mustafin.md)
+
+## [Bakhtiyar Bauyrzhan](/raw/sites/university/success-stories-bakhtiyar-bauyrzhan.md)
+
+[I have chosen Russia and Innopolis University because it is quite close to Kazakhstan and Innopolis University is one of the best IT universities in the country, also I can speak Russian. I came here to gain new experience and professional skills.](/raw/sites/university/success-stories-bakhtiyar-bauyrzhan.md)
+
+## [Dastan Makhutov](/raw/sites/university/success-stories-dastan-makhutov.md)
+
+[I chose Innopolis University because I wanted to look at one of the best universities in the CIS in the IT field.](/raw/sites/university/success-stories-dastan-makhutov.md)
+
+## [Rafael Toizhanov](/raw/sites/university/success-stories-rafael-toizhanov.md)
+
+[I read about Innopolis University before the trip and found out that it was on the top of the Forbes list for IT specialties, the city is fully focused on IT development. Russia is close to Kazakhstan, the language and mentality are very similar. All these factors motivated me to study at Innopolis.](/raw/sites/university/success-stories-rafael-toizhanov.md)
+
+## [Nikita Niakhai](/raw/sites/university/success-stories-nikita-niakhai.md)
+
+[Hello! My name is Nikita, I am from Belarus and my home university is BSUIR. I have been traveling a lot lately. When I learned about the opportunity to go to Innopolis for an exchange, I became interested and began to actively learn about this place.](/raw/sites/university/success-stories-nikita-niakhai.md)
+
+## [Shavel Viktoryia](/raw/sites/university/success-stories-shavel-viktoryia.md)
+
+[This year, for the spring semester, I had the amazing opportunity to become a participant in an exchange program and study at Innopolis University.](/raw/sites/university/success-stories-shavel-viktoryia.md)
+
+#историяуспеха
+
+_Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/university/_shared.md](/raw/sites/university/_shared.md)._
+
+# Citations
+
+1. [Del Yan](https://innopolis.university/success-stories/del-yan/), read 2026-10-30

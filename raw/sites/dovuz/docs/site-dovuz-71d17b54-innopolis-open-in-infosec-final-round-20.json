@@ -1,0 +1,16 @@
+{
+ "title": "Innopolis Open in InfoSec. Final round. 2021-2022",
+ "url": "https://lk-dovuz.innopolis.university/public/files/Innopolis%20Open%20in%20InfoSec.%20Final%20round.%202021-2022.pdf",
+ "sha256": "1e7d904266b34a188fbc476d002d1f3f687fcecd48ff6eaef640fcf26c436d4e",
+ "method": "text layer (opendataloader)",
+ "chars": 3079,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:20+00:00",
+ "remote": {
+  "etag": "\"31e32-5d9c7a1edf880\"",
+  "modified": "Wed, 09 Mar 2022 11:45:22 GMT",
+  "size": "204338"
+ }
+}

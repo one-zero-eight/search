@@ -1,0 +1,197 @@
+---
+type: regulation
+title: "List of documents for minor guests"
+resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%A4%D0%BE%D1%80%D0%BC%D1%8B%20%D0%BD%D0%B5%D1%81%D0%BE%D0%B2%D0%B5%D1%80%D1%88%D0%B5%D0%BD%D0%BD%D0%BE%D0%BB%D0%B5%D1%82%D0%BD%D0%B8%D0%B5%20en.pdf"
+audience: ["student", "postgraduate", "applicant", "public"]
+source_kind: official-document
+language: ru
+section: "site/hotel"
+sources:
+  - resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%A4%D0%BE%D1%80%D0%BC%D1%8B%20%D0%BD%D0%B5%D1%81%D0%BE%D0%B2%D0%B5%D1%80%D1%88%D0%B5%D0%BD%D0%BD%D0%BE%D0%BB%D0%B5%D1%82%D0%BD%D0%B8%D0%B5%20en.pdf"
+    id: "7a5cd00a44bf"
+    title: "List of documents for minor guests"
+    last_modified: "2026-10-31T00:26:16+00:00"
+generated:
+  by: "catix-wiki/0.1 regulations"
+  at: "2026-10-31T00:26:16+00:00"
+extraction: "text layer (opendataloader)"
+status: draft
+---
+
+# List of documents for minor guests
+
+CONSENT to accession to the Agreement of the accommodation services
+
+№ ______
+
+I hereby confirm that in accordance with the Article No. 428 of the Civil Code of the Russian Federation, I fully and unconditionally accede to the Agreement of the accommodation services (an Accession Agreement) published on the official website of the Autonomous noncommercial organization of higher education “Innopolis University”: https://hotel.innopolis.university, also placed at the reception desk in the Residential Complex of the Autonomous noncommercial organization of higher education “Innopolis University”, located at: 420500, the Republic of Tatarstan, Verhneuslonskii department, Innopolis city, Universitetskaya str. 1, bld. 1,2,3,4, by filling in the registration card. REGISTRATION CARD OF A RESIDENT of the residential complex of the Autonomous noncommercial organization of higher education “Innopolis University”
+
+Data of a Resident Surname Number of campus building and room
+
+____ - _______
+
+Name Patronymic (if available) Date of birth:
+
+ access card № ______ is issued (tick V, if it is issued)
+
+Issuance of a magnetic access card to the campus building
+
+Contact phone number
+
+E-mail*
+
+* for sending any kinds of requests (including notices, letters, complaints, claims, applications). Should the Parties fail to reach an agreement regarding disputable issues, the disputes shall be resolved through legal proceedings in accordance with the clause 5.5 of the Accession Agreement.
+
+Identity document:  passport or  another document: ________________ series _________ No __________________, issued on "_____"_____________20_____, an issuing authority _______________________________________________ ______________________________________________________ code _____________ country __________________ city/town _________________________ str.______________________, bld.______, campus___, appt.____ country ___________________ city/town _________________________ str.______________________, bld.______, campus___, appt.____
+
+Residential address*
+
+Registration address:
+
+*unless it is different from the registered address
+
+Date and time of arrival: ___: ___ h ___. _____. 20 ___. Date and time of departure: ___: ___ h ___. _____. 20 ___. Accommodation category Charge rate* according to the accommodation type "bed", rubles per day; room, rubles per day
+
+Double room  __________ (bed)  __________ (room)
+
+Quintuple Room  __________ (bed)  __________ (room)
+
+Superior double room  __________ (bed)  __________ (room)
+
+ Total cost, rub. at the arrival time: _______________________ rubles  Remuneration by the Resident is unstipulated Special provisions:
+
+**3.** When leaving the room after the check-out hour, the additional payment is:
+
+- - for the period of the check-out hour till 06.00 p.m., 25% from the cost of
+
+accommodation services for one day according to the selected category and type of accommodation;
+
+- - for the period of 06.00 p.m. till 12.00 a.m. zero hour, 50% from the cost of
+
+accommodation services for one day according to the selected category and type of accommodation;
+
+- - for the period after 12.00 a.m. zero hour, 100% from the cost of
+
+accommodation services for one day according to the selected category and type of accommodation;
+
+**1.** Check-out time – 12:00 p.m. noon
+
+**2.** When checking-in before the check-out hour, the additional payment is:
+
+- - for the period of 6.00 a.m. till the check-out hour, 50% from the
+
+cost of accommodation services for one day according to the selected category and type of accommodation;
+
+- - for the period up to 6.00 a.m., 100% from the cost of
+
+accommodation services for one day according to the selected category and type of accommodation. for the loss of an access card as a fine in the amount of 300 (three hundred) rubles for smoking in the Residential Complex and / or at places not designated for smoking, and for violation of the procedure (throwing cigarette butts in undesignated areas) as a fine in the amount of 3 000 (three thousand) rubles
+
+Liability of a Resident:
+
+The Accommodation rules at the residential complex of the Autonomous noncommercial organization of higher education “Innopolis University” The Agreement of the accommodation services (the Accession Agreement), that is available in the Internet: https://hotel.innopolis.university
+
+Other conditions for rendering services under the Accession Agreement are defined by
+
+* - the price is indicated in accordance with the Price List as in effect when filling in the registration card / the price is filled in according to the chosen type of accommodation.  – choose the right option and tick
+
+V
+
+By signing this registration card, I confirm the following:
+
+- • I confirm the arrival date, the departure date specified in the Agreement, the pricing and I am aware that the check-out hour in the Residential
+
+Complex is 12:00 p.m. noon;
+
+- • I confirm the proper quality of housing accommodations, furniture and equipment;
+
+- • I am aware and agree with the Rules of accommodation, Fire safety instruction in the Residential Complex of the Autonomous
+
+noncommercial organization of higher education “Innopolis University” and with the cost of accommodation services;
+
+- • I am aware and agree with the responsibilities for smoking in the Residential Complex and / or at places not designated for smoking, and
+
+for violation of the procedure (throwing cigarette butts in undesignated areas) as a fine in the amount of 3 000 (three thousand) rubles, for the loss of an ID-pass as a fine in the amount of 300 (three hundred) rubles;
+
+- • Consent to the personal data processing is attached.
+
+"_______" _________________ 20____ . _______________ /_________________________/ date signature printed name
+
+Form of consent to personal data processing.
+
+CONSENT of a legal representative for processing of personal data of an underage child
+
+"___" _____ ____
+
+I, _________________________________________________________________________________________, (Surname, First name & Patronymic) ________________________________ series _______ No _______ issued by ____________________________ (type of identification document) __________________________________________________________________________________________, (where and by whom) residing at the address :________________________________________________________________________ __________________________________________________________________________________________, acting as a parent (legal representative) of an underage child ___________________________________________________________________________________________ (Surname, First name & Patronymic of a child) ________________________________ series _______ No _______ issued by ____________________________ (type of identification document) __________________________________________________________________________________________, (where and by whom) hereby give my consent to the implementation by the Autonomous noncommercial organization of higher education “Innopolis University”, registered address: 1, Universitetskaya str., Innopolis, of the automated data processing, as well as personal data processing of my underage child, without the use of automation tools and confirm that when giving such a consent, I'm acting by my own will and in the interests of my child. Purpose of personal data processing:
+
+The consent is given by me for the purposes of conclusion and execution of the contract for accommodation in the residential complex of the Autonomous noncommercial organization of higher education “Innopolis University”, located at the address: Republic of Tatarstan, Verhneuslonskii department, Innopolis city, Universitetskaya str. 1, building 1, 2, 3, 4, (hereinafter referred to as Dormitory) and temporary residence registration.
+
+The consent is given to the processing of the following personal data:
+
+It is extended to the last name, first name, patronymic, date and place of birth, address data (registration at the place of residence, actual residence address), data of an identity document, contact numbers, e-mails, Taxpayer Identification Number (INN), Insurance number of the individual ledger account (SNILS), citizenship, place of employment (if any), main place of study (if available).
+
+Authorized actions regarding personal data:
+
+This Consent is provided for the implementation any actions concerning my personal data which are necessary or desirable for the achievement of the above goals, including (without restriction) gathering, recording, systematization, accumulation, storage, refinement (updating, modification), extraction, usage, depersonalization, blocking, deletion, destruction of personal data, processing order:
+
+- • JSC "Innopolis" (the legal address: The Republic of Tatarstan, Verhneuslonskii department, Innopolis city,
+
+Sportivnaya str. 107; assignment purposes: accommodation in the Complex and registration at the place of temporary stay in the Innopolis city).
+
+- • To the Executive Committee of the JSC "Innopolis" (legal address: The Republic of Tatarstan,
+
+Verhneuslonskii department, Innopolis city, Sportivnaya str. 107; assignment purposes: accommodation in the Complex and registration at the place of temporary stay in the Innopolis city).
+
+Processing period: This Consent shall be valid for 10 (ten) years upon signature by. This Consent may be revoked by myself in written form.
+
+______________________________ (date, full name, signature of the person who gave one's consent)
+
+Power of attorney to represent the interests of a minor child y. date in words (date, month, year)
+
+I,_____ ___,
+
+Full name in words
+
+(date of birth: , details of the identity document: series and number ,issued by whom and when
+
+, registered at the address:
+
+, being the legal representative of a minor child
+
+Full name of a child date of birth:___________________________ ______________________________________________________________________________________, details of the identity document: series and number, issued by whom and when that is confirmed by the birth certificate _________________________________________________________ _______________________________________________________________________________________ birth certificate details: series and number,issued by whom and when
+
+I hereby authorize ____________________________________________________________________
+
+Full name of the representative date of birth: , , details of the identity document: series and number, issued by whom and when registered at the address:
+
+− (hereinafter referred to as the Representative) perform the following actions on my behalf and in the interests of my minor child (hereinafter referred to as the Child) regarding the provision of accommodation services to the Child in the residential complex of ANO HE “Innopolis University”:
+
+− protect the rights and represent the legitimate interests of the Child in front of the ANO HE “Innopolis University”(MSRN 1121600006142, TIN 1655258235);
+
+- - conclude contracts for the provision of accommodation services in the residential complex of ANO HE
+
+“Innopolis University” for the period from « » 20 y. till « » 20 y. w i th cost up to 30 000,00 (Thirty thousand) rubles;
+
+− sign and submit all documents, certificates, consents (including on the processing of personal data), applications necessary for the provision of accommodation services in the residential complex of ANO HE “Innopolis University”;
+
+− pay the necessary expenses and make a refund of overpaid funds; − get acquainted with all the documents regulating the provision of accommodation services in the residential complex of ANO HE "Innopolis University", including the local acts of ANO HE "Innopolis University”;
+
+− be responsible for the actions (no actions) of the Child and for the harm resulting from such actions (no actions), and sign documents related to the implementation of such actions (no actions).
+
+I confirm that I have read and I agree with the Rules of residence in the residential complex of ANO HE “Innopolis University" and the application of measures of responsibility for their violation.
+
+Consent to the processing of the Child's personal data, a copy of the passport of the legal representative and a copy of the Child's birth certificate are attached.
+
+The power of attorney is issued for a period of up to « » 20 y., the powers under this power of attorney cannot be transferred to other people.
+
+Signature of the legal representative:
+
+/ / signature decryption of the signature
+
+This power of attorney is certified by me,
+
+(Full name, position, place of work, if available, the seal
+
+# Citations
+
+1. [List of documents for minor guests](https://hotel.innopolis.university/upload/docs-hotel/%D0%A4%D0%BE%D1%80%D0%BC%D1%8B%20%D0%BD%D0%B5%D1%81%D0%BE%D0%B2%D0%B5%D1%80%D1%88%D0%B5%D0%BD%D0%BD%D0%BE%D0%BB%D0%B5%D1%82%D0%BD%D0%B8%D0%B5%20en.pdf), file 7a5cd00a44bf

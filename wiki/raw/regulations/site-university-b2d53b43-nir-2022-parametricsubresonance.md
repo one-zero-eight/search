@@ -1,0 +1,474 @@
+---
+type: regulation
+title: "Read the article [NIR_2022_parametric-subresonance]"
+resource: "https://innopolis.university/filespublic/NIR_2022_parametric-subresonance.pdf"
+source_kind: official-document
+language: ru
+section: "site/university"
+sources:
+  - resource: "https://innopolis.university/filespublic/NIR_2022_parametric-subresonance.pdf"
+    id: "62892a9e010e"
+    title: "Read the article [NIR_2022_parametric-subresonance]"
+    last_modified: "2026-10-24T23:45:26+00:00"
+generated:
+  by: "catix-wiki/0.1 regulations"
+  at: "2026-10-24T23:45:26+00:00"
+extraction: "text layer (opendataloader)"
+status: draft
+---
+
+# Read the article [NIR_2022_parametric-subresonance]
+
+Formal asymptotics of parametric subresonance
+
+1stPolina Astafyeva
+
+Inst. of Math. with Com. Centre of UFRC RAS, Ufa State Petroleum Technological University Ufa, Russia astafyeva.polina2@gmail.com
+
+2nd Oleg Kiselev
+
+Innopolis University, Inst. of Math. with Com. Centre of UFRC RAS Innopolis, Russia o.kiselev@innopolis.ru
+
+Lots of kinds of linear equations of second order are the most important models of mechanics because of Newtonian equations of a motion. Among such equations we are interested in an equation with time-dependent coefficient. In this work we consider two different equations of such kind. The first one is the equation with almost periodic coefficient: 𝑢′′ + (𝜔2 + 𝜖𝑞(𝑡))𝑢 = 0 (1) here 𝑞(𝑡) is almost periodic function and 𝜖 is a small positive parameter.
+
+This equation has two important properties which define behaviours of solutions. The first one is a coefficient 𝜔2. It defines an oscillation of the solution for the simplest case 𝑞(𝑡) ≡ 0.
+
+Another coefficient 𝑞(𝑡) can or cannot imply the resonant behaviour for the solution. The key work for understanding the behaviour of the solution of such kind of equation is the Floquet theory [1]. The parametric map for the parameters (𝜔,𝜖) of the equation with periodic coefficient is called Arnold’s tonques [4]. Such map defines the zones of parametric resonances [5].
+
+One of the famous examples of such equation is Mathieu equation for special kind of the coefficient: 𝑞(𝑡) ≡ 𝑎cos(2𝑡).
+
+Although the Mathieu equation appeared in theory of Laplace equation with elliptic boundary [7] now this equation is widely used model in quantum mechanics and theory of parametric resonance [5], [6], [10], [11].
+
+One of more general equations of such kind appeared in the theory of Moon motion [8], where 𝑞(𝑡) is a periodic function defined by their Fourier series.
+
+Here we study more general and more natural case when the 𝑞(𝑡) is almost-periodic. Such sight on the coefficient looks as more physically important since in real phenomenon pure periodic coefficient is enveloped by additional disturbances and perturbations. Moreover, the period of the coefficient often does not coincide with period of frequency of solution for the equation, such as 𝑞(𝑡) ≡ 0.
+
+Let us consider an second order equation with almost periodic coefficient: 𝑢′′ + (𝜔2 + 𝜖𝑞(𝑡))𝑢 = 0 (2)
+
+-1
+
+-2
+
+-3
+
+0 200 400 600 800 1000 t
+
+-20
+
+-40
+
+-60
+
+-80
+
+0 200 400 600 800 1000 t
+
+-2
+
+-4
+
+-6
+
+899800 900000 900200 900400 900600 900800 901000 t
+
+Fig. 1. Here we give three different cases for the solution of equation (2) where 𝑘 = 2,and 𝑝 = 5. The left picture shows bounded oscillations for the equation 𝜔 = 1 + 𝛿, where 𝛿 = 0.01, 𝜖 = 0.1. The middle picture shows the growing solution as 𝛿 = 0.00347, 𝜖 = 0.1, and the right picture indicate the final stage of this growing solution as the same 𝛿 = 0.00347, 𝜖 = 0.1 at very large time interval around 𝑡 = 900500.
+
+Here almost periodic function [2], [3]:
+
+∑︁∞
+
+𝑛𝑘
+
+𝑛𝑝 cos((2 − 𝑞(𝑡) = 𝑛=1 𝑘 > 1,𝑝 > 0
+
+)𝑡). (3)
+
+The parameter 𝜔 differs little from 1: 𝜔 = 1+𝛿, here 𝛿– is the parameter of the equation. The task is to determine the areas of stability of solutions of the equation depending on the parameters 𝛿 и 𝜖.
+
+In the following section we formulate aims of this work. Next section contains an asymptotic approach to the result. The last section shows the closeness of asymptotic and numerical approaches and contains the conclusions.
+
+I. Statement of the problem
+
+For the equation with almost-periodic coefficient one can see three different behaviour with respect to parameter 𝑡 → ∞.
+
+Our first problem for studying is to understand a behaviour of solution depending on the coefficients. 𝜔 and𝜖 for given form 𝑞(𝑡) as the almost-periodic function.
+
+Second and more intrigue aim for us is to find an dependency of amplitude of the oscillated solution which one can consider as a similarity to parametric resonance growth which was derived for example in [5].
+
+II. Asymptotic aproach Let us construct an asymptotic solution in the form: 𝑢 ∼ 𝑢0 + 𝜖𝑢1, (4)
+
+Let us substitute (4) in (2) and combine the terms at the same degrees 𝜖. Obtain the equation for the main term: 𝑑2 𝑑𝑡2 𝑢0 + 𝜔2𝑢0 = 0.
+
+Let us look for its solution in the form of 𝑢0 = 𝑎(𝜏)cos(𝜔𝑡) + 𝑏(𝜏)sin(𝜔𝑡), using two scale method [5], where 𝜏 = 𝜖𝛾𝑡 is slow time. The parameter 𝛾 > 0, will be determined below from the condition of uniformity of the asymptotic solution for large values𝑡. The equation for the first correction: 𝑑2 𝑑𝑡2 𝑢1 + 𝑢1 𝜔2 + 𝑞(𝑡)(𝑏sin(𝑡𝜔) + 𝑎cos(𝑡𝜔)) − −2a1𝜔 sin(𝑡𝜔) + 2b1𝜔 cos(𝑡𝜔) = 0 (5) here 𝑎1 = 𝜖𝛾−1𝑎′ and 𝑏1 = 𝜖𝛾−1𝑏′, a stroke means a slow-time derivative 𝜏.
+
+The task is to find the dependence on 𝜏 for a and b. A limited solution for the first correction of the function 𝑢1 s constructed below..
+
+Denote 𝑓(𝑡) = −𝑞(𝑡)(𝑏sin(𝑡𝜔) + 𝑎cos(𝑡𝜔))
+
+In this case, the general solution for the first correction equation can be written as:
+
+)︂)︂+ 𝑛𝑝−𝑘 (︂𝑏(︂sin(2𝜅𝜏) − sin(︂2𝜅𝜏 +
+
+∑︁∞ cos(𝜔𝑡) 4𝜔 𝑡 𝑛𝑝 𝑛=1
+
+)︂)︂)︂ 𝑎(︂cos(2𝜅𝜏) − cos(︂2𝜅𝜏 + 𝑡 𝑛𝑝 and sin(𝜔𝑡) 4𝜔
+
+)︂)︂− 𝑛𝑝−𝑘 (︂𝑎(︂sin(2𝜅𝜏) − sin(︂2𝜅𝜏 +
+
+∑︁∞ 𝑡 𝑛𝑝 𝑛=1
+
+)︂)︂)︂ 𝑏(︂cos(2𝜅𝜏) − cos(︂2𝜅𝜏 + 𝑡 𝑛𝑝
+
+In the solution 𝑢1 In the solution 𝑢1 the growing terms in t are combined at cos(𝜔𝑡):
+
+(︃cos(2𝜅𝜏)
+
+)︂ − 1)︂− 𝑛𝑝−𝑘 (︂cos(︂
+
+∑︁∞ 𝑎 4𝜔 𝑡 𝑛𝑝
+
+− 𝑛=1
+
+)︂)︃ + sin(︂
+
+∑︁∞ 𝑡 𝑛𝑝 sin(2𝜅𝜏) 𝑛=1
+
+(︃sin(2𝜅𝜏) 𝑛𝑝−𝑘 (︂cos(︂
+
+)︂ − 1)︂+
+
+∑︁∞ 𝑡 𝑛𝑝 𝑏 4𝜔
+
+− 𝑛=1
+
+)︂)︃ sin(︂
+
+∑︁∞ 𝑡 𝑛𝑝
+
+− a1𝑡 cos(2𝜅𝜏) 𝑛=1 and sin(𝜔𝑡): 𝑢1 = 𝐴cos(𝜔𝑡) + 𝐵 sin(𝜔𝑡) − 𝑏1𝑡sin(𝑡𝜔) − 𝑎1𝑡cos(𝑡𝜔) +
+
+∫︁ 𝑡
+
+∫︁ 𝑡 cos(𝜔𝑡) 𝜔 sin(𝜔𝑡) 𝜔 𝑓(𝑡˜)cos(𝜔𝑡˜)𝑑𝑡.˜ (6) 𝑓(𝑡˜)sin(𝜔𝑡˜)𝑑𝑡˜−
+
++
+
+let us introduce a replacement in the integrand function 𝜔𝑡˜≡ 𝑡˜+ 𝛿𝑡˜= 𝑡˜+ 𝜅𝜏
+
+Note that the formula for 𝑓(𝑡˜) contains a sum over n, we change the summation with integration over 𝑡˜. Then the solution of the equation for 𝑢1 is represented as the sum of n for the first integral in the formula (6): 𝑎sin(︁
+
+)︁ 𝑏cos(︁
+
+)︁
+
+2𝑛𝑝𝜅𝜏+(4𝑛𝑝−1)𝑡˜ 𝑛𝑝
+
+2𝑛𝑝𝜅𝜏+(4𝑛𝑝−1)𝑡˜ 𝑛𝑝
+
+4𝑛𝑘 −
+
++
+
+4𝑛𝑘 𝑎sin(︁
+
+)︁ 𝑏cos(︁
+
+)︁ 𝑏cos(︁
+
+)︁
+
+(2𝑛𝑝−1)𝑡˜ 𝑛𝑝
+
+2𝑛𝑝𝜅𝜏+𝑡˜ 𝑛𝑝
+
+2𝑛𝑝𝜅𝜏+𝑡˜ 𝑛𝑝
+
+4𝑛𝑘 −
+
++
+
++
+
+2𝑛𝑘 and the second integral in the formula (6):
+
+4𝑛𝑘
+
+)︁
+
+)︁ 𝑏sin(︁ 𝑎cos(︁
+
+2𝑛𝑝𝜅𝜏+(4𝑛𝑝−1)𝑡˜ 𝑛𝑝
+
+2𝑛𝑝𝜅𝜏+(4𝑛𝑝−1)𝑡˜ 𝑛𝑝
+
++
+
++
+
+4𝑛𝑘
+
+4𝑛𝑘 𝑎cos(︁ 𝑎cos(︁ 𝑏sin(︁
+
+)︁
+
+)︁
+
+)︁
+
+(2𝑛𝑝−1)𝑡˜ 𝑛𝑝
+
+2𝑛𝑝𝜅𝜏+𝑡˜ 𝑛𝑝
+
+2𝑛𝑝𝜅𝜏+𝑡˜ 𝑛𝑝
+
++
+
++
+
++
+
+4𝑛𝑘
+
+4𝑛𝑘
+
+2𝑛𝑘
+
+After sequential integration of all parts by 𝑡˜ let us allocate the maximum order with respect to 𝑛 for obtained formula :
+
+(︃sin(2𝜅𝜏) 𝑛𝑝−𝑘 sin(︂
+
+)︂+
+
+∑︁∞ 𝑏 4𝜔 𝑡 𝑛𝑝 𝑛=1
+
+)︂)︂)︃ +
+
+(︂1 − cos(︂
+
+∑︁∞ 𝑡 𝑛𝑝 cos(2𝜅𝜏) 𝑛=1 sin(2𝜅𝜏)(︃ ∞ 𝑛𝑝−𝑘 (︂cos(︂
+
+)︂ − 1)︂−
+
+∑︁ 𝑡 𝑛𝑝 𝑎 4𝜔
+
+− 𝑛=1
+
+)︂)︃ sin(︂
+
+∑︁∞ 𝑡 𝑛𝑝
+
+− b1𝑡 cos(2𝜅𝜏) 𝑛=1
+
+Replace:
+
+)︂ − 1)︂ = 𝑛𝑝−𝑘2sin(︂
+
+)︂ 𝑛𝑝−𝑘 (︂cos(︂
+
+∑︁∞
+
+∑︁∞ 𝑡 2𝑛𝑝 𝑡 𝑛𝑝 𝑛=1 𝑛=1
+
+In [9], the asymptotics were calculated: ∑︁∞ 𝑡 𝑛𝑝 𝑛𝑝−𝑘 sin(
+
+) ∼ 𝑡1−𝛼𝐶𝑠, 𝑛=1
+
+∫︁ 𝜋
+
+𝑝
+
+𝜏𝛼−2 sin(𝜏)𝑑𝜏, ∑︁∞
+
+𝐶𝑠 ∼
+
+𝑡 2𝑛𝑝 𝑛𝑝−𝑘2sin2(
+
+) ∼ 𝑡1−𝛼𝐶𝑐, 𝑛=1 𝜏𝛼−2 sin2(𝜏/2)𝑑𝜏)︂.
+
+𝐶𝑐 ∼ −(︂
+
+∫︁ 𝜋
+
+2𝜋1−𝛼𝑝(1 − 𝛼)
+
+𝑝
+
++
+
+Denote: 𝑘 − 1 𝑝 𝛼 =
+
+.
+
+Let us combine the growing terms in t atcos(𝜔𝑡) и sin(𝜔𝑡), in order for the coefficients with increasing summands to be zeros: 𝑎𝑡1−𝛼 4𝜔 𝜖𝛾−1𝑡𝑎′ =
+
+(Cc cos(2𝜅𝜏) − Cs sin(2𝜅𝜏)) + 𝑏𝑡1−𝛼 4𝜔
+
+(Cc sin(2𝜅𝜏) + Cs cos(2𝜅𝜏)) (7)
+
++ 𝑏𝑡1−𝛼 4𝜔 𝜖𝛾−1𝑡𝑏′ =
+
+(Cs sin(2𝜅𝜏) − Cc cos(2𝜅𝜏)) + 𝑎𝑡1−𝛼 4𝜔
+
+(Cc sin(2𝜅𝜏) + Cs cos(2𝜅𝜏)) (8) In these formulas, we will reduce both parts by t and
+
++ make a replacement 𝑡 = 𝜖𝜏𝛾 . As a result , we get: 𝑎𝜖𝛾𝛼 4𝜏𝛼𝜔 𝑑 𝑑𝜏 𝜖𝛾−1
+
+(Cc cos(2𝜅𝜏) − Cs sin(2𝜅𝜏)) + 𝑎 = 𝑏𝜖𝛾𝛼 4𝜏𝛼𝜔
+
+(Cc sin(2𝜅𝜏) + Cs cos(2𝜅𝜏)), 𝜖𝛾−1
+
++ 𝑏𝜖𝛾𝛼 4𝜏𝛼𝜔 𝑑 𝑑𝜏
+
+(Cs sin(2𝜅𝜏) − Cc cos(2𝜅𝜏)) + 𝑏 = 𝑎𝜖𝛾𝛼 4𝜏𝛼𝜔
+
+(Cc sin(2𝜅𝜏) + Cs cos(2𝜅𝜏)). Hence
+
++
+
+1 − 𝛼 𝛾 − 1 = 𝛾𝛼, 𝛾 =
+
+. As a result , the system of equations will take the form: 𝑑 𝑑𝜏 𝑎 4𝜏𝛼𝜔
+
+(Cc cos(2𝜅𝜏) − Cs sin(2𝜅𝜏)) + 𝑎 = 𝑏 4𝜏𝛼𝜔
+
++
+
+(Cc sin(2𝜅𝜏) + Cs cos(2𝜅𝜏)), 𝑑 𝑑𝜏 𝑏 4𝜏𝛼𝜔
+
+(Cs sin(2𝜅𝜏) − Cc cos(2𝜅𝜏)) + 𝑏 = 𝑎 4𝜏𝛼𝜔
+
+(Cc sin(2𝜅𝜏) + Cs cos(2𝜅𝜏)). Denote:
+
++
+
+)︂, Then the system will take the form:
+
+𝐴𝛼 = √︀𝐶𝑠2 + 𝐶𝑐2, 𝜑𝛼 = arctan(︂
+
+𝐶𝑐 𝐶𝑠 𝑑 𝑑𝜏
+
+𝐴 (𝑏sin(𝜑 + 2𝜅𝜏) + 𝑎cos(𝜑 + 2𝜅𝜏)) 4𝜔𝜏𝛼 𝑎 =
+
+𝐴 (𝑎sin(𝜑 + 2𝜅𝜏) − 𝑏cos(𝜑 + 2𝜅𝜏)) 4𝜔𝜏𝛼 𝑑 𝑑𝜏 𝑏 =
+
+Denote 4𝐴𝜔 = 𝐵, then: 𝑑 𝑑𝜏
+
+𝐵 (𝑏sin(𝜑 + 2𝜅𝜏) + 𝑎cos(𝜑 + 2𝜅𝜏)) 𝜏𝛼 𝑎 =
+
+𝐵 (𝑎sin(𝜑 + 2𝜅𝜏) − 𝑏cos(𝜑 + 2𝜅𝜏)) 𝜏𝛼 𝑑 𝑑𝜏 𝑏 =
+
+The system can also be written in a complex form: 𝑑 𝑑𝜏 𝑧 = 𝛿 = 𝜖𝛾𝜅 Denote 𝑧 = 𝑍𝑒𝑖𝜅𝜏+ 𝑖𝜑
+
+𝐵 𝑧 𝑒𝑖𝜑+2𝑖𝜅𝜏 𝜏𝛼
+
+2 +𝑖𝜅𝜏 + (︂
+
+𝑍)︂ 𝑒 𝑖𝜑
+
+2 +𝑖𝜅𝜏 𝜏𝛼
+
+𝐵 𝑍 𝑒 𝑑 𝑑𝜏 𝑖𝜑 𝑖𝜑
+
+2 +𝑖𝜅𝜏 = 𝑖𝑍𝜅𝑒 simplify: 𝑑 𝑑𝜏
+
+𝐵 𝑍 𝜏𝛼
+
+𝑍 = 𝑖𝑍𝜅 + 𝑑 𝑑𝜏
+
+𝐵 𝑍 𝜏𝛼 − 𝑖𝑍𝜅
+
+𝑍 =
+
+Let us write Z as the sum of the real and imaginary parts: 𝑍 = 𝑤 + 𝑖𝑣.
+
+As a result , a system of equations is obtained: 𝑑 𝑑𝜏
+
+𝐵𝑤 𝜏𝛼 𝑤 =
+
++ 𝑣 𝜅, 𝑑 𝑑𝜏
+
+𝐵𝑣 𝜏𝛼
+
+. (9) 𝑣 = −𝑤𝜅 −
+
+III. Comparison of the asymptotic approaches and numerical results
+
+Let us consider the properties of derived system (9) for different values of the parameters.
+
+In the case 𝜅 = 0 the system splits into two equations. Their solutions have the following form: 𝑤 = 𝐶1 exp(︂
+
+)︂, 𝑣 = 𝐶2 exp(︂−𝐵𝜏1−𝛼 1 − 𝛼
+
+)︂,
+
+𝐵𝜏1−𝛼 1 − 𝛼
+
+Here one can see the solution is exponentially growing because of 𝑤(𝑡).
+
+For𝜅 ̸= 0 we divide both parts of the equations on the parameter 𝜅 and rewrite 𝜅𝜏 = 𝜃. In this case we get: 𝑑 𝑑𝜃
+
+𝐵𝑤 𝜅1−𝛼 𝜃𝛼 𝑤 =
+
++ 𝑣
+
+𝐵𝑣 𝑑 𝑑𝜃 𝑣 = − 𝜅1−𝛼 𝜃𝛼 − 𝑤 Let us rewrite 𝐵𝜅𝛼−1 = 𝜆, then: 𝜆 𝜃𝛼 𝑑 𝑑𝜃 𝜆 𝜃𝛼 𝑑 𝑑𝜃 𝑣 = − 𝑣 − 𝑤. 𝑤 = 𝑤 + 𝑣,
+
+Here 𝜆 > 0 is a parameter of the equation and 𝜅 → 0, 𝜆 → ∞.
+
+This system leads to the second order differential equation: 𝑤 + (︂1 −
+
+)︂𝑤 = 0 𝑑2 𝑑𝜃2 𝜆2 𝜃2𝛼 𝛼𝜆 𝜃𝛼+1
+
++
+
+Here 𝜆 is a large parameter. So asymptotic solution can be obtained by the WKB method [12]:
+
+∫︀ 𝑡 √︁1 − 𝜃𝜆22𝛼 + 𝜃𝛼𝜆𝛼+1𝑑𝑡) exp(
+
+√︁1 − 𝜃𝜆22𝛼 + 𝜃𝛼𝜆𝛼+1 𝑤 ∼ 𝐶1
+
+.
+
+So the turning point to change the growing character of the solution is located in a neighbourhood of the point 𝜃* ∼ 𝜆1/𝛼.
+
+Let us compare the position of the tuning point obtained here by asymptotical way and the results which ware shown in the figure.
+
+For the numerical example we have following data
+
+[10] Artem Eremin, Mikhail Golub, Evgeny Glushkov, Natalia Glushkova. “Identification of delamination based on the Lamb wave scattering resonance frequencies“ NDT and E International Volume 103, April 2019, Pages 145-153
+
+[11] Peale, S. J. “Orbital Resonances in the Solar System“ Annual Review of Astronomy and Astrophysics Vol. 14:215-246
+
+[12] Olver, Frank William John , Asymptotics and Special Functions,1974, Academic Press. 𝑘 = 2, 𝑝 = 5, 𝛼 ≡ (𝑘−1)/𝑝 = 1/5, 𝛾 ≡ 1/(1+𝛼) = 6/5, 𝐴 ∼ 1.09264275, here the value of 𝐴 was obtained with respect to the work [9].
+
+𝐴 4𝜔 ∼ 1/4, 𝜆 = 5,𝜅 ≡ (𝐵/𝜆)(1/(1−𝛼)) ∼ (︂
+
+)︂5/4 ,
+
+𝐵 ≡ 𝜃* 𝜅𝜖𝛾 ∼ 900473. 𝜖 = 0.1, 𝛿 = 𝜖𝛾𝜅, 𝜃* ∼ 𝜆1/𝛼, 𝑇 =
+
+Conclusions. We obtain the system of equations for parametric sub-resonant growth of the amplitude of oscillations. The growth depends on the slow variable 𝜏 = 𝜖𝛾𝑡. We find also the time of turning point form the growing of the amplitude to the bounded oscillations in the slow variable 𝜏. The comparison between the asymptotic approximation for the turning time and numerical one is shown.
+
+References
+
+[1] Floquet, “Sur les equations differentielles lineaires a cofficients periodiques“, Ann. de l’Ecole norm. sup., 1883, XII, pp. 47-88.
+
+[2] Levitan, “ Almost periodic functions,” Gos. izd. tech.-teor. lit., 1953.
+
+[3] B.M.Levitan, V.V.Zhikov. “Almost periodic function and differential equations,” M. MSU, 1978.
+
+[4] V. I. Arnold , “Small Denominators and problems of stability of motion in classical and celestial mechanics,“ Uspekhi Mat. Nauk, 18(6):91–192, 1963.
+
+[5] N.N. Bogolyubov and Yu.A. Mitropolskii, “Asymptotic methods in the theory of non-linear oscillations“, Gordon and Breach science publishers, New York,1961, p. 537.
+
+[6] Sternkopf, C.; Diethold, C.; Gerhardt, U.; Wurmus, J., Manske, E. “Heterodyne interferometer laser source with a pair of two phase locked loop coupled HetextendashNe lasers by 632.8 nm “ Measurement Science and Technology, IOP Publishing, 2012, 23, 074006
+
+[7] E. T. Whittaker and G. N. Watson “A course of modern analysis“, Cambridge University Press, 1920.
+
+[8] G.W. Hill, “On the part of the motion of the lunar perigee which is a function of the mean motions of the sun and moon“, Cambridge, Mass., Press of J. Wilson and son, 1877, Cambridge, Mass., Press of J. Wilson and son.
+
+[9] P.Y.Astafyeva, O.M.Kiselev, “Subresonant solutions of the linear oscillator equation, 2021 International Conference Nonlinearity, Information and Robotics, Innopolis, Russia, pp 90-94.
+
+# Citations
+
+1. [Read the article [NIR_2022_parametric-subresonance]](https://innopolis.university/filespublic/NIR_2022_parametric-subresonance.pdf), file 62892a9e010e

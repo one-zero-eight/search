@@ -1,0 +1,16 @@
+{
+ "title": "Лицензионное соглашение",
+ "url": "https://innopolis.university/upload/iblock/d7f/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B4%D0%B5%D1%8F%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C.pdf",
+ "sha256": "fbbbc6a721f38d7bb45d156b360553efc9b55291bc0eddf555f0e0279d1802bf",
+ "method": "ocr (tesseract rus)",
+ "chars": 4597,
+ "tables": 5,
+ "section": "site/stc",
+ "context": "",
+ "fetched_at": "2026-11-01T23:10:22+00:00",
+ "remote": {
+  "etag": "\"61a48cb5-36a1e9\"",
+  "modified": "Mon, 29 Nov 2021 08:17:57 GMT",
+  "size": "3580393"
+ }
+}

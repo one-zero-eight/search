@@ -1,0 +1,16 @@
+{
+ "title": "Описание процессов, поддерживающих жизненный цикл программного обеспечения [Opisanie_protsessov_obespechivayushhih_podderzhanie_zhiznenn]",
+ "url": "https://robotics.innopolis.university/wp-content/uploads/2024/04/Opisanie_protsessov_obespechivayushhih_podderzhanie_zhiznennogo_tsikla-3.pdf",
+ "sha256": "e6f707e1439888970f03c6de87045200a5bd2df224cb0caf6cc36934e4102660",
+ "method": "text layer (opendataloader)",
+ "chars": 9590,
+ "tables": 5,
+ "section": "site/robotics",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:39+00:00",
+ "remote": {
+  "etag": "\"36da7-6150339e9eb9f\"",
+  "modified": "Mon, 01 Apr 2024 06:37:40 GMT",
+  "size": "224679"
+ }
+}

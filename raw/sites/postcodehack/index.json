@@ -1,0 +1,21 @@
+{
+ "docs": {},
+ "pages": {
+  "home": {
+   "fetched_at": "2026-11-01T22:36:29+00:00",
+   "file_sha": "40334e556d7c1c657125bc81b9d1385efb632af2c62d62a0a6c331dd8326db3a",
+   "last_modified": "Mon, 19 Oct 2026 07:24:05 GMT",
+   "sha256": "0a42d2b3db82a81020a091ecbf80b4788bfeb4f85134c291525016ee1ca7f9c0",
+   "title": "PostCode Challenge от Почтатеха",
+   "url": "https://postcodehack.innopolis.university/"
+  },
+  "spisok-vuzov-i-obr-programm": {
+   "fetched_at": "2026-11-01T22:36:32+00:00",
+   "file_sha": "ae8206c4b4e7e2e9ff57de8a9bb61eb08fd42a6108712bc4579d3d689c872bdd",
+   "last_modified": "Mon, 07 Sep 2026 15:12:23 GMT",
+   "sha256": "722c58a77efc1639598b8f3ae152278392e0e0e3a90129ea90f19b51db3b52f9",
+   "title": "PostCode Challenge от Почтатеха",
+   "url": "https://postcodehack.innopolis.university/spisok-vuzov-i-obr-programm"
+  }
+ }
+}

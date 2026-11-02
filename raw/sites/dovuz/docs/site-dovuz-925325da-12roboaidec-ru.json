@@ -1,0 +1,16 @@
+{
+ "title": "1-2-roboai-dec ru",
+ "url": "https://lk-dovuz.innopolis.university/public/files/1-2-roboai-dec_ru.pdf",
+ "sha256": "d21d51eeeee4b39ea14dd3b9739589faefd8cfe183a2ce5012aa2bb44cb2ecf3",
+ "method": "text layer (opendataloader)",
+ "chars": 4938,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:18+00:00",
+ "remote": {
+  "etag": "\"2d348-60d6a18fa1140\"",
+  "modified": "Tue, 26 Dec 2023 13:59:57 GMT",
+  "size": "185160"
+ }
+}

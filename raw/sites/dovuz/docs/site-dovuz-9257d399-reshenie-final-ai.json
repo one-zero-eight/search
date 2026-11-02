@@ -1,0 +1,16 @@
+{
+ "title": "reshenie final ai",
+ "url": "https://lk-dovuz.innopolis.university/public/files/reshenie_final_ai.pdf",
+ "sha256": "263931eac81184570620e0e8f21fe116a58a2bd95512c508ff1e2915c7eeba25",
+ "method": "text layer (opendataloader)",
+ "chars": 24333,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:24+00:00",
+ "remote": {
+  "etag": "\"9a114-650ace7093040\"",
+  "modified": "Thu, 30 Apr 2026 12:50:01 GMT",
+  "size": "631060"
+ }
+}

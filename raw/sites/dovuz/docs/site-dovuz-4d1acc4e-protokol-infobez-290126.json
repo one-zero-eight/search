@@ -1,0 +1,16 @@
+{
+ "title": "protokol infobez 290126",
+ "url": "https://lk-dovuz.innopolis.university/public/files/protokol_infobez_290126.pdf",
+ "sha256": "8e237ca98bfc4c8b6e7b648bba68fc86a9b48da01c14b144ce072a4bfa8ca204",
+ "method": "text layer (opendataloader)",
+ "chars": 17680,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"4adb9-64982a6aa03c0\"",
+  "modified": "Thu, 29 Jan 2026 08:29:11 GMT",
+  "size": "306617"
+ }
+}

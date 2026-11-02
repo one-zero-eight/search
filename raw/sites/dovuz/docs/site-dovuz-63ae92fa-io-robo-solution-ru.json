@@ -1,0 +1,16 @@
+{
+ "title": "io robo solution ru",
+ "url": "https://lk-dovuz.innopolis.university/public/files/io_robo_solution_ru.pdf",
+ "sha256": "53000a7c5f85b36cf6f41923ceec817bd5a7b566ccd0d4aca8f71660dcc8fe06",
+ "method": "text layer (opendataloader)",
+ "chars": 20562,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:22+00:00",
+ "remote": {
+  "etag": "\"47f1d-62a2d5c052580\"",
+  "modified": "Thu, 26 Dec 2024 14:42:46 GMT",
+  "size": "294685"
+ }
+}

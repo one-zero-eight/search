@@ -1,0 +1,16 @@
+{
+ "title": "io conditions inf ru24",
+ "url": "https://lk-dovuz.innopolis.university/public/files/io_conditions_inf_ru24.pdf",
+ "sha256": "5cbf11fcf007f36156d31a7a848b24fca4262e412dd84a70ed03de06d54f0e30",
+ "method": "text layer (opendataloader)",
+ "chars": 16071,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:22+00:00",
+ "remote": {
+  "etag": "\"4d5d1-62cadb604dbc0\"",
+  "modified": "Mon, 27 Jan 2025 10:40:55 GMT",
+  "size": "316881"
+ }
+}

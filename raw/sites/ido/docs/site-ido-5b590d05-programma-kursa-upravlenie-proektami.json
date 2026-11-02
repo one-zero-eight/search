@@ -1,0 +1,16 @@
+{
+ "title": "Скачать программу [programma_kursa_upravlenie_proektami]",
+ "url": "https://innopolis.university/filespublic/programma_kursa_upravlenie_proektami.pdf",
+ "sha256": "f96b5c7d322168ef363e3ba46d2ce00f54911fcd38e6cf90db4e286f948f538b",
+ "method": "text layer (opendataloader)",
+ "chars": 3937,
+ "tables": 5,
+ "section": "site/ido",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:28+00:00",
+ "remote": {
+  "etag": "\"9dc47-611520a6fe606\"",
+  "modified": "Wed, 14 Feb 2024 06:58:40 GMT",
+  "size": "646215"
+ }
+}

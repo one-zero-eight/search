@@ -1,0 +1,16 @@
+{
+ "title": "result 2 math",
+ "url": "https://lk-dovuz.innopolis.university/public/files/result_2_math.pdf",
+ "sha256": "79b14e73ba4db626fdd3f781cee109707533308e6cafa47e72dbf4bf295c931a",
+ "method": "text layer (opendataloader)",
+ "chars": 164223,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:24+00:00",
+ "remote": {
+  "etag": "\"5fd9a-650f8a2296fc0\"",
+  "modified": "Mon, 04 May 2026 07:11:03 GMT",
+  "size": "392602"
+ }
+}

@@ -1,0 +1,271 @@
+{
+ "docs": {
+  "https://lk-dovuz.innopolis.university/upload/gafurov_fmp.pdf": "Магнитный резонанс"
+ },
+ "pages": {
+  "andreev": {
+   "fetched_at": "2026-10-31T08:39:34+00:00",
+   "file_sha": "7b19e4b17b18b6271ee00e8a371bbe81357802e551f508ea1d7585666d4712e4",
+   "last_modified": "Fri, 19 Jun 2026 09:48:02 GMT",
+   "sha256": "e63c91c6a4f058930ad408e02f553a7c4f5e463957d2fec7deeaa50c4924302c",
+   "title": "Андреев Николай Николаевич",
+   "url": "https://fmp.innopolis.university/andreev"
+  },
+  "classes": {
+   "fetched_at": "2026-10-31T08:39:26+00:00",
+   "file_sha": "f260586a8f798ec519a784a0d690e6ea52218de3acca04f1732f480f7991c6fb",
+   "last_modified": "Fri, 19 Jun 2026 09:47:52 GMT",
+   "sha256": "e16b8529c3cac11d4bdb99b9bbea59185d5c2c0fa117763c65fb5537ca3ea93c",
+   "title": "Физмат классы",
+   "url": "https://fmp.innopolis.university/classes"
+  },
+  "clubs": {
+   "fetched_at": "2026-10-31T08:39:28+00:00",
+   "file_sha": "1fe79c5bab550f1f9df1dc8f24bd7de5cd2abb55c0c6788b9f8c4fcc095ae5c8",
+   "last_modified": "Fri, 19 Jun 2026 09:47:54 GMT",
+   "sha256": "f2bd889a731e29a2ccd93ab9068d21e1ac4dceb5f4fdba3ed77457fcc17a7249",
+   "title": "Физмат кружки",
+   "url": "https://fmp.innopolis.university/clubs"
+  },
+  "contacts": {
+   "fetched_at": "2026-10-31T08:39:58+00:00",
+   "file_sha": "df5d69224d318cd8f75c369ec65281b562c77011828cb4eec132b47da6cfcc19",
+   "last_modified": "Mon, 12 Oct 2026 10:33:57 GMT",
+   "sha256": "cb8b48b5111f1554c41a1626a2f9b5ade450f080ed71d9c257cf604f2cc2c6ba",
+   "title": "Контакты",
+   "url": "https://fmp.innopolis.university/contacts"
+  },
+  "dokuments": {
+   "fetched_at": "2026-10-31T08:40:13+00:00",
+   "file_sha": "3f6523bed57528b54a085d6a84be35646b7058e35dfaf2de03d9cb26151c5b53",
+   "last_modified": "Fri, 19 Jun 2026 09:48:56 GMT",
+   "sha256": "3bf2b58fce9179ff89a92ca92f5a609a725ac03316ae8b9559198ea776a68ea2",
+   "title": "Нормативные документы",
+   "url": "https://fmp.innopolis.university/dokuments"
+  },
+  "ershov": {
+   "fetched_at": "2026-10-31T08:39:49+00:00",
+   "file_sha": "76081843b79011467e0b9ed88ff8e5c9e085ebaba0bd4d7e40cdd5e0219862d9",
+   "last_modified": "Fri, 19 Jun 2026 09:48:28 GMT",
+   "sha256": "2f276e5a43ed6dd5ae1612e1f469a08f4c5dab508c2f3af68e762a4df77dd6e6",
+   "title": "Ершов Егор Иванович",
+   "url": "https://fmp.innopolis.university/ershov"
+  },
+  "gasnikov": {
+   "fetched_at": "2026-10-31T08:39:37+00:00",
+   "file_sha": "e7bc4e66da2dd901e01dff556a03ae2a00eaf706b92c1f44c3da89d6d40b61af",
+   "last_modified": "Thu, 23 Jul 2026 10:57:02 GMT",
+   "sha256": "2ad0f059e248e2420357c82f90b5daa9e3b35baa9e609a75c97e4bf36e523b5e",
+   "title": "Гасников Александр Владимирович",
+   "url": "https://fmp.innopolis.university/gasnikov"
+  },
+  "gordin": {
+   "fetched_at": "2026-10-31T08:39:51+00:00",
+   "file_sha": "e5c8a4e203239164588edf879aa923a9658fbb89790ad165bf8260e32f4eebfc",
+   "last_modified": "Thu, 23 Jul 2026 10:58:25 GMT",
+   "sha256": "2608e5a4dbba645e91470eaa21b61f6710aafcc6b27282e019ea170550b86151",
+   "title": "Гордин Владимир Александрович",
+   "url": "https://fmp.innopolis.university/gordin"
+  },
+  "grant-support": {
+   "fetched_at": "2026-10-31T08:39:32+00:00",
+   "file_sha": "4c9ceede5ccfc7bf22603be34e9d6a1b25fbf9b8dc79177cc8e5f93ca30fce54",
+   "last_modified": "Fri, 19 Jun 2026 09:47:59 GMT",
+   "sha256": "0f4fb6c6c86e3fef987a150ad3c68ad2df7181a02c30c06b6c602cd94e05f500",
+   "title": "Грантовая поддержка",
+   "url": "https://fmp.innopolis.university/grant-support"
+  },
+  "home": {
+   "fetched_at": "2026-10-31T08:39:24+00:00",
+   "file_sha": "fa99b61d34b5306f3a5de26d3b37b50032ac324773aae8c24cff484d7cad231d",
+   "last_modified": "Thu, 22 Oct 2026 08:13:32 GMT",
+   "sha256": "a26a9152c6a691f888b9fd671d3a84d3ec71d7c8bd0c6b2f2725142d64ba7c7e",
+   "title": "Физмат прорыв",
+   "url": "https://fmp.innopolis.university/"
+  },
+  "lectures1": {
+   "fetched_at": "2026-10-31T08:39:30+00:00",
+   "file_sha": "15ef59083d1b491ab530e027e1a4da926b4985674797701612de6b37897fb765",
+   "last_modified": "Wed, 14 Oct 2026 06:59:00 GMT",
+   "sha256": "332eac50bff2be72d469dc16ec47b0e37f45b525f098452776d8146dc9c7a85a",
+   "title": "Научно-популярные лекции",
+   "url": "https://fmp.innopolis.university/lectures1"
+  },
+  "lectures2": {
+   "fetched_at": "2026-10-31T08:40:15+00:00",
+   "file_sha": "8ab6993229eefaff00f3f5d58068c0b91115839f4885441c585f2dac047ff15d",
+   "last_modified": "Tue, 09 Jun 2026 10:00:50 GMT",
+   "sha256": "5f6d02702bb545bea39110902ca1f04fa41fde276476898f53a6800a266619e0",
+   "title": "Научно-популярные лекции старые",
+   "url": "https://fmp.innopolis.university/lectures2"
+  },
+  "media": {
+   "fetched_at": "2026-10-31T08:39:53+00:00",
+   "file_sha": "88ec3afaf5a6d749b7893c4764bc67a2937f29849b5fe87bf43eddde82022131",
+   "last_modified": "Wed, 21 Oct 2026 10:42:31 GMT",
+   "sha256": "455e323fcc76ba71608fee2239172d240ecda206af42507f62c87b4178095486",
+   "title": "Фотографии",
+   "url": "https://fmp.innopolis.university/media"
+  },
+  "page117387446-html": {
+   "fetched_at": "2026-10-31T09:03:17+00:00",
+   "file_sha": "07ac2b7150eeda2bbbf3faad70591192f59e17c3d3419a9a6d2acb537220fb7e",
+   "last_modified": "Fri, 19 Jun 2026 09:49:10 GMT",
+   "sha256": "717718757bac9822ee68ecb8f2b0451ab84c1de7cb7c99568bcfd040fb6b64db",
+   "title": "Архив",
+   "url": "https://fmp.innopolis.university/page117387446.html"
+  },
+  "page63160921-html": {
+   "fetched_at": "2026-10-31T09:03:22+00:00",
+   "file_sha": "dcf57accec7035143f44f79733ab116355ced73fe86c7a164ad1848cffc1aa2d",
+   "last_modified": "Thu, 13 Feb 2025 08:06:56 GMT",
+   "sha256": "79ac4a08bf7c53830d81c6c098771674694aacfa9238682bd62a715b0ca2f2ed",
+   "title": "Copy of Гасников Александр Владимирович",
+   "url": "https://fmp.innopolis.university/page63160921.html"
+  },
+  "page65417573-html": {
+   "fetched_at": "2026-10-31T09:03:24+00:00",
+   "file_sha": "0f72b6f5810af52aa565c5f70c9210b51a14ca1943e16553c407a7a093649bbc",
+   "last_modified": "Mon, 24 Mar 2025 07:25:39 GMT",
+   "sha256": "44781ca2725931a20898b8b1511090853f9ef42174508b1d3780552e6c7020fc",
+   "title": "Copy of Научно-популярные лекции по математике и фестивали",
+   "url": "https://fmp.innopolis.university/page65417573.html"
+  },
+  "page84190726-html": {
+   "fetched_at": "2026-10-31T09:03:09+00:00",
+   "file_sha": "c1af4b393595e38c0cf3d321282965f662a75f6ef8db7e01f96e51478a0c916c",
+   "last_modified": "Wed, 29 Jul 2026 09:48:55 GMT",
+   "sha256": "e3b57326d4f1ebe3394eb085375faa5766ca36b61a8563fecae7221498c2acba",
+   "title": "Грант «Поддержка педагогов физики, математики, информатики»",
+   "url": "https://fmp.innopolis.university/page84190726.html"
+  },
+  "page84203316-html": {
+   "fetched_at": "2026-10-31T09:03:11+00:00",
+   "file_sha": "e2585e6da1fe872b9393ccee06bb5e2fefc1ed29e8cbfde311c4d013a902fa45",
+   "last_modified": "Thu, 09 Jul 2026 07:47:14 GMT",
+   "sha256": "fa4ca2813b4a4add68529de475dbf8f0f51abc8ec5b521fffd04175495a71820",
+   "title": "Грант «Физико-математический прорыв в школе»",
+   "url": "https://fmp.innopolis.university/page84203316.html"
+  },
+  "page84206476-html": {
+   "fetched_at": "2026-10-31T09:03:13+00:00",
+   "file_sha": "7f55d57dce7405397cbd50842dec14b306097cf3c04156bc8fdf52d2bd322355",
+   "last_modified": "Fri, 19 Jun 2026 09:49:05 GMT",
+   "sha256": "5d71d4cee6729401cf3dffffc554f77d7545302e3aac9a558a5be640a2149be9",
+   "title": "Денежные вознаграждения обучающимся 5-11 классов",
+   "url": "https://fmp.innopolis.university/page84206476.html"
+  },
+  "page84303566-html": {
+   "fetched_at": "2026-10-31T09:03:15+00:00",
+   "file_sha": "101c0f5fe74c50c9d4f6c3fe699fcb0201d5ac435833ed40f559e3a583b4a8f7",
+   "last_modified": "Fri, 19 Jun 2026 09:49:07 GMT",
+   "sha256": "d172970351b835006b4b29838c234f2995acaf8b25ed13aa8f652990b89ef9fc",
+   "title": "Отчет по проекту \"Физико-математический прорыв\" за 2024/2025 учебный год",
+   "url": "https://fmp.innopolis.university/page84303566.html"
+  },
+  "raigorodsky": {
+   "fetched_at": "2026-10-31T08:39:39+00:00",
+   "file_sha": "b552c6b01012b301593c993cbed53763ca27a7bb94fb8410c2df81ac272eae62",
+   "last_modified": "Thu, 23 Jul 2026 10:59:18 GMT",
+   "sha256": "bda985eb3bb25b29587887a8a36df03e2cf991e0c40ac68097b5d2588d7fff10",
+   "title": "Райгородский Андрей Михайлович",
+   "url": "https://fmp.innopolis.university/raigorodsky"
+  },
+  "savvateev": {
+   "fetched_at": "2026-10-31T08:39:41+00:00",
+   "file_sha": "e9ebede4ca1d706e12347e01dcc5e101bf8f9038685ada9a10d07540e99f643f",
+   "last_modified": "Thu, 23 Jul 2026 11:00:16 GMT",
+   "sha256": "7ec95e3e82f4930d2c96c72738a7c0f2b08ff9ce0067701704657c5310de6f43",
+   "title": "Савватеев Алексей Владимирович",
+   "url": "https://fmp.innopolis.university/savvateev"
+  },
+  "shpilman": {
+   "fetched_at": "2026-10-31T08:39:47+00:00",
+   "file_sha": "c77cbf14c99d5c4b4428eba20734a66aeda51b3c826efc22d1b089eced5af2ca",
+   "last_modified": "Thu, 23 Jul 2026 11:00:49 GMT",
+   "sha256": "8298e9f339c215942ead50e09ae843b5fd663968eab5390cb349431418ed1a43",
+   "title": "Шпильман Алексей Александрович",
+   "url": "https://fmp.innopolis.university/shpilman"
+  },
+  "stonyakin": {
+   "fetched_at": "2026-10-31T08:39:43+00:00",
+   "file_sha": "7d71d7b36194b2e26bf1e5929a282d840a895cb11ae9570ed8a9508303ef3b3f",
+   "last_modified": "Fri, 19 Jun 2026 09:48:21 GMT",
+   "sha256": "8b4a39a1cb2dc9ae201ef52bc07d0e8f34a27b53e4361cec89c2a9b3bee5b7e4",
+   "title": "Стонякин Федор Сергеевич",
+   "url": "https://fmp.innopolis.university/stonyakin"
+  },
+  "usefulboosk": {
+   "fetched_at": "2026-10-31T08:40:00+00:00",
+   "file_sha": "ccf60a6e7b26f45865664f6d460ced69c43b370cedf6d7c2203a54e3feefe462",
+   "last_modified": "Fri, 19 Jun 2026 09:48:41 GMT",
+   "sha256": "4c0bffa05c8b6dd988d3827867f7be7149800b07bb72d9b1243df6181ee2d1aa",
+   "title": "Книги",
+   "url": "https://fmp.innopolis.university/usefulboosk"
+  },
+  "usefulgames": {
+   "fetched_at": "2026-10-31T08:40:05+00:00",
+   "file_sha": "a7d7d4206c3f7bd412d1eec032f0f65abbba7310d8f3bd89c0cebbb2389da82b",
+   "last_modified": "Fri, 19 Jun 2026 09:48:47 GMT",
+   "sha256": "5a1530ae7a772ee2ef086724b68cc01ad8b2cfaad362f5df9da65f118504e1cd",
+   "title": "Игры и головоломки",
+   "url": "https://fmp.innopolis.university/usefulgames"
+  },
+  "usefulolympiads": {
+   "fetched_at": "2026-10-31T08:40:07+00:00",
+   "file_sha": "eb89d0ecdaf6f3abe32bcdcd05f2e7ceabf5cde2ccc2c1601b6756df462b0375",
+   "last_modified": "Fri, 19 Jun 2026 09:48:49 GMT",
+   "sha256": "55d09043698b3446bda63e35a278abcd44fec9a47e7cfd3bbb18574f4be6945c",
+   "title": "Сборники задач, турниры и олимпиады",
+   "url": "https://fmp.innopolis.university/usefulolympiads"
+  },
+  "usefulresources": {
+   "fetched_at": "2026-10-31T08:40:09+00:00",
+   "file_sha": "e423d095381b4a4a908e873a7d04917767e1ea79dd75840514421b9abad8c298",
+   "last_modified": "Wed, 07 Oct 2026 08:37:33 GMT",
+   "sha256": "c5025030385289cba19aba69ba5a05295456c6e0c0e2b27c3f1016b1a010cc07",
+   "title": "Научно-популярные ресурсы",
+   "url": "https://fmp.innopolis.university/usefulresources"
+  },
+  "usefulwebsites": {
+   "fetched_at": "2026-10-31T08:40:03+00:00",
+   "file_sha": "5e815203443810f5aa41593dcd781b33898cdca29ead5edd69944002a4909f96",
+   "last_modified": "Tue, 07 Jul 2026 07:09:39 GMT",
+   "sha256": "2d13e4ad4d7d65a51dcad5129a0110d28175efafbd835ea0a5b675a625d75f1a",
+   "title": "Полезные и интересные сайты",
+   "url": "https://fmp.innopolis.university/usefulwebsites"
+  },
+  "usefulwork": {
+   "fetched_at": "2026-10-31T08:40:11+00:00",
+   "file_sha": "f2178af2238e6a210b81a10baaea828696225c8ee0aec6510f5d7b3d2b370d5e",
+   "last_modified": "Fri, 19 Jun 2026 09:48:54 GMT",
+   "sha256": "fb0703a84bc4320866902ed6cbac3f5e8ee6f0d87f3bba7e667268b36d42faed",
+   "title": "Инструменты для работы и обучения",
+   "url": "https://fmp.innopolis.university/usefulwork"
+  },
+  "videos": {
+   "fetched_at": "2026-10-31T08:39:55+00:00",
+   "file_sha": "f1a61eab98e66fbc3a47d818ece38ac631dd8dd3b15d771be6155ea1898d0dd2",
+   "last_modified": "Mon, 10 Aug 2026 12:36:15 GMT",
+   "sha256": "d964130a2b42f131167c44f6e066d488a6bf9b1014071a215a241071ce845002",
+   "title": "Видео",
+   "url": "https://fmp.innopolis.university/videos"
+  },
+  "yashchenko": {
+   "fetched_at": "2026-10-31T08:39:45+00:00",
+   "file_sha": "8a8c8a6969f67b6d7613ca4bf7010ed255b2e17dd872aac082c8dcb5fd79c91c",
+   "last_modified": "Fri, 19 Jun 2026 09:48:24 GMT",
+   "sha256": "f40e12bebb80f73e1d736b023c8b3f414a4b6a4206b57b6ae8bcd8dcf2ec2a38",
+   "title": "Ященко Иван Валерьевич",
+   "url": "https://fmp.innopolis.university/yashchenko"
+  },
+  "zero-release-cok": {
+   "fetched_at": "2026-10-31T08:40:18+00:00",
+   "file_sha": "361ff9315e5256a14466a8b2e7f32e0b5d1bf37dbf2c59e18abbf185c3fee54c",
+   "last_modified": "Fri, 31 Jul 2026 07:59:16 GMT",
+   "sha256": "ce353daaacdba92b3fe02577f8b1b028bfdf2161905d6967982877a258095bb8",
+   "title": "ЦОК | Цифровой образовательный контент",
+   "url": "https://fmp.innopolis.university/zero_release_cok"
+  }
+ }
+}

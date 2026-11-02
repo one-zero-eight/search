@@ -1,0 +1,16 @@
+{
+ "title": "Резюме проекта - с 25 до 29 года",
+ "url": "https://sezinnopolis.ru/upload/new-files/forcompanies-resume.docx",
+ "sha256": "5d437fa0b6c1dcd13b6691def60fab4015ffeb26c441139de434c3a32ffca5c0",
+ "method": "text layer (opendataloader)",
+ "chars": 2370,
+ "tables": 5,
+ "section": "site/sez",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:31+00:00",
+ "remote": {
+  "etag": "\"6984579a-65d6\"",
+  "modified": "Thu, 05 Feb 2026 08:40:58 GMT",
+  "size": "26070"
+ }
+}

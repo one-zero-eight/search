@@ -1,0 +1,16 @@
+{
+ "title": "1st round IOM 25-26",
+ "url": "https://lk-dovuz.innopolis.university/public/files/1st_round_IOM_25-26.pdf",
+ "sha256": "f42f80d2d8f09b8012746d0c11680850e98b4951091a9e2e4e88d55017068fbc",
+ "method": "text layer (opendataloader)",
+ "chars": 110384,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:18+00:00",
+ "remote": {
+  "etag": "\"73061-64ff86983e840\"",
+  "modified": "Tue, 21 Apr 2026 13:30:01 GMT",
+  "size": "471137"
+ }
+}

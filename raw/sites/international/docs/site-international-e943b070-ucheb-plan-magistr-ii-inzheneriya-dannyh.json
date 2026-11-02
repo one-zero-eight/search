@@ -1,0 +1,16 @@
+{
+ "title": "Download the curriculum [ucheb_plan_magistr_ii_inzheneriya_dannyh]",
+ "url": "https://innopolis.university/filespublic/ucheb_plan_magistr_ii_inzheneriya_dannyh.pdf",
+ "sha256": "8a6ff8422cc11dfe68e004209eb6d7745280c8250b750fde0f719dda23448285",
+ "method": "text layer (opendataloader)",
+ "chars": 11353,
+ "tables": 5,
+ "section": "site/international",
+ "context": "",
+ "fetched_at": "2026-11-01T23:00:23+00:00",
+ "remote": {
+  "etag": "\"42f7b4-61dd5b3cd992e\"",
+  "modified": "Mon, 22 Jul 2024 13:05:42 GMT",
+  "size": "4388788"
+ }
+}

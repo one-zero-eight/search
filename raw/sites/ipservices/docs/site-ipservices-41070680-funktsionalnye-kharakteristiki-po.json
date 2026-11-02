@@ -1,0 +1,16 @@
+{
+ "title": "Функциональные характеристики ПО [Функциональные_характеристики_ПО]",
+ "url": "https://innopolis.university/filespublic/%D0%A4%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5_%D1%85%D0%B0%D1%80%D0%B0%D0%BA%D1%82%D0%B5%D1%80%D0%B8%D1%81%D1%82%D0%B8%D0%BA%D0%B8_%D0%9F%D0%9E.pdf",
+ "sha256": "91a470c92ec6739d1e97fc6822b5439f7420d3135a4e51608922360777e900e1",
+ "method": "text layer (opendataloader)",
+ "chars": 28910,
+ "tables": 5,
+ "section": "site/ipservices",
+ "context": "",
+ "fetched_at": "2026-11-01T22:40:27+00:00",
+ "remote": {
+  "etag": "\"bd087-652f299262f61\"",
+  "modified": "Fri, 29 May 2026 10:49:25 GMT",
+  "size": "774279"
+ }
+}

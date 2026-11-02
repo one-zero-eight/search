@@ -1,0 +1,31 @@
+{
+ "docs": {
+  "https://lk-dovuz.innopolis.university/public/files/programm_vshb_2026.pdf": "Скачать программу"
+ },
+ "pages": {
+  "apply-get-in": {
+   "fetched_at": "2026-10-31T08:41:05+00:00",
+   "file_sha": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "last_modified": "Tue, 01 Sep 2026 13:25:10 GMT",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "title": "Страница регистрации",
+   "url": "https://team-project.university.innopolis.ru/apply-get-in"
+  },
+  "home": {
+   "fetched_at": "2026-10-31T08:41:03+00:00",
+   "file_sha": "c06746fc36ad91aa06640012d06b20204c29b45a1386790623c1c4c8110129f0",
+   "last_modified": "Tue, 01 Sep 2026 13:30:45 GMT",
+   "sha256": "00cacc84ee7326beee4d12e513a5a638f848eb8346cf11203606b29dcdeb180d",
+   "title": "Центр довузовской подготовки",
+   "url": "https://team-project.university.innopolis.ru/"
+  },
+  "vesennyaya-shkola-bakalavrov": {
+   "fetched_at": "2026-10-31T08:41:09+00:00",
+   "file_sha": "37fba88d42252956e1c8004d5c2a2a22f780f15a8e3e7c26485985906b885601",
+   "last_modified": "Tue, 01 Sep 2026 13:29:33 GMT",
+   "sha256": "1d1f9d7b6c8bcba6b8d721d957af356f38ff0aabc3d8e3d6e56defdf62f6b2fb",
+   "title": "Весенняя школа бакалавров",
+   "url": "https://team-project.university.innopolis.ru/vesennyaya-shkola-bakalavrov"
+  }
+ }
+}

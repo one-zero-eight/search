@@ -1,0 +1,16 @@
+{
+ "title": "Программирование на Python Продолжающий уровень",
+ "url": "https://lk-dovuz.innopolis.university/public/files/offer-python-continuing.pdf",
+ "sha256": "b5105a6ec8ca52f2260b9beb06a968cfde47adbdfcbb540c98cd43cc406542b0",
+ "method": "text layer (opendataloader)",
+ "chars": 32852,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"36f28-64971ab56f9c0\"",
+  "modified": "Wed, 28 Jan 2026 12:13:35 GMT",
+  "size": "225064"
+ }
+}

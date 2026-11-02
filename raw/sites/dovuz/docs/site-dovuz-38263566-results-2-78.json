@@ -1,0 +1,16 @@
+{
+ "title": "results 2 7-8",
+ "url": "https://lk-dovuz.innopolis.university/public/files/results_2_7-8.pdf",
+ "sha256": "98a2141d40c0e36f116e05fced3df38f47428d6f8b159e40d7b5aa1976d4f3de",
+ "method": "text layer (opendataloader)",
+ "chars": 3585,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:25+00:00",
+ "remote": {
+  "etag": "\"23573-64ff935b884c0\"",
+  "modified": "Tue, 21 Apr 2026 14:27:07 GMT",
+  "size": "144755"
+ }
+}

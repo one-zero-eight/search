@@ -1,0 +1,16 @@
+{
+ "title": "innopolis open informatics resheniya RU 2026.pdf",
+ "url": "https://lk-dovuz.innopolis.university/public/files/innopolis_open_informatics_resheniya_RU_2026.pdf.pdf",
+ "sha256": "dce91fe52c6cabc32d62fa18a83dd37e85b0f353950f26bb13339bd9511da8aa",
+ "method": "text layer (opendataloader)",
+ "chars": 39430,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:21+00:00",
+ "remote": {
+  "etag": "\"5c283-6505e50fa6900\"",
+  "modified": "Sun, 26 Apr 2026 15:04:36 GMT",
+  "size": "377475"
+ }
+}

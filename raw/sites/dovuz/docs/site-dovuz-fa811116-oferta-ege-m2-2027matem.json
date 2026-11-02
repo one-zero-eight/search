@@ -1,0 +1,16 @@
+{
+ "title": "Ссылка на договор оферты [оферта_ЕГЭ_м2_2027матем]",
+ "url": "https://innopolis.university/filespublic/%D0%BE%D1%84%D0%B5%D1%80%D1%82%D0%B0_%D0%95%D0%93%D0%AD_%D0%BC2_2027%D0%BC%D0%B0%D1%82%D0%B5%D0%BC.docx",
+ "sha256": "5b7599f7ef19282ca013a2d48c697805dd40c46c60de331197a10b0afa5ec243",
+ "method": "text layer (opendataloader)",
+ "chars": 30978,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:17+00:00",
+ "remote": {
+  "etag": "\"bca7-65820e9f43a1e\"",
+  "modified": "Mon, 03 Aug 2026 09:10:47 GMT",
+  "size": "48295"
+ }
+}

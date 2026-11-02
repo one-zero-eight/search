@@ -1,0 +1,16 @@
+{
+ "title": "Rules for access to the rooms of the Residential Complex",
+ "url": "https://hotel.innopolis.university/upload/docs-hotel/Room%20access%20rules%20at%20the%20residential%20complex.pdf",
+ "sha256": "0d98641df001da62ca54191b52e6142d559f48307762dfab0bed046ac7c78361",
+ "method": "text layer (opendataloader)",
+ "chars": 4293,
+ "tables": 5,
+ "section": "site/hotel",
+ "context": "",
+ "fetched_at": "2026-10-31T00:26:16+00:00",
+ "remote": {
+  "etag": "\"1e1c2-5c376fb54d0dc\"",
+  "modified": "Sat, 29 May 2021 12:17:53 GMT",
+  "size": "123330"
+ }
+}

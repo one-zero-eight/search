@@ -1,0 +1,16 @@
+{
+ "title": "daydzhest po videoigram",
+ "url": "https://innopolis.university/filespublic/daydzhest_po_videoigram.pdf",
+ "sha256": "8bd203c5242e76a93c7ecd4d5a3d6eeacfec1fcfe99435e17a84c030e34f8ca6",
+ "method": "text layer (opendataloader)",
+ "chars": 220844,
+ "tables": 5,
+ "section": "site/media",
+ "context": "",
+ "fetched_at": "2026-11-01T23:10:11+00:00",
+ "remote": {
+  "etag": "\"b89965-5fa3959a51b1c\"",
+  "modified": "Wed, 26 Apr 2023 08:51:47 GMT",
+  "size": "12097893"
+ }
+}

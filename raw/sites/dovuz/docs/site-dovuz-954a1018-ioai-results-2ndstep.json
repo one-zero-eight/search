@@ -1,0 +1,16 @@
+{
+ "title": "ioai results 2ndstep",
+ "url": "https://lk-dovuz.innopolis.university/public/files/ioai_results_2ndstep.pdf",
+ "sha256": "4f57d6347e260298544b0cf25cbef8eec3a0ad9633394e30c30620f39906cfdd",
+ "method": "text layer (opendataloader)",
+ "chars": 1452,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:22+00:00",
+ "remote": {
+  "etag": "\"176a7-62cd4f850d5c0\"",
+  "modified": "Wed, 29 Jan 2025 09:31:11 GMT",
+  "size": "95911"
+ }
+}

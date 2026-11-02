@@ -1,0 +1,16 @@
+{
+ "title": "List of documents for minor guests",
+ "url": "https://hotel.innopolis.university/upload/docs-hotel/%D0%A4%D0%BE%D1%80%D0%BC%D1%8B%20%D0%BD%D0%B5%D1%81%D0%BE%D0%B2%D0%B5%D1%80%D1%88%D0%B5%D0%BD%D0%BD%D0%BE%D0%BB%D0%B5%D1%82%D0%BD%D0%B8%D0%B5%20en.pdf",
+ "sha256": "7a5cd00a44bfc0cf69324434cfaf336d354bd20de8ddf8a1875ea054134b5b9f",
+ "method": "text layer (opendataloader)",
+ "chars": 12595,
+ "tables": 5,
+ "section": "site/hotel",
+ "context": "",
+ "fetched_at": "2026-10-31T00:26:16+00:00",
+ "remote": {
+  "etag": "\"4ec06-600eae2bd8996\"",
+  "modified": "Thu, 20 Jul 2023 13:11:26 GMT",
+  "size": "322566"
+ }
+}

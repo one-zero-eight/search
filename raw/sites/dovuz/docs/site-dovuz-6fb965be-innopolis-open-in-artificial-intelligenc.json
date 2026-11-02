@@ -1,0 +1,16 @@
+{
+ "title": "Innopolis Open in artificial intelligence. Final round. 2020-2021",
+ "url": "https://lk-dovuz.innopolis.university/public/files/ii/Innopolis%20Open%20in%20artificial%20intelligence.%20Final%20round.%202020-2021.pdf",
+ "sha256": "657427e62038f6083051f6b04c7b4f9a9b2c677963139f501399ee6b370d5862",
+ "method": "text layer (opendataloader)",
+ "chars": 1678,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:21+00:00",
+ "remote": {
+  "etag": "\"20fc6-5c24677164240\"",
+  "modified": "Fri, 14 May 2021 08:59:45 GMT",
+  "size": "135110"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "Итоговые результаты 2 тур",
+ "url": "https://lk-dovuz.innopolis.university/public/files/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B5%20%D1%80%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82%D1%8B%202%20%D1%82%D1%83%D1%80.pdf",
+ "sha256": "10a4d2a7382814fa9215d34fbbd388cde56af80c7d46f67ff0e3b28be44fec25",
+ "method": "text layer (opendataloader)",
+ "chars": 96523,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:18+00:00",
+ "remote": {
+  "etag": "\"73baa-5d7097853f940\"",
+  "modified": "Wed, 02 Feb 2022 14:02:37 GMT",
+  "size": "474026"
+ }
+}

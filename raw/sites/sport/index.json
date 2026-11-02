@@ -1,0 +1,181 @@
+{
+ "docs": {},
+ "pages": {
+  "about": {
+   "fetched_at": "2026-11-01T22:15:36+00:00",
+   "file_sha": "673ff173269d41d242cc50816078d21a969018c9729c0b43dbc229ea80df59f4",
+   "last_modified": "Mon, 21 Mar 2022 16:08:27 GMT",
+   "sha256": "9688faf59c24e027c0b54926bf0742c08416348ff2bf80f96c33425af27a0dd9",
+   "title": "О клубе",
+   "url": "https://sport.innopolis.ru/about"
+  },
+  "about-contacts": {
+   "fetched_at": "2026-11-01T22:15:52+00:00",
+   "file_sha": "9f83f572e3934fadfd73b8368b17fe0c77ae05c6dad3d90b081c7319a4dd8383",
+   "last_modified": "Sun, 03 Nov 2024 08:17:51 GMT",
+   "sha256": "91b56f579518db069df034fab05f46a464f8e81c05a567932aed27dd29b31bc0",
+   "title": "Контакты",
+   "url": "https://sport.innopolis.ru/about/contacts"
+  },
+  "about-detskij-fitnes": {
+   "fetched_at": "2026-11-01T22:15:41+00:00",
+   "file_sha": "5cff6f44fb8a88077e2094796981063cb035ce0055fee1505606c71e0e3b1d28",
+   "last_modified": "Thu, 02 Jul 2026 14:19:24 GMT",
+   "sha256": "af73539680c306b484711e4c58767e5b6d1ef9956785a69d1ca7e213cfae1999",
+   "title": "Детский фитнес",
+   "url": "https://sport.innopolis.ru/about/detskij-fitnes"
+  },
+  "about-faq": {
+   "fetched_at": "2026-11-01T22:15:48+00:00",
+   "file_sha": "ff66d4e2bca7424ee9ab26e77d4610139cd41a17efe3b68788e31286e72b31a0",
+   "last_modified": "Fri, 02 Jan 2026 13:15:37 GMT",
+   "sha256": "9dd01677654d99d54215a74e2fd0ea588e5336103ac8dfc7ae005fb9e1233d27",
+   "title": "Вопрос-ответ",
+   "url": "https://sport.innopolis.ru/about/faq"
+  },
+  "about-news": {
+   "fetched_at": "2026-11-01T22:15:45+00:00",
+   "file_sha": "6561e0576c835c7ee20c0924e1bcd965b0118ac2a3e0bc6cbb1378f492969034",
+   "last_modified": "Mon, 12 Oct 2026 13:06:01 GMT",
+   "sha256": "957299f1a395bf37ae3bf5f23625725ad89ef54df77f606174222efdd6e47f1f",
+   "title": "Новости и акции",
+   "url": "https://sport.innopolis.ru/about/news"
+  },
+  "about-zones": {
+   "fetched_at": "2026-11-01T22:15:39+00:00",
+   "file_sha": "27662589bde1776ff3b925a781d7e7fc14a967978247dd5b81552fc78cf02f10",
+   "last_modified": "Mon, 21 Mar 2022 16:08:27 GMT",
+   "sha256": "141f0c5973e14d621bf89ab4caaec3460b327ef6c7868219ec14e29da7e98799",
+   "title": "Фитнес-зоны",
+   "url": "https://sport.innopolis.ru/about/zones"
+  },
+  "about-zones-edinoborstva": {
+   "fetched_at": "2026-11-01T22:15:29+00:00",
+   "file_sha": "5d40ffa53203cc5aa593b38a67a7e7e9c06aeb470d7eb510740045f558e4d340",
+   "last_modified": "Mon, 21 Mar 2022 16:08:26 GMT",
+   "sha256": "8a6031199700be734ef941d140de989315a634bf476d82e43820ef19ac314941",
+   "title": "Зал единоборств",
+   "url": "https://sport.innopolis.ru/about/zones/edinoborstva"
+  },
+  "about-zones-fitness": {
+   "fetched_at": "2026-11-01T22:15:25+00:00",
+   "file_sha": "6a6ad3c5966636394960e3429feca82e383db3d85943037c47d46e27c5dc2347",
+   "last_modified": "Mon, 21 Mar 2022 16:08:26 GMT",
+   "sha256": "79b47fb7e567bc6cac1ccaf6c764baebd8d7d722c463c3427aacd16d5bfa3a1c",
+   "title": "Фитнес",
+   "url": "https://sport.innopolis.ru/about/zones/fitness"
+  },
+  "about-zones-igrovoj-zal-adults": {
+   "fetched_at": "2026-11-01T22:15:34+00:00",
+   "file_sha": "05da40ac4172da4b507a234c59117a0b50016aad40ccf956bf71e7e1b5929c1a",
+   "last_modified": "Mon, 21 Mar 2022 16:08:27 GMT",
+   "sha256": "4ed905de45f9f1cc9ae9188aa48d1ae9368ee73c8ee1e200c0da994eab3c14a5",
+   "title": "Игровой зал",
+   "url": "https://sport.innopolis.ru/about/zones/igrovoj-zal-adults"
+  },
+  "about-zones-igrovoj-zal-kids": {
+   "fetched_at": "2026-11-01T22:15:50+00:00",
+   "file_sha": "bcd75a0e3ef0b3fa80139a167f2e2a01267e246df6d8969a7abe0edbe23183e5",
+   "last_modified": "Mon, 21 Mar 2022 16:08:27 GMT",
+   "sha256": "215fff500e6829ae374bfa165df2839fbda841455c74f183b606333f7d42f8ef",
+   "title": "Детские секции",
+   "url": "https://sport.innopolis.ru/about/zones/igrovoj-zal-kids"
+  },
+  "about-zones-pool-for-adults": {
+   "fetched_at": "2026-11-01T22:15:21+00:00",
+   "file_sha": "61af92e9247209b19cabf95a41a2ee6777c7dab71998e724aa6c43cfc111dc25",
+   "last_modified": "Mon, 21 Mar 2022 16:08:26 GMT",
+   "sha256": "4137244e8ac93256250a040ae93f4d05501fa9b46272028764cde722db8fcf5f",
+   "title": "Бассейн",
+   "url": "https://sport.innopolis.ru/about/zones/pool-for-adults"
+  },
+  "about-zones-pool-for-kids": {
+   "fetched_at": "2026-11-01T22:15:43+00:00",
+   "file_sha": "65f49d050fd1b9c9268fee77e23d1c5afce65ec1952eaa9117a07d0e5b698900",
+   "last_modified": "Mon, 21 Mar 2022 16:08:27 GMT",
+   "sha256": "014048361faab9b1d6cadfc8be042e5c34dc5fb56252e4140ae35cb55370a7fd",
+   "title": "Бассейн для детей",
+   "url": "https://sport.innopolis.ru/about/zones/pool-for-kids"
+  },
+  "about-zones-training-hall": {
+   "fetched_at": "2026-11-01T22:15:23+00:00",
+   "file_sha": "3b18e1c355fe10b9336bbc35580500d97cdace433ec24139ff922c641acbcca9",
+   "last_modified": "Mon, 21 Mar 2022 16:08:26 GMT",
+   "sha256": "8981d56feb555c8fe54702ef83ccce30bbcd3fdd100d0d954b5c7abcc8df5625",
+   "title": "Тренажерный зал",
+   "url": "https://sport.innopolis.ru/about/zones/training-hall"
+  },
+  "club-cards": {
+   "fetched_at": "2026-11-01T22:15:27+00:00",
+   "file_sha": "0ac69324f1a7872b6df975558911d0ade69098e00dc2ee7c7b88ddd8d851655e",
+   "last_modified": "Tue, 24 Feb 2026 16:12:22 GMT",
+   "sha256": "5bd1eca404d7ead52d64cb1e607c1920b4ff1b8b48901a08d774789e8e3a44db",
+   "title": "Клубные карты",
+   "url": "https://sport.innopolis.ru/club-cards"
+  },
+  "en": {
+   "fetched_at": "2026-11-01T22:16:06+00:00",
+   "file_sha": "01d20435a419e44d612986478b2dc62c5200eff4cafc36b53815055c04c5892b",
+   "last_modified": "Thu, 19 Feb 2026 06:43:03 GMT",
+   "sha256": "55f9a3a955d52bce31f2051287e059432ec8e6d5c6d35d15118fefd8a6e4660b",
+   "title": "\"Innopolis\" sports complex",
+   "url": "https://sport.innopolis.ru/en"
+  },
+  "freeze": {
+   "fetched_at": "2026-11-01T22:16:04+00:00",
+   "file_sha": "d66520f6e8e264411c9b193e4b05a96740d515576c447c57a24b5eab6389a391",
+   "last_modified": "Mon, 21 Mar 2022 16:08:29 GMT",
+   "sha256": "8ee06eb1a3d9347d2967f609146db27d27830e6067b2ff25b6551ba3d2d5929e",
+   "title": "Заморозка карты",
+   "url": "https://sport.innopolis.ru/freeze"
+  },
+  "home": {
+   "fetched_at": "2026-11-01T22:15:18+00:00",
+   "file_sha": "245afd23cde88fe44f24aefc3a89147d99c5ad1862d65cc4bf3676cd78342151",
+   "last_modified": "Mon, 20 Jul 2026 14:37:09 GMT",
+   "sha256": "31f094ef74fc41278e357a8344ac47f05b10931c57926fd92238db48414fac2b",
+   "title": "СК «Иннополис» | Фитнес, бассейн, тренажерный зал",
+   "url": "https://sport.innopolis.ru/"
+  },
+  "rules": {
+   "fetched_at": "2026-11-01T22:15:55+00:00",
+   "file_sha": "d42948fdce4356c96adc1647d0e234cee7fbe70a88838d7a03b44ec2d230c1d2",
+   "last_modified": "Wed, 04 Mar 2026 14:09:51 GMT",
+   "sha256": "1cfeafe758f41963be017f66c70cf05ec3bf3a79728dfaf0eba73c86db45f6cd",
+   "title": "Правила посещения",
+   "url": "https://sport.innopolis.ru/rules"
+  },
+  "schedule": {
+   "fetched_at": "2026-11-01T22:15:32+00:00",
+   "file_sha": "75e1d4b5a99e01841678ad1c087d9708904f9b80baba6eac54201dd38d6d401a",
+   "last_modified": "Wed, 09 Sep 2026 10:12:34 GMT",
+   "sha256": "aef1c40e7f06e2a62f0c5275f9da4311897b164d23c5d965229a91c33df10926",
+   "title": "Расписание групповых занятий",
+   "url": "https://sport.innopolis.ru/schedule"
+  },
+  "services": {
+   "fetched_at": "2026-11-01T22:16:02+00:00",
+   "file_sha": "84ad6751753418a4b1433cc77c134b3ce207564a7bc9311ac59d6af5f216ca84",
+   "last_modified": "Fri, 24 Jul 2026 07:42:12 GMT",
+   "sha256": "ad966cfe230f2720d9c80c92c001fcdfb12bc2fd013d990fa8e3d220596b4567",
+   "title": "Дополнительные услуги",
+   "url": "https://sport.innopolis.ru/services"
+  },
+  "treners": {
+   "fetched_at": "2026-11-01T22:15:59+00:00",
+   "file_sha": "023a266e03481e29ffb65ebe2972d997d7812c299f8a9eb0202e5c346c9c9718",
+   "last_modified": "Tue, 21 Jul 2026 12:05:39 GMT",
+   "sha256": "8d8c3a0cdd11873c20f003a137b62f84a67647c24e38b6bc8c2ba53ace3a82f1",
+   "title": "Инструкторы",
+   "url": "https://sport.innopolis.ru/treners"
+  },
+  "vacancies": {
+   "fetched_at": "2026-11-01T22:15:57+00:00",
+   "file_sha": "342fe56f08b627488de34fa418821ca741bf7fa461cd7c141a6f96627ab4a5ca",
+   "last_modified": "Thu, 02 Jul 2026 14:18:11 GMT",
+   "sha256": "f2a8ce6360e4cd80761896876352c24c34edbd05029a8865f7b915b89ba5811f",
+   "title": "Работа в клубе",
+   "url": "https://sport.innopolis.ru/vacancies"
+  }
+ }
+}

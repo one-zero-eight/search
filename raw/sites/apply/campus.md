@@ -1,21 +1,21 @@
-Меню Закрыть EN
-Войти
+Меню Закрыть [EN](https://new.innopolis.university/en/)
+[Войти](https://profile.innopolis.university/)
 - Образование
 - Контакты
 С 2012 года готовим высококвалифицированные кадры в области информационных технологий, искусственного интеллекта и робототехники
-О возможностях образования
+[О возможностях образования](https://apply.innopolis.university/possibilities/)
 Поступающим
-Абитуриенту Бакалавриат Магистратура Онлайн-магистратура Аспирантура Колледж
+[Абитуриенту](https://apply.innopolis.university/) [Бакалавриат](https://apply.innopolis.university/bachelors/) [Магистратура](https://apply.innopolis.university/masters/) [Онлайн-магистратура](https://apply.innopolis.university/msonline/) [Аспирантура](https://apply.innopolis.university/postgraduate-study/) [Колледж](https://innopolis.college/)
 Гранты и стипендии
-Возможности поступления Стипендии Олимпиадные бонусы
+[Возможности поступления](https://apply.innopolis.university/possibilities/) [Стипендии](https://apply.innopolis.university/scholarship/) [Олимпиадные бонусы](https://apply.innopolis.university/olympiad-bonus/)
 Другие возможности поступления
-Квоты Поступление после СПО Поступление граждан СНГ
+[Квоты](https://apply.innopolis.university/quotas/) [Поступление после СПО](https://apply.innopolis.university/spo/) [Поступление граждан СНГ](https://apply.innopolis.university/sng/)
 Посетить иннополис
-Дни открытых дверей
+[Дни открытых дверей](https://apply.innopolis.university/open-day/)
 Проживание в университете
 Кампус
 Довузовская подготовка
-Олимпиады Онлайн-курсы подготовки к поступлению Очные программы для школьников
+[Олимпиады](https://dovuz.innopolis.university/pre-olympiads/innopolis-open) [Онлайн-курсы подготовки к поступлению](https://dovuz.innopolis.university/preparation) [Очные программы для школьников](https://dovuz.innopolis.university/offline-programms)
 режим работы
 пн-пт, 09:00–18:00 (Мск)
 Телефон
@@ -25,32 +25,38 @@ university@innopolis.ru
 адрес
 420500, г. Иннополис
 ул.Университетская, д.1
-Все контакты
-Главная страница Кампус Университета Иннополис
+[Все контакты](https://innopolis.university/contacts/)
+[Главная страница](https://apply.innopolis.university/) Кампус Университета Иннополис
 ## Университетский кампус
-Заявка на обслуживание
+[Заявка на обслуживание](https://hotel.innopolis.university/studentaccommodation/#block2944)
+![](https://apply.innopolis.university/local/js/innopolis/dist/images/campus-intro.webp)
 ## Жизнь и учеба в университете
+![](https://apply.innopolis.university/local/js/innopolis/dist/images/university-life/1.webp)
 ## Жилой комплекс
 Студенты Университета Иннополис проживают в комфортабельных номерах современного кампуса.
 Каждый номер оборудован всей необходимой бытовой техникой и мебелью, имеет отдельную кухню и санузел. На всей территории кампуса доступен бесплатный Wi-Fi, для студентов работают клининг-сервис и прачечная, есть столовая.
 Здания жилого комплекса оборудованы по программе «Доступная среда». Все корпусы соединены между собой пешеходной галереей, которая плавно перетекает в Университет. Благодаря крытому теплому переходу передвигаться по территории удобно в любую погоду.
 Большое внимание мы уделяем безопасности студентов, поэтому на территории жилого комплекса действует пропускной режим.
+![](https://apply.innopolis.university/local/js/innopolis/dist/images/university-life/2.webp)
 ## Спортивный комплекс
 Спортивно-оздоровительный комплекс «Иннополис» помогает жителям, студентам и сотрудникам компаний-резидентов города вести здоровый образ жизни.
 К услугам студентов универсальный спортивный зал для игровых видов спорта, тренажерный зал, финская сауна, хаммам и бассейн.
 Режим работы: ежедневно с 7:00 до 23:00
 Общая площадь комплекса — 8500 м2
 Посещение для студентов Университета Иннополис — бесплатное
+![](https://apply.innopolis.university/local/js/innopolis/dist/images/university-life/3.webp)
 ## Медицинский центр
 Медицинский центр города Иннополис — это структурное подразделение Городской больницы №7 города Казани. Медицинский центр не похож на классические поликлиники.
 Это дневной стационар с клинико-диагностической лабораторией и блоком физиотерапии, реабилитационное отделение, консультативно-диагностический блок и отделение неотложной хирургии — все в одном здании.
 Здесь можно получить консультацию узкого специалиста, пройти диагностику на новейшем оборудовании и получить лечение.
 Для студентов и жителей Иннополиса в терминале 2 круглосуточно работает терапевт.
+![](https://apply.innopolis.university/local/js/innopolis/dist/images/university-life/4.webp)
 ## Учебный комплекс
 Современный учебно-лабораторный корпус Университета Иннополис спроектирован для максимального комфорта студентов, преподавателей и сотрудников. Лаборатории и лекционные аудитории оснащены всем необходимым оборудованием для проведения учебных занятий и научных исследований, имеются специальные помещения для самостоятельной и командной работы.
 На территории корпуса также располагаются библиотека, кофейня, места для отдыха и просмотра кинофильмов.
 Общая площадь учебного корпуса — 31 158 м2
 В здании 6 конференц-залов, 16 аудиторий, 17 переговорных комнат, библиотека, 610 посадочных мест в кафетерии, 309 машиномест на автостоянке, 96 мест на велопарковке.
+![](https://apply.innopolis.university/local/js/innopolis/dist/images/university-life/5.webp)
 ## Питание
 Студенты университета сами выбирают, где им питаться. Можно готовить еду самостоятельно или посещать столовые или кафе.
 В корпусе № 1 и в корпусе № 4 Кампуса работают столовые, где можно получить полноценное питание на завтрак, обед и ужин. Оплату принимают наличными или картой.
@@ -71,6 +77,8 @@ university@innopolis.ru
 - Унитаз
 - Душ
 - Зеркало
+![](https://apply.innopolis.university/upload/iblock/266/mmgfalilij0xcx23pd8384m7g6lnh6s7/1.webp)
+![](https://apply.innopolis.university/upload/iblock/b20/e6h6m0o1hir5x4jjgrpy7gss25qb073y/1.webp)
 ## Двухместный однокомнатный улучшенный номер
 Однокомнатный номер с портьерами площадью 21 кв. метр с двумя односпальными кроватями, рабочей зоной, телевизором и мини-кухней. Рассчитан на проживание двух студентов.
 ### В номере и в ванной комнате
@@ -87,6 +95,8 @@ university@innopolis.ru
 - Душ
 - Зеркало
 - 2 шкафа-купе с большим зеркалом
+![](https://apply.innopolis.university/upload/iblock/82a/y0zr8jrxi222y3mqqrw1zh9lz18f7f44/2.webp)
+![](https://apply.innopolis.university/upload/iblock/fb7/gl5rl0nhl11y368p0hubdswcgskh10nj/3.webp)
 ## Четырехместный двухкомнатный номер
 Двухкомнатный номер площадью 45 кв. метров с четырмя односпальными кроватями и мини-кухней. Рассчитан на проживание четырех студентов.
 ### В номере и в ванной комнате
@@ -103,6 +113,8 @@ university@innopolis.ru
 - Душ
 - Зеркало
 - 2 шкафа-купе с большим зеркалом
+![](https://apply.innopolis.university/upload/iblock/ec9/yrisg7lxjsqrgnxyu6rc16g2x7v5grj8/4.webp)
+![](https://apply.innopolis.university/upload/iblock/dea/m1mwsrpi1he3apdsf4ilesux1f6tcj9c/4.webp)
 ## Пятиместный трехкомнатный номер
 Трехкомнатный номер площадью 65 кв. метров с 2-мя спальнями, гостиной, прихожей, 5 односпальными кроватями, телевизором и мини-кухней.
 ### В номере и в ванной комнате
@@ -119,7 +131,10 @@ university@innopolis.ru
 - Душ
 - Зеркало
 - 2 шкафа-купе с большим зеркалом
+![](https://apply.innopolis.university/upload/iblock/1b9/ndspdesk8atx9fd1a51gz3cies3l9l22/5.webp)
+![](https://apply.innopolis.university/upload/iblock/c52/lqdr56cpyt7cwmokaitmor6hka27f5tg/5.webp)
 ## Полезная информация
+![](https://apply.innopolis.university/upload/iblock/99b/001494xf36zay4wz46ikhjcqbsx9mkzw/campus.webp)
 ## Размещение в кампусе
 Заселение студентов проходит в корпусе №5. Для размещения и регистрации в кампусе во время заезда потребуется оригинал паспорта. Договор о предоставлении услуг по размещению заключается на один учебный год.
 ## Прачечные
@@ -135,10 +150,12 @@ university@innopolis.ru
 ## Хранение багажа
 С 15 мая по 31 августа мы можем оставить ваши вещи на хранение во время летних каникул. Это бесплатно. Для передачи нужно обратиться в Корпус №5
 ## Стоимость проживания для студентов
-## Корпус 1-4
-Смотреть
-## Корпус 5-7
-Смотреть
+[![](https://apply.innopolis.university/local/js/innopolis/dist/images/campus-price/1.webp)](https://hotel.innopolis.university/upload/docs-hotel/%D0%A0%D0%B0%D1%81%D1%87%D0%B5%D1%82_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F_%D1%81%D1%82%D0%B0%D1%80_20251.pdf)
+## [Корпус 1-4](https://hotel.innopolis.university/upload/docs-hotel/%D0%A0%D0%B0%D1%81%D1%87%D0%B5%D1%82_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F_%D1%81%D1%82%D0%B0%D1%80_20251.pdf)
+[Смотреть](https://hotel.innopolis.university/upload/docs-hotel/%D0%A0%D0%B0%D1%81%D1%87%D0%B5%D1%82_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F_%D1%81%D1%82%D0%B0%D1%80_20251.pdf)
+[![](https://apply.innopolis.university/local/js/innopolis/dist/images/campus-price/2.webp)](https://hotel.innopolis.university/upload/docs-hotel/%D0%A0%D0%B0%D1%81%D1%87%D0%B5%D1%82_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F_%D0%BD%D0%BE%D0%B220251.pdf)
+## [Корпус 5-7](https://hotel.innopolis.university/upload/docs-hotel/%D0%A0%D0%B0%D1%81%D1%87%D0%B5%D1%82_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F_%D0%BD%D0%BE%D0%B220251.pdf)
+[Смотреть](https://hotel.innopolis.university/upload/docs-hotel/%D0%A0%D0%B0%D1%81%D1%87%D0%B5%D1%82_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F_%D0%BD%D0%BE%D0%B220251.pdf)
 ## Свяжитесь с нами
 Если у вас остались вопросы, оставьте свои контакты и мы ответим вам.
 - 8 800 550 31 71
@@ -148,24 +165,24 @@ university@innopolis.ru
 - admissions@innopolis.ru
 420500, г. Иннополис,
 ул. Университетская, 1
-- VK
-- Telegram
-- Youtube
-- VK Video
-- Об университете
-- Бакалавриат
-- Магистратура
-- Аспирантура
-- Колледж
-- Возможности поступления
-- День открытых дверей
-- Сведения об образовательной организации
-- Политика конфиденциальности
-- Антитеррористическая деятельность
-- Министерство цифрового развития, связи и массовых коммуникаций РФ
-- Министерство науки и высшего образования Российской Федерации
-- Министерство просвещения Российской Федерации
-## Спасибо!
+- [VK](https://vk.com/innopolisadmissions)
+- [Telegram](https://t.me/apply_innopolis)
+- [Youtube](https://youtube.com/@innopolisu)
+- [VK Video](https://vkvideo.ru/@innopolisadmissions)
+- [Об университете](https://innopolis.university/about/)
+- [Бакалавриат](https://apply.innopolis.university/bachelors/)
+- [Магистратура](https://apply.innopolis.university/masters/)
+- [Аспирантура](https://apply.innopolis.university/postgraduate-study/)
+- [Колледж](https://innopolis.college/)
+- [Возможности поступления](https://apply.innopolis.university/possibilities/)
+- [День открытых дверей](https://apply.innopolis.university/open-day/)
+- [Сведения об образовательной организации](https://innopolis.university/sveden/)
+- [Политика конфиденциальности](https://innopolis.university/files/politicacookies.pdf)
+- [Антитеррористическая деятельность](https://innopolis.university/antiterror/)
+- [Министерство цифрового развития, связи и массовых коммуникаций РФ](https://digital.gov.ru/ru/)
+- [Министерство науки и высшего образования Российской Федерации](https://minobrnauki.gov.ru/)
+- [Министерство просвещения Российской Федерации](https://edu.gov.ru/)
+## ![](https://apply.innopolis.university/local/js/innopolis/dist/images/status-ok-dark.webp) Спасибо!
 Ваше обращение получено. Мы свяжемся с Вами в ближайшее время.
-## Ошибка
+## ![](https://apply.innopolis.university/local/js/innopolis/dist/images/status-error-dark.webp) Ошибка
 Не удалось отправить Ваше обращение. Попробуйте повторно или отправьте обращение на почту innopolis@help.ru.

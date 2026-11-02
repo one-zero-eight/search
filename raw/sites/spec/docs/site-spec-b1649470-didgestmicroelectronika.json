@@ -1,0 +1,16 @@
+{
+ "title": "Didgestmicroelectronika",
+ "url": "https://robotics.innopolis.university/wp-content/uploads/2022/08/Didgestmicroelectronika.pdf",
+ "sha256": "5b38d5d0c70977c2aad7394f145dcc1a14503158b431cf7a131fe073b886c1be",
+ "method": "text layer (opendataloader)",
+ "chars": 362163,
+ "tables": 5,
+ "section": "site/spec",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:28+00:00",
+ "remote": {
+  "etag": "\"f1f1fc-5e5541dd0e05f\"",
+  "modified": "Wed, 03 Aug 2022 10:58:43 GMT",
+  "size": "15856124"
+ }
+}

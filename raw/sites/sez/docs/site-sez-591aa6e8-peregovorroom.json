@@ -1,0 +1,16 @@
+{
+ "title": "Правила предоставления переговорной комнаты",
+ "url": "https://sezinnopolis.ru/upload/new-files/rent/peregovor-room.docx",
+ "sha256": "e1c2f3a339115415482fff046b89ba459320e5b771f93eb89beded0d41acafe5",
+ "method": "text layer (opendataloader)",
+ "chars": 2587,
+ "tables": 5,
+ "section": "site/sez",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:31+00:00",
+ "remote": {
+  "etag": "\"6984579a-44054\"",
+  "modified": "Thu, 05 Feb 2026 08:40:58 GMT",
+  "size": "278612"
+ }
+}

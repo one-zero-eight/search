@@ -1,0 +1,106 @@
+{
+ "docs": {
+  "https://innopolis.university/filespublic/%D0%98%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F_%D0%BF%D0%BE_%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B5-1.pdf": "Инструкция по установке",
+  "https://innopolis.university/filespublic/%D0%98%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F_%D0%BF%D0%BE_%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B5-2.pdf": "Инструкция по установке",
+  "https://innopolis.university/filespublic/%D0%98%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F_%D0%BF%D0%BE_%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B5.pdf": "Инструкция по установке",
+  "https://innopolis.university/filespublic/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE_%D1%8D%D0%BA%D1%81%D0%BF%D0%BB%D1%83%D0%B0%D1%82%D0%B0%D1%86%D0%B8%D0%B8-1.pdf": "Функциональные характеристики ПО",
+  "https://innopolis.university/filespublic/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE_%D1%8D%D0%BA%D1%81%D0%BF%D0%BB%D1%83%D0%B0%D1%82%D0%B0%D1%86%D0%B8%D0%B8.pdf": "Руководство пользователя",
+  "https://innopolis.university/filespublic/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE_%D1%8D%D0%BA%D1%81%D0%BF%D0%BB%D1%83%D0%B0%D1%82%D0%B0%D1%86%D0%B8%D0%B8_27.09.pdf": "Руководство по эксплуатации",
+  "https://innopolis.university/filespublic/%D0%A2%D0%B0%D1%80%D0%B8%D1%84%D0%BD%D0%B0%D1%8F_%D0%BF%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0_%D0%98%D0%A1%D0%A3_%D0%A0%D0%98%D0%94.pdf": "Тарифная политика",
+  "https://innopolis.university/filespublic/%D0%A4%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5_%D1%85%D0%B0%D1%80%D0%B0%D0%BA%D1%82%D0%B5%D1%80%D0%B8%D1%81%D1%82%D0%B8%D0%BA%D0%B8_%D0%9F%D0%9E-1.pdf": "Функциональные характеристики ПО",
+  "https://innopolis.university/filespublic/%D0%A4%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5_%D1%85%D0%B0%D1%80%D0%B0%D0%BA%D1%82%D0%B5%D1%80%D0%B8%D1%81%D1%82%D0%B8%D0%BA%D0%B8_%D0%9F%D0%9E.pdf": "Функциональные характеристики ПО",
+  "https://innopolis.university/filespublic/Instruktsia_po_ustanovke_ITOG_korr_13_05_26.pdf": "Перейти",
+  "https://innopolis.university/filespublic/Opisanie_protsessov_zhiznennogo_tsikla_13_05_26.pdf": "Перейти",
+  "https://innopolis.university/filespublic/Polozhenie_o_reklamnoj_rassylke.pdf": ""
+ },
+ "pages": {
+  "accounting-contracts": {
+   "fetched_at": "2026-11-01T22:35:25+00:00",
+   "file_sha": "b0c63ca13b121e6c4b8923ad430cffef82c3d69fbb77472dd28e311e444550c4",
+   "last_modified": "Mon, 26 Oct 2026 06:41:10 GMT",
+   "sha256": "4c366bcf1d8e66cde7a8470349eb1c3a0482f3f85795293d4114c1394ab9e6c9",
+   "title": "ИСУ РИД: модуль учета договоров распоряжения исключительным правом",
+   "url": "https://ipservices.innopolis.university/accounting-contracts"
+  },
+  "accounting-module-rid": {
+   "fetched_at": "2026-11-01T22:35:19+00:00",
+   "file_sha": "7bc896ec64a5f66258000fb886dface9cdf692bf219c0bb325784b35e1e6e099",
+   "last_modified": "Mon, 26 Oct 2026 06:41:09 GMT",
+   "sha256": "bc29318d40de3364e1df177e95bec259d0e04ff962a2e241dae1e7a15e936cbe",
+   "title": "ИСУ РИД: программный модуль учета РИД",
+   "url": "https://ipservices.innopolis.university/accounting-module-rid"
+  },
+  "eng": {
+   "fetched_at": "2026-11-01T22:35:10+00:00",
+   "file_sha": "50ee75db2e2f645851b00255bb95a324b7137433db3461debceb1d4ec81fc6ac",
+   "last_modified": "Mon, 26 Oct 2026 06:41:08 GMT",
+   "sha256": "9cd9d19a118fcb2bfa144c2f40bed6c6280ac321e8801ee879b8c32bf7377f79",
+   "title": "Intersectoral Technology Transfer Center",
+   "url": "https://ipservices.innopolis.university/eng"
+  },
+  "home": {
+   "fetched_at": "2026-11-01T22:35:06+00:00",
+   "file_sha": "08cab99bbcb63742bc4e8bef87ff90c382a740f3fa0990957b011f5b206dbbc9",
+   "last_modified": "Mon, 26 Oct 2026 06:41:07 GMT",
+   "sha256": "6ef9e2795618f951389ede4886cd48be965a0cef8c10ea6221d8e19c155d8739",
+   "title": "Межотраслевой центр трансфера технологий АНО ВО «Университет Иннополис»",
+   "url": "https://ipservices.innopolis.university/"
+  },
+  "personal": {
+   "fetched_at": "2026-11-01T22:35:13+00:00",
+   "file_sha": "e040ed0869eecb7a0c8b9e912eaafb76187c6920eb0af8bcdd9b0439ed4c45d1",
+   "last_modified": "Mon, 26 Oct 2026 06:41:08 GMT",
+   "sha256": "ec6fa475b5c0a6a6903f809a11070e78d49a08364d55870b886d6d94c8bfd372",
+   "title": "Политика в отношении обработки персональных данных",
+   "url": "https://ipservices.innopolis.university/personal"
+  },
+  "product": {
+   "fetched_at": "2026-11-01T22:35:16+00:00",
+   "file_sha": "354623e654cd039cf71ce9ca7fb8001de2973885437b9484028a3d41dec266e1",
+   "last_modified": "Mon, 26 Oct 2026 06:41:09 GMT",
+   "sha256": "52434708c8b6ffa99c4b26e2fb21e425334480b4196889aad06c970c134fd13e",
+   "title": "Информационная система управления результатами интеллектуальной деятельности",
+   "url": "https://ipservices.innopolis.university/product"
+  },
+  "services-patent-na-izobretenie-i-poleznuyu-model": {
+   "fetched_at": "2026-11-01T22:35:35+00:00",
+   "file_sha": "14f12b0c765b6a82317c37e9a54b9aa8dadea6ac6e17bea7b15bc064f63d09f3",
+   "last_modified": "Mon, 26 Oct 2026 06:41:11 GMT",
+   "sha256": "7a4f64567c276ddd5eb0fc235fc80953c88bf232ca185256f8e718f143c6427e",
+   "title": "Патент на изобретение и полезную модель | Регистрация",
+   "url": "https://ipservices.innopolis.university/services/patent-na-izobretenie-i-poleznuyu-model"
+  },
+  "services-reestr-otechestvennogo-po": {
+   "fetched_at": "2026-11-01T22:35:38+00:00",
+   "file_sha": "cc93123fb06cf32e001046368beb4e01eb6eff23fb1c9722ed4ef4f4b21ad1b6",
+   "last_modified": "Mon, 26 Oct 2026 06:41:12 GMT",
+   "sha256": "1513a17155c6c3eac1589c6198c891f437d3ec0cd8d17f7775e862d8b1760bb0",
+   "title": "Внесение в реестр отечественного ПО | Реестр Минцифры",
+   "url": "https://ipservices.innopolis.university/services/reestr-otechestvennogo-po"
+  },
+  "services-registraciya-po-v-rospatente": {
+   "fetched_at": "2026-11-01T22:35:31+00:00",
+   "file_sha": "f3f6bf4c946c37ec9336cd8c825dfa29b782f3840c1ef7f9d369a0cf739127e5",
+   "last_modified": "Mon, 26 Oct 2026 06:41:11 GMT",
+   "sha256": "303698e98033f44c9fa26707433ee9e945b399fbf4bf3604a1bb17b0ae65135b",
+   "title": "Регистрация ПО в Роспатенте",
+   "url": "https://ipservices.innopolis.university/services/registraciya-po-v-rospatente"
+  },
+  "services-registraciya-tovarnogo-znaka": {
+   "fetched_at": "2026-11-01T22:35:28+00:00",
+   "file_sha": "0f7f0320c0d521b8207809fb7d25acc54e69aac8b90c8adae80c7558e0987907",
+   "last_modified": "Mon, 26 Oct 2026 06:41:10 GMT",
+   "sha256": "fe3c3fc1133ed012815f3c9e6807a85ae0f1845ff39f3b4523cbe9120308bdd5",
+   "title": "Регистрация товарного знака под ключ",
+   "url": "https://ipservices.innopolis.university/services/registraciya-tovarnogo-znaka"
+  },
+  "software-module": {
+   "fetched_at": "2026-11-01T22:35:22+00:00",
+   "file_sha": "6ff989cbe755e6aadeaedad56c2d40acf239b56f7c58590af16e5ff52098f780",
+   "last_modified": "Mon, 26 Oct 2026 06:41:10 GMT",
+   "sha256": "ffb2dd28efd69c9a9be64a9cf5cc8c63478a063ed8dd87143781c2d8cfdd8dc3",
+   "title": "ИСУ РИД: программный модуль учета продукции",
+   "url": "https://ipservices.innopolis.university/software-module"
+  }
+ }
+}

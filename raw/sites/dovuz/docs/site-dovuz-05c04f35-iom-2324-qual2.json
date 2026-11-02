@@ -1,0 +1,16 @@
+{
+ "title": "IOM 23-24 qual2",
+ "url": "https://lk-dovuz.innopolis.university/public/files/IOM_23-24_qual2.pdf",
+ "sha256": "2b78af9388ebfb621aa1a2573ef3755ba7a9366c48ec3fee9cc37bf49d3cb0af",
+ "method": "text layer (opendataloader)",
+ "chars": 76112,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:19+00:00",
+ "remote": {
+  "etag": "\"64e9d-61771a64be940\"",
+  "modified": "Thu, 02 May 2024 05:12:29 GMT",
+  "size": "413341"
+ }
+}

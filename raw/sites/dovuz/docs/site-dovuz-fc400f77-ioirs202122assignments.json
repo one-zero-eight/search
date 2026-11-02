@@ -1,0 +1,16 @@
+{
+ "title": "io-irs-202122-assignments",
+ "url": "https://lk-dovuz.innopolis.university/public/files/io-irs-202122-assignments.pdf",
+ "sha256": "cccde82cb48aec0d382ade214022020030de5c1b09b7e4dc874f18aa484c9719",
+ "method": "text layer (opendataloader)",
+ "chars": 116924,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:21+00:00",
+ "remote": {
+  "etag": "\"88a291-5dda24b75b900\"",
+  "modified": "Wed, 27 Apr 2022 12:53:24 GMT",
+  "size": "8954513"
+ }
+}

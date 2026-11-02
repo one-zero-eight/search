@@ -15,6 +15,13 @@
    "title": "Art / Culture Clubs",
    "url": "https://campuslife.innopolis.ru/art_clubs"
   },
+  "battle-rage": {
+   "fetched_at": "2026-10-30T21:37:22+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:05 GMT",
+   "sha256": "2aaaaf418d7630e26b32d948a992d809b1dd2c5fb66679f0cada8951247d4bd7",
+   "title": "Battle RAGE (Ancient Games & Entertainment)",
+   "url": "https://campuslife.innopolis.ru/battle_rage"
+  },
   "clubleaders": {
    "fetched_at": "2026-10-24T22:02:43+00:00",
    "last_modified": "Wed, 22 Jul 2026 19:09:07 GMT",
@@ -35,6 +42,13 @@
    "sha256": "6a249fadfb7a6396b1687ececcd3b47c146de09726c90a3bb23373934e14a0a6",
    "title": "Contacts",
    "url": "https://campuslife.innopolis.ru/contacts"
+  },
+  "covey-workshop": {
+   "fetched_at": "2026-10-30T21:37:35+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:07 GMT",
+   "sha256": "de55170c701fd87734524cf2efd283dfe74398328ee2c75eb203b015f29ea6c6",
+   "title": "Covey Workshop",
+   "url": "https://campuslife.innopolis.ru/covey_workshop"
   },
   "events": {
    "fetched_at": "2026-10-24T22:02:06+00:00",
@@ -92,12 +106,47 @@
    "title": "Campus Life at Innopolis University",
    "url": "https://campuslife.innopolis.ru/"
   },
+  "ibc": {
+   "fetched_at": "2026-10-30T21:37:24+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:05 GMT",
+   "sha256": "09b878569de344a1218e0934fc2e77d84c30452e367cbcc0db5d39ccc9563b4e",
+   "title": "InnoBootCamp 2018",
+   "url": "https://campuslife.innopolis.ru/ibc"
+  },
+  "ibc2022": {
+   "fetched_at": "2026-10-30T21:37:37+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:07 GMT",
+   "sha256": "da6cb445169c72f898b0dcb342b6f2329db582fa7b0e41f02027cc59913656b0",
+   "title": "IBC 2023",
+   "url": "https://campuslife.innopolis.ru/ibc2022"
+  },
+  "innobootcamp2022": {
+   "fetched_at": "2026-10-30T21:36:16+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:08 GMT",
+   "sha256": "1808260572b777044ccbc3e9ab80815b14ff607e72b5ad01f87d9a92a0f2ddc3",
+   "title": "Иннобуткамп2022",
+   "url": "https://campuslife.innopolis.ru/innobootcamp2022"
+  },
   "innostudents": {
    "fetched_at": "2026-10-24T22:02:29+00:00",
    "last_modified": "Wed, 22 Jul 2026 19:09:06 GMT",
    "sha256": "62fff3f6d5fa5bc0ea0c3e0cb6c9c38fb623774359daa269047e0fed6750abce",
    "title": "InnoStudents",
    "url": "https://campuslife.innopolis.ru/innostudents"
+  },
+  "internationalfest-2023": {
+   "fetched_at": "2026-10-30T21:38:02+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:08 GMT",
+   "sha256": "cd5190d62252e06d7c434abc0119208b1c81067c83ea8b6dfdf34bb8143fee67",
+   "title": "International Fest 2023",
+   "url": "https://campuslife.innopolis.ru/internationalfest_2023"
+  },
+  "internationalfest2022": {
+   "fetched_at": "2026-10-30T21:37:52+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:07 GMT",
+   "sha256": "771347770d6936c359fb46af4f4243157ae694fe82737b22989a69bbf5446ded",
+   "title": "International Fest",
+   "url": "https://campuslife.innopolis.ru/internationalfest2022"
   },
   "opportunities": {
    "fetched_at": "2026-10-24T22:02:08+00:00",
@@ -112,6 +161,13 @@
    "sha256": "df9624816c4ccbfcbac7e3fec8f1668394e70aa2472c8ff779ec0b69c4a901b4",
    "title": "Psychology Services",
    "url": "https://campuslife.innopolis.ru/psychology"
+  },
+  "rockballqueen": {
+   "fetched_at": "2026-10-30T21:38:04+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:08 GMT",
+   "sha256": "68118d666efecbedb5f2754fe78cb91b6c2c68d6b868712f4b0ef5c587846c86",
+   "title": "Queen of the Rock Ball",
+   "url": "https://campuslife.innopolis.ru/rockballqueen"
   },
   "scholarship": {
    "fetched_at": "2026-10-24T22:02:35+00:00",
@@ -134,12 +190,26 @@
    "title": "Sport Services in Innopolis",
    "url": "https://campuslife.innopolis.ru/sport_services"
   },
+  "springball2022": {
+   "fetched_at": "2026-10-30T21:37:54+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:07 GMT",
+   "sha256": "d4ac0d50d7cb1db4303bfc8bc35b2046c9addf783f68c9f042cf9d40c85dd466",
+   "title": "Spring Ball 2022",
+   "url": "https://campuslife.innopolis.ru/springball2022"
+  },
   "studentreps": {
    "fetched_at": "2026-10-24T22:02:45+00:00",
    "last_modified": "Wed, 22 Jul 2026 20:21:55 GMT",
    "sha256": "a1b00a6f6c8d6370089f676bd35939425924624c78fa8b905fbbd2e8518e3e2f",
    "title": "Student Reps",
    "url": "https://campuslife.innopolis.ru/studentreps"
+  },
+  "talentshow": {
+   "fetched_at": "2026-10-30T21:38:00+00:00",
+   "last_modified": "Wed, 22 Jul 2026 19:09:08 GMT",
+   "sha256": "14b2dc317467cd7ecf320c77cd909c2a9a3ed88409bbf423333944000f86d66a",
+   "title": "INNO GOT TALENT",
+   "url": "https://campuslife.innopolis.ru/talentshow"
   },
   "talkspace": {
    "fetched_at": "2026-10-24T22:02:48+00:00",

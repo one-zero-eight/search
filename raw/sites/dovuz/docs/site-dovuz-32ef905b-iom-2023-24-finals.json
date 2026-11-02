@@ -1,0 +1,16 @@
+{
+ "title": "IOM 2023 24 Finals",
+ "url": "https://lk-dovuz.innopolis.university/public/files/IOM_2023_24_Finals.pdf",
+ "sha256": "9e3c48b61d5c1f3b618c94b4b89fbfb3fa2caf519a28cf69759a126dc168769c",
+ "method": "text layer (opendataloader)",
+ "chars": 31437,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:19+00:00",
+ "remote": {
+  "etag": "\"269e5-61771a64be940\"",
+  "modified": "Thu, 02 May 2024 05:12:29 GMT",
+  "size": "158181"
+ }
+}

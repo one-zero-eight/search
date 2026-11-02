@@ -1,0 +1,16 @@
+{
+ "title": "editorial ru",
+ "url": "https://lk-dovuz.innopolis.university/public/files/editorial_ru.pdf",
+ "sha256": "85129c8e4b5e43a9695ea0a04a26a8bcaa4f0f88a07ca2e6d293e78eee5d5d2b",
+ "method": "text layer (opendataloader)",
+ "chars": 14194,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:20+00:00",
+ "remote": {
+  "etag": "\"46f42-5e541ba9c6580\"",
+  "modified": "Tue, 02 Aug 2022 13:02:30 GMT",
+  "size": "290626"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "offer go 070626",
+ "url": "https://lk-dovuz.innopolis.university/public/files/offer_go_070626.pdf",
+ "sha256": "a5f8d5b9c60a8e86f9d419375f6862a3c0708001d1f482b5a20a43e985ad4eed",
+ "method": "text layer (opendataloader)",
+ "chars": 33735,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"6c508-64b28db487d80\"",
+  "modified": "Thu, 19 Feb 2026 08:11:50 GMT",
+  "size": "443656"
+ }
+}

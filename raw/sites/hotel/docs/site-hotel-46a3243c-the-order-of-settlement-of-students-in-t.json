@@ -1,0 +1,16 @@
+{
+ "title": "The order of settlement of students in the residential complex",
+ "url": "https://hotel.innopolis.university/upload/docs-hotel/The%20order%20of%20settlement%20of%20students%20in%20the%20residential%20complex%20.pdf",
+ "sha256": "d87bc2569336074b73e155fe190f18b8b0f3727dca13e1f4cd60682b2e40f4b9",
+ "method": "text layer (opendataloader)",
+ "chars": 4763,
+ "tables": 5,
+ "section": "site/hotel",
+ "context": "",
+ "fetched_at": "2026-10-31T00:26:16+00:00",
+ "remote": {
+  "etag": "\"11645-5c376fb54bd54\"",
+  "modified": "Sat, 29 May 2021 12:17:53 GMT",
+  "size": "71237"
+ }
+}

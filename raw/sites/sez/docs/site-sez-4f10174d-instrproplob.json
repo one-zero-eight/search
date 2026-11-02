@@ -1,0 +1,15 @@
+{
+ "title": "Инструкция о пропускном режиме в технопарке им. Лобачевского",
+ "url": "https://sezinnopolis.ru/upload/consumers-files/instr-prop-lob.pdf",
+ "sha256": "9b4d9eace91fd3615d4f3a9aa845cc7d5aedc01b35f5742f8bd522c762f24a41",
+ "method": "text layer (opendataloader)",
+ "chars": 51264,
+ "tables": 5,
+ "section": "site/sez",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:31+00:00",
+ "remote": {
+  "etag": "W/\"69845751-c7e22\"",
+  "modified": "Thu, 05 Feb 2026 08:39:45 GMT"
+ }
+}

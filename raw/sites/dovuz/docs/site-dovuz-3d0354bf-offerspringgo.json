@@ -1,0 +1,16 @@
+{
+ "title": "Программирование на Go",
+ "url": "https://lk-dovuz.innopolis.university/public/files/offer-spring-go.pdf",
+ "sha256": "8c57d3bede63d4eee14c48d09222449a4883cc2cf79ea63936d2efb1c4930058",
+ "method": "text layer (opendataloader)",
+ "chars": 32831,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"36c25-64971ab56f9c0\"",
+  "modified": "Wed, 28 Jan 2026 12:13:35 GMT",
+  "size": "224293"
+ }
+}

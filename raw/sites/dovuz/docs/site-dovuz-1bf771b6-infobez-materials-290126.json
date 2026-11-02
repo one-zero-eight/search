@@ -1,0 +1,16 @@
+{
+ "title": "infobez materials 290126",
+ "url": "https://lk-dovuz.innopolis.university/public/files/infobez_materials_290126.pdf",
+ "sha256": "39411da858eb1abc1b226680e1bbd7fa25fb223ab7b7c58a11e922c8215572d6",
+ "method": "text layer (opendataloader)",
+ "chars": 64858,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:21+00:00",
+ "remote": {
+  "etag": "\"359733-64982a6aa03c0\"",
+  "modified": "Thu, 29 Jan 2026 08:29:11 GMT",
+  "size": "3512115"
+ }
+}

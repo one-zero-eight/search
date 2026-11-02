@@ -1,0 +1,171 @@
+About city Relocation to Innopolis Education Business & Entrepreneurship Also
+Eng
+[Medicine](https://innopolis.com/en/life/medicine)
+[Tourism](https://innopolis.com/en/tourism)
+[Organizations and services](https://innopolis.com/en/services)
+[Media](https://innopolis.com/en/media/gallery)
+[For media](https://innopolis.com/en/media)
+[Merchandise featuring Innopolis](https://innopolis.com/en/merch)
+[Рус](https://innopolis.com/ru/life/housing/apartments)
+[Тат](https://innopolis.com/tt/life/housing/apartments)
+[History of the city](https://innopolis.com/en/city/history)
+[How to get](https://innopolis.com/en/city/how-to-get)
+[Bus schedule](https://innopolis.com/en/city/bus-schedule)
+[City map](https://innopolis.com/en/city/map)
+[About city](https://innopolis.com/en/city)
+[Come and visit!](https://innopolis.com/en/tourism)
+[We conduct city tours](https://innopolis.com/en/tourism)
+[![](https://innopolis.com/uploads/headmenu/bgmenu1-5655e06adf.jpg)](https://innopolis.com/en/tourism)
+Helpful
+[Events](https://innopolis.com/en/media/events)
+[Career opportunities](https://innopolis.com/en/life/vacancies)
+[Cultural life](https://innopolis.com/en/life/artspace)
+[Accommodation](https://innopolis.com/en/life/housing)
+[How to relocate](https://innopolis.com/en/life/how-to-relocation)
+[Stories of residents](https://innopolis.com/en/life/stories)
+[Relocation to Innopolis](https://innopolis.com/en/life)
+[Just moved in? Here is the onboarding for a new resident](https://onboarding.innopolis.ru)
+[![](https://innopolis.com/uploads/headmenu/bgmenu2-05fb66b255.jpg)](https://onboarding.innopolis.ru)
+Helpful
+[Rental housing](https://innopolis.com/en/life/housing/rental)
+Buying a property
+[Townhouses](https://innopolis.com/en/life/housing/townhouses)
+[Innopolis University](https://innopolis.com/en/services/innopolis-university)
+[Innopolis Lyceum](https://innopolis.com/en/services/innopolis-lyceum)
+[School](https://innopolis.com/en/services/innopolis-school)
+[Kindergarten](https://innopolis.com/en/services/kindergarten)
+[Children’s school of art](https://innopolis.com/en/services/childrens-school-of-art)
+[Innopolis college](https://innopolis.com/en/services/innopolis-college)
+[Apply for a scholarship to the university](https://innopolis.com/en/services/innopolis-university)
+[![](https://innopolis.com/uploads/headmenu/bgmenu3-11f7008f0d.jpg)](https://innopolis.com/en/services/innopolis-university)
+There are some more
+[IT courses](https://innopolis.com/en/services/it-courses)
+[IT campus “Innocamp”](https://innopolis.com/en/services/innocamp)
+[Language school Ispeaker](https://innopolis.com/en/services/language-school-ispeaker)
+['The White Fox' Children's center](https://innopolis.com/en/services/the-white-fox-childrens-center)
+[Special Economic Zone](https://innopolis.com/en/business/sez)
+[Technoparks](https://innopolis.com/en/business/sez/technoparks)
+[Upcoming projects](https://innopolis.com/en/business/future)
+[City business](https://innopolis.com/en/business/in-city)
+[Business & Entrepreneurship](https://innopolis.com/en/business)
+[73.8 billion in investments attracted](https://innopolis.com/en/business/sez)
+[![](https://innopolis.com/uploads/headmenu/bgmenu4-ea3077792c.jpg)](https://innopolis.com/en/business/sez)
+For IT companies
+[Become a resident](https://sezinnopolis.ru/forcompanies/)
+[For startups](https://sezinnopolis.ru/startapam/)
+[SEZ services](https://sezinnopolis.ru/rentandservice/)
+[Mainpage](https://innopolis.com/en/) [Life in Innopolis](https://innopolis.com/en/life) [Housing](https://innopolis.com/en/life/housing) Kvartal U
+## Kvartal U
+New stage in the history of Innopolis
+![](https://innopolis.com/uploads/thumbs/untitled-3-5f28ff4808-4ad644ee30ec2742022a65cf3b7d006d.jpeg)
+Useful links
+[Website](https://kvartal-u.ru)
+Contacts
+[Telegram](https://t.me/kvartalu)
+Telephone:+7 (843) 207-25-75
+Working hours
+Tuesday - Sunday:9:00–19:00
+## New residential complex
+Next to the city park we’re building a brand new residential area comprising a walking boulevard, kindergarten, school and various shops and cafès.
+![](https://innopolis.com/uploads/thumbs/img9400-1-004c175c2e-3044d37c60dd21133e9d8e929da56ea5.jpeg)
+![](https://innopolis.com/uploads/thumbs/img9386-d2da5142c7-d07491db25cc583dc75269a7144dc426.jpeg)
+## What are the advantages?
+- profitable investment – stable growth dynamics of real estate prices in Innopolis;
+- housing in the most modern and safe city;
+- your neighbors - scientists, developers and investors;
+- comfort - underground parking, closed yards;
+![](https://innopolis.com/uploads/thumbs/img9404-4257aa09be-d07491db25cc583dc75269a7144dc426.jpeg)
+![](https://innopolis.com/uploads/thumbs/img9396-1-e2153ddce5-3044d37c60dd21133e9d8e929da56ea5.jpeg)
+## Price
+Price for a one-bedroom flat starts from 8 million rubles. Other options including IT-mortgage, installment or cash payment are also available.
+The first 275 flats has already been built.
+![](https://innopolis.com/uploads/thumbs/img9383-fed7a4d498-94b534f6465003c46956414b04173962.jpeg)
+![](https://innopolis.com/uploads/thumbs/img9393-51313c4a46-d07491db25cc583dc75269a7144dc426.jpeg)
+Come for a visit!
+[Organizations and services](https://innopolis.com/en/services)
+[Household services](https://innopolis.com/en/services?type[]=17)
+[Urban services](https://innopolis.com/en/services?type[]=16)
+[Cafes and restaurants](https://innopolis.com/en/services?type[]=11)
+[Clubs and sections](https://innopolis.com/en/services?type[]=14)
+[Shopping](https://innopolis.com/en/services?type[]=6)
+[Healthcare](https://innopolis.com/en/services?type[]=7)
+[Education](https://innopolis.com/en/services?type[]=9)
+[Sport](https://innopolis.com/en/services?type[]=12)
+[About the city](https://innopolis.com/en/city)
+[History of the city](https://innopolis.com/en/city/history)
+[Events](https://innopolis.com/en/media/events)
+[Bus schedule](https://innopolis.com/en/city/bus-schedule)
+[Career opportunities](https://innopolis.com/en/life/vacancies)
+[Innopolis University](https://innopolis.com/en/services/innopolis-university)
+[How to enroll](https://innopolis.university)
+[IT courses](https://innopolis.com/en/services/it-courses)
+Service and care for residents
+and visitors
+We'll gladly help to find the answer for your question
++7 (800) 222-22-87
+[t.me/InnopolisHelp](https://t.me/InnopolisHelp)
+We're open to your ideas
+Don't hesitate to share you suggestions on how to make our city a better place
+helpme@innopolis.ru
+© Innopolis, 2026
+[Design and development Pinkman](https://pinkman.ru)
+About city
+[History of the city](https://innopolis.com/en/city/history)
+[How to get](https://innopolis.com/en/city/how-to-get)
+[Bus schedule](https://innopolis.com/en/city/bus-schedule)
+[City map](https://innopolis.com/en/city/map)
+[About city](https://innopolis.com/en/city)
+[Come and visit!](https://innopolis.com/en/tourism)
+[We conduct city tours](https://innopolis.com/en/tourism)
+[![](https://innopolis.com/uploads/headmenu/bgmenu1-5655e06adf.jpg)](https://innopolis.com/en/tourism)
+Helpful
+[Events](https://innopolis.com/en/media/events)
+[Career opportunities](https://innopolis.com/en/life/vacancies)
+[Cultural life](https://innopolis.com/en/life/artspace)
+Relocation to Innopolis
+[Accommodation](https://innopolis.com/en/life/housing)
+[How to relocate](https://innopolis.com/en/life/how-to-relocation)
+[Stories of residents](https://innopolis.com/en/life/stories)
+[Relocation to Innopolis](https://innopolis.com/en/life)
+[Just moved in? Here is the onboarding for a new resident](https://onboarding.innopolis.ru)
+[![](https://innopolis.com/uploads/headmenu/bgmenu2-05fb66b255.jpg)](https://onboarding.innopolis.ru)
+Helpful
+[Rental housing](https://innopolis.com/en/life/housing/rental)
+Buying a property
+[Townhouses](https://innopolis.com/en/life/housing/townhouses)
+Education
+[Innopolis University](https://innopolis.com/en/services/innopolis-university)
+[Innopolis Lyceum](https://innopolis.com/en/services/innopolis-lyceum)
+[School](https://innopolis.com/en/services/innopolis-school)
+[Kindergarten](https://innopolis.com/en/services/kindergarten)
+[Children’s school of art](https://innopolis.com/en/services/childrens-school-of-art)
+[Innopolis college](https://innopolis.com/en/services/innopolis-college)
+[Apply for a scholarship to the university](https://innopolis.com/en/services/innopolis-university)
+[![](https://innopolis.com/uploads/headmenu/bgmenu3-11f7008f0d.jpg)](https://innopolis.com/en/services/innopolis-university)
+There are some more
+[IT courses](https://innopolis.com/en/services/it-courses)
+[IT campus “Innocamp”](https://innopolis.com/en/services/innocamp)
+[Language school Ispeaker](https://innopolis.com/en/services/language-school-ispeaker)
+['The White Fox' Children's center](https://innopolis.com/en/services/the-white-fox-childrens-center)
+Business & Entrepreneurship
+[Special Economic Zone](https://innopolis.com/en/business/sez)
+[Technoparks](https://innopolis.com/en/business/sez/technoparks)
+[Upcoming projects](https://innopolis.com/en/business/future)
+[City business](https://innopolis.com/en/business/in-city)
+[Business & Entrepreneurship](https://innopolis.com/en/business)
+[73.8 billion in investments attracted](https://innopolis.com/en/business/sez)
+[![](https://innopolis.com/uploads/headmenu/bgmenu4-ea3077792c.jpg)](https://innopolis.com/en/business/sez)
+For IT companies
+[Become a resident](https://sezinnopolis.ru/forcompanies/)
+[For startups](https://sezinnopolis.ru/startapam/)
+[SEZ services](https://sezinnopolis.ru/rentandservice/)
+[Medicine](https://innopolis.com/en/life/medicine)
+[Tourism](https://innopolis.com/en/tourism)
+[Organizations and services](https://innopolis.com/en/services)
+[Media](https://innopolis.com/en/media/gallery)
+[For media](https://innopolis.com/en/media)
+[Merchandise featuring Innopolis](https://innopolis.com/en/merch)
+Eng
+We use [cookies](https://innopolis.com/en/cookies)
+[![](https://innopolis.com/assets/35e2bb10/img/content/ill-telegram.png)](https://t.me/InnopolisHelp)
+[Q&A - contact us](https://t.me/InnopolisHelp)

@@ -1,0 +1,16 @@
+{
+ "title": "result 2 9-11",
+ "url": "https://lk-dovuz.innopolis.university/public/files/result_2_9-11.pdf",
+ "sha256": "22e9735de420c292b08aa526702aa939722bf4dc5bc76f6f15c74d9f75855960",
+ "method": "text layer (opendataloader)",
+ "chars": 13572,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:24+00:00",
+ "remote": {
+  "etag": "\"49c07-64ff938b37540\"",
+  "modified": "Tue, 21 Apr 2026 14:27:57 GMT",
+  "size": "302087"
+ }
+}

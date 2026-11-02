@@ -1,0 +1,16 @@
+{
+ "title": "results final cyberbez 23-24",
+ "url": "https://lk-dovuz.innopolis.university/public/files/results_final_cyberbez_23-24.pdf",
+ "sha256": "10f4c281bc52ae03efaa9057da15f0eeee0e774653258bc57b0cf78894534301",
+ "method": "text layer (opendataloader)",
+ "chars": 6954,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:25+00:00",
+ "remote": {
+  "etag": "\"2e3ce-6177152bb16c0\"",
+  "modified": "Thu, 02 May 2024 04:49:07 GMT",
+  "size": "189390"
+ }
+}

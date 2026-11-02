@@ -1,0 +1,16 @@
+{
+ "title": "resultsof1tour24math",
+ "url": "https://lk-dovuz.innopolis.university/public/files/resultsof1tour24math.pdf",
+ "sha256": "50cc74cab92c11c85c4de385940ffc66d300f83b7833a53d514b5cdeccf2ea85",
+ "method": "text layer (opendataloader)",
+ "chars": 133094,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:26+00:00",
+ "remote": {
+  "etag": "\"1b5af5-60d00570e9b00\"",
+  "modified": "Thu, 21 Dec 2023 07:49:32 GMT",
+  "size": "1792757"
+ }
+}

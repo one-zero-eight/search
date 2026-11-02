@@ -1,0 +1,72 @@
+---
+type: regulation
+title: "The cost of accommodation services in the residential complex"
+resource: "https://hotel.innopolis.university/upload/docs-hotel/%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D0%B3%D0%BE%D1%81%D1%82%D0%B8_%D1%8F%D0%BD%D0%B2%D0%B0%D1%80%D1%8C_2025_en.pdf"
+audience: ["student", "postgraduate", "applicant", "public"]
+source_kind: official-document
+language: ru
+section: "site/hotel"
+sources:
+  - resource: "https://hotel.innopolis.university/upload/docs-hotel/%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D0%B3%D0%BE%D1%81%D1%82%D0%B8_%D1%8F%D0%BD%D0%B2%D0%B0%D1%80%D1%8C_2025_en.pdf"
+    id: "cb4138b013d4"
+    title: "The cost of accommodation services in the residential complex"
+    last_modified: "2026-10-31T00:26:16+00:00"
+generated:
+  by: "catix-wiki/0.1 regulations"
+  at: "2026-10-31T00:26:16+00:00"
+extraction: "text layer (opendataloader)"
+status: draft
+---
+
+# The cost of accommodation services in the residential complex
+
+The cost of accommodation services in the Residential complex of Innopolis University from 1 February, 2025
+
+**1.** Cost of accommodation services by room category:
+
+**2.** Check-out information: check-in time is 14 pm, check-out time is 12.00 o’clock local time.
+
+**3.** The price of accommodation services includes: maintenance cleaning of rooms, use of a refrigerator, TV, microwave and kettle (if available in the room), air conditioning in summer, Wi-Fi-zone, Parking, 24-hour laundry room, as well as provision of a set of bed linen, towels and hygiene kit.
+
+**4.** A child under the age of 7 (seven) years of age inclusive is provided with free accommodation when sharing accommodation with a parent without providing a separate place.
+
+**5.** When placing before check-out time, the extra-fee is:
+
+| № | Room categories | Room rate per night, rubles |
+| --- | --- | --- |
+| Dorms № 1-4 |  |  |
+| 1. | Double one-room suite | 3 100 |
+| 2. | Double one-room comfort | 3 600 |
+| 3. | Double two-room suite | 4 400 |
+| 4. | Four-bed two-room suite | 6 200 |
+| 5. | Five-bed three-room suite | 7 750 |
+| 6. | Extra bed in any room category | 1 000 |
+| Dorms № 5-7 |  |  |
+| 1. | Double one-room suite | 3 600 |
+| 2. | Double two-room comfort room with extra bed | 5 000 |
+| 3. | Four-bed two-room suite | 6 800 |
+| 4. | Two-room double room for people with limited mobility | 4 000 |
+
+- - in the period from 6 a.m. to check-out time - 25% of the cost of accommodation
+
+services for one day according to the selected category and type of accommodation;
+
+- - in the period from midnight to 6 a.m. - 100% of the cost of accommodation services for
+
+one day according to the selected category and type of accommodation.
+
+**6.** When leaving the room after check-out time, the extra-fee is:
+
+- - in the period from check-out time to 7 p.m. - 50% of the cost of accommodation services
+
+for one day according to the selected category and type of accommodation;
+
+- - in the period from 7 p.m. till midnight- 100% of the cost of accommodation services for
+
+one day according to the selected category and type of accommodation.
+
+**7.** When staying in a room for a period of 20 or more days, a 30% discount is continuously provided.
+
+# Citations
+
+1. [The cost of accommodation services in the residential complex](https://hotel.innopolis.university/upload/docs-hotel/%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D0%B3%D0%BE%D1%81%D1%82%D0%B8_%D1%8F%D0%BD%D0%B2%D0%B0%D1%80%D1%8C_2025_en.pdf), file cb4138b013d4

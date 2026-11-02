@@ -1,0 +1,16 @@
+{
+ "title": "Олимпиадная математика",
+ "url": "https://lk-dovuz.innopolis.university/public/files/offer-spring-olimpiad-math.pdf",
+ "sha256": "c820fe13de6b0e80a06b9ce1ef514ab7e80bb91b8fca0d99702d25444a8d765f",
+ "method": "text layer (opendataloader)",
+ "chars": 32810,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"36961-64971ab56f9c0\"",
+  "modified": "Wed, 28 Jan 2026 12:13:35 GMT",
+  "size": "223585"
+ }
+}

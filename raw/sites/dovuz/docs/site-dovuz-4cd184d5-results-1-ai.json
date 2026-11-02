@@ -1,0 +1,16 @@
+{
+ "title": "results 1 ai",
+ "url": "https://lk-dovuz.innopolis.university/public/files/results_1_ai.pdf",
+ "sha256": "661d8942111588b783ef44c374c8d1ca023823b4cbb4a84cf773e6c8ab74c64d",
+ "method": "text layer (opendataloader)",
+ "chars": 13065,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:24+00:00",
+ "remote": {
+  "etag": "\"51d60-650fcd68fe880\"",
+  "modified": "Mon, 04 May 2026 12:12:02 GMT",
+  "size": "335200"
+ }
+}

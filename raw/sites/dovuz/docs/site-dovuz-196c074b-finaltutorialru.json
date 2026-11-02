@@ -1,0 +1,16 @@
+{
+ "title": "final-tutorial-ru",
+ "url": "https://lk-dovuz.innopolis.university/public/files/final-tutorial-ru.pdf",
+ "sha256": "8d49bdfb4eac5374bbc649901800e5ff0d0eba60b211fcc32774ef541e009e4b",
+ "method": "text layer (opendataloader)",
+ "chars": 12884,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:20+00:00",
+ "remote": {
+  "etag": "\"36351-5f4c9a0ec5540\"",
+  "modified": "Thu, 16 Feb 2023 04:28:29 GMT",
+  "size": "222033"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "io-math-1-2",
+ "url": "https://lk-dovuz.innopolis.university/public/files/io-math-1-2.pdf",
+ "sha256": "045f0b9a004027537f68e09216d22d2a6cc5bdad0d1ac4920c1ee1bd4cfe54da",
+ "method": "text layer (opendataloader)",
+ "chars": 106323,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:21+00:00",
+ "remote": {
+  "etag": "\"65204-5f5c018e8f700\"",
+  "modified": "Tue, 28 Feb 2023 10:31:24 GMT",
+  "size": "414212"
+ }
+}

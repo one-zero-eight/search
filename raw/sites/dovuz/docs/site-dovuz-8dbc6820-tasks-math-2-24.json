@@ -1,0 +1,16 @@
+{
+ "title": "Tasks math 2 24",
+ "url": "https://lk-dovuz.innopolis.university/public/files/Tasks_math_2_24.pdf",
+ "sha256": "f26039e6405dcb20fcf7fd9cb078d561b16991b66902d1cc806b2933c06dc7ae",
+ "method": "text layer (opendataloader)",
+ "chars": 103418,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:20+00:00",
+ "remote": {
+  "etag": "\"6592b-60da49e2fe300\"",
+  "modified": "Fri, 29 Dec 2023 11:49:00 GMT",
+  "size": "416043"
+ }
+}

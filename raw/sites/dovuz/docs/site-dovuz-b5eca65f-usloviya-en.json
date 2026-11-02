@@ -1,0 +1,16 @@
+{
+ "title": "usloviya en",
+ "url": "https://lk-dovuz.innopolis.university/public/files/usloviya_en.pdf",
+ "sha256": "44caa127c4a30354073da14224c3083d2710e9f8847a852d396b8e6790aa56c9",
+ "method": "text layer (opendataloader)",
+ "chars": 22452,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:27+00:00",
+ "remote": {
+  "etag": "\"15cc30-64ff84433e7c0\"",
+  "modified": "Tue, 21 Apr 2026 13:19:35 GMT",
+  "size": "1428528"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "Innopolis Open in InfoSec. Second elimination Round. 2020-2021",
+ "url": "https://lk-dovuz.innopolis.university/public/files/Innopolis%20Open%20in%20InfoSec.%20Second%20elimination%20Round.%202020-2021.pdf",
+ "sha256": "97eb1d67d1027f59b98f8feb82e6bff7d321887b764e36ecdff626601c1ea1ed",
+ "method": "text layer (opendataloader)",
+ "chars": 4630,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:20+00:00",
+ "remote": {
+  "etag": "\"246db-5c2451184c880\"",
+  "modified": "Fri, 14 May 2021 07:19:46 GMT",
+  "size": "149211"
+ }
+}

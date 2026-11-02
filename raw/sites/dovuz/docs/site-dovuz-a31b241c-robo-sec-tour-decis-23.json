@@ -1,0 +1,16 @@
+{
+ "title": "robo sec tour decis 23",
+ "url": "https://lk-dovuz.innopolis.university/public/files/robo_sec_tour_decis_23.pdf",
+ "sha256": "370465da603f78d7942e6852e00026c9d7cbdd178ec3b79d24aba7e294d93390",
+ "method": "text layer (opendataloader)",
+ "chars": 10422,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:26+00:00",
+ "remote": {
+  "etag": "\"30acd-5f9c231db98c0\"",
+  "modified": "Thu, 20 Apr 2023 10:42:19 GMT",
+  "size": "199373"
+ }
+}

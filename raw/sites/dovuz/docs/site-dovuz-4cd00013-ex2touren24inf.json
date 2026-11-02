@@ -1,0 +1,16 @@
+{
+ "title": "ex2tour-en24inf",
+ "url": "https://lk-dovuz.innopolis.university/public/files/ex2tour-en24inf.pdf",
+ "sha256": "a583455bfba02ca83738e4a42ed208c72dbbe1f0f4ddc9603a38db3b66204c99",
+ "method": "text layer (opendataloader)",
+ "chars": 14091,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:20+00:00",
+ "remote": {
+  "etag": "\"3dcf8-60d024e4c8fc0\"",
+  "modified": "Thu, 21 Dec 2023 10:10:15 GMT",
+  "size": "253176"
+ }
+}

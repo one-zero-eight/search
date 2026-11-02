@@ -1,0 +1,31 @@
+[Dashboard](https://innohassle.ru/dashboard)
+[Calendar](https://innohassle.ru/calendar)
+[Maps](https://innohassle.ru/maps)
+Room booking
+[Schedule](https://innohassle.ru/schedule)
+[Events](https://innohassle.ru/events)
+[Clubs](https://innohassle.ru/clubs)
+[Printers](https://innohassle.ru/printers)
+[When2meet](https://innohassle.ru/when2meet)
+[NEW](https://innohassle.ru/when2meet)
+[Timer](https://innohassle.ru/timer)
+[Scholarship](https://innohassle.ru/scholarship)
+[Dorms](https://innohassle.ru/dorms)
+[Music room](https://innohassle.ru/music-room)
+[Extension](https://innohassle.ru/extension)
+[Student Affairs](https://innohassle.ru/student-affairs)
+[Moodle](https://moodle.innopolis.university)
+[Baam](https://baam.tatar/s)
+[Innopa](https://innopa.ru/about)
+[My University](https://my.innopolis.university)
+[About us](https://innohassle.ru/about)
+[Leave feedback](https://forms.gle/2vMmu4vSoVShvbMw6)
+## Room booking
+Timeline[My bookings](https://innohassle.ru/room-booking/list)[Rooms](https://innohassle.ru/room-booking/rooms)[Rules](https://innohassle.ru/room-booking/rules)
+## Sign in to get access
+Use your Innopolis account to access InNoHassle services.
+[Dashboard](https://innohassle.ru/dashboard)
+[Calendar](https://innohassle.ru/calendar)
+[Maps](https://innohassle.ru/maps)
+Booking
+[More](https://innohassle.ru/menu)

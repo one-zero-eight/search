@@ -1,0 +1,53 @@
+{
+ "docs": {},
+ "pages": {
+  "delivery": {
+   "fetched_at": "2026-10-31T08:40:44+00:00",
+   "file_sha": "001a3724552847f11b7e67d6c360afcd39f99cda756f10f15ea4d5f81722c5c8",
+   "last_modified": "Mon, 04 May 2026 08:40:35 GMT",
+   "sha256": "e6a713b3965c1dbca8a0990d211f257df9ade69a216f19eca8dad66eb2295a0b",
+   "title": "Доставка",
+   "url": "https://iustore.innopolis.ru/delivery"
+  },
+  "home": {
+   "fetched_at": "2026-10-31T08:40:40+00:00",
+   "file_sha": "829a493c0025ac1059dcd24148ee0ed41ad54770f0dabc1d42e27f36132c3f15",
+   "last_modified": "Thu, 02 Apr 2026 08:25:40 GMT",
+   "sha256": "990040d8be25c38f9f54534973dd18039101335a9f8e6a9663f77763097b5512",
+   "title": "Мерч Университета Иннополис",
+   "url": "https://iustore.innopolis.ru/"
+  },
+  "page143214846-html": {
+   "fetched_at": "2026-10-31T09:04:04+00:00",
+   "file_sha": "16fb40a6b5af10bc17aa857a8a10605625e94d5e752e1474a8a850fd3b1af6ec",
+   "last_modified": "Fri, 22 May 2026 08:50:26 GMT",
+   "sha256": "2ba8c36ca40dc1559119ff83b6f082afadc3c9468cefa124f1488242e4f32b0b",
+   "title": "Форма для заполнения",
+   "url": "https://iustore.innopolis.ru/page143214846.html"
+  },
+  "privacy-policy": {
+   "fetched_at": "2026-10-31T08:40:46+00:00",
+   "file_sha": "a007f85b27e593ca89b1f6437cd8d69ce8623814c838a26e51638f4cff62242c",
+   "last_modified": "Thu, 10 Oct 2024 20:51:19 GMT",
+   "sha256": "a007f85b27e593ca89b1f6437cd8d69ce8623814c838a26e51638f4cff62242c",
+   "title": "Соглашение о конфиденциальности",
+   "url": "https://iustore.innopolis.ru/privacy-policy"
+  },
+  "return": {
+   "fetched_at": "2026-10-31T08:40:48+00:00",
+   "file_sha": "7c75c12611530d691d4af8db974df52ac62a4b69829dddcbef9f233c0848134a",
+   "last_modified": "Thu, 10 Oct 2024 20:46:58 GMT",
+   "sha256": "7c75c12611530d691d4af8db974df52ac62a4b69829dddcbef9f233c0848134a",
+   "title": "Возврат",
+   "url": "https://iustore.innopolis.ru/return"
+  },
+  "size": {
+   "fetched_at": "2026-10-31T08:40:42+00:00",
+   "file_sha": "bdb13b4a0b5e09af27df52b9c9072386d550a899b122180da3087b982bc13cc1",
+   "last_modified": "Thu, 10 Oct 2024 20:46:58 GMT",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "title": "Таблица размеров",
+   "url": "https://iustore.innopolis.ru/size"
+  }
+ }
+}

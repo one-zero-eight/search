@@ -1,0 +1,16 @@
+{
+ "title": "io ai 1step conditions ru 25",
+ "url": "https://lk-dovuz.innopolis.university/public/files/io_ai_1step_conditions_ru_25.pdf",
+ "sha256": "30ec0b35cab48142d02d3bfd975e48ccd2ef5de00eb254a23e4db38d730777f9",
+ "method": "text layer (opendataloader)",
+ "chars": 21274,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:22+00:00",
+ "remote": {
+  "etag": "\"3f94f-62a1979b94d40\"",
+  "modified": "Wed, 25 Dec 2024 14:59:25 GMT",
+  "size": "260431"
+ }
+}

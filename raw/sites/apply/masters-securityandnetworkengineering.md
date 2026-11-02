@@ -1,21 +1,21 @@
-Меню Закрыть EN
-Войти
+Меню Закрыть [EN](https://new.innopolis.university/en/)
+[Войти](https://profile.innopolis.university/)
 - Образование
 - Контакты
 С 2012 года готовим высококвалифицированные кадры в области информационных технологий, искусственного интеллекта и робототехники
-О возможностях образования
+[О возможностях образования](https://apply.innopolis.university/possibilities/)
 Поступающим
-Абитуриенту Бакалавриат Магистратура Онлайн-магистратура Аспирантура Колледж
+[Абитуриенту](https://apply.innopolis.university/) [Бакалавриат](https://apply.innopolis.university/bachelors/) [Магистратура](https://apply.innopolis.university/masters/) [Онлайн-магистратура](https://apply.innopolis.university/msonline/) [Аспирантура](https://apply.innopolis.university/postgraduate-study/) [Колледж](https://innopolis.college/)
 Гранты и стипендии
-Возможности поступления Стипендии Олимпиадные бонусы
+[Возможности поступления](https://apply.innopolis.university/possibilities/) [Стипендии](https://apply.innopolis.university/scholarship/) [Олимпиадные бонусы](https://apply.innopolis.university/olympiad-bonus/)
 Другие возможности поступления
-Квоты Поступление после СПО Поступление граждан СНГ
+[Квоты](https://apply.innopolis.university/quotas/) [Поступление после СПО](https://apply.innopolis.university/spo/) [Поступление граждан СНГ](https://apply.innopolis.university/sng/)
 Посетить иннополис
-Дни открытых дверей
+[Дни открытых дверей](https://apply.innopolis.university/open-day/)
 Проживание в университете
-Кампус
+[Кампус](https://apply.innopolis.university/campus/)
 Довузовская подготовка
-Олимпиады Онлайн-курсы подготовки к поступлению Очные программы для школьников
+[Олимпиады](https://dovuz.innopolis.university/pre-olympiads/innopolis-open) [Онлайн-курсы подготовки к поступлению](https://dovuz.innopolis.university/preparation) [Очные программы для школьников](https://dovuz.innopolis.university/offline-programms)
 режим работы
 пн-пт, 09:00–18:00 (Мск)
 Телефон
@@ -25,9 +25,9 @@ university@innopolis.ru
 адрес
 420500, г. Иннополис
 ул.Университетская, д.1
-Все контакты
-Главная страница Магистратура Инженерия безопасности систем и сетей
-выбирай будущее,
+[Все контакты](https://innopolis.university/contacts/)
+[Главная страница](https://apply.innopolis.university/) [Магистратура](https://apply.innopolis.university/masters/) Инженерия безопасности систем и сетей
+![](https://apply.innopolis.university/local/js/innopolis/dist/images/program-intro/2.webp) выбирай будущее, ![](https://apply.innopolis.university/local/js/innopolis/dist/images/program-intro/1.webp)
 поступай в Университет Иннополис
 ## инженерия безопасности систем и сетей
 язык обучения
@@ -42,7 +42,7 @@ university@innopolis.ru
 1 сентября 2026
 стоимость обучения
 от 0 ₽/год при участии в грантовом конкурсе
-Подать документы Подать заявку на грант День открытых дверей
+[Подать документы](https://www.gosuslugi.ru/vuzonline) [Подать заявку на грант](https://profile.innopolis.university) [День открытых дверей](https://apply.innopolis.university/open-day/)
 Реализуется в рамках Передовых инженерных школ
 ## О профиле подготовки
 НА РУССКОМ И АНГЛИЙСКОМ
@@ -51,16 +51,22 @@ university@innopolis.ru
 Профиль для специалистов, стремящихся стать архитекторами безопасности и сетевыми инженерами экспертного уровня
 Вы погрузитесь в проектирование защищенных инфраструктур, DevOps и безопасную разработку, кибербезопасность и компьютерную криминалистику Выпускники становятся универсальными специалистами, способными проектировать и защищать сложные ИТ-инфраструктуры в условиях современных киберугроз.
 Реализуется в рамках Передовых инженерных школ
+![](https://apply.innopolis.university/local/js/innopolis/dist/images/about-profile.webp)
 ## Преподавательский состав
+![](https://apply.innopolis.university/upload/resize_cache/iblock/e13/m0v6h1fzhkpdposds68keb50bpb1zg7i/470_540_2/102.jpg)
 ## Никола Златанов
 Доктор философии в Университете Британской Колумбии (Канада, 2015). Занимал академические позиции в Университете Монаш (Австралия). Редактор ведущих международных журналов: IEEE Communications Letters (2015–2018) и IEEE Wireless Communications Letters (2020–2023). Сфера научных интересов: машинное обучение и беспроводная связь.
+![](https://apply.innopolis.university/upload/resize_cache/iblock/e32/irxyon23dqh5ngj1fstj7gzh5x1ju48y/470_540_2/72.jpg)
 ## Паоло Чианкарини
 PhD. Участник Международной федерации по обработке данных, а также член ACM (Ассоциация вычислительной техники) и ICGA (Международная ассоциация компьютерных игр). Автор более 50 статей в Международных журналах и более 120 научных статей на международных конференциях и семинарах
+![](https://apply.innopolis.university/upload/resize_cache/iblock/671/rc2p58e4p6hf29moywkq952nrwlyu33c/470_540_2/110.jpg)
 ## Андрей Петровски
 Кандидат Технических Наук - Aberdeen's Robert Gordon University (RGU). Google Scholar h-index = 25. Сфера научных интересов: вычислительный интеллект, виртуальные инструменты, сенсорные сети
 Автор более 120 научных работ
+![](https://apply.innopolis.university/upload/resize_cache/iblock/d9a/jop6ad5497lwr5hoze718kc6bplwr0ro/470_540_2/104.jpg)
 ## Пьер-Филлип Браун
 Компания: Magnit. Образование: Университет Иннополис
+![](https://apply.innopolis.university/upload/resize_cache/iblock/a73/tg0xaqkccl943ni7eyqttdyvp5btdg92/470_540_2/108.jpg)
 ## Кирилл Салтанов
 Высшее образование - специалитет, магистратура, Информационная безопасность телекоммуникационных систем, Специалист по защите информации
 ## Смотрите видео о программе подготовки
@@ -71,7 +77,7 @@ PhD. Участник Международной федерации по обр�
 Глубокое понимание архитектуры и уязвимостей сетей
 ## Подайте заявку на обучение
 Станьте востребованным специалистом в сфере ИТ-технологий
-Подать заявку
+[Подать заявку](https://www.gosuslugi.ru/vuzonline)
 ## Программа обучения
 ## Обязательные дисциплины
 - Интернет-приложения на ядре Unix
@@ -194,6 +200,7 @@ Snort
 ## Диплом о высшем образовании Университета Иннополис
 Выпускники получают диплом государственного образца одного из ведущих ИТ-вузов России
 ## Где проходит практика
+![](https://apply.innopolis.university/local/js/innopolis/dist/images/practice-companies/ak-bars.webp)
 ## Часто задаваемые вопросы
 У обладателей гранта Университета Иннополис, кто не попал на бюджетные места, есть возможность учиться бесплатно или на частичном гранте
 Приемная кампания начинается с 20 июня и длится до 30 августа
@@ -209,36 +216,37 @@ Snort
 Это регламентируется подпунктом «а» части 2 статьи 24 Федерального закона от 28.03.1998 № 53-ФЗ «О воинской обязанности и военной службе».
 Если ранее предоставлялась отсрочка при обучении на соответствующем уровне образования, то повторно она не предоставляется.
 Осенью студентов Университета в установленном порядке ставят на воинский учет в Верхнем Услоне Республики Татарстан. Дополнительно информацию сообщат после поступления
-Здесь вы найдете примеры заданий прошлых лет, которые помогут подготовиться к участию в конкурсе
+[Здесь](https://photostorage.innopolis.university/index.php/s/4iCYtCKwENbFXep) вы найдете примеры заданий прошлых лет, которые помогут подготовиться к участию в конкурсе
 ## Стажировки и программы обмена
 Участие в международных конференциях, программы в вузах-партнерах и проекты с индустрией
-Подробнее о возможностях
+[Подробнее о возможностях](https://innopolis.university/international-relations-office/)
 ## Другие программы
-## Робототехника и компьютерное зрение
-Практическая магистратура по робототехнике и компьютерному зрению — от датчиков и моделей до работающих прототипов
-Подробнее
-## Искусственный интеллект и инженерия данных
-Освойте продвинутый Python, машинное обучение, NLP, Computer Vision и разработку систем для больших данных
-Подробнее
-## Программная инженерия
-Программа для тех, кто хочет создавать и масштабировать сложные цифровые продукты
-Подробнее
+## [Робототехника и компьютерное зрение](https://apply.innopolis.university/masters/rocv/)
+[Практическая магистратура по робототехнике и компьютерному зрению — от датчиков и моделей до работающих прототипов](https://apply.innopolis.university/masters/rocv/)
+[Подробнее](https://apply.innopolis.university/masters/rocv/)
+## [Искусственный интеллект и инженерия данных](https://apply.innopolis.university/masters/datascience/)
+[Освойте продвинутый Python, машинное обучение, NLP, Computer Vision и разработку систем для больших данных](https://apply.innopolis.university/masters/datascience/)
+[Подробнее](https://apply.innopolis.university/masters/datascience/)
+## [Программная инженерия](https://apply.innopolis.university/masters/development/)
+[Программа для тех, кто хочет создавать и масштабировать сложные цифровые продукты](https://apply.innopolis.university/masters/development/)
+[Подробнее](https://apply.innopolis.university/masters/development/)
 ## Полезное
-## Об университете
-## Подать заявку на грант
-## Возможности обучения
-## Поступление граждан СНГ
-## Кампус
-## День открытых дверей
-## Стипендии
-## Все программы
+## [Об университете](https://innopolis.university/)
+## [Подать заявку на грант](https://profile.innopolis.university/)
+## [Возможности обучения](https://apply.innopolis.university/possibilities/master/)
+## [Поступление граждан СНГ](https://apply.innopolis.university/sng/)
+## [Кампус](https://apply.innopolis.university/campus/)
+## [День открытых дверей](https://apply.innopolis.university/open-day/)
+## [Стипендии](https://apply.innopolis.university/scholarship/)
+## [Все программы](https://apply.innopolis.university/masters/)
+![](https://apply.innopolis.university/upload/landing/842/c87oyu22eofs0z6f4vn4jad8xeb0riut/1674231072_1x.png)
 Приемная комиссия Университета Иннополис
-Связаться в телеграм
+[Связаться в телеграм](https://t.me/iu_support)
 круглосуточно
 8 843 203 92 53 (д.102)
 круглосуточно
-t.me/iu_support
-max.ru/uni_support_bot
+[t.me/iu_support](https://t.me/iu_support)
+[max.ru/uni_support_bot](https://max.ru/uni_support_bot)
 круглосуточно
 admissions@innopolis.ru
 © 2012–2026
@@ -247,24 +255,24 @@ admissions@innopolis.ru
 - admissions@innopolis.ru
 420500, г. Иннополис,
 ул. Университетская, 1
-- VK
-- Telegram
-- Youtube
-- VK Video
-- Об университете
-- Бакалавриат
-- Магистратура
-- Аспирантура
-- Колледж
-- Возможности поступления
-- День открытых дверей
-- Сведения об образовательной организации
-- Политика конфиденциальности
-- Антитеррористическая деятельность
-- Министерство цифрового развития, связи и массовых коммуникаций РФ
-- Министерство науки и высшего образования Российской Федерации
-- Министерство просвещения Российской Федерации
-## Спасибо!
+- [VK](https://vk.com/innopolisadmissions)
+- [Telegram](https://t.me/apply_innopolis)
+- [Youtube](https://youtube.com/@innopolisu)
+- [VK Video](https://vkvideo.ru/@innopolisadmissions)
+- [Об университете](https://innopolis.university/about/)
+- [Бакалавриат](https://apply.innopolis.university/bachelors/)
+- [Магистратура](https://apply.innopolis.university/masters/)
+- [Аспирантура](https://apply.innopolis.university/postgraduate-study/)
+- [Колледж](https://innopolis.college/)
+- [Возможности поступления](https://apply.innopolis.university/possibilities/)
+- [День открытых дверей](https://apply.innopolis.university/open-day/)
+- [Сведения об образовательной организации](https://innopolis.university/sveden/)
+- [Политика конфиденциальности](https://innopolis.university/files/politicacookies.pdf)
+- [Антитеррористическая деятельность](https://innopolis.university/antiterror/)
+- [Министерство цифрового развития, связи и массовых коммуникаций РФ](https://digital.gov.ru/ru/)
+- [Министерство науки и высшего образования Российской Федерации](https://minobrnauki.gov.ru/)
+- [Министерство просвещения Российской Федерации](https://edu.gov.ru/)
+## ![](https://apply.innopolis.university/local/js/innopolis/dist/images/status-ok-dark.webp) Спасибо!
 Ваше обращение получено. Мы свяжемся с Вами в ближайшее время.
-## Ошибка
+## ![](https://apply.innopolis.university/local/js/innopolis/dist/images/status-error-dark.webp) Ошибка
 Не удалось отправить Ваше обращение. Попробуйте повторно или отправьте обращение на почту innopolis@help.ru.

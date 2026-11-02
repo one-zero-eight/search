@@ -1,0 +1,16 @@
+{
+ "title": "robo-202021-assignments",
+ "url": "https://lk-dovuz.innopolis.university/public/files/robo-202021-assignments.pdf",
+ "sha256": "53e5e64ba1ffb2cda327135df78333be7a6bdb7e4ecc1b53523ff682986385fb",
+ "method": "text layer (opendataloader)",
+ "chars": 134179,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:26+00:00",
+ "remote": {
+  "etag": "\"66ab9c-5df1f09ec13c0\"",
+  "modified": "Mon, 16 May 2022 11:08:07 GMT",
+  "size": "6728604"
+ }
+}

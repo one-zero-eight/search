@@ -1,0 +1,16 @@
+{
+ "title": "https://innopolis.university/filespublic/koncepciya_formirovaniya_iu.pd",
+ "url": "https://innopolis.university/filespublic/koncepciya_formirovaniya_iu.pdf",
+ "sha256": "ec0472b74e57ef59d7f5b465695ec24f4fe2802f59652a961c0fdd50f60075be",
+ "method": "text layer (opendataloader)",
+ "chars": 47820,
+ "tables": 5,
+ "section": "site/media",
+ "context": "",
+ "fetched_at": "2026-11-01T23:10:11+00:00",
+ "remote": {
+  "etag": "\"125f24d-5fe3cbdcb0b36\"",
+  "modified": "Fri, 16 Jun 2023 10:35:19 GMT",
+  "size": "19264077"
+ }
+}

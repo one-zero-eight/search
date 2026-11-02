@@ -1,0 +1,119 @@
+{
+ "docs": {
+  "https://apply.innopolis.university/public/files/uchplanse.pdf": "Download the curriculum",
+  "https://apply.innopolis.university/public/files/uchplansne.pdf": "Download the curriculum",
+  "https://apply.innopolis.university/upload/files/en_manual_bachelor_2025.pdf": "Download the admission manual",
+  "https://apply.innopolis.university/upload/files/en_manual_graduateschool_2025.pdf": "Download the admission manual",
+  "https://apply.innopolis.university/upload/files/en_manual_masters_2025.pdf": "Download the admission manual",
+  "https://innopolis.university/filespublic/Overview_of_the_BS_Program1.pdf": "Download the curriculum",
+  "https://innopolis.university/filespublic/uch_plan_magistr_ii_inzheneriya_dannyh.pdf": "Download the curriculum",
+  "https://innopolis.university/filespublic/ucheb_plan_magistr_ii_inzheneriya_dannyh.pdf": "Download the curriculum",
+  "https://new.innopolis.university/public/files/Consent_to_the_processing_of_PD_for_UI.pdf": "privacy policy"
+ },
+ "pages": {
+  "en": {
+   "fetched_at": "2026-10-31T01:08:01+00:00",
+   "file_sha": "104d8806fa8a499fd1498809446a73516cc20bf0b014d007f97cd6387fa262ae",
+   "last_modified": "",
+   "sha256": "8e30b586579f1ebc40acd31bbd1b3efdbe83acf807782da712a04067d125dc6c",
+   "title": "International Applicants",
+   "url": "https://new.innopolis.university/en/"
+  },
+  "en-bachelors": {
+   "fetched_at": "2026-10-31T01:16:24+00:00",
+   "file_sha": "f1d6c3cdd0cc5b22813ef3beeaf93be550ebcf9059e301b98c3116bf027a47ba",
+   "last_modified": "",
+   "sha256": "e92f9b946b1ef9cfd8095fc99bf8c3f2a12119f353fb3901bd5a1640c9245f2e",
+   "title": "Bachelor's program",
+   "url": "https://new.innopolis.university/en/bachelors/"
+  },
+  "en-bachelors-cse": {
+   "fetched_at": "2026-10-31T01:16:26+00:00",
+   "file_sha": "30b7222f599ef6aef0d9c52fef028533474dd494c1becdb0879e430ac34c246b",
+   "last_modified": "",
+   "sha256": "eb072ee4d82248913c93ee7d04c982d5ee6f8833f87b9e3c50477a130adb6d8a",
+   "title": "Computer Science and Engineering",
+   "url": "https://new.innopolis.university/en/bachelors/CSE/"
+  },
+  "en-bachelors-dsai": {
+   "fetched_at": "2026-10-31T01:16:28+00:00",
+   "file_sha": "7d185f75892ae5c88cea88fe42c679a2bc8bb225a97744527722550f49eea4bd",
+   "last_modified": "",
+   "sha256": "cd9033bbe6275f5b7836072a6a9876971d8a3aea1468cbcae943437acc9f6184",
+   "title": "Data Science and Artificial Intelligence",
+   "url": "https://new.innopolis.university/en/bachelors/DSAI/"
+  },
+  "en-faq": {
+   "fetched_at": "2026-10-31T01:08:23+00:00",
+   "file_sha": "e13298eb7cb8c21ed0ecde049fcaa131b7ea1d80f55b74a1c67518712022cb8d",
+   "last_modified": "",
+   "sha256": "99c0bde1cc46275e44714c7acdb9fd017938cffe0c62193f4f2da8ff37da4590",
+   "title": "FAQ",
+   "url": "https://new.innopolis.university/en/faq/"
+  },
+  "en-grant": {
+   "fetched_at": "2026-10-31T01:16:41+00:00",
+   "file_sha": "e9a4a44d756ca75ef877a6144c2308e1c88835b3975ca74729fce86c975a4cef",
+   "last_modified": "",
+   "sha256": "a361f7ea1c4e1c13197ce453e1c366b2f0170f545f6153cfc792be9a887d3389",
+   "title": "Grant Opportunities",
+   "url": "https://new.innopolis.university/en/grant/"
+  },
+  "en-masters": {
+   "fetched_at": "2026-10-31T01:16:30+00:00",
+   "file_sha": "01e009eb0d82bc3fd8382327c64ac5a15e28a9ea6ce6589b0f1169ad1c20c97c",
+   "last_modified": "",
+   "sha256": "603c23da5a7845af7cd8898a73d458c2175ba4b7ebc4b8de1312a58a9b0331e5",
+   "title": "Master's degree program",
+   "url": "https://new.innopolis.university/en/masters/"
+  },
+  "en-masters-datascience": {
+   "fetched_at": "2026-10-31T01:15:36+00:00",
+   "file_sha": "9e4e9c3561ff633cafefd33f28c1907ccdd13a89e7319ad70649da71c84cee77",
+   "last_modified": "",
+   "sha256": "a64ee0910738761550f8f5e1d5d5d74f67f8fee66ae5e5a6553c4760ac5308d4",
+   "title": "Artificial Intelligence and Data Engineering",
+   "url": "https://new.innopolis.university/en/masters/datascience/"
+  },
+  "en-masters-development": {
+   "fetched_at": "2026-10-31T01:15:32+00:00",
+   "file_sha": "d6b81dfe1f8490fb980afe0d7975647f5cb58b13a930e5fb8de3d97f6e35f71f",
+   "last_modified": "",
+   "sha256": "50827f556b813f71dda3202cc7812c73f5ca7a0dce4d159382d71059f1dd30c4",
+   "title": "Software Engineering",
+   "url": "https://new.innopolis.university/en/masters/development/"
+  },
+  "en-masters-securityandnetworkengineering": {
+   "fetched_at": "2026-10-31T01:15:34+00:00",
+   "file_sha": "1c5619e8be8673aea4919498deb17db9643afd79ba51ce0e206375cf0efe2cf5",
+   "last_modified": "",
+   "sha256": "8bac9f3b4004b12ee79e71f2ee14bc7236a1365ecdcfc0e3f95e1db9d71b72f8",
+   "title": "Security And Network Engineering",
+   "url": "https://new.innopolis.university/en/masters/securityandnetworkengineering/"
+  },
+  "en-olympiad-bonus": {
+   "fetched_at": "2026-10-31T01:15:45+00:00",
+   "file_sha": "1b7bd4b6c54ea50041608aee854b802f6022a9edf9173b3b668fd82d2751a560",
+   "last_modified": "",
+   "sha256": "9c1d5b7b6448957894e318ff0cbf2d0b345066f0adbb6003a5b314b159cfebbf",
+   "title": "Olympiad bonuses",
+   "url": "https://new.innopolis.university/en/olympiad-bonus/"
+  },
+  "en-postgraduate-study": {
+   "fetched_at": "2026-10-31T01:16:39+00:00",
+   "file_sha": "38a525ea58969b5ad9b60b65c6f8925209050391f7ffd20d3136848c48195309",
+   "last_modified": "",
+   "sha256": "e02abdfd756c307509a3d76f5e9d407ff0b18eaffa65490a3ef9325e5f6684ad",
+   "title": "PhD Degree",
+   "url": "https://new.innopolis.university/en/postgraduate-study/"
+  },
+  "en-sng": {
+   "fetched_at": "2026-10-31T01:15:47+00:00",
+   "file_sha": "10d4a44cd2cdd32084f050ee5f1a768745f95566af688f77987d566bc1abbd3a",
+   "last_modified": "",
+   "sha256": "2a4beecba82928a9c13451f3492841a48650a345408cb4c7a4848363ed8d2757",
+   "title": "Admission of CIS citizens",
+   "url": "https://new.innopolis.university/en/sng/"
+  }
+ }
+}

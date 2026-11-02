@@ -1,0 +1,256 @@
+{
+ "docs": {
+  "https://innopolis.university/filespublic/%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5_%D1%80%D0%B5%D0%BA%D0%BE%D0%BC%D0%B5%D0%BD%D0%B4%D0%B0%D1%86%D0%B8%D0%B8_%D0%BF%D0%BE_%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D1%8E_%D0%B8_%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8_%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B_%D1%86%D0%B5%D0%BD%D1%82%D1%80%D0%B0_%D0%BA%D0%B0%D1%80%D1%8C%D0%B5%D1%80%D1%8B_22_05_2026.pdf": "",
+  "https://innopolis.university/filespublic/%D0%9F%D0%B8%D1%81%D1%8C%D0%BC%D0%BE_%D0%9C%D0%97_%D0%A0%D0%A4_%D0%BE%D1%82_08.08.2025_%D0%B3___16-1.4680.pdf": "",
+  "https://innopolis.university/filespublic/%D0%9F%D0%B8%D1%81%D1%8C%D0%BC%D0%BE_%D0%BE%D0%B1_%D1%83%D1%87%D0%B0%D1%81%D1%82%D0%BD%D0%B8%D0%BA%D0%B0%D1%85_%D1%84%D0%B5%D0%B4%D0%B5%D1%80%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B3%D0%BE_%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B0_%D0%B8_%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8C%D0%BD%D1%8B%D1%85_%D1%82%D0%BE%D1%87%D0%BA%D0%B0%D1%85_%D0%BD%D0%B0_2026_%D0%B3%D0%BE%D0%B4.pdf": "",
+  "https://innopolis.university/filespublic/%D0%9F%D0%B8%D1%81%D1%8C%D0%BC%D0%BE_%D0%BE_%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B8_%D0%BC%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3%D0%B0_%D0%B4%D0%B5%D1%8F%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8_%D1%86%D0%B5%D0%BD%D1%82%D1%80%D0%BE%D0%B2_%D0%BA%D0%B0%D1%80%D1%8C%D0%B5%D1%80%D1%8B.pdf": "",
+  "https://innopolis.university/filespublic/%D0%9F%D0%B8%D1%81%D1%8C%D0%BC%D0%BE_%D0%BF%D1%80%D0%B8%D0%B3%D0%BB%D0%B0%D1%88%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BD%D0%B0_%D0%BC%D0%B5%D1%80%D0%BE%D0%BF%D1%80%D0%B8%D1%8F%D1%82%D0%B8%D0%B5_23_24_%D1%81%D0%B5%D0%BD%D1%82%D1%8F%D0%B1%D1%80%D1%8F.pdf": "",
+  "https://innopolis.university/filespublic/%D0%A4%D0%B5%D0%B4%D0%B5%D1%80%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86_%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82_%D0%9E%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5_%D0%B4%D0%BB%D1%8F_%D1%80%D1%8B%D0%BD%D0%BA%D0%B0_%D1%82%D1%80%D1%83%D0%B4%D0%B0.pdf": "по ссылке",
+  "https://innopolis.university/filespublic/%D0%A7%D0%B5%D0%BA-%D0%BB%D0%B8%D1%81%D1%82_%D0%BF%D0%BE_%D0%BC%D0%B5%D1%82%D0%BE%D0%B4%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%BC_%D1%80%D0%B5%D0%BA%D0%BE%D0%BC%D0%B5%D0%BD%D0%B4%D0%B0%D1%86%D0%B8%D1%8F%D0%BC_2026.pdf": "",
+  "https://innopolis.university/filespublic/02_07_2025_%D0%9C%D0%9D_7_2858_%D0%93%D1%80%D0%B8%D1%88%D0%BA%D0%B8%D0%BD_%D0%92_%D0%92.pdf": "",
+  "https://innopolis.university/filespublic/02_07_2025_%D0%9C%D0%9D_7_2859_%D0%93%D1%80%D0%B8%D1%88%D0%BA%D0%B8%D0%BD_%D0%92_%D0%92.pdf": "",
+  "https://innopolis.university/filespublic/_%D0%9E_%D0%BD%D0%B0%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B8_%D0%BC%D0%B5%D1%82%D0%BE%D0%B4%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D1%85_%D1%80%D0%B5%D0%BA%D0%BE%D0%BC%D0%B5%D0%BD%D0%B4%D0%B0%D1%86%D0%B8%D0%B8%CC%86__%D0%BE%D1%82_28.05.2025_%D0%9F%D0%B8%D1%81%D1%8C%D0%BC%D0%BE__%D0%9C%D0%9D-71980-%D0%94%D0%90.pdf": ""
+ },
+ "pages": {
+  "ai-career-navigator": {
+   "fetched_at": "2026-11-01T22:29:00+00:00",
+   "file_sha": "80ea6f48efd64c9b52c2b2cde6fa66882ef42a1d21c76a92da88b677d0b7860e",
+   "last_modified": "Fri, 16 Oct 2026 09:02:54 GMT",
+   "sha256": "f95a6cf28991e4a27b40a35b48ae63c4f061383ffb80ab844f562369b3445485",
+   "title": "Искусственный интеллект — карьерный навигатор",
+   "url": "https://eck.innopolis.university/ai-career-navigator"
+  },
+  "ambassador-academy": {
+   "fetched_at": "2026-11-01T22:28:51+00:00",
+   "file_sha": "f776c49df8ee2df7e09dae1d7491b85a86f4b070e00f1913214299c92bb6f974",
+   "last_modified": "Fri, 05 Jun 2026 15:32:42 GMT",
+   "sha256": "8ed34bdb7f2c462b644c913ad74c57ee44603ba05b3dafaa9892e9d560b89618",
+   "title": "Академия амбассадоров",
+   "url": "https://eck.innopolis.university/ambassador-academy"
+  },
+  "business-school-leadership": {
+   "fetched_at": "2026-11-01T22:28:54+00:00",
+   "file_sha": "072284ef5a23c36f2a56b8dc08d3ccd429b3b0c6ee74d06b6693100d0d9c1117",
+   "last_modified": "Fri, 16 Oct 2026 09:02:05 GMT",
+   "sha256": "d733c42abebc8b6c6d1aed2ce3ebfe49f0ff2a294210e7c63747c31e92ea98d9",
+   "title": "Бизнес-школа лидерства и предпринимательства",
+   "url": "https://eck.innopolis.university/business-school-leadership"
+  },
+  "career-bot": {
+   "fetched_at": "2026-11-01T22:28:35+00:00",
+   "file_sha": "ca5eac738843adc84fb555fbcdfac2d609d82f5880e19d48aa0f36e133a6538a",
+   "last_modified": "Fri, 16 Oct 2026 09:00:56 GMT",
+   "sha256": "84ade0a6fd9b239a314456002f5b3fc71b139facda497a24860f591d3dbf6a6f",
+   "title": "Карьерный бот",
+   "url": "https://eck.innopolis.university/career-bot"
+  },
+  "career-change-conference": {
+   "fetched_at": "2026-11-01T22:29:25+00:00",
+   "file_sha": "edb316da66d32576eacd48ed8841b122f866452a83af7d8d4b43d3a9ec57ef75",
+   "last_modified": "Fri, 16 Oct 2026 09:05:36 GMT",
+   "sha256": "08f08059d6ef5ffecbc3f827b495f850a69efa5601e16b4fb45fa8d8657e94c3",
+   "title": "Конференция «Карьерная перемена»",
+   "url": "https://eck.innopolis.university/career-change-conference"
+  },
+  "career-marketplace": {
+   "fetched_at": "2026-11-01T22:28:26+00:00",
+   "file_sha": "c41b8c9aa6ed1eaefaf3ad5cceb2d0993fa76e88c888d332533b8ddceeba97d7",
+   "last_modified": "Fri, 16 Oct 2026 09:00:05 GMT",
+   "sha256": "ee715815d16d3c8eb25cbffe718b8513880bfa3f0b3df84bfeed136f323f6895",
+   "title": "Форум «Карьерный маркетплейс»",
+   "url": "https://eck.innopolis.university/career-marketplace"
+  },
+  "career-support-funnel": {
+   "fetched_at": "2026-11-01T22:29:28+00:00",
+   "file_sha": "5bb6fd57493bf9760be13721f445cdbde45cfe53f7d06c3ad4db468041162b48",
+   "last_modified": "Fri, 16 Oct 2026 09:05:59 GMT",
+   "sha256": "a692a12cfa04539c74ee1a455c43d6c7c65bc3cc03588f103561056942cc14b6",
+   "title": "Воронка карьерного сопровождения: автоматизация на базе 1С и Битрикс24",
+   "url": "https://eck.innopolis.university/career-support-funnel"
+  },
+  "cases": {
+   "fetched_at": "2026-11-01T22:28:19+00:00",
+   "file_sha": "3e2ba164ae4ec9749e51be21cb2eb53329cba2c69278beaef7caf85f2233bf25",
+   "last_modified": "Fri, 05 Jun 2026 15:32:31 GMT",
+   "sha256": "364bd10936c3f157b891edddec331be1de6fbf1897d2c58bceae6bdcbe71e4e2",
+   "title": "Кейсы",
+   "url": "https://eck.innopolis.university/cases"
+  },
+  "creative-contest-field": {
+   "fetched_at": "2026-11-01T22:28:48+00:00",
+   "file_sha": "8dda8b70e893bad48fbf32632586cef1ad812311632a786817fa1ede6f9852a3",
+   "last_modified": "Tue, 13 Oct 2026 13:53:01 GMT",
+   "sha256": "f12b9e987100f2d02e806afb005cdb0453c5b40e8543f0bf4eb00c673794a760",
+   "title": "Творческий конкурс «ПОЛЕ»",
+   "url": "https://eck.innopolis.university/creative-contest-field"
+  },
+  "docs": {
+   "fetched_at": "2026-11-01T22:28:23+00:00",
+   "file_sha": "d1841c5fec5b5af3db40b3afe7429b75b29fac4dd9e3c9baafc82b610e4df9a3",
+   "last_modified": "Thu, 25 Jun 2026 15:00:16 GMT",
+   "sha256": "8f329686862e5ef7f730ee321457fdd62a728116bb2990961b12455dc0720b61",
+   "title": "Документы",
+   "url": "https://eck.innopolis.university/docs"
+  },
+  "educational-forum": {
+   "fetched_at": "2026-11-01T22:29:44+00:00",
+   "file_sha": "acaf7d004827219160bc82fc44691132e7e336495c5677a3853d4b47d4a70511",
+   "last_modified": "Fri, 16 Oct 2026 09:07:54 GMT",
+   "sha256": "8f4a71652dfa76f34f00eba4e3ba5f8fff589b27d711becb69567e0ff6cbac0f",
+   "title": "Образовательный форум «На орбиту в профкосмос! Высший пилотаж»",
+   "url": "https://eck.innopolis.university/educational_forum"
+  },
+  "educational-model": {
+   "fetched_at": "2026-11-01T22:28:38+00:00",
+   "file_sha": "5584452dde9c877d23659102e4b510cc310da06e50099dc609618998439bdc94",
+   "last_modified": "Fri, 16 Oct 2026 09:01:15 GMT",
+   "sha256": "5fe4b70a074edb7c5705c3fa84916d7667b41f9f0761ddad78efd61c4cc42983",
+   "title": "Образовательная модель «Университет-ГОК»",
+   "url": "https://eck.innopolis.university/educational-model"
+  },
+  "employment-people-disabilities": {
+   "fetched_at": "2026-11-01T22:29:16+00:00",
+   "file_sha": "6ee00d07c1f881ea3d198353f2f211558fc2f4be4f921e0b06f510cc7e643b3c",
+   "last_modified": "Fri, 16 Oct 2026 09:04:40 GMT",
+   "sha256": "e51e680a3c766fca9b3f7e09c4f7390a648241d9f658b138951691e5094fb65b",
+   "title": "Трудоустройство людей с ограниченными возможностями",
+   "url": "https://eck.innopolis.university/employment-people-disabilities"
+  },
+  "faq": {
+   "fetched_at": "2026-11-01T22:28:45+00:00",
+   "file_sha": "78b2b2d9defec32e9535c441dffebaa33c541deeefd9d36d5af41a95a89e8d0e",
+   "last_modified": "Thu, 25 Jun 2026 14:24:14 GMT",
+   "sha256": "83f4113fced6e9c9780f6fae812b560c724cfbf6a54b7a2b5634da03887fe3e8",
+   "title": "Вопрос-ответ",
+   "url": "https://eck.innopolis.university/faq"
+  },
+  "festival-projects": {
+   "fetched_at": "2026-11-01T22:28:29+00:00",
+   "file_sha": "7709ded1c46714f52269a1a310236a08509e7098935805c956b6b3d64730ee47",
+   "last_modified": "Fri, 05 Jun 2026 15:32:40 GMT",
+   "sha256": "e6ba17916bdf85c212278717f147ab005ed60ceaadc1015d16e933e505ad5133",
+   "title": "Фестиваль проектов",
+   "url": "https://eck.innopolis.university/festival-projects"
+  },
+  "foreign-students-employees": {
+   "fetched_at": "2026-11-01T22:29:07+00:00",
+   "file_sha": "5c5f1de641cc489e4d809f78cd83925dbc2014091fec35568b3a21c26f642c79",
+   "last_modified": "Fri, 16 Oct 2026 09:03:25 GMT",
+   "sha256": "4d37f16deaff7bf52635238000c07f491494270b60b79cc304b61651a8e8992b",
+   "title": "Трудоустройство иностранных студентов",
+   "url": "https://eck.innopolis.university/foreign_students_employees"
+  },
+  "golden-talent-reserve": {
+   "fetched_at": "2026-11-01T22:29:13+00:00",
+   "file_sha": "a71c2c8e69a981b195bb6b891724b29ce52bad8515f63c6b59816022c71d21db",
+   "last_modified": "Fri, 16 Oct 2026 09:04:15 GMT",
+   "sha256": "61a7aa2466a1f82f9165c8eaa1ef3ef8db033c5962b242842a2504547d1546ff",
+   "title": "Золотой кадровый резерв",
+   "url": "https://eck.innopolis.university/golden_talent_reserve"
+  },
+  "gorod-professiy": {
+   "fetched_at": "2026-11-01T22:29:38+00:00",
+   "file_sha": "4734cc7167e29e1c0085beb037e6693d9611c3beb17c7ea92aa98ad2d0afb812",
+   "last_modified": "Fri, 16 Oct 2026 09:07:03 GMT",
+   "sha256": "4e99fdf9b1a4668c44ee71a6379973046b446a99d50d632c39cb18d954cbda5f",
+   "title": "Интерактивная образовательная площадка «Город профессий в АПК «Я в Агро»",
+   "url": "https://eck.innopolis.university/gorod_professiy"
+  },
+  "home": {
+   "fetched_at": "2026-11-01T22:28:16+00:00",
+   "file_sha": "7a8edb61d45afc8afbafc83ff2c9b7356a045b62ca398e16995ea119650893d0",
+   "last_modified": "Tue, 25 Aug 2026 10:06:24 GMT",
+   "sha256": "d8d09703dd390ce882dfc98838b0ef78171c7a8808b6880c66c3643985e45a01",
+   "title": "Единый центр карьеры",
+   "url": "https://eck.innopolis.university/"
+  },
+  "immersive-theater": {
+   "fetched_at": "2026-11-01T22:28:57+00:00",
+   "file_sha": "f394ded83b4ecdeb1d53f56aedfb6c2f0ec8538f18199351c36fe9dc342bba6b",
+   "last_modified": "Fri, 16 Oct 2026 09:02:33 GMT",
+   "sha256": "59efb981e9ad8cee311c5212261632c3865cc717a3ea2d3f1feb3bb55990f04d",
+   "title": "Иммерсивный театр с плейбэк-перформансом «Мой путь к будущей карьере»",
+   "url": "https://eck.innopolis.university/immersive-theater"
+  },
+  "industrial-tourism": {
+   "fetched_at": "2026-11-01T22:28:32+00:00",
+   "file_sha": "a8c520590a80b1ca505c158b07670d31dbbbe39dface4eae16b95152b6716225",
+   "last_modified": "Fri, 16 Oct 2026 09:00:36 GMT",
+   "sha256": "df6a2a6614941510b5cbdecea57a8ad9c90c516237236990444cff786d39f64a",
+   "title": "Промышленный туризм",
+   "url": "https://eck.innopolis.university/industrial-tourism"
+  },
+  "innobootcamp": {
+   "fetched_at": "2026-11-01T22:29:19+00:00",
+   "file_sha": "0364661b63c113c6160139945b8293ba7484aef849f69b1bd9ca0abe689b1168",
+   "last_modified": "Fri, 16 Oct 2026 09:04:56 GMT",
+   "sha256": "cac443f44c448f62e40ac112e089b6e2cbcb2e652c3a936e526cd325b6ab7327",
+   "title": "InnoBootCamp",
+   "url": "https://eck.innopolis.university/innobootcamp"
+  },
+  "kinoprofi-tekhnologii-i-professii": {
+   "fetched_at": "2026-11-01T22:29:47+00:00",
+   "file_sha": "06f5af424e2aebedf93a635bc6cd2f0c510ff7d7a14f7cec7cdaea351493a1e6",
+   "last_modified": "Thu, 15 Oct 2026 06:44:54 GMT",
+   "sha256": "9391538699de818dfbb857d04f2aae810dd7ffce47fa747267fa1dc5f4d1631b",
+   "title": "КиноПрофи: технологии и профессии",
+   "url": "https://eck.innopolis.university/kinoprofi_tekhnologii_i_professii"
+  },
+  "komanda-pedagogov-pod-klyuch": {
+   "fetched_at": "2026-11-01T22:29:35+00:00",
+   "file_sha": "4fcccd362aaa6d5e332fe497a1787e7dac4219eabf6865fdb30460a646ec8664",
+   "last_modified": "Fri, 16 Oct 2026 09:06:40 GMT",
+   "sha256": "fb21fb36f5be104b79e457addee654a677e63f5e507e29dfe3df254903cb08c3",
+   "title": "Команда школьных педагогов «под ключ»",
+   "url": "https://eck.innopolis.university/komanda_pedagogov_pod_klyuch"
+  },
+  "project-model": {
+   "fetched_at": "2026-11-01T22:29:22+00:00",
+   "file_sha": "d3424a91ae0045bf550c35031037da25a16ea52032f917558556cfe08b79cacc",
+   "last_modified": "Fri, 16 Oct 2026 09:05:19 GMT",
+   "sha256": "6bfbf9f5fd760e2bb1afd53fa0b8d2927844790280dfe311f59ff1d19e26cfa7",
+   "title": "Проектная модель цифровой практики",
+   "url": "https://eck.innopolis.university/project-model"
+  },
+  "resume-based-assessment": {
+   "fetched_at": "2026-11-01T22:29:32+00:00",
+   "file_sha": "cfbc358060b7bc0d68a7775c55682de21cb6c6adfb9c74057e1275059f067201",
+   "last_modified": "Fri, 16 Oct 2026 09:06:20 GMT",
+   "sha256": "6b8869e93aec5917e9784199f209c684d5f4e28527741eb0d524e64dfc0207ac",
+   "title": "Ассесмент по резюме",
+   "url": "https://eck.innopolis.university/resume-based-assessment"
+  },
+  "skvoznaya-proyektnaya-deyatelnost": {
+   "fetched_at": "2026-11-01T22:29:41+00:00",
+   "file_sha": "a3218070b69016d366a5fc37c0936f3ed038ced7b788a5071c12f833dd0feec2",
+   "last_modified": "Fri, 16 Oct 2026 09:07:33 GMT",
+   "sha256": "374a55694724238ab9121aec1430d6ab7108d6c2c9a7d8385121a93fc5fb4f0c",
+   "title": "Сквозная проектная деятельность как инструмент раннего трудоустройства",
+   "url": "https://eck.innopolis.university/skvoznaya_proyektnaya_deyatelnost"
+  },
+  "starting-gap": {
+   "fetched_at": "2026-11-01T22:29:10+00:00",
+   "file_sha": "82754e9d3d0b3d409ff384c913f3671e44e124aa7723ee58ab0b5e9ff161b6b8",
+   "last_modified": "Fri, 16 Oct 2026 09:03:51 GMT",
+   "sha256": "f668717464705618a235191117ae54ad07fd98e1f23bfbfc1f11221dad5fb1e2",
+   "title": "Кейс-батл «Стартовый разрыв»",
+   "url": "https://eck.innopolis.university/starting_gap"
+  },
+  "systematic-work-university": {
+   "fetched_at": "2026-11-01T22:29:03+00:00",
+   "file_sha": "72c93136230e0aa66e92713ade13bff3ed94f2c9da26c73e469d18002a14852b",
+   "last_modified": "Fri, 03 Jul 2026 11:32:47 GMT",
+   "sha256": "b07802f75b1ff7f3c2719f0b3d7777a4ec795e92b6cd9799d62bdf3cf87a745e",
+   "title": "Системная работа университета с региональной компанией",
+   "url": "https://eck.innopolis.university/systematic-work-university"
+  },
+  "virtual-world-professions": {
+   "fetched_at": "2026-11-01T22:28:42+00:00",
+   "file_sha": "542262a066c5ae38b596e76304694c3546bd7296ba2ddb94be7658f5ec41ff4c",
+   "last_modified": "Fri, 16 Oct 2026 09:01:35 GMT",
+   "sha256": "eed36dc5cfe18912fb92a91980f057b7ed921c725bda72bb1d1234d2195032b7",
+   "title": "Виртуальный мир реальных профессий",
+   "url": "https://eck.innopolis.university/virtual-world-professions"
+  }
+ }
+}

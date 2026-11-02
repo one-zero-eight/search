@@ -1,0 +1,16 @@
+{
+ "title": "Читать исследование [Industrial_Robotics_Market_Research_2025]",
+ "url": "https://innopolis.university/filespublic/Industrial_Robotics_Market_Research_2025.pdf",
+ "sha256": "2b0bd4b987ecd4d6bec1f7f1bd8a3c48e768d94759c8a0d98fbbeec59450c023",
+ "method": "text layer (opendataloader)",
+ "chars": 47305,
+ "tables": 5,
+ "section": "site/media",
+ "context": "",
+ "fetched_at": "2026-11-01T23:00:23+00:00",
+ "remote": {
+  "etag": "\"97ac48-646c2b6e57dab\"",
+  "modified": "Thu, 25 Dec 2025 08:39:26 GMT",
+  "size": "9940040"
+ }
+}

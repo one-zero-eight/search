@@ -1,0 +1,85 @@
+{
+ "docs": {},
+ "pages": {
+  "drone-race-eng": {
+   "fetched_at": "2026-10-31T08:39:11+00:00",
+   "file_sha": "a1477924751af80a3bb6668dbc40cadcb21ea722af634991ac67988d4993a0ec",
+   "last_modified": "Fri, 18 Aug 2023 13:21:57 GMT",
+   "sha256": "fd269898266d613a7da4981e440c0283a4a25901050a7208bfef80b02ecdcaa4",
+   "title": "Drone race",
+   "url": "https://aiconf.innopolis.ru/drone-race-eng"
+  },
+  "drone-race-ru": {
+   "fetched_at": "2026-10-31T08:39:09+00:00",
+   "file_sha": "4630bf6c3a233c093cb9ebaa4bf62c01dbf8c25fe9dc1535f2ed406996dc347a",
+   "last_modified": "Sat, 13 Apr 2024 12:16:37 GMT",
+   "sha256": "427b363968e7d21b02e58158918041ecaaccc80572ee15de1354115da6394584",
+   "title": "Гонка дронов",
+   "url": "https://aiconf.innopolis.ru/drone-race-ru"
+  },
+  "eng": {
+   "fetched_at": "2026-10-31T08:38:58+00:00",
+   "file_sha": "d550901bf809a30e22b7d81bb0b4a64a0e8e6c083b12d345298e9020c7eedd48",
+   "last_modified": "Fri, 18 Oct 2024 08:50:04 GMT",
+   "sha256": "4f356f3758d0bbb31acc9cc620bd1a1ebf4d5b32914860afcfc67fa4340efcce",
+   "title": "AI IN 2023",
+   "url": "https://aiconf.innopolis.ru/eng"
+  },
+  "home": {
+   "fetched_at": "2026-10-31T08:38:56+00:00",
+   "file_sha": "a337fdf9320b5020c53c5886d4f8b134a69575b43f540bf386d304603125bfc3",
+   "last_modified": "Fri, 18 Oct 2024 08:55:55 GMT",
+   "sha256": "9bf09c688d204fcf2a3a69b322b04ff701a4e4140c7094e576df4c7b20762d37",
+   "title": "Конференция AI IN 2023",
+   "url": "https://aiconf.innopolis.ru/"
+  },
+  "manual-eng": {
+   "fetched_at": "2026-10-31T08:39:15+00:00",
+   "file_sha": "154e6bfa955d8108efe20667ef68ba975082ee27727176325a45411a9c88ae2a",
+   "last_modified": "Fri, 18 Oct 2024 08:50:44 GMT",
+   "sha256": "481a83f4fa197a9be52384eae124c4cab19b13ba20b660bd2c36df4cda7ca17e",
+   "title": "Instructions for applying discounts on hotels of the Sviyazhsky Hills Group of Companies",
+   "url": "https://aiconf.innopolis.ru/manual-eng"
+  },
+  "manual-ru": {
+   "fetched_at": "2026-10-31T08:39:13+00:00",
+   "file_sha": "2271ae596377cbf66314c57d0bb5c29e4f6513987ee3be8fdc6fe9fd43aa2174",
+   "last_modified": "Fri, 18 Oct 2024 08:50:38 GMT",
+   "sha256": "a253de47bb73dc987cef8927f5029f46272aedd40874b02ca6855361d34ec919",
+   "title": "Инструкция по применении скидки на отели ГК \"Свияжские холмы\"",
+   "url": "https://aiconf.innopolis.ru/manual-ru"
+  },
+  "privacy-policy-eng": {
+   "fetched_at": "2026-10-31T08:39:00+00:00",
+   "file_sha": "1a4040a39012a49238d951b6ccc4ee4fe20831dbac4835ef97a1d07c97b652e4",
+   "last_modified": "Fri, 18 Oct 2024 08:50:13 GMT",
+   "sha256": "26dad07efa7894f1d5d39eaf596650f2f919a0e9d2d41d18a07905ddd6f96018",
+   "title": "Personal Data Processing Policy",
+   "url": "https://aiconf.innopolis.ru/privacy-policy-eng"
+  },
+  "privacy-policy-rus": {
+   "fetched_at": "2026-10-31T08:39:04+00:00",
+   "file_sha": "20cb9eedd93ea1d46a081de4380527d2222ec170d11dda4010cbe02b66778a78",
+   "last_modified": "Fri, 18 Oct 2024 08:50:25 GMT",
+   "sha256": "ae38151be5bb1028d335455fcf470af026e3c1434d204042e4c45a00a79a6adb",
+   "title": "Политика обработки персональных данных",
+   "url": "https://aiconf.innopolis.ru/privacy-policy-rus"
+  },
+  "service-agreement-eng": {
+   "fetched_at": "2026-10-31T08:39:02+00:00",
+   "file_sha": "a2422e553a8ab51a2e19a9d0a1313725e2bb75b521fd7f688411b711006397ff",
+   "last_modified": "Fri, 18 Oct 2024 08:50:19 GMT",
+   "sha256": "1fc6566ddf74f1c0145d5131b2742e9a4df0eb54281d8453c33b4267d03e6bb8",
+   "title": "Service agreement",
+   "url": "https://aiconf.innopolis.ru/service-agreement-eng"
+  },
+  "service-agreement-rus": {
+   "fetched_at": "2026-10-31T08:39:06+00:00",
+   "file_sha": "4e6fd6b2f899cf2f7a37c7d5242f501061a5608d7702ed85938f29740f7e04fd",
+   "last_modified": "Fri, 18 Oct 2024 08:50:30 GMT",
+   "sha256": "31ec2d554cfd452248f0acac476b64ec62e05467fa92a350c845fd656536cab5",
+   "title": "Оферта",
+   "url": "https://aiconf.innopolis.ru/service-agreement-rus"
+  }
+ }
+}

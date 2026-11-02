@@ -1,0 +1,16 @@
+{
+ "title": "Скачать pdf-файл с результатами [protokoly_ocpm_270126]",
+ "url": "https://lk-dovuz.innopolis.university/public/files/protokoly_ocpm_270126.pdf",
+ "sha256": "69123b340ce01dd5a9dd921e687132754a9cb2f7c44bd24b9f464b8050ea7b48",
+ "method": "text layer (opendataloader)",
+ "chars": 14575,
+ "tables": 5,
+ "section": "site/olymp",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:40+00:00",
+ "remote": {
+  "etag": "\"5065d-64958d719b5c0\"",
+  "modified": "Tue, 27 Jan 2026 06:36:15 GMT",
+  "size": "329309"
+ }
+}

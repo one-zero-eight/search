@@ -1,0 +1,15 @@
+{
+ "title": "Презентация ОЭЗ «Иннополис»",
+ "url": "https://sezinnopolis.ru/upload/new-files/forcompanies-presentation.pdf",
+ "sha256": "cb030f00e5c16eec704d857ceb5823f3f0c305d2a181a06b00335e2d1dcfa6f5",
+ "method": "text layer (opendataloader)",
+ "chars": 11808,
+ "tables": 5,
+ "section": "site/sez",
+ "context": "",
+ "fetched_at": "2026-10-31T09:36:31+00:00",
+ "remote": {
+  "etag": "W/\"6984579a-91fe90\"",
+  "modified": "Thu, 05 Feb 2026 08:40:58 GMT"
+ }
+}

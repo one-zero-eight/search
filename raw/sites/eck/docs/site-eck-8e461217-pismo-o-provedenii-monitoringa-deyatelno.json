@@ -1,0 +1,16 @@
+{
+ "title": "Письмо о проведении мониторинга деятельности центров карьеры",
+ "url": "https://innopolis.university/filespublic/%D0%9F%D0%B8%D1%81%D1%8C%D0%BC%D0%BE_%D0%BE_%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B8_%D0%BC%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3%D0%B0_%D0%B4%D0%B5%D1%8F%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8_%D1%86%D0%B5%D0%BD%D1%82%D1%80%D0%BE%D0%B2_%D0%BA%D0%B0%D1%80%D1%8C%D0%B5%D1%80%D1%8B.pdf",
+ "sha256": "5cf732c2308fbabba72d20714aea9a6e8c31e8e7cbb4994884179bc28a6cdf74",
+ "method": "text layer (opendataloader)",
+ "chars": 1649,
+ "tables": 5,
+ "section": "site/eck",
+ "context": "",
+ "fetched_at": "2026-11-01T22:40:22+00:00",
+ "remote": {
+  "etag": "\"432b9-652277bcd917f\"",
+  "modified": "Tue, 19 May 2026 08:29:54 GMT",
+  "size": "275129"
+ }
+}

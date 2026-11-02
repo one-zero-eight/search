@@ -1,0 +1,16 @@
+{
+ "title": "offer python base 070626",
+ "url": "https://lk-dovuz.innopolis.university/public/files/offer_python_base_070626.pdf",
+ "sha256": "24b9ad2e50302229924ac5865b96c9773a9afddf74dbf1ae93bf9c1c6f8660e2",
+ "method": "text layer (opendataloader)",
+ "chars": 33697,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"6c0d1-64b2926905740\"",
+  "modified": "Thu, 19 Feb 2026 08:32:53 GMT",
+  "size": "442577"
+ }
+}

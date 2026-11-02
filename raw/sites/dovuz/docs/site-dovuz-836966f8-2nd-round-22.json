@@ -1,0 +1,16 @@
+{
+ "title": "2nd round 22",
+ "url": "https://lk-dovuz.innopolis.university/public/files/2nd%20round%2022.pdf",
+ "sha256": "b94096dc4fcececbe2b6061566e844357a0985d4605563b910a594d9425f7333",
+ "method": "text layer (opendataloader)",
+ "chars": 6023,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:18+00:00",
+ "remote": {
+  "etag": "\"2a892-5d6df84865340\"",
+  "modified": "Mon, 31 Jan 2022 11:59:33 GMT",
+  "size": "174226"
+ }
+}

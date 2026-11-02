@@ -1,0 +1,16 @@
+{
+ "title": "договором оферты [offer_python_base_leto_2smena_2025]",
+ "url": "https://lk-dovuz.innopolis.university/public/files/offer_python_base_leto_2smena_2025.pdf",
+ "sha256": "86a27cdd8e84f319f2044e3b130a701c47f88a829eff4eaab3ced91b44d8e63c",
+ "method": "text layer (opendataloader)",
+ "chars": 32832,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"45cd6-62b086b86e800\"",
+  "modified": "Mon, 06 Jan 2025 12:03:44 GMT",
+  "size": "285910"
+ }
+}

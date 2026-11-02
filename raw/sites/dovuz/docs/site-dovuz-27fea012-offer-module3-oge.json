@@ -1,0 +1,16 @@
+{
+ "title": "offer module3 oge",
+ "url": "https://lk-dovuz.innopolis.university/public/files/offer_module3_oge.pdf",
+ "sha256": "19c3a8b68dbde72146b50d0566506878fcd5d4ea0f0847cf964d38dec236ea2e",
+ "method": "text layer (opendataloader)",
+ "chars": 31119,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"3d6f3-645828d1088c0\"",
+  "modified": "Tue, 09 Dec 2025 10:41:15 GMT",
+  "size": "251635"
+ }
+}

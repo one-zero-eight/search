@@ -1,0 +1,16 @@
+{
+ "title": "Скачать материалы для подготовки",
+ "url": "https://lk-dovuz.innopolis.university/public/files/materials_robo_25.pdf",
+ "sha256": "5183a3433638f89818122c4120086b9e698eb3af00a56f178cad3208d881a0ca",
+ "method": "text layer (opendataloader)",
+ "chars": 2406,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:23+00:00",
+ "remote": {
+  "etag": "\"f55a7-62146c624ed00\"",
+  "modified": "Wed, 04 Sep 2024 08:15:16 GMT",
+  "size": "1004967"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "согласия на обработку персональных данных.",
+ "url": "https://lk-dovuz.innopolis.university/public/files/IO_2526_SOPD_merged_beforeafter14yo.pdf",
+ "sha256": "f934ed5204d00d0004e8345476acce57d585d3b268911f6ee9e17f570602bfb3",
+ "method": "text layer (opendataloader)",
+ "chars": 7668,
+ "tables": 5,
+ "section": "site/dovuz",
+ "context": "",
+ "fetched_at": "2026-11-01T23:17:20+00:00",
+ "remote": {
+  "etag": "\"780a9-63f5ee1246b40\"",
+  "modified": "Mon, 22 Sep 2025 07:36:37 GMT",
+  "size": "491689"
+ }
+}
