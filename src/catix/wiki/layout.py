@@ -12,7 +12,6 @@ move.
 
 import re
 import shutil
-import sys
 from pathlib import Path
 
 from catix.settings import settings
@@ -123,6 +122,6 @@ def migrate(dry_run: bool = False) -> list[str]:
     return folders
 
 
-def main() -> None:
-    if not migrate("--dry-run" in sys.argv[2:]):
+def main(dry_run: bool = False) -> None:
+    if not migrate(dry_run):
         print(f"nothing to move: the documents are in {DOCS}")

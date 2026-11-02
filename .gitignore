@@ -31,3 +31,11 @@ experiments/.wiki-demo-site/
 wiki-index.tar.gz
 /secrets/
 wiki-index.2026-10-24.tar.gz
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/

@@ -33,6 +33,7 @@ import json
 import re
 import sys
 import threading
+from argparse import Namespace
 from collections import Counter, deque
 from concurrent.futures import ThreadPoolExecutor
 from contextvars import ContextVar
@@ -1682,26 +1683,24 @@ def describe(counts: Counter) -> str:
     return f"{counts['attempts']} attempts, {counts['refused']} refused" + (f" ({kinds})" if kinds else "")
 
 
-def main() -> None:
-    cmd, *args = sys.argv[2:] or ["queue"]
+def main(args: Namespace) -> None:
+    cmd = args.action
     if cmd == "check":
-        broken = check_all(two_sources="--two-sources" in args)
+        broken = check_all(two_sources=args.two_sources)
         for slug, found in broken.items():
             print(f"{slug}:\n  " + "\n  ".join(found[:8]))
         print(f"{len(all_cards())} cards, {len(broken)} do not hold")
         sys.exit(1 if broken else 0)
     elif cmd == "links" or cmd == "candidates":
-        links.main()
+        links.main(args)
     elif cmd == "notes":
         from catix.wiki import notes as note_pages
 
-        note_pages.main()
+        note_pages.main(args)
     elif cmd == "all":
-        print(f"{enqueue(source_pages(args or None))} pages queued, {len(load_queue())} in the queue")
+        print(f"{enqueue(source_pages(args.folders or None))} pages queued, {len(load_queue())} in the queue")
     elif cmd == "queue":
         print(run())
-    elif cmd.startswith("/"):
+    elif cmd == "run":
         idx = Index()
-        print(run([resolve(page, idx) for page in [cmd, *args]]))
-    else:
-        sys.exit(__doc__)
+        print(run([resolve(page, idx) for page in args.pages]))

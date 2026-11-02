@@ -28,6 +28,7 @@ import hashlib
 import json
 import sys
 import time
+from argparse import Namespace
 from collections import defaultdict
 from pathlib import Path
 
@@ -324,23 +325,22 @@ def import_(path: Path) -> None:
     print(f"imported {path} (wiki commit {str(manifest['wiki_commit'])[:12]}) in {time.monotonic() - started:.0f}s")
 
 
-def main() -> None:
-    args = sys.argv[2:]
+def main(args: Namespace) -> None:
     if not settings.database_url:
         sys.exit("DATABASE_URL is not set: the index lives in the bot's database")
     try:
-        if args[:1] == ["status"]:
+        if args.action == "status":
             status()
             return
-        if args[:1] in (["export"], ["import"]) and len(args) == 2:
-            (export if args[0] == "export" else import_)(Path(args[1]))
+        if args.action in ("export", "import"):
+            (export if args.action == "export" else import_)(args.file)
             return
         started = time.monotonic()
         counts = sync()
         print(", ".join(f"{v} {k}" for k, v in counts.items()) or "nothing to do", f"({time.monotonic() - started:.0f}s)")
         with pg.connection() as conn:
             print(f"{mark_copies(conn)} pieces marked again as copies or not")
-        if "--no-embed" not in args:
+        if not args.no_embed:
             print(f"{embed_all()} pieces embedded")
         status()
     finally:

@@ -12,8 +12,8 @@ regulations). Decisions of the model are data: raw/sveden/triage.json keeps who 
 import html
 import json
 import re
-import sys
 import time
+from argparse import Namespace
 from collections import Counter, defaultdict
 from pathlib import Path
 from urllib.parse import unquote, urljoin
@@ -172,15 +172,13 @@ def status() -> None:
         print(f"  {s:14} {dict(c)}")
 
 
-def main() -> None:
-    cmd, *args = sys.argv[2:] or ["status"]
+def main(args: Namespace) -> None:
+    cmd = args.action
     if cmd == "discover":
         discover()
     elif cmd == "triage":
-        triage("--redo" in args)
+        triage(args.redo)
     elif cmd == "status":
         status()
-    elif cmd == "override" and args[:1] and args[0] in {"keep", "skip"}:
-        override(args[0], args[1:])
-    else:
-        sys.exit(__doc__)
+    elif cmd == "override":
+        override(args.decision, args.ids)

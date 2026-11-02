@@ -237,6 +237,35 @@ def test_a_site_may_keep_its_sitemap_elsewhere(tmp_path, monkeypatch):
     assert "team-ivanov" in sites.load("wp")["pages"]  # (no link leads there: the sitemap does)
 
 
+WALLED = '<html><head><title>Вы не робот?</title></head><body><div class="smart-captcha">Подтвердите, что вы не робот</div></body></html>'
+
+
+def test_a_page_a_bot_check_answers_for_is_asked_again_and_never_kept(tmp_path, monkeypatch):
+    monkeypatch.setattr(sites, "ROOT", tmp_path)
+    monkeypatch.setattr(sites, "PAUSE", 0)
+    monkeypatch.setattr(sites, "BOT_PAUSE", 0)
+    site = sites.Site("https://club.timepad.example/", "ru", "a club", r"^nothing$", sitemap=False, max_pages=10)
+
+    class Wall:
+        asks = 0
+
+        def get(self, url):
+            Wall.asks += 1
+            body = WALLED if Wall.asks <= 2 else f"<html><head><title>Club</title></head><body><p>{WORDS}</p></body></html>"
+            return httpx.Response(200, headers={"content-type": "text/html"}, text=body, request=httpx.Request("GET", url))
+
+    sites.fetch_site("club", site, Wall())
+    assert Wall.asks == 3 and "home" in sites.load("club")["pages"]  # (the wall let the third ask through, the page was read)
+
+    class NeverLets:
+        def get(self, url):
+            return httpx.Response(200, headers={"content-type": "text/html"}, text=WALLED, request=httpx.Request("GET", url))
+
+    sites.fetch_site("club", site, NeverLets())
+    home = (tmp_path / "club" / "home.md").read_text(encoding="utf-8")  # (a crawl that met only the wall keeps the page it read before)
+    assert "Вы не робот" not in home and WORDS in home
+
+
 def test_a_news_item_ends_where_the_related_news_begin_and_says_its_heading_and_date_once(tmp_path, monkeypatch):
     out = _site_root(tmp_path, monkeypatch, {
         "rooms": ("https://hotel.innopolis.university/rooms/", f"29 октября 2026\n## Rooms\n29 октября 2026\n{WORDS}\n[Читать далее](https://hotel.innopolis.university/next/)\n"

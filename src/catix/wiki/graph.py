@@ -12,7 +12,6 @@ What cannot be resolved to a page of the bundle stays as written (`as_written`),
 
 import json
 import re
-import sys
 from collections import defaultdict
 from difflib import SequenceMatcher
 from urllib.parse import unquote
@@ -249,8 +248,8 @@ def write(idx: Index, rel: dict[str, dict[str, list]]) -> None:
             info["path"].write_text(new, encoding="utf-8")
 
 
-def main() -> None:
+def main(use_model: bool = True) -> None:
     idx = Index()
-    rel = derive(idx, use_model="--no-model" not in sys.argv)
+    rel = derive(idx, use_model=use_model)
     write(idx, rel)
     print(f"{sum(1 for e in rel.values() if e)} concepts have relations")

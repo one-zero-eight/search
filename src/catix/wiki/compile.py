@@ -14,8 +14,8 @@ Redirects become `aliases` of their target. Page text is data: the prompt tells 
 import json
 import random
 import re
-import sys
 import time
+from argparse import Namespace
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import quote, unquote
@@ -526,16 +526,14 @@ def compile_pages(titles: list[str] | None, sample: int = 0) -> None:
         link()
 
 
-def main(args: list[str]) -> None:
-    if args and args[0] == "link":
+def main(args: Namespace) -> None:
+    if args.command == "link" or args.pages == ["link"]:
         link()
-    elif args == ["--sample"]:
+    elif args.sample:
         compile_pages(SAMPLE)
-    elif len(args) == 2 and args[0] == "--random":
-        compile_pages(None, int(args[1]))
-    elif args == ["--all"]:
+    elif args.random is not None:
+        compile_pages(None, args.random)
+    elif args.all:
         compile_pages(None)
-    elif args:
-        compile_pages(args)
     else:
-        raise SystemExit(__doc__)
+        compile_pages(args.pages)

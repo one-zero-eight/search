@@ -32,6 +32,7 @@ import subprocess
 import sys
 import time
 import traceback
+from argparse import Namespace
 from collections import Counter
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
@@ -308,17 +309,16 @@ def ready() -> str | None:
     return None
 
 
-def main() -> None:
-    args = sys.argv[2:]
+def main(args: Namespace) -> None:
     if problem := ready():
         sys.exit(problem)
-    if args[:1] in (["accept"], ["discard"]):
-        print(accept("--no-push" not in args) if args[0] == "accept" else discard())
+    if args.action in ("accept", "discard"):
+        print(accept(not args.no_push) if args.action == "accept" else discard())
         return
-    names = [a for a in args[args.index("--source") + 1:] if not a.startswith("--")] if "--source" in args else None
-    if "--only-new" in args:
+    names = args.source
+    if args.only_new:
         names = [*(names or []), "new-sites"]
-    if "--build" in args:
+    if args.build:
         names = names or ["build-only"]  # no source is asked (a name that is none): what the working tree holds is built, checked and committed or sent for review
     with LOCK.open("w") as lock:
         try:
@@ -328,10 +328,10 @@ def main() -> None:
         while True:
             started = datetime.now(timezone.utc)
             try:
-                print(f"[{started:%Y-%m-%d %H:%M}] {run_once(names, push='--no-push' not in args, answers='--no-answers' not in args)}", flush=True)
+                print(f"[{started:%Y-%m-%d %H:%M}] {run_once(names, push=not args.no_push, answers=not args.no_answers)}", flush=True)
             except Exception:  # noqa: BLE001 - the loop keeps going; the next run tries again
                 traceback.print_exc()
-            if "--loop" not in args:
+            if not args.loop:
                 return
             names = None  # (--source asks now; the loop then follows the schedule)
             state = load_state()

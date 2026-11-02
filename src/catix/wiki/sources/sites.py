@@ -8,7 +8,7 @@ news and events), stc.innopolis.university (IT courses), edu.innopolis.universit
 innopolis.com (the city and its special economic zone; Russian and English), and the sites of the university's units and
 projects the pages link most (career, corporate, dovuz, progmatica, the college, the dissertation council, ...; see SITES).
 
-    catix-wiki sites fetch [SITE ...]   # the pages of every site (or of those named) -> raw/sites/<site>/ (one request every Site.pause seconds); the number that changed
+    catix-wiki sites fetch [SITE ...]   # the pages of every site (or of those named) -> raw/sites/<site>/ (one request every Site.pause seconds); trusted-provider page links are followed recursively
     catix-wiki sites compile    # raw/sites -> wiki/raw/sites/<site>/<slug>.md
     catix-wiki sites status     # pages and documents found on every site
     catix-wiki sites docs       # the documents of the university's hosts that the pages link and no site has yet: to be downloaded by `regs fetch`
@@ -32,16 +32,20 @@ import subprocess
 import sys
 import tempfile
 import time
+from argparse import Namespace
 from collections import Counter
-from dataclasses import dataclass
+from dataclasses import dataclass, fields
 from datetime import datetime, timezone
 from html.parser import HTMLParser
 from http.cookiejar import CookieJar, DefaultCookiePolicy
+from pathlib import Path
+from typing import Any, cast
 from urllib.parse import parse_qs, quote, unquote, urldefrag, urljoin, urlsplit
 from urllib.robotparser import RobotFileParser
 
 import httpx
 import websockets
+import yaml
 
 from catix.wiki.compile import AUDIENCES, PRODUCER, yaml_value
 from catix.wiki.paths import DOCS, RAW
@@ -88,107 +92,37 @@ class Site:
     aliases: tuple[str, ...] = ()  # other hosts of the site, an old name or a mirror: a link to one leads to the site's page of the same path, when there is one
 
 
-TILDA = r"^(tilda|members)/|(^|/)((\w+[-_])?form|thank_?you\w*|test\w*|\w+_test)$"  # (the forms, their thank-you pages and the tests of a Tilda site: no text; a 'page123.html' is a page: the defences of dissovet)
-BITRIX = r"(^|/)(search|personal|auth|login|bitrix|upload|local|include)(/|$)|print"
+CONFIG = Path(__file__).with_name("sites.yaml")
+DISCOVERED_SKIP = r"^(tilda|members)/|(^|/)((\w+[-_])?form|thank_?you\w*|test\w*|\w+_test)$"
 
 
-def only(*sections: str) -> str:
-    """The skip of a site that is a corner of innopolis.university's Bitrix (career, corporate): every path but its own sections."""
-    return rf"^(?!({'|'.join(sections)})(/|$))[^/]+"
+def load_config(path: Path = CONFIG) -> tuple[dict[str, dict[str, Any]], frozenset[str]]:
+    raw = cast(dict[str, Any], yaml.safe_load(path.read_text(encoding="utf-8")) or {})
+    return cast(dict[str, dict[str, Any]], raw.get("sites", raw)), frozenset(raw.get("blocked", ()))
 
 
-SITES = {
-    "university": Site("https://innopolis.university/", "ru", "the university's own site: its units, centres, programmes, campus, science, contacts",
-                       r"^(en/)?(search|lk|form|personal|auth|login|bitrix|upload|filespublic|files|local|include)(/|$)|print",
-                       sitemap=False, max_pages=3000, english="en", aliases=("university.innopolis.ru",)),  # (its old name: the pages link it)
-    "apply": Site("https://apply.innopolis.university/", "ru", "admission to Innopolis University: programmes, the rules and dates of admission, grants, olympiads, quotas",
-                  r"^(en/)?(search|personal|auth|login|bitrix|upload|local|include)(/|$)|print", max_pages=1500, aliases=("apply.innopolis.ru",)),  # (its /en/ is the Russian text again)
-    "campuslife": Site("https://campuslife.innopolis.ru/", "en", "student life at Innopolis University: handbook, FAQ, scholarships, clubs, services",
-                       r"_old\b|^page\d+\.html$|^tilda/", dated=True),  # (past events are taken: the wiki is their record; an old copy of a page is not)
-    "innohassle": Site("https://innohassle.ru/", "en", "InNoHassle, the student ecosystem of Innopolis University made by the one-zero-eight community: clubs and their leaders, scholarship, room-booking rules, sport, maps, music room",
-                       r"(^|/)(admin|account|auth|forms|drafts|submissions|profile|trainer|print|scan)(/|$)|^guard/(create|copy|files)|^when2meet/new"
-                       r"|^$|^(start|schedule|maps|workshops|timetable|tabletennis|events)(/|$)|^clubs($|/(?!(league|new)(/|$)))|^music-room($|/(?!instructions(/|$)))"
-                       r"|^(calendar|search|when2meet|student-affairs|board-games|timer)($|/)|^sport($|/(?!faq(/|$)))|^room-booking($|/(?!rules(/|$)))",  # (login walls: 'Use your Innopolis account to access InNoHassle services'; board-games and timer: no text)
-                       max_pages=300, render=True),  # (an app: the browser runs its scripts; the pages behind a login show 'Sign in' and are dropped as pages of no words)
-    "hotel": Site("https://hotel.innopolis.university/", "ru", "the campus of Innopolis University: dormitories, their rules, prices and documents",
-                  r"zayavka|bitrix|upload/", sitemap=False, english="en"),
-    "international": Site("https://new.innopolis.university/en/", "en", "admission of international applicants to Innopolis University (in English): bachelor's, master's and PhD programmes, grants, olympiad bonuses, applicants from the CIS, FAQ",
-                          r"^(?!en(/|$))|(^|/)(search|personal|auth|login|bitrix|upload|local|include)(/|$)", sitemap=False, max_pages=200),  # (only /en/ is there: / is a 404, and its sitemap is apply's)
-    "media": Site("https://media.innopolis.university/", "ru", "the news and events of Innopolis University",
-                  r"^(?!(news|events)(/|$))[^/]+|^(news|events)/[^/]+/.", max_pages=5000, dated=True, end=r"(?m)^(\[Читать далее\]\([^)]*\)\n)?Новости по теме$"),  # (the rest of it is innopolis.university again: about, sveden, success-stories; its /en/ lists the Russian news;
-                  # an address below a news item is a link written without 'https://' ('news/x/www.kuka.ru'): the site answers it with its list of news)
-    "stc": Site("https://stc.innopolis.university/", "ru", "IT courses of Innopolis University for adults and children: professions, programmes, their prices and the blog",
-                r"^(tilda|members)/|^page\d+\.html$", max_pages=300, robots=True),
-    "edu": Site("https://edu.innopolis.university/", "ru", "programmes of Innopolis University for schools, colleges, universities and teachers: short courses, internships, strategy sessions, staff assessment",
-                r"^(tilda|members)/|^page\d+\.html$", max_pages=200, robots=True),
-    "city": Site("https://innopolis.com/ru/", "ru", "the city of Innopolis and its special economic zone: living and housing, transport, services, schools, business, news and events",
-                 r"^(?!(ru|en)(/|$))", sitemap=False, max_pages=800, english="en", dated=True, pause=10,  # (an address without ru/ or en/ is a redirect to /ru/site/typicle?slug=..., a page that fails)
-                 headings=r"\b(section_head|section_text|article|history)__title\b", bare=True, listing="page", aliases=("innopolis.ru",)),  # (innopolis.ru: the same site)
-    "sport": Site("https://sport.innopolis.ru/", "ru", "the sports centre «Иннополис»: fitness zones, the pool, club cards and prices, the schedule, the rules of visiting, trainers, how to freeze a card",
-                  TILDA + r"|^(old|policy|header|footer|notfound)$", max_pages=60, robots=True),  # (a Tilda site with a sitemap of 23 pages; /old is the previous version of the site, /policy the privacy policy)
-    "my": Site("https://my.innopolis.university/", "ru", "My University, the student portal of Innopolis University: the events (volunteering, innopoints) and the store of merch",
-               r"^(?!(store|event)(/|$))[^/]+|^store/(purchases|transactions)|^event/(my|history)", sitemap=False, max_pages=100, profile="CATIX_CHROMIUM_PROFILE", audience=("student",), signin=r"<h1[^>]*>(?:\s*<[^>]+>)*\s*Авторизация",
-               private=r"^RU\n### .+\n\S+@\S+\n|^## Привет, .+\n|^Баланс:\n\d+\n|^## Уведомления\n(?s:.*)\Z"),  # (a login; the pages of the person: purchases, transactions, my events, history of participation)
-    "help": Site("https://help.university.innopolis.ru/", "ru", "ITHelp Wiki, the IT instructions for the staff of Innopolis University: VPN, Wi-Fi, mail, printers, remote connections, software, regulations of IT support",
-                 r"^$|^([aehpst]|login|logout|register|search|tags)(/|$)|(^|/)test", sitemap=False, max_pages=300, english="en", profile="CATIX_CHROMIUM_PROFILE", audience=("staff",),
-                 signin=r"<title>Sign In</title>", missing=r"Эта страница не существует|This page does not exist",
-                 discover="fetch('/graphql',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({query:'{pages{list(orderBy:PATH){path locale}}}'})})"
-                         ".then(r=>r.json()).then(d=>JSON.stringify(d.data.pages.list.map(p=>'/'+p.locale+'/'+p.path)))"),  # (behind the university's SSO; Wiki.js)
-    # the sites the pages link most that were not read (experiments/link_stats.py --group university, 2026-10-31)
-    "career": Site("https://career.innopolis.university/", "ru", "careers at Innopolis University: vacancies, the competition for teaching posts, relocation to Innopolis",
-                   only("job", "konkursnyezayavkiprofessorskoprepodavatelskogosostava", "relocation"), sitemap=False, max_pages=300),  # (its sitemap and the rest of it: innopolis.university again)
-    "corporate": Site("https://corporate.innopolis.university/", "ru", "Innopolis University for business: corporate education, training of staff, strategy sessions, technology audit",
-                      only("education", "podgotovkakadrov", "stratsession", "technologicalaudit"), sitemap=False, max_pages=100),
-    "ai": Site("https://ai.innopolis.university/", "ru", "artificial intelligence at Innopolis University: its projects and science",
-               only("projects", "science"), sitemap=False, max_pages=100),
-    "alumni": Site("https://alumni.innopolis.university/", "en", "the alumni of Innopolis University: the community, its events and how to join", r".", sitemap=False, max_pages=5),
-    "dovuz": Site("https://dovuz.innopolis.university/", "ru", "pre-university education at Innopolis University: courses, olympiad preparation, camps, webinars and olympiads for schoolchildren",
-                  TILDA, max_pages=300, robots=True),
-    "progmatica": Site("https://progmatica.innopolis.university/", "ru", "Progmatica, the IT school of Innopolis University for children: courses, intensives, webinars, master classes, articles for parents",
-                       TILDA, max_pages=200, robots=True),
-    "spec": Site("https://spec.innopolis.university/", "ru", "science, technology and education at Innopolis University: webinars, cases of industrial robotics and AI, digests, its scientists",
-                 TILDA, max_pages=100, robots=True),
-    "ido": Site("https://ido.innopolis.university/", "ru", "further education at Innopolis University: online courses in programming, IT and management, further training of teachers",
-                TILDA, max_pages=100, robots=True),
-    "college": Site("https://innopolis.college/", "ru", "Innopolis College, after the 9th grade: admission and its results, programmes, student life, partners, news",
-                    TILDA, max_pages=100, robots=True),
-    "events": Site("https://events.innopolis.university/", "ru", "the events of Innopolis University: webinars, master classes, conferences, the products it shows at exhibitions",
-                   TILDA, max_pages=60, robots=True, dated=True),
-    "trud": Site("https://trud.innopolis.university/", "ru", "free training in digital professions in the federal project of employment (earlier 'Содействие занятости'): its professions and how to enrol",
-                 TILDA, max_pages=50, robots=True),
-    "engineerschool": Site("https://engineerschool.innopolis.university/", "ru", "the Advanced Engineering School of Innopolis University: its programmes for IT engineers, its industry projects, news",
-                           TILDA, max_pages=50, robots=True),
-    "itbm": Site("https://itbm.innopolis.university/", "ru", "the centre of corporate training of Innopolis University: soft skills, technology and management programmes, strategy sessions",
-                 TILDA, max_pages=20, robots=True),
-    "olymp": Site("https://olymp.innopolis.university/", "ru", "the Republican team olympiad in programming for schoolchildren of grades 7–11, held by Innopolis University",
-                  TILDA, max_pages=20, robots=True, dated=True),
-    "msonline": Site("https://msonline.innopolis.university/", "ru", "the online master's programmes of Innopolis University",
-                     TILDA, max_pages=30, robots=True),
-    "research": Site("https://research.innopolis.university/", "ru", "the sector of analytical research of Innopolis University: research in IT, business and education for companies and the state",
-                     TILDA, max_pages=30, robots=True),
-    "dissovet": Site("https://dissovet.innopolis.university/", "ru", "the dissertation council of Innopolis University: defences of theses, its members, its documents",
-                     TILDA + r"|^page(135641906|136990946)\.html$", max_pages=60, robots=True),  # (the templates of a defence its sitemap lists: 'Иванов Иван Николаевич', 'Название работы')
-    "globalhack": Site("https://globalhack.innopolis.university/", "ru", "INNOGLOBALHACK, the all-Russian hackathon of Innopolis University for students of technical universities",
-                       TILDA, max_pages=10, robots=True, dated=True),
-    "aiconf": Site("https://aiconf.innopolis.ru/", "ru", "AI IN 2023, a conference on artificial intelligence in Innopolis, and its drone race",
-                   TILDA, max_pages=20, robots=True, dated=True),
-    "fmp": Site("https://fmp.innopolis.university/", "ru", "'Физмат прорыв' (the physics and mathematics breakthrough): classes, clubs and lectures for gifted schoolchildren, its teachers, useful resources",
-                TILDA, max_pages=60, robots=True),
-    "llc": Site("https://llc.innopolis.university/", "ru", "the centre of continuous learning of Innopolis University: courses of soft skills for business, career and life",
-                TILDA, max_pages=20, robots=True),
-    "iustore": Site("https://iustore.innopolis.ru/", "ru", "the merchandise store of Innopolis University: clothes, sizes, delivery, returns",
-                    TILDA, max_pages=30, robots=True),
-    "onboarding": Site("https://onboarding.innopolis.ru/", "ru", "the onboarding of a new resident of the city of Innopolis",
-                       TILDA, max_pages=20, robots=True),
-    "teamproject": Site("https://team-project.university.innopolis.ru/", "ru", "the events of the pre-university centre of Innopolis University: team projects, the spring school of bachelors, partnership",
-                        TILDA, max_pages=20, robots=True),
-    "sez": Site("https://sezinnopolis.ru/", "ru", "the special economic zone Innopolis: its residents, support for companies and startups, industrial sites, rent and services, news and events",
-                BITRIX + r"|(^|/)(startup-lk|lk)(/|$)", sitemap=False, max_pages=600, robots=True),  # (its robots.txt forbids the pages of its lists: the news of the first page)
-    "robotics": Site("https://robotics.innopolis.university/", "ru", "the centre of technologies of robotics and mechatronics components at Innopolis University: projects, labs, team, publications, patents, education, news",
-                     r"^(en|team|public)(/|$)|(^|/)(feed|wp-json|wp-admin|wp-content|xmlrpc\.php|comments|sample-page|author|tag|category)(/|$)", sitemap="wp-sitemap.xml", max_pages=900,
-                     drop=r"\[(Дальше|Перейти к следующей теме в этом разделе|\(:ru\)[^\]]*)\]\([^)]*\)"),  # (its English is mostly the Russian text marked '(Русский)'; a person's page is a name and
-                     # a post, a publication's its title: /science/ lists them with their authors; the language is a cookie, see fetch)
-}
+def load_sites(path: Path = CONFIG) -> dict[str, Site]:
+    """Load the static trusted site catalog from YAML."""
+    raw, _ = load_config(path)
+    names = {field.name for field in fields(Site)}
+    tuple_fields = {"audience", "aliases"}
+    def make(values: dict[str, Any]) -> Site:
+        kwargs: dict[str, Any] = {key: tuple(value) if key in tuple_fields and isinstance(value, list) else value
+                                  for key, value in values.items() if key in names}
+        return Site(**kwargs)
+
+    return {name: make(values) for name, values in raw.items()}
+
+
+def load_blocked(path: Path = CONFIG) -> frozenset[str]:
+    return load_config(path)[1]
+
+
+
+
+
+SITES = load_sites()
+BLOCKED = load_blocked()
 
 
 DISCOVERED = RAW / "sites-discovered.json"  # the sites discover.py found: {"sites": {host: {"status": "pending" | "accepted" | "failed", ...}}}
@@ -206,19 +140,8 @@ def discovered() -> dict[str, dict]:
 
 
 def load_discovered() -> int:
-    """Add the found sites (pending a person's look, or accepted) to SITES, with the settings that cannot do harm: the pages
-    its robots.txt allows, few of them, a slow pace, Tilda's service pages left out. A person gives a site a line of its own in
-    SITES when it needs more. The number of sites added."""
-    added = 0
-    for host, found in discovered().items():
-        name = site_name(host)
-        have = {(urlsplit(site.base).hostname or "").removeprefix("www.") for site in SITES.values()} | {a for site in SITES.values() for a in site.aliases}
-        if found.get("status") not in ("pending", "accepted") or name in SITES or host in have:  # (a site with a line of its own in SITES is read by that line)
-            continue
-        SITES[name] = Site(f"https://{host}/", found.get("language", "ru"), f"{host}, found by the wiki's run: {found.get('title') or host}", TILDA,
-                           max_pages=DISCOVERED_PAGES, robots=True, pause=DISCOVERED_PAUSE, render=bool(found.get("render")))  # (render: an app, found so by the probe)
-        added += 1
-    return added
+    """Compatibility hook: discovered sites never become configuration automatically."""
+    return 0
 
 
 load_discovered()
@@ -237,6 +160,25 @@ def render_page(url: str) -> str | None:
         run = subprocess.run([CHROMIUM, "--headless=new", "--disable-gpu", "--no-sandbox", f"--user-data-dir={profile}",
                               f"--virtual-time-budget={RENDER_BUDGET}", "--dump-dom", url], capture_output=True, text=True, timeout=180)
     return run.stdout if run.returncode == 0 and run.stdout.strip() else None
+
+
+WALL = re.compile(r"""(?i)вы не робот|just a moment|attention required|checking your browser|проверка браузера|smart-?captcha|captcha_smart|cf-chl|ddos-guard""")
+WALL_TITLE = re.compile(r"""(?i)вы не робот|just a moment|attention required|checking your browser|проверка браузера""")
+BOT_TRIES = 8  # a bot check comes and goes (timepad behind Yandex answered seven requests of a burst, then let one through)
+BOT_PAUSE = 5  # seconds between the asks
+
+
+def get_through(client: httpx.Client, url: str) -> httpx.Response:
+    """The answer for the url, asked again while a bot check answers in its place ('Вы не робот?' of Yandex on timepad, 'Just a
+    moment' of Cloudflare): the wall is not the site, and it lets a request through now and then. The last answer is kept
+    whatever it is, so a page that names a bot check in its own words is only asked for again, never refused for them."""
+    page = client.get(url)
+    for _ in range(BOT_TRIES - 1):
+        if not WALL.search(page.text):
+            break
+        time.sleep(BOT_PAUSE)
+        page = client.get(url)
+    return page
 
 
 LIVE_WAIT = 30  # seconds: the longest a page of an app behind a login is given to finish loading
@@ -386,7 +328,7 @@ def get_page(client: httpx.Client, site: "Site", url: str) -> httpx.Response:
             raise RuntimeError(f"the session of the profile {profile} has ended: {url} shows the login")
         return httpx.Response(404 if site.missing and re.search(site.missing, html) else 200, headers={"content-type": "text/html; charset=utf-8"}, text=html, request=httpx.Request("GET", url))
     if not site.render:
-        return client.get(url)
+        return get_through(client, url)
     html = render_page(url)
     return httpx.Response(200 if html else 404, headers={"content-type": "text/html; charset=utf-8"}, text=html or "",
                           request=httpx.Request("GET", url))
@@ -702,7 +644,7 @@ def robots_of(site: Site, client: httpx.Client) -> RobotFileParser | None:
         return None
     rules = RobotFileParser()
     try:
-        rules.parse(client.get(urljoin(site.base, "/robots.txt")).text.splitlines())
+        rules.parse(get_through(client, urljoin(site.base, "/robots.txt")).text.splitlines())
     except httpx.HTTPError as e:
         print(f"  no robots.txt ({e}): every page is read")
         return None
@@ -719,25 +661,50 @@ def save(name: str, index: dict) -> None:
     (ROOT / name / "index.json").write_text(json.dumps(index, ensure_ascii=False, indent=1, sort_keys=True), encoding="utf-8")
 
 
-def fetch_site(name: str, site: Site, client: httpx.Client) -> int:
+def new_linked_pages(names: list[str] | None = None) -> dict[str, set[str]]:
+    """Trusted-provider page links in cached pages whose target is not cached yet."""
+    from catix.wiki.sources import crawl
+
+    selected = names or list(SITES)
+    known = {name: {canonical(page["url"]) for page in load(name)["pages"].values() if page.get("url")} for name in SITES}
+    found: dict[str, set[str]] = {}
+    for source in selected:
+        folder = ROOT / source
+        if not folder.is_dir() or source not in SITES:
+            continue
+        index = load(source)
+        for path in folder.glob("*.md"):
+            url = index["pages"].get(path.stem, {}).get("url", SITES[source].base)
+            for target in crawl.page_links(path.read_text(encoding="utf-8"), url):
+                provider = crawl.provider(target)
+                if provider and target not in known.setdefault(provider, set()):
+                    found.setdefault(provider, set()).add(target)
+    return found
+
+
+def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | None = None,
+               linked: dict[str, set[str]] | None = None, visited: set[str] | None = None) -> int:
     """Read every page of a site (from its sitemap and the links of its pages); keep the text of the new and changed ones
     and the documents they link. The number of pages that are new, changed or gone."""
+    from catix.wiki.sources import crawl
+
     index = load(name)
-    todo: list[str] = [site.base]
-    if site.sitemap:
+    partial = start is not None
+    todo: list[str] = list(start) if start is not None else [site.base]
+    if site.sitemap and not partial:
         try:
             path = site.sitemap if isinstance(site.sitemap, str) else "sitemap.xml"
             maps = [urljoin(site.base, path)] + ([urljoin(site.base, f"{site.english}/{path}")] if site.english else [])
             for _ in range(100):  # (a sitemap may list sitemaps: Bitrix keeps one per block of the site)
                 if not maps:
                     break
-                for loc in re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", client.get(maps.pop(0)).text):
+                for loc in re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", get_through(client, maps.pop(0)).text):
                     (maps if loc.endswith(".xml") else todo).append(repaired(site, loc))
                 time.sleep(PAUSE if site.pause is None else site.pause)
         except httpx.HTTPError as e:
             print(f"  {name}: no sitemap ({e})")
         time.sleep(PAUSE if site.pause is None else site.pause)
-    if site.discover:  # (the pages no link leads to: the browser lists them)
+    if site.discover and not partial:  # (the pages no link leads to: the browser lists them)
         render_live(site.base, profile_of(site))
         todo += [urljoin(site.base, path) for path in json.loads(LIVE[profile_of(site)].evaluate(site.discover))]
         print(f"  {name}: {len(todo)} pages listed")
@@ -751,6 +718,8 @@ def fetch_site(name: str, site: Site, client: httpx.Client) -> int:
         if url in seen or not _taken(site, url) or rules and not rules.can_fetch(regulations.HEADERS["User-Agent"], url):
             continue
         seen.add(url)
+        if visited is not None:
+            visited.add(url)
         slug = slug_of(site, url)
         if index["pages"].get(slug, {}).get("url", url).rstrip("/") != url.rstrip("/"):  # (two paths, one slug: a Cyrillic path leaves nothing of itself, 'home' is taken)
             slug = f"{slug[:50]}-{hashlib.sha1(url.encode()).hexdigest()[:6]}"
@@ -769,9 +738,12 @@ def fetch_site(name: str, site: Site, client: httpx.Client) -> int:
         if resp.status_code != 200:
             print(f"  {url}: {resp.status_code}")
             continue
+        title, text, links = read(resp.text, str(resp.url), site.headings)
+        if WALL_TITLE.search(title):  # (a bot check that let none of the asks of get_page through, not the site's page)
+            print(f"  {url}: a bot check answers in its place", flush=True)
+            continue
         read_ok += 1
         read_slugs.add(slug)
-        title, text, links = read(resp.text, str(resp.url), site.headings)
         if site.private:
             text = re.sub(site.private, "", text, flags=re.M).rstrip() + "\n"  # (the person who is logged in is not the page's)
         if site.bare:
@@ -780,11 +752,15 @@ def fetch_site(name: str, site: Site, client: httpx.Client) -> int:
         if (extra := EXTRAS.get((name, slug))):
             text = extra(client, resp.text, str(resp.url), text)
         for link, anchor in links:
-            if DOC.search(urlsplit(link).path) and (urlsplit(link).netloc == urlsplit(site.base).netloc or university_host(urlsplit(link).hostname or "")):
+            if DOC.search(urlsplit(link).path) and crawl.provider(link):
                 doc = canonical(link)
                 docs[doc] = max(docs.get(doc, ""), anchor, key=len)  # the fullest of the link texts: 'Правила проживания', not 'Правила'
-            elif _taken(site, link):
+            elif _taken(site, link) or crawl.provider(link) == name:
                 todo.append(link)
+            elif linked is not None and (other := crawl.provider(link)):
+                target = canonical(link)
+                if target not in (visited or set()) and target not in linked.setdefault(other, set()):
+                    linked[other].add(target)
         if "?" in url:  # (a page of a list: its links are taken, it is not kept)
             continue
         sha = hashlib.sha256(plain(text).encode()).hexdigest()  # (the words: a new link or picture is not a new version)
@@ -814,27 +790,52 @@ def fetch_site(name: str, site: Site, client: httpx.Client) -> int:
         if read_ok and page["url"] not in seen and slug not in read_slugs and not page.get("gone") and len(seen) < site.max_pages:  # (not when the site did not answer)
             index["pages"][slug] = {**page, "gone": True}
             changed += 1
-    if read_ok:
+    if read_ok and not partial:
         index["docs"] = docs
     save(name, index)
     return changed
 
 
-def fetch(names: list[str] | None = None) -> int:
+def fetch(names: list[str] | None = None, only_new: bool = False) -> int:
     """The sites named (every site when none is), one after another; the number of pages that are new, changed or gone."""
     if unknown := [n for n in names or [] if n not in SITES]:
         sys.exit(f"no site {', '.join(unknown)}: the sites are {', '.join(SITES)}")
     total = 0
     no_cookies = CookieJar(policy=DefaultCookiePolicy(allowed_domains=[]))  # every page as a new visitor sees it (robotics keeps the language of the last page in a cookie: its sitemap became English)
     with httpx.Client(headers=regulations.HEADERS, timeout=60, follow_redirects=True, cookies=no_cookies) as client:
+        linked: dict[str, set[str]] = {}
+        visited: set[str] = set()
+        if only_new:
+            linked = new_linked_pages(names)
+            while linked:
+                wave, linked = linked, {}
+                for name, urls in wave.items():
+                    if name not in SITES:
+                        continue
+                    print(f"== {name}: {len(urls)} new linked pages")
+                    try:
+                        total += fetch_site(name, SITES[name], client, start=sorted(urls), linked=linked, visited=visited)
+                    finally:
+                        close_live()
+            return total
         for name, site in SITES.items():
             if names and name not in names:
                 continue
             print(f"== {name}: {site.base}")
             try:
-                total += fetch_site(name, site, client)
+                total += fetch_site(name, site, client, linked=linked, visited=visited)
             finally:
                 close_live()
+        while linked:
+            wave, linked = linked, {}
+            for name, urls in wave.items():
+                if name not in SITES:
+                    continue
+                print(f"== {name}: {len(urls)} linked pages")
+                try:
+                    total += fetch_site(name, SITES[name], client, start=sorted(urls), linked=linked, visited=visited)
+                finally:
+                    close_live()
     return total
 
 
@@ -1074,10 +1075,10 @@ def status() -> None:
               f"{len(index['docs'])} documents linked")
 
 
-def main() -> None:
-    cmd, *args = sys.argv[2:] or ["status"]
+def main(args: Namespace) -> None:
+    cmd = args.action
     if cmd == "fetch":
-        fetch(args)
+        fetch(args.names, only_new=getattr(args, "only_new", False))
     elif cmd == "compile":
         compile_all()
     elif cmd == "status":
@@ -1087,6 +1088,4 @@ def main() -> None:
     elif cmd in ("discover", "explore", "add", "review", "accept", "reject"):
         from catix.wiki.sources import discover
 
-        discover.main(args if cmd == "discover" else [cmd, *args])
-    else:
-        sys.exit(__doc__)
+        discover.main(args)

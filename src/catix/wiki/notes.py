@@ -16,7 +16,7 @@ every writer of a page stays as it is, and the model gets one file it owns whole
 """
 
 import re
-import sys
+from argparse import Namespace
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -255,22 +255,20 @@ def check_all(bundle: Path | None = None) -> dict[str, list[str]]:
     return out
 
 
-def main() -> None:
+def main(args: Namespace) -> None:
     from catix.wiki import quality
 
-    console = sys.argv[3:]  # `catix-wiki agent notes ...`: the first two words are the tool and the command
-    args = [a for a in console if not a.startswith("--")]
-    if "--check" in console:
+    if args.check:
         broken = check_all()
         for slug, found in broken.items():
             print(f"{slug}:\n  " + "\n  ".join(found[:6]))
         print(f"{len(notes())} notes, {len(broken)} do not hold")
         return
-    if "--link" in console or not args:
+    if args.link or not args.pages:
         print(f"{link_pages()} pages link to a note")
         return
-    before = quality.score() if "--measure" in console else None
-    stats = run(args)
+    before = quality.score() if args.measure else None
+    stats = run(args.pages)
     if before is not None:
         after = quality.score()
         print(f"search: hit@5 {before.hit5:.0%} -> {after.hit5:.0%}, hit@10 {before.hit10:.0%} -> {after.hit10:.0%}")

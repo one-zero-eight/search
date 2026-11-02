@@ -5,7 +5,8 @@
     catix-wiki sites explore [--rounds 10] [--max-sites 60]   # discover --all, read what was found, look in its pages for more, again, until a round finds nothing
     catix-wiki sites add HOST_OR_URL ...                      # hosts you found yourself: probed, then pending like the others (no link needed)
     catix-wiki sites review                                   # what the pending sites gave: pages read, titles, who links them; and the hosts that need access
-    catix-wiki sites accept HOST_OR_NAME ... | --all          # worth keeping: read from now on (then `autopilot --build` makes the pages, the index, the review)
+    catix-wiki sites approve HOST_OR_NAME ... | --all         # worth keeping: move it from discovery to sources/sites.yaml
+    catix-wiki sites accept HOST_OR_NAME ... | --all          # alias for approve
     catix-wiki sites reject HOST_OR_NAME ... | --all          # not worth it: forgotten for good, with the pages read
 
 A host is a candidate when
@@ -17,10 +18,12 @@ The links come from the pages of the bundle, never from what people write in the
 
 A candidate is probed before anything is kept: its name must resolve to public addresses only, https, its robots.txt must not
 close the start page, the start page (and where it redirects, which must be a host of the same kind) must have words of its
-own, not a login or an empty shell. A host that passes becomes a *pending* site in raw/sites-discovered.json and is read like
-the others, but with the safe settings of sites.load_discovered (30 pages, robots.txt, a slow pace). A pending site never
-reaches the `wiki` branch by itself: the run sends everything it brought to a review branch and tells the admins (autopilot.py);
-`autopilot accept` makes it accepted, `autopilot discard` makes the run forget it. At most MAX_NEW sites a run.
+own, not a login or an empty shell. A bot check that answers in place of the start page ('Вы не робот?' of timepad, behind
+Yandex) is asked again (sites.get_through: the wall comes and goes), and named when it lets nothing through. A host that
+passes becomes a *pending* site in raw/sites-discovered.json and is read like the others, but with the safe settings of
+sites.load_discovered (30 pages, robots.txt, a slow pace). A pending site never reaches the static catalog by itself: a
+person reviews it, then `sites approve` moves it to sources/sites.yaml; `sites reject` forgets it. Failed and closed probes
+remain in raw/sites-discovered.json so discover can retry or show that access is needed. At most MAX_NEW sites a run.
 """
 
 import ipaddress
@@ -29,6 +32,7 @@ import re
 import socket
 import sys
 import time
+from argparse import Namespace
 from datetime import datetime, timedelta, timezone
 from http.cookiejar import CookieJar, DefaultCookiePolicy
 from urllib.parse import urlsplit
@@ -47,8 +51,8 @@ MAX_NEW = 10  # sites found in one run
 MAX_PROBES = 60  # hosts probed in one run
 MIN_WORDS = 30  # words of the start page without the lines every page of the site repeats
 RETRY_DAYS = 30  # a host that failed its probe is probed again after this long
-RETRY_UNREACHABLE_DAYS = 7  # ... and one that did not answer (an outage, a name that did not resolve), sooner
-UNREACHABLE = ("no answer", "the name does not resolve")
+RETRY_UNREACHABLE_DAYS = 7  # ... and one that did not answer (an outage, a name that did not resolve, a bot check that let nothing through), sooner
+UNREACHABLE = ("no answer", "the name does not resolve", "a bot check")
 CLOSED = "needs access"  # the reason of a host behind a login or answering 401/403: status "closed", listed by `sites review`
 LINK = re.compile(r"\]\((https?://[^)\s]+)\)")
 LOGIN_TITLE = re.compile(r"(?i)авториз|личный кабинет|вход\b|регистрац|sign.?in|log.?in|account")
@@ -79,7 +83,7 @@ def known_hosts() -> set[str]:
     known = read_by_code()
     for site in sites.SITES.values():
         known |= {host_of(site.base), *site.aliases}
-    return known | {host for host, entry in sites.discovered().items() if entry.get("status") not in ("failed", "closed")}  # (a failed or closed one is asked again later: retry_later)
+    return known | sites.BLOCKED | {host for host, entry in sites.discovered().items() if entry.get("status") not in ("failed", "closed")}  # (a failed or closed one is asked again later: retry_later)
 
 
 def links_by_host() -> dict[str, set[str]]:
@@ -127,13 +131,13 @@ def probe(host: str, client: httpx.Client) -> dict | str:
     if not public(host):
         return "the name does not resolve to public addresses"
     try:
-        robots = client.get(f"https://{host}/robots.txt")
+        robots = sites.get_through(client, f"https://{host}/robots.txt")
         if robots.status_code == 200:
             rules = RobotFileParser()
             rules.parse(robots.text.splitlines())
             if not rules.can_fetch(regulations.HEADERS["User-Agent"], f"https://{host}/"):
                 return "robots.txt closes the start page"
-        page = client.get(f"https://{host}/")
+        page = sites.get_through(client, f"https://{host}/")
     except httpx.HTTPError as e:
         return f"no answer ({type(e).__name__})"
     final = host_of(str(page.url))
@@ -161,6 +165,8 @@ def probe(host: str, client: httpx.Client) -> dict | str:
             title, text, _ = sites.read(html, str(page.url))
     if PASSWORD_FIELD.search(html) or LOGIN_TITLE.search(title):
         return f"{CLOSED} (a login page: '{title[:60]}')"
+    if sites.WALL_TITLE.search(title):  # (a bot check that let none of the asks through: the wall comes and goes, the host is asked again in a week)
+        return f"a bot check answers in place of the start page ('{title[:40]}')"
     words = len(text.split())
     if words < MIN_WORDS:
         return f"the start page has {words} words (a login, or an empty shell)"
@@ -222,19 +228,22 @@ def pending_hosts() -> list[str]:
 
 
 def accept_pending(hosts: list[str] | None = None) -> list[str]:
-    """A person read what the pending sites gave: they are accepted (and need no look again). `hosts`: only these."""
-    found, hosts = sites.discovered(), [h for h in pending_hosts() if hosts is None or h in hosts]
-    for host in hosts:
-        found[host]["status"] = "accepted"
-    if hosts:
+    """Approve pending sites: copy them to sites.yaml and remove them from the discovery queue."""
+    found = sites.discovered()
+    selected = [h for h in pending_hosts() if hosts is None or h in hosts]
+    for host in selected:
+        sites.approve_discovered(host, found[host])
+        found.pop(host)
+    if selected:
         write(found)
-    return hosts
+    sites.load_discovered()
+    return selected
 
 
 def unread_hosts() -> list[str]:
-    """Pending and accepted sites of SITES that have no pages read yet."""
+    """Pending runtime sites that have no pages read yet."""
     return [host for host, entry in sorted(sites.discovered().items())
-            if entry.get("status") in ("pending", "accepted") and (name := sites.site_name(host)) in sites.SITES
+            if entry.get("status") == "pending" and (name := sites.site_name(host)) in sites.SITES
             and not (sites.ROOT / name / "index.json").exists()]
 
 
@@ -357,33 +366,31 @@ def add(addresses: list[str], client: httpx.Client | None = None, pause: float =
     return kept
 
 
-def main(args: list[str]) -> None:
+def main(args: Namespace) -> None:
     from catix.wiki import autopilot
 
     rejected = set(autopilot.load_state().get("rejected_sites", []))
-    option = lambda name, default: int(args[args.index(name) + 1]) if name in args else default  # noqa: E731
-    if args[:1] == ["explore"]:
-        total = explore(rejected, option("--rounds", 10), option("--max-sites", 60))
+    cmd = args.action
+    if cmd == "explore":
+        total = explore(rejected, args.rounds, args.max_sites)
         print(f"{len(total)} sites found; `catix-wiki sites review` shows what they gave")
         return
-    if args[:1] == ["add"]:
-        kept = add([a for a in args[1:] if not a.startswith("--")])
+    if cmd == "add":
+        kept = add(args.addresses)
         print(f"{kept} sites kept as pending; `catix-wiki sites explore` reads them and looks in their pages for more")
         return
-    if args[:1] == ["review"]:
+    if cmd == "review":
         return review()
-    if args[:1] in (["accept"], ["reject"]):
-        names = [a for a in args[1:] if not a.startswith("--")]
-        if args[0] == "accept" and any(n in closed_hosts() for n in names):
+    if cmd in ("accept", "approve", "reject"):
+        cmd = "accept" if cmd == "approve" else cmd
+        names = args.names
+        if cmd == "accept" and any(n in closed_hosts() for n in names):
             sys.exit("a closed site cannot be read without access: give a Chromium profile a login and a line in SITES (sites.py)")
-        hosts = pending_hosts() if "--all" in args and args[0] == "accept" else resolve(names, closed=args[0] == "reject")
-        if args[0] == "reject" and "--all" in args:
-            hosts = pending_hosts() + closed_hosts()
-        done = accept_pending(hosts) if args[0] == "accept" else reject(hosts)
-        print(f"{'accepted' if args[0] == 'accept' else 'rejected'}: {', '.join(done) or 'none'}")
+        hosts = pending_hosts() + (closed_hosts() if cmd == "reject" else []) if args.all else resolve(names, closed=cmd == "reject")
+        done = accept_pending(hosts) if cmd == "accept" else reject(hosts)
+        print(f"{'accepted' if cmd == 'accept' else 'rejected'}: {', '.join(done) or 'none'}")
         return
-    dry = "--dry-run" in args
-    found = discover(rejected, dry_run=dry, everything="--all" in args)
-    print(f"{found} new sites" + (" would be kept (dry run: nothing was written)" if dry else ""))
+    found = discover(rejected, dry_run=args.dry_run, everything=args.all)
+    print(f"{found} new sites" + (" would be kept (dry run: nothing was written)" if args.dry_run else ""))
     if pending := pending_hosts():
         print("pending a person's look: " + ", ".join(pending), file=sys.stderr)

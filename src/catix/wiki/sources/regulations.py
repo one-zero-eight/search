@@ -1,6 +1,6 @@
 """Official regulations (PDF files on innopolis.university/sveden/document) as a second source of the bundle.
 
-    catix-wiki regs fetch       # download the PDFs, extract the text (the text layer as opendataloader reads it, else OCR by chandra-ocr-2, or tesseract rus without its server) into raw/regulations/
+    catix-wiki regs fetch       # download and extract documents; after each material, follow links to documents on configured SITES providers
     catix-wiki regs reextract   # extract the text of the downloaded PDFs again (after the extraction got better; the scans tesseract read, by chandra; those chandra read, from the HTML kept of their pages)
     catix-wiki regs refresh     # ask the site (HEAD) whether a downloaded document changed; a changed one is downloaded again by fetch
     catix-wiki regs compile     # raw/regulations -> wiki/raw/regulations/<key>.md
@@ -15,8 +15,8 @@ import json
 from collections import Counter
 import re
 import subprocess
-import sys
 import time
+from argparse import Namespace
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -29,6 +29,7 @@ from catix.wiki import paths
 from catix.wiki.paths import RAW
 
 ROOT = RAW / "regulations"
+LINKED = ROOT / "linked.json"  # documents found in already processed trusted-provider materials
 BASE = "https://innopolis.university/upload/iblock/"
 DOCS = {  # key -> (title, path under BASE as the official page links it)
     "attestation-regulation": ("Положение о формах, периодичности и порядке проведения текущего контроля успеваемости и промежуточной аттестации (бакалавриат и магистратура)",
@@ -123,6 +124,14 @@ def all_docs() -> dict[str, dict]:
 
     have = {sites.canonical(d["url"]) for d in docs.values()}
     docs.update({k: d for k, d in sites.docs().items() if d["url"] not in have})  # the documents the sites link (the rules and prices of the dormitories); one sveden has is not read twice
+    have |= {sites.canonical(d["url"]) for d in docs.values()}
+    for url, found in linked_documents().items():
+        if url in have:
+            continue
+        provider = found["provider"]
+        docs[found["key"]] = {"title": found["title"], "url": url, "root": sites.ROOT / provider / "docs",
+                               "section": f"site/{provider}", "ext": found["ext"]}
+        have.add(url)
     if settings.wiki_mock_site:
         from catix.wiki.sources import mock
 
@@ -140,6 +149,45 @@ def all_docs() -> dict[str, dict]:
         if titles[d["title"]] > 1:
             d["title"] += f" [{unquote(d['url'].rsplit('/', 1)[-1]).rsplit('.', 1)[0][:60]}]"
     return docs
+
+
+def linked_documents() -> dict[str, dict]:
+    """The documents found in extracted text, persisted so a later run resumes the graph."""
+    if not LINKED.exists():
+        return {}
+    return json.loads(LINKED.read_text(encoding="utf-8")).get("documents", {})
+
+
+def discover_linked_documents(docs: dict[str, dict] | None = None) -> int:
+    """Remember new document links from trusted-provider materials; return the number added."""
+    from catix.wiki.sources import crawl, sites
+
+    registry = linked_documents()
+    known = {sites.canonical(d["url"]) for d in all_docs().values()}
+    found = 0
+    source_docs = docs or all_docs()
+    for key, d in source_docs.items():
+        text_path = d["root"] / f"{key}.txt"
+        if not text_path.exists():
+            continue
+        text = text_path.read_text(encoding="utf-8")
+        for url in crawl.document_links(text, d["url"]):
+            if url in known or url in registry:
+                continue
+            provider = crawl.provider(url)
+            if provider is None:
+                continue
+            filename = unquote(url.rsplit("/", 1)[-1])
+            stem, ext = filename.rsplit(".", 1)
+            key = f"site-{provider}-linked-{hashlib.sha1(url.encode()).hexdigest()[:8]}-{re.sub(r'[^a-z0-9]+', '-', stem.lower()).strip('-')[:40] or 'document'}"
+            registry[url] = {"key": key, "title": re.sub(r"\s+", " ", stem.replace("_", " ")).strip(), "ext": ext.lower(),
+                             "provider": provider, "from": [d["url"]]}
+            known.add(url)
+            found += 1
+    if found:
+        LINKED.parent.mkdir(parents=True, exist_ok=True)
+        LINKED.write_text(json.dumps({"documents": registry}, ensure_ascii=False, indent=1, sort_keys=True), encoding="utf-8")
+    return found
 
 
 def pages_of(pdf: Path) -> int:
@@ -275,11 +323,15 @@ def extract(pdf: Path, ocr_left: int, converted: Path | None = None) -> tuple[st
     return "\f".join(out), "ocr (tesseract rus)", pages
 
 
-def fetch(limit: int | None = None, prefixes: tuple[str, ...] | None = None) -> int:
+def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = None) -> int:
     """Download the documents not read yet (and those `refresh` found changed), then read them: the text layers all at once
     (one run of opendataloader's JVM, not one a file), the scans after them; the number read. `prefixes`: only the documents
     whose key starts with one of them ('site-lab-': the documents of one site)."""
-    from catix.wiki.sources import opendataloader
+    from catix.wiki.sources import opendataloader, sites
+
+    # Pick up university-hosted files already present in compiled site pages;
+    # the site crawl itself records the links it saw while reading a page.
+    sites.collect_linked_docs()
 
     def skip(d: dict, meta: Path, why: str) -> None:
         meta.write_text(json.dumps({"title": d["title"], "url": d["url"], "skipped": why}), encoding="utf-8")
@@ -361,6 +413,28 @@ def fetch(limit: int | None = None, prefixes: tuple[str, ...] | None = None) -> 
             print(f"{key}: {len(text)} chars by {method}" + (" (a new version)" if old.get("sha256") and old["sha256"] != sha else ""), flush=True)
     print(f"{done} documents fetched; OCR pages left in the budget: {ocr_left}")
     return done
+
+
+def fetch(limit: int | None = None, prefixes: tuple[str, ...] | None = None) -> int:
+    """Fetch documents and recursively queue links to documents on configured providers.
+
+    The existing SITES entries decide which providers and paths are trusted. A
+    newly found document is persisted before the next pass, so an interrupted
+    crawl resumes without rereading completed files.
+    """
+    total, remaining, current_prefixes = 0, limit, prefixes
+    while True:
+        done = _fetch_once(remaining, current_prefixes)
+        total += done
+        if remaining is not None:
+            remaining -= done
+            if remaining <= 0:
+                break
+        added = discover_linked_documents()
+        if not added:
+            break
+        current_prefixes = None  # recursion may cross from one trusted provider to another
+    return total
 
 
 def refresh(prefix: str = "") -> int:
@@ -587,15 +661,13 @@ def store(key: str, root: Path, meta_path: Path, meta: dict, text: str, method: 
     return not same
 
 
-def main() -> None:
-    cmd = sys.argv[2] if len(sys.argv) > 2 else ""
+def main(args: Namespace) -> None:
+    cmd = args.action
     if cmd == "fetch":
-        fetch(int(sys.argv[3]) if len(sys.argv) > 3 else None)  # catix-wiki regs fetch [N]: at most N new documents
+        fetch(args.limit)
     elif cmd == "compile":
         compile_all()
     elif cmd == "reextract":
         reextract()
     elif cmd == "refresh":
         refresh()
-    else:
-        sys.exit(__doc__)

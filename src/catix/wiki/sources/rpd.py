@@ -19,8 +19,8 @@ import os
 import re
 import shutil
 import subprocess
-import sys
 import time
+from argparse import Namespace
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
@@ -321,15 +321,13 @@ def status() -> None:
         print(f"  {n:>4}  {programme[:110]}")
 
 
-def main() -> None:
-    cmd, *args = sys.argv[2:] or ["status"]
+def main(args: Namespace) -> None:
+    cmd = args.action
     if cmd == "fetch":
-        fetch(all_years=True if "--all-years" in args else None, limit=int(args[args.index("--limit") + 1]) if "--limit" in args else None)
+        fetch(all_years=args.all_years, limit=args.limit)
     elif cmd == "compile":
-        compile_all(all_years=True if "--all-years" in args else None)
+        compile_all(all_years=args.all_years)
     elif cmd == "refresh":
         refresh()
     elif cmd == "status":
         status()
-    else:
-        sys.exit(__doc__)

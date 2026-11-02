@@ -32,6 +32,7 @@ has to say which card is meant.
 import json
 import re
 import sys
+from argparse import Namespace
 from collections import Counter, defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -560,11 +561,10 @@ def apply(bundle: Path = BUNDLE, dry_run: bool = False) -> Report:
     return report
 
 
-def main() -> None:
-    args = sys.argv[2:]
-    if "candidates" in args:
-        output = Path(args[args.index("--output") + 1]) if "--output" in args else DATA / ".knowledge-candidates.json"
-        folders = tuple(args[args.index("--folders") + 1].split(",")) if "--folders" in args else SKIP
+def main(args: Namespace) -> None:
+    if args.action == "candidates":
+        output = args.output if args.output is not None else DATA / ".knowledge-candidates.json"
+        folders = tuple(args.folders.split(",")) if args.folders is not None else SKIP
         found = candidates(output=output, skip=folders)
         print(f"{found.phrases} phrases stand in two documents and more, of {found.articles} artifacts the bundle has")
         print("an alias settles these (the artifact already answers to another name):")
@@ -575,7 +575,7 @@ def main() -> None:
             print(f"  {item.documents:3} documents in {item.folders} folders, {item.card_count:2} cards: {item.phrase} — {item.example[:80]}")
         print(f"the whole report: {found.output}")
         return
-    report = apply(dry_run="--dry-run" in args)
+    report = apply(dry_run=args.dry_run)
     print(f"{report.links} links between cards: {report.cards_linked} of {report.cards} cards link to another one "
           f"({report.names} names in the registry; {len(report.changed)} files rewritten)")
     if report.ambiguous:
@@ -583,4 +583,6 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    from catix.wiki.cli import main as cli_main
+
+    cli_main(["agent", *sys.argv[1:]])

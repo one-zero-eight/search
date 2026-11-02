@@ -22,6 +22,8 @@ def bundle(tmp_path, monkeypatch):
     (docs / "sites" / "apply").mkdir(parents=True)
     monkeypatch.setattr(discover, "DOCS", docs)
     monkeypatch.setattr(sites, "DISCOVERED", tmp_path / "raw" / "sites-discovered.json")
+    monkeypatch.setattr(sites, "CONFIG", tmp_path / "sites.yaml")
+    sites.CONFIG.write_text("blocked: []\nsites: {}\n", encoding="utf-8")
     monkeypatch.setattr(sites, "SITES", dict(sites.SITES))
     monkeypatch.setattr(discover, "public", lambda host: True)
 
@@ -144,7 +146,8 @@ def test_a_pending_site_never_reaches_the_branch_by_itself(bundle, monkeypatch):
     assert any("new sites wait" in f and "lab.innopolis.university" in f for f in autopilot.check(report, False).failed)
 
     assert discover.accept_pending() == ["lab.innopolis.university"]  # (a person accepted: no look again)
-    assert sites.discovered()["lab.innopolis.university"]["status"] == "accepted" and not discover.pending_hosts()
+    assert "lab.innopolis.university" not in sites.discovered()
+    assert "lab" in sites.SITES and not discover.pending_hosts()
     assert not any("new sites" in f for f in autopilot.check(report, False).failed)
 
 
@@ -170,6 +173,37 @@ def test_a_host_that_did_not_answer_is_tried_again_sooner():
              "login.innopolis.ru": {"status": "failed", "reason": "a login page ('Вход')", "tried": tried}}
     assert not discover.retry_later(found, "down.innopolis.ru", now)  # (a week has passed: asked again)
     assert discover.retry_later(found, "login.innopolis.ru", now)  # (a login does not change in a week)
+
+
+# --- a bot check that answers in place of the site's page ---
+
+WALLED = '<html><head><title>Вы не робот?</title></head><body><div class="smart-captcha">Подтвердите, что вы не робот</div></body></html>'
+
+
+def test_a_bot_check_is_asked_again_until_the_page_comes_through(monkeypatch):
+    monkeypatch.setattr(discover, "public", lambda host: True)
+    monkeypatch.setattr(sites, "BOT_PAUSE", 0)
+    asked = []
+
+    def handle(request: httpx.Request) -> httpx.Response:
+        if request.url.path == "/robots.txt":
+            return httpx.Response(404)
+        asked.append(str(request.url))
+        return html(WALLED if len(asked) < 3 else PAGE)  # (the wall twice, then it lets a request through)
+
+    result = discover.probe("lab.innopolis.university", httpx.Client(transport=httpx.MockTransport(handle), follow_redirects=True))
+    assert result == {"title": "Robotics lab", "words": result["words"], "language": "en"} and result["words"] >= discover.MIN_WORDS
+    assert len(asked) == 3  # (the start page was asked for again, not read as the wall's few words)
+
+
+def test_a_host_a_bot_check_never_releases_is_named_and_tried_again_soon(monkeypatch):
+    monkeypatch.setattr(discover, "public", lambda host: True)
+    monkeypatch.setattr(sites, "BOT_PAUSE", 0)
+    result = discover.probe("club.timepad.ru", client({"https://club.timepad.ru/": html(WALLED)}))
+    assert "a bot check" in result and "Вы не робот" in result  # (not 'a login, or an empty shell': the wall is not the site)
+    now = datetime.now(timezone.utc)
+    found = {"club.timepad.ru": {"status": "failed", "reason": result, "tried": now.isoformat()}}
+    assert discover.retry_later(found, "club.timepad.ru", now)  # (the wall comes and goes: asked again in a week, not in a month)
 
 
 def test_every_host_the_code_names_is_known():
@@ -307,7 +341,8 @@ def test_a_person_accepts_some_and_rejects_the_rest(web, capsys):
     assert discover.accept_pending(discover.resolve(["a"])) == ["a.innopolis.university"]  # (a name does as well as a host)
     discover.reject(discover.resolve(["c.innopolis.university"]))
     assert discover.pending_hosts() == ["b.innopolis.university"]
-    assert sites.discovered()["a.innopolis.university"]["status"] == "accepted" and "c.innopolis.university" not in sites.discovered()
+    assert "a.innopolis.university" not in sites.discovered() and "c.innopolis.university" not in sites.discovered()
+    assert "a" in sites.SITES
     assert not (sites.ROOT / "c").exists() and not (discover.DOCS / sites.FOLDER / "c").exists() and "c" not in sites.SITES  # (what was read of it is gone)
     assert (sites.ROOT / "a").exists()
     assert autopilot.load_state()["rejected_sites"] == ["c.innopolis.university"]
@@ -390,18 +425,18 @@ def test_the_documents_of_the_universitys_hosts_that_other_sites_link_are_collec
     assert sites.collect_linked_docs() == 0  # (nothing twice)
 
 
-def test_a_site_with_a_line_of_its_own_is_not_read_twice_and_an_accepted_unread_site_is(web, monkeypatch):
+def test_discovered_sites_never_become_configuration_automatically(web, monkeypatch):
     discover.write({
         "sport.innopolis.ru": {"status": "accepted", "kind": "university", "language": "ru"},  # (sport has its own line in SITES)
         "late.innopolis.university": {"status": "accepted", "kind": "university", "language": "ru"},  # (accepted, never read)
         "gone.innopolis.university": {"status": "failed", "reason": "x", "tried": "2020-01-01T00:00:00+00:00"},
     })
     monkeypatch.setitem(sites.SITES, "sport", sites.Site("https://sport.innopolis.ru/", "ru", "sport", ""))
-    sites.load_discovered()
-    assert "sport-innopolis-ru" not in sites.SITES and "late" in sites.SITES
-    assert discover.unread_hosts() == ["late.innopolis.university"]
+    assert sites.load_discovered() == 0
+    assert "sport-innopolis-ru" not in sites.SITES and "late" not in sites.SITES
+    assert discover.unread_hosts() == []
     found = discover.explore(set(), client=web("x.innopolis.university"), pause=0)
-    assert "late" in web.read and discover.unread_hosts() == []  # (read in the first round)
+    assert "late" not in web.read and discover.unread_hosts() == []
 
 
 def test_a_name_with_a_dot_at_the_end_is_the_same_host():
@@ -415,6 +450,7 @@ SHELL = '<!doctype html><html><head><title>1519 scholarship</title></head><body>
 
 def test_an_app_is_probed_in_the_browser_and_read_that_way(monkeypatch, bundle):
     monkeypatch.setattr(discover, "public", lambda host: True)
+    monkeypatch.delitem(sites.SITES, "1519", raising=False)  # an approved site is static and therefore no longer a candidate
     monkeypatch.setattr(sites, "CHROMIUM", "/usr/bin/chromium")
     shown = "<html><head><title>1519 scholarship</title></head><body><h2>Стипендия</h2><p>" + "Тридцать стипендий для студентов бакалавриата. " * 10 + "</p></body></html>"
     monkeypatch.setattr(sites, "render_page", lambda url: shown)

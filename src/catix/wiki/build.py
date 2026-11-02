@@ -19,6 +19,7 @@ knowledge cards (agent.py), and commits what they made.
 """
 
 import sys
+from argparse import Namespace
 from dataclasses import dataclass, field
 
 from catix.settings import settings
@@ -64,9 +65,8 @@ def rebuild() -> Report:
     return report
 
 
-def main() -> None:
-    args = sys.argv[2:]
-    if "--offline" not in args:
+def main(args: Namespace) -> None:
+    if not args.offline:
         for source in sources.SOURCES:
             print(f"== source {source.name}")
             source.update()

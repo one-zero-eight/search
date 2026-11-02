@@ -15,8 +15,8 @@ import hashlib
 import json
 import re
 import subprocess
-import sys
 import time
+from argparse import Namespace
 from collections import defaultdict
 from urllib.parse import quote
 
@@ -215,13 +215,11 @@ def status() -> None:
     print(f"{len(index)} rows, {len(files)} files: {sum('sha256' in f for f in files)} read, {sum('skipped' in f for f in files)} skipped")
 
 
-def main() -> None:
-    cmd, *_ = sys.argv[2:] or ["status"]
+def main(args: Namespace) -> None:
+    cmd = args.action
     if cmd == "fetch":
         fetch()
     elif cmd == "compile":
         compile_all()
     elif cmd == "status":
         status()
-    else:
-        sys.exit(__doc__)
