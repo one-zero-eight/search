@@ -1,16 +1,5 @@
 {
  "sites": {
-  "1519.innopolis.university": {
-   "examples": [],
-   "found": "2026-11-02",
-   "kind": "manual",
-   "language": "ru",
-   "pages": 0,
-   "render": true,
-   "status": "accepted",
-   "title": "1519 scholarship",
-   "words": 128
-  },
   "2019.olymp.innopolis.ru": {
    "kind": "university",
    "reason": "the name does not resolve to public addresses",
@@ -65,18 +54,6 @@
    "status": "failed",
    "tried": "2026-11-02T08:04:53+00:00"
   },
-  "apply-bach.innopolis.university": {
-   "examples": [
-    "/raw/sites/media/news-new-bachelor-s-degree-ai360-iu.md"
-   ],
-   "found": "2026-11-01",
-   "kind": "university",
-   "language": "ru",
-   "pages": 1,
-   "status": "accepted",
-   "title": "Бакалавриат УИ",
-   "words": 197
-  },
   "apply.university.innopolis.ru": {
    "kind": "university",
    "reason": "no answer (ConnectError)",
@@ -130,20 +107,6 @@
    "status": "failed",
    "tried": "2026-11-02T07:55:00+00:00"
   },
-  "digitalinnopolisdays.ru": {
-   "examples": [
-    "/raw/sites/city/ru-media-news-na-did-2023-obsudat-fidzital-obrazovanie-razvi.md",
-    "/raw/sites/city/ru-media-news-ziteli-innopolisa-vyberut-novye-tehnologii-dla.md",
-    "/raw/sites/events/home.md"
-   ],
-   "found": "2026-11-01",
-   "kind": "inno",
-   "language": "ru",
-   "pages": 24,
-   "status": "accepted",
-   "title": "Цифровые Дни Иннополиса | Digital Innopolis Days 2026",
-   "words": 622
-  },
   "disk.university.innopolis.ru": {
    "examples": [
     "/raw/sites/help/en-remote-connections-network-drives-diskp-disk-p-win10.md",
@@ -162,36 +125,11 @@
    "status": "failed",
    "tried": "2026-11-02T07:55:00+00:00"
   },
-  "eck.innopolis.university": {
-   "examples": [
-    "/raw/sites/media/news-unified-career-center.md"
-   ],
-   "found": "2026-11-01",
-   "kind": "university",
-   "language": "ru",
-   "pages": 1,
-   "status": "accepted",
-   "title": "Единый центр карьеры",
-   "words": 180
-  },
   "fintech2017.innopolis.ru": {
    "kind": "university",
    "reason": "no answer (ConnectError)",
    "status": "failed",
    "tried": "2026-11-02T07:55:00+00:00"
-  },
-  "fizmat.innopolis.university": {
-   "examples": [
-    "/raw/sites/fmp/_shared.md"
-   ],
-   "found": "2026-11-02",
-   "kind": "university",
-   "language": "ru",
-   "pages": 1,
-   "render": true,
-   "status": "accepted",
-   "title": "Физмат прорыв",
-   "words": 587
   },
   "freshmen-guide.university.innopolis.ru": {
    "kind": "university",
@@ -264,19 +202,6 @@
    "status": "failed",
    "tried": "2026-11-02T07:55:00+00:00"
   },
-  "inno-stand-up-club.timepad.ru": {
-   "examples": [
-    "/raw/sites/city/en-media-events-events-of-the-week-67.md",
-    "/raw/sites/city/ru-media-events-events-of-the-week-67.md"
-   ],
-   "found": "2026-11-01",
-   "kind": "inno",
-   "language": "ru",
-   "pages": 2,
-   "status": "accepted",
-   "title": "Inno Stand Up Club / TimePad.ru",
-   "words": 547
-  },
   "innoctf.university.innopolis.ru": {
    "kind": "university",
    "reason": "no answer (ConnectError)",
@@ -305,107 +230,11 @@
    "status": "failed",
    "tried": "2026-11-02T07:55:00+00:00"
   },
-  "innopolis-university.timepad.ru": {
-   "examples": [
-    "/raw/sites/media/news-aleksey-savvateev.md",
-    "/raw/sites/media/news-china-ai-open-source.md",
-    "/raw/sites/media/news-game-day-2025.md"
-   ],
-   "found": "2026-11-01",
-   "kind": "inno",
-   "language": "ru",
-   "pages": 10,
-   "status": "accepted",
-   "title": "Innopolis University / TimePad.ru",
-   "words": 1083
-  },
-  "innopolis.brainsurf.ru": {
-   "examples": [
-    "/raw/sites/city/en-media-events-events-of-the-week-67.md",
-    "/raw/sites/city/ru-media-events-events-of-the-week-67.md"
-   ],
-   "found": "2026-11-01",
-   "kind": "inno",
-   "language": "ru",
-   "pages": 2,
-   "status": "accepted",
-   "title": "Главная страница - Иннополис",
-   "words": 1213
-  },
-  "innopolis.timepad.ru": {
-   "examples": [
-    "/raw/sites/city/en-media-events-events-of-the-week-67.md",
-    "/raw/sites/city/en-media-events-presentation-of-the-film-business-to-be.md",
-    "/raw/sites/city/en-media-news-a-game-development-meetup-will-be-held-in-inno.md"
-   ],
-   "found": "2026-11-01",
-   "kind": "inno",
-   "language": "ru",
-   "pages": 16,
-   "status": "accepted",
-   "title": "Иннополис / TimePad.ru",
-   "words": 749
-  },
-  "innopoliscamp.ru": {
-   "examples": [
-    "/raw/sites/city/en-services-innocamp.md",
-    "/raw/sites/city/ru-services-innocamp.md"
-   ],
-   "found": "2026-11-01",
-   "kind": "inno",
-   "language": "ru",
-   "pages": 2,
-   "status": "accepted",
-   "title": "Детский IT-лагерь INNOCAMP в Иннополисе",
-   "words": 926
-  },
   "innopoliscamp.ru.": {
    "kind": "inno",
    "reason": "no answer (ConnectError)",
    "status": "failed",
    "tried": "2026-11-01T22:40:41+00:00"
-  },
-  "innopoliscinema.ru": {
-   "examples": [
-    "/raw/sites/city/en-life-artspace.md",
-    "/raw/sites/city/en-media-events-autumn-holidays-in-innopolis-2.md",
-    "/raw/sites/city/en-services-cinemalounge-innopolis.md"
-   ],
-   "found": "2026-11-01",
-   "kind": "inno",
-   "language": "ru",
-   "pages": 7,
-   "status": "accepted",
-   "title": "«Кино&Театр» в Иннополисе",
-   "words": 272
-  },
-  "innopolislife.ru": {
-   "examples": [
-    "/raw/sites/city/en-media-news-a-city-award-with-the-participation-of-robots-.md",
-    "/raw/sites/city/en-media-news-innopolis-summed-up-the-results-of-the-city-aw.md",
-    "/raw/sites/city/ru-media-news-a-city-award-with-the-participation-of-robots-.md"
-   ],
-   "found": "2026-11-01",
-   "kind": "inno",
-   "language": "ru",
-   "pages": 4,
-   "status": "accepted",
-   "title": "Городская премия Иннополис 2025",
-   "words": 110
-  },
-  "innopolistravel.com": {
-   "examples": [
-    "/raw/sites/city/en-services-innotravel.md",
-    "/raw/sites/city/en-services-local-guides.md",
-    "/raw/sites/city/ru-services-innotravel.md"
-   ],
-   "found": "2026-11-01",
-   "kind": "inno",
-   "language": "ru",
-   "pages": 4,
-   "status": "accepted",
-   "title": "Innotravel — экскурсии по Иннополису",
-   "words": 975
   },
   "innostar.innopolis.university": {
    "kind": "university",
@@ -424,19 +253,6 @@
    "reason": "HTTP 404, not a page",
    "status": "failed",
    "tried": "2026-11-02T07:55:00+00:00"
-  },
-  "ipservices.innopolis.university": {
-   "examples": [
-    "/raw/sites/media/news-drone-market-analysis.md",
-    "/raw/sites/university/technologytransfercenter.md"
-   ],
-   "found": "2026-11-01",
-   "kind": "university",
-   "language": "ru",
-   "pages": 2,
-   "status": "accepted",
-   "title": "Межотраслевой центр трансфера технологий АНО ВО «Университет Иннополис»",
-   "words": 820
   },
   "ipts.innopolis.university": {
    "kind": "university",
@@ -515,19 +331,6 @@
    "status": "closed",
    "tried": "2026-11-02T07:55:00+00:00"
   },
-  "lyceuminnopolis.ru": {
-   "examples": [
-    "/raw/sites/onboarding/home.md"
-   ],
-   "found": "2026-11-02",
-   "kind": "inno",
-   "language": "ru",
-   "pages": 1,
-   "render": true,
-   "status": "accepted",
-   "title": "Лицей Иннополис",
-   "words": 559
-  },
   "mail.innopolis.ru": {
    "examples": [
     "/raw/sites/help/en-home.md",
@@ -540,20 +343,6 @@
    "status": "closed",
    "tried": "2026-11-02T07:55:00+00:00"
   },
-  "moodle.innopolis.university": {
-   "examples": [
-    "/raw/sites/help/en-home.md",
-    "/raw/sites/help/ru-home.md",
-    "/raw/sites/innohassle/_shared.md"
-   ],
-   "found": "2026-11-01",
-   "kind": "university",
-   "language": "ru",
-   "pages": 7,
-   "status": "accepted",
-   "title": "Home | IU Moodle",
-   "words": 68
-  },
   "my.university.innopolis.ru": {
    "kind": "university",
    "reason": "no answer (ConnectError)",
@@ -565,19 +354,6 @@
    "reason": "HTTP 402, not a page",
    "status": "failed",
    "tried": "2026-11-02T07:55:00+00:00"
-  },
-  "oez-innopolis.timepad.ru": {
-   "examples": [
-    "/raw/sites/city/en-media-events-events-of-the-week-67.md",
-    "/raw/sites/city/ru-media-events-events-of-the-week-67.md"
-   ],
-   "found": "2026-11-01",
-   "kind": "inno",
-   "language": "ru",
-   "pages": 2,
-   "status": "accepted",
-   "title": "ОЭЗ Иннополис / TimePad.ru",
-   "words": 864
   },
   "oldapply.innopolis.university": {
    "kind": "university",
@@ -663,18 +439,6 @@
    "status": "failed",
    "tried": "2026-11-02T07:55:00+00:00"
   },
-  "postcodehack.innopolis.university": {
-   "examples": [
-    "/raw/sites/media/news-iu-russian-post-ai-hackathon-2026.md"
-   ],
-   "found": "2026-11-01",
-   "kind": "university",
-   "language": "ru",
-   "pages": 1,
-   "status": "accepted",
-   "title": "PostCode Challenge от Почтатеха",
-   "words": 626
-  },
   "profile.innopolis.university": {
    "examples": [
     "/raw/sites/apply-bach/_shared.md",
@@ -732,20 +496,6 @@
    "reason": "needs access (HTTP 401)",
    "status": "closed",
    "tried": "2026-11-02T07:55:00+00:00"
-  },
-  "sport.innopolis.ru": {
-   "examples": [
-    "/raw/sites/city/en-services-innopolis-sport-centre.md",
-    "/raw/sites/city/ru-services-innopolis-sport-centre.md",
-    "/raw/sites/onboarding/eng.md"
-   ],
-   "found": "2026-11-01",
-   "kind": "university",
-   "language": "ru",
-   "pages": 5,
-   "status": "accepted",
-   "title": "СК «Иннополис» | Фитнес, бассейн, тренажерный зал",
-   "words": 486
   },
   "sport.innopolis.university": {
    "examples": [
