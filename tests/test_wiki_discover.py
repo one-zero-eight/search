@@ -62,8 +62,8 @@ def test_candidates_need_enough_pages_and_are_not_read_yet(bundle):
     found = discover.candidates({"rejected.innopolis.university"})
     assert [(h, k) for h, k, _ in found] == [("lab2.innopolis.university", "university"), ("inno-shop.ru", "inno")]  # (a host of the university first; one link is enough)
     assert found[1][2] == ["/raw/sites/apply/a.md", "/raw/sites/apply/b.md", "/raw/sites/apply/c.md"]
-    bundle("d", "https://innopoliscinema.ru/")
-    assert "innopoliscinema.ru" in [h for h, _, _ in discover.candidates(set())]  # (a host with `inno` linked by a single page)
+    bundle("d", "https://inno-cinema.ru/")
+    assert "inno-cinema.ru" in [h for h, _, _ in discover.candidates(set())]  # (a host with `inno` linked by a single page)
 
 
 def test_the_probe_takes_a_page_of_words_and_refuses_the_rest(monkeypatch):
@@ -406,3 +406,36 @@ def test_a_site_with_a_line_of_its_own_is_not_read_twice_and_an_accepted_unread_
 
 def test_a_name_with_a_dot_at_the_end_is_the_same_host():
     assert discover.host_of("https://InnopolisCamp.ru./page") == "innopoliscamp.ru" == discover.host_of("https://www.innopoliscamp.ru/")
+
+
+# --- an app: the HTML is an empty shell, the browser shows the page ---
+
+SHELL = '<!doctype html><html><head><title>1519 scholarship</title></head><body><div id="root"></div><script type="module" src="/assets/index.js"></script></body></html>'
+
+
+def test_an_app_is_probed_in_the_browser_and_read_that_way(monkeypatch, bundle):
+    monkeypatch.setattr(discover, "public", lambda host: True)
+    monkeypatch.setattr(sites, "CHROMIUM", "/usr/bin/chromium")
+    shown = "<html><head><title>1519 scholarship</title></head><body><h2>Стипендия</h2><p>" + "Тридцать стипендий для студентов бакалавриата. " * 10 + "</p></body></html>"
+    monkeypatch.setattr(sites, "render_page", lambda url: shown)
+    result = discover.probe("1519.innopolis.university", client({"https://1519.innopolis.university/": html(SHELL)}))
+    assert result["render"] is True and result["words"] >= discover.MIN_WORDS and result["language"] == "ru"
+
+    bundle("a", "https://1519.innopolis.university/")
+    assert discover.discover(client=client({"https://1519.innopolis.university/": html(SHELL)}), pause=0) == 1
+    assert sites.SITES["1519"].render is True  # (read by the browser from now on)
+
+
+def test_an_empty_shell_stays_refused_when_the_browser_shows_nothing_either(monkeypatch):
+    monkeypatch.setattr(discover, "public", lambda host: True)
+    monkeypatch.setattr(sites, "CHROMIUM", "/usr/bin/chromium")
+    monkeypatch.setattr(sites, "render_page", lambda url: None)
+    assert "0 words" in discover.probe("x.innopolis.university", client({"https://x.innopolis.university/": html(SHELL)}))
+    monkeypatch.setattr(sites, "render_page", lambda url: '<title>Sign in</title><form><input type="password"></form>')
+    assert discover.probe("x.innopolis.university", client({"https://x.innopolis.university/": html(SHELL)})).startswith(discover.CLOSED)
+
+
+def test_a_plain_page_is_not_sent_to_the_browser(monkeypatch):
+    monkeypatch.setattr(discover, "public", lambda host: True)
+    monkeypatch.setattr(sites, "render_page", lambda url: pytest.fail("a page with words needs no browser"))
+    assert "render" not in discover.probe("lab.innopolis.university", client({"https://lab.innopolis.university/": html()}))

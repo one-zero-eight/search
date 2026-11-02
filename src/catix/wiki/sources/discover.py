@@ -52,6 +52,7 @@ UNREACHABLE = ("no answer", "the name does not resolve")
 CLOSED = "needs access"  # the reason of a host behind a login or answering 401/403: status "closed", listed by `sites review`
 LINK = re.compile(r"\]\((https?://[^)\s]+)\)")
 LOGIN_TITLE = re.compile(r"(?i)авториз|личный кабинет|вход\b|регистрац|sign.?in|log.?in|account")
+APP_SHELL = re.compile(r"""(?i)id=["'](root|app|__next|__nuxt)["']|<script[^>]+type=["']module|enable javascript|<noscript""")  # a page the scripts fill in
 PASSWORD_FIELD = re.compile(r"""(?i)<input[^>]+type=["']?password""")
 
 
@@ -147,13 +148,24 @@ def probe(host: str, client: httpx.Client) -> dict | str:
         return f"{CLOSED} (HTTP {page.status_code})"
     if page.status_code != 200 or "text/html" not in page.headers.get("content-type", ""):
         return f"HTTP {page.status_code}, not a page"
-    title, text, _ = sites.read(page.text, str(page.url))
-    if PASSWORD_FIELD.search(page.text) or LOGIN_TITLE.search(title):
+    html, rendered = page.text, False
+    title, text, _ = sites.read(html, str(page.url))
+    if len(text.split()) < MIN_WORDS and APP_SHELL.search(html) and sites.CHROMIUM:
+        # an app: its HTML is an empty shell, the text comes from scripts (a headless browser runs them, as for Site.render)
+        try:
+            shown = sites.render_page(str(page.url))
+        except Exception:  # noqa: BLE001 - a browser that cannot start or time out is "no words" below
+            shown = None
+        if shown:
+            html, rendered = shown, True
+            title, text, _ = sites.read(html, str(page.url))
+    if PASSWORD_FIELD.search(html) or LOGIN_TITLE.search(title):
         return f"{CLOSED} (a login page: '{title[:60]}')"
     words = len(text.split())
     if words < MIN_WORDS:
         return f"the start page has {words} words (a login, or an empty shell)"
-    return {"title": re.sub(r"\s+", " ", title)[:120], "words": words, "language": "ru" if re.search("[а-яё]", text.lower()) else "en"}
+    return {"title": re.sub(r"\s+", " ", title)[:120], "words": words, "language": "ru" if re.search("[а-яё]", text.lower()) else "en",
+            **({"render": True} if rendered else {})}
 
 
 def write(found: dict) -> None:
