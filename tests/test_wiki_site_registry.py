@@ -106,7 +106,7 @@ def test_custom_pending_name_is_used_by_only_new(monkeypatch):
 
     discover.write({"lab.example": {"status": "pending", "name": "lab-project"}})
     seen = []
-    monkeypatch.setattr(sites, "fetch", lambda names: seen.extend(names) or 1)
+    monkeypatch.setattr(sites, "fetch", lambda names, **kwargs: seen.extend(names) or 1)
     monkeypatch.setattr(regulations, "fetch", lambda: 0)
     assert sources.ON_REQUEST[0].update() == 1
     assert seen == ["lab-project"]

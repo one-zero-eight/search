@@ -1,7 +1,8 @@
 """Official regulations (PDF files on innopolis.university/sveden/document) as a second source of the bundle.
 
-    catix-wiki regs fetch       # download and extract documents; after each material, follow links to documents on configured SITES providers
-    catix-wiki regs reextract   # extract the text of the downloaded PDFs again (after the extraction got better; the scans tesseract read, by chandra; those chandra read, from the HTML kept of their pages)
+    catix-wiki regs fetch [N] [--no-ocr]   # download and extract documents; after each material, follow links to documents on configured SITES providers
+                                # (--no-ocr: a scan is queued for a run with OCR, as the 6-hourly run of new pages does)
+    catix-wiki regs reextract   # extract downloaded PDFs again; scans use chandra or its saved page HTML
     catix-wiki regs refresh     # ask the site (HEAD) whether a downloaded document changed; a changed one is downloaded again by fetch
     catix-wiki regs compile     # raw/regulations -> wiki/raw/regulations/<key>.md
 
@@ -17,6 +18,8 @@ import re
 import subprocess
 import time
 from argparse import Namespace
+from collections.abc import Callable, Iterable, Iterator
+from concurrent.futures import Future, ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -190,6 +193,22 @@ def discover_linked_documents(docs: dict[str, dict] | None = None) -> int:
     return found
 
 
+def page_links_of(keys: Iterable[str] | None = None) -> dict[str, set[str]]:
+    """provider -> the pages of trusted sites the text of the documents names (of those of `keys`, of every document read when
+    None): the waves of sites.fetch and fetch_new read them, so a page only a document links (a regulation's 'see
+    innopolis.university/...') is reached as the pages another site links are."""
+    from catix.wiki.sources import crawl
+
+    docs, found = all_docs(), {}
+    for key in docs if keys is None else [k for k in keys if k in docs]:
+        text_path = docs[key]["root"] / f"{key}.txt"
+        if text_path.exists():
+            for url in crawl.text_page_links(text_path.read_text(encoding="utf-8"), docs[key]["url"]):
+                if provider := crawl.provider(url):
+                    found.setdefault(provider, set()).add(url)
+    return found
+
+
 def pages_of(pdf: Path) -> int:
     return int(re.search(r"Pages:\s+(\d+)", subprocess.run(["pdfinfo", str(pdf)], capture_output=True, text=True).stdout).group(1))
 
@@ -295,38 +314,94 @@ def plumbed(pdf: Path) -> tuple[str, str]:
         return subprocess.run(["pdftotext", "-layout", str(pdf), "-"], capture_output=True, text=True, check=True).stdout, "text layer"
 
 
-def extract(pdf: Path, ocr_left: int, converted: Path | None = None) -> tuple[str | None, str, int]:
-    """(text, method, OCR pages used): the text layer when there is one (opendataloader; pdfplumber when it could not read
-    it, or read too little), else OCR of the page images; None when OCR is not allowed now. `converted`: the PDF's JSON when
-    reextract converted many at once."""
+def layer_text(pdf: Path, converted: Path | None = None) -> tuple[str, str] | None:
+    """(text, method) of the text layer when the PDF has one (opendataloader; pdfplumber when it could not read it, or read
+    too little); None for a scan. `converted`: the PDF's JSON when many were converted at once."""
     from catix.wiki.sources import opendataloader
 
     pages = pages_of(pdf)
     text = opendataloader.text_of_pdf(pdf, converted)
     if text is not None and len(text.strip()) > 300 * pages:
-        return text, TEXT_LAYER, 0
+        return text, TEXT_LAYER
     text, method = plumbed(pdf)
     if len(text.strip()) > 300 * pages:
-        return text, method, 0
-    if pages > MAX_OCR_PAGES or pages > ocr_left:
-        return None, "ocr deferred" if pages <= MAX_OCR_PAGES else "scan too long for OCR", 0
+        return text, method
+    return None
+
+
+def ocr_refused(pages: int, ocr_left: int) -> str | None:
+    """Why a scan of `pages` is not read now (with `ocr_left` pages of OCR left), None when it is."""
+    if pages > MAX_OCR_PAGES:
+        return "scan too long for OCR"
+    return "ocr deferred" if pages > ocr_left else None
+
+
+def queued() -> dict[str, int]:
+    """The scans waiting for a manual run with OCR, key -> pages. Scans exceeding MAX_OCR_PAGES stay queued but are not
+    counted here: the current OCR budget cannot read them."""
+    out = {}
+    for key, d in all_docs().items():
+        meta = d["root"] / f"{key}.json"
+        if meta.exists() and (note := json.loads(meta.read_text(encoding="utf-8"))).get("ocr") == "queued" \
+                and not ocr_refused(note.get("pages", 0), MAX_OCR_PAGES):
+            out[key] = note.get("pages", 0)
+    return out
+
+
+class NotRead(RuntimeError):
+    """chandra did not read a scan. `away`: its server is gone (not the scan's fault); else a page of it failed."""
+
+    def __init__(self, away: bool) -> None:
+        super().__init__("chandra's server went away" if away else "chandra could not read a page of it")
+        self.away = away
+
+
+def ocr_text(pdf: Path) -> tuple[str, str]:
+    """(text, method) of a scan by chandra alone; NotRead leaves the scan queued for a later attempt."""
     from catix.wiki.sources import chandra
 
-    if (text := chandra.text_of_pdf(pdf, pdf.with_suffix(".chandra"))) is not None:  # (its pages' HTML beside the PDF)
-        return text, chandra.METHOD, pages
-    work = pdf.with_suffix(".ocr")
-    work.mkdir(exist_ok=True)
-    subprocess.run(["pdftoppm", "-r", "200", "-png", str(pdf), str(work / "p")], check=True)
-    out = []
-    for png in sorted(work.glob("p-*.png")):
-        out.append(subprocess.run(["tesseract", str(png), "-", "-l", "rus"], capture_output=True, text=True, check=True).stdout)
-    return "\f".join(out), "ocr (tesseract rus)", pages
+    text = chandra.text_of_pdf(pdf, pdf.with_suffix(".chandra"))  # (its pages' HTML beside the PDF)
+    if text is None or not text.strip():
+        raise NotRead(away=not chandra.available())
+    return text, chandra.METHOD
 
 
-def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = None) -> int:
+def read_scans[T](scans: list[T], pdf_of: Callable[[T], Path], read: Callable[[Path], tuple[str, str]] | None = None) -> Iterator[tuple[T, Future]]:
+    """The scans read several at once, each (scan, its future of `read`, ocr_text by default) as it is done. As many scans as the OCR server
+    has slots are open at a time, their pages in one queue (chandra.page_pool): a scan of 3 pages does not leave the other
+    slots idle while it is read, as one at a time did (1Cat vLLM: 16.3 pages a minute at 16 at once, 11.8 at 6)."""
+    from catix.wiki.sources import chandra
+
+    pool, finished = ThreadPoolExecutor(settings.ocr_parallel, thread_name_prefix="scan"), False
+    try:
+        futures = {pool.submit(read or ocr_text, pdf_of(scan)): scan for scan in scans}
+        for future in as_completed(futures):
+            yield futures[future], future
+        finished = True
+    finally:
+        if not finished:  # a stopped run (Ctrl-C) does not wait for the scans and pages queued behind the ones being read
+            chandra.cancel_pages()
+        pool.shutdown(wait=finished, cancel_futures=not finished)
+
+
+def extract(pdf: Path, ocr_left: int, converted: Path | None = None) -> tuple[str | None, str, int]:
+    """(text, method, OCR pages used): the text layer when there is one, else OCR of the page images; None when OCR is not
+    allowed now. `converted`: the PDF's JSON when reextract converted many at once."""
+    if (layer := layer_text(pdf, converted)) is not None:
+        return *layer, 0
+    pages = pages_of(pdf)
+    if why := ocr_refused(pages, ocr_left):
+        return None, why, 0
+    return *ocr_text(pdf), pages
+
+
+def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr: bool = True) -> list[str]:
     """Download the documents not read yet (and those `refresh` found changed), then read them: the text layers all at once
-    (one run of opendataloader's JVM, not one a file), the scans after them; the number read. `prefixes`: only the documents
-    whose key starts with one of them ('site-lab-': the documents of one site)."""
+    (one run of opendataloader's JVM, not one a file), the scans after them; the keys of those read. `prefixes`: only the
+    documents whose key starts with one of them ('site-lab-': the documents of one site). Without `ocr` a scan (a PDF the text
+    layer gives too little of) is not read: it is queued (`"ocr": "queued"` in its note) for a run with OCR, which reads it
+    without asking its text layer again; the runs without OCR pass it by (the 6-hourly run needs no OCR model up).
+    A scan chandra does not read stays queued, regardless of the number of failed attempts."""
     from catix.wiki.sources import opendataloader, sites
 
     # Pick up university-hosted files already present in compiled site pages;
@@ -336,7 +411,7 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
     def skip(d: dict, meta: Path, why: str) -> None:
         meta.write_text(json.dumps({"title": d["title"], "url": d["url"], "skipped": why}), encoding="utf-8")
 
-    docs, failures, downloaded = all_docs(), 0, []
+    docs, failures, downloaded, queued = all_docs(), 0, [], set()
     for key, d in docs.items():
         if prefixes and not key.startswith(prefixes):
             continue
@@ -345,8 +420,11 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
         ext = d.get("ext", "pdf")
         src, meta = root / f"{key}.{ext}", root / f"{key}.json"
         old = json.loads(meta.read_text(encoding="utf-8")) if meta.exists() else {}
-        if old and ((root / f"{key}.txt").exists() or "skipped" in old) and not old.get("refetch"):
+        waiting = old.get("ocr") == "queued" and src.exists()  # (a scan queued by a run without OCR, downloaded already)
+        if not waiting and old and ((root / f"{key}.txt").exists() or "skipped" in old) and not old.get("refetch"):
             continue  # (a document that changed on the site is noticed by `regs refresh`; a skipped one stays skipped)
+        if waiting and not ocr:
+            continue
         if limit is not None and len(downloaded) >= limit:
             break
         print(key, flush=True)
@@ -391,50 +469,96 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
             skip(d, meta, str(e))
             continue
         downloaded.append((key, d, src, pdf, meta, old, remote))
-    print(f"{len(downloaded)} documents to read", flush=True)
-    ocr_left, done = OCR_BUDGET, 0
-    with opendataloader.converted([pdf for _, _, _, pdf, _, _, _ in downloaded]) as jsons:
-        for key, d, src, pdf, meta, old, remote in downloaded:
-            try:
-                text, method, used = extract(pdf, ocr_left, jsons.get(pdf))
-            except (ValueError, subprocess.SubprocessError, AttributeError) as e:
-                print(f"{key}: skipped: {e}")
-                skip(d, meta, str(e))
+        if waiting:
+            queued.add(key)
+    print(f"{len(downloaded)} documents to read" + (f", {len(queued)} of them scans queued for OCR" if queued else ""), flush=True)
+
+    def store_new(item: tuple, text: str, method: str) -> None:
+        key, d, src, _, meta, old, remote = item
+        sha = hashlib.sha256(src.read_bytes()).hexdigest()
+        (d["root"] / f"{key}.txt").write_text(text, encoding="utf-8")
+        meta.write_text(json.dumps({"title": d["title"], "url": d["url"], "sha256": sha, "method": method, "chars": len(text), "tables": TABLES, "section": d["section"], "context": d.get("context", ""),
+                                    "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "remote": remote}, ensure_ascii=False, indent=1), encoding="utf-8")
+        print(f"{key}: {len(text)} chars by {method}" + (" (a new version)" if old.get("sha256") and old["sha256"] != sha else ""), flush=True)
+
+    def queue(item: tuple, pages: int, **more: object) -> None:
+        _, d, _, _, meta, old, remote = item
+        meta.write_text(json.dumps({**old, "title": d["title"], "url": d["url"], "ocr": "queued", "pages": pages, "remote": remote,
+                                    "queued_at": old.get("queued_at") or datetime.now(timezone.utc).isoformat(timespec="seconds"), **more},
+                                   ensure_ascii=False, indent=1), encoding="utf-8")
+
+    ocr_left, done, scans = OCR_BUDGET, [], []
+    with opendataloader.converted([pdf for key, _, _, pdf, _, _, _ in downloaded if key not in queued]) as jsons:
+        for item in downloaded:
+            key, d, src, pdf, meta, old, remote = item
+            if key not in queued:
+                try:
+                    layer = layer_text(pdf, jsons.get(pdf))
+                except (ValueError, subprocess.SubprocessError, AttributeError) as e:
+                    print(f"{key}: skipped: {e}")
+                    skip(d, meta, str(e))
+                    continue
+                if layer is not None:
+                    store_new(item, *layer)
+                    done.append(key)
+                    continue
+            pages = pages_of(pdf)  # a scan: its pages are taken from the budget now, it is read with the others after the loop
+            if not ocr:
+                print(f"{key}: a scan of {pages} pages, queued for a run with OCR")
+            elif why := ocr_refused(pages, ocr_left):
+                print(f"{key}: {why}")
+            else:
+                ocr_left -= pages
+                scans.append(item)
                 continue
-            if text is None:
-                print(f"{key}: {method}")
-                continue
-            ocr_left -= used
-            sha = hashlib.sha256(src.read_bytes()).hexdigest()
-            (d["root"] / f"{key}.txt").write_text(text, encoding="utf-8")
-            meta.write_text(json.dumps({"title": d["title"], "url": d["url"], "sha256": sha, "method": method, "chars": len(text), "tables": TABLES, "section": d["section"], "context": d.get("context", ""),
-                                        "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "remote": remote}, ensure_ascii=False, indent=1), encoding="utf-8")
-            done += 1
-            print(f"{key}: {len(text)} chars by {method}" + (" (a new version)" if old.get("sha256") and old["sha256"] != sha else ""), flush=True)
-    print(f"{done} documents fetched; OCR pages left in the budget: {ocr_left}")
+            if key not in queued:  # (the next runs do not ask its text layer again)
+                queue(item, pages)
+    if scans:
+        print(f"{len(scans)} scans to read by OCR ({OCR_BUDGET - ocr_left} pages)", flush=True)
+    for item, future in read_scans(scans, lambda item: item[3]):
+        try:
+            text, method = future.result()
+        except NotRead as e:
+            failed = item[5].get("ocr_failed", 0) + (not e.away)
+            print(f"{item[0]}: {e}: stays queued for the next run with OCR" + (f" (chandra failed on it {failed} times)" if failed else ""), flush=True)
+            queue(item, pages_of(item[3]), **({"ocr_failed": failed} if failed else {}))
+            continue
+        except (ValueError, subprocess.SubprocessError, AttributeError) as e:
+            print(f"{item[0]}: skipped: {e}")
+            skip(item[1], item[4], str(e))
+            continue
+        store_new(item, text, method)
+        done.append(item[0])
+    print(f"{len(done)} documents fetched" + (f"; OCR pages left in the budget: {ocr_left}" if ocr else "; scans wait for a run with OCR"))
     return done
 
 
-def fetch(limit: int | None = None, prefixes: tuple[str, ...] | None = None) -> int:
-    """Fetch documents and recursively queue links to documents on configured providers.
+def fetch(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr: bool = True) -> int:
+    """The documents not read yet, read (read_new); how many."""
+    return len(read_new(limit, prefixes, ocr))
+
+
+def read_new(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr: bool = True) -> list[str]:
+    """Fetch documents and recursively queue links to documents on configured providers; the keys of those read. Without
+    `ocr` the scans are queued for a run with OCR; those chandra does not read stay queued too (_fetch_once).
 
     The existing SITES entries decide which providers and paths are trusted. A
     newly found document is persisted before the next pass, so an interrupted
     crawl resumes without rereading completed files.
     """
-    total, remaining, current_prefixes = 0, limit, prefixes
+    read, remaining, current_prefixes = [], limit, prefixes
     while True:
-        done = _fetch_once(remaining, current_prefixes)
-        total += done
+        done = _fetch_once(remaining, current_prefixes, ocr)
+        read += done
         if remaining is not None:
-            remaining -= done
+            remaining -= len(done)
             if remaining <= 0:
                 break
         added = discover_linked_documents()
         if not added:
             break
         current_prefixes = None  # recursion may cross from one trusted provider to another
-    return total
+    return read
 
 
 def refresh(prefix: str = "") -> int:
@@ -631,11 +755,29 @@ def reextract() -> None:
     if scans and not chandra.available():
         print(f"{len(scans)} scans not read by {chandra.METHOD}: its server ({settings.ocr_route}) does not answer, left as they are")
     elif scans:
-        print(f"{len(scans)} scans to read again by {chandra.METHOD} ({sum(pages_of(root / f'{key}.pdf') for key, root, _, _ in scans)} pages)", flush=True)
-        done = 0
-        for n, (key, root, meta_path, meta) in enumerate(scans, 1):
-            print(f"[{n}/{len(scans)}] {key}", flush=True)
-            done += read_again(key, root, meta_path, meta, None, MAX_OCR_PAGES)
+        done, to_read = 0, []
+        with opendataloader.converted([root / f"{key}.pdf" for key, root, _, _ in scans]) as jsons:
+            for scan in scans:  # (one that has a text layer now is read by it; one too long for OCR is left)
+                key, root, meta_path, meta = scan
+                pdf = root / f"{key}.pdf"
+                try:
+                    layer = layer_text(pdf, jsons.get(pdf))
+                except (ValueError, subprocess.SubprocessError) as e:
+                    print(f"{key}: {e}")
+                    continue
+                if layer is not None:
+                    done += store(key, root, meta_path, meta, *layer)
+                elif why := ocr_refused(pages_of(pdf), MAX_OCR_PAGES):
+                    print(f"{key}: {why}")
+                else:
+                    to_read.append(scan)
+        print(f"{len(to_read)} scans to read again by {chandra.METHOD} ({sum(pages_of(root / f'{key}.pdf') for key, root, _, _ in to_read)} pages)", flush=True)
+        for n, ((key, root, meta_path, meta), future) in enumerate(read_scans(to_read, lambda scan: scan[1] / f"{scan[0]}.pdf"), 1):
+            print(f"[{n}/{len(to_read)}] {key}", flush=True)  # (a scan is written as soon as it is read: a stopped run goes on where it was)
+            try:
+                done += store(key, root, meta_path, meta, *future.result())
+            except (NotRead, ValueError, subprocess.SubprocessError) as e:
+                print(f"{key}: {e}")
         print(f"{done} scans read again came out different")
 
 
@@ -643,7 +785,7 @@ def read_again(key: str, root: Path, meta_path: Path, meta: dict, converted: Pat
     """A document read again (reextract): whether its text changed. A scan is read again only with `ocr_left` pages."""
     try:
         text, method, _ = extract(root / f"{key}.pdf", ocr_left, converted)
-    except (ValueError, subprocess.SubprocessError) as e:
+    except (NotRead, ValueError, subprocess.SubprocessError) as e:
         print(f"{key}: {e}")
         return False
     return text is not None and store(key, root, meta_path, meta, text, method)
@@ -664,7 +806,7 @@ def store(key: str, root: Path, meta_path: Path, meta: dict, text: str, method: 
 def main(args: Namespace) -> None:
     cmd = args.action
     if cmd == "fetch":
-        fetch(args.limit)
+        fetch(args.limit, ocr=not getattr(args, "no_ocr", False))
     elif cmd == "compile":
         compile_all()
     elif cmd == "reextract":

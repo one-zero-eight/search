@@ -13,8 +13,47 @@ def test_only_the_data_may_be_committed():
 def test_a_source_is_asked_when_its_interval_has_passed():
     now = datetime(2026, 10, 24, 12, tzinfo=timezone.utc)
     state = {"asked": {"eduwiki": (now - timedelta(hours=7)).isoformat(), "sveden": (now - timedelta(hours=2)).isoformat()}}
-    assert [s.name for s in autopilot.due(state, now)] == ["eduwiki", "files", "discover", "sites", "papers"]  # files, discover, sites and papers were never asked
-    assert [s.name for s in sources.SOURCES] == ["eduwiki", "sveden", "files", "discover", "sites", "papers"]
+    assert [s.name for s in autopilot.due(state, now)] == ["eduwiki", "new-pages", "files", "discover", "sites", "papers"]  # the ones after eduwiki were never asked
+    assert [s.name for s in sources.SOURCES] == ["eduwiki", "new-pages", "sveden", "files", "discover", "sites", "papers"]
+    night = datetime(2026, 10, 24, 0, 30, tzinfo=timezone.utc)
+    assert "ocr" not in [s.name for s in autopilot.due(state, night)]
+    assert "ocr" not in [s.name for s in sources.ON_REQUEST]
+
+
+def test_sites_still_run_weekly_without_ocr(monkeypatch):
+    from catix.wiki.sources import regulations, sites
+
+    asked = []
+    monkeypatch.setattr(regulations, "refresh", lambda **kw: asked.append(("refresh", kw)) or 1)
+    monkeypatch.setattr(sites, "fetch", lambda **kw: asked.append(("fetch", kw)) or 2)
+    weekly = next(s for s in sources.SOURCES if s.name == "sites")
+    assert weekly.every == timedelta(days=7)
+    assert weekly.update() == 3
+    assert asked == [("refresh", {"prefix": "site-"}), ("fetch", {"documents": True, "ocr": False})]
+    now = datetime(2026, 10, 24, 12, tzinfo=timezone.utc)
+    state = {"asked": {"sites": now.isoformat()}}
+    assert weekly not in autopilot.due(state, now + timedelta(days=6))
+    assert weekly in autopilot.due(state, now + timedelta(days=7))
+    assert next(s for s in sources.SOURCES if s.name == "new-pages").every == timedelta(hours=6)
+
+
+def test_the_mock_source_cannot_drain_the_ocr_queue(monkeypatch):
+    from catix.wiki.sources import mock, regulations
+
+    asked = []
+    monkeypatch.setattr(mock, "discover", lambda: 1)
+    monkeypatch.setattr(regulations, "refresh", lambda **kw: 0)
+    monkeypatch.setattr(regulations, "fetch", lambda **kw: asked.append(kw) or 0)
+    assert sources._mock() == 1
+    assert asked == [{"ocr": False}]
+
+
+def test_scheduled_exam_papers_leave_scans_queued(monkeypatch):
+    from catix.wiki.sources import pastpapers
+
+    asked = []
+    monkeypatch.setattr(pastpapers, "fetch", lambda **kw: asked.append(kw) or 1)
+    assert sources._papers() == 1 and asked == [{"ocr": False}]
 
 
 def test_the_commit_message_counts_changes_per_folder():

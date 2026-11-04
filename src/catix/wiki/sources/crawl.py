@@ -56,6 +56,21 @@ def document_links(text: str, source_url: str) -> list[str]:
     return found
 
 
+def text_page_links(text: str, source_url: str) -> list[str]:
+    """Canonical trusted HTML page URLs written out in the text of a document (a regulation's 'see https://...'): its addresses
+    stand bare in the text, not as markdown links."""
+    found = []
+    seen = {sites.canonical(source_url)}
+    for raw in URL.findall(text):
+        url = raw.rstrip(TRAILING)
+        if DOCUMENT.search(urlsplit(url).path) or provider(url) is None:
+            continue
+        if (canonical := sites.canonical(url)) not in seen:
+            seen.add(canonical)
+            found.append(canonical)
+    return found
+
+
 def page_links(text: str, source_url: str) -> list[str]:
     """Canonical trusted HTML page URLs in a compiled site's markdown."""
     found = []

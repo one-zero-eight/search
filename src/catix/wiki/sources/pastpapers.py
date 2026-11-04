@@ -7,7 +7,7 @@ Materials", Past Papers [EN programs]), with the subject, the year, the name of 
 
 Not an official source: the students collected the papers, a paper may be a variant or a reconstruction. The pages are
 made by code only (no model): the list of a subject's papers, newest first, each with a link to its row in Notion and the
-text of its file (the text layer; a scan is read by OCR in English). The wiki's agent does not make cards of them
+text of its file (the text layer; scans wait for a manual run with chandra). The wiki's agent does not make cards of them
 (their section is not in WIKI_AGENT_SECTIONS): they answer "what was on the exam", not "what are the rules".
 """
 
@@ -88,25 +88,18 @@ def file_key(url: str) -> str:
     return hashlib.sha1(url.split("?")[0].encode()).hexdigest()[:12]
 
 
-def read_pdf(path) -> tuple[str | None, str]:
-    """The text of a paper: its text layer, else OCR (English) of its pages. (None, why) when there is nothing to read."""
+def read_pdf(path, ocr_left: int = 20) -> tuple[str | None, str]:
+    """The text layer, else chandra within the page budget. None means queued; NotRead means chandra failed."""
     pages = regulations.pages_of(path)
     text = subprocess.run(["pdftotext", str(path), "-"], capture_output=True, text=True).stdout
     if len(re.findall(r"[^\W\d_]{3,}", text)) >= 15 * max(1, pages) or len(text.strip()) > 300 * pages:
         return text, "text layer"
-    if pages > 20:
-        return None, "a scan too long for OCR"
-    work = path.with_suffix(".ocr")
-    work.mkdir(exist_ok=True)
-    subprocess.run(["pdftoppm", "-r", "200", "-png", str(path), str(work / "p")], check=True)
-    text = "\f".join(subprocess.run(["tesseract", str(png), "-", "-l", "eng"], capture_output=True, text=True).stdout for png in sorted(work.glob("p-*.png")))
-    for png in work.glob("*.png"):
-        png.unlink()
-    work.rmdir()
-    return (text, "ocr (tesseract eng)") if text.strip() else (None, "nothing readable")
+    if ocr_left <= 0 or pages > min(20, ocr_left):
+        return None, "scan queued for OCR"
+    return regulations.ocr_text(path)
 
 
-def fetch() -> int:
+def fetch(ocr: bool = True) -> int:
     """New rows and the files not read yet; a row gone from the database leaves the index. The number of rows added,
     changed or removed."""
     index, changed, ocr_left = load(), 0, OCR_PAGES
@@ -124,27 +117,37 @@ def fetch() -> int:
                 if not name.lower().endswith(".pdf"):
                     entry["files"][key] = {"name": name, "skipped": "not a PDF"}
                     continue
-                signed = f"{SITE}/signed/{quote(url, safe='')}?table=block&id={row['id']}&spaceId={row['space']}"
-                try:
-                    resp = client.get(signed)
-                    resp.raise_for_status()
-                except httpx.HTTPError as e:
-                    print(f"  FAILED {name}: {e}")
-                    time.sleep(PAUSE)
-                    continue
-                time.sleep(PAUSE)
                 path = files / f"{key}.pdf"
-                path.write_bytes(resp.content)
-                if ocr_left <= 0 and len(subprocess.run(["pdftotext", str(path), "-"], capture_output=True, text=True).stdout.strip()) < 100:
-                    continue  # a scan: the next run reads it
-                text, method = read_pdf(path)
-                if method.startswith("ocr"):
-                    ocr_left -= regulations.pages_of(path)
+                waiting = entry["files"].get(key, {}).get("ocr") == "queued"
+                if waiting and path.exists() and not ocr:
+                    continue
+                if not path.exists():
+                    signed = f"{SITE}/signed/{quote(url, safe='')}?table=block&id={row['id']}&spaceId={row['space']}"
+                    try:
+                        resp = client.get(signed)
+                        resp.raise_for_status()
+                    except httpx.HTTPError as e:
+                        print(f"  FAILED {name}: {e}")
+                        time.sleep(PAUSE)
+                        continue
+                    time.sleep(PAUSE)
+                    path.write_bytes(resp.content)
+                pages = regulations.pages_of(path)
+                try:
+                    if waiting:
+                        text, method = regulations.ocr_text(path) if ocr and ocr_left > 0 and pages <= min(20, ocr_left) else (None, "scan queued for OCR")
+                    else:
+                        text, method = read_pdf(path, ocr_left=ocr_left if ocr else 0)
+                    if method.startswith("ocr"):
+                        ocr_left -= pages
+                except regulations.NotRead as e:
+                    text, method = None, str(e)
+                    ocr_left -= pages
                 if text is None:
-                    entry["files"][key] = {"name": name, "skipped": method}
+                    entry["files"][key] = {"name": name, "ocr": "queued", "pages": pages}
                 else:
                     (ROOT / f"{key}.txt").write_text(text, encoding="utf-8")
-                    entry["files"][key] = {"name": name, "sha256": hashlib.sha256(resp.content).hexdigest(), "method": method, "chars": len(text)}
+                    entry["files"][key] = {"name": name, "sha256": hashlib.sha256(path.read_bytes()).hexdigest(), "method": method, "chars": len(text)}
                 print(f"  {row['subject']} {row['year']} {row['exam']}: {name}, {method}")
             if entry != old:
                 index[row["id"]] = entry

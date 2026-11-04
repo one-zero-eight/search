@@ -160,8 +160,12 @@ WORDS = " ".join(f"слово{chr(1072 + i % 26)}{chr(1072 + i // 26)}ы" for i 
 
 
 def _site_root(tmp_path, monkeypatch, pages):
+    from catix.wiki.sources import regulations
+
     monkeypatch.setattr(sites, "ROOT", tmp_path / "cache")
     monkeypatch.setattr(sites, "DOCS", tmp_path / "wiki" / "raw")
+    monkeypatch.setattr(regulations, "SVEDEN_ROOT", tmp_path / "sveden")  # (the documents of the bundle: none but the test's)
+    monkeypatch.setattr(regulations, "LINKED", tmp_path / "linked.json")
     monkeypatch.setattr(sites, "SITES", {"hotel": sites.SITES["hotel"]})
     index = {"pages": {}, "docs": {}}
     for slug, (url, text) in pages.items():
@@ -266,6 +270,236 @@ def test_a_page_a_bot_check_answers_for_is_asked_again_and_never_kept(tmp_path, 
     assert "Вы не робот" not in home and WORDS in home
 
 
+MENU = " ".join(f"раздел{chr(1072 + i % 26)}{chr(1072 + i // 26)}" for i in range(60))
+
+
+def test_a_page_read_with_half_its_words_gone_waits_for_the_next_run_to_read_it_so(tmp_path, monkeypatch):
+    monkeypatch.setattr(sites, "ROOT", tmp_path)
+    monkeypatch.setattr(sites, "PAUSE", 0)
+    site = sites.Site("https://unit.example/", "ru", "a unit", r"^nothing$", sitemap=False, max_pages=10)
+    labels = {"/": "Главная", "/a/": "Первая", "/b/": "Вторая"}
+    shown = {path: f"{label} {WORDS}" for path, label in labels.items()}
+
+    class Client:
+        def get(self, url):
+            path = httpx.URL(url).path
+            html = (f"<html><head><title>{labels[path]}</title></head><body><div><a href='/'>Главная</a> <a href='/a/'>Первая</a> "
+                    f"<a href='/b/'>Вторая</a></div><p>{MENU}</p><h1>{labels[path]}</h1><p>{shown[path]}</p></body></html>")
+            return httpx.Response(200, headers={"content-type": "text/html"}, text=html, request=httpx.Request("GET", url))
+
+    def fetch(run: str) -> tuple[int, str, dict]:
+        changed = sites.fetch_site("unit", site, Client(), run=run)
+        return changed, (tmp_path / "unit" / "a.md").read_text(encoding="utf-8"), sites.load("unit")["pages"]["a"]
+
+    assert fetch("1")[0] == 3
+    shown["/a/"] = "Ведутся работы"  # (the menu is most of the page still: its own words are what went)
+    changed, text, page = fetch("2")
+    assert changed == 0 and WORDS in text and page["short"]["words"] < 10
+    assert fetch("2")[0] == 0  # (the same run reading it again, in a wave of linked pages, is not a second look)
+    shown["/a/"] = f"Первая {WORDS}"  # (it was the read)
+    changed, text, page = fetch("3")
+    assert changed == 0 and WORDS in text and "short" not in page
+    shown["/a/"] = "Ведутся работы"
+    assert fetch("4")[0] == 0
+    changed, text, page = fetch("5")  # (two runs read it so: it is the page now)
+    assert changed == 1 and "Ведутся работы" in text and WORDS not in text and "short" not in page
+
+
+def test_a_page_not_found_or_no_longer_linked_is_gone_when_the_next_run_finds_it_so_too(tmp_path, monkeypatch):
+    monkeypatch.setattr(sites, "ROOT", tmp_path)
+    monkeypatch.setattr(sites, "PAUSE", 0)
+    site = sites.Site("https://unit.example/", "ru", "a unit", r"^nothing$", sitemap=False, max_pages=10)
+    labels = {"/": "Главная", "/a/": "Первая", "/b/": "Вторая"}
+    links = {"/": ["/a/", "/b/"], "/a/": [], "/b/": []}
+    status: dict[str, int] = {}
+
+    class Client:
+        def get(self, url):
+            path = httpx.URL(url).path
+            menu = " ".join(f"<a href='{link}'>{labels[link]}</a>" for link in links[path])
+            html = f"<html><head><title>{labels[path]}</title></head><body><div>{menu}</div><h1>{labels[path]}</h1><p>{labels[path]} {WORDS}</p></body></html>"
+            return httpx.Response(status.get(path, 200), headers={"content-type": "text/html"}, text=html, request=httpx.Request("GET", url))
+
+    def fetch(run: str, start: list[str] | None = None) -> tuple[int, dict]:
+        changed = sites.fetch_site("unit", site, Client(), start=start, run=run)
+        return changed, sites.load("unit")["pages"]
+
+    assert fetch("1")[0] == 3
+    changed, pages = fetch("p", start=["https://unit.example/a/"])  # (a few pages linked from another site lead nowhere: no word of the others)
+    assert changed == 0 and not any("missing" in p for p in pages.values())
+    status["/a/"] = 404
+    changed, pages = fetch("2")
+    assert changed == 0 and pages["a"]["missing"]["why"] == "404" and not pages["a"].get("gone")
+    assert fetch("2")[0] == 0 and not fetch("2")[1]["a"].get("gone")  # (the same run asking again)
+    del status["/a/"]  # (the site was down)
+    changed, pages = fetch("3")
+    assert changed == 0 and "missing" not in pages["a"]
+    links["/"] = ["/a/"]
+    changed, pages = fetch("4")  # (the one change is the start page: its menu lost the link)
+    assert changed == 1 and pages["b"]["missing"]["why"] == "no link leads to it" and not pages["b"].get("gone")
+    changed, pages = fetch("5")
+    assert changed == 1 and pages["b"]["gone"] and "missing" not in pages["b"]
+
+
+class Web:
+    """Sites of pages that link each other: {host: {path: [links]}}, and links in a form ({host: {path: [links]}}: followed,
+    not in the text); what was asked, as (host, path)."""
+
+    def __init__(self, links: dict[str, dict[str, list[str]]], forms: dict[str, dict[str, list[str]]] | None = None):
+        self.links, self.forms, self.asked = links, forms or {}, []
+
+    def get(self, url):
+        host, path = httpx.URL(url).host, httpx.URL(url).path
+        self.asked.append((host, path))
+        if path not in self.links.get(host, {}):
+            return httpx.Response(404, headers={"content-type": "text/html"}, text="", request=httpx.Request("GET", url))
+        menu = " ".join(f"<a href='{link}'>{link.strip('/').rsplit('/', 1)[-1] or 'home'}</a>" for link in self.links[host][path])
+        form = "".join(f"<form action='/send'><label><input type='checkbox'> <a href='{link}'>согласие</a></label><button>Отправить</button></form>"
+                       for link in self.forms.get(host, {}).get(path, []))
+        html = f"<html><head><title>{host}{path}</title></head><body><div>{menu}</div><h1>{path}</h1><p>{host}{path} {WORDS}</p>{form}</body></html>"
+        return httpx.Response(200, headers={"content-type": "text/html"}, text=html, request=httpx.Request("GET", url))
+
+
+def test_a_new_address_is_read_before_the_known_ones_and_so_fits_in_max_pages(tmp_path, monkeypatch):
+    monkeypatch.setattr(sites, "ROOT", tmp_path)
+    monkeypatch.setattr(sites, "PAUSE", 0)
+    site = sites.Site("https://unit.example/", "ru", "a unit", r"^nothing$", sitemap=False, max_pages=10)
+    web = Web({"unit.example": {"/": ["/a/", "/b/"], "/a/": [], "/b/": []}})
+    assert sites.fetch_site("unit", site, web) == 3
+    web.links["unit.example"]["/"].append("/c/")  # (last on the page: a new item at the end of a feed)
+    web.links["unit.example"]["/c/"] = []
+    web.asked.clear()
+    sites.fetch_site("unit", dataclasses.replace(site, max_pages=3), web)
+    assert web.asked == [("unit.example", "/"), ("unit.example", "/c/"), ("unit.example", "/a/")]
+    assert "c" in sites.load("unit")["pages"]
+
+
+def test_a_page_of_another_site_is_not_read_again_in_a_wave_when_its_own_site_read_it(tmp_path, monkeypatch):
+    import contextlib
+
+    monkeypatch.setattr(sites, "ROOT", tmp_path)
+    monkeypatch.setattr(sites, "PAUSE", 0)
+    monkeypatch.setattr(sites, "DISCOVERED", tmp_path / "discovered.json")
+    unit = sites.Site("https://unit.example/", "ru", "a unit", r"^nothing$", sitemap=False)
+    club = sites.Site("https://club.example/", "ru", "a club", r"^nothing$", sitemap=False)
+    monkeypatch.setattr(sites, "SITES", {"unit": unit, "club": club})
+    web = Web({"unit.example": {"/": ["https://club.example/x/"]}, "club.example": {"/": ["/x/"], "/x/": []}})
+    monkeypatch.setattr(sites.httpx, "Client", lambda **kwargs: contextlib.nullcontext(web))
+    sites.fetch()  # (unit, read first, finds the link before club's run reads /x/)
+    assert sorted(web.asked) == [("club.example", "/"), ("club.example", "/x/"), ("unit.example", "/")]
+
+
+def test_the_run_of_new_pages_reads_the_feeds_and_what_is_new_there_on_any_trusted_site(tmp_path, monkeypatch):
+    monkeypatch.setattr(sites, "ROOT", tmp_path)
+    monkeypatch.setattr(sites, "PAUSE", 0)
+    monkeypatch.setattr(sites, "DISCOVERED", tmp_path / "discovered.json")
+    unit = sites.Site("https://unit.example/", "ru", "a unit", r"^nothing$", sitemap=True)  # (no feed: its start page is one)
+    club = sites.Site("https://club.example/", "ru", "a club", r"^nothing$", sitemap=False, feeds=("events/",))
+    login = sites.Site("https://my.example/", "ru", "behind a login", r"^nothing$", sitemap=False, profile="NO_SUCH_PROFILE")
+    monkeypatch.setattr(sites, "SITES", {"unit": unit, "club": club, "my": login})
+    web = Web({"unit.example": {"/": ["/a/"], "/a/": []}, "club.example": {"/": ["/events/"], "/events/": ["/old/"], "/old/": []}})
+    sites.fetch_site("unit", unit, web)
+    sites.fetch_site("club", club, web)
+    sites.save("my", {"pages": {}, "docs": {}})
+    web.links["unit.example"]["/"].append("/hackathon/")  # (a new page on the start page, which links a new page of another trusted site)
+    web.links["unit.example"]["/hackathon/"] = ["https://club.example/team/", "/rules/"]
+    web.links["unit.example"]["/rules/"] = []
+    web.links["club.example"]["/team/"] = []
+    web.asked.clear()
+    assert sites.fetch_new(client=web) == 4  # (the start page of unit changed: it links the hackathon now)
+    assert sorted(web.asked) == [("club.example", "/events/"), ("club.example", "/team/"), ("unit.example", "/"),
+                                 ("unit.example", "/hackathon/"), ("unit.example", "/rules/")]  # (not the old pages, no sitemap, not the site behind a login)
+    assert {"hackathon", "rules"} <= set(sites.load("unit")["pages"]) and "team" in sites.load("club")["pages"]
+    web.asked.clear()
+    assert sites.fetch_new(client=web) == 0 and sorted(web.asked) == [("club.example", "/events/"), ("unit.example", "/")]
+
+
+def test_the_run_of_new_pages_goes_on_through_the_documents_by_their_text_layer(tmp_path, monkeypatch):
+    from catix.wiki.sources import regulations
+
+    monkeypatch.setattr(sites, "ROOT", tmp_path)
+    monkeypatch.setattr(sites, "PAUSE", 0)
+    monkeypatch.setattr(sites, "DISCOVERED", tmp_path / "discovered.json")
+    unit = sites.Site("https://unit.example/", "ru", "a unit", r"^nothing$", sitemap=False)
+    club = sites.Site("https://club.example/", "ru", "a club", r"^nothing$", sitemap=False)
+    monkeypatch.setattr(sites, "SITES", {"unit": unit, "club": club})
+    web = Web({"unit.example": {"/": []}, "club.example": {"/": []}})
+    sites.fetch_site("unit", unit, web)
+    sites.fetch_site("club", club, web)
+    web.links["unit.example"]["/"].append("/rules.pdf")  # (a new document on the start page; its text names a page of club only it leads to)
+    web.links["club.example"]["/team/"] = []
+    calls = []
+
+    def read_new(limit=None, prefixes=None, ocr=True):
+        calls.append((prefixes, ocr))
+        return ["site-unit-1-rules"] if len(calls) == 1 else []
+
+    monkeypatch.setattr(regulations, "read_new", read_new)
+    monkeypatch.setattr(regulations, "page_links_of", lambda keys: {"club": {"https://club.example/team/"}} if keys == ["site-unit-1-rules"] else {})
+    web.asked.clear()
+    assert sites.fetch_new(client=web, documents=True) == 3  # (unit's start page, the document, the page of club it names)
+    assert sorted(web.asked) == [("club.example", "/"), ("club.example", "/team/"), ("unit.example", "/")]
+    assert calls == [(("site-",), False), (("site-",), False)]  # (after each wave that brought pages; no OCR)
+    assert "team" in sites.load("club")["pages"] and "https://unit.example/rules.pdf" in sites.load("unit")["docs"]
+
+
+def test_the_weekly_run_goes_on_through_the_documents_and_keeps_a_page_only_a_document_names(tmp_path, monkeypatch):
+    import contextlib
+
+    from catix.wiki.sources import regulations
+
+    monkeypatch.setattr(sites, "ROOT", tmp_path)
+    monkeypatch.setattr(sites, "PAUSE", 0)
+    monkeypatch.setattr(sites, "DISCOVERED", tmp_path / "discovered.json")
+    unit = sites.Site("https://unit.example/", "ru", "a unit", r"^nothing$", sitemap=False)
+    club = sites.Site("https://club.example/", "ru", "a club", r"^nothing$", sitemap=False)
+    monkeypatch.setattr(sites, "SITES", {"unit": unit, "club": club})
+    web = Web({"unit.example": {"/": ["/rules.pdf"]}, "club.example": {"/": [], "/only-in-a-document/": []}})
+    monkeypatch.setattr(sites.httpx, "Client", lambda **kwargs: contextlib.nullcontext(web))
+    calls, named = [], []
+
+    def read_new(limit=None, prefixes=None, ocr=True):
+        calls.append((prefixes, ocr))
+        return ["site-unit-1-rules"] if len(calls) % 2 else []
+
+    monkeypatch.setattr(regulations, "read_new", read_new)
+    monkeypatch.setattr(regulations, "page_links_of", lambda keys=None: named.append(keys) or ({"club": {"https://club.example/only-in-a-document/"}} if keys is None else {}))
+    assert sites.fetch(documents=True) == 4  # (two start pages, the document, the page it names)
+    assert calls == [(None, False), (None, False)] and named == [None, []]  # (text layers only; first every document's links, then the new ones')
+    for _ in range(2):  # (club's own run does not reach the page: the wave of the documents does, every week)
+        sites.fetch(documents=True)
+        page = sites.load("club")["pages"]["only-in-a-document"]
+        assert "missing" not in page and not page.get("gone")
+    assert sites.fetch() == 0 and sites.load("club")["pages"]["only-in-a-document"]["missing"]["why"] == "no link leads to it"  # (without the documents' wave)
+
+
+def test_a_pending_site_is_read_but_not_trusted_and_its_settings_are_in_discovered_json(tmp_path, monkeypatch, capsys):
+    import contextlib
+    import json
+
+    from catix.wiki.sources import crawl
+
+    monkeypatch.setattr(sites, "ROOT", tmp_path / "cache")
+    monkeypatch.setattr(sites, "PAUSE", 0)
+    monkeypatch.setattr(sites, "DISCOVERED", tmp_path / "discovered.json")
+    unit = sites.Site("https://unit.example/", "ru", "a unit", r"^nothing$", sitemap=False)
+    monkeypatch.setattr(sites, "SITES", {"unit": unit})
+    sites.DISCOVERED.write_text(json.dumps({"sites": {"lab.example": {"status": "pending", "title": "Lab", "language": "en"}}}), encoding="utf-8")
+    found = sites.discovered()
+    lab = sites.pending_sites()["lab-example"]
+    found["lab.example"]["config"] = sites.site_values(dataclasses.replace(lab, sitemap=False, robots=False, pause=0))
+    sites.write_discovered(found)
+    web = Web({"unit.example": {"/": ["https://lab.example/news/"]}, "lab.example": {"/": ["/about/", "/rules.pdf"], "/about/": [], "/news/": []}})
+    monkeypatch.setattr(sites.httpx, "Client", lambda **kwargs: contextlib.nullcontext(web))
+    sites.fetch()
+    assert crawl.provider("https://lab.example/news/") is None and "lab-example" not in sites.SITES
+    assert ("lab.example", "/news/") not in web.asked  # (a link of a trusted site does not lead the crawl to it)
+    assert set(sites.load("lab-example")["pages"]) == {"home", "about"} and not sites.load("lab-example")["docs"]  # (its own pages read; its documents wait)
+    capsys.readouterr()
+    sites.status()
+    assert "lab-example (https://lab.example/, pending a look): 2 pages" in capsys.readouterr().out
+
+
 def test_a_news_item_ends_where_the_related_news_begin_and_says_its_heading_and_date_once(tmp_path, monkeypatch):
     out = _site_root(tmp_path, monkeypatch, {
         "rooms": ("https://hotel.innopolis.university/rooms/", f"29 октября 2026\n## Rooms\n29 октября 2026\n{WORDS}\n[Читать далее](https://hotel.innopolis.university/next/)\n"
@@ -295,6 +529,28 @@ def test_a_link_to_a_document_of_a_site_leads_to_its_page_of_regulations_once_th
     sites.compile_all()
     assert f"({url.replace(' ', '%20')})" in (out / "hotel" / "home.md").read_text(encoding="utf-8")  # (not converted yet: the site's own file)
     (key,) = sites.docs()
+    (tmp_path / "wiki" / "raw" / "regulations").mkdir(parents=True)
+    (tmp_path / "wiki" / "raw" / "regulations" / f"{key}.md").write_text("x", encoding="utf-8")
+    sites.compile_all()
+    assert f"[Правила](/raw/regulations/{key}.md)" in (out / "hotel" / "home.md").read_text(encoding="utf-8")
+
+
+def test_a_link_to_a_document_sveden_lists_too_leads_to_the_page_of_regulations_it_has_there(tmp_path, monkeypatch):
+    import json
+
+    from catix.wiki.sources import regulations
+
+    url = "https://innopolis.university/upload/iblock/a1/Правила приема.pdf"
+    out = _site_root(tmp_path, monkeypatch, {"home": ("https://hotel.innopolis.university/", f"{WORDS} [Правила]({url.replace(' ', '%20')})")})
+    index = sites.load("hotel")
+    index["docs"] = {sites.canonical(url): "Правила приема"}  # (the site links it, and sveden lists it: all_docs keeps sveden's)
+    sites.save("hotel", index)
+    (tmp_path / "sveden").mkdir()
+    (tmp_path / "sveden" / "index.json").write_text(json.dumps([{"url": sites.canonical(url), "title": "Правила приема в университет на 2026 год",
+                                                                 "sections": ["apply"], "ext": "pdf"}]), encoding="utf-8")
+    (tmp_path / "sveden" / "triage.json").write_text(json.dumps({sites.canonical(url): {"decision": "keep"}}), encoding="utf-8")
+    (key,) = [k for k in regulations.all_docs() if k.startswith("sveden-")]
+    assert not any(k.startswith("site-") for k in regulations.all_docs())  # (one file, one page)
     (tmp_path / "wiki" / "raw" / "regulations").mkdir(parents=True)
     (tmp_path / "wiki" / "raw" / "regulations" / f"{key}.md").write_text("x", encoding="utf-8")
     sites.compile_all()
@@ -415,6 +671,66 @@ def test_a_site_that_is_an_app_is_read_through_the_browser_and_the_others_throug
     monkeypatch.setattr(sites, "render_page", lambda url: None)
     assert sites.get_page(Client(), app, "https://innohassle.ru/nothing").status_code == 404  # (the browser gave nothing: a page that is not there)
     assert not sites._taken(app, "https://innohassle.ru/admin/users") and sites._taken(app, "https://innohassle.ru/clubs/league")
+
+
+ASKS_FOR_SCRIPTS = (f"<html><head><title>Физмат</title></head><body><noscript>You need to enable JavaScript to run this app.</noscript>"
+                    f"<div id='root'><p>{WORDS}</p></div></body></html>")
+
+
+def _answers(html: str):
+    class Client:
+        def get(self, url):
+            return httpx.Response(200, text=html, headers={"content-type": "text/html; charset=utf-8", "last-modified": "Mon, 02 Nov 2026 10:00:00 GMT"},
+                                  request=httpx.Request("GET", url))
+    return Client()
+
+
+def test_a_page_that_asks_for_javascript_or_has_no_words_is_read_in_the_browser_on_any_site(monkeypatch):
+    shown = f"<html><head><title>Физмат прорыв</title></head><body><h1>Физмат прорыв</h1><p>{WORDS}</p></body></html>"
+    seen = []
+    monkeypatch.setattr(sites, "render_page", lambda url: seen.append(url) or shown)
+    hotel, url = sites.SITES["hotel"], "https://hotel.innopolis.university/app/"
+    assert not hotel.render
+    for html in (ASKS_FOR_SCRIPTS, "<html><body><div id='app'></div><script src='/app.js'></script></body></html>"):  # (its <noscript> says so; an empty shell)
+        resp = sites.get_page(_answers(html), hotel, url)
+        assert resp.text == shown and resp.status_code == 200 and resp.headers["last-modified"] == "Mon, 02 Nov 2026 10:00:00 GMT"
+        assert sites.read(resp.text, str(resp.url))[0] == "Физмат прорыв" and "You need to enable" not in sites.read(html, url)[1]
+    assert seen == [url, url]
+    page = f"<html><body><noscript><img src='https://mc.yandex.ru/watch/1'></noscript><p>{WORDS}</p></body></html>"  # (a counter's <noscript>: no word of scripts)
+    assert sites.get_page(_answers(page), hotel, url).text == page and len(seen) == 2
+    wall = "<html><head><title>Вы не робот?</title></head><body><noscript>У вас отключено исполнение JavaScript</noscript>smart-captcha</body></html>"
+    monkeypatch.setattr(sites, "BOT_TRIES", 1)
+    assert sites.get_page(_answers(wall), hotel, url).text == wall and len(seen) == 2  # (the browser does not pass a bot check either)
+
+
+def test_a_page_the_browser_cannot_read_or_that_its_scripts_take_to_another_site_is_read_as_the_site_sent_it(monkeypatch):
+    hotel, url = sites.SITES["hotel"], "https://hotel.innopolis.university/app/"
+    for why in ("the browser did not read it", "its scripts lead to https://apply.innopolis.university/"):  # (Tilda's redirect block)
+        def broken(url, why=why):
+            raise httpx.TransportError(why)
+
+        monkeypatch.setattr(sites, "render_page", broken)
+        assert sites.get_page(_answers(ASKS_FOR_SCRIPTS), hotel, url).text == ASKS_FOR_SCRIPTS
+
+
+def test_a_link_with_no_words_is_none_a_link_keeps_the_spaces_around_it_and_a_list_its_levels():
+    html = ('<header><a href="/ru"><svg><use xlink:href="#logo"></use></svg></a><a href="/menu"><i class="icon-burger"></i></a></header>'
+            '<p><a href="/hours">Время работы: </a>С 9:00 до 20:00</p>'
+            '<ul><li><ul><li><a href="/about/">Об университете</a><ul><li><a href="/board/">Учредители</a></li></ul></li></ul></li></ul>'
+            '<noscript>Redirect to URL: <a href="https://apply.innopolis.university/">https://apply.innopolis.university/</a></noscript>')
+    _, text, links = read(html, "https://innopolis.university/ru")
+    assert text.splitlines() == ["[Время работы:](https://innopolis.university/hours) С 9:00 до 20:00",
+                                 "- [Об университете](https://innopolis.university/about/)", "  - [Учредители](https://innopolis.university/board/)"]
+    assert "https://apply.innopolis.university/" in {u for u, _ in links}  # (the link of Tilda's redirect block is followed, its words are not the page's)
+
+
+def test_a_form_is_no_words_of_the_page_but_its_links_are_followed_and_a_button_out_of_a_form_stays():
+    html = ('<h2>Частые вопросы</h2><button class="faq__q">Есть ли бюджетные места?</button><p>Да, 300 мест на бакалавриате.</p>'
+            '<form action="/send"><label>Ваше ФИО</label><input name="fio"><label><input type="checkbox"> Я согласен с '
+            '<a href="/upload/politic.pdf">политикой</a></label><button>Отправить</button></form>')
+    _, text, links = read(html, "https://sezinnopolis.ru/rentandservice/")
+    assert text.splitlines() == ["## Частые вопросы", "Есть ли бюджетные места?", "Да, 300 мест на бакалавриате."]
+    assert ("https://sezinnopolis.ru/upload/politic.pdf", "политикой") in links
 
 
 def test_innohassle_keeps_the_pages_of_text_and_leaves_the_lists_of_data():

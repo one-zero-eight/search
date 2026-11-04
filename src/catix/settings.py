@@ -149,10 +149,11 @@ class Settings(BaseSettings):
     wiki_search_candidates: int = Field(30, gt=0)
     search_ef: int = Field(400, ge=1, le=1000)
     # OCR of scanned documents (wiki/sources/chandra.py): chandra-ocr-2 behind an OpenAI-compatible server (llama.cpp) on
-    # the GPU machine. Without one, or when it does not answer or serves another model, a scan is read by tesseract.
+    # the GPU machine. Without one, or when it does not answer or cannot read a scan, the scan stays queued.
     ocr_route: HttpUrl | None = HttpUrl("http://localhost:8082/v1")
     ocr_model: str = "chandra"
-    ocr_parallel: int = Field(6, gt=0, description="Pages of a scan sent at once: the server's slots (-np).")
+    ocr_parallel: int = Field(6, gt=0, description="Pages sent at once, of one scan or several read side by side, and "
+                              "scans open at once: the server's slots (llama.cpp -np 6; 32 for chandra on 1Cat vLLM).")
     # OpenAI-compatible /v1/rerank server (llama.cpp --reranking, bge-reranker-v2-m3). Without a route the search
     # keeps the order of the hybrid ranking. With one, `rerank_candidates` messages are re-scored against the
     # query and the best few go to the model.

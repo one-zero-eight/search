@@ -21,7 +21,7 @@
 Telegram-чаты ──userbot (аккаунт, читает чаты, историю)──┐
 Telegram-чаты ──Bot API бот (участник чата, с момента добавления)──┤
 Max-чаты ──Max-бот──────────────────────────────────────┤
-                                                        ▼
+ fip inh-compute 8080 8081 8083                                                       ▼
                           фильтр шума ─► Postgres (сообщения, BM25-индекс, векторы)
                                                         │  └► embedding_queue ─► эмбеддеры ─► векторы
                                                         ▼
@@ -215,7 +215,29 @@ cAtIx заменил сервис поиска InNoHassle и отвечает п
 | `POST /ask/` | вопрос агенту, `chat_id` ведёт диалог (диалоги живут в памяти процесса: после перезапуска неизвестный `chat_id` начинает новый). Вопросы одного клиента отвечаются по одному, в порядке прихода (FIFO), в каком бы чате они ни были; вопросы разных клиентов идут параллельно, до `AGENT_PARALLEL_QUESTIONS` сразу |
 | `POST /ask/{chat_id}/cancel` | отмена работы агента в чате: идущего вопроса и ждущих своей очереди вопросов этого чата. Их запросы завершаются `409` (в `/ask/stream` событием `cancelled`), диалог остаётся таким, каким был до отменённых вопросов |
 | `POST /act/` | заглушка: действий в сервисах InNoHassle в cAtIx нет |
-| `/moodle/*`, `POST /{section}/parse` | заглушки: пустые списки, `410` для parse |
+| `/moodle/*` | заглушки: пустые списки |
+| `GET /sites` | доверенные настроенные сайты (`name`, `url`, `about`) из каталога `sites.SITES` |
+| `POST /{section}/parse` | инкрементальное обновление: `wiki` / `eduwiki`, `sites` / `resources`; прежние `hotel` и `campuslife` выбирают соответствующий сайт |
+
+Парсинг требует того же Bearer-токена. Например, `POST /sites/parse?sites=hotel&sites=campuslife`
+запускает существующий `sites.fetch` с выбранными именами из `GET /sites`; без `sites` выбирается весь каталог.
+Произвольные URL и неизвестные имена отклоняются с `400`. Выбор задаёт стартовые сайты:
+переходы по ссылкам на другие доверенные сайты сохраняют поведение `fetch`.
+`POST /eduwiki/parse` использует `eduwiki.fetch([0])` с проверкой ревизий.
+Если `fetch` вернул изменения, запускается существующий компилятор источника, обновление ссылок и поискового индекса;
+если изменений нет, эти шаги пропускаются. Агент, autopilot, git commit/push и OCR не запускаются
+(компилятор EduWiki при этом использует свою обычную LLM-обработку).
+
+Оба флага по умолчанию `true`: `parsing_is_needed` — получить изменения, `indexing_is_needed` — после обработки
+проверить bundle через lint, синхронизировать индекс и эмбеддинги. `indexing_is_needed=false` отключает работу с БД;
+`parsing_is_needed=false` обрабатывает и индексирует уже скачанные данные без сети источника — в том числе для повтора
+после ошибки обработки. Оба `false` дают `400`; индексация без `DATABASE_URL` — `503` до скачивания.
+
+Запрос ждёт завершения и возвращает `section`, `sites`, `changed`, `processed`, `indexed`, `index`, `embedded`.
+Работа идёт в thread pool, не блокируя event loop. Общий с autopilot файловый замок не допускает одновременных обновлений
+(`409`, также между API workers); ошибки lint дают `409` без индексации, исключения обработки — `502`.
+Для большого обхода нужен достаточный HTTP timeout. `moodle`, `clubs`, `maps`, `residents` по-прежнему возвращают `410`:
+для сайта выбирайте его имя через `/sites/parse`.
 
 Настройки: `API_HOST`, `API_PORT`, `API_ROOT_PATH`, `API_CORS_ALLOW_ORIGIN_REGEX`. Запуск: `catix-api` (в `docker-compose.prod.yml` сервис `api`).
 
@@ -246,4 +268,4 @@ experiments/   скрипты оценки качества поиска и да
 ## TODO
 
 - Change InMemorySaver to AsyncPostgresSaver
-- OCR limit: `MAX_OCR_PAGES = 40` and `OCR_BUDGET = 200` (`src/catix/wiki/sources/regulations.py`) were set for tesseract; with chandra (~8 s a page) raise them, so that `regs fetch` reads the scans longer than 40 pages it leaves now (6 of them, 42–78 pages)
+- OCR limit: `MAX_OCR_PAGES = 40` and `OCR_BUDGET = 200` (`src/catix/wiki/sources/regulations.py`); review these limits when a dedicated chandra server is available. Longer scans stay queued; there is no alternative OCR engine.

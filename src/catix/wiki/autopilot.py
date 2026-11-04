@@ -67,6 +67,7 @@ def save_state(state: dict) -> None:
 
 
 def due(state: dict, now: datetime) -> list[sources.Source]:
+    """The sources whose interval has passed."""
     asked = state.get("asked", {})
     return [s for s in sources.SOURCES if s.name not in asked or now - datetime.fromisoformat(asked[s.name]) >= s.every]
 

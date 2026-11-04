@@ -5,8 +5,7 @@ opendataloader.text_of makes the text of them as it does for one: a block a para
 once, a paragraph going on across a page.
 
 On 12 pages with a text layer (its words the truth; the page clean and with a scan's noise) chandra misread 1.2% / 1.1% of
-the words and found every number; tesseract rus 1.4% / 1.6% and 97.6% / 93.3% of the numbers. On 24 pages of real scans it
-left out what tesseract reads off stamps and signatures ('к 'ЯС ® выбне'), but its errors are words that exist: one of
+the words and found every number. On 24 pages of real scans it left out noise from stamps and signatures, but its errors are words that exist: one of
 like meaning ('промышленными' for 'индустриальными', 'специальности' for 'специалитета'), once English ('date'); a
 spelling check does not find them. OvisOCR2 broke Russian words with English ('Иннопоolis', 'Federalным'), PaddleOCR-VL
 wrote English of its own in place of a clause, Xiaomi-OCR-0 misspelt more words ('Россииской', 'адьюнктуре') and left a
@@ -14,14 +13,15 @@ clause's first line out (the bench of 2026-10-30).
 
 A picture is not text: a seal or a signature chandra describes (in English) is left out. An answer that does not end (the
 model looping to its token limit) is asked again warmer, as chandra's own client does. A page the server cannot read leaves
-the document to tesseract (regulations.extract)."""
+the document queued for another attempt; no other OCR engine is used."""
 
 import base64
 import io
 import re
 import subprocess
 import tempfile
-from concurrent.futures import ThreadPoolExecutor
+import threading
+from concurrent.futures import ThreadPoolExecutor, wait
 from pathlib import Path
 
 import httpx
@@ -221,20 +221,46 @@ def nodes_of(html: str) -> list[dict]:
     return nodes
 
 
+_pages: ThreadPoolExecutor | None = None
+_pages_lock = threading.Lock()
+
+
+def page_pool() -> ThreadPoolExecutor:
+    """The pages being read, of every scan the process reads at once: as many as the server has slots (OCR_PARALLEL), so
+    the short scans read side by side fill them as one long one does."""
+    global _pages
+    with _pages_lock:
+        if _pages is None:
+            _pages = ThreadPoolExecutor(settings.ocr_parallel, thread_name_prefix="chandra-page")
+        return _pages
+
+
+def cancel_pages() -> None:
+    """The pages waiting in page_pool not read (a stopped run): those being read end, the next page_pool is a new one."""
+    global _pages
+    with _pages_lock:
+        if _pages is not None:
+            _pages.shutdown(wait=False, cancel_futures=True)
+            _pages = None
+
+
 def text_of_pdf(pdf: Path, keep: Path | None = None) -> str | None:
-    """The text of a scanned PDF, its pages read at once as the server has slots; None when the server is away or a page
-    could not be read (the caller reads the document by tesseract). `keep`: a folder for the HTML of each page as chandra
-    answered it (p-001.html, ...), to look at, or to make the text again without reading the scan again."""
+    """The text of a scanned PDF, its pages read in page_pool beside those of other scans; None when the server is away or
+    a page could not be read (the caller leaves the document queued). `keep`: a folder for the HTML of each page as
+    chandra answered it (p-001.html, ...), to look at, or to make the text again without reading the scan again."""
     if not available():
         return None
     with tempfile.TemporaryDirectory(prefix="chandra-") as work:
         subprocess.run(["pdftoppm", "-r", str(DPI), "-png", str(pdf), str(Path(work) / "p")], check=True)
         pngs = sorted(Path(work).glob("p-*.png"), key=lambda p: int(p.stem.rsplit("-", 1)[1]))
+        futures = [page_pool().submit(read_page, png) for png in pngs]
         try:
-            with ThreadPoolExecutor(settings.ocr_parallel) as pool:
-                pages = list(pool.map(read_page, pngs))
+            pages = [f.result() for f in futures]
         except (httpx.HTTPError, KeyError, ValueError) as e:
-            print(f"  chandra failed ({type(e).__name__}: {e}), tesseract instead", flush=True)
+            for f in futures:  # the scan stays queued: cancel unsent pages and wait for those already being read
+                f.cancel()
+            wait(futures)  # (they read the images of this folder)
+            print(f"  chandra failed ({type(e).__name__}: {e}), scan stays queued", flush=True)
             return None
     if keep is not None:
         keep.mkdir(parents=True, exist_ok=True)
