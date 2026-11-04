@@ -24,7 +24,7 @@ def website(tmp_path, monkeypatch):
         return httpx.Response(status["code"], headers={"content-type": "text/html"}, text=(
             "<html><title>Robotics lab</title><h1>Robotics lab</h1><p>"
             + "Our laboratory offers research projects and internships for university students. " * 10
-            + "</p></html>"))
+            + "</p><p><a href='https://hotel.innopolis.university/rooms/'>Rooms for interns</a></p></html>"))  # (a trusted site never read here)
 
     real_client = httpx.Client
     monkeypatch.setattr(sites.httpx, "Client", lambda **kwargs: real_client(transport=httpx.MockTransport(handle), **kwargs))
@@ -36,7 +36,7 @@ def test_approval_fetches_and_builds_the_selected_site(website, action):
     root, requests, _ = website
     cli.main(["sites", action, "lab"])
     assert "lab" in sites.load_sites() and "lab.example" not in sites.discovered()
-    assert requests == ["https://lab.example/"]
+    assert requests == ["https://lab.example/"]  # (the hotel it links was never read: the weekly run reads it whole, not a wave)
     page = root / "wiki" / "raw" / "sites" / "lab" / "home.md"
     assert page.exists() and "research projects and internships" in page.read_text()
     assert (root / "wiki" / "index.md").exists()

@@ -348,6 +348,15 @@ class Web:
     def __init__(self, links: dict[str, dict[str, list[str]]], forms: dict[str, dict[str, list[str]]] | None = None):
         self.links, self.forms, self.asked = links, forms or {}, []
 
+    def serve(self, monkeypatch) -> None:
+        """The client of sites.fetch: these pages. The wiki's modules are imported first: discover.py names httpx.Client in
+        its annotations, and a test run alone imported it only once the client was replaced (TypeError)."""
+        import contextlib
+
+        from catix.wiki import autopilot  # noqa: F401
+
+        monkeypatch.setattr(sites.httpx, "Client", lambda **kwargs: contextlib.nullcontext(self))
+
     def get(self, url):
         host, path = httpx.URL(url).host, httpx.URL(url).path
         self.asked.append((host, path))
@@ -375,8 +384,6 @@ def test_a_new_address_is_read_before_the_known_ones_and_so_fits_in_max_pages(tm
 
 
 def test_a_page_of_another_site_is_not_read_again_in_a_wave_when_its_own_site_read_it(tmp_path, monkeypatch):
-    import contextlib
-
     monkeypatch.setattr(sites, "ROOT", tmp_path)
     monkeypatch.setattr(sites, "PAUSE", 0)
     monkeypatch.setattr(sites, "DISCOVERED", tmp_path / "discovered.json")
@@ -384,9 +391,50 @@ def test_a_page_of_another_site_is_not_read_again_in_a_wave_when_its_own_site_re
     club = sites.Site("https://club.example/", "ru", "a club", r"^nothing$", sitemap=False)
     monkeypatch.setattr(sites, "SITES", {"unit": unit, "club": club})
     web = Web({"unit.example": {"/": ["https://club.example/x/"]}, "club.example": {"/": ["/x/"], "/x/": []}})
-    monkeypatch.setattr(sites.httpx, "Client", lambda **kwargs: contextlib.nullcontext(web))
+    web.serve(monkeypatch)
     sites.fetch()  # (unit, read first, finds the link before club's run reads /x/)
     assert sorted(web.asked) == [("club.example", "/"), ("club.example", "/x/"), ("unit.example", "/")]
+
+
+def test_a_run_of_a_few_sites_reads_of_the_sites_they_link_only_the_pages_these_do_not_have(tmp_path, monkeypatch):
+    """The approval of a site that linked one page of innopolis.university read hundreds of the university's pages: in a site
+    the run does not read whole a wave reads only the addresses its index does not have and the new ones these link; its known
+    pages are the weekly run's. A site never read is not entered: the weekly run reads it whole."""
+    monkeypatch.setattr(sites, "ROOT", tmp_path)
+    monkeypatch.setattr(sites, "PAUSE", 0)
+    monkeypatch.setattr(sites, "DISCOVERED", tmp_path / "discovered.json")
+    unit, club, lab = (sites.Site(f"https://{host}/", "ru", host, r"^nothing$", sitemap=False) for host in ("unit.example", "club.example", "lab.example"))
+    monkeypatch.setattr(sites, "SITES", {"unit": unit, "club": club, "lab": lab})
+    web = Web({"unit.example": {"/": ["https://club.example/old/", "https://club.example/new/", "https://lab.example/x/"]},
+               "club.example": {"/": ["/old/"], "/old/": ["/"], "/new/": ["/", "/old/", "/newer/"], "/newer/": ["/"]},
+               "lab.example": {"/": ["/x/"], "/x/": []}})
+    sites.fetch_site("club", club, web)  # (club has / and /old/)
+    web.asked.clear()
+    web.serve(monkeypatch)
+    sites.fetch(["unit"])
+    assert sorted(web.asked) == [("club.example", "/new/"), ("club.example", "/newer/"), ("unit.example", "/")]
+    assert {"home", "old", "new", "newer"} == set(sites.load("club")["pages"]) and not sites.load("lab")["pages"]
+    web.asked.clear()
+    sites.fetch(["unit"])  # (nothing new on club now)
+    assert web.asked == [("unit.example", "/")]
+
+
+def test_a_wave_of_the_weekly_run_reads_what_the_run_has_not_read_and_keeps_a_page_only_another_site_leads_to(tmp_path, monkeypatch):
+    monkeypatch.setattr(sites, "ROOT", tmp_path)
+    monkeypatch.setattr(sites, "PAUSE", 0)
+    monkeypatch.setattr(sites, "DISCOVERED", tmp_path / "discovered.json")
+    unit, club = (sites.Site(f"https://{host}/", "ru", host, r"^nothing$", sitemap=False) for host in ("unit.example", "club.example"))
+    monkeypatch.setattr(sites, "SITES", {"unit": unit, "club": club})
+    web = Web({"unit.example": {"/": ["https://club.example/hidden/"]},  # (no page of club links /hidden/ nor /deeper/)
+               "club.example": {"/": ["/x/"], "/x/": [], "/hidden/": ["/", "/x/", "/deeper/"], "/deeper/": []}})
+    web.serve(monkeypatch)
+    for _ in range(3):
+        web.asked.clear()
+        sites.fetch()
+        assert sorted(web.asked) == [("club.example", "/"), ("club.example", "/deeper/"), ("club.example", "/hidden/"),
+                                     ("club.example", "/x/"), ("unit.example", "/")]  # (each once: / and /x/ were read by club's run)
+        pages = sites.load("club")["pages"]
+        assert not any("missing" in pages[slug] or pages[slug].get("gone") for slug in ("hidden", "deeper"))
 
 
 def test_the_run_of_new_pages_reads_the_feeds_and_what_is_new_there_on_any_trusted_site(tmp_path, monkeypatch):
@@ -444,8 +492,6 @@ def test_the_run_of_new_pages_goes_on_through_the_documents_by_their_text_layer(
 
 
 def test_the_weekly_run_goes_on_through_the_documents_and_keeps_a_page_only_a_document_names(tmp_path, monkeypatch):
-    import contextlib
-
     from catix.wiki.sources import regulations
 
     monkeypatch.setattr(sites, "ROOT", tmp_path)
@@ -455,7 +501,7 @@ def test_the_weekly_run_goes_on_through_the_documents_and_keeps_a_page_only_a_do
     club = sites.Site("https://club.example/", "ru", "a club", r"^nothing$", sitemap=False)
     monkeypatch.setattr(sites, "SITES", {"unit": unit, "club": club})
     web = Web({"unit.example": {"/": ["/rules.pdf"]}, "club.example": {"/": [], "/only-in-a-document/": []}})
-    monkeypatch.setattr(sites.httpx, "Client", lambda **kwargs: contextlib.nullcontext(web))
+    web.serve(monkeypatch)
     calls, named = [], []
 
     def read_new(limit=None, prefixes=None, ocr=True):
@@ -474,7 +520,6 @@ def test_the_weekly_run_goes_on_through_the_documents_and_keeps_a_page_only_a_do
 
 
 def test_a_pending_site_is_read_but_not_trusted_and_its_settings_are_in_discovered_json(tmp_path, monkeypatch, capsys):
-    import contextlib
     import json
 
     from catix.wiki.sources import crawl
@@ -490,7 +535,7 @@ def test_a_pending_site_is_read_but_not_trusted_and_its_settings_are_in_discover
     found["lab.example"]["config"] = sites.site_values(dataclasses.replace(lab, sitemap=False, robots=False, pause=0))
     sites.write_discovered(found)
     web = Web({"unit.example": {"/": ["https://lab.example/news/"]}, "lab.example": {"/": ["/about/", "/rules.pdf"], "/about/": [], "/news/": []}})
-    monkeypatch.setattr(sites.httpx, "Client", lambda **kwargs: contextlib.nullcontext(web))
+    web.serve(monkeypatch)
     sites.fetch()
     assert crawl.provider("https://lab.example/news/") is None and "lab-example" not in sites.SITES
     assert ("lab.example", "/news/") not in web.asked  # (a link of a trusted site does not lead the crawl to it)
@@ -671,6 +716,42 @@ def test_a_site_that_is_an_app_is_read_through_the_browser_and_the_others_throug
     monkeypatch.setattr(sites, "render_page", lambda url: None)
     assert sites.get_page(Client(), app, "https://innohassle.ru/nothing").status_code == 404  # (the browser gave nothing: a page that is not there)
     assert not sites._taken(app, "https://innohassle.ru/admin/users") and sites._taken(app, "https://innohassle.ru/clubs/league")
+
+
+def test_a_file_a_page_links_is_not_read_as_a_page_and_one_kept_as_a_page_leaves(tmp_path, monkeypatch):
+    """lyceuminnopolis.ru (render: true) links its sitemap.xml and a video: the browser showed them as pages, and the addresses
+    of the sitemap reached the wiki as a page. A file is not asked for, an address the browser finds a file at is not kept, and
+    a file kept as a page before leaves as a page no link leads to."""
+    monkeypatch.setattr(sites, "ROOT", tmp_path)
+    monkeypatch.setattr(sites, "PAUSE", 0)
+    site = sites.Site("https://unit.example/", "ru", "a unit", r"^nothing$", sitemap=False, render=True)
+    links, asked = {"/": ["/a/", "/sitemap.xml", "/media/Promo.MP4", "/feed"], "/a/": []}, []
+
+    def render(url):
+        path = httpx.URL(url).path
+        asked.append(path)
+        if path == "/feed":
+            raise sites.NotAPage(url, "application/rss+xml")  # (no extension says so: the answer does)
+        menu = " ".join(f"<a href='{link}'>{link}</a>" for link in links[path])
+        return f"<html><head><title>{path}</title></head><body><div>{menu}</div><h1>Страница {path}</h1><p>{WORDS}</p></body></html>"
+
+    class Client:
+        def get(self, url):
+            raise AssertionError("an app is not asked over http")
+
+    monkeypatch.setattr(sites, "render_page", render)
+    assert not sites._taken(site, "https://unit.example/sitemap.xml") and not sites._taken(site, "https://unit.example/media/Promo.MP4")
+    assert sites._taken(site, "https://unit.example/a/") and sites._taken(site, "https://unit.example/page12.html")
+    assert sites.get_page(Client(), site, "https://unit.example/feed").headers["content-type"] == "application/rss+xml"
+    asked.clear()
+    sites.save("unit", {"pages": {"sitemap-xml": {"url": "https://unit.example/sitemap.xml", "title": "https://unit.example/sitemap.xml",
+                                                  "sha256": "0"}}, "docs": {}})
+    sites.fetch_site("unit", site, Client(), run="1")
+    pages = sites.load("unit")["pages"]
+    assert asked == ["/", "/a/", "/feed"] and set(pages) == {"home", "a", "sitemap-xml"}
+    assert pages["sitemap-xml"]["missing"]["why"] == "no link leads to it" and not pages["sitemap-xml"].get("gone")
+    sites.fetch_site("unit", site, Client(), run="2")
+    assert sites.load("unit")["pages"]["sitemap-xml"]["gone"]
 
 
 ASKS_FOR_SCRIPTS = (f"<html><head><title>Физмат</title></head><body><noscript>You need to enable JavaScript to run this app.</noscript>"

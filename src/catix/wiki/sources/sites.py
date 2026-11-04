@@ -72,6 +72,10 @@ MAX_PAGES = 60  # per site: the crawl follows the links of the site, this stops 
 DOC = re.compile(r"\.(pdf|docx?|rtf|zip|7z)$", re.I)
 ARCHIVE = re.compile(r"\.(zip|7z)$", re.I)
 DOWNLOAD = re.compile(r"/(?:download(?:\.php)?|file)/?$", re.I)
+NOT_PAGE = re.compile(r"\.(xml|rss|atom|json|webmanifest|txt|csv|ics|ya?ml|css|m?js|map|woff2?|ttf|otf|eot|jpe?g|png|gif|webp|avif|svg|ico|bmp"
+                      r"|tiff?|heic|mp4|webm|mov|m4v|ogv|avi|mkv|mp3|wav|ogg|oga|m4a|flac|aac|xlsx?|pptx?|od[tsp]|rar|t?gz|tar|exe|apk|dmg|iso)$", re.I)
+# ^ a file a page links, not a page (a sitemap, a picture, a video, a font): not asked for (a video would be downloaded whole to be
+#   dropped), and the browser of Site.render would show it as a page of its own (lyceuminnopolis.ru's sitemap.xml became a page)
 ARCHIVE_TYPES = {"application/zip": "zip", "application/x-zip-compressed": "zip", "application/x-7z-compressed": "7z"}
 UNIVERSITY = ("innopolis.university", "innopolis.ru", "innopolis.edu.ru", "innopolis.com", "innopolis.college")  # the hosts of the university and of the city
 MIN_WORDS = 10  # a page with fewer words (after the shared lines) is a page of pictures and buttons; a heading and a few links to its sections is a page
@@ -332,6 +336,14 @@ RENDER_IDLE = 5  # seconds of it the browser waits for the page's requests to en
 RENDER_STILL = 1.5  # seconds the text of the page stays the same: the scripts have filled it
 
 
+class NotAPage(httpx.TransportError):
+    """The browser was given a file, not a page (a feed, a video): it shows any answer as a page of its own."""
+
+    def __init__(self, url: str, kind: str):
+        super().__init__(f"{url} is {kind}, not a page")
+        self.kind = kind
+
+
 def render_page(url: str) -> str:
     """The page as the browser shows it after its scripts ran (headless Chromium through Playwright): for a page whose HTML is
     an empty shell ('You need to enable JavaScript to run this app'). The page is taken once its requests ended and its text
@@ -339,7 +351,8 @@ def render_page(url: str) -> str:
     come in 30 seconds, its text is there in 3). The browser of the system when there is one, else Playwright's own. Raises
     httpx.TransportError, as a site that does not answer, when the browser cannot start or read the page, and when the page's
     scripts took it to another host (Tilda's redirect block, a login of SSO): the page there is not this one, and this one is
-    not gone either (the link of a redirect block is in the page's <noscript>, which the crawl follows)."""
+    not gone either (the link of a redirect block is in the page's <noscript>, which the crawl follows). Raises NotAPage when
+    the answer is not HTML (an address with no extension that gives a feed or a file): the browser would show it as a page."""
     from playwright.sync_api import Error, sync_playwright
 
     try:
@@ -347,7 +360,10 @@ def render_page(url: str) -> str:
             browser = p.chromium.launch(executable_path=CHROMIUM, headless=True, args=["--no-sandbox"])
             try:
                 page = browser.new_page()
-                page.goto(url, wait_until="domcontentloaded", timeout=2 * RENDER_WAIT * 1000)
+                answer = page.goto(url, wait_until="domcontentloaded", timeout=2 * RENDER_WAIT * 1000)
+                kind = (answer.headers.get("content-type", "") if answer else "").split(";", 1)[0].strip().lower()
+                if kind and "html" not in kind:
+                    raise NotAPage(url, kind)
                 end = time.monotonic() + RENDER_WAIT
                 try:
                     page.wait_for_load_state("networkidle", timeout=RENDER_IDLE * 1000)
@@ -560,7 +576,10 @@ def get_page(client: httpx.Client, site: "Site", url: str) -> httpx.Response:
         if "last-modified" in page.headers:
             headers["last-modified"] = page.headers["last-modified"]
     else:
-        html = render_page(url)
+        try:
+            html = render_page(url)
+        except NotAPage as e:  # (the site's file as the site sent it: fetch_site leaves what is not a page)
+            return httpx.Response(200, headers={"content-type": e.kind}, request=httpx.Request("GET", url))
     return httpx.Response(200 if html else 404, headers=headers, text=html or "", request=httpx.Request("GET", url))
 
 
@@ -916,7 +935,7 @@ def read(html: str, url: str, headings: str | None = None) -> tuple[str, str, li
 
 def _taken(site: Site, url: str) -> bool:
     parts = urlsplit(url)
-    if parts.scheme not in {"http", "https"} or parts.netloc != urlsplit(site.base).netloc or DOC.search(parts.path):
+    if parts.scheme not in {"http", "https"} or parts.netloc != urlsplit(site.base).netloc or DOC.search(parts.path) or NOT_PAGE.search(parts.path):
         return False
     return not re.search(site.skip, unquote(parts.path).lstrip("/"), re.I)
 
@@ -996,7 +1015,8 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
 
     An address the index does not have is read before the known ones: a new item of a feed does not wait for 2000 old news
     (media's sitemap stopped in July 2024: its new pages are in the links of its start page), nor miss max_pages. With
-    `only_new` the pages of `start` are read and then only the new addresses they link (fetch_new), at most NEW_PAGES of them."""
+    `only_new` the pages of `start` are read and then only the new addresses they link (fetch_new), at most NEW_PAGES of them.
+    A few pages (`start`: a wave) do not read again a page this run read (`visited`): its site's run read it, and its links."""
     from catix.wiki.sources import crawl
 
     run = run or datetime.now(timezone.utc).isoformat()
@@ -1050,7 +1070,8 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
     while (fresh or todo) and len(seen) < limit:
         link = (fresh or todo).pop(0)
         url = url_of(link)
-        if url in seen or not _taken(site, url) or rules and not rules.can_fetch(regulations.HEADERS["User-Agent"], url):
+        if (url in seen or (partial and visited is not None and url in visited) or not _taken(site, url)
+                or rules and not rules.can_fetch(regulations.HEADERS["User-Agent"], url)):
             continue
         seen.add(url)
         if visited is not None:
@@ -1157,7 +1178,14 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
 
 def fetch(names: list[str] | None = None, only_new: bool = False, documents: bool = False, ocr: bool = False) -> int:
     """The sites named (every site when none is, the pending ones too), one after another, then the pages of other trusted
-    sites their pages link, wave after wave; the number of pages that are new, changed or gone.
+    sites their pages link, wave after wave; the number of pages that are new, changed or gone. In a site this run read whole
+    a wave reads the pages the run has not read yet (a page only another site leads to: its own run did not reach it, and
+    without the wave it would be gone a week later). In any other site it reads only the addresses its index does not have,
+    then the new addresses these link (fetch_site, only_new), NEW_DEPTH waves at most, as fetch_new does: its known pages are
+    the weekly run's, which reads them all again (the approval of a site that links one page of innopolis.university read
+    hundreds of the university's pages). A site never read and a site behind a login are left to the weekly run, which reads
+    them whole. `only_new` reads no site whole: the links of their cached pages that the sites they lead to do not have
+    (new_linked_pages), wave after wave.
 
     With `documents` (the weekly run) the waves go on through the documents: once the pages settle, the documents they link
     are read (regulations.read_new, which follows the documents those link; text layers only by default, scans queued for
@@ -1171,48 +1199,51 @@ def fetch(names: list[str] | None = None, only_new: bool = False, documents: boo
     if unknown := [n for n in names or [] if n not in every]:
         sys.exit(f"no site {', '.join(unknown)}: the sites are {', '.join(every)}")
     total, run = 0, datetime.now(timezone.utc).isoformat(timespec="seconds")
+    weekly = not names and not only_new  # (every site read whole: its waves have no end but what they bring)
     no_cookies = CookieJar(policy=DefaultCookiePolicy(allowed_domains=[]))  # every page as a new visitor sees it (robotics keeps the language of the last page in a cookie: its sitemap became English)
     with httpx.Client(headers=regulations.HEADERS, timeout=60, follow_redirects=True, cookies=no_cookies) as client:
-        linked: dict[str, set[str]] = {}
+        linked: dict[str, set[str]] = new_linked_pages(names) if only_new else {}
         visited: set[str] = set()
-        if only_new:
-            linked = new_linked_pages(names)
-            while linked:
-                wave, linked = linked, {}
-                for name, urls in wave.items():
-                    if name not in SITES:
-                        continue
-                    print(f"== {name}: {len(urls)} new linked pages")
-                    try:
-                        total += fetch_site(name, SITES[name], client, start=sorted(urls), linked=linked, visited=visited, run=run)
-                    finally:
-                        close_live()
-            return total
+        whole = set() if only_new else {name for name in every if not names or name in names}
         for name, site in every.items():
-            if names and name not in names:
+            if name not in whole:
                 continue
             print(f"== {name}: {site.base}")
             try:
                 total += fetch_site(name, site, client, linked=linked, visited=visited, run=run)
             finally:
                 close_live()
+
+        def unread(name: str, urls: set[str]) -> list[str]:
+            """The linked pages of a site a wave reads: those the run has not read, and of a site it did not read whole
+            only those its index does not have."""
+            urls = urls - visited  # (read since the link was found: by its site's run)
+            if name in whole:
+                return sorted(urls)
+            if SITES[name].profile or not (ROOT / name / "index.json").exists():
+                return []
+            known = known_urls(load(name))
+            return sorted(url for url in urls if url.rstrip("/") not in known)
+
+        prefixes = tuple(f"site-{name}-" for name in names) if names else None
         first = True
         while True:
-            while linked:
-                wave, linked = linked, {}
+            depth = 0
+            while linked and (weekly or depth < NEW_DEPTH):
+                wave, linked, depth = linked, {}, depth + 1
                 for name, urls in wave.items():
-                    urls = urls - visited  # (read since the link was found: by its site's run)
-                    if name not in SITES or not urls:
+                    if name not in SITES or not (start := unread(name, urls)):
                         continue
-                    print(f"== {name}: {len(urls)} linked pages")
+                    print(f"== {name}: {len(start)} linked pages" + ("" if name in whole else " it does not have"))
                     try:
-                        total += fetch_site(name, SITES[name], client, start=sorted(urls), linked=linked, visited=visited, run=run)
+                        total += fetch_site(name, SITES[name], client, start=start, linked=linked, visited=visited, run=run,
+                                            only_new=name not in whole)
                     finally:
                         close_live()
             if not documents:
                 break
             print("== the documents the pages link", flush=True)
-            read = regulations.read_new(prefixes=tuple(f"site-{name}-" for name in names) if names else None, ocr=ocr)
+            read = regulations.read_new(prefixes=prefixes, ocr=ocr)
             total += len(read)
             found = regulations.page_links_of(None if first and not names else read)
             first = False

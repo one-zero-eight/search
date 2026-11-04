@@ -257,7 +257,8 @@ def accept_pending(hosts: list[str] | None = None) -> list[str]:
 
 
 def build_approved(names: list[str]) -> None:
-    """Read the selected sites and build source pages/navigation, without the agent or a full wiki rebuild."""
+    """Read the selected sites (and of the trusted sites they link only the pages those do not have yet: sites.fetch) and
+    build source pages/navigation, without the agent, documents or a full wiki rebuild."""
     from catix.wiki import compile as compiler
 
     if not names:

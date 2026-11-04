@@ -125,7 +125,8 @@ ON_REQUEST = [Source("new-sites", timedelta(days=36500), _new_sites, "the sites 
 def sites_of(names: list[str]) -> Source:
     """The weekly `sites` limited to the named sites (`autopilot --site NAME`, a request of POST /sites/parse): their documents
     asked again (HEAD), their pages and, through them, the documents they link (text layers only, scans stay queued for OCR).
-    A name the catalog no longer has is passed by. The schedule of `sites` does not change: the other sites are not read."""
+    A name the catalog no longer has is passed by. The schedule of `sites` does not change: of the other sites only the pages
+    they do not have yet are read (sites.fetch), their known pages wait for the weekly run."""
     names = list(dict.fromkeys(names))
 
     def update() -> int:
