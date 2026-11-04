@@ -200,9 +200,7 @@ def test_cards_of_the_sources_found_in_this_turn():
 def test_mocks(client):
     act = client.post("/act/", json={"query": "book a room"}, headers=AUTH).json()
     assert act["tool_calls"] == [] and act["answer"]
-    assert client.get("/moodle/courses/grouped-by-semester").json() == {}
-    assert client.get("/moodle/courses", headers=AUTH).json() == []
-    assert client.post("/moodle/batch-courses", json={"courses": []}, headers=AUTH).status_code == 200
+    assert client.get("/moodle/courses").status_code == 404
     assert client.post("/moodle/parse", headers=AUTH).status_code == 410
 
 

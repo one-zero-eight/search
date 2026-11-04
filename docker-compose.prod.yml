@@ -105,7 +105,7 @@ services:
     ports:
       - "127.0.0.1:8090:8090" # personal calendars (/users/my-calendar.ics); put an HTTPS reverse proxy (Caddy, nginx) in front of it
 
-  # The HTTP API of the former search service (/search/search, /ask/, /act/, /moodle/*): the same paths, answered by the agent
+  # The HTTP API of the former search service (/search/search, /ask/, /act/): the same paths, answered by the agent
   # and the wiki. Put an HTTPS reverse proxy in front of it; API_ROOT_PATH is the prefix it serves the API under.
   api:
     <<: *app
