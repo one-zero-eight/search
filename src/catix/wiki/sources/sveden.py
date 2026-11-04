@@ -5,7 +5,7 @@
     catix-wiki sveden status      # what was found, kept, skipped and why, what is already in the bundle
     catix-wiki sveden override keep|skip PART...   # a person overrules the model for the documents whose title or URL contains PART
 
-Archives (7z/zip) are listed but not opened yet. Downloading, text extraction and the bundle pages are regulations.py (the same path as the first
+Archives (7z/zip) are containers of documents. Downloading, text extraction and the bundle pages are regulations.py (the same path as the first
 regulations). Decisions of the model are data: raw/sveden/triage.json keeps who decided (model or person) and the reason.
 """
 
@@ -29,7 +29,7 @@ BASE = "https://innopolis.university/"
 SECTIONS = "apply budget catering common document eduStandarts education employees grants inter managers objects paid_edu rating-system struct vacant".split()
 HEADERS = {"User-Agent": "catix-wiki/0.1 (Innopolis University assistant; polite crawl, one request a second)"}
 FILE = re.compile(r'<a[^>]+href="([^"]+\.(?:pdf|docx?|rtf|xlsx?|zip|7z))(?:\?[^"]*)?"[^>]*>(.*?)</a>', re.I | re.S)
-HANDLED = {"pdf", "docx", "doc", "rtf"}
+HANDLED = {"pdf", "docx", "doc", "rtf", "zip", "7z"}
 BATCH = 40
 PERSONAL = re.compile(r"personal|персональн|named (people|students|individuals)|list of (names|people|students|applicants)", re.I)
 
@@ -126,6 +126,10 @@ def triage(redo: bool = False) -> None:
     before = dict(decisions)
     if redo:  # new instructions or a better listing: ask again, but what a person decided stays
         decisions = {u: v for u, v in decisions.items() if v.get("by") == "person"}
+    for d in load(INDEX):
+        old = decisions.get(d["url"], {})
+        if d["ext"] in {"zip", "7z"} and old.get("by") == "code" and old.get("reason") == f"{d['ext']} archive or spreadsheet: not opened yet":
+            del decisions[d["url"]]  # newly supported, not a model's or person's rejection
     todo = [d for d in load(INDEX) if d["url"] not in decisions]
     for d in todo:
         if d["ext"] not in HANDLED:

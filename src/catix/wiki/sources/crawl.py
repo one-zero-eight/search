@@ -5,7 +5,7 @@ from urllib.parse import unquote, urlsplit
 
 from catix.wiki.sources import sites
 
-DOCUMENT = re.compile(r"\.(?:pdf|docx?|rtf)$", re.I)
+DOCUMENT = sites.DOC
 URL = re.compile(r"https?://[^\s<>()\[\]{}\"']+", re.I)
 PAGE = re.compile(r"(?<!\!)\[[^\]]*\]\((https?://[^)\s]+)\)", re.I)
 TRAILING = ",.;:!?)]}>'"

@@ -26,3 +26,23 @@ def test_a_link_in_a_panel_gives_the_panel_header():
     page = """<div class="expand-panel__header collapsed"> Программа бакалавриата 09.03.01 <i class="icon"></i></div>
       <ul><li><a download="" href="/upload/c/Результаты.pdf">Результаты опросов</a></li></ul>"""
     assert contexts(page) == ["Программа бакалавриата 09.03.01"]
+
+
+def test_supported_archives_are_reconsidered_but_person_decisions_stay(tmp_path, monkeypatch):
+    import json
+    from catix.wiki.sources import sveden
+
+    monkeypatch.setattr(sveden, "INDEX", tmp_path / "index.json")
+    monkeypatch.setattr(sveden, "TRIAGE", tmp_path / "triage.json")
+    docs = [{"url": f"https://innopolis.university/{n}.zip", "ext": "zip", "title": n, "sections": ["document"]}
+            for n in ("old", "manual", "new")]
+    sveden.INDEX.write_text(json.dumps(docs))
+    sveden.TRIAGE.write_text(json.dumps({docs[0]["url"]: {"decision": "skip", "by": "code", "reason": "zip archive or spreadsheet: not opened yet"},
+                                        docs[1]["url"]: {"decision": "skip", "by": "person", "reason": "not relevant"}}))
+    called = []
+    monkeypatch.setattr(sveden, "_llm", lambda system, listing: called.append(listing) or ("1: KEEP useful\n2: KEEP useful", {}))
+    sveden.triage()
+    decisions = json.loads(sveden.TRIAGE.read_text())
+    assert len(called) == 1 and "manual" not in called[0]
+    assert decisions[docs[0]["url"]]["decision"] == decisions[docs[2]["url"]]["decision"] == "keep"
+    assert decisions[docs[1]["url"]]["decision"] == "skip"

@@ -69,7 +69,10 @@ ROOT = RAW / "sites"
 FOLDER = "sites"
 PAUSE = 2  # seconds between requests
 MAX_PAGES = 60  # per site: the crawl follows the links of the site, this stops a calendar or a catalogue from running away
-DOC = re.compile(r"\.(pdf|docx?|rtf)$", re.I)
+DOC = re.compile(r"\.(pdf|docx?|rtf|zip|7z)$", re.I)
+ARCHIVE = re.compile(r"\.(zip|7z)$", re.I)
+DOWNLOAD = re.compile(r"/(?:download(?:\.php)?|file)/?$", re.I)
+ARCHIVE_TYPES = {"application/zip": "zip", "application/x-zip-compressed": "zip", "application/x-7z-compressed": "7z"}
 UNIVERSITY = ("innopolis.university", "innopolis.ru", "innopolis.edu.ru", "innopolis.com", "innopolis.college")  # the hosts of the university and of the city
 MIN_WORDS = 10  # a page with fewer words (after the shared lines) is a page of pictures and buttons; a heading and a few links to its sections is a page
 NEW_PAGES = 50  # new pages a run of new pages (fetch_new) reads on one site besides its start pages: a feed shows tens, a calendar would run away
@@ -593,7 +596,8 @@ def put_cache(name: str, slug: str, text: str) -> str:
 def canonical(url: str) -> str:
     """One spelling of a link: the site writes the same file with spaces, Cyrillic or %-escapes."""
     parts = urlsplit(url)
-    return f"https://{parts.netloc}{quote(unquote(parts.path), safe='/')}"
+    query = f"?{parts.query}" if parts.query and (ARCHIVE.search(parts.path) or DOWNLOAD.search(parts.path)) else ""
+    return f"https://{parts.netloc}{quote(unquote(parts.path), safe='/')}{query}"
 
 
 def slug_of(site: Site, url: str) -> str:
@@ -1011,7 +1015,7 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
 
     def put(link: str) -> None:
         url = url_of(link)
-        if "?" not in url and url.rstrip("/") not in known:  # (a page of a list is never kept: not a new page, and the next pages of a list are old ones)
+        if ("?" not in url or DOWNLOAD.search(urlsplit(url).path)) and url.rstrip("/") not in known:  # listing queries are not new pages; download IDs are distinct files
             fresh.append(link)
         elif not only_new:
             todo.append(link)
@@ -1042,6 +1046,7 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
     first: dict[str, str] = {}  # the words of a page (their hash) -> the page read with them first in this run
     limit = min(site.max_pages, len(todo) + NEW_PAGES) if only_new else site.max_pages
 
+
     while (fresh or todo) and len(seen) < limit:
         link = (fresh or todo).pop(0)
         url = url_of(link)
@@ -1054,6 +1059,17 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
         if index["pages"].get(slug, {}).get("url", url).rstrip("/") != url.rstrip("/"):  # (two paths, one slug: a Cyrillic path leaves nothing of itself, 'home' is taken)
             slug = f"{slug[:50]}-{hashlib.sha1(url.encode()).hexdigest()[:6]}"
         try:
+            if DOWNLOAD.search(urlsplit(url).path):
+                # Do not GET a potentially large binary just to classify it as an archive.
+                head = client.head(url)
+                kind = ARCHIVE_TYPES.get(head.headers.get("content-type", "").split(";", 1)[0].lower())
+                if head.status_code == 200 and kind and crawl.provider(url):
+                    docs[url] = index["docs"].get(url, urlsplit(url).path.rsplit("/", 1)[-1])
+                    index.setdefault("archive_types", {})[url] = kind
+                    changed += url not in index["docs"]
+                    read_ok += 1
+                    time.sleep(PAUSE if site.pause is None else site.pause)
+                    continue
             resp = get_page(client, site, url)
             time.sleep(PAUSE if site.pause is None else site.pause)
         except httpx.HTTPError as e:
@@ -1083,7 +1099,7 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
         if (extra := EXTRAS.get((name, slug))):
             text = extra(client, resp.text, str(resp.url), text)
         for link, anchor in links:
-            if DOC.search(urlsplit(link).path) and crawl.provider(link):
+            if (DOC.search(urlsplit(link).path) or canonical(link) in index.get("archive_types", {})) and crawl.provider(link):
                 doc = canonical(link)
                 docs[doc] = max(docs.get(doc, ""), anchor, key=len)  # the fullest of the link texts: 'Правила проживания', not 'Правила'
             elif _taken(site, link) or crawl.provider(link) == name:
@@ -1311,15 +1327,16 @@ def docs() -> dict[str, dict]:
     providers, as every document of a site's index)."""
     out = {}
     for name, site in every_site().items():
-        for url, anchor in load(name)["docs"].items():
-            file = unquote(url.rsplit("/", 1)[-1])
+        index = load(name)
+        for url, anchor in index["docs"].items():
+            file = unquote(urlsplit(url).path.rsplit("/", 1)[-1])
             stem = re.sub(r"[_]+", " ", file.rsplit(".", 1)[0]).strip()
             if re.search(r"(?i)\.(pdf|docx?|xlsx?|pptx?|rtf|odt)$", anchor):  # the link says the file's name (help: 'Приказ ад-01.2019.12.23 регламент_процесса_….pdf')
                 anchor = re.sub(r"_+", " ", anchor.rsplit(".", 1)[0]).strip()
             title = anchor if len(anchor) >= 12 and not re.fullmatch(r"(?i)(скачать|здесь|тут|download|here|подробнее|ссылк\w*)", anchor) else stem
             title = re.sub(r"\s+", " ", re.sub(r"\s*\(\d\)$", "", title)).strip()  # ('… 2025 год (2)': the second copy of a file)
             key = f"site-{name}-" + hashlib.sha1(url.encode()).hexdigest()[:8] + "-" + (latin(stem)[:40].strip("-") or "doc")
-            out[key] = {"title": title, "url": url, "root": ROOT / name / "docs", "section": f"site/{name}", "ext": file.rsplit(".", 1)[-1].lower(),
+            out[key] = {"title": title, "url": url, "root": ROOT / name / "docs", "section": f"site/{name}", "ext": index.get("archive_types", {}).get(url, file.rsplit(".", 1)[-1].lower()),
                         **({"audience": list(site.audience)} if site.audience else {})}  # (the regulations of help are for the staff, as its pages)
     return out
 

@@ -160,6 +160,9 @@ def save(index: dict) -> None:
 def fetch(all_years: bool | None = None, limit: int | None = None) -> int:
     """Download the archives not read yet, unpack them and keep the text of every programme inside. Polite: one archive every
     `regulations.PAUSE` seconds, stop after `regulations.MAX_FAILURES` network errors in a row."""
+    from catix.wiki.sources import archives as containers
+    from catix.wiki.sources import archive_documents
+
     work = ROOT / "archives"
     work.mkdir(parents=True, exist_ok=True)
     index = load()
@@ -172,10 +175,12 @@ def fetch(all_years: bool | None = None, limit: int | None = None) -> int:
         akey = hashlib.sha1(a["url"].encode()).hexdigest()[:10]
         path = work / f"{akey}.{a['ext']}"
         if not path.exists():
+            partial = path.with_suffix(path.suffix + ".part")
             try:
-                resp = httpx.get(a["url"], timeout=300, follow_redirects=True, headers=regulations.HEADERS)
-                resp.raise_for_status()
-            except httpx.HTTPError as e:
+                signature = archive_documents.download(a["url"], partial)
+                partial.replace(path)
+            except (httpx.HTTPError, containers.ArchiveError) as e:
+                partial.unlink(missing_ok=True)
                 print(f"  FAILED {a['url']}: {e}")
                 if isinstance(e, httpx.HTTPStatusError) and e.response.status_code == 404:  # a dead link on the site itself: not asked again
                     index[f"archive-{akey}"] = {"archive": a["url"], "archive_title": a["title"], "skipped": "404 on the site"}
@@ -189,29 +194,30 @@ def fetch(all_years: bool | None = None, limit: int | None = None) -> int:
                 time.sleep(regulations.PAUSE + 5 * failures)
                 continue
             failures = 0
-            path.write_bytes(resp.content)
-            remote[a["url"]] = regulations.signature(resp.headers)
+            remote[a["url"]] = signature
             REMOTE.write_text(json.dumps(remote, ensure_ascii=False, indent=1, sort_keys=True), encoding="utf-8")
             time.sleep(regulations.PAUSE)
         unpacked = work / akey
         shutil.rmtree(unpacked, ignore_errors=True)
-        unpacked.mkdir()
-        # bsdtar reads 7z and zip; it refuses absolute paths and '..' in the archive by default.
-        if subprocess.run(["bsdtar", "-xf", str(path), "-C", str(unpacked)], capture_output=True).returncode != 0:
-            print(f"  cannot unpack {a['url']}")
+        try:
+            members = containers.unpack(path, unpacked)
+        except containers.ArchiveError as e:
+            print(f"  cannot unpack {a['url']}: {e.status}")
             continue
         level, label = programme_label(a["programme"])
         found = 0
-        for member in sorted(p for p in unpacked.rglob("*") if p.is_file() and not p.is_symlink() and p.suffix.lower() in {".pdf", ".docx", ".doc"}):
-            rel = file_name(member.relative_to(unpacked).as_posix())
+        for item in members:
+            if item["status"] != "ready":
+                continue
+            member, rel = unpacked / item["file"], item["member"]
             try:
                 text, method, _ = regulations.extract(regulations.to_pdf(member), 0)  # no OCR: the programmes have a text layer
             except (ValueError, subprocess.SubprocessError, AttributeError) as e:
                 text, method = None, f"cannot read: {e}"
-            kind, code, name = name_of(text or "", member.name)
+            kind, code, name = name_of(text or "", Path(rel).name)
             key = key_of(a["url"], rel, code, name)
             entry = {"archive": a["url"], "archive_title": a["title"], "member": rel, "programme": label, "level": level, "year": a["year"],
-                     "semester": semester_of(a["title"], member.name), "kind": kind, "code": code, "name": name,
+                     "semester": semester_of(a["title"], Path(rel).name), "kind": kind, "code": code, "name": name,
                      "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
             if text is None or not regulations.readable(text):
                 index[key] = {**entry, "skipped": method if text is None else "no readable text"}

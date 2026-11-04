@@ -59,6 +59,16 @@ def test_material_links_follow_only_accepted_providers(providers):
     ]
 
 
+def test_archives_are_documents_not_html_pages(providers):
+    from catix.wiki.sources import crawl
+
+    urls = ["https://a.example/upload/rules.zip", "https://b.example/programmes.7z"]
+    text = " ".join(urls + ["https://pending.example/private.zip"])
+    assert crawl.document_links(text, "https://a.example/source.pdf") == urls
+    assert crawl.text_page_links(text, "https://a.example/source.pdf") == []
+    assert all(sites.DOC.search(url) for url in urls)
+
+
 def test_linked_documents_are_persisted_and_are_input_to_regulations(providers):
     from catix.wiki.sources import regulations
 

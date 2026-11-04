@@ -14,7 +14,7 @@ COPY courses.toml ./
 RUN uv sync --frozen --no-dev
 
 # The Max API is served with a certificate of the Russian Ministry of Digital Development (see settings.max_root_ca).
-RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates curl \
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates curl libarchive13 \
     && rm -rf /var/lib/apt/lists/* \
     && curl -fsSL https://gu-st.ru/content/lending/russian_trusted_root_ca_pem.crt -o /app/russian_root_ca.crt
 

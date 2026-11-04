@@ -339,6 +339,7 @@ dependencies = [
     { name = "icalendar" },
     { name = "langchain" },
     { name = "langchain-openai" },
+    { name = "libarchive-c" },
     { name = "markdownify" },
     { name = "opendataloader-pdf" },
     { name = "openinference-instrumentation-langchain" },
@@ -383,6 +384,7 @@ requires-dist = [
     { name = "icalendar", specifier = ">=7.3.0" },
     { name = "langchain", specifier = ">=1.4.5" },
     { name = "langchain-openai", specifier = ">=1.7.2" },
+    { name = "libarchive-c", specifier = ">=5.3" },
     { name = "markdownify", specifier = ">=1.2.3" },
     { name = "opendataloader-pdf", specifier = ">=2.5.17" },
     { name = "openinference-instrumentation-langchain", specifier = ">=0.1.79" },
@@ -1584,6 +1586,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/a2/f7/07a02241b6e6ed3df4e31a64ed09cb522c47227816da3d71097e7cf94657/langsmith-0.14.12.tar.gz", hash = "sha256:b4d6a24ed74333095da476803ad9d22ee35f9dae1052cebf1e366d3889a9b675", size = 5038994, upload-time = "2026-10-21T20:16:22.565Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/c6/6c/33e2de8d8d809895263e4f24ef7619e5535e3ece7de863ffbe49c1b7a60d/langsmith-0.14.12-py3-none-any.whl", hash = "sha256:9dafba7f615afa77204dc8afbb9c803e4ba1b55e96249f12c8f9aafb23fae6d0", size = 883644, upload-time = "2026-10-21T20:16:20.039Z" },
+]
+
+[[package]]
+name = "libarchive-c"
+version = "5.3"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/26/23/e72434d5457c24113e0c22605cbf7dd806a2561294a335047f5aa8ddc1ca/libarchive_c-5.3.tar.gz", hash = "sha256:5ddb42f1a245c927e7686545da77159859d5d4c6d00163c59daff4df314dae82", size = 54349, upload-time = "2025-05-22T08:08:04.604Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/88/3f/ff00c588ebd7eae46a9d6223389f5ae28a3af4b6d975c0f2a6d86b1342b9/libarchive_c-5.3-py3-none-any.whl", hash = "sha256:651550a6ec39266b78f81414140a1e04776c935e72dfc70f1d7c8e0a3672ffba", size = 17035, upload-time = "2025-05-22T08:08:03.045Z" },
 ]
 
 [[package]]

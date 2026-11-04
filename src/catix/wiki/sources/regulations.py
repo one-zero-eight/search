@@ -139,6 +139,14 @@ def all_docs() -> dict[str, dict]:
         from catix.wiki.sources import mock
 
         docs.update(mock.docs())
+    from catix.wiki.sources import archive_documents
+
+    if any(d.get("ext") in archive_documents.EXTENSIONS for d in docs.values()):
+        from catix.wiki.sources import rpd
+
+        specialised = {sites.canonical(a["url"]) for a in rpd.archives()}
+        docs = {key: d for key, d in docs.items() if sites.canonical(d["url"]) not in specialised}
+    docs.update(archive_documents.members(docs))
     boiler = re.compile(r"^(?:Высшее образование\s*[-–]\s*\w+\s*)?(?:Образовательная программа высшего образования\s*[-–]\s*программа\s*\w+\s*)?")
     for d in docs.values():
         d["context"] = boiler.sub("", d.get("context", "")).strip()  # the level and 'educational programme of higher education' are the same for all
@@ -402,7 +410,7 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
     layer gives too little of) is not read: it is queued (`"ocr": "queued"` in its note) for a run with OCR, which reads it
     without asking its text layer again; the runs without OCR pass it by (the 6-hourly run needs no OCR model up).
     A scan chandra does not read stays queued, regardless of the number of failed attempts."""
-    from catix.wiki.sources import opendataloader, sites
+    from catix.wiki.sources import archive_documents, opendataloader, sites
 
     # Pick up university-hosted files already present in compiled site pages;
     # the site crawl itself records the links it saw while reading a page.
@@ -411,9 +419,10 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
     def skip(d: dict, meta: Path, why: str) -> None:
         meta.write_text(json.dumps({"title": d["title"], "url": d["url"], "skipped": why}), encoding="utf-8")
 
+    removed = archive_documents.prepare(all_docs(), prefixes)
     docs, failures, downloaded, queued = all_docs(), 0, [], set()
     for key, d in docs.items():
-        if prefixes and not key.startswith(prefixes):
+        if archive_documents.is_archive(key, d) or prefixes and not key.startswith(prefixes):
             continue
         root: Path = d["root"]
         root.mkdir(parents=True, exist_ok=True)
@@ -429,6 +438,9 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
             break
         print(key, flush=True)
         if not src.exists():
+            if d.get("member"):
+                print("  archive member is missing locally: left for the next archive extraction")
+                continue  # its citation URL is the container, never a download URL for this member
             try:
                 resp = httpx.get(d["url"], timeout=120, follow_redirects=True, headers=HEADERS)
                 resp.raise_for_status()
@@ -487,7 +499,7 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
                                     "queued_at": old.get("queued_at") or datetime.now(timezone.utc).isoformat(timespec="seconds"), **more},
                                    ensure_ascii=False, indent=1), encoding="utf-8")
 
-    ocr_left, done, scans = OCR_BUDGET, [], []
+    ocr_left, done, scans = OCR_BUDGET, list(removed), []
     with opendataloader.converted([pdf for key, _, _, pdf, _, _, _ in downloaded if key not in queued]) as jsons:
         for item in downloaded:
             key, d, src, pdf, meta, old, remote = item
@@ -565,9 +577,20 @@ def refresh(prefix: str = "") -> int:
     """Ask the site (HEAD, one request every PAUSE seconds) whether each downloaded document is still the same file. A changed
     one is marked `refetch`: the next `fetch` downloads and reads it again (its page stays until then). The first check of a
     document only records what the site says about it. The number of changed documents."""
+    from catix.wiki.sources import archive_documents
+
     found, failures = 0, 0
     with httpx.Client(headers=HEADERS, timeout=60, follow_redirects=True) as client:
         for key, d in all_docs().items():
+            if d.get("member") or not key.startswith(prefix):
+                continue
+            if archive_documents.is_archive(key, d):
+                try:
+                    found += archive_documents.refresh(key, d, client)
+                except httpx.HTTPError as e:
+                    print(f"{key}: archive refresh failed: {e}")
+                time.sleep(PAUSE)
+                continue
             path = d["root"] / f"{key}.json"
             meta = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
             if not key.startswith(prefix) or "sha256" not in meta or meta.get("refetch"):
@@ -685,20 +708,29 @@ def compile_all() -> None:
     """Every kept document -> wiki/raw/regulations/<key>.md, made by code on every run (title, date, audience, text, tables), so
     that a better extraction or a better title reaches the pages. No model: a description would retell the document's own
     title in English, its tags nothing reads; the audience follows from the section that lists it (AUDIENCE_OF_SECTION)."""
+    from catix.wiki.sources import archive_documents
+
     paths.DOCS.joinpath("regulations").mkdir(parents=True, exist_ok=True)
     docs = all_docs()
     for page in paths.DOCS.joinpath("regulations").glob("sveden-*.md"):
         if page.stem not in docs:  # the document is no longer kept (a new decision of the triage, or it left the site)
             page.unlink()
             print(f"{page.stem}: no longer kept, page removed")
+    for page in paths.DOCS.joinpath("regulations").glob("*-member-*.md"):
+        if page.stem not in docs and "\narchive_member:" in page.read_text(encoding="utf-8"):
+            page.unlink()  # only a successfully published archive manifest can remove its old members
     written = 0
     for key, d in docs.items():
+        if archive_documents.is_archive(key, d):
+            continue
         root: Path = d["root"]
         if not (root / f"{key}.json").exists():
             continue
         meta = json.loads((root / f"{key}.json").read_text(encoding="utf-8"))
         target = paths.DOCS / "regulations" / f"{key}.md"
         if "sha256" not in meta:
+            if d.get("member"):
+                target.unlink(missing_ok=True)  # a new revision is queued: do not publish the old member's text
             continue
         title = docs[key]["title"]  # (not the one stored at download time: the titles are made unique across all documents)
         text = (root / f"{key}.txt").read_text(encoding="utf-8")
@@ -710,7 +742,8 @@ def compile_all() -> None:
         body = to_markdown(text)
         issued = issued_of(text, meta["fetched_at"])
         ocr = meta["method"].startswith("ocr")
-        front = ["---", "type: regulation", f"title: {yaml_value(title)}", f"resource: {yaml_value(meta['url'])}", *([f"audience: {yaml_value(audience)}"] if audience else []),
+        front = ["---", "type: regulation", f"title: {yaml_value(title)}", f"resource: {yaml_value(meta['url'])}",
+                 *([f"archive_member: {yaml_value(d['member'])}"] if d.get("member") else []), *([f"audience: {yaml_value(audience)}"] if audience else []),
                  "source_kind: official-document", "language: ru", f"section: {yaml_value(meta.get('section', 'document'))}",
                  "sources:", f"  - resource: {yaml_value(meta['url'])}", f"    id: {yaml_value(meta['sha256'][:12])}", f"    title: {yaml_value(title)}", f"    last_modified: {yaml_value(issued)}",
                  "generated:", f"  by: {yaml_value(PRODUCER + ' regulations')}", f"  at: {yaml_value(meta['fetched_at'])}",

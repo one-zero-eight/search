@@ -2,6 +2,50 @@
 
 from catix.wiki.sources.rpd import FACILITIES, latin, name_of, programme_label, semester_of
 
+
+def test_course_programmes_use_the_shared_safe_archive_reader(tmp_path, monkeypatch):
+    import hashlib
+    import zipfile
+    from catix.wiki.sources import archives, regulations, rpd
+
+    monkeypatch.setattr(rpd, "ROOT", tmp_path)
+    monkeypatch.setattr(rpd, "INDEX", tmp_path / "index.json")
+    monkeypatch.setattr(rpd, "REMOTE", tmp_path / "archives.json")
+    url = "https://innopolis.university/programme.zip"
+    monkeypatch.setattr(rpd, "archives", lambda *a: [{"url": url, "ext": "zip", "title": "1 семестр", "year": 2026,
+                                                    "programme": "бакалавриата: Информатика"}])
+    folder = tmp_path / "archives"
+    folder.mkdir()
+    name = "Б1.О.18_Численные_методы.pdf"
+    with zipfile.ZipFile(folder / f"{hashlib.sha1(url.encode()).hexdigest()[:10]}.zip", "w") as archive:
+        archive.writestr(name, b"%PDF course")
+    called = []
+    unpack = archives.unpack
+    monkeypatch.setattr(archives, "unpack", lambda path, dest: called.append(path) or unpack(path, dest))
+    monkeypatch.setattr(regulations, "extract", lambda *a: ("1. Цель программы " * 70, "text layer", 0))
+    assert rpd.fetch() == 1 and len(called) == 1
+    row = next(iter(rpd.load().values()))
+    assert row["member"] == name and row["code"] == "Б1.О.18" and row["name"] == "Численные методы"
+
+
+def test_course_archive_download_is_bounded(tmp_path, monkeypatch):
+    import pytest
+    from catix.wiki.sources import archive_documents, archives, regulations, rpd
+
+    monkeypatch.setattr(rpd, "ROOT", tmp_path)
+    monkeypatch.setattr(rpd, "INDEX", tmp_path / "index.json")
+    monkeypatch.setattr(rpd, "REMOTE", tmp_path / "archives.json")
+    monkeypatch.setattr(regulations, "PAUSE", 0)
+    monkeypatch.setattr(rpd.time, "sleep", lambda _: None)
+    monkeypatch.setattr(rpd, "archives", lambda *a: [{"url": "https://innopolis.university/a.zip", "ext": "zip", "title": "Courses"}])
+    monkeypatch.setattr(rpd.httpx, "get", lambda *a, **kw: pytest.fail("unbounded archive download"))
+    def too_large(url, destination):
+        destination.write_bytes(b"partial")
+        raise archives.ArchiveError("limit", "too large")
+    monkeypatch.setattr(archive_documents, "download", too_large)
+    assert rpd.fetch() == 0
+    assert not list((tmp_path / "archives").glob("*"))
+
 HEADER = """Председатель Ученого совета
 А.В. Гасников
 РАБОЧАЯ ПРОГРАММА ДИСЦИПЛИНЫ (МОДУЛЯ)
