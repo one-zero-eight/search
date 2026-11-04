@@ -260,8 +260,8 @@ def working_tree() -> str:
 
 
 def accept(push: bool = True) -> str:
-    """The changes waiting for review, committed to `wiki` as a person accepted them. The pending sites become accepted."""
-    discover.accept_pending()
+    """Approve/build pending sites, then commit data (including raw/sites.yaml) to `wiki`. Code is never edited."""
+    discover.approve_sites(discover.pending_hosts())
     git("add", "-A")
     if bad := outside(git("diff", "--cached", "--name-only").splitlines()):
         git("reset", "-q")

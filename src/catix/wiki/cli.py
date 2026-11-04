@@ -64,7 +64,7 @@ def parser() -> argparse.ArgumentParser:
         ("regs", "Official regulations", None, ("fetch", "compile", "reextract", "refresh")),
         ("rpd", "Course programmes", "status", ("fetch", "compile", "refresh", "status")),
         ("papers", "Past exam papers", "status", ("fetch", "compile", "status")),
-        ("sites", "University and city sites", "status", ("fetch", "compile", "status", "docs", "discover", "explore", "add", "review", "accept", "approve", "reject")),
+        ("sites", "University and city sites", "status", ("fetch", "compile", "status", "docs", "discover", "explore", "add", "review", "accept", "approve", "reject", "migrate")),
     ):
         group = command(commands, name, about)
         actions_parser = group.add_subparsers(dest="action", required=default is None)
@@ -94,6 +94,8 @@ def parser() -> argparse.ArgumentParser:
                     leaf.add_argument("--max-sites", type=positive, default=60, help="Stop after a round reaches this many new sites (default: 60)")
                 elif action == "add":
                     leaf.add_argument("addresses", nargs="+", metavar="HOST_OR_URL")
+                elif action == "migrate":
+                    leaf.add_argument("--from", dest="source", type=Path, help="Old sites.yaml; used only when the data catalog is absent")
                 elif action in ("accept", "approve", "reject"):
                     selection = leaf.add_mutually_exclusive_group(required=True)
                     selection.add_argument("names", nargs="*", metavar="HOST_OR_NAME")

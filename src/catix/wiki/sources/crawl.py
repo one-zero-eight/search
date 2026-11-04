@@ -18,10 +18,10 @@ def _site_hosts(site) -> set[str]:
 def provider(url: str) -> str | None:
     """The configured provider name for a safe URL, or None.
 
-    Explicit SITES entries are trusted. A discovered site is trusted only after
-    its persisted status becomes ``accepted``; pending sites are deliberately
-    excluded even though load_discovered adds them to SITES for safe crawling.
+    SITES contains only the approved raw/sites.yaml catalog, refreshed from disk.
+    Pending JSON records may be crawled explicitly, but do not grant provider trust.
     """
+    sites.reload_catalog()
     parts = urlsplit(url)
     if parts.scheme != "https" or parts.port is not None or parts.username or parts.password or not parts.hostname:
         return None

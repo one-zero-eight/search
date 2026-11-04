@@ -5,29 +5,27 @@
     catix-wiki sites explore [--rounds 10] [--max-sites 60]   # discover --all, read what was found, look in its pages for more, again, until a round finds nothing
     catix-wiki sites add HOST_OR_URL ...                      # hosts you found yourself: probed, then pending like the others (no link needed)
     catix-wiki sites review                                   # what the pending sites gave: pages read, titles, who links them; and the hosts that need access
-    catix-wiki sites approve HOST_OR_NAME ... | --all         # worth keeping: move it from discovery to sources/sites.yaml
+    catix-wiki sites approve HOST_OR_NAME ... | --all         # approve in WIKI_ROOT/raw/sites.yaml, fetch pages and build wiki navigation
     catix-wiki sites accept HOST_OR_NAME ... | --all          # alias for approve
     catix-wiki sites reject HOST_OR_NAME ... | --all          # not worth it: forgotten for good, with the pages read
 
 A host is a candidate when
-  - it is a host of the university (innopolis.university, innopolis.ru, innopolis.edu.ru, innopolis.com, innopolis.college,
-    and their subdomains), or another host with the word `inno` in its name (innopolis, innohassle, inno-..., not
-    `innovation`), that one page of the bundle links;
+  - one page of the bundle links it, whatever its name; hosts of the university are probed first;
   - it is not read yet (no site of SITES, no alias of one), is not one a person rejected, and did not fail a probe lately.
 The links come from the pages of the bundle, never from what people write in the chats: anyone can write a link there.
 
 A candidate is probed before anything is kept: its name must resolve to public addresses only, https, its robots.txt must not
-close the start page, the start page (and where it redirects, which must be a host of the same kind) must have words of its
+close the start page, the start page (and where it redirects, which must also resolve to public addresses) must have words of its
 own, not a login or an empty shell. A bot check that answers in place of the start page ('Вы не робот?' of timepad, behind
 Yandex) is asked again (sites.get_through: the wall comes and goes), and named when it lets nothing through. A host that
 passes becomes a *pending* site in raw/sites-discovered.json and is read like the others, but with the safe settings of
-sites.load_discovered (30 pages, robots.txt, a slow pace). A pending site never reaches the static catalog by itself: a
-person reviews it, then `sites approve` moves it to sources/sites.yaml; `sites reject` forgets it. Failed and closed probes
+sites.found_site (30 pages, robots.txt, a slow pace). Its settings are in the record's `config`; it is not a trusted provider.
+A person reviews it, then `sites approve` moves it to raw/sites.yaml in the same data checkout; `sites reject` forgets it. Failed and closed probes
 remain in raw/sites-discovered.json so discover can retry or show that access is needed. At most MAX_NEW sites a run.
 """
 
 import ipaddress
-import json
+import fcntl
 import re
 import socket
 import sys
@@ -45,7 +43,6 @@ from catix.settings import settings
 from catix.wiki.sources import eduwiki, regulations, sites, sveden
 
 UNIVERSITY = sites.UNIVERSITY
-INNO = re.compile(r"(^|[.-])inno(polis|hassle)?([.-]|$)|innopolis|innohassle")
 MIN_PAGES = 1  # pages of the bundle that must link the host: one link is enough (a person decides in `sites review`)
 MAX_NEW = 10  # sites found in one run
 MAX_PROBES = 60  # hosts probed in one run
@@ -64,11 +61,11 @@ def host_of(url: str) -> str:
     return (urlsplit(url).hostname or "").lower().rstrip(".").removeprefix("www.")  # (a name may end with a dot: 'innopoliscamp.ru.')
 
 
-def kind_of(host: str) -> str | None:
-    """'university' for a host of the university, 'inno' for another with the word in its name, else None."""
+def kind_of(host: str) -> str:
+    """'university' for a host of the university, 'external' for any other host; a priority, not a filter."""
     if any(host == s or host.endswith("." + s) for s in UNIVERSITY):
         return "university"
-    return "inno" if INNO.search(host) else None
+    return "external"
 
 
 def read_by_code() -> set[str]:
@@ -80,8 +77,9 @@ def read_by_code() -> set[str]:
 
 def known_hosts() -> set[str]:
     """The hosts that are read already or must not be asked: what the code reads, every site of SITES with its aliases, and the found ones."""
+    sites.reload_catalog()
     known = read_by_code()
-    for site in sites.SITES.values():
+    for site in sites.every_site().values():
         known |= {host_of(site.base), *site.aliases}
     return known | sites.BLOCKED | {host for host, entry in sites.discovered().items() if entry.get("status") not in ("failed", "closed")}  # (a failed or closed one is asked again later: retry_later)
 
@@ -102,7 +100,7 @@ def candidates(rejected: set[str]) -> list[tuple[str, str, list[str]]]:
     out = []
     for host, pages in links_by_host().items():
         kind = kind_of(host)
-        if not kind or host in known or host in rejected or len(pages) < MIN_PAGES:
+        if host in known or host in rejected or len(pages) < MIN_PAGES:
             continue
         out.append((host, kind, sorted(pages)))
     out.sort(key=lambda c: (c[1] != "university", -len(c[2]), c[0]))
@@ -146,7 +144,7 @@ def probe(host: str, client: httpx.Client) -> dict | str:
     if final != host:
         if final in known_hosts():
             return f"is {final} (a site read already)"
-        if not kind_of(final) or not public(final):
+        if not public(final):
             return f"redirects to {final}"
     if page.status_code in (401, 403):
         return f"{CLOSED} (HTTP {page.status_code})"
@@ -175,10 +173,10 @@ def probe(host: str, client: httpx.Client) -> dict | str:
 
 
 def write(found: dict) -> None:
-    text = json.dumps({"sites": found}, ensure_ascii=False, indent=1, sort_keys=True)
-    if not sites.DISCOVERED.exists() or sites.DISCOVERED.read_text(encoding="utf-8") != text:
-        sites.DISCOVERED.parent.mkdir(parents=True, exist_ok=True)
-        sites.DISCOVERED.write_text(text, encoding="utf-8")
+    found = {host: {**entry, "name": sites.discovered_name(host, entry),
+                    "config": sites.site_values(sites.found_site(host, entry)) | entry.get("config", {})}
+             if entry.get("status") == "pending" else entry for host, entry in found.items()}
+    sites.write_discovered(found)
 
 
 def discover(rejected: set[str] = frozenset(), client: httpx.Client | None = None, dry_run: bool = False, pause: float = sites.PAUSE,
@@ -219,16 +217,17 @@ def discover(rejected: set[str] = frozenset(), client: httpx.Client | None = Non
             own.close()
     if not dry_run:
         write(found)
-        sites.load_discovered()
     return added
 
 
 def pending_hosts() -> list[str]:
-    return sorted(host for host, entry in sites.discovered().items() if entry.get("status") == "pending")
+    pending = sites.pending_sites()
+    return sorted(host for host, entry in sites.discovered().items()
+                  if entry.get("status") == "pending" and sites.discovered_name(host, entry) in pending)
 
 
 def accept_pending(hosts: list[str] | None = None) -> list[str]:
-    """Approve pending sites: copy them to sites.yaml and remove them from the discovery queue."""
+    """Approve pending sites in raw/sites.yaml and remove them from the discovery queue in the same data checkout."""
     found = sites.discovered()
     selected = [h for h in pending_hosts() if hosts is None or h in hosts]
     for host in selected:
@@ -236,14 +235,55 @@ def accept_pending(hosts: list[str] | None = None) -> list[str]:
         found.pop(host)
     if selected:
         write(found)
-    sites.load_discovered()
     return selected
+
+
+def build_approved(names: list[str]) -> None:
+    """Read the selected sites and build source pages/navigation, without the agent or a full wiki rebuild."""
+    from catix.wiki import compile as compiler
+
+    if not names:
+        return
+    sites.fetch(names)
+    empty = [name for name in names if not any(not page.get("gone") for page in sites.load(name)["pages"].values())]
+    if empty:
+        raise RuntimeError(f"no pages could be read: {', '.join(empty)}")
+    sites.compile_all()
+    empty = [name for name in names if not any(p.name != "index.md" for p in (sites.DOCS / sites.FOLDER / name).glob("*.md"))]
+    if empty:
+        raise RuntimeError(f"no readable wiki pages produced: {', '.join(empty)}")
+    compiler.link()
+
+
+def approve_sites(hosts: list[str]) -> list[str]:
+    """The user-facing approval also builds pages. Already approved sites may be named again after a failed build."""
+    from catix.wiki import autopilot
+
+    if not hosts:
+        return []
+    autopilot.LOCK.parent.mkdir(parents=True, exist_ok=True)
+    with autopilot.LOCK.open("a") as lock:
+        try:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            sys.exit("another wiki update is running; approval was not changed")
+        sites.reload_catalog()
+        entries = sites.discovered()
+        approved = {host_of(site.base): name for name, site in sites.SITES.items()}
+        names = [approved[host] if host in approved else sites.discovered_name(host, entries[host]) for host in hosts]
+        accept_pending(hosts)
+        try:
+            build_approved(names)
+        except Exception as error:
+            sys.exit(f"sites remain approved, but building failed: {error}; retry: catix-wiki sites approve {' '.join(names)}")
+    return hosts
 
 
 def unread_hosts() -> list[str]:
     """Pending runtime sites that have no pages read yet."""
+    pending = sites.pending_sites()
     return [host for host, entry in sorted(sites.discovered().items())
-            if entry.get("status") == "pending" and (name := sites.site_name(host)) in sites.SITES
+            if entry.get("status") == "pending" and (name := sites.discovered_name(host, entry)) in pending
             and not (sites.ROOT / name / "index.json").exists()]
 
 
@@ -263,7 +303,8 @@ def explore(rejected: set[str], max_rounds: int = 10, max_sites: int = 60, clien
             print("nothing new: the search is over", flush=True)
             break
         total += [h for h in new if h not in total]
-        names = [sites.site_name(host) for host in dict.fromkeys([*new, *unread])]
+        entries = sites.discovered()
+        names = [sites.discovered_name(host, entries[host]) for host in dict.fromkeys([*new, *unread])]
         attempted |= {*new, *unread}
         print(f"== reading {', '.join(names)}", flush=True)
         try:
@@ -284,14 +325,21 @@ def closed_hosts() -> list[str]:
     return sorted(host for host, entry in sites.discovered().items() if entry.get("status") == "closed")
 
 
-def resolve(names: list[str], closed: bool = False) -> list[str]:
+def resolve(names: list[str], closed: bool = False, approved: bool = False) -> list[str]:
     """Pending hosts (and closed ones when `closed`) by a host or a name of a site ('lab' for lab.innopolis.university)."""
     pending = pending_hosts() + (closed_hosts() if closed else [])
-    by_name = {sites.site_name(h): h for h in pending}
+    found = sites.discovered()
+    by_name = {sites.discovered_name(h, found[h]): h for h in pending}
+    if approved:
+        sites.reload_catalog()
+        for name, site in sites.SITES.items():
+            host = host_of(site.base)
+            pending.append(host)
+            by_name.update({name: host, **{alias: host for alias in site.aliases}})
     unknown = [n for n in names if n not in pending and n not in by_name]
     if unknown:
         sys.exit(f"not pending{' or closed' if closed else ''}: {', '.join(unknown)}; they are {', '.join(by_name) or 'none'}")
-    return [n if n in pending else by_name[n] for n in names]
+    return list(dict.fromkeys(n if n in pending else by_name[n] for n in names))
 
 
 def reject(hosts: list[str]) -> list[str]:
@@ -300,14 +348,19 @@ def reject(hosts: list[str]) -> list[str]:
 
     from catix.wiki import autopilot
 
+    sites.reload_catalog()
+    found = sites.discovered()
+    for host in hosts:
+        if host not in found:
+            raise ValueError(f"not a discovered site: {host}")
+        name = sites.discovered_name(host, found[host])
+        if name in sites.SITES:
+            raise ValueError(f"refusing to delete approved site {name}")
     state = autopilot.load_state()
     state["rejected_sites"] = sorted({*state.get("rejected_sites", []), *hosts})
     autopilot.save_state(state)
-    found = sites.discovered()
     for host in hosts:
-        found.pop(host, None)
-        name = sites.site_name(host)
-        sites.SITES.pop(name, None)
+        name = sites.discovered_name(host, found.pop(host, {}))
         for folder in (sites.ROOT / name, DOCS / sites.FOLDER / name):
             shutil.rmtree(folder, ignore_errors=True)
     write(found)
@@ -318,7 +371,7 @@ def review() -> None:
     """What the pending sites gave, to decide which are worth keeping."""
     found = sites.discovered()
     for host in pending_hosts():
-        entry, name = found[host], sites.site_name(host)
+        entry, name = found[host], sites.discovered_name(host, found[host])
         index = sites.load(name)
         pages = [p for p in index["pages"].values() if not p.get("gone")]
         titles = "; ".join(p["title"][:50] for p in pages[:4])
@@ -362,7 +415,6 @@ def add(addresses: list[str], client: httpx.Client | None = None, pause: float =
         if client is None:
             own.close()
     write(found)
-    sites.load_discovered()
     return kept
 
 
@@ -386,9 +438,9 @@ def main(args: Namespace) -> None:
         names = args.names
         if cmd == "accept" and any(n in closed_hosts() for n in names):
             sys.exit("a closed site cannot be read without access: give a Chromium profile a login and a line in SITES (sites.py)")
-        hosts = pending_hosts() + (closed_hosts() if cmd == "reject" else []) if args.all else resolve(names, closed=cmd == "reject")
-        done = accept_pending(hosts) if cmd == "accept" else reject(hosts)
-        print(f"{'accepted' if cmd == 'accept' else 'rejected'}: {', '.join(done) or 'none'}")
+        hosts = pending_hosts() + (closed_hosts() if cmd == "reject" else []) if args.all else resolve(names, closed=cmd == "reject", approved=cmd == "accept")
+        done = approve_sites(hosts) if cmd == "accept" else reject(hosts)
+        print(f"{'approved and built' if cmd == 'accept' else 'rejected'}: {', '.join(done) or 'none'}")
         return
     found = discover(rejected, dry_run=args.dry_run, everything=args.all)
     print(f"{found} new sites" + (" would be kept (dry run: nothing was written)" if args.dry_run else ""))

@@ -136,6 +136,8 @@ def test_explore_and_discover_options(monkeypatch):
 def test_accept_changes_only_selected_pending_sites(tmp_path, monkeypatch):
     from catix.wiki.sources import discover, sites
 
+    builds = []
+    monkeypatch.setattr(discover, "build_approved", lambda names: builds.append(names))
     monkeypatch.setattr(sites, "DISCOVERED", tmp_path / "sites-discovered.json")
     monkeypatch.setattr(sites, "CONFIG", tmp_path / "sites.yaml")
     monkeypatch.setattr(sites, "SITES", dict(sites.SITES))
@@ -150,6 +152,7 @@ def test_accept_changes_only_selected_pending_sites(tmp_path, monkeypatch):
     assert "b.innopolis.university" not in sites.discovered()
     assert {"a", "b"} <= set(sites.load_config(sites.CONFIG)[0])
     assert sites.discovered()["closed.innopolis.university"]["status"] == "closed"
+    assert builds == [["a"], ["b"]]
 
 
 def test_reject_all_includes_closed_but_not_accepted(tmp_path, monkeypatch):

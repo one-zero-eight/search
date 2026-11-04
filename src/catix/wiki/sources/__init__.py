@@ -78,9 +78,9 @@ def _sites() -> int:
 def _new_sites() -> int:
     """Only the sites found by discover.py that wait for a person's look: their pages and the documents they link (`autopilot
     --only-new`, after `catix-wiki sites discover --all`). The weekly `sites` reads every site again, which takes hours."""
-    from catix.wiki.sources import discover, regulations, sites
+    from catix.wiki.sources import regulations, sites
 
-    names = [sites.site_name(host) for host in discover.pending_hosts()]
+    names = sorted(sites.pending_sites())
     print(f"  {len(names)} pending sites: {', '.join(names) or 'none'}", flush=True)
     return sites.fetch(names) + regulations.fetch() if names else 0
 

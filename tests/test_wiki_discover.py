@@ -22,10 +22,12 @@ def bundle(tmp_path, monkeypatch):
     (docs / "sites" / "apply").mkdir(parents=True)
     monkeypatch.setattr(discover, "DOCS", docs)
     monkeypatch.setattr(sites, "DISCOVERED", tmp_path / "raw" / "sites-discovered.json")
+    catalog = sites.CONFIG.read_bytes()
     monkeypatch.setattr(sites, "CONFIG", tmp_path / "sites.yaml")
-    sites.CONFIG.write_text("blocked: []\nsites: {}\n", encoding="utf-8")
+    sites.CONFIG.write_bytes(catalog)
     monkeypatch.setattr(sites, "SITES", dict(sites.SITES))
     monkeypatch.setattr(discover, "public", lambda host: True)
+    sites.reload_catalog()
 
     def link(page: str, *urls: str) -> None:
         (docs / "sites" / "apply" / f"{page}.md").write_text("\n".join(f"[x]({u})" for u in urls), encoding="utf-8")
@@ -48,13 +50,9 @@ def test_kinds_of_hosts():
     assert discover.kind_of("dovuz.innopolis.university") == "university"
     assert discover.kind_of("innopolis.college") == "university"
     assert discover.kind_of("a.b.innopolis.ru") == "university"
-    assert discover.kind_of("innohassle.ru") == "inno"
-    assert discover.kind_of("inno-agency.ru") == "inno"
-    assert discover.kind_of("innopolis-mobile.ru") == "inno"
-    assert discover.kind_of("innovation.com") is None  # the word `inno` alone, inside another word, is not it
-    assert discover.kind_of("innogames.com") is None
-    assert discover.kind_of("notinnopolis.university.evil.com") == "inno"  # only a candidate: a person still reads what it gave
-    assert discover.kind_of("telegram.org") is None
+    for host in ("innohassle.ru", "inno-agency.ru", "innopolis-mobile.ru", "innovation.com", "innogames.com",
+                 "notinnopolis.university.evil.com", "telegram.org", "robotics-center.ru", "innoit.ru", "innolyceum.ru"):
+        assert discover.kind_of(host) == "external"
 
 
 def test_candidates_need_enough_pages_and_are_not_read_yet(bundle):
@@ -62,10 +60,20 @@ def test_candidates_need_enough_pages_and_are_not_read_yet(bundle):
     bundle("b", "https://inno-shop.ru/b", "https://rejected.innopolis.university/", "https://university.innopolis.ru/")
     bundle("c", "https://inno-shop.ru/c")
     found = discover.candidates({"rejected.innopolis.university"})
-    assert [(h, k) for h, k, _ in found] == [("lab2.innopolis.university", "university"), ("inno-shop.ru", "inno")]  # (a host of the university first; one link is enough)
+    assert [(h, k) for h, k, _ in found] == [("lab2.innopolis.university", "university"), ("inno-shop.ru", "external"), ("t.me", "external")]  # (a host of the university first; one link is enough, whatever the name)
     assert found[1][2] == ["/raw/sites/apply/a.md", "/raw/sites/apply/b.md", "/raw/sites/apply/c.md"]
     bundle("d", "https://inno-cinema.ru/")
     assert "inno-cinema.ru" in [h for h, _, _ in discover.candidates(set())]  # (a host with `inno` linked by a single page)
+
+
+@pytest.mark.parametrize("host", ["robotics-center.ru", "robolymp.ru", "innoit.ru", "innolyceum.ru"])
+def test_discover_keeps_any_linked_host_pending(bundle, host):
+    bundle("a", f"https://{host}/project")
+    assert discover.discover(client=client({f"https://{host}/": html()}), pause=0) == 1
+    entry = sites.discovered()[host]
+    assert entry["status"] == "pending" and entry["kind"] == "external"
+    assert entry["examples"] == ["/raw/sites/apply/a.md"]
+    assert host in discover.known_hosts()
 
 
 def test_the_probe_takes_a_page_of_words_and_refuses_the_rest(monkeypatch):
@@ -81,8 +89,7 @@ def test_the_probe_takes_a_page_of_words_and_refuses_the_rest(monkeypatch):
     assert "words" in reason({"https://lab.innopolis.university/": html("<title>x</title><p>few words</p>")})
     assert "robots.txt" in reason({"https://lab.innopolis.university/robots.txt": httpx.Response(200, text="User-agent: *\nDisallow: /"), "https://lab.innopolis.university/": html()})
     assert "HTTP 404" in reason({})
-    assert "redirects to evil.example" in reason({"https://lab.innopolis.university/": httpx.Response(302, headers={"location": "https://evil.example/"}),
-                                                  "https://evil.example/": html()})
+
     assert "redirects away from https" in reason({"https://lab.innopolis.university/": httpx.Response(302, headers={"location": "http://lab.innopolis.university/"}),
                                                   "http://lab.innopolis.university/": html()})
     assert reason({"https://lab.innopolis.university/": httpx.Response(302, headers={"location": "https://apply.innopolis.university/"}),
@@ -92,6 +99,19 @@ def test_the_probe_takes_a_page_of_words_and_refuses_the_rest(monkeypatch):
 def test_a_name_that_is_not_public_is_not_probed(monkeypatch):
     monkeypatch.setattr(discover, "public", lambda host: False)
     assert "public" in discover.probe("intranet.innopolis.university", client({}))
+
+
+@pytest.mark.parametrize("public_target", [True, False])
+def test_redirects_do_not_require_an_inno_name(monkeypatch, public_target):
+    monkeypatch.setattr(discover, "public", lambda host: host == "lab.innopolis.university" or public_target)
+    result = discover.probe("lab.innopolis.university", client({
+        "https://lab.innopolis.university/": httpx.Response(302, headers={"location": "https://robotics-center.ru/"}),
+        "https://robotics-center.ru/": html(),
+    }))
+    if public_target:
+        assert isinstance(result, dict) and result["title"] == "Robotics lab"
+    else:
+        assert result == "redirects to robotics-center.ru"
 
 
 def test_public_refuses_private_addresses(monkeypatch):
@@ -112,7 +132,8 @@ def test_discover_keeps_a_found_site_pending_with_safe_settings(bundle):
     found = json.loads(sites.DISCOVERED.read_text(encoding="utf-8"))["sites"]
     assert found["lab.innopolis.university"]["status"] == "pending" and found["lab.innopolis.university"]["examples"] == ["/raw/sites/apply/a.md"]
     assert found["login.innopolis.university"]["status"] == "closed"  # (a login page needs access, it is not a failure)
-    site = sites.SITES["lab"]  # (read from now on, with the settings that cannot do harm)
+    site = sites.pending_sites()["lab"]  # (read from now on, but not a trusted provider)
+    assert "lab" not in sites.SITES
     assert (site.base, site.robots, site.max_pages, site.pause) == ("https://lab.innopolis.university/", True, sites.DISCOVERED_PAGES, sites.DISCOVERED_PAUSE)
     assert discover.pending_hosts() == ["lab.innopolis.university"]
     assert "lab.innopolis.university" in discover.known_hosts() and "login.innopolis.university" not in discover.known_hosts()
@@ -218,7 +239,7 @@ def test_every_host_the_code_names_is_known():
         if path.name == "discover.py":
             continue
         for url in re.findall(r"https?://[A-Za-z0-9.-]+", path.read_text(encoding="utf-8")):
-            if discover.kind_of(discover.host_of(url)):
+            if discover.kind_of(discover.host_of(url)) == "university":
                 named.add(discover.host_of(url))
     broken = {"media.innopolis.universitymedia.innopolis.university"}  # (the example of a repaired link in sites.repaired's docstring)
     assert named - broken - discover.known_hosts() == set()
@@ -459,7 +480,7 @@ def test_an_app_is_probed_in_the_browser_and_read_that_way(monkeypatch, bundle):
 
     bundle("a", "https://1519.innopolis.university/")
     assert discover.discover(client=client({"https://1519.innopolis.university/": html(SHELL)}), pause=0) == 1
-    assert sites.SITES["1519"].render is True  # (read by the browser from now on)
+    assert sites.pending_sites()["1519"].render is True  # (read by the browser, but not trusted yet)
 
 
 def test_an_empty_shell_stays_refused_when_the_browser_shows_nothing_either(monkeypatch):

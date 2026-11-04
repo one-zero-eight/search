@@ -24,6 +24,9 @@ raw/*.db*
 /raw/rpd
 /raw/sveden
 /raw/sites
+/raw/sites.yaml
+/raw/sites-discovered.json
+/raw/sites-pending.yaml*
 /raw/past-papers
 /raw/knowledge-queue.json
 /raw/topics.json

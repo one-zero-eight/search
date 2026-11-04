@@ -92,37 +92,58 @@ class Site:
     aliases: tuple[str, ...] = ()  # other hosts of the site, an old name or a mirror: a link to one leads to the site's page of the same path, when there is one
 
 
-CONFIG = Path(__file__).with_name("sites.yaml")
+CONFIG = RAW / "sites.yaml"
 DISCOVERED_SKIP = r"^(tilda|members)/|(^|/)((\w+[-_])?form|thank_?you\w*|test\w*|\w+_test)$"
 
 
-def load_config(path: Path = CONFIG) -> tuple[dict[str, dict[str, Any]], frozenset[str]]:
+def load_config(path: Path | None = None) -> tuple[dict[str, dict[str, Any]], frozenset[str]]:
+    path = CONFIG if path is None else path
     raw = cast(dict[str, Any], yaml.safe_load(path.read_text(encoding="utf-8")) or {})
     return cast(dict[str, dict[str, Any]], raw.get("sites", raw)), frozenset(raw.get("blocked", ()))
 
 
-def load_sites(path: Path = CONFIG) -> dict[str, Site]:
-    """Load the static trusted site catalog from YAML."""
+def load_sites(path: Path | None = None) -> dict[str, Site]:
+    """Load the trusted site catalog from the wiki data."""
     raw, _ = load_config(path)
+    return {name: make_site(values) for name, values in raw.items()}
+
+
+def make_site(values: dict[str, Any]) -> Site:
+    """The same typed settings in the approved YAML and a pending JSON record."""
     names = {field.name for field in fields(Site)}
     tuple_fields = {"audience", "aliases"}
-    def make(values: dict[str, Any]) -> Site:
-        kwargs: dict[str, Any] = {key: tuple(value) if key in tuple_fields and isinstance(value, list) else value
-                                  for key, value in values.items() if key in names}
-        return Site(**kwargs)
-
-    return {name: make(values) for name, values in raw.items()}
+    kwargs: dict[str, Any] = {key: tuple(value) if key in tuple_fields and isinstance(value, list) else value
+                              for key, value in values.items() if key in names}
+    return Site(**kwargs)
 
 
-def load_blocked(path: Path = CONFIG) -> frozenset[str]:
+def load_blocked(path: Path | None = None) -> frozenset[str]:
     return load_config(path)[1]
 
 
 
 
 
-SITES = load_sites()
-BLOCKED = load_blocked()
+SITES: dict[str, Site] = {}
+BLOCKED: frozenset[str] = frozenset()
+_catalog_version: tuple | None = None
+
+
+def reload_catalog() -> None:
+    """Refresh the approved snapshot when its data file changes, including a git checkout or another process's approval.
+    Imports never read or create data. Parsing is cached; readers check the file's identity before each operation."""
+    global BLOCKED, _catalog_version
+    try:
+        stamp = CONFIG.stat()
+    except FileNotFoundError:
+        raise FileNotFoundError(f"site catalog missing: {CONFIG}; run catix-wiki sites migrate --from PATH_TO_SITES_YAML") from None
+    version = (CONFIG, stamp.st_dev, stamp.st_ino, stamp.st_mtime_ns, stamp.st_size)
+    if version != _catalog_version:
+        raw, blocked = load_config()
+        loaded = {name: make_site(values) for name, values in raw.items()}
+        SITES.clear()
+        SITES.update(loaded)
+        BLOCKED, _catalog_version = blocked, version
 
 
 DISCOVERED = RAW / "sites-discovered.json"  # the sites discover.py found: {"sites": {host: {"status": "pending" | "accepted" | "failed", ...}}}
@@ -144,7 +165,134 @@ def load_discovered() -> int:
     return 0
 
 
-load_discovered()
+def site_values(site: Site) -> dict[str, Any]:
+    return {field.name: list(value) if isinstance(value := getattr(site, field.name), tuple) else value for field in fields(Site)}
+
+
+def found_site(host: str, entry: dict) -> Site:
+    defaults = Site(f"https://{host}/", entry.get("language", "ru"), entry.get("title") or host,
+                    DISCOVERED_SKIP, max_pages=DISCOVERED_PAGES, robots=True, pause=DISCOVERED_PAUSE,
+                    render=bool(entry.get("render")))
+    return make_site(site_values(defaults) | entry.get("config", {}))
+
+
+def discovered_name(host: str, entry: dict) -> str:
+    return entry.get("name") or site_name(host)
+
+
+def pending_sites() -> dict[str, Site]:
+    """Readable but not trusted; settings live in the discovery record, never a second pending file."""
+    from catix.wiki import autopilot
+
+    reload_catalog()
+    rejected = set(autopilot.load_state().get("rejected_sites", []))
+    pending: dict[str, Site] = {}
+    for host, entry in discovered().items():
+        if entry.get("status") != "pending" or host in rejected:
+            continue
+        name = discovered_name(host, entry)
+        if name in SITES:
+            approved = SITES[name]
+            own = (urlsplit(approved.base).hostname or "").lower().rstrip(".").removeprefix("www.")
+            if host != own and host not in approved.aliases:
+                raise ValueError(f"site name {name} belongs to another approved host")
+            continue
+        if name in pending:
+            raise ValueError(f"multiple pending hosts use site name {name}")
+        pending[name] = found_site(host, entry)
+    return pending
+
+
+def every_site() -> dict[str, Site]:
+    return {**pending_sites(), **SITES}
+
+
+def atomic_write(path: Path, text: str) -> None:
+    """Readers see a complete file; an unchanged write leaves its timestamp alone."""
+    if path.exists() and path.read_text(encoding="utf-8") == text:
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=path.parent, prefix=f".{path.name}.", delete=False) as out:
+        temporary = Path(out.name)
+        try:
+            out.write(text)
+            out.flush()
+            os.fsync(out.fileno())
+            os.replace(temporary, path)
+        finally:
+            temporary.unlink(missing_ok=True)
+
+
+def write_discovered(found: dict) -> None:
+    atomic_write(DISCOVERED, json.dumps({"sites": found}, ensure_ascii=False, indent=1, sort_keys=True))
+
+
+def approve_discovered(host: str, entry: dict) -> str:
+    """Move settings into the wiki's approved catalog; the caller removes the discovery record afterwards."""
+    reload_catalog()
+    name = discovered_name(host, entry)
+    if name not in SITES:
+        raw = yaml.safe_load(CONFIG.read_text(encoding="utf-8")) or {}
+        if "sites" not in raw:
+            raw = {"sites": raw}
+        raw["sites"][name] = site_values(found_site(host, entry)) | entry.get("config", {})
+        atomic_write(CONFIG, yaml.safe_dump(raw, allow_unicode=True, sort_keys=False, width=139))
+        reload_catalog()
+    return name
+
+
+def migrate_catalog(source: Path | None = None) -> None:
+    """Explicit, repeatable migration; an existing data catalog wins over the old code copy.
+    Pending YAML overrides move into JSON, and its original is retained as .yaml.bak. No crawl or approval is performed;
+    only records already marked accepted are moved to the approved catalog."""
+    origin = CONFIG if CONFIG.exists() else source
+    if origin is None:
+        raise FileNotFoundError(f"site catalog missing: {CONFIG}; provide sites migrate --from PATH_TO_SITES_YAML")
+    load_sites(origin)  # validate everything before writing any migration output
+    text = origin.read_text(encoding="utf-8")
+    raw = yaml.safe_load(text) or {}
+    if "sites" not in raw:
+        raw = {"sites": raw}
+    approved = raw["sites"]
+    found = discovered()
+    pending_file = DISCOVERED.with_name("sites-pending.yaml")
+    backup = pending_file.with_suffix(".yaml.bak")
+    if pending_file.exists():
+        if backup.exists() and backup.read_bytes() != pending_file.read_bytes():
+            raise ValueError(f"migration backup already exists with different contents: {backup}")
+        for name, values in load_config(pending_file)[0].items():
+            site = make_site(values)
+            host = (urlsplit(site.base).hostname or "").lower().rstrip(".").removeprefix("www.")
+            entry = found.get(host, {})
+            if entry.get("status", "pending") not in ("pending", "accepted"):
+                raise ValueError(f"pending YAML conflicts with {entry['status']} record for {host}")
+            found[host] = {**entry, "status": entry.get("status", "pending"), "name": name, "config": values}
+    approved_hosts = {(urlsplit(values["base"]).hostname or "").lower().rstrip(".").removeprefix("www."): name
+                      for name, values in approved.items()}
+    changed_catalog = False
+    for host, entry in list(found.items()):
+        if entry.get("status") not in ("pending", "accepted"):
+            continue
+        if host in approved_hosts:
+            del found[host]
+            continue
+        name = discovered_name(host, entry)
+        if name in approved:
+            raise ValueError(f"site name {name} belongs to another approved host")
+        values = site_values(found_site(host, entry)) | entry.get("config", {})
+        if entry["status"] == "accepted":
+            approved[name] = values
+            approved_hosts[host] = name
+            changed_catalog = True
+            del found[host]
+        else:
+            found[host] = {**entry, "name": name, "config": values}
+    atomic_write(CONFIG, yaml.safe_dump(raw, allow_unicode=True, sort_keys=False, width=139) if changed_catalog else text)
+    if found or DISCOVERED.exists() or pending_file.exists():
+        write_discovered(found)
+    if pending_file.exists():
+        pending_file.replace(backup)
+    reload_catalog()
 
 
 CHROMIUM = shutil.which("chromium") or shutil.which("chromium-browser") or shutil.which("google-chrome")
@@ -665,16 +813,17 @@ def new_linked_pages(names: list[str] | None = None) -> dict[str, set[str]]:
     """Trusted-provider page links in cached pages whose target is not cached yet."""
     from catix.wiki.sources import crawl
 
-    selected = names or list(SITES)
-    known = {name: {canonical(page["url"]) for page in load(name)["pages"].values() if page.get("url")} for name in SITES}
+    readable = every_site()
+    selected = names or list(readable)
+    known = {name: {canonical(page["url"]) for page in load(name)["pages"].values() if page.get("url")} for name in readable}
     found: dict[str, set[str]] = {}
     for source in selected:
         folder = ROOT / source
-        if not folder.is_dir() or source not in SITES:
+        if not folder.is_dir() or source not in readable:
             continue
         index = load(source)
         for path in folder.glob("*.md"):
-            url = index["pages"].get(path.stem, {}).get("url", SITES[source].base)
+            url = index["pages"].get(path.stem, {}).get("url", readable[source].base)
             for target in crawl.page_links(path.read_text(encoding="utf-8"), url):
                 provider = crawl.provider(target)
                 if provider and target not in known.setdefault(provider, set()):
@@ -798,8 +947,9 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
 
 def fetch(names: list[str] | None = None, only_new: bool = False) -> int:
     """The sites named (every site when none is), one after another; the number of pages that are new, changed or gone."""
-    if unknown := [n for n in names or [] if n not in SITES]:
-        sys.exit(f"no site {', '.join(unknown)}: the sites are {', '.join(SITES)}")
+    readable = every_site()
+    if unknown := [n for n in names or [] if n not in readable]:
+        sys.exit(f"no site {', '.join(unknown)}: the sites are {', '.join(readable)}")
     total = 0
     no_cookies = CookieJar(policy=DefaultCookiePolicy(allowed_domains=[]))  # every page as a new visitor sees it (robotics keeps the language of the last page in a cookie: its sitemap became English)
     with httpx.Client(headers=regulations.HEADERS, timeout=60, follow_redirects=True, cookies=no_cookies) as client:
@@ -818,7 +968,7 @@ def fetch(names: list[str] | None = None, only_new: bool = False) -> int:
                     finally:
                         close_live()
             return total
-        for name, site in SITES.items():
+        for name, site in readable.items():
             if names and name not in names:
                 continue
             print(f"== {name}: {site.base}")
@@ -847,6 +997,7 @@ def collect_linked_docs() -> int:
     of `apply` or `dovuz` linking a PDF of innopolis.university: fetch_site took only the documents of the site's own host
     before): added to the documents of the site whose page links them, to be downloaded by `regs fetch`. The links are read from
     the pages as they are in the bundle, so the sites need not be read again. The number added."""
+    reload_catalog()
     have = {canonical(u) for name in SITES for u in load(name)["docs"]}
     added = 0
     for name in SITES:
@@ -869,6 +1020,7 @@ def collect_linked_docs() -> int:
 
 def docs() -> dict[str, dict]:
     """The documents the sites link, as regulations.all_docs wants them."""
+    reload_catalog()
     out = {}
     for name, site in SITES.items():
         for url, anchor in load(name)["docs"].items():
@@ -919,6 +1071,7 @@ def page_path(name: str, slug: str) -> str:
 def address(url: str) -> str:
     """The spelling under which the pages and the links to them are compared; a link to another host of a site (Site.aliases)
     is compared as a link to the site ('university.innopolis.ru/en/about/' is 'innopolis.university/en/about/')."""
+    reload_catalog()
     spelled = canonical(urldefrag(url)[0]).rstrip("/")
     host = urlsplit(spelled).netloc
     own = next((urlsplit(site.base).netloc for site in SITES.values() if host.removeprefix("www.") in site.aliases), None)
@@ -957,7 +1110,7 @@ def shared_file(site: Site, lang: str) -> str:
 def write_shared(out, name: str, lang: str, body: str, at: str, keep: set) -> int:
     """The lines every page of a site repeats (menu, footer, contacts), once, as a page of its own: the pages lose them, the wiki
     keeps them, and search finds them in one place instead of in a copy per page."""
-    site = SITES[name]
+    site = every_site()[name]
     host = urlsplit(site.base).netloc
     title = f"Общие блоки сайта {host}: меню, шапка, подвал, контакты" if lang == "ru" else f"Blocks shared by the pages of {host}: menu, header, footer, contacts"
     sha = hashlib.sha256(plain(body).encode()).hexdigest()[:12]
@@ -981,13 +1134,14 @@ def compile_all() -> None:
     """Every page read -> wiki/raw/sites/<site>/<slug>.md, by code alone (its description: its first sentence); a page gone
     from its site loses its page. The links of a page lead to the pages and documents of the
     bundle that they name (all the sites together: a page of one may link a page of another), to the site itself otherwise."""
+    readable = every_site()
     out = DOCS / FOLDER
     out.mkdir(parents=True, exist_ok=True)
     entries: dict[tuple[str, str], dict] = {}
     shared: dict[tuple[str, str], list[str]] = {}  # (site, language) -> the lines its pages repeat, in the order they come
     kept: dict[str, str] = {}  # the address of a page of a site not read here -> its page, as it is
     untouched: set = set()  # the files of those sites
-    for name, site in SITES.items():
+    for name, site in readable.items():
         if not (ROOT / name / "index.json").exists():  # (read elsewhere: a site behind a login, by the person's browser) its pages stay as they are
             files = [f for f in sorted((out / name).glob("*.md")) if f.name != "index.md"] if (out / name).is_dir() else []
             untouched |= set(files)
@@ -1068,7 +1222,7 @@ def compile_all() -> None:
 
 
 def status() -> None:
-    for name, site in SITES.items():
+    for name, site in every_site().items():
         index = load(name)
         pages = index["pages"].values()
         print(f"{name} ({site.base}): {sum(not p.get('gone') for p in pages)} pages, {sum(bool(p.get('gone')) for p in pages)} gone, "
@@ -1077,7 +1231,10 @@ def status() -> None:
 
 def main(args: Namespace) -> None:
     cmd = args.action
-    if cmd == "fetch":
+    if cmd == "migrate":
+        migrate_catalog(args.source)
+        print(f"site catalog: {CONFIG}; pending settings: {DISCOVERED}")
+    elif cmd == "fetch":
         fetch(args.names, only_new=getattr(args, "only_new", False))
     elif cmd == "compile":
         compile_all()
@@ -1085,7 +1242,7 @@ def main(args: Namespace) -> None:
         status()
     elif cmd == "docs":
         print(f"{collect_linked_docs()} documents added; `catix-wiki regs fetch` downloads and reads them")
-    elif cmd in ("discover", "explore", "add", "review", "accept", "reject"):
+    elif cmd in ("discover", "explore", "add", "review", "accept", "approve", "reject"):
         from catix.wiki.sources import discover
 
         discover.main(args)

@@ -1,6 +1,7 @@
 """Fixtures: skip when the model server is down; a throwaway chat with known facts and planted injections."""
 
 import os
+from pathlib import Path
 from datetime import datetime, timedelta, timezone
 
 import httpx
@@ -15,6 +16,20 @@ from tests.helpers import TRACES, LocalModel
 
 CHAT_ID = -999000999
 MONTHS = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"]
+
+
+@pytest.fixture(autouse=True)
+def wiki_site_catalog(tmp_path_factory, monkeypatch):
+    """Unit tests use a catalog in temporary data, never the mutable wiki checkout."""
+    from catix.wiki.sources import sites
+
+    config = tmp_path_factory.mktemp("site-registry") / "raw" / "sites.yaml"
+    config.parent.mkdir(parents=True)
+    config.write_bytes(Path(__file__).with_name("fixtures").joinpath("sites.yaml").read_bytes())
+    monkeypatch.setattr(sites, "CONFIG", config)
+    monkeypatch.setattr(sites, "DISCOVERED", config.with_name("sites-discovered.json"))
+    monkeypatch.setattr(sites, "_catalog_version", None)
+    sites.reload_catalog()
 
 
 def pytest_configure(config):
