@@ -12,6 +12,15 @@ raw/regulations/*.pdf
 raw/regulations/*.ocr/
 raw/regulations/ocr/
 
+# The downloaded files of the sites' documents (PDFs, office files, archives and what they hold, the page images for OCR)
+# are downloaded again, as those of the regulations; their extracted text, notes, archive manifests and the pages chandra
+# read (*.chandra/p-NNN.html) stay
+raw/sites/*/docs/**
+!raw/sites/*/docs/**/
+!raw/sites/*/docs/**/*.txt
+!raw/sites/*/docs/**/*.json
+!raw/sites/*/docs/**/*.html
+
 # The disclosure-section documents are downloaded again; the list of documents and the decisions about them stay
 raw/sveden/*
 !raw/sveden/index.json
