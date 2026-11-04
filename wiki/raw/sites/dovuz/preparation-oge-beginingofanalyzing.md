@@ -110,7 +110,7 @@ c 9 февраля по 3 апреля
 
 Вебинар 2. Анализ графиков. Часть 2: [ссылка](https://video.innopolis.university/kpk/veb_dovuz/2025-08-13_AZagidullin_function_graph.mp4)
 
-Договор-оферта: [ссылка](https://lk-dovuz.innopolis.university/public/files/offer_module3_oge.pdf)
+Договор-оферта: [ссылка](/raw/regulations/site-dovuz-27fea012-offer-module3-oge.md)
 
 Политика обработки персональных данных: [ссылка](https://apply.innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%9F%D0%94%D0%BD%20%D0%B4%D0%BB%D1%8F%20%D0%A3%D0%98.pdf)
 

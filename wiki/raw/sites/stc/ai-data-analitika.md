@@ -436,7 +436,7 @@ Power BI
 
 Диплом
 
-[Лицензионное соглашение](https://innopolis.university/upload/iblock/d7f/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B4%D0%B5%D1%8F%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C.pdf)
+[Лицензионное соглашение](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/stc/_shared.md](/raw/sites/stc/_shared.md)._
 

@@ -161,7 +161,7 @@ admissions@innopolis.ru
 
 - [Сведения об образовательной организации](/raw/sites/university/sveden.md)
 
-- [Политика конфиденциальности](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+- [Политика конфиденциальности](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
 - [Антитеррористическая деятельность](/raw/sites/university/antiterror.md)
 

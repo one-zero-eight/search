@@ -62,7 +62,7 @@ status: draft
 
 - Федеральное государственное автономное образовательное учреждение высшего образования «Национальный исследовательский ядерный университет „МИФИ“». Осуществляет экспертно-методическое сопровождение федерального проекта «Передовые инженерные школы».
 
-[Программа](https://innopolis.university/filespublic/Programma_razvitiya_PISH_na_baze_ANO_VO_Universitet_Innopolis.pdf) развития передовой инженерной школы
+[Программа](/raw/regulations/site-media-47624ddd-programma-razvitiya-pish-na-baze-ano-vo.md) развития передовой инженерной школы
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/media/_shared.md](/raw/sites/media/_shared.md)._
 

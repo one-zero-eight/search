@@ -1,0 +1,31 @@
+{
+ "members": [
+  {
+   "ext": "pdf",
+   "file": "0000.pdf",
+   "key": "site-university-f50d8bd2-shkola-fizicheskoy-kultury-i-zozh-member-282dcfea59bfd1ccc0ec",
+   "member": "Школа физической культуры и ЗОЖ.pdf",
+   "sha256": "7ea25b8787c91950d5bb0bf0fb66bd0f7555aaed67fe61f0ea9a3f9be1923eef",
+   "size": 928630,
+   "status": "ready",
+   "storage": "site-university-f50d8bd2-shkola-fizicheskoy-kultury-i-zozh.members/282dcfea59bfd1ccc0ec/7ea25b8787c91950d5bb0bf0fb66bd0f7555aaed67fe61f0ea9a3f9be1923eef"
+  },
+  {
+   "ext": "sig",
+   "file": null,
+   "member": "Школа_физической_культуры_и_ЗОЖ_pdf.sig",
+   "sha256": null,
+   "size": 5730,
+   "status": "unsupported"
+  }
+ ],
+ "remote": {
+  "etag": "\"69e76be0-b7801\"",
+  "modified": "Tue, 21 Apr 2026 12:21:52 GMT",
+  "size": "751617"
+ },
+ "sha256": "dce68cf80738266b391b78469411fa146459f336e97c8ae00014604a7d3e5800",
+ "source": "site-university-f50d8bd2-shkola-fizicheskoy-kultury-i-zozh.archives/dce68cf80738266b391b78469411fa146459f336e97c8ae00014604a7d3e5800.archive",
+ "status": "ready",
+ "url": "https://innopolis.university/upload/iblock/a6c/bryr3j735nwisdrzs07lm77ue6k78irn/%D0%A8%D0%BA%D0%BE%D0%BB%D0%B0%20%D1%84%D0%B8%D0%B7%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B9%20%D0%BA%D1%83%D0%BB%D1%8C%D1%82%D1%83%D1%80%D1%8B%20%D0%B8%20%D0%97%D0%9E%D0%96.zip"
+}

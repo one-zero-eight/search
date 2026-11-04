@@ -47,13 +47,13 @@ status: draft
 
 Обед
 
-Мы обрабатываем Cookies, чтобы вы могли комфортно пользоваться сайтом. По ссылке вы можете ознакомиться с [политикой обработки персональных данных](https://innopolis.university/filespublic/%D0%9F%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0_%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B8_%D0%BF%D0%B5%D1%80%D1%81%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85_did.pdf)
+Мы обрабатываем Cookies, чтобы вы могли комфортно пользоваться сайтом. По ссылке вы можете ознакомиться с [политикой обработки персональных данных](/raw/regulations/site-digitalinnopolisdays-ru-26603bd3-politika-obrabotki-persdannykh-did.md)
 
 OK
 
 [Оферта](/raw/sites/digitalinnopolisdays-ru/offer.md)
 
-[Политика обработки персональных данных](https://reg.digitalinnopolisdays.ru/upload/medialibrary/61a/d4px07n6bivnjdamjdl0bs7ot6s8k4bi.pdf)
+[Политика обработки персональных данных](/raw/regulations/site-digitalinnopolisdays-ru-1a6a3bec-d4px07n6bivnjdamjdl0bs7ot6s8k4bi.md)
 
 Цифровые дни Иннополиса (Digital Innopolis Days), 2026
 

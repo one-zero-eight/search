@@ -28,7 +28,7 @@ status: draft
 
 Mathematical modeling, numerical methods and software packages
 
-[Download the admission manual](https://apply.innopolis.university/upload/files/en_manual_graduateschool_2025.pdf)
+[Download the admission manual](/raw/regulations/site-international-42ee79fe-en-manual-graduateschool-2025.md)
 
 20
 

@@ -44,7 +44,7 @@ status: draft
 
 на 1 семестр 2026/2027 учебного года
 
-[Расписание занятий](https://innopolis.university/filespublic/Расписание_летней_сессии_2_семестр.pdf)
+[Расписание занятий](/raw/regulations/site-college-345cae0b-raspisanie-letnei-sessii-2-semestr.md)
 
 [Смотреть](https://photostorage.innopolis.university/index.php/s/aWDBTwKs7FzKoY3)
 

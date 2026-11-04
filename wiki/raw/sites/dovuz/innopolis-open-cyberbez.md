@@ -152,19 +152,19 @@ E-mail: iu.ctf@innopolis.ru
 
 Первый отборочный этап
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/io_cyberbez_doc1_protokol.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-6fb398f9-io-cyberbez-doc1-protokol.md)
 
-Материалы заданий: [ссылка](https://lk-dovuz.innopolis.university/public/files/infobez_materials_290126.pdf)
+Материалы заданий: [ссылка](/raw/regulations/site-dovuz-1bf771b6-infobez-materials-290126.md)
 
 Второй отборочный этап
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/protokol_infobez_290126.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-4d1acc4e-protokol-infobez-290126.md)
 
-Материалы заданий: [ссылка](https://lk-dovuz.innopolis.university/public/files/infobez_otbor_materialyzadaniy_25_26.pdf)
+Материалы заданий: [ссылка](/raw/regulations/site-dovuz-3376adee-infobez-otbor-materialyzadaniy-25-26.md)
 
 Заключительный этап
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/io2526_infobez_protokolfinal.pdf)
+Результаты: [ссылка](/raw/regulations/site-media-151fc68d-io2526-infobez-protokolfinal.md)
 
 Работы победителей и призеров: [ссылка](https://photostorage.innopolis.university/index.php/s/3rbpdnTSHf7XZpa)
 
@@ -174,89 +174,89 @@ E-mail: iu.ctf@innopolis.ru
 
 Первый отборочный этап
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/iocyberbez_1step_finalresults_24_25.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-c8396b4f-iocyberbez-1step-finalresults-24-25.md)
 
-Материалы заданий: [ссылка](https://lk-dovuz.innopolis.university/public/files/iocyberbez_1step_tasks_24_25.pdf)
+Материалы заданий: [ссылка](/raw/regulations/site-dovuz-832cffe1-iocyberbez-1step-tasks-24-25.md)
 
 Второй отборочный этап
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/io_cyberbez_2step_finalresults24.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-6e1a8ced-io-cyberbez-2step-finalresults24.md)
 
-Материалы заданий: [ссылка](https://lk-dovuz.innopolis.university/public/files/io_cyberbez_2step_tasks24.pdf)
+Материалы заданий: [ссылка](/raw/regulations/site-dovuz-40520a5c-io-cyberbez-2step-tasks24.md)
 
 Заключительный этап
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/infobez_io_protokol_25.pdf)
+Результаты: [ссылка](/raw/regulations/site-media-ae67e526-infobez-io-protokol-25.md)
 
 Работы победителей и призеров: [ссылка](https://disk.yandex.ru/d/BqTxfIqnM8FeUQ)
 
-Материалы заданий: [ссылка](https://lk-dovuz.innopolis.university/public/files/final_tasks_iocyberbez_24_25.pdf)
+Материалы заданий: [ссылка](/raw/regulations/site-dovuz-858d46f2-final-tasks-iocyberbez-24-25.md)
 
 Фотографии проведения заключительного этапа: [ссылка](https://gramilaaaa.ru/disk/21-02-2025-innopolis-open-informatsionnaya-bezopasnnost-nd66wd)
 
 Первый отборочный этап
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/results_1step_cyberbez23-24.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-2b882304-results-1step-cyberbez2324.md)
 
 Второй отборочный этап
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/results_2step_cyberbez23-24.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-dcc4fe59-results-2step-cyberbez2324.md)
 
 Заключительный этап
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/results_final_cyberbez_23-24.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-fc0ab75b-results-final-cyberbez-2324.md)
 
 Работы победителей и призеров: [ссылка](https://disk.yandex.ru/d/wghCY6a8eUz1fg)
 
-Материалы заданий всех туров: [ссылка](https://lk-dovuz.innopolis.university/public/files/all_tasks_cyberbez23-24.pdf)
+Материалы заданий всех туров: [ссылка](/raw/regulations/site-dovuz-a09be210-all-tasks-cyberbez2324.md)
 
 Фотографии проведения заключительного этапа: [ссылка](https://disk.yandex.ru/d/QOglF81l1h7cyQ)
 
 Первый отборочный этап
 
-Результаты: [Ссылка](https://lk-dovuz.innopolis.university/public/files/first_comp2223.pdf)
+Результаты: [Ссылка](/raw/regulations/site-dovuz-1e14734e-first-comp2223.md)
 
 Второй отборочный этап
 
-Результаты: [Ссылка](https://lk-dovuz.innopolis.university/public/files/second_comp2223.pdf)
+Результаты: [Ссылка](/raw/regulations/site-dovuz-4e615698-second-comp2223.md)
 
 Финальный этап
 
-Результаты: [Ссылка](https://lk-dovuz.innopolis.university/public/files/final_comp2223.pdf)
+Результаты: [Ссылка](/raw/regulations/site-dovuz-47336eb1-final-comp2223.md)
 
 Работы победителей: [Ссылка](https://disk.yandex.ru/d/fwA-gQdfthDH9g)
 
-Материалы заданий всех туров: [ссылка](https://lk-dovuz.innopolis.university/public/files/materials_cyber2223.pdf)
+Материалы заданий всех туров: [ссылка](/raw/regulations/site-dovuz-fd0bad1c-materials-cyber2223.md)
 
 Результаты:
 
-Первый отборочный этап: [ссылка](https://lk-dovuz.innopolis.university/public/files/1st%20round%2022.pdf)
+Первый отборочный этап: [ссылка](/raw/regulations/site-dovuz-11e2c75d-1st-round-22.md)
 
-Второй отборочный этап: [ссылка](https://lk-dovuz.innopolis.university/public/files/2nd%20round%2022.pdf)
+Второй отборочный этап: [ссылка](/raw/regulations/site-dovuz-836966f8-2nd-round-22.md)
 
-Заключительный этап: [ссылка](http://lk-dovuz.innopolis.university/public/files/Innopolis%20Open%20in%20InfoSec.%20Final%20round.%202021-2022.pdf)
+Заключительный этап: [ссылка](/raw/regulations/site-dovuz-71d17b54-innopolis-open-in-infosec-final-round-20.md)
 
-Материалы заданий: [ссылка](https://lk-dovuz.innopolis.university/public/files/materials_infobez.pdf)
+Материалы заданий: [ссылка](/raw/regulations/site-dovuz-ce905cee-materials-infobez.md)
 
 Работы призеров и победителей: [ссылка](https://drive.google.com/drive/folders/170ASgI7EeFnEZO-AH0Ih3RxFYWczrLiI?usp=sharing)
 
 Первый отборочный этап
 
-Материалы заданий: [cсылка](https://lk-dovuz.innopolis.university/public/files/%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D1%8B%20%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B9%20%D0%BF%D0%B5%D1%80%D0%B2%D0%BE%D0%B3%D0%BE%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%BE%D1%87%D0%BD%D0%BE%D0%B3%D0%BE%20%D1%8D%D1%82%D0%B0%D0%BF%D0%B0.pdf)
+Материалы заданий: [cсылка](/raw/regulations/site-dovuz-1c14e20d-materialy-zadaniy-pervogo-otborochnogo-e.md)
 
-Результаты: [cсылка](https://lk-dovuz.innopolis.university/public/files/Innopolis%20Open%20in%20InfoSec.%20First%20elimination%20Round.%202020-2021.pdf)
+Результаты: [cсылка](/raw/regulations/site-dovuz-ed15037d-innopolis-open-in-infosec-first-eliminat.md)
 
 Второй отборочный этап
 
-Материалы заданий: [cсылка](https://lk-dovuz.innopolis.university/public/files/%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D1%8B%20%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B9%20%D0%B2%D1%82%D0%BE%D1%80%D0%BE%D0%B3%D0%BE%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%BE%D1%87%D0%BD%D0%BE%D0%B3%D0%BE%20%D1%8D%D1%82%D0%B0%D0%BF%D0%B0.pdf)
+Материалы заданий: [cсылка](/raw/regulations/site-dovuz-088b03a4-materialy-zadaniy-vtorogo-otborochnogo-e.md)
 
-Результаты: [cсылка](https://lk-dovuz.innopolis.university/public/files/Innopolis%20Open%20in%20InfoSec.%20Second%20elimination%20Round.%202020-2021.pdf)
+Результаты: [cсылка](/raw/regulations/site-dovuz-2b4dd81c-innopolis-open-in-infosec-second-elimina.md)
 
 Финальный этап
 
-Материалы заданий: [cсылка](https://lk-dovuz.innopolis.university/public/files/%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D1%8B%20%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B9%20%D0%B7%D0%B0%D0%BA%D0%BB%D1%8E%D1%87%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D0%B3%D0%BE%20%D1%8D%D1%82%D0%B0%D0%BF%D0%B0.pdf)
+Материалы заданий: [cсылка](/raw/regulations/site-dovuz-b5da96aa-materialy-zadaniy-zaklyuchitelnogo-etapa.md)
 
-Результаты: [cсылка](https://lk-dovuz.innopolis.university/public/files/Innopolis%20Open%20in%20InfoSec.%20Final%20round.%202020-2021.pdf)
+Результаты: [cсылка](/raw/regulations/site-dovuz-a4777e45-innopolis-open-in-infosec-final-round-20.md)
 
 Работы победителей и призеров: [cсылка](https://drive.google.com/drive/folders/1weIMnYyOn_XyuQgmbsF8vQ0ZINhfSXoB?usp=sharing)
 

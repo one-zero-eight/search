@@ -1,7 +1,7 @@
 ---
 type: page
 title: "Университет Иннополис"
-description: "Университет Иннополис вместе с «Газпром нефтью» и 4 партнёрами вошёл в альянс по цифровизации добычи углеводородов"
+description: "Университет Иннополис проведёт технологические аудиты и окажет экспертную поддержку московским предприятиям"
 resource: "https://innopolis.university/"
 audience: ["student", "postgraduate", "applicant", "teacher", "staff", "management", "public"]
 source_kind: website
@@ -92,7 +92,11 @@ status: draft
 
 ## Новости
 
-[![](https://innopolis.university/upload/resize_cache/iblock/7d9/3mdxjz72w13iupstxageni83czsbvm78/1045_550_2/DSC06256.jpg)](/raw/sites/media/news-oil-and-gas-digital-alliance.md)
+[![](https://innopolis.university/upload/resize_cache/iblock/fa7/hm9jiwtmlbv7o5vzyi9az4aqbpx788cj/1045_550_2/2026-11-02%2011.42.23.jpg)](https://media.innopolis.university/news/agreement-with-moscow-cluster-kdw-2026/)
+
+[2.11.2026](https://media.innopolis.university/news/agreement-with-moscow-cluster-kdw-2026/)
+
+[Университет Иннополис проведёт технологические аудиты и окажет экспертную поддержку московским предприятиям](https://media.innopolis.university/news/agreement-with-moscow-cluster-kdw-2026/)
 
 [30.10.2026](/raw/sites/media/news-oil-and-gas-digital-alliance.md)
 
@@ -106,9 +110,15 @@ status: draft
 
 [Университет Иннополис и Альфа-Банк будут совместно готовить ИТ-специалистов для финансового сектора](/raw/sites/media/news-agreement-alfa-bank-kdw-2026.md)
 
+[![](https://innopolis.university/upload/resize_cache/iblock/7a6/vdq6vqpaq84sv4ydk7t63p1ruh85lyq4/510_340_2/158A9722_resized.jpg)](/raw/sites/media/news-sapfir-ai-sprint.md)
+
 [22.10.2026](/raw/sites/media/news-sapfir-ai-sprint.md)
 
 [Как писать научные статьи уровня A*: в Иннополисе провели экспертное мероприятие для молодых учёных](/raw/sites/media/news-sapfir-ai-sprint.md)
+
+[На форуме «Цифровые дни Иннополиса» / Digital Innopolis Days проектный офис «Стратегическое агентство поддержки и формирования ИИ-разработок» — САПФИР — организовал «AI-спринт: как писать A*» с экспертными выступлениями и командной практикой для исследователей. Мероприятие стало частью работы агентства по поддержке молодых учёных в сфере искусственного интеллекта.](/raw/sites/media/news-sapfir-ai-sprint.md)
+
+[Читать](/raw/sites/media/news-sapfir-ai-sprint.md)
 
 [![](https://innopolis.university/upload/resize_cache/iblock/8b4/kpv4cvd2ymv2x7pbrn9so6il1wlpjr4v/510_340_2/001_resized.jpg)](/raw/sites/media/news-professors-in-global-ranking-2026.md)
 
@@ -129,16 +139,6 @@ status: draft
 [Мероприятие провела Всероссийская академия внешней торговли (ВАВТ) Минэкономразвития России — один из партнёров форума. В турнире участвовали 17 студентов КФУ, Университета Иннополис и ВАВТ. Также ВАВТ организовала секции по ИИ-технологиям в образовании и навыкам для успешной карьеры в РФ и за рубежом.](/raw/sites/media/news-vavt-did-2026.md)
 
 [Читать](/raw/sites/media/news-vavt-did-2026.md)
-
-[![](https://innopolis.university/upload/resize_cache/iblock/9cc/hsljf2wqjr8og1l8z826o9whmycadakh/510_340_2/IMG_7925.JPG)](/raw/sites/media/news-postcode-challenge-2026-results.md)
-
-[16.10.2026](/raw/sites/media/news-postcode-challenge-2026-results.md)
-
-[15 студенческих команд получили 3 млн рублей за разработку ИИ-решений для Почты России](/raw/sites/media/news-postcode-challenge-2026-results.md)
-
-[В соревновании PostCode Challenge 507 обучающихся 23 российских вузов подготовили 141 решение. 24 команды дошли до финала и защитили проекты перед экспертами ИТ-отрасли на форуме «Цифровые дни Иннополиса». Победителями и призёрами стали 53 студента из Новосибирска, Иннополиса, Москвы, Екатеринбурга, Челябинска и Санкт-Петербурга. Организаторы — Почтатех и Университет Иннополис.](/raw/sites/media/news-postcode-challenge-2026-results.md)
-
-[Читать](/raw/sites/media/news-postcode-challenge-2026-results.md)
 
 [Все НОВОСТИ](/raw/sites/media/home.md)
 

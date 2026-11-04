@@ -860,7 +860,7 @@ startupstudio@innopolis.ru
 
 Заявка
 
-Нажимая кнопку "Отправить" вы соглашаетесь с [политикой обработки персональных данных](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+Нажимая кнопку "Отправить" вы соглашаетесь с [политикой обработки персональных данных](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
 Привет :)
 

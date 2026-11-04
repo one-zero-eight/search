@@ -230,9 +230,9 @@ status: draft
 
 Оставьте заявку для предварительного бронирования
 
-[с обработкой персональных данных](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+[с обработкой персональных данных](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
-[Нажимая на кнопку, вы соглашаетесь](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+[Нажимая на кнопку, вы соглашаетесь](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
 Скидки от количества участников
 
@@ -284,9 +284,9 @@ e.rezepin@innopolis.ru
 
 [Телеграм: @EldarRezepin](https://t.me/EldarRezepin)
 
-[Политика конфиденциальности](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+[Политика конфиденциальности](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
-[Лицензионное соглашение](https://innopolis.university/upload/iblock/d7f/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B4%D0%B5%D1%8F%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C.pdf)
+[Лицензионное соглашение](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md)
 
 менеджер образовательных программ
 

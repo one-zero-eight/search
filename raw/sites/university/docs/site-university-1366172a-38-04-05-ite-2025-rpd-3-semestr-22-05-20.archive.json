@@ -1,0 +1,123 @@
+{
+ "members": [
+  {
+   "ext": "pdf",
+   "file": "0000.pdf",
+   "key": "site-university-1366172a-38-04-05-ite-2025-rpd-3-semestr-22-05-20-member-bd3217b07f53a609fb9f",
+   "member": "Визуализация_Б1.В.ДВ.01.01_ITE_2025_Брендинг ИТ-продукта (3 с.)_22.05.2026.pdf",
+   "sha256": "610d125b1729d65cf62061e205a8d561f60e11593e36e7cd1b936cdd7d153175",
+   "size": 648987,
+   "status": "ready",
+   "storage": "site-university-1366172a-38-04-05-ite-2025-rpd-3-semestr-22-05-20.members/bd3217b07f53a609fb9f/610d125b1729d65cf62061e205a8d561f60e11593e36e7cd1b936cdd7d153175"
+  },
+  {
+   "ext": "pdf",
+   "file": "0001.pdf",
+   "key": "site-university-1366172a-38-04-05-ite-2025-rpd-3-semestr-22-05-20-member-c96f63f5d12c8d2301df",
+   "member": "Визуализация_Б1.В.ДВ.01.02_ITE_2025_Публичные выступления (3 с.)_22.05.2026.pdf",
+   "sha256": "2e96c5c4c08945d9dfdb97ea7a5f034b68e46c56d8641e5eb2bd86d7cc08ddc1",
+   "size": 589556,
+   "status": "ready",
+   "storage": "site-university-1366172a-38-04-05-ite-2025-rpd-3-semestr-22-05-20.members/c96f63f5d12c8d2301df/2e96c5c4c08945d9dfdb97ea7a5f034b68e46c56d8641e5eb2bd86d7cc08ddc1"
+  },
+  {
+   "ext": "pdf",
+   "file": "0002.pdf",
+   "key": "site-university-1366172a-38-04-05-ite-2025-rpd-3-semestr-22-05-20-member-0ba4f01d66e6914dbcfa",
+   "member": "Визуализация_Б1.В.ДВ.01.03_ITE_2025_Финансовый менеджмент цифровых продуктов (3 с.)_22.05.2026.pdf",
+   "sha256": "0436bb0fafcbfbdcac2fffb5026e9978eeb3316c89b01a65f461153ee6688b1c",
+   "size": 631824,
+   "status": "ready",
+   "storage": "site-university-1366172a-38-04-05-ite-2025-rpd-3-semestr-22-05-20.members/0ba4f01d66e6914dbcfa/0436bb0fafcbfbdcac2fffb5026e9978eeb3316c89b01a65f461153ee6688b1c"
+  },
+  {
+   "ext": "pdf",
+   "file": "0003.pdf",
+   "key": "site-university-1366172a-38-04-05-ite-2025-rpd-3-semestr-22-05-20-member-b7bc5ed967f1974f95d5",
+   "member": "Визуализация_Б1.В.ДВ.01.04_ITE_2025_Нарративный дизайн в играх (3 с.)_22.05.2026.pdf",
+   "sha256": "4009e633389597ebff4f866200b9c7102ad84088b88fd1ed6d3151def2f7a48a",
+   "size": 622150,
+   "status": "ready",
+   "storage": "site-university-1366172a-38-04-05-ite-2025-rpd-3-semestr-22-05-20.members/b7bc5ed967f1974f95d5/4009e633389597ebff4f866200b9c7102ad84088b88fd1ed6d3151def2f7a48a"
+  },
+  {
+   "ext": "pdf",
+   "file": "0004.pdf",
+   "key": "site-university-1366172a-38-04-05-ite-2025-rpd-3-semestr-22-05-20-member-e919ec232c0fdc8df477",
+   "member": "Визуализация_Б1.В.ДВ.01.05_ITE_2025_Бизнес-риторика (3 с.)_22.05.2026.pdf",
+   "sha256": "1f3e802a6ebfb24fc3ae34ee982ef461ff001546a3492aa0dd22cf82db3004ea",
+   "size": 638960,
+   "status": "ready",
+   "storage": "site-university-1366172a-38-04-05-ite-2025-rpd-3-semestr-22-05-20.members/e919ec232c0fdc8df477/1f3e802a6ebfb24fc3ae34ee982ef461ff001546a3492aa0dd22cf82db3004ea"
+  },
+  {
+   "ext": "pdf",
+   "file": "0005.pdf",
+   "key": "site-university-1366172a-38-04-05-ite-2025-rpd-3-semestr-22-05-20-member-684b63c73e365a7d02d3",
+   "member": "Визуализация_Б1.В.ДВ.02.01_ITE_2025_Маркетинговая аналитика (3 с.)_22.05.2026.pdf",
+   "sha256": "76963c75d4c91e308432b821a8db33ce3b55b767bd902941699665fe6d16df82",
+   "size": 694531,
+   "status": "ready",
+   "storage": "site-university-1366172a-38-04-05-ite-2025-rpd-3-semestr-22-05-20.members/684b63c73e365a7d02d3/76963c75d4c91e308432b821a8db33ce3b55b767bd902941699665fe6d16df82"
+  },
+  {
+   "ext": "pdf",
+   "file": "0006.pdf",
+   "key": "site-university-1366172a-38-04-05-ite-2025-rpd-3-semestr-22-05-20-member-fb2b4d875f77b85a0f36",
+   "member": "Визуализация_Б1.В.ДВ.02.02_ITE_2025_Киберправо (3 с.)_22.05.2026.pdf",
+   "sha256": "9dcef3b08d12eace2629cf690abb3b63306ae21cf6705f31a6ebb3c7a75e2aaa",
+   "size": 643952,
+   "status": "ready",
+   "storage": "site-university-1366172a-38-04-05-ite-2025-rpd-3-semestr-22-05-20.members/fb2b4d875f77b85a0f36/9dcef3b08d12eace2629cf690abb3b63306ae21cf6705f31a6ebb3c7a75e2aaa"
+  },
+  {
+   "ext": "pdf",
+   "file": "0007.pdf",
+   "key": "site-university-1366172a-38-04-05-ite-2025-rpd-3-semestr-22-05-20-member-ab5f646a238a121114dd",
+   "member": "Визуализация_Б1.О.01_ITE_2025_Бизнес-проект (3 с.)_22.05.2026.pdf",
+   "sha256": "a80788f0f2406d6c8d46e2c299abed17c17933c41ac8b671acb8191d3789f87c",
+   "size": 693134,
+   "status": "ready",
+   "storage": "site-university-1366172a-38-04-05-ite-2025-rpd-3-semestr-22-05-20.members/ab5f646a238a121114dd/a80788f0f2406d6c8d46e2c299abed17c17933c41ac8b671acb8191d3789f87c"
+  },
+  {
+   "ext": "pdf",
+   "file": "0008.pdf",
+   "key": "site-university-1366172a-38-04-05-ite-2025-rpd-3-semestr-22-05-20-member-59466a076df604bab7d1",
+   "member": "Визуализация_Б1.О.12_ITE_2025_Венчурные инвестиции (3 с.)_22.05.2026.pdf",
+   "sha256": "7901577c3cb5e4d0b9897e4e1b79231878a505ced9e87baf135113332743bae6",
+   "size": 774464,
+   "status": "ready",
+   "storage": "site-university-1366172a-38-04-05-ite-2025-rpd-3-semestr-22-05-20.members/59466a076df604bab7d1/7901577c3cb5e4d0b9897e4e1b79231878a505ced9e87baf135113332743bae6"
+  },
+  {
+   "ext": "pdf",
+   "file": "0009.pdf",
+   "key": "site-university-1366172a-38-04-05-ite-2025-rpd-3-semestr-22-05-20-member-0b50237ee6ab19191d3f",
+   "member": "Визуализация_Б1.О.13_ITE_2025_Формирование и развитие идентичности (3 с.)_22.05.2026.pdf",
+   "sha256": "e9ce3a829b725b1fcd1863da9e313991673be239fb287f0fa5f5f89c9e9976db",
+   "size": 748779,
+   "status": "ready",
+   "storage": "site-university-1366172a-38-04-05-ite-2025-rpd-3-semestr-22-05-20.members/0b50237ee6ab19191d3f/e9ce3a829b725b1fcd1863da9e313991673be239fb287f0fa5f5f89c9e9976db"
+  },
+  {
+   "ext": "pdf",
+   "file": "0010.pdf",
+   "key": "site-university-1366172a-38-04-05-ite-2025-rpd-3-semestr-22-05-20-member-edf11f446f5d29c129e8",
+   "member": "Визуализация_ФТД.01_ITE_2025_Русский как иностранный (3 с.)_22.05.2026.pdf",
+   "sha256": "1074c47753d88e36e62f1f03675152b4eca3ead2441c3a366d064dcae568f831",
+   "size": 505791,
+   "status": "ready",
+   "storage": "site-university-1366172a-38-04-05-ite-2025-rpd-3-semestr-22-05-20.members/edf11f446f5d29c129e8/1074c47753d88e36e62f1f03675152b4eca3ead2441c3a366d064dcae568f831"
+  }
+ ],
+ "remote": {
+  "etag": "\"6a44c8f6-313720\"",
+  "modified": "Wed, 01 Jul 2026 07:59:50 GMT",
+  "size": "3225376"
+ },
+ "sha256": "fadb25005e1012484256b2469b9f8d8a8e93015a9e321724decfa1ce2060cfd0",
+ "source": "site-university-1366172a-38-04-05-ite-2025-rpd-3-semestr-22-05-20.archives/fadb25005e1012484256b2469b9f8d8a8e93015a9e321724decfa1ce2060cfd0.archive",
+ "status": "ready",
+ "url": "https://innopolis.university/upload/iblock/b78/9lnsv6gg9n7g6fq4qtqhsemebn1lz3ir/%2838.04.05%29%20ITE%202025%20%D0%A0%D0%9F%D0%94%20%283%20%D1%81%D0%B5%D0%BC%D0%B5%D1%81%D1%82%D1%80%29_22.05.2026.7z"
+}

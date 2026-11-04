@@ -154,7 +154,7 @@ status: draft
 
 Менеджер проекта свяжется с вами для обсуждения сотрудничества
 
-После обсуждения деталей необходимо будет подписать [Соглашение о сотрудничестве](https://lk-dovuz.innopolis.university/public/files/agreement_partner_schools.pdf)
+После обсуждения деталей необходимо будет подписать [Соглашение о сотрудничестве](/raw/regulations/site-dovuz-f2e5b985-agreement-partner-schools.md)
 
 Подайте заявку
 

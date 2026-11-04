@@ -56,7 +56,7 @@ status: draft
 
 В области человеческого капитала прописана разработка программы обучения и тестирования по информационной безопасности и информационным технологиям и проведение оценки цифровых компетенций сотрудников.
 
-Ознакомиться с документом: [nnopolis.university/public/files/strategia_ct.pdf](https://innopolis.university/public/files/strategia_ct.pdf)
+Ознакомиться с документом: [nnopolis.university/public/files/strategia_ct.pdf](/raw/regulations/site-media-285fd963-strategia-ct.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/media/_shared.md](/raw/sites/media/_shared.md)._
 

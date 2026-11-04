@@ -220,19 +220,19 @@ status: draft
 
 Время ориентировочное.
 
-[Олимпиадная математика](https://lk-dovuz.innopolis.university/public/files/offer-spring-olimpiad-math.pdf)
+[Олимпиадная математика](/raw/regulations/site-dovuz-6f857bc9-offerspringolimpiadmath.md)
 
-[Олимпиадное программирование. Начальный уровень группы В](https://lk-dovuz.innopolis.university/public/files/offer-spring-olimpiad-groupb.pdf)
+[Олимпиадное программирование. Начальный уровень группы В](/raw/regulations/site-dovuz-dec07e9f-offerspringolimpiadgroupb.md)
 
-[Олимпиадное программирование. Начальный уровень группы C](https://lk-dovuz.innopolis.university/public/files/offer-spring-olimpiad-groupc.pdf)
+[Олимпиадное программирование. Начальный уровень группы C](/raw/regulations/site-dovuz-5cc7ef6c-offerspringolimpiadgroupc.md)
 
-[Олимпиадное программирование. Начальный уровень группы D](https://lk-dovuz.innopolis.university/public/files/offer-spring-olimpiad-groupd.pdf)
+[Олимпиадное программирование. Начальный уровень группы D](/raw/regulations/site-dovuz-6b3ba0b3-offerspringolimpiadgroupd.md)
 
-[Основы Gamedev на Python](https://lk-dovuz.innopolis.university/public/files/offer-spring-gamedev-python.pdf)
+[Основы Gamedev на Python](/raw/regulations/site-dovuz-6d0a8f99-offerspringgamedevpython.md)
 
-[Программирование на Go](https://lk-dovuz.innopolis.university/public/files/offer-spring-go.pdf)
+[Программирование на Go](/raw/regulations/site-dovuz-3d0354bf-offerspringgo.md)
 
-[Программирование на Python Продолжающий уровень](https://lk-dovuz.innopolis.university/public/files/offer-python-continuing.pdf)
+[Программирование на Python Продолжающий уровень](/raw/regulations/site-dovuz-4fb6df85-offerpythoncontinuing.md)
 
 ![](https://static.tildacdn.com/tild6461-3537-4565-b134-346264313231/photo_2025-12-04_12-.jpg)
 

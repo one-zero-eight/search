@@ -1,0 +1,103 @@
+{
+ "members": [
+  {
+   "ext": "pdf",
+   "file": "0001.pdf",
+   "key": "site-university-3185c50f-2-semestr-bsro-2024-26-12-2024-member-2f1a54f665de3ce99b93",
+   "member": "2 семестр BSRO 2024 (21.08.2025)/Визуализация_Б1.В.01_BS RO_2024_Элективные дисциплины (модули) по физической.pdf",
+   "sha256": "af3cf7d0cdd13887b5161ec86ff92a3bbf6ab1b54f55d27ffd2247c09b3387c3",
+   "size": 789094,
+   "status": "ready",
+   "storage": "site-university-3185c50f-2-semestr-bsro-2024-26-12-2024.members/2f1a54f665de3ce99b93/af3cf7d0cdd13887b5161ec86ff92a3bbf6ab1b54f55d27ffd2247c09b3387c3"
+  },
+  {
+   "ext": "pdf",
+   "file": "0002.pdf",
+   "key": "site-university-3185c50f-2-semestr-bsro-2024-26-12-2024-member-3fb732146f06432d43d2",
+   "member": "2 семестр BSRO 2024 (21.08.2025)/Визуализация_Б1.О.01_BS RO_2024_Иностранный язык (2 с.).pdf",
+   "sha256": "2b5e698806ebad6df91a4b5ca1ae56e9f44a70bd941c13c31562701043a53155",
+   "size": 556806,
+   "status": "ready",
+   "storage": "site-university-3185c50f-2-semestr-bsro-2024-26-12-2024.members/3fb732146f06432d43d2/2b5e698806ebad6df91a4b5ca1ae56e9f44a70bd941c13c31562701043a53155"
+  },
+  {
+   "ext": "pdf",
+   "file": "0003.pdf",
+   "key": "site-university-3185c50f-2-semestr-bsro-2024-26-12-2024-member-4281fd6d2daafb74b072",
+   "member": "2 семестр BSRO 2024 (21.08.2025)/Визуализация_Б1.О.02_BS RO_2024_Математический_анализ (2 с).pdf",
+   "sha256": "ab10edd78260921831aa340a946a3a4f880657048ce04ff19b23c26ec7b27110",
+   "size": 769302,
+   "status": "ready",
+   "storage": "site-university-3185c50f-2-semestr-bsro-2024-26-12-2024.members/4281fd6d2daafb74b072/ab10edd78260921831aa340a946a3a4f880657048ce04ff19b23c26ec7b27110"
+  },
+  {
+   "ext": "pdf",
+   "file": "0004.pdf",
+   "key": "site-university-3185c50f-2-semestr-bsro-2024-26-12-2024-member-1fe74f94b0192b27ee33",
+   "member": "2 семестр BSRO 2024 (21.08.2025)/Визуализация_Б1.О.03_BS RO_2024_Общая физика (2 с.).pdf",
+   "sha256": "43fd6bab0277c2aac8f061053a4959ca90bb201d7e44b4fb660d3b554c4991b4",
+   "size": 641231,
+   "status": "ready",
+   "storage": "site-university-3185c50f-2-semestr-bsro-2024-26-12-2024.members/1fe74f94b0192b27ee33/43fd6bab0277c2aac8f061053a4959ca90bb201d7e44b4fb660d3b554c4991b4"
+  },
+  {
+   "ext": "pdf",
+   "file": "0005.pdf",
+   "key": "site-university-3185c50f-2-semestr-bsro-2024-26-12-2024-member-66673b9cae68d7927d5d",
+   "member": "2 семестр BSRO 2024 (21.08.2025)/Визуализация_Б1.О.06_BS RO_2024_Алгоритмы и программирование (2 с.).pdf",
+   "sha256": "73b52cd1dbd3e2fb72592c2abc1b2f3e76efae2055f30ba4a51de556899cf857",
+   "size": 790540,
+   "status": "ready",
+   "storage": "site-university-3185c50f-2-semestr-bsro-2024-26-12-2024.members/66673b9cae68d7927d5d/73b52cd1dbd3e2fb72592c2abc1b2f3e76efae2055f30ba4a51de556899cf857"
+  },
+  {
+   "ext": "pdf",
+   "file": "0006.pdf",
+   "key": "site-university-3185c50f-2-semestr-bsro-2024-26-12-2024-member-31d218ac311512e66142",
+   "member": "2 семестр BSRO 2024 (21.08.2025)/Визуализация_Б1.О.07_BS RO_2024_Вычислительная линейная алгебра (2 с.).pdf",
+   "sha256": "ab227078a4db332d57fe0f2bdab0a118b53cc9bd8c567850f774fb8b8be3f89f",
+   "size": 750022,
+   "status": "ready",
+   "storage": "site-university-3185c50f-2-semestr-bsro-2024-26-12-2024.members/31d218ac311512e66142/ab227078a4db332d57fe0f2bdab0a118b53cc9bd8c567850f774fb8b8be3f89f"
+  },
+  {
+   "ext": "pdf",
+   "file": "0007.pdf",
+   "key": "site-university-3185c50f-2-semestr-bsro-2024-26-12-2024-member-1e7501585630c60cd86a",
+   "member": "2 семестр BSRO 2024 (21.08.2025)/Визуализация_Б1.О.08_BS RO_2024_Дискретная математика (2 с.).pdf",
+   "sha256": "b45c6433959d77e46865de8aef0c0dd768887ebc09e549be822bcfb9f2d8f134",
+   "size": 691812,
+   "status": "ready",
+   "storage": "site-university-3185c50f-2-semestr-bsro-2024-26-12-2024.members/1e7501585630c60cd86a/b45c6433959d77e46865de8aef0c0dd768887ebc09e549be822bcfb9f2d8f134"
+  },
+  {
+   "ext": "pdf",
+   "file": "0008.pdf",
+   "key": "site-university-3185c50f-2-semestr-bsro-2024-26-12-2024-member-20ed128a96e5bc324473",
+   "member": "2 семестр BSRO 2024 (21.08.2025)/Визуализация_ФТД.02_BS RO_2024_Логика решения задач (2 с.).pdf",
+   "sha256": "a659a643a0c6358c2f4a605ea833c2a972e617d53e0b02f25d1ab33f3488e1b5",
+   "size": 782830,
+   "status": "ready",
+   "storage": "site-university-3185c50f-2-semestr-bsro-2024-26-12-2024.members/20ed128a96e5bc324473/a659a643a0c6358c2f4a605ea833c2a972e617d53e0b02f25d1ab33f3488e1b5"
+  },
+  {
+   "ext": "pdf",
+   "file": "0009.pdf",
+   "key": "site-university-3185c50f-2-semestr-bsro-2024-26-12-2024-member-c427df38ca90cf276dc8",
+   "member": "2 семестр BSRO 2024 (21.08.2025)/Визуализация_ФТД.03_BS RO_2024_Программирование на Python (2 с.).pdf",
+   "sha256": "666fa4082f8c99ca80b4c20fb15a63f5915a4aac9e458bd66db26c965aa14aea",
+   "size": 854582,
+   "status": "ready",
+   "storage": "site-university-3185c50f-2-semestr-bsro-2024-26-12-2024.members/c427df38ca90cf276dc8/666fa4082f8c99ca80b4c20fb15a63f5915a4aac9e458bd66db26c965aa14aea"
+  }
+ ],
+ "remote": {
+  "etag": "\"68b6b65b-2cf748\"",
+  "modified": "Tue, 02 Sep 2025 09:18:19 GMT",
+  "size": "2946888"
+ },
+ "sha256": "9695c95ed0dcf004a7da6181182f6349e921b8b4513ad269127ef0897916751e",
+ "source": "site-university-3185c50f-2-semestr-bsro-2024-26-12-2024.archives/9695c95ed0dcf004a7da6181182f6349e921b8b4513ad269127ef0897916751e.archive",
+ "status": "ready",
+ "url": "https://innopolis.university/upload/iblock/bd6/11e2dn8hjsw5oo3n3cp342wjl0u1sktz/2%20%D1%81%D0%B5%D0%BC%D0%B5%D1%81%D1%82%D1%80%20BSRO%202024%20%2826.12.2024%29.7z"
+}

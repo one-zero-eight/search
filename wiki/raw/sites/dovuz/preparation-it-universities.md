@@ -282,11 +282,11 @@ status: draft
 
 [Читать документ](https://apply.innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%9F%D0%94%D0%BD%20%D0%B4%D0%BB%D1%8F%20%D0%A3%D0%98.pdf)
 
-[Читать документ](https://innopolis.university/filespublic/%D0%BE%D1%84%D0%B5%D1%80%D1%82%D0%B0_%D0%9F%D0%BE%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%BA%D0%B0_%D0%BA_%D0%98%D0%A2_%D1%80%D0%B0%D1%81%D1%88_%D1%81%D0%B5%D0%BD%D1%82%D1%8F%D0%B1%D1%80%D1%8C-%D0%B4%D0%B5%D0%BA%D0%B0%D0%B1%D1%80%D1%8C_2026.docx)
+[Читать документ](/raw/regulations/site-dovuz-a7060cf1-oferta-pogotovka-k-it-rassh-sentyabrdeka.md)
 
-[Читать документ](https://innopolis.university/filespublic/%D0%BE%D1%84%D0%B5%D1%80%D1%82%D0%B0_%D0%9F%D0%BE%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%BA%D0%B0_%D0%BA_%D0%98%D0%A2_%D0%B1%D0%B0%D0%B7%D0%BE%D0%B2_%D1%81%D1%81%D0%B5%D0%BD%D1%82%D1%8F%D0%B1%D1%80%D1%8C-%D0%B4%D0%B5%D0%BA%D0%B0%D0%B1%D1%80%D1%8C_2026.docx)
+[Читать документ](/raw/regulations/site-dovuz-8761c09e-oferta-pogotovka-k-it-bazov-ssentyabrdek.md)
 
-[Читать документ](https://innopolis.university/filespublic/%D0%94%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80-%D0%BE%D1%84%D0%B5%D1%80%D1%82%D1%8B_%D0%9F%D0%BE%D0%B4%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%BA%D0%B0_%D0%BA_%D0%90%D0%AF__14.09.2026-25.12.2026_.docx)
+[Читать документ](/raw/regulations/site-dovuz-ae38b6a3-dogovoroferty-podgotovka-k-aya-14-09-202.md)
 
 Артур Загидуллин
 

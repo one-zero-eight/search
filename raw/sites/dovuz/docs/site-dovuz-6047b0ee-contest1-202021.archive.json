@@ -1,0 +1,3649 @@
+{
+ "members": [
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/optimal-truck/scripts/gen-answer.sh",
+   "sha256": null,
+   "size": 762,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/optimal-truck/scripts/gen-input-via-files.bat",
+   "sha256": null,
+   "size": 1733,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/optimal-truck/scripts/run-validator-tests.sh",
+   "sha256": null,
+   "size": 173,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/optimal-truck/scripts/run-checker-tests.bat",
+   "sha256": null,
+   "size": 145,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/optimal-truck/scripts/gen-input-via-stdout.sh",
+   "sha256": null,
+   "size": 381,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/optimal-truck/scripts/run-validator-tests.bat",
+   "sha256": null,
+   "size": 155,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/optimal-truck/scripts/run-checker-tests.sh",
+   "sha256": null,
+   "size": 163,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/optimal-truck/scripts/gen-input-via-stdout.bat",
+   "sha256": null,
+   "size": 289,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/optimal-truck/scripts/gen-answer.bat",
+   "sha256": null,
+   "size": 522,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/optimal-truck/scripts/gen-input-via-files.sh",
+   "sha256": null,
+   "size": 1298,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/optimal-truck/scripts/gen-input-via-file.sh",
+   "sha256": null,
+   "size": 644,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/optimal-truck/scripts/gen-input-via-file.bat",
+   "sha256": null,
+   "size": 560,
+   "status": "unsupported"
+  },
+  {
+   "ext": "h",
+   "file": null,
+   "member": "problems/optimal-truck/files/testlib.h",
+   "sha256": null,
+   "size": 162651,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/optimal-truck/files/towin.exe",
+   "sha256": null,
+   "size": 26002,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/optimal-truck/files/gen.cpp",
+   "sha256": null,
+   "size": 1250,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sty",
+   "file": null,
+   "member": "problems/optimal-truck/files/olymp.sty",
+   "sha256": null,
+   "size": 23058,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/optimal-truck/files/check.cpp",
+   "sha256": null,
+   "size": 1472,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/optimal-truck/files/problem.tex",
+   "sha256": null,
+   "size": 2315,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/optimal-truck/files/validate.cpp",
+   "sha256": null,
+   "size": 1179,
+   "status": "unsupported"
+  },
+  {
+   "ext": "ftl",
+   "file": null,
+   "member": "problems/optimal-truck/files/statements.ftl",
+   "sha256": null,
+   "size": 1115,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/optimal-truck/files/gen.exe",
+   "sha256": null,
+   "size": 2829135,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/optimal-truck/files/validate.exe",
+   "sha256": null,
+   "size": 2827060,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/optimal-truck/tests/01",
+   "sha256": null,
+   "size": 69,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/optimal-truck/statements/english/problem.tex",
+   "sha256": null,
+   "size": 2509,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/optimal-truck/statements/english/example.01.a",
+   "sha256": null,
+   "size": 16,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/optimal-truck/statements/english/example.01",
+   "sha256": null,
+   "size": 69,
+   "status": "unsupported"
+  },
+  {
+   "ext": "json",
+   "file": null,
+   "member": "problems/optimal-truck/statements/english/problem-properties.json",
+   "sha256": null,
+   "size": 2869,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/optimal-truck/statements/russian/problem.tex",
+   "sha256": null,
+   "size": 3524,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/optimal-truck/statements/russian/example.01.a",
+   "sha256": null,
+   "size": 16,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/optimal-truck/statements/russian/example.01",
+   "sha256": null,
+   "size": 69,
+   "status": "unsupported"
+  },
+  {
+   "ext": "json",
+   "file": null,
+   "member": "problems/optimal-truck/statements/russian/problem-properties.json",
+   "sha256": null,
+   "size": 3839,
+   "status": "unsupported"
+  },
+  {
+   "ext": "pdf",
+   "file": "0041.pdf",
+   "key": "site-dovuz-6047b0ee-contest1-202021-member-c93403ffe6589cf43223",
+   "member": "problems/optimal-truck/statements/.pdf/english/problem.pdf",
+   "sha256": "afc5b758f8b634e7731c984b0e4779478b3ae29ef24dc7f1afce43c5b046d986",
+   "size": 133100,
+   "status": "ready",
+   "storage": "site-dovuz-6047b0ee-contest1-202021.members/c93403ffe6589cf43223/afc5b758f8b634e7731c984b0e4779478b3ae29ef24dc7f1afce43c5b046d986"
+  },
+  {
+   "ext": "pdf",
+   "file": "0043.pdf",
+   "key": "site-dovuz-6047b0ee-contest1-202021-member-475d81fb2befc644585e",
+   "member": "problems/optimal-truck/statements/.pdf/russian/problem.pdf",
+   "sha256": "2b38f62180ab5a2f0426daaf1866bcfc63d4b1553590384aac51b182fe7629c4",
+   "size": 133113,
+   "status": "ready",
+   "storage": "site-dovuz-6047b0ee-contest1-202021.members/475d81fb2befc644585e/2b38f62180ab5a2f0426daaf1866bcfc63d4b1553590384aac51b182fe7629c4"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/optimal-truck/solutions/optimal_truck_pm_46.cpp.desc",
+   "sha256": null,
+   "size": 106,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/optimal-truck/solutions/optimal_truck_pm.cpp.desc",
+   "sha256": null,
+   "size": 99,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/optimal-truck/solutions/optimal_truck_pm_46.cpp",
+   "sha256": null,
+   "size": 1234,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/optimal-truck/solutions/optimal_truck_pm_46.exe",
+   "sha256": null,
+   "size": 2412951,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/optimal-truck/solutions/optimal_truck_pm.exe",
+   "sha256": null,
+   "size": 2421058,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/optimal-truck/solutions/optimal_truck_pm.cpp",
+   "sha256": null,
+   "size": 1279,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/optimal-truck/statement-sections/english/name.tex",
+   "sha256": null,
+   "size": 13,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/optimal-truck/statement-sections/english/scoring.tex",
+   "sha256": null,
+   "size": 839,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/optimal-truck/statement-sections/english/output.tex",
+   "sha256": null,
+   "size": 220,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/optimal-truck/statement-sections/english/input.tex",
+   "sha256": null,
+   "size": 443,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/optimal-truck/statement-sections/english/legend.tex",
+   "sha256": null,
+   "size": 783,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/optimal-truck/statement-sections/english/example.01.a",
+   "sha256": null,
+   "size": 16,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/optimal-truck/statement-sections/english/example.01",
+   "sha256": null,
+   "size": 69,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/optimal-truck/statement-sections/russian/name.tex",
+   "sha256": null,
+   "size": 13,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/optimal-truck/statement-sections/russian/scoring.tex",
+   "sha256": null,
+   "size": 882,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/optimal-truck/statement-sections/russian/output.tex",
+   "sha256": null,
+   "size": 401,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/optimal-truck/statement-sections/russian/input.tex",
+   "sha256": null,
+   "size": 608,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/optimal-truck/statement-sections/russian/legend.tex",
+   "sha256": null,
+   "size": 1360,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/optimal-truck/statement-sections/russian/example.01.a",
+   "sha256": null,
+   "size": 16,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/optimal-truck/statement-sections/russian/example.01",
+   "sha256": null,
+   "size": 69,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/optimal-truck/doall.sh",
+   "sha256": null,
+   "size": 15853,
+   "status": "unsupported"
+  },
+  {
+   "ext": "xml",
+   "file": null,
+   "member": "problems/optimal-truck/problem.xml",
+   "sha256": null,
+   "size": 13187,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/optimal-truck/check.exe",
+   "sha256": null,
+   "size": 2826815,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/optimal-truck/check.cpp",
+   "sha256": null,
+   "size": 1472,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/optimal-truck/wipe.sh",
+   "sha256": null,
+   "size": 2264,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/optimal-truck/doall.bat",
+   "sha256": null,
+   "size": 11404,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/optimal-truck/wipe.bat",
+   "sha256": null,
+   "size": 2110,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/champions-scoring/scripts/gen-answer.sh",
+   "sha256": null,
+   "size": 732,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/champions-scoring/scripts/gen-input-via-files.bat",
+   "sha256": null,
+   "size": 1733,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/champions-scoring/scripts/run-validator-tests.sh",
+   "sha256": null,
+   "size": 173,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/champions-scoring/scripts/run-checker-tests.bat",
+   "sha256": null,
+   "size": 145,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/champions-scoring/scripts/gen-input-via-stdout.sh",
+   "sha256": null,
+   "size": 381,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/champions-scoring/scripts/run-validator-tests.bat",
+   "sha256": null,
+   "size": 155,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/champions-scoring/scripts/run-checker-tests.sh",
+   "sha256": null,
+   "size": 163,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/champions-scoring/scripts/gen-input-via-stdout.bat",
+   "sha256": null,
+   "size": 289,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/champions-scoring/scripts/gen-answer.bat",
+   "sha256": null,
+   "size": 507,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/champions-scoring/scripts/gen-input-via-files.sh",
+   "sha256": null,
+   "size": 1298,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/champions-scoring/scripts/gen-input-via-file.sh",
+   "sha256": null,
+   "size": 644,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/champions-scoring/scripts/gen-input-via-file.bat",
+   "sha256": null,
+   "size": 560,
+   "status": "unsupported"
+  },
+  {
+   "ext": "h",
+   "file": null,
+   "member": "problems/champions-scoring/files/testlib.h",
+   "sha256": null,
+   "size": 162651,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/champions-scoring/files/mecho.exe",
+   "sha256": null,
+   "size": 2411068,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/champions-scoring/files/towin.exe",
+   "sha256": null,
+   "size": 26002,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sty",
+   "file": null,
+   "member": "problems/champions-scoring/files/olymp.sty",
+   "sha256": null,
+   "size": 23058,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/champions-scoring/files/check.exe",
+   "sha256": null,
+   "size": 2826856,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/champions-scoring/files/check.cpp",
+   "sha256": null,
+   "size": 1284,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/champions-scoring/files/problem.tex",
+   "sha256": null,
+   "size": 2315,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/champions-scoring/files/mecho.cpp",
+   "sha256": null,
+   "size": 131,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/champions-scoring/files/validate.cpp",
+   "sha256": null,
+   "size": 526,
+   "status": "unsupported"
+  },
+  {
+   "ext": "ftl",
+   "file": null,
+   "member": "problems/champions-scoring/files/statements.ftl",
+   "sha256": null,
+   "size": 1115,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/champions-scoring/files/validate.exe",
+   "sha256": null,
+   "size": 2826988,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/champions-scoring/tests/02",
+   "sha256": null,
+   "size": 6,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/champions-scoring/tests/01",
+   "sha256": null,
+   "size": 6,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/champions-scoring/statements/english/problem.tex",
+   "sha256": null,
+   "size": 2172,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/champions-scoring/statements/english/example.01.a",
+   "sha256": null,
+   "size": 7,
+   "status": "unsupported"
+  },
+  {
+   "ext": "02",
+   "file": null,
+   "member": "problems/champions-scoring/statements/english/example.02",
+   "sha256": null,
+   "size": 6,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/champions-scoring/statements/english/example.01",
+   "sha256": null,
+   "size": 6,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/champions-scoring/statements/english/example.02.a",
+   "sha256": null,
+   "size": 4,
+   "status": "unsupported"
+  },
+  {
+   "ext": "json",
+   "file": null,
+   "member": "problems/champions-scoring/statements/english/problem-properties.json",
+   "sha256": null,
+   "size": 2483,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/champions-scoring/statements/russian/problem.tex",
+   "sha256": null,
+   "size": 3418,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/champions-scoring/statements/russian/example.01.a",
+   "sha256": null,
+   "size": 7,
+   "status": "unsupported"
+  },
+  {
+   "ext": "02",
+   "file": null,
+   "member": "problems/champions-scoring/statements/russian/example.02",
+   "sha256": null,
+   "size": 6,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/champions-scoring/statements/russian/example.01",
+   "sha256": null,
+   "size": 6,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/champions-scoring/statements/russian/example.02.a",
+   "sha256": null,
+   "size": 4,
+   "status": "unsupported"
+  },
+  {
+   "ext": "json",
+   "file": null,
+   "member": "problems/champions-scoring/statements/russian/problem-properties.json",
+   "sha256": null,
+   "size": 3676,
+   "status": "unsupported"
+  },
+  {
+   "ext": "pdf",
+   "file": "0121.pdf",
+   "key": "site-dovuz-6047b0ee-contest1-202021-member-ed4e2ea04ab6bd96992c",
+   "member": "problems/champions-scoring/statements/.pdf/english/problem.pdf",
+   "sha256": "d49704d5ff3d8580bcdddb4d24c8e72f71930760379c28ad6faf0f81a3fa9d53",
+   "size": 118261,
+   "status": "ready",
+   "storage": "site-dovuz-6047b0ee-contest1-202021.members/ed4e2ea04ab6bd96992c/d49704d5ff3d8580bcdddb4d24c8e72f71930760379c28ad6faf0f81a3fa9d53"
+  },
+  {
+   "ext": "pdf",
+   "file": "0123.pdf",
+   "key": "site-dovuz-6047b0ee-contest1-202021-member-edfab4ddcc54463c0d14",
+   "member": "problems/champions-scoring/statements/.pdf/russian/problem.pdf",
+   "sha256": "e1e03afb4f3bc1b8225d4e448bd9277b10550bee874663da35d4fcade4d1a420",
+   "size": 117912,
+   "status": "ready",
+   "storage": "site-dovuz-6047b0ee-contest1-202021.members/edfab4ddcc54463c0d14/e1e03afb4f3bc1b8225d4e448bd9277b10550bee874663da35d4fcade4d1a420"
+  },
+  {
+   "ext": "pys3",
+   "file": null,
+   "member": "problems/champions-scoring/solutions/b.pys3",
+   "sha256": null,
+   "size": 206,
+   "status": "unsupported"
+  },
+  {
+   "ext": "py",
+   "file": null,
+   "member": "problems/champions-scoring/solutions/wrong.py",
+   "sha256": null,
+   "size": 353,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/champions-scoring/solutions/b.py.desc",
+   "sha256": null,
+   "size": 105,
+   "status": "unsupported"
+  },
+  {
+   "ext": "py",
+   "file": null,
+   "member": "problems/champions-scoring/solutions/slow.py",
+   "sha256": null,
+   "size": 354,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/champions-scoring/solutions/slow.py.desc",
+   "sha256": null,
+   "size": 108,
+   "status": "unsupported"
+  },
+  {
+   "ext": "pys3",
+   "file": null,
+   "member": "problems/champions-scoring/solutions/wrong.pys3",
+   "sha256": null,
+   "size": 353,
+   "status": "unsupported"
+  },
+  {
+   "ext": "py",
+   "file": null,
+   "member": "problems/champions-scoring/solutions/b.py",
+   "sha256": null,
+   "size": 206,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/champions-scoring/solutions/wrong.py.desc",
+   "sha256": null,
+   "size": 98,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/champions-scoring/solutions/a.cpp",
+   "sha256": null,
+   "size": 215,
+   "status": "unsupported"
+  },
+  {
+   "ext": "pys3",
+   "file": null,
+   "member": "problems/champions-scoring/solutions/slow.pys3",
+   "sha256": null,
+   "size": 354,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/champions-scoring/solutions/a.cpp.desc",
+   "sha256": null,
+   "size": 91,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/champions-scoring/solutions/a.exe",
+   "sha256": null,
+   "size": 2411104,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/champions-scoring/statement-sections/english/name.tex",
+   "sha256": null,
+   "size": 20,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/champions-scoring/statement-sections/english/scoring.tex",
+   "sha256": null,
+   "size": 314,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/champions-scoring/statement-sections/english/output.tex",
+   "sha256": null,
+   "size": 301,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/champions-scoring/statement-sections/english/input.tex",
+   "sha256": null,
+   "size": 261,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/champions-scoring/statement-sections/english/legend.tex",
+   "sha256": null,
+   "size": 1028,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/champions-scoring/statement-sections/english/example.01.a",
+   "sha256": null,
+   "size": 7,
+   "status": "unsupported"
+  },
+  {
+   "ext": "02",
+   "file": null,
+   "member": "problems/champions-scoring/statement-sections/english/example.02",
+   "sha256": null,
+   "size": 6,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/champions-scoring/statement-sections/english/example.01",
+   "sha256": null,
+   "size": 6,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/champions-scoring/statement-sections/english/example.02.a",
+   "sha256": null,
+   "size": 4,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/champions-scoring/statement-sections/russian/name.tex",
+   "sha256": null,
+   "size": 20,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/champions-scoring/statement-sections/russian/scoring.tex",
+   "sha256": null,
+   "size": 341,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/champions-scoring/statement-sections/russian/output.tex",
+   "sha256": null,
+   "size": 579,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/champions-scoring/statement-sections/russian/input.tex",
+   "sha256": null,
+   "size": 427,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/champions-scoring/statement-sections/russian/legend.tex",
+   "sha256": null,
+   "size": 1753,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/champions-scoring/statement-sections/russian/example.01.a",
+   "sha256": null,
+   "size": 7,
+   "status": "unsupported"
+  },
+  {
+   "ext": "02",
+   "file": null,
+   "member": "problems/champions-scoring/statement-sections/russian/example.02",
+   "sha256": null,
+   "size": 6,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/champions-scoring/statement-sections/russian/example.01",
+   "sha256": null,
+   "size": 6,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/champions-scoring/statement-sections/russian/example.02.a",
+   "sha256": null,
+   "size": 4,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/champions-scoring/doall.sh",
+   "sha256": null,
+   "size": 8324,
+   "status": "unsupported"
+  },
+  {
+   "ext": "xml",
+   "file": null,
+   "member": "problems/champions-scoring/problem.xml",
+   "sha256": null,
+   "size": 9020,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/champions-scoring/check.exe",
+   "sha256": null,
+   "size": 2826856,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/champions-scoring/check.cpp",
+   "sha256": null,
+   "size": 1284,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/champions-scoring/wipe.sh",
+   "sha256": null,
+   "size": 1321,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/champions-scoring/doall.bat",
+   "sha256": null,
+   "size": 5755,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/champions-scoring/wipe.bat",
+   "sha256": null,
+   "size": 1226,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/equalizer/scripts/gen-answer.sh",
+   "sha256": null,
+   "size": 744,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/equalizer/scripts/gen-input-via-files.bat",
+   "sha256": null,
+   "size": 1733,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/equalizer/scripts/run-validator-tests.sh",
+   "sha256": null,
+   "size": 173,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/equalizer/scripts/run-checker-tests.bat",
+   "sha256": null,
+   "size": 145,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/equalizer/scripts/gen-input-via-stdout.sh",
+   "sha256": null,
+   "size": 381,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/equalizer/scripts/run-validator-tests.bat",
+   "sha256": null,
+   "size": 155,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/equalizer/scripts/run-checker-tests.sh",
+   "sha256": null,
+   "size": 163,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/equalizer/scripts/gen-input-via-stdout.bat",
+   "sha256": null,
+   "size": 289,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/equalizer/scripts/gen-answer.bat",
+   "sha256": null,
+   "size": 513,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/equalizer/scripts/gen-input-via-files.sh",
+   "sha256": null,
+   "size": 1298,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/equalizer/scripts/gen-input-via-file.sh",
+   "sha256": null,
+   "size": 644,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/equalizer/scripts/gen-input-via-file.bat",
+   "sha256": null,
+   "size": 560,
+   "status": "unsupported"
+  },
+  {
+   "ext": "h",
+   "file": null,
+   "member": "problems/equalizer/files/testlib.h",
+   "sha256": null,
+   "size": 162651,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/equalizer/files/towin.exe",
+   "sha256": null,
+   "size": 26002,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/equalizer/files/mreverse.cpp",
+   "sha256": null,
+   "size": 342,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/equalizer/files/corrupt.cpp",
+   "sha256": null,
+   "size": 475,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sty",
+   "file": null,
+   "member": "problems/equalizer/files/olymp.sty",
+   "sha256": null,
+   "size": 23058,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/equalizer/files/msort.cpp",
+   "sha256": null,
+   "size": 339,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/equalizer/files/check.cpp",
+   "sha256": null,
+   "size": 1472,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/equalizer/files/problem.tex",
+   "sha256": null,
+   "size": 2316,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/equalizer/files/mreverse.exe",
+   "sha256": null,
+   "size": 2411616,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/equalizer/files/gen_n_max_unique.cpp",
+   "sha256": null,
+   "size": 408,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/equalizer/files/gen_n_max.cpp",
+   "sha256": null,
+   "size": 295,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/equalizer/files/gen_n_max.exe",
+   "sha256": null,
+   "size": 2825970,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/equalizer/files/validate.cpp",
+   "sha256": null,
+   "size": 616,
+   "status": "unsupported"
+  },
+  {
+   "ext": "ftl",
+   "file": null,
+   "member": "problems/equalizer/files/statements.ftl",
+   "sha256": null,
+   "size": 1086,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/equalizer/files/genmaxans.exe",
+   "sha256": null,
+   "size": 2825791,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/equalizer/files/corrupt.exe",
+   "sha256": null,
+   "size": 2825970,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/equalizer/files/gen_n_max_unique.exe",
+   "sha256": null,
+   "size": 2831127,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/equalizer/files/msort.exe",
+   "sha256": null,
+   "size": 2414210,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/equalizer/files/genmaxans.cpp",
+   "sha256": null,
+   "size": 375,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/equalizer/files/validate.exe",
+   "sha256": null,
+   "size": 2827006,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/equalizer/tests/01",
+   "sha256": null,
+   "size": 16,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/equalizer/stresses/001",
+   "sha256": null,
+   "size": 274,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/equalizer/statements/english/problem.tex",
+   "sha256": null,
+   "size": 2706,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/equalizer/statements/english/example.01.a",
+   "sha256": null,
+   "size": 3,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/equalizer/statements/english/example.01",
+   "sha256": null,
+   "size": 16,
+   "status": "unsupported"
+  },
+  {
+   "ext": "mp",
+   "file": null,
+   "member": "problems/equalizer/statements/english/figure.mp",
+   "sha256": null,
+   "size": 1459,
+   "status": "unsupported"
+  },
+  {
+   "ext": "json",
+   "file": null,
+   "member": "problems/equalizer/statements/english/problem-properties.json",
+   "sha256": null,
+   "size": 3018,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/equalizer/statements/russian/problem.tex",
+   "sha256": null,
+   "size": 3951,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/equalizer/statements/russian/example.01.a",
+   "sha256": null,
+   "size": 3,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/equalizer/statements/russian/example.01",
+   "sha256": null,
+   "size": 16,
+   "status": "unsupported"
+  },
+  {
+   "ext": "mp",
+   "file": null,
+   "member": "problems/equalizer/statements/russian/figure.mp",
+   "sha256": null,
+   "size": 1459,
+   "status": "unsupported"
+  },
+  {
+   "ext": "json",
+   "file": null,
+   "member": "problems/equalizer/statements/russian/problem-properties.json",
+   "sha256": null,
+   "size": 4217,
+   "status": "unsupported"
+  },
+  {
+   "ext": "pdf",
+   "file": "0219.pdf",
+   "key": "site-dovuz-6047b0ee-contest1-202021-member-ebf10cc57fdf33878021",
+   "member": "problems/equalizer/statements/.pdf/english/problem.pdf",
+   "sha256": "4e6858aaff1146850fff4ba786144948d9318c7ddf796b0aadf525a858d5f60f",
+   "size": 125696,
+   "status": "ready",
+   "storage": "site-dovuz-6047b0ee-contest1-202021.members/ebf10cc57fdf33878021/4e6858aaff1146850fff4ba786144948d9318c7ddf796b0aadf525a858d5f60f"
+  },
+  {
+   "ext": "pdf",
+   "file": "0221.pdf",
+   "key": "site-dovuz-6047b0ee-contest1-202021-member-8166749db7abc6d892f9",
+   "member": "problems/equalizer/statements/.pdf/russian/problem.pdf",
+   "sha256": "7346f883964a3b7d0f086e54efe2d3ebce89f46f7f6345acdf1049942b95d3b0",
+   "size": 126155,
+   "status": "ready",
+   "storage": "site-dovuz-6047b0ee-contest1-202021.members/8166749db7abc6d892f9/7346f883964a3b7d0f086e54efe2d3ebce89f46f7f6345acdf1049942b95d3b0"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/equalizer/solutions/b.cpp.desc",
+   "sha256": null,
+   "size": 106,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/equalizer/solutions/slow2.cpp.desc",
+   "sha256": null,
+   "size": 110,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/equalizer/solutions/wrong.cpp",
+   "sha256": null,
+   "size": 478,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/equalizer/solutions/overflow.cpp.desc",
+   "sha256": null,
+   "size": 106,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/equalizer/solutions/wrong2.cpp.desc",
+   "sha256": null,
+   "size": 104,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/equalizer/solutions/wrong.exe",
+   "sha256": null,
+   "size": 2412511,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/equalizer/solutions/correct.exe",
+   "sha256": null,
+   "size": 2411068,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/equalizer/solutions/correct.cpp.desc",
+   "sha256": null,
+   "size": 97,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/equalizer/solutions/overflow.exe",
+   "sha256": null,
+   "size": 2411068,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/equalizer/solutions/slow.cpp",
+   "sha256": null,
+   "size": 589,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/equalizer/solutions/b.exe",
+   "sha256": null,
+   "size": 2412261,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/equalizer/solutions/b.cpp",
+   "sha256": null,
+   "size": 769,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/equalizer/solutions/overflow.cpp",
+   "sha256": null,
+   "size": 430,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/equalizer/solutions/slow.exe",
+   "sha256": null,
+   "size": 2411616,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/equalizer/solutions/slow.cpp.desc",
+   "sha256": null,
+   "size": 109,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/equalizer/solutions/wrong2.cpp",
+   "sha256": null,
+   "size": 461,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/equalizer/solutions/correct.cpp",
+   "sha256": null,
+   "size": 436,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/equalizer/solutions/a.cpp",
+   "sha256": null,
+   "size": 457,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/equalizer/solutions/wrong.cpp.desc",
+   "sha256": null,
+   "size": 103,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/equalizer/solutions/slow2.exe",
+   "sha256": null,
+   "size": 2411616,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/equalizer/solutions/slow2.cpp",
+   "sha256": null,
+   "size": 720,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/equalizer/solutions/wrong2.exe",
+   "sha256": null,
+   "size": 2412511,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/equalizer/solutions/a.cpp.desc",
+   "sha256": null,
+   "size": 95,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/equalizer/solutions/a.exe",
+   "sha256": null,
+   "size": 2412511,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/equalizer/statement-sections/english/name.tex",
+   "sha256": null,
+   "size": 17,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/equalizer/statement-sections/english/scoring.tex",
+   "sha256": null,
+   "size": 678,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/equalizer/statement-sections/english/output.tex",
+   "sha256": null,
+   "size": 102,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/equalizer/statement-sections/english/input.tex",
+   "sha256": null,
+   "size": 309,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/equalizer/statement-sections/english/legend.tex",
+   "sha256": null,
+   "size": 1253,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/equalizer/statement-sections/english/notes.tex",
+   "sha256": null,
+   "size": 128,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/equalizer/statement-sections/english/example.01.a",
+   "sha256": null,
+   "size": 3,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/equalizer/statement-sections/english/example.01",
+   "sha256": null,
+   "size": 16,
+   "status": "unsupported"
+  },
+  {
+   "ext": "mp",
+   "file": null,
+   "member": "problems/equalizer/statement-sections/english/figure.mp",
+   "sha256": null,
+   "size": 1459,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/equalizer/statement-sections/russian/name.tex",
+   "sha256": null,
+   "size": 17,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/equalizer/statement-sections/russian/scoring.tex",
+   "sha256": null,
+   "size": 757,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/equalizer/statement-sections/russian/output.tex",
+   "sha256": null,
+   "size": 223,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/equalizer/statement-sections/russian/input.tex",
+   "sha256": null,
+   "size": 408,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/equalizer/statement-sections/russian/legend.tex",
+   "sha256": null,
+   "size": 2093,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/equalizer/statement-sections/russian/notes.tex",
+   "sha256": null,
+   "size": 184,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/equalizer/statement-sections/russian/example.01.a",
+   "sha256": null,
+   "size": 3,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/equalizer/statement-sections/russian/example.01",
+   "sha256": null,
+   "size": 16,
+   "status": "unsupported"
+  },
+  {
+   "ext": "mp",
+   "file": null,
+   "member": "problems/equalizer/statement-sections/russian/figure.mp",
+   "sha256": null,
+   "size": 1459,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/equalizer/doall.sh",
+   "sha256": null,
+   "size": 15700,
+   "status": "unsupported"
+  },
+  {
+   "ext": "xml",
+   "file": null,
+   "member": "problems/equalizer/problem.xml",
+   "sha256": null,
+   "size": 14634,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/equalizer/check.exe",
+   "sha256": null,
+   "size": 2826815,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/equalizer/check.cpp",
+   "sha256": null,
+   "size": 1472,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/equalizer/wipe.sh",
+   "sha256": null,
+   "size": 2264,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/equalizer/doall.bat",
+   "sha256": null,
+   "size": 11076,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/equalizer/tags",
+   "sha256": null,
+   "size": 14,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/equalizer/wipe.bat",
+   "sha256": null,
+   "size": 2110,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/bookshelf-sorting/scripts/gen-answer.sh",
+   "sha256": null,
+   "size": 842,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/bookshelf-sorting/scripts/gen-input-via-files.bat",
+   "sha256": null,
+   "size": 1733,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/bookshelf-sorting/scripts/run-validator-tests.sh",
+   "sha256": null,
+   "size": 173,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/bookshelf-sorting/scripts/run-checker-tests.bat",
+   "sha256": null,
+   "size": 145,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/bookshelf-sorting/scripts/gen-input-via-stdout.sh",
+   "sha256": null,
+   "size": 381,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/bookshelf-sorting/scripts/run-validator-tests.bat",
+   "sha256": null,
+   "size": 155,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/bookshelf-sorting/scripts/run-checker-tests.sh",
+   "sha256": null,
+   "size": 163,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/bookshelf-sorting/scripts/gen-input-via-stdout.bat",
+   "sha256": null,
+   "size": 289,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/bookshelf-sorting/scripts/gen-answer.bat",
+   "sha256": null,
+   "size": 619,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/bookshelf-sorting/scripts/gen-input-via-files.sh",
+   "sha256": null,
+   "size": 1298,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/bookshelf-sorting/scripts/gen-input-via-file.sh",
+   "sha256": null,
+   "size": 644,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/bookshelf-sorting/scripts/gen-input-via-file.bat",
+   "sha256": null,
+   "size": 560,
+   "status": "unsupported"
+  },
+  {
+   "ext": "h",
+   "file": null,
+   "member": "problems/bookshelf-sorting/files/testlib.h",
+   "sha256": null,
+   "size": 162651,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/bookshelf-sorting/files/towin.exe",
+   "sha256": null,
+   "size": 26002,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/bookshelf-sorting/files/validator.cpp",
+   "sha256": null,
+   "size": 880,
+   "status": "unsupported"
+  },
+  {
+   "ext": "java",
+   "file": null,
+   "member": "problems/bookshelf-sorting/files/GenAlmostSorted.java",
+   "sha256": null,
+   "size": 3746,
+   "status": "unsupported"
+  },
+  {
+   "ext": "java",
+   "file": null,
+   "member": "problems/bookshelf-sorting/files/GenRandomWalk.java",
+   "sha256": null,
+   "size": 3243,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sty",
+   "file": null,
+   "member": "problems/bookshelf-sorting/files/olymp.sty",
+   "sha256": null,
+   "size": 23058,
+   "status": "unsupported"
+  },
+  {
+   "ext": "java",
+   "file": null,
+   "member": "problems/bookshelf-sorting/files/GenRandomFromSorted.java",
+   "sha256": null,
+   "size": 3026,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/bookshelf-sorting/files/check.cpp",
+   "sha256": null,
+   "size": 1472,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/bookshelf-sorting/files/problem.tex",
+   "sha256": null,
+   "size": 2315,
+   "status": "unsupported"
+  },
+  {
+   "ext": "jar",
+   "file": null,
+   "member": "problems/bookshelf-sorting/files/Reverse.jar",
+   "sha256": null,
+   "size": 60280,
+   "status": "unsupported"
+  },
+  {
+   "ext": "jar",
+   "file": null,
+   "member": "problems/bookshelf-sorting/files/GenRandomFromSorted.jar",
+   "sha256": null,
+   "size": 60186,
+   "status": "unsupported"
+  },
+  {
+   "ext": "jar",
+   "file": null,
+   "member": "problems/bookshelf-sorting/files/GenRandomWalk.jar",
+   "sha256": null,
+   "size": 60300,
+   "status": "unsupported"
+  },
+  {
+   "ext": "ftl",
+   "file": null,
+   "member": "problems/bookshelf-sorting/files/statements.ftl",
+   "sha256": null,
+   "size": 1115,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/bookshelf-sorting/files/validator.exe",
+   "sha256": null,
+   "size": 2827540,
+   "status": "unsupported"
+  },
+  {
+   "ext": "java",
+   "file": null,
+   "member": "problems/bookshelf-sorting/files/GenRandom.java",
+   "sha256": null,
+   "size": 2740,
+   "status": "unsupported"
+  },
+  {
+   "ext": "java",
+   "file": null,
+   "member": "problems/bookshelf-sorting/files/Reverse.java",
+   "sha256": null,
+   "size": 2809,
+   "status": "unsupported"
+  },
+  {
+   "ext": "jar",
+   "file": null,
+   "member": "problems/bookshelf-sorting/files/GenRandom.jar",
+   "sha256": null,
+   "size": 59908,
+   "status": "unsupported"
+  },
+  {
+   "ext": "jar",
+   "file": null,
+   "member": "problems/bookshelf-sorting/files/GenAlmostSorted.jar",
+   "sha256": null,
+   "size": 60634,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/bookshelf-sorting/tests/01",
+   "sha256": null,
+   "size": 26,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/bookshelf-sorting/statements/english/problem.tex",
+   "sha256": null,
+   "size": 2997,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/bookshelf-sorting/statements/english/example.01.a",
+   "sha256": null,
+   "size": 9,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/bookshelf-sorting/statements/english/example.01",
+   "sha256": null,
+   "size": 26,
+   "status": "unsupported"
+  },
+  {
+   "ext": "json",
+   "file": null,
+   "member": "problems/bookshelf-sorting/statements/english/problem-properties.json",
+   "sha256": null,
+   "size": 3277,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/bookshelf-sorting/statements/russian/problem.tex",
+   "sha256": null,
+   "size": 5013,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/bookshelf-sorting/statements/russian/example.01.a",
+   "sha256": null,
+   "size": 9,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/bookshelf-sorting/statements/russian/example.01",
+   "sha256": null,
+   "size": 26,
+   "status": "unsupported"
+  },
+  {
+   "ext": "json",
+   "file": null,
+   "member": "problems/bookshelf-sorting/statements/russian/problem-properties.json",
+   "sha256": null,
+   "size": 5244,
+   "status": "unsupported"
+  },
+  {
+   "ext": "pdf",
+   "file": "0324.pdf",
+   "key": "site-dovuz-6047b0ee-contest1-202021-member-4f1a4c4208f2e9fd49aa",
+   "member": "problems/bookshelf-sorting/statements/.pdf/english/problem.pdf",
+   "sha256": "37bfce7ee4e33ce9f4f7a8c888097e19c3a0ae8f0f11f7cb823f58c7d3122067",
+   "size": 125546,
+   "status": "ready",
+   "storage": "site-dovuz-6047b0ee-contest1-202021.members/4f1a4c4208f2e9fd49aa/37bfce7ee4e33ce9f4f7a8c888097e19c3a0ae8f0f11f7cb823f58c7d3122067"
+  },
+  {
+   "ext": "pdf",
+   "file": "0326.pdf",
+   "key": "site-dovuz-6047b0ee-contest1-202021-member-55059210bd9b77de578e",
+   "member": "problems/bookshelf-sorting/statements/.pdf/russian/problem.pdf",
+   "sha256": "053ba706f57b7e06e38885a315afae557581cef5b626180cad5f6f89c00c8dbb",
+   "size": 126861,
+   "status": "ready",
+   "storage": "site-dovuz-6047b0ee-contest1-202021.members/55059210bd9b77de578e/053ba706f57b7e06e38885a315afae557581cef5b626180cad5f6f89c00c8dbb"
+  },
+  {
+   "ext": "java",
+   "file": null,
+   "member": "problems/bookshelf-sorting/solutions/sort_av_nq.java",
+   "sha256": null,
+   "size": 2864,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/bookshelf-sorting/solutions/sort_av.java.desc",
+   "sha256": null,
+   "size": 94,
+   "status": "unsupported"
+  },
+  {
+   "ext": "jar",
+   "file": null,
+   "member": "problems/bookshelf-sorting/solutions/sort_av_nq.jar",
+   "sha256": null,
+   "size": 59788,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/bookshelf-sorting/solutions/sort_av_nq.java.desc",
+   "sha256": null,
+   "size": 112,
+   "status": "unsupported"
+  },
+  {
+   "ext": "java",
+   "file": null,
+   "member": "problems/bookshelf-sorting/solutions/sort_av.java",
+   "sha256": null,
+   "size": 5070,
+   "status": "unsupported"
+  },
+  {
+   "ext": "jar",
+   "file": null,
+   "member": "problems/bookshelf-sorting/solutions/sort_av.jar",
+   "sha256": null,
+   "size": 61182,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/bookshelf-sorting/statement-sections/english/name.tex",
+   "sha256": null,
+   "size": 17,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/bookshelf-sorting/statement-sections/english/scoring.tex",
+   "sha256": null,
+   "size": 461,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/bookshelf-sorting/statement-sections/english/output.tex",
+   "sha256": null,
+   "size": 184,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/bookshelf-sorting/statement-sections/english/input.tex",
+   "sha256": null,
+   "size": 520,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/bookshelf-sorting/statement-sections/english/legend.tex",
+   "sha256": null,
+   "size": 1151,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/bookshelf-sorting/statement-sections/english/notes.tex",
+   "sha256": null,
+   "size": 445,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/bookshelf-sorting/statement-sections/english/example.01.a",
+   "sha256": null,
+   "size": 9,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/bookshelf-sorting/statement-sections/english/example.01",
+   "sha256": null,
+   "size": 26,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/bookshelf-sorting/statement-sections/russian/name.tex",
+   "sha256": null,
+   "size": 17,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/bookshelf-sorting/statement-sections/russian/scoring.tex",
+   "sha256": null,
+   "size": 488,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/bookshelf-sorting/statement-sections/russian/output.tex",
+   "sha256": null,
+   "size": 378,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/bookshelf-sorting/statement-sections/russian/input.tex",
+   "sha256": null,
+   "size": 835,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/bookshelf-sorting/statement-sections/russian/legend.tex",
+   "sha256": null,
+   "size": 2131,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/bookshelf-sorting/statement-sections/russian/notes.tex",
+   "sha256": null,
+   "size": 896,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/bookshelf-sorting/statement-sections/russian/example.01.a",
+   "sha256": null,
+   "size": 9,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/bookshelf-sorting/statement-sections/russian/example.01",
+   "sha256": null,
+   "size": 26,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/bookshelf-sorting/doall.sh",
+   "sha256": null,
+   "size": 25098,
+   "status": "unsupported"
+  },
+  {
+   "ext": "xml",
+   "file": null,
+   "member": "problems/bookshelf-sorting/problem.xml",
+   "sha256": null,
+   "size": 13704,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/bookshelf-sorting/check.exe",
+   "sha256": null,
+   "size": 2826815,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/bookshelf-sorting/check.cpp",
+   "sha256": null,
+   "size": 1472,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/bookshelf-sorting/wipe.sh",
+   "sha256": null,
+   "size": 2584,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/bookshelf-sorting/doall.bat",
+   "sha256": null,
+   "size": 20740,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/bookshelf-sorting/tags",
+   "sha256": null,
+   "size": 21,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/bookshelf-sorting/wipe.bat",
+   "sha256": null,
+   "size": 2410,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/move-rooks/scripts/gen-answer.sh",
+   "sha256": null,
+   "size": 740,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/move-rooks/scripts/gen-input-via-files.bat",
+   "sha256": null,
+   "size": 1733,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/move-rooks/scripts/run-validator-tests.sh",
+   "sha256": null,
+   "size": 588,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/move-rooks/scripts/run-checker-tests.bat",
+   "sha256": null,
+   "size": 145,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/move-rooks/scripts/gen-input-via-stdout.sh",
+   "sha256": null,
+   "size": 381,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/move-rooks/scripts/run-validator-tests.bat",
+   "sha256": null,
+   "size": 563,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/move-rooks/scripts/run-checker-tests.sh",
+   "sha256": null,
+   "size": 163,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/move-rooks/scripts/gen-input-via-stdout.bat",
+   "sha256": null,
+   "size": 289,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/move-rooks/scripts/gen-answer.bat",
+   "sha256": null,
+   "size": 511,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/move-rooks/scripts/gen-input-via-files.sh",
+   "sha256": null,
+   "size": 1298,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/move-rooks/scripts/gen-input-via-file.sh",
+   "sha256": null,
+   "size": 644,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/move-rooks/scripts/gen-input-via-file.bat",
+   "sha256": null,
+   "size": 560,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/move-rooks/files/tests/validator-tests/01",
+   "sha256": null,
+   "size": 26,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/move-rooks/files/gen_three.exe",
+   "sha256": null,
+   "size": 2826198,
+   "status": "unsupported"
+  },
+  {
+   "ext": "h",
+   "file": null,
+   "member": "problems/move-rooks/files/testlib.h",
+   "sha256": null,
+   "size": 162651,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/move-rooks/files/gen_rand.exe",
+   "sha256": null,
+   "size": 2825865,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/move-rooks/files/towin.exe",
+   "sha256": null,
+   "size": 26002,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/move-rooks/files/gen_two.cpp",
+   "sha256": null,
+   "size": 626,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sty",
+   "file": null,
+   "member": "problems/move-rooks/files/olymp.sty",
+   "sha256": null,
+   "size": 23058,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/move-rooks/files/gen_rand.cpp",
+   "sha256": null,
+   "size": 581,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/move-rooks/files/check.cpp",
+   "sha256": null,
+   "size": 1472,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/move-rooks/files/gen_three.cpp",
+   "sha256": null,
+   "size": 544,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/move-rooks/files/problem.tex",
+   "sha256": null,
+   "size": 2315,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/move-rooks/files/gen_dumber.cpp",
+   "sha256": null,
+   "size": 2953,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/move-rooks/files/validate.cpp",
+   "sha256": null,
+   "size": 895,
+   "status": "unsupported"
+  },
+  {
+   "ext": "ftl",
+   "file": null,
+   "member": "problems/move-rooks/files/statements.ftl",
+   "sha256": null,
+   "size": 1115,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/move-rooks/files/gen_two.exe",
+   "sha256": null,
+   "size": 2826198,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/move-rooks/files/gen_smarter.exe",
+   "sha256": null,
+   "size": 2835432,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/move-rooks/files/gen_smarter.cpp",
+   "sha256": null,
+   "size": 2951,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/move-rooks/files/gen_dumber.exe",
+   "sha256": null,
+   "size": 2835432,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/move-rooks/files/validate.exe",
+   "sha256": null,
+   "size": 2828419,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/move-rooks/tests/01",
+   "sha256": null,
+   "size": 177,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/move-rooks/stresses/002",
+   "sha256": null,
+   "size": 283,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/move-rooks/stresses/001",
+   "sha256": null,
+   "size": 268,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statements/english/nice_shape.png",
+   "sha256": null,
+   "size": 37213,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statements/english/rooks_a.png",
+   "sha256": null,
+   "size": 16941,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statements/english/rooks_x.png",
+   "sha256": null,
+   "size": 18644,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statements/english/rooks_z.png",
+   "sha256": null,
+   "size": 18346,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/move-rooks/statements/english/problem.tex",
+   "sha256": null,
+   "size": 2888,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statements/english/rooks_e.png",
+   "sha256": null,
+   "size": 18590,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statements/english/rooks_d.png",
+   "sha256": null,
+   "size": 19404,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/move-rooks/statements/english/example.01.a",
+   "sha256": null,
+   "size": 15,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statements/english/rooks_y.png",
+   "sha256": null,
+   "size": 18784,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/move-rooks/statements/english/example.01",
+   "sha256": null,
+   "size": 177,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statements/english/rooks_c.png",
+   "sha256": null,
+   "size": 17862,
+   "status": "unsupported"
+  },
+  {
+   "ext": "json",
+   "file": null,
+   "member": "problems/move-rooks/statements/english/problem-properties.json",
+   "sha256": null,
+   "size": 3467,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statements/english/rooks_b.png",
+   "sha256": null,
+   "size": 18978,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statements/russian/nice_shape.png",
+   "sha256": null,
+   "size": 37213,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statements/russian/rooks_a.png",
+   "sha256": null,
+   "size": 16941,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statements/russian/rooks_x.png",
+   "sha256": null,
+   "size": 18644,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statements/russian/rooks_z.png",
+   "sha256": null,
+   "size": 18346,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/move-rooks/statements/russian/problem.tex",
+   "sha256": null,
+   "size": 4342,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statements/russian/rooks_e.png",
+   "sha256": null,
+   "size": 18590,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statements/russian/rooks_d.png",
+   "sha256": null,
+   "size": 19404,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/move-rooks/statements/russian/example.01.a",
+   "sha256": null,
+   "size": 15,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statements/russian/rooks_y.png",
+   "sha256": null,
+   "size": 18784,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/move-rooks/statements/russian/example.01",
+   "sha256": null,
+   "size": 177,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statements/russian/rooks_c.png",
+   "sha256": null,
+   "size": 17862,
+   "status": "unsupported"
+  },
+  {
+   "ext": "json",
+   "file": null,
+   "member": "problems/move-rooks/statements/russian/problem-properties.json",
+   "sha256": null,
+   "size": 4877,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statements/russian/rooks_b.png",
+   "sha256": null,
+   "size": 18978,
+   "status": "unsupported"
+  },
+  {
+   "ext": "pdf",
+   "file": "0433.pdf",
+   "key": "site-dovuz-6047b0ee-contest1-202021-member-dc476589882c7b7b0439",
+   "member": "problems/move-rooks/statements/.pdf/english/problem.pdf",
+   "sha256": "ecb7418f7523443d724664d37d70a880c58bc86059ab711949fd461b529863b4",
+   "size": 205434,
+   "status": "ready",
+   "storage": "site-dovuz-6047b0ee-contest1-202021.members/dc476589882c7b7b0439/ecb7418f7523443d724664d37d70a880c58bc86059ab711949fd461b529863b4"
+  },
+  {
+   "ext": "pdf",
+   "file": "0435.pdf",
+   "key": "site-dovuz-6047b0ee-contest1-202021-member-cfa130015c49cd9f78da",
+   "member": "problems/move-rooks/statements/.pdf/russian/problem.pdf",
+   "sha256": "169a3b2e191589959ebbf70072a0b9c42dfdad052fda063b4893d8520b41ef7d",
+   "size": 206202,
+   "status": "ready",
+   "storage": "site-dovuz-6047b0ee-contest1-202021.members/cfa130015c49cd9f78da/169a3b2e191589959ebbf70072a0b9c42dfdad052fda063b4893d8520b41ef7d"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/move-rooks/solutions/ig_naive7.cpp.desc",
+   "sha256": null,
+   "size": 105,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/move-rooks/solutions/ig_naive3.cpp",
+   "sha256": null,
+   "size": 2430,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/move-rooks/solutions/ig_ok.exe",
+   "sha256": null,
+   "size": 2449417,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/move-rooks/solutions/ig_naive2.cpp.desc",
+   "sha256": null,
+   "size": 105,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/move-rooks/solutions/ig_ok.cpp.desc",
+   "sha256": null,
+   "size": 97,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/move-rooks/solutions/ig_naive2.exe",
+   "sha256": null,
+   "size": 2446812,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/move-rooks/solutions/ig_naive5.exe",
+   "sha256": null,
+   "size": 2446986,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/move-rooks/solutions/ig_naive4.cpp.desc",
+   "sha256": null,
+   "size": 105,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/move-rooks/solutions/ig_naive.cpp",
+   "sha256": null,
+   "size": 3162,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/move-rooks/solutions/ig_naive3.exe",
+   "sha256": null,
+   "size": 2446992,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/move-rooks/solutions/ig_naive5.cpp.desc",
+   "sha256": null,
+   "size": 105,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/move-rooks/solutions/ig_naive6.cpp.desc",
+   "sha256": null,
+   "size": 105,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/move-rooks/solutions/ig_naive6.cpp",
+   "sha256": null,
+   "size": 2942,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/move-rooks/solutions/ig_naive3.cpp.desc",
+   "sha256": null,
+   "size": 105,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/move-rooks/solutions/ig_naive7.exe",
+   "sha256": null,
+   "size": 2446668,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/move-rooks/solutions/ig_ok.cpp",
+   "sha256": null,
+   "size": 2986,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/move-rooks/solutions/ig_naive4.cpp",
+   "sha256": null,
+   "size": 2331,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/move-rooks/solutions/ig_naive.cpp.desc",
+   "sha256": null,
+   "size": 104,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/move-rooks/solutions/ig_naive.exe",
+   "sha256": null,
+   "size": 2454973,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/move-rooks/solutions/ig_naive4.exe",
+   "sha256": null,
+   "size": 2446986,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/move-rooks/solutions/ig_naive7.cpp",
+   "sha256": null,
+   "size": 2945,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/move-rooks/solutions/ig_naive2.cpp",
+   "sha256": null,
+   "size": 2669,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/move-rooks/solutions/ig_naive6.exe",
+   "sha256": null,
+   "size": 2449417,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/move-rooks/solutions/ig_naive5.cpp",
+   "sha256": null,
+   "size": 2258,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/english/name.tex",
+   "sha256": null,
+   "size": 10,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/english/nice_shape.png",
+   "sha256": null,
+   "size": 37213,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/english/rooks_a.png",
+   "sha256": null,
+   "size": 16941,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/english/rooks_x.png",
+   "sha256": null,
+   "size": 18644,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/english/rooks_z.png",
+   "sha256": null,
+   "size": 18346,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/english/scoring.tex",
+   "sha256": null,
+   "size": 368,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/english/output.tex",
+   "sha256": null,
+   "size": 139,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/english/input.tex",
+   "sha256": null,
+   "size": 439,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/english/legend.tex",
+   "sha256": null,
+   "size": 1205,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/english/rooks_e.png",
+   "sha256": null,
+   "size": 18590,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/english/notes.tex",
+   "sha256": null,
+   "size": 508,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/english/rooks_d.png",
+   "sha256": null,
+   "size": 19404,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/english/example.01.a",
+   "sha256": null,
+   "size": 15,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/english/rooks_y.png",
+   "sha256": null,
+   "size": 18784,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/english/example.01",
+   "sha256": null,
+   "size": 177,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/english/rooks_c.png",
+   "sha256": null,
+   "size": 17862,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/english/rooks_b.png",
+   "sha256": null,
+   "size": 18978,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/russian/name.tex",
+   "sha256": null,
+   "size": 10,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/russian/nice_shape.png",
+   "sha256": null,
+   "size": 37213,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/russian/rooks_a.png",
+   "sha256": null,
+   "size": 16941,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/russian/rooks_x.png",
+   "sha256": null,
+   "size": 18644,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/russian/rooks_z.png",
+   "sha256": null,
+   "size": 18346,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/russian/scoring.tex",
+   "sha256": null,
+   "size": 397,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/russian/output.tex",
+   "sha256": null,
+   "size": 343,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/russian/input.tex",
+   "sha256": null,
+   "size": 705,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/russian/legend.tex",
+   "sha256": null,
+   "size": 1958,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/russian/rooks_e.png",
+   "sha256": null,
+   "size": 18590,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/russian/notes.tex",
+   "sha256": null,
+   "size": 661,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/russian/rooks_d.png",
+   "sha256": null,
+   "size": 19404,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/russian/example.01.a",
+   "sha256": null,
+   "size": 15,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/russian/rooks_y.png",
+   "sha256": null,
+   "size": 18784,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/russian/example.01",
+   "sha256": null,
+   "size": 177,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/russian/rooks_c.png",
+   "sha256": null,
+   "size": 17862,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/move-rooks/statement-sections/russian/rooks_b.png",
+   "sha256": null,
+   "size": 18978,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/move-rooks/doall.sh",
+   "sha256": null,
+   "size": 12235,
+   "status": "unsupported"
+  },
+  {
+   "ext": "xml",
+   "file": null,
+   "member": "problems/move-rooks/problem.xml",
+   "sha256": null,
+   "size": 13286,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/move-rooks/check.exe",
+   "sha256": null,
+   "size": 2826815,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/move-rooks/check.cpp",
+   "sha256": null,
+   "size": 1472,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/move-rooks/wipe.sh",
+   "sha256": null,
+   "size": 1880,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/move-rooks/doall.bat",
+   "sha256": null,
+   "size": 8554,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/move-rooks/tags",
+   "sha256": null,
+   "size": 19,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/move-rooks/wipe.bat",
+   "sha256": null,
+   "size": 1750,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "statements/english/doall.sh",
+   "sha256": null,
+   "size": 781,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sty",
+   "file": null,
+   "member": "statements/english/olymp.sty",
+   "sha256": null,
+   "size": 22864,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "statements/english/statements.tex",
+   "sha256": null,
+   "size": 3338,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "statements/english/wipe.sh",
+   "sha256": null,
+   "size": 640,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "statements/english/tutorials.tex",
+   "sha256": null,
+   "size": 583,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "statements/english/doall.bat",
+   "sha256": null,
+   "size": 1008,
+   "status": "unsupported"
+  },
+  {
+   "ext": "eps",
+   "file": null,
+   "member": "statements/english/statements-logo.eps",
+   "sha256": null,
+   "size": 45525,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "statements/english/wipe.bat",
+   "sha256": null,
+   "size": 820,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "statements/russian/doall.sh",
+   "sha256": null,
+   "size": 781,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sty",
+   "file": null,
+   "member": "statements/russian/olymp.sty",
+   "sha256": null,
+   "size": 22864,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "statements/russian/statements.tex",
+   "sha256": null,
+   "size": 4971,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "statements/russian/wipe.sh",
+   "sha256": null,
+   "size": 640,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "statements/russian/tutorials.tex",
+   "sha256": null,
+   "size": 686,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "statements/russian/doall.bat",
+   "sha256": null,
+   "size": 1008,
+   "status": "unsupported"
+  },
+  {
+   "ext": "eps",
+   "file": null,
+   "member": "statements/russian/statements-logo.eps",
+   "sha256": null,
+   "size": 45525,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "statements/russian/wipe.bat",
+   "sha256": null,
+   "size": 820,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "doall.sh",
+   "sha256": null,
+   "size": 628,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "wipe.sh",
+   "sha256": null,
+   "size": 607,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "doall.bat",
+   "sha256": null,
+   "size": 712,
+   "status": "unsupported"
+  },
+  {
+   "ext": "xml",
+   "file": null,
+   "member": "contest.xml",
+   "sha256": null,
+   "size": 1241,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "wipe.bat",
+   "sha256": null,
+   "size": 691,
+   "status": "unsupported"
+  }
+ ],
+ "remote": {
+  "etag": "\"62eccb4c-1d703ad\"",
+  "modified": "Fri, 05 Aug 2022 07:48:28 GMT",
+  "size": "30868397"
+ },
+ "sha256": "cb18d20832e2cefb4c5c8fe1198687163cd9c391cd34e99ef88ba9555e37ee05",
+ "source": "site-dovuz-6047b0ee-contest1-202021.archives/cb18d20832e2cefb4c5c8fe1198687163cd9c391cd34e99ef88ba9555e37ee05.archive",
+ "status": "ready",
+ "url": "https://lk-dovuz.innopolis.university/public/files/contest1_2020-21.zip"
+}

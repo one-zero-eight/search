@@ -94,7 +94,7 @@ Personnel Assessment
 
 Take customized educational course based on the staff competency assessment results to meet the market and your business objectives
 
-[More](https://innopolis.university/filespublic/Assessment_Center.pdf)
+[More](/raw/regulations/site-ido-c3a39cd6-assessment-center.md)
 
 ## Discover Russia’s Tech Powerhouses
 
@@ -148,7 +148,7 @@ Apply now
 
 Get a free personal program consultation within 2 workdays
 
-[I hereby agree to the Terms of the Privacy Policy](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+[I hereby agree to the Terms of the Privacy Policy](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
 **01.** Practical insights to implement best international practices in your company’s projects and business processes.
 
@@ -252,7 +252,7 @@ We’ll summarize the outcomes, develop action plans, and define next steps for 
 
 ## Apply NOW AND Gain Valuable International Experience
 
-[I hereby agree to the Terms of the Privacy Policy](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+[I hereby agree to the Terms of the Privacy Policy](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
 ## FAQ
 
@@ -300,11 +300,11 @@ International.education@innopolis.ru
 
 Apply
 
-[Extract from the License Register](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+[Extract from the License Register](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
-[License](https://innopolis.university/upload/iblock/d7f/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B4%D0%B5%D1%8F%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C.pdf)
+[License](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md)
 
-[Privacy Policy](https://innopolis.university/upload/iblock/b6f/ozxoa1j463v3s0m55w9kdc1qc0z31zfr/%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%B2%D1%8B%D0%BF%D0%B8%D1%81%D0%BA%D0%B0.pdf)
+[Privacy Policy](/raw/regulations/site-stc-e6310fe5-reestrovaya-vypiska.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/ido/_shared.md](/raw/sites/ido/_shared.md)._
 

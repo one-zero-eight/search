@@ -1,0 +1,63 @@
+{
+ "members": [
+  {
+   "ext": "pdf",
+   "file": "0001.pdf",
+   "key": "site-university-4131a5d1-6-semestr-bsro-2026-23-10-2025-rpd-member-82979df64e1f87c3b5c2",
+   "member": "6 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.В.01_BS RO_2026_Элективные дисциплины_23.10.2025.pdf",
+   "sha256": "8285c4d78571ff0ceb863f4b3f50401dc4cada3c23267354a11012bc0ab75985",
+   "size": 762031,
+   "status": "ready",
+   "storage": "site-university-4131a5d1-6-semestr-bsro-2026-23-10-2025-rpd.members/82979df64e1f87c3b5c2/8285c4d78571ff0ceb863f4b3f50401dc4cada3c23267354a11012bc0ab75985"
+  },
+  {
+   "ext": "pdf",
+   "file": "0002.pdf",
+   "key": "site-university-4131a5d1-6-semestr-bsro-2026-23-10-2025-rpd-member-9ca2dde504e0b4103a31",
+   "member": "6 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.09_BS RO_2026_История России (6 с.)_23.10.2025.pdf",
+   "sha256": "327cb5d57feeed1ba8360e4238af9fa4a9979884bacc1e6b7746845ea7791214",
+   "size": 653699,
+   "status": "ready",
+   "storage": "site-university-4131a5d1-6-semestr-bsro-2026-23-10-2025-rpd.members/9ca2dde504e0b4103a31/327cb5d57feeed1ba8360e4238af9fa4a9979884bacc1e6b7746845ea7791214"
+  },
+  {
+   "ext": "pdf",
+   "file": "0003.pdf",
+   "key": "site-university-4131a5d1-6-semestr-bsro-2026-23-10-2025-rpd-member-0b854243b3330641f0b5",
+   "member": "6 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.10_BS RO_2026_Физическая культура и спорт (6 с.)_23.10.2025.pdf",
+   "sha256": "4a85e405f6cf5d76c55057ebab4e4f2f57653173bac780a12b7bf43f8a1d0b28",
+   "size": 619591,
+   "status": "ready",
+   "storage": "site-university-4131a5d1-6-semestr-bsro-2026-23-10-2025-rpd.members/0b854243b3330641f0b5/4a85e405f6cf5d76c55057ebab4e4f2f57653173bac780a12b7bf43f8a1d0b28"
+  },
+  {
+   "ext": "pdf",
+   "file": "0004.pdf",
+   "key": "site-university-4131a5d1-6-semestr-bsro-2026-23-10-2025-rpd-member-41d40d2b129bf67b1b7b",
+   "member": "6 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.19_BS RO_2026_Безопасность жизнедеятельности (6 с.)_23.10.2025.pdf",
+   "sha256": "7e39e722bea92e5858f0d8457f5afdae5b13cda228a21d9fc0def43fa71b143d",
+   "size": 564582,
+   "status": "ready",
+   "storage": "site-university-4131a5d1-6-semestr-bsro-2026-23-10-2025-rpd.members/41d40d2b129bf67b1b7b/7e39e722bea92e5858f0d8457f5afdae5b13cda228a21d9fc0def43fa71b143d"
+  },
+  {
+   "ext": "pdf",
+   "file": "0005.pdf",
+   "key": "site-university-4131a5d1-6-semestr-bsro-2026-23-10-2025-rpd-member-c5f90d021347d22a5f7c",
+   "member": "6 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.20_BS RO_2026_Философия (6 с.)_23.10.2025.pdf",
+   "sha256": "49d8d6d41b07443a3766f7978757de77ef9b9a3bd2a44217ec634eced481467a",
+   "size": 584151,
+   "status": "ready",
+   "storage": "site-university-4131a5d1-6-semestr-bsro-2026-23-10-2025-rpd.members/c5f90d021347d22a5f7c/49d8d6d41b07443a3766f7978757de77ef9b9a3bd2a44217ec634eced481467a"
+  }
+ ],
+ "remote": {
+  "etag": "\"69721759-17b045\"",
+  "modified": "Thu, 22 Jan 2026 12:26:01 GMT",
+  "size": "1552453"
+ },
+ "sha256": "9bbb85ab32e2e6247a9dc8603392f424413fe3fd71f0169768baff809c177227",
+ "source": "site-university-4131a5d1-6-semestr-bsro-2026-23-10-2025-rpd.archives/9bbb85ab32e2e6247a9dc8603392f424413fe3fd71f0169768baff809c177227.archive",
+ "status": "ready",
+ "url": "https://innopolis.university/upload/iblock/430/40az6avqfxjj6bi5tk4kx5fjcl70ip0a/6%20%D1%81%D0%B5%D0%BC%D0%B5%D1%81%D1%82%D1%80%20BSRO%202026%2023.10.2025%20%28%D0%A0%D0%9F%D0%94%29.7z"
+}

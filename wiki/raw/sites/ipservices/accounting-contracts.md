@@ -20,11 +20,11 @@ status: draft
 
 # ИСУ РИД: модуль учета договоров распоряжения исключительным правом
 
-[Руководство по эксплуатации](https://innopolis.university/filespublic/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE_%D1%8D%D0%BA%D1%81%D0%BF%D0%BB%D1%83%D0%B0%D1%82%D0%B0%D1%86%D0%B8%D0%B8_27.09.pdf)
+[Руководство по эксплуатации](/raw/regulations/site-ipservices-b800aaba-rukovodstvo-po-ekspluatatsii-27-09.md)
 
-[Функциональные характеристики ПО](https://innopolis.university/filespublic/%D0%A4%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5_%D1%85%D0%B0%D1%80%D0%B0%D0%BA%D1%82%D0%B5%D1%80%D0%B8%D1%81%D1%82%D0%B8%D0%BA%D0%B8_%D0%9F%D0%9E.pdf)
+[Функциональные характеристики ПО](/raw/regulations/site-ipservices-41070680-funktsionalnye-kharakteristiki-po.md)
 
-[Инструкция по установке](https://innopolis.university/filespublic/%D0%98%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F_%D0%BF%D0%BE_%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B5.pdf)
+[Инструкция по установке](/raw/regulations/site-ipservices-0c69cfa8-instruktsiya-po-ustanovke.md)
 
 [НАЗАД](/raw/sites/ipservices/product.md)
 

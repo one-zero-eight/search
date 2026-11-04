@@ -1,0 +1,93 @@
+{
+ "members": [
+  {
+   "ext": "pdf",
+   "file": "0001.pdf",
+   "key": "site-university-e4c45ec0-2025-ite-38-04-05-rpd-2-semestr-25-12-20-member-e06ea418c970080f672c",
+   "member": "2025_ITE (38.04.05) РПД 2 семестр_25.12.2025/Визуализация_Б1.О.01_ITE_2025_Бизнес-проект (2 с.)_25.12.2025.pdf",
+   "sha256": "e7fd8bbbea90a9190b522c91b9f567fd38e38cdc23130f8de38b73aa388bf6ef",
+   "size": 651428,
+   "status": "ready",
+   "storage": "site-university-e4c45ec0-2025-ite-38-04-05-rpd-2-semestr-25-12-20.members/e06ea418c970080f672c/e7fd8bbbea90a9190b522c91b9f567fd38e38cdc23130f8de38b73aa388bf6ef"
+  },
+  {
+   "ext": "pdf",
+   "file": "0002.pdf",
+   "key": "site-university-e4c45ec0-2025-ite-38-04-05-rpd-2-semestr-25-12-20-member-ea7678a9a6a6bcc8b528",
+   "member": "2025_ITE (38.04.05) РПД 2 семестр_25.12.2025/Визуализация_Б1.О.07_ITE_2025_Разработка без кода (2 с.)_25.12.2025.pdf",
+   "sha256": "2f50c7293304b37e9befc72064de22799612c8691a37ee33957b3b0b50ecf307",
+   "size": 611760,
+   "status": "ready",
+   "storage": "site-university-e4c45ec0-2025-ite-38-04-05-rpd-2-semestr-25-12-20.members/ea7678a9a6a6bcc8b528/2f50c7293304b37e9befc72064de22799612c8691a37ee33957b3b0b50ecf307"
+  },
+  {
+   "ext": "pdf",
+   "file": "0003.pdf",
+   "key": "site-university-e4c45ec0-2025-ite-38-04-05-rpd-2-semestr-25-12-20-member-6f5aaf65449ba6f6b3d5",
+   "member": "2025_ITE (38.04.05) РПД 2 семестр_25.12.2025/Визуализация_Б1.О.08_ITE_2025_Инструментарий CEO (2 с.)_25.12.2025.pdf",
+   "sha256": "f2c5e59c00587286d1e86ec41e42c539e4d9e32dc0137dd1004d4be75bd2add3",
+   "size": 638771,
+   "status": "ready",
+   "storage": "site-university-e4c45ec0-2025-ite-38-04-05-rpd-2-semestr-25-12-20.members/6f5aaf65449ba6f6b3d5/f2c5e59c00587286d1e86ec41e42c539e4d9e32dc0137dd1004d4be75bd2add3"
+  },
+  {
+   "ext": "pdf",
+   "file": "0004.pdf",
+   "key": "site-university-e4c45ec0-2025-ite-38-04-05-rpd-2-semestr-25-12-20-member-dce3f9d5115f802dc480",
+   "member": "2025_ITE (38.04.05) РПД 2 семестр_25.12.2025/Визуализация_Б1.О.09_ITE_2025_Инструментарий CTO (2 с.)_25.12.2025.pdf",
+   "sha256": "c94ba4a0d41254ff05cf84cd47852902e24606ef9f65fedf1dd096dfd32f2a3f",
+   "size": 661879,
+   "status": "ready",
+   "storage": "site-university-e4c45ec0-2025-ite-38-04-05-rpd-2-semestr-25-12-20.members/dce3f9d5115f802dc480/c94ba4a0d41254ff05cf84cd47852902e24606ef9f65fedf1dd096dfd32f2a3f"
+  },
+  {
+   "ext": "pdf",
+   "file": "0005.pdf",
+   "key": "site-university-e4c45ec0-2025-ite-38-04-05-rpd-2-semestr-25-12-20-member-e254f13e4774b514f23b",
+   "member": "2025_ITE (38.04.05) РПД 2 семестр_25.12.2025/Визуализация_Б1.О.10_ITE_2025_Маркетинг и продажи в ИТ-бизнесе (2 с.)_25.12.2025.pdf",
+   "sha256": "cfed6e79cfa3805769b54e7021a043cf8726e2c259fa764d6510584f0edc6543",
+   "size": 671168,
+   "status": "ready",
+   "storage": "site-university-e4c45ec0-2025-ite-38-04-05-rpd-2-semestr-25-12-20.members/e254f13e4774b514f23b/cfed6e79cfa3805769b54e7021a043cf8726e2c259fa764d6510584f0edc6543"
+  },
+  {
+   "ext": "pdf",
+   "file": "0006.pdf",
+   "key": "site-university-e4c45ec0-2025-ite-38-04-05-rpd-2-semestr-25-12-20-member-94abb27a58be91f4b4c8",
+   "member": "2025_ITE (38.04.05) РПД 2 семестр_25.12.2025/Визуализация_Б1.О.11_ITE_2025_Кадровые стратегии для ИТ-стартапа (2 с.)_25.12.2025.pdf",
+   "sha256": "52e35c6325f12acceb7bc8cc9d996bcdf6d619a6c4b87a32327510ac5d2c99c7",
+   "size": 638439,
+   "status": "ready",
+   "storage": "site-university-e4c45ec0-2025-ite-38-04-05-rpd-2-semestr-25-12-20.members/94abb27a58be91f4b4c8/52e35c6325f12acceb7bc8cc9d996bcdf6d619a6c4b87a32327510ac5d2c99c7"
+  },
+  {
+   "ext": "pdf",
+   "file": "0007.pdf",
+   "key": "site-university-e4c45ec0-2025-ite-38-04-05-rpd-2-semestr-25-12-20-member-5f4885056a26a35f9aaa",
+   "member": "2025_ITE (38.04.05) РПД 2 семестр_25.12.2025/Визуализация_ФТД.01_ITE_2025_Русский как иностранный (2 с.)_25.12.2025.pdf",
+   "sha256": "e83505ef7fbe8f8d6c97c2ec33b5af2d7f604c7e9ff66763f18629d44f5bd08f",
+   "size": 528719,
+   "status": "ready",
+   "storage": "site-university-e4c45ec0-2025-ite-38-04-05-rpd-2-semestr-25-12-20.members/5f4885056a26a35f9aaa/e83505ef7fbe8f8d6c97c2ec33b5af2d7f604c7e9ff66763f18629d44f5bd08f"
+  },
+  {
+   "ext": "pdf",
+   "file": "0008.pdf",
+   "key": "site-university-e4c45ec0-2025-ite-38-04-05-rpd-2-semestr-25-12-20-member-458af1ba2e3db0b586ed",
+   "member": "2025_ITE (38.04.05) РПД 2 семестр_25.12.2025/Визуализация_ФТД.02_ITE_2025_Практика подготовки (2 с.)_25.12.2025.pdf",
+   "sha256": "566fddd22e323dc2713940d21c2525f878fca1e3d385e9802805fa4ff83388c2",
+   "size": 496215,
+   "status": "ready",
+   "storage": "site-university-e4c45ec0-2025-ite-38-04-05-rpd-2-semestr-25-12-20.members/458af1ba2e3db0b586ed/566fddd22e323dc2713940d21c2525f878fca1e3d385e9802805fa4ff83388c2"
+  }
+ ],
+ "remote": {
+  "etag": "\"69a18aa9-231ddd\"",
+  "modified": "Fri, 27 Feb 2026 12:14:33 GMT",
+  "size": "2301405"
+ },
+ "sha256": "5c90e9b6112218ffd0cdc641cf660396d40d8d726409a22494058f1094638a2c",
+ "source": "site-university-e4c45ec0-2025-ite-38-04-05-rpd-2-semestr-25-12-20.archives/5c90e9b6112218ffd0cdc641cf660396d40d8d726409a22494058f1094638a2c.archive",
+ "status": "ready",
+ "url": "https://innopolis.university/upload/iblock/580/pi0ea763dzp3w9r6zhx1y2mgaq0jyva0/2025_ITE%20%2838.04.05%29%20%D0%A0%D0%9F%D0%94%202%20%D1%81%D0%B5%D0%BC%D0%B5%D1%81%D1%82%D1%80_25.12.2025.7z"
+}

@@ -24,7 +24,7 @@ status: draft
 
 - Bachelor
 
-[Download the admission manual](https://apply.innopolis.university/upload/files/en_manual_bachelor_2025.pdf)
+[Download the admission manual](/raw/regulations/site-international-87906c98-en-manual-bachelor-2025.md)
 
 50
 

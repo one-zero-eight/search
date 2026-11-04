@@ -1,0 +1,468 @@
+---
+type: regulation
+title: "reshenie 1 tur en"
+resource: "https://lk-dovuz.innopolis.university/public/files/reshenie_1_tur_en.pdf"
+source_kind: official-document
+language: ru
+section: "site/dovuz"
+sources:
+  - resource: "https://lk-dovuz.innopolis.university/public/files/reshenie_1_tur_en.pdf"
+    id: "8950682c467e"
+    title: "reshenie 1 tur en"
+    last_modified: "2026-11-01T23:17:24+00:00"
+generated:
+  by: "catix-wiki/0.1 regulations"
+  at: "2026-11-01T23:17:24+00:00"
+extraction: "text layer (opendataloader)"
+status: draft
+---
+
+# reshenie 1 tur en
+
+Innopolis Open 2025-2026 First qualification round Innopolis, November 2, 2025
+
+Problem Tutorial: “Shustrik, Persik, and Eternal Friendship”
+
+The string consists of digits. Cyclic shifts to the left and right are allowed. For any string, a potential is defined as the number of consecutive blocks of identical characters. The goal is to choose a shift such that the potential is minimized, and the number of shifts is minimized among all such options.
+
+Blocks of Identical Characters
+
+We will break the string into the maximum blocks of identical characters and represent it as s = cℓ11cℓ22 ...cℓkk, where:
+
+- • ci is the character (digit) in the i-th block;
+
+- • ℓi is the length of the i-th block, that is, the number of consecutive characters ci;
+
+- • ci ̸= ci+1 for all i.
+
+The notation cℓii means that the character ci is repeated ℓi times consecutively. The number of blocks k is equal to the potential of the original string.
+
+Minimum Possible Potential
+
+Consider the string as a cycle. The number of places where the character changes does not depend on the shift.
+
+- • If k = 1, all characters are the same, the minimum potential is 1.
+
+- • If k > 1 and c1 ̸= ck, there are k changes of characters in the cycle, and the minimum potential is
+
+k.
+
+- • If k > 1 and c1 = ck, the outer blocks in the cycle merge, resulting in k − 1 changes of characters,
+
+and the minimum potential is k − 1.
+
+When No Shift is Needed
+
+In the first two cases (k = 1 or c1 ̸= ck), the original string already has the minimum potential, so the answer is 0.
+
+When a Shift is Needed
+
+If k > 1 and c1 = ck, we need to start the string at the boundary between different characters. The nearest such boundaries are:
+
+- • between the first and second blocks—shift left by ℓ1;
+
+- • between the penultimate and last blocks—shift right by ℓk.
+
+The smaller of these two numbers is the minimum number of operations.
+
+Problem Tutorial: “Magic Circle”
+
+Simplification of the condition
+
+Initially, all wizards have the same amount of mana (1018), so to answer, it is sufficient to consider only the total change in mana. Let ∆[k] denote the final change in mana for wizard k. We need to find k with the maximum ∆[k] (in case of a tie, the smallest index).
+
+We will switch to numbering the wizards from 0 to n − 1. Then the i-th ritual affects all positions of the form
+
+(firsti − 1 + stepi · x) mod n, x ≥ 0.
+
+Key observation: the role of gcd
+
+Let g = gcd(stepi,n). From number theory, we know:
+
+- • The sequence (firsti − 1 + stepi · x) mod n visits exactly ng distinct positions;
+
+- • These are exactly all positions k for which
+
+k ≡ (firsti − 1) (mod g).
+
+Thus, each ritual adds costi to all wizards from the same residue class modulo g.
+
+Grouping rituals
+
+For each ritual, we compute the pair (g,r), where g = gcd(stepi,n), r ≡ (firsti − 1) mod g. All rituals with the same (g,r) affect the same set of wizards, so their effects can be summed: Sg,r = costi. Then the final change in mana for wizard k is given by ∆[k] =
+
+Sg, k mod g. g|n
+
+How to restore ∆
+
+For each pair (g,r) with Sg,r ̸= 0, we need to add Sg,r to all indices r, r + g, r + 2g, ... (modulo n), that is, to ng positions.
+
+Complexity assessment
+
+For a fixed g, the total work across all residues r is estimated as: g−1 n g
+
+= n. r=0
+
+Thus, the overall complexity is
+
+O n · d(n) , where d(n) is the number of divisors of n. We use the standard estimate: d(n) ≤ 2√3 n. Then n · d(n) ≤ 2n√3 n. For n ≤ 2 · 105, this is on the order of 107 operations, which comfortably fits within the limits.
+
+Subtasks and the path to the complete solution
+
+Groups 1–3: n,q ≤ 5000
+
+We can directly simulate each ritual: start from position first − 1 and move in steps of step until we return to the starting point. The length of the cycle is gcd(step,nn ), which is acceptable for small n.
+
+Groups 4–6: stepi | n
+
+If step | n, then gcd(step,n) = step. Wizards are divided into step independent classes by the remainder k mod step. Each ritual affects exactly one such class. From here, the natural idea arises to sum the effects by (step, first mod step) and then distribute them to all wizards in that class.
+
+Groups 7–9: stepi ≤ n
+
+Here it is clear that it is not the step itself that matters, but the value of gcd(step,n). Even if step does not divide n, the ritual still passes through one residue class modulo g. This leads to a generalization of the solution by replacing step → gcd(step,n).
+
+Group 10: complete solution
+
+The final solution is entirely based on pairs (g,r) = (gcd(step,n), (first − 1) mod g), grouping contributions, and subsequently distributing them across arithmetic progressions. The estimate through d(n) ≤ 2√3 n explains why the algorithm passes under maximum constraints.
+
+Problem Tutorial: “Pleasant Paths”
+
+Let’s consider the process of Shurshik’s walks. Each walk starts at the root of the tree and ends at some leaf vertex. At each step, the edge with the minimum "trampledness"is chosen, and in case of ties, the one leading to the vertex with the smallest index. After the walk is completed, the trampledness of all edges on the chosen path increases by one.
+
+Special case: star tree
+
+First, let’s analyze the simplified case when the tree is a star, meaning all vertices except the root are its immediate children.
+
+In this case, the problem can be reformulated as follows. Let there be an array a of length n − 1, where ai is the trampledness of the edge from the root to vertex i + 1. We need to perform the operation of increasing the leftmost minimum element of the array by 1 for q times. We need to determine how many times each element of the array will be increased.
+
+Notice that the minimum element of the array during the operations does not decrease. Therefore, we can use binary search to find the value mn — the minimum element of the array after performing all q operations.
+
+For a fixed value of mn, it is easy to check how many operations are required for all elements of the array to be at least mn: n−1 max(0,mn − ai).
+
+S(mn) = i=1
+
+If S(mn) ≤ q, then achieving such a minimum is possible. After finding the final value of mn, we need to perform q − S(mn) additional operations. Since at this stage the minimum of the array is already equal to mn, the number of such operations does not exceed n − 1, and they can be simulated directly by increasing the leftmost minimum element each time.
+
+Note that instead of binary search, one could sort the array and linearly increase the minimum while maintaining the value of S(mn), but this was not required.
+
+Generalization to arbitrary trees
+
+Now let’s consider the original tree. Suppose several edges come out from the root. The choice of the first edge for each walk depends only on their current trampledness and is completely equivalent to the case discussed above with the star.
+
+Thus, we can determine how many times each edge coming out from the root will be used during q walks. Let this number for the edge (1,v) be qv. After that, the problem reduces to a similar problem for the subtree rooted at vertex v, where the number of walks is qv.
+
+Consequently, the solution is constructed recursively: while traversing the tree, for each vertex, we distribute the number of passes received from the parent among its children according to the described algorithm. The value of q passed to the subtree is equal to the number of times the edge from the parent to this vertex has been traversed.
+
+When the traversal reaches a leaf vertex, the value of q passed to it is the number of times Shurshik has visited this leaf.
+
+Complexity
+
+At each vertex, it is necessary to process the edges coming out from it. In total, throughout the tree, sorting and calculations are performed in
+
+O(nlog n), which fits within the problem’s constraints.
+
+Problem Tutorial: “Hamster Spectacle”
+
+Brief statement
+
+For a segment [L,R], consider all numbers that are divisors of at least one of the numbers aL,aL+1,...,aR. Let their count be X(L,R). Then the spectacularity of this segment is F(L,R) = X(L,R) − (R − L + 1).
+
+We need to find max
+
+F(L,R).
+
+1≤L≤R≤n
+
+Main idea: fix the right endpoint
+
+We will process the array from left to right and fix the right endpoint R. Let us try to quickly find max
+
+F(L,R).
+
+1≤L≤R
+
+For this, let us introduce an important notion. For each divisor d, consider the last position not greater than R at which a number divisible by d appeared. Denote this position by lastR(d). Then the divisor d appears on the segment [L,R] if and only if lastR(d) ≥ L. Therefore,
+
+X(L,R) = #{d | lastR(d) ≥ L}.
+
+This is already a very useful formula: the presence of a divisor on a segment is determined only by its last occurrence.
+
+Transition to the array of “last occurrences”
+
+For a fixed R, define the array cnt: cnti = #{d | lastR(d) = i}.
+
+That is, cnti is the number of distinct divisors whose last occurrence is exactly at position i. Then the number of distinct divisors on the segment [L,R] equals
+
+R
+
+X(L,R) = cnti, i=L because each divisor is counted exactly once — at the point of its last occurrence. Hence,
+
+R
+
+R cnti − (R − L + 1) =
+
+(cnti − 1).
+
+F(L,R) = i=L i=L
+
+Let us define bi = cnti − 1.
+
+Then
+
+R
+
+F(L,R) = bi. i=L
+
+So, for a fixed R, the problem reduces to the following:
+
+We need to find the maximum suffix sum of the array b1,b2,...,bR.
+
+That is,
+
+R max
+
+F(L,R) = max bi.
+
+1≤L≤R
+
+1≤L≤R i=L
+
+How the array b changes when moving to the next position
+
+Suppose we have processed positions up to R − 1, and now we add the number aR. Consider any divisor d of the number aR.
+
+- • If previously the last occurrence of this divisor was at position p, then now it is no longer “last” at
+
+position p: cntp ← cntp − 1.
+
+- • Now its last occurrence is position R:
+
+cntR ← cntR + 1.
+
+If the number aR has τ(aR) divisors in total, then:
+
+- • at position R, the value cntR increases by τ(aR);
+
+- • at the old last-occurrence positions of the corresponding divisors, decreases by 1 occur.
+
+Therefore, in the array b:
+
+- • the new position gets the value
+
+bR = τ(aR) − 1;
+
+- • at some old positions, we perform
+
+bp ← bp − 1.
+
+Subtasks 1–3: direct solutions
+
+Completely naive solution
+
+We can iterate over all segments [L,R] and for each of them collect the set of all divisors of the numbers on it. Then we compute
+
+F(L,R) = |S| − (R − L + 1). This works only for the smallest constraints.
+
+Improved solution
+
+If we precompute all divisors for each number in advance, then for a fixed L we can move R to the right and gradually add divisors into a data structure.
+
+Such a solution is already noticeably better and passes several small groups, but it is still too slow for the large constraints.
+
+Intermediate solution: segment tree
+
+From the observations above, it is clear that when moving the right endpoint:
+
+- • at the new position R, the value τ(aR) − 1 appears;
+
+- • for some old positions, decreases by 1 are performed.
+
+And after that, we need to know the maximum suffix sum of the array b. This can be maintained with a segment tree, storing at each node:
+
+- • the sum on the segment;
+
+- • the maximum suffix sum on the segment.
+
+Then each decrease at an old position is a point update, adding the new position is another point update, and the answer for the current R is stored at the root.
+
+Such a solution already passes the medium subtasks, but in the full problem the log n factor becomes too expensive, because there are too many decreases.
+
+The key to the full solution
+
+To get rid of the segment tree, we need to look at the problem differently. For a fixed R, define the values
+
+R
+
+SL = F(L,R) = bi. i=L
+
+That is, SL is the spectacularity of the segment that ends at R and starts at L. Then the current answer for fixed R is max
+
+SL.
+
+1≤L≤R
+
+Now let us analyze how the values SL change.
+
+What a decrease at position p does
+
+If we decrease bp by 1, this affects all sums SL for which L ≤ p, because position p belongs exactly to such segments.
+
+That is,
+
+S1,S2,...,Sp decrease by 1, while
+
+Sp+1,Sp+2,...,SR do not change. So, a decrease at position p is a prefix decrease of the array S by 1.
+
+What adding the new position R does If at the new position R we write bR = x = τ(aR) − 1, then each old sum SL increases by x, because a new element with weight x was added to the end of every segment.
+
+In addition, a new segment of length 1 appears:
+
+SR = x.
+
+Therefore:
+
+- • all old SL increase by x;
+
+- • a new value x is appended to the end.
+
+In particular, the maximum also increases by x.
+
+Monotone envelope of maxima
+
+Now consider the array
+
+This is the suffix maximum of the values S. Then:
+
+Hi = max
+
+Sj. j≥i
+
+- • the answer for the current R is H1;
+
+- • the array H is non-increasing:
+
+H1 ≥ H2 ≥ ··· ≥ HR.
+
+Introduce the differences: diffi = Hi − Hi+1, HR+1 = 0. Then all diffi ≥ 0, and
+
+R
+
+H1 = diffi. i=1
+
+That is, the answer is equal to the sum of these nonnegative differences.
+
+What happens when adding a new position
+
+If the value x = τ(aR) − 1 is appended to the end, then all old SL increase by x. Hence all old Hi also increase by x. The new value HR becomes equal to x. This implies a very pleasant fact:
+
+All old diffi remain unchanged, and we simply append the new value diffR = x.
+
+What happens when decreasing the prefix S1,...,Sp by 1
+
+This is the more subtle part. The array H is the non-increasing “upper envelope” of the array S. This means that the left part of the array S goes down by 1, while the right part (Sp+1,...,SR) does not change.
+
+Now let us see how the array of maxima H changes. Since Hi = max(Si,Si+1,...,SR), for i > p nothing changes, because all corresponding S stayed the same. And for i ≤ p, the maximum was either attained on the right (and then it does not change), or it was attained in the left part (and then it decreases by 1). The boundary between these two cases is determined by the level Hp+1:
+
+- • all values Hi that were equal to Hp+1 do not change;
+
+- • all values Hi that were strictly greater than Hp+1 decrease by 1.
+
+If we look at the differences diffi = Hi − Hi+1, then decreasing this “upper piece” means that at most one value diffi decreases — namely, the rightmost positive diffi among positions i ≤ p. This is exactly the key saving: instead of updating a whole prefix, we change only one element of the array diff.
+
+Why this is sufficient
+
+We have arrived at a very simple dynamics. When processing the next aR:
+
+**1.** for each divisor d of the number aR:
+
+- • if previously d last appeared at position p, then we need to decrease by 1 the rightmost positive
+
+diffi among i ≤ p;
+
+- • then record that now the last occurrence of divisor d is position R;
+
+**2.** after processing all divisors, append to the end diffR = τ(aR) − 1;
+
+**3.** the sum of all current diffi is exactly the best answer among all segments ending at R.
+
+It remains only to support two operations quickly:
+
+- • append a new nonnegative number to the end;
+
+- • given a number p, find the rightmost positive diffi among i ≤ p and decrease it by 1.
+
+How to maintain this efficiently
+
+We will store only the positions where diffi > 0. If some diffi becomes zero, such a position is no longer needed. We need to be able to:
+
+- • find the previous “alive” position;
+
+- • remove a position if its value becomes zero;
+
+- • add a new position at the end.
+
+This can be done with a “next/previous alive element” structure: for example, using DSU with path compression and a doubly linked list.
+
+Then each decrease is done in almost O(1) amortized time: we immediately jump to the required alive position and decrease its value. If it becomes zero, we remove the position from the structure.
+
+Factorization and enumeration of divisors
+
+To quickly find all divisors of each number ai, we precompute the array of smallest prime divisors for all numbers up to the maximum value.
+
+Then each number is quickly factorized into primes, after which all its divisors are recursively enumerated from this factorization.
+
+For each divisor, we update its last occurrence position.
+
+Problem Tutorial: “Bracket Dance”
+
+General observations Let us first solve the problem of counting the number of distinct permutations.
+
+Notice that for different x, the blocks in which we swap the left and right halves are nested inside one another. In fact, for a particular parenthesis and a given set of operations, we can determine where it ends up. Namely, we can count how many times it moved from the left half of the string to the right half and back (that is, changed the parity of the half of the string containing it), how many times it changed the parity of the quarter, and so on. It is clear that the final position of a parenthesis does not depend on the order of operations, and only the parity of the number of operations for each x matters.
+
+There are log2 N types of operations in total. Let us iterate over all configurations (which operations are performed an odd number of times and which are not) — there are 2log2 N = N of them. Now for each configuration we want to determine whether the resulting string is a regular bracket sequence.
+
+Method 1
+
+We iterate over all N configurations, and for each one rebuild the string from scratch and check whether it is a regular bracket sequence.
+
+Constructing the string takes at most N log2 N — we apply log2 N steps to the string, and at each step rebuild it in linear time.
+
+This gives a solution in O(N2 log N).
+
+Method 2
+
+If operation x is applied — a parenthesis moves to the neighboring block of length 2x−1. At the same time, from the point of view of larger blocks this parenthesis remains in the same place, and from the point of view of smaller blocks it preserves its relative position inside the block of length 2x−1.
+
+In fact, the only bit of its position (in binary notation) that changes is bit number x − 1. It flips to the opposite value.
+
+Therefore, after applying several operations, if the xor of their lengths is equal to y, then the resulting string t can be represented as follows: ti XOR y = si (because the characters moved from position i to position i XOR y) So for the current configuration there is a fast way to obtain the string t. This gives a solution in O(N2).
+
+Method 3
+
+A regular bracket sequence is a string whose total balance is zero, and the balance of every prefix is nonnegative. That is, the minimum balance over all prefixes is nonnegative.
+
+If we have two strings t1,t2, and we know their total balances b1,b2, as well as the minimum balance over all prefixes minb1,minb2, then we can recompute these values for the concatenation of the two strings.
+
+Namely, for the string T = t1 + t2, the total balance is B = b1 + b2, and the minimum balance is achieved either in the left part — minb1, or in the right part — b1 + minb2, and therefore equals min(minb1,b1 + minb2).
+
+So, it remains to come up with a good way to iterate over all possible configurations while maintaining the current list of blocks and the information for them.
+
+Notice that the most expensive merge operation is for x = 1, when we have to merge many small strings, which causes many balance recomputations.
+
+Conversely, the cheapest merge operation is for x = log2 N, when only two segments need to be merged. Good, then if we have a recursion tree for iterating over configurations, it makes sense to place the heavier operations near the root and the lighter ones near the leaves (then the heavy operations are performed rarely).
+
+We run the recursion. At each recursion level we maintain the list of blocks (for each block — its total balance and minimum balance). At the next level, the number of blocks is halved. First we branch on whether the operation for x = 1 is performed, then for x = 2, and so on. This yields a solution in
+
+O(NlogN) — at recursion level i we are there 2i times, and each time we recompute balances for N2i blocks, for a total of N operations per level and log2N recursion levels.
+
+Number of distinct strings
+
+To count the number of distinct resulting regular bracket sequences, we can sort all resulting regular bracket sequences and count the number of distinct ones. Alternatively, we may use a set or a hash set. This counting method is not optimal.
+
+For a full solution, one may use hashing, or perfect hashing — number all possible strings of length 2k. Namely, when recomputing a block, in addition to balances we also store the type number of this block. When concatenating two blocks, we define the type number of the resulting block by the pair (a,b), where a,b are the type numbers of the two half-blocks. Then it is sufficient to count the number of distinct types of resulting regular bracket sequences.
+
+It is possible to simplify the solution and count only the number of sets of operations that transform the initial string into itself. Then, to obtain the answer, it is enough to divide the number of reachable permutations that form a regular bracket sequence by the number of sets of operations that map the string to itself.
+
+# Citations
+
+1. [reshenie 1 tur en](https://lk-dovuz.innopolis.university/public/files/reshenie_1_tur_en.pdf), file 8950682c467e

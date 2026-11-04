@@ -168,19 +168,19 @@ Telegram-чат для участников [по ссылке](https://t.me/+AI
 
 Результаты 2026
 
-[Скачать pdf-файл с результатами](https://lk-dovuz.innopolis.university/public/files/protokoly_ocpm_270126.pdf)
+[Скачать pdf-файл с результатами](/raw/regulations/site-olymp-5054d70e-protokoly-ocpm-270126.md)
 
-[Скачать pdf-файл с результатами](https://lk-dovuz.innopolis.university/public/files/inno_cpm_final_2026.pdf)
+[Скачать pdf-файл с результатами](/raw/regulations/site-olymp-da4f8a24-inno-cpm-final-2026.md)
 
 Результаты Заключительного этапа 1.02.2025
 
-[Скачать pdf-файл с результатами](https://lk-dovuz.innopolis.university/public/files/cpm_final_mladshaya3_2025.pdf)
+[Скачать pdf-файл с результатами](/raw/regulations/site-olymp-af1aa992-cpm-final-mladshaya3-2025.md)
 
-[Скачать pdf-файл с результатами](https://lk-dovuz.innopolis.university/public/files/cpm_final_srednyaya1_2025.pdf)
+[Скачать pdf-файл с результатами](/raw/regulations/site-olymp-d3bca7cc-cpm-final-srednyaya1-2025.md)
 
-[Скачать pdf-файл с результатами](https://lk-dovuz.innopolis.university/public/files/cpm_final_starshaya1_2025.pdf)
+[Скачать pdf-файл с результатами](/raw/regulations/site-olymp-d1e79a84-cpm-final-starshaya1-2025.md)
 
-[Скачать pdf-файл с результатами](https://lk-dovuz.innopolis.university/public/files/cpm_final_starshaya2_2025.pdf)
+[Скачать pdf-файл с результатами](/raw/regulations/site-olymp-fcfb26c3-cpm-final-starshaya2-2025.md)
 
 FAQ
 
@@ -230,7 +230,7 @@ FAQ
 
 - [Министерство науки и высшего образования РФ](https://minobrnauki.gov.ru/)
 
-- [Политика конфиденциальности](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+- [Политика конфиденциальности](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/olymp/_shared.md](/raw/sites/olymp/_shared.md)._
 

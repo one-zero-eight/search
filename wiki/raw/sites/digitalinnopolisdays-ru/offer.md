@@ -98,7 +98,7 @@ E-mail: did@innopolis.ru
 
 Договор-оферта:
 
-[Полный текст Договора об оказании услуг размещён на Сайте.](https://reg.digitalinnopolisdays.ru/upload/medialibrary/3b9/0wpiih2g7tndd2iiltueo0c4j09q1a42.pdf) Оплата означает полное и безоговорочное принятие условий Договора (ст. 428, 438 ГК РФ)
+[Полный текст Договора об оказании услуг размещён на Сайте.](/raw/regulations/site-digitalinnopolisdays-ru-ed569d6e-0wpiih2g7tndd2iiltueo0c4j09q1a42.md) Оплата означает полное и безоговорочное принятие условий Договора (ст. 428, 438 ГК РФ)
 
 Оферта
 

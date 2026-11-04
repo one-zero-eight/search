@@ -108,11 +108,11 @@ status: draft
 
 [{"lid":"1692356019407","ls":"10","loff":"","li_type":"nm","li_name":"name","li_ph":"\u0424\u0430\u043c\u0438\u043b\u0438\u044f \u0438 \u0418\u043c\u044f","li_req":"y","li_nm":"name"},{"lid":"1698314584208","ls":"20","loff":"","li_type":"ph","li_ph":"\u0422\u0435\u043b\u0435\u0444\u043e\u043d \u0440\u043e\u0434\u0438\u0442\u0435\u043b\u044f\/\u043f\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u0438\u0442\u0435\u043b\u044f","li_req":"y","li_mask":"+7 (999) 999-99-99","li_nm":"Phone"},{"lid":"1692356019409","ls":"30","loff":"","li_type":"em","li_name":"email","li_ph":"\u0432\u0430\u0448 E-mail","li_req":"y","li_nm":"email"},{"lid":"1692356019410","ls":"40","loff":"","li_type":"hd","li_name":"category_id","li_value":"36","li_nm":"category_id"},{"lid":"1692356019411","ls":"50","loff":"","li_type":"hd","li_name":"assigned_by_id","li_value":"5371","li_nm":"assigned_by_id"}]
 
-[обработку персональных данных](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+[обработку персональных данных](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
 ![](https://static.tildacdn.com/tild3335-6435-4236-a333-626165313233/Frame_675.png)
 
-[Нажимая на кнопку, я соглашаюсь на](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+[Нажимая на кнопку, я соглашаюсь на](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
 ## Подпишитесь на рассылку
 

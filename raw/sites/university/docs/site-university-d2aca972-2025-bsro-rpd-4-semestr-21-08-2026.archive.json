@@ -1,0 +1,153 @@
+{
+ "members": [
+  {
+   "ext": "pdf",
+   "file": "0001.pdf",
+   "key": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026-member-9481c6f2631709a304be",
+   "member": "2025 BSRO РПД (4 семестр) 21.08.2026/Визуализация_Б1.В.01_BS RO_2025_Элективные дисциплины_21.08.2026.pdf",
+   "sha256": "6096fec5d4b3ee2c3b902551243692ada69839ab2e5fc47a94ac6c2e0e7d564f",
+   "size": 757463,
+   "status": "ready",
+   "storage": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026.members/9481c6f2631709a304be/6096fec5d4b3ee2c3b902551243692ada69839ab2e5fc47a94ac6c2e0e7d564f"
+  },
+  {
+   "ext": "pdf",
+   "file": "0002.pdf",
+   "key": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026-member-d8099c17b087c8a81e7e",
+   "member": "2025 BSRO РПД (4 семестр) 21.08.2026/Визуализация_Б1.В.ДВ.02.01_BS RO_2025_Аналитические и компьютерные модели (4 c.)_21.08.2026.pdf",
+   "sha256": "c7839233ba530c7b58b625c338812fd1ca72268c467846b6d96f02fd98415747",
+   "size": 531321,
+   "status": "ready",
+   "storage": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026.members/d8099c17b087c8a81e7e/c7839233ba530c7b58b625c338812fd1ca72268c467846b6d96f02fd98415747"
+  },
+  {
+   "ext": "pdf",
+   "file": "0003.pdf",
+   "key": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026-member-aa32be8fc9f8a6d91251",
+   "member": "2025 BSRO РПД (4 семестр) 21.08.2026/Визуализация_Б1.В.ДВ.02.02_BS RO_2025_Введение в функциональный анализ (4 с.)_21.08.2026.pdf",
+   "sha256": "30b11a4742291bf5fe6ce762b1f9cb349415bd249e19b1662501830966308400",
+   "size": 575834,
+   "status": "ready",
+   "storage": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026.members/aa32be8fc9f8a6d91251/30b11a4742291bf5fe6ce762b1f9cb349415bd249e19b1662501830966308400"
+  },
+  {
+   "ext": "pdf",
+   "file": "0004.pdf",
+   "key": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026-member-c4ba9d41a63fa278c010",
+   "member": "2025 BSRO РПД (4 семестр) 21.08.2026/Визуализация_Б1.В.ДВ.02.03_BS RO_2025_Введение в DevOps (4 с.)_21.08.2026.pdf",
+   "sha256": "71e2d00973bd1cce13964cd5c41438dbc6231f7224dbdceaa0e6c3c765d6a064",
+   "size": 536941,
+   "status": "ready",
+   "storage": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026.members/c4ba9d41a63fa278c010/71e2d00973bd1cce13964cd5c41438dbc6231f7224dbdceaa0e6c3c765d6a064"
+  },
+  {
+   "ext": "pdf",
+   "file": "0005.pdf",
+   "key": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026-member-cc9170ba7b13e52b07fa",
+   "member": "2025 BSRO РПД (4 семестр) 21.08.2026/Визуализация_Б1.В.ДВ.02.04_BS RO_2025_Основы Low-code и No-code разработки (4 с.)_21.08.2026.pdf",
+   "sha256": "cee5b2662b9ac2a38d351a7cc1aeef38e7578ee7e75e4105eb1a219f96451e7f",
+   "size": 634177,
+   "status": "ready",
+   "storage": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026.members/cc9170ba7b13e52b07fa/cee5b2662b9ac2a38d351a7cc1aeef38e7578ee7e75e4105eb1a219f96451e7f"
+  },
+  {
+   "ext": "pdf",
+   "file": "0006.pdf",
+   "key": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026-member-18f99c4a9cb7fb597048",
+   "member": "2025 BSRO РПД (4 семестр) 21.08.2026/Визуализация_Б1.В.ДВ.02.05_BS RO_2025_Основы программной инженерии (4 с.)_21.08.2026.pdf",
+   "sha256": "f0481755198dc6bb0dbc99faed3dbf69804f28d2dd1b1ad713e7e2be22e0d46b",
+   "size": 605724,
+   "status": "ready",
+   "storage": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026.members/18f99c4a9cb7fb597048/f0481755198dc6bb0dbc99faed3dbf69804f28d2dd1b1ad713e7e2be22e0d46b"
+  },
+  {
+   "ext": "pdf",
+   "file": "0007.pdf",
+   "key": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026-member-e0fc5541f982ecbed268",
+   "member": "2025 BSRO РПД (4 семестр) 21.08.2026/Визуализация_Б1.В.ДВ.02.06_BS RO_2025_Современные методы управления роботами (4 с.)_21.08.2026.pdf",
+   "sha256": "0135b6c4dd5b3d57acf8fd20f4c73c35e804017159096a42dd17287738a0d99c",
+   "size": 527562,
+   "status": "ready",
+   "storage": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026.members/e0fc5541f982ecbed268/0135b6c4dd5b3d57acf8fd20f4c73c35e804017159096a42dd17287738a0d99c"
+  },
+  {
+   "ext": "pdf",
+   "file": "0008.pdf",
+   "key": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026-member-31cf9e6a921e5139815e",
+   "member": "2025 BSRO РПД (4 семестр) 21.08.2026/Визуализация_Б1.В.ДВ.02.07_BS RO_2025_Применение технологий ИИ в химии и экспериментах (4 с.)_21.08.2026.pdf",
+   "sha256": "5be30f0b0550ef5c54d0566445be24d8c1ef0df2b81dc1c68c10c1e5b122de1d",
+   "size": 523899,
+   "status": "ready",
+   "storage": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026.members/31cf9e6a921e5139815e/5be30f0b0550ef5c54d0566445be24d8c1ef0df2b81dc1c68c10c1e5b122de1d"
+  },
+  {
+   "ext": "pdf",
+   "file": "0009.pdf",
+   "key": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026-member-3156d443b87dee2f3017",
+   "member": "2025 BSRO РПД (4 семестр) 21.08.2026/Визуализация_Б1.О.02_BS RO_2025_Математический анализ (4 с.)_21.08.2026.pdf",
+   "sha256": "d45fe435fcb0c4867935b99fea27f2bdcc2c150f37a8d709460abd9b19adeeac",
+   "size": 798548,
+   "status": "ready",
+   "storage": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026.members/3156d443b87dee2f3017/d45fe435fcb0c4867935b99fea27f2bdcc2c150f37a8d709460abd9b19adeeac"
+  },
+  {
+   "ext": "pdf",
+   "file": "0010.pdf",
+   "key": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026-member-61d450d10be875cf5e73",
+   "member": "2025 BSRO РПД (4 семестр) 21.08.2026/Визуализация_Б1.О.11_BS RO_2025_Обыкновенные дифференциальные уравнения (4 с.)_21.08.2026.pdf",
+   "sha256": "6c53cbd4cfb3e5d1dadb55dffa79fa2d5534397f59c278ad38f3827f173a5dcf",
+   "size": 679292,
+   "status": "ready",
+   "storage": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026.members/61d450d10be875cf5e73/6c53cbd4cfb3e5d1dadb55dffa79fa2d5534397f59c278ad38f3827f173a5dcf"
+  },
+  {
+   "ext": "pdf",
+   "file": "0011.pdf",
+   "key": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026-member-788847b005243b84561f",
+   "member": "2025 BSRO РПД (4 семестр) 21.08.2026/Визуализация_Б1.О.12_BS RO_2025_Введение в оптимизацию (4 с.)_21.08.2026.pdf",
+   "sha256": "6622e36fc9c0c3beb77bf72ac383eb76132feab1b4105b6a03c68faf6c87698e",
+   "size": 575240,
+   "status": "ready",
+   "storage": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026.members/788847b005243b84561f/6622e36fc9c0c3beb77bf72ac383eb76132feab1b4105b6a03c68faf6c87698e"
+  },
+  {
+   "ext": "pdf",
+   "file": "0012.pdf",
+   "key": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026-member-8d716c3058727ea6fd73",
+   "member": "2025 BSRO РПД (4 семестр) 21.08.2026/Визуализация_Б1.О.13_BS RO_2025_Теория вероятностей (4 с.)_21.08.2026.pdf",
+   "sha256": "9ffce76443595126e3aeddd51dec364da71f8b029202d795754c249603b122bd",
+   "size": 928648,
+   "status": "ready",
+   "storage": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026.members/8d716c3058727ea6fd73/9ffce76443595126e3aeddd51dec364da71f8b029202d795754c249603b122bd"
+  },
+  {
+   "ext": "pdf",
+   "file": "0013.pdf",
+   "key": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026-member-158e5b7309d118e7739f",
+   "member": "2025 BSRO РПД (4 семестр) 21.08.2026/Визуализация_Б1.О.15_BS RO_2025_Введение в машинное обучение (4 с.)_21.08.2026.pdf",
+   "sha256": "207141cf5601b1fa9236733d04ebc773845fd0610a1f8cc78f59e9db575290fd",
+   "size": 528078,
+   "status": "ready",
+   "storage": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026.members/158e5b7309d118e7739f/207141cf5601b1fa9236733d04ebc773845fd0610a1f8cc78f59e9db575290fd"
+  },
+  {
+   "ext": "pdf",
+   "file": "0014.pdf",
+   "key": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026-member-ace71aff97745fd1fa49",
+   "member": "2025 BSRO РПД (4 семестр) 21.08.2026/Визуализация_ФТД.03_BS RO_2025_Мастерская по робототехнике и компьютерному зрению (4 c.)_21.08.2026.pdf",
+   "sha256": "67bd8ce9858a99f5892dbd08a96067b0360b695f7451b19d2c298816b1dbf9d9",
+   "size": 541212,
+   "status": "ready",
+   "storage": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026.members/ace71aff97745fd1fa49/67bd8ce9858a99f5892dbd08a96067b0360b695f7451b19d2c298816b1dbf9d9"
+  }
+ ],
+ "remote": {
+  "etag": "\"6ac8fdc3-38a3cb\"",
+  "modified": "Fri, 09 Oct 2026 14:44:19 GMT",
+  "size": "3711947"
+ },
+ "sha256": "e471e84cf1d365b2dccbfcf2463753976973901c8c5039ad164d0f151b5be854",
+ "source": "site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026.archives/e471e84cf1d365b2dccbfcf2463753976973901c8c5039ad164d0f151b5be854.archive",
+ "status": "ready",
+ "url": "https://innopolis.university/upload/iblock/d96/0ivim7lqgbuet7ky7tlbcbnwhod338qp/2025%20BSRO%20%D0%A0%D0%9F%D0%94%20%284%20%D1%81%D0%B5%D0%BC%D0%B5%D1%81%D1%82%D1%80%29%2021.08.2026.7z"
+}

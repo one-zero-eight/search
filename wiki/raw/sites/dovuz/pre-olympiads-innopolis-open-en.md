@@ -178,7 +178,7 @@ Final: February 14-16, 2025
 
 The final stage of the Olympiad will be distributed at several venues in Russia and other countries. The main venue will be at Innopolis University. For foreign countries it will be possible to pass it online.
 
-The tasks 2023-2024 [(link)](https://lk-dovuz.innopolis.university/public/files/ex2tour-en24inf.pdf) [(link)](https://lk-dovuz.innopolis.university/public/files/ex2tour-en24inf.pdf)
+The tasks 2023-2024 [(link)](/raw/regulations/site-dovuz-4cd00013-ex2touren24inf.md) [(link)](/raw/regulations/site-dovuz-4cd00013-ex2touren24inf.md)
 
 [Register](https://forms.gle/8j8VKsC6FATVevyW6)
 
@@ -242,9 +242,9 @@ and of course, the opportunity to become the winner of the Olympiad with the lev
 
 Rules and tasks
 
-([link](https://lk-dovuz.innopolis.university/public/files/contest-38183-en.pdf)) ([link](https://lk-dovuz.innopolis.university/public/files/resh_en_ie2324.pdf))
+([link](/raw/regulations/site-dovuz-88e5ab68-contest38183en.md)) ([link](/raw/regulations/site-dovuz-30767db3-resh-en-ie2324.md))
 
-([link](https://lk-dovuz.innopolis.university/public/files/1-2-roboai-cond_en.pdf)) ([link](https://lk-dovuz.innopolis.university/public/files/1-2-roboai-dec_en.pdf))
+([link](/raw/regulations/site-dovuz-65ba4e82-12roboaicond-en.md)) ([link](/raw/regulations/site-dovuz-25c6e260-12roboaidec-en.md))
 
 ([link](https://disk.yandex.ru/i/FhsRm_aRYr5bEw)) ([link](https://disk.yandex.ru/i/PoWv7_Id4Aqvgg))
 
@@ -360,7 +360,7 @@ Extra links
 
 - [Ministry of Science and Higher Education of the Russian Federation](https://minobrnauki.gov.ru/)
 
-- [Privacy policy](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+- [Privacy policy](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/dovuz/_shared.md](/raw/sites/dovuz/_shared.md)._
 

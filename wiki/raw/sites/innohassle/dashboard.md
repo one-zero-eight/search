@@ -78,13 +78,13 @@ All
 
 - [InNoHassle: Schedule](https://innohassle.ru/schedule) (InNoHassle: Расписание): Conveniently view your schedule in the calendar. / Расписания учебных групп и клининга.
 
-- [Eduwiki](https://eduwiki.innopolis.university/index.php/Main_Page): View the official documents from DoE. / Официальные документы от DoE.
+- [Eduwiki](/raw/pages/main-page.md): View the official documents from DoE. / Официальные документы от DoE.
 
-- [Eduwiki: Academic calendar](https://eduwiki.innopolis.university/index.php/AcademicCalendar) (Eduwiki: Академический календарь): View the official academic calendar with holidays and study days. / Официальный КУГ каникул и учебных дней.
+- [Eduwiki: Academic calendar](/raw/calendars/academiccalendar.md) (Eduwiki: Академический календарь): View the official academic calendar with holidays and study days. / Официальный КУГ каникул и учебных дней.
 
-- [Eduwiki: Schedule](https://eduwiki.innopolis.university/index.php/All:Schedule) (Eduwiki: Расписание): View the official schedule of classes. / Официальное расписание занятий.
+- [Eduwiki: Schedule](/raw/schedules/all-schedule.md) (Eduwiki: Расписание): View the official schedule of classes. / Официальное расписание занятий.
 
-- [Eduwiki: Study plan](https://eduwiki.innopolis.university/index.php/ALL:StudyPlan) (Eduwiki: Учебный план): View the study plan with a documented amount of required studying hours. / Учебный план с указанием количества учебных часов по курсам.
+- [Eduwiki: Study plan](/raw/programs/all-studyplan.md) (Eduwiki: Учебный план): View the study plan with a documented amount of required studying hours. / Учебный план с указанием количества учебных часов по курсам.
 
 - [Bitrix: Library](https://portal.university.innopolis.ru/reading_hall/) (Bitrix: Библиотека): Explore books available in the university library and reserve some of them. / Каталог книг университетской библиотеки.
 

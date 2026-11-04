@@ -100,13 +100,13 @@ Python
 
 [Зарегистрироваться](https://lk-dovuz.innopolis.university/login/?eventId=537843#panel-register)
 
-Нажимая на кнопку регистрации, вы соглашаетесь с [политикой обработки персональных данных](https://apply.innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%9F%D0%94%D0%BD%20%D0%B4%D0%BB%D1%8F%20%D0%A3%D0%98.pdf) автономной некоммерческой организации высшего образования "Университет Иннополис" и [договором оферты](https://lk-dovuz.innopolis.university/public/files/offer_python_base_leto_2smena_2025.pdf).
+Нажимая на кнопку регистрации, вы соглашаетесь с [политикой обработки персональных данных](https://apply.innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%9F%D0%94%D0%BD%20%D0%B4%D0%BB%D1%8F%20%D0%A3%D0%98.pdf) автономной некоммерческой организации высшего образования "Университет Иннополис" и [договором оферты](/raw/regulations/site-dovuz-0892a6f0-offer-python-base-leto-2smena-2025.md).
 
 6 июля - 19 июля
 
 [Зарегистрироваться](https://lk-dovuz.innopolis.university/login/?eventId=537844#panel-register)
 
-Нажимая на кнопку регистрации, вы соглашаетесь с [политикой обработки персональных данных](https://apply.innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%9F%D0%94%D0%BD%20%D0%B4%D0%BB%D1%8F%20%D0%A3%D0%98.pdf) автономной некоммерческой организации высшего образования "Университет Иннополис" и [договором оферты](https://lk-dovuz.innopolis.university/public/files/offer_python_base_leto_3smena_2025.pdf).
+Нажимая на кнопку регистрации, вы соглашаетесь с [политикой обработки персональных данных](https://apply.innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%9F%D0%94%D0%BD%20%D0%B4%D0%BB%D1%8F%20%D0%A3%D0%98.pdf) автономной некоммерческой организации высшего образования "Университет Иннополис" и [договором оферты](/raw/regulations/site-dovuz-989cff2d-offer-python-base-leto-3smena-2025.md).
 
 ![](https://static.tildacdn.com/tild3734-6434-4363-a466-353039313664/Cone.png)
 
@@ -114,7 +114,7 @@ Python
 
 8 июня - 21 июня
 
-Нажимая на кнопку регистрации, вы соглашаетесь с [политикой обработки персональных данных](https://apply.innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%9F%D0%94%D0%BD%20%D0%B4%D0%BB%D1%8F%20%D0%A3%D0%98.pdf) автономной некоммерческой организации высшего образования "Университет Иннополис" и [договором оферты](https://lk-dovuz.innopolis.university/public/files/offer_python_base_leto_1smena_2025.pdf).
+Нажимая на кнопку регистрации, вы соглашаетесь с [политикой обработки персональных данных](https://apply.innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%9F%D0%94%D0%BD%20%D0%B4%D0%BB%D1%8F%20%D0%A3%D0%98.pdf) автономной некоммерческой организации высшего образования "Университет Иннополис" и [договором оферты](/raw/regulations/site-dovuz-09619cb5-offer-python-base-leto-1smena-2025.md).
 
 [Зарегистрироваться](https://lk-dovuz.innopolis.university/login/?eventId=537821#panel-register)
 

@@ -1,0 +1,279 @@
+---
+type: regulation
+title: "usloviya zadach 1 tur en"
+resource: "https://lk-dovuz.innopolis.university/public/files/usloviya_zadach_1_tur_en.pdf"
+source_kind: official-document
+language: ru
+section: "site/dovuz"
+sources:
+  - resource: "https://lk-dovuz.innopolis.university/public/files/usloviya_zadach_1_tur_en.pdf"
+    id: "0d84200f51aa"
+    title: "usloviya zadach 1 tur en"
+    last_modified: "2026-11-01T23:17:27+00:00"
+generated:
+  by: "catix-wiki/0.1 regulations"
+  at: "2026-11-01T23:17:27+00:00"
+extraction: "text layer (opendataloader)"
+status: draft
+---
+
+# usloviya zadach 1 tur en
+
+Innopolis Open 2025-2026 First qualification round Innopolis, November 2, 2025
+
+Information
+
+Memory limit
+
+- • In problem A: 256 megabytes
+
+- • In problem B: 256 megabytes
+
+- • In problem C: 256 megabytes
+
+- • In problem D: 256 megabytes
+
+- • In problem E: 512 megabytes
+
+Source code limit
+
+The size of each solution source code can’t exceed 256 KiB.
+
+Submissions limit
+
+You can submit at most 50 solutions for each problem. You can submit a solution to each task at most once per 30 seconds. This restriction does not apply in the last 15 minutes of the contest round.
+
+Scoring
+
+Each problem consists of several subtasks. The subtask score is awarded if all tests in the subtask are passed.
+
+The number of points scored for the problem is the total number of points scored on each of its subtasks. The score for the subtask is the maximum number of points earned for this subtask among all the solutions submitted.
+
+Feedback
+
+To get feedback for your solution, go to “Runs” tab in PCMS2 Web Client and use “View Feedback” link. In each problem of the contest you will see the score for each subtask, or the verdict for the first failed test.
+
+Scoreboard
+
+The contestants’ scoreboard is available during the contest. Use “Monitor” link in PCMS2 Web Client to access the scoreboard. The standings provided in PCMS2 Web Client are not final.
+
+Problem A. Shustrik, Persik, and Eternal Friendship
+
+Time limit: 1 second
+
+In an ancient temple, a legendary treasure is hidden, symbolizing the eternal friendship of the hamster Shustrik and the cat Persik. Shustrik and Persik want to show you this magical place. To get there, they need to open the gates of the ancient temple, which requires arranging a circular mosaic of sacred symbols (digits 0-9) in the correct order.
+
+The mosaic will be considered arranged in the correct order if the potential of the string of sacred symbols and the number of applications of the magical operation are minimized. The potential of a string is defined as the number of blocks of identical digits it consists of. For example, the potential of the string 112223 is 3, while for 12233321 it is 5. The magical operation that Shustrik and Persik can perform is as follows: they can cyclically shift the string to the right or left by 1. Since the place is truly magical, the friends can perform this operation as many times as they want.
+
+Help Shustrik and Persik calculate how many times they will have to apply the magical operation for the mosaic to be arranged in the correct order. Remember that the mosaic is considered arranged in the correct order only when both the potential of the string of sacred symbols and the number of applications of the magical operation are minimized.
+
+Input
+
+The first line contains a single integer n (1 ≤ n ≤ 106). The second line contains the string s — the mosaic of sacred symbols.
+
+Output
+
+Output the number of magical operations that Shustrik and Persik will have to perform. If during the magical operations the friends shift to the left, output the number of magical operations with a negative sign «-» (without quotes); if to the right, output it without the negative sign «-».
+
+Scoring
+
+| Group | Points | Additional constraints | Required groups |
+| --- | --- | --- | --- |
+| 1 | 20 | n ≤ 8 | – |
+| 2 | 10 | n ≤ 18 | 1 |
+| 3 | 30 | n ≤ 1000 | 1, 2 |
+| 4 | 40 | No additional constraints | 1, 2, 3 |
+
+Examples
+
+| standard input | standard output |
+| --- | --- |
+| 6 112223 | 0 |
+| 9 112223111 | -2 |
+| 9 122333211 | -1 |
+
+Note
+
+Problem B. Magic Circle
+
+Time limit: 2 seconds n wizards stood in a circle and decided to perform q rituals.
+
+We number the wizards from 1 to n in a clockwise direction. The i-th ritual involves wizard number k if there exists a non-negative integer x such that (firsti + stepi · x − 1) mod n + 1 = k, where mod is the modulus operation. For better understanding, it is worth looking at the illustration in the example.
+
+Initially, each wizard had 1018 units of mana. The i-th ritual changes the mana of the involved wizards by costi. That is, if costi > 0, the mana increases by |costi| units; if costi < 0, it decreases by |costi| units; and if costi = 0, it remains unchanged.
+
+Determine the number of the wizard with the most mana after all q rituals. If there are several, choose the one with the smallest number.
+
+Input
+
+The first line contains two integers n and q (1 ≤ n,q ≤ 2 · 105).
+
+In the i-th of the following q lines, there are 3 integers firsti, stepi, and costi (1 ≤ firsti ≤ n; 1 ≤ stepi ≤ 109; −109 ≤ costi ≤ 109).
+
+Output
+
+Output a single number—the number of the wizard with the most mana after all q rituals. If there are several, choose the one with the smallest number.
+
+Scoring
+
+The tests for this problem consist of ten groups. Points for each group are awarded only if all tests of the group and all tests of the required groups are passed.
+
+| Group | Points | Additional constraints | Required groups |
+| --- | --- | --- | --- |
+| 1 | 10 | n,q ≤ 5000; n is a multiple of stepi for all i | – |
+| 2 | 10 | n,q ≤ 5000; stepi ≤ n for all i | 1 |
+| 3 | 10 | n,q ≤ 5000 | 1, 2 |
+| 4 | 10 | firsti = firstj for all i, j; n is a multiple of stepi for all i | – |
+| 5 | 10 | stepi = stepj for all i, j; n is a multiple of stepi for all i | – |
+| 6 | 10 | n is a multiple of stepi for all i | 1, 4, 5 |
+| 7 | 10 | firsti = firstj for all i, j; stepi ≤ n for all i | 4 |
+| 8 | 10 | stepi = stepj for all i, j; stepi ≤ n for all i | 5 |
+| 9 | 10 | stepi ≤ n for all i | 1, 2, 4–8 |
+| 10 | 10 | — | 1–9 |
+
+Innopolis Open 2025-2026 First qualification round Innopolis, November 2, 2025 Example
+
+| standard input | standard output |
+| --- | --- |
+| 28 3 28 12 8 18 4 4 3 1 2 | 4 |
+
+Illustration
+
+Problem C. Pleasant Paths
+
+Time limit: 1 second
+
+The map of the forest represents a rooted tree, where the vertices are clearings, the edges are paths between them, and the weight of an edge is the popularity of these paths. All clearings are numbered from 1 to n.
+
+Hedgehog Shurshik lives in the clearing located at the root vertex number 1. During each of his walks, the hedgehog starts from vertex 1 and goes to the leaf vertices for the tastiest apples, but only via a pleasant path. A pleasant path in the tree is a path from the root vertex to a leaf vertex such that at each descent, the hedgehog chooses the least popular road (i.e., descends along the edge with the smallest popularity value, and if there are several, to the vertex with the smallest number). A vertex is called a leaf if it has exactly one outgoing path and is not the root.
+
+Shurshik made q walks, each of which followed several rules: first, the hedgehog found a pleasant path, then added +1 to the popularity of all edges on the path. Help Shurshik determine how many times he will visit each leaf vertex.
+
+Input
+
+Each test consists of several testcases. The first line contains a single integer t (1 ≤ t ≤ 104) — the number of testcases. The following describes the testcases.
+
+The first line contains two integers n and q (2 ≤ n ≤ 2 · 105, 0 ≤ q ≤ 1018) — the number of vertices in the tree and the number of walks made by Shurshik.
+
+The next n−1 lines describe the edges of the tree. Each line contains three integers ui, vi, wi (1 ≤ ui,vi ≤ n, 0 ≤ wi ≤ 1018) — the numbers of the vertices connected by the path and its initial popularity.
+
+It is guaranteed that the sum of n across all tests does not exceed 2 · 105 and the given graph is a tree with vertex 1 as the root.
+
+Output
+
+For each testcase, output the information about the visits to the leaf vertices. For each leaf vertex in ascending order of its number, output on a separate line two numbers: the leaf number and the number of times Shurshik visited this leaf during all q walks.
+
+Scoring
+
+| Group | Points | Additional Constraints | Required Groups |
+| --- | --- | --- | --- |
+| 1 | 12 | n · q ≤ 2 · 105 | – |
+| 2 | 13 | t = 1; n ≤ 20; wi = 0 | – |
+| 3 | 20 | ui = ⌊i+12 ⌋, vi = i + 1 | – |
+| 4 | 20 | wi = 0 for all edges | 2 |
+| 5 | 15 | ui = 1, vi = i + 1 | – |
+| 6 | 20 | No additional constraints | 1, 2, 3, 4, 5 |
+
+| standard input | standard output |
+| --- | --- |
+| 4 5 7 1 2 0 1 3 1 3 4 5 3 5 3 4 599 1 2 300 1 3 400 1 4 200 12 996179179 1 2 0 1 3 0 3 4 0 3 5 0 3 6 0 6 7 0 6 8 0 6 9 0 6 10 0 10 11 0 10 12 0 7 777 1 2 0 1 3 0 2 4 0 2 5 0 3 6 0 3 7 0 | 2 4 4 1 5 2 2 200 3 100 4 299 2 498089590 4 166029863 5 166029863 7 41507466 8 41507466 9 41507466 11 20753733 12 20753732 4 195 5 194 6 194 7 194 |
+
+Note
+
+⌊ab⌋ means rounding down the result of the division ab. Thus, ⌊109 ⌋ = 0 and ⌊101 ⌋ = 0.
+
+Problem D. Hamster Spectacle
+
+Time limit: 5 seconds
+
+In the famous Hamster Academy, an annual olympiad among hamsters is held. In a row, there are n hamsters in shirts, each with the personal record of the hamster in running on a wheel — a positive integer ai (how many laps per minute the hamster can do). Each record number X can be broken down into special skills. All the skills that a hamster possesses are the numbers that are divisors of X. For example, a hamster with a record of 12 has skills 1, 2, 3, 4, 6, 12. The more unique skills a group of hamsters demonstrates, the more spectacular the performance.
+
+To evaluate, judges can choose a continuous team of hamsters — from the L-th to the R-th in the row. However, the more hamsters in the team, the harder it is to organize and feed them, making the performance less spectacular. The cost of maintaining the team is equal to its size (R − L + 1) and corresponds to the value by which the spectacle of the corresponding team of hamsters decreases.
+
+Help determine which spectacle of performances will be maximal. The final spectacle of the performance is defined as F(L,R) = X − (R − L + 1), where X is the number of distinct positive integers that are special skills of at least one hamster with a record ai, such that L ≤ i ≤ R; and R − L + 1 is the cost of maintaining the team from the L-th to the R-th hamster in the row.
+
+Recall that a divisor of an integer s is an integer d such that s is divisible by d without a remainder.
+
+Input
+
+In the first line, there is one integer n (1 ≤ n ≤ 5 · 105) — the length of the row of sitting hamsters. In the second line, there are n integers a1, a2, ..., an (1 ≤ ai ≤ 5 · 106) — the numbers written on the shirts of the hamsters.
+
+Output
+
+Output a single integer — the maximum value of the spectacle of the hamsters’ performance F(L,R).
+
+Scoring
+
+The tests for this problem consist of six groups. Points for each group are awarded only if all tests of the group, all tests of the necessary groups for it, and tests from the problem statement are passed.
+
+| Group | Points | Additional constraints |  | Required groups |
+| --- | --- | --- | --- | --- |
+| Group | Points | n | ai | Required groups |
+| 1 | 16 | n ≤ 100 | ai ≤ 100 |  |
+| 2 | 15 | n ≤ 103 | ai ≤ 103 | 1 |
+| 3 | 11 | n ≤ 103 | – | 1, 2 |
+| 4 | 10 | n ≤ 105 | ai ≤ 105 | 1, 2 |
+| 5 | 7 | n ≤ 104 | – | 1–3 |
+| 6 | 8 | n ≤ 5 · 104 | – | 1–3, 5 |
+| 7 | 9 | n ≤ 105 | – | 1–6 |
+| 8 | 9 | n ≤ 2 · 105 | – | 1–7 |
+| 9 | 15 | – | – | 1–8 |
+
+| standard input | standard output |
+| --- | --- |
+| 6 3 14 2 20 9 8 | 6 |
+
+Problem E. Bracket Dance
+
+Time limit: 1 second
+
+You have finally reached the treasure! Of course, it is a string s of length n = 2k, consisting of brackets. To be straightforward — cat Persik† loves bracket sequences and powers of two! Persik plays with the string s — several times (possibly zero) he divides it into parts and assembles it back. In one step, the following occurs: The sequence is divided into blocks of length m = 2x (x ≥ 1), each block is split into two halves, and the halves within the block are swapped. Example: x = 2,m = 4,s = (()) ⇒ |((·))| ⇒ |)) · ((| ⇒))(( x = 2,m = 4,s = ((()))() ⇒ |((·()|)) · ()| ⇒ |() · ((|()·))| ⇒ ()((())) x = 1,m = 2,s = ((()))() ⇒ |(·(|(·)|)·)|(·)| ⇒ |(·(|) · (|)·)|) · (| ⇒ (()()))(
+
+We are interested in when Persik will get tired of playing (i.e., when he gets bored of changing the original string) — to do this, help us find out (depending on the type of query):
+
+**1.** How many different ways are there to obtain a valid bracket sequence‡ (VBS) from the original string s while Persik plays with it. Two ways are considered different if for some i the character originally at position i has moved to different positions in these two ways.
+
+**2.** How many different VBS can be obtained from the original string. Two VBS a,b are considered different if there exists an index i such that ai ̸= bi.
+
+† Persik is a shark in the world of programming.
+
+‡ A bracket sequence is called valid if it can be turned into a correct mathematical expression by adding only the symbols + and 1. For example, the sequences (())(),(),(()(())) and the empty string are valid, while )(,(() and (()))( are not.
+
+Input
+
+The first line contains a single number T — the number of test cases (1 ≤ T ≤ 10000). The second line contains a single number Q — the type of query (common for all test cases) (1 ≤ Q ≤ 2). In the following T lines, one bracket sequence is given per line. (2 ≤ |si| ≤ 222). The total length of all input sequences does not exceed 222 ( Ti=1 |si| ≤ 222).
+
+Output
+
+For each string, output the required number:
+
+For Q = 1 — the number of different permutations such that the resulting string is a VBS.
+
+For Q = 2 — the number of different VBS that can be obtained through such actions. Scoring
+
+| Group | Points | Additional Constraints | Required Groups |
+| --- | --- | --- | --- |
+| 1 | 18 | q = 1, Ti=1 /si/ ≤ 28 | – |
+| 2 | 26 | q = 1, Ti=1 /si/ ≤ 214 | 1 |
+| 3 | 26 | q = 1, Ti=1 /si/ ≤ 222 | 1, 2 |
+| 4 | 13 | q = 2, Ti=1 /si/ ≤ 212 | – |
+| 5 | 17 | q = 2, Ti=1 /si/ ≤ 217 | 4 |
+
+Examples
+
+| standard input | standard output |
+| --- | --- |
+| 2 1 ))(( ((()))() | 2 2 |
+| 2 2 ))(( ((()))() | 1 2 |
+
+Note
+
+If you take the string s = (1(2)3)4 (with the original position indicated after each symbol), it is itself a VBS, and also after one step with x = 1,m = 2 we get the string (2(1)4)3. In total, there are two options.
+
+The illustration shows the application of one step x = 2,m = 4 to the string ((()))().
+
+Illustration for the example
+
+# Citations
+
+1. [usloviya zadach 1 tur en](https://lk-dovuz.innopolis.university/public/files/usloviya_zadach_1_tur_en.pdf), file 0d84200f51aa

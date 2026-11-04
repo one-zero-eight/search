@@ -260,7 +260,7 @@ olymp@innopolis.ru
 
 Документы
 
-[Политика конфиденциальности](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+[Политика конфиденциальности](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
 © 2012–2026 АНО ВО «Университет Иннополис»
 

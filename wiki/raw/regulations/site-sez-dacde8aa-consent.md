@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Пользовательское соглашение"
+title: "Пользовательское соглашение [consent]"
 resource: "https://sezinnopolis.ru/upload/consent.docx"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/sez"
 sources:
   - resource: "https://sezinnopolis.ru/upload/consent.docx"
     id: "2005a8a3d2c4"
-    title: "Пользовательское соглашение"
+    title: "Пользовательское соглашение [consent]"
     last_modified: "2006-07-27T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Пользовательское соглашение
+# Пользовательское соглашение [consent]
 
 Приложение №1 к Инструкции о порядке проверки индивидуальных предпринимателей, юридических лиц и связанных с ними физических лиц, претендующих на получение статуса «Стартап», «Резидент» и «Партнер» ОЭЗ «Иннополис»
 
@@ -75,4 +75,4 @@ status: draft
 
 # Citations
 
-1. [Пользовательское соглашение](https://sezinnopolis.ru/upload/consent.docx), file 2005a8a3d2c4
+1. [Пользовательское соглашение [consent]](https://sezinnopolis.ru/upload/consent.docx), file 2005a8a3d2c4

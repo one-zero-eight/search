@@ -626,19 +626,19 @@ CEO Agile Technologies, эксперт в области управления п
 
 Цифровые технологии в преподавании профильных дисциплин
 
-[![](https://static.tildacdn.com/tild6465-6161-4465-a661-376163303561/Frame_277133535.png)](https://innopolis.university/filespublic/sbornik_kejsov_4.pdf)
+[![](https://static.tildacdn.com/tild6465-6161-4465-a661-376163303561/Frame_277133535.png)](/raw/regulations/site-media-ce493357-sbornik-kejsov-4.md)
 
-[![](https://static.tildacdn.com/tild3832-3436-4737-a138-366233333562/Frame_277133532.png)](https://innopolis.university/filespublic/cases_cdto.pdf)
+[![](https://static.tildacdn.com/tild3832-3436-4737-a138-366233333562/Frame_277133532.png)](/raw/regulations/site-edu-f4783897-cases-cdto.md)
 
-[![](https://static.tildacdn.com/tild3765-6336-4366-b966-316432323464/Frame_277133533.png)](https://innopolis.university/filespublic/cases_cdto_2.pdf)
+[![](https://static.tildacdn.com/tild3765-6336-4366-b966-316432323464/Frame_277133533.png)](/raw/regulations/site-media-02be1097-cases-cdto-2.md)
 
-[![](https://static.tildacdn.com/tild6231-6137-4564-b036-386338666633/Frame_277133534.png)](https://innopolis.university/filespublic/sbornik_kejsov_3.pdf)
+[![](https://static.tildacdn.com/tild6231-6137-4564-b036-386338666633/Frame_277133534.png)](/raw/regulations/site-edu-6cf22e60-sbornik-kejsov-3.md)
 
 [![](https://static.tildacdn.com/tild6235-3965-4565-a135-656165326564/Frame_277133539.png)](https://innopolis.university/filespublic/%D0%A1%D0%B1%D0%BE%D1%80%D0%BD%D0%B8%D0%BA_%D0%BA%D0%B5%D0%B9%D1%81%D0%BE%D0%B2_%D0%BD%D0%BE%D0%BC%D0%B5%D1%80_5_%D1%87%D0%B0%D1%81%D1%82%D1%8C_2_1_%D1%81_%D1%80%D0%B5%D1%86%D0%B5%D0%BD%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D0%BC%D0%B8.pdf)
 
 [![](https://static.tildacdn.com/tild3033-6238-4966-b664-656330333137/Frame_277133536.png)](https://innopolis.university/filespublic/%D0%A1%D0%B1%D0%BE%D1%80%D0%BD%D0%B8%D0%BA_%D0%9E%D0%9E%D0%A6_%E2%84%962.pdf)
 
-[![](https://static.tildacdn.com/tild3566-3534-4463-b732-373536663932/Frame_277133537.png)](https://innopolis.university/filespublic/%D0%A1%D0%B1%D0%BE%D1%80%D0%BD%D0%B8%D0%BA_%D0%9E%D0%9E%D0%A6_%E2%84%963.pdf)
+[![](https://static.tildacdn.com/tild3566-3534-4463-b732-373536663932/Frame_277133537.png)](/raw/regulations/site-edu-418fa299-sbornik-oots-3.md)
 
 [![](https://static.tildacdn.com/tild6461-6531-4037-b435-383838333361/Frame_277133538.png)](https://innopolis.university/filespublic/%D0%A1%D0%B1%D0%BE%D1%80%D0%BD%D0%B8%D0%BA_%D0%BA%D0%B5%D0%B9%D1%81%D0%BE%D0%B2_%D0%BD%D0%BE%D0%BC%D0%B5%D1%80_4_%D1%87%D0%B0%D1%81%D1%82%D1%8C_1_1_%D1%81_%D1%80%D0%B5%D1%86%D0%B5%D0%BD%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D0%BC%D0%B8.pdf)
 
@@ -668,7 +668,7 @@ cpp@innopolis.ru
 
 [@inno_university_it_bot](https://t.me/inno_university_it_bot)
 
-[Лицензия](https://innopolis.university/upload/iblock/d7f/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B4%D0%B5%D1%8F%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C.pdf)
+[Лицензия](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md)
 
 [Политика конфиденциальности](/raw/regulations/site-university-45ebfbe8-soglasie-na-obrabotku-pdn-dlya-ui.md)
 

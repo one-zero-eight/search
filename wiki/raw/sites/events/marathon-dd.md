@@ -76,7 +76,7 @@ status: draft
 
 Сборник успешно реализованных кейсов
 
-[![](https://static.tildacdn.com/tild3033-3133-4630-a561-303261376331/photo.png)](https://innopolis.university/filespublic/sbornik_ck_iu.pdf)
+[![](https://static.tildacdn.com/tild3033-3133-4630-a561-303261376331/photo.png)](/raw/regulations/site-events-db33d99f-sbornik-ck-iu.md)
 
 Сборник кейсов
 
@@ -88,7 +88,7 @@ status: draft
 
 Приходи на наш «Марафон цифровых кафедр» и узнай все подробности от первых лиц: руководителей «цифровых кафедр», преподавателей и студентов
 
-[Подробнее о проекте «Цифровые кафедры»](https://innopolis.university/filespublic/cifrovye_kafedry.pdf)
+[Подробнее о проекте «Цифровые кафедры»](/raw/regulations/site-events-3881d152-cifrovye-kafedry.md)
 
 Кейсы и истории
 
@@ -606,9 +606,9 @@ status: draft
 
 [Присоединиться к комьюнити](https://t.me/moyacifrovaya)
 
-[Лицензия](https://innopolis.university/upload/iblock/d7f/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B4%D0%B5%D1%8F%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C.pdf)
+[Лицензия](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md)
 
-[Выписка из реестра лицензий](https://innopolis.university/upload/iblock/b6f/ozxoa1j463v3s0m55w9kdc1qc0z31zfr/%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%B2%D1%8B%D0%BF%D0%B8%D1%81%D0%BA%D0%B0.pdf)
+[Выписка из реестра лицензий](/raw/regulations/site-stc-e6310fe5-reestrovaya-vypiska.md)
 
 контакты
 
@@ -630,7 +630,7 @@ _
 
 Принять участие
 
-[Положение о порядке проведения мероприятия](https://innopolis.university/filespublic/%D0%BF%D1%80%D0%B8%D0%BA%D0%B0%D0%B7%20%D0%BE%D1%82%2007.03.2023%20%E2%84%96%20%D0%9E%D0%94_%D0%90%D0%94-01.pdf)
+[Положение о порядке проведения мероприятия](/raw/regulations/site-events-a802a04f-prikaz-ot-07-03-2023-od-ad01.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/events/_shared.md](/raw/sites/events/_shared.md)._
 

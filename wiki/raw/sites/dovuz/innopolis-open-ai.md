@@ -156,31 +156,31 @@ E-mail: ai.olymp@innopolis.ru
 
 Первый отборочный этап
 
-Разбор (en): [ссылка](https://lk-dovuz.innopolis.university/public/files/ioai26_tour1_sol_en.pdf)
+Разбор (en): [ссылка](/raw/regulations/site-dovuz-549f9cf7-ioai26-tour1-sol-en.md)
 
-Разбор (ru): [ссылка](https://lk-dovuz.innopolis.university/public/files/ioai26_tour1_sol_ru.pdf)
+Разбор (ru): [ссылка](/raw/regulations/site-dovuz-7d41f497-ioai26-tour1-sol-ru.md)
 
-Условия (en): [ссылка](https://lk-dovuz.innopolis.university/public/files/ioai26_task_tour1_en.pdf)
+Условия (en): [ссылка](/raw/regulations/site-dovuz-71757194-ioai26-task-tour1-en.md)
 
-Условия (ru): [ссылка](https://lk-dovuz.innopolis.university/public/files/ioai26_task_tour1_ru.pdf)
+Условия (ru): [ссылка](/raw/regulations/site-dovuz-2e17a861-ioai26-task-tour1-ru.md)
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/results_1_ai.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-4cd184d5-results-1-ai.md)
 
 Второй отборочный этап
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/results_ii_2.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-af83e692-results-ii-2.md)
 
-Разбор (ru): [ссылка](https://lk-dovuz.innopolis.university/public/files/razbor.pdf)
+Разбор (ru): [ссылка](/raw/regulations/site-dovuz-4c509765-razbor.md)
 
-Условия (ru): [ссылка](https://lk-dovuz.innopolis.university/public/files/usloviya.pdf)
+Условия (ru): [ссылка](/raw/regulations/site-dovuz-59e89f9d-usloviya.md)
 
 Заключительный этап
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/result_ii_3.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-78bcd129-result-ii-3.md)
 
-Разбор (ru): [ссылка](https://lk-dovuz.innopolis.university/public/files/reshenie_final_ai.pdf)
+Разбор (ru): [ссылка](/raw/regulations/site-dovuz-9257d399-reshenie-final-ai.md)
 
-Условия (ru): [ссылка](https://lk-dovuz.innopolis.university/public/files/materials_final_ai.pdf)
+Условия (ru): [ссылка](/raw/regulations/site-dovuz-7acc05ce-materials-final-ai.md)
 
 Работы победителей и призеров: [ссылка](https://photostorage.innopolis.university/index.php/s/YLCD9jT96mromS5)
 
@@ -188,27 +188,27 @@ E-mail: ai.olymp@innopolis.ru
 
 Первый отборочный этап
 
-Разбор (en): [ссылка](https://lk-dovuz.innopolis.university/public/files/io_ai_1step_razbor_en_25.pdf)
+Разбор (en): [ссылка](/raw/regulations/site-dovuz-1c7e29fc-io-ai-1step-razbor-en-25.md)
 
-Разбор (ru): [ссылка](https://lk-dovuz.innopolis.university/public/files/io_ai_1step_razbor_ru_25.pdf)
+Разбор (ru): [ссылка](/raw/regulations/site-dovuz-0fc128a1-io-ai-1step-razbor-ru-25.md)
 
-Условия (en): [ссылка](https://lk-dovuz.innopolis.university/public/files/io_ai_1step_conditions_en_25.pdf)
+Условия (en): [ссылка](/raw/regulations/site-dovuz-3d1bb31a-io-ai-1step-conditions-en-25.md)
 
-Условия (ru): [ссылка](https://lk-dovuz.innopolis.university/public/files/io_ai_1step_conditions_ru_25.pdf)
+Условия (ru): [ссылка](/raw/regulations/site-dovuz-63b0d760-io-ai-1step-conditions-ru-25.md)
 
-Результаты: [7-8 класс](https://lk-dovuz.innopolis.university/public/files/ioai_1step_preliminary_results_7_8_classes_24_25.pdf) , [9-11 класс](https://lk-dovuz.innopolis.university/public/files/ioai_1step_preliminary_results_9_11_classes_24_25.pdf)
+Результаты: [7-8 класс](/raw/regulations/site-dovuz-b071cfdb-ioai-1step-preliminary-results-7-8-class.md) , [9-11 класс](/raw/regulations/site-dovuz-b164beef-ioai-1step-preliminary-results-9-11-clas.md)
 
 Второй отборочный этап
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/ioai_results_2ndstep.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-954a1018-ioai-results-2ndstep.md)
 
-Разбор (en): [ссылка](https://lk-dovuz.innopolis.university/public/files/innopolis_tour2_analysis_en.pdf)
+Разбор (en): [ссылка](/raw/regulations/site-dovuz-36bb8d96-innopolis-tour2-analysis-en.md)
 
-Разбор (ru): [ссылка](https://lk-dovuz.innopolis.university/public/files/innopolis_tour2_analysis_ru.pdf)
+Разбор (ru): [ссылка](/raw/regulations/site-dovuz-9a98ca01-innopolis-tour2-analysis-ru.md)
 
-Условия (ru): [ссылка](https://lk-dovuz.innopolis.university/public/files/io_ai_2step_conditions_ru_25.pdf)
+Условия (ru): [ссылка](/raw/regulations/site-dovuz-5e91e8ef-io-ai-2step-conditions-ru-25.md)
 
-Условия (en): [ссылка](https://lk-dovuz.innopolis.university/public/files/innopolis_tour2_en.pdf)
+Условия (en): [ссылка](/raw/regulations/site-dovuz-ed384f3a-innopolis-tour2-en.md)
 
 Заключительный этап
 
@@ -244,27 +244,27 @@ E-mail: ai.olymp@innopolis.ru
 
 Первый отборочный этап
 
-Материалы заданий: (ru) [ссылка](https://lk-dovuz.innopolis.university/public/files/contest-30457-ru%282%29.pdf)
+Материалы заданий: (ru) [ссылка](/raw/regulations/site-dovuz-1d9331f7-contest30457ru-2.md)
 
-Разбор: (ru) [ссылка](https://lk-dovuz.innopolis.university/public/files/razbor_1%282%29.pdf)
+Разбор: (ru) [ссылка](/raw/regulations/site-dovuz-fac7c357-razbor-1-2.md)
 
-Материалы заданий: (en) [ссылка](https://lk-dovuz.innopolis.university/public/files/contest-30457-en%282%29.pdf)
+Материалы заданий: (en) [ссылка](/raw/regulations/site-dovuz-9296273e-contest30457en-2.md)
 
-Разбор: (en) [ссылка](https://lk-dovuz.innopolis.university/public/files/Analysis_1_ENG_%282%29.pdf)
+Разбор: (en) [ссылка](/raw/regulations/site-dovuz-9a335a02-analysis-1-eng-2.md)
 
 Второй отборочный этап
 
-Условия: (ru) [ссылка](https://lk-dovuz.innopolis.university/public/files/conditions-1%282%29.pdf)
+Условия: (ru) [ссылка](/raw/regulations/site-dovuz-fa207ba7-conditions1-2.md)
 
-Условия: (en) [ссылка](https://lk-dovuz.innopolis.university/public/files/conditions-en%282%29.pdf)
+Условия: (en) [ссылка](/raw/regulations/site-dovuz-e55f66fc-conditionsen-2.md)
 
-Разбор: [ссылка](https://lk-dovuz.innopolis.university/public/files/razbor_2%282%29.pdf)
+Разбор: [ссылка](/raw/regulations/site-dovuz-19d6c6fb-razbor-2-2.md)
 
 Финал
 
-Условия: [ссылка](https://lk-dovuz.innopolis.university/public/files/zadanie_final_23_ai.pdf)
+Условия: [ссылка](/raw/regulations/site-dovuz-d0853ac9-zadanie-final-23-ai.md)
 
-Разбор: [ссылка](https://lk-dovuz.innopolis.university/public/files/conditions-en%282%29.pdf)
+Разбор: [ссылка](/raw/regulations/site-dovuz-e55f66fc-conditionsen-2.md)
 
 Результаты (командный тур): [ссылка](https://lk-dovuz.innopolis.university/public/files/final_ream_tour_ai23.pdf)
 
@@ -274,31 +274,31 @@ E-mail: ai.olymp@innopolis.ru
 
 Результаты:
 
-Первый отборочный этап: [ссылка](https://lk-dovuz.innopolis.university/public/files/1st%20round%2022.pdf)
+Первый отборочный этап: [ссылка](/raw/regulations/site-dovuz-11e2c75d-1st-round-22.md)
 
-Второй отборочный этап: [ссылка](https://lk-dovuz.innopolis.university/public/files/2nd%20round%2022.pdf)
+Второй отборочный этап: [ссылка](/raw/regulations/site-dovuz-836966f8-2nd-round-22.md)
 
-Заключительный этап: [ссылка](http://lk-dovuz.innopolis.university/public/files/Innopolis%20Open%20in%20InfoSec.%20Final%20round.%202021-2022.pdf)
+Заключительный этап: [ссылка](/raw/regulations/site-dovuz-71d17b54-innopolis-open-in-infosec-final-round-20.md)
 
-Материалы заданий: [ссылка](https://lk-dovuz.innopolis.university/public/files/materials_infobez.pdf)
+Материалы заданий: [ссылка](/raw/regulations/site-dovuz-ce905cee-materials-infobez.md)
 
 Работы призеров и победителей: [ссылка](https://drive.google.com/drive/folders/170ASgI7EeFnEZO-AH0Ih3RxFYWczrLiI?usp=sharing)
 
 Первый отборочный этап
 
-Материалы заданий: [ссылка](https://lk-dovuz.innopolis.university/public/files/ii/%D0%9F%D0%B5%D1%80%D0%B2%D1%8B%D0%B9%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%BE%D1%87%D0%BD%D1%8B%D0%B9%20%D1%8D%D1%82%D0%B0%D0%BF%20%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D1%8F.pdf)
+Материалы заданий: [ссылка](/raw/regulations/site-dovuz-20f3032f-pervyy-otborochnyy-etap-zadaniya.md)
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/ii/Innopolis%20Open%20in%20artificial%20intelligence.%20First%20elimination%20round.%202020-2021.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-7d8862da-innopolis-open-in-artificial-intelligenc.md)
 
 Второй отборочный этап
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/ii/Innopolis%20Open%20in%20artificial%20intelligence.%20Second%20elimination%20round.2020-2021.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-201416af-innopolis-open-in-artificial-intelligenc.md)
 
 Заключительный этап
 
-Материалы заданий второго тура и решения: [ссылка](https://lk-dovuz.innopolis.university/public/files/ii/%D0%92%D1%82%D0%BE%D1%80%D0%BE%D0%B9%20%D1%82%D1%83%D1%80%20%D0%B7%D0%B0%D0%BA%D0%BB%D1%8E%D1%87%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D0%B3%D0%BE%20%D1%8D%D1%82%D0%B0%D0%BF%D0%B0.%20%D0%97%D0%B0%D0%B4%D0%B0%D1%87%D0%B0%20%D0%B8%20%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5.pdf)
+Материалы заданий второго тура и решения: [ссылка](/raw/regulations/site-dovuz-7d715ff7-vtoroy-tur-zaklyuchitelnogo-etapa-zadach.md)
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/ii/Innopolis%20Open%20in%20artificial%20intelligence.%20Final%20round.%202020-2021.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-6fb965be-innopolis-open-in-artificial-intelligenc.md)
 
 Работы призеров и победителей: [ссылка](https://drive.google.com/drive/folders/159TO_Fep5fhwlCbKdOHgpz8vWtIQepvI)
 

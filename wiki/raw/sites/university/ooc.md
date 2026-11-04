@@ -1686,7 +1686,7 @@ status: draft
 
 - Энергетическая инфраструктура
 
-[Ознакомиться](https://innopolis.university/files/KMV%20%286%29.zip)
+[Ознакомиться](/raw/regulations/site-university-3ea314e0-kmv-6-member-916f670455dc8800da5e.md)
 
 ## Новости
 

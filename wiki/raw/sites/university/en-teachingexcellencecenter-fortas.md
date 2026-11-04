@@ -26,7 +26,7 @@ status: draft
 
 ## For junior staff
 
-[LMS Moodle](/raw/sites/moodle/login-index-php.md)
+[LMS Moodle](https://moodle.innopolis.university/login/index.php)
 
 [Actual Schedule](https://wiki.innopolis.university/display/DOE/Useful+Links#UsefulLinks-CurrentSchedule)
 
@@ -90,7 +90,7 @@ Please refer to the [certain chapter](https://wiki.innopolis.university/display/
 
 What is Moodle?
 
-- It is a learning management system that has to be maintained for each course. [Moodle](/raw/sites/moodle/login-index-php.md) is good for:
+- It is a learning management system that has to be maintained for each course. [Moodle](https://moodle.innopolis.university/login/index.php) is good for:
 
 - Publishing lecture slides and assignments
 

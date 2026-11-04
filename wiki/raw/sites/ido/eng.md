@@ -242,7 +242,7 @@ Take customized educationalcourse based on the staff competency assessment resul
 
 ![](https://static.tildacdn.com/tild6137-3961-4661-b863-616231346564/dote.png)
 
-[More](https://innopolis.university/filespublic/Assessment_Center.pdf)
+[More](/raw/regulations/site-ido-c3a39cd6-assessment-center.md)
 
 75893
 
@@ -506,27 +506,27 @@ Contact Us
 
 If you have any questions, please leave your contact information, and we will contact you.
 
-[You accept the policy on the processing of personal data by clicking this button.](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+[You accept the policy on the processing of personal data by clicking this button.](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
 Here to Help You Choose the Most Effective Course
 
 Stay informed
 
-[I hereby agree to the Terms of Service and the Privacy Policy](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+[I hereby agree to the Terms of Service and the Privacy Policy](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
 [![](https://static.tildacdn.com/tild6238-3638-4732-a265-306533396166/XMLID_468_.png)](https://wa.me/+79872887854)
 
 Contact Us
 
-[License](https://innopolis.university/upload/iblock/d7f/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B4%D0%B5%D1%8F%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C.pdf)
+[License](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md)
 
-[Privacy Policy](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+[Privacy Policy](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
-[Extract from the License Register](https://innopolis.university/upload/iblock/b6f/ozxoa1j463v3s0m55w9kdc1qc0z31zfr/%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%B2%D1%8B%D0%BF%D0%B8%D1%81%D0%BA%D0%B0.pdf)
+[Extract from the License Register](/raw/regulations/site-stc-e6310fe5-reestrovaya-vypiska.md)
 
 Additional opportunities
 
-[Assessment](https://innopolis.university/filespublic/Assessment_Center.pdf)
+[Assessment](/raw/regulations/site-ido-c3a39cd6-assessment-center.md)
 
 DID 2024 & Innopolis AI Conference
 

@@ -1,0 +1,73 @@
+{
+ "members": [
+  {
+   "ext": "pdf",
+   "file": "0001.pdf",
+   "key": "site-university-32c12a82-2025-bsro-15-03-06-rpd-5-semestr-25-12-2-member-3e9e4fee9da4350dfb77",
+   "member": "2025_BSRO (15.03.06) РПД 5 семестр_25.12.2025/Визуализация_Б1.В.01_BS RO_2025_Элективные дисциплины_25.12.2025.pdf",
+   "sha256": "1b67498de8939b04d206df9076e837ee34e5854e28b0abe54572d5925a7ff4a2",
+   "size": 757341,
+   "status": "ready",
+   "storage": "site-university-32c12a82-2025-bsro-15-03-06-rpd-5-semestr-25-12-2.members/3e9e4fee9da4350dfb77/1b67498de8939b04d206df9076e837ee34e5854e28b0abe54572d5925a7ff4a2"
+  },
+  {
+   "ext": "pdf",
+   "file": "0002.pdf",
+   "key": "site-university-32c12a82-2025-bsro-15-03-06-rpd-5-semestr-25-12-2-member-b8043f9bc297e1f4e2f2",
+   "member": "2025_BSRO (15.03.06) РПД 5 семестр_25.12.2025/Визуализация_Б1.О.14_BS RO_2025_Компьютерные сети (5 с.)_25.12.2025.pdf",
+   "sha256": "7677b762fd60b947a4c95d2a24a7c92eb66d8ad716cbae7f928c8f02171b7d1f",
+   "size": 609826,
+   "status": "ready",
+   "storage": "site-university-32c12a82-2025-bsro-15-03-06-rpd-5-semestr-25-12-2.members/b8043f9bc297e1f4e2f2/7677b762fd60b947a4c95d2a24a7c92eb66d8ad716cbae7f928c8f02171b7d1f"
+  },
+  {
+   "ext": "pdf",
+   "file": "0003.pdf",
+   "key": "site-university-32c12a82-2025-bsro-15-03-06-rpd-5-semestr-25-12-2-member-b548d3195dd263e2cd39",
+   "member": "2025_BSRO (15.03.06) РПД 5 семестр_25.12.2025/Визуализация_Б1.О.15_BS RO_2025_Введение в машинное обучение (5 с.)_25.12.2025.pdf",
+   "sha256": "697112ee103399648fe62adb9965c8e2e4bb279dd39a0eddab1a7186f2b484ec",
+   "size": 523710,
+   "status": "ready",
+   "storage": "site-university-32c12a82-2025-bsro-15-03-06-rpd-5-semestr-25-12-2.members/b548d3195dd263e2cd39/697112ee103399648fe62adb9965c8e2e4bb279dd39a0eddab1a7186f2b484ec"
+  },
+  {
+   "ext": "pdf",
+   "file": "0004.pdf",
+   "key": "site-university-32c12a82-2025-bsro-15-03-06-rpd-5-semestr-25-12-2-member-4b9dd7332cef1d8b5d17",
+   "member": "2025_BSRO (15.03.06) РПД 5 семестр_25.12.2025/Визуализация_Б1.О.16_BS RO_2025_Теория автоматического управления (5 с.)_25.12.2025.pdf",
+   "sha256": "7e6a145490f814e6f9d18323545ae7ee990cbed0bb4f25c276e6d9be4cd5f104",
+   "size": 517336,
+   "status": "ready",
+   "storage": "site-university-32c12a82-2025-bsro-15-03-06-rpd-5-semestr-25-12-2.members/4b9dd7332cef1d8b5d17/7e6a145490f814e6f9d18323545ae7ee990cbed0bb4f25c276e6d9be4cd5f104"
+  },
+  {
+   "ext": "pdf",
+   "file": "0005.pdf",
+   "key": "site-university-32c12a82-2025-bsro-15-03-06-rpd-5-semestr-25-12-2-member-310c11d9611f8ed7a079",
+   "member": "2025_BSRO (15.03.06) РПД 5 семестр_25.12.2025/Визуализация_Б1.О.17_BS RO_2025_Мехатроника (5 с.)_25.12.2025.pdf",
+   "sha256": "8f7344c42c9a96b4b54d1f578cbb9054ee17ccdbd67ba16a3d999ad33a167c01",
+   "size": 773816,
+   "status": "ready",
+   "storage": "site-university-32c12a82-2025-bsro-15-03-06-rpd-5-semestr-25-12-2.members/310c11d9611f8ed7a079/8f7344c42c9a96b4b54d1f578cbb9054ee17ccdbd67ba16a3d999ad33a167c01"
+  },
+  {
+   "ext": "pdf",
+   "file": "0006.pdf",
+   "key": "site-university-32c12a82-2025-bsro-15-03-06-rpd-5-semestr-25-12-2-member-fc01748addf5efa9798d",
+   "member": "2025_BSRO (15.03.06) РПД 5 семестр_25.12.2025/Визуализация_Б1.О.18_BS RO_2025_Введение в оптимизацию (5 с.)_25.12.2025.pdf",
+   "sha256": "0632df74c9a585ae5bee6f28bc947825bb7add33caad881f7484130b149ba2cb",
+   "size": 451875,
+   "status": "ready",
+   "storage": "site-university-32c12a82-2025-bsro-15-03-06-rpd-5-semestr-25-12-2.members/fc01748addf5efa9798d/0632df74c9a585ae5bee6f28bc947825bb7add33caad881f7484130b149ba2cb"
+  }
+ ],
+ "remote": {
+  "etag": "\"69a18c23-1abd0b\"",
+  "modified": "Fri, 27 Feb 2026 12:20:51 GMT",
+  "size": "1752331"
+ },
+ "sha256": "b7b1114d885e44b2e87a4d6660e31daab8e680da22062b459303bc66ed6d5d4e",
+ "source": "site-university-32c12a82-2025-bsro-15-03-06-rpd-5-semestr-25-12-2.archives/b7b1114d885e44b2e87a4d6660e31daab8e680da22062b459303bc66ed6d5d4e.archive",
+ "status": "ready",
+ "url": "https://innopolis.university/upload/iblock/807/fkgf2km12a46cbo9lpf0a0rq8vkt1m6b/2025_BSRO%20%2815.03.06%29%20%D0%A0%D0%9F%D0%94%205%20%D1%81%D0%B5%D0%BC%D0%B5%D1%81%D1%82%D1%80_25.12.2025.7z"
+}

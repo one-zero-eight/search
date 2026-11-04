@@ -1,0 +1,16 @@
+{
+ "title": "Политика обработки персональных данных",
+ "url": "https://reg.digitalinnopolisdays.ru/upload/medialibrary/61a/d4px07n6bivnjdamjdl0bs7ot6s8k4bi.pdf",
+ "sha256": "8aa7f285bd35df589af467ddbd302e518c5b166f1ec62f4fe31341190fa63744",
+ "method": "text layer (opendataloader)",
+ "chars": 20234,
+ "tables": 5,
+ "section": "site/digitalinnopolisdays-ru",
+ "context": "",
+ "fetched_at": "2026-11-04T02:33:00+00:00",
+ "remote": {
+  "etag": "\"6aa92b40-1ceecc\"",
+  "modified": "Tue, 15 Sep 2026 11:25:52 GMT",
+  "size": "1896140"
+ }
+}

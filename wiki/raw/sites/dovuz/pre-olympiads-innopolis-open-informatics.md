@@ -92,7 +92,7 @@ I уровень олимпиады в перечне РСОШ
 
 Участникам заключительного этапа необходимо решить от 3 (трех) до 7 (семи) задач различной степени сложности.
 
-Более подробная информация о проведении описывается в [регламенте](https://start.innopolis.university/upload/sprint.editor/85c/zme3o8jo6jp6t6qrlwwy92okbc7cllwx.pdf)
+Более подробная информация о проведении описывается в [регламенте](/raw/regulations/site-dovuz-61572258-zme3o8jo6jp6t6qrlwwy92okbc7cllwx.md)
 
 Регистрация с 15.09.2026
 
@@ -164,31 +164,31 @@ E-mail: olymp@innopolis.ru
 
 Первый отборочный этап
 
-Условия задач/разбор: [Задачи(ru)](https://lk-dovuz.innopolis.university/public/files/usloviya_zadach_1_tur_ru.pdf), [Задачи(en)](https://lk-dovuz.innopolis.university/public/files/usloviya_zadach_1_tur_en.pdf)
+Условия задач/разбор: [Задачи(ru)](/raw/regulations/site-dovuz-74cd64f5-usloviya-zadach-1-tur-ru.md), [Задачи(en)](/raw/regulations/site-dovuz-25c9c091-usloviya-zadach-1-tur-en.md)
 
-Решение (en) – [ссылка](https://lk-dovuz.innopolis.university/public/files/reshenie_1_tur_en.pdf)
+Решение (en) – [ссылка](/raw/regulations/site-dovuz-7bd09bb0-reshenie-1-tur-en.md)
 
-Решение (ru) – [ссылка](https://lk-dovuz.innopolis.university/public/files/reshenie_1_tur_ru.pdf)
+Решение (ru) – [ссылка](/raw/regulations/site-dovuz-3af08070-reshenie-1-tur-ru.md)
 
 Результаты / results – [ссылка](https://pcms.university.innopolis.ru/results/innopolis/2025-2026/elimination-prog-1-en.html)
 
 Второй отборочный этап
 
-Условия задач/разбор: [Задачи(ru)](https://lk-dovuz.innopolis.university/public/files/uslovia_zadach_2_tur_ru.pdf), [Задачи(en)](https://lk-dovuz.innopolis.university/public/files/uslovia_zadach_2_tur_en.pdf)
+Условия задач/разбор: [Задачи(ru)](/raw/regulations/site-dovuz-14a57b9b-uslovia-zadach-2-tur-ru.md), [Задачи(en)](/raw/regulations/site-dovuz-529cab42-uslovia-zadach-2-tur-en.md)
 
-Решение (en) – [ссылка](https://lk-dovuz.innopolis.university/public/files/reshenie_2_tur_en.pdf)
+Решение (en) – [ссылка](/raw/regulations/site-dovuz-f8ae6497-reshenie-2-tur-en.md)
 
-Решение (ru) – [ссылка](https://lk-dovuz.innopolis.university/public/files/reshenie_2_tur_ru.pdf)
+Решение (ru) – [ссылка](/raw/regulations/site-dovuz-afa70b7e-reshenie-2-tur-ru.md)
 
 Результаты / results – [ссылка](https://pcms.university.innopolis.ru/results/innopolis/2025-2026/elimination-prog-2-en.html)
 
 Заключительный этап
 
-Условия задач: [Задачи(ru)](https://lk-dovuz.innopolis.university/public/files/usloviya_ru.pdf), [Задачи(en)](https://lk-dovuz.innopolis.university/public/files/usloviya_en.pdf)
+Условия задач: [Задачи(ru)](/raw/regulations/site-dovuz-6d8d91d2-usloviya-ru.md), [Задачи(en)](/raw/regulations/site-dovuz-b5eca65f-usloviya-en.md)
 
-Решение (en) – [ссылка](https://lk-dovuz.innopolis.university/public/files/innopolis_open_informatics_resheniya_EN_2026.pdf)
+Решение (en) – [ссылка](/raw/regulations/site-dovuz-2635b4ff-innopolis-open-informatics-resheniya-en.md)
 
-Решение (ru) – [ссылка](https://lk-dovuz.innopolis.university/public/files/innopolis_open_informatics_resheniya_RU_2026.pdf.pdf)
+Решение (ru) – [ссылка](/raw/regulations/site-dovuz-2b77d89f-innopolis-open-informatics-resheniya-ru.md)
 
 Результаты: [ссылка](https://pcms.university.innopolis.ru/results/innopolis/2025-2026/final-main-diplomas.html)
 
@@ -198,29 +198,29 @@ E-mail: olymp@innopolis.ru
 
 Первый отборочный этап
 
-Условия задач/разбор: [Задачи](https://lk-dovuz.innopolis.university/public/files/io_24_25_informatics_tasks_ru.pdf)[(ru)](https://disk.yandex.ru/i/I56LxUuBdhYe-g) [Задачи](https://lk-dovuz.innopolis.university/public/files/io_24_25_informatics_tasks_eng.pdf)[(en)](https://disk.yandex.ru/i/0--kf28pR9aRMg)
+Условия задач/разбор: [Задачи](/raw/regulations/site-dovuz-e9cefa07-io-24-25-informatics-tasks-ru.md)[(ru)](https://disk.yandex.ru/i/I56LxUuBdhYe-g) [Задачи](/raw/regulations/site-dovuz-f03e1fef-io-24-25-informatics-tasks-eng.md)[(en)](https://disk.yandex.ru/i/0--kf28pR9aRMg)
 
-Решение (en) – [ссылка](https://lk-dovuz.innopolis.university/public/files/1st-round-tutorial-en-ioinformatics25.pdf)
+Решение (en) – [ссылка](/raw/regulations/site-dovuz-b3799b1d-1stroundtutorialenioinformatics25.md)
 
-Решение (ru) – [ссылка](https://lk-dovuz.innopolis.university/public/files/1st-round_razbor_ioinformatics25.pdf)
+Решение (ru) – [ссылка](/raw/regulations/site-dovuz-18fa7e86-1stround-razbor-ioinformatics25.md)
 
 Результаты / results – [ссылка](https://pcms.university.innopolis.ru/results/innopolis/2024-2025/elimination-prog-1-en.html)
 
 Второй отборочный этап
 
-Условия задач/разбор: [Задачи(ru)](https://lk-dovuz.innopolis.university/public/files/io_conditions_inf_ru24.pdf) [Задачи(en)](https://lk-dovuz.innopolis.university/public/files/io_conditions_inf_en24.pdf)
+Условия задач/разбор: [Задачи(ru)](/raw/regulations/site-dovuz-9307180d-io-conditions-inf-ru24.md) [Задачи(en)](/raw/regulations/site-dovuz-ac896666-io-conditions-inf-en24.md)
 
-Решение (en) – [ссылка](https://lk-dovuz.innopolis.university/public/files/2nd-round-tutorial-en-ioinformatics25.pdf)
+Решение (en) – [ссылка](/raw/regulations/site-dovuz-ba9ec18a-2ndroundtutorialenioinformatics25.md)
 
-Решение (ru) – [ссылка](https://lk-dovuz.innopolis.university/public/files/2nd-round_razbor_ioinformatics25.pdf)
+Решение (ru) – [ссылка](/raw/regulations/site-dovuz-20396201-2ndround-razbor-ioinformatics25.md)
 
 Результаты / results – [ссылка](https://pcms.university.innopolis.ru/results/innopolis/2024-2025/elimination-prog-2-en.html)
 
 Заключительный этап
 
-Условия задач: [Задачи](https://lk-dovuz.innopolis.university/public/files/final_tasks_ioinformatics25.pdf)(ru) [Задачи](https://lk-dovuz.innopolis.university/public/files/final_tasks_en_ioinformatics25.pdf)(en)
+Условия задач: [Задачи](/raw/regulations/site-dovuz-3c02c050-final-tasks-ioinformatics25.md)(ru) [Задачи](/raw/regulations/site-dovuz-0fb5f101-final-tasks-en-ioinformatics25.md)(en)
 
-Разбор задач от жюри: [Решения](https://lk-dovuz.innopolis.university/public/files/innoopen24informatics_final_razbor.pdf)
+Разбор задач от жюри: [Решения](/raw/regulations/site-dovuz-e82736e8-innoopen24informatics-final-razbor.md)
 
 Результаты: [ссылка](https://pcms.university.innopolis.ru/results/innopolis/2024-2025/final-main-diplomas.html)
 
@@ -230,23 +230,23 @@ E-mail: olymp@innopolis.ru
 
 Первый отборочный этап
 
-Условия задач/разбор: [Задачи(ru)](https://lk-dovuz.innopolis.university/public/files/statements-ru24.pdf) [Задачи(en)](https://lk-dovuz.innopolis.university/public/files/statements-en24.pdf)
+Условия задач/разбор: [Задачи(ru)](/raw/regulations/site-dovuz-7c989703-statementsru24.md) [Задачи(en)](/raw/regulations/site-dovuz-c91a3ef6-statementsen24.md)
 
-Решение (en) – [ссылка](https://lk-dovuz.innopolis.university/public/files/tutorial-en24.pdf)
+Решение (en) – [ссылка](/raw/regulations/site-dovuz-24c26cf9-tutorialen24.md)
 
-Решение (ru) – [ссылка](https://lk-dovuz.innopolis.university/public/files/tutorial-ru24.pdf)
+Решение (ru) – [ссылка](/raw/regulations/site-dovuz-eba3c781-tutorialru24.md)
 
-Результаты / results – [ссылка](https://lk-dovuz.innopolis.university/public/files/resultsof1tour24math.pdf)
+Результаты / results – [ссылка](/raw/regulations/site-dovuz-ab992c86-resultsof1tour24math.md)
 
 Архив - [ссылка](https://disk.yandex.ru/d/UphLSCKo9lp7wg)
 
 Второй отборочный этап
 
-Условия задач/разбор: [Задачи(ru)](https://lk-dovuz.innopolis.university/public/files/ex2tour-ru24inf.pdf) [Задачи(en)](https://lk-dovuz.innopolis.university/public/files/ex2tour-en24inf.pdf)
+Условия задач/разбор: [Задачи(ru)](/raw/regulations/site-dovuz-9e330ca4-ex2tourru24inf.md) [Задачи(en)](/raw/regulations/site-dovuz-4cd00013-ex2touren24inf.md)
 
-Решение (en) – [ссылка](https://lk-dovuz.innopolis.university/public/files/done2tour-en24inf.pdf)
+Решение (en) – [ссылка](/raw/regulations/site-dovuz-f041e6c8-done2touren24inf.md)
 
-Решение (ru) – [ссылка](https://lk-dovuz.innopolis.university/public/files/done2tour-ru24inf.pdf)
+Решение (ru) – [ссылка](/raw/regulations/site-dovuz-95b4007e-done2tourru24inf.md)
 
 Результаты / results – [ссылка](https://pcms.university.innopolis.ru/results/innopolis/2023-2024/elimination-prog-2-en.html)
 
@@ -264,29 +264,29 @@ E-mail: olymp@innopolis.ru
 
 Первый отборочный этап
 
-Условия задач/разбор: [Задачи](https://lk-dovuz.innopolis.university/public/files/round1-statements-ru.pdf)(ru) [Задачи](https://lk-dovuz.innopolis.university/public/files/round1-statements-en.pdf)(en)
+Условия задач/разбор: [Задачи](/raw/regulations/site-dovuz-5808a002-round1statementsru.md)(ru) [Задачи](/raw/regulations/site-dovuz-3efb8354-round1statementsen.md)(en)
 
-Решение (en) – [ссылка](https://lk-dovuz.innopolis.university/public/files/round1-solutions-en.pdf)
+Решение (en) – [ссылка](/raw/regulations/site-dovuz-4ab2300b-round1solutionsen.md)
 
-Решение (ru) – [ссылка](https://lk-dovuz.innopolis.university/public/files/round1-solutions-ru.pdf)
+Решение (ru) – [ссылка](/raw/regulations/site-dovuz-8718dd34-round1solutionsru.md)
 
 Результаты / results – [ссылка](https://pcms.university.innopolis.ru/results/innopolis/2022-2023/elimination-1-en.html)
 
 Второй отборочный этап
 
-Условия задач/разбор: [Задачи](https://lk-dovuz.innopolis.university/public/files/round2-statements-ru.pdf)(ru) [Задачи](https://lk-dovuz.innopolis.university/public/files/round2-statements-en.pdf)(en)
+Условия задач/разбор: [Задачи](/raw/regulations/site-dovuz-1c6c917c-round2statementsru.md)(ru) [Задачи](/raw/regulations/site-dovuz-19da4c2c-round2statementsen.md)(en)
 
-Решение (en) – [ссылка](https://lk-dovuz.innopolis.university/public/files/round2-solutions-en.pdf)
+Решение (en) – [ссылка](/raw/regulations/site-dovuz-32d16780-round2solutionsen.md)
 
-Решение (ru) – [ссылка](https://lk-dovuz.innopolis.university/public/files/round2-solutions-ru.pdf)
+Решение (ru) – [ссылка](/raw/regulations/site-dovuz-63ff4e94-round2solutionsru.md)
 
 Результаты / results – [ссылка](https://pcms.university.innopolis.ru/results/innopolis/2022-2023/elimination-2-en.html)
 
 Финал
 
-Условия задач – [ссылка (ru)](https://lk-dovuz.innopolis.university/public/files/final-statements-ru.pdf) / [ссылка (en)](https://lk-dovuz.innopolis.university/public/files/final-statements-en.pdf)
+Условия задач – [ссылка (ru)](/raw/regulations/site-dovuz-935dfce3-finalstatementsru.md) / [ссылка (en)](/raw/regulations/site-dovuz-ce8ba9f0-finalstatementsen.md)
 
-Разбор – [ссылка (ru)](https://lk-dovuz.innopolis.university/public/files/final-tutorial-ru.pdf) / [ссылка (en)](https://lk-dovuz.innopolis.university/public/files/final-tutorial-en.pdf)
+Разбор – [ссылка (ru)](/raw/regulations/site-dovuz-196c074b-finaltutorialru.md) / [ссылка (en)](/raw/regulations/site-dovuz-bb0783d0-finaltutorialen.md)
 
 Решение – [ссылка / link](https://lk-dovuz.innopolis.university/public/files/runs-final-main.zip)
 
@@ -294,21 +294,21 @@ E-mail: olymp@innopolis.ru
 
 Первый отборочный этап
 
-Условия задач/разбор: [Задачи](https://lk-dovuz.innopolis.university/public/files/contest-25033-ru.pdf)(ru) [Задачи](https://lk-dovuz.innopolis.university/public/files/contest-25033-en.pdf)(en)
+Условия задач/разбор: [Задачи](/raw/regulations/site-dovuz-7a46efac-contest25033ru.md)(ru) [Задачи](/raw/regulations/site-dovuz-5a348dcb-contest25033en.md)(en)
 
 Результаты: [ссылка](https://pcms.university.innopolis.ru/results/innopolis/2021-2022/elimination-1-en.html)
 
 Второй отборочный этап
 
-Условия задач/разбор: [Задачи](https://lk-dovuz.innopolis.university/public/files/contest-25470-ru.pdf)(ru) [Задачи](https://lk-dovuz.innopolis.university/public/files/contest-25470-en.pdf)(en)
+Условия задач/разбор: [Задачи](/raw/regulations/site-dovuz-13bfce1a-contest25470ru.md)(ru) [Задачи](/raw/regulations/site-dovuz-27471516-contest25470en.md)(en)
 
 Результаты: [ссылка](https://pcms.university.innopolis.ru/results/innopolis/2021-2022/elimination-2.html)
 
 Финальный этап
 
-Условия задач: [Задачи](https://lk-dovuz.innopolis.university/public/files/contest-26524-ru.pdf)(ru) [Задачи](https://lk-dovuz.innopolis.university/public/files/contest-26524-en.pdf)(en)
+Условия задач: [Задачи](/raw/regulations/site-dovuz-4ed1dc5d-contest26524ru.md)(ru) [Задачи](/raw/regulations/site-dovuz-741f4aa4-contest26524en.md)(en)
 
-Разбор задач от жюри: [Решения](https://lk-dovuz.innopolis.university/public/files/editorial_ru.pdf)
+Разбор задач от жюри: [Решения](/raw/regulations/site-dovuz-3f9d4845-editorial-ru.md)
 
 Работы призеров и победителей: [Работы](https://lk-dovuz.innopolis.university/public/files/final-runs-diplomas%202.zip)
 
@@ -316,15 +316,15 @@ E-mail: olymp@innopolis.ru
 
 Первый отборочный этап
 
-Условия задач: [Задачи](http://lk-dovuz.innopolis.university/public/files/statements-1%20%28ru%29.pdf)(ru) [Задачи](http://lk-dovuz.innopolis.university/public/files/statements-1%20%28en%29.pdf)(en)
+Условия задач: [Задачи](/raw/regulations/site-dovuz-c8874baa-statements1-ru.md)(ru) [Задачи](/raw/regulations/site-dovuz-f39ae407-statements1-en.md)(en)
 
 Результаты: [ссылка](https://drive.google.com/file/d/1G_m-56VMLukZGYEFF63VpecltPrYgf9L/view?usp=sharing)
 
-Решения и тесты жюри: [Решение и тесты](https://lk-dovuz.innopolis.university/public/files/contest1_2020-21.zip)
+Решения и тесты жюри: [Решение и тесты](/raw/regulations/site-dovuz-6047b0ee-contest1-202021-member-cfa130015c49cd9f78da.md)
 
 Второй отборочный этап
 
-Условия задач: [Задачи](http://lk-dovuz.innopolis.university/public/files/statements-2%20%28ru%29.pdf)(ru) [Задачи](http://lk-dovuz.innopolis.university/public/files/statements-2%20%28en%29.pdf)(en)
+Условия задач: [Задачи](/raw/regulations/site-dovuz-ab38abd3-statements2-ru.md)(ru) [Задачи](/raw/regulations/site-dovuz-f699c2bb-statements2-en.md)(en)
 
 Разбор задач: [ссылка](https://codeforces.com/blog/entry/72196)
 
@@ -332,11 +332,11 @@ E-mail: olymp@innopolis.ru
 
 Финальный этап
 
-Условия задач: [Задачи](http://lk-dovuz.innopolis.university/public/files/statements-final%20%28ru%29.pdf)(ru) [Задачи](http://lk-dovuz.innopolis.university/public/files/statements-final%20%28en%29.pdf)(en)
+Условия задач: [Задачи](/raw/regulations/site-dovuz-93544122-statementsfinal-ru.md)(ru) [Задачи](/raw/regulations/site-dovuz-f7372c49-statementsfinal-en.md)(en)
 
-Решения и тесты жюри: [ссылка](https://lk-dovuz.innopolis.university/public/files/contest-final_2020-21.zip)
+Решения и тесты жюри: [ссылка](/raw/regulations/site-dovuz-dc50f4b9-contestfinal-202021-member-92f3777627b4947da8e6.md)
 
-Разбор задач: [ссылка](http://lk-dovuz.innopolis.university/public/files/разбор.pdf)
+Разбор задач: [ссылка](/raw/regulations/site-dovuz-beed57d5-razbor.md)
 
 Тренировка: [Codeforces](https://codeforces.com/gym/102962)
 
@@ -344,9 +344,9 @@ E-mail: olymp@innopolis.ru
 
 Результаты: [Финал](https://pcms.university.innopolis.ru/results/innopolis/2020-2021/final-main-diplomas.html)
 
-[Скачать положение олимпиады](https://start.innopolis.university/upload/sprint.editor/85c/zme3o8jo6jp6t6qrlwwy92okbc7cllwx.pdf)
+[Скачать положение олимпиады](/raw/regulations/site-dovuz-61572258-zme3o8jo6jp6t6qrlwwy92okbc7cllwx.md)
 
-[Скачать регламент олимпиады](https://start.innopolis.university/upload/sprint.editor/8ef/zxkfyufhfm538cfo0c9u2ioynb63ng70.pdf)
+[Скачать регламент олимпиады](/raw/regulations/site-dovuz-920ef1a0-zxkfyufhfm538cfo0c9u2ioynb63ng70.md)
 
 Организаторы
 

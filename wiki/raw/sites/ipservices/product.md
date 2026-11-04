@@ -54,17 +54,17 @@ status: draft
 
 Описание процессов жизненного цикла
 
-[Перейти](https://innopolis.university/filespublic/Opisanie_protsessov_zhiznennogo_tsikla_13_05_26.pdf)
+[Перейти](/raw/regulations/site-ipservices-3a600531-opisanie-protsessov-zhiznennogo-tsikla-1.md)
 
-[Перейти](https://innopolis.university/filespublic/Instruktsia_po_ustanovke_ITOG_korr_13_05_26.pdf)
+[Перейти](/raw/regulations/site-ipservices-f08ec7d9-instruktsia-po-ustanovke-itog-korr-13-05.md)
 
 Инструкция
 
 по установке
 
-[Перейти](https://innopolis.university/filespublic/%D0%A2%D0%B0%D1%80%D0%B8%D1%84%D0%BD%D0%B0%D1%8F_%D0%BF%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0_%D0%98%D0%A1%D0%A3_%D0%A0%D0%98%D0%94.pdf)
+[Перейти](/raw/regulations/site-ipservices-d7fc13f0-tarifnaya-politika-isu-rid.md)
 
-[Тарифная политика](https://innopolis.university/filespublic/%D0%A2%D0%B0%D1%80%D0%B8%D1%84%D0%BD%D0%B0%D1%8F_%D0%BF%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0_%D0%98%D0%A1%D0%A3_%D0%A0%D0%98%D0%94.pdf)
+[Тарифная политика](/raw/regulations/site-ipservices-d7fc13f0-tarifnaya-politika-isu-rid.md)
 
 [Руководство пользователя](https://innopolis.university/filespublic/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE_%D1%8D%D0%BA%D1%81%D0%BF%D0%BB%D1%83%D0%B0%D1%82%D0%B0%D1%86%D0%B8%D0%B8.pdf)
 

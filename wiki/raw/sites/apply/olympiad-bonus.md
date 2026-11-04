@@ -88,7 +88,7 @@ I, II и III уровень из перечня олимпиад школьни�
 
 Подтверждение БВИ баллами ЕГЭ — 75 баллов по профильному предмету олимпиады и 60 баллов по двум другим предметам
 
-[Полный](https://innopolis.university/upload/iblock/af0/5zbznxu6eam9wuz7zi2s6xeegtv512ln/%D0%9E%D0%BB%D0%B8%D0%BC%D0%BF%D0%B8%D0%B0%D0%B4%D1%8B_2026.pdf) [перечень олимпиа](https://innopolis.university/upload/iblock/af0/5zbznxu6eam9wuz7zi2s6xeegtv512ln/%D0%9E%D0%BB%D0%B8%D0%BC%D0%BF%D0%B8%D0%B0%D0%B4%D1%8B_2026.pdf)[д](https://innopolis.university/upload/iblock/af0/5zbznxu6eam9wuz7zi2s6xeegtv512ln/%D0%9E%D0%BB%D0%B8%D0%BC%D0%BF%D0%B8%D0%B0%D0%B4%D1%8B_2026.pdf)
+[Полный](/raw/regulations/sveden-808d4e1e-2026-pdf.md) [перечень олимпиа](/raw/regulations/sveden-808d4e1e-2026-pdf.md)[д](/raw/regulations/sveden-808d4e1e-2026-pdf.md)
 
 учитываемых для реализации особых прав и особого преимущества при поступлении в Университет Иннополис
 

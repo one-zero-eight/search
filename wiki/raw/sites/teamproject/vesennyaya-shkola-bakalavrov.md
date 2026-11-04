@@ -24,7 +24,7 @@ status: draft
 
 - Для кого
 
-- [Скачать программу](https://lk-dovuz.innopolis.university/public/files/programm_vshb_2026.pdf)
+- [Скачать программу](/raw/regulations/site-teamproject-d6396f14-programm-vshb-2026.md)
 
 - Контакты
 
@@ -238,7 +238,7 @@ Email
 
 - [Министерство науки и высшего образования РФ](https://minobrnauki.gov.ru/)
 
-- [Политика конфиденциальности](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+- [Политика конфиденциальности](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
 # Citations
 

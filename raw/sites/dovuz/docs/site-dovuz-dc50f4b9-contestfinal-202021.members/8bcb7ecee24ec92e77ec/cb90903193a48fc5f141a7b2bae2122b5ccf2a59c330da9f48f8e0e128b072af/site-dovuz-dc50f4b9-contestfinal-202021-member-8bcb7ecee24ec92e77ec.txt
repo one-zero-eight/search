@@ -1,0 +1,48 @@
+Rooted MST
+
+Input file: standard input
+Output file: standard output
+Time limit: 3 seconds
+Memory limit: 512 megabytes
+
+You are given a simple undirected weighted graph with n + 1 vertices numbered 0,1,...,n and n + m
+edges.
+
+The weight of an edge between vertices 0 and i is ai for 1 ≤ i ≤ n.
+The weight of an edge between vertices ui and vi is wi for 1 ≤ i ≤ m.
+You need to answer q queries, in each query, you are given two integers i,w and you need to change the
+weight of an edge from 0 to i to w and find the weight of the minimum spanning tree in the graph.
+Note that changes to the weights are permanent, i.e. they stay after each query.
+
+Input
+
+The first line of input contains two numbers n,m (2 ≤ n ≤ 300000,0 ≤ m ≤ 300000).
+The second line contains n integers a1,a2,...,an (1 ≤ ai ≤ 109).
+Each of the next m lines contains three integers ui,vi,wi (1 ≤ ui,vi ≤ n,0 ≤ wi ≤ 109).
+It is guaranteed that the given graph is simple, in other words, it contains no loops and multiple edges.
+The next line contains one integer q (1 ≤ q ≤ 300000).
+Each of the next q lines contains two integers i,w (1 ≤ i ≤ n,1 ≤ w ≤ 109).
+
+Output
+
+For each query print one integer: the weight of the minimum spanning tree in the graph after the first i
+queries.
+
+Scoring
+
+| Subtask | Score | Constraints |
+| --- | --- | --- |
+| 1 | 10 | n,m,q ≤ 2000 |
+| 2 | 10 | All weights are either 1 or 2 |
+| 3 | 10 | w = 1 in all queries |
+| 4 | 10 | i = 1 in all queries |
+| 5 | 10 | i ≤ 5 in all queries |
+| 6 | 10 | m = n − 1,ui = vi − 1 |
+| 7 | 20 | n,m,q ≤ 150000 |
+| 8 | 20 | No additional constraints |
+
+Example
+
+| standard input | standard output |
+| --- | --- |
+| 5 7 3 2 1 2 1 1 5 1 1 3 2 2 5 2 4 5 2 3 4 1 2 4 2 1 2 1 10 3 2 2 3 4 1 3 2 5 1 5 3 3 1 2 3 4 3 5 1 | 6 6 5 5 5 6 6 6 6 5 |

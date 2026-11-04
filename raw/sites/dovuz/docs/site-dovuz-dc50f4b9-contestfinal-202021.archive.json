@@ -1,0 +1,3913 @@
+{
+ "members": [
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/parking-problem/files/towin.exe",
+   "sha256": null,
+   "size": 26002,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sty",
+   "file": null,
+   "member": "problems/parking-problem/files/olymp.sty",
+   "sha256": null,
+   "size": 23058,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/parking-problem/files/problem.tex",
+   "sha256": null,
+   "size": 2315,
+   "status": "unsupported"
+  },
+  {
+   "ext": "ftl",
+   "file": null,
+   "member": "problems/parking-problem/files/statements.ftl",
+   "sha256": null,
+   "size": 1115,
+   "status": "unsupported"
+  },
+  {
+   "ext": "h",
+   "file": null,
+   "member": "problems/parking-problem/files/testlib.h",
+   "sha256": null,
+   "size": 162651,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/parking-problem/files/gen_fixed.cpp",
+   "sha256": null,
+   "size": 982,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/parking-problem/files/gen_fixed.exe",
+   "sha256": null,
+   "size": 2828790,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/parking-problem/files/gen_full.cpp",
+   "sha256": null,
+   "size": 988,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/parking-problem/files/gen_full.exe",
+   "sha256": null,
+   "size": 2828655,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/parking-problem/files/gen_random.cpp",
+   "sha256": null,
+   "size": 606,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/parking-problem/files/gen_random.exe",
+   "sha256": null,
+   "size": 2825458,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/parking-problem/files/validate.cpp",
+   "sha256": null,
+   "size": 1122,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/parking-problem/files/validate.exe",
+   "sha256": null,
+   "size": 2827500,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/parking-problem/files/check.cpp",
+   "sha256": null,
+   "size": 876,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/parking-problem/solutions/a.cpp",
+   "sha256": null,
+   "size": 1316,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/parking-problem/solutions/a.exe",
+   "sha256": null,
+   "size": 2417212,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/parking-problem/solutions/a.cpp.desc",
+   "sha256": null,
+   "size": 91,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/parking-problem/solutions/a_wa.cpp",
+   "sha256": null,
+   "size": 1120,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/parking-problem/solutions/a_wa.exe",
+   "sha256": null,
+   "size": 2416317,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/parking-problem/solutions/a_wa.cpp.desc",
+   "sha256": null,
+   "size": 102,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/parking-problem/solutions/a_wa2.cpp",
+   "sha256": null,
+   "size": 1316,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/parking-problem/solutions/a_wa2.exe",
+   "sha256": null,
+   "size": 2417212,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/parking-problem/solutions/a_wa2.cpp.desc",
+   "sha256": null,
+   "size": 103,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/parking-problem/solutions/b.cpp",
+   "sha256": null,
+   "size": 1536,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/parking-problem/solutions/b.exe",
+   "sha256": null,
+   "size": 2417718,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/parking-problem/solutions/b.cpp.desc",
+   "sha256": null,
+   "size": 95,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/parking-problem/solutions/b_wa.cpp",
+   "sha256": null,
+   "size": 1535,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/parking-problem/solutions/b_wa.exe",
+   "sha256": null,
+   "size": 2417718,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/parking-problem/solutions/b_wa.cpp.desc",
+   "sha256": null,
+   "size": 102,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/parking-problem/solutions/b_wa2.cpp",
+   "sha256": null,
+   "size": 1532,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/parking-problem/solutions/b_wa2.exe",
+   "sha256": null,
+   "size": 2417718,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/parking-problem/solutions/b_wa2.cpp.desc",
+   "sha256": null,
+   "size": 103,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/parking-problem/solutions/b_wa3.cpp",
+   "sha256": null,
+   "size": 1539,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/parking-problem/solutions/b_wa3.exe",
+   "sha256": null,
+   "size": 2417718,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/parking-problem/solutions/b_wa3.cpp.desc",
+   "sha256": null,
+   "size": 103,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/parking-problem/solutions/b_wa4.cpp",
+   "sha256": null,
+   "size": 1539,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/parking-problem/solutions/b_wa4.exe",
+   "sha256": null,
+   "size": 2417718,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/parking-problem/solutions/b_wa4.cpp.desc",
+   "sha256": null,
+   "size": 103,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/parking-problem/solutions/backtrack.cpp",
+   "sha256": null,
+   "size": 1408,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/parking-problem/solutions/backtrack.exe",
+   "sha256": null,
+   "size": 2417051,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/parking-problem/solutions/backtrack.cpp.desc",
+   "sha256": null,
+   "size": 103,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/parking-problem/solutions/backtrack2.cpp",
+   "sha256": null,
+   "size": 1514,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/parking-problem/solutions/backtrack2.exe",
+   "sha256": null,
+   "size": 2417051,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/parking-problem/solutions/backtrack2.cpp.desc",
+   "sha256": null,
+   "size": 104,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/parking-problem/solutions/ramazan.cpp",
+   "sha256": null,
+   "size": 16885,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/parking-problem/solutions/ramazan.exe",
+   "sha256": null,
+   "size": 2471414,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/parking-problem/solutions/ramazan.cpp.desc",
+   "sha256": null,
+   "size": 101,
+   "status": "unsupported"
+  },
+  {
+   "ext": "json",
+   "file": null,
+   "member": "problems/parking-problem/statements/english/problem-properties.json",
+   "sha256": null,
+   "size": 4664,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/parking-problem/statements/english/problem.tex",
+   "sha256": null,
+   "size": 4202,
+   "status": "unsupported"
+  },
+  {
+   "ext": "02",
+   "file": null,
+   "member": "problems/parking-problem/statements/english/example.02",
+   "sha256": null,
+   "size": 71,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/parking-problem/statements/english/example.01",
+   "sha256": null,
+   "size": 13,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/parking-problem/statements/english/example.01.a",
+   "sha256": null,
+   "size": 5,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/parking-problem/statements/english/example.02.a",
+   "sha256": null,
+   "size": 33,
+   "status": "unsupported"
+  },
+  {
+   "ext": "pdf",
+   "file": "0061.pdf",
+   "key": "site-dovuz-dc50f4b9-contestfinal-202021-member-835899be3b796ec73a62",
+   "member": "problems/parking-problem/statements/.pdf/english/problem.pdf",
+   "sha256": "46b7dfd9c8dd62d19aee7ca3845279a8295b4b0ce75e3589b94c0039195d5aac",
+   "size": 116109,
+   "status": "ready",
+   "storage": "site-dovuz-dc50f4b9-contestfinal-202021.members/835899be3b796ec73a62/46b7dfd9c8dd62d19aee7ca3845279a8295b4b0ce75e3589b94c0039195d5aac"
+  },
+  {
+   "ext": "pdf",
+   "file": "0063.pdf",
+   "key": "site-dovuz-dc50f4b9-contestfinal-202021-member-2d987d70ee3ab0345d76",
+   "member": "problems/parking-problem/statements/.pdf/russian/problem.pdf",
+   "sha256": "e291c0228194b66254dc7a1e0e36072187210db07d390f68977d21138c47e023",
+   "size": 114784,
+   "status": "ready",
+   "storage": "site-dovuz-dc50f4b9-contestfinal-202021.members/2d987d70ee3ab0345d76/e291c0228194b66254dc7a1e0e36072187210db07d390f68977d21138c47e023"
+  },
+  {
+   "ext": "json",
+   "file": null,
+   "member": "problems/parking-problem/statements/russian/problem-properties.json",
+   "sha256": null,
+   "size": 7423,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/parking-problem/statements/russian/problem.tex",
+   "sha256": null,
+   "size": 7006,
+   "status": "unsupported"
+  },
+  {
+   "ext": "02",
+   "file": null,
+   "member": "problems/parking-problem/statements/russian/example.02",
+   "sha256": null,
+   "size": 71,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/parking-problem/statements/russian/example.01",
+   "sha256": null,
+   "size": 13,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/parking-problem/statements/russian/example.01.a",
+   "sha256": null,
+   "size": 5,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/parking-problem/statements/russian/example.02.a",
+   "sha256": null,
+   "size": 33,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/parking-problem/statement-sections/english/name.tex",
+   "sha256": null,
+   "size": 15,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/parking-problem/statement-sections/english/legend.tex",
+   "sha256": null,
+   "size": 2016,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/parking-problem/statement-sections/english/input.tex",
+   "sha256": null,
+   "size": 750,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/parking-problem/statement-sections/english/output.tex",
+   "sha256": null,
+   "size": 327,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/parking-problem/statement-sections/english/scoring.tex",
+   "sha256": null,
+   "size": 409,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/parking-problem/statement-sections/english/notes.tex",
+   "sha256": null,
+   "size": 428,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/parking-problem/statement-sections/english/example.01",
+   "sha256": null,
+   "size": 13,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/parking-problem/statement-sections/english/example.01.a",
+   "sha256": null,
+   "size": 5,
+   "status": "unsupported"
+  },
+  {
+   "ext": "02",
+   "file": null,
+   "member": "problems/parking-problem/statement-sections/english/example.02",
+   "sha256": null,
+   "size": 71,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/parking-problem/statement-sections/english/example.02.a",
+   "sha256": null,
+   "size": 33,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/parking-problem/statement-sections/russian/name.tex",
+   "sha256": null,
+   "size": 15,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/parking-problem/statement-sections/russian/legend.tex",
+   "sha256": null,
+   "size": 3608,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/parking-problem/statement-sections/russian/input.tex",
+   "sha256": null,
+   "size": 1121,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/parking-problem/statement-sections/russian/output.tex",
+   "sha256": null,
+   "size": 645,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/parking-problem/statement-sections/russian/scoring.tex",
+   "sha256": null,
+   "size": 530,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/parking-problem/statement-sections/russian/notes.tex",
+   "sha256": null,
+   "size": 781,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/parking-problem/statement-sections/russian/example.01",
+   "sha256": null,
+   "size": 13,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/parking-problem/statement-sections/russian/example.01.a",
+   "sha256": null,
+   "size": 5,
+   "status": "unsupported"
+  },
+  {
+   "ext": "02",
+   "file": null,
+   "member": "problems/parking-problem/statement-sections/russian/example.02",
+   "sha256": null,
+   "size": 71,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/parking-problem/statement-sections/russian/example.02.a",
+   "sha256": null,
+   "size": 33,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/parking-problem/scripts/gen-answer.bat",
+   "sha256": null,
+   "size": 507,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/parking-problem/scripts/gen-input-via-file.bat",
+   "sha256": null,
+   "size": 560,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/parking-problem/scripts/gen-input-via-files.bat",
+   "sha256": null,
+   "size": 1733,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/parking-problem/scripts/gen-input-via-stdout.bat",
+   "sha256": null,
+   "size": 289,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/parking-problem/scripts/run-validator-tests.bat",
+   "sha256": null,
+   "size": 155,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/parking-problem/scripts/run-checker-tests.bat",
+   "sha256": null,
+   "size": 145,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/parking-problem/scripts/gen-answer.sh",
+   "sha256": null,
+   "size": 732,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/parking-problem/scripts/gen-input-via-file.sh",
+   "sha256": null,
+   "size": 644,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/parking-problem/scripts/gen-input-via-files.sh",
+   "sha256": null,
+   "size": 1298,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/parking-problem/scripts/gen-input-via-stdout.sh",
+   "sha256": null,
+   "size": 381,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/parking-problem/scripts/run-validator-tests.sh",
+   "sha256": null,
+   "size": 173,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/parking-problem/scripts/run-checker-tests.sh",
+   "sha256": null,
+   "size": 163,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/parking-problem/tests/01",
+   "sha256": null,
+   "size": 13,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/parking-problem/tests/02",
+   "sha256": null,
+   "size": 71,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/parking-problem/check.cpp",
+   "sha256": null,
+   "size": 876,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/parking-problem/check.exe",
+   "sha256": null,
+   "size": 2826815,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/parking-problem/tags",
+   "sha256": null,
+   "size": 20,
+   "status": "unsupported"
+  },
+  {
+   "ext": "xml",
+   "file": null,
+   "member": "problems/parking-problem/problem.xml",
+   "sha256": null,
+   "size": 17329,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/parking-problem/doall.bat",
+   "sha256": null,
+   "size": 7376,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/parking-problem/wipe.bat",
+   "sha256": null,
+   "size": 1466,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/parking-problem/doall.sh",
+   "sha256": null,
+   "size": 10457,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/parking-problem/wipe.sh",
+   "sha256": null,
+   "size": 1577,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/polyline-drawing/files/tests/checker-tests/01",
+   "sha256": null,
+   "size": 8,
+   "status": "unsupported"
+  },
+  {
+   "ext": "o",
+   "file": null,
+   "member": "problems/polyline-drawing/files/tests/checker-tests/01.o",
+   "sha256": null,
+   "size": 2,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/polyline-drawing/files/tests/checker-tests/01.a",
+   "sha256": null,
+   "size": 13,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/polyline-drawing/files/towin.exe",
+   "sha256": null,
+   "size": 26002,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sty",
+   "file": null,
+   "member": "problems/polyline-drawing/files/olymp.sty",
+   "sha256": null,
+   "size": 23058,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/polyline-drawing/files/problem.tex",
+   "sha256": null,
+   "size": 2315,
+   "status": "unsupported"
+  },
+  {
+   "ext": "ftl",
+   "file": null,
+   "member": "problems/polyline-drawing/files/statements.ftl",
+   "sha256": null,
+   "size": 1115,
+   "status": "unsupported"
+  },
+  {
+   "ext": "h",
+   "file": null,
+   "member": "problems/polyline-drawing/files/testlib.h",
+   "sha256": null,
+   "size": 162651,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/polyline-drawing/files/tutorial.tex",
+   "sha256": null,
+   "size": 258,
+   "status": "unsupported"
+  },
+  {
+   "ext": "java",
+   "file": null,
+   "member": "problems/polyline-drawing/files/GenAllZeros.java",
+   "sha256": null,
+   "size": 3842,
+   "status": "unsupported"
+  },
+  {
+   "ext": "jar",
+   "file": null,
+   "member": "problems/polyline-drawing/files/GenAllZeros.jar",
+   "sha256": null,
+   "size": 61355,
+   "status": "unsupported"
+  },
+  {
+   "ext": "java",
+   "file": null,
+   "member": "problems/polyline-drawing/files/GenRandom.java",
+   "sha256": null,
+   "size": 3941,
+   "status": "unsupported"
+  },
+  {
+   "ext": "jar",
+   "file": null,
+   "member": "problems/polyline-drawing/files/GenRandom.jar",
+   "sha256": null,
+   "size": 61381,
+   "status": "unsupported"
+  },
+  {
+   "ext": "java",
+   "file": null,
+   "member": "problems/polyline-drawing/files/NoSolDiff.java",
+   "sha256": null,
+   "size": 2520,
+   "status": "unsupported"
+  },
+  {
+   "ext": "jar",
+   "file": null,
+   "member": "problems/polyline-drawing/files/NoSolDiff.jar",
+   "sha256": null,
+   "size": 60813,
+   "status": "unsupported"
+  },
+  {
+   "ext": "java",
+   "file": null,
+   "member": "problems/polyline-drawing/files/NoSolParity.java",
+   "sha256": null,
+   "size": 2337,
+   "status": "unsupported"
+  },
+  {
+   "ext": "jar",
+   "file": null,
+   "member": "problems/polyline-drawing/files/NoSolParity.jar",
+   "sha256": null,
+   "size": 60745,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/polyline-drawing/files/checker.cpp",
+   "sha256": null,
+   "size": 2448,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/polyline-drawing/files/checker.exe",
+   "sha256": null,
+   "size": 2827959,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/polyline-drawing/files/validator.cpp",
+   "sha256": null,
+   "size": 748,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/polyline-drawing/files/validator.exe",
+   "sha256": null,
+   "size": 2826931,
+   "status": "unsupported"
+  },
+  {
+   "ext": "java",
+   "file": null,
+   "member": "problems/polyline-drawing/solutions/polyline_av.java",
+   "sha256": null,
+   "size": 5350,
+   "status": "unsupported"
+  },
+  {
+   "ext": "jar",
+   "file": null,
+   "member": "problems/polyline-drawing/solutions/polyline_av.jar",
+   "sha256": null,
+   "size": 61394,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/polyline-drawing/solutions/polyline_av.java.desc",
+   "sha256": null,
+   "size": 98,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/polyline-drawing/solutions/polyline_av_cpp.cpp",
+   "sha256": null,
+   "size": 3273,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/polyline-drawing/solutions/polyline_av_cpp.exe",
+   "sha256": null,
+   "size": 2441832,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/polyline-drawing/solutions/polyline_av_cpp.cpp.desc",
+   "sha256": null,
+   "size": 105,
+   "status": "unsupported"
+  },
+  {
+   "ext": "java",
+   "file": null,
+   "member": "problems/polyline-drawing/solutions/polyline_av_n2.java",
+   "sha256": null,
+   "size": 4631,
+   "status": "unsupported"
+  },
+  {
+   "ext": "jar",
+   "file": null,
+   "member": "problems/polyline-drawing/solutions/polyline_av_n2.jar",
+   "sha256": null,
+   "size": 61303,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/polyline-drawing/solutions/polyline_av_n2.java.desc",
+   "sha256": null,
+   "size": 105,
+   "status": "unsupported"
+  },
+  {
+   "ext": "json",
+   "file": null,
+   "member": "problems/polyline-drawing/statements/english/problem-properties.json",
+   "sha256": null,
+   "size": 6452,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/polyline-drawing/statements/english/problem.tex",
+   "sha256": null,
+   "size": 3246,
+   "status": "unsupported"
+  },
+  {
+   "ext": "02",
+   "file": null,
+   "member": "problems/polyline-drawing/statements/english/example.02",
+   "sha256": null,
+   "size": 15,
+   "status": "unsupported"
+  },
+  {
+   "ext": "03",
+   "file": null,
+   "member": "problems/polyline-drawing/statements/english/example.03",
+   "sha256": null,
+   "size": 8,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/polyline-drawing/statements/english/example.01",
+   "sha256": null,
+   "size": 23,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/polyline-drawing/statements/english/example.03.a",
+   "sha256": null,
+   "size": 4,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/polyline-drawing/statements/english/example.01.a",
+   "sha256": null,
+   "size": 18,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/polyline-drawing/statements/english/example.02.a",
+   "sha256": null,
+   "size": 13,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/polyline-drawing/statements/english/tutorial.tex",
+   "sha256": null,
+   "size": 2771,
+   "status": "unsupported"
+  },
+  {
+   "ext": "pdf",
+   "file": "0166.pdf",
+   "key": "site-dovuz-dc50f4b9-contestfinal-202021-member-b86e523d17b586274d06",
+   "member": "problems/polyline-drawing/statements/.pdf/english/problem.pdf",
+   "sha256": "dcb3303b85e6a2c651113a3147ad700a79f12b8eb453e7930b7a1953989b4039",
+   "size": 145390,
+   "status": "ready",
+   "storage": "site-dovuz-dc50f4b9-contestfinal-202021.members/b86e523d17b586274d06/dcb3303b85e6a2c651113a3147ad700a79f12b8eb453e7930b7a1953989b4039"
+  },
+  {
+   "ext": "pdf",
+   "file": "0167.pdf",
+   "key": "site-dovuz-dc50f4b9-contestfinal-202021-member-57a63efc14cee9d81b3f",
+   "member": "problems/polyline-drawing/statements/.pdf/english/tutorial.pdf",
+   "sha256": "02714f8e909e23120c61cc40c942ae8f8032d11c1dbc82e9ff98335d8997706d",
+   "size": 108532,
+   "status": "ready",
+   "storage": "site-dovuz-dc50f4b9-contestfinal-202021.members/57a63efc14cee9d81b3f/02714f8e909e23120c61cc40c942ae8f8032d11c1dbc82e9ff98335d8997706d"
+  },
+  {
+   "ext": "pdf",
+   "file": "0169.pdf",
+   "key": "site-dovuz-dc50f4b9-contestfinal-202021-member-19da2fece86f1f128982",
+   "member": "problems/polyline-drawing/statements/.pdf/russian/problem.pdf",
+   "sha256": "1ebc04916247bba2c83f82ff21ef671bf4f276248b176e9541141fb982bc9388",
+   "size": 143229,
+   "status": "ready",
+   "storage": "site-dovuz-dc50f4b9-contestfinal-202021.members/19da2fece86f1f128982/1ebc04916247bba2c83f82ff21ef671bf4f276248b176e9541141fb982bc9388"
+  },
+  {
+   "ext": "pdf",
+   "file": "0170.pdf",
+   "key": "site-dovuz-dc50f4b9-contestfinal-202021-member-f3d63ef6fbe483f83e90",
+   "member": "problems/polyline-drawing/statements/.pdf/russian/tutorial.pdf",
+   "sha256": "401346205ee7ba3f090d4089aaa72a30363a133986633a6543fa184e3eb7b671",
+   "size": 112900,
+   "status": "ready",
+   "storage": "site-dovuz-dc50f4b9-contestfinal-202021.members/f3d63ef6fbe483f83e90/401346205ee7ba3f090d4089aaa72a30363a133986633a6543fa184e3eb7b671"
+  },
+  {
+   "ext": "json",
+   "file": null,
+   "member": "problems/polyline-drawing/statements/russian/problem-properties.json",
+   "sha256": null,
+   "size": 9830,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/polyline-drawing/statements/russian/problem.tex",
+   "sha256": null,
+   "size": 4962,
+   "status": "unsupported"
+  },
+  {
+   "ext": "02",
+   "file": null,
+   "member": "problems/polyline-drawing/statements/russian/example.02",
+   "sha256": null,
+   "size": 15,
+   "status": "unsupported"
+  },
+  {
+   "ext": "03",
+   "file": null,
+   "member": "problems/polyline-drawing/statements/russian/example.03",
+   "sha256": null,
+   "size": 8,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/polyline-drawing/statements/russian/example.01",
+   "sha256": null,
+   "size": 23,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/polyline-drawing/statements/russian/example.03.a",
+   "sha256": null,
+   "size": 4,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/polyline-drawing/statements/russian/example.01.a",
+   "sha256": null,
+   "size": 18,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/polyline-drawing/statements/russian/example.02.a",
+   "sha256": null,
+   "size": 13,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/polyline-drawing/statements/russian/tutorial.tex",
+   "sha256": null,
+   "size": 4483,
+   "status": "unsupported"
+  },
+  {
+   "ext": "html",
+   "file": null,
+   "member": "problems/polyline-drawing/statements/.html/english/tutorial.html",
+   "sha256": null,
+   "size": 4478,
+   "status": "unsupported"
+  },
+  {
+   "ext": "css",
+   "file": null,
+   "member": "problems/polyline-drawing/statements/.html/english/problem-statement.css",
+   "sha256": null,
+   "size": 4272,
+   "status": "unsupported"
+  },
+  {
+   "ext": "html",
+   "file": null,
+   "member": "problems/polyline-drawing/statements/.html/russian/tutorial.html",
+   "sha256": null,
+   "size": 6186,
+   "status": "unsupported"
+  },
+  {
+   "ext": "css",
+   "file": null,
+   "member": "problems/polyline-drawing/statements/.html/russian/problem-statement.css",
+   "sha256": null,
+   "size": 4272,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/english/name.tex",
+   "sha256": null,
+   "size": 13,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/english/legend.tex",
+   "sha256": null,
+   "size": 1142,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/english/input.tex",
+   "sha256": null,
+   "size": 237,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/english/output.tex",
+   "sha256": null,
+   "size": 613,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/english/scoring.tex",
+   "sha256": null,
+   "size": 600,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/english/notes.tex",
+   "sha256": null,
+   "size": 347,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/english/tutorial.tex",
+   "sha256": null,
+   "size": 2716,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/english/example.01",
+   "sha256": null,
+   "size": 23,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/english/example.01.a",
+   "sha256": null,
+   "size": 18,
+   "status": "unsupported"
+  },
+  {
+   "ext": "02",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/english/example.02",
+   "sha256": null,
+   "size": 15,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/english/example.02.a",
+   "sha256": null,
+   "size": 13,
+   "status": "unsupported"
+  },
+  {
+   "ext": "03",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/english/example.03",
+   "sha256": null,
+   "size": 8,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/english/example.03.a",
+   "sha256": null,
+   "size": 4,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/russian/name.tex",
+   "sha256": null,
+   "size": 13,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/russian/legend.tex",
+   "sha256": null,
+   "size": 2046,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/russian/input.tex",
+   "sha256": null,
+   "size": 277,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/russian/output.tex",
+   "sha256": null,
+   "size": 895,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/russian/scoring.tex",
+   "sha256": null,
+   "size": 689,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/russian/notes.tex",
+   "sha256": null,
+   "size": 699,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/russian/tutorial.tex",
+   "sha256": null,
+   "size": 4428,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/russian/example.01",
+   "sha256": null,
+   "size": 23,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/russian/example.01.a",
+   "sha256": null,
+   "size": 18,
+   "status": "unsupported"
+  },
+  {
+   "ext": "02",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/russian/example.02",
+   "sha256": null,
+   "size": 15,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/russian/example.02.a",
+   "sha256": null,
+   "size": 13,
+   "status": "unsupported"
+  },
+  {
+   "ext": "03",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/russian/example.03",
+   "sha256": null,
+   "size": 8,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/polyline-drawing/statement-sections/russian/example.03.a",
+   "sha256": null,
+   "size": 4,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/polyline-drawing/stresses/002",
+   "sha256": null,
+   "size": 305,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/polyline-drawing/scripts/gen-answer.bat",
+   "sha256": null,
+   "size": 623,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/polyline-drawing/scripts/gen-input-via-file.bat",
+   "sha256": null,
+   "size": 560,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/polyline-drawing/scripts/gen-input-via-files.bat",
+   "sha256": null,
+   "size": 1733,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/polyline-drawing/scripts/gen-input-via-stdout.bat",
+   "sha256": null,
+   "size": 289,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/polyline-drawing/scripts/run-validator-tests.bat",
+   "sha256": null,
+   "size": 155,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/polyline-drawing/scripts/run-checker-tests.bat",
+   "sha256": null,
+   "size": 606,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/polyline-drawing/scripts/gen-answer.sh",
+   "sha256": null,
+   "size": 850,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/polyline-drawing/scripts/gen-input-via-file.sh",
+   "sha256": null,
+   "size": 644,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/polyline-drawing/scripts/gen-input-via-files.sh",
+   "sha256": null,
+   "size": 1298,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/polyline-drawing/scripts/gen-input-via-stdout.sh",
+   "sha256": null,
+   "size": 381,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/polyline-drawing/scripts/run-validator-tests.sh",
+   "sha256": null,
+   "size": 173,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/polyline-drawing/scripts/run-checker-tests.sh",
+   "sha256": null,
+   "size": 625,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/polyline-drawing/tests/01",
+   "sha256": null,
+   "size": 23,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/polyline-drawing/tests/02",
+   "sha256": null,
+   "size": 15,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/polyline-drawing/tests/03",
+   "sha256": null,
+   "size": 8,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/polyline-drawing/check.cpp",
+   "sha256": null,
+   "size": 2448,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/polyline-drawing/check.exe",
+   "sha256": null,
+   "size": 2827959,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/polyline-drawing/tags",
+   "sha256": null,
+   "size": 10,
+   "status": "unsupported"
+  },
+  {
+   "ext": "xml",
+   "file": null,
+   "member": "problems/polyline-drawing/problem.xml",
+   "sha256": null,
+   "size": 29758,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/polyline-drawing/doall.bat",
+   "sha256": null,
+   "size": 39510,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/polyline-drawing/wipe.bat",
+   "sha256": null,
+   "size": 4296,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/polyline-drawing/doall.sh",
+   "sha256": null,
+   "size": 47169,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/polyline-drawing/wipe.sh",
+   "sha256": null,
+   "size": 4590,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/rps-string/files/towin.exe",
+   "sha256": null,
+   "size": 26002,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sty",
+   "file": null,
+   "member": "problems/rps-string/files/olymp.sty",
+   "sha256": null,
+   "size": 23058,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rps-string/files/problem.tex",
+   "sha256": null,
+   "size": 2315,
+   "status": "unsupported"
+  },
+  {
+   "ext": "ftl",
+   "file": null,
+   "member": "problems/rps-string/files/statements.ftl",
+   "sha256": null,
+   "size": 1115,
+   "status": "unsupported"
+  },
+  {
+   "ext": "h",
+   "file": null,
+   "member": "problems/rps-string/files/testlib.h",
+   "sha256": null,
+   "size": 162651,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rps-string/files/tutorial.tex",
+   "sha256": null,
+   "size": 258,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/rps-string/files/gen2.cpp",
+   "sha256": null,
+   "size": 1130,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/rps-string/files/gen2.exe",
+   "sha256": null,
+   "size": 2828857,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/rps-string/files/genfull.cpp",
+   "sha256": null,
+   "size": 758,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/rps-string/files/genfull.exe",
+   "sha256": null,
+   "size": 2826420,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/rps-string/files/genrand.cpp",
+   "sha256": null,
+   "size": 517,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/rps-string/files/genrand.exe",
+   "sha256": null,
+   "size": 2826403,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/rps-string/files/validator.cpp",
+   "sha256": null,
+   "size": 1128,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/rps-string/files/validator.exe",
+   "sha256": null,
+   "size": 2828227,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/rps-string/files/check.cpp",
+   "sha256": null,
+   "size": 1085,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/rps-string/solutions/n3_WA_ismagilov.cpp",
+   "sha256": null,
+   "size": 2296,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/rps-string/solutions/n3_WA_ismagilov.exe",
+   "sha256": null,
+   "size": 2424396,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/rps-string/solutions/n3_WA_ismagilov.cpp.desc",
+   "sha256": null,
+   "size": 110,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/rps-string/solutions/n3_ismagilov.cpp",
+   "sha256": null,
+   "size": 2446,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/rps-string/solutions/n3_ismagilov.exe",
+   "sha256": null,
+   "size": 2424376,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/rps-string/solutions/n3_ismagilov.cpp.desc",
+   "sha256": null,
+   "size": 107,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/rps-string/solutions/n_WA2_ismagilov.cpp",
+   "sha256": null,
+   "size": 4056,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/rps-string/solutions/n_WA2_ismagilov.exe",
+   "sha256": null,
+   "size": 2427009,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/rps-string/solutions/n_WA2_ismagilov.cpp.desc",
+   "sha256": null,
+   "size": 114,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/rps-string/solutions/n_WA_ismagilov.cpp",
+   "sha256": null,
+   "size": 4106,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/rps-string/solutions/n_WA_ismagilov.exe",
+   "sha256": null,
+   "size": 2426989,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/rps-string/solutions/n_WA_ismagilov.cpp.desc",
+   "sha256": null,
+   "size": 113,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/rps-string/solutions/n_ismagilov.cpp",
+   "sha256": null,
+   "size": 4309,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/rps-string/solutions/n_ismagilov.exe",
+   "sha256": null,
+   "size": 2426989,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/rps-string/solutions/n_ismagilov.cpp.desc",
+   "sha256": null,
+   "size": 102,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/rps-string/solutions/n_t1_ismagilov.cpp",
+   "sha256": null,
+   "size": 1452,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/rps-string/solutions/n_t1_ismagilov.exe",
+   "sha256": null,
+   "size": 2424382,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/rps-string/solutions/n_t1_ismagilov.cpp.desc",
+   "sha256": null,
+   "size": 113,
+   "status": "unsupported"
+  },
+  {
+   "ext": "json",
+   "file": null,
+   "member": "problems/rps-string/statements/english/problem-properties.json",
+   "sha256": null,
+   "size": 6322,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rps-string/statements/english/problem.tex",
+   "sha256": null,
+   "size": 5779,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/rps-string/statements/english/rps_en.png",
+   "sha256": null,
+   "size": 48583,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/rps-string/statements/english/rps_ru.png",
+   "sha256": null,
+   "size": 50029,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/rps-string/statements/english/example.01",
+   "sha256": null,
+   "size": 41,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/rps-string/statements/english/example.01.a",
+   "sha256": null,
+   "size": 30,
+   "status": "unsupported"
+  },
+  {
+   "ext": "pdf",
+   "file": "0290.pdf",
+   "key": "site-dovuz-dc50f4b9-contestfinal-202021-member-89a96e06d007d43e772b",
+   "member": "problems/rps-string/statements/.pdf/english/problem.pdf",
+   "sha256": "84187b8e51da727df115491718871fec4949f8878281e82e697832defdbdd0c6",
+   "size": 170826,
+   "status": "ready",
+   "storage": "site-dovuz-dc50f4b9-contestfinal-202021.members/89a96e06d007d43e772b/84187b8e51da727df115491718871fec4949f8878281e82e697832defdbdd0c6"
+  },
+  {
+   "ext": "pdf",
+   "file": "0292.pdf",
+   "key": "site-dovuz-dc50f4b9-contestfinal-202021-member-404cd629156f879750f8",
+   "member": "problems/rps-string/statements/.pdf/russian/problem.pdf",
+   "sha256": "db121ef96fd20d6512d340b769751b69f2a191e08847a5c03fdd82c23974be28",
+   "size": 178625,
+   "status": "ready",
+   "storage": "site-dovuz-dc50f4b9-contestfinal-202021.members/404cd629156f879750f8/db121ef96fd20d6512d340b769751b69f2a191e08847a5c03fdd82c23974be28"
+  },
+  {
+   "ext": "pdf",
+   "file": "0293.pdf",
+   "key": "site-dovuz-dc50f4b9-contestfinal-202021-member-e19c8f5dcfd22625212f",
+   "member": "problems/rps-string/statements/.pdf/russian/tutorial.pdf",
+   "sha256": "5f758fc010eaaa2c6b471a5ecb403cb2e39f8232b87144bd7a4a2699dcc68d2e",
+   "size": 116733,
+   "status": "ready",
+   "storage": "site-dovuz-dc50f4b9-contestfinal-202021.members/e19c8f5dcfd22625212f/5f758fc010eaaa2c6b471a5ecb403cb2e39f8232b87144bd7a4a2699dcc68d2e"
+  },
+  {
+   "ext": "json",
+   "file": null,
+   "member": "problems/rps-string/statements/russian/problem-properties.json",
+   "sha256": null,
+   "size": 15265,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rps-string/statements/russian/problem.tex",
+   "sha256": null,
+   "size": 9457,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/rps-string/statements/russian/rps_en.png",
+   "sha256": null,
+   "size": 48583,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/rps-string/statements/russian/rps_ru.png",
+   "sha256": null,
+   "size": 50029,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/rps-string/statements/russian/example.01",
+   "sha256": null,
+   "size": 41,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/rps-string/statements/russian/example.01.a",
+   "sha256": null,
+   "size": 30,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rps-string/statements/russian/tutorial.tex",
+   "sha256": null,
+   "size": 5331,
+   "status": "unsupported"
+  },
+  {
+   "ext": "html",
+   "file": null,
+   "member": "problems/rps-string/statements/.html/russian/tutorial.html",
+   "sha256": null,
+   "size": 6421,
+   "status": "unsupported"
+  },
+  {
+   "ext": "css",
+   "file": null,
+   "member": "problems/rps-string/statements/.html/russian/problem-statement.css",
+   "sha256": null,
+   "size": 4272,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rps-string/statement-sections/english/name.tex",
+   "sha256": null,
+   "size": 10,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rps-string/statement-sections/english/legend.tex",
+   "sha256": null,
+   "size": 1111,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rps-string/statement-sections/english/input.tex",
+   "sha256": null,
+   "size": 683,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rps-string/statement-sections/english/output.tex",
+   "sha256": null,
+   "size": 237,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rps-string/statement-sections/english/scoring.tex",
+   "sha256": null,
+   "size": 490,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rps-string/statement-sections/english/notes.tex",
+   "sha256": null,
+   "size": 3029,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/rps-string/statement-sections/english/example.01",
+   "sha256": null,
+   "size": 41,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/rps-string/statement-sections/english/example.01.a",
+   "sha256": null,
+   "size": 30,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/rps-string/statement-sections/english/rps_en.png",
+   "sha256": null,
+   "size": 48583,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/rps-string/statement-sections/english/rps_ru.png",
+   "sha256": null,
+   "size": 50029,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rps-string/statement-sections/russian/name.tex",
+   "sha256": null,
+   "size": 10,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rps-string/statement-sections/russian/legend.tex",
+   "sha256": null,
+   "size": 1911,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rps-string/statement-sections/russian/input.tex",
+   "sha256": null,
+   "size": 1112,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rps-string/statement-sections/russian/output.tex",
+   "sha256": null,
+   "size": 413,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rps-string/statement-sections/russian/scoring.tex",
+   "sha256": null,
+   "size": 517,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rps-string/statement-sections/russian/notes.tex",
+   "sha256": null,
+   "size": 5226,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rps-string/statement-sections/russian/tutorial.tex",
+   "sha256": null,
+   "size": 5279,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/rps-string/statement-sections/russian/example.01",
+   "sha256": null,
+   "size": 41,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/rps-string/statement-sections/russian/example.01.a",
+   "sha256": null,
+   "size": 30,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/rps-string/statement-sections/russian/rps_en.png",
+   "sha256": null,
+   "size": 48583,
+   "status": "unsupported"
+  },
+  {
+   "ext": "png",
+   "file": null,
+   "member": "problems/rps-string/statement-sections/russian/rps_ru.png",
+   "sha256": null,
+   "size": 50029,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/rps-string/stresses/002",
+   "sha256": null,
+   "size": 281,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/rps-string/stresses/001",
+   "sha256": null,
+   "size": 287,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/rps-string/scripts/gen-answer.bat",
+   "sha256": null,
+   "size": 518,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/rps-string/scripts/gen-input-via-file.bat",
+   "sha256": null,
+   "size": 560,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/rps-string/scripts/gen-input-via-files.bat",
+   "sha256": null,
+   "size": 1733,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/rps-string/scripts/gen-input-via-stdout.bat",
+   "sha256": null,
+   "size": 289,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/rps-string/scripts/run-validator-tests.bat",
+   "sha256": null,
+   "size": 155,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/rps-string/scripts/run-checker-tests.bat",
+   "sha256": null,
+   "size": 145,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/rps-string/scripts/gen-answer.sh",
+   "sha256": null,
+   "size": 753,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/rps-string/scripts/gen-input-via-file.sh",
+   "sha256": null,
+   "size": 644,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/rps-string/scripts/gen-input-via-files.sh",
+   "sha256": null,
+   "size": 1298,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/rps-string/scripts/gen-input-via-stdout.sh",
+   "sha256": null,
+   "size": 381,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/rps-string/scripts/run-validator-tests.sh",
+   "sha256": null,
+   "size": 173,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/rps-string/scripts/run-checker-tests.sh",
+   "sha256": null,
+   "size": 163,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/rps-string/tests/01",
+   "sha256": null,
+   "size": 41,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/rps-string/check.cpp",
+   "sha256": null,
+   "size": 1085,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/rps-string/check.exe",
+   "sha256": null,
+   "size": 2828460,
+   "status": "unsupported"
+  },
+  {
+   "ext": "xml",
+   "file": null,
+   "member": "problems/rps-string/problem.xml",
+   "sha256": null,
+   "size": 31345,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/rps-string/doall.bat",
+   "sha256": null,
+   "size": 22448,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/rps-string/wipe.bat",
+   "sha256": null,
+   "size": 4676,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/rps-string/doall.sh",
+   "sha256": null,
+   "size": 32251,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/rps-string/wipe.sh",
+   "sha256": null,
+   "size": 4994,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/long-puzzle/files/towin.exe",
+   "sha256": null,
+   "size": 26002,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sty",
+   "file": null,
+   "member": "problems/long-puzzle/files/olymp.sty",
+   "sha256": null,
+   "size": 23058,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/long-puzzle/files/problem.tex",
+   "sha256": null,
+   "size": 2315,
+   "status": "unsupported"
+  },
+  {
+   "ext": "ftl",
+   "file": null,
+   "member": "problems/long-puzzle/files/statements.ftl",
+   "sha256": null,
+   "size": 1087,
+   "status": "unsupported"
+  },
+  {
+   "ext": "h",
+   "file": null,
+   "member": "problems/long-puzzle/files/testlib.h",
+   "sha256": null,
+   "size": 162651,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/long-puzzle/files/tutorial.tex",
+   "sha256": null,
+   "size": 258,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/long-puzzle/files/gen_random.cpp",
+   "sha256": null,
+   "size": 2581,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/long-puzzle/files/gen_random.exe",
+   "sha256": null,
+   "size": 2861252,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/long-puzzle/files/gen_several_sols.cpp",
+   "sha256": null,
+   "size": 1806,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/long-puzzle/files/gen_several_sols.exe",
+   "sha256": null,
+   "size": 2831621,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/long-puzzle/files/gen_worst.cpp",
+   "sha256": null,
+   "size": 1577,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/long-puzzle/files/gen_worst.exe",
+   "sha256": null,
+   "size": 2830994,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/long-puzzle/files/validator.cpp",
+   "sha256": null,
+   "size": 1604,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/long-puzzle/files/validator.exe",
+   "sha256": null,
+   "size": 2827560,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/long-puzzle/files/check.cpp",
+   "sha256": null,
+   "size": 1472,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/long-puzzle/solutions/sol_nb.cpp",
+   "sha256": null,
+   "size": 4389,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/long-puzzle/solutions/sol_nb.exe",
+   "sha256": null,
+   "size": 2458799,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/long-puzzle/solutions/sol_nb.cpp.desc",
+   "sha256": null,
+   "size": 118,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/long-puzzle/solutions/sol_nb_2n.cpp",
+   "sha256": null,
+   "size": 2969,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/long-puzzle/solutions/sol_nb_2n.exe",
+   "sha256": null,
+   "size": 2453396,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/long-puzzle/solutions/sol_nb_2n.cpp.desc",
+   "sha256": null,
+   "size": 98,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/long-puzzle/solutions/sol_nb_faster.cpp",
+   "sha256": null,
+   "size": 4237,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/long-puzzle/solutions/sol_nb_faster.exe",
+   "sha256": null,
+   "size": 2460708,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/long-puzzle/solutions/sol_nb_faster.cpp.desc",
+   "sha256": null,
+   "size": 98,
+   "status": "unsupported"
+  },
+  {
+   "ext": "json",
+   "file": null,
+   "member": "problems/long-puzzle/statements/english/problem-properties.json",
+   "sha256": null,
+   "size": 3052,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/long-puzzle/statements/english/problem.tex",
+   "sha256": null,
+   "size": 2589,
+   "status": "unsupported"
+  },
+  {
+   "ext": "mp",
+   "file": null,
+   "member": "problems/long-puzzle/statements/english/pic.mp",
+   "sha256": null,
+   "size": 1652,
+   "status": "unsupported"
+  },
+  {
+   "ext": "02",
+   "file": null,
+   "member": "problems/long-puzzle/statements/english/example.02",
+   "sha256": null,
+   "size": 48,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/long-puzzle/statements/english/example.01",
+   "sha256": null,
+   "size": 65,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/long-puzzle/statements/english/example.01.a",
+   "sha256": null,
+   "size": 3,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/long-puzzle/statements/english/example.02.a",
+   "sha256": null,
+   "size": 3,
+   "status": "unsupported"
+  },
+  {
+   "ext": "pdf",
+   "file": "0393.pdf",
+   "key": "site-dovuz-dc50f4b9-contestfinal-202021-member-345dc8149e88542aec3f",
+   "member": "problems/long-puzzle/statements/.pdf/english/problem.pdf",
+   "sha256": "81dcf4ac542dc3a7ca928ced4108b949e72c4d9e0c7ee56e4833246a282836f8",
+   "size": 127327,
+   "status": "ready",
+   "storage": "site-dovuz-dc50f4b9-contestfinal-202021.members/345dc8149e88542aec3f/81dcf4ac542dc3a7ca928ced4108b949e72c4d9e0c7ee56e4833246a282836f8"
+  },
+  {
+   "ext": "pdf",
+   "file": "0395.pdf",
+   "key": "site-dovuz-dc50f4b9-contestfinal-202021-member-225fe16761f19f4c8752",
+   "member": "problems/long-puzzle/statements/.pdf/russian/problem.pdf",
+   "sha256": "99f4e98dc6eb35e4b04c04f71a55bcee941d6792f2c3c5bed41b2a67294f365f",
+   "size": 129062,
+   "status": "ready",
+   "storage": "site-dovuz-dc50f4b9-contestfinal-202021.members/225fe16761f19f4c8752/99f4e98dc6eb35e4b04c04f71a55bcee941d6792f2c3c5bed41b2a67294f365f"
+  },
+  {
+   "ext": "pdf",
+   "file": "0396.pdf",
+   "key": "site-dovuz-dc50f4b9-contestfinal-202021-member-380c664f15e14b0e0f38",
+   "member": "problems/long-puzzle/statements/.pdf/russian/tutorial.pdf",
+   "sha256": "3890244780f4e924c61673464ab6511756e9fc2a8214bf214a196ed400bafc7b",
+   "size": 101397,
+   "status": "ready",
+   "storage": "site-dovuz-dc50f4b9-contestfinal-202021.members/380c664f15e14b0e0f38/3890244780f4e924c61673464ab6511756e9fc2a8214bf214a196ed400bafc7b"
+  },
+  {
+   "ext": "json",
+   "file": null,
+   "member": "problems/long-puzzle/statements/russian/problem-properties.json",
+   "sha256": null,
+   "size": 8431,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/long-puzzle/statements/russian/problem.tex",
+   "sha256": null,
+   "size": 3719,
+   "status": "unsupported"
+  },
+  {
+   "ext": "mp",
+   "file": null,
+   "member": "problems/long-puzzle/statements/russian/pic.mp",
+   "sha256": null,
+   "size": 1652,
+   "status": "unsupported"
+  },
+  {
+   "ext": "02",
+   "file": null,
+   "member": "problems/long-puzzle/statements/russian/example.02",
+   "sha256": null,
+   "size": 48,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/long-puzzle/statements/russian/example.01",
+   "sha256": null,
+   "size": 65,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/long-puzzle/statements/russian/example.01.a",
+   "sha256": null,
+   "size": 3,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/long-puzzle/statements/russian/example.02.a",
+   "sha256": null,
+   "size": 3,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/long-puzzle/statements/russian/tutorial.tex",
+   "sha256": null,
+   "size": 4287,
+   "status": "unsupported"
+  },
+  {
+   "ext": "html",
+   "file": null,
+   "member": "problems/long-puzzle/statements/.html/russian/tutorial.html",
+   "sha256": null,
+   "size": 5246,
+   "status": "unsupported"
+  },
+  {
+   "ext": "css",
+   "file": null,
+   "member": "problems/long-puzzle/statements/.html/russian/problem-statement.css",
+   "sha256": null,
+   "size": 4272,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/long-puzzle/statement-sections/english/name.tex",
+   "sha256": null,
+   "size": 11,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/long-puzzle/statement-sections/english/legend.tex",
+   "sha256": null,
+   "size": 989,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/long-puzzle/statement-sections/english/input.tex",
+   "sha256": null,
+   "size": 545,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/long-puzzle/statement-sections/english/output.tex",
+   "sha256": null,
+   "size": 139,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/long-puzzle/statement-sections/english/scoring.tex",
+   "sha256": null,
+   "size": 416,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/long-puzzle/statement-sections/english/notes.tex",
+   "sha256": null,
+   "size": 232,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/long-puzzle/statement-sections/english/example.01",
+   "sha256": null,
+   "size": 65,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/long-puzzle/statement-sections/english/example.01.a",
+   "sha256": null,
+   "size": 3,
+   "status": "unsupported"
+  },
+  {
+   "ext": "02",
+   "file": null,
+   "member": "problems/long-puzzle/statement-sections/english/example.02",
+   "sha256": null,
+   "size": 48,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/long-puzzle/statement-sections/english/example.02.a",
+   "sha256": null,
+   "size": 3,
+   "status": "unsupported"
+  },
+  {
+   "ext": "mp",
+   "file": null,
+   "member": "problems/long-puzzle/statement-sections/english/pic.mp",
+   "sha256": null,
+   "size": 1652,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/long-puzzle/statement-sections/russian/name.tex",
+   "sha256": null,
+   "size": 11,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/long-puzzle/statement-sections/russian/legend.tex",
+   "sha256": null,
+   "size": 1567,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/long-puzzle/statement-sections/russian/input.tex",
+   "sha256": null,
+   "size": 776,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/long-puzzle/statement-sections/russian/output.tex",
+   "sha256": null,
+   "size": 248,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/long-puzzle/statement-sections/russian/scoring.tex",
+   "sha256": null,
+   "size": 476,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/long-puzzle/statement-sections/russian/notes.tex",
+   "sha256": null,
+   "size": 335,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/long-puzzle/statement-sections/russian/tutorial.tex",
+   "sha256": null,
+   "size": 4234,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/long-puzzle/statement-sections/russian/example.01",
+   "sha256": null,
+   "size": 65,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/long-puzzle/statement-sections/russian/example.01.a",
+   "sha256": null,
+   "size": 3,
+   "status": "unsupported"
+  },
+  {
+   "ext": "02",
+   "file": null,
+   "member": "problems/long-puzzle/statement-sections/russian/example.02",
+   "sha256": null,
+   "size": 48,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/long-puzzle/statement-sections/russian/example.02.a",
+   "sha256": null,
+   "size": 3,
+   "status": "unsupported"
+  },
+  {
+   "ext": "mp",
+   "file": null,
+   "member": "problems/long-puzzle/statement-sections/russian/pic.mp",
+   "sha256": null,
+   "size": 1652,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/long-puzzle/scripts/gen-answer.bat",
+   "sha256": null,
+   "size": 520,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/long-puzzle/scripts/gen-input-via-file.bat",
+   "sha256": null,
+   "size": 560,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/long-puzzle/scripts/gen-input-via-files.bat",
+   "sha256": null,
+   "size": 1733,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/long-puzzle/scripts/gen-input-via-stdout.bat",
+   "sha256": null,
+   "size": 289,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/long-puzzle/scripts/run-validator-tests.bat",
+   "sha256": null,
+   "size": 155,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/long-puzzle/scripts/run-checker-tests.bat",
+   "sha256": null,
+   "size": 145,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/long-puzzle/scripts/gen-answer.sh",
+   "sha256": null,
+   "size": 757,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/long-puzzle/scripts/gen-input-via-file.sh",
+   "sha256": null,
+   "size": 644,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/long-puzzle/scripts/gen-input-via-files.sh",
+   "sha256": null,
+   "size": 1298,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/long-puzzle/scripts/gen-input-via-stdout.sh",
+   "sha256": null,
+   "size": 381,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/long-puzzle/scripts/run-validator-tests.sh",
+   "sha256": null,
+   "size": 173,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/long-puzzle/scripts/run-checker-tests.sh",
+   "sha256": null,
+   "size": 163,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/long-puzzle/tests/01",
+   "sha256": null,
+   "size": 65,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/long-puzzle/tests/02",
+   "sha256": null,
+   "size": 48,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/long-puzzle/check.cpp",
+   "sha256": null,
+   "size": 1472,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/long-puzzle/check.exe",
+   "sha256": null,
+   "size": 2826815,
+   "status": "unsupported"
+  },
+  {
+   "ext": "xml",
+   "file": null,
+   "member": "problems/long-puzzle/problem.xml",
+   "sha256": null,
+   "size": 20433,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/long-puzzle/doall.bat",
+   "sha256": null,
+   "size": 12036,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/long-puzzle/wipe.bat",
+   "sha256": null,
+   "size": 2186,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/long-puzzle/doall.sh",
+   "sha256": null,
+   "size": 16653,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/long-puzzle/wipe.sh",
+   "sha256": null,
+   "size": 2345,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/rooted-mst/files/tests/validator-tests/01",
+   "sha256": null,
+   "size": 119,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/rooted-mst/files/towin.exe",
+   "sha256": null,
+   "size": 26002,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sty",
+   "file": null,
+   "member": "problems/rooted-mst/files/olymp.sty",
+   "sha256": null,
+   "size": 23058,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rooted-mst/files/problem.tex",
+   "sha256": null,
+   "size": 2315,
+   "status": "unsupported"
+  },
+  {
+   "ext": "ftl",
+   "file": null,
+   "member": "problems/rooted-mst/files/statements.ftl",
+   "sha256": null,
+   "size": 1115,
+   "status": "unsupported"
+  },
+  {
+   "ext": "h",
+   "file": null,
+   "member": "problems/rooted-mst/files/testlib.h",
+   "sha256": null,
+   "size": 162651,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/rooted-mst/files/gen_bamboo.cpp",
+   "sha256": null,
+   "size": 769,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/rooted-mst/files/gen_bamboo.exe",
+   "sha256": null,
+   "size": 2826377,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/rooted-mst/files/gen_rand.cpp",
+   "sha256": null,
+   "size": 1028,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/rooted-mst/files/gen_rand.exe",
+   "sha256": null,
+   "size": 2828080,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/rooted-mst/files/gen_small_i.cpp",
+   "sha256": null,
+   "size": 1080,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/rooted-mst/files/gen_small_i.exe",
+   "sha256": null,
+   "size": 2828080,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/rooted-mst/files/gen_w1.cpp",
+   "sha256": null,
+   "size": 990,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/rooted-mst/files/gen_w1.exe",
+   "sha256": null,
+   "size": 2825748,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/rooted-mst/files/validate.cpp",
+   "sha256": null,
+   "size": 2333,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/rooted-mst/files/validate.exe",
+   "sha256": null,
+   "size": 2831643,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/rooted-mst/files/check.cpp",
+   "sha256": null,
+   "size": 1472,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/rooted-mst/solutions/ig_naive.cpp",
+   "sha256": null,
+   "size": 1736,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/rooted-mst/solutions/ig_naive.exe",
+   "sha256": null,
+   "size": 2439291,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/rooted-mst/solutions/ig_naive.cpp.desc",
+   "sha256": null,
+   "size": 115,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/rooted-mst/solutions/ig_ok.cpp",
+   "sha256": null,
+   "size": 3204,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/rooted-mst/solutions/ig_ok.exe",
+   "sha256": null,
+   "size": 2422140,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/rooted-mst/solutions/ig_ok.cpp.desc",
+   "sha256": null,
+   "size": 97,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/rooted-mst/solutions/ig_w12.cpp",
+   "sha256": null,
+   "size": 1940,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/rooted-mst/solutions/ig_w12.exe",
+   "sha256": null,
+   "size": 2418190,
+   "status": "unsupported"
+  },
+  {
+   "ext": "desc",
+   "file": null,
+   "member": "problems/rooted-mst/solutions/ig_w12.cpp.desc",
+   "sha256": null,
+   "size": 102,
+   "status": "unsupported"
+  },
+  {
+   "ext": "json",
+   "file": null,
+   "member": "problems/rooted-mst/statements/english/problem-properties.json",
+   "sha256": null,
+   "size": 2711,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rooted-mst/statements/english/problem.tex",
+   "sha256": null,
+   "size": 2206,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/rooted-mst/statements/english/example.01",
+   "sha256": null,
+   "size": 119,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/rooted-mst/statements/english/example.01.a",
+   "sha256": null,
+   "size": 30,
+   "status": "unsupported"
+  },
+  {
+   "ext": "pdf",
+   "file": "0498.pdf",
+   "key": "site-dovuz-dc50f4b9-contestfinal-202021-member-8bcb7ecee24ec92e77ec",
+   "member": "problems/rooted-mst/statements/.pdf/english/problem.pdf",
+   "sha256": "cb90903193a48fc5f141a7b2bae2122b5ccf2a59c330da9f48f8e0e128b072af",
+   "size": 122590,
+   "status": "ready",
+   "storage": "site-dovuz-dc50f4b9-contestfinal-202021.members/8bcb7ecee24ec92e77ec/cb90903193a48fc5f141a7b2bae2122b5ccf2a59c330da9f48f8e0e128b072af"
+  },
+  {
+   "ext": "pdf",
+   "file": "0500.pdf",
+   "key": "site-dovuz-dc50f4b9-contestfinal-202021-member-92f3777627b4947da8e6",
+   "member": "problems/rooted-mst/statements/.pdf/russian/problem.pdf",
+   "sha256": "c198e4500d9f11c58eb8b82e7d2b4f232e642e6e38c5d8d0650955712a990abd",
+   "size": 123769,
+   "status": "ready",
+   "storage": "site-dovuz-dc50f4b9-contestfinal-202021.members/92f3777627b4947da8e6/c198e4500d9f11c58eb8b82e7d2b4f232e642e6e38c5d8d0650955712a990abd"
+  },
+  {
+   "ext": "json",
+   "file": null,
+   "member": "problems/rooted-mst/statements/russian/problem-properties.json",
+   "sha256": null,
+   "size": 3485,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rooted-mst/statements/russian/problem.tex",
+   "sha256": null,
+   "size": 3028,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/rooted-mst/statements/russian/example.01",
+   "sha256": null,
+   "size": 119,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/rooted-mst/statements/russian/example.01.a",
+   "sha256": null,
+   "size": 30,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rooted-mst/statement-sections/english/name.tex",
+   "sha256": null,
+   "size": 10,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rooted-mst/statement-sections/english/legend.tex",
+   "sha256": null,
+   "size": 590,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rooted-mst/statement-sections/english/input.tex",
+   "sha256": null,
+   "size": 593,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rooted-mst/statement-sections/english/output.tex",
+   "sha256": null,
+   "size": 115,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rooted-mst/statement-sections/english/scoring.tex",
+   "sha256": null,
+   "size": 687,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/rooted-mst/statement-sections/english/example.01",
+   "sha256": null,
+   "size": 119,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/rooted-mst/statement-sections/english/example.01.a",
+   "sha256": null,
+   "size": 30,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rooted-mst/statement-sections/russian/name.tex",
+   "sha256": null,
+   "size": 10,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rooted-mst/statement-sections/russian/legend.tex",
+   "sha256": null,
+   "size": 882,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rooted-mst/statement-sections/russian/input.tex",
+   "sha256": null,
+   "size": 857,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rooted-mst/statement-sections/russian/output.tex",
+   "sha256": null,
+   "size": 192,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "problems/rooted-mst/statement-sections/russian/scoring.tex",
+   "sha256": null,
+   "size": 827,
+   "status": "unsupported"
+  },
+  {
+   "ext": "01",
+   "file": null,
+   "member": "problems/rooted-mst/statement-sections/russian/example.01",
+   "sha256": null,
+   "size": 119,
+   "status": "unsupported"
+  },
+  {
+   "ext": "a",
+   "file": null,
+   "member": "problems/rooted-mst/statement-sections/russian/example.01.a",
+   "sha256": null,
+   "size": 30,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/rooted-mst/stresses/001",
+   "sha256": null,
+   "size": 274,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/rooted-mst/scripts/gen-answer.bat",
+   "sha256": null,
+   "size": 511,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/rooted-mst/scripts/gen-input-via-file.bat",
+   "sha256": null,
+   "size": 560,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/rooted-mst/scripts/gen-input-via-files.bat",
+   "sha256": null,
+   "size": 1733,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/rooted-mst/scripts/gen-input-via-stdout.bat",
+   "sha256": null,
+   "size": 289,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/rooted-mst/scripts/run-validator-tests.bat",
+   "sha256": null,
+   "size": 563,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/rooted-mst/scripts/run-checker-tests.bat",
+   "sha256": null,
+   "size": 145,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/rooted-mst/scripts/gen-answer.sh",
+   "sha256": null,
+   "size": 740,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/rooted-mst/scripts/gen-input-via-file.sh",
+   "sha256": null,
+   "size": 644,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/rooted-mst/scripts/gen-input-via-files.sh",
+   "sha256": null,
+   "size": 1298,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/rooted-mst/scripts/gen-input-via-stdout.sh",
+   "sha256": null,
+   "size": 381,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/rooted-mst/scripts/run-validator-tests.sh",
+   "sha256": null,
+   "size": 592,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/rooted-mst/scripts/run-checker-tests.sh",
+   "sha256": null,
+   "size": 163,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/rooted-mst/tests/01",
+   "sha256": null,
+   "size": 119,
+   "status": "unsupported"
+  },
+  {
+   "ext": "cpp",
+   "file": null,
+   "member": "problems/rooted-mst/check.cpp",
+   "sha256": null,
+   "size": 1472,
+   "status": "unsupported"
+  },
+  {
+   "ext": "exe",
+   "file": null,
+   "member": "problems/rooted-mst/check.exe",
+   "sha256": null,
+   "size": 2826815,
+   "status": "unsupported"
+  },
+  {
+   "ext": "",
+   "file": null,
+   "member": "problems/rooted-mst/tags",
+   "sha256": null,
+   "size": 78,
+   "status": "unsupported"
+  },
+  {
+   "ext": "xml",
+   "file": null,
+   "member": "problems/rooted-mst/problem.xml",
+   "sha256": null,
+   "size": 20364,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/rooted-mst/doall.bat",
+   "sha256": null,
+   "size": 11326,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "problems/rooted-mst/wipe.bat",
+   "sha256": null,
+   "size": 2050,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/rooted-mst/doall.sh",
+   "sha256": null,
+   "size": 15647,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "problems/rooted-mst/wipe.sh",
+   "sha256": null,
+   "size": 2200,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sty",
+   "file": null,
+   "member": "statements/english/olymp.sty",
+   "sha256": null,
+   "size": 22864,
+   "status": "unsupported"
+  },
+  {
+   "ext": "eps",
+   "file": null,
+   "member": "statements/english/statements-logo.eps",
+   "sha256": null,
+   "size": 45525,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "statements/english/statements.tex",
+   "sha256": null,
+   "size": 3422,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "statements/english/tutorials.tex",
+   "sha256": null,
+   "size": 758,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "statements/english/doall.bat",
+   "sha256": null,
+   "size": 1161,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "statements/english/wipe.bat",
+   "sha256": null,
+   "size": 816,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "statements/english/doall.sh",
+   "sha256": null,
+   "size": 866,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "statements/english/wipe.sh",
+   "sha256": null,
+   "size": 636,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sty",
+   "file": null,
+   "member": "statements/russian/olymp.sty",
+   "sha256": null,
+   "size": 22864,
+   "status": "unsupported"
+  },
+  {
+   "ext": "eps",
+   "file": null,
+   "member": "statements/russian/statements-logo.eps",
+   "sha256": null,
+   "size": 45525,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "statements/russian/statements.tex",
+   "sha256": null,
+   "size": 5074,
+   "status": "unsupported"
+  },
+  {
+   "ext": "tex",
+   "file": null,
+   "member": "statements/russian/tutorials.tex",
+   "sha256": null,
+   "size": 1145,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "statements/russian/doall.bat",
+   "sha256": null,
+   "size": 1161,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "statements/russian/wipe.bat",
+   "sha256": null,
+   "size": 816,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "statements/russian/doall.sh",
+   "sha256": null,
+   "size": 866,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "statements/russian/wipe.sh",
+   "sha256": null,
+   "size": 636,
+   "status": "unsupported"
+  },
+  {
+   "ext": "xml",
+   "file": null,
+   "member": "contest.xml",
+   "sha256": null,
+   "size": 1422,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "doall.bat",
+   "sha256": null,
+   "size": 704,
+   "status": "unsupported"
+  },
+  {
+   "ext": "bat",
+   "file": null,
+   "member": "wipe.bat",
+   "sha256": null,
+   "size": 683,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "doall.sh",
+   "sha256": null,
+   "size": 620,
+   "status": "unsupported"
+  },
+  {
+   "ext": "sh",
+   "file": null,
+   "member": "wipe.sh",
+   "sha256": null,
+   "size": 599,
+   "status": "unsupported"
+  }
+ ],
+ "remote": {
+  "etag": "\"62eccc6a-20e4150\"",
+  "modified": "Fri, 05 Aug 2022 07:53:14 GMT",
+  "size": "34488656"
+ },
+ "sha256": "c4c5bd5b25da5876771363c46f51d2634053de7abbf3f9c0ffef1149113911d0",
+ "source": "site-dovuz-dc50f4b9-contestfinal-202021.archives/c4c5bd5b25da5876771363c46f51d2634053de7abbf3f9c0ffef1149113911d0.archive",
+ "status": "ready",
+ "url": "https://lk-dovuz.innopolis.university/public/files/contest-final_2020-21.zip"
+}

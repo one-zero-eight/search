@@ -1,0 +1,16 @@
+{
+ "title": "sbornik kejsov 3",
+ "url": "https://innopolis.university/filespublic/sbornik_kejsov_3.pdf",
+ "sha256": "ad176c6ec9a8d7b78acee69c9aaf0402d86a84009ffc40f37594cfe2d1e54f99",
+ "method": "ocr (chandra-ocr-2)",
+ "chars": 24818,
+ "tables": 5,
+ "section": "site/edu",
+ "context": "",
+ "fetched_at": "2026-11-04T02:19:00+00:00",
+ "remote": {
+  "etag": "\"6ebddc-5fa613ec62abb\"",
+  "modified": "Fri, 28 Apr 2023 08:27:35 GMT",
+  "size": "7257564"
+ }
+}

@@ -1,0 +1,63 @@
+{
+ "members": [
+  {
+   "ext": "pdf",
+   "file": "0001.pdf",
+   "key": "site-university-80172ebd-rpd-2027-2-5-4-member-938d2dc28c31680f93b5",
+   "member": "РПД 2027 2.5.4/Визуализация_2.1.1_История и философия науки_2027_2.5.4_17.09.2026.pdf",
+   "sha256": "7e24aa548fe61e104f5a310ccb37197df6306254342a775bfb4b0f344c1d8d95",
+   "size": 366911,
+   "status": "ready",
+   "storage": "site-university-80172ebd-rpd-2027-2-5-4.members/938d2dc28c31680f93b5/7e24aa548fe61e104f5a310ccb37197df6306254342a775bfb4b0f344c1d8d95"
+  },
+  {
+   "ext": "pdf",
+   "file": "0002.pdf",
+   "key": "site-university-80172ebd-rpd-2027-2-5-4-member-f6bf1b38a770a834f8a3",
+   "member": "РПД 2027 2.5.4/Визуализация_2.1.2_Иностранный язык_2027_2.5.4_ 17.09.2026.pdf",
+   "sha256": "697bbfadf1c4a0b6bba129d0f1dc443286a42dd16f589317117f433169a6c18a",
+   "size": 378164,
+   "status": "ready",
+   "storage": "site-university-80172ebd-rpd-2027-2-5-4.members/f6bf1b38a770a834f8a3/697bbfadf1c4a0b6bba129d0f1dc443286a42dd16f589317117f433169a6c18a"
+  },
+  {
+   "ext": "pdf",
+   "file": "0003.pdf",
+   "key": "site-university-80172ebd-rpd-2027-2-5-4-member-ecccc6641da4e64237b0",
+   "member": "РПД 2027 2.5.4/Визуализация_2.1.3_Роботы, мехатроника и робототехнические системы_2027_2.5.4_17.09.2026.pdf",
+   "sha256": "77032012d5824aad07a0a0428d30a47382bcb2ab67d73abc6907e82b5b4dc0a0",
+   "size": 372344,
+   "status": "ready",
+   "storage": "site-university-80172ebd-rpd-2027-2-5-4.members/ecccc6641da4e64237b0/77032012d5824aad07a0a0428d30a47382bcb2ab67d73abc6907e82b5b4dc0a0"
+  },
+  {
+   "ext": "pdf",
+   "file": "0004.pdf",
+   "key": "site-university-80172ebd-rpd-2027-2-5-4-member-5fdb84065ac49655e547",
+   "member": "РПД 2027 2.5.4/Визуализация_2.1.4_Научные исследования и подготовка диссертации_ методология, организация, практика_2.5.4_17.09.2026.pdf",
+   "sha256": "a4726a0e3439c413048aa840a5061dc01a9291e96f73725d7228c4efc5b9e006",
+   "size": 319462,
+   "status": "ready",
+   "storage": "site-university-80172ebd-rpd-2027-2-5-4.members/5fdb84065ac49655e547/a4726a0e3439c413048aa840a5061dc01a9291e96f73725d7228c4efc5b9e006"
+  },
+  {
+   "ext": "pdf",
+   "file": "0005.pdf",
+   "key": "site-university-80172ebd-rpd-2027-2-5-4-member-be9d6676b90d2c0cee89",
+   "member": "РПД 2027 2.5.4/Визуализация_2.1.5 (Ф)_Русский как Иностранный язык_2027_2.5.4_ 17.09.2026.pdf",
+   "sha256": "23c3e162318204c91e31f09c3c0b07e5e1511746b6f1764b4daa2071c1db8174",
+   "size": 276036,
+   "status": "ready",
+   "storage": "site-university-80172ebd-rpd-2027-2-5-4.members/be9d6676b90d2c0cee89/23c3e162318204c91e31f09c3c0b07e5e1511746b6f1764b4daa2071c1db8174"
+  }
+ ],
+ "remote": {
+  "etag": "\"6ae47c2a-1958ea\"",
+  "modified": "Fri, 30 Oct 2026 11:14:50 GMT",
+  "size": "1661162"
+ },
+ "sha256": "eb5b87d0b5bf5cf896667667730a2a1e904ec0ca5959ee2e80f19c73049a1b5d",
+ "source": "site-university-80172ebd-rpd-2027-2-5-4.archives/eb5b87d0b5bf5cf896667667730a2a1e904ec0ca5959ee2e80f19c73049a1b5d.archive",
+ "status": "ready",
+ "url": "https://innopolis.university/upload/iblock/7cd/7jh5yrvztly6mf44i7i3e7t4h8ekovm1/%D0%A0%D0%9F%D0%94%202027%202.5.4.zip"
+}

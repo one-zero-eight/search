@@ -1,0 +1,83 @@
+{
+ "members": [
+  {
+   "ext": "pdf",
+   "file": "0001.pdf",
+   "key": "site-university-ec3d6fc6-1-semestr-ite-2025-rpd-21-08-2025-member-b4d1dac087bc0f41637d",
+   "member": "1 семестр ITE 2025 (РПД) 21.08.2025/Визуализация_Б1.О.01_ITE_2025_Бизнес-проект (1 с.)_21.08.2025.pdf",
+   "sha256": "f7fdfb193a263958e026f8795b73ab17ac06a5e935184289cd8efb9e9a7a51b6",
+   "size": 637065,
+   "status": "ready",
+   "storage": "site-university-ec3d6fc6-1-semestr-ite-2025-rpd-21-08-2025.members/b4d1dac087bc0f41637d/f7fdfb193a263958e026f8795b73ab17ac06a5e935184289cd8efb9e9a7a51b6"
+  },
+  {
+   "ext": "pdf",
+   "file": "0002.pdf",
+   "key": "site-university-ec3d6fc6-1-semestr-ite-2025-rpd-21-08-2025-member-f024892d2698782b6711",
+   "member": "1 семестр ITE 2025 (РПД) 21.08.2025/Визуализация_Б1.О.02_ITE_2025_Проектирование программных интерфейсов (1 с.)_21.08.2025.pdf",
+   "sha256": "d5051b6798e7338797083b084c4bfdf18eb30235b0017745852f5c11c6e573c6",
+   "size": 622953,
+   "status": "ready",
+   "storage": "site-university-ec3d6fc6-1-semestr-ite-2025-rpd-21-08-2025.members/f024892d2698782b6711/d5051b6798e7338797083b084c4bfdf18eb30235b0017745852f5c11c6e573c6"
+  },
+  {
+   "ext": "pdf",
+   "file": "0003.pdf",
+   "key": "site-university-ec3d6fc6-1-semestr-ite-2025-rpd-21-08-2025-member-4ecf87e782aab291af1f",
+   "member": "1 семестр ITE 2025 (РПД) 21.08.2025/Визуализация_Б1.О.03_ITE_2025_Запуск ИТ-бизнеса (1 с.)_21.08.2025.pdf",
+   "sha256": "77a9ad2be9c69b151f0d0ba99bb20a3bdef9d4a977eb206a056b888e9067fa39",
+   "size": 557714,
+   "status": "ready",
+   "storage": "site-university-ec3d6fc6-1-semestr-ite-2025-rpd-21-08-2025.members/4ecf87e782aab291af1f/77a9ad2be9c69b151f0d0ba99bb20a3bdef9d4a977eb206a056b888e9067fa39"
+  },
+  {
+   "ext": "pdf",
+   "file": "0004.pdf",
+   "key": "site-university-ec3d6fc6-1-semestr-ite-2025-rpd-21-08-2025-member-d5680514dc80a46654aa",
+   "member": "1 семестр ITE 2025 (РПД) 21.08.2025/Визуализация_Б1.О.04_ITE_2025_Юнит-экономика для ИТ-бизнеса (1 с.)_21.08.2025.pdf",
+   "sha256": "1e10871fefa35f0e73d8b3de1c3f10e95cd68ceb7895e47287e43d2591b9550d",
+   "size": 787608,
+   "status": "ready",
+   "storage": "site-university-ec3d6fc6-1-semestr-ite-2025-rpd-21-08-2025.members/d5680514dc80a46654aa/1e10871fefa35f0e73d8b3de1c3f10e95cd68ceb7895e47287e43d2591b9550d"
+  },
+  {
+   "ext": "pdf",
+   "file": "0005.pdf",
+   "key": "site-university-ec3d6fc6-1-semestr-ite-2025-rpd-21-08-2025-member-156979a1dc00af1a83f7",
+   "member": "1 семестр ITE 2025 (РПД) 21.08.2025/Визуализация_Б1.О.05_ITE_2025_Разработка ИТ-продукта (1 с.)_21.08.2025.pdf",
+   "sha256": "98d3dbf5ea7ed531d8fbf581acfa6e04d024f1ca29d688fc7fc312921569216e",
+   "size": 693605,
+   "status": "ready",
+   "storage": "site-university-ec3d6fc6-1-semestr-ite-2025-rpd-21-08-2025.members/156979a1dc00af1a83f7/98d3dbf5ea7ed531d8fbf581acfa6e04d024f1ca29d688fc7fc312921569216e"
+  },
+  {
+   "ext": "pdf",
+   "file": "0006.pdf",
+   "key": "site-university-ec3d6fc6-1-semestr-ite-2025-rpd-21-08-2025-member-39e4731fcda64441ee64",
+   "member": "1 семестр ITE 2025 (РПД) 21.08.2025/Визуализация_Б1.О.06_ITE_2025_Продуктовый маркетинг и копирайтинг (1 с.)_21.08.2025.pdf",
+   "sha256": "0095f7897a2632375b33a6cfac6154f317414e31a1a4a384288ce28c3f58e82d",
+   "size": 587464,
+   "status": "ready",
+   "storage": "site-university-ec3d6fc6-1-semestr-ite-2025-rpd-21-08-2025.members/39e4731fcda64441ee64/0095f7897a2632375b33a6cfac6154f317414e31a1a4a384288ce28c3f58e82d"
+  },
+  {
+   "ext": "pdf",
+   "file": "0007.pdf",
+   "key": "site-university-ec3d6fc6-1-semestr-ite-2025-rpd-21-08-2025-member-df18e923043020e090e2",
+   "member": "1 семестр ITE 2025 (РПД) 21.08.2025/Визуализация_ФТД.01_ITE_2025_Русский как иностранный (1 с.)_21.08.2025.pdf",
+   "sha256": "cb24dbcfae14009fddcbca2ded88e13821b3dc9cde8221e8dbb6b2b51aa2fe56",
+   "size": 514419,
+   "status": "ready",
+   "storage": "site-university-ec3d6fc6-1-semestr-ite-2025-rpd-21-08-2025.members/df18e923043020e090e2/cb24dbcfae14009fddcbca2ded88e13821b3dc9cde8221e8dbb6b2b51aa2fe56"
+  }
+ ],
+ "remote": {
+  "etag": "\"68c9734b-230111\"",
+  "modified": "Tue, 16 Sep 2025 14:25:15 GMT",
+  "size": "2294033"
+ },
+ "sha256": "ffcc79a0aa4f93c3bc9b9807830f08c0b17efe5abee72899f2ca217f377b927e",
+ "source": "site-university-ec3d6fc6-1-semestr-ite-2025-rpd-21-08-2025.archives/ffcc79a0aa4f93c3bc9b9807830f08c0b17efe5abee72899f2ca217f377b927e.archive",
+ "status": "ready",
+ "url": "https://innopolis.university/upload/iblock/76f/nx6hmyxcn4b91hvjoxgrkog63hxnxhtc/1%20%D1%81%D0%B5%D0%BC%D0%B5%D1%81%D1%82%D1%80%20ITE%202025%20%28%D0%A0%D0%9F%D0%94%29%2021.08.2025.7z"
+}

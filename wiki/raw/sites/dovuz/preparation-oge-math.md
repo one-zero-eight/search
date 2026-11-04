@@ -110,11 +110,11 @@ status: draft
 
 Модуль 1
 
-[Ссылка на договор оферты](https://innopolis.university/filespublic/%D0%94%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80_%D0%BE%D1%84%D0%B5%D1%80%D1%82%D1%8B_%D0%9F%D0%BE%D0%B4%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%BA%D0%B0_%D0%BA_%D0%9E%D0%93%D0%AD_%D0%9C%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0_%D0%9C%D0%BE%D0%B4%D1%83%D0%BB%D1%8C_1_%D0%9F%D0%BE%D0%B2%D1%82%D0%BE%D1%80%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%B0.docx)
+[Ссылка на договор оферты](/raw/regulations/site-dovuz-ab4f4656-dogovor-oferty-podgotovka-k-oge-matemati.md)
 
 Модуль 2
 
-[Ссылка на договор оферты](https://innopolis.university/filespublic/%D0%94%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80_%D0%BE%D1%84%D0%B5%D1%80%D1%82%D1%8B_%D0%9F%D0%BE%D0%B4%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%BA%D0%B0_%D0%BA_%D0%9E%D0%93%D0%AD_%D0%9C%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0_%D0%9C%D0%BE%D0%B4%D1%83%D0%BB%D1%8C_2_%D0%93%D0%B5%D0%BE%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D1%8F_02.docx)
+[Ссылка на договор оферты](/raw/regulations/site-dovuz-d17b8e02-dogovor-oferty-podgotovka-k-oge-matemati.md)
 
 При нажатии кнопки «Зарегистрироваться» вы попадёте на соответствующую страницу платформы «Иннополис Старт». Если вы уже авторизованы, вам потребуется зарегистрироваться на странице курса на платформе. Если же вы ранее не регистрировались на «Иннополис Старт», необходимо создать аккаунт, подтвердить электронную почту и затем зарегистрироваться на странице курса на платформе.
 

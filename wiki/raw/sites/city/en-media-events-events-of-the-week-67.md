@@ -146,7 +146,7 @@ October 31st at 19:00
 
 Artspace
 
-[Registration](https://inno-stand-up-club.timepad.ru/event/4259119/)
+[Registration](/raw/sites/inno-stand-up-club-timepad-ru/event-4259119.md)
 
 _The menu, footer and other blocks that the pages of the site repeat are kept in one place: [/raw/sites/city/_shared-en.md](/raw/sites/city/_shared-en.md)._
 

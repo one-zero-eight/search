@@ -30,9 +30,9 @@ status: draft
 
 *
 
-[Положение](https://start.innopolis.university/upload/sprint.editor/a87/wfs9ay7dun3210u32bwhi2ft0c6c9tn8.pdf)
+[Положение](/raw/regulations/site-dovuz-0347a91e-wfs9ay7dun3210u32bwhi2ft0c6c9tn8.md)
 
-[Регламент](https://start.innopolis.university/upload/sprint.editor/13e/5u2cn8845uwj1eaxyq03d6un9t0tbcwl.pdf)
+[Регламент](/raw/regulations/site-dovuz-8fa9e020-5u2cn8845uwj1eaxyq03d6un9t0tbcwl.md)
 
 Регистрация доступна
 

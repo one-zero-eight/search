@@ -1,0 +1,71 @@
+---
+type: regulation
+title: "Решение и тесты — problems/equalizer/statements/.pdf/english/problem.pdf"
+resource: "https://lk-dovuz.innopolis.university/public/files/contest1_2020-21.zip"
+archive_member: "problems/equalizer/statements/.pdf/english/problem.pdf"
+source_kind: official-document
+language: ru
+section: "site/dovuz"
+sources:
+  - resource: "https://lk-dovuz.innopolis.university/public/files/contest1_2020-21.zip"
+    id: "4e6858aaff11"
+    title: "Решение и тесты — problems/equalizer/statements/.pdf/english/problem.pdf"
+    last_modified: "2026-11-04T02:52:48+00:00"
+generated:
+  by: "catix-wiki/0.1 regulations"
+  at: "2026-11-04T02:52:48+00:00"
+extraction: "text layer (opendataloader)"
+status: draft
+---
+
+# Решение и тесты — problems/equalizer/statements/.pdf/english/problem.pdf
+
+Tetris Remastered
+
+Input file: standard input Output file: standard output Time limit: 1 second Memory limit: 512 megabytes
+
+Mila likes to play Tetris. Today she learnt about a new game that is similar to Tetris. The new game has an infinite rectangular field with the bottom and width equal to n, divided into cells of size 1 × 1. Unlike real Tetris in this game horizontal pieces with height 1 and width x consisting of x cells — of size 1 × x, are used. Before the next piece starts to fall, a player can choose it’s size x as any integer between 1 and n, inclusive. Pieces can’t be rotated, but they can be moved left or right. A piece falls until it reaches an occupied cell under it or the bottom of the field.
+
+Mile doesn’t like to leave empty cells under the pieces. Her goal is to fill lower rows of the field in the way that all occupied cells form a rectangle of width n.
+
+You are given a field state: a1,a2,...,an, where ai — the number of occupied cells in the i-th column of the field. In the given field no empty cell is under the occupied one. For example, if sequence a is 3,2,4,2,2,4, the field looks like this:
+
+Find the minimum number of pieces Mila needs to play to occupy the lower rows of the field forming a rectangle of width n.
+
+Input
+
+The first line contains a single integer n — the width of the field (1 ≤ n ≤ 2 · 105). The second line contains n integers a1,a2,...,an — the number of occupied cells in each column of the field (0 ≤ ai ≤ 109). At least on of the ai is strictly greater than 0.
+
+Output
+
+Print a single integer: the minimum number of pieces Mila will need to build a rectangle of width n.
+
+Scoring
+
+| Subtask | Score | Constraints |  |
+| --- | --- | --- | --- |
+| Subtask | Score | n | ai |
+| 1 | 8 | n ≤ 10 | ai ≤ 5 |
+| 2 | 13 | n ≤ 100 | ai ≤ 500 |
+| 3 | 16 | n ≤ 1000 | ai ≤ 5000 |
+| 4 | 17 | n ≤ 1000 | ai ≤ 109 |
+| 5 | 25 | n ≤ 105 | ai ≤ 109 when n > 1000 sequence a is generated randomly |
+| 6 | 21 | n ≤ 2 · 105 | ai ≤ 109 |
+
+Example
+
+| standard input | standard output |
+| --- | --- |
+| 6 3 2 4 2 2 4 | 4 |
+
+Explanation
+
+In the example Mile can use the following four pieces:
+
+| 3 |  | 4 |
+| --- | --- | --- |
+|  | 2 | 1 |
+
+# Citations
+
+1. [Решение и тесты — problems/equalizer/statements/.pdf/english/problem.pdf](https://lk-dovuz.innopolis.university/public/files/contest1_2020-21.zip), file 4e6858aaff11

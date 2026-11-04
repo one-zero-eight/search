@@ -226,21 +226,21 @@ E-mail: iom@innopolis.ru
 
 Первый заочный отборочный этап
 
-Задачи и решение: [ссылка](https://lk-dovuz.innopolis.university/public/files/1st_round_IOM_25-26.pdf)
+Задачи и решение: [ссылка](/raw/regulations/site-dovuz-59b83995-1st-round-iom-2526.md)
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/result_1_math.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-bfc2f9bf-result-1-math.md)
 
 Второй заочный отборочный этап
 
-Задачи и решение: [ссылка](https://lk-dovuz.innopolis.university/public/files/2nd_tour_IOM_25-26.pdf)
+Задачи и решение: [ссылка](/raw/regulations/site-dovuz-461f6982-2nd-tour-iom-2526.md)
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/result_2_math.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-7e7b4c67-result-2-math.md)
 
 Финальный тур
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/final_math_io_25_26.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-99e1048f-final-math-io-25-26.md)
 
-Задачи и решения: [ссылка](https://lk-dovuz.innopolis.university/public/files/io26_math_zadachyresheniya.pdf)
+Задачи и решения: [ссылка](/raw/regulations/site-dovuz-f4ca8021-io26-math-zadachyresheniya.md)
 
 Работы победителей и призёров: [ссылка](https://photostorage.innopolis.university/index.php/s/7irgGTHTrbynqF7)
 
@@ -248,21 +248,21 @@ E-mail: iom@innopolis.ru
 
 Первый заочный отборочный этап
 
-Задачи и решение: [ссылка](https://lk-dovuz.innopolis.university/public/files/IO_24_25_tour1_maths_tasks.pdf)
+Задачи и решение: [ссылка](/raw/regulations/site-dovuz-f24b6936-io-24-25-tour1-maths-tasks.md)
 
 Результаты: [ссылка](https://docs.google.com/spreadsheets/d/1d_4KsLaScY07ST9jYOG7tAnV70g8HCV4oRR-ezBfTYg/edit?usp=sharing)
 
 Второй заочный отборочный этап
 
-Задачи и решения: [ссылка](https://lk-dovuz.innopolis.university/public/files/2nd_tour_iom24-25_tasks_razbor.pdf)
+Задачи и решения: [ссылка](/raw/regulations/site-dovuz-c32e12d2-2nd-tour-iom2425-tasks-razbor.md)
 
 Результаты: [ссылка](https://docs.google.com/spreadsheets/d/1tVTAf7W1b6bb5GCi8zSXUsPdXkoojHpaVj8Y7h-dQLs/edit?gid=0#gid=0)
 
 Финальный тур
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/results_IOM_24-25.pdf)
+Результаты: [ссылка](/raw/regulations/site-media-0ec457f6-results-iom-2425.md)
 
-Задачи и решения: [ссылка](https://lk-dovuz.innopolis.university/public/files/tasks_IOM_24-25.pdf)
+Задачи и решения: [ссылка](/raw/regulations/site-dovuz-3a76de31-tasks-iom-2425.md)
 
 Работы победителей и призёров: [ссылка](https://disk.yandex.ru/d/p_chaEg0wN6S0A)
 
@@ -270,19 +270,19 @@ E-mail: iom@innopolis.ru
 
 Первый заочный отборочный этап
 
-Задачи и решение: [ссылка](https://lk-dovuz.innopolis.university/public/files/Tasks_24_math_1t.pdf)
+Задачи и решение: [ссылка](/raw/regulations/site-dovuz-7bb41bf2-tasks-24-math-1t.md)
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/IOM_23-24_qual1.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-dc6952b9-iom-2324-qual1.md)
 
 Второй заочный отборочный этап
 
-Задачи и решения: [ссылка](https://lk-dovuz.innopolis.university/public/files/Tasks_math_2_24.pdf)
+Задачи и решения: [ссылка](/raw/regulations/site-dovuz-8dbc6820-tasks-math-2-24.md)
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/IOM_23-24_qual2.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-05c04f35-iom-2324-qual2.md)
 
 Финальный тур
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/IOM_2023_24_Finals.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-32ef905b-iom-2023-24-finals.md)
 
 Задачи и решения: [ссылка](https://disk.yandex.ru/i/NthzWeThXiwX7Q)
 
@@ -292,41 +292,41 @@ E-mail: iom@innopolis.ru
 
 Первый заочный отборочный тур
 
-Задачи и решения: [ссылка](https://lk-dovuz.innopolis.university/public/files/io-math-1-1.pdf)
+Задачи и решения: [ссылка](/raw/regulations/site-dovuz-50185b3c-iomath11.md)
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/io-math-1-2.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-2fd20c74-iomath12.md)
 
 Второй заочный отборочный тур
 
-Задачи и решения: [ссылка](https://lk-dovuz.innopolis.university/public/files/io-math-2-1.pdf)
+Задачи и решения: [ссылка](/raw/regulations/site-dovuz-455750e2-iomath21.md)
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/io-math-2-2.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-297971d5-iomath22.md)
 
 Финальный тур
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/io-math-3-1.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-4b6d7107-iomath31.md)
 
-Задачи и решения: [ссылка](https://lk-dovuz.innopolis.university/public/files/io-math-3-2.pdf)
+Задачи и решения: [ссылка](/raw/regulations/site-dovuz-6714b2fd-iomath32.md)
 
 Работы победителей: [ссылка](https://disk.yandex.ru/d/Adleqa5pkXdMbA)
 
 Первый заочный отборочный тур
 
-Задачи и решения: [ссылка](http://lk-dovuz.innopolis.university/public/files/Задания%20и%20решения%202021-2022.pdf)
+Задачи и решения: [ссылка](/raw/regulations/site-dovuz-a0a731ec-zadaniya-i-resheniya-20212022.md)
 
-Результаты: [ссылка](http://lk-dovuz.innopolis.university/public/files/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B5%20%D1%80%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82%D1%8B%202%20%D1%82%D1%83%D1%80.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-d8d10445-itogovye-rezultaty-2-tur.md)
 
 Второй заочный отборочный тур
 
-Задачи и решения: [ссылка](http://lk-dovuz.innopolis.university/public/files/Задания%20и%20решения%202021-2022.pdf)
+Задачи и решения: [ссылка](/raw/regulations/site-dovuz-a0a731ec-zadaniya-i-resheniya-20212022.md)
 
-Результаты: [ссылка](http://lk-dovuz.innopolis.university/public/files/IOM%20%D0%B8%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B5%20%D1%80%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82%D1%8B.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-e60d9d37-iom-itogovye-rezultaty.md)
 
 Финальный тур
 
-Результаты: [ссылка](http://lk-dovuz.innopolis.university/public/files/IO%20in%20Maths-2022%20Finals.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-cfbea2be-io-in-maths2022-finals.md)
 
-Задачи и решения: [ссылка](http://lk-dovuz.innopolis.university/public/files/Задания%20и%20решения%202021-2022.pdf)
+Задачи и решения: [ссылка](/raw/regulations/site-dovuz-a0a731ec-zadaniya-i-resheniya-20212022.md)
 
 Работы победителей: [ссылка](https://drive.google.com/drive/folders/1gJbSZmbIf6dMFgv3Hf7YfD-qUn0lbRRz?usp=sharing)
 

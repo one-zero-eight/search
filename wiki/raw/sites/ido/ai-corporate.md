@@ -148,7 +148,7 @@ status: draft
 
 [Оставить заявку](/raw/sites/ido/ai-corporate.md)
 
-[Скачать каталог](https://innopolis.university/filespublic/ИИ_в_бизнесе_каталог_программ_Университет_Иннополис.pdf)
+[Скачать каталог](/raw/regulations/site-ido-68645cda-ii-v-biznese-katalog-programm-universite.md)
 
 Напишите нам, и мы расскажем
 
@@ -240,7 +240,7 @@ status: draft
 
 Скачайте гайд «Как аргументировать обучение за счет работодателя»
 
-[Скачать](https://innopolis.university/filespublic/Гайд_Как_агументировать_обучение_за_счет_работодателя.pdf)
+[Скачать](/raw/regulations/site-ido-da721605-gai-d-kak-agumentirovat-obuchenie-za-sch.md)
 
 ![](https://static.tildacdn.com/tild3363-6536-4633-b661-633666303135/IMG_6274.jpg)
 

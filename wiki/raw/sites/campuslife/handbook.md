@@ -94,9 +94,9 @@ Get to know our library facilities.
 
 Academic Plan
 
-Eduwiki is an educational program service at Innopolis University. There you can find your [academic calendar ↗](https://eduwiki.innopolis.university/index.php/AcademicCalendar), [study plans ↗](https://eduwiki.innopolis.university/index.php/ALL:StudyPlan), [course schedule ↗](https://eduwiki.innopolis.university/index.php/All:Schedule).
+Eduwiki is an educational program service at Innopolis University. There you can find your [academic calendar ↗](/raw/calendars/academiccalendar.md), [study plans ↗](/raw/programs/all-studyplan.md), [course schedule ↗](/raw/schedules/all-schedule.md).
 
-This [document ↗](https://innopolis.university/upload/iblock/bd2/y363qvj8ag33j0wotva5qullyxlyjc9g/%D0%9F%D0%BE%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%85,%20%D0%BF%D0%B5%D1%80%D0%B8%D0%BE%D0%B4%D0%B8%D1%87%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20%D0%B8%20%D0%BF%D0%BE%D1%80%D1%8F%D0%B4%D0%BA%D0%B5%20%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BA%D1%83%D1%89%D0%B5%D0%B3%D0%BE%20%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8F%20%D1%83%D1%81%D0%BF%D0%B5%D0%B2%D0%B0%D0%B5%D0%BC%D0%BE%D1%81%D1%82%D0%B8.pdf) will help you to navigate through the following questions: academic performance control and regulations, retake policy, absence, etc.
+This [document ↗](/raw/regulations/sveden-d40bccec-pdf.md) will help you to navigate through the following questions: academic performance control and regulations, retake policy, absence, etc.
 
 If you have any questions, please do not hesitate to contact Education Dept in room 476 or via education@innopolis.ru.
 

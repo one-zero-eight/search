@@ -1,0 +1,53 @@
+{
+ "members": [
+  {
+   "ext": "docx",
+   "file": "0001.docx",
+   "key": "site-university-4e9af962-4-obraztsy-dogovorov-ob-obrazovanii-po-d-member-7729e5d9c33f1617c15d",
+   "member": "Образцы договоров об образовании по дополнительным общеобразовательным программам/ДОГОВОР ДОП (трехсторонний с размещением и питанием).docx",
+   "sha256": "66edb4e8915d3119cae3dcbcc9a4dd7e079bd1604ca2589a5aba8ca7f88a1962",
+   "size": 27801,
+   "status": "ready",
+   "storage": "site-university-4e9af962-4-obraztsy-dogovorov-ob-obrazovanii-po-d.members/7729e5d9c33f1617c15d/66edb4e8915d3119cae3dcbcc9a4dd7e079bd1604ca2589a5aba8ca7f88a1962"
+  },
+  {
+   "ext": "docx",
+   "file": "0002.docx",
+   "key": "site-university-4e9af962-4-obraztsy-dogovorov-ob-obrazovanii-po-d-member-dae513ff80e69194bca0",
+   "member": "Образцы договоров об образовании по дополнительным общеобразовательным программам/Договор ДОП (трехсторонний, физ.лицо).docx",
+   "sha256": "6aea9a7e75bc2ae9ab1981b4ac2969322d3320a9d431539f11432381d35fd192",
+   "size": 25548,
+   "status": "ready",
+   "storage": "site-university-4e9af962-4-obraztsy-dogovorov-ob-obrazovanii-po-d.members/dae513ff80e69194bca0/6aea9a7e75bc2ae9ab1981b4ac2969322d3320a9d431539f11432381d35fd192"
+  },
+  {
+   "ext": "docx",
+   "file": "0003.docx",
+   "key": "site-university-4e9af962-4-obraztsy-dogovorov-ob-obrazovanii-po-d-member-bb5eb6883b0f14eb37c0",
+   "member": "Образцы договоров об образовании по дополнительным общеобразовательным программам/Договор ДОП (юр.лица, с питанием и размещением).docx",
+   "sha256": "b68102cd8512920083c42fa65a231e7014edb5b93de6234027194255371e498d",
+   "size": 27579,
+   "status": "ready",
+   "storage": "site-university-4e9af962-4-obraztsy-dogovorov-ob-obrazovanii-po-d.members/bb5eb6883b0f14eb37c0/b68102cd8512920083c42fa65a231e7014edb5b93de6234027194255371e498d"
+  },
+  {
+   "ext": "docx",
+   "file": "0004.docx",
+   "key": "site-university-4e9af962-4-obraztsy-dogovorov-ob-obrazovanii-po-d-member-139ab81700889d9d8eae",
+   "member": "Образцы договоров об образовании по дополнительным общеобразовательным программам/Договор ДОП (юр.лицо).docx",
+   "sha256": "4c65bfae52c424f80226540d28964d9c09b638c87cb06be3ec1ea39157126e09",
+   "size": 25098,
+   "status": "ready",
+   "storage": "site-university-4e9af962-4-obraztsy-dogovorov-ob-obrazovanii-po-d.members/139ab81700889d9d8eae/4c65bfae52c424f80226540d28964d9c09b638c87cb06be3ec1ea39157126e09"
+  }
+ ],
+ "remote": {
+  "etag": "\"5f7ef95e-17bcd\"",
+  "modified": "Thu, 08 Oct 2020 11:34:54 GMT",
+  "size": "97229"
+ },
+ "sha256": "091819fa20cecc713959a478a1c0e554304b8ae3661ff2fd597451a879ab05ac",
+ "source": "site-university-4e9af962-4-obraztsy-dogovorov-ob-obrazovanii-po-d.archives/091819fa20cecc713959a478a1c0e554304b8ae3661ff2fd597451a879ab05ac.archive",
+ "status": "ready",
+ "url": "https://innopolis.university/upload/iblock/af2/4.%20%D0%9E%D0%B1%D1%80%D0%B0%D0%B7%D1%86%D1%8B%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%BE%D0%B2%20%D0%BE%D0%B1%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B8%20%D0%BF%D0%BE%20%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%BC%20%D0%BE%D0%B1%D1%89%D0%B5%D0%BE%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%BC%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%D0%BC.zip"
+}

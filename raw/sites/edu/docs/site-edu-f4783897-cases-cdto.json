@@ -1,0 +1,16 @@
+{
+ "title": "cases cdto",
+ "url": "https://innopolis.university/filespublic/cases_cdto.pdf",
+ "sha256": "4c758b8ed44bc3ce85dfc029b715e82069c7f19a08dcbc15903279719a07546a",
+ "method": "text layer (opendataloader)",
+ "chars": 22640,
+ "tables": 5,
+ "section": "site/edu",
+ "context": "",
+ "fetched_at": "2026-11-04T01:16:10+00:00",
+ "remote": {
+  "etag": "\"5e5976-5e9554795e9b8\"",
+  "modified": "Fri, 23 Sep 2022 10:02:46 GMT",
+  "size": "6183286"
+ }
+}

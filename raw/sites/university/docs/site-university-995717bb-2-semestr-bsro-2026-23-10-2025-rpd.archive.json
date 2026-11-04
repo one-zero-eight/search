@@ -1,0 +1,113 @@
+{
+ "members": [
+  {
+   "ext": "pdf",
+   "file": "0001.pdf",
+   "key": "site-university-995717bb-2-semestr-bsro-2026-23-10-2025-rpd-member-f149f1804ec477303d4c",
+   "member": "2 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.В.01_BS RO_2026_Элективные дисциплины_23.10.2025.pdf",
+   "sha256": "8285c4d78571ff0ceb863f4b3f50401dc4cada3c23267354a11012bc0ab75985",
+   "size": 762031,
+   "status": "ready",
+   "storage": "site-university-995717bb-2-semestr-bsro-2026-23-10-2025-rpd.members/f149f1804ec477303d4c/8285c4d78571ff0ceb863f4b3f50401dc4cada3c23267354a11012bc0ab75985"
+  },
+  {
+   "ext": "pdf",
+   "file": "0002.pdf",
+   "key": "site-university-995717bb-2-semestr-bsro-2026-23-10-2025-rpd-member-fb535ef68c95fd1554a1",
+   "member": "2 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.01_BS RO_2026_Иностранный язык (2 с.)_23.10.2025.pdf",
+   "sha256": "9972ded8830f5a828fede5bf3e106ed4ecd146ac9c4fde8e118bfa5d4dafd333",
+   "size": 540953,
+   "status": "ready",
+   "storage": "site-university-995717bb-2-semestr-bsro-2026-23-10-2025-rpd.members/fb535ef68c95fd1554a1/9972ded8830f5a828fede5bf3e106ed4ecd146ac9c4fde8e118bfa5d4dafd333"
+  },
+  {
+   "ext": "pdf",
+   "file": "0003.pdf",
+   "key": "site-university-995717bb-2-semestr-bsro-2026-23-10-2025-rpd-member-137a9f2747bc13edb4fe",
+   "member": "2 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.02_BS RO_2026_Математический анализ (2 с.)_23.10.2025.pdf",
+   "sha256": "89738da7d4b8208387387c37708ac488c6b7a089451130fc15b47514fa4185d3",
+   "size": 974874,
+   "status": "ready",
+   "storage": "site-university-995717bb-2-semestr-bsro-2026-23-10-2025-rpd.members/137a9f2747bc13edb4fe/89738da7d4b8208387387c37708ac488c6b7a089451130fc15b47514fa4185d3"
+  },
+  {
+   "ext": "pdf",
+   "file": "0004.pdf",
+   "key": "site-university-995717bb-2-semestr-bsro-2026-23-10-2025-rpd-member-bdd3bc6d4d7483a7947e",
+   "member": "2 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.03_BS RO_2026_Общая физика (2 с.)_23.10.2025.pdf",
+   "sha256": "81bbc468bfaac282662d4dddc667fcd91d719e227a1e2f4a64e0a627670ec1b2",
+   "size": 843969,
+   "status": "ready",
+   "storage": "site-university-995717bb-2-semestr-bsro-2026-23-10-2025-rpd.members/bdd3bc6d4d7483a7947e/81bbc468bfaac282662d4dddc667fcd91d719e227a1e2f4a64e0a627670ec1b2"
+  },
+  {
+   "ext": "pdf",
+   "file": "0005.pdf",
+   "key": "site-university-995717bb-2-semestr-bsro-2026-23-10-2025-rpd-member-80ce942280a6944ce707",
+   "member": "2 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.06_BS RO_2026_Алгоритмы и структуры данных (2 с.)_23.10.2025.pdf",
+   "sha256": "34099a40ca9c145b0a243d9840fcf144bd638c3b6cbb74c92038b24e2d2abdaa",
+   "size": 579495,
+   "status": "ready",
+   "storage": "site-university-995717bb-2-semestr-bsro-2026-23-10-2025-rpd.members/80ce942280a6944ce707/34099a40ca9c145b0a243d9840fcf144bd638c3b6cbb74c92038b24e2d2abdaa"
+  },
+  {
+   "ext": "pdf",
+   "file": "0006.pdf",
+   "key": "site-university-995717bb-2-semestr-bsro-2026-23-10-2025-rpd-member-9a2c00e912b3bcf3496e",
+   "member": "2 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.07_BS RO_2026_Вычислительная линейная алгебра (2 с.)_23.10.2025.pdf",
+   "sha256": "b8b423613770b4e7ddab0fd04fa7993450123c8560c5aca7ea371530adc67980",
+   "size": 558363,
+   "status": "ready",
+   "storage": "site-university-995717bb-2-semestr-bsro-2026-23-10-2025-rpd.members/9a2c00e912b3bcf3496e/b8b423613770b4e7ddab0fd04fa7993450123c8560c5aca7ea371530adc67980"
+  },
+  {
+   "ext": "pdf",
+   "file": "0007.pdf",
+   "key": "site-university-995717bb-2-semestr-bsro-2026-23-10-2025-rpd-member-d5a86e264743c955753f",
+   "member": "2 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.08_BS RO_2026_Дискретная математика (2 с.)_23.10.2025.pdf",
+   "sha256": "13693ca524d87f229df0784cb58a7bb93cccef7fa6a3775ee3a62265768c0050",
+   "size": 726542,
+   "status": "ready",
+   "storage": "site-university-995717bb-2-semestr-bsro-2026-23-10-2025-rpd.members/d5a86e264743c955753f/13693ca524d87f229df0784cb58a7bb93cccef7fa6a3775ee3a62265768c0050"
+  },
+  {
+   "ext": "pdf",
+   "file": "0008.pdf",
+   "key": "site-university-995717bb-2-semestr-bsro-2026-23-10-2025-rpd-member-5154ba9d657f048daa1e",
+   "member": "2 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.29_BS RO_2026_Основы и методология программирования (2 с.)_23.10.2025.pdf",
+   "sha256": "fd785cb1058186c23f8d453df0337180f0f3cccc7f6e301b7477036b2e7ceaf6",
+   "size": 633221,
+   "status": "ready",
+   "storage": "site-university-995717bb-2-semestr-bsro-2026-23-10-2025-rpd.members/5154ba9d657f048daa1e/fd785cb1058186c23f8d453df0337180f0f3cccc7f6e301b7477036b2e7ceaf6"
+  },
+  {
+   "ext": "pdf",
+   "file": "0009.pdf",
+   "key": "site-university-995717bb-2-semestr-bsro-2026-23-10-2025-rpd-member-7af967ab2daccd121b2e",
+   "member": "2 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_ФТД.01_BS RO_2026_Программирование на Python (2 с.)_23.10.2025.pdf",
+   "sha256": "df11e050ae077b92edc5a8ee8a4792beeaa0e2f50209f40922f59edf7623c426",
+   "size": 573287,
+   "status": "ready",
+   "storage": "site-university-995717bb-2-semestr-bsro-2026-23-10-2025-rpd.members/7af967ab2daccd121b2e/df11e050ae077b92edc5a8ee8a4792beeaa0e2f50209f40922f59edf7623c426"
+  },
+  {
+   "ext": "pdf",
+   "file": "0010.pdf",
+   "key": "site-university-995717bb-2-semestr-bsro-2026-23-10-2025-rpd-member-3c5df00816f4c41765cf",
+   "member": "2 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_ФТД.02_BS RO_2026_Логика решения задач (2 с.)_23.10.2025.pdf",
+   "sha256": "da166f9878935944d94d79656879e616b93e4b37d152e1ad58999b8a6479e528",
+   "size": 468254,
+   "status": "ready",
+   "storage": "site-university-995717bb-2-semestr-bsro-2026-23-10-2025-rpd.members/3c5df00816f4c41765cf/da166f9878935944d94d79656879e616b93e4b37d152e1ad58999b8a6479e528"
+  }
+ ],
+ "remote": {
+  "etag": "\"6972175e-30cb3e\"",
+  "modified": "Thu, 22 Jan 2026 12:26:06 GMT",
+  "size": "3197758"
+ },
+ "sha256": "33c912211aa738e8885b4b78adfe98e4dbebae73ae2e344afff5b5613ba5b293",
+ "source": "site-university-995717bb-2-semestr-bsro-2026-23-10-2025-rpd.archives/33c912211aa738e8885b4b78adfe98e4dbebae73ae2e344afff5b5613ba5b293.archive",
+ "status": "ready",
+ "url": "https://innopolis.university/upload/iblock/0f9/fcplid9vm3psl8hcmqzjc4mhqfyph3kp/2%20%D1%81%D0%B5%D0%BC%D0%B5%D1%81%D1%82%D1%80%20BSRO%202026%2023.10.2025%20%28%D0%A0%D0%9F%D0%94%29.7z"
+}

@@ -114,7 +114,7 @@ E-mail: robo@innopolis.ru
 
 Телефон: +7 (843) 203 92 53 (доб. 7432)
 
-[Скачать материалы для подготовки](https://lk-dovuz.innopolis.university/public/files/materials_robo_25.pdf)
+[Скачать материалы для подготовки](/raw/regulations/site-dovuz-7f5ec3ec-materials-robo-25.md)
 
 Программа
 
@@ -180,55 +180,55 @@ E-mail: robo@innopolis.ru
 
 Первый отборочный этап
 
-Результаты: [7-8 классы](https://lk-dovuz.innopolis.university/public/files/innopolis-open_robo_2026_1_etap_7_8_klass.pdf) [9-11 классы](https://lk-dovuz.innopolis.university/public/files/innopolis-open_robo_2026_1_etap_9_11_klass.pdf)
+Результаты: [7-8 классы](/raw/regulations/site-dovuz-132d5358-innopolisopen-robo-2026-1-etap-7-8-klass.md) [9-11 классы](/raw/regulations/site-dovuz-9d6352bf-innopolisopen-robo-2026-1-etap-9-11-klas.md)
 
-Задачи (ru): [ссылка](https://lk-dovuz.innopolis.university/public/files/contest-ru.pdf)
+Задачи (ru): [ссылка](/raw/regulations/site-dovuz-42a8d002-contestru.md)
 
-Задачи (en): [ссылка](https://lk-dovuz.innopolis.university/public/files/contest-en.pdf)
+Задачи (en): [ссылка](/raw/regulations/site-dovuz-00f885de-contesten.md)
 
-Решение (ru): [ссылка](https://lk-dovuz.innopolis.university/public/files/reshenie_ru.pdf)
+Решение (ru): [ссылка](/raw/regulations/site-dovuz-27a3712b-reshenie-ru.md)
 
-Решение (en): [ссылка](https://lk-dovuz.innopolis.university/public/files/reshenie_en.pdf)
+Решение (en): [ссылка](/raw/regulations/site-dovuz-1ee4e222-reshenie-en.md)
 
 Второй отборочный этап
 
-Результаты: [7-8 классы](https://lk-dovuz.innopolis.university/public/files/innopolis-open_robo_2026_2_etap_7_8_klass.pdf) [9-11 классы](https://lk-dovuz.innopolis.university/public/files/innopolis-open_robo_2026_2_etap_9_11_klass.pdf)
+Результаты: [7-8 классы](/raw/regulations/site-dovuz-1f24a13d-innopolisopen-robo-2026-2-etap-7-8-klass.md) [9-11 классы](/raw/regulations/site-dovuz-c1de27ab-innopolisopen-robo-2026-2-etap-9-11-klas.md)
 
-Рейтинговая таблица (7-8 класс): [ссылка](https://lk-dovuz.innopolis.university/public/files/results_2_7-8.pdf)
+Рейтинговая таблица (7-8 класс): [ссылка](/raw/regulations/site-dovuz-38263566-results-2-78.md)
 
-Рейтинговая таблица (9-11 класс): [ссылка](https://lk-dovuz.innopolis.university/public/files/result_2_9-11.pdf)
+Рейтинговая таблица (9-11 класс): [ссылка](/raw/regulations/site-dovuz-a8d71c0b-result-2-911.md)
 
-Задачи и решения (7-8 класс): [ссылка](https://lk-dovuz.innopolis.university/public/files/robo_contest_7-8.pdf)
+Задачи и решения (7-8 класс): [ссылка](/raw/regulations/site-dovuz-9002e4ce-robo-contest-78.md)
 
-Задачи и решения (9-11 класс): [ссылка](https://lk-dovuz.innopolis.university/public/files/robo_contest_9-11.pdf)
+Задачи и решения (9-11 класс): [ссылка](/raw/regulations/site-dovuz-b16abdd5-robo-contest-911.md)
 
 Заключительный этап
 
-Задачи и решения: [ссылка](https://lk-dovuz.innopolis.university/public/files/Final_robo_contest.pdf)
+Задачи и решения: [ссылка](/raw/regulations/site-dovuz-fd2d4e48-final-robo-contest.md)
 
 Работы победителей и призеров: [ссылка](https://lk-dovuz.innopolis.university/public/files/results_robo_final.pdf)
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/results_robo.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-9762c019-results-robo.md)
 
 Фотографии заключительного этапа: [ссылка](https://unidrive.innopolis.university/s/6CAfTi9cjndXdeG)
 
 Первый отборочный этап
 
-Задачи: [ссылка](https://lk-dovuz.innopolis.university/public/files/tasks_ior_1stpart.pdf)
+Задачи: [ссылка](/raw/regulations/site-dovuz-8b412e41-tasks-ior-1stpart.md)
 
-Результаты: [7-8 классы](https://lk-dovuz.innopolis.university/public/files/ior_1stpart_7_8_classes_2.pdf) [9-11 классы](https://lk-dovuz.innopolis.university/public/files/io_robo_25_results_9_11_classes_1step.pdf)
+Результаты: [7-8 классы](/raw/regulations/site-dovuz-3295893b-ior-1stpart-7-8-classes-2.md) [9-11 классы](/raw/regulations/site-dovuz-a4dcc36d-io-robo-25-results-9-11-classes-1step.md)
 
-Решение (ru): [ссылка](https://lk-dovuz.innopolis.university/public/files/io_robo_solution_ru.pdf)
+Решение (ru): [ссылка](/raw/regulations/site-dovuz-63ae92fa-io-robo-solution-ru.md)
 
-Решение (en): [ссылка](https://lk-dovuz.innopolis.university/public/files/io_robo_solution_en.pdf)
+Решение (en): [ссылка](/raw/regulations/site-dovuz-ce446c3d-io-robo-solution-en.md)
 
-Условия (en): [ссылка](https://lk-dovuz.innopolis.university/public/files/io_robo_conditions_en.pdf)
+Условия (en): [ссылка](/raw/regulations/site-dovuz-e499031c-io-robo-conditions-en.md)
 
 Второй отборочный этап
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/io_robo_25_2ndstepresults.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-d8d5ef03-io-robo-25-2ndstepresults.md)
 
-Решение (ru): [ссылка](https://lk-dovuz.innopolis.university/public/files/iorobotasks2step.pdf)
+Решение (ru): [ссылка](/raw/regulations/site-dovuz-40ea3f2a-iorobotasks2step.md)
 
 Заключительный этап
 
@@ -242,27 +242,27 @@ E-mail: robo@innopolis.ru
 
 Первый отборочный этап. 1 тур
 
-Задачи (ru): [ссылка](https://lk-dovuz.innopolis.university/public/files/contest-38183-ru.pdf)
+Задачи (ru): [ссылка](/raw/regulations/site-dovuz-0b54a024-contest38183ru.md)
 
-Задачи (en): [ссылка](https://lk-dovuz.innopolis.university/public/files/contest-38183-en.pdf)
+Задачи (en): [ссылка](/raw/regulations/site-dovuz-88e5ab68-contest38183en.md)
 
-Решение (ru): [ссылка](https://lk-dovuz.innopolis.university/public/files/resh_ru_ei.pdf)
+Решение (ru): [ссылка](/raw/regulations/site-dovuz-e35fc465-resh-ru-ei.md)
 
-Решение (en): [ссылка](https://lk-dovuz.innopolis.university/public/files/resh_en_ie2324.pdf)
+Решение (en): [ссылка](/raw/regulations/site-dovuz-30767db3-resh-en-ie2324.md)
 
 Результаты: ссылка
 
 Первый отборочный этап. 2 тур
 
-Задачи (ru): [ссылка](https://lk-dovuz.innopolis.university/public/files/1-2-roboai-cond_ru.pdf)
+Задачи (ru): [ссылка](/raw/regulations/site-dovuz-89ec2e35-12roboaicond-ru.md)
 
-Задачи (en): [ссылка](https://lk-dovuz.innopolis.university/public/files/1-2-roboai-cond_en.pdf)
+Задачи (en): [ссылка](/raw/regulations/site-dovuz-65ba4e82-12roboaicond-en.md)
 
-Решение (ru): [ссылка](https://lk-dovuz.innopolis.university/public/files/1-2-roboai-dec_ru.pdf)
+Решение (ru): [ссылка](/raw/regulations/site-dovuz-925325da-12roboaidec-ru.md)
 
-Решение (en): [ссылка](https://lk-dovuz.innopolis.university/public/files/1-2-roboai-dec_en.pdf)
+Решение (en): [ссылка](/raw/regulations/site-dovuz-25c6e260-12roboaidec-en.md)
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/results_first_step_robo23_24.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-9e5933c6-results-first-step-robo23-24.md)
 
 Второй отборочный этап
 
@@ -270,7 +270,7 @@ E-mail: robo@innopolis.ru
 
 Решение: [ссылка](https://disk.yandex.ru/i/PoWv7_Id4Aqvgg)
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/results_second_step_robo23_24.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-bfd96f8f-results-second-step-robo23-24.md)
 
 Заключительный этап
 
@@ -278,7 +278,7 @@ E-mail: robo@innopolis.ru
 
 Решение: [ссылка](https://disk.yandex.ru/d/mARcdixYXd6hdg)
 
-Результаты: [ссылка](https://lk-dovuz.innopolis.university/public/files/results_final_step_robo23_24.pdf)
+Результаты: [ссылка](/raw/regulations/site-dovuz-4be6e920-results-final-step-robo23-24.md)
 
 Работы победителей и призеров: [ссылка](https://disk.yandex.ru/d/1N87h6w00C27Pw)
 
@@ -286,25 +286,25 @@ E-mail: robo@innopolis.ru
 
 Первый отборочный этап. 1 тур
 
-Задачи - [ссылка](https://lk-dovuz.innopolis.university/public/files/io_robo_23_1.2.pdf)
+Задачи - [ссылка](/raw/regulations/site-dovuz-10368f64-io-robo-23-1-2.md)
 
-Разбор - [ссылка](https://lk-dovuz.innopolis.university/public/files/io_robo_23_1.1.pdf)
+Разбор - [ссылка](/raw/regulations/site-dovuz-bfe17c5c-io-robo-23-1-1.md)
 
 Первый отборочный этап. 2 тур
 
-Условия (на рус.) - [ссылка](https://lk-dovuz.innopolis.university/public/files/robo_sec_tour_condit_ru.pdf)
+Условия (на рус.) - [ссылка](/raw/regulations/site-dovuz-7f264dd3-robo-sec-tour-condit-ru.md)
 
-Условия (на англ). - [ссылка](https://lk-dovuz.innopolis.university/public/files/robo_sec_tour_condit_en.pdf)
+Условия (на англ). - [ссылка](/raw/regulations/site-dovuz-4fd117f8-robo-sec-tour-condit-en.md)
 
-Решение - [ссылка](https://lk-dovuz.innopolis.university/public/files/robo_sec_tour_decis_23.pdf)
+Решение - [ссылка](/raw/regulations/site-dovuz-a31b241c-robo-sec-tour-decis-23.md)
 
 Второй отборочный этап
 
-Задачи - [ссылка](https://lk-dovuz.innopolis.university/public/files/zadachi_2_23.pdf)
+Задачи - [ссылка](/raw/regulations/site-dovuz-872211f3-zadachi-2-23.md)
 
-Решение - [ссылка](https://lk-dovuz.innopolis.university/public/files/reshenie_2_23.pdf)
+Решение - [ссылка](/raw/regulations/site-dovuz-318a4352-reshenie-2-23.md)
 
-Рейтинг - [ссылка](https://lk-dovuz.innopolis.university/public/files/rating_2_23.pdf)
+Рейтинг - [ссылка](/raw/regulations/site-dovuz-4d7a68bb-rating-2-23.md)
 
 Финал
 
@@ -320,11 +320,11 @@ E-mail: robo@innopolis.ru
 
 [Работы призеров и победителей](https://disk.yandex.ru/d/2vMoUDyLmoZMLw)
 
-Материалы заданий: [ссылка](http://lk-dovuz.innopolis.university/public/files/io-irs-202122-assignments.pdf)
+Материалы заданий: [ссылка](/raw/regulations/site-dovuz-fc400f77-ioirs202122assignments.md)
 
 Работы призеров и победителей: [ссылка](https://disk.yandex.ru/d/DxVFXHYi8CkjMQ)
 
-Материалы заданий: [ссылка](http://lk-dovuz.innopolis.university/public/files/robo-202021-assignments.pdf)
+Материалы заданий: [ссылка](/raw/regulations/site-dovuz-d5234cb9-robo202021assignments.md)
 
 Работы призеров и победителей: –
 

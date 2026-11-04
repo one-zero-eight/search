@@ -148,7 +148,7 @@ status: draft
 
 ## Получи консультацию менеджера
 
-[Нажимая на кнопку, я соглашаюсь на обработку персональных данных](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+[Нажимая на кнопку, я соглашаюсь на обработку персональных данных](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
 Удобно
 
@@ -446,9 +446,9 @@ status: draft
 
 ![](https://static.tildacdn.com/tild3165-3031-4565-b662-313566613662/_1.png)
 
-[обработку персональных данных](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+[обработку персональных данных](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
-[Нажимая на кнопку, я соглашаюсь на](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+[Нажимая на кнопку, я соглашаюсь на](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
 +79274162967
 

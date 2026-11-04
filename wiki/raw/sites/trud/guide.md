@@ -26,17 +26,17 @@ status: draft
 
 Для граждан РФ со средним профессиональным или высшим образованием
 
-[МОРДОВИЯ](https://innopolis.university/filespublic/%D0%A1%D0%BE%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5%20%D0%B7%D0%B0%D0%BD%D1%8F%D1%82%D0%BE%D1%81%D1%82%D0%B8%20%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F%20%D0%9C%D0%BE%D1%80%D0%B4%D0%BE%D0%B2%D0%B8%D1%8F.pdf)
+[МОРДОВИЯ](/raw/regulations/site-trud-8348c39e-sodeystvie-zanyatosti-instruktsiya-mordo.md)
 
-[ТАТАРСТАН](https://innopolis.university/filespublic/%D0%A1%D0%BE%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5%20%D0%B7%D0%B0%D0%BD%D1%8F%D1%82%D0%BE%D1%81%D1%82%D0%B8%20%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F%20%D0%A2%D0%B0%D1%82%D0%B0%D1%80%D1%81%D1%82%D0%B0%D0%BD.pdf)
+[ТАТАРСТАН](/raw/regulations/site-trud-f6e4b693-sodeystvie-zanyatosti-instruktsiya-tatar.md)
 
-[МАРИЙ ЭЛ](https://innopolis.university/filespublic/%D0%A1%D0%BE%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5%20%D0%B7%D0%B0%D0%BD%D1%8F%D1%82%D0%BE%D1%81%D1%82%D0%B8%20%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F%20%D0%9C%D0%B0%D1%80%D0%B8%20%D0%AD%D0%BB.pdf)
+[МАРИЙ ЭЛ](/raw/regulations/site-trud-bbb18e02-sodeystvie-zanyatosti-instruktsiya-mari.md)
 
-[САРАТОВСКАЯ ОБЛАСТЬ](https://innopolis.university/filespublic/%D0%A1%D0%BE%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5%20%D0%B7%D0%B0%D0%BD%D1%8F%D1%82%D0%BE%D1%81%D1%82%D0%B8%20%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F%20%D0%A1%D0%B0%D1%80%D0%B0%D1%82%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C.pdf)
+[САРАТОВСКАЯ ОБЛАСТЬ](/raw/regulations/site-trud-4b4b33cc-sodeystvie-zanyatosti-instruktsiya-sarat.md)
 
-[БЕЛОГОРОДСКАЯ ОБЛАСТЬ](https://innopolis.university/filespublic/%D0%A1%D0%BE%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5%20%D0%B7%D0%B0%D0%BD%D1%8F%D1%82%D0%BE%D1%81%D1%82%D0%B8%20%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F%20%D0%91%D0%B5%D0%BB%D0%B3%D0%BE%D1%80%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C.pdf)
+[БЕЛОГОРОДСКАЯ ОБЛАСТЬ](/raw/regulations/site-trud-d057e2fd-sodeystvie-zanyatosti-instruktsiya-belgo.md)
 
-[КЕМЕРОВСКАЯ ОБЛАСТЬ](https://innopolis.university/filespublic/%D0%A1%D0%BE%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5%20%D0%B7%D0%B0%D0%BD%D1%8F%D1%82%D0%BE%D1%81%D1%82%D0%B8%20%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F%20%D0%9A%D0%B5%D0%BC%D0%B5%D1%80%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C.pdf)
+[КЕМЕРОВСКАЯ ОБЛАСТЬ](/raw/regulations/site-trud-46e6f780-sodeystvie-zanyatosti-instruktsiya-kemer.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/trud/_shared.md](/raw/sites/trud/_shared.md)._
 

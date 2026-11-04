@@ -121,7 +121,9 @@ status: draft
 
 **2.** Павлов, С. Н. Системы искусственного интеллекта. Часть 2: учебное пособие / С. Н. Павлов. — Томск: Томский государственный университет систем управления и радиоэлектроники, Эль Контент, 2011. — 194 c. — Режим доступа: https://www.iprbookshop.ru/13975.html — ЭБС на платформе «IPRbooks».
 
-**3.** Nasybullin A.A., Abdullaev N., Baranov M.A., Koshman V.V., Mahonin V.A. A Methodology to Rank Importance of Frequencies and Channels in Electromyography Data with Decision Tree Classifiers // Russian Journal of Nonlinear Dynamics. — 2024. — Vol. 20, No. 3. — р. 895– 906. — Режим доступа: https://nd.ics.org.ru/upload/iblock/ad5/nd241216.pdf Дистанционная поддержка дисциплины (модуля) Для дистанционной поддержки дисциплины используется система управления образовательным контентом Moodle, развернутая на портале АНО ВО «Университет Иннополис». Во время обучения все студенты получают индивидуальные пароли для входа в систему, в которой размещаются: программа курса, контрольные вопросы, задания, темы лекций с презентационными материалами и т. д.
+**3.** Nasybullin A.A., Abdullaev N., Baranov M.A., Koshman V.V., Mahonin V.A. A Methodology to Rank Importance of Frequencies and Channels in Electromyography Data with Decision Tree Classifiers // Russian Journal of Nonlinear Dynamics. — 2024. — Vol. 20, No. 3. — р. 895–
+
+**906.** — Режим доступа: https://nd.ics.org.ru/upload/iblock/ad5/nd241216.pdf Дистанционная поддержка дисциплины (модуля) Для дистанционной поддержки дисциплины используется система управления образовательным контентом Moodle, развернутая на портале АНО ВО «Университет Иннополис». Во время обучения все студенты получают индивидуальные пароли для входа в систему, в которой размещаются: программа курса, контрольные вопросы, задания, темы лекций с презентационными материалами и т. д.
 
 ## 6. Материально-техническое обеспечение
 

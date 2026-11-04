@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Образец согласия на обработку персональных данных несовершеннолетнего"
+title: "Образец согласия на обработку персональных данных несовершеннолетнего [Образец согласия на обработку персональных данных несовершен]"
 resource: "https://innopolis.university/upload/iblock/8f8/8lr4lbpf287rkz8ivy3u5q0byrw2d5nl/%D0%9E%D0%B1%D1%80%D0%B0%D0%B7%D0%B5%D1%86%20%D1%81%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D1%85%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%C2%A0%D0%BD%D0%B5%D1%81%D0%BE%D0%B2%D0%B5%D1%80%D1%88%D0%B5%D0%BD%D0%BD%D0%BE%D0%BB%D0%B5%D1%82%D0%BD%D0%B5%D0%B3%D0%BE.docx"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/upload/iblock/8f8/8lr4lbpf287rkz8ivy3u5q0byrw2d5nl/%D0%9E%D0%B1%D1%80%D0%B0%D0%B7%D0%B5%D1%86%20%D1%81%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D1%85%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%C2%A0%D0%BD%D0%B5%D1%81%D0%BE%D0%B2%D0%B5%D1%80%D1%88%D0%B5%D0%BD%D0%BD%D0%BE%D0%BB%D0%B5%D1%82%D0%BD%D0%B5%D0%B3%D0%BE.docx"
     id: "7e829701aa6d"
-    title: "Образец согласия на обработку персональных данных несовершеннолетнего"
+    title: "Образец согласия на обработку персональных данных несовершеннолетнего [Образец согласия на обработку персональных данных несовершен]"
     last_modified: "2006-07-27T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Образец согласия на обработку персональных данных несовершеннолетнего
+# Образец согласия на обработку персональных данных несовершеннолетнего [Образец согласия на обработку персональных данных несовершен]
 
 СОГЛАСИЕ на обработку персональных данных
 
@@ -49,4 +49,4 @@ __ __________ 2024 г. __________________ Фамилия Имя Отчество
 
 # Citations
 
-1. [Образец согласия на обработку персональных данных несовершеннолетнего](https://innopolis.university/upload/iblock/8f8/8lr4lbpf287rkz8ivy3u5q0byrw2d5nl/%D0%9E%D0%B1%D1%80%D0%B0%D0%B7%D0%B5%D1%86%20%D1%81%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D1%85%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%C2%A0%D0%BD%D0%B5%D1%81%D0%BE%D0%B2%D0%B5%D1%80%D1%88%D0%B5%D0%BD%D0%BD%D0%BE%D0%BB%D0%B5%D1%82%D0%BD%D0%B5%D0%B3%D0%BE.docx), file 7e829701aa6d
+1. [Образец согласия на обработку персональных данных несовершеннолетнего [Образец согласия на обработку персональных данных несовершен]](https://innopolis.university/upload/iblock/8f8/8lr4lbpf287rkz8ivy3u5q0byrw2d5nl/%D0%9E%D0%B1%D1%80%D0%B0%D0%B7%D0%B5%D1%86%20%D1%81%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D1%85%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%C2%A0%D0%BD%D0%B5%D1%81%D0%BE%D0%B2%D0%B5%D1%80%D1%88%D0%B5%D0%BD%D0%BD%D0%BE%D0%BB%D0%B5%D1%82%D0%BD%D0%B5%D0%B3%D0%BE.docx), file 7e829701aa6d

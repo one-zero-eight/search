@@ -2,6 +2,11 @@
 
 Pages of the sites of the university and its services: the university, admissions, campus life, the campus hotel, InNoHassle. Back to [the wiki](/index.md).
 
+## site/1519
+
+- [1519 scholarship](/raw/sites/1519/en.md)
+- [1519 scholarship](/raw/sites/1519/home.md)
+
 ## site/ai
 
 - [Главная страница](/raw/sites/ai/home.md): Аудит и разработка отраслевых решений для бизнеса и государства
@@ -62,6 +67,14 @@ Pages of the sites of the university and its services: the university, admission
 - [Управление на основе данных. Университет Иннополис.](/raw/sites/apply/msonline-ddm.md): Главная страница Онлайн-магистратура Управление на основе данных
 - [Управление разработкой компьютерных игр. Университет Иннополис.](/raw/sites/apply/msonline-gamedev.md): Главная страница Онлайн-магистратура Управление разработкой компьютерных игр
 - [Управление цифровым продуктом](/raw/sites/apply/msonline-dpm.md): Главная страница Онлайн-магистратура Управление цифровым продуктом
+
+## site/apply-bach
+
+- [Бакалавриат «AI360»](/raw/sites/apply-bach/ai-360.md): Реализуется в рамках федерального проекта «Искусственный интеллект» национального проекта «Экономика данных и цифровая трансформация государства»
+- [Бакалавриат «Математические основы ИИ»](/raw/sites/apply-bach/ds-mai-media.md)
+- [Бакалавриат «Математические основы ИИ»](/raw/sites/apply-bach/ds-mai.md): стоимость обучения при участии в грантовом конкурсе
+- [Бакалавриат УИ](/raw/sites/apply-bach/home.md): Профиль для тех, кто увлечен математикой и информатикой, хочет погрузиться в математические знания, которые помогут в понимании работы ИИ
+- [Общие блоки сайта apply-bach.innopolis.university: меню, шапка, подвал, контакты](/raw/sites/apply-bach/_shared.md): The menu, header, footer and contact lines that every page of the site repeats, kept once.
 
 ## site/campuslife
 
@@ -546,6 +559,16 @@ Pages of the sites of the university and its services: the university, admission
 - [Стратегическая сессия](/raw/sites/corporate/stratsession.md): Позволяет сформировать единое для всех участников представление о желаемом будущем компании и составить план мероприятий на пути к нему.
 - [Технологический аудит](/raw/sites/corporate/technologicalaudit.md): Анализируем производственные и бизнес-процессы в области информационных технологий с целью их оптимизации.
 
+## site/digitalinnopolisdays-ru
+
+- [Общие блоки сайта digitalinnopolisdays.ru: меню, шапка, подвал, контакты](/raw/sites/digitalinnopolisdays-ru/_shared.md): The menu, header, footer and contact lines that every page of the site repeats, kept once.
+- [Публичная оферта](/raw/sites/digitalinnopolisdays-ru/offer.md): Услуга: организация офлайн-участия в Форуме «Цифровые дни Иннополиса (Digital Innopolis Days) 2026»
+- [Тревел поддержка](/raw/sites/digitalinnopolisdays-ru/travel-support.md): Скачайте гайд с расписанием трансфера до города инноваций
+- [Цифровые Дни Иннополиса | Digital Innopolis Days 2026](/raw/sites/digitalinnopolisdays-ru/home.md): Digital Innopolis Days каждый год собирает ключевые ИТ, робототехнические компании, промышленные предприятия, вузы, чтобы объединить всех темой развития технологий
+- [Цифровые Дни Иннополиса | Digital Innopolis Days 2026 — Программа 1 октября](/raw/sites/digitalinnopolisdays-ru/forum.md): Пленарное заседание.
+- [Цифровые Дни Иннополиса | Digital Innopolis Days 2026 — Программа 8 октября](/raw/sites/digitalinnopolisdays-ru/program-october-8.md): От пилота к массовому внедрению: как робототехника и кадры становятся стратегией
+- [Цифровые Дни Иннополиса | Digital Innopolis Days 2026 — Программа 9 октября](/raw/sites/digitalinnopolisdays-ru/program-october-9.md): Технопарк им.
+
 ## site/dissovet
 
 - [Джером Отобонг Бэсси Готово](/raw/sites/dissovet/page119332426-html.md): Кинодинамические методы планирования для автономной навигации в условиях бездорожья и неровной местности / Kinodynamic Planning Methods for Autonomous Navigation in Off-Road and Uneven Terrain Environ
@@ -662,6 +685,39 @@ Pages of the sites of the university and its services: the university, admission
 - [Школа олимпиадной подготовки Иннополис: курс по информатике](/raw/sites/dovuz/pre-olympiads-io-school-informatics-archive.md): Флагманская школа Университета Иннополис, на которой участники готовятся к олимпиадам по спортивному программированию.
 - [Школа олимпиадной подготовки Иннополис: курс по математике](/raw/sites/dovuz/pre-olympiads-io-school-math-archive.md): Двухнедельный летний интенсив, рассчитанный на подготовку учащихся 7-11 классов к участию в олимпиаде Innopolis Open, ВсОШ и олимпиадах перечня РСОШ и других интеллектуальных конкурсных мероприятиях п
 
+## site/eck
+
+- [InnoBootCamp](/raw/sites/eck/innobootcamp.md): Как обеспечить психологически комфортную и академически успешную адаптацию первокурсников к университетской среде, чтобы минимизировать стресс и риск отсева в первый месяц обучения?
+- [Академия амбассадоров](/raw/sites/eck/ambassador-academy.md): Участники программы / НИТУ МИСИС / Академия амбассадоров
+- [Ассесмент по резюме](/raw/sites/eck/resume-based-assessment.md): Участники программы / МГТУ «СТАНКИН» / Ассесмент по резюме
+- [Бизнес-школа лидерства и предпринимательства](/raw/sites/eck/business-school-leadership.md): Участники программы / ДВГУПС / Бизнес-школа лидерства и предпринимательства
+- [Виртуальный мир реальных профессий](/raw/sites/eck/virtual-world-professions.md): Участники программы / ЮЗГУ / Виртуальный мир реальных профессий
+- [Вопрос-ответ](/raw/sites/eck/faq.md): На данном сайте размещена информация о центрах карьеры, являющихся участниками Федерального проекта «Образование для рынка труда» Национального проекта «Кадры».
+- [Воронка карьерного сопровождения: автоматизация на базе 1С и Битрикс24](/raw/sites/eck/career-support-funnel.md): Участники программы / ИГУ / Воронка карьерного сопровождения: автоматизация на базе 1С и Битрикс24
+- [Документы](/raw/sites/eck/docs.md): Письмо с информацией о графике сдачи и формы отчетности в рамках работы по внедрению методических рекомендаций
+- [Единый центр карьеры](/raw/sites/eck/home.md): координационно-методический центр Минобрнауки России, поддерживающий работу центров карьеры университетов по всей России
+- [Золотой кадровый резерв](/raw/sites/eck/golden-talent-reserve.md): Участники программы / ПетрГУ / Золотой кадровый резерв
+- [Иммерсивный театр с плейбэк-перформансом «Мой путь к будущей карьере»](/raw/sites/eck/immersive-theater.md): Участники программы / РАНХиГС / Иммерсивный театр с плейбэк-перформансом «Мой путь к будущей карьере»
+- [Интерактивная образовательная площадка «Город профессий в АПК «Я в Агро»](/raw/sites/eck/gorod-professiy.md): Участники программы / КубГАУ/ Интерактивная образовательная площадка «Город профессий в АПК «Я в Агро»
+- [Искусственный интеллект — карьерный навигатор](/raw/sites/eck/ai-career-navigator.md): Как автоматизировать создание индивидуальных карьерных карт для каждого студента?
+- [Карьерный бот](/raw/sites/eck/career-bot.md): Карьерный бот: геймификация профориентационных карьерных мероприятий
+- [Кейс-батл «Стартовый разрыв»](/raw/sites/eck/starting-gap.md): Участники программы / АГУ / Кейс-батл «Стартовый разрыв»
+- [КиноПрофи: технологии и профессии](/raw/sites/eck/kinoprofi-tekhnologii-i-professii.md): Участники программы / КНИТУ-КАИ / КиноПрофи: технологии и профессии
+- [Команда школьных педагогов «под ключ»](/raw/sites/eck/komanda-pedagogov-pod-klyuch.md): Участники программы / РГПУ им.
+- [Конференция «Карьерная перемена»](/raw/sites/eck/career-change-conference.md): Участники программы / СПбПУ / Конференция «Карьерная перемена»
+- [Образовательная модель «Университет-ГОК»](/raw/sites/eck/educational-model.md): Участники программы / ЗабГУ / Образовательная модель «Университет-ГОК»
+- [Образовательный форум «На орбиту в профкосмос! Высший пилотаж»](/raw/sites/eck/educational-forum.md): Участники программы / МАДИ / Образовательный форум «На орбиту в профкосмос!
+- [Общие блоки сайта eck.innopolis.university: меню, шапка, подвал, контакты](/raw/sites/eck/_shared.md): The menu, header, footer and contact lines that every page of the site repeats, kept once.
+- [Проектная модель цифровой практики](/raw/sites/eck/project-model.md): Участники программы / МТУСИ / Проектная модель цифровой практики
+- [Промышленный туризм](/raw/sites/eck/industrial-tourism.md): Как показать студентам реальные рабочие места?
+- [Системная работа университета с региональной компанией](/raw/sites/eck/systematic-work-university.md): Участники программы / ЮФУ / Системная работа университета с региональной компанией
+- [Сквозная проектная деятельность как инструмент раннего трудоустройства](/raw/sites/eck/skvoznaya-proyektnaya-deyatelnost.md): Участники программы / ТГУ / Сквозная проектная деятельность как инструмент раннего трудоустройства
+- [Творческий конкурс «ПОЛЕ»](/raw/sites/eck/creative-contest-field.md): Участники программы / РГУ им.
+- [Трудоустройство иностранных студентов](/raw/sites/eck/foreign-students-employees.md): Оптимизировать процесс трудоустройства иностранных студентов путем индивидуального сопровождения и планомерной работы с партнерами-работодателями
+- [Трудоустройство людей с ограниченными возможностями](/raw/sites/eck/employment-people-disabilities.md): Участники программы / КГУ / Трудоустройство людей с ограниченными возможностями
+- [Фестиваль проектов](/raw/sites/eck/festival-projects.md): начальник отдела организации проектного обучения ДГТУ
+- [Форум «Карьерный маркетплейс»](/raw/sites/eck/career-marketplace.md): Участники программы / ТюмГУ / Форум «Карьерный маркетплейс»
+
 ## site/edu
 
 - [ИТ-Лидер: набор методик для успешной команды](/raw/sites/edu/it-leader.md): От теории к практике на Иннокиберполигоне: основы информационной безопасности
@@ -717,6 +773,10 @@ Pages of the sites of the university and its services: the university, admission
 - [Мероприятия Университета Иннополис](/raw/sites/events/robot-dj.md): Инструмент для перфоманс-выступления, где робот выступает в роли DJ, задавая ритм оркестру на драм-машине
 - [Общие блоки сайта events.innopolis.university: меню, шапка, подвал, контакты](/raw/sites/events/_shared.md): The menu, header, footer and contact lines that every page of the site repeats, kept once.
 - [ПМГФ22. Университет Иннополис](/raw/sites/events/pmgf2022.md): Образование, исследования и разработки в области информационных технологий и робототехники
+
+## site/fizmat
+
+- [Физмат прорыв](/raw/sites/fizmat/home.md): Раздел содержит ознакомительную версию учебно-методических материалов.
 
 ## site/fmp
 
@@ -922,6 +982,38 @@ Pages of the sites of the university and its services: the university, admission
 - [Технологии искусственного интеллекта в научных исследованиях](/raw/sites/ido/gen-ai-v-nauke-kurs.md): Обучение проводится при финансовой поддержке Министерства экономического развития РФ
 - [Управление научными и прикладными проектами генеративного ИИ и больших языковых моделей](/raw/sites/ido/upravlenie-nauchimi-prikladnimi-proetami-ii.md): Практические задания с обратной связью от куратора и эксперта
 
+## site/inno-stand-up-club-timepad-ru
+
+- [Inno Stand Up Club / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/events-all-page-2.md): Неприлично веселый огонек: Вечер комедии от Inno Stand Up Club в формате презентаций
+- [Inno Stand Up Club / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/events-all-page-3.md): Вам открыта невероятная возможность пошутить и посмеяться над выступающими комиками
+- [Inno Stand Up Club / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/home.md)
+- [Open MicСобытия / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3560978.md): Открываем сезон юмора вместе со старичками и новичками Inno Stand Up Club
+- [Stand Up "Весеннее обострение" шоу События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3918875.md): Приглашаем на вечер классического стендапа от Inno Stand Up Club!
+- [Stand Up "Открытый микрофон" шоу События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-4259119.md): Приглашаем на вечер классического стендапа от Inno Stand Up Club!
+- [Stand Up ИмпровизацияСобытия / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3335526.md): Специально для вас 25го апреля выступят комики из Тольятти, Казани, Ульяновска.
+- [Stand Up на двоих События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-2973368.md): Inno Stand Up Club приглашает тебя на новое шоу.
+- [Stand Up шоу "Love is..."События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3797298.md): Приглашаем вас и вашу вторую половинку на вечер, полный смеха и романтики.
+- [Stand Up шоу "Купидончики" 19:00События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3230359.md): Для тех у кого нет планов на 14 февраля, Inno Stand Up Club вернулся с новогодних каникул и представляет новую программу "Купидончики".
+- [Stand Up шоу "Купидончики" 21:00События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3230361.md): Для тех у кого нет планов на 14 февраля, Inno Stand Up Club вернулся с новогодних каникул и представляет новую программу "Купидончики".
+- [Stand Up шоу "Неидеальный мужчина"События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3574358.md): «Неидеальный мужчина» — это комедийный концерт от Сергея Горина, в котором он рассказывает о том, каково это — быть мужчиной среднего возраста:
+- [Stand Up шоу "Сеанс"События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3359537.md): Шоу от Inno Stand Up Club “Сеанс” — это не совсем обычный сольный стендап-концерт, где собраны все лучшие шутки от комика.
+- [Stand Up шоу "Спасибо за ожидание"События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3080349.md): Inno Stand Up Club приглашает жителей Иннополиса на первую сольную программу Ани Громовой — "Спасибо за ожидание".
+- [Stand Up шоу Money MicСобытия / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3265113.md): Inno Stand Up Club приглашает на свой первый MoneyMic — открытый микрофон, в рамках которого начинающие комики соревнуются за денежный приз.
+- [Stand Up шоу «Очень страшный стендап»События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3625774.md): Лето прошло, а настроение куда-то сходить осталось?
+- [Stand Up шоу ИпровизацияСобытия / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3270764.md): Экспериментальное импровизационное шоу от Inno Stand Up Club ноль сценария, ноль подготовки, ноль-пять и два комика!
+- [Stand Up шоу События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-2962995.md): Inno Stand Up Club приглашает жителей Иннополиса на вечер стендапа!
+- [Stand Up шоу События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3316427.md): Inno Stand Up Club приглашает на стендап-концерт от опытных комиков!
+- [Stand Up шоу События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3316435.md): Inno Stand Up Club приглашает на стендап-концерт от опытных комиков!
+- [Stand Up шоу События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3335523.md): Специально для вас 25го апреля выступят комики из Тольятти, Казани, Ульяновска.
+- [Stand Up шоу Тимура АбдулмановаСобытия / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3243574.md): Inno Stand Up Club приглашает на сольный концерт Тимура Абдулманова!
+- [Stand Up шоуСобытия / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3038751.md): Inno Stand Up Club приглашает жителей Иннополиса на вечер стендапа!
+- [StandUp концерт «На двоих»События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3877396.md): Егор Сямуков и Женя Караваннов яркие представители регионального стендапа и миллениалов, у них нет популярности и денег, но много смешных шуток и интересных историй.
+- [StandUp концерт «СЕАНС»События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3856849.md): Сольный StandUp концерт Ивана Шумейко «СЕАНС»
+- [StandUp концерт Игоря ПименоваСобытия / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-4125964.md): Ростовский комик, чемпион Высшей Лиги КВН на Первом канале и Stand Up Лиги Юга России, победитель Суперлиги на СТС и шоу «Русские не смеются».Игорь — участник «Comedy Баттл» и победитель «Рассмеши Ком
+- [Общие блоки сайта inno-stand-up-club.timepad.ru: меню, шапка, подвал, контакты](/raw/sites/inno-stand-up-club-timepad-ru/_shared.md): The menu, header, footer and contact lines that every page of the site repeats, kept once.
+- [Сольный Stand Up концерт Асанали ФазылжанаСобытия / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-2908584.md): В следующую пятницу приглашаем вас на сольный концерт Асанали Фазлыжана, одного из самых опытных комиков Inno Stand Up Club !
+- [Шоу презентаций «Защита дипломов» События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3716458.md): Inno Stand Up Club приглашает вас на новогоднее комедийное шоу "Защита дипломов"!
+
 ## site/innohassle
 
 - [About one-zero-eight](/raw/sites/innohassle/about.md): one-zero-eight is a student community enthusiastic about technology, striving to improve the Innopolis University environment.
@@ -937,6 +1029,78 @@ Pages of the sites of the university and its services: the university, admission
 - [Room booking rules](/raw/sites/innohassle/room-booking-rules.md): Students can book yellow meeting rooms (3.1, 3.5, ...) anytime and yellow lecture rooms (101, 301, 320, ...) during non-working hours (08:00-19:00 on weekdays are restricted), up to 3 hours per bookin
 - [Scholarship calculator](/raw/sites/innohassle/scholarship.md): For the first semester — scholarship from the admissions department.
 - [Sport FAQ](/raw/sites/innohassle/sport-faq.md): I'm from Special 2 group, how can I pass the fitness test?
+
+## site/innopolis-brainsurf-ru
+
+- [Главная страница](/raw/sites/innopolis-brainsurf-ru/home.md): Подписавшись на Телеграм-бота, вы сможете не только видеть список своих игр, но и мгновенно узнавать, если появилось свободное место.
+- [Общий рейтинг](/raw/sites/innopolis-brainsurf-ru/rating.md): Команды получают очки в общий зачет сезона в соответствии с процентным соотношением от команды, занявшей первое место (в их лиге) по итогам пакета и результатами вашей команды.
+
+## site/innopolis-timepad-ru
+
+- [Иннополис / TimePad.ru](/raw/sites/innopolis-timepad-ru/home.md): Иннополис — новый город в России, расположенный в Республике Татарстан.
+- [Общие блоки сайта innopolis.timepad.ru: меню, шапка, подвал, контакты](/raw/sites/innopolis-timepad-ru/_shared.md): The menu, header, footer and contact lines that every page of the site repeats, kept once.
+
+## site/innopolis-university-timepad-ru
+
+- [Innopolis University / TimePad.ru](/raw/sites/innopolis-university-timepad-ru/home.md): Университет Иннополис – это первый российский университет, специализирующийся на образовании и научных исследованиях в области современных информационных технологий.
+- [Как победить разрозненность данных: разбор датасета и визуализация полученных данныхСобытия / TimePad.ru](/raw/sites/innopolis-university-timepad-ru/event-2378277.md): Как победить разрозненность данных: разбор датасета и визуализация полученных данных
+- [Общие блоки сайта innopolis-university.timepad.ru: меню, шапка, подвал, контакты](/raw/sites/innopolis-university-timepad-ru/_shared.md): The menu, header, footer and contact lines that every page of the site repeats, kept once.
+
+## site/innopoliscamp-ru
+
+- [+7-967-773-05-89mail@innopoliscamp.ru](/raw/sites/innopoliscamp-ru/ofertafizteh.md): Изложенный ниже текст публичной оферты (далее - Оферта) является адресованным физическим и юридическим лицам официальным предложением Общества с ограниченной ответственностью «ИННОКЭМП» (ОГРН 12516000
+- [+7-967-773-05-89mail@innopoliscamp.ru](/raw/sites/innopoliscamp-ru/ofertainnopolis.md): Изложенный ниже текст публичной оферты (далее - Оферта) является адресованным физическим и юридическим лицам официальным совместным предложением: Общества с ограниченной ответственностью «РАЗВИТИЕ» (О
+- [8-967-773-05-89mail@innopoliscamp.ru](/raw/sites/innopoliscamp-ru/glavnaya.md): Татарстан, г.
+- [8-967-773-05-89mail@innopoliscamp.ru](/raw/sites/innopoliscamp-ru/stazhirovki.md): Татарстан, г.
+- [Детский IT-лагерь INNOCAMP в Иннополисе](/raw/sites/innopoliscamp-ru/fizteh.md): Ваш ребенок в течение 2-х недель будет под присмотром профессиональных вожатых, накормлен,
+- [Детский IT-лагерь INNOCAMP в Иннополисе](/raw/sites/innopoliscamp-ru/home.md): Ваш ребенок в течение 2-х недель будет под присмотром профессиональных вожатых, накормлен,
+- [Детский IT-лагерь INNOCAMP в Иннополисе](/raw/sites/innopoliscamp-ru/personal-data.md): Татарстан, г.
+- [Детский IT-лагерь в Иннополисе](/raw/sites/innopoliscamp-ru/stat-vozhatym.md): Вы пройдете бесплатное недельное обучение прямо во время смены: до обеда - теория и после обеда - практика
+- [Заявка в Детский IT-лагерь INNOCAMP](/raw/sites/innopoliscamp-ru/zapis.md): Воспользуйтесь этой формой, чтобы записать ребенка.
+- [Общие блоки сайта innopoliscamp.ru: меню, шапка, подвал, контакты](/raw/sites/innopoliscamp-ru/_shared.md): The menu, header, footer and contact lines that every page of the site repeats, kept once.
+
+## site/innopoliscinema-ru
+
+- [Innopolis Cinema Lounge](/raw/sites/innopoliscinema-ru/en.md): Kirill Zaytsev, Elizaveta Boyarskaya, Maria Kanunnikova, Viktoria Serikova, Vadim Sosnin
+- [Innopolis Cinema Lounge | Contacts](/raw/sites/innopoliscinema-ru/en-contacts.md): Tickets refund in case of cancellation / change (of a session or terms of the show):
+- [Innopolis Cinema Lounge | Events](/raw/sites/innopoliscinema-ru/en-special-screenings.md): There are no special events on the schedule at the moment.
+- [Innopolis Cinema Lounge | Films](/raw/sites/innopoliscinema-ru/en-films.md)
+- [Innopolis Cinema Lounge | Screenings](/raw/sites/innopoliscinema-ru/en-screenings.md)
+- [Innopolis Cinema Lounge | Пушкинская карта](/raw/sites/innopoliscinema-ru/en-films-pushkin-card.md)
+- [«Кино&Театр» в Иннополисе](/raw/sites/innopoliscinema-ru/ru-dates-2026-11-07.md): Александр Лыков, Татьяна Орлова, Алексей Маклаков, Иван Охлобыстин, Людмила Артемьева, Виталий Хаев, Ольга Кузьмина
+- [«Кино&Театр» в Иннополисе](/raw/sites/innopoliscinema-ru/ru-dates-2026-11-11.md): Кирилл Зайцев, Елизавета Боярская, Мария Канунникова, Виктория Серикова, Вадим Соснин
+- [«Кино&Театр» в Иннополисе | Битва моторов](/raw/sites/innopoliscinema-ru/ru-films-bitva-motorov.md): Это история о людях, которые решили сделать невозможное – создать первый российский серийный автомобиль.
+- [«Кино&Театр» в Иннополисе | Контакты](/raw/sites/innopoliscinema-ru/ru-contacts.md): Возврат билетов в случае отмены / замены сеанса или изменения условий показа:
+- [«Кино&Театр» в Иннополисе | Морозко](/raw/sites/innopoliscinema-ru/ru-films-morozko.md): Сестры Марфа и Настя – лучшие подруги, и справляются они не только со сварливой матерью, но и с древней магией, из-за которой в их деревушке уже много десятков лет не наступает зима.
+- [«Кино&Театр» в Иннополисе | Плетёный муж](/raw/sites/innopoliscinema-ru/ru-films-wicker.md): Устав от насмешек всей деревни, Рыбачка просит Корзинщика сплести ей мужа из лозы и получает верного, заботливого и очень привлекательного супруга.
+- [«Кино&Театр» в Иннополисе | Пранкер](/raw/sites/innopoliscinema-ru/ru-films-pranker.md): Антон ведёт двойную жизнь.
+- [«Кино&Театр» в Иннополисе | Пушкинская карта](/raw/sites/innopoliscinema-ru/ru-films-pushkin-card.md)
+- [«Кино&Театр» в Иннополисе | Расписание](/raw/sites/innopoliscinema-ru/ru-screenings.md)
+- [«Кино&Театр» в Иннополисе | Репертуар](/raw/sites/innopoliscinema-ru/ru-films.md)
+- [«Кино&Театр» в Иннополисе | Рождение империи](/raw/sites/innopoliscinema-ru/ru-films-rozhdenie-imperii.md): Вернувшись на родину после Великого посольства, Пётр Первый вступает в затяжную войну со Швецией за выход к морю.
+- [«Кино&Театр» в Иннополисе | Сказка о потерянном времени](/raw/sites/innopoliscinema-ru/ru-films-skazka-o-poteryannom-vremeni.md): Обычный школьный день оборачивается фантастическим приключением для Пети, Маруси и Васи, когда их потерянное за бездельем время становится источником силы трёх старых волшебников.
+- [«Кино&Театр» в Иннополисе | События](/raw/sites/innopoliscinema-ru/ru-special-screenings.md): В данный момент в расписании нет специальных кинособытий.
+- [«Кино&Театр» в Иннополисе | Фьорд](/raw/sites/innopoliscinema-ru/ru-films-fjord.md): В глухую норвежскую деревню на берегу фьорда переезжает семья из Румынии.
+- [Битва моторов](/raw/sites/innopoliscinema-ru/ru-dates-2026-11-04.md): Александр Лыков, Татьяна Орлова, Алексей Маклаков, Иван Охлобыстин, Людмила Артемьева, Виталий Хаев, Ольга Кузьмина
+- [Битва моторов](/raw/sites/innopoliscinema-ru/ru-dates-2026-11-08.md): Кирилл Зайцев, Елизавета Боярская, Мария Канунникова, Виктория Серикова, Вадим Соснин
+- [Общие блоки сайта innopoliscinema.ru: меню, шапка, подвал, контакты](/raw/sites/innopoliscinema-ru/_shared.md): The menu, header, footer and contact lines that every page of the site repeats, kept once.
+- [Плетёный муж](/raw/sites/innopoliscinema-ru/ru-dates-2026-11-10.md): Александр Лыков, Татьяна Орлова, Алексей Маклаков, Иван Охлобыстин, Людмила Артемьева, Виталий Хаев, Ольга Кузьмина
+- [Плетёный муж.](/raw/sites/innopoliscinema-ru/ru-dates-2026-11-05.md): Кирилл Зайцев, Елизавета Боярская, Мария Канунникова, Виктория Серикова, Вадим Соснин
+- [Пранкер](/raw/sites/innopoliscinema-ru/home.md): Кирилл Зайцев, Елизавета Боярская, Мария Канунникова, Виктория Серикова, Вадим Соснин
+- [Фьорд](/raw/sites/innopoliscinema-ru/ru-dates-2026-11-03.md): Кирилл Зайцев, Елизавета Боярская, Мария Канунникова, Виктория Серикова, Вадим Соснин
+- [Фьорд](/raw/sites/innopoliscinema-ru/ru-dates-2026-11-06.md): Александр Лыков, Татьяна Орлова, Алексей Маклаков, Иван Охлобыстин, Людмила Артемьева, Виталий Хаев, Ольга Кузьмина
+
+## site/innopolislife-ru
+
+- [Городская премия Иннополис 2025](/raw/sites/innopolislife-ru/5202tset.md): Роборобот · Старт · Любимый блог · Вкус · Главное ожидание
+- [Городская премия Иннополис 2025](/raw/sites/innopolislife-ru/home.md)
+
+## site/innopolistravel-com
+
+- [Innotravel — экскурсии по Иннополису](/raw/sites/innopolistravel-com/home.md): Мы расскажем Вам об основных объектах для жизни в городе
+- [Аудиогид инфо](/raw/sites/innopolistravel-com/audiogid-info.md): 1) Оплачиваем доступ к аудиогиду по ссылке внизу блока.
+- [Запись на групповую экскурсию](/raw/sites/innopolistravel-com/excurse.md)
+- [Общие блоки сайта innopolistravel.com: меню, шапка, подвал, контакты](/raw/sites/innopolistravel-com/_shared.md): The menu, header, footer and contact lines that every page of the site repeats, kept once.
 
 ## site/international
 
@@ -954,6 +1118,21 @@ Pages of the sites of the university and its services: the university, admission
 - [PhD Degree](/raw/sites/international/en-postgraduate-study.md): Mathematical modeling, numerical methods and software packages
 - [Security And Network Engineering](/raw/sites/international/en-masters-securityandnetworkengineering.md): The curriculum is based on System and Network Engineering program of the University of Amsterdam — the best Master's program (Computer Science) in the ranking of the Keuzegids Masters 2018.
 - [Software Engineering](/raw/sites/international/en-masters-development.md): The program is designed according to the curriculum of Carnegie Mellon University (USA) program in Software Engineering that is among the TOP-3 universities in the world in the category of Computer Sc
+
+## site/ipservices
+
+- [Intersectoral Technology Transfer Center](/raw/sites/ipservices/eng.md): Ready to protect your IP rights in Russian Federation and other EAPO countries:
+- [Внесение в реестр отечественного ПО | Реестр Минцифры](/raw/sites/ipservices/services-reestr-otechestvennogo-po.md): Проводим полную проверку продукта и компании: аудит продукта на соответствие правилам реестра, проверку документации и компании на возможность правообладания
+- [ИСУ РИД: модуль учета договоров распоряжения исключительным правом](/raw/sites/ipservices/accounting-contracts.md): «Программный модуль договоров распоряжения исключительным правом» – автоматизированное решение, предназначен для отображения и создания записей о договорах коммерциализации, всех заключенных договорах
+- [ИСУ РИД: программный модуль учета РИД](/raw/sites/ipservices/accounting-module-rid.md): «Информационная система управления результатами интеллектуальной деятельности: программный модуль учета результатов интеллектуальной деятельности» – автоматизированное решение, предназначенное для авт
+- [ИСУ РИД: программный модуль учета продукции](/raw/sites/ipservices/software-module.md): «Информационная система управления результатами интеллектуальной деятельности: программный модуль учета продукции» – комплексное автоматизированное решение, предназначенное для отображения сведений с 
+- [Информационная система управления результатами интеллектуальной деятельности](/raw/sites/ipservices/product.md): Программа для работы и отслеживания полного цикла РИД.
+- [Межотраслевой центр трансфера технологий АНО ВО «Университет Иннополис»](/raw/sites/ipservices/home.md): Комплексный подход к стратегии защиты и коммерциализации разработок
+- [Общие блоки сайта ipservices.innopolis.university: меню, шапка, подвал, контакты](/raw/sites/ipservices/_shared.md): The menu, header, footer and contact lines that every page of the site repeats, kept once.
+- [Патент на изобретение и полезную модель | Регистрация](/raw/sites/ipservices/services-patent-na-izobretenie-i-poleznuyu-model.md): Будем рядом от предварительного патентного поиска и оценки патентоспособности до подачи заявки в Роспатент, ведения делопроизводства и получения охранного документа.
+- [Политика в отношении обработки персональных данных](/raw/sites/ipservices/personal.md): Настоящая политика обработки персональных данных составлена в соответствии с требованиями Федерального закона от 27.07.2006.
+- [Регистрация ПО в Роспатенте](/raw/sites/ipservices/services-registraciya-po-v-rospatente.md): Первый шаг к налоговым льготам и аккредитации Минцифры
+- [Регистрация товарного знака под ключ](/raw/sites/ipservices/services-registraciya-tovarnogo-znaka.md): Возможность продать, сдавать или внести товарный знак в капитал
 
 ## site/itbm
 
@@ -973,6 +1152,11 @@ Pages of the sites of the university and its services: the university, admission
 - [День открытых дверей в Университете Иннополис. Очный и онлайн](/raw/sites/llc/dod.md): Регистрация на очный День открытых дверей закрывается за неделю до мероприятия, успевайте регистрироваться.
 - [Заявки на заключение договоров. Магистратура](/raw/sites/llc/magistratura-dogovor.md): Вы можете сами являться заказчиком, но в таком случае возврат налога сможет сделать только сам обучающийся после того, как официально трудоустроится.
 - [Центр непрерывного обучения. Университет Иннополис.](/raw/sites/llc/home.md): Курсы по формированию гибких навыков для достижения высоких результатов в бизнесе, карьере и личной сфере.
+
+## site/lyceuminnopolis-ru
+
+- [https://lyceuminnopolis.ru/sitemap.xml](/raw/sites/lyceuminnopolis-ru/sitemap-xml.md): https://lyceuminnopolis.ru/ 2026-02-18 1.0 https://lyceuminnopolis.ru/#about 0.8 https://lyceuminnopolis.ru/#news 0.7 https://lyceuminnopolis.ru/#events 0.7 https://lyceuminnopolis.ru/#contacts 0.6 ht
+- [Лицей Иннополис](/raw/sites/lyceuminnopolis-ru/home.md): Лицей Иннополис - школа-интернат для 7-11 классов с углубленным IT-образованием.
 
 ## site/media
 
@@ -3257,6 +3441,11 @@ Pages of the sites of the university and its services: the university, admission
 - [eng](/raw/sites/onboarding/eng.md): We’ve thoughtfully put together a small guide to introduce you to all the services
 - [Иннополис — город твоих идей](/raw/sites/onboarding/home.md): чтобы познакомить тебя со всеми сервисами и фичами в городе
 
+## site/postcodehack
+
+- [PostCode Challenge от Почтатеха](/raw/sites/postcodehack/home.md): Все треки распакованы, код доставлен без задержек
+- [PostCode Challenge от Почтатеха](/raw/sites/postcodehack/spisok-vuzov-i-obr-programm.md)
+
 ## site/progmatica
 
 - [Баланс между учёбой и отдыхом у детей](/raw/sites/progmatica/longread-balance.md): Баланс между учёбой и отдыхом у детей: практические советы для родителей
@@ -3633,43 +3822,42 @@ Pages of the sites of the university and its services: the university, admission
 - [ООО "АОМ"](/raw/sites/sez/res-aom.md): Icons Hive - сервис облачной обработки иконок для облегчения разработки веб-проектов
 - [ООО "АлгаРитм"](/raw/sites/sez/res-ooo-algaritm.md): Разработка и производство высокотехнологичных роботизированных продуктов для повышения производительности труда, оптимизации производственных процессов, улучшения качества обучения и подготовки кадров
 - [ООО "Би Пи Эм Энвайронмент"](/raw/sites/sez/res-tocteam.md): Создание высокотехнологичного проекта по разработке инновационного программного обеспечения на основе концепции “Индустрии 4.0” - PIMS.
+- [ООО "Бипиум"](/raw/sites/sez/res-bipium.md): Разработка ИТ-платформы "Бипиум" для управления данными и файлами, бизнес-процессами и аналитикой, конструктор корпоративных информационных систем.
 - [ООО "ВФ-Инно"](/raw/sites/sez/res-warefly.md): Компания Warefly занимается разработкой программного обеспечения с 2011 года, предоставляет готовые решения и технологии в самых разных областях, в числе которых музыка, медицина, маркетинг и работа с
 - [ООО "Визиолоджи Технологии"](/raw/sites/sez/res-ooo-viziolodzhi-tekhnologii.md): Российский разработчик программного обеспечения для анализа и визуализации данных.
-- [ООО "Газпром ВНИИГАЗ"](/raw/sites/sez/res-ooo-gazprom-vniigaz.md): Головной научный центр ПАО «Газпром».
-- [ООО "Грин Гроус"](/raw/sites/sez/res-ooo-grin-grous.md): Green Growth - программно-аппаратный комплек для аналитики распределения убранного урожая на ферме на основе полученных данных с техники.
-- [ООО "Делокуб"](/raw/sites/sez/res-ooo-delokub.md): Делокуб - капсульный мини-офис на природе или в других местах под открытым небом или в помещениях с возможностью онлайн-бронирования.
+- [ООО "Вимми"](/raw/sites/sez/res-ooo-vimmi.md): Компания специализируется на разработке сервисов автоматизации для сферы HoReCa.
 - [ООО "Дискавер софт"](/raw/sites/sez/res-ooo-diskaver-soft.md): Платформа для внутренних коммуникаций с целью налаживания горизонтальных связей между коллегами, повышения лояльности к бренду работодателя, вовлеченности сотрудников и развития компетенций с элемента
 - [ООО "Дуглис-СААС"](/raw/sites/sez/res-ooo-duglissaas.md): Компания ООО «Дуглис-СААС» создала комплексное решение для автоматизации бизнес-процессов предприятий общественного питания и торговли.
-- [ООО "Единые банковские технологии"](/raw/sites/sez/res-ooo-edinye-bankovskie-tekhnologii.md): Разработка программного обеспечения и маркетплейса для интеграции исламского банкинга в автоматизированную банковскую систему кредитных организаций.
 - [ООО "Еора Дата Лаб"](/raw/sites/sez/res-eora-data-lab.md): Разработка платформы "EORA AI PLATFORM" для создания решений, на основе искусственного интеллекта
 - [ООО "Зед Софт Лабс"](/raw/sites/sez/res-ooo-zed-soft-labs.md): Z Soft Labs - российская IT-компания, более 15 лет разрабатывающая программное обеспечение для обучающего оборудования:
 - [ООО "Зилант роботикс"](/raw/sites/sez/res-ooo-zilant-robotiks.md): Российский разработчик систем управления, автопилотов, бортовой электроники и программного обеспечения для дронов и мобильных роботов
 - [ООО "Индасофт Инновации"](/raw/sites/sez/res-ooo-indasoft-innovatsii.md): Разрабатывает и внедряет цифровые производственные системы (Industry 4.0) на основе многолетнего опыта решения сложных задач предприятий - заказчиков.
 - [ООО "Иннодата"](/raw/sites/sez/res-ooo-innodata.md): Российская компания, разработчик программного обеспечения в области управления большими данными (Big Data), предсказательной аналитики и искусственного интеллекта.
+- [ООО "Иннопрог"](/raw/sites/sez/res-ooo-innoprog.md): Innoprog - образовательная платформа в telegram-bot по ИТ-специальности
+- [ООО "Йолоко"](/raw/sites/sez/res-ooo-yoloko.md): Yoloco - AI сервис для аналитики и поиска целевой аудитории инфлюенсиров, который позволяет увеличить охват рекламной кампании в 2 раза.
 - [ООО "К-Проекты"](/raw/sites/sez/res-kproekty.md): Создание программного решения (платформы) и доработка существующих решений в сфере мониторинга обработки данных для государственных и корпоративных клиентов.
-- [ООО "КЭШБЭКФОРС"](/raw/sites/sez/res-ooo-keshbekfors.md): ЛовиCashBack - виртуальная банковская карта для выгодных покупок в магазинах-партнерах с моментальным начислением кешбэка рублями
 - [ООО "Кравт Роботикс"](/raw/sites/sez/res-ooo-kravt-robotiks.md): Омниканальная платформа для автоматизации и упрощения работы сотрудника гостиницы с элементами аналитики.
 - [ООО "ЛП Технологии"](/raw/sites/sez/res-ooo-lp-tekhnologii.md): Компания развивает сервис облачного гейминга Loudplay.ru, который дает уникальную возможность игрокам с устаревшими компьютерами играть в самые современные игры
 - [ООО "Лемон Технолоджис Груп"](/raw/sites/sez/res-lemon-technologies-group.md): Российская IT компания, специализирующаяся на разработке платформ и развитии проектов в области интернет маркетинга, мобильной и электронной коммерции, а также в разработке контентных сервисов мобильн
 - [ООО "МЕТАДОР ДЕВ"](/raw/sites/sez/res-ooo-metador-dev.md): Система класса EPPM для расчётов финансовых планов проектов и их мониторинга с использованием ML алгоритмов.
 - [ООО "Магнит ИТ Лаб"](/raw/sites/sez/res-ooo-magnit-it-lab.md): Инновационная лаборатория ПАО «Магнит», одного из крупнейших продуктовых ретейлеров России.
-- [ООО "НПО "Взор"](/raw/sites/sez/res-ooo-npo-vzor.md): Научно-производственное объединение в области информационных технологий.
 - [ООО "О"](/raw/sites/sez/res-ooo-o.md): Maasiq - nocode конструктор маркетплейсов и площадок для онлайн-торговли.
+- [ООО "Орлан диджитал"](/raw/sites/sez/res-ooo-orlan-didzhital.md)
+- [ООО "Оун"](/raw/sites/sez/res-ooo-oun.md): Компания является дочерней компанией OWN GmbH и занимается разработкой программного обеспечения OWN.space.
 - [ООО "РТК Софт Лабс"](/raw/sites/sez/res-ooo-rtk-soft-labs.md): Центр Компетенций по проектированию, разработке, реализации и эксплуатации цифровых продуктов ПАО «Ростелеком»
+- [ООО "Радиус Исследования"](/raw/sites/sez/res-ooo-radius-issledovaniya.md): Специализируется на предоставлении интеграционных решений для эффективного управления бизнес-процессами, а также обеспечивает комплексное аппаратное сопровождение проектов любой сложности.
 - [ООО "Риэль Цифровые Технологии"](/raw/sites/sez/res-ooo-riel-tsifrovye-tekhnologii.md): Компания специализируется на цифровизации, автоматизации и диспетчеризации промышленных объектов, выполняя полный комплекс работ по обследованию и аудиту, проектированию и разработке, производству, пр
 - [ООО "Роадар"](/raw/sites/sez/res-ooo-roadar.md): Компания-разработчик передовых программных продуктов, базирующихся на использовании возможностей компьютерного зрения и нейросетей.
 - [ООО "Рэдмэдробот Инновации"](/raw/sites/sez/res-redmadrobot.md): red_mad_robot – цифровой партнёр крупного бизнеса в финтехе, телекоме, ритейле, страховании, e-commerce, медицине и промышленности.
 - [ООО "СКБ "Инфоматика"](/raw/sites/sez/res-ooo-skb-infomatika.md): «Инфоматика» - российский разработчик и производитель высокотехнологичных решений в сфере контроля доступа и билетных систем.
 - [ООО "СиЗиДжи Криейшен"](/raw/sites/sez/res-ooo-sizidzhi-krieyshen.md): Платформа быстрого найма работников на 1 и более смен
-- [ООО "Синергия Софт"](/raw/sites/sez/res-ooo-sinergiya-soft.md): Компания создана в 2021 году на базе московской компании ООО «Синергия Софт», специализированного подразделения Корпорации «Синергия», осуществляющего разработку и реализацию ИТ-решений для корпоратив
 - [ООО "Студия Лидс"](/raw/sites/sez/res-studiya-lids.md)
 - [ООО "Транспэрент Технолоджи"](/raw/sites/sez/res-transparent-technology.md): Разработка цифровой платформы для управления коммунальными ресурсами и инженерными сетями, которая позволяет оптимизировать работу сотрудников УК, бюджетных учреждений и ресурсоснабжающих организаций
 - [ООО "Трикстер"](/raw/sites/sez/res-ooo-trikster.md): Trixter - приложение для геймифицированного поиска работы для школьников и студентов со встроенным обучением
-- [ООО "Универсальная финансовая система"](/raw/sites/sez/res-ooo-universalnaya-finansovaya-sistema.md): Разработчик IT-решений нового поколения в сфере путешествий, туризма и электронной коммерции
 - [ООО "Ф.А.К.К.Т. Сервис"](/raw/sites/sez/res-ooo-fakkt-servis.md): Разработка системы "Hacktivist tracker", предназначенной для автоматизированного отслеживания компьютерных атак, проводимых хактивистами.
+- [ООО "Фотон Сервис"](/raw/sites/sez/res-ooo-foton-servis.md): Цифровая платформа для музеев и организаторов выставок, которая позволяет создавать интерактивные онлайн-гиды для любой экспозиции – музейной или городской.
 - [ООО "Фуджитал"](/raw/sites/sez/res-ooo-fudzhital.md): Платформа управления клиентским опытом для ресторанного бизнеса
 - [ООО "ЦОК НТИ"](/raw/sites/sez/res-ooo-tsok-nti.md): Российский разработчик программного обеспечения и прикладных решений для сельского хозяйства
-- [ООО "Шаттл Линк"](/raw/sites/sez/res-ooo-shattl-link.md): Shuttle Link 2.0 - платформа для управления и оптимизации пассажирских перевозок по требованию с учётом современных трендов MaaS
 - [ООО "Эдтех Инновации"](/raw/sites/sez/res-ooo-edtekh-innovatsii.md): Экосистема IT-сервисов для приема платежей от ваших клиентов всеми возможными способами.
 - [ООО "Яндекс"](/raw/sites/sez/res-yandeks.md): Ведущая международная интернет-компания, владеющая одноимённой системой поиска в сети Интернет, интернет-порталами и службами.
 - [ООО «Ак Барс Цифровые Технологии»](/raw/sites/sez/res-akbarsdigital.md): Проектирование, разработка и сопровождение прикладных решений для развития цифрового бизнеса банка.
@@ -3681,19 +3869,19 @@ Pages of the sites of the university and its services: the university, admission
 - [ООО «ТЦР»](/raw/sites/sez/res-tinkoff.md)
 - [ОЭЗ «Иннополис»: официальный сайт особой экономической зоны](/raw/sites/sez/home.md): ОЭЗ «Иннополис» – передовой проект по созданию и развитию российского центра информационно-коммуникационных технологий.
 - [Общие блоки сайта sezinnopolis.ru: меню, шапка, подвал, контакты](/raw/sites/sez/_shared.md): The menu, header, footer and contact lines that every page of the site repeats, kept once.
-- [ПАО "Газпром автоматизация"](/raw/sites/sez/res-pao-gazprom-avtomatizatsiya.md): Расширение возможностей предприятий отрасли ТЭК в части бизнес-аналитики (BI) и сервисов для управления и автоматизации документооборота (CSP).
 - [ПАО "ИВА"](/raw/sites/sez/res-iva-technologies.md): Высокотехнологичная российская компания-производитель инновационных ИТ-решений для построения современной цифровой инфраструктуры (входит в ГК «ХайТэк»).
 - [ПАО "Сбербанк России"](/raw/sites/sez/res-sbertech-ao-sberbank-tekhnologii.md): SberTech - ИТ-компания группы компаний «Сбера», которая разрабатывает ИТ-решения для крупнейшего банка страны, а также предоставляет свою инфраструктуру, платформенные компоненты и услуги для Гостеха 
+- [Платформа вместо аналога: как «Аврора» формирует экосистему для технологического суверенитета](/raw/sites/sez/news-platforma-vmesto-analoga-kak-avrora-formiruet-ekosistem.md): Разговор об импортозамещении в 2026 году все чаще начинается с уточнения терминов.
 - [Президент Республики Сербской посетил Инновационный центр «Иннополис»](/raw/sites/sez/news-prezident-respubliki-serbskoy-posetil-innovat-99414b.md): Президент Республики Сербской (Босния и Герцеговина) Милорад Додик прибыл в Татарстан для участия в Саммите БРИКС.
 - [Президент Республики Сербской посетил Инновационный центр «Иннополис»](/raw/sites/sez/news-prezident-respubliki-serbskoy-posetil-innovatsionnyy-ts.md)
 - [Пресс центр](/raw/sites/sez/news.md): Добро пожаловать в пресс-центр ОЭЗ «Иннополис»!
 - [Проведение мероприятий на площадках технопарков](/raw/sites/sez/events.md): В нашем распоряжении два высокотехнологичных технопарка.
 - [Резиденты](/raw/sites/sez/res.md)
-- [Резиденты ОЭЗ «Иннополис» смогут компенсировать часть зарплат специалистов из других регионов](/raw/sites/sez/news-rezidenty-oez-innopolis-smogut-kompensirovat-chast-zarp.md): Мера поддержки позволяет компенсировать часть затрат на фонд оплаты труда.
 - [Российские ИИ-сервисы, дроны-курьеры и цифровые двойники: что покажет ОЭЗ «Иннополис» в Казани на форуме Kazan Digital Week 2026](/raw/sites/sez/news-rossiyskie-iiservisy-dronykurery-i-tsifrovye-dvoyniki-c.md): С 29 по 31 октября в Казани пройдет ежегодный международный форум Kazan Digital Week 2026.
 - [Российский медицинский ИИ: от пилотов в Татарстане до массового применения в 70 регионах России](/raw/sites/sez/news-rossiyskiy-meditsinskiy-ii-ot-pilotov-v-tatarstane-do-m.md): Татарстан одним из первых перешёл к региональному внедрению ИИ в лучевой диагностике за пределами Московского эксперимента.
 - [Стартапам ОЭЗ "Иннополис": официальный сайт особой экономической зоны](/raw/sites/sez/startapam.md): Особая экономическая зона "Иннополис" — передовой проект по созданию и развитию российского центра информационно-коммуникационных технологий и высокотехнологичного кластера.
 - [Участникам 10-ой встречи министров связи БРИКС и Цифрового форума БРИКС представили инновационные разработки резидентов ОЭЗ «Иннополис»](/raw/sites/sez/news-uchastnikam-10oy-vstrechi-ministrov-svyazi-briks-i-tsif.md): В рамках 10-ой встречи министров связи БРИКС и Цифрового форума БРИКС состоялась выставка высокотехнологичных компаний, организаций и структур.
+- [ФГАУ НИИ "Восход"](/raw/sites/sez/res-nii-voskhod.md): Многофункциональный партнер государства в области информационных технологий.
 - [Члены Правительства России в технопарке в сфере высоких технологий «ИнноПарк»](/raw/sites/sez/news-chleny-pravitelstva-rossii-v-tekhnoparke-v-sfere-vysoki.md)
 
 ## site/spec
@@ -3741,6 +3929,30 @@ Pages of the sites of the university and its services: the university, admission
 - [Станислав Протасов: «Всю жизнь одной ногой в науке, другой в индустрии»](/raw/sites/spec/science-stanislav-protasov.md): «Всю жизнь одной ногой в науке, другой в индустрии»
 - [Университет Иннополис](/raw/sites/spec/home.md): Как мы собрали на конференции 40 экспертов, внедряющих ИИ в производство
 - [Что тебя ждёт в ИТ-сфере](/raw/sites/spec/page20883940-html.md): ИТ-отрасль активно развивается, ей постоянно нужны новые кадры.
+
+## site/sport
+
+- ["Innopolis" sports complex](/raw/sites/sport/en.md): Sports and fitness club Innopolis helps residents, students and staff of the Innopolis-located companies keep a healthy lifestyle.
+- [Бассейн](/raw/sites/sport/about-zones-pool-for-adults.md): Бассейн 25х11 метров в современном дизайне, 5 дорожек со стартовыми тумбами, джакузи.
+- [Бассейн для детей](/raw/sites/sport/about-zones-pool-for-kids.md): Плавание хорошо развивает детей интеллектуально и психологически.
+- [Вопрос-ответ](/raw/sites/sport/about-faq.md): Стоимость клубной карты вы можете узнать, позвонив по телефону в отдел продаж +7 (937) 296-86-85 или на сайте в разделе Купить карту
+- [Детские секции](/raw/sites/sport/about-zones-igrovoj-zal-kids.md): Спорт – это всегда преодоление себя, развитие выносливости, ловкости, быстроты реакции.
+- [Детский фитнес](/raw/sites/sport/about-detskij-fitnes.md): Дети – это маленькие взрослые, но по-другому чувствующие и воспринимающие этот мир
+- [Дополнительные услуги](/raw/sites/sport/services.md): Проведение персональных тренировок в тренажерном зале, в зале групповых занятий (танцевальные и аэробные направления, йога), в бассейне (плавание и аква-аэробика).
+- [Зал единоборств](/raw/sites/sport/about-zones-edinoborstva.md): Занятия ведутся в специально оборудованном зале под руководством профессионалов.
+- [Заморозка карты](/raw/sites/sport/freeze.md)
+- [Игровой зал](/raw/sites/sport/about-zones-igrovoj-zal-adults.md): Зал для игровых видов спорта имеет площадь более 900 кв.м., высота потолка 14 метров, что позволяет проводить различные соревнования по игровым видам спорта и по художественной гимнастике.
+- [Клубные карты](/raw/sites/sport/club-cards.md): Выберите срок действия карты и отправьте заявку консультанту отдела продаж
+- [Контакты](/raw/sites/sport/about-contacts.md)
+- [Новости и акции](/raw/sites/sport/about-news.md)
+- [О клубе](/raw/sites/sport/about.md): Тренажерный зал,групповые направления, аква-аэробика, плавание
+- [Общие блоки сайта sport.innopolis.ru: меню, шапка, подвал, контакты](/raw/sites/sport/_shared.md): The menu, header, footer and contact lines that every page of the site repeats, kept once.
+- [Правила посещения](/raw/sites/sport/rules.md): Рады Вас приветствовать в Спортивном Комплексе «Innopolis»!
+- [Расписание групповых занятий](/raw/sites/sport/schedule.md): Время;Понедельник;Вторник;Среда;Четверг;Пятница;Суббота;Воскресенье
+- [СК «Иннополис» | Фитнес, бассейн, тренажерный зал](/raw/sites/sport/home.md): Групповые и индивидуальные тренировки, аквафитнес, джакузи, финская сауна и римско-турецкая баня
+- [Тренажерный зал](/raw/sites/sport/about-zones-training-hall.md): Площадь зала - более 1 000 кв.м.
+- [Фитнес](/raw/sites/sport/about-zones-fitness.md): В клубе используются самые эффективные методики тренировок для разных целей и уровни подготовки.
+- [Фитнес-зоны](/raw/sites/sport/about-zones.md): Бассейн 25 метров в Иннополисе, аквафитнес, джакузи, финская сауна и тд.
 
 ## site/stc
 
@@ -4160,7 +4372,7 @@ Pages of the sites of the university and its services: the university, admission
 - [Структура и органы управления образовательной организацией](/raw/sites/university/sveden-struct-university-structure.md)
 - [Структура и органы управления образовательной организацией](/raw/sites/university/sveden-struct.md): ФИО руководителя структурного подразделения (органа управления)
 - [Технологические центры](/raw/sites/university/team-structure-techcenters.md)
-- [Университет Иннополис](/raw/sites/university/home.md): Университет Иннополис вместе с «Газпром нефтью» и 4 партнёрами вошёл в альянс по цифровизации добычи углеводородов
+- [Университет Иннополис](/raw/sites/university/home.md): Университет Иннополис проведёт технологические аудиты и окажет экспертную поддержку московским предприятиям
 - [Управление академической политики и организации образовательной деятельности](/raw/sites/university/team-academicpolicy.md): Проректор - начальник управления академической политики и высшего образования
 - [Управление развития университета](/raw/sites/university/team-developmentdept.md): Имеет психологическое, лингвистическое и экономическое образование.
 - [Факультет гуманитарных и социальных наук](/raw/sites/university/team-structure-team-faculty2.md): Факультет гуманитарных и социальных наук — это междисциплинарное сообщество преподавателей и исследователей, чьи преподавательские и исследовательские интересы включают философию, технологическое пред

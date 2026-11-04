@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "15.02.10 Мехатроника и робототехника (по отраслям)"
+title: "15.02.10 Мехатроника и робототехника (по отраслям) [fgos_15.02.10]"
 resource: "https://innopolis.university/upload/iblock/427/l2xmglf3ule0ugxqhfz4g651201fw0kd/fgos_15.02.10.pdf"
 audience: ["student", "postgraduate", "applicant", "teacher"]
 source_kind: official-document
@@ -9,7 +9,7 @@ section: "sveden/eduStandarts"
 sources:
   - resource: "https://innopolis.university/upload/iblock/427/l2xmglf3ule0ugxqhfz4g651201fw0kd/fgos_15.02.10.pdf"
     id: "15c61a24dad3"
-    title: "15.02.10 Мехатроника и робототехника (по отраслям)"
+    title: "15.02.10 Мехатроника и робототехника (по отраслям) [fgos_15.02.10]"
     last_modified: "2023-05-12T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -19,7 +19,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# 15.02.10 Мехатроника и робототехника (по отраслям)
+# 15.02.10 Мехатроника и робототехника (по отраслям) [fgos_15.02.10]
 
 МИНИСТЕРСТВО ЮСТИЦИИ РОССИЙСКОЙ ФЕДЕРАЦИИ
 
@@ -292,4 +292,4 @@ I. ОБЩИЕ ПОЛОЖЕНИЯ
 
 # Citations
 
-1. [15.02.10 Мехатроника и робототехника (по отраслям)](https://innopolis.university/upload/iblock/427/l2xmglf3ule0ugxqhfz4g651201fw0kd/fgos_15.02.10.pdf), file 15c61a24dad3
+1. [15.02.10 Мехатроника и робототехника (по отраслям) [fgos_15.02.10]](https://innopolis.university/upload/iblock/427/l2xmglf3ule0ugxqhfz4g651201fw0kd/fgos_15.02.10.pdf), file 15c61a24dad3

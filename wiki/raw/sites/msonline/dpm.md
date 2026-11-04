@@ -30,7 +30,7 @@ status: draft
 
 в онлайн-формате
 
-[Учебный план](https://lk-dovuz.innopolis.university/public/files/ucp_uch24-25.pdf)
+[Учебный план](/raw/regulations/site-msonline-b728ba92-ucp-uch2425.md)
 
 [Образование](/raw/sites/apply/home.md)
 

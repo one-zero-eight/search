@@ -1,0 +1,33 @@
+{
+ "members": [
+  {
+   "ext": "pdf",
+   "file": "0001.pdf",
+   "key": "site-university-472ecbfc-md-mm-2026-member-1c14acb76c24e9f0214d",
+   "member": "МД ММ 2026/Визуализация_ИА_2026_ММ_ 21.08.2026.pdf",
+   "sha256": "b8167b5612762e365b4a6cdc226c9cc90ec3220961eea8c40a3be1ba50ef367a",
+   "size": 399904,
+   "status": "ready",
+   "storage": "site-university-472ecbfc-md-mm-2026.members/1c14acb76c24e9f0214d/b8167b5612762e365b4a6cdc226c9cc90ec3220961eea8c40a3be1ba50ef367a"
+  },
+  {
+   "ext": "pdf",
+   "file": "0002.pdf",
+   "key": "site-university-472ecbfc-md-mm-2026-member-7f0d582ed7afe67233a5",
+   "member": "МД ММ 2026/Визуализация_План научной деятельности_2026_ММ_21.08.2026.pdf",
+   "sha256": "ea96a8e385e9c2895eab82f07e3be8414c67fb75157a81da2812cb63afc0bba1",
+   "size": 527002,
+   "status": "ready",
+   "storage": "site-university-472ecbfc-md-mm-2026.members/7f0d582ed7afe67233a5/ea96a8e385e9c2895eab82f07e3be8414c67fb75157a81da2812cb63afc0bba1"
+  }
+ ],
+ "remote": {
+  "etag": "\"6aa7f842-97dd6\"",
+  "modified": "Mon, 14 Sep 2026 13:36:02 GMT",
+  "size": "622038"
+ },
+ "sha256": "f8910541b9f4cafe7d7a81e1227df277574eb19e827e2e1892c8e3cfabfa0955",
+ "source": "site-university-472ecbfc-md-mm-2026.archives/f8910541b9f4cafe7d7a81e1227df277574eb19e827e2e1892c8e3cfabfa0955.archive",
+ "status": "ready",
+ "url": "https://innopolis.university/upload/iblock/566/cozd4xa1qapwrwfq6qlk819lwm8m1249/%D0%9C%D0%94%20%D0%9C%D0%9C%202026.zip"
+}

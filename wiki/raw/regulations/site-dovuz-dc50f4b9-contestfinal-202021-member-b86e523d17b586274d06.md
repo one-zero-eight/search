@@ -1,0 +1,68 @@
+---
+type: regulation
+title: "contest-final 2020-21 — problems/polyline-drawing/statements/.pdf/english/problem.pdf"
+resource: "https://lk-dovuz.innopolis.university/public/files/contest-final_2020-21.zip"
+archive_member: "problems/polyline-drawing/statements/.pdf/english/problem.pdf"
+source_kind: official-document
+language: ru
+section: "site/dovuz"
+sources:
+  - resource: "https://lk-dovuz.innopolis.university/public/files/contest-final_2020-21.zip"
+    id: "dcb3303b85e6"
+    title: "contest-final 2020-21 — problems/polyline-drawing/statements/.pdf/english/problem.pdf"
+    last_modified: "2026-11-04T02:52:48+00:00"
+generated:
+  by: "catix-wiki/0.1 regulations"
+  at: "2026-11-04T02:52:48+00:00"
+extraction: "text layer (opendataloader)"
+status: draft
+---
+
+# contest-final 2020-21 — problems/polyline-drawing/statements/.pdf/english/problem.pdf
+
+Diamond Hands
+
+Input file: standard input Output file: standard output Time limit: 2 seconds Memory limit: 512 megabytes
+
+The “Diamond Hands” corporation has a long and eventful history. Starting from its foundation, they had a lot of successful and unsuccessful days. For simplicity, let’s consider a day successful if its stock price increased by one (in abstract units). Similarly, we consider a day unsuccessful if its stock price decreased by one. As it often happens, successful days come in long streaks, as do unsuccessful days. There is no middle ground: every day is either successful or unsuccessful.
+
+You would like to figure out which days were successful and unsuccessful for the corporation. To accomplish it, you obtained the historical stock price data: n pairs (di,pi), meaning that after di days after issuing stock the difference with the starting stock price was pi units (pi can be an arbitrary integer, including any negative number).
+
+Represent the corporation’s history with the minimum number of successful or unsuccessful day streaks, or report that data contains an error and it’s impossible to achieve it. If there are multiple possible answer with the minimum number of streaks, output any one of them.
+
+Input
+
+The first line of the input contains an integer n (1 ≤ n ≤ 200000). Next n lines contain a pair of integers di pi each (1 ≤ di ≤ 108; −108 ≤ pi ≤ 108; di < di+1 for all i from 1 to n − 1).
+
+Output
+
+If there are errors in the historical stock price data, output −1. Otherwise, print k, the number of streaks, in the first line. Next, print k lines describing successful or unsuccessful streaks. Each line should contain a pair li ci (1 ≤ li ≤ 108; ci ∈ {+,-}), meaning that the next streak lasted for li days, and was successful if ci = +, or unsuccessful if ci = -.
+
+The description of streaks must be done in chronological order, starting from the day stock was issued and ending on day dn. This means that the sum of all li must be equal to dn.
+
+Scoring
+
+| Subtask | Points | Constraints |
+| --- | --- | --- |
+| 1 | 6 | n ≤ 2000, if an answer exists, then k = 1 |
+| 2 | 8 | n ≤ 2000, if an answer exists, then k ≤ 2 |
+| 3 | 10 | n ≤ 200000, if an answer exists, then k ≤ 2 |
+| 4 | 28 | n ≤ 2000, di,pi ≤ 2000 |
+| 5 | 17 | n ≤ 2000, di,pi ≤ 108 |
+| 6 | 31 | n ≤ 200000, di,pi ≤ 108 |
+
+Examples
+
+| standard input | standard output |
+| --- | --- |
+| 4 2 2 3 3 5 1 7 1 | 3 3 + 3 - 1 + |
+| 2 3 -3 7 -3 | 2 5 - 2 + |
+| 1 1 0 | -1 |
+
+Note
+
+In the first example, first three days are successful, so after 2 days the difference is 2, and after 3 days the difference is 3. Next three days are unsuccessful, so after 5 days the difference becomes 1, and after 6 days the stock price is back to the initial value. The last seventh day is successful, so the final difference after 7 days is 1.
+
+# Citations
+
+1. [contest-final 2020-21 — problems/polyline-drawing/statements/.pdf/english/problem.pdf](https://lk-dovuz.innopolis.university/public/files/contest-final_2020-21.zip), file dcb3303b85e6

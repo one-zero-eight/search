@@ -70,7 +70,7 @@ This program will train qualified engineers for high-tech sectors of the economy
 
 The language of instruction is English.
 
-[Download the curriculum](https://innopolis.university/filespublic/Overview_of_the_BS_Program1.pdf)
+[Download the curriculum](/raw/regulations/site-international-5e7e3449-overview-of-the-bs-program1.md)
 
 ![auditorium](https://innopolis.university/local/templates/newapply/images/conditions/auditorium.jpg)
 

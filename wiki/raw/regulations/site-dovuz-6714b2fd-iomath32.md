@@ -1,0 +1,438 @@
+---
+type: regulation
+title: "io-math-3-2"
+resource: "https://lk-dovuz.innopolis.university/public/files/io-math-3-2.pdf"
+source_kind: official-document
+language: ru
+section: "site/dovuz"
+sources:
+  - resource: "https://lk-dovuz.innopolis.university/public/files/io-math-3-2.pdf"
+    id: "babee3d14059"
+    title: "io-math-3-2"
+    last_modified: "2026-11-01T23:17:22+00:00"
+generated:
+  by: "catix-wiki/0.1 regulations"
+  at: "2026-11-01T23:17:22+00:00"
+extraction: "text layer (opendataloader)"
+status: draft
+---
+
+# io-math-3-2
+
+7𝑡ℎ degree
+
+Task 1. Катя хочет покрасить стены своей шестиугольной комнаты в голубой, желтый, зеленый, красный, синий и оранжевый цвета (каждую стену в свой цвет), причем голубая стена должна соседствовать с желтой, а зеленая не должна соседствовать с синей. Сколько существует различных способов покрасить стены комнаты с соблюдением этих правил? Покраски, совпадающие друг с другом при повороте комнаты, считаются одинаковыми.
+
+Kate wants to paint the walls of her hexagonal room in light-blue, yellow, green, red, blue and orange (each wall in a different color), where the light-blue wall should be adjacent to the yellow one, and the green wall should not be adjacent to the blue one. How many different ways are there to paint the walls of the room while following these rules? Paintings that coincide with each other when the room is rotated are considered to be the same.
+
+Solution (RUS). Заметим, что каждую покраску можно отразить (раскрасить стены в обратном порядке), а значит, все покраски можно разбить на пары. Поэтому достаточно рассмотреть только одну покраску из каждой пары, а значит, будем считать, что желтая стена справа от голубой.
+
+Пронумеруем стены комнаты числами от 1 до 6, поворачиваясь по часовой стрелке. Поскольку покраски, совпадающие при повороте, считаются одинаковыми, будем считать, что стена 1 покрашена в голубой цвет, а стена 2 – в желтый. Остались четыре непокрашенные стены и четыре цвета, поэтому общее количество способов их покрасить равно 4 · 3 · 2 · 1 = 24. Из них нам не подходят варианты, в которых синяя и зеленая стены соседствуют:
+
+𝐺,𝐵, , ; 𝐵,𝐺, , ;
+
+,𝐺,𝐵, ; ,𝐵,𝐺, ; , ,𝐺,𝐵; , ,𝐵,𝐺.
+
+Буквами 𝐺,𝐵 здесь обозначены соответственно зеленый и синий цвета, а символом – стены для покраски в красный и оранжевый цвета. Заметим, что для каждого из шести перечисленных вариантов существуют по два варианта покраски в красный и оранжевый цвета – значит, неподходящих вариантов ровно 6 · 2 = 12, а остальные 12 из 24 подходят.
+
+Осталось вспомнить, что все «правильные» покраски можно разбить на симметричные пары, а значит, всего их 12 · 2 = 24.
+
+Solution (ENG). Note that all ways to paint the walls can be divided into pairs symmetrical to each other with respect to the axis of symmetry of the hexagon (if you look at the room from above). Therefore, it’s enough to consider only one painting from each pair, which means that we can assume that yellow wall is to the right of the blue one.
+
+Let’s enumbeate the walls of the room with numbers from 1 to 6, turning clockwise. Since the ways to paint that match during the rotation are assumed to be the same, we will assume that wall 1 is blue and wall 2 is yellow. There are four unpainted walls and four colors left, so the total number of ways to paint them is 4 · 3 · 2 · 1 = 24. Of these we do not accept options in which blue and green walls are adjacent:
+
+𝐺,𝐵, , ; 𝐵,𝐺, , ;
+
+,𝐺,𝐵, ; ,𝐵,𝐺, ; , ,𝐺,𝐵; , ,𝐵,𝐺.
+
+The letters 𝐺,𝐵 here represent green and blue, respectively, and the symbol denotes the walls to be painted in red and orange. Note that for each of the six options listed, there are two color options for red and orange, which means that there are exactly 6 · 2 = 12 of unsuitable options, and the remaining 12 out of 24 are suitable for us.
+
+It remains to remember that all correct ways to paint the walls can be divided into symmetrical pairs, which means that there are 12 · 2 = 24 ways in total.
+
+Task 2. Рассмотрим следующий алгоритм. На каждом шаге мы берем текущее натуральное число, раскладываем его в сумму каких-то двух натуральных слагаемых (эти слагаемые на каждом шаге мы можем выбирать как угодно), а затем перемножаем эти два слагаемых и получаем новое число. Назовем число 𝑛 волшебным, если, запустив алгоритм с числа, равного сумме цифр десятичной записи 𝑛, мы в какой-то момент времени можем получить число 𝑛.
+
+Например, число 35 волшебное, поскольку сумма его цифр равна 8, и алгоритм работает так:
+
+8 = 6 + 2 → 6 · 2 = 12 = 7 + 5 → 7 · 5 = 35 Является ли волшебным число 2023?
+
+Consider the following algorithm. At every its step we represent the current positive integer as a sum of two positive integers chosen by our will, then we multiply these two numbers and get a new number. Lets call a number 𝑛 magical if we can get 𝑛 by launching the algorithm from the sum of decimal digits of 𝑛.
+
+For example, the number 35 is magical, since the sum of its digits is 8, and the algorithm works as follows:
+
+8 = 6 + 2 → 6 · 2 = 12 = 7 + 5 → 7 · 5 = 35 Is the number 2023 magical?
+
+Solution (RUS). Заметим, что 2023 = 17·119, поэтому в ходе работы нашего алгоритма нам нужно получить число 17 + 119 = 136. Удобно для этого запустить процесс в обратную сторону: разложить число на два множителя и затем вычислить их сумму. Получим следующий процесс:
+
+2023 = 17 · 119 → 17 + 119 = 136 = 8 · 17 → 8 + 17 = 25 = 5 · 5 → 5 + 5 = 10
+
+Таким образом, нам достаточно, стартуя с числа 2 + 0 + 2 + 3 = 7, получить число 10. Это совсем легко:
+
+7 = 4 + 3 → 4 · 3 = 12 = 11 + 1 → 11 · 1 = 11 = 10 + 1 → 10 · 1 = 10
+
+Получив число 10 и развернув в обратную сторону процесс, описаный выше, получим алгоритм, приводящий нас к числу 2023. Значит, оно волшебное.
+
+Solution (ENG). Note that 2023 = 17 · 119, so during the work of our algorithm we need to get the number 17 + 119 = 136. It is convenient to run the algorithm in the opposite direction: decompose the number into two factors and then calculate their sum. We get the following:
+
+2023 = 17 · 119 → 17 + 119 = 136 = 8 · 17 → 8 + 17 = 25 = 5 · 5 → 5 + 5 = 10
+
+Thus, it is enough for us to get the number 10 starting from the number 2 + 0 + 2 + 3 = 7. It’s quite easy:
+
+7 = 4 + 3 → 4 · 3 = 12 = 11 + 1 → 11 · 1 = 11 = 10 + 1 → 10 · 1 = 10
+
+Having received the number 10 and reversed the process described above, we get an algorithm that leads us to the number 2023. So it’s magical.
+
+Task 3. По кругу расставлены 2024 контейнера, в каждом из которых изначально находится по одному шарику. Робот умеет брать два любых шарика и перекладывать их в соседние с ними контейнеры, но при этом один шарик должен быть переложен в соседний контейнер справа, а другой – в соседний контейнер слева.
+
+Например, можно взять шарики из контейнеров с порядковыми номерами 134 и 960 и переложить из них шарики в контейнеры с номерами 135 и 959 соответственно.
+
+Можно ли написать для робота такую программу, что в результате ее работы
+
+- a) останется 8 контейнеров, в каждом из которых по 253 шарика;
+
+- b) останется 253 контейнера, в каждом из которых по 8 шариков?
+
+2024 containers are arranged in a circle, each of them initially contains one ball. Robot can take any two balls and transfer them to the containers adjacent to them, but in this case one ball must be transferred to the adjacent container on the right, and the other – to the adjacent container on the left.
+
+For example, you can take balls from containers with numbers 134 and 960 and put them into containers with numbers 135 and 959, respectively.
+
+Is it possible to program the robot such that as a result of its work
+
+- a) 8 containers will remain, each containing 253 balls;
+
+- b) 253 containers left, each with 8 balls?
+
+Solution (RUS). a) Покажем, что это возможно. Пронумеруем контейнеры числами от 1 до 2024. Сначала переложим все шарики из контейнеров с номерами от 1 до 252 в контейнер 253, одновременно перекладывая шарики из контейнеров с номерами от 2024 до 1773 в контейнер 1772. Аналогично поступим с контейнерами с номерами от 254 до 505 и контейнерами с номерами от 1771 до 1520, номерами от 507 до 758 и номерами от 1518 до 1267, и наконец, с номерами от 760 до 1011 и номерами от 1265 до 1014. В итоге мы получим требуемое распределение шариков.
+
+- b) Докажем, что такое невозможно. Проследим, как меняется сумма номеров контейнеров,
+
+умноженных на количество шаров в них, при одном действии робота (например, изначально эта сумма равна 1 + 2 + 3 + 4 + ··· + 2024, а после того, как робот «поработает» с контейнерами 1 и 3, эта сумма будет равна 0 + 2 · 3 + 0 + 4 + ··· + 2024). Если не происходит перекладывания шарика из контейнера 1 в контейнер 2024 (или наоборот), эта сумма сохраняется, в противном случае она изменяется на 2024. Значит, в результате всех перемещений шариков остаток суммы номеров контейнеров, умноженных на количество шаров в них, при делении на 2024 не изменился. В начальный момент времени этот остаток был равен 1 + 2 + ··· + 2024 = 2025 · 1012 ≡ 1012 (mod 2024), а в конечный момент времени – остатку суммы номеров контейнеров, содержащих шарики, умноженной на 8. Однако первый остаток не кратен 8, а второй кратен – противоречие. Значит, искомого алгоритма не существует.
+
+Solution (ENG). a) Let’s show that’s possible. We’ll numerate the containers from 1 to 2024. First, let’s «shift» all the balls from containers with numbers from 1 to 252 to the container 253, at the same time shifting balls from containers with numbers from 2024 to 1773 into the container 1772. We will act similarly with containers numbered from 254 to 505 and containers numbered from 1771 to 1520, from 507 to 758 and from 1518 to 1267, and finally, from 760 to 1011 and from 1265 to 1014. As a result, we get the required placing of balls.
+
+- b) Let’s prove that it’s impossible. We will look at the sum of containers’ numbers changing at one
+
+action of the robot. If the ball is not transferred from a container of 1 to a container 2024 (or vice versa), the sum of numbers of the two containers remains the same, otherwise it changes (increases or decreases) by 2024. This means that as a result of all the movements of the balls, the rest of the amount of containers’ numbers has not changed modulo 2024. At the robot started its work, the residue was
+
+1 + 2 + ··· + 2024 = 2025 · 1012 ≡ 1012 (mod 2024), and at the end of its work the residue must be equal to the remainder of the sum of containers’ (with balls) numbers multiplied by 8. However, the first residue is not divisible by 8, and that gives us a contradiction. Thus, the desired algorithm can not exist.
+
+Task 4. (задача предоставлена партнером Олимпиады – компанией «Тинькофф Образование») Аналитик приехал на конференцию. Там он узнал, что среди 190 других участников конференции 50 всегда говорят правду, 100 всегда лгут, а 40 могут говорить что угодно. Все, кроме аналитика, знают всё про всех остальных: кто всегда говорит правду, кто всегда лжёт, а кто может говорить что угодно. Докажите, что, пообщавшись со всеми участниками конференции, аналитик гарантированно сможет выяснить, кто кем является. The analyst came to a conference. There he learned that among 190 others participants 50 always tell the truth, 100 always lie, and 40 can say either truth or lie. Everyone except the analyst knows everything about everyone else: who always tells the truth, who always lies, and who can say anything. Prove that after talking with all the participants of the conference the analyst is guaranteed to find out who is who. Solution (RUS). Зададим каждому из людей вопрос про каждого из остальных. Заметим, что люди, всегда говорящие правду, назовут ровно 100 других людей лжецами. А вот люди, которые всегда лгут, не могут назвать каких-то 100 других людей лжецами, потому что людей, говорящих правду и всё что угодно, суммарно меньше 100. Рассмотрим только людей, которые про 100 каких-то других людей сказали, что те всегда лгут. Среди них должны найтись какие-то 50 людей, которые друг про друга сказали, что они говорят правду. Заметим, что в таком множестве могут быть только люди, которые всегда говорят правду. Действительно, лжецов там быть не может, так как мы их «отфильтровали» ещё на первом шаге. Если среди этих 50 людей встречаются всегда говорящие правду и говорящие что угодно, то люди, говорящие правду, сказали бы про остальных, что они говорят что угодно. Также все эти 50 человек не могут говорить что угодно, так как говорящих что угодно у нас всего 40. Таким образом, мы найдём людей, говорящих правду, а дальше по их ответам узнаем всё про всех остальных. Solution (ENG). Let’s ask each of the people a question about each of the others. Note that people who always tell the truth will call exactly 100 of other people liars. And the liars can’t call some 100 of other people liars, because there are less than 100 of non-liars. Consider only people who said about the 100 of some other people that they always lie. Among them there should be some 50 people who said about each other that they are telling the truth. Note that in such a set there can only be people who always tell the truth. Indeed, there cannot be liars, since we «filtered out» them at the first step. If among these 50 people there are always non-liars, then people who tell the truth would say about the rest that they say whatever they want. Also, all these 50 people can’t say anything, because we only have 40 of people saying anything.
+
+In this way, we will find people who speak the truth, and then we will learn everything about everyone else from their answers.
+
+Task 5. Андрей загадал натуральное число 𝑘, а Виктор каким-то образом выписал на доску все натуральные числа, не содержащие в десятичной записи цифру 0. Затем Андрей огласил значение 𝑘, и Виктор вместо каждого записанного на доске числа 𝑛 записал разность между суммой цифр числа 𝑛 и суммой цифр числа 𝑘𝑛 (и там, и там говорится о сумме цифр десятичной записи числа).
+
+Докажите, что теперь на доске записано бесконечно много нулей.
+
+Andrew thought of a positive integer 𝑘, and Victor somehow wrote down on the board all positive integers that do not contain the digit 0 in their decimal notation. Then Andrew announced the value of 𝑘, and instead of each number 𝑛 written on the board, Victor wrote down the difference between the sum of decimal digits of the number 𝑛 and the sum of decimal digits of the number 𝑘𝑛.
+
+Prove that now there are infinitely many zeros written on the board.
+
+Solution (RUS). Пусть в десятичной записи числа 𝑘 было 𝑥 цифр. Тогда среди чисел, изначально записанных на доске, достаточно рассмотреть числа вида 999...9, записываемые девятками, количество которых не меньше 𝑥.
+
+Рассмотрим одно такое число, записываемое с помощью 𝑦 девяток: 𝑛 = 999...9 = 10𝑦 − 1. Сумма цифр такого числа равна 9𝑦, при этом 𝑘𝑛 = (10𝑦 − 1)𝑘 = 10𝑦 · 𝑘 − 𝑘 – десятичная запись такого числа начинается с записи числа 𝑘 (если 𝑘 не кратно 10, то последняя цифра уменьшена на 1; если 𝑘 кратно 10, то можно отбросить нули, на которые оно оканчивается – они не влияют на сумму цифр числа 𝑘𝑛), затем следует 𝑦 − 𝑥 девяток, а затем – цифры, дополняющие каждую из первых 𝑥 цифр до 9.
+
+Верность этого утверждения может быть продемонстрирована вычитанием из 10𝑦·𝑘 числа 𝑘 «в столбик». После этого становится очевидным, что суммы цифр чисел 𝑛 и 𝑘𝑛 равны, и разность этих сумм равна 0. Поскольку утверждение верно для любого 𝑦 ≥ 𝑥 и количество таких 𝑦 бесконечно, делаем вывод, что на доске окажется бесконечное количество нулей, что и требовалось доказать.
+
+Например, если 𝑘 = 372, 𝑦 = 5 ≥ 3 (количество цифр десятичной записи 𝑘), то 𝑛 = 99999 и 𝑘𝑛 = 372 · 99999 = 372 · (105 − 1) = 37199628 с той же суммой цифр, что у числа 99999. Это же верно для любого 𝑦 ≥ 3.
+
+Solution (ENG). Let there be 𝑥 digits in the decimal representation of the number 𝑘. Then, among the numbers initially written on the board, it’s enough to consider numbers of the form 999...9 (at least 𝑥 digits, all of them are equal to 9).
+
+Consider one such number written using 𝑦 digits «9»: 𝑛 = 999...9 = 10𝑦 −1. The sum of the digits of such a number is 9𝑦, while 𝑘𝑛 = (10𝑦 − 1)𝑘 = 10𝑦 · 𝑘 − 𝑘 – the decimal notation of such a number begins with the number 𝑘 (if 𝑘 is not a multiple of 10, then the last digit is reduced by 1; if 𝑘 is a multiple of 10, then you can discard the zeros it ends in since they don’t affect the sum of digits of 𝑘𝑛), followed by 𝑦 − 𝑥 digits «9», and then – by digits completing each of the first 𝑥 digits up to 9.
+
+The correctness of this statement can be demonstrated by subtracting the number 𝑘 «in a column» from 10𝑦 · 𝑘. After that, it becomes obvious that the sums of the digits of the numbers 𝑛 and 𝑘𝑛 are equal, and the difference between these sums is equal to 0. Since the assertion is true for any 𝑦 ≥ 𝑥 and the number of such 𝑦 is infinite, we conclude that there will be an infinite number of zeros on the board, which was required to be proved.
+
+For example, if 𝑘 = 372, 𝑦 = 5 ≥ 3 (the number of digits in decimal notation 𝑘), then 𝑛 = 99999 and 𝑘𝑛 = 372 · 99999 = 372 · (105 − 1) = 37199628 with the same sum of digits as 99999. The same is true for any 𝑦 ≥ 3.
+
+8-9𝑡ℎ degree
+
+Task 1. Окружности 𝜔1 и 𝜔2, не имеющие общих точек, касаются окружности Ω внутренним образом в точках 𝐴 и 𝐵, соответственно. Центры окружностей 𝜔1 и 𝜔2 расположены по разные стороны от прямой 𝐶𝐷 – общей касательной этих окружностей, причем точка 𝐶 лежит на 𝜔1, а точка 𝐷 – на 𝜔2. Найдите градусную меру дуги 𝐴𝐵 окружности Ω, если угол между прямыми 𝐴𝐶 и 𝐵𝐷 составляет 55∘.
+
+The circles 𝜔1 and 𝜔2 (which have no common points) touch the circle Ω internally at the points 𝐴 and 𝐵, respectively. The centers of the circles 𝜔1 and 𝜔2 are located on opposite sides of the line 𝐶𝐷 which is the common tangent line of these circles while the point 𝐶 lies on 𝜔1 and the point 𝐷 lies on 𝜔2. Find the degree measure of the arc 𝐴𝐵 of the circle Ω if the angle between the lines 𝐴𝐶 and 𝐵𝐷 is 55∘.
+
+Solution (RUS). Пусть искомая градусная мера дуги 𝐴𝐵 равна 𝜑; 𝑂 – центр окружности Ω. Касательные к этой окружности в точках 𝐴,𝐵 будут касательными к окружностям 𝜔1,𝜔2 (соответственно) и пересекутся в точке 𝐹. Поскольку ∠𝑂𝐴𝐹 = ∠𝑂𝐵𝐹 = 90∘, из суммы углов четырехугольника 𝐴𝑂𝐵𝐹 получим ∠𝐴𝐹𝐵 = 180∘ − 𝜑.
+
+Касательные, проведенные к окружности в концах одной хорды, составляют с этой хордой равные углы, поскольку отрезки этих касательных вместе с хордой образуют равнобедренный треугольник. Поэтому ∠𝐹𝐴𝐶 = ∠𝐷𝐶𝐴 (обозначим этот угол за 𝛼), аналогично ∠𝐹𝐵𝐷 равен углу между прямой 𝐶𝐷 и хордой 𝐵𝐷 окружности 𝜔2 (обозначим этот угол за 𝛽).
+
+Пусть 𝐸 – точка пересечения прямых 𝐴𝐶 и 𝐵𝐷, тогда ∠𝐶𝐷𝐸 = 𝛽, и для углов треугольника 𝐶𝐷𝐸 имеем ∠𝐶𝐸𝐷 + 𝛼 + 𝛽 = 180∘, откуда ввиду ∠𝐶𝐷𝐸 = 55∘ получим 𝛼 + 𝛽 = 125∘.
+
+Пусть 𝐶𝐵′ ‖ 𝐷𝐵, где точка 𝐵′ лежит на прямой 𝐹𝐵.
+
+Тогда ∠𝐴𝐶𝐵′ = 𝛼 + 𝛽, и из суммы углов четырехугольника 𝐴𝐶𝐵′𝐹 с учетом введенных обозначений получим 180∘ − 𝜑 + 2(𝛼 + 𝛽) = 360∘, откуда 𝜑 = 2(𝛼 + 𝛽) − 180∘ = 2 · 125∘ − 180∘ = 70∘.
+
+Solution (ENG). Let the required degree measure of the arc 𝐴𝐵 be equal to 𝜑; 𝑂 is the center of the circle Ω. The tangent lines to this circle at the points 𝐴,𝐵 will also be tangents to the circles 𝜔1,𝜔2 (respectively) and will intersect at the point 𝐹. Since ∠𝑂𝐴𝐹 = ∠𝑂𝐵𝐹 = 90∘, from the sum of the angles of 𝐴𝑂𝐵𝐹 we get ∠𝐴𝐹𝐵 = 180∘ − 𝜑.
+
+The tangents drawn to the circle at the ends of one chord make equal angles with this chord, since the segments of these tangents together with the chord form an isosceles triangle. Therefore, ∠𝐹𝐴𝐶 = ∠𝐷𝐶𝐴 (we denote this angle by 𝛼), similarly ∠𝐹𝐵𝐷 is equal to the angle between the line 𝐶𝐷 and the chord 𝐵𝐷 of the circle 𝜔2 (we denote this angle by 𝛽).
+
+Let 𝐸 be the intersection point of lines 𝐴𝐶 and 𝐵𝐷, then ∠𝐶𝐷𝐸 = 𝛽, and for the angles of triangle 𝐶𝐷𝐸 we have ∠𝐶𝐸𝐷 + 𝛼 + 𝛽 = 180∘, and from ∠𝐶𝐷𝐸 = 55∘ we get 𝛼 + 𝛽 = 125∘.
+
+Let 𝐶𝐵′ ‖ 𝐷𝐵 for the point 𝐵′ which lies on the line 𝐹𝐵.
+
+Then ∠𝐴𝐶𝐵′ = 𝛼+𝛽, and from the sum of the angles of the quadrilateral 𝐴𝐶𝐵′𝐹, taking into account the introduced notation, we obtain 180∘ − 𝜑 + 2(𝛼 + 𝛽) = 360∘, whence 𝜑 = 2(𝛼 + 𝛽) − 180∘ =
+
+2 · 125∘ − 180∘ = 70∘.
+
+Task 2. Алиса и Боб играют в игру. На плоскости отмечены 𝑛 > 1 точек общего положения (т.е. никакие три из них не лежат на одной прямой), где 𝑛 – нечетное натуральное число. Алиса и Боб по очереди (начиная с Алисы) выбирают пару точек и соединяют их отрезком (запрещается повторно соединять точки, которые уже соединены отрезком). Проигрывает тот, после чьего хода образуется цикл нечетной длины.
+
+Кто выиграет при правильной игре обоих соперников?
+
+Alice and Bob are playing a game. For an odd integer 𝑛 > 1 there are 𝑛 points chosen on a plane in such way that there can’t be chosen three of them lying at the same line. Alice and Bob make their moves (starting with Alice) by choosing a pair of the points and connecting them with a segment (it is forbidden to reconnect points that are already connected). The one whose move forms a cycle of odd number of segments – loses the game.
+
+Who will win if both opponents play correctly?
+
+Solution (RUS). Докажем, что выиграет Боб, т.е. что в любой момент времени после хода Алисы он сможет сделать свой ход и не проиграть. Рассмотрим граф, возникающий перед ходом Боба. Поскольку он не содержит циклов нечетной длины, этот граф является двудольным. Пусть 𝑎 и 𝑏 – размеры его долей. Ясно, что проведение любого нового ребра между долями не приведет к поражению, поэтому, если Боб может провести такое ребро, он его проведет.
+
+Предположим, что Боб не может сделать ход. Тогда перед его ходом возник полный двудольный граф 𝐾𝑎,𝑏. Но поскольку 𝑎+𝑏 = 𝑛 – нечетно, числа 𝑎 и 𝑏 имеют разную четность, а количество проведенных ребер равно 𝑎𝑏 – четно. Однако после хода Алисы проведено нечетное число ребер. Значит, после ее хода никак не может получиться полный двудольный граф. Поэтому Боб всегда сможет сделать непроигрывающий ход, а значит, он выиграет.
+
+Solution (ENG). Lets prove that Bob wins, i.e. that at any time after Alice’s move, he can make his move and not lose. Consider the graph that appears before Bob’s move with its vertices being the points and its edges being the segments drawn. Since it does not contain cycles of odd length, this graph is bipartite. Let 𝑎 and 𝑏 be the sizes of its parts. It is clear that drawing any new edge between the parts will not lead to loss, so if Bob can draw such an edge, he will draw it.
+
+Let’s say Bob can’t make a move. Then, before his move, we have a complete bipartite graph 𝐾𝑎,𝑏. But since 𝑎 + 𝑏 = 𝑛 is odd, the numbers 𝑎 and 𝑏 have different parity, and the number of drawn edges is equal to 𝑎𝑏 – even number. However, after Alice’s move, an odd number of edges are drawn. Hence, after ner move there is no way to get a complete bipartite graph. Therefore, Bob can always make a non-losing move, which means he will win.
+
+Task 3. Для всех вещественных 𝑥,𝑦,𝑧 ≥ 1 докажите неравенство
+
++ 𝑥𝑦𝑧 ≥ (√𝑥 − 1 + √︀𝑦 − 1 + √𝑧 − 1)2 𝑥 + 𝑦 + 𝑧
+
+Prove for real 𝑥,𝑦,𝑧 ≥ 1:
+
++ 𝑥𝑦𝑧 ≥ (√𝑥 − 1 + √︀𝑦 − 1 + √𝑧 − 1)2 𝑥 + 𝑦 + 𝑧
+
+Solution (RUS). По неравенству Коши-Буняковского-Шварца имеем 𝑥 + 𝑥𝑦𝑧 = 𝑥(1 + 𝑦𝑧) = 𝑥(1 + (𝑦 − 1 + 1)(𝑧 − 1 + 1)) ≥ (𝑥 − 1 + 1)(1 + (√︀𝑦 − 1 + √𝑧 − 1)2) ≥ ≥ (√𝑥 − 1 + √︀𝑦 − 1 + √𝑧 − 1)2
+
+Таким образом, ⎧ ⎪⎨ ⎪⎩ 𝑥 + 𝑥𝑦𝑧 ≥ (√𝑥 − 1 + √𝑦 − 1 + √𝑧 − 1)2 𝑦 + 𝑥𝑦𝑧 ≥ (√𝑥 − 1 + √𝑦 − 1 + √𝑧 − 1)2 𝑧 + 𝑥𝑦𝑧 ≥ (√𝑥 − 1 + √𝑦 − 1 + √𝑧 − 1)2
+
+Сложив эти неравенства и поделив обе части полученного неравенства на 3, получим требуемое.
+
+Solution (ENG). After applying Cauchy-Schwarz inequality we get 𝑥 + 𝑥𝑦𝑧 = 𝑥(1 + 𝑦𝑧) = 𝑥(1 + (𝑦 − 1 + 1)(𝑧 − 1 + 1)) ≥ (𝑥 − 1 + 1)(1 + (√︀𝑦 − 1 + √𝑧 − 1)2) ≥ ≥ (√𝑥 − 1 + √︀𝑦 − 1 + √𝑧 − 1)2
+
+Thus, ⎧ ⎪⎨ ⎪⎩ 𝑥 + 𝑥𝑦𝑧 ≥ (√𝑥 − 1 + √𝑦 − 1 + √𝑧 − 1)2 𝑦 + 𝑥𝑦𝑧 ≥ (√𝑥 − 1 + √𝑦 − 1 + √𝑧 − 1)2 𝑧 + 𝑥𝑦𝑧 ≥ (√𝑥 − 1 + √𝑦 − 1 + √𝑧 − 1)2
+
+After summing these inequalities and dividing both parts of the resulting inequality by 3, we get the required.
+
+Task 4. Весьма нестандартный людоед вечером перед сном поймал дружных математиков. «Сегодня я сыт, но завтра я разделаюсь с вами», – сказал он и потом продолжил: «Сегодняшнюю ночь вы проведете в общей камере, а завтра утром я рассажу вас по отдельным камерам с номерами, потом каждого из вас по отдельности (с глазу на глаз) спрошу, какой номер его камеры, и тех, кто угадает в этой первой попытке, выпущу из их камер у всех на глазах. Но после этого я каждому, кто сразу не угадал номер его камеры, дам еще одну попытку – еще раз (с глазу на глаз) спрошу про номер его камеры, однако, если хоть один из них ошибется – я съем всех!».
+
+Как спастись всем математикам?
+
+Известно, что математиков 𝑛 > 1, индивидуальных камер тоже 𝑛, они пронумерованы какими-то целыми числами из диапазона от 0 до (𝑛 − 1) (однако, в беспорядке и, возможно, с повторами и пропусками каких-то номеров – людоед-то малограмотный), из каждой камеры видны номера всех камер, кроме номера самой этой камеры, в общей камере математики могут договариваться о каком угодно алгоритме угадывания номеров своих камер, но в индивидуальных камерах они не могут общаться (передавать какие-либо сигналы друг другу), а разговор с глазу на глаз слышат только его непосредственные участники (людоед и математик, участвующие в разговоре). Сам людоед честный: он действительно отпускает у всех на глазах математиков, которые угадали номера своих камер в первой попытке.
+
+A very unusual cannibal caught some mathematicians at the evening. «Today I am full, but tomorrow I will eat you», he said and then continued: «Tonight you will spend in a common cell, and tomorrow morning I will put you in enumerated separate cells, then I will ask each of you (in private) about what his cell number is, and those who guess correctly in this first attempt will be released from their cells in front of everyone. After that, I will give everyone else one more attempt – once again each of them will be asked (in private) about the number of his cell. If at least one of them will not guess the number, then I will eat them all!». How can all mathematicians save themselves?
+
+It is known that there are 𝑛 > 1 mathematicians and 𝑛 individual chambers that are numbered with some integers from the range from 0 to (𝑛−1) (however, in disorder and, possibly, with repetitions and gaps because the cannibal is poor in counting), from each cell you can see the numbers of all the other cells (but cannot see the number of your cell itself), and in the common chamber mathematicians can discuss their strategy, but in separate cells they cannot communicate in any way. The cannibal himself is honest: he really lets go those mathematicians who guessed the numbers of their cells in the first attempt, and all others will see it.
+
+Solution (RUS). Сначала в общей камере математикам надо присвоить всем индивидуальные номера от 0 до (𝑛−1). Пусть людоед рассадил математиков по камерам с номерами 𝑘0,...,𝑘𝑛−1, где 𝑘𝑖 ∈ {0,...,𝑛 − 1} обозначает номер индивидуальной камеры, в которую посажен математик с номером 𝑖 ∈ {0,...,𝑛 − 1}. 𝑛∑︀−1
+
+Каждый математик 𝑖 ∈ {0,...,𝑛 − 1} может подсчитать сумму 𝑆𝑖 = 𝑘𝑗, но не может 𝑗=0,𝑗̸=𝑖 𝑛∑︀−1 𝑘𝑗, однако для каждого 𝑖 ∈ {0,...,𝑛 − 1} имеем подсчитать сумму 𝑆 = 𝑗=0 𝑘𝑖 = 𝑆 − 𝑆𝑖 ≡ (𝑆 − 𝑆𝑖) (mod 𝑛) ≡ (𝑆 (mod 𝑛) − 𝑆𝑖 (mod 𝑛)) (mod 𝑛)
+
+К сожалению, 𝑆 (mod 𝑛) никому из математиков не известно заранее, но пусть в качестве «кандидата» на 𝑆 (mod 𝑛) каждый математик называет свой собственный номер 𝑖 ∈ {0,...,𝑛 − 1}. Таким образом за первую попытку все математики вместе переберут (так сказать, параллельно) все возможные варианты (𝑆 (mod 𝑛)) ∈ {0,...,𝑛 − 1}, и, следовательно хотя бы один математик будет освобожден у всех на глазах. Пусть номер этого математика 𝑚 ∈ {0,...,𝑛 − 1}, и, следовательно, это число 𝑚 он назвал в качестве 𝑆 (mod 𝑛), поэтому во второй попытке каждому заключённому математику 𝑖 ∈ {0,...,𝑛 − 1} в качестве номера камеры следует назвать
+
+(𝑚 − (𝑆𝑖 (mod 𝑛))) (mod 𝑛), чтобы спастись.
+
+Solution (ENG). First, in the common chamber, mathematicians must assign individual numbers from 0 to (𝑛−1) to everyone. Let the cannibal seat the mathematicians in cells with numbers 𝑘0,...,𝑘𝑛−1, where 𝑘𝑖 ∈ {0,...,𝑛 − 1} denotes the number of the individual cell in which the mathematician with number 𝑖 ∈ {0,...,𝑛 − 1} sits. 𝑛∑︀−1
+
+Every mathematician 𝑖 ∈ {0,...,𝑛 − 1} can calculate the sum 𝑆𝑖 = 𝑘𝑗, but can’t calculate 𝑗=0,𝑗̸=𝑖 𝑛∑︀−1 𝑘𝑗, but for each 𝑖 ∈ {0,...,𝑛 − 1} we have the sum 𝑆 = 𝑗=0 𝑘𝑖 = 𝑆 − 𝑆𝑖 ≡ (𝑆 − 𝑆𝑖) (mod 𝑛) ≡ (𝑆 (mod 𝑛) − 𝑆𝑖 (mod 𝑛)) (mod 𝑛)
+
+Unfortunately, none of the mathematicians knows 𝑆 (mod 𝑛) in advance, but let each mathematician name his own number 𝑖 ∈ {0,...,𝑛 − 1} as a «candidate» for 𝑆 (mod 𝑛). Thus, during the first attempt, all mathematicians together will check all possible options of (𝑆 (mod 𝑛)) ∈ {0,...,𝑛 − 1}, and, consequently, at least one mathematician will be freed in front of the others. Let the number of this mathematician be 𝑚 ∈ {0,...,𝑛 − 1}, and, consequently, he named this number 𝑚 as 𝑆 (mod 𝑛), so in the second attempt each other mathematician with number 𝑖 ∈ {0,...,𝑛 − 1} should name
+
+(𝑚 − (𝑆𝑖 (mod 𝑛))) (mod 𝑛) as cell number – that’s the way to escape.
+
+Task 5. (задача предоставлена партнером Олимпиады – компанией «Тинькофф Образование») На столе лежат 16 карточек: на одной из них написано число 1, на второй – 2, на третьей – 3, ..., на последней – 16. Вася перевернул их все и быстро перемешал так, что Петя не успел запомнить местоположение ни одной карточки, а сам Вася запомнил всё.
+
+Петя хочет выложить все 16 карточек в ряд, не переворачивая их, так, чтобы числа на них шли слева направо либо по возрастанию, либо по убыванию. Вася хочет ему в этом помочь. За одну подсказку Вася может указать на две карточки и сказать Пете, чему равен модуль разности чисел на них (не сообщая, какое из чисел больше).
+
+За какое наименьшее количество подсказок Вася может помочь Пете гарантированно добиться цели?
+
+There are 16 sheets on a table with the number 1 written on the first one, number 2 on the second one, number 3 on the third one, ..., and number 16 on the last one. Vasil turned them all over and quickly mixed them so that Peter did not have time to remember the location of any sheet, while Vasil remembered all of them.
+
+Peter wants to put all 16 sheets in a row (without turning them over) in such way that the numbers on them go from left to right either in increasing or in decreasing way. Vasil wants to help Peter in this. For one hint, Vasil can point at two sheets and tell Peter the difference between numbers on them without telling which of the numbers is larger.
+
+For what smallest number of tips can Vasil help Peter to achieve the goal for sure?
+
+Solution (RUS). Переведём задачу на язык графов: вершинами будут наши карточки с номерами от 1 до 16, а две вершины будем соединять ребром, если Вася указывал на данные две карточки и говорил их модуль разности. Рассмотрим случаи, какими могут быть компоненты связности данного графа. Предположим, что есть хотя бы две изолированные вершины (то есть две карточки, про которые ни разу ничего не говорили). В этом случае Петя не сможет расположить карточки в порядке возрастания/убывания, так как случаи, когда эти две карточки лежат в правильном порядке и когда эти две карточки поменяны местами, он различить не сможет. Противоречие.
+
+Предположим, что есть компонента связности, состоящая из 2 вершин 𝑖 и 𝑗 (то есть пара карточек, на которую Вася указывал, но больше ни на одну из этих двух карточек он не указывал). Аналогично прошлому случаю Петя не сможет расположить карточки в порядке возрастания/убывания, так как случаи, когда карточки 𝑖 и 𝑗 лежат в правильном порядке и когда эти они поменяны местами, Петя различить не сможет, ведь он про них знает только модуль их разности, а в этих случаях модуль разности одинаковый. Противоречие.
+
+Итак, в графе на 16 вершинах максимум 1 изолированная вершина, а все другие компоненты связности имеют минимум 3 вершины. Значит, компонент связности максимум 6, а рёбер не менее 16−6 = 10 (как известно, рёбер в графе не меньше количества вершин, уменьшенного на количество компонент связности). Тем самым, количество подсказок должно быть не менее 10.
+
+Теперь приведём пример 10 подсказок, по которым Петя сможет расположить карточки в нужном порядке. Пусть Вася укажет на следующие пары:
+
+(1,16),(1,14),(15,3),(15,4),(2,12),(2,11),(13,6),(13,7),(5,10),(5,9) Со стороны Пети эти подсказки обозначим следующим образом:
+
+(𝑎1,𝑎2,15),(𝑎1,𝑎3,13),(𝑎4,𝑎5,12),(𝑎4,𝑎6,11),(𝑎7,𝑎8,10),(𝑎7,𝑎9,9),(𝑎10,𝑎11,7),(𝑎10,𝑎12,6), (𝑎13,𝑎14,5),(𝑎13,𝑎15,4), где 𝑎𝑖 – это обозначение карточек, а третье число – это модуль разности чисел на двух данных карточках.
+
+Покажем, как Пете по этим данным расположить карточки в нужном порядке. Для этого он будет последовательно выкладывать карточки на позиции с 1 по 16. По подсказке (𝑎1,𝑎2,15) Петя понимает, что на карточках 𝑎1 и 𝑎2 должны быть написаны числа 1 и 16. Тогда пусть Петя положит 𝑎1 на первую позицию, 𝑎2 – на 16-ю и тогда по второй подсказке понятно, что 𝑎3 должно лежать на 14-й позиции: 𝑎1, , , , , , , , , , , , ,𝑎3, ,𝑎2
+
+Есть два варианта, какие именно числа написаны на выложенных карточках:
+
+1, , , , , , , , , , , , ,14, ,16 или 16, , , , , , , , , , , , ,3, ,1. По подсказке (𝑎4,𝑎5,12) Петя понимает, что карточки 𝑎4 и 𝑎5 должны лежать на позициях 3 и 15 (для любых других двух позиций модуль разности будет меньше12), причём по следующей подсказке (𝑎4,𝑎6,11) можно понять, что 𝑎4 не может лежать на 3-й позиции (иначе карточка 𝑎6 должна была бы попасть на 14-ю позицию, которая занята). Получаем, что карточки 𝑎4,𝑎5,𝑎6 однозначно попадают на позиции 15,3,4 соответственно: 𝑎1, ,𝑎5,𝑎6, , , , , , , , , ,𝑎3,𝑎4,𝑎2
+
+Есть два варианта, какие именно числа написаны на выложенных карточках: 1, ,3,4, , , , , , , , , ,14,15,16 или 16, ,14,13, , , , , , , , , ,3,2,1.
+
+Аналогично далее по подсказкам (𝑎7,𝑎8,10) и (𝑎7,𝑎9,9) понимаем, что 𝑎7,𝑎8,𝑎9 стоят на позициях 2,12,11 соответственно: 𝑎1,𝑎7,𝑎5,𝑎6, , , , , , ,𝑎9,𝑎8, ,𝑎3,𝑎4,𝑎2
+
+Есть два варианта, какие именно числа написаны на выложенных карточках:
+
+1,2,3,4, , , , , , ,11,12, ,14,15,16 или 16,15,14,13, , , , , , ,6,5, ,3,2,1. Проводя те же рассуждения ещё два раза для пар подсказок (𝑎10,𝑎11,7),(𝑎10,𝑎12,6) и (𝑎13,𝑎14,5),(𝑎13,𝑎15,4), Петя выложит карточки в порядке 𝑎1,𝑎7,𝑎5,𝑎6,𝑎13,𝑎11,𝑎12, ,𝑎15,𝑎14,𝑎9,𝑎8,𝑎10,𝑎3,𝑎4,𝑎2
+
+Опять же, есть два варианта, какие именно числа написаны на выложенных карточках: 1,2,3,4,5,6,7, ,9,10,11,12,13,14,15,16 или 16,15,14,13,12,11,10, ,8,7,6,5,4,3,2,1. Осталось положить последнюю карточку 𝑎16 (которую Вася не упоминал) на 8-ю позицию, и тогда в полученном ряду 𝑎1,𝑎7,𝑎5,𝑎6,𝑎13,𝑎11,𝑎12,𝑎16,𝑎15,𝑎14,𝑎9,𝑎8,𝑎10,𝑎3,𝑎4,𝑎2 числа от 1 до 16 будут идти либо в порядке возрастания, либо в порядке убывания.
+
+Solution (ENG). Let’s translate the problem into the language of graphs: the vertices will be our sheets with numbers from 1 to 16, and we will connect two vertices with an edge if Vasil pointed to these two sheets and spoke the difference in their numbers. Consider the cases of what the connected components of a given graph can be. Suppose that there are at least two isolated vertices (that is, two sheets about which nothing has ever been said). In this case, Peter will not be able to arrange the sheets in ascending or descending order, since he will not be able to distinguish between the cases when these two sheets are in the correct order or when these they are swapped. By that, we have a contradiction.
+
+Suppose that there is a connected component consisting of 2 vertices 𝑖 and 𝑗 (that is, a pair of sheets that Vasil pointed to, but he did not point to any of these two sheets separately). Similarly to the previous case, Peter will not be able to arrange the sheets in ascending/descending order, since the cases when the sheets 𝑖 and 𝑗 lie in the correct order, and when they are swapped, Peter will not be able to distinguish, because he only knows about their difference. Again, we have a contradiction.
+
+So, in a graph on 16 vertices, at most 1 is an isolated vertex, and all other connected components have at least 3 vertices. This means that there are at most 6 connected components, and at least 16 − 6 = 10 edges (as you know, the number of edges in a graph is not less than the number of vertices reduced by the number of connected components). Thus, the number of hints must be at least 10.
+
+Now let’s give an example of 10 hints, according to which Peter will be able to arrange the sheets in the right order. Let Vasil point out the following pairs:
+
+(1,16),(1,14),(15,3),(15,4),(2,12),(2,11),(13,6),(13,7),(5,10),(5,9) From Peter’s point of view, these hints will be denoted as follows:
+
+(𝑎1,𝑎2,15),(𝑎1,𝑎3,13),(𝑎4,𝑎5,12),(𝑎4,𝑎6,11),(𝑎7,𝑎8,10),(𝑎7,𝑎9,9),(𝑎10,𝑎11,7),(𝑎10,𝑎12,6), (𝑎13,𝑎14,5),(𝑎13,𝑎15,4), where 𝑎𝑖 is the designation of the sheets, and the third number in each triple is the difference between the numbers on the two sheets given.
+
+Let’s show how Peter can arrange the sheets in the right order according to these data. To do this, he will sequentially lay out sheets in positions from 1 to 16. At the hint (𝑎1,𝑎2,15) Peter understands that the numbers 1 and 16 should be written on the cards 𝑎1 and 𝑎2. Then let Peter put 𝑎1 in the first position, 𝑎2 in the 16th position, and then it is clear from the second hint that 𝑎3 must be in the 14th position: 𝑎1, , , , , , , , , , , , ,𝑎3, ,𝑎2
+
+There are two options for which numbers are written on the laid out sheets: 1, , , , , , , , , , , , ,14, ,16 or 16, , , , , , , , , , , , ,3, ,1. By the hint
+
+(𝑎4,𝑎5,12) Peter understands that sheets 𝑎4 and 𝑎5 must lie at positions 3 and 15 (for any other two positions, the difference will be less than 12), and according to the hint (𝑎4,𝑎6,11) it can be understood that 𝑎4 cannot lie on the 3th position (otherwise the sheet 𝑎6 would have to fall on the 14th position, which is occupied). We get that sheets 𝑎4,𝑎5,𝑎6 uniquely fall into positions 15,3,4, respectively: 𝑎1, ,𝑎5,𝑎6, , , , , , , , , ,𝑎3,𝑎4,𝑎2
+
+There are two options for which numbers are written on the laid out sheets: 1, ,3,4, , , , , , , , , ,14,15,16 or 16, ,14,13, , , , , , , , , ,3,2,1.
+
+Similarly, using hints (𝑎7,𝑎8,10) and (𝑎7,𝑎9,9), we understand that 𝑎7,𝑎8,𝑎9 are at positions 2,12,11, respectively: 𝑎1,𝑎7,𝑎5,𝑎6, , , , , , ,𝑎9,𝑎8, ,𝑎3,𝑎4,𝑎2
+
+There are two options for which numbers are written on the laid out sheets: 1,2,3,4, , , , , , ,11,12, ,14,15,16 or 16,15,14,13, , , , , , ,6,5, ,3,2,1. Carrying out the same reasoning two more times for pairs of hints (𝑎10,𝑎11,7),(𝑎10,𝑎12,6) and (𝑎13,𝑎14,5),(𝑎13,𝑎15,4), Peter will lay out the sheets in order 𝑎1,𝑎7,𝑎5,𝑎6,𝑎13,𝑎11,𝑎12, ,𝑎15,𝑎14,𝑎9,𝑎8,𝑎10,𝑎3,𝑎4,𝑎2
+
+Again, there are two options for which numbers are written on the laid out sheets:
+
+1,2,3,4,5,6,7, ,9,10,11,12,13,14,15,16 or 16,15,14,13,12,11,10, ,8,7,6,5,4,3,2,1. It remains to put the last sheet 𝑎16 (which Vasil did not mention) to the 8th position, and then in the resulting row 𝑎1,𝑎7,𝑎5,𝑎6,𝑎13,𝑎11,𝑎12,𝑎16,𝑎15,𝑎14,𝑎9,𝑎8,𝑎10,𝑎3,𝑎4,𝑎2 numbers from 1 to 16 will either be in ascending or descending order.
+
+10-12𝑡ℎ degree
+
+Task 1. В пространстве даны четыре попарно неравных и попарно параллельных отрезка 𝐴𝑖𝐵𝑖, 𝑖 = 1,2,3,4. Докажите, что точки пересечения продолжений боковых сторон шести трапеций 𝐴𝑖𝐵𝑖𝐴𝑗𝐵𝑗 (1 ≤ 𝑖 < 𝑗 ≤ 4) лежат в одной плоскости. In a space there are four pairwise unequal and pairwise parallel segments 𝐴𝑖𝐵𝑖, 𝑖 = 1,2,3,4. Prove that the intersection points of the extensions of the side edges of the six trapezoids 𝐴𝑖𝐵𝑖𝐴𝑗𝐵𝑗 (1 ≤ 𝑖 < 𝑗 ≤ 4) lie in the same plane. Solution (RUS). Обозначим через 𝑂𝑖𝑗 точку пересечения боковых сторон трапеции 𝐴𝑖𝐵𝑖𝐴𝑗𝐵𝑗. Тогда точка 𝑂𝑖𝑗 является центром гомотетии с положительным коэффициентом, переводящей отрезок 𝐴𝑖𝐵𝑖 в отрезок 𝐴𝑗𝐵𝑗. По теореме о трех центрах гомотетии точки 𝑂𝑖𝑗,𝑂𝑗𝑘,𝑂𝑘𝑖 лежат на одной прямой. Обозначим эту прямую через 𝑙𝑖𝑗𝑘 и докажем, что все такие прямые лежат в одной плоскости. Для этого будем последовательно рисовать их. Сначала проведем прямые 𝑙123 и 𝑙124: они лежат в одной плоскости 𝜋, т.к. пересекаются в точке 𝑂12. Прямая 𝑙134 пересекает 𝑙123 в точке 𝑂13, а прямую 𝑙124 – в точке 𝑂14, поэтому она также лежит в плоскости 𝜋. Наконец, прямая 𝑙234 пересекает прямую 𝑙123 в точке 𝑂23, а прямую 𝑙124 – в точке 𝑂24, так что и она лежит в плоскости 𝜋. Итак, все четыре прямые лежат в одной плоскости, и в ней же лежат все шесть точек 𝑂𝑖𝑗, что и требовалось доказать. Solution (ENG). Lets denote by 𝑂𝑖𝑗 the intersection point of the side edges of the trapezoid 𝐴𝑖𝐵𝑖𝐴𝑗𝐵𝑗. Then the point 𝑂𝑖𝑗 is the center of a homothety with a positive coefficient transforming the segment 𝐴𝑖𝐵𝑖 into the segment 𝐴𝑗𝐵𝑗. By the theorem on three homothety centers, the points 𝑂𝑖𝑗,𝑂𝑗𝑘,𝑂𝑘𝑖 lie on the same line – lets denote the line as 𝑙𝑖𝑗𝑘 and prove that all such lines lie in the same plane. To do that, we will draw them one-by-one. First, let’s draw the lines 𝑙123 and 𝑙124: they lie in the same plane 𝜋 because they intersect at the point 𝑂12. The line 𝑙134 intersects 𝑙123 at the point 𝑂13, and the line 𝑙124 at the point 𝑂14, so it also lies in the plane 𝜋. Finally, line 𝑙234 intersects line 𝑙123 at point 𝑂23, and line 𝑙124 at point 𝑂24, so that it also lies in the same plane 𝜋. Thus, all four lines lie in the same plane, and all six points 𝑂𝑖𝑗 lie in the same plane, which was to be proved.
+
+Task 2. Натуральные числа вида 11⏟ ...⏞ 1
+
+(десятичная запись состоит из 𝑛 единиц) будем обозна𝑛 чать 𝑅𝑛. Докажите, что существует такое натуральное число 𝑘, что 𝑅𝑛 делится на 41 тогда и только тогда, когда 𝑛 делится на 𝑘.
+
+(the decimal notation consists of 𝑛 digits «1») as 𝑅𝑛. Prove that there exists a positive integer 𝑘 such that 𝑅𝑛 is divisible by 41 if and only if 𝑛 is divisible by 𝑘.
+
+Lets denote positive integers of the form 11⏟ ...⏞ 1 𝑛
+
+Solution (RUS). Заметим, что 𝑅𝑛 = 10𝑛9−1. Так как числа 9 и 41 взаимно просты, то 𝑅𝑛 кратно 41 тогда и только тогда, когда 10𝑛 − 1 кратно 41. Поскольку 41 – простое, согласно малой теореме Ферма 1040 −1 кратно 41. Рассмотрим все натуральные 𝑑, при которых 10𝑑 −1 кратно 41; наименьшее такое 𝑑 обозначим за 𝑚.
+
+Если 𝑛 делится на 𝑚, то 10𝑛 − 1 = 10𝑡𝑚 − 1 = (10𝑚 − 1)(10(𝑡−1)𝑚 + 10(𝑡−2)𝑚 + ··· + 10𝑚 + 1), т.е. 10𝑛 − 1 делится на 10𝑚 − 1, а значит, и на 41, что и требовалось.
+
+В обратную сторону: если 10𝑛−1 кратно 41, то рассмотрим НОД(10𝑛−1,10𝑚−1). Воспользуемся известным свойством наибольшего общего делителя: НОД(𝑎,𝑏) = НОД(𝑎−𝑘𝑏,𝑏) для натуральных 𝑎,𝑏,𝑘. Теперь НОД(10𝑛 − 1,10𝑚 − 1) = НОД(10𝑛 − 1 − 10𝑛−𝑚(10𝑚 − 1),10𝑚 − 1), НОД(10𝑛 − 1 − 10𝑛 + 10𝑛−𝑚,10𝑚 − 1) = НОД(10𝑛−𝑚 − 1,10𝑚 − 1). Повторяя эти действия, убеждаемся, что в конце получается число 10НОД(𝑛,𝑚) − 1.
+
+Если 𝑛 не делится на 𝑚, то НОД(𝑛,𝑚) < 𝑚, а значит, 𝑚 – не минимальное натуральное число, при котором 10𝑚−1 кратно 41 – противоречие. Значит, 𝑛 кратно 𝑚, что и требовалось доказать.
+
+Solution (ENG). Note that 𝑅𝑛 = 10𝑛9−1. Since the numbers 9 and 41 are co-prime, then 𝑅𝑛 is a multiple of 41 if and only if 10𝑛 − 1 is a multiple of 41. Since 41 is prime, by Fermat’s Little Theorem 1040 − 1 is a multiple of 41. Consider all positive integers 𝑑 such that 10𝑑 − 1 is a multiple of 41; the smallest such 𝑑 is denoted by 𝑚.
+
+If 𝑛 is divisible by 𝑚, then 10𝑛 − 1 = 10𝑡𝑚 − 1 = (10𝑚 − 1)(10(𝑡−1)𝑚 + 10(𝑡−2)𝑚 + ··· + 10𝑚 + 1), i.e. 10𝑛 − 1 is divisible by 10𝑚 − 1, and hence also by 41, as required.
+
+Lets prove it backwards: if 10𝑛 − 1 is a multiple of 41, then consider gcd(10𝑛 − 1,10𝑚 − 1). Let’s use the well-known property of the greatest common divisor (or greatest common factor): gcd(𝑎,𝑏) = gcd(𝑎 − 𝑘𝑏,𝑏) for integers 𝑎,𝑏,𝑘. Now gcd(10𝑛 − 1,10𝑚 − 1) = gcd(10𝑛 − 1 − 10𝑛−𝑚(10𝑚 − 1),10𝑚 − 1), gcd(10𝑛 − 1 − 10𝑛 + 10𝑛−𝑚,10𝑚 − 1) = gcd(10𝑛−𝑚 − 1,10𝑚 − 1). Repeating these steps, we ensure that at the end we get the number 10gcd(𝑛,𝑚) − 1.
+
+If 𝑛 is not divisible by 𝑚, then gcd(𝑛,𝑚) < 𝑚, which means that 𝑚 is not the smallest positive integer such that 10𝑚 − 1 is a multiple of 41 – that gives us a contradiction. Hence, 𝑛 is a multiple of 𝑚, which was to be proved.
+
+Task 3. Пусть 𝑎,𝑏,𝑐 – взаимно простые в совокупности натуральные числа, и 𝐷𝑛 = (𝑎 + 𝑏 + 𝑐,𝑎2 + 𝑏2 + 𝑐2,𝑎𝑛 + 𝑏𝑛 + 𝑐𝑛).
+
+Найдите все возможные значения 𝐷𝑛, где 𝑛 – натуральное число, кратное 3.
+
+Запись (𝑎1,𝑎2,𝑎3,...,𝑎𝑘) обозначает наибольший общий делитель целых чисел 𝑎1,𝑎2,𝑎3,...,𝑎𝑘. Целые числа 𝑎1,𝑎2,𝑎3,...,𝑎𝑘 называются взаимно простыми в совокупности, если
+
+(𝑎1,𝑎2,𝑎3,...,𝑎𝑘) = 1.
+
+Let 𝑎,𝑏,𝑐 be mutually co-prime positive integers, and
+
+𝐷𝑛 = (𝑎 + 𝑏 + 𝑐,𝑎2 + 𝑏2 + 𝑐2,𝑎𝑛 + 𝑏𝑛 + 𝑐𝑛). Find all possible values of 𝐷𝑛 while 𝑛 is a positive integer divisible by 3.
+
+The notation (𝑎1,𝑎2,𝑎3,...,𝑎𝑘) denotes the greatest common divisor of the integers 𝑎1,𝑎2,𝑎3,...,𝑎𝑘. Integers 𝑎1,𝑎2,𝑎3,...,𝑎𝑘 are being called mutually co-prime if (𝑎1,𝑎2,𝑎3,...,𝑎𝑘) = 1.
+
+Solution (RUS). Пусть 𝜎1,𝜎2,𝜎3 – элементарные симметрические многочлены и 𝑠𝑛 = 𝑎𝑛 + 𝑏𝑛 + 𝑐𝑛. Воспользуемся формулой Ньютона 𝑠𝑘 = 𝜎1𝑠𝑘−1 − 𝜎2𝑠𝑘−2 + 𝜎3𝑠𝑘−3.
+
+Докажем, что 𝐷𝑛 = 1,2,3 или 6. Предположим, что существуют такие взаимно простые в совокупности 𝑎,𝑏,𝑐, что 𝐷𝑛 отличен от 1,2,3,6. Докажем, что тогда 𝜎1,𝜎2,𝜎3 имеют общий делитель, больший 1. В самом деле, из формул Ньютона следует, что при разложении 𝑠𝑛 через 𝜎1,𝜎2,𝜎3 моном, не содержащий 𝜎1 и 𝜎2, с точностью до знака имеет вид 3𝜎3𝑛/3. Поэтому если 𝐷𝑛 делит 𝑠1 = 𝜎1 и 𝐷𝑛 делит 𝑠2 = 𝜎12 − 2𝜎2, то 𝐷𝑛 делит 𝜎1,2𝜎2,3𝜎3.
+
+При 𝐷𝑛, отличном от 1,2,3,6 у чисел 𝜎1,𝜎2,𝜎3 есть общий делитель, больший 1. Пусть 𝑝 – простой множитель, входящий в этот делитель. Тогда 𝑝 делит 𝑎𝑏𝑐, откуда (без ограничения общности) 𝑝 делит 𝑎. Но тогда 𝑝 делит (𝑎𝑏 + 𝑏𝑐 + 𝑐𝑎) и 𝑝 делит 𝑏𝑐, т.е. (без ограничения общности) 𝑝 делит 𝑏. Наконец, из того, что 𝑝 делит (𝑎 + 𝑏 + 𝑐), получаем, что 𝑝 делит 𝑐 – противоречие с (𝑎,𝑏,𝑐) = 1.
+
+Итак, 𝐷𝑛 = 1,2,3 или 6. Наборы (1,1,2),(1,1,1),(1,4,7) реализуют 𝐷𝑛 = 2,3 и 6. Для 𝐷𝑛 = 1 возьмем простое число 𝑝 > 3 и положим 𝑎 = 𝑏 = 1, 𝑐 = 𝑝 − 2. Тогда 𝑎 + 𝑏 + 𝑐 = 𝑝 и 𝑝 не делит 𝑎2 + 𝑏2 + 𝑐2 = 𝑝2 − 4𝑝 + 6, откуда 𝐷𝑛 = 1.
+
+Solution (ENG). Let 𝜎1,𝜎2,𝜎3 be elementary symmetric polynomials and 𝑠𝑛 = 𝑎𝑛 + 𝑏𝑛 + 𝑐𝑛. We’ll use Girard-Newton’s formula 𝑠𝑘 = 𝜎1𝑠𝑘−1 − 𝜎2𝑠𝑘−2 + 𝜎3𝑠𝑘−3.
+
+Lets prove that 𝐷𝑛 = 1,2,3 or 6. Assume that there are mutually co-prime 𝑎,𝑏,𝑐 such that 𝐷𝑛 is different from 1,2,3,6. Lets prove that then 𝜎1,𝜎2,𝜎3 have a common divisor greater than 1. Indeed, it follows from Girard-Newton’s formula that when 𝑠𝑛 is represented in terms of 𝜎1,𝜎2,𝜎3, a monomial that does not contain 𝜎1 and 𝜎2 has (up to sign) the form 3𝜎3𝑛/3. So, if 𝐷𝑛 divides 𝑠1 = 𝜎1 and 𝐷𝑛 divides 𝑠2 = 𝜎12 − 2𝜎2, then 𝐷𝑛 divides 𝜎1,2𝜎2,3𝜎3.
+
+For 𝐷𝑛 being different from 1,2,3,6 the numbers 𝜎1,𝜎2,𝜎3 have a common divisor greater than 1. Let 𝑝 be a prime factor of the divisor. Then 𝑝 divides 𝑎𝑏𝑐, whence (without loss of generality) 𝑝 divides 𝑎. But then 𝑝 divides (𝑎𝑏+𝑏𝑐+𝑐𝑎) and 𝑝 divides 𝑏𝑐, i.e. (without loss of generality) 𝑝 divides 𝑏. Finally, from the fact that 𝑝 divides (𝑎 + 𝑏 + 𝑐), we get that 𝑝 divides 𝑐, which gives us a contradiction with (𝑎,𝑏,𝑐) = 1.
+
+So, 𝐷𝑛 = 1,2,3 or 6. The sets (1,1,2),(1,1,1),(1,4,7) realize 𝐷𝑛 = 2,3 and 6. For 𝐷𝑛 = 1, we take a prime number 𝑝 > 3 and set 𝑎 = 𝑏 = 1, 𝑐 = 𝑝 − 2. Then 𝑎 + 𝑏 + 𝑐 = 𝑝 and 𝑝 does not divide 𝑎2 + 𝑏2 + 𝑐2 = 𝑝2 − 4𝑝 + 6, and 𝐷𝑛 = 1.
+
+Task 4. На плоскости нарисовано несколько окружностей, причем каждая пара окружностей пересекается ровно в двух точках, и никакие три окружности не имеют общей точки. Круглосторонник – это часть плоскости, со всех сторон ограниченная дугами этих окружностей, граница которой состоит из каких-то дуг этих окружностей, причем между любыми двумя внутренними точками круглосторонника можно пройти, не пересекая ни одной дуги данных окружностей. Например, ниже изображены две окружности, образующие 3 круглосторонника, обозначенные номерами 1,2 и 3.
+
+Смежные круглосторонники – это круглосторонники, имеющие общую дугу окружности в качестве границы, причем дуга должна быть невырожденной, то есть не сводящейся к одной точке. Например, на рисунке выше смежными являются круглосторонники 1 и 2, 2 и 3, но не 1 и 3.
+
+Для какого наименьшего 𝐶 ≥ 2023 можно нарисовать окружности так, что выполнены условия, перечисленные выше, и эти окружности образовывали ровно 𝐶 круглосторонников?
+
+Докажите, что для любого расположения нарисованных окружностей на плоскости, удовлетворяющих перечисленным условиям и образующих не менее 2023 круглосторонников, обязательно найдется круглосторонник, ограниченный менее чем 4-мя дугами.
+
+Several circles are drawn on the plane, with each pair of the circles intersecting at two points, and no three circles have a common point. Let’s call round-gon a part of a plane with its boundaries consisting of some arcs of these circles, such that it is possible to pass between any two internal points without crossing any of the arcs of these circles . For example, below are two circles that form a 3 round-gons labeled 1,2, and 3.
+
+Adjacent round-gons are those having a common circular arc as a boundary, and the arc must be not be a single point. For example, in the picture above the round-gons 1 and 2, 2 and 3 are adjacent, but round-gons 1 and
+
+3 are not adjacent.
+
+For what smallest 𝐶 ≥ 2023 can circles be drawn in such way that the conditions listed above are satisfied and these circles form exactly 𝐶 round-gons?
+
+Prove that for any arrangement of the circles on the plane that satisfies the conditions listed and forms at least 2023 round-gons, there must be a round-gon bounded by less than 4 circular arcs.
+
+Solution (RUS). Рассмотрим нарисованные окружности как плоский мультиграф (граф с кратными ребрами между вершинами): вершины – точки пересечений, ребра – дуги нарисованных окружностей, ограниченные точками пересечений. В такой интерпретации круглосторонники – это все грани этого графа, кроме «внешней» (т.е. части плоскости, лежащей вне всех окружностей).
+
+Пусть нарисованы ровно 𝑚 окружностей. Согласно формуле Эйлера для плоских графов, 𝑉 − 𝐸 +𝐹 = 2, где 𝑉 – число вершин графа, 𝐸 – число ребер, а 𝐹 – число граней (включая внешнюю). Так как каждая пара окружностей пересекается ровно в двух своих уникальных точках, то число вершин 𝑉 = 2 · 𝑚(𝑚2−1) = 𝑚(𝑚 − 1). Так как каждая вершина – это точка пересечения ровно двух окружностей, то наш граф является регулярным степени 4 (то есть в каждую вершину входят ровно 4 ребра). Поскольку каждое ребро соединяет две вершины, общее число ребер 𝐸 = 42𝑉 = 2𝑉 = 2𝑚(𝑚 − 1). Следовательно число граней нашего плоского мультиграфа должно быть равно 𝐹 = 2 + 𝐸 − 𝑉 = 2 + 2𝑚(𝑚 − 1) − 𝑚(𝑚 − 1) = 2 + 𝑚(𝑚 − 1). Так как число круглосторонников 𝐶 = 𝐹 − 1, имеем 𝐶 = 1 + 𝑚(𝑚 − 1).
+
+Найти наименьшее 𝑚, такое, что 𝐶 ≥ 2023 – значит найти наименьшее натуральное решение неравенства 𝑚2 − 𝑚 − 2022 ≥ 0. Такое число легко найти хоть подбором, хоть решая квадратное неравенство: 𝑚 = 46. (Проверка еще проще: 45 · 44 + 1 = 1981 < 2023 < 2071 = 46 · 45 + 1.)
+
+Теперь заметим, что для любого 𝑚 ≥ 1 (в том числе для 𝑚 = 46) можно расположить 𝑚 окружностей на плоскости так, что каждая пара пересекается ровно в двух своих уникальных точках. Действительно, нарисуем произвольную окружность 𝐵 на плоскости и выберем произвольную точку 𝑂 внутри нее (но не являющуюся ее центром), а потом рассмотрим 𝑚 окружностей 𝐵𝑘, 0 ≤ 𝑘 ≤ (𝑚 − 1), которые получаются в результате поворота окружности 𝐵 вокруг точки 𝑂 на угол 2𝑚𝜋𝑘 (окружность 𝐵0 совпадает с 𝐵). На рисунке приведен пример для 𝑚 = 4.
+
+Теперь докажем, что обязательно найдется круглосторонник, ограниченный менее чем 4-мя дугами. Предположим, что все круглосторонники ограничены не менее чем 4 дугами. Тогда общее число «сторон» (дуг, ограничивающих круглосторонники) не меньше, чем 4𝐶 = 4(1 + 𝑚(𝑚 − 1)). Пусть 𝐾 – число границ внешней грани плоского мультиграфа, тогда 𝐾+4𝐶 = 𝐾+4+4𝑚(𝑚−1) ≤ 2𝑚(𝑚−1) (общее число ребер в нашем плоском графе), то есть 𝐾 +4+2𝑚(𝑚−1) ≤ 0, что невозможно, – следовательно, неверно предположение, что все круглосторонники ограничены не менее чем 4 дугами. Поэтому обязательно найдется круглосторонник, ограниченный менее чем 4 дугами, что и требовалось доказать.
+
+Задача полностью решена.
+
+Solution (ENG). Consider the drawn circles as a flat multigraph (a graph with multiple edges between the vertices): the vertices are the circles’ intersection points, the edges are their arcs between the intersection points. In this interpretation, round-gons are faces of this graph, except for the «outer» (i.e., the part of the plane that lies outside all circles) one.
+
+Let exactly 𝑚 circles be drawn. According to Euler’s formula for planar graphs, 𝑉 −𝐸+𝐹 = 2, where 𝑉 is the number of graph vertices, 𝐸 is the number of edges, and 𝐹 is the number of faces (including the outer one). Since each pair of the circles intersect at exactly two unique points, the number of vertices is 𝑉 = 2 · 𝑚(𝑚2−1) = 𝑚(𝑚 − 1). Since each vertex is the intersection point of exactly two circles, our graph is regular of degree 4 (i.e., each vertex touches exactly 4 edges). Since each edge connects two vertices, the total number of edges is 𝐸 = 42𝑉 = 2𝑉 = 2𝑚(𝑚 − 1). Therefore, the number of faces of our planar multigraph must be equal to 𝐹 = 2 + 𝐸 − 𝑉 = 2 + 2𝑚(𝑚 − 1) − 𝑚(𝑚 − 1) = 2 + 𝑚(𝑚 − 1).
+
+Since the number of round-gons 𝐶 = 𝐹 − 1, we have 𝐶 = 1 + 𝑚(𝑚 − 1).
+
+To find the smallest 𝑚 such that 𝐶 ≥ 2023 is to find the smallest positive integer solution to the inequality 𝑚2 − 𝑚 − 2022 ≥ 0. Such a number is easy to find: 𝑚 = 46. (45 · 44 + 1 = 1981 < 2023 < 2071 = 46 · 45 + 1.)
+
+Now note that for any 𝑚 ≥ 1 (including 𝑚 = 46) one can arrange 𝑚 circles on the plane so that each pair intersects in exactly two of its unique points. Indeed, let’s draw an arbitrary circle 𝐵 on the plane and choose an arbitrary point 𝑂 inside it (but not being its center), and then consider 𝑚 circles 𝐵𝑘, 0 ≤ 𝑘 ≤ (𝑚 − 1) , which are obtained by rotating the circle 𝐵 around the point 𝑂 by the angle 2𝑚𝜋𝑘 (circle 𝐵0 coincides with 𝐵). The picture below shows an example for 𝑚 = 4.
+
+Now let’s prove that there is a round-gon bounded by less than 4 arcs. Assume that all round-gons are bounded by at least 4 arcs. Then the total number of «sides» (arcs bounding round-gons) is not less than 4𝐶 = 4(1 + 𝑚(𝑚 − 1)). Let 𝐾 be the number of boundaries of the outer face of the planar multigraph, then 𝐾 + 4𝐶 = 𝐾 + 4 + 4𝑚(𝑚 − 1) ≤ 2𝑚(𝑚 − 1) (the total number of edges in our planar graph), i.e. 𝐾+4+2𝑚(𝑚−1) ≤ 0, which is impossible, hence the assumption that all round-gons are bounded by at least 4 arcs is false. Therefore, there is a round-gon bounded by less than 4 arcs, which was to be proved.
+
+Task 5. (задача предоставлена партнером Олимпиады – компанией «Тинькофф Образование») Назовём клетчатый квадрат, каждая клетка которого покрашена в чёрный или в жёлтый цвет, гармоничным, если в нём количество чёрных клеток отличается от количества жёлтых клеток не более чем на единицу. Сколькими способами можно раскрасить клетки таблицы 100 × 100 в чёрный и жёлтый цвета так, чтобы любой квадрат в этой таблице был гармоничным?
+
+Let’s call a square (with each of its cells being painted in either black or yellow) harmonious, if the number of black cells differs from the number of yellow cells by no more than 1. How many ways are there to paint a 100 × 100 table in black and yellow if any square in the table must be harmonious?
+
+Solution (RUS). Для начала заметим, что в каждом квадрате 2 × 2 должно быть по две клетки каждого цвета. Рассмотрим раскраску самой верхней строки квадрата. Предположим, что в ней есть какие-то две соседние клетки одинакового цвета. Тогда, рассмотрев квадрат 2 × 2, содержащий эти клетки, получим, что две клетки под ними должны быть противоположного цвета. Если теперь сдвинуть этот квадрат на одну клетку вправо, получим, что в левом столбце две клетки противоположного цвета, поэтому и в правом столбце клетки тоже должны быть противоположного цвета. Сдвигая этот квадрат аналогично вправо и влево, получим, что вторая строка должна быть противоположна (по цветам) первой.
+
+Если теперь проделать такие же рассуждения со второй и третьей строкой, получим, что третья строка должна быть противоположна второй (т.к. во второй также найдутся две рядом стоящие клетки одного цвета). Аналогично далее строки будут чередоваться, и вся таблица заполняется однозначно. Теперь поймём, при каких условиях на первую строку раскраска будет подходящей. Предположим, что в первой строке найдётся подстрока, в которой клеток одного из цветов хотя бы на 𝑘 > 2 больше, чем другого. Такую подстроку можно сократить до подстроки 𝐴 длины 𝑚 так, чтобы разница была ровно 3 (т.к. при отбрасывании одной клетки разница меняется на 1). Рассмотрим квадрат 𝐵 размера 𝑚 × 𝑚, содержащий подстроку 𝐴. Так как в 𝐴 разница между цветами равна 3, то 𝑚 нечётно. Значит, в квадрате 𝐵 тоже разница между цветами будет равна 3, т.к. все его строки, кроме первой, можно разбить на пары противоположных (понятно, что если в подстроке разница между цветами больше 1, то в ней найдутся две соседние клетки одного цвета).
+
+Таким образом, в первой строке не должно найтись подстроки, в которой клеток какого-то цвета хотя бы на 3 больше, чем другого. Предположим, что это условие выполнено, причём каждая строка, начиная со второй, противоположна предыдущей. Тогда в любом квадрате чётного размера цветов будет поровну, а в любом квадрате нечётного размера количество клеток разных цветов будет отличаться на 1, т.к. все строки в нём, кроме первой, разбиваются на пары, а в первой строке количество клеток разных цветов может отличаться только на 1.
+
+Обозначим количество подходящих раскрасок первой строки за 𝑥. Тогда количество подходящих раскрасок всей доски будет равно 𝑥 − 2 + 𝑥 = 2𝑥 − 2. Действительно, в первой строке будет либо чередование цветов (2 варианта), либо где-то встретятся две клетки одинакового цвета. Во втором случае всё остальное определяется однозначно, а в первом всё определяется раскраской первого столбца (если и в первой строке, и в первом столбце не будет двух стоящих рядом клеток одного цвета, то с помощью последовательного рассмотрения квадратов 2 × 2 мы получим, что раскраска должна быть шахматной).
+
+Теперь осталось найти 𝑥. Заметим, что трёх подряд идущих клеток одного цвета быть не может, т.к. эти три клетки уже дают подстроку с разницей 3. Найдём в строке первый момент, когда рядом встретились две клетки одного цвета. Найдём следующий момент, когда рядом встретятся две клетки одного цвета. Если это тот же самый цвет, то в минимальной подстроке, содержащей обе эти пары, разница цветов будет равна 3, чего быть не может. Значит, это должны быть клетки другого цвета. Таким образом, блоки из пар клеток одного цвета должны чередоваться, а ещё между этими блоками могут быть участки чётной длины из чередующихся клеток. Тогда для расположения блоков может быть два варианта: либо их первые клетки расположены на нечётных местах, либо на чётных.
+
+В первом случае разобьём все клетки на пары подряд идущих. На месте каждой пары может быть либо блок из двух одинаковых клеток, либо пара разных клеток. По набору мест блоков и цвету самой левой клетки цвета всех остальных клеток определяются однозначно. Таким образом, вариантов в этом случае 2 · 250 = 251. В случае, когда первые клетки блоков располагаются на чётных позициях, есть всего 49 мест для блоков, и цвета всех клеток также определяются наборами мест блоков и цветом самой левой клетки. В этом случае вариантов 2 · 249 = 250. При этом те варианты, где блоков вообще нет, мы посчитали дважды. Таких вариантов 2 (когда цвета чередуются). Значит, 𝑥 = 251 + 250 − 2.
+
+Получаем ответ: 2𝑥 − 2 = 252 + 251 − 6 = 3 · 251 − 6.
+
+Solution (ENG). First, note that each 2×2 square must contain two cells of each color. Consider coloring the topmost row of the square. Suppose that it has some two adjacent cells of the same color. Then, considering the square 2 × 2 containing these cells, we get that the two cells under them must be of the opposite color. If we now move this square by one cell to the right, we get that there are two cells of opposite color in the left column, so the cells in the right column must also be of the opposite color. Shifting this square similarly to the right and to the left, we get that the second line should be opposite (in colors) to the first one.
+
+After the same reasoning with the second and third rows, we get that the third row must be opposite to the second one (because the second row also contains two adjacent cells of the same color). Similarly, further lines will alternate, and the entire table is filled uniquely. Now let’s understand under what conditions the coloring for the first line will be appropriate. Assume that the first line contains a substring in which there are at least 𝑘 > 2 more cells of one of the colors than the other. Such a substring can be reduced to a substring 𝐴 of length 𝑚 so that the difference is exactly 3 (because when one cell is discarded, the difference changes by 1). Consider a square 𝐵 of size 𝑚 × 𝑚 containing the substring 𝐴. Since the difference between the colors in 𝐴 is 3, then 𝑚 is odd. Hence, in the square 𝐵 the difference between the colors will also be equal to 3, because all of its rows, except for the first one, can be divided into pairs of opposite ones (it is clear that if the difference between colors in a substring is greater than 1, then it contains two adjacent cells of the same color).
+
+Thus, in the first line there should not be a substring in which there are at least 3 more cells of some color than another one. Let’s assume that this condition is met, moreover, each line, starting from the second, is opposite to the previous one. Then, in any square of even size, the colors will be equal, and in any square of odd size, the number of cells of different colors will differ by 1, because all rows in it (except for the first one) are divided into pairs, and in the first row the number of cells of different colors can differ only by 1.
+
+Lets denote the number of suitable colorings of the first row as 𝑥. Then the number of suitable colorings of the entire board will be equal to 𝑥 − 2 + 𝑥 = 2𝑥 − 2. Indeed, in the first line will either alternate colors (2 variants), or somewhere there will be two cells of the same color. In the second case, everything else is determined uniquely, and in the first case, everything is determined by the coloring of the first column (if both the first row and the first column do not contain two adjacent cells of the same color, then by successively considering the squares 2 × 2 we get, that the coloring should be like that on chessboard).
+
+Now it remains to find 𝑥. Note that there cannot be three consecutive cells of the same color, because these three cells already give a substring with a difference of 3. Let’s find in the line the first moment when two cells of the same color met side by side. Find the next moment when two cells of the same color meet next to each other. If it is the same color, then the minimum substring containing both of these pairs will have a color difference of 3, which cannot be. So, it should be cells of a different color. Thus, blocks of pairs of cells of the same color must alternate, and even between these blocks there can be even-length sections of alternating cells. Then for the location of the blocks there can be two options: either their first cells are located in odd places, or in even ones.
+
+In the first case, we divide all the cells into pairs of consecutive ones. In place of each pair there can be either a block of two identical cells, or a pair of different cells. By set places of blocks and the color of the leftmost cell, the colors of all other cells are uniquely determined. Thus, there are 2 · 250 = 251 options in this case. In the case where the first cells of the blocks are in even positions, there are a total of 49 places for blocks, and the colors of all cells are also determined by the sets of block places and the color of the leftmost cell. In this case there are 2 · 249 = 250 options. At the same time, those options where there are no blocks at all, we counted twice. There are 2 of such variants (when the colors alternate). So 𝑥 = 251 + 250 − 2.
+
+Now we get the answer: 2𝑥 − 2 = 252 + 251 − 6 = 3 · 251 − 6.
+
+# Citations
+
+1. [io-math-3-2](https://lk-dovuz.innopolis.university/public/files/io-math-3-2.pdf), file babee3d14059

@@ -39,7 +39,7 @@ stale_after: "2024-01-01T00:00:00+00:00"
 
 Печатную версию дайджеста можно будет прочитать на форуме Digital Innopolis Days 2023, который пройдёт в Иннополисе 19—20 октября.
 
-Прочитать онлайн: [https://innopolis.university/filespublic/dannye_bez_opasnosti.pdf](https://innopolis.university/filespublic/dannye_bez_opasnosti.pdf)
+Прочитать онлайн: [https://innopolis.university/filespublic/dannye_bez_opasnosti.pdf](/raw/regulations/site-media-2056f3a9-dannye-bez-opasnosti.md)
 
 Другие сборники и исследования Сектора аналитических исследований Университета Иннополис: [https://research.innopolis.university/](/raw/sites/research/home.md)
 

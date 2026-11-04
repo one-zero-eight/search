@@ -1,0 +1,73 @@
+{
+ "members": [
+  {
+   "ext": "pdf",
+   "file": "0001.pdf",
+   "key": "site-university-450226e8-7-semestr-bsro-2026-23-10-2025-rpd-member-3e10ad57106f2e3d3b78",
+   "member": "7 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.В.01_BS RO_2026_Элективные дисциплины_23.10.2025.pdf",
+   "sha256": "8285c4d78571ff0ceb863f4b3f50401dc4cada3c23267354a11012bc0ab75985",
+   "size": 762031,
+   "status": "ready",
+   "storage": "site-university-450226e8-7-semestr-bsro-2026-23-10-2025-rpd.members/3e10ad57106f2e3d3b78/8285c4d78571ff0ceb863f4b3f50401dc4cada3c23267354a11012bc0ab75985"
+  },
+  {
+   "ext": "pdf",
+   "file": "0002.pdf",
+   "key": "site-university-450226e8-7-semestr-bsro-2026-23-10-2025-rpd-member-2cac965e1a20e4e18b03",
+   "member": "7 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.21_BS RO_2026_Основы робототехники (7 с.)_23.10.2025.pdf",
+   "sha256": "ab5f67e09c756c6d2075a5c3aa1a018531c6c38e04112b166d4ea4a2afecf9f6",
+   "size": 525123,
+   "status": "ready",
+   "storage": "site-university-450226e8-7-semestr-bsro-2026-23-10-2025-rpd.members/2cac965e1a20e4e18b03/ab5f67e09c756c6d2075a5c3aa1a018531c6c38e04112b166d4ea4a2afecf9f6"
+  },
+  {
+   "ext": "pdf",
+   "file": "0003.pdf",
+   "key": "site-university-450226e8-7-semestr-bsro-2026-23-10-2025-rpd-member-bcae8d852b1eaac33870",
+   "member": "7 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.22_BS RO_2026_Механика и механизмы (7 с.)_23.10.2025.pdf",
+   "sha256": "873dddb7350113ebfefa5e7dddb938ce19466c6e18d8bc6a1b0ba73a80c21aba",
+   "size": 755489,
+   "status": "ready",
+   "storage": "site-university-450226e8-7-semestr-bsro-2026-23-10-2025-rpd.members/bcae8d852b1eaac33870/873dddb7350113ebfefa5e7dddb938ce19466c6e18d8bc6a1b0ba73a80c21aba"
+  },
+  {
+   "ext": "pdf",
+   "file": "0004.pdf",
+   "key": "site-university-450226e8-7-semestr-bsro-2026-23-10-2025-rpd-member-ed3edaa32978875e315b",
+   "member": "7 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.23_BS RO_2026_Введение в компьютерное зрение (7 с.)_23.10.2025.pdf",
+   "sha256": "47f4c6242c7a357e385fc110cb37382ac4764ba4647c057519e90b74e6af48c1",
+   "size": 486791,
+   "status": "ready",
+   "storage": "site-university-450226e8-7-semestr-bsro-2026-23-10-2025-rpd.members/ed3edaa32978875e315b/47f4c6242c7a357e385fc110cb37382ac4764ba4647c057519e90b74e6af48c1"
+  },
+  {
+   "ext": "pdf",
+   "file": "0005.pdf",
+   "key": "site-university-450226e8-7-semestr-bsro-2026-23-10-2025-rpd-member-189de0562ac39ccabfd0",
+   "member": "7 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.24_BS RO_2026_Прикладные технологии (7 с.)_23.10.2025.pdf",
+   "sha256": "5dba9c8b95fc174df5db1ec49b4574475da573d99571f642e76c098fa3fe91a7",
+   "size": 490349,
+   "status": "ready",
+   "storage": "site-university-450226e8-7-semestr-bsro-2026-23-10-2025-rpd.members/189de0562ac39ccabfd0/5dba9c8b95fc174df5db1ec49b4574475da573d99571f642e76c098fa3fe91a7"
+  },
+  {
+   "ext": "pdf",
+   "file": "0006.pdf",
+   "key": "site-university-450226e8-7-semestr-bsro-2026-23-10-2025-rpd-member-c5290cf4a467824dfb36",
+   "member": "7 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.25_BS RO_2026_Робототехника (7 с.)_23.10.2025.pdf",
+   "sha256": "0bef736511f27202d4b479115828bc75d642989cb1fec96aaa73068d0e82c339",
+   "size": 614474,
+   "status": "ready",
+   "storage": "site-university-450226e8-7-semestr-bsro-2026-23-10-2025-rpd.members/c5290cf4a467824dfb36/0bef736511f27202d4b479115828bc75d642989cb1fec96aaa73068d0e82c339"
+  }
+ ],
+ "remote": {
+  "etag": "\"69721758-1c443b\"",
+  "modified": "Thu, 22 Jan 2026 12:26:00 GMT",
+  "size": "1852475"
+ },
+ "sha256": "df8c116a4e33491ae88ab0966161d6fd21c95da60eefceb461ee9f2b72250be4",
+ "source": "site-university-450226e8-7-semestr-bsro-2026-23-10-2025-rpd.archives/df8c116a4e33491ae88ab0966161d6fd21c95da60eefceb461ee9f2b72250be4.archive",
+ "status": "ready",
+ "url": "https://innopolis.university/upload/iblock/d95/nvd3pzn4h2vscctusn7yzsy7e9ahh3o6/7%20%D1%81%D0%B5%D0%BC%D0%B5%D1%81%D1%82%D1%80%20BSRO%202026%2023.10.2025%20%28%D0%A0%D0%9F%D0%94%29.7z"
+}

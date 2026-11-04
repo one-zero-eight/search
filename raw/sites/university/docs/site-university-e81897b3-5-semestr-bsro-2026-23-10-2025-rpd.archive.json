@@ -1,0 +1,73 @@
+{
+ "members": [
+  {
+   "ext": "pdf",
+   "file": "0001.pdf",
+   "key": "site-university-e81897b3-5-semestr-bsro-2026-23-10-2025-rpd-member-d7984a4eb2a0f020d961",
+   "member": "5 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.В.01_BS RO_2026_Элективные дисциплины_23.10.2025.pdf",
+   "sha256": "8285c4d78571ff0ceb863f4b3f50401dc4cada3c23267354a11012bc0ab75985",
+   "size": 762031,
+   "status": "ready",
+   "storage": "site-university-e81897b3-5-semestr-bsro-2026-23-10-2025-rpd.members/d7984a4eb2a0f020d961/8285c4d78571ff0ceb863f4b3f50401dc4cada3c23267354a11012bc0ab75985"
+  },
+  {
+   "ext": "pdf",
+   "file": "0002.pdf",
+   "key": "site-university-e81897b3-5-semestr-bsro-2026-23-10-2025-rpd-member-6aa36d6d587b6391d673",
+   "member": "5 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.14_BS RO_2026_Компьютерные сети (5 с.)_23.10.2025.pdf",
+   "sha256": "c8aed9b02ae64eada0f908e1d0003ae852a3d4269f2882c7f6d0f371eef278ed",
+   "size": 610783,
+   "status": "ready",
+   "storage": "site-university-e81897b3-5-semestr-bsro-2026-23-10-2025-rpd.members/6aa36d6d587b6391d673/c8aed9b02ae64eada0f908e1d0003ae852a3d4269f2882c7f6d0f371eef278ed"
+  },
+  {
+   "ext": "pdf",
+   "file": "0003.pdf",
+   "key": "site-university-e81897b3-5-semestr-bsro-2026-23-10-2025-rpd-member-cf155312fe9280ab52d0",
+   "member": "5 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.15_BS RO_2026_Введение в машинное обучение (5 с.)_23.10.2025.pdf",
+   "sha256": "4ed0d96c523061989458d356a95be788d5b023f6041fe85d4901819b970a5768",
+   "size": 528719,
+   "status": "ready",
+   "storage": "site-university-e81897b3-5-semestr-bsro-2026-23-10-2025-rpd.members/cf155312fe9280ab52d0/4ed0d96c523061989458d356a95be788d5b023f6041fe85d4901819b970a5768"
+  },
+  {
+   "ext": "pdf",
+   "file": "0004.pdf",
+   "key": "site-university-e81897b3-5-semestr-bsro-2026-23-10-2025-rpd-member-b8cd6cee0f58272347a1",
+   "member": "5 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.16_BS RO_2026_Теория автоматического управления (5 с.)_23.10.2025.pdf",
+   "sha256": "b4586172318434a9e71b65f0a82c48e1dd9a3437500ce5cdbe1d305f21b470e6",
+   "size": 518852,
+   "status": "ready",
+   "storage": "site-university-e81897b3-5-semestr-bsro-2026-23-10-2025-rpd.members/b8cd6cee0f58272347a1/b4586172318434a9e71b65f0a82c48e1dd9a3437500ce5cdbe1d305f21b470e6"
+  },
+  {
+   "ext": "pdf",
+   "file": "0005.pdf",
+   "key": "site-university-e81897b3-5-semestr-bsro-2026-23-10-2025-rpd-member-b3076ba59166b0871146",
+   "member": "5 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.17_BS RO_2026_Мехатроника (5 с.)_23.10.2025.pdf",
+   "sha256": "56b568187cbf2eb882da4c4a4a9220a6e3408208211e57f306eb5f404fc2df6e",
+   "size": 775325,
+   "status": "ready",
+   "storage": "site-university-e81897b3-5-semestr-bsro-2026-23-10-2025-rpd.members/b3076ba59166b0871146/56b568187cbf2eb882da4c4a4a9220a6e3408208211e57f306eb5f404fc2df6e"
+  },
+  {
+   "ext": "pdf",
+   "file": "0006.pdf",
+   "key": "site-university-e81897b3-5-semestr-bsro-2026-23-10-2025-rpd-member-5af87d51a7cc0e9e1aa7",
+   "member": "5 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.18_BS RO_2026_Введение в оптимизацию (5 с.)_23.10.2025.pdf",
+   "sha256": "cc129a926579e9556efe058374bb3f52d5d25f2c608a8965d6a72e3ee768d528",
+   "size": 453747,
+   "status": "ready",
+   "storage": "site-university-e81897b3-5-semestr-bsro-2026-23-10-2025-rpd.members/5af87d51a7cc0e9e1aa7/cc129a926579e9556efe058374bb3f52d5d25f2c608a8965d6a72e3ee768d528"
+  }
+ ],
+ "remote": {
+  "etag": "\"69721759-1adbb7\"",
+  "modified": "Thu, 22 Jan 2026 12:26:01 GMT",
+  "size": "1760183"
+ },
+ "sha256": "ffa1b69f8c02955cccfd1043087b3cc5b5c6277c47e09019802256a237d5b88e",
+ "source": "site-university-e81897b3-5-semestr-bsro-2026-23-10-2025-rpd.archives/ffa1b69f8c02955cccfd1043087b3cc5b5c6277c47e09019802256a237d5b88e.archive",
+ "status": "ready",
+ "url": "https://innopolis.university/upload/iblock/a4e/cpy5jxrj9xkmgxxh198oxq0gv5ipzg30/5%20%D1%81%D0%B5%D0%BC%D0%B5%D1%81%D1%82%D1%80%20BSRO%202026%2023.10.2025%20%28%D0%A0%D0%9F%D0%94%29.7z"
+}

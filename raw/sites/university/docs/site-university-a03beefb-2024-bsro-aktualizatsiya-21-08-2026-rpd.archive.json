@@ -1,0 +1,153 @@
+{
+ "members": [
+  {
+   "ext": "pdf",
+   "file": "0001.pdf",
+   "key": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd-member-1c8d50300084e132ec22",
+   "member": "2024 BSRO актуализация 21.08.2026 (РПД 7-ого семестра)/Визуализация_Б1.В.01_BS RO_2024_Элективные дисциплины (модули) по физической_21.08.2026.pdf",
+   "sha256": "e19dd3c2f5eac46ae482d52171d68dbb8c0b49fb54f386c4f57568a1f25a4fdd",
+   "size": 758481,
+   "status": "ready",
+   "storage": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd.members/1c8d50300084e132ec22/e19dd3c2f5eac46ae482d52171d68dbb8c0b49fb54f386c4f57568a1f25a4fdd"
+  },
+  {
+   "ext": "pdf",
+   "file": "0002.pdf",
+   "key": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd-member-40afd4ef787817f217ef",
+   "member": "2024 BSRO актуализация 21.08.2026 (РПД 7-ого семестра)/Визуализация_Б1.В.ДВ.08.01_BS RO_2024_Компьютерное зрение и обработка видео (7 с.)_21.08.2026.pdf",
+   "sha256": "c6dce12ca5b7fe77771bdbc6943cf70086c42653e3fe763a62dd765dbf3d8aa1",
+   "size": 579942,
+   "status": "ready",
+   "storage": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd.members/40afd4ef787817f217ef/c6dce12ca5b7fe77771bdbc6943cf70086c42653e3fe763a62dd765dbf3d8aa1"
+  },
+  {
+   "ext": "pdf",
+   "file": "0003.pdf",
+   "key": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd-member-b580c35488cd07dc4503",
+   "member": "2024 BSRO актуализация 21.08.2026 (РПД 7-ого семестра)/Визуализация_Б1.В.ДВ.08.02_BS RO_2024_Развёртывание LLM vLLM, мульти-GPU (7 с.)_21.08.2026.pdf",
+   "sha256": "53f9c78863c28b8c31ef1471abef6cdb5f34230a69c480fcb98d58f02d181a38",
+   "size": 535679,
+   "status": "ready",
+   "storage": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd.members/b580c35488cd07dc4503/53f9c78863c28b8c31ef1471abef6cdb5f34230a69c480fcb98d58f02d181a38"
+  },
+  {
+   "ext": "pdf",
+   "file": "0004.pdf",
+   "key": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd-member-15029ce2ff0d2ee93b27",
+   "member": "2024 BSRO актуализация 21.08.2026 (РПД 7-ого семестра)/Визуализация_Б1.В.ДВ.08.03_BS RO_2024_Агентные модели (7 с.)_21.08.2026.pdf",
+   "sha256": "c192e9b5bcf60f42c174e765466a943ebfe5a138bf4ddeced8ee8a1edf49e9c7",
+   "size": 530136,
+   "status": "ready",
+   "storage": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd.members/15029ce2ff0d2ee93b27/c192e9b5bcf60f42c174e765466a943ebfe5a138bf4ddeced8ee8a1edf49e9c7"
+  },
+  {
+   "ext": "pdf",
+   "file": "0005.pdf",
+   "key": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd-member-0287a7ecb7e9246e9571",
+   "member": "2024 BSRO актуализация 21.08.2026 (РПД 7-ого семестра)/Визуализация_Б1.В.ДВ.09.01_BS RO_2024_Введение в развитие карьеры ИТ-специалиста (7 с.)_21.08.2026.pdf",
+   "sha256": "6d38b75a8a51021b7b2fc9f8f90187158cdc6d50445072a8c25f2a5ba83c3cec",
+   "size": 559859,
+   "status": "ready",
+   "storage": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd.members/0287a7ecb7e9246e9571/6d38b75a8a51021b7b2fc9f8f90187158cdc6d50445072a8c25f2a5ba83c3cec"
+  },
+  {
+   "ext": "pdf",
+   "file": "0006.pdf",
+   "key": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd-member-d429e3d91aed93438e85",
+   "member": "2024 BSRO актуализация 21.08.2026 (РПД 7-ого семестра)/Визуализация_Б1.В.ДВ.09.02_BS RO_2024_Психология ИТ-специалиста (7 с.)_21.08.2026.pdf",
+   "sha256": "e8ae5ebf1af016f44a10905bd80026972ae260b79c798da28f4a6bcb1a6469ae",
+   "size": 497810,
+   "status": "ready",
+   "storage": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd.members/d429e3d91aed93438e85/e8ae5ebf1af016f44a10905bd80026972ae260b79c798da28f4a6bcb1a6469ae"
+  },
+  {
+   "ext": "pdf",
+   "file": "0007.pdf",
+   "key": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd-member-9cb2931a845dff2fc4ab",
+   "member": "2024 BSRO актуализация 21.08.2026 (РПД 7-ого семестра)/Визуализация_Б1.В.ДВ.09.03_BS RO_2024_Публичные выступления в бизнесе (7 с.)_21.08.2026.pdf",
+   "sha256": "11738b12aa21e8d725d6331505aa2e6d0b9456469d3859307b110292a6e47f6d",
+   "size": 641718,
+   "status": "ready",
+   "storage": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd.members/9cb2931a845dff2fc4ab/11738b12aa21e8d725d6331505aa2e6d0b9456469d3859307b110292a6e47f6d"
+  },
+  {
+   "ext": "pdf",
+   "file": "0008.pdf",
+   "key": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd-member-3efa42cf4b5efad2d203",
+   "member": "2024 BSRO актуализация 21.08.2026 (РПД 7-ого семестра)/Визуализация_Б1.В.ДВ.09.04_BS RO_2024_Управление ИТ-проектами (7 с.)_21.08.2026.pdf",
+   "sha256": "4fb924ad033f988940d1f3ebf9f51d0bf1ca15d8b84de88d2deb4ced38a7c720",
+   "size": 581102,
+   "status": "ready",
+   "storage": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd.members/3efa42cf4b5efad2d203/4fb924ad033f988940d1f3ebf9f51d0bf1ca15d8b84de88d2deb4ced38a7c720"
+  },
+  {
+   "ext": "pdf",
+   "file": "0009.pdf",
+   "key": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd-member-c747c3ff2565d40311fe",
+   "member": "2024 BSRO актуализация 21.08.2026 (РПД 7-ого семестра)/Визуализация_Б1.В.ДВ.09.05_BS RO_2024_Основы управления цифровым продуктом (7 с.)_21.08.2026.pdf",
+   "sha256": "ea1f89f67cecf79b107bce18498bf533798896516839bf75859ef1a71af8fd7b",
+   "size": 569221,
+   "status": "ready",
+   "storage": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd.members/c747c3ff2565d40311fe/ea1f89f67cecf79b107bce18498bf533798896516839bf75859ef1a71af8fd7b"
+  },
+  {
+   "ext": "pdf",
+   "file": "0010.pdf",
+   "key": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd-member-fe674eb2664fce8812d6",
+   "member": "2024 BSRO актуализация 21.08.2026 (РПД 7-ого семестра)/Визуализация_Б1.О.21_BS RO_2024_Мехатроника (7 с.)_21.08.2026.pdf",
+   "sha256": "c8b782e1753be450db4bd4e0e2e76710f57409d96515a1534d7162e5c5e93545",
+   "size": 655058,
+   "status": "ready",
+   "storage": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd.members/fe674eb2664fce8812d6/c8b782e1753be450db4bd4e0e2e76710f57409d96515a1534d7162e5c5e93545"
+  },
+  {
+   "ext": "pdf",
+   "file": "0011.pdf",
+   "key": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd-member-a9e9bbeab508ab4822fe",
+   "member": "2024 BSRO актуализация 21.08.2026 (РПД 7-ого семестра)/Визуализация_Б1.О.22_BS RO_2024_Механика и механизмы (7 с.)_21.08.2026.pdf",
+   "sha256": "175d4a66448cecbc6cbc353a349ac9fda4587062e9595166ee3b4c68e423ac1b",
+   "size": 708524,
+   "status": "ready",
+   "storage": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd.members/a9e9bbeab508ab4822fe/175d4a66448cecbc6cbc353a349ac9fda4587062e9595166ee3b4c68e423ac1b"
+  },
+  {
+   "ext": "pdf",
+   "file": "0012.pdf",
+   "key": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd-member-b88bb2a6b665dbe5f304",
+   "member": "2024 BSRO актуализация 21.08.2026 (РПД 7-ого семестра)/Визуализация_Б1.О.23_BS RO_2024_Введение в компьютерное зрение (7 с.)_21.08.2026.pdf",
+   "sha256": "0590e4455624898676821663bf5b7767626a1c80e7977fcce8a04d938b8a1697",
+   "size": 602814,
+   "status": "ready",
+   "storage": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd.members/b88bb2a6b665dbe5f304/0590e4455624898676821663bf5b7767626a1c80e7977fcce8a04d938b8a1697"
+  },
+  {
+   "ext": "pdf",
+   "file": "0013.pdf",
+   "key": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd-member-482ea91b6b2bbe064674",
+   "member": "2024 BSRO актуализация 21.08.2026 (РПД 7-ого семестра)/Визуализация_Б1.О.24_BS RO_2024_Введение в машинное обучение (7 с.)_21.08.2026.pdf",
+   "sha256": "64f4bd5bd1d5b673a76bda4f39ea931bb8647ac9ccf71bf5ae6b8e54979ed19b",
+   "size": 535016,
+   "status": "ready",
+   "storage": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd.members/482ea91b6b2bbe064674/64f4bd5bd1d5b673a76bda4f39ea931bb8647ac9ccf71bf5ae6b8e54979ed19b"
+  },
+  {
+   "ext": "pdf",
+   "file": "0014.pdf",
+   "key": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd-member-aae97f75a71b62aad17c",
+   "member": "2024 BSRO актуализация 21.08.2026 (РПД 7-ого семестра)/Визуализация_ФТД.04_BS RO_2024_Мастерская по робототехнике и компьютерному зрению (7 с.)_21.08.2026.pdf",
+   "sha256": "7f576c81582563ce858cccd1f0397db5d92d001f8860f74702b65aa3ab13549a",
+   "size": 540878,
+   "status": "ready",
+   "storage": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd.members/aae97f75a71b62aad17c/7f576c81582563ce858cccd1f0397db5d92d001f8860f74702b65aa3ab13549a"
+  }
+ ],
+ "remote": {
+  "etag": "\"6acc7c3f-36e9c0\"",
+  "modified": "Mon, 12 Oct 2026 06:20:47 GMT",
+  "size": "3598784"
+ },
+ "sha256": "8b7a5003b05a68e7ad7b537ede5b26f30b72e90fba0e69aee30fb575e062bb1d",
+ "source": "site-university-a03beefb-2024-bsro-aktualizatsiya-21-08-2026-rpd.archives/8b7a5003b05a68e7ad7b537ede5b26f30b72e90fba0e69aee30fb575e062bb1d.archive",
+ "status": "ready",
+ "url": "https://innopolis.university/upload/iblock/92c/zt0fg5j1p3zkf48124phvl4xpe58a4sv/2024%20BSRO%20%D0%B0%D0%BA%D1%82%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F%2021.08.2026%20%28%D0%A0%D0%9F%D0%94%207-%D0%BE%D0%B3%D0%BE%20%D1%81%D0%B5%D0%BC%D0%B5%D1%81%D1%82%D1%80%D0%B0%29.7z"
+}

@@ -102,153 +102,153 @@ status: draft
 
 - [Объявление о конкурсном отборе от 21.05.2020](/raw/regulations/site-career-6e6bb61a-pps-2020-05-21.md)
 
-- [Объявление о конкурсном отборе от 18.06.2020](https://innopolis.university/files/объявление_о_конкурсном_отборе_от_18_06_2020.pdf)
+- [Объявление о конкурсном отборе от 18.06.2020](/raw/regulations/site-career-41f54965-obyavlenie-o-konkursnom-otbore-ot-18-06.md)
 
-- [Объявление о конкурсном отборе от 03.07.202](https://innopolis.university/files/объявление%20о%20конкурсном%20отборе%20от%2003.07.2020.pdf)0
+- [Объявление о конкурсном отборе от 03.07.202](/raw/regulations/site-career-042d9242-obyavlenie-o-konkursnom-otbore-ot-03-07.md)0
 
-- [Объявление о конкурсном отборе от 21.08.2020](https://innopolis.university/files/объявление_о_конкурсном_отборе_от_21_08_2020.pdf)
+- [Объявление о конкурсном отборе от 21.08.2020](/raw/regulations/site-career-dda76dd7-obyavlenie-o-konkursnom-otbore-ot-21-08.md)
 
-- [Объявление о конкурсном отборе от 18.09.2020](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2018.09.2020.pdf)
+- [Объявление о конкурсном отборе от 18.09.2020](/raw/regulations/site-career-69bed5a1-obyavlenie-o-konkursnom-otbore-ot-18-09.md)
 
-- [Объявление о конкурсном отборе от 15.10.2020](https://innopolis.university/files/объявление_о_конкурсном_отборе_от_15_10_2020.pdf)
+- [Объявление о конкурсном отборе от 15.10.2020](/raw/regulations/site-career-0ba1b88f-obyavlenie-o-konkursnom-otbore-ot-15-10.md)
 
-- [Объявление о конкурсном отборе от 29.12.2020](https://innopolis.university/files/объявление_о_конкурсном_отборе_от_29_12_2020.pdf)
+- [Объявление о конкурсном отборе от 29.12.2020](/raw/regulations/site-career-8d5fbbd6-obyavlenie-o-konkursnom-otbore-ot-29-12.md)
 
-- [Объявление о конкурсном отборе от 27.01.2021](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2027.01.2021.pdf)
+- [Объявление о конкурсном отборе от 27.01.2021](/raw/regulations/site-career-33c05516-obyavlenie-o-konkursnom-otbore-ot-27-01.md)
 
-- [Объявление о конкурсном отборе от 05.02.2021](https://innopolis.university/files/объявление_о_конкурсном_отборе_от_05_02_2021.pdf)
+- [Объявление о конкурсном отборе от 05.02.2021](/raw/regulations/site-career-77a7e8f0-obyavlenie-o-konkursnom-otbore-ot-05-02.md)
 
-- [Объявление о конкурсном отборе от 11.03.2021](https://innopolis.university/files/объявление_о_конкурсном_отборе_от_11_03_2021.pdf)
+- [Объявление о конкурсном отборе от 11.03.2021](/raw/regulations/site-career-c74d081c-obyavlenie-o-konkursnom-otbore-ot-11-03.md)
 
-- [Объявление о конкурсном отборе от 19.03.2021](https://innopolis.university/files/объявление_о_конкурсном_отборе_от_19_03_2021.pdf)
+- [Объявление о конкурсном отборе от 19.03.2021](/raw/regulations/site-career-bb25d32b-obyavlenie-o-konkursnom-otbore-ot-19-03.md)
 
-- [Объявление о конкурсном отборе от 08.04.2021](https://innopolis.university/files/объявление_о_конкурсном_отборе_от_08_04_2021.pdf)
+- [Объявление о конкурсном отборе от 08.04.2021](/raw/regulations/site-career-1401fb7c-obyavlenie-o-konkursnom-otbore-ot-08-04.md)
 
-- [Объявление о конкурсном отборе от 20.04.2021](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BE_%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC_%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5_%D0%BE%D1%82_20_04_2021.pdf)
+- [Объявление о конкурсном отборе от 20.04.2021](/raw/regulations/site-career-c23874e0-obyavlenie-o-konkursnom-otbore-ot-20-04.md)
 
-- [Объявление о конкурсном отборе от 30.04.2021](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2030.04.2021.pdf)
+- [Объявление о конкурсном отборе от 30.04.2021](/raw/regulations/site-career-3780213a-obyavlenie-o-konkursnom-otbore-ot-30-04.md)
 
-- [Объявление о конкурсном отборе от 24.06.2021](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2024.06.2021.pdf)
+- [Объявление о конкурсном отборе от 24.06.2021](/raw/regulations/site-career-c49eebe7-obyavlenie-o-konkursnom-otbore-ot-24-06.md)
 
-- [Объявление о конкурсном отборе от 22.07.2021](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BE_%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC_%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5_%D0%BE%D1%82_22_07_2021.pdf)
+- [Объявление о конкурсном отборе от 22.07.2021](/raw/regulations/site-career-fe5662bd-obyavlenie-o-konkursnom-otbore-ot-22-07.md)
 
-- [Объявление о конкурсном отборе от 10.08.2021](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BE_%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC_%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5_%D0%BE%D1%82_10_08_2021.pdf)
+- [Объявление о конкурсном отборе от 10.08.2021](/raw/regulations/site-career-fd4deedd-obyavlenie-o-konkursnom-otbore-ot-10-08.md)
 
-- [Объявление о конкурсном отборе от 17.09.2021](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2017.09.2021.pdf)
+- [Объявление о конкурсном отборе от 17.09.2021](/raw/regulations/site-career-6ae4181c-obyavlenie-o-konkursnom-otbore-ot-17-09.md)
 
-- [Объявление о конкурсном отборе от 09.11.2021](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BE_%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC_%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5_%D0%BE%D1%82_09_11_2021.pdf)
+- [Объявление о конкурсном отборе от 09.11.2021](/raw/regulations/site-career-6350ca7f-obyavlenie-o-konkursnom-otbore-ot-09-11.md)
 
-- [Объявление о конкурсном отборе от 11.11.2021](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2011.11.2021.pdf)
+- [Объявление о конкурсном отборе от 11.11.2021](/raw/regulations/site-career-b9247e38-obyavlenie-o-konkursnom-otbore-ot-11-11.md)
 
-- [Объявление о конкурсном отборе от 02.12.2021](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2002.12.2021.pdf)
+- [Объявление о конкурсном отборе от 02.12.2021](/raw/regulations/site-career-f27b87a1-obyavlenie-o-konkursnom-otbore-ot-02-12.md)
 
-- [Объявление о конкурсном отборе от 30.12.2021](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2030.12.2021.pdf)
+- [Объявление о конкурсном отборе от 30.12.2021](/raw/regulations/site-career-754f1bb2-obyavlenie-o-konkursnom-otbore-ot-30-12.md)
 
-- [Объявление о конкурсном отборе от 04.03.2022](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2004.03.2022.pdf)
+- [Объявление о конкурсном отборе от 04.03.2022](/raw/regulations/site-career-7de85917-obyavlenie-o-konkursnom-otbore-ot-04-03.md)
 
-- [Объявление о конкурсном отборе от 23.03.2022](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2023.03.2022.pdf)
+- [Объявление о конкурсном отборе от 23.03.2022](/raw/regulations/site-career-08099ce9-obyavlenie-o-konkursnom-otbore-ot-23-03.md)
 
-- [Объявление о конкурсном отборе от 15.04.2022](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2015.04.2022.pdf)
+- [Объявление о конкурсном отборе от 15.04.2022](/raw/regulations/site-career-edac9e0f-obyavlenie-o-konkursnom-otbore-ot-15-04.md)
 
-- [Объявление о конкурсном отборе от 19.05.2022](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2019.05.2022.pdf)
+- [Объявление о конкурсном отборе от 19.05.2022](/raw/regulations/site-career-38e12289-obyavlenie-o-konkursnom-otbore-ot-19-05.md)
 
-- [Объявление о конкурсном отборе от 08.06.2022](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2008.06.2022.pdf)
+- [Объявление о конкурсном отборе от 08.06.2022](/raw/regulations/site-career-c778835d-obyavlenie-o-konkursnom-otbore-ot-08-06.md)
 
-- [Объявление о конкурсном отборе от 30.06.2022](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2030.06.2022.pdf)
+- [Объявление о конкурсном отборе от 30.06.2022](/raw/regulations/site-career-012ca206-obyavlenie-o-konkursnom-otbore-ot-30-06.md)
 
-- [Объявление о конкурсном отборе от 14.07.2022](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2014.07.2022.pdf)
+- [Объявление о конкурсном отборе от 14.07.2022](/raw/regulations/site-career-ab27c0ad-obyavlenie-o-konkursnom-otbore-ot-14-07.md)
 
-- [Объявление о конкурсном отборе от 03.10.2022](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BE_%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC_%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5_%D0%BE%D1%82_03_10_2022.pdf)
+- [Объявление о конкурсном отборе от 03.10.2022](/raw/regulations/site-career-dfac6757-obyavlenie-o-konkursnom-otbore-ot-03-10.md)
 
-- [Объявление о конкурсном отборе от 30.09.2022](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2030.09.2022.pdf)
+- [Объявление о конкурсном отборе от 30.09.2022](/raw/regulations/site-career-acd1ff17-obyavlenie-o-konkursnom-otbore-ot-30-09.md)
 
-- [Объявление о конкурсном отборе от 13.10.2022](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2013.10.2022.pdf)
+- [Объявление о конкурсном отборе от 13.10.2022](/raw/regulations/site-career-c1047523-obyavlenie-o-konkursnom-otbore-ot-13-10.md)
 
-- [Объявление о конкурсном отборе от 07.11.2022](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2007.11.2022.pdf)
+- [Объявление о конкурсном отборе от 07.11.2022](/raw/regulations/site-career-4acf6435-obyavlenie-o-konkursnom-otbore-ot-07-11.md)
 
-- [Объявление о конкурсном отборе от 19.12.2022](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2019.12.2022.pdf)
+- [Объявление о конкурсном отборе от 19.12.2022](/raw/regulations/site-career-901b7f93-obyavlenie-o-konkursnom-otbore-ot-19-12.md)
 
-- [Объявление о конкурсном отборе от 30.12.2022](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2030.12.2022.pdf)
+- [Объявление о конкурсном отборе от 30.12.2022](/raw/regulations/site-career-8e1480f4-obyavlenie-o-konkursnom-otbore-ot-30-12.md)
 
-- [Объявление о конкурсном отборе от 23.01.2023](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2023.01.2023.pdf)
+- [Объявление о конкурсном отборе от 23.01.2023](/raw/regulations/site-career-813cb46a-obyavlenie-o-konkursnom-otbore-ot-23-01.md)
 
-- [Объявление о конкурсном отборе от 03.02.2023](https://innopolis.university/files/объявление_о_конкурсном_отборе_от_03_02_2023.pdf)
+- [Объявление о конкурсном отборе от 03.02.2023](/raw/regulations/site-career-8f635b9b-obyavlenie-o-konkursnom-otbore-ot-03-02.md)
 
-- [Объявление о конкурсном отборе от 20.02.2023](https://innopolis.university/files/объявление_о_конкурсном_отборе_от_20_02_2023.pdf)
+- [Объявление о конкурсном отборе от 20.02.2023](/raw/regulations/site-career-b42de640-obyavlenie-o-konkursnom-otbore-ot-20-02.md)
 
-- [Объявление о конкурсном отборе от 03.03.2023](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2003.03.2023.pdf)
+- [Объявление о конкурсном отборе от 03.03.2023](/raw/regulations/site-career-f9ad746b-obyavlenie-o-konkursnom-otbore-ot-03-03.md)
 
-- [Объявление о конкурсном отборе от 03.04.2023](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2003.04.2023.pdf)
+- [Объявление о конкурсном отборе от 03.04.2023](/raw/regulations/site-career-d20b1b47-obyavlenie-o-konkursnom-otbore-ot-03-04.md)
 
-- [Объявление о конкурсном отборе от 26.04.2023](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2026.04.2023.pdf)
+- [Объявление о конкурсном отборе от 26.04.2023](/raw/regulations/site-career-dbd988ee-obyavlenie-o-konkursnom-otbore-ot-26-04.md)
 
-- [Объявление о конкурсном отборе от 22.05.2023](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2022.05.2023.pdf)
+- [Объявление о конкурсном отборе от 22.05.2023](/raw/regulations/site-career-c358b1a4-obyavlenie-o-konkursnom-otbore-ot-22-05.md)
 
-- [Объявление о конкурсном отборе от 09.06.2023](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2009.06.2023.pdf)
+- [Объявление о конкурсном отборе от 09.06.2023](/raw/regulations/site-career-54a4e46f-obyavlenie-o-konkursnom-otbore-ot-09-06.md)
 
-- [Объявление о конкурсном отборе от 17.08.2023](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2017.08.2023.pdf)
+- [Объявление о конкурсном отборе от 17.08.2023](/raw/regulations/site-career-8f53ce32-obyavlenie-o-konkursnom-otbore-ot-17-08.md)
 
-- [Объявление о конкурсном отборе от 06.09.2023](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2009.06.2023.pdf)
+- [Объявление о конкурсном отборе от 06.09.2023](/raw/regulations/site-career-54a4e46f-obyavlenie-o-konkursnom-otbore-ot-09-06.md)
 
-- [Объявление о конкурсном отборе от 02.10.2023](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2002.10.2023.pdf)
+- [Объявление о конкурсном отборе от 02.10.2023](/raw/regulations/site-career-f621ba28-obyavlenie-o-konkursnom-otbore-ot-02-10.md)
 
-- [Объявление о конкурсном отборе от 30.10.2023](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2030.10.2023.pdf)
+- [Объявление о конкурсном отборе от 30.10.2023](/raw/regulations/site-career-017cd7a4-obyavlenie-o-konkursnom-otbore-ot-30-10.md)
 
-- [Объявление о конкурсном отборе от 27.11.2023](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2027.11.2023.pdf)
+- [Объявление о конкурсном отборе от 27.11.2023](/raw/regulations/site-career-8bf33155-obyavlenie-o-konkursnom-otbore-ot-27-11.md)
 
-- [Объявление о конкурсном отборе от 15.01.2024](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2015.01.2024.pdf)
+- [Объявление о конкурсном отборе от 15.01.2024](/raw/regulations/site-career-5db9a44f-obyavlenie-o-konkursnom-otbore-ot-15-01.md)
 
-- [Объявление о конкурсном отборе от 04.04.2024](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5%20%D0%BE%D1%82%2004.04.2024.pdf)
+- [Объявление о конкурсном отборе от 04.04.2024](/raw/regulations/site-career-80015480-obyavlenie-o-konkursnom-otbore-ot-04-04.md)
 
-- [Объявление о конкурсном отборе от 16.05.2024](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BE_%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC_%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5_%D0%BE%D1%82_16.05.2024.pdf)
+- [Объявление о конкурсном отборе от 16.05.2024](/raw/regulations/site-career-93ed4124-obyavlenie-o-konkursnom-otbore-ot-16-05.md)
 
-- [Объявление о конкурсном отборе от 29.01.2024](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BE_%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC_%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5_%D0%BE%D1%82_29.01.2024.pdf)
+- [Объявление о конкурсном отборе от 29.01.2024](/raw/regulations/site-career-451a0662-obyavlenie-o-konkursnom-otbore-ot-29-01.md)
 
-- [Объявление о конкурсном отборе от 13.06.2024](https://innopolis.university/files/объявление_о_конкурсном_отборе_от_13.06.2024.pdf)
+- [Объявление о конкурсном отборе от 13.06.2024](/raw/regulations/site-career-03085114-obyavlenie-o-konkursnom-otbore-ot-13-06.md)
 
-- [Объявление о конкурсном отборе от 12.08.2024](https://innopolis.university/files/объявление_о_конкурсном_отборе_от_12.08.2024.pdf)
+- [Объявление о конкурсном отборе от 12.08.2024](/raw/regulations/site-career-b0f3af98-obyavlenie-o-konkursnom-otbore-ot-12-08.md)
 
-- [Объявление о конкурсном отборе от 02.09.2024](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BE_%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC_%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5_%D0%BE%D1%82_02.09.2024.pdf)
+- [Объявление о конкурсном отборе от 02.09.2024](/raw/regulations/site-career-1376fa4c-obyavlenie-o-konkursnom-otbore-ot-02-09.md)
 
-- [Объявление о конкурсном отборе от 01.10.2024](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BE_%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC_%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5_%D0%BE%D1%82_01.10.2024.pdf)
+- [Объявление о конкурсном отборе от 01.10.2024](/raw/regulations/site-career-21abb216-obyavlenie-o-konkursnom-otbore-ot-01-10.md)
 
-- [Объявление о конкурсном отборе от 31.10.2024](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BE_%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC_%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5_%D0%BE%D1%82_31.10.2024.pdf)
+- [Объявление о конкурсном отборе от 31.10.2024](/raw/regulations/site-career-0ef8c56f-obyavlenie-o-konkursnom-otbore-ot-31-10.md)
 
-- [Объявление о конкурсном отборе от 02.12.2024](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BE_%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC_%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5_%D0%BE%D1%82_02_12_2024.pdf)
+- [Объявление о конкурсном отборе от 02.12.2024](/raw/regulations/site-career-7ef01440-obyavlenie-o-konkursnom-otbore-ot-02-12.md)
 
-- [Объявление о конкурсном отборе от 30.01.2025](https://innopolis.university/files/объявление_о_конкурсном_отборе_от_30.01.2025.pdf)
+- [Объявление о конкурсном отборе от 30.01.2025](/raw/regulations/site-career-7318c22d-obyavlenie-o-konkursnom-otbore-ot-30-01.md)
 
-- [Объявление о конкурсном отборе от 03.03.2025](https://innopolis.university/files/объявление_о_конкурсном_отборе_от_03.03.2025.pdf)
+- [Объявление о конкурсном отборе от 03.03.2025](/raw/regulations/site-career-00b7e50e-obyavlenie-o-konkursnom-otbore-ot-03-03.md)
 
-- [Объявление о конкурсном отборе от 31.03.2025](https://innopolis.university/files/объявление_о_конкурсном_отборе_от_31.03.2025.pdf)
+- [Объявление о конкурсном отборе от 31.03.2025](/raw/regulations/site-career-f68629fa-obyavlenie-o-konkursnom-otbore-ot-31-03.md)
 
-- [Объявление о конкурсном отборе от 02.06.2025](https://innopolis.university/files/объявление_о_конкурсном_отборе_от_02.06.2025.pdf)
+- [Объявление о конкурсном отборе от 02.06.2025](/raw/regulations/site-career-fb93ee05-obyavlenie-o-konkursnom-otbore-ot-02-06.md)
 
-- [Объявление о конкурсном отборе от 11.08.2025](https://innopolis.university/files/объявление_о_конкурсном_отборе_от_11.08.2025.pdf)
+- [Объявление о конкурсном отборе от 11.08.2025](/raw/regulations/site-career-ffb80043-obyavlenie-o-konkursnom-otbore-ot-11-08.md)
 
-- [Объявление о конкурсном отборе от 09.09.2025](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BE_%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC_%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5_%D0%BE%D1%82_09_09_2025.pdf)
+- [Объявление о конкурсном отборе от 09.09.2025](/raw/regulations/site-career-e46615cf-obyavlenie-o-konkursnom-otbore-ot-09-09.md)
 
-- [Объявление о конкурсном отборе от 01.11.2025](http://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BE_%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC_%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5_%D0%BE%D1%82_01.11.2025.pdf)
+- [Объявление о конкурсном отборе от 01.11.2025](/raw/regulations/site-career-5c45fcf1-obyavlenie-o-konkursnom-otbore-ot-01-11.md)
 
-- [Объявление о конкурсном отборе от 01.12.2025](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BE_%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC_%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5_%D0%BE%D1%82_01_12_2025.pdf)
+- [Объявление о конкурсном отборе от 01.12.2025](/raw/regulations/site-career-b9dfdae3-obyavlenie-o-konkursnom-otbore-ot-01-12.md)
 
-- [Объявление о конкурсном отборе от 19.12.2025](https://innopolis.university/files/%D0%BE%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BE_%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81%D0%BD%D0%BE%D0%BC_%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%B5_%D0%BE%D1%82_19.12.2025.pdf)
+- [Объявление о конкурсном отборе от 19.12.2025](/raw/regulations/site-career-47509944-obyavlenie-o-konkursnom-otbore-ot-19-12.md)
 
-- [Объявление о конкурсном отборе от 19.01.2026](https://innopolis.university/files/объявление_о_конкурсном_отборе_от_19.01.2026.pdf)
+- [Объявление о конкурсном отборе от 19.01.2026](/raw/regulations/site-career-c2e1058f-obyavlenie-o-konkursnom-otbore-ot-19-01.md)
 
 ## Список научно-педагогических работник АНО ВО«Университет Иннополис» с окончанием срока действия трудового договора
 
-[В 2026/2027 учебном году](https://innopolis.university/files/В_2026_2027_учебному_году.pdf)
+[В 2026/2027 учебном году](/raw/regulations/site-career-b5b493e8-v-2026-2027-uchebnomu-godu.md)
 
-[В 2025/2026 учебном году](https://innopolis.university/files/В_2025_2026_учебному_году.pdf)
+[В 2025/2026 учебном году](/raw/regulations/site-career-8b5696ae-v-2025-2026-uchebnomu-godu.md)
 
-[В 2024/2025 учебном году](https://innopolis.university/filespublic/%D0%92%202024%202025%20%D1%83%D1%87%D0%B5%D0%B1%D0%BD%D0%BE%D0%BC%20%D0%B3%D0%BE%D0%B4%D1%83.pdf)
+[В 2024/2025 учебном году](/raw/regulations/site-career-703e2431-v-2024-2025-uchebnom-godu.md)
 
-[В 2023/2024 учебном году](https://innopolis.university/filespublic/2023-2024-uch-god.pdf)
+[В 2023/2024 учебном году](/raw/regulations/site-career-e9f435e4-20232024uchgod.md)
 
-[В 2022/2023 учебном году](https://innopolis.university/public/files/pps/PPS%202022.07.12.pdf)
+[В 2022/2023 учебном году](/raw/regulations/site-career-8231b9d8-pps-2022-07-12.md)
 
-[В 2021/2022 учебном году](https://innopolis.university/public/files/pps/PPS%20SPIS.pdf)
+[В 2021/2022 учебном году](/raw/regulations/site-career-80182506-pps-spis.md)
 
 - Конкурс на замещение вакантных должностей ППС
 

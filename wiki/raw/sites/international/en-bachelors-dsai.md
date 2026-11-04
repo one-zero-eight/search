@@ -68,7 +68,7 @@ The program will help to gain basic knowledge to understand the principle of ope
 
 The language of instruction is English.
 
-[Download the curriculum](https://innopolis.university/filespublic/ucheb_plan_magistr_ii_inzheneriya_dannyh.pdf)
+[Download the curriculum](/raw/regulations/site-international-e943b070-ucheb-plan-magistr-ii-inzheneriya-dannyh.md)
 
 ![auditorium](https://innopolis.university/local/templates/newapply/images/conditions/auditorium.jpg)
 

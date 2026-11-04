@@ -1,0 +1,59 @@
+Nice Shape
+
+Input file: standard input
+Output file: standard output
+Time limit: 4 seconds
+Memory limit: 512 megabytes
+
+You are given n rooks on the different cells of the infinite chessboard.
+The i-th of them is in the cell (ri,ci).
+
+In one move you can move any rook to any cell in the same row/column. In other words, in one move you
+can choose any i and then either replace ri to any other integer or replace ci to any other integer. You
+can’t move a rook to the cell with some other rook.
+
+Four different rooks a,b,c,d form a nice shape if you can find a rectangle such that a,b,c,d are its
+corners. In other words, if the set of cells {(ra,ca),(rb,cb),(rc,cc),(rd,cd)} is equal to the set of cells
+{(x1,y1),(x1,y2),(x2,y1),(x2,y2)} for some integers x1,x2,y1,y2 with x1 = x2 and y1 = y2.
+
+For example, the white rooks in the following picture form a nice shape.
+
+Your goal is to find the minimum number of moves that you can perform to get a nice shape.
+In other words, you need to find the minimum number of moves that you can perform, such that after
+them it will be possible to find a rectangle with four rooks in its corners.
+
+Input
+
+The first line of input contains one integer t (1 ≤ t ≤ 25000): the number of test cases.
+The description of t test cases follows.
+The first line contains one integer n (4 ≤ n ≤ 100000).
+The i-th of the next n lines contains two integers ri,ci (1 ≤ ri,ci ≤ 109)
+For each pair i,j with i = j, ri = rj or ci = cj.
+The total sum of n is at most 100000.
+
+Output
+
+For each test case, print one integer: the minimum number of moves you need to perform to obtain at
+least one nice shape among given rooks.
+
+Scoring
+
+| Subtask | Score | Constraints |
+| --- | --- | --- |
+| 1 | 10 | n ≤ 4 |
+| 2 | 10 | n ≤ 50 |
+| 3 | 10 | n ≤ 200 |
+| 4 | 30 | n ≤ 2000 |
+| 5 | 40 | n ≤ 105 |
+
+Example
+
+| standard input | standard output |
+| --- | --- |
+| 5 4 4 4 1 1 2 2 3 3 4 4 4 4 1 1 4 2 2 6 3 2 2 1 1 2 3 3 3 4 3 1 5 1 1 1 2 1 3 1 4 5 5 4 1000000000 1000000000 1000000000 1 2 2 1000000000 999999999 | 4 2 1 3 3 |
+
+Note
+
+One of the possible optimal solutions for the first test case of the example:
+
+One of the possible optimal solutions for the second test case of the example:

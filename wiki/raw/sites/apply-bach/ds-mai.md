@@ -372,9 +372,9 @@ status: draft
 
 ![](https://static.tildacdn.com/tild3766-6131-4362-b863-313836303337/097.png)
 
-[(1-15 стр)](https://lk-dovuz.innopolis.university/public/files/Mat-osnovy-ai.pdf)
+[(1-15 стр)](/raw/regulations/site-apply-bach-7765e9ff-matosnovyai.md)
 
-[Ознакомиться с книгой](https://lk-dovuz.innopolis.university/public/files/Mat-osnovy-ai.pdf)
+[Ознакомиться с книгой](/raw/regulations/site-apply-bach-7765e9ff-matosnovyai.md)
 
 ![](https://static.tildacdn.com/tild3765-3436-4235-a633-353934393434/3456.png)
 
@@ -386,7 +386,7 @@ status: draft
 
 Авторы: Нелли Литвак, Андрей Райгородский
 
-[Ознакомиться с книгой](https://lk-dovuz.innopolis.university/public/files/Mat-osnovy-ai.pdf)
+[Ознакомиться с книгой](/raw/regulations/site-apply-bach-7765e9ff-matosnovyai.md)
 
 Наши
 

@@ -61,13 +61,13 @@ stale_after: "2025-01-01T00:00:00+00:00"
 
 Мы предлагаем уникальную возможность университетам — участникам проекта — соревноваться за звание лучшей «цифровой кафедры», акцентируя внимание на инновационных подходах к популяризации своих достижений.
 
-[![](https://static.tildacdn.com/tild3662-3733-4132-a434-323961636531/W1xi8P4FyIE.jpg)](https://innopolis.university/filespublic/sbornik_ck_iu.pdf)
+[![](https://static.tildacdn.com/tild3662-3733-4132-a434-323961636531/W1xi8P4FyIE.jpg)](/raw/regulations/site-events-db33d99f-sbornik-ck-iu.md)
 
 ![цифровые кафедры](https://static.tildacdn.com/tild3630-3864-4565-a531-373561333330/i-0094-PhotoRoom_2.png)
 
 Сборник кейсов: Первые итоги работы цифровых кафедр
 
-[Скачать сборник 2023](https://innopolis.university/filespublic/sbornik_ck_iu.pdf)
+[Скачать сборник 2023](/raw/regulations/site-events-db33d99f-sbornik-ck-iu.md)
 
 [Скачать сборник 2024](https://innopolis.university/filespublic/Сборник_Марафон2.0_.pdf)
 
@@ -617,9 +617,9 @@ stale_after: "2025-01-01T00:00:00+00:00"
 
 ## iu.assessment@innopolis.ru
 
-[Лицензия](https://innopolis.university/upload/iblock/d7f/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B4%D0%B5%D1%8F%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C.pdf)
+[Лицензия](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md)
 
-[Выписка из реестра лицензий](https://innopolis.university/upload/iblock/b6f/ozxoa1j463v3s0m55w9kdc1qc0z31zfr/%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%B2%D1%8B%D0%BF%D0%B8%D1%81%D0%BA%D0%B0.pdf)
+[Выписка из реестра лицензий](/raw/regulations/site-stc-e6310fe5-reestrovaya-vypiska.md)
 
 Контакты
 

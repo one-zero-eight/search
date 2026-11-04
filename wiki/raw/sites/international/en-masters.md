@@ -26,7 +26,7 @@ status: draft
 
 ### Master's degree
 
-[Download the admission manual](https://apply.innopolis.university/upload/files/en_manual_masters_2025.pdf)
+[Download the admission manual](/raw/regulations/site-international-e83ab8b8-en-manual-masters-2025.md)
 
 95
 

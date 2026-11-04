@@ -92,7 +92,7 @@ status: draft
 
 director@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/af1/jd2q9184nhdpe2g2j4w1a6p79map5lvm/Положение%20об%20Администрации.pdf)
+[Положение](/raw/regulations/sveden-f8e5b030-pdf.md)
 
 Администрация
 
@@ -106,7 +106,7 @@ director@innopolis.ru
 
 rector@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/ea2/l7vp6nubr3lhu4pq87c777kl3yd4np74/Положение%20об%20Администрации.pdf)
+[Положение](/raw/regulations/sveden-445c3ef5-pdf.md)
 
 Администрация
 
@@ -120,7 +120,7 @@ rector@innopolis.ru
 
 e.galikhanova@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/570/23oxqnwa1blapsb3ycgeton05r5myr0z/Положение%20об%20Администрации.pdf)
+[Положение](/raw/regulations/sveden-13f65186-pdf.md)
 
 Администрация
 
@@ -138,7 +138,7 @@ e.bobrov@innopolis.ru
 
 503А
 
-[Положение](https://innopolis.university/upload/iblock/f5e/wt0sjrjwjoorhfqs7e5b73s10dij7stq/Положение%20об%20Администрации.pdf)
+[Положение](/raw/regulations/sveden-0f0919dd-pdf.md)
 
 Администрация
 
@@ -156,7 +156,7 @@ t.kamaletdinova@innopolis.ru
 
 461
 
-[Положение](https://innopolis.university/upload/iblock/3d4/in0xp1o8fk3umvglbt32nsetplknyaw3/Положение%20об%20Администрации.pdf)
+[Положение](/raw/regulations/sveden-57925181-pdf.md)
 
 Администрация
 
@@ -170,7 +170,7 @@ t.kamaletdinova@innopolis.ru
 
 e.danilov@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/53d/sxj0eb6y9q7e98pnm9s2go2ch9rayedy/Положение%20об%20Администрации.pdf)
+[Положение](/raw/regulations/sveden-6f35d86a-pdf.md)
 
 Администрация
 
@@ -184,7 +184,7 @@ e.danilov@innopolis.ru
 
 m.shnitenkova@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/670/2hztaagys21hnnycqk589htgdb6cv0xk/Положение%20об%20Администрации.pdf)
+[Положение](/raw/regulations/sveden-0d5c00cf-pdf.md)
 
 Администрация
 
@@ -202,7 +202,7 @@ a.pavlov@innopolis.ru
 
 435
 
-[Положение](https://innopolis.university/upload/iblock/323/3kmtph6zj23sn5ua2jz6d07setnhylz5/Положение%20об%20Администрации.pdf)
+[Положение](/raw/regulations/sveden-9a8a7aec-pdf.md)
 
 Администрация
 
@@ -216,7 +216,7 @@ a.pavlov@innopolis.ru
 
 m.bolshakov@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/094/e2uev37zohxa73hitj2wj7eh1ortfmx1/Положение%20об%20Администрации.pdf)
+[Положение](/raw/regulations/sveden-18b9b598-pdf.md)
 
 Управление развития университета
 
@@ -230,7 +230,7 @@ m.bolshakov@innopolis.ru
 
 r.valiev@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/39d/max7athvf8i1elw5opy2me3x9dn8zj2v/748759_Об%20Управлении%20развития%20университета.pdf)
+[Положение](/raw/regulations/sveden-11b89e3c-748759-pdf.md)
 
 Факультет компьютерных и инженерных наук
 
@@ -248,7 +248,7 @@ m.mazzara@innopolis.ru
 
 407
 
-[Положение](https://innopolis.university/upload/iblock/d55/b2scp22h0zix9a5c4e4nqljrc2f7pssa/Факультет%20компьютерных%20и%20инженерных%20наук.pdf)
+[Положение](/raw/regulations/sveden-9084dee3-pdf.md)
 
 Институт разработки ПО и программной инженерии
 
@@ -256,7 +256,7 @@ m.mazzara@innopolis.ru
 
 отсутствует
 
-[Положение](https://innopolis.university/upload/iblock/cf3/xwvatzmw0dwu1uy2xmkcairjtk5qm1iy/Положение%20об%20Институте%20разработки%20ПО%20и%20программной%20инженерии.pdf)
+[Положение](/raw/regulations/sveden-560db599-pdf.md)
 
 Институт анализа данных и искусственного интеллекта
 
@@ -274,7 +274,7 @@ a.khan@innopolis.ru
 
 466
 
-[Положение](https://innopolis.university/upload/iblock/765/aimrsd44hjg0jdwmopzuly92rbwc9n0a/Положение%20об%20Институте%20анализа%20данных%20и%20искуств%20интеллекта.pdf)
+[Положение](/raw/regulations/sveden-97a6ba82-pdf.md)
 
 Институт робототехники и компьютерного зрения
 
@@ -282,7 +282,7 @@ a.khan@innopolis.ru
 
 отсутствует
 
-[Положение](https://innopolis.university/upload/iblock/71a/14g5i7mmm4zdsarzqj97eixyblsu4ymd/Положение%20об%20Институте%20робототехники.pdf)
+[Положение](/raw/regulations/sveden-852d2779-pdf.md)
 
 Лаборатория программной инженерии
 
@@ -298,7 +298,7 @@ a.khan@innopolis.ru
 
 отсутствует
 
-[Положение](https://innopolis.university/upload/iblock/94c/29mg0nu9w0g1kck4ddbhxi40tc9w38fm/Положение%20о%20Лаборат%20промышленной%20разработки%20ПО.pdf)
+[Положение](/raw/regulations/sveden-72841b58-pdf.md)
 
 Магистерская программа "Управление разработкой ПО"
 
@@ -306,7 +306,7 @@ a.khan@innopolis.ru
 
 отсутствует
 
-[Положение](https://innopolis.university/upload/iblock/7b6/fz4ik3fiyyhtvjq5w745crs2dgenkxev/Магистерская%20программа%20Управление%20разработкой%20ПО.pdf)
+[Положение](/raw/regulations/sveden-6e56cf90-pdf.md)
 
 Лаборатория машинного обучения и представления данных
 
@@ -314,7 +314,7 @@ a.khan@innopolis.ru
 
 отсутствует
 
-[Положение](https://innopolis.university/upload/iblock/e9f/d6kfnviqpu1sfd3gjiuwawmtdq5y040g/Положение_о_Лаборатория%20машинного%20обучения%20и%20представления%20данных.docx)
+[Положение](/raw/regulations/sveden-8436f340-docx.md)
 
 Лаборатория интеллектуальных робототехнических систем
 
@@ -322,7 +322,7 @@ a.khan@innopolis.ru
 
 отсутствует
 
-[Положение](https://innopolis.university/upload/iblock/5a3/n16zmuy2z4kegokedpwhm83trvgzbezw/Положение_о_Лаборатория%20интеллектуальных%20робототехнических%20систем.docx)
+[Положение](/raw/regulations/sveden-88bbf5fb-docx.md)
 
 Магистерская программа "Робототехника и компьютерное зрение"
 
@@ -348,7 +348,7 @@ o.zhirosh@innopolis.ru
 
 502Б
 
-[Положение](https://innopolis.university/upload/iblock/894/hchot4t0earyrg0120g8l8hjn321cef1/Положение%20об%20Институте%20гуманитарных%20и%20социальных%20наук_2022.pdf)
+[Положение](/raw/regulations/sveden-b42818be-2022-pdf.md)
 
 Лаборатория гуманитарных наук
 
@@ -356,7 +356,7 @@ o.zhirosh@innopolis.ru
 
 отсутствует
 
-[Положение](https://innopolis.university/upload/iblock/6ed/zuvvue4xfv2hlsbdsb5hw6lx78etkm3a/Положение%20о%20Лаборатории%20гуманитарных%20наук_2022.pdf)
+[Положение](/raw/regulations/sveden-190d53de-2022-pdf.md)
 
 Лаборатория социальных наук
 
@@ -370,7 +370,7 @@ o.zhirosh@innopolis.ru
 
 ru.saduov@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/a50/107g0jhr0ee96vhq0jhna94q9tz8f5ln/Положение%20о%20Лаборатории%20социальных%20наук%20АНО%20ВО%20Университет%20Иннополис..pdf)
+[Положение](/raw/regulations/sveden-7fa95a4c-pdf.md)
 
 Правовое управление
 
@@ -470,7 +470,7 @@ e.zuev@innopolis.ru
 
 m.abdrakhmanova@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/59f/qceg32e6tas00rtnchat9vc9mugx1ila/Положение_Межотрасл_центр.pdf)
+[Положение](/raw/regulations/sveden-99d039d4-pdf.md)
 
 Проектный офис
 
@@ -492,7 +492,7 @@ ar.khabibullin@innopolis.ru
 
 отсутствует
 
-[Положение](https://innopolis.university/upload/iblock/cd9/9gzx20v7oleusbn6ydzwsbo0kgmguq96/Положение%20о%20Центре%20прождвижения%20цифровых%20решений.pdf)
+[Положение](/raw/regulations/sveden-add44cf7-pdf.md)
 
 Отдел по коммерциализации научно-исследовательских работ
 
@@ -510,7 +510,7 @@ a.maksimov@innopolis.ru
 
 415
 
-[Положение](https://innopolis.university/upload/iblock/9db/5ozu0pkjr8twrjbhojgn14t2kafv90wp/Положение%20об%20Отделе%20по%20коммерциализации%20научно-исследовательских%20работ.pdf)
+[Положение](/raw/regulations/sveden-d6fcaf5c-pdf.md)
 
 Центр развития проектов цифровой экономики
 
@@ -518,7 +518,7 @@ a.maksimov@innopolis.ru
 
 отсутствует
 
-[Положение](https://innopolis.university/upload/iblock/119/s8dvojd14mxtgjub7m1jb30h5j9styko/Положение%20о%20Центре%20развития%20проектов%20цифровой%20экономики.pdf)
+[Положение](/raw/regulations/sveden-84687259-pdf.md)
 
 Отдел поддержки грантов и проектов
 
@@ -536,7 +536,7 @@ o.kamalova@innopolis.ru
 
 437
 
-[Положение](https://innopolis.university/upload/iblock/3ae/3wuf3uvthgpljjad96zbob4xm9j3f4kw/Положение%20об%20Отделе%20поддержки%20грантов%20и%20проектов.pdf)
+[Положение](/raw/regulations/sveden-6f3b7072-pdf.md)
 
 Отдел привлечения государственного финансирования
 
@@ -550,7 +550,7 @@ o.kamalova@innopolis.ru
 
 s.veselova@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/875/saus2orlgneh6xr0ehi1qh2fubsmzs7b/735624_Положение_госфинансирование.pdf)
+[Положение](/raw/regulations/sveden-a999adbd-735624-pdf.md)
 
 Тендерный отдел
 
@@ -568,7 +568,7 @@ r.giniatullin@innopolis.ru
 
 435
 
-[Положение](https://innopolis.university/upload/iblock/27c/w0mfxrf8pl6bly9dwqyscr8mm0tfk6dd/577233p%20Положение%20о%20тендерном%20отделе.pdf)
+[Положение](/raw/regulations/sveden-64b89ee0-577233p-pdf.md)
 
 Центр разработки программного обеспечения
 
@@ -582,7 +582,7 @@ r.giniatullin@innopolis.ru
 
 i.davletbaev@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/597/86j0uxgymwvcyxe39h19fivepfw44rqf/444293-3-7%20Положение%20о%20Центре%20разработки%20ПО.pdf)
+[Положение](/raw/regulations/sveden-4312c433-444293-3-7-pdf.md)
 
 Отдел аналитики 1
 
@@ -826,7 +826,7 @@ d.vatolin@innopolis.ru
 
 отсутствует
 
-[Положение](https://innopolis.university/upload/iblock/9be/beu0azdg3utxpch3qhuy6qra01ktt1ds/Положение%20о%20ДИТ.pdf)
+[Положение](/raw/regulations/sveden-15416d75-pdf.md)
 
 Отдел внутренней разработки
 
@@ -866,7 +866,7 @@ t.fazullin@innopolis.ru
 
 отсутствует
 
-[Положение](https://innopolis.university/upload/iblock/43d/z301gvsd1zqyardll3u8odsgvrjd86wt/938268_Центр_автоматизации_роботизации.pdf)
+[Положение](/raw/regulations/sveden-27c4a9f1-938268-pdf.md)
 
 Лаборатория робототехники
 
@@ -900,7 +900,7 @@ ni.smirnov@innopolis.ru
 
 e.barshevskaya@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/0f8/2xwm0a77ybvfazwebeifjilz6g023pev/Положение%20об%20отделе%20общего%20обеспечения%20ЦРПР.pdf)
+[Положение](/raw/regulations/sveden-b9e7cc91-pdf.md)
 
 Отдел коммерческой деятельности
 
@@ -914,7 +914,7 @@ e.barshevskaya@innopolis.ru
 
 отсутствует
 
-[Положение](https://innopolis.university/upload/iblock/cd6/cuffq47ho83d88gfz5xfqx1dd3t1keoi/Положение%20о%20секторе%20управления%20закупками%20ЦРПР.pdf)
+[Положение](/raw/regulations/sveden-441434e2-pdf.md)
 
 Отдел аудита
 
@@ -970,7 +970,7 @@ m.svistunov@innopolis.ru
 
 n.yusupov@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/81d/n8igh6ttzo62umo4735075p7l0ff3dz8/940814_Отдел_интеграции.pdf)
+[Положение](/raw/regulations/sveden-4944c6cc-940814-pdf.md)
 
 Конструкторский сектор
 
@@ -984,7 +984,7 @@ n.yusupov@innopolis.ru
 
 a.abramov@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/c9a/x38arboxtldatlgz5ujzs99noib90ak2/Положение_Конструкторский_сектор_ЦРПР.pdf)
+[Положение](/raw/regulations/sveden-31394ee6-pdf.md)
 
 Сектор робототехники
 
@@ -998,7 +998,7 @@ a.abramov@innopolis.ru
 
 e.suslov@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/2cf/2sbcbfpytveijl9zhbsnngujh0hejd8t/Положение_сектор_робототехники_ЦРПР.pdf)
+[Положение](/raw/regulations/sveden-bffb153e-pdf.md)
 
 Сектор промышленной автоматизации1
 
@@ -1012,7 +1012,7 @@ e.suslov@innopolis.ru
 
 r.amirov@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/840/db5y7bxi81kuatr11ekaq22dflaenco1/Положение_Сектор_пром_автоматизации.pdf)
+[Положение](/raw/regulations/sveden-1e7c56c2-pdf.md)
 
 Сектор разработки программного обеспечения 1
 
@@ -1026,7 +1026,7 @@ r.amirov@innopolis.ru
 
 a.osipov@innopolis.university
 
-[Положение](https://innopolis.university/upload/iblock/75f/fpdb5xdqmgldx9d1lh8se1thyhgh0lv2/Положение_сектор_разработки_ПО.pdf)
+[Положение](/raw/regulations/sveden-679ce790-pdf.md)
 
 Институт дополнительного образования
 
@@ -1040,7 +1040,7 @@ a.osipov@innopolis.university
 
 y.guseva@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/98e/5ylg4w6t4uthu2im25gmf3674bkn8dgf/Визуализация_Приказ_утверждение_Положения_ИДО%20%282024%29.pdf)
+[Положение](/raw/regulations/sveden-5571f87c-2024-pdf.md)
 
 Отдел организации и проведения мероприятий
 
@@ -1128,7 +1128,7 @@ m.krasnoperova@innopolis.ru
 
 m.sichenkova@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/d7f/5nzrz5idc3v6204f2vk98ei5us7be5ky/940264_проектный%20сектор.pdf)
+[Положение](/raw/regulations/sveden-56f99b67-940264-pdf.md)
 
 Сектор международных программ
 
@@ -1220,7 +1220,7 @@ t.fazullin@innopolis.ru
 
 отсутствует
 
-[Положение](https://innopolis.university/upload/iblock/c5a/x56dtijiflqar28i78eqd0r9qnj75jha/Визуализация_Приказ_Положение%20об%20отделе%20закупок%20Итог.pdf)
+[Положение](/raw/regulations/sveden-54aea05d-pdf.md)
 
 Сектор организации закупок
 
@@ -1284,7 +1284,7 @@ m.mazzara@innopolis.ru
 
 d.ushakov@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/c49/i6wzz5u1l8cl1bww0ftz23jqizzcu2sg/932858_Центр_организации_образовательных_программ.pdf)
+[Положение](/raw/regulations/sveden-f3e4044b-932858-pdf.md)
 
 Отдел по связям с индустрией и выпускниками
 
@@ -1326,7 +1326,7 @@ e.ilina@innopolis.ru
 
 508
 
-[Положение](https://innopolis.university/upload/iblock/377/4x4sij8blbk7y33kk7738i5u3sjit7zq/912965_Психологическая%20служба.pdf)
+[Положение](/raw/regulations/sveden-7c2df72d-912965-pdf.md)
 
 Отдел академического сотрудничества
 
@@ -1344,7 +1344,7 @@ a.nagimova@innopolis.ru
 
 437
 
-[Положение](https://innopolis.university/upload/iblock/95d/eqezbe1mrqb0wps1jcfxbot50yzyil1j/952732_Отдел%20академического%20сотрудничества.pdf)
+[Положение](/raw/regulations/sveden-bac1dc3d-952732-pdf.md)
 
 Отдел международного сотрудничества
 
@@ -1376,7 +1376,7 @@ pe.zhdanov@innopolis.ru
 
 a.potyomckin@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/fdc/yenb7985mmunppwwrvhtz5jw1t44delm/961275_Отдел%20бакалавриата%20и%20магистратуры.pdf)
+[Положение](/raw/regulations/sveden-923a12d2-961275-pdf.md)
 
 Методический отдел
 
@@ -1390,7 +1390,7 @@ a.potyomckin@innopolis.ru
 
 t.bikusova@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/7a8/m3fc6l0f4yjbwzg12nw3xb0u0pmnbntt/937882_Методический%20отдел.pdf)
+[Положение](/raw/regulations/sveden-22e29abe-937882-pdf.md)
 
 Отдел организации учебной деятельности
 
@@ -1404,7 +1404,7 @@ t.bikusova@innopolis.ru
 
 e.kazakova@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/76f/807zwrd4x1xw81pdtbklcfrye9owdrkz/934089_Отдел_организации_учебной_деятельности.pdf)
+[Положение](/raw/regulations/sveden-d46e466f-934089-pdf.md)
 
 Отдел развития платформенных решений для разработки
 
@@ -1434,7 +1434,7 @@ m.ruzhnikova@innopolis.ru
 
 m.degtiar@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/794/hw6cy92is7w0lekm1w4izjwknrts4m08/958333_Центр_образовательного_партнерства.pdf)
+[Положение](/raw/regulations/sveden-0d813194-958333-pdf.md)
 
 Сектор по сопровождению образовательных проектов
 
@@ -1448,7 +1448,7 @@ m.degtiar@innopolis.ru
 
 v.bulgakova@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/cde/6inwpmytsj12tuulo0lho28p1lsle39u/957098_Сектор_сопровожд_образоват_проектов.pdf)
+[Положение](/raw/regulations/sveden-3e088483-957098-pdf.md)
 
 Сектор образовательного контента
 
@@ -1592,7 +1592,7 @@ a.beznosikov@innopolis.ru
 
 отсутствует
 
-[Положение](https://innopolis.university/upload/iblock/d6a/ycp1pgc7gpp4k2rz1j950o7huwo9md72/Приказ__Центр_ИИ.pdf)
+[Положение](/raw/regulations/sveden-422991d4-pdf.md)
 
 Центр образовательных программ топ-уровня в сфере информационных технологий
 
@@ -1640,7 +1640,7 @@ r.ibatullin@innopolis.ru
 
 460
 
-[Положение](https://innopolis.university/upload/iblock/861/seaqweht5uvfa9okt7f45kz30iqs9sxa/Приказ_Отдел_сопровождения_Департамент_популяризации.pdf)
+[Положение](/raw/regulations/sveden-fb2d45ed-pdf.md)
 
 Отдел генеративного искусственного интеллекта
 
@@ -1648,7 +1648,7 @@ r.ibatullin@innopolis.ru
 
 отсутствует
 
-[Положение](https://innopolis.university/upload/iblock/04f/nfhlytn3uxedbyu2dp820o9lqb07fi9u/Визуализация_Приказ_Положение_Отдел_генеративного_ИИ.pdf)
+[Положение](/raw/regulations/sveden-38fead66-pdf.md)
 
 Центр образовательного контента
 
@@ -1664,7 +1664,7 @@ r.ibatullin@innopolis.ru
 
 460
 
-[Положение](https://innopolis.university/upload/iblock/c2e/2no8j8159jix9hfjqzawo4ueq6w41ut9/Визуализация_Приказ_Положение%20о%20центре%20образовательного%20контента.pdf)
+[Положение](/raw/regulations/sveden-16d900c1-pdf.md)
 
 Отдел по работе с регионами
 
@@ -1678,7 +1678,7 @@ r.ibatullin@innopolis.ru
 
 e.murzaeva@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/331/0peo2tw2644zjow38fbsa8uv1ygi4hpk/Визуализация_Приказ_положение_об_отделе_по%20работе%20с%20регионами_ЦОК.pdf)
+[Положение](/raw/regulations/sveden-9fa0ab80-pdf.md)
 
 Отдел по работе с партнерами
 
@@ -1692,7 +1692,7 @@ e.murzaeva@innopolis.ru
 
 z.belenya@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/6b7/f4ppdohp1tnrvrep0999fmqecgemncbm/Визуализация_Приказ_Положение%20об%20отделе%20по%20работе%20с%20партнерами_ЦОК.pdf)
+[Положение](/raw/regulations/sveden-f1543b8f-pdf.md)
 
 Методический отдел 1
 
@@ -1706,7 +1706,7 @@ z.belenya@innopolis.ru
 
 e.fatkhii@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/839/83httlc8sn9rsh7iqz1vumhkobkwhvvo/Визуализация_Приказ_положение_о%20методическом%20отделе_ЦОК.pdf)
+[Положение](/raw/regulations/sveden-6cbf4197-pdf.md)
 
 Лаборатория фундаментальных научных исследований
 
@@ -1866,7 +1866,7 @@ e.stepanov@innopolis.ru
 
 s.slobodchikova@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/c59/qku3ccxc9lh8w5e616nv67vymzrwywk3/Визуализация_Приказ_Положение%20об%20отделе%20Довуз%20%281%29.pdf)
+[Положение](/raw/regulations/sveden-c1ce33b4-1-pdf.md)
 
 Отдел приема абитуриентов
 
@@ -1934,7 +1934,7 @@ t.kudryashova@innopolis.ru
 
 a.sbitnev@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/4f3/33mqubqyng3kc6qleetc38h302yzpgwj/Визуализация_Приказ_Положение_УМЦ_2025.pdf)
+[Положение](/raw/regulations/sveden-69dad4fe-2025-pdf.md)
 
 Центр аналитики и отчетности
 
@@ -2240,7 +2240,7 @@ t.tsiunchuk@innopolis.ru
 
 469
 
-[Положение](https://innopolis.university/upload/iblock/f68/67uhf30t45juda92sytosa25be48qa7s/Визуализация_Приказ_утверждение_Положения_Центра_ППС%20итог.pdf)
+[Положение](/raw/regulations/sveden-88263cb8-pdf.md)
 
 Центр научно-популярного туризма
 
@@ -2328,7 +2328,7 @@ t.sakhbiev@innopolis.ru
 
 i.merkulova@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/c04/uiljn9ut8cvg6jeyfv2domc7vg354p05/Приказ_положение_о_колледже.pdf)
+[Положение](/raw/regulations/sveden-10033770-pdf.md)
 
 Служба охраны труда и пожарной безопасности
 
@@ -2346,7 +2346,7 @@ a.gorokhov@innopolis.ru
 
 310
 
-[Положение](https://innopolis.university/upload/iblock/842/2aujf9o4vad3rkz0b3p2txz6c87lfotq/934673_Служба_охраны_труда_и_ПБ.pdf)
+[Положение](/raw/regulations/sveden-9aaa6f9f-934673-pdf.md)
 
 Бухгалтерия
 
@@ -2362,7 +2362,7 @@ a.gorokhov@innopolis.ru
 
 отсутствует
 
-[Положение](https://innopolis.university/upload/iblock/650/18yyhk31rk5axss0pr08b209s2bf7lyu/948993_Сектр%20расчета%20заработной%20платы.pdf)
+[Положение](/raw/regulations/sveden-a18e51af-948993-pdf.md)
 
 Сектор учета хозяйственной деятельности
 
@@ -2428,7 +2428,7 @@ ju.kazaeva@innopolis.ru
 
 приемная директора
 
-[Положение](https://innopolis.university/upload/iblock/c50/kktbz9zf7kz7tagevlk5uaz64m4ke3x0/Визуализация_Приказ_приложение_Положение_о_департаменте_2026.pdf)
+[Положение](/raw/regulations/sveden-c3be591d-2026-pdf.md)
 
 Сектор по обеспечению деятельности администрации
 
@@ -2436,7 +2436,7 @@ ju.kazaeva@innopolis.ru
 
 отсутствует
 
-[Положение](https://innopolis.university/upload/iblock/95a/xky87blyppbucoreg2gn2im414chcdwy/Визуализация_Приказ%20приложение%20Положение_о_секретариате_2026.pdf)
+[Положение](/raw/regulations/sveden-81e7973e-2026-pdf.md)
 
 Сектор регистрации и контроля документов
 
@@ -2450,7 +2450,7 @@ ju.kazaeva@innopolis.ru
 
 o.zakharova@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/4b5/njr4bwu5fo50qypqmhf71gc4jolpon7c/Визуализация_Приказ_приложение_Положение_о_секторе_регистрации_2026.pdf)
+[Положение](/raw/regulations/sveden-a0867c60-2026-pdf.md)
 
 Сектор редактирования
 
@@ -2464,7 +2464,7 @@ o.zakharova@innopolis.ru
 
 o.ulianova@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/7cb/3lj08boadfmjho3om0mi1bahmgu37abn/Визуализация_Приказ%20приложение%20Положение_о_сектоEE3F58DA704510BF9ED2FE2754C375F6.pdf)
+[Положение](/raw/regulations/sveden-65b86b0b-ee3f58da704510bf9ed2fe2754c375.md)
 
 Отдел рекрутинга и трудоустройства
 
@@ -2472,7 +2472,7 @@ o.ulianova@innopolis.ru
 
 отсутствует
 
-[Положение](https://innopolis.university/upload/iblock/5b4/12m3j3x1db8qhweezjb191j4ttfkaazp/Приказ_Положение_об_Отделе_трудоустройства.pdf)
+[Положение](/raw/regulations/sveden-0dc7475a-pdf.md)
 
 Лаборатория алгоритмических и числовых методов в математике и искусственном интеллекте
 
@@ -2638,7 +2638,7 @@ v.ananikov@innopolis.ru
 
 a.kuznetsov@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/78c/pi5gs3dqn9a6ukdde4qbz9wsatl6he1w/Визуализация_Положени_лаб_мультимодальн_исследов.pdf)
+[Положение](/raw/regulations/sveden-d926e8bd-pdf.md)
 
 Лаборатория развития продукта в сфере искусственного интеллекта в медицине
 
@@ -2700,7 +2700,7 @@ a.kukhovarenko@innopolis.ru
 
 ni.smirnov@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/b61/zi0o6j6c57q1ugwhb50dyh9p30iw8h5j/Визуализация_Приказ_Положение_Операторский_центр_2025.pdf)
+[Положение](/raw/regulations/sveden-f4429562-2025-pdf.md)
 
 Центр беспилотных авиационных систем
 
@@ -2784,7 +2784,7 @@ ig.ivanov@innopolis.ru
 
 отсутствует
 
-[Положение](https://innopolis.university/upload/iblock/307/ymgvr1a3zdw54elz50i86ppolk0j10dk/Визуализация_Приказ_Положение_Лаборат_мтодов_оптимизации.pdf)
+[Положение](/raw/regulations/sveden-b011aae5-pdf.md)
 
 Лаборатория технологического предпринимательства и инноваций
 
@@ -2808,7 +2808,7 @@ d.nizamova@innopolis.ru
 
 446
 
-[Положение](https://innopolis.university/upload/iblock/9db/sylleu1i29b8n68thdsu3lhgpsbmyhkk/Визуализация_Приказ_Положение%20о%20Центре%20МФИ%20%281%29.pdf)
+[Положение](/raw/regulations/sveden-8e2a7329-1-pdf.md)
 
 Сектор искусственного интеллекта в базах данных
 
@@ -2828,7 +2828,7 @@ d.nizamova@innopolis.ru
 
 l.shulyndin@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/a2a/9yd6j3jr36o19fb1elg354r6ufcpxe33/Визуализация_Приказ_Положение%20об%20отделе%20по%20работе%20с%20дисс.советами.pdf)
+[Положение](/raw/regulations/sveden-7612f344-pdf.md)
 
 Лаборатория мультиагентных систем
 
@@ -2836,7 +2836,7 @@ l.shulyndin@innopolis.ru
 
 отсутствует
 
-[Положение](https://innopolis.university/upload/iblock/5b0/tuz7qt6tlovibfbheszz0x2uztmpacgs/Визуализация_Приказ_положение_Лаборатория_мультиагенных%20систем.pdf)
+[Положение](/raw/regulations/sveden-07219d24-pdf.md)
 
 Отдел проектной деятельности
 
@@ -3110,7 +3110,7 @@ ta.afonshina@innopolis.ru
 
 отсутствует
 
-[Положение](https://innopolis.university/upload/iblock/fcf/nfh2fza258j2lg8l7gswhb4h9vsqe1v3/Положения%20о%20Лаборатории%20взаимодействия%20человека%20и%20компьютера%20АНО%20ВО%20Университет%20Иннополис.pdf)
+[Положение](/raw/regulations/sveden-41c18882-pdf.md)
 
 Отдел учета и движения персонала
 
@@ -3128,7 +3128,7 @@ e.akhunova@innopolis.ru
 
 430
 
-[Положение](https://innopolis.university/upload/iblock/22e/48kg5fk43t2v59i6ri5l4d0va0sze0hl/588175p_Отдел_учета_и_движения_персонала.zip)
+[Положение](/raw/regulations/site-university-525a1a4d-588175p-otdel-ucheta-i-dvizheniya-person-member-860d9753f16654eb1dc4.md)
 
 Центр развития персонала и корпоративной культуры
 
@@ -3156,7 +3156,7 @@ a.khasanova@innopolis.ru
 
 e.shaymardanov@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/a6c/bryr3j735nwisdrzs07lm77ue6k78irn/Школа%20физической%20культуры%20и%20ЗОЖ.zip)
+[Положение](/raw/regulations/site-university-f50d8bd2-shkola-fizicheskoy-kultury-i-zozh-member-282dcfea59bfd1ccc0ec.md)
 
 Передовая инженерная школа
 
@@ -3174,7 +3174,7 @@ e.bobrov@innopolis.ru
 
 503А
 
-[Положение](https://innopolis.university/upload/iblock/c57/mfqv92wm7bppdkfcpnvgn15ts2yoiatk/944225_ПИШ.pdf)
+[Положение](/raw/regulations/sveden-2de04809-944225-pdf.md)
 
 Лаборатория кибер-физических систем
 

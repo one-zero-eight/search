@@ -1,0 +1,64 @@
+---
+type: regulation
+title: "Решение и тесты — problems/optimal-truck/statements/.pdf/english/problem.pdf"
+resource: "https://lk-dovuz.innopolis.university/public/files/contest1_2020-21.zip"
+archive_member: "problems/optimal-truck/statements/.pdf/english/problem.pdf"
+source_kind: official-document
+language: ru
+section: "site/dovuz"
+sources:
+  - resource: "https://lk-dovuz.innopolis.university/public/files/contest1_2020-21.zip"
+    id: "afc5b758f8b6"
+    title: "Решение и тесты — problems/optimal-truck/statements/.pdf/english/problem.pdf"
+    last_modified: "2026-11-04T02:52:48+00:00"
+generated:
+  by: "catix-wiki/0.1 regulations"
+  at: "2026-11-04T02:52:48+00:00"
+extraction: "text layer (opendataloader)"
+status: draft
+---
+
+# Решение и тесты — problems/optimal-truck/statements/.pdf/english/problem.pdf
+
+Optimal Truck
+
+Input file: standard input Output file: standard output Time limit: 2 seconds Memory limit: 512 megabytes
+
+Peter is going to buy a truck and start a small transportation business. He studied the market and found out that there are n potential customers in his city. There are mi contract options for the i-th client. Each option is specified by two numbers: wij — the minimum capacity of the truck, which is required to fulfill the contract, and cij — the profit that Peter will receive if he concludes this contract. No more than one contract can be concluded with each client.
+
+Now Peter is thinking which truck is better to buy in order to get the profit he needs. He has q options. In the i-th option, Peter wants his profit to be at least xi. Help him, for each of the options, find the minimum capacity of the truck with which you can make such a profit.
+
+Input
+
+The first line contains the integer n (1 ≤ n ≤ 105).
+
+This is followed by n blocks describing contract options for each of the potential customers. Each such block begins with the number mi, followed by mi pairs of numbers wij,cij (1 ≤ mi, mi ≤ 5 · 105, 1 ≤ wij,cij ≤ 109).
+
+Next comes the number q (1 ≤ q ≤ 105). This is followed by the q numbers xi (1 ≤ xi ≤ 109).
+
+Output
+
+Print q numbers, the minimum carrying capacity of the truck, with which you can get the required profit, for each of the options. If it is impossible to get the required profit, print −1 for the corresponding option.
+
+Scoring
+
+| Subtask | Score | Constraints |  |  |  |
+| --- | --- | --- | --- | --- | --- |
+| Subtask | Score | n | mi | q | Additional |
+| 1 | 7 | n ≤ 5 | mi ≤ 10 | q ≤ 10 | wi,ci,xi ≤ 100 |
+| 2 | 15 | n ≤ 100 | mi ≤ 500 | q ≤ 10 | wi,ci,xi ≤ 100 |
+| 3 | 21 | n ≤ 105 | mi ≤ 5 · 105 | q ≤ 10 | — |
+| 4 | 24 | n ≤ 105 | mi ≤ 5 · 105 | q ≤ 105 | wi ≤ 100 |
+| 5 | 33 | n ≤ 105 | mi ≤ 5 · 105 | q ≤ 105 | — |
+
+Example
+
+| standard input | standard output |
+| --- | --- |
+| 3 2 10 20 20 30 1 40 50 3 2 5 1 10 4 7 5 10 55 32 100 17 | 1 40 20 -1 10 |
+
+Page 1 of 1
+
+# Citations
+
+1. [Решение и тесты — problems/optimal-truck/statements/.pdf/english/problem.pdf](https://lk-dovuz.innopolis.university/public/files/contest1_2020-21.zip), file afc5b758f8b6

@@ -1,0 +1,470 @@
+---
+type: regulation
+title: "ioai26 tour1 sol en"
+resource: "https://lk-dovuz.innopolis.university/public/files/ioai26_tour1_sol_en.pdf"
+source_kind: official-document
+language: ru
+section: "site/dovuz"
+sources:
+  - resource: "https://lk-dovuz.innopolis.university/public/files/ioai26_tour1_sol_en.pdf"
+    id: "b447ffd024d1"
+    title: "ioai26 tour1 sol en"
+    last_modified: "2026-11-01T23:17:22+00:00"
+generated:
+  by: "catix-wiki/0.1 regulations"
+  at: "2026-11-01T23:17:22+00:00"
+extraction: "text layer (opendataloader)"
+status: draft
+---
+
+# ioai26 tour1 sol en
+
+Solution to the “Text Statistics” Problem
+
+**1.** Importing libraries import re import zipfile from collections import Counter
+
+Standard Python libraries are used for solving the problem:
+
+- - re for working with regular expressions when extracting words
+
+- - zipfile for creating an archive with results
+
+- - Counter from collections for counting frequencies of word lengths when
+
+calculating the mode
+
+**2.** Extracting words from text def find_words(content): return re.findall(r'[a-zA-Zа-яА-ЯёЁ]+', content)
+
+The find_words function extracts all words from the text according to the problem rules. The regular expression [a-zA-Zа-яА-ЯёЁ]+ finds continuous sequences of letter characters (Latin and Cyrillic, including ё), ignoring all other characters as separators.
+
+**3.** Reading file and extracting words with open('text.txt', 'r', encoding='utf-8') as file: content = file.read() words = find_words(content)
+
+We read the content of the input file text.txt in UTF-8 encoding and pass it to the word extraction function. The result is saved in the words list.
+
+**4.** Saving extracted words with open('words.txt', 'w', encoding='utf-8') as file: for word in words: file.write(word + '\n')
+
+We write each extracted word to the file words.txt, with each word on a new line. The file is saved in UTF-8 encoding to correctly display Russian and English letters.
+
+**5.** Calculating statistical metrics def count_stats(lengths): count = len(lengths) if count == 0: return 0.0, 0, 0 total = sum(lengths) avg = total / count sorted_lengths = sorted(lengths) position = (count - 1) // 2 middle = sorted_lengths[position] freq = Counter(lengths) max_count = max(freq.values()) candidates = [l for l, c in freq.items() if c == max_count] common = min(candidates) return avg, middle, common word_lengths = [len(w) for w in words] average, middle, common = count_stats(word_lengths)
+
+The count_stats function calculates three statistical metrics:
+
+- - Arithmetic mean: sum of lengths of all words divided by their count
+
+- - Median: the value in the middle of the sorted list of lengths (lower median for an
+
+even number of elements)
+
+- - Mode: the most frequent word length, with the smallest value chosen in case of a tie
+
+First, we create a list of lengths of all words, then pass it to the statistics calculation function.
+
+**6.** Saving results with open('result.txt', 'w', encoding='utf-8') as file: file.write(f"{average:.6f}\n") file.write(f"{middle}\n") file.write(f"{common}\n")
+
+We write the results to the file result.txt in the required format:
+
+- - First line: arithmetic mean with precision of 6 decimal places
+
+- - Second line: median (integer)
+
+- - Third line: mode (integer)
+
+**7.** Creating archive with zipfile.ZipFile('task1.zip', 'w') as archive: archive.write('words.txt') archive.write('result.txt')
+
+We create a ZIP archive task1.zip and add both result files to it: words.txt and result.txt.
+
+Solution to the “Data Cleaner” Problem
+
+**1.** Importing necessary libraries import zipfile import re import os
+
+Standard Python libraries are used for solving the problem:
+
+- - zipfile for working with ZIP archives
+
+- - re for checking number formats using regular expressions
+
+- - os for deleting temporary files
+
+**2.** Preparing tools for data validation number_pattern = re.compile(r'^-?(?:0|[1-9]\d*)(?:\.\d+)?$', re.ASCII) valid_rows = [] column_sums = [0.0, 0.0, 0.0] row_count = 0
+
+We compile a regular expression for strict validation of floating-point number format. We initialize lists for storing valid rows and column sums, as well as a row counter.
+
+**3.** Finding and processing CSV files in the archive with zipfile.ZipFile('data.zip', 'r') as archive: csv_list = [ name for name in archive.namelist() if '/' not in name and '\\' not in name and name.lower().endswith('.csv'
+
+)
+
+] for csv_name in csv_list: with archive.open(csv_name) as file: content = file.read().decode('utf-8') lines = content.splitlines() for row in lines: cleaned_row = row.rstrip('\r') if not cleaned_row: continue if re.search(r'[ \t]', cleaned_row): continue values = cleaned_row.split(',') if len(values) != 3: continue is_valid = True for value in values: if not number_pattern.fullmatch(value): is_valid = False break if not is_valid: continue valid_rows.append(cleaned_row) numbers = [float(v) for v in values] for i in range(3): column_sums[i] += numbers[i] row_count += 1
+
+We open the input archive and find all CSV files in the root directory. For each file:
+
+- - Read the content and split into lines
+
+- - Validate each line according to the rules:
+
+- - No spaces or tabs
+
+- - Exactly three values separated by commas
+
+- - Each value matches the floating-point number format
+
+- - Save valid rows and update column sums
+
+**4.** Calculating average values if row_count == 0: averages = [0.0, 0.0, 0.0] else: averages = [ column_sums[0] / row_count, column_sums[1] / row_count, column_sums[2] / row_count
+
+]
+
+We calculate the arithmetic mean for each column across all valid rows. If there are no valid rows, we use zero values.
+
+**5.** Saving results to files with open('valid_lines.txt', 'w', encoding='utf-8') as output_file: for row in valid_rows: output_file.write(row + '\n') with open('result.txt', 'w', encoding='utf-8') as result_file: result_file.write(f"{averages[0]:.6f} {averages[1]:.6f} {averages[2]:.6f}")
+
+We write all valid rows to the file valid_lines.txt in the original format. We write the average values for each column to the file result.txt with a precision of 6 decimal places.
+
+**6.** Creating the final archive with zipfile.ZipFile('task2.zip', 'w', zipfile.ZIP_DEFLATED) as final_archive: final_archive.write('valid_lines.txt') final_archive.write('result.txt') os.remove('valid_lines.txt') os.remove('result.txt')
+
+We create the final archive task2.zip and add both result files to it. After creating the archive, we delete the temporary files.
+
+Solution to the “Time Series Anomaly Detector” Problem
+
+**1.** Library Import import math import zipfile
+
+For solving this problem, we use standard Python libraries:
+
+- - math for mathematical calculations (square root)
+
+- - zipfile for creating an archive with results
+
+**2.** Reading Data from File with open('series.txt', 'r', encoding='utf-8') as file: data = [float(line.strip()) for line in file.readlines()]
+
+We read all values from the file series.txt, convert them to floating-point numbers, and store them in the list data.
+
+**3.** Calculating Statistics for Windows def calculate_window_stats(values, center_index): window = values[center_index-5:center_index+6] window_size = len(window) mean_value = sum(window) / window_size squared_diffs = [(x - mean_value) ** 2 for x in window] variance = sum(squared_diffs) / window_size std_dev = math.sqrt(variance) return mean_value, std_dev
+
+The function calculate_window_stats calculates the mean value and standard deviation for an 11-point window around the specified index. The population formula is used for standard deviation.
+
+**4.** Anomaly Analysis and Result Formation
+
+N = len(data) checks_content = [] anomaly_indices = [] for i in range(5, N-5): mu, sigma = calculate_window_stats(data, i) is_anomaly = 0 if sigma > 1e-9 and abs(data[i] - mu) > 2 * sigma: is_anomaly = 1 anomaly_indices.append(str(i)) checks_content.append(f"{i} {mu:.8f} {sigma:.8f} {is_anomaly}")
+
+For each index in the range [5, N-6]:
+
+- - Calculate mean and standard deviation for the window
+
+- - Check anomaly conditions: non-zero standard deviation and deviation greater than
+
+2σ
+
+- - Form lines for the checks.txt file and collect anomaly indices
+
+**5.** Writing Results to Files with open('checks.txt', 'w', encoding='utf-8') as file: file.write('\n'.join(checks_content)) with open('result.txt', 'w', encoding='utf-8') as file: file.write('\n'.join(anomaly_indices))
+
+Save the results to two files:
+
+- - checks.txt contains all calculated values for each index
+
+- - result.txt contains only the indices of detected anomalies
+
+**6.** Creating Archive with zipfile.ZipFile('task3.zip', 'w') as archive: archive.write('checks.txt') archive.write('result.txt')
+
+Create a ZIP archive task3.zip and add both result files to it.
+
+Solution for the Task “Simple Recommendation System”
+
+**1.** Import libraries import math import os import zipfile
+
+Standard Python libraries are used for solving the task:
+
+- - math for mathematical calculations (square root function)
+
+- - os for working with the file system (directory creation)
+
+- - zipfile for creating a ZIP archive with results
+
+**2.** Reading data def load_ratings(): with open('ratings.txt') as file: data = file.readlines() matrix = [] for line in data: row = [int(value) for value in line.strip().split()] matrix.append(row) return matrix
+
+The function reads the ratings.txt file and converts it into a ratings matrix. Each line in the file corresponds to one user, and the numbers in the line represent item ratings.
+
+**3.** Calculating cosine similarity def calculate_similarity(first_user, second_user, common_indices): numerator = 0 sum_first = 0 sum_second = 0 for index in common_indices: first_value = first_user[index] second_value = second_user[index] numerator += first_value * second_value sum_first += first_value ** 2 sum_second += second_value ** 2 if sum_first == 0 or sum_second == 0: return None denominator = math.sqrt(sum_first) * math.sqrt(sum_second) return numerator / denominator
+
+The function calculates cosine similarity between two users based only on commonly rated items. If users have no common ratings or one of the norms equals zero, None is returned.
+
+**4.** Main solution def main(): ratings = load_ratings() user_count = len(ratings) item_count = len(ratings[0]) if user_count > 0 else 0 base_user = ratings[0] similarities = {} for user_id in range(1, user_count): common_items = [] for item_id in range(item_count): if base_user[item_id] > 0 and ratings[user_id][item_id] > 0: common_items.append(item_id) if not common_items: continue similarity = calculate_similarity(base_user, ratings[user_id], common_it ems) if similarity is not None: similarities[user_id] = similarity
+
+At this stage:
+
+- - Load the ratings matrix
+
+- - For each user (except the zeroth one), find commonly rated items with user 0
+
+- - Calculate cosine similarity only for these common items
+
+- - Store similarities in a dictionary
+
+**5.** Selecting the most similar user if not similarities: raise ValueError("No users with common ratings") max_value = max(similarities.values()) best_users = [user for user, value in similarities.items() if abs(value - ma x_value) < 1e-9] best_user = best_users[0]
+
+Find the maximum similarity value and select the first user who achieved this value. When similarities are equal, any suitable user can be chosen.
+
+**6.** Finding the recommended item unmarked_items = [] for item_id in range(item_count): if base_user[item_id] == 0: unmarked_items.append(item_id) candidates = [] for item_id in unmarked_items: if ratings[best_user][item_id] > 0: candidates.append((item_id, ratings[best_user][item_id])) if not candidates: raise ValueError("No suitable items for recommendation") best_rating = max(rating for _, rating in candidates) best_items = [item for item, rating in candidates if rating == best_rating] recommended = min(best_items)
+
+Recommendation search algorithm:
+
+- - Find items that user 0 has not rated
+
+- - Among them, select items rated by the most similar user
+
+- - Find the maximum rating among these items
+
+- - When ratings are equal, choose the item with the minimum index
+
+**7.** Saving results with open('similarities.txt', 'w') as file: for user_id, value in similarities.items(): file.write(f"{user_id} {value:.8f}\n") with open('result.txt', 'w') as file: file.write(f"{recommended}\n") with zipfile.ZipFile('task4.zip', 'w') as archive: archive.write('similarities.txt') archive.write('result.txt')
+
+Save results directly to files in the current directory:
+
+- - similarities.txt contains pairs “user ID — similarity” with precision of 8 decimal
+
+places
+
+- - result.txt contains the index of the recommended item
+
+- - Both files are added to the root of the task4.zip archive
+
+Solution to the “n-gram Analysis” Problem
+
+**1.** Importing required libraries import os import re import zipfile from collections import Counter import tempfile
+
+Standard Python libraries are used to solve the problem:
+
+- - os for working with the file system
+
+- - re for text cleaning using regular expressions
+
+- - zipfile for working with archives
+
+- - Counter for counting n-gram frequencies
+
+- - tempfile for temporary storage of unpacked files
+
+**2.** Reading and sorting files from the archive with tempfile.TemporaryDirectory() as temp_folder: with zipfile.ZipFile('corpus.zip', 'r') as archive: archive.extractall(temp_folder) text_files = [] for root, _, files in os.walk(temp_folder): for name in files: if name.lower().endswith('.txt'): path = os.path.join(root, name) text_files.append(path) text_files.sort(key=lambda x: os.path.basename(x).lower())
+
+We unpack the archive into a temporary folder, find all text files (regardless of extension case), and sort them alphabetically by filename, ignoring case.
+
+**3.** Combining file contents full_text = "" for file_path in text_files: with open(file_path, 'r', encoding='utf-8') as f: full_text += f.read()
+
+We read the contents of each file in sorted order and combine them into a single string. We use UTF-8 encoding for correct handling of Russian and English characters.
+
+**4.** Text cleaning clean_text = re.sub(r'[^a-zA-Zа-яА-ЯёЁ]', '', full_text)
+
+We remove all characters except letters: Latin (a-z, A-Z), Cyrillic (а-я, А-Я), and the characters ё, Ё. The result is a continuous string of only letters without spaces or punctuation.
+
+**5.** Counting unigrams and bigrams single_chars = list(clean_text) char_pairs = [clean_text[i:i+2] for i in range(len(clean_text) - 1)] single_counts = Counter(single_chars) pair_counts = Counter(char_pairs)
+
+We create lists of unigrams (individual characters) and bigrams (pairs of adjacent characters). We use Counter to count the frequency of each n-gram in the cleaned text.
+
+**6.** Sorting and selecting top-10 top_single = sorted(single_counts.items(), key=lambda x: (-x[1], x[0]))[:10] top_pairs = sorted(pair_counts.items(), key=lambda x: (-x[1], x[0]))[:10]
+
+We sort n-grams by two criteria:
+
+**1.** By descending frequency (primary criterion)
+
+**2.** By ascending ASCII code of characters (secondary criterion when frequencies are equal)
+
+We select the first 10 elements from each sorted list.
+
+**7.** Saving results with open('cleaned.txt', 'w', encoding='utf-8') as f: f.write(clean_text) with open('result.txt', 'w', encoding='utf-8') as f: for gram, count in top_single: f.write(f"{gram}\t{count}\n") for gram, count in top_pairs: f.write(f"{gram}\t{count}\n")
+
+We write the cleaned text to the file cleaned.txt (in one line without spaces). We write the counting results to the file result.txt: first 10 unigrams, then 10 bigrams, each entry in the format “n-gramfrequency”.
+
+**8.** Creating the final archive with zipfile.ZipFile('task5.zip', 'w', zipfile.ZIP_DEFLATED) as final_archive: final_archive.write('cleaned.txt') final_archive.write('result.txt') os.remove('cleaned.txt') os.remove('result.txt')
+
+We create a ZIP archive task5.zip with two resulting files and delete the temporary files after packing.
+
+Solution for “Image Processing with Filters” Task
+
+**1.** Import Libraries import numpy as np from PIL import Image import math import zipfile import os
+
+We use essential libraries for image processing:
+
+- - numpy for efficient numerical computations on image arrays
+
+- - PIL (Pillow) for image loading, manipulation, and saving
+
+- - math for Gaussian kernel calculations
+
+- - zipfile and os for creating the final archive
+
+**2.** Gaussian Filter Creation def create_gaussian_filter(filter_size=5, sigma_value=1.0): filter_matrix = np.zeros((filter_size, filter_size)) center_point = filter_size // 2 for row in range(filter_size): for col in range(filter_size): dx = row - center_point dy = col - center_point filter_matrix[row, col] = (1 / (2 * math.pi * sigma_value**2)) * mat h.exp(-(dx**2 + dy**2) / (2 * sigma_value**2)) normalized_filter = filter_matrix / np.sum(filter_matrix) return normalized_filter
+
+This function creates a Gaussian filter kernel:
+
+- - Generates a 5×5 matrix with Gaussian distribution values
+
+- - Uses the mathematical formula for Gaussian distribution
+
+- - Normalizes the kernel so all values sum to exactly 1.0
+
+- - Ensures proper weighting for blur effect
+
+**3.** Image Convolution with Boundary Handling def convolve_image(input_image, filter_kernel): image_height, image_width = input_image.shape kernel_size = filter_kernel.shape[0] padding_size = kernel_size // 2 padded_image = np.pad(input_image, padding_size, mode='reflect') output_image = np.zeros_like(input_image, dtype=np.float32) for y in range(image_height): for x in range(image_width): region = padded_image[y:y+kernel_size, x:x+kernel_size] output_image[y, x] = np.sum(region * filter_kernel) return output_image
+
+This function applies convolution to the image:
+
+- - Handles boundary pixels using reflection padding
+
+- - Extracts regions of the image matching the kernel size
+
+- - Computes weighted sum using the Gaussian kernel
+
+- - Returns the blurred image with floating-point precision
+
+**4.** Kernel Saving Function def save_filter_kernel(kernel_matrix, output_file): with open(output_file, 'w') as file_handle: for row_index in range(kernel_matrix.shape[0]): row_values = [f"{value:.6f}" for value in kernel_matrix[row_index]] file_handle.write(" ".join(row_values) + "\n")
+
+Saves the Gaussian kernel to a text file:
+
+- - Formats each value with exactly 6 decimal places
+
+- - Writes 5 lines with 5 values each, separated by spaces
+
+- - Creates the required kernel.txt file format
+
+**5.** Main Image Processing Pipeline def execute_image_processing(): source_image = Image.open('image.png').convert('L') image_data = np.array(source_image, dtype=np.float32) gaussian_filter = create_gaussian_filter(5, 1.0) save_filter_kernel(gaussian_filter, 'kernel.txt')
+
+8)) blurred_data = convolve_image(image_data, gaussian_filter) blurred_image = Image.fromarray(np.clip(blurred_data, 0, 255).astype(np.uint blurred_image.save('blurred.png') sharpening_factor = 1.5 detail_mask = image_data - blurred_data sharpened_data = image_data + sharpening_factor * detail_mask sharpened_image = Image.fromarray(np.clip(sharpened_data, 0, 255).astype(np. uint8)) sharpened_image.save('sharpened.png')
+
+)) inverted_data = 255 - sharpened_data final_image = Image.fromarray(np.clip(inverted_data, 0, 255).astype(np.uint8 final_image.save('result.png') archive_files = ['kernel.txt', 'blurred.png', 'sharpened.png', 'result.png'] with zipfile.ZipFile('task6.zip', 'w') as archive: for file_name in archive_files: if os.path.exists(file_name): archive.write(file_name) return final_image
+
+The complete processing pipeline:
+
+- - Loads the grayscale input image
+
+- - Computes and saves the Gaussian kernel
+
+- - Applies Gaussian blur and saves intermediate result
+
+- - Applies unsharp masking with α=1.5 for sharpening
+
+- - Performs image inversion (255 - sharpened value)
+
+- - Clips all pixel values to [0, 255] range and converts to 8-bit format
+
+- - Creates the final ZIP archive with all required files
+
+**6.** Execution final_result = execute_image_processing()
+
+Starts the entire image processing workflow and produces the final result image along with all required output files.
+
+Solution to the “Matrix Representation of Convolution” Problem
+
+**1.** Importing necessary libraries import numpy as np import os import zipfile
+
+The following libraries are used to solve the problem:
+
+- - numpy for working with matrices and vectors
+
+- - os for checking file existence
+
+- - zipfile for creating an archive with results
+
+**2.** Building the convolution matrix def create_convolution_matrix(filter_weights, step_size, image_dimension=8): filter_height, filter_width = filter_weights.shape output_height = (image_dimension - filter_height) // step_size + 1 output_width = (image_dimension - filter_width) // step_size + 1 total_output_pixels = output_height * output_width total_input_pixels = image_dimension * image_dimension convolution_matrix = np.zeros((total_output_pixels, total_input_pixels)) for output_row in range(output_height): for output_col in range(output_width): matrix_row = output_row * output_width + output_col start_row = output_row * step_size start_col = output_col * step_size for filter_row in range(filter_height): for filter_col in range(filter_width): input_row = start_row + filter_row input_col = start_col + filter_col matrix_col = input_row * image_dimension + input_col convolution_matrix[matrix_row, matrix_col] = filter_weights[ filter_row, filter_col] return convolution_matrix
+
+The function create_convolution_matrix builds the convolution matrix based on given parameters:
+
+- - Calculates the dimensions of the output image using the formula
+
+- - Creates a zero matrix of the required size
+
+- - For each position in the output image, determines the corresponding window in the
+
+input image
+
+- - Places the kernel weights in the appropriate positions of the matrix
+
+**3.** Reading kernels from files first_kernel = np.loadtxt('kernel1.txt') second_kernel = np.loadtxt('kernel2.txt') third_kernel = np.loadtxt('kernel3.txt')
+
+We read the three convolution kernels from files. Each kernel is stored in a separate file in text format.
+
+**4.** Building matrices for each kernel matrix_for_first = create_convolution_matrix(first_kernel, 1) matrix_for_second = create_convolution_matrix(second_kernel, 2) matrix_for_third = create_convolution_matrix(third_kernel, 2)
+
+We build three convolution matrices:
+
+- - For the first kernel (2×2) with stride 1
+
+- - For the second kernel (3×3) with stride 2
+
+- - For the third kernel (4×4) with stride 2
+
+**5.** Saving results to files def write_matrix_to_file(data_matrix, output_filename): with open(output_filename, 'w', encoding='utf-8') as output_file: for matrix_row in data_matrix: formatted_line = ' '.join([f"{value:.3f}" for value in matrix_row]) output_file.write(formatted_line + '\n') write_matrix_to_file(matrix_for_first, 'result1.txt') write_matrix_to_file(matrix_for_second, 'result2.txt') write_matrix_to_file(matrix_for_third, 'result3.txt')
+
+The function write_matrix_to_file saves the matrix to a file:
+
+- - Each row of the matrix is written to a separate line in the file
+
+- - Numbers are formatted with precision to 3 decimal places
+
+- - The file is saved in UTF-8 encoding
+
+**6.** Creating an archive with results archive = zipfile.ZipFile('task7.zip', 'w', zipfile.ZIP_DEFLATED) archive.write('result1.txt') archive.write('result2.txt') archive.write('result3.txt') archive.close() We create a ZIP archive task7.zip and add all three result files to it.
+
+**7.** Main execution code if not (os.path.exists('kernel1.txt') and os.path.exists('kernel2.txt') and os.p ath.exists('kernel3.txt')): kernel_one = np.array([[1.0, 0.5], [0.0, 0.0]]) kernel_two = np.array([[0.1, 0.2, 0.3], [0.4, 0.5, 0.6], [0.7, 0.8, 0.9]]) kernel_three = np.array([[0.01, 0.02, 0.03, 0.04], [0.05, 0.06, 0.07, 0.08],
+
+[0.09, 0.10, 0.11, 0.12], [0.13, 0.14, 0.15, 0.16]]) np.savetxt('kernel1.txt', kernel_one, fmt='%.3f') np.savetxt('kernel2.txt', kernel_two, fmt='%.3f') np.savetxt('kernel3.txt', kernel_three, fmt='%.3f') first_kernel = np.loadtxt('kernel1.txt') second_kernel = np.loadtxt('kernel2.txt') third_kernel = np.loadtxt('kernel3.txt') matrix_for_first = create_convolution_matrix(first_kernel, 1) matrix_for_second = create_convolution_matrix(second_kernel, 2) matrix_for_third = create_convolution_matrix(third_kernel, 2) write_matrix_to_file(matrix_for_first, 'result1.txt') write_matrix_to_file(matrix_for_second, 'result2.txt') write_matrix_to_file(matrix_for_third, 'result3.txt') archive = zipfile.ZipFile('task7.zip', 'w', zipfile.ZIP_DEFLATED) archive.write('result1.txt') archive.write('result2.txt') archive.write('result3.txt') archive.close() The main code:
+
+- - Checks for the existence of kernel files, and if they are missing, creates test kernels
+
+- - Reads the kernels from files
+
+- - Builds convolution matrices for each kernel
+
+- - Saves the results to files
+
+- - Creates an archive with the results
+
+Solution to the problem “Optimal Policy in a Grid”
+
+**1.** Reading the grid from a file import os import zipfile def load_grid(filename): with open(filename, 'r', encoding='utf-8') as f: return [list(line.strip()) for line in f]
+
+The function load_grid reads the grid from the file grid.txt, storing each line as a list of characters. This allows easy access to individual cells by coordinates.
+
+**2.** Finding coordinates of key objects def find_objects(grid): objects = {'S': [], 'T': [], 'X': []} for i, row in enumerate(grid): for j, cell in enumerate(row): if cell in objects: objects[cell].append((i, j)) return objects
+
+The function find_objects traverses the entire grid and stores the coordinates of the starting position S, treasure T, and traps X in the corresponding lists of the dictionary.
+
+**3.** Movement on the grid def next_position(row, col, direction, height, width): new_row, new_col = row, col if direction == 'up': new_row = max(0, row - 1) elif direction == 'down': new_row = min(height - 1, row + 1) elif direction == 'left': new_col = max(0, col - 1) elif direction == 'right': new_col = min(width - 1, col + 1) return new_row, new_col
+
+The function next_position calculates the new position of the agent when moving in the specified direction. If the movement goes beyond the grid boundaries, the agent remains in the current position.
+
+**4.** Calculating reward for transition def get_reward(cell): if cell == 'T': return 10.0 elif cell == 'X': return -5.0 else: return -0.1
+
+The function get_reward determines the reward for transitioning to the specified cell: +10 for treasure, -5 for trap, -0.1 for all other transitions.
+
+**5.** Value Iteration algorithm def value_iteration(grid, gamma=0.9, steps=100): height = len(grid) width = len(grid[0]) directions = ['up', 'down', 'left', 'right'] values = [[0.0] * width for _ in range(height)] first_step_values = None for step in range(steps): new_values = [[0.0] * width for _ in range(height)] for i in range(height): for j in range(width): if grid[i][j] in ['T', 'X']: new_values[i][j] = 0.0 continue best_value = -float('inf') for direction in directions: ni, nj = next_position(i, j, direction, height, width) reward = get_reward(grid[ni][nj]) value = reward + gamma * values[ni][nj] if value > best_value: best_value = value new_values[i][j] = best_value if step == 0: first_step_values = [row[:] for row in new_values] values = new_values return values, first_step_values
+
+The Value Iteration algorithm performs 100 iterations to compute the optimal value of each state. At each iteration:
+
+- - For terminal states (T, X) the value remains 0
+
+- - For other states, the maximum value is calculated across all possible actions
+
+- - After the first iteration, the values are saved for the file v1.txt
+
+**6.** Generating output files grid = load_grid('grid.txt') objects = find_objects(grid) with open('map.txt', 'w', encoding='utf-8') as f: for obj_type in ['S', 'T', 'X']: for pos in objects[obj_type]: f.write(f"{obj_type} {pos[0]} {pos[1]}\n") final_values, first_values = value_iteration(grid) with open('v1.txt', 'w', encoding='utf-8') as f: for row in first_values: f.write(' '.join(f"{x:.1f}" for x in row) + '\n') start_pos = objects['S'][0] start_value = final_values[start_pos[0]][start_pos[1]] with open('result.txt', 'w', encoding='utf-8') as f: f.write(f"{start_value:.6f}")
+
+The program performs the following steps:
+
+**1.** Reads the grid from file grid.txt
+
+**2.** Finds coordinates of all key objects
+
+**3.** Writes coordinates to file map.txt in the required format
+
+**4.** Runs the Value Iteration algorithm to compute state values
+
+**5.** Saves values after the first iteration to file v1.txt with precision of 1 decimal place
+
+**6.** Finds the value of the starting position after 100 iterations and writes it to result.txt with precision of 6 decimal places
+
+**7.** Creating archive with results with zipfile.ZipFile('task8.zip', 'w') as archive: archive.write('map.txt') archive.write('v1.txt') archive.write('result.txt')
+
+In the final stage, the program creates a ZIP archive task8.zip and adds all three generated files to it.
+
+# Citations
+
+1. [ioai26 tour1 sol en](https://lk-dovuz.innopolis.university/public/files/ioai26_tour1_sol_en.pdf), file b447ffd024d1

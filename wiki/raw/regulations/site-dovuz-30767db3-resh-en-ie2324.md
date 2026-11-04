@@ -1,0 +1,351 @@
+---
+type: regulation
+title: "resh en ie2324"
+resource: "https://lk-dovuz.innopolis.university/public/files/resh_en_ie2324.pdf"
+source_kind: official-document
+language: ru
+section: "site/dovuz"
+sources:
+  - resource: "https://lk-dovuz.innopolis.university/public/files/resh_en_ie2324.pdf"
+    id: "c2a9d31a9524"
+    title: "resh en ie2324"
+    last_modified: "2026-11-01T23:17:24+00:00"
+generated:
+  by: "catix-wiki/0.1 regulations"
+  at: "2026-11-01T23:17:24+00:00"
+extraction: "text layer (opendataloader)"
+status: draft
+---
+
+# resh en ie2324
+
+Innopolis Open in AI and Robotics First Qualifying Round, 2023-2024. Russia, December, 3, 2023
+
+Problem Tutorial: “Pawn Chess”
+
+Task Description: Given a chessboard with black pawns, you need to plan a route for a white pawn in a way that it captures as many black pieces as possible.
+
+Test 1 For the first test, you could iterate through all possible routes and check each one.
+
+Test 2 For the second test, you could explore route options, eliminating most obviously bad moves.
+
+Tests 3 and 4
+
+For a complete solution, use dynamic programming. Dynamic programming helps avoid redundant calculations and significantly speeds up the process.
+
+For convenience, let the cell (1;1) be in the top-left corner. Let dp[i][j] be the count of captured black pieces if we start from row i and column j (assuming that if there is a pawn at row i and column j, we can place a pawn there and capture a piece).
+
+Dynamic Programming Base: Initialize the base of dynamic programming with values on the first row, considering the presence of black pieces. So, dp[1][j] = 1 when there is a black piece, and dp[1][j] = 0 when there is no piece at cell (1;j).
+
+Once the answer is computed for the first row, transitions for rows i where i > 1 are considered. Dynamics are filled in, considering the possibility of the white pawn moving upwards and diagonally. If there is a pawn at position (i;j), it can move to (i − 1;j − 1), (i − 1;j), and (i − 1;j + 1), for which answers have already been calculated. Dynamic transitions: dp[i][j] = max(dp[i − 1][j − 1],dp[i − 1][j],dp[i − 1][j + 1]). If there is a black pawn at cell (i;j), add 1 to dp[i][j].
+
+Simultaneously, while calculating dynamics, maintain the route.
+
+| Test Number | Answer |
+| --- | --- |
+| 1 | RRL |
+| 2 | RUULRLL |
+| 3 | LRLLUUR |
+| 4 | LUURRR |
+
+Problem Tutorial: “Circus”
+
+Problem Statement: Determine the number of children who can attend the circus for free according to the ticket distribution pattern in sectors A,B,C,D,C,B,A,....
+
+Subtask 1: Modeling
+
+For the first subtask, a solution can be written to simulate the ticket distribution process.
+
+1 vector <long long > ticket = {a, b, c, d};
+
+2 vector <long long > tickets = {0, 1, 2, 3, 2, 1};
+
+3 long long ans = 0;
+
+4 while(ticket[tickets[it % 6]] != 0){
+
+5 ticket[tickets[it % 6]]--;
+
+6 ans++;
+
+7 }
+
+Complete Solution
+
+For the complete solution, optimize the simulation. Notice that the sector sequence repeats cyclically (A,B,C,D,C,B). In each cycle, one ticket is given to sectors A and D, and two tickets to sectors B and C. Calculate the number of complete cycles cycle = min(A,D, B2 , C2 ). Here, x denotes rounding down the value of x (for example, 1.4 = 1, 2 = 2).
+
+After computing the number of complete cycles, determine how many tickets will be distributed in the last incomplete cycle. Modify A = A − cycle,B = B − 2 · cycle,C = C − 2 · cycle,D = D − cycle. Then, use the algorithm from the first subtask.
+
+1 long long cycle = min(
+
+2 min(a, d),
+
+3 min((long long)b/2, (long long)c/2)
+
+4 );
+
+5 long long ans = cycle * 6LL;
+
+7 a -= cycle;
+
+8 b -= 2LL*cycle;
+
+9 c -= 2LL*cycle;
+
+10 d -= cycle;
+
+12 vector <long long > ticket = {a, b, c, d};
+
+13 vector <long long > tickets = {0, 1, 2, 3, 2, 1};
+
+14 long long ans = 0;
+
+15 while(ticket[tickets[ans % 6]] != 0){
+
+16 ticket[tickets[ans % 6]]--;
+
+17 ans++;
+
+18 }
+
+19 cout << ans + cycle * 6LL;
+
+Problem Tutorial: “Words”
+
+Notice that the typing time for each word does not depend on its position in the sequence, if it is typed at all. Therefore, we can immediately calculate the typing time for each word. To do this, iterate through each word s1,...,sl and add ts1,s2 + ... + tsl−1,sl to the answer. Next, we need to select m words with the minimum typing time. To achieve this, sort the words according to their required typing time, and the answer is the sum of the m smallest times.
+
+Problem Tutorial: “Pawn-chess”
+
+Problem Statement: Given a matrix with black pieces, the goal is to place a white pawn and determine a route for it to capture as many black pieces as possible. The white pawn cannot be placed on a cell where there is a black pawn.
+
+Subtask 1: Naive Recursive Enumeration
+
+For the first subtask, a naive recursive solution can be implemented. The recursive function explores all possible positions for the white pawn, checks their presence on the board, and recursively calls itself for the next step when possible. While this solution may be useful for small board sizes, it becomes inefficient for larger sizes due to repeated computations.
+
+1 def rec(x, y):
+
+2 global ans , pathAns , curPath , cur , a, w
+
+3 if x == 0:
+
+4 if cur > ans:
+
+5 ans = cur
+
+6 pathAns = curPath
+
+7 return
+
+9 if y - 1 >= 0:
+
+10 curPath += "L"
+
+11 cur += (a[x - 1][y - 1] == ’B’)
+
+12 rec(x - 1, y - 1)
+
+13 cur -= (a[x - 1][y - 1] == ’B’)
+
+14 curPath = curPath[:-1]
+
+15 if y + 1 < w:
+
+16 curPath += "R"
+
+17 cur += (a[x - 1][y + 1] == ’B’)
+
+18 rec(x - 1, y + 1)
+
+19 cur -= (a[x - 1][y + 1] == ’B’)
+
+20 curPath = curPath[:-1]
+
+22 curPath += "U"
+
+23 cur += (a[x - 1][y] == ’B’)
+
+24 rec(x - 1, y)
+
+25 cur -= (a[x - 1][y] == ’B’)
+
+26 curPath = curPath[:-1]
+
+27 return
+
+29 def solve():
+
+30 global ans , pathAns , curPath , cur , a, w, h, ansX , ansY
+
+31 h, w = map(int , input().split())
+
+33 a = []
+
+34 for _ in range(h):
+
+35 a.append(input())
+
+37 last = -1
+
+38 for j in range(1, h):
+
+39 for i in range(w):
+
+40 if a[j][i] == ’*’:
+
+41 last = ans
+
+42 rec(j, i)
+
+43 if ans > last:
+
+44 ansX , ansY = j, i
+
+45 print(h-ansX , ansY + 1)
+
+46 print(ans)
+
+47 print(pathAns)
+
+48 return
+
+50 ans = 0
+
+51 cur = 0
+
+52 pathAns = ""
+
+53 curPath = ""
+
+54 ansX = 0
+
+55 ansY = 0
+
+56 w = 0
+
+57 h = 0
+
+58 a = []
+
+60 if __name__ == "__main__":
+
+61 solve()
+
+Complete Solution
+
+For the complete solution, a dynamic programming approach is employed for efficiency. Dynamic programming avoids redundant calculations and significantly speeds up the process.
+
+Let cell (1;1) be in the top-left corner for convenience. The dynamic programming approach involves a 2D array dp[i][j] representing the count of captured black pieces if starting from row i and column j. The base of the dynamic programming is initialized with values from the first row, considering the presence of black pieces.
+
+The transitions for rows i where i > 1 are determined by accounting for the upward and diagonal movement of the white pawn. The transitions are given by dp[i][j] = max(dp[i−1][j −1],dp[i−1][j],dp[i−1][j +1]). If there is a black pawn at cell (i;j), add 1 to dp[i][j].
+
+The answer is found in the cell (i;j) where there is no black piece and the value is the maximum. Since the location of cell (1;1) has changed, the output should be (h − i + 1,j).
+
+To reconstruct the route, an array of ancestors is used to remember the direction from which the white pawn moved.
+
+1 def solve():
+
+2 h, w = map(int , input().split())
+
+4 a = [input() for _ in range(h)]
+
+6 dp = [[0] * w for _ in range(h)]
+
+7 parent = [[-1] * w for _ in range(h)]
+
+8 for i in range(w):
+
+9 dp[0][i] = int(a[0][i] == ’B’)
+
+10 for i in range(1, h):
+
+11 dp[i][0] = int(a[i][0] == ’B’) + dp[i - 1][0]
+
+12 parent[i][0] = 0
+
+13 if 1 < w and int(a[i][0] == ’B’) + dp[i - 1][1] > dp[i][0]:
+
+14 dp[i][0] = int(a[i][0] == ’B’) + dp[i - 1][1]
+
+15 parent[i][0] = 1
+
+17 dp[i][w - 1] = int(a[i][w - 1] == ’B’) + dp[i - 1][w - 1]
+
+18 parent[i][w - 1] = w - 1
+
+19 if w - 2 >= 0 and int(a[i][w - 1] == ’B’) + dp[i - 1][w - 2] > dp[i][w - 1]:
+
+20 dp[i][w - 1] = int(a[i][w - 1] == ’B’) + dp[i - 1][w - 2]
+
+21 parent[i][w - 1] = w - 2
+
+23 for j in range(1, w - 1):
+
+24 if dp[i - 1][j - 1] > dp[i][j]:
+
+25 dp[i][j] = dp[i - 1][j - 1]
+
+26 parent[i][j] = j - 1
+
+28 if dp[i - 1][j] > dp[i][j]:
+
+29 dp[i][j] = dp[i - 1][j]
+
+30 parent[i][j] = j
+
+31 if dp[i - 1][j + 1] > dp[i][j]:
+
+32 dp[i][j] = dp[i - 1][j + 1]
+
+33 parent[i][j] = j + 1
+
+34 dp[i][j] += int(a[i][j] == ’B’)
+
+36 ans = (-1, -1)
+
+37 for i in range(h):
+
+38 for j in range(w):
+
+39 if a[i][j] == ’*’ and (ans[0] == -1 or dp[ans[0]][ans[1]] < dp[i][j]):
+
+40 ans = (i, j)
+
+42 print(h - ans[0], ans[1] + 1)
+
+43 print(dp[ans[0]][ans[1]] - int(a[ans[0]][ans[1]] == ’B’))
+
+44 s = ""
+
+45 while parent[ans[0]][ans[1]] != -1:
+
+46 if parent[ans[0]][ans[1]] - ans[1] == -1:
+
+47 s += "L"
+
+48 elif parent[ans[0]][ans[1]] - ans[1] == 0:
+
+49 s += "U"
+
+50 elif parent[ans[0]][ans[1]] - ans[1] == 1:
+
+51 s += "R"
+
+52 ans = (ans[0] - 1, parent[ans[0]][ans[1]])
+
+53 print(s)
+
+55 if __name__ == "__main__":
+
+56 solve()
+
+Problem Tutorial: “Playlist”
+
+Solution Explanation: To solve the first subtask, it is sufficient to generate all permutations of the n elements and check whether each permutation is interesting to Sparks.
+
+Let’s examine the solution for the subgroup where all numbers are distinct. Notice that up to the maximum element, all numbers will be in ascending order, and after the maximum element, they will be in descending order. Thus, each element, except for the maximum, can be either in the left (ascending) part or in the right (descending) part. Moreover, if we fix in which part each element is located, the order is uniquely determined. This means that each way of distributing elements among the parts corresponds to a correct order, and vice versa. Therefore, the answer is the number of ways to distribute elements, which is 2n−1 because each element, except for the maximum, can be in the left or right part.
+
+For a full score solution, let’s observe the following. Firstly, all occurrences of the maximum element will be contiguous in the peak part of the sequence, similar to the case with unique elements. For the other elements, some may be to the left of all occurrences of the maximum, and some may be to the right. Let c1,...,cmax denote the count of occurrences of the numbers 1,2,...,max in the array a. Then, there are (c1 + 1) · ... · (cmax−1 + 1) ways to choose the partition for all numbers. However, we have not considered that the order of all occurrences of each unique number i is important. Therefore, we need to multiply by c1! · ... · cmax!. In total, the answer is (c1 + 1)! · ... · (cmax−1 + 1)! · cmax!.
+
+# Citations
+
+1. [resh en ie2324](https://lk-dovuz.innopolis.university/public/files/resh_en_ie2324.pdf), file c2a9d31a9524

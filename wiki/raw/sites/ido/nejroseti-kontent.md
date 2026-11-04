@@ -688,9 +688,9 @@ FAQ
 
 Стоимость курса
 
-[Политика конфиденциалности](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+[Политика конфиденциалности](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
-[Оферта](https://innopolis.university/filespublic/%D0%9E%D1%84%D0%B5%D1%80%D1%82%D0%B0_%D0%9D%D0%B5%D0%B9%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8.pdf)
+[Оферта](/raw/regulations/site-ido-4cbe0e13-oferta-neyroseti.md)
 
 Мы используем файлы cookies
 

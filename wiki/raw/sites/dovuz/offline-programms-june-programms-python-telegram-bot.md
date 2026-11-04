@@ -112,7 +112,7 @@ Python
 
 В стоимость программы включено: образовательная услуга, проживание и 5-разовое питание (завтрак, обед, полдник, ужин, сонник).
 
-Нажимая на кнопку регистрации, вы соглашаетесь с [политикой обработки персональных данных](https://apply.innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%9F%D0%94%D0%BD%20%D0%B4%D0%BB%D1%8F%20%D0%A3%D0%98.pdf) автономной некоммерческой организации высшего образования "Университет Иннополис" и [договором оферты](https://lk-dovuz.innopolis.university/public/files/offer_python_bots_leto_1smena_2025.pdf) в зависимости от выбранной программы.
+Нажимая на кнопку регистрации, вы соглашаетесь с [политикой обработки персональных данных](https://apply.innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%9F%D0%94%D0%BD%20%D0%B4%D0%BB%D1%8F%20%D0%A3%D0%98.pdf) автономной некоммерческой организации высшего образования "Университет Иннополис" и [договором оферты](/raw/regulations/site-dovuz-5ab4ed64-offer-python-bots-leto-1smena-2025.md) в зависимости от выбранной программы.
 
 [![](https://static.tildacdn.com/tild3938-3737-4738-b563-313064306661/1L8wwA2222.jpg)](https://dovuz.innopolis.university/offline-programms/june-programms/roblox)
 

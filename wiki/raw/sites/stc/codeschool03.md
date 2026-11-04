@@ -64,9 +64,9 @@ status: draft
 
 Связаться
 
-[обработку персональных данных](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+[обработку персональных данных](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
-[Нажимая на кнопку, я соглашаюсь на](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+[Нажимая на кнопку, я соглашаюсь на](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
 ![](https://static.tildacdn.com/tild6239-6538-4630-a535-313462386332/Frame_11.png)
 
@@ -266,7 +266,7 @@ status: draft
 
 ![](https://static.tildacdn.com/tild3364-6632-4434-a466-636366313732/image_1025.png)
 
-[Я согласен с политикой обработки персональных данных.](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+[Я согласен с политикой обработки персональных данных.](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
 После отправки заявки попадете на страницу обучающей платформы, где необходимо будет присоединиться к курсу и заполнить профиль ученика. Используйте тот же email-адрес, что и в этой форме.
 

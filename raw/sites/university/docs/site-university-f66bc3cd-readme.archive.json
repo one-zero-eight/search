@@ -1,0 +1,6 @@
+{
+ "error": "Client error '404 Not Found' for url 'https://innopolis.university/filespublic/Readme.zip'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404",
+ "refetch": true,
+ "status": "unavailable",
+ "url": "https://innopolis.university/filespublic/Readme.zip"
+}

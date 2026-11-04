@@ -28,7 +28,7 @@ status: draft
 
 Получить консультацию
 
-Я согласен с [политикой](/raw/regulations/site-university-d66c21e6-politicacookies.md) обработки персональных данных
+Я согласен с [политикой](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md) обработки персональных данных
 
 ![Ссылки](https://static.tildacdn.com/tild3662-6466-4336-b232-353866343433/Group_3979.png)
 
@@ -36,7 +36,7 @@ status: draft
 
 [Институт дополнительного образования](/raw/sites/university/ido.md)
 
-[Политика конфиденциальности](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+[Политика конфиденциальности](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
 Контакты
 

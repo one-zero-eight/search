@@ -129,7 +129,9 @@ status: draft
 
 **3.** Ullman, J. D. A First Course in Database Systems (3rd Edition), 2008. — 408 p. — Режим доступа: https://portal.university.innopolis.ru/reading_hall/detail.php?ID=83105 — Электронный каталог научно-технической библиотеки АНО ВО «Университет Иннополис».
 
-**4.** Loukachevitch N., Artemova E., Batura T., Braslavski P., Ivanov V., Manandhar S., Pugachev A., Rozhkov I., Shelmanov A., Tutubalina E., Yandutov A. NEREL: a Russian information extraction dataset with rich annotation for nested entities, relations, and wikidata entity links // Language Resources and Evaluation. — 2024. — Vol. 58. — P. 876– 885. — Режим доступа: https://aclanthology.org/2021.ranlp-1.100/ . Дистанционная поддержка дисциплины (модуля) Для дистанционной поддержки дисциплины используется система управления образовательным контентом Moodle, развернутая на портале АНО ВО «Университет Иннополис». Во время обучения все студенты получают индивидуальные пароли для входа в систему, в которой размещаются: программа курса, контрольные вопросы, задания, темы лекций с презентационными материалами и т. д.
+**4.** Loukachevitch N., Artemova E., Batura T., Braslavski P., Ivanov V., Manandhar S., Pugachev A., Rozhkov I., Shelmanov A., Tutubalina E., Yandutov A. NEREL: a Russian information extraction dataset with rich annotation for nested entities, relations, and wikidata entity links // Language Resources and Evaluation. — 2024. — Vol. 58. — P. 876–
+
+**885.** — Режим доступа: https://aclanthology.org/2021.ranlp-1.100/ . Дистанционная поддержка дисциплины (модуля) Для дистанционной поддержки дисциплины используется система управления образовательным контентом Moodle, развернутая на портале АНО ВО «Университет Иннополис». Во время обучения все студенты получают индивидуальные пароли для входа в систему, в которой размещаются: программа курса, контрольные вопросы, задания, темы лекций с презентационными материалами и т. д.
 
 ## 6. Материально-техническое обеспечение
 

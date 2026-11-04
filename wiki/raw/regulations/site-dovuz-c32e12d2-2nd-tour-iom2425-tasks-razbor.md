@@ -1,0 +1,1054 @@
+---
+type: regulation
+title: "2nd tour iom24-25 tasks razbor"
+resource: "https://lk-dovuz.innopolis.university/public/files/2nd_tour_iom24-25_tasks_razbor.pdf"
+source_kind: official-document
+language: ru
+section: "site/dovuz"
+sources:
+  - resource: "https://lk-dovuz.innopolis.university/public/files/2nd_tour_iom24-25_tasks_razbor.pdf"
+    id: "a1c92b9315b7"
+    title: "2nd tour iom24-25 tasks razbor"
+    last_modified: "2026-11-01T23:17:18+00:00"
+generated:
+  by: "catix-wiki/0.1 regulations"
+  at: "2026-11-01T23:17:18+00:00"
+extraction: "text layer (opendataloader)"
+status: draft
+---
+
+# 2nd tour iom24-25 tasks razbor
+
+Innopolis Open 2024/25 in Mathematics 2𝑛𝑑 qualifying round
+
+Система оценивания / Task score
+
+**1.** Первичная оценка решения каждой задачи выставляется по 5-балльной шкале. Если к задаче нужен только краткий ответ, то по ней выставляется либо 0 первичных баллов, либо 5.
+
+**2.** Для каждой задачи вычисляется средний балл (𝑀) по результатам ее решения всеми участниками.
+
+**3.** Весовой коэффициент (𝐾) каждой задачи вычисляется по формуле 𝐾 = 3 − 0.5 · 𝑀
+
+**4.** Балл каждого участника за каждую задачу умножается на весовой коэффициент этой задачи.
+
+**5.** Баллы, набранные участником, суммируются с последующим округлением до ближайшего целого в бo´льшую сторону.
+
+**1.** Pre-score of the solution to each task is set on a 5-point scale. If the task requires short answer then pre-score will be 0 or 5 points.
+
+**2.** An average score (𝑀) is calculated based on the results of all participants for each task.
+
+**3.** The weighting coefficient (𝐾) of each task is calculated using formula 𝐾 = 3 − 0.5 · 𝑀
+
+**4.** Each participant’s score for each task is multiplied by the weighting coefficient of that task.
+
+**5.** The points scored by the participant are summed and then rounded up to the nearest integer.
+
+7-8𝑡ℎ degree
+
+Task 1.
+
+**1.** В выпуклом 𝑛-угольнике никакие три диагонали не проходят через одну точку, отличную от вершины, а общее число точек пересечения диагоналей, отличных от вершин 𝑛-угольника, равно 330. Найдите 𝑛. In a convex 𝑛-sided polygon no three diagonals pass through the same point (other than a vertex), and the total number of intersection points of diagonals (other than the vertices of the 𝑛-sided polygon) is 330. Find 𝑛. Answer: 11
+
+**2.** В выпуклом 𝑛-угольнике никакие три диагонали не проходят через одну точку, отличную от вершины, а общее число точек пересечения диагоналей, отличных от вершин 𝑛-угольника, равно 495. Найдите 𝑛. In a convex 𝑛-sided polygon no three diagonals pass through the same point (other than a vertex), and the total number of intersection points of diagonals (other than the vertices of the 𝑛-sided polygon) is 495. Find 𝑛. Answer: 12
+
+**3.** В выпуклом 𝑛-угольнике никакие три диагонали не проходят через одну точку, отличную от вершины, а общее число точек пересечения диагоналей, отличных от вершин 𝑛-угольника, равно 1001. Найдите 𝑛. In a convex 𝑛-sided polygon no three diagonals pass through the same point (other than a vertex), and the total number of intersection points of diagonals (other than the vertices of the 𝑛-sided polygon) is 1001. Find 𝑛. Answer: 14
+
+**4.** В выпуклом 𝑛-угольнике никакие три диагонали не проходят через одну точку, отличную от вершины, а общее число точек пересечения диагоналей, отличных от вершин 𝑛-угольника, равно 1365. Найдите 𝑛.
+
+In a convex 𝑛-sided polygon no three diagonals pass through the same point (other than a vertex), and the total number of intersection points of diagonals (other than the vertices of the 𝑛-sided polygon) is 1365. Find 𝑛.
+
+Answer: 15
+
+Решение (RUS). (представлено решение варианта №1, остальные решаются аналогично)
+
+Каждой точке пересечения диагоналей соответствует четвёрка вершин 𝑛-угольника, являющихся концами этих диагоналей, и наоборот. Значит, число точек пересечения диагоналей равно числу способов выбрать четыре вершины из 𝑛, т.е. 𝐶𝑛4 = 𝑛(𝑛−1)(𝑛24−2)(𝑛−3) = 330. Подбором находим 𝑛 = 11
+
+- – это единственный корень, поскольку разному числу диагоналей соответствует разные количества точек их пересечения.
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly)
+
+Each intersection point of the diagonals corresponds to a set of four vertices of the 𝑛-sided polygon, which are the ends of these diagonals, and vice versa. This means that the number of intersection points of the diagonals is equal to the number of ways to choose four vertices from 𝑛, i.e.
+
+(︀𝑛4)︀
+
+= 𝑛(𝑛−1)(𝑛24−2)(𝑛−3) = 330. By that, we find 𝑛 = 11 – this is the only root, since different numbers of diagonals correspond to different numbers of their intersection points.
+
+Task 2.
+
+**1.** На лесной поляне собрались 29 зайцев и 42 белки, чтобы разделить между собой все собранные яблоки. Оказалось, что есть только один способ распределить эти яблоки так, чтобы любым двум зайцам досталось одинаковое количество яблок, любым двум белкам — тоже поровну (возможно, по столько же яблок, сколько и зайцам), и чтобы при этом никто не ушел без яблок. При каком наибольшем количестве собранных яблок такое возможно? 29 hares and 42 squirrels gathered in a forest clearing to divide all the apples they had collected among themselves. It turned out that there was only one way to distribute these apples in such way that all the hares got an equal share and all the squirrels also got an equal share (possibly the same number of apples as the hares), and no one left without apples. With what greatest number of collected apples is this possible? Answer: 2436
+
+**2.** На лесной поляне собрались 25 зайцев и 43 белки, чтобы разделить между собой все собранные яблоки. Оказалось, что есть только один способ распределить эти яблоки так, чтобы любым двум зайцам досталось одинаковое количество яблок, любым двум белкам — тоже поровну (возможно, по столько же яблок, сколько и зайцам), и чтобы при этом никто не ушел без яблок. При каком наибольшем количестве собранных яблок такое возможно? 25 hares and 43 squirrels gathered in a forest clearing to divide all the apples they had collected among themselves. It turned out that there was only one way to distribute these apples in such way that all the hares got an equal share and all the squirrels also got an equal share (possibly the same number of apples as the hares), and no one left without apples. With what greatest number of collected apples is this possible? Answer: 2150
+
+**3.** На лесной поляне собрались 35 зайцев и 46 белок, чтобы разделить между собой все собранные яблоки. Оказалось, что есть только один способ распределить эти яблоки так, чтобы любым двум зайцам досталось одинаковое количество яблок, любым двум белкам — тоже поровну (возможно, по столько же яблок, сколько и зайцам), и чтобы при этом никто не ушел без яблок. При каком наибольшем количестве собранных яблок такое возможно?
+
+35 hares and 46 squirrels gathered in a forest clearing to divide all the apples they had collected among themselves. It turned out that there was only one way to distribute these apples in such way that all the hares got an equal share and all the squirrels also got an equal share (possibly the same number of apples as the hares), and no one left without apples. With what greatest number of collected apples is this possible?
+
+Answer: 3220
+
+**4.** На лесной поляне собрались 49 зайцев и 32 белки, чтобы разделить между собой все собранные яблоки. Оказалось, что есть только один способ распределить эти яблоки так, чтобы любым двум зайцам досталось одинаковое количество яблок, любым двум белкам — тоже поровну (возможно, по столько же яблок, сколько и зайцам), и чтобы при этом никто не ушел без яблок. При каком наибольшем количестве собранных яблок такое возможно?
+
+49 hares and 32 squirrels gathered in a forest clearing to divide all the apples they had collected among themselves. It turned out that there was only one way to distribute these apples in such way that all the hares got an equal share and all the squirrels also got an equal share (possibly the same number of apples as the hares), and no one left without apples. With what greatest number of collected apples is this possible?
+
+Answer: 3136
+
+Решение (RUS). (представлено решение варианта №1, остальные решаются аналогично)
+
+Пусть яблоки как-то распределены между зайцами и белками. Чтобы осуществить другой способ раздачи яблок, потребуется отнять у каждого зайца по равному числу яблок и раздать их поровну белкам (или наоборот). Поэтому общее число яблок, переданных от зайцев белкам (или наоборот), кратно и 29, и 42, т.е. кратно 29 · 42 = 1218, т.к. 29 и 42 взаимно просты.
+
+Если количество яблок превосходит 2 · 1218 = 2436, то у зайцев (или у белок) больше 1218 яблок, и можно, отобрав «лишнее», раздать белкам (или, соответственно, зайцам), т.е. существует не менее двух способов раздачи яблок. Если же количество яблок равно 2436, то, раздав зайцам и белкам по 1218 яблок (на всех), мы осуществим единственную возможную раздачу, что и требовалось (зайцам достанется по 42 яблока каждому, а белкам – по 29 яблок).
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly)
+
+Let the apples be distributed between the hares and the squirrels. To implement another way of distributing the apples, it is necessary to take an equal number of apples from each hare and distribute them equally among the squirrels (or vice versa). Therefore, the total number of apples transferred from the hares to the squirrels (or vice versa) is a multiple of both 29 and 42, i.e. a multiple of 29·42 = 1218, since 29 and 42 are relatively prime.
+
+If the number of apples exceeds 2 · 1218 = 2436, then the hares (or squirrels) have more than 1218 apples, and it is possible to take away the «extra» apples and distribute them among the squirrels (or, respectively, the hares), i.e. there are at least two ways of distributing the apples. If the number of apples is 2436, then by distributing 1218 apples to the hares and squirrels, we will carry out the only possible distribution, which is required (the hares will get 42 apples each, and the squirrels will get 29 apples each).
+
+Task 3.
+
+**1.** Пусть операция «◇» удовлетворяет следующим свойствам:
+
+❼ 𝑥 ◇ 𝑥 = 1
+
+❼ 𝑥 ◇ (𝑦 ◇ 𝑧) = 𝑧 · (𝑥 ◇ 𝑦)
+
+Вычислите (2024 ◇ (16 ◇ 2)) ◇ 5 и запишите ответ в виде целого числа или десятичной дроби, при необходимости округленной до сотых.
+
+Let the operation «◇» satisfy the following properties:
+
+❼ 𝑥 ◇ 𝑥 = 1
+
+❼ 𝑥 ◇ (𝑦 ◇ 𝑧) = 𝑧 · (𝑥 ◇ 𝑦)
+
+Calculate (2024 ◇ (16 ◇ 2)) ◇ 5 and write the answer as an integer or decimal fraction, rounded to hundredths if necessary.
+
+Answer: 50.6
+
+**2.** Пусть операция «◇» удовлетворяет следующим свойствам: ❼ 𝑥 ◇ 𝑥 = 1 ❼ 𝑥 ◇ (𝑦 ◇ 𝑧) = 𝑧 · (𝑥 ◇ 𝑦) Вычислите (1000 ◇ (16 ◇ 2)) ◇ 5 и запишите ответ в виде целого числа или десятичной дроби, при необходимости округленной до сотых. Let the operation «◇» satisfy the following properties: ❼ 𝑥 ◇ 𝑥 = 1 ❼ 𝑥 ◇ (𝑦 ◇ 𝑧) = 𝑧 · (𝑥 ◇ 𝑦) Calculate (1000 ◇ (16 ◇ 2)) ◇ 5 and write the answer as an integer or decimal fraction, rounded to hundredths if necessary. Answer: 25
+
+**3.** Пусть операция «◇» удовлетворяет следующим свойствам:
+
+❼ 𝑥 ◇ 𝑥 = 1
+
+❼ 𝑥 ◇ (𝑦 ◇ 𝑧) = 𝑧 · (𝑥 ◇ 𝑦)
+
+Вычислите (2024 ◇ (10 ◇ 2)) ◇ 4 и запишите ответ в виде целого числа или десятичной дроби, при необходимости округленной до сотых.
+
+Let the operation «◇» satisfy the following properties:
+
+❼ 𝑥 ◇ 𝑥 = 1
+
+❼ 𝑥 ◇ (𝑦 ◇ 𝑧) = 𝑧 · (𝑥 ◇ 𝑦)
+
+Calculate (2024 ◇ (10 ◇ 2)) ◇ 4 and write the answer as an integer or decimal fraction, rounded to hundredths if necessary.
+
+Answer: 101.2
+
+**4.** Пусть операция «◇» удовлетворяет следующим свойствам:
+
+❼ 𝑥 ◇ 𝑥 = 1
+
+❼ 𝑥 ◇ (𝑦 ◇ 𝑧) = 𝑧 · (𝑥 ◇ 𝑦)
+
+Вычислите (2025 ◇ (15 ◇ 3)) ◇ 3 и запишите ответ в виде целого числа или десятичной дроби, при необходимости округленной до сотых.
+
+Let the operation «◇» satisfy the following properties:
+
+❼ 𝑥 ◇ 𝑥 = 1
+
+❼ 𝑥 ◇ (𝑦 ◇ 𝑧) = 𝑧 · (𝑥 ◇ 𝑦)
+
+Calculate (2025 ◇ (15 ◇ 3)) ◇ 3 and write the answer as an integer or decimal fraction, rounded to hundredths if necessary.
+
+Answer: 135
+
+Решение (RUS). (представлено решение варианта №1, остальные решаются аналогично) 𝑦 · (𝑥 ◇ 𝑦) = 𝑥 ◇ (𝑦 ◇ 𝑦) = 𝑥 ◇ 1 = 𝑥 ◇ (𝑥 ◇ 𝑥) = 𝑥 · (𝑥 ◇ 𝑥) = 𝑥 · 1 = 𝑥, откуда (𝑥 ◇ 𝑦) = 𝑥 : 𝑦.
+
+Тогда (2024 ◇ (16 ◇ 2)) ◇ 5 = 2024 : 40 = 50.6
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly) 𝑦 · (𝑥 ◇ 𝑦) = 𝑥 ◇ (𝑦 ◇ 𝑦) = 𝑥 ◇ 1 = 𝑥 ◇ (𝑥 ◇ 𝑥) = 𝑥 · (𝑥 ◇ 𝑥) = 𝑥 · 1 = 𝑥, thus (𝑥 ◇ 𝑦) = 𝑥 : 𝑦.
+
+By that, (2024 ◇ (16 ◇ 2)) ◇ 5 = 2024 : 40 = 50.6
+
+Task 4.
+
+**1.** Сколько есть целых положительных 𝑛 2025, для которых десятичная запись числа 1𝑛 + 2𝑛 + 3𝑛 + 4𝑛 + 5𝑛 оканчивается на 9? How many positive integers 𝑛 2025 make decimal notation of the number 1𝑛 +2𝑛 +3𝑛 +4𝑛 +5𝑛 end with 9? Answer: 506
+
+**2.** Сколько есть целых положительных 𝑛 2025, для которых десятичная запись числа 1𝑛 + 2𝑛 + 3𝑛 + 4𝑛 + 5𝑛 оканчивается на 5?
+
+How many positive integers 𝑛 2025 make decimal notation of the number 1𝑛 +2𝑛 +3𝑛 +4𝑛 +5𝑛 end with 5?
+
+Answer: 1519
+
+**3.** Сколько есть целых положительных 𝑛 1000, для которых десятичная запись числа 1𝑛 + 2𝑛 + 3𝑛 + 4𝑛 + 5𝑛 оканчивается на 9? How many positive integers 𝑛 1000 make decimal notation of the number 1𝑛 +2𝑛 +3𝑛 +4𝑛 +5𝑛 end with 9? Answer: 250
+
+**4.** Сколько есть целых положительных 𝑛 1000, для которых десятичная запись числа 1𝑛 + 2𝑛 + 3𝑛 + 4𝑛 + 5𝑛 оканчивается на 5?
+
+How many positive integers 𝑛 1000 make decimal notation of the number 1𝑛 +2𝑛 +3𝑛 +4𝑛 +5𝑛 end with 5?
+
+Answer: 750
+
+Решение (RUS). (представлено решение варианта №1, остальные решаются аналогично) Рассмотрим последние цифры каждого слагаемого при 𝑛 = 1,2,3,4,5:
+
+| 𝑛 | 1 | 2 | 3 | 4 | 5 |
+| --- | --- | --- | --- | --- | --- |
+| 1𝑛 | 1 | 1 | 1 | 1 | 1 |
+| 2𝑛 | 2 | 4 | 8 | 6 | 2 |
+| 3𝑛 | 3 | 9 | 7 | 1 | 3 |
+| 4𝑛 | 4 | 6 | 4 | 6 | 4 |
+| 5𝑛 | 5 | 5 | 5 | 5 | 5 |
+
+Значит, последняя цифра суммы 1𝑛 + 2𝑛 + 3𝑛 + 4𝑛 + 5𝑛 повторяется с периодом 4. Очевидно, что в каждой четверке подряд идущих целых положительных 𝑛 найдется ровно одно, для которого упомянутая сумма оканчивается на 9 – значит, среди чисел 1,2,3,...,2025 таких чисел будет ровно 506 (4,8,12,...,2024).
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly) Lets consider the last digits of each term for 𝑛 = 1,2,3,4,5:
+
+| 𝑛 | 1 | 2 | 3 | 4 | 5 |
+| --- | --- | --- | --- | --- | --- |
+| 1𝑛 | 1 | 1 | 1 | 1 | 1 |
+| 2𝑛 | 2 | 4 | 8 | 6 | 2 |
+| 3𝑛 | 3 | 9 | 7 | 1 | 3 |
+| 4𝑛 | 4 | 6 | 4 | 6 | 4 |
+| 5𝑛 | 5 | 5 | 5 | 5 | 5 |
+
+Then the last digit of the sum 1𝑛 + 2𝑛 + 3𝑛 + 4𝑛 + 5𝑛 is repeated with a period of 4. Obviously, in each four consecutive positive integers 𝑛 there is exactly one for which the sum ends with 9 – by that, among the numbers 1,2,3,...,2025 there will be exactly 506 such numbers (4,8,12,...,2024).
+
+Task 5. Известно, что у каждого графа есть ровно один друг и один враг среди других графов, и отношения дружбы и вражды между графами всегда взаимны. Король утверждает, что всех графов можно разделить на две равные группы так, чтобы внутри каждой группы не было врагов.
+
+Прав ли король? Обоснуйте свой ответ.
+
+It is known that each count has exactly one friend and one enemy among other counts, and the relations of friendship and enmity between counts are always mutual. The king claims that all counts can be divided into two equal groups in such way that there are no enemies inside each group. Is the king right? Explain your answer.
+
+Answer: Да, король прав / Yes, the king is right
+
+Решение (RUS). Представим отношения между графами в виде графа, вершины которого
+
+- – графы, синие ребра обозначают дружбу, а красные – вражду. Степень каждой вершины построенного графа равна 2, а значит, этот граф разбивается на циклы, причем в каждом цикле красные
+
+и синие ребра чередуются. В первую группу поместим графов из каждого цикла, взятых через одного, а во вторую группу – остальных графов: тогда в группах будет поровну графов, и среди них не будет врагов.
+
+Критерии оценивания:
+
+❼ дан верный ответ, но обоснование отсутствует либо содержит грубые ошибки – 1 первичный балл;
+
+❼ дан верный ответ и приведены рассуждения, продолжение которых могло бы привести к верному решению – 2 первичных балла;
+
+❼ дан верный ответ и приведены в целом верные рассуждения, но нет достаточного объяснения того, как распределить графов по группам – 3 первичных балла;
+
+❼ дан верный ответ и приведены почти верные рассуждения, содержащие лишь незначительные недостатки – 4 первичных балла;
+
+❼ приведены полностью верные рассуждения, дан верный ответ, причем явно указано, как распределить графов по группам – 5 первичных баллов.
+
+Solution (ENG). Lets represent the relationships between counts as a graph, the vertices of which are counts, blue edges denote friendship, and red edges denote enmity. The degree of each vertex of the constructed graph is 2, which means that this graph is divided into cycles, and in each cycle the red and blue edges alternate. In the first group we will place every second count from each cycle, and in the second group – the remaining counts: then there will be an equal number of counts in the groups, and there will be no enemies among them.
+
+Criteria:
+
+❼ the correct answer is given, but the explanation is missing or contains gross errors – 1 pre-point; ❼ the correct answer is given and reasoning is provided, the continuation of which could lead to the correct solution – 2 pre-points;
+
+❼ the correct answer is given and generally correct reasoning is provided, but there is no sufficient explanation of how to distribute the counts into groups – 3 pre-points;
+
+❼ the correct answer is given and almost correct reasoning is provided, containing only minor «gaps»
+
+- – 4 pre-points;
+
+❼ completely correct reasoning is provided, the correct answer is given, and it is clearly indicated how to distribute the counts into groups – 5 pre-points.
+
+Task 6. На отрезке [0,100] несколько попарно непересекающихся интервалов вида (𝑎,𝑏) покрашены в красный цвет так, что нет пары красных точек, расстояние между которыми равно 1. Найдите наибольшую возможную суммарную длину покрашенных интервалов. Обоснуйте свой ответ.
+
+On the segment [0,100] several pairwise non-intersecting intervals of the form (𝑎,𝑏) are colored red in such way that there is no pair of red points with distance 1 from each other. Find the greatest possible total length of the colored intervals. Explain your answer.
+
+Answer: 50
+
+Решение (RUS). Рассмотрим множество отрезков вида 𝑆𝑘 = [𝑘;𝑘+1] для 𝑘 = 0,1,2,...,99 и обозначим за 𝐴𝑘 множество красных точек, приналежащих 𝑆𝑘. Заметим, что параллельный перенос каждого 𝐴2𝑡 на 1 «вправо» не даст совпадений перенесенного множества со множеством 𝐴2𝑡+1, иначе нашлись бы две красные точки на расстоянии 1 друг от друга – а значит, суммарная длина интервалов, составляющих множества 𝐴2𝑡 и 𝐴2𝑡+1 (для любого 𝑡 ∈ {0,1,2,...,49}), не превосходит
+
+**1.** Из этого следует, что суммарная длина покрашенных интервалов не превосходит 50.
+
+Приведем пример покрашенных интервалов, удовлетворяющих условию задачи, сумма длин которых равна 50: пусть 𝐴2𝑡 = (2𝑡,2𝑡 + 0.5), 𝐴2𝑡+1 = (2𝑡 + 1.5,2𝑡 + 2) для всех 𝑡 ∈ {0,1,2,...,49}.
+
+Критерии оценивания:
+
+❼ дан неверный ответ – 0 первичных баллов;
+
+❼ ответ верен, но решения нет, либо в решении содержится значительная ошибка – 0 первичных баллов;
+
+❼ ответ верен, приведен верный пример красных интервалов, но в рассуждениях содержится ошибка – 1 первичный балл;
+
+❼ ответ верен, приведено верное доказательство, но пример красных интервалов содержит незначительные ошибки – 4 первичных балла;
+
+❼ полностью верное решение, верный ответ и корректный пример – 5 первичных баллов.
+
+Solution (ENG). Consider the set of segments of the form 𝑆𝑘 = [𝑘;𝑘 + 1] for 𝑘 = 0,1,2,...,99 and denote by 𝐴𝑘 the set of red points lying in 𝑆𝑘. Note that the parallel translation of each 𝐴2𝑡 by 1 «to the right» will not give coincidences of the translated set with the set 𝐴2𝑡+1, otherwise there would be two red points at a distance of 1 from each other – therefore the total length of the intervals that make up the sets 𝐴2𝑡 and 𝐴2𝑡+1 (for any 𝑡 ∈ {0,1,2,...,49}) does not exceed 1. By that, the total length of the colored intervals does not exceed 50.
+
+Lets give an example of colored intervals satisfying the task’s conditions, the sum of whose lengths is equal to 50: let 𝐴2𝑡 = (2𝑡,2𝑡 + 0.5), 𝐴2𝑡+1 = (2𝑡 + 1.5,2𝑡 + 2) for all 𝑡 ∈ {0,1,2,...,49}.
+
+Criteria:
+
+❼ incorrect answer given – 0 pre-points;
+
+❼ answer is correct, but there is no solution, or the solution has gross error(s) – 0 pre-points;
+
+❼ answer is correct, the correct example of red intervals is given, but the reasoning contains an error
+
+- – 1 pre-point;
+
+❼ answer is correct, the correct proof is given, but the example of red intervals contains minor error(s) – 4 pre-points;
+
+❼ completely correct solution, correct answer and correct example – 5 pre-points.
+
+9𝑡ℎ degree
+
+Task 1.
+
+**1.** В выпуклом 𝑛-угольнике никакие три диагонали не проходят через одну точку, отличную от вершины, а общее число точек пересечения диагоналей, отличных от вершин 𝑛-угольника, равно 330. Найдите 𝑛.
+
+In a convex 𝑛-sided polygon no three diagonals pass through the same point (other than a vertex), and the total number of intersection points of diagonals (other than the vertices of the 𝑛-sided polygon) is 330. Find 𝑛.
+
+Answer: 11
+
+**2.** В выпуклом 𝑛-угольнике никакие три диагонали не проходят через одну точку, отличную от вершины, а общее число точек пересечения диагоналей, отличных от вершин 𝑛-угольника, равно 495. Найдите 𝑛.
+
+In a convex 𝑛-sided polygon no three diagonals pass through the same point (other than a vertex), and the total number of intersection points of diagonals (other than the vertices of the 𝑛-sided polygon) is 495. Find 𝑛.
+
+Answer: 12
+
+**3.** В выпуклом 𝑛-угольнике никакие три диагонали не проходят через одну точку, отличную от вершины, а общее число точек пересечения диагоналей, отличных от вершин 𝑛-угольника, равно 1001. Найдите 𝑛.
+
+In a convex 𝑛-sided polygon no three diagonals pass through the same point (other than a vertex), and the total number of intersection points of diagonals (other than the vertices of the 𝑛-sided polygon) is 1001. Find 𝑛.
+
+Answer: 14
+
+**4.** В выпуклом 𝑛-угольнике никакие три диагонали не проходят через одну точку, отличную от вершины, а общее число точек пересечения диагоналей, отличных от вершин 𝑛-угольника, равно 1365. Найдите 𝑛.
+
+In a convex 𝑛-sided polygon no three diagonals pass through the same point (other than a vertex), and the total number of intersection points of diagonals (other than the vertices of the 𝑛-sided polygon) is 1365. Find 𝑛.
+
+Answer: 15
+
+Решение (RUS). (представлено решение варианта №1, остальные решаются аналогично)
+
+Каждой точке пересечения диагоналей соответствует четвёрка вершин 𝑛-угольника, являющихся концами этих диагоналей, и наоборот. Значит, число точек пересечения диагоналей равно числу способов выбрать четыре вершины из 𝑛, т.е. 𝐶𝑛4 = 𝑛(𝑛−1)(𝑛24−2)(𝑛−3) = 330. Подбором находим 𝑛 = 11
+
+- – это единственный корень, поскольку разному числу диагоналей соответствует разные количества точек их пересечения.
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly)
+
+Each intersection point of the diagonals corresponds to a set of four vertices of the 𝑛-sided polygon, which are the ends of these diagonals, and vice versa. This means that the number of intersection points of the diagonals is equal to the number of ways to choose four vertices from 𝑛, i.e.
+
+(︀𝑛4)︀
+
+= 𝑛(𝑛−1)(𝑛24−2)(𝑛−3) = 330. By that, we find 𝑛 = 11 – this is the only root, since different numbers of diagonals correspond to different numbers of their intersection points.
+
+Task 2.
+
+**1.** На лесной поляне собрались 29 зайцев и 42 белки, чтобы разделить между собой все собранные яблоки. Оказалось, что есть только один способ распределить эти яблоки так, чтобы любым двум зайцам досталось одинаковое количество яблок, любым двум белкам — тоже поровну (возможно, по столько же яблок, сколько и зайцам), и чтобы при этом никто не ушел без яблок. При каком наибольшем количестве собранных яблок такое возможно?
+
+29 hares and 42 squirrels gathered in a forest clearing to divide all the apples they had collected among themselves. It turned out that there was only one way to distribute these apples in such way that all the hares got an equal share and all the squirrels also got an equal share (possibly the same number of apples as the hares), and no one left without apples. With what greatest number of collected apples is this possible?
+
+Answer: 2436
+
+**2.** На лесной поляне собрались 25 зайцев и 43 белки, чтобы разделить между собой все собранные яблоки. Оказалось, что есть только один способ распределить эти яблоки так, чтобы любым двум зайцам досталось одинаковое количество яблок, любым двум белкам — тоже поровну (возможно, по столько же яблок, сколько и зайцам), и чтобы при этом никто не ушел без яблок. При каком наибольшем количестве собранных яблок такое возможно?
+
+25 hares and 43 squirrels gathered in a forest clearing to divide all the apples they had collected among themselves. It turned out that there was only one way to distribute these apples in such way that all the hares got an equal share and all the squirrels also got an equal share (possibly the same number of apples as the hares), and no one left without apples. With what greatest number of collected apples is this possible?
+
+Answer: 2150
+
+**3.** На лесной поляне собрались 35 зайцев и 46 белок, чтобы разделить между собой все собранные яблоки. Оказалось, что есть только один способ распределить эти яблоки так, чтобы любым двум зайцам досталось одинаковое количество яблок, любым двум белкам — тоже поровну (возможно, по столько же яблок, сколько и зайцам), и чтобы при этом никто не ушел без яблок. При каком наибольшем количестве собранных яблок такое возможно?
+
+35 hares and 46 squirrels gathered in a forest clearing to divide all the apples they had collected among themselves. It turned out that there was only one way to distribute these apples in such way that all the hares got an equal share and all the squirrels also got an equal share (possibly the same number of apples as the hares), and no one left without apples. With what greatest number of collected apples is this possible?
+
+Answer: 3220
+
+**4.** На лесной поляне собрались 49 зайцев и 32 белки, чтобы разделить между собой все собранные яблоки. Оказалось, что есть только один способ распределить эти яблоки так, чтобы любым двум зайцам досталось одинаковое количество яблок, любым двум белкам — тоже поровну (возможно, по столько же яблок, сколько и зайцам), и чтобы при этом никто не ушел без яблок. При каком наибольшем количестве собранных яблок такое возможно?
+
+49 hares and 32 squirrels gathered in a forest clearing to divide all the apples they had collected among themselves. It turned out that there was only one way to distribute these apples in such way that all the hares got an equal share and all the squirrels also got an equal share (possibly the same number of apples as the hares), and no one left without apples. With what greatest number of collected apples is this possible?
+
+Answer: 3136
+
+Решение (RUS). (представлено решение варианта №1, остальные решаются аналогично)
+
+Пусть яблоки как-то распределены между зайцами и белками. Чтобы осуществить другой способ раздачи яблок, потребуется отнять у каждого зайца по равному числу яблок и раздать их поровну белкам (или наоборот). Поэтому общее число яблок, переданных от зайцев белкам (или наоборот), кратно и 29, и 42, т.е. кратно 29 · 42 = 1218, т.к. 29 и 42 взаимно просты.
+
+Если количество яблок превосходит 2 · 1218 = 2436, то у зайцев (или у белок) больше 1218 яблок, и можно, отобрав «лишнее», раздать белкам (или, соответственно, зайцам), т.е. существует не менее двух способов раздачи яблок. Если же количество яблок равно 2436, то, раздав зайцам и белкам по 1218 яблок (на всех), мы осуществим единственную возможную раздачу, что и требовалось (зайцам достанется по 42 яблока каждому, а белкам – по 29 яблок).
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly)
+
+Let the apples be distributed between the hares and the squirrels. To implement another way of distributing the apples, it is necessary to take an equal number of apples from each hare and distribute them equally among the squirrels (or vice versa). Therefore, the total number of apples transferred from the hares to the squirrels (or vice versa) is a multiple of both 29 and 42, i.e. a multiple of 29·42 = 1218, since 29 and 42 are relatively prime.
+
+If the number of apples exceeds 2 · 1218 = 2436, then the hares (or squirrels) have more than 1218 apples, and it is possible to take away the «extra» apples and distribute them among the squirrels (or, respectively, the hares), i.e. there are at least two ways of distributing the apples. If the number of apples is 2436, then by distributing 1218 apples to the hares and squirrels, we will carry out the only possible distribution, which is required (the hares will get 42 apples each, and the squirrels will get 29 apples each).
+
+Task 3.
+
+**1.** Даны точка 𝐴 и прямая 𝑙, по которой с постоянной скоростью движется точка 𝐵. Длины отрезка 𝐴𝐵 в моменты времени 0,1,5 равны соответственно 1,1,√3. Найдите длину отрезка
+
+𝐴𝐵 в момент времени 10. Представьте ответ в виде целого числа или десятичной дроби, при необходимости округленной до сотых.
+
+Given a point 𝐴 and a line 𝑙 along which a point 𝐵 moves at a constant speed. The lengths of the segment 𝐴𝐵 at times 0,1,5 are 1,1,√3, respectively. Find the length of the segment 𝐴𝐵 at time
+
+**10.** Express your answer as an integer or a decimal fraction, rounded to hundredths if necessary.
+
+Answer: 3.16
+
+**2.** Даны точка 𝐴 и прямая 𝑙, по которой с постоянной скоростью движется точка 𝐵. Длины отрезка 𝐴𝐵 в моменты времени 0,1,5 равны соответственно 1,1,√5. Найдите длину отрезка 𝐴𝐵 в момент времени 10. Представьте ответ в виде целого числа или десятичной дроби, при необходимости округленной до сотых. Given a point 𝐴 and a line 𝑙 along which a point 𝐵 moves at a constant speed. The lengths of the segment 𝐴𝐵 at times 0,1,5 are 1,1,√5, respectively. Find the length of the segment 𝐴𝐵 at time
+
+**10.** Express your answer as an integer or a decimal fraction, rounded to hundredths if necessary. Answer: 4.36
+
+**3.** Даны точка 𝐴 и прямая 𝑙, по которой с постоянной скоростью движется точка 𝐵. Длины отрезка 𝐴𝐵 в моменты времени 0,1,5 равны соответственно 1,√3,5. Найдите длину отрезка 𝐴𝐵 в момент времени 10. Представьте ответ в виде целого числа или десятичной дроби, при необходимости округленной до сотых. Given a point 𝐴 and a line 𝑙 along which a point 𝐵 moves at a constant speed. The lengths of the segment 𝐴𝐵 at times 0,1,5 are 1,√3,5, respectively. Find the length of the segment 𝐴𝐵 at time
+
+**10.** Express your answer as an integer or a decimal fraction, rounded to hundredths if necessary. Answer: 9.17
+
+**4.** Даны точка 𝐴 и прямая 𝑙, по которой с постоянной скоростью движется точка 𝐵. Длины отрезка 𝐴𝐵 в моменты времени 0,1,5 равны соответственно 1,√3,7. Найдите длину отрезка 𝐴𝐵 в момент времени 10. Представьте ответ в виде целого числа или десятичной дроби, при необходимости округленной до сотых.
+
+Given a point 𝐴 and a line 𝑙 along which a point 𝐵 moves at a constant speed. The lengths of the segment 𝐴𝐵 at times 0,1,5 are 1,√3,7, respectively. Find the length of the segment 𝐴𝐵 at time
+
+**10.** Express your answer as an integer or a decimal fraction, rounded to hundredths if necessary.
+
+Answer: 13.86
+
+Решение (RUS). (представлено решение варианта №1, остальные решаются аналогично)
+
+Отметим, что квадрат длины отрезка 𝐴𝐵 меняется по квадратичному закону 𝑓(𝑡) = 𝑎𝑡2 + 𝑏𝑡 + 𝑐, что следует из теоремы Пифагора для треугольника 𝐴𝐵𝐶, где 𝐶 – основание перпендикуляра, опущенного из точки 𝐴 на прямую 𝑙.
+
+Согласно условию задачи, 𝑓(0) = 1, 𝑓(1) = 1, 𝑓(5) = 3, тогда, согласно формуле Лагранжа имеем 𝑥(𝑥 − 5) (1 − 0)(1 − 5)
+
+(𝑥 − 1)(𝑥 − 5) (0 − 1)(0 − 5)
+
++ 1 · 𝑓(𝑡) = 1 · откуда 𝑓(10) = 10. Наконец, √10 ≈ 3.16. 𝑥(𝑥 − 1) (5 − 0)(5 − 1)
+
+= 0.1𝑥2 − 0.1𝑥 + 1,
+
++ 3 ·
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly)
+
+Note that the square of the length of the segment 𝐴𝐵 changes according to a quadratic law 𝑓(𝑡) = 𝑎𝑡2 + 𝑏𝑡 + 𝑐, which follows from the Pythagorean theorem for triangle 𝐴𝐵𝐶, where 𝐶 is the base of the perpendicular dropped the from point 𝐴 to the line 𝑙.
+
+According to the task’s formulation, 𝑓(0) = 1, 𝑓(1) = 1, 𝑓(5) = 3, then after applying the Lagrange formula, we have
+
+(𝑥 − 1)(𝑥 − 5) (0 − 1)(0 − 5)
+
++ 1 · 𝑓(𝑡) = 1 · thus 𝑓(10) = 10. Finally, √10 ≈ 3.16. 𝑥(𝑥 − 5) (1 − 0)(1 − 5) 𝑥(𝑥 − 1) (5 − 0)(5 − 1)
+
+= 0.1𝑥2 − 0.1𝑥 + 1,
+
++ 3 ·
+
+Task 4.
+
+**1.** Сколько есть целых положительных 𝑛 2025, для которых десятичная запись числа 1𝑛 + 2𝑛 + 3𝑛 + 4𝑛 + 5𝑛 оканчивается на 9? How many positive integers 𝑛 2025 make decimal notation of the number 1𝑛 +2𝑛 +3𝑛 +4𝑛 +5𝑛 end with 9? Answer: 506
+
+**2.** Сколько есть целых положительных 𝑛 2025, для которых десятичная запись числа 1𝑛 + 2𝑛 + 3𝑛 + 4𝑛 + 5𝑛 оканчивается на 5? How many positive integers 𝑛 2025 make decimal notation of the number 1𝑛 +2𝑛 +3𝑛 +4𝑛 +5𝑛 end with 5? Answer: 1519
+
+**3.** Сколько есть целых положительных 𝑛 1000, для которых десятичная запись числа 1𝑛 + 2𝑛 + 3𝑛 + 4𝑛 + 5𝑛 оканчивается на 9?
+
+How many positive integers 𝑛 1000 make decimal notation of the number 1𝑛 +2𝑛 +3𝑛 +4𝑛 +5𝑛 end with 9?
+
+Answer: 250
+
+**4.** Сколько есть целых положительных 𝑛 1000, для которых десятичная запись числа 1𝑛 + 2𝑛 + 3𝑛 + 4𝑛 + 5𝑛 оканчивается на 5?
+
+How many positive integers 𝑛 1000 make decimal notation of the number 1𝑛 +2𝑛 +3𝑛 +4𝑛 +5𝑛 end with 5?
+
+Answer: 750
+
+Решение (RUS). (представлено решение варианта №1, остальные решаются аналогично) Рассмотрим последние цифры каждого слагаемого при 𝑛 = 1,2,3,4,5:
+
+| 𝑛 | 1 | 2 | 3 | 4 | 5 |
+| --- | --- | --- | --- | --- | --- |
+| 1𝑛 | 1 | 1 | 1 | 1 | 1 |
+| 2𝑛 | 2 | 4 | 8 | 6 | 2 |
+| 3𝑛 | 3 | 9 | 7 | 1 | 3 |
+| 4𝑛 | 4 | 6 | 4 | 6 | 4 |
+| 5𝑛 | 5 | 5 | 5 | 5 | 5 |
+
+Значит, последняя цифра суммы 1𝑛 + 2𝑛 + 3𝑛 + 4𝑛 + 5𝑛 повторяется с периодом 4. Очевидно, что в каждой четверке подряд идущих целых положительных 𝑛 найдется ровно одно, для которого упомянутая сумма оканчивается на 9 – значит, среди чисел 1,2,3,...,2025 таких чисел будет ровно 506 (4,8,12,...,2024).
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly) Lets consider the last digits of each term for 𝑛 = 1,2,3,4,5:
+
+| 𝑛 | 1 | 2 | 3 | 4 | 5 |
+| --- | --- | --- | --- | --- | --- |
+| 1𝑛 | 1 | 1 | 1 | 1 | 1 |
+| 2𝑛 | 2 | 4 | 8 | 6 | 2 |
+| 3𝑛 | 3 | 9 | 7 | 1 | 3 |
+| 4𝑛 | 4 | 6 | 4 | 6 | 4 |
+| 5𝑛 | 5 | 5 | 5 | 5 | 5 |
+
+Then the last digit of the sum 1𝑛 + 2𝑛 + 3𝑛 + 4𝑛 + 5𝑛 is repeated with a period of 4. Obviously, in each four consecutive positive integers 𝑛 there is exactly one for which the sum ends with 9 – by that, among the numbers 1,2,3,...,2025 there will be exactly 506 such numbers (4,8,12,...,2024).
+
+Task 5. Дана бесконечная арифметическая прогрессия 𝑎1,𝑎2,𝑎3,..., все члены которой – целые положительные числа, причем 𝑎1 = 1. Верно ли, что для любого целого положительного 𝑛 можно выбрать 𝑛 элементов из множества {𝑎1,𝑎2,𝑎3,...}, составляющих геомерическую прогрессию? Обоснуйте свой ответ.
+
+Given an infinite arithmetic progression 𝑎1,𝑎2,𝑎3,..., all members of which are positive integers, also 𝑎1 = 1. Is it true for any positive integer 𝑛 that from the set {𝑎1,𝑎2,𝑎3,...} one can select 𝑛 elements that form a geometric progression? Explain your answer.
+
+Answer: Да, верно / Yes, it is true
+
+Решение (RUS). Пусть разность исходной арифметической прогрессии равна 𝑑 = 𝑎2 −𝑎1 ∈ Z. Тогда 𝑘(𝑘 − 1) 2 · 𝑑 + ··· + 𝑑𝑘−1),
+
+(𝑑 + 1)𝑘 = 1 + 𝑑 · (𝑘 + т.е. для всякого целого положительного 𝑘 в этой арифметической прогрессии встретится число (𝑑+1)𝑘 под номером (𝑘+𝑘(𝑘2−1)·𝑑+···+𝑑𝑘−1). Ясно, что числа 1,(𝑑+1),(𝑑+1)2,(𝑑+1)3,...,(𝑑+1)𝑘,... составляют геометрическую прогрессию, причем 𝑘 не ограничено.
+
+Критерии оценивания:
+
+❼ утверждение доказано для некоторых разностей арифметической прогрессии – 1 первичный балл;
+
+❼ приведен верный ответ, но доказательство содержит существенный «пробел» – 2 первичных балла;
+
+❼ доказано существованое геометрической прогрессии ограниченной «длины» – 3 первичных балла;
+
+❼ приведено почти верное доказательство, содержащее незначительные ошибки – 4 первичных балла;
+
+❼ приведено полностью верное и обоснованное решение – 5 первичнх баллов.
+
+Solution (ENG). Let the difference of the original arithmetic progression be 𝑑 = 𝑎2 − 𝑎1 ∈ Z. Then 𝑘(𝑘 − 1) 2 · 𝑑 + ··· + 𝑑𝑘−1),
+
+(𝑑 + 1)𝑘 = 1 + 𝑑 · (𝑘 + i.e. for every positive integer 𝑘 in this arithmetic progression there will be a member (𝑑 + 1)𝑘 with its sequential number (𝑘 + 𝑘(𝑘2−1) · 𝑑 + ··· + 𝑑𝑘−1). It is clear that the numbers 1,(𝑑 + 1),(𝑑 + 1)2,(𝑑 + 1)3,...,(𝑑 + 1)𝑘,... form a geometric progression, and 𝑘 is not bounded.
+
+Criteria:
+
+❼ the statement is proven for some differences of arithmetic progression – 1 pre-point;
+
+❼ the correct answer is given, but the proof contains significant «gap» – 2 pre-points;
+
+❼ the existence of a geometric progression of limited «length» is proven – 3 pre-points;
+
+❼ an almost correct proof is given, but with minor errors – 4 pre-points;
+
+❼ a completely correct and explained solution is given – 5 pre-points.
+
+Task 6. Правильный шестиугольник 𝐴𝐵𝐶𝐷𝐸𝐹 (вершины названы последовательно в алфавитном порядке) расположен так, что расстояния от точек 𝐴,𝐵,𝐶 до прямой 𝑙, расположенной в одной плоскости с ними, равны 4,1,3 соответственно. Найдите расстояние от точки 𝐷 до прямой 𝑙. Обоснуйте свой ответ.
+
+The regular hexagon 𝐴𝐵𝐶𝐷𝐸𝐹 (the vertices are named sequentially in alphabetical order) is located in such way that the distances from the points 𝐴,𝐵,𝐶 to the line 𝑙 (which lies in the same plane as the points do) are 4,1,3 respectively. Find the distance from the point 𝐷 to the line 𝑙. Explain your answer.
+
+Answer: 0,4,8,12
+
+Решение (RUS). Существуют 4 принципиально разных взаимных расположения точек 𝐴,𝐵,𝐶,𝐷 и прямой 𝑙:
+
+Рассмотрим первое из них (остальные рассматриваются аналогично) и введем обозначения, как показано на рисунке:
+
+Отметим, что 𝐴𝐷 ‖ 𝐵𝐶, 𝐴𝐷 = 2·𝐵𝐶, отсюда △𝐵𝐶𝐾 ∼ △𝐴𝐷𝐿 и 𝐷𝐿 = 2·𝐶𝐾 = 2(𝐶𝐶1−𝐵𝐵1) = 4, откуда 𝐷𝐷1 = 𝐷𝐿 + 𝐿𝐷1 = 𝐷𝐿 + 𝐴𝐴1 = 8.
+
+Критерии оценивания:
+
+❼ в доказательстве есть значительные «пробелы», нет достаточного обоснования – 0 первичных баллов;
+
+❼ доказательство почти верно, но рассмотрены не все случаи взаимного расположения шести-угольника и прямой 𝑙 и допущена незначительная ошибка в рассуждениях или вычислениях
+
+- – 2 первичных балла;
+
+❼ доказательство верно, но рассмотрены не все случаи взаимного расположения шестиугольника и прямой 𝑙 – 4 первичных балла;
+
+❼ полностью верное и обоснованное решение – 5 первичных баллов.
+
+Solution (ENG). There are 4 fundamentally different mutual arrangements of points 𝐴,𝐵,𝐶,𝐷 and line 𝑙:
+
+Lets consider the first of them (the rest are considered similarly) and introduce the notations as shown in the picture:
+
+Note that 𝐴𝐷 ‖ 𝐵𝐶, 𝐴𝐷 = 2 · 𝐵𝐶, thus △𝐵𝐶𝐾 ∼ △𝐴𝐷𝐿 and 𝐷𝐿 = 2 · 𝐶𝐾 = 2(𝐶𝐶1 − 𝐵𝐵1) = 4, and by that 𝐷𝐷1 = 𝐷𝐿 + 𝐿𝐷1 = 𝐷𝐿 + 𝐴𝐴1 = 8.
+
+Criteria:
+
+❼ the proof contains significant «gaps» and lacks explanation – 0 pre-points;
+
+❼ the proof is almost correct, but not all cases of mutual arrangement of the hexagon and line 𝑙 are considered and a minor error in reasoning or calculations is made – 2 pre-points;
+
+❼ the proof is correct, but not all cases of mutual arrangement of the hexagon and line 𝑙 are considered – 4 pre-points;
+
+❼ a completely correct and explained solution – 5 pre-points.
+
+10𝑡ℎ degree
+
+Task 1.
+
+**1.** Даны точка 𝐴 и прямая 𝑙, по которой с постоянной скоростью движется точка 𝐵. Длины отрезка 𝐴𝐵 в моменты времени 0,1,5 равны соответственно 1,1,√3. Найдите длину отрезка 𝐴𝐵 в момент времени 10. Представьте ответ в виде целого числа или десятичной дроби, при необходимости округленной до сотых. Given a point 𝐴 and a line 𝑙 along which a point 𝐵 moves at a constant speed. The lengths of the segment 𝐴𝐵 at times 0,1,5 are 1,1,√3, respectively. Find the length of the segment 𝐴𝐵 at time
+
+**10.** Express your answer as an integer or a decimal fraction, rounded to hundredths if necessary. Answer: 3.16
+
+**2.** Даны точка 𝐴 и прямая 𝑙, по которой с постоянной скоростью движется точка 𝐵. Длины отрезка 𝐴𝐵 в моменты времени 0,1,5 равны соответственно 1,1,√5. Найдите длину отрезка 𝐴𝐵 в момент времени 10. Представьте ответ в виде целого числа или десятичной дроби, при необходимости округленной до сотых. Given a point 𝐴 and a line 𝑙 along which a point 𝐵 moves at a constant speed. The lengths of the segment 𝐴𝐵 at times 0,1,5 are 1,1,√5, respectively. Find the length of the segment 𝐴𝐵 at time
+
+**10.** Express your answer as an integer or a decimal fraction, rounded to hundredths if necessary. Answer: 4.36
+
+**3.** Даны точка 𝐴 и прямая 𝑙, по которой с постоянной скоростью движется точка 𝐵. Длины отрезка 𝐴𝐵 в моменты времени 0,1,5 равны соответственно 1,√3,5. Найдите длину отрезка 𝐴𝐵 в момент времени 10. Представьте ответ в виде целого числа или десятичной дроби, при необходимости округленной до сотых. Given a point 𝐴 and a line 𝑙 along which a point 𝐵 moves at a constant speed. The lengths of the segment 𝐴𝐵 at times 0,1,5 are 1,√3,5, respectively. Find the length of the segment 𝐴𝐵 at time
+
+**10.** Express your answer as an integer or a decimal fraction, rounded to hundredths if necessary. Answer: 9.17
+
+**4.** Даны точка 𝐴 и прямая 𝑙, по которой с постоянной скоростью движется точка 𝐵. Длины отрезка 𝐴𝐵 в моменты времени 0,1,5 равны соответственно 1,√3,7. Найдите длину отрезка 𝐴𝐵 в момент времени 10. Представьте ответ в виде целого числа или десятичной дроби, при необходимости округленной до сотых.
+
+Given a point 𝐴 and a line 𝑙 along which a point 𝐵 moves at a constant speed. The lengths of the segment 𝐴𝐵 at times 0,1,5 are 1,√3,7, respectively. Find the length of the segment 𝐴𝐵 at time
+
+**10.** Express your answer as an integer or a decimal fraction, rounded to hundredths if necessary.
+
+Answer: 13.86
+
+Решение (RUS). (представлено решение варианта №1, остальные решаются аналогично)
+
+Отметим, что квадрат длины отрезка 𝐴𝐵 меняется по квадратичному закону 𝑓(𝑡) = 𝑎𝑡2 + 𝑏𝑡 + 𝑐, что следует из теоремы Пифагора для треугольника 𝐴𝐵𝐶, где 𝐶 – основание перпендикуляра, опущенного из точки 𝐴 на прямую 𝑙.
+
+Согласно условию задачи, 𝑓(0) = 1, 𝑓(1) = 1, 𝑓(5) = 3, тогда, согласно формуле Лагранжа имеем 𝑥(𝑥 − 5) (1 − 0)(1 − 5)
+
+(𝑥 − 1)(𝑥 − 5) (0 − 1)(0 − 5)
+
++ 1 · 𝑓(𝑡) = 1 · откуда 𝑓(10) = 10. Наконец, √10 ≈ 3.16. 𝑥(𝑥 − 1) (5 − 0)(5 − 1)
+
+= 0.1𝑥2 − 0.1𝑥 + 1,
+
++ 3 ·
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly)
+
+Note that the square of the length of the segment 𝐴𝐵 changes according to a quadratic law 𝑓(𝑡) = 𝑎𝑡2 + 𝑏𝑡 + 𝑐, which follows from the Pythagorean theorem for triangle 𝐴𝐵𝐶, where 𝐶 is the base of the perpendicular dropped the from point 𝐴 to the line 𝑙.
+
+According to the task’s formulation, 𝑓(0) = 1, 𝑓(1) = 1, 𝑓(5) = 3, then after applying the Lagrange formula, we have
+
+(𝑥 − 1)(𝑥 − 5) (0 − 1)(0 − 5)
+
++ 1 · 𝑓(𝑡) = 1 · thus 𝑓(10) = 10. Finally, √10 ≈ 3.16. 𝑥(𝑥 − 5) (1 − 0)(1 − 5) 𝑥(𝑥 − 1) (5 − 0)(5 − 1)
+
+= 0.1𝑥2 − 0.1𝑥 + 1,
+
++ 3 ·
+
+Task 2.
+
+**1.** Сколько есть целых положительных 𝑛 2025, для которых десятичная запись числа 1𝑛 + 2𝑛 + 3𝑛 + 4𝑛 + 5𝑛 оканчивается на 9? How many positive integers 𝑛 2025 make decimal notation of the number 1𝑛 +2𝑛 +3𝑛 +4𝑛 +5𝑛 end with 9? Answer: 506
+
+**2.** Сколько есть целых положительных 𝑛 2025, для которых десятичная запись числа 1𝑛 + 2𝑛 + 3𝑛 + 4𝑛 + 5𝑛 оканчивается на 5? How many positive integers 𝑛 2025 make decimal notation of the number 1𝑛 +2𝑛 +3𝑛 +4𝑛 +5𝑛 end with 5? Answer: 1519
+
+**3.** Сколько есть целых положительных 𝑛 1000, для которых десятичная запись числа 1𝑛 + 2𝑛 + 3𝑛 + 4𝑛 + 5𝑛 оканчивается на 9?
+
+How many positive integers 𝑛 1000 make decimal notation of the number 1𝑛 +2𝑛 +3𝑛 +4𝑛 +5𝑛 end with 9?
+
+Answer: 250
+
+**4.** Сколько есть целых положительных 𝑛 1000, для которых десятичная запись числа 1𝑛 + 2𝑛 + 3𝑛 + 4𝑛 + 5𝑛 оканчивается на 5?
+
+How many positive integers 𝑛 1000 make decimal notation of the number 1𝑛 +2𝑛 +3𝑛 +4𝑛 +5𝑛 end with 5?
+
+Answer: 750
+
+Решение (RUS). (представлено решение варианта №1, остальные решаются аналогично) Рассмотрим последние цифры каждого слагаемого при 𝑛 = 1,2,3,4,5:
+
+| 𝑛 | 1 | 2 | 3 | 4 | 5 |
+| --- | --- | --- | --- | --- | --- |
+| 1𝑛 | 1 | 1 | 1 | 1 | 1 |
+| 2𝑛 | 2 | 4 | 8 | 6 | 2 |
+| 3𝑛 | 3 | 9 | 7 | 1 | 3 |
+| 4𝑛 | 4 | 6 | 4 | 6 | 4 |
+| 5𝑛 | 5 | 5 | 5 | 5 | 5 |
+
+Значит, последняя цифра суммы 1𝑛 + 2𝑛 + 3𝑛 + 4𝑛 + 5𝑛 повторяется с периодом 4. Очевидно, что в каждой четверке подряд идущих целых положительных 𝑛 найдется ровно одно, для которого упомянутая сумма оканчивается на 9 – значит, среди чисел 1,2,3,...,2025 таких чисел будет ровно 506 (4,8,12,...,2024).
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly) Lets consider the last digits of each term for 𝑛 = 1,2,3,4,5:
+
+| 𝑛 | 1 | 2 | 3 | 4 | 5 |
+| --- | --- | --- | --- | --- | --- |
+| 1𝑛 | 1 | 1 | 1 | 1 | 1 |
+| 2𝑛 | 2 | 4 | 8 | 6 | 2 |
+| 3𝑛 | 3 | 9 | 7 | 1 | 3 |
+| 4𝑛 | 4 | 6 | 4 | 6 | 4 |
+| 5𝑛 | 5 | 5 | 5 | 5 | 5 |
+
+Then the last digit of the sum 1𝑛 + 2𝑛 + 3𝑛 + 4𝑛 + 5𝑛 is repeated with a period of 4. Obviously, in each four consecutive positive integers 𝑛 there is exactly one for which the sum ends with 9 – by that, among the numbers 1,2,3,...,2025 there will be exactly 506 such numbers (4,8,12,...,2024).
+
+Task 3.
+
+**1.** Царь вешает на сундук с государственной казной 𝑛 замк´oв и раздает ключи своим 10 советникам так, чтобы никакие 5 из них не могли открыть сундук, но любые 6 – могли (у царя есть множество ключей от каждого замк´a, и советник может получить ключи от нескольких замк´oв). Найдите наименьшее 𝑛, при котором царь сможет добиться желаемого.
+
+The king hangs 𝑛 locks on the chest with the state treasury and distributes the keys to his 10 advisors so that no 5 of them can open the chest, but any 6 can (the king has many keys to each lock, and an advisor can receive keys to several locks). Find the smallest 𝑛 at which the king can achieve the goal.
+
+Answer: 252
+
+**2.** Царь вешает на сундук с государственной казной 𝑛 замк´oв и раздает ключи своим 11 советникам так, чтобы никакие 5 из них не могли открыть сундук, но любые 6 – могли (у царя есть множество ключей от каждого замк´a, и советник может получить ключи от нескольких замк´oв). Найдите наименьшее 𝑛, при котором царь сможет добиться желаемого. The king hangs 𝑛 locks on the chest with the state treasury and distributes the keys to his 11 advisors so that no 5 of them can open the chest, but any 6 can (the king has many keys to each lock, and an advisor can receive keys to several locks). Find the smallest 𝑛 at which the king can achieve the goal. Answer: 462
+
+**3.** Царь вешает на сундук с государственной казной 𝑛 замк´oв и раздает ключи своим 10 советникам так, чтобы никакие 4 из них не могли открыть сундук, но любые 5 – могли (у царя есть множество ключей от каждого замк´a, и советник может получить ключи от нескольких замк´oв). Найдите наименьшее 𝑛, при котором царь сможет добиться желаемого. The king hangs 𝑛 locks on the chest with the state treasury and distributes the keys to his 10 advisors so that no 4 of them can open the chest, but any 5 can (the king has many keys to each lock, and an advisor can receive keys to several locks). Find the smallest 𝑛 at which the king can achieve the goal. Answer: 210
+
+**4.** Царь вешает на сундук с государственной казной 𝑛 замк´oв и раздает ключи своим 11 советникам так, чтобы никакие 7 из них не могли открыть сундук, но любые 8 – могли (у царя есть множество ключей от каждого замк´a, и советник может получить ключи от нескольких замк´oв). Найдите наименьшее 𝑛, при котором царь сможет добиться желаемого.
+
+The king hangs 𝑛 locks on the chest with the state treasury and distributes the keys to his 11 advisors so that no 7 of them can open the chest, but any 8 can (the king has many keys to each lock, and an advisor can receive keys to several locks). Find the smallest 𝑛 at which the king can achieve the goal.
+
+Answer: 330 Решение (RUS). (представлено решение варианта №1, остальные решаются аналогично)
+
+Поскольку никакие 5 советников не могут открыть всех замкo´в, у них нет ключа от некоторого замк´a, но этот ключ есть у всех остальных советников. Значит, ключи от каждого замк´a должны быть ровно у 10 − 5 = 5 советников, тогда количество замкo´в не может быть меньше 𝐶105 = 252. Остается только раздать по 5 ключей от каждого замк´a соответствующей пятерке советников, в результате чего царь добьется желаемого. Если раздать ключи от каждого замк´a не более чем 4 советникам, то не выполнится условие задачи, т.к. найдутся 6 советников, которые не смогут открыть определенный замo´к. Если же раздать ключи от каждого замк´a более чем 5 советникам, то не выполнится условие «никакие 5 не смогут открыть сундук».
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly)
+
+Since no 5 advisors can open all the locks, they do not have a key to some lock, but all the other advisers have such key. This means that exactly 10−5 = 5 advisors must have keys to each lock, then the number of locks cannot be less than 𝐶105 = 252. It remains to distribute 5 keys to each lock to the corresponding five advisors, and by that the king will achieve what he wants. If the king distributes the keys to each lock to no more than 4 advisors, then the task’s requirements will not be fulfilled, because there will be 6 advisors who will not be able to open a certain lock. If the king distributes the keys to each lock to more than 5 advisors, then the requirement «no 5 advisors will be able to open the chest» will not be fulfilled.
+
+Task 4.
+
+**1.** Решите уравнение (4sin𝑥 + 3cos𝑥)(2.5cos2𝑥 + 8sin𝑥 + 20.5) = 131 и запишите в ответ сумму тангенсов тех корней этого уравнения, которые принадлежат от-резку [0;2𝜋], представив ее в виде целого числа или десятичной дроби, при необходимости округленной до сотых. Если эта сумма бесконечна, запишите в ответ число −1.
+
+Solve the equation
+
+(4sin𝑥 + 3cos𝑥)(2.5cos2𝑥 + 8sin𝑥 + 20.5) = 131 and write down the sum of the tangents of those roots of the equation that belong to the segment [0;2𝜋], representing it as an integer or a decimal fraction, rounded to hundredths if necessary. If the sum is infinite, write down the number −1 as your answer.
+
+Answer: 1.33
+
+**2.** Решите уравнение (3sin𝑥 + 4cos𝑥)(2.5cos2𝑥 + 6sin𝑥 + 16.5) = 104 и запишите в ответ сумму тангенсов тех корней этого уравнения, которые принадлежат от-резку [0;2𝜋], представив ее в виде целого числа или десятичной дроби, при необходимости округленной до сотых. Если эта сумма бесконечна, запишите в ответ число −1.
+
+Solve the equation
+
+(3sin𝑥 + 4cos𝑥)(2.5cos2𝑥 + 6sin𝑥 + 16.5) = 104 and write down the sum of the tangents of those roots of the equation that belong to the segment [0;2𝜋], representing it as an integer or a decimal fraction, rounded to hundredths if necessary. If the sum is infinite, write down the number −1 as your answer.
+
+Answer: 0.75
+
+**3.** Решите уравнение (4sin𝑥 + 3cos𝑥)(2.5cos2𝑥 + 8sin𝑥 + 23.5) = 146 и запишите в ответ сумму тангенсов тех корней этого уравнения, которые принадлежат от-резку [0;2𝜋], представив ее в виде целого числа или десятичной дроби, при необходимости округленной до сотых. Если эта сумма бесконечна, запишите в ответ число −1.
+
+Solve the equation
+
+(4sin𝑥 + 3cos𝑥)(2.5cos2𝑥 + 8sin𝑥 + 23.5) = 146 and write down the sum of the tangents of those roots of the equation that belong to the segment [0;2𝜋], representing it as an integer or a decimal fraction, rounded to hundredths if necessary. If the sum is infinite, write down the number −1 as your answer.
+
+Answer: 1.33
+
+**4.** Решите уравнение (3sin𝑥 + 4cos𝑥)(2.5cos2𝑥 + 6sin𝑥 + 21.5) = 129 и запишите в ответ сумму тангенсов тех корней этого уравнения, которые принадлежат от-резку [0;2𝜋], представив ее в виде целого числа или десятичной дроби, при необходимости округленной до сотых. Если эта сумма бесконечна, запишите в ответ число −1.
+
+Solve the equation
+
+(3sin𝑥 + 4cos𝑥)(2.5cos2𝑥 + 6sin𝑥 + 21.5) = 129 and write down the sum of the tangents of those roots of the equation that belong to the segment [0;2𝜋], representing it as an integer or a decimal fraction, rounded to hundredths if necessary. If the sum is infinite, write down the number −1 as your answer.
+
+Answer: 0.75 Решение (RUS). (представлено решение варианта №1, остальные решаются аналогично) Преобразуем уравнение к виду 5(54 sin𝑥 + 53 cos𝑥)(−5sin2 𝑥 + 8sin𝑥 + 23) = 131 и заметим, что
+
+5 sin𝑥+35 cos𝑥 = cos(𝑥−arccos 35) 1. Для последнего множителя левой части равенства обозначим 𝑓(𝑡) = −5𝑡2 + 8𝑡 + 23 (здесь 𝑡 = sin𝑥 ∈ [−1;1]), тогда 𝑓(𝑡) положительна и принимает наибольшее значение 𝑓(2·(−−85)) = 1315 для sin𝑥 = 45.
+
+Итак, левая часть равенства не превосходит 5·1·1315 = 131 и принимает это значение только при 𝑥 = arccos 35 + 2𝜋𝑛 (𝑛 ∈ Z) (на отрезке [0;2𝜋] есть только одна такая точка). Тогда tg 𝑥 = 43 ≈ 1.33.
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly)
+
+We transform the equation to the form 5(45 sin𝑥 + 35 cos𝑥)(−5sin2 𝑥 + 8sin𝑥 + 23) = 131 and note that 54 sin𝑥 + 53 cos𝑥 = cos(𝑥 − arccos 35) 1. For the last factor on the left side of the equality, we denote 𝑓(𝑡) = −5𝑡2 + 8𝑡 + 23 (here 𝑡 = sin𝑥 ∈ [−1;1]), then 𝑓(𝑡) is positive and takes the largest value 𝑓(2·(−−85)) = 1315 when sin𝑥 = 54.
+
+So, the left side of the equality does not exceed 5 · 1 · 1315 = 131 and takes this value only for 𝑥 = arccos 35 + 2𝜋𝑛 (𝑛 ∈ Z) (there is only one such point on the segment [0;2𝜋]). Then tg 𝑥 = 43 ≈ 1.33.
+
+Task 5. На отрезке [0,100] несколько попарно непересекающихся интервалов вида (𝑎,𝑏) покрашены в красный цвет так, что нет пары красных точек, расстояние между которыми равно 1. Найдите наибольшую возможную суммарную длину покрашенных интервалов. Обоснуйте свой ответ.
+
+On the segment [0,100] several pairwise non-intersecting intervals of the form (𝑎,𝑏) are colored red in such way that there is no pair of red points with distance 1 from each other. Find the greatest possible total length of the colored intervals. Explain your answer.
+
+Answer: 50
+
+Решение (RUS). Рассмотрим множество отрезков вида 𝑆𝑘 = [𝑘;𝑘+1] для 𝑘 = 0,1,2,...,99 и обозначим за 𝐴𝑘 множество красных точек, приналежащих 𝑆𝑘. Заметим, что параллельный перенос каждого 𝐴2𝑡 на 1 «вправо» не даст совпадений перенесенного множества со множеством 𝐴2𝑡+1, иначе нашлись бы две красные точки на расстоянии 1 друг от друга – а значит, суммарная длина интервалов, составляющих множества 𝐴2𝑡 и 𝐴2𝑡+1 (для любого 𝑡 ∈ {0,1,2,...,49}), не превосходит
+
+**1.** Из этого следует, что суммарная длина покрашенных интервалов не превосходит 50. Приведем пример покрашенных интервалов, удовлетворяющих условию задачи, сумма длин которых равна 50: пусть 𝐴2𝑡 = (2𝑡,2𝑡 + 0.5), 𝐴2𝑡+1 = (2𝑡 + 1.5,2𝑡 + 2) для всех 𝑡 ∈ {0,1,2,...,49}. Критерии оценивания:
+
+❼ Либо:
+
++ замечено, что на одну красную точку приходится одна некрасная: +2 первичных балла;
+
++ приведено разбиение точек на пары: +2 первичных балла;
+
+❼ Либо:
+
++ показано, что длина красного интервала не превосходит 1: +2 первичных балла;
+
++ показано, что расстояние между красными интервалами не может быть меньше 1, и приведена верная оценка: +2 первичных балла;
+
+❼ дан верный пример: +1 первичный балл;
+
+❼ приведена идея «если красных точек на отрезке длины 2 больше половины, тогда найдутся такие красные точки 𝑎,𝑏, что 𝑎 − 𝑏 = 1», но нет достаточного обоснования: -1 первичный балл;
+
+❼ допущена ошибка со включением/невключением точки в интервал: -1 первичный балл; ❼ не приведена явная оценка суммарной длины красных интервалов: -1 первичный балл.
+
+Solution (ENG). Consider the set of segments of the form 𝑆𝑘 = [𝑘;𝑘 + 1] for 𝑘 = 0,1,2,...,99 and denote by 𝐴𝑘 the set of red points lying in 𝑆𝑘. Note that the parallel translation of each 𝐴2𝑡 by 1 «to the right» will not give coincidences of the translated set with the set 𝐴2𝑡+1, otherwise there would be two red points at a distance of 1 from each other – therefore the total length of the intervals that make up the sets 𝐴2𝑡 and 𝐴2𝑡+1 (for any 𝑡 ∈ {0,1,2,...,49}) does not exceed 1. By that, the total length of the colored intervals does not exceed 50.
+
+Lets give an example of colored intervals satisfying the task’s conditions, the sum of whose lengths is equal to 50: let 𝐴2𝑡 = (2𝑡,2𝑡 + 0.5), 𝐴2𝑡+1 = (2𝑡 + 1.5,2𝑡 + 2) for all 𝑡 ∈ {0,1,2,...,49}.
+
+Criteria:
+
+❼ Either
+
++ it is noted that there is one non-red point for every red point: +2 pre-points;
+
++ the points are divided into pairs: +2 pre-points;
+
+❼ Or
+
++ it is shown that the length of a red interval does not exceed 1: +2 pre-points;
+
++ it is shown that the distance between any red intervals cannot be less than 1: +2 pre-points;
+
+❼ correct example is given: +1 pre-point;
+
+❼ the idea «if there are more than half of the red points on a segment of length 2, then there are red points 𝑎,𝑏 such that 𝑎 − 𝑏 = 1» is given, but there is no proper proof: -1 pre-point; ❼ an error was made with the inclusion/non-inclusion of a point in an interval: -1 pre-point;
+
+❼ an explicit estimate of the total length of the red intervals is not given: -1 pre-point.
+
+Task 6. Правильный шестиугольник 𝐴𝐵𝐶𝐷𝐸𝐹 (вершины названы последовательно в алфавитном порядке) расположен так, что расстояния от точек 𝐴,𝐵,𝐶 до прямой 𝑙, расположенной в одной плоскости с ними, равны 4,1,3 соответственно. Найдите расстояние от точки 𝐷 до прямой 𝑙. Обоснуйте свой ответ.
+
+The regular hexagon 𝐴𝐵𝐶𝐷𝐸𝐹 (the vertices are named sequentially in alphabetical order) is located in such way that the distances from the points 𝐴,𝐵,𝐶 to the line 𝑙 (which lies in the same plane as the points do) are 4,1,3 respectively. Find the distance from the point 𝐷 to the line 𝑙. Explain your answer.
+
+Answer: 0,4,8,12
+
+Решение (RUS). Существуют 4 принципиально разных взаимных расположения точек 𝐴,𝐵,𝐶,𝐷 и прямой 𝑙:
+
+Рассмотрим первое из них (остальные рассматриваются аналогично) и введем обозначения, как показано на рисунке:
+
+Отметим, что 𝐴𝐷 ‖ 𝐵𝐶, 𝐴𝐷 = 2·𝐵𝐶, отсюда △𝐵𝐶𝐾 ∼ △𝐴𝐷𝐿 и 𝐷𝐿 = 2·𝐶𝐾 = 2(𝐶𝐶1−𝐵𝐵1) = 4, откуда 𝐷𝐷1 = 𝐷𝐿 + 𝐿𝐷1 = 𝐷𝐿 + 𝐴𝐴1 = 8.
+
+Критерии оценивания:
+
+❼ в доказательстве есть значительные «пробелы», нет достаточного обоснования – 0 первичных баллов;
+
+❼ доказательство почти верно, но рассмотрены не все случаи взаимного расположения шести-угольника и прямой 𝑙 и допущена незначительная ошибка в рассуждениях или вычислениях
+
+- – 2 первичных балла;
+
+❼ доказательство верно, но рассмотрены не все случаи взаимного расположения шестиугольника и прямой 𝑙 – 4 первичных балла;
+
+❼ полностью верное и обоснованное решение – 5 первичных баллов.
+
+Solution (ENG). There are 4 fundamentally different mutual arrangements of points 𝐴,𝐵,𝐶,𝐷 and line 𝑙:
+
+Lets consider the first of them (the rest are considered similarly) and introduce the notations as shown in the picture:
+
+Note that 𝐴𝐷 ‖ 𝐵𝐶, 𝐴𝐷 = 2 · 𝐵𝐶, thus △𝐵𝐶𝐾 ∼ △𝐴𝐷𝐿 and 𝐷𝐿 = 2 · 𝐶𝐾 = 2(𝐶𝐶1 − 𝐵𝐵1) = 4, and by that 𝐷𝐷1 = 𝐷𝐿 + 𝐿𝐷1 = 𝐷𝐿 + 𝐴𝐴1 = 8.
+
+Criteria:
+
+❼ the proof contains significant «gaps» and lacks explanation – 0 pre-points;
+
+❼ the proof is almost correct, but not all cases of mutual arrangement of the hexagon and line 𝑙 are considered and a minor error in reasoning or calculations is made – 2 pre-points;
+
+❼ the proof is correct, but not all cases of mutual arrangement of the hexagon and line 𝑙 are considered – 4 pre-points;
+
+❼ a completely correct and explained solution – 5 pre-points.
+
+11-12𝑡ℎ degree
+
+Task 1.
+
+**1.** Найдите центр симметрии кубической параболы 𝑦 = 𝑎𝑥3 + 𝑏𝑥2 − 81𝑥 + 3, сумма и произведение корней которой равны соответственно 9 и −3. В ответ запишите сумму координат найденного центра симметрии, при необходимости округлив ее до сотых.
+
+Find the center of symmetry of the cubic parabola 𝑦 = 𝑎𝑥3 + 𝑏𝑥2 − 81𝑥 + 3, the sum and product of whose roots are 9 and −3, respectively. Write down the sum of the coordinates of the found center of symmetry as your answer, rounding it to hundredths if necessary.
+
+Answer: −291
+
+**2.** Найдите центр симметрии кубической параболы 𝑦 = 𝑎𝑥3 + 𝑏𝑥2 + 24𝑥 − 19, сумма и произведение корней которой равны соответственно 9 и 19. В ответ запишите сумму координат найденного центра симметрии, при необходимости округлив ее до сотых.
+
+Find the center of symmetry of the cubic parabola 𝑦 = 𝑎𝑥3 +𝑏𝑥2 +24𝑥−19, the sum and product of whose roots are 9 and 19, respectively. Write down the sum of the coordinates of the found center of symmetry as your answer, rounding it to hundredths if necessary.
+
+Answer: 2
+
+**3.** Найдите центр симметрии кубической параболы 𝑦 = 𝑎𝑥3 + 𝑏𝑥2 + 45𝑥 − 51, сумма и произведение корней которой равны соответственно 12 и 51. В ответ запишите сумму координат найденного центра симметрии, при необходимости округлив ее до сотых.
+
+Find the center of symmetry of the cubic parabola 𝑦 = 𝑎𝑥3 +𝑏𝑥2 +45𝑥−51, the sum and product of whose roots are 12 and 51, respectively. Write down the sum of the coordinates of the found center of symmetry as your answer, rounding it to hundredths if necessary.
+
+Answer: 5
+
+**4.** Найдите центр симметрии кубической параболы 𝑦 = 𝑎𝑥3 + 𝑏𝑥2 − 45𝑥 + 12, сумма и произведение корней которой равны соответственно −3 и −12. В ответ запишите сумму координат найденного центра симметрии, при необходимости округлив ее до сотых.
+
+Find the center of symmetry of the cubic parabola 𝑦 = 𝑎𝑥3 +𝑏𝑥2 −45𝑥+12, the sum and product of whose roots are −3 and −12, respectively. Write down the sum of the coordinates of the found center of symmetry as your answer, rounding it to hundredths if necessary.
+
+Answer: 58
+
+Решение (RUS). (представлено решение варианта №1, остальные решаются аналогично) Используя теорему Виета для кубического четырехчлена вида 𝑎𝑥3+𝑏𝑥2+𝑐𝑥+𝑑, получим −𝑏/𝑎 = 9, −𝑑/𝑎 = −3, откуда 𝑎 = 1, 𝑏 = −9.
+
+Обозначим 𝑓(𝑥) = 𝑥3−9𝑥2−81𝑥+3, тогда 𝑓′(𝑥) = 3𝑥2−18𝑥−81, и 𝑓′(𝑥) = 0 означает 𝑥 = 9 или 𝑥 = −3 – точки экстремума 𝑓(𝑥). Кубическая парабола симметрична относительно середины отрезка с концами в точках экстремума, поэтому абсцисса центра симметрии равна 𝑥𝑐 = 9+(2−3) = 3, тогда ее ордината равна 𝑦𝑐 = 𝑓(𝑥𝑐) = −294, что дает 𝑥𝑐 + 𝑦𝑐 = −291.
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly) Using Vieta’s theorem for a cubic quadrupole of the form 𝑎𝑥3 + 𝑏𝑥2 + 𝑐𝑥 + 𝑑, we obtain −𝑏/𝑎 = 9, −𝑑/𝑎 = −3, whence 𝑎 = 1, 𝑏 = −9.
+
+Let 𝑓(𝑥) = 𝑥3 − 9𝑥2 − 81𝑥 + 3, then 𝑓′(𝑥) = 3𝑥2 − 18𝑥 − 81, and 𝑓′(𝑥) = 0 means 𝑥 = 9 or 𝑥 = −3 – the extremum points of 𝑓(𝑥). The cubic parabola is symmetric about the midpoint of the segment with the endpoints at the extremum points, therefore the abscissa of the center of symmetry is 𝑥𝑐 = 9+(2−3) = 3, then its ordinate is 𝑦𝑐 = 𝑓(𝑥𝑐) = −294, which gives 𝑥𝑐 + 𝑦𝑐 = −291.
+
+Task 2.
+
+**1.** Дано уравнение 𝑎𝑥 + 97𝑦 = 𝑐. Найдите наименьшее целое положительное 𝑎, при котором существует целое 𝑐 2025, для которого данное уравнение не имеет решений в целых неотрицательных 𝑥,𝑦. Given an equation 𝑎𝑥 + 97𝑦 = 𝑐. Find the smallest positive integer 𝑎 such that there exists an integer 𝑐 2025 for which the given equation has no solutions in non-negative integers 𝑥,𝑦. Answer: 22
+
+**2.** Дано уравнение 𝑎𝑥 + 83𝑦 = 𝑐. Найдите наименьшее целое положительное 𝑎, при котором существует целое 𝑐 2025, для которого данное уравнение не имеет решений в целых неотрицательных 𝑥,𝑦. Given an equation 𝑎𝑥 + 83𝑦 = 𝑐. Find the smallest positive integer 𝑎 such that there exists an integer 𝑐 2025 for which the given equation has no solutions in non-negative integers 𝑥,𝑦. Answer: 26
+
+**3.** Дано уравнение 𝑎𝑥 + 137𝑦 = 𝑐. Найдите наименьшее целое положительное 𝑎, при котором существует целое 𝑐 2025, для которого данное уравнение не имеет решений в целых неотрицательных 𝑥,𝑦. Given an equation 𝑎𝑥 + 137𝑦 = 𝑐. Find the smallest positive integer 𝑎 such that there exists an integer 𝑐 2025 for which the given equation has no solutions in non-negative integers 𝑥,𝑦. Answer: 16
+
+**4.** Дано уравнение 𝑎𝑥 + 79𝑦 = 𝑐. Найдите наименьшее целое положительное 𝑎, при котором существует целое 𝑐 2025, для которого данное уравнение не имеет решений в целых неотрицательных 𝑥,𝑦.
+
+Given an equation 𝑎𝑥 + 79𝑦 = 𝑐. Find the smallest positive integer 𝑎 such that there exists an integer 𝑐 2025 for which the given equation has no solutions in non-negative integers 𝑥,𝑦.
+
+Answer: 27
+
+Решение (RUS). (представлено решение варианта №1, остальные решаются аналогично)
+
+Докажем теорему Сильвестра: уравнение 𝑎𝑥+𝑏𝑦 = 𝑐 для положительных целых взаимно простых 𝑎,𝑏 имеет решение в целых неотрицательных 𝑥,𝑦 для любого целого 𝑐 > 𝑎𝑏 − 𝑎 − 𝑏, но не имеет при 𝑐 = 𝑎𝑏 − 𝑎 − 𝑏.
+
+Действительно, уравнение 𝑎𝑥 + 𝑏𝑦 = 𝑎𝑏 − 𝑎 − 𝑏 имеет решение (𝑏 − 1,−1), поэтому все его решения имеют вид (𝑏 − 1 + 𝑘𝑏,−1 − 𝑘𝑎) для целых 𝑘, однако при 𝑘 0 имеем 𝑦 = −1 − 𝑘𝑎 < 0, а при 𝑘 < 0 имеем 𝑥 = 𝑏 − 1 + 𝑘𝑏 < 0, т.е. решений в целых неотрицательных 𝑥,𝑦 уравнение не имеет. При 𝑐 > 𝑎𝑏 − 𝑎 − 𝑏 существует решение (𝑥0,𝑦0), для которого целое 𝑥0 ∈ [0,𝑏 − 1], при этом 𝑏𝑦0 = 𝑐 − 𝑎𝑥0 𝑐 − 𝑎(𝑏 − 1) > −𝑏. Отсюда 𝑦0 > −1, т.е. 𝑦0 0 – найдено решение уравнения в неотрицательных целых числах. Доказательство завершено.
+
+Итак, для исходного уравнения требуется 97𝑎 − 𝑎 − 97 2025, отсюда целое 𝑎 22. 𝑎 = 22 подходит: теорема Сильвестра к нему применима, поскольку 22 взаимно просто с 97.
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly)
+
+Lets prove the theorem: the equation 𝑎𝑥 + 𝑏𝑦 = 𝑐 for positive integers with mutual co-prime 𝑎,𝑏 has a solution in non-negative integers 𝑥,𝑦 for any integer 𝑐 > 𝑎𝑏 − 𝑎 − 𝑏, but does not have one for 𝑐 = 𝑎𝑏 − 𝑎 − 𝑏.
+
+Indeed, the equation 𝑎𝑥+𝑏𝑦 = 𝑎𝑏−𝑎−𝑏 has a solution (𝑏−1,−1), therefore all its solutions have the form (𝑏 − 1 + 𝑘𝑏,−1 − 𝑘𝑎) for integers 𝑘, however for 𝑘 0 we have 𝑦 = −1 − 𝑘𝑎 < 0, and for 𝑘 < 0 we have 𝑥 = 𝑏−1+𝑘𝑏 < 0, i.e. the equation has no solutions in non-negative integers 𝑥,𝑦. For 𝑐 > 𝑎𝑏−𝑎−𝑏 there is a solution (𝑥0,𝑦0) for which the integer 𝑥0 ∈ [0,𝑏 − 1], while 𝑏𝑦0 = 𝑐 − 𝑎𝑥0 𝑐 − 𝑎(𝑏 − 1) > −𝑏. Thus 𝑦0 > −1, i.e. 𝑦0 0 – the solution of the equation in non-negative integers has been found. The proof is complete.
+
+By that, for the original equation 97𝑎 − 𝑎 − 97 2025 is required, thus the integer 𝑎 22. 𝑎 = 22 suits us since it is co-prime with 97, and by that the theorem can be applied.
+
+Task 3.
+
+**1.** Царь вешает на сундук с государственной казной 𝑛 замк´oв и раздает ключи своим 10 советникам так, чтобы никакие 5 из них не могли открыть сундук, но любые 6 – могли (у царя есть множество ключей от каждого замк´a, и советник может получить ключи от нескольких замк´oв). Найдите наименьшее 𝑛, при котором царь сможет добиться желаемого. The king hangs 𝑛 locks on the chest with the state treasury and distributes the keys to his 10 advisors so that no 5 of them can open the chest, but any 6 can (the king has many keys to each lock, and an advisor can receive keys to several locks). Find the smallest 𝑛 at which the king can achieve the goal. Answer: 252
+
+**2.** Царь вешает на сундук с государственной казной 𝑛 замк´oв и раздает ключи своим 11 советникам так, чтобы никакие 5 из них не могли открыть сундук, но любые 6 – могли (у царя есть множество ключей от каждого замк´a, и советник может получить ключи от нескольких замк´oв). Найдите наименьшее 𝑛, при котором царь сможет добиться желаемого.
+
+The king hangs 𝑛 locks on the chest with the state treasury and distributes the keys to his 11 advisors so that no 5 of them can open the chest, but any 6 can (the king has many keys to each lock, and an advisor can receive keys to several locks). Find the smallest 𝑛 at which the king can achieve the goal.
+
+Answer: 462
+
+**3.** Царь вешает на сундук с государственной казной 𝑛 замк´oв и раздает ключи своим 10 советникам так, чтобы никакие 4 из них не могли открыть сундук, но любые 5 – могли (у царя есть множество ключей от каждого замк´a, и советник может получить ключи от нескольких замк´oв). Найдите наименьшее 𝑛, при котором царь сможет добиться желаемого. The king hangs 𝑛 locks on the chest with the state treasury and distributes the keys to his 10 advisors so that no 4 of them can open the chest, but any 5 can (the king has many keys to each lock, and an advisor can receive keys to several locks). Find the smallest 𝑛 at which the king can achieve the goal. Answer: 210
+
+**4.** Царь вешает на сундук с государственной казной 𝑛 замк´oв и раздает ключи своим 11 советникам так, чтобы никакие 7 из них не могли открыть сундук, но любые 8 – могли (у царя есть множество ключей от каждого замк´a, и советник может получить ключи от нескольких замк´oв). Найдите наименьшее 𝑛, при котором царь сможет добиться желаемого.
+
+The king hangs 𝑛 locks on the chest with the state treasury and distributes the keys to his 11 advisors so that no 7 of them can open the chest, but any 8 can (the king has many keys to each lock, and an advisor can receive keys to several locks). Find the smallest 𝑛 at which the king can achieve the goal.
+
+Answer: 330 Решение (RUS). (представлено решение варианта №1, остальные решаются аналогично)
+
+Поскольку никакие 5 советников не могут открыть всех замкo´в, у них нет ключа от некоторого замк´a, но этот ключ есть у всех остальных советников. Значит, ключи от каждого замк´a должны быть ровно у 10 − 5 = 5 советников, тогда количество замкo´в не может быть меньше 𝐶105 = 252. Остается только раздать по 5 ключей от каждого замк´a соответствующей пятерке советников, в результате чего царь добьется желаемого. Если раздать ключи от каждого замк´a не более чем 4 советникам, то не выполнится условие задачи, т.к. найдутся 6 советников, которые не смогут открыть определенный замo´к. Если же раздать ключи от каждого замк´a более чем 5 советникам, то не выполнится условие «никакие 5 не смогут открыть сундук».
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly)
+
+Since no 5 advisors can open all the locks, they do not have a key to some lock, but all the other advisers have such key. This means that exactly 10−5 = 5 advisors must have keys to each lock, then the number of locks cannot be less than 𝐶105 = 252. It remains to distribute 5 keys to each lock to the corresponding five advisors, and by that the king will achieve what he wants. If the king distributes the keys to each lock to no more than 4 advisors, then the task’s requirements will not be fulfilled, because there will be 6 advisors who will not be able to open a certain lock. If the king distributes the keys to each lock to more than 5 advisors, then the requirement «no 5 advisors will be able to open the chest» will not be fulfilled.
+
+Task 4.
+
+**1.** Решите уравнение (4sin𝑥 + 3cos𝑥)(2.5cos2𝑥 + 8sin𝑥 + 20.5) = 131 и запишите в ответ сумму тангенсов тех корней этого уравнения, которые принадлежат от-резку [0;2𝜋], представив ее в виде целого числа или десятичной дроби, при необходимости округленной до сотых. Если эта сумма бесконечна, запишите в ответ число −1.
+
+Solve the equation
+
+(4sin𝑥 + 3cos𝑥)(2.5cos2𝑥 + 8sin𝑥 + 20.5) = 131 and write down the sum of the tangents of those roots of the equation that belong to the segment [0;2𝜋], representing it as an integer or a decimal fraction, rounded to hundredths if necessary. If the sum is infinite, write down the number −1 as your answer.
+
+Answer: 1.33
+
+**2.** Решите уравнение (3sin𝑥 + 4cos𝑥)(2.5cos2𝑥 + 6sin𝑥 + 16.5) = 104 и запишите в ответ сумму тангенсов тех корней этого уравнения, которые принадлежат от-резку [0;2𝜋], представив ее в виде целого числа или десятичной дроби, при необходимости округленной до сотых. Если эта сумма бесконечна, запишите в ответ число −1.
+
+Solve the equation
+
+(3sin𝑥 + 4cos𝑥)(2.5cos2𝑥 + 6sin𝑥 + 16.5) = 104 and write down the sum of the tangents of those roots of the equation that belong to the segment [0;2𝜋], representing it as an integer or a decimal fraction, rounded to hundredths if necessary. If the sum is infinite, write down the number −1 as your answer.
+
+Answer: 0.75
+
+**3.** Решите уравнение (4sin𝑥 + 3cos𝑥)(2.5cos2𝑥 + 8sin𝑥 + 23.5) = 146 и запишите в ответ сумму тангенсов тех корней этого уравнения, которые принадлежат от-резку [0;2𝜋], представив ее в виде целого числа или десятичной дроби, при необходимости округленной до сотых. Если эта сумма бесконечна, запишите в ответ число −1.
+
+Solve the equation
+
+(4sin𝑥 + 3cos𝑥)(2.5cos2𝑥 + 8sin𝑥 + 23.5) = 146 and write down the sum of the tangents of those roots of the equation that belong to the segment [0;2𝜋], representing it as an integer or a decimal fraction, rounded to hundredths if necessary. If the sum is infinite, write down the number −1 as your answer.
+
+Answer: 1.33
+
+**4.** Решите уравнение (3sin𝑥 + 4cos𝑥)(2.5cos2𝑥 + 6sin𝑥 + 21.5) = 129 и запишите в ответ сумму тангенсов тех корней этого уравнения, которые принадлежат от-резку [0;2𝜋], представив ее в виде целого числа или десятичной дроби, при необходимости округленной до сотых. Если эта сумма бесконечна, запишите в ответ число −1.
+
+Solve the equation
+
+(3sin𝑥 + 4cos𝑥)(2.5cos2𝑥 + 6sin𝑥 + 21.5) = 129 and write down the sum of the tangents of those roots of the equation that belong to the segment [0;2𝜋], representing it as an integer or a decimal fraction, rounded to hundredths if necessary. If the sum is infinite, write down the number −1 as your answer.
+
+Answer: 0.75 Решение (RUS). (представлено решение варианта №1, остальные решаются аналогично) Преобразуем уравнение к виду 5(54 sin𝑥 + 53 cos𝑥)(−5sin2 𝑥 + 8sin𝑥 + 23) = 131 и заметим, что
+
+5 sin𝑥+35 cos𝑥 = cos(𝑥−arccos 35) 1. Для последнего множителя левой части равенства обозначим 𝑓(𝑡) = −5𝑡2 + 8𝑡 + 23 (здесь 𝑡 = sin𝑥 ∈ [−1;1]), тогда 𝑓(𝑡) положительна и принимает наибольшее значение 𝑓(2·(−−85)) = 1315 для sin𝑥 = 45.
+
+Итак, левая часть равенства не превосходит 5·1·1315 = 131 и принимает это значение только при 𝑥 = arccos 35 + 2𝜋𝑛 (𝑛 ∈ Z) (на отрезке [0;2𝜋] есть только одна такая точка). Тогда tg 𝑥 = 43 ≈ 1.33.
+
+Solution (ENG). (given a solution to version 1 of the task since others are solved similarly)
+
+We transform the equation to the form 5(45 sin𝑥 + 35 cos𝑥)(−5sin2 𝑥 + 8sin𝑥 + 23) = 131 and note that 54 sin𝑥 + 53 cos𝑥 = cos(𝑥 − arccos 35) 1. For the last factor on the left side of the equality, we denote 𝑓(𝑡) = −5𝑡2 + 8𝑡 + 23 (here 𝑡 = sin𝑥 ∈ [−1;1]), then 𝑓(𝑡) is positive and takes the largest value 𝑓(2·(−−85)) = 1315 when sin𝑥 = 54.
+
+So, the left side of the equality does not exceed 5 · 1 · 1315 = 131 and takes this value only for 𝑥 = arccos 35 + 2𝜋𝑛 (𝑛 ∈ Z) (there is only one such point on the segment [0;2𝜋]). Then tg 𝑥 = 43 ≈ 1.33.
+
+Task 5. Числа 1,2,3,...,2024 записали в некотором порядке, получив последовательность 𝑎1,𝑎2,𝑎3,...,𝑎2024. Найдите наибольшее возможное значение выражения
+
+|𝑎1 − 𝑎2| + |𝑎2 − 𝑎3| + |𝑎3 − 𝑎4| + ··· + |𝑎2023 − 𝑎2024| Обоснуйте свой ответ.
+
+The numbers 1,2,3,...,2024 being written in some order form a sequence 𝑎1,𝑎2,𝑎3,...,𝑎2024. Find the greatest possible value of the expression
+
+|𝑎1 − 𝑎2| + |𝑎2 − 𝑎3| + |𝑎3 − 𝑎4| + ··· + |𝑎2023 − 𝑎2024| Explain your answer.
+
+Answer: 2048287
+
+Решение (RUS). Отметим на числовой прямой точки 1,2,3,...,2024. Каждому расположению чисел в полученной последовательности можно поставить в соответствие замкнутую ломаную с вершинами в указанных точках, и наоборот, каждой такой ломаной соответствует последовательность. Указанное в условии задачи выражение – это длина такой ломаной, т.е. сумма длин отрезков между соседними точками с учётом кратности покрытия звеньями.
+
+Отрезок [𝑎,𝑎+1] может покрываться только звеньями, один конец каждого из которых лежит в множестве {1,...,𝑎}, а другой – в множестве {𝑎 + 1,...,2024}, причём каждой точке любого из этих множеств отвечает не более двух звеньев, а значит, покрывать отрезок [𝑎,𝑎 + 1] может не более 2 · min{𝑎,2024 − 𝑎} звеньев.
+
+Итак, отрезок [1,2] покрыт не более чем двумя звеньями (как и отрезок [2023,2024]), отрезок [2,3] – четырьмя (как и [2022,2023]), и т.д. Поскольку ломаная не замкнута, хотя бы один из отрезков [𝑎,𝑎 + 1] будет покрыт нечетным числом звеньев. Тогда длина ломаной не превосходит
+
+2 · (1 + 2 + 3 + ··· + 1011 + 1012 + 1011 + ··· + 3 + 2 + 1) − 1 = 2048287 Приведем пример ломаной, на которой достигается описанный максимум:
+
+1012,2024,1,2023,2,2022,3,...,1013
+
+Критерии оценивания:
+
+❼ дан верный ответ и указано, что нужный пример достигается, когда разности между соседними членами последовательности близки к максимально возможным, но сам пример явно не приведен – 1 первичный балл;
+
+❼ дан верный ответ и приведен верный пример, но доказательство неверно – 2 первичных балла;
+
+❼ дана верная оценка длины ломаной, но нет верного примера – 3 первичных балла;
+
+❼ приведено корректное доказательство оценки, но допущена вычислительная ошибка – 4 первичных балла;
+
+❼ полностью верное и обоснованное решение и верный ответ – 5 первичных баллов.
+
+Solution (ENG). Lets mark the points 1,2,3,...,2024 on an axis. Each arrangement of numbers in the resulting sequence can be assigned a polygonal chain with vertices at the points mentioned, and vice versa, i.e. each such polygonal chain corresponds to some sequence. The expression specified in the task’s formulation is the length of such chain, i.e. the sum of lengths of the segments between the points, taking into account the multiplicity of the link coverage.
+
+The segment [𝑎,𝑎 + 1] can be covered only by those links with one end lying in the set {1,...,𝑎} and the other end in the set {𝑎 + 1,...,2024}, and each point of any of these sets corresponds to no more than two links, which means that the segment [𝑎,𝑎 + 1] can be covered by no more than
+
+2 · min{𝑎,2024 − 𝑎} links. Thus, the segment [1,2] is covered by no more than two links (as is the segment [2023,2024]), the segment [2,3] is covered by no more than four links (as is [2022,2023]), etc. Since the chain is not closed, at least one of the segments [𝑎,𝑎+1] will be covered by an odd number of links. Then the length of the broken line does not exceed
+
+2 · (1 + 2 + 3 + ··· + 1011 + 1012 + 1011 + ··· + 3 + 2 + 1) − 1 = 2048287
+
+Lets give an example of a polygonal chain which the described maximum is reached on:
+
+1012,2024,1,2023,2,2022,3,...,1013
+
+Criteria:
+
+❼ the correct answer is given and it is mentioned that the required example is achieved when the differences between adjacent members of the sequence are close to the maximum possible, but the example itself is not explicitly given – 1 pre-point;
+
+❼ the correct answer and correct example are given, but the proof is incorrect – 2 pre-points;
+
+❼ the correct estimate of the length of the polyline is given, but there is no correct example – 3 pre-points;
+
+❼ a correct proof of the estimate is given, but a computational error was made – 4 pre-points; ❼ a completely correct and explained solution and the correct answer are given – 5 pre-points.
+
+Task 6. Дан куб с ребром 1, центр которого совпадает с вершиной 𝑂 правильной треугольной пирамиды, боковые ребра которой равны 2, и все плоские углы при вершине 𝑂 – прямые. Может ли быть так, что все вершины куба лежат вне пирамиды? Обоснуйте свой ответ.
+
+Given a cube with edge 1, the center of which coincides with the vertex 𝑂 of a regular triangular pyramid, the lateral edges of which are equal to 2, and all the plane angles at the vertex 𝑂 are equal to 90∘. Is it possible for all the vertices of the cube to lie outside the pyramid? Explain your answer.
+
+Answer: Да, такое возможно / Yes, it is possible
+
+Решение (RUS). Отметим, что основание пирамиды расположено вне куба, поскольку полудиагональ куба равна
+
+2 < 1, что меньше высоты пирамиды, имеющей длину √︁22 − 23 > 1. Заметим, что можно одновременно разместить 8 непересекающихся пирамид, удовлетворяющих условиям задачи, просто «продлив» плоскости боковых граней одной пирамиды за ее боковые ребра, а затем достроив основания оставшихся 7 пирамид. Значит, если мы сможем повернуть описанную конструкцию вокргу точки 𝑂 так, чтобы внутри одной из пирамид оказались две вершины куба, то среди остальных 7 пирамид найдется та, которая не содержит ни одной из остальных 6 вершин куба.
+
+√3
+
+Опишем, как построить пирамиду, внутри которой окажутся две вершины куба: для этого повернем ее вокруг точки 𝑂 так, чтобы две фиксированные смежные вершины 𝐴,𝐵 куба оказались в боковой грани пирамиды – это возможно, поскольку ∠𝐴𝑂𝐵 < 90∘. Осталось немного «пошевелить» пирамиду так, чтобы обе точки 𝐴,𝐵 оказались внутри нее.
+
+Критерии оценивания:
+
+❼ приведены графические примеры без аналитических обоснований их корректности – 0 первичных баллов;
+
+❼ доказано, что основание пирамиды лежит вне куба – 2 первичных балла;
+
+❼ присутствует плодотворная идея с принципом Дирихле, но со значительным недочетом – 2 первичных балла;
+
+❼ показано, что если основание пирамиды параллельно грани куба, то вершины этой грани и точки основания пирамиды лежат на одной окружности при проецировании точек – 2 первичных балла;
+
+❼ присутствует плодотворная идея с принципом Дирихле, но не доказано, что основание пирамиды лежит вне куба, либо другие недочеты – 3 первичных балла;
+
+❼ решение почти верное, но есть небольшие недочеты, такие как отсутствие примера погружения двух вершин куба внутрь пирамиды – 4 первичных балла;
+
+❼ полностью верное и обоснованное решение – 5 первичных баллов.
+
+Solution (ENG). Note that the base of the pyramid is located outside the cube, since the half-diagonal of the cube is
+
+√3
+
+2 < 1, which is less than the height of the pyramid, which has a length of
+
+√︁22 − 23 > 1. Note that it is possible to simultaneously place 8 non-intersecting pyramids that satisfy the conditions of the task by simply «extending» the planes of the lateral faces of one pyramid beyond its lateral edges, and then completing the bases of the remaining 7 pyramids. Therefore, if we can rotate the described construction around point 𝑂 in such way that two vertices of the cube are inside one of the pyramids, then among the remaining 7 pyramids there will be one that does not contain any of the remaining 6 vertices of the cube.
+
+Lets describe how to construct a pyramid that will contain two vertices of the cube: to do that, we rotate it around point 𝑂 so that two fixed adjacent vertices 𝐴,𝐵 of the cube will be in the lateral face of the pyramid – this is possible because ∠𝐴𝑂𝐵 < 90∘. All that remains is to «wiggle» the pyramid a little so that both the points 𝐴,𝐵 will be inside of it.
+
+Criteria:
+
+❼ graphical examples are given without proper proof – 0 pre-points;
+
+❼ it is proven that the base of the pyramid lies outside the cube – 2 pre-points;
+
+❼ there is a fruitful idea with Dirichlet’s principle, but with a significant mistake – 2 pre-points;
+
+❼ it is shown that if the base of the pyramid is parallel to a face of the cube, then the vertices of the face and the points of the base of the pyramid lie on the same circle when projecting the points
+
+- – 2 pre-points;
+
+❼ there is a fruitful idea with Dirichlet’s principle, but it is not proven that the base of the pyramid lies outside the cube, or other mistakes – 3 pre-points;
+
+❼ the solution is almost correct, but there are minor mistake(s) like there is no example of how to place two vertices of the cube inside the pyramid – 4 pre-points;
+
+❼ a completely correct and explained solution – 5 pre-points.
+
+# Citations
+
+1. [2nd tour iom24-25 tasks razbor](https://lk-dovuz.innopolis.university/public/files/2nd_tour_iom24-25_tasks_razbor.pdf), file a1c92b9315b7

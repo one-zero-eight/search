@@ -146,7 +146,7 @@ status: draft
 
 Артспейс
 
-[Регистрация](https://inno-stand-up-club.timepad.ru/event/4259119/)
+[Регистрация](/raw/sites/inno-stand-up-club-timepad-ru/event-4259119.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/city/_shared.md](/raw/sites/city/_shared.md)._
 

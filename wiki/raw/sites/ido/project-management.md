@@ -122,7 +122,7 @@ Waterfall, Agile, PMBOK
 
 Предиктивный подход, Адаптивное управление, Гибридный подход SMART
 
-[Скачать программу](https://innopolis.university/filespublic/programma_kursa_upravlenie_proektami.pdf)
+[Скачать программу](/raw/regulations/site-ido-5b590d05-programma-kursa-upravlenie-proektami.md)
 
 ![](https://static.tildacdn.com/tild6364-3939-4834-b865-666434383735/Frame_277133449.png)
 

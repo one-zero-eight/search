@@ -128,9 +128,9 @@ V.stepanova@innopolis.ru
 
 [{"lid":"1697614095244","ls":"10","loff":"","li_type":"em","li_name":"email","li_ph":"E-mail","li_req":"y","li_nm":"email"},{"lid":"1697614095245","ls":"20","loff":"","li_type":"nm","li_name":"name","li_ph":"\u0424\u0430\u043c\u0438\u043b\u0438\u044f \u0438 \u0438\u043c\u044f","li_req":"y","li_nm":"name"},{"lid":"1697614095246","ls":"30","loff":"","li_type":"ph","li_name":"phone","li_ph":"\u041a\u043e\u043d\u0442\u0430\u043a\u0442\u043d\u044b\u0439 \u0442\u0435\u043b\u0435\u0444\u043e\u043d","li_req":"y","li_mask":"+7 (999) 999-9999","li_nm":"phone"},{"lid":"1697614095247","ls":"40","loff":"","li_type":"hd","li_name":"category_id","li_value":"127","li_nm":"category_id"},{"lid":"1697614095248","ls":"50","loff":"","li_type":"hd","li_name":"ASSIGNED_BY_ID","li_value":"13349","li_nm":"ASSIGNED_BY_ID"}]
 
-[обработку персональных данных](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+[обработку персональных данных](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
-[Нажимая на кнопку, я соглашаюсь на](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+[Нажимая на кнопку, я соглашаюсь на](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/events/_shared.md](/raw/sites/events/_shared.md)._
 

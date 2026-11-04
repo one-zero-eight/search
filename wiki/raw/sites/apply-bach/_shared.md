@@ -85,7 +85,7 @@ status: draft
 
 © 2010–2025 АНО ВО Университет Иннополис
 
-[Пользовательское соглашение](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+[Пользовательское соглашение](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
 [Политика конфиденциальности](/raw/sites/apply/home.md)
 

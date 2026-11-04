@@ -1,0 +1,63 @@
+{
+ "members": [
+  {
+   "ext": "pdf",
+   "file": "0001.pdf",
+   "key": "site-university-f880c6c7-8-semestr-bsro-2026-23-10-2025-rpd-member-49d3cc234c61640721a4",
+   "member": "8 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.В.01_BS RO_2026_Элективные дисциплины_23.10.2025.pdf",
+   "sha256": "8285c4d78571ff0ceb863f4b3f50401dc4cada3c23267354a11012bc0ab75985",
+   "size": 762031,
+   "status": "ready",
+   "storage": "site-university-f880c6c7-8-semestr-bsro-2026-23-10-2025-rpd.members/49d3cc234c61640721a4/8285c4d78571ff0ceb863f4b3f50401dc4cada3c23267354a11012bc0ab75985"
+  },
+  {
+   "ext": "pdf",
+   "file": "0002.pdf",
+   "key": "site-university-f880c6c7-8-semestr-bsro-2026-23-10-2025-rpd-member-107d402f4394d383bea4",
+   "member": "8 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.25_BS RO_2026_Робототехника (8 с.)_23.10.2025.pdf",
+   "sha256": "1c347ae8b90b595e671c0ea73abb7784e15b2b8bdb02266277da989b475c06ee",
+   "size": 546291,
+   "status": "ready",
+   "storage": "site-university-f880c6c7-8-semestr-bsro-2026-23-10-2025-rpd.members/107d402f4394d383bea4/1c347ae8b90b595e671c0ea73abb7784e15b2b8bdb02266277da989b475c06ee"
+  },
+  {
+   "ext": "pdf",
+   "file": "0003.pdf",
+   "key": "site-university-f880c6c7-8-semestr-bsro-2026-23-10-2025-rpd-member-9ccc66ad97d73726cfd4",
+   "member": "8 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.26_BS RO_2026_Обработка цифровых сигналов (8 с.)_23.10.2025.pdf",
+   "sha256": "9339697d378bc72449743c811c6b7c25124cd082bb400f26ace778674f16e271",
+   "size": 819343,
+   "status": "ready",
+   "storage": "site-university-f880c6c7-8-semestr-bsro-2026-23-10-2025-rpd.members/9ccc66ad97d73726cfd4/9339697d378bc72449743c811c6b7c25124cd082bb400f26ace778674f16e271"
+  },
+  {
+   "ext": "pdf",
+   "file": "0004.pdf",
+   "key": "site-university-f880c6c7-8-semestr-bsro-2026-23-10-2025-rpd-member-94f245b048d3a041800f",
+   "member": "8 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.27_BS RO_2026_Датчики и считывание (8 с.)_23.10.2025.pdf",
+   "sha256": "d907c9482da20d11ce5ecd55a8fa67134ae2570f4676f8a2031bab29667836a4",
+   "size": 534955,
+   "status": "ready",
+   "storage": "site-university-f880c6c7-8-semestr-bsro-2026-23-10-2025-rpd.members/94f245b048d3a041800f/d907c9482da20d11ce5ecd55a8fa67134ae2570f4676f8a2031bab29667836a4"
+  },
+  {
+   "ext": "pdf",
+   "file": "0005.pdf",
+   "key": "site-university-f880c6c7-8-semestr-bsro-2026-23-10-2025-rpd-member-c3302a22a952a6a05cdc",
+   "member": "8 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.28_BS RO_2026_Введение в проектирование систем (8 с.)_23.10.2025.pdf",
+   "sha256": "fda50d2d8878240ea65e67d10e09fd5d889d9ca75de96ed62d1f7ebd2cfe4420",
+   "size": 500867,
+   "status": "ready",
+   "storage": "site-university-f880c6c7-8-semestr-bsro-2026-23-10-2025-rpd.members/c3302a22a952a6a05cdc/fda50d2d8878240ea65e67d10e09fd5d889d9ca75de96ed62d1f7ebd2cfe4420"
+  }
+ ],
+ "remote": {
+  "etag": "\"69721757-181b70\"",
+  "modified": "Thu, 22 Jan 2026 12:25:59 GMT",
+  "size": "1579888"
+ },
+ "sha256": "407c5758d5aa2ac5d8cf8c1ab26fa872cf756565b5173583a52fc3910b363ee7",
+ "source": "site-university-f880c6c7-8-semestr-bsro-2026-23-10-2025-rpd.archives/407c5758d5aa2ac5d8cf8c1ab26fa872cf756565b5173583a52fc3910b363ee7.archive",
+ "status": "ready",
+ "url": "https://innopolis.university/upload/iblock/e13/azpaxuvc1dr6h5v9uq7yay08rjxi5xfh/8%20%D1%81%D0%B5%D0%BC%D0%B5%D1%81%D1%82%D1%80%20BSRO%202026%2023.10.2025%20%28%D0%A0%D0%9F%D0%94%29.7z"
+}

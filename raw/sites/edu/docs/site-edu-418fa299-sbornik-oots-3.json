@@ -1,0 +1,16 @@
+{
+ "title": "Сборник ООЦ №3",
+ "url": "https://innopolis.university/filespublic/%D0%A1%D0%B1%D0%BE%D1%80%D0%BD%D0%B8%D0%BA_%D0%9E%D0%9E%D0%A6_%E2%84%963.pdf",
+ "sha256": "996efda7f5fe215cc7744f87aa03bf93576146b25f17e6fc96c26e73c076e1c9",
+ "method": "text layer (opendataloader)",
+ "chars": 265737,
+ "tables": 5,
+ "section": "site/edu",
+ "context": "",
+ "fetched_at": "2026-11-04T01:16:10+00:00",
+ "remote": {
+  "etag": "\"35712a-6187cc287702b\"",
+  "modified": "Wed, 15 May 2024 11:52:58 GMT",
+  "size": "3502378"
+ }
+}

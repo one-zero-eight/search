@@ -240,13 +240,13 @@ status: draft
 
 А в день выезда отвезут обратно по тем же точкам из Университета Иннополис в 10:00
 
-Группа D: cсылка на [pdf-файл](https://lk-dovuz.innopolis.university/public/files/summercamp_groupd_0507.pdf)
+Группа D: cсылка на [pdf-файл](/raw/regulations/site-dovuz-e41e084f-summercamp-groupd-0507.md)
 
-Группа C: cсылка на [pdf-файл](https://lk-dovuz.innopolis.university/public/files/summercamp_groupc_0507.pdf)
+Группа C: cсылка на [pdf-файл](/raw/regulations/site-dovuz-b9064b89-summercamp-groupc-0507.md)
 
-Группа B: cсылка на [pdf-файл](https://lk-dovuz.innopolis.university/public/files/summercamp_groupb_0507.pdf)
+Группа B: cсылка на [pdf-файл](/raw/regulations/site-dovuz-469f5010-summercamp-groupb-0507.md)
 
-Группа B+: cсылка на [pdf-файл](https://lk-dovuz.innopolis.university/public/files/summercamp_groupb+_0507.pdf)
+Группа B+: cсылка на [pdf-файл](/raw/regulations/site-dovuz-247c9784-summercamp-groupb-0507.md)
 
 [{"lid":"1531306243545","ls":"10","loff":"","li_parent_id":"","li_type":"ph","li_ph":"\u0412\u0430\u0448 \u0442\u0435\u043b\u0435\u0444\u043e\u043d","li_masktype":"a","li_maskcountry":"RU","li_req":"y","li_nm":"Phone"},{"lid":"1695034075224","ls":"20","loff":"","li_parent_id":"","li_type":"em","li_ph":"example@mail.ru","li_nm":"Email"},{"lid":"1531306540094","ls":"30","loff":"","li_parent_id":"","li_type":"nm","li_ph":"\u0424\u0418\u041e","li_name":"name","li_req":"y","li_nm":"name"},{"lid":"1691474280255","ls":"40","loff":"","li_parent_id":"","li_type":"ta","li_ph":"\u0412\u0430\u0448 \u0432\u043e\u043f\u0440\u043e\u0441","li_rows":"3","li_req":"y","li_nm":"Textarea"},{"lid":"1691474283713","ls":"50","loff":"y","li_parent_id":""},{"lid":"1777378039362","ls":"60","loff":"","li_parent_id":"","li_type":"hd","li_name":"category_id","li_value":"37","li_nm":"category_id"},{"lid":"1777378050694","ls":"70","loff":"","li_parent_id":"","li_type":"hd","li_name":"assigned_by_id","li_value":"6297","li_nm":"assigned_by_id"},{"lid":"1779707820866","ls":"80","loff":"","li_parent_id":"","li_type":"cb","li_label":"<span style=\"color: rgb(255, 255, 255);\">\u042f \u0441\u043e\u0433\u043b\u0430\u0448\u0430\u044e\u0441\u044c<\/span><strong style=\"color: rgb(255, 255, 255);\"><a href=\"https:\/\/innopolis.university\/filespublic\/Polozhenie_o_reklamnoj_rassylke.pdf\" style=\"color: rgb(255, 255, 255);\"> \u043f\u043e\u043b\u0443\u0447\u0430\u0442\u044c \u0440\u0435\u043a\u043b\u0430\u043c\u043d\u0443\u044e \u0440\u0430\u0441\u0441\u044b\u043b\u043a\u0443<\/a><\/strong>","li_name":"UF_CRM_1733815677","li_nm":"UF_CRM_1733815677"},{"lid":"1779707854651","ls":"90","loff":"","li_parent_id":"","li_type":"cb","li_label":"<span style=\"color: rgb(255, 255, 255);\">\u042f \u0441\u043e\u0433\u043b\u0430\u0448\u0430\u044e\u0441\u044c<\/span><strong style=\"color: rgb(255, 255, 255);\"><a href=\"https:\/\/innopolis.university\/files\/politicacookies.pdf\" style=\"color: rgb(255, 255, 255);\"> \u0441 \u041f\u043e\u043b\u0438\u0442\u0438\u043a\u043e\u0439 \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0438 \u043f\u0435\u0440\u0441\u043e\u043d\u0430\u043b\u044c\u043d\u044b\u0445 \u0434\u0430\u043d\u043d\u044b\u0445<\/a><\/strong>","li_req":"y","li_nm":"Checkbox"}]
 

@@ -1,0 +1,263 @@
+{
+ "members": [
+  {
+   "ext": "pdf",
+   "file": "0001.pdf",
+   "key": "site-university-3ea314e0-kmv-6-member-8e784c48a77f711aa0b2",
+   "member": "Сельское хозяйство/35.03.06 Агроинженерия КГАУ.pdf",
+   "sha256": "fab33a6546be30f84a4ad550c20cf9877997ce359fe9a36a029cc57606803d6b",
+   "size": 166046,
+   "status": "ready",
+   "storage": "site-university-3ea314e0-kmv-6.members/8e784c48a77f711aa0b2/fab33a6546be30f84a4ad550c20cf9877997ce359fe9a36a029cc57606803d6b"
+  },
+  {
+   "ext": "pdf",
+   "file": "0002.pdf",
+   "key": "site-university-3ea314e0-kmv-6-member-45a186d55e362abb9c00",
+   "member": "Информационно-коммуникационные технологии/11.03.02 Инфокоммуникационные технологии и системы связи ТУСУР.pdf",
+   "sha256": "d2630475e108ffad85d16b680185b705c32eda6861d613c2e14682230d933a43",
+   "size": 176948,
+   "status": "ready",
+   "storage": "site-university-3ea314e0-kmv-6.members/45a186d55e362abb9c00/d2630475e108ffad85d16b680185b705c32eda6861d613c2e14682230d933a43"
+  },
+  {
+   "ext": "pdf",
+   "file": "0003.pdf",
+   "key": "site-university-3ea314e0-kmv-6-member-cf2de3cf2f0fe5e81eb8",
+   "member": "Строительство/08.04.01 Строительство МГСУ.pdf",
+   "sha256": "fa1668544638abdc608407bda0bd68a897b87663eab60dd26effc4be956d177e",
+   "size": 168513,
+   "status": "ready",
+   "storage": "site-university-3ea314e0-kmv-6.members/cf2de3cf2f0fe5e81eb8/fa1668544638abdc608407bda0bd68a897b87663eab60dd26effc4be956d177e"
+  },
+  {
+   "ext": "pdf",
+   "file": "0004.pdf",
+   "key": "site-university-3ea314e0-kmv-6-member-a647dfde2b903b98e6f0",
+   "member": "Информационно-коммуникационные технологии/01.03.02 Прикладная математика и информатика ЮФУ.pdf",
+   "sha256": "20d8a187a3f7d4ba89be6f5c710f6dae3af57d34778b400a5f520ccb5693f414",
+   "size": 151372,
+   "status": "ready",
+   "storage": "site-university-3ea314e0-kmv-6.members/a647dfde2b903b98e6f0/20d8a187a3f7d4ba89be6f5c710f6dae3af57d34778b400a5f520ccb5693f414"
+  },
+  {
+   "ext": "pdf",
+   "file": "0005.pdf",
+   "key": "site-university-3ea314e0-kmv-6-member-98fcc1fffa3deeeec86c",
+   "member": "Образование/44.04.01 Педагогическое образование НГПУ Минина.pdf",
+   "sha256": "e1e11f1e2bf29fa4e5f47f43de8bd8acbf9461ada36883cf07a0a7b1be1381c0",
+   "size": 130059,
+   "status": "ready",
+   "storage": "site-university-3ea314e0-kmv-6.members/98fcc1fffa3deeeec86c/e1e11f1e2bf29fa4e5f47f43de8bd8acbf9461ada36883cf07a0a7b1be1381c0"
+  },
+  {
+   "ext": "pdf",
+   "file": "0006.pdf",
+   "key": "site-university-3ea314e0-kmv-6-member-c662417e29a5d86f2d85",
+   "member": "Информационно-коммуникационные технологии/09.03.02 Информационные системы и технологии МИРЭА.pdf",
+   "sha256": "69d7d6a3f7f0a09d762e929090c01a91be1538babbdb50e9e331a925c4f2da96",
+   "size": 134899,
+   "status": "ready",
+   "storage": "site-university-3ea314e0-kmv-6.members/c662417e29a5d86f2d85/69d7d6a3f7f0a09d762e929090c01a91be1538babbdb50e9e331a925c4f2da96"
+  },
+  {
+   "ext": "pdf",
+   "file": "0007.pdf",
+   "key": "site-university-3ea314e0-kmv-6-member-15636eae8153d1cc16a4",
+   "member": "Образование/44.03.05 Педагогическое образование КФУ.pdf",
+   "sha256": "99bb4566a8afd8deed8d6edc79043784d0a0a2e9c3979796712a047e504e32dd",
+   "size": 200002,
+   "status": "ready",
+   "storage": "site-university-3ea314e0-kmv-6.members/15636eae8153d1cc16a4/99bb4566a8afd8deed8d6edc79043784d0a0a2e9c3979796712a047e504e32dd"
+  },
+  {
+   "ext": "pdf",
+   "file": "0008.pdf",
+   "key": "site-university-3ea314e0-kmv-6-member-c81c8c4f5f211e014268",
+   "member": "Строительство/07.04.04 Градостроительство МАРХИ.pdf",
+   "sha256": "cfc813194c8ca726d6337657131458f48642b55634e59e7d24d725128f2d4548",
+   "size": 139283,
+   "status": "ready",
+   "storage": "site-university-3ea314e0-kmv-6.members/c81c8c4f5f211e014268/cfc813194c8ca726d6337657131458f48642b55634e59e7d24d725128f2d4548"
+  },
+  {
+   "ext": "pdf",
+   "file": "0009.pdf",
+   "key": "site-university-3ea314e0-kmv-6-member-852d1f8b5bc3a2906ad9",
+   "member": "Транспортная инфраструктура/23.03.03 Эксплуатация транспортно-технологических машин и комплексов НИ МГУ Огарева.pdf",
+   "sha256": "59e7ad9e9b89f06bb0b55048f5dea52ff67047f156aa89340d10e830773ee856",
+   "size": 195514,
+   "status": "ready",
+   "storage": "site-university-3ea314e0-kmv-6.members/852d1f8b5bc3a2906ad9/59e7ad9e9b89f06bb0b55048f5dea52ff67047f156aa89340d10e830773ee856"
+  },
+  {
+   "ext": "pdf",
+   "file": "0010.pdf",
+   "key": "site-university-3ea314e0-kmv-6-member-f6110a042f20d880ead2",
+   "member": "Городское хозяйство/38.03.02 Менеджмент АлтГУ.pdf",
+   "sha256": "f87502dcf189e676cd99face65f938989b47db1fe393eea2472a15ca9509c65f",
+   "size": 173843,
+   "status": "ready",
+   "storage": "site-university-3ea314e0-kmv-6.members/f6110a042f20d880ead2/f87502dcf189e676cd99face65f938989b47db1fe393eea2472a15ca9509c65f"
+  },
+  {
+   "ext": "pdf",
+   "file": "0011.pdf",
+   "key": "site-university-3ea314e0-kmv-6-member-7adc611027a66842461b",
+   "member": "Сельское хозяйство/35.03.04 Агрономия МСХА.pdf",
+   "sha256": "b414cb00913eef648a4ac43beeb8e81028329cc508badf71f125cb6ca1ebea73",
+   "size": 154186,
+   "status": "ready",
+   "storage": "site-university-3ea314e0-kmv-6.members/7adc611027a66842461b/b414cb00913eef648a4ac43beeb8e81028329cc508badf71f125cb6ca1ebea73"
+  },
+  {
+   "ext": "pdf",
+   "file": "0012.pdf",
+   "key": "site-university-3ea314e0-kmv-6-member-44763dfb262c5c902afd",
+   "member": "Добывающая промышленность/18.03.01. Химическая технология КНИТУ.pdf",
+   "sha256": "d7d8235405b33f0bcbd915e86f804725083e89221a39803fb6307df84ec9c674",
+   "size": 227657,
+   "status": "ready",
+   "storage": "site-university-3ea314e0-kmv-6.members/44763dfb262c5c902afd/d7d8235405b33f0bcbd915e86f804725083e89221a39803fb6307df84ec9c674"
+  },
+  {
+   "ext": "pdf",
+   "file": "0013.pdf",
+   "key": "site-university-3ea314e0-kmv-6-member-e3d013999beba39b50ce",
+   "member": "Городское хозяйство/38.03.04 Государственное и муниципальное управление ННГУ Лобачевского.pdf",
+   "sha256": "cfd0382cbc7e23adf1a806694ad5a23a567d9d7cedd982fa584d482a762db4dc",
+   "size": 174638,
+   "status": "ready",
+   "storage": "site-university-3ea314e0-kmv-6.members/e3d013999beba39b50ce/cfd0382cbc7e23adf1a806694ad5a23a567d9d7cedd982fa584d482a762db4dc"
+  },
+  {
+   "ext": "pdf",
+   "file": "0014.pdf",
+   "key": "site-university-3ea314e0-kmv-6-member-a9f74dca03ab9bc65b6a",
+   "member": "Образование/44.03.03 Специальное (дефектологическое) образование СамГСПУ.pdf",
+   "sha256": "36988845b036323957c444e7c08ae3faf2faf5e4973747dd2bfe5192b155fa85",
+   "size": 177710,
+   "status": "ready",
+   "storage": "site-university-3ea314e0-kmv-6.members/a9f74dca03ab9bc65b6a/36988845b036323957c444e7c08ae3faf2faf5e4973747dd2bfe5192b155fa85"
+  },
+  {
+   "ext": "pdf",
+   "file": "0015.pdf",
+   "key": "site-university-3ea314e0-kmv-6-member-12d4d6ccedb3742e3a5e",
+   "member": "Информационно-коммуникационные технологии/09.03.01 Информатика и вычислительная техника МФТИ.pdf",
+   "sha256": "4cd83e55330f6859fd2bbee1dc82550cdd30d3125c4f4c509787c26b8386657a",
+   "size": 222085,
+   "status": "ready",
+   "storage": "site-university-3ea314e0-kmv-6.members/12d4d6ccedb3742e3a5e/4cd83e55330f6859fd2bbee1dc82550cdd30d3125c4f4c509787c26b8386657a"
+  },
+  {
+   "ext": "pdf",
+   "file": "0016.pdf",
+   "key": "site-university-3ea314e0-kmv-6-member-2f7ab521d53e5c5922e6",
+   "member": "Энергетическая инфраструктура/13.03.02 Электроэнергетика и электротехника МЭИ.pdf",
+   "sha256": "038fbb516b9ce3a6a1fa23b2f5d9a56faa4c40059960a352dab80a1503e35426",
+   "size": 140430,
+   "status": "ready",
+   "storage": "site-university-3ea314e0-kmv-6.members/2f7ab521d53e5c5922e6/038fbb516b9ce3a6a1fa23b2f5d9a56faa4c40059960a352dab80a1503e35426"
+  },
+  {
+   "ext": "pdf",
+   "file": "0017.pdf",
+   "key": "site-university-3ea314e0-kmv-6-member-eaa0218f6b4a65cd42b9",
+   "member": "Образование/44.03.01 Педагогическое образование РГПУ Герцена.pdf",
+   "sha256": "2dc59c6345383473295b080fdad94e09e6643dcc50ce144d68b290c7ab569700",
+   "size": 211432,
+   "status": "ready",
+   "storage": "site-university-3ea314e0-kmv-6.members/eaa0218f6b4a65cd42b9/2dc59c6345383473295b080fdad94e09e6643dcc50ce144d68b290c7ab569700"
+  },
+  {
+   "ext": "pdf",
+   "file": "0018.pdf",
+   "key": "site-university-3ea314e0-kmv-6-member-480599bb8db61a767469",
+   "member": "Обрабатывающая промышленность/11.04.04 Электроника и наноэлектроника МИЭТ.pdf",
+   "sha256": "57d570f0fe6218c810b10d46e558f9352f780be1c80ba9d4e6a414eb3b6eee59",
+   "size": 237511,
+   "status": "ready",
+   "storage": "site-university-3ea314e0-kmv-6.members/480599bb8db61a767469/57d570f0fe6218c810b10d46e558f9352f780be1c80ba9d4e6a414eb3b6eee59"
+  },
+  {
+   "ext": "pdf",
+   "file": "0019.pdf",
+   "key": "site-university-3ea314e0-kmv-6-member-2b9a4b12b4d54957dc40",
+   "member": "Информационно-коммуникационные технологии/09.03.04 Программная инженерия УрФУ.pdf",
+   "sha256": "a221eebcf42a2a8e8131b71310477984c4bee9761adb23650129b8bd505333ad",
+   "size": 212941,
+   "status": "ready",
+   "storage": "site-university-3ea314e0-kmv-6.members/2b9a4b12b4d54957dc40/a221eebcf42a2a8e8131b71310477984c4bee9761adb23650129b8bd505333ad"
+  },
+  {
+   "ext": "pdf",
+   "file": "0020.pdf",
+   "key": "site-university-3ea314e0-kmv-6-member-f62f23adb7b52fe235c6",
+   "member": "Информационно-коммуникационные технологии/09.03.03 Прикладная информатика МГТУ Баумана.pdf",
+   "sha256": "77bfeeddebe8aa0bb8de882788e697fc7f501df7b98546ff695950526fa1328c",
+   "size": 192939,
+   "status": "ready",
+   "storage": "site-university-3ea314e0-kmv-6.members/f62f23adb7b52fe235c6/77bfeeddebe8aa0bb8de882788e697fc7f501df7b98546ff695950526fa1328c"
+  },
+  {
+   "ext": "pdf",
+   "file": "0021.pdf",
+   "key": "site-university-3ea314e0-kmv-6-member-d6bbbc6b5acd34e9a5d7",
+   "member": "Обрабатывающая промышленность/11.03.04 Электроника и наноэлектроника МИЭТ.pdf",
+   "sha256": "f755aba6f04e69de3f914f0f4a89bb79236a6ecaa87cdce308ce68a3120fb5f8",
+   "size": 222038,
+   "status": "ready",
+   "storage": "site-university-3ea314e0-kmv-6.members/d6bbbc6b5acd34e9a5d7/f755aba6f04e69de3f914f0f4a89bb79236a6ecaa87cdce308ce68a3120fb5f8"
+  },
+  {
+   "ext": "pdf",
+   "file": "0022.pdf",
+   "key": "site-university-3ea314e0-kmv-6-member-f9a535ddc15839ec2745",
+   "member": "Сельское хозяйство/36.05.01 Ветеринария МВА Скрябина.pdf",
+   "sha256": "e06bde963e1b8d6c373d069d2f09c64f9d8715fbd3273f1c76acabf2b011396b",
+   "size": 205611,
+   "status": "ready",
+   "storage": "site-university-3ea314e0-kmv-6.members/f9a535ddc15839ec2745/e06bde963e1b8d6c373d069d2f09c64f9d8715fbd3273f1c76acabf2b011396b"
+  },
+  {
+   "ext": "pdf",
+   "file": "0023.pdf",
+   "key": "site-university-3ea314e0-kmv-6-member-325662d100a0f145499d",
+   "member": "Обрабатывающая промышленность/15.03.05 Конструкторско-технологическое обеспечение машиностроительных производств СТАНКИН.pdf",
+   "sha256": "db121e76592790ca88318efb5eccb11f6c920b24b38b887dfdbfe3645a41ebfc",
+   "size": 275759,
+   "status": "ready",
+   "storage": "site-university-3ea314e0-kmv-6.members/325662d100a0f145499d/db121e76592790ca88318efb5eccb11f6c920b24b38b887dfdbfe3645a41ebfc"
+  },
+  {
+   "ext": "pdf",
+   "file": "0024.pdf",
+   "key": "site-university-3ea314e0-kmv-6-member-6fc6dc85913d682562ad",
+   "member": "Финансовые услуги/38.03.01 Экономика УрФУ.doc.pdf",
+   "sha256": "99cc77ac16c3048ac44162c1f64bbc5d47428bd81f113bf5265ec98e89017e24",
+   "size": 199617,
+   "status": "ready",
+   "storage": "site-university-3ea314e0-kmv-6.members/6fc6dc85913d682562ad/99cc77ac16c3048ac44162c1f64bbc5d47428bd81f113bf5265ec98e89017e24"
+  },
+  {
+   "ext": "pdf",
+   "file": "0025.pdf",
+   "key": "site-university-3ea314e0-kmv-6-member-916f670455dc8800da5e",
+   "member": "Энергетическая инфраструктура/13.03.01 Теплоэнергетика и теплотехника МЭИ.pdf",
+   "sha256": "35390d3d3c81b26513270ef37b47355c41a423bcf45e3cfb12e5d3c3063e09ba",
+   "size": 144371,
+   "status": "ready",
+   "storage": "site-university-3ea314e0-kmv-6.members/916f670455dc8800da5e/35390d3d3c81b26513270ef37b47355c41a423bcf45e3cfb12e5d3c3063e09ba"
+  }
+ ],
+ "remote": {
+  "etag": "\"404edf-5d15e7fc1ab72\"",
+  "modified": "Mon, 22 Nov 2021 10:58:04 GMT",
+  "size": "4214495"
+ },
+ "sha256": "5abcd1917d73f980e511beefb76e05b8a5692e5428b279ec9c866d21e705c711",
+ "source": "site-university-3ea314e0-kmv-6.archives/5abcd1917d73f980e511beefb76e05b8a5692e5428b279ec9c866d21e705c711.archive",
+ "status": "ready",
+ "url": "https://innopolis.university/files/KMV%20%286%29.zip"
+}

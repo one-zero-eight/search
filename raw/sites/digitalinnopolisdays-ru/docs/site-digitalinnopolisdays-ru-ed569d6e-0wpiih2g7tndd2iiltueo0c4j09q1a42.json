@@ -1,0 +1,16 @@
+{
+ "title": "Полный текст Договора об оказании услуг размещён на Сайте.",
+ "url": "https://reg.digitalinnopolisdays.ru/upload/medialibrary/3b9/0wpiih2g7tndd2iiltueo0c4j09q1a42.pdf",
+ "sha256": "1cc3f746b266f1a0aabdd08256809a03cb62cc4ae4a054275d9b82c2ce1fe066",
+ "method": "text layer (opendataloader)",
+ "chars": 32256,
+ "tables": 5,
+ "section": "site/digitalinnopolisdays-ru",
+ "context": "",
+ "fetched_at": "2026-11-04T02:33:00+00:00",
+ "remote": {
+  "etag": "\"6aa92b30-1e43f\"",
+  "modified": "Tue, 15 Sep 2026 11:25:36 GMT",
+  "size": "123967"
+ }
+}
