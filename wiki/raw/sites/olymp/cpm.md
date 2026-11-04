@@ -230,7 +230,7 @@ FAQ
 
 - [Министерство науки и высшего образования РФ](https://minobrnauki.gov.ru/)
 
-- [Политика конфиденциальности](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
+- [Политика конфиденциальности](/raw/regulations/site-university-d66c21e6-politicacookies.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/olymp/_shared.md](/raw/sites/olymp/_shared.md)._
 

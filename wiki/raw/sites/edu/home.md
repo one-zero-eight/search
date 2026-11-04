@@ -626,7 +626,7 @@ CEO Agile Technologies, эксперт в области управления п
 
 Цифровые технологии в преподавании профильных дисциплин
 
-[![](https://static.tildacdn.com/tild6465-6161-4465-a661-376163303561/Frame_277133535.png)](/raw/regulations/site-edu-ce493357-sbornik-kejsov-4.md)
+[![](https://static.tildacdn.com/tild6465-6161-4465-a661-376163303561/Frame_277133535.png)](/raw/regulations/site-media-ce493357-sbornik-kejsov-4.md)
 
 [![](https://static.tildacdn.com/tild3832-3436-4737-a138-366233333562/Frame_277133532.png)](/raw/regulations/site-edu-f4783897-cases-cdto.md)
 
@@ -672,7 +672,7 @@ cpp@innopolis.ru
 
 [Политика конфиденциальности](/raw/regulations/site-university-45ebfbe8-soglasie-na-obrabotku-pdn-dlya-ui.md)
 
-[Выписка из реестра лицензий](/raw/regulations/site-unionepro-ru-e6310fe5-reestrovaya-vypiska.md)
+[Выписка из реестра лицензий](/raw/regulations/site-stc-e6310fe5-reestrovaya-vypiska.md)
 
 Стратегические сессии
 

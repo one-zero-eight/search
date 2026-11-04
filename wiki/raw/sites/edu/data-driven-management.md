@@ -230,9 +230,9 @@ status: draft
 
 Оставьте заявку для предварительного бронирования
 
-[с обработкой персональных данных](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
+[с обработкой персональных данных](/raw/regulations/site-university-d66c21e6-politicacookies.md)
 
-[Нажимая на кнопку, вы соглашаетесь](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
+[Нажимая на кнопку, вы соглашаетесь](/raw/regulations/site-university-d66c21e6-politicacookies.md)
 
 Скидки от количества участников
 
@@ -284,7 +284,7 @@ e.rezepin@innopolis.ru
 
 [Телеграм: @EldarRezepin](https://t.me/EldarRezepin)
 
-[Политика конфиденциальности](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
+[Политика конфиденциальности](/raw/regulations/site-university-d66c21e6-politicacookies.md)
 
 [Лицензионное соглашение](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md)
 

@@ -232,7 +232,7 @@ Maxima
 
 ![](https://static.tildacdn.com/tild3831-3637-4232-b732-616631356630/percentage.png)
 
-[Получить полную программу](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
+[Получить полную программу](/raw/regulations/site-university-d66c21e6-politicacookies.md)
 
 ![](https://static.tildacdn.com/tild3164-3861-4938-b438-613935393634/i-0049.jpg)
 

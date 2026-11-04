@@ -19,6 +19,14 @@
    "title": "Центр довузовской подготовки",
    "url": "https://team-project.university.innopolis.ru/"
   },
+  "partnership": {
+   "fetched_at": "2026-11-04T13:53:36+00:00",
+   "file_sha": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "last_modified": "Tue, 15 Oct 2024 13:27:48 GMT",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "title": "Переадресация с ПШ",
+   "url": "https://team-project.university.innopolis.ru/partnership"
+  },
   "vesennyaya-shkola-bakalavrov": {
    "fetched_at": "2026-10-31T08:41:09+00:00",
    "file_sha": "37fba88d42252956e1c8004d5c2a2a22f780f15a8e3e7c26485985906b885601",
@@ -103,6 +111,54 @@
   },
   "https://team-project.university.innopolis.ru/nastavniki2020": {
    "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/national-project": {
+   "run": "2026-11-04T13:52:46+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/olymp-robotics": {
+   "run": "2026-11-04T13:52:46+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/projectschool": {
+   "run": "2026-11-04T13:52:46+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/robolympspring2020": {
+   "run": "2026-11-04T13:52:46+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/roboteacherfree": {
+   "run": "2026-11-04T13:52:46+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/sch-bachelor": {
+   "run": "2026-11-04T13:52:46+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/sdmp": {
+   "run": "2026-11-04T13:52:46+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/securityfreekids": {
+   "run": "2026-11-04T13:52:46+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/software-engineering": {
+   "run": "2026-11-04T13:52:46+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/training": {
+   "run": "2026-11-04T13:52:46+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/winterschool": {
+   "run": "2026-11-04T13:52:46+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/wro-rocketscience": {
+   "run": "2026-11-04T13:52:46+00:00",
    "why": "404"
   }
  }

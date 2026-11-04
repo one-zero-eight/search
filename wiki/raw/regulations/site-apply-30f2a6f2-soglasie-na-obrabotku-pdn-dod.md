@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Политикой обработки персональных данных [Согласие_на_обработку_ПДн_ДОД]"
+title: "Политикой обработки персональных данных"
 resource: "https://innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5_%D0%BD%D0%B0_%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83_%D0%9F%D0%94%D0%BD_%D0%94%D0%9E%D0%94.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/apply"
 sources:
   - resource: "https://innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5_%D0%BD%D0%B0_%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83_%D0%9F%D0%94%D0%BD_%D0%94%D0%9E%D0%94.pdf"
     id: "2f0fa0599e63"
-    title: "Политикой обработки персональных данных [Согласие_на_обработку_ПДн_ДОД]"
+    title: "Политикой обработки персональных данных"
     last_modified: "2006-07-27T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Политикой обработки персональных данных [Согласие_на_обработку_ПДн_ДОД]
+# Политикой обработки персональных данных
 
 CОГЛАСИЕ на обработку персональных данных
 
@@ -51,4 +51,4 @@ CОГЛАСИЕ на обработку персональных данных
 
 # Citations
 
-1. [Политикой обработки персональных данных [Согласие_на_обработку_ПДн_ДОД]](https://innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5_%D0%BD%D0%B0_%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83_%D0%9F%D0%94%D0%BD_%D0%94%D0%9E%D0%94.pdf), file 2f0fa0599e63
+1. [Политикой обработки персональных данных](https://innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5_%D0%BD%D0%B0_%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83_%D0%9F%D0%94%D0%BD_%D0%94%D0%9E%D0%94.pdf), file 2f0fa0599e63

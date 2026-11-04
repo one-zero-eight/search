@@ -1,12 +1,16 @@
 {
  "title": "положением о базе кандидатов",
  "url": "https://innopolis.university/filespublic/polozhenie_kandidaty.pdf",
- "ocr": "queued",
- "pages": 10,
+ "sha256": "02e959b6d7eb11b204b0dc3e2d1c89d1c9629b567b43dab2ca8106f7655fa52b",
+ "method": "ocr (chandra-ocr-2)",
+ "chars": 13399,
+ "tables": 5,
+ "section": "site/career",
+ "context": "",
+ "fetched_at": "2026-11-04T13:52:37+00:00",
  "remote": {
   "etag": "\"1d41fe-5f4b9163edec3\"",
   "modified": "Wed, 15 Feb 2023 08:44:22 GMT",
   "size": "1917438"
- },
- "queued_at": "2026-11-04T13:07:41+00:00"
+ }
 }

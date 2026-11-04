@@ -49,7 +49,7 @@ college.support@innopolis.ru
 
 [Образовательная лицензия](https://islod.obrnadzor.gov.ru/rlic/details/BE90EB43A30CB21A6C8DC502F61FA753/)
 
-[Политика конфиденциальности](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
+[Политика конфиденциальности](/raw/regulations/site-university-d66c21e6-politicacookies.md)
 
 [Образовательные программы](/raw/sites/college/home.md)
 

@@ -25,7 +25,7 @@ status: draft
 
 Направления деятельности
 
-[Мы используем файлы cookie, для персонализации сервисов и повышения удобства пользования сайтом. Если вы не согласны на их использование, поменяйте настройки браузера.](https://unionepro.ru/docs/politicacookies.pdf)© Университет Иннополис, 2026
+[Мы используем файлы cookie, для персонализации сервисов и повышения удобства пользования сайтом. Если вы не согласны на их использование, поменяйте настройки браузера.](/raw/regulations/site-unionepro-ru-d20f8da0-politicacookies.md)© Университет Иннополис, 2026
 
 Продукты
 
@@ -39,7 +39,7 @@ unionepro.support@innopolis.ru[@unionepro_bot](https://t.me/unionepro_bot)8 800 
 
 Полезная информация
 
-[Об Университете](/raw/sites/university/ido.md)[О платформе](/raw/sites/unionepro-ru/information.md)[Новости](/raw/sites/university/ido.md)[Календарь мероприятий](/raw/sites/events/home.md)[Лицензия](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md)[Выписка из реестра лицензий](/raw/regulations/site-unionepro-ru-e6310fe5-reestrovaya-vypiska.md)[Политика конфиденциальности](/raw/regulations/site-unionepro-ru-07abe9db-policy-processing-personal-data.md)
+[Об Университете](/raw/sites/university/ido.md)[О платформе](/raw/sites/unionepro-ru/information.md)[Новости](/raw/sites/university/ido.md)[Календарь мероприятий](/raw/sites/events/home.md)[Лицензия](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md)[Выписка из реестра лицензий](/raw/regulations/site-stc-e6310fe5-reestrovaya-vypiska.md)[Политика конфиденциальности](/raw/regulations/site-unionepro-ru-07abe9db-policy-processing-personal-data.md)
 
 © Университет Иннополис, 2023
 

@@ -68,7 +68,7 @@ status: draft
 
 [Институт дополнительного образования](/raw/sites/university/ido.md)
 
-[Политика конфиденциальности](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
+[Политика конфиденциальности](/raw/regulations/site-university-d66c21e6-politicacookies.md)
 
 Контакты
 

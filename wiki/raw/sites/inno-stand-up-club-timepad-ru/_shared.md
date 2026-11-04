@@ -12,10 +12,10 @@ sources:
   - resource: "https://inno-stand-up-club.timepad.ru/"
     id: "79238776e238"
     title: "Общие блоки сайта inno-stand-up-club.timepad.ru: меню, шапка, подвал, контакты"
-    last_modified: "2026-11-04T12:58:27+00:00"
+    last_modified: "2026-11-04T13:54:01+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-11-04T12:58:27+00:00"
+  at: "2026-11-04T13:54:01+00:00"
 status: draft
 ---
 

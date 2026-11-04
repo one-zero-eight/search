@@ -194,7 +194,7 @@ status: draft
 
 Будем рады рассказать о наших курсах больше, обращайся!
 
-Отправляя заявку, вы даете согласие на обработку своих персональных данных в соответствии [с политикой конфиденциальности.](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
+Отправляя заявку, вы даете согласие на обработку своих персональных данных в соответствии [с политикой конфиденциальности.](/raw/regulations/site-university-d66c21e6-politicacookies.md)
 
 Сообщить о старте набора
 
@@ -212,7 +212,7 @@ https://www.gosuslugi.ru/600314/1/form?courseID=18697
 
 [ОТЗЫВЫ ВЫПУСКНИКОВ](/raw/sites/stc/feedback.md)
 
-[Лицензия](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md) [Выписка из реестра лицензий](/raw/regulations/site-unionepro-ru-e6310fe5-reestrovaya-vypiska.md)
+[Лицензия](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md) [Выписка из реестра лицензий](/raw/regulations/site-stc-e6310fe5-reestrovaya-vypiska.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/stc/_shared.md](/raw/sites/stc/_shared.md)._
 

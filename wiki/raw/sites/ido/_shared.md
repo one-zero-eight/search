@@ -37,13 +37,13 @@ status: draft
 
 digital_prof@innopolis.ru
 
-[Политика конфиденциальности](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
+[Политика конфиденциальности](/raw/regulations/site-university-d66c21e6-politicacookies.md)
 
 ![](https://static.tildacdn.com/tild3463-3337-4536-b139-353332633862/Group_277133488.png)
 
 [Лицензия](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md)
 
-[Выписка из реестра лицензий](/raw/regulations/site-unionepro-ru-e6310fe5-reestrovaya-vypiska.md)
+[Выписка из реестра лицензий](/raw/regulations/site-stc-e6310fe5-reestrovaya-vypiska.md)
 
 Контакты
 

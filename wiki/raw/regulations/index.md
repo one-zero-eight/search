@@ -30,13 +30,11 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 
 ## site/apply
 
-- [Политикой обработки персональных данных [Согласие_на_обработку_ПДн_ДОД]](/raw/regulations/site-apply-30f2a6f2-soglasie-na-obrabotku-pdn-dod.md)
-- [политику конфиденциальности](/raw/regulations/site-apply-d66c21e6-politicacookies.md)
+- [Политикой обработки персональных данных](/raw/regulations/site-apply-30f2a6f2-soglasie-na-obrabotku-pdn-dod.md)
 
 ## site/apply-bach
 
 - [Ознакомиться с книгой](/raw/regulations/site-apply-bach-7765e9ff-matosnovyai.md)
-- [Пользовательское соглашение [politicacookies]](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
 ## site/career
 
@@ -148,19 +146,17 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 - [Объявление о конкурсном отборе от 31.03.2025](/raw/regulations/site-career-f68629fa-obyavlenie-o-konkursnom-otbore-ot-31-03.md)
 - [Объявление о конкурсном отборе от 31.10.2024](/raw/regulations/site-career-0ef8c56f-obyavlenie-o-konkursnom-otbore-ot-31-10.md)
 - [Объявление о конкурсном отбореот 27.05.2016](/raw/regulations/site-career-fae93b5e-pps-2016-05-27.md)
-- [Политика конфиденциальности [politicacookies]](/raw/regulations/site-career-d66c21e6-politicacookies.md)
+- [положением о базе кандидатов](/raw/regulations/site-career-10e10403-polozhenie-kandidaty.md)
 - [условиями использования [Согласие на обработку ПДн для УИ]](/raw/regulations/site-career-abc5359a-soglasie-na-obrabotku-pdn-dlya-ui.md)
 
 ## site/college
 
 - [09.02.11 Разработка и управление программным обеспечением](/raw/regulations/site-college-c3d8805c-09-02-11-razrabotka-i-upravlenie-program.md)
 - [15.02.10 Мехатроника и робототехника (по отраслям) [15_02_10_Мехатроника_и_робототехника_по_отраслям]](/raw/regulations/site-college-2f98caf6-15-02-10-mekhatronika-i-robototekhnika-p.md)
-- [Политика конфиденциальности [politicacookies]](/raw/regulations/site-college-d66c21e6-politicacookies.md)
 - [Расписание занятий](/raw/regulations/site-college-345cae0b-raspisanie-letnei-sessii-2-semestr.md)
 
 ## site/corporate
 
-- [Политика конфиденциальности [politicacookies]](/raw/regulations/site-corporate-d66c21e6-politicacookies.md)
 - [Скачать каталог [Каталог_корпоративные_программы_Университет_Иннополис]](/raw/regulations/site-corporate-c2e8f4bf-katalog-korporativnye-programmy-universi.md)
 - [условиями использования [Согласие на обработку ПДн для УИ]](/raw/regulations/site-corporate-2aa7ecc1-soglasie-na-obrabotku-pdn-dlya-ui.md)
 
@@ -451,7 +447,6 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 - [договором оферты [offer_python_bots_leto_1smena_2025]](/raw/regulations/site-dovuz-5ab4ed64-offer-python-bots-leto-1smena-2025.md)
 - [договором оферты [offer_vsosh_regional2025]](/raw/regulations/site-dovuz-3a852abb-offer-vsosh-regional2025.md)
 - [разбор](/raw/regulations/site-dovuz-beed57d5-razbor.md)
-- [с Политикой обработки персональных данных](/raw/regulations/site-dovuz-d66c21e6-politicacookies.md)
 - [согласия на обработку персональных данных.](/raw/regulations/site-dovuz-195be885-io-2526-sopd-merged-beforeafter14yo.md)
 - [ссылка на оферту [offer_egeinf_module4]](/raw/regulations/site-dovuz-ce06e014-offer-egeinf-module4.md)
 - [ссылка на оферту [offer_egemath_module4]](/raw/regulations/site-dovuz-afd75f87-offer-egemath-module4.md)
@@ -471,13 +466,7 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 
 - [cases cdto](/raw/regulations/site-edu-f4783897-cases-cdto.md)
 - [sbornik kejsov 3](/raw/regulations/site-edu-6cf22e60-sbornik-kejsov-3.md)
-- [sbornik kejsov 4](/raw/regulations/site-edu-ce493357-sbornik-kejsov-4.md)
-- [Выписка из реестра лицензий [Реестровая выписка]](/raw/regulations/site-edu-e6310fe5-reestrovaya-vypiska.md)
 - [Сборник ООЦ №3](/raw/regulations/site-edu-418fa299-sbornik-oots-3.md)
-
-## site/engineerschool
-
-- [Политикой конфиденциальности](/raw/regulations/site-engineerschool-d66c21e6-politicacookies.md)
 
 ## site/events
 
@@ -547,10 +536,8 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 ## site/ido
 
 - [Assessment Center](/raw/regulations/site-ido-c3a39cd6-assessment-center.md)
-- [Выписка из реестра лицензий [Реестровая выписка]](/raw/regulations/site-ido-e6310fe5-reestrovaya-vypiska.md)
 - [Гайд Как агументировать обучение за счет работодателя](/raw/regulations/site-ido-da721605-gai-d-kak-agumentirovat-obuchenie-za-sch.md)
 - [Оферта Нейросети](/raw/regulations/site-ido-4cbe0e13-oferta-neyroseti.md)
-- [Политика конфиденциальности [politicacookies]](/raw/regulations/site-ido-d66c21e6-politicacookies.md)
 - [Скачать каталог [ИИ_в_бизнесе_каталог_программ_Университет_Иннополис]](/raw/regulations/site-ido-68645cda-ii-v-biznese-katalog-programm-universite.md)
 - [Скачать подробное расписание](/raw/regulations/site-ido-8c3877cf-raspisanie-programmy-innovatsii-v-obrazo.md)
 - [Скачать программу [programma_kursa_upravlenie_proektami]](/raw/regulations/site-ido-5b590d05-programma-kursa-upravlenie-proektami.md)
@@ -567,7 +554,6 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 
 - [Instruktsia po ustanovke ITOG korr 13 05 26](/raw/regulations/site-ipservices-f08ec7d9-instruktsia-po-ustanovke-itog-korr-13-05.md)
 - [Opisanie protsessov zhiznennogo tsikla 13 05 26](/raw/regulations/site-ipservices-3a600531-opisanie-protsessov-zhiznennogo-tsikla-1.md)
-- [Polozhenie o reklamnoj rassylke [Polozhenie_o_reklamnoj_rassylke]](/raw/regulations/site-ipservices-f0f34598-polozhenie-o-reklamnoj-rassylke.md)
 - [Инструкция по установке [Инструкция_по_установке-1]](/raw/regulations/site-ipservices-123991a7-instruktsiya-po-ustanovke1.md)
 - [Инструкция по установке [Инструкция_по_установке-2]](/raw/regulations/site-ipservices-a4681015-instruktsiya-po-ustanovke2.md)
 - [Инструкция по установке [Инструкция_по_установке]](/raw/regulations/site-ipservices-0c69cfa8-instruktsiya-po-ustanovke.md)
@@ -577,19 +563,10 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 - [Функциональные характеристики ПО [Функциональные_характеристики_ПО-1]](/raw/regulations/site-ipservices-0d99c0dd-funktsionalnye-kharakteristiki-po1.md)
 - [Функциональные характеристики ПО [Функциональные_характеристики_ПО]](/raw/regulations/site-ipservices-41070680-funktsionalnye-kharakteristiki-po.md)
 
-## site/itbm
-
-- [Выписка из реестра](/raw/regulations/site-itbm-e6310fe5-reestrovaya-vypiska.md)
-- [Политикой обработки персональных данных [politicacookies]](/raw/regulations/site-itbm-d66c21e6-politicacookies.md)
-
-## site/llc
-
-- [Нажимая на кнопку, я соглашаюсь на обработку персональных данных](/raw/regulations/site-llc-d66c21e6-politicacookies.md)
-
 ## site/media
 
 - [Programma razvitiya PISH na baze ANO VO Universitet Innopolis](/raw/regulations/site-media-47624ddd-programma-razvitiya-pish-na-baze-ano-vo.md)
-- [cases cdto 2 [cases_cdto_2]](/raw/regulations/site-media-02be1097-cases-cdto-2.md)
+- [cases cdto 2](/raw/regulations/site-media-02be1097-cases-cdto-2.md)
 - [daydzhest po videoigram](/raw/regulations/site-media-c542afe2-daydzhest-po-videoigram.md)
 - [https://innopolis.university/filespublic/dannye bez opasnosti](/raw/regulations/site-media-2056f3a9-dannye-bez-opasnosti.md)
 - [https://innopolis.university/filespublic/koncepciya_formirovaniya_iu.pd](/raw/regulations/site-media-25d7b831-koncepciya-formirovaniya-iu.md)
@@ -599,7 +576,6 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 - [nnopolis.university/public/files/strategia ct](/raw/regulations/site-media-285fd963-strategia-ct.md)
 - [results IOM 24-25](/raw/regulations/site-media-0ec457f6-results-iom-2425.md)
 - [Базу импортозамещения ПО, используемого в организациях высшего образования](/raw/regulations/site-media-ca6ee489-baza-dannyh.md)
-- [Политика конфиденциальности [politicacookies]](/raw/regulations/site-media-d66c21e6-politicacookies.md)
 - [Финалисты](/raw/regulations/site-media-53524684-finalisty.md)
 - [Читать исследование [Industrial_Robotics_Market_Research_2025]](/raw/regulations/site-media-25a047fb-industrial-robotics-market-research-2025.md)
 - [Читать исследование [Presentation Gamedev 12.03]](/raw/regulations/site-media-45205f94-presentation-gamedev-12-03.md)
@@ -607,22 +583,16 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 
 ## site/msonline
 
-- [Политика конфиденциальности [politicacookies]](/raw/regulations/site-msonline-d66c21e6-politicacookies.md)
 - [Учебный план [ucp_uch24-25]](/raw/regulations/site-msonline-b728ba92-ucp-uch2425.md)
 
 ## site/olymp
 
-- [Политика конфиденциальности [politicacookies]](/raw/regulations/site-olymp-d66c21e6-politicacookies.md)
 - [Скачать pdf-файл с результатами [cpm_final_mladshaya3_2025]](/raw/regulations/site-olymp-af1aa992-cpm-final-mladshaya3-2025.md)
 - [Скачать pdf-файл с результатами [cpm_final_srednyaya1_2025]](/raw/regulations/site-olymp-d3bca7cc-cpm-final-srednyaya1-2025.md)
 - [Скачать pdf-файл с результатами [cpm_final_starshaya1_2025]](/raw/regulations/site-olymp-d1e79a84-cpm-final-starshaya1-2025.md)
 - [Скачать pdf-файл с результатами [cpm_final_starshaya2_2025]](/raw/regulations/site-olymp-fcfb26c3-cpm-final-starshaya2-2025.md)
 - [Скачать pdf-файл с результатами [inno_cpm_final_2026]](/raw/regulations/site-olymp-da4f8a24-inno-cpm-final-2026.md)
 - [Скачать pdf-файл с результатами [protokoly_ocpm_270126]](/raw/regulations/site-olymp-5054d70e-protokoly-ocpm-270126.md)
-
-## site/research
-
-- [Политикой обработки персональных данных [politicacookies]](/raw/regulations/site-research-d66c21e6-politicacookies.md)
 
 ## site/robotics
 
@@ -654,7 +624,7 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 - [Информация по земельным участкам не сданным в аренду [laishevo2]](/raw/regulations/site-sez-ee6afa7c-laishevo2.md)
 - [Конфиденциальность](/raw/regulations/site-sez-553afef5-politic.md)
 - [Перспективный план развития особой экономической зоны технико-внедренческого типа «Иннополис» на период до 2035 года](/raw/regulations/site-sez-c9012ce7-ppr.md)
-- [Пользовательское соглашение [consent]](/raw/regulations/site-sez-dacde8aa-consent.md)
+- [Пользовательское соглашение](/raw/regulations/site-sez-dacde8aa-consent.md)
 - [Правила использования коворкинга](/raw/regulations/site-sez-0b328643-rulescowork1.md)
 - [Правила использования офисных помещений](/raw/regulations/site-sez-9f2f70e3-rulesoffice.md)
 - [Правила нахождения в детской игровой комнате](/raw/regulations/site-sez-376e0126-ruleskidsroom.md)
@@ -674,10 +644,8 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 
 ## site/stc
 
-- [Выписка из реестра лицензий [Реестровая выписка]](/raw/regulations/site-stc-e6310fe5-reestrovaya-vypiska.md)
+- [Выписка из реестра лицензий](/raw/regulations/site-stc-e6310fe5-reestrovaya-vypiska.md)
 - [Лицензионное соглашение](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md)
-- [Политикой обработки персональных данных [Согласие_на_обработку_ПДн_ДОД]](/raw/regulations/site-stc-30f2a6f2-soglasie-na-obrabotku-pdn-dod.md)
-- [с политикой конфиденциальности.](/raw/regulations/site-stc-d66c21e6-politicacookies.md)
 
 ## site/teamproject
 
@@ -686,7 +654,6 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 ## site/trud
 
 - [БЕЛОГОРОДСКАЯ ОБЛАСТЬ](/raw/regulations/site-trud-d057e2fd-sodeystvie-zanyatosti-instruktsiya-belgo.md)
-- [Выписка из реестра лицензий [Реестровая выписка]](/raw/regulations/site-trud-e6310fe5-reestrovaya-vypiska.md)
 - [КЕМЕРОВСКАЯ ОБЛАСТЬ](/raw/regulations/site-trud-46e6f780-sodeystvie-zanyatosti-instruktsiya-kemer.md)
 - [Постановлении Правительства РФ](/raw/regulations/site-trud-2d219507-resolution.md)
 - [САРАТОВСКАЯ ОБЛАСТЬ](/raw/regulations/site-trud-4b4b33cc-sodeystvie-zanyatosti-instruktsiya-sarat.md)
@@ -696,7 +663,7 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 
 ## site/unionepro-ru
 
-- [Выписка из реестра лицензий [Реестровая выписка]](/raw/regulations/site-unionepro-ru-e6310fe5-reestrovaya-vypiska.md)
+- [Мы используем файлы cookie, для персонализации сервисов и повышения удобства пользования сайтом. Если вы не согласны на их использование, поменяйте настройки браузера.](/raw/regulations/site-unionepro-ru-d20f8da0-politicacookies.md)
 - [Описание процессов жизненного цикла программного обеспечения [ОЖЦ_OneID_НК]](/raw/regulations/site-unionepro-ru-c0755207-ozhts-oneid-nk.md)
 - [Описание процессов жизненного цикла программного обеспечения [ОЖЦ_Ассесмент_НК]](/raw/regulations/site-unionepro-ru-7a3fe3c1-ozhts-assesment-nk.md)
 - [Описание процессов жизненного цикла программного обеспечения [ОЖЦ_ЕМОП_НК]](/raw/regulations/site-unionepro-ru-8ca202b5-ozhts-emop-nk.md)
@@ -862,6 +829,7 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 - [3 семестр (документы подписаны ПЭП) — Визуализация_ФТД.01_ITE_2025_Русский как иностранный (3 с.)_22.05.2026.pdf](/raw/regulations/site-university-1366172a-38-04-05-ite-2025-rpd-3-semestr-22-05-20-member-edf11f446f5d29c129e8.md)
 - [3. Указ Президента Республики Татарстан от 4 апреля 2006 г.№ УП-128](/raw/regulations/site-university-342c7211-ukaz-prezidenta-respubliki-tatarstan-ot.md)
 - [3. Что такое терроризм](/raw/regulations/site-university-8363a5f0-chto-takoe-terror.md)
+- [392979 Положение о Комиссии](/raw/regulations/site-university-beeb9c6c-392979-polozhenie-o-komissii.md)
 - [4 семестр (документы подписаны ПЭП) — 2025 BSRO РПД (4 семестр) 21.08.2026/Визуализация_Б1.В.01_BS RO_2025_Элективные дисциплины_21.08.2026.pdf](/raw/regulations/site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026-member-9481c6f2631709a304be.md)
 - [4 семестр (документы подписаны ПЭП) — 2025 BSRO РПД (4 семестр) 21.08.2026/Визуализация_Б1.В.ДВ.02.01_BS RO_2025_Аналитические и компьютерные модели (4 c.)_21.08.2026.pdf](/raw/regulations/site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026-member-d8099c17b087c8a81e7e.md)
 - [4 семестр (документы подписаны ПЭП) — 2025 BSRO РПД (4 семестр) 21.08.2026/Визуализация_Б1.В.ДВ.02.02_BS RO_2025_Введение в функциональный анализ (4 с.)_21.08.2026.pdf](/raw/regulations/site-university-d2aca972-2025-bsro-rpd-4-semestr-21-08-2026-member-aa32be8fc9f8a6d91251.md)
@@ -1140,9 +1108,11 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 - [Полномочия Ученого совета](/raw/regulations/site-university-79bb1b44-2-sostav-uch-sovet.md)
 - [Полномочия операционного совета Университета](/raw/regulations/site-university-b5a0b182-polnomochiya-operatsionnogo-soveta.md)
 - [Положение о Совете родителей (законных представителей) несовершеннолетних обучающихся АНО ВО "Университет Иннополис",](/raw/regulations/site-university-1423aa93-polozhenie-o-sovete-roditeley.md)
+- [Положение о Центре управления РИД](/raw/regulations/site-university-9fc9eb85-polozhenie-o-tsentre-upravleniya-rid.md)
 - [Положение о внутренней системе оценки качества образования АНО ВО «Университет Иннополис» (документ подписан простой электронной подписью)](/raw/regulations/site-university-95670020-polozhenie-o-vsoko.md)
 - [Положение о порядке проведения итоговой аттестации по не имеющим государственной аккредитации образовательным программам среднего профессионального образования в автономной некоммерческой организации высшего образования «Университет Иннополис» (документ подписан простой электронной подписью)](/raw/regulations/site-university-562a21a5-polozhenie-o-poryadke-provedeniya-ia-po.md)
 - [Положение о порядке хранения в архивах информации о результатах освоения обучающимися основных профессиональных образовательных программ высшего образования – программ бакалавриата и программ магистратуры и информации о поощрении обучающихся на бумажных и (или) электронных носителях в автономной некоммерческой организации высшего образования «Университет Иннополис» (документ подписан простой электронной подписью)](/raw/regulations/site-university-296fc730-polozh-rezy-osvoeniya-bakmag-02-08-2022.md)
+- [Положение об Отделе](/raw/regulations/site-university-881aa351-polozhenie-ob-otdele.md)
 - [Приказ (Бакалавриат, основные места, 2026 г.)](/raw/regulations/site-university-129c4ef5-prikaz-o-zachisleniibakalavriat-osnovnye.md)
 - [Приказ Центр ИТ](/raw/regulations/site-university-03937231-prikaz-tsentr-it.md)
 - [Приказ о зачислении (Бакалавриат, Особая квота, 2026 г.)](/raw/regulations/site-university-3ab1b773-prikaz-bakalavriat-osobaya-kvota-2026-g.md)
@@ -1308,7 +1278,6 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 - [Положение о профилактике заболеваний и оздоровления обучающихся, о создании условий для занятия ими физической культурой и спортом в АНО ВО "Университет Иннополис",](/raw/regulations/sveden-45f82e4f-pdf.md)
 - [Положение о режиме занятий обучающихся Автономной некоммерческой организации высшего образования "Университет Иннополис",](/raw/regulations/sveden-032cf217-pdf.md)
 - [Положение о текущем контроле успеваемости и промежуточной аттестации обучающихся по образовательным программам высшего образования – программам подготовки научных и научно-педагогических кадров в аспирантуре,](/raw/regulations/sveden-2edceae4-01-03-2022-12-3-pdf.md)
-- [Положение о формах, периодичности и порядке проведения текущего контроля успеваемости и промежуточной аттестации обучающихся по образовательным программам высшего образования - программам бакалавриата и программам магистратуры автономной некоммерческой организации высшего образования "Университет Иннополис"](/raw/regulations/sveden-d40bccec-pdf.md)
 - [Положение о формах, периодичности и порядке текущего контроля успеваемости и промежуточной аттестации обучающихся, осваивающих образовательные программы среднего профессионального образования в автономной некоммерческой организации высшего образования «Университет Иннополис»](/raw/regulations/sveden-3a1d8da9-pdf.md)
 - [Положение об адаптированных образовательных программах высшего образования в АНО ВО "Университет Иннополис",](/raw/regulations/sveden-426e3e76-pdf.md)
 - [Положение об аттестационной комиссии по проведению аттестации работников, занимающих должности педагогических работников, относящихся к профессорско-преподавательскому составу, в автономной некоммерческой организации высшего образования "Университет Иннополис",](/raw/regulations/sveden-8365b415-pdf.md)
@@ -1327,7 +1296,6 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 - [Порядок освоения дисциплин (модулей) по физической культуре и спорту в Автономной некоммерческой организации высшего образования "Университет Иннополис" (2021),](/raw/regulations/sveden-d171dac5-pdf.md)
 - [Порядок освоения факультативных и элективных дисциплин (модулей) при реализации образовательных программ высшего образования – программ бакалавриата, программ магистратуры и программ подготовки научных и научно-педагогических кадров в аспирантуре в АНО ВО «Университет Иннополис»](/raw/regulations/sveden-21777590-pdf.md)
 - [Порядок освоения факультативных и элективных дисциплин (модулей) при реализации образовательных программ среднего профессионального образования в автономной некоммерческой организации высшего образования «Университет Иннополис»](/raw/regulations/sveden-52395c13-pdf.md)
-- [Порядок оформления возникновения, приостановления и прекращения отношений Автономной некоммерческой организации высшего образования "Университет Иннополис" и обучающимися и (или) родителями (законными представителями) несовершеннолетних обучающихся,](/raw/regulations/sveden-ce5f71c4-pdf.md)
 - [Порядок пользования лечебно-оздоровительной инфраструктурой, объектами культуры и спорта АНО ВО "Университет Иннополис",](/raw/regulations/sveden-f7637f22-pdf.md)
 - [Порядок посещения обучающимися АНО ВО "Университет Иннополис" по своему выбору мероприятий, проводимых в Университете и не предусмотренных учебным планом",](/raw/regulations/sveden-d0c4586d-pdf.md)
 - [Порядок прикрепления лиц для сдачи кандидатских экзаменов в АНО ВО «Университет Иннополис»](/raw/regulations/sveden-1cef98d5-pdf.md)
@@ -1829,6 +1797,7 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 - [Положение о проведении государственной итоговой аттестации по образовательным программам высшего образования - программам подготовки научно-педагогических кадров в аспирантуре в АНО ВО "Университет Иннополис"](/raw/regulations/sveden-da4a5b60-pdf.md)
 - [Положение о проведении итоговой аттестации по не имеющим государственной аккредитации образовательным программам высшего образования - программам подготовки научно-педагогических кадров в аспирантуре в АНО ВО "Университет Иннополис"](/raw/regulations/sveden-ac6c0e60-pdf.md)
 - [Положение о текущем контроле успеваемости и промежуточной аттестации обучающихся по образовательным программам высшего образования – программам подготовки кадров высшей квалификации в аспирантуре в Автономной некоммерческой организации высшего образования "Университет Иннополис"](/raw/regulations/sveden-117f90c4-pdf.md)
+- [Положение о формах, периодичности и порядке проведения текущего контроля успеваемости и промежуточной аттестации обучающихся по образовательным программам высшего образования - программам бакалавриата и программам магистратуры автономной некоммерческой организации высшего образования "Университет Иннополис"](/raw/regulations/sveden-d2e422ce-pdf.md)
 - [Положение об адаптированных образовательных программах высшего образования в автономной некоммерческой организации высшего образования "Университет Иннополис"](/raw/regulations/sveden-69606245-pdf.md)
 - [Порядок проведения промежуточной аттестации с применением дистанционных образовательных технологий по образовательным программам высшего образования – программам бакалавриата и программам магистратуры в автономной некоммерческой организации высшего образования «Университет Иннополис»](/raw/regulations/sveden-9312cfff-poryadok-pa-bakmag-eodot-02-08.md)
 - [Порядок проведения промежуточной и государственной итоговой аттестации с применением дистанционных образовательных технологий по образовательным программам высшего образования – программам подготовки научно-педагогических кадров в аспирантуре в автономной некоммерческой организации высшего образования "Университет Иннополис"](/raw/regulations/sveden-e6989528-pdf.md)
@@ -1836,7 +1805,6 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 - [Правила приема на обучение по образовательным программам высшего образования – программам подготовки научных и научно-педагогических кадров в аспирантуре в АНО ВО «Университет Иннополис» на 2024/2025 учебный год](/raw/regulations/sveden-570cffbf-pravila-priema-asp-15-01-2024-.md)
 - [Приказ АНО ВО «Университет Иннополис» от 29.08.2025 № ОД/АД-01/2025/08/29 «Об утверждении стоимости услуг размещения в жилом комплексе АНО ВО «Университет Иннополис»](/raw/regulations/sveden-7fa2f471-29-08-25-pdf.md)
 - [Сведения о наличии оборудованных объектов для проведения практических занятий — Положение о порядке проведения итоговой аттестации по не имеющим государственной аккредитации образовательным программам высшего образования – программам бакалавриата, программам магистратуры в АНО ВО «Университет Иннополис»](/raw/regulations/sveden-4d11336b-polozh-ia-bakmag-27-04-2024-pd.md)
-- [Сведения о наличии оборудованных объектов для проведения практических занятий — Положение о формах, периодичности и порядке проведения текущего контроля успеваемости и промежуточной аттестации обучающихся по образовательным программам высшего образования - программам бакалавриата и программам магистратуры автономной некоммерческой организации высшего образования "Университет Иннополис"](/raw/regulations/sveden-d2e422ce-pdf.md)
 - [Сведения о наличии оборудованных объектов для проведения практических занятий — Положение об электронной информационно-образовательной среде АНО ВО «Университет Иннополис»](/raw/regulations/sveden-73841fa9-polozh-eios-03-2026-pdf.md)
 
 ## sveden/paid_edu

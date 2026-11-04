@@ -1,12 +1,16 @@
 {
  "title": "Положение об Отделе",
  "url": "https://innopolis.university/files/%D0%9F%D0%BE%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%D0%B1%20%D0%9E%D1%82%D0%B4%D0%B5%D0%BB%D0%B5.pdf",
- "ocr": "queued",
- "pages": 6,
+ "sha256": "d7d083afabfa45bd8155e54ea1c28313b0a3c0dddb04a82a2c936821c4fd0a2b",
+ "method": "ocr (chandra-ocr-2)",
+ "chars": 10171,
+ "tables": 5,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-11-04T13:52:28+00:00",
  "remote": {
   "etag": "\"176816-5c7c88f47ed50\"",
   "modified": "Fri, 23 Jul 2021 11:18:14 GMT",
   "size": "1533974"
- },
- "queued_at": "2026-11-04T13:07:30+00:00"
+ }
 }

@@ -210,15 +210,15 @@ m.abdrakhmanova@innopolis.ru Сайт центра
 
 ## Положение об Отделе интеллектуальной собственности и трансфера технологий
 
-[Скачать](https://innopolis.university/files/Положение%20об%20Отделе.pdf)
+[Скачать](/raw/regulations/site-university-881aa351-polozhenie-ob-otdele.md)
 
 ## Положение о Центре управления, коммерциализации и продвижения результатов интеллектуальной деятельности
 
-[Скачать](https://innopolis.university/files/Положение_о_Центре_управления_РИД.pdf)
+[Скачать](/raw/regulations/site-university-9fc9eb85-polozhenie-o-tsentre-upravleniya-rid.md)
 
 ## Положение о Комиссии по интеллектуальной собственности
 
-[Скачать](https://innopolis.university/files/392979%20Положение%20о%20Комиссии.pdf)
+[Скачать](/raw/regulations/site-university-beeb9c6c-392979-polozhenie-o-komissii.md)
 
 Найти Очистить
 

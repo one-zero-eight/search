@@ -506,13 +506,13 @@ Contact Us
 
 If you have any questions, please leave your contact information, and we will contact you.
 
-[You accept the policy on the processing of personal data by clicking this button.](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
+[You accept the policy on the processing of personal data by clicking this button.](/raw/regulations/site-university-d66c21e6-politicacookies.md)
 
 Here to Help You Choose the Most Effective Course
 
 Stay informed
 
-[I hereby agree to the Terms of Service and the Privacy Policy](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
+[I hereby agree to the Terms of Service and the Privacy Policy](/raw/regulations/site-university-d66c21e6-politicacookies.md)
 
 [![](https://static.tildacdn.com/tild6238-3638-4732-a265-306533396166/XMLID_468_.png)](https://wa.me/+79872887854)
 
@@ -520,9 +520,9 @@ Contact Us
 
 [License](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md)
 
-[Privacy Policy](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
+[Privacy Policy](/raw/regulations/site-university-d66c21e6-politicacookies.md)
 
-[Extract from the License Register](/raw/regulations/site-unionepro-ru-e6310fe5-reestrovaya-vypiska.md)
+[Extract from the License Register](/raw/regulations/site-stc-e6310fe5-reestrovaya-vypiska.md)
 
 Additional opportunities
 

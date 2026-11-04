@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "cases cdto 2 [cases_cdto_2]"
+title: "cases cdto 2"
 resource: "https://innopolis.university/filespublic/cases_cdto_2.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/media"
 sources:
   - resource: "https://innopolis.university/filespublic/cases_cdto_2.pdf"
     id: "062aa6fb7552"
-    title: "cases cdto 2 [cases_cdto_2]"
+    title: "cases cdto 2"
     last_modified: "2026-11-01T23:10:10+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# cases cdto 2 [cases_cdto_2]
+# cases cdto 2
 
 ПУТ.
 
@@ -332,4 +332,4 @@ review: "scanned document read by OCR: check numbers and dates against the PDF b
 
 # Citations
 
-1. [cases cdto 2 [cases_cdto_2]](https://innopolis.university/filespublic/cases_cdto_2.pdf), file 062aa6fb7552
+1. [cases cdto 2](https://innopolis.university/filespublic/cases_cdto_2.pdf), file 062aa6fb7552

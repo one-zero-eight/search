@@ -96,7 +96,7 @@ Academic Plan
 
 Eduwiki is an educational program service at Innopolis University. There you can find your [academic calendar ↗](/raw/calendars/academiccalendar.md), [study plans ↗](/raw/programs/all-studyplan.md), [course schedule ↗](/raw/schedules/all-schedule.md).
 
-This [document ↗](/raw/regulations/sveden-d40bccec-pdf.md) will help you to navigate through the following questions: academic performance control and regulations, retake policy, absence, etc.
+This [document ↗](/raw/regulations/attestation-regulation.md) will help you to navigate through the following questions: academic performance control and regulations, retake policy, absence, etc.
 
 If you have any questions, please do not hesitate to contact Education Dept in room 476 or via education@innopolis.ru.
 

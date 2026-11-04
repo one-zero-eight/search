@@ -230,7 +230,7 @@ status: draft
 
 [Далее](/raw/sites/inno-stand-up-club-timepad-ru/event-2325314.md)
 
-[1](https://inno-stand-up-club.timepad.ru/events/all/page/1/)2[3](/raw/sites/inno-stand-up-club-timepad-ru/events-all-page-3.md)
+[1](/raw/sites/inno-stand-up-club-timepad-ru/events-all-page-1.md)2[3](/raw/sites/inno-stand-up-club-timepad-ru/events-all-page-3.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/inno-stand-up-club-timepad-ru/_shared.md](/raw/sites/inno-stand-up-club-timepad-ru/_shared.md)._
 

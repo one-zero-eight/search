@@ -148,7 +148,7 @@ Apply now
 
 Get a free personal program consultation within 2 workdays
 
-[I hereby agree to the Terms of the Privacy Policy](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
+[I hereby agree to the Terms of the Privacy Policy](/raw/regulations/site-university-d66c21e6-politicacookies.md)
 
 **01.** Practical insights to implement best international practices in your company’s projects and business processes.
 
@@ -252,7 +252,7 @@ We’ll summarize the outcomes, develop action plans, and define next steps for 
 
 ## Apply NOW AND Gain Valuable International Experience
 
-[I hereby agree to the Terms of the Privacy Policy](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
+[I hereby agree to the Terms of the Privacy Policy](/raw/regulations/site-university-d66c21e6-politicacookies.md)
 
 ## FAQ
 
@@ -300,11 +300,11 @@ International.education@innopolis.ru
 
 Apply
 
-[Extract from the License Register](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
+[Extract from the License Register](/raw/regulations/site-university-d66c21e6-politicacookies.md)
 
 [License](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md)
 
-[Privacy Policy](/raw/regulations/site-unionepro-ru-e6310fe5-reestrovaya-vypiska.md)
+[Privacy Policy](/raw/regulations/site-stc-e6310fe5-reestrovaya-vypiska.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/ido/_shared.md](/raw/sites/ido/_shared.md)._
 

@@ -1,12 +1,16 @@
 {
  "title": "Мы используем файлы cookie, для персонализации сервисов и повышения удобства пользования сайтом. Если вы не согласны на их использование, поменяйте настройки браузера.",
  "url": "https://unionepro.ru/docs/politicacookies.pdf",
- "ocr": "queued",
- "pages": 9,
+ "sha256": "03b1d30298ccfdf7d5e21af950a6d07e4eb11762f7e9326f776faa20c6dea460",
+ "method": "ocr (chandra-ocr-2)",
+ "chars": 21419,
+ "tables": 5,
+ "section": "site/unionepro-ru",
+ "context": "",
+ "fetched_at": "2026-11-04T13:52:32+00:00",
  "remote": {
   "etag": "\"6a8be91e-295cf4\"",
   "modified": "Mon, 24 Aug 2026 06:47:58 GMT",
   "size": "2710772"
- },
- "queued_at": "2026-11-04T13:07:42+00:00"
+ }
 }

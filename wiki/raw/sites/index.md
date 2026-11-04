@@ -992,6 +992,7 @@ Pages of the sites of the university and its services: the university, admission
 
 ## site/inno-stand-up-club-timepad-ru
 
+- [Inno Stand Up Club / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/events-all-page-1.md)
 - [Inno Stand Up Club / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/events-all-page-2.md): Неприлично веселый огонек: Вечер комедии от Inno Stand Up Club в формате презентаций
 - [Inno Stand Up Club / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/events-all-page-3.md): Вам открыта невероятная возможность пошутить и посмеяться над выступающими комиками
 - [Inno Stand Up Club / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/home.md)

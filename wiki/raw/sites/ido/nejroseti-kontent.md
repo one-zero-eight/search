@@ -688,7 +688,7 @@ FAQ
 
 Стоимость курса
 
-[Политика конфиденциалности](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
+[Политика конфиденциалности](/raw/regulations/site-university-d66c21e6-politicacookies.md)
 
 [Оферта](/raw/regulations/site-ido-4cbe0e13-oferta-neyroseti.md)
 

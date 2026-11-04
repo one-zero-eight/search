@@ -192,7 +192,7 @@ status: draft
 
 unionepro.support@innopolis.ru8 800 550 31 71
 
-[Об Университете](/raw/sites/university/ido.md)О платформе[Новости](/raw/sites/university/ido.md)[Календарь мероприятий](/raw/sites/events/home.md)[Лицензия](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md)[Выписка из реестра лицензий](/raw/regulations/site-unionepro-ru-e6310fe5-reestrovaya-vypiska.md)[Политика конфиденциальности](/raw/regulations/site-unionepro-ru-07abe9db-policy-processing-personal-data.md)
+[Об Университете](/raw/sites/university/ido.md)О платформе[Новости](/raw/sites/university/ido.md)[Календарь мероприятий](/raw/sites/events/home.md)[Лицензия](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md)[Выписка из реестра лицензий](/raw/regulations/site-stc-e6310fe5-reestrovaya-vypiska.md)[Политика конфиденциальности](/raw/regulations/site-unionepro-ru-07abe9db-policy-processing-personal-data.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/unionepro-ru/_shared.md](/raw/sites/unionepro-ru/_shared.md)._
 

@@ -360,7 +360,7 @@ Extra links
 
 - [Ministry of Science and Higher Education of the Russian Federation](https://minobrnauki.gov.ru/)
 
-- [Privacy policy](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
+- [Privacy policy](/raw/regulations/site-university-d66c21e6-politicacookies.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/dovuz/_shared.md](/raw/sites/dovuz/_shared.md)._
 

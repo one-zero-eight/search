@@ -111,7 +111,7 @@ habr
 
 - [Конкурс на замещение вакантных должностей ППС](/raw/sites/career/konkursnyezayavkiprofessorskoprepodavatelskogosostava.md)
 
-- [Политика конфиденциальности](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
+- [Политика конфиденциальности](/raw/regulations/site-university-d66c21e6-politicacookies.md)
 
 - [«Горячая линия» ситуационного центра (COVID-2019): +7 (495) 198-00-00](https://www.minobrnauki.gov.ru/action/situational_center/?lang=ru&id=396&site=s1&template=university24&landing_mode=edit)
 
