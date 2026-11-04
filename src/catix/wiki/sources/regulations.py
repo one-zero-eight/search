@@ -214,7 +214,7 @@ def page_links_of(keys: Iterable[str] | None = None) -> dict[str, set[str]]:
         text_path = docs[key]["root"] / f"{key}.txt"
         if text_path.exists():
             for url in crawl.text_page_links(text_path.read_text(encoding="utf-8"), docs[key]["url"]):
-                if provider := crawl.provider(url):
+                if provider := crawl.provider(url, page=True):
                     found.setdefault(provider, set()).add(url)
     return found
 

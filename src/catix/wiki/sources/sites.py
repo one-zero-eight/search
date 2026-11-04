@@ -914,9 +914,32 @@ def read(html: str, url: str, headings: str | None = None) -> tuple[str, str, li
     return title, text, list(links)
 
 
+def page_url(site: Site, url: str) -> str:
+    """A page's fetch/cache address: an explicit alias is the same path on the primary host, not a second site.
+    An unrelated host (including an unconfigured subdomain) or an unsafe address has no page address here."""
+    try:
+        parts = urlsplit(url)
+        if parts.scheme not in {"http", "https"} or parts.port is not None or parts.username or parts.password or not parts.hostname:
+            return ""
+    except ValueError:
+        return ""
+    host = parts.hostname.lower().rstrip(".")
+    base = urlsplit(site.base)
+    if host not in {base.hostname, *(alias.lower().rstrip(".") for alias in site.aliases)}:
+        return ""
+    if host != base.hostname and any(host == urlsplit(other.base).hostname for other in SITES.values()):
+        return ""  # a separately configured primary host is not somebody else's alias
+    return canonical(parts._replace(netloc=base.netloc).geturl())
+
+
 def _taken(site: Site, url: str) -> bool:
-    parts = urlsplit(url)
-    if parts.scheme not in {"http", "https"} or parts.netloc != urlsplit(site.base).netloc or DOC.search(parts.path):
+    reload_catalog()
+    target = page_url(site, url)
+    parts = urlsplit(target)
+    if not target or DOC.search(parts.path):
+        return False
+    hosts = {(urlsplit(url).hostname or "").lower().rstrip("."), parts.hostname or ""}
+    if any(host == blocked or host.endswith("." + blocked) for host in hosts for blocked in BLOCKED):
         return False
     return not re.search(site.skip, unquote(parts.path).lstrip("/"), re.I)
 
@@ -966,7 +989,7 @@ def new_linked_pages(names: list[str] | None = None) -> dict[str, set[str]]:
 
     readable = every_site()
     selected = names or list(readable)
-    known = {name: {canonical(page["url"]) for page in load(name)["pages"].values() if page.get("url")} for name in readable}
+    known = {name: known_urls(load(name)) for name in readable}
     found: dict[str, set[str]] = {}
     for source in selected:
         folder = ROOT / source
@@ -976,15 +999,15 @@ def new_linked_pages(names: list[str] | None = None) -> dict[str, set[str]]:
         for path in folder.glob("*.md"):
             url = index["pages"].get(path.stem, {}).get("url", readable[source].base)
             for target in crawl.page_links(path.read_text(encoding="utf-8"), url):
-                provider = crawl.provider(target)
-                if provider and target not in known.setdefault(provider, set()):
+                provider = crawl.provider(target, page=True)
+                if provider and address(target) not in known.setdefault(provider, set()):
                     found.setdefault(provider, set()).add(target)
     return found
 
 
 def known_urls(index: dict) -> set[str]:
     """The addresses of a site's index, gone ones too (a page that went, a copy of another under a second address: not new)."""
-    return {page["url"].rstrip("/") for page in index["pages"].values() if page.get("url")}
+    return {address(page["url"]) for page in index["pages"].values() if page.get("url")}
 
 
 def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | None = None,
@@ -1010,11 +1033,16 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
     todo: list[str] = list(start) if start is not None else [site.base]
 
     def url_of(link: str) -> str:
+        target = page_url(site, link)
+        if not target:
+            return ""
         number = re.search(rf"[?&]{site.listing}=(\d+)", link) if site.listing else None
-        return canonical(link) + (f"?{site.listing}={number.group(1)}" if number and number.group(1) != "1" else "")  # (a page of a list, after its first)
+        return target + (f"?{site.listing}={number.group(1)}" if number and number.group(1) != "1" else "")  # (a page of a list, after its first)
 
     def put(link: str) -> None:
         url = url_of(link)
+        if not url:
+            return
         if ("?" not in url or DOWNLOAD.search(urlsplit(url).path)) and url.rstrip("/") not in known:  # listing queries are not new pages; download IDs are distinct files
             fresh.append(link)
         elif not only_new:
@@ -1050,13 +1078,13 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
     while (fresh or todo) and len(seen) < limit:
         link = (fresh or todo).pop(0)
         url = url_of(link)
-        if url in seen or not _taken(site, url) or rules and not rules.can_fetch(regulations.HEADERS["User-Agent"], url):
+        if not url or url in seen or not _taken(site, link) or rules and not rules.can_fetch(regulations.HEADERS["User-Agent"], url):
             continue
         seen.add(url)
         if visited is not None:
             visited.add(url)
         slug = slug_of(site, url)
-        if index["pages"].get(slug, {}).get("url", url).rstrip("/") != url.rstrip("/"):  # (two paths, one slug: a Cyrillic path leaves nothing of itself, 'home' is taken)
+        if address(index["pages"].get(slug, {}).get("url", url)) != address(url):  # (two paths, one slug; an alias is the same page, not a collision)
             slug = f"{slug[:50]}-{hashlib.sha1(url.encode()).hexdigest()[:6]}"
         try:
             if DOWNLOAD.search(urlsplit(url).path):
@@ -1102,10 +1130,10 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
             if (DOC.search(urlsplit(link).path) or canonical(link) in index.get("archive_types", {})) and crawl.provider(link):
                 doc = canonical(link)
                 docs[doc] = max(docs.get(doc, ""), anchor, key=len)  # the fullest of the link texts: 'Правила проживания', not 'Правила'
-            elif _taken(site, link) or crawl.provider(link) == name:
+            elif _taken(site, link):
                 put(link)
-            elif linked is not None and (other := crawl.provider(link)):
-                target = canonical(link)
+            elif linked is not None and (other := crawl.provider(link, page=True)):
+                target = page_url(SITES[other], link)
                 if target not in (visited or set()) and target not in linked.setdefault(other, set()):
                     linked[other].add(target)
         if "?" in url:  # (a page of a list: its links are taken, it is not kept)
@@ -1385,9 +1413,8 @@ def address(url: str) -> str:
     is compared as a link to the site ('university.innopolis.ru/en/about/' is 'innopolis.university/en/about/')."""
     reload_catalog()
     spelled = canonical(urldefrag(url)[0]).rstrip("/")
-    host = urlsplit(spelled).netloc
-    own = next((urlsplit(site.base).netloc for site in SITES.values() if host.removeprefix("www.") in site.aliases), None)
-    return spelled.replace(host, own, 1) if own else spelled
+    target = next((target for site in SITES.values() if (target := page_url(site, url))), "")
+    return target.rstrip("/") if target else spelled
 
 
 def resolve(body: str, where: dict[str, str]) -> str:
