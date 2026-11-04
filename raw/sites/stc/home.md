@@ -5,20 +5,16 @@
 - Контакты
 - О нас
 ![](https://static.tildacdn.com/tild6639-3565-4237-b434-376165316239/Group_2347_2.png)
-## ЦЕНТР
-СПЕЦИАЛИЗИРОВАННОЙ
-ИТ-ПОДГОТОВКИ
-УНИВЕРСИТЕТА
-ИННОПОЛИС
+## ЦЕНТР СПЕЦИАЛИЗИРОВАННОЙ ИТ-ПОДГОТОВКИ УНИВЕРСИТЕТА ИННОПОЛИС
 Твой путь к работе над крутыми проектами в ведущих ИТ-компаниях
 ПРОГРАММИРОВАНИЕ
 ТЕСТИРОВАНИЕ
-[РАЗРАБОТКА](https://stc.innopolis.university/?s_recid=281327586&s_charact%3A874390=%D0%A0%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0#courses)
+[РАЗРАБОТКА](https://stc.innopolis.university/?s_recid=281327586&s_charact%3A874390=Разработка#courses)
 Записаться
 [Записаться](https://stc.innopolis.university/ai_data_analitika?utm_source=block_glavnaya)
 [Курс ИИ и основы аналитики больших данных](https://edu.innopolis.university/engineers?utm_source=stc)
 от Университета Иннополис
-![](https://static.tildacdn.com/tild6430-3436-4566-b339-306332663539/Frame_47.png)
+[![](https://static.tildacdn.com/tild6430-3436-4566-b339-306332663539/Frame_47.png)](https://edu.innopolis.university/engineers?utm_source=stc)
 ![](https://static.tildacdn.com/tild3636-6339-4737-b232-623734616137/Group_277132229.png)
 Программы повышения квалификации и профессиональной переподготовки
 Передовая инженерная школа Университета Иннополис
@@ -26,7 +22,15 @@
 [Узнать подробнее](https://edu.innopolis.university/engineers?utm_source=stc)
 [![](https://static.tildacdn.com/tild3139-6561-4039-b933-303362353063/620x260.png)](https://rk.2035.university/home/specialist)
 ![](https://static.tildacdn.com/tild3530-3631-4338-a364-343637373039/10801080.png)
-Выбрать курс
+## Выбрать курс
+- Все программы
+- Школьникам
+- Педагогам
+- Тестирование
+- Разработка
+- Аналитика
+- Искусственный интеллект
+- Управление
 Не могу выбрать курс, нужна помощь
 Нужна консультация!
 Связаться с менеджером
@@ -47,7 +51,7 @@
 Гид по ИТ-сфере почти у вас!
 Осталось только отправить заявку
 Отправляя заявку, вы даете согласие на обработку своих персональных данных в соответствии [с политикой конфиденциальности.](https://stc.innopolis.university/pdpolicy)
-Секрет результативности наших курсов
+## Секрет результативности наших курсов
 ![](https://static.tildacdn.com/tild6462-3535-4035-b536-663539366631/Group_2846.png)
 Программа
 Составлена по требованиям и при участии специалистов ведущих IT-компаний.
@@ -60,7 +64,7 @@
 Выпускникам, успешно завершившим обучение, выдается официальный документ установленного образца с занесением сведений в Федеральный реестр о документах об образовании и (или) о квалификации, документах об обучении.
 ![](https://static.tildacdn.com/tild3237-6564-4338-b864-383835396263/___.jpg)
 ![](https://static.tildacdn.com/tild3532-3438-4465-b439-383532343364/__STC.jpg)
-Помогаем нашим выпускникам получить стажировку и работу в ведущих компаниях
+## **Помогаем нашим выпускникам получить стажировку и работу в ведущих компаниях**
 ![](https://static.tildacdn.com/tild3766-6131-4164-b033-646362393366/2560px-Rusal_Logosvg.png)
 ![](https://static.tildacdn.com/tild6364-3861-4831-a537-386465336536/_.png)
 ![](https://static.tildacdn.com/tild3038-3161-4261-b666-306233656430/Sibur_Holding_Logosv.png)
@@ -92,12 +96,10 @@ https://www.gosuslugi.ru/600314/1/form?courseID=18697
 Подпишитесь на дайджест
 Вы первыми узнаете о стартах ближайших курсов
 КОНТАКТЫ
-+7-800-222-92-56
-digital_prof@innopolis.ru
++7-800-222-92-56digital_prof@innopolis.ru
 ВЫБРАТЬ КУРС
 [ОТЗЫВЫ ВЫПУСКНИКОВ](https://stc.innopolis.university/feedback)
-[Лицензия](https://innopolis.university/upload/iblock/d7f/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B4%D0%B5%D1%8F%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C.pdf)
-[Выписка из реестра лицензий](https://innopolis.university/upload/iblock/b6f/ozxoa1j463v3s0m55w9kdc1qc0z31zfr/%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%B2%D1%8B%D0%BF%D0%B8%D1%81%D0%BA%D0%B0.pdf)
+[Лицензия](https://innopolis.university/upload/iblock/d7f/Лицензия%20на%20обрдеятельность.pdf) [Выписка из реестра лицензий](https://innopolis.university/upload/iblock/b6f/ozxoa1j463v3s0m55w9kdc1qc0z31zfr/Реестровая%20выписка.pdf)
 [![](https://static.tildacdn.com/tild3261-6565-4135-b764-376639306437/free-png_1_Traced_1.png)](https://zen.yandex.ru/id/610a33afacadbf2542755336)
 [![](https://static.tildacdn.com/tild6330-3937-4339-b132-613637663434/social_Traced_1.png)](https://vk.com/edtechiu)
 [![](https://static.tildacdn.com/tild3566-3833-4333-a563-346461636534/telegram_Traced_1.png)](https://t.me/innokadriu)

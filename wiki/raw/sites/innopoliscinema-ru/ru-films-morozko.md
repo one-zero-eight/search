@@ -20,7 +20,7 @@ status: draft
 
 # «Кино&Театр» в Иннополисе | Морозко
 
-- RU / [EN](https://innopoliscinema.ru/en/films/morozko)
+- RU / [EN](/raw/sites/innopoliscinema-ru/en-films-morozko.md)
 
 ## Морозко
 

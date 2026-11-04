@@ -1,5 +1,6 @@
 {
  "docs": {
+  "https://apply.innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%9F%D0%94%D0%BD%20%D0%B4%D0%BB%D1%8F%20%D0%A3%D0%98.pdf": "условиями использования",
   "https://innopolis.university/upload/files/%D0%9F%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0%20%D0%BA%D0%BE%D0%BD%D1%84%D0%B8%D0%B4%D0%B5%D0%BD%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8.pdf": "политикой конфиденциальности",
   "https://robotics.innopolis.university/wp-content/uploads/2021/12/Digest3.pdf": "Первый выпуск про промышленную робототехнику В сборнике «6 степеней свободы» от 2021 года эксперты анализируют рынок промышленной робототехники в России и в мире, технологии, образовательную деятельность и опыт лидеров индустрии — KUKА, FANUC, «КАМАЗ», Национальной Ассоциации Участников Рынка Робототехники и других.",
   "https://robotics.innopolis.university/wp-content/uploads/2022/08/Didgestmicroelectronika.pdf": "Скачать"
@@ -126,10 +127,10 @@
    "url": "https://spec.innopolis.university/hackathon"
   },
   "home": {
-   "fetched_at": "2026-10-31T08:45:02+00:00",
-   "file_sha": "915f768866bf7cb10c312a50e750280b7eee2b22b7c4236f651c2d93aec37ceb",
+   "fetched_at": "2026-11-04T12:46:49+00:00",
+   "file_sha": "5cd569a9428f537fbb516cb866bd38c5959b382e5eb288b0f3f208ab5868dd12",
    "last_modified": "Fri, 30 May 2025 11:51:19 GMT",
-   "sha256": "7de382212fbe3495c293b360ee7c016333c26e6b31df8e57a35dc5f1130c66d7",
+   "sha256": "33d0f4f732fa22b40ec9c584c7ea76435a607807e507870a4f82987b5d37393b",
    "title": "Университет Иннополис",
    "url": "https://spec.innopolis.university/"
   },
@@ -181,6 +182,14 @@
    "title": "Что тебя ждёт в ИТ-сфере",
    "url": "https://spec.innopolis.university/page20883940.html"
   },
+  "page26134157-html": {
+   "fetched_at": "2026-11-04T12:46:56+00:00",
+   "file_sha": "e84ea5fe001e3b52d19fbd7a8689bd52aad401d564d0f4090d3a1efa9f9c8ff1",
+   "last_modified": "Mon, 29 May 2023 10:31:08 GMT",
+   "sha256": "8a713bf7187b0c1dd795c79339e7a786810163aba741749389bf9b86ac3eab0d",
+   "title": "Моя суперспособность — окружать себя профессионалами",
+   "url": "https://spec.innopolis.university/page26134157.html"
+  },
   "policy": {
    "fetched_at": "2026-10-31T08:45:04+00:00",
    "file_sha": "58a674b7a18f626ea60408e1029a3719b5e78f0d3c6b75071e29925705f14f72",
@@ -212,6 +221,14 @@
    "sha256": "0bab3d53ace211977ae99d6a582ef5db7af023c84defbbf5532322c8e7ea7867",
    "title": "QSAR-модели в фармацевтике",
    "url": "https://spec.innopolis.university/qsar"
+  },
+  "robowebinar": {
+   "fetched_at": "2026-11-04T12:47:04+00:00",
+   "file_sha": "5d2ecc42ca509b035414819d1aa8ee9105a964c7158c4563d50ff7ce0e7daba1",
+   "last_modified": "Fri, 03 May 2024 05:32:51 GMT",
+   "sha256": "08edc08bad2cc361fc235ea1cde0aeeea26a2ded4a5631f65369a37e9de550e6",
+   "title": "Log In To Your Account",
+   "url": "https://spec.innopolis.university/robowebinar"
   },
   "ruslan-lukin": {
    "fetched_at": "2026-10-31T08:45:59+00:00",
@@ -340,6 +357,16 @@
    "sha256": "ea397437e847a0b48bd2fbc5db0c00a4d408ca4f5b15a62dd1deba3e5693d0ec",
    "title": "Предприятие как датасет для искусственного интеллекта",
    "url": "https://spec.innopolis.university/wp/ai"
+  }
+ },
+ "tried": {
+  "https://spec.innopolis.university/alena_sidorova": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://spec.innopolis.university/blockchain": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
   }
  }
 }

@@ -1,7 +1,7 @@
 ---
 type: page
 title: "Абитуриентам Университета Иннополис"
-description: "Абитуриенту Бакалавриат Магистратура Онлайн-магистратура Аспирантура Колледж"
+description: "С 2012 года готовим высококвалифицированные кадры в области информационных технологий,"
 resource: "https://apply.innopolis.university/"
 audience: ["student", "postgraduate", "applicant", "teacher", "staff", "management", "public"]
 source_kind: website
@@ -9,22 +9,46 @@ language: ru
 section: "site/apply"
 sources:
   - resource: "https://apply.innopolis.university/"
-    id: "d11130510e59"
+    id: "3097a656c870"
     title: "Абитуриентам Университета Иннополис"
-    last_modified: "2026-10-24T23:37:01+00:00"
+    last_modified: "2026-11-04T12:35:33+00:00"
 generated:
   by: "catix-wiki/0.1 sites"
-  at: "2026-10-24T23:37:01+00:00"
+  at: "2026-11-04T12:35:33+00:00"
 status: draft
 ---
 
 # Абитуриентам Университета Иннополис
 
+С 2012 года готовим высококвалифицированные кадры в области информационных технологий,
+
+искусственного интеллекта и робототехники
+
+- Поступающим
+
 Абитуриенту [Бакалавриат](/raw/sites/apply/bachelors.md) [Магистратура](/raw/sites/apply/masters.md) [Онлайн-магистратура](/raw/sites/apply/msonline.md) [Аспирантура](/raw/sites/apply/postgraduate-study.md) [Колледж](/raw/sites/college/home.md)
 
-## выбирай будущее
+- Гранты и стипендии
 
-[Подать документы на поступление](https://www.gosuslugi.ru/vuzonline) [Посмотреть конкурсные списки](https://www.gosuslugi.ru/vuznavigator/universities/1842) [Подать заявку на грант](https://profile.innopolis.university/) [Поступление иностранных граждан](/raw/sites/apply/sng.md)
+- Другие возможности поступления
+
+- Посетить иннополис
+
+- Проживание в университете
+
+- Довузовская подготовка
+
+- режим работы
+
+- Телефон
+
+- Email
+
+- адрес
+
+## выбирай будущее **поступай в Университет Иннополис**
+
+[Подать документы на поступление](https://www.gosuslugi.ru/vuzonline)[Посмотреть конкурсные списки](https://www.gosuslugi.ru/vuznavigator/universities/1842)[Подать заявку на грант](https://profile.innopolis.university/)[Поступление иностранных граждан](/raw/sites/apply/sng.md)
 
 ![](https://apply.innopolis.university/local/js/innopolis/dist/images/applicants-intro.webp)
 
@@ -32,17 +56,27 @@ status: draft
 
 Подтвержденное качество и успех выпускников
 
-**1.** ## по качеству академической среды в Forbes
+## **1.** по качеству академической среды в Forbes
 
-**1.** ## место в рейтинге Минтруда по трудоустройству выпускников
+## **1.** место в рейтинге Минтруда по трудоустройству выпускников
 
-**3.** место в рейтинге ВШЭ по качеству приема в вузы РФ
+3
 
-**5.** место в рейтинге SuperJob по уровню зарплат выпускников технических вузов
+место в рейтинге ВШЭ
 
-**10.** место в рейтинге RAEX, 2026 среди ИТ вузов
+по качеству приема в вузы РФ
 
-**17.** место в Round University Ranking среди РФ вузов в мировом рейтинге
+5
+
+место в рейтинге SuperJob по уровню зарплат выпускников технических вузов
+
+10
+
+место в рейтинге RAEX, 2026 среди ИТ вузов
+
+17
+
+место в Round University Ranking среди РФ вузов в мировом рейтинге
 
 топ-10
 
@@ -52,25 +86,25 @@ status: draft
 
 в рейтинге российских университетов стран БРИКС
 
-## Гид для абитуриента: выберите свой путь
-
-[![](https://apply.innopolis.university/upload/iblock/d31/sfoyu6ayc4p0a23ezs52cckwl870sw14/1.webp)](/raw/sites/apply/bachelors.md)
+## Гид для абитуриента: **выберите свой путь**
 
 ## [Бакалавриат](/raw/sites/apply/bachelors.md)
 
-[![](https://apply.innopolis.university/upload/iblock/070/gcxyvewg0d9ji3m2ndh714hr1wyumjfy/2.webp)](/raw/sites/apply/masters.md)
+![](https://apply.innopolis.university/upload/iblock/d31/sfoyu6ayc4p0a23ezs52cckwl870sw14/1.webp)
 
 ## [Магистратура](/raw/sites/apply/masters.md)
 
-[![](https://apply.innopolis.university/upload/iblock/2c8/fa2hqpzzvj5compy6f7iarbpaj0lozwo/3.webp)](/raw/sites/apply/postgraduate-study.md)
+![](https://apply.innopolis.university/upload/iblock/070/gcxyvewg0d9ji3m2ndh714hr1wyumjfy/2.webp)
 
 ## [Аспирантура](/raw/sites/apply/postgraduate-study.md)
 
+![](https://apply.innopolis.university/upload/iblock/2c8/fa2hqpzzvj5compy6f7iarbpaj0lozwo/3.webp)
+
 ## [Поступление после СПО](/raw/sites/apply/spo.md)
 
-[![](https://apply.innopolis.university/upload/iblock/981/q1wcynw57ebunm8vt85qqeuaybqf072s/4.webp)](/raw/sites/apply/msonline.md)
-
 ## [Онлайн-магистратура](/raw/sites/apply/msonline.md)
+
+![](https://apply.innopolis.university/upload/iblock/981/q1wcynw57ebunm8vt85qqeuaybqf072s/4.webp)
 
 ## [Поступление граждан СНГ](/raw/sites/apply/sng.md)
 
@@ -116,13 +150,17 @@ status: draft
 
 ## Бюджетные места 2026
 
-171
+- 171
 
 место в бакалавриате
 
-**67.** мест в магистратуре
+- 67
 
-**10.** мест на аспирантуре
+мест в магистратуре
+
+- 10
+
+мест на аспирантуре
 
 [▶ video](https://vk.com/video-195737933_456239180)
 
@@ -130,19 +168,29 @@ status: draft
 
 Ректор Университета Иннополис Александр Гасников расскажет, как выстраивается образовательный процесс в ИТ-вузе, в каких областях студенты проводят исследования мирового уровня и почему их диплом — это гарантия трудоустройства в топовые ИТ-компании
 
-## Приемная кампания 2026: 3 шага до поступления
+## Приемная кампания 2026: **3 шага до поступления**
+
+1.
 
 ## Подайте заявку онлайн
 
 Все заявки на грантовый конкурс или на поступление в университет без гранта подаются онлайн. Пройдите регистрацию и заполните ваши данные.
 
+2.
+
 ## Изучите условия поступления
 
-Всё о вступительных испытаниях, сроках и требованиях к поступлению на бакалавриат, магистратуру и аспирантуру в 2026 году.
+Всё о вступительных испытаниях, сроках и требованиях к поступлению на бакалавриат, магистратуру
+
+и аспирантуру в 2026 году.
+
+3.
 
 ## Примите участие в Дне открытых дверей
 
-Получите персональную консультацию, познакомьтесь с преподавателями и студентами, узнайте все об обучении из первых уст.
+Получите персональную консультацию, познакомьтесь с преподавателями и студентами, узнайте все об
+
+обучении из первых уст.
 
 ## Посмотрите
 
@@ -156,7 +204,13 @@ status: draft
 
 ## Наши преподаватели
 
-Практики из ведущих ИТ-компаний и исследователи с международным опытом. Они сочетают академические знания с реальной отраслевой экспертизой, чтобы давать актуальные знания и навыки, соответствующие требованиям современной ИТ-индустрии.
+Практики из ведущих ИТ-компаний и исследователи с международным опытом.
+
+Они сочетают академические знания с реальной отраслевой экспертизой, чтобы давать
+
+актуальные
+
+знания и навыки, соответствующие требованиям современной ИТ-индустрии.
 
 ![](https://apply.innopolis.university/upload/resize_cache/iblock/17a/sy36jl1wfxjf81fld27n2w38cnqkda9h/470_540_2/3.jpg)
 
@@ -174,7 +228,11 @@ status: draft
 
 ## Владимир Иванов
 
-Директор института разработки ПО и программной инженерии, доцент, PhD. Кандидат физико-математических наук (2009). Научные интересы: анализ данных, машинное обучение, разработка ПО, компьютерная лингвистика
+Директор института разработки ПО и программной инженерии, доцент, PhD.
+
+Кандидат физико-математических наук (2009).
+
+Научные интересы: анализ данных, машинное обучение, разработка ПО, компьютерная лингвистика
 
 ![](https://apply.innopolis.university/upload/resize_cache/iblock/2b8/hl4hs9gnlkky9y7yjg73uxd9hp2b2r9i/470_540_2/43.jpg)
 
@@ -186,13 +244,19 @@ status: draft
 
 ## Мануэль Маццара
 
-PhD, University of Bologna, Италия, профессор, декан факультета, руководитель отдела международного и академического сотрудничества Получил степень магистра (2002) и PhD (2006) в Университете Болоньи. Разрабатывал программное обеспечение в компании Майкрософт и работал в Университете Ньюкасла над проектом Deploy
+PhD, University of Bologna, Италия, профессор, декан факультета, руководитель отдела международного и академического сотрудничества
+
+Получил степень магистра (2002) и PhD (2006) в Университете Болоньи.
+
+Разрабатывал программное обеспечение в компании Майкрософт и работал в Университете Ньюкасла над проектом Deploy
 
 ![](https://apply.innopolis.university/upload/resize_cache/iblock/e13/m0v6h1fzhkpdposds68keb50bpb1zg7i/470_540_2/102.jpg)
 
 ## Никола Златанов
 
-Доктор философии в Университете Британской Колумбии (Канада, 2015). Занимал академические позиции в Университете Монаш (Австралия). Редактор ведущих международных журналов: IEEE Communications Letters (2015–2018) и IEEE Wireless Communications Letters (2020–2023). Сфера научных интересов: машинное обучение и беспроводная связь.
+Доктор философии в Университете Британской Колумбии (Канада, 2015). Занимал академические позиции в Университете Монаш (Австралия).
+
+Редактор ведущих международных журналов: IEEE Communications Letters (2015–2018) и IEEE Wireless Communications Letters (2020–2023). Сфера научных интересов: машинное обучение и беспроводная связь.
 
 ![](https://apply.innopolis.university/upload/resize_cache/iblock/bde/b08q4khuigbeg49219fmu5gqwcy6jcr8/470_587_2/i-0005%20%282%29.jpg)
 
@@ -262,11 +326,13 @@ PhD, профессор Института искусственного инте
 
 ## От учебы к карьере в компаниях-лидерах ИТ-рынка
 
-100% наших выпускников начинают карьеру в ИТ в течение первого года после окончания университета.
+100% наших выпускников начинают карьеру в ИТ в течение первого года после окончания
+
+университета.
 
 Они работают в компаниях, определяющих технологическое будущее России:
 
-![](https://apply.innopolis.university/local/js/innopolis/dist/images/graduates/companies/ak-bars-digital.webp)
+- ![](https://apply.innopolis.university/local/js/innopolis/dist/images/graduates/companies/ak-bars-digital.webp)
 
 ![](https://apply.innopolis.university/local/js/innopolis/dist/images/graduates/1.webp)
 
@@ -286,7 +352,7 @@ Digital Forensics and Incident Response Laborator
 
 Руководитель региональных DFIR-специалистов в Дубае
 
->150 проектов в кибербезопасности >20 тыс. хостов
+\>150 проектов в кибербезопасности >20 тыс. хостов
 
 ![](https://apply.innopolis.university/local/js/innopolis/dist/images/graduates/3.webp)
 
@@ -294,7 +360,11 @@ Digital Forensics and Incident Response Laborator
 
 Лауреат Forbes «30 до 30» в категории «Наука и технологии»
 
-Сооснователь и технический директор стартапов EORA и Optic. Привлек $11 млн инвестиций от Google в стартап Optic
+Сооснователь и технический директор стартапов EORA и Optic. Привлек
+
+$11 млн
+
+инвестиций от Google в стартап Optic
 
 Работает с OpenSea, Сбер, Яндекс
 
@@ -302,11 +372,19 @@ Digital Forensics and Incident Response Laborator
 
 ### Юлдуз Фаттахова
 
-AI Product Manager в проекте SyntData, Leading Author of ML Advanced Course
+AI Product Manager в проекте SyntData, Leading Author of ML Advanced
 
-Победительница конкурса Стэнфордского унивесритета Women in Data Science
+Course
 
-4 авторских курса в Skillbox, >20 моделей в промышленной эксплуатации, семилетний опыт внедрения решений на основе AI
+Победительница конкурса Стэнфордского унивесритета Women in Data
+
+Science
+
+4 авторских курса в Skillbox, >20 моделей в промышленной
+
+эксплуатации,
+
+семилетний опыт внедрения решений на основе AI
 
 ![](https://apply.innopolis.university/local/js/innopolis/dist/images/graduates/5.webp)
 
@@ -314,7 +392,13 @@ AI Product Manager в проекте SyntData, Leading Author of ML Advanced Cou
 
 Научный руководитель группы в AIRI
 
-Запуск направления Tinkoff Research, участие в направлении Reiforcement Learning, 7 публикаций в NeurIPS/ICML, победитель премии Yandex ML Prize
+Запуск направления Tinkoff Research, участие в направлении
+
+Reiforcement
+
+Learning, 7 публикаций в NeurIPS/ICML, победитель премии Yandex ML
+
+Prize
 
 ![](https://apply.innopolis.university/local/js/innopolis/dist/images/graduates/6.webp)
 
@@ -322,7 +406,13 @@ AI Product Manager в проекте SyntData, Leading Author of ML Advanced Cou
 
 Инженер-исследователь в области ИИ
 
-Инженер стартапа Coframe, победитель хакатона AGI House, приз Honorable Mention от Google DeepMind
+Инженер стартапа Coframe, победитель хакатона AGI House, приз
+
+Honorable
+
+Mention
+
+от Google DeepMind
 
 Работает с OpenAI, CHAI
 
@@ -330,83 +420,31 @@ AI Product Manager в проекте SyntData, Leading Author of ML Advanced Cou
 
 Мы заботимся о том, чтобы выпускники устроились на достойные позиции в компании-лидеры российского рынка ИТ-индустрии, которые дают возможность не только участвовать в амбициозных проектах, но и расти в профессиональной и материальной сферах.
 
-![](https://apply.innopolis.university/upload/iblock/d0a/smwlk8qz555yh50pcmi2yfyh0y6iru3n/Артем%20Панов%20IMG%203030.png)
+![](https://apply.innopolis.university/upload/iblock/d0a/smwlk8qz555yh50pcmi2yfyh0y6iru3n/Артем%20Панов%20IMG%203030.png) Артем «Анализ данных и искусственный интеллект», 1 курс
 
-## Артем
+![](https://apply.innopolis.university/upload/iblock/26f/4xmx1pnb24nr1k5oa0ksuq2trzsw1mrq/IMG%207350_0.png) Сильвия «Инженерия информационных систем», 1 курс
 
-«Анализ данных и искусственный интеллект», 1 курс
+![](https://apply.innopolis.university/upload/iblock/858/aqtpv9r4j469dih04mrjj5mqs6z8ykn8/Макар%20Шевченко%20интервью%20с%20выпускнико_30.png) Макар «Программная инженерия», 1 курс
 
-![](https://apply.innopolis.university/upload/iblock/26f/4xmx1pnb24nr1k5oa0ksuq2trzsw1mrq/IMG%207350_0.png)
+![](https://apply.innopolis.university/upload/iblock/4de/3wi0hxjr74li62pe2kmg4s8sohhmw29w/IMG%208752_210.png) Данил «Анализ данных и искусственный интеллект», 1 курс
 
-## Сильвия
+![](https://apply.innopolis.university/upload/iblock/39a/bkznasyy1y8qexd69r6j2xdemqwakqw6/Img_8910.png) Виктория «Управление на основе данных», 2 курс
 
-«Инженерия информационных систем», 1 курс
+![](https://apply.innopolis.university/upload/iblock/9ee/zqgtpwdnjx3a07qc5j50tk1lsyl11c3l/IMG_0%201.png) Арина «Анализ данных и искусственный интеллект», 3 курс
 
-![](https://apply.innopolis.university/upload/iblock/858/aqtpv9r4j469dih04mrjj5mqs6z8ykn8/Макар%20Шевченко%20интервью%20с%20выпускнико_30.png)
+![](https://apply.innopolis.university/upload/iblock/5c0/3wmqi2rylpbudaiqprunhonw2ykpx0c7/IMG%208793_26.png) Ксения «Управление цифровым продуктом», 2 курс
 
-## Макар
+![](https://apply.innopolis.university/upload/iblock/2b8/ra8te9d2ou246x62h0rce2yxp2emmtp6/IMG%208790_90.png) Максим «Инженерия информационных систем», 1 курс
 
-«Программная инженерия», 1 курс
+![](https://apply.innopolis.university/upload/iblock/3a0/g315g8ffs02u80p73vdjbigpa5e8qda0/Alya_173%201.png) Алия «Анализ данных и искусственный интеллект», 1 курс
 
-![](https://apply.innopolis.university/upload/iblock/4de/3wi0hxjr74li62pe2kmg4s8sohhmw29w/IMG%208752_210.png)
+![](https://apply.innopolis.university/upload/iblock/d32/n2x1k5wpw7xga6fnyyeo3ax45yyhllkp/Amir_169%201.png) Амир «Математические основы ИИ», 1 курс
 
-## Данил
+![](https://apply.innopolis.university/upload/iblock/7c5/t5yedjq828ub3ni3vpkcak6ecfolzxbj/IMG%204701_60%201.png) Дарья «Инженерия информационных систем», 1 курс
 
-«Анализ данных и искусственный интеллект», 1 курс
+![](https://apply.innopolis.university/upload/iblock/290/9unartagwi4sejfw65ux5qm7msmxb9jv/Silvia_275%201.png) Сильвия «Инженерия информационных систем», 2 курс
 
-![](https://apply.innopolis.university/upload/iblock/39a/bkznasyy1y8qexd69r6j2xdemqwakqw6/Img_8910.png)
-
-## Виктория
-
-«Управление на основе данных», 2 курс
-
-![](https://apply.innopolis.university/upload/iblock/9ee/zqgtpwdnjx3a07qc5j50tk1lsyl11c3l/IMG_0%201.png)
-
-## Арина
-
-«Анализ данных и искусственный интеллект», 3 курс
-
-![](https://apply.innopolis.university/upload/iblock/5c0/3wmqi2rylpbudaiqprunhonw2ykpx0c7/IMG%208793_26.png)
-
-## Ксения
-
-«Управление цифровым продуктом», 2 курс
-
-![](https://apply.innopolis.university/upload/iblock/2b8/ra8te9d2ou246x62h0rce2yxp2emmtp6/IMG%208790_90.png)
-
-## Максим
-
-«Инженерия информационных систем», 1 курс
-
-![](https://apply.innopolis.university/upload/iblock/3a0/g315g8ffs02u80p73vdjbigpa5e8qda0/Alya_173%201.png)
-
-## Алия
-
-«Анализ данных и искусственный интеллект», 1 курс
-
-![](https://apply.innopolis.university/upload/iblock/d32/n2x1k5wpw7xga6fnyyeo3ax45yyhllkp/Amir_169%201.png)
-
-## Амир
-
-«Математические основы ИИ», 1 курс
-
-![](https://apply.innopolis.university/upload/iblock/7c5/t5yedjq828ub3ni3vpkcak6ecfolzxbj/IMG%204701_60%201.png)
-
-## Дарья
-
-«Инженерия информационных систем», 1 курс
-
-![](https://apply.innopolis.university/upload/iblock/290/9unartagwi4sejfw65ux5qm7msmxb9jv/Silvia_275%201.png)
-
-## Сильвия
-
-«Инженерия информационных систем», 2 курс
-
-![](https://apply.innopolis.university/upload/iblock/966/27kqv4d0lcofkpue6gv5x7jxdfvyvuld/SVETA_160%201.png)
-
-## Светлана
-
-«Инженерия информационных систем», 2 курс
+![](https://apply.innopolis.university/upload/iblock/966/27kqv4d0lcofkpue6gv5x7jxdfvyvuld/SVETA_160%201.png) Светлана «Инженерия информационных систем», 2 курс
 
 [▶ video](https://apply.innopolis.university/upload/iblock/b6e/bxj5tmo9extm0s6c6fuvv9inynw1vnms/IMG_3030.MOV)
 
@@ -434,11 +472,21 @@ AI Product Manager в проекте SyntData, Leading Author of ML Advanced Cou
 
 [▶ video](https://apply.innopolis.university/upload/iblock/7f3/cjg6ah3op0eu0j58vgvdy4sa78nhxvjw/SVETA.mp4)
 
+- Есть ли бюджетные места?
+
 Да, в Университете Иннополис предусмотрена бюджетная форма обучения. Подробнее о количестве мест вы можете узнать на странице соответствующей образовательной программы
+
+- Что такое грант, что он дает и зачем участвовать в грантовом конкурсе?
 
 Грант дает возможность частичной или полной компенсации стоимости обучения абитуриентам, не поступившим на бюджет
 
-Необходимо сдать ЕГЭ по трем предметам: математика (профиль), русский язык, а также информатику или физику на выбор
+- По каким предметам нужно сдать ЕГЭ?
+
+Необходимо сдать ЕГЭ по трем предметам: математика (профиль), русский язык, а
+
+также информатику или физику на выбор
+
+- Есть ли отсрочка от призыва на военную службу?
 
 Отсрочка от призыва граждан на военную службу предоставляется обучающимся образовательных программ бакалавриата и магистратуры (если вы поступили в магистратуру сразу же после обучения в бакалавриате), а также аспирантуры по очной форме обучения и имеющей аккредитацию.
 
@@ -446,7 +494,11 @@ AI Product Manager в проекте SyntData, Leading Author of ML Advanced Cou
 
 Осенью студентов Университета в установленном порядке ставят на воинский учет в Верхнем Услоне Республики Татарстан. Дополнительно информацию сообщат после поступления
 
+- На каком языке проходит обучение?
+
 В Университете Иннополис обучение осуществляется как на английском, так и на русском языке. Более подробную информацию вы можете узнать на странице соответствующей образовательной программы
+
+- Я иностранный гражданин. Как я могу подать документы?
 
 Для такого случая мы подготовили [Инструкцию по подаче заявления на поступление для иностранных граждан](/raw/regulations/sveden-9316bc2a-pdf.md)
 
@@ -456,8 +508,18 @@ AI Product Manager в проекте SyntData, Leading Author of ML Advanced Cou
 
 - 8 843 203 92 53 (д.102)
 
+- 420500, г. Иннополис,
+
+Ваше обращение получено. Мы свяжемся с Вами
+
+в ближайшее время.
+
+Закрыть
+
+Закрыть
+
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/apply/_shared.md](/raw/sites/apply/_shared.md)._
 
 # Citations
 
-1. [Абитуриентам Университета Иннополис](https://apply.innopolis.university/), read 2026-10-24
+1. [Абитуриентам Университета Иннополис](https://apply.innopolis.university/), read 2026-11-04

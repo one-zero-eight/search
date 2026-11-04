@@ -9,12 +9,12 @@ language: ru
 section: "site/ido"
 sources:
   - resource: "https://ido.innopolis.university/"
-    id: "7b962338b497"
+    id: "e29a58ae7ad0"
     title: "Онлайн-курсы по программированию, IT и менеджменту от Иннополис"
-    last_modified: "2026-10-31T08:46:42+00:00"
+    last_modified: "2026-11-04T12:47:07+00:00"
 generated:
   by: "catix-wiki/0.1 sites"
-  at: "2026-10-31T08:46:42+00:00"
+  at: "2026-11-04T12:47:07+00:00"
 status: draft
 ---
 
@@ -42,9 +42,7 @@ En
 
 ![](https://static.tildacdn.com/tild3036-3232-4162-b331-643034393966/2312.png)
 
-## ИНСТИТУТ ДОПОЛНИТЕЛЬНОГО ОБРАЗОВАНИЯ
-
-УНИВЕРСИТЕТА ИННОПОЛИС
+## ИНСТИТУТ ДОПОЛНИТЕЛЬНОГО ОБРАЗОВАНИЯ УНИВЕРСИТЕТА ИННОПОЛИС
 
 Курсы по программированию, ИТ и менеджменту
 
@@ -58,7 +56,7 @@ En
 
 от Университета Иннополис
 
-![](https://static.tildacdn.com/tild6430-3436-4566-b339-306332663539/Frame_47.png)
+[![](https://static.tildacdn.com/tild6430-3436-4566-b339-306332663539/Frame_47.png)](/raw/sites/edu/engineers.md)
 
 ![](https://static.tildacdn.com/tild3636-6339-4737-b232-623734616137/Group_277132229.png)
 
@@ -72,11 +70,25 @@ En
 
 Наши курсы
 
+- Все программы
+
+- Программирование
+
+- Искусственный интеллект
+
+- Менеджмент
+
+- Образование
+
+- Данные
+
+- Робототехника
+
 Наши эксперты и преподаватели
 
 <
 
->
+\>
 
 ![](https://static.tildacdn.com/tild3766-6465-4135-a263-666266663038/azat.jpg)
 
@@ -220,7 +232,7 @@ DriveIT
 
 Измерим профессиональные компетенции сотрудников и разработаем курсы повышения квалификации с учётом результатов оценки.
 
-## Корпоративное обучение для руководителей и их команд
+## **Корпоративное обучение для руководителей и их команд**
 
 [Подробнее](/raw/sites/itbm/home.md)
 
@@ -270,7 +282,7 @@ DriveIT
 
 Вебинары и воркшопы
 
-![](https://static.tildacdn.com/tild3039-6437-4863-b362-633464363335/Work_life_balance_an.png)
+[![](https://static.tildacdn.com/tild3039-6437-4863-b362-633464363335/Work_life_balance_an.png)](https://vk.com/video/@edtechiu?z=video-213393716_456239163%2Fclub213393716%2Fpl_-213393716_-2)
 
 [Вебинар](https://vk.com/video/@edtechiu?z=video-213393716_456239163%2Fclub213393716%2Fpl_-213393716_-2)
 
@@ -278,7 +290,7 @@ DriveIT
 
 [Подробнее](https://vk.com/video/@edtechiu?z=video-213393716_456239163%2Fclub213393716%2Fpl_-213393716_-2)
 
-![](https://static.tildacdn.com/tild3466-3962-4764-b931-336661353764/logo_make_11_06_2023.png)
+[![](https://static.tildacdn.com/tild3466-3962-4764-b931-336661353764/logo_make_11_06_2023.png)](https://vk.com/video-213393716_456239202)
 
 [Вебинар](https://vk.com/video-213393716_456239202)
 
@@ -286,7 +298,7 @@ DriveIT
 
 [Подробнее](https://vk.com/video-213393716_456239202)
 
-![](https://static.tildacdn.com/tild3165-3036-4830-b235-373836663938/Group_1321315914.png)
+[![](https://static.tildacdn.com/tild3165-3036-4830-b235-373836663938/Group_1321315914.png)](/raw/sites/ido/global-webinar-innovationvuz.md)
 
 [Вебинар](/raw/sites/ido/global-webinar-innovationvuz.md)
 
@@ -300,13 +312,13 @@ DriveIT
 
 ![](https://static.tildacdn.com/tild6563-3534-4630-b761-653533653761/330f62be-cee2-4c9b-a.png)
 
-> 100 000
+\> 100 000
 
 человек прошли обучение с 2016 года
 
 программ дополнительного профессионального образования
 
-> 300
+\> 300
 
 80
 
@@ -504,7 +516,7 @@ DriveIT
 
 Если вы студент дневного или вечернего отделения либо у вас инвалидность 1 или 2 группы, то ваша скидка составит 50%*
 
-* при предъявлении подтверждающей справки
+\* *при предъявлении подтверждающей справки*
 
 ![](https://static.tildacdn.com/tild3464-6635-4535-b966-333633336165/user-circle.png)
 
@@ -518,13 +530,13 @@ DriveIT
 
 Мы предоставляем рассрочку от банка-партнера «Т-Банк» на срок от 4 до 12 месяцев.
 
-Первый платеж — только через месяц.
+**Первый платеж — только через месяц.**
 
 ![](https://static.tildacdn.com/tild3831-3637-4232-b732-616631356630/percentage.png)
 
 Наши партнеры
 
-![](https://static.tildacdn.com/tild6164-3036-4065-b532-316139353030/11pavel-herceg-zWOQD.png)
+[![](https://static.tildacdn.com/tild6164-3036-4065-b532-316139353030/11pavel-herceg-zWOQD.png)](https://dzen.ru/innopolisu)
 
 [Блог в Дзене](https://dzen.ru/innopolisu)
 
@@ -534,7 +546,7 @@ DriveIT
 
 Другие материалы
 
-![](https://static.tildacdn.com/tild6265-6533-4636-b166-616263303835/17598710-d9af-4780-9.png)
+[![](https://static.tildacdn.com/tild6265-6533-4636-b166-616263303835/17598710-d9af-4780-9.png)](https://t.me/innokadriu)
 
 [Мы в Telegram](https://t.me/innokadriu)
 
@@ -610,6 +622,10 @@ It's totally free
 
 Новости, советы и спецпредложения
 
+[Лицензия](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md)
+
+[Выписка из реестра лицензий](/raw/regulations/site-unionepro-ru-e6310fe5-reestrovaya-vypiska.md)
+
 +7 800 222 92 56
 
 [Для образовательных организаций](/raw/sites/edu/home.md)
@@ -636,4 +652,4 @@ _Меню, подвал и другие блоки, которые повтор�
 
 # Citations
 
-1. [Онлайн-курсы по программированию, IT и менеджменту от Иннополис](https://ido.innopolis.university/), read 2026-10-31
+1. [Онлайн-курсы по программированию, IT и менеджменту от Иннополис](https://ido.innopolis.university/), read 2026-11-04

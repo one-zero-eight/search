@@ -1,5 +1,10 @@
 {
- "docs": {},
+ "docs": {
+  "https://innopolis.university/files/politicacookies.pdf": "политику конфиденциальности",
+  "https://innopolis.university/filespublic/%D0%98%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F_%D0%BF%D0%BE_%D0%BF%D0%BE%D0%B4%D0%B0%D1%87%D0%B5_%D0%B7%D0%B0%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F_%D0%BD%D0%B0_%D0%BF%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%B4%D0%BB%D1%8F_%D0%B8%D0%BD%D0%BE%D1%81%D1%82%D1%80%D0%B0%D0%BD%D1%86%D0%B5%D0%B2.pdf": "Инструкцию по подаче заявления на поступление для иностранных граждан",
+  "https://innopolis.university/filespublic/Polozhenie_o_reklamnoj_rassylke.pdf": "Положением",
+  "https://innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5_%D0%BD%D0%B0_%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83_%D0%9F%D0%94%D0%BD_%D0%94%D0%9E%D0%94.pdf": "Политикой обработки персональных данных"
+ },
  "pages": {
   "bachelors": {
    "fetched_at": "2026-10-24T23:40:26+00:00",
@@ -57,10 +62,19 @@
    "title": "Empty page",
    "url": "https://apply.innopolis.university/en/"
   },
-  "home": {
-   "fetched_at": "2026-10-24T23:37:01+00:00",
+  "en-index-php": {
+   "fetched_at": "2026-11-04T12:36:04+00:00",
+   "file_sha": "1686515db77e72c5ebbe7d5b2e99bc848d6e5fe7cec4270b4ea523f382ef5090",
    "last_modified": "",
-   "sha256": "d11130510e5933d0ad0c2f90c87be60eaddb50fdf1f5256f5456951974c648a8",
+   "sha256": "1e416fdb2f814088492b65e42c1ecb15bcf9efae9034f969eb7d223cdefc1f55",
+   "title": "Empty page",
+   "url": "https://apply.innopolis.university/en/index.php"
+  },
+  "home": {
+   "fetched_at": "2026-11-04T12:35:33+00:00",
+   "file_sha": "a3218709988f82d0d0ba0c9c19a546d0756021c1056f0ccab8bc4368bb4682c4",
+   "last_modified": "",
+   "sha256": "3097a656c8703dbe40634c5bf0acd8bebb37a5a0eae8b41d12eec213212ff0a6",
    "title": "Абитуриентам Университета Иннополис",
    "url": "https://apply.innopolis.university/"
   },
@@ -224,6 +238,176 @@
    "sha256": "c202dabc9d5e89a2b8aba1122206530a47e1277cce6eec30b0693fb2e274b66a",
    "title": "Поступление на базе среднего профессионального образования",
    "url": "https://apply.innopolis.university/spo/"
+  }
+ },
+ "tried": {
+  "https://apply.innopolis.university/bachelor": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/bachelor/computer-science": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/bachelor/information-systems-engineering": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/bachelor2/CE": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/bachelor2/DS-AI": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/bachelors-degree": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/bachelors/DS-%D0%9CAI": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/en/bachelor": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/en/bachelors": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/en/campus": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/en/faq": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/en/get-in": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/en/get-in/guidelines": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/en/graduate": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/en/it-degree": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/en/master": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/en/masters": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/en/msonline": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/en/olympiad-bonus": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/en/open-day": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/en/postgraduate-study": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/en/quotas": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/en/scholarship": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/en/sng": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/en/spo": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/faq": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/for-international-applicants": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/get-in": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/grant": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://apply.innopolis.university/possibilities/"
+  },
+  "https://apply.innopolis.university/master": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/master/datascience": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/master/development": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/master/management-of-big-data": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/master/robotics": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/master/securityandnetworkengineering": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/master/software-engineering": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/master/technological-entrepreneurship": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/master/the-development-of-secure-systems-and-networks": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/masters-degree": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/olymp-math": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/stazhirovki-i-trudoustrojstvo": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://apply.innopolis.university/stc": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
   }
  }
 }

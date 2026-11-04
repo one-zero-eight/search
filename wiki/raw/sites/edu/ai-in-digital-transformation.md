@@ -354,6 +354,8 @@ opirs@innopolis.ru
 
 [Лицензия](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md)
 
+[Выписка из реестра лицензий](/raw/regulations/site-unionepro-ru-e6310fe5-reestrovaya-vypiska.md)
+
 [Календарь мероприятий](/raw/sites/events/home.md)
 
 [Институт дополнительного образования](/raw/sites/university/ido.md)

@@ -12,10 +12,10 @@ sources:
   - resource: "https://dissovet.innopolis.university/"
     id: "0fe412db66b3"
     title: "Общие блоки сайта dissovet.innopolis.university: меню, шапка, подвал, контакты"
-    last_modified: "2026-10-31T09:07:56+00:00"
+    last_modified: "2026-11-04T12:48:18+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-10-31T09:07:56+00:00"
+  at: "2026-11-04T12:48:18+00:00"
 status: draft
 ---
 
@@ -37,4 +37,4 @@ status: draft
 
 # Citations
 
-1. [dissovet.innopolis.university](https://dissovet.innopolis.university/), read 2026-10-31
+1. [dissovet.innopolis.university](https://dissovet.innopolis.university/), read 2026-11-04

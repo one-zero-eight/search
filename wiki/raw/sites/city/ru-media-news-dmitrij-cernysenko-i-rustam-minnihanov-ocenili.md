@@ -23,7 +23,7 @@ stale_after: "2023-01-01T00:00:00+00:00"
 
 > Страница относится к 2022 году: сведения на ней могли устареть.
 
-[Eng](https://innopolis.com/en/media/news/dmitrij-cernysenko-i-rustam-minnihanov-ocenili-hod-stroitelstva-obsezitij-universiteta-innopolis)
+[Eng](/raw/sites/city/en-media-news-dmitrij-cernysenko-i-rustam-minnihanov-ocenili.md)
 
 [Тат](https://innopolis.com/tt/media/news/dmitrij-cernysenko-i-rustam-minnihanov-ocenili-hod-stroitelstva-obsezitij-universiteta-innopolis)
 

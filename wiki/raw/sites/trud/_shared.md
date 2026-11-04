@@ -10,22 +10,16 @@ language: ru
 section: "site/trud"
 sources:
   - resource: "https://trud.innopolis.university/"
-    id: "e71384066d8b"
+    id: "24492e4a3af6"
     title: "Общие блоки сайта trud.innopolis.university: меню, шапка, подвал, контакты"
-    last_modified: "2026-10-31T08:37:27+00:00"
+    last_modified: "2026-11-04T12:47:37+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-10-31T08:37:27+00:00"
+  at: "2026-11-04T12:47:37+00:00"
 status: draft
 ---
 
 # Общие блоки сайта trud.innopolis.university: меню, шапка, подвал, контакты
-
-Кто может обучаться
-
-Для чего обучаться
-
-Программы обучения
 
 Оставить заявку
 
@@ -155,10 +149,6 @@ status: draft
 
 - Справка, подтверждающая факт установления инвалидности.
 
-[Лицензия](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md)
-
-[Выписка из реестра лицензий](/raw/regulations/site-stc-e6310fe5-reestrovaya-vypiska.md)
-
 digital_prof@innopolis.ru
 
 8-800-222-92-56
@@ -166,6 +156,12 @@ digital_prof@innopolis.ru
 420500, г. Иннополис ул.Университетская, д.1
 
 [Инфоканал по Содействию Занятости](https://t.me/innopolis_info)
+
+Кто может обучаться
+
+Для чего обучаться
+
+Программы обучения
 
 [Специалист по работе с системами искусственного интеллекта](/raw/sites/trud/specialist-po-ii.md)
 
@@ -229,6 +225,10 @@ Telegram-чат для общения с одногруппниками и оп�
 
 Сделайте первый шаг в карьерном пути уже сейчас
 
+[Лицензия](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md)
+
+[Выписка из реестра лицензий](/raw/regulations/site-unionepro-ru-e6310fe5-reestrovaya-vypiska.md)
+
 контакты
 
 полезная информация
@@ -253,4 +253,4 @@ Telegram-чат для общения с одногруппниками и оп�
 
 # Citations
 
-1. [trud.innopolis.university](https://trud.innopolis.university/), read 2026-10-31
+1. [trud.innopolis.university](https://trud.innopolis.university/), read 2026-11-04

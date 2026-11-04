@@ -1,0 +1,132 @@
+{
+ "docs": {
+  "https://innopolis.university/upload/iblock/b6f/ozxoa1j463v3s0m55w9kdc1qc0z31zfr/%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%B2%D1%8B%D0%BF%D0%B8%D1%81%D0%BA%D0%B0.pdf": "Выписка из реестра лицензий",
+  "https://innopolis.university/upload/iblock/d7f/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B4%D0%B5%D1%8F%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C.pdf": "Лицензия",
+  "https://s3-api.unionepro.ru/basebucket/web/docs/Policy_processing_personal%20Data.pdf": "Политика конфиденциальности",
+  "https://unionepro.ru/docs/%D0%9E%D0%96%D0%A6_%D0%90%D1%81%D1%81%D0%B5%D1%81%D0%BC%D0%B5%D0%BD%D1%82_%D0%9D%D0%9A.pdf": "Описание процессов жизненного цикла программного обеспечения",
+  "https://unionepro.ru/docs/%D0%9E%D0%96%D0%A6_%D0%95%D0%9C%D0%9E%D0%9F_%D0%9D%D0%9A.pdf": "Описание процессов жизненного цикла программного обеспечения",
+  "https://unionepro.ru/docs/%D0%9E%D0%96%D0%A6_%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3%D0%9F%D0%9E_%D0%9D%D0%9A.pdf": "Описание процессов жизненного цикла программного обеспечения",
+  "https://unionepro.ru/docs/%D0%9E%D0%96%D0%A6_%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3_%D0%9E%D0%9A_%D0%9D%D0%9A.pdf": "Описание процессов жизненного цикла программного обеспечения",
+  "https://unionepro.ru/docs/%D0%9E%D0%96%D0%A6_%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80_%D0%9A%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D0%BE%D1%80_%D0%9E%D0%9F%D0%9E%D0%9F_%D0%9D%D0%9A.pdf": "Описание процессов жизненного цикла программного обеспечения",
+  "https://unionepro.ru/docs/%D0%9E%D0%96%D0%A6_OneID_%D0%9D%D0%9A.pdf": "Описание процессов жизненного цикла программного обеспечения",
+  "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%B0_%D0%90%D1%81%D1%81%D0%B5%D1%81%D0%BC%D0%B5%D0%BD%D1%82_%D0%9D%D0%9A.pdf": "Руководство администратора",
+  "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%B0_%D0%95%D0%9C%D0%9E%D0%9F_%D0%9D%D0%9A_1_new.pdf": "Руководство администратора",
+  "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%B0_%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3_%D0%9E%D0%9A_%D0%9D%D0%9A.pdf": "Руководство администратора",
+  "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%B0_%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3_%D0%9F%D0%9E_%D0%9D%D0%9A.pdf": "Руководство администратора",
+  "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%B0_%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80_%D0%9A%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D0%BE%D1%80_%D0%9E%D0%9F%D0%9E%D0%9F.pdf": "Руководство администратора",
+  "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%B0_OneID.pdf": "Руководство администратора",
+  "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_%D0%90%D1%81%D1%81%D0%B5%D1%81%D0%BC%D0%B5%D0%BD%D1%82_%D0%9D%D0%9A.pdf": "Руководство пользователя",
+  "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_%D0%95%D0%9C%D0%9E%D0%9F_%D0%9D%D0%9A.pdf": "Руководство пользователя",
+  "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3_%D0%9E%D0%9A_%D0%9D%D0%9A.pdf": "Руководство пользователя",
+  "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3_%D0%9F%D0%9E_%D0%9D%D0%9A_2.pdf": "Руководство пользователя",
+  "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80_%D0%9A%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D0%BE%D1%80_%D0%9E%D0%9F%D0%9E%D0%9F_2.pdf": "Руководство пользователя",
+  "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_OneID.pdf": "Руководство пользователя",
+  "https://unionepro.ru/docs/politicacookies.pdf": "Мы используем файлы cookie, для персонализации сервисов и повышения удобства пользования сайтом. Если вы не согласны на их использование, поменяйте настройки браузера."
+ },
+ "pages": {
+  "consortium": {
+   "fetched_at": "2026-11-04T13:02:55+00:00",
+   "file_sha": "37c4c886d1e063071b95041ed578d6f597fde284055d2d9c520a04d4857f51ab",
+   "last_modified": "",
+   "sha256": "37c4c886d1e063071b95041ed578d6f597fde284055d2d9c520a04d4857f51ab",
+   "title": "ЕМОП",
+   "url": "https://unionepro.ru/consortium"
+  },
+  "home": {
+   "fetched_at": "2026-11-04T05:22:26+00:00",
+   "file_sha": "968e1edab2fbec02d0f67c4a1dd1071be4176214b88f5812db6340cbad60a2a9",
+   "last_modified": "",
+   "sha256": "a80059d9703672101e88bf7bb64c854e1681019d5aa9b0b883072353e28ceeca",
+   "title": "ЕМОП",
+   "url": "https://unionepro.ru/"
+  },
+  "information": {
+   "fetched_at": "2026-11-04T05:23:18+00:00",
+   "file_sha": "af86e7b1c9793084c854d0dc7f0ad56a8e131aa6ab01532a3642f1505ee1c378",
+   "last_modified": "",
+   "sha256": "dbe86a127bd3cd51241f83f5fbc9e8b0f0be459a6124937eba590c925acecac5",
+   "title": "ЕМОП",
+   "url": "https://unionepro.ru/information"
+  },
+  "news": {
+   "fetched_at": "2026-11-04T05:23:25+00:00",
+   "file_sha": "be321007a344e33151b0780f6ecc1b0495a37f06e5d43a4f70d7d297bda30ac0",
+   "last_modified": "",
+   "sha256": "b6f3868f84bb9ea476fb282cbe07b7d3a83f8fb41aab8dc7242480ab665ec7aa",
+   "title": "ЕМОП",
+   "url": "https://unionepro.ru/news"
+  },
+  "news-661355c3c45669c272b94476": {
+   "fetched_at": "2026-11-04T05:23:44+00:00",
+   "file_sha": "04c76d3f58fba00e8a1c846a1d7c1683ab7b703e9a0721168d3277f63e28ee89",
+   "last_modified": "",
+   "sha256": "4eb86efc6fd6df2a2a855aad18413867bf5d358c90f27fef6b7df314c83450a6",
+   "title": "ЕМОП",
+   "url": "https://unionepro.ru/news/661355c3c45669c272b94476"
+  },
+  "news-66135659c45669c272b94499": {
+   "fetched_at": "2026-11-04T05:23:38+00:00",
+   "file_sha": "ff1a3348d26c021bd3527c43c35bd3ea9b915ae68ab8023dbee594db94bd7cfc",
+   "last_modified": "",
+   "sha256": "0fd45b33c762ca160abe83b55c630c94996ad8f8c9061e48d21bd92f7b7a2d79",
+   "title": "ЕМОП",
+   "url": "https://unionepro.ru/news/66135659c45669c272b94499"
+  },
+  "news-667536492e72d11bd553bda9": {
+   "fetched_at": "2026-11-04T05:23:31+00:00",
+   "file_sha": "2dea95fa77942536323206cdabacbba4f504a51e399027e1e1f4d1d355888d3f",
+   "last_modified": "",
+   "sha256": "b54a18e4dd785dfb6140b948aa5dedc9213b83885a702eec83dbce7f78851bd4",
+   "title": "ЕМОП",
+   "url": "https://unionepro.ru/news/667536492e72d11bd553bda9"
+  },
+  "news-66a8bd652e72d11bd5592df4": {
+   "fetched_at": "2026-11-04T05:23:11+00:00",
+   "file_sha": "66c73498fffbde34883e6dd6e4da1b97d57998c028b5b253a6d03bcac41cd2c9",
+   "last_modified": "",
+   "sha256": "c4df3e0b38803ec9b5003d7724c0098dfcc1bdccaa20836814523e99750198c9",
+   "title": "ЕМОП",
+   "url": "https://unionepro.ru/news/66a8bd652e72d11bd5592df4"
+  },
+  "news-66be1157880eac52bbf2a869": {
+   "fetched_at": "2026-11-04T05:23:05+00:00",
+   "file_sha": "93a20fda20d818e87ab75bfeb92d27236ddb0520f7b14affa7fb189396238405",
+   "last_modified": "",
+   "sha256": "b085ea3dda5b76304de9e9e71aa885e1d25a9e97c55037a1942f36db5e175578",
+   "title": "ЕМОП",
+   "url": "https://unionepro.ru/news/66be1157880eac52bbf2a869"
+  },
+  "news-66d04d99880eac52bbf39d8e": {
+   "fetched_at": "2026-11-04T05:22:58+00:00",
+   "file_sha": "4ff5a547e3a3fdf23d9a51f6d26f069361bada84c101fddc962cfc1cc47e73ec",
+   "last_modified": "",
+   "sha256": "393201022c0ded84d4140f18400e4ae4a267b884ae298aeb6034c531e5e81231",
+   "title": "ЕМОП",
+   "url": "https://unionepro.ru/news/66d04d99880eac52bbf39d8e"
+  },
+  "news-6ab221421095e7122a6c0d0b": {
+   "fetched_at": "2026-11-04T05:22:45+00:00",
+   "file_sha": "4c58b0de958fdc04e7e56a864e519fb7624b502669a49611467e61bc8d8722d7",
+   "last_modified": "",
+   "sha256": "6a4d52df7a1f74cc45b31920ec0ad7e2d4f7837d44074d0b4e80833deffcd331",
+   "title": "ЕМОП",
+   "url": "https://unionepro.ru/news/6ab221421095e7122a6c0d0b"
+  },
+  "news-6ab222b71095e7122a6c0e34": {
+   "fetched_at": "2026-11-04T05:22:52+00:00",
+   "file_sha": "f9497726334945a3908c360440886f21e407e0f6f80561af1f898d95adf836d5",
+   "last_modified": "",
+   "sha256": "73f121d5408e027b139e2d75d4206849ef10290663d13b3e5b16c757ed33bcfa",
+   "title": "ЕМОП",
+   "url": "https://unionepro.ru/news/6ab222b71095e7122a6c0e34"
+  },
+  "support": {
+   "fetched_at": "2026-11-04T05:22:39+00:00",
+   "file_sha": "1be7b102b948bf0f58f675b775babdec97d06aea4a628248ee451bdf9980af6f",
+   "last_modified": "",
+   "sha256": "82a03cde88d7b2ff3c9e78d8b98ff6ae5e41cf0d2b6e38e582985826aabfef96",
+   "title": "ЕМОП",
+   "url": "https://unionepro.ru/support"
+  }
+ }
+}

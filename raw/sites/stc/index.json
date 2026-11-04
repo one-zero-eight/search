@@ -1,5 +1,8 @@
 {
  "docs": {
+  "https://innopolis.university/files/politicacookies.pdf": "с политикой конфиденциальности.",
+  "https://innopolis.university/filespublic/Polozhenie_o_reklamnoj_rassylke.pdf": "Положением",
+  "https://innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5_%D0%BD%D0%B0_%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83_%D0%9F%D0%94%D0%BD_%D0%94%D0%9E%D0%94.pdf": "Политикой обработки персональных данных",
   "https://innopolis.university/upload/iblock/b6f/ozxoa1j463v3s0m55w9kdc1qc0z31zfr/%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%B2%D1%8B%D0%BF%D0%B8%D1%81%D0%BA%D0%B0.pdf": "Выписка из реестра лицензий",
   "https://innopolis.university/upload/iblock/d7f/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B4%D0%B5%D1%8F%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C.pdf": "Лицензионное соглашение"
  },
@@ -262,10 +265,10 @@
    "url": "https://stc.innopolis.university/graduate-started-working-at-Sberbank"
   },
   "home": {
-   "fetched_at": "2026-10-31T01:20:00+00:00",
-   "file_sha": "1cdba89dd4c99f9c818b5cc87a06b5ed98c09e191ce011e2614edb8d2272b6cf",
+   "fetched_at": "2026-11-04T12:37:45+00:00",
+   "file_sha": "9d6b297a02983b1cc3c850bc4a7151800dcd55a99d0103f718435749da2618d9",
    "last_modified": "Tue, 27 Oct 2026 07:31:03 GMT",
-   "sha256": "fb3ee9c0d1b63d2e7c8b0c0e9f96c9f96a6c2d18396629e71e757c4817743e77",
+   "sha256": "678afee8ec4e9e53b251e1eb62522fb81b14d141908552bcf5ffd427b65dee6c",
    "title": "ИТ-курсы в Университете Иннополис",
    "url": "https://stc.innopolis.university/"
   },
@@ -613,6 +616,192 @@
    "sha256": "e87b62389c9267dc4cabe3eead8ff6aa6f50d24951fbfa4727415d0187ecfcb3",
    "title": "Профессия: дата-аналитик",
    "url": "https://stc.innopolis.university/who-is-data-analyst"
+  }
+ },
+ "tried": {
+  "https://stc.innopolis.university/1c-programmer": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://stc.innopolis.university/1c-programmer-webinar": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://stc.innopolis.university/Java-online": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://stc.innopolis.university/JavaEE-online": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://stc.innopolis.university/akbarsdigital-devops": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://stc.innopolis.university/akbarsdigital-middle-qa": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://stc.innopolis.university/astra-linux-adm": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://stc.innopolis.university/astra-linux-adm-net": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://stc.innopolis.university/astra-linux-adm-pro": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://stc.innopolis.university/astra-linux-os": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://stc.innopolis.university/astra-linux-security": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://stc.innopolis.university/bim-technologies": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://stc.innopolis.university/code-future_webinar_2023": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://stc.innopolis.university/dataanalyst_webinar": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://stc.innopolis.university/dev1c": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://stc.innopolis.university/frontend_webinar_3days": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://stc.innopolis.university/frontender": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://stc.innopolis.university/futurecode_webinar": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://stc.innopolis.university/codeschool"
+  },
+  "https://stc.innopolis.university/hr-start": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://stc.innopolis.university/java-developer": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://stc.innopolis.university/java-junior": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://stc.innopolis.university/profession-java"
+  },
+  "https://stc.innopolis.university/java-junior_webinar": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://stc.innopolis.university/profession-java"
+  },
+  "https://stc.innopolis.university/java-qa-webinar": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://stc.innopolis.university/java-qa-automation"
+  },
+  "https://stc.innopolis.university/junior-frontend": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://stc.innopolis.university/machine-learning-data-analytics": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://stc.innopolis.university/magistratura-s-otlichiem": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://stc.innopolis.university/mentor": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://stc.innopolis.university/middle-full-time": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://stc.innopolis.university/middle-i-teco": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://stc.innopolis.university/middle-online": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://stc.innopolis.university/new-year-2024": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://stc.innopolis.university/new_year_webinar": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://stc.innopolis.university/"
+  },
+  "https://stc.innopolis.university/ot": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://stc.innopolis.university/testirovshik-po"
+  },
+  "https://stc.innopolis.university/pcs": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://stc.innopolis.university/pdpolicy": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://stc.innopolis.university/pmit": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://stc.innopolis.university/pmit-webinar": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://stc.innopolis.university/product-manager": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://stc.innopolis.university/qa": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://stc.innopolis.university/testirovshik-po"
+  },
+  "https://stc.innopolis.university/qa-webinar": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://stc.innopolis.university/scrum-master": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://stc.innopolis.university/testingpo": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://stc.innopolis.university/testirovshik-po": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://stc.innopolis.university/web-developer-junior": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://stc.innopolis.university/webinar_data_analysis": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://stc.innopolis.university/wellbeing": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
   }
  }
 }

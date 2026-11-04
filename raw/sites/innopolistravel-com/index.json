@@ -18,12 +18,18 @@
    "url": "https://innopolistravel.com/excurse"
   },
   "home": {
-   "fetched_at": "2026-11-01T22:34:47+00:00",
-   "file_sha": "9829c9fe296c0fa425cd0c94dc2a9f3448f8a67b320276683254b2ed9c138cf7",
-   "last_modified": "Wed, 08 Apr 2026 12:25:38 GMT",
-   "sha256": "b740e257d0c0a05d3a111b21774541972062b973ba33ae26cd3694d4708f5ca8",
+   "fetched_at": "2026-11-04T13:02:02+00:00",
+   "file_sha": "4e1c2b6778206340ce1b88fa509d3f7c7d5055b86a6de5f6cab2ed81a9befdd7",
+   "last_modified": "Wed, 08 Apr 2026 12:25:42 GMT",
+   "sha256": "62fbb3053cf22c61bc760c61679e2d36d96741d88eefd4d3d2da13f74a9a21f6",
    "title": "Innotravel — экскурсии по Иннополису",
    "url": "https://innopolistravel.com/"
+  }
+ },
+ "tried": {
+  "https://innopolistravel.com/zero": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
   }
  }
 }

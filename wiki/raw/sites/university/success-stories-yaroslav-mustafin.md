@@ -20,7 +20,39 @@ status: draft
 
 # Yaroslav Mustafin
 
+[Все медиа](/raw/sites/media/home.md)
+
+Facebook
+
+Вконтакте
+
+Youtube
+
+Twitter
+
+Instagram
+
+habr
+
+- [Студентам](http://www.campuslife.innopolis.ru/main)
+
+- [Бизнесу](/raw/sites/university/proekty-activity.md)
+
+- [Медиа](/raw/sites/media/home.md)
+
+- [Сайт университета иннополис](/raw/sites/university/home.md)
+
+- [Переезд в Иннополис](https://innopolis.university/relocation)
+
+- [Вакансии](https://innopolis.university/job)
+
+- [Резюме](/raw/sites/career/home.md)
+
+[Сайт университета Иннополис](/raw/sites/university/home.md)
+
 ![](https://innopolis.university/upload/iblock/9ee/jao3zskpup68tlnonmtourd59vr124k6/9_Yaroslav.jpeg)
+
+## Yaroslav Mustafin
 
 International Information Technology University, Kazakhstan
 
@@ -89,6 +121,8 @@ Summing up: Innopolis has become my home for so many months, there is everything
 [This year, for the spring semester, I had the amazing opportunity to become a participant in an exchange program and study at Innopolis University.](/raw/sites/university/success-stories-shavel-viktoryia.md)
 
 #историяуспеха
+
+[Вернуться Назад](/raw/sites/university/home.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/university/_shared.md](/raw/sites/university/_shared.md)._
 

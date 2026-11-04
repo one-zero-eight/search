@@ -9,16 +9,30 @@ language: ru
 section: "site/robotics"
 sources:
   - resource: "https://robotics.innopolis.university/"
-    id: "d52b50c13b45"
+    id: "6f47927c76b6"
     title: "Центр технологий компонентов робототехники и мехатроники"
-    last_modified: "2026-10-31T08:56:29+00:00"
+    last_modified: "2026-11-04T12:49:58+00:00"
 generated:
   by: "catix-wiki/0.1 sites"
-  at: "2026-10-31T08:56:29+00:00"
+  at: "2026-11-04T12:49:58+00:00"
 status: draft
 ---
 
 # Центр технологий компонентов робототехники и мехатроники
+
+Primary Submenu
+
+  - [Общая информация](/raw/sites/robotics/about.md)
+
+  - [Структура](/raw/sites/robotics/struct.md)
+
+  - [Оборудование](/raw/sites/robotics/equipment.md)
+
+  - [Карьера](/raw/sites/robotics/career.md)
+
+  - [Контакты](/raw/sites/robotics/contacts.md)
+
+## Центр технологий компонентов робототехники и мехатроники
 
 Центр компетенций НТИ по направлению «Технологии компонентов робототехники и мехатроники» создан на базе Университета Иннополис в 2018 году
 
@@ -50,4 +64,4 @@ _Меню, подвал и другие блоки, которые повтор�
 
 # Citations
 
-1. [Центр технологий компонентов робототехники и мехатроники](https://robotics.innopolis.university/), read 2026-10-31
+1. [Центр технологий компонентов робототехники и мехатроники](https://robotics.innopolis.university/), read 2026-11-04

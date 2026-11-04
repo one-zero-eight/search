@@ -12,10 +12,10 @@ sources:
   - resource: "https://fmp.innopolis.university/"
     id: "7e48e1e7e0f3"
     title: "Общие блоки сайта fmp.innopolis.university: меню, шапка, подвал, контакты"
-    last_modified: "2026-10-31T09:03:17+00:00"
+    last_modified: "2026-11-04T12:48:32+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-10-31T09:03:17+00:00"
+  at: "2026-11-04T12:48:32+00:00"
 status: draft
 ---
 
@@ -47,9 +47,9 @@ RU
 
 - [Фотографии](/raw/sites/fmp/media.md)
 
-- [Видео](https://fmp.innopolis.university/page69450473.html)
+- [Видео](/raw/sites/fmp/page69450473-html.md)
 
-- [Полезные и интересные сайты](https://fmp.innopolis.university/page140751556.html)
+- [Полезные и интересные сайты](/raw/sites/fmp/page140751556-html.md)
 
 - [Книги](/raw/sites/fmp/usefulboosk.md)
 
@@ -79,4 +79,4 @@ mathboost@innopolis.ru
 
 # Citations
 
-1. [fmp.innopolis.university](https://fmp.innopolis.university/), read 2026-10-31
+1. [fmp.innopolis.university](https://fmp.innopolis.university/), read 2026-11-04

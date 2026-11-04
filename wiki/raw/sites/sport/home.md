@@ -9,12 +9,12 @@ language: ru
 section: "site/sport"
 sources:
   - resource: "https://sport.innopolis.ru/"
-    id: "31f094ef74fc"
+    id: "919722b0d8ea"
     title: "СК «Иннополис» | Фитнес, бассейн, тренажерный зал"
-    last_modified: "2026-11-01T22:15:18+00:00"
+    last_modified: "2026-11-04T12:41:44+00:00"
 generated:
   by: "catix-wiki/0.1 sites"
-  at: "2026-11-01T22:15:18+00:00"
+  at: "2026-11-04T12:41:44+00:00"
 status: draft
 ---
 
@@ -22,9 +22,51 @@ status: draft
 
 ![Company](https://static.tildacdn.com/tild3233-6537-4233-b033-373863613961/_____2.png)
 
+  - [Фитнес-зоны](/raw/sites/sport/about-zones.md)
+
+  - [Детский фитнес](/raw/sites/sport/about-detskij-fitnes.md)
+
+  - [Новости и акции](/raw/sites/sport/about-news.md)
+
+  - [Вопрос-ответ](/raw/sites/sport/about-faq.md)
+
+  - [Контакты](/raw/sites/sport/about-contacts.md)
+
++7 (937) 296-86-85Спортивная, д.107
+
+  - [Фитнес-зоны](/raw/sites/sport/about-zones.md)
+
+  - [Детский фитнес](/raw/sites/sport/about-detskij-fitnes.md)
+
+  - [Новости и акции](/raw/sites/sport/about-news.md)
+
+  - [Вопрос-ответ](/raw/sites/sport/about-faq.md)
+
+  - [Контакты](/raw/sites/sport/about-contacts.md)
+
 ![Company](https://static.tildacdn.com/tild3233-6537-4233-b033-373863613961/_____2.png)
 
 - Главная
+
+  - [Фитнес-зоны](/raw/sites/sport/about-zones.md)
+
+  - [Детский фитнес](/raw/sites/sport/about-detskij-fitnes.md)
+
+  - [Новости и акции](/raw/sites/sport/about-news.md)
+
+  - [Вопрос-ответ](/raw/sites/sport/about-faq.md)
+
+  - [Контакты](/raw/sites/sport/about-contacts.md)
+
+  - [Заморозка карты](/raw/sites/sport/freeze.md)
+
+  - [Работа в клубе](https://sport.innopolis.ru/vacancies)
+
+  - [Правила посещения](/raw/sites/sport/rules.md)
+
++7 (937) 296-86-85Спортивная, д.107
+
+**[EN](/raw/sites/sport/en.md)**
 
 Новости и акции
 
@@ -110,10 +152,12 @@ status: draft
 
 [ВЫБРАТЬ КАРТУ](/raw/sites/sport/club-cards.md)
 
+## Спортивный комплекс «Иннополис»
+
 ![О клубе](https://static.tildacdn.com/tild3233-6537-4233-b033-373863613961/_____2.png)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/sport/_shared.md](/raw/sites/sport/_shared.md)._
 
 # Citations
 
-1. [СК «Иннополис» | Фитнес, бассейн, тренажерный зал](https://sport.innopolis.ru/), read 2026-11-01
+1. [СК «Иннополис» | Фитнес, бассейн, тренажерный зал](https://sport.innopolis.ru/), read 2026-11-04

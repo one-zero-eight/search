@@ -20,7 +20,39 @@ status: draft
 
 # Maksim Korsunov
 
+[Все медиа](/raw/sites/media/home.md)
+
+Facebook
+
+Вконтакте
+
+Youtube
+
+Twitter
+
+Instagram
+
+habr
+
+- [Студентам](http://www.campuslife.innopolis.ru/main)
+
+- [Бизнесу](/raw/sites/university/proekty-activity.md)
+
+- [Медиа](/raw/sites/media/home.md)
+
+- [Сайт университета иннополис](/raw/sites/university/home.md)
+
+- [Переезд в Иннополис](https://innopolis.university/relocation)
+
+- [Вакансии](https://innopolis.university/job)
+
+- [Резюме](/raw/sites/career/home.md)
+
+[Сайт университета Иннополис](/raw/sites/university/home.md)
+
 ![](https://innopolis.university/upload/iblock/b71/P1130381%20-%20VanishMax.JPG)
+
+## Maksim Korsunov
 
 Student of Bachelor's Program at Innopolis University (Spring 2019/2020)
 
@@ -137,6 +169,8 @@ Do not go there only for knowledge, go for experience and new people!
 [In July 2025, I took part in the LuoJia Global Summer School program at Wuhan University. For me, it was not just an academic experience but a full immersion into Chinese culture, urban life, and the student atmosphere.](/raw/sites/university/success-stories-glazkov-oleg.md)
 
 #историяуспеха
+
+[Вернуться Назад](/raw/sites/university/home.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/university/_shared.md](/raw/sites/university/_shared.md)._
 

@@ -9,12 +9,12 @@ language: ru
 section: "site/1519"
 sources:
   - resource: "https://1519.innopolis.university/"
-    id: "6035b8a6353b"
+    id: "1b754e312c9c"
     title: "1519 scholarship"
-    last_modified: "2026-11-02T08:03:55+00:00"
+    last_modified: "2026-11-04T12:50:07+00:00"
 generated:
   by: "catix-wiki/0.1 sites"
-  at: "2026-11-02T08:03:55+00:00"
+  at: "2026-11-04T12:50:07+00:00"
 status: draft
 ---
 
@@ -26,11 +26,7 @@ ru ![](https://1519.innopolis.university/assets/patterns-1_128-DsdrKJ4a.png) [en
 
 ![](https://1519.innopolis.university/assets/patterns-hero_512-91bq8rsZ.png) ![](https://1519.innopolis.university/assets/patterns-hero_512-91bq8rsZ.png)
 
-## Для студентов-бакалавров 1-3 курса
-
-Университета Иннополис
-
-от выпускников
+## Для студентов-бакалавров 1-3 курса Университета Иннополис от выпускников
 
 [Податься](https://1519.innopolis.university/applicant)
 
@@ -92,7 +88,7 @@ ru ![](https://1519.innopolis.university/assets/patterns-1_128-DsdrKJ4a.png) [en
 
 Лашин
 
-![Данил Фронтс](https://1519.innopolis.university/assets/photo-fallback-eFyZ58Hy.webp)
+![Данил Фронтс](https://1519.innopolis.university/photos/Данил%20Фронтс.webp)
 
 Данил
 
@@ -170,16 +166,14 @@ ru ![](https://1519.innopolis.university/assets/patterns-1_128-DsdrKJ4a.png) [en
 
 Максудов
 
-[![](https://1519.innopolis.university/assets/patterns-1_128-DsdrKJ4a.png) Стать](https://t.me/vkurenkov?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82!%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%81%D1%82%D0%B0%D1%82%D1%8C%20%D0%BC%D0%B5%D1%86%D0%B5%D0%BD%D0%B0%D1%82%D0%BE%D0%BC%20%D1%81%D1%82%D0%B8%D0%BF%D0%B5%D0%BD%D0%B4%D0%B8%D0%B8%201519.)
-
-[меценатом](https://t.me/vkurenkov?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82!%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%81%D1%82%D0%B0%D1%82%D1%8C%20%D0%BC%D0%B5%D1%86%D0%B5%D0%BD%D0%B0%D1%82%D0%BE%D0%BC%20%D1%81%D1%82%D0%B8%D0%BF%D0%B5%D0%BD%D0%B4%D0%B8%D0%B8%201519.)
+[![](https://1519.innopolis.university/assets/patterns-1_128-DsdrKJ4a.png) Стать меценатом](https://t.me/vkurenkov?text=Привет!%20Хочу%20стать%20меценатом%20стипендии%201519.)
 
 [![](https://1519.innopolis.university/assets/patterns-button_512-9Zs-Ya8B.png) Податься](https://1519.innopolis.university/applicant)
 
 По всем вопросам — [сюда](https://t.me/+duU-j-Cb-cQ4Mjli)
 
-Сделано в [one-zero-eight](https://t.me/one_zero_eight)
+[Сделано в](https://t.me/one_zero_eight) [one-zero-eight](https://t.me/one_zero_eight)
 
 # Citations
 
-1. [1519 scholarship](https://1519.innopolis.university/), read 2026-11-02
+1. [1519 scholarship](https://1519.innopolis.university/), read 2026-11-04

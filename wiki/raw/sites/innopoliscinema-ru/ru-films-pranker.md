@@ -20,7 +20,7 @@ status: draft
 
 # «Кино&Театр» в Иннополисе | Пранкер
 
-- RU / [EN](https://innopoliscinema.ru/en/films/pranker)
+- RU / [EN](/raw/sites/innopoliscinema-ru/en-films-pranker.md)
 
 ## Пранкер
 

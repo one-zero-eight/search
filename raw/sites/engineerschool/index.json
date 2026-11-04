@@ -1,5 +1,7 @@
 {
- "docs": {},
+ "docs": {
+  "https://innopolis.university/files/politicacookies.pdf": "Политикой конфиденциальности"
+ },
  "pages": {
   "devops": {
    "fetched_at": "2026-10-31T08:37:38+00:00",
@@ -10,10 +12,10 @@
    "url": "https://engineerschool.innopolis.university/devops"
   },
   "home": {
-   "fetched_at": "2026-10-31T08:37:34+00:00",
-   "file_sha": "4ae3c132e52d5708b02e08f10692b7538df1937e9303a276d35acbf6dfbc909d",
+   "fetched_at": "2026-11-04T12:47:45+00:00",
+   "file_sha": "d61888ecbfa5db16308f0937d37677e6fe2bef62599838ce0677d76a5d941b39",
    "last_modified": "Fri, 23 Oct 2026 12:51:36 GMT",
-   "sha256": "5bf5af8191365487c66033618b572d774ef4b330e4e7904fdb31f3e8990bd0e1",
+   "sha256": "22facb09098c66cef6382b35df8fefb07f528d7168c548ca2cd146d87b391074",
    "title": "Передовая инженерная школа УИ",
    "url": "https://engineerschool.innopolis.university/"
   },
@@ -24,6 +26,14 @@
    "sha256": "1e75db78e71400d3f5a0a7503fcb48767304c30af3c295792b4886de0e266f65",
    "title": "Industry 4.0",
    "url": "https://engineerschool.innopolis.university/industry"
+  },
+  "innocyberpolygon": {
+   "fetched_at": "2026-11-04T12:47:57+00:00",
+   "file_sha": "36f378b48ac3450cd41b397bb525e062cdded53cb18de84fff15ac97e5f56bb4",
+   "last_modified": "Wed, 16 Apr 2025 10:39:55 GMT",
+   "sha256": "c86aa38f7516a35849a0f64c804fc4f04b13161ec8dd08769ba987f9786cd628",
+   "title": "Иннокиберполигон",
+   "url": "https://engineerschool.innopolis.university/innocyberpolygon"
   },
   "innodatahub": {
    "fetched_at": "2026-10-31T08:37:40+00:00",

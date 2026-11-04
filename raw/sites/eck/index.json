@@ -157,10 +157,10 @@
    "url": "https://eck.innopolis.university/gorod_professiy"
   },
   "home": {
-   "fetched_at": "2026-11-01T22:28:16+00:00",
-   "file_sha": "7a8edb61d45afc8afbafc83ff2c9b7356a045b62ca398e16995ea119650893d0",
-   "last_modified": "Tue, 25 Aug 2026 10:06:24 GMT",
-   "sha256": "d8d09703dd390ce882dfc98838b0ef78171c7a8808b6880c66c3643985e45a01",
+   "fetched_at": "2026-11-04T12:50:28+00:00",
+   "file_sha": "cd2f076e82e64e8baab6d0c4b74fc9cdb596b1c9de31cf45c9cf6e32ee70ad73",
+   "last_modified": "Tue, 25 Aug 2026 10:06:20 GMT",
+   "sha256": "5d7572dd3d358dff5cddd2e890841ba707c9b4375566e72a6bc18bb5cc76044a",
    "title": "Единый центр карьеры",
    "url": "https://eck.innopolis.university/"
   },
@@ -243,6 +243,14 @@
    "sha256": "b07802f75b1ff7f3c2719f0b3d7777a4ec795e92b6cd9799d62bdf3cf87a745e",
    "title": "Системная работа университета с региональной компанией",
    "url": "https://eck.innopolis.university/systematic-work-university"
+  },
+  "tpost-b74zb9rsz1-10-iyunya-proshlo-soveschanie-ob-aktuali": {
+   "fetched_at": "2026-11-04T12:50:31+00:00",
+   "file_sha": "05d71320c543dce2f8cc72438cadf95bab9746b3df280dde7064dab1de2a47ed",
+   "last_modified": "",
+   "sha256": "06ce23b13141be6ca2019bb72537fdd938e02c921d5f2b1205a19b481b60991a",
+   "title": "10 июня прошло совещание об актуализации методических рекомендаций с Заместителем министра науки и высшего образования России Дмитрием Афанасьевым",
+   "url": "https://eck.innopolis.university/tpost/b74zb9rsz1-10-iyunya-proshlo-soveschanie-ob-aktuali"
   },
   "virtual-world-professions": {
    "fetched_at": "2026-11-01T22:28:42+00:00",

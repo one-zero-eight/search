@@ -12,10 +12,10 @@ sources:
   - resource: "https://innopolis.com/ru/"
     id: "6e259d0062c3"
     title: "Blocks shared by the pages of innopolis.com: menu, header, footer, contacts"
-    last_modified: "2026-10-31T04:07:09+00:00"
+    last_modified: "2026-11-04T12:41:21+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-10-31T04:07:09+00:00"
+  at: "2026-11-04T12:41:21+00:00"
 status: draft
 ---
 
@@ -191,4 +191,4 @@ Share
 
 # Citations
 
-1. [innopolis.com](https://innopolis.com/ru/), read 2026-10-31
+1. [innopolis.com](https://innopolis.com/ru/), read 2026-11-04

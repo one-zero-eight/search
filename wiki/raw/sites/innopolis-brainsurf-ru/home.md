@@ -1,7 +1,7 @@
 ---
 type: page
 title: "Главная страница"
-description: "Подписавшись на Телеграм-бота, вы сможете не только видеть список своих игр, но и мгновенно узнавать, если появилось свободное место."
+description: "г."
 resource: "https://innopolis.brainsurf.ru/"
 audience: ["student", "postgraduate", "applicant", "teacher", "staff", "management", "public"]
 source_kind: website
@@ -9,36 +9,20 @@ language: ru
 section: "site/innopolis-brainsurf-ru"
 sources:
   - resource: "https://innopolis.brainsurf.ru/"
-    id: "69a918a55044"
+    id: "eaa87a543fd4"
     title: "Главная страница"
-    last_modified: "2026-11-01T22:36:56+00:00"
+    last_modified: "2026-11-04T12:59:50+00:00"
 generated:
   by: "catix-wiki/0.1 sites"
-  at: "2026-11-01T22:36:56+00:00"
+  at: "2026-11-04T12:59:50+00:00"
 status: draft
 ---
 
 # Главная страница
 
-![](https://innopolis.brainsurf.ru/wp-content/uploads/2026/03/01.png)
+[![](https://innopolis.brainsurf.ru/wp-content/uploads/2026/03/01.png)](/raw/sites/innopolis-brainsurf-ru/home.md)
 
-- [Расписание игр](/raw/sites/innopolis-brainsurf-ru/home.md)
-
-- [Общий рейтинг](/raw/sites/innopolis-brainsurf-ru/rating.md)
-
-- [Корпоративы](https://brainsurf.ru/korporativyi/)
-
-- [Франшиза](https://franshiza.brainsurf.ru/)
-
-- Контакты
-
-Ваш город:
-
-Иннополис (Россия)
-
-![](https://innopolis.brainsurf.ru/wp-content/uploads/2026/03/02.png)
-
-- [Расписание игр](/raw/sites/innopolis-brainsurf-ru/home.md)
+- Расписание игр
 
 - [Общий рейтинг](/raw/sites/innopolis-brainsurf-ru/rating.md)
 
@@ -52,7 +36,23 @@ status: draft
 
 Иннополис (Россия)
 
-- [Расписание игр](/raw/sites/innopolis-brainsurf-ru/home.md)
+[![](https://innopolis.brainsurf.ru/wp-content/uploads/2026/03/02.png)](/raw/sites/innopolis-brainsurf-ru/home.md)
+
+- Расписание игр
+
+- [Общий рейтинг](/raw/sites/innopolis-brainsurf-ru/rating.md)
+
+- [Корпоративы](https://brainsurf.ru/korporativyi/)
+
+- [Франшиза](https://franshiza.brainsurf.ru/)
+
+- Контакты
+
+Ваш город:
+
+Иннополис (Россия)
+
+- Расписание игр
 
 - [Общий рейтинг](/raw/sites/innopolis-brainsurf-ru/rating.md)
 
@@ -78,11 +78,13 @@ status: draft
 
 12 ноября, четверг, 19:00
 
-г. Иннополис, Конференцзал, Технопарк им.А.С.Попова
+г. Иннополис, Конференцзал, Технопарк им.А.С.Попова Где это?
 
 Оргвзнос: 4000
 
 Сложность: Посложнее
+
+Записаться на игру
 
 ![Классическая игра](https://crm.brainsurf.ru/assets/a2b69b5c-99f7-463f-8ce0-05210df55b6d)
 
@@ -90,11 +92,13 @@ status: draft
 
 26 ноября, четверг, 19:00
 
-г. Иннополис, Конференцзал, Технопарк им.А.С.Попова
+г. Иннополис, Конференцзал, Технопарк им.А.С.Попова Где это?
 
 Оргвзнос: 4000
 
 Сложность: Посложнее
+
+Записаться на игру
 
 ![Классическая игра](https://crm.brainsurf.ru/assets/a2b69b5c-99f7-463f-8ce0-05210df55b6d)
 
@@ -102,11 +106,13 @@ status: draft
 
 12 ноября, четверг, 19:00
 
-г. Иннополис, Конференцзал, Технопарк им.А.С.Попова
+г. Иннополис, Конференцзал, Технопарк им.А.С.Попова Где это?
 
 Оргвзнос: 4000
 
 Сложность: Посложнее
+
+Записаться на игру
 
 ![Классическая игра](https://crm.brainsurf.ru/assets/a2b69b5c-99f7-463f-8ce0-05210df55b6d)
 
@@ -114,11 +120,15 @@ status: draft
 
 26 ноября, четверг, 19:00
 
-г. Иннополис, Конференцзал, Технопарк им.А.С.Попова
+г. Иннополис, Конференцзал, Технопарк им.А.С.Попова Где это?
 
 Оргвзнос: 4000
 
 Сложность: Посложнее
+
+Записаться на игру
+
+Показать ещё
 
 ## Проверить запись на игру
 
@@ -168,9 +178,9 @@ status: draft
 
 Мы угадаем твоё настроение с 3 нот — громко петь, танцевать и веселиться!
 
-Музыкальная игра. Участники угадывают песни разных стилей и поколений. Можно провести тематическую игру по одному артисту или жанру (Король и Шут, музыка 90-х, русский рок).
+**Музыкальная игра.** Участники угадывают песни разных стилей и поколений. Можно провести тематическую игру по одному артисту или жанру (Король и Шут, музыка 90-х, русский рок).
 
-Музыкальная лига. Меломаны участвуют в турнире и борются за «золотую пластинку».
+**Музыкальная лига.** Меломаны участвуют в турнире и борются за «золотую пластинку».
 
 Как проходит игра
 
@@ -205,6 +215,8 @@ status: draft
 Посмотреть расписание
 
 ## Примеры вопросов
+
+Brainsurf - Классический квиз Brainsurf - Тематический квиз
 
 ![](https://innopolis.brainsurf.ru/wp-content/uploads/2023/07/image_27.webp)
 
@@ -366,9 +378,7 @@ status: draft
 
 ![](https://innopolis.brainsurf.ru/wp-content/themes/brainsurf/assets/images/placeholder.png)
 
-## Корпоративный
-
-квиз
+## Корпоративный квиз
 
 любой тайминг игры
 
@@ -388,7 +398,7 @@ status: draft
 
 У нашего квиза огромный опыт в разработке интеллектуальных игр. Квиз Брейнсерф – это «Что? Где? Когда?» только веселее и для всех. Вопросы не сложные и не легкие. Для нас важнее общение и азарт. Обсуждайте ответы на вопросы квиза, спорьте и выигрывайте призы. Есть сложные туры, музыкальные, тематические, с подвохом. Не сомневайтесь, лучше способа провести вечер мы не знаем! Дубна, играйте в квиз, приходите и будьте на одной волне с Брейнсерф.
 
-![](https://innopolis.brainsurf.ru/wp-content/uploads/2026/03/03.png)
+[![](https://innopolis.brainsurf.ru/wp-content/uploads/2026/03/03.png)](/raw/sites/innopolis-brainsurf-ru/home.md)
 
 Партнёрам
 
@@ -398,11 +408,11 @@ status: draft
 
 Квиз
 
-- [Регистрация на барную игру](/raw/sites/innopolis-brainsurf-ru/home.md)
+- Регистрация на барную игру
 
-- [Регистрация на онлайн-игру](/raw/sites/innopolis-brainsurf-ru/home.md)
+- Регистрация на онлайн-игру
 
-- [Играть в домашний квиз](/raw/sites/innopolis-brainsurf-ru/home.md)
+- Играть в домашний квиз
 
 Разное
 
@@ -410,7 +420,7 @@ status: draft
 
 - [Блог](https://brainsurf.ru/blog/)
 
-- [Мерч и аксессуары](/raw/sites/innopolis-brainsurf-ru/home.md)
+- Мерч и аксессуары
 
 - [Карта сайта](https://innopolis.brainsurf.ru/sitemap.xml)
 
@@ -440,7 +450,7 @@ status: draft
 
 [Абакан](https://abakan.brainsurf.ru/) [Александров](https://aleksandrov.brainsurf.ru/) [Арсеньев](https://arsenev.brainsurf.ru/) [Великие Луки](https://velikie-luki.brainsurf.ru/) [Владимир](https://vladimir.brainsurf.ru/) [Волгодонск](https://volgodonsk.brainsurf.ru/) [Волжский](https://volzhskiy.brainsurf.ru/) [Глазов](https://glazov.brainsurf.ru/) [Дмитров](https://dmitrov.brainsurf.ru/) [Долгопрудный](https://dolgoprudny.brainsurf.ru/) [Донецк](https://donetsk.brainsurf.ru/) [Дубна](https://dubna.brainsurf.ru/) [Елец](https://yelets.brainsurf.ru/) [Игра (Удмуртия)](https://igra-udmurtiya.brainsurf.ru/) [Ижевск](https://izhevsk.brainsurf.ru/)
 
-[Иннополис](/raw/sites/innopolis-brainsurf-ru/home.md) [Ишимбай](https://ishimbay.brainsurf.ru/) [Йошкар-Ола](https://yoshkar-ola.brainsurf.ru/) [Кавалерово (Приморский край)](https://kavalerovo.brainsurf.ru/) [Казань](https://kazan.brainsurf.ru/) [Клин](https://klin.brainsurf.ru/) [Конаково](https://konakovo.brainsurf.ru/) [Королёв](https://korolev.brainsurf.ru/) [Красноармейск](https://krasnoarmeysk.brainsurf.ru/) [Краснодар](https://krasnodar.brainsurf.ru/) [Кузнецк](https://kuznetsk.brainsurf.ru/) [Кузоватово](https://kuzovatovo.brainsurf.ru/) [Липецк](https://lipetsk.brainsurf.ru/) [Лобня](https://lobnya.brainsurf.ru/) [Мелитополь](https://melitopol.brainsurf.ru/)
+Иннополис [Ишимбай](https://ishimbay.brainsurf.ru/) [Йошкар-Ола](https://yoshkar-ola.brainsurf.ru/) [Кавалерово (Приморский край)](https://kavalerovo.brainsurf.ru/) [Казань](https://kazan.brainsurf.ru/) [Клин](https://klin.brainsurf.ru/) [Конаково](https://konakovo.brainsurf.ru/) [Королёв](https://korolev.brainsurf.ru/) [Красноармейск](https://krasnoarmeysk.brainsurf.ru/) [Краснодар](https://krasnodar.brainsurf.ru/) [Кузнецк](https://kuznetsk.brainsurf.ru/) [Кузоватово](https://kuzovatovo.brainsurf.ru/) [Липецк](https://lipetsk.brainsurf.ru/) [Лобня](https://lobnya.brainsurf.ru/) [Мелитополь](https://melitopol.brainsurf.ru/)
 
 [Мичуринск](https://michurinsk.brainsurf.ru/) [Можайск](https://mozhaysk.brainsurf.ru/) [Москва](https://moscow.brainsurf.ru/) [Мурманск](https://murmansk.brainsurf.ru/) [Мытищи](https://mytishchi.brainsurf.ru/) [Набережные Челны](https://naberezhnye-chelny.brainsurf.ru/) [Наро-Фоминск](https://naro-fominsk.brainsurf.ru/) [Нижний Ломов](https://nizhnylomov.brainsurf.ru/) [Новороссийск](https://novorossiysk.brainsurf.ru/) [Пенза](https://penza.brainsurf.ru/) [Петрозаводск](https://petrozavodsk.brainsurf.ru/) [Петропавловск-Камчатский](https://kamchatka.brainsurf.ru/) [Приозерск](https://priozersk.brainsurf.ru/) [Пушкино](https://pushkino.brainsurf.ru/) [Санкт-Петербург](https://spb.brainsurf.ru/)
 
@@ -464,7 +474,9 @@ status: draft
 
 Подписывайтесь на нашего Telegram-бота. И вы сможете не только видеть список своих игр, но и мгновенно узнавать, если появилось свободное место.
 
-[Telegram-бот](https://t.me/brainsurfquiz_bot)
+Позже [Telegram-бот](https://t.me/brainsurfquiz_bot)
+
+- Где это?
 
 - Оргвзнос:
 
@@ -482,7 +494,7 @@ status: draft
 
 - Отзывы
 
-- [Контакты](/raw/sites/innopolis-brainsurf-ru/home.md)
+- Контакты
 
 [▶ video](https://innopolis.brainsurf.ru/wp-content/uploads/2025/04/PROSTO_Kviz_razvlekatelnaya_shou_igra_quiz_ot_sozdateley_brainsurf.mp4)
 
@@ -495,6 +507,10 @@ status: draft
 Мы используем cookie
 
 Мы используем cookie и аналогичные технологии для работы сайта, анализа посещаемости и улучшения сервиса. Продолжая пользоваться сайтом или нажав «Принять», вы соглашаетесь с обработкой данных в соответствии с [Политика конфиденциальности](https://brainsurf.ru/privacy-policy/) и [Политика использования cookie](https://brainsurf.ru/cookie-policy/).
+
+Принять Отклонить Настроить
+
+←
 
 Настройки cookie
 
@@ -512,6 +528,8 @@ status: draft
 
 Позволяют оценивать эффективность рекламы и показывать релевантные предложения.
 
+Сохранить выбор
+
 # Citations
 
-1. [Главная страница](https://innopolis.brainsurf.ru/), read 2026-11-01
+1. [Главная страница](https://innopolis.brainsurf.ru/), read 2026-11-04

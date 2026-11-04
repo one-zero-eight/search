@@ -9,18 +9,18 @@ language: ru
 section: "site/inno-stand-up-club-timepad-ru"
 sources:
   - resource: "https://inno-stand-up-club.timepad.ru/"
-    id: "076d76dc2e16"
+    id: "245098e4e555"
     title: "Inno Stand Up Club / TimePad.ru"
-    last_modified: "2026-11-02T08:42:23+00:00"
+    last_modified: "2026-11-04T12:50:51+00:00"
 generated:
   by: "catix-wiki/0.1 sites"
-  at: "2026-11-02T08:42:23+00:00"
+  at: "2026-11-04T12:50:51+00:00"
 status: draft
 ---
 
 # Inno Stand Up Club / TimePad.ru
 
-[Inno Stand Up Club](/raw/sites/inno-stand-up-club-timepad-ru/home.md)
+- [Inno Stand Up Club](/raw/sites/inno-stand-up-club-timepad-ru/home.md)
 
 - [Вход](https://timepad.ru/auth/?backurl=https%3A%2F%2Finno-stand-up-club.timepad.ru%2Fevents%2F)
 
@@ -34,7 +34,7 @@ status: draft
 
 ## [Stand Up "Открытый микрофон" шоу](/raw/sites/inno-stand-up-club-timepad-ru/event-4259119.md)
 
-Иннополис 31 октября c 19:00 до 21:00, позавчера
+Иннополис 31 октября c 19:00 до 21:00, 4 дня назад
 
 Вечер комедии от Inno Stand Up Club
 
@@ -44,7 +44,7 @@ status: draft
 
 ## [StandUp концерт Игоря Пименова](/raw/sites/inno-stand-up-club-timepad-ru/event-4125964.md)
 
-Иннополис 29 августа c 18:00 до 20:00, 65 дней назад
+Иннополис 29 августа c 18:00 до 20:00, 67 дней назад
 
 Вечер комедии от Inno Stand Up Club
 
@@ -54,7 +54,7 @@ status: draft
 
 ## [Stand Up "Весеннее обострение" шоу](/raw/sites/inno-stand-up-club-timepad-ru/event-3918875.md)
 
-Иннополис 17 апреля c 19:00 до 21:00, 199 дней назад
+Иннополис 17 апреля c 19:00 до 21:00, 201 день назад
 
 Вечер комедии от Inno Stand Up Club
 
@@ -64,7 +64,7 @@ status: draft
 
 ## [StandUp концерт «На двоих»](/raw/sites/inno-stand-up-club-timepad-ru/event-3877396.md)
 
-Иннополис 27 марта c 19:00 до 21:00, 220 дней назад
+Иннополис 27 марта c 19:00 до 21:00, 222 дня назад
 
 Вечер комедии от Inno Stand Up Club
 
@@ -74,7 +74,7 @@ status: draft
 
 ## [StandUp концерт «СЕАНС»](/raw/sites/inno-stand-up-club-timepad-ru/event-3856849.md)
 
-Иннополис 13 марта c 19:00 до 21:00, 234 дня назад
+Иннополис 13 марта c 19:00 до 21:00, 236 дней назад
 
 Вечер комедии от Inno Stand Up Club
 
@@ -84,7 +84,7 @@ status: draft
 
 ## [Stand Up шоу "Love is..."](/raw/sites/inno-stand-up-club-timepad-ru/event-3797298.md)
 
-Иннополис 13 февраля c 19:00 до 21:00, 262 дня назад
+Иннополис 13 февраля c 19:00 до 21:00, 264 дня назад
 
 Вечер комедии от Inno Stand Up Club
 
@@ -94,7 +94,7 @@ status: draft
 
 ## [Шоу презентаций «Защита дипломов»](/raw/sites/inno-stand-up-club-timepad-ru/event-3716458.md)
 
-Иннополис 19 декабря 2025 c 19:00 до 21:00, 318 дней назад
+Иннополис 19 декабря 2025 c 19:00 до 21:00, 320 дней назад
 
 Вечер комедии от Inno Stand Up Club
 
@@ -104,7 +104,7 @@ status: draft
 
 ## [Stand Up шоу «Очень страшный стендап»](/raw/sites/inno-stand-up-club-timepad-ru/event-3625774.md)
 
-Иннополис 1 ноября 2025 c 19:00 до 20:30, 366 дней назад
+Иннополис 1 ноября 2025 c 19:00 до 20:30, 368 дней назад
 
 Вечер комедии от Inno Stand Up Club
 
@@ -114,7 +114,7 @@ status: draft
 
 ## [Stand Up шоу "Неидеальный мужчина"](/raw/sites/inno-stand-up-club-timepad-ru/event-3574358.md)
 
-Иннополис 26 сентября 2025 c 19:00 до 20:30, 402 дня назад
+Иннополис 26 сентября 2025 c 19:00 до 20:30, 404 дня назад
 
 Вечер комедии от Inno Stand Up Club
 
@@ -124,7 +124,7 @@ status: draft
 
 ## [Open Mic](/raw/sites/inno-stand-up-club-timepad-ru/event-3560978.md)
 
-Иннополис 19 сентября 2025 c 19:00 до 20:15, 409 дней назад
+Иннополис 19 сентября 2025 c 19:00 до 20:15, 411 дней назад
 
 Вечер комедии от Inno Stand Up Club
 
@@ -134,7 +134,7 @@ status: draft
 
 ## [Stand Up шоу "Сеанс"](/raw/sites/inno-stand-up-club-timepad-ru/event-3359537.md)
 
-Иннополис 17 мая 2025 c 18:00 до 19:15, 534 дня назад
+Иннополис 17 мая 2025 c 18:00 до 19:15, 536 дней назад
 
 Вечер комедии от Inno Stand Up Club
 
@@ -144,7 +144,7 @@ status: draft
 
 ## [Stand Up Импровизация](/raw/sites/inno-stand-up-club-timepad-ru/event-3335526.md)
 
-Иннополис 25 апреля 2025 c 21:00 до 22:15, 556 дней назад
+Иннополис 25 апреля 2025 c 21:00 до 22:15, 558 дней назад
 
 Вечер комедии от Inno Stand Up Club
 
@@ -154,7 +154,7 @@ status: draft
 
 ## [Stand Up шоу](/raw/sites/inno-stand-up-club-timepad-ru/event-3335523.md)
 
-Иннополис 25 апреля 2025 c 19:00 до 20:15, 556 дней назад
+Иннополис 25 апреля 2025 c 19:00 до 20:15, 558 дней назад
 
 Вечер комедии от Inno Stand Up Club
 
@@ -164,7 +164,7 @@ status: draft
 
 ## [Stand Up шоу](/raw/sites/inno-stand-up-club-timepad-ru/event-3316435.md)
 
-Иннополис 11 апреля 2025 c 21:00 до 22:15, 570 дней назад
+Иннополис 11 апреля 2025 c 21:00 до 22:15, 572 дня назад
 
 Вечер комедии от Inno Stand Up Club
 
@@ -174,7 +174,7 @@ status: draft
 
 ## [Stand Up шоу](/raw/sites/inno-stand-up-club-timepad-ru/event-3316427.md)
 
-Иннополис 11 апреля 2025 c 19:00 до 20:15, 570 дней назад
+Иннополис 11 апреля 2025 c 19:00 до 20:15, 572 дня назад
 
 Вечер комедии от Inno Stand Up Club
 
@@ -184,7 +184,7 @@ status: draft
 
 ## [Stand Up шоу Ипровизация](/raw/sites/inno-stand-up-club-timepad-ru/event-3270764.md)
 
-Иннополис 14 марта 2025 c 21:00 до 22:00, 598 дней назад
+Иннополис 14 марта 2025 c 21:00 до 22:00, 600 дней назад
 
 Вечер комедии от Inno Stand Up Club
 
@@ -194,7 +194,7 @@ status: draft
 
 ## [Stand Up шоу Money Mic](/raw/sites/inno-stand-up-club-timepad-ru/event-3265113.md)
 
-Иннополис 14 марта 2025 c 19:00 до 20:15, 598 дней назад
+Иннополис 14 марта 2025 c 19:00 до 20:15, 600 дней назад
 
 Вечер комедии от Inno Stand Up Club
 
@@ -204,7 +204,7 @@ status: draft
 
 ## [Stand Up шоу Тимура Абдулманова](/raw/sites/inno-stand-up-club-timepad-ru/event-3243574.md)
 
-Иннополис 28 февраля 2025 c 20:00 до 21:00, 612 дней назад
+Иннополис 28 февраля 2025 c 20:00 до 21:00, 614 дней назад
 
 Вечер комедии от Inno Stand Up Club
 
@@ -214,7 +214,7 @@ status: draft
 
 ## [Stand Up шоу "Купидончики" 21:00](/raw/sites/inno-stand-up-club-timepad-ru/event-3230361.md)
 
-Иннополис 14 февраля 2025 c 21:00 до 22:00, 626 дней назад
+Иннополис 14 февраля 2025 c 21:00 до 22:00, 628 дней назад
 
 Вечер комедии от Inno Stand Up Club
 
@@ -224,7 +224,7 @@ status: draft
 
 ## [Stand Up шоу "Купидончики" 19:00](/raw/sites/inno-stand-up-club-timepad-ru/event-3230359.md)
 
-Иннополис 14 февраля 2025 c 19:00 до 20:00, 626 дней назад
+Иннополис 14 февраля 2025 c 19:00 до 20:00, 628 дней назад
 
 Вечер комедии от Inno Stand Up Club
 
@@ -236,4 +236,4 @@ _Меню, подвал и другие блоки, которые повтор�
 
 # Citations
 
-1. [Inno Stand Up Club / TimePad.ru](https://inno-stand-up-club.timepad.ru/), read 2026-11-02
+1. [Inno Stand Up Club / TimePad.ru](https://inno-stand-up-club.timepad.ru/), read 2026-11-04

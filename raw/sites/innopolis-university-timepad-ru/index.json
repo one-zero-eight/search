@@ -178,10 +178,10 @@
    "url": "https://innopolis-university.timepad.ru/events/all/page/2/"
   },
   "home": {
-   "fetched_at": "2026-11-01T22:29:59+00:00",
-   "file_sha": "02718e838026f4faac40649109e442ec7ec8dd125a76b9f7eb36ac1bb4e6b331",
+   "fetched_at": "2026-11-04T12:58:37+00:00",
+   "file_sha": "e4bfbb9b3ff40e4372a43cc795d14d232928d92f59f7f10604627223fcb2f031",
    "last_modified": "",
-   "sha256": "a98a8f4333d9799aba9406705712f84ad0960069b7eb58bd4eaeba2658306947",
+   "sha256": "f3836f70886a9b732d59c5b44b718a973905465b2f6cddab7f6ff9e82cd082d7",
    "title": "Innopolis University / TimePad.ru",
    "url": "https://innopolis-university.timepad.ru/"
   },
@@ -192,6 +192,28 @@
    "sha256": "2c9fc0aca9ce2bc19c6fa1e765ee4de29be484e696fa9b7f7187494579d2f60f",
    "title": "Вы не робот?",
    "url": "https://innopolis-university.timepad.ru/org/index/"
+  }
+ },
+ "tried": {
+  "https://innopolis-university.timepad.ru/event/167723": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "403"
+  },
+  "https://innopolis-university.timepad.ru/event/167727": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "403"
+  },
+  "https://innopolis-university.timepad.ru/event/172851": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "403"
+  },
+  "https://innopolis-university.timepad.ru/event/207616": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "403"
+  },
+  "https://innopolis-university.timepad.ru/event/866499": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "403"
   }
  }
 }

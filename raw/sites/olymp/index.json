@@ -1,5 +1,6 @@
 {
  "docs": {
+  "https://innopolis.university/files/politicacookies.pdf": "Политика конфиденциальности",
   "https://lk-dovuz.innopolis.university/public/files/cpm_final_mladshaya3_2025.pdf": "Скачать pdf-файл с результатами",
   "https://lk-dovuz.innopolis.university/public/files/cpm_final_srednyaya1_2025.pdf": "Скачать pdf-файл с результатами",
   "https://lk-dovuz.innopolis.university/public/files/cpm_final_starshaya1_2025.pdf": "Скачать pdf-файл с результатами",
@@ -18,10 +19,10 @@
    "url": "https://olymp.innopolis.university/cpm"
   },
   "home": {
-   "fetched_at": "2026-10-31T08:37:58+00:00",
-   "file_sha": "ce84d168c20ea52b737013007ca67b3b24b1826c97542427a0f9c1a3665a4643",
-   "last_modified": "Thu, 29 Oct 2026 11:02:31 GMT",
-   "sha256": "0b70253e74c904e40574b589c7409bbd4374df5bc3caac3ed217f19b82698f35",
+   "fetched_at": "2026-11-04T12:48:05+00:00",
+   "file_sha": "e9e400c39ccd58dc08a2357851d12a3004a67e89b6c7d300ca3792372d0291d2",
+   "last_modified": "Mon, 02 Nov 2026 12:23:42 GMT",
+   "sha256": "12017a365f1e5c32068a5dfbd882e574d03edc50495d2ac245d01660ffd98382",
    "title": "Республиканская командная олимпиада по программированию",
    "url": "https://olymp.innopolis.university/"
   },
@@ -32,6 +33,16 @@
    "sha256": "544ed71ac7549572604165d4a3028a901a0dc3068f8596d740b7cfe91cc3b308",
    "title": "Школа олимпиадной подготовки Университета Иннополис Информатика",
    "url": "https://olymp.innopolis.university/informatics2020"
+  }
+ },
+ "tried": {
+  "https://olymp.innopolis.university/republican_olympiad": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "the words of home"
+  },
+  "https://olymp.innopolis.university/winterschool2024": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
   }
  }
 }

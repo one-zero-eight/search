@@ -20,7 +20,7 @@ status: draft
 
 # «Кино&Театр» в Иннополисе | Фьорд
 
-- RU / [EN](https://innopoliscinema.ru/en/films/fjord)
+- RU / [EN](/raw/sites/innopoliscinema-ru/en-films-fjord.md)
 
 ## Фьорд
 

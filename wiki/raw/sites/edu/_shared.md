@@ -10,12 +10,12 @@ language: ru
 section: "site/edu"
 sources:
   - resource: "https://edu.innopolis.university/"
-    id: "aabff9a873f4"
+    id: "02225b9ad194"
     title: "Общие блоки сайта edu.innopolis.university: меню, шапка, подвал, контакты"
-    last_modified: "2026-10-31T01:28:39+00:00"
+    last_modified: "2026-11-04T12:39:01+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-10-31T01:28:39+00:00"
+  at: "2026-11-04T12:39:01+00:00"
 status: draft
 ---
 
@@ -32,8 +32,6 @@ status: draft
 Идет набор
 
 Оставить заявку
-
-[Выписка из реестра лицензий](/raw/regulations/site-stc-e6310fe5-reestrovaya-vypiska.md)
 
 Записаться на курс
 
@@ -101,4 +99,4 @@ digital_prof@innopolis.ru
 
 # Citations
 
-1. [edu.innopolis.university](https://edu.innopolis.university/), read 2026-10-31
+1. [edu.innopolis.university](https://edu.innopolis.university/), read 2026-11-04

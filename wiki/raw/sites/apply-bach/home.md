@@ -9,12 +9,12 @@ language: ru
 section: "site/apply-bach"
 sources:
   - resource: "https://apply-bach.innopolis.university/"
-    id: "5f287e25f857"
+    id: "6b06861b8b70"
     title: "Бакалавриат УИ"
-    last_modified: "2026-11-01T22:27:25+00:00"
+    last_modified: "2026-11-04T12:50:11+00:00"
 generated:
   by: "catix-wiki/0.1 sites"
-  at: "2026-11-01T22:27:25+00:00"
+  at: "2026-11-04T12:50:11+00:00"
 status: draft
 ---
 
@@ -28,9 +28,7 @@ status: draft
 
 ![](https://static.tildacdn.com/tild6362-3832-4861-b264-363537353236/motherboard-backgrou.png)
 
-[Математические](/raw/sites/apply-bach/ds-mai.md)
-
-[основы ИИ](/raw/sites/apply-bach/ds-mai.md)
+[Математические основы ИИ](/raw/sites/apply-bach/ds-mai.md)
 
 Профиль для тех, кто увлечен математикой и информатикой, хочет погрузиться в математические знания, которые помогут в понимании работы ИИ
 
@@ -50,9 +48,7 @@ status: draft
 
 ![](https://static.tildacdn.com/tild3866-3365-4332-b532-393534633465/motherboard-backgrou.png)
 
-[Инженерия](/raw/sites/apply/bachelors-information-systems-engineering.md)
-
-[информационных систем](/raw/sites/apply/bachelors-information-systems-engineering.md)
+[Инженерия информационных систем](/raw/sites/apply/bachelors-information-systems-engineering.md)
 
 Профиль для тех, кто увлечен программированием, хочет заниматься разработкой софта или компьютерной безопасностью
 
@@ -76,4 +72,4 @@ _Меню, подвал и другие блоки, которые повтор�
 
 # Citations
 
-1. [Бакалавриат УИ](https://apply-bach.innopolis.university/), read 2026-11-01
+1. [Бакалавриат УИ](https://apply-bach.innopolis.university/), read 2026-11-04

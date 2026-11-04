@@ -47,10 +47,10 @@
    "url": "https://events.innopolis.university/drone"
   },
   "home": {
-   "fetched_at": "2026-10-31T08:36:28+00:00",
-   "file_sha": "f9020fde71ad6ce919c84ef6547ad06595863f06fa2e7fe5a344d729069a86cc",
+   "fetched_at": "2026-11-04T12:47:17+00:00",
+   "file_sha": "788b69577a5f3e414c770659ddee02167c306e3cbec7235c0433ca47622c5823",
    "last_modified": "Fri, 06 Mar 2026 12:27:08 GMT",
-   "sha256": "7e897f4c561660468cd11b08054962fe6670e04bc8bdffa860b7c528a0ebc61b",
+   "sha256": "bb1501640db32a8d77bc227f6d61801336fc7d62ae5fd0c3b11c23ec828b3ba6",
    "title": "Мероприятия Университета Иннополис",
    "url": "https://events.innopolis.university/"
   },
@@ -157,6 +157,48 @@
    "sha256": "2a795f507281b3b9de7d27c45c0cb80a5ec654d9fa4bc9b2bd0f3b2cdf379e84",
    "title": "ДУС - акселератор Университета Иннополис",
    "url": "https://events.innopolis.university/startuphouse"
+  }
+ },
+ "tried": {
+  "https://events.innopolis.university/confidence": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://events.innopolis.university/dcnair2020": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://events.innopolis.university/eduwebinar": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://events.innopolis.university/innopolistest": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://events.innopolis.university/iproperty": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://events.innopolis.university/itishard": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://events.innopolis.university/summerschool": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://events.innopolis.university/vebinar-ege-matem": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://events.innopolis.university/video": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://events.innopolis.university/winterschool": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
   }
  }
 }

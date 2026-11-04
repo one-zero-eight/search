@@ -60,13 +60,13 @@ status: draft
 
 [Узнать подробнее](/raw/sites/ido/home.md)
 
-## [ЕМОП: unionepro.ru — Образовательная платформа Университета Иннополис](https://unionepro.ru/?utm_source=site&amp;utm_medium=ui&amp;utm_campaign=ido)
+## [ЕМОП: unionepro.ru — Образовательная платформа Университета Иннополис](/raw/sites/unionepro-ru/home.md)
 
-[Единая многофункциональная образовательная платформа Университета Иннополис, где не только можно пройти обучение, но и провести комплексную оценку компетенций.](https://unionepro.ru/?utm_source=site&amp;utm_medium=ui&amp;utm_campaign=ido)
+[Единая многофункциональная образовательная платформа Университета Иннополис, где не только можно пройти обучение, но и провести комплексную оценку компетенций.](/raw/sites/unionepro-ru/home.md)
 
-[>665 000 активных пользователей](https://unionepro.ru/?utm_source=site&amp;utm_medium=ui&amp;utm_campaign=ido)
+[>665 000 активных пользователей](/raw/sites/unionepro-ru/home.md)
 
-[Узнать подробнее](https://unionepro.ru/?utm_source=site&amp;utm_medium=ui&amp;utm_campaign=ido)
+[Узнать подробнее](/raw/sites/unionepro-ru/home.md)
 
 ## [Специализированная ИТ-подготовка](/raw/sites/stc/home.md)
 

@@ -49,10 +49,10 @@
    "url": "https://sezinnopolis.ru/forcompanies/"
   },
   "home": {
-   "fetched_at": "2026-11-01T22:18:38+00:00",
-   "file_sha": "39d8dae60d82605e246504e50a7a485b6383f27eb83e5dfa75d50ed72bcba721",
+   "fetched_at": "2026-11-04T12:49:45+00:00",
+   "file_sha": "3315c0c45811a8d60d8844e74ab1432345ce6d437f8302be8629fa8534ab0f5a",
    "last_modified": "",
-   "sha256": "cf127996e322342b8afd363a7b73ee0ba7bdf00c76a119816571841b78202f1f",
+   "sha256": "a07d826c76c1a7471fbeb85f5b16d6c6634e508942a15d9c5b389fbd92e25bd7",
    "title": "ОЭЗ «Иннополис»: официальный сайт особой экономической зоны",
    "url": "https://sezinnopolis.ru/"
   },
@@ -802,6 +802,28 @@
    "sha256": "69920383997a08d4131a41daead33c009f857e4ac7d918f926655ab19fe913c5",
    "title": "Венчурные инвесторы & Корпорации ОЭЗ \"Иннополис\": официальный сайт особой экономической зоны",
    "url": "https://sezinnopolis.ru/venture/"
+  }
+ },
+ "tried": {
+  "https://sezinnopolis.ru/arenda/arenda-new": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://sezinnopolis.ru/investoram": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://sezinnopolis.ru/policy": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://sezinnopolis.ru/residents": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://sezinnopolis.ru/startup": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
   }
  }
 }

@@ -100,9 +100,10 @@
    "url": "https://campuslife.innopolis.ru/hobby_clubs"
   },
   "home": {
-   "fetched_at": "2026-10-24T22:01:59+00:00",
+   "fetched_at": "2026-11-04T12:37:04+00:00",
+   "file_sha": "338c5173a99508e5adc3b8c11b5b403c510b85fffe476359cf984b09a2d28832",
    "last_modified": "Wed, 22 Jul 2026 19:09:04 GMT",
-   "sha256": "374afc65d67ebe407aa525c550d5ebc13ab5ec019493d10b69b98cc327ab3c5a",
+   "sha256": "a77323678840ca8f95dcbf2580bdb25c14b46d2d728e23276802253e051cd8b3",
    "title": "Campus Life at Innopolis University",
    "url": "https://campuslife.innopolis.ru/"
   },
@@ -245,6 +246,16 @@
    "sha256": "8dbc10569c53a93d864bb7ccff6928b80dd4c80420467fd7b7bb13699dfa391c",
    "title": "Volunteering at IU",
    "url": "https://campuslife.innopolis.ru/volunteering"
+  }
+ },
+ "tried": {
+  "https://campuslife.innopolis.ru/handbook2023": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://campuslife.innopolis.ru/handbook"
+  },
+  "https://campuslife.innopolis.ru/main": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "the words of home"
   }
  }
 }

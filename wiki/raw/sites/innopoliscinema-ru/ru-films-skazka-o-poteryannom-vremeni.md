@@ -20,7 +20,7 @@ status: draft
 
 # «Кино&Театр» в Иннополисе | Сказка о потерянном времени
 
-- RU / [EN](https://innopoliscinema.ru/en/films/skazka-o-poteryannom-vremeni)
+- RU / [EN](/raw/sites/innopoliscinema-ru/en-films-skazka-o-poteryannom-vremeni.md)
 
 ## Сказка о потерянном времени
 

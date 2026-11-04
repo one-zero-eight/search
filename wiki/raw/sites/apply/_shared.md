@@ -12,10 +12,10 @@ sources:
   - resource: "https://apply.innopolis.university/"
     id: "d88edc62b5eb"
     title: "Общие блоки сайта apply.innopolis.university: меню, шапка, подвал, контакты"
-    last_modified: "2026-10-24T23:41:23+00:00"
+    last_modified: "2026-11-04T12:36:04+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-10-24T23:41:23+00:00"
+  at: "2026-11-04T12:36:04+00:00"
 status: draft
 ---
 
@@ -259,4 +259,4 @@ Python
 
 # Citations
 
-1. [apply.innopolis.university](https://apply.innopolis.university/), read 2026-10-24
+1. [apply.innopolis.university](https://apply.innopolis.university/), read 2026-11-04

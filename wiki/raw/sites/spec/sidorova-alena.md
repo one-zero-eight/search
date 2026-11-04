@@ -112,8 +112,6 @@ SCIENCE IS THE NEW BLACK
 
 Главное — стремиться.
 
-Понравилась статья?
-
 [![](https://static.tildacdn.com/tild6530-3130-4734-b137-666538666663/6__.png)](/raw/sites/spec/digest3.md)
 
 [6 степеней свободы. Промышленная робототехника](/raw/sites/spec/digest3.md)

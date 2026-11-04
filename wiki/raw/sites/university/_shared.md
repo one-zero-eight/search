@@ -10,12 +10,12 @@ language: ru
 section: "site/university"
 sources:
   - resource: "https://innopolis.university/"
-    id: "bfff66f038e4"
+    id: "4c2377354cd3"
     title: "Общие блоки сайта innopolis.university: меню, шапка, подвал, контакты"
-    last_modified: "2026-10-30T22:13:22+00:00"
+    last_modified: "2026-11-04T12:34:30+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-10-30T22:13:22+00:00"
+  at: "2026-11-04T12:34:30+00:00"
 status: draft
 ---
 
@@ -125,7 +125,7 @@ status: draft
 
 - [Бизнесу](/raw/sites/corporate/education.md)
 
-- [Преподавателям и методистам](https://unionepro.ru/)
+- [Преподавателям и методистам](/raw/sites/unionepro-ru/home.md)
 
 - [Специалистам по работе с персоналом](/raw/sites/stc/careerinit.md)
 
@@ -339,38 +339,6 @@ Stay in touch with your course mates and remain part of Inno-community
 
 - [Об университете](/raw/sites/university/about.md)
 
-[Все медиа](/raw/sites/media/home.md)
-
-Facebook
-
-Вконтакте
-
-Youtube
-
-Twitter
-
-Instagram
-
-habr
-
-- [Студентам](http://www.campuslife.innopolis.ru/main)
-
-- [Бизнесу](/raw/sites/university/proekty-activity.md)
-
-- [Медиа](/raw/sites/media/home.md)
-
-- [Сайт университета иннополис](/raw/sites/university/home.md)
-
-- [Переезд в Иннополис](https://innopolis.university/relocation)
-
-- [Вакансии](https://innopolis.university/job)
-
-- [Резюме](/raw/sites/career/home.md)
-
-[Сайт университета Иннополис](/raw/sites/university/home.md)
-
-[Вернуться Назад](/raw/sites/university/home.md)
-
 # Citations
 
-1. [innopolis.university](https://innopolis.university/), read 2026-10-30
+1. [innopolis.university](https://innopolis.university/), read 2026-11-04

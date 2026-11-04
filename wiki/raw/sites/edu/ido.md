@@ -322,6 +322,8 @@ telegram: @DariNovo
 
 [Лицензия](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md)
 
+[Выписка из реестра лицензий](/raw/regulations/site-unionepro-ru-e6310fe5-reestrovaya-vypiska.md)
+
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/edu/_shared.md](/raw/sites/edu/_shared.md)._
 
 # Citations

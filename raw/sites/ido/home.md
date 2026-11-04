@@ -10,24 +10,30 @@ En
 [En⠀⠀⠀⠀](https://www.ido.innopolis.university/eng)
 [Ru](https://www.ido.innopolis.university/)
 ![](https://static.tildacdn.com/tild3036-3232-4162-b331-643034393966/2312.png)
-## ИНСТИТУТ ДОПОЛНИТЕЛЬНОГО ОБРАЗОВАНИЯ
-УНИВЕРСИТЕТА ИННОПОЛИС
+## ИНСТИТУТ ДОПОЛНИТЕЛЬНОГО ОБРАЗОВАНИЯ УНИВЕРСИТЕТА ИННОПОЛИС
 Курсы по программированию, ИТ и менеджменту
 Подобрать курс
 Записаться
 [Записаться](https://stc.innopolis.university/ai_data_analitika?utm_source=block_glavnaya)
 [Курс ИИ и аналитика больших данных](https://edu.innopolis.university/engineers?utm_source=ido)
 от Университета Иннополис
-![](https://static.tildacdn.com/tild6430-3436-4566-b339-306332663539/Frame_47.png)
+[![](https://static.tildacdn.com/tild6430-3436-4566-b339-306332663539/Frame_47.png)](https://edu.innopolis.university/engineers?utm_source=ido)
 ![](https://static.tildacdn.com/tild3636-6339-4737-b232-623734616137/Group_277132229.png)
 Программы повышения квалификации и профессиональной переподготовки
 Передовая инженерная школа Университета Иннополис
 ![](https://static.tildacdn.com/tild6632-3862-4134-a465-613437666138/image_3.png)
 [Узнать подробнее](https://edu.innopolis.university/engineers?utm_source=ido)
 Наши курсы
+- Все программы
+- Программирование
+- Искусственный интеллект
+- Менеджмент
+- Образование
+- Данные
+- Робототехника
 Наши эксперты и преподаватели
 <
->
+\>
 ![](https://static.tildacdn.com/tild3766-6465-4135-a263-666266663038/azat.jpg)
 Азат Якупов
 Архитектор данных крупных ИТ-компаний, преподаватель курсов в Университете Иннополис и руководитель научной лаборатории данных DataLab в КФУ
@@ -99,7 +105,7 @@ DriveIT
 Или разработка программ обучения по вашему запросу.
 Комплексная оценка кадров
 Измерим профессиональные компетенции сотрудников и разработаем курсы повышения квалификации с учётом результатов оценки.
-## Корпоративное обучение для руководителей и их команд
+## **Корпоративное обучение для руководителей и их команд**
 [Подробнее](https://itbm.innopolis.university/)
 ![](https://static.tildacdn.com/tild6137-3961-4661-b863-616231346564/dote.png)
 ![](https://static.tildacdn.com/tild3361-6434-4161-b061-363537376464/arr.png)
@@ -124,15 +130,15 @@ DriveIT
 Программа выстраивается под цели вашей компании и может включать: референс-визиты, деловые встречи, лекции, создание проекта, культурную программу и другие мероприятия под запрос.
 [Подробнее](https://ido.innopolis.university/global?utm_source=site_ido.innopolis.university&utm_medium=redirect&utm_campaign=global)
 Вебинары и воркшопы
-![](https://static.tildacdn.com/tild3039-6437-4863-b362-633464363335/Work_life_balance_an.png)
+[![](https://static.tildacdn.com/tild3039-6437-4863-b362-633464363335/Work_life_balance_an.png)](https://vk.com/video/@edtechiu?z=video-213393716_456239163%2Fclub213393716%2Fpl_-213393716_-2)
 [Вебинар](https://vk.com/video/@edtechiu?z=video-213393716_456239163%2Fclub213393716%2Fpl_-213393716_-2)
 [Product management в IT. Жизненный цикл продукта на практике](https://vk.com/video/@edtechiu?z=video-213393716_456239163%2Fclub213393716%2Fpl_-213393716_-2)
 [Подробнее](https://vk.com/video/@edtechiu?z=video-213393716_456239163%2Fclub213393716%2Fpl_-213393716_-2)
-![](https://static.tildacdn.com/tild3466-3962-4764-b931-336661353764/logo_make_11_06_2023.png)
+[![](https://static.tildacdn.com/tild3466-3962-4764-b931-336661353764/logo_make_11_06_2023.png)](https://vk.com/video-213393716_456239202)
 [Вебинар](https://vk.com/video-213393716_456239202)
 [Как искусственный интеллект изменит аналитику?](https://vk.com/video-213393716_456239202)
 [Подробнее](https://vk.com/video-213393716_456239202)
-![](https://static.tildacdn.com/tild3165-3036-4830-b235-373836663938/Group_1321315914.png)
+[![](https://static.tildacdn.com/tild3165-3036-4830-b235-373836663938/Group_1321315914.png)](https://ido.innopolis.university/global/webinar/innovationvuz?utm_source=site_ido&utm_medium=promo_web)
 [Вебинар](https://ido.innopolis.university/global/webinar/innovationvuz?utm_source=site_ido&utm_medium=promo_web)
 [10.09](https://ido.innopolis.university/global/webinar/innovationvuz?utm_source=site_ido&utm_medium=promo_web)
 [Инновации в высшем образовании: передовые практики Китая](https://ido.innopolis.university/global/webinar/innovationvuz?utm_source=site_ido&utm_medium=promo_web)
@@ -140,10 +146,10 @@ DriveIT
 Получить консультацию
 Подобрать курс
 ![](https://static.tildacdn.com/tild6563-3534-4630-b761-653533653761/330f62be-cee2-4c9b-a.png)
-> 100 000
+\> 100 000
 человек прошли обучение с 2016 года
 программ дополнительного профессионального образования
-> 300
+\> 300
 80
 команд цифровой трансформации подготовили для российских вузов
 О нас
@@ -242,22 +248,22 @@ DriveIT
 ![](https://static.tildacdn.com/tild3063-3836-4063-b764-353035336533/invoice.png)
 Льготы для отдельных категорий лиц
 Если вы студент дневного или вечернего отделения либо у вас инвалидность 1 или 2 группы, то ваша скидка составит 50%*
-* при предъявлении подтверждающей справки
+\* *при предъявлении подтверждающей справки*
 ![](https://static.tildacdn.com/tild3464-6635-4535-b966-333633336165/user-circle.png)
 Обучение за счет вашей компании
 Предоставим необходимые документы и сформируем договор на обучение.
 ![](https://static.tildacdn.com/tild6131-6666-4839-a261-333334356133/bag.png)
 Возможна рассрочка
 Мы предоставляем рассрочку от банка-партнера «Т-Банк» на срок от 4 до 12 месяцев.
-Первый платеж — только через месяц.
+**Первый платеж — только через месяц.**
 ![](https://static.tildacdn.com/tild3831-3637-4232-b732-616631356630/percentage.png)
 Наши партнеры
-![](https://static.tildacdn.com/tild6164-3036-4065-b532-316139353030/11pavel-herceg-zWOQD.png)
+[![](https://static.tildacdn.com/tild6164-3036-4065-b532-316139353030/11pavel-herceg-zWOQD.png)](https://dzen.ru/innopolisu)
 [Блог в Дзене](https://dzen.ru/innopolisu)
 [Крупный ритейл и корпорации в России уже давно применяют ассесмент для развития компании. Что это такое, разобрали вместе с экспертами Ассесмент-центра Университета Иннополис.](https://dzen.ru/innopolisu)
 [Читать](https://dzen.ru/innopolisu)
 Другие материалы
-![](https://static.tildacdn.com/tild6265-6533-4636-b166-616263303835/17598710-d9af-4780-9.png)
+[![](https://static.tildacdn.com/tild6265-6533-4636-b166-616263303835/17598710-d9af-4780-9.png)](https://t.me/innokadriu)
 [Мы в Telegram](https://t.me/innokadriu)
 [Собрали самые интересные новости образования и последние открытия в науке.](https://t.me/innokadriu)
 [Читать](https://t.me/innokadriu)
@@ -295,9 +301,9 @@ It's totally free
 Онлайн-чат
 ![](https://static.tildacdn.com/tild6466-3630-4262-a263-363730663330/Frame-277133427.png)
 Новости, советы и спецпредложения
-[Лицензия](https://innopolis.university/upload/iblock/d7f/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B4%D0%B5%D1%8F%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C.pdf)
+[Лицензия](https://innopolis.university/upload/iblock/d7f/Лицензия%20на%20обрдеятельность.pdf)
 [Политика конфиденциальности](https://innopolis.university/files/politicacookies.pdf)
-[Выписка из реестра лицензий](https://innopolis.university/upload/iblock/b6f/ozxoa1j463v3s0m55w9kdc1qc0z31zfr/%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%B2%D1%8B%D0%BF%D0%B8%D1%81%D0%BA%D0%B0.pdf)
+[Выписка из реестра лицензий](https://innopolis.university/upload/iblock/b6f/ozxoa1j463v3s0m55w9kdc1qc0z31zfr/Реестровая%20выписка.pdf)
 Контакты
 +7 800 222 92 56
 digital_prof@innopolis.ru

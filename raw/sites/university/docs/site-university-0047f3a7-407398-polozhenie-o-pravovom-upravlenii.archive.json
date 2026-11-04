@@ -1,6 +1,18 @@
 {
- "error": "Archive rejected: unsupported",
- "refetch": true,
- "status": "unsupported",
+ "document": {
+  "ext": "pdf",
+  "key": "site-university-0047f3a7-407398-polozhenie-o-pravovom-upravlenii",
+  "status": "ready",
+  "storage": "site-university-0047f3a7-407398-polozhenie-o-pravovom-upravlenii.documents/5312ce86362069c6884890a62db1e8c859fb50d74647e523bd702c35b776bcce"
+ },
+ "members": [],
+ "remote": {
+  "etag": "\"69e76b58-1c712f\"",
+  "modified": "Tue, 21 Apr 2026 12:19:36 GMT",
+  "size": "1863983"
+ },
+ "sha256": "5312ce86362069c6884890a62db1e8c859fb50d74647e523bd702c35b776bcce",
+ "source": "site-university-0047f3a7-407398-polozhenie-o-pravovom-upravlenii.archives/5312ce86362069c6884890a62db1e8c859fb50d74647e523bd702c35b776bcce.archive",
+ "status": "ready",
  "url": "https://innopolis.university/upload/iblock/5e0/01jawn1zksg60qwk5rhmlpjovhyx1ncz/407398_%D0%9F%D0%BE%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BE_%D0%9F%D1%80%D0%B0%D0%B2%D0%BE%D0%B2%D0%BE%D0%BC_%D1%83%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B8.zip"
 }

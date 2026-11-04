@@ -238,7 +238,7 @@ status: draft
 
 Пример: INNOCAMP лето 2026 Сафин Марат Ахметович.
 
-[Записать ребенка в летнюю смену 2026](https://innopoliscamp.ru/zapismfti)
+[Записать ребенка в летнюю смену 2026](/raw/sites/innopoliscamp-ru/zapismfti.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/innopoliscamp-ru/_shared.md](/raw/sites/innopoliscamp-ru/_shared.md)._
 

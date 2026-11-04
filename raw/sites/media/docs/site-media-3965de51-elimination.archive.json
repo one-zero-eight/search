@@ -2,5 +2,6 @@
  "error": "[Errno -5] No address associated with hostname",
  "refetch": true,
  "status": "unavailable",
+ "tried_at": "2026-11-04T13:03:00+00:00",
  "url": "https://olymp.innopolis.ru/archive/2014-2015/elimination.zip"
 }

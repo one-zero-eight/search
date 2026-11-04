@@ -1337,4 +1337,28 @@ sites:
     signin: null
     private: null
     aliases: []
-
+  unionepro-ru:
+    base: https://unionepro.ru/
+    language: ru
+    about: 'unionepro.ru, found by the wiki''s run: ЕМОП'
+    skip: ^(tilda|members)/|(^|/)((\w+[-_])?form|thank_?you\w*|test\w*|\w+_test)$
+    sitemap: true
+    max_pages: 30
+    english: null
+    dated: false
+    render: true
+    robots: true
+    pause: 3
+    headings: null
+    bare: false
+    listing: null
+    end: null
+    drop: null
+    profile: null
+    audience: null
+    discover: null
+    missing: null
+    signin: null
+    private: null
+    feeds: []
+    aliases: []

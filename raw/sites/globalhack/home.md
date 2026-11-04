@@ -94,11 +94,11 @@ Redis
 ![](https://static.tildacdn.com/tild3161-6664-4564-b535-663065356135/b2.png)
 ![](https://static.tildacdn.com/tild3265-6134-4339-b662-653736396134/bb4.png)
 1 место
-300 тыс. ₽*
+300 тыс. **₽***
 2 место
-250 тыс. ₽*
+250 тыс. **₽***
 3 место
-200 тыс. ₽*
+200 тыс. **₽***
 *до вычета НДФЛ
 Организаторы и партнёры
 [Политика обработки персональных данных](https://photostorage.innopolis.university/index.php/s/APJxE9JXJRHRyYw?dir=/&editing=false&openfile=true)
@@ -107,7 +107,7 @@ Redis
 Телеграм: [@megalaniaprisca](https://t.me/megalaniaprisca)
 Жуков Александр
 Тел. +7 (843) 203-92-53 (доб. 7951)
-Телеграм: [@tiny_nazz](https://t.me/tiny_nazz)
+**Телеграм:** **[@tiny_nazz](https://t.me/tiny_nazz)**
 Гаялова Гульназ
 420500, г. Иннополис ул.Университетская, д.1
 [Положение Хакатона](https://photostorage.innopolis.university/index.php/s/Tpc4osJbxzeJ3m3)

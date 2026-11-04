@@ -246,6 +246,8 @@ CEO Agile Technologies, эксперт в области управления п
 
 [Лицензия](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md)
 
+[Выписка из реестра лицензий](/raw/regulations/site-unionepro-ru-e6310fe5-reestrovaya-vypiska.md)
+
 контакты
 
 +7 927 416 29 67

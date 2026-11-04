@@ -12,10 +12,10 @@ sources:
   - resource: "https://stc.innopolis.university/"
     id: "667ad7398223"
     title: "Общие блоки сайта stc.innopolis.university: меню, шапка, подвал, контакты"
-    last_modified: "2026-10-31T01:22:34+00:00"
+    last_modified: "2026-11-04T12:37:45+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-10-31T01:22:34+00:00"
+  at: "2026-11-04T12:37:45+00:00"
 status: draft
 ---
 
@@ -55,7 +55,7 @@ digital_prof@innopolis.ru
 
 [Лицензия](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md)
 
-[Выписка из реестра лицензий](/raw/regulations/site-stc-e6310fe5-reestrovaya-vypiska.md)
+[Выписка из реестра лицензий](/raw/regulations/site-unionepro-ru-e6310fe5-reestrovaya-vypiska.md)
 
 О курсе
 
@@ -93,4 +93,4 @@ digital_prof@innopolis.ru
 
 # Citations
 
-1. [stc.innopolis.university](https://stc.innopolis.university/), read 2026-10-31
+1. [stc.innopolis.university](https://stc.innopolis.university/), read 2026-11-04

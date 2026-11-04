@@ -12,16 +12,14 @@ sources:
   - resource: "https://hotel.innopolis.university/"
     id: "60e6492f3af9"
     title: "Blocks shared by the pages of hotel.innopolis.university: menu, header, footer, contacts"
-    last_modified: "2026-10-30T21:14:40+00:00"
+    last_modified: "2026-11-04T12:37:14+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-10-30T21:14:40+00:00"
+  at: "2026-11-04T12:37:14+00:00"
 status: draft
 ---
 
 # Blocks shared by the pages of hotel.innopolis.university: menu, header, footer, contacts
-
-[![](https://hotel.innopolis.university/upload/landing/44b/lwulj5v9fgp6ya7z9bkm4mhht26225j0/logo_eng@2x.png)](/raw/sites/hotel/home.md)
 
 - [TYPES OF ROOMS](/raw/sites/hotel/en-roomfund.md)
 
@@ -57,6 +55,10 @@ Email: hoteluni@innopolis.ru
 
 - [Regulatory documents](/raw/sites/hotel/dokumenty.md)
 
+[![](https://hotel.innopolis.university/upload/landing/44b/lwulj5v9fgp6ya7z9bkm4mhht26225j0/logo_eng@2x.png)](/raw/sites/hotel/home.md)
+
+- [about campus](/raw/sites/hotel/en.md)
+
 ![](https://hotel.innopolis.university/upload/landing/223/Visa_Inc._logo.svg@2x.png)
 
 ![](https://hotel.innopolis.university/upload/landing/7fb/2b48e3fcc91e@2x.png)
@@ -65,8 +67,6 @@ Email: hoteluni@innopolis.ru
 
 ![](https://hotel.innopolis.university/upload/landing/a55/Uniteler_logo@2x.png)
 
-- [about campus](/raw/sites/hotel/en.md)
-
 # Citations
 
-1. [hotel.innopolis.university](https://hotel.innopolis.university/), read 2026-10-30
+1. [hotel.innopolis.university](https://hotel.innopolis.university/), read 2026-11-04

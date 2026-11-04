@@ -12,10 +12,10 @@ sources:
   - resource: "https://hotel.innopolis.university/"
     id: "d362839a2c5b"
     title: "Общие блоки сайта hotel.innopolis.university: меню, шапка, подвал, контакты"
-    last_modified: "2026-10-30T21:07:15+00:00"
+    last_modified: "2026-11-04T12:37:12+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-10-30T21:07:15+00:00"
+  at: "2026-11-04T12:37:12+00:00"
 status: draft
 ---
 
@@ -75,4 +75,4 @@ Email: hoteluni@innopolis.ru
 
 # Citations
 
-1. [hotel.innopolis.university](https://hotel.innopolis.university/), read 2026-10-30
+1. [hotel.innopolis.university](https://hotel.innopolis.university/), read 2026-11-04

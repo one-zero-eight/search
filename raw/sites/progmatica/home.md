@@ -3,8 +3,8 @@
 [Контакты](https://progmatica.innopolis.university/contacts?utm_source=site_header&utm_medium=site_progmatica)
 [Бесплатный урок](https://progmatica.innopolis.university/promo/program?utm_source=site_header&utm_medium=site_progmatica)
 8-800-444-27-49
-Мы используем файлы cookies
-Они помогают улучшить работу сайта и сделать его удобнее. Посещая страницы сайта, вы соглашаетесь с [условиями использования](https://innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%9F%D0%94%D0%BD%20%D0%B4%D0%BB%D1%8F%20%D0%A3%D0%98.pdf) файлов cookie.
+**Мы используем файлы cookies**
+Они помогают улучшить работу сайта и сделать его удобнее. Посещая страницы сайта, вы соглашаетесь с [условиями использования](https://innopolis.university/public/files/Согласие%20на%20обработку%20ПДн%20для%20УИ.pdf) файлов cookie.
 Согласен
 По всем вопросам
 ВКонтакте
@@ -32,8 +32,7 @@
 Вотсап
 Будем рады ответить на ваши вопросы в удобном вам мессенджере, по почте или телефону 8-800-444-27-49
 [Прогматика — это больше, чем уроки информатики](https://progmatica.innopolis.university/about?utm_source=site_progmatica_block_about1&utm_medium=050523)
-[Мы создали ИТ-школу, чтобы помочь школьникам получить знания и навыки, которые можно применить на практике.](https://progmatica.innopolis.university/about?utm_source=site_progmatica_block_about2&utm_medium=050523)
-[Мы покажем, куда дальше идти в области ИТ и применять знания, даже если ребёнок станет врачом, агрономом или писателем.](https://progmatica.innopolis.university/about?utm_source=site_progmatica_block_about2&utm_medium=050523)
+[Мы создали ИТ-школу, чтобы помочь школьникам получить знания и навыки, которые можно применить на практике. \ Мы покажем, куда дальше идти в области ИТ и применять знания, даже если ребёнок станет врачом, агрономом или писателем.](https://progmatica.innopolis.university/about?utm_source=site_progmatica_block_about2&utm_medium=050523)
 [ПОДРОБНЕЕ О ШКОЛЕ И УНИВЕРСИТЕТЕ ИННОПОЛИС→](https://progmatica.innopolis.university/about?utm_source=site_progmatica_block_about3&utm_medium=050523)
 Почему стоит учиться в Прогматике
 ИТ-навыки
@@ -45,8 +44,7 @@
 Комфорт
 Для обучения необходим только компьютер и стабильный интернет, остальное берём на себя :)
 [первый шаг](https://progmatica.innopolis.university/courses/basic/roblox?utm_source=site_block_bliz_zapuski&utm_medium=18_09_26)
-[Курс по разработке игр](https://progmatica.innopolis.university/courses/basic/roblox?utm_source=site_block_bliz_zapuski&utm_medium=18_09_26)
-[на Roblox для школьников 3–6 классов](https://progmatica.innopolis.university/courses/basic/roblox?utm_source=site_block_bliz_zapuski&utm_medium=18_09_26)
+[Курс по разработке игр на Roblox для школьников 3–6 классов](https://progmatica.innopolis.university/courses/basic/roblox?utm_source=site_block_bliz_zapuski&utm_medium=18_09_26)
 [для самых младших](https://progmatica.innopolis.university/courses/basic/roblox?utm_source=site_block_bliz_zapuski&utm_medium=18_09_26)
 [подробнее →](https://progmatica.innopolis.university/courses/basic/roblox?utm_source=site_block_bliz_zapuski&utm_medium=18_09_26)
 Ближайшие запуски
@@ -55,21 +53,17 @@
 [Бесплатные вебинары для родителей про возможности школьников в ИТ и обучение](https://progmatica.innopolis.university/programs/webinars?utm_source=site_block_bliz_zapuski_tg_bots&utm_medium=01_04_26)
 для родителей
 [подробнее →](https://progmatica.innopolis.university/programs/webinars?utm_source=site_block_bliz_zapuski_tg_bots&utm_medium=01_04_26)
-[школьникам 2–11 классов](https://progmatica.innopolis.university/#triallesson)
+школьникам 2–11 классов
 [БЕСПЛАТНЫЙ ПРОБНЫЙ УРОК](https://progmatica.innopolis.university/promo/program?utm_source=glav_site_progmatica2&utm_medium=02_06_26)
 [ЗАПИСАТЬСЯ →](https://progmatica.innopolis.university/promo/program?utm_source=glav_site_progmatica2&utm_medium=02_06_26)
 [![](https://static.tildacdn.com/tild6533-3933-4339-b837-626434663938/Frame_87.png)](https://progmatica.innopolis.university/promo/program?utm_source=glav_site_progmatica2&utm_medium=02_06_26)
 [Приглашаем всех желающих на бесплатный пробный урок по программированию по разным ИТ-направлениям!](https://progmatica.innopolis.university/promo/program?utm_source=glav_site_progmatica2&utm_medium=02_06_26)
 [РАСПИСАНИЕ ближайших курсов с датой старта](https://app.weeek.net/s/document-document-NjA0ODg5fDlkMjE5OTdhLWQxNjUtNDg1Yy1iZDU5LWY5ZjFkYWMxZWM1ZQ==)
 [![](https://static.tildacdn.com/tild3531-6630-4030-b032-303335306561/Group_51594.png)](https://app.weeek.net/s/document-document-NjA0ODg5fDlkMjE5OTdhLWQxNjUtNDg1Yy1iZDU5LWY5ZjFkYWMxZWM1ZQ==)
-- [личные онлайн-занятия с педагогом](https://progmatica.innopolis.university/individual_course?utm_source=site&utm_medium=lend_course_glavsite_indiv)
-[по индивидуальному расписанию](https://progmatica.innopolis.university/individual_course?utm_source=site&utm_medium=lend_course_glavsite_indiv)
-- [стоимость от 1 215 ₽ за ак. час](https://progmatica.innopolis.university/individual_course?utm_source=site&utm_medium=lend_course_glavsite_indiv)
+[- личные онлайн-занятия с педагогом по индивидуальному расписанию - стоимость от 1 215 ₽ за ак. час](https://progmatica.innopolis.university/individual_course?utm_source=site&utm_medium=lend_course_glavsite_indiv)
 [Индивидуальные занятия](https://progmatica.innopolis.university/individual_course?utm_source=site&utm_medium=lend_course_glavsite_indiv)
 [![](https://static.tildacdn.com/tild6161-3739-4765-b037-386439316162/__1.png)](https://progmatica.innopolis.university/individual_course?utm_source=site&utm_medium=lend_course_glavsite_indiv)
-- [онлайн-занятия 2 раза в неделю](https://progmatica.innopolis.university/group_course?utm_source=site&utm_medium=lend_course_glavsite_group)
-[в группе на 6–8 человек](https://progmatica.innopolis.university/group_course?utm_source=site&utm_medium=lend_course_glavsite_group)
-- [стоимость от 573 ₽ за ак. час](https://progmatica.innopolis.university/group_course?utm_source=site&utm_medium=lend_course_glavsite_group)
+[- онлайн-занятия 2 раза в неделю в группе на 6–8 человек - стоимость от 573 ₽ за ак. час](https://progmatica.innopolis.university/group_course?utm_source=site&utm_medium=lend_course_glavsite_group)
 [Групповые занятия](https://progmatica.innopolis.university/group_course?utm_source=site&utm_medium=lend_course_glavsite_group)
 [Выбрать пакет обучения](https://progmatica.innopolis.university/group_course?utm_source=site&utm_medium=lend_course_glavsite_group)
 [Выбрать пакет обучения](https://progmatica.innopolis.university/individual_course?utm_source=site&utm_medium=lend_course_glavsite_indiv)
@@ -84,7 +78,7 @@
 13 направлений
 Наши ученики выбирают то направление, которое им нравится и мы помогаем им с траекторией развития
 Наш опыт
-Прогматика — онлайн-школа от команды Университета Иннополис, которая более 13 лет занимается ИТ-образованием для школьников и педагогов по всему миру
+**Прогматика** — онлайн-школа от команды Университета Иннополис, которая более **13 лет** занимается ИТ-образованием для школьников и педагогов по всему миру
 Попробуйте ИТ!
 Ловите возможность прямо сейчас записаться на пробный урок по программированию для 2–11 классов в удобное для вас время!
 Попробовать бесплатно

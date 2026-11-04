@@ -7,8 +7,7 @@
 [Подать заявку на грант](https://profile.innopolis.university/auth/register)
 [День открытых дверей](https://apply.innopolis.university/open-day)
 ![](https://static.tildacdn.com/tild6362-3832-4861-b264-363537353236/motherboard-backgrou.png)
-[Математические](https://apply-bach.innopolis.university/ds-mai)
-[основы ИИ](https://apply-bach.innopolis.university/ds-mai)
+[Математические основы ИИ](https://apply-bach.innopolis.university/ds-mai)
 Профиль для тех, кто увлечен математикой и информатикой, хочет погрузиться в математические знания, которые помогут в понимании работы ИИ
 Язык обучения — русский
 Узнать подробнее
@@ -18,8 +17,7 @@
 Язык обучения — русский
 Узнать подробнее
 ![](https://static.tildacdn.com/tild3866-3365-4332-b532-393534633465/motherboard-backgrou.png)
-[Инженерия](https://apply.innopolis.university/bachelors/information-systems-engineering/)
-[информационных систем](https://apply.innopolis.university/bachelors/information-systems-engineering/)
+[Инженерия информационных систем](https://apply.innopolis.university/bachelors/information-systems-engineering/)
 Профиль для тех, кто увлечен программированием, хочет заниматься разработкой софта или компьютерной безопасностью
 Язык обучения — английский
 Узнать подробнее

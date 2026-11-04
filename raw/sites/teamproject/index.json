@@ -27,5 +27,83 @@
    "title": "Весенняя школа бакалавров",
    "url": "https://team-project.university.innopolis.ru/vesennyaya-shkola-bakalavrov"
   }
+ },
+ "tried": {
+  "https://team-project.university.innopolis.ru/arduino": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/c-plus": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/courses": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/cpc": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/cpc-online": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/cyberschool": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/demolesson": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/devops": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/digitalization": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/internship": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/koshp": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/kpkio": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/kpkoi2019": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/kpkunderwaterrob": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/kursteacher": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/mobilerobotics": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/mobplatforms": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/module-proof": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://team-project.university.innopolis.ru/nastavniki2020": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  }
  }
 }

@@ -10,12 +10,12 @@ language: ru
 section: "site/spec"
 sources:
   - resource: "https://spec.innopolis.university/"
-    id: "56ccbc96110b"
+    id: "c0c13f469ff3"
     title: "Общие блоки сайта spec.innopolis.university: меню, шапка, подвал, контакты"
-    last_modified: "2026-10-31T09:06:44+00:00"
+    last_modified: "2026-11-04T12:46:56+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-10-31T09:06:44+00:00"
+  at: "2026-11-04T12:46:56+00:00"
 status: draft
 ---
 
@@ -75,6 +75,8 @@ status: draft
 
 Читайте также:
 
+Понравилась статья?
+
 # Citations
 
-1. [spec.innopolis.university](https://spec.innopolis.university/), read 2026-10-31
+1. [spec.innopolis.university](https://spec.innopolis.university/), read 2026-11-04

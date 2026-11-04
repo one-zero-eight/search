@@ -20,7 +20,7 @@ status: draft
 
 # «Кино&Театр» в Иннополисе | Рождение империи
 
-- RU / [EN](https://innopoliscinema.ru/en/films/rozhdenie-imperii)
+- RU / [EN](/raw/sites/innopoliscinema-ru/en-films-rozhdenie-imperii.md)
 
 ## Рождение империи
 
@@ -75,8 +75,6 @@ Rise of the Empire
 8 ноября
 
 20:05
-
-450₽
 
 Вт
 

@@ -1,5 +1,9 @@
 {
  "docs": {
+  "https://innopolis.university/education/eit/it-catalog.pdf": "Скачать полный каталог курсов",
+  "https://innopolis.university/files/%D0%9F%D0%BE%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%D0%B1%20%D0%9E%D1%82%D0%B4%D0%B5%D0%BB%D0%B5.pdf": "Скачать",
+  "https://innopolis.university/files/%D0%9F%D0%BE%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BE_%D0%A6%D0%B5%D0%BD%D1%82%D1%80%D0%B5_%D1%83%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F_%D0%A0%D0%98%D0%94.pdf": "Скачать",
+  "https://innopolis.university/files/392979%20%D0%9F%D0%BE%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%9A%D0%BE%D0%BC%D0%B8%D1%81%D1%81%D0%B8%D0%B8.pdf": "Скачать",
   "https://innopolis.university/files/KMV%20%286%29.zip": "Ознакомиться",
   "https://innopolis.university/files/politicacookies.pdf": "Политика конфиденциальности",
   "https://innopolis.university/filespublic/%D0%98%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F_%D0%BF%D0%BE_%D0%BF%D0%BE%D0%B4%D0%B0%D1%87%D0%B5_%D0%B7%D0%B0%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F_%D0%BD%D0%B0_%D0%BF%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%B4%D0%BB%D1%8F_%D0%B8%D0%BD%D0%BE%D1%81%D1%82%D1%80%D0%B0%D0%BD%D1%86%D0%B5%D0%B2.pdf": "Инструкция по подаче заявления на поступление для иностранных граждан",
@@ -1631,11 +1635,51 @@
    "title": "Курсы повышения квалификации",
    "url": "https://innopolis.university/dpo-courses/"
   },
+  "education": {
+   "fetched_at": "2026-11-04T12:32:21+00:00",
+   "file_sha": "4fd30fae36f16e1536d543e8147792cd0125e636bb072b72782c70dc42091811",
+   "last_modified": "",
+   "sha256": "41939a942e20a367c1511f65b83ccaefba87bfb1996b653e25e6b53314ad8904",
+   "title": "Образование",
+   "url": "https://innopolis.university/education/"
+  },
+  "education-bachelor": {
+   "fetched_at": "2026-11-04T12:32:23+00:00",
+   "file_sha": "f255380999702c8a8e7391a4e54341f39c3976751148963297de30752c47ebb0",
+   "last_modified": "Wed, 04 Nov 2026 07:28:30 GMT",
+   "sha256": "c560b3af17deabb5d159490d2f80b352ef6a8a6cf3e72e6426f0a79de0dc7508",
+   "title": "Бакалавриат",
+   "url": "https://innopolis.university/education/bachelor/"
+  },
+  "education-eit": {
+   "fetched_at": "2026-11-04T12:32:32+00:00",
+   "file_sha": "09bc44a662a4c88b394b36d87e1a3c1220cfd6cc00cc7c6494cebc4a183417a7",
+   "last_modified": "",
+   "sha256": "d041657375be1463a932b1a583bc5055990defd0f7bc76b9f4162421a5ccfba7",
+   "title": "ИТ бизнес-модуль",
+   "url": "https://innopolis.university/education/eit/"
+  },
+  "education-master": {
+   "fetched_at": "2026-11-04T12:32:25+00:00",
+   "file_sha": "0267f499c614eb794232cdb61fef8f3183b0151676eeccba8120841904f1dd32",
+   "last_modified": "Wed, 04 Nov 2026 05:43:15 GMT",
+   "sha256": "0d093a710ae1f73a38aaa8a9ddc0ba8439d7e763a2aa5c555954cf149c5c14a3",
+   "title": "Магистратура",
+   "url": "https://innopolis.university/education/master/"
+  },
+  "education-pre-university-education": {
+   "fetched_at": "2026-11-04T12:32:27+00:00",
+   "file_sha": "36b01d6b663c6c66444644c895e8f582569d2401db6cbb997f69fd5c92a5d8a9",
+   "last_modified": "Wed, 04 Nov 2026 07:28:34 GMT",
+   "sha256": "c16f5fbba995d951a338901bffff06f9465c52d780ee78bd59eec7cb89311249",
+   "title": "Довузовское отделение",
+   "url": "https://innopolis.university/education/pre-university-education/"
+  },
   "en": {
-   "fetched_at": "2026-10-24T23:02:53+00:00",
-   "file_sha": "18e92dee2ee33c4da08134a876c98f6fa0d35127217fa3639adde3ed0deb14c3",
-   "last_modified": "Sat, 24 Oct 2026 19:42:36 GMT",
-   "sha256": "96332c07a598ca8a1d342860de91d4ce10ec18da3fa6469b8d73263df8d4ec37",
+   "fetched_at": "2026-11-04T12:31:59+00:00",
+   "file_sha": "b1ec1a84cdea631f5099cdd1e70302238e6363e6a4a74123a367ea4452e80404",
+   "last_modified": "Tue, 03 Nov 2026 10:19:16 GMT",
+   "sha256": "dfae2685618152997849c1e1087b1afc3937014ed1ca6cbc280fa9a00676b694",
    "title": "Innopolis University",
    "url": "https://innopolis.university/en/"
   },
@@ -2691,9 +2735,10 @@
   },
   "home": {
    "fetched_at": "2026-10-30T21:53:33+00:00",
-   "file_sha": "35a6e3992030e90b19bd9ef02d44850ba6c169dc5b777a1546a21a534156e04f",
+   "file_sha": "ca43e0b2b6f50e161f75dafc235c71cc4d0af8b3d6b1187089470ac5fa08fd73",
    "last_modified": "Fri, 30 Oct 2026 18:26:45 GMT",
-   "sha256": "ed05fbfa6c3a874783e9070a3c2ce828639e2467c07bea7567d6f13d71db1d8a",
+   "manual": true,
+   "sha256": "ea25bec2f0fe4b3b4df13930fc8cfd2650a7bb0e96a62c225533821bde50b49d",
    "title": "Университет Иннополис",
    "url": "https://innopolis.university/"
   },
@@ -2815,6 +2860,14 @@
    "sha256": "5e84ff09d18fb540f557c911081cd87f86a2d7e34d70379d1634f23ba4e0e073",
    "title": "Лаборатория машинного обучения и представления данных",
    "url": "https://innopolis.university/mlkr/"
+  },
+  "nda": {
+   "fetched_at": "2026-11-04T12:32:06+00:00",
+   "file_sha": "b9b330aaf52648c51ccc1025eb9691be85c655d0159d495798e075c14cde9814",
+   "last_modified": "",
+   "sha256": "4d02391459d5df5ee4b1d0e96a90a2f23917e9b6fcc7236212c05df91918db58",
+   "title": "NDA",
+   "url": "https://innopolis.university/NDA"
   },
   "nir2022": {
    "fetched_at": "2026-10-24T23:02:27+00:00",
@@ -3015,6 +3068,14 @@
    "sha256": "f051cc9f6029002389dd2faea4762fadce9ca184f2d895babf2588cf3ea06afc",
    "title": "Организация и проведение мероприятий",
    "url": "https://innopolis.university/organizatsiya-i-provedenie-meropriyatiy/"
+  },
+  "patent": {
+   "fetched_at": "2026-11-04T12:34:30+00:00",
+   "file_sha": "55b0df7dc36fc3af7c5c76bc71df910823bc7bf1d21bd3f39746b732476bda2a",
+   "last_modified": "Wed, 04 Nov 2026 07:30:36 GMT",
+   "sha256": "ce40437a91cc756efb74fadac5d14b191ffb30402104abcaf0af07f653ab34f8",
+   "title": "Отдел интеллектуальной собственности и трансфера технологий",
+   "url": "https://innopolis.university/patent/"
   },
   "payments": {
    "fetched_at": "2026-10-24T23:09:29+00:00",
@@ -4049,6 +4110,284 @@
    "sha256": "8763b1fc6cc9636132a0e574d283fadf970d3f35c0413323b9ca7ca15c833d3f",
    "title": "Заместитель директора по безопасности",
    "url": "https://innopolis.university/vice-director-security/"
+  }
+ },
+ "tried": {
+  "https://innopolis.university/about/board": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/about/international-co-operation": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/about/results2015": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/apply-moscow": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/cardledger/null": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/en/Labofsoftwareandserviceengineering": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/en/about/job": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/en/cooperation": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/en/education/master/msit-se": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/en/faculty/Lab%20of%20Basic%20Scientific%20Research": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/en/global": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/en/iu.ctt%40innopolis.ru": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/en/m.abdrakhmanova%40innopolis.ru": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/en/outgoingstudents/international%40innopolis.university": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/en/research": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/en/research/iis/diagnostics_lab": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/en/research/robolab": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/en/research/selab/events/aoc": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/en/research/summer-school": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/en/research/summer-school-2019": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/en/science/null": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/en/university%40innopolis.ru": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/en/writinghubhome/academicstylereminder/m694pr0c": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/events": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/events/"
+  },
+  "https://innopolis.university/events/bolshaya-yarmarka-vakansiy": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/events/bolshaya-yarmarka-vakansiy/"
+  },
+  "https://innopolis.university/events/innopolis-simulator-simulyator-dlya-avtonomnykh-podvizhnykh-obektov-razrabotannyy-na-osnove-unity-3d": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/events/innopolis-simulator-simulyator-dlya-avtonomnykh-podvizhnykh-obektov-razrabotannyy-na-osnove-unity-3d/"
+  },
+  "https://innopolis.university/events/koshmary-ilona-maska-opasnost-i-prepyatstviya-osvoeniya-marsa": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/events/koshmary-ilona-maska-opasnost-i-prepyatstviya-osvoeniya-marsa/"
+  },
+  "https://innopolis.university/events/kruglyy-stol-na-temu-sozdaniya-tsentra-kompetentsiy-po-robototekhnike-mekhatronike-i-sensorike": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/events/kruglyy-stol-na-temu-sozdaniya-tsentra-kompetentsiy-po-robototekhnike-mekhatronike-i-sensorike/"
+  },
+  "https://innopolis.university/events/mitap-dlya-tekhnicheskikh-pisateley-analitikov-i-razrabotchikov-dokumentatsii": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/events/mitap-dlya-tekhnicheskikh-pisateley-analitikov-i-razrabotchikov-dokumentatsii/"
+  },
+  "https://innopolis.university/events/startup-day": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/events/startup-day/"
+  },
+  "https://innopolis.university/faculty/%D0%9B%D0%B0%D0%B1%D0%BE%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%84%D1%83%D0%BD%D0%B4%D0%B0%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D1%85%20%D0%BD%D0%B0%D1%83%D1%87%D0%BD%D1%8B%D1%85%20%D0%B8%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B9": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/get-in": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "ReadError: [Errno 104] Connection reset by peer"
+  },
+  "https://innopolis.university/https%3A//innopolis.college/educational_loan": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/job": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/laboratoriya-intellektualnyh-robototekhnicheskih-sistem": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/laboratoriya-programmnoy-inzhenerii": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/news/WRO-41-participants-from-9-regions": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/news/WRO-41-participants-from-9-regions/"
+  },
+  "https://innopolis.university/news/book-big-data-petrenko": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/news/book-big-data-petrenko/"
+  },
+  "https://innopolis.university/news/competition-target-capital-iu": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/news/competition-target-capital-iu/"
+  },
+  "https://innopolis.university/news/courseTeach.me": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/news/courseTeach.me/"
+  },
+  "https://innopolis.university/news/cyber-resilience-petrenko": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/news/cyber-resilience-petrenko/"
+  },
+  "https://innopolis.university/news/detail.php": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/news/detail.php"
+  },
+  "https://innopolis.university/news/drone-delivery": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/news/drone-delivery/"
+  },
+  "https://innopolis.university/news/ejoi-2017": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/news/ejoi-2017/"
+  },
+  "https://innopolis.university/news/first-place-wro2017": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/news/first-place-wro2017/"
+  },
+  "https://innopolis.university/news/grant-online-co": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/news/grant-online-co/"
+  },
+  "https://innopolis.university/news/hackathon-geoinfo-results": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/news/hackathon-geoinfo-results/"
+  },
+  "https://innopolis.university/news/icpc-2018-2019": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/news/icpc-2018-2019/"
+  },
+  "https://innopolis.university/news/innopolis-university-and-kuka-signed/www.kuka.ru": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/news/innopolis-university-and-kuka-signed/www.kuka.ru"
+  },
+  "https://innopolis.university/news/personal-digital-education": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/news/personal-digital-education/"
+  },
+  "https://innopolis.university/news/rro-2018-final": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/news/rro-2018-final/"
+  },
+  "https://innopolis.university/news/russia-took-the-first-place-at-the-world-robotics-competitions": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/news/russia-took-the-first-place-at-the-world-robotics-competitions/"
+  },
+  "https://innopolis.university/news/winners-rro-2019": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/news/winners-rro-2019/"
+  },
+  "https://innopolis.university/news/wro-2016": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/news/wro-2016/"
+  },
+  "https://innopolis.university/news/wro-2018-final": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/news/wro-2018-final/"
+  },
+  "https://innopolis.university/news/wro2018-team-russia": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/news/wro2018-team-russia/"
+  },
+  "https://innopolis.university/news/x5-iu": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://media.innopolis.university/news/x5-iu/"
+  },
+  "https://innopolis.university/ooc/ido%40innopolis.university": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/proekty/consulting/null": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/relocation": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/research/iis": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/research/iis/itslab": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/research/itsd/laboratoriya-proizvodstva-promyshlennogo-po": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/research/robotics-development-center/club-robototechniki": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/research/robotics/lirs/news": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/science/robolab": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/science/se_lab": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/svede": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.university/sveden/ovz": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
   }
  }
 }

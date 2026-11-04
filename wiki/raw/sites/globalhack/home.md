@@ -9,12 +9,12 @@ language: ru
 section: "site/globalhack"
 sources:
   - resource: "https://globalhack.innopolis.university/"
-    id: "b0d7d39ee149"
+    id: "dcfdb4a21440"
     title: "Всероссийский хакатон «ИННОГЛОБАЛХАК», 13-16 ноября"
-    last_modified: "2026-10-31T08:38:49+00:00"
+    last_modified: "2026-11-04T12:48:22+00:00"
 generated:
   by: "catix-wiki/0.1 sites"
-  at: "2026-10-31T08:38:49+00:00"
+  at: "2026-11-04T12:48:22+00:00"
 status: draft
 ---
 
@@ -212,15 +212,15 @@ Redis
 
 1 место
 
-300 тыс. ₽*
+300 тыс. **₽***
 
 2 место
 
-250 тыс. ₽*
+250 тыс. **₽***
 
 3 место
 
-200 тыс. ₽*
+200 тыс. **₽***
 
 *до вычета НДФЛ
 
@@ -238,7 +238,7 @@ Redis
 
 Тел. +7 (843) 203-92-53 (доб. 7951)
 
-Телеграм: [@tiny_nazz](https://t.me/tiny_nazz)
+**Телеграм:** **[@tiny_nazz](https://t.me/tiny_nazz)**
 
 Гаялова Гульназ
 
@@ -252,4 +252,4 @@ Events.UI@innopolis.ru
 
 # Citations
 
-1. [Всероссийский хакатон «ИННОГЛОБАЛХАК», 13-16 ноября](https://globalhack.innopolis.university/), read 2026-10-31
+1. [Всероссийский хакатон «ИННОГЛОБАЛХАК», 13-16 ноября](https://globalhack.innopolis.university/), read 2026-11-04

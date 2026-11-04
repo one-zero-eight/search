@@ -25,6 +25,38 @@
    "title": "Innopolis Cinema Lounge | Films",
    "url": "https://innopoliscinema.ru/en/films"
   },
+  "en-films-bitva-motorov": {
+   "fetched_at": "2026-11-04T13:01:26+00:00",
+   "file_sha": "50e6c91222daee71e688c920c203a87b307fd78b469168f69933ba809c31d7ac",
+   "last_modified": "",
+   "sha256": "64e06d19bb2e6118e7cc2ccbe07afeb0bdfbc26c4c05cfc5fb38ba05883e3be3",
+   "title": "Innopolis Cinema Lounge | Battle of Engines",
+   "url": "https://innopoliscinema.ru/en/films/bitva-motorov"
+  },
+  "en-films-fjord": {
+   "fetched_at": "2026-11-04T13:01:40+00:00",
+   "file_sha": "b5dab11ce643ace60417a6bd960dc3e1bb2b21193367e04d35acbb37e485a53e",
+   "last_modified": "",
+   "sha256": "11723655cdf1681d1b471b1570ffb23637f9ffc500da94e6892ca8494caeddff",
+   "title": "Innopolis Cinema Lounge | Fjord",
+   "url": "https://innopoliscinema.ru/en/films/fjord"
+  },
+  "en-films-morozko": {
+   "fetched_at": "2026-11-04T13:01:29+00:00",
+   "file_sha": "fb78e07048e59a70304769c6268b1be44e69d524aec358af807f92ab0d57a204",
+   "last_modified": "",
+   "sha256": "5207a53fcc23292ac8734fccf81e155af3f997f6d6706a8b2ec7a1ab917601a1",
+   "title": "Innopolis Cinema Lounge | Morozko",
+   "url": "https://innopoliscinema.ru/en/films/morozko"
+  },
+  "en-films-pranker": {
+   "fetched_at": "2026-11-04T13:01:51+00:00",
+   "file_sha": "0ac122bdba2645515baf9719ebac7e353b89c6b97b5f772dfa212e9b18961645",
+   "last_modified": "",
+   "sha256": "d6ec41c903538b3bf5e4fb2e249537a3134772b14cc62b28ce2a7210525c05b0",
+   "title": "Innopolis Cinema Lounge | Pranker",
+   "url": "https://innopoliscinema.ru/en/films/pranker"
+  },
   "en-films-pushkin-card": {
    "fetched_at": "2026-11-01T22:34:15+00:00",
    "file_sha": "c0c7f1ae8766fe2c15be20752c84696fc196553cba5fa7ede1eed6f0321882b9",
@@ -32,6 +64,38 @@
    "sha256": "2d2d3c123c6467920e4eb974fda126c94d89efb5f7886fdeeb149bd3b65a88ff",
    "title": "Innopolis Cinema Lounge | Пушкинская карта",
    "url": "https://innopoliscinema.ru/en/films/pushkin_card"
+  },
+  "en-films-rozhdenie-imperii": {
+   "fetched_at": "2026-11-04T13:01:33+00:00",
+   "file_sha": "be249223538fd69b84ebcc3ca736d16a8cff2b71da8fb7cb7da030b10697e575",
+   "last_modified": "",
+   "sha256": "2ece77c05a43595763f62649909e486e897384a32860ffa11b2d51dd59334d41",
+   "title": "Innopolis Cinema Lounge | Rise of the Empire",
+   "url": "https://innopoliscinema.ru/en/films/rozhdenie-imperii"
+  },
+  "en-films-skazka-o-poteryannom-vremeni": {
+   "fetched_at": "2026-11-04T13:01:37+00:00",
+   "file_sha": "013c609958035a0068f5ba73958d98cc36b3a33ac78bafce83389c8ac39970e3",
+   "last_modified": "",
+   "sha256": "683dc3e09859388acfb7fbc5c0191aab2ab7a6e72aaee82ebf967aab6bcea285",
+   "title": "Innopolis Cinema Lounge | The Tale of Lost Time",
+   "url": "https://innopoliscinema.ru/en/films/skazka-o-poteryannom-vremeni"
+  },
+  "en-films-wicker": {
+   "fetched_at": "2026-11-04T13:01:47+00:00",
+   "file_sha": "73a5babd7b3a270df15dec4285ce59ef52546e1f98a4d47b24c982db50f31709",
+   "last_modified": "",
+   "sha256": "fa475726d1dc07f4945afcf8b46ef4e15650296f03db5cfb0c348e0c51d867c6",
+   "title": "Innopolis Cinema Lounge | Wicker",
+   "url": "https://innopoliscinema.ru/en/films/wicker"
+  },
+  "en-newsletter": {
+   "fetched_at": "2026-11-04T13:01:54+00:00",
+   "file_sha": "6bd09e2905f7e6b8b080e9b706fcdde9b92467e2ea1cd933866e58022253455b",
+   "last_modified": "",
+   "sha256": "2265445693c67a6812542ecc9a8febe8c325b299c67dcea71fe521efbc31b5b7",
+   "title": "Innopolis Cinema Lounge | Subscribe to our newsletter",
+   "url": "https://innopoliscinema.ru/en/newsletter"
   },
   "en-screenings": {
    "fetched_at": "2026-11-01T22:34:09+00:00",
@@ -50,10 +114,10 @@
    "url": "https://innopoliscinema.ru/en/special_screenings"
   },
   "home": {
-   "fetched_at": "2026-11-01T22:32:51+00:00",
-   "file_sha": "5259a6c4272ddb42efa99a3c9a0a255589f2b202f0a2ce33b0320909ac3dee43",
+   "fetched_at": "2026-11-04T13:01:23+00:00",
+   "file_sha": "5d41ade02e2f75d28b13ed16d8d28c5bf0e643f1e5d820f01ce20eee36c8395b",
    "last_modified": "",
-   "sha256": "17b478a5822be90ff797b5cc211b39529d817669fa738725c85036116464a953",
+   "sha256": "826dd7432448ac783a023f46ecdadce221961baf747330600c84a1d179d406bf",
    "title": "«Кино&Театр» в Иннополисе",
    "url": "https://innopoliscinema.ru/"
   },

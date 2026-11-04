@@ -12,10 +12,10 @@ sources:
   - resource: "https://campuslife.innopolis.ru/"
     id: "1d5c210c4cbc"
     title: "Blocks shared by the pages of campuslife.innopolis.ru: menu, header, footer, contacts"
-    last_modified: "2026-10-30T21:38:04+00:00"
+    last_modified: "2026-11-04T12:37:04+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-10-30T21:38:04+00:00"
+  at: "2026-11-04T12:37:04+00:00"
 status: draft
 ---
 
@@ -43,4 +43,4 @@ status: draft
 
 # Citations
 
-1. [campuslife.innopolis.ru](https://campuslife.innopolis.ru/), read 2026-10-30
+1. [campuslife.innopolis.ru](https://campuslife.innopolis.ru/), read 2026-11-04

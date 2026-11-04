@@ -1,5 +1,7 @@
 {
- "docs": {},
+ "docs": {
+  "https://innopolis.university/files/politicacookies.pdf": "Нажимая на кнопку, я соглашаюсь на обработку персональных данных"
+ },
  "pages": {
   "dod": {
    "fetched_at": "2026-10-31T08:40:31+00:00",
@@ -10,10 +12,10 @@
    "url": "https://llc.innopolis.university/dod"
   },
   "home": {
-   "fetched_at": "2026-10-31T08:40:29+00:00",
-   "file_sha": "d5eaebf4c3d77548d2b5e05d04e9a2ee37bec7e9d24b09eeda130b3125efbb8b",
+   "fetched_at": "2026-11-04T12:48:42+00:00",
+   "file_sha": "9a18641a108d07929c934d2c6793e83d2feba4763c03e2dabedb2800c5c43b88",
    "last_modified": "Fri, 23 Oct 2026 12:06:16 GMT",
-   "sha256": "0a3b58818e8daddbce417a73ed9fd37dc6759b4a1d46a88a010b8c8284184b0a",
+   "sha256": "29838e2e2141c1b60722e5b3dfc75f5075f703b5d176a6a724edaef0fadf3274",
    "title": "Центр непрерывного обучения. Университет Иннополис.",
    "url": "https://llc.innopolis.university/"
   },
@@ -24,6 +26,12 @@
    "sha256": "4dcec9654fbb8e52ea63393ed3a06cd5cacaec9ea77f387767151eb7025ec972",
    "title": "Заявки на заключение договоров. Магистратура",
    "url": "https://llc.innopolis.university/magistratura-dogovor"
+  }
+ },
+ "tried": {
+  "https://llc.innopolis.university/vstrechi-s-prepodavatelyami": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
   }
  }
 }

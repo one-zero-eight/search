@@ -9,12 +9,12 @@ language: ru
 section: "site/msonline"
 sources:
   - resource: "https://msonline.innopolis.university/"
-    id: "c33e432e1aa9"
+    id: "52a177951531"
     title: "Онлайн-магистратура"
-    last_modified: "2026-10-31T08:38:09+00:00"
+    last_modified: "2026-11-04T12:48:12+00:00"
 generated:
   by: "catix-wiki/0.1 sites"
-  at: "2026-10-31T08:38:09+00:00"
+  at: "2026-11-04T12:48:12+00:00"
 status: draft
 ---
 
@@ -72,9 +72,7 @@ status: draft
 
 ![](https://static.tildacdn.com/tild3564-6333-4262-a632-356331323436/motherboard-backgrou.png)
 
-[Управление разработкой](/raw/sites/msonline/gamedev.md)
-
-[компьютерных игр](/raw/sites/msonline/gamedev.md)
+[Управление разработкой компьютерных игр](/raw/sites/msonline/gamedev.md)
 
 Для тех, кто хочет управлять разработкой компьютерных игр. Получите ключевые навыки для геймдева - от дизайна и программирования, до продюсирования и маркетинга
 
@@ -92,4 +90,4 @@ _Меню, подвал и другие блоки, которые повтор�
 
 # Citations
 
-1. [Онлайн-магистратура](https://msonline.innopolis.university/), read 2026-10-31
+1. [Онлайн-магистратура](https://msonline.innopolis.university/), read 2026-11-04

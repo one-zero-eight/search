@@ -198,8 +198,6 @@ CTO
 
 Поэтому я хочу всем пожелать настойчивости. На мой взгляд, это — самое главное качество в жизни.
 
-Понравилась статья?
-
 [![](https://static.tildacdn.com/tild6433-3265-4235-b366-396165393762/IMG_7724.jpg)](/raw/sites/spec/science-elena-pitsik.md)
 
 [Елена Пицик: «Наука — это не про личные достижения»](/raw/sites/spec/science-elena-pitsik.md)

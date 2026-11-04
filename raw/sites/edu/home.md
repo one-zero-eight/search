@@ -27,21 +27,21 @@
 ![](https://static.tildacdn.com/tild6132-3139-4062-b038-393037313634/Mask_group.png)
 ![](https://static.tildacdn.com/tild3033-3237-4137-a535-383535376130/AI.png)
 ## С какими проблемами сталкиваются образовательные организации и как их решить?
-01. Недостаточная квалификация кадров, необходимо ее повышение
+01\. Недостаточная квалификация кадров, необходимо ее повышение
 Решение: Мы рекомендуем рассмотреть
-[программы повышения квалификации](https://edu.innopolis.university/?tfc_sort[745108058]=title:desc&tfc_charact:7035686[745108058]=%D0%9F%D1%80%D0%B5%D0%BF%D0%BE%D0%B4%D0%B0%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8E&tfc_div=:::#program)
-02. Сложности со стратегическим планированием и реализацией масштабных проектов: не выстроены бизнес-процессы, нет единого видения цели
+[программы повышения квалификации](https://edu.innopolis.university/?tfc_sort[745108058]=title:desc&tfc_charact:7035686[745108058]=Преподавателю&tfc_div=:::#program)
+02\. Сложности со стратегическим планированием и реализацией масштабных проектов: не выстроены бизнес-процессы, нет единого видения цели
 Решение: Мы рекомендуем рассмотреть
-[программы обучения руководящего состава](https://edu.innopolis.university/?tfc_sort[745108058]=title:desc&tfc_charact:7035686[745108058]=%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D1%8E&tfc_div=:::/#program)
-03. Не сформирована информационная инфраструктура вуза
-Решение: Мы рекомендуем рассмотреть
-программы и дополнительные возможности
-04. Низкая заинтересованность сотрудников и преподавателей в использовании современных инструментов работы
+[программы обучения руководящего состава](https://edu.innopolis.university/?tfc_sort[745108058]=title:desc&tfc_charact:7035686[745108058]=Руководителю&tfc_div=:::/#program)
+03\. Не сформирована информационная инфраструктура вуза
 Решение: Мы рекомендуем рассмотреть
 программы и дополнительные возможности
-05. Применяются неактуальные методики в работе с новыми инструментами
+04\. Низкая заинтересованность сотрудников и преподавателей в использовании современных инструментов работы
 Решение: Мы рекомендуем рассмотреть
-[программы обучения руководящего состава](https://edu.innopolis.university/?tfc_sort[745108058]=title:desc&tfc_charact:7035686[745108058]=%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D1%8E&tfc_div=:::/#program)
+программы и дополнительные возможности
+05\. Применяются неактуальные методики в работе с новыми инструментами
+Решение: Мы рекомендуем рассмотреть
+[программы обучения руководящего состава](https://edu.innopolis.university/?tfc_sort[745108058]=title:desc&tfc_charact:7035686[745108058]=Руководителю&tfc_div=:::/#program)
 Повышение квалификации
 ## Специальные предложения
 по сопровождению цифровой трансформации для образовательных организаций
@@ -310,10 +310,10 @@ CEO Agile Technologies, эксперт в области управления п
 [![](https://static.tildacdn.com/tild3832-3436-4737-a138-366233333562/Frame_277133532.png)](https://innopolis.university/filespublic/cases_cdto.pdf)
 [![](https://static.tildacdn.com/tild3765-6336-4366-b966-316432323464/Frame_277133533.png)](https://innopolis.university/filespublic/cases_cdto_2.pdf)
 [![](https://static.tildacdn.com/tild6231-6137-4564-b036-386338666633/Frame_277133534.png)](https://innopolis.university/filespublic/sbornik_kejsov_3.pdf)
-[![](https://static.tildacdn.com/tild6235-3965-4565-a135-656165326564/Frame_277133539.png)](https://innopolis.university/filespublic/%D0%A1%D0%B1%D0%BE%D1%80%D0%BD%D0%B8%D0%BA_%D0%BA%D0%B5%D0%B9%D1%81%D0%BE%D0%B2_%D0%BD%D0%BE%D0%BC%D0%B5%D1%80_5_%D1%87%D0%B0%D1%81%D1%82%D1%8C_2_1_%D1%81_%D1%80%D0%B5%D1%86%D0%B5%D0%BD%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D0%BC%D0%B8.pdf)
-[![](https://static.tildacdn.com/tild3033-6238-4966-b664-656330333137/Frame_277133536.png)](https://innopolis.university/filespublic/%D0%A1%D0%B1%D0%BE%D1%80%D0%BD%D0%B8%D0%BA_%D0%9E%D0%9E%D0%A6_%E2%84%962.pdf)
-[![](https://static.tildacdn.com/tild3566-3534-4463-b732-373536663932/Frame_277133537.png)](https://innopolis.university/filespublic/%D0%A1%D0%B1%D0%BE%D1%80%D0%BD%D0%B8%D0%BA_%D0%9E%D0%9E%D0%A6_%E2%84%963.pdf)
-[![](https://static.tildacdn.com/tild6461-6531-4037-b435-383838333361/Frame_277133538.png)](https://innopolis.university/filespublic/%D0%A1%D0%B1%D0%BE%D1%80%D0%BD%D0%B8%D0%BA_%D0%BA%D0%B5%D0%B9%D1%81%D0%BE%D0%B2_%D0%BD%D0%BE%D0%BC%D0%B5%D1%80_4_%D1%87%D0%B0%D1%81%D1%82%D1%8C_1_1_%D1%81_%D1%80%D0%B5%D1%86%D0%B5%D0%BD%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D0%BC%D0%B8.pdf)
+[![](https://static.tildacdn.com/tild6235-3965-4565-a135-656165326564/Frame_277133539.png)](https://innopolis.university/filespublic/Сборник_кейсов_номер_5_часть_2_1_с_рецензентами.pdf)
+[![](https://static.tildacdn.com/tild3033-6238-4966-b664-656330333137/Frame_277133536.png)](https://innopolis.university/filespublic/Сборник_ООЦ_№2.pdf)
+[![](https://static.tildacdn.com/tild3566-3534-4463-b732-373536663932/Frame_277133537.png)](https://innopolis.university/filespublic/Сборник_ООЦ_№3.pdf)
+[![](https://static.tildacdn.com/tild6461-6531-4037-b435-383838333361/Frame_277133538.png)](https://innopolis.university/filespublic/Сборник_кейсов_номер_4_часть_1_1_с_рецензентами.pdf)
 ![](https://static.tildacdn.com/tild6435-3135-4037-b661-313266303964/Group_277133503.png)
 У вас остались вопросы или вы хотите записаться на программу обучения?
 Оставьте заявку, и мы свяжемся с вами
@@ -329,9 +329,9 @@ cpp@innopolis.ru
 Стажировки
 Бот
 [@inno_university_it_bot](https://t.me/inno_university_it_bot)
-[Лицензия](https://innopolis.university/upload/iblock/d7f/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B4%D0%B5%D1%8F%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C.pdf)
-[Политика конфиденциальности](https://innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%9F%D0%94%D0%BD%20%D0%B4%D0%BB%D1%8F%20%D0%A3%D0%98.pdf)
-[Выписка из реестра лицензий](https://innopolis.university/upload/iblock/b6f/ozxoa1j463v3s0m55w9kdc1qc0z31zfr/%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%B2%D1%8B%D0%BF%D0%B8%D1%81%D0%BA%D0%B0.pdf)
+[Лицензия](https://innopolis.university/upload/iblock/d7f/Лицензия%20на%20обрдеятельность.pdf)
+[Политика конфиденциальности](https://innopolis.university/public/files/Согласие%20на%20обработку%20ПДн%20для%20УИ.pdf)
+[Выписка из реестра лицензий](https://innopolis.university/upload/iblock/b6f/ozxoa1j463v3s0m55w9kdc1qc0z31zfr/Реестровая%20выписка.pdf)
 Стратегические сессии
 Ассесмент
 Пригласить в тендер

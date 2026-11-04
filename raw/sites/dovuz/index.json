@@ -2,6 +2,7 @@
  "docs": {
   "https://apply.innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%9F%D0%94%D0%BD%20%D0%B4%D0%BB%D1%8F%20%D0%A3%D0%98.pdf": "политикой обработки персональных данных",
   "https://dovuz.innopolis.university/public/files/innoopen_final_pdn.pdf": "политикой обработки персональных данных",
+  "https://innopolis.university/files/politicacookies.pdf": "с Политикой обработки персональных данных",
   "https://innopolis.university/filespublic/%D0%94%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80-%D0%BE%D1%84%D0%B5%D1%80%D1%82%D1%8B_%D0%9F%D0%BE%D0%B4%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%BA%D0%B0_%D0%BA_%D0%90%D0%AF__14.09.2026-25.12.2026_.docx": "Читать документ",
   "https://innopolis.university/filespublic/%D0%94%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80-%D0%BE%D1%84%D0%B5%D1%80%D1%82%D1%8B_%D0%A4%D0%B8%D0%B7%D0%B8%D0%BA%D0%B0_%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D1%8C_1__14.09.2026-30.10.2026_.docx": "Ссылка на договор оферты",
   "https://innopolis.university/filespublic/%D0%94%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80-%D0%BE%D1%84%D0%B5%D1%80%D1%82%D1%8B_%D0%A4%D0%B8%D0%B7%D0%B8%D0%BA%D0%B0_%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D1%8C_2__14.09.2026-30.10.2026_.docx": "Ссылка на договор оферты",
@@ -16,6 +17,8 @@
   "https://innopolis.university/filespublic/%D0%BE%D1%84%D0%B5%D1%80%D1%82%D0%B0_%D0%95%D0%93%D0%AD_%D0%BC2_2027%D0%BC%D0%B0%D1%82%D0%B5%D0%BC.docx": "Ссылка на договор оферты",
   "https://innopolis.university/filespublic/%D0%BE%D1%84%D0%B5%D1%80%D1%82%D0%B0_%D0%9F%D0%BE%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%BA%D0%B0_%D0%BA_%D0%98%D0%A2_%D0%B1%D0%B0%D0%B7%D0%BE%D0%B2_%D1%81%D1%81%D0%B5%D0%BD%D1%82%D1%8F%D0%B1%D1%80%D1%8C-%D0%B4%D0%B5%D0%BA%D0%B0%D0%B1%D1%80%D1%8C_2026.docx": "Читать документ",
   "https://innopolis.university/filespublic/%D0%BE%D1%84%D0%B5%D1%80%D1%82%D0%B0_%D0%9F%D0%BE%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%BA%D0%B0_%D0%BA_%D0%98%D0%A2_%D1%80%D0%B0%D1%81%D1%88_%D1%81%D0%B5%D0%BD%D1%82%D1%8F%D0%B1%D1%80%D1%8C-%D0%B4%D0%B5%D0%BA%D0%B0%D0%B1%D1%80%D1%8C_2026.docx": "Читать документ",
+  "https://innopolis.university/filespublic/Polozhenie_o_reklamnoj_rassylke.pdf": "получать рекламную рассылку",
+  "https://innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%9F%D0%94%D0%BD%20%D0%B4%D0%BB%D1%8F%20%D0%A3%D0%98.pdf": "Политика конфиденциальности",
   "https://lk-dovuz.innopolis.university/public/files/%D0%97%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%B8%20%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D1%8F%202021-2022.pdf": "ссылка",
   "https://lk-dovuz.innopolis.university/public/files/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B5%20%D1%80%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82%D1%8B%202%20%D1%82%D1%83%D1%80.pdf": "ссылка",
   "https://lk-dovuz.innopolis.university/public/files/%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D1%8B%20%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B9%20%D0%B2%D1%82%D0%BE%D1%80%D0%BE%D0%B3%D0%BE%20%D0%BE%D1%82%D0%B1%D0%BE%D1%80%D0%BE%D1%87%D0%BD%D0%BE%D0%B3%D0%BE%20%D1%8D%D1%82%D0%B0%D0%BF%D0%B0.pdf": "cсылка",
@@ -383,10 +386,10 @@
    "url": "https://dovuz.innopolis.university/free_webinars"
   },
   "home": {
-   "fetched_at": "2026-10-31T08:36:28+00:00",
-   "file_sha": "a945d0b369af4c350eb84fd999bdef9d276fb16c9988e33dd6a188e2d37ed30a",
-   "last_modified": "Tue, 27 Oct 2026 06:14:05 GMT",
-   "sha256": "1eae6d7bf916fd1693ee93ab6198eed355dd6f99344424f049b5c9f5969159fe",
+   "fetched_at": "2026-11-04T12:42:02+00:00",
+   "file_sha": "56aa1f36971ef65a901efe75b7d766640c5ee1b737959f59020b915cd692b1bf",
+   "last_modified": "Tue, 03 Nov 2026 08:50:21 GMT",
+   "sha256": "1215a2756b3ed6044b4d4473686db95377c43f44406bbd629b17865d3c7860d6",
    "title": "Довузовская подготовка в Университете Иннополис: курсы для школьников",
    "url": "https://dovuz.innopolis.university/"
   },
@@ -1110,6 +1113,444 @@
    "sha256": "478b20524e36308fd41aaefb09eca45c00b9b7c645a156f1336eb44ad3e2dc17",
    "title": "Иннополис Старт — образовательная платформа для школьников и студентов",
    "url": "https://dovuz.innopolis.university/start"
+  }
+ },
+ "tried": {
+  "https://dovuz.innopolis.university/2d-game": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/3d-modeling-iu": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/aads": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/ai-iu": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/autumn-in-camp": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/chatbot": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/django": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/dovuz-quiz/null": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/ege": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/ege-fizika": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/ege-fizika-3modul": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/ege-fizika-4modul": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/ege-informatics-third-module": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/ege-informatika": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/ege-informatika-3-modul": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/ege-informatika-4modul": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/ege-informatike-offline": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/ege-matem3-modul": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/ege-matematika": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/ege-matematika-offline": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/ege-math-third-module": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/events": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/final-io-inform": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/geometriya": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/geometry-online": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/ib-innostar": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/ii-online": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/inform-smena": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/informatika-ege": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/intensiv-ege-fizika-may": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/intensiv-ege-informatika": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/intensiv-ege-informatika-jun": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/intensiv-ege-informatika-may": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/intensiv-ege-matem": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/intensiv-ege-matem-may": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/intensiv-python-advanced": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/io-ai": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/io-fintech": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/io-infobez": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/io-informatika": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/io-maths": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/io-robo": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/kursy-robo": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/login": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/lshop_online": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/matematika-ege": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/maths-it": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/maths-olymp": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/offline-programms/july-programms": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/offline-programms/june-le-programms": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/offline-programms/june-programms": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/offline-programms/june-programms/olymp-programming-summer25-3": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/offline-programms/june-programms/python-6-11-3": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/offline-programms/june-programms/python-telegram-bot-3": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/offline-programms/june-programms/roblox": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/offline-programms/olympiad-programming-beginnersb": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/offline-programms/olympiad-programming-beginnersc": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/offline-programms/olympiad-programming-beginnersd": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/offline-programms/summer-camp26/info": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://dovuz.innopolis.university/olimpiadnoe-programmirovanie-inno": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/olymp-program": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/olympiad-programming-iu": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/olympiad-programming-iu-july": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/online-java": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/online-oprog": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/online-python": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/oop": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/op-cpp": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/oprog-leto": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/oprog-vesna": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/partnerschools/partnerschools/commerce": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/partnerschoolsIU": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/podgotovka-k-re-vsosh": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/pre-olympiads/it-weekend": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://dovuz.innopolis.university/preparation/oge": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/preparation/olympiad-math-online": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://dovuz.innopolis.university/prog-cpp": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/program-olymp": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/programming-course-c": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/programming-course-python": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/programming-java": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/python": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/python-innostar": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/python-iu": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/python-iu-july": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/python-vesna": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/robotics-innostar": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/shkola-robo": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/smena-python": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/spring-in-camp-olymp": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/spring-in-camp-python": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/summer-school-cybersecurity-2023": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/summer-school-informatics-2023": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/summer-school-math-2023": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/summer-school-robotics-2023": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/summer-schools": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/vesna-infobez": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/vesna-matematika": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/vesna-python": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/vesna-robo": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/vsosh-informatics": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/web-innostar": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/zhop-inform": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/zhop-maths": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/zima-olimp": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/zima-olymp-offline": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/zima-python-offline": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/zs-infobez": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://dovuz.innopolis.university/zshkola-robo": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
   }
  }
 }

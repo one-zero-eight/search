@@ -20,33 +20,9 @@ status: draft
 
 # Innopolis Cinema Lounge | Contacts
 
-- [Screenings](/raw/sites/innopoliscinema-ru/en-screenings.md)
-
-- [Films](/raw/sites/innopoliscinema-ru/en-films.md)
-
-- [Пушкинская карта](/raw/sites/innopoliscinema-ru/en-films-pushkin-card.md)
-
-- [Events](/raw/sites/innopoliscinema-ru/en-special-screenings.md)
-
 - Contacts
 
 - [RU](/raw/sites/innopoliscinema-ru/ru-contacts.md) / EN
-
-Innopolis, Parkovaya str., 1,
-
-Cultural center «ArtSpace»
-
-[Show map](https://yandex.ru/maps/-/CCUYjMGBgB)
-
-### Address
-
-Innopolis, Parkovaya str., 1,
-
-Cultural center «ArtSpace»
-
-[Show map](https://yandex.ru/maps/-/CCUYjMGBgB)
-
-### Phone number
 
 ### FOUNDATION KINO&TEATR
 
@@ -85,22 +61,6 @@ kassa@rambler-co.ru
 Feedback form:
 
 [http://help.rambler.ru/feedback/kassa/](http://help.rambler.ru/feedback/kassa/)
-
-[Subscribe to our newsletter](https://innopoliscinema.ru/en/newsletter)
-
-### Address
-
-Innopolis, Parkovaya str., 1,
-
-Cultural center «ArtSpace»
-
-[Show map](https://yandex.ru/maps/-/CCUYjMGBgB)
-
-### Phone number
-
-### Cinema Lounge Foundation
-
-Special events & projects
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/innopoliscinema-ru/_shared.md](/raw/sites/innopoliscinema-ru/_shared.md)._
 

@@ -13,9 +13,7 @@
 [Расписание автобусов](https://innopolis.com/ru/city/bus-schedule)
 [Карта города](https://innopolis.com/ru/city/map)
 [О городе](https://innopolis.com/ru/city)
-[Приезжайте в гости!](https://innopolis.com/ru/tourism)
-[Мы проводим экскурсии](https://innopolis.com/ru/tourism)
-[![](https://innopolis.com/uploads/headmenu/bgmenu1-5655e06adf.jpg)](https://innopolis.com/ru/tourism)
+[Приезжайте в гости! Мы проводим экскурсии ![](https://innopolis.com/uploads/headmenu/bgmenu1-5655e06adf.jpg)](https://innopolis.com/ru/tourism)
 Полезное
 [Мероприятия](https://innopolis.com/ru/media/events)
 [Вакансии](https://innopolis.com/ru/life/vacancies)
@@ -24,8 +22,7 @@
 [Как переехать](https://innopolis.com/ru/life/how-to-relocation)
 [Истории жителей](https://innopolis.com/ru/life/stories)
 [Переезд в Иннополис](https://innopolis.com/ru/life)
-[Только переехали? Посмотрите онбординг для нового жителя](https://onboarding.innopolis.ru)
-[![](https://innopolis.com/uploads/headmenu/bgmenu2-05fb66b255.jpg)](https://onboarding.innopolis.ru)
+[Только переехали? Посмотрите онбординг для нового жителя ![](https://innopolis.com/uploads/headmenu/bgmenu2-05fb66b255.jpg)](https://onboarding.innopolis.ru)
 Полезное
 [Аренда жилья](https://innopolis.com/ru/life/housing/rental)
 [Покупка квартир](https://innopolis.com/ru/life/housing/apartments)
@@ -36,8 +33,7 @@
 [Детский сад](https://innopolis.com/ru/services/kindergarten)
 [Детская школа искусств](https://innopolis.com/ru/services/childrens-school-of-art)
 [Колледж Иннополис](https://innopolis.com/ru/services/innopolis-college)
-[Участвуйте в грантовом конкурсе на поступление в университет](https://innopolis.com/ru/services/innopolis-university)
-[![](https://innopolis.com/uploads/headmenu/bgmenu3-11f7008f0d.jpg)](https://innopolis.com/ru/services/innopolis-university)
+[Участвуйте в грантовом конкурсе на поступление в университет ![](https://innopolis.com/uploads/headmenu/bgmenu3-11f7008f0d.jpg)](https://innopolis.com/ru/services/innopolis-university)
 А еще у нас есть
 [IT-курсы](https://innopolis.com/ru/services/it-courses)
 [IT-лагерь Innocamp](https://innopolis.com/ru/services/innocamp)
@@ -48,8 +44,7 @@
 [Будущие проекты](https://innopolis.com/ru/business/future)
 [Городской бизнес](https://innopolis.com/ru/business/in-city)
 [Бизнес](https://innopolis.com/ru/business)
-[73,8 млрд рублей привлеченных инвестиций](https://innopolis.com/ru/business/sez)
-[![](https://innopolis.com/uploads/headmenu/bgmenu4-ea3077792c.jpg)](https://innopolis.com/ru/business/sez)
+[73,8 млрд рублей привлеченных инвестиций ![](https://innopolis.com/uploads/headmenu/bgmenu4-ea3077792c.jpg)](https://innopolis.com/ru/business/sez)
 Для IT-компаний
 [Стать резидентом](https://sezinnopolis.ru/forcompanies/)
 [Стартапам](https://sezinnopolis.ru/startapam/)
@@ -67,21 +62,11 @@
 Стать резидентом ОЭЗ
 Инвестиции для стартапов, налоговые льготы для компаний, проекты для венчурных фондов
 [Подробнее](https://sezinnopolis.ru/investoram/)
-[![](https://innopolis.com/assets/35e2bb10/img/content/button-location.png)](https://innopolis.com/ru/city/how-to-get)
-[Как](https://innopolis.com/ru/city/how-to-get)
-[добраться?](https://innopolis.com/ru/city/how-to-get)
-[![](https://innopolis.com/assets/35e2bb10/img/content/button-autobus.png)](https://innopolis.com/ru/city/bus-schedule)
-[Расписание](https://innopolis.com/ru/city/bus-schedule)
-[автобусов](https://innopolis.com/ru/city/bus-schedule)
-[![](https://innopolis.com/assets/35e2bb10/img/content/button-relocation.png)](https://innopolis.com/ru/life/how-to-relocation)
-[Как](https://innopolis.com/ru/life/how-to-relocation)
-[переехать?](https://innopolis.com/ru/life/how-to-relocation)
-[![](https://innopolis.com/assets/35e2bb10/img/content/button-tourism.png)](https://innopolis.com/ru/tourism/excursions)
-[Записаться](https://innopolis.com/ru/tourism/excursions)
-[на экскурсию](https://innopolis.com/ru/tourism/excursions)
-[![](https://innopolis.com/assets/35e2bb10/img/content/button-work.png)](https://innopolis.com/ru/life/vacancies)
-[Ищете](https://innopolis.com/ru/life/vacancies)
-[работу?](https://innopolis.com/ru/life/vacancies)
+[![](https://innopolis.com/assets/35e2bb10/img/content/button-location.png) Как добраться?](https://innopolis.com/ru/city/how-to-get)
+[![](https://innopolis.com/assets/35e2bb10/img/content/button-autobus.png) Расписание автобусов](https://innopolis.com/ru/city/bus-schedule)
+[![](https://innopolis.com/assets/35e2bb10/img/content/button-relocation.png) Как переехать?](https://innopolis.com/ru/life/how-to-relocation)
+[![](https://innopolis.com/assets/35e2bb10/img/content/button-tourism.png) Записаться на экскурсию](https://innopolis.com/ru/tourism/excursions)
+[![](https://innopolis.com/assets/35e2bb10/img/content/button-work.png) Ищете работу?](https://innopolis.com/ru/life/vacancies)
 ## Жизнь в городе
 [Подробнее](https://innopolis.com/ru/life)
 [В Иннополисе разрабатывают первый в России ИИ-агент для жителей города](https://innopolis.com/ru/media/news/innopolis-is-developing-russias-first-ai-agent-for-the-citizens)
@@ -89,38 +74,27 @@
 [В Иннополисе состоятся питч-шоу, показ фильма и паблик-ток об ИИ в бизнесе](https://innopolis.com/ru/media/news/innopolis-will-host-a-pitch-show-a-film-screening-and-a-public-talk-on-ai-in-business)
 [Разработчик из Иннополиса создает ИИ-агента для выявления сердечно-сосудистых...](https://innopolis.com/ru/media/news/a-company-from-innopolis-is-developing-an-ai-agent-to-detect-cardiovascular-diseases-at-an-early-stage)
 [Ректор Университета Иннополис вошёл в топ-2% самых влиятельных учёных мира в...](https://innopolis.com/ru/media/news/the-rector-of-innopolis-university-has-been-named-among-the-worlds-top-2-most-influential-scientists-in-the-field-of-ai)
-[Помогаем адаптироваться в новом городе](https://innopolis.com/ru/life/newbie)
-[![](https://innopolis.com/uploads/links/serviceonboard-023fbc16a2.jpg)](https://innopolis.com/ru/life/newbie)
-[Наши жители и гости рассказывают об Инно](https://innopolis.com/ru/life/stories)
-[![](https://innopolis.com/uploads/links/servicecitizen-adb806f795.jpg)](https://innopolis.com/ru/life/stories)
+[Помогаем адаптироваться в новом городе ![](https://innopolis.com/uploads/links/serviceonboard-023fbc16a2.jpg)](https://innopolis.com/ru/life/newbie)
+[Наши жители и гости рассказывают об Инно ![](https://innopolis.com/uploads/links/servicecitizen-adb806f795.jpg)](https://innopolis.com/ru/life/stories)
 ## Иннополис сейчас
 [Все мероприятия](https://innopolis.com/ru/media/events/)
-[26 октября — 01 ноября 2026](https://innopolis.com/ru/media/events/events-of-the-week-67)
-[Мероприятия недели](https://innopolis.com/ru/media/events/events-of-the-week-67)
-[![](https://innopolis.com/uploads/thumbs/frame-72-21-c35268024d-d6bae6fc5ec2b352ea70591060d3006a.jpeg)](https://innopolis.com/ru/media/events/events-of-the-week-67)
-[29 октября — 08 ноября 2026](https://innopolis.com/ru/media/events/autumn-holidays-in-innopolis-2)
-[Осенние каникулы в Иннополисе](https://innopolis.com/ru/media/events/autumn-holidays-in-innopolis-2)
-[![](https://innopolis.com/uploads/thumbs/frame-72-20-63da87e772-4f006d6f9246b8f2aca888eb1eca3186.jpeg)](https://innopolis.com/ru/media/events/autumn-holidays-in-innopolis-2)
-## Чем заняться
-в Иннополисе?
+[29 октября — 08 ноября 2026 Осенние каникулы в Иннополисе ![](https://innopolis.com/uploads/thumbs/frame-72-20-63da87e772-30fb44ec166198baefe7b528ca294111.jpeg)](https://innopolis.com/ru/media/events/autumn-holidays-in-innopolis-2)
+[2 ноября — 08 ноября 2026 Мероприятия недели ![](https://innopolis.com/uploads/thumbs/frame-72-22-7d1003339f-a77f5ccb1026a45af52e81ecf065fa49.jpeg)](https://innopolis.com/ru/media/events/events-of-the-week-68)
+## Чем заняться в Иннополисе?
 [Узнать больше](https://innopolis.com/ru/tourism)
-[Топ-10 мест в городе](https://innopolis.com/ru/tourism/travelguide)
-[Если хотите прогуляться сами, посмотрите нашу подборку](https://innopolis.com/ru/tourism/travelguide)
-[![](https://innopolis.com/uploads/links/servicetop10-6e1a4dcf69.jpg)](https://innopolis.com/ru/tourism/travelguide)
-[Наши экскурсии](https://innopolis.com/ru/tourism/excursions)
-[Посмотрите изнутри на университет и учебные центры с роботами](https://innopolis.com/ru/tourism/excursions)
-[![](https://innopolis.com/uploads/links/serviceexcursion-8da474d7a0.jpg)](https://innopolis.com/ru/tourism/excursions)
+[Топ-10 мест в городе Если хотите прогуляться сами, посмотрите нашу подборку ![](https://innopolis.com/uploads/links/servicetop10-6e1a4dcf69.jpg)](https://innopolis.com/ru/tourism/travelguide)
+[Наши экскурсии Посмотрите изнутри на университет и учебные центры с роботами ![](https://innopolis.com/uploads/links/serviceexcursion-8da474d7a0.jpg)](https://innopolis.com/ru/tourism/excursions)
 ## Фотографии месяца
-@akovalev_2k
-![](https://innopolis.com/uploads/thumbs/original-17-830ace9df9-4897149a5738a25f9737f9f5d62c5800.jpeg)
-@ZolotarevAlexandr
-![](https://innopolis.com/uploads/thumbs/image-64144a6592-d57c5a69ca7537a2eb2f5e461948068e.png)
-@NikolaevEvgeniy
-![](https://innopolis.com/uploads/thumbs/image-2-f0c884b658-138ce7bfb106c7aedab07ae16b00f454.png)
-@radmila_polo
-![](https://innopolis.com/uploads/thumbs/convertedoriginal-7-a35344e8f5-2eee6656f3cd46aa30c3d9601d2ba757.jpeg)
+@krassand
+![](https://innopolis.com/uploads/thumbs/original-21-7ec9109a65-7af3ec1c5e8d98f741469093763716c0.jpeg)
+@quizznexx
+![](https://innopolis.com/uploads/thumbs/original-24-f134bc2db1-711981384ac4d6795a7e7c359c9035a2.jpeg)
+@KiwiError
+![](https://innopolis.com/uploads/thumbs/original-22-1f436ff059-112714b675fcdbe4b214c02ab9560588.jpeg)
+@Smirnovanum
+![](https://innopolis.com/uploads/thumbs/original-23-00607c22bd-f52a315b75bb3f4fdb09986c69c04d4c.jpeg)
 @enq321
-![](https://innopolis.com/uploads/thumbs/original-19-3f8fc25726-1a4d25ece4e174f5a6c06eec00099f52.jpeg)
+![](https://innopolis.com/uploads/thumbs/original-20-920f75c5bb-5c8b0724c2fc93fab7d2513884cbea7b.jpeg)
 ## Бизнес в Иннополисе
 [Подробнее](https://innopolis.com/ru/business/sez)
 [В Иннополисе разрабатывают первый в России ИИ-агент для жителей города](https://innopolis.com/ru/media/news/innopolis-is-developing-russias-first-ai-agent-for-the-citizens)
@@ -128,52 +102,29 @@
 [В Иннополисе состоятся питч-шоу, показ фильма и паблик-ток об ИИ в бизнесе](https://innopolis.com/ru/media/news/innopolis-will-host-a-pitch-show-a-film-screening-and-a-public-talk-on-ai-in-business)
 [Разработчик из Иннополиса создает ИИ-агента для выявления сердечно-сосудистых...](https://innopolis.com/ru/media/news/a-company-from-innopolis-is-developing-an-ai-agent-to-detect-cardiovascular-diseases-at-an-early-stage)
 [Ректор Университета Иннополис вошёл в топ-2% самых влиятельных учёных мира в...](https://innopolis.com/ru/media/news/the-rector-of-innopolis-university-has-been-named-among-the-worlds-top-2-most-influential-scientists-in-the-field-of-ai)
-[Особая экономическая зона](https://innopolis.com/ru/business/sez)
-[![](https://innopolis.com/uploads/links/servicesupport-53cda38873.jpg)](https://innopolis.com/ru/business/sez)
-[Будущие проекты](https://innopolis.com/ru/business/future)
-[Наши планы по развитию инфраструктуры города на ближайшее будущее](https://innopolis.com/ru/business/future)
-[![](https://innopolis.com/uploads/links/servicefuture-c02ac7bdd1.jpg)](https://innopolis.com/ru/business/future)
-## Образование —
-наша суперсила
+[Особая экономическая зона ![](https://innopolis.com/uploads/links/servicesupport-53cda38873.jpg)](https://innopolis.com/ru/business/sez)
+[Будущие проекты Наши планы по развитию инфраструктуры города на ближайшее будущее ![](https://innopolis.com/uploads/links/servicefuture-c02ac7bdd1.jpg)](https://innopolis.com/ru/business/future)
+## Образование — наша суперсила
 [Все учреждения](https://innopolis.com/ru/services/?type[]=9)
-[![](https://innopolis.com/uploads/thumbs/universitet-innopolis-3e9c6a61e7-1a9f4e6652b3a80977c0e9190611e142.jpeg)](https://innopolis.com/ru/services/innopolis-university)
-[Университет Иннополис](https://innopolis.com/ru/services/innopolis-university)
-[Интеллектуальное ядро нового города](https://innopolis.com/ru/services/innopolis-university)
-[ул. Университетская, 1](https://innopolis.com/ru/services/innopolis-university)
-[![](https://innopolis.com/uploads/thumbs/img6409-f64dc236fb-5adc487d8088ebea328165d776cb856f.jpeg)](https://innopolis.com/ru/services/innopolis-lyceum)
-[Лицей Иннополис](https://innopolis.com/ru/services/innopolis-lyceum)
-[Рассказываем, какие экзамены нужно сдать, чтобы поступить](https://innopolis.com/ru/services/innopolis-lyceum)
-[ул. Квантовый бульвар, 1](https://innopolis.com/ru/services/innopolis-lyceum)
-[![](https://innopolis.com/uploads/thumbs/zhv0109-322bf5f60c-9a466989c4c29c653d4682fd6a2ec1cd.jpeg)](https://innopolis.com/ru/services/innopolis-school)
-[Школа Иннополис](https://innopolis.com/ru/services/innopolis-school)
-[Образование с большими с перспективами](https://innopolis.com/ru/services/innopolis-school)
-[ул. Парковая 22](https://innopolis.com/ru/services/innopolis-school)
-## Остались вопросы?
-Ответим в [телеграм](https://t.me/InnopolisHelp)
-и по телефону
+[![](https://innopolis.com/uploads/thumbs/universitet-innopolis-3e9c6a61e7-1a9f4e6652b3a80977c0e9190611e142.jpeg) Университет Иннополис Интеллектуальное ядро нового города ул. Университетская, 1](https://innopolis.com/ru/services/innopolis-university)
+[![](https://innopolis.com/uploads/thumbs/img6409-f64dc236fb-5adc487d8088ebea328165d776cb856f.jpeg) Лицей Иннополис Рассказываем, какие экзамены нужно сдать, чтобы поступить ул. Квантовый бульвар, 1](https://innopolis.com/ru/services/innopolis-lyceum)
+[![](https://innopolis.com/uploads/thumbs/zhv0109-322bf5f60c-9a466989c4c29c653d4682fd6a2ec1cd.jpeg) Школа Иннополис Образование с большими с перспективами ул. Парковая 22](https://innopolis.com/ru/services/innopolis-school)
+## Остались вопросы? Ответим в [телеграм](https://t.me/InnopolisHelp) и по телефону
 Хочу узнать режим работы заведений
 В разделе [Организации и услуги](https://innopolis.com/ru/services) по фильтру [Кафе и рестораны](https://innopolis.com/ru/services?type[]=11) выходит список всех заведений. На странице каждой есть свое расписание
 Потеряли вещи, куда обратиться?
 У нас есть [чат](https://t.me/LostAndFoundInnopolis), в котором жители выкладывают всё, что нашли в городе. А ещё можно спросить у наших коллег из [консьерж-сервиса](https://t.me/InnopolisHelp)
 Как воспользоваться беспилотным такси?
 Напишите в [бот консьерж-сервиса](https://t.me/InnaHelpBot) фразу «беспилотник». Вам выйдет гайд как зарегистрироваться в сервисе
-## Заглядывайте в наши
-телеграм-каналы
-[![](https://innopolis.com/assets/35e2bb10/img/content/ill-telegram.png)](https://t.me/innopolistg)
-[Все о жизни IT-города](https://t.me/innopolistg)
-[@innopolistg](https://t.me/innopolistg)
-[Канал со всеми чатами](https://t.me/innolinks)
-[@innolinks](https://t.me/innolinks)
-[Вакансии и карьерные события](https://t.me/innopolis_job)
-[@innopolis_job](https://t.me/innopolis_job)
-[Актуальные новости города](https://t.me/innopolisnews_rus)
-[@innopolisnews_rus](https://t.me/innopolisnews_rus)
-[ОЭЗ Иннополис](https://t.me/SEZinno)
-[@SEZinno](https://t.me/SEZinno)
-[Городские мероприятия](https://t.me/innoevents)
-[@innoevents](https://t.me/innoevents)
-[Университет Иннополис](https://t.me/universityinnopolis)
-[@universityinnopolis](https://t.me/universityinnopolis)
+## Заглядывайте в наши телеграм-каналы
+[![](https://innopolis.com/assets/35e2bb10/img/content/ill-telegram.png) Все о жизни IT-города @innopolistg](https://t.me/innopolistg)
+[Канал со всеми чатами @innolinks](https://t.me/innolinks)
+[Вакансии и карьерные события @innopolis_job](https://t.me/innopolis_job)
+[Актуальные новости города @innopolisnews_rus](https://t.me/innopolisnews_rus)
+[ОЭЗ Иннополис @SEZinno](https://t.me/SEZinno)
+[Городские мероприятия @innoevents](https://t.me/innoevents)
+[Университет Иннополис @universityinnopolis](https://t.me/universityinnopolis)
+Показать все
 Приезжайте в гости
 [Организации и услуги](https://innopolis.com/ru/services)
 [Бытовые услуги](https://innopolis.com/ru/services?type[]=17)
@@ -208,9 +159,7 @@ helpme@innopolis.ru
 [Расписание автобусов](https://innopolis.com/ru/city/bus-schedule)
 [Карта города](https://innopolis.com/ru/city/map)
 [О городе](https://innopolis.com/ru/city)
-[Приезжайте в гости!](https://innopolis.com/ru/tourism)
-[Мы проводим экскурсии](https://innopolis.com/ru/tourism)
-[![](https://innopolis.com/uploads/headmenu/bgmenu1-5655e06adf.jpg)](https://innopolis.com/ru/tourism)
+[Приезжайте в гости! Мы проводим экскурсии ![](https://innopolis.com/uploads/headmenu/bgmenu1-5655e06adf.jpg)](https://innopolis.com/ru/tourism)
 Полезное
 [Мероприятия](https://innopolis.com/ru/media/events)
 [Вакансии](https://innopolis.com/ru/life/vacancies)
@@ -220,8 +169,7 @@ helpme@innopolis.ru
 [Как переехать](https://innopolis.com/ru/life/how-to-relocation)
 [Истории жителей](https://innopolis.com/ru/life/stories)
 [Переезд в Иннополис](https://innopolis.com/ru/life)
-[Только переехали? Посмотрите онбординг для нового жителя](https://onboarding.innopolis.ru)
-[![](https://innopolis.com/uploads/headmenu/bgmenu2-05fb66b255.jpg)](https://onboarding.innopolis.ru)
+[Только переехали? Посмотрите онбординг для нового жителя ![](https://innopolis.com/uploads/headmenu/bgmenu2-05fb66b255.jpg)](https://onboarding.innopolis.ru)
 Полезное
 [Аренда жилья](https://innopolis.com/ru/life/housing/rental)
 [Покупка квартир](https://innopolis.com/ru/life/housing/apartments)
@@ -233,8 +181,7 @@ helpme@innopolis.ru
 [Детский сад](https://innopolis.com/ru/services/kindergarten)
 [Детская школа искусств](https://innopolis.com/ru/services/childrens-school-of-art)
 [Колледж Иннополис](https://innopolis.com/ru/services/innopolis-college)
-[Участвуйте в грантовом конкурсе на поступление в университет](https://innopolis.com/ru/services/innopolis-university)
-[![](https://innopolis.com/uploads/headmenu/bgmenu3-11f7008f0d.jpg)](https://innopolis.com/ru/services/innopolis-university)
+[Участвуйте в грантовом конкурсе на поступление в университет ![](https://innopolis.com/uploads/headmenu/bgmenu3-11f7008f0d.jpg)](https://innopolis.com/ru/services/innopolis-university)
 А еще у нас есть
 [IT-курсы](https://innopolis.com/ru/services/it-courses)
 [IT-лагерь Innocamp](https://innopolis.com/ru/services/innocamp)
@@ -246,8 +193,7 @@ helpme@innopolis.ru
 [Будущие проекты](https://innopolis.com/ru/business/future)
 [Городской бизнес](https://innopolis.com/ru/business/in-city)
 [Бизнес](https://innopolis.com/ru/business)
-[73,8 млрд рублей привлеченных инвестиций](https://innopolis.com/ru/business/sez)
-[![](https://innopolis.com/uploads/headmenu/bgmenu4-ea3077792c.jpg)](https://innopolis.com/ru/business/sez)
+[73,8 млрд рублей привлеченных инвестиций ![](https://innopolis.com/uploads/headmenu/bgmenu4-ea3077792c.jpg)](https://innopolis.com/ru/business/sez)
 Для IT-компаний
 [Стать резидентом](https://sezinnopolis.ru/forcompanies/)
 [Стартапам](https://sezinnopolis.ru/startapam/)
@@ -260,5 +206,4 @@ helpme@innopolis.ru
 [Мерч Иннополиса](https://innopolis.com/ru/merch)
 Рус
 Мы используем [cookies](https://innopolis.com/ru/cookies)
-[![](https://innopolis.com/assets/35e2bb10/img/content/ill-telegram.png)](https://t.me/InnopolisHelp)
-[Есть вопросы?Напишите нам](https://t.me/InnopolisHelp)
+[![](https://innopolis.com/assets/35e2bb10/img/content/ill-telegram.png) Есть вопросы?Напишите нам](https://t.me/InnopolisHelp)

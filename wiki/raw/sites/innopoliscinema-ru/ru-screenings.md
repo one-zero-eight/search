@@ -150,13 +150,9 @@ status: draft
 
 [Плетёный муж.](/raw/sites/innopoliscinema-ru/ru-films-wicker.md)
 
-450₽
-
 20:05
 
 [Рождение империи](/raw/sites/innopoliscinema-ru/ru-films-rozhdenie-imperii.md)
-
-450₽
 
 ### 10 ноября, вторник
 

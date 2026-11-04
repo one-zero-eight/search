@@ -10,9 +10,9 @@ Knowledge about Innopolis University compiled from [eduwiki](https://eduwiki.inn
 
 The university's documents as their sources publish them, written by code: the evidence everything else cites ([all of them](/raw/index.md)).
 
-- [regulations](/raw/regulations/index.md): Regulations, orders and other official documents, 2028 pages
+- [regulations](/raw/regulations/index.md): Regulations, orders and other official documents, 2073 pages
 - [course-programmes](/raw/course-programmes/index.md): Course programmes (РПД) by programme, cohort and semester, 1876 pages
-- [sites](/raw/sites/index.md): Pages of the sites of the university and its services: the university, admissions, campus life, the campus hotel, InNoHassle, 4222 pages
+- [sites](/raw/sites/index.md): Pages of the sites of the university and its services: the university, admissions, campus life, the campus hotel, InNoHassle, 4318 pages
 - [past-papers](/raw/past-papers/index.md): Past exam papers by subject, as the students collected them (not official), 27 pages
 - [courses](/raw/courses/index.md): Course descriptions from eduwiki, 296 pages
 - [programs](/raw/programs/index.md): Study plans, 13 pages

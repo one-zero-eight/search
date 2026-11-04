@@ -23,7 +23,7 @@ stale_after: "2024-01-01T00:00:00+00:00"
 
 > Страница относится к 2023 году: сведения на ней могли устареть.
 
-[Eng](https://innopolis.com/en/media/news/privet-osen-i-novyj-ucebnyj-god)
+[Eng](/raw/sites/city/en-media-news-privet-osen-i-novyj-ucebnyj-god.md)
 
 [Тат](https://innopolis.com/tt/media/news/privet-osen-i-novyj-ucebnyj-god)
 

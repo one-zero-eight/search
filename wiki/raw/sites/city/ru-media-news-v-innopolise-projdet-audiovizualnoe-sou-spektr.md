@@ -45,7 +45,7 @@ stale_after: "2024-01-01T00:00:00+00:00"
 
 Стоимость билетов: от 400 до 800 рублей.
 
-[Купить билет](https://innopolis.timepad.ru/event/2352392/)
+[Купить билет](/raw/sites/innopolis-timepad-ru/event-2352392.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/city/_shared.md](/raw/sites/city/_shared.md)._
 

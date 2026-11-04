@@ -9,22 +9,32 @@ language: ru
 section: "site/dovuz"
 sources:
   - resource: "https://dovuz.innopolis.university/"
-    id: "1eae6d7bf916"
+    id: "1215a2756b3e"
     title: "Довузовская подготовка в Университете Иннополис: курсы для школьников"
-    last_modified: "2026-10-31T08:36:28+00:00"
+    last_modified: "2026-11-04T12:42:02+00:00"
 generated:
   by: "catix-wiki/0.1 sites"
-  at: "2026-10-31T08:36:28+00:00"
+  at: "2026-11-04T12:42:02+00:00"
 status: draft
 ---
 
 # Довузовская подготовка в Университете Иннополис: курсы для школьников
 
+  - [Бесплатные вебинары](/raw/sites/dovuz/free-webinars.md)
+
+  - [Подготовка к обучению в ИТ-вузах](/raw/sites/dovuz/preparation-it-universities.md)
+
+  - [Подготовка к ЕГЭ](/raw/sites/dovuz/preparation-ege.md)
+
+  - [Подготовка к ОГЭ](/raw/sites/dovuz/preparation-oge-math.md)
+
+  - [Олимпиадная подготовка](/raw/sites/dovuz/pre-olympiads.md)
+
+  - [Очные осенние смены](/raw/sites/dovuz/offline-programms-autumn-camp.md)
+
 ![](https://static.tildacdn.com/tild6539-3261-4233-b966-306433623636/photo.png)
 
-## Довузовская
-
-подготовка
+## Довузовская подготовка
 
 Вы на первой ступени пути в ИТ:
 
@@ -62,23 +72,17 @@ status: draft
 
 Регистрация до 28 октября
 
-[Подготовка к ЕГЭ по физике](/raw/sites/dovuz/preparation-ege-physics.md)
-
-Онлайн со 2 ноября
-
-Регистрация до 28 октября
-
 [Подготовка к ЕГЭ по информатике](/raw/sites/dovuz/preparation-ege-informatics.md)
 
 Онлайн со 2 ноября
 
 Регистрация до 28 октября
 
-[Подготовка к ОГЭ по математике](/raw/sites/dovuz/preparation-oge-math.md)
+[Подготовка к региональному этапу ВсОШ](/raw/sites/dovuz/pre-olympiads-region-stage.md)
 
-Онлайн со 2 ноября
+Онлайн со 1 декабря по 16 января
 
-Регистрация до 29 октября
+Регистрация до 27 ноября
 
 [Нейросети и введение в ИИ-педагогику](/raw/sites/dovuz/cpc-lecture-ai-pedagogy.md)
 
@@ -98,9 +102,7 @@ status: draft
 
 [ᐳ](/raw/sites/dovuz/preparation.md)
 
-## [Онлайн-курсы подготовки](/raw/sites/dovuz/preparation.md)
-
-[к поступлению в ИТ-вузы](/raw/sites/dovuz/preparation.md)
+## [Онлайн-курсы подготовки к поступлению в ИТ-вузы](/raw/sites/dovuz/preparation.md)
 
 [![](https://static.tildacdn.com/tild6236-3632-4662-b135-346137343837/5.png)](/raw/sites/dovuz/preparation.md)
 
@@ -114,7 +116,7 @@ status: draft
 
 ## [Очные программы для школьников в Университете Иннополис](/raw/sites/dovuz/offline-programms.md)
 
-![](https://static.tildacdn.com/tild6139-3262-4330-a265-386534313064/6.png)
+[![](https://static.tildacdn.com/tild6139-3262-4330-a265-386534313064/6.png)](/raw/sites/dovuz/offline-programms.md)
 
 [ᐳ](/raw/sites/dovuz/innoctfjunior.md)
 
@@ -152,229 +154,91 @@ status: draft
 
 Предстоящие вебинары
 
-[Олимпиадная техника: рекурренты. (Математика)](https://my.mts-link.ru/j/innopolisuniversity/23832767057)
-
-[27 октября | 12:00](https://my.mts-link.ru/j/innopolisuniversity/23832767057)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/23832767057)
-
-[Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/23832767057)
-
-[Сила магнита: создаем лабиринт, который нужно пройти](https://my.mts-link.ru/j/innopolisuniversity/25676690712)
-
-[27 октября | 18:00](https://my.mts-link.ru/j/innopolisuniversity/25676690712)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/25676690712)
-
-[Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/25676690712)
-
-[Физика. Равноускоренное движение. Часть 1](https://my.mts-link.ru/j/innopolisuniversity/26494512384)
-
-[29 октября | 14:00](https://my.mts-link.ru/j/innopolisuniversity/26494512384)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/26494512384)
-
-[Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/26494512384)
-
-[Создаем свою социальную сеть. Часть 5](https://my.mts-link.ru/j/innopolisuniversity/25678122601)
-
-[29 октября | 18:00](https://my.mts-link.ru/j/innopolisuniversity/25678122601)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/25678122601)
-
-[Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/25678122601)
-
-[Физика. Равноускоренное движение. Часть 2](https://my.mts-link.ru/j/innopolisuniversity/26495068503)
-
-[30 октября | 14:00](https://my.mts-link.ru/j/innopolisuniversity/26495068503)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/26495068503)
-
-[Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/26495068503)
-
-[Физика. Равноускоренное движение. Часть 3](https://my.mts-link.ru/j/innopolisuniversity/26495318285)
-
-[2 ноября | 14:00](https://my.mts-link.ru/j/innopolisuniversity/26495318285)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/26495318285)
-
-[Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/26495318285)
-
-[Гравитация под контролем: создаём свой платформер](https://my.mts-link.ru/j/innopolisuniversity/26521838629)
-
-[2 ноября | 15:00](https://my.mts-link.ru/j/innopolisuniversity/26521838629)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/26521838629)
-
-[Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/26521838629)
-
-[Разбор первого отборочного тура Международной олимпиады Иннополиса по профилю «Математика»](https://my.mts-link.ru/j/innopolisuniversity/23832891283)
-
-[3 ноября | 12:00](https://my.mts-link.ru/j/innopolisuniversity/23832891283)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/23832891283)
+[**Разбор первого отборочного тура Международной олимпиады Иннополиса по профилю «Математика»** 3 ноября | 12:00 р. р.](https://my.mts-link.ru/j/innopolisuniversity/23832891283)
 
 [Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/23832891283)
 
-[Физика. Равноускоренное движение. Часть 4](https://my.mts-link.ru/j/innopolisuniversity/26495704193)
-
-[3 ноября | 14:00](https://my.mts-link.ru/j/innopolisuniversity/26495704193)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/26495704193)
+[**Физика. Равноускоренное движение. Часть 4** 3 ноября | 14:00 р. р.](https://my.mts-link.ru/j/innopolisuniversity/26495704193)
 
 [Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/26495704193)
 
-[Поймай бит: создаём музыкальную аркаду](https://my.mts-link.ru/j/innopolisuniversity/26522096169)
-
-[3 ноября | 15:00](https://my.mts-link.ru/j/innopolisuniversity/26522096169)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/26522096169)
+[**Поймай бит: создаём музыкальную аркаду** 3 ноября | 15:00 р. р.](https://my.mts-link.ru/j/innopolisuniversity/26522096169)
 
 [Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/26522096169)
 
-[Подготовка к Международной олимпиаде Иннополиса по профилю «Робототехника». Часть 1](https://my.mts-link.ru/j/innopolisuniversity/26637480538)
-
-[3 ноября | 18:00](https://my.mts-link.ru/j/innopolisuniversity/26637480538)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/26637480538)
+[**Подготовка к Международной олимпиаде Иннополиса по профилю «Робототехника». Часть 1** 3 ноября | 18:00 р. р.](https://my.mts-link.ru/j/innopolisuniversity/26637480538)
 
 [Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/26637480538)
 
-[Тактика решает: битва на клетчатом поле](https://my.mts-link.ru/j/innopolisuniversity/26522255893)
-
-[5 ноября | 15:00](https://my.mts-link.ru/j/innopolisuniversity/26522255893)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/26522255893)
+[**Тактика решает: битва на клетчатом поле** 5 ноября | 15:00 р. р.](https://my.mts-link.ru/j/innopolisuniversity/26522255893)
 
 [Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/26522255893)
 
-[Подготовка к Международной олимпиаде Иннополиса по профилю «Робототехника». Часть 2](https://my.mts-link.ru/j/innopolisuniversity/26637969851)
-
-[6 ноября | 18:00](https://my.mts-link.ru/j/innopolisuniversity/26637969851)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/26637969851)
+[**Подготовка к Международной олимпиаде Иннополиса по профилю «Робототехника». Часть 2** 6 ноября | 18:00 р. р.](https://my.mts-link.ru/j/innopolisuniversity/26637969851)
 
 [Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/26637969851)
 
-[Сапёр: поле, полное секретов](https://my.mts-link.ru/j/innopolisuniversity/26522426789)
-
-[9 ноября | 15:00](https://my.mts-link.ru/j/innopolisuniversity/26522426789)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/26522426789)
+[**Сапёр: поле, полное секретов** 9 ноября | 15:00 р. р.](https://my.mts-link.ru/j/innopolisuniversity/26522426789)
 
 [Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/26522426789)
 
-[Подготовка к Международной олимпиаде Иннополиса по профилю «Робототехника». Часть 3](https://my.mts-link.ru/j/innopolisuniversity/26638360976)
-
-[9 ноября | 18:00](https://my.mts-link.ru/j/innopolisuniversity/26638360976)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/26638360976)
+[**Подготовка к Международной олимпиаде Иннополиса по профилю «Робототехника». Часть 3** 9 ноября | 18:00 р. р.](https://my.mts-link.ru/j/innopolisuniversity/26638360976)
 
 [Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/26638360976)
 
-[Олимпиадная техника: геометрическое место точек](https://my.mts-link.ru/j/innopolisuniversity/23833455747)
-
-[10 ноября | 12:00](https://my.mts-link.ru/j/innopolisuniversity/23833455747)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/23833455747)
+[**Олимпиадная техника: геометрическое место точек** 10 ноября | 12:00 р. р.](https://my.mts-link.ru/j/innopolisuniversity/23833455747)
 
 [Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/23833455747)
 
-[Миссия «Луна»: мягкая посадка](https://my.mts-link.ru/j/innopolisuniversity/26522615445)
-
-[10 ноября | 15:00](https://my.mts-link.ru/j/innopolisuniversity/26522615445)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/26522615445)
+[**Миссия «Луна»: мягкая посадка** 10 ноября | 15:00 р. р.](https://my.mts-link.ru/j/innopolisuniversity/26522615445)
 
 [Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/26522615445)
 
-[Режим невидимки: пройди уровень без тревоги](https://my.mts-link.ru/j/innopolisuniversity/26522807683)
-
-[12 ноября | 15:00](https://my.mts-link.ru/j/innopolisuniversity/26522807683)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/26522807683)
+[**Режим невидимки: пройди уровень без тревоги** 12 ноября | 15:00 р. р.](https://my.mts-link.ru/j/innopolisuniversity/26522807683)
 
 [Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/26522807683)
 
-[Подготовка к Международной олимпиаде Иннополиса по профилю «Робототехника». Часть 4](https://my.mts-link.ru/j/innopolisuniversity/26638527835)
-
-[12 ноября | 18:00](https://my.mts-link.ru/j/innopolisuniversity/26638527835)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/26638527835)
+[**Подготовка к Международной олимпиаде Иннополиса по профилю «Робототехника». Часть 4** 12 ноября | 18:00 р. р.](https://my.mts-link.ru/j/innopolisuniversity/26638527835)
 
 [Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/26638527835)
 
-[Мини-гольф: рассчитай идеальный удар](https://my.mts-link.ru/j/innopolisuniversity/26523073154)
-
-[16 ноября | 15:00](https://my.mts-link.ru/j/innopolisuniversity/26523073154)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/26523073154)
+[**Мини-гольф: рассчитай идеальный удар** 16 ноября | 15:00 р. р.](https://my.mts-link.ru/j/innopolisuniversity/26523073154)
 
 [Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/26523073154)
 
-[Олимпиадная техника: геометрические построения инструментами](https://my.mts-link.ru/j/innopolisuniversity/23833580737)
-
-[17 ноября | 12:00](https://my.mts-link.ru/j/innopolisuniversity/23833580737)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/23833580737)
+[**Олимпиадная техника: геометрические построения инструментами** 17 ноября | 12:00 р. р.](https://my.mts-link.ru/j/innopolisuniversity/23833580737)
 
 [Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/23833580737)
 
-[Пинбол: запусти цепную реакцию](https://my.mts-link.ru/j/innopolisuniversity/26523590805)
-
-[17 ноября | 15:00](https://my.mts-link.ru/j/innopolisuniversity/26523590805)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/26523590805)
+[**Пинбол: запусти цепную реакцию** 17 ноября | 15:00 р. р.](https://my.mts-link.ru/j/innopolisuniversity/26523590805)
 
 [Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/26523590805)
 
-[Лазерный лабиринт: направь луч](https://my.mts-link.ru/j/innopolisuniversity/26524341645)
-
-[19 ноября | 15:00](https://my.mts-link.ru/j/innopolisuniversity/26524341645)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/26524341645)
+[**Лазерный лабиринт: направь луч** 19 ноября | 15:00 р. р.](https://my.mts-link.ru/j/innopolisuniversity/26524341645)
 
 [Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/26524341645)
 
-[Парковка без царапин: испытание для водителя](https://my.mts-link.ru/j/innopolisuniversity/26525491814)
-
-[23 ноября | 15:00](https://my.mts-link.ru/j/innopolisuniversity/26525491814)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/26525491814)
+[**Парковка без царапин: испытание для водителя** 23 ноября | 15:00 р. р.](https://my.mts-link.ru/j/innopolisuniversity/26525491814)
 
 [Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/26525491814)
 
-[Международная олимпиада Иннополиса по профилю «Математика»: накануне второго отборочного тура](https://my.mts-link.ru/j/innopolisuniversity/23833691269)
-
-[24 ноября | 12:00](https://my.mts-link.ru/j/innopolisuniversity/23833691269)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/23833691269)
+[**Международная олимпиада Иннополиса по профилю «Математика»: накануне второго отборочного тура** 24 ноября | 12:00 р. р.](https://my.mts-link.ru/j/innopolisuniversity/23833691269)
 
 [Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/23833691269)
 
-[Перекрёсток под контролем: спаси город от пробок](https://my.mts-link.ru/j/innopolisuniversity/26525877773)
-
-[24 ноября | 15:00](https://my.mts-link.ru/j/innopolisuniversity/26525877773)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/26525877773)
+[**Перекрёсток под контролем: спаси город от пробок** 24 ноября | 15:00 р. р.](https://my.mts-link.ru/j/innopolisuniversity/26525877773)
 
 [Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/26525877773)
 
-[Башня до небес: испытание на точность](https://my.mts-link.ru/j/innopolisuniversity/26526432081)
-
-[26 ноября | 15:00](https://my.mts-link.ru/j/innopolisuniversity/26526432081)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/26526432081)
+[**Башня до небес: испытание на точность** 26 ноября | 15:00 р. р.](https://my.mts-link.ru/j/innopolisuniversity/26526432081)
 
 [Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/26526432081)
 
-[Робоарена: столкновение титанов](https://my.mts-link.ru/j/innopolisuniversity/26526900293)
-
-[30 ноября | 15:00](https://my.mts-link.ru/j/innopolisuniversity/26526900293)
-
-[р.](https://my.mts-link.ru/j/innopolisuniversity/26526900293)
+[**Робоарена: столкновение титанов** 30 ноября | 15:00 р. р.](https://my.mts-link.ru/j/innopolisuniversity/26526900293)
 
 [Зарегистрироваться](https://my.mts-link.ru/j/innopolisuniversity/26526900293)
+
+Show more
 
 ## Давайте держать связь
 
@@ -452,8 +316,10 @@ status: draft
 
 Напишите вопрос и менеджер ответит на него в течение одного рабочего дня после обращения
 
+- [Политика конфиденциальности](/raw/regulations/site-university-45ebfbe8-soglasie-na-obrabotku-pdn-dlya-ui.md)
+
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/dovuz/_shared.md](/raw/sites/dovuz/_shared.md)._
 
 # Citations
 
-1. [Довузовская подготовка в Университете Иннополис: курсы для школьников](https://dovuz.innopolis.university/), read 2026-10-31
+1. [Довузовская подготовка в Университете Иннополис: курсы для школьников](https://dovuz.innopolis.university/), read 2026-11-04

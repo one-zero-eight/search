@@ -9,12 +9,12 @@ language: ru
 section: "site/innopolistravel-com"
 sources:
   - resource: "https://innopolistravel.com/"
-    id: "b740e257d0c0"
+    id: "62fbb3053cf2"
     title: "Innotravel — экскурсии по Иннополису"
-    last_modified: "2026-11-01T22:34:47+00:00"
+    last_modified: "2026-11-04T13:02:02+00:00"
 generated:
   by: "catix-wiki/0.1 sites"
-  at: "2026-11-01T22:34:47+00:00"
+  at: "2026-11-04T13:02:02+00:00"
 status: draft
 ---
 
@@ -366,7 +366,7 @@ Innotravel —
 
 [{"lid":"1707651037781","ls":"10","loff":"","li_type":"ph","li_name":"phone","li_ph":"+7 960 048-44-60","li_req":"y","li_maskcountry":"RU","li_nm":"phone"}]
 
-[{"lid":"1748334509146","ls":"10","loff":"","li_parent_id":"","li_type":"cb","li_label":"\u042f \u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d(\u0430) \u0441 <a href=\"https:\/\/www.innopolistravel.com\/presonal_data\" target=\"_blank\" rel=\"noreferrer noopener\" style=\"border-bottom: 1px solid rgb(255, 255, 255); box-shadow: none; text-decoration: none; color: rgb(255, 255, 255);\">\u043f\u043e\u043b\u0438\u0442\u0438\u043a\u043e\u0439 \u043a\u043e\u043d\u0444\u0438\u0434\u0435\u043d\u0446\u0438\u0430\u043b\u044c\u043d\u043e\u0441\u0442\u0438<\/a>","li_checked":"y","li_req":"y","li_nm":"Checkbox"}]
+[{"lid":"1748334509146","ls":"10","loff":"","li_parent_id":"","li_type":"cb","li_label":"\u042f \u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d(\u0430) \u0441 <a href=\\"https:\\/\\/www.innopolistravel.com\\/presonal_data\\" target=\\"_blank\\" rel=\\"noreferrer noopener\\" style=\\"border-bottom: 1px solid rgb(255, 255, 255); box-shadow: none; text-decoration: none; color: rgb(255, 255, 255);\\">\u043f\u043e\u043b\u0438\u0442\u0438\u043a\u043e\u0439 \u043a\u043e\u043d\u0444\u0438\u0434\u0435\u043d\u0446\u0438\u0430\u043b\u044c\u043d\u043e\u0441\u0442\u0438<\\/a>","li_checked":"y","li_req":"y","li_nm":"Checkbox"}]
 
 Сообщение об успешной отправке!
 
@@ -414,15 +414,21 @@ Innotravel —
 
 Задать свой вопрос
 
+Где начинается экскурсия?
+
 Мы начнем экскурсию в Университете Иннополис. До города из Казани вы можете добраться регулярными автобусами [(расписание остановки)](https://innopolis.ru/city/bus-schedule/), на такси,машине или каршеринге, в городе имеются бесплатные парковки.
 
+Есть ли скидки для детей?
+
 Да, дети до 7 лет проходят бесплатно.
+
+Можно ли переночевать в городе?
 
 Да, вы можете остановиться в [университетском кампусе](/raw/sites/hotel/home.md), хостеле [Hostelinn](http://www.instagram.com/hostel_innopolis/) или квартире [1](https://www.airbnb.ru/rooms/37346392), [2](https://www.airbnb.ru/rooms/44375095), [3](https://www.airbnb.ru/rooms/34192982).
 
 [Telegram](https://t.me/innotravel)
 
-[WhatsApp](https://wa.me/79600484460?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%D1%8D%D0%BA%D1%81%D0%BA%D1%83%D1%80%D1%81%D0%B8%D1%8E)
+[WhatsApp](https://wa.me/79600484460?text=Здравствуйте%21%20Хочу%20заказать%20экскурсию)
 
 Позвонить
 
@@ -450,7 +456,7 @@ Innotravel —
 
 [{"lid":"1708393811394","ls":"10","loff":"","li_type":"ph","li_name":"phone","li_ph":"+7 960 048-44-60","li_req":"y","li_maskcountry":"RU","li_nm":"phone"}]
 
-[{"lid":"1747906386924","ls":"10","loff":"","li_parent_id":"","li_type":"cb","li_label":"\u042f \u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d(\u0430) \u0441 <a href=\"https:\/\/www.innopolistravel.com\/presonal_data\" target=\"_blank\" rel=\"noreferrer noopener\" style=\"color: rgb(30, 30, 30); box-shadow: none; text-decoration: none; border-bottom: 1px solid rgb(30, 30, 30);\">\u043f\u043e\u043b\u0438\u0442\u0438\u043a\u043e\u0439 \u043a\u043e\u043d\u0444\u0438\u0434\u0435\u043d\u0446\u0438\u0430\u043b\u044c\u043d\u043e\u0441\u0442\u0438<\/a>","li_checked":"y","li_req":"y","li_nm":"Checkbox"}]
+[{"lid":"1747906386924","ls":"10","loff":"","li_parent_id":"","li_type":"cb","li_label":"\u042f \u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d(\u0430) \u0441 <a href=\\"https:\\/\\/www.innopolistravel.com\\/presonal_data\\" target=\\"_blank\\" rel=\\"noreferrer noopener\\" style=\\"color: rgb(30, 30, 30); box-shadow: none; text-decoration: none; border-bottom: 1px solid rgb(30, 30, 30);\\">\u043f\u043e\u043b\u0438\u0442\u0438\u043a\u043e\u0439 \u043a\u043e\u043d\u0444\u0438\u0434\u0435\u043d\u0446\u0438\u0430\u043b\u044c\u043d\u043e\u0441\u0442\u0438<\\/a>","li_checked":"y","li_req":"y","li_nm":"Checkbox"}]
 
 [Max](https://max.ru/u/f9LHodD0cOL54eWgJZ6HdmjIMXYCQdl0FO5buvUQn6e1ZkA-DhpbySFj43M)
 
@@ -494,7 +500,7 @@ Innotravel —
 
 [{"lid":"1708393811394","ls":"10","loff":"","li_type":"ph","li_name":"phone","li_ph":"+7 960 048-44-60","li_req":"y","li_maskcountry":"RU","li_nm":"phone"}]
 
-[{"lid":"1747909255894","ls":"10","loff":"","li_parent_id":"","li_type":"cb","li_label":"\u042f \u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d(\u0430) \u0441 <a href=\"https:\/\/www.innopolistravel.com\/presonal_data\" target=\"_blank\" rel=\"noreferrer noopener\" style=\"color: rgb(30, 30, 30); box-shadow: none; text-decoration: none; border-bottom: 1px solid rgb(30, 30, 30);\">\u043f\u043e\u043b\u0438\u0442\u0438\u043a\u043e\u0439 \u043a\u043e\u043d\u0444\u0438\u0434\u0435\u043d\u0446\u0438\u0430\u043b\u044c\u043d\u043e\u0441\u0442\u0438<\/a>","li_checked":"y","li_req":"y","li_nm":"Checkbox"}]
+[{"lid":"1747909255894","ls":"10","loff":"","li_parent_id":"","li_type":"cb","li_label":"\u042f \u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d(\u0430) \u0441 <a href=\\"https:\\/\\/www.innopolistravel.com\\/presonal_data\\" target=\\"_blank\\" rel=\\"noreferrer noopener\\" style=\\"color: rgb(30, 30, 30); box-shadow: none; text-decoration: none; border-bottom: 1px solid rgb(30, 30, 30);\\">\u043f\u043e\u043b\u0438\u0442\u0438\u043a\u043e\u0439 \u043a\u043e\u043d\u0444\u0438\u0434\u0435\u043d\u0446\u0438\u0430\u043b\u044c\u043d\u043e\u0441\u0442\u0438<\\/a>","li_checked":"y","li_req":"y","li_nm":"Checkbox"}]
 
 [Max](https://max.ru/u/f9LHodD0cOL54eWgJZ6HdmjIMXYCQdl0FO5buvUQn6e1ZkA-DhpbySFj43M)
 
@@ -516,4 +522,4 @@ _Меню, подвал и другие блоки, которые повтор�
 
 # Citations
 
-1. [Innotravel — экскурсии по Иннополису](https://innopolistravel.com/), read 2026-11-01
+1. [Innotravel — экскурсии по Иннополису](https://innopolistravel.com/), read 2026-11-04

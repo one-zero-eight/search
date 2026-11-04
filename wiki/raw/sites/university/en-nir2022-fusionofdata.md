@@ -68,7 +68,7 @@ Riby Abraham Boby (Mechanical Engineering IIT Madras, ribyab@gmail.com)
 
 in Proceedings of the Third International Conference Nonlinearity,Information and Robotics 2022, August 24, 2022
 
-- [Admission](https://apply.innopolis.ru/en/index.php)
+- [Admission](/raw/sites/apply/en-index-php.md)
 
 - [For Partners](https://university.innopolis.ru/en/cooperation/)
 

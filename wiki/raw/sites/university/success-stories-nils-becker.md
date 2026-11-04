@@ -20,7 +20,39 @@ status: draft
 
 # Nils Becker
 
+[Все медиа](/raw/sites/media/home.md)
+
+Facebook
+
+Вконтакте
+
+Youtube
+
+Twitter
+
+Instagram
+
+habr
+
+- [Студентам](http://www.campuslife.innopolis.ru/main)
+
+- [Бизнесу](/raw/sites/university/proekty-activity.md)
+
+- [Медиа](/raw/sites/media/home.md)
+
+- [Сайт университета иннополис](/raw/sites/university/home.md)
+
+- [Переезд в Иннополис](https://innopolis.university/relocation)
+
+- [Вакансии](https://innopolis.university/job)
+
+- [Резюме](/raw/sites/career/home.md)
+
+[Сайт университета Иннополис](/raw/sites/university/home.md)
+
 ![](https://innopolis.university/upload/iblock/fcc/vqn07or7g558pdgrt5me0jxg3nhziv49/6_Nils%20Rafael.JPEG)
+
+## Nils Becker
 
 University of Mannheim, Germany
 
@@ -89,6 +121,8 @@ This was indeed my first time in Russia or any Russian speaking country. I was n
 [This year, for the spring semester, I had the amazing opportunity to become a participant in an exchange program and study at Innopolis University.](/raw/sites/university/success-stories-shavel-viktoryia.md)
 
 #историяуспеха
+
+[Вернуться Назад](/raw/sites/university/home.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/university/_shared.md](/raw/sites/university/_shared.md)._
 

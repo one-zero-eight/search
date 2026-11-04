@@ -12,10 +12,10 @@ sources:
   - resource: "https://progmatica.innopolis.university/"
     id: "17510b4d8894"
     title: "Общие блоки сайта progmatica.innopolis.university: меню, шапка, подвал, контакты"
-    last_modified: "2026-10-31T08:44:16+00:00"
+    last_modified: "2026-11-04T12:45:59+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-10-31T08:44:16+00:00"
+  at: "2026-11-04T12:45:59+00:00"
 status: draft
 ---
 
@@ -119,4 +119,4 @@ itschool@innopolis.ru
 
 # Citations
 
-1. [progmatica.innopolis.university](https://progmatica.innopolis.university/), read 2026-10-31
+1. [progmatica.innopolis.university](https://progmatica.innopolis.university/), read 2026-11-04

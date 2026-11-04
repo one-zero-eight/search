@@ -20,43 +20,13 @@ status: draft
 
 # Innopolis Cinema Lounge | Events
 
-- [Screenings](/raw/sites/innopoliscinema-ru/en-screenings.md)
-
-- [Films](/raw/sites/innopoliscinema-ru/en-films.md)
-
-- [Пушкинская карта](/raw/sites/innopoliscinema-ru/en-films-pushkin-card.md)
-
 - Events
 
-- [Contacts](/raw/sites/innopoliscinema-ru/en-contacts.md)
-
 - [RU](/raw/sites/innopoliscinema-ru/ru-special-screenings.md) / EN
-
-Innopolis, Parkovaya str., 1,
-
-Cultural center «ArtSpace»
-
-[Show map](https://yandex.ru/maps/-/CCUYjMGBgB)
 
 ## Events
 
 There are no special events on the schedule at the moment. Please, pay attention to other films from [our Repertoire](/raw/sites/innopoliscinema-ru/en-films.md).
-
-[Subscribe to our newsletter](https://innopoliscinema.ru/en/newsletter)
-
-### Address
-
-Innopolis, Parkovaya str., 1,
-
-Cultural center «ArtSpace»
-
-[Show map](https://yandex.ru/maps/-/CCUYjMGBgB)
-
-### Phone number
-
-### Cinema Lounge Foundation
-
-Special events & projects
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/innopoliscinema-ru/_shared.md](/raw/sites/innopoliscinema-ru/_shared.md)._
 

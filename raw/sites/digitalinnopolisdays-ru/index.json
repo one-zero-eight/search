@@ -14,10 +14,10 @@
    "url": "https://digitalinnopolisdays.ru/forum"
   },
   "home": {
-   "fetched_at": "2026-11-01T22:27:47+00:00",
-   "file_sha": "fd1c665d189cbae106c39a25e5ea56112f3b6ce22ddcc5c6b65bfb433c82fac3",
+   "fetched_at": "2026-11-04T12:50:15+00:00",
+   "file_sha": "cb46405c55d0420392067e0788665819a189eafac8ec7cc12683d72df027b453",
    "last_modified": "Thu, 08 Oct 2026 08:57:13 GMT",
-   "sha256": "f87d46158a2cf199ff0939f03d866f5f7dc5b7e6e3da19228967025399db9134",
+   "sha256": "7203b185084d4fdc89ba090dbbde39cc6fff6ea307c9f9cdd15976267f01406e",
    "title": "Цифровые Дни Иннополиса | Digital Innopolis Days 2026",
    "url": "https://digitalinnopolisdays.ru/"
   },
@@ -52,6 +52,20 @@
    "sha256": "dfffe99d0c8ace18c594d1e388b42bac63b0108df322bbeaaad1369e8a47ef59",
    "title": "Тревел поддержка",
    "url": "https://digitalinnopolisdays.ru/travel-support"
+  }
+ },
+ "tried": {
+  "https://digitalinnopolisdays.ru/program/october-1": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://digitalinnopolisdays.ru/stream": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://digitalinnopolisdays.ru/tv": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
   }
  }
 }

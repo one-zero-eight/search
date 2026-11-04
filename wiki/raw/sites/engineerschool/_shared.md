@@ -12,10 +12,10 @@ sources:
   - resource: "https://engineerschool.innopolis.university/"
     id: "c4ab54bfc8a0"
     title: "Общие блоки сайта engineerschool.innopolis.university: меню, шапка, подвал, контакты"
-    last_modified: "2026-10-31T08:37:42+00:00"
+    last_modified: "2026-11-04T12:47:45+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-10-31T08:37:42+00:00"
+  at: "2026-11-04T12:47:45+00:00"
 status: draft
 ---
 
@@ -43,4 +43,4 @@ status: draft
 
 # Citations
 
-1. [engineerschool.innopolis.university](https://engineerschool.innopolis.university/), read 2026-10-31
+1. [engineerschool.innopolis.university](https://engineerschool.innopolis.university/), read 2026-11-04

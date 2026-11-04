@@ -249,6 +249,14 @@
    "title": "Events of the week - Innopolis",
    "url": "https://innopolis.com/en/media/events/events-of-the-week-67"
   },
+  "en-media-events-events-of-the-week-68": {
+   "fetched_at": "2026-11-04T12:40:12+00:00",
+   "file_sha": "5676f775e0b41a26a84f5d9ca6b1b1969de7b0dcbbcefc487a730f961e843303",
+   "last_modified": "",
+   "sha256": "15183550898b32ce061bc9ad3cc2f3ac1eb33eda3fb21956f7386b7257893db6",
+   "title": "Events of the week - Innopolis",
+   "url": "https://innopolis.com/en/media/events/events-of-the-week-68"
+  },
   "en-media-events-presentation-of-the-film-business-to-be": {
    "fetched_at": "2026-10-31T03:27:46+00:00",
    "file_sha": "6620b1d3812741cc310b9dac16239ef87e5e9a5c327cf6168951b74d35b47993",
@@ -1049,6 +1057,14 @@
    "title": "- Innopolis",
    "url": "https://innopolis.com/en/media/news/den-otkrytyh-dverej-v-skole-innopolis"
   },
+  "en-media-news-dmitrij-cernysenko-i-rustam-minnihanov-ocenili": {
+   "fetched_at": "2026-11-04T12:41:10+00:00",
+   "file_sha": "8313cefb2c110e1f8847ac5eeb1f85b2721adedcce22685342431e5f7b2ceb6b",
+   "last_modified": "",
+   "sha256": "1f6f5c5657c569ac8f95e979c387fbe80f35448d0b992f63616b6ec41509bc8a",
+   "title": "- Innopolis",
+   "url": "https://innopolis.com/en/media/news/dmitrij-cernysenko-i-rustam-minnihanov-ocenili-hod-stroitelstva-obsezitij-universiteta-innopolis"
+  },
   "en-media-news-dmitrij-cernysenko-uroven-trudoustrojstva-vypu": {
    "fetched_at": "2026-10-31T04:12:59+00:00",
    "file_sha": "2313d12f148a9fb3229f1f3051afd747277020087f2bc0792a82c0451e4a4a68",
@@ -1448,6 +1464,14 @@
    "sha256": "28d036d9ef1caeb133cdb9a33fed94dba53bc18ef0035265224379e19b3c6ff0",
    "title": "- Innopolis",
    "url": "https://innopolis.com/en/media/news/pogruzilis-v-sovremennuu-tatarskuu-kulturu-v-den-respubliki"
+  },
+  "en-media-news-privet-osen-i-novyj-ucebnyj-god": {
+   "fetched_at": "2026-11-04T12:41:21+00:00",
+   "file_sha": "80403dbfb540a3b6fc5838ba2c8e8469f31546c69071ef427224041c0b4cd736",
+   "last_modified": "",
+   "sha256": "cc9f821817b9d5cf9cd895b0c347e37ddb36674a56469d23fac2e362005b41c4",
+   "title": "- Innopolis",
+   "url": "https://innopolis.com/en/media/news/privet-osen-i-novyj-ucebnyj-god"
   },
   "en-media-news-progolosuj-za-sozdanie-naucnoj-tropy-v-innopol": {
    "fetched_at": "2026-10-31T04:01:02+00:00",
@@ -2378,10 +2402,10 @@
    "url": "https://innopolis.com/en/tourism/travelguide"
   },
   "ru": {
-   "fetched_at": "2026-10-31T02:23:27+00:00",
-   "file_sha": "7086e4f8113419771bf07f85a8f3ab91e641c540b96d8e87244fc2028f5a6211",
+   "fetched_at": "2026-11-04T12:39:50+00:00",
+   "file_sha": "44fa4588900cdcec044e8b5d3a13230022a1fc594292b5fefa5f466a411f60e5",
    "last_modified": "",
-   "sha256": "11a6fc1b82b7bc48ae3b6e27a08ab4ece9000d3400fe2e0af39f60e4c44716f3",
+   "sha256": "78fc4731e9144a00211b17eedfae36d99d01088f62db570fd0088c6e4f25e393",
    "title": "Главная страница - Иннополис",
    "url": "https://innopolis.com/ru/"
   },
@@ -2624,6 +2648,14 @@
    "sha256": "5e913b13a183be5d73aedc29582b866bb61d9c5891793c0ae1615475fc127983",
    "title": "Мероприятия недели - Иннополис",
    "url": "https://innopolis.com/ru/media/events/events-of-the-week-67"
+  },
+  "ru-media-events-events-of-the-week-68": {
+   "fetched_at": "2026-11-04T12:40:01+00:00",
+   "file_sha": "98c58553e5d41f7cfb813b82ce232c89dfbdf6e0d76ae5c3dcc4262bd342e730",
+   "last_modified": "",
+   "sha256": "77be3a5673e42921587e5510d79f8b762997f5e8443bd02586d404274b98fa27",
+   "title": "Мероприятия недели - Иннополис",
+   "url": "https://innopolis.com/ru/media/events/events-of-the-week-68"
   },
   "ru-media-events-presentation-of-the-film-business-to-be": {
    "fetched_at": "2026-10-31T02:56:02+00:00",
@@ -4768,6 +4800,32 @@
    "sha256": "c4ebf288bdaf1f948373b36d8556585fe0b5243d3ac8df54b738b1994ee1baa9",
    "title": "Топ-10 мест в Иннополисе - Иннополис",
    "url": "https://innopolis.com/ru/tourism/travelguide"
+  }
+ },
+ "tried": {
+  "https://innopolis.com/en/media/events/Register": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://vh376.timeweb.ru/parking/?ref=innopolis1.tmweb.ru"
+  },
+  "https://innopolis.com/en/media/galleryssian-highway-cycling-championship": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.com/en/services/t.me/newqchik": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.com/ru/en": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://innopolis.com/ru/media/events/Register": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://vh376.timeweb.ru/parking/?ref=innopolis1.tmweb.ru"
+  },
+  "https://innopolis.com/ru/services/t.me/newqchik": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
   }
  }
 }

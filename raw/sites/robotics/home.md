@@ -4,17 +4,18 @@
 - [Проекты](https://robotics.innopolis.university/projects/)
 - [Консорциум](https://robotics.innopolis.university/consortium/)
 - [Наука](https://robotics.innopolis.university/science/)
+Primary Submenu
 - [лаборатории](http://robotics.innopolis.university/struct/)
 - [новости](http://robotics.innopolis.university/events/)
 - [контакты](http://robotics.innopolis.university/contacts/)
 RU EN
 [![](https://robotics.innopolis.university/wp-content/uploads/2022/05/NTI.png)](https://nti.fund/) [![](https://robotics.innopolis.university/wp-content/uploads/2022/05/nti.png)](https://nti2035.ru/) [![](https://robotics.innopolis.university/wp-content/uploads/2022/05/miobrnauki.png)](https://minobrnauki.gov.ru/) [![](https://robotics.innopolis.university/wp-content/uploads/2022/05/npr_logo_w.png)](https://национальныепроекты.рф)
 - О центре
-- [Общая информация](https://robotics.innopolis.university/about/)
-- [Структура](https://robotics.innopolis.university/struct/)
-- [Оборудование](https://robotics.innopolis.university/equipment/)
-- [Карьера](https://robotics.innopolis.university/career/)
-- [Контакты](https://robotics.innopolis.university/contacts/)
+  - [Общая информация](https://robotics.innopolis.university/about/)
+  - [Структура](https://robotics.innopolis.university/struct/)
+  - [Оборудование](https://robotics.innopolis.university/equipment/)
+  - [Карьера](https://robotics.innopolis.university/career/)
+  - [Контакты](https://robotics.innopolis.university/contacts/)
 - [Образование](https://robotics.innopolis.university/learn/)
 - [Проекты](https://robotics.innopolis.university/projects/)
 - [Консорциум](https://robotics.innopolis.university/consortium/)

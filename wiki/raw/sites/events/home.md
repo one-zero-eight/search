@@ -1,7 +1,7 @@
 ---
 type: page
 title: "Календарь мероприятий"
-description: "Самые интересные и полезные мероприятия Института дополнительного образования Университета Иннополис для заинтересованных в образовании и IT."
+description: "Самые интересные и полезные мероприятия Института дополнительного образования Университета Иннополис **для заинтересованных в образовании и IT.**"
 resource: "https://events.innopolis.university/"
 audience: ["student", "postgraduate", "applicant", "teacher", "staff", "management", "public"]
 source_kind: website
@@ -9,12 +9,12 @@ language: ru
 section: "site/events"
 sources:
   - resource: "https://events.innopolis.university/"
-    id: "7e897f4c5616"
+    id: "bb1501640db3"
     title: "Календарь мероприятий"
-    last_modified: "2026-10-31T08:36:28+00:00"
+    last_modified: "2026-11-04T12:47:17+00:00"
 generated:
   by: "catix-wiki/0.1 sites"
-  at: "2026-10-31T08:36:28+00:00"
+  at: "2026-11-04T12:47:17+00:00"
 status: draft
 ---
 
@@ -32,7 +32,7 @@ status: draft
 
 ## Календарь мероприятий
 
-Самые интересные и полезные мероприятия Института дополнительного образования Университета Иннополис для заинтересованных в образовании и IT.
+Самые интересные и полезные мероприятия Института дополнительного образования Университета Иннополис **для заинтересованных в образовании и IT.**
 
 Мероприятия
 
@@ -44,7 +44,7 @@ status: draft
 
 от Университета Иннополис
 
-Актуальные мероприятия
+## Актуальные мероприятия
 
 [![](https://static.tildacdn.com/tild6262-3135-4461-a534-383262626536/tg.png)](/raw/sites/ido/global-webinar-innovationvuz.md)
 
@@ -78,7 +78,7 @@ status: draft
 
 ![](https://static.tildacdn.com/tild3163-6661-4037-a463-303933363338/DIDp1-4.jpg)
 
-Календарь мероприятий
+## Календарь мероприятий
 
 ![](https://static.tildacdn.com/tild3432-6461-4135-b563-653164306434/Frame_8.png)
 
@@ -168,11 +168,11 @@ DID Summer Camp
 
 Организатор форума
 
-Университет Иннополис
+**Университет Иннополис**
 
 Соорганизаторы
 
-Минцифры России, Минобрнауки РФ, Правительство Республики Татарстан
+**Минцифры России, Минобрнауки РФ, Правительство Республики Татарстан**
 
 ![](https://static.tildacdn.com/tild3636-3739-4464-b734-356131363366/Group_2784.png)
 
@@ -208,7 +208,7 @@ Digital Innopolis Days
 
 научно-исследовательских проектов совместно с компаниями: Газпром, Аэрофлот, Камаз, Россети и др.
 
-> 55 000
+\> 55 000
 
 человек прошли обучение по программам дополнительного образования
 
@@ -274,14 +274,14 @@ Digital Innopolis Days
 
 +7 (843) 203 92 53 доб. 333
 
-iu.regions@innopolis.ru
+**iu.regions@innopolis.ru**
 
 отдел
 
-[{"lid":"1531306243545","ls":"10","loff":"","li_parent_id":"","li_type":"em","li_ph":"E-mail","li_name":"email","li_req":"y","li_nm":"email"},{"lid":"1570481014724","ls":"20","loff":"","li_parent_id":"","li_type":"nm","li_ph":"\u0424\u0430\u043c\u0438\u043b\u0438\u044f \u0438 \u0438\u043c\u044f","li_name":"name","li_req":"y","li_nm":"name"},{"lid":"1570481040879","ls":"30","loff":"","li_parent_id":"","li_type":"ph","li_ph":"\u041a\u043e\u043d\u0442\u0430\u043a\u0442\u043d\u044b\u0439 \u0442\u0435\u043b\u0435\u0444\u043e\u043d","li_name":"phone","li_mask":"+7 (999) 999-9999","li_req":"y","li_nm":"phone"},{"lid":"1662059153155","ls":"40","loff":"","li_parent_id":"","li_type":"hd","li_name":"category_id","li_value":"127","li_nm":"category_id"},{"lid":"1662059272528","ls":"50","loff":"","li_parent_id":"","li_type":"hd","li_name":"ASSIGNED_BY_ID","li_value":"13349","li_nm":"ASSIGNED_BY_ID"},{"lid":"1768558801170","ls":"60","loff":"","li_parent_id":"","li_type":"cb","li_label":"<span style=\"color: rgb(51, 51, 51); font-weight: 400;\">\u042f \u0441\u043e\u0433\u043b\u0430\u0448\u0430\u044e\u0441\u044c \u0441 <\/span><u style=\"color: rgb(51, 51, 51); font-weight: 400;\"><a href=\"https:\/\/innopolis.university\/files\/politicacookies.pdf\" target=\"_blank\" rel=\"noreferrer noopener\" style=\"color: rgb(51, 51, 51); box-shadow: none; text-decoration: none; border-bottom-style: solid; border-bottom-color: rgb(179, 179, 179);\">\u041f\u043e\u043b\u0438\u0442\u0438\u043a\u043e\u0439 \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0438 \u043f\u0435\u0440\u0441\u043e\u043d\u0430\u043b\u044c\u043d\u044b\u0445 \u0434\u0430\u043d\u043d\u044b\u0445<\/a><\/u>","li_checked":"y","li_req":"y","li_nm":"Checkbox"},{"lid":"1768558811902","ls":"70","loff":"","li_parent_id":"","li_type":"cb","li_label":"<span style=\"color: rgb(51, 51, 51);\">\u042f \u0441\u043e\u0433\u043b\u0430\u0448\u0430\u044e\u0441\u044c <\/span><u style=\"color: rgb(51, 51, 51);\"><a href=\"https:\/\/innopolis.university\/filespublic\/Polozhenie_o_reklamnoj_rassylke.pdf\" target=\"_blank\" rel=\"noreferrer noopener\" style=\"color: rgb(51, 51, 51);\">\u043f\u043e\u043b\u0443\u0447\u0430\u0442\u044c \u0440\u0435\u043a\u043b\u0430\u043c\u043d\u0443\u044e \u0440\u0430\u0441\u0441\u044b\u043b\u043a\u0443<\/a><\/u>","li_name":"UF_CRM_1733815677","li_nm":"UF_CRM_1733815677"}]
+[{"lid":"1531306243545","ls":"10","loff":"","li_parent_id":"","li_type":"em","li_ph":"E-mail","li_name":"email","li_req":"y","li_nm":"email"},{"lid":"1570481014724","ls":"20","loff":"","li_parent_id":"","li_type":"nm","li_ph":"\u0424\u0430\u043c\u0438\u043b\u0438\u044f \u0438 \u0438\u043c\u044f","li_name":"name","li_req":"y","li_nm":"name"},{"lid":"1570481040879","ls":"30","loff":"","li_parent_id":"","li_type":"ph","li_ph":"\u041a\u043e\u043d\u0442\u0430\u043a\u0442\u043d\u044b\u0439 \u0442\u0435\u043b\u0435\u0444\u043e\u043d","li_name":"phone","li_mask":"+7 (999) 999-9999","li_req":"y","li_nm":"phone"},{"lid":"1662059153155","ls":"40","loff":"","li_parent_id":"","li_type":"hd","li_name":"category_id","li_value":"127","li_nm":"category_id"},{"lid":"1662059272528","ls":"50","loff":"","li_parent_id":"","li_type":"hd","li_name":"ASSIGNED_BY_ID","li_value":"13349","li_nm":"ASSIGNED_BY_ID"},{"lid":"1768558801170","ls":"60","loff":"","li_parent_id":"","li_type":"cb","li_label":"<span style=\\"color: rgb(51, 51, 51); font-weight: 400;\\">\u042f \u0441\u043e\u0433\u043b\u0430\u0448\u0430\u044e\u0441\u044c \u0441 <\\/span><u style=\\"color: rgb(51, 51, 51); font-weight: 400;\\"><a href=\\"https:\\/\\/innopolis.university\\/files\\/politicacookies.pdf\\" target=\\"_blank\\" rel=\\"noreferrer noopener\\" style=\\"color: rgb(51, 51, 51); box-shadow: none; text-decoration: none; border-bottom-style: solid; border-bottom-color: rgb(179, 179, 179);\\">\u041f\u043e\u043b\u0438\u0442\u0438\u043a\u043e\u0439 \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0438 \u043f\u0435\u0440\u0441\u043e\u043d\u0430\u043b\u044c\u043d\u044b\u0445 \u0434\u0430\u043d\u043d\u044b\u0445<\\/a><\\/u>","li_checked":"y","li_req":"y","li_nm":"Checkbox"},{"lid":"1768558811902","ls":"70","loff":"","li_parent_id":"","li_type":"cb","li_label":"<span style=\\"color: rgb(51, 51, 51);\\">\u042f \u0441\u043e\u0433\u043b\u0430\u0448\u0430\u044e\u0441\u044c <\\/span><u style=\\"color: rgb(51, 51, 51);\\"><a href=\\"https:\\/\\/innopolis.university\\/filespublic\\/Polozhenie_o_reklamnoj_rassylke.pdf\\" target=\\"_blank\\" rel=\\"noreferrer noopener\\" style=\\"color: rgb(51, 51, 51);\\">\u043f\u043e\u043b\u0443\u0447\u0430\u0442\u044c \u0440\u0435\u043a\u043b\u0430\u043c\u043d\u0443\u044e \u0440\u0430\u0441\u0441\u044b\u043b\u043a\u0443<\\/a><\\/u>","li_name":"UF_CRM_1733815677","li_nm":"UF_CRM_1733815677"}]
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/events/_shared.md](/raw/sites/events/_shared.md)._
 
 # Citations
 
-1. [Календарь мероприятий](https://events.innopolis.university/), read 2026-10-31
+1. [Календарь мероприятий](https://events.innopolis.university/), read 2026-11-04

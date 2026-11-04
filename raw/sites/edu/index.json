@@ -5,7 +5,12 @@
   "https://innopolis.university/filespublic/%D0%A1%D0%B1%D0%BE%D1%80%D0%BD%D0%B8%D0%BA_%D0%BA%D0%B5%D0%B9%D1%81%D0%BE%D0%B2_%D0%BD%D0%BE%D0%BC%D0%B5%D1%80_4_%D1%87%D0%B0%D1%81%D1%82%D1%8C_1_1_%D1%81_%D1%80%D0%B5%D1%86%D0%B5%D0%BD%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D0%BC%D0%B8.pdf": "",
   "https://innopolis.university/filespublic/%D0%A1%D0%B1%D0%BE%D1%80%D0%BD%D0%B8%D0%BA_%D0%BA%D0%B5%D0%B9%D1%81%D0%BE%D0%B2_%D0%BD%D0%BE%D0%BC%D0%B5%D1%80_5_%D1%87%D0%B0%D1%81%D1%82%D1%8C_2_1_%D1%81_%D1%80%D0%B5%D1%86%D0%B5%D0%BD%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D0%BC%D0%B8.pdf": "",
   "https://innopolis.university/filespublic/cases_cdto.pdf": "",
-  "https://innopolis.university/filespublic/sbornik_kejsov_3.pdf": ""
+  "https://innopolis.university/filespublic/cases_cdto_2.pdf": "",
+  "https://innopolis.university/filespublic/sbornik_kejsov_3.pdf": "",
+  "https://innopolis.university/filespublic/sbornik_kejsov_4.pdf": "",
+  "https://innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%9F%D0%94%D0%BD%20%D0%B4%D0%BB%D1%8F%20%D0%A3%D0%98.pdf": "Политика конфиденциальности",
+  "https://innopolis.university/upload/iblock/b6f/ozxoa1j463v3s0m55w9kdc1qc0z31zfr/%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%B2%D1%8B%D0%BF%D0%B8%D1%81%D0%BA%D0%B0.pdf": "Выписка из реестра лицензий",
+  "https://innopolis.university/upload/iblock/d7f/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B4%D0%B5%D1%8F%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C.pdf": "Лицензия"
  },
  "pages": {
   "ai-in-busines": {
@@ -65,10 +70,10 @@
    "url": "https://edu.innopolis.university/engineers"
   },
   "home": {
-   "fetched_at": "2026-10-31T01:27:53+00:00",
-   "file_sha": "2f59a52cb518ba8d22fdb45925f582dcff2164624e652340ff4d9670caaaf2cc",
+   "fetched_at": "2026-11-04T12:39:01+00:00",
+   "file_sha": "fd31cc751f6761df60c2607ec9d6b39efe143f587a02809209117a5c79a69b87",
    "last_modified": "Tue, 27 Oct 2026 08:10:35 GMT",
-   "sha256": "c57a34724d3f3e04559d738914ef1b88f72148ae9a01013b2f29db94a920acee",
+   "sha256": "d96c04fa561677b3cef1630b14c57467f77e51ab6ef715e546dcf787194fc284",
    "title": "Программы для образовательных организаций и педагогов",
    "url": "https://edu.innopolis.university/"
   },
@@ -191,6 +196,112 @@
    "sha256": "d4986c0fbe338024b8c5b6f5183d6cc1475f85cd2d76973cdf86a148e287f7c4",
    "title": "От теории к практике на Иннокиберполигоне: основы информационной безопасности",
    "url": "https://edu.innopolis.university/theory-practice-innocyber"
+  }
+ },
+ "tried": {
+  "https://edu.innopolis.university/aigov-webinar": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://edu.innopolis.university/ai-in-digital-transformation"
+  },
+  "https://edu.innopolis.university/anticrisis": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://edu.innopolis.university/cdto/program": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://edu.innopolis.university/cdtovuz": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://edu.innopolis.university/cdtovuz-web": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://edu.innopolis.university/consortium-joined": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://edu.innopolis.university/dataspecialist": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://edu.innopolis.university/digital_regions_webinar": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://edu.innopolis.university/fedproject": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://edu.innopolis.university/forum": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://edu.innopolis.university/ii-v-gosupravlenii": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://edu.innopolis.university/ii-v-gosupravlenii-grant": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://edu.innopolis.university/it2ed": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://edu.innopolis.university/news": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://edu.innopolis.university/oo": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://edu.innopolis.university/regions": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://edu.innopolis.university/regions/aigov": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://edu.innopolis.university/regions/indt": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://edu.innopolis.university/regions2022": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://edu.innopolis.university/tematicheskie_moduli": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://edu.innopolis.university/tiutordpo": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://edu.innopolis.university/vuzcomp": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
+  },
+  "https://edu.innopolis.university/webinar-cdtovuz": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://edu.innopolis.university/webinar_cdto_bussines": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://edu.innopolis.university/webinar_digital_dvoinik": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://edu.innopolis.university/cdto"
+  },
+  "https://edu.innopolis.university/weeks": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
   }
  }
 }

@@ -9,12 +9,12 @@ language: en
 section: "site/alumni"
 sources:
   - resource: "https://alumni.innopolis.university/"
-    id: "4ffdfd7e6bcf"
+    id: "0637e17e6df2"
     title: "Alumni Innopolis University"
-    last_modified: "2026-10-31T08:37:00+00:00"
+    last_modified: "2026-11-04T12:41:59+00:00"
 generated:
   by: "catix-wiki/0.1 sites"
-  at: "2026-10-31T08:37:00+00:00"
+  at: "2026-11-04T12:41:59+00:00"
 status: draft
 ---
 
@@ -78,47 +78,47 @@ Click below to request your alumni pass card.
 
 ## Innopolis university ALUmni
 
-![](https://alumni.innopolis.university/upload/landing/caf/z4vxwezzng7opuxmabdo05gzhhnz8snu/2024_08_19_t_6_010_2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/923/4etx4spfc1vtvyhzakn5xf7l4eow364l/2024_08_19_t_6_010_1x.jpg)
 
 ### 2024
 
-![](https://alumni.innopolis.university/upload/landing/53b/812y1cdjxbplktswz02vdy5glkc1msy6/2023_07_21_UI-815@2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/82a/972q1z3lqj8624ebmpv6m4d0n10uih88/2023_07_21_UI-815@1x.jpg)
 
 ### 2023
 
-![](https://alumni.innopolis.university/upload/landing/f1c/xrh3n8ca7kqf88tmxyf167e0jpho2ng6/2022_09_03_UI-483@2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/6e5/j6dsp7w27e42b6xs46s1v9x232zw6oxg/2022_09_03_UI-483@1x.jpg)
 
 ### 2022
 
-![](https://alumni.innopolis.university/upload/landing/9c3/фото_607_@2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/793/фото_607_@1x.jpg)
 
 ### 2021
 
-![](https://alumni.innopolis.university/upload/landing/ea2/0410@2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/959/0410@1x.jpg)
 
-2020
+### 2020
 
-![2019](https://alumni.innopolis.university/upload/landing/371/2016_1_@2x.jpg)
+![2019](https://alumni.innopolis.university/upload/landing/f97/2016_1_@1x.jpg)
 
 ### 2019
 
-![](https://alumni.innopolis.university/upload/landing/9cf/2018@2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/9ea/2018@1x.jpg)
 
 ### 2018
 
-![](https://alumni.innopolis.university/upload/landing/8e5/2017@2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/9c9/2017@1x.jpg)
 
 ### 2017
 
-![](https://alumni.innopolis.university/upload/landing/827/IMG_0018@2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/802/IMG_0018@1x.jpg)
 
 ### 2016
 
-![](https://alumni.innopolis.university/upload/landing/7c1/фото_86_@2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/40d/фото_86_@1x.jpg)
 
 ### 2014-2015
 
-![](https://alumni.innopolis.university/upload/landing/df9/6nxjlfule6atz4qivkavu2jvczzr9jpi/alumni2025_2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/836/a5vnc9hx6pher3h3vdcbzx6tg71blvkb/alumni2025_1x.jpg)
 
 ### 2025
 
@@ -128,7 +128,7 @@ Click below to request your alumni pass card.
 
 1/4
 
-![](https://alumni.innopolis.university/upload/landing/a18/me9zryvikwtowtqxjsjua4tdxoedkhd2/photo_2026_06_19_15_58_17_2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/686/boxieihhk6e9ybgowmcvk15x126dt2xo/photo_2026_06_19_15_58_17_1x.jpg)
 
 ## IU Alumni Awards
 
@@ -138,7 +138,7 @@ Candidates for IU Awards are proposed by alumni themselves.Final voting is condu
 
 Click to see award winners
 
-![](https://alumni.innopolis.university/upload/landing/9e0/r8l6rpb6zkincho3p4whbiahoa6wkwub/photo_2026_07_15_12_15_59_2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/b3f/inne65xsvxwyckymsmagqlp3ayccfbjb/photo_2026_07_15_12_15_59_1x.jpg)
 
 ## IU Alumni Awards in 2026:
 
@@ -154,11 +154,9 @@ Click to see award winners
 
 ## IU Alumni Awards Winners
 
-![](https://alumni.innopolis.university/upload/landing/f62/qhmyl6ulso91vv3lxdxhlcgd1he0irrs/dscf6318_1x_2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/700/yord3bv07y2nrtpjttmxnej72u4hjj9n/dscf6318_1x_1x.jpg)
 
-## IU ALUMNI AWARDS 2026 WINNERS
-
-GameDev Visioner
+## IU ALUMNI AWARDS 2026 WINNERS GameDev Visioner
 
 ### Munir Makhmutov
 
@@ -172,11 +170,9 @@ Manager of the online Master's program "Computer Game Development Management"
 
 Released three albums with the band Acid Venom
 
-![](https://alumni.innopolis.university/upload/landing/da2/eshcb985axepk6vaqxmk8m9zkgaecnug/img_20260507_142357_981_1x_2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/f27/c4fwyrgsvxbbiso7wv3j80lbo9hcxvfw/img_20260507_142357_981_1x_1x.jpg)
 
-## IU ALUMNI AWARDS 2026 WINNERS
-
-Robotics Hardware Leader
+## IU ALUMNI AWARDS 2026 WINNERS Robotics Hardware Leader
 
 ### Ruslan Damindarov
 
@@ -194,11 +190,9 @@ Ruslan's team consists of 14 people; they are simultaneously working on more tha
 
 and also supporting existing ones.
 
-![](https://alumni.innopolis.university/upload/landing/14b/0zejpvk9dh02jutxfouyxye23xa35ti9/photo_2026_06_19_16_11_04_2x_2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/d88/e04jqr3pgou6w0e0xw7no6393zxd26ye/photo_2026_06_19_16_11_04_2x_1x.jpg)
 
-## IU ALUMNI AWARDS 2026 WINNERS
-
-Creative Tech Evangelist
+## IU ALUMNI AWARDS 2026 WINNERS Creative Tech Evangelist
 
 ### Inga Ezhova
 
@@ -214,11 +208,9 @@ Teacher of the Python elective course at Innopolis College
 
 Organizer and participant in musical events in Kazan and Innopolis
 
-![](https://alumni.innopolis.university/upload/landing/83a/ceos4hjnm94elzhl0qgnzjlteryc9910/pxl_20250105_044535207_2_2x.jpeg)
+![](https://alumni.innopolis.university/upload/landing/250/jxtbetymv1zc7j5705g3nmzhjcogzc5o/pxl_20250105_044535207_2_1x.jpeg)
 
-## IU ALUMNI AWARDS 2025 WINNERS
-
-Engineer of the Future in Education and Medicine
+## IU ALUMNI AWARDS 2025 WINNERS Engineer of the Future in Education and Medicine
 
 ### Bulat Maksudov
 
@@ -230,11 +222,9 @@ Bulat is an emerging engineer at the intersection of education and medicine. He 
 
 [Center for Artificial Intelligence of the IU](/raw/sites/university/en-centerforartificialintelligence.md)
 
-![](https://alumni.innopolis.university/upload/landing/8a1/ca9uxrf19j12qsqwgnggectpitf8n13h/me_raw_2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/ca9/a4le5ywt4kvehdfcgd1txkxid31v906u/me_raw_1x.jpg)
 
-## IU ALUMNI AWARDS 2025 WINNERS
-
-AI Research Engineer & Founding Engineer
+## IU ALUMNI AWARDS 2025 WINNERS AI Research Engineer & Founding Engineer
 
 ### Aleksei Korshuk
 
@@ -246,11 +236,9 @@ Aleksei is an AI research engineer and a founding engineer at the startup Cofram
 
 [Coframe](https://www.coframe.com/)
 
-![](https://alumni.innopolis.university/upload/landing/025/xfrsvjndpmxq7kfi3dmpbqsuoabrx8fc/photo_2025_07_17_11_02_47_1_2x.jpeg)
+![](https://alumni.innopolis.university/upload/landing/2c4/rphi455ly5tjs18gpwfo6mkkw6qgajr9/photo_2025_07_17_11_02_47_1_1x.jpeg)
 
-## IU ALUMNI AWARDS 2025 WINNERS
-
-Digital Innovator
+## IU ALUMNI AWARDS 2025 WINNERS Digital Innovator
 
 ### Ilnur Mamedbakov
 
@@ -264,9 +252,7 @@ Ilnur is the founder of Media Pilot, a service for automating social media manag
 
 ![](https://alumni.innopolis.university/upload/landing/91c/t02o0ucrm9x551uh6qmtpmhicva0jxrc/photo_3_1x.png)
 
-## IU ALUMNI AWARDS 2024 WINNERS
-
-AI Scientist
+## IU ALUMNI AWARDS 2024 WINNERS AI Scientist
 
 ### Vlad Kurenkov
 
@@ -278,11 +264,9 @@ Vlad is the winner of the "AI Scientist" category as a research supervisor at AI
 
 [AIRI](https://airi.net/about/)
 
-![](https://alumni.innopolis.university/upload/landing/f09/hxflxz46f21591cpykubus6rhyuzvkp3/2023-06-27_15.11.55@2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/ad4/vz3no40sp78rmmj743ptmfns3e28077k/2023-06-27_15.11.55@1x.jpg)
 
-IU ALUMNI AWARDS 2023 WINNERS
-
-CTO of the Year
+## IU ALUMNI AWARDS 2023 WINNERS CTO of the Year
 
 ### Vlad Vinogradov
 
@@ -294,11 +278,9 @@ Vlad Vinogradov, co-founder and CTO of Optic, has been included in Forbes' "30 U
 
 [Forbes](https://30-under-30.forbes.ru/)
 
-![](https://alumni.innopolis.university/upload/landing/253/8tv9fz0q9y7m2627evceef9yenz4w552/Вячеслав_Лукин__Edge_Vision@2x.png)
+![](https://alumni.innopolis.university/upload/landing/092/5itgdhc9mrxi00e8s5sgpm59x2kps0wq/Вячеслав_Лукин__Edge_Vision@1x.png)
 
-IU ALUMNI AWARDS 2022 WINNERS
-
-INDUSTRY LEADER
+## IU ALUMNI AWARDS 2022 WINNERS INDUSTRY LEADER
 
 ### VYACHESLAV LUKIN
 
@@ -308,17 +290,11 @@ Innopolis University
 
 Vyacheslav is the CEO of Edge Vision that specializes in the applications of Computer Vision in transport industry. He also gladly offers internship opportunities to the IU students and is one of the chairs at the commission for final thesis defense of IU students providing his expert opinion as an industry leader. Besides, he is an assistant of the IU Master's program in Software Development and Engineering.
 
-![](https://alumni.innopolis.university/upload/landing/763/Кевин_Ханда@2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/d30/Кевин_Ханда@1x.jpg)
 
-IU ALUMNI AWARDS 2021 WINNERS
+## IU ALUMNI AWARDS 2021 WINNERS PRIVATE BUSINESS for outstanding success in the enterpreneurship and business development
 
-PRIVATE BUSINESS
-
-for outstanding success in the enterpreneurship and business development
-
-### Kevin
-
-Khanda
+### Kevin Khanda
 
 ### Bachelors Program
 
@@ -328,17 +304,11 @@ KazanExpress co-founder. In 2021 this service is available in 48 cities and it c
 
 [https://kazanexpress.ru/](https://kazanexpress.ru/)
 
-![](https://alumni.innopolis.university/upload/landing/84a/photo_2021-05-27_00-34-36@2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/8f0/photo_2021-05-27_00-34-36@1x.jpg)
 
-IU ALUMNI AWARDS 2021 WINNERS
+## IU ALUMNI AWARDS 2021 WINNERS OPINION LEADER for desire to share own noteworthy experience with others
 
-OPINION LEADER
-
-for desire to share own noteworthy experience with others
-
-### Vasilii
-
-Artemev
+### Vasilii Artemev
 
 ### Masters Program
 
@@ -350,17 +320,11 @@ He also hires many of the IU students and alumni for the startup Remy Robotics i
 
 [https://www.remyrobotics.com/](https://www.remyrobotics.com/)
 
-![](https://alumni.innopolis.university/upload/landing/a67/Антон_Трантин@2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/115/Антон_Трантин@1x.jpg)
 
-IU ALUMNI AWARDS 2021 WINNERS
+## IU ALUMNI AWARDS 2021 WINNERS PRIVATE BUSINESS for creation of the first startup in Innopolis and success at the international markets
 
-PRIVATE BUSINESS
-
-for creation of the first startup in Innopolis and success at the international markets
-
-Anton
-
-Trantin
+### Anton Trantin
 
 ### Masters Program
 
@@ -370,17 +334,11 @@ Founder of the first IT-startup in Innopolis - Innosoft company. Brought tech-pr
 
 [https://yorso.com/](https://yorso.com/)
 
-![](https://alumni.innopolis.university/upload/landing/41f/Бобров_2@2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/662/Бобров_2@1x.jpg)
 
-IU ALUMNI AWARDS 2021 WINNERS
+## IU ALUMNI AWARDS 2021 WINNERS QUICK CAREER DEVELOPMENT. LINCHPIN! for promotion of the Innopolis University at the world educational map
 
-QUICK CAREER DEVELOPMENT. LINCHPIN!
-
-for promotion of the Innopolis University at the world educational map
-
-### Evgenii
-
-Bobrov
+### Evgenii Bobrov
 
 ### Masters Program
 
@@ -390,17 +348,11 @@ From IU Master's student to professor, program manager, department of educationa
 
 [https://innopolis.university/](/raw/sites/university/home.md)
 
-![](https://alumni.innopolis.university/upload/landing/1cb/Стас_Литвинов@2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/ff5/Стас_Литвинов@1x.jpg)
 
-IU ALUMNI AWARDS 2021 WINNERS
+## IU ALUMNI AWARDS 2021 WINNERS SOCIAL MISSION for contribution in society and peace development in non-commercial sector
 
-SOCIAL MISSION
-
-for contribution in society and peace development in non-commercial sector
-
-### Stas
-
-Litvinöv
+### Stas Litvinöv
 
 ### Masters Program
 
@@ -410,17 +362,11 @@ Stas is the ambassador of Innopolis. Promotes eco-friendly attitude to everythin
 
 [https://innopolis.university/](/raw/sites/university/home.md)
 
-![](https://alumni.innopolis.university/upload/landing/aeb/Эмиль_Магеррамов@2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/8f1/Эмиль_Магеррамов@1x.jpg)
 
-IU ALUMNI AWARDS 2021 WINNERS
+## IU ALUMNI AWARDS 2021 WINNERS EXPERT IN AI for extraordinary knowledge and experience in artificial intelligence
 
-EXPERT IN AI
-
-for extraordinary knowledge and experience in artificial intelligence
-
-### Emil
-
-Magerramov
+### Emil Magerramov
 
 ### Masters Program
 
@@ -1024,9 +970,7 @@ The European Diploma Supplement is an additional educational document in English
 
 Настольные игры
 
-## ALUMNI RELATIONS
-
-DEPARTMENT
+## ALUMNI RELATIONS DEPARTMENT
 
 Dear Alumni!
 
@@ -1042,7 +986,7 @@ Address
 
 ## Our team
 
-![](https://alumni.innopolis.university/upload/landing/fae/6u0rwha1njdkhk62edghvu8z1ymb2vd1/viktoria_2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/dc5/4hhf99eanu554kxy1f8ix29k1z3mbqlg/viktoria_1x.jpg)
 
 Victoria Kondratieva
 
@@ -1050,7 +994,7 @@ Alumni Relations Manager
 
 v.kondratieva@innopolis.ru
 
-![](https://alumni.innopolis.university/upload/landing/561/9ddh0ciwb2gzbw6qaclv9uwcwulrhj0z/yulya_2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/ca8/6r6g4y1j497nd35v6rahekdbi776uol6/yulya_1x.jpg)
 
 Yulia Shulga
 
@@ -1058,7 +1002,7 @@ Expert in career events and industry connections
 
 i.shulga@innopolis.ru
 
-![](https://alumni.innopolis.university/upload/landing/480/30h3sr3okzcldt2jz8o59aaa18wv3s6r/albina_2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/8f7/8cxfcopdniyph12n3q33x0ekvihlzfjj/albina_1x.jpg)
 
 Albina Kuzmicheva
 
@@ -1066,7 +1010,7 @@ Sensei in the world of internships
 
 a.kuzmicheva@innopolis.ru
 
-![](https://alumni.innopolis.university/upload/landing/37b/tjataahhfz35cmb04ceen0kfbpesdiok/leisan_2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/113/p5mdnszrnstc3b1k18z2xktx1h3p0iea/leisan_1x.jpg)
 
 Leisan Islamova
 
@@ -1074,7 +1018,7 @@ Community manager of the Alumni Community
 
 l.islamova@innopolis.ru
 
-![](https://alumni.innopolis.university/upload/landing/1f3/twtcay93cswtwplqbpsqhbyblbdzmv9t/photo_2026_09_03_14_22_25_2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/8a0/gobuh58hc4vp68s3bv03c7kx4nc572n0/photo_2026_09_03_14_22_25_1x.jpg)
 
 Ekaterina Tihonova
 
@@ -1082,7 +1026,7 @@ Guru in methodological support of internships
 
 e.tihonova@innopolis.ru
 
-![](https://alumni.innopolis.university/upload/landing/d0c/z9r7d9wntwyneg816u093t58eckk9yes/photo_2026_09_03_14_26_19_2x.jpg)
+![](https://alumni.innopolis.university/upload/landing/91f/9m377xeshxiinfu6z22mq6z9tz6vdvyl/photo_2026_09_03_14_26_19_1x.jpg)
 
 Aliya Khadeeva
 
@@ -1154,6 +1098,8 @@ al.khadeeva@innopolis.university
 
 Они помогают улучшить работу сайта и сделать его удобнее. Посещая страницы сайта, вы соглашаетесь с [условиями использования](/raw/regulations/site-alumni-bc577ed2-soglasie-na-obrabotku-pdn-dlya-ui.md) файлов cookie.
 
+Согласен
+
 # Citations
 
-1. [Alumni Innopolis University](https://alumni.innopolis.university/), read 2026-10-31
+1. [Alumni Innopolis University](https://alumni.innopolis.university/), read 2026-11-04

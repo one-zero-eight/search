@@ -20,7 +20,39 @@ status: draft
 
 # Shokhrukhbek Yursunjonov
 
+[Все медиа](/raw/sites/media/home.md)
+
+Facebook
+
+Вконтакте
+
+Youtube
+
+Twitter
+
+Instagram
+
+habr
+
+- [Студентам](http://www.campuslife.innopolis.ru/main)
+
+- [Бизнесу](/raw/sites/university/proekty-activity.md)
+
+- [Медиа](/raw/sites/media/home.md)
+
+- [Сайт университета иннополис](/raw/sites/university/home.md)
+
+- [Переезд в Иннополис](https://innopolis.university/relocation)
+
+- [Вакансии](https://innopolis.university/job)
+
+- [Резюме](/raw/sites/career/home.md)
+
+[Сайт университета Иннополис](/raw/sites/university/home.md)
+
 ![](https://innopolis.university/upload/iblock/86d/3z7n0duykq2t5kbyx7uu839rp2023oq7/1_Shokh.jpg)
+
+## Shokhrukhbek Yursunjonov
 
 Tashkent University of Information Technologies, Uzbekistan
 
@@ -103,6 +135,8 @@ To sum up, I can say that I learned a lot and I will never forget these memories
 [This year, for the spring semester, I had the amazing opportunity to become a participant in an exchange program and study at Innopolis University.](/raw/sites/university/success-stories-shavel-viktoryia.md)
 
 #историяуспеха
+
+[Вернуться Назад](/raw/sites/university/home.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/university/_shared.md](/raw/sites/university/_shared.md)._
 

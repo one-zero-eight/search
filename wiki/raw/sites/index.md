@@ -9,7 +9,7 @@ Pages of the sites of the university and its services: the university, admission
 
 ## site/ai
 
-- [Главная страница](/raw/sites/ai/home.md): Аудит и разработка отраслевых решений для бизнеса и государства
+- [Главная страница](/raw/sites/ai/home.md): Аудит и разработка отраслевых решений для бизнеса и государства Узнать подробнее
 - [Наука](/raw/sites/ai/science.md): Исследование и разработка методов комплексного анализа медицинских данных для скрининга, диагностики и определения персонализированных методов лечения
 - [Общие блоки сайта ai.innopolis.university: меню, шапка, подвал, контакты](/raw/sites/ai/_shared.md): The menu, header, footer and contact lines that every page of the site repeats, kept once.
 - [Проекты Института](/raw/sites/ai/projects.md): Проводим НИОКР и разрабатываем технологии для диверсификации бизнеса.
@@ -34,8 +34,9 @@ Pages of the sites of the university and its services: the university, admission
 
 ## site/apply
 
+- [Empty page](/raw/sites/apply/en-index-php.md): С 2012 года готовим высококвалифицированные кадры в области информационных технологий,
 - [Empty page](/raw/sites/apply/en.md): Абитуриенту Бакалавриат Магистратура Онлайн-магистратура Аспирантура Колледж
-- [Абитуриентам Университета Иннополис](/raw/sites/apply/home.md): Абитуриенту Бакалавриат Магистратура Онлайн-магистратура Аспирантура Колледж
+- [Абитуриентам Университета Иннополис](/raw/sites/apply/home.md): С 2012 года готовим высококвалифицированные кадры в области информационных технологий,
 - [Анализ данных и искусственный интеллект. Университет Иннополис.](/raw/sites/apply/bachelors-ds-ai.md): Главная страница Бакалавриат Анализ данных и искусственный интеллект
 - [Аспирантура Университета Иннополис](/raw/sites/apply/postgraduate-study.md): Абитуриенту Бакалавриат Магистратура Онлайн-магистратура Аспирантура Колледж
 - [Бакалавриат Университета Иннополис. Программы и поступление](/raw/sites/apply/bachelors.md): Абитуриенту Бакалавриат Магистратура Онлайн-магистратура Аспирантура Колледж
@@ -132,6 +133,8 @@ Pages of the sites of the university and its services: the university, admission
 - ['Sky Spa' сenter](/raw/sites/city/en-services-sky-spa-senter.md): Mainpage Organizations and services 'Sky Spa' сenter
 - ['The White Fox' Children's center](/raw/sites/city/en-services-the-white-fox-childrens-center.md): Mainpage Organizations and services 'The White Fox' Children's center
 - ['Wildberries' order's pick-up point](/raw/sites/city/en-services-wildberries-orders-pick-up-point.md): Mainpage Organizations and services 'Wildberries' order's pick-up point
+- [- Innopolis](/raw/sites/city/en-media-news-dmitrij-cernysenko-i-rustam-minnihanov-ocenili.md): Just moved in?
+- [- Innopolis](/raw/sites/city/en-media-news-privet-osen-i-novyj-ucebnyj-god.md): Just moved in?
 - [10 student startups from Innopolis University won 1 million rubles each](/raw/sites/city/en-media-news-10-student-startups-from-innopolis-university-.md): The winning projects make life more convenient through technology—from sports equipment rental and clothing selection to fraud protection, drone control, and the creation of 3D home models.
 - [10 студенческих стартапов Университета Иннополис выиграли по 1 млн рублей](/raw/sites/city/ru-media-news-10-student-startups-from-innopolis-university-.md): Победившие проекты делают жизнь удобнее с помощью технологий — от аренды спортивного инвентаря и выбора одежды до защиты от мошенничества, управления беспилотниками и создания 3D-моделей жилья.
 - [A city award with the participation of robots was held in Innopolis](/raw/sites/city/en-media-news-a-city-award-with-the-participation-of-robots-.md): The results of the "Innopolis 2025 City Award" were announced in the IT capital.
@@ -180,6 +183,7 @@ Pages of the sites of the university and its services: the university, admission
 - [Elections to the State Duma and the City Council of Deputies have begun in Innopolis](/raw/sites/city/en-media-news-elections-to-the-state-duma-and-the-city-counc.md): From today until Sunday, you can cast your vote in the elections to the State Duma, and residents of Innopolis with permanent residence can vote for deputies to the City Council.
 - [Events](/raw/sites/city/en-media-events.md)
 - [Events of the week](/raw/sites/city/en-media-events-events-of-the-week-67.md): They will tell you about the study programs, student life and the features of Innopolis
+- [Events of the week](/raw/sites/city/en-media-events-events-of-the-week-68.md): Just moved in?
 - [Farmers’ market](/raw/sites/city/en-services-farmers-market.md): Mainpage Organizations and services Farmers’ market
 - [Five Innopolis University professors have been named among the world’s top 2% most influential scientists](/raw/sites/city/en-media-news-five-innopolis-university-professors-have-been.md): The "Top 2% Scientists" ranking is compiled annually by Stanford University* and the publisher Elsevier.
 - [Flower shop](/raw/sites/city/en-services-flower-shop.md): Mainpage Organizations and services Flower shop
@@ -348,7 +352,7 @@ Pages of the sites of the university and its services: the university, admission
 - [Вокал для детей и взрослых](/raw/sites/city/ru-services-vocal-classes-for-both-children-and-adults.md): Главная Организации и услуги Вокал для детей и взрослых
 - [Встреча министров связи БРИКС прошла в Иннополисе](/raw/sites/city/ru-media-news-the-meeting-of-brics-communications-ministers-.md): 26–27 сентября в Иннополисе прошла встреча министров связи стран БРИКС и Цифровой форум.
 - [Гастробистро «Месса\Ересь»](/raw/sites/city/ru-services-gastrobistro-messaeres.md): Главная Организации и услуги Гастробистро «Месса\Ересь»
-- [Главная страница](/raw/sites/city/ru.md): Инвестиции для стартапов, налоговые льготы для компаний, проекты для венчурных фондов
+- [Главная страница](/raw/sites/city/ru.md): Только переехали?
 - [Глэмпинг](/raw/sites/city/ru-services-glamping.md): В трех километрах от Иннополиса расположился глэмпинг SVIYAGA glamp.
 - [Город-курорт «Свияжские холмы»](/raw/sites/city/ru-services-sviyaga-hills.md): Главная Организации и услуги Город-курорт «Свияжские холмы»
 - [Городская стоматология](/raw/sites/city/ru-services-dental-clinic.md): В городе работает сеть «Городская стоматология».
@@ -414,6 +418,7 @@ Pages of the sites of the university and its services: the university, admission
 - [Медицинский центр](/raw/sites/city/ru-services-medical-centre.md): Оказывают первичную и сцециализированную помощь по ОМС, ДМС на платной основе.
 - [Мероприятия](/raw/sites/city/ru-media-events.md)
 - [Мероприятия недели](/raw/sites/city/ru-media-events-events-of-the-week-67.md): Тебе расскажут о программах обучения, студенческой жизни и фишках Иннополиса
+- [Мероприятия недели](/raw/sites/city/ru-media-events-events-of-the-week-68.md): Только переехали?
 - [Мерч Иннополиса](/raw/sites/city/ru-merch.md): Коллекция вещей, вдохновленная популярным сериалом-альманахом, а также местной природой и особенностями жизни в Иннополисе.
 - [Местные гиды](/raw/sites/city/ru-services-local-guides.md): Узнаешь о жизни современных айтишников, попадешь в альма-матер будущего поколения разработчиков и подружишься с роботами, которые уже улучшают жизнь человека
 - [Минпромторг и Университет Иннополис запускают отбор центров роботизации](/raw/sites/city/ru-media-news-the-ministry-of-industry-and-trade-and-innopol.md): Минпромторг России и Университет Иннополис открыли конкурсный отбор на создание 13 новых центров развития промышленной робототехники.
@@ -555,7 +560,7 @@ Pages of the sites of the university and its services: the university, admission
 - [Корпоративные программы обучения от Университета Иннополис](/raw/sites/corporate/education.md): Подберём и адаптируем готовые курсы или создадим индивидуальные программы под цели вашей компании
 - [Общие блоки сайта corporate.innopolis.university: меню, шапка, подвал, контакты](/raw/sites/corporate/_shared.md): The menu, header, footer and contact lines that every page of the site repeats, kept once.
 - [Подготовка кадров](/raw/sites/corporate/podgotovkakadrov.md): Подбираем, обучаем и повышаем квалификацию ИТ-кадров для компаний заказчиков.
-- [Сотрудничество с бизнесом](/raw/sites/corporate/home.md): Корпоративных образовательных программ дают современные знания для перехода в цифровую экономику
+- [Сотрудничество с бизнесом](/raw/sites/corporate/home.md): Корпоративных образовательных программ дают современные знания для перехода
 - [Стратегическая сессия](/raw/sites/corporate/stratsession.md): Позволяет сформировать единое для всех участников представление о желаемом будущем компании и составить план мероприятий на пути к нему.
 - [Технологический аудит](/raw/sites/corporate/technologicalaudit.md): Анализируем производственные и бизнес-процессы в области информационных технологий с целью их оптимизации.
 
@@ -687,6 +692,7 @@ Pages of the sites of the university and its services: the university, admission
 
 ## site/eck
 
+- [10 июня прошло совещание об актуализации методических рекомендаций с Заместителем министра науки и высшего образования России Дмитрием Афанасьевым](/raw/sites/eck/tpost-b74zb9rsz1-10-iyunya-proshlo-soveschanie-ob-aktuali.md): Встреча была посвящена основным изменениям Методических рекомендаций по созданию и организации работы центров карьеры на базе образовательных организаций высшего образования.
 - [InnoBootCamp](/raw/sites/eck/innobootcamp.md): Как обеспечить психологически комфортную и академически успешную адаптацию первокурсников к университетской среде, чтобы минимизировать стресс и риск отсева в первый месяц обучения?
 - [Академия амбассадоров](/raw/sites/eck/ambassador-academy.md): Участники программы / НИТУ МИСИС / Академия амбассадоров
 - [Ассесмент по резюме](/raw/sites/eck/resume-based-assessment.md): Участники программы / МГТУ «СТАНКИН» / Ассесмент по резюме
@@ -759,7 +765,7 @@ Pages of the sites of the university and its services: the university, admission
 - [ДУС - акселератор Университета Иннополис](/raw/sites/events/startuphouse.md): Создавай и развивай свой инновационный технологический стартап!
 - [ИННОВАЦИОННЫЕ РЕШЕНИЯ В СФЕРЕ ПРОВЕДЕНИЯ МЕРОПРИЯТИЙ](/raw/sites/events/products.md): мы сделаем ваше мероприятие запоминающимся с wow-эффектом
 - [Инновационные решения в сфере проведения мероприятий](/raw/sites/events/innoproducts.md): Степанова Валерия - менеджер проектов в сфере организации мероприятий
-- [Календарь мероприятий](/raw/sites/events/home.md): Самые интересные и полезные мероприятия Института дополнительного образования Университета Иннополис для заинтересованных в образовании и IT.
+- [Календарь мероприятий](/raw/sites/events/home.md): Самые интересные и полезные мероприятия Института дополнительного образования Университета Иннополис **для заинтересованных в образовании и IT.**
 - [Каталог](/raw/sites/events/startup-catalog.md): Оплата покупки осуществляется через сервис ЮMoney
 - [Марафон «цифровых кафедр» 2.0 | Организаторы Иннополис и Минцифры](/raw/sites/events/marathon-dd20.md): Марафон «цифровых кафедр» — это галерея лиц и программ, на которой студенты, преподаватели и руководители расскажут и покажут, как всё устроено в проекте «Цифровые кафедры».
 - [Марафон «цифровых кафедр» | Организаторы Университет Иннополис и Минцифры](/raw/sites/events/marathon-dd.md): В сентябре 2022 года в рамках национального проекта «Цифровая экономика» в 114 университетах страны открыли «цифровые кафедры».
@@ -782,6 +788,7 @@ Pages of the sites of the university and its services: the university, admission
 
 - [Андреев Николай Николаевич](/raw/sites/fmp/andreev.md): Популяризатор математики, кандидат физико-математических наук, заведующий лабораторией популяризации и пропаганды математики Математического института им.
 - [Архив](/raw/sites/fmp/page117387446-html.md): 22.12.2025 г.
+- [Видео](/raw/sites/fmp/page69450473-html.md): 9 фестивалей, 3586 школьников, 423 педагога: как в Татарстане работает проект «Физмат-прорыв»
 - [Видео](/raw/sites/fmp/videos.md): 9 фестивалей, 3586 школьников, 423 педагога: как в Татарстане работает проект «Физмат-прорыв»
 - [Гасников Александр Владимирович](/raw/sites/fmp/gasnikov.md): Ректор Университета Иннополиса, доктор физико-математических наук
 - [Гордин Владимир Александрович](/raw/sites/fmp/gordin.md): Доктор физико-математических наук (защита в МФТИ)
@@ -800,6 +807,7 @@ Pages of the sites of the university and its services: the university, admission
 - [Нормативные документы](/raw/sites/fmp/dokuments.md): Грант «Поддержка педагогов физики, математики, информатики»
 - [Общие блоки сайта fmp.innopolis.university: меню, шапка, подвал, контакты](/raw/sites/fmp/_shared.md): The menu, header, footer and contact lines that every page of the site repeats, kept once.
 - [Отчет по проекту "Физико-математический прорыв" за 2024/2025 учебный год](/raw/sites/fmp/page84303566-html.md)
+- [Полезные и интересные сайты](/raw/sites/fmp/page140751556-html.md): Официальный ресурс Московского центра непрерывного математического образования – ведущей организации, интегрирующей науку, обучение и просветительскую деятельность.
 - [Полезные и интересные сайты](/raw/sites/fmp/usefulwebsites.md): Официальный ресурс Московского центра непрерывного математического образования – ведущей организации, интегрирующей науку, обучение и просветительскую деятельность.
 - [Райгородский Андрей Михайлович](/raw/sites/fmp/raigorodsky.md): Математик, автор более 200 научных статей, директор Физтех-школы прикладной математики и информатики, главный научный сотрудник - заведующий лабораторией продвинутой комбинаторики и сетевых приложений
 - [Савватеев Алексей Владимирович](/raw/sites/fmp/savvateev.md): Математик и специалист в математической экономике, популяризатор математики, видеоблогер, доктор физико-математических наук, кандидат экономических наук.
@@ -987,17 +995,32 @@ Pages of the sites of the university and its services: the university, admission
 - [Inno Stand Up Club / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/events-all-page-2.md): Неприлично веселый огонек: Вечер комедии от Inno Stand Up Club в формате презентаций
 - [Inno Stand Up Club / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/events-all-page-3.md): Вам открыта невероятная возможность пошутить и посмеяться над выступающими комиками
 - [Inno Stand Up Club / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/home.md)
+- [Inno Stand Up Club представляет вам новое шоу: вас ждут новые и старые комики с новыми шутками](/raw/sites/inno-stand-up-club-timepad-ru/event-1749709.md): **Специально для тебя — только проверенные шутки, которые исполнят:**
+- [Inno Stand Up Club представляет вам новое шоу: вас ждут новые и старые комики с новыми шутками](/raw/sites/inno-stand-up-club-timepad-ru/event-1865887.md): Inno Stand Up Club приглашает тебя на новое шоу
 - [Open MicСобытия / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3560978.md): Открываем сезон юмора вместе со старичками и новичками Inno Stand Up Club
 - [Stand Up "Весеннее обострение" шоу События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3918875.md): Приглашаем на вечер классического стендапа от Inno Stand Up Club!
 - [Stand Up "Открытый микрофон" шоу События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-4259119.md): Приглашаем на вечер классического стендапа от Inno Stand Up Club!
 - [Stand Up ИмпровизацияСобытия / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3335526.md): Специально для вас 25го апреля выступят комики из Тольятти, Казани, Ульяновска.
+- [Stand Up на двоих](/raw/sites/inno-stand-up-club-timepad-ru/event-2303140.md): Inno Stand Up Club приглашает тебя на новое шоу.
 - [Stand Up на двоих События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-2973368.md): Inno Stand Up Club приглашает тебя на новое шоу.
+- [Stand Up шоу](/raw/sites/inno-stand-up-club-timepad-ru/event-2023756.md): Inno Stand Up Club приглашает тебя на новое шоу.
+- [Stand Up шоу](/raw/sites/inno-stand-up-club-timepad-ru/event-2066888.md): Inno Stand Up Club приглашает тебя на новое шоу.
+- [Stand Up шоу](/raw/sites/inno-stand-up-club-timepad-ru/event-2245035.md): Inno Stand Up Club приглашает тебя на новое шоу.
+- [Stand Up шоу](/raw/sites/inno-stand-up-club-timepad-ru/event-2325314.md): Inno Stand Up Club приглашает тебя на новое шоу.
+- [Stand Up шоу](/raw/sites/inno-stand-up-club-timepad-ru/event-2360642.md): Inno Stand Up Club приглашает тебя на новое шоу.
+- [Stand Up шоу](/raw/sites/inno-stand-up-club-timepad-ru/event-2445517.md): Стендап шоу от Inno Stand Up Club!
+- [Stand Up шоу](/raw/sites/inno-stand-up-club-timepad-ru/event-2478627.md): Стендап шоу от Inno Stand Up Club!
+- [Stand Up шоу](/raw/sites/inno-stand-up-club-timepad-ru/event-2558807.md): Inno Stand Up Club открывает новый сезон!
+- [Stand Up шоу](/raw/sites/inno-stand-up-club-timepad-ru/event-2761635.md): Inno Stand Up Club открывает новый сезон!
+- [Stand Up шоу](/raw/sites/inno-stand-up-club-timepad-ru/event-2804289.md): Inno Stand Up Club представляет новое шоу!
 - [Stand Up шоу "Love is..."События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3797298.md): Приглашаем вас и вашу вторую половинку на вечер, полный смеха и романтики.
 - [Stand Up шоу "Купидончики" 19:00События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3230359.md): Для тех у кого нет планов на 14 февраля, Inno Stand Up Club вернулся с новогодних каникул и представляет новую программу "Купидончики".
 - [Stand Up шоу "Купидончики" 21:00События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3230361.md): Для тех у кого нет планов на 14 февраля, Inno Stand Up Club вернулся с новогодних каникул и представляет новую программу "Купидончики".
 - [Stand Up шоу "Неидеальный мужчина"События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3574358.md): «Неидеальный мужчина» — это комедийный концерт от Сергея Горина, в котором он рассказывает о том, каково это — быть мужчиной среднего возраста:
 - [Stand Up шоу "Сеанс"События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3359537.md): Шоу от Inno Stand Up Club “Сеанс” — это не совсем обычный сольный стендап-концерт, где собраны все лучшие шутки от комика.
 - [Stand Up шоу "Спасибо за ожидание"События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3080349.md): Inno Stand Up Club приглашает жителей Иннополиса на первую сольную программу Ани Громовой — "Спасибо за ожидание".
+- [Stand Up шоу "Улица Неспортивная"](/raw/sites/inno-stand-up-club-timepad-ru/event-2835574.md): Inno Stand Up Club приглашает жителей Иннополиса на вечер стендапа!
+- [Stand Up шоу "Улица Парковая"](/raw/sites/inno-stand-up-club-timepad-ru/event-2867679.md): Inno Stand Up Club приглашает жителей Иннополиса на вечер стендапа!
 - [Stand Up шоу Money MicСобытия / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3265113.md): Inno Stand Up Club приглашает на свой первый MoneyMic — открытый микрофон, в рамках которого начинающие комики соревнуются за денежный приз.
 - [Stand Up шоу «Очень страшный стендап»События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3625774.md): Лето прошло, а настроение куда-то сходить осталось?
 - [Stand Up шоу ИпровизацияСобытия / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3270764.md): Экспериментальное импровизационное шоу от Inno Stand Up Club ноль сценария, ноль подготовки, ноль-пять и два комика!
@@ -1006,12 +1029,24 @@ Pages of the sites of the university and its services: the university, admission
 - [Stand Up шоу События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3316435.md): Inno Stand Up Club приглашает на стендап-концерт от опытных комиков!
 - [Stand Up шоу События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3335523.md): Специально для вас 25го апреля выступят комики из Тольятти, Казани, Ульяновска.
 - [Stand Up шоу Тимура АбдулмановаСобытия / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3243574.md): Inno Stand Up Club приглашает на сольный концерт Тимура Абдулманова!
+- [Stand Up шоу на крыше](/raw/sites/inno-stand-up-club-timepad-ru/event-2128418.md): Inno Stand Up Club приглашает тебя на новое шоу на крыше.
 - [Stand Up шоуСобытия / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3038751.md): Inno Stand Up Club приглашает жителей Иннополиса на вечер стендапа!
 - [StandUp концерт «На двоих»События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3877396.md): Егор Сямуков и Женя Караваннов яркие представители регионального стендапа и миллениалов, у них нет популярности и денег, но много смешных шуток и интересных историй.
 - [StandUp концерт «СЕАНС»События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3856849.md): Сольный StandUp концерт Ивана Шумейко «СЕАНС»
 - [StandUp концерт Игоря ПименоваСобытия / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-4125964.md): Ростовский комик, чемпион Высшей Лиги КВН на Первом канале и Stand Up Лиги Юга России, победитель Суперлиги на СТС и шоу «Русские не смеются».Игорь — участник «Comedy Баттл» и победитель «Рассмеши Ком
+- [Благотворительный Stand Up](/raw/sites/inno-stand-up-club-timepad-ru/event-2638148.md): Inno Stand Up Club и Котячий Иннополис приглашают жителей города на благотворительный вечер стендап-комедии.
+- [Большое Stand Up шоу](/raw/sites/inno-stand-up-club-timepad-ru/event-1985560.md): Inno Stand Up Club приглашает тебя на Большой концерт.
+- [Вам открыта невероятная возможность пошутить и посмеяться над выступающими комиками](/raw/sites/inno-stand-up-club-timepad-ru/event-1735846.md): Открытый микрофон — это Stand Up шоу, где каждый может попробовать себя в роли комика.
+- [Вам открыта невероятная возможность пошутить и посмеяться над выступающими комиками](/raw/sites/inno-stand-up-club-timepad-ru/event-1907832.md): Inno Stand Up Club приглашает тебя на общегородской открытый микрофон!
+- [Вам открыта невероятная возможность пошутить и посмеяться над выступающими комиками](/raw/sites/inno-stand-up-club-timepad-ru/event-2167438.md): Inno Stand Up Club приглашает тебя на общегородской открытый микрофон!
+- [Новогодний Stand Up](/raw/sites/inno-stand-up-club-timepad-ru/event-2270850.md): Inno Stand Up Club приглашает тебя на новое шоу.
 - [Общие блоки сайта inno-stand-up-club.timepad.ru: меню, шапка, подвал, контакты](/raw/sites/inno-stand-up-club-timepad-ru/_shared.md): The menu, header, footer and contact lines that every page of the site repeats, kept once.
+- [Открытый микрофон](/raw/sites/inno-stand-up-club-timepad-ru/event-2599984.md): Inno Stand Up Club приглашает тебя на общегородской открытый микрофон!
+- [Открытый микрофон](/raw/sites/inno-stand-up-club-timepad-ru/event-2818116.md): Inno Stand Up Club приглашает тебя на общегородской открытый микрофон!
 - [Сольный Stand Up концерт Асанали ФазылжанаСобытия / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-2908584.md): В следующую пятницу приглашаем вас на сольный концерт Асанали Фазлыжана, одного из самых опытных комиков Inno Stand Up Club !
+- [Стендап концерт "Молодой Преподаватель"](/raw/sites/inno-stand-up-club-timepad-ru/event-2680823.md): Привет, это Inno Stand Up Club.
+- [Шоу презентаций](/raw/sites/inno-stand-up-club-timepad-ru/event-2404297.md): Inno Stand Up Club приглашает тебя на первое в Иннополисе Шоу Презентаций.
+- [Шоу презентаций](/raw/sites/inno-stand-up-club-timepad-ru/event-2709961.md): Шоу Презентаций возвращается!
 - [Шоу презентаций «Защита дипломов» События / TimePad.ru](/raw/sites/inno-stand-up-club-timepad-ru/event-3716458.md): Inno Stand Up Club приглашает вас на новогоднее комедийное шоу "Защита дипломов"!
 
 ## site/innohassle
@@ -1032,13 +1067,19 @@ Pages of the sites of the university and its services: the university, admission
 
 ## site/innopolis-brainsurf-ru
 
-- [Главная страница](/raw/sites/innopolis-brainsurf-ru/home.md): Подписавшись на Телеграм-бота, вы сможете не только видеть список своих игр, но и мгновенно узнавать, если появилось свободное место.
+- [Главная страница](/raw/sites/innopolis-brainsurf-ru/home.md): г.
 - [Общий рейтинг](/raw/sites/innopolis-brainsurf-ru/rating.md): Команды получают очки в общий зачет сезона в соответствии с процентным соотношением от команды, занявшей первое место (в их лиге) по итогам пакета и результатами вашей команды.
 
 ## site/innopolis-timepad-ru
 
+- [Frontend Day](/raw/sites/innopolis-timepad-ru/event-2231451.md): **13:00 — Глеб Михеев «Архитектура универсальных веб-приложений»**
+- [Frontend Day //Online](/raw/sites/innopolis-timepad-ru/event-2239552.md): **13:00 — Глеб Михеев «Архитектура универсальных веб-приложений»**
+- [Innopolis Meetup: UAV Technology](/raw/sites/innopolis-timepad-ru/event-3337855.md): Innopolis Meetup возвращается с конференцией одного дня.
+- [Innopolis Meetup: UAV Technology // Online](/raw/sites/innopolis-timepad-ru/event-3339029.md): Innopolis Meetup возвращается с конференцией одного дня.
 - [Иннополис / TimePad.ru](/raw/sites/innopolis-timepad-ru/home.md): Иннополис — новый город в России, расположенный в Республике Татарстан.
+- [Концерт «Спектр»](/raw/sites/innopolis-timepad-ru/event-2352392.md): Идею проекта определило пространство — архитектурный холл Университета Иннополис, в котором соединятся инновации и медиалаборатория.
 - [Общие блоки сайта innopolis.timepad.ru: меню, шапка, подвал, контакты](/raw/sites/innopolis-timepad-ru/_shared.md): The menu, header, footer and contact lines that every page of the site repeats, kept once.
+- [Питч-сессия «Городские проекты»](/raw/sites/innopolis-timepad-ru/event-2631384.md): Приглашаем жителей на экспертный совет, где стартапы предложат технологические решения для ЖКХ, транспорта, коммуникаций и благоустройства.
 
 ## site/innopolis-university-timepad-ru
 
@@ -1053,21 +1094,28 @@ Pages of the sites of the university and its services: the university, admission
 - [8-967-773-05-89mail@innopoliscamp.ru](/raw/sites/innopoliscamp-ru/glavnaya.md): Татарстан, г.
 - [8-967-773-05-89mail@innopoliscamp.ru](/raw/sites/innopoliscamp-ru/stazhirovki.md): Татарстан, г.
 - [Детский IT-лагерь INNOCAMP в Иннополисе](/raw/sites/innopoliscamp-ru/fizteh.md): Ваш ребенок в течение 2-х недель будет под присмотром профессиональных вожатых, накормлен,
-- [Детский IT-лагерь INNOCAMP в Иннополисе](/raw/sites/innopoliscamp-ru/home.md): Ваш ребенок в течение 2-х недель будет под присмотром профессиональных вожатых, накормлен,
+- [Детский IT-лагерь INNOCAMP в Иннополисе](/raw/sites/innopoliscamp-ru/home.md): **Ваш ребенок в течение 2-х недель будет под присмотром профессиональных вожатых, накормлен,**
 - [Детский IT-лагерь INNOCAMP в Иннополисе](/raw/sites/innopoliscamp-ru/personal-data.md): Татарстан, г.
 - [Детский IT-лагерь в Иннополисе](/raw/sites/innopoliscamp-ru/stat-vozhatym.md): Вы пройдете бесплатное недельное обучение прямо во время смены: до обеда - теория и после обеда - практика
 - [Заявка в Детский IT-лагерь INNOCAMP](/raw/sites/innopoliscamp-ru/zapis.md): Воспользуйтесь этой формой, чтобы записать ребенка.
+- [Заявка в Детский IT-лагерь INNOCAMP](/raw/sites/innopoliscamp-ru/zapismfti.md): Воспользуйтесь этой формой, чтобы записать ребенка.
 - [Общие блоки сайта innopoliscamp.ru: меню, шапка, подвал, контакты](/raw/sites/innopoliscamp-ru/_shared.md): The menu, header, footer and contact lines that every page of the site repeats, kept once.
 
 ## site/innopoliscinema-ru
 
 - [Innopolis Cinema Lounge](/raw/sites/innopoliscinema-ru/en.md): Kirill Zaytsev, Elizaveta Boyarskaya, Maria Kanunnikova, Viktoria Serikova, Vadim Sosnin
+- [Innopolis Cinema Lounge | Battle of Engines](/raw/sites/innopoliscinema-ru/en-films-bitva-motorov.md): Racing driver Andrey Nagel believed in cars future in early Russian industry.
 - [Innopolis Cinema Lounge | Contacts](/raw/sites/innopoliscinema-ru/en-contacts.md): Tickets refund in case of cancellation / change (of a session or terms of the show):
 - [Innopolis Cinema Lounge | Events](/raw/sites/innopoliscinema-ru/en-special-screenings.md): There are no special events on the schedule at the moment.
 - [Innopolis Cinema Lounge | Films](/raw/sites/innopoliscinema-ru/en-films.md)
+- [Innopolis Cinema Lounge | Fjord](/raw/sites/innopoliscinema-ru/en-films-fjord.md): An immigrant Romanian family living in Norway is subject to an investigation and faces the scrutiny of the local judicial system.
+- [Innopolis Cinema Lounge | Morozko](/raw/sites/innopoliscinema-ru/en-films-morozko.md): Sisters Marfa and Nastya are best friends, and they cope not only with a grumpy mother, but also with ancient magic, because of which winter has not come in their village for many decades.
+- [Innopolis Cinema Lounge | Pranker](/raw/sites/innopoliscinema-ru/en-films-pranker.md): Anton is a professional prankster.
+- [Innopolis Cinema Lounge | Rise of the Empire](/raw/sites/innopoliscinema-ru/en-films-rozhdenie-imperii.md): 1698-1709 - ten years from the life of Peter the Great, during which he laid the foundations of the future Russian Empire.
 - [Innopolis Cinema Lounge | Screenings](/raw/sites/innopoliscinema-ru/en-screenings.md)
+- [Innopolis Cinema Lounge | The Tale of Lost Time](/raw/sites/innopoliscinema-ru/en-films-skazka-o-poteryannom-vremeni.md): An ordinary school day turns into a fantastic adventure for Petya, Marusya, and Vasya when the time they've wasted idling becomes a source of power for three old sorcerers.
+- [Innopolis Cinema Lounge | Wicker](/raw/sites/innopoliscinema-ru/en-films-wicker.md): An ostracized fisherwoman commissions the local basketmaker to weave her a husband, but when her wicker creation proves unexpectedly extraordinary, his presence ignites jealousy and upheaval that thre
 - [Innopolis Cinema Lounge | Пушкинская карта](/raw/sites/innopoliscinema-ru/en-films-pushkin-card.md)
-- [«Кино&Театр» в Иннополисе](/raw/sites/innopoliscinema-ru/ru-dates-2026-11-07.md): Александр Лыков, Татьяна Орлова, Алексей Маклаков, Иван Охлобыстин, Людмила Артемьева, Виталий Хаев, Ольга Кузьмина
 - [«Кино&Театр» в Иннополисе](/raw/sites/innopoliscinema-ru/ru-dates-2026-11-11.md): Кирилл Зайцев, Елизавета Боярская, Мария Канунникова, Виктория Серикова, Вадим Соснин
 - [«Кино&Театр» в Иннополисе | Битва моторов](/raw/sites/innopoliscinema-ru/ru-films-bitva-motorov.md): Это история о людях, которые решили сделать невозможное – создать первый российский серийный автомобиль.
 - [«Кино&Театр» в Иннополисе | Контакты](/raw/sites/innopoliscinema-ru/ru-contacts.md): Возврат билетов в случае отмены / замены сеанса или изменения условий показа:
@@ -1081,14 +1129,15 @@ Pages of the sites of the university and its services: the university, admission
 - [«Кино&Театр» в Иннополисе | Сказка о потерянном времени](/raw/sites/innopoliscinema-ru/ru-films-skazka-o-poteryannom-vremeni.md): Обычный школьный день оборачивается фантастическим приключением для Пети, Маруси и Васи, когда их потерянное за бездельем время становится источником силы трёх старых волшебников.
 - [«Кино&Театр» в Иннополисе | События](/raw/sites/innopoliscinema-ru/ru-special-screenings.md): В данный момент в расписании нет специальных кинособытий.
 - [«Кино&Театр» в Иннополисе | Фьорд](/raw/sites/innopoliscinema-ru/ru-films-fjord.md): В глухую норвежскую деревню на берегу фьорда переезжает семья из Румынии.
-- [Битва моторов](/raw/sites/innopoliscinema-ru/ru-dates-2026-11-04.md): Александр Лыков, Татьяна Орлова, Алексей Маклаков, Иван Охлобыстин, Людмила Артемьева, Виталий Хаев, Ольга Кузьмина
-- [Битва моторов](/raw/sites/innopoliscinema-ru/ru-dates-2026-11-08.md): Кирилл Зайцев, Елизавета Боярская, Мария Канунникова, Виктория Серикова, Вадим Соснин
+- [Битва моторов](/raw/sites/innopoliscinema-ru/home.md): Иван Янковский, Юра Борисов, Паулина Андреева, Алексей Гуськов
 - [Общие блоки сайта innopoliscinema.ru: меню, шапка, подвал, контакты](/raw/sites/innopoliscinema-ru/_shared.md): The menu, header, footer and contact lines that every page of the site repeats, kept once.
-- [Плетёный муж](/raw/sites/innopoliscinema-ru/ru-dates-2026-11-10.md): Александр Лыков, Татьяна Орлова, Алексей Маклаков, Иван Охлобыстин, Людмила Артемьева, Виталий Хаев, Ольга Кузьмина
-- [Плетёный муж.](/raw/sites/innopoliscinema-ru/ru-dates-2026-11-05.md): Кирилл Зайцев, Елизавета Боярская, Мария Канунникова, Виктория Серикова, Вадим Соснин
-- [Пранкер](/raw/sites/innopoliscinema-ru/home.md): Кирилл Зайцев, Елизавета Боярская, Мария Канунникова, Виктория Серикова, Вадим Соснин
-- [Фьорд](/raw/sites/innopoliscinema-ru/ru-dates-2026-11-03.md): Кирилл Зайцев, Елизавета Боярская, Мария Канунникова, Виктория Серикова, Вадим Соснин
-- [Фьорд](/raw/sites/innopoliscinema-ru/ru-dates-2026-11-06.md): Александр Лыков, Татьяна Орлова, Алексей Маклаков, Иван Охлобыстин, Людмила Артемьева, Виталий Хаев, Ольга Кузьмина
+- [Сказка о потерянном времени](/raw/sites/innopoliscinema-ru/ru-dates-2026-11-03.md): Кирилл Зайцев, Елизавета Боярская, Мария Канунникова, Виктория Серикова, Вадим Соснин
+- [Сказка о потерянном времени](/raw/sites/innopoliscinema-ru/ru-dates-2026-11-04.md): Александр Лыков, Татьяна Орлова, Алексей Маклаков, Иван Охлобыстин, Людмила Артемьева, Виталий Хаев, Ольга Кузьмина
+- [Сказка о потерянном времени](/raw/sites/innopoliscinema-ru/ru-dates-2026-11-05.md): Кирилл Зайцев, Елизавета Боярская, Мария Канунникова, Виктория Серикова, Вадим Соснин
+- [Сказка о потерянном времени](/raw/sites/innopoliscinema-ru/ru-dates-2026-11-06.md): Александр Лыков, Татьяна Орлова, Алексей Маклаков, Иван Охлобыстин, Людмила Артемьева, Виталий Хаев, Ольга Кузьмина
+- [Сказка о потерянном времени](/raw/sites/innopoliscinema-ru/ru-dates-2026-11-07.md): Александр Лыков, Татьяна Орлова, Алексей Маклаков, Иван Охлобыстин, Людмила Артемьева, Виталий Хаев, Ольга Кузьмина
+- [Сказка о потерянном времени](/raw/sites/innopoliscinema-ru/ru-dates-2026-11-08.md): Кирилл Зайцев, Елизавета Боярская, Мария Канунникова, Виктория Серикова, Вадим Соснин
+- [Сказка о потерянном времени](/raw/sites/innopoliscinema-ru/ru-dates-2026-11-10.md): Александр Лыков, Татьяна Орлова, Алексей Маклаков, Иван Охлобыстин, Людмила Артемьева, Виталий Хаев, Ольга Кузьмина
 
 ## site/innopolislife-ru
 
@@ -1112,7 +1161,7 @@ Pages of the sites of the university and its services: the university, admission
 - [Data Science and Artificial Intelligence](/raw/sites/international/en-bachelors-dsai.md): Artificial intelligence (AI) technologies are changing life around us.
 - [FAQ](/raw/sites/international/en-faq.md): Are there any age restrictions for applicants?
 - [Grant Opportunities](/raw/sites/international/en-grant.md): International students can go through the grant competiotion and win a tuition fee discount from 20% to 100%.
-- [International Applicants](/raw/sites/international/en.md): Applications for the grant competition are accepted until May 1
+- [International Applicants](/raw/sites/international/en.md): The Russian Government offers the state scholarship for international students which includes tuition fee coverage and monthly allowance.
 - [Master's degree program](/raw/sites/international/en-masters.md): The program is for IT professionals with industry experience.
 - [Olympiad bonuses](/raw/sites/international/en-olympiad-bonus.md): To win 100% grant in the Grant competition, attach diplomas and certificates to your CV (of winner or prizewinner in Olympiads listed below):
 - [PhD Degree](/raw/sites/international/en-postgraduate-study.md): Mathematical modeling, numerical methods and software packages
@@ -1156,7 +1205,7 @@ Pages of the sites of the university and its services: the university, admission
 ## site/lyceuminnopolis-ru
 
 - [https://lyceuminnopolis.ru/sitemap.xml](/raw/sites/lyceuminnopolis-ru/sitemap-xml.md): https://lyceuminnopolis.ru/ 2026-02-18 1.0 https://lyceuminnopolis.ru/#about 0.8 https://lyceuminnopolis.ru/#news 0.7 https://lyceuminnopolis.ru/#events 0.7 https://lyceuminnopolis.ru/#contacts 0.6 ht
-- [Лицей Иннополис](/raw/sites/lyceuminnopolis-ru/home.md): Лицей Иннополис - школа-интернат для 7-11 классов с углубленным IT-образованием.
+- [Лицей Иннополис](/raw/sites/lyceuminnopolis-ru/home.md): О лицее Поступающим Курсы Команда лицея КонтактыПоддержать лицей
 
 ## site/media
 
@@ -1342,6 +1391,7 @@ Pages of the sites of the university and its services: the university, admission
 - [Innopolis Open 2020 по робототехнике пройдёт в дистанционном формате](/raw/sites/media/news-innopolis-open-2020-robotics.md): Об этом специалисты Университета Иннополис по довузовскому образованию объявили во время своей онлайн-конференции «Образовательная робототехника 3.0: идеи и решения».
 - [Innopolis Open по информационной безопасности выиграли 7 российских школьников](/raw/sites/media/news-innopolis-open-cybersecurity-2026-results.md): Всего в олимпиаде участвовали 1467 учеников из Египта, Индии, России и ещё 12 стран, в финале соревновались 96 учащихся 8—11 классов из 21 региона РФ.
 - [Innopolis Open по информационной безопасности выиграли школьники из Новосибирска, Москвы и Казани](/raw/sites/media/news-innopolis-open-cybersecurity-results-2024.md): Всего в олимпиаде участвовали 1 412 школьников из России, Беларуси, Казахстана, Индии, Канады, Эстонии и ещё 6 стран, в финале соревновались 53 учащихся 8—11 классов из 21 региона РФ.
+- [Innopolis Simulator - симулятор для автономных подвижных объектов, разработанный на основе Unity 3D](/raw/sites/media/events-innopolis-simulator-simulyator-dlya-avtonomnykh-podvi.md): Основным предназначением симулятора является моделирование и отладка поведения полноценной модели окружающей среды и моделей подвижных объектов, что позволит избежать критических ошибок проектирования
 - [Innopolis Univerity received a license](/raw/sites/media/news-innopolis-univerity-received-a-license.md): In accordance with the decree of the Federal Education and Science Supervision Service dated 31 July 2014 No.
 - [Innopolis University Builds Connections with Brazilian Universities](/raw/sites/media/news-innopolis-university-builds-connections-with-brazilian-.md): In November, 2014, Sofia Chernogortseva, IU’s Director for Business Development, took part in the program “Collaboration across the Ocean: discovering the innovative Brazil”, which was organized by Ru
 - [Innopolis University Celebrates the Second Graduation Ceremony](/raw/sites/media/news-innopolis-university-celebrates-the-second-graduation-c.md): Nikolay Nikiforov and Rustam Minnikhanov presented diplomas to 21 Bachelors and 17 Masters in the field of IT.
@@ -1385,6 +1435,7 @@ Pages of the sites of the university and its services: the university, admission
 - [Innopolis University’s partner Dnevnik.ru carried out a global research on the introduction of tablets in the educational process](/raw/sites/media/news-innopolis-university-s-partner-dnevnik-ru-carried-out-a.md): Over 50,000 respondents from 85 regions of the Russian Federation took part in the national survey lasting 2.5 weeks.
 - [Innopolis project celebrates its third birthday](/raw/sites/media/news-innopolis-project-celebrates-its-third-birthday.md): A new campus of Innopolis University has been officially opened.
 - [Innorobohack: хакатон по искусственному интеллекту в робототехнике Университета Иннополис](/raw/sites/media/news-innorobohack-hackathon.md): Эксперты Центра технологий компонентов робототехники и мехатроники российского ИТ-вуза совместно с АО НПО «Андроидная Техника» и АО «НИИАС» (ОАО «РЖД») подготовили задачи по двум трекам — антропоморфн
+- [Innothon](/raw/sites/media/events-innothon.md): Innothon is like a usual hackathon, but the main task is to generate ideas, not code.
 - [Innovate or Die 2018: 2 дня, 42 кейса, 18 воркшопов, 500 участников](/raw/sites/media/news-innovate-or-die-2018.md): 13—14 ноября на конференции по корпоративным инновациям, цифровой трансформации и прорывным технологиям соберутся 50 спикеров-практиков из МТС, НорНикель, Qiwi, АФК Система, ПИК Digital, КРОК, ВТБ, Ро
 - [Intelligent Robotic System Laboratory and IntroScan Technology Company signed the Cooperation Agreement](/raw/sites/media/news-intelligent-robotic-system-laboratory-and-introscan-tec.md): Cooperative projects on robotics for in-pipe diagnosis and control were discussed at the meeting.
 - [Intelligent Robotic Systems Laboratory celebrated the first anniversary](/raw/sites/media/news-the-first-anniversary.md): <p>Professor Evgeni Magid established Intelligent Robotic Systems Laboratory (LIRS) at Innopolis University on October 2, 2014.</p>
@@ -1449,6 +1500,7 @@ Pages of the sites of the university and its services: the university, admission
 - [Skolkovo Robotics 2015: три дня с роботами](/raw/sites/media/news-skolkovo-robotics-2015-tri-dnya-s-robotami.md): Университет Иннополис стал соорганизатором главной российской робототехнической конференции Skolkovo Robotics 2015.
 - [Smart city.Умные города России](/raw/sites/media/news-smart-city-umnye-goroda-rossii.md): Smart city объединяет всю городскую инфраструктуру и городские службы в единую сеть.
 - [Soft skills для ИТ: Университет Иннополис запустил новую программу дополнительного образования](/raw/sites/media/news-soft-skills-for-the-it.md): На двухдневных курсах повышения квалификации ИТ-специалисты обучаются командообразованию, коммуникабельности, публичным выступлениям и навыкам управления.
+- [Startup Day](/raw/sites/media/events-startup-day.md): Митап для тех кто хочет создать свой стартап или поработать в существующем!
 - [Students of Innopolis University Win Science Slam Contest](/raw/sites/media/news-students-of-innopolis-university-win-science-slam-conte.md): Bachelor’s students of Innopolis University became winners of Science Slam, which was held as part of the Kazan Startup Week.
 - [Students of Innopolis University placed first in the “Hack” nomination at the HackDay in Penza](/raw/sites/media/news-students-of-innopolis-university-placed-first-in-the-ha.md): The team decided to present their first-place prize – a 3D-printer - to the University.
 - [Students of Innopolis University took the second place at the "Our Tatarstan" forum with their cable-laying robot project](/raw/sites/media/news-students-of-innopolis-university-took-the-second-place-.md): The project of Master's degree students of the IT University will help to minimize human risks during dangerous works, reduce time and cost of the electric line laying.
@@ -1593,6 +1645,7 @@ Pages of the sites of the university and its services: the university, admission
 - [Более 385 тысяч студентов пройдут оценку полученных цифровых компетенций](/raw/sites/media/news-assessment-students-digital-competencies-iu.md): Правительство утвердило правила предоставления субсидии из федерального бюджета на проведение оценки развития цифровых компетенций студентов, получающих дополнительную квалификацию на «Цифровых кафедр
 - [Более 80 тысяч студентов из 114 российских вузов прошли проверку цифровых компетенций на платформе Университета Иннополис](/raw/sites/media/news-80-thousand-students-digital-competence-test-iu.md): Проверка уровня сформированных цифровых компетенций по программам дополнительного профессионального образования ИТ-направлений поможет вузам выстроить эффективную систему обучения.
 - [Более 800 датацентричных проектов разработали госслужащие и сотрудники коммерческих компаний России во время обучения в Университете Иннополис](/raw/sites/media/news-more-than-800-data-centric-projects-were-developed-by-c.md): Все проекты — это цифровые решения, направленные на повышение эффективности работы структурных подразделений госучреждений и бизнеса.
+- [Большая ярмарка вакансий](/raw/sites/media/events-bolshaya-yarmarka-vakansiy.md): 16 марта с 9:30 до 19:00 приходите на интересные и полезные лекции от ИТ-спикеров!
 - [Больше половины айтишников сосредоточены в секторе разработки ПО и IТ-продуктов](/raw/sites/media/news-bolshe-poloviny-rossiyskikh-aytishnikov-sosredotocheny-.md): Университет Иннополис изучил российский рынок IT-вакансий с целью определения структуры прогнозной потребности отрасли в специалистах.
 - [Бренд в квадрате: Университет Иннополис обновил логотип в честь десятилетия](/raw/sites/media/news-new-innopolis-university-obnovil-logo.md): Новый знак отражает основные виды деятельности российского ИТ-вуза — образование, исследования и разработки.
 - [Бронзовый призёр международной олимпиады по информатике IOI 2018: «Это была самая сложная для меня олимпиада»](/raw/sites/media/news-ioi-2018.md): В сентябре в Японии прошёл финал соревнования молодых программистов со всего мира IOI.
@@ -2031,6 +2084,7 @@ Pages of the sites of the university and its services: the university, admission
 - [Кошмары Илона Маска: опасность и препятствия освоения Марса](/raw/sites/media/news-zelenyikot-six-mrt.md): 6 марта в 14:00 в Университете Иннополис популяризатор космонавтики Виталий Егоров, известный как Zelenyikot, прочитает лекцию «Реально ли переселиться на Марс и что нужно знать людям об этой планете»
 - [Круглый стол «Применение ИИ и робототехнических систем в бизнесе и промышленности»](/raw/sites/media/news-ai-and-robots-in-business.md): 24 декабря в 10:00 эксперты Университета Иннополис, Торгово-промышленной палаты РФ и платформы «Инносфера» расскажут, как с помощью технологий повысить производительность труда и внедрить в бизнес тех
 - [Круглый стол Университета Иннополис на «Армии-2017»](/raw/sites/media/news-iu-army-2017.md): Российский ИТ-вуз провёл заседание на тему «Большие данные: современные подходы к построению систем хранения, обработки, управления и обеспечения безопасности» на военно-техническом форуме.
+- [Круглый стол на тему создания Центра компетенций по робототехнике, мехатронике и сенсорике](/raw/sites/media/events-kruglyy-stol-na-temu-sozdaniya-tsentra-kompetentsiy-p.md): В целях поддержки предприятий отрасли новыми знаниями и информационными ресурсами мы планируем создать на базе Университета Центр компетенций по робототехнике, мехатронике и сенсорике.
 - [Круглый стол по робототехнике, мехатронике и сенсорике в Университете Иннополис](/raw/sites/media/news-meeting-robotics-mechatronics-sensorics.md): Вуз приглашает представителей индустрии, образовательных и научных организаций на обсуждение создания Центра компетенций.
 - [Крупнейший в мире хакатон AngelHack впервые пройдёт в Университете Иннополис](/raw/sites/media/news-krupneyshiy-v-mire-khakaton-angelhack-vpervye-proydyet-.md): Победители соревнований получат приглашение на глобальный Demo Day в Кремниевую долину и возможность участвовать в программе обучения HACKcelerator.
 - [Крупнейший вуз в Якутии актуализирует образовательные программы на базе Университета Иннополис](/raw/sites/media/news-krupneyshiy-vuz-v-yakutii-aktualiziruet-obrazovatelnye-.md): В 2022 году преподаватели и методисты Северо-Восточного федерального университета имени М.
@@ -2092,6 +2146,7 @@ Pages of the sites of the university and its services: the university, admission
 - [Минсельхоз России, Татарстан и Университет Иннополис начинают сотрудничество в области агротехнологий](/raw/sites/media/news-agrotechnology-partnership-2026.md): Соответствующее соглашение организации подписали на стенде Республики Татарстан в рамках XXIX Петербургского международного экономического форума.
 - [Митап в рамках курса «Fullstack-разработчик на Javascript»](/raw/sites/media/events-mitap-v-ramkakh-kursa-fullstack-razrabotchik-na-javas.md): Центр специализированной ИТ-подготовки Университета Иннополис приглашает на практический митап «Карьерный путь в fullstack-разработке от практиков».
 - [Митап для преподавателей высшего и среднего профессионального образования](/raw/sites/media/news-mitap-dlya-prepodavateley-vysshego-i-srednego-professio.md): 11 марта в 16:00 (мск) Опорный образовательный и Единый учебно-методологический центры на базе Университета Иннополис проведут вебинар с экспертами компании 1 С.
+- [Митап для технических писателей, аналитиков и разработчиков документации](/raw/sites/media/events-mitap-dlya-tekhnicheskikh-pisateley-analitikov-i-razr.md): Спикеры из Университета Иннополис и компаний Ростелеком ИТ, Центр финансовых технологий, Тензор и ICL-КПО ВС расскажут о методах и инструментах разработки документации, преимуществах обучающих видео и
 - [Митап для технических писателей, аналитиков и разработчиков документации](/raw/sites/media/news-meetup-documentation.md): Спикеры из Университета Иннополис, Центра финансовых технологий и компаний Ростелеком ИТ, Тензор и ICL-КПО ВС расскажут о методах и инструментах разработки документации, преимуществах обучающих видео 
 - [Младший научный сотрудник Лаборатории Интеллектуальных Робототехнических Систем Игорь Данилов победил в XI республиканского конкурса «Пятьдесят лучших инновационных идей для Республики Татарстан»](/raw/sites/media/news-mladshiy-nauchnyy-sotrudnik-laboratorii-intellektualnyk.md): <p>Организаторы конкурса – Инвестиционно-венчурный фонд Республики Татарстан, Академия наук Республики Татарстан и Министерство образования и науки Республики Татарстан.</p>
 - [Модель нулевого доверия — требование современности](/raw/sites/media/news-model-nulevogo-doveriya-trebovanie-sovremennosti.md): В связи с эпидемией многие компании были вынуждены полностью или частично уйти в онлайн, одновременно с этим сложные политические условия увеличили риски кибератак.
@@ -2191,6 +2246,7 @@ Pages of the sites of the university and its services: the university, admission
 - [Новогоднее поздравление в формате VR-видео](/raw/sites/media/news-new-year-vr.md): К Новому году Университет Иннополис подготовил специальное VR-видео, на котором зрители увидят лабораторию робототехники и прокатятся на собачьей упряжке по университетскому кампусу.
 - [Новое интервью в рубрике «Молодые ученые»](/raw/sites/media/news-novoe-intervyu-v-rubrike-molodye-uchenye.md): Доказываем, что наука — это увлекательно; развенчиваем миф, что исследованиями занимаются только представители старшего поколения.
 - [Новости Университета Иннополис](/raw/sites/media/home.md): Все Индустрия Наука Образование Школа Студенческая жизнь Международное сотрудничество Робототехника
+- [Новости Университета Иннополис](/raw/sites/media/news-detail-php.md): Все Индустрия Наука Образование Школа Студенческая жизнь Международное сотрудничество Робототехника
 - [Новости Университета Иннополис](/raw/sites/media/news.md): Все Индустрия Наука Образование Школа Студенческая жизнь Международное сотрудничество Робототехника
 - [Новые партнёрства на международном экономическом форуме «Россия — Исламский мир: KazanForum»](/raw/sites/media/news-kazanforum-iu-2024.md): Университет Иннополис подписал два соглашения о сотрудничестве на главной площадке экономического взаимодействия Российской Федерации и стран исламского мира — с «Лабораторией Касперского» и КНИТУ-КАИ
 - [Новые правила робототехнической олимпиады всероссийского и мирового этапа 2018 года](/raw/sites/media/news-new-rules-wro2018.md): Робототехники сразятся в 10 категориях, три из которых Университет Иннополис ввёл в этом году.
@@ -2761,6 +2817,7 @@ Pages of the sites of the university and its services: the university, admission
 - [Турнир по компьютерной безопасности для старшеклассников InnoCTF Junior открыл приём заявок](/raw/sites/media/news-innoctf-junior-2023.md): Участникам предстоит собрать команду до пяти человек и решить задания по криптографии, стеганографии, уязвимости веб-приложений и другим вопросам компьютерной безопасности.
 - [Узнать об обучении в Университете Иннополис можно на бесплатных выставках по всей стране](/raw/sites/media/news-university-at-educational-exhibitions.md): Сотрудники российского ИТ-вуза расскажут посетителям о поступлении в Университет Иннополис, грантовом конкурсе, образовательных программах по ИТ, искусственному интеллекту и робототехнике, карьерных в
 - [Университет Иннополис - партнер Международной научной конференции «Управление и виртуализация в современных сетях»](/raw/sites/media/news-universitet-innopolis-partner-mezhdunarodnoy-nauchnoy-k.md): В Москве прошла Международная научная конференция «Управление и виртуализация в современных сетях».
+- [Университет Иннополис анонсировал бесплатные ноябрьские мастер-классы и вебинары по программированию, робототехнике и математике](/raw/sites/media/news-free-webinars-november-2026.md): Центр довузовской подготовки ИТ-вуза проведёт серию бесплатных вебинаров для школьников 6—11 классов.
 - [Университет Иннополис анонсировал бесплатные сентябрьские мастер-классы и вебинары по программированию, физике и математике](/raw/sites/media/news-free-webinars-september-2026.md): Центр довузовской подготовки ИТ-вуза проведёт серию образовательных онлайн-мероприятий для учеников 6—11 классов, учителей и родителей.
 - [Университет Иннополис анонсировал майские бесплатные мастер-классы и вебинары для школьников](/raw/sites/media/news-free-webinars-for-school-students-may.md): Центр довузовской подготовки ИТ-вуза проведёт серию образовательных онлайн-мероприятий по программированию и физике для учеников 6—11 классов.
 - [Университет Иннополис бесплатно обучит востребованным профессиям в сфере ИТ и дополнительного образования](/raw/sites/media/news-free-it-program-iu-2022.md): Российский ИТ-вуз подготовит тьюторов и модераторов для образовательной деятельности, специалистов по работе с данными, тестировщиков ПО и программистов.
@@ -2906,6 +2963,7 @@ Pages of the sites of the university and its services: the university, admission
 - [Университет Иннополис и ИТ-парк открыли первую общественную зарядную станцию для электромобилей](/raw/sites/media/news-universitet-innopolis-i-it-park-otkryli-pervuyu-obshche.md): Развитие полноценной инфраструктуры позволит Татарстану увеличить количество «экологически чистых» автомобилей в республике.
 - [Университет Иннополис и ИТ-холдинг Т1 открыли набор на бесплатное обучение в летней школе по ИИ](/raw/sites/media/news-summer-ai-school-with-t1.md): Учеников 7—11 классов ждут семинары и практические занятия, разборы олимпиадных задач, спортивные игры и экскурсии по кампусу и городу инноваций.
 - [Университет Иннополис и Индийский технологический институт Мадраса договорились об обмене студентами](/raw/sites/media/news-iu-madras.md): Российский ИТ-университет расширяет сотрудничество с вузами стран БРИКС, в число которых входит новый академический партнёр.
+- [Университет Иннополис и Инновационный центр Mirzo Ulugbek Innovation Center подписали меморандум о взаимопонимании](/raw/sites/media/news-iu-mirzo-ulugbek-innovation-center.md): Стороны договорились обмениваться опытом по инновационным проектам, научным разработкам, созданию и развитию высокотехнологичных центров, управлению технопарками, созданию и развитию бизнес-инкубаторо
 - [Университет Иннополис и Институт телекоммуникаций и информатики Туркменистана договорились о сотрудничестве](/raw/sites/media/news-innopolis-university-and-the-institute-of-telecommunica.md): Соглашение подписано на воскресной встрече президента Туркмении Гурбангулы Бердымухамедова и главы Республики Татарстан Рустама Минниханова в Казани.
 - [Университет Иннополис и КАИСТ подписали соглашение об академическом обмене](/raw/sites/media/news-universitet-innopolis-i-kaist-podpisali-soglashenie-ob-.md): Международная программа студенческого обмена Университета Иннополис началась с одного из лучших технических вузов мира.
 - [Университет Иннополис и КФУ договорились о сотрудничестве](/raw/sites/media/news-iu-kpfu.md): Соглашение предусматривает сотрудничество университетов в области образовательных технологий и средств обучения, повышения конкурентоспособности выпускников.
@@ -2917,6 +2975,7 @@ Pages of the sites of the university and its services: the university, admission
 - [Университет Иннополис и МИРЭА — Российский технологический университет начнут совместные научно-исследовательские проекты и разработку образовательных программ](/raw/sites/media/news-cooperation-with-mirea.md): Соглашение о сотрудничестве в образовании, науке и технологиях подписали директор российского ИТ-вуза Искандер Бариев и ректор РТУ МИРЭА Станислав Кудж в присутствии заместителя премьер-министра Респу
 - [Университет Иннополис и Министерство промышленности и строительного производства Туркменистана договорились о совместных проектах на базе современных информационных технологий](/raw/sites/media/news-innopolis-university-turkmenistan.md): В рамках рабочего визита в Республику Татарстан министра промышленности и строительного производства Туркменистана Сердара Бердымухамедова между министерством и российским ИТ-вузом состоялось подписан
 - [Университет Иннополис и Министерство цифрового развития и связи Оренбургской области подписали соглашение о сотрудничестве](/raw/sites/media/news-innopolis-university-orenburg.md): Стороны договорились о взаимодействии в рамках мероприятий федерального проекта «Кадры для цифровой экономики», чтобы применять наработки друг друга при разработке программ и проектов в этой области.
+- [Университет Иннополис и Минтранс РТ будут внедрять беспилотные и ИИ-системы в транспортную отрасль региона](/raw/sites/media/news-agreement-with-transport-ministry-kdw-2026.md): Министерство транспорта и дорожного хозяйства республики и российский ИТ-вуз заключили соглашение о сотрудничестве в сфере беспилотных систем управления и искусственного интеллекта.
 - [Университет Иннополис и Минцифры России организуют регулярные вебинары для участников проекта «Цифровые кафедры»](/raw/sites/media/news-universitet-innopolis-i-mintsifry-rossii-organizuyut-re.md): Уже прошло две онлайн-встречи, в них приняли участие 115 университетов из 48 регионов России: Татарстана, Башкортостана, Якутии, Крыма, Московской, Ленинградской, Самарской, Томской, Ростовской, Красн
 - [Университет Иннополис и Минцифры России проведут митап для топ-менеджеров и управленцев бизнеса](/raw/sites/media/news-cdto-meet-iu.md): Встреча представителей госкомпаний, управленцев и владельцев бизнеса по вопросу «Барьеры цифровой трансформации: как развивать бизнес в непростых условиях» пройдёт 16 февраля на площадке регионального
 - [Университет Иннополис и Московский Политех запустят совместную программу магистратуры по кибербезопасности](/raw/sites/media/news-iu-mospolytech.md): Вузы подписали соглашение о сотрудничестве, в рамках которого разработают и будут обучать по программе магистратуры «Инженерия безопасности компьютерных систем и сетей».
@@ -3022,6 +3081,7 @@ Pages of the sites of the university and its services: the university, admission
 - [Университет Иннополис открыл набор на бесплатное обучение цифровым профессиям для жителей Татарстана](/raw/sites/media/news-free-courses-in-digital-professions-for-tatarstan.md): Курсы по программированию на Питоне, работе с ИИ-системами и мобильными роботами, а также эксплуатации беспилотников пройдут онлайн и очно в городах республики.
 - [Университет Иннополис открыл набор на бесплатный курс по науке о данных и машинному обучению](/raw/sites/media/news-data-science-and-ml-free-course.md): Онлайн-обучение пройдёт 26 февраля — 27 сентября и рассчитано на студентов последних курсов и ИТ-специалистов с высшим образованием.
 - [Университет Иннополис открыл набор на курс «Искусственный интеллект в цифровой трансформации государственного управления»](/raw/sites/media/news-ai-in-digital-transformation-of-public-administration.md): 5 сентября — 5 ноября эксперты Исследовательского центра в сфере искусственного интеллекта российского ИТ-вуза проведут онлайн-обучение для госслужащих, сотрудников B2G-компаний, преподавателей и студ
+- [Университет Иннополис открыл набор на курс по оптимизации рабочей рутины с помощью ИИ](/raw/sites/media/news-optimization-with-ai-course.md): Новая программа повышения квалификации длится 20 академических часов и будет полезна руководителям команд, специалистам по документообороту, студентам колледжей и вузов и всем, кто хочет делегировать 
 - [Университет Иннополис открыл набор на курсы по программированию, геометрии, подготовке к ЕГЭ и обучению в ИТ-вузе](/raw/sites/media/news-iu-courses-in-programming-training-at-an-it-university-.md): Занятия для учащихся 7—11 классов начнутся в феврале 2023 года, будут проходить онлайн в малых группах.
 - [Университет Иннополис открыл набор на летнюю школу олимпиадной подготовки по робототехнике, математике, информатике и инфобезу](/raw/sites/media/news-iu-summer-olympiad-training-school-2026.md): Учеников 7—11 классов ждут семинары и практические занятия, разборы олимпиадных задач, спортивные игры и экскурсии по кампусу и городу инноваций.
 - [Университет Иннополис открыл набор на новые ИТ-курсы Product manager и Разработчик 1С со скидкой от 50 % до 100 %](/raw/sites/media/news-new-it-courses-iu.md): ИТ-образование со скидкой за cчёт государства доступно жителям всех регионов России старше 16 лет.
@@ -3175,6 +3235,7 @@ Pages of the sites of the university and its services: the university, admission
 - [Университет Иннополис проведёт первую Летнюю онлайн-школу по информатике в Minecraft](/raw/sites/media/news-shop-iu-minecraft.md): Игровую модель зданий снаружи и внутри создали студенты и участники онлайн-стажировки со всей России.
 - [Университет Иннополис проведёт первую в России международную проектную школу по автономным транспортным средствам](/raw/sites/media/news-self-driven-school.md): Мероприятие рассчитано на бакалавров, магистров, аспирантов и молодых исследователей и пройдёт в соревновательном формате между командами с 6 по 13 апреля.
 - [Университет Иннополис проведёт первую в России финтех-олимпиаду для школьников](/raw/sites/media/news-iu-fintech-olympiad.md): Уникальность олимпиады в том, что учащимся 9—11 классов предстоит поработать над реальными задачами индустриальных партнёров ИТ-вуза: «АК БАРС» Банка, Уральского банка реконструкции и развития, Qiwi и
+- [Университет Иннополис проведёт технологические аудиты и окажет экспертную поддержку московским предприятиям](/raw/sites/media/news-agreement-with-moscow-cluster-kdw-2026.md): На форуме Kazan Digital Week — 2026 соглашение о продвижении проектов в промышленной, сервисной и специальной робототехнике и автоматизации подписали первый заместитель генерального директора Московск
 - [Университет Иннополис проведёт хакатон по разработке ИИ-сервиса для мониторинга охранных зон ЛЭП](/raw/sites/media/news-hackathon-iu-2024.md): Международное онлайн-соревнование PowerSafe пройдёт 15—25 ноября.
 - [Университет Иннополис провел воркшоп для педагогов](/raw/sites/media/news-universitet-innopolis-provel-vorkshop-dlya-pedagogov.md): Университет Иннополис провел мероприятие «Innopolis Networking Club: Профессиональный рост педагога» для преподавателей, прошедших повышение квалификации в Опорном образовательном и Едином учебно-мето
 - [Университет Иннополис провел встречу с цифровыми проректорами российских вузов](/raw/sites/media/news-universitet-innopolis-provel-vstrechu-s-tsifrovymi-pror.md): 120 руководителей цифровой трансформации вузов страны собрал Университет Иннополис на встрече в рамках федерального проекта «Кадры для цифровой экономики».
@@ -3443,7 +3504,7 @@ Pages of the sites of the university and its services: the university, admission
 
 ## site/postcodehack
 
-- [PostCode Challenge от Почтатеха](/raw/sites/postcodehack/home.md): Все треки распакованы, код доставлен без задержек
+- [PostCode Challenge от Почтатеха](/raw/sites/postcodehack/home.md): **Все треки распакованы, код доставлен без задержек**
 - [PostCode Challenge от Почтатеха](/raw/sites/postcodehack/spisok-vuzov-i-obr-programm.md)
 
 ## site/progmatica
@@ -3473,7 +3534,7 @@ Pages of the sites of the university and its services: the university, admission
 - [ИТ сквозь время: от истоков к современности](/raw/sites/progmatica/longread-it-from-origins-to-modernity.md): Первые вычислительные устройства не имеют абсолютно ничего общего с современными компьютерами.
 - [ИТ-персона](/raw/sites/progmatica/longread-it-person.md): Кто придумал C++ и Python?
 - [ИТ-профессии](/raw/sites/progmatica/longread-career.md): Мы сделали подкаст для детей «Айтишечка»!
-- [ИТ-школа Университета Иннополис «Прогматика»](/raw/sites/progmatica/home.md): Прогматика — это больше, чем уроки информатики
+- [ИТ-школа Университета Иннополис «Прогматика»](/raw/sites/progmatica/home.md): Они помогают улучшить работу сайта и сделать его удобнее.
 - [ИТ-школа. Предварительный и основной договор](/raw/sites/progmatica/offerta.md): ИТ-школа Университета Иннополис оказывает образовательные услуги.
 - [Индивидуальные занятия в ИТ-школе Университета Иннополис для школьников 2–11 классов](/raw/sites/progmatica/individual-course.md): Индивидуальные занятия — это формат, который позволяет самостоятельно выбрать расписание и частоту уроков.
 - [Инструкция для участия в пробном уроке по разработке игр на Roblox для 3—6 классов](/raw/sites/progmatica/courses-instruction-roblox.md): Roblox – игровая онлайн-платформа и система создания игр, позволяющая любому пользователю создавать собственные проекты и играть в созданные другими игры.
@@ -3867,7 +3928,7 @@ Pages of the sites of the university and its services: the university, admission
 - [ООО «РУСДРОНОПОРТ»](/raw/sites/sez/res-ooo-rusdronoport.md): Первая в России компания, запустившая серийное производство автоматических станций для беспилотных воздушных судов (БВС) — дронопортов.
 - [ООО «Рэйлюкс»](/raw/sites/sez/res-ooo-reylyuks.md): Российский производитель, создающий профессиональные решения в сфере светодиодного освещения.
 - [ООО «ТЦР»](/raw/sites/sez/res-tinkoff.md)
-- [ОЭЗ «Иннополис»: официальный сайт особой экономической зоны](/raw/sites/sez/home.md): ОЭЗ «Иннополис» – передовой проект по созданию и развитию российского центра информационно-коммуникационных технологий.
+- [ОЭЗ «Иннополис»: официальный сайт особой экономической зоны](/raw/sites/sez/home.md): ОЭЗ «Иннополис» – передовой проект по созданию и развитию российского
 - [Общие блоки сайта sezinnopolis.ru: меню, шапка, подвал, контакты](/raw/sites/sez/_shared.md): The menu, header, footer and contact lines that every page of the site repeats, kept once.
 - [ПАО "ИВА"](/raw/sites/sez/res-iva-technologies.md): Высокотехнологичная российская компания-производитель инновационных ИТ-решений для построения современной цифровой инфраструктуры (входит в ГК «ХайТэк»).
 - [ПАО "Сбербанк России"](/raw/sites/sez/res-sbertech-ao-sberbank-tekhnologii.md): SberTech - ИТ-компания группы компаний «Сбера», которая разрабатывает ИТ-решения для крупнейшего банка страны, а также предоставляет свою инфраструктуру, платформенные компоненты и услуги для Гостеха 
@@ -3914,6 +3975,7 @@ Pages of the sites of the university and its services: the university, admission
 - [Кейс: Как роботизация повысила эффективность производства машиностроительного холдинга](/raw/sites/spec/kak-robotizaciya-povysila-effektivnost-proizvodstva-mashinos.md): Вместе с Артуром Шимановским, заместителем директора Центра робототехники Университета Иннополис, рассказываем, как с помощью точечной роботизации мы на 90% снизили долю брака и на 50% повысили безопа
 - [Кейсы](/raw/sites/spec/cases.md): Как мы собрали на конференции 40 экспертов, внедряющих ИИ в производство
 - [Ксения Шашкина: «Свой руль никому не отдам»](/raw/sites/spec/khsenia.md): Инженер-испытатель в Институте Сертификации автомототранспорта ИНСАТ
+- [Моя суперспособность — окружать себя профессионалами](/raw/sites/spec/page26134157-html.md): Руководитель направления цифровизации сельского хозяйства Университета Иннополис
 - [Моя суперспособность — окружать себя профессионалами](/raw/sites/spec/tatyana-reshetnikova.md): Руководитель направления цифровизации сельского хозяйства Университета Иннополис
 - [Общие блоки сайта spec.innopolis.university: меню, шапка, подвал, контакты](/raw/sites/spec/_shared.md): The menu, header, footer and contact lines that every page of the site repeats, kept once.
 - [Политика конфиденциальности](/raw/sites/spec/policy.md): Настоящая политика обработки персональных данных составлена в соответствии с требованиями Федерального закона от 27.07.2006.
@@ -4048,6 +4110,22 @@ Pages of the sites of the university and its services: the university, admission
 - [Федеральный проект 2026 года «Активные меры содействия занятости»](/raw/sites/trud/home.md): Наш сайт использует cookie-файлы, продолжая работу, вы даете согласие на обработку своих персональнный данных
 - [Федеральный проект «Содействие занятости». Стартовал набор на 2023 год.](/raw/sites/trud/guide.md): Для граждан РФ со средним профессиональным или высшим образованием
 
+## site/unionepro-ru
+
+- [ЕМОП](/raw/sites/unionepro-ru/home.md): Курсы для взрослых и школьников, программы повышения квалификации для работников сферы образования, госсектора и бизнеса
+- [ЕМОП](/raw/sites/unionepro-ru/news-661355c3c45669c272b94476.md): Обучили специалистов медицинских, строительных и спортивных вузов и колледжей применять цифровые инструменты в образовании
+- [ЕМОП](/raw/sites/unionepro-ru/news-66135659c45669c272b94499.md): На онлайн-конференции в Университете Иннополис обсудят инновационные образовательные пространства
+- [ЕМОП](/raw/sites/unionepro-ru/news-667536492e72d11bd553bda9.md): Университет Иннополис запустил онлайн-курс по нейросетям
+- [ЕМОП](/raw/sites/unionepro-ru/news-66a8bd652e72d11bd5592df4.md): Университет Иннополис обучил управленцев «Газпром нефть» продвинутой аналитике
+- [ЕМОП](/raw/sites/unionepro-ru/news-66be1157880eac52bbf2a869.md): Преподаватели из университетов 11 стран прошли стажировку в Университете Иннополис
+- [ЕМОП](/raw/sites/unionepro-ru/news-66d04d99880eac52bbf39d8e.md): Университет Иннополис открыл набор на курс «Искусственный интеллект в цифровой трансформации государственного управления»
+- [ЕМОП](/raw/sites/unionepro-ru/news-6ab221421095e7122a6c0d0b.md): Регистрация на форум «Цифровые дни Иннополиса» завершится 1 октября
+- [ЕМОП](/raw/sites/unionepro-ru/news-6ab222b71095e7122a6c0e34.md): Открыт набор на бесплатные ИТ-курсы Университета Иннополис для старшеклассников и студентов колледжей
+- [ЕМОП](/raw/sites/unionepro-ru/news.md): 21.09.2026 Регистрация на форум «Цифровые дни Иннополиса» завершится 1 октября В первый день форума пройдёт сессия «Мир 2030: как ИИ пересобирает реальность», где топ-менеджеры «БАРС Груп», Почты Росс
+- [ЕМОП](/raw/sites/unionepro-ru/support.md)
+- [О платформе](/raw/sites/unionepro-ru/information.md): «Единая многофункциональная образовательная платформа» предназначена для автоматизации обучения по программам высшего, среднего профессионального и дополнительного образования, а также для организации
+- [Общие блоки сайта unionepro.ru: меню, шапка, подвал, контакты](/raw/sites/unionepro-ru/_shared.md): The menu, header, footer and contact lines that every page of the site repeats, kept once.
+
 ## site/university
 
 - [Abdelrahman Abounegm](/raw/sites/university/success-stories-abdelrahman-abounegm.md): Student of Bachelor`s Program at Innopolis University (Spring 2020-2021)
@@ -4173,6 +4251,7 @@ Pages of the sites of the university and its services: the university, admission
 - [Mohammad Alkousa](/raw/sites/university/en-professor-mohammad-alkousa.md): Mohammad Alkousa received his bachelor’s and master’s degrees in mathematics at Damascus University (Syria), completing his master’s thesis in elliptic functions theory.
 - [Mohammad Alkousa](/raw/sites/university/professor-mohammad-alkousa.md): Mohammad Alkousa received his bachelor’s and master’s degrees in mathematics at Damascus University (Syria), completing his master’s thesis in elliptic functions theory.
 - [Murtazina Dinara](/raw/sites/university/success-stories-murtazina-dinara.md): CommTECH, Surabaya (Indonesia) Institut Teknologi Sepuluh Nopember (ITS) February, 2025
+- [NDA](/raw/sites/university/nda.md): 1\.
 - [NIR 2022](/raw/sites/university/en-nir2022.md): Preliminary study: Exploring GitHub repository metrics
 - [Networks and Blockchain Lab](/raw/sites/university/en-lab-networks-blockchain.md): Computer networks are the pinnacle of communication, as well as information systems.
 - [Nikita Niakhai](/raw/sites/university/success-stories-nikita-niakhai.md): Belarusian State University of Informatics and Radioelectronics, Belarus
@@ -4253,6 +4332,7 @@ Pages of the sites of the university and its services: the university, admission
 - [Yegor Bugayenko](/raw/sites/university/en-professor-egor-bugaenko-1.md): Professor of Practice, Institute of Software Development and Engineering, Lab of Software and Service Engineering
 - [Yegor Bugayenko](/raw/sites/university/professor-egor-bugaenko-1.md): Professor of Practice, Institute of Software Development and Engineering, Lab of Software and Service Engineering
 - [Zhakubayev Azat](/raw/sites/university/success-stories-zhakubayev-azat.md): I would like to start with the infrastructure of the city of Innopolis and the University.
+- [Адаптация домена](/raw/sites/university/business-solutions-adaptatsiya-domena.md)
 - [Адил Хан](/raw/sites/university/en-professor-adil-khan.md): PhD, Kyung Hee University, Южная Корея, Профессор, Директор Института анализа данных и искусственного интеллекта
 - [Адил Хан](/raw/sites/university/professor-adil-khan-bbe507.md): PhD, Kyung Hee University, Южная Корея, Профессор, Директор Института анализа данных и искусственного интеллекта
 - [Александр Малолетов](/raw/sites/university/en-professor-aleksandr-maloletov.md): Доктор физико-математических наук, Волгоградский государственный технический университет, Россия, Профессор, Институт робототехники и компьютерного зрения, Научный руководитель Центра технологий компо
@@ -4271,13 +4351,18 @@ Pages of the sites of the university and its services: the university, admission
 - [Артем Бурмяков](/raw/sites/university/en-professor-artem-burmyakov.md): PhD, Университет Порту, Португалия , Доцент, Институт информационной безопасности и киберфизических систем, Лаборатория облачных систем и технологий виртуализации
 - [Артем Бурмяков](/raw/sites/university/professor-artem-burmyakov-cae024.md): PhD, Университет Порту, Португалия , Доцент, Институт информационной безопасности и киберфизических систем, Лаборатория облачных систем и технологий виртуализации
 - [Ассесмент-центр](/raw/sites/university/assessment-center.md): Ассесмент-центр - это комплексная оценка профессиональных качеств, которая дает объективную картину о потенциале ваших сотрудников.
+- [Бакалавриат](/raw/sites/university/education-bachelor.md): Обучение в бакалавриате Университета Иннополис проводится по программе "Информатика и вычислительная техника" (код специальности: 09.03.01).
 - [Вакантные места для приема](/raw/sites/university/sveden-vacant.md): Вакантные места за счет собственных средств АНО ВО «Университет Иннополис», в том числе средств, полученных от приносящей доход деятельности, добровольных пожертвований и целевых взносов физических и 
 - [Владимир Иванов](/raw/sites/university/en-professor-vladimir-ivanov.md): PhD, КФУ, Россия, Доцент, Институт разработки ПО и программной инженерии, Лаборатория промышленной разработки ПО, Руководитель Лаборатории методов обработки естественного языка в программной инженерии
 - [Владимир Иванов](/raw/sites/university/professor-vladimir-ivanov-a33560.md): PhD, КФУ, Россия, Доцент, Институт разработки ПО и программной инженерии, Лаборатория промышленной разработки ПО, Руководитель Лаборатории методов обработки естественного языка в программной инженерии
 - [Внутренняя система оценки качества образования](/raw/sites/university/sveden-rating-system.md): Образовательная программа высшего образования – программа бакалавриата 09.03.01 Информатика и вычислительная техника, направленность (профиль) Анализ данных и искусственный интеллект
+- [Враждебные атаки на глубокое обучение](/raw/sites/university/business-solutions-vrazhdebnye-ataki-na-glubokoe-obuchenie.md)
+- [Высокоточное манипулирование с помощью моделирования жесткости](/raw/sites/university/business-solutions-vysokotochnoe-manipulirovanie-s-pomoshchy.md)
 - [Георгий Гелвановский](/raw/sites/university/en-professor-georgiy-gelvanovskiy.md): Кандидат филологических наук, Башкирский государственный университет, профессор, Институт гуманитарных и социальных наук, Лаборатория социальных наук
 - [Георгий Гелвановский](/raw/sites/university/professor-georgiy-gelvanovskiy-cf4222.md): Кандидат филологических наук, Башкирский государственный университет, профессор, Институт гуманитарных и социальных наук, Лаборатория социальных наук
+- [Двумерно-распределённая неконтактная электромагнитная микроактуаторная система](/raw/sites/university/business-solutions-dvumerno-raspredelyennaya-nekontaktnaya-e.md)
 - [Директор Университета Иннополис](/raw/sites/university/team-director.md): Окончил Казанский государственный технический университет и Университет управления«ТИСБИ».
+- [Довузовское отделение](/raw/sites/university/education-pre-university-education.md): Cannot find 'pre-university-education' template with page 'news'
 - [Документы](/raw/sites/university/sveden-document.md): Действующие предписания органов, осуществляющих государственный контроль (надзор) в сфере образования, отсутствуют.
 - [Евгений Зуев](/raw/sites/university/en-professor-eugene-zuev.md): Кандидат наук, МГУ имени М.В.Ломоносова, Россия, Профессор, Институт разработки ПО и программной инженерии, Руководитель Лаборатории языков программирования и компиляторов
 - [Евгений Зуев](/raw/sites/university/professor-eugene-zuev-49e24c.md): Кандидат наук, МГУ имени М.В.Ломоносова, Россия, Профессор, Институт разработки ПО и программной инженерии, Руководитель Лаборатории языков программирования и компиляторов
@@ -4289,6 +4374,7 @@ Pages of the sites of the university and its services: the university, admission
 - [Елена Корнаева](/raw/sites/university/professor-elena-kornaeva-b9152b.md): Доцент, старший научный сотрудник, Центр образовательных программ топ-уровня в сфере ИИ
 - [Заместитель директора](/raw/sites/university/vice-director-digital-economy.md): До прихода в Университет Иннополис в 2015 году занимался внедрением SAP в российских нефтегазовых компаниях.
 - [Заместитель директора по безопасности](/raw/sites/university/vice-director-security.md): Выпускник Казанского национального исследовательского технологического университета.
+- [ИТ бизнес-модуль](/raw/sites/university/education-eit.md): ИТ бизнес-модуль университета - это набор обучающих программ, помогающий решать вопросы повышения
 - [Иван Конюхов](/raw/sites/university/en-professor-ivan-konyukhov.md): Кандидат физико-математических наук, Казанский (Приволжский) федеральный университет, Доцент, Институт анализа данных и искусственного интеллекта, Начальник Лаборатории высокопроизводительных вычислен
 - [Иван Конюхов](/raw/sites/university/professor-ivan-konyukhov-8b914e.md): Кандидат физико-математических наук, Казанский (Приволжский) федеральный университет, Доцент, Институт анализа данных и искусственного интеллекта, Начальник Лаборатории высокопроизводительных вычислен
 - [Илья Афанасьев](/raw/sites/university/en-professor-ilya-afanasyev.md): Кандидат наук, Государственный Оптический Институт им.
@@ -4316,11 +4402,13 @@ Pages of the sites of the university and its services: the university, admission
 - [Лаборатория сетей и блокчейн технологий](/raw/sites/university/lab-networks-blockchain.md): Кибербезопасность — общий термин, который относится к совокупности технологий и методов защиты компьютеров, сетей, программ и данных от несанкционированного доступа или атак.
 - [Лаборатория социальных наук](/raw/sites/university/lab-social-science.md): Лаборатория социальных наук проводит исследования на стыке социогуманитарных и инженерных дисциплин.
 - [Лаборатория языков программирования и компиляторов](/raw/sites/university/lab-operating-systems.md): Языки программирования (ЯП) вместе с соответствующим инструментарием (компиляторы, системы поддержки периода выполнения, редакторы связей, библиотеки) представляют собой ключевой аспект разработки люб
+- [Магистратура](/raw/sites/university/education-master.md): В 2017 году открыт ограниченный приём заявок на обучение в магистратуре по программам высшего образования:
 - [Мануэль Маццара](/raw/sites/university/en-professor-manuel-mazzara.md): PhD, University of Bologna, Италия, Профессор, Декан факультета , Руководитель отдела международного и академического сотрудничества
 - [Мануэль Маццара](/raw/sites/university/professor-manuel-mazzara-451805.md): PhD, University of Bologna, Италия, Профессор, Декан факультета , Руководитель отдела международного и академического сотрудничества
 - [Материально-техническое обеспечение и оснащенность образовательного процесса. Доступная среда](/raw/sites/university/sveden-objects.md): Информация о материально-техническом обеспечении образовательной деятельности, в том числе информация о наличии оборудованных учебных кабинетов, о наличии оборудованных объектов для проведения практич
 - [Международное сотрудничество](/raw/sites/university/sveden-inter.md)
 - [Международный студенческий обмен](/raw/sites/university/international-relations-office.md): Университет Иннополис - первый российский университет в своей категории, представленный в рейтинге U-Multirank и достигший высоких показателей в престижном международном рейтинге среди 1700 университе
+- [Моделирование и управление приводами на основе скручивания тросов (ПСТ)](/raw/sites/university/business-solutions-modelirovanie-i-upravlenie-privodami-na-o.md)
 - [Мохаммад Алкуса](/raw/sites/university/en-professor-mokhammad-alkusa.md): Мохаммад Алкуса получил степени бакалавра и магистра по математике в Дамасском университете (Сирия), завершив магистерскую диссертацию по теории эллиптических функций.
 - [Мохаммад Алкуса](/raw/sites/university/professor-mokhammad-alkusa.md): Мохаммад Алкуса получил степени бакалавра и магистра по математике в Дамасском университете (Сирия), завершив магистерскую диссертацию по теории эллиптических функций.
 - [НИР 2022](/raw/sites/university/nir2022.md): Preliminary study: Exploring GitHub repository metrics
@@ -4328,6 +4416,8 @@ Pages of the sites of the university and its services: the university, admission
 - [Никола Златанов](/raw/sites/university/en-professor-nikola-zlatanov.md): Никола Златанов родился в Македонии.
 - [Никола Златанов](/raw/sites/university/professor-nikola-zlatanov-5094ae.md): Никола Златанов родился в Македонии.
 - [Об университете](/raw/sites/university/about.md): из 17 стран с опытом работы в ИТ-индустрии: Samsung Research, Intel, Magna International, ООН
+- [Обработка естественного языка в программном обеспечении](/raw/sites/university/business-solutions-obrabotka-estestvennogo-yazyka-v-programm.md)
+- [Образование](/raw/sites/university/education.md): Университет приглашает студентов бакалавриата и магистратуры, а также выпускников школ, желающих стать востребованными специалистами в области высоких технологий с последующим трудоустройством.
 - [Образование](/raw/sites/university/sveden-education.md): Информация о реализуемых уровнях образования, о формах обучения, нормативных сроках обучения
 - [Образовательные и научные подразделения](/raw/sites/university/team-structure-education-academics.md)
 - [Образовательные стандарты и требования](/raw/sites/university/sveden-edustandarts.md): Информация о применяемых федеральных государственных образовательных стандартах и требованиях:
@@ -4339,6 +4429,7 @@ Pages of the sites of the university and its services: the university, admission
 - [Органы управления университета](/raw/sites/university/board.md): Министр цифрового развития, связи и массовых коммуникаций Российской Федерации – Шадаев Максут Игоревич
 - [Основные сведения](/raw/sites/university/sveden-common.md)
 - [Отдел внешних коммуникаций и брендинга](/raw/sites/university/team-structure-team-pr.md): Директор по внешним коммуникациям и брендингу, Руководитель центра разработки игр
+- [Отдел интеллектуальной собственности и трансфера технологий](/raw/sites/university/patent.md): Содействует развитию инновационной деятельности Университета Иннополис в части создания условий для эффективного управления результатами интеллектуальной деятельности и обеспечения трансфера (коммерци
 - [ППС Университета Иннополис](/raw/sites/university/faculty.md): ШТАТНЫЕ ПРОФЕССОРА КОНКУРС НА ЗАМЕЩЕНИЕ ВАКАНТНЫХ ДОЛЖНОСТЕЙ ППС
 - [Паоло Чианкарини](/raw/sites/university/en-professor-paolo-ciancarini.md): Паоло Чанкарини был директором школы компьютерных и информационных наук, членом the PhD school in Informatics.
 - [Паоло Чианкарини](/raw/sites/university/professor-paolo-ciancarini-f7d686.md): Паоло Чанкарини был директором школы компьютерных и информационных наук, членом the PhD school in Informatics.
@@ -4364,17 +4455,23 @@ Pages of the sites of the university and its services: the university, admission
 - [Семинары Университета Иннополис](/raw/sites/university/seminars.md): площадка для демонстрации результатов исследований сотрудников Университета Иннополис.
 - [Сергей Майорга Татарин](/raw/sites/university/en-professor-sergio-majorga.md): Доцент Факультета компьютерных и инженерных наук, Институт анализа данных и искусственного интеллекта, Лаборатория высокопроизводительных вычислений
 - [Сергей Майорга Татарин](/raw/sites/university/professor-sergio-majorga-e4d6ce.md): Доцент Факультета компьютерных и инженерных наук, Институт анализа данных и искусственного интеллекта, Лаборатория высокопроизводительных вычислений
+- [Сети 5G и за их пределами](/raw/sites/university/business-solutions-seti-5g-i-za-ikh-predelami.md)
+- [Сети и кибербезопасность](/raw/sites/university/business-solutions-seti-i-kiberbezopasnost.md)
 - [Система распределенного реестра «InnoСhain»](/raw/sites/university/innochain.md): ЛИДИРУЮЩИЙ ИССЛЕДОВАТЕЛЬСКИЙ ЦЕНТР В ОБЛАСТИ СИСТЕМ РАСПРЕДЕЛЕННОГО РЕЕСТРА
 - [Стартап-студия Университета Иннополис](/raw/sites/university/startupstudio-0.md): развитие и поддержка студенческих технологических стартапов путем создания успешного стартап комьюнити студентов и выпускников Университета, а также содействие в предоставлении выгодных условий от вне
 - [Стартап-студия Университета Иннополис](/raw/sites/university/startupstudio.md): развитие и поддержка студенческих технологических стартапов путем создания успешного стартап комьюнити студентов и выпускников Университета, а также содействие в предоставлении выгодных условий от вне
 - [Стать спонсором](/raw/sites/university/sponsorship.md): Наименование: Автономная некоммерческая организация высшего образования «Университет Иннополис»
 - [Стипендии и меры поддержки обучающихся](/raw/sites/university/sveden-grants.md): Для студентов (в т.ч.
+- [Строгий подход к программному обеспечению](/raw/sites/university/business-solutions-strogiy-podkhod-k-programmnomu-obespechen.md)
 - [Структура и органы управления образовательной организацией](/raw/sites/university/sveden-struct-university-structure.md)
 - [Структура и органы управления образовательной организацией](/raw/sites/university/sveden-struct.md): ФИО руководителя структурного подразделения (органа управления)
+- [Техническое обслуживание в киберфизической системе](/raw/sites/university/business-solutions-tekhnicheskoe-obsluzhivanie-v-kiberfizich.md)
 - [Технологические центры](/raw/sites/university/team-structure-techcenters.md)
 - [Университет Иннополис](/raw/sites/university/home.md): Университет Иннополис проведёт технологические аудиты и окажет экспертную поддержку московским предприятиям
 - [Управление академической политики и организации образовательной деятельности](/raw/sites/university/team-academicpolicy.md): Проректор - начальник управления академической политики и высшего образования
 - [Управление развития университета](/raw/sites/university/team-developmentdept.md): Имеет психологическое, лингвистическое и экономическое образование.
+- [Управление роботизированной системой на базе приводов переменной жёсткости (VSA)](/raw/sites/university/business-solutions-upravlenie-robotizirovannoy-sistemoy-na-b.md)
+- [Управление шагающим роботом](/raw/sites/university/business-solutions-upravlenie-shagayushchim-robotom.md)
 - [Факультет гуманитарных и социальных наук](/raw/sites/university/team-structure-team-faculty2.md): Факультет гуманитарных и социальных наук — это междисциплинарное сообщество преподавателей и исследователей, чьи преподавательские и исследовательские интересы включают философию, технологическое пред
 - [Факультет компьютерных и инженерных наук](/raw/sites/university/team-structure-team-faculty.md)
 - [Финансово-хозяйственная деятельность](/raw/sites/university/sveden-budget.md): Информация о расходовании финансовых и материальных средств по итогам финансового года,
@@ -4383,6 +4480,8 @@ Pages of the sites of the university and its services: the university, admission
 - [Центр информационной безопасности](/raw/sites/university/center-cybersecurity.md): Центр выполняет высокотехнологичные научно-исследовательские и консалтинговые проекты с целью защиты государства и общества от кибератак.
 - [Центр проектов и практик](/raw/sites/university/ppcenter.md): госслужащих и представителей индустрии прошли обучение по ДПО в рамках программы повышения квалификации управленцев и команд CDO-менеджеров
 - [Центр технологий компонентов робототехники и мехатроники](/raw/sites/university/center-robotics.md): Единая площадка взаимодействия науки и бизнеса для развития технологий и создания новых наукоемких продуктов.
+- [Экологически чистая энергия](/raw/sites/university/business-solutions-ekologicheski-chistaya-energiya.md)
+- [Эмпиризм в программной инженерии](/raw/sites/university/business-solutions-empirizm-v-programmnoy-inzhenerii.md)
 - [Юлия Цыганова](/raw/sites/university/en-professor-yuliya-tsyganova.md): Доктор физико-математических наук, Ульяновский государственный университет, Профессор, Институт анализа данных и искусственного интеллекта
 - [Юлия Цыганова](/raw/sites/university/professor-yuliya-tsyganova.md): Доктор физико-математических наук, Ульяновский государственный университет, Профессор, Институт анализа данных и искусственного интеллекта
 - [Юридический отдел](/raw/sites/university/team-structure-team-law.md): Окончила юридический факультет Московского гуманитарно-экономического института.

@@ -65,9 +65,9 @@ stale_after: "2023-01-01T00:00:00+00:00"
 
 Иннополис, городское пространство Артспейс (Парковая, 1)
 
-[Регистрация](https://innopolis.timepad.ru/event/2231451/) на офлайн
+[Регистрация](/raw/sites/innopolis-timepad-ru/event-2231451.md) на офлайн
 
-[Онлайн-трансляция](https://innopolis.timepad.ru/event/2239552/)
+[Онлайн-трансляция](/raw/sites/innopolis-timepad-ru/event-2239552.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/city/_shared.md](/raw/sites/city/_shared.md)._
 

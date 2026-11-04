@@ -1,8 +1,8 @@
-О нас
-[Кейсы](https://eck.innopolis.university/cases)
-[Вопрос-ответ](https://eck.innopolis.university/faq)
-[Документы](https://eck.innopolis.university/docs)
-Контакты
+- О нас
+- [Кейсы](https://eck.innopolis.university/cases)
+- [Вопрос-ответ](https://eck.innopolis.university/faq)
+- [Документы](https://eck.innopolis.university/docs)
+- Контакты
 [Документы](https://eck.innopolis.university/docs)
 О нас
 [Кейсы](https://eck.innopolis.university/cases)
@@ -27,7 +27,7 @@
 функционируют по новой модели
 ![](https://static.tildacdn.com/tild6231-3562-4636-b633-316233643632/Ellipse_100371.png)
 ![](https://static.tildacdn.com/tild6230-6563-4931-b630-373565666234/02.png)
-> 1 570 000
+\> 1 570 000
 студентов охвачены
 деятельностью центров карьеры
 ![](https://static.tildacdn.com/tild3563-6132-4437-b665-386334623738/Ellipse_100381.png)

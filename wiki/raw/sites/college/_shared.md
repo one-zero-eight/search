@@ -12,10 +12,10 @@ sources:
   - resource: "https://innopolis.college/"
     id: "2b8dfc23c54f"
     title: "Общие блоки сайта innopolis.college: меню, шапка, подвал, контакты"
-    last_modified: "2026-10-31T08:48:51+00:00"
+    last_modified: "2026-11-04T12:47:11+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-10-31T08:48:51+00:00"
+  at: "2026-11-04T12:47:11+00:00"
 status: draft
 ---
 
@@ -93,4 +93,4 @@ college.support@innopolis.ru
 
 # Citations
 
-1. [innopolis.college](https://innopolis.college/), read 2026-10-31
+1. [innopolis.college](https://innopolis.college/), read 2026-11-04

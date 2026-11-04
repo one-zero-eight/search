@@ -5,25 +5,24 @@
 [EN](https://sport.innopolis.ru/en)
 ![Company](https://static.tildacdn.com/tild3233-6537-4233-b033-373863613961/_____2.png)
 - О клубе
-- [Фитнес-зоны](https://sport.innopolis.ru/about/zones)
-- [Детский фитнес](https://sport.innopolis.ru/about/detskij-fitnes)
-- [Новости и акции](https://sport.innopolis.ru/about/news)
-- [Вопрос-ответ](https://sport.innopolis.ru/about/faq)
-- [Контакты](https://sport.innopolis.ru/about/contacts)
+  - [Фитнес-зоны](https://sport.innopolis.ru/about/zones)
+  - [Детский фитнес](https://sport.innopolis.ru/about/detskij-fitnes)
+  - [Новости и акции](https://sport.innopolis.ru/about/news)
+  - [Вопрос-ответ](https://sport.innopolis.ru/about/faq)
+  - [Контакты](https://sport.innopolis.ru/about/contacts)
 - [Расписание](https://sport.innopolis.ru/schedule)
 - [Купить карту](https://sport.innopolis.ru/club-cards)
 - [Инструкторы](https://sport.innopolis.ru/treners)
 - [Доп. услуги](https://sport.innopolis.ru/services)
 - [Контакты](https://sport.innopolis.ru/about/contacts)
-+7 (937) 296-86-85
-Спортивная, д.107
++7 (937) 296-86-85Спортивная, д.107
 [Контакты](https://sport.innopolis.ru/about/contacts)
 - О клубе
-- [Фитнес-зоны](https://sport.innopolis.ru/about/zones)
-- [Детский фитнес](https://sport.innopolis.ru/about/detskij-fitnes)
-- [Новости и акции](https://sport.innopolis.ru/about/news)
-- [Вопрос-ответ](https://sport.innopolis.ru/about/faq)
-- [Контакты](https://sport.innopolis.ru/about/contacts)
+  - [Фитнес-зоны](https://sport.innopolis.ru/about/zones)
+  - [Детский фитнес](https://sport.innopolis.ru/about/detskij-fitnes)
+  - [Новости и акции](https://sport.innopolis.ru/about/news)
+  - [Вопрос-ответ](https://sport.innopolis.ru/about/faq)
+  - [Контакты](https://sport.innopolis.ru/about/contacts)
 - [Расписание](https://sport.innopolis.ru/schedule)
 - [Купить карту](https://sport.innopolis.ru/club-cards)
 - [Инструкторы](https://sport.innopolis.ru/treners)
@@ -32,23 +31,22 @@
 ![Company](https://static.tildacdn.com/tild3233-6537-4233-b033-373863613961/_____2.png)
 - Главная
 - О клубе
-- [Фитнес-зоны](https://sport.innopolis.ru/about/zones)
-- [Детский фитнес](https://sport.innopolis.ru/about/detskij-fitnes)
-- [Новости и акции](https://sport.innopolis.ru/about/news)
-- [Вопрос-ответ](https://sport.innopolis.ru/about/faq)
-- [Контакты](https://sport.innopolis.ru/about/contacts)
+  - [Фитнес-зоны](https://sport.innopolis.ru/about/zones)
+  - [Детский фитнес](https://sport.innopolis.ru/about/detskij-fitnes)
+  - [Новости и акции](https://sport.innopolis.ru/about/news)
+  - [Вопрос-ответ](https://sport.innopolis.ru/about/faq)
+  - [Контакты](https://sport.innopolis.ru/about/contacts)
 - [Расписание](https://sport.innopolis.ru/schedule)
 - [Купить карту](https://sport.innopolis.ru/club-cards)
 - [Инструкторы](https://sport.innopolis.ru/treners)
 - [Доп. услуги](https://sport.innopolis.ru/services)
 - [Контакты](https://sport.innopolis.ru/about/contacts)
 - Ещё
-- [Заморозка карты](https://sport.innopolis.ru/freeze)
-- [Работа в клубе](https://sport.innopolis.ru/vacancies)
-- [Правила посещения](https://sport.innopolis.ru/rules)
-+7 (937) 296-86-85
-Спортивная, д.107
-[EN](https://sport.innopolis.ru/en)
+  - [Заморозка карты](https://sport.innopolis.ru/freeze)
+  - [Работа в клубе](https://sport.innopolis.ru/vacancies)
+  - [Правила посещения](https://sport.innopolis.ru/rules)
++7 (937) 296-86-85Спортивная, д.107
+**[EN](https://sport.innopolis.ru/en)**
 Новости и акции
 ![](https://static.tildacdn.com/tild3638-3938-4235-b733-323638313963/IMG_1152.JPG)
 БАССЕЙН 25 МЕТРОВ
@@ -93,7 +91,7 @@
 [Подробная информация](https://sport.innopolis.ru/treners)
 Предлагаем несколько видов карт, включающих фитнес и бассейн, а также – скидки для жителей Иннополиса
 [ВЫБРАТЬ КАРТУ](https://sport.innopolis.ru/club-cards)
-Спортивный комплекс «Иннополис»
+## Спортивный комплекс «Иннополис»
 Спортивный комплекс «Иннополис» является важной частью экосистемы города Иннополис, ориентированной на продвижение спортивного и здорового образа жизни среди студентов университета Иннополис, жителей города Иннополис, сотрудников компаний резидентов. Спортивный Комплекс открыт и для гостей города- хорошие подъездные пути и просторная парковка позволяет жителям соседних коттеджных поселков и городов посещать комплекс.
 3-х этажный спортивный комплекс европейского уровня дает возможность для предоставления широкого спектра современных фитнес услуг.
 Уникальный дизайн интерьера, теплая атмосфера клуба, приветливый персонал, несомненно будут радовать своим гостеприимством клиентов и гостей клуба. Общая площадь комплекса 8 500 кв.м.

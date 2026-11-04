@@ -20,6 +20,38 @@ status: draft
 
 # Glazkov Oleg
 
+[Все медиа](/raw/sites/media/home.md)
+
+Facebook
+
+Вконтакте
+
+Youtube
+
+Twitter
+
+Instagram
+
+habr
+
+- [Студентам](http://www.campuslife.innopolis.ru/main)
+
+- [Бизнесу](/raw/sites/university/proekty-activity.md)
+
+- [Медиа](/raw/sites/media/home.md)
+
+- [Сайт университета иннополис](/raw/sites/university/home.md)
+
+- [Переезд в Иннополис](https://innopolis.university/relocation)
+
+- [Вакансии](https://innopolis.university/job)
+
+- [Резюме](/raw/sites/career/home.md)
+
+[Сайт университета Иннополис](/raw/sites/university/home.md)
+
+## Glazkov Oleg
+
 Summer School 2025 Wuhan University, China
 
 ## Знакомство с Иннополисом
@@ -163,6 +195,8 @@ This trip was a real discovery for me. I gained new academic experience, met Chi
 [Two weeks in Indonesia flew by unnoticed. I was at the Summer School at CommTech Camp Highlight 2025 on Stream 1: Innovations in Engineering. Insanely cool summer school, very eventful, every day we were given interesting lectures, showed the university laboratories, told about projects that ITS students create.](/raw/sites/university/success-stories-maltseva-svetlana.md)
 
 #историяуспеха
+
+[Вернуться Назад](/raw/sites/university/home.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/university/_shared.md](/raw/sites/university/_shared.md)._
 

@@ -3,8 +3,6 @@
 [истории](https://spec.innopolis.university/science)
 УНИВЕРСИТЕТ ИННОПОЛИС ПРО ТЕХНОЛОГИИ УНИВЕРСИТЕТ ИННОПОЛИС ПРО НАУКУ УНИВЕРСИТЕТ ИННОПОЛИС ПРО ОБРАЗОВАНИЕ
 [спецпроекты](https://spec.innopolis.university/spec)
-УНИВЕРСИТЕТ ИННОПОЛИС ПРО ТЕХНОЛОГИИ УНИВЕРСИТЕТ ИННОПОЛИС ПРО НАУКУ УНИВЕРСИТЕТ ИННОПОЛИС ПРО ОБРАЗОВАНИЕ
-- [спецпроекты](https://spec.innopolis.university/spec)
 - [вебинары](https://spec.innopolis.university/webinar)
 - [кейсы](https://spec.innopolis.university/cases)
 - [истории](https://spec.innopolis.university/science)
@@ -47,7 +45,7 @@ It is hard meetup. Видео с митапа для компаний, разр�
 ОЭЗ «Иннополис»: как мы заселили джавистами целый город
 ![](https://static.tildacdn.com/tild6430-6263-4334-b162-313664303130/photo.png)
 [спецпроект](https://spec.innopolis.university/uv)
-Беспилотный транспорт
+**Беспилотный транспорт**
 ![](https://static.tildacdn.com/tild6362-3665-4363-b166-663361663930/2020-04-29-110427.gif)
 [истории](https://spec.innopolis.university/science/stanislav-protasov)
 «Всю жизнь одной ногой в науке, другой в индустрии»
@@ -87,7 +85,7 @@ It is hard meetup. Видео с митапа для компаний, разр�
 Как мы разработали дорожную карту роботизации производства для машиностроительного холдинга
 ![](https://static.tildacdn.com/tild3965-6335-4265-b564-643666393733/4.png)
 [вебинар](https://spec.innopolis.university/webinarreview)
-Роботизация 202X: как составить план роботизации производства
+**Роботизация 202X: как составить план роботизации производства**
 ![](https://static.tildacdn.com/tild6234-3230-4733-a231-663862393761/kuka1.gif)
 [кейс](https://spec.innopolis.university/case/java)
 Как мы обучили более 55 Java-разработчиков для одной ИТ-компании
@@ -107,4 +105,4 @@ It is hard meetup. Видео с митапа для компаний, разр�
 - [Бизнесу](https://corporate.innopolis.university)
 - [Политика обработки данных](https://innopolis.university/upload/files/Политика%20конфиденциальности.pdf)
 Подписаться на дайджест
-Мы используем файлы cookies. Они помогают улучшить работу сайта и сделать его удобнее. Посещая наш сайт, вы соглашаетесь с [условиями использования](https://apply.innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%9F%D0%94%D0%BD%20%D0%B4%D0%BB%D1%8F%20%D0%A3%D0%98.pdf) файлов cookie.
+Мы используем файлы cookies. Они помогают улучшить работу сайта и сделать его удобнее. Посещая наш сайт, вы соглашаетесь с [условиями использования](https://apply.innopolis.university/public/files/Согласие%20на%20обработку%20ПДн%20для%20УИ.pdf) файлов cookie.

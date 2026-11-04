@@ -62,7 +62,7 @@ status: draft
 
 ![](https://static.tildacdn.com/tild3631-3463-4535-b362-666235326130/IMG_6628.jpg)
 
-[истории](https://spec.innopolis.university/page26134157.html)
+[истории](/raw/sites/spec/page26134157-html.md)
 
 «Моя суперспособность — окружать себя профессионалами»
 

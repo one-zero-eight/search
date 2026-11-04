@@ -12,10 +12,10 @@ sources:
   - resource: "https://corporate.innopolis.university/"
     id: "c9bb3a846ce2"
     title: "Общие блоки сайта corporate.innopolis.university: меню, шапка, подвал, контакты"
-    last_modified: "2026-10-31T08:36:47+00:00"
+    last_modified: "2026-11-04T12:41:50+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-10-31T08:36:47+00:00"
+  at: "2026-11-04T12:41:50+00:00"
 status: draft
 ---
 
@@ -133,4 +133,4 @@ habr
 
 # Citations
 
-1. [corporate.innopolis.university](https://corporate.innopolis.university/), read 2026-10-31
+1. [corporate.innopolis.university](https://corporate.innopolis.university/), read 2026-11-04

@@ -1,0 +1,16 @@
+{
+ "title": "sbornik kejsov 4",
+ "url": "https://innopolis.university/filespublic/sbornik_kejsov_4.pdf",
+ "sha256": "edae8656168b26bed9afa513f67ac4d9fb44a7c80879603f5011bf8f57564607",
+ "method": "text layer (opendataloader)",
+ "chars": 18639,
+ "tables": 5,
+ "section": "site/edu",
+ "context": "",
+ "fetched_at": "2026-11-04T13:07:41+00:00",
+ "remote": {
+  "etag": "\"4ec693-60bc3839419a1\"",
+  "modified": "Tue, 05 Dec 2023 13:50:14 GMT",
+  "size": "5162643"
+ }
+}

@@ -44,6 +44,8 @@ status: draft
 
 [![](https://storage.yandexcloud.net/staticimages/images/21466/poster/default/98b2726bdb6bf0cfbadfe72773e2a7984179d784.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=YCAJEMDk_rcI7HlRUnt-ZULAi%2F20261101%2Fru-central1%2Fs3%2Faws4_request&X-Amz-Date=20261101T223254Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=f59c7db5b75ed67615cae9d2055b43e22ff8cacf4713d9b640de4d4e6c355939)](/raw/sites/innopoliscinema-ru/ru-films-skazka-o-poteryannom-vremeni.md)
 
+### [Сказка о потерянном времени](/raw/sites/innopoliscinema-ru/ru-films-skazka-o-poteryannom-vremeni.md)
+
 2 ноября 16:30
 
 3 ноября 18:30
@@ -78,8 +80,6 @@ status: draft
 
 8 ноября 20:05
 
-450₽
-
 10 ноября 12:15
 
 11 ноября 11:30
@@ -113,8 +113,6 @@ status: draft
 5 ноября 20:15
 
 8 ноября 18:00
-
-450₽
 
 10 ноября 15:00
 

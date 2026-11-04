@@ -1,11 +1,14 @@
 {
  "docs": {
+  "https://innopolis.university/files/politicacookies.pdf": "Политика конфиденциальности",
   "https://innopolis.university/filespublic/%D0%93%D0%B0%D0%B8%CC%86%D0%B4_%D0%9A%D0%B0%D0%BA_%D0%B0%D0%B3%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C_%D0%BE%D0%B1%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5_%D0%B7%D0%B0_%D1%81%D1%87%D0%B5%D1%82_%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BE%D0%B4%D0%B0%D1%82%D0%B5%D0%BB%D1%8F.pdf": "Скачать",
   "https://innopolis.university/filespublic/%D0%98%D0%98_%D0%B2_%D0%B1%D0%B8%D0%B7%D0%BD%D0%B5%D1%81%D0%B5_%D0%BA%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC_%D0%A3%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%D0%98%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D0%BB%D0%B8%D1%81.pdf": "Скачать каталог",
   "https://innopolis.university/filespublic/%D0%9E%D1%84%D0%B5%D1%80%D1%82%D0%B0_%D0%9D%D0%B5%D0%B9%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8.pdf": "Оферта",
   "https://innopolis.university/filespublic/%D0%A0%D0%B0%D1%81%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D1%8B_%D0%98%D0%BD%D0%BD%D0%BE%D0%B2%D0%B0%D1%86%D0%B8%D0%B8_%D0%B2_%D0%BE%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B8_%D0%A3%D0%98.pdf": "Скачать подробное расписание",
   "https://innopolis.university/filespublic/Assessment_Center.pdf": "Assessment",
-  "https://innopolis.university/filespublic/programma_kursa_upravlenie_proektami.pdf": "Скачать программу"
+  "https://innopolis.university/filespublic/programma_kursa_upravlenie_proektami.pdf": "Скачать программу",
+  "https://innopolis.university/upload/iblock/b6f/ozxoa1j463v3s0m55w9kdc1qc0z31zfr/%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%B2%D1%8B%D0%BF%D0%B8%D1%81%D0%BA%D0%B0.pdf": "Выписка из реестра лицензий",
+  "https://innopolis.university/upload/iblock/d7f/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B4%D0%B5%D1%8F%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C.pdf": "Лицензия"
  },
  "pages": {
   "admin-1c": {
@@ -169,10 +172,10 @@
    "url": "https://ido.innopolis.university/global/webinar/innovationvuz"
   },
   "home": {
-   "fetched_at": "2026-10-31T08:46:42+00:00",
-   "file_sha": "bf5728ee301dc0d729335de9e8cce0f2827e603d0b183857a5914bcfe1e2fe9a",
+   "fetched_at": "2026-11-04T12:47:07+00:00",
+   "file_sha": "5a70d01b2f99c2be527f191d2339a7f11cea15d9cbc3b2a9e960f67bc62b9a2e",
    "last_modified": "Tue, 27 Oct 2026 09:09:51 GMT",
-   "sha256": "7b962338b497846df719ca22717d05680d2c47f09d0dcafd677f5076e74e7728",
+   "sha256": "e29a58ae7ad000eb92172eb3d3a2d0a8a7676e7d511db22e632604618c6727b3",
    "title": "Онлайн-курсы по программированию, IT и менеджменту от Иннополис",
    "url": "https://ido.innopolis.university/"
   },
@@ -319,6 +322,12 @@
    "sha256": "a4f72d8eebbbfb99ed4768312e41ef9a0d9b97913f7781154ded3a3c99943ee5",
    "title": "Бесплатная онлайн-конференция «CV в промышленности»",
    "url": "https://ido.innopolis.university/webinar/cv-v-promyshlennosti"
+  }
+ },
+ "tried": {
+  "https://ido.innopolis.university/ai-for-create-education-web": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
   }
  }
 }

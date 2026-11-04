@@ -20,7 +20,7 @@ status: draft
 
 # «Кино&Театр» в Иннополисе | Плетёный муж
 
-- RU / [EN](https://innopoliscinema.ru/en/films/wicker)
+- RU / [EN](/raw/sites/innopoliscinema-ru/en-films-wicker.md)
 
 ## Плетёный муж
 
@@ -39,8 +39,6 @@ Wicker
 8 ноября
 
 18:00
-
-450₽
 
 Вт
 

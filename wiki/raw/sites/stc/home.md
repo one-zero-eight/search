@@ -9,12 +9,12 @@ language: ru
 section: "site/stc"
 sources:
   - resource: "https://stc.innopolis.university/"
-    id: "fb3ee9c0d1b6"
+    id: "678afee8ec4e"
     title: "ИТ-курсы в Университете Иннополис"
-    last_modified: "2026-10-31T01:20:00+00:00"
+    last_modified: "2026-11-04T12:37:45+00:00"
 generated:
   by: "catix-wiki/0.1 sites"
-  at: "2026-10-31T01:20:00+00:00"
+  at: "2026-11-04T12:37:45+00:00"
 status: draft
 ---
 
@@ -30,15 +30,7 @@ status: draft
 
 ![](https://static.tildacdn.com/tild6639-3565-4237-b434-376165316239/Group_2347_2.png)
 
-## ЦЕНТР
-
-СПЕЦИАЛИЗИРОВАННОЙ
-
-ИТ-ПОДГОТОВКИ
-
-УНИВЕРСИТЕТА
-
-ИННОПОЛИС
+## ЦЕНТР СПЕЦИАЛИЗИРОВАННОЙ ИТ-ПОДГОТОВКИ УНИВЕРСИТЕТА ИННОПОЛИС
 
 Твой путь к работе над крутыми проектами в ведущих ИТ-компаниях
 
@@ -56,7 +48,7 @@ status: draft
 
 от Университета Иннополис
 
-![](https://static.tildacdn.com/tild6430-3436-4566-b339-306332663539/Frame_47.png)
+[![](https://static.tildacdn.com/tild6430-3436-4566-b339-306332663539/Frame_47.png)](/raw/sites/edu/engineers.md)
 
 ![](https://static.tildacdn.com/tild3636-6339-4737-b232-623734616137/Group_277132229.png)
 
@@ -72,7 +64,23 @@ status: draft
 
 ![](https://static.tildacdn.com/tild3530-3631-4338-a364-343637373039/10801080.png)
 
-Выбрать курс
+## Выбрать курс
+
+- Все программы
+
+- Школьникам
+
+- Педагогам
+
+- Тестирование
+
+- Разработка
+
+- Аналитика
+
+- Искусственный интеллект
+
+- Управление
 
 Не могу выбрать курс, нужна помощь
 
@@ -114,7 +122,7 @@ status: draft
 
 Отправляя заявку, вы даете согласие на обработку своих персональных данных в соответствии [с политикой конфиденциальности.](https://stc.innopolis.university/pdpolicy)
 
-Секрет результативности наших курсов
+## Секрет результативности наших курсов
 
 ![](https://static.tildacdn.com/tild6462-3535-4035-b536-663539366631/Group_2846.png)
 
@@ -136,7 +144,7 @@ status: draft
 
 ![](https://static.tildacdn.com/tild3532-3438-4465-b439-383532343364/__STC.jpg)
 
-Помогаем нашим выпускникам получить стажировку и работу в ведущих компаниях
+## **Помогаем нашим выпускникам получить стажировку и работу в ведущих компаниях**
 
 ![](https://static.tildacdn.com/tild3766-6131-4164-b033-646362393366/2560px-Rusal_Logosvg.png)
 
@@ -198,12 +206,16 @@ https://www.gosuslugi.ru/600314/1/form?courseID=18697
 
 Вы первыми узнаете о стартах ближайших курсов
 
++7-800-222-92-56digital_prof@innopolis.ru
+
 ВЫБРАТЬ КУРС
 
 [ОТЗЫВЫ ВЫПУСКНИКОВ](/raw/sites/stc/feedback.md)
+
+[Лицензия](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md) [Выписка из реестра лицензий](/raw/regulations/site-unionepro-ru-e6310fe5-reestrovaya-vypiska.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/stc/_shared.md](/raw/sites/stc/_shared.md)._
 
 # Citations
 
-1. [ИТ-курсы в Университете Иннополис](https://stc.innopolis.university/), read 2026-10-31
+1. [ИТ-курсы в Университете Иннополис](https://stc.innopolis.university/), read 2026-11-04

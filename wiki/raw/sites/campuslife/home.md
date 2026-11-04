@@ -9,12 +9,12 @@ language: en
 section: "site/campuslife"
 sources:
   - resource: "https://campuslife.innopolis.ru/"
-    id: "374afc65d67e"
+    id: "a77323678840"
     title: "Campus Life at Innopolis University"
-    last_modified: "2026-10-24T22:01:59+00:00"
+    last_modified: "2026-11-04T12:37:04+00:00"
 generated:
   by: "catix-wiki/0.1 sites"
-  at: "2026-10-24T22:01:59+00:00"
+  at: "2026-11-04T12:37:04+00:00"
 status: draft
 ---
 
@@ -22,17 +22,29 @@ status: draft
 
 Campus Life
 
+- [Handbook](/raw/sites/campuslife/handbook.md)
+
+- [Clubs ↗](https://innohassle.ru/clubs)
+
+- [Events](/raw/sites/campuslife/events.md)
+
+- [Opportunities](/raw/sites/campuslife/opportunities.md)
+
+- [FAQ](/raw/sites/campuslife/faq.md)
+
+- [Contacts](/raw/sites/campuslife/contacts.md)
+
 ![](https://static.tildacdn.com/tild6436-3633-4032-a565-306664393033/2024_08_12-022.jpg)
 
 CAMPUS LIFE
 
-Hello!
+*Hello!*
 
-Here you can find all you need to
+*Here you can find all you need to*
 
-have an amazing time at IU!
+*have an amazing time at IU!*
 
-![](https://static.tildacdn.com/tild6163-3435-4538-a433-333362323563/DSC05629.jpg)
+- ![](https://static.tildacdn.com/tild6163-3435-4538-a433-333362323563/DSC05629.jpg)
 
 Freshers' Handbook
 
@@ -42,7 +54,7 @@ Handbook contains all important information about life at Innopolis University: 
 
 ![](https://static.tildacdn.com/tild6163-3435-4538-a433-333362323563/DSC05629.jpg)
 
-![](https://static.tildacdn.com/tild3435-6266-4232-b266-343534653964/2024_08_09_Boot_Camp.jpg)
+- ![](https://static.tildacdn.com/tild3435-6266-4232-b266-343534653964/2024_08_09_Boot_Camp.jpg)
 
 InnoBootCamp
 
@@ -50,7 +62,7 @@ Adaptation program for your first steps at Innopolis University
 
 [Learn more](/raw/sites/campuslife/innobootcamp2022.md)
 
-![](https://static.tildacdn.com/tild3438-3231-4539-a361-663032646534/i-0023.jpg)
+- ![](https://static.tildacdn.com/tild3438-3231-4539-a361-663032646534/i-0023.jpg)
 
 Student Clubs
 
@@ -60,7 +72,7 @@ Our clubs are crucial to student community formation in Innopolis. Such societie
 
 ![](https://static.tildacdn.com/tild3438-3231-4539-a361-663032646534/i-0023.jpg)
 
-![](https://static.tildacdn.com/tild6663-3861-4366-b237-343231396430/DSC00783.jpg)
+- ![](https://static.tildacdn.com/tild6663-3861-4366-b237-343231396430/DSC00783.jpg)
 
 Events at IU
 
@@ -68,7 +80,7 @@ Our students regularly organize numerous events of different scale. These events
 
 [Learn more](/raw/sites/campuslife/events.md)
 
-![](https://static.tildacdn.com/tild3035-6564-4136-b831-613030323130/DSC06452-11.jpg)
+- ![](https://static.tildacdn.com/tild3035-6564-4136-b831-613030323130/DSC06452-11.jpg)
 
 Opportunities
 
@@ -94,10 +106,14 @@ There's a lot more besides studies at IU. We are trying to create an environment
 
 ![](https://static.tildacdn.com/tild3266-3031-4332-a632-326332636562/photo_2025-09-29_17-.jpg)
 
-Перевести сайт на русский язык Используйте встроенный переводчик браузера, его можно найти в опциях (например, нажав на 3 точки в правом верхнем углу)
+×
+
+**Перевести сайт на русский язык** Используйте встроенный переводчик браузера, его можно найти в опциях (например, нажав на 3 точки в правом верхнем углу)
+
+[Made on ![](https://static.tildacdn.com/img/tildacopy.png) Tilda](https://tilda.cc/)
 
 _The menu, footer and other blocks that the pages of the site repeat are kept in one place: [/raw/sites/campuslife/_shared.md](/raw/sites/campuslife/_shared.md)._
 
 # Citations
 
-1. [Campus Life at Innopolis University](https://campuslife.innopolis.ru/), read 2026-10-24
+1. [Campus Life at Innopolis University](https://campuslife.innopolis.ru/), read 2026-11-04

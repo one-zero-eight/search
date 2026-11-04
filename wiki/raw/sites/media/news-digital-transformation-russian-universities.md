@@ -39,7 +39,7 @@ stale_after: "2024-01-01T00:00:00+00:00"
 
 Мария Образцова, директор Института дополнительного образования Университета Иннополис: «Мы собрали в сборнике практики вузов, прошедших обучение в Университете Иннополис по управлению цифровой трансформацией и представивших свои кейсы на форуме о цифровой независимости в бизнесе и образовании Digital Innopolis Days. Это издание будет полезно вузам, которые только начинают цифровую трансформацию, поэтому авторы кейсов делятся своими контактами».
 
-Читать: [innopolis.university/filespublic/sbornik_kejsov_4.pdf](/raw/regulations/site-media-ce493357-sbornik-kejsov-4.md)
+Читать: [innopolis.university/filespublic/sbornik_kejsov_4.pdf](/raw/regulations/site-edu-ce493357-sbornik-kejsov-4.md)
 
 Посмотреть другие выпуски: [edu.innopolis.university/cdtovuz](https://edu.innopolis.university/cdtovuz)
 

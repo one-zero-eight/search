@@ -4428,10 +4428,10 @@
    "url": "https://robotics.innopolis.university/events/"
   },
   "home": {
-   "fetched_at": "2026-10-31T08:56:29+00:00",
-   "file_sha": "12f3f0597ccca6e1fc4060572b1f6b7950ce3e0d6e26b437a5d80d61bebb7e20",
+   "fetched_at": "2026-11-04T12:49:58+00:00",
+   "file_sha": "65a19d7d4da8674b87416059f69165b3fa6c5fa292c234384405502bd4c2a327",
    "last_modified": "",
-   "sha256": "d52b50c13b459c69e0c63a8aaf03ea0575dcb6be7156e7d7a4c7d71d9da70b0c",
+   "sha256": "6f47927c76b67dcc4581ba06b08056bdc83085a0f2497f3014cfa979254d993c",
    "title": "Центр технологий компонентов робототехники и мехатроники",
    "url": "https://robotics.innopolis.university/"
   },
@@ -6058,6 +6058,12 @@
    "sha256": "7e72e3fb1d65adf5962de7422255572029727b22744cac5112319993466fd59c",
    "title": "Сегментация дорожных полос для беспилотных автомобилей — Центр технологий компонентов робототехники и мехатроники",
    "url": "https://robotics.innopolis.university/university/segmentatsiya-dorozhnyh-polos-dlya-bespilotnyh-avtomobilej/"
+  }
+ },
+ "tried": {
+  "https://robotics.innopolis.university/project/programmnoe-obespechenie-dlyarobotizirovannoj-sortirovochnoj-yachejki-izdelij-slozhnoj-formy": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
   }
  }
 }

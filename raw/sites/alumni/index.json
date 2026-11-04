@@ -6,10 +6,10 @@
  },
  "pages": {
   "home": {
-   "fetched_at": "2026-10-31T08:37:00+00:00",
-   "file_sha": "4721321bacefee761fb70c3f18907eb024c40776ea70cfe33f3c50ef2b57da26",
+   "fetched_at": "2026-11-04T12:41:59+00:00",
+   "file_sha": "1b642c60a2a2084bb3bdb989abf5274ebfcfd6dade53e9bf48c8bd74a1ef21cf",
    "last_modified": "",
-   "sha256": "4ffdfd7e6bcf9af6da7fb92380f885d4c1a0cd4978f29a291f7d0220d5279c04",
+   "sha256": "0637e17e6df2165fe3c86cb92138f265154fd4844800923babf78ecbfadfb8fd",
    "title": "Alumni Innopolis University",
    "url": "https://alumni.innopolis.university/"
   }

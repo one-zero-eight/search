@@ -12,10 +12,10 @@ sources:
   - resource: "https://sezinnopolis.ru/"
     id: "8b829160344b"
     title: "Общие блоки сайта sezinnopolis.ru: меню, шапка, подвал, контакты"
-    last_modified: "2026-11-01T22:21:44+00:00"
+    last_modified: "2026-11-04T12:49:45+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-11-01T22:21:44+00:00"
+  at: "2026-11-04T12:49:45+00:00"
 status: draft
 ---
 
@@ -133,4 +133,4 @@ info@sezinnopolis.ru [Консьерж-сервис](https://t.me/SEZ_concierge)
 
 # Citations
 
-1. [sezinnopolis.ru](https://sezinnopolis.ru/), read 2026-11-01
+1. [sezinnopolis.ru](https://sezinnopolis.ru/), read 2026-11-04

@@ -1,7 +1,7 @@
 ---
 type: page
 title: "International Applicants"
-description: "Applications for the grant competition are accepted until May 1"
+description: "The Russian Government offers the state scholarship for international students which includes tuition fee coverage and monthly allowance."
 resource: "https://new.innopolis.university/en/"
 audience: ["student", "postgraduate", "applicant", "teacher", "staff", "management", "public"]
 source_kind: website
@@ -9,28 +9,22 @@ language: en
 section: "site/international"
 sources:
   - resource: "https://new.innopolis.university/en/"
-    id: "8e30b586579f"
+    id: "231375473649"
     title: "International Applicants"
-    last_modified: "2026-10-31T01:08:01+00:00"
+    last_modified: "2026-11-04T12:37:19+00:00"
 generated:
   by: "catix-wiki/0.1 sites"
-  at: "2026-10-31T01:08:01+00:00"
+  at: "2026-11-04T12:37:19+00:00"
 status: draft
 ---
 
 # International Applicants
 
+Меню
+
 - Main
 
-## INTERNATIONAL
-
-APPLICANTS
-
-## World-class IT education in Russia in English
-
-Applications for the grant competition are accepted until May 1
-
-Applications from CIS countries will continue to be processed afterward
+## World-class IT education in Russia in English Applications for the grant competition are accepted until May 1 Applications from CIS countries will continue to be processed afterward
 
 [Enrollment documents submission](https://my.university.innopolis.ru/app/enrollee-form)
 
@@ -44,7 +38,7 @@ from 3500₽
 
 from 240000₽
 
-![thoughtful students](https://new.innopolis.university/upload/landing/ada/q4lhh7q7oo5h5fkstptb3gf5cradi4t3/image_9@2x.png)
+![thoughtful students](https://new.innopolis.university/upload/landing/1ac/r57prrglazy614ucz3waniwau6k8lot7/image_9@1x.png)
 
 ## APPLY FOR RUSSIAN GOVERNMENT SCHOLARSHIP AND STUDY FOR FREE
 
@@ -70,15 +64,11 @@ More information about the admission of a quota from the Government of the Russi
 
 [Exchange programs](/raw/sites/university/en-international-relations-office.md)
 
-[100% grants for](/raw/sites/international/en-olympiad-bonus.md)
-
-[olympiad winners](/raw/sites/international/en-olympiad-bonus.md)
+[100% grants for olympiad winners](/raw/sites/international/en-olympiad-bonus.md)
 
 [Grant opportunities](/raw/sites/international/en-grant.md)
 
-[Admission of CIS](/raw/sites/international/en-sng.md)
-
-[citizens](/raw/sites/international/en-sng.md)
+[Admission of CIS citizens](/raw/sites/international/en-sng.md)
 
 [Dorm](/raw/sites/university/en-campus.md)
 
@@ -86,21 +76,21 @@ More information about the admission of a quota from the Government of the Russi
 
 ### Admission calendar
 
-| Dates | admission campaign Events |  |
+| Dates | admission campaign Events | |
 
 | --- | --- | --- |
 
-| December 1 | Admission start date |  |
+| December 1 | Admission start date | |
 
-| May 1 | Application deadline |  |
+| May 1 | Application deadline | |
 
-| January 10 - June 1 | Grant competition |  |
+| January 10 - June 1 | Grant competition | |
 
-| April 1 - July 1 | Grant offer |  |
+| April 1 - July 1 | Grant offer | |
 
-| June 20 - August 1 | Enrollment process |  |
+| June 20 - August 1 | Enrollment process | |
 
-| Start of September | Estimated academic year start |  |
+| Start of September | Estimated academic year start | |
 
 ![auditorium](https://new.innopolis.university/local/templates/newapply/images/conditions/auditorium.jpg)
 
@@ -114,33 +104,33 @@ Application documents
 
 Application documents for Bachelors.
 
-1) CV / portfolio
+1\) CV / portfolio
 
-- study and work experience in detail,
+\- study and work experience in detail,
 
-- achievements related to Mathematics, Physics, Programming, Informatics, Robotics, English language and Sports. In your CV you are expected to show your study and work experience in details, as well as any extracurricular achievements.
+\- achievements related to Mathematics, Physics, Programming, Informatics, Robotics, English language and Sports. In your CV you are expected to show your study and work experience in details, as well as any extracurricular achievements.
 
 Application documents for Masters.
 
-1) CV / portfolio
+1\) CV / portfolio
 
-- study and work experience in detail,
+\- study and work experience in detail,
 
-- achievements related to Mathematics, Physics, Programming, Informatics, Robotics, English language and Sports. In your CV you are expected to show your study and work experience in details, as well as any extracurricular achievements.
+\- achievements related to Mathematics, Physics, Programming, Informatics, Robotics, English language and Sports. In your CV you are expected to show your study and work experience in details, as well as any extracurricular achievements.
 
-2) Motivation letter
+2\) Motivation letter
 
 Please support your CV with a motivation letter, where you can list your ambitions and why you are applying to study at Innopolis University.
 
-3) English language proficiency certificate (only if you have chosen an English-language program)
+3\) English language proficiency certificate (only if you have chosen an English-language program)
 
 English is an official language of instruction at Innopolis University. Therefore, each candidate has to confirm his/her English proficiency in one of the following ways:
 
-- providing an international English language test certificate (IELTS, TOEFL (including TOEFL iBT Special Home Edition), OR
+\- providing an international English language test certificate (IELTS, TOEFL (including TOEFL iBT Special Home Edition), OR
 
-- taking IU extended English test (free of charge), OR
+\- taking IU extended English test (free of charge), OR
 
-- providing an official letter from your School/University stating that the studies were delivered in English.
+\- providing an official letter from your School/University stating that the studies were delivered in English.
 
 For your convenience there are templates and guidelines provided in Admission Documents section of your application.
 
@@ -150,7 +140,7 @@ Tuition fee and discounts
 
 One can enroll in Innopolis University programs through grant competition with a discount or with full tuition fee payment.
 
-1. Discounts
+1\. Discounts
 
 There are several tuition fee options which can be offered, based on candidates' results and performance at the grant competition.
 
@@ -186,7 +176,7 @@ Master's program grant:
 
 Grant education requires a working period, depending on the amount of discount.
 
-2. Fee-based education
+2\. Fee-based education
 
 International applicants can also be enrolled in fee-based programs by passing entrance examination tests and paying a tuition fee.
 
@@ -198,31 +188,31 @@ Steps to be done:
 
 IMPORTANT: According to the legislation of the Russian Federation, educational documents issued in some foreign countries can be accepted by Russian organizations only after legalization and recognition procedure. Check if it applies to your country: http://nic.gov.ru/en/proc/nic/legalize .
 
-1. Legalization (if needed): Consular legalization or Apostille. Your Diploma/Graduation certificate and Transcript are needed to be legalized.
+1\. Legalization (if needed): Consular legalization or Apostille. Your Diploma/Graduation certificate and Transcript are needed to be legalized.
 
 Consular legalization is 2 stamps (Stamp of the Ministry of Foreign Affairs in the country where you received Diploma/Graduation certificate + Stamp of the Russian Embassy in the country where you received Diploma/Graduation certificate).
 
 Apostille is a simplified legalization procedure. Apostille is put down on the original of the document or on a separate sheet, which is attached to the document and could be made in official language of the body which is giving it out; by competent authorized bodies of the country of issue of the document (example, State Secretary, Department of Education, Ministry of Education, educational institutions and others).
 
-2. Translation into Russian*.
+2\. Translation into Russian*.
 
-3. Recognition (if needed). The recognition certificate is needed for international applicants to be officially enrolled in a Russian university.
+3\. Recognition (if needed). The recognition certificate is needed for international applicants to be officially enrolled in a Russian university.
 
 Procedures like notarized translation to Russian language and application for the recognition procedure can be done by you personally or can be performed by Innopolis University on an Paid Services Agreement. Please see the Paid Services Agreement for details.
 
 Documents to be prepared by you:
 
-1. Passport with notarized translation to Russian language (pages with personal information, usually first two pages). Required for visa and enrollment. Your passport should be valid for 18 months starting from June, 2022 (i.e. till January 2024). In case your passport expires earlier, you will have to apply for a new passport before proceeding to your visa application and enrollment.
+1\. Passport with notarized translation to Russian language (pages with personal information, usually first two pages). Required for visa and enrollment. Your passport should be valid for 18 months starting from June, 2022 (i.e. till January 2024). In case your passport expires earlier, you will have to apply for a new passport before proceeding to your visa application and enrollment.
 
-2. Diploma / High School certificate + Transcript (notarized translations to Russian language, all pages)
+2\. Diploma / High School certificate + Transcript (notarized translations to Russian language, all pages)
 
 Documents to be prepared by Innopolis University:
 
-1) Grant offer/ Contract (email) is issued by Innopolis University for those who successfully passed grant competition steps.
+1\) Grant offer/ Contract (email) is issued by Innopolis University for those who successfully passed grant competition steps.
 
-2) Scholarship confirmation letter/ Acceptance letter (paper/email) is issued by Innopolis University for those who accept scholarship terms.
+2\) Scholarship confirmation letter/ Acceptance letter (paper/email) is issued by Innopolis University for those who accept scholarship terms.
 
-3) Visa invitation letter (e-copy) is inquired by Innopolis University and issued by Russian Migration Service for those who accept scholarship terms and provide all required documents.
+3\) Visa invitation letter (e-copy) is inquired by Innopolis University and issued by Russian Migration Service for those who accept scholarship terms and provide all required documents.
 
 **Document translations to Russian language are to be done in Russia or the Russian consulate/embassy. Document translations made in the following countries are accepted:
 
@@ -298,13 +288,13 @@ Estimated expenses
 
 The expenses to be covered by a candidate, regardless of the discount size:
 
-- all visa-related expenses (travel, fees);
+\- all visa-related expenses (travel, fees);
 
-- all legalization expenses (travel, translations, fees);
+\- all legalization expenses (travel, translations, fees);
 
-- accommodation while traveling to and living in Innopolis;
+\- accommodation while traveling to and living in Innopolis;
 
-- food, travel, clothes and other daily expenses.
+\- food, travel, clothes and other daily expenses.
 
 Expenses for recognition certificate (state fee) - 6500 RUB: in case you have not graduated from High School/University in Russia or the country of issuing High school certificate/Diploma doesn’t have a mutual recognition agreement with Russia.
 
@@ -398,10 +388,18 @@ If you still have questions, leave your contacts and we will get back to you as 
 
 admissions@innopolis.ru
 
+![university](https://new.innopolis.university/upload/landing/d68/x7lrkt7s7nqg7hayv9v25km4isqim4g2/Group_277132946@1x.png)
+
 - Applicants
+
+×
+
+Got it!
+
+×
 
 _The menu, footer and other blocks that the pages of the site repeat are kept in one place: [/raw/sites/international/_shared.md](/raw/sites/international/_shared.md)._
 
 # Citations
 
-1. [International Applicants](https://new.innopolis.university/en/), read 2026-10-31
+1. [International Applicants](https://new.innopolis.university/en/), read 2026-11-04

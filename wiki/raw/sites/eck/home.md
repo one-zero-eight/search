@@ -9,18 +9,26 @@ language: ru
 section: "site/eck"
 sources:
   - resource: "https://eck.innopolis.university/"
-    id: "d8d09703dd39"
+    id: "5d7572dd3d35"
     title: "Единый центр карьеры"
-    last_modified: "2026-11-01T22:28:16+00:00"
+    last_modified: "2026-11-04T12:50:28+00:00"
 generated:
   by: "catix-wiki/0.1 sites"
-  at: "2026-11-01T22:28:16+00:00"
+  at: "2026-11-04T12:50:28+00:00"
 status: draft
 ---
 
 # Единый центр карьеры
 
-О нас
+- О нас
+
+- [Кейсы](https://eck.innopolis.university/cases)
+
+- [Вопрос-ответ](/raw/sites/eck/faq.md)
+
+- [Документы](/raw/sites/eck/docs.md)
+
+- Контакты
 
 О нас
 
@@ -64,7 +72,7 @@ status: draft
 
 ![](https://static.tildacdn.com/tild6230-6563-4931-b630-373565666234/02.png)
 
-> 1 570 000
+\> 1 570 000
 
 студентов охвачены
 
@@ -120,4 +128,4 @@ _Меню, подвал и другие блоки, которые повтор�
 
 # Citations
 
-1. [Единый центр карьеры](https://eck.innopolis.university/), read 2026-11-01
+1. [Единый центр карьеры](https://eck.innopolis.university/), read 2026-11-04

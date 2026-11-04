@@ -1,6 +1,18 @@
 {
- "error": "Archive rejected: unsupported",
- "refetch": true,
- "status": "unsupported",
+ "document": {
+  "ext": "pdf",
+  "key": "site-university-63c9963b-407398-polozhenie-ob-otdele-pravovogo-so",
+  "status": "ready",
+  "storage": "site-university-63c9963b-407398-polozhenie-ob-otdele-pravovogo-so.documents/66b4572b9120da99daad32bbf0a17ba912919e03e7f0460e47b47b7417542cf6"
+ },
+ "members": [],
+ "remote": {
+  "etag": "\"69e76b5b-1122e9\"",
+  "modified": "Tue, 21 Apr 2026 12:19:39 GMT",
+  "size": "1123049"
+ },
+ "sha256": "66b4572b9120da99daad32bbf0a17ba912919e03e7f0460e47b47b7417542cf6",
+ "source": "site-university-63c9963b-407398-polozhenie-ob-otdele-pravovogo-so.archives/66b4572b9120da99daad32bbf0a17ba912919e03e7f0460e47b47b7417542cf6.archive",
+ "status": "ready",
  "url": "https://innopolis.university/upload/iblock/12d/gk1epkofzgqce792xxww7599lgs33v6u/407398_%D0%9F%D0%BE%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BE%D0%B1_%D0%BE%D1%82%D0%B4%D0%B5%D0%BB%D0%B5_%D0%BF%D1%80%D0%B0%D0%B2%D0%BE%D0%B2%D0%BE%D0%B3%D0%BE_%D1%81%D0%BE%D0%BF%D1%80%D0%BE%D0%B2%D0%BE%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F_%D0%BE%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D0%B9.zip"
 }

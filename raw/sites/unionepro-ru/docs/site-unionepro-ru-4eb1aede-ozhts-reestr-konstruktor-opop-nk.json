@@ -1,0 +1,16 @@
+{
+ "title": "Описание процессов жизненного цикла программного обеспечения [ОЖЦ_Реестр_Конструктор_ОПОП_НК]",
+ "url": "https://unionepro.ru/docs/%D0%9E%D0%96%D0%A6_%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80_%D0%9A%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D0%BE%D1%80_%D0%9E%D0%9F%D0%9E%D0%9F_%D0%9D%D0%9A.pdf",
+ "sha256": "1eefb09a2afe245aa2b52d3045f8ea2ad4272cdc111c31c1179b21078351b8cc",
+ "method": "text layer (opendataloader)",
+ "chars": 14726,
+ "tables": 5,
+ "section": "site/unionepro-ru",
+ "context": "",
+ "fetched_at": "2026-11-04T13:07:42+00:00",
+ "remote": {
+  "etag": "\"6a8be91e-3bdee\"",
+  "modified": "Mon, 24 Aug 2026 06:47:58 GMT",
+  "size": "245230"
+ }
+}

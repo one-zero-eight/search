@@ -49,7 +49,7 @@ stale_after: "2016-01-01T00:00:00+00:00"
 
 ![hnuRk6kSCl8.jpg](https://media.innopolis.university/upload/medialibrary/87e/hnuRk6kSCl8.jpg)
 
-Подробности образовательных программ Университета и условия приема: [http://university.innopolis.ru/education/](http://university.innopolis.ru/education/)
+Подробности образовательных программ Университета и условия приема: [http://university.innopolis.ru/education/](/raw/sites/university/education.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/media/_shared.md](/raw/sites/media/_shared.md)._
 

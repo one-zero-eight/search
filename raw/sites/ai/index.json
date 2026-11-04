@@ -5,10 +5,10 @@
  },
  "pages": {
   "home": {
-   "fetched_at": "2026-10-31T08:36:50+00:00",
-   "file_sha": "ba268be7fa1f856b1f62641e7b5cde99120410007c10d400467bf6c49cca2ca2",
+   "fetched_at": "2026-11-04T12:41:54+00:00",
+   "file_sha": "0ac5cf631ff9fc1645484703322292156161d6c6f077d3d138212612ab4503eb",
    "last_modified": "",
-   "sha256": "1ec56a7526929c8362de5e47a0091e1620a5a37fafdfaaf8daa906c506084082",
+   "sha256": "8af61d0f43bea08bfe54aed7528ecb521ad0cfedc6fc5b3b6483401822738ec4",
    "title": "Главная страница",
    "url": "https://ai.innopolis.university/"
   },
@@ -27,6 +27,12 @@
    "sha256": "3414fe82bfa46ee9f8267a3a626d8d5fb3d41a4fd50cca7518403625fe27b83f",
    "title": "Наука",
    "url": "https://ai.innopolis.university/science/"
+  }
+ },
+ "tried": {
+  "https://ai.innopolis.university/science/Meera%20Ramadas%2C%20Anu%20Bajaj%2C%20Ajith%20Abraham%2C%20%C2%ABMultilevel%20Image%20Segmentation%20of%20Breast%20Cancer%20using%20Improved%20Differential%20Evolution%C2%BB%2C%20doi.org/10.5281/zenodo.10046580": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
   }
  }
 }

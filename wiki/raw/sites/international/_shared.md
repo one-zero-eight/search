@@ -12,10 +12,10 @@ sources:
   - resource: "https://new.innopolis.university/en/"
     id: "94e69bf3a6ba"
     title: "Blocks shared by the pages of new.innopolis.university: menu, header, footer, contacts"
-    last_modified: "2026-10-31T01:16:41+00:00"
+    last_modified: "2026-11-04T12:37:19+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-10-31T01:16:41+00:00"
+  at: "2026-11-04T12:37:19+00:00"
 status: draft
 ---
 
@@ -83,8 +83,6 @@ Apply for a grant
 
 ## FAQ
 
-![university](https://new.innopolis.university/upload/landing/ba7/wcgx9ko2jatzbe7hwiyrpxc31n91powd/Group_277132946@2x.png)
-
 - University
 
 - [About university](/raw/sites/university/en-about.md)
@@ -128,6 +126,8 @@ contact
 manager of graduate applicants
 
 - admissions@innopolis.ru
+
+![university](https://new.innopolis.university/upload/landing/ba7/wcgx9ko2jatzbe7hwiyrpxc31n91powd/Group_277132946@2x.png)
 
 - FAQ
 
@@ -191,4 +191,4 @@ manager of graduate applicants
 
 # Citations
 
-1. [new.innopolis.university](https://new.innopolis.university/en/), read 2026-10-31
+1. [new.innopolis.university](https://new.innopolis.university/en/), read 2026-11-04

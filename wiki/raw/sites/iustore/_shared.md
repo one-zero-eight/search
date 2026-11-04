@@ -12,10 +12,10 @@ sources:
   - resource: "https://iustore.innopolis.ru/"
     id: "baa0211f6da4"
     title: "Общие блоки сайта iustore.innopolis.ru: меню, шапка, подвал, контакты"
-    last_modified: "2026-10-31T09:04:04+00:00"
+    last_modified: "2026-11-04T12:48:45+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-10-31T09:04:04+00:00"
+  at: "2026-11-04T12:48:45+00:00"
 status: draft
 ---
 
@@ -27,4 +27,4 @@ status: draft
 
 # Citations
 
-1. [iustore.innopolis.ru](https://iustore.innopolis.ru/), read 2026-10-31
+1. [iustore.innopolis.ru](https://iustore.innopolis.ru/), read 2026-11-04

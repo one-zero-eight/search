@@ -8,14 +8,15 @@
   "https://innopolis.university/filespublic/Overview_of_the_BS_Program1.pdf": "Download the curriculum",
   "https://innopolis.university/filespublic/uch_plan_magistr_ii_inzheneriya_dannyh.pdf": "Download the curriculum",
   "https://innopolis.university/filespublic/ucheb_plan_magistr_ii_inzheneriya_dannyh.pdf": "Download the curriculum",
+  "https://innopolis.university/public/files/Consent_to_the_processing_of_PD_for_UI.pdf": "Privacy Policy",
   "https://new.innopolis.university/public/files/Consent_to_the_processing_of_PD_for_UI.pdf": "privacy policy"
  },
  "pages": {
   "en": {
-   "fetched_at": "2026-10-31T01:08:01+00:00",
-   "file_sha": "104d8806fa8a499fd1498809446a73516cc20bf0b014d007f97cd6387fa262ae",
+   "fetched_at": "2026-11-04T12:37:19+00:00",
+   "file_sha": "ff294b8f2b5cf5eff4aa16d8268db885a0f4b0f6b196290fe63d82bc2747aea5",
    "last_modified": "",
-   "sha256": "8e30b586579f1ebc40acd31bbd1b3efdbe83acf807782da712a04067d125dc6c",
+   "sha256": "2313754736496a0ffd540b65b2a5d9b8c56684883ca37c30ced30563fe07e8ef",
    "title": "International Applicants",
    "url": "https://new.innopolis.university/en/"
   },
@@ -114,6 +115,20 @@
    "sha256": "2a4beecba82928a9c13451f3492841a48650a345408cb4c7a4848363ed8d2757",
    "title": "Admission of CIS citizens",
    "url": "https://new.innopolis.university/en/sng/"
+  }
+ },
+ "tried": {
+  "https://new.innopolis.university/en/faq/null": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://new.innopolis.university/en/grant/null": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://new.innopolis.university/en/olympiad-bonus/null": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
   }
  }
 }

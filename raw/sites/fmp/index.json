@@ -76,10 +76,10 @@
    "url": "https://fmp.innopolis.university/grant-support"
   },
   "home": {
-   "fetched_at": "2026-10-31T08:39:24+00:00",
-   "file_sha": "fa99b61d34b5306f3a5de26d3b37b50032ac324773aae8c24cff484d7cad231d",
+   "fetched_at": "2026-11-04T12:48:27+00:00",
+   "file_sha": "b3d9037c4ea84af45a96e5d09970c3f1b7808634da34b9527104a249eedc3de4",
    "last_modified": "Thu, 22 Oct 2026 08:13:32 GMT",
-   "sha256": "a26a9152c6a691f888b9fd671d3a84d3ec71d7c8bd0c6b2f2725142d64ba7c7e",
+   "sha256": "6b713a237426111a782d201482d1026ab3ede9664fb02b6c97c7ff416f88c912",
    "title": "Физмат прорыв",
    "url": "https://fmp.innopolis.university/"
   },
@@ -115,6 +115,14 @@
    "title": "Архив",
    "url": "https://fmp.innopolis.university/page117387446.html"
   },
+  "page140751556-html": {
+   "fetched_at": "2026-11-04T12:48:32+00:00",
+   "file_sha": "19f1fd97fbf15d1e64b29ff288675d876663a5f4d1bb35c7b0234ef620b70115",
+   "last_modified": "Tue, 07 Jul 2026 07:09:39 GMT",
+   "sha256": "aaf5f822c3d6751aea8271c77dbe131ca3a09c5d707d1ccabe634fb07f7b27a2",
+   "title": "Полезные и интересные сайты",
+   "url": "https://fmp.innopolis.university/page140751556.html"
+  },
   "page63160921-html": {
    "fetched_at": "2026-10-31T09:03:22+00:00",
    "file_sha": "dcf57accec7035143f44f79733ab116355ced73fe86c7a164ad1848cffc1aa2d",
@@ -130,6 +138,14 @@
    "sha256": "44781ca2725931a20898b8b1511090853f9ef42174508b1d3780552e6c7020fc",
    "title": "Copy of Научно-популярные лекции по математике и фестивали",
    "url": "https://fmp.innopolis.university/page65417573.html"
+  },
+  "page69450473-html": {
+   "fetched_at": "2026-11-04T12:48:30+00:00",
+   "file_sha": "a17c788f77d451c094fbe538907d5490e1d2797431ed2ad1af45f70a1c902483",
+   "last_modified": "Mon, 10 Aug 2026 12:36:15 GMT",
+   "sha256": "abf1b59e26893637c7db43ca3a75a558c21eb217c650ba58ffcfb142015ebf70",
+   "title": "Видео",
+   "url": "https://fmp.innopolis.university/page69450473.html"
   },
   "page84190726-html": {
    "fetched_at": "2026-10-31T09:03:09+00:00",
@@ -266,6 +282,20 @@
    "sha256": "ce353daaacdba92b3fe02577f8b1b028bfdf2161905d6967982877a258095bb8",
    "title": "ЦОК | Цифровой образовательный контент",
    "url": "https://fmp.innopolis.university/zero_release_cok"
+  }
+ },
+ "tried": {
+  "https://fmp.innopolis.university/lectures": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://fmp.innopolis.university/null": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://fmp.innopolis.university/useful-data": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
   }
  }
 }

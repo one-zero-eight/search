@@ -18,10 +18,10 @@
    "url": "https://innopoliscamp.ru/glavnaya"
   },
   "home": {
-   "fetched_at": "2026-11-01T22:37:57+00:00",
-   "file_sha": "d4b290fe6ed2d74790e0be9d9c9fbe6baa07207d1be83388ef190dc28777669b",
+   "fetched_at": "2026-11-04T13:01:13+00:00",
+   "file_sha": "93a49919d0c4e5c93ce353108bbc8d760b404ee59597197966674cf4eb000e33",
    "last_modified": "",
-   "sha256": "507319df7bd0aa3678fd2836f16b9ae2aa647b2daec4a7a803ddfd7c0100dd7b",
+   "sha256": "d6aee503940188d9ffe99f5767e2ae35ada8ff037f0849351687aea7793a98fc",
    "title": "Детский IT-лагерь INNOCAMP в Иннополисе",
    "url": "https://innopoliscamp.ru/"
   },
@@ -72,6 +72,20 @@
    "sha256": "d3e896f31e9689835951fef48f898fa4c7ddb102da20ea036b7d6fe963014807",
    "title": "Заявка в Детский IT-лагерь INNOCAMP",
    "url": "https://innopoliscamp.ru/zapis"
+  },
+  "zapismfti": {
+   "fetched_at": "2026-11-04T13:01:19+00:00",
+   "file_sha": "5f645aee03a598143cba2a71091fd73e43dd188658f506fe81731ec8bf77d975",
+   "last_modified": "",
+   "sha256": "5f645aee03a598143cba2a71091fd73e43dd188658f506fe81731ec8bf77d975",
+   "title": "Заявка в Детский IT-лагерь INNOCAMP",
+   "url": "https://innopoliscamp.ru/zapismfti"
+  }
+ },
+ "tried": {
+  "https://innopoliscamp.ru/kazan": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
   }
  }
 }

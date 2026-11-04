@@ -1,0 +1,16 @@
+{
+ "title": "Выписка из реестра лицензий [Реестровая выписка]",
+ "url": "https://innopolis.university/upload/iblock/b6f/ozxoa1j463v3s0m55w9kdc1qc0z31zfr/%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%B2%D1%8B%D0%BF%D0%B8%D1%81%D0%BA%D0%B0.pdf",
+ "sha256": "02eb5ed8c46867af56925efe255b26d9c549b1a1eb59ea3f5c3b5c7b8ded8045",
+ "method": "text layer (opendataloader)",
+ "chars": 6345,
+ "tables": 5,
+ "section": "site/ido",
+ "context": "",
+ "fetched_at": "2026-11-04T13:07:41+00:00",
+ "remote": {
+  "etag": "\"635000f1-15921\"",
+  "modified": "Wed, 19 Oct 2022 13:51:45 GMT",
+  "size": "88353"
+ }
+}

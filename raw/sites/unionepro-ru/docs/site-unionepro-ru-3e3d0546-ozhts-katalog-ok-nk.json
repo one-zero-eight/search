@@ -1,0 +1,16 @@
+{
+ "title": "Описание процессов жизненного цикла программного обеспечения [ОЖЦ_Каталог_ОК_НК]",
+ "url": "https://unionepro.ru/docs/%D0%9E%D0%96%D0%A6_%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3_%D0%9E%D0%9A_%D0%9D%D0%9A.pdf",
+ "sha256": "5c129bdf636470f9499df243fc59e68cfc30f0afd8843d86507bfea7ce642356",
+ "method": "text layer (opendataloader)",
+ "chars": 14622,
+ "tables": 5,
+ "section": "site/unionepro-ru",
+ "context": "",
+ "fetched_at": "2026-11-04T13:07:42+00:00",
+ "remote": {
+  "etag": "\"6a8be91e-3d1a4\"",
+  "modified": "Mon, 24 Aug 2026 06:47:58 GMT",
+  "size": "250276"
+ }
+}

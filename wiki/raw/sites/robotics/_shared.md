@@ -12,10 +12,10 @@ sources:
   - resource: "https://robotics.innopolis.university/"
     id: "a9e5125c5ca8"
     title: "Общие блоки сайта robotics.innopolis.university: меню, шапка, подвал, контакты"
-    last_modified: "2026-10-31T09:05:35+00:00"
+    last_modified: "2026-11-04T12:49:58+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-10-31T09:05:35+00:00"
+  at: "2026-11-04T12:49:58+00:00"
 status: draft
 ---
 
@@ -63,4 +63,4 @@ RU EN
 
 # Citations
 
-1. [robotics.innopolis.university](https://robotics.innopolis.university/), read 2026-10-31
+1. [robotics.innopolis.university](https://robotics.innopolis.university/), read 2026-11-04

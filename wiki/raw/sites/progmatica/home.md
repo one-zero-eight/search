@@ -1,7 +1,7 @@
 ---
 type: page
 title: "ИТ-школа Университета Иннополис «Прогматика»"
-description: "Прогматика — это больше, чем уроки информатики"
+description: "Они помогают улучшить работу сайта и сделать его удобнее."
 resource: "https://progmatica.innopolis.university/"
 audience: ["student", "postgraduate", "applicant", "teacher", "staff", "management", "public"]
 source_kind: website
@@ -9,16 +9,20 @@ language: ru
 section: "site/progmatica"
 sources:
   - resource: "https://progmatica.innopolis.university/"
-    id: "903be52f8381"
+    id: "3df20b138ad8"
     title: "ИТ-школа Университета Иннополис «Прогматика»"
-    last_modified: "2026-10-31T08:41:26+00:00"
+    last_modified: "2026-11-04T12:45:59+00:00"
 generated:
   by: "catix-wiki/0.1 sites"
-  at: "2026-10-31T08:41:26+00:00"
+  at: "2026-11-04T12:45:59+00:00"
 status: draft
 ---
 
 # ИТ-школа Университета Иннополис «Прогматика»
+
+**Мы используем файлы cookies**
+
+Они помогают улучшить работу сайта и сделать его удобнее. Посещая страницы сайта, вы соглашаетесь с [условиями использования](/raw/regulations/site-university-45ebfbe8-soglasie-na-obrabotku-pdn-dlya-ui.md) файлов cookie.
 
 ## ИТ–школа Университета Иннополис «Прогматика»
 
@@ -30,9 +34,7 @@ status: draft
 
 [Прогматика — это больше, чем уроки информатики](/raw/sites/progmatica/about.md)
 
-[Мы создали ИТ-школу, чтобы помочь школьникам получить знания и навыки, которые можно применить на практике.](/raw/sites/progmatica/about.md)
-
-[Мы покажем, куда дальше идти в области ИТ и применять знания, даже если ребёнок станет врачом, агрономом или писателем.](/raw/sites/progmatica/about.md)
+[Мы создали ИТ-школу, чтобы помочь школьникам получить знания и навыки, которые можно применить на практике. \ Мы покажем, куда дальше идти в области ИТ и применять знания, даже если ребёнок станет врачом, агрономом или писателем.](/raw/sites/progmatica/about.md)
 
 [ПОДРОБНЕЕ О ШКОЛЕ И УНИВЕРСИТЕТЕ ИННОПОЛИС→](/raw/sites/progmatica/about.md)
 
@@ -56,9 +58,7 @@ status: draft
 
 [первый шаг](/raw/sites/progmatica/courses-basic-roblox.md)
 
-[Курс по разработке игр](/raw/sites/progmatica/courses-basic-roblox.md)
-
-[на Roblox для школьников 3–6 классов](/raw/sites/progmatica/courses-basic-roblox.md)
+[Курс по разработке игр на Roblox для школьников 3–6 классов](/raw/sites/progmatica/courses-basic-roblox.md)
 
 [для самых младших](/raw/sites/progmatica/courses-basic-roblox.md)
 
@@ -76,7 +76,7 @@ status: draft
 
 [подробнее →](/raw/sites/progmatica/programs-webinars.md)
 
-[школьникам 2–11 классов](/raw/sites/progmatica/home.md)
+школьникам 2–11 классов
 
 [БЕСПЛАТНЫЙ ПРОБНЫЙ УРОК](/raw/sites/progmatica/promo-program.md)
 
@@ -90,21 +90,13 @@ status: draft
 
 [![](https://static.tildacdn.com/tild3531-6630-4030-b032-303335306561/Group_51594.png)](https://app.weeek.net/s/document-document-NjA0ODg5fDlkMjE5OTdhLWQxNjUtNDg1Yy1iZDU5LWY5ZjFkYWMxZWM1ZQ==)
 
-- [личные онлайн-занятия с педагогом](/raw/sites/progmatica/individual-course.md)
-
-[по индивидуальному расписанию](/raw/sites/progmatica/individual-course.md)
-
-- [стоимость от 1 215 ₽ за ак. час](/raw/sites/progmatica/individual-course.md)
+[- личные онлайн-занятия с педагогом по индивидуальному расписанию - стоимость от 1 215 ₽ за ак. час](/raw/sites/progmatica/individual-course.md)
 
 [Индивидуальные занятия](/raw/sites/progmatica/individual-course.md)
 
 [![](https://static.tildacdn.com/tild6161-3739-4765-b037-386439316162/__1.png)](/raw/sites/progmatica/individual-course.md)
 
-- [онлайн-занятия 2 раза в неделю](/raw/sites/progmatica/group-course.md)
-
-[в группе на 6–8 человек](/raw/sites/progmatica/group-course.md)
-
-- [стоимость от 573 ₽ за ак. час](/raw/sites/progmatica/group-course.md)
+[- онлайн-занятия 2 раза в неделю в группе на 6–8 человек - стоимость от 573 ₽ за ак. час](/raw/sites/progmatica/group-course.md)
 
 [Групповые занятия](/raw/sites/progmatica/group-course.md)
 
@@ -134,7 +126,7 @@ status: draft
 
 Наш опыт
 
-Прогматика — онлайн-школа от команды Университета Иннополис, которая более 13 лет занимается ИТ-образованием для школьников и педагогов по всему миру
+**Прогматика** — онлайн-школа от команды Университета Иннополис, которая более **13 лет** занимается ИТ-образованием для школьников и педагогов по всему миру
 
 Попробуйте ИТ!
 
@@ -214,4 +206,4 @@ _Меню, подвал и другие блоки, которые повтор�
 
 # Citations
 
-1. [ИТ-школа Университета Иннополис «Прогматика»](https://progmatica.innopolis.university/), read 2026-10-31
+1. [ИТ-школа Университета Иннополис «Прогматика»](https://progmatica.innopolis.university/), read 2026-11-04

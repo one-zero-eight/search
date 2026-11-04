@@ -28,6 +28,11 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 
 - [условиями использования [Согласие на обработку ПДн для УИ]](/raw/regulations/site-alumni-bc577ed2-soglasie-na-obrabotku-pdn-dlya-ui.md)
 
+## site/apply
+
+- [Политикой обработки персональных данных [Согласие_на_обработку_ПДн_ДОД]](/raw/regulations/site-apply-30f2a6f2-soglasie-na-obrabotku-pdn-dod.md)
+- [политику конфиденциальности](/raw/regulations/site-apply-d66c21e6-politicacookies.md)
+
 ## site/apply-bach
 
 - [Ознакомиться с книгой](/raw/regulations/site-apply-bach-7765e9ff-matosnovyai.md)
@@ -143,16 +148,19 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 - [Объявление о конкурсном отборе от 31.03.2025](/raw/regulations/site-career-f68629fa-obyavlenie-o-konkursnom-otbore-ot-31-03.md)
 - [Объявление о конкурсном отборе от 31.10.2024](/raw/regulations/site-career-0ef8c56f-obyavlenie-o-konkursnom-otbore-ot-31-10.md)
 - [Объявление о конкурсном отбореот 27.05.2016](/raw/regulations/site-career-fae93b5e-pps-2016-05-27.md)
+- [Политика конфиденциальности [politicacookies]](/raw/regulations/site-career-d66c21e6-politicacookies.md)
 - [условиями использования [Согласие на обработку ПДн для УИ]](/raw/regulations/site-career-abc5359a-soglasie-na-obrabotku-pdn-dlya-ui.md)
 
 ## site/college
 
 - [09.02.11 Разработка и управление программным обеспечением](/raw/regulations/site-college-c3d8805c-09-02-11-razrabotka-i-upravlenie-program.md)
 - [15.02.10 Мехатроника и робототехника (по отраслям) [15_02_10_Мехатроника_и_робототехника_по_отраслям]](/raw/regulations/site-college-2f98caf6-15-02-10-mekhatronika-i-robototekhnika-p.md)
+- [Политика конфиденциальности [politicacookies]](/raw/regulations/site-college-d66c21e6-politicacookies.md)
 - [Расписание занятий](/raw/regulations/site-college-345cae0b-raspisanie-letnei-sessii-2-semestr.md)
 
 ## site/corporate
 
+- [Политика конфиденциальности [politicacookies]](/raw/regulations/site-corporate-d66c21e6-politicacookies.md)
 - [Скачать каталог [Каталог_корпоративные_программы_Университет_Иннополис]](/raw/regulations/site-corporate-c2e8f4bf-katalog-korporativnye-programmy-universi.md)
 - [условиями использования [Согласие на обработку ПДн для УИ]](/raw/regulations/site-corporate-2aa7ecc1-soglasie-na-obrabotku-pdn-dlya-ui.md)
 
@@ -443,6 +451,7 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 - [договором оферты [offer_python_bots_leto_1smena_2025]](/raw/regulations/site-dovuz-5ab4ed64-offer-python-bots-leto-1smena-2025.md)
 - [договором оферты [offer_vsosh_regional2025]](/raw/regulations/site-dovuz-3a852abb-offer-vsosh-regional2025.md)
 - [разбор](/raw/regulations/site-dovuz-beed57d5-razbor.md)
+- [с Политикой обработки персональных данных](/raw/regulations/site-dovuz-d66c21e6-politicacookies.md)
 - [согласия на обработку персональных данных.](/raw/regulations/site-dovuz-195be885-io-2526-sopd-merged-beforeafter14yo.md)
 - [ссылка на оферту [offer_egeinf_module4]](/raw/regulations/site-dovuz-ce06e014-offer-egeinf-module4.md)
 - [ссылка на оферту [offer_egemath_module4]](/raw/regulations/site-dovuz-afd75f87-offer-egemath-module4.md)
@@ -462,7 +471,13 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 
 - [cases cdto](/raw/regulations/site-edu-f4783897-cases-cdto.md)
 - [sbornik kejsov 3](/raw/regulations/site-edu-6cf22e60-sbornik-kejsov-3.md)
+- [sbornik kejsov 4](/raw/regulations/site-edu-ce493357-sbornik-kejsov-4.md)
+- [Выписка из реестра лицензий [Реестровая выписка]](/raw/regulations/site-edu-e6310fe5-reestrovaya-vypiska.md)
 - [Сборник ООЦ №3](/raw/regulations/site-edu-418fa299-sbornik-oots-3.md)
+
+## site/engineerschool
+
+- [Политикой конфиденциальности](/raw/regulations/site-engineerschool-d66c21e6-politicacookies.md)
 
 ## site/events
 
@@ -532,8 +547,10 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 ## site/ido
 
 - [Assessment Center](/raw/regulations/site-ido-c3a39cd6-assessment-center.md)
+- [Выписка из реестра лицензий [Реестровая выписка]](/raw/regulations/site-ido-e6310fe5-reestrovaya-vypiska.md)
 - [Гайд Как агументировать обучение за счет работодателя](/raw/regulations/site-ido-da721605-gai-d-kak-agumentirovat-obuchenie-za-sch.md)
 - [Оферта Нейросети](/raw/regulations/site-ido-4cbe0e13-oferta-neyroseti.md)
+- [Политика конфиденциальности [politicacookies]](/raw/regulations/site-ido-d66c21e6-politicacookies.md)
 - [Скачать каталог [ИИ_в_бизнесе_каталог_программ_Университет_Иннополис]](/raw/regulations/site-ido-68645cda-ii-v-biznese-katalog-programm-universite.md)
 - [Скачать подробное расписание](/raw/regulations/site-ido-8c3877cf-raspisanie-programmy-innovatsii-v-obrazo.md)
 - [Скачать программу [programma_kursa_upravlenie_proektami]](/raw/regulations/site-ido-5b590d05-programma-kursa-upravlenie-proektami.md)
@@ -560,10 +577,19 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 - [Функциональные характеристики ПО [Функциональные_характеристики_ПО-1]](/raw/regulations/site-ipservices-0d99c0dd-funktsionalnye-kharakteristiki-po1.md)
 - [Функциональные характеристики ПО [Функциональные_характеристики_ПО]](/raw/regulations/site-ipservices-41070680-funktsionalnye-kharakteristiki-po.md)
 
+## site/itbm
+
+- [Выписка из реестра](/raw/regulations/site-itbm-e6310fe5-reestrovaya-vypiska.md)
+- [Политикой обработки персональных данных [politicacookies]](/raw/regulations/site-itbm-d66c21e6-politicacookies.md)
+
+## site/llc
+
+- [Нажимая на кнопку, я соглашаюсь на обработку персональных данных](/raw/regulations/site-llc-d66c21e6-politicacookies.md)
+
 ## site/media
 
 - [Programma razvitiya PISH na baze ANO VO Universitet Innopolis](/raw/regulations/site-media-47624ddd-programma-razvitiya-pish-na-baze-ano-vo.md)
-- [cases cdto 2](/raw/regulations/site-media-02be1097-cases-cdto-2.md)
+- [cases cdto 2 [cases_cdto_2]](/raw/regulations/site-media-02be1097-cases-cdto-2.md)
 - [daydzhest po videoigram](/raw/regulations/site-media-c542afe2-daydzhest-po-videoigram.md)
 - [https://innopolis.university/filespublic/dannye bez opasnosti](/raw/regulations/site-media-2056f3a9-dannye-bez-opasnosti.md)
 - [https://innopolis.university/filespublic/koncepciya_formirovaniya_iu.pd](/raw/regulations/site-media-25d7b831-koncepciya-formirovaniya-iu.md)
@@ -573,6 +599,7 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 - [nnopolis.university/public/files/strategia ct](/raw/regulations/site-media-285fd963-strategia-ct.md)
 - [results IOM 24-25](/raw/regulations/site-media-0ec457f6-results-iom-2425.md)
 - [Базу импортозамещения ПО, используемого в организациях высшего образования](/raw/regulations/site-media-ca6ee489-baza-dannyh.md)
+- [Политика конфиденциальности [politicacookies]](/raw/regulations/site-media-d66c21e6-politicacookies.md)
 - [Финалисты](/raw/regulations/site-media-53524684-finalisty.md)
 - [Читать исследование [Industrial_Robotics_Market_Research_2025]](/raw/regulations/site-media-25a047fb-industrial-robotics-market-research-2025.md)
 - [Читать исследование [Presentation Gamedev 12.03]](/raw/regulations/site-media-45205f94-presentation-gamedev-12-03.md)
@@ -580,16 +607,22 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 
 ## site/msonline
 
+- [Политика конфиденциальности [politicacookies]](/raw/regulations/site-msonline-d66c21e6-politicacookies.md)
 - [Учебный план [ucp_uch24-25]](/raw/regulations/site-msonline-b728ba92-ucp-uch2425.md)
 
 ## site/olymp
 
+- [Политика конфиденциальности [politicacookies]](/raw/regulations/site-olymp-d66c21e6-politicacookies.md)
 - [Скачать pdf-файл с результатами [cpm_final_mladshaya3_2025]](/raw/regulations/site-olymp-af1aa992-cpm-final-mladshaya3-2025.md)
 - [Скачать pdf-файл с результатами [cpm_final_srednyaya1_2025]](/raw/regulations/site-olymp-d3bca7cc-cpm-final-srednyaya1-2025.md)
 - [Скачать pdf-файл с результатами [cpm_final_starshaya1_2025]](/raw/regulations/site-olymp-d1e79a84-cpm-final-starshaya1-2025.md)
 - [Скачать pdf-файл с результатами [cpm_final_starshaya2_2025]](/raw/regulations/site-olymp-fcfb26c3-cpm-final-starshaya2-2025.md)
 - [Скачать pdf-файл с результатами [inno_cpm_final_2026]](/raw/regulations/site-olymp-da4f8a24-inno-cpm-final-2026.md)
 - [Скачать pdf-файл с результатами [protokoly_ocpm_270126]](/raw/regulations/site-olymp-5054d70e-protokoly-ocpm-270126.md)
+
+## site/research
+
+- [Политикой обработки персональных данных [politicacookies]](/raw/regulations/site-research-d66c21e6-politicacookies.md)
 
 ## site/robotics
 
@@ -641,8 +674,10 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 
 ## site/stc
 
-- [Выписка из реестра лицензий](/raw/regulations/site-stc-e6310fe5-reestrovaya-vypiska.md)
+- [Выписка из реестра лицензий [Реестровая выписка]](/raw/regulations/site-stc-e6310fe5-reestrovaya-vypiska.md)
 - [Лицензионное соглашение](/raw/regulations/site-stc-095c2bd0-litsenziya-na-obrdeyatelnost.md)
+- [Политикой обработки персональных данных [Согласие_на_обработку_ПДн_ДОД]](/raw/regulations/site-stc-30f2a6f2-soglasie-na-obrabotku-pdn-dod.md)
+- [с политикой конфиденциальности.](/raw/regulations/site-stc-d66c21e6-politicacookies.md)
 
 ## site/teamproject
 
@@ -651,12 +686,36 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 ## site/trud
 
 - [БЕЛОГОРОДСКАЯ ОБЛАСТЬ](/raw/regulations/site-trud-d057e2fd-sodeystvie-zanyatosti-instruktsiya-belgo.md)
+- [Выписка из реестра лицензий [Реестровая выписка]](/raw/regulations/site-trud-e6310fe5-reestrovaya-vypiska.md)
 - [КЕМЕРОВСКАЯ ОБЛАСТЬ](/raw/regulations/site-trud-46e6f780-sodeystvie-zanyatosti-instruktsiya-kemer.md)
 - [Постановлении Правительства РФ](/raw/regulations/site-trud-2d219507-resolution.md)
 - [САРАТОВСКАЯ ОБЛАСТЬ](/raw/regulations/site-trud-4b4b33cc-sodeystvie-zanyatosti-instruktsiya-sarat.md)
 - [Содействие занятости инструкция Мари Эл](/raw/regulations/site-trud-bbb18e02-sodeystvie-zanyatosti-instruktsiya-mari.md)
 - [Содействие занятости инструкция Мордовия](/raw/regulations/site-trud-8348c39e-sodeystvie-zanyatosti-instruktsiya-mordo.md)
 - [Содействие занятости инструкция Татарстан](/raw/regulations/site-trud-f6e4b693-sodeystvie-zanyatosti-instruktsiya-tatar.md)
+
+## site/unionepro-ru
+
+- [Выписка из реестра лицензий [Реестровая выписка]](/raw/regulations/site-unionepro-ru-e6310fe5-reestrovaya-vypiska.md)
+- [Описание процессов жизненного цикла программного обеспечения [ОЖЦ_OneID_НК]](/raw/regulations/site-unionepro-ru-c0755207-ozhts-oneid-nk.md)
+- [Описание процессов жизненного цикла программного обеспечения [ОЖЦ_Ассесмент_НК]](/raw/regulations/site-unionepro-ru-7a3fe3c1-ozhts-assesment-nk.md)
+- [Описание процессов жизненного цикла программного обеспечения [ОЖЦ_ЕМОП_НК]](/raw/regulations/site-unionepro-ru-8ca202b5-ozhts-emop-nk.md)
+- [Описание процессов жизненного цикла программного обеспечения [ОЖЦ_Каталог_ОК_НК]](/raw/regulations/site-unionepro-ru-3e3d0546-ozhts-katalog-ok-nk.md)
+- [Описание процессов жизненного цикла программного обеспечения [ОЖЦ_КаталогПО_НК]](/raw/regulations/site-unionepro-ru-49b1a038-ozhts-katalogpo-nk.md)
+- [Описание процессов жизненного цикла программного обеспечения [ОЖЦ_Реестр_Конструктор_ОПОП_НК]](/raw/regulations/site-unionepro-ru-4eb1aede-ozhts-reestr-konstruktor-opop-nk.md)
+- [Политика конфиденциальности [Policy_processing_personal Data]](/raw/regulations/site-unionepro-ru-07abe9db-policy-processing-personal-data.md)
+- [Руководство администратора [Руководство_администратора_OneID]](/raw/regulations/site-unionepro-ru-c66fdb4e-rukovodstvo-administratora-oneid.md)
+- [Руководство администратора [Руководство_администратора_Ассесмент_НК]](/raw/regulations/site-unionepro-ru-a1676381-rukovodstvo-administratora-assesment-nk.md)
+- [Руководство администратора [Руководство_администратора_ЕМОП_НК_1_new]](/raw/regulations/site-unionepro-ru-f47da237-rukovodstvo-administratora-emop-nk-1-new.md)
+- [Руководство администратора [Руководство_администратора_Каталог_ОК_НК]](/raw/regulations/site-unionepro-ru-8e2beb54-rukovodstvo-administratora-katalog-ok-nk.md)
+- [Руководство администратора [Руководство_администратора_Каталог_ПО_НК]](/raw/regulations/site-unionepro-ru-ae98b785-rukovodstvo-administratora-katalog-po-nk.md)
+- [Руководство администратора [Руководство_администратора_Реестр_Конструктор_ОПОП]](/raw/regulations/site-unionepro-ru-9fbbd836-rukovodstvo-administratora-reestr-konstr.md)
+- [Руководство пользователя [Руководство_пользователя_OneID]](/raw/regulations/site-unionepro-ru-7d5689c9-rukovodstvo-polzovatelya-oneid.md)
+- [Руководство пользователя [Руководство_пользователя_Ассесмент_НК]](/raw/regulations/site-unionepro-ru-f5d71399-rukovodstvo-polzovatelya-assesment-nk.md)
+- [Руководство пользователя [Руководство_пользователя_ЕМОП_НК]](/raw/regulations/site-unionepro-ru-6df9c644-rukovodstvo-polzovatelya-emop-nk.md)
+- [Руководство пользователя [Руководство_пользователя_Каталог_ОК_НК]](/raw/regulations/site-unionepro-ru-7f743951-rukovodstvo-polzovatelya-katalog-ok-nk.md)
+- [Руководство пользователя [Руководство_пользователя_Каталог_ПО_НК_2]](/raw/regulations/site-unionepro-ru-9c3e42d9-rukovodstvo-polzovatelya-katalog-po-nk-2.md)
+- [Руководство пользователя [Руководство_пользователя_Реестр_Конструктор_ОПОП_2]](/raw/regulations/site-unionepro-ru-90fccbae-rukovodstvo-polzovatelya-reestr-konstruk.md)
 
 ## site/university
 
@@ -824,6 +883,9 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 - [4 семестр (документы подписаны ПЭП) — 4 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.11_BS RO_2026_Обыкновенные дифференциальные уравнения (4 с.)_23.10.2025.pdf](/raw/regulations/site-university-99c7291f-4-semestr-bsro-2026-23-10-2025-rpd-member-2377f82315730555693d.md)
 - [4 семестр (документы подписаны ПЭП) — 4 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.12_BS RO_2026_Введение в оптимизацию (4 с.)_23.10.2025.pdf](/raw/regulations/site-university-99c7291f-4-semestr-bsro-2026-23-10-2025-rpd-member-df27e63362503fcbf063.md)
 - [4 семестр (документы подписаны ПЭП) — 4 семестр BSRO 2026 23.10.2025 (РПД)/Визуализация_Б1.О.13_BS RO_2026_Теория вероятностей (4 с.)_23.10.2025.pdf](/raw/regulations/site-university-99c7291f-4-semestr-bsro-2026-23-10-2025-rpd-member-c0312249649e4310dd87.md)
+- [407398 Положение о Правовом управлении](/raw/regulations/site-university-0047f3a7-407398-polozhenie-o-pravovom-upravlenii.md)
+- [407398 Положение об Отделе договорной и корпоративной работы](/raw/regulations/site-university-dae04d99-407398-polozhenie-ob-otdele-dogovornoy-i.md)
+- [407398 Положение об отделе правового сопровождения образовательной](/raw/regulations/site-university-63c9963b-407398-polozhenie-ob-otdele-pravovogo-so.md)
 - [5 семестр (документы подписаны ПЭП) — 2025_BSRO (15.03.06) РПД 5 семестр_25.12.2025/Визуализация_Б1.В.01_BS RO_2025_Элективные дисциплины_25.12.2025.pdf](/raw/regulations/site-university-32c12a82-2025-bsro-15-03-06-rpd-5-semestr-25-12-2-member-3e9e4fee9da4350dfb77.md)
 - [5 семестр (документы подписаны ПЭП) — 2025_BSRO (15.03.06) РПД 5 семестр_25.12.2025/Визуализация_Б1.О.14_BS RO_2025_Компьютерные сети (5 с.)_25.12.2025.pdf](/raw/regulations/site-university-32c12a82-2025-bsro-15-03-06-rpd-5-semestr-25-12-2-member-b8043f9bc297e1f4e2f2.md)
 - [5 семестр (документы подписаны ПЭП) — 2025_BSRO (15.03.06) РПД 5 семестр_25.12.2025/Визуализация_Б1.О.15_BS RO_2025_Введение в машинное обучение (5 с.)_25.12.2025.pdf](/raw/regulations/site-university-32c12a82-2025-bsro-15-03-06-rpd-5-semestr-25-12-2-member-b548d3195dd263e2cd39.md)
@@ -1073,7 +1135,7 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 - [Ознакомиться — Энергетическая инфраструктура/13.03.02 Электроэнергетика и электротехника МЭИ.pdf](/raw/regulations/site-university-3ea314e0-kmv-6-member-2f7ab521d53e5c5922e6.md)
 - [Описание жизненного цикла InnoChain](/raw/regulations/site-university-5df57cbf-opisanie-zhiznennogo-tsikla-innochain.md)
 - [Перечень партнеров грантодателей](/raw/regulations/site-university-f59e209e-partners.md)
-- [Политика конфиденциальности](/raw/regulations/site-university-d66c21e6-politicacookies.md)
+- [Политика конфиденциальности [politicacookies]](/raw/regulations/site-university-d66c21e6-politicacookies.md)
 - [Полномочия Наблюдательного совета](/raw/regulations/site-university-7b45f240-2-polnomoch-nablyudat-sovet.md)
 - [Полномочия Ученого совета](/raw/regulations/site-university-79bb1b44-2-sostav-uch-sovet.md)
 - [Полномочия операционного совета Университета](/raw/regulations/site-university-b5a0b182-polnomochiya-operatsionnogo-soveta.md)
@@ -1114,6 +1176,7 @@ Regulations, orders and other official documents. Back to [the wiki](/index.md).
 - [Федеральный государственный образовательный стандарт основного общего образования](/raw/regulations/site-university-6c462d0e-fgos-ooo.md)
 - [Федеральный государственный образовательный стандарт среднего общего образования](/raw/regulations/site-university-937acc8d-fgos-soo.md)
 - [Целевое обучение СПО](/raw/regulations/site-university-dca43bd9-celevoe-spo.md)
+- [Центр развития персонала и корпоративной культуры](/raw/regulations/site-university-e745658a-tsentr-razvitiya-personala-i-korporativn.md)
 - [Школа физической культуры и ЗОЖ — Школа физической культуры и ЗОЖ.pdf](/raw/regulations/site-university-f50d8bd2-shkola-fizicheskoy-kultury-i-zozh-member-282dcfea59bfd1ccc0ec.md)
 - [условиями использования [Согласие на обработку ПДн для УИ]](/raw/regulations/site-university-45ebfbe8-soglasie-na-obrabotku-pdn-dlya-ui.md)
 - [№ СДС СР СК.499-2022 Сертификат соответствия на разработку, проектирования и производство продукции от 22.04.2022 Оригинал сертификата](/raw/regulations/site-university-3d309da4-499-sertifikat-innopolis.md)

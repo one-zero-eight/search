@@ -1,0 +1,16 @@
+{
+ "title": "Описание процессов жизненного цикла программного обеспечения [ОЖЦ_OneID_НК]",
+ "url": "https://unionepro.ru/docs/%D0%9E%D0%96%D0%A6_OneID_%D0%9D%D0%9A.pdf",
+ "sha256": "f1f32e79ccba2c3fb5dfb1cd6a973d6cca135c266785bd7922a2c9e7d0ef4cb6",
+ "method": "text layer (opendataloader)",
+ "chars": 17149,
+ "tables": 5,
+ "section": "site/unionepro-ru",
+ "context": "",
+ "fetched_at": "2026-11-04T13:07:42+00:00",
+ "remote": {
+  "etag": "\"6a8be91e-3c6b2\"",
+  "modified": "Mon, 24 Aug 2026 06:47:58 GMT",
+  "size": "247474"
+ }
+}

@@ -464,6 +464,8 @@ This trip was a real discovery for me. I gained new academic experience, met Chi
 
 #историяуспеха
 
+[Вернуться Назад](/raw/sites/university/home.md)
+
 ![](https://innopolis.university/local/templates/your_template/images/no-photo.png)
 
 ## Maltseva Svetlana
@@ -499,6 +501,8 @@ I express my deep gratitude to the Innopolis University and the Student Exchange
 ![](https://innopolis.university/upload/images/Maltseva_Svetlana_10.jpg)
 
 #историяуспеха
+
+[Вернуться Назад](/raw/sites/university/home.md)
 
 ![](https://innopolis.university/local/templates/your_template/images/no-photo.png)
 
@@ -537,6 +541,8 @@ China now holds a part of my heart - and I’m so glad it does.
 ![](https://innopolis.university/upload/images/Tarubarova_Nadezhda_10.jpg)
 
 #историяуспеха
+
+[Вернуться Назад](/raw/sites/university/home.md)
 
 ![](https://innopolis.university/local/templates/your_template/images/no-photo.png)
 
@@ -580,6 +586,8 @@ I already miss it so much… This is truly an experience everyone should live th
 
 #историяуспеха
 
+[Вернуться Назад](/raw/sites/university/home.md)
+
 ![](https://innopolis.university/local/templates/your_template/images/no-photo.png)
 
 ## Gatiatullin Ruslan
@@ -618,6 +626,8 @@ In conclusion, I really enjoyed the experience of staying in Malaysia – a coun
 
 #историяуспеха
 
+[Вернуться Назад](/raw/sites/university/home.md)
+
 ![](https://innopolis.university/local/templates/your_template/images/no-photo.png)
 
 ## Sukhoverkova Alina
@@ -651,6 +661,8 @@ Indonesia captured my heart and showed me that one can live openly and happily, 
 ![](https://innopolis.university/upload/images/Sukhoverkova_Alina_8.jpg)
 
 #историяуспеха
+
+[Вернуться Назад](/raw/sites/university/home.md)
 
 ![](https://innopolis.university/local/templates/your_template/images/no-photo.png)
 
@@ -700,6 +712,8 @@ If you’re considering it – go for it. You won’t regret it. ![](https://inn
 
 #историяуспеха
 
+[Вернуться Назад](/raw/sites/university/home.md)
+
 ![](https://innopolis.university/local/templates/your_template/images/no-photo.png)
 
 ## Antipov Aleksei
@@ -743,6 +757,8 @@ One more thing that impressed me about China was its developed bicycle culture. 
 ![](https://innopolis.university/upload/images/Antipov_Aleksei_10.jpg)
 
 #историяуспеха
+
+[Вернуться Назад](/raw/sites/university/home.md)
 
 ![](https://innopolis.university/local/templates/your_template/images/no-photo.png)
 
@@ -796,6 +812,8 @@ Best wishes for you to make a big decision and go for an exciting adventure!
 
 #историяуспеха
 
+[Вернуться Назад](/raw/sites/university/home.md)
+
 ![](https://innopolis.university/upload/iblock/7f0/lc3mikmu2jjre98tkuh3d23ju6dhavho/1.jpg)
 
 ## Murtazina Dinara
@@ -835,6 +853,8 @@ I'm beyond grateful to Innopolis University for making this happen, and for free
 ![](https://innopolis.university/upload/images/Murtazina_Dinara_10.jpg)
 
 #историяуспеха
+
+[Вернуться Назад](/raw/sites/university/home.md)
 
 ![](https://innopolis.university/upload/iblock/681/um5qlvk2zt2xrdnj47q71famfyo0ja3b/1.jpg)
 
@@ -877,6 +897,8 @@ Here are my top 10 experiences: Climbing the Great Wall of China. Playing volley
 ![](https://innopolis.university/upload/images/Kudinov_Ruslan_8.jpg)
 
 #историяуспеха
+
+[Вернуться Назад](/raw/sites/university/home.md)
 
 ![](https://innopolis.university/upload/iblock/66a/2d521zfvhbby504nfc21da9yatggd6vn/3.jpg)
 
@@ -924,6 +946,8 @@ This trip will always be memorable for us, and it will remind us of our time in 
 
 #историяуспеха
 
+[Вернуться Назад](/raw/sites/university/home.md)
+
 ![](https://innopolis.university/upload/iblock/2e8/7zyoqdvy3qy9ho4mtt9agxrebnmv2flq/Ilias_Dzhabbarov_9.jpg)
 
 ## Ilias Dzhabbarov
@@ -957,6 +981,8 @@ Overall, it was a really positive experience. My time in Belgrade has shown me t
 ![](https://innopolis.university/upload/images/Ilias_Dzhabbarov_8.jpg)
 
 #историяуспеха
+
+[Вернуться Назад](/raw/sites/university/home.md)
 
 ![](https://innopolis.university/upload/iblock/e56/fyyfs25a0i2du0sg9vzd5r61xx9t23uz/Smirnov_Elisei_0.jpg)
 
@@ -995,6 +1021,8 @@ Many thanks to Innopolis University for giving me the chance to experience a com
 ![](https://innopolis.university/upload/images/Smirnov_Elisei_9.jpg)
 
 #историяуспеха
+
+[Вернуться Назад](/raw/sites/university/home.md)
 
 ![](https://innopolis.university/upload/iblock/e4d/xpnu49m23c9okmpp8qaixt1sejxfis7s/Rakhmetov_Artur_0.jpg)
 
@@ -1040,6 +1068,8 @@ You know that feeling when you’ve just watched something really good, and you 
 
 #историяуспеха
 
+[Вернуться Назад](/raw/sites/university/home.md)
+
 ![](https://innopolis.university/upload/iblock/d6c/5tr70iydrozjvk9l1f8dvacoafjpdxq8/photo_2024-08-13_10-20-31.jpg)
 
 ## Enin Dmitrii
@@ -1059,6 +1089,8 @@ I had a wonderful opportunity to experience studying abroad at the University of
 ![](https://innopolis.university/upload/images/Enin%20Dmitrii_6.jpg)
 
 #историяуспеха
+
+[Вернуться Назад](/raw/sites/university/home.md)
 
 ![](https://innopolis.university/upload/iblock/06d/cexw1zwu92m9uhx8dj4k2i9kzogp6ocl/1.JPG)
 
@@ -1138,6 +1170,8 @@ These outstanding places are worth visiting at least once - you must go and see 
 
 #историяуспеха
 
+[Вернуться Назад](/raw/sites/university/home.md)
+
 ![](https://innopolis.university/upload/iblock/f75/ptvnw4u5swqojgmnq7w5iojpc7gf43te/1.JPG)
 
 ## Okonicha Ozioma Nenubari
@@ -1163,6 +1197,8 @@ I will definitely miss doner and azerchay but not Baku wind :) If you thought In
 ![11.JPG](https://innopolis.university/upload/medialibrary/e58/ym08xe627je54jyuwl4mdwjsx08cx6mj/11.JPG)
 
 #историяуспеха
+
+[Вернуться Назад](/raw/sites/university/home.md)
 
 ![](https://innopolis.university/upload/iblock/08b/8tz4uxhytf32bpjw7me02irndoiyb884/IMG_20230911_153418_774.jpg)
 
@@ -1200,6 +1236,8 @@ Overall, thanks to the Exchange programme we gained new experience in our study 
 
 #историяуспеха
 
+[Вернуться Назад](/raw/sites/university/home.md)
+
 ![](https://innopolis.university/upload/iblock/920/vdoz3w2p1vx16kbsdsq3eg71ez5md63o/photo_2022-07-05_12-04-57.jpg)
 
 ## Andrey Palaev
@@ -1234,6 +1272,8 @@ Overall, I would say that it is a very nice country to visit for one semester. E
 
 #историяуспеха
 
+[Вернуться Назад](/raw/sites/university/home.md)
+
 ![](https://innopolis.university/upload/iblock/b3e/Turkey_1.jpg)
 
 ## Abdelrahman Abounegm
@@ -1258,6 +1298,8 @@ My advice to the students who plan their exchange semester is to contact people 
 
 #историяуспеха
 
+[Вернуться Назад](/raw/sites/university/home.md)
+
 ![](https://innopolis.university/upload/iblock/ead/3.jpg)
 
 ## Ananga Thapaliya
@@ -1281,6 +1323,8 @@ Students who apply for an exchange program need to be sure. I had to stay in Lux
 Luxembourg has the best canteens that have a variety of food and it`s very cheap. Unfortunately, due to COVID, everything was closed during my stay in the country.”
 
 #историяуспеха
+
+[Вернуться Назад](/raw/sites/university/home.md)
 
 ![](https://innopolis.university/upload/iblock/db1/IMG_0871.jpg)
 
@@ -1312,6 +1356,8 @@ I want to express my gratitude to IRO specialists for following my application p
 
 #историяуспеха
 
+[Вернуться Назад](/raw/sites/university/home.md)
+
 ![](https://innopolis.university/upload/iblock/b71/P1130381%20-%20VanishMax.JPG)
 
 ## Maksim Korsunov
@@ -1328,6 +1374,8 @@ Do not go there only for knowledge, go for experience and new people!
 
 #историяуспеха
 
+[Вернуться Назад](/raw/sites/university/home.md)
+
 ![](https://innopolis.university/upload/iblock/5e7/photo_Marina_Ivanova.jpg)
 
 ## Marina Ivanova
@@ -1343,6 +1391,8 @@ Because of the pandemic situation, I could not visit the county. Even though the
 I would recommend students who wish to go on an exchange program to take part in all possible activities which partner university can provide, visit the county of exchange, and make friends.
 
 #историяуспеха
+
+[Вернуться Назад](/raw/sites/university/home.md)
 
 ![](https://innopolis.university/upload/iblock/116/IMG_20201101_162418.jpg)
 
@@ -1367,6 +1417,8 @@ Because of the pandemic, I could not interact with students. Most of the places 
 The things I would advise one to be familiar with before visiting Turkey: to know about major historical facts of the Turkish nation and national holidays; to learn about Çiğ köfte and Pekmez, try them.
 
 #историяуспеха
+
+[Вернуться Назад](/raw/sites/university/home.md)
 
 ## Новости
 

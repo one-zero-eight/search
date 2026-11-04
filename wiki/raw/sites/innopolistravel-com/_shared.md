@@ -12,10 +12,10 @@ sources:
   - resource: "https://innopolistravel.com/"
     id: "c08be932715e"
     title: "Общие блоки сайта innopolistravel.com: меню, шапка, подвал, контакты"
-    last_modified: "2026-11-01T22:34:54+00:00"
+    last_modified: "2026-11-04T13:02:02+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-11-01T22:34:54+00:00"
+  at: "2026-11-04T13:02:02+00:00"
 status: draft
 ---
 
@@ -41,4 +41,4 @@ innotravel@mail.ru
 
 # Citations
 
-1. [innopolistravel.com](https://innopolistravel.com/), read 2026-11-01
+1. [innopolistravel.com](https://innopolistravel.com/), read 2026-11-04

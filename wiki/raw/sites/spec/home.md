@@ -9,12 +9,12 @@ language: ru
 section: "site/spec"
 sources:
   - resource: "https://spec.innopolis.university/"
-    id: "7de382212fbe"
+    id: "33d0f4f732fa"
     title: "Университет Иннополис"
-    last_modified: "2026-10-31T08:45:02+00:00"
+    last_modified: "2026-11-04T12:46:49+00:00"
 generated:
   by: "catix-wiki/0.1 sites"
-  at: "2026-10-31T08:45:02+00:00"
+  at: "2026-11-04T12:46:49+00:00"
 status: draft
 ---
 
@@ -98,7 +98,7 @@ It is hard meetup. Видео с митапа для компаний, разр�
 
 [спецпроект](/raw/sites/spec/uv.md)
 
-Беспилотный транспорт
+**Беспилотный транспорт**
 
 ![](https://static.tildacdn.com/tild6362-3665-4363-b166-663361663930/2020-04-29-110427.gif)
 
@@ -172,7 +172,7 @@ It is hard meetup. Видео с митапа для компаний, разр�
 
 [вебинар](/raw/sites/spec/webinarreview.md)
 
-Роботизация 202X: как составить план роботизации производства
+**Роботизация 202X: как составить план роботизации производства**
 
 ![](https://static.tildacdn.com/tild6234-3230-4733-a231-663862393761/kuka1.gif)
 
@@ -188,8 +188,10 @@ It is hard meetup. Видео с митапа для компаний, разр�
 
 ![](https://static.tildacdn.com/tild3830-3530-4864-b666-613439656131/365.png)
 
+Мы используем файлы cookies. Они помогают улучшить работу сайта и сделать его удобнее. Посещая наш сайт, вы соглашаетесь с [условиями использования](https://apply.innopolis.university/public/files/Согласие%20на%20обработку%20ПДн%20для%20УИ.pdf) файлов cookie.
+
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/spec/_shared.md](/raw/sites/spec/_shared.md)._
 
 # Citations
 
-1. [Университет Иннополис](https://spec.innopolis.university/), read 2026-10-31
+1. [Университет Иннополис](https://spec.innopolis.university/), read 2026-11-04

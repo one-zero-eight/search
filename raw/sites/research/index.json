@@ -1,5 +1,8 @@
 {
- "docs": {},
+ "docs": {
+  "https://innopolis.university/files/politicacookies.pdf": "Политикой обработки персональных данных",
+  "https://innopolis.university/filespublic/Polozhenie_o_reklamnoj_rassylke.pdf": "получать рекламную рассылку"
+ },
  "pages": {
   "consult": {
    "fetched_at": "2026-10-31T08:38:28+00:00",
@@ -10,10 +13,10 @@
    "url": "https://research.innopolis.university/consult"
   },
   "home": {
-   "fetched_at": "2026-10-31T08:38:24+00:00",
-   "file_sha": "a5fad8fec7fc62280aedcb73408d72fb43462766cf31b9ccace4329e0a9cacf5",
+   "fetched_at": "2026-11-04T12:48:16+00:00",
+   "file_sha": "37e9553aac94c2e5a4c7a8702c2011d42c522544cacb5e7a9087c698aab8b39b",
    "last_modified": "Wed, 21 May 2025 11:04:59 GMT",
-   "sha256": "cd2c5da78088546503f14bd213fb52d5ff587c3b826c92d21305afb648eb2272",
+   "sha256": "ef29307d1af1f3345abd3c67da510fed70dcc40c5decf9a403021927cee75d6d",
    "title": "Сектор аналитических исследований",
    "url": "https://research.innopolis.university/"
   },

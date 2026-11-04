@@ -1,5 +1,7 @@
 {
- "docs": {},
+ "docs": {
+  "https://innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%9F%D0%94%D0%BD%20%D0%B4%D0%BB%D1%8F%20%D0%A3%D0%98.pdf": "условиями использования"
+ },
  "pages": {
   "00001": {
    "fetched_at": "2026-10-31T08:41:28+00:00",
@@ -138,10 +140,10 @@
    "url": "https://progmatica.innopolis.university/group_course"
   },
   "home": {
-   "fetched_at": "2026-10-31T08:41:26+00:00",
-   "file_sha": "4374702b2df875d3b20a7d0111248083304195b16ed567c9d62de9c245dbe488",
+   "fetched_at": "2026-11-04T12:45:59+00:00",
+   "file_sha": "52f823b54ea035743e9dd83464db94e8a8255c8c6fc35dc026633b78ff41b6da",
    "last_modified": "Fri, 18 Sep 2026 19:19:31 GMT",
-   "sha256": "903be52f8381cfb5a395bc2824cd38893f5e826ea4e1c644ec8beed3a72be6fd",
+   "sha256": "3df20b138ad8f0c5bf34afd5789b725bb4ed65ccd814c978cd04dfa5a3d9a82f",
    "title": "ИТ-школа Университета Иннополис «Прогматика»",
    "url": "https://progmatica.innopolis.university/"
   },
@@ -640,6 +642,100 @@
    "sha256": "2dd6be0086a9b52e9b1e9e2835a5842e1896ae174c425459f6bc876ace3cd72a",
    "title": "Вебинар: «ИТ для творчества: как 3D-графика и веб-дизайн раскрывают таланты»",
    "url": "https://progmatica.innopolis.university/web221026"
+  }
+ },
+ "tried": {
+  "https://progmatica.innopolis.university/%D0%B5%D1%83%D0%B4%2B78004442749": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://progmatica.innopolis.university/a_intensive25": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://progmatica.innopolis.university/courses/%D0%B5%D1%83%D0%B4%2B78004442749": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://progmatica.innopolis.university/courses/basic/%D0%B5%D1%83%D0%B4%2B78004442749": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://progmatica.innopolis.university/courses/basic/lend_course_roblox_group": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://progmatica.innopolis.university/courses/basic/scratch": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://progmatica.innopolis.university/courses/basic/web/%D0%B5%D1%83%D0%B4%2B78004442749": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://progmatica.innopolis.university/courses/gia/%D0%B5%D1%83%D0%B4%2B78004442749": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://progmatica.innopolis.university/courses/instruction/%D0%B5%D1%83%D0%B4%2B78004442749": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://progmatica.innopolis.university/courses/olympiad/%D0%B5%D1%83%D0%B4%2B78004442749": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://progmatica.innopolis.university/courses/olympiad/olymp_programming": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://progmatica.innopolis.university/courses/telegrambot": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://progmatica.innopolis.university/intensive/%D0%B5%D1%83%D0%B4%2B78004442749": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://progmatica.innopolis.university/intensive24": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://progmatica.innopolis.university/longread/%D0%B5%D1%83%D0%B4%2B78004442749": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://progmatica.innopolis.university/longread/interview_sedenkova": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://progmatica.innopolis.university/programs/%D0%B5%D1%83%D0%B4%2B78004442749": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://progmatica.innopolis.university/promo/%D0%B5%D1%83%D0%B4%2B78004442749": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://progmatica.innopolis.university/s_intensive25": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://progmatica.innopolis.university/summer_intensive24": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://progmatica.innopolis.university/summer_intensive25": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://progmatica.innopolis.university/w_intensive25": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://progmatica.innopolis.university/winter_intensive24": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
   }
  }
 }

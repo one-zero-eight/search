@@ -22,169 +22,151 @@ status: draft
 
 - Screenings
 
-- [Films](/raw/sites/innopoliscinema-ru/en-films.md)
-
-- [Пушкинская карта](/raw/sites/innopoliscinema-ru/en-films-pushkin-card.md)
-
-- [Events](/raw/sites/innopoliscinema-ru/en-special-screenings.md)
-
-- [Contacts](/raw/sites/innopoliscinema-ru/en-contacts.md)
-
 - [RU](/raw/sites/innopoliscinema-ru/ru-screenings.md) / EN
-
-Innopolis, Parkovaya str., 1,
-
-Cultural center «ArtSpace»
-
-[Show map](https://yandex.ru/maps/-/CCUYjMGBgB)
 
 ### 2 November, Monday
 
 14:30
 
-[Morozko](https://innopoliscinema.ru/en/films/morozko)
+[Morozko](/raw/sites/innopoliscinema-ru/en-films-morozko.md)
 
 16:30
 
-[The Tale of Lost Time](https://innopoliscinema.ru/en/films/skazka-o-poteryannom-vremeni)
+[The Tale of Lost Time](/raw/sites/innopoliscinema-ru/en-films-skazka-o-poteryannom-vremeni.md)
 
 18:20
 
-[Rise of the Empire](https://innopoliscinema.ru/en/films/rozhdenie-imperii)
+[Rise of the Empire](/raw/sites/innopoliscinema-ru/en-films-rozhdenie-imperii.md)
 
 21:00
 
-[Pranker](https://innopoliscinema.ru/en/films/pranker)
+[Pranker](/raw/sites/innopoliscinema-ru/en-films-pranker.md)
 
 ### 3 November, Tuesday
 
 14:00
 
-[Rise of the Empire](https://innopoliscinema.ru/en/films/rozhdenie-imperii)
+[Rise of the Empire](/raw/sites/innopoliscinema-ru/en-films-rozhdenie-imperii.md)
 
 16:35
 
-[Morozko](https://innopoliscinema.ru/en/films/morozko)
+[Morozko](/raw/sites/innopoliscinema-ru/en-films-morozko.md)
 
 18:30
 
-[The Tale of Lost Time](https://innopoliscinema.ru/en/films/skazka-o-poteryannom-vremeni)
+[The Tale of Lost Time](/raw/sites/innopoliscinema-ru/en-films-skazka-o-poteryannom-vremeni.md)
 
 20:15
 
-[Fjord](https://innopoliscinema.ru/en/films/fjord)
+[Fjord](/raw/sites/innopoliscinema-ru/en-films-fjord.md)
 
 ### 4 November, Wednesday
 
 11:15
 
-[Rise of the Empire](https://innopoliscinema.ru/en/films/rozhdenie-imperii)
+[Rise of the Empire](/raw/sites/innopoliscinema-ru/en-films-rozhdenie-imperii.md)
 
 14:00
 
-[The Tale of Lost Time](https://innopoliscinema.ru/en/films/skazka-o-poteryannom-vremeni)
+[The Tale of Lost Time](/raw/sites/innopoliscinema-ru/en-films-skazka-o-poteryannom-vremeni.md)
 
 15:40
 
-[Battle of Engines](https://innopoliscinema.ru/en/films/bitva-motorov)
+[Battle of Engines](/raw/sites/innopoliscinema-ru/en-films-bitva-motorov.md)
 
 18:30
 
-[Morozko](https://innopoliscinema.ru/en/films/morozko)
+[Morozko](/raw/sites/innopoliscinema-ru/en-films-morozko.md)
 
 20:25
 
-[Rise of the Empire](https://innopoliscinema.ru/en/films/rozhdenie-imperii)
+[Rise of the Empire](/raw/sites/innopoliscinema-ru/en-films-rozhdenie-imperii.md)
 
 ### 5 November, Thursday
 
 14:00
 
-[Morozko](https://innopoliscinema.ru/en/films/morozko)
+[Morozko](/raw/sites/innopoliscinema-ru/en-films-morozko.md)
 
 15:50
 
-[Rise of the Empire](https://innopoliscinema.ru/en/films/rozhdenie-imperii)
+[Rise of the Empire](/raw/sites/innopoliscinema-ru/en-films-rozhdenie-imperii.md)
 
 18:30
 
-[The Tale of Lost Time](https://innopoliscinema.ru/en/films/skazka-o-poteryannom-vremeni)
+[The Tale of Lost Time](/raw/sites/innopoliscinema-ru/en-films-skazka-o-poteryannom-vremeni.md)
 
 20:15
 
-[Wicker.](https://innopoliscinema.ru/en/films/wicker)
+[Wicker.](/raw/sites/innopoliscinema-ru/en-films-wicker.md)
 
 ### 6 November, Friday
 
 14:00
 
-[The Tale of Lost Time](https://innopoliscinema.ru/en/films/skazka-o-poteryannom-vremeni)
+[The Tale of Lost Time](/raw/sites/innopoliscinema-ru/en-films-skazka-o-poteryannom-vremeni.md)
 
 15:40
 
-[Morozko](https://innopoliscinema.ru/en/films/morozko)
+[Morozko](/raw/sites/innopoliscinema-ru/en-films-morozko.md)
 
 17:30
 
-[Fjord](https://innopoliscinema.ru/en/films/fjord)
+[Fjord](/raw/sites/innopoliscinema-ru/en-films-fjord.md)
 
 20:15
 
-[Rise of the Empire](https://innopoliscinema.ru/en/films/rozhdenie-imperii)
+[Rise of the Empire](/raw/sites/innopoliscinema-ru/en-films-rozhdenie-imperii.md)
 
 ### 7 November, Saturday
 
 11:30
 
-[The Tale of Lost Time](https://innopoliscinema.ru/en/films/skazka-o-poteryannom-vremeni)
+[The Tale of Lost Time](/raw/sites/innopoliscinema-ru/en-films-skazka-o-poteryannom-vremeni.md)
 
 13:10
 
-[Morozko](https://innopoliscinema.ru/en/films/morozko)
+[Morozko](/raw/sites/innopoliscinema-ru/en-films-morozko.md)
 
 15:05
 
-[Rise of the Empire](https://innopoliscinema.ru/en/films/rozhdenie-imperii)
+[Rise of the Empire](/raw/sites/innopoliscinema-ru/en-films-rozhdenie-imperii.md)
 
 ### 8 November, Sunday
 
 11:30
 
-[Morozko](https://innopoliscinema.ru/en/films/morozko)
+[Morozko](/raw/sites/innopoliscinema-ru/en-films-morozko.md)
 
 13:20
 
-[The Tale of Lost Time](https://innopoliscinema.ru/en/films/skazka-o-poteryannom-vremeni)
+[The Tale of Lost Time](/raw/sites/innopoliscinema-ru/en-films-skazka-o-poteryannom-vremeni.md)
 
 15:05
 
-[Battle of Engines](https://innopoliscinema.ru/en/films/bitva-motorov)
+[Battle of Engines](/raw/sites/innopoliscinema-ru/en-films-bitva-motorov.md)
 
 18:00
 
-[Wicker.](https://innopoliscinema.ru/en/films/wicker)
-
-450₽
+[Wicker.](/raw/sites/innopoliscinema-ru/en-films-wicker.md)
 
 20:05
 
-[Rise of the Empire](https://innopoliscinema.ru/en/films/rozhdenie-imperii)
-
-450₽
+[Rise of the Empire](/raw/sites/innopoliscinema-ru/en-films-rozhdenie-imperii.md)
 
 ### 10 November, Tuesday
 
 10:30
 
-[The Tale of Lost Time](https://innopoliscinema.ru/en/films/skazka-o-poteryannom-vremeni)
+[The Tale of Lost Time](/raw/sites/innopoliscinema-ru/en-films-skazka-o-poteryannom-vremeni.md)
 
 12:15
 
-[Rise of the Empire](https://innopoliscinema.ru/en/films/rozhdenie-imperii)
+[Rise of the Empire](/raw/sites/innopoliscinema-ru/en-films-rozhdenie-imperii.md)
 
 15:00
 
-[Wicker](https://innopoliscinema.ru/en/films/wicker)
+[Wicker](/raw/sites/innopoliscinema-ru/en-films-wicker.md)
 
 SUB350₽
 
@@ -192,27 +174,11 @@ SUB350₽
 
 11:30
 
-[Rise of the Empire](https://innopoliscinema.ru/en/films/rozhdenie-imperii)
+[Rise of the Empire](/raw/sites/innopoliscinema-ru/en-films-rozhdenie-imperii.md)
 
 14:15
 
-[Morozko](https://innopoliscinema.ru/en/films/morozko)
-
-[Subscribe to our newsletter](https://innopoliscinema.ru/en/newsletter)
-
-### Address
-
-Innopolis, Parkovaya str., 1,
-
-Cultural center «ArtSpace»
-
-[Show map](https://yandex.ru/maps/-/CCUYjMGBgB)
-
-### Phone number
-
-### Cinema Lounge Foundation
-
-Special events & projects
+[Morozko](/raw/sites/innopoliscinema-ru/en-films-morozko.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/innopoliscinema-ru/_shared.md](/raw/sites/innopoliscinema-ru/_shared.md)._
 

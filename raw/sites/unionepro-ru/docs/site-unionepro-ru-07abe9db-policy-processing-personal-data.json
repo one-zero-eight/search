@@ -1,0 +1,16 @@
+{
+ "title": "Политика конфиденциальности [Policy_processing_personal Data]",
+ "url": "https://s3-api.unionepro.ru/basebucket/web/docs/Policy_processing_personal%20Data.pdf",
+ "sha256": "6fb2a53f1f025eacc78e15cff9cacbf3b93ac959ae3a6a270dac763916a9a869",
+ "method": "text layer (opendataloader)",
+ "chars": 27882,
+ "tables": 5,
+ "section": "site/unionepro-ru",
+ "context": "",
+ "fetched_at": "2026-11-04T13:07:42+00:00",
+ "remote": {
+  "etag": "\"f92b2bdb8119951d915251c68a20bdf4\"",
+  "modified": "Mon, 16 Jun 2025 12:59:23 GMT",
+  "size": "2221063"
+ }
+}

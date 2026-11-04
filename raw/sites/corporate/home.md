@@ -16,34 +16,40 @@ habr
 ## бизнесу
 ## Развитие инновационной деятельности совместно с индустрией
 ## Университет Иннополис
-48
-Корпоративных образовательных программ дают современные знания для перехода в цифровую экономику
+**48**
+Корпоративных образовательных программ дают современные знания для перехода
+в
+цифровую экономику
 ## решения
-Находим компаниям новые решения, основанные на научных исследованиях, продуктовой разработке и образовании
+Находим компаниям новые решения, основанные на научных исследованиях,
+продуктовой разработке и образовании
 [Подробнее](https://corporate.innopolis.university/technologicalaudit/)
 ## идеи
 Исследователи и инженеры проектируют и тестируют идеи в лабораториях вуза
 Подробнее
 НИОКР для бизнеса
 ## НИОКР для бизнеса
-—
+**—**
 ### Аутсорсинг R&D
-Проводим НИОКР и разрабатываем технологии для диверсификации бизнеса. Наши компетенции — искусственный интеллект, робототехника, кибербезопасность, блокчейн, ГИС и smart city, облачные системы и виртуализация сервисов.
-—
+Проводим НИОКР и разрабатываем технологии для диверсификации
+бизнеса.
+Наши компетенции — искусственный интеллект, робототехника, кибербезопасность, блокчейн, ГИС и smart
+city, облачные системы и виртуализация сервисов.
+**—**
 ### Создание совместной Лаборатории/Центра на базе Университета Иннополис
 Сформируем команду исследователей и предоставим инфраструктуру
-—
+**—**
 ### Анализ бизнес-процессов и разработка решений на стыке технологий
 Узнать подробнее
 Корпоративное обучение
 ## Корпоративное обучение
-—
+**—**
 ### Индивидуальная образовательная программа
 Адаптируем программу обучения под задачи компании.
-—.
+**—.**
 ### Подготовка специалистов всех уровней
 Составляем программы для всех уровней ИТ-специалистов – от Junior-разработчика до топ-менеджера.
-—
+**—**
 ### Разработка образовательных программ
 Готовим образовательный онлайн-контент для корпоративных LMS.
 [Узнать подробнее](https://corporate.innopolis.university/education/)
@@ -71,28 +77,26 @@ habr
 [Узнать подробнее](https://innopolis.university/organizatsiya-i-provedenie-meropriyatiy/)
 ![](https://innopolis.university/upload/landing/c89/image_118@1x.png)
 ## Технологические центры
-[01](https://ai.innopolis.university/)
-[Искусственный интеллект](https://ai.innopolis.university/)
-[02](https://innopolis.university/center-robotics/)
-[Робототехника](https://innopolis.university/center-robotics/)
-[03](https://innopolis.university/center-blockchain/)
-[Блокчейн](https://innopolis.university/center-blockchain/)
-[04](https://innopolis.university/center-cybersecurity/)
-[Информационная безопасность](https://innopolis.university/center-cybersecurity/)
-[05](https://innopolis.university/centergis/)
-[Геоинформационные системы](https://innopolis.university/centergis/)
-[06](https://innopolis.university/center-oil/)
-[Нефтегазовые технологии](https://innopolis.university/center-oil/)
+[01 Искусственный интеллект](https://ai.innopolis.university/)
+[02 Робототехника](https://innopolis.university/center-robotics/)
+[03 Блокчейн](https://innopolis.university/center-blockchain/)
+[04 Информационная безопасность](https://innopolis.university/center-cybersecurity/)
+[05 Геоинформационные системы](https://innopolis.university/centergis/)
+[06 Нефтегазовые технологии](https://innopolis.university/center-oil/)
 ## Взаимодействие с бизнесом
 ## Цифровизация индустрии
-Совместно с ведущими ИТ-компаниями России, вендорами и 53 академическими партнёрами по всему миру, мы исследуем и проектируем новые технологические решения.
-Требуемые сроки и экономическая целесообразность решений для бизнеса достигаются за счёт проектного менеджмента и экспертных кросс-функциональных команд.
+Совместно с ведущими ИТ-компаниями России, вендорами и 53 академическими
+партнёрами по всему миру, мы исследуем и проектируем новые технологические решения.
+Требуемые сроки и экономическая целесообразность решений для бизнеса достигаются
+за счёт проектного менеджмента и экспертных кросс-функциональных команд.
 Подробнее
-71научно-исследовательский проект
-Выполненные и реализуемые проекты включают мониторинг инфраструктуры, лесов, сельскохозяйственных полей с помощью искусственного интеллекта и беспилотных летательных аппаратов, роботизацию производств, системы противодействия и нейтрализации кибератак, беспилотные автомобили
+**71**научно-исследовательский проект
+Выполненные и реализуемые проекты включают мониторинг инфраструктуры, лесов, сельскохозяйственных полей с помощью искусственного интеллекта и беспилотных летательных аппаратов, роботизацию производств,
+системы противодействия и нейтрализации кибератак, беспилотные автомобили
 ![](https://corporate.innopolis.university/public/images/busines-main-events-1.png)
 ## Аудит и консалтинг
-Аудит и групповые сессии помогают сформировать стратегическое видение и составить дорожную карту мероприятий. Совместно с экспертами вуза компании определяют текущие ограничения в производственных и бизнес-процессах и находят решения.
+Аудит и групповые сессии помогают сформировать стратегическое видение и составить дорожную карту
+мероприятий. Совместно с экспертами вуза компании определяют текущие ограничения в производственных и бизнес-процессах и находят решения.
 [Подробнее](https://corporate.innopolis.university/technologicalaudit/)
 ![](https://corporate.innopolis.university/public/images/busines-main-events-2.png)
 ## Бизнес мероприятия
@@ -100,8 +104,8 @@ habr
 [Подробнее](https://innopolis.university/organizatsiya-i-provedenie-meropriyatiy/)
 ## Подготовка кадров
 ## Прошли обучение
-11 000 человек
-41 компания
+**11 000** человек
+**41** компания
 ## Направления
 - Менеджмент
 - Разработка
@@ -109,42 +113,42 @@ habr
 Обучение проходит в формате интенсивов, в ходе которых теоретические знания применяются на практических занятиях. Мы уже обучили менеджмент и сотрудников компаний ПАО «‎Аэрофлот»‎, «Транснефть-Диаскан», «РосАтом», ПАО «СИБУР Холдинг», ПАО «Россети», ПАО «Сбербанк России», ООО «Газпром ВНИИГАЗ».
 [Подробнее](https://corporate.innopolis.university/education/)
 ## наши партнеры
-![логотип](https://corporate.innopolis.university/upload/landing/ae1/сбербанк@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/5e6/сколтех@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/810/мегафон@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/c2c/яндекс@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/c19/транснефть@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/03d/Group_7517@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/673/accenture@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/bbf/itpark@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/85d/yokogawa@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/e76/андроидная_техника@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/ae7/аэрофлот@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/8c5/банк_россии@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/6b4/втб@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/c63/газпром_нефть@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/d78/газпром@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/2c2/дигинавис@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/769/ихтц@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/66b/камаз@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/7e3/касперский@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/87d/кука@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/170/магнит@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/cff/минкомсвязь@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/0d4/мэйлру@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/071/норникель@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/ffb/почта_россии@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/350/ржд@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/7e3/роскартография@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/e1b/ростелеком@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/17f/рт@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/aef/русал@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/41c/русгидро@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/7c3/северсталь@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/783/сибур@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/4cf/фанук@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/4ce/Х5_ритейл@2x.jpg)
-![логотип](https://corporate.innopolis.university/upload/landing/d2d/энергомаш@2x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/1eb/сбербанк@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/8fa/сколтех@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/3b3/мегафон@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/09b/яндекс@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/708/транснефть@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/701/Group_7517@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/009/accenture@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/6bb/itpark@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/04c/yokogawa@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/2ee/андроидная_техника@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/c1f/аэрофлот@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/176/банк_россии@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/4be/втб@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/4c6/газпром_нефть@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/7ce/газпром@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/e43/дигинавис@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/26c/ихтц@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/5f5/камаз@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/222/касперский@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/3d5/кука@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/db6/магнит@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/fc2/минкомсвязь@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/dac/мэйлру@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/8f4/норникель@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/c2e/почта_россии@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/6ce/ржд@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/707/роскартография@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/42e/ростелеком@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/eb8/рт@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/96b/русал@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/e71/русгидро@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/c0f/северсталь@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/c62/сибур@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/592/фанук@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/227/Х5_ритейл@1x.jpg)
+![логотип](https://corporate.innopolis.university/upload/landing/a2e/энергомаш@1x.jpg)
 ## Кейсы корпоративных клиентов
 ![](https://innopolis.university/public/images/hooka.png)
 ## Кейс ОЭЗ «Иннополис»: как мы помогли заселить джавистами целый город
@@ -193,3 +197,4 @@ corporate@innopolis.university
 - Скачать PDF, содержащий материалы страницы
 ## Мы используем файлы cookies
 Они помогают улучшить работу сайта и сделать его удобнее. Посещая страницы сайта, вы соглашаетесь с [условиями использования](https://corporate.innopolis.university/public/files/Согласие%20на%20обработку%20ПДн%20для%20УИ.pdf) файлов cookie.
+Согласен

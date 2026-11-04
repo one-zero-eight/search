@@ -1,4 +1,4 @@
-[![](https://hotel.innopolis.university/upload/landing/80c/41bcnnqqgrui0vudb3sk1ouhi2ybmqhw/logo_rus@2x.png)](https://innopolis.university/)
+[![](https://hotel.innopolis.university/upload/landing/280/aqyobd1ypzffmkuiumayvvisi7v9tufk/logo_rus@1x.png)](https://innopolis.university/)
 - О кампусе
 - [Номерной фонд](https://hotel.innopolis.university/roomfund/)
 - [Проживание студентов](https://hotel.innopolis.university/studentaccommodation/)
@@ -7,23 +7,23 @@
 - [Контакты](https://hotel.innopolis.university/contacts/)
 - [EN](https://hotel.innopolis.university/en)
 [▶ video](https://www.youtube.com/watch?v=0USWAsrY9uk)
-Кампус Университета Иннополис
+## Кампус Университета Иннополис
 [Забронировать номер](https://hotel.innopolis.university/zayavkanabronirovanie/)
-о нас
+## о нас
 Кампус Университета Иннополис находится в самом молодом и инновационном городе страны — Иннополисе. Это первый российский город для ИТ-специалистов в 40 км от Казани.
 Здания жилого кампуса оборудованы по программе «Доступная среда». В них есть номера для маломобильных групп населения, широкие лифты, а входная группа оснащена пандусом. На территории жилых корпусов и Университета работают столовые и кофейни.
 В Иннополисе вы сможете увидеть потрясающие закаты и насладиться природой. А ещё — посетить местные достопримечательности: остров-град Свияжск, Раифский монастырь. Или покататься на горных лыжах в комплексе «Свияжские холмы» зимой, а летом — поиграть в гольф и заняться стендовой стрельбой.
-![](https://hotel.innopolis.university/upload/landing/f54/8308@2x.jpg)
+![](https://hotel.innopolis.university/upload/landing/30e/8308@1x.jpg)
 Семь корпусов жилого кампуса соединены между собой пешеходной галереей, которая плавно перетекает в Университет.
-![](https://hotel.innopolis.university/upload/landing/c59/7942@2x.jpg)
+![](https://hotel.innopolis.university/upload/landing/a98/7942@1x.jpg)
 В кампусе проживают студенты из разных уголков России и других стран мира. Семь корпусов жилого кампуса рассчитаны на 2095 мест для размещения.
-![](https://hotel.innopolis.university/upload/landing/b75/8348@2x.jpg)
+![](https://hotel.innopolis.university/upload/landing/b6d/8348@1x.jpg)
 Большое внимание мы уделяем безопасности, поэтому на территории жилого кампуса действует пропускной режим.
-НОМЕРНОЙ ФОНД
+## НОМЕРНОЙ ФОНД
 Дизайн интерьера выполнен в современном лаконичном стиле с удобной планировкой и зонированием пространства.
 Так, рабочая зона и мини-кухня отделены мебелью от спальных мест и гостиной
 ### Двухместный однокомнатный номер
-![](https://hotel.innopolis.university/upload/landing/ac8/7969@2x.jpg)
+![](https://hotel.innopolis.university/upload/landing/365/7969@1x.jpg)
 3 600 рублей
 Однокомнатный номер
 21 м²
@@ -33,7 +33,7 @@
 Рассчитан на проживание 2 гостей
 [Подробнее](https://hotel.innopolis.university/roomfund/)
 ### Четырехместный двухкомнатный номер
-![](https://hotel.innopolis.university/upload/landing/a05/8122@2x.jpg)
+![](https://hotel.innopolis.university/upload/landing/f18/8122@1x.jpg)
 7 200 рублей
 Двухкомнатный номер
 45 м²
@@ -43,7 +43,7 @@
 Рассчитан на проживание 4 гостей
 [Подробнее](https://hotel.innopolis.university/roomfund/)
 ### Пятиместный трехкомнатный номер
-![](https://hotel.innopolis.university/upload/landing/1bd/8214@2x.jpg)
+![](https://hotel.innopolis.university/upload/landing/9bd/8214@1x.jpg)
 9 000 рублей
 Трехкомнатный номер
 65 м²
@@ -54,8 +54,8 @@
 • Телевизор
 Рассчитан на проживание 5 гостей
 [Подробнее](https://hotel.innopolis.university/roomfund/)
-Двухместный однокомнатный номер комфорт
-![](https://hotel.innopolis.university/upload/landing/993/DSC_0091@2x.jpg)
+### Двухместный однокомнатный номер комфорт
+![](https://hotel.innopolis.university/upload/landing/95b/DSC_0091@1x.jpg)
 4 200 рублей
 Однокомнатный номер
 21 м²
@@ -66,7 +66,7 @@
 Рассчитан на проживание 2 гостей
 [Подробнее](https://hotel.innopolis.university/roomfund/)
 ### Двухместный двухкомнатный номер комфорт
-![](https://hotel.innopolis.university/upload/landing/b10/DSC_0085@2x.jpg)
+![](https://hotel.innopolis.university/upload/landing/9b0/DSC_0085@1x.jpg)
 5 000 рублей
 Двухкомнатный номер
 45 м²
@@ -77,9 +77,8 @@
 • Диван, кресло
 Рассчитан на проживание 2 гостей
 [Подробнее](https://hotel.innopolis.university/roomfund/)
-### Двухместный однокомнатный
-номер (5-7 корпус)
-![](https://hotel.innopolis.university/upload/landing/860/uww83404yqtx67g5rgdw3i53cp8ovc7p/photo_2023_07_21_17_47_48_2x_2x.jpg)
+### Двухместный однокомнатный номер (5-7 корпус)
+![](https://hotel.innopolis.university/upload/landing/949/4tjzl8jgigrl1t7g8z8il7k9jhu7bbri/photo_2023_07_21_17_47_48_2x_1x.jpg)
 4 200 рублей
 Однокомнатный номер
 28 м²
@@ -89,10 +88,8 @@
 • Микроволновка и чайник
 Рассчитан на проживание 2 гостей
 [Подробнее](https://hotel.innopolis.university/roomfund/)
-### Двухместный двухкомнатный
-номер комфорт
-(5-7 корпус)
-![](https://hotel.innopolis.university/upload/landing/f68/t8ob8x74rxxt1osv8rmhxr26rgmuelq9/img_2162_2x_2x.jpg)
+### Двухместный двухкомнатный номер комфорт (5-7 корпус)
+![](https://hotel.innopolis.university/upload/landing/d05/tuoo6e2xre0r1aoks69q3izw4qb1chzx/img_2162_2x_1x.jpg)
 5 800 рублей
 Двухкомнатный номер
 46 м²
@@ -104,9 +101,8 @@
 • Микроволновка и чайник
 Рассчитан на проживание 2 гостей
 [Подробнее](https://hotel.innopolis.university/roomfund/)
-### Четырехместный двухкомнатный
-номер (5-7 корпус)
-![](https://hotel.innopolis.university/upload/landing/278/irfejwv6rv12rw3n8tcbk7zio567qwz0/photo_2023_07_21_17_47_43_2x_2x.jpg)
+### Четырехместный двухкомнатный номер (5-7 корпус)
+![](https://hotel.innopolis.university/upload/landing/b64/es7stqzh2ex6lav1fm2dze3g5ug4cml2/photo_2023_07_21_17_47_43_2x_1x.jpg)
 8 000 рублей
 Двухкомнатный номер
 46 м²
@@ -117,7 +113,7 @@
 • Микроволновка и чайник
 Рассчитан на проживание 4 гостей
 [Подробнее](https://hotel.innopolis.university/roomfund/)
-![](https://hotel.innopolis.university/upload/landing/069/7871@2x.jpg)
+![](https://hotel.innopolis.university/upload/landing/699/7871@1x.jpg)
 ## В стоимость размещения входит:
 - бесплатная парковка
 - WiFi-зона
@@ -133,7 +129,7 @@
 - камера хранения багажа
 &nbsp;
 ![](https://innopolis.university/upload/landing/944/7881@1x.jpg)
-Комфортное пространство для студентов
+## Комфортное пространство для студентов
 Разработкой дизайна зданий кампуса занималась группа архитекторов из Сингапура. Все 7 корпусов соединены между собой пешеходной галереей, которая плавно перетекает в Университет. Благодаря крытому теплому переходу – передвигаться по территории удобно в любую погоду.
 В жилом кампусе Университета созданы комфортные условия для проживания, чтобы бытовые проблемы не отвлекали студента от обучения.
 [Подробнее](https://hotel.innopolis.university/studentaccommodation/)
@@ -162,7 +158,7 @@ Email: hoteluni@innopolis.ru
 - [Условия заселения](https://hotel.innopolis.university/studentaccommodation/)
 ## Документы
 - [Регламентирующие документы](https://hotel.innopolis.university/dokumenty/)
-![](https://hotel.innopolis.university/upload/landing/223/Visa_Inc._logo.svg@2x.png)
-![](https://hotel.innopolis.university/upload/landing/7fb/2b48e3fcc91e@2x.png)
-![](https://hotel.innopolis.university/upload/landing/de3/nspk_9_0@2x.png)
-![](https://hotel.innopolis.university/upload/landing/a55/Uniteler_logo@2x.png)
+![](https://hotel.innopolis.university/upload/landing/120/Visa_Inc._logo.svg@1x.png)
+![](https://hotel.innopolis.university/upload/landing/6b7/2b48e3fcc91e@1x.png)
+![](https://hotel.innopolis.university/upload/landing/8c4/nspk_9_0@1x.png)
+![](https://hotel.innopolis.university/upload/landing/4b3/Uniteler_logo@1x.png)

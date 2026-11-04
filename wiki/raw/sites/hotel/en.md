@@ -2,33 +2,35 @@
 type: page
 title: "Главная страница"
 description: "The campus of Innopolis University is located in the youngest and most innovative city of the country — Innopolis."
-resource: "https://hotel.innopolis.university/en"
+resource: "https://hotel.innopolis.university/en/"
 audience: ["student", "postgraduate", "applicant", "teacher", "staff", "management", "public"]
 source_kind: website
 language: en
 section: "site/hotel"
 sources:
-  - resource: "https://hotel.innopolis.university/en"
-    id: "3a88fe83612d"
+  - resource: "https://hotel.innopolis.university/en/"
+    id: "8a1c6fb7cb03"
     title: "Главная страница"
-    last_modified: "2026-10-30T21:14:29+00:00"
+    last_modified: "2026-11-04T12:37:14+00:00"
 generated:
   by: "catix-wiki/0.1 sites"
-  at: "2026-10-30T21:14:29+00:00"
+  at: "2026-11-04T12:37:14+00:00"
 status: draft
 ---
 
 # Главная страница
 
+[![](https://hotel.innopolis.university/upload/landing/0d9/8p59upeoo10nu2knyk3k78cu1ldi7s7k/logo_eng@1x.png)](/raw/sites/hotel/home.md)
+
 - about campus
 
 [▶ video](https://www.youtube.com/watch?v=0USWAsrY9uk) ![](https://i.ytimg.com/vi/0USWAsrY9uk/hqdefault.jpg)
 
-INNOPOLIS UNIVERSITY CAMPUS
+## INNOPOLIS UNIVERSITY CAMPUS
 
 [&nbsp;](https://hotel.innopolis.university/zayavkanabronirovanie/)
 
-ABOUT US
+## ABOUT US
 
 The campus of Innopolis University is located in the youngest and most innovative city of the country — Innopolis. This is the first Russian city for IT specialists located 40 km from Kazan.
 
@@ -36,19 +38,19 @@ The buildings of the residential campus are equipped according to the "Accessibl
 
 In Innopolis you will be able to see amazing sunsets and enjoy nature. And also — to visit local attractions: the island-city of Sviyazhsk, the Raif monastery. Or go skiing in the Sviyazhsky Hills complex in winter, and in summer — play golf and do bench shooting.
 
-![](https://hotel.innopolis.university/upload/landing/f54/8308@2x.jpg)
+![](https://hotel.innopolis.university/upload/landing/30e/8308@1x.jpg)
 
 The seven buildings of the residential campus are connected by a pedestrian gallery, which flows smoothly into the University.
 
-![](https://hotel.innopolis.university/upload/landing/c59/7942@2x.jpg)
+![](https://hotel.innopolis.university/upload/landing/a98/7942@1x.jpg)
 
 The campus is home to students from different parts of Russia and other countries of the world. Seven buildings of the residential campus are designed for 2,095 places for accommodation.
 
-![](https://hotel.innopolis.university/upload/landing/b75/8348@2x.jpg)
+![](https://hotel.innopolis.university/upload/landing/b6d/8348@1x.jpg)
 
 We pay great attention to security, so there is a pass regime on the territory of the residential campus.
 
-room stock
+## room stock
 
 The interior design is made in a modern laconic style with a convenient layout and zoning of space.
 
@@ -56,7 +58,7 @@ So, the work area and the kitchenette are separated by furniture from the sleepi
 
 ### Twin room
 
-![](https://hotel.innopolis.university/upload/landing/ac8/7969@2x.jpg)
+![](https://hotel.innopolis.university/upload/landing/365/7969@1x.jpg)
 
 3 600rubles
 
@@ -76,7 +78,7 @@ Designed to accommodate two guests
 
 ### 4-bedded two room suite
 
-![](https://hotel.innopolis.university/upload/landing/a05/8122@2x.jpg)
+![](https://hotel.innopolis.university/upload/landing/f18/8122@1x.jpg)
 
 7 200rubles
 
@@ -96,7 +98,7 @@ Designed to accommodate four guests.
 
 ### Five-bedded three-room suite
 
-![](https://hotel.innopolis.university/upload/landing/1bd/8214@2x.jpg)
+![](https://hotel.innopolis.university/upload/landing/9bd/8214@1x.jpg)
 
 9 000rubles
 
@@ -120,7 +122,7 @@ Designed to accommodate five guests.
 
 ### Superior twin room
 
-![](https://hotel.innopolis.university/upload/landing/993/DSC_0091@2x.jpg)
+![](https://hotel.innopolis.university/upload/landing/95b/DSC_0091@1x.jpg)
 
 4 200rubles
 
@@ -142,7 +144,7 @@ Designed to accommodate two guests
 
 ### 2-bedded superior two room suite
 
-![](https://hotel.innopolis.university/upload/landing/b10/DSC_0085@2x.jpg)
+![](https://hotel.innopolis.university/upload/landing/9b0/DSC_0085@1x.jpg)
 
 5 000rubles
 
@@ -164,11 +166,9 @@ Designed to accommodate two guests
 
 [detail](/raw/sites/hotel/en-roomfund.md)
 
-Twin room
+### Twin room (5-7 корпус)
 
-(5-7 корпус)
-
-![](https://hotel.innopolis.university/upload/landing/860/uww83404yqtx67g5rgdw3i53cp8ovc7p/photo_2023_07_21_17_47_48_2x_2x.jpg)
+![](https://hotel.innopolis.university/upload/landing/949/4tjzl8jgigrl1t7g8z8il7k9jhu7bbri/photo_2023_07_21_17_47_48_2x_1x.jpg)
 
 4 200 rubles
 
@@ -188,11 +188,9 @@ Designed to accommodate two guests
 
 [detail](/raw/sites/hotel/en-roomfund.md)
 
-2-bedded superior two room suite
+### 2-bedded superior two room suite (5-7 корпус)
 
-(5-7 корпус)
-
-![](https://hotel.innopolis.university/upload/landing/f68/t8ob8x74rxxt1osv8rmhxr26rgmuelq9/img_2162_2x_2x.jpg)
+![](https://hotel.innopolis.university/upload/landing/d05/tuoo6e2xre0r1aoks69q3izw4qb1chzx/img_2162_2x_1x.jpg)
 
 5 800 rubles
 
@@ -216,11 +214,9 @@ Designed to accommodate two guests
 
 [detail](/raw/sites/hotel/en-roomfund.md)
 
-4-bedded two room suite
+### 4-bedded two room suite (5-7 корпус)
 
-(5-7 корпус)
-
-![](https://hotel.innopolis.university/upload/landing/278/irfejwv6rv12rw3n8tcbk7zio567qwz0/photo_2023_07_21_17_47_43_2x_2x.jpg)
+![](https://hotel.innopolis.university/upload/landing/b64/es7stqzh2ex6lav1fm2dze3g5ug4cml2/photo_2023_07_21_17_47_43_2x_1x.jpg)
 
 8 000 rubles
 
@@ -242,7 +238,7 @@ Designed to accommodate four guests.
 
 [detail](/raw/sites/hotel/en-roomfund.md)
 
-![](https://hotel.innopolis.university/upload/landing/069/7871@2x.jpg)
+![](https://hotel.innopolis.university/upload/landing/699/7871@1x.jpg)
 
 ## THE PRICE OF ACCOMMODATION INCLUDES:
 
@@ -274,7 +270,7 @@ Our additional service includes:
 
 ![](https://hotel.innopolis.university/upload/landing/944/7881@1x.jpg)
 
-COMFORTABLE SPACE FOR STUDENTS
+## COMFORTABLE SPACE FOR STUDENTS
 
 The design of the campus buildings was developed by a group of architects from Singapore. All 7 buildings are connected by a corridor that flows smoothly into the University. Thanks to the covered warm passage, it is convenient to move around the territory in any weather.
 
@@ -304,8 +300,16 @@ Comfortable living conditions have been created in the residential campus of the
 
 ![](https://hotel.innopolis.university/upload/landing/a8d/8114@1x.jpg)
 
+![](https://hotel.innopolis.university/upload/landing/120/Visa_Inc._logo.svg@1x.png)
+
+![](https://hotel.innopolis.university/upload/landing/6b7/2b48e3fcc91e@1x.png)
+
+![](https://hotel.innopolis.university/upload/landing/8c4/nspk_9_0@1x.png)
+
+![](https://hotel.innopolis.university/upload/landing/4b3/Uniteler_logo@1x.png)
+
 _The menu, footer and other blocks that the pages of the site repeat are kept in one place: [/raw/sites/hotel/_shared-en.md](/raw/sites/hotel/_shared-en.md)._
 
 # Citations
 
-1. [Главная страница](https://hotel.innopolis.university/en), read 2026-10-30
+1. [Главная страница](https://hotel.innopolis.university/en/), read 2026-11-04

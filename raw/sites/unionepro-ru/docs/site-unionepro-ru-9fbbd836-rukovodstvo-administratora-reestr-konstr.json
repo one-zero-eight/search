@@ -1,0 +1,16 @@
+{
+ "title": "Руководство администратора [Руководство_администратора_Реестр_Конструктор_ОПОП]",
+ "url": "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%B0_%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80_%D0%9A%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D0%BE%D1%80_%D0%9E%D0%9F%D0%9E%D0%9F.pdf",
+ "sha256": "52252ac9cc235f22ec5d332b079de5cb304790daa15fff203b1a918af25af72d",
+ "method": "text layer (opendataloader)",
+ "chars": 13727,
+ "tables": 5,
+ "section": "site/unionepro-ru",
+ "context": "",
+ "fetched_at": "2026-11-04T13:07:42+00:00",
+ "remote": {
+  "etag": "\"6a8be91e-537f8\"",
+  "modified": "Mon, 24 Aug 2026 06:47:58 GMT",
+  "size": "342008"
+ }
+}

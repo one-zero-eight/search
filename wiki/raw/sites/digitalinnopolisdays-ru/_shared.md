@@ -12,10 +12,10 @@ sources:
   - resource: "https://digitalinnopolisdays.ru/"
     id: "62ce17a649fe"
     title: "Общие блоки сайта digitalinnopolisdays.ru: меню, шапка, подвал, контакты"
-    last_modified: "2026-11-01T22:28:03+00:00"
+    last_modified: "2026-11-04T12:50:15+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-11-01T22:28:03+00:00"
+  at: "2026-11-04T12:50:15+00:00"
 status: draft
 ---
 
@@ -79,4 +79,4 @@ pr@innopolis.ru
 
 # Citations
 
-1. [digitalinnopolisdays.ru](https://digitalinnopolisdays.ru/), read 2026-11-01
+1. [digitalinnopolisdays.ru](https://digitalinnopolisdays.ru/), read 2026-11-04

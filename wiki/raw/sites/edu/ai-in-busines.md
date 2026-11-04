@@ -350,6 +350,8 @@ itbm@innopolis.ru
 
 [Политика конфиденциальности](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
+[Выписка из реестра лицензий](/raw/regulations/site-unionepro-ru-e6310fe5-reestrovaya-vypiska.md)
+
 [Корпоративное обучение](/raw/sites/itbm/home.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/edu/_shared.md](/raw/sites/edu/_shared.md)._

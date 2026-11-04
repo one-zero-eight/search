@@ -10,12 +10,12 @@ language: ru
 section: "site/ipservices"
 sources:
   - resource: "https://ipservices.innopolis.university/"
-    id: "348f50084f21"
+    id: "df50525afa25"
     title: "Общие блоки сайта ipservices.innopolis.university: меню, шапка, подвал, контакты"
-    last_modified: "2026-11-01T22:35:38+00:00"
+    last_modified: "2026-11-04T13:02:10+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-11-01T22:35:38+00:00"
+  at: "2026-11-04T13:02:10+00:00"
 status: draft
 ---
 
@@ -35,14 +35,6 @@ iu.ctt@innopolis.ru
 
 Нажимая на кнопку, вы даете согласие на обработку персональных данных и [соглашаетесь c политикой конфиденциальности](/raw/sites/ipservices/personal.md)
 
-Получить Предложение
-
-Наши контакты
-
-Электронный адрес:
-
-Контактный телефон:
-
 # Citations
 
-1. [ipservices.innopolis.university](https://ipservices.innopolis.university/), read 2026-11-01
+1. [ipservices.innopolis.university](https://ipservices.innopolis.university/), read 2026-11-04

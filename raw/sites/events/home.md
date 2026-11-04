@@ -5,13 +5,13 @@
 Оставить заявку
 ![](https://static.tildacdn.com/tild3762-3938-4533-a664-393963313733/Group_2784.png)
 ## Календарь мероприятий
-Самые интересные и полезные мероприятия Института дополнительного образования Университета Иннополис для заинтересованных в образовании и IT.
+Самые интересные и полезные мероприятия Института дополнительного образования Университета Иннополис **для заинтересованных в образовании и IT.**
 Мероприятия
 Записаться
 [Записаться](https://stc.innopolis.university/engineer-ai)
 Курс Инженер-архитектор в сфере ИИ
 от Университета Иннополис
-Актуальные мероприятия
+## Актуальные мероприятия
 [![](https://static.tildacdn.com/tild6262-3135-4461-a534-383262626536/tg.png)](https://ido.innopolis.university/global/webinar/innovationvuz?utm_source=site_events&utm_medium=promo_web)
 [![](https://static.tildacdn.com/tild3863-6130-4933-a332-643264393130/3_1.png)](https://online.digitalinnopolisdays.ru/?utm_source=events.innopolis.university&utm_medium=banner&utm_campaign=digitalinnopolisdays)
 [![](https://static.tildacdn.com/tild6635-3634-4539-a236-343936643532/Frame_78232.png)](https://robotics-center.ru/event?utm_source=site&utm_medium=events.innopolis.university&utm_campaign=crr%2Frobotics-center.ru%2Fevent&utm_content=vizionerskaya_lekcia_21%2F11)
@@ -28,7 +28,7 @@
 ![](https://static.tildacdn.com/tild3632-6266-4862-b564-643332623434/0260.jpg)
 ![](https://static.tildacdn.com/tild6337-3135-4239-a164-313730396164/20221124103248_IMG_5.jpg)
 ![](https://static.tildacdn.com/tild3163-6661-4037-a463-303933363338/DIDp1-4.jpg)
-Календарь мероприятий
+## Календарь мероприятий
 ![](https://static.tildacdn.com/tild3432-6461-4135-b563-653164306434/Frame_8.png)
 ![](https://static.tildacdn.com/tild6432-3036-4433-b235-306266323138/Frame_7.png)
 ![](https://static.tildacdn.com/tild6363-6264-4232-b764-316237396230/Frame_5.png)
@@ -73,9 +73,9 @@ DID Summer Camp
 ![](https://static.tildacdn.com/tild6362-3134-4139-b662-623163376162/Vector.png)
 [Узнать подробнее](https://2022summer.digitalinnopolisdays.ru/)
 Организатор форума
-Университет Иннополис
+**Университет Иннополис**
 Соорганизаторы
-Минцифры России, Минобрнауки РФ, Правительство Республики Татарстан
+**Минцифры России, Минобрнауки РФ, Правительство Республики Татарстан**
 ![](https://static.tildacdn.com/tild3636-3739-4464-b734-356131363366/Group_2784.png)
 Digital Innopolis Days
 Форум о цифровой трансформации в образовании, бизнесе и госуправлении. Единственная в России площадка, объединившая для диалога представителей вузов, индустрии, IT-компаний и органы государственной власти всех уровней.
@@ -93,7 +93,7 @@ Digital Innopolis Days
 место в ежегодном рейтинге Forbes лучших университетов России
 111
 научно-исследовательских проектов совместно с компаниями: Газпром, Аэрофлот, Камаз, Россети и др.
-> 55 000
+\> 55 000
 человек прошли обучение по программам дополнительного образования
 17
 научно-исследовательских лабораторий
@@ -128,8 +128,8 @@ Digital Innopolis Days
 420500, г. Иннополис, ул.Университетская, д.1
 Адрес
 +7 (843) 203 92 53 доб. 333
-iu.regions@innopolis.ru
+**iu.regions@innopolis.ru**
 отдел
 Написать нам
-[{"lid":"1531306243545","ls":"10","loff":"","li_parent_id":"","li_type":"em","li_ph":"E-mail","li_name":"email","li_req":"y","li_nm":"email"},{"lid":"1570481014724","ls":"20","loff":"","li_parent_id":"","li_type":"nm","li_ph":"\u0424\u0430\u043c\u0438\u043b\u0438\u044f \u0438 \u0438\u043c\u044f","li_name":"name","li_req":"y","li_nm":"name"},{"lid":"1570481040879","ls":"30","loff":"","li_parent_id":"","li_type":"ph","li_ph":"\u041a\u043e\u043d\u0442\u0430\u043a\u0442\u043d\u044b\u0439 \u0442\u0435\u043b\u0435\u0444\u043e\u043d","li_name":"phone","li_mask":"+7 (999) 999-9999","li_req":"y","li_nm":"phone"},{"lid":"1662059153155","ls":"40","loff":"","li_parent_id":"","li_type":"hd","li_name":"category_id","li_value":"127","li_nm":"category_id"},{"lid":"1662059272528","ls":"50","loff":"","li_parent_id":"","li_type":"hd","li_name":"ASSIGNED_BY_ID","li_value":"13349","li_nm":"ASSIGNED_BY_ID"},{"lid":"1768558801170","ls":"60","loff":"","li_parent_id":"","li_type":"cb","li_label":"<span style=\"color: rgb(51, 51, 51); font-weight: 400;\">\u042f \u0441\u043e\u0433\u043b\u0430\u0448\u0430\u044e\u0441\u044c \u0441 <\/span><u style=\"color: rgb(51, 51, 51); font-weight: 400;\"><a href=\"https:\/\/innopolis.university\/files\/politicacookies.pdf\" target=\"_blank\" rel=\"noreferrer noopener\" style=\"color: rgb(51, 51, 51); box-shadow: none; text-decoration: none; border-bottom-style: solid; border-bottom-color: rgb(179, 179, 179);\">\u041f\u043e\u043b\u0438\u0442\u0438\u043a\u043e\u0439 \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0438 \u043f\u0435\u0440\u0441\u043e\u043d\u0430\u043b\u044c\u043d\u044b\u0445 \u0434\u0430\u043d\u043d\u044b\u0445<\/a><\/u>","li_checked":"y","li_req":"y","li_nm":"Checkbox"},{"lid":"1768558811902","ls":"70","loff":"","li_parent_id":"","li_type":"cb","li_label":"<span style=\"color: rgb(51, 51, 51);\">\u042f \u0441\u043e\u0433\u043b\u0430\u0448\u0430\u044e\u0441\u044c <\/span><u style=\"color: rgb(51, 51, 51);\"><a href=\"https:\/\/innopolis.university\/filespublic\/Polozhenie_o_reklamnoj_rassylke.pdf\" target=\"_blank\" rel=\"noreferrer noopener\" style=\"color: rgb(51, 51, 51);\">\u043f\u043e\u043b\u0443\u0447\u0430\u0442\u044c \u0440\u0435\u043a\u043b\u0430\u043c\u043d\u0443\u044e \u0440\u0430\u0441\u0441\u044b\u043b\u043a\u0443<\/a><\/u>","li_name":"UF_CRM_1733815677","li_nm":"UF_CRM_1733815677"}]
+[{"lid":"1531306243545","ls":"10","loff":"","li_parent_id":"","li_type":"em","li_ph":"E-mail","li_name":"email","li_req":"y","li_nm":"email"},{"lid":"1570481014724","ls":"20","loff":"","li_parent_id":"","li_type":"nm","li_ph":"\u0424\u0430\u043c\u0438\u043b\u0438\u044f \u0438 \u0438\u043c\u044f","li_name":"name","li_req":"y","li_nm":"name"},{"lid":"1570481040879","ls":"30","loff":"","li_parent_id":"","li_type":"ph","li_ph":"\u041a\u043e\u043d\u0442\u0430\u043a\u0442\u043d\u044b\u0439 \u0442\u0435\u043b\u0435\u0444\u043e\u043d","li_name":"phone","li_mask":"+7 (999) 999-9999","li_req":"y","li_nm":"phone"},{"lid":"1662059153155","ls":"40","loff":"","li_parent_id":"","li_type":"hd","li_name":"category_id","li_value":"127","li_nm":"category_id"},{"lid":"1662059272528","ls":"50","loff":"","li_parent_id":"","li_type":"hd","li_name":"ASSIGNED_BY_ID","li_value":"13349","li_nm":"ASSIGNED_BY_ID"},{"lid":"1768558801170","ls":"60","loff":"","li_parent_id":"","li_type":"cb","li_label":"<span style=\\"color: rgb(51, 51, 51); font-weight: 400;\\">\u042f \u0441\u043e\u0433\u043b\u0430\u0448\u0430\u044e\u0441\u044c \u0441 <\\/span><u style=\\"color: rgb(51, 51, 51); font-weight: 400;\\"><a href=\\"https:\\/\\/innopolis.university\\/files\\/politicacookies.pdf\\" target=\\"_blank\\" rel=\\"noreferrer noopener\\" style=\\"color: rgb(51, 51, 51); box-shadow: none; text-decoration: none; border-bottom-style: solid; border-bottom-color: rgb(179, 179, 179);\\">\u041f\u043e\u043b\u0438\u0442\u0438\u043a\u043e\u0439 \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0438 \u043f\u0435\u0440\u0441\u043e\u043d\u0430\u043b\u044c\u043d\u044b\u0445 \u0434\u0430\u043d\u043d\u044b\u0445<\\/a><\\/u>","li_checked":"y","li_req":"y","li_nm":"Checkbox"},{"lid":"1768558811902","ls":"70","loff":"","li_parent_id":"","li_type":"cb","li_label":"<span style=\\"color: rgb(51, 51, 51);\\">\u042f \u0441\u043e\u0433\u043b\u0430\u0448\u0430\u044e\u0441\u044c <\\/span><u style=\\"color: rgb(51, 51, 51);\\"><a href=\\"https:\\/\\/innopolis.university\\/filespublic\\/Polozhenie_o_reklamnoj_rassylke.pdf\\" target=\\"_blank\\" rel=\\"noreferrer noopener\\" style=\\"color: rgb(51, 51, 51);\\">\u043f\u043e\u043b\u0443\u0447\u0430\u0442\u044c \u0440\u0435\u043a\u043b\u0430\u043c\u043d\u0443\u044e \u0440\u0430\u0441\u0441\u044b\u043b\u043a\u0443<\\/a><\\/u>","li_name":"UF_CRM_1733815677","li_nm":"UF_CRM_1733815677"}]
 ## КОНТАКТЫ

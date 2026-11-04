@@ -120,8 +120,6 @@ SCIENCE IS THE NEW BLACK
 
 ![](https://static.tildacdn.com/tild3135-3762-4439-a435-643638313964/IMG_9380.jpg)
 
-Понравилась статья?
-
 [![](https://static.tildacdn.com/tild6237-6363-4437-b431-393162653639/Frame_7.png)](/raw/sites/spec/wp-ai.md)
 
 [Предприятие как датасет для искусственного интеллекта](/raw/sites/spec/wp-ai.md)

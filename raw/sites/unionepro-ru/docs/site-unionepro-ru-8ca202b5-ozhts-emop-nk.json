@@ -1,0 +1,16 @@
+{
+ "title": "Описание процессов жизненного цикла программного обеспечения [ОЖЦ_ЕМОП_НК]",
+ "url": "https://unionepro.ru/docs/%D0%9E%D0%96%D0%A6_%D0%95%D0%9C%D0%9E%D0%9F_%D0%9D%D0%9A.pdf",
+ "sha256": "7efba9c66a131577c7fe38f86ffbfde283f740455c6bdcbb4ebc282f3052bfa5",
+ "method": "text layer (opendataloader)",
+ "chars": 16555,
+ "tables": 5,
+ "section": "site/unionepro-ru",
+ "context": "",
+ "fetched_at": "2026-11-04T13:07:42+00:00",
+ "remote": {
+  "etag": "\"6a8be91e-3cf43\"",
+  "modified": "Mon, 24 Aug 2026 06:47:58 GMT",
+  "size": "249667"
+ }
+}

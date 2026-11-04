@@ -12,10 +12,10 @@ sources:
   - resource: "https://sport.innopolis.ru/"
     id: "d878d6997d69"
     title: "Общие блоки сайта sport.innopolis.ru: меню, шапка, подвал, контакты"
-    last_modified: "2026-11-01T22:16:06+00:00"
+    last_modified: "2026-11-04T12:41:44+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-11-01T22:16:06+00:00"
+  at: "2026-11-04T12:41:44+00:00"
 status: draft
 ---
 
@@ -115,4 +115,4 @@ Phone
 
 # Citations
 
-1. [sport.innopolis.ru](https://sport.innopolis.ru/), read 2026-11-01
+1. [sport.innopolis.ru](https://sport.innopolis.ru/), read 2026-11-04

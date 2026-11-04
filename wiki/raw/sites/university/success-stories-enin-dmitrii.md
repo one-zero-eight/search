@@ -20,7 +20,39 @@ status: draft
 
 # Enin Dmitrii
 
+[Все медиа](/raw/sites/media/home.md)
+
+Facebook
+
+Вконтакте
+
+Youtube
+
+Twitter
+
+Instagram
+
+habr
+
+- [Студентам](http://www.campuslife.innopolis.ru/main)
+
+- [Бизнесу](/raw/sites/university/proekty-activity.md)
+
+- [Медиа](/raw/sites/media/home.md)
+
+- [Сайт университета иннополис](/raw/sites/university/home.md)
+
+- [Переезд в Иннополис](https://innopolis.university/relocation)
+
+- [Вакансии](https://innopolis.university/job)
+
+- [Резюме](/raw/sites/career/home.md)
+
+[Сайт университета Иннополис](/raw/sites/university/home.md)
+
 ![](https://innopolis.university/upload/iblock/d6c/5tr70iydrozjvk9l1f8dvacoafjpdxq8/photo_2024-08-13_10-20-31.jpg)
+
+## Enin Dmitrii
 
 Student of Bachelor's Program at Innopolis University (SPRING 2024, 2023-2024 AY)
 
@@ -141,6 +173,8 @@ I had a wonderful opportunity to experience studying abroad at the University of
 [In July 2025, I took part in the LuoJia Global Summer School program at Wuhan University. For me, it was not just an academic experience but a full immersion into Chinese culture, urban life, and the student atmosphere.](/raw/sites/university/success-stories-glazkov-oleg.md)
 
 #историяуспеха
+
+[Вернуться Назад](/raw/sites/university/home.md)
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/university/_shared.md](/raw/sites/university/_shared.md)._
 

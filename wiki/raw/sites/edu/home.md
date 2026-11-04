@@ -9,12 +9,12 @@ language: ru
 section: "site/edu"
 sources:
   - resource: "https://edu.innopolis.university/"
-    id: "c57a34724d3f"
+    id: "d96c04fa5616"
     title: "Программы для образовательных организаций и педагогов"
-    last_modified: "2026-10-31T01:27:53+00:00"
+    last_modified: "2026-11-04T12:39:01+00:00"
 generated:
   by: "catix-wiki/0.1 sites"
-  at: "2026-10-31T01:27:53+00:00"
+  at: "2026-11-04T12:39:01+00:00"
 status: draft
 ---
 
@@ -74,31 +74,31 @@ status: draft
 
 ## С какими проблемами сталкиваются образовательные организации и как их решить?
 
-01. Недостаточная квалификация кадров, необходимо ее повышение
+01\. Недостаточная квалификация кадров, необходимо ее повышение
 
 Решение: Мы рекомендуем рассмотреть
 
 [программы повышения квалификации](/raw/sites/edu/home.md)
 
-02. Сложности со стратегическим планированием и реализацией масштабных проектов: не выстроены бизнес-процессы, нет единого видения цели
+02\. Сложности со стратегическим планированием и реализацией масштабных проектов: не выстроены бизнес-процессы, нет единого видения цели
 
 Решение: Мы рекомендуем рассмотреть
 
 [программы обучения руководящего состава](/raw/sites/edu/home.md)
 
-03. Не сформирована информационная инфраструктура вуза
+03\. Не сформирована информационная инфраструктура вуза
 
 Решение: Мы рекомендуем рассмотреть
 
 программы и дополнительные возможности
 
-04. Низкая заинтересованность сотрудников и преподавателей в использовании современных инструментов работы
+04\. Низкая заинтересованность сотрудников и преподавателей в использовании современных инструментов работы
 
 Решение: Мы рекомендуем рассмотреть
 
 программы и дополнительные возможности
 
-05. Применяются неактуальные методики в работе с новыми инструментами
+05\. Применяются неактуальные методики в работе с новыми инструментами
 
 Решение: Мы рекомендуем рассмотреть
 
@@ -626,7 +626,7 @@ CEO Agile Technologies, эксперт в области управления п
 
 Цифровые технологии в преподавании профильных дисциплин
 
-[![](https://static.tildacdn.com/tild6465-6161-4465-a661-376163303561/Frame_277133535.png)](/raw/regulations/site-media-ce493357-sbornik-kejsov-4.md)
+[![](https://static.tildacdn.com/tild6465-6161-4465-a661-376163303561/Frame_277133535.png)](/raw/regulations/site-edu-ce493357-sbornik-kejsov-4.md)
 
 [![](https://static.tildacdn.com/tild3832-3436-4737-a138-366233333562/Frame_277133532.png)](/raw/regulations/site-edu-f4783897-cases-cdto.md)
 
@@ -634,13 +634,13 @@ CEO Agile Technologies, эксперт в области управления п
 
 [![](https://static.tildacdn.com/tild6231-6137-4564-b036-386338666633/Frame_277133534.png)](/raw/regulations/site-edu-6cf22e60-sbornik-kejsov-3.md)
 
-[![](https://static.tildacdn.com/tild6235-3965-4565-a135-656165326564/Frame_277133539.png)](https://innopolis.university/filespublic/%D0%A1%D0%B1%D0%BE%D1%80%D0%BD%D0%B8%D0%BA_%D0%BA%D0%B5%D0%B9%D1%81%D0%BE%D0%B2_%D0%BD%D0%BE%D0%BC%D0%B5%D1%80_5_%D1%87%D0%B0%D1%81%D1%82%D1%8C_2_1_%D1%81_%D1%80%D0%B5%D1%86%D0%B5%D0%BD%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D0%BC%D0%B8.pdf)
+[![](https://static.tildacdn.com/tild6235-3965-4565-a135-656165326564/Frame_277133539.png)](https://innopolis.university/filespublic/Сборник_кейсов_номер_5_часть_2_1_с_рецензентами.pdf)
 
-[![](https://static.tildacdn.com/tild3033-6238-4966-b664-656330333137/Frame_277133536.png)](https://innopolis.university/filespublic/%D0%A1%D0%B1%D0%BE%D1%80%D0%BD%D0%B8%D0%BA_%D0%9E%D0%9E%D0%A6_%E2%84%962.pdf)
+[![](https://static.tildacdn.com/tild3033-6238-4966-b664-656330333137/Frame_277133536.png)](https://innopolis.university/filespublic/Сборник_ООЦ_№2.pdf)
 
 [![](https://static.tildacdn.com/tild3566-3534-4463-b732-373536663932/Frame_277133537.png)](/raw/regulations/site-edu-418fa299-sbornik-oots-3.md)
 
-[![](https://static.tildacdn.com/tild6461-6531-4037-b435-383838333361/Frame_277133538.png)](https://innopolis.university/filespublic/%D0%A1%D0%B1%D0%BE%D1%80%D0%BD%D0%B8%D0%BA_%D0%BA%D0%B5%D0%B9%D1%81%D0%BE%D0%B2_%D0%BD%D0%BE%D0%BC%D0%B5%D1%80_4_%D1%87%D0%B0%D1%81%D1%82%D1%8C_1_1_%D1%81_%D1%80%D0%B5%D1%86%D0%B5%D0%BD%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D0%BC%D0%B8.pdf)
+[![](https://static.tildacdn.com/tild6461-6531-4037-b435-383838333361/Frame_277133538.png)](https://innopolis.university/filespublic/Сборник_кейсов_номер_4_часть_1_1_с_рецензентами.pdf)
 
 ![](https://static.tildacdn.com/tild6435-3135-4037-b661-313266303964/Group_277133503.png)
 
@@ -672,6 +672,8 @@ cpp@innopolis.ru
 
 [Политика конфиденциальности](/raw/regulations/site-university-45ebfbe8-soglasie-na-obrabotku-pdn-dlya-ui.md)
 
+[Выписка из реестра лицензий](/raw/regulations/site-unionepro-ru-e6310fe5-reestrovaya-vypiska.md)
+
 Стратегические сессии
 
 Ассесмент
@@ -686,4 +688,4 @@ _Меню, подвал и другие блоки, которые повтор�
 
 # Citations
 
-1. [Программы для образовательных организаций и педагогов](https://edu.innopolis.university/), read 2026-10-31
+1. [Программы для образовательных организаций и педагогов](https://edu.innopolis.university/), read 2026-11-04

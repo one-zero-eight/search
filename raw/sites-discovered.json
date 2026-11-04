@@ -1,40 +1,200 @@
 {
  "sites": {
+  "2014.fcpir.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "2015f.jacobshack.com": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "2016.ai-uv.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
   "2019.olymp.innopolis.ru": {
    "kind": "university",
    "reason": "the name does not resolve to public addresses",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "2021.digitalinnopolisdays.ru": {
-   "kind": "inno",
+   "kind": "external",
    "reason": "no answer (ConnectError)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "2022summer.digitalinnopolisdays.ru": {
-   "kind": "inno",
+   "kind": "external",
    "reason": "no answer (ConnectError)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "2ndchance.university.innopolis.ru": {
    "kind": "university",
    "reason": "HTTP 500, not a page",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "2nskgym.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "3.shkolkovo.online": {
+   "kind": "external",
+   "reason": "HTTP 503, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "3dtour.innopolis.university": {
    "kind": "university",
    "reason": "HTTP 500, not a page",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "4d.university.innopolis.ru": {
    "kind": "university",
    "reason": "no answer (ConnectError)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "abbyy-ls.ru": {
+   "examples": [
+    "/raw/sites/media/news-direktor-universiteta-innopolis-prinyal-uchastie-v-krug.md",
+    "/raw/sites/media/news-v-universitete-innopolis-prokhodyat-otbory-kandidatov-n.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "abbyy.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ac.gov.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "accept-school.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "acivs.org": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "acronis.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "adscientificindex.com": {
+   "examples": [
+    "/raw/sites/media/news-3-innopolis-university-professors-entered-the-top-15-ru.md",
+    "/raw/sites/media/news-ad-scientific-index-iu-2023.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (a login page: '6,343,693 scientists, 24,865… | AD Scientific Index')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "aeroekspress.com": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "aeroflot.ru": {
+   "kind": "external",
+   "reason": "HTTP 503, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "agpu.net": {
+   "kind": "external",
+   "reason": "no answer (ReadTimeout)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "agro-code.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ai-uv.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ai.leader-id.ru": {
+   "kind": "external",
+   "reason": "no answer (RemoteProtocolError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ai.stanford.edu": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "aihack.ai-hub.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "airbnb.ru": {
+   "kind": "external",
+   "reason": "HTTP 404, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "airi.net": {
+   "kind": "external",
+   "reason": "no answer (TooManyRedirects)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "aislab.org": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "aispirit.one": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "aist.go.jp": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "aistudy.innopolis.university": {
    "examples": [
@@ -46,43 +206,506 @@
    "pages": 11,
    "reason": "needs access (HTTP 403)",
    "status": "closed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "akbars.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "alfabank.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "algaritm.pro": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "alphajet.ru": {
+   "kind": "external",
+   "reason": "HTTP 522, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "alpinabook.ru": {
+   "examples": [
+    "/raw/sites/media/news-webinar-robotization-of-production.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'Книги издательства Альпина Паблишер | Купить в интернет-мага')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "amazon.com": {
+   "kind": "external",
+   "reason": "the start page has 20 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "american.edu": {
+   "examples": [
+    "/raw/sites/media/news-top-100-universities-researchers-games.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ams.org": {
+   "examples": [
+    "/raw/sites/university/sveden-objects.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "amsta-15.kesinternational.org": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "anatomyofandroid.com": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "aogu.edu.kz": {
+   "kind": "external",
+   "reason": "no answer (RemoteProtocolError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "aom-tech.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "apastyle.apa.org": {
+   "kind": "external",
+   "reason": "the start page has 0 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "api.lyceuminnopolis.ru": {
-   "kind": "inno",
+   "kind": "external",
    "reason": "HTTP 503, not a page",
    "status": "failed",
-   "tried": "2026-11-02T08:04:53+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "api.whatsapp.com": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "apio2018.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "apio2019.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "app.weeek.net": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "apply.university.innopolis.ru": {
    "kind": "university",
    "reason": "no answer (ConnectError)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ar.cnki.net": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "arctech.center": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "arkodimpro.ru": {
+   "kind": "external",
+   "reason": "redirects away from https",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ashap.info": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "assets.kpmg": {
+   "kind": "external",
+   "reason": "HTTP 404, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "astlicey.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "astu.org": {
+   "kind": "external",
+   "reason": "redirects to astu.ru",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "asu.edu.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "asu.ru": {
+   "kind": "external",
+   "reason": "HTTP 429, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "avito.ru": {
+   "examples": [
+    "/raw/sites/media/news-cooperation-with-avito.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "azimuthotels.com": {
+   "examples": [
+    "/raw/sites/digitalinnopolisdays-ru/travel-support.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'The official website of the AZIMUT Hotels chain. List of all')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "azure.university.innopolis.ru": {
    "kind": "university",
    "reason": "no answer (ReadTimeout)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
   },
-  "bitrix.sezinnopolis.ru": {
-   "kind": "inno",
+  "b24-8j6di1.bitrix24.site": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "baam.tatar": {
+   "examples": [
+    "/raw/sites/innohassle/_shared.md",
+    "/raw/sites/innohassle/dashboard.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (a login page: 'Sign In')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "bankexfoundation.org": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "bars-open.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "bars.group": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "bashedu.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "bfm.ru": {
+   "examples": [
+    "/raw/sites/media/news-zelenyikot-six-mrt.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'BFM.ru – деловые новости России и мира')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "bgitu.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "bgu.ru": {
+   "kind": "external",
+   "reason": "the start page has 0 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "bi.itpark-kazan.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "bigdata.beeline.digital": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "bilet.worldskills.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "bindl.ru": {
+   "kind": "external",
    "reason": "robots.txt closes the start page",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "biochem.umass.edu": {
+   "examples": [
+    "/raw/sites/media/news-professor-of-the-university-of-massachusetts-made-an-in.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "bitrix.sezinnopolis.ru": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "blockchain-hack.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "blockchainfounder.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "bmstu.ru": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "boilk.ru": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "bookauthority.org": {
+   "kind": "external",
+   "reason": "HTTP 429, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "booking-innodatahub.innopolis.university": {
    "kind": "university",
-   "reason": "no answer (ReadTimeout)",
+   "reason": "the start page has 19 words (a login, or an empty shell)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "braingames.ru": {
+   "examples": [
+    "/raw/sites/fizmat/home.md",
+    "/raw/sites/fmp/usefulgames.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (a login page: 'Логические задачи [Игры разума — Сообщество любителей голово')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "breakpoint.aiesec.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "bricsmathconf.innopolis.ru": {
    "kind": "university",
    "reason": "the name does not resolve to public addresses",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "bsaa.edu.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "bsau.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "bukep.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "bus.gov.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "careerdev.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "cdn.asiancorrespondent.com": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "cdn.bitrix24.site": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "cdn.brics-russia2024.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "cdofs.innopolis.university": {
+   "kind": "university",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "chat.whatsapp.com": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "cheb.ru": {
+   "kind": "external",
+   "reason": "HTTP 503, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "chelny.itpark-kazan.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "choli74.ru": {
+   "examples": [
+    "/raw/sites/dovuz/partners.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'Государственное бюджетное общеобразовательное учреждение «Че')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "chrdk.ru": {
+   "kind": "external",
+   "reason": "the start page has 0 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "cio-congress.ru": {
+   "examples": [
+    "/raw/sites/media/news-cio-congress.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "click-storm.com": {
+   "examples": [
+    "/raw/sites/innopoliscamp-ru/fizteh.md",
+    "/raw/sites/innopoliscamp-ru/home.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (a login page: 'LoL, HS, DotA 2, CS GO championships and forums from Click-S')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "clofit.me": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "cluster73.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "cmept.itch.io": {
+   "examples": [
+    "/raw/sites/media/news-game-open-lab-2024-winners.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "code.university.innopolis.ru": {
    "examples": [
@@ -93,19 +716,155 @@
    "pages": 2,
    "reason": "needs access (HTTP 401)",
    "status": "closed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "codeforces.com": {
+   "examples": [
+    "/raw/sites/dovuz/innopolis-open-informatics.md",
+    "/raw/sites/dovuz/pre-olympiads-innopolis-open-informatics.md",
+    "/raw/sites/media/news-chetvertfinal-icpc-2021-2022.md"
+   ],
+   "kind": "external",
+   "pages": 5,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "codenrock-platform-mirror-953364db.s3.cloud.ru": {
+   "examples": [
+    "/raw/sites/postcodehack/home.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "codnn.nobl.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "college-pokrovsk.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "comlabrussia.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "commercial.innopolis.ru": {
    "kind": "university",
    "reason": "no answer (ConnectError)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "community.sk.ru": {
+   "kind": "external",
+   "reason": "HTTP 502, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "copterexpress.com": {
+   "kind": "external",
+   "reason": "the start page has 0 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "council.gov.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "covid19.rosminzdrav.ru": {
+   "kind": "external",
+   "reason": "HTTP 404, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "crm.brainsurf.ru": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ctf365.com": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "cup.innopolis.ru": {
    "kind": "university",
    "reason": "the name does not resolve to public addresses",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "cusi.chula.ac.th": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "cybercech.space": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "datafest.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "datalens.yandex": {
+   "kind": "external",
+   "reason": "the start page has 12 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "datanose.nl": {
+   "kind": "external",
+   "reason": "the start page has 27 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "deeplit.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "detsadkazan.com": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "dev.innopolis.university": {
+   "kind": "university",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "dev2.innopolis.university": {
+   "kind": "university",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "dis.uniroma1.it": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "disk.university.innopolis.ru": {
    "examples": [
@@ -117,37 +876,557 @@
    "pages": 3,
    "reason": "needs access (a login page: 'Sign In')",
    "status": "closed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "dk.robotics.innopolis.university": {
    "kind": "university",
    "reason": "the name does not resolve to public addresses",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "dl.acm.org": {
+   "examples": [
+    "/raw/sites/media/news-interview-with-zamira-kholmatova.md",
+    "/raw/sites/robotics/labs-laboratoriya-promyshlennoj-robototehniki-zablokirovana-.md",
+    "/raw/sites/robotics/science.md"
+   ],
+   "kind": "external",
+   "pages": 3,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "dl.dropboxusercontent.com": {
+   "kind": "external",
+   "reason": "HTTP 404, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "dl4.joxi.net": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "dlava1231.itch.io": {
+   "examples": [
+    "/raw/sites/media/news-game-open-lab-2024-winners.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "docs.google.com": {
+   "examples": [
+    "/raw/sites/campuslife/clubleaders.md",
+    "/raw/sites/campuslife/ibc.md",
+    "/raw/sites/campuslife/ibc2022.md"
+   ],
+   "kind": "external",
+   "pages": 30,
+   "reason": "needs access (a login page: 'Sign in - Google Accounts')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "docs.moodle.org": {
+   "examples": [
+    "/raw/sites/university/en-teachingexcellencecenter-fortas.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "dooglys.com": {
+   "kind": "external",
+   "reason": "no answer (ReadTimeout)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "drive.google.com": {
+   "examples": [
+    "/raw/sites/aiconf/home.md",
+    "/raw/sites/city/ru-media-news-innopolis-hosted-the-russian-road-cycling-cham.md",
+    "/raw/sites/dovuz/innopolis-open-ai.md"
+   ],
+   "kind": "external",
+   "pages": 29,
+   "reason": "needs access (a login page: 'Google Drive: Sign-in')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "dshkazan.ru": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "dxdy.ru": {
+   "examples": [
+    "/raw/sites/fizmat/home.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'Математика, Физика, Химия, Computer Science, LaTeX, Экономик')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "dzen.ru": {
+   "examples": [
+    "/raw/sites/fmp/savvateev.md",
+    "/raw/sites/ido/home.md",
+    "/raw/sites/media/news-chem-zapomnitsya-nash-2023-y-25-tys-slushateley-47-komp.md"
+   ],
+   "kind": "external",
+   "pages": 4,
+   "reason": "needs access (a login page: 'https://sso.passport.yandex.ru/push?uuid=2ec394bb-9349-4602-')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ecloud.ru": {
+   "kind": "external",
+   "reason": "no answer (ReadTimeout)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "edu.gov.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "edu.mari.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "edu.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "edu.sirius.online": {
+   "kind": "external",
+   "reason": "HTTP 503, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "edu.tatar.ru": {
+   "examples": [
+    "/raw/sites/city/en-services-childrens-school-of-art.md",
+    "/raw/sites/city/en-services-innopolis-lyceum.md",
+    "/raw/sites/city/en-services-innopolis-school.md"
+   ],
+   "kind": "external",
+   "pages": 13,
+   "reason": "needs access (a login page: 'Электронное образование Республики Татарстан')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "education.tbank.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "educont.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "edurobots.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "edvoice.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "el5-energo.ru": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "elibrary.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "elsu.ru": {
+   "examples": [
+    "/raw/sites/edu/ooc.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'Елецкий государственный университет им. И.А. Бунина')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "eltech.ru": {
+   "kind": "external",
+   "reason": "no answer (RemoteProtocolError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "emtpro.ru": {
+   "examples": [
+    "/raw/sites/edu/ooc.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'Официальный сайт КГБ ПОУ \"Енисейский многопрофильный те - Гл')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "en.federalspace.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "en.npo-at.com": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "en.uniroma1.it": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "eneuro.org": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "eng.gzs.si": {
+   "examples": [
+    "/raw/sites/media/news-iu-university-of-ljubljana.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'Chamber of Commerce and Industry of Slovenia')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "eng.mil.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "english.siat.cas.cn": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ep.unionepro.ru": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "er.rtc.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "era-tehnopolis.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "etu.ru": {
+   "kind": "external",
+   "reason": "no answer (RemoteProtocolError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "events.webinar.ru": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "expozilla.ru": {
+   "examples": [
+    "/raw/sites/media/news-dmitriymedvedev-posetil-vserossiyskuyu-robototekhniches.md",
+    "/raw/sites/media/news-sostoyals-torzhestvennaya-tseremoniya-nagrazhdeniya-pob.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (a login page: 'Календарь IT событий')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "facebook.com": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "fb19.hiskp.uni-bonn.de": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "fcior.edu.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "fcpir.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "federalspace.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "feed.myreviews.ru": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "fermopolis.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "festivalcok.ru": {
+   "kind": "external",
+   "reason": "HTTP 404, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "figma-alpha-api.s3.us-west-2.amazonaws.com": {
+   "examples": [
+    "/raw/sites/engineerschool/home.md",
+    "/raw/sites/events/startup-store.md",
+    "/raw/sites/msonline/ddm.md"
+   ],
+   "kind": "external",
+   "pages": 4,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "files.rcd.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "finforum.dltc.spbu.ru": {
+   "kind": "external",
+   "reason": "HTTP 404, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "fintech2017.innopolis.ru": {
    "kind": "university",
    "reason": "no answer (ConnectError)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "fmp-en.tilda.ws": {
+   "examples": [
+    "/raw/sites/fmp/_shared.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "foodtech.danilovskymarket.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "forbes.ru": {
+   "kind": "external",
+   "reason": "the start page has 0 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "forinnovations.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "forms.gle": {
+   "kind": "external",
+   "reason": "HTTP 400, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "forms.yandex.com": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "forms.yandex.ru": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "forumtatarstan.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "foundersmondays.com": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "foxford.ru": {
+   "examples": [
+    "/raw/sites/media/news-innopolis-university-foxford.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 401)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "freehackquest.com": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "freshmen-guide.university.innopolis.ru": {
    "kind": "university",
    "reason": "no answer (ConnectError)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
   },
-  "future-formula-innopolis.ru": {
-   "kind": "inno",
+  "fsp-rt.ru": {
+   "kind": "external",
    "reason": "the name does not resolve to public addresses",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "future-formula-innopolis.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "fwbw.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "gamesofuture.com": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "gas-forum.ru": {
+   "kind": "external",
+   "reason": "no answer (TooManyRedirects)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "gazprom.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "geologorazvedka.gazprom.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "get-in.innopolis.ru": {
    "kind": "university",
    "reason": "no answer (ConnectError)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ggpi.org": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "gief.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "gifaward.com": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "gigachads-production.itch.io": {
+   "examples": [
+    "/raw/sites/media/news-game-open-lab-2024-winners.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "gim-14.nios.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "gisp.gov.ru": {
+   "examples": [
+    "/raw/sites/media/news-ai-service-for-inistry-of-industry-and-trade.md",
+    "/raw/sites/media/news-innovtol-3-registered-in-russian-industrial-products.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "gitlab.pg.innopolis.university": {
    "examples": [
@@ -158,77 +1437,429 @@
    "pages": 2,
    "reason": "needs access (a login page: 'Sign in · GitLab')",
    "status": "closed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "globalai.innopolis.university": {
    "kind": "university",
    "reason": "HTTP 402, not a page",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
   },
-  "gorsovetinnopolis.ru": {
-   "kind": "inno",
+  "globalgamejam.org": {
+   "examples": [
+    "/raw/sites/media/news-global-game-jam-2019.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "go.2gis.com": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "go.onelink.me": {
+   "examples": [
+    "/raw/sites/city/en-city-how-to-get.md",
+    "/raw/sites/city/ru-city-how-to-get.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "go.philtech.ru": {
+   "kind": "external",
    "reason": "the name does not resolve to public addresses",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "goo.gl": {
+   "kind": "external",
+   "reason": "HTTP 400, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "google.com": {
+   "kind": "external",
+   "reason": "the start page has 18 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "gornostay.com": {
+   "examples": [
+    "/raw/sites/dovuz/partners.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "gorsovetinnopolis.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "gosuslugi.ru": {
+   "kind": "external",
+   "reason": "the start page has 12 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "goto.msk.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "government.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "gss.uva.nl": {
+   "kind": "external",
+   "reason": "HTTP 404, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "gstou.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "gu-st.ru": {
+   "examples": [
+    "/raw/sites/stc/architect-ai.md",
+    "/raw/sites/stc/data-analytics-machine.md",
+    "/raw/sites/stc/project-manager-ai.md"
+   ],
+   "kind": "external",
+   "pages": 3,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "hack.gismart.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "hack.innopolis.university": {
    "kind": "university",
    "reason": "HTTP 402, not a page",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "hack.me": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "hackathon.otkroimosprom.ru": {
+   "kind": "external",
+   "reason": "HTTP 404, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "hackathonserial.cryptobazar.io": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "hackproject.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "hacks-ai.ru": {
+   "kind": "external",
+   "reason": "HTTP 504, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "hilton.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "hindawi.com": {
+   "examples": [
+    "/raw/sites/ai/science.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "hipdriver.me": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "hotel.university.innopolis.ru": {
+   "kind": "university",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "hr.university.innopolis.ru": {
    "kind": "university",
    "reason": "no answer (ConnectError)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "huawei.innopolis.university": {
    "kind": "university",
    "reason": "HTTP 404, not a page",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
   },
-  "industrix.sezinnopolis.ru": {
-   "kind": "inno",
+  "i-mehanika.ru": {
+   "kind": "external",
    "reason": "the name does not resolve to public addresses",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "i-us.ru": {
+   "examples": [
+    "/raw/sites/robotics/labs-laboratoriya-nejronauki-i-kognitivnyh-tehnologij.md",
+    "/raw/sites/robotics/science.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (a login page: 'Информационно-управляющие системы')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "i.ytimg.com": {
+   "kind": "external",
+   "reason": "HTTP 404, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "iacp.dvo.ru": {
+   "examples": [
+    "/raw/sites/robotics/consortium-team-akademicheskie-instituty.md",
+    "/raw/sites/robotics/consortium.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (a login page: 'ИАПУ ДВО РАН')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "iais.fraunhofer.de": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "iasei.org": {
+   "examples": [
+    "/raw/sites/media/news-interview-with-zamira-kholmatova.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "icpc.baylor.edu": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "icpc.sgu.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "idao.world": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "idt-23.kesinternational.org": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ieeexplore.ieee.org": {
+   "examples": [
+    "/raw/sites/ai/science.md",
+    "/raw/sites/media/news-institut-iskusstvennogo-intellekta-prodolzhaet-rabotu-p.md",
+    "/raw/sites/robotics/labs-laboratoriya-bespilotnyh-technologyi.md"
+   ],
+   "kind": "external",
+   "pages": 8,
+   "reason": "needs access (a login page: 'IEEE Account')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "igdcon.indiegamedev.club": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "igent.tech": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "igi-global.com": {
+   "kind": "external",
+   "reason": "HTTP 429, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "igroprom.moscow": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ii-s-nulya.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "iitkgp.ac.in": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "iitp.ru": {
+   "examples": [
+    "/raw/sites/robotics/consortium-team-akademicheskie-instituty.md",
+    "/raw/sites/robotics/consortium.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "images.unsplash.com": {
+   "kind": "external",
+   "reason": "the start page has 2 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "imo-official.org": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "imtp.febras.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "industrix.sezinnopolis.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "inno-data-hub.innopolis.university": {
    "kind": "university",
-   "reason": "no answer (ReadTimeout)",
+   "reason": "HTTP 502, not a page",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "innoadvent.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "innochain-hack.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "innoctf.com": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "innoctf.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "innoctf.university.innopolis.ru": {
    "kind": "university",
    "reason": "no answer (ConnectError)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "innolyceum.ru": {
+   "examples": [
+    "/raw/sites/career/relocation.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'Kometa Casino - регистрация и вход на сайт Комета Казино онл')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "innopa.ru": {
+   "kind": "external",
+   "reason": "redirects away from https",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "innopolis-my.sharepoint.com": {
-   "kind": "inno",
+   "kind": "external",
    "reason": "robots.txt closes the start page",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "innopolis-newsletter.tilda.ws": {
    "examples": [
     "/raw/sites/media/news-data-science-camp.md"
    ],
-   "kind": "inno",
+   "kind": "external",
    "pages": 1,
    "reason": "needs access (HTTP 403)",
    "status": "closed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "innopolis-school.ru": {
-   "kind": "inno",
+   "kind": "external",
    "reason": "the name does not resolve to public addresses",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "innopoliscamp.ru.": {
    "kind": "inno",
@@ -236,40 +1867,161 @@
    "status": "failed",
    "tried": "2026-11-01T22:40:41+00:00"
   },
+  "innoproductcamp.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "innoros.ru": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "innosoft.pro": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "innospace.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
   "innostar.innopolis.university": {
    "kind": "university",
    "reason": "is dovuz.innopolis.university (a site read already)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "innovateordie.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "innovation.gov.uz": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "instagram.com": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "inter.innopolis.university": {
    "kind": "university",
    "reason": "no answer (ConnectError)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "interfax-russia.ru": {
+   "kind": "external",
+   "reason": "the start page has 0 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "international.unitn.it": {
+   "examples": [
+    "/raw/sites/university/en-outgoingstudents.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "internship2018.tilda.ws": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "investregatta.ru": {
+   "kind": "external",
+   "reason": "HTTP 404, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "ioai.innopolis.ru": {
    "kind": "university",
    "reason": "HTTP 404, not a page",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "iopscience.iop.org": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "ipts.innopolis.university": {
    "kind": "university",
    "reason": "no answer (ReadTimeout)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "iros2015.org": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "isga.obrnadzor.gov.ru": {
+   "examples": [
+    "/raw/sites/university/sveden-education.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'ИС ГА')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "iskratel.com": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ismaconf.org": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ispeaker.online": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "it-world.ru": {
+   "examples": [
+    "/raw/sites/media/news-ekspert-lits-prinyal-uchastie-v-podkaste-ria-novostey.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'IT-World: Мир информационных технологий')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "it.innopolis.university": {
    "examples": [
-    "/raw/sites/help/ru-regulations-information-systems-user-s-manual.md",
-    "/raw/sites/innohassle/dashboard.md"
+    "/raw/regulations/site-help-47ceb0a8-annex-1-is-user-s-manual.md",
+    "/raw/regulations/site-help-887820c6-reglament-protsessa-organizatsii-it.md",
+    "/raw/regulations/site-help-bcdd9bb7-reglament-ispolzovaniyairivzaimodeystviy.md"
    ],
    "kind": "university",
-   "pages": 2,
+   "pages": 5,
    "reason": "needs access (a login page: 'Login to Innopolis Customer Portal - ITSM 2.0')",
    "status": "closed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "it.university.innopolis.ru": {
    "examples": [
@@ -281,43 +2033,257 @@
    "pages": 4,
    "reason": "needs access (a login page: 'Login to Innopolis Customer Portal - ITSM 2.0')",
    "status": "closed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "itbrand.habr.com": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "itch.io": {
+   "examples": [
+    "/raw/sites/media/news-game-open-lab-2024-winners.md",
+    "/raw/sites/media/news-gol-final-in-innopolis.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "itl74.ru": {
+   "examples": [
+    "/raw/sites/dovuz/partners.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'Муниципальное автономное общеобразовательное учреждение «ИТ ')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "itschool.innopolis.university": {
    "kind": "university",
    "reason": "the name does not resolve to public addresses",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "iva-tech.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ivgpu.com": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "java.innopolis.university": {
    "kind": "university",
    "reason": "the name does not resolve to public addresses",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
   },
-  "learn.innopolis.university": {
-   "kind": "university",
-   "reason": "redirects to lms.unionepro.ru",
+  "journals.aps.org": {
+   "examples": [
+    "/raw/sites/robotics/labs-laboratoriya-nejronauki-i-kognitivnyh-tehnologij.md",
+    "/raw/sites/robotics/science.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "journals.rcsi.science": {
+   "examples": [
+    "/raw/sites/university/sveden-objects.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'RCSI Journals Platform')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "k-projects.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "kamaz.ru": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "kamptp.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "kansk-tc.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "kanyatr.itch.io": {
+   "examples": [
+    "/raw/sites/media/news-game-open-lab-2024-winners.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "kazanhotelgroup.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "kazanstartupweek.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "kazanstartupweekend.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "kazanweekend.ru": {
+   "kind": "external",
+   "reason": "HTTP 522, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "kdl.ru": {
+   "examples": [
+    "/raw/sites/city/en-life-medicine.md",
+    "/raw/sites/city/en-services-laboratory-dialab.md",
+    "/raw/sites/city/ru-life-medicine.md"
+   ],
+   "kind": "external",
+   "pages": 4,
+   "reason": "needs access (a login page: 'СДАТЬ АНАЛИЗЫ | Медицинская лаборатория KDL')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "keycloak.geocode.tech": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "kirovlel.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "kod-u.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "kontur.ru": {
+   "examples": [
+    "/raw/sites/media/news-first-student-internship-fair.md",
+    "/raw/sites/media/news-innopolis-university-published-the-report-2015.md",
+    "/raw/sites/media/news-innopolis-university-will-host-the-kontur-kampus-school.md"
+   ],
+   "kind": "external",
+   "pages": 7,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "kravtrobotics.ru": {
+   "kind": "external",
+   "reason": "the start page has 28 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "kremlin.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ksu.edu.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "kuka.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "kvant.digital": {
+   "kind": "external",
+   "reason": "no answer (ReadTimeout)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "kvant.mccme.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "leto.innopolis.ru": {
    "kind": "university",
    "reason": "the name does not resolve to public addresses",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "lh4.googleusercontent.com": {
+   "kind": "external",
+   "reason": "HTTP 400, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "lh7-rt.googleusercontent.com": {
+   "kind": "external",
+   "reason": "HTTP 400, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "linkedin.com": {
+   "kind": "external",
+   "reason": "a bot check answers in place of the start page ('Checking your browser - reCAPTCHA')",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "linkis.ecopsy.com": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "lk-dovuz.innopolis.university": {
    "examples": [
-    "/raw/sites/apply-bach/ds-mai.md",
-    "/raw/sites/apply/bachelors-ds-mai.md",
+    "/raw/regulations/site-dovuz-afd75f87-offer-egemath-module4.md",
+    "/raw/regulations/site-dovuz-ce06e014-offer-egeinf-module4.md",
     "/raw/sites/dovuz/_shared.md"
    ],
    "kind": "university",
-   "pages": 56,
+   "pages": 23,
    "reason": "needs access (a login page: 'Страница авторизации - регистрации')",
    "status": "closed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "lk.aiconf.innopolis.ru": {
    "examples": [
@@ -329,7 +2295,59 @@
    "pages": 6,
    "reason": "needs access (a login page: 'DID 2026')",
    "status": "closed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "lkfl2.nalog.ru": {
+   "examples": [
+    "/raw/sites/progmatica/longread-return-13.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'Личный кабинет налогоплательщика — физического лица')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "logicall.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "longperformanceadvisors.com": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "lp.antirabstvo.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "lyceum2.citycheb.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "lyceum2.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "magic-flor.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "magkmusic.com": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "mail.innopolis.ru": {
    "examples": [
@@ -341,31 +2359,422 @@
    "pages": 12,
    "reason": "needs access (a login page: 'Outlook')",
    "status": "closed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "maou56.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "maoulyceum1.ucoz.com": {
+   "kind": "external",
+   "reason": "redirects away from https",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "marat-diyarov.itch.io": {
+   "examples": [
+    "/raw/sites/media/news-game-open-lab-2024-winners.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "marketsandmarkets.com": {
+   "examples": [
+    "/raw/sites/media/news-medrobotics-iu-kznman.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "math.mosolymp.ru": {
+   "kind": "external",
+   "reason": "no answer (ReadTimeout)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "math.ru": {
+   "kind": "external",
+   "reason": "HTTP 502, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "mathedu.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "mathnet.ru": {
+   "examples": [
+    "/raw/sites/fmp/stonyakin.md",
+    "/raw/sites/university/sveden-objects.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (a login page: 'Math-Net.Ru')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "matshkola.educhr.ru": {
+   "examples": [
+    "/raw/sites/dovuz/partners.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'МБОУ \"МШ №1 им. Х.И. Ибрагимова\" г. Грозного - Главная - г. ')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "matt-barley.itch.io": {
+   "examples": [
+    "/raw/sites/media/news-game-open-lab-2024-winners.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "maykor.com": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "mdpi.com": {
+   "examples": [
+    "/raw/sites/media/news-scientists-trained-neural-network-diagnosing-alzheimers.md",
+    "/raw/sites/robotics/labs-laboratoriya-bespilotnyh-technologyi.md",
+    "/raw/sites/robotics/labs-laboratoriya-nejronauki-i-kognitivnyh-tehnologij.md"
+   ],
+   "kind": "external",
+   "pages": 5,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "mechatronics.me.kyoto-u.ac.jp": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "menu.restify.one": {
+   "kind": "external",
+   "reason": "the start page has 0 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "mfm.bitvarobotov.tech": {
+   "kind": "external",
+   "reason": "HTTP 502, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "mic.tatarstan.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "mil.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "minsvyaz.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "mistersych.itch.io": {
+   "examples": [
+    "/raw/sites/media/news-game-open-lab-2024-winners.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "mjcnt.phystech.edu": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "mlss2019.skoltech.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "modulbank.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "mosmed.ai": {
+   "kind": "external",
+   "reason": "no answer (ConnectTimeout)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "mosrobotics.ru": {
+   "examples": [
+    "/raw/sites/olymp/cpm.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'Главная - Лаборатория инженерных образовательных проектов')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "mstu.edu.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "my.mts-link.ru": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "my.ntcontest.ru": {
+   "examples": [
+    "/raw/sites/media/news-onti-iu-2021.md",
+    "/raw/sites/robotics/news-anonsiruem-novuyu-tehnologicheskuyu-olimpiadu.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (a login page: 'Главная страница | Личный кабинет участника Национальной тех')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "my.university.innopolis.ru": {
    "kind": "university",
    "reason": "no answer (ConnectError)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "mycars.rentals": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "n.neurology.org": {
+   "examples": [
+    "/raw/sites/media/news-robot-for-hand-rehabilitation.md",
+    "/raw/sites/robotics/news-rossijskaya-razrabotchitsa-sozdala-robota-dlya-reabilit.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "nafta.college": {
+   "examples": [
+    "/raw/sites/media/news-petrocup-2022.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'Nafta College | Projects')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "nalog.gov.ru": {
+   "kind": "external",
+   "reason": "the start page has 22 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "nalog.ru": {
+   "kind": "external",
+   "reason": "the start page has 22 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "nam-ns2.obr.sakha.gov.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "nastachku.ru": {
+   "examples": [
+    "/raw/sites/media/news-nastachku-2019-iu.md",
+    "/raw/sites/media/news-stachka-october-iu.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (a login page: 'Стачка - IT-конференции и мероприятия')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "nauka.tass.ru": {
+   "kind": "external",
+   "reason": "the start page has 0 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "nbbatyr-yaltch.edu21.cap.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ncoolgamer.itch.io": {
+   "examples": [
+    "/raw/sites/media/news-game-open-lab-2024-winners.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ndtest1.ics.org.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "nertsal.itch.io": {
+   "examples": [
+    "/raw/sites/media/news-game-open-lab-2024-winners.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "newtonew.com": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "nic-integration.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "niimvus.org.ru": {
+   "examples": [
+    "/raw/sites/robotics/consortium-team-akademicheskie-instituty.md",
+    "/raw/sites/robotics/consortium.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "nir.innopolis.university": {
    "kind": "university",
    "reason": "HTTP 402, not a page",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "nottingham.edu.my": {
+   "kind": "external",
+   "reason": "the start page has 20 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "nppmetra.taplink.ws": {
+   "kind": "external",
+   "reason": "the start page has 0 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "nsmu.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "odtuteknokent.com.tr": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "odyssey.community": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "offf.moscow": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "oiasystem.ntu.edu.tw": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "oir.pku.edu.cn": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ojs.aaai.org": {
+   "kind": "external",
+   "reason": "no answer (RemoteProtocolError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "oldapply.innopolis.university": {
    "kind": "university",
    "reason": "HTTP 404, not a page",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "olymp.innopolis.ru": {
    "kind": "university",
    "reason": "the name does not resolve to public addresses",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "olympiads.mccme.ru": {
+   "kind": "external",
+   "reason": "the start page has 25 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "omsu.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "online-guide.pro": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "online.digitalinnopolisdays.ru": {
    "examples": [
@@ -373,23 +2782,94 @@
     "/raw/sites/media/news-did-online-2023.md",
     "/raw/sites/media/news-did-online-2024.md"
    ],
-   "kind": "inno",
+   "kind": "external",
    "pages": 5,
    "reason": "needs access (HTTP 403)",
    "status": "closed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "onlinelibrary.wiley.com": {
+   "examples": [
+    "/raw/sites/media/news-scientists-improve-ai-diagnosis-of-sinusitis.md",
+    "/raw/sites/university/sveden-objects.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "oocfs.innopolis.university": {
    "kind": "university",
    "reason": "robots.txt closes the start page",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "opora.space": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "orbit.com": {
+   "examples": [
+    "/raw/sites/university/sveden-objects.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'Orbit')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "osen.innopolis.ru": {
    "kind": "university",
    "reason": "no answer (ConnectError)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "oss2020.website": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "osu.ru": {
+   "kind": "external",
+   "reason": "redirects away from https",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ozgsch4.edumsko.ru": {
+   "examples": [
+    "/raw/sites/dovuz/partners.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'Муниципальное общеобразовательное учреждение средняя общеобр')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ozon.ru": {
+   "kind": "external",
+   "reason": "no answer (TooManyRedirects)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "panoroo.com": {
+   "kind": "external",
+   "reason": "HTTP 522, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "pascaloz.itch.io": {
+   "examples": [
+    "/raw/sites/media/news-game-open-lab-2024-winners.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "pay.innopolis.university": {
    "examples": [
@@ -407,95 +2887,879 @@
    "kind": "university",
    "reason": "the start page has 22 words (a login, or an empty shell)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "pdmi.ras.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "penzgtu.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectTimeout)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "pervaya.obr.sakha.gov.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "petrsu.ru": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "pgsga.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "phantomos.org": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "photos.app.goo.gl": {
+   "kind": "external",
+   "reason": "HTTP 400, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "photostorage.innopolis.university": {
    "kind": "university",
    "reason": "robots.txt closes the start page",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "physcon2019.innopolis.university": {
    "kind": "university",
    "reason": "no answer (ConnectError)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "pichcher.itch.io": {
+   "examples": [
+    "/raw/sites/media/news-game-open-lab-2024-winners.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "pk.university.innopolis.ru": {
    "kind": "university",
    "reason": "the name does not resolve to public addresses",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "pki.university.innopolis.ru": {
    "kind": "university",
    "reason": "no answer (ConnectError)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "pktm.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "pl9.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "plvideo.ru": {
+   "kind": "external",
+   "reason": "the start page has 10 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "pnas.org": {
+   "examples": [
+    "/raw/sites/media/news-cluspro.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "pnzgu.ru": {
+   "examples": [
+    "/raw/sites/edu/ooc.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'Пензенский государственный университет')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "polyu.edu.hk": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "portal.university.innopolis.ru": {
    "kind": "university",
    "reason": "no answer (ConnectError)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "pozis.ru": {
+   "examples": [
+    "/raw/sites/media/news-agreement-with-pozis.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'Главная - АО \"ПО \"Завод имени Серго\"')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "prikolteam.itch.io": {
+   "examples": [
+    "/raw/sites/media/news-game-open-lab-2024-winners.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "prin.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "profile.innopolis.university": {
    "examples": [
-    "/raw/sites/apply-bach/_shared.md",
-    "/raw/sites/apply-bach/ai-360.md",
-    "/raw/sites/apply-bach/ds-mai.md"
+    "/raw/regulations/site-international-42ee79fe-en-manual-graduateschool-2025.md",
+    "/raw/regulations/site-international-87906c98-en-manual-bachelor-2025.md",
+    "/raw/regulations/site-international-e83ab8b8-en-manual-masters-2025.md"
    ],
    "kind": "university",
-   "pages": 35,
+   "pages": 38,
    "reason": "needs access (a login page: 'Вход')",
    "status": "closed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "profspo.ru": {
+   "examples": [
+    "/raw/sites/university/sveden-objects.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'PROFобразование')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "prog.2035.university": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "progmatica.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "proquest.com": {
+   "kind": "external",
+   "reason": "no answer (TooManyRedirects)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "prostofestival.ru": {
+   "examples": [
+    "/raw/sites/media/news-festival-prosto-novoselov-art-science.md",
+    "/raw/sites/media/news-prosto-festival.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "prototype-eidos.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "psi.university.innopolis.ru": {
    "kind": "university",
    "reason": "no answer (ConnectError)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "psymoliboga.ru": {
+   "kind": "external",
+   "reason": "the start page has 0 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "pt.2035.university": {
+   "kind": "external",
+   "reason": "no answer (TooManyRedirects)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ptsecurity.com": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "pu33.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "publication.pravo.gov.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "publictalk.events.sk.ru": {
+   "kind": "external",
+   "reason": "HTTP 404, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "pubs.aip.org": {
+   "examples": [
+    "/raw/sites/university/sveden-objects.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "pypl.github.io": {
+   "kind": "external",
+   "reason": "the start page has 13 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "qdu.edu.cn": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "qrbin.ru": {
+   "examples": [
+    "/raw/sites/city/ru-media-news-innopolis-is-testing-an-online-recycling-bin-f.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'Умные контейнеры Иннополиса')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "radius-etl.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "raec.ru": {
+   "examples": [
+    "/raw/sites/media/news-dmitriymedvedev-posetil-vserossiyskuyu-robototekhniches.md",
+    "/raw/sites/media/news-sostoyals-torzhestvennaya-tseremoniya-nagrazhdeniya-pob.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (a login page: 'Российская ассоциация электронных коммуникаций')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "raif.jet.su": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ras.ru": {
+   "kind": "external",
+   "reason": "the start page has 0 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "rating.a-ai.ru": {
+   "examples": [
+    "/raw/sites/media/news-ai-alliance-ranking.md",
+    "/raw/sites/media/news-iu-ai-ranking.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (a login page: 'Рейтинг вузов в области ИИ')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "rds.university.innopolis.ru": {
    "kind": "university",
    "reason": "the start page has 1 words (a login, or an empty shell)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "realty.interfax.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "red-soft.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "redgameexpo.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "redjournal.org": {
+   "examples": [
+    "/raw/sites/media/news-institut-iskusstvennogo-intellekta-prodolzhaet-rabotu-p.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "reestr.digital.gov.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "reg.digitalinnopolisdays.ru": {
    "examples": [
-    "/raw/sites/digitalinnopolisdays-ru/_shared.md",
-    "/raw/sites/digitalinnopolisdays-ru/offer.md"
+    "/raw/sites/digitalinnopolisdays-ru/_shared.md"
    ],
-   "kind": "inno",
-   "pages": 2,
+   "kind": "external",
+   "pages": 1,
    "reason": "needs access (a login page: 'DID 2026')",
    "status": "closed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
   },
-  "rent.sezinnopolis.ru": {
-   "kind": "inno",
+  "reg.nti-contest.ru": {
+   "examples": [
+    "/raw/sites/media/news-olympiadi-sovet-perechen.md",
+    "/raw/sites/media/news-olympic-organizers-nti.md",
+    "/raw/sites/media/news-onti-2020-registration.md"
+   ],
+   "kind": "external",
+   "pages": 3,
+   "reason": "needs access (a login page: 'Главная страница | Личный кабинет участника Национальной тех')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "region.rif.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "regions.rif.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "rengineer.ru": {
+   "kind": "external",
    "reason": "no answer (ConnectError)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "rent.sezinnopolis.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "researchandmarkets.com": {
+   "examples": [
+    "/raw/sites/media/news-v-rossii-skonstruirovali-neubivaemyy-dron.md",
+    "/raw/sites/robotics/news-v-rossii-skonstruirovali-neubivaemyj-dron.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "researchgate.net": {
+   "examples": [
+    "/raw/sites/media/news-academic-exchange-2019.md",
+    "/raw/sites/robotics/labs-laboratoriya-bespilotnyh-technologyi.md",
+    "/raw/sites/robotics/science.md"
+   ],
+   "kind": "external",
+   "pages": 7,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "rfbr.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ri.ria.ru": {
+   "examples": [
+    "/raw/sites/media/news-ai-to-predict-a-radiologists-gaze.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'Российские Инновации РИА Новости - события в Москве, России ')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "rirpc.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "riw.moscow": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "rk.2035.university": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "rnd.innopolis.university": {
    "kind": "university",
    "reason": "robots.txt closes the start page",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "roblox.com": {
+   "examples": [
+    "/raw/sites/progmatica/courses-instruction-roblox.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'Roblox: Play Free Online Games - Sign Up to Play!')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "robofinist.ru": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "roboken.iit.tsukuba.ac.jp": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "robolymp.ru": {
+   "kind": "external",
+   "reason": "HTTP 444, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "robot.bmstu.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "robotics-innopol.1gb.ru": {
+   "kind": "external",
+   "reason": "is robotics.innopolis.university (a site read already)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "robotics-spb.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "roscontent.pro": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "rosoi.net": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "rospatent.gov.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "rost-isef.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "rostec.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "rsatu.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "rst.startupvillage.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "runet-id.com": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "rusea.info": {
+   "kind": "external",
+   "reason": "no answer (ConnectTimeout)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "rusenres.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "rushydro.ru": {
+   "kind": "external",
+   "reason": "the start page has 0 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "rusoil.net": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "russianpost.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "russiaos.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "rusventure.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "rzd.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "s-82.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "s-vfu.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sait.samsung.co.kr": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "savvateev.livejournal.com": {
+   "kind": "external",
+   "reason": "no answer (ConnectTimeout)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sber-tech.com": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sberbank.com": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sberbank.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sbercode.tech": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sbt-life.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sch4.minsk.edu.by": {
+   "kind": "external",
+   "reason": "no answer (ConnectTimeout)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sch40satka.educhel.ru": {
+   "examples": [
+    "/raw/sites/dovuz/partners.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'Муниципальное автономное общеобразовательное учреждение «Сре')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "school-collection.edu.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "school547.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "science-fest.ru": {
+   "kind": "external",
+   "reason": "HTTP 404, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "science.gov.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sciencedirect.com": {
+   "examples": [
+    "/raw/sites/ai/science.md",
+    "/raw/sites/media/news-bacteria-biofilms-2026.md",
+    "/raw/sites/media/news-balance-training-reduces-differences-between-right-left.md"
+   ],
+   "kind": "external",
+   "pages": 10,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "scitepress.org": {
+   "kind": "external",
+   "reason": "the start page has 0 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "scopus.com": {
+   "kind": "external",
+   "reason": "no answer (TooManyRedirects)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "search.ebscohost.com": {
+   "kind": "external",
+   "reason": "HTTP 400, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sevsu.ru": {
+   "kind": "external",
+   "reason": "HTTP 502, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sfedu.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sfu-kras.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "shkola55.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sie.uibe.edu.cn": {
+   "kind": "external",
+   "reason": "the start page has 3 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sistema.lksh.ru": {
+   "examples": [
+    "/raw/sites/olymp/informatics2020.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'Вход • SIStema')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sites.google.com": {
+   "examples": [
+    "/raw/sites/media/news-veha-2023-iu.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'Google Drive: Sign-in')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sk.ru": {
+   "examples": [
+    "/raw/sites/media/news-chetvyertyy-gid-universiteta-innopolis-po-grantam-v-sfe.md",
+    "/raw/sites/media/news-professor-evgeni-magid-presented-intelligent-robotic-sy.md",
+    "/raw/sites/media/news-the-fourth-grants-guide-in-it-and-robotics-of-innopolis.md"
+   ],
+   "kind": "external",
+   "pages": 3,
+   "reason": "needs access (a login page: 'Skolkovo Innovation center')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sk.sagepub.com": {
+   "kind": "external",
+   "reason": "no answer (TooManyRedirects)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "skolkovohack.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "skvtsis.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "smartcities.moscow": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "smm-assistant.ru": {
+   "kind": "external",
+   "reason": "HTTP 402, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "solardecathlon.dk": {
+   "kind": "external",
+   "reason": "HTTP 500, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sorucom.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sotnya.ru": {
+   "kind": "external",
+   "reason": "HTTP 410, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "souor.siteedu.ru": {
+   "kind": "external",
+   "reason": "the start page has 25 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "sp.university.innopolis.ru": {
    "examples": [
-    "/raw/sites/help/en-home.md",
-    "/raw/sites/help/ru-home.md"
+    "/raw/regulations/site-help-887820c6-reglament-protsessa-organizatsii-it.md",
+    "/raw/regulations/site-help-bcdd9bb7-reglament-ispolzovaniyairivzaimodeystviy.md",
+    "/raw/sites/help/en-home.md"
    ],
    "kind": "university",
-   "pages": 2,
+   "pages": 4,
    "reason": "needs access (HTTP 401)",
    "status": "closed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "spiedigitallibrary.org": {
+   "kind": "external",
+   "reason": "the start page has 0 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "sport.innopolis.university": {
    "examples": [
@@ -507,13 +3771,53 @@
    "pages": 4,
    "reason": "needs access (a login page: 'Sign In')",
    "status": "closed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sportrobotics.ru": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "springeronline.com": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sputnikone.ru": {
+   "examples": [
+    "/raw/sites/dovuz/partners.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'Лицей №1 «Спутник» в г. Самара')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sputnix.ru": {
+   "kind": "external",
+   "reason": "the start page has 6 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ssaa.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ssau.ru": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "sso.university.innopolis.ru": {
    "kind": "university",
    "reason": "HTTP 404, not a page",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "ssp.innopolis.university": {
    "examples": [
@@ -524,7 +3828,25 @@
    "pages": 2,
    "reason": "needs access (a login page: 'Sign In')",
    "status": "closed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sstp.sh": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "stackoverflow.com": {
+   "examples": [
+    "/raw/sites/media/news-stan-uchastnikom-1-y-besplatnoy-mezhdunarodnoy-shkoly-p.md",
+    "/raw/sites/media/news-take-part-in-the-1st-free-international-school-on-softw.md",
+    "/raw/sites/stc/google-searches-for-beginners.md"
+   ],
+   "kind": "external",
+   "pages": 3,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "start.innopolis.university": {
    "examples": [
@@ -533,38 +3855,179 @@
     "/raw/sites/dovuz/innoctfjunior.md"
    ],
    "kind": "university",
-   "pages": 27,
+   "pages": 22,
    "reason": "needs access (a login page: 'Личный кабинет школьника | Университет Иннополис')",
    "status": "closed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "startup-tour.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "static.government.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "static.tildacdn.com": {
+   "kind": "external",
+   "reason": "the start page has 1 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "stc-old.innopolis.university": {
+   "kind": "university",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "stem.innopolis.ru": {
    "kind": "university",
    "reason": "the name does not resolve to public addresses",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "storage.codenrock.com": {
+   "examples": [
+    "/raw/sites/postcodehack/home.md",
+    "/raw/sites/postcodehack/spisok-vuzov-i-obr-programm.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "storage.innohassle.ru": {
    "examples": [
     "/raw/sites/innohassle/about.md"
    ],
-   "kind": "inno",
+   "kind": "external",
    "pages": 1,
    "reason": "needs access (HTTP 403)",
    "status": "closed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
   },
-  "t.meinnopolishelp": {
-   "kind": "inno",
+  "storage.yandexcloud.net": {
+   "kind": "external",
+   "reason": "HTTP 200, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "study-in-russia.org": {
+   "kind": "external",
+   "reason": "HTTP 522, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "summerschool.spbstu.ru": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sun7-9.userapi.com": {
+   "examples": [
+    "/raw/sites/robotics/news-vebinar-po-promyshlennoj-robototehnike-ot-ekspertov-uni.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "support.mdl.ru": {
+   "kind": "external",
    "reason": "the name does not resolve to public addresses",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sviyaga-glamp.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "sviyaga-hills.com": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "syktsu.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "t.meinnopolishelp": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "tabletennis.innopolis.university": {
    "kind": "university",
    "reason": "no answer (ConnectError)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "takmozhno.io": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "talentrussia.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "tass.ru": {
+   "kind": "external",
+   "reason": "the start page has 0 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "tbank.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "tech-in-media.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "telecomideas.com": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "telegra.ph": {
+   "kind": "external",
+   "reason": "the start page has 2 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "testing.assessment.unionepro.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "tfb.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "tfs.university.innopolis.ru": {
    "examples": [
@@ -574,31 +4037,332 @@
    "pages": 1,
    "reason": "needs access (HTTP 401)",
    "status": "closed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "tgtoil.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "tiktok.com": {
+   "examples": [
+    "/raw/sites/onboarding/eng.md",
+    "/raw/sites/onboarding/home.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (a login page: 'Log in | TikTok')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "tilda.ru": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "tinkoff.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "tiptis.ru": {
+   "kind": "external",
+   "reason": "HTTP 502, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "tmgo.me": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "tools-conferences.com": {
+   "kind": "external",
+   "reason": "the start page has 11 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "tools2019.innopolis.ru": {
    "kind": "university",
    "reason": "the name does not resolve to public addresses",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "topuniversities.com": {
+   "examples": [
+    "/raw/sites/media/news-innopolis-university-announced-the-four-new-academic-ex.md",
+    "/raw/sites/media/news-new-academic-partners.md",
+    "/raw/sites/media/news-universitet-innopolis-obyavil-imena-chetyrekh-novykh-pa.md"
+   ],
+   "kind": "external",
+   "pages": 3,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "trixter.app": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "trustinfo.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "tsinghua.edu.cn": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "tstu.ru": {
+   "kind": "external",
+   "reason": "the start page has 25 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "tsukuba.ac.jp": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ttmanagement.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "turbohackaton.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "tutorik.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "tvbrics.com": {
+   "kind": "external",
+   "reason": "HTTP 502, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "twitter.com": {
+   "kind": "external",
+   "reason": "robots.txt closes the start page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ucare.timepad.ru": {
+   "kind": "external",
+   "reason": "the start page has 11 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "uch-sib.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "udman.ru": {
+   "kind": "external",
+   "reason": "HTTP 500, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ufn.ru": {
+   "kind": "external",
+   "reason": "no answer (RemoteProtocolError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ugktid.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "uiip.bas-net.by": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "umnik.fasie.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "uni-lj.si": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "unidrive.innopolis.university": {
    "kind": "university",
    "reason": "robots.txt closes the start page",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "uniroma1.it": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "unitn.it": {
+   "examples": [
+    "/raw/sites/media/news-iu-bologna-trento-unibo-iitgp-uns.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "university-innopolis.antiplagiat.ru": {
-   "kind": "inno",
+   "kind": "external",
    "reason": "robots.txt closes the start page",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "unmanned.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "unn.ru": {
+   "kind": "external",
+   "reason": "redirects away from https",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "uns.ac.rs": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "uslugi.tatarstan.ru": {
+   "examples": [
+    "/raw/sites/city/en-life-medicine.md",
+    "/raw/sites/city/en-services-innopolis-school.md",
+    "/raw/sites/city/en-services-kindergarten.md"
+   ],
+   "kind": "external",
+   "pages": 8,
+   "reason": "needs access (a login page: 'Государственные услуги в Республике Татарстан.')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "ust.hk": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "v.tpprf.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "vapk.info": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "vc-barometer.ru": {
+   "examples": [
+    "/raw/sites/media/news-barometer-2021.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "veb.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "vektor-grupp.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "video.innopolis.university": {
+   "examples": [
+    "/raw/sites/apply/sng.md",
+    "/raw/sites/dovuz/ege-module4.md",
+    "/raw/sites/dovuz/innopolis-open-robo.md"
+   ],
    "kind": "university",
-   "reason": "the start page has 0 words (a login, or an empty shell)",
+   "pages": 12,
+   "reason": "needs access (a login page: 'Innopolis University Cam Watcher')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "visa.com.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "vk.cc": {
+   "examples": [
+    "/raw/sites/media/news-aramco-upstream-solutions-technathon-2020.md",
+    "/raw/sites/media/news-courses-state-exam-iu.md",
+    "/raw/sites/media/news-dovuz-online-courses-1june.md"
+   ],
+   "kind": "external",
+   "pages": 17,
+   "reason": "needs access (a login page: 'Вход | ВКонтакте')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "vk.com": {
+   "kind": "external",
+   "reason": "the start page has 24 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "vk.link": {
+   "kind": "external",
+   "reason": "HTTP 404, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "vk.ru": {
+   "kind": "external",
+   "reason": "the start page has 28 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "vkvideo.ru": {
+   "kind": "external",
+   "reason": "no answer (TooManyRedirects)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "vm.innopolis.university": {
    "examples": [
@@ -608,13 +4372,91 @@
    "pages": 1,
    "reason": "needs access (a login page: 'Sign In')",
    "status": "closed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "vmfestival.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "vniias.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "vniief.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "vniigaz.gazprom.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "volskvpk.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "voskhod.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "vpmt.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "vpn.university.innopolis.ru": {
    "kind": "university",
    "reason": "no answer (RemoteProtocolError)",
    "status": "failed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "vstu.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "vsuwt.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "vtb.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "vucollege.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "vvprasolov.dreamwidth.org": {
+   "kind": "external",
+   "reason": "HTTP 202, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "weef2014.org": {
+   "kind": "external",
+   "reason": "HTTP 503, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   },
   "wiki.innopolis.university": {
    "examples": [
@@ -625,7 +4467,158 @@
    "pages": 2,
    "reason": "needs access (a login page: 'Sign In')",
    "status": "closed",
-   "tried": "2026-11-02T07:55:00+00:00"
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "wiki.js.org": {
+   "kind": "external",
+   "reason": "the start page has 12 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "wildberries.ru": {
+   "kind": "external",
+   "reason": "HTTP 498, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "window.edu.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "woodindex.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "worldscientific.com": {
+   "examples": [
+    "/raw/sites/university/sveden-objects.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "worldskills.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "wpbi.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "www2.bigpi.biysk.ru": {
+   "kind": "external",
+   "reason": "redirects away from https",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "xjtlu.edu.cn": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "xpir.fcntp.ru": {
+   "kind": "external",
+   "reason": "the name does not resolve to public addresses",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "xpir.ru": {
+   "examples": [
+    "/raw/sites/media/news-evgeni-magid-took-part-in-information-and-telecommunica.md",
+    "/raw/sites/media/news-v-moskve-proshla-nauchno-prakticheskaya-konferentsiya-p.md"
+   ],
+   "kind": "external",
+   "pages": 2,
+   "reason": "needs access (HTTP 403)",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "yalagrokoll.ru": {
+   "examples": [
+    "/raw/sites/edu/ooc.md"
+   ],
+   "kind": "external",
+   "pages": 1,
+   "reason": "needs access (a login page: 'yalagrokoll.ru - агротехнологический колледж')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "yandex.ru": {
+   "examples": [
+    "/raw/sites/city/en-city-bus-schedule.md",
+    "/raw/sites/city/en-city-how-to-get.md",
+    "/raw/sites/city/en-tourism-travelguide.md"
+   ],
+   "kind": "external",
+   "pages": 33,
+   "reason": "needs access (a login page: 'https://sso.passport.yandex.ru/push?uuid=429c7f45-8d05-4f26-')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "yorso.com": {
+   "kind": "external",
+   "reason": "HTTP 400, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "youtu.be": {
+   "kind": "external",
+   "reason": "the start page has 16 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "youtube.com": {
+   "kind": "external",
+   "reason": "the start page has 16 words (a login, or an empty shell)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "zelenyikot.com": {
+   "kind": "external",
+   "reason": "no answer (ReadTimeout)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "zen.yandex.ru": {
+   "examples": [
+    "/raw/sites/stc/_shared.md",
+    "/raw/sites/stc/ai-architect.md",
+    "/raw/sites/stc/ai-project-manager.md"
+   ],
+   "kind": "external",
+   "pages": 5,
+   "reason": "needs access (a login page: 'https://sso.passport.yandex.ru/push?uuid=14233342-c235-4fb8-')",
+   "status": "closed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "zenit.ru": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "zilant-robotics.ru": {
+   "kind": "external",
+   "reason": "HTTP 402, not a page",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
+  },
+  "znanie.info": {
+   "kind": "external",
+   "reason": "no answer (ConnectError)",
+   "status": "failed",
+   "tried": "2026-11-04T05:03:24+00:00"
   }
  }
 }

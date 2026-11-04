@@ -20,7 +20,7 @@ status: draft
 
 # «Кино&Театр» в Иннополисе | Битва моторов
 
-- RU / [EN](https://innopoliscinema.ru/en/films/bitva-motorov)
+- RU / [EN](/raw/sites/innopoliscinema-ru/en-films-bitva-motorov.md)
 
 ## Битва моторов
 

@@ -12,10 +12,10 @@ sources:
   - resource: "https://apply-bach.innopolis.university/"
     id: "a52e19ed998c"
     title: "Общие блоки сайта apply-bach.innopolis.university: меню, шапка, подвал, контакты"
-    last_modified: "2026-11-01T22:27:35+00:00"
+    last_modified: "2026-11-04T12:50:11+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-11-01T22:27:35+00:00"
+  at: "2026-11-04T12:50:11+00:00"
 status: draft
 ---
 
@@ -97,4 +97,4 @@ university@innopolis.ru
 
 # Citations
 
-1. [apply-bach.innopolis.university](https://apply-bach.innopolis.university/), read 2026-11-01
+1. [apply-bach.innopolis.university](https://apply-bach.innopolis.university/), read 2026-11-04

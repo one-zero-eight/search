@@ -522,7 +522,7 @@ Contact Us
 
 [Privacy Policy](/raw/regulations/site-apply-bach-d66c21e6-politicacookies.md)
 
-[Extract from the License Register](/raw/regulations/site-stc-e6310fe5-reestrovaya-vypiska.md)
+[Extract from the License Register](/raw/regulations/site-unionepro-ru-e6310fe5-reestrovaya-vypiska.md)
 
 Additional opportunities
 

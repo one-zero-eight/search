@@ -1,6 +1,18 @@
 {
- "error": "Archive rejected: unsupported",
- "refetch": true,
- "status": "unsupported",
+ "document": {
+  "ext": "pdf",
+  "key": "site-university-dae04d99-407398-polozhenie-ob-otdele-dogovornoy-i",
+  "status": "ready",
+  "storage": "site-university-dae04d99-407398-polozhenie-ob-otdele-dogovornoy-i.documents/a2d9be3d2adba920f00ebf0f65b5fb48f807ef564a39b3b51df402cb22284480"
+ },
+ "members": [],
+ "remote": {
+  "etag": "\"69e76b5a-1c36e8\"",
+  "modified": "Tue, 21 Apr 2026 12:19:38 GMT",
+  "size": "1849064"
+ },
+ "sha256": "a2d9be3d2adba920f00ebf0f65b5fb48f807ef564a39b3b51df402cb22284480",
+ "source": "site-university-dae04d99-407398-polozhenie-ob-otdele-dogovornoy-i.archives/a2d9be3d2adba920f00ebf0f65b5fb48f807ef564a39b3b51df402cb22284480.archive",
+ "status": "ready",
  "url": "https://innopolis.university/upload/iblock/b7e/09uvh3vh114jn82qnkr488w095hmulxi/407398_%D0%9F%D0%BE%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BE%D0%B1_%D0%9E%D1%82%D0%B4%D0%B5%D0%BB%D0%B5_%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%BD%D0%BE%D0%B9_%D0%B8_%D0%BA%D0%BE%D1%80%D0%BF%D0%BE%D1%80%D0%B0%D1%82%D0%B8%D0%B2%D0%BD%D0%BE%D0%B9_%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B.zip"
 }

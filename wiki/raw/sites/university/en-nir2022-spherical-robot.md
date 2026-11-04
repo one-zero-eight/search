@@ -42,7 +42,7 @@ Alexander I. Kobrin (National Research University “MPEI”, kobrinai@yandex.ru
 
 in Proceedings of the Third International Conference Nonlinearity,Information and Robotics 2022, August 24, 2022
 
-- [Admission](https://apply.innopolis.ru/en/index.php)
+- [Admission](/raw/sites/apply/en-index-php.md)
 
 - [For Partners](https://university.innopolis.ru/en/cooperation/)
 

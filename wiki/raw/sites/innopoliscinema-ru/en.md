@@ -20,23 +20,7 @@ status: draft
 
 # Innopolis Cinema Lounge
 
-- [Screenings](/raw/sites/innopoliscinema-ru/en-screenings.md)
-
-- [Films](/raw/sites/innopoliscinema-ru/en-films.md)
-
-- [Пушкинская карта](/raw/sites/innopoliscinema-ru/en-films-pushkin-card.md)
-
-- [Events](/raw/sites/innopoliscinema-ru/en-special-screenings.md)
-
-- [Contacts](/raw/sites/innopoliscinema-ru/en-contacts.md)
-
 - [RU](/raw/sites/innopoliscinema-ru/home.md) / EN
-
-Innopolis, Parkovaya str., 1,
-
-Cultural center «ArtSpace»
-
-[Show map](https://yandex.ru/maps/-/CCUYjMGBgB)
 
 [Mon](https://innopoliscinema.ru/en/dates/2026-11-02)
 
@@ -78,7 +62,7 @@ Cultural center «ArtSpace»
 
 2 November | 14:30
 
-### [Morozko](https://innopoliscinema.ru/en/films/morozko)
+### [Morozko](/raw/sites/innopoliscinema-ru/en-films-morozko.md)
 
 2026, Russia, 98 min., 6+
 
@@ -102,7 +86,7 @@ Russian
 
 2 November | 16:30
 
-### [The Tale of Lost Time](https://innopoliscinema.ru/en/films/skazka-o-poteryannom-vremeni)
+### [The Tale of Lost Time](/raw/sites/innopoliscinema-ru/en-films-skazka-o-poteryannom-vremeni.md)
 
 2026, Russia, 90 min., 6+
 
@@ -126,7 +110,7 @@ Russian
 
 2 November | 18:20
 
-### [Rise of the Empire](https://innopoliscinema.ru/en/films/rozhdenie-imperii)
+### [Rise of the Empire](/raw/sites/innopoliscinema-ru/en-films-rozhdenie-imperii.md)
 
 2026, Russia, 139 min., 12+
 
@@ -150,7 +134,7 @@ Russian
 
 2 November | 21:00
 
-### [Pranker](https://innopoliscinema.ru/en/films/pranker)
+### [Pranker](/raw/sites/innopoliscinema-ru/en-films-pranker.md)
 
 2026, Russia, 75 min., 18+
 
@@ -174,33 +158,17 @@ Russian
 
 ## Currently on screen
 
-[![](https://storage.yandexcloud.net/staticimages/images/21461/poster/default/e161cc35ab5aee7d994d3b988eb520913d8ec8b7.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=YCAJEMDk_rcI7HlRUnt-ZULAi%2F20261101%2Fru-central1%2Fs3%2Faws4_request&X-Amz-Date=20261101T223307Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=4ec6f74d7489ed6432d0c3a5b0b077e67b855e9272500b1919d06f0eafca5458)](https://innopoliscinema.ru/en/films/fjord) [Fjord](https://innopoliscinema.ru/en/films/fjord)
+[![](https://storage.yandexcloud.net/staticimages/images/21461/poster/default/e161cc35ab5aee7d994d3b988eb520913d8ec8b7.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=YCAJEMDk_rcI7HlRUnt-ZULAi%2F20261101%2Fru-central1%2Fs3%2Faws4_request&X-Amz-Date=20261101T223307Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=4ec6f74d7489ed6432d0c3a5b0b077e67b855e9272500b1919d06f0eafca5458)](/raw/sites/innopoliscinema-ru/en-films-fjord.md) [Fjord](/raw/sites/innopoliscinema-ru/en-films-fjord.md)
 
 [3 November](https://innopoliscinema.ru/en/dates/2026-11-03) 20:15
 
-[![](https://storage.yandexcloud.net/staticimages/images/21419/poster/default/d8012906ed0e2a59a1bc98e984fbae9e7d213ea7.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=YCAJEMDk_rcI7HlRUnt-ZULAi%2F20261101%2Fru-central1%2Fs3%2Faws4_request&X-Amz-Date=20261101T223307Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=6d1333ae0813f050f506866d7f3ff851842e449fd86994b8ab5cb7141bfd55d1)](https://innopoliscinema.ru/en/films/bitva-motorov) [Battle of Engines](https://innopoliscinema.ru/en/films/bitva-motorov)
+[![](https://storage.yandexcloud.net/staticimages/images/21419/poster/default/d8012906ed0e2a59a1bc98e984fbae9e7d213ea7.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=YCAJEMDk_rcI7HlRUnt-ZULAi%2F20261101%2Fru-central1%2Fs3%2Faws4_request&X-Amz-Date=20261101T223307Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=6d1333ae0813f050f506866d7f3ff851842e449fd86994b8ab5cb7141bfd55d1)](/raw/sites/innopoliscinema-ru/en-films-bitva-motorov.md) [Battle of Engines](/raw/sites/innopoliscinema-ru/en-films-bitva-motorov.md)
 
 [4 November](https://innopoliscinema.ru/en/dates/2026-11-04) 15:40
 
-[![](https://storage.yandexcloud.net/staticimages/images/21499/poster/default/01a20b29345e85cc56c64305ce09c9ba3d679fe9.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=YCAJEMDk_rcI7HlRUnt-ZULAi%2F20261101%2Fru-central1%2Fs3%2Faws4_request&X-Amz-Date=20261101T223307Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=bef59cc8b43e62c681a5a16239c1ec91f4622134ac1fee4912dc561c17966a06)](https://innopoliscinema.ru/en/films/wicker) [Wicker](https://innopoliscinema.ru/en/films/wicker)
+[![](https://storage.yandexcloud.net/staticimages/images/21499/poster/default/01a20b29345e85cc56c64305ce09c9ba3d679fe9.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=YCAJEMDk_rcI7HlRUnt-ZULAi%2F20261101%2Fru-central1%2Fs3%2Faws4_request&X-Amz-Date=20261101T223307Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=bef59cc8b43e62c681a5a16239c1ec91f4622134ac1fee4912dc561c17966a06)](/raw/sites/innopoliscinema-ru/en-films-wicker.md) [Wicker](/raw/sites/innopoliscinema-ru/en-films-wicker.md)
 
 [5 November](https://innopoliscinema.ru/en/dates/2026-11-05) 20:15
-
-[Subscribe to our newsletter](https://innopoliscinema.ru/en/newsletter)
-
-### Address
-
-Innopolis, Parkovaya str., 1,
-
-Cultural center «ArtSpace»
-
-[Show map](https://yandex.ru/maps/-/CCUYjMGBgB)
-
-### Phone number
-
-### Cinema Lounge Foundation
-
-Special events & projects
 
 _Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [/raw/sites/innopoliscinema-ru/_shared.md](/raw/sites/innopoliscinema-ru/_shared.md)._
 

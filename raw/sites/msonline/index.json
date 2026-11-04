@@ -1,5 +1,8 @@
 {
  "docs": {
+  "https://apply.innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%9F%D0%94%D0%BD%20%D0%B4%D0%BB%D1%8F%20%D0%A3%D0%98.pdf": "перcональных данных",
+  "https://innopolis.university/files/politicacookies.pdf": "Политика конфиденциальности",
+  "https://innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%9F%D0%94%D0%BD%20%D0%B4%D0%BB%D1%8F%20%D0%A3%D0%98.pdf": "Подробнее",
   "https://innopolis.university/upload/iblock/27a/nn127g88tdo27pjwt1468zdxvmionugp/%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_2025%2038.04.05_2025_%D0%A3%D0%BD%D0%9E%D0%94_%D0%A3%D0%9F_28102024_%D0%A1%D0%B0%D0%B9%D1%82.pdf": "Учебный план",
   "https://innopolis.university/upload/iblock/37b/9w9xlbogdmifglg25hspmdo6suf85afz/%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_2025_CS%20%D0%A3%D0%9F_28102024_%D0%A1%D0%B0%D0%B9%D1%82_28.10.2024.pdf": "Учебный план",
   "https://innopolis.university/upload/iblock/bac/skbidzq82sn9ugx5u44al04are90ze13/%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_2025_GD%20%D0%A3%D0%9F_28102024_%D0%A1%D0%B0%D0%B9%D1%82_28.10.2024.pdf": "Учебный план",
@@ -39,10 +42,10 @@
    "url": "https://msonline.innopolis.university/gamedev"
   },
   "home": {
-   "fetched_at": "2026-10-31T08:38:09+00:00",
-   "file_sha": "7942655190453e7c20260e4aa6b037846dc5a7d3274fcd4fd5438e0a6ce30275",
+   "fetched_at": "2026-11-04T12:48:12+00:00",
+   "file_sha": "57df57d7df0bb973b63ff70bcf0cd1260c4ecab5d1a2c71b971cadd8b786c4d0",
    "last_modified": "Fri, 26 Dec 2025 11:42:41 GMT",
-   "sha256": "c33e432e1aa98f8c8d52976d5bc998b16bdc329f715866077f1f9307d83d12ee",
+   "sha256": "52a17795153133d8c257265db06ea2add83beca64b9272e4244771c48dcbd11a",
    "title": "Онлайн-магистратура",
    "url": "https://msonline.innopolis.university/"
   }

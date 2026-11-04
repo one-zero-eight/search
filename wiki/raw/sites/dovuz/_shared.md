@@ -12,10 +12,10 @@ sources:
   - resource: "https://dovuz.innopolis.university/"
     id: "899060c665aa"
     title: "Общие блоки сайта dovuz.innopolis.university: меню, шапка, подвал, контакты"
-    last_modified: "2026-10-31T08:57:58+00:00"
+    last_modified: "2026-11-04T12:42:02+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-10-31T08:57:58+00:00"
+  at: "2026-11-04T12:42:02+00:00"
 status: draft
 ---
 
@@ -153,4 +153,4 @@ FAQ
 
 # Citations
 
-1. [dovuz.innopolis.university](https://dovuz.innopolis.university/), read 2026-10-31
+1. [dovuz.innopolis.university](https://dovuz.innopolis.university/), read 2026-11-04

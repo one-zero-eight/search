@@ -1,0 +1,16 @@
+{
+ "title": "Руководство пользователя [Руководство_пользователя_Реестр_Конструктор_ОПОП_2]",
+ "url": "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80_%D0%9A%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D0%BE%D1%80_%D0%9E%D0%9F%D0%9E%D0%9F_2.pdf",
+ "sha256": "dbf0215ca9e1fb2f5cd200383702ef789248f00896269a306028a47c84e99ff8",
+ "method": "text layer (opendataloader)",
+ "chars": 90350,
+ "tables": 5,
+ "section": "site/unionepro-ru",
+ "context": "",
+ "fetched_at": "2026-11-04T13:07:42+00:00",
+ "remote": {
+  "etag": "\"6a8be91e-e4138\"",
+  "modified": "Mon, 24 Aug 2026 06:47:58 GMT",
+  "size": "934200"
+ }
+}

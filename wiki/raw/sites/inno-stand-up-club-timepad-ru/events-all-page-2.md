@@ -82,153 +82,153 @@ status: draft
 
 ![](https://ucare.timepad.ru/ba8e4f06-d2d2-46cb-a4c0-4ac1245e4eae/-/preview/308x600/-/format/jpeg/poster_event_2867679.jpg)
 
-## [Stand Up шоу "Улица Парковая"](https://inno-stand-up-club.timepad.ru/event/2867679/)
+## [Stand Up шоу "Улица Парковая"](/raw/sites/inno-stand-up-club-timepad-ru/event-2867679.md)
 
 Иннополис 3 мая 2024 c 19:00 до 20:00, 913 дней назад
 
 Вечер комедии от Inno Stand Up Club
 
-[Далее](https://inno-stand-up-club.timepad.ru/event/2867679/)
+[Далее](/raw/sites/inno-stand-up-club-timepad-ru/event-2867679.md)
 
 ![](https://ucare.timepad.ru/ba65bc4f-1dbe-400c-b633-63331ffe8840/-/preview/308x600/-/format/jpeg/poster_event_2835574.jpg)
 
-## [Stand Up шоу "Улица Неспортивная"](https://inno-stand-up-club.timepad.ru/event/2835574/)
+## [Stand Up шоу "Улица Неспортивная"](/raw/sites/inno-stand-up-club-timepad-ru/event-2835574.md)
 
 5 апреля 2024 c 19:00 до 20:00, 941 день назад
 
 Вечер комедии от Inno Stand Up Club
 
-[Далее](https://inno-stand-up-club.timepad.ru/event/2835574/)
+[Далее](/raw/sites/inno-stand-up-club-timepad-ru/event-2835574.md)
 
 ![](https://ucare.timepad.ru/1cd5c04d-e862-4088-937d-fea551db3608/-/preview/308x600/-/format/jpeg/poster_event_2818116.jpg)
 
-## [Открытый микрофон](https://inno-stand-up-club.timepad.ru/event/2818116/)
+## [Открытый микрофон](/raw/sites/inno-stand-up-club-timepad-ru/event-2818116.md)
 
 Иннополис 21 марта 2024 c 19:00 до 20:00, 956 дней назад
 
 Вечер комедии от Inno Stand Up Club
 
-[Далее](https://inno-stand-up-club.timepad.ru/event/2818116/)
+[Далее](/raw/sites/inno-stand-up-club-timepad-ru/event-2818116.md)
 
 ![](https://ucare.timepad.ru/bf502913-d44a-4bef-abff-a4aa5f902a84/-/preview/308x600/-/format/jpeg/poster_event_2804289.jpg)
 
-## [Stand Up шоу](https://inno-stand-up-club.timepad.ru/event/2804289/)
+## [Stand Up шоу](/raw/sites/inno-stand-up-club-timepad-ru/event-2804289.md)
 
 Иннополис 7 марта 2024 c 19:00 до 20:00, 970 дней назад
 
 Вечер комедии от Inno Stand Up Club
 
-[Далее](https://inno-stand-up-club.timepad.ru/event/2804289/)
+[Далее](/raw/sites/inno-stand-up-club-timepad-ru/event-2804289.md)
 
 ![](https://ucare.timepad.ru/f8f69eef-c01f-4f01-824c-e9e8799750c2/-/preview/308x600/-/format/jpeg/poster_event_2761635.jpg)
 
-## [Stand Up шоу](https://inno-stand-up-club.timepad.ru/event/2761635/)
+## [Stand Up шоу](/raw/sites/inno-stand-up-club-timepad-ru/event-2761635.md)
 
 Иннополис 2 февраля 2024 c 19:00 до 20:00, 1004 дня назад
 
 Вечер комедии от Inno Stand Up Club
 
-[Далее](https://inno-stand-up-club.timepad.ru/event/2761635/)
+[Далее](/raw/sites/inno-stand-up-club-timepad-ru/event-2761635.md)
 
 ![](https://ucare.timepad.ru/43f9f9ed-9c16-4b56-a197-3c2c849cb556/-/preview/308x600/-/format/jpeg/poster_event_2709961.jpg)
 
-## [Шоу презентаций](https://inno-stand-up-club.timepad.ru/event/2709961/)
+## [Шоу презентаций](/raw/sites/inno-stand-up-club-timepad-ru/event-2709961.md)
 
 Иннополис 13 декабря 2023 c 19:00 до 20:00, 1055 дней назад
 
 Неприлично веселый огонек: Вечер комедии от Inno Stand Up Club в формате презентаций
 
-[Далее](https://inno-stand-up-club.timepad.ru/event/2709961/)
+[Далее](/raw/sites/inno-stand-up-club-timepad-ru/event-2709961.md)
 
 ![](https://ucare.timepad.ru/9ebb5201-c76c-482b-a507-80b860728d54/-/preview/308x600/-/format/jpeg/poster_event_2680823.jpg)
 
-## [Стендап концерт "Молодой Преподаватель"](https://inno-stand-up-club.timepad.ru/event/2680823/)
+## [Стендап концерт "Молодой Преподаватель"](/raw/sites/inno-stand-up-club-timepad-ru/event-2680823.md)
 
 Иннополис 23 ноября 2023 c 19:00 до 20:00, 1075 дней назад
 
 Сольный стендап концерт Альберта Шада
 
-[Далее](https://inno-stand-up-club.timepad.ru/event/2680823/)
+[Далее](/raw/sites/inno-stand-up-club-timepad-ru/event-2680823.md)
 
 ![](https://ucare.timepad.ru/6ab6ac7f-b8a2-4d87-abda-193b42c06b11/-/preview/308x600/-/format/jpeg/poster_event_2638148.jpg)
 
-## [Благотворительный Stand Up](https://inno-stand-up-club.timepad.ru/event/2638148/)
+## [Благотворительный Stand Up](/raw/sites/inno-stand-up-club-timepad-ru/event-2638148.md)
 
 Иннополис 27 октября 2023 c 19:00 до 20:00, 1102 дня назад
 
 Вечер комедии от Inno Stand Up Club
 
-[Далее](https://inno-stand-up-club.timepad.ru/event/2638148/)
+[Далее](/raw/sites/inno-stand-up-club-timepad-ru/event-2638148.md)
 
 ![](https://ucare.timepad.ru/54630e27-1dcd-4203-a0b2-94811467ef5d/-/preview/308x600/-/format/jpeg/poster_event_2599984.jpg)
 
-## [Открытый микрофон](https://inno-stand-up-club.timepad.ru/event/2599984/)
+## [Открытый микрофон](/raw/sites/inno-stand-up-club-timepad-ru/event-2599984.md)
 
 Иннополис 29 сентября 2023 c 19:00 до 20:00, 1130 дней назад
 
 Вечер комедии от Inno Stand Up Club
 
-[Далее](https://inno-stand-up-club.timepad.ru/event/2599984/)
+[Далее](/raw/sites/inno-stand-up-club-timepad-ru/event-2599984.md)
 
 ![](https://ucare.timepad.ru/ecd1ae7f-1e78-4a9b-bf7e-285551c7f0ba/-/preview/308x600/-/format/jpeg/poster_event_2558807.jpg)
 
-## [Stand Up шоу](https://inno-stand-up-club.timepad.ru/event/2558807/)
+## [Stand Up шоу](/raw/sites/inno-stand-up-club-timepad-ru/event-2558807.md)
 
 Иннополис 31 августа 2023 c 19:00 до 20:00, 1159 дней назад
 
 Вечер комедии от Inno Stand Up Club
 
-[Далее](https://inno-stand-up-club.timepad.ru/event/2558807/)
+[Далее](/raw/sites/inno-stand-up-club-timepad-ru/event-2558807.md)
 
 ![](https://ucare.timepad.ru/02342a05-59ae-4962-9d19-637e4f1916c2/-/preview/308x600/-/format/jpeg/poster_event_2478627.jpg)
 
-## [Stand Up шоу](https://inno-stand-up-club.timepad.ru/event/2478627/)
+## [Stand Up шоу](/raw/sites/inno-stand-up-club-timepad-ru/event-2478627.md)
 
 Иннополис 29 июня 2023 c 19:00 до 20:00, 1222 дня назад
 
 Вечер комедии от Inno Stand Up Club
 
-[Далее](https://inno-stand-up-club.timepad.ru/event/2478627/)
+[Далее](/raw/sites/inno-stand-up-club-timepad-ru/event-2478627.md)
 
 ![](https://ucare.timepad.ru/d0de1198-3cec-4562-9e9e-e5cee75aff35/-/preview/308x600/-/format/jpeg/poster_event_2445517.jpg)
 
-## [Stand Up шоу](https://inno-stand-up-club.timepad.ru/event/2445517/)
+## [Stand Up шоу](/raw/sites/inno-stand-up-club-timepad-ru/event-2445517.md)
 
 Иннополис 31 мая 2023 c 19:00 до 20:00, 1251 день назад
 
 Вечер комедии от Inno Stand Up Club
 
-[Далее](https://inno-stand-up-club.timepad.ru/event/2445517/)
+[Далее](/raw/sites/inno-stand-up-club-timepad-ru/event-2445517.md)
 
 ![](https://ucare.timepad.ru/a25bc4f1-5ce4-40bc-91f6-c7e7300da75d/-/preview/308x600/-/format/jpeg/poster_event_2404297.jpg)
 
-## [Шоу презентаций](https://inno-stand-up-club.timepad.ru/event/2404297/)
+## [Шоу презентаций](/raw/sites/inno-stand-up-club-timepad-ru/event-2404297.md)
 
 Иннополис 27 апреля 2023 c 19:00 до 20:00, 1285 дней назад
 
 Шутки кончились: Вечер комедии от Inno Stand Up Club
 
-[Далее](https://inno-stand-up-club.timepad.ru/event/2404297/)
+[Далее](/raw/sites/inno-stand-up-club-timepad-ru/event-2404297.md)
 
 ![](https://ucare.timepad.ru/eb77953d-1467-4fff-8497-7767fe9f1407/-/preview/308x600/-/format/jpeg/poster_event_2360642.jpg)
 
-## [Stand Up шоу](https://inno-stand-up-club.timepad.ru/event/2360642/)
+## [Stand Up шоу](/raw/sites/inno-stand-up-club-timepad-ru/event-2360642.md)
 
 Иннополис 23 марта 2023 c 19:00 до 20:00, 1320 дней назад
 
 Вечер комедии от Inno Stand Up Club
 
-[Далее](https://inno-stand-up-club.timepad.ru/event/2360642/)
+[Далее](/raw/sites/inno-stand-up-club-timepad-ru/event-2360642.md)
 
 ![](https://ucare.timepad.ru/054ec40d-b60c-4ced-b277-457fd6479845/-/preview/308x600/-/format/jpeg/poster_event_2325314.jpg)
 
-## [Stand Up шоу](https://inno-stand-up-club.timepad.ru/event/2325314/)
+## [Stand Up шоу](/raw/sites/inno-stand-up-club-timepad-ru/event-2325314.md)
 
 Иннополис 16 февраля 2023 c 19:00 до 20:00, 1355 дней назад
 
 Вечер комедии от Inno Stand Up Club
 
-[Далее](https://inno-stand-up-club.timepad.ru/event/2325314/)
+[Далее](/raw/sites/inno-stand-up-club-timepad-ru/event-2325314.md)
 
 [1](https://inno-stand-up-club.timepad.ru/events/all/page/1/)2[3](/raw/sites/inno-stand-up-club-timepad-ru/events-all-page-3.md)
 

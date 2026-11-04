@@ -2,6 +2,7 @@
  "docs": {
   "https://dovuz.innopolis.university/public/files/IO%20in%20Maths-2022%20Finals.pdf": "https://dovuz.innopolis.university/public/files/IO%20in%20Maths-2022%20Finals.pdf",
   "https://dovuz.innopolis.university/public/files/io-math-3-1.pdf": "ссылке",
+  "https://innopolis.university/files/politicacookies.pdf": "Политика конфиденциальности",
   "https://innopolis.university/filespublic/%D0%A4%D0%B8%D0%BD%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D1%8B.pdf": "77",
   "https://innopolis.university/filespublic/Industrial_Robotics_Market_Research_2025.pdf": "Читать исследование",
   "https://innopolis.university/filespublic/Potrebnost_v_IT_specialistah_1_polugodie_2023.pdf": "Скачать",
@@ -20,6 +21,8 @@
   "https://lk-dovuz.innopolis.university/public/files/results_IOM_24-25.pdf": "Результаты",
   "https://media.innopolis.university/files/%D0%90%D0%BD%D0%BA%D0%B5%D1%82%D0%B0_2016.doc": "ссылке",
   "https://media.innopolis.university/files/%D0%98%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D0%BB%D0%B8%D1%81%202016%20%D0%BF%D1%80%D0%B5%D0%B4%D0%B2%D0%B0%D1%80.%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0.pdf": "ссылке",
+  "https://media.innopolis.university/files/events/InnoSimulatorPresentation_correct.pdf": "Презентация Innopolis Simulation",
+  "https://media.innopolis.university/files/events/payment-order1.docx": "Ссылка",
   "https://media.innopolis.university/files/news/info.pdf": "Инфографика в большом разрешении",
   "https://media.innopolis.university/files/news/polozhenie.doc": "Порядок проведения конкурса.",
   "https://media.innopolis.university/public/files/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%9F%D0%94%D0%BD%20%D0%B4%D0%BB%D1%8F%20%D0%A3%D0%98.pdf": "условиями использования",
@@ -59,6 +62,14 @@
    "title": "Бесплатная летняя школа подготовки к олимпиадам для 8–10 классов «Август. Математика. Информатика»",
    "url": "https://media.innopolis.university/events/besplatnaya-letnyaya-shkola-podgotovki-k-olimpiadam-dlya-8-10-klassov-avgust-matematika-informatika/"
   },
+  "events-bolshaya-yarmarka-vakansiy": {
+   "fetched_at": "2026-11-04T13:07:52+00:00",
+   "file_sha": "fcb27fcb6600a0bb7ccb67adf9d7a408e5f6951f3b68e19978cdec31f4553af1",
+   "last_modified": "",
+   "sha256": "ea237b1530695a655a73c496cf228c6ca184b3fa403b3af81d45e9077e5c3570",
+   "title": "Большая ярмарка вакансий",
+   "url": "https://media.innopolis.university/events/bolshaya-yarmarka-vakansiy/"
+  },
   "events-budushchee-tsifrovykh-professiy": {
    "fetched_at": "2026-10-31T02:28:11+00:00",
    "file_sha": "eed07a296bff6c21ad988945bcb045765fa278b6a3ecfbc3e0b78026b8c63069",
@@ -90,6 +101,22 @@
    "sha256": "f90a1623d820021d72194bfe6884b3f74c0e5b5e67fa6e204bfe86dc9c02e32a",
    "title": "Финал олимпиады НТИ по профилю «Интеллектуальные робототехнические системы (студенческий трек)»",
    "url": "https://media.innopolis.university/events/final-olimpiady-nti-po-profilyu-intellektualnye-robototekhnicheskie-sistemy-studencheskiy-trek-/"
+  },
+  "events-innopolis-simulator-simulyator-dlya-avtonomnykh-podvi": {
+   "fetched_at": "2026-11-04T13:07:54+00:00",
+   "file_sha": "9e2cf17c547d66d03d9d3ef56e0f7791af6d3c2924601c4b684af2c6920a030e",
+   "last_modified": "",
+   "sha256": "3520885501b83f16158443eec206c9e2d8c53b43247bf53e342e19d6b1b64292",
+   "title": "Innopolis Simulator - симулятор для автономных подвижных объектов, разработанный на основе Unity 3D",
+   "url": "https://media.innopolis.university/events/innopolis-simulator-simulyator-dlya-avtonomnykh-podvizhnykh-obektov-razrabotannyy-na-osnove-unity-3d/"
+  },
+  "events-innothon": {
+   "fetched_at": "2026-11-04T12:37:40+00:00",
+   "file_sha": "f39aa0268e6ec1c3fcfe793696820d9995507c39b6420b5d2bb4cc26025b40dd",
+   "last_modified": "",
+   "sha256": "57900170bbbe25e0296c2304b57f5dde0b3d4c7e0b1785e47086d63ecb614556",
+   "title": "Innothon",
+   "url": "https://media.innopolis.university/events/innothon/"
   },
   "events-intensiv-ege-online": {
    "fetched_at": "2026-10-31T02:28:39+00:00",
@@ -139,6 +166,22 @@
    "title": "Каким айтишником вы станете в 2024 году?",
    "url": "https://media.innopolis.university/events/kakim-aytishnikom-vy-stanete-v-2024-godu/"
   },
+  "events-koshmary-ilona-maska-opasnost-i-prepyatstviya-osvoeni": {
+   "fetched_at": "2026-11-04T13:07:56+00:00",
+   "file_sha": "a27ff0ca90160146fbacd7d5727cbed01e125594e557a73891b54a8df80c07bc",
+   "last_modified": "",
+   "sha256": "c439365589277368d51766448f1f4b96259493258d35c28101e2731f88e7b03d",
+   "title": "Мероприятия Университета Иннополис",
+   "url": "https://media.innopolis.university/events/koshmary-ilona-maska-opasnost-i-prepyatstviya-osvoeniya-marsa/"
+  },
+  "events-kruglyy-stol-na-temu-sozdaniya-tsentra-kompetentsiy-p": {
+   "fetched_at": "2026-11-04T13:07:58+00:00",
+   "file_sha": "4fa4fe9f7bb423227609fe8320dc597b634305084207fe294d0633eea05fc47b",
+   "last_modified": "",
+   "sha256": "6489c81bd7abe07f8f5f55ba12c5a2f6bcfd7bf25277eb033aa5feb1bf80b9d5",
+   "title": "Круглый стол на тему создания Центра компетенций по робототехнике, мехатронике и сенсорике",
+   "url": "https://media.innopolis.university/events/kruglyy-stol-na-temu-sozdaniya-tsentra-kompetentsiy-po-robototekhnike-mekhatronike-i-sensorike/"
+  },
   "events-letnie-onlayn-intensivy-po-it-dlya-shkolnikov": {
    "fetched_at": "2026-10-31T02:28:44+00:00",
    "file_sha": "07d41e3ba05dc0afab88e2df3607ff7e09427a917c92aa142371bc1cb4189bac",
@@ -170,6 +213,14 @@
    "sha256": "6344f1930a7c253ac2610c886e46f499b65d764de54610c85436011f54a832a0",
    "title": "Международная олимпиада Innopolis Open по профилю «Информатика»",
    "url": "https://media.innopolis.university/events/mezhdunarodnaya-olimpiada-innopolis-open-po-profilyu-informatika/"
+  },
+  "events-mitap-dlya-tekhnicheskikh-pisateley-analitikov-i-razr": {
+   "fetched_at": "2026-11-04T13:08:01+00:00",
+   "file_sha": "3b9bed9f8212b0fbeba6781730a53b9256ad58ce70205828433b2e513cc5e8ba",
+   "last_modified": "",
+   "sha256": "612fc42ac1971afa2017249f2a089f6cb53fbdf825a7b4187d16cf92229a3623",
+   "title": "Митап для технических писателей, аналитиков и разработчиков документации",
+   "url": "https://media.innopolis.university/events/mitap-dlya-tekhnicheskikh-pisateley-analitikov-i-razrabotchikov-dokumentatsii/"
   },
   "events-mitap-v-ramkakh-kursa-fullstack-razrabotchik-na-javas": {
    "fetched_at": "2026-10-31T02:28:42+00:00",
@@ -291,6 +342,14 @@
    "title": "Создание веб-приложения для заметок на Spring Boot",
    "url": "https://media.innopolis.university/events/sozdanie-veb-prilozheniya-dlya-zametok/"
   },
+  "events-startup-day": {
+   "fetched_at": "2026-11-04T13:08:03+00:00",
+   "file_sha": "6469525fe14392a060e1feee4c3252c4c890c98124c530042b78ac8997b0cce4",
+   "last_modified": "",
+   "sha256": "3d6e36c587f754864584325ea66879db7270ca4e041c28dc4c23d360edc1965e",
+   "title": "Startup Day",
+   "url": "https://media.innopolis.university/events/startup-day/"
+  },
   "events-strategiya-tsifrovoy-transformatsii-vuza": {
    "fetched_at": "2026-10-31T02:28:13+00:00",
    "file_sha": "007eb05d66095f7dd0a540c0c2107e485d19356ee5bad8e2bef4efb19c70f983",
@@ -356,10 +415,10 @@
    "url": "https://media.innopolis.university/events/webinar-tsifrovaya-transformatsiya-vuza/"
   },
   "home": {
-   "fetched_at": "2026-10-31T01:20:16+00:00",
-   "file_sha": "829eef4b7c47f942ee32ba7693f077e7e8b64bb814cf845f854c4e82687c325f",
+   "fetched_at": "2026-11-04T12:37:28+00:00",
+   "file_sha": "1b7cc2b71bfaeb6da3f2d989bb9fc2af4cc51dc3ea400df035a4e423f510e547",
    "last_modified": "",
-   "sha256": "60d266454ddc007d271a00c740373cdac1c6130ddb647828a97841dae5180998",
+   "sha256": "87370f666d12ee7884e5140355eb61ca34abd5e19972825c5fbdfcd43daf57bd",
    "title": "Новости Университета Иннополис",
    "url": "https://media.innopolis.university/"
   },
@@ -1123,6 +1182,14 @@
    "title": "Университет Иннополис и Innostage объединяют усилия для подготовки ИТ-кадров в Татарстане",
    "url": "https://media.innopolis.university/news/agreement-with-Innostage-2025/"
   },
+  "news-agreement-with-moscow-cluster-kdw-2026": {
+   "fetched_at": "2026-11-04T12:37:38+00:00",
+   "file_sha": "10e5db518ae1b17a6f7bdb2cf11d122fb6eddbf7c3bbbb7bb5d78a6411455e7b",
+   "last_modified": "",
+   "sha256": "3365d933e295961d9a152f8ff9eb41c7b5d0209413b82e7c9fea566b96e346e4",
+   "title": "Университет Иннополис проведёт технологические аудиты и окажет экспертную поддержку московским предприятиям",
+   "url": "https://media.innopolis.university/news/agreement-with-moscow-cluster-kdw-2026/"
+  },
   "news-agreement-with-pozis": {
    "fetched_at": "2026-10-31T03:48:02+00:00",
    "file_sha": "67485121286a98312ebe1fabdaf055298231b61ea8a58298ebb789e07f6b0892",
@@ -1146,6 +1213,14 @@
    "sha256": "15d8e6502286f334c28daf2838ae464e9e7dcfdb3bbc4bee2848966ac2dbacd3",
    "title": "Университет Иннополис и Фонд русско-арабских исследований и информации договорились о партнёрстве в науке и образовании",
    "url": "https://media.innopolis.university/news/agreement-with-russian-arabic-studies-foundation/"
+  },
+  "news-agreement-with-transport-ministry-kdw-2026": {
+   "fetched_at": "2026-11-04T12:37:35+00:00",
+   "file_sha": "a3a6f5caf68ed795721bd4d105738b1fe222f89a0808f871a3d44c8bd3521dcb",
+   "last_modified": "",
+   "sha256": "dcd2cafe86eabb05179ef3a680fe888c7cb36e1a6a33bd016fa9909fc80ad6c7",
+   "title": "Университет Иннополис и Минтранс РТ будут внедрять беспилотные и ИИ-системы в транспортную отрасль региона",
+   "url": "https://media.innopolis.university/news/agreement-with-transport-ministry-kdw-2026/"
   },
   "news-agreement-with-udst": {
    "fetched_at": "2026-10-31T04:06:39+00:00",
@@ -3395,6 +3470,14 @@
    "title": "День учителя",
    "url": "https://media.innopolis.university/news/den-uchitelya/"
   },
+  "news-detail-php": {
+   "fetched_at": "2026-11-04T13:08:05+00:00",
+   "file_sha": "65091ebef83827515da7089c605aa8ae63c29435fd81ee71b735f0b519f22b24",
+   "last_modified": "",
+   "sha256": "20f6fecd4edae51e78d00ce0d2b4b91071421ab8e0ff75f8b3d21f65b50daa91",
+   "title": "Новости Университета Иннополис",
+   "url": "https://media.innopolis.university/news/detail.php"
+  },
   "news-development-of-medical-prototype": {
    "fetched_at": "2026-10-31T03:48:07+00:00",
    "file_sha": "e8f6083a3a51ca17ae856be793a5eb509ffede57d6efff68346ab22d6e89fa2a",
@@ -5082,6 +5165,14 @@
    "sha256": "65b49e373b2ce33d2f00cd076218e9a3d46f578053e6c3df0b26228bea58f687",
    "title": "Для российских учителей Университет Иннополис проведёт бесплатные интенсивы по программированию и математической олимпиаде",
    "url": "https://media.innopolis.university/news/free-webinars-for-teachers/"
+  },
+  "news-free-webinars-november-2026": {
+   "fetched_at": "2026-11-04T12:37:33+00:00",
+   "file_sha": "99f6b6ce99676fdb46b4160efb1a06d99b5c0eabdc3fddd11884f7d6542e3d6f",
+   "last_modified": "",
+   "sha256": "c4c5b7aa64d2caa6bae0bfa013b299f8ca2746e9e5fba763a6d784bc8ad1f41a",
+   "title": "Университет Иннополис анонсировал бесплатные ноябрьские мастер-классы и вебинары по программированию, робототехнике и математике",
+   "url": "https://media.innopolis.university/news/free-webinars-november-2026/"
   },
   "news-free-webinars-october-2026": {
    "fetched_at": "2026-10-31T02:29:39+00:00",
@@ -8635,6 +8726,14 @@
    "title": "Университет Иннополис разработает для Минпромторга РФ сервис на основе ИИ для поиска продукции",
    "url": "https://media.innopolis.university/news/iu-minpromtorg-rf-ai/"
   },
+  "news-iu-mirzo-ulugbek-innovation-center": {
+   "fetched_at": "2026-11-04T12:37:43+00:00",
+   "file_sha": "1d2e2c0e5d9115a9c4d42d45aafe89c0277c3eb1a595164be44c2428a0800f29",
+   "last_modified": "",
+   "sha256": "ebbf12d960e24c5c626c472599ae2153bd2de25af4ebe41ecf68d6b6acbd446d",
+   "title": "Университет Иннополис и Инновационный центр Mirzo Ulugbek Innovation Center подписали меморандум о взаимопонимании",
+   "url": "https://media.innopolis.university/news/iu-mirzo-ulugbek-innovation-center/"
+  },
   "news-iu-mospolytech": {
    "fetched_at": "2026-10-31T02:15:02+00:00",
    "file_sha": "f7efb2aca223c389f7cd63ec2e99f64db41a5fe643f1ecfa6041db3509a4d7fa",
@@ -11098,6 +11197,14 @@
    "sha256": "5117d16c17942de64c629215619328019e0350d7fb8c5749c04dce25a5f7a7de",
    "title": "Опорный образовательный центр организует очные интенсивы для преподавателей региональных вузов России",
    "url": "https://media.innopolis.university/news/opornyy-obrazovatelnyy-tsentr-organizuet-ochnye-intensivy-dlya-prepodavateley-regionalnykh-vuzov-ros/"
+  },
+  "news-optimization-with-ai-course": {
+   "fetched_at": "2026-11-04T12:37:31+00:00",
+   "file_sha": "707fa06682d7b78752f09f2b716d8ceb30223f588bd21964fe7815ca5ca4e4de",
+   "last_modified": "",
+   "sha256": "8fd2be1bb92ed16c3bf6993a2b29e305c700612178fabd3b0d4a91c09d01ff3e",
+   "title": "Университет Иннополис открыл набор на курс по оптимизации рабочей рутины с помощью ИИ",
+   "url": "https://media.innopolis.university/news/optimization-with-ai-course/"
   },
   "news-opublikovan-tretiy-vypusk-daydzhesta-o-tsifrovizatsii-v": {
    "fetched_at": "2026-10-31T02:22:00+00:00",

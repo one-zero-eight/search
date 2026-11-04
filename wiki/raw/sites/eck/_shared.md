@@ -12,10 +12,10 @@ sources:
   - resource: "https://eck.innopolis.university/"
     id: "6e84e3efe255"
     title: "Общие блоки сайта eck.innopolis.university: меню, шапка, подвал, контакты"
-    last_modified: "2026-11-01T22:29:47+00:00"
+    last_modified: "2026-11-04T12:50:31+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-11-01T22:29:47+00:00"
+  at: "2026-11-04T12:50:31+00:00"
 status: draft
 ---
 
@@ -111,4 +111,4 @@ eck@innopolis.ru
 
 # Citations
 
-1. [eck.innopolis.university](https://eck.innopolis.university/), read 2026-11-01
+1. [eck.innopolis.university](https://eck.innopolis.university/), read 2026-11-04

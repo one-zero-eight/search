@@ -384,7 +384,7 @@ ru.saduov@innopolis.ru
 
 e.rybakova@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/5e0/01jawn1zksg60qwk5rhmlpjovhyx1ncz/407398_Положение_о_Правовом_управлении.zip)
+[Положение](/raw/regulations/site-university-0047f3a7-407398-polozhenie-o-pravovom-upravlenii.md)
 
 Отдел договорной и корпоративной работы
 
@@ -402,7 +402,7 @@ a.bannikova@innopolis.ru
 
 429
 
-[Положение](https://innopolis.university/upload/iblock/b7e/09uvh3vh114jn82qnkr488w095hmulxi/407398_Положение_об_Отделе_договорной_и_корпоративной_работы.zip)
+[Положение](/raw/regulations/site-university-dae04d99-407398-polozhenie-ob-otdele-dogovornoy-i.md)
 
 Отдел правового сопровождения образовательной деятельности
 
@@ -416,7 +416,7 @@ a.bannikova@innopolis.ru
 
 o.satonina@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/12d/gk1epkofzgqce792xxww7599lgs33v6u/407398_Положение_об_отделе_правового_сопровождения_образовательной.zip)
+[Положение](/raw/regulations/site-university-63c9963b-407398-polozhenie-ob-otdele-pravovogo-so.md)
 
 Отдел корпоративной безопасности
 
@@ -3142,7 +3142,7 @@ e.akhunova@innopolis.ru
 
 a.khasanova@innopolis.ru
 
-[Положение](https://innopolis.university/upload/iblock/349/65wz1vhb1js72k1qrxye1te7ynajvhec/Центр_развития_персонала_и_корпоративной_культуры.zip)
+[Положение](/raw/regulations/site-university-e745658a-tsentr-razvitiya-personala-i-korporativn.md)
 
 Школа физической культуры и ЗОЖ
 

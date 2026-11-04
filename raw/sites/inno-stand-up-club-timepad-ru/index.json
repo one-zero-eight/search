@@ -1,6 +1,222 @@
 {
  "docs": {},
  "pages": {
+  "event-1735846": {
+   "fetched_at": "2026-11-04T12:51:09+00:00",
+   "file_sha": "62a8a445ab1e9e1587d801f8f8bb8984189586e8a1493265d8cc1f9c7cc0508a",
+   "last_modified": "",
+   "sha256": "f22d9f09ef63d75c515e8a3a88d807bc8a99ef0e590696e058eeaba3b37b1e18",
+   "title": "Открытый микрофон",
+   "url": "https://inno-stand-up-club.timepad.ru/event/1735846/"
+  },
+  "event-1749709": {
+   "fetched_at": "2026-11-04T12:51:49+00:00",
+   "file_sha": "71761d1290d15f8244cbabb8b663ce360f4f2507d61aa71fe73702c1e8b0ed64",
+   "last_modified": "",
+   "sha256": "7ee6935aa374d17dea32cdaa968c53ebbee0c51668b84dc39d603f80e0715944",
+   "title": "Stand Up шоу",
+   "url": "https://inno-stand-up-club.timepad.ru/event/1749709/"
+  },
+  "event-1865887": {
+   "fetched_at": "2026-11-04T12:51:58+00:00",
+   "file_sha": "f7ab9068fd4d5ad40e0cb08aa917fc9338d03557252cb7e8277aabadb00fd96b",
+   "last_modified": "",
+   "sha256": "f012a874567f9f6b8726621d3703ef77f92f0f70a436004ef46a3309fd6fd63b",
+   "title": "Stand Up шоу",
+   "url": "https://inno-stand-up-club.timepad.ru/event/1865887/"
+  },
+  "event-1907832": {
+   "fetched_at": "2026-11-04T12:52:17+00:00",
+   "file_sha": "1d765333d99f2052c5a9e3500bee186c7557abc47539df6c97156c4d66acbb65",
+   "last_modified": "",
+   "sha256": "cae97f20202b410d99f2c612187b165e108baace38eed100389dbc0c81ffdb39",
+   "title": "Открытый микрофон",
+   "url": "https://inno-stand-up-club.timepad.ru/event/1907832/"
+  },
+  "event-1985560": {
+   "fetched_at": "2026-11-04T12:52:57+00:00",
+   "file_sha": "7b04a589cf766d09db98c91644d0222d9973983f253d6b2bbfa30f99e46601b4",
+   "last_modified": "",
+   "sha256": "e17033b463fda0c0b495b760374dc004b1d2bbd94c5b280148169235973e0b6d",
+   "title": "Большое Stand Up шоу",
+   "url": "https://inno-stand-up-club.timepad.ru/event/1985560/"
+  },
+  "event-2023756": {
+   "fetched_at": "2026-11-04T12:53:06+00:00",
+   "file_sha": "8350cd9ed8f292ad3be3a3b3c877c59af91ccfb9d62707c148f60776c2af30e5",
+   "last_modified": "",
+   "sha256": "e2a88eee6d85e68978d9ff358e266e9393ebed7075112e481a6336ab0c930287",
+   "title": "Stand Up шоу",
+   "url": "https://inno-stand-up-club.timepad.ru/event/2023756/"
+  },
+  "event-2066888": {
+   "fetched_at": "2026-11-04T12:53:20+00:00",
+   "file_sha": "1177302153a4530a9dfac42680c0d6b1bd0be1b851ba61bbc618eb182f8c6378",
+   "last_modified": "",
+   "sha256": "539c7bdc15f865327a4426e1df2ae5e47a7ed274f3a93f3ba3b8060df390daa9",
+   "title": "Stand Up шоу",
+   "url": "https://inno-stand-up-club.timepad.ru/event/2066888/"
+  },
+  "event-2128418": {
+   "fetched_at": "2026-11-04T12:53:29+00:00",
+   "file_sha": "7009cefac83fb0acec31cd8ec44e93ba7ffb54c45ca82e19bca55733268814da",
+   "last_modified": "",
+   "sha256": "8dbdf4a119335945f9910f2c10baeb01ac3f835bd9f84f84bc6fede50a01e1a7",
+   "title": "Stand Up шоу на крыше",
+   "url": "https://inno-stand-up-club.timepad.ru/event/2128418/"
+  },
+  "event-2167438": {
+   "fetched_at": "2026-11-04T12:53:48+00:00",
+   "file_sha": "13c772b2397fac9e0b800356566f2970dc98335acf7383c9201ca71208b9cb33",
+   "last_modified": "",
+   "sha256": "b5ae5435eeab6583ead9609aa6eebecc7a4c53e522aa5a57b03faccb63dddcef",
+   "title": "Открытый микрофон",
+   "url": "https://inno-stand-up-club.timepad.ru/event/2167438/"
+  },
+  "event-2245035": {
+   "fetched_at": "2026-11-04T12:53:57+00:00",
+   "file_sha": "dcadb81169df727e8ddb08b153e3e2163e83d55aff39c3e5ffe6997495a941cf",
+   "last_modified": "",
+   "sha256": "4cd0541afb6a8de6f489ba5237a5562a83799465f52395471c1253fd820e1742",
+   "title": "Stand Up шоу",
+   "url": "https://inno-stand-up-club.timepad.ru/event/2245035/"
+  },
+  "event-2270850": {
+   "fetched_at": "2026-11-04T12:54:11+00:00",
+   "file_sha": "30a73284f054b6abd3dae6c5bb423034c0006f5daf9bb3e81e4a0cc60b975572",
+   "last_modified": "",
+   "sha256": "c14b5ee94669f26add3112516776771ca1e4d283ab287ef255e3b0e18114cef9",
+   "title": "Новогодний Stand Up",
+   "url": "https://inno-stand-up-club.timepad.ru/event/2270850/"
+  },
+  "event-2303140": {
+   "fetched_at": "2026-11-04T12:54:30+00:00",
+   "file_sha": "bd352b6d7ef31336d08ee447199862a678514bd5b378fa8e4b2327291d0ce9f2",
+   "last_modified": "",
+   "sha256": "76684420c69f375c9cc14b36e7ff7cb07ae9ae9ab01f89b8e29913c491017086",
+   "title": "Stand Up на двоих",
+   "url": "https://inno-stand-up-club.timepad.ru/event/2303140/"
+  },
+  "event-2325314": {
+   "fetched_at": "2026-11-04T12:54:39+00:00",
+   "file_sha": "838f932e2726e6593478abd0a396ac6e9a460f76f6a60410bba46d0943cf9b75",
+   "last_modified": "",
+   "sha256": "79a40db32d1ca1c0a04438bfc06c072ee90a6c4f67a7504ed205a3092869c4d6",
+   "title": "Stand Up шоу",
+   "url": "https://inno-stand-up-club.timepad.ru/event/2325314/"
+  },
+  "event-2360642": {
+   "fetched_at": "2026-11-04T12:54:53+00:00",
+   "file_sha": "f18c9e823fa8d82d14620ec31fd21fec5e9df9c189f84f254db5a54960d2e336",
+   "last_modified": "",
+   "sha256": "8ef59ebaa78c654258905e0de332790499cd02dba83a9f2d70430c680c589fbb",
+   "title": "Stand Up шоу",
+   "url": "https://inno-stand-up-club.timepad.ru/event/2360642/"
+  },
+  "event-2404297": {
+   "fetched_at": "2026-11-04T12:55:02+00:00",
+   "file_sha": "1def2339a479d38e73e3d2853596f60d9063513ae0160f9a8477b3ebcfaa0731",
+   "last_modified": "",
+   "sha256": "7b30cc117a65670cf0bb53a962f237630f0d72218a18f9ac9a8a6d2e94b88a57",
+   "title": "Шоу презентаций",
+   "url": "https://inno-stand-up-club.timepad.ru/event/2404297/"
+  },
+  "event-2445517": {
+   "fetched_at": "2026-11-04T12:55:16+00:00",
+   "file_sha": "dba7994ce0ffca2f3b2ff497700e711d341fd4a011dcc424b1722092fe8f50cb",
+   "last_modified": "",
+   "sha256": "3ba9f47298043b037727df7758b1b083b955c67c2dc520588fed2c03d6ba7a1b",
+   "title": "Stand Up шоу",
+   "url": "https://inno-stand-up-club.timepad.ru/event/2445517/"
+  },
+  "event-2478627": {
+   "fetched_at": "2026-11-04T12:55:25+00:00",
+   "file_sha": "658f2af3e71f8e6d66ebea4d9e9ca8307a9f6e8cf3899b04219a5302ed8f7b60",
+   "last_modified": "",
+   "sha256": "6c2aaed28709aeba9be51f9740c6ac6abff4fd8c0b361d270be752e3e0102b12",
+   "title": "Stand Up шоу",
+   "url": "https://inno-stand-up-club.timepad.ru/event/2478627/"
+  },
+  "event-2558807": {
+   "fetched_at": "2026-11-04T12:55:39+00:00",
+   "file_sha": "2ea4eb6777fa524e709d59c2b5fe03580b769d2c8ceb76823214a01afcb5f40e",
+   "last_modified": "",
+   "sha256": "ce2fa85000560778551bcf9baeb4b87ffab0ae2fab739e305b25a43bd87e4f8e",
+   "title": "Stand Up шоу",
+   "url": "https://inno-stand-up-club.timepad.ru/event/2558807/"
+  },
+  "event-2599984": {
+   "fetched_at": "2026-11-04T12:55:53+00:00",
+   "file_sha": "3bddf60ac7926ed64e0553bcff6834807524dcc21d8182af68f9405246ed59ae",
+   "last_modified": "",
+   "sha256": "4ee2c45abd2c0f617ce78b4b98cb6bb19f8002bf8e1c5440faf7017cdd830846",
+   "title": "Открытый микрофон",
+   "url": "https://inno-stand-up-club.timepad.ru/event/2599984/"
+  },
+  "event-2638148": {
+   "fetched_at": "2026-11-04T12:56:02+00:00",
+   "file_sha": "a7079d94c21baa2f89eca6a9261dea9db8205702b36133281dc648379494d0c7",
+   "last_modified": "",
+   "sha256": "a3b827908f4b09667c7a0a61a5dee348bf021cab6c2bf467c9c80e92d68cf8d5",
+   "title": "Благотворительный Stand Up",
+   "url": "https://inno-stand-up-club.timepad.ru/event/2638148/"
+  },
+  "event-2680823": {
+   "fetched_at": "2026-11-04T12:56:16+00:00",
+   "file_sha": "6addebf38bde881ae6b590cadc21149413bd52c6e905f7ad544f7fc9063c9e5c",
+   "last_modified": "",
+   "sha256": "567675defe56fd64f65d8060df232d3d6d854e62490989ceaabebb4acd2aa95e",
+   "title": "Стендап концерт \"Молодой Преподаватель\"",
+   "url": "https://inno-stand-up-club.timepad.ru/event/2680823/"
+  },
+  "event-2709961": {
+   "fetched_at": "2026-11-04T12:56:30+00:00",
+   "file_sha": "0d07893c6f406fbb5c36587cdb62c46888585465e2567956ce0f3e341a8544e3",
+   "last_modified": "",
+   "sha256": "df45dbe669f0761d6748f3fbb12badcf270cd409cdfd78aa10150f8963b967a7",
+   "title": "Шоу презентаций",
+   "url": "https://inno-stand-up-club.timepad.ru/event/2709961/"
+  },
+  "event-2761635": {
+   "fetched_at": "2026-11-04T12:56:49+00:00",
+   "file_sha": "ee2fed401557ad54f97fe8c5ad0f41ec316e35153d4b866d1caedc72634754f9",
+   "last_modified": "",
+   "sha256": "4e5c306d4d7d08a56975e1bc022484cc4f4427b0c349b4dcb03b520d671d9bbd",
+   "title": "Stand Up шоу",
+   "url": "https://inno-stand-up-club.timepad.ru/event/2761635/"
+  },
+  "event-2804289": {
+   "fetched_at": "2026-11-04T12:56:58+00:00",
+   "file_sha": "4061502b7b1131392bb2764471664feb8174719c640c97388a62239aa4a37efb",
+   "last_modified": "",
+   "sha256": "9b52f4dc99909c8cebb86697492d7146541f3a6f31e2a2b125df6eefab076459",
+   "title": "Stand Up шоу",
+   "url": "https://inno-stand-up-club.timepad.ru/event/2804289/"
+  },
+  "event-2818116": {
+   "fetched_at": "2026-11-04T12:57:33+00:00",
+   "file_sha": "f63260487c44ea4f02ede12dc15e9a87255246a0f4b28f7ce11e70ed4bc13221",
+   "last_modified": "",
+   "sha256": "3e92c7a1212ac6571e46028ff3fa9207e4a138f3ee62e463ccd6e34cf0852ebb",
+   "title": "Открытый микрофон",
+   "url": "https://inno-stand-up-club.timepad.ru/event/2818116/"
+  },
+  "event-2835574": {
+   "fetched_at": "2026-11-04T12:57:57+00:00",
+   "file_sha": "3a9c7304ccfe23166525c75a7bf857d4907c9e44f04304d87262de990ba57eb1",
+   "last_modified": "",
+   "sha256": "2c2d81cb7eac8529bbfb346ceef934a412da19cbf3377386d77e5b8a9ce0a289",
+   "title": "Stand Up шоу \"Улица Неспортивная\"",
+   "url": "https://inno-stand-up-club.timepad.ru/event/2835574/"
+  },
+  "event-2867679": {
+   "fetched_at": "2026-11-04T12:58:27+00:00",
+   "file_sha": "c5078a31661e91ad00786d20244f94a45e0c65c19da16ffc345f225d6274a75d",
+   "last_modified": "",
+   "sha256": "7e503e45ad2c1036e6edea1a16af36a57af083f6f66b606dc870fa1b71420b77",
+   "title": "Stand Up шоу \"Улица Парковая\"",
+   "url": "https://inno-stand-up-club.timepad.ru/event/2867679/"
+  },
   "event-2908584": {
    "fetched_at": "2026-11-02T08:47:50+00:00",
    "file_sha": "e565a9b1c87ada2b7d9ec0fa08e995c5dcc75b81c7420a209eeba64512027036",
@@ -218,12 +434,22 @@
    "url": "https://inno-stand-up-club.timepad.ru/events/all/page/3/"
   },
   "home": {
-   "fetched_at": "2026-11-02T08:42:23+00:00",
-   "file_sha": "57d3cb0c9ca0a151550de51b9c0116ae5eac4587bcd7315af759291c3d8bd438",
+   "fetched_at": "2026-11-04T12:50:51+00:00",
+   "file_sha": "485b0109f27c21deb9d85bd28434435ede7587ed8af18b39084fe9340b38878e",
    "last_modified": "",
-   "sha256": "076d76dc2e1603e5ad66a87b0a381d31799ef000b29137ef1b881af7bbdfbbc9",
+   "sha256": "245098e4e5556f072211cefd2866a74c54676aee682a085ccc73847ff2978e5b",
    "title": "Inno Stand Up Club / TimePad.ru",
    "url": "https://inno-stand-up-club.timepad.ru/"
+  }
+ },
+ "tried": {
+  "https://inno-stand-up-club.timepad.ru/events": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "the words of home"
+  },
+  "https://inno-stand-up-club.timepad.ru/org/index": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "sent to https://inno-stand-up-club.timepad.ru/events/"
   }
  }
 }

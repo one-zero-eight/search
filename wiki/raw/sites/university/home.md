@@ -9,7 +9,7 @@ language: ru
 section: "site/university"
 sources:
   - resource: "https://innopolis.university/"
-    id: "ed05fbfa6c3a"
+    id: "ea25bec2f0fe"
     title: "Университет Иннополис"
     last_modified: "2026-10-30T21:53:33+00:00"
 generated:
@@ -92,11 +92,11 @@ status: draft
 
 ## Новости
 
-[![](https://innopolis.university/upload/resize_cache/iblock/fa7/hm9jiwtmlbv7o5vzyi9az4aqbpx788cj/1045_550_2/2026-11-02%2011.42.23.jpg)](https://media.innopolis.university/news/agreement-with-moscow-cluster-kdw-2026/)
+[![](https://innopolis.university/upload/resize_cache/iblock/fa7/hm9jiwtmlbv7o5vzyi9az4aqbpx788cj/1045_550_2/2026-11-02%2011.42.23.jpg)](/raw/sites/media/news-agreement-with-moscow-cluster-kdw-2026.md)
 
-[2.11.2026](https://media.innopolis.university/news/agreement-with-moscow-cluster-kdw-2026/)
+[2.11.2026](/raw/sites/media/news-agreement-with-moscow-cluster-kdw-2026.md)
 
-[Университет Иннополис проведёт технологические аудиты и окажет экспертную поддержку московским предприятиям](https://media.innopolis.university/news/agreement-with-moscow-cluster-kdw-2026/)
+[Университет Иннополис проведёт технологические аудиты и окажет экспертную поддержку московским предприятиям](/raw/sites/media/news-agreement-with-moscow-cluster-kdw-2026.md)
 
 [30.10.2026](/raw/sites/media/news-oil-and-gas-digital-alliance.md)
 

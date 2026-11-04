@@ -1,0 +1,16 @@
+{
+ "title": "Нажимая на кнопку, я соглашаюсь на обработку персональных данных",
+ "url": "https://innopolis.university/files/politicacookies.pdf",
+ "sha256": "ce80842e6dc90312b65637f489dafcb20fc8cf12c0e5ba0f8f6457d43c784aef",
+ "method": "text layer (opendataloader)",
+ "chars": 45045,
+ "tables": 5,
+ "section": "site/llc",
+ "context": "",
+ "fetched_at": "2026-11-04T13:07:42+00:00",
+ "remote": {
+  "etag": "\"1da7bb-653e3fa555c6b\"",
+  "modified": "Wed, 10 Jun 2026 10:48:02 GMT",
+  "size": "1943483"
+ }
+}

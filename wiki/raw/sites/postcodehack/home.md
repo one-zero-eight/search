@@ -1,7 +1,7 @@
 ---
 type: page
 title: "PostCode Challenge от Почтатеха"
-description: "Все треки распакованы, код доставлен без задержек"
+description: "**Все треки распакованы, код доставлен без задержек**"
 resource: "https://postcodehack.innopolis.university/"
 audience: ["student", "postgraduate", "applicant", "teacher", "staff", "management", "public"]
 source_kind: website
@@ -9,12 +9,12 @@ language: ru
 section: "site/postcodehack"
 sources:
   - resource: "https://postcodehack.innopolis.university/"
-    id: "0a42d2b3db82"
+    id: "f5892e3e7610"
     title: "PostCode Challenge от Почтатеха"
-    last_modified: "2026-11-01T22:36:29+00:00"
+    last_modified: "2026-11-04T13:02:25+00:00"
 generated:
   by: "catix-wiki/0.1 sites"
-  at: "2026-11-01T22:36:29+00:00"
+  at: "2026-11-04T13:02:25+00:00"
 status: draft
 ---
 
@@ -28,23 +28,11 @@ status: draft
 
 Хронология
 
-- Хакатон в цифрах
-
-- О хакатоне
-
-- Треки и задачи
-
-- Хронология
-
 Призовой фонд 3 000 000 ₽
 
-## Создай алгоритм
+## Создай алгоритм для почтовой сети страны
 
-для почтовой сети страны
-
-## Challenge
-
-от Почтатеха
+## Challenge от **Почтатеха**
 
 ## PostCode
 
@@ -94,13 +82,13 @@ status: draft
 
 Финальная карта нашего цифрового отправления:
 
-Все треки распакованы, код доставлен без задержек
+**Все треки распакованы, код доставлен без задержек**
 
-Победители
+**Победители**
 
 Огромная благодарность всем участникам за выдержку в этом длинном рейсе. Ваши проекты сделали цифровые сервисы «Почты России» еще быстрее, удобнее и технологичнее.
 
-Победителям — громкие аплодисменты!
+**Победителям — громкие аплодисменты!**
 
 Трек
 
@@ -154,11 +142,11 @@ status: draft
 
 Студенты первых курсов собрали команды и решили интересные задачи на PostCode Challenge
 
-О хакатоне PostCode Challenge
+**О хакатоне PostCode Challenge**
 
 ![](https://static.tildacdn.com/tild3831-3136-4166-b736-616461316438/Property_1Laptop.png)
 
-студенты,
+**студенты,**
 
 поступившие в 2025 и 2026 годах на образовательные программы топ уровня
 
@@ -170,9 +158,9 @@ status: draft
 
 [список вузов и образовательных программ](/raw/sites/postcodehack/spisok-vuzov-i-obr-programm.md)
 
-Прокачали навыки и продуктовое мышление на прикладных задачах
+Прокачали **навыки и продуктовое мышление** на прикладных задачах
 
-Получили возможность заглянуть во внутреннюю «кухню» реальной ИТ-компании
+Получили возможность заглянуть во **внутреннюю «кухню» реальной ИТ-компании**
 
 Создали крутые проекты
 
@@ -340,7 +328,7 @@ status: draft
 
 [Правила соревнования](https://codenrock-platform-mirror-953364db.s3.cloud.ru/contests/b46ffebd-de5b-4544-afe4-903f75bb485d/1791805328304-sc4p30-правила_проведения_хакатона_postcode_challenge_от_почтатеха.docx)
 
-[Политика конфиденциальности](https://storage.codenrock.com/contests/b46ffebd-de5b-4544-afe4-903f75bb485d/1784727173011-vhz4ae-%D1%81%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5_%D0%BD%D0%B0_%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83_%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D1%85_%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85_%D0%B4%D0%BB%D1%8F_%D1%83%D1%87%D0%B0%D1%81%D1%82%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2_postcode_challenge_%D0%BE%D1%82_%D0%BF%D0%BE%D1%87%D1%82%D0%B0%D1%82%D0%B5%D1%85%D0%B0.pdf)
+[Политика конфиденциальности](https://storage.codenrock.com/contests/b46ffebd-de5b-4544-afe4-903f75bb485d/1784727173011-vhz4ae-согласие_на_обработку_персональных_данных_для_участников_postcode_challenge_от_почтатеха.pdf)
 
 Оператор хакатона
 
@@ -350,4 +338,4 @@ status: draft
 
 # Citations
 
-1. [PostCode Challenge от Почтатеха](https://postcodehack.innopolis.university/), read 2026-11-01
+1. [PostCode Challenge от Почтатеха](https://postcodehack.innopolis.university/), read 2026-11-04

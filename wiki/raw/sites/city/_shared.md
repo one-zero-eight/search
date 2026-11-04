@@ -10,12 +10,12 @@ language: ru
 section: "site/city"
 sources:
   - resource: "https://innopolis.com/ru/"
-    id: "8bffa2ca42e3"
+    id: "8052b16942bf"
     title: "Общие блоки сайта innopolis.com: меню, шапка, подвал, контакты"
-    last_modified: "2026-10-31T04:13:30+00:00"
+    last_modified: "2026-11-04T12:40:01+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-10-31T04:13:30+00:00"
+  at: "2026-11-04T12:40:01+00:00"
 status: draft
 ---
 
@@ -47,12 +47,6 @@ status: draft
 
 [О городе](/raw/sites/city/ru-city.md)
 
-[Приезжайте в гости!](/raw/sites/city/ru-tourism.md)
-
-[Мы проводим экскурсии](/raw/sites/city/ru-tourism.md)
-
-[![](https://innopolis.com/uploads/headmenu/bgmenu1-5655e06adf.jpg)](/raw/sites/city/ru-tourism.md)
-
 Полезное
 
 [Мероприятия](/raw/sites/city/ru-media-events.md)
@@ -68,10 +62,6 @@ status: draft
 [Истории жителей](/raw/sites/city/ru-life-stories.md)
 
 [Переезд в Иннополис](/raw/sites/city/ru-life.md)
-
-[Только переехали? Посмотрите онбординг для нового жителя](/raw/sites/onboarding/home.md)
-
-[![](https://innopolis.com/uploads/headmenu/bgmenu2-05fb66b255.jpg)](/raw/sites/onboarding/home.md)
 
 [Аренда жилья](/raw/sites/city/ru-life-housing-rental.md)
 
@@ -90,10 +80,6 @@ status: draft
 [Детская школа искусств](/raw/sites/city/ru-services-childrens-school-of-art.md)
 
 [Колледж Иннополис](/raw/sites/city/ru-services-innopolis-college.md)
-
-[Участвуйте в грантовом конкурсе на поступление в университет](/raw/sites/city/ru-services-innopolis-university.md)
-
-[![](https://innopolis.com/uploads/headmenu/bgmenu3-11f7008f0d.jpg)](/raw/sites/city/ru-services-innopolis-university.md)
 
 А еще у нас есть
 
@@ -114,10 +100,6 @@ status: draft
 [Городской бизнес](/raw/sites/city/ru-business-in-city.md)
 
 [Бизнес](/raw/sites/city/ru-business.md)
-
-[73,8 млрд рублей привлеченных инвестиций](/raw/sites/city/ru-business-sez.md)
-
-[![](https://innopolis.com/uploads/headmenu/bgmenu4-ea3077792c.jpg)](/raw/sites/city/ru-business-sez.md)
 
 Для IT-компаний
 
@@ -177,6 +159,24 @@ helpme@innopolis.ru
 
 Мы используем [cookies](/raw/sites/city/ru-cookies.md)
 
+[Приезжайте в гости!](/raw/sites/city/ru-tourism.md)
+
+[Мы проводим экскурсии](/raw/sites/city/ru-tourism.md)
+
+[![](https://innopolis.com/uploads/headmenu/bgmenu1-5655e06adf.jpg)](/raw/sites/city/ru-tourism.md)
+
+[Только переехали? Посмотрите онбординг для нового жителя](/raw/sites/onboarding/home.md)
+
+[![](https://innopolis.com/uploads/headmenu/bgmenu2-05fb66b255.jpg)](/raw/sites/onboarding/home.md)
+
+[Участвуйте в грантовом конкурсе на поступление в университет](/raw/sites/city/ru-services-innopolis-university.md)
+
+[![](https://innopolis.com/uploads/headmenu/bgmenu3-11f7008f0d.jpg)](/raw/sites/city/ru-services-innopolis-university.md)
+
+[73,8 млрд рублей привлеченных инвестиций](/raw/sites/city/ru-business-sez.md)
+
+[![](https://innopolis.com/uploads/headmenu/bgmenu4-ea3077792c.jpg)](/raw/sites/city/ru-business-sez.md)
+
 [![](https://innopolis.com/assets/35e2bb10/img/content/ill-telegram.png)](https://t.me/InnopolisHelp)
 
 [Есть вопросы?Напишите нам](https://t.me/InnopolisHelp)
@@ -189,4 +189,4 @@ helpme@innopolis.ru
 
 # Citations
 
-1. [innopolis.com](https://innopolis.com/ru/), read 2026-10-31
+1. [innopolis.com](https://innopolis.com/ru/), read 2026-11-04

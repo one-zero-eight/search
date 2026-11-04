@@ -6,7 +6,9 @@
   "https://innopolis.university/filespublic/%D0%A1%D0%BE%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5%20%D0%B7%D0%B0%D0%BD%D1%8F%D1%82%D0%BE%D1%81%D1%82%D0%B8%20%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F%20%D0%9C%D0%BE%D1%80%D0%B4%D0%BE%D0%B2%D0%B8%D1%8F.pdf": "МОРДОВИЯ",
   "https://innopolis.university/filespublic/%D0%A1%D0%BE%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5%20%D0%B7%D0%B0%D0%BD%D1%8F%D1%82%D0%BE%D1%81%D1%82%D0%B8%20%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F%20%D0%A1%D0%B0%D1%80%D0%B0%D1%82%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C.pdf": "САРАТОВСКАЯ ОБЛАСТЬ",
   "https://innopolis.university/filespublic/%D0%A1%D0%BE%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5%20%D0%B7%D0%B0%D0%BD%D1%8F%D1%82%D0%BE%D1%81%D1%82%D0%B8%20%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F%20%D0%A2%D0%B0%D1%82%D0%B0%D1%80%D1%81%D1%82%D0%B0%D0%BD.pdf": "ТАТАРСТАН",
-  "https://innopolis.university/filespublic/resolution.pdf": "Постановлении Правительства РФ"
+  "https://innopolis.university/filespublic/resolution.pdf": "Постановлении Правительства РФ",
+  "https://innopolis.university/upload/iblock/b6f/ozxoa1j463v3s0m55w9kdc1qc0z31zfr/%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%B2%D1%8B%D0%BF%D0%B8%D1%81%D0%BA%D0%B0.pdf": "Выписка из реестра лицензий",
+  "https://innopolis.university/upload/iblock/d7f/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B4%D0%B5%D1%8F%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C.pdf": "Лицензия"
  },
  "pages": {
   "guide": {
@@ -18,10 +20,10 @@
    "url": "https://trud.innopolis.university/guide"
   },
   "home": {
-   "fetched_at": "2026-10-31T08:37:12+00:00",
-   "file_sha": "eff2f5db3f8e0f61b6c1155a94348885fe676aa8a49db4fee1403f8bd58c2808",
+   "fetched_at": "2026-11-04T12:47:37+00:00",
+   "file_sha": "b46ef4e120c6e4c1481a729503f99c7bab5d22e9056921fcb8cd85b51a66cfc5",
    "last_modified": "Tue, 27 Oct 2026 09:02:07 GMT",
-   "sha256": "529cba4a807c833b58582cc50e9ff2e1f46486100ea1755975bea2995ece9560",
+   "sha256": "976eac491b00b27f2a59a674930fc60c952d9faf75305e8d82812b62b515676d",
    "title": "Федеральный проект 2026 года «Активные меры содействия занятости»",
    "url": "https://trud.innopolis.university/"
   },
@@ -72,6 +74,20 @@
    "sha256": "042d3f98d207fd1112cf085f027054818cc1231280161620c32d5317ae6472a5",
    "title": "Курс «Специалист по управлению мобильной робототехникой»",
    "url": "https://trud.innopolis.university/specialist-po-mobilnoj-robototekhniki"
+  }
+ },
+ "tried": {
+  "https://trud.innopolis.university/qa_rf": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://trud.innopolis.university/web-design": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "404"
+  },
+  "https://trud.innopolis.university/web-developer": {
+   "run": "2026-11-04T12:31:12+00:00",
+   "why": "robots.txt disallows it"
   }
  }
 }

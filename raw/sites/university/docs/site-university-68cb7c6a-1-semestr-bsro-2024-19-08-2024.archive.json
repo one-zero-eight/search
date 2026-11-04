@@ -2,5 +2,6 @@
  "error": "Client error '404 Not Found' for url 'https://innopolis.university/upload/iblock/449/yemto3fdnet9zv80r2uj7qlo33cxm8jt/1%20%D1%81%D0%B5%D0%BC%D0%B5%D1%81%D1%82%D1%80%20BSRO%202024%20%2819.08.2024%29.7z'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404",
  "refetch": true,
  "status": "unavailable",
+ "tried_at": "2026-11-04T13:02:59+00:00",
  "url": "https://innopolis.university/upload/iblock/449/yemto3fdnet9zv80r2uj7qlo33cxm8jt/1%20%D1%81%D0%B5%D0%BC%D0%B5%D1%81%D1%82%D1%80%20BSRO%202024%20%2819.08.2024%29.7z"
 }

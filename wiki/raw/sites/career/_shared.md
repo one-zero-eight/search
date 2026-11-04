@@ -12,10 +12,10 @@ sources:
   - resource: "https://career.innopolis.university/"
     id: "ccbb9dbee63c"
     title: "Общие блоки сайта career.innopolis.university: меню, шапка, подвал, контакты"
-    last_modified: "2026-10-31T08:36:35+00:00"
+    last_modified: "2026-11-04T12:41:47+00:00"
 generated:
   by: "catix-wiki/0.1 sites (code: the lines the pages repeat)"
-  at: "2026-10-31T08:36:35+00:00"
+  at: "2026-11-04T12:41:47+00:00"
 status: draft
 ---
 
@@ -127,4 +127,4 @@ habr
 
 # Citations
 
-1. [career.innopolis.university](https://career.innopolis.university/), read 2026-10-31
+1. [career.innopolis.university](https://career.innopolis.university/), read 2026-11-04

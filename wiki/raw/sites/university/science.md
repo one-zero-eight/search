@@ -72,7 +72,7 @@ status: draft
 
 ● Разработка программного обеспечения с использованием сравнительного анализа с творческими направлениями и биофизическими сигналами от разработчиков программного обеспечения
 
-[Подробнее](https://innopolis.university/business-solutions/empirizm-v-programmnoy-inzhenerii/)
+[Подробнее](/raw/sites/university/business-solutions-empirizm-v-programmnoy-inzhenerii.md)
 
 ### Обработка естественного языка в программном обеспечении
 
@@ -98,7 +98,7 @@ status: draft
 
 Области применения: автомобилестроение, DevOps, бесшовная разработка.
 
-[Подробнее](https://innopolis.university/business-solutions/obrabotka-estestvennogo-yazyka-v-programmnom-obespechenii/)
+[Подробнее](/raw/sites/university/business-solutions-obrabotka-estestvennogo-yazyka-v-programm.md)
 
 ### Строгий подход к программному обеспечению
 
@@ -114,7 +114,7 @@ status: draft
 
 Области применения: DevOps, EAV Крипто-биллинг, интернет роботизированных вещей.
 
-[Подробнее](https://innopolis.university/business-solutions/strogiy-podkhod-k-programmnomu-obespecheniyu/)
+[Подробнее](/raw/sites/university/business-solutions-strogiy-podkhod-k-programmnomu-obespechen.md)
 
 ### Экологически чистая энергия
 
@@ -132,7 +132,7 @@ status: draft
 
 ● Проектирование и разработка НПЭ на местном уровне.
 
-[Подробнее](https://innopolis.university/business-solutions/ekologicheski-chistaya-energiya/)
+[Подробнее](/raw/sites/university/business-solutions-ekologicheski-chistaya-energiya.md)
 
 ### Техническое обслуживание в киберфизической системе
 
@@ -146,7 +146,7 @@ status: draft
 
 ● Разработка уровня хранения таким образом, чтобы помочь снизить затраты на ввод-вывод данных.
 
-[Подробнее](https://innopolis.university/business-solutions/tekhnicheskoe-obsluzhivanie-v-kiberfizicheskoy-sisteme/)
+[Подробнее](/raw/sites/university/business-solutions-tekhnicheskoe-obsluzhivanie-v-kiberfizich.md)
 
 ### Сети 5G и за их пределами
 
@@ -162,7 +162,7 @@ status: draft
 
 Области применения: будущие сети, сети 5G, нарезка сети, сетевая оркестрация и управление.
 
-[Подробнее](https://innopolis.university/business-solutions/seti-5g-i-za-ikh-predelami/)
+[Подробнее](/raw/sites/university/business-solutions-seti-5g-i-za-ikh-predelami.md)
 
 ### Сети и кибербезопасность
 
@@ -178,7 +178,7 @@ status: draft
 
 ● Разработка новых техник и методов реагирования на инциденты и происшествия.
 
-[Подробнее](https://innopolis.university/business-solutions/seti-i-kiberbezopasnost/)
+[Подробнее](/raw/sites/university/business-solutions-seti-i-kiberbezopasnost.md)
 
 ### Двумерно-распределённая неконтактная электромагнитная микроактуаторная система
 
@@ -188,7 +188,7 @@ status: draft
 
 Цель: разработка микроактуаторной системы, которая будет решать ряд комплексных задач, требующих позиционирования микрообъектов различной формы с высокой точностью, и при этом обеспечивать их перемещение с высокой скоростью на неограниченную дистанцию.
 
-[Подробнее](https://innopolis.university/business-solutions/dvumerno-raspredelyennaya-nekontaktnaya-elektromagnitnaya-mikroaktuatornaya-sistema/)
+[Подробнее](/raw/sites/university/business-solutions-dvumerno-raspredelyennaya-nekontaktnaya-e.md)
 
 ### Управление системами с использованием принципа тенсегрити
 
@@ -220,7 +220,7 @@ status: draft
 
 ● Определение стратегий использования VSA: энергоэффективность, устойчивость к столкновениям, безопасность в сценариях совместной работы.
 
-[Подробнее](https://innopolis.university/business-solutions/upravlenie-robotizirovannoy-sistemoy-na-baze-privodov-peremennoy-zhyestkosti-vsa/)
+[Подробнее](/raw/sites/university/business-solutions-upravlenie-robotizirovannoy-sistemoy-na-b.md)
 
 ### Управление шагающим роботом
 
@@ -236,7 +236,7 @@ status: draft
 
 ● Разработка методов для ходьбы.
 
-[Подробнее](https://innopolis.university/business-solutions/upravlenie-shagayushchim-robotom/)
+[Подробнее](/raw/sites/university/business-solutions-upravlenie-shagayushchim-robotom.md)
 
 ### Моделирование и управление приводами на основе скручивания тросов (ПСТ)
 
@@ -252,7 +252,7 @@ status: draft
 
 ● Провели численное моделирование конструкции экзоскелета для помощи поясничному отделу позвоночника, активные звенья которого приводятся в движение с помощью ПСТ.
 
-[Подробнее](https://innopolis.university/business-solutions/modelirovanie-i-upravlenie-privodami-na-osnove-skruchivaniya-trosov-pst/)
+[Подробнее](/raw/sites/university/business-solutions-modelirovanie-i-upravlenie-privodami-na-o.md)
 
 ### Высокоточное манипулирование с помощью моделирования жесткости
 
@@ -266,7 +266,7 @@ status: draft
 
 ● Расширение использования коллаборативных роботов за счёт внедрения искробезопасных роботизированных структур и коллаборативных алгоритмов для управления этими роботами.
 
-[Подробнее](https://innopolis.university/business-solutions/vysokotochnoe-manipulirovanie-s-pomoshchyu-modelirovaniya-zhestkosti/)
+[Подробнее](/raw/sites/university/business-solutions-vysokotochnoe-manipulirovanie-s-pomoshchy.md)
 
 ### Враждебные атаки на глубокое обучение
 
@@ -282,7 +282,7 @@ status: draft
 
 Области применения: камера распознавания личности, программное обеспечение для обнаружения вредоносных программ, беспилотные автомобили, банковское дело и т. д.
 
-[Подробнее](https://innopolis.university/business-solutions/vrazhdebnye-ataki-na-glubokoe-obuchenie/)
+[Подробнее](/raw/sites/university/business-solutions-vrazhdebnye-ataki-na-glubokoe-obuchenie.md)
 
 ### Адаптация домена
 
@@ -300,7 +300,7 @@ status: draft
 
 Области применения: классификация изображений, классификация видео, классификация текстов, машинный перевод, видеонаблюдение и т. д.
 
-[Подробнее](https://innopolis.university/business-solutions/adaptatsiya-domena/)
+[Подробнее](/raw/sites/university/business-solutions-adaptatsiya-domena.md)
 
 ## Эмпиризм в программной инженерии
 
