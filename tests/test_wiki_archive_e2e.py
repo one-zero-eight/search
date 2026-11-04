@@ -12,7 +12,7 @@ from catix.wiki import paths
 from catix.wiki.sources import chandra, regulations, sites
 
 
-@pytest.mark.parametrize("extension", ["zip", "7z"])
+@pytest.mark.parametrize("extension", ["zip", "7z", "pdf"])
 def test_real_archive_documents_reach_wiki_without_ocr(tmp_path, monkeypatch, extension):
     if not all(shutil.which(cmd) for cmd in ("soffice", "pdfinfo", "7z")):
         pytest.skip("real archive conversion requires LibreOffice, Poppler and 7z")
@@ -24,8 +24,11 @@ def test_real_archive_documents_reach_wiki_without_ocr(tmp_path, monkeypatch, ex
     if extension == "zip":
         with zipfile.ZipFile(archive, "w") as output:
             output.write(source / "rules.rtf", "regulations/rules.rtf")
-    else:
+    elif extension == "7z":
         subprocess.run(["7z", "a", "-t7z", str(archive), "rules.rtf"], cwd=source, check=True, capture_output=True, timeout=20)
+    else:
+        archive = regulations.to_pdf(source / "rules.rtf")
+        assert archive.exists()
     monkeypatch.setattr(sites, "ROOT", tmp_path / "raw" / "sites")
     monkeypatch.setattr(sites, "DOCS", tmp_path / "wiki" / "raw")
     monkeypatch.setattr(paths, "DOCS", tmp_path / "wiki" / "raw")
@@ -36,7 +39,7 @@ def test_real_archive_documents_reach_wiki_without_ocr(tmp_path, monkeypatch, ex
     monkeypatch.setattr(regulations, "LINKED", tmp_path / "raw" / "linked.json")
     monkeypatch.setattr(regulations, "PAUSE", 0)
     monkeypatch.setattr(chandra, "text_of_pdf", lambda *a, **kw: pytest.fail("a text document called OCR"))
-    url = f"https://unit.example/documents.{extension}"
+    url = f"https://unit.example/documents.{extension if extension != 'pdf' else 'zip'}"
     sites.save("unit", {"pages": {}, "docs": {url: "University admission rules"}})
     requests = []
     with httpx.Client(transport=httpx.MockTransport(lambda req: requests.append(str(req.url)) or httpx.Response(200, content=archive.read_bytes()))) as client:
@@ -45,7 +48,13 @@ def test_real_archive_documents_reach_wiki_without_ocr(tmp_path, monkeypatch, ex
         assert len(read) == 1
         regulations.compile_all()
         page = paths.DOCS / "regulations" / f"{read[0]}.md"
-        assert "submit their application" in page.read_text() and url in page.read_text() and "rules.rtf" in page.read_text()
+        text = page.read_text()
+        assert "submit their application" in text and url in text
+        if extension == "pdf":
+            assert "archive_member:" not in text
+            assert read == list(sites.docs())
+        else:
+            assert "rules.rtf" in text
         before = {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in (tmp_path / "raw").rglob("*") if p.is_file()}
         assert regulations.read_new(ocr=False) == []
         regulations.compile_all()

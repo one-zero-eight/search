@@ -1299,9 +1299,10 @@ def fetch_new(names: list[str] | None = None, client: httpx.Client | None = None
     not every few hours) and a site the weekly run has not read yet (the whole of it, not 50 pages). The number of pages new
     or changed.
 
-    With `documents` (the 6-hourly run) the documents a wave's new pages link are read after it by their text layer alone
-    (regulations.read_new without OCR: a scan is queued for a manual OCR run, so no OCR model needs to be up), and the new pages
-    of trusted sites their text names join the next wave (site -> site -> document -> site). The number counts them too."""
+    With `documents` (the 6-hourly run) the first wave always reconsiders the saved document links, even when no HTML changed:
+    a provider approved since the last read makes an old link readable. Later waves read the documents their new pages link.
+    Only text layers are read (regulations.read_new without OCR: scans queue for a manual run), and the new pages their text
+    names join the next wave (site -> site -> document -> site). The number counts the documents too."""
     reload_catalog()
     if unknown := [n for n in names or [] if n not in SITES]:
         sys.exit(f"no site {', '.join(unknown)}: the sites are {', '.join(SITES)}")
@@ -1325,7 +1326,7 @@ def fetch_new(names: list[str] | None = None, client: httpx.Client | None = None
                 finally:
                     close_live()
             total += changed
-            if documents and changed:  # (the documents of the pages read, by their text layer; the pages their text names)
+            if documents and (depth == 0 or changed):  # approval can make an old link readable without changing any page
                 read = regulations.read_new(prefixes=("site-",), ocr=False)
                 total += len(read)
                 for other, urls in regulations.page_links_of(read).items():

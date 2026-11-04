@@ -6,7 +6,9 @@ never overwrites a queued scan or its extracted text before the new manifest is 
 
 import hashlib
 import json
+import re
 import shutil
+import subprocess
 import tempfile
 import time
 from pathlib import Path
@@ -20,7 +22,7 @@ EXTENSIONS = {"zip", "7z"}
 
 
 def manifest_path(key: str, doc: dict) -> Path:
-    return doc["root"] / f"{key}.archive.json"
+    return doc.get("archive_root", doc["root"]) / f"{key}.archive.json"
 
 
 def load(key: str, doc: dict) -> dict:
@@ -47,7 +49,7 @@ def install(source: Path, destination: Path) -> None:
 
 
 def is_archive(key: str, doc: dict) -> bool:
-    return not doc.get("member") and (doc.get("ext") in EXTENSIONS or manifest_path(key, doc).exists())
+    return not doc.get("member") and not doc.get("archive_root") and (doc.get("ext") in EXTENSIONS or manifest_path(key, doc).exists())
 
 
 def members(docs: dict[str, dict]) -> dict[str, dict]:
@@ -55,12 +57,43 @@ def members(docs: dict[str, dict]) -> dict[str, dict]:
     for key, doc in docs.items():
         if not is_archive(key, doc):
             continue
-        for item in load(key, doc).get("members", []):
+        data = load(key, doc)
+        if item := data.get("document"):
+            # Same document and citation, not a synthetic archive member. The
+            # boundary still owns download/refresh and immutable local revisions.
+            found[key] = {**doc, "root": doc["root"] / item["storage"], "ext": item["ext"],
+                          "archive_root": doc["root"], "content_sha": data["sha256"]}
+        for item in data.get("members", []):
             if item["status"] != "ready":
                 continue
             found[item["key"]] = {**doc, "root": doc["root"] / item["storage"], "ext": item["ext"], "member": item["member"],
                                    "archive_key": key, "title": f"{doc['title']} — {item['member']}", "content_sha": item["sha256"]}
     return found
+
+
+def document_type(source: Path) -> str | None:
+    """Recognize standalone PDFs without admitting HTML or guessing from MIME.
+
+    Validate before replacing a good manifest; a PDF signature alone does not
+    make a truncated response a usable document. Other formats stay unsupported.
+    """
+    from catix.wiki.sources import regulations
+
+    with source.open("rb") as stream:
+        header = stream.read(8)
+    if not re.match(rb"%PDF-[12]\.\d", header):
+        return None
+    if source.stat().st_size > regulations.MAX_BYTES:
+        raise archives.ArchiveError("limit", "Standalone PDF exceeds the document byte limit")
+    try:
+        result = subprocess.run(["pdfinfo", str(source)], capture_output=True, timeout=archives.TIMEOUT, check=True)
+    except subprocess.TimeoutExpired as error:
+        raise archives.ArchiveError("limit", "PDF inspection timed out") from error
+    except subprocess.CalledProcessError as error:
+        raise archives.ArchiveError("invalid", "Cannot read standalone PDF") from error
+    if not re.search(rb"(?m)^Pages:\s+[1-9]\d*\s*$", result.stdout):
+        raise archives.ArchiveError("invalid", "Standalone PDF has no pages")
+    return "pdf"
 
 
 def download(url: str, destination: Path) -> dict:
@@ -93,12 +126,13 @@ def prepare(docs: dict[str, dict], prefixes: tuple[str, ...] | None = None) -> l
     """Download/unpack pending containers. Return removed member keys so deletion-only updates trigger a rebuild."""
     removed = []
     for key, doc in docs.items():
-        if not is_archive(key, doc) or prefixes and not key.startswith(prefixes):
+        if not (is_archive(key, doc) or doc.get("archive_root")) or prefixes and not key.startswith(prefixes):
             continue
+        doc = {**doc, "root": doc.get("archive_root", doc["root"])}
         old = load(key, doc)
         if old.get("status") == "ready" and not old.get("refetch") and all(
                 (doc["root"] / item["storage"] / f"{item['key']}.{item['ext']}").exists()
-                for item in old.get("members", []) if item["status"] == "ready"):
+                for item in [*old.get("members", []), *([old["document"]] if old.get("document") else [])] if item["status"] == "ready"):
             continue
         with tempfile.TemporaryDirectory(prefix="catix-archive-") as work:
             work = Path(work)
@@ -111,7 +145,14 @@ def prepare(docs: dict[str, dict], prefixes: tuple[str, ...] | None = None) -> l
                 else:
                     remote = download(doc["url"], source)
                 digest = hashlib.sha256(source.read_bytes()).hexdigest()
-                entries = archives.unpack(source, work / "members")
+                ext = document_type(source)
+                document = None
+                if ext:
+                    document = {"key": key, "ext": ext, "storage": f"{key}.documents/{digest}", "status": "ready"}
+                    install(source, doc["root"] / document["storage"] / f"{key}.{ext}")
+                    entries = []
+                else:
+                    entries = archives.unpack(source, work / "members")
                 for item in entries:
                     item["ext"] = item["ext"].lstrip(".")  # document readers store extensions without the dot
                     if item["status"] != "ready":
@@ -124,9 +165,14 @@ def prepare(docs: dict[str, dict], prefixes: tuple[str, ...] | None = None) -> l
                     install(work / "members" / item["file"], target)
                 before = {m["key"] for m in old.get("members", []) if m["status"] == "ready"}
                 after = {m["key"] for m in entries if m["status"] == "ready"}
+                if old.get("document"):
+                    before.add(key)
+                if document:
+                    after.add(key)
                 archive_file = f"{key}.archives/{digest}.archive"
                 install(source, doc["root"] / archive_file)
-                save(key, doc, {"url": doc["url"], "sha256": digest, "source": archive_file, "remote": remote, "status": "ready", "members": entries})
+                save(key, doc, {"url": doc["url"], "sha256": digest, "source": archive_file, "remote": remote, "status": "ready", "members": entries,
+                                **({"document": document} if document else {})})
                 removed.extend(sorted(before - after))
                 print(f"{key}: archive read, {len(after)} documents, {len(before - after)} removed", flush=True)
             except (archives.ArchiveError, httpx.HTTPError, OSError) as error:

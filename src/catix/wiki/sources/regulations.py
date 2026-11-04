@@ -458,9 +458,9 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
             break
         print(key, flush=True)
         if not src.exists():
-            if d.get("member"):
-                print("  archive member is missing locally: left for the next archive extraction")
-                continue  # its citation URL is the container, never a download URL for this member
+            if d.get("member") or d.get("archive_root"):
+                print("  archive-managed source is missing locally: left for the next archive read")
+                continue  # members and standalone PDFs must be downloaded through the archive boundary
             try:
                 resp = httpx.get(d["url"], timeout=120, follow_redirects=True, headers=HEADERS)
                 resp.raise_for_status()
@@ -617,7 +617,7 @@ def refresh(prefix: str = "") -> int:
         for key, d in all_docs().items():
             if d.get("member") or not key.startswith(prefix):
                 continue
-            if archive_documents.is_archive(key, d):
+            if archive_documents.is_archive(key, d) or d.get("archive_root"):
                 try:
                     found += archive_documents.refresh(key, d, client)
                 except httpx.HTTPError as e:
@@ -755,6 +755,9 @@ def compile_all() -> None:
     written = 0
     for key, d in docs.items():
         if archive_documents.is_archive(key, d):
+            if archive_documents.load(key, d).get("status") == "ready":
+                # A URL that used to deliver a standalone PDF now delivers a validated container.
+                (paths.DOCS / "regulations" / f"{key}.md").unlink(missing_ok=True)
             continue
         root: Path = d["root"]
         if not (root / f"{key}.json").exists():
