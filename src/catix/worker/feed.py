@@ -56,5 +56,5 @@ class _Server(uvicorn.Server):
 
 
 async def serve() -> None:
-    log.info("calendar on 127.0.0.1:%s%s/users/my-calendar.ics", settings.feed_port, settings.feed_root_path)
-    await _Server(uvicorn.Config(app, host="127.0.0.1", port=settings.feed_port, log_level="warning")).serve()
+    log.info("calendar on %s:%s%s/users/my-calendar.ics", settings.feed_host, settings.feed_port, settings.feed_root_path)
+    await _Server(uvicorn.Config(app, host=settings.feed_host, port=settings.feed_port, log_level="warning")).serve()

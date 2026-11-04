@@ -117,7 +117,10 @@ class Settings(BaseSettings):
     changes_enabled: bool = True
     # Telegram ids that set up the bot and get the alerts; more are added in the bot (/admin).
     admin_telegram_ids: list[int] = []
-    # The worker serves the users' personal calendars at /users/my-calendar.ics on feed_port (127.0.0.1), behind an HTTPS proxy.
+    # The worker serves the users' personal calendars at /users/my-calendar.ics on feed_host:feed_port, behind an HTTPS
+    # proxy. In a container it listens on all interfaces: Docker's published port reaches the container's own network,
+    # not its loopback (on 127.0.0.1 a request to the published port got an empty reply).
+    feed_host: str = "127.0.0.1"
     feed_port: int = 8090
     # The prefix the proxy serves the worker under (e.g. /catix for https://host/catix/users/my-calendar.ics), whether it
     # strips the prefix or passes it on. Empty: the worker is at the root of the domain.
