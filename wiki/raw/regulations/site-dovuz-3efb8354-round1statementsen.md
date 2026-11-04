@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "round1-statements-en"
+title: "Первый отборочный этап — round1-statements-en"
 resource: "https://lk-dovuz.innopolis.university/public/files/round1-statements-en.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/round1-statements-en.pdf"
     id: "13f143c4147b"
-    title: "round1-statements-en"
+    title: "Первый отборочный этап — round1-statements-en"
     last_modified: "2026-11-01T23:17:26+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# round1-statements-en
+# Первый отборочный этап — round1-statements-en
 
 Innopolis Open 2022-2023 First qualification round Russia, Innopolis, November 13, 2022
 
@@ -281,4 +281,4 @@ In the second example, every student can only study at the parallel, which level
 
 # Citations
 
-1. [round1-statements-en](https://lk-dovuz.innopolis.university/public/files/round1-statements-en.pdf), file 13f143c4147b
+1. [Первый отборочный этап — round1-statements-en](https://lk-dovuz.innopolis.university/public/files/round1-statements-en.pdf), file 13f143c4147b

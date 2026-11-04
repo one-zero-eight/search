@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Read the article [NIR_2022_optimization-dictionary]"
+title: "remoteness of the classes by taking into account the semantic and phonetic properties of the corresponding words and improves the classification behavior of silent speech recognition models. — Read the article"
 resource: "https://innopolis.university/filespublic/NIR_2022_optimization-dictionary.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/NIR_2022_optimization-dictionary.pdf"
     id: "a4388751223f"
-    title: "Read the article [NIR_2022_optimization-dictionary]"
+    title: "remoteness of the classes by taking into account the semantic and phonetic properties of the corresponding words and improves the classification behavior of silent speech recognition models. — Read the article"
     last_modified: "2026-10-24T23:45:16+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Read the article [NIR_2022_optimization-dictionary]
+# remoteness of the classes by taking into account the semantic and phonetic properties of the corresponding words and improves the classification behavior of silent speech recognition models. — Read the article
 
 Optimization of the Brain Command Dictionary in Silent Speech Recognition Task Based on Statistical Proximity Criterion.
 
@@ -137,4 +137,4 @@ REFERENCES
 
 # Citations
 
-1. [Read the article [NIR_2022_optimization-dictionary]](https://innopolis.university/filespublic/NIR_2022_optimization-dictionary.pdf), file a4388751223f
+1. [remoteness of the classes by taking into account the semantic and phonetic properties of the corresponding words and improves the classification behavior of silent speech recognition models. — Read the article](https://innopolis.university/filespublic/NIR_2022_optimization-dictionary.pdf), file a4388751223f

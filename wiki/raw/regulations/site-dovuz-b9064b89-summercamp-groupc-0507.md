@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "summercamp groupc 0507"
+title: "А в день выезда отвезут обратно по тем же точкам из Университета Иннополис в 10:00 — summercamp groupc 0507"
 resource: "https://lk-dovuz.innopolis.university/public/files/summercamp_groupc_0507.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/summercamp_groupc_0507.pdf"
     id: "b24045b3741f"
-    title: "summercamp groupc 0507"
+    title: "А в день выезда отвезут обратно по тем же точкам из Университета Иннополис в 10:00 — summercamp groupc 0507"
     last_modified: "2026-01-16T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# summercamp groupc 0507
+# А в день выезда отвезут обратно по тем же точкам из Университета Иннополис в 10:00 — summercamp groupc 0507
 
 Договор об образовании по дополнительным общеобразовательным общеразвивающим программам (договор присоединения) № ОФ18 от 16.01.2026 г.
 
@@ -311,4 +311,4 @@ status: draft
 
 # Citations
 
-1. [summercamp groupc 0507](https://lk-dovuz.innopolis.university/public/files/summercamp_groupc_0507.pdf), file b24045b3741f
+1. [А в день выезда отвезут обратно по тем же точкам из Университета Иннополис в 10:00 — summercamp groupc 0507](https://lk-dovuz.innopolis.university/public/files/summercamp_groupc_0507.pdf), file b24045b3741f

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "contest-25470-en"
+title: "Второй отборочный этап — contest-25470-en"
 resource: "https://lk-dovuz.innopolis.university/public/files/contest-25470-en.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/contest-25470-en.pdf"
     id: "4469020fa327"
-    title: "contest-25470-en"
+    title: "Второй отборочный этап — contest-25470-en"
     last_modified: "2026-11-01T23:17:20+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# contest-25470-en
+# Второй отборочный этап — contest-25470-en
 
 Innopolis Open 2021-2022 Second qualification round Russia, Innopolis, December 11, 2021
 
@@ -81,4 +81,4 @@ This process might be familiar: Euclid’s algorithm with subtractions does the 
 
 # Citations
 
-1. [contest-25470-en](https://lk-dovuz.innopolis.university/public/files/contest-25470-en.pdf), file 4469020fa327
+1. [Второй отборочный этап — contest-25470-en](https://lk-dovuz.innopolis.university/public/files/contest-25470-en.pdf), file 4469020fa327

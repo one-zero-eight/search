@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "result 2 9-11"
+title: "Рейтинговая таблица (7-8 класс): ссылка — result 2 9-11"
 resource: "https://lk-dovuz.innopolis.university/public/files/result_2_9-11.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/result_2_9-11.pdf"
     id: "22e9735de420"
-    title: "result 2 9-11"
+    title: "Рейтинговая таблица (7-8 класс): ссылка — result 2 9-11"
     last_modified: "2026-11-01T23:17:24+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# result 2 9-11
+# Рейтинговая таблица (7-8 класс): ссылка — result 2 9-11
 
 | Ранг | Участник | Результат | A | B | C | D | E | F | Балл за информатику | G | H | I | J | K | L | Балл за ТРИК ("сырой") | Балл за ТРИК (коэф 1,5) | Сумма |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -151,4 +151,4 @@ status: draft
 
 # Citations
 
-1. [result 2 9-11](https://lk-dovuz.innopolis.university/public/files/result_2_9-11.pdf), file 22e9735de420
+1. [Рейтинговая таблица (7-8 класс): ссылка — result 2 9-11](https://lk-dovuz.innopolis.university/public/files/result_2_9-11.pdf), file 22e9735de420

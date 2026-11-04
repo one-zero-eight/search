@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Rules of the water room use"
+title: "DOCUMENTS — Rules of the water room use"
 resource: "https://hotel.innopolis.university/upload/docs-hotel/Rules%20of%20the%20water%20room%20rules.pdf"
 audience: ["student", "postgraduate", "applicant", "public"]
 source_kind: official-document
@@ -9,7 +9,7 @@ section: "site/hotel"
 sources:
   - resource: "https://hotel.innopolis.university/upload/docs-hotel/Rules%20of%20the%20water%20room%20rules.pdf"
     id: "67bd3fcc169d"
-    title: "Rules of the water room use"
+    title: "DOCUMENTS — Rules of the water room use"
     last_modified: "2026-10-31T00:26:16+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Rules of the water room use
+# DOCUMENTS — Rules of the water room use
 
 Rules for using the drinking water storage room
 
@@ -38,4 +38,4 @@ Access to the exchange room-round the clock!
 
 # Citations
 
-1. [Rules of the water room use](https://hotel.innopolis.university/upload/docs-hotel/Rules%20of%20the%20water%20room%20rules.pdf), file 67bd3fcc169d
+1. [DOCUMENTS — Rules of the water room use](https://hotel.innopolis.university/upload/docs-hotel/Rules%20of%20the%20water%20room%20rules.pdf), file 67bd3fcc169d

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "ior 1stpart 7 8 classes 2"
+title: "Первый отборочный этап — ior 1stpart 7 8 classes 2"
 resource: "https://lk-dovuz.innopolis.university/public/files/ior_1stpart_7_8_classes_2.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/ior_1stpart_7_8_classes_2.pdf"
     id: "d3f938a4e34c"
-    title: "ior 1stpart 7 8 classes 2"
+    title: "Первый отборочный этап — ior 1stpart 7 8 classes 2"
     last_modified: "2026-11-01T23:17:22+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# ior 1stpart 7 8 classes 2
+# Первый отборочный этап — ior 1stpart 7 8 classes 2
 
 | № п/п | ФИО участника | Отборочный тур, 7- 8 класс (Балл) | Результат |
 | --- | --- | --- | --- |
@@ -123,4 +123,4 @@ status: draft
 
 # Citations
 
-1. [ior 1stpart 7 8 classes 2](https://lk-dovuz.innopolis.university/public/files/ior_1stpart_7_8_classes_2.pdf), file d3f938a4e34c
+1. [Первый отборочный этап — ior 1stpart 7 8 classes 2](https://lk-dovuz.innopolis.university/public/files/ior_1stpart_7_8_classes_2.pdf), file d3f938a4e34c

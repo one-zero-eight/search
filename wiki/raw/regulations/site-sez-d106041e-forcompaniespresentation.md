@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Презентация ОЭЗ «Иннополис»"
+title: "Документы для ознакомления — Презентация ОЭЗ «Иннополис»"
 resource: "https://sezinnopolis.ru/upload/new-files/forcompanies-presentation.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/sez"
 sources:
   - resource: "https://sezinnopolis.ru/upload/new-files/forcompanies-presentation.pdf"
     id: "cb030f00e5c1"
-    title: "Презентация ОЭЗ «Иннополис»"
+    title: "Документы для ознакомления — Презентация ОЭЗ «Иннополис»"
     last_modified: "2026-10-31T09:36:31+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Презентация ОЭЗ «Иннополис»
+# Документы для ознакомления — Презентация ОЭЗ «Иннополис»
 
 Особая экономическая зона
 
@@ -703,4 +703,4 @@ S 8 267 м² 1,1 млрдруб. объем инвестиций
 
 # Citations
 
-1. [Презентация ОЭЗ «Иннополис»](https://sezinnopolis.ru/upload/new-files/forcompanies-presentation.pdf), file cb030f00e5c1
+1. [Документы для ознакомления — Презентация ОЭЗ «Иннополис»](https://sezinnopolis.ru/upload/new-files/forcompanies-presentation.pdf), file cb030f00e5c1

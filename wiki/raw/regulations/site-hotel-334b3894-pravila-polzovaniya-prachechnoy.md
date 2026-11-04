@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "ПРАВИЛА ПОЛЬЗОВАНИЯ ПРАЧЕЧНОЙ"
+title: "Внимание: Администрация не несет ответственности за сохранность вещей, оставленных в комнатах для занятий — ПРАВИЛА ПОЛЬЗОВАНИЯ ПРАЧЕЧНОЙ"
 resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D0%A0%D0%90%D0%92%D0%98%D0%9B%D0%90%20%D0%9F%D0%9E%D0%9B%D0%AC%D0%97%D0%9E%D0%92%D0%90%D0%9D%D0%98%D0%AF%20%D0%9F%D0%A0%D0%90%D0%A7%D0%95%D0%A7%D0%9D%D0%9E%D0%99.pdf"
 audience: ["student", "postgraduate", "applicant", "public"]
 source_kind: official-document
@@ -9,7 +9,7 @@ section: "site/hotel"
 sources:
   - resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D0%A0%D0%90%D0%92%D0%98%D0%9B%D0%90%20%D0%9F%D0%9E%D0%9B%D0%AC%D0%97%D0%9E%D0%92%D0%90%D0%9D%D0%98%D0%AF%20%D0%9F%D0%A0%D0%90%D0%A7%D0%95%D0%A7%D0%9D%D0%9E%D0%99.pdf"
     id: "a61c54a127d7"
-    title: "ПРАВИЛА ПОЛЬЗОВАНИЯ ПРАЧЕЧНОЙ"
+    title: "Внимание: Администрация не несет ответственности за сохранность вещей, оставленных в комнатах для занятий — ПРАВИЛА ПОЛЬЗОВАНИЯ ПРАЧЕЧНОЙ"
     last_modified: "2026-10-24T22:04:01+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# ПРАВИЛА ПОЛЬЗОВАНИЯ ПРАЧЕЧНОЙ
+# Внимание: Администрация не несет ответственности за сохранность вещей, оставленных в комнатах для занятий — ПРАВИЛА ПОЛЬЗОВАНИЯ ПРАЧЕЧНОЙ
 
 ПРАВИЛА ПОЛЬЗОВАНИЯ ПРАЧЕЧНОЙ
 
@@ -165,4 +165,4 @@ status: draft
 
 # Citations
 
-1. [ПРАВИЛА ПОЛЬЗОВАНИЯ ПРАЧЕЧНОЙ](https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D0%A0%D0%90%D0%92%D0%98%D0%9B%D0%90%20%D0%9F%D0%9E%D0%9B%D0%AC%D0%97%D0%9E%D0%92%D0%90%D0%9D%D0%98%D0%AF%20%D0%9F%D0%A0%D0%90%D0%A7%D0%95%D0%A7%D0%9D%D0%9E%D0%99.pdf), file a61c54a127d7
+1. [Внимание: Администрация не несет ответственности за сохранность вещей, оставленных в комнатах для занятий — ПРАВИЛА ПОЛЬЗОВАНИЯ ПРАЧЕЧНОЙ](https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D0%A0%D0%90%D0%92%D0%98%D0%9B%D0%90%20%D0%9F%D0%9E%D0%9B%D0%AC%D0%97%D0%9E%D0%92%D0%90%D0%9D%D0%98%D0%AF%20%D0%9F%D0%A0%D0%90%D0%A7%D0%95%D0%A7%D0%9D%D0%9E%D0%99.pdf), file a61c54a127d7

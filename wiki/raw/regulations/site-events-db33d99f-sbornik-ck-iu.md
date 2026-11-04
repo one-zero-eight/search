@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Скачать сборник 2023"
+title: "Сборник успешно реализованных кейсов — Скачать сборник 2023"
 resource: "https://innopolis.university/filespublic/sbornik_ck_iu.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/events"
 sources:
   - resource: "https://innopolis.university/filespublic/sbornik_ck_iu.pdf"
     id: "fc0d02dcb938"
-    title: "Скачать сборник 2023"
+    title: "Сборник успешно реализованных кейсов — Скачать сборник 2023"
     last_modified: "2026-11-01T23:17:28+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Скачать сборник 2023
+# Сборник успешно реализованных кейсов — Скачать сборник 2023
 
 Первые итоги работы «цифровых кафедр» сборник успешно реализованных проектов
 
@@ -513,4 +513,4 @@ QR-код и гиперссылка под ним ведут на страниц
 
 # Citations
 
-1. [Скачать сборник 2023](https://innopolis.university/filespublic/sbornik_ck_iu.pdf), file fc0d02dcb938
+1. [Сборник успешно реализованных кейсов — Скачать сборник 2023](https://innopolis.university/filespublic/sbornik_ck_iu.pdf), file fc0d02dcb938

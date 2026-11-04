@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Read the article [NIR_2022_computationaldesign]"
+title: "an exosuit design, and simulation results. — Read the article"
 resource: "https://innopolis.university/filespublic/NIR_2022_computationaldesign.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/NIR_2022_computationaldesign.pdf"
     id: "7b00cef9a796"
-    title: "Read the article [NIR_2022_computationaldesign]"
+    title: "an exosuit design, and simulation results. — Read the article"
     last_modified: "2026-10-24T23:44:48+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Read the article [NIR_2022_computationaldesign]
+# an exosuit design, and simulation results. — Read the article
 
 Computational Design of Closed-Chain Linkages: Synthesis of Ergonomic Spine Support Module of Exosuit
 
@@ -385,4 +385,4 @@ REFERENCES
 
 # Citations
 
-1. [Read the article [NIR_2022_computationaldesign]](https://innopolis.university/filespublic/NIR_2022_computationaldesign.pdf), file 7b00cef9a796
+1. [an exosuit design, and simulation results. — Read the article](https://innopolis.university/filespublic/NIR_2022_computationaldesign.pdf), file 7b00cef9a796

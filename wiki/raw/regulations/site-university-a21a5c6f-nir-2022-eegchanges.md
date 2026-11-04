@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Read the article [NIR_2022_eeg-changes]"
+title: "Using data analysis and indirect application of neural networks in our work, we identified patterns of brain electrical activity that characterize COVID−19. We were interested in frequency, temporal, and spatial domain p — Read the article"
 resource: "https://innopolis.university/filespublic/NIR_2022_eeg-changes.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/NIR_2022_eeg-changes.pdf"
     id: "0a2556941fb2"
-    title: "Read the article [NIR_2022_eeg-changes]"
+    title: "Using data analysis and indirect application of neural networks in our work, we identified patterns of brain electrical activity that characterize COVID−19. We were interested in frequency, temporal, and spatial domain p — Read the article"
     last_modified: "2026-10-24T23:44:54+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Read the article [NIR_2022_eeg-changes]
+# Using data analysis and indirect application of neural networks in our work, we identified patterns of brain electrical activity that characterize COVID−19. We were interested in frequency, temporal, and spatial domain p — Read the article
 
 EEG patterns of COVID-19 in frequency, time and spatial domains
 
@@ -127,4 +127,4 @@ REFERENCES
 
 # Citations
 
-1. [Read the article [NIR_2022_eeg-changes]](https://innopolis.university/filespublic/NIR_2022_eeg-changes.pdf), file 0a2556941fb2
+1. [Using data analysis and indirect application of neural networks in our work, we identified patterns of brain electrical activity that characterize COVID−19. We were interested in frequency, temporal, and spatial domain p — Read the article](https://innopolis.university/filespublic/NIR_2022_eeg-changes.pdf), file 0a2556941fb2

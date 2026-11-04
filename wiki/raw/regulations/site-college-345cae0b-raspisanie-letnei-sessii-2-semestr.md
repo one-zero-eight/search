@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Расписание занятий"
+title: "Подписаться — Расписание занятий"
 resource: "https://innopolis.university/filespublic/%D0%A0%D0%B0%D1%81%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5_%D0%BB%D0%B5%D1%82%D0%BD%D0%B5%D0%B8%CC%86_%D1%81%D0%B5%D1%81%D1%81%D0%B8%D0%B8_2_%D1%81%D0%B5%D0%BC%D0%B5%D1%81%D1%82%D1%80.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/college"
 sources:
   - resource: "https://innopolis.university/filespublic/%D0%A0%D0%B0%D1%81%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5_%D0%BB%D0%B5%D1%82%D0%BD%D0%B5%D0%B8%CC%86_%D1%81%D0%B5%D1%81%D1%81%D0%B8%D0%B8_2_%D1%81%D0%B5%D0%BC%D0%B5%D1%81%D1%82%D1%80.pdf"
     id: "dc188f90257f"
-    title: "Расписание занятий"
+    title: "Подписаться — Расписание занятий"
     last_modified: "2026-11-01T23:17:28+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Расписание занятий
+# Подписаться — Расписание занятий
 
 |  |  | ПОНЕДЕЛЬНИК |  |  |  |  |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -198,4 +198,4 @@ status: draft
 
 # Citations
 
-1. [Расписание занятий](https://innopolis.university/filespublic/%D0%A0%D0%B0%D1%81%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5_%D0%BB%D0%B5%D1%82%D0%BD%D0%B5%D0%B8%CC%86_%D1%81%D0%B5%D1%81%D1%81%D0%B8%D0%B8_2_%D1%81%D0%B5%D0%BC%D0%B5%D1%81%D1%82%D1%80.pdf), file dc188f90257f
+1. [Подписаться — Расписание занятий](https://innopolis.university/filespublic/%D0%A0%D0%B0%D1%81%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5_%D0%BB%D0%B5%D1%82%D0%BD%D0%B5%D0%B8%CC%86_%D1%81%D0%B5%D1%81%D1%81%D0%B8%D0%B8_2_%D1%81%D0%B5%D0%BC%D0%B5%D1%81%D1%82%D1%80.pdf), file dc188f90257f

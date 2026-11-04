@@ -1,4 +1,10 @@
 {
+ "contexts": {
+  "https://innopolis.university/filespublic/%D0%A1%D0%B1%D0%BE%D1%80%D0%BD%D0%B8%D0%BA_%D0%9C%D0%B0%D1%80%D0%B0%D1%84%D0%BE%D0%BD2.0_.pdf": "Сборник кейсов: Первые итоги работы цифровых кафедр",
+  "https://innopolis.university/filespublic/%D0%BF%D1%80%D0%B8%D0%BA%D0%B0%D0%B7%20%D0%BE%D1%82%2007.03.2023%20%E2%84%96%20%D0%9E%D0%94_%D0%90%D0%94-01.pdf": "Принять участие",
+  "https://innopolis.university/filespublic/cifrovye_kafedry.pdf": "Приходи на наш «Марафон цифровых кафедр» и узнай все подробности от первых лиц: руководителей «цифровых кафедр», преподавателей и студентов",
+  "https://innopolis.university/filespublic/sbornik_ck_iu.pdf": "Сборник успешно реализованных кейсов"
+ },
  "docs": {
   "https://innopolis.university/filespublic/%D0%A1%D0%B1%D0%BE%D1%80%D0%BD%D0%B8%D0%BA_%D0%9C%D0%B0%D1%80%D0%B0%D1%84%D0%BE%D0%BD2.0_.pdf": "Скачать сборник 2024",
   "https://innopolis.university/filespublic/%D0%BF%D1%80%D0%B8%D0%BA%D0%B0%D0%B7%20%D0%BE%D1%82%2007.03.2023%20%E2%84%96%20%D0%9E%D0%94_%D0%90%D0%94-01.pdf": "Положение о порядке проведения мероприятия",

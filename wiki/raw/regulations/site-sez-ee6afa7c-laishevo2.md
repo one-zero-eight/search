@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Информация по земельным участкам не сданным в аренду [laishevo2]"
+title: "Документы и презентации — Информация по земельным участкам не сданным в аренду [laishevo2]"
 resource: "https://sezinnopolis.ru/upload/industrial%20files/laishevo2.doc"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/sez"
 sources:
   - resource: "https://sezinnopolis.ru/upload/industrial%20files/laishevo2.doc"
     id: "e6455dfcc92e"
-    title: "Информация по земельным участкам не сданным в аренду [laishevo2]"
+    title: "Документы и презентации — Информация по земельным участкам не сданным в аренду [laishevo2]"
     last_modified: "2026-10-31T09:36:31+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Информация по земельным участкам не сданным в аренду [laishevo2]
+# Документы и презентации — Информация по земельным участкам не сданным в аренду [laishevo2]
 
 СВЕДЕНИЯ о земельных участках, находящихся в государственной и (или) муниципальной собственности, расположенных в границах ОЭЗ и не сданных в аренду
 
@@ -29,4 +29,4 @@ status: draft
 
 # Citations
 
-1. [Информация по земельным участкам не сданным в аренду [laishevo2]](https://sezinnopolis.ru/upload/industrial%20files/laishevo2.doc), file e6455dfcc92e
+1. [Документы и презентации — Информация по земельным участкам не сданным в аренду [laishevo2]](https://sezinnopolis.ru/upload/industrial%20files/laishevo2.doc), file e6455dfcc92e

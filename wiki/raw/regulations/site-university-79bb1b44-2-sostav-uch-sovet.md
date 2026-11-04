@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Полномочия Ученого совета"
+title: "Наблюдательный совет Университета: — Полномочия Ученого совета"
 resource: "https://innopolis.university/upload/iblock/9f8/1hcj26ql9f1s8mxmfqm1c4f9ahtjgjwz/2_sostav_uch_sovet.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/upload/iblock/9f8/1hcj26ql9f1s8mxmfqm1c4f9ahtjgjwz/2_sostav_uch_sovet.pdf"
     id: "c2b7cabc26b7"
-    title: "Полномочия Ученого совета"
+    title: "Наблюдательный совет Университета: — Полномочия Ученого совета"
     last_modified: "2026-10-25T00:00:45+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Полномочия Ученого совета
+# Наблюдательный совет Университета: — Полномочия Ученого совета
 
 Состав Ученого совета АНО ВО «Университета Иннополис»
 
@@ -49,4 +49,4 @@ status: draft
 
 # Citations
 
-1. [Полномочия Ученого совета](https://innopolis.university/upload/iblock/9f8/1hcj26ql9f1s8mxmfqm1c4f9ahtjgjwz/2_sostav_uch_sovet.pdf), file c2b7cabc26b7
+1. [Наблюдательный совет Университета: — Полномочия Ученого совета](https://innopolis.university/upload/iblock/9f8/1hcj26ql9f1s8mxmfqm1c4f9ahtjgjwz/2_sostav_uch_sovet.pdf), file c2b7cabc26b7

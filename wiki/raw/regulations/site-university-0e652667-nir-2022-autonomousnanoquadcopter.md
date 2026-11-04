@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Read the article [NIR_2022_autonomous-nano-quadcopter]"
+title: "special decks. One of those decks can accurately measure distance to surrounding objects in four directions. The second deck can measure the distance to the surface below the quad and pick up the coordinates onboard. A s — Read the article"
 resource: "https://innopolis.university/filespublic/NIR_2022_autonomous-nano-quadcopter.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/NIR_2022_autonomous-nano-quadcopter.pdf"
     id: "41009dc34f90"
-    title: "Read the article [NIR_2022_autonomous-nano-quadcopter]"
+    title: "special decks. One of those decks can accurately measure distance to surrounding objects in four directions. The second deck can measure the distance to the surface below the quad and pick up the coordinates onboard. A s — Read the article"
     last_modified: "2026-10-24T23:44:37+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Read the article [NIR_2022_autonomous-nano-quadcopter]
+# special decks. One of those decks can accurately measure distance to surrounding objects in four directions. The second deck can measure the distance to the surface below the quad and pick up the coordinates onboard. A s — Read the article
 
 Test of Obstacle Avoidance Capabilities on an Autonomous Nano Quadcopter
 
@@ -247,4 +247,4 @@ REFERENCES
 
 # Citations
 
-1. [Read the article [NIR_2022_autonomous-nano-quadcopter]](https://innopolis.university/filespublic/NIR_2022_autonomous-nano-quadcopter.pdf), file 41009dc34f90
+1. [special decks. One of those decks can accurately measure distance to surrounding objects in four directions. The second deck can measure the distance to the surface below the quad and pick up the coordinates onboard. A s — Read the article](https://innopolis.university/filespublic/NIR_2022_autonomous-nano-quadcopter.pdf), file 41009dc34f90

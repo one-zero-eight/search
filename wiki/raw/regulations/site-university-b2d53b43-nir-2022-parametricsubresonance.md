@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Read the article [NIR_2022_parametric-subresonance]"
+title: "coefficient. — Read the article"
 resource: "https://innopolis.university/filespublic/NIR_2022_parametric-subresonance.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/NIR_2022_parametric-subresonance.pdf"
     id: "62892a9e010e"
-    title: "Read the article [NIR_2022_parametric-subresonance]"
+    title: "coefficient. — Read the article"
     last_modified: "2026-10-24T23:45:26+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Read the article [NIR_2022_parametric-subresonance]
+# coefficient. — Read the article
 
 Formal asymptotics of parametric subresonance
 
@@ -471,4 +471,4 @@ References
 
 # Citations
 
-1. [Read the article [NIR_2022_parametric-subresonance]](https://innopolis.university/filespublic/NIR_2022_parametric-subresonance.pdf), file 62892a9e010e
+1. [coefficient. — Read the article](https://innopolis.university/filespublic/NIR_2022_parametric-subresonance.pdf), file 62892a9e010e

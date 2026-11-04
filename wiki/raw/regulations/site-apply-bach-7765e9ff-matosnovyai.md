@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Ознакомиться с книгой"
+title: "по математическим основам ИИ — Ознакомиться с книгой"
 resource: "https://lk-dovuz.innopolis.university/public/files/Mat-osnovy-ai.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/apply-bach"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/Mat-osnovy-ai.pdf"
     id: "75bc36e3d9bf"
-    title: "Ознакомиться с книгой"
+    title: "по математическим основам ИИ — Ознакомиться с книгой"
     last_modified: "2026-11-01T22:40:21+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Ознакомиться с книгой
+# по математическим основам ИИ — Ознакомиться с книгой
 
 М И И
 
@@ -165,4 +165,4 @@ status: draft
 
 # Citations
 
-1. [Ознакомиться с книгой](https://lk-dovuz.innopolis.university/public/files/Mat-osnovy-ai.pdf), file 75bc36e3d9bf
+1. [по математическим основам ИИ — Ознакомиться с книгой](https://lk-dovuz.innopolis.university/public/files/Mat-osnovy-ai.pdf), file 75bc36e3d9bf

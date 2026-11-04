@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "statements-2 (ru)"
+title: "Второй отборочный этап — statements-2 (ru)"
 resource: "https://lk-dovuz.innopolis.university/public/files/statements-2%20%28ru%29.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/statements-2%20%28ru%29.pdf"
     id: "3fbe2db37fd3"
-    title: "statements-2 (ru)"
+    title: "Второй отборочный этап — statements-2 (ru)"
     last_modified: "2020-12-13T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# statements-2 (ru)
+# Второй отборочный этап — statements-2 (ru)
 
 Отборочный этап Олимпиады Университета Иннополис. Второй тур. 2020-2021 Россия, Иннополис, 13 декабря 2020
 
@@ -271,4 +271,4 @@ S
 
 # Citations
 
-1. [statements-2 (ru)](https://lk-dovuz.innopolis.university/public/files/statements-2%20%28ru%29.pdf), file 3fbe2db37fd3
+1. [Второй отборочный этап — statements-2 (ru)](https://lk-dovuz.innopolis.university/public/files/statements-2%20%28ru%29.pdf), file 3fbe2db37fd3

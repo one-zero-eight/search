@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "В 2023/2024 учебном году"
+title: "Список научно-педагогических работник АНО ВО«Университет Иннополис» с окончанием срока действия трудового договора — В 2023/2024 учебном году"
 resource: "https://innopolis.university/filespublic/2023-2024-uch-god.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/career"
 sources:
   - resource: "https://innopolis.university/filespublic/2023-2024-uch-god.pdf"
     id: "52b7bde7a880"
-    title: "В 2023/2024 учебном году"
+    title: "Список научно-педагогических работник АНО ВО«Университет Иннополис» с окончанием срока действия трудового договора — В 2023/2024 учебном году"
     last_modified: "2023-03-29T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# В 2023/2024 учебном году
+# Список научно-педагогических работник АНО ВО«Университет Иннополис» с окончанием срока действия трудового договора — В 2023/2024 учебном году
 
 Приложение к приказу АНО ВО «Университет Иннополис» от 29 марта 2023 г. № ОД/АД-01/2023/03/29
 
@@ -101,4 +101,4 @@ review: "scanned document read by OCR: check numbers and dates against the PDF b
 
 # Citations
 
-1. [В 2023/2024 учебном году](https://innopolis.university/filespublic/2023-2024-uch-god.pdf), file 52b7bde7a880
+1. [Список научно-педагогических работник АНО ВО«Университет Иннополис» с окончанием срока действия трудового договора — В 2023/2024 учебном году](https://innopolis.university/filespublic/2023-2024-uch-god.pdf), file 52b7bde7a880

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "ThesisGuideLines rus"
+title: "Образовательная программа высшего образования - программа бакалавриата: 09.03.01 Информатика и вычислительная техника; Направленность программы (профиль) – Анализ данных и искусственный интеллект — 2025 — ThesisGuideLines rus"
 resource: "https://innopolis.university/upload/iblock/9db/j81ik6w0r7b4ep3q2od84tgtz3arx7xo/ThesisGuideLines_rus.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/upload/iblock/9db/j81ik6w0r7b4ep3q2od84tgtz3arx7xo/ThesisGuideLines_rus.pdf"
     id: "4c9874e09c27"
-    title: "ThesisGuideLines rus"
+    title: "Образовательная программа высшего образования - программа бакалавриата: 09.03.01 Информатика и вычислительная техника; Направленность программы (профиль) – Анализ данных и искусственный интеллект — 2025 — ThesisGuideLines rus"
     last_modified: "2026-10-25T00:00:41+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# ThesisGuideLines rus
+# Образовательная программа высшего образования - программа бакалавриата: 09.03.01 Информатика и вычислительная техника; Направленность программы (профиль) – Анализ данных и искусственный интеллект — 2025 — ThesisGuideLines rus
 
 СОДЕРЖАНИЕ
 
@@ -415,4 +415,4 @@ status: draft
 
 # Citations
 
-1. [ThesisGuideLines rus](https://innopolis.university/upload/iblock/9db/j81ik6w0r7b4ep3q2od84tgtz3arx7xo/ThesisGuideLines_rus.pdf), file 4c9874e09c27
+1. [Образовательная программа высшего образования - программа бакалавриата: 09.03.01 Информатика и вычислительная техника; Направленность программы (профиль) – Анализ данных и искусственный интеллект — 2025 — ThesisGuideLines rus](https://innopolis.university/upload/iblock/9db/j81ik6w0r7b4ep3q2od84tgtz3arx7xo/ThesisGuideLines_rus.pdf), file 4c9874e09c27

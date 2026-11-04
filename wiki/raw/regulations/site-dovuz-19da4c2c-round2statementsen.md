@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "round2-statements-en"
+title: "Второй отборочный этап — round2-statements-en"
 resource: "https://lk-dovuz.innopolis.university/public/files/round2-statements-en.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/round2-statements-en.pdf"
     id: "48a07dd486d4"
-    title: "round2-statements-en"
+    title: "Второй отборочный этап — round2-statements-en"
     last_modified: "2026-11-01T23:17:26+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# round2-statements-en
+# Второй отборочный этап — round2-statements-en
 
 Innopolis Open 2022-2023 Second qualification round Russia, Innopolis, December 11, 2022
 
@@ -277,4 +277,4 @@ There are 8 different triples: (1,2,3),(1,2,4),(1,3,4),(1,3,5),(1,4,5),(2,3,5),(
 
 # Citations
 
-1. [round2-statements-en](https://lk-dovuz.innopolis.university/public/files/round2-statements-en.pdf), file 48a07dd486d4
+1. [Второй отборочный этап — round2-statements-en](https://lk-dovuz.innopolis.university/public/files/round2-statements-en.pdf), file 48a07dd486d4

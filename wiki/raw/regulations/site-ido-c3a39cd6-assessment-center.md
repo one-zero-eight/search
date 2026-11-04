@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Assessment Center"
+title: "Take customized educationalcourse based on the staff competency assessment results to meet the market and your business objectives — Assessment Center"
 resource: "https://innopolis.university/filespublic/Assessment_Center.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/ido"
 sources:
   - resource: "https://innopolis.university/filespublic/Assessment_Center.pdf"
     id: "d0733840d84d"
-    title: "Assessment Center"
+    title: "Take customized educationalcourse based on the staff competency assessment results to meet the market and your business objectives — Assessment Center"
     last_modified: "2026-11-01T23:17:28+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Assessment Center
+# Take customized educationalcourse based on the staff competency assessment results to meet the market and your business objectives — Assessment Center
 
 ASSESSMENT
 
@@ -171,4 +171,4 @@ Director of the Institute of Additional Education at Innopolis University e.gali
 
 # Citations
 
-1. [Assessment Center](https://innopolis.university/filespublic/Assessment_Center.pdf), file d0733840d84d
+1. [Take customized educationalcourse based on the staff competency assessment results to meet the market and your business objectives — Assessment Center](https://innopolis.university/filespublic/Assessment_Center.pdf), file d0733840d84d

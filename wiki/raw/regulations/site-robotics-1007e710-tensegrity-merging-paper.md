@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Tensegrity merging paper"
+title: "Тема — «Объединение топологий тенсегрити структур: метод с использованием целочисленной выпуклой оптимизации». — Tensegrity merging paper"
 resource: "https://robotics.innopolis.university/wp-content/uploads/2022/03/Tensegrity_merging_paper.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/robotics"
 sources:
   - resource: "https://robotics.innopolis.university/wp-content/uploads/2022/03/Tensegrity_merging_paper.pdf"
     id: "97a28fd4b96b"
-    title: "Tensegrity merging paper"
+    title: "Тема — «Объединение топологий тенсегрити структур: метод с использованием целочисленной выпуклой оптимизации». — Tensegrity merging paper"
     last_modified: "2026-10-31T09:36:36+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Tensegrity merging paper
+# Тема — «Объединение топологий тенсегрити структур: метод с использованием целочисленной выпуклой оптимизации». — Tensegrity merging paper
 
 Tensegrity Topology Merging: Mixed-Integer Convex optimization-based Method
 
@@ -221,4 +221,4 @@ REFERENCES
 
 # Citations
 
-1. [Tensegrity merging paper](https://robotics.innopolis.university/wp-content/uploads/2022/03/Tensegrity_merging_paper.pdf), file 97a28fd4b96b
+1. [Тема — «Объединение топологий тенсегрити структур: метод с использованием целочисленной выпуклой оптимизации». — Tensegrity merging paper](https://robotics.innopolis.university/wp-content/uploads/2022/03/Tensegrity_merging_paper.pdf), file 97a28fd4b96b

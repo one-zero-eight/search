@@ -1,0 +1,16 @@
+{
+ "title": "09.03.01 Информатика и вычислительная техника",
+ "url": "https://innopolis.university/upload/iblock/0b6/wqscbsjddqzo2qmvc84t5p09kbdcyk4v/fgos_09.03.01.pdf",
+ "sha256": "5b4b9508110178b0619d83783d46a7aaa1796bff3c489be1468f25b7471cf92a",
+ "method": "text layer (opendataloader)",
+ "chars": 39900,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-22T13:56:59+00:00",
+ "remote": {
+  "etag": "\"64f1ee02-4ba0b\"",
+  "modified": "Fri, 01 Sep 2023 13:58:26 GMT",
+  "size": "309771"
+ },
+ "tables": 5
+}

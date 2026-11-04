@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Read the article [NIR_2022_gravity-compensator]"
+title: "We propose a concept for a gravity compensator designed for prismatic joints. The compensator depends on the suspension of linear springs together with transmission mechanisms to achieve constant application of force alo — Read the article"
 resource: "https://innopolis.university/filespublic/NIR_2022_gravity-compensator.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/NIR_2022_gravity-compensator.pdf"
     id: "1a3be1ed13d5"
-    title: "Read the article [NIR_2022_gravity-compensator]"
+    title: "We propose a concept for a gravity compensator designed for prismatic joints. The compensator depends on the suspension of linear springs together with transmission mechanisms to achieve constant application of force alo — Read the article"
     last_modified: "2026-10-24T23:45:01+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Read the article [NIR_2022_gravity-compensator]
+# We propose a concept for a gravity compensator designed for prismatic joints. The compensator depends on the suspension of linear springs together with transmission mechanisms to achieve constant application of force alo — Read the article
 
 Gravity Compensator for Prismatic Joints
 
@@ -221,4 +221,4 @@ REFERENCES
 
 # Citations
 
-1. [Read the article [NIR_2022_gravity-compensator]](https://innopolis.university/filespublic/NIR_2022_gravity-compensator.pdf), file 1a3be1ed13d5
+1. [We propose a concept for a gravity compensator designed for prismatic joints. The compensator depends on the suspension of linear springs together with transmission mechanisms to achieve constant application of force alo — Read the article](https://innopolis.university/filespublic/NIR_2022_gravity-compensator.pdf), file 1a3be1ed13d5

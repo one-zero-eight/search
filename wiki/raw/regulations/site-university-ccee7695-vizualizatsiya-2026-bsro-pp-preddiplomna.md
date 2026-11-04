@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "11 семестр Преддипломная практика (документ подписан ПЭП)"
+title: "15.03.06 Мехатроника и робототехника; Направленность программы (профиль) – Робототехника — 2026 — Методические и иные документы — 11 семестр Преддипломная практика"
 resource: "https://innopolis.university/upload/iblock/a23/u4lajmbvapq6qe3jz2nxxjd5e83ut1g1/%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_2026_BSRO_%D0%9F%D0%9F_%D0%9F%D1%80%D0%B5%D0%B4%D0%B4%D0%B8%D0%BF%D0%BB%D0%BE%D0%BC%D0%BD%D0%B0%D1%8F_%D0%BF%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D0%BA%D0%B0_%2811%20%D1%81.%29_23.10.2025.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/upload/iblock/a23/u4lajmbvapq6qe3jz2nxxjd5e83ut1g1/%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_2026_BSRO_%D0%9F%D0%9F_%D0%9F%D1%80%D0%B5%D0%B4%D0%B4%D0%B8%D0%BF%D0%BB%D0%BE%D0%BC%D0%BD%D0%B0%D1%8F_%D0%BF%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D0%BA%D0%B0_%2811%20%D1%81.%29_23.10.2025.pdf"
     id: "f7be6597308b"
-    title: "11 семестр Преддипломная практика (документ подписан ПЭП)"
+    title: "15.03.06 Мехатроника и робототехника; Направленность программы (профиль) – Робототехника — 2026 — Методические и иные документы — 11 семестр Преддипломная практика"
     last_modified: "2025-10-23T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# 11 семестр Преддипломная практика (документ подписан ПЭП)
+# 15.03.06 Мехатроника и робототехника; Направленность программы (профиль) – Робототехника — 2026 — Методические и иные документы — 11 семестр Преддипломная практика
 
 Автономная некоммерческая организация высшего образования «Университет Иннополис» (АНО ВО «Университет Иннополис»)
 
@@ -2258,4 +2258,4 @@ status: draft
 
 # Citations
 
-1. [11 семестр Преддипломная практика (документ подписан ПЭП)](https://innopolis.university/upload/iblock/a23/u4lajmbvapq6qe3jz2nxxjd5e83ut1g1/%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_2026_BSRO_%D0%9F%D0%9F_%D0%9F%D1%80%D0%B5%D0%B4%D0%B4%D0%B8%D0%BF%D0%BB%D0%BE%D0%BC%D0%BD%D0%B0%D1%8F_%D0%BF%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D0%BA%D0%B0_%2811%20%D1%81.%29_23.10.2025.pdf), file f7be6597308b
+1. [15.03.06 Мехатроника и робототехника; Направленность программы (профиль) – Робототехника — 2026 — Методические и иные документы — 11 семестр Преддипломная практика](https://innopolis.university/upload/iblock/a23/u4lajmbvapq6qe3jz2nxxjd5e83ut1g1/%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_2026_BSRO_%D0%9F%D0%9F_%D0%9F%D1%80%D0%B5%D0%B4%D0%B4%D0%B8%D0%BF%D0%BB%D0%BE%D0%BC%D0%BD%D0%B0%D1%8F_%D0%BF%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D0%BA%D0%B0_%2811%20%D1%81.%29_23.10.2025.pdf), file f7be6597308b

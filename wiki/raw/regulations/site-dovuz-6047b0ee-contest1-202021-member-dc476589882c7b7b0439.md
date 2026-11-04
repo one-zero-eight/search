@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Решение и тесты — problems/move-rooks/statements/.pdf/english/problem.pdf"
+title: "Первый отборочный этап — Решение и тесты — problems/move-rooks/statements/.pdf/english/problem.pdf"
 resource: "https://lk-dovuz.innopolis.university/public/files/contest1_2020-21.zip"
 archive_member: "problems/move-rooks/statements/.pdf/english/problem.pdf"
 source_kind: official-document
@@ -9,7 +9,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/contest1_2020-21.zip"
     id: "ecb7418f7523"
-    title: "Решение и тесты — problems/move-rooks/statements/.pdf/english/problem.pdf"
+    title: "Первый отборочный этап — Решение и тесты — problems/move-rooks/statements/.pdf/english/problem.pdf"
     last_modified: "2026-11-04T02:52:48+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Решение и тесты — problems/move-rooks/statements/.pdf/english/problem.pdf
+# Первый отборочный этап — Решение и тесты — problems/move-rooks/statements/.pdf/english/problem.pdf
 
 Nice Shape
 
@@ -66,4 +66,4 @@ One of the possible optimal solutions for the second test case of the example:
 
 # Citations
 
-1. [Решение и тесты — problems/move-rooks/statements/.pdf/english/problem.pdf](https://lk-dovuz.innopolis.university/public/files/contest1_2020-21.zip), file ecb7418f7523
+1. [Первый отборочный этап — Решение и тесты — problems/move-rooks/statements/.pdf/english/problem.pdf](https://lk-dovuz.innopolis.university/public/files/contest1_2020-21.zip), file ecb7418f7523

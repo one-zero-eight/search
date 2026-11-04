@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "zadachi 2 23"
+title: "Второй отборочный этап — zadachi 2 23"
 resource: "https://lk-dovuz.innopolis.university/public/files/zadachi_2_23.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/zadachi_2_23.pdf"
     id: "67361da3f9cb"
-    title: "zadachi 2 23"
+    title: "Второй отборочный этап — zadachi 2 23"
     last_modified: "2026-11-01T23:17:27+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# zadachi 2 23
+# Второй отборочный этап — zadachi 2 23
 
 ## 1. ВТОРОЙ ОТБОРОЧНЫЙ ЭТАП
 
@@ -333,4 +333,4 @@ T*10+1 строк.
 
 # Citations
 
-1. [zadachi 2 23](https://lk-dovuz.innopolis.university/public/files/zadachi_2_23.pdf), file 67361da3f9cb
+1. [Второй отборочный этап — zadachi 2 23](https://lk-dovuz.innopolis.university/public/files/zadachi_2_23.pdf), file 67361da3f9cb

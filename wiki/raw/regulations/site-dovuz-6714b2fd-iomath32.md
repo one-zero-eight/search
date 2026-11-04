@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "io-math-3-2"
+title: "Финальный тур — io-math-3-2"
 resource: "https://lk-dovuz.innopolis.university/public/files/io-math-3-2.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/io-math-3-2.pdf"
     id: "babee3d14059"
-    title: "io-math-3-2"
+    title: "Финальный тур — io-math-3-2"
     last_modified: "2026-11-01T23:17:22+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# io-math-3-2
+# Финальный тур — io-math-3-2
 
 7𝑡ℎ degree
 
@@ -435,4 +435,4 @@ Now we get the answer: 2𝑥 − 2 = 252 + 251 − 6 = 3 · 251 − 6.
 
 # Citations
 
-1. [io-math-3-2](https://lk-dovuz.innopolis.university/public/files/io-math-3-2.pdf), file babee3d14059
+1. [Финальный тур — io-math-3-2](https://lk-dovuz.innopolis.university/public/files/io-math-3-2.pdf), file babee3d14059

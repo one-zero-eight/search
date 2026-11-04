@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Скачать положение олимпиады [dajbdvf61esmd670p38btux93oeaan63]"
+title: "В предметном туре Участникам предстоит решить от 3 (трех) до 8 (восьми) задач по программированию. — Скачать положение олимпиады"
 resource: "https://start.innopolis.university/upload/sprint.editor/396/dajbdvf61esmd670p38btux93oeaan63.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://start.innopolis.university/upload/sprint.editor/396/dajbdvf61esmd670p38btux93oeaan63.pdf"
     id: "bf36cead2ff2"
-    title: "Скачать положение олимпиады [dajbdvf61esmd670p38btux93oeaan63]"
+    title: "В предметном туре Участникам предстоит решить от 3 (трех) до 8 (восьми) задач по программированию. — Скачать положение олимпиады"
     last_modified: "2026-08-19T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Скачать положение олимпиады [dajbdvf61esmd670p38btux93oeaan63]
+# В предметном туре Участникам предстоит решить от 3 (трех) до 8 (восьми) задач по программированию. — Скачать положение олимпиады
 
 УТВЕРЖДЕНО приказом АНО ВО «Университет Иннополис» от 19 августа 2026 г. № ОД/АД-01/2026/08/19
 
@@ -317,4 +317,4 @@ Intelligence;
 
 # Citations
 
-1. [Скачать положение олимпиады [dajbdvf61esmd670p38btux93oeaan63]](https://start.innopolis.university/upload/sprint.editor/396/dajbdvf61esmd670p38btux93oeaan63.pdf), file bf36cead2ff2
+1. [В предметном туре Участникам предстоит решить от 3 (трех) до 8 (восьми) задач по программированию. — Скачать положение олимпиады](https://start.innopolis.university/upload/sprint.editor/396/dajbdvf61esmd670p38btux93oeaan63.pdf), file bf36cead2ff2

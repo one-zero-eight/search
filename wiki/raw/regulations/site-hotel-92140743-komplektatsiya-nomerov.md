@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "КЛИНИНГ НОМЕРОВ"
+title: "Воспользоваться данной услугой можно путем подачи заявки на обслуживание в данном разделе или путем личного обращения к администратору в корпус №5. Услуга предоставляется платно. — КЛИНИНГ НОМЕРОВ"
 resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%9A%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%82%D0%B0%D1%86%D0%B8%D1%8F%20%D0%BD%D0%BE%D0%BC%D0%B5%D1%80%D0%BE%D0%B2.pdf"
 audience: ["student", "postgraduate", "applicant", "public"]
 source_kind: official-document
@@ -9,7 +9,7 @@ section: "site/hotel"
 sources:
   - resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%9A%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%82%D0%B0%D1%86%D0%B8%D1%8F%20%D0%BD%D0%BE%D0%BC%D0%B5%D1%80%D0%BE%D0%B2.pdf"
     id: "2ed1e79d8b8e"
-    title: "КЛИНИНГ НОМЕРОВ"
+    title: "Воспользоваться данной услугой можно путем подачи заявки на обслуживание в данном разделе или путем личного обращения к администратору в корпус №5. Услуга предоставляется платно. — КЛИНИНГ НОМЕРОВ"
     last_modified: "2020-06-23T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -19,7 +19,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# КЛИНИНГ НОМЕРОВ
+# Воспользоваться данной услугой можно путем подачи заявки на обслуживание в данном разделе или путем личного обращения к администратору в корпус №5. Услуга предоставляется платно. — КЛИНИНГ НОМЕРОВ
 
 УТВЕРЖДЕН приказом АНО ВО «Университет Иннополис» от 23 июня 2020 г.
 
@@ -55,4 +55,4 @@ review: "scanned document read by OCR: check numbers and dates against the PDF b
 
 # Citations
 
-1. [КЛИНИНГ НОМЕРОВ](https://hotel.innopolis.university/upload/docs-hotel/%D0%9A%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%82%D0%B0%D1%86%D0%B8%D1%8F%20%D0%BD%D0%BE%D0%BC%D0%B5%D1%80%D0%BE%D0%B2.pdf), file 2ed1e79d8b8e
+1. [Воспользоваться данной услугой можно путем подачи заявки на обслуживание в данном разделе или путем личного обращения к администратору в корпус №5. Услуга предоставляется платно. — КЛИНИНГ НОМЕРОВ](https://hotel.innopolis.university/upload/docs-hotel/%D0%9A%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%82%D0%B0%D1%86%D0%B8%D1%8F%20%D0%BD%D0%BE%D0%BC%D0%B5%D1%80%D0%BE%D0%B2.pdf), file 2ed1e79d8b8e

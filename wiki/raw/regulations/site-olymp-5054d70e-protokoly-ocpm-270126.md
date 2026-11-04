@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Скачать pdf-файл с результатами [protokoly_ocpm_270126]"
+title: "Результаты 2026 — Скачать pdf-файл с результатами [protokoly_ocpm_270126]"
 resource: "https://lk-dovuz.innopolis.university/public/files/protokoly_ocpm_270126.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/olymp"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/protokoly_ocpm_270126.pdf"
     id: "69123b340ce0"
-    title: "Скачать pdf-файл с результатами [protokoly_ocpm_270126]"
+    title: "Результаты 2026 — Скачать pdf-файл с результатами [protokoly_ocpm_270126]"
     last_modified: "2026-11-01T23:17:40+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Скачать pdf-файл с результатами [protokoly_ocpm_270126]
+# Результаты 2026 — Скачать pdf-файл с результатами [protokoly_ocpm_270126]
 
 |  |  |  |  | Попытка 1 |  |  |  |  | Попытка 2 |  |  |  |  |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -280,4 +280,4 @@ status: draft
 
 # Citations
 
-1. [Скачать pdf-файл с результатами [protokoly_ocpm_270126]](https://lk-dovuz.innopolis.university/public/files/protokoly_ocpm_270126.pdf), file 69123b340ce0
+1. [Результаты 2026 — Скачать pdf-файл с результатами [protokoly_ocpm_270126]](https://lk-dovuz.innopolis.university/public/files/protokoly_ocpm_270126.pdf), file 69123b340ce0

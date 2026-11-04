@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "15.02.10 Мехатроника и робототехника (по отраслям) [15_02_10_Мехатроника_и_робототехника_по_отраслям]"
+title: "Приказ о зачислении — 15.02.10 Мехатроника и робототехника (по отраслям)"
 resource: "https://innopolis.university/filespublic/15_02_10_%D0%9C%D0%B5%D1%85%D0%B0%D1%82%D1%80%D0%BE%D0%BD%D0%B8%D0%BA%D0%B0_%D0%B8_%D1%80%D0%BE%D0%B1%D0%BE%D1%82%D0%BE%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D0%BA%D0%B0_%D0%BF%D0%BE_%D0%BE%D1%82%D1%80%D0%B0%D1%81%D0%BB%D1%8F%D0%BC.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/college"
 sources:
   - resource: "https://innopolis.university/filespublic/15_02_10_%D0%9C%D0%B5%D1%85%D0%B0%D1%82%D1%80%D0%BE%D0%BD%D0%B8%D0%BA%D0%B0_%D0%B8_%D1%80%D0%BE%D0%B1%D0%BE%D1%82%D0%BE%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D0%BA%D0%B0_%D0%BF%D0%BE_%D0%BE%D1%82%D1%80%D0%B0%D1%81%D0%BB%D1%8F%D0%BC.pdf"
     id: "d49fa3a17d11"
-    title: "15.02.10 Мехатроника и робототехника (по отраслям) [15_02_10_Мехатроника_и_робототехника_по_отраслям]"
+    title: "Приказ о зачислении — 15.02.10 Мехатроника и робототехника (по отраслям)"
     last_modified: "2026-09-01T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# 15.02.10 Мехатроника и робототехника (по отраслям) [15_02_10_Мехатроника_и_робототехника_по_отраслям]
+# Приказ о зачислении — 15.02.10 Мехатроника и робототехника (по отраслям)
 
 УНИВЕРСИТЕТ ИННОПОЛИС
 
@@ -112,4 +112,4 @@ review: "scanned document read by OCR: check numbers and dates against the PDF b
 
 # Citations
 
-1. [15.02.10 Мехатроника и робототехника (по отраслям) [15_02_10_Мехатроника_и_робототехника_по_отраслям]](https://innopolis.university/filespublic/15_02_10_%D0%9C%D0%B5%D1%85%D0%B0%D1%82%D1%80%D0%BE%D0%BD%D0%B8%D0%BA%D0%B0_%D0%B8_%D1%80%D0%BE%D0%B1%D0%BE%D1%82%D0%BE%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D0%BA%D0%B0_%D0%BF%D0%BE_%D0%BE%D1%82%D1%80%D0%B0%D1%81%D0%BB%D1%8F%D0%BC.pdf), file d49fa3a17d11
+1. [Приказ о зачислении — 15.02.10 Мехатроника и робототехника (по отраслям)](https://innopolis.university/filespublic/15_02_10_%D0%9C%D0%B5%D1%85%D0%B0%D1%82%D1%80%D0%BE%D0%BD%D0%B8%D0%BA%D0%B0_%D0%B8_%D1%80%D0%BE%D0%B1%D0%BE%D1%82%D0%BE%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D0%BA%D0%B0_%D0%BF%D0%BE_%D0%BE%D1%82%D1%80%D0%B0%D1%81%D0%BB%D1%8F%D0%BC.pdf), file d49fa3a17d11

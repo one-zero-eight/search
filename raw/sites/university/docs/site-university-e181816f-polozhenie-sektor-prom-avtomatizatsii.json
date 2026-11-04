@@ -1,0 +1,16 @@
+{
+ "title": "Сектор промышленной автоматизации1 — Положение",
+ "url": "https://innopolis.university/upload/iblock/840/db5y7bxi81kuatr11ekaq22dflaenco1/Положение_Сектор_пром_автоматизации.pdf",
+ "sha256": "97307d7537e07525df15fc3c39a622ae25964a4efa6d154f40a7e95ac4a167ee",
+ "method": "text layer (opendataloader)",
+ "chars": 7959,
+ "section": "site/university",
+ "context": "Сектор промышленной автоматизации1",
+ "fetched_at": "2026-10-22T22:16:11+00:00",
+ "tables": 5,
+ "remote": {
+  "etag": "\"69e76b76-1160a\"",
+  "modified": "Tue, 21 Apr 2026 12:20:06 GMT",
+  "size": "71178"
+ }
+}

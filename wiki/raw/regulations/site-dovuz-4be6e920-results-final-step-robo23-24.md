@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "results final step robo23 24"
+title: "Заключительный этап — results final step robo23 24"
 resource: "https://lk-dovuz.innopolis.university/public/files/results_final_step_robo23_24.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/results_final_step_robo23_24.pdf"
     id: "1c02e79e9514"
-    title: "results final step robo23 24"
+    title: "Заключительный этап — results final step robo23 24"
     last_modified: "2026-11-01T23:17:25+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# results final step robo23 24
+# Заключительный этап — results final step robo23 24
 
 Итоговый результат Международной олимпиады "Innopolis Open" по профилю "Робототехника" - заключительный этап
 
@@ -80,4 +80,4 @@ status: draft
 
 # Citations
 
-1. [results final step robo23 24](https://lk-dovuz.innopolis.university/public/files/results_final_step_robo23_24.pdf), file 1c02e79e9514
+1. [Заключительный этап — results final step robo23 24](https://lk-dovuz.innopolis.university/public/files/results_final_step_robo23_24.pdf), file 1c02e79e9514

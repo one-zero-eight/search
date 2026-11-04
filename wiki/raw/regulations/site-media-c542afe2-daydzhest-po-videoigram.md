@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "daydzhest po videoigram"
+title: "Мария Образцова, директор Института дополнительного образования Университета Иннополис: «В основу нашего дайджеста по видеоиграм легла концепция создания современного методического цифрового пособия для всех, кто изучает — daydzhest po videoigram"
 resource: "https://innopolis.university/filespublic/daydzhest_po_videoigram.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/media"
 sources:
   - resource: "https://innopolis.university/filespublic/daydzhest_po_videoigram.pdf"
     id: "8bd203c5242e"
-    title: "daydzhest po videoigram"
+    title: "Мария Образцова, директор Института дополнительного образования Университета Иннополис: «В основу нашего дайджеста по видеоиграм легла концепция создания современного методического цифрового пособия для всех, кто изучает — daydzhest po videoigram"
     last_modified: "2022-12-01T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# daydzhest po videoigram
+# Мария Образцова, директор Института дополнительного образования Университета Иннополис: «В основу нашего дайджеста по видеоиграм легла концепция создания современного методического цифрового пособия для всех, кто изучает — daydzhest po videoigram
 
 ПРАВИЛА ИГРЫ
 
@@ -2699,4 +2699,4 @@ https://escharts.com/ru/teams. — Текст: электронный
 
 # Citations
 
-1. [daydzhest po videoigram](https://innopolis.university/filespublic/daydzhest_po_videoigram.pdf), file 8bd203c5242e
+1. [Мария Образцова, директор Института дополнительного образования Университета Иннополис: «В основу нашего дайджеста по видеоиграм легла концепция создания современного методического цифрового пособия для всех, кто изучает — daydzhest po videoigram](https://innopolis.university/filespublic/daydzhest_po_videoigram.pdf), file 8bd203c5242e

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Учебный план [ucp_uch24-25]"
+title: "День открытых дверей — Учебный план [ucp_uch24-25]"
 resource: "https://lk-dovuz.innopolis.university/public/files/ucp_uch24-25.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/msonline"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/ucp_uch24-25.pdf"
     id: "9e92ebbcdbd3"
-    title: "Учебный план [ucp_uch24-25]"
+    title: "День открытых дверей — Учебный план [ucp_uch24-25]"
     last_modified: "2026-11-01T23:17:40+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Учебный план [ucp_uch24-25]
+# День открытых дверей — Учебный план [ucp_uch24-25]
 
 Управление цифровым продуктом
 
@@ -89,4 +89,4 @@ status: draft
 
 # Citations
 
-1. [Учебный план [ucp_uch24-25]](https://lk-dovuz.innopolis.university/public/files/ucp_uch24-25.pdf), file 9e92ebbcdbd3
+1. [День открытых дверей — Учебный план [ucp_uch24-25]](https://lk-dovuz.innopolis.university/public/files/ucp_uch24-25.pdf), file 9e92ebbcdbd3

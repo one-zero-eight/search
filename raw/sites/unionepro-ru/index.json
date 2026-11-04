@@ -1,4 +1,28 @@
 {
+ "contexts": {
+  "https://innopolis.university/upload/iblock/b6f/ozxoa1j463v3s0m55w9kdc1qc0z31zfr/%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%B2%D1%8B%D0%BF%D0%B8%D1%81%D0%BA%D0%B0.pdf": "Полезная информация",
+  "https://innopolis.university/upload/iblock/d7f/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B4%D0%B5%D1%8F%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C.pdf": "Полезная информация",
+  "https://s3-api.unionepro.ru/basebucket/web/docs/Policy_processing_personal%20Data.pdf": "Полезная информация",
+  "https://unionepro.ru/docs/%D0%9E%D0%96%D0%A6_%D0%90%D1%81%D1%81%D0%B5%D1%81%D0%BC%D0%B5%D0%BD%D1%82_%D0%9D%D0%9A.pdf": "Документация:",
+  "https://unionepro.ru/docs/%D0%9E%D0%96%D0%A6_%D0%95%D0%9C%D0%9E%D0%9F_%D0%9D%D0%9A.pdf": "Документация:",
+  "https://unionepro.ru/docs/%D0%9E%D0%96%D0%A6_%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3%D0%9F%D0%9E_%D0%9D%D0%9A.pdf": "Документация:",
+  "https://unionepro.ru/docs/%D0%9E%D0%96%D0%A6_%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3_%D0%9E%D0%9A_%D0%9D%D0%9A.pdf": "Документация:",
+  "https://unionepro.ru/docs/%D0%9E%D0%96%D0%A6_%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80_%D0%9A%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D0%BE%D1%80_%D0%9E%D0%9F%D0%9E%D0%9F_%D0%9D%D0%9A.pdf": "Документация:",
+  "https://unionepro.ru/docs/%D0%9E%D0%96%D0%A6_OneID_%D0%9D%D0%9A.pdf": "Документация:",
+  "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%B0_%D0%90%D1%81%D1%81%D0%B5%D1%81%D0%BC%D0%B5%D0%BD%D1%82_%D0%9D%D0%9A.pdf": "Документация:",
+  "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%B0_%D0%95%D0%9C%D0%9E%D0%9F_%D0%9D%D0%9A_1_new.pdf": "Документация:",
+  "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%B0_%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3_%D0%9E%D0%9A_%D0%9D%D0%9A.pdf": "Документация:",
+  "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%B0_%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3_%D0%9F%D0%9E_%D0%9D%D0%9A.pdf": "Документация:",
+  "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%B0_%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80_%D0%9A%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D0%BE%D1%80_%D0%9E%D0%9F%D0%9E%D0%9F.pdf": "Документация:",
+  "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%B0_OneID.pdf": "Документация:",
+  "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_%D0%90%D1%81%D1%81%D0%B5%D1%81%D0%BC%D0%B5%D0%BD%D1%82_%D0%9D%D0%9A.pdf": "Документация:",
+  "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_%D0%95%D0%9C%D0%9E%D0%9F_%D0%9D%D0%9A.pdf": "Документация:",
+  "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3_%D0%9E%D0%9A_%D0%9D%D0%9A.pdf": "Документация:",
+  "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3_%D0%9F%D0%9E_%D0%9D%D0%9A_2.pdf": "Документация:",
+  "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80_%D0%9A%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D0%BE%D1%80_%D0%9E%D0%9F%D0%9E%D0%9F_2.pdf": "Документация:",
+  "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_OneID.pdf": "Документация:",
+  "https://unionepro.ru/docs/politicacookies.pdf": "Получение востребованной ИТ-специальности по программам повышения квалификации с выдачей официального документа установленного образца о профессиональной переподготовке."
+ },
  "docs": {
   "https://innopolis.university/upload/iblock/b6f/ozxoa1j463v3s0m55w9kdc1qc0z31zfr/%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%B2%D1%8B%D0%BF%D0%B8%D1%81%D0%BA%D0%B0.pdf": "Выписка из реестра лицензий",
   "https://innopolis.university/upload/iblock/d7f/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B4%D0%B5%D1%8F%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C.pdf": "Лицензия",

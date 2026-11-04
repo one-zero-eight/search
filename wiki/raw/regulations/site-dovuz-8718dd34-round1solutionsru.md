@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "round1-solutions-ru"
+title: "Условия задач/разбор: Задачи(ru) Задачи(en) — round1-solutions-ru"
 resource: "https://lk-dovuz.innopolis.university/public/files/round1-solutions-ru.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/round1-solutions-ru.pdf"
     id: "58939abaff30"
-    title: "round1-solutions-ru"
+    title: "Условия задач/разбор: Задачи(ru) Задачи(en) — round1-solutions-ru"
     last_modified: "2022-11-13T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# round1-solutions-ru
+# Условия задач/разбор: Задачи(ru) Задачи(en) — round1-solutions-ru
 
 Innopolis Open по информатике Первый отборочный тур. 2022-2023 Россия, Иннополис, 13 ноября 2022 г.
 
@@ -115,4 +115,4 @@ A
 
 # Citations
 
-1. [round1-solutions-ru](https://lk-dovuz.innopolis.university/public/files/round1-solutions-ru.pdf), file 58939abaff30
+1. [Условия задач/разбор: Задачи(ru) Задачи(en) — round1-solutions-ru](https://lk-dovuz.innopolis.university/public/files/round1-solutions-ru.pdf), file 58939abaff30

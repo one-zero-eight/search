@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "round2-solutions-en"
+title: "Условия задач/разбор: Задачи(ru) Задачи(en) — round2-solutions-en"
 resource: "https://lk-dovuz.innopolis.university/public/files/round2-solutions-en.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/round2-solutions-en.pdf"
     id: "0d9c0346522a"
-    title: "round2-solutions-en"
+    title: "Условия задач/разбор: Задачи(ru) Задачи(en) — round2-solutions-en"
     last_modified: "2026-11-01T23:17:26+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# round2-solutions-en
+# Условия задач/разбор: Задачи(ru) Задачи(en) — round2-solutions-en
 
 Innopolis Open 2022-2023 Second qualification round Russia, Innopolis, December 11, 2022
 
@@ -105,4 +105,4 @@ The data structure in question can be implemented using Heavy-Light decompositio
 
 # Citations
 
-1. [round2-solutions-en](https://lk-dovuz.innopolis.university/public/files/round2-solutions-en.pdf), file 0d9c0346522a
+1. [Условия задач/разбор: Задачи(ru) Задачи(en) — round2-solutions-en](https://lk-dovuz.innopolis.university/public/files/round2-solutions-en.pdf), file 0d9c0346522a

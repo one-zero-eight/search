@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "done2tour-en24inf"
+title: "Условия задач/разбор: Задачи(ru) Задачи(en) — done2tour-en24inf"
 resource: "https://lk-dovuz.innopolis.university/public/files/done2tour-en24inf.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/done2tour-en24inf.pdf"
     id: "cc5fce35913a"
-    title: "done2tour-en24inf"
+    title: "Условия задач/разбор: Задачи(ru) Задачи(en) — done2tour-en24inf"
     last_modified: "2026-11-01T23:17:20+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# done2tour-en24inf
+# Условия задач/разбор: Задачи(ru) Задачи(en) — done2tour-en24inf
 
 Innopolis Open 2023. Qualification Round 2 Russia, Innopolis, December, 17, 2023
 
@@ -245,4 +245,4 @@ Sequential children of the same deque together with their subtrees, speaking in 
 
 # Citations
 
-1. [done2tour-en24inf](https://lk-dovuz.innopolis.university/public/files/done2tour-en24inf.pdf), file cc5fce35913a
+1. [Условия задач/разбор: Задачи(ru) Задачи(en) — done2tour-en24inf](https://lk-dovuz.innopolis.university/public/files/done2tour-en24inf.pdf), file cc5fce35913a

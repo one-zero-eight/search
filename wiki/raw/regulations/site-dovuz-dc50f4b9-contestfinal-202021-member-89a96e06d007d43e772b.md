@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "contest-final 2020-21 — problems/rps-string/statements/.pdf/english/problem.pdf"
+title: "Финальный этап — contest-final 2020-21 — problems/rps-string/statements/.pdf/english/problem.pdf"
 resource: "https://lk-dovuz.innopolis.university/public/files/contest-final_2020-21.zip"
 archive_member: "problems/rps-string/statements/.pdf/english/problem.pdf"
 source_kind: official-document
@@ -9,7 +9,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/contest-final_2020-21.zip"
     id: "84187b8e51da"
-    title: "contest-final 2020-21 — problems/rps-string/statements/.pdf/english/problem.pdf"
+    title: "Финальный этап — contest-final 2020-21 — problems/rps-string/statements/.pdf/english/problem.pdf"
     last_modified: "2026-11-04T02:52:48+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# contest-final 2020-21 — problems/rps-string/statements/.pdf/english/problem.pdf
+# Финальный этап — contest-final 2020-21 — problems/rps-string/statements/.pdf/english/problem.pdf
 
 RPS string
 
@@ -129,4 +129,4 @@ Second test example: “pps”, d = 2. Let’s identify the robots with integers
 
 # Citations
 
-1. [contest-final 2020-21 — problems/rps-string/statements/.pdf/english/problem.pdf](https://lk-dovuz.innopolis.university/public/files/contest-final_2020-21.zip), file 84187b8e51da
+1. [Финальный этап — contest-final 2020-21 — problems/rps-string/statements/.pdf/english/problem.pdf](https://lk-dovuz.innopolis.university/public/files/contest-final_2020-21.zip), file 84187b8e51da

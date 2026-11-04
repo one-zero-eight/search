@@ -1,0 +1,16 @@
+{
+ "title": "Результаты опросов обучающихся организации высшего образования об удовлетворенности условиями, содержанием, организацией и качеством образовательного процесса в целом [09.04.01 ИВТ ТП обуч]",
+ "url": "https://innopolis.university/upload/iblock/2ad/y6z319lth7svwajcqlxws3p4gkh3mytn/09.04.01 ИВТ ТП обуч.pdf",
+ "sha256": "a0f33a2c2c36b1ee908c53700b7c3b318800fbfe4e3df1a3e9d73968f948984b",
+ "method": "text layer (opendataloader)",
+ "chars": 5438,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-22T21:35:49+00:00",
+ "remote": {
+  "etag": "\"6641f4d8-55c98\"",
+  "modified": "Mon, 13 May 2024 11:09:12 GMT",
+  "size": "351384"
+ },
+ "tables": 5
+}

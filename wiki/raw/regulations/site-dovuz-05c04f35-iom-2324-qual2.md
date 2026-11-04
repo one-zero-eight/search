@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "IOM 23-24 qual2"
+title: "Второй заочный отборочный этап — IOM 23-24 qual2"
 resource: "https://lk-dovuz.innopolis.university/public/files/IOM_23-24_qual2.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/IOM_23-24_qual2.pdf"
     id: "2b78af9388eb"
-    title: "IOM 23-24 qual2"
+    title: "Второй заочный отборочный этап — IOM 23-24 qual2"
     last_modified: "2026-11-01T23:17:19+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# IOM 23-24 qual2
+# Второй заочный отборочный этап — IOM 23-24 qual2
 
 Average pre-score ---> 2,68 0,99 1,05 0,89 0,23 0,82 1,66 2,505 2,475 2,555 2,885 2,59 <--- Weighting coefficient: 3-0.5*Avg
 
@@ -929,4 +929,4 @@ Task 1 Task 2 Task 3 Task 4 Task 5 Task 6 Task 1 Task 2 Task 3 Task 4 Task 5 Tas
 
 # Citations
 
-1. [IOM 23-24 qual2](https://lk-dovuz.innopolis.university/public/files/IOM_23-24_qual2.pdf), file 2b78af9388eb
+1. [Второй заочный отборочный этап — IOM 23-24 qual2](https://lk-dovuz.innopolis.university/public/files/IOM_23-24_qual2.pdf), file 2b78af9388eb

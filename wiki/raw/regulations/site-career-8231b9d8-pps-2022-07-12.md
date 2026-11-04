@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "В 2022/2023 учебном году"
+title: "Список научно-педагогических работник АНО ВО«Университет Иннополис» с окончанием срока действия трудового договора — В 2022/2023 учебном году"
 resource: "https://innopolis.university/public/files/pps/PPS%202022.07.12.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/career"
 sources:
   - resource: "https://innopolis.university/public/files/pps/PPS%202022.07.12.pdf"
     id: "149979711aac"
-    title: "В 2022/2023 учебном году"
+    title: "Список научно-педагогических работник АНО ВО«Университет Иннополис» с окончанием срока действия трудового договора — В 2022/2023 учебном году"
     last_modified: "2022-06-06T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# В 2022/2023 учебном году
+# Список научно-педагогических работник АНО ВО«Университет Иннополис» с окончанием срока действия трудового договора — В 2022/2023 учебном году
 
 innopolis UNIVERSITY
 
@@ -141,4 +141,4 @@ innopolis UNIVERSITY
 
 # Citations
 
-1. [В 2022/2023 учебном году](https://innopolis.university/public/files/pps/PPS%202022.07.12.pdf), file 149979711aac
+1. [Список научно-педагогических работник АНО ВО«Университет Иннополис» с окончанием срока действия трудового договора — В 2022/2023 учебном году](https://innopolis.university/public/files/pps/PPS%202022.07.12.pdf), file 149979711aac

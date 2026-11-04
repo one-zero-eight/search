@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "reshenie 2 tur ru"
+title: "Условия задач/разбор: Задачи(ru), Задачи(en) — reshenie 2 tur ru"
 resource: "https://lk-dovuz.innopolis.university/public/files/reshenie_2_tur_ru.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/reshenie_2_tur_ru.pdf"
     id: "b8a9882e5701"
-    title: "reshenie 2 tur ru"
+    title: "Условия задач/разбор: Задачи(ru), Задачи(en) — reshenie 2 tur ru"
     last_modified: "2025-12-28T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# reshenie 2 tur ru
+# Условия задач/разбор: Задачи(ru), Задачи(en) — reshenie 2 tur ru
 
 Innopolis Open по информатике Второй отборочный тур. 2025-2026 Иннополис, 28 декабря 2025 г.
 
@@ -359,4 +359,4 @@ C1 = A1 + B1 C2 = A2 + B2 + A1 · B1 C3 = A3 + B3 + A1 · B2 + A2 · B1 C4 = A4 
 
 # Citations
 
-1. [reshenie 2 tur ru](https://lk-dovuz.innopolis.university/public/files/reshenie_2_tur_ru.pdf), file b8a9882e5701
+1. [Условия задач/разбор: Задачи(ru), Задачи(en) — reshenie 2 tur ru](https://lk-dovuz.innopolis.university/public/files/reshenie_2_tur_ru.pdf), file b8a9882e5701

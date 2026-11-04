@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "КЕМЕРОВСКАЯ ОБЛАСТЬ"
+title: "Для граждан РФ со средним профессиональным или высшим образованием — КЕМЕРОВСКАЯ ОБЛАСТЬ"
 resource: "https://innopolis.university/filespublic/%D0%A1%D0%BE%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5%20%D0%B7%D0%B0%D0%BD%D1%8F%D1%82%D0%BE%D1%81%D1%82%D0%B8%20%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F%20%D0%9A%D0%B5%D0%BC%D0%B5%D1%80%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/trud"
 sources:
   - resource: "https://innopolis.university/filespublic/%D0%A1%D0%BE%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5%20%D0%B7%D0%B0%D0%BD%D1%8F%D1%82%D0%BE%D1%81%D1%82%D0%B8%20%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F%20%D0%9A%D0%B5%D0%BC%D0%B5%D1%80%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C.pdf"
     id: "0f6db7bbb6fd"
-    title: "КЕМЕРОВСКАЯ ОБЛАСТЬ"
+    title: "Для граждан РФ со средним профессиональным или высшим образованием — КЕМЕРОВСКАЯ ОБЛАСТЬ"
     last_modified: "2026-11-04T02:39:23+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# КЕМЕРОВСКАЯ ОБЛАСТЬ
+# Для граждан РФ со средним профессиональным или высшим образованием — КЕМЕРОВСКАЯ ОБЛАСТЬ
 
 УНИВЕРСИТЕТ ИННОПОЛИС
 
@@ -284,4 +284,4 @@ The screenshot shows a web interface for job searching on the 'РАБОТА РО
 
 # Citations
 
-1. [КЕМЕРОВСКАЯ ОБЛАСТЬ](https://innopolis.university/filespublic/%D0%A1%D0%BE%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5%20%D0%B7%D0%B0%D0%BD%D1%8F%D1%82%D0%BE%D1%81%D1%82%D0%B8%20%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F%20%D0%9A%D0%B5%D0%BC%D0%B5%D1%80%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C.pdf), file 0f6db7bbb6fd
+1. [Для граждан РФ со средним профессиональным или высшим образованием — КЕМЕРОВСКАЯ ОБЛАСТЬ](https://innopolis.university/filespublic/%D0%A1%D0%BE%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5%20%D0%B7%D0%B0%D0%BD%D1%8F%D1%82%D0%BE%D1%81%D1%82%D0%B8%20%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F%20%D0%9A%D0%B5%D0%BC%D0%B5%D1%80%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C.pdf), file 0f6db7bbb6fd

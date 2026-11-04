@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "results robo"
+title: "Работы победителей и призеров: ссылка — results robo"
 resource: "https://lk-dovuz.innopolis.university/public/files/results_robo.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/results_robo.pdf"
     id: "4999611e1ab7"
-    title: "results robo"
+    title: "Работы победителей и призеров: ссылка — results robo"
     last_modified: "2026-11-01T23:17:26+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# results robo
+# Работы победителей и призеров: ссылка — results robo
 
 Итоговые результаты 15.03.2026 Международной олимпиады "Innopolis Open" по профилю "Робототехника" - заключительный этап 7-11 и 9-11 классы
 
@@ -76,4 +76,4 @@ status: draft
 
 # Citations
 
-1. [results robo](https://lk-dovuz.innopolis.university/public/files/results_robo.pdf), file 4999611e1ab7
+1. [Работы победителей и призеров: ссылка — results robo](https://lk-dovuz.innopolis.university/public/files/results_robo.pdf), file 4999611e1ab7

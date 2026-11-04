@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "report-2020"
+title: "2020 — report-2020"
 resource: "https://innopolis.university/upload/files/report-2020.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/upload/files/report-2020.pdf"
     id: "247f09492f66"
-    title: "report-2020"
+    title: "2020 — report-2020"
     last_modified: "2026-10-24T23:51:27+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (pdfplumber)"
 status: draft
 ---
 
-# report-2020
+# 2020 — report-2020
 
 (cid:1129)(cid:1307)(cid:1292)(cid:1307)(cid:1288)(cid:1307)(cid:1299)(cid:3)(cid:1307)(cid:1311)(cid:1316)(cid:1295)(cid:1311) (cid:564)(cid:526)(cid:521)(cid:515)(cid:518)(cid:529)(cid:530)(cid:521)(cid:531)(cid:518)(cid:531)(cid:3)(cid:553)(cid:526)(cid:526)(cid:527)(cid:528)(cid:527)(cid:524)(cid:521)(cid:530)(cid:3)(cid:63)(cid:59)(cid:63)(cid:59)
 
@@ -383,4 +383,4 @@ innopolis.university
 
 # Citations
 
-1. [report-2020](https://innopolis.university/upload/files/report-2020.pdf), file 247f09492f66
+1. [2020 — report-2020](https://innopolis.university/upload/files/report-2020.pdf), file 247f09492f66

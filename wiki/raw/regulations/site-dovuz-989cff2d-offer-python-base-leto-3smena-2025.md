@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "договором оферты [offer_python_base_leto_3smena_2025]"
+title: "6 июля - 19 июля — договором оферты"
 resource: "https://lk-dovuz.innopolis.university/public/files/offer_python_base_leto_3smena_2025.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/offer_python_base_leto_3smena_2025.pdf"
     id: "515b9e18c357"
-    title: "договором оферты [offer_python_base_leto_3smena_2025]"
+    title: "6 июля - 19 июля — договором оферты"
     last_modified: "2024-01-01T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# договором оферты [offer_python_base_leto_3smena_2025]
+# 6 июля - 19 июля — договором оферты
 
 Договор об образовании по дополнительным общеобразовательным общеразвивающим программам (договор присоединения) № ОФ24 от «23» декабря 2024 г.
 
@@ -299,4 +299,4 @@ status: draft
 
 # Citations
 
-1. [договором оферты [offer_python_base_leto_3smena_2025]](https://lk-dovuz.innopolis.university/public/files/offer_python_base_leto_3smena_2025.pdf), file 515b9e18c357
+1. [6 июля - 19 июля — договором оферты](https://lk-dovuz.innopolis.university/public/files/offer_python_base_leto_3smena_2025.pdf), file 515b9e18c357

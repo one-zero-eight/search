@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "io-math-1-1"
+title: "Первый заочный отборочный тур — io-math-1-1"
 resource: "https://lk-dovuz.innopolis.university/public/files/io-math-1-1.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/io-math-1-1.pdf"
     id: "3f4e61180789"
-    title: "io-math-1-1"
+    title: "Первый заочный отборочный тур — io-math-1-1"
     last_modified: "2026-11-01T23:17:21+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# io-math-1-1
+# Первый заочный отборочный тур — io-math-1-1
 
 Каждый участник получает комплект из 6 задач, при этом каждая из них случайным образом выбирается из 4-х вариантов. Первые 4 задачи подразумевают краткий ответ в виде целого числа или десятичной дроби, округленной до сотых. Задачи под номерами 5 и 6 требуют развернутого решения и (если это предусмотрено условием) ответа.
 
@@ -727,4 +727,4 @@ Solution (ENG). (solution of version 1, the others are solved similarly) Conside
 
 # Citations
 
-1. [io-math-1-1](https://lk-dovuz.innopolis.university/public/files/io-math-1-1.pdf), file 3f4e61180789
+1. [Первый заочный отборочный тур — io-math-1-1](https://lk-dovuz.innopolis.university/public/files/io-math-1-1.pdf), file 3f4e61180789

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "ссылка на оферту [offer_egeinf_module4]"
+title: "3) Видео-разбор 24 задачи: ссылка — ссылка на оферту [offer_egeinf_module4]"
 resource: "https://lk-dovuz.innopolis.university/public/files/offer_egeinf_module4.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/offer_egeinf_module4.pdf"
     id: "38e2ca64ae9a"
-    title: "ссылка на оферту [offer_egeinf_module4]"
+    title: "3) Видео-разбор 24 задачи: ссылка — ссылка на оферту [offer_egeinf_module4]"
     last_modified: "2026-01-15T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# ссылка на оферту [offer_egeinf_module4]
+# 3) Видео-разбор 24 задачи: ссылка — ссылка на оферту [offer_egeinf_module4]
 
 Договор об образовании по дополнительным общеобразовательным общеразвивающим программам (договор присоединения) № ОНЛ ЕГЭИ26М4 от 15.01.2026г.
 
@@ -265,4 +265,4 @@ status: draft
 
 # Citations
 
-1. [ссылка на оферту [offer_egeinf_module4]](https://lk-dovuz.innopolis.university/public/files/offer_egeinf_module4.pdf), file 38e2ca64ae9a
+1. [3) Видео-разбор 24 задачи: ссылка — ссылка на оферту [offer_egeinf_module4]](https://lk-dovuz.innopolis.university/public/files/offer_egeinf_module4.pdf), file 38e2ca64ae9a

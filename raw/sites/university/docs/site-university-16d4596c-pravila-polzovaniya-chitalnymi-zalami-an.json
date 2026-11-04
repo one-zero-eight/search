@@ -1,0 +1,16 @@
+{
+ "title": "Правила пользования читальными залами автономной некоммерческой организации высшего образования \"Университет Иннополис\",",
+ "url": "https://innopolis.university/upload/iblock/f66/0nuur2pr5k7k8hk1ppj682mugfz75qmo/Правила_пользования_читальными_залами_АНО_ВО_Университет_Иннополис (2).pdf",
+ "sha256": "1f61935c4e0920cb1c4b34bc62889431c4ceb663ad5c2834d74d69e08691fd9b",
+ "method": "ocr (chandra-ocr-2)",
+ "chars": 6956,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-22T23:04:36+00:00",
+ "remote": {
+  "etag": "\"64b914ea-dea10\"",
+  "modified": "Thu, 20 Jul 2023 11:05:14 GMT",
+  "size": "911888"
+ },
+ "tables": 5
+}

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "io conditions inf ru24"
+title: "Второй отборочный этап — io conditions inf ru24"
 resource: "https://lk-dovuz.innopolis.university/public/files/io_conditions_inf_ru24.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/io_conditions_inf_ru24.pdf"
     id: "5cbf11fcf007"
-    title: "io conditions inf ru24"
+    title: "Второй отборочный этап — io conditions inf ru24"
     last_modified: "2024-12-29T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# io conditions inf ru24
+# Второй отборочный этап — io conditions inf ru24
 
 Innopolis Open по информатике Второй отборочный тур. 2024-2025 Иннополис, 29 декабря 2024 г.
 
@@ -355,4 +355,4 @@ Innopolis Open по информатике Второй отборочный т�
 
 # Citations
 
-1. [io conditions inf ru24](https://lk-dovuz.innopolis.university/public/files/io_conditions_inf_ru24.pdf), file 5cbf11fcf007
+1. [Второй отборочный этап — io conditions inf ru24](https://lk-dovuz.innopolis.university/public/files/io_conditions_inf_ru24.pdf), file 5cbf11fcf007

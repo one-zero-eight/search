@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Описание процессов жизненного цикла программного обеспечения [ОЖЦ_OneID_НК]"
+title: "Документация: — Описание процессов жизненного цикла программного обеспечения [ОЖЦ_OneID_НК]"
 resource: "https://unionepro.ru/docs/%D0%9E%D0%96%D0%A6_OneID_%D0%9D%D0%9A.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/unionepro-ru"
 sources:
   - resource: "https://unionepro.ru/docs/%D0%9E%D0%96%D0%A6_OneID_%D0%9D%D0%9A.pdf"
     id: "f1f32e79ccba"
-    title: "Описание процессов жизненного цикла программного обеспечения [ОЖЦ_OneID_НК]"
+    title: "Документация: — Описание процессов жизненного цикла программного обеспечения [ОЖЦ_OneID_НК]"
     last_modified: "2026-11-04T13:07:42+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Описание процессов жизненного цикла программного обеспечения [ОЖЦ_OneID_НК]
+# Документация: — Описание процессов жизненного цикла программного обеспечения [ОЖЦ_OneID_НК]
 
 ЕДИНАЯ СИСТЕМА ИДЕНТИФИКАЦИИ «ONEID»
 
@@ -222,4 +222,4 @@ status: draft
 
 # Citations
 
-1. [Описание процессов жизненного цикла программного обеспечения [ОЖЦ_OneID_НК]](https://unionepro.ru/docs/%D0%9E%D0%96%D0%A6_OneID_%D0%9D%D0%9A.pdf), file f1f32e79ccba
+1. [Документация: — Описание процессов жизненного цикла программного обеспечения [ОЖЦ_OneID_НК]](https://unionepro.ru/docs/%D0%9E%D0%96%D0%A6_OneID_%D0%9D%D0%9A.pdf), file f1f32e79ccba

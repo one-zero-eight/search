@@ -1,0 +1,16 @@
+{
+ "title": "Копия выписки из реестра лицензий",
+ "url": "https://innopolis.university/upload/iblock/10b/kallr4xuii5zc1bay1qtnmo4xg3z92vr/Выписка_из_реестра_лицензий.pdf",
+ "sha256": "8c66b7828990cb4945ff388bb16643ca410dcb5a9e050efed01930d2e2623a04",
+ "method": "text layer (opendataloader)",
+ "chars": 8049,
+ "section": "site/university",
+ "context": "MY UNIVERSITY Корпоративная почта Корпоративный портал Личный кабинет абитуриента Личный кабинет школьника Портал IT-help Если у вас возникли проблемы с авторизацией, обратитесь в it@innopolis.ru Личный кабинет BX.ready(function() { void ne",
+ "fetched_at": "2026-10-22T18:02:46+00:00",
+ "remote": {
+  "etag": "\"6949557e-1e693\"",
+  "modified": "Mon, 22 Dec 2025 14:28:14 GMT",
+  "size": "124563"
+ },
+ "tables": 5
+}

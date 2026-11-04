@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "tasks ior 1stpart"
+title: "Первый отборочный этап — tasks ior 1stpart"
 resource: "https://lk-dovuz.innopolis.university/public/files/tasks_ior_1stpart.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/tasks_ior_1stpart.pdf"
     id: "9209a5f7227d"
-    title: "tasks ior 1stpart"
+    title: "Первый отборочный этап — tasks ior 1stpart"
     last_modified: "2026-11-01T23:17:27+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# tasks ior 1stpart
+# Первый отборочный этап — tasks ior 1stpart
 
 Innopolis Open Robotics Russia, Innopolis, 23.11.24–08.12.24
 
@@ -435,4 +435,4 @@ Innopolis Open Robotics Russia, Innopolis, 23.11.24–08.12.24
 
 # Citations
 
-1. [tasks ior 1stpart](https://lk-dovuz.innopolis.university/public/files/tasks_ior_1stpart.pdf), file 9209a5f7227d
+1. [Первый отборочный этап — tasks ior 1stpart](https://lk-dovuz.innopolis.university/public/files/tasks_ior_1stpart.pdf), file 9209a5f7227d

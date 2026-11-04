@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Скачать pdf-файл с результатами [cpm_final_srednyaya1_2025]"
+title: "Результаты Заключительного этапа 1.02.2025 — Скачать pdf-файл с результатами [cpm_final_srednyaya1_2025]"
 resource: "https://lk-dovuz.innopolis.university/public/files/cpm_final_srednyaya1_2025.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/olymp"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/cpm_final_srednyaya1_2025.pdf"
     id: "5958c2813eb4"
-    title: "Скачать pdf-файл с результатами [cpm_final_srednyaya1_2025]"
+    title: "Результаты Заключительного этапа 1.02.2025 — Скачать pdf-файл с результатами [cpm_final_srednyaya1_2025]"
     last_modified: "2026-11-01T23:17:40+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Скачать pdf-файл с результатами [cpm_final_srednyaya1_2025]
+# Результаты Заключительного этапа 1.02.2025 — Скачать pdf-файл с результатами [cpm_final_srednyaya1_2025]
 
 | Участники | Школа | Попытка 1 |  |  |  |  |  | Попытка 2 |  |  |  |  |  | Попытка 3 |  |  |  |  |  |  |  |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -72,4 +72,4 @@ status: draft
 
 # Citations
 
-1. [Скачать pdf-файл с результатами [cpm_final_srednyaya1_2025]](https://lk-dovuz.innopolis.university/public/files/cpm_final_srednyaya1_2025.pdf), file 5958c2813eb4
+1. [Результаты Заключительного этапа 1.02.2025 — Скачать pdf-файл с результатами [cpm_final_srednyaya1_2025]](https://lk-dovuz.innopolis.university/public/files/cpm_final_srednyaya1_2025.pdf), file 5958c2813eb4

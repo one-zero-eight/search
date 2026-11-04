@@ -1,4 +1,16 @@
 {
+ "contexts": {
+  "https://apply.innopolis.university/public/files/uchplanse.pdf": "The language of instruction is English.",
+  "https://apply.innopolis.university/public/files/uchplansne.pdf": "The language of instruction is English.",
+  "https://apply.innopolis.university/upload/files/en_manual_bachelor_2025.pdf": "BACHELOR'S PROGRAM",
+  "https://apply.innopolis.university/upload/files/en_manual_graduateschool_2025.pdf": "Mathematical modeling, numerical methods and software packages",
+  "https://apply.innopolis.university/upload/files/en_manual_masters_2025.pdf": "Master's degree",
+  "https://innopolis.university/filespublic/Overview_of_the_BS_Program1.pdf": "The language of instruction is English.",
+  "https://innopolis.university/filespublic/uch_plan_magistr_ii_inzheneriya_dannyh.pdf": "Language of instruction is English.",
+  "https://innopolis.university/filespublic/ucheb_plan_magistr_ii_inzheneriya_dannyh.pdf": "The language of instruction is English.",
+  "https://innopolis.university/public/files/Consent_to_the_processing_of_PD_for_UI.pdf": "© 2010–2023 Innopolis University",
+  "https://new.innopolis.university/public/files/Consent_to_the_processing_of_PD_for_UI.pdf": "We use cookies"
+ },
  "docs": {
   "https://apply.innopolis.university/public/files/uchplanse.pdf": "Download the curriculum",
   "https://apply.innopolis.university/public/files/uchplansne.pdf": "Download the curriculum",

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "В 2024/2025 учебном году"
+title: "Список научно-педагогических работник АНО ВО«Университет Иннополис» с окончанием срока действия трудового договора — В 2024/2025 учебном году"
 resource: "https://innopolis.university/filespublic/%D0%92%202024%202025%20%D1%83%D1%87%D0%B5%D0%B1%D0%BD%D0%BE%D0%BC%20%D0%B3%D0%BE%D0%B4%D1%83.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/career"
 sources:
   - resource: "https://innopolis.university/filespublic/%D0%92%202024%202025%20%D1%83%D1%87%D0%B5%D0%B1%D0%BD%D0%BE%D0%BC%20%D0%B3%D0%BE%D0%B4%D1%83.pdf"
     id: "b0ae604f0f48"
-    title: "В 2024/2025 учебном году"
+    title: "Список научно-педагогических работник АНО ВО«Университет Иннополис» с окончанием срока действия трудового договора — В 2024/2025 учебном году"
     last_modified: "2024-04-01T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# В 2024/2025 учебном году
+# Список научно-педагогических работник АНО ВО«Университет Иннополис» с окончанием срока действия трудового договора — В 2024/2025 учебном году
 
 Приложение к приказу АНО ВО «Университет Иннополис» от 1 апреля 2024 г. № ОД/АД-03/2024/04/01
 
@@ -57,4 +57,4 @@ review: "scanned document read by OCR: check numbers and dates against the PDF b
 
 # Citations
 
-1. [В 2024/2025 учебном году](https://innopolis.university/filespublic/%D0%92%202024%202025%20%D1%83%D1%87%D0%B5%D0%B1%D0%BD%D0%BE%D0%BC%20%D0%B3%D0%BE%D0%B4%D1%83.pdf), file b0ae604f0f48
+1. [Список научно-педагогических работник АНО ВО«Университет Иннополис» с окончанием срока действия трудового договора — В 2024/2025 учебном году](https://innopolis.university/filespublic/%D0%92%202024%202025%20%D1%83%D1%87%D0%B5%D0%B1%D0%BD%D0%BE%D0%BC%20%D0%B3%D0%BE%D0%B4%D1%83.pdf), file b0ae604f0f48

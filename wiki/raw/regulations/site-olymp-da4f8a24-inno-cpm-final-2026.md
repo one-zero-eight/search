@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Скачать pdf-файл с результатами [inno_cpm_final_2026]"
+title: "Результаты 2026 — Скачать pdf-файл с результатами [inno_cpm_final_2026]"
 resource: "https://lk-dovuz.innopolis.university/public/files/inno_cpm_final_2026.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/olymp"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/inno_cpm_final_2026.pdf"
     id: "da23609cc8a2"
-    title: "Скачать pdf-файл с результатами [inno_cpm_final_2026]"
+    title: "Результаты 2026 — Скачать pdf-файл с результатами [inno_cpm_final_2026]"
     last_modified: "2026-11-01T23:17:40+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Скачать pdf-файл с результатами [inno_cpm_final_2026]
+# Результаты 2026 — Скачать pdf-файл с результатами [inno_cpm_final_2026]
 
 Попытка 1 Попытка 2 верной по X и по знаку Y зоне верной по X и по знаку Y зоне верной только по знаку Y зоне верной только по знаку Y зоне
 
@@ -84,4 +84,4 @@ ID Заявки ФИО Школа Класс
 
 # Citations
 
-1. [Скачать pdf-файл с результатами [inno_cpm_final_2026]](https://lk-dovuz.innopolis.university/public/files/inno_cpm_final_2026.pdf), file da23609cc8a2
+1. [Результаты 2026 — Скачать pdf-файл с результатами [inno_cpm_final_2026]](https://lk-dovuz.innopolis.university/public/files/inno_cpm_final_2026.pdf), file da23609cc8a2

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "innopolis tour2 analysis ru"
+title: "Второй отборочный этап — innopolis tour2 analysis ru"
 resource: "https://lk-dovuz.innopolis.university/public/files/innopolis_tour2_analysis_ru.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/innopolis_tour2_analysis_ru.pdf"
     id: "30182f58f067"
-    title: "innopolis tour2 analysis ru"
+    title: "Второй отборочный этап — innopolis tour2 analysis ru"
     last_modified: "2026-11-01T23:17:21+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# innopolis tour2 analysis ru
+# Второй отборочный этап — innopolis tour2 analysis ru
 
 Разбор задачи "Сбор данных"
 
@@ -305,4 +305,4 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2) cv_scor
 
 # Citations
 
-1. [innopolis tour2 analysis ru](https://lk-dovuz.innopolis.university/public/files/innopolis_tour2_analysis_ru.pdf), file 30182f58f067
+1. [Второй отборочный этап — innopolis tour2 analysis ru](https://lk-dovuz.innopolis.university/public/files/innopolis_tour2_analysis_ru.pdf), file 30182f58f067

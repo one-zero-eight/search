@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "protokol infobez 290126"
+title: "Второй отборочный этап — protokol infobez 290126"
 resource: "https://lk-dovuz.innopolis.university/public/files/protokol_infobez_290126.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/protokol_infobez_290126.pdf"
     id: "8e237ca98bfc"
-    title: "protokol infobez 290126"
+    title: "Второй отборочный этап — protokol infobez 290126"
     last_modified: "2026-11-01T23:17:23+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# protokol infobez 290126
+# Второй отборочный этап — protokol infobez 290126
 
 Международная олимпиада Innopolis Open 2025-2626
 
@@ -351,4 +351,4 @@ The final results of the second qualifying stage of the Innopolis Open Olympiad 
 
 # Citations
 
-1. [protokol infobez 290126](https://lk-dovuz.innopolis.university/public/files/protokol_infobez_290126.pdf), file 8e237ca98bfc
+1. [Второй отборочный этап — protokol infobez 290126](https://lk-dovuz.innopolis.university/public/files/protokol_infobez_290126.pdf), file 8e237ca98bfc

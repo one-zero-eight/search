@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "all tasks cyberbez23-24"
+title: "Работы победителей и призеров: ссылка — all tasks cyberbez23-24"
 resource: "https://lk-dovuz.innopolis.university/public/files/all_tasks_cyberbez23-24.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/all_tasks_cyberbez23-24.pdf"
     id: "b9ae19256c98"
-    title: "all tasks cyberbez23-24"
+    title: "Работы победителей и призеров: ссылка — all tasks cyberbez23-24"
     last_modified: "2026-11-01T23:17:20+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# all tasks cyberbez23-24
+# Работы победителей и призеров: ссылка — all tasks cyberbez23-24
 
 Международная олимпиада «Innopolis Open» по профилю «Информационная безопасность»
 
@@ -685,4 +685,4 @@ fbc564a621d5ed5e0fa5a1768c4f7e4d
 
 # Citations
 
-1. [all tasks cyberbez23-24](https://lk-dovuz.innopolis.university/public/files/all_tasks_cyberbez23-24.pdf), file b9ae19256c98
+1. [Работы победителей и призеров: ссылка — all tasks cyberbez23-24](https://lk-dovuz.innopolis.university/public/files/all_tasks_cyberbez23-24.pdf), file b9ae19256c98

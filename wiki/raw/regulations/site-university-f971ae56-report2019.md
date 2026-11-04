@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "report-2019"
+title: "2019 — report-2019"
 resource: "https://innopolis.university/upload/files/report-2019.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/upload/files/report-2019.pdf"
     id: "b0dcb2fef686"
-    title: "report-2019"
+    title: "2019 — report-2019"
     last_modified: "2026-10-24T23:51:19+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (pdfplumber)"
 status: draft
 ---
 
-# report-2019
+# 2019 — report-2019
 
 (cid:623)(cid:602)(cid:592)(cid:602)(cid:590)(cid:602)(cid:597)(cid:3)(cid:602)(cid:606)(cid:611)(cid:662)(cid:606) 2019
 
@@ -371,4 +371,4 @@ status: draft
 
 # Citations
 
-1. [report-2019](https://innopolis.university/upload/files/report-2019.pdf), file b0dcb2fef686
+1. [2019 — report-2019](https://innopolis.university/upload/files/report-2019.pdf), file b0dcb2fef686

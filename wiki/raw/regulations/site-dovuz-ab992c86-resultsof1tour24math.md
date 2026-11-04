@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "resultsof1tour24math"
+title: "Условия задач/разбор: Задачи(ru) Задачи(en) — resultsof1tour24math"
 resource: "https://lk-dovuz.innopolis.university/public/files/resultsof1tour24math.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/resultsof1tour24math.pdf"
     id: "50cc74cab92c"
-    title: "resultsof1tour24math"
+    title: "Условия задач/разбор: Задачи(ru) Задачи(en) — resultsof1tour24math"
     last_modified: "2026-11-01T23:17:26+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# resultsof1tour24math
+# Условия задач/разбор: Задачи(ru) Задачи(en) — resultsof1tour24math
 
 Итоговые результаты первого отборочного этапа олимпиады Innopolis Open по информатике The final results of the first qualifying stage of the Innopolis Open Olympiad in Informatics / 2023-2024
 
@@ -2077,4 +2077,4 @@ status: draft
 
 # Citations
 
-1. [resultsof1tour24math](https://lk-dovuz.innopolis.university/public/files/resultsof1tour24math.pdf), file 50cc74cab92c
+1. [Условия задач/разбор: Задачи(ru) Задачи(en) — resultsof1tour24math](https://lk-dovuz.innopolis.university/public/files/resultsof1tour24math.pdf), file 50cc74cab92c

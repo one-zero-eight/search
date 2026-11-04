@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "1st round IOM 25-26"
+title: "Первый заочный отборочный этап — 1st round IOM 25-26"
 resource: "https://lk-dovuz.innopolis.university/public/files/1st_round_IOM_25-26.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/1st_round_IOM_25-26.pdf"
     id: "f42f80d2d8f0"
-    title: "1st round IOM 25-26"
+    title: "Первый заочный отборочный этап — 1st round IOM 25-26"
     last_modified: "2026-11-01T23:17:18+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# 1st round IOM 25-26
+# Первый заочный отборочный этап — 1st round IOM 25-26
 
 Innopolis Open 2025/26 in Mathematics 1𝑠𝑡 qualifying round
 
@@ -1263,4 +1263,4 @@ For the part b):
 
 # Citations
 
-1. [1st round IOM 25-26](https://lk-dovuz.innopolis.university/public/files/1st_round_IOM_25-26.pdf), file f42f80d2d8f0
+1. [Первый заочный отборочный этап — 1st round IOM 25-26](https://lk-dovuz.innopolis.university/public/files/1st_round_IOM_25-26.pdf), file f42f80d2d8f0

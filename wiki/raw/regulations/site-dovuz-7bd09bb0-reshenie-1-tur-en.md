@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "reshenie 1 tur en"
+title: "Условия задач/разбор: Задачи(ru), Задачи(en) — reshenie 1 tur en"
 resource: "https://lk-dovuz.innopolis.university/public/files/reshenie_1_tur_en.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/reshenie_1_tur_en.pdf"
     id: "8950682c467e"
-    title: "reshenie 1 tur en"
+    title: "Условия задач/разбор: Задачи(ru), Задачи(en) — reshenie 1 tur en"
     last_modified: "2026-11-01T23:17:24+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# reshenie 1 tur en
+# Условия задач/разбор: Задачи(ru), Задачи(en) — reshenie 1 tur en
 
 Innopolis Open 2025-2026 First qualification round Innopolis, November 2, 2025
 
@@ -465,4 +465,4 @@ It is possible to simplify the solution and count only the number of sets of ope
 
 # Citations
 
-1. [reshenie 1 tur en](https://lk-dovuz.innopolis.university/public/files/reshenie_1_tur_en.pdf), file 8950682c467e
+1. [Условия задач/разбор: Задачи(ru), Задачи(en) — reshenie 1 tur en](https://lk-dovuz.innopolis.university/public/files/reshenie_1_tur_en.pdf), file 8950682c467e

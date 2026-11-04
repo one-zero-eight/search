@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Основы Gamedev на Python"
+title: "Время ориентировочное. — Основы Gamedev на Python"
 resource: "https://lk-dovuz.innopolis.university/public/files/offer-spring-gamedev-python.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/offer-spring-gamedev-python.pdf"
     id: "2376574be6cb"
-    title: "Основы Gamedev на Python"
+    title: "Время ориентировочное. — Основы Gamedev на Python"
     last_modified: "2026-01-01T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Основы Gamedev на Python
+# Время ориентировочное. — Основы Gamedev на Python
 
 Договор об образовании по дополнительным общеобразовательным общеразвивающим программам (договор присоединения) № ОФВ267 от «19» ноября 2025 г.
 
@@ -303,4 +303,4 @@ status: draft
 
 # Citations
 
-1. [Основы Gamedev на Python](https://lk-dovuz.innopolis.university/public/files/offer-spring-gamedev-python.pdf), file 2376574be6cb
+1. [Время ориентировочное. — Основы Gamedev на Python](https://lk-dovuz.innopolis.university/public/files/offer-spring-gamedev-python.pdf), file 2376574be6cb

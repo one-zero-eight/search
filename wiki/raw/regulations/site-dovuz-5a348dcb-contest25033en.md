@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "contest-25033-en"
+title: "Первый отборочный этап — contest-25033-en"
 resource: "https://lk-dovuz.innopolis.university/public/files/contest-25033-en.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/contest-25033-en.pdf"
     id: "73aec2342c6b"
-    title: "contest-25033-en"
+    title: "Первый отборочный этап — contest-25033-en"
     last_modified: "2026-11-01T23:17:20+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# contest-25033-en
+# Первый отборочный этап — contest-25033-en
 
 Innopolis Open 2021-2022 First qualification round Russia, Innopolis, November 21, 2021
 
@@ -93,4 +93,4 @@ If we merge the vertices corresponding to the same number, we get a graph with O
 
 # Citations
 
-1. [contest-25033-en](https://lk-dovuz.innopolis.university/public/files/contest-25033-en.pdf), file 73aec2342c6b
+1. [Первый отборочный этап — contest-25033-en](https://lk-dovuz.innopolis.university/public/files/contest-25033-en.pdf), file 73aec2342c6b

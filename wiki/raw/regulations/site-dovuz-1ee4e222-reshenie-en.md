@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "reshenie en"
+title: "Первый отборочный этап — reshenie en"
 resource: "https://lk-dovuz.innopolis.university/public/files/reshenie_en.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/reshenie_en.pdf"
     id: "37294e8a399b"
-    title: "reshenie en"
+    title: "Первый отборочный этап — reshenie en"
     last_modified: "2026-11-01T23:17:24+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# reshenie en
+# Первый отборочный этап — reshenie en
 
 Innopolis Open Robotics ,
 
@@ -455,4 +455,4 @@ Fn Fn+1
 
 # Citations
 
-1. [reshenie en](https://lk-dovuz.innopolis.university/public/files/reshenie_en.pdf), file 37294e8a399b
+1. [Первый отборочный этап — reshenie en](https://lk-dovuz.innopolis.university/public/files/reshenie_en.pdf), file 37294e8a399b

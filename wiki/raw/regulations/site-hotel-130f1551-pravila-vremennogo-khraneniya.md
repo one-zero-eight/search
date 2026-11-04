@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Правила хранения багажа"
+title: "Документы — Правила хранения багажа"
 resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D0%BE%D0%B3%D0%BE%20%D1%85%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F.pdf"
 audience: ["student", "postgraduate", "applicant", "public"]
 source_kind: official-document
@@ -9,7 +9,7 @@ section: "site/hotel"
 sources:
   - resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D0%BE%D0%B3%D0%BE%20%D1%85%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F.pdf"
     id: "291201147925"
-    title: "Правила хранения багажа"
+    title: "Документы — Правила хранения багажа"
     last_modified: "2018-07-01T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -19,7 +19,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# Правила хранения багажа
+# Документы — Правила хранения багажа
 
 innopolis university
 
@@ -301,4 +301,4 @@ _____ (Ф.И.О., должность и место работы или стат�
 
 # Citations
 
-1. [Правила хранения багажа](https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D0%BE%D0%B3%D0%BE%20%D1%85%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F.pdf), file 291201147925
+1. [Документы — Правила хранения багажа](https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D0%BE%D0%B3%D0%BE%20%D1%85%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F.pdf), file 291201147925

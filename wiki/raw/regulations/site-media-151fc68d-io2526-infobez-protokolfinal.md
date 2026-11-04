@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "io2526 infobez protokolfinal"
+title: "7 финалистов из Казани, Москвы, Санкт-Петербурга, Сорочинска, Жуковского и Мытищ стали победителями. Ещё 14 школьников из Татарстана, Краснодарского края, Мордовии, Новосибирской, Нижегородской, Московской областей и Мос — io2526 infobez protokolfinal"
 resource: "https://lk-dovuz.innopolis.university/public/files/io2526_infobez_protokolfinal.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/media"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/io2526_infobez_protokolfinal.pdf"
     id: "ee3a554ed29f"
-    title: "io2526 infobez protokolfinal"
+    title: "7 финалистов из Казани, Москвы, Санкт-Петербурга, Сорочинска, Жуковского и Мытищ стали победителями. Ещё 14 школьников из Татарстана, Краснодарского края, Мордовии, Новосибирской, Нижегородской, Московской областей и Мос — io2526 infobez protokolfinal"
     last_modified: "2026-11-01T23:10:11+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# io2526 infobez protokolfinal
+# 7 финалистов из Казани, Москвы, Санкт-Петербурга, Сорочинска, Жуковского и Мытищ стали победителями. Ещё 14 школьников из Татарстана, Краснодарского края, Мордовии, Новосибирской, Нижегородской, Московской областей и Мос — io2526 infobez protokolfinal
 
 Международная олимпиада Innopolis Open 2025-2026
 
@@ -130,4 +130,4 @@ The final results of the final stage of the Innopolis Open Olympiad in Cyber sec
 
 # Citations
 
-1. [io2526 infobez protokolfinal](https://lk-dovuz.innopolis.university/public/files/io2526_infobez_protokolfinal.pdf), file ee3a554ed29f
+1. [7 финалистов из Казани, Москвы, Санкт-Петербурга, Сорочинска, Жуковского и Мытищ стали победителями. Ещё 14 школьников из Татарстана, Краснодарского края, Мордовии, Новосибирской, Нижегородской, Московской областей и Мос — io2526 infobez protokolfinal](https://lk-dovuz.innopolis.university/public/files/io2526_infobez_protokolfinal.pdf), file ee3a554ed29f

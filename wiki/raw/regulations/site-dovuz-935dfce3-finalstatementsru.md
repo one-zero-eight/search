@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "final-statements-ru"
+title: "Финал — final-statements-ru"
 resource: "https://lk-dovuz.innopolis.university/public/files/final-statements-ru.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/final-statements-ru.pdf"
     id: "509cfaa73e80"
-    title: "final-statements-ru"
+    title: "Финал — final-statements-ru"
     last_modified: "2023-02-12T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# final-statements-ru
+# Финал — final-statements-ru
 
 Innopolis Open по информатике Заключительный тур. 2022-2023 Россия, Иннополис, 12 февраля 2023
 
@@ -298,4 +298,4 @@ Universal Paperclips — инкрементальная игра, целью к�
 
 # Citations
 
-1. [final-statements-ru](https://lk-dovuz.innopolis.university/public/files/final-statements-ru.pdf), file 509cfaa73e80
+1. [Финал — final-statements-ru](https://lk-dovuz.innopolis.university/public/files/final-statements-ru.pdf), file 509cfaa73e80

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Приказ Центр ИТ"
+title: "отсутствует — Приказ Центр ИТ"
 resource: "https://innopolis.university/upload/iblock/260/7twgc0r3blb2nu2x00ggycuyu5cg5jad/%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7__%D0%A6%D0%B5%D0%BD%D1%82%D1%80_%D0%98%D0%A2.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/upload/iblock/260/7twgc0r3blb2nu2x00ggycuyu5cg5jad/%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7__%D0%A6%D0%B5%D0%BD%D1%82%D1%80_%D0%98%D0%A2.pdf"
     id: "0293e904f80c"
-    title: "Приказ Центр ИТ"
+    title: "отсутствует — Приказ Центр ИТ"
     last_modified: "2025-06-11T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Приказ Центр ИТ
+# отсутствует — Приказ Центр ИТ
 
 Автономная некоммерческая организация высшего образования «Университет Иннополис» (АНО ВО «Университет Иннополис»)
 
@@ -147,4 +147,4 @@ status: draft
 
 # Citations
 
-1. [Приказ Центр ИТ](https://innopolis.university/upload/iblock/260/7twgc0r3blb2nu2x00ggycuyu5cg5jad/%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7__%D0%A6%D0%B5%D0%BD%D1%82%D1%80_%D0%98%D0%A2.pdf), file 0293e904f80c
+1. [отсутствует — Приказ Центр ИТ](https://innopolis.university/upload/iblock/260/7twgc0r3blb2nu2x00ggycuyu5cg5jad/%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7__%D0%A6%D0%B5%D0%BD%D1%82%D1%80_%D0%98%D0%A2.pdf), file 0293e904f80c

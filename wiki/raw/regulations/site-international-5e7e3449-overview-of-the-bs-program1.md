@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Download the curriculum [Overview_of_the_BS_Program1]"
+title: "The language of instruction is English. — Download the curriculum [Overview_of_the_BS_Program1]"
 resource: "https://innopolis.university/filespublic/Overview_of_the_BS_Program1.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/international"
 sources:
   - resource: "https://innopolis.university/filespublic/Overview_of_the_BS_Program1.pdf"
     id: "e70f2487116c"
-    title: "Download the curriculum [Overview_of_the_BS_Program1]"
+    title: "The language of instruction is English. — Download the curriculum [Overview_of_the_BS_Program1]"
     last_modified: "2026-11-01T23:00:23+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Download the curriculum [Overview_of_the_BS_Program1]
+# The language of instruction is English. — Download the curriculum [Overview_of_the_BS_Program1]
 
 All tracks All tracks All tracks
 
@@ -49,4 +49,4 @@ SD - Software Development CS - Cyber Security
 
 # Citations
 
-1. [Download the curriculum [Overview_of_the_BS_Program1]](https://innopolis.university/filespublic/Overview_of_the_BS_Program1.pdf), file e70f2487116c
+1. [The language of instruction is English. — Download the curriculum [Overview_of_the_BS_Program1]](https://innopolis.university/filespublic/Overview_of_the_BS_Program1.pdf), file e70f2487116c

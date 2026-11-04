@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "final math io 25 26"
+title: "Финальный тур — final math io 25 26"
 resource: "https://lk-dovuz.innopolis.university/public/files/final_math_io_25_26.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/final_math_io_25_26.pdf"
     id: "2bb4fa170261"
-    title: "final math io 25 26"
+    title: "Финальный тур — final math io 25 26"
     last_modified: "2026-11-01T23:17:20+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# final math io 25 26
+# Финальный тур — final math io 25 26
 
 | Средний первичный балл -> | 1,4 | 2,23 | 1,27 | 0 | 0,88 | 2,3 | 1,885 | 2,365 | 3 | 2,56 | <- Вес задачи | Результат |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -381,4 +381,4 @@ status: draft
 
 # Citations
 
-1. [final math io 25 26](https://lk-dovuz.innopolis.university/public/files/final_math_io_25_26.pdf), file 2bb4fa170261
+1. [Финальный тур — final math io 25 26](https://lk-dovuz.innopolis.university/public/files/final_math_io_25_26.pdf), file 2bb4fa170261

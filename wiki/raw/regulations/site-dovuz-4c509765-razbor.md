@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "razbor"
+title: "Второй отборочный этап — razbor"
 resource: "https://lk-dovuz.innopolis.university/public/files/razbor.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/razbor.pdf"
     id: "ad895adeb7bd"
-    title: "razbor"
+    title: "Второй отборочный этап — razbor"
     last_modified: "2026-11-01T23:17:24+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# razbor
+# Второй отборочный этап — razbor
 
 Решение задачи «Детектор различий на изображениях»
 
@@ -541,4 +541,4 @@ o Агент строит внутреннюю карту 15×15 на основ
 
 # Citations
 
-1. [razbor](https://lk-dovuz.innopolis.university/public/files/razbor.pdf), file ad895adeb7bd
+1. [Второй отборочный этап — razbor](https://lk-dovuz.innopolis.university/public/files/razbor.pdf), file ad895adeb7bd

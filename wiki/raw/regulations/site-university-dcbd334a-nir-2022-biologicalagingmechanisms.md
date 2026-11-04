@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Read the article [NIR_2022_biological-aging-mechanisms]"
+title: "In present work, we conduct a statistical analysis of age-related changes in the neuromuscular system of healthy subjects. The experiment involved 29 volunteers who were assigned to different age groups: 20–24 years old, — Read the article"
 resource: "https://innopolis.university/filespublic/NIR_2022_biological-aging-mechanisms.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/NIR_2022_biological-aging-mechanisms.pdf"
     id: "ec8aa5eb1d71"
-    title: "Read the article [NIR_2022_biological-aging-mechanisms]"
+    title: "In present work, we conduct a statistical analysis of age-related changes in the neuromuscular system of healthy subjects. The experiment involved 29 volunteers who were assigned to different age groups: 20–24 years old, — Read the article"
     last_modified: "2026-10-24T23:44:40+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Read the article [NIR_2022_biological-aging-mechanisms]
+# In present work, we conduct a statistical analysis of age-related changes in the neuromuscular system of healthy subjects. The experiment involved 29 volunteers who were assigned to different age groups: 20–24 years old, — Read the article
 
 The study of the biological aging mechanisms of the human neuromuscular system based on statistical analysis of physiological signals
 
@@ -181,4 +181,4 @@ Alterations with disease and aging”, PNAS, vol. 99, pp. 2466–2472, 2002.
 
 # Citations
 
-1. [Read the article [NIR_2022_biological-aging-mechanisms]](https://innopolis.university/filespublic/NIR_2022_biological-aging-mechanisms.pdf), file ec8aa5eb1d71
+1. [In present work, we conduct a statistical analysis of age-related changes in the neuromuscular system of healthy subjects. The experiment involved 29 volunteers who were assigned to different age groups: 20–24 years old, — Read the article](https://innopolis.university/filespublic/NIR_2022_biological-aging-mechanisms.pdf), file ec8aa5eb1d71

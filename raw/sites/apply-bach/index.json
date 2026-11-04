@@ -1,4 +1,10 @@
 {
+ "contexts": {
+  "https://innopolis.university/files/politicacookies.pdf": "© 2010–2025 АНО ВО Университет Иннополис",
+  "https://innopolis.university/upload/iblock/bc8/l0b9z5qtn57k3xvif2l0dbxcl0q9l3x7/%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_2024_AI360%20%D0%A3%D0%9F%2021082025%20%D1%81%D0%B0%D0%B8%CC%86%D1%82.pdf": "длительность обучения",
+  "https://innopolis.university/upload/iblock/fd1/jup48fvs6hwxujs90uhuc1y7c51tcn0g/%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_2025_%D0%9C%D0%9E%D0%98%D0%98_%D0%A3%D0%9F_21082025%20%D1%81%D0%B0%D0%B8%CC%86%D1%82.pdf": "Бакалавриат",
+  "https://lk-dovuz.innopolis.university/public/files/Mat-osnovy-ai.pdf": "по математическим основам ИИ"
+ },
  "docs": {
   "https://innopolis.university/files/politicacookies.pdf": "Пользовательское соглашение",
   "https://innopolis.university/upload/iblock/bc8/l0b9z5qtn57k3xvif2l0dbxcl0q9l3x7/%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_2024_AI360%20%D0%A3%D0%9F%2021082025%20%D1%81%D0%B0%D0%B8%CC%86%D1%82.pdf": "Учебный план",

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "results ii 2"
+title: "Второй отборочный этап — results ii 2"
 resource: "https://lk-dovuz.innopolis.university/public/files/results_ii_2.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/results_ii_2.pdf"
     id: "5664bd8ac0e0"
-    title: "results ii 2"
+    title: "Второй отборочный этап — results ii 2"
     last_modified: "2026-11-01T23:17:26+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (pdfplumber)"
 status: draft
 ---
 
-# results ii 2
+# Второй отборочный этап — results ii 2
 
 | ID | UserID | Имя | Фамилия | Первыйтур | Ручн. | СУММАI | Второйтур | СУММА | Место |  |  |  |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -90,4 +90,4 @@ status: draft
 
 # Citations
 
-1. [results ii 2](https://lk-dovuz.innopolis.university/public/files/results_ii_2.pdf), file 5664bd8ac0e0
+1. [Второй отборочный этап — results ii 2](https://lk-dovuz.innopolis.university/public/files/results_ii_2.pdf), file 5664bd8ac0e0

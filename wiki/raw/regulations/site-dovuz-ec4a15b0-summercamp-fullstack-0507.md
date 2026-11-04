@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "summercamp fullstack 0507"
+title: "А в день выезда отвезут обратно по тем же точкам из Университета Иннополис в 10:00 — summercamp fullstack 0507"
 resource: "https://lk-dovuz.innopolis.university/public/files/summercamp_fullstack_0507.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/summercamp_fullstack_0507.pdf"
     id: "1483ea50631b"
-    title: "summercamp fullstack 0507"
+    title: "А в день выезда отвезут обратно по тем же точкам из Университета Иннополис в 10:00 — summercamp fullstack 0507"
     last_modified: "2026-01-16T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# summercamp fullstack 0507
+# А в день выезда отвезут обратно по тем же точкам из Университета Иннополис в 10:00 — summercamp fullstack 0507
 
 Договор об образовании по дополнительным общеобразовательным общеразвивающим программам (договор присоединения) № ОФ16 от 16.01.2026 г.
 
@@ -309,4 +309,4 @@ status: draft
 
 # Citations
 
-1. [summercamp fullstack 0507](https://lk-dovuz.innopolis.university/public/files/summercamp_fullstack_0507.pdf), file 1483ea50631b
+1. [А в день выезда отвезут обратно по тем же точкам из Университета Иннополис в 10:00 — summercamp fullstack 0507](https://lk-dovuz.innopolis.university/public/files/summercamp_fullstack_0507.pdf), file 1483ea50631b

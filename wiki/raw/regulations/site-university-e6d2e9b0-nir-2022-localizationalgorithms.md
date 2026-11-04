@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Read the article [NIR_2022_localization-algorithms]"
+title: "State of art approaches for localization and mapping is based on local features in images. Along with this, modern augmented and mixed reality devices allow building a mesh of the surrounding space. Using this mesh map,  — Read the article"
 resource: "https://innopolis.university/filespublic/NIR_2022_localization-algorithms.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/NIR_2022_localization-algorithms.pdf"
     id: "bf97a9e4b1aa"
-    title: "Read the article [NIR_2022_localization-algorithms]"
+    title: "State of art approaches for localization and mapping is based on local features in images. Along with this, modern augmented and mixed reality devices allow building a mesh of the surrounding space. Using this mesh map,  — Read the article"
     last_modified: "2026-10-24T23:45:07+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Read the article [NIR_2022_localization-algorithms]
+# State of art approaches for localization and mapping is based on local features in images. Along with this, modern augmented and mixed reality devices allow building a mesh of the surrounding space. Using this mesh map,  — Read the article
 
 Analysis of mixed reality cross-device localization algorithms based on point cloud registration
 
@@ -308,4 +308,4 @@ REFERENCES
 
 # Citations
 
-1. [Read the article [NIR_2022_localization-algorithms]](https://innopolis.university/filespublic/NIR_2022_localization-algorithms.pdf), file bf97a9e4b1aa
+1. [State of art approaches for localization and mapping is based on local features in images. Along with this, modern augmented and mixed reality devices allow building a mesh of the surrounding space. Using this mesh map,  — Read the article](https://innopolis.university/filespublic/NIR_2022_localization-algorithms.pdf), file bf97a9e4b1aa

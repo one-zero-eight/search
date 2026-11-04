@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "io robo solution ru"
+title: "Первый отборочный этап — io robo solution ru"
 resource: "https://lk-dovuz.innopolis.university/public/files/io_robo_solution_ru.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/io_robo_solution_ru.pdf"
     id: "53000a7c5f85"
-    title: "io robo solution ru"
+    title: "Первый отборочный этап — io robo solution ru"
     last_modified: "2026-11-01T23:17:22+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# io robo solution ru
+# Первый отборочный этап — io robo solution ru
 
 Innopolis Open Robotics Russia, Innopolis, 23.11.24–08.12.24
 
@@ -433,4 +433,4 @@ max(hj,...,hj+3) + 1;
 
 # Citations
 
-1. [io robo solution ru](https://lk-dovuz.innopolis.university/public/files/io_robo_solution_ru.pdf), file 53000a7c5f85
+1. [Первый отборочный этап — io robo solution ru](https://lk-dovuz.innopolis.university/public/files/io_robo_solution_ru.pdf), file 53000a7c5f85

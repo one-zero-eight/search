@@ -1,4 +1,14 @@
 {
+ "contexts": {
+  "https://innopolis.university/files/politicacookies.pdf": "полезные ссылки",
+  "https://lk-dovuz.innopolis.university/public/files/cpm_final_mladshaya3_2025.pdf": "Результаты Заключительного этапа 1.02.2025",
+  "https://lk-dovuz.innopolis.university/public/files/cpm_final_srednyaya1_2025.pdf": "Результаты Заключительного этапа 1.02.2025",
+  "https://lk-dovuz.innopolis.university/public/files/cpm_final_starshaya1_2025.pdf": "Результаты Заключительного этапа 1.02.2025",
+  "https://lk-dovuz.innopolis.university/public/files/cpm_final_starshaya2_2025.pdf": "Результаты Заключительного этапа 1.02.2025",
+  "https://lk-dovuz.innopolis.university/public/files/inno_cpm_final_2026.pdf": "Результаты 2026",
+  "https://lk-dovuz.innopolis.university/public/files/protokoly_ocpm_270126.pdf": "Результаты 2026",
+  "https://olymp.innopolis.ru/camp/upload/rules.pdf": "Справка на RW, если участник мероприятия достиг 14 лет."
+ },
  "docs": {
   "https://innopolis.university/files/politicacookies.pdf": "Политика конфиденциальности",
   "https://lk-dovuz.innopolis.university/public/files/cpm_final_mladshaya3_2025.pdf": "Скачать pdf-файл с результатами",

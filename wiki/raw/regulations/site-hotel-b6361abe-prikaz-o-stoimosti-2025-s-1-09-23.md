@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Стоимость услуг размещения"
+title: "Документы — Стоимость услуг размещения"
 resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7_%D0%BE_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8__2025_%D1%81_1_09_-2-3.pdf"
 audience: ["student", "postgraduate", "applicant", "public"]
 source_kind: official-document
@@ -9,7 +9,7 @@ section: "site/hotel"
 sources:
   - resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7_%D0%BE_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8__2025_%D1%81_1_09_-2-3.pdf"
     id: "93eb52b6ea3f"
-    title: "Стоимость услуг размещения"
+    title: "Документы — Стоимость услуг размещения"
     last_modified: "2025-09-01T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Стоимость услуг размещения
+# Документы — Стоимость услуг размещения
 
 Приложение 1 к приказу АНО ВО «Университет Иннополис» от 29 августа 2025 г. МНРЕГ
 
@@ -71,4 +71,4 @@ status: draft
 
 # Citations
 
-1. [Стоимость услуг размещения](https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7_%D0%BE_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8__2025_%D1%81_1_09_-2-3.pdf), file 93eb52b6ea3f
+1. [Документы — Стоимость услуг размещения](https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7_%D0%BE_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8__2025_%D1%81_1_09_-2-3.pdf), file 93eb52b6ea3f

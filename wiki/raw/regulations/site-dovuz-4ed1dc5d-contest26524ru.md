@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "contest-26524-ru"
+title: "Финальный этап — contest-26524-ru"
 resource: "https://lk-dovuz.innopolis.university/public/files/contest-26524-ru.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/contest-26524-ru.pdf"
     id: "b0c4cd95b011"
-    title: "contest-26524-ru"
+    title: "Финальный этап — contest-26524-ru"
     last_modified: "2022-02-20T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# contest-26524-ru
+# Финальный этап — contest-26524-ru
 
 Innopolis Open по информатике Заключительный тур. 2021-2022 Россия, Иннополис, 20 февраля 2022
 
@@ -280,4 +280,4 @@ Innopolis Open по информатике Заключительный тур. 
 
 # Citations
 
-1. [contest-26524-ru](https://lk-dovuz.innopolis.university/public/files/contest-26524-ru.pdf), file b0c4cd95b011
+1. [Финальный этап — contest-26524-ru](https://lk-dovuz.innopolis.university/public/files/contest-26524-ru.pdf), file b0c4cd95b011

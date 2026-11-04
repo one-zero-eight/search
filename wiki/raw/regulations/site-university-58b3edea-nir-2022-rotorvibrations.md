@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Read the article [NIR_2022_rotor-vibrations]"
+title: "oscillations amplitude in a conical fluid film bearing. Design of the bearing allows its axial displacement and thus adjustment of its average clearance. The tests were performed using a simulation model in MATLAB softwa — Read the article"
 resource: "https://innopolis.university/filespublic/NIR_2022_rotor-vibrations.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/NIR_2022_rotor-vibrations.pdf"
     id: "8598f8e4e2e9"
-    title: "Read the article [NIR_2022_rotor-vibrations]"
+    title: "oscillations amplitude in a conical fluid film bearing. Design of the bearing allows its axial displacement and thus adjustment of its average clearance. The tests were performed using a simulation model in MATLAB softwa — Read the article"
     last_modified: "2026-10-24T23:45:37+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Read the article [NIR_2022_rotor-vibrations]
+# oscillations amplitude in a conical fluid film bearing. Design of the bearing allows its axial displacement and thus adjustment of its average clearance. The tests were performed using a simulation model in MATLAB softwa — Read the article
 
 Reducing rotor vibrations in active conical fluid film bearings with controllable gap
 
@@ -219,4 +219,4 @@ REFERENCES
 
 # Citations
 
-1. [Read the article [NIR_2022_rotor-vibrations]](https://innopolis.university/filespublic/NIR_2022_rotor-vibrations.pdf), file 8598f8e4e2e9
+1. [oscillations amplitude in a conical fluid film bearing. Design of the bearing allows its axial displacement and thus adjustment of its average clearance. The tests were performed using a simulation model in MATLAB softwa — Read the article](https://innopolis.university/filespublic/NIR_2022_rotor-vibrations.pdf), file 8598f8e4e2e9

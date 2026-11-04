@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "contest-38183-ru"
+title: "Первый отборочный этап. 1 тур — contest-38183-ru"
 resource: "https://lk-dovuz.innopolis.university/public/files/contest-38183-ru.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/contest-38183-ru.pdf"
     id: "a9e0fed1360a"
-    title: "contest-38183-ru"
+    title: "Первый отборочный этап. 1 тур — contest-38183-ru"
     last_modified: "2023-12-03T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# contest-38183-ru
+# Первый отборочный этап. 1 тур — contest-38183-ru
 
 Innopolis Open по ИИ и робототехнике Первый отборочный тур. 2023-2024 Russia, 3 декабря 2023
 
@@ -266,4 +266,4 @@ Innopolis Open по ИИ и робототехнике Первый отборо
 
 # Citations
 
-1. [contest-38183-ru](https://lk-dovuz.innopolis.university/public/files/contest-38183-ru.pdf), file a9e0fed1360a
+1. [Первый отборочный этап. 1 тур — contest-38183-ru](https://lk-dovuz.innopolis.university/public/files/contest-38183-ru.pdf), file a9e0fed1360a

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Скачать регламент олимпиады [zxkfyufhfm538cfo0c9u2ioynb63ng70]"
+title: "Работы призеров и победителей: Работы — Скачать регламент олимпиады"
 resource: "https://start.innopolis.university/upload/sprint.editor/8ef/zxkfyufhfm538cfo0c9u2ioynb63ng70.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://start.innopolis.university/upload/sprint.editor/8ef/zxkfyufhfm538cfo0c9u2ioynb63ng70.pdf"
     id: "459dc69e05d1"
-    title: "Скачать регламент олимпиады [zxkfyufhfm538cfo0c9u2ioynb63ng70]"
+    title: "Работы призеров и победителей: Работы — Скачать регламент олимпиады"
     last_modified: "2026-08-19T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Скачать регламент олимпиады [zxkfyufhfm538cfo0c9u2ioynb63ng70]
+# Работы призеров и победителей: Работы — Скачать регламент олимпиады
 
 УТВЕРЖДЕН приказом АНО ВО «Университет Иннополис» от 19 августа 2026 г. № ОД/АД-01/2026/08/19
 
@@ -831,4 +831,4 @@ Admin);
 
 # Citations
 
-1. [Скачать регламент олимпиады [zxkfyufhfm538cfo0c9u2ioynb63ng70]](https://start.innopolis.university/upload/sprint.editor/8ef/zxkfyufhfm538cfo0c9u2ioynb63ng70.pdf), file 459dc69e05d1
+1. [Работы призеров и победителей: Работы — Скачать регламент олимпиады](https://start.innopolis.university/upload/sprint.editor/8ef/zxkfyufhfm538cfo0c9u2ioynb63ng70.pdf), file 459dc69e05d1

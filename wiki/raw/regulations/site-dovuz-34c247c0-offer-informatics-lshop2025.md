@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "договором оферты [offer_informatics_lshop2025]"
+title: "Регистрация закрыта — договором оферты [offer_informatics_lshop2025]"
 resource: "https://lk-dovuz.innopolis.university/public/files/offer_informatics_lshop2025.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/offer_informatics_lshop2025.pdf"
     id: "916300cb3ac0"
-    title: "договором оферты [offer_informatics_lshop2025]"
+    title: "Регистрация закрыта — договором оферты [offer_informatics_lshop2025]"
     last_modified: "2025-02-27T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# договором оферты [offer_informatics_lshop2025]
+# Регистрация закрыта — договором оферты [offer_informatics_lshop2025]
 
 Договор об образовании по дополнительным общеобразовательным общеразвивающим программам (договор присоединения) № ОФ-25-ИН от 27.02.2025 г.
 
@@ -333,4 +333,4 @@ status: draft
 
 # Citations
 
-1. [договором оферты [offer_informatics_lshop2025]](https://lk-dovuz.innopolis.university/public/files/offer_informatics_lshop2025.pdf), file 916300cb3ac0
+1. [Регистрация закрыта — договором оферты [offer_informatics_lshop2025]](https://lk-dovuz.innopolis.university/public/files/offer_informatics_lshop2025.pdf), file 916300cb3ac0

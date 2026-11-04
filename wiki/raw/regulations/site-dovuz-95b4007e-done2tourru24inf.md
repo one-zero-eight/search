@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "done2tour-ru24inf"
+title: "Условия задач/разбор: Задачи(ru) Задачи(en) — done2tour-ru24inf"
 resource: "https://lk-dovuz.innopolis.university/public/files/done2tour-ru24inf.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/done2tour-ru24inf.pdf"
     id: "3d01144ddb38"
-    title: "done2tour-ru24inf"
+    title: "Условия задач/разбор: Задачи(ru) Задачи(en) — done2tour-ru24inf"
     last_modified: "2023-12-17T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# done2tour-ru24inf
+# Условия задач/разбор: Задачи(ru) Задачи(en) — done2tour-ru24inf
 
 Innopolis Open 2023. Qualification Round 2 Россия, Иннополис, 17 декабря 2023
 
@@ -257,4 +257,4 @@ Innopolis Open 2023. Qualification Round 2 Россия, Иннополис, 17 
 
 # Citations
 
-1. [done2tour-ru24inf](https://lk-dovuz.innopolis.university/public/files/done2tour-ru24inf.pdf), file 3d01144ddb38
+1. [Условия задач/разбор: Задачи(ru) Задачи(en) — done2tour-ru24inf](https://lk-dovuz.innopolis.university/public/files/done2tour-ru24inf.pdf), file 3d01144ddb38

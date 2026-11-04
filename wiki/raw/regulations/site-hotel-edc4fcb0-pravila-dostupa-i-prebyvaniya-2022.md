@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Правила доступа в УЛК и ЖК"
+title: "Документы — Правила доступа в УЛК и ЖК"
 resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%B0%20%D0%B8%20%D0%BF%D1%80%D0%B5%D0%B1%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%202022.pdf"
 audience: ["student", "postgraduate", "applicant", "public"]
 source_kind: official-document
@@ -9,7 +9,7 @@ section: "site/hotel"
 sources:
   - resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%B0%20%D0%B8%20%D0%BF%D1%80%D0%B5%D0%B1%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%202022.pdf"
     id: "33ccb13fbbe2"
-    title: "Правила доступа в УЛК и ЖК"
+    title: "Документы — Правила доступа в УЛК и ЖК"
     last_modified: "2022-09-22T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -19,7 +19,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# Правила доступа в УЛК и ЖК
+# Документы — Правила доступа в УЛК и ЖК
 
 innopolis UNIVERSITY
 
@@ -542,4 +542,4 @@ _____ КОНЕЦ ФОРМЫ
 
 # Citations
 
-1. [Правила доступа в УЛК и ЖК](https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%B0%20%D0%B8%20%D0%BF%D1%80%D0%B5%D0%B1%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%202022.pdf), file 33ccb13fbbe2
+1. [Документы — Правила доступа в УЛК и ЖК](https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%B0%20%D0%B8%20%D0%BF%D1%80%D0%B5%D0%B1%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%202022.pdf), file 33ccb13fbbe2

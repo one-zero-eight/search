@@ -1,0 +1,16 @@
+{
+ "title": "Заключение от 31.08.2022 № МН-12/з-6874",
+ "url": "https://innopolis.university/upload/iblock/b6c/nwlamtl6ykpak0nvwaefv0jt55ckfo7i/заключение_13_—_Shenzhen_Institutes_of_Advanced_Technology_of_Chinese.pdf",
+ "sha256": "f3256aa8cb37335ce769deb785c321bd586a97bfb958875c4706a7d0c4b95f1d",
+ "method": "text layer (opendataloader)",
+ "chars": 1096,
+ "section": "site/university",
+ "context": "Китайская Народная Республика",
+ "fetched_at": "2026-10-22T22:18:25+00:00",
+ "tables": 5,
+ "remote": {
+  "etag": "\"63bc0c45-54271\"",
+  "modified": "Mon, 09 Jan 2023 12:44:53 GMT",
+  "size": "344689"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "title": "Отдел сопровождения 1 — Положение",
+ "url": "https://innopolis.university/upload/iblock/861/seaqweht5uvfa9okt7f45kz30iqs9sxa/Приказ_Отдел_сопровождения_Департамент_популяризации.pdf",
+ "sha256": "f73474efe5f9f961ff99f93339f7fe74eeaee84d5eb412fd3e59306bc4bcf55f",
+ "method": "text layer (opendataloader)",
+ "chars": 8620,
+ "section": "site/university",
+ "context": "Отдел сопровождения 1",
+ "fetched_at": "2026-10-22T22:16:15+00:00",
+ "tables": 5,
+ "remote": {
+  "etag": "\"69e76b96-14bb0d\"",
+  "modified": "Tue, 21 Apr 2026 12:20:38 GMT",
+  "size": "1358605"
+ }
+}

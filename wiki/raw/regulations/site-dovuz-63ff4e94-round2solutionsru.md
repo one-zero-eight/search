@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "round2-solutions-ru"
+title: "Условия задач/разбор: Задачи(ru) Задачи(en) — round2-solutions-ru"
 resource: "https://lk-dovuz.innopolis.university/public/files/round2-solutions-ru.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/round2-solutions-ru.pdf"
     id: "069c6bd098e8"
-    title: "round2-solutions-ru"
+    title: "Условия задач/разбор: Задачи(ru) Задачи(en) — round2-solutions-ru"
     last_modified: "2022-12-11T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# round2-solutions-ru
+# Условия задач/разбор: Задачи(ru) Задачи(en) — round2-solutions-ru
 
 Innopolis Open по информатике Второй отборочный тур. 2022-2023 Россия, Иннополис, 11 декабря 2022 г.
 
@@ -107,4 +107,4 @@ C = B[n//2:] + B[:n//2] # Получим C как циклический сдв�
 
 # Citations
 
-1. [round2-solutions-ru](https://lk-dovuz.innopolis.university/public/files/round2-solutions-ru.pdf), file 069c6bd098e8
+1. [Условия задач/разбор: Задачи(ru) Задачи(en) — round2-solutions-ru](https://lk-dovuz.innopolis.university/public/files/round2-solutions-ru.pdf), file 069c6bd098e8

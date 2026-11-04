@@ -1,0 +1,16 @@
+{
+ "title": "Количество мест для приема на места по договорам об оказании платных образовательных услуг",
+ "url": "https://innopolis.university/upload/iblock/e32/j2ki126jcyw1jls2jlgaqx2u0ld7kmx7/kol_mest.pdf",
+ "sha256": "8e4f1d4788e5441c718bf872a0062b02da4cb194f84e7081ae43c04233afe17f",
+ "method": "text layer (opendataloader)",
+ "chars": 1659,
+ "section": "site/university",
+ "context": "Список зачисленных на программы магистратуры (дополнительный набор)",
+ "fetched_at": "2026-10-22T22:01:45+00:00",
+ "tables": 5,
+ "remote": {
+  "etag": "\"66e7d082-195e7\"",
+  "modified": "Mon, 16 Sep 2024 06:30:26 GMT",
+  "size": "103911"
+ }
+}

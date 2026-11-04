@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Решение и тесты — problems/move-rooks/statements/.pdf/russian/problem.pdf"
+title: "Первый отборочный этап — Решение и тесты — problems/move-rooks/statements/.pdf/russian/problem.pdf"
 resource: "https://lk-dovuz.innopolis.university/public/files/contest1_2020-21.zip"
 archive_member: "problems/move-rooks/statements/.pdf/russian/problem.pdf"
 source_kind: official-document
@@ -9,7 +9,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/contest1_2020-21.zip"
     id: "169a3b2e1915"
-    title: "Решение и тесты — problems/move-rooks/statements/.pdf/russian/problem.pdf"
+    title: "Первый отборочный этап — Решение и тесты — problems/move-rooks/statements/.pdf/russian/problem.pdf"
     last_modified: "2026-11-04T02:52:48+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Решение и тесты — problems/move-rooks/statements/.pdf/russian/problem.pdf
+# Первый отборочный этап — Решение и тесты — problems/move-rooks/statements/.pdf/russian/problem.pdf
 
 Nice Shape
 
@@ -68,4 +68,4 @@ Nice Shape
 
 # Citations
 
-1. [Решение и тесты — problems/move-rooks/statements/.pdf/russian/problem.pdf](https://lk-dovuz.innopolis.university/public/files/contest1_2020-21.zip), file 169a3b2e1915
+1. [Первый отборочный этап — Решение и тесты — problems/move-rooks/statements/.pdf/russian/problem.pdf](https://lk-dovuz.innopolis.university/public/files/contest1_2020-21.zip), file 169a3b2e1915

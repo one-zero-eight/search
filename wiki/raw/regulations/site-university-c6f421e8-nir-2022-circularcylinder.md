@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Read the article [NIR_2022_circular-cylinder]"
+title: "The linearization matrix and the quadratic part of the Hamiltonian of the problem are studied. As a result, the parameter space of the problem is divided into the area of linear stability, where nonlinear analysis is req — Read the article"
 resource: "https://innopolis.university/filespublic/NIR_2022_circular-cylinder.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/NIR_2022_circular-cylinder.pdf"
     id: "d0ebe1b1b013"
-    title: "Read the article [NIR_2022_circular-cylinder]"
+    title: "The linearization matrix and the quadratic part of the Hamiltonian of the problem are studied. As a result, the parameter space of the problem is divided into the area of linear stability, where nonlinear analysis is req — Read the article"
     last_modified: "2026-10-24T23:44:43+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Read the article [NIR_2022_circular-cylinder]
+# The linearization matrix and the quadratic part of the Hamiltonian of the problem are studied. As a result, the parameter space of the problem is divided into the area of linear stability, where nonlinear analysis is req — Read the article
 
 On the stability of the system of Thomson vortex n-gon and a moving circular cylinder
 
@@ -407,4 +407,4 @@ Fig. 3. The diagram of stability of the solution (5) in the case
 
 # Citations
 
-1. [Read the article [NIR_2022_circular-cylinder]](https://innopolis.university/filespublic/NIR_2022_circular-cylinder.pdf), file d0ebe1b1b013
+1. [The linearization matrix and the quadratic part of the Hamiltonian of the problem are studied. As a result, the parameter space of the problem is divided into the area of linear stability, where nonlinear analysis is req — Read the article](https://innopolis.university/filespublic/NIR_2022_circular-cylinder.pdf), file d0ebe1b1b013

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "second comp2223"
+title: "Второй отборочный этап — second comp2223"
 resource: "https://lk-dovuz.innopolis.university/public/files/second_comp2223.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/second_comp2223.pdf"
     id: "e1dc761c47b9"
-    title: "second comp2223"
+    title: "Второй отборочный этап — second comp2223"
     last_modified: "2026-11-01T23:17:26+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# second comp2223
+# Второй отборочный этап — second comp2223
 
 Международная олимпиада Innopolis Open по информационной безопасности 2022/2023 уч.г. Второй отборочный этап.
 
@@ -161,4 +161,4 @@ status: draft
 
 # Citations
 
-1. [second comp2223](https://lk-dovuz.innopolis.university/public/files/second_comp2223.pdf), file e1dc761c47b9
+1. [Второй отборочный этап — second comp2223](https://lk-dovuz.innopolis.university/public/files/second_comp2223.pdf), file e1dc761c47b9

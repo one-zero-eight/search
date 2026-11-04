@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "io ai 1step razbor ru 25"
+title: "Первый отборочный этап — io ai 1step razbor ru 25"
 resource: "https://lk-dovuz.innopolis.university/public/files/io_ai_1step_razbor_ru_25.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/io_ai_1step_razbor_ru_25.pdf"
     id: "5a88f7f29f1d"
-    title: "io ai 1step razbor ru 25"
+    title: "Первый отборочный этап — io ai 1step razbor ru 25"
     last_modified: "2026-11-01T23:17:22+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# io ai 1step razbor ru 25
+# Первый отборочный этап — io ai 1step razbor ru 25
 
 Innopolis Open Artificial Intelligence Russia, Innopolis, 23.11.24–08.12.24
 
@@ -433,4 +433,4 @@ max(hj,...,hj+3) + 1;
 
 # Citations
 
-1. [io ai 1step razbor ru 25](https://lk-dovuz.innopolis.university/public/files/io_ai_1step_razbor_ru_25.pdf), file 5a88f7f29f1d
+1. [Первый отборочный этап — io ai 1step razbor ru 25](https://lk-dovuz.innopolis.university/public/files/io_ai_1step_razbor_ru_25.pdf), file 5a88f7f29f1d

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "io-math-2-1"
+title: "Второй заочный отборочный тур — io-math-2-1"
 resource: "https://lk-dovuz.innopolis.university/public/files/io-math-2-1.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/io-math-2-1.pdf"
     id: "a45b9e3722f7"
-    title: "io-math-2-1"
+    title: "Второй заочный отборочный тур — io-math-2-1"
     last_modified: "2026-11-01T23:17:21+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# io-math-2-1
+# Второй заочный отборочный тур — io-math-2-1
 
 Каждый участник получает комплект из 6 задач, при этом каждая из них случайным образом выбирается из 4-х вариантов. Представлены решения для одного из четырех вариантов, остальные решаются аналогично.
 
@@ -703,4 +703,4 @@ Hence for any 𝑥 ̸= 𝑚+𝑛𝜋, function ℎ(𝑥) = 𝑓(𝑥)+𝑔(𝑥)
 
 # Citations
 
-1. [io-math-2-1](https://lk-dovuz.innopolis.university/public/files/io-math-2-1.pdf), file a45b9e3722f7
+1. [Второй заочный отборочный тур — io-math-2-1](https://lk-dovuz.innopolis.university/public/files/io-math-2-1.pdf), file a45b9e3722f7

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "io26 math zadachyresheniya"
+title: "Финальный тур — io26 math zadachyresheniya"
 resource: "https://lk-dovuz.innopolis.university/public/files/io26_math_zadachyresheniya.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/io26_math_zadachyresheniya.pdf"
     id: "672a207b9679"
-    title: "io26 math zadachyresheniya"
+    title: "Финальный тур — io26 math zadachyresheniya"
     last_modified: "2026-11-01T23:17:22+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# io26 math zadachyresheniya
+# Финальный тур — io26 math zadachyresheniya
 
 Innopolis Open 2025/26 in Mathematics Final round 7й класс К каждой задаче требуется развернутое и обоснованное решение.
 
@@ -1537,4 +1537,4 @@ Criteria:
 
 # Citations
 
-1. [io26 math zadachyresheniya](https://lk-dovuz.innopolis.university/public/files/io26_math_zadachyresheniya.pdf), file 672a207b9679
+1. [Финальный тур — io26 math zadachyresheniya](https://lk-dovuz.innopolis.university/public/files/io26_math_zadachyresheniya.pdf), file 672a207b9679

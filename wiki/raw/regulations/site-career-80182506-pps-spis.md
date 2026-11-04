@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "В 2021/2022 учебном году"
+title: "Список научно-педагогических работник АНО ВО«Университет Иннополис» с окончанием срока действия трудового договора — В 2021/2022 учебном году"
 resource: "https://innopolis.university/public/files/pps/PPS%20SPIS.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/career"
 sources:
   - resource: "https://innopolis.university/public/files/pps/PPS%20SPIS.pdf"
     id: "3a068a7e3534"
-    title: "В 2021/2022 учебном году"
+    title: "Список научно-педагогических работник АНО ВО«Университет Иннополис» с окончанием срока действия трудового договора — В 2021/2022 учебном году"
     last_modified: "2026-11-04T02:25:46+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# В 2021/2022 учебном году
+# Список научно-педагогических работник АНО ВО«Университет Иннополис» с окончанием срока действия трудового договора — В 2021/2022 учебном году
 
 СПИСОК НАУЧНО-ПЕДАГОГИЧЕСКИХ РАБОТНИКОВ АНО ВО «УНИВЕРСИТЕТ ИННОПОЛИС» С ОКОНЧАНИЕМ СРОКА ДЕЙСТВИЯ ТРУДОВОГО ДОГОВОРА В 2021/2022 УЧЕБНОМ ГОДУ
 
@@ -59,4 +59,4 @@ review: "scanned document read by OCR: check numbers and dates against the PDF b
 
 # Citations
 
-1. [В 2021/2022 учебном году](https://innopolis.university/public/files/pps/PPS%20SPIS.pdf), file 3a068a7e3534
+1. [Список научно-педагогических работник АНО ВО«Университет Иннополис» с окончанием срока действия трудового договора — В 2021/2022 учебном году](https://innopolis.university/public/files/pps/PPS%20SPIS.pdf), file 3a068a7e3534

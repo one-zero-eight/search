@@ -1,0 +1,16 @@
+{
+ "title": "Заключение от 31.08.2022 № МН-12/з-6954",
+ "url": "https://innopolis.university/upload/iblock/68f/a23dh84me8vg05vcopvm0862ypc0d15i/31.08.2022_МН-12_з-6954_Горожанкина_Е.М._без_автора.pdf",
+ "sha256": "f78a77c2c0fcf696a3a446244bd1d38ee86e97640d65a6dbf48d6bc8cfee7831",
+ "method": "text layer (opendataloader)",
+ "chars": 1143,
+ "section": "site/university",
+ "context": "Республика Сербия",
+ "fetched_at": "2026-10-22T22:14:10+00:00",
+ "tables": 5,
+ "remote": {
+  "etag": "\"6385f39a-587ce\"",
+  "modified": "Tue, 29 Nov 2022 11:57:14 GMT",
+  "size": "362446"
+ }
+}

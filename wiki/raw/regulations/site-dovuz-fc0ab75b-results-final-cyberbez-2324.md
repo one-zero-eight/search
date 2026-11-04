@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "results final cyberbez 23-24"
+title: "Заключительный этап — results final cyberbez 23-24"
 resource: "https://lk-dovuz.innopolis.university/public/files/results_final_cyberbez_23-24.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/results_final_cyberbez_23-24.pdf"
     id: "10f4c281bc52"
-    title: "results final cyberbez 23-24"
+    title: "Заключительный этап — results final cyberbez 23-24"
     last_modified: "2026-11-01T23:17:25+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# results final cyberbez 23-24
+# Заключительный этап — results final cyberbez 23-24
 
 Результаты заключительного этапа Международной олимпиады Innopolis Open по профилю "Информационная безопасность" The results of the final stage of the Innopolis Open Olympiad in Cybersecurity 2023-2024
 
@@ -82,4 +82,4 @@ status: draft
 
 # Citations
 
-1. [results final cyberbez 23-24](https://lk-dovuz.innopolis.university/public/files/results_final_cyberbez_23-24.pdf), file 10f4c281bc52
+1. [Заключительный этап — results final cyberbez 23-24](https://lk-dovuz.innopolis.university/public/files/results_final_cyberbez_23-24.pdf), file 10f4c281bc52

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "«Кто водит?»"
+title: "22.09.2020 — «Кто водит?»"
 resource: "https://robotics.innopolis.university/wp-content/uploads/2020/09/Dajdzhest.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/robotics"
 sources:
   - resource: "https://robotics.innopolis.university/wp-content/uploads/2020/09/Dajdzhest.pdf"
     id: "eb657d7baebe"
-    title: "«Кто водит?»"
+    title: "22.09.2020 — «Кто водит?»"
     last_modified: "2026-10-31T09:36:32+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# «Кто водит?»
+# 22.09.2020 — «Кто водит?»
 
 КТО ВОДИТ?
 
@@ -4669,4 +4669,4 @@ I-55 (Луизиана-Чикаго, США) для предсказания п�
 
 # Citations
 
-1. [«Кто водит?»](https://robotics.innopolis.university/wp-content/uploads/2020/09/Dajdzhest.pdf), file eb657d7baebe
+1. [22.09.2020 — «Кто водит?»](https://robotics.innopolis.university/wp-content/uploads/2020/09/Dajdzhest.pdf), file eb657d7baebe

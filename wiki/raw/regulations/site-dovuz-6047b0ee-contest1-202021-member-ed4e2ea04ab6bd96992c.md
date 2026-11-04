@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Решение и тесты — problems/champions-scoring/statements/.pdf/english/problem.pdf"
+title: "Первый отборочный этап — Решение и тесты — problems/champions-scoring/statements/.pdf/english/problem.pdf"
 resource: "https://lk-dovuz.innopolis.university/public/files/contest1_2020-21.zip"
 archive_member: "problems/champions-scoring/statements/.pdf/english/problem.pdf"
 source_kind: official-document
@@ -9,7 +9,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/contest1_2020-21.zip"
     id: "d49704d5ff3d"
-    title: "Решение и тесты — problems/champions-scoring/statements/.pdf/english/problem.pdf"
+    title: "Первый отборочный этап — Решение и тесты — problems/champions-scoring/statements/.pdf/english/problem.pdf"
     last_modified: "2026-11-04T02:52:48+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Решение и тесты — problems/champions-scoring/statements/.pdf/english/problem.pdf
+# Первый отборочный этап — Решение и тесты — problems/champions-scoring/statements/.pdf/english/problem.pdf
 
 The Battle of Giants
 
@@ -60,4 +60,4 @@ Page 1 of 1
 
 # Citations
 
-1. [Решение и тесты — problems/champions-scoring/statements/.pdf/english/problem.pdf](https://lk-dovuz.innopolis.university/public/files/contest1_2020-21.zip), file d49704d5ff3d
+1. [Первый отборочный этап — Решение и тесты — problems/champions-scoring/statements/.pdf/english/problem.pdf](https://lk-dovuz.innopolis.university/public/files/contest1_2020-21.zip), file d49704d5ff3d

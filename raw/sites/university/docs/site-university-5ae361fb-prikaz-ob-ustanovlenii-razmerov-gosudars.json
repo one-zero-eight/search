@@ -1,0 +1,16 @@
+{
+ "title": "Приказ об утверждении размеров государственных стипендий",
+ "url": "https://innopolis.university/upload/iblock/baa/01264bvf0he5j905b72q6b8wqj3fkm8o/Приказ_об_установлении_размеров_государственных_стипендий.pdf",
+ "sha256": "a4383171d4bc4e101377d0462b659b7b3a4d8c267b840802476b5c67793f1d93",
+ "method": "text layer (opendataloader)",
+ "chars": 2396,
+ "section": "site/university",
+ "context": "Положение о стипендиях и иных формах материальной поддержки студентов и аспирантов АНО ВО «Университет Иннополис»;",
+ "fetched_at": "2026-10-22T14:09:54+00:00",
+ "tables": 5,
+ "remote": {
+  "etag": "\"698cab9d-1b4af5\"",
+  "modified": "Wed, 11 Feb 2026 16:17:33 GMT",
+  "size": "1788661"
+ }
+}

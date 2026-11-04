@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "results IOM 24-25"
+title: "Финалисты три часа решали задачи по комбинаторике, делимости, геометрии и алгоритмам. Все пять заданий успешно выполнили шесть школьников, они стали дипломантами I степени. Среди них — учащиеся из Казани, Самары, Пензы,  — results IOM 24-25"
 resource: "https://lk-dovuz.innopolis.university/public/files/results_IOM_24-25.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/media"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/results_IOM_24-25.pdf"
     id: "398cab7889bc"
-    title: "results IOM 24-25"
+    title: "Финалисты три часа решали задачи по комбинаторике, делимости, геометрии и алгоритмам. Все пять заданий успешно выполнили шесть школьников, они стали дипломантами I степени. Среди них — учащиеся из Казани, Самары, Пензы,  — results IOM 24-25"
     last_modified: "2026-11-01T23:10:11+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# results IOM 24-25
+# Финалисты три часа решали задачи по комбинаторике, делимости, геометрии и алгоритмам. Все пять заданий успешно выполнили шесть школьников, они стали дипломантами I степени. Среди них — учащиеся из Казани, Самары, Пензы,  — results IOM 24-25
 
 Средний балл -> 2,55 3,45 1,27 1,86 0,85 1,725 1,275 2,365 2,07 2,575 <- Весовой коэффициент Первичные баллы Баллы ФИО Задача 1 Задача 2 Задача 3 Задача 4 Задача 5 Задача 1 Задача 2 Задача 3 Задача 4 Задача 5 Сумма баллов
 
@@ -55,4 +55,4 @@ status: draft
 
 # Citations
 
-1. [results IOM 24-25](https://lk-dovuz.innopolis.university/public/files/results_IOM_24-25.pdf), file 398cab7889bc
+1. [Финалисты три часа решали задачи по комбинаторике, делимости, геометрии и алгоритмам. Все пять заданий успешно выполнили шесть школьников, они стали дипломантами I степени. Среди них — учащиеся из Казани, Самары, Пензы,  — results IOM 24-25](https://lk-dovuz.innopolis.university/public/files/results_IOM_24-25.pdf), file 398cab7889bc

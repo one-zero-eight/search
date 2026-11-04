@@ -1,0 +1,16 @@
+{
+ "title": "Вступительное испытание по программе аспирантуры \"1.2.2 Математическое моделирование, численные методы и комплексы программ\" (резервный день)",
+ "url": "https://innopolis.university/upload/iblock/cfb/6k3tbphszejmd2mh4m4gafrpfmwyncvb/php_reserve.pdf",
+ "sha256": "d0871b83c6dc65805636c2a89a9f1fc13544619258ea221508bb1a793b3a0d6c",
+ "method": "ocr (chandra-ocr-2)",
+ "chars": 116,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-22T22:38:52+00:00",
+ "remote": {
+  "etag": "\"66c846c7-11b70\"",
+  "modified": "Fri, 23 Aug 2024 08:22:31 GMT",
+  "size": "72560"
+ },
+ "tables": 5
+}

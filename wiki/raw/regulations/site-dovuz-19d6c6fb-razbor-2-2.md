@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "razbor 2"
+title: "Второй отборочный этап — razbor 2"
 resource: "https://lk-dovuz.innopolis.university/public/files/razbor_2%282%29.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/razbor_2%282%29.pdf"
     id: "dbcc06d52441"
-    title: "razbor 2"
+    title: "Второй отборочный этап — razbor 2"
     last_modified: "2026-11-01T23:17:24+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# razbor 2
+# Второй отборочный этап — razbor 2
 
 Innopolis Open по ИИ, робототехнике и финтех Второй отборочный тур. 2022-2023 Россия, Иннополис, 20 ноября, 2022
 
@@ -329,4 +329,4 @@ Innopolis Open по ИИ, робототехнике и финтех Второ�
 
 # Citations
 
-1. [razbor 2](https://lk-dovuz.innopolis.university/public/files/razbor_2%282%29.pdf), file dbcc06d52441
+1. [Второй отборочный этап — razbor 2](https://lk-dovuz.innopolis.university/public/files/razbor_2%282%29.pdf), file dbcc06d52441

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "results 1 ai"
+title: "Первый отборочный этап — results 1 ai"
 resource: "https://lk-dovuz.innopolis.university/public/files/results_1_ai.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/results_1_ai.pdf"
     id: "661d89421115"
-    title: "results 1 ai"
+    title: "Первый отборочный этап — results 1 ai"
     last_modified: "2026-11-01T23:17:24+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# results 1 ai
+# Первый отборочный этап — results 1 ai
 
 | ID | User ID | Email | Имя | Фамилия | Результат |
 | --- | --- | --- | --- | --- | --- |
@@ -212,4 +212,4 @@ status: draft
 
 # Citations
 
-1. [results 1 ai](https://lk-dovuz.innopolis.university/public/files/results_1_ai.pdf), file 661d89421115
+1. [Первый отборочный этап — results 1 ai](https://lk-dovuz.innopolis.university/public/files/results_1_ai.pdf), file 661d89421115

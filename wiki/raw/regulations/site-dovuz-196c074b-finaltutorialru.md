@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "final-tutorial-ru"
+title: "Финал — final-tutorial-ru"
 resource: "https://lk-dovuz.innopolis.university/public/files/final-tutorial-ru.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/final-tutorial-ru.pdf"
     id: "8d49bdfb4eac"
-    title: "final-tutorial-ru"
+    title: "Финал — final-tutorial-ru"
     last_modified: "2023-02-12T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# final-tutorial-ru
+# Финал — final-tutorial-ru
 
 Innopolis Open по информатике Заключительный тур. 2022-2023 Россия, Иннополис, 12 февраля 2023
 
@@ -121,4 +121,4 @@ Innopolis Open по информатике Заключительный тур. 
 
 # Citations
 
-1. [final-tutorial-ru](https://lk-dovuz.innopolis.university/public/files/final-tutorial-ru.pdf), file 8d49bdfb4eac
+1. [Финал — final-tutorial-ru](https://lk-dovuz.innopolis.university/public/files/final-tutorial-ru.pdf), file 8d49bdfb4eac

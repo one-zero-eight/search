@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "reshenie 1 tur ru"
+title: "Условия задач/разбор: Задачи(ru), Задачи(en) — reshenie 1 tur ru"
 resource: "https://lk-dovuz.innopolis.university/public/files/reshenie_1_tur_ru.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/reshenie_1_tur_ru.pdf"
     id: "6d802dd8301d"
-    title: "reshenie 1 tur ru"
+    title: "Условия задач/разбор: Задачи(ru), Задачи(en) — reshenie 1 tur ru"
     last_modified: "2025-11-02T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# reshenie 1 tur ru
+# Условия задач/разбор: Задачи(ru), Задачи(en) — reshenie 1 tur ru
 
 Innopolis Open по информатике Первый отборочный тур. 2025-2026 Иннополис, 2 ноября 2025 г.
 
@@ -441,4 +441,4 @@ H1 = diffi. i=1
 
 # Citations
 
-1. [reshenie 1 tur ru](https://lk-dovuz.innopolis.university/public/files/reshenie_1_tur_ru.pdf), file 6d802dd8301d
+1. [Условия задач/разбор: Задачи(ru), Задачи(en) — reshenie 1 tur ru](https://lk-dovuz.innopolis.university/public/files/reshenie_1_tur_ru.pdf), file 6d802dd8301d

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Analysis 1 ENG"
+title: "Первый отборочный этап — Analysis 1 ENG"
 resource: "https://lk-dovuz.innopolis.university/public/files/Analysis_1_ENG_%282%29.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/Analysis_1_ENG_%282%29.pdf"
     id: "0efcbbf9ee65"
-    title: "Analysis 1 ENG"
+    title: "Первый отборочный этап — Analysis 1 ENG"
     last_modified: "2026-11-01T23:17:18+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Analysis 1 ENG
+# Первый отборочный этап — Analysis 1 ENG
 
 1 Lebron and the multiverse
 
@@ -645,4 +645,4 @@ To solve the fourth subtask, it is necessary to process the intersection of seve
 
 # Citations
 
-1. [Analysis 1 ENG](https://lk-dovuz.innopolis.university/public/files/Analysis_1_ENG_%282%29.pdf), file 0efcbbf9ee65
+1. [Первый отборочный этап — Analysis 1 ENG](https://lk-dovuz.innopolis.university/public/files/Analysis_1_ENG_%282%29.pdf), file 0efcbbf9ee65

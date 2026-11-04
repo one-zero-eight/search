@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Решение и тесты — problems/equalizer/statements/.pdf/russian/problem.pdf"
+title: "Первый отборочный этап — Решение и тесты — problems/equalizer/statements/.pdf/russian/problem.pdf"
 resource: "https://lk-dovuz.innopolis.university/public/files/contest1_2020-21.zip"
 archive_member: "problems/equalizer/statements/.pdf/russian/problem.pdf"
 source_kind: official-document
@@ -9,7 +9,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/contest1_2020-21.zip"
     id: "7346f883964a"
-    title: "Решение и тесты — problems/equalizer/statements/.pdf/russian/problem.pdf"
+    title: "Первый отборочный этап — Решение и тесты — problems/equalizer/statements/.pdf/russian/problem.pdf"
     last_modified: "2026-11-04T02:52:48+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Решение и тесты — problems/equalizer/statements/.pdf/russian/problem.pdf
+# Первый отборочный этап — Решение и тесты — problems/equalizer/statements/.pdf/russian/problem.pdf
 
 Tetris Remastered
 
@@ -68,4 +68,4 @@ Tetris Remastered
 
 # Citations
 
-1. [Решение и тесты — problems/equalizer/statements/.pdf/russian/problem.pdf](https://lk-dovuz.innopolis.university/public/files/contest1_2020-21.zip), file 7346f883964a
+1. [Первый отборочный этап — Решение и тесты — problems/equalizer/statements/.pdf/russian/problem.pdf](https://lk-dovuz.innopolis.university/public/files/contest1_2020-21.zip), file 7346f883964a

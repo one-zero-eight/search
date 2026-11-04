@@ -1,0 +1,16 @@
+{
+ "title": "«Frontend-разработка с применением CSS, HTML и JavaScript»",
+ "url": "https://innopolis.university/upload/iblock/e4f/1vnw5jf7fgtmrxb0iqfosk677bdogyha/ДПП Frontent-разработка.pdf",
+ "sha256": "08acc85069bdb5ad304508448d6dadef9169a321254353171c97d470cb349a64",
+ "method": "ocr (chandra-ocr-2)",
+ "chars": 42371,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-22T22:59:15+00:00",
+ "remote": {
+  "etag": "\"625ec4fc-5d0163\"",
+  "modified": "Tue, 19 Apr 2022 14:19:40 GMT",
+  "size": "6095203"
+ },
+ "tables": 5
+}

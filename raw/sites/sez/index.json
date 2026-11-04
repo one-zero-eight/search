@@ -1,4 +1,28 @@
 {
+ "contexts": {
+  "https://sezinnopolis.ru/upload/arenda/presentation-v2.pdf": "Гибкая подписка позволяет экономить и адаптировать офисы под нужды вашего бизнеса, без долгосрочных обязательств.",
+  "https://sezinnopolis.ru/upload/arenda/rules-cowork1.docx": "Документы для арендаторов",
+  "https://sezinnopolis.ru/upload/arenda/rules-office.doc": "Документы для арендаторов",
+  "https://sezinnopolis.ru/upload/consent.docx": "Антикоррупционная деятельность",
+  "https://sezinnopolis.ru/upload/consumers-files/instr-prop-lob.pdf": "Документы для арендаторов",
+  "https://sezinnopolis.ru/upload/consumers-files/instr-prop-pop.pdf": "Документы для арендаторов",
+  "https://sezinnopolis.ru/upload/industrial%20files/inno2.doc": "Документы и презентации",
+  "https://sezinnopolis.ru/upload/industrial%20files/laishevo2.doc": "Документы и презентации",
+  "https://sezinnopolis.ru/upload/new-files/forcompanies-dormap.docx": "Документы для ознакомления",
+  "https://sezinnopolis.ru/upload/new-files/forcompanies-personal.docx": "Документы для ознакомления",
+  "https://sezinnopolis.ru/upload/new-files/forcompanies-presentation.pdf": "Документы для ознакомления",
+  "https://sezinnopolis.ru/upload/new-files/forcompanies-resume.docx": "Документы для ознакомления",
+  "https://sezinnopolis.ru/upload/new-files/forcompanies-status.docx": "Документы для ознакомления",
+  "https://sezinnopolis.ru/upload/new-files/rent/dog-banket-room.pdf": "Документы",
+  "https://sezinnopolis.ru/upload/new-files/rent/dog-kids-room.pdf": "Документы",
+  "https://sezinnopolis.ru/upload/new-files/rent/parking.docx": "Документы для арендаторов",
+  "https://sezinnopolis.ru/upload/new-files/rent/peregovor-room.docx": "Документы",
+  "https://sezinnopolis.ru/upload/new-files/rent/popup-mebel.docx": "направляется по запросу.",
+  "https://sezinnopolis.ru/upload/new-files/rent/popup-obor-office.docx": "Кофемашина",
+  "https://sezinnopolis.ru/upload/new-files/rent/rules-kids-room.pdf": "Документы",
+  "https://sezinnopolis.ru/upload/news/PPR%20.pdf": "Документы для ознакомления",
+  "https://sezinnopolis.ru/upload/politic.pdf": "Антикоррупционная деятельность"
+ },
  "docs": {
   "https://sezinnopolis.ru/upload/arenda/presentation-v2.pdf": "скачать презентацию",
   "https://sezinnopolis.ru/upload/arenda/rules-cowork1.docx": "Правила использования коворкинга",

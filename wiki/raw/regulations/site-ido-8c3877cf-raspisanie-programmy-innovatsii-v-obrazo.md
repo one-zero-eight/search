@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Скачать подробное расписание"
+title: "Оценка результатов программы, обмен идеями и планами по внедрению полученного опыта в своем вузе — Скачать подробное расписание"
 resource: "https://innopolis.university/filespublic/%D0%A0%D0%B0%D1%81%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D1%8B_%D0%98%D0%BD%D0%BD%D0%BE%D0%B2%D0%B0%D1%86%D0%B8%D0%B8_%D0%B2_%D0%BE%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B8_%D0%A3%D0%98.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/ido"
 sources:
   - resource: "https://innopolis.university/filespublic/%D0%A0%D0%B0%D1%81%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D1%8B_%D0%98%D0%BD%D0%BD%D0%BE%D0%B2%D0%B0%D1%86%D0%B8%D0%B8_%D0%B2_%D0%BE%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B8_%D0%A3%D0%98.pdf"
     id: "77e2a149be02"
-    title: "Скачать подробное расписание"
+    title: "Оценка результатов программы, обмен идеями и планами по внедрению полученного опыта в своем вузе — Скачать подробное расписание"
     last_modified: "2009-07-02T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Скачать подробное расписание
+# Оценка результатов программы, обмен идеями и планами по внедрению полученного опыта в своем вузе — Скачать подробное расписание
 
 ИННОВАЦИИ В ОБРАЗОВАНИИ
 
@@ -93,4 +93,4 @@ Cистема образования Сямэнского университет
 
 # Citations
 
-1. [Скачать подробное расписание](https://innopolis.university/filespublic/%D0%A0%D0%B0%D1%81%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D1%8B_%D0%98%D0%BD%D0%BD%D0%BE%D0%B2%D0%B0%D1%86%D0%B8%D0%B8_%D0%B2_%D0%BE%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B8_%D0%A3%D0%98.pdf), file 77e2a149be02
+1. [Оценка результатов программы, обмен идеями и планами по внедрению полученного опыта в своем вузе — Скачать подробное расписание](https://innopolis.university/filespublic/%D0%A0%D0%B0%D1%81%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D1%8B_%D0%98%D0%BD%D0%BD%D0%BE%D0%B2%D0%B0%D1%86%D0%B8%D0%B8_%D0%B2_%D0%BE%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B8_%D0%A3%D0%98.pdf), file 77e2a149be02

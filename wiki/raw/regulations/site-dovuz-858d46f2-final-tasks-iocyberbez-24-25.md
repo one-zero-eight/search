@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "final tasks iocyberbez 24 25"
+title: "Работы победителей и призеров: ссылка — final tasks iocyberbez 24 25"
 resource: "https://lk-dovuz.innopolis.university/public/files/final_tasks_iocyberbez_24_25.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/final_tasks_iocyberbez_24_25.pdf"
     id: "84430a6b7a9b"
-    title: "final tasks iocyberbez 24 25"
+    title: "Работы победителей и призеров: ссылка — final tasks iocyberbez 24 25"
     last_modified: "2026-11-01T23:17:21+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# final tasks iocyberbez 24 25
+# Работы победителей и призеров: ссылка — final tasks iocyberbez 24 25
 
 Международная олимпиада «Innopolis Open» по профилю «Информационная безопасность»
 
@@ -495,4 +495,4 @@ Machine2 -> Machine1 via ssh key Осматриваемся на машине и
 
 # Citations
 
-1. [final tasks iocyberbez 24 25](https://lk-dovuz.innopolis.university/public/files/final_tasks_iocyberbez_24_25.pdf), file 84430a6b7a9b
+1. [Работы победителей и призеров: ссылка — final tasks iocyberbez 24 25](https://lk-dovuz.innopolis.university/public/files/final_tasks_iocyberbez_24_25.pdf), file 84430a6b7a9b

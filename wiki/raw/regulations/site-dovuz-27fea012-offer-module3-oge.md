@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "offer module3 oge"
+title: "Вебинар 2. Анализ графиков. Часть 2: ссылка — offer module3 oge"
 resource: "https://lk-dovuz.innopolis.university/public/files/offer_module3_oge.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/offer_module3_oge.pdf"
     id: "19c3a8b68dbd"
-    title: "offer module3 oge"
+    title: "Вебинар 2. Анализ графиков. Часть 2: ссылка — offer module3 oge"
     last_modified: "2025-11-19T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# offer module3 oge
+# Вебинар 2. Анализ графиков. Часть 2: ссылка — offer module3 oge
 
 Договор об образовании по дополнительным общеобразовательным общеразвивающим программам (договор присоединения) № ОНЛ ОГЭМ3 от 19.11.2025г.
 
@@ -263,4 +263,4 @@ status: draft
 
 # Citations
 
-1. [offer module3 oge](https://lk-dovuz.innopolis.university/public/files/offer_module3_oge.pdf), file 19c3a8b68dbd
+1. [Вебинар 2. Анализ графиков. Часть 2: ссылка — offer module3 oge](https://lk-dovuz.innopolis.university/public/files/offer_module3_oge.pdf), file 19c3a8b68dbd

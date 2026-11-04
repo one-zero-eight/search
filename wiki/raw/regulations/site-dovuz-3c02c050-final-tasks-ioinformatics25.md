@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "final tasks ioinformatics25"
+title: "Заключительный этап — final tasks ioinformatics25"
 resource: "https://lk-dovuz.innopolis.university/public/files/final_tasks_ioinformatics25.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/final_tasks_ioinformatics25.pdf"
     id: "eac084db60e8"
-    title: "final tasks ioinformatics25"
+    title: "Заключительный этап — final tasks ioinformatics25"
     last_modified: "2025-02-15T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# final tasks ioinformatics25
+# Заключительный этап — final tasks ioinformatics25
 
 Innopolis Open по информатике Заключительный тур. 2024-2025 Россия, Иннополис, 15 февраля 2025
 
@@ -299,4 +299,4 @@ Innopolis Open по информатике Заключительный тур. 
 
 # Citations
 
-1. [final tasks ioinformatics25](https://lk-dovuz.innopolis.university/public/files/final_tasks_ioinformatics25.pdf), file eac084db60e8
+1. [Заключительный этап — final tasks ioinformatics25](https://lk-dovuz.innopolis.university/public/files/final_tasks_ioinformatics25.pdf), file eac084db60e8

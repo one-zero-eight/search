@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "offer go 070626"
+title: "выписка из прививочного сертификата или результат флюорографии — offer go 070626"
 resource: "https://lk-dovuz.innopolis.university/public/files/offer_go_070626.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/offer_go_070626.pdf"
     id: "a5f8d5b9c60a"
-    title: "offer go 070626"
+    title: "выписка из прививочного сертификата или результат флюорографии — offer go 070626"
     last_modified: "2026-01-16T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# offer go 070626
+# выписка из прививочного сертификата или результат флюорографии — offer go 070626
 
 Договор об образовании по дополнительным общеобразовательным общеразвивающим программам (договор присоединения) № ОФ07 от 16.01.2026 г.
 
@@ -309,4 +309,4 @@ status: draft
 
 # Citations
 
-1. [offer go 070626](https://lk-dovuz.innopolis.university/public/files/offer_go_070626.pdf), file a5f8d5b9c60a
+1. [выписка из прививочного сертификата или результат флюорографии — offer go 070626](https://lk-dovuz.innopolis.university/public/files/offer_go_070626.pdf), file a5f8d5b9c60a

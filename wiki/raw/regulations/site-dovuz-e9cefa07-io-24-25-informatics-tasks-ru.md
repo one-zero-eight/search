@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "io 24 25 informatics tasks ru"
+title: "Первый отборочный этап — io 24 25 informatics tasks ru"
 resource: "https://lk-dovuz.innopolis.university/public/files/io_24_25_informatics_tasks_ru.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/io_24_25_informatics_tasks_ru.pdf"
     id: "6abaaf11511d"
-    title: "io 24 25 informatics tasks ru"
+    title: "Первый отборочный этап — io 24 25 informatics tasks ru"
     last_modified: "2026-11-01T23:17:22+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# io 24 25 informatics tasks ru
+# Первый отборочный этап — io 24 25 informatics tasks ru
 
 Innopolis Open по информатике Первый отборочный тур. 2024-2025 Innopolis, November, 24, 2024
 
@@ -339,4 +339,4 @@ MEX массива [3,1,0,1] равен 2, так как 0 и 1 принадле
 
 # Citations
 
-1. [io 24 25 informatics tasks ru](https://lk-dovuz.innopolis.university/public/files/io_24_25_informatics_tasks_ru.pdf), file 6abaaf11511d
+1. [Первый отборочный этап — io 24 25 informatics tasks ru](https://lk-dovuz.innopolis.university/public/files/io_24_25_informatics_tasks_ru.pdf), file 6abaaf11511d

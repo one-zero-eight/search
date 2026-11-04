@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "result 2 math"
+title: "Второй заочный отборочный этап — result 2 math"
 resource: "https://lk-dovuz.innopolis.university/public/files/result_2_math.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/result_2_math.pdf"
     id: "79b14e73ba4d"
-    title: "result 2 math"
+    title: "Второй заочный отборочный этап — result 2 math"
     last_modified: "2026-11-01T23:17:24+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# result 2 math
+# Второй заочный отборочный этап — result 2 math
 
 | Average -> | 3,28 | 3,39 | 4,10 | 0,00 | 0,32 | 1,22 | 1,36 | 1,305 | 0,95 | 3 | 2,84 | 2,39 | <- Weighting coefficient |  |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1857,4 +1857,4 @@ status: draft
 
 # Citations
 
-1. [result 2 math](https://lk-dovuz.innopolis.university/public/files/result_2_math.pdf), file 79b14e73ba4d
+1. [Второй заочный отборочный этап — result 2 math](https://lk-dovuz.innopolis.university/public/files/result_2_math.pdf), file 79b14e73ba4d

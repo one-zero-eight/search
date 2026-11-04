@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "iorobotasks2step"
+title: "Второй отборочный этап — iorobotasks2step"
 resource: "https://lk-dovuz.innopolis.university/public/files/iorobotasks2step.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/iorobotasks2step.pdf"
     id: "628338a1f8c8"
-    title: "iorobotasks2step"
+    title: "Второй отборочный этап — iorobotasks2step"
     last_modified: "2026-11-01T23:17:22+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# iorobotasks2step
+# Второй отборочный этап — iorobotasks2step
 
 Второй отборочный этап
 
@@ -3079,4 +3079,4 @@ Test_field_4_exercise.qrs - файлы-упражнения с настроен�
 
 # Citations
 
-1. [iorobotasks2step](https://lk-dovuz.innopolis.university/public/files/iorobotasks2step.pdf), file 628338a1f8c8
+1. [Второй отборочный этап — iorobotasks2step](https://lk-dovuz.innopolis.university/public/files/iorobotasks2step.pdf), file 628338a1f8c8

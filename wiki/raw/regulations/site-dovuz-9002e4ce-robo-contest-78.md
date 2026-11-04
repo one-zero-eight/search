@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "robo contest 7-8"
+title: "Рейтинговая таблица (9-11 класс): ссылка — robo contest 7-8"
 resource: "https://lk-dovuz.innopolis.university/public/files/robo_contest_7-8.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/robo_contest_7-8.pdf"
     id: "595f61393eb1"
-    title: "robo contest 7-8"
+    title: "Рейтинговая таблица (9-11 класс): ссылка — robo contest 7-8"
     last_modified: "2026-11-01T23:17:26+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# robo contest 7-8
+# Рейтинговая таблица (9-11 класс): ссылка — robo contest 7-8
 
 Innopolis Open Robotics 2025-2026 Второй этап. 7-8 класс
 
@@ -2433,4 +2433,4 @@ def sq_name(f, r): # f=0 -> 'A', f=7 -> 'H' letter = chr(ord('A') + f) # r=0 -> 
 
 # Citations
 
-1. [robo contest 7-8](https://lk-dovuz.innopolis.university/public/files/robo_contest_7-8.pdf), file 595f61393eb1
+1. [Рейтинговая таблица (9-11 класс): ссылка — robo contest 7-8](https://lk-dovuz.innopolis.university/public/files/robo_contest_7-8.pdf), file 595f61393eb1

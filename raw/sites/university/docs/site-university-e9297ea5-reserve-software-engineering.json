@@ -1,0 +1,16 @@
+{
+ "title": "Вступительное испытание по программе магистратуры \"Программная инженерия\" 16.08.2024-17.08.2024",
+ "url": "https://innopolis.university/upload/iblock/1e9/ie7ax02aqm4wcn971b8mrn4vllg6t719/reserve_software_engineering.pdf",
+ "sha256": "ca02b17eee011fd7d815c1254fb30a0710a8ec510501ef18cf2b1724e6f95560",
+ "method": "text layer (opendataloader)",
+ "chars": 856,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-22T22:05:54+00:00",
+ "remote": {
+  "etag": "\"66c31f31-af39\"",
+  "modified": "Mon, 19 Aug 2024 10:32:17 GMT",
+  "size": "44857"
+ },
+ "tables": 5
+}

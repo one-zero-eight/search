@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Скачать регламент олимпиады [tawqmogrb3oa1hhsozqzuqs2rjhcrfpf]"
+title: "Заключительный этап пройдет в конце февраля очно в Университете Иннополис. Заключительный этап Олимпиады состоит из двух туров: первый тур – от 10 (десяти) до 20 (двадцати) задач из различных категорий информационной без — Скачать регламент олимпиады"
 resource: "https://start.innopolis.university/upload/sprint.editor/723/tawqmogrb3oa1hhsozqzuqs2rjhcrfpf.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://start.innopolis.university/upload/sprint.editor/723/tawqmogrb3oa1hhsozqzuqs2rjhcrfpf.pdf"
     id: "459dc69e05d1"
-    title: "Скачать регламент олимпиады [tawqmogrb3oa1hhsozqzuqs2rjhcrfpf]"
+    title: "Заключительный этап пройдет в конце февраля очно в Университете Иннополис. Заключительный этап Олимпиады состоит из двух туров: первый тур – от 10 (десяти) до 20 (двадцати) задач из различных категорий информационной без — Скачать регламент олимпиады"
     last_modified: "2026-08-19T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Скачать регламент олимпиады [tawqmogrb3oa1hhsozqzuqs2rjhcrfpf]
+# Заключительный этап пройдет в конце февраля очно в Университете Иннополис. Заключительный этап Олимпиады состоит из двух туров: первый тур – от 10 (десяти) до 20 (двадцати) задач из различных категорий информационной без — Скачать регламент олимпиады
 
 УТВЕРЖДЕН приказом АНО ВО «Университет Иннополис» от 19 августа 2026 г. № ОД/АД-01/2026/08/19
 
@@ -831,4 +831,4 @@ Admin);
 
 # Citations
 
-1. [Скачать регламент олимпиады [tawqmogrb3oa1hhsozqzuqs2rjhcrfpf]](https://start.innopolis.university/upload/sprint.editor/723/tawqmogrb3oa1hhsozqzuqs2rjhcrfpf.pdf), file 459dc69e05d1
+1. [Заключительный этап пройдет в конце февраля очно в Университете Иннополис. Заключительный этап Олимпиады состоит из двух туров: первый тур – от 10 (десяти) до 20 (двадцати) задач из различных категорий информационной без — Скачать регламент олимпиады](https://start.innopolis.university/upload/sprint.editor/723/tawqmogrb3oa1hhsozqzuqs2rjhcrfpf.pdf), file 459dc69e05d1

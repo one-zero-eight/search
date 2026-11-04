@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "3. Что такое терроризм"
+title: "Полезные материалы — 3. Что такое терроризм"
 resource: "https://innopolis.university/public/files/antiterror/chto.takoe.terror.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/public/files/antiterror/chto.takoe.terror.pdf"
     id: "dd3df34e5cc8"
-    title: "3. Что такое терроризм"
+    title: "Полезные материалы — 3. Что такое терроризм"
     last_modified: "2026-10-24T23:49:03+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# 3. Что такое терроризм
+# Полезные материалы — 3. Что такое терроризм
 
 Д.В.КОЛЕСОВ, С.В.МАКСИМОВ, Я.В.СОКОЛОВ
 
@@ -815,4 +815,4 @@ ISBN 978 5 88433 038 2 © НИЦ «Гражданин»
 
 # Citations
 
-1. [3. Что такое терроризм](https://innopolis.university/public/files/antiterror/chto.takoe.terror.pdf), file dd3df34e5cc8
+1. [Полезные материалы — 3. Что такое терроризм](https://innopolis.university/public/files/antiterror/chto.takoe.terror.pdf), file dd3df34e5cc8

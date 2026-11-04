@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Read the article [NIR_2022_robot-skill-transfer-learning]"
+title: "error and coefficient of determination or r² score to improve the model prediction performance. We tuned the most significant hyper parameters of each of the MLP-RF model components using random search algorithm followed — Read the article"
 resource: "https://innopolis.university/filespublic/NIR_2022_robot-skill-transfer-learning.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/NIR_2022_robot-skill-transfer-learning.pdf"
     id: "9010a1d97fb3"
-    title: "Read the article [NIR_2022_robot-skill-transfer-learning]"
+    title: "error and coefficient of determination or r² score to improve the model prediction performance. We tuned the most significant hyper parameters of each of the MLP-RF model components using random search algorithm followed — Read the article"
     last_modified: "2026-10-24T23:45:34+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Read the article [NIR_2022_robot-skill-transfer-learning]
+# error and coefficient of determination or r² score to improve the model prediction performance. We tuned the most significant hyper parameters of each of the MLP-RF model components using random search algorithm followed — Read the article
 
 EMG- based Grasping force estimation for robot skill transfer learning
 
@@ -307,4 +307,4 @@ REFERENCES
 
 # Citations
 
-1. [Read the article [NIR_2022_robot-skill-transfer-learning]](https://innopolis.university/filespublic/NIR_2022_robot-skill-transfer-learning.pdf), file 9010a1d97fb3
+1. [error and coefficient of determination or r² score to improve the model prediction performance. We tuned the most significant hyper parameters of each of the MLP-RF model components using random search algorithm followed — Read the article](https://innopolis.university/filespublic/NIR_2022_robot-skill-transfer-learning.pdf), file 9010a1d97fb3

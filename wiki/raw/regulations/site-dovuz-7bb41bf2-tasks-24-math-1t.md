@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Tasks 24 math 1t"
+title: "Первый заочный отборочный этап — Tasks 24 math 1t"
 resource: "https://lk-dovuz.innopolis.university/public/files/Tasks_24_math_1t.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/Tasks_24_math_1t.pdf"
     id: "66f93a7549bd"
-    title: "Tasks 24 math 1t"
+    title: "Первый заочный отборочный этап — Tasks 24 math 1t"
     last_modified: "2026-11-01T23:17:20+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Tasks 24 math 1t
+# Первый заочный отборочный этап — Tasks 24 math 1t
 
 7𝑡ℎ degree
 
@@ -1099,4 +1099,4 @@ Criteria:
 
 # Citations
 
-1. [Tasks 24 math 1t](https://lk-dovuz.innopolis.university/public/files/Tasks_24_math_1t.pdf), file 66f93a7549bd
+1. [Первый заочный отборочный этап — Tasks 24 math 1t](https://lk-dovuz.innopolis.university/public/files/Tasks_24_math_1t.pdf), file 66f93a7549bd

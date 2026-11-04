@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "reshenie 2 23"
+title: "Второй отборочный этап — reshenie 2 23"
 resource: "https://lk-dovuz.innopolis.university/public/files/reshenie_2_23.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/reshenie_2_23.pdf"
     id: "d4b43503912e"
-    title: "reshenie 2 23"
+    title: "Второй отборочный этап — reshenie 2 23"
     last_modified: "2026-11-01T23:17:24+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# reshenie 2 23
+# Второй отборочный этап — reshenie 2 23
 
 Innopolis Open по робототехнике Второй отборочный этап 2022-2023
 
@@ -369,4 +369,4 @@ TEST_COUNT = 100
 
 # Citations
 
-1. [reshenie 2 23](https://lk-dovuz.innopolis.university/public/files/reshenie_2_23.pdf), file d4b43503912e
+1. [Второй отборочный этап — reshenie 2 23](https://lk-dovuz.innopolis.university/public/files/reshenie_2_23.pdf), file d4b43503912e

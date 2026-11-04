@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Скачать каталог [Каталог_корпоративные_программы_Университет_Иннополис]"
+title: "Ознакомьтесь с нашим каталогом корпоративных программ и найдите решение, которое выведет вашу команду на новый уровень эффективности — Скачать каталог"
 resource: "https://innopolis.university/filespublic/%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3_%D0%BA%D0%BE%D1%80%D0%BF%D0%BE%D1%80%D0%B0%D1%82%D0%B8%D0%B2%D0%BD%D1%8B%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D1%8B_%D0%A3%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%D0%98%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D0%BB%D0%B8%D1%81.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/corporate"
 sources:
   - resource: "https://innopolis.university/filespublic/%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3_%D0%BA%D0%BE%D1%80%D0%BF%D0%BE%D1%80%D0%B0%D1%82%D0%B8%D0%B2%D0%BD%D1%8B%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D1%8B_%D0%A3%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%D0%98%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D0%BB%D0%B8%D1%81.pdf"
     id: "29131d9466ad"
-    title: "Скачать каталог [Каталог_корпоративные_программы_Университет_Иннополис]"
+    title: "Ознакомьтесь с нашим каталогом корпоративных программ и найдите решение, которое выведет вашу команду на новый уровень эффективности — Скачать каталог"
     last_modified: "2026-11-01T23:17:17+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Скачать каталог [Каталог_корпоративные_программы_Университет_Иннополис]
+# Ознакомьтесь с нашим каталогом корпоративных программ и найдите решение, которое выведет вашу команду на новый уровень эффективности — Скачать каталог
 
 Образовательные решения для корпоративных клиентов АНО ВО «Университет Иннополис»
 
@@ -935,4 +935,4 @@ Ant Group, Tencent (WeBank), Baidu Financial Services и др. Потенциа�
 
 # Citations
 
-1. [Скачать каталог [Каталог_корпоративные_программы_Университет_Иннополис]](https://innopolis.university/filespublic/%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3_%D0%BA%D0%BE%D1%80%D0%BF%D0%BE%D1%80%D0%B0%D1%82%D0%B8%D0%B2%D0%BD%D1%8B%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D1%8B_%D0%A3%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%D0%98%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D0%BB%D0%B8%D1%81.pdf), file 29131d9466ad
+1. [Ознакомьтесь с нашим каталогом корпоративных программ и найдите решение, которое выведет вашу команду на новый уровень эффективности — Скачать каталог](https://innopolis.university/filespublic/%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3_%D0%BA%D0%BE%D1%80%D0%BF%D0%BE%D1%80%D0%B0%D1%82%D0%B8%D0%B2%D0%BD%D1%8B%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D1%8B_%D0%A3%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%D0%98%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D0%BB%D0%B8%D1%81.pdf), file 29131d9466ad

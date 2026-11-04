@@ -1,0 +1,16 @@
+{
+ "title": "Администрация — Положение [Положение об Администрации]",
+ "url": "https://innopolis.university/upload/iblock/3d4/in0xp1o8fk3umvglbt32nsetplknyaw3/Положение об Администрации.pdf",
+ "sha256": "3b9df0dcd0031e83948269e4a24e1e99326f2f59e47d607a9df28855f44ee1b8",
+ "method": "ocr (chandra-ocr-2)",
+ "chars": 5386,
+ "section": "site/university",
+ "context": "Администрация",
+ "fetched_at": "2026-10-22T22:09:16+00:00",
+ "remote": {
+  "etag": "\"69e76b3c-d3c63\"",
+  "modified": "Tue, 21 Apr 2026 12:19:08 GMT",
+  "size": "867427"
+ },
+ "tables": 5
+}

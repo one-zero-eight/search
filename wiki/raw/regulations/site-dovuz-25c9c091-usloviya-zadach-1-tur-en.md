@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "usloviya zadach 1 tur en"
+title: "Первый отборочный этап — usloviya zadach 1 tur en"
 resource: "https://lk-dovuz.innopolis.university/public/files/usloviya_zadach_1_tur_en.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/usloviya_zadach_1_tur_en.pdf"
     id: "0d84200f51aa"
-    title: "usloviya zadach 1 tur en"
+    title: "Первый отборочный этап — usloviya zadach 1 tur en"
     last_modified: "2026-11-01T23:17:27+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# usloviya zadach 1 tur en
+# Первый отборочный этап — usloviya zadach 1 tur en
 
 Innopolis Open 2025-2026 First qualification round Innopolis, November 2, 2025
 
@@ -276,4 +276,4 @@ Illustration for the example
 
 # Citations
 
-1. [usloviya zadach 1 tur en](https://lk-dovuz.innopolis.university/public/files/usloviya_zadach_1_tur_en.pdf), file 0d84200f51aa
+1. [Первый отборочный этап — usloviya zadach 1 tur en](https://lk-dovuz.innopolis.university/public/files/usloviya_zadach_1_tur_en.pdf), file 0d84200f51aa

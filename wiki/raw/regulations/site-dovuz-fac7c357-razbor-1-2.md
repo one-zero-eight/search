@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "razbor 1"
+title: "Первый отборочный этап — razbor 1"
 resource: "https://lk-dovuz.innopolis.university/public/files/razbor_1%282%29.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/razbor_1%282%29.pdf"
     id: "f1e6ac08addb"
-    title: "razbor 1"
+    title: "Первый отборочный этап — razbor 1"
     last_modified: "2026-11-01T23:17:24+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# razbor 1
+# Первый отборочный этап — razbor 1
 
 1 Леброн и мультивселенные
 
@@ -647,4 +647,4 @@ status: draft
 
 # Citations
 
-1. [razbor 1](https://lk-dovuz.innopolis.university/public/files/razbor_1%282%29.pdf), file f1e6ac08addb
+1. [Первый отборочный этап — razbor 1](https://lk-dovuz.innopolis.university/public/files/razbor_1%282%29.pdf), file f1e6ac08addb

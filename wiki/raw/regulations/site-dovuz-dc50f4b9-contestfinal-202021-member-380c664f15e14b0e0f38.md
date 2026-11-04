@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "contest-final 2020-21 — problems/long-puzzle/statements/.pdf/russian/tutorial.pdf"
+title: "Финальный этап — contest-final 2020-21 — problems/long-puzzle/statements/.pdf/russian/tutorial.pdf"
 resource: "https://lk-dovuz.innopolis.university/public/files/contest-final_2020-21.zip"
 archive_member: "problems/long-puzzle/statements/.pdf/russian/tutorial.pdf"
 source_kind: official-document
@@ -9,7 +9,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/contest-final_2020-21.zip"
     id: "3890244780f4"
-    title: "contest-final 2020-21 — problems/long-puzzle/statements/.pdf/russian/tutorial.pdf"
+    title: "Финальный этап — contest-final 2020-21 — problems/long-puzzle/statements/.pdf/russian/tutorial.pdf"
     last_modified: "2026-11-04T02:52:48+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# contest-final 2020-21 — problems/long-puzzle/statements/.pdf/russian/tutorial.pdf
+# Финальный этап — contest-final 2020-21 — problems/long-puzzle/statements/.pdf/russian/tutorial.pdf
 
 Long puzzle
 
@@ -58,4 +58,4 @@ Long puzzle
 
 # Citations
 
-1. [contest-final 2020-21 — problems/long-puzzle/statements/.pdf/russian/tutorial.pdf](https://lk-dovuz.innopolis.university/public/files/contest-final_2020-21.zip), file 3890244780f4
+1. [Финальный этап — contest-final 2020-21 — problems/long-puzzle/statements/.pdf/russian/tutorial.pdf](https://lk-dovuz.innopolis.university/public/files/contest-final_2020-21.zip), file 3890244780f4

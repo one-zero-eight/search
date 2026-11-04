@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "ioai26 tour1 sol en"
+title: "Первый отборочный этап — ioai26 tour1 sol en"
 resource: "https://lk-dovuz.innopolis.university/public/files/ioai26_tour1_sol_en.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/ioai26_tour1_sol_en.pdf"
     id: "b447ffd024d1"
-    title: "ioai26 tour1 sol en"
+    title: "Первый отборочный этап — ioai26 tour1 sol en"
     last_modified: "2026-11-01T23:17:22+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# ioai26 tour1 sol en
+# Первый отборочный этап — ioai26 tour1 sol en
 
 Solution to the “Text Statistics” Problem
 
@@ -467,4 +467,4 @@ In the final stage, the program creates a ZIP archive task8.zip and adds all thr
 
 # Citations
 
-1. [ioai26 tour1 sol en](https://lk-dovuz.innopolis.university/public/files/ioai26_tour1_sol_en.pdf), file b447ffd024d1
+1. [Первый отборочный этап — ioai26 tour1 sol en](https://lk-dovuz.innopolis.university/public/files/ioai26_tour1_sol_en.pdf), file b447ffd024d1

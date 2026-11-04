@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Документ, содержащий информацию о результатах перевода, восстановления и отчисления (документ подписан простой электронной подписью)"
+title: "Документ, содержащий информацию о результатах перевода, восстановления и отчисления"
 resource: "https://innopolis.university/upload/iblock/b8c/qso96swyvcm0f9zp6jt351klmyl6t73g/%D0%94%D0%B2%D0%B8%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/upload/iblock/b8c/qso96swyvcm0f9zp6jt351klmyl6t73g/%D0%94%D0%B2%D0%B8%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5.pdf"
     id: "6e9a9b507323"
-    title: "Документ, содержащий информацию о результатах перевода, восстановления и отчисления (документ подписан простой электронной подписью)"
+    title: "Документ, содержащий информацию о результатах перевода, восстановления и отчисления"
     last_modified: "2026-10-25T00:01:37+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Документ, содержащий информацию о результатах перевода, восстановления и отчисления (документ подписан простой электронной подписью)
+# Документ, содержащий информацию о результатах перевода, восстановления и отчисления
 
 МЭПАрстангалеева МЭПМеркулова
 
@@ -79,4 +79,4 @@ status: draft
 
 # Citations
 
-1. [Документ, содержащий информацию о результатах перевода, восстановления и отчисления (документ подписан простой электронной подписью)](https://innopolis.university/upload/iblock/b8c/qso96swyvcm0f9zp6jt351klmyl6t73g/%D0%94%D0%B2%D0%B8%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5.pdf), file 6e9a9b507323
+1. [Документ, содержащий информацию о результатах перевода, восстановления и отчисления](https://innopolis.university/upload/iblock/b8c/qso96swyvcm0f9zp6jt351klmyl6t73g/%D0%94%D0%B2%D0%B8%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5.pdf), file 6e9a9b507323

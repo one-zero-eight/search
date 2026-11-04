@@ -1,0 +1,16 @@
+{
+ "title": "Результаты опросов работодателей и (или) их объединений, иных юридических и (или) физических лиц об удовлетворенности качеством образования",
+ "url": "https://innopolis.university/upload/iblock/679/4dt4ll8gpw5yehjn3pyekfajrb7ugg2i/1.2.2. Мат.моделир._работодат.pdf",
+ "sha256": "214c69bcf68db9901112f367b44563291644d932d2ffecb4a2b557cb7fe472e1",
+ "method": "text layer (opendataloader)",
+ "chars": 2265,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-22T21:46:43+00:00",
+ "tables": 5,
+ "remote": {
+  "etag": "\"6641bb6f-43e19\"",
+  "modified": "Mon, 13 May 2024 07:04:15 GMT",
+  "size": "278041"
+ }
+}

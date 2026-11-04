@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Руководство администратора [Руководство_администратора_ЕМОП_НК_1_new]"
+title: "Документация: — Руководство администратора [Руководство_администратора_ЕМОП_НК_1_new]"
 resource: "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%B0_%D0%95%D0%9C%D0%9E%D0%9F_%D0%9D%D0%9A_1_new.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/unionepro-ru"
 sources:
   - resource: "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%B0_%D0%95%D0%9C%D0%9E%D0%9F_%D0%9D%D0%9A_1_new.pdf"
     id: "82863b2c3fb9"
-    title: "Руководство администратора [Руководство_администратора_ЕМОП_НК_1_new]"
+    title: "Документация: — Руководство администратора [Руководство_администратора_ЕМОП_НК_1_new]"
     last_modified: "2026-11-04T13:07:42+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Руководство администратора [Руководство_администратора_ЕМОП_НК_1_new]
+# Документация: — Руководство администратора [Руководство_администратора_ЕМОП_НК_1_new]
 
 ЕДИНАЯ МНОГОФУНКЦИОНАЛЬНАЯ ОБРАЗОВАТЕЛЬНАЯ ПЛАТФОРМА
 
@@ -239,4 +239,4 @@ HTTPS – расширенный протокол шифрования с цел
 
 # Citations
 
-1. [Руководство администратора [Руководство_администратора_ЕМОП_НК_1_new]](https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%B0_%D0%95%D0%9C%D0%9E%D0%9F_%D0%9D%D0%9A_1_new.pdf), file 82863b2c3fb9
+1. [Документация: — Руководство администратора [Руководство_администратора_ЕМОП_НК_1_new]](https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%B0_%D0%95%D0%9C%D0%9E%D0%9F_%D0%9D%D0%9A_1_new.pdf), file 82863b2c3fb9

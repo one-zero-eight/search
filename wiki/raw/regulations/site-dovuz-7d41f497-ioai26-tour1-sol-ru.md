@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "ioai26 tour1 sol ru"
+title: "Первый отборочный этап — ioai26 tour1 sol ru"
 resource: "https://lk-dovuz.innopolis.university/public/files/ioai26_tour1_sol_ru.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/ioai26_tour1_sol_ru.pdf"
     id: "529aeaed413a"
-    title: "ioai26 tour1 sol ru"
+    title: "Первый отборочный этап — ioai26 tour1 sol ru"
     last_modified: "2026-11-01T23:17:22+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# ioai26 tour1 sol ru
+# Первый отборочный этап — ioai26 tour1 sol ru
 
 Решение задачи “Статистика текста”
 
@@ -387,4 +387,4 @@ N = len(data) checks_content = [] anomaly_indices = [] for i in range(5, N-5): m
 
 # Citations
 
-1. [ioai26 tour1 sol ru](https://lk-dovuz.innopolis.university/public/files/ioai26_tour1_sol_ru.pdf), file 529aeaed413a
+1. [Первый отборочный этап — ioai26 tour1 sol ru](https://lk-dovuz.innopolis.university/public/files/ioai26_tour1_sol_ru.pdf), file 529aeaed413a

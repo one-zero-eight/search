@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "IOM 23-24 qual1"
+title: "Первый заочный отборочный этап — IOM 23-24 qual1"
 resource: "https://lk-dovuz.innopolis.university/public/files/IOM_23-24_qual1.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/IOM_23-24_qual1.pdf"
     id: "25bd805fd690"
-    title: "IOM 23-24 qual1"
+    title: "Первый заочный отборочный этап — IOM 23-24 qual1"
     last_modified: "2026-11-01T23:17:19+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# IOM 23-24 qual1
+# Первый заочный отборочный этап — IOM 23-24 qual1
 
 4,11 0,45 0,49 2,04 0,47 0,41 0,945 2,775 2,755 1,98 2,765 2,795 <-- Весовой коэффициент / Weighting factor Первичные баллы / Pre-score Баллы / Score Сумма баллов / Total
 
@@ -1449,4 +1449,4 @@ status: draft
 
 # Citations
 
-1. [IOM 23-24 qual1](https://lk-dovuz.innopolis.university/public/files/IOM_23-24_qual1.pdf), file 25bd805fd690
+1. [Первый заочный отборочный этап — IOM 23-24 qual1](https://lk-dovuz.innopolis.university/public/files/IOM_23-24_qual1.pdf), file 25bd805fd690

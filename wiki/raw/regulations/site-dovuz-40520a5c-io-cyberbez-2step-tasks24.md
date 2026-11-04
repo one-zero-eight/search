@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "io cyberbez 2step tasks24"
+title: "Второй отборочный этап — io cyberbez 2step tasks24"
 resource: "https://lk-dovuz.innopolis.university/public/files/io_cyberbez_2step_tasks24.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/io_cyberbez_2step_tasks24.pdf"
     id: "0e26683f975c"
-    title: "io cyberbez 2step tasks24"
+    title: "Второй отборочный этап — io cyberbez 2step tasks24"
     last_modified: "2026-11-01T23:17:22+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# io cyberbez 2step tasks24
+# Второй отборочный этап — io cyberbez 2step tasks24
 
 Международная олимпиада «Innopolis Open» по профилю «Информационная безопасность»
 
@@ -187,4 +187,4 @@ status: draft
 
 # Citations
 
-1. [io cyberbez 2step tasks24](https://lk-dovuz.innopolis.university/public/files/io_cyberbez_2step_tasks24.pdf), file 0e26683f975c
+1. [Второй отборочный этап — io cyberbez 2step tasks24](https://lk-dovuz.innopolis.university/public/files/io_cyberbez_2step_tasks24.pdf), file 0e26683f975c

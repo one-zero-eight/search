@@ -1,4 +1,7 @@
 {
+ "contexts": {
+  "https://innopolis.university/files/politicacookies.pdf": "Получи консультацию менеджера"
+ },
  "docs": {
   "https://innopolis.university/files/politicacookies.pdf": "Нажимая на кнопку, я соглашаюсь на обработку персональных данных"
  },

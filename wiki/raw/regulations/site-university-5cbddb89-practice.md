@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "practice"
+title: "Информация о местах осуществления образовательной деятельности, сведения о которых в соответствии с Федеральным законом от 29.12.2012 № 273-ФЗ «Об образовании в Российской Федерации» не включаются в соответствующую запис — practice"
 resource: "https://innopolis.university/filespublic/practice.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/practice.pdf"
     id: "c3d3a6c0384b"
-    title: "practice"
+    title: "Информация о местах осуществления образовательной деятельности, сведения о которых в соответствии с Федеральным законом от 29.12.2012 № 273-ФЗ «Об образовании в Российской Федерации» не включаются в соответствующую запис — practice"
     last_modified: "2026-10-24T23:47:42+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# practice
+# Информация о местах осуществления образовательной деятельности, сведения о которых в соответствии с Федеральным законом от 29.12.2012 № 273-ФЗ «Об образовании в Российской Федерации» не включаются в соответствующую запис — practice
 
 | № п/п | Наименование организации | Адрес организации |
 | --- | --- | --- |
@@ -88,4 +88,4 @@ status: draft
 
 # Citations
 
-1. [practice](https://innopolis.university/filespublic/practice.pdf), file c3d3a6c0384b
+1. [Информация о местах осуществления образовательной деятельности, сведения о которых в соответствии с Федеральным законом от 29.12.2012 № 273-ФЗ «Об образовании в Российской Федерации» не включаются в соответствующую запис — practice](https://innopolis.university/filespublic/practice.pdf), file c3d3a6c0384b

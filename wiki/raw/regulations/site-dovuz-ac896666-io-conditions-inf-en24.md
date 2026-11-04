@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "io conditions inf en24"
+title: "Второй отборочный этап — io conditions inf en24"
 resource: "https://lk-dovuz.innopolis.university/public/files/io_conditions_inf_en24.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/io_conditions_inf_en24.pdf"
     id: "5110bc18d4f4"
-    title: "io conditions inf en24"
+    title: "Второй отборочный этап — io conditions inf en24"
     last_modified: "2026-11-01T23:17:22+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# io conditions inf en24
+# Второй отборочный этап — io conditions inf en24
 
 Innopolis Open 2024-2025 Second qualification round Innopolis, December 29, 2024
 
@@ -361,4 +361,4 @@ In the fifth and seventh tests, the elements of the array are also, as in all te
 
 # Citations
 
-1. [io conditions inf en24](https://lk-dovuz.innopolis.university/public/files/io_conditions_inf_en24.pdf), file 5110bc18d4f4
+1. [Второй отборочный этап — io conditions inf en24](https://lk-dovuz.innopolis.university/public/files/io_conditions_inf_en24.pdf), file 5110bc18d4f4

@@ -1,0 +1,16 @@
+{
+ "title": "Вступительное испытание на программам бакалавриата \"Основы физики\" 22.07.2024",
+ "url": "https://innopolis.university/upload/iblock/177/6uj4vpdr50qpvzlcgzi2z97xtr7f1wuq/basics__physics_22_07.pdf",
+ "sha256": "026a908168c2c0fb714afea18c0cd1550fc78d8ca72cfa02424b38c52b0bcd15",
+ "method": "text layer (opendataloader)",
+ "chars": 665,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-22T22:05:22+00:00",
+ "remote": {
+  "etag": "\"66a4c692-a4d4\"",
+  "modified": "Sat, 27 Jul 2024 10:06:10 GMT",
+  "size": "42196"
+ },
+ "tables": 5
+}

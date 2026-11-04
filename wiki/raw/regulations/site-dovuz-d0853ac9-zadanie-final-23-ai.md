@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "zadanie final 23 ai"
+title: "Финал — zadanie final 23 ai"
 resource: "https://lk-dovuz.innopolis.university/public/files/zadanie_final_23_ai.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/zadanie_final_23_ai.pdf"
     id: "c6d20971f1e0"
-    title: "zadanie final 23 ai"
+    title: "Финал — zadanie final 23 ai"
     last_modified: "2026-11-01T23:17:27+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# zadanie final 23 ai
+# Финал — zadanie final 23 ai
 
 финал Innopolis Open по ИИ. 2022-2023 Russia, Innopolis, March, 17, 2023
 
@@ -270,4 +270,4 @@ status: draft
 
 # Citations
 
-1. [zadanie final 23 ai](https://lk-dovuz.innopolis.university/public/files/zadanie_final_23_ai.pdf), file c6d20971f1e0
+1. [Финал — zadanie final 23 ai](https://lk-dovuz.innopolis.university/public/files/zadanie_final_23_ai.pdf), file c6d20971f1e0

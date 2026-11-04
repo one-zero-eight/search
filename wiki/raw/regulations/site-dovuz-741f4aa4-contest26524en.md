@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "contest-26524-en"
+title: "Финальный этап — contest-26524-en"
 resource: "https://lk-dovuz.innopolis.university/public/files/contest-26524-en.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/contest-26524-en.pdf"
     id: "0c7d7d2f7579"
-    title: "contest-26524-en"
+    title: "Финальный этап — contest-26524-en"
     last_modified: "2026-11-01T23:17:20+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# contest-26524-en
+# Финальный этап — contest-26524-en
 
 Innopolis Open 2021-2022 Final round Russia, Innopolis, February 20, 2022
 
@@ -127,4 +127,4 @@ Let’s first apply linear function x → Qx to all values in Hv. Then, we will 
 
 # Citations
 
-1. [contest-26524-en](https://lk-dovuz.innopolis.university/public/files/contest-26524-en.pdf), file 0c7d7d2f7579
+1. [Финальный этап — contest-26524-en](https://lk-dovuz.innopolis.university/public/files/contest-26524-en.pdf), file 0c7d7d2f7579

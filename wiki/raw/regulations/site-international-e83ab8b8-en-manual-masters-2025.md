@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Download the admission manual [en_manual_masters_2025]"
+title: "Master's degree — Download the admission manual"
 resource: "https://apply.innopolis.university/upload/files/en_manual_masters_2025.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/international"
 sources:
   - resource: "https://apply.innopolis.university/upload/files/en_manual_masters_2025.pdf"
     id: "574acf5275ac"
-    title: "Download the admission manual [en_manual_masters_2025]"
+    title: "Master's degree — Download the admission manual"
     last_modified: "2026-11-01T23:00:23+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Download the admission manual [en_manual_masters_2025]
+# Master's degree — Download the admission manual
 
 Hello, dear applicant!
 
@@ -47,4 +47,4 @@ We are waiting for your application to participate in the grant competition and 
 
 # Citations
 
-1. [Download the admission manual [en_manual_masters_2025]](https://apply.innopolis.university/upload/files/en_manual_masters_2025.pdf), file 574acf5275ac
+1. [Master's degree — Download the admission manual](https://apply.innopolis.university/upload/files/en_manual_masters_2025.pdf), file 574acf5275ac

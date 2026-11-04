@@ -1,0 +1,16 @@
+{
+ "title": "Аудит организации приема абитуриентов (от 31.08.2022)",
+ "url": "https://innopolis.university/upload/iblock/a9b/n0znsz2p728iscixwl9gg42q7v9yc5kx/Аудит организации приема абитуриентов (от 31.08.2022).pdf",
+ "sha256": "9b3c52296e29213fde2216f53e046fcd19ef70fd92b17d36a5c9690ef46d123e",
+ "method": "ocr (chandra-ocr-2)",
+ "chars": 20806,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-22T22:39:24+00:00",
+ "remote": {
+  "etag": "\"64e619d1-4ab024\"",
+  "modified": "Wed, 23 Aug 2023 14:38:09 GMT",
+  "size": "4894756"
+ },
+ "tables": 5
+}

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "ССЫЛКА НА PDF"
+title: "Форма обучения: очная с применением электронного обучения. — ССЫЛКА НА PDF"
 resource: "https://lk-dovuz.innopolis.university/public/files/conspectArduino.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/conspectArduino.pdf"
     id: "a6243feaefec"
-    title: "ССЫЛКА НА PDF"
+    title: "Форма обучения: очная с применением электронного обучения. — ССЫЛКА НА PDF"
     last_modified: "2026-11-01T23:17:20+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# ССЫЛКА НА PDF
+# Форма обучения: очная с применением электронного обучения. — ССЫЛКА НА PDF
 
 КРАТКИЙ КОНСПЕКТ ЛЕКЦИЙ
 
@@ -133,4 +133,4 @@ digitalRead().
 
 # Citations
 
-1. [ССЫЛКА НА PDF](https://lk-dovuz.innopolis.university/public/files/conspectArduino.pdf), file a6243feaefec
+1. [Форма обучения: очная с применением электронного обучения. — ССЫЛКА НА PDF](https://lk-dovuz.innopolis.university/public/files/conspectArduino.pdf), file a6243feaefec

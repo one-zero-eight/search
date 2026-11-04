@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Ссылка на договор оферты [Оферта_Группа_С_с_14.02.26_24.12.26]"
+title: "Группа C — Ссылка на договор оферты"
 resource: "https://innopolis.university/filespublic/%D0%9E%D1%84%D0%B5%D1%80%D1%82%D0%B0_%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0_%D0%A1_%D1%81_14.02.26_24.12.26.docx"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://innopolis.university/filespublic/%D0%9E%D1%84%D0%B5%D1%80%D1%82%D0%B0_%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0_%D0%A1_%D1%81_14.02.26_24.12.26.docx"
     id: "67d852a6da39"
-    title: "Ссылка на договор оферты [Оферта_Группа_С_с_14.02.26_24.12.26]"
+    title: "Группа C — Ссылка на договор оферты"
     last_modified: "2026-07-23T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Ссылка на договор оферты [Оферта_Группа_С_с_14.02.26_24.12.26]
+# Группа C — Ссылка на договор оферты
 
 Договор об образовании по дополнительным общеобразовательным общеразвивающим программам (договор присоединения) № ОНЛ/РЕГ2 от 23.07.2026 г.
 
@@ -257,4 +257,4 @@ status: draft
 
 # Citations
 
-1. [Ссылка на договор оферты [Оферта_Группа_С_с_14.02.26_24.12.26]](https://innopolis.university/filespublic/%D0%9E%D1%84%D0%B5%D1%80%D1%82%D0%B0_%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0_%D0%A1_%D1%81_14.02.26_24.12.26.docx), file 67d852a6da39
+1. [Группа C — Ссылка на договор оферты](https://innopolis.university/filespublic/%D0%9E%D1%84%D0%B5%D1%80%D1%82%D0%B0_%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0_%D0%A1_%D1%81_14.02.26_24.12.26.docx), file 67d852a6da39

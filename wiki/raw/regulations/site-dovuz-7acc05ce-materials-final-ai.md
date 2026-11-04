@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "materials final ai"
+title: "Заключительный этап — materials final ai"
 resource: "https://lk-dovuz.innopolis.university/public/files/materials_final_ai.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/materials_final_ai.pdf"
     id: "f46b7d7ebc9c"
-    title: "materials final ai"
+    title: "Заключительный этап — materials final ai"
     last_modified: "2026-11-01T23:17:23+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# materials final ai
+# Заключительный этап — materials final ai
 
 Задача 1: Очистка данных и корреляционный анализ
 
@@ -1503,4 +1503,4 @@ map_location='cpu') для обеспечения кросс-платформе�
 
 # Citations
 
-1. [materials final ai](https://lk-dovuz.innopolis.university/public/files/materials_final_ai.pdf), file f46b7d7ebc9c
+1. [Заключительный этап — materials final ai](https://lk-dovuz.innopolis.university/public/files/materials_final_ai.pdf), file f46b7d7ebc9c

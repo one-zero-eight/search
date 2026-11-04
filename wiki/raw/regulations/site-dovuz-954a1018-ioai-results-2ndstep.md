@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "ioai results 2ndstep"
+title: "Второй отборочный этап — ioai results 2ndstep"
 resource: "https://lk-dovuz.innopolis.university/public/files/ioai_results_2ndstep.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/ioai_results_2ndstep.pdf"
     id: "4f57d6347e26"
-    title: "ioai results 2ndstep"
+    title: "Второй отборочный этап — ioai results 2ndstep"
     last_modified: "2026-11-01T23:17:22+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# ioai results 2ndstep
+# Второй отборочный этап — ioai results 2ndstep
 
 |  | id | A | B | C | Sum | Result |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -46,4 +46,4 @@ status: draft
 
 # Citations
 
-1. [ioai results 2ndstep](https://lk-dovuz.innopolis.university/public/files/ioai_results_2ndstep.pdf), file 4f57d6347e26
+1. [Второй отборочный этап — ioai results 2ndstep](https://lk-dovuz.innopolis.university/public/files/ioai_results_2ndstep.pdf), file 4f57d6347e26

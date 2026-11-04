@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Смотреть презентацию [kommercheskoe_predlozhenie]"
+title: "04. ## Получение результата — Смотреть презентацию"
 resource: "https://innopolis.university/filespublic/kommercheskoe_predlozhenie.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/kommercheskoe_predlozhenie.pdf"
     id: "ac5d07d9ebec"
-    title: "Смотреть презентацию [kommercheskoe_predlozhenie]"
+    title: "04. ## Получение результата — Смотреть презентацию"
     last_modified: "2026-10-24T23:47:32+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (pdfplumber)"
 status: draft
 ---
 
-# Смотреть презентацию [kommercheskoe_predlozhenie]
+# 04. ## Получение результата — Смотреть презентацию
 
 | Ко | мпл | екс | ная |  |  |
 | --- | --- | --- | --- | --- | --- |
@@ -152,4 +152,4 @@ t Контакты Институт дополнительного образо�
 
 # Citations
 
-1. [Смотреть презентацию [kommercheskoe_predlozhenie]](https://innopolis.university/filespublic/kommercheskoe_predlozhenie.pdf), file ac5d07d9ebec
+1. [04. ## Получение результата — Смотреть презентацию](https://innopolis.university/filespublic/kommercheskoe_predlozhenie.pdf), file ac5d07d9ebec

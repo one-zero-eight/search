@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "contest-25033-ru"
+title: "Первый отборочный этап — contest-25033-ru"
 resource: "https://lk-dovuz.innopolis.university/public/files/contest-25033-ru.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/contest-25033-ru.pdf"
     id: "a8ee74b87e70"
-    title: "contest-25033-ru"
+    title: "Первый отборочный этап — contest-25033-ru"
     last_modified: "2021-11-21T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# contest-25033-ru
+# Первый отборочный этап — contest-25033-ru
 
 Innopolis Open по информатике Первый отборочный тур. 2021-2022 Россия, Иннополис, 21 ноября 2021 г.
 
@@ -89,4 +89,4 @@ Innopolis Open по информатике Первый отборочный т�
 
 # Citations
 
-1. [contest-25033-ru](https://lk-dovuz.innopolis.university/public/files/contest-25033-ru.pdf), file a8ee74b87e70
+1. [Первый отборочный этап — contest-25033-ru](https://lk-dovuz.innopolis.university/public/files/contest-25033-ru.pdf), file a8ee74b87e70

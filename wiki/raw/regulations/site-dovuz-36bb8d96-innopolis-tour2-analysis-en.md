@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "innopolis tour2 analysis en"
+title: "Второй отборочный этап — innopolis tour2 analysis en"
 resource: "https://lk-dovuz.innopolis.university/public/files/innopolis_tour2_analysis_en.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/innopolis_tour2_analysis_en.pdf"
     id: "9b0ef6a9ddad"
-    title: "innopolis tour2 analysis en"
+    title: "Второй отборочный этап — innopolis tour2 analysis en"
     last_modified: "2026-11-01T23:17:21+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# innopolis tour2 analysis en
+# Второй отборочный этап — innopolis tour2 analysis en
 
 Analysis of the "Data Collection" Task
 
@@ -299,4 +299,4 @@ The baseline solution works but can be enhanced by:
 
 # Citations
 
-1. [innopolis tour2 analysis en](https://lk-dovuz.innopolis.university/public/files/innopolis_tour2_analysis_en.pdf), file 9b0ef6a9ddad
+1. [Второй отборочный этап — innopolis tour2 analysis en](https://lk-dovuz.innopolis.university/public/files/innopolis_tour2_analysis_en.pdf), file 9b0ef6a9ddad

@@ -1,0 +1,16 @@
+{
+ "title": "Методический отдел — Положение",
+ "url": "https://innopolis.university/upload/iblock/7a8/m3fc6l0f4yjbwzg12nw3xb0u0pmnbntt/937882_Методический отдел.pdf",
+ "sha256": "a34ef199c62baba9127d29708fe8fd7d69534ab59d6ce63571f1b0d8d3be238a",
+ "method": "ocr (chandra-ocr-2)",
+ "chars": 12717,
+ "section": "site/university",
+ "context": "Методический отдел",
+ "fetched_at": "2026-10-22T22:26:57+00:00",
+ "remote": {
+  "etag": "\"69e76b89-1a7999\"",
+  "modified": "Tue, 21 Apr 2026 12:20:25 GMT",
+  "size": "1735065"
+ },
+ "tables": 5
+}

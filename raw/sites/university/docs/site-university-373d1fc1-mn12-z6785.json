@@ -1,0 +1,16 @@
+{
+ "title": "Заключение от 30.08.2022 № МН-12/з-6785",
+ "url": "https://innopolis.university/upload/iblock/653/hyqcp2143lue3oabzmrdty7fxlkp3mns/МН-12_з-6785.pdf",
+ "sha256": "763c6a6187a626513e5c62e1d7b9b587a9ad7b191d0b060eab830e347c3bfb10",
+ "method": "text layer (opendataloader)",
+ "chars": 997,
+ "section": "site/university",
+ "context": "Республика Сербия",
+ "fetched_at": "2026-10-22T22:13:59+00:00",
+ "tables": 5,
+ "remote": {
+  "etag": "\"6385f39a-53cc4\"",
+  "modified": "Tue, 29 Nov 2022 11:57:14 GMT",
+  "size": "343236"
+ }
+}

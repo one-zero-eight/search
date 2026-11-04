@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "round1-statements-ru"
+title: "Первый отборочный этап — round1-statements-ru"
 resource: "https://lk-dovuz.innopolis.university/public/files/round1-statements-ru.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/round1-statements-ru.pdf"
     id: "7967c0a38430"
-    title: "round1-statements-ru"
+    title: "Первый отборочный этап — round1-statements-ru"
     last_modified: "2022-11-13T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# round1-statements-ru
+# Первый отборочный этап — round1-statements-ru
 
 Innopolis Open по информатике Первый отборочный тур. 2022-2023 Россия, Иннополис, 13 ноября 2022 г.
 
@@ -285,4 +285,4 @@ Innopolis Open по информатике Первый отборочный т�
 
 # Citations
 
-1. [round1-statements-ru](https://lk-dovuz.innopolis.university/public/files/round1-statements-ru.pdf), file 7967c0a38430
+1. [Первый отборочный этап — round1-statements-ru](https://lk-dovuz.innopolis.university/public/files/round1-statements-ru.pdf), file 7967c0a38430

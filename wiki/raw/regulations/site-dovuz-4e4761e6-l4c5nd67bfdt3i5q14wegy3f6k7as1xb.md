@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Скачать положение олимпиады [l4c5nd67bfdt3i5q14wegy3f6k7as1xb]"
+title: "Участникам заключительного этапа необходимо решить 5 задач, к каждой из которых требуется развернутое и обоснованное решение. — Скачать положение олимпиады"
 resource: "https://start.innopolis.university/upload/sprint.editor/e54/l4c5nd67bfdt3i5q14wegy3f6k7as1xb.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://start.innopolis.university/upload/sprint.editor/e54/l4c5nd67bfdt3i5q14wegy3f6k7as1xb.pdf"
     id: "bf36cead2ff2"
-    title: "Скачать положение олимпиады [l4c5nd67bfdt3i5q14wegy3f6k7as1xb]"
+    title: "Участникам заключительного этапа необходимо решить 5 задач, к каждой из которых требуется развернутое и обоснованное решение. — Скачать положение олимпиады"
     last_modified: "2026-08-19T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Скачать положение олимпиады [l4c5nd67bfdt3i5q14wegy3f6k7as1xb]
+# Участникам заключительного этапа необходимо решить 5 задач, к каждой из которых требуется развернутое и обоснованное решение. — Скачать положение олимпиады
 
 УТВЕРЖДЕНО приказом АНО ВО «Университет Иннополис» от 19 августа 2026 г. № ОД/АД-01/2026/08/19
 
@@ -317,4 +317,4 @@ Intelligence;
 
 # Citations
 
-1. [Скачать положение олимпиады [l4c5nd67bfdt3i5q14wegy3f6k7as1xb]](https://start.innopolis.university/upload/sprint.editor/e54/l4c5nd67bfdt3i5q14wegy3f6k7as1xb.pdf), file bf36cead2ff2
+1. [Участникам заключительного этапа необходимо решить 5 задач, к каждой из которых требуется развернутое и обоснованное решение. — Скачать положение олимпиады](https://start.innopolis.university/upload/sprint.editor/e54/l4c5nd67bfdt3i5q14wegy3f6k7as1xb.pdf), file bf36cead2ff2

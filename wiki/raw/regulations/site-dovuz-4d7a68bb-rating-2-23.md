@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "rating 2 23"
+title: "Второй отборочный этап — rating 2 23"
 resource: "https://lk-dovuz.innopolis.university/public/files/rating_2_23.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/rating_2_23.pdf"
     id: "8f4a90559437"
-    title: "rating 2 23"
+    title: "Второй отборочный этап — rating 2 23"
     last_modified: "2026-11-01T23:17:24+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# rating 2 23
+# Второй отборочный этап — rating 2 23
 
 Рейтинг второго этапа
 
@@ -79,4 +79,4 @@ status: draft
 
 # Citations
 
-1. [rating 2 23](https://lk-dovuz.innopolis.university/public/files/rating_2_23.pdf), file 8f4a90559437
+1. [Второй отборочный этап — rating 2 23](https://lk-dovuz.innopolis.university/public/files/rating_2_23.pdf), file 8f4a90559437

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "reshenie 2 tur en"
+title: "Условия задач/разбор: Задачи(ru), Задачи(en) — reshenie 2 tur en"
 resource: "https://lk-dovuz.innopolis.university/public/files/reshenie_2_tur_en.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/reshenie_2_tur_en.pdf"
     id: "e188c57a403e"
-    title: "reshenie 2 tur en"
+    title: "Условия задач/разбор: Задачи(ru), Задачи(en) — reshenie 2 tur en"
     last_modified: "2026-11-01T23:17:24+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# reshenie 2 tur en
+# Условия задач/разбор: Задачи(ru), Задачи(en) — reshenie 2 tur en
 
 Innopolis Open 2025-2026 Second qualification round Innopolis, December 28, 2025
 
@@ -367,4 +367,4 @@ There also exists a solution in nlog n · α(n), where α() is the asymptotic co
 
 # Citations
 
-1. [reshenie 2 tur en](https://lk-dovuz.innopolis.university/public/files/reshenie_2_tur_en.pdf), file e188c57a403e
+1. [Условия задач/разбор: Задачи(ru), Задачи(en) — reshenie 2 tur en](https://lk-dovuz.innopolis.university/public/files/reshenie_2_tur_en.pdf), file e188c57a403e

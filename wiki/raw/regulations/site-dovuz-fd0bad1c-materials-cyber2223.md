@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "materials cyber2223"
+title: "Финальный этап — materials cyber2223"
 resource: "https://lk-dovuz.innopolis.university/public/files/materials_cyber2223.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/materials_cyber2223.pdf"
     id: "2843171fc8f6"
-    title: "materials cyber2223"
+    title: "Финальный этап — materials cyber2223"
     last_modified: "2026-11-01T23:17:22+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# materials cyber2223
+# Финальный этап — materials cyber2223
 
 Сборник материалов заданий отборочных и заключительного этапов Международной Олимпиады Innopolis Open по информационной безопасности сезона 2022/2023 уч. г.
 
@@ -739,4 +739,4 @@ $ cat /root/flag.txt
 
 # Citations
 
-1. [materials cyber2223](https://lk-dovuz.innopolis.university/public/files/materials_cyber2223.pdf), file 2843171fc8f6
+1. [Финальный этап — materials cyber2223](https://lk-dovuz.innopolis.university/public/files/materials_cyber2223.pdf), file 2843171fc8f6

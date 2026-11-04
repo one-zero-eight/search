@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "final comp2223"
+title: "Финальный этап — final comp2223"
 resource: "https://lk-dovuz.innopolis.university/public/files/final_comp2223.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/final_comp2223.pdf"
     id: "1f45e5a2a00f"
-    title: "final comp2223"
+    title: "Финальный этап — final comp2223"
     last_modified: "2026-11-01T23:17:20+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# final comp2223
+# Финальный этап — final comp2223
 
 | Международная ол |  |  |  | импиада | Innopolis За | Open по ключите | нформа льный эт | ционной ап. | безопас | ности 20 | 22/2023 у | ч.г. |  |  |  |  |  |  |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -71,4 +71,4 @@ status: draft
 
 # Citations
 
-1. [final comp2223](https://lk-dovuz.innopolis.university/public/files/final_comp2223.pdf), file 1f45e5a2a00f
+1. [Финальный этап — final comp2223](https://lk-dovuz.innopolis.university/public/files/final_comp2223.pdf), file 1f45e5a2a00f

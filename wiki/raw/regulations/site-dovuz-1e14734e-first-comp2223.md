@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "first comp2223"
+title: "Первый отборочный этап — first comp2223"
 resource: "https://lk-dovuz.innopolis.university/public/files/first_comp2223.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/first_comp2223.pdf"
     id: "bdc06f95fb0f"
-    title: "first comp2223"
+    title: "Первый отборочный этап — first comp2223"
     last_modified: "2026-11-01T23:17:21+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# first comp2223
+# Первый отборочный этап — first comp2223
 
 Международная олимпиада Innopolis Open по информационной безопасности 2022/2023 уч.г. Первый отборочный этап.
 
@@ -249,4 +249,4 @@ status: draft
 
 # Citations
 
-1. [first comp2223](https://lk-dovuz.innopolis.university/public/files/first_comp2223.pdf), file bdc06f95fb0f
+1. [Первый отборочный этап — first comp2223](https://lk-dovuz.innopolis.university/public/files/first_comp2223.pdf), file bdc06f95fb0f

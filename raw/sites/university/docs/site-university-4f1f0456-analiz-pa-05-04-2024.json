@@ -1,0 +1,16 @@
+{
+ "title": "Анализ данных промежуточной аттестации обучающихся (от 05.04.2024)",
+ "url": "https://innopolis.university/upload/iblock/15f/jz9tg9ik5d1jplaxj0essgmxjzarox07/analiz_pa_05.04.2024.pdf",
+ "sha256": "ffab767ed20e9a8dce1770dff1a2e9814b85dd3ed1f75885e2b185a203a0ddfa",
+ "method": "text layer (opendataloader)",
+ "chars": 47320,
+ "section": "site/university",
+ "context": "Аудит организации приема абитуриентов (от 31.08.2022) Анализ результатов Единого государственного экзамена за 2022 год (от 10.10.2022) Анализ образовательных программ высшего образования требованиям законодательства (от 19.12.2022) Анализ п",
+ "fetched_at": "2026-10-22T18:03:28+00:00",
+ "remote": {
+  "etag": "\"6620c7ec-bddff\"",
+  "modified": "Thu, 18 Apr 2024 07:12:44 GMT",
+  "size": "777727"
+ },
+ "tables": 5
+}

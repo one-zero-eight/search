@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Read the article [NIR_2022_spherical-robot]"
+title: "The object of research is a spherical robot with an internal platform with four classic-type omni-wheels. The motion of the spherical robot on the horizontal surface is considered and its kinematics is described. The aim — Read the article"
 resource: "https://innopolis.university/filespublic/NIR_2022_spherical-robot.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/NIR_2022_spherical-robot.pdf"
     id: "b8d16e4be936"
-    title: "Read the article [NIR_2022_spherical-robot]"
+    title: "The object of research is a spherical robot with an internal platform with four classic-type omni-wheels. The motion of the spherical robot on the horizontal surface is considered and its kinematics is described. The aim — Read the article"
     last_modified: "2026-10-24T23:45:40+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Read the article [NIR_2022_spherical-robot]
+# The object of research is a spherical robot with an internal platform with four classic-type omni-wheels. The motion of the spherical robot on the horizontal surface is considered and its kinematics is described. The aim — Read the article
 
 Comparative Analysis of the Dynamics of a Spherical Robot with a Balanced Internal Platform Taking into Account Different Models of Contact Friction
 
@@ -633,4 +633,4 @@ REFERENCES
 
 # Citations
 
-1. [Read the article [NIR_2022_spherical-robot]](https://innopolis.university/filespublic/NIR_2022_spherical-robot.pdf), file b8d16e4be936
+1. [The object of research is a spherical robot with an internal platform with four classic-type omni-wheels. The motion of the spherical robot on the horizontal surface is considered and its kinematics is described. The aim — Read the article](https://innopolis.university/filespublic/NIR_2022_spherical-robot.pdf), file b8d16e4be936

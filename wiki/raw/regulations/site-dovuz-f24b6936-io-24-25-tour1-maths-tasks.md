@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "IO 24 25 tour1 maths tasks"
+title: "Первый заочный отборочный этап — IO 24 25 tour1 maths tasks"
 resource: "https://lk-dovuz.innopolis.university/public/files/IO_24_25_tour1_maths_tasks.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/IO_24_25_tour1_maths_tasks.pdf"
     id: "bafe267e3c51"
-    title: "IO 24 25 tour1 maths tasks"
+    title: "Первый заочный отборочный этап — IO 24 25 tour1 maths tasks"
     last_modified: "2026-11-01T23:17:20+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# IO 24 25 tour1 maths tasks
+# Первый заочный отборочный этап — IO 24 25 tour1 maths tasks
 
 Innopolis Open 2024/25 in Mathematics 1𝑠𝑡 qualifying round
 
@@ -1277,4 +1277,4 @@ Criteria:
 
 # Citations
 
-1. [IO 24 25 tour1 maths tasks](https://lk-dovuz.innopolis.university/public/files/IO_24_25_tour1_maths_tasks.pdf), file bafe267e3c51
+1. [Первый заочный отборочный этап — IO 24 25 tour1 maths tasks](https://lk-dovuz.innopolis.university/public/files/IO_24_25_tour1_maths_tasks.pdf), file bafe267e3c51

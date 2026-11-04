@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Общее руководство InnoChain"
+title: "Общее руководство по эксплуатации СРР «InnoChain» — Общее руководство InnoChain"
 resource: "https://innopolis.university/filespublic/%D0%9E%D0%B1%D1%89%D0%B5%D0%B5_%D1%80%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_InnoChain.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/%D0%9E%D0%B1%D1%89%D0%B5%D0%B5_%D1%80%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_InnoChain.pdf"
     id: "0c3e96d9ec76"
-    title: "Общее руководство InnoChain"
+    title: "Общее руководство по эксплуатации СРР «InnoChain» — Общее руководство InnoChain"
     last_modified: "2026-10-24T23:42:12+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Общее руководство InnoChain
+# Общее руководство по эксплуатации СРР «InnoChain» — Общее руководство InnoChain
 
 СИСТЕМА РАСПРЕДЕЛЕННОГО РЕЕСТРА «INNOCHAIN»
 
@@ -265,4 +265,4 @@ Apple;
 
 # Citations
 
-1. [Общее руководство InnoChain](https://innopolis.university/filespublic/%D0%9E%D0%B1%D1%89%D0%B5%D0%B5_%D1%80%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_InnoChain.pdf), file 0c3e96d9ec76
+1. [Общее руководство по эксплуатации СРР «InnoChain» — Общее руководство InnoChain](https://innopolis.university/filespublic/%D0%9E%D0%B1%D1%89%D0%B5%D0%B5_%D1%80%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_InnoChain.pdf), file 0c3e96d9ec76

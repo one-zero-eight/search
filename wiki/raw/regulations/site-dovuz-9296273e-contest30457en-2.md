@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "contest-30457-en"
+title: "Первый отборочный этап — contest-30457-en"
 resource: "https://lk-dovuz.innopolis.university/public/files/contest-30457-en%282%29.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/contest-30457-en%282%29.pdf"
     id: "45fc8bb8d038"
-    title: "contest-30457-en"
+    title: "Первый отборочный этап — contest-30457-en"
     last_modified: "2026-11-01T23:17:20+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# contest-30457-en
+# Первый отборочный этап — contest-30457-en
 
 Innopolis Open 2022-2023 First qualification round Russia, Innopolis, October 23, 2022
 
@@ -236,4 +236,4 @@ Illustration of colored points by Lebron and Westbrook.
 
 # Citations
 
-1. [contest-30457-en](https://lk-dovuz.innopolis.university/public/files/contest-30457-en%282%29.pdf), file 45fc8bb8d038
+1. [Первый отборочный этап — contest-30457-en](https://lk-dovuz.innopolis.university/public/files/contest-30457-en%282%29.pdf), file 45fc8bb8d038

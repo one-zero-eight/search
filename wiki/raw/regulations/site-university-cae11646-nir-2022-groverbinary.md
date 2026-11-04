@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Read the article [NIR_2022_grover-binary]"
+title: "Contemporary quantum algorithms, being efficient theoretically, fail to run on real QPUs. One reason for these failures is the algorithm’s probabilistic nature, which is amplified by imperfections in hardware implementat — Read the article"
 resource: "https://innopolis.university/filespublic/NIR_2022_grover-binary.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/NIR_2022_grover-binary.pdf"
     id: "f4af9becf358"
-    title: "Read the article [NIR_2022_grover-binary]"
+    title: "Contemporary quantum algorithms, being efficient theoretically, fail to run on real QPUs. One reason for these failures is the algorithm’s probabilistic nature, which is amplified by imperfections in hardware implementat — Read the article"
     last_modified: "2026-10-24T23:45:03+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Read the article [NIR_2022_grover-binary]
+# Contemporary quantum algorithms, being efficient theoretically, fail to run on real QPUs. One reason for these failures is the algorithm’s probabilistic nature, which is amplified by imperfections in hardware implementat — Read the article
 
 Grover Binary Search for Discrete Quantum Optimization
 
@@ -151,4 +151,4 @@ REFERENCES
 
 # Citations
 
-1. [Read the article [NIR_2022_grover-binary]](https://innopolis.university/filespublic/NIR_2022_grover-binary.pdf), file f4af9becf358
+1. [Contemporary quantum algorithms, being efficient theoretically, fail to run on real QPUs. One reason for these failures is the algorithm’s probabilistic nature, which is amplified by imperfections in hardware implementat — Read the article](https://innopolis.university/filespublic/NIR_2022_grover-binary.pdf), file f4af9becf358

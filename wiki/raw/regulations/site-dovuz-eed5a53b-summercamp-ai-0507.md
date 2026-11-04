@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "summercamp ai 0507"
+title: "если школьник не проходит по баллам, менеджер отправит рекомендации на другие программы смены. — summercamp ai 0507"
 resource: "https://lk-dovuz.innopolis.university/public/files/summercamp_ai_0507.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/summercamp_ai_0507.pdf"
     id: "a56690afec23"
-    title: "summercamp ai 0507"
+    title: "если школьник не проходит по баллам, менеджер отправит рекомендации на другие программы смены. — summercamp ai 0507"
     last_modified: "2026-01-16T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# summercamp ai 0507
+# если школьник не проходит по баллам, менеджер отправит рекомендации на другие программы смены. — summercamp ai 0507
 
 Договор об образовании по дополнительным общеобразовательным общеразвивающим программам (договор присоединения) № ОФ21 от 16.01.2026 г.
 
@@ -311,4 +311,4 @@ status: draft
 
 # Citations
 
-1. [summercamp ai 0507](https://lk-dovuz.innopolis.university/public/files/summercamp_ai_0507.pdf), file a56690afec23
+1. [если школьник не проходит по баллам, менеджер отправит рекомендации на другие программы смены. — summercamp ai 0507](https://lk-dovuz.innopolis.university/public/files/summercamp_ai_0507.pdf), file a56690afec23

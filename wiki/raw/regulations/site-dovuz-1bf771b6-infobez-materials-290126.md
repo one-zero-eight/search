@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "infobez materials 290126"
+title: "Первый отборочный этап — infobez materials 290126"
 resource: "https://lk-dovuz.innopolis.university/public/files/infobez_materials_290126.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/infobez_materials_290126.pdf"
     id: "39411da858eb"
-    title: "infobez materials 290126"
+    title: "Первый отборочный этап — infobez materials 290126"
     last_modified: "2026-11-01T23:17:21+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# infobez materials 290126
+# Первый отборочный этап — infobez materials 290126
 
 Международная олимпиада «Innopolis Open» по профилю «Информационная безопасность»
 
@@ -735,4 +735,4 @@ Flag: CTF{6213}
 
 # Citations
 
-1. [infobez materials 290126](https://lk-dovuz.innopolis.university/public/files/infobez_materials_290126.pdf), file 39411da858eb
+1. [Первый отборочный этап — infobez materials 290126](https://lk-dovuz.innopolis.university/public/files/infobez_materials_290126.pdf), file 39411da858eb

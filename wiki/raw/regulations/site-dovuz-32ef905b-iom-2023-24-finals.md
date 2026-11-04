@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "IOM 2023 24 Finals"
+title: "Финальный тур — IOM 2023 24 Finals"
 resource: "https://lk-dovuz.innopolis.university/public/files/IOM_2023_24_Finals.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/IOM_2023_24_Finals.pdf"
     id: "9e3c48b61d5c"
-    title: "IOM 2023 24 Finals"
+    title: "Финальный тур — IOM 2023 24 Finals"
     last_modified: "2026-11-01T23:17:19+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# IOM 2023 24 Finals
+# Финальный тур — IOM 2023 24 Finals
 
 | Average --> |  | 2,49 | 2,79 | 2,54 | 2,34 | 1,79 | 1,02 | 1,755 | 1,605 | 1,73 | 1,83 | 2,105 | 2,49 | <-- Weighting coefficients |  |  |  |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -323,4 +323,4 @@ status: draft
 
 # Citations
 
-1. [IOM 2023 24 Finals](https://lk-dovuz.innopolis.university/public/files/IOM_2023_24_Finals.pdf), file 9e3c48b61d5c
+1. [Финальный тур — IOM 2023 24 Finals](https://lk-dovuz.innopolis.university/public/files/IOM_2023_24_Finals.pdf), file 9e3c48b61d5c

@@ -1,0 +1,16 @@
+{
+ "title": "Политика АНО ВО \"Университет Иннополис\" в области охраны труда,",
+ "url": "https://innopolis.university/upload/iblock/b8b/v76b5od24fs2gk2lklw1hrzluxfdcaoz/Politika_ANO_VO_Universitet_Innopolis_v_oblasti_ohrany_truda.pdf",
+ "sha256": "fe25140ba98567ba041b529cf1681cd579eeb26041826595952b41b096f6df68",
+ "method": "ocr (chandra-ocr-2)",
+ "chars": 2024,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-22T22:26:33+00:00",
+ "remote": {
+  "etag": "\"62fdf887-41b99\"",
+  "modified": "Thu, 18 Aug 2022 08:29:59 GMT",
+  "size": "269209"
+ },
+ "tables": 5
+}

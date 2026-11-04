@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Руководство пользователя [Руководство_пользователя_OneID]"
+title: "Документация: — Руководство пользователя [Руководство_пользователя_OneID]"
 resource: "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_OneID.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/unionepro-ru"
 sources:
   - resource: "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_OneID.pdf"
     id: "ee9adb5a96cc"
-    title: "Руководство пользователя [Руководство_пользователя_OneID]"
+    title: "Документация: — Руководство пользователя [Руководство_пользователя_OneID]"
     last_modified: "2026-11-04T13:07:42+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Руководство пользователя [Руководство_пользователя_OneID]
+# Документация: — Руководство пользователя [Руководство_пользователя_OneID]
 
 ЕДИНАЯ СИСТЕМА ИДЕНТИФИКАЦИИ «ONEID»
 
@@ -254,4 +254,4 @@ status: draft
 
 # Citations
 
-1. [Руководство пользователя [Руководство_пользователя_OneID]](https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_OneID.pdf), file ee9adb5a96cc
+1. [Документация: — Руководство пользователя [Руководство_пользователя_OneID]](https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_OneID.pdf), file ee9adb5a96cc

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "digest5"
+title: "— Успех в конкурентной борьбе как на уровне производств, так и на уровне государств, невозможен без развития современных технологий. Развитие действующих и создание новых высокотехнологичных автоматизированных промышленн — digest5"
 resource: "https://robotics.innopolis.university/wp-content/uploads/2023/06/digest5.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/robotics"
 sources:
   - resource: "https://robotics.innopolis.university/wp-content/uploads/2023/06/digest5.pdf"
     id: "15b80adc063a"
-    title: "digest5"
+    title: "— Успех в конкурентной борьбе как на уровне производств, так и на уровне государств, невозможен без развития современных технологий. Развитие действующих и создание новых высокотехнологичных автоматизированных промышленн — digest5"
     last_modified: "2026-10-31T09:36:39+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# digest5
+# — Успех в конкурентной борьбе как на уровне производств, так и на уровне государств, невозможен без развития современных технологий. Развитие действующих и создание новых высокотехнологичных автоматизированных промышленн — digest5
 
 Дайджест по робототехнике
 
@@ -2585,4 +2585,4 @@ ATX West 2024 ITES China 2024
 
 # Citations
 
-1. [digest5](https://robotics.innopolis.university/wp-content/uploads/2023/06/digest5.pdf), file 15b80adc063a
+1. [— Успех в конкурентной борьбе как на уровне производств, так и на уровне государств, невозможен без развития современных технологий. Развитие действующих и создание новых высокотехнологичных автоматизированных промышленн — digest5](https://robotics.innopolis.university/wp-content/uploads/2023/06/digest5.pdf), file 15b80adc063a

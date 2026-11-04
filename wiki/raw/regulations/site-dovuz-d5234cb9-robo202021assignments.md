@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "robo-202021-assignments"
+title: "Работы призеров и победителей: ссылка — robo-202021-assignments"
 resource: "https://lk-dovuz.innopolis.university/public/files/robo-202021-assignments.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/robo-202021-assignments.pdf"
     id: "53e5e64ba1ff"
-    title: "robo-202021-assignments"
+    title: "Работы призеров и победителей: ссылка — robo-202021-assignments"
     last_modified: "2026-11-01T23:17:26+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# robo-202021-assignments
+# Работы призеров и победителей: ссылка — robo-202021-assignments
 
 МАТЕРИАЛЫ ЗАДАНИЙ
 
@@ -3577,4 +3577,4 @@ X = 18 - locY Y = 18 - locX returnInfo = findYellow() if returnInfo != "found": 
 
 # Citations
 
-1. [robo-202021-assignments](https://lk-dovuz.innopolis.university/public/files/robo-202021-assignments.pdf), file 53e5e64ba1ff
+1. [Работы призеров и победителей: ссылка — robo-202021-assignments](https://lk-dovuz.innopolis.university/public/files/robo-202021-assignments.pdf), file 53e5e64ba1ff

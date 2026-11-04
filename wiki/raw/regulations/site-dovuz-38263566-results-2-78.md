@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "results 2 7-8"
+title: "Второй отборочный этап — results 2 7-8"
 resource: "https://lk-dovuz.innopolis.university/public/files/results_2_7-8.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/results_2_7-8.pdf"
     id: "98a2141d40c0"
-    title: "results 2 7-8"
+    title: "Второй отборочный этап — results 2 7-8"
     last_modified: "2026-11-01T23:17:25+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# results 2 7-8
+# Второй отборочный этап — results 2 7-8
 
 | id | Участник | A_балл | B_балл | C_балл | D_балл | E_балл | F_балл | G_балл | H_балл | I_балл | J_балл | K_балл | L_балл | M_балл | N_балл | Сумма баллов с учетом веса |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -57,4 +57,4 @@ status: draft
 
 # Citations
 
-1. [results 2 7-8](https://lk-dovuz.innopolis.university/public/files/results_2_7-8.pdf), file 98a2141d40c0
+1. [Второй отборочный этап — results 2 7-8](https://lk-dovuz.innopolis.university/public/files/results_2_7-8.pdf), file 98a2141d40c0

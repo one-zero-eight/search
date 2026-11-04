@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Конфиденциальность"
+title: "Антикоррупционная деятельность — Конфиденциальность"
 resource: "https://sezinnopolis.ru/upload/politic.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/sez"
 sources:
   - resource: "https://sezinnopolis.ru/upload/politic.pdf"
     id: "9f7bf0fa7dfd"
-    title: "Конфиденциальность"
+    title: "Антикоррупционная деятельность — Конфиденциальность"
     last_modified: "2006-07-27T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Конфиденциальность
+# Антикоррупционная деятельность — Конфиденциальность
 
 АКЦИОНЕРНОЕ ОБЩЕСТВО «ОСОБАЯ ЭКОНОМИЧЕСКАЯ ЗОНА «ИННОПОЛИС» УТВЕРЖДЕНА приказом от « » 20 г. № ПОЛИТИКА в отношении обработки персональных данных акционерного общества «Особая экономическая зона «Иннополис» г. Иннополис 2022
 
@@ -287,4 +287,4 @@ status: draft
 
 # Citations
 
-1. [Конфиденциальность](https://sezinnopolis.ru/upload/politic.pdf), file 9f7bf0fa7dfd
+1. [Антикоррупционная деятельность — Конфиденциальность](https://sezinnopolis.ru/upload/politic.pdf), file 9f7bf0fa7dfd

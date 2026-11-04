@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Выписка из реестра лицензий"
+title: "Хотите познакомиться с Университетом Иннополис ближе? Пишите, мы всегда рады новым друзьям :) — Выписка из реестра лицензий"
 resource: "https://innopolis.university/upload/iblock/b6f/ozxoa1j463v3s0m55w9kdc1qc0z31zfr/%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%B2%D1%8B%D0%BF%D0%B8%D1%81%D0%BA%D0%B0.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/stc"
 sources:
   - resource: "https://innopolis.university/upload/iblock/b6f/ozxoa1j463v3s0m55w9kdc1qc0z31zfr/%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%B2%D1%8B%D0%BF%D0%B8%D1%81%D0%BA%D0%B0.pdf"
     id: "02eb5ed8c468"
-    title: "Выписка из реестра лицензий"
+    title: "Хотите познакомиться с Университетом Иннополис ближе? Пишите, мы всегда рады новым друзьям :) — Выписка из реестра лицензий"
     last_modified: "2015-12-25T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Выписка из реестра лицензий
+# Хотите познакомиться с Университетом Иннополис ближе? Пишите, мы всегда рады новым друзьям :) — Выписка из реестра лицензий
 
 Федеральная служба по надзору в сфере образования и науки
 
@@ -94,4 +94,4 @@ status: draft
 
 # Citations
 
-1. [Выписка из реестра лицензий](https://innopolis.university/upload/iblock/b6f/ozxoa1j463v3s0m55w9kdc1qc0z31zfr/%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%B2%D1%8B%D0%BF%D0%B8%D1%81%D0%BA%D0%B0.pdf), file 02eb5ed8c468
+1. [Хотите познакомиться с Университетом Иннополис ближе? Пишите, мы всегда рады новым друзьям :) — Выписка из реестра лицензий](https://innopolis.university/upload/iblock/b6f/ozxoa1j463v3s0m55w9kdc1qc0z31zfr/%D0%A0%D0%B5%D0%B5%D1%81%D1%82%D1%80%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%B2%D1%8B%D0%BF%D0%B8%D1%81%D0%BA%D0%B0.pdf), file 02eb5ed8c468

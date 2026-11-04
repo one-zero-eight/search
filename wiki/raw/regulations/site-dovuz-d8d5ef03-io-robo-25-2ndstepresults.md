@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "io robo 25 2ndstepresults"
+title: "Второй отборочный этап — io robo 25 2ndstepresults"
 resource: "https://lk-dovuz.innopolis.university/public/files/io_robo_25_2ndstepresults.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/io_robo_25_2ndstepresults.pdf"
     id: "af68493e338b"
-    title: "io robo 25 2ndstepresults"
+    title: "Второй отборочный этап — io robo 25 2ndstepresults"
     last_modified: "2026-11-01T23:17:22+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# io robo 25 2ndstepresults
+# Второй отборочный этап — io robo 25 2ndstepresults
 
 Результаты второго отборочного этапа Международной олимпиады Innopolis Open по робототехнике 24/25
 
@@ -170,4 +170,4 @@ status: draft
 
 # Citations
 
-1. [io robo 25 2ndstepresults](https://lk-dovuz.innopolis.university/public/files/io_robo_25_2ndstepresults.pdf), file af68493e338b
+1. [Второй отборочный этап — io robo 25 2ndstepresults](https://lk-dovuz.innopolis.university/public/files/io_robo_25_2ndstepresults.pdf), file af68493e338b

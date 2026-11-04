@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "ACCOMMODATION ON CAMPUS"
+title: "Carrying the trash out (kitchen and bathroom) — ACCOMMODATION ON CAMPUS"
 resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%BF%D1%80%D0%BE%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%2022_en.pdf"
 audience: ["student", "postgraduate", "applicant", "public"]
 source_kind: official-document
@@ -9,7 +9,7 @@ section: "site/hotel"
 sources:
   - resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%BF%D1%80%D0%BE%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%2022_en.pdf"
     id: "79d4950a2b11"
-    title: "ACCOMMODATION ON CAMPUS"
+    title: "Carrying the trash out (kitchen and bathroom) — ACCOMMODATION ON CAMPUS"
     last_modified: "2026-10-31T00:26:16+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# ACCOMMODATION ON CAMPUS
+# Carrying the trash out (kitchen and bathroom) — ACCOMMODATION ON CAMPUS
 
 APPROVED BY by order of ANO HE "University Innopolis" dated 01.09.2021 № OA/AA-02/2021/09/01 Director ___________________ K.V. Semenikhin
 
@@ -302,4 +302,4 @@ hours, reusable masks in accordance with the instructions) by placing them in a 
 
 # Citations
 
-1. [ACCOMMODATION ON CAMPUS](https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%BF%D1%80%D0%BE%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%2022_en.pdf), file 79d4950a2b11
+1. [Carrying the trash out (kitchen and bathroom) — ACCOMMODATION ON CAMPUS](https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%BF%D1%80%D0%BE%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%2022_en.pdf), file 79d4950a2b11

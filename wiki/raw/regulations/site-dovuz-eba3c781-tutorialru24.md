@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "tutorial-ru24"
+title: "Условия задач/разбор: Задачи(ru) Задачи(en) — tutorial-ru24"
 resource: "https://lk-dovuz.innopolis.university/public/files/tutorial-ru24.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/tutorial-ru24.pdf"
     id: "50299d42406c"
-    title: "tutorial-ru24"
+    title: "Условия задач/разбор: Задачи(ru) Задачи(en) — tutorial-ru24"
     last_modified: "2023-11-12T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# tutorial-ru24
+# Условия задач/разбор: Задачи(ru) Задачи(en) — tutorial-ru24
 
 Innopolis Open 2023. Qualification Round 1 Россия, Иннополис, 12 ноября 2023
 
@@ -307,4 +307,4 @@ Innopolis Open 2023. Qualification Round 1 Россия, Иннополис, 12 
 
 # Citations
 
-1. [tutorial-ru24](https://lk-dovuz.innopolis.university/public/files/tutorial-ru24.pdf), file 50299d42406c
+1. [Условия задач/разбор: Задачи(ru) Задачи(en) — tutorial-ru24](https://lk-dovuz.innopolis.university/public/files/tutorial-ru24.pdf), file 50299d42406c

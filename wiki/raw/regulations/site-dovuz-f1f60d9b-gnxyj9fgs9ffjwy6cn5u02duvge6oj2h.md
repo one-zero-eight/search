@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Скачать регламент олимпиады [gnxyj9fgs9ffjwy6cn5u02duvge6oj2h]"
+title: "Финальный тур — Скачать регламент олимпиады"
 resource: "https://start.innopolis.university/upload/sprint.editor/543/gnxyj9fgs9ffjwy6cn5u02duvge6oj2h.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://start.innopolis.university/upload/sprint.editor/543/gnxyj9fgs9ffjwy6cn5u02duvge6oj2h.pdf"
     id: "459dc69e05d1"
-    title: "Скачать регламент олимпиады [gnxyj9fgs9ffjwy6cn5u02duvge6oj2h]"
+    title: "Финальный тур — Скачать регламент олимпиады"
     last_modified: "2026-08-19T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Скачать регламент олимпиады [gnxyj9fgs9ffjwy6cn5u02duvge6oj2h]
+# Финальный тур — Скачать регламент олимпиады
 
 УТВЕРЖДЕН приказом АНО ВО «Университет Иннополис» от 19 августа 2026 г. № ОД/АД-01/2026/08/19
 
@@ -831,4 +831,4 @@ Admin);
 
 # Citations
 
-1. [Скачать регламент олимпиады [gnxyj9fgs9ffjwy6cn5u02duvge6oj2h]](https://start.innopolis.university/upload/sprint.editor/543/gnxyj9fgs9ffjwy6cn5u02duvge6oj2h.pdf), file 459dc69e05d1
+1. [Финальный тур — Скачать регламент олимпиады](https://start.innopolis.university/upload/sprint.editor/543/gnxyj9fgs9ffjwy6cn5u02duvge6oj2h.pdf), file 459dc69e05d1

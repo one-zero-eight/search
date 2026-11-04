@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "uslovia zadach 2 tur ru"
+title: "Второй отборочный этап — uslovia zadach 2 tur ru"
 resource: "https://lk-dovuz.innopolis.university/public/files/uslovia_zadach_2_tur_ru.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/uslovia_zadach_2_tur_ru.pdf"
     id: "e0ecfa9727cc"
-    title: "uslovia zadach 2 tur ru"
+    title: "Второй отборочный этап — uslovia zadach 2 tur ru"
     last_modified: "2025-12-28T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# uslovia zadach 2 tur ru
+# Второй отборочный этап — uslovia zadach 2 tur ru
 
 Innopolis Open по информатике Второй отборочный тур. 2025-2026 Иннополис, 28 декабря 2025 г.
 
@@ -334,4 +334,4 @@ F(G1) = 71. Итоговые значения функции F(Gu) для кор
 
 # Citations
 
-1. [uslovia zadach 2 tur ru](https://lk-dovuz.innopolis.university/public/files/uslovia_zadach_2_tur_ru.pdf), file e0ecfa9727cc
+1. [Второй отборочный этап — uslovia zadach 2 tur ru](https://lk-dovuz.innopolis.university/public/files/uslovia_zadach_2_tur_ru.pdf), file e0ecfa9727cc

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "io ai 1step conditions en 25"
+title: "Первый отборочный этап — io ai 1step conditions en 25"
 resource: "https://lk-dovuz.innopolis.university/public/files/io_ai_1step_conditions_en_25.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/io_ai_1step_conditions_en_25.pdf"
     id: "3f0aa52fbd5d"
-    title: "io ai 1step conditions en 25"
+    title: "Первый отборочный этап — io ai 1step conditions en 25"
     last_modified: "2026-11-01T23:17:22+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# io ai 1step conditions en 25
+# Первый отборочный этап — io ai 1step conditions en 25
 
 Innopolis Open Artificial Intelligence Russia, Innopolis, 23.11.24–08.12.24
 
@@ -435,4 +435,4 @@ There are four tests in the problem, each scored at 25 points. For each test, yo
 
 # Citations
 
-1. [io ai 1step conditions en 25](https://lk-dovuz.innopolis.university/public/files/io_ai_1step_conditions_en_25.pdf), file 3f0aa52fbd5d
+1. [Первый отборочный этап — io ai 1step conditions en 25](https://lk-dovuz.innopolis.university/public/files/io_ai_1step_conditions_en_25.pdf), file 3f0aa52fbd5d

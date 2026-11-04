@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Сроки проведения"
+title: "Дополнительный набор на программы магистратуры — Сроки проведения"
 resource: "https://innopolis.university/upload/iblock/2e4/o7m1jau76klgptz1chegulu2d85hyfaj/date.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/upload/iblock/2e4/o7m1jau76klgptz1chegulu2d85hyfaj/date.pdf"
     id: "61623949a0c5"
-    title: "Сроки проведения"
+    title: "Дополнительный набор на программы магистратуры — Сроки проведения"
     last_modified: "2026-10-24T23:54:40+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Сроки проведения
+# Дополнительный набор на программы магистратуры — Сроки проведения
 
 Сроки проведения дополнительного приема в АНО ВО «Университет Иннополис» по программам магистратуры на места по договорам об оказании платных образовательных услуг в 2024/2025 учебном году
 
@@ -39,4 +39,4 @@ status: draft
 
 # Citations
 
-1. [Сроки проведения](https://innopolis.university/upload/iblock/2e4/o7m1jau76klgptz1chegulu2d85hyfaj/date.pdf), file 61623949a0c5
+1. [Дополнительный набор на программы магистратуры — Сроки проведения](https://innopolis.university/upload/iblock/2e4/o7m1jau76klgptz1chegulu2d85hyfaj/date.pdf), file 61623949a0c5

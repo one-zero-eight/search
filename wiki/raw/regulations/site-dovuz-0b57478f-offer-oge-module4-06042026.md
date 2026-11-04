@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "offer oge module4 06042026"
+title: "Вебинар 2. Анализ графиков. Часть 2: ссылка — offer oge module4 06042026"
 resource: "https://lk-dovuz.innopolis.university/public/files/offer_oge_module4_06042026.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/offer_oge_module4_06042026.pdf"
     id: "c015a0c78503"
-    title: "offer oge module4 06042026"
+    title: "Вебинар 2. Анализ графиков. Часть 2: ссылка — offer oge module4 06042026"
     last_modified: "2026-02-02T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# offer oge module4 06042026
+# Вебинар 2. Анализ графиков. Часть 2: ссылка — offer oge module4 06042026
 
 Договор об образовании по дополнительным общеобразовательным общеразвивающим программам (договор присоединения) № ОНЛ/ОГЭМ4 от 02.02.2026 г.
 
@@ -261,4 +261,4 @@ status: draft
 
 # Citations
 
-1. [offer oge module4 06042026](https://lk-dovuz.innopolis.university/public/files/offer_oge_module4_06042026.pdf), file c015a0c78503
+1. [Вебинар 2. Анализ графиков. Часть 2: ссылка — offer oge module4 06042026](https://lk-dovuz.innopolis.university/public/files/offer_oge_module4_06042026.pdf), file c015a0c78503

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "robo sec tour condit en"
+title: "Первый отборочный этап. 2 тур — robo sec tour condit en"
 resource: "https://lk-dovuz.innopolis.university/public/files/robo_sec_tour_condit_en.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/robo_sec_tour_condit_en.pdf"
     id: "91e6d9bde5e6"
-    title: "robo sec tour condit en"
+    title: "Первый отборочный этап. 2 тур — robo sec tour condit en"
     last_modified: "2026-11-01T23:17:26+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# robo sec tour condit en
+# Первый отборочный этап. 2 тур — robo sec tour condit en
 
 Innopolis Open 2022-2023 Second qualification round Russia, Innopolis, November, 20, 2022
 
@@ -262,4 +262,4 @@ Examples
 
 # Citations
 
-1. [robo sec tour condit en](https://lk-dovuz.innopolis.university/public/files/robo_sec_tour_condit_en.pdf), file 91e6d9bde5e6
+1. [Первый отборочный этап. 2 тур — robo sec tour condit en](https://lk-dovuz.innopolis.university/public/files/robo_sec_tour_condit_en.pdf), file 91e6d9bde5e6

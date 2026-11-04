@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Роботы, мехатроника и робототехнические системы (документ подписан ПЭП)"
+title: "Роботы, мехатроника и робототехнические системы"
 resource: "https://innopolis.university/upload/iblock/2c0/0t00lj7e8womj9pc3nz1nzyvy5ud31gp/%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_%D0%9E%D0%9F%D0%9E%D0%9F_%D0%92%D0%9E_2027_2.5.4_%2017.09.2026.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/upload/iblock/2c0/0t00lj7e8womj9pc3nz1nzyvy5ud31gp/%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_%D0%9E%D0%9F%D0%9E%D0%9F_%D0%92%D0%9E_2027_2.5.4_%2017.09.2026.pdf"
     id: "0737505adbc2"
-    title: "Роботы, мехатроника и робототехнические системы (документ подписан ПЭП)"
+    title: "Роботы, мехатроника и робототехнические системы"
     last_modified: "2026-09-17T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Роботы, мехатроника и робототехнические системы (документ подписан ПЭП)
+# Роботы, мехатроника и робототехнические системы
 
 Автономная некоммерческая организация высшего образования «Университет Иннополис» (АНО ВО «Университет Иннополис»)
 
@@ -275,4 +275,4 @@ status: draft
 
 # Citations
 
-1. [Роботы, мехатроника и робототехнические системы (документ подписан ПЭП)](https://innopolis.university/upload/iblock/2c0/0t00lj7e8womj9pc3nz1nzyvy5ud31gp/%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_%D0%9E%D0%9F%D0%9E%D0%9F_%D0%92%D0%9E_2027_2.5.4_%2017.09.2026.pdf), file 0737505adbc2
+1. [Роботы, мехатроника и робототехнические системы](https://innopolis.university/upload/iblock/2c0/0t00lj7e8womj9pc3nz1nzyvy5ud31gp/%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_%D0%9E%D0%9F%D0%9E%D0%9F_%D0%92%D0%9E_2027_2.5.4_%2017.09.2026.pdf), file 0737505adbc2

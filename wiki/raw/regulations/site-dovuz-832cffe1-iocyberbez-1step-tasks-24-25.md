@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "iocyberbez 1step tasks 24 25"
+title: "Первый отборочный этап — iocyberbez 1step tasks 24 25"
 resource: "https://lk-dovuz.innopolis.university/public/files/iocyberbez_1step_tasks_24_25.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/iocyberbez_1step_tasks_24_25.pdf"
     id: "dfe43ca3ebb8"
-    title: "iocyberbez 1step tasks 24 25"
+    title: "Первый отборочный этап — iocyberbez 1step tasks 24 25"
     last_modified: "2026-11-01T23:17:22+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# iocyberbez 1step tasks 24 25
+# Первый отборочный этап — iocyberbez 1step tasks 24 25
 
 Международная олимпиада «Innopolis Open» по профилю «Информационная безопасность»
 
@@ -559,4 +559,4 @@ Enter command (ls or cd): ls -altr /files в папке /files и лежал н�
 
 # Citations
 
-1. [iocyberbez 1step tasks 24 25](https://lk-dovuz.innopolis.university/public/files/iocyberbez_1step_tasks_24_25.pdf), file dfe43ca3ebb8
+1. [Первый отборочный этап — iocyberbez 1step tasks 24 25](https://lk-dovuz.innopolis.university/public/files/iocyberbez_1step_tasks_24_25.pdf), file dfe43ca3ebb8

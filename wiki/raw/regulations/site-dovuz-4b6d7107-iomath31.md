@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "io-math-3-1 [io-math-3-1]"
+title: "Финальный тур — io-math-3-1"
 resource: "https://lk-dovuz.innopolis.university/public/files/io-math-3-1.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/io-math-3-1.pdf"
     id: "e9ac8b7e6b10"
-    title: "io-math-3-1 [io-math-3-1]"
+    title: "Финальный тур — io-math-3-1"
     last_modified: "2026-11-01T23:17:22+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# io-math-3-1 [io-math-3-1]
+# Финальный тур — io-math-3-1
 
 | Grade 10-12 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -118,4 +118,4 @@ status: draft
 
 # Citations
 
-1. [io-math-3-1 [io-math-3-1]](https://lk-dovuz.innopolis.university/public/files/io-math-3-1.pdf), file e9ac8b7e6b10
+1. [Финальный тур — io-math-3-1](https://lk-dovuz.innopolis.university/public/files/io-math-3-1.pdf), file e9ac8b7e6b10

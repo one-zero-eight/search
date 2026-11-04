@@ -1,0 +1,16 @@
+{
+ "title": "Результаты опросов обучающихся организации высшего образования об удовлетворенности условиями, содержанием, организацией и качеством образовательного процесса в целом",
+ "url": "https://innopolis.university/upload/iblock/d57/kyamt660gjye2x86af6vgs7iliyio3o3/1. Результаты_анкетирования_обучающихся_09.04.01_ИБСиС.pdf",
+ "sha256": "95c4aaa27b7e53268d193b88e5e18ea9e42bacf495c67aa9712868cedd31e05a",
+ "method": "text layer (opendataloader)",
+ "chars": 3509,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-22T14:11:03+00:00",
+ "tables": 5,
+ "remote": {
+  "etag": "\"66ba0b0a-40bcb\"",
+  "modified": "Mon, 12 Aug 2024 13:15:54 GMT",
+  "size": "265163"
+ }
+}

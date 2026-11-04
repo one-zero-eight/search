@@ -1,0 +1,16 @@
+{
+ "title": "15.04.06 Мехатроника и робототехника",
+ "url": "https://innopolis.university/upload/iblock/edf/u91otanks2q6nmb5kg6f63e5n2olb7gl/fgos_15.04.06.pdf",
+ "sha256": "2fd6e447bb0d560ea01f1768850293654a8360784fa6fc30cc912fae08d4c9bd",
+ "method": "text layer (opendataloader)",
+ "chars": 34327,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-22T14:12:18+00:00",
+ "tables": 5,
+ "remote": {
+  "etag": "\"65b0d2e5-43cc7\"",
+  "modified": "Wed, 24 Jan 2024 09:05:41 GMT",
+  "size": "277703"
+ }
+}

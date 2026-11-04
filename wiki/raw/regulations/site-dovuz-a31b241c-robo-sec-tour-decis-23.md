@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "robo sec tour decis 23"
+title: "Первый отборочный этап. 2 тур — robo sec tour decis 23"
 resource: "https://lk-dovuz.innopolis.university/public/files/robo_sec_tour_decis_23.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/robo_sec_tour_decis_23.pdf"
     id: "370465da603f"
-    title: "robo sec tour decis 23"
+    title: "Первый отборочный этап. 2 тур — robo sec tour decis 23"
     last_modified: "2026-11-01T23:17:26+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# robo sec tour decis 23
+# Первый отборочный этап. 2 тур — robo sec tour decis 23
 
 Innopolis Open по ИИ, робототехнике и финтех Второй отборочный тур. 2022-2023 Россия, Иннополис, 20 ноября, 2022
 
@@ -329,4 +329,4 @@ Innopolis Open по ИИ, робототехнике и финтех Второ�
 
 # Citations
 
-1. [robo sec tour decis 23](https://lk-dovuz.innopolis.university/public/files/robo_sec_tour_decis_23.pdf), file 370465da603f
+1. [Первый отборочный этап. 2 тур — robo sec tour decis 23](https://lk-dovuz.innopolis.university/public/files/robo_sec_tour_decis_23.pdf), file 370465da603f

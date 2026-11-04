@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Оферта Нейросети"
+title: "digital_prof@innopolis.ru — Оферта Нейросети"
 resource: "https://innopolis.university/filespublic/%D0%9E%D1%84%D0%B5%D1%80%D1%82%D0%B0_%D0%9D%D0%B5%D0%B9%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/ido"
 sources:
   - resource: "https://innopolis.university/filespublic/%D0%9E%D1%84%D0%B5%D1%80%D1%82%D0%B0_%D0%9D%D0%B5%D0%B9%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8.pdf"
     id: "dbe87ed86d89"
-    title: "Оферта Нейросети"
+    title: "digital_prof@innopolis.ru — Оферта Нейросети"
     last_modified: "2026-11-01T23:17:28+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Оферта Нейросети
+# digital_prof@innopolis.ru — Оферта Нейросети
 
 ДОГОВОР ОКАЗАНИЯ УСЛУГ (ДОГОВОР ПРИСОЕДИНЕНИЯ)
 
@@ -254,4 +254,4 @@ status: draft
 
 # Citations
 
-1. [Оферта Нейросети](https://innopolis.university/filespublic/%D0%9E%D1%84%D0%B5%D1%80%D1%82%D0%B0_%D0%9D%D0%B5%D0%B9%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8.pdf), file dbe87ed86d89
+1. [digital_prof@innopolis.ru — Оферта Нейросети](https://innopolis.university/filespublic/%D0%9E%D1%84%D0%B5%D1%80%D1%82%D0%B0_%D0%9D%D0%B5%D0%B9%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8.pdf), file dbe87ed86d89

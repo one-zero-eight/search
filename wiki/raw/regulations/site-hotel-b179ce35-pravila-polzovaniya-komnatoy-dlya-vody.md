@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "ПИТЬЕВАЯ ВОДА"
+title: "Внимание: Администрация не несет ответственности за сохранность вещей, оставленных в прачечных комнатах — ПИТЬЕВАЯ ВОДА"
 resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%BA%D0%BE%D0%BC%D0%BD%D0%B0%D1%82%D0%BE%D0%B9%20%D0%B4%D0%BB%D1%8F%20%D0%B2%D0%BE%D0%B4%D1%8B.pdf"
 audience: ["student", "postgraduate", "applicant", "public"]
 source_kind: official-document
@@ -9,7 +9,7 @@ section: "site/hotel"
 sources:
   - resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%BA%D0%BE%D0%BC%D0%BD%D0%B0%D1%82%D0%BE%D0%B9%20%D0%B4%D0%BB%D1%8F%20%D0%B2%D0%BE%D0%B4%D1%8B.pdf"
     id: "9afb0db5437c"
-    title: "ПИТЬЕВАЯ ВОДА"
+    title: "Внимание: Администрация не несет ответственности за сохранность вещей, оставленных в прачечных комнатах — ПИТЬЕВАЯ ВОДА"
     last_modified: "2026-10-24T22:05:22+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# ПИТЬЕВАЯ ВОДА
+# Внимание: Администрация не несет ответственности за сохранность вещей, оставленных в прачечных комнатах — ПИТЬЕВАЯ ВОДА
 
 Правила пользования комнатой для хранения питьевой воды
 
@@ -38,4 +38,4 @@ status: draft
 
 # Citations
 
-1. [ПИТЬЕВАЯ ВОДА](https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%BA%D0%BE%D0%BC%D0%BD%D0%B0%D1%82%D0%BE%D0%B9%20%D0%B4%D0%BB%D1%8F%20%D0%B2%D0%BE%D0%B4%D1%8B.pdf), file 9afb0db5437c
+1. [Внимание: Администрация не несет ответственности за сохранность вещей, оставленных в прачечных комнатах — ПИТЬЕВАЯ ВОДА](https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%BA%D0%BE%D0%BC%D0%BD%D0%B0%D1%82%D0%BE%D0%B9%20%D0%B4%D0%BB%D1%8F%20%D0%B2%D0%BE%D0%B4%D1%8B.pdf), file 9afb0db5437c

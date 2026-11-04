@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "round2-statements-ru"
+title: "Второй отборочный этап — round2-statements-ru"
 resource: "https://lk-dovuz.innopolis.university/public/files/round2-statements-ru.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/round2-statements-ru.pdf"
     id: "d7ba078abfbf"
-    title: "round2-statements-ru"
+    title: "Второй отборочный этап — round2-statements-ru"
     last_modified: "2022-12-11T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# round2-statements-ru
+# Второй отборочный этап — round2-statements-ru
 
 Innopolis Open по информатике Второй отборочный тур. 2022-2023 Россия, Иннополис, 11 декабря 2022 г.
 
@@ -285,4 +285,4 @@ B C
 
 # Citations
 
-1. [round2-statements-ru](https://lk-dovuz.innopolis.university/public/files/round2-statements-ru.pdf), file d7ba078abfbf
+1. [Второй отборочный этап — round2-statements-ru](https://lk-dovuz.innopolis.university/public/files/round2-statements-ru.pdf), file d7ba078abfbf

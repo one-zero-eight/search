@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "1st round 22"
+title: "Результаты: — 1st round 22"
 resource: "https://lk-dovuz.innopolis.university/public/files/1st%20round%2022.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/1st%20round%2022.pdf"
     id: "8fc73758450d"
-    title: "1st round 22"
+    title: "Результаты: — 1st round 22"
     last_modified: "2026-11-01T23:17:18+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# 1st round 22
+# Результаты: — 1st round 22
 
 Олимпиада Университета Иннополис по информационной безопасности 2021/2022. Первый отборочный этап.
 
@@ -319,4 +319,4 @@ status: draft
 
 # Citations
 
-1. [1st round 22](https://lk-dovuz.innopolis.university/public/files/1st%20round%2022.pdf), file 8fc73758450d
+1. [Результаты: — 1st round 22](https://lk-dovuz.innopolis.university/public/files/1st%20round%2022.pdf), file 8fc73758450d

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "statements-en24"
+title: "Первый отборочный этап — statements-en24"
 resource: "https://lk-dovuz.innopolis.university/public/files/statements-en24.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/statements-en24.pdf"
     id: "e65acae1b7e3"
-    title: "statements-en24"
+    title: "Первый отборочный этап — statements-en24"
     last_modified: "2023-11-12T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# statements-en24
+# Первый отборочный этап — statements-en24
 
 Innopolis Open 2023. Qualification Round 1 Россия, Иннополис, 12 ноября 2023
 
@@ -316,4 +316,4 @@ Below is an illustration for the first four requests in the second example from 
 
 # Citations
 
-1. [statements-en24](https://lk-dovuz.innopolis.university/public/files/statements-en24.pdf), file e65acae1b7e3
+1. [Первый отборочный этап — statements-en24](https://lk-dovuz.innopolis.university/public/files/statements-en24.pdf), file e65acae1b7e3

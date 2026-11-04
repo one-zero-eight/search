@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "1-2-roboai-cond en"
+title: "Первый отборочный этап. 2 тур — 1-2-roboai-cond en"
 resource: "https://lk-dovuz.innopolis.university/public/files/1-2-roboai-cond_en.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/1-2-roboai-cond_en.pdf"
     id: "b1f149fc43cf"
-    title: "1-2-roboai-cond en"
+    title: "Первый отборочный этап. 2 тур — 1-2-roboai-cond en"
     last_modified: "2026-11-01T23:17:18+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# 1-2-roboai-cond en
+# Первый отборочный этап. 2 тур — 1-2-roboai-cond en
 
 Innopolis Open in AI and Robotics. Second Qualifying Round. 2023-2024. Russia, December, 24, 2023
 
@@ -208,4 +208,4 @@ Examples
 
 # Citations
 
-1. [1-2-roboai-cond en](https://lk-dovuz.innopolis.university/public/files/1-2-roboai-cond_en.pdf), file b1f149fc43cf
+1. [Первый отборочный этап. 2 тур — 1-2-roboai-cond en](https://lk-dovuz.innopolis.university/public/files/1-2-roboai-cond_en.pdf), file b1f149fc43cf

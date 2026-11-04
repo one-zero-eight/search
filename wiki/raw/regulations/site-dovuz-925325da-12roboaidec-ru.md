@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "1-2-roboai-dec ru"
+title: "Первый отборочный этап. 2 тур — 1-2-roboai-dec ru"
 resource: "https://lk-dovuz.innopolis.university/public/files/1-2-roboai-dec_ru.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/1-2-roboai-dec_ru.pdf"
     id: "d21d51eeeee4"
-    title: "1-2-roboai-dec ru"
+    title: "Первый отборочный этап. 2 тур — 1-2-roboai-dec ru"
     last_modified: "2023-12-24T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# 1-2-roboai-dec ru
+# Первый отборочный этап. 2 тур — 1-2-roboai-dec ru
 
 Innopolis Open по ИИ и робототехнике Второй отборочный тур. 2023-2024 Russia, 24 декабря 2023
 
@@ -95,4 +95,4 @@ a1,...,at, меньших n, обозначим это число как q. Вр
 
 # Citations
 
-1. [1-2-roboai-dec ru](https://lk-dovuz.innopolis.university/public/files/1-2-roboai-dec_ru.pdf), file d21d51eeeee4
+1. [Первый отборочный этап. 2 тур — 1-2-roboai-dec ru](https://lk-dovuz.innopolis.university/public/files/1-2-roboai-dec_ru.pdf), file d21d51eeeee4

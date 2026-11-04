@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "reshenie ru"
+title: "Первый отборочный этап — reshenie ru"
 resource: "https://lk-dovuz.innopolis.university/public/files/reshenie_ru.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/reshenie_ru.pdf"
     id: "a7897be95715"
-    title: "reshenie ru"
+    title: "Первый отборочный этап — reshenie ru"
     last_modified: "2026-11-01T23:17:24+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# reshenie ru
+# Первый отборочный этап — reshenie ru
 
 Innopolis Open по робототехнике ,
 
@@ -451,4 +451,4 @@ Fn Fn+1
 
 # Citations
 
-1. [reshenie ru](https://lk-dovuz.innopolis.university/public/files/reshenie_ru.pdf), file a7897be95715
+1. [Первый отборочный этап — reshenie ru](https://lk-dovuz.innopolis.university/public/files/reshenie_ru.pdf), file a7897be95715

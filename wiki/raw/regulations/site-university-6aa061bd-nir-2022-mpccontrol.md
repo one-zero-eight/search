@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Read the article [NIR_2022_mpc-control]"
+title: "energy efficiency close to animals. There are many controllers for controlling the movement of four-legged robots. The most popular is the Convex MPC. This paper presents a bioinspirational approach to increasing the ene — Read the article"
 resource: "https://innopolis.university/filespublic/NIR_2022_mpc-control.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/NIR_2022_mpc-control.pdf"
     id: "7b8aeab7fc1d"
-    title: "Read the article [NIR_2022_mpc-control]"
+    title: "energy efficiency close to animals. There are many controllers for controlling the movement of four-legged robots. The most popular is the Convex MPC. This paper presents a bioinspirational approach to increasing the ene — Read the article"
     last_modified: "2026-10-24T23:45:10+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Read the article [NIR_2022_mpc-control]
+# energy efficiency close to animals. There are many controllers for controlling the movement of four-legged robots. The most popular is the Convex MPC. This paper presents a bioinspirational approach to increasing the ene — Read the article
 
 Bio-inspired and Energy-efficient Convex Model Predictive Control for a Quadruped Robot
 
@@ -225,4 +225,4 @@ REFERENCES
 
 # Citations
 
-1. [Read the article [NIR_2022_mpc-control]](https://innopolis.university/filespublic/NIR_2022_mpc-control.pdf), file 7b8aeab7fc1d
+1. [energy efficiency close to animals. There are many controllers for controlling the movement of four-legged robots. The most popular is the Convex MPC. This paper presents a bioinspirational approach to increasing the ene — Read the article](https://innopolis.university/filespublic/NIR_2022_mpc-control.pdf), file 7b8aeab7fc1d

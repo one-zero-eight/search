@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Didgestmicroelectronika"
+title: "«Чем меньше, тем лучше. Микроэлектроника» — четвертый выпуск дайджеста о робототехнике. В нём эксперты анализируют рынок, барьеры развития отрасли, технологические аспекты и опыт лидеров индустрии. Дайджест доступен на с — Didgestmicroelectronika"
 resource: "https://robotics.innopolis.university/wp-content/uploads/2022/08/Didgestmicroelectronika.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/spec"
 sources:
   - resource: "https://robotics.innopolis.university/wp-content/uploads/2022/08/Didgestmicroelectronika.pdf"
     id: "5b38d5d0c709"
-    title: "Didgestmicroelectronika"
+    title: "«Чем меньше, тем лучше. Микроэлектроника» — четвертый выпуск дайджеста о робототехнике. В нём эксперты анализируют рынок, барьеры развития отрасли, технологические аспекты и опыт лидеров индустрии. Дайджест доступен на с — Didgestmicroelectronika"
     last_modified: "2026-11-01T23:17:28+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Didgestmicroelectronika
+# «Чем меньше, тем лучше. Микроэлектроника» — четвертый выпуск дайджеста о робототехнике. В нём эксперты анализируют рынок, барьеры развития отрасли, технологические аспекты и опыт лидеров индустрии. Дайджест доступен на с — Didgestmicroelectronika
 
 Дайджест по робототехнике
 
@@ -3947,4 +3947,4 @@ Elektronik Goteborg 2023
 
 # Citations
 
-1. [Didgestmicroelectronika](https://robotics.innopolis.university/wp-content/uploads/2022/08/Didgestmicroelectronika.pdf), file 5b38d5d0c709
+1. [«Чем меньше, тем лучше. Микроэлектроника» — четвертый выпуск дайджеста о робототехнике. В нём эксперты анализируют рынок, барьеры развития отрасли, технологические аспекты и опыт лидеров индустрии. Дайджест доступен на с — Didgestmicroelectronika](https://robotics.innopolis.university/wp-content/uploads/2022/08/Didgestmicroelectronika.pdf), file 5b38d5d0c709

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Read the article [NIR_2022_object-detection]"
+title: "for real-time agents’ navigation using embedded systems. In real\u0002world problems, a compromise between accuracy and speed must be found. In this paper, we consider a description of the architecture of different object det — Read the article"
 resource: "https://innopolis.university/filespublic/NIR_2022_object-detection.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/NIR_2022_object-detection.pdf"
     id: "461cde74c2d4"
-    title: "Read the article [NIR_2022_object-detection]"
+    title: "for real-time agents’ navigation using embedded systems. In real\u0002world problems, a compromise between accuracy and speed must be found. In this paper, we consider a description of the architecture of different object det — Read the article"
     last_modified: "2026-10-24T23:45:13+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Read the article [NIR_2022_object-detection]
+# for real-time agents’ navigation using embedded systems. In realworld problems, a compromise between accuracy and speed must be found. In this paper, we consider a description of the architecture of different object det — Read the article
 
 Object detection approaches to be used in embedded system for robots navigation
 
@@ -384,4 +384,4 @@ Conference on Computer Vision and Pattern Recognition (CVPR), 936–
 
 # Citations
 
-1. [Read the article [NIR_2022_object-detection]](https://innopolis.university/filespublic/NIR_2022_object-detection.pdf), file 461cde74c2d4
+1. [for real-time agents’ navigation using embedded systems. In realworld problems, a compromise between accuracy and speed must be found. In this paper, we consider a description of the architecture of different object det — Read the article](https://innopolis.university/filespublic/NIR_2022_object-detection.pdf), file 461cde74c2d4

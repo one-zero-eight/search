@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Скачать положение олимпиады [rimki0lajf3k26gp8ulfpek3oh7vvu8q]"
+title: "Работы призеров и победителей: ссылка — Скачать положение олимпиады"
 resource: "https://start.innopolis.university/upload/sprint.editor/901/rimki0lajf3k26gp8ulfpek3oh7vvu8q.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://start.innopolis.university/upload/sprint.editor/901/rimki0lajf3k26gp8ulfpek3oh7vvu8q.pdf"
     id: "bf36cead2ff2"
-    title: "Скачать положение олимпиады [rimki0lajf3k26gp8ulfpek3oh7vvu8q]"
+    title: "Работы призеров и победителей: ссылка — Скачать положение олимпиады"
     last_modified: "2026-08-19T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Скачать положение олимпиады [rimki0lajf3k26gp8ulfpek3oh7vvu8q]
+# Работы призеров и победителей: ссылка — Скачать положение олимпиады
 
 УТВЕРЖДЕНО приказом АНО ВО «Университет Иннополис» от 19 августа 2026 г. № ОД/АД-01/2026/08/19
 
@@ -317,4 +317,4 @@ Intelligence;
 
 # Citations
 
-1. [Скачать положение олимпиады [rimki0lajf3k26gp8ulfpek3oh7vvu8q]](https://start.innopolis.university/upload/sprint.editor/901/rimki0lajf3k26gp8ulfpek3oh7vvu8q.pdf), file bf36cead2ff2
+1. [Работы призеров и победителей: ссылка — Скачать положение олимпиады](https://start.innopolis.university/upload/sprint.editor/901/rimki0lajf3k26gp8ulfpek3oh7vvu8q.pdf), file bf36cead2ff2

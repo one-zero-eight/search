@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Read the article [NIR_2022_vbframework]"
+title: "The framework including the aforementioned approaches are validated in real-life experiments. — Read the article"
 resource: "https://innopolis.university/filespublic/NIR_2022_vbframework.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/NIR_2022_vbframework.pdf"
     id: "571c0250ec28"
-    title: "Read the article [NIR_2022_vbframework]"
+    title: "The framework including the aforementioned approaches are validated in real-life experiments. — Read the article"
     last_modified: "2026-10-24T23:45:49+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Read the article [NIR_2022_vbframework]
+# The framework including the aforementioned approaches are validated in real-life experiments. — Read the article
 
 Vision-based Two-robot Framework for Deforming Flexible Linear Objects
 
@@ -276,4 +276,4 @@ Fig. 11. Experiments 2: (a) initial shape; (b) intermediate stage of the manipul
 
 # Citations
 
-1. [Read the article [NIR_2022_vbframework]](https://innopolis.university/filespublic/NIR_2022_vbframework.pdf), file 571c0250ec28
+1. [The framework including the aforementioned approaches are validated in real-life experiments. — Read the article](https://innopolis.university/filespublic/NIR_2022_vbframework.pdf), file 571c0250ec28

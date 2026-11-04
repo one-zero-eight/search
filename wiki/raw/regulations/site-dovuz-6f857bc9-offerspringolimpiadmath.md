@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Олимпиадная математика"
+title: "Время ориентировочное. — Олимпиадная математика"
 resource: "https://lk-dovuz.innopolis.university/public/files/offer-spring-olimpiad-math.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/offer-spring-olimpiad-math.pdf"
     id: "c820fe13de6b"
-    title: "Олимпиадная математика"
+    title: "Время ориентировочное. — Олимпиадная математика"
     last_modified: "2026-01-01T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Олимпиадная математика
+# Время ориентировочное. — Олимпиадная математика
 
 Договор об образовании по дополнительным общеобразовательным общеразвивающим программам (договор присоединения) № ОФВ266 от «19» ноября 2025 г.
 
@@ -301,4 +301,4 @@ status: draft
 
 # Citations
 
-1. [Олимпиадная математика](https://lk-dovuz.innopolis.university/public/files/offer-spring-olimpiad-math.pdf), file c820fe13de6b
+1. [Время ориентировочное. — Олимпиадная математика](https://lk-dovuz.innopolis.university/public/files/offer-spring-olimpiad-math.pdf), file c820fe13de6b

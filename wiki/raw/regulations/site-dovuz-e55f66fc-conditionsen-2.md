@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "conditions-en"
+title: "Второй отборочный этап — conditions-en"
 resource: "https://lk-dovuz.innopolis.university/public/files/conditions-en%282%29.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/conditions-en%282%29.pdf"
     id: "a9937dbf8157"
-    title: "conditions-en"
+    title: "Второй отборочный этап — conditions-en"
     last_modified: "2026-11-01T23:17:20+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# conditions-en
+# Второй отборочный этап — conditions-en
 
 Innopolis Open 2022-2023 Second qualification round Russia, Innopolis, November, 20, 2022
 
@@ -262,4 +262,4 @@ Examples
 
 # Citations
 
-1. [conditions-en](https://lk-dovuz.innopolis.university/public/files/conditions-en%282%29.pdf), file a9937dbf8157
+1. [Второй отборочный этап — conditions-en](https://lk-dovuz.innopolis.university/public/files/conditions-en%282%29.pdf), file a9937dbf8157

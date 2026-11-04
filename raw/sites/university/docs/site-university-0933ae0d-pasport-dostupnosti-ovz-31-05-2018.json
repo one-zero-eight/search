@@ -1,0 +1,16 @@
+{
+ "title": "Паспорт доступности для инвалидов объекта и предоставляемых на нем услуг в сфере образования, а также оказания им при этом необходимой помощи",
+ "url": "https://innopolis.university/upload/iblock/55f/52wc673p639j8vc79y3e34k08isoeybj/Pasport_dostupnosti_ovz_31.05.2018.pdf",
+ "sha256": "3efe4445fe94d24b0587bab000ce5f2e0b02fe782285cc20138948d36fa2a057",
+ "method": "ocr (chandra-ocr-2)",
+ "chars": 16208,
+ "section": "site/university",
+ "context": "Сведения о наличии оборудованных объектов для проведения практических занятий",
+ "fetched_at": "2026-10-22T22:10:39+00:00",
+ "remote": {
+  "etag": "\"64b90db2-39e8bb\"",
+  "modified": "Thu, 20 Jul 2023 10:34:26 GMT",
+  "size": "3795131"
+ },
+ "tables": 5
+}

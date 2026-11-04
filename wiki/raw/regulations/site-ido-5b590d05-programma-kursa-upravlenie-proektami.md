@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Скачать программу [programma_kursa_upravlenie_proektami]"
+title: "Предиктивный подход, Адаптивное управление, Гибридный подход SMART — Скачать программу"
 resource: "https://innopolis.university/filespublic/programma_kursa_upravlenie_proektami.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/ido"
 sources:
   - resource: "https://innopolis.university/filespublic/programma_kursa_upravlenie_proektami.pdf"
     id: "f96b5c7d3221"
-    title: "Скачать программу [programma_kursa_upravlenie_proektami]"
+    title: "Предиктивный подход, Адаптивное управление, Гибридный подход SMART — Скачать программу"
     last_modified: "2026-11-01T23:17:28+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Скачать программу [programma_kursa_upravlenie_proektami]
+# Предиктивный подход, Адаптивное управление, Гибридный подход SMART — Скачать программу
 
 Управление проектами
 
@@ -129,4 +129,4 @@ Waterfall Аgile PMBOK
 
 # Citations
 
-1. [Скачать программу [programma_kursa_upravlenie_proektami]](https://innopolis.university/filespublic/programma_kursa_upravlenie_proektami.pdf), file f96b5c7d3221
+1. [Предиктивный подход, Адаптивное управление, Гибридный подход SMART — Скачать программу](https://innopolis.university/filespublic/programma_kursa_upravlenie_proektami.pdf), file f96b5c7d3221

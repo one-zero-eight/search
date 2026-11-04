@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "statements-final (en)"
+title: "Финальный этап — statements-final (en)"
 resource: "https://lk-dovuz.innopolis.university/public/files/statements-final%20%28en%29.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/statements-final%20%28en%29.pdf"
     id: "1e8c7239f407"
-    title: "statements-final (en)"
+    title: "Финальный этап — statements-final (en)"
     last_modified: "2026-11-01T23:17:26+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# statements-final (en)
+# Финальный этап — statements-final (en)
 
 Innopolis Open in Informatics, 2020-2021, the final Russia, Innopolis, February, 21, 2021
 
@@ -325,4 +325,4 @@ Example
 
 # Citations
 
-1. [statements-final (en)](https://lk-dovuz.innopolis.university/public/files/statements-final%20%28en%29.pdf), file 1e8c7239f407
+1. [Финальный этап — statements-final (en)](https://lk-dovuz.innopolis.university/public/files/statements-final%20%28en%29.pdf), file 1e8c7239f407

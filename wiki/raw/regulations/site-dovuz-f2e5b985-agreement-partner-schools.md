@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Соглашение о сотрудничестве"
+title: "Менеджер проекта свяжется с вами для обсуждения сотрудничества — Соглашение о сотрудничестве"
 resource: "https://lk-dovuz.innopolis.university/public/files/agreement_partner_schools.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/agreement_partner_schools.pdf"
     id: "0380bd275e0e"
-    title: "Соглашение о сотрудничестве"
+    title: "Менеджер проекта свяжется с вами для обсуждения сотрудничества — Соглашение о сотрудничестве"
     last_modified: "2024-01-01T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Соглашение о сотрудничестве
+# Менеджер проекта свяжется с вами для обсуждения сотрудничества — Соглашение о сотрудничестве
 
 СОГЛАШЕНИЕ О СОТРУДНИЧЕСТВЕ № _____ г.Иннополис «___» _________ 202___ г.
 
@@ -195,4 +195,4 @@ _______________/ / м.п.
 
 # Citations
 
-1. [Соглашение о сотрудничестве](https://lk-dovuz.innopolis.university/public/files/agreement_partner_schools.pdf), file 0380bd275e0e
+1. [Менеджер проекта свяжется с вами для обсуждения сотрудничества — Соглашение о сотрудничестве](https://lk-dovuz.innopolis.university/public/files/agreement_partner_schools.pdf), file 0380bd275e0e

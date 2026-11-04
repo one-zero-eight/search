@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "io robo 23 1.2"
+title: "Первый отборочный этап. 1 тур — io robo 23 1.2"
 resource: "https://lk-dovuz.innopolis.university/public/files/io_robo_23_1.2.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/io_robo_23_1.2.pdf"
     id: "2c25d1f7025b"
-    title: "io robo 23 1.2"
+    title: "Первый отборочный этап. 1 тур — io robo 23 1.2"
     last_modified: "2022-10-23T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# io robo 23 1.2
+# Первый отборочный этап. 1 тур — io robo 23 1.2
 
 Innopolis Open по ИИ, робототехнике и финтех Первый отборочный тур. 2022-2023 Россия, Иннополис, 23 октября 2022 г.
 
@@ -244,4 +244,4 @@ Innopolis Open по ИИ, робототехнике и финтех Первы�
 
 # Citations
 
-1. [io robo 23 1.2](https://lk-dovuz.innopolis.university/public/files/io_robo_23_1.2.pdf), file 2c25d1f7025b
+1. [Первый отборочный этап. 1 тур — io robo 23 1.2](https://lk-dovuz.innopolis.university/public/files/io_robo_23_1.2.pdf), file 2c25d1f7025b

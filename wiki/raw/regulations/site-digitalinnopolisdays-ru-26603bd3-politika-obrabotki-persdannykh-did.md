@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "политикой обработки персональных данных [Политика_обработки_персданных_did]"
+title: "16:30 — политикой обработки персональных данных"
 resource: "https://innopolis.university/filespublic/%D0%9F%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0_%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B8_%D0%BF%D0%B5%D1%80%D1%81%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85_did.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/digitalinnopolisdays-ru"
 sources:
   - resource: "https://innopolis.university/filespublic/%D0%9F%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0_%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B8_%D0%BF%D0%B5%D1%80%D1%81%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85_did.pdf"
     id: "09b3c04fa3fc"
-    title: "политикой обработки персональных данных [Политика_обработки_персданных_did]"
+    title: "16:30 — политикой обработки персональных данных"
     last_modified: "2025-06-05T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# политикой обработки персональных данных [Политика_обработки_персданных_did]
+# 16:30 — политикой обработки персональных данных
 
 УТВЕРЖДЕНА приказом АНО ВО «Университет Иннополис» от 5 июня 2025 г. МНРЕГ
 
@@ -219,4 +219,4 @@ status: draft
 
 # Citations
 
-1. [политикой обработки персональных данных [Политика_обработки_персданных_did]](https://innopolis.university/filespublic/%D0%9F%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0_%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B8_%D0%BF%D0%B5%D1%80%D1%81%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85_did.pdf), file 09b3c04fa3fc
+1. [16:30 — политикой обработки персональных данных](https://innopolis.university/filespublic/%D0%9F%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0_%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B8_%D0%BF%D0%B5%D1%80%D1%81%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85_did.pdf), file 09b3c04fa3fc

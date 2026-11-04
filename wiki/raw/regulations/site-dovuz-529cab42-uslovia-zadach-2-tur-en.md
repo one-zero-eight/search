@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "uslovia zadach 2 tur en"
+title: "Второй отборочный этап — uslovia zadach 2 tur en"
 resource: "https://lk-dovuz.innopolis.university/public/files/uslovia_zadach_2_tur_en.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/uslovia_zadach_2_tur_en.pdf"
     id: "a174edf10892"
-    title: "uslovia zadach 2 tur en"
+    title: "Второй отборочный этап — uslovia zadach 2 tur en"
     last_modified: "2026-11-01T23:17:27+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# uslovia zadach 2 tur en
+# Второй отборочный этап — uslovia zadach 2 tur en
 
 Innopolis Open 2025-2026 Second qualification round Innopolis, December 28, 2025
 
@@ -320,4 +320,4 @@ The final values of the function F(Gu) for boxes 1,...,6 are: 71 4 29 17 4 0.
 
 # Citations
 
-1. [uslovia zadach 2 tur en](https://lk-dovuz.innopolis.university/public/files/uslovia_zadach_2_tur_en.pdf), file a174edf10892
+1. [Второй отборочный этап — uslovia zadach 2 tur en](https://lk-dovuz.innopolis.university/public/files/uslovia_zadach_2_tur_en.pdf), file a174edf10892

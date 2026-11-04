@@ -1,0 +1,16 @@
+{
+ "title": "Приказ (Бакалавриат, платные места, 2026 г.)",
+ "url": "https://innopolis.university/upload/iblock/1d0/1tl4u0v8f1ui5xt1ukk24snotzx7eljo/Приказ__Бакалавриат__платные_места__2026_г._.pdf",
+ "sha256": "1fbc015f7d115c0d516f2a40f71826745c4d7f59039438c77510c36a7a7abaeb",
+ "method": "ocr (chandra-ocr-2)",
+ "chars": 12384,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-22T22:05:52+00:00",
+ "remote": {
+  "etag": "\"6a8ed8a3-3da048\"",
+  "modified": "Wed, 26 Aug 2026 12:14:27 GMT",
+  "size": "4038728"
+ },
+ "tables": 5
+}

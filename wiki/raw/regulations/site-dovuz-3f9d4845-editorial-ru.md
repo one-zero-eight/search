@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "editorial ru"
+title: "Финальный этап — editorial ru"
 resource: "https://lk-dovuz.innopolis.university/public/files/editorial_ru.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/editorial_ru.pdf"
     id: "85129c8e4b5e"
-    title: "editorial ru"
+    title: "Финальный этап — editorial ru"
     last_modified: "2022-02-20T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# editorial ru
+# Финальный этап — editorial ru
 
 Innopolis Open по информатике Заключительный тур. 2021-2022 Россия, Иннополис, 20 февраля 2022
 
@@ -125,4 +125,4 @@ Am = (k − 1)Bm−1, A1 = 1 Bm = Am−1 + (k − 2)Bm−1, B1 = 0
 
 # Citations
 
-1. [editorial ru](https://lk-dovuz.innopolis.university/public/files/editorial_ru.pdf), file 85129c8e4b5e
+1. [Финальный этап — editorial ru](https://lk-dovuz.innopolis.university/public/files/editorial_ru.pdf), file 85129c8e4b5e

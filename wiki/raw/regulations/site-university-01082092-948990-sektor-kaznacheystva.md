@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "948990 Сектор казначейства"
+title: "113 — 948990 Сектор казначейства"
 resource: "https://innopolis.university/upload/iblock/b01/rsr8q9sl6bf3egc73jk6gz4nj3m6k1x0/948990_%D0%A1%D0%B5%D0%BA%D1%82%D0%BE%D1%80%20%D0%BA%D0%B0%D0%B7%D0%BD%D0%B0%D1%87%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B0.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/upload/iblock/b01/rsr8q9sl6bf3egc73jk6gz4nj3m6k1x0/948990_%D0%A1%D0%B5%D0%BA%D1%82%D0%BE%D1%80%20%D0%BA%D0%B0%D0%B7%D0%BD%D0%B0%D1%87%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B0.pdf"
     id: "74ed949fc4aa"
-    title: "948990 Сектор казначейства"
+    title: "113 — 948990 Сектор казначейства"
     last_modified: "2024-12-16T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# 948990 Сектор казначейства
+# 113 — 948990 Сектор казначейства
 
 УНИВЕРСИТЕТ ИННОПОЛИС
 
@@ -186,4 +186,4 @@ _____ Р.Ф. Валиев
 
 # Citations
 
-1. [948990 Сектор казначейства](https://innopolis.university/upload/iblock/b01/rsr8q9sl6bf3egc73jk6gz4nj3m6k1x0/948990_%D0%A1%D0%B5%D0%BA%D1%82%D0%BE%D1%80%20%D0%BA%D0%B0%D0%B7%D0%BD%D0%B0%D1%87%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B0.pdf), file 74ed949fc4aa
+1. [113 — 948990 Сектор казначейства](https://innopolis.university/upload/iblock/b01/rsr8q9sl6bf3egc73jk6gz4nj3m6k1x0/948990_%D0%A1%D0%B5%D0%BA%D1%82%D0%BE%D1%80%20%D0%BA%D0%B0%D0%B7%D0%BD%D0%B0%D1%87%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B0.pdf), file 74ed949fc4aa

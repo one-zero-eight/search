@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Дополнительные платные услуги"
+title: "Документы — Дополнительные платные услуги"
 resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7_%D0%BD%D0%B0_%20%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D1%83%D1%81%D0%BB%D1%83%D0%B3%D0%B8_%D0%B2%20%D0%96%D0%9A%20%281%29.pdf"
 audience: ["student", "postgraduate", "applicant", "public"]
 source_kind: official-document
@@ -9,7 +9,7 @@ section: "site/hotel"
 sources:
   - resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7_%D0%BD%D0%B0_%20%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D1%83%D1%81%D0%BB%D1%83%D0%B3%D0%B8_%D0%B2%20%D0%96%D0%9A%20%281%29.pdf"
     id: "434d992cc6c2"
-    title: "Дополнительные платные услуги"
+    title: "Документы — Дополнительные платные услуги"
     last_modified: "2025-03-10T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Дополнительные платные услуги
+# Документы — Дополнительные платные услуги
 
 Приложение 1 к приказу АНО ВО «Университет Иннополис» от 10.03.2025 № ОД/АД-04/2025/03/10
 
@@ -55,4 +55,4 @@ status: draft
 
 # Citations
 
-1. [Дополнительные платные услуги](https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7_%D0%BD%D0%B0_%20%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D1%83%D1%81%D0%BB%D1%83%D0%B3%D0%B8_%D0%B2%20%D0%96%D0%9A%20%281%29.pdf), file 434d992cc6c2
+1. [Документы — Дополнительные платные услуги](https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7_%D0%BD%D0%B0_%20%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D1%83%D1%81%D0%BB%D1%83%D0%B3%D0%B8_%D0%B2%20%D0%96%D0%9A%20%281%29.pdf), file 434d992cc6c2

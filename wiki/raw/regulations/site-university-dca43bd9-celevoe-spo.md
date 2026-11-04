@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Целевое обучение СПО"
+title: "Студентам — Целевое обучение СПО"
 resource: "https://innopolis.university/filespublic/celevoe_spo.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/celevoe_spo.pdf"
     id: "3bd12391530c"
-    title: "Целевое обучение СПО"
+    title: "Студентам — Целевое обучение СПО"
     last_modified: "2024-04-27T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Целевое обучение СПО
+# Студентам — Целевое обучение СПО
 
 ПАМЯТКА ОБ ОРГАНИЗАЦИИ ЦЕЛЕВОГО ОБУЧЕНИЯ
 
@@ -61,4 +61,4 @@ status: draft
 
 # Citations
 
-1. [Целевое обучение СПО](https://innopolis.university/filespublic/celevoe_spo.pdf), file 3bd12391530c
+1. [Студентам — Целевое обучение СПО](https://innopolis.university/filespublic/celevoe_spo.pdf), file 3bd12391530c

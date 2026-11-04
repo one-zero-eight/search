@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Система штрафов"
+title: "Документы — Система штрафов"
 resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%9E%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8_%D0%A2%D0%9C%D0%A6.pdf"
 audience: ["student", "postgraduate", "applicant", "public"]
 source_kind: official-document
@@ -9,7 +9,7 @@ section: "site/hotel"
 sources:
   - resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%9E%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8_%D0%A2%D0%9C%D0%A6.pdf"
     id: "5d42455cc31f"
-    title: "Система штрафов"
+    title: "Документы — Система штрафов"
     last_modified: "2026-10-24T22:03:58+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Система штрафов
+# Документы — Система штрафов
 
 Перечень штрафов за нарушения Правил размещения и проживания в жилом комплексе АНО ВО «Университет Иннополис»
 
@@ -174,4 +174,4 @@ status: draft
 
 # Citations
 
-1. [Система штрафов](https://hotel.innopolis.university/upload/docs-hotel/%D0%9E%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8_%D0%A2%D0%9C%D0%A6.pdf), file 5d42455cc31f
+1. [Документы — Система штрафов](https://hotel.innopolis.university/upload/docs-hotel/%D0%9E%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8_%D0%A2%D0%9C%D0%A6.pdf), file 5d42455cc31f

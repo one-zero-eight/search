@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Руководство пользователя [Руководство_пользователя_ЕМОП_НК]"
+title: "Документация: — Руководство пользователя [Руководство_пользователя_ЕМОП_НК]"
 resource: "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_%D0%95%D0%9C%D0%9E%D0%9F_%D0%9D%D0%9A.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/unionepro-ru"
 sources:
   - resource: "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_%D0%95%D0%9C%D0%9E%D0%9F_%D0%9D%D0%9A.pdf"
     id: "8de9258c48e5"
-    title: "Руководство пользователя [Руководство_пользователя_ЕМОП_НК]"
+    title: "Документация: — Руководство пользователя [Руководство_пользователя_ЕМОП_НК]"
     last_modified: "2026-11-04T13:07:42+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Руководство пользователя [Руководство_пользователя_ЕМОП_НК]
+# Документация: — Руководство пользователя [Руководство_пользователя_ЕМОП_НК]
 
 ЕДИНАЯ МНОГОФУНКЦИОНАЛЬНАЯ ОБРАЗОВАТЕЛЬНАЯ ПЛАТФОРМА
 
@@ -1356,4 +1356,4 @@ status: draft
 
 # Citations
 
-1. [Руководство пользователя [Руководство_пользователя_ЕМОП_НК]](https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_%D0%95%D0%9C%D0%9E%D0%9F_%D0%9D%D0%9A.pdf), file 8de9258c48e5
+1. [Документация: — Руководство пользователя [Руководство_пользователя_ЕМОП_НК]](https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_%D0%95%D0%9C%D0%9E%D0%9F_%D0%9D%D0%9A.pdf), file 8de9258c48e5

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "usloviya ru"
+title: "Заключительный этап — usloviya ru"
 resource: "https://lk-dovuz.innopolis.university/public/files/usloviya_ru.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/usloviya_ru.pdf"
     id: "b9668e4e6294"
-    title: "usloviya ru"
+    title: "Заключительный этап — usloviya ru"
     last_modified: "2026-02-14T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# usloviya ru
+# Заключительный этап — usloviya ru
 
 Innopolis Open по информатике Заключительный тур. 2025-2026 Россия, Иннополис, 14 февраля 2026
 
@@ -496,4 +496,4 @@ Innopolis Open по информатике Заключительный тур. 
 
 # Citations
 
-1. [usloviya ru](https://lk-dovuz.innopolis.university/public/files/usloviya_ru.pdf), file b9668e4e6294
+1. [Заключительный этап — usloviya ru](https://lk-dovuz.innopolis.university/public/files/usloviya_ru.pdf), file b9668e4e6294

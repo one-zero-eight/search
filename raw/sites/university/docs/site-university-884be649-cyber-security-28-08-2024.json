@@ -1,0 +1,16 @@
+{
+ "title": "Вступительное испытание по программе магистратуры \"Кибербезопасность\" 28.08.2024",
+ "url": "https://innopolis.university/upload/iblock/679/si0iuenw9iwi3le7dooo7cdr6jas8tth/cyber_security_28_08_2024.pdf",
+ "sha256": "a497a8a1d29d5a931941583213851ae60fe5ef3b3e50fb272d9418ec74051fc9",
+ "method": "text layer (opendataloader)",
+ "chars": 701,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-22T22:14:08+00:00",
+ "tables": 5,
+ "remote": {
+  "etag": "\"66f3cf3f-ab1d\"",
+  "modified": "Wed, 25 Sep 2024 08:52:15 GMT",
+  "size": "43805"
+ }
+}

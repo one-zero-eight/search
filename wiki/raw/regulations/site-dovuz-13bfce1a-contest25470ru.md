@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "contest-25470-ru"
+title: "Второй отборочный этап — contest-25470-ru"
 resource: "https://lk-dovuz.innopolis.university/public/files/contest-25470-ru.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/contest-25470-ru.pdf"
     id: "1f4aa23c7a92"
-    title: "contest-25470-ru"
+    title: "Второй отборочный этап — contest-25470-ru"
     last_modified: "2021-12-11T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# contest-25470-ru
+# Второй отборочный этап — contest-25470-ru
 
 Innopolis Open по информатике Второй отборочный тур. 2021-2022 Россия, Иннополис, 11 декабря 2021 г.
 
@@ -83,4 +83,4 @@ Innopolis Open по информатике Второй отборочный т�
 
 # Citations
 
-1. [contest-25470-ru](https://lk-dovuz.innopolis.university/public/files/contest-25470-ru.pdf), file 1f4aa23c7a92
+1. [Второй отборочный этап — contest-25470-ru](https://lk-dovuz.innopolis.university/public/files/contest-25470-ru.pdf), file 1f4aa23c7a92

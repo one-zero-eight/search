@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "resh en ie2324"
+title: "Первый отборочный этап. 1 тур — resh en ie2324"
 resource: "https://lk-dovuz.innopolis.university/public/files/resh_en_ie2324.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/resh_en_ie2324.pdf"
     id: "c2a9d31a9524"
-    title: "resh en ie2324"
+    title: "Первый отборочный этап. 1 тур — resh en ie2324"
     last_modified: "2026-11-01T23:17:24+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# resh en ie2324
+# Первый отборочный этап. 1 тур — resh en ie2324
 
 Innopolis Open in AI and Robotics First Qualifying Round, 2023-2024. Russia, December, 3, 2023
 
@@ -348,4 +348,4 @@ For a full score solution, let’s observe the following. Firstly, all occurrenc
 
 # Citations
 
-1. [resh en ie2324](https://lk-dovuz.innopolis.university/public/files/resh_en_ie2324.pdf), file c2a9d31a9524
+1. [Первый отборочный этап. 1 тур — resh en ie2324](https://lk-dovuz.innopolis.university/public/files/resh_en_ie2324.pdf), file c2a9d31a9524

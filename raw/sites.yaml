@@ -26,6 +26,22 @@ sites:
     missing: null
     signin: null
     private: null
+    feeds:
+    - ''
+    - 'en/'
+    - 'sveden/apply/'
+    - 'sveden/budget'
+    - 'sveden/common'
+    - 'sveden/document'
+    - 'sveden/education'
+    - 'sveden/eduStandarts'
+    - 'sveden/grants'
+    - 'sveden/informaciya_ob_organah_upravleniya'
+    - 'sveden/inter'
+    - 'sveden/objects'
+    - 'sveden/paid_edu'
+    - 'sveden/rating-system'
+    - 'sveden/struct'
     aliases:
     - university.innopolis.ru
   apply:

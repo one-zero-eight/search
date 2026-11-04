@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "tutorial-en24"
+title: "Условия задач/разбор: Задачи(ru) Задачи(en) — tutorial-en24"
 resource: "https://lk-dovuz.innopolis.university/public/files/tutorial-en24.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/tutorial-en24.pdf"
     id: "fda100e501a3"
-    title: "tutorial-en24"
+    title: "Условия задач/разбор: Задачи(ru) Задачи(en) — tutorial-en24"
     last_modified: "2026-11-01T23:17:27+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# tutorial-en24
+# Условия задач/разбор: Задачи(ru) Задачи(en) — tutorial-en24
 
 Problem A. Fence Painting
 
@@ -297,4 +297,4 @@ For this, we will represent our queries not as (l,r), but as (l,r,∆), where fo
 
 # Citations
 
-1. [tutorial-en24](https://lk-dovuz.innopolis.university/public/files/tutorial-en24.pdf), file fda100e501a3
+1. [Условия задач/разбор: Задачи(ru) Задачи(en) — tutorial-en24](https://lk-dovuz.innopolis.university/public/files/tutorial-en24.pdf), file fda100e501a3

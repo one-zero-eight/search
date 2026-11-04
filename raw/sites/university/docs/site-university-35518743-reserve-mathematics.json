@@ -1,0 +1,16 @@
+{
+ "title": "Вступительное испытание на программам бакалавриата \"Математика\" 14.08.2024, 17.08.2024",
+ "url": "https://innopolis.university/upload/iblock/720/v34fb2vzyv2ar2ce0a1v5oggwu7lrjxc/reserve_mathematics.pdf",
+ "sha256": "e64b743b0651c301314daa3662316408f83e5b03cfa5fba53965d2604a996531",
+ "method": "text layer (opendataloader)",
+ "chars": 690,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-22T22:15:10+00:00",
+ "tables": 5,
+ "remote": {
+  "etag": "\"66c2fee8-a5df\"",
+  "modified": "Mon, 19 Aug 2024 08:14:32 GMT",
+  "size": "42463"
+ }
+}

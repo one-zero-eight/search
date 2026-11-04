@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Правила проживания"
+title: "О кампусе — Правила проживания"
 resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BA%20%D0%BF%D1%80%D0%B8%D0%BA%D0%B0%D0%B7%D1%83_%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%B8%20%D0%BF%D1%80%D0%BE%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%202025%20%D0%B3%D0%BE%D0%B4%20%282%29.pdf"
 audience: ["student", "postgraduate", "applicant", "public"]
 source_kind: official-document
@@ -9,7 +9,7 @@ section: "site/hotel"
 sources:
   - resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BA%20%D0%BF%D1%80%D0%B8%D0%BA%D0%B0%D0%B7%D1%83_%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%B8%20%D0%BF%D1%80%D0%BE%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%202025%20%D0%B3%D0%BE%D0%B4%20%282%29.pdf"
     id: "eb44b9e8e1b9"
-    title: "Правила проживания"
+    title: "О кампусе — Правила проживания"
     last_modified: "2026-10-24T22:05:48+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Правила проживания
+# О кампусе — Правила проживания
 
 Правила размещения и проживания в жилом комплексе АНО ВО «Университет Иннополис» г. Иннополис 2025
 
@@ -258,4 +258,4 @@ status: draft
 
 # Citations
 
-1. [Правила проживания](https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BA%20%D0%BF%D1%80%D0%B8%D0%BA%D0%B0%D0%B7%D1%83_%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%B8%20%D0%BF%D1%80%D0%BE%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%202025%20%D0%B3%D0%BE%D0%B4%20%282%29.pdf), file eb44b9e8e1b9
+1. [О кампусе — Правила проживания](https://hotel.innopolis.university/upload/docs-hotel/%D0%9F%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BA%20%D0%BF%D1%80%D0%B8%D0%BA%D0%B0%D0%B7%D1%83_%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20_%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%B8%20%D0%BF%D1%80%D0%BE%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%202025%20%D0%B3%D0%BE%D0%B4%20%282%29.pdf), file eb44b9e8e1b9

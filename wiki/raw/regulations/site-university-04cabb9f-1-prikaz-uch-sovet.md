@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Ученый совет Университета:"
+title: "Наблюдательный совет Университета: — Ученый совет Университета:"
 resource: "https://innopolis.university/upload/iblock/dc2/x1g9cn1l0ucibw5frr11uf7ajc09d50w/1_prikaz_uch_sovet.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/upload/iblock/dc2/x1g9cn1l0ucibw5frr11uf7ajc09d50w/1_prikaz_uch_sovet.pdf"
     id: "22977682c670"
-    title: "Ученый совет Университета:"
+    title: "Наблюдательный совет Университета: — Ученый совет Университета:"
     last_modified: "2026-10-31T00:22:11+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# Ученый совет Университета:
+# Наблюдательный совет Университета: — Ученый совет Университета:
 
 Приложение №1 к приказу №ОД/УД-01/2018/10/01 от 1 октября.2018
 
@@ -337,4 +337,4 @@ _____ К.В. Семенихин
 
 # Citations
 
-1. [Ученый совет Университета:](https://innopolis.university/upload/iblock/dc2/x1g9cn1l0ucibw5frr11uf7ajc09d50w/1_prikaz_uch_sovet.pdf), file 22977682c670
+1. [Наблюдательный совет Университета: — Ученый совет Университета:](https://innopolis.university/upload/iblock/dc2/x1g9cn1l0ucibw5frr11uf7ajc09d50w/1_prikaz_uch_sovet.pdf), file 22977682c670

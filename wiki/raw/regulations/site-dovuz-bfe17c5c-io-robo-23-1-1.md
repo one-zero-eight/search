@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "io robo 23 1.1"
+title: "Первый отборочный этап. 1 тур — io robo 23 1.1"
 resource: "https://lk-dovuz.innopolis.university/public/files/io_robo_23_1.1.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/io_robo_23_1.1.pdf"
     id: "1bf987332a3c"
-    title: "io robo 23 1.1"
+    title: "Первый отборочный этап. 1 тур — io robo 23 1.1"
     last_modified: "2026-11-01T23:17:22+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# io robo 23 1.1
+# Первый отборочный этап. 1 тур — io robo 23 1.1
 
 1 Леброн и мультивселенные
 
@@ -647,4 +647,4 @@ status: draft
 
 # Citations
 
-1. [io robo 23 1.1](https://lk-dovuz.innopolis.university/public/files/io_robo_23_1.1.pdf), file 1bf987332a3c
+1. [Первый отборочный этап. 1 тур — io robo 23 1.1](https://lk-dovuz.innopolis.university/public/files/io_robo_23_1.1.pdf), file 1bf987332a3c

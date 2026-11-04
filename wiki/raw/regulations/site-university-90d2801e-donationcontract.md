@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Договор пожертвования"
+title: "Назначение: добровольное пожертвование — Договор пожертвования"
 resource: "https://innopolis.university/public/files/donation-contract.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/public/files/donation-contract.pdf"
     id: "6f79bc65c0c9"
-    title: "Договор пожертвования"
+    title: "Назначение: добровольное пожертвование — Договор пожертвования"
     last_modified: "2026-10-24T23:49:27+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# Договор пожертвования
+# Назначение: добровольное пожертвование — Договор пожертвования
 
 Утверждаю /К.В.Семенихин/ Директор автономной некоммерческой организации высшего образования «Университет Иннополис»
 
@@ -112,4 +112,4 @@ review: "scanned document read by OCR: check numbers and dates against the PDF b
 
 # Citations
 
-1. [Договор пожертвования](https://innopolis.university/public/files/donation-contract.pdf), file 6f79bc65c0c9
+1. [Назначение: добровольное пожертвование — Договор пожертвования](https://innopolis.university/public/files/donation-contract.pdf), file 6f79bc65c0c9

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "resh ru ei"
+title: "Первый отборочный этап. 1 тур — resh ru ei"
 resource: "https://lk-dovuz.innopolis.university/public/files/resh_ru_ei.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/resh_ru_ei.pdf"
     id: "990cca3a80f8"
-    title: "resh ru ei"
+    title: "Первый отборочный этап. 1 тур — resh ru ei"
     last_modified: "2023-12-03T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# resh ru ei
+# Первый отборочный этап. 1 тур — resh ru ei
 
 Innopolis Open по ИИ и робототехнике Первый отборочный тур. 2023-2024 Russia, 3 декабря 2023
 
@@ -364,4 +364,4 @@ Innopolis Open по ИИ и робототехнике Первый отборо
 
 # Citations
 
-1. [resh ru ei](https://lk-dovuz.innopolis.university/public/files/resh_ru_ei.pdf), file 990cca3a80f8
+1. [Первый отборочный этап. 1 тур — resh ru ei](https://lk-dovuz.innopolis.university/public/files/resh_ru_ei.pdf), file 990cca3a80f8

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "io-math-1-2"
+title: "Первый заочный отборочный тур — io-math-1-2"
 resource: "https://lk-dovuz.innopolis.university/public/files/io-math-1-2.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/io-math-1-2.pdf"
     id: "045f0b9a0040"
-    title: "io-math-1-2"
+    title: "Первый заочный отборочный тур — io-math-1-2"
     last_modified: "2026-11-01T23:17:21+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# io-math-1-2
+# Первый заочный отборочный тур — io-math-1-2
 
 | 7 класс / Grade 7 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1314,4 +1314,4 @@ status: draft
 
 # Citations
 
-1. [io-math-1-2](https://lk-dovuz.innopolis.university/public/files/io-math-1-2.pdf), file 045f0b9a0040
+1. [Первый заочный отборочный тур — io-math-1-2](https://lk-dovuz.innopolis.university/public/files/io-math-1-2.pdf), file 045f0b9a0040

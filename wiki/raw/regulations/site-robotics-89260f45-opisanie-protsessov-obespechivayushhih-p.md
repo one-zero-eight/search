@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Описание процессов, поддерживающих жизненный цикл программного обеспечения [Opisanie_protsessov_obespechivayushhih_podderzhanie_zhiznenn]"
+title: "Документация — Описание процессов, поддерживающих жизненный цикл программного обеспечения"
 resource: "https://robotics.innopolis.university/wp-content/uploads/2024/04/Opisanie_protsessov_obespechivayushhih_podderzhanie_zhiznennogo_tsikla.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/robotics"
 sources:
   - resource: "https://robotics.innopolis.university/wp-content/uploads/2024/04/Opisanie_protsessov_obespechivayushhih_podderzhanie_zhiznennogo_tsikla.pdf"
     id: "1d6f796fca94"
-    title: "Описание процессов, поддерживающих жизненный цикл программного обеспечения [Opisanie_protsessov_obespechivayushhih_podderzhanie_zhiznenn]"
+    title: "Документация — Описание процессов, поддерживающих жизненный цикл программного обеспечения"
     last_modified: "2026-10-31T09:36:39+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Описание процессов, поддерживающих жизненный цикл программного обеспечения [Opisanie_protsessov_obespechivayushhih_podderzhanie_zhiznenn]
+# Документация — Описание процессов, поддерживающих жизненный цикл программного обеспечения
 
 АВТОМАТИЗИРОВАННАЯ ПЛАТФОРМА СОПРОВОЖДЕНИЯ ПРОЦЕССА СТРОИТЕЛЬСТВА СКВАЖИНЫ «DRILLFLOW»
 
@@ -653,4 +653,4 @@ status: draft
 
 # Citations
 
-1. [Описание процессов, поддерживающих жизненный цикл программного обеспечения [Opisanie_protsessov_obespechivayushhih_podderzhanie_zhiznenn]](https://robotics.innopolis.university/wp-content/uploads/2024/04/Opisanie_protsessov_obespechivayushhih_podderzhanie_zhiznennogo_tsikla.pdf), file 1d6f796fca94
+1. [Документация — Описание процессов, поддерживающих жизненный цикл программного обеспечения](https://robotics.innopolis.university/wp-content/uploads/2024/04/Opisanie_protsessov_obespechivayushhih_podderzhanie_zhiznennogo_tsikla.pdf), file 1d6f796fca94

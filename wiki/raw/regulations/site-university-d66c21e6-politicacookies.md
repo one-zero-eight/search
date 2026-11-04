@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Политика конфиденциальности [politicacookies]"
+title: "Полезные ссылки — Политика конфиденциальности"
 resource: "https://innopolis.university/files/politicacookies.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/files/politicacookies.pdf"
     id: "ce80842e6dc9"
-    title: "Политика конфиденциальности [politicacookies]"
+    title: "Полезные ссылки — Политика конфиденциальности"
     last_modified: "2026-03-31T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Политика конфиденциальности [politicacookies]
+# Полезные ссылки — Политика конфиденциальности
 
 УТВЕРЖДЕНА приказом АНО ВО «Университет Иннополис» от МДРЕГ МНРЕГ Директор
 
@@ -435,4 +435,4 @@ status: draft
 
 # Citations
 
-1. [Политика конфиденциальности [politicacookies]](https://innopolis.university/files/politicacookies.pdf), file ce80842e6dc9
+1. [Полезные ссылки — Политика конфиденциальности](https://innopolis.university/files/politicacookies.pdf), file ce80842e6dc9

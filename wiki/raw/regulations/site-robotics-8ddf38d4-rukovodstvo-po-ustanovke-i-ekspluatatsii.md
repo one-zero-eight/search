@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "ководство по эксплуатации"
+title: "Документация: — ководство по эксплуатации"
 resource: "https://robotics.innopolis.university/wp-content/uploads/2024/04/Rukovodstvo_po_ustanovke_i_ekspluatatsii.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/robotics"
 sources:
   - resource: "https://robotics.innopolis.university/wp-content/uploads/2024/04/Rukovodstvo_po_ustanovke_i_ekspluatatsii.pdf"
     id: "db217e778b9a"
-    title: "ководство по эксплуатации"
+    title: "Документация: — ководство по эксплуатации"
     last_modified: "2026-10-31T09:36:39+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# ководство по эксплуатации
+# Документация: — ководство по эксплуатации
 
 ПРОГРАММНОЕ ОБЕСПЕЧЕНИЕ ДЛЯ РОБОТИЗИРОВАННОЙ СОРТИРОВОЧНОЙ ЯЧЕЙКИ ИЗДЕЛИЙ СЛОЖНОЙ ФОРМЫ
 
@@ -139,4 +139,4 @@ Save ply logs: False No device connected
 
 # Citations
 
-1. [ководство по эксплуатации](https://robotics.innopolis.university/wp-content/uploads/2024/04/Rukovodstvo_po_ustanovke_i_ekspluatatsii.pdf), file db217e778b9a
+1. [Документация: — ководство по эксплуатации](https://robotics.innopolis.university/wp-content/uploads/2024/04/Rukovodstvo_po_ustanovke_i_ekspluatatsii.pdf), file db217e778b9a

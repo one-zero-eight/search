@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Положение об Отделе"
+title: "Положение об Отделе интеллектуальной собственности и трансфера технологий — Положение об Отделе"
 resource: "https://innopolis.university/files/%D0%9F%D0%BE%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%D0%B1%20%D0%9E%D1%82%D0%B4%D0%B5%D0%BB%D0%B5.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/files/%D0%9F%D0%BE%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%D0%B1%20%D0%9E%D1%82%D0%B4%D0%B5%D0%BB%D0%B5.pdf"
     id: "d7d083afabfa"
-    title: "Положение об Отделе"
+    title: "Положение об Отделе интеллектуальной собственности и трансфера технологий — Положение об Отделе"
     last_modified: "2021-05-31T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# Положение об Отделе
+# Положение об Отделе интеллектуальной собственности и трансфера технологий — Положение об Отделе
 
 УТВЕРЖДЕНО приказом АНО ВО «Университет Иннополис» от 31 мая 2021 г. № ОД/АД-22/2021/05/31 Директор по развитию и кадровой политике
 
@@ -158,4 +158,4 @@ review: "scanned document read by OCR: check numbers and dates against the PDF b
 
 # Citations
 
-1. [Положение об Отделе](https://innopolis.university/files/%D0%9F%D0%BE%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%D0%B1%20%D0%9E%D1%82%D0%B4%D0%B5%D0%BB%D0%B5.pdf), file d7d083afabfa
+1. [Положение об Отделе интеллектуальной собственности и трансфера технологий — Положение об Отделе](https://innopolis.university/files/%D0%9F%D0%BE%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%D0%B1%20%D0%9E%D1%82%D0%B4%D0%B5%D0%BB%D0%B5.pdf), file d7d083afabfa

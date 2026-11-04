@@ -1,0 +1,16 @@
+{
+ "title": "Приказ об утверждении стоимости обучения по образовательным программам высшего образования АНО ВО \"Университет Иннополис\" на 2026/2027 учебный год",
+ "url": "https://innopolis.university/upload/iblock/6ef/nlk1hjv5ex3f1gkoqytfpgyrxlskiak6/Приказ_о_стоимости_ВО_2026-27.pdf",
+ "sha256": "ef5a4eb711d57698f126db599142305a62042984a8b950a3eb06a7034aa35d6e",
+ "method": "text layer (opendataloader)",
+ "chars": 6022,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-22T14:07:22+00:00",
+ "tables": 5,
+ "remote": {
+  "etag": "\"6a2181ac-1c3a83\"",
+  "modified": "Thu, 04 Jun 2026 13:46:20 GMT",
+  "size": "1849987"
+ }
+}

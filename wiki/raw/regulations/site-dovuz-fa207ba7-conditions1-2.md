@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "conditions-1"
+title: "Второй отборочный этап — conditions-1"
 resource: "https://lk-dovuz.innopolis.university/public/files/conditions-1%282%29.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/conditions-1%282%29.pdf"
     id: "adbc0a31b6fd"
-    title: "conditions-1"
+    title: "Второй отборочный этап — conditions-1"
     last_modified: "2026-11-01T23:17:20+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# conditions-1
+# Второй отборочный этап — conditions-1
 
 Innopolis Open по ИИ, робототехнике и финтех Второй отборочный тур. 2022-2023 Россия, Иннополис, 20 ноября, 2022
 
@@ -268,4 +268,4 @@ Innopolis Open по ИИ, робототехнике и финтех Второ�
 
 # Citations
 
-1. [conditions-1](https://lk-dovuz.innopolis.university/public/files/conditions-1%282%29.pdf), file adbc0a31b6fd
+1. [Второй отборочный этап — conditions-1](https://lk-dovuz.innopolis.university/public/files/conditions-1%282%29.pdf), file adbc0a31b6fd

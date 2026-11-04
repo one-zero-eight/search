@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Сертификат участника НОК 2022"
+title: "Результаты внешней оценки качества образовательной деятельности и подготовки обучающихся — Сертификат участника НОК 2022"
 resource: "https://innopolis.university/upload/iblock/08d/hqvf3x93gnvdarfbiry15l4buofsuoh3/2_certificate_nok_2022.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/upload/iblock/08d/hqvf3x93gnvdarfbiry15l4buofsuoh3/2_certificate_nok_2022.pdf"
     id: "41227cf45225"
-    title: "Сертификат участника НОК 2022"
+    title: "Результаты внешней оценки качества образовательной деятельности и подготовки обучающихся — Сертификат участника НОК 2022"
     last_modified: "2026-10-24T23:52:02+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Сертификат участника НОК 2022
+# Результаты внешней оценки качества образовательной деятельности и подготовки обучающихся — Сертификат участника НОК 2022
 
 СЕРТИФИКАТ
 
@@ -41,4 +41,4 @@ status: draft
 
 # Citations
 
-1. [Сертификат участника НОК 2022](https://innopolis.university/upload/iblock/08d/hqvf3x93gnvdarfbiry15l4buofsuoh3/2_certificate_nok_2022.pdf), file 41227cf45225
+1. [Результаты внешней оценки качества образовательной деятельности и подготовки обучающихся — Сертификат участника НОК 2022](https://innopolis.university/upload/iblock/08d/hqvf3x93gnvdarfbiry15l4buofsuoh3/2_certificate_nok_2022.pdf), file 41227cf45225

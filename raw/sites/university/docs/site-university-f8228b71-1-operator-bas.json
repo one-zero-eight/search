@@ -1,0 +1,16 @@
+{
+ "title": "«Оператор беспилотных авиационных систем (с максимальной взлетной массой 30 килограммов и менее)»",
+ "url": "https://innopolis.university/upload/iblock/97a/2jjhlpt65gsbfymbo6ngsujub4u1rro5/1._Оператор_БАС.pdf",
+ "sha256": "22101d26cb9a56e9d4c84ba5eba8246a4722d811214cfee8d095655dcc08ae78",
+ "method": "text layer (opendataloader)",
+ "chars": 58524,
+ "section": "site/university",
+ "context": "Профессиональное обучение Основная программа профессионального обучения – программа профессиональной подготовки по профессиям рабочих, должностям служащих",
+ "fetched_at": "2026-10-22T21:52:04+00:00",
+ "tables": 5,
+ "remote": {
+  "etag": "\"67fe26c4-2c6c19\"",
+  "modified": "Tue, 15 Apr 2025 09:28:36 GMT",
+  "size": "2911257"
+ }
+}

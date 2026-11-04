@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "robo contest 9-11"
+title: "Задачи и решения (7-8 класс): ссылка — robo contest 9-11"
 resource: "https://lk-dovuz.innopolis.university/public/files/robo_contest_9-11.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/robo_contest_9-11.pdf"
     id: "ce6dc4569e64"
-    title: "robo contest 9-11"
+    title: "Задачи и решения (7-8 класс): ссылка — robo contest 9-11"
     last_modified: "2026-11-01T23:17:26+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# robo contest 9-11
+# Задачи и решения (7-8 класс): ссылка — robo contest 9-11
 
 Innopolis Open Robotics 2025-2026 Второй этап. 9-11 класс _____________________________________________________________________________________
 
@@ -4123,4 +4123,4 @@ o ни одна точка проекции робота не находится
 
 # Citations
 
-1. [robo contest 9-11](https://lk-dovuz.innopolis.university/public/files/robo_contest_9-11.pdf), file ce6dc4569e64
+1. [Задачи и решения (7-8 класс): ссылка — robo contest 9-11](https://lk-dovuz.innopolis.university/public/files/robo_contest_9-11.pdf), file ce6dc4569e64

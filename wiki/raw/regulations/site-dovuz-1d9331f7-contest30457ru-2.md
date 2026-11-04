@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "contest-30457-ru"
+title: "Первый отборочный этап — contest-30457-ru"
 resource: "https://lk-dovuz.innopolis.university/public/files/contest-30457-ru%282%29.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/contest-30457-ru%282%29.pdf"
     id: "5eb9e9d358e4"
-    title: "contest-30457-ru"
+    title: "Первый отборочный этап — contest-30457-ru"
     last_modified: "2022-10-23T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# contest-30457-ru
+# Первый отборочный этап — contest-30457-ru
 
 Innopolis Open по ИИ, робототехнике и финтех Первый отборочный тур. 2022-2023 Россия, Иннополис, 23 октября 2022 г.
 
@@ -244,4 +244,4 @@ Innopolis Open по ИИ, робототехнике и финтех Первы�
 
 # Citations
 
-1. [contest-30457-ru](https://lk-dovuz.innopolis.university/public/files/contest-30457-ru%282%29.pdf), file 5eb9e9d358e4
+1. [Первый отборочный этап — contest-30457-ru](https://lk-dovuz.innopolis.university/public/files/contest-30457-ru%282%29.pdf), file 5eb9e9d358e4

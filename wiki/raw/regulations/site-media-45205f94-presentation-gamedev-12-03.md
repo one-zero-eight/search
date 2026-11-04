@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Читать исследование [Presentation Gamedev 12.03]"
+title: "Исследование Центра разработки игр Университета Иннополис показало, что российская игровая индустрия находится на этапе активного развития, но сталкивается с вызовами. 61% разработчиков отмечает недостаток финансирования — Читать исследование"
 resource: "https://innopolis.university/filespublic/Presentation%20Gamedev%2012.03.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/media"
 sources:
   - resource: "https://innopolis.university/filespublic/Presentation%20Gamedev%2012.03.pdf"
     id: "d3613959cae6"
-    title: "Читать исследование [Presentation Gamedev 12.03]"
+    title: "Исследование Центра разработки игр Университета Иннополис показало, что российская игровая индустрия находится на этапе активного развития, но сталкивается с вызовами. 61% разработчиков отмечает недостаток финансирования — Читать исследование"
     last_modified: "2026-11-01T23:09:38+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# Читать исследование [Presentation Gamedev 12.03]
+# Исследование Центра разработки игр Университета Иннополис показало, что российская игровая индустрия находится на этапе активного развития, но сталкивается с вызовами. 61% разработчиков отмечает недостаток финансирования — Читать исследование
 
 Эксперты
 
@@ -418,4 +418,4 @@ review: "scanned document read by OCR: check numbers and dates against the PDF b
 
 # Citations
 
-1. [Читать исследование [Presentation Gamedev 12.03]](https://innopolis.university/filespublic/Presentation%20Gamedev%2012.03.pdf), file d3613959cae6
+1. [Исследование Центра разработки игр Университета Иннополис показало, что российская игровая индустрия находится на этапе активного развития, но сталкивается с вызовами. 61% разработчиков отмечает недостаток финансирования — Читать исследование](https://innopolis.university/filespublic/Presentation%20Gamedev%2012.03.pdf), file d3613959cae6

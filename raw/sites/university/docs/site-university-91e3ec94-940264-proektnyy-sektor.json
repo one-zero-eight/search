@@ -1,0 +1,16 @@
+{
+ "title": "Проектный сектор — Положение",
+ "url": "https://innopolis.university/upload/iblock/d7f/5nzrz5idc3v6204f2vk98ei5us7be5ky/940264_проектный сектор.pdf",
+ "sha256": "b2b2ff79b50fffbb9c8c51990b43060febad1c113d051d67114b34afb81d849e",
+ "method": "ocr (chandra-ocr-2)",
+ "chars": 7896,
+ "section": "site/university",
+ "context": "Проектный сектор",
+ "fetched_at": "2026-10-22T22:52:55+00:00",
+ "remote": {
+  "etag": "\"69e76b7c-109b4a\"",
+  "modified": "Tue, 21 Apr 2026 12:20:12 GMT",
+  "size": "1088330"
+ },
+ "tables": 5
+}

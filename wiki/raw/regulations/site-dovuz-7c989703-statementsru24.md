@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "statements-ru24"
+title: "Первый отборочный этап — statements-ru24"
 resource: "https://lk-dovuz.innopolis.university/public/files/statements-ru24.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/statements-ru24.pdf"
     id: "18ae2d8a057f"
-    title: "statements-ru24"
+    title: "Первый отборочный этап — statements-ru24"
     last_modified: "2023-11-12T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# statements-ru24
+# Первый отборочный этап — statements-ru24
 
 Innopolis Open 2023. Qualification Round 1 Россия, Иннополис, 12 ноября 2023
 
@@ -314,4 +314,4 @@ VK очень часто проводит хакатоны, где програ�
 
 # Citations
 
-1. [statements-ru24](https://lk-dovuz.innopolis.university/public/files/statements-ru24.pdf), file 18ae2d8a057f
+1. [Первый отборочный этап — statements-ru24](https://lk-dovuz.innopolis.university/public/files/statements-ru24.pdf), file 18ae2d8a057f

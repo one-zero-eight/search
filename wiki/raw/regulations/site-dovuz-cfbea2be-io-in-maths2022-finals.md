@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "IO in Maths-2022 Finals"
+title: "Финальный тур — IO in Maths-2022 Finals"
 resource: "https://lk-dovuz.innopolis.university/public/files/IO%20in%20Maths-2022%20Finals.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/IO%20in%20Maths-2022%20Finals.pdf"
     id: "39c9be5c2609"
-    title: "IO in Maths-2022 Finals"
+    title: "Финальный тур — IO in Maths-2022 Finals"
     last_modified: "2026-11-01T23:17:18+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# IO in Maths-2022 Finals
+# Финальный тур — IO in Maths-2022 Finals
 
 **1.** Первичная оценка решения каждой задачи выставляется по 5-балльной шкале. 2. Для каждой задачи вычисляется средний балл (M) по результатам ее решения всеми участниками. 3. Весовой коэффициент (K) каждой задачи вычисляется по простой формуле: K=3-0.5∙M 4. Балл каждого участника за каждую задачу умножается на весовой коэффициент этой задачи. 5. Баллы, набранные участником, суммируются с последующим округлением до ближайшего целого в бóльшую сторону.
 
@@ -121,4 +121,4 @@ status: draft
 
 # Citations
 
-1. [IO in Maths-2022 Finals](https://lk-dovuz.innopolis.university/public/files/IO%20in%20Maths-2022%20Finals.pdf), file 39c9be5c2609
+1. [Финальный тур — IO in Maths-2022 Finals](https://lk-dovuz.innopolis.university/public/files/IO%20in%20Maths-2022%20Finals.pdf), file 39c9be5c2609

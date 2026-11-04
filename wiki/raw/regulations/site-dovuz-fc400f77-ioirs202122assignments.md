@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "io-irs-202122-assignments"
+title: "Финал — io-irs-202122-assignments"
 resource: "https://lk-dovuz.innopolis.university/public/files/io-irs-202122-assignments.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/io-irs-202122-assignments.pdf"
     id: "cccde82cb48a"
-    title: "io-irs-202122-assignments"
+    title: "Финал — io-irs-202122-assignments"
     last_modified: "2022-04-22T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# io-irs-202122-assignments
+# Финал — io-irs-202122-assignments
 
 МАТЕРИАЛЫ ЗАДАНИЙ межународной олимпиады Innopolis Open по профилю
 
@@ -2764,4 +2764,4 @@ OperateRobot.py import urx # pip install git+https://github.com/jkur/python-urx 
 
 # Citations
 
-1. [io-irs-202122-assignments](https://lk-dovuz.innopolis.university/public/files/io-irs-202122-assignments.pdf), file cccde82cb48a
+1. [Финал — io-irs-202122-assignments](https://lk-dovuz.innopolis.university/public/files/io-irs-202122-assignments.pdf), file cccde82cb48a

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Read the article [NIR_2022_fusionofdata]"
+title: "approach could work efficiently in a real-time manner. — Read the article"
 resource: "https://innopolis.university/filespublic/NIR_2022_fusionofdata.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/NIR_2022_fusionofdata.pdf"
     id: "63b225eed634"
-    title: "Read the article [NIR_2022_fusionofdata]"
+    title: "approach could work efficiently in a real-time manner. — Read the article"
     last_modified: "2026-10-24T23:44:57+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Read the article [NIR_2022_fusionofdata]
+# approach could work efficiently in a real-time manner. — Read the article
 
 Fusion of Data from Lidar and Camera in Self Driving Cars
 
@@ -271,4 +271,4 @@ REFERENCES
 
 # Citations
 
-1. [Read the article [NIR_2022_fusionofdata]](https://innopolis.university/filespublic/NIR_2022_fusionofdata.pdf), file 63b225eed634
+1. [approach could work efficiently in a real-time manner. — Read the article](https://innopolis.university/filespublic/NIR_2022_fusionofdata.pdf), file 63b225eed634

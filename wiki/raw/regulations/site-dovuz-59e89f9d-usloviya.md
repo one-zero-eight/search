@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "usloviya"
+title: "Второй отборочный этап — usloviya"
 resource: "https://lk-dovuz.innopolis.university/public/files/usloviya.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/usloviya.pdf"
     id: "11591e72f1d4"
-    title: "usloviya"
+    title: "Второй отборочный этап — usloviya"
     last_modified: "2026-11-01T23:17:27+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# usloviya
+# Второй отборочный этап — usloviya
 
 Задача 1: Детектор различий на изображениях
 
@@ -890,4 +890,4 @@ Baseline решение
 
 # Citations
 
-1. [usloviya](https://lk-dovuz.innopolis.university/public/files/usloviya.pdf), file 11591e72f1d4
+1. [Второй отборочный этап — usloviya](https://lk-dovuz.innopolis.university/public/files/usloviya.pdf), file 11591e72f1d4

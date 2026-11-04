@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Задания и решения 2021-2022"
+title: "Первый заочный отборочный тур — Задания и решения 2021-2022"
 resource: "https://lk-dovuz.innopolis.university/public/files/%D0%97%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%B8%20%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D1%8F%202021-2022.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/%D0%97%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%B8%20%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D1%8F%202021-2022.pdf"
     id: "afbfb7c0ebf2"
-    title: "Задания и решения 2021-2022"
+    title: "Первый заочный отборочный тур — Задания и решения 2021-2022"
     last_modified: "2026-11-01T23:17:18+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Задания и решения 2021-2022
+# Первый заочный отборочный тур — Задания и решения 2021-2022
 
 Олимпиада по математике Innopolis Open
 
@@ -2291,4 +2291,4 @@ Solution (ENG). Let 𝑂, 𝑉 , 𝑋 and 𝑌 denote Oleg, Oliver and two assis
 
 # Citations
 
-1. [Задания и решения 2021-2022](https://lk-dovuz.innopolis.university/public/files/%D0%97%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%B8%20%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D1%8F%202021-2022.pdf), file afbfb7c0ebf2
+1. [Первый заочный отборочный тур — Задания и решения 2021-2022](https://lk-dovuz.innopolis.university/public/files/%D0%97%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%B8%20%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D1%8F%202021-2022.pdf), file afbfb7c0ebf2

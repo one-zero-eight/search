@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Digest-Robotics2"
+title: "26.02.2021 — Digest-Robotics2"
 resource: "https://robotics.innopolis.university/wp-content/uploads/2021/02/Digest-Robotics2.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/robotics"
 sources:
   - resource: "https://robotics.innopolis.university/wp-content/uploads/2021/02/Digest-Robotics2.pdf"
     id: "72d0a93399e1"
-    title: "Digest-Robotics2"
+    title: "26.02.2021 — Digest-Robotics2"
     last_modified: "2026-10-31T09:36:32+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Digest-Robotics2
+# 26.02.2021 — Digest-Robotics2
 
 Дайджест по робототехнике
 
@@ -3470,4 +3470,4 @@ International Conference on Computer Vision (ICCV 2021)
 
 # Citations
 
-1. [Digest-Robotics2](https://robotics.innopolis.university/wp-content/uploads/2021/02/Digest-Robotics2.pdf), file 72d0a93399e1
+1. [26.02.2021 — Digest-Robotics2](https://robotics.innopolis.university/wp-content/uploads/2021/02/Digest-Robotics2.pdf), file 72d0a93399e1

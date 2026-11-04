@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "950946 Бухгалтерия"
+title: "отсутствует — 950946 Бухгалтерия"
 resource: "https://innopolis.university/upload/iblock/bec/arybmw6ax8xdeabw2o4i3mh8upjrtsvu/950946_%D0%91%D1%83%D1%85%D0%B3%D0%B0%D0%BB%D1%82%D0%B5%D1%80%D0%B8%D1%8F.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/upload/iblock/bec/arybmw6ax8xdeabw2o4i3mh8upjrtsvu/950946_%D0%91%D1%83%D1%85%D0%B3%D0%B0%D0%BB%D1%82%D0%B5%D1%80%D0%B8%D1%8F.pdf"
     id: "bbec60158bb2"
-    title: "950946 Бухгалтерия"
+    title: "отсутствует — 950946 Бухгалтерия"
     last_modified: "2024-12-16T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# 950946 Бухгалтерия
+# отсутствует — 950946 Бухгалтерия
 
 УНИВЕРСИТЕТ ИННОПОЛИС
 
@@ -208,4 +208,4 @@ review: "scanned document read by OCR: check numbers and dates against the PDF b
 
 # Citations
 
-1. [950946 Бухгалтерия](https://innopolis.university/upload/iblock/bec/arybmw6ax8xdeabw2o4i3mh8upjrtsvu/950946_%D0%91%D1%83%D1%85%D0%B3%D0%B0%D0%BB%D1%82%D0%B5%D1%80%D0%B8%D1%8F.pdf), file bbec60158bb2
+1. [отсутствует — 950946 Бухгалтерия](https://innopolis.university/upload/iblock/bec/arybmw6ax8xdeabw2o4i3mh8upjrtsvu/950946_%D0%91%D1%83%D1%85%D0%B3%D0%B0%D0%BB%D1%82%D0%B5%D1%80%D0%B8%D1%8F.pdf), file bbec60158bb2

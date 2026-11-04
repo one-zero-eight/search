@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "contest-ru"
+title: "Первый отборочный этап — contest-ru"
 resource: "https://lk-dovuz.innopolis.university/public/files/contest-ru.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/contest-ru.pdf"
     id: "b72fedf0c519"
-    title: "contest-ru"
+    title: "Первый отборочный этап — contest-ru"
     last_modified: "2026-11-01T23:17:20+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# contest-ru
+# Первый отборочный этап — contest-ru
 
 Innopolis Open по робототехнике ,
 
@@ -563,4 +563,4 @@ Innopolis Open по робототехнике , Пример
 
 # Citations
 
-1. [contest-ru](https://lk-dovuz.innopolis.university/public/files/contest-ru.pdf), file b72fedf0c519
+1. [Первый отборочный этап — contest-ru](https://lk-dovuz.innopolis.university/public/files/contest-ru.pdf), file b72fedf0c519

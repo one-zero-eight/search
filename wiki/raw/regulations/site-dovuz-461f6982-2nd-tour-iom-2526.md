@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "2nd tour IOM 25-26"
+title: "Второй заочный отборочный этап — 2nd tour IOM 25-26"
 resource: "https://lk-dovuz.innopolis.university/public/files/2nd_tour_IOM_25-26.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/2nd_tour_IOM_25-26.pdf"
     id: "a202b13ec20d"
-    title: "2nd tour IOM 25-26"
+    title: "Второй заочный отборочный этап — 2nd tour IOM 25-26"
     last_modified: "2026-11-01T23:17:18+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# 2nd tour IOM 25-26
+# Второй заочный отборочный этап — 2nd tour IOM 25-26
 
 Innopolis Open 2025/26 in Mathematics 2𝑛𝑑 qualifying round
 
@@ -1265,4 +1265,4 @@ Criteria:
 
 # Citations
 
-1. [2nd tour IOM 25-26](https://lk-dovuz.innopolis.university/public/files/2nd_tour_IOM_25-26.pdf), file a202b13ec20d
+1. [Второй заочный отборочный этап — 2nd tour IOM 25-26](https://lk-dovuz.innopolis.university/public/files/2nd_tour_IOM_25-26.pdf), file a202b13ec20d

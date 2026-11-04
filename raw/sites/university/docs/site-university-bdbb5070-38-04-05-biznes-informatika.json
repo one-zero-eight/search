@@ -1,0 +1,16 @@
+{
+ "title": "38.04.05 Бизнес-информатика",
+ "url": "https://innopolis.university/upload/iblock/837/lci4s8mf15yul6semfvvrt59mqw9jvpj/38.04.05._Бизнес_информатика.pdf",
+ "sha256": "677841920b07cfa820509c8916c1064f0936acc5daf33e0373c298fd7e41d53b",
+ "method": "text layer (opendataloader)",
+ "chars": 34460,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-22T21:49:43+00:00",
+ "tables": 5,
+ "remote": {
+  "etag": "\"64e6185f-3dcab\"",
+  "modified": "Wed, 23 Aug 2023 14:31:59 GMT",
+  "size": "253099"
+ }
+}

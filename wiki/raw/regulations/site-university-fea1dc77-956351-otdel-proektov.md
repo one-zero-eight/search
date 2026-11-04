@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "956351 Отдел проектов"
+title: "460 — 956351 Отдел проектов"
 resource: "https://innopolis.university/upload/iblock/dec/ab0z0xrhpf81c2qzk14odtv4m5txaina/956351_%D0%9E%D1%82%D0%B4%D0%B5%D0%BB%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%BE%D0%B2.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/upload/iblock/dec/ab0z0xrhpf81c2qzk14odtv4m5txaina/956351_%D0%9E%D1%82%D0%B4%D0%B5%D0%BB%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%BE%D0%B2.pdf"
     id: "92fd3eaf0eda"
-    title: "956351 Отдел проектов"
+    title: "460 — 956351 Отдел проектов"
     last_modified: "2025-01-15T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# 956351 Отдел проектов
+# 460 — 956351 Отдел проектов
 
 УНИВЕРСИТЕТ ИННОПОЛИС
 
@@ -168,4 +168,4 @@ review: "scanned document read by OCR: check numbers and dates against the PDF b
 
 # Citations
 
-1. [956351 Отдел проектов](https://innopolis.university/upload/iblock/dec/ab0z0xrhpf81c2qzk14odtv4m5txaina/956351_%D0%9E%D1%82%D0%B4%D0%B5%D0%BB%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%BE%D0%B2.pdf), file 92fd3eaf0eda
+1. [460 — 956351 Отдел проектов](https://innopolis.university/upload/iblock/dec/ab0z0xrhpf81c2qzk14odtv4m5txaina/956351_%D0%9E%D1%82%D0%B4%D0%B5%D0%BB%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%BE%D0%B2.pdf), file 92fd3eaf0eda

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "usloviya en"
+title: "Заключительный этап — usloviya en"
 resource: "https://lk-dovuz.innopolis.university/public/files/usloviya_en.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/usloviya_en.pdf"
     id: "44caa127c4a3"
-    title: "usloviya en"
+    title: "Заключительный этап — usloviya en"
     last_modified: "2026-11-01T23:17:27+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# usloviya en
+# Заключительный этап — usloviya en
 
 Innopolis Open 2025-2026 Final round Russia, Innopolis, February 14, 2026
 
@@ -498,4 +498,4 @@ Examples
 
 # Citations
 
-1. [usloviya en](https://lk-dovuz.innopolis.university/public/files/usloviya_en.pdf), file 44caa127c4a3
+1. [Заключительный этап — usloviya en](https://lk-dovuz.innopolis.university/public/files/usloviya_en.pdf), file 44caa127c4a3

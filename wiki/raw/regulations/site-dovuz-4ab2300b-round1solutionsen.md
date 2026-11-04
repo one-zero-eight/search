@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "round1-solutions-en"
+title: "Условия задач/разбор: Задачи(ru) Задачи(en) — round1-solutions-en"
 resource: "https://lk-dovuz.innopolis.university/public/files/round1-solutions-en.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/round1-solutions-en.pdf"
     id: "35532c84188a"
-    title: "round1-solutions-en"
+    title: "Условия задач/разбор: Задачи(ru) Задачи(en) — round1-solutions-en"
     last_modified: "2026-11-01T23:17:26+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# round1-solutions-en
+# Условия задач/разбор: Задачи(ru) Задачи(en) — round1-solutions-en
 
 Innopolis Open 2022-2023 First qualification round Russia, Innopolis, November 13, 2022
 
@@ -97,4 +97,4 @@ Now we can finally solve the problem using a segment tree that stores matrices a
 
 # Citations
 
-1. [round1-solutions-en](https://lk-dovuz.innopolis.university/public/files/round1-solutions-en.pdf), file 35532c84188a
+1. [Условия задач/разбор: Задачи(ru) Задачи(en) — round1-solutions-en](https://lk-dovuz.innopolis.university/public/files/round1-solutions-en.pdf), file 35532c84188a

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "infobez io protokol 25"
+title: "Заключительный этап олимпиады прошёл в два тура — индивидуальный и командный. Во время индивидуального тура школьники в течение 4 часов на платформе CTFd решали задачи по программированию, сетевым инфраструктуре и проток — infobez io protokol 25"
 resource: "https://lk-dovuz.innopolis.university/public/files/infobez_io_protokol_25.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/media"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/infobez_io_protokol_25.pdf"
     id: "173884244f05"
-    title: "infobez io protokol 25"
+    title: "Заключительный этап олимпиады прошёл в два тура — индивидуальный и командный. Во время индивидуального тура школьники в течение 4 часов на платформе CTFd решали задачи по программированию, сетевым инфраструктуре и проток — infobez io protokol 25"
     last_modified: "2026-11-01T23:10:11+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# infobez io protokol 25
+# Заключительный этап олимпиады прошёл в два тура — индивидуальный и командный. Во время индивидуального тура школьники в течение 4 часов на платформе CTFd решали задачи по программированию, сетевым инфраструктуре и проток — infobez io protokol 25
 
 Результаты заключительного этапа Международной олимпиады Innopolis Open по профилю "Информационная безопасность" The results of the final stage of the Innopolis Open Olympiad in Cybersecurity 2024-2025
 
@@ -78,4 +78,4 @@ status: draft
 
 # Citations
 
-1. [infobez io protokol 25](https://lk-dovuz.innopolis.university/public/files/infobez_io_protokol_25.pdf), file 173884244f05
+1. [Заключительный этап олимпиады прошёл в два тура — индивидуальный и командный. Во время индивидуального тура школьники в течение 4 часов на платформе CTFd решали задачи по программированию, сетевым инфраструктуре и проток — infobez io protokol 25](https://lk-dovuz.innopolis.university/public/files/infobez_io_protokol_25.pdf), file 173884244f05

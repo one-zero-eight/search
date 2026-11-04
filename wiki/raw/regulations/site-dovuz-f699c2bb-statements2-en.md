@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "statements-2 (en)"
+title: "Второй отборочный этап — statements-2 (en)"
 resource: "https://lk-dovuz.innopolis.university/public/files/statements-2%20%28en%29.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/statements-2%20%28en%29.pdf"
     id: "32f718a6cdac"
-    title: "statements-2 (en)"
+    title: "Второй отборочный этап — statements-2 (en)"
     last_modified: "2026-11-01T23:17:26+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# statements-2 (en)
+# Второй отборочный этап — statements-2 (en)
 
 Innopolis Open 2020-2021, qualification, contest 2 Russia, Innopolis, December, 13, 2020
 
@@ -273,4 +273,4 @@ A picture for the third example:
 
 # Citations
 
-1. [statements-2 (en)](https://lk-dovuz.innopolis.university/public/files/statements-2%20%28en%29.pdf), file 32f718a6cdac
+1. [Второй отборочный этап — statements-2 (en)](https://lk-dovuz.innopolis.university/public/files/statements-2%20%28en%29.pdf), file 32f718a6cdac

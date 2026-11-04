@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "report-2013"
+title: "2013 — report-2013"
 resource: "https://innopolis.university/upload/files/report-2013.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/upload/files/report-2013.pdf"
     id: "fead17a7af2d"
-    title: "report-2013"
+    title: "2013 — report-2013"
     last_modified: "2013-12-30T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# report-2013
+# 2013 — report-2013
 
 Годовой отчет Университета Иннополис за 2013 год
 
@@ -730,4 +730,4 @@ PR-возможности
 
 # Citations
 
-1. [report-2013](https://innopolis.university/upload/files/report-2013.pdf), file fead17a7af2d
+1. [2013 — report-2013](https://innopolis.university/upload/files/report-2013.pdf), file fead17a7af2d

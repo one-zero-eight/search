@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "offer python base 070626"
+title: "А в день выезда отвезут обратно по тем же точкам из Университета Иннополис в 10:00 — offer python base 070626"
 resource: "https://lk-dovuz.innopolis.university/public/files/offer_python_base_070626.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/offer_python_base_070626.pdf"
     id: "24b9ad2e5030"
-    title: "offer python base 070626"
+    title: "А в день выезда отвезут обратно по тем же точкам из Университета Иннополис в 10:00 — offer python base 070626"
     last_modified: "2026-01-16T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# offer python base 070626
+# А в день выезда отвезут обратно по тем же точкам из Университета Иннополис в 10:00 — offer python base 070626
 
 Договор об образовании по дополнительным общеобразовательным общеразвивающим программам (договор присоединения) № ОФ02 от 16.01.2026 г.
 
@@ -311,4 +311,4 @@ status: draft
 
 # Citations
 
-1. [offer python base 070626](https://lk-dovuz.innopolis.university/public/files/offer_python_base_070626.pdf), file 24b9ad2e5030
+1. [А в день выезда отвезут обратно по тем же точкам из Университета Иннополис в 10:00 — offer python base 070626](https://lk-dovuz.innopolis.university/public/files/offer_python_base_070626.pdf), file 24b9ad2e5030

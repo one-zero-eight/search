@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "договором оферты [offer_vsosh_regional2025]"
+title: "После завершения обучения вы получаете право на налоговый вычет в размере 13% — договором оферты [offer_vsosh_regional2025]"
 resource: "https://lk-dovuz.innopolis.university/public/files/offer_vsosh_regional2025.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/offer_vsosh_regional2025.pdf"
     id: "a5e090409b25"
-    title: "договором оферты [offer_vsosh_regional2025]"
+    title: "После завершения обучения вы получаете право на налоговый вычет в размере 13% — договором оферты [offer_vsosh_regional2025]"
     last_modified: "2025-06-18T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# договором оферты [offer_vsosh_regional2025]
+# После завершения обучения вы получаете право на налоговый вычет в размере 13% — договором оферты [offer_vsosh_regional2025]
 
 Договор об образовании по дополнительным общеобразовательным общеразвивающим программам (договор присоединения) № ОНЛ33 от 18.06.2025 г.
 
@@ -251,4 +251,4 @@ status: draft
 
 # Citations
 
-1. [договором оферты [offer_vsosh_regional2025]](https://lk-dovuz.innopolis.university/public/files/offer_vsosh_regional2025.pdf), file a5e090409b25
+1. [После завершения обучения вы получаете право на налоговый вычет в размере 13% — договором оферты [offer_vsosh_regional2025]](https://lk-dovuz.innopolis.university/public/files/offer_vsosh_regional2025.pdf), file a5e090409b25

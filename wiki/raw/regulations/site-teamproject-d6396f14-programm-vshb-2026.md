@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Скачать программу [programm_vshb_2026]"
+title: "Для кого — Скачать программу"
 resource: "https://lk-dovuz.innopolis.university/public/files/programm_vshb_2026.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/teamproject"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/programm_vshb_2026.pdf"
     id: "f3087ea28e80"
-    title: "Скачать программу [programm_vshb_2026]"
+    title: "Для кого — Скачать программу"
     last_modified: "2026-11-01T23:17:43+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Скачать программу [programm_vshb_2026]
+# Для кого — Скачать программу
 
 14:00-16:00
 
@@ -157,4 +157,4 @@ status: draft
 
 # Citations
 
-1. [Скачать программу [programm_vshb_2026]](https://lk-dovuz.innopolis.university/public/files/programm_vshb_2026.pdf), file f3087ea28e80
+1. [Для кого — Скачать программу](https://lk-dovuz.innopolis.university/public/files/programm_vshb_2026.pdf), file f3087ea28e80

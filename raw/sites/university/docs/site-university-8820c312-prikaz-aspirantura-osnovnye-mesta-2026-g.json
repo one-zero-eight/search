@@ -1,0 +1,16 @@
+{
+ "title": "Приказ о зачислении (Аспирантура, основные места, 2026 г.)",
+ "url": "https://innopolis.university/upload/iblock/818/ujj3e041a0uli8qv8jc1yw5xx2hx8i1e/Приказ__Аспирантура__основные_места__2026_г._.pdf",
+ "sha256": "224deff8cab1b21c504831ab568f9624090983bc7d7607a786a2f582d9c966bd",
+ "method": "ocr (chandra-ocr-2)",
+ "chars": 1973,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-22T22:29:53+00:00",
+ "remote": {
+  "etag": "\"6a9023ab-aae03\"",
+  "modified": "Thu, 27 Aug 2026 11:46:51 GMT",
+  "size": "699907"
+ },
+ "tables": 5
+}

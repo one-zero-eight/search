@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "offer groupc 0706"
+title: "А в день выезда отвезут обратно по тем же точкам из Университета Иннополис в 10:00 — offer groupc 0706"
 resource: "https://lk-dovuz.innopolis.university/public/files/offer_groupc_0706.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/offer_groupc_0706.pdf"
     id: "50918be0eaea"
-    title: "offer groupc 0706"
+    title: "А в день выезда отвезут обратно по тем же точкам из Университета Иннополис в 10:00 — offer groupc 0706"
     last_modified: "2026-01-16T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# offer groupc 0706
+# А в день выезда отвезут обратно по тем же точкам из Университета Иннополис в 10:00 — offer groupc 0706
 
 Договор об образовании по дополнительным общеобразовательным общеразвивающим программам (договор присоединения) № ОФ05 от 16.01.2026 г.
 
@@ -311,4 +311,4 @@ status: draft
 
 # Citations
 
-1. [offer groupc 0706](https://lk-dovuz.innopolis.university/public/files/offer_groupc_0706.pdf), file 50918be0eaea
+1. [А в день выезда отвезут обратно по тем же точкам из Университета Иннополис в 10:00 — offer groupc 0706](https://lk-dovuz.innopolis.university/public/files/offer_groupc_0706.pdf), file 50918be0eaea

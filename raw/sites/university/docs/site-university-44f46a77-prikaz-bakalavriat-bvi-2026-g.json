@@ -1,0 +1,16 @@
+{
+ "title": "Приказ о зачислении (Бакалавриат, БВИ, 2026 г.)",
+ "url": "https://innopolis.university/upload/iblock/2ef/tc54w8utmwo4wrhvc3yj8jey3czsoukm/Приказ (Бакалавриат, БВИ, 2026 г.).pdf",
+ "sha256": "5cfa4b72ea8b4102628bd2ac32a53217c5480dc3a3d3f67a159382025fa81e8c",
+ "method": "ocr (chandra-ocr-2)",
+ "chars": 8840,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-22T22:06:57+00:00",
+ "remote": {
+  "etag": "\"6a72e9ee-2ac08a\"",
+  "modified": "Wed, 05 Aug 2026 07:44:46 GMT",
+  "size": "2801802"
+ },
+ "tables": 5
+}

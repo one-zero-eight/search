@@ -1,4 +1,7 @@
 {
+ "contexts": {
+  "https://innopolis.university/files/politicacookies.pdf": "Получить консультацию"
+ },
  "docs": {
   "https://innopolis.university/files/politicacookies.pdf": "Политикой обработки персональных данных",
   "https://innopolis.university/filespublic/Polozhenie_o_reklamnoj_rassylke.pdf": "получать рекламную рассылку"

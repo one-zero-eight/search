@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Скачать каталог [ИИ_в_бизнесе_каталог_программ_Университет_Иннополис]"
+title: "Промт-инжиниринг и глобальные тренды генеративного ИИ — Скачать каталог"
 resource: "https://innopolis.university/filespublic/%D0%98%D0%98_%D0%B2_%D0%B1%D0%B8%D0%B7%D0%BD%D0%B5%D1%81%D0%B5_%D0%BA%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC_%D0%A3%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%D0%98%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D0%BB%D0%B8%D1%81.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/ido"
 sources:
   - resource: "https://innopolis.university/filespublic/%D0%98%D0%98_%D0%B2_%D0%B1%D0%B8%D0%B7%D0%BD%D0%B5%D1%81%D0%B5_%D0%BA%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC_%D0%A3%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%D0%98%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D0%BB%D0%B8%D1%81.pdf"
     id: "db670ccda098"
-    title: "Скачать каталог [ИИ_в_бизнесе_каталог_программ_Университет_Иннополис]"
+    title: "Промт-инжиниринг и глобальные тренды генеративного ИИ — Скачать каталог"
     last_modified: "2026-11-01T23:17:28+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Скачать каталог [ИИ_в_бизнесе_каталог_программ_Университет_Иннополис]
+# Промт-инжиниринг и глобальные тренды генеративного ИИ — Скачать каталог
 
 Искусственный интеллект в бизнесе
 
@@ -405,4 +405,4 @@ E-mail: itbm@innopolis.ru
 
 # Citations
 
-1. [Скачать каталог [ИИ_в_бизнесе_каталог_программ_Университет_Иннополис]](https://innopolis.university/filespublic/%D0%98%D0%98_%D0%B2_%D0%B1%D0%B8%D0%B7%D0%BD%D0%B5%D1%81%D0%B5_%D0%BA%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC_%D0%A3%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%D0%98%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D0%BB%D0%B8%D1%81.pdf), file db670ccda098
+1. [Промт-инжиниринг и глобальные тренды генеративного ИИ — Скачать каталог](https://innopolis.university/filespublic/%D0%98%D0%98_%D0%B2_%D0%B1%D0%B8%D0%B7%D0%BD%D0%B5%D1%81%D0%B5_%D0%BA%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC_%D0%A3%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%D0%98%D0%BD%D0%BD%D0%BE%D0%BF%D0%BE%D0%BB%D0%B8%D1%81.pdf), file db670ccda098

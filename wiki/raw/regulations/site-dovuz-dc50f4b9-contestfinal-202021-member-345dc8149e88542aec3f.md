@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "contest-final 2020-21 — problems/long-puzzle/statements/.pdf/english/problem.pdf"
+title: "Финальный этап — contest-final 2020-21 — problems/long-puzzle/statements/.pdf/english/problem.pdf"
 resource: "https://lk-dovuz.innopolis.university/public/files/contest-final_2020-21.zip"
 archive_member: "problems/long-puzzle/statements/.pdf/english/problem.pdf"
 source_kind: official-document
@@ -9,7 +9,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/contest-final_2020-21.zip"
     id: "81dcf4ac542d"
-    title: "contest-final 2020-21 — problems/long-puzzle/statements/.pdf/english/problem.pdf"
+    title: "Финальный этап — contest-final 2020-21 — problems/long-puzzle/statements/.pdf/english/problem.pdf"
     last_modified: "2026-11-04T02:52:48+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# contest-final 2020-21 — problems/long-puzzle/statements/.pdf/english/problem.pdf
+# Финальный этап — contest-final 2020-21 — problems/long-puzzle/statements/.pdf/english/problem.pdf
 
 Long puzzle
 
@@ -65,4 +65,4 @@ Pieces of the puzzle from the first example correspond to the previous picture.
 
 # Citations
 
-1. [contest-final 2020-21 — problems/long-puzzle/statements/.pdf/english/problem.pdf](https://lk-dovuz.innopolis.university/public/files/contest-final_2020-21.zip), file 81dcf4ac542d
+1. [Финальный этап — contest-final 2020-21 — problems/long-puzzle/statements/.pdf/english/problem.pdf](https://lk-dovuz.innopolis.university/public/files/contest-final_2020-21.zip), file 81dcf4ac542d

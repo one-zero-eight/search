@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "reshenie final ai"
+title: "Заключительный этап — reshenie final ai"
 resource: "https://lk-dovuz.innopolis.university/public/files/reshenie_final_ai.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/reshenie_final_ai.pdf"
     id: "263931eac811"
-    title: "reshenie final ai"
+    title: "Заключительный этап — reshenie final ai"
     last_modified: "2026-11-01T23:17:24+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# reshenie final ai
+# Заключительный этап — reshenie final ai
 
 Разбор задачи №1: Очистка данных и корреляционный анализ
 
@@ -619,4 +619,4 @@ eval() (без градиентов), опциональная эвристич�
 
 # Citations
 
-1. [reshenie final ai](https://lk-dovuz.innopolis.university/public/files/reshenie_final_ai.pdf), file 263931eac811
+1. [Заключительный этап — reshenie final ai](https://lk-dovuz.innopolis.university/public/files/reshenie_final_ai.pdf), file 263931eac811

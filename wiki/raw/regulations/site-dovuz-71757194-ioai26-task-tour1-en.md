@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "ioai26 task tour1 en"
+title: "Первый отборочный этап — ioai26 task tour1 en"
 resource: "https://lk-dovuz.innopolis.university/public/files/ioai26_task_tour1_en.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/ioai26_task_tour1_en.pdf"
     id: "0f3f37b25f84"
-    title: "ioai26 task tour1 en"
+    title: "Первый отборочный этап — ioai26 task tour1 en"
     last_modified: "2026-11-01T23:17:22+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# ioai26 task tour1 en
+# Первый отборочный этап — ioai26 task tour1 en
 
 Task 1: Text Statistics
 
@@ -1052,4 +1052,4 @@ Technical Requirements
 
 # Citations
 
-1. [ioai26 task tour1 en](https://lk-dovuz.innopolis.university/public/files/ioai26_task_tour1_en.pdf), file 0f3f37b25f84
+1. [Первый отборочный этап — ioai26 task tour1 en](https://lk-dovuz.innopolis.university/public/files/ioai26_task_tour1_en.pdf), file 0f3f37b25f84

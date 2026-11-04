@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Read the article [NIR_2022_stiffness-analysis]"
+title: "(MSA). In order to find end-effector deflection, an applied load is exerted along different directions at multiple points in the robot workspace, which is presented in scatter plots. The computational cost and difference — Read the article"
 resource: "https://innopolis.university/filespublic/NIR_2022_stiffness-analysis.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/NIR_2022_stiffness-analysis.pdf"
     id: "b4cee548cca7"
-    title: "Read the article [NIR_2022_stiffness-analysis]"
+    title: "(MSA). In order to find end-effector deflection, an applied load is exerted along different directions at multiple points in the robot workspace, which is presented in scatter plots. The computational cost and difference — Read the article"
     last_modified: "2026-10-24T23:45:43+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Read the article [NIR_2022_stiffness-analysis]
+# (MSA). In order to find end-effector deflection, an applied load is exerted along different directions at multiple points in the robot workspace, which is presented in scatter plots. The computational cost and difference — Read the article
 
 Stiffness Analysis of the Double Pantograph Transmission System
 
@@ -501,4 +501,4 @@ REFERENCES
 
 # Citations
 
-1. [Read the article [NIR_2022_stiffness-analysis]](https://innopolis.university/filespublic/NIR_2022_stiffness-analysis.pdf), file b4cee548cca7
+1. [(MSA). In order to find end-effector deflection, an applied load is exerted along different directions at multiple points in the robot workspace, which is presented in scatter plots. The computational cost and difference — Read the article](https://innopolis.university/filespublic/NIR_2022_stiffness-analysis.pdf), file b4cee548cca7

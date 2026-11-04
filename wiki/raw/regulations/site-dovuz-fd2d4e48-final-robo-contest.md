@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Final robo contest"
+title: "Заключительный этап — Final robo contest"
 resource: "https://lk-dovuz.innopolis.university/public/files/Final_robo_contest.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/Final_robo_contest.pdf"
     id: "1a13302a42dd"
-    title: "Final robo contest"
+    title: "Заключительный этап — Final robo contest"
     last_modified: "2026-11-01T23:17:18+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Final robo contest
+# Заключительный этап — Final robo contest
 
 Innopolis Open Robotics 2025-2026 Финал этап. 7-8 класс
 
@@ -1774,4 +1774,4 @@ dp[i][k] = min(dp[i][k], dp[i][j] + dist(j,k)).
 
 # Citations
 
-1. [Final robo contest](https://lk-dovuz.innopolis.university/public/files/Final_robo_contest.pdf), file 1a13302a42dd
+1. [Заключительный этап — Final robo contest](https://lk-dovuz.innopolis.university/public/files/Final_robo_contest.pdf), file 1a13302a42dd

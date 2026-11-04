@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "report-2014"
+title: "2014 — report-2014"
 resource: "https://innopolis.university/upload/files/report-2014.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/upload/files/report-2014.pdf"
     id: "09b3aee91085"
-    title: "report-2014"
+    title: "2014 — report-2014"
     last_modified: "2026-10-24T23:49:45+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# report-2014
+# 2014 — report-2014
 
 Годовой отчет Университета Иннополис 2014
 
@@ -581,4 +581,4 @@ Vasiliy_Artemev @v_artemev · 8 ч. Для меня важно понимать 
 
 # Citations
 
-1. [report-2014](https://innopolis.university/upload/files/report-2014.pdf), file 09b3aee91085
+1. [2014 — report-2014](https://innopolis.university/upload/files/report-2014.pdf), file 09b3aee91085

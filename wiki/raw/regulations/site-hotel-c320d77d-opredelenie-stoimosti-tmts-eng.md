@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "System of fines"
+title: "DOCUMENTS — System of fines"
 resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%BE%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8_%D0%A2%D0%9C%D0%A6_eng.pdf"
 audience: ["student", "postgraduate", "applicant", "public"]
 source_kind: official-document
@@ -9,7 +9,7 @@ section: "site/hotel"
 sources:
   - resource: "https://hotel.innopolis.university/upload/docs-hotel/%D0%BE%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8_%D0%A2%D0%9C%D0%A6_eng.pdf"
     id: "2671a9145dc4"
-    title: "System of fines"
+    title: "DOCUMENTS — System of fines"
     last_modified: "2026-10-31T00:26:16+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# System of fines
+# DOCUMENTS — System of fines
 
 List of fines for violations of the Rules of accommodation in a residential complex "Innopolis University"
 
@@ -173,4 +173,4 @@ List and cost of Inventory items located in the residential rooms of the residen
 
 # Citations
 
-1. [System of fines](https://hotel.innopolis.university/upload/docs-hotel/%D0%BE%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8_%D0%A2%D0%9C%D0%A6_eng.pdf), file 2671a9145dc4
+1. [DOCUMENTS — System of fines](https://hotel.innopolis.university/upload/docs-hotel/%D0%BE%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8_%D0%A2%D0%9C%D0%A6_eng.pdf), file 2671a9145dc4

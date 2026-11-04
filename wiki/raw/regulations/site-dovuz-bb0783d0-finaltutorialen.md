@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "final-tutorial-en"
+title: "Финал — final-tutorial-en"
 resource: "https://lk-dovuz.innopolis.university/public/files/final-tutorial-en.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/final-tutorial-en.pdf"
     id: "1f2baba46ef4"
-    title: "final-tutorial-en"
+    title: "Финал — final-tutorial-en"
     last_modified: "2026-11-01T23:17:20+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# final-tutorial-en
+# Финал — final-tutorial-en
 
 Innopolis Open 2022-2023 Final round Russia, Innopolis, February 12, 2022
 
@@ -107,4 +107,4 @@ The transitions can be optimized with prefix sums, yielding a O(n5) solution. Th
 
 # Citations
 
-1. [final-tutorial-en](https://lk-dovuz.innopolis.university/public/files/final-tutorial-en.pdf), file 1f2baba46ef4
+1. [Финал — final-tutorial-en](https://lk-dovuz.innopolis.university/public/files/final-tutorial-en.pdf), file 1f2baba46ef4

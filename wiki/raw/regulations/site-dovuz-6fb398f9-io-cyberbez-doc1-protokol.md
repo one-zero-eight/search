@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "io cyberbez doc1 protokol"
+title: "Первый отборочный этап — io cyberbez doc1 protokol"
 resource: "https://lk-dovuz.innopolis.university/public/files/io_cyberbez_doc1_protokol.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/io_cyberbez_doc1_protokol.pdf"
     id: "e3bfeba62ca3"
-    title: "io cyberbez doc1 protokol"
+    title: "Первый отборочный этап — io cyberbez doc1 protokol"
     last_modified: "2026-11-01T23:17:22+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# io cyberbez doc1 protokol
+# Первый отборочный этап — io cyberbez doc1 protokol
 
 Международная олимпиада Innopolis Open 2025-2626
 
@@ -423,4 +423,4 @@ The final results of the first qualifying stage of the Innopolis Open Olympiad i
 
 # Citations
 
-1. [io cyberbez doc1 protokol](https://lk-dovuz.innopolis.university/public/files/io_cyberbez_doc1_protokol.pdf), file e3bfeba62ca3
+1. [Первый отборочный этап — io cyberbez doc1 protokol](https://lk-dovuz.innopolis.university/public/files/io_cyberbez_doc1_protokol.pdf), file e3bfeba62ca3

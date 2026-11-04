@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "statements-1 (ru)"
+title: "Первый отборочный этап — statements-1 (ru)"
 resource: "https://lk-dovuz.innopolis.university/public/files/statements-1%20%28ru%29.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/statements-1%20%28ru%29.pdf"
     id: "dd08570cc2db"
-    title: "statements-1 (ru)"
+    title: "Первый отборочный этап — statements-1 (ru)"
     last_modified: "2020-11-22T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# statements-1 (ru)
+# Первый отборочный этап — statements-1 (ru)
 
 Отборочный этап Олимпиады Университета Иннополис. Первый тур. 2020-2021 Россия, Иннополис, 22 ноября 2020
 
@@ -247,4 +247,4 @@ status: draft
 
 # Citations
 
-1. [statements-1 (ru)](https://lk-dovuz.innopolis.university/public/files/statements-1%20%28ru%29.pdf), file dd08570cc2db
+1. [Первый отборочный этап — statements-1 (ru)](https://lk-dovuz.innopolis.university/public/files/statements-1%20%28ru%29.pdf), file dd08570cc2db

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "2024-2025 (ЭЦП, sig) — РПВоспитания_2021.pdf"
+title: "Образовательная программа высшего образования - программа бакалавриата: 15.03.06 Мехатроника и робототехника; Направленность программы (профиль) – Робототехника — 2025 — 2024-2025 (ЭЦП, sig) — РПВоспитания_2021.pdf"
 resource: "https://innopolis.university/upload/files/Obrazovanie/%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_%D0%9A%D0%9F%D0%A1%D0%B8%D0%9C%D0%92%D0%9F%20%D0%BD%D0%B0%202024-2025%20%D1%83%D1%87.%D0%B3%D0%BE%D0%B4.zip"
 archive_member: "РПВоспитания_2021.pdf"
 source_kind: official-document
@@ -9,7 +9,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/upload/files/Obrazovanie/%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_%D0%9A%D0%9F%D0%A1%D0%B8%D0%9C%D0%92%D0%9F%20%D0%BD%D0%B0%202024-2025%20%D1%83%D1%87.%D0%B3%D0%BE%D0%B4.zip"
     id: "5d812cc6da0b"
-    title: "2024-2025 (ЭЦП, sig) — РПВоспитания_2021.pdf"
+    title: "Образовательная программа высшего образования - программа бакалавриата: 15.03.06 Мехатроника и робототехника; Направленность программы (профиль) – Робототехника — 2025 — 2024-2025 (ЭЦП, sig) — РПВоспитания_2021.pdf"
     last_modified: "2021-05-31T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -19,7 +19,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# 2024-2025 (ЭЦП, sig) — РПВоспитания_2021.pdf
+# Образовательная программа высшего образования - программа бакалавриата: 15.03.06 Мехатроника и робототехника; Направленность программы (профиль) – Робототехника — 2025 — 2024-2025 (ЭЦП, sig) — РПВоспитания_2021.pdf
 
 innopolis University
 
@@ -890,4 +890,4 @@ innopolis University
 
 # Citations
 
-1. [2024-2025 (ЭЦП, sig) — РПВоспитания_2021.pdf](https://innopolis.university/upload/files/Obrazovanie/%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_%D0%9A%D0%9F%D0%A1%D0%B8%D0%9C%D0%92%D0%9F%20%D0%BD%D0%B0%202024-2025%20%D1%83%D1%87.%D0%B3%D0%BE%D0%B4.zip), file 5d812cc6da0b
+1. [Образовательная программа высшего образования - программа бакалавриата: 15.03.06 Мехатроника и робототехника; Направленность программы (профиль) – Робототехника — 2025 — 2024-2025 (ЭЦП, sig) — РПВоспитания_2021.pdf](https://innopolis.university/upload/files/Obrazovanie/%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_%D0%9A%D0%9F%D0%A1%D0%B8%D0%9C%D0%92%D0%9F%20%D0%BD%D0%B0%202024-2025%20%D1%83%D1%87.%D0%B3%D0%BE%D0%B4.zip), file 5d812cc6da0b

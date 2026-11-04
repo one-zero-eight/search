@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Руководство пользователя [Руководство_пользователя_Каталог_ПО_НК_2]"
+title: "Документация: — Руководство пользователя [Руководство_пользователя_Каталог_ПО_НК_2]"
 resource: "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3_%D0%9F%D0%9E_%D0%9D%D0%9A_2.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/unionepro-ru"
 sources:
   - resource: "https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3_%D0%9F%D0%9E_%D0%9D%D0%9A_2.pdf"
     id: "6d940970ff4b"
-    title: "Руководство пользователя [Руководство_пользователя_Каталог_ПО_НК_2]"
+    title: "Документация: — Руководство пользователя [Руководство_пользователя_Каталог_ПО_НК_2]"
     last_modified: "2026-11-04T13:07:42+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Руководство пользователя [Руководство_пользователя_Каталог_ПО_НК_2]
+# Документация: — Руководство пользователя [Руководство_пользователя_Каталог_ПО_НК_2]
 
 ОНЛАЙН-СЕРВИС «КАТАЛОГ ПРОГРАММНОГО ОБЕСПЕЧЕНИЯ»
 
@@ -315,4 +315,4 @@ status: draft
 
 # Citations
 
-1. [Руководство пользователя [Руководство_пользователя_Каталог_ПО_НК_2]](https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3_%D0%9F%D0%9E_%D0%9D%D0%9A_2.pdf), file 6d940970ff4b
+1. [Документация: — Руководство пользователя [Руководство_пользователя_Каталог_ПО_НК_2]](https://unionepro.ru/docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3_%D0%9F%D0%9E_%D0%9D%D0%9A_2.pdf), file 6d940970ff4b

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "report-2018"
+title: "2018 — report-2018"
 resource: "https://innopolis.university/upload/files/report-2018.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/upload/files/report-2018.pdf"
     id: "e7631c58a923"
-    title: "report-2018"
+    title: "2018 — report-2018"
     last_modified: "2026-10-24T23:51:11+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# report-2018
+# 2018 — report-2018
 
 Содержание
 
@@ -1707,4 +1707,4 @@ STEM-центры stem@innopolis.ru
 
 # Citations
 
-1. [report-2018](https://innopolis.university/upload/files/report-2018.pdf), file e7631c58a923
+1. [2018 — report-2018](https://innopolis.university/upload/files/report-2018.pdf), file e7631c58a923

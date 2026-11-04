@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "io robo solution en"
+title: "Первый отборочный этап — io robo solution en"
 resource: "https://lk-dovuz.innopolis.university/public/files/io_robo_solution_en.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/io_robo_solution_en.pdf"
     id: "aa4aac5fe30a"
-    title: "io robo solution en"
+    title: "Первый отборочный этап — io robo solution en"
     last_modified: "2026-11-01T23:17:22+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# io robo solution en
+# Первый отборочный этап — io robo solution en
 
 Innopolis Open Robotics Russia, Innopolis, 23.11.24–08.12.24
 
@@ -383,4 +383,4 @@ Of course, when solving the problem “manually”, one could accidentally make 
 
 # Citations
 
-1. [io robo solution en](https://lk-dovuz.innopolis.university/public/files/io_robo_solution_en.pdf), file aa4aac5fe30a
+1. [Первый отборочный этап — io robo solution en](https://lk-dovuz.innopolis.university/public/files/io_robo_solution_en.pdf), file aa4aac5fe30a

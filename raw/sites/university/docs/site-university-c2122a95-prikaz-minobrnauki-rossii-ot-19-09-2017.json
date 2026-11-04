@@ -1,0 +1,16 @@
+{
+ "title": "09.04.01 Информатика и вычислительная техника",
+ "url": "https://innopolis.university/upload/iblock/e07/Приказ Минобрнауки России от 19_09_2017 N 918 (ред_ от 08_02.rtf",
+ "sha256": "456b558936efffd748d505ed589e2aeef4193e44c8d4bbeec80e9d7a7522990e",
+ "method": "text layer (opendataloader)",
+ "chars": 38032,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-22T22:01:08+00:00",
+ "tables": 5,
+ "remote": {
+  "etag": "\"613f4942-1f404\"",
+  "modified": "Mon, 13 Sep 2021 12:51:14 GMT",
+  "size": "128004"
+ }
+}

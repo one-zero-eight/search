@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "contest-final 2020-21 — problems/parking-problem/statements/.pdf/russian/problem.pdf"
+title: "Финальный этап — contest-final 2020-21 — problems/parking-problem/statements/.pdf/russian/problem.pdf"
 resource: "https://lk-dovuz.innopolis.university/public/files/contest-final_2020-21.zip"
 archive_member: "problems/parking-problem/statements/.pdf/russian/problem.pdf"
 source_kind: official-document
@@ -9,7 +9,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/contest-final_2020-21.zip"
     id: "e291c0228194"
-    title: "contest-final 2020-21 — problems/parking-problem/statements/.pdf/russian/problem.pdf"
+    title: "Финальный этап — contest-final 2020-21 — problems/parking-problem/statements/.pdf/russian/problem.pdf"
     last_modified: "2026-11-04T02:52:48+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# contest-final 2020-21 — problems/parking-problem/statements/.pdf/russian/problem.pdf
+# Финальный этап — contest-final 2020-21 — problems/parking-problem/statements/.pdf/russian/problem.pdf
 
 Parking Problem
 
@@ -68,4 +68,4 @@ Parking Problem
 
 # Citations
 
-1. [contest-final 2020-21 — problems/parking-problem/statements/.pdf/russian/problem.pdf](https://lk-dovuz.innopolis.university/public/files/contest-final_2020-21.zip), file e291c0228194
+1. [Финальный этап — contest-final 2020-21 — problems/parking-problem/statements/.pdf/russian/problem.pdf](https://lk-dovuz.innopolis.university/public/files/contest-final_2020-21.zip), file e291c0228194

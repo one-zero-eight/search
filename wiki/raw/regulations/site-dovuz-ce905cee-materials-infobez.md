@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "materials infobez"
+title: "Второй отборочный этап: ссылка — materials infobez"
 resource: "https://lk-dovuz.innopolis.university/public/files/materials_infobez.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/materials_infobez.pdf"
     id: "594febf196e7"
-    title: "materials infobez"
+    title: "Второй отборочный этап: ссылка — materials infobez"
     last_modified: "2026-11-01T23:17:23+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# materials infobez
+# Второй отборочный этап: ссылка — materials infobez
 
 Сборник материалов заданий отборочных и заключительного этапов Олимпиады Университета Иннополис Innopolis Open по информационной безопасности сезона 2021/2022 уч. г.
 
@@ -726,4 +726,4 @@ secret -D --password “$7$cbu3H1NHALLW8w0ro7tRrchkqcujaWiRnZPs1KwsJ6cv+2DtY2YJD
 
 # Citations
 
-1. [materials infobez](https://lk-dovuz.innopolis.university/public/files/materials_infobez.pdf), file 594febf196e7
+1. [Второй отборочный этап: ссылка — materials infobez](https://lk-dovuz.innopolis.university/public/files/materials_infobez.pdf), file 594febf196e7

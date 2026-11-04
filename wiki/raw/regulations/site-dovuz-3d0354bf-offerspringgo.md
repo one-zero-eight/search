@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Программирование на Go"
+title: "Время ориентировочное. — Программирование на Go"
 resource: "https://lk-dovuz.innopolis.university/public/files/offer-spring-go.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/offer-spring-go.pdf"
     id: "8c57d3bede63"
-    title: "Программирование на Go"
+    title: "Время ориентировочное. — Программирование на Go"
     last_modified: "2026-01-01T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Программирование на Go
+# Время ориентировочное. — Программирование на Go
 
 Договор об образовании по дополнительным общеобразовательным общеразвивающим программам (договор присоединения) № ОФВ265 от «19» ноября 2025 г.
 
@@ -301,4 +301,4 @@ status: draft
 
 # Citations
 
-1. [Программирование на Go](https://lk-dovuz.innopolis.university/public/files/offer-spring-go.pdf), file 8c57d3bede63
+1. [Время ориентировочное. — Программирование на Go](https://lk-dovuz.innopolis.university/public/files/offer-spring-go.pdf), file 8c57d3bede63

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Read the article [NIR_2022_tensegrity-structures]"
+title: "This paper proposes a state observer design method for tensegrity structures based on joint use of non-minimal representation of the structure’s model and orthogonal decomposition method. Tensegrity structures have a num — Read the article"
 resource: "https://innopolis.university/filespublic/NIR_2022_tensegrity-structures.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/NIR_2022_tensegrity-structures.pdf"
     id: "3f814130ed42"
-    title: "Read the article [NIR_2022_tensegrity-structures]"
+    title: "This paper proposes a state observer design method for tensegrity structures based on joint use of non-minimal representation of the structure’s model and orthogonal decomposition method. Tensegrity structures have a num — Read the article"
     last_modified: "2026-10-24T23:45:46+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Read the article [NIR_2022_tensegrity-structures]
+# This paper proposes a state observer design method for tensegrity structures based on joint use of non-minimal representation of the structure’s model and orthogonal decomposition method. Tensegrity structures have a num — Read the article
 
 State Observer for Tensegrity Structures
 
@@ -269,4 +269,4 @@ REFERENCES
 
 # Citations
 
-1. [Read the article [NIR_2022_tensegrity-structures]](https://innopolis.university/filespublic/NIR_2022_tensegrity-structures.pdf), file 3f814130ed42
+1. [This paper proposes a state observer design method for tensegrity structures based on joint use of non-minimal representation of the structure’s model and orthogonal decomposition method. Tensegrity structures have a num — Read the article](https://innopolis.university/filespublic/NIR_2022_tensegrity-structures.pdf), file 3f814130ed42

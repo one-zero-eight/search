@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "report-2015"
+title: "2015 — report-2015"
 resource: "https://innopolis.university/upload/files/report-2015.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/upload/files/report-2015.pdf"
     id: "a1dc4d469e61"
-    title: "report-2015"
+    title: "2015 — report-2015"
     last_modified: "2026-10-24T23:50:02+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# report-2015
+# 2015 — report-2015
 
 ГОДОВОЙ ОТЧЕТ
 
@@ -1239,4 +1239,4 @@ STEM – центры дополнительного технического о
 
 # Citations
 
-1. [report-2015](https://innopolis.university/upload/files/report-2015.pdf), file a1dc4d469e61
+1. [2015 — report-2015](https://innopolis.university/upload/files/report-2015.pdf), file a1dc4d469e61

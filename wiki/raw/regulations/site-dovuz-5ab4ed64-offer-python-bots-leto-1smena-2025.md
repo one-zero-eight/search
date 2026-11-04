@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "договором оферты [offer_python_bots_leto_1smena_2025]"
+title: "Регистрация закрыта — договором оферты [offer_python_bots_leto_1smena_2025]"
 resource: "https://lk-dovuz.innopolis.university/public/files/offer_python_bots_leto_1smena_2025.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/offer_python_bots_leto_1smena_2025.pdf"
     id: "4f0c13ba093f"
-    title: "договором оферты [offer_python_bots_leto_1smena_2025]"
+    title: "Регистрация закрыта — договором оферты [offer_python_bots_leto_1smena_2025]"
     last_modified: "2024-01-01T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# договором оферты [offer_python_bots_leto_1smena_2025]
+# Регистрация закрыта — договором оферты [offer_python_bots_leto_1smena_2025]
 
 Договор об образовании по дополнительным общеобразовательным общеразвивающим программам (договор присоединения) № ОФ24 от «23» декабря 2024 г.
 
@@ -299,4 +299,4 @@ status: draft
 
 # Citations
 
-1. [договором оферты [offer_python_bots_leto_1smena_2025]](https://lk-dovuz.innopolis.university/public/files/offer_python_bots_leto_1smena_2025.pdf), file 4f0c13ba093f
+1. [Регистрация закрыта — договором оферты [offer_python_bots_leto_1smena_2025]](https://lk-dovuz.innopolis.university/public/files/offer_python_bots_leto_1smena_2025.pdf), file 4f0c13ba093f

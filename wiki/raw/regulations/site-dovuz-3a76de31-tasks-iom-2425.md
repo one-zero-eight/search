@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "tasks IOM 24-25"
+title: "Финальный тур — tasks IOM 24-25"
 resource: "https://lk-dovuz.innopolis.university/public/files/tasks_IOM_24-25.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/tasks_IOM_24-25.pdf"
     id: "a55ceeb69847"
-    title: "tasks IOM 24-25"
+    title: "Финальный тур — tasks IOM 24-25"
     last_modified: "2026-11-01T23:17:27+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# tasks IOM 24-25
+# Финальный тур — tasks IOM 24-25
 
 Innopolis Open 2024/25 in Mathematics Final round
 
@@ -595,4 +595,4 @@ A, она остаётся хорошей, так как в её столбце 
 
 # Citations
 
-1. [tasks IOM 24-25](https://lk-dovuz.innopolis.university/public/files/tasks_IOM_24-25.pdf), file a55ceeb69847
+1. [Финальный тур — tasks IOM 24-25](https://lk-dovuz.innopolis.university/public/files/tasks_IOM_24-25.pdf), file a55ceeb69847

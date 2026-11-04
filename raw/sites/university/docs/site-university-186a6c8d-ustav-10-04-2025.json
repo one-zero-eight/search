@@ -1,0 +1,16 @@
+{
+ "title": "Устав Автономной некоммерческой организации высшего образования «Университет Иннополис» (копия)",
+ "url": "https://innopolis.university/upload/iblock/6b7/rk6q97uvbez61jg7nhxg6jx8bhzo4w1a/ustav_10.04.2025.pdf",
+ "sha256": "f35c432b7ddd938a98a3510ee4149f312e5c20f8b76fd694226d2ac27a9e1a10",
+ "method": "ocr (chandra-ocr-2)",
+ "chars": 70775,
+ "section": "site/university",
+ "context": "",
+ "fetched_at": "2026-10-22T14:17:58+00:00",
+ "remote": {
+  "etag": "\"6810c83c-4a1d4a\"",
+  "modified": "Tue, 29 Apr 2025 12:38:20 GMT",
+  "size": "4857162"
+ },
+ "tables": 5
+}

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "results 2step cyberbez23-24"
+title: "Второй отборочный этап — results 2step cyberbez23-24"
 resource: "https://lk-dovuz.innopolis.university/public/files/results_2step_cyberbez23-24.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/results_2step_cyberbez23-24.pdf"
     id: "077b440ba395"
-    title: "results 2step cyberbez23-24"
+    title: "Второй отборочный этап — results 2step cyberbez23-24"
     last_modified: "2026-11-01T23:17:25+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# results 2step cyberbez23-24
+# Второй отборочный этап — results 2step cyberbez23-24
 
 Результаты второго отборочного этапа олимпиады Innopolis Open по информационной безопасности The results of the second qualifying stage of the Innopolis Open Olympiad in Cybersecurity / 2023-2024
 
@@ -182,4 +182,4 @@ status: draft
 
 # Citations
 
-1. [results 2step cyberbez23-24](https://lk-dovuz.innopolis.university/public/files/results_2step_cyberbez23-24.pdf), file 077b440ba395
+1. [Второй отборочный этап — results 2step cyberbez23-24](https://lk-dovuz.innopolis.university/public/files/results_2step_cyberbez23-24.pdf), file 077b440ba395

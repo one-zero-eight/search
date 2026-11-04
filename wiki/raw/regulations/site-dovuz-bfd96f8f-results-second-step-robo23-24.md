@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "results second step robo23 24"
+title: "Второй отборочный этап — results second step robo23 24"
 resource: "https://lk-dovuz.innopolis.university/public/files/results_second_step_robo23_24.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/results_second_step_robo23_24.pdf"
     id: "712ff625387d"
-    title: "results second step robo23 24"
+    title: "Второй отборочный этап — results second step robo23 24"
     last_modified: "2026-11-01T23:17:26+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# results second step robo23 24
+# Второй отборочный этап — results second step robo23 24
 
 Результаты второго отборочного этапа международной олимпиады Innopolis Open по робототехнике
 
@@ -103,4 +103,4 @@ status: draft
 
 # Citations
 
-1. [results second step robo23 24](https://lk-dovuz.innopolis.university/public/files/results_second_step_robo23_24.pdf), file 712ff625387d
+1. [Второй отборочный этап — results second step robo23 24](https://lk-dovuz.innopolis.university/public/files/results_second_step_robo23_24.pdf), file 712ff625387d

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "result ii 3"
+title: "Заключительный этап — result ii 3"
 resource: "https://lk-dovuz.innopolis.university/public/files/result_ii_3.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/result_ii_3.pdf"
     id: "562ce6960fcf"
-    title: "result ii 3"
+    title: "Заключительный этап — result ii 3"
     last_modified: "2026-11-01T23:17:24+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# result ii 3
+# Заключительный этап — result ii 3
 
 Имя Фамилия Название раунда Результат Название раунда Результат Итоговый балл
 
@@ -25,4 +25,4 @@ status: draft
 
 # Citations
 
-1. [result ii 3](https://lk-dovuz.innopolis.university/public/files/result_ii_3.pdf), file 562ce6960fcf
+1. [Заключительный этап — result ii 3](https://lk-dovuz.innopolis.university/public/files/result_ii_3.pdf), file 562ce6960fcf

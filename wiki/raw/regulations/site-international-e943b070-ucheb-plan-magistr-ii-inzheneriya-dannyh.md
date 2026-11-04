@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Download the curriculum [ucheb_plan_magistr_ii_inzheneriya_dannyh]"
+title: "The language of instruction is English. — Download the curriculum [ucheb_plan_magistr_ii_inzheneriya_dannyh]"
 resource: "https://innopolis.university/filespublic/ucheb_plan_magistr_ii_inzheneriya_dannyh.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/international"
 sources:
   - resource: "https://innopolis.university/filespublic/ucheb_plan_magistr_ii_inzheneriya_dannyh.pdf"
     id: "8a6ff8422cc1"
-    title: "Download the curriculum [ucheb_plan_magistr_ii_inzheneriya_dannyh]"
+    title: "The language of instruction is English. — Download the curriculum [ucheb_plan_magistr_ii_inzheneriya_dannyh]"
     last_modified: "2026-11-01T23:00:23+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Download the curriculum [ucheb_plan_magistr_ii_inzheneriya_dannyh]
+# The language of instruction is English. — Download the curriculum [ucheb_plan_magistr_ii_inzheneriya_dannyh]
 
 Data analysis and artificial intelligence
 
@@ -371,4 +371,4 @@ Sensors and Sensing / Датчики и считывание (the discipline of 
 
 # Citations
 
-1. [Download the curriculum [ucheb_plan_magistr_ii_inzheneriya_dannyh]](https://innopolis.university/filespublic/ucheb_plan_magistr_ii_inzheneriya_dannyh.pdf), file 8a6ff8422cc1
+1. [The language of instruction is English. — Download the curriculum [ucheb_plan_magistr_ii_inzheneriya_dannyh]](https://innopolis.university/filespublic/ucheb_plan_magistr_ii_inzheneriya_dannyh.pdf), file 8a6ff8422cc1

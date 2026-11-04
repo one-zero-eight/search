@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "final-statements-en"
+title: "Финал — final-statements-en"
 resource: "https://lk-dovuz.innopolis.university/public/files/final-statements-en.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/final-statements-en.pdf"
     id: "50769ad97177"
-    title: "final-statements-en"
+    title: "Финал — final-statements-en"
     last_modified: "2026-11-01T23:17:20+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# final-statements-en
+# Финал — final-statements-en
 
 Innopolis Open 2022-2023 Final round Russia, Innopolis, February 12, 2022
 
@@ -294,4 +294,4 @@ There are five permutations in total; the sum of distances also equals five. In 
 
 # Citations
 
-1. [final-statements-en](https://lk-dovuz.innopolis.university/public/files/final-statements-en.pdf), file 50769ad97177
+1. [Финал — final-statements-en](https://lk-dovuz.innopolis.university/public/files/final-statements-en.pdf), file 50769ad97177

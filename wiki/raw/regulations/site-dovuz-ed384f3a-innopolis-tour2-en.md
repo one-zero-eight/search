@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "innopolis tour2 en"
+title: "Второй отборочный этап — innopolis tour2 en"
 resource: "https://lk-dovuz.innopolis.university/public/files/innopolis_tour2_en.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/innopolis_tour2_en.pdf"
     id: "c48dcb009011"
-    title: "innopolis tour2 en"
+    title: "Второй отборочный этап — innopolis tour2 en"
     last_modified: "2026-11-01T23:17:21+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# innopolis tour2 en
+# Второй отборочный этап — innopolis tour2 en
 
 News Text Classification: From Data Collection to Model Training
 
@@ -267,4 +267,4 @@ The jury reserves the right to deduct or nullify points in case of the following
 
 # Citations
 
-1. [innopolis tour2 en](https://lk-dovuz.innopolis.university/public/files/innopolis_tour2_en.pdf), file c48dcb009011
+1. [Второй отборочный этап — innopolis tour2 en](https://lk-dovuz.innopolis.university/public/files/innopolis_tour2_en.pdf), file c48dcb009011

@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "2nd round 22"
+title: "Первый отборочный этап: ссылка — 2nd round 22"
 resource: "https://lk-dovuz.innopolis.university/public/files/2nd%20round%2022.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/2nd%20round%2022.pdf"
     id: "b94096dc4fce"
-    title: "2nd round 22"
+    title: "Первый отборочный этап: ссылка — 2nd round 22"
     last_modified: "2026-11-01T23:17:18+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# 2nd round 22
+# Первый отборочный этап: ссылка — 2nd round 22
 
 Олимпиада Университета Иннополис по информационной безопасности 2021/2022. Второй отборочный этап.
 
@@ -167,4 +167,4 @@ status: draft
 
 # Citations
 
-1. [2nd round 22](https://lk-dovuz.innopolis.university/public/files/2nd%20round%2022.pdf), file b94096dc4fce
+1. [Первый отборочный этап: ссылка — 2nd round 22](https://lk-dovuz.innopolis.university/public/files/2nd%20round%2022.pdf), file b94096dc4fce

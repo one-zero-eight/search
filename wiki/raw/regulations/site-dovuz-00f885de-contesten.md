@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "contest-en"
+title: "Первый отборочный этап — contest-en"
 resource: "https://lk-dovuz.innopolis.university/public/files/contest-en.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/contest-en.pdf"
     id: "7a75ccdde34a"
-    title: "contest-en"
+    title: "Первый отборочный этап — contest-en"
     last_modified: "2026-11-01T23:17:20+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# contest-en
+# Первый отборочный этап — contest-en
 
 Innopolis Open Robotics ,
 
@@ -551,4 +551,4 @@ Each test is worth 25 points. No more than three files will be accepted for this
 
 # Citations
 
-1. [contest-en](https://lk-dovuz.innopolis.university/public/files/contest-en.pdf), file 7a75ccdde34a
+1. [Первый отборочный этап — contest-en](https://lk-dovuz.innopolis.university/public/files/contest-en.pdf), file 7a75ccdde34a

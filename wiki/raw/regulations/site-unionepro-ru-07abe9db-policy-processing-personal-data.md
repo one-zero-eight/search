@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Политика конфиденциальности [Policy_processing_personal Data]"
+title: "Полезная информация — Политика конфиденциальности"
 resource: "https://s3-api.unionepro.ru/basebucket/web/docs/Policy_processing_personal%20Data.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/unionepro-ru"
 sources:
   - resource: "https://s3-api.unionepro.ru/basebucket/web/docs/Policy_processing_personal%20Data.pdf"
     id: "6fb2a53f1f02"
-    title: "Политика конфиденциальности [Policy_processing_personal Data]"
+    title: "Полезная информация — Политика конфиденциальности"
     last_modified: "2025-04-07T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Политика конфиденциальности [Policy_processing_personal Data]
+# Полезная информация — Политика конфиденциальности
 
 УТВЕРЖДЕНА приказом АНО ВО «Университет Иннополис» от МДРЕГ
 
@@ -331,4 +331,4 @@ status: draft
 
 # Citations
 
-1. [Политика конфиденциальности [Policy_processing_personal Data]](https://s3-api.unionepro.ru/basebucket/web/docs/Policy_processing_personal%20Data.pdf), file 6fb2a53f1f02
+1. [Полезная информация — Политика конфиденциальности](https://s3-api.unionepro.ru/basebucket/web/docs/Policy_processing_personal%20Data.pdf), file 6fb2a53f1f02

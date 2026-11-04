@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "io robo conditions en"
+title: "Первый отборочный этап — io robo conditions en"
 resource: "https://lk-dovuz.innopolis.university/public/files/io_robo_conditions_en.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/io_robo_conditions_en.pdf"
     id: "2bb92d75403e"
-    title: "io robo conditions en"
+    title: "Первый отборочный этап — io robo conditions en"
     last_modified: "2026-11-01T23:17:22+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# io robo conditions en
+# Первый отборочный этап — io robo conditions en
 
 Innopolis Open Robotics Russia, Innopolis, 23.11.24–08.12.24
 
@@ -435,4 +435,4 @@ There are four tests in the problem, each scored at 25 points. For each test, yo
 
 # Citations
 
-1. [io robo conditions en](https://lk-dovuz.innopolis.university/public/files/io_robo_conditions_en.pdf), file 2bb92d75403e
+1. [Первый отборочный этап — io robo conditions en](https://lk-dovuz.innopolis.university/public/files/io_robo_conditions_en.pdf), file 2bb92d75403e

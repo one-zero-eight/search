@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Ссылка на договор оферты [оферта_ЕГЭ_м2_2027матем]"
+title: "Модуль 2 — Ссылка на договор оферты [оферта_ЕГЭ_м2_2027матем]"
 resource: "https://innopolis.university/filespublic/%D0%BE%D1%84%D0%B5%D1%80%D1%82%D0%B0_%D0%95%D0%93%D0%AD_%D0%BC2_2027%D0%BC%D0%B0%D1%82%D0%B5%D0%BC.docx"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://innopolis.university/filespublic/%D0%BE%D1%84%D0%B5%D1%80%D1%82%D0%B0_%D0%95%D0%93%D0%AD_%D0%BC2_2027%D0%BC%D0%B0%D1%82%D0%B5%D0%BC.docx"
     id: "5b7599f7ef19"
-    title: "Ссылка на договор оферты [оферта_ЕГЭ_м2_2027матем]"
+    title: "Модуль 2 — Ссылка на договор оферты [оферта_ЕГЭ_м2_2027матем]"
     last_modified: "2026-07-09T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Ссылка на договор оферты [оферта_ЕГЭ_м2_2027матем]
+# Модуль 2 — Ссылка на договор оферты [оферта_ЕГЭ_м2_2027матем]
 
 Договор об образовании по дополнительным общеобразовательным общеразвивающим программам (договор присоединения) № ОНЛ ЕГЭМ27М2 от 09.07.2026
 
@@ -265,4 +265,4 @@ status: draft
 
 # Citations
 
-1. [Ссылка на договор оферты [оферта_ЕГЭ_м2_2027матем]](https://innopolis.university/filespublic/%D0%BE%D1%84%D0%B5%D1%80%D1%82%D0%B0_%D0%95%D0%93%D0%AD_%D0%BC2_2027%D0%BC%D0%B0%D1%82%D0%B5%D0%BC.docx), file 5b7599f7ef19
+1. [Модуль 2 — Ссылка на договор оферты [оферта_ЕГЭ_м2_2027матем]](https://innopolis.university/filespublic/%D0%BE%D1%84%D0%B5%D1%80%D1%82%D0%B0_%D0%95%D0%93%D0%AD_%D0%BC2_2027%D0%BC%D0%B0%D1%82%D0%B5%D0%BC.docx), file 5b7599f7ef19

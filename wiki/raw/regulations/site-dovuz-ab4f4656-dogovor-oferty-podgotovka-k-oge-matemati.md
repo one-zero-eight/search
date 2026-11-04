@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Ссылка на договор оферты [Договор_оферты_Подготовка_к_ОГЭ_Математика_Модуль_1_Повторен]"
+title: "Модуль 1 — Ссылка на договор оферты [Договор_оферты_Подготовка_к_ОГЭ_Математика_Модуль_1_Повторен]"
 resource: "https://innopolis.university/filespublic/%D0%94%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80_%D0%BE%D1%84%D0%B5%D1%80%D1%82%D1%8B_%D0%9F%D0%BE%D0%B4%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%BA%D0%B0_%D0%BA_%D0%9E%D0%93%D0%AD_%D0%9C%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0_%D0%9C%D0%BE%D0%B4%D1%83%D0%BB%D1%8C_1_%D0%9F%D0%BE%D0%B2%D1%82%D0%BE%D1%80%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%B0.docx"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://innopolis.university/filespublic/%D0%94%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80_%D0%BE%D1%84%D0%B5%D1%80%D1%82%D1%8B_%D0%9F%D0%BE%D0%B4%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%BA%D0%B0_%D0%BA_%D0%9E%D0%93%D0%AD_%D0%9C%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0_%D0%9C%D0%BE%D0%B4%D1%83%D0%BB%D1%8C_1_%D0%9F%D0%BE%D0%B2%D1%82%D0%BE%D1%80%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%B0.docx"
     id: "cee5e381e242"
-    title: "Ссылка на договор оферты [Договор_оферты_Подготовка_к_ОГЭ_Математика_Модуль_1_Повторен]"
+    title: "Модуль 1 — Ссылка на договор оферты [Договор_оферты_Подготовка_к_ОГЭ_Математика_Модуль_1_Повторен]"
     last_modified: "2026-07-13T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Ссылка на договор оферты [Договор_оферты_Подготовка_к_ОГЭ_Математика_Модуль_1_Повторен]
+# Модуль 1 — Ссылка на договор оферты [Договор_оферты_Подготовка_к_ОГЭ_Математика_Модуль_1_Повторен]
 
 Договор об образовании по дополнительным общеобразовательным общеразвивающим программам (договор присоединения) № ОНЛ/ОГЭМ1 от 13.07.2026 г.
 
@@ -265,4 +265,4 @@ status: draft
 
 # Citations
 
-1. [Ссылка на договор оферты [Договор_оферты_Подготовка_к_ОГЭ_Математика_Модуль_1_Повторен]](https://innopolis.university/filespublic/%D0%94%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80_%D0%BE%D1%84%D0%B5%D1%80%D1%82%D1%8B_%D0%9F%D0%BE%D0%B4%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%BA%D0%B0_%D0%BA_%D0%9E%D0%93%D0%AD_%D0%9C%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0_%D0%9C%D0%BE%D0%B4%D1%83%D0%BB%D1%8C_1_%D0%9F%D0%BE%D0%B2%D1%82%D0%BE%D1%80%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%B0.docx), file cee5e381e242
+1. [Модуль 1 — Ссылка на договор оферты [Договор_оферты_Подготовка_к_ОГЭ_Математика_Модуль_1_Повторен]](https://innopolis.university/filespublic/%D0%94%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80_%D0%BE%D1%84%D0%B5%D1%80%D1%82%D1%8B_%D0%9F%D0%BE%D0%B4%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%BA%D0%B0_%D0%BA_%D0%9E%D0%93%D0%AD_%D0%9C%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0_%D0%9C%D0%BE%D0%B4%D1%83%D0%BB%D1%8C_1_%D0%9F%D0%BE%D0%B2%D1%82%D0%BE%D1%80%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%B0.docx), file cee5e381e242

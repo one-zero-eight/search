@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "разбор"
+title: "Решения и тесты жюри: ссылка — разбор"
 resource: "https://lk-dovuz.innopolis.university/public/files/%D1%80%D0%B0%D0%B7%D0%B1%D0%BE%D1%80.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/%D1%80%D0%B0%D0%B7%D0%B1%D0%BE%D1%80.pdf"
     id: "404109c28e25"
-    title: "разбор"
+    title: "Решения и тесты жюри: ссылка — разбор"
     last_modified: "2021-02-21T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# разбор
+# Решения и тесты жюри: ссылка — разбор
 
 Олимпиада Innopolis Open по информатике, 2020-2021, финал Россия, Иннополис, 21 февраля 2021
 
@@ -121,4 +121,4 @@ status: draft
 
 # Citations
 
-1. [разбор](https://lk-dovuz.innopolis.university/public/files/%D1%80%D0%B0%D0%B7%D0%B1%D0%BE%D1%80.pdf), file 404109c28e25
+1. [Решения и тесты жюри: ссылка — разбор](https://lk-dovuz.innopolis.university/public/files/%D1%80%D0%B0%D0%B7%D0%B1%D0%BE%D1%80.pdf), file 404109c28e25

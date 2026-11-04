@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "statements-1 (en)"
+title: "Первый отборочный этап — statements-1 (en)"
 resource: "https://lk-dovuz.innopolis.university/public/files/statements-1%20%28en%29.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/statements-1%20%28en%29.pdf"
     id: "6560bebaf39a"
-    title: "statements-1 (en)"
+    title: "Первый отборочный этап — statements-1 (en)"
     last_modified: "2026-11-01T23:17:26+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# statements-1 (en)
+# Первый отборочный этап — statements-1 (en)
 
 Innopolis Open 2020-2021, qualification, contest 1 Russia, Innopolis, November, 22, 2020
 
@@ -253,4 +253,4 @@ One of the possible optimal solutions for the second test case of the example:
 
 # Citations
 
-1. [statements-1 (en)](https://lk-dovuz.innopolis.university/public/files/statements-1%20%28en%29.pdf), file 6560bebaf39a
+1. [Первый отборочный этап — statements-1 (en)](https://lk-dovuz.innopolis.university/public/files/statements-1%20%28en%29.pdf), file 6560bebaf39a

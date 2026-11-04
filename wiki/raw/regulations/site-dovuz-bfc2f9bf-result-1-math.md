@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "result 1 math"
+title: "Первый заочный отборочный этап — result 1 math"
 resource: "https://lk-dovuz.innopolis.university/public/files/result_1_math.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/result_1_math.pdf"
     id: "22f9a30ea3ef"
-    title: "result 1 math"
+    title: "Первый заочный отборочный этап — result 1 math"
     last_modified: "2026-11-01T23:17:24+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# result 1 math
+# Первый заочный отборочный этап — result 1 math
 
 | Average -> | 3,88 | 1,33 | 2,69 | 2,60 | 1,55 | 1,56 | 1,06 | 2,335 | 1,655 | 1,7 | 2,225 | 2,22 | <- Weighting coefficient |  |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1867,4 +1867,4 @@ status: draft
 
 # Citations
 
-1. [result 1 math](https://lk-dovuz.innopolis.university/public/files/result_1_math.pdf), file 22f9a30ea3ef
+1. [Первый заочный отборочный этап — result 1 math](https://lk-dovuz.innopolis.university/public/files/result_1_math.pdf), file 22f9a30ea3ef

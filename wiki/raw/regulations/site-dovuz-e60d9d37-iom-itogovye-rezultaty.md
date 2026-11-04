@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "IOM итоговые результаты"
+title: "Второй заочный отборочный тур — IOM итоговые результаты"
 resource: "https://lk-dovuz.innopolis.university/public/files/IOM%20%D0%B8%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B5%20%D1%80%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82%D1%8B.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/IOM%20%D0%B8%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B5%20%D1%80%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82%D1%8B.pdf"
     id: "4ea87a48d17c"
-    title: "IOM итоговые результаты"
+    title: "Второй заочный отборочный тур — IOM итоговые результаты"
     last_modified: "2026-11-01T23:17:19+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# IOM итоговые результаты
+# Второй заочный отборочный тур — IOM итоговые результаты
 
 | 7 класс (grade) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1587,4 +1587,4 @@ status: draft
 
 # Citations
 
-1. [IOM итоговые результаты](https://lk-dovuz.innopolis.university/public/files/IOM%20%D0%B8%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B5%20%D1%80%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82%D1%8B.pdf), file 4ea87a48d17c
+1. [Второй заочный отборочный тур — IOM итоговые результаты](https://lk-dovuz.innopolis.university/public/files/IOM%20%D0%B8%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B5%20%D1%80%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82%D1%8B.pdf), file 4ea87a48d17c

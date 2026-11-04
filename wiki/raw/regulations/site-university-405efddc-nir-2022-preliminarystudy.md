@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Read the article [NIR_2022_preliminarystudy]"
+title: "of repositories is presented. — Read the article"
 resource: "https://innopolis.university/filespublic/NIR_2022_preliminarystudy.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/NIR_2022_preliminarystudy.pdf"
     id: "cf6a07a0010a"
-    title: "Read the article [NIR_2022_preliminarystudy]"
+    title: "of repositories is presented. — Read the article"
     last_modified: "2026-10-24T23:45:31+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Read the article [NIR_2022_preliminarystudy]
+# of repositories is presented. — Read the article
 
 Preliminary study: Exploring GitHub repository metrics
 
@@ -369,4 +369,4 @@ REFERENCES
 
 # Citations
 
-1. [Read the article [NIR_2022_preliminarystudy]](https://innopolis.university/filespublic/NIR_2022_preliminarystudy.pdf), file cf6a07a0010a
+1. [of repositories is presented. — Read the article](https://innopolis.university/filespublic/NIR_2022_preliminarystudy.pdf), file cf6a07a0010a

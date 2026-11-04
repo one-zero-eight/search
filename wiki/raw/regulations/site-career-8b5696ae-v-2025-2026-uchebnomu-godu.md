@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "В 2025/2026 учебном году"
+title: "Список научно-педагогических работник АНО ВО«Университет Иннополис» с окончанием срока действия трудового договора — В 2025/2026 учебном году"
 resource: "https://innopolis.university/files/%D0%92_2025_2026_%D1%83%D1%87%D0%B5%D0%B1%D0%BD%D0%BE%D0%BC%D1%83_%D0%B3%D0%BE%D0%B4%D1%83.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/career"
 sources:
   - resource: "https://innopolis.university/files/%D0%92_2025_2026_%D1%83%D1%87%D0%B5%D0%B1%D0%BD%D0%BE%D0%BC%D1%83_%D0%B3%D0%BE%D0%B4%D1%83.pdf"
     id: "fc471e081afb"
-    title: "В 2025/2026 учебном году"
+    title: "Список научно-педагогических работник АНО ВО«Университет Иннополис» с окончанием срока действия трудового договора — В 2025/2026 учебном году"
     last_modified: "2025-05-20T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# В 2025/2026 учебном году
+# Список научно-педагогических работник АНО ВО«Университет Иннополис» с окончанием срока действия трудового договора — В 2025/2026 учебном году
 
 Приложение к приказу АНО ВО «Университет Иннополис» от 20 мая 2025 г. № ОД/АД-01/2025/05/20
 
@@ -44,4 +44,4 @@ review: "scanned document read by OCR: check numbers and dates against the PDF b
 
 # Citations
 
-1. [В 2025/2026 учебном году](https://innopolis.university/files/%D0%92_2025_2026_%D1%83%D1%87%D0%B5%D0%B1%D0%BD%D0%BE%D0%BC%D1%83_%D0%B3%D0%BE%D0%B4%D1%83.pdf), file fc471e081afb
+1. [Список научно-педагогических работник АНО ВО«Университет Иннополис» с окончанием срока действия трудового договора — В 2025/2026 учебном году](https://innopolis.university/files/%D0%92_2025_2026_%D1%83%D1%87%D0%B5%D0%B1%D0%BD%D0%BE%D0%BC%D1%83_%D0%B3%D0%BE%D0%B4%D1%83.pdf), file fc471e081afb

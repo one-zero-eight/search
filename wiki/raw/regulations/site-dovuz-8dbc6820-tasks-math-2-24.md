@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Tasks math 2 24"
+title: "Второй заочный отборочный этап — Tasks math 2 24"
 resource: "https://lk-dovuz.innopolis.university/public/files/Tasks_math_2_24.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/Tasks_math_2_24.pdf"
     id: "f26039e6405d"
-    title: "Tasks math 2 24"
+    title: "Второй заочный отборочный этап — Tasks math 2 24"
     last_modified: "2026-11-01T23:17:20+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Tasks math 2 24
+# Второй заочный отборочный этап — Tasks math 2 24
 
 7𝑡ℎ degree
 
@@ -1267,4 +1267,4 @@ Criteria:
 
 # Citations
 
-1. [Tasks math 2 24](https://lk-dovuz.innopolis.university/public/files/Tasks_math_2_24.pdf), file f26039e6405d
+1. [Второй заочный отборочный этап — Tasks math 2 24](https://lk-dovuz.innopolis.university/public/files/Tasks_math_2_24.pdf), file f26039e6405d

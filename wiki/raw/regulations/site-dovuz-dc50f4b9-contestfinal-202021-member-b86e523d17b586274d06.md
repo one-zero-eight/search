@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "contest-final 2020-21 — problems/polyline-drawing/statements/.pdf/english/problem.pdf"
+title: "Финальный этап — contest-final 2020-21 — problems/polyline-drawing/statements/.pdf/english/problem.pdf"
 resource: "https://lk-dovuz.innopolis.university/public/files/contest-final_2020-21.zip"
 archive_member: "problems/polyline-drawing/statements/.pdf/english/problem.pdf"
 source_kind: official-document
@@ -9,7 +9,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/contest-final_2020-21.zip"
     id: "dcb3303b85e6"
-    title: "contest-final 2020-21 — problems/polyline-drawing/statements/.pdf/english/problem.pdf"
+    title: "Финальный этап — contest-final 2020-21 — problems/polyline-drawing/statements/.pdf/english/problem.pdf"
     last_modified: "2026-11-04T02:52:48+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# contest-final 2020-21 — problems/polyline-drawing/statements/.pdf/english/problem.pdf
+# Финальный этап — contest-final 2020-21 — problems/polyline-drawing/statements/.pdf/english/problem.pdf
 
 Diamond Hands
 
@@ -65,4 +65,4 @@ In the first example, first three days are successful, so after 2 days the diffe
 
 # Citations
 
-1. [contest-final 2020-21 — problems/polyline-drawing/statements/.pdf/english/problem.pdf](https://lk-dovuz.innopolis.university/public/files/contest-final_2020-21.zip), file dcb3303b85e6
+1. [Финальный этап — contest-final 2020-21 — problems/polyline-drawing/statements/.pdf/english/problem.pdf](https://lk-dovuz.innopolis.university/public/files/contest-final_2020-21.zip), file dcb3303b85e6

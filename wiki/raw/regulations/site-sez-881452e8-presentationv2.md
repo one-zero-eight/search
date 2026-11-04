@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "скачать презентацию"
+title: "Гибкая подписка позволяет экономить и адаптировать офисы под нужды вашего бизнеса, без долгосрочных обязательств. — скачать презентацию"
 resource: "https://sezinnopolis.ru/upload/arenda/presentation-v2.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/sez"
 sources:
   - resource: "https://sezinnopolis.ru/upload/arenda/presentation-v2.pdf"
     id: "ea512ee3006b"
-    title: "скачать презентацию"
+    title: "Гибкая подписка позволяет экономить и адаптировать офисы под нужды вашего бизнеса, без долгосрочных обязательств. — скачать презентацию"
     last_modified: "2026-10-31T09:36:31+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# скачать презентацию
+# Гибкая подписка позволяет экономить и адаптировать офисы под нужды вашего бизнеса, без долгосрочных обязательств. — скачать презентацию
 
 Подписка на сервисы ОЭЗ «Иннополис»
 
@@ -147,4 +147,4 @@ SMART PRO CUSTOM
 
 # Citations
 
-1. [скачать презентацию](https://sezinnopolis.ru/upload/arenda/presentation-v2.pdf), file ea512ee3006b
+1. [Гибкая подписка позволяет экономить и адаптировать офисы под нужды вашего бизнеса, без долгосрочных обязательств. — скачать презентацию](https://sezinnopolis.ru/upload/arenda/presentation-v2.pdf), file ea512ee3006b

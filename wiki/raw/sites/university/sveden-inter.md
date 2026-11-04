@@ -52,7 +52,7 @@ status: draft
 
 | Республика Словения | Люблянский Университет | University of Ljubljana | Соглашение об академическом обмене | 21.07.2017 | Бессрочно |
 
-| Китайская Народная Республика | Шэньчжэньский Институт Передовых Технологий Китайской Академии Наук | Shenzhen Institutes of Advanced Technology of Chinese Academy of Sciences | Соглашение о сотрудничестве | 19.01.2018 | Бессрочно | [Заключение от 31.08.2022 № МН-12/з-6874](/raw/regulations/sveden-3868f45e-13-shenzhen-institutes-of-adva.md) |
+| Китайская Народная Республика | Шэньчжэньский Институт Передовых Технологий Китайской Академии Наук | Shenzhen Institutes of Advanced Technology of Chinese Academy of Sciences | Соглашение о сотрудничестве | 19.01.2018 | Бессрочно | [Заключение от 31.08.2022 № МН-12/з-6874](/raw/regulations/site-university-344306b7-zaklyuchenie-13-shenzhen-institutes-of-a.md) |
 
 | Итальянская Республика | Университет Л'Акуила | University of L'Aquila | Соглашение о сотрудничестве | 28.02.2018 | Бессрочно |
 
@@ -102,13 +102,13 @@ status: draft
 
 | Французская Республика | Университет Лазурного берега | Universite Cote d`Azur | Меморандум о взаимопонимании | 10.05.2021 | 3 |
 
-| Республика Сербия | Сингидунум университет | Singidunum University | Меморандум о взаимопонимании | 13.05.2021 | 3 | [Заключение от 30.08.2022 № МН-12/з-6785](/raw/regulations/sveden-0a982a1c-12-6785-pdf.md) |
+| Республика Сербия | Сингидунум университет | Singidunum University | Меморандум о взаимопонимании | 13.05.2021 | 3 | [Заключение от 30.08.2022 № МН-12/з-6785](/raw/regulations/site-university-373d1fc1-mn12-z6785.md) |
 
 | Республика Казахстан | Международный Университет Информационных Технологий | International Information Technology University | Меморандум о взаимопонимании | 28.05.2021 | 5 |
 
 | Республика Индия | Колледж для женщин Тейванайаммал | Theivanai Ammal College for Women | Меморандум о взаимопонимании | 21.06.2021 | 3 |
 
-| Республика Сербия | Белградский университет | University of Belgrade | Соглашение о сотрудничестве | 08.07.2021 | 5 | [Заключение от 31.08.2022 № МН-12/з-6954](/raw/regulations/sveden-90f9d64e-31-08-2022-12-6954-pdf.md) |
+| Республика Сербия | Белградский университет | University of Belgrade | Соглашение о сотрудничестве | 08.07.2021 | 5 | [Заключение от 31.08.2022 № МН-12/з-6954](/raw/regulations/site-university-8b2ae671-31-08-2022-mn12-z6954-gorozhankina-e-m-b.md) |
 
 | Республика Индия | Университет П П Савани | P P Savani University | Меморандум о взаимопонимании | 13.07.2021 | бессрочно |
 
@@ -116,7 +116,7 @@ status: draft
 
 | Турецкая Республика | Университет Игдыра | Igdir University | Меморандум о взаимопонимании | 19.10.2021 | 5 |
 
-| Республика Казахстан | Казахстанско- Британский технический университет | Kazakh-British Technical University | Соглашение об академическом обмене | 23.11.2021 | 3 | [Заключение от 06.10.2022 № МН-12/з-13268](/raw/regulations/sveden-199ed699-49-kazakh-british-technical-un.md) |
+| Республика Казахстан | Казахстанско- Британский технический университет | Kazakh-British Technical University | Соглашение об академическом обмене | 23.11.2021 | 3 | [Заключение от 06.10.2022 № МН-12/з-13268](/raw/regulations/site-university-8041aea9-zaklyuchenie-49-kazakhbritish-technical.md) |
 
 | Республика Беларусь | Витебский государственный технологический университет | Vitebsk State University of Technology | Меморандум о взаимопонимании | 08.12.2021 | 5 | [Заключение от 31.08.2022 № МН-12/з-6892](/raw/regulations/site-university-ac0e5802-31-08-2022-mn12-z6892-gorozhankina-e-m-b.md) |
 
@@ -130,7 +130,7 @@ status: draft
 
 | Республика Узбекистан | Университет Инха в Ташкенте | Inha University in Tashkent | Меморандум о взаимопонимании | 22.03.2022 | 5 | [Заключение от 31.08.2022 № МН-12/з-6944](/raw/regulations/site-university-9c13e51f-31-08-2022-mn12-z6944-gorozhankina-e-m-b.md) |
 
-| Республика Узбекистан | Ташкентский университет информационных технологий имени Мухаммада ал-Хоразмий | Tashkent University of Information Technologies named after Muhammad al-Khwarizmi | Меморандум о взаимопонимании | 07.04.2022 | 5 | [Заключение от 06.10.2022 № МН-12/з-12957](/raw/regulations/sveden-fb3e080f-56-pdf.md) |
+| Республика Узбекистан | Ташкентский университет информационных технологий имени Мухаммада ал-Хоразмий | Tashkent University of Information Technologies named after Muhammad al-Khwarizmi | Меморандум о взаимопонимании | 07.04.2022 | 5 | [Заключение от 06.10.2022 № МН-12/з-12957](/raw/regulations/site-university-e209ec84-zaklyuchenie-56-tashkentskiy-universitet.md) |
 
 | Республика Беларусь | Белорусский национальный технический университет | Belarusian National Technical University | Соглашение о сотрудничестве | 08.04.2022 | 5 |
 

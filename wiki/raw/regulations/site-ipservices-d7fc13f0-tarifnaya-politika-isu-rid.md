@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Тарифная политика"
+title: "по установке — Тарифная политика"
 resource: "https://innopolis.university/filespublic/%D0%A2%D0%B0%D1%80%D0%B8%D1%84%D0%BD%D0%B0%D1%8F_%D0%BF%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0_%D0%98%D0%A1%D0%A3_%D0%A0%D0%98%D0%94.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/ipservices"
 sources:
   - resource: "https://innopolis.university/filespublic/%D0%A2%D0%B0%D1%80%D0%B8%D1%84%D0%BD%D0%B0%D1%8F_%D0%BF%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0_%D0%98%D0%A1%D0%A3_%D0%A0%D0%98%D0%94.pdf"
     id: "7fc08843b761"
-    title: "Тарифная политика"
+    title: "по установке — Тарифная политика"
     last_modified: "2026-11-01T22:40:27+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# Тарифная политика
+# по установке — Тарифная политика
 
 УНИВЕРСИТЕТ инноОПОЛИС
 
@@ -124,4 +124,4 @@ review: "scanned document read by OCR: check numbers and dates against the PDF b
 
 # Citations
 
-1. [Тарифная политика](https://innopolis.university/filespublic/%D0%A2%D0%B0%D1%80%D0%B8%D1%84%D0%BD%D0%B0%D1%8F_%D0%BF%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0_%D0%98%D0%A1%D0%A3_%D0%A0%D0%98%D0%94.pdf), file 7fc08843b761
+1. [по установке — Тарифная политика](https://innopolis.university/filespublic/%D0%A2%D0%B0%D1%80%D0%B8%D1%84%D0%BD%D0%B0%D1%8F_%D0%BF%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0_%D0%98%D0%A1%D0%A3_%D0%A0%D0%98%D0%94.pdf), file 7fc08843b761

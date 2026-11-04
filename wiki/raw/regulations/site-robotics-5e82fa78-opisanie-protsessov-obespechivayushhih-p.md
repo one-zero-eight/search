@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Описание процессов, поддерживающих жизненный цикл программного обеспечения [Opisanie_protsessov_obespechivayushhih_podderzhanie_zhiznenn]"
+title: "Документация: — Описание процессов, поддерживающих жизненный цикл программного обеспечения"
 resource: "https://robotics.innopolis.university/wp-content/uploads/2024/04/Opisanie_protsessov_obespechivayushhih_podderzhanie_zhiznennogo_tsikla-3.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/robotics"
 sources:
   - resource: "https://robotics.innopolis.university/wp-content/uploads/2024/04/Opisanie_protsessov_obespechivayushhih_podderzhanie_zhiznennogo_tsikla-3.pdf"
     id: "e6f707e14398"
-    title: "Описание процессов, поддерживающих жизненный цикл программного обеспечения [Opisanie_protsessov_obespechivayushhih_podderzhanie_zhiznenn]"
+    title: "Документация: — Описание процессов, поддерживающих жизненный цикл программного обеспечения"
     last_modified: "2026-10-31T09:36:39+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Описание процессов, поддерживающих жизненный цикл программного обеспечения [Opisanie_protsessov_obespechivayushhih_podderzhanie_zhiznenn]
+# Документация: — Описание процессов, поддерживающих жизненный цикл программного обеспечения
 
 ПРОГРАММНОЕ ОБЕСПЕЧЕНИЕ ДЛЯ РОБОТИЗИРОВАННОЙ СОРТИРОВОЧНОЙ ЯЧЕЙКИ ИЗДЕЛИЙ СЛОЖНОЙ ФОРМЫ Описание процессов, обеспечивающих поддержание жизненного цикла, в том числе устранение неисправностей и совершенствование, а также информацию о персонале, необходимом для обеспечения такой поддержки Листов 1010
 
@@ -231,4 +231,4 @@ status: draft
 
 # Citations
 
-1. [Описание процессов, поддерживающих жизненный цикл программного обеспечения [Opisanie_protsessov_obespechivayushhih_podderzhanie_zhiznenn]](https://robotics.innopolis.university/wp-content/uploads/2024/04/Opisanie_protsessov_obespechivayushhih_podderzhanie_zhiznennogo_tsikla-3.pdf), file e6f707e14398
+1. [Документация: — Описание процессов, поддерживающих жизненный цикл программного обеспечения](https://robotics.innopolis.university/wp-content/uploads/2024/04/Opisanie_protsessov_obespechivayushhih_podderzhanie_zhiznennogo_tsikla-3.pdf), file e6f707e14398

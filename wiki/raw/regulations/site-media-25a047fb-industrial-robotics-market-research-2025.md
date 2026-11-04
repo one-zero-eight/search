@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Читать исследование [Industrial_Robotics_Market_Research_2025]"
+title: "Искандер Бариев, директор Университета Иннополис: «Проведённое нашим центром исследование описывает текущее состояние рынка промышленной робототехники и может быть своеобразной дорожной картой для развития системы в Росс — Читать исследование"
 resource: "https://innopolis.university/filespublic/Industrial_Robotics_Market_Research_2025.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/media"
 sources:
   - resource: "https://innopolis.university/filespublic/Industrial_Robotics_Market_Research_2025.pdf"
     id: "2b0bd4b987ec"
-    title: "Читать исследование [Industrial_Robotics_Market_Research_2025]"
+    title: "Искандер Бариев, директор Университета Иннополис: «Проведённое нашим центром исследование описывает текущее состояние рынка промышленной робототехники и может быть своеобразной дорожной картой для развития системы в Росс — Читать исследование"
     last_modified: "2026-11-01T23:00:23+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Читать исследование [Industrial_Robotics_Market_Research_2025]
+# Искандер Бариев, директор Университета Иннополис: «Проведённое нашим центром исследование описывает текущее состояние рынка промышленной робототехники и может быть своеобразной дорожной картой для развития системы в Росс — Читать исследование
 
 сектор аналитических исследований
 
@@ -1137,4 +1137,4 @@ AR/VR/MR в робототехнике
 
 # Citations
 
-1. [Читать исследование [Industrial_Robotics_Market_Research_2025]](https://innopolis.university/filespublic/Industrial_Robotics_Market_Research_2025.pdf), file 2b0bd4b987ec
+1. [Искандер Бариев, директор Университета Иннополис: «Проведённое нашим центром исследование описывает текущее состояние рынка промышленной робототехники и может быть своеобразной дорожной картой для развития системы в Росс — Читать исследование](https://innopolis.university/filespublic/Industrial_Robotics_Market_Research_2025.pdf), file 2b0bd4b987ec

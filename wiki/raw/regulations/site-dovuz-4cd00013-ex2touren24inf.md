@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "ex2tour-en24inf"
+title: "Второй отборочный этап — ex2tour-en24inf"
 resource: "https://lk-dovuz.innopolis.university/public/files/ex2tour-en24inf.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/dovuz"
 sources:
   - resource: "https://lk-dovuz.innopolis.university/public/files/ex2tour-en24inf.pdf"
     id: "a583455bfba0"
-    title: "ex2tour-en24inf"
+    title: "Второй отборочный этап — ex2tour-en24inf"
     last_modified: "2026-11-01T23:17:20+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# ex2tour-en24inf
+# Второй отборочный этап — ex2tour-en24inf
 
 Innopolis Open 2023. Qualification Round 2 Russia, Innopolis, December, 17, 2023
 
@@ -284,4 +284,4 @@ Example
 
 # Citations
 
-1. [ex2tour-en24inf](https://lk-dovuz.innopolis.university/public/files/ex2tour-en24inf.pdf), file a583455bfba0
+1. [Второй отборочный этап — ex2tour-en24inf](https://lk-dovuz.innopolis.university/public/files/ex2tour-en24inf.pdf), file a583455bfba0

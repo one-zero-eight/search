@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "392979 Положение о Комиссии"
+title: "Положение о Комиссии по интеллектуальной собственности — 392979 Положение о Комиссии"
 resource: "https://innopolis.university/files/392979%20%D0%9F%D0%BE%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%9A%D0%BE%D0%BC%D0%B8%D1%81%D1%81%D0%B8%D0%B8.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/files/392979%20%D0%9F%D0%BE%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%9A%D0%BE%D0%BC%D0%B8%D1%81%D1%81%D0%B8%D0%B8.pdf"
     id: "df74a9f18548"
-    title: "392979 Положение о Комиссии"
+    title: "Положение о Комиссии по интеллектуальной собственности — 392979 Положение о Комиссии"
     last_modified: "2021-05-11T00:00:00+03:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# 392979 Положение о Комиссии
+# Положение о Комиссии по интеллектуальной собственности — 392979 Положение о Комиссии
 
 УТВЕРЖДЕНО: приказом АНО ВО «Университет Иннополис» от 11 мая 2021 г. № ОД/АД-01/2021/05/11 Директор
 
@@ -565,4 +565,4 @@ review: "scanned document read by OCR: check numbers and dates against the PDF b
 
 # Citations
 
-1. [392979 Положение о Комиссии](https://innopolis.university/files/392979%20%D0%9F%D0%BE%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%9A%D0%BE%D0%BC%D0%B8%D1%81%D1%81%D0%B8%D0%B8.pdf), file df74a9f18548
+1. [Положение о Комиссии по интеллектуальной собственности — 392979 Положение о Комиссии](https://innopolis.university/files/392979%20%D0%9F%D0%BE%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D0%9A%D0%BE%D0%BC%D0%B8%D1%81%D1%81%D0%B8%D0%B8.pdf), file df74a9f18548

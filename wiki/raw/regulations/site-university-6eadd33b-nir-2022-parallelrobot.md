@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Read the article [NIR_2022_parallel-robot]"
+title: "The article deals with the application of force sensors to estimate position error of center of mass of the mobile platform of a cable-driven parallel robot. Conditions of deformations of cables and towers of the robot a — Read the article"
 resource: "https://innopolis.university/filespublic/NIR_2022_parallel-robot.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/NIR_2022_parallel-robot.pdf"
     id: "0d7f4eeba4fb"
-    title: "Read the article [NIR_2022_parallel-robot]"
+    title: "The article deals with the application of force sensors to estimate position error of center of mass of the mobile platform of a cable-driven parallel robot. Conditions of deformations of cables and towers of the robot a — Read the article"
     last_modified: "2026-10-24T23:45:22+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -17,7 +17,7 @@ extraction: "text layer (opendataloader)"
 status: draft
 ---
 
-# Read the article [NIR_2022_parallel-robot]
+# The article deals with the application of force sensors to estimate position error of center of mass of the mobile platform of a cable-driven parallel robot. Conditions of deformations of cables and towers of the robot a — Read the article
 
 On Problem of Position and Orientation Errors of Large-Sized Cable-Driven Parallel Robot
 
@@ -451,4 +451,4 @@ REFERENCES
 
 # Citations
 
-1. [Read the article [NIR_2022_parallel-robot]](https://innopolis.university/filespublic/NIR_2022_parallel-robot.pdf), file 0d7f4eeba4fb
+1. [The article deals with the application of force sensors to estimate position error of center of mass of the mobile platform of a cable-driven parallel robot. Conditions of deformations of cables and towers of the robot a — Read the article](https://innopolis.university/filespublic/NIR_2022_parallel-robot.pdf), file 0d7f4eeba4fb

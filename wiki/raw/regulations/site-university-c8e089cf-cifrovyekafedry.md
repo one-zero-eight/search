@@ -1,6 +1,6 @@
 ---
 type: regulation
-title: "Смотреть презентацию [cifrovye-kafedry]"
+title: "цифровых компетенций по ИТ-профилю — Смотреть презентацию"
 resource: "https://innopolis.university/filespublic/cifrovye-kafedry.pdf"
 source_kind: official-document
 language: ru
@@ -8,7 +8,7 @@ section: "site/university"
 sources:
   - resource: "https://innopolis.university/filespublic/cifrovye-kafedry.pdf"
     id: "3ec3dfffb730"
-    title: "Смотреть презентацию [cifrovye-kafedry]"
+    title: "цифровых компетенций по ИТ-профилю — Смотреть презентацию"
     last_modified: "2026-10-24T23:47:00+00:00"
 generated:
   by: "catix-wiki/0.1 regulations"
@@ -18,7 +18,7 @@ status: draft
 review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"
 ---
 
-# Смотреть презентацию [cifrovye-kafedry]
+# цифровых компетенций по ИТ-профилю — Смотреть презентацию
 
 INNOPOLIS UNIVERSITY АССЕСМЕНТ-ЦЕНТР
 
@@ -152,4 +152,4 @@ innopolis UNIVERSITY ∞ АССЕСМЕНТ-ЦЕНТР
 
 # Citations
 
-1. [Смотреть презентацию [cifrovye-kafedry]](https://innopolis.university/filespublic/cifrovye-kafedry.pdf), file 3ec3dfffb730
+1. [цифровых компетенций по ИТ-профилю — Смотреть презентацию](https://innopolis.university/filespublic/cifrovye-kafedry.pdf), file 3ec3dfffb730
