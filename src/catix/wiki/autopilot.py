@@ -14,7 +14,8 @@ One run:
   2. if one brought something, or the data still has changes an earlier run could not commit: build.rebuild(), then the
      wiki's agent on the pages that changed (agent.py);
   3. the checks: lint without errors, every card holds against the pages, the search finds the answers of
-     quality.py (hit@5 >= settings.wiki_min_hit5), the agent answers tests/test_docs_answers.py (a failed test once more);
+     quality.py (hit@5 >= settings.wiki_min_hit5), the agent answers tests/test_docs_answers.py (a failed test once more;
+     answers that were not checked, because pytest did not start or the model server did not answer, fail it too);
   4. a commit in the checkout of the `wiki` branch (settings.wiki_root), where only wiki/ and raw/ may change. All checks
      passed: pushed to `wiki`. One failed: the same changes go to a branch `wiki-review/<time>` for a person, and `wiki`
      stays as it was; the working tree keeps them, and the next run checks them again together with what is new.
@@ -34,8 +35,10 @@ import json
 import os
 import subprocess
 import sys
+import tempfile
 import time
 import traceback
+import xml.etree.ElementTree as ET
 from argparse import Namespace
 from collections import Counter
 from dataclasses import dataclass, field
@@ -118,15 +121,81 @@ class Checks:
         (self.passed if ok else self.failed).append(text)
 
 
-def answers_pass() -> bool:
-    """tests/test_docs_answers.py against the real agent; a failed test gets one more try (the model is not deterministic)."""
-    test = ["uv", "run", "pytest", "-q", "-p", "no:cacheprovider", "tests/test_docs_answers.py"]
-    env = {**os.environ, "WIKI_ROOT": str(DATA)}
-    first = subprocess.run(test, cwd=REPO, capture_output=True, text=True, env=env)
-    if first.returncode == 0:
-        return True
-    failed = [line.split(" ")[1] for line in first.stdout.splitlines() if line.startswith("FAILED ")]
-    return bool(failed) and subprocess.run([*test[:-1], *failed], cwd=REPO, capture_output=True, text=True, env=env).returncode == 0
+ANSWERS = "tests/test_docs_answers.py"
+SHOWN = 40  # lines of pytest's output the log gets when the answers did not pass
+
+
+@dataclass
+class Tests:
+    """One pytest run of the answers: each test's result (passed, failed: failed or raised in a fixture, skipped: the model
+    server did not answer, conftest.py), why tests were skipped, or why there are no results (`broken`: pytest did not run them)."""
+    results: dict[str, str] = field(default_factory=dict)
+    reasons: list[str] = field(default_factory=list)
+    broken: str = ""
+    output: str = ""
+
+    def having(self, result: str) -> list[str]:
+        return [test for test, r in self.results.items() if r == result]
+
+
+def last_line(text: str) -> str:
+    return next((line.strip() for line in reversed(text.splitlines()) if line.strip()), "")
+
+
+def run_answers(*tests: str) -> Tests:
+    """pytest on the answers, by the interpreter of this run (`python -m pytest`: no console script, whose first line may name
+    an interpreter a moved .venv no longer has); the results from its JUnit report, not from its text."""
+    with tempfile.TemporaryDirectory(prefix="catix-answers-") as tmp:
+        report = Path(tmp) / "answers.xml"
+        out = subprocess.run([sys.executable, "-m", "pytest", "-q", "-p", "no:cacheprovider", f"--junitxml={report}", *tests],
+                             cwd=REPO, capture_output=True, text=True, check=False, env={**os.environ, "WIKI_ROOT": str(DATA)})
+        try:
+            cases = list(ET.parse(report).getroot().iter("testcase"))
+        except (OSError, ET.ParseError):  # (no report: pytest did not start or died)
+            cases = []
+    run = Tests(output="\n".join(part.rstrip() for part in (out.stdout, out.stderr) if part.strip()))
+    for case in cases:
+        test = f"{case.get('classname', '').replace('.', '/')}.py::{case.get('name')}"  # (the tests are functions of the module)
+        if case.find("failure") is not None or case.find("error") is not None:
+            run.results[test] = "failed"
+        elif (skip := case.find("skipped")) is not None:
+            run.results[test] = "skipped"
+            run.reasons.append(skip.get("message", ""))
+        else:
+            run.results[test] = "passed"
+    if out.returncode not in (0, 1) or not run.results:  # (2: a test file did not load, 5: no tests; 1 without results: no pytest)
+        run.broken = f"exit {out.returncode}: {last_line(out.stderr) or last_line(out.stdout) or 'no output'}"
+    return run
+
+
+def names(tests: list[str]) -> str:
+    return ", ".join(test.rsplit("::", 1)[-1] for test in tests)
+
+
+def answers_check() -> tuple[bool, str]:
+    """tests/test_docs_answers.py against the real agent; a failed test gets one more try (the model is not deterministic).
+    Passes only when every test passed: tests that did not run (pytest did not start; the model server did not answer, so they
+    were skipped) checked nothing, and the line says so. The log gets what pytest said when they did not pass."""
+    first = run_answers(ANSWERS)
+    last, results, retried = first, dict(first.results), []
+    if first.having("failed") and not first.broken:
+        last = run_answers(*first.having("failed"))
+        results.update(last.results)
+        retried = last.having("passed")
+    final = Tests(results=results, reasons=[*first.reasons, *(last.reasons if last is not first else [])], broken=first.broken or last.broken)
+    failed, skipped = final.having("failed"), final.having("skipped")
+    if final.broken:
+        ok, line = False, f"answers: not checked, pytest did not run {ANSWERS} ({final.broken})"
+    elif failed:
+        ok, line = False, f"answers: {len(failed)} of {len(results)} failed twice in {ANSWERS}: {names(failed)}"
+    elif skipped:
+        why = "; ".join(dict.fromkeys(r for r in final.reasons if r)) or "no reason given"
+        ok, line = False, f"answers: not checked, {len(skipped)} of {len(results)} skipped in {ANSWERS} ({why})"
+    else:
+        ok, line = True, f"answers: {len(results)} of {len(results)} passed in {ANSWERS}" + (f" ({names(retried)} on the second try)" if retried else "")
+    if not ok:
+        print(f"== {line}\n" + "\n".join(last.output.splitlines()[-SHOWN:]), flush=True)
+    return ok, line
 
 
 def check(report: build.Report, answers: bool) -> Checks:
@@ -143,7 +212,7 @@ def check(report: build.Report, answers: bool) -> Checks:
     checks.add(score.hit5 >= settings.wiki_min_hit5, f"search: hit@5 {score.hit5:.0%} (at least {settings.wiki_min_hit5:.0%}), hit@10 {score.hit10:.0%}"
                + (f"; not found: {'; '.join(score.missed[:5])}" if score.missed else ""))
     if answers:
-        checks.add(answers_pass(), "answers: tests/test_docs_answers.py")
+        checks.add(*answers_check())
     if report.agent:
         broken = report.agent.get("cards broken", 0)
         checks.add(broken == 0, f"cards: {report.agent.get('cards written', 0)} written, {broken} do not hold against the pages (catix-wiki agent check)")

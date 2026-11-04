@@ -143,3 +143,62 @@ def test_a_run_that_touches_code_commits_nothing(tmp_path, monkeypatch):
     with pytest.raises(RuntimeError, match="outside the data"):
         autopilot.run_once(push=False)
     assert autopilot.git("log", "--format=%s") == "start"
+
+
+def _pytest(monkeypatch, *runs):
+    """The pytest of the answers, faked: each run is (its tests: {name: passed | failed | skipped} or None for no report, its
+    exit code, its stderr); the commands asked are returned."""
+    import subprocess
+    from pathlib import Path
+
+    calls = []
+
+    def run(command, **kwargs):
+        tests, code, stderr = runs[len(calls)]
+        calls.append(command)
+        report = next(a.removeprefix("--junitxml=") for a in command if a.startswith("--junitxml="))
+        inner = {"passed": "", "failed": '<failure message="assert 12 in answer"/>', "skipped": '<skipped type="pytest.skip" message="the model server (llm) does not answer"/>'}
+        if tests is not None:
+            cases = "".join(f'<testcase classname="tests.test_docs_answers" name="{n}">{inner[r]}</testcase>' for n, r in tests.items())
+            Path(report).write_text(f'<testsuites><testsuite name="pytest">{cases}</testsuite></testsuites>')
+        return subprocess.CompletedProcess(command, code, "", stderr)
+
+    monkeypatch.setattr(autopilot.subprocess, "run", run)
+    return calls
+
+
+def test_answers_pytest_did_not_run_fail_and_say_why(monkeypatch, capsys):
+    """Regression: a .venv moved with the code kept scripts whose first line named the old interpreter; `uv run pytest` did not
+    start, and the run sent its changes for review as if the agent had answered wrong. Now pytest runs as `python -m pytest`
+    and a pytest that ran nothing is named as such."""
+    import sys
+
+    calls = _pytest(monkeypatch, (None, 1, f"{sys.executable}: No module named pytest"))
+    ok, line = autopilot.answers_check()
+    assert not ok and line.startswith("answers: not checked, pytest did not run") and "No module named pytest" in line
+    assert calls[0][:3] == [sys.executable, "-m", "pytest"] and len(calls) == 1  # (nothing to try again)
+    assert "No module named pytest" in capsys.readouterr().out  # (the log has what pytest said)
+
+
+def test_skipped_answers_checked_nothing(monkeypatch):
+    _pytest(monkeypatch, ({"test_leave": "skipped", "test_retakes": "skipped"}, 0, ""))
+    ok, line = autopilot.answers_check()
+    assert not ok and line == "answers: not checked, 2 of 2 skipped in tests/test_docs_answers.py (the model server (llm) does not answer)"
+
+
+def test_a_failed_answer_is_asked_once_more(monkeypatch):
+    calls = _pytest(monkeypatch, ({"test_leave": "passed", "test_retakes": "failed"}, 1, ""), ({"test_retakes": "passed"}, 0, ""))
+    assert autopilot.answers_check() == (True, "answers: 2 of 2 passed in tests/test_docs_answers.py (test_retakes on the second try)")
+    assert calls[1][-1] == "tests/test_docs_answers.py::test_retakes"
+
+
+def test_an_answer_that_fails_twice_is_named(monkeypatch):
+    _pytest(monkeypatch, ({"test_leave": "passed", "test_retakes": "failed"}, 1, ""), ({"test_retakes": "failed"}, 1, ""))
+    assert autopilot.answers_check() == (False, "answers: 1 of 2 failed twice in tests/test_docs_answers.py: test_retakes")
+
+
+def test_the_results_come_from_pytest_s_own_report():
+    """A real pytest: the ids made from its JUnit report are the ones it runs again."""
+    one = "tests/test_wiki_autopilot.py::test_only_the_data_may_be_committed"
+    run = autopilot.run_answers(one)
+    assert run.results == {one: "passed"} and not run.broken, run.output
