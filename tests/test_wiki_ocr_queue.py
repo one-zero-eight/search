@@ -29,7 +29,7 @@ def _one_scan(monkeypatch, tmp_path, pages):
     url, key = "https://hotel.innopolis.university/upload/report.pdf", "site-hotel-1-report"
     monkeypatch.setattr(regulations, "all_docs", lambda: {key: {"title": "Отчёт", "url": url, "root": tmp_path, "section": "site/hotel", "ext": "pdf"}})
     monkeypatch.setattr(sites, "collect_linked_docs", lambda: 0)
-    monkeypatch.setattr(regulations, "discover_linked_documents", lambda: 0)
+    monkeypatch.setattr(regulations, "discover_linked_documents", dict)
     monkeypatch.setattr(regulations, "PAUSE", 0)
     asked, layers, read = [], [], []
     monkeypatch.setattr(regulations.httpx, "get", lambda u, **k: asked.append(u) or httpx.Response(200, content=b"%PDF-1.4 a scan", request=httpx.Request("GET", u)))
@@ -169,7 +169,7 @@ def test_a_failed_scan_stays_queued_without_falling_back_after_retries(monkeypat
     (tmp_path / f"{key}.pdf").write_bytes(b"%PDF-1.4 a scan")
     (tmp_path / f"{key}.json").write_text(json.dumps({"ocr": "queued", "pages": 3, "queued_at": "2026-11-01T10:00:00+00:00"}), encoding="utf-8")
     monkeypatch.setattr(sites, "collect_linked_docs", lambda: 0)
-    monkeypatch.setattr(regulations, "discover_linked_documents", lambda: 0)
+    monkeypatch.setattr(regulations, "discover_linked_documents", dict)
     monkeypatch.setattr(regulations, "pages_of", lambda pdf: 3)
     monkeypatch.setattr(opendataloader, "converted", lambda pdfs: contextlib.nullcontext({}))
     up = [True]

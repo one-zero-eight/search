@@ -171,13 +171,14 @@ def linked_documents() -> dict[str, dict]:
     return json.loads(LINKED.read_text(encoding="utf-8")).get("documents", {})
 
 
-def discover_linked_documents(docs: dict[str, dict] | None = None) -> int:
-    """Remember new document links from trusted-provider materials; return the number added."""
+def discover_linked_documents(docs: dict[str, dict] | None = None) -> dict[str, str]:
+    """Remember new document links from trusted-provider materials (of `docs`, of every document when None): the key of each
+    document added -> the key of the document whose text names it."""
     from catix.wiki.sources import crawl, sites
 
     registry = linked_documents()
     known = {sites.canonical(d["url"]) for d in all_docs().values()}
-    found = 0
+    found: dict[str, str] = {}
     source_docs = docs or all_docs()
     for key, d in source_docs.items():
         text_path = d["root"] / f"{key}.txt"
@@ -192,11 +193,11 @@ def discover_linked_documents(docs: dict[str, dict] | None = None) -> int:
                 continue
             filename = unquote(url.rsplit("/", 1)[-1])
             stem, ext = filename.rsplit(".", 1)
-            key = f"site-{provider}-linked-{hashlib.sha1(url.encode()).hexdigest()[:8]}-{re.sub(r'[^a-z0-9]+', '-', stem.lower()).strip('-')[:40] or 'document'}"
-            registry[url] = {"key": key, "title": re.sub(r"\s+", " ", stem.replace("_", " ")).strip(), "ext": ext.lower(),
+            new = f"site-{provider}-linked-{hashlib.sha1(url.encode()).hexdigest()[:8]}-{re.sub(r'[^a-z0-9]+', '-', stem.lower()).strip('-')[:40] or 'document'}"
+            registry[url] = {"key": new, "title": re.sub(r"\s+", " ", stem.replace("_", " ")).strip(), "ext": ext.lower(),
                              "provider": provider, "from": [d["url"]]}
             known.add(url)
-            found += 1
+            found[new] = key
     if found:
         LINKED.parent.mkdir(parents=True, exist_ok=True)
         LINKED.write_text(json.dumps({"documents": registry}, ensure_ascii=False, indent=1, sort_keys=True), encoding="utf-8")
@@ -582,19 +583,26 @@ def read_new(limit: int | None = None, prefixes: tuple[str, ...] | None = None, 
     The existing SITES entries decide which providers and paths are trusted. A
     newly found document is persisted before the next pass, so an interrupted
     crawl resumes without rereading completed files.
+
+    A pass after the first reads the documents found in the one before, of any trusted provider, and no other document not
+    read yet. With `prefixes` (a run of a few sites) only those a document of the prefixes or one this run read names: the
+    pass that read every document no run had read yet took 54 of the university's for a request for the hotel. Every link
+    found is remembered all the same (every document is looked at: an old document may name a site approved since), and
+    the weekly run, which has no prefixes, reads them.
     """
-    read, remaining, current_prefixes = [], limit, prefixes
+    read, remaining, scope = [], limit, prefixes
     while True:
-        done = _fetch_once(remaining, current_prefixes, ocr)
+        done = _fetch_once(remaining, scope, ocr)
         read += done
         if remaining is not None:
             remaining -= len(done)
             if remaining <= 0:
                 break
-        added = discover_linked_documents()
-        if not added:
+        reached = set(read)
+        scope = tuple(new for new, source in discover_linked_documents().items()  # (recursion may cross from one trusted provider to another)
+                      if prefixes is None or source.startswith(prefixes) or source in reached)
+        if not scope:
             break
-        current_prefixes = None  # recursion may cross from one trusted provider to another
     return read
 
 

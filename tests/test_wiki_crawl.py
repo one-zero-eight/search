@@ -79,7 +79,7 @@ def test_linked_documents_are_persisted_and_are_input_to_regulations(providers):
     added = regulations.discover_linked_documents({
         "site-a-source": {"title": "Source", "url": "https://a.example/docs/source.pdf", "root": source.parent, "section": "site/a", "ext": "pdf"}
     })
-    assert added == 1
+    assert list(added.values()) == ["site-a-source"]  # (the document added -> the one that names it)
     docs = regulations.all_docs()
     found = [d for d in docs.values() if d["url"] == "https://b.example/docs/next.pdf"]
     assert len(found) == 1 and found[0]["root"] == providers / "raw" / "sites" / "b" / "docs"
@@ -125,14 +125,34 @@ def test_regulations_fetch_resumes_until_the_trusted_document_queue_is_empty(mon
 
     calls, waves = [], iter([["one"], ["two"], []])
     monkeypatch.setattr(regulations, "_fetch_once", lambda limit, prefixes, ocr: calls.append((limit, prefixes, ocr)) or next(waves))
-    monkeypatch.setattr(regulations, "discover_linked_documents", lambda: 1 if len(calls) < 2 else 0)
+    monkeypatch.setattr(regulations, "discover_linked_documents", lambda: {"site-b-linked-1-two": "one"} if len(calls) < 2 else {})
     assert regulations.fetch(limit=5, prefixes=("site-a-",)) == 2
-    assert calls == [(5, ("site-a-",), True), (4, None, True)]
+    assert calls == [(5, ("site-a-",), True), (4, ("site-b-linked-1-two",), True)]  # (the document "one" names, of another provider)
     calls.clear()
     waves = iter([["three"], []])
-    monkeypatch.setattr(regulations, "discover_linked_documents", lambda: 0)
+    monkeypatch.setattr(regulations, "discover_linked_documents", dict)
     assert regulations.read_new(prefixes=("site-a-",), ocr=False) == ["three"]  # (the keys of those read; without OCR in every pass)
     assert calls == [(None, ("site-a-",), False)]
+
+
+def test_a_run_of_a_few_sites_reads_the_documents_its_documents_name_and_not_every_unread_one(monkeypatch):
+    """A request for the hotel read 54 documents of the university that no run had read yet: a pass after the first took every
+    unread document. It takes those named by the documents of the run's sites and by those it read; the others are only
+    remembered, for the weekly run."""
+    from catix.wiki.sources import regulations
+
+    scopes, waves = [], iter([["site-hotel-rules"], ["site-university-linked-1-map"], ["site-media-linked-3-plan"]])
+    found = iter([{"site-university-linked-1-map": "site-hotel-rules", "site-media-linked-2-old": "site-university-report"},
+                  {"site-media-linked-3-plan": "site-university-linked-1-map"}, {}])
+    monkeypatch.setattr(regulations, "_fetch_once", lambda limit, prefixes, ocr: scopes.append(prefixes) or next(waves))
+    monkeypatch.setattr(regulations, "discover_linked_documents", lambda: next(found))
+    assert regulations.read_new(prefixes=("site-hotel-",), ocr=False) == ["site-hotel-rules", "site-university-linked-1-map", "site-media-linked-3-plan"]
+    assert scopes == [("site-hotel-",), ("site-university-linked-1-map",), ("site-media-linked-3-plan",)]  # (not the one an old report names)
+    scopes.clear()
+    waves = iter([["site-hotel-rules"], ["site-media-linked-2-old"]])
+    found = iter([{"site-media-linked-2-old": "site-university-report"}, {}])
+    assert regulations.read_new(ocr=False) == ["site-hotel-rules", "site-media-linked-2-old"]  # (the weekly run: every document found)
+    assert scopes == [None, ("site-media-linked-2-old",)]
 
 
 def test_regulations_fetch_downloads_a_document_found_in_the_previous_one(providers, monkeypatch):

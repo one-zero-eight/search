@@ -330,7 +330,7 @@ def test_a_scan_is_queued_by_a_run_without_ocr_and_read_by_the_next_run_with_it(
     url, key = "https://hotel.innopolis.university/upload/rules.pdf", "site-hotel-1-rules"
     monkeypatch.setattr(regulations, "all_docs", lambda: {key: {"title": "Правила", "url": url, "root": tmp_path, "section": "site/hotel", "ext": "pdf"}})
     monkeypatch.setattr(sites, "collect_linked_docs", lambda: 0)  # (it reads and writes the real bundle's sites)
-    monkeypatch.setattr(regulations, "discover_linked_documents", lambda: 0)
+    monkeypatch.setattr(regulations, "discover_linked_documents", dict)
     asked, layers, read = [], [], []
     monkeypatch.setattr(regulations.httpx, "get", lambda u, **k: asked.append(u) or httpx.Response(200, content=b"%PDF-1.4 a scan", headers={"etag": "v1"},
                                                                                                   request=httpx.Request("GET", u)))
