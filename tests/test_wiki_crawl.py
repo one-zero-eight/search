@@ -120,6 +120,184 @@ def test_only_new_page_links_are_collected_from_existing_site_pages(providers):
     assert sites.new_linked_pages(["a"]) == {"b": {"https://b.example/new"}}
 
 
+def test_alias_is_fetched_once_under_the_primary_host(providers):
+    import httpx
+
+    requested = []
+    def respond(request):
+        requested.append(str(request.url))
+        assert str(request.url) == "https://a.example/news"
+        return httpx.Response(200, headers={"content-type": "text/html"}, text=(
+            "<html><title>News</title><p>" + "Study rules and student opportunities. " * 20
+            + '</p><a href="https://old-a.example/news">Again</a></html>'))
+
+    with httpx.Client(transport=httpx.MockTransport(respond)) as client:
+        assert sites.fetch_site("a", sites.SITES["a"], client, start=["https://old-a.example/news"]) == 1
+        assert requested == ["https://a.example/news"]
+        pages = sites.load("a")["pages"]
+        assert list(pages) == ["news"]
+        assert pages["news"]["url"] == "https://a.example/news"
+        (sites.ROOT / "a" / "news.md").write_text("[old spelling](https://old-a.example/news)")
+        assert sites.new_linked_pages(["a"]) == {}
+
+
+def test_an_existing_alias_cache_keeps_its_slug(providers):
+    import httpx
+
+    def respond(request):
+        return httpx.Response(200, headers={"content-type": "text/html"}, text=(
+            "<html><title>News</title><p>" + "Study rules and student opportunities. " * 20 + "</p></html>"))
+
+    with httpx.Client(transport=httpx.MockTransport(respond)) as client:
+        sites.fetch_site("a", sites.SITES["a"], client, start=["https://a.example/news"])
+        index = sites.load("a")
+        index["pages"]["news"]["url"] = "https://old-a.example/news"
+        sites.save("a", index)
+        assert sites.fetch_site("a", sites.SITES["a"], client, start=["https://a.example/news"]) == 0
+    assert list(sites.load("a")["pages"]) == ["news"]
+
+
+@pytest.mark.parametrize("blocked", ["old-a.example", "a.example"])
+def test_alias_normalization_does_not_bypass_blocking(providers, monkeypatch, blocked):
+    import httpx
+    from catix.wiki.sources import crawl
+
+    monkeypatch.setattr(sites, "BLOCKED", frozenset({blocked}))
+    url = "https://old-a.example/news"
+    assert not sites._taken(sites.SITES["a"], url)
+    assert crawl.page_links(f"[news]({url})", "https://b.example/") == []
+    def forbidden(request) -> httpx.Response:
+        raise AssertionError(f"blocked URL was requested: {request.url}")
+    with httpx.Client(transport=httpx.MockTransport(forbidden)) as client:
+        assert sites.fetch_site("a", sites.SITES["a"], client, start=[url]) == 0
+
+
+def test_a_primary_host_wins_over_another_sites_alias(providers, monkeypatch):
+    from dataclasses import replace
+    from catix.wiki.sources import crawl
+
+    monkeypatch.setitem(sites.SITES, "a", replace(sites.SITES["a"], aliases=("b.example",)))
+    assert crawl.provider("https://b.example/news", page=True) == "b"
+    assert not sites._taken(sites.SITES["a"], "https://b.example/news")
+    assert not sites._taken(sites.SITES["a"], "https://b.example/private/news")
+    assert crawl.page_links("[private](https://b.example/private/news)", "https://a.example/") == []
+    assert sites.address("https://b.example/news") == "https://b.example/news"
+
+
+@pytest.mark.parametrize("url", [
+    "https://old-a.example/login/private", "https://old-a.example/upload/rules.pdf",
+    "https://a.example.evil.org/news", "https://a.example:8443/news", "https://a.example:bad/news",
+    "https://user:password@old-a.example/news", "ftp://old-a.example/news", "//old-a.example/news",
+    "https://[broken/news",
+])
+def test_page_policy_rejects_unsafe_or_excluded_aliases(providers, url):
+    from catix.wiki.sources import crawl
+
+    assert not sites._taken(sites.SITES["a"], url)
+    assert crawl.provider(url, page=True) is None
+
+
+def test_alias_waves_compile_and_incremental_crawl_share_one_identity(providers, monkeypatch):
+    import httpx
+    from catix.wiki.sources import regulations
+
+    monkeypatch.setitem(sites.SITES, "child", sites.Site(
+        "https://child.a.example/", "en", "Child", r"^private(/|$)", sitemap=False, pause=0, aliases=("old-child.example",)))
+    sites.save("child", {"pages": {}, "docs": {}})  # a partial run enters only a site already read by the weekly crawl
+    routes = {
+        "https://a.example/": '<a href="https://old-child.example/news">Child</a>'
+                              '<a href="https://unknown.a.example/news">Unknown</a>'
+                              '<a href="https://pending.example/news">Pending</a>',
+        "https://child.a.example/news": '<a href="https://old-a.example/">Parent</a>',
+    }
+    requested = []
+    def respond(request):
+        url = str(request.url)
+        requested.append(url)
+        return httpx.Response(200, headers={"content-type": "text/html"}, text=(
+            f"<html><title>{request.url.host}</title><p>" + f"Study opportunities from {request.url.host}. " * 20
+            + "</p>" + routes[url] + "</html>"))
+
+    class Client(httpx.Client):
+        def __init__(self, **kwargs):
+            super().__init__(transport=httpx.MockTransport(respond), **kwargs)
+    monkeypatch.setattr(httpx, "Client", Client)
+    assert sites.fetch(["a"]) == 2
+    assert requested == ["https://a.example/", "https://child.a.example/news"]
+    assert sites.fetch(["a", "child"], only_new=True) == 0
+    assert len(requested) == 2
+    monkeypatch.setattr(regulations, "all_docs", lambda: {})
+    sites.compile_all()
+    parent = sites.DOCS / "sites" / "a" / "home.md"
+    child = sites.DOCS / "sites" / "child" / "news.md"
+    assert "[Child](/raw/sites/child/news.md)" in parent.read_text()
+    assert "[Parent](/raw/sites/a/home.md)" in child.read_text()
+    assert "[Unknown](https://unknown.a.example/news)" in parent.read_text()
+    before = {p: p.read_bytes() for p in sites.DOCS.rglob("*.md")}
+    sites.compile_all()
+    assert before == {p: p.read_bytes() for p in sites.DOCS.rglob("*.md")}
+
+
+@pytest.mark.parametrize("pending_host", ["pending.example", "old-pending.example"])
+def test_pending_on_either_alias_host_blocks_automatic_handoff(providers, monkeypatch, pending_host):
+    import httpx
+    from dataclasses import replace
+    from catix.wiki.sources import crawl
+
+    monkeypatch.setitem(sites.SITES, "pending", replace(sites.SITES["pending"], aliases=("old-pending.example",), skip=r"^private(/|$)"))
+    sites.write_discovered({pending_host: {"status": "pending"}})
+    sites.save("pending", {"pages": {}, "docs": {}})  # test the pending guard, not the separate never-read-site guard
+    requested = []
+    def respond(request):
+        requested.append(str(request.url))
+        return httpx.Response(200, headers={"content-type": "text/html"}, text=(
+            "<html><title>News</title><p>" + "Study rules and student opportunities. " * 20
+            + '</p><a href="https://old-pending.example/news">Pending</a></html>'))
+
+    class Client(httpx.Client):
+        def __init__(self, **kwargs):
+            super().__init__(transport=httpx.MockTransport(respond), **kwargs)
+    monkeypatch.setattr(httpx, "Client", Client)
+    assert sites.fetch(["a"]) == 1
+    assert requested == ["https://a.example/"]
+    assert sites.load("pending")["pages"] == {}
+    assert crawl.provider("https://old-pending.example/news", page=True) is None
+    # Reviewing a pending site's own pages explicitly remains possible.
+    with httpx.Client() as web:
+        assert sites.fetch_site("pending", sites.SITES["pending"], web, start=["https://pending.example/news"]) == 1
+
+
+def test_subdomain_pages_use_their_own_site_or_wait_for_discovery(providers, monkeypatch):
+    import httpx
+    from catix.wiki.sources import crawl
+
+    monkeypatch.setitem(sites.SITES, "child", sites.Site(
+        "https://child.a.example/", "en", "Child", r"^private(/|$)", sitemap=False, pause=0))
+    text = ("[parent](https://old-a.example/news) [child](https://child.a.example/news) "
+            "[unknown](https://unknown.a.example/news) [private](https://child.a.example/private/news)")
+    assert crawl.page_links(text, "https://a.example/") == [
+        "https://a.example/news", "https://child.a.example/news"]
+    assert crawl.text_page_links(text, "https://a.example/") == [
+        "https://a.example/news", "https://child.a.example/news"]
+    # A file host may inherit document trust, not its parent's HTML settings/cache.
+    assert crawl.document_links("https://unknown.a.example/upload/rules.pdf", "https://a.example/source.pdf") == [
+        "https://unknown.a.example/upload/rules.pdf"]
+
+    requested = []
+    def respond(request):
+        requested.append(str(request.url))
+        assert str(request.url) in {"https://a.example/news", "https://child.a.example/news"}
+        return httpx.Response(200, headers={"content-type": "text/html"}, text=(
+            f"<html><title>{request.url.host}</title><p>" + f"News from {request.url.host}. " * 20 + "</p></html>"))
+
+    with httpx.Client(transport=httpx.MockTransport(respond)) as client:
+        for name, url in [("a", "https://old-a.example/news"), ("child", "https://child.a.example/news")]:
+            assert sites.fetch_site(name, sites.SITES[name], client, start=[url]) == 1
+    assert len(requested) == 2
+    assert sites.load("a")["pages"]["news"]["url"] == "https://a.example/news"
+    assert sites.load("child")["pages"]["news"]["url"] == "https://child.a.example/news"
+
+
 def test_regulations_fetch_resumes_until_the_trusted_document_queue_is_empty(monkeypatch):
     from catix.wiki.sources import regulations
 
@@ -194,7 +372,7 @@ def test_the_pages_a_document_names_are_those_of_trusted_sites(providers):
 
     text = ("Подробнее: https://a.example/news/item, https://b.example/private/x https://pending.example/about "
             "https://unknown.example/page https://a.example/docs/one.pdf https://old-a.example/news/item. https://a.example/source")
-    assert crawl.text_page_links(text, "https://a.example/source") == ["https://a.example/news/item", "https://old-a.example/news/item"]
+    assert crawl.text_page_links(text, "https://a.example/source") == ["https://a.example/news/item"]
 
     regulations.LINKED = providers / "raw" / "regulations" / "linked.json"
     docs = providers / "raw" / "docs"
