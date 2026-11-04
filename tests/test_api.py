@@ -203,7 +203,7 @@ def test_mocks(client):
     assert client.get("/moodle/courses/grouped-by-semester").json() == {}
     assert client.get("/moodle/courses", headers=AUTH).json() == []
     assert client.post("/moodle/batch-courses", json={"courses": []}, headers=AUTH).status_code == 200
-    assert client.post("/hotel/parse", headers=AUTH).status_code == 410
+    assert client.post("/moodle/parse", headers=AUTH).status_code == 410
 
 
 # --- one client's questions in a line, and cancelling ---

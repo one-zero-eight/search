@@ -2,7 +2,8 @@
 
     GET  /search/search                    cards from the wiki          POST /ask/   the agent, a conversation by chat_id
     POST /search/search/{id}/feedback      likes of the cards           POST /act/   mock (cAtIx has no actions)
-    /moodle/*, /{section}/parse            mocks (no Moodle, no parsers)
+    /moodle/*                            mocks (no Moodle)
+    POST /{section}/parse                incremental source updates
 """
 
 import logging
@@ -15,7 +16,7 @@ from fastapi.responses import RedirectResponse
 from fastapi.routing import APIRoute
 from starlette.middleware.cors import CORSMiddleware
 
-from catix.api import ask, search, stubs
+from catix.api import ask, parsers, search, stubs
 from catix.settings import settings
 
 log = logging.getLogger("catix.api")
@@ -74,7 +75,7 @@ async def swagger_ui_html(request: Request):
     )
 
 
-for _router in (search.router, ask.router, stubs.moodle, stubs.parsers):
+for _router in (search.router, ask.router, stubs.moodle, parsers.router):
     app.include_router(_router)
 
 

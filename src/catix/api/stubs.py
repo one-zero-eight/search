@@ -1,6 +1,5 @@
-"""The routes of the search service that cAtIx has nothing behind: Moodle (a crawler filled its courses and files in
-MongoDB and MinIO) and the parsers of the old sources (`/{section}/parse`). They keep their paths and models, so that
-clients and the crawler do not break; they answer with empty lists or "gone".
+"""The Moodle routes of the search service that cAtIx has nothing behind (a crawler filled its courses and files in
+MongoDB and MinIO). They keep their paths and models, so clients and the crawler do not break.
 """
 
 from typing import Any
@@ -9,10 +8,9 @@ from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel
 
 from catix.api.auth import VerifiedDep
-from catix.api.schemas import InfoSources, Sources
+from catix.api.schemas import Sources
 
 moodle = APIRouter(prefix="/moodle", tags=["Moodle"])
-parsers = APIRouter()
 
 NO_MOODLE = "cAtIx does not index Moodle"
 
@@ -72,11 +70,3 @@ async def need_to_upload_contents(_auth: VerifiedDep, contents_list: list[dict[s
 @moodle.post("/content-uploaded")
 async def content_uploaded(_auth: VerifiedDep, data: dict[str, Any]) -> None:
     """Accepted and dropped."""
-
-
-@parsers.post("/{section}/parse", responses={403: {"description": "Unauthorized"}, 400: {"description": "Bad Request"}})
-async def run_parse_route(
-    _auth: VerifiedDep, section: InfoSources, indexing_is_needed: bool = True, parsing_is_needed: bool = False
-):
-    """The wiki is built by `catix-wiki`, not by an endpoint."""
-    raise HTTPException(status_code=410, detail="Parsing is done by catix-wiki, not by the API")
