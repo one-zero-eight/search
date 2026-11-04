@@ -21,7 +21,7 @@
 Telegram-чаты ──userbot (аккаунт, читает чаты, историю)──┐
 Telegram-чаты ──Bot API бот (участник чата, с момента добавления)──┤
 Max-чаты ──Max-бот──────────────────────────────────────┤
-                                                        ▼
+ fip inh-compute 8080 8081 8083                                                       ▼
                           фильтр шума ─► Postgres (сообщения, BM25-индекс, векторы)
                                                         │  └► embedding_queue ─► эмбеддеры ─► векторы
                                                         ▼
@@ -216,7 +216,7 @@ cAtIx заменил сервис поиска InNoHassle и отвечает п
 | `POST /ask/{chat_id}/cancel` | отмена работы агента в чате: идущего вопроса и ждущих своей очереди вопросов этого чата. Их запросы завершаются `409` (в `/ask/stream` событием `cancelled`), диалог остаётся таким, каким был до отменённых вопросов |
 | `POST /act/` | заглушка: действий в сервисах InNoHassle в cAtIx нет |
 | `/moodle/*` | заглушки: пустые списки |
-| `GET /sites` | доступные для парсинга сайты (`name`, `url`, `about`) из каталога `sites.fetch`, включая pending |
+| `GET /sites` | доверенные настроенные сайты (`name`, `url`, `about`) из каталога `sites.SITES` |
 | `POST /{section}/parse` | инкрементальное обновление: `wiki` / `eduwiki`, `sites` / `resources`; прежние `hotel` и `campuslife` выбирают соответствующий сайт |
 
 Парсинг требует того же Bearer-токена. Например, `POST /sites/parse?sites=hotel&sites=campuslife`
@@ -268,4 +268,4 @@ experiments/   скрипты оценки качества поиска и да
 ## TODO
 
 - Change InMemorySaver to AsyncPostgresSaver
-- OCR limit: `MAX_OCR_PAGES = 40` and `OCR_BUDGET = 200` (`src/catix/wiki/sources/regulations.py`) were set for tesseract; with chandra (~8 s a page) raise them, so that `regs fetch` reads the scans longer than 40 pages it leaves now (6 of them, 42–78 pages)
+- OCR limit: `MAX_OCR_PAGES = 40` and `OCR_BUDGET = 200` (`src/catix/wiki/sources/regulations.py`); review these limits when a dedicated chandra server is available. Longer scans stay queued; there is no alternative OCR engine.

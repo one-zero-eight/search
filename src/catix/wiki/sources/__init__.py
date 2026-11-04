@@ -4,9 +4,11 @@
     sveden.py       innopolis.university/sveden: every document the site discloses; the model decides which to keep
     regulations.py  the kept documents (PDF): text, then wiki/raw/regulations/ by code (the model writes only a description)
     rpd.py          course programmes (РПД) from the archives of sveden/education: wiki/raw/course-programmes/, by code only
-    sites.py        the sites of the university's services (campus life, the campus hotel): wiki/raw/sites/, their documents as regulations
+    sites.py        the sites of the university's services (campus life, the campus hotel): wiki/raw/sites/, their documents as regulations;
+                    the pages that appeared on them every 6 hours (new-pages), all their pages again every week (sites)
     discover.py     new sites of the university in the links of the pages: pending a person's look (autopilot accept | discard)
     pastpapers.py   past exam papers the students keep in Notion: wiki/raw/past-papers/, one page per subject, by code only
+    OCR scans      queued by the sources for a manual run with OCR; no scheduled model switching
     mock.py         a stand-in site for showing and testing the wiki's run (WIKI_MOCK_SITE)
 
 
@@ -49,7 +51,7 @@ def _sveden() -> int:
 
     changed = sveden.discover()
     sveden.triage()
-    return changed + regulations.fetch() + rpd.fetch()
+    return changed + regulations.fetch(ocr=False) + rpd.fetch()  # (scans stay queued for a manual OCR run)
 
 
 def _files() -> int:
@@ -57,7 +59,7 @@ def _files() -> int:
     from catix.wiki.sources import regulations, rpd
 
     changed = regulations.refresh() + rpd.refresh()
-    return changed and regulations.fetch() + rpd.fetch()
+    return changed and regulations.fetch(ocr=False) + rpd.fetch()  # (scans stay queued for a manual OCR run)
 
 
 def _discover() -> int:
@@ -69,34 +71,48 @@ def _discover() -> int:
 
 
 def _sites() -> int:
-    """The pages of the services' sites read again, then the documents they link that are new or changed."""
+    """The pages of the sites read again (the pending ones too), and through them the documents: those that are new or
+    changed, the pages of trusted sites their text names, their documents, ... (sites.fetch with documents: document -> site
+    -> document -> site). Text layers only: scans stay queued for a manual OCR run; the bot's LLM is never stopped."""
     from catix.wiki.sources import regulations, sites
 
-    return sites.fetch() + regulations.refresh(prefix="site-") + regulations.fetch()
+    return regulations.refresh(prefix="site-") + sites.fetch(documents=True, ocr=False)
+
+
+def _new_pages() -> int:
+    """The pages that appeared on the sites since the last run (sites.fetch_new), wave after wave through the documents they
+    link (site -> site -> document -> site): a page of a hackathon on media is in the wiki hours after it is published, not up
+    to a week later at the run of `sites`. The documents are read by their text layer alone: scans stay queued for a manual
+    OCR run, so the OCR model need not be up every 6 hours."""
+    from catix.wiki.sources import sites
+
+    return sites.fetch_new(documents=True)
 
 
 def _new_sites() -> int:
     """Only the sites found by discover.py that wait for a person's look: their pages and the documents they link (`autopilot
     --only-new`, after `catix-wiki sites discover --all`). The weekly `sites` reads every site again, which takes hours."""
-    from catix.wiki.sources import discover, regulations, sites
+    from catix.wiki.sources import discover, sites
 
     names = [sites.site_name(host) for host in discover.pending_hosts()]
     print(f"  {len(names)} pending sites: {', '.join(names) or 'none'}", flush=True)
-    return sites.fetch(names) + regulations.fetch() if names else 0
+    return sites.fetch(names, documents=True, ocr=False) if names else 0  # (scans stay queued for a manual OCR run)
 
 
 def _papers() -> int:
     from catix.wiki.sources import pastpapers
 
-    return pastpapers.fetch()
+    return pastpapers.fetch(ocr=False)
 
 
 SOURCES = [
     Source("eduwiki", timedelta(hours=6), _eduwiki, "eduwiki.innopolis.university: pages whose revision changed"),
-    Source("sveden", timedelta(days=1), _sveden, "innopolis.university/sveden: documents and course programmes added to the site"),
+    Source("new-pages", timedelta(hours=6), _new_pages, "the feed (or start page) of each site: the new pages it links, the new pages of other trusted sites they link, "
+           "and through the documents they link (text layers only, scans stay queued for OCR)"),
+    Source("sveden", timedelta(days=1), _sveden, "innopolis.university/sveden: documents and course programmes added to the site (scans stay queued for OCR)"),
     Source("files", timedelta(days=7), _files, "documents and archives read before that changed on the site (HEAD, ~1 request every 2 s)"),
     Source("discover", timedelta(days=7), _discover, "new hosts of the university in the links of the pages: probed, then read and sent for a person's look"),
-    Source("sites", timedelta(days=7), _sites, "campuslife.innopolis.ru, hotel.innopolis.university: pages and the documents they link"),
+    Source("sites", timedelta(days=7), _sites, "every site again, its documents (text layers only, scans stay queued for OCR) and the pages their text names, wave after wave"),
     Source("papers", timedelta(days=7), _papers, "past exam papers in the students' Notion database: new rows and their files"),
 ]
 

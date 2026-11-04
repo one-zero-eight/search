@@ -8,20 +8,31 @@ news and events), stc.innopolis.university (IT courses), edu.innopolis.universit
 innopolis.com (the city and its special economic zone; Russian and English), and the sites of the university's units and
 projects the pages link most (career, corporate, dovuz, progmatica, the college, the dissertation council, ...; see SITES).
 
-    catix-wiki sites fetch [SITE ...]   # the pages of every site (or of those named) -> raw/sites/<site>/ (one request every Site.pause seconds); trusted-provider page links are followed recursively
+    catix-wiki sites fetch [SITE ...]   # the pages of every site (or of those named) -> raw/sites/<site>/ (one request every Site.pause seconds); trusted-provider page links are followed recursively,
+                                        # through the documents too: the documents the pages link (OCR and all), the pages their text names, their documents, ...
+    catix-wiki sites new [SITE ...]     # only the pages that appeared: the new links of each site's feed (or start page), and the new pages they link on any trusted site,
+                                        # through the documents they link, read by their text layer alone (a scan waits for `sites fetch` / `regs fetch`: its OCR)
     catix-wiki sites compile    # raw/sites -> wiki/raw/sites/<site>/<slug>.md
     catix-wiki sites status     # pages and documents found on every site
-    catix-wiki sites docs       # the documents of the university's hosts that the pages link and no site has yet: to be downloaded by `regs fetch`
-    catix-wiki sites discover | explore | add | review | accept | reject   # new sites of the university in the links of the pages (discover.py)
+    catix-wiki sites docs       # the documents of trusted sites that the pages link and no site has yet: to be downloaded by `regs fetch`
+    catix-wiki sites discover | explore | add | review | approve | reject   # new sites of the university in the links of the pages and documents (discover.py);
+                                # they wait in raw/sites-pending.yaml, read but not trusted, until `approve` moves them to sources/sites.yaml
 
-A page's text is kept as the site shows it: the program turns the markup into markdown and drops what every page of the
-site repeats (menus, footers); no model is asked: the description is the page's first sentence. The documents a site
+A page's text is kept as the site shows it: html_to_markdown turns the markup into markdown (a page that needs its scripts,
+an app's empty shell, is read in the browser first: get_page), the program drops what every page of the site repeats (menus,
+footers); no model is asked: the description is the page's first sentence. The documents a site
 links (PDF, DOCX: the rules of the dormitories, their prices) go the way of the regulations (regulations.py, which asks
 `docs()`): wiki/raw/regulations/, quoted by clause, `source_kind: official-document`. The pages themselves are `website`.
-Every run reads all pages again and compares their text: these sites say nothing reliable about changes.
+Every week a run reads all pages again and compares their text: these sites say nothing reliable about changes (678 of 4476
+pages sent Last-Modified, the sitemaps of media and apply stopped in 2024 and 2025); the new pages are fetch_new's. A page that comes
+back with less than half of its own words (SHORT_READ: a stub, an app's empty shell, half a page), answers 404 or is no
+longer linked is kept as it was until the next run finds it so too: written over or dropped at once, it would take with it
+what the cards citing it say. The sites are read once a week, so a page that really went is gone a week later.
 """
 
 import asyncio
+import contextlib
+import functools
 import hashlib
 import json
 import os
@@ -30,13 +41,12 @@ import shutil
 import socket
 import subprocess
 import sys
-import tempfile
 import time
 from argparse import Namespace
 from collections import Counter
 from dataclasses import dataclass, fields
 from datetime import datetime, timezone
-from html.parser import HTMLParser
+from html import escape, unescape
 from http.cookiejar import CookieJar, DefaultCookiePolicy
 from pathlib import Path
 from typing import Any, cast
@@ -46,6 +56,8 @@ from urllib.robotparser import RobotFileParser
 import httpx
 import websockets
 import yaml
+from html_to_markdown import ConversionOptions, NodeContext, PreprocessingOptions, convert
+from html_to_markdown.exceptions import ConversionError
 
 from catix.wiki.compile import AUDIENCES, PRODUCER, yaml_value
 from catix.wiki.paths import DOCS, RAW
@@ -58,11 +70,10 @@ PAUSE = 2  # seconds between requests
 MAX_PAGES = 60  # per site: the crawl follows the links of the site, this stops a calendar or a catalogue from running away
 DOC = re.compile(r"\.(pdf|docx?|rtf)$", re.I)
 UNIVERSITY = ("innopolis.university", "innopolis.ru", "innopolis.edu.ru", "innopolis.com", "innopolis.college")  # the hosts of the university and of the city
-
-
-def university_host(host: str) -> bool:
-    return any(host == s or host.endswith("." + s) for s in UNIVERSITY)
 MIN_WORDS = 10  # a page with fewer words (after the shared lines) is a page of pictures and buttons; a heading and a few links to its sections is a page
+NEW_PAGES = 50  # new pages a run of new pages (fetch_new) reads on one site besides its start pages: a feed shows tens, a calendar would run away
+NEW_DEPTH = 3  # waves of fetch_new: the new pages of other trusted sites that new pages link, and those that these link
+SHORT_READ = 0.5  # a page read with less than this share of its own words is kept as it was until the next run reads it as short (fetch_site)
 
 
 @dataclass(frozen=True)
@@ -75,7 +86,7 @@ class Site:
     max_pages: int = MAX_PAGES
     english: str | None = None  # the path of the English copy of a Russian site: its pages are `language: en`
     dated: bool = False  # a year in the title or the address of a page is the year it is about (events: 'Spring Ball 2022')
-    render: bool = False  # the site is an app: its HTML is an empty shell, the text comes from scripts (a headless browser runs them)
+    render: bool = False  # the site is an app: every page is read in the browser (a page of another site that needs its scripts is read there too: get_page)
     robots: bool = False  # the pages its robots.txt disallows are not taken (Tilda lists there the pages it does not publish: tests, old webinars)
     pause: float | None = None  # seconds between requests, PAUSE when None (innopolis.com asks for 10: Crawl-delay)
     headings: str | None = None  # the classes of a block that is a heading on a site that writes no <h2> (innopolis.com: <div class="article__title">)
@@ -89,6 +100,7 @@ class Site:
     missing: str | None = None  # what a page that does not exist looks like, when the site answers it with 200 (Wiki.js: 'Эта страница не существует')
     signin: str | None = None  # what the page of the login looks like in the DOM (the session ended: the portal shows 'Авторизация' in place of the page): the crawl stops, the form is not a page
     private: str | None = None  # what the pages show of the person who is logged in (name, mail, balance, notifications): cut from every page before anything is kept
+    feeds: tuple[str, ...] = ()  # the paths where the site shows its new pages (a list of news or events): fetch_new reads them every few hours in place of the start page
     aliases: tuple[str, ...] = ()  # other hosts of the site, an old name or a mirror: a link to one leads to the site's page of the same path, when there is one
 
 
@@ -105,7 +117,7 @@ def load_sites(path: Path = CONFIG) -> dict[str, Site]:
     """Load the static trusted site catalog from YAML."""
     raw, _ = load_config(path)
     names = {field.name for field in fields(Site)}
-    tuple_fields = {"audience", "aliases"}
+    tuple_fields = {"audience", "aliases", "feeds"}
     def make(values: dict[str, Any]) -> Site:
         kwargs: dict[str, Any] = {key: tuple(value) if key in tuple_fields and isinstance(value, list) else value
                                   for key, value in values.items() if key in names}
@@ -125,9 +137,10 @@ SITES = load_sites()
 BLOCKED = load_blocked()
 
 
-DISCOVERED = RAW / "sites-discovered.json"  # the sites discover.py found: {"sites": {host: {"status": "pending" | "accepted" | "failed", ...}}}
-DISCOVERED_PAGES = 30  # pages a found site may have until a person has read what it gave and raised its limits in SITES
+DISCOVERED = RAW / "sites-discovered.json"  # what discover.py's probes found: {"sites": {host: {"status": "pending" | "failed" | "closed", ...}}}
+DISCOVERED_PAGES = 30  # pages a found site may have until a person has read what it gave and raised its limits (sites-pending.yaml)
 DISCOVERED_PAUSE = 3
+YAML_WIDTH = 139  # (sites.yaml is what yaml.safe_dump writes at this width: a line approve adds looks like the others)
 
 
 def site_name(host: str) -> str:
@@ -144,22 +157,137 @@ def load_discovered() -> int:
     return 0
 
 
+def pending_file() -> Path:
+    """sites-pending.yaml, beside sites-discovered.json in the data: the sites a probe took, as lines of SITES, waiting for a
+    person. They are read, with the settings that cannot do harm, but not trusted: crawl.provider knows SITES alone, so no
+    link of another site leads the crawl to them and their own documents wait. `autopilot discard` takes the file back with
+    the rest of the run's data; `sites approve` moves a line of it to sites.yaml, `sites reject` drops it."""
+    return DISCOVERED.with_name("sites-pending.yaml")
+
+
+def found_site(host: str, entry: dict) -> Site:
+    """The line a host the probe took gets: the pages its robots.txt allows, few of them, a slow pace, Tilda's service pages
+    left out. A person raises its limits in sites-pending.yaml (or in sites.yaml, once approved) when it needs more."""
+    return Site(f"https://{host}/", entry.get("language", "ru"), f"{host}, found by the wiki's run: {entry.get('title') or host}",
+                DISCOVERED_SKIP, max_pages=DISCOVERED_PAGES, robots=True, pause=DISCOVERED_PAUSE, render=bool(entry.get("render")))  # (render: an app, found so by the probe)
+
+
+def pending_sites() -> dict[str, Site]:
+    """The sites waiting for a person: the lines of sites-pending.yaml and, for a host pending in sites-discovered.json without
+    one, the line found_site gives it. Not a site that has a line in SITES (it is read, and trusted, by that line)."""
+    lines = load_sites(pending_file()) if pending_file().exists() else {}
+    for host, entry in discovered().items():
+        if entry.get("status") == "pending":
+            lines.setdefault(site_name(host), found_site(host, entry))
+    return {name: site for name, site in lines.items() if name not in SITES}
+
+
+def every_site() -> dict[str, Site]:
+    """The sites that are read: the trusted ones (SITES) and those waiting for a person (pending_sites)."""
+    return {**pending_sites(), **SITES}
+
+
+def site_values(site: Site) -> dict[str, Any]:
+    """A site as a line of sites.yaml: every field, in the order of Site, a tuple as a list."""
+    return {f.name: list(value) if isinstance(value := getattr(site, f.name), tuple) else value for f in fields(Site)}
+
+
+def write_pending(lines: dict[str, Site]) -> None:
+    path = pending_file()
+    if not lines:
+        path.unlink(missing_ok=True)
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(yaml.safe_dump({"sites": {name: site_values(site) for name, site in lines.items()}}, allow_unicode=True,
+                                   sort_keys=False, width=YAML_WIDTH), encoding="utf-8")
+
+
+def add_pending(host: str, entry: dict) -> str:
+    """A host the probe took: a line of its own in sites-pending.yaml (one it has stays as it is). Its name."""
+    name, lines = site_name(host), load_sites(pending_file()) if pending_file().exists() else {}
+    if name not in lines and name not in SITES:
+        write_pending({**lines, name: found_site(host, entry)})
+    return name
+
+
+def drop_pending(name: str) -> None:
+    lines = load_sites(pending_file()) if pending_file().exists() else {}
+    if lines.pop(name, None) is not None:
+        write_pending(lines)
+
+
+def add_line(path: Path, name: str, site: Site) -> None:
+    """A site added to a sites yaml. When `sites:` is the file's last key, its line is written at the end and the rest of the
+    file is not touched (a person's edits, the order of the sites); a file of another shape is written anew."""
+    text = path.read_text(encoding="utf-8") if path.exists() else ""
+    tops = [line for line in text.splitlines() if re.match(r"[^\s#]", line)]
+    if tops and tops[-1] == "sites:":
+        block = yaml.safe_dump({name: site_values(site)}, allow_unicode=True, sort_keys=False, width=YAML_WIDTH - 2)
+        path.write_text(text.rstrip("\n") + "\n" + "".join(f"  {line}\n" for line in block.splitlines()), encoding="utf-8")
+        return
+    raw = cast(dict[str, Any], yaml.safe_load(text) or {})
+    raw["sites"] = {**(raw.get("sites") or {}), name: site_values(site)}
+    path.write_text(yaml.safe_dump(raw, allow_unicode=True, sort_keys=False, width=YAML_WIDTH), encoding="utf-8")
+
+
+def approve_discovered(host: str, entry: dict) -> str:
+    """A pending site a person approved: its line, as sites-pending.yaml has it, goes to sites.yaml and leaves the pending
+    ones; from now on its host is a trusted provider (crawl.provider): the links of the other sites lead to it, its documents
+    are read. A site that has a line in sites.yaml already keeps it. The name."""
+    name = site_name(host)
+    site = pending_sites().get(name) or found_site(host, entry)
+    if name not in (load_config(CONFIG)[0] or {}):
+        add_line(CONFIG, name, site)
+    drop_pending(name)
+    SITES.setdefault(name, site)
+    return name
+
+
 load_discovered()
 
 
 CHROMIUM = shutil.which("chromium") or shutil.which("chromium-browser") or shutil.which("google-chrome")
-RENDER_BUDGET = 15000  # milliseconds of the page's own time the browser lets its scripts run
+RENDER_WAIT = 15  # seconds: the longest the browser gives a page's scripts to fill it
+RENDER_IDLE = 5  # seconds of it the browser waits for the page's requests to end (an app asks for its data after it loaded; Tilda's counters never end)
+RENDER_STILL = 1.5  # seconds the text of the page stays the same: the scripts have filled it
 
 
-def render_page(url: str) -> str | None:
-    """The page as the browser shows it after its scripts ran (headless Chromium, the page's own address): for a site that is
-    an app, whose HTML is an empty shell ('You need to enable JavaScript'). None when the browser gave nothing."""
-    if not CHROMIUM:
-        raise RuntimeError("a site with render=True needs Chromium (chromium, chromium-browser or google-chrome on the PATH)")
-    with tempfile.TemporaryDirectory() as profile:
-        run = subprocess.run([CHROMIUM, "--headless=new", "--disable-gpu", "--no-sandbox", f"--user-data-dir={profile}",
-                              f"--virtual-time-budget={RENDER_BUDGET}", "--dump-dom", url], capture_output=True, text=True, timeout=180)
-    return run.stdout if run.returncode == 0 and run.stdout.strip() else None
+def render_page(url: str) -> str:
+    """The page as the browser shows it after its scripts ran (headless Chromium through Playwright): for a page whose HTML is
+    an empty shell ('You need to enable JavaScript to run this app'). The page is taken once its requests ended and its text
+    stopped changing (when its HTML is read, lyceuminnopolis.ru shows 68 of its 502 words; the 'load' of a page of Tilda may not
+    come in 30 seconds, its text is there in 3). The browser of the system when there is one, else Playwright's own. Raises
+    httpx.TransportError, as a site that does not answer, when the browser cannot start or read the page, and when the page's
+    scripts took it to another host (Tilda's redirect block, a login of SSO): the page there is not this one, and this one is
+    not gone either (the link of a redirect block is in the page's <noscript>, which the crawl follows)."""
+    from playwright.sync_api import Error, sync_playwright
+
+    try:
+        with sync_playwright() as p:
+            browser = p.chromium.launch(executable_path=CHROMIUM, headless=True, args=["--no-sandbox"])
+            try:
+                page = browser.new_page()
+                page.goto(url, wait_until="domcontentloaded", timeout=2 * RENDER_WAIT * 1000)
+                end = time.monotonic() + RENDER_WAIT
+                try:
+                    page.wait_for_load_state("networkidle", timeout=RENDER_IDLE * 1000)
+                except Error:
+                    pass  # (a page that never stops asking: its text says when it is done)
+                last, since = None, time.monotonic()
+                while time.monotonic() < end:
+                    text = page.evaluate("document.body ? document.body.innerText : ''")
+                    if text != last:
+                        last, since = text, time.monotonic()
+                    elif text.strip() and time.monotonic() - since >= RENDER_STILL:
+                        break  # (an empty page is not done: an app shows nothing until its data comes)
+                    page.wait_for_timeout(250)
+                if (urlsplit(page.url).hostname or "").removeprefix("www.") != (urlsplit(url).hostname or "").removeprefix("www."):
+                    raise httpx.TransportError(f"its scripts lead to {page.url}")
+                return page.content()
+            finally:
+                browser.close()
+    except Error as e:
+        raise httpx.TransportError(f"the browser did not read {url}: {str(e).splitlines()[0]}") from e
 
 
 WALL = re.compile(r"""(?i)вы не робот|just a moment|attention required|checking your browser|проверка браузера|smart-?captcha|captcha_smart|cf-chl|ddos-guard""")
@@ -319,19 +447,41 @@ def dashboard_with_catalog(client: httpx.Client, html: str, url: str, text: str)
 EXTRAS = {("innohassle", "dashboard"): dashboard_with_catalog}  # (site, page) -> what the page needs besides what the browser shows
 
 
+def needs_script(page: httpx.Response, headings: str | None = None) -> bool:
+    """Whether the browser is to read a page the site sent: its <noscript> asks for JavaScript, or it has next to no words (the
+    empty shell of an app, a page of Tilda whose blocks its scripts draw). Not a bot check: the browser does not pass it either."""
+    return (page.status_code == 200 and "text/html" in page.headers.get("content-type", "") and not WALL.search(page.text)
+            and convert_page(page.text, str(page.url), headings)[3])
+
+
 def get_page(client: httpx.Client, site: "Site", url: str) -> httpx.Response:
-    """The answer for a page: the site's own, or (for an app) what the browser made of it, as if it were the answer."""
+    """The answer for a page: the site's own, or what the browser made of it, as if it were the answer: for every page of an app
+    (Site.render), for a page that needs its scripts (needs_script) on any other site."""
     if site.profile:
         profile = profile_of(site)
         html = render_live(url, profile)
         if site.signin and re.search(site.signin, html):
             raise RuntimeError(f"the session of the profile {profile} has ended: {url} shows the login")
         return httpx.Response(404 if site.missing and re.search(site.missing, html) else 200, headers={"content-type": "text/html; charset=utf-8"}, text=html, request=httpx.Request("GET", url))
+    headers = {"content-type": "text/html; charset=utf-8"}
     if not site.render:
-        return get_through(client, url)
-    html = render_page(url)
-    return httpx.Response(200 if html else 404, headers={"content-type": "text/html; charset=utf-8"}, text=html or "",
-                          request=httpx.Request("GET", url))
+        page = get_through(client, url)
+        if not needs_script(page, site.headings):
+            return page
+        url = str(page.url)
+        try:
+            html = render_page(url)
+        except httpx.TransportError as e:
+            print(f"  {url}: needs its scripts, and {e}: read as the site sent it", flush=True)
+            return page
+        if not html:
+            return page
+        print(f"  {url}: needs its scripts, read in the browser", flush=True)
+        if "last-modified" in page.headers:
+            headers["last-modified"] = page.headers["last-modified"]
+    else:
+        html = render_page(url)
+    return httpx.Response(200 if html else 404, headers=headers, text=html or "", request=httpx.Request("GET", url))
 
 
 def keep_by_hand(name: str, slug: str, old: dict) -> bool:
@@ -341,6 +491,19 @@ def keep_by_hand(name: str, slug: str, old: dict) -> bool:
     if not path.exists() or not old:
         return False
     return bool(old.get("manual")) or bool(old.get("file_sha")) and hashlib.sha256(path.read_bytes()).hexdigest() != old["file_sha"]
+
+
+def missed(pages: dict, slug: str, why: str, run: str) -> int:
+    """A page the run did not find (a 404, no link to it): gone once a second run finds it so, kept until then (a site down
+    for an hour, a menu its scripts did not draw). 1 when it is gone now."""
+    page = pages[slug]
+    if (mark := page.get("missing")) and mark["run"] != run:
+        pages[slug] = {key: value for key, value in page.items() if key not in ("missing", "short")} | {"gone": True}
+        return 1
+    if not mark:
+        pages[slug] = {**page, "missing": {"why": why, "run": run}}
+        print(f"  {slug}: {why}, kept until the next run finds it so", flush=True)
+    return 0
 
 
 def put_cache(name: str, slug: str, text: str) -> str:
@@ -400,207 +563,253 @@ def plain(text: str) -> str:
     return "\n".join(line for line in lines if line and not re.fullmatch(r"(#+|-|\|)", line))
 
 
-class _Markdown(HTMLParser):
-    """HTML -> markdown lines: headings, paragraphs, list items, tables; links, pictures and videos where the page has them
-    (`[text](url)`, `![alt](url)`, `[▶ video](url)`), and the links on the side too (the crawl follows them). A table row
-    is one line, whatever breaks its cells hold (a teacher's two degrees in one cell), and the first row of a table is
-    followed by the markdown separator, so that the row is its header."""
+LAZY_SOURCES = ("data-original", "data-src", "data-lazy-src")  # where a lazy picture keeps its file (Tilda: a 20-pixel preview in src, the picture in data-original)
+SMALL = 64  # pixels: a picture this wide or high is an icon, a pixel of a counter
+VIDEO_SOURCES = ("data-source", "data-src", "data-video-src")  # where a block keeps the video it plays (Bitrix: a div with data-source)
+BANNER = re.compile(r"background-image:\s*(?:-webkit-)?(?:image-set\()?\s*url\(\s*['\"]?([^'\")]+)")  # (a banner: the first address, not the 2x copies)
+TILDA_PREVIEW = re.compile(r"^(https://)thb(\.tildacdn\.com/tild[\w-]+)/-/[^/]+/[^/]+/(.+)$")  # (a preview with no original beside it: the file itself)
+_W = "\t\n\f\r "  # (the spaces of HTML: a no-break space is a letter of a name)
+_NAME = rf"[^{_W}/>=][^{_W}/>=]*+"  # (as a browser reads a tag: a quote in a name is a letter of it)
+_VALUE = rf"""[{_W}]*+=[{_W}]*+(?:"[^"]*+"|'[^']*+'|[^{_W}>]++)"""
+ATTRIBUTE = re.compile(rf"""({_NAME})(?:[{_W}]*+=[{_W}]*+(?:"([^"]*+)"|'([^']*+)'|([^{_W}>]++)))?""")
+TAG = re.compile(  # (what is inside a script, a style, a comment is not tags)
+    rf"<!--.*?-->|<(script|style|textarea|title)\b[^>]*>.*?</\1[{_W}]*>"
+    rf"|<(?P<end>/?)(?P<name>[a-zA-Z][^{_W}/>]*+)(?P<attrs>(?:[{_W}/]++|{_NAME}(?:{_VALUE})?|=[^{_W}/>=]*+)*+)>",
+    re.S | re.I)
+HEADINGS = ["h1", "h2", "h3", "h4", "h5", "h6"]
+BLOCKS = ["p", "div", "section", "article", "ul", "ol", "li", "table", "blockquote", "dl", "figure", *HEADINGS]
+SCRIPT_HREF = re.compile(r"(?i)javascript:")
+FRONT = re.compile(r"\A---\n.*?\n---\n", re.S)  # (the converter writes the <head> it read as front matter: the title is taken from its metadata)
+UNLISTED = re.compile(r"^ *(?:-|\d+\.) ")  # (the mark of an item of a list)
+UNWRITTEN = {"noscript", "template", "form"}  # not the page's text, their links are the crawl's: what a reader does not see (a <noscript>
+# is read for what it says of scripts), a form (its fields, its consent, its button; not a <button> elsewhere: a question of a FAQ)
+CONTINUE, SKIP = {"type": "continue"}, {"type": "skip"}
 
-    HIDDEN = {"script", "style", "noscript", "svg", "form", "select", "button", "template", "iframe", "head"}
-    BLOCK = {"p", "div", "section", "article", "br", "ul", "ol", "blockquote", "dd", "dt"}
 
-    def __init__(self, base: str, headings: str | None = None) -> None:
-        super().__init__(convert_charrefs=True)
-        self.base, self.lines, self.line, self.hidden = base, [], "", 0
-        self.headings = headings  # (Site.headings)
-        self.links: list[tuple[str, str]] = []  # (url, text)
-        self.href: str | None = None
-        self.anchor = ""
-        self.url: str | None = None  # where the open link leads, when it is worth writing in the text
-        self.mark: tuple[str, int] | None = None  # (line or cell, where the text of the open link starts in it)
-        self.video = False  # inside <video> with no source written yet
-        self.title = ""
-        self._in_title = False
-        self.tables: list[int] = []  # rows written of each open table (a table may sit in a cell of another)
-        self.row: list[str] | None = None
-        self.cell: str | None = None
+def readable(url: str) -> str:
+    """An address with the letters the site wrote in it, not their %-codes (the converter writes 'Правила' as '%D0%9F%D1%80…', six
+    times as long for the reader); a space and a bracket stay coded, as md_url codes them."""
+    def letters(m: re.Match) -> str:
+        try:
+            return bytes.fromhex(m.group().replace("%", "")).decode("utf-8")
+        except UnicodeDecodeError:  # (not UTF-8: a site in cp1251)
+            return m.group()
+    return md_url(re.sub(r"(?:%[89a-fA-F][0-9a-fA-F])+", letters, url))
 
-    def _put(self, text: str) -> None:
-        if self.cell is not None:
-            self.cell += text
+
+def _custom(output: str) -> dict:
+    return {"type": "custom", "output": output}
+
+
+def _attributes(text: str) -> dict[str, str]:
+    found: dict[str, str] = {}
+    for name, quoted, single, bare in ATTRIBUTE.findall(text):
+        found.setdefault(name.lower(), unescape(quoted or single or bare))  # (the first of two of a name, as a browser takes)
+    return found
+
+
+def _tag(name: str, attributes: dict[str, str]) -> str:
+    return f"<{name}" + "".join(f' {k}="{escape(v)}"' for k, v in attributes.items()) + ">"
+
+
+def _watch(src: str | None, title: str = "") -> str:
+    """A link to where a video is watched, `▶ title`: plain() knows it is no words."""
+    return f'<a href="{escape(src)}">▶ {escape(re.sub(r"[\[\]]", "", title).strip() or "video")}</a>' if src else ""
+
+
+def _prepared(html: str, url: str, headings: str | None) -> str:
+    """The page with what the converter cannot see written as tags it reads. Its visitor (_Page) is given no attributes of
+    the elements (NodeContext.attributes() is empty in html-to-markdown 3.19, DocumentNode.attributes too; those of an <img>
+    and an <a> come only in the metadata of the result, after the visitor ran), so what lives in them is moved here, tag by tag
+    (no tree: each step reads one opening tag and writes beside it). The file of a lazy picture whose src is a preview
+    (data-original, data-src; the converter takes data-src or a srcset itself only for a missing or a data: src) into its src,
+    a picture of 64 pixels or less out; a banner of a style and the picture of a Tilda block (data-original of a div) as an
+    <img>; a video (a frame, a <video> whose file is in data-src, the video block of Tilda or Bitrix) as a link to where it is
+    watched, with its title; a block the site names a heading (Site.headings, a class) as an <h2>. A frame that is not a video
+    (a map, a form) is gone. All the rest is _Page's."""
+    out: list[str] = []
+    pos = 0
+    renamed: list[list] = []  # [tag, depth] of a block made an <h2>: its own closing tag closes the <h2>
+    while m := TAG.search(html, pos):
+        out.append(html[pos:m.start()])
+        pos = m.end()
+        name = (m.group("name") or "").lower()
+        if not name:  # (a comment, a script, a style: as they are)
+            out.append(m.group())
+            continue
+        if m.group("end"):
+            for block in (b for b in renamed if b[0] == name):
+                block[1] -= 1
+            out.append("</h2>" if renamed and renamed[-1][1] == 0 and renamed.pop() else m.group())
+            continue
+        a = _attributes(m.group("attrs"))
+        if name == "img":
+            if any(a.get(k, "").isdigit() and int(a[k]) <= SMALL for k in ("width", "height")):
+                continue  # (a pixel, an icon: the converter knows the size only in its metadata, after the visitor ran)
+            if src := next(filter(None, (a.get(k, "").strip() for k in LAZY_SOURCES)), ""):
+                out.append(_tag("img", {**a, "src": src}))
+            else:
+                out.append(m.group())
+            continue
+        if name in {"iframe", "video"}:  # (the whole element: a frame's words are for a browser that has none)
+            close = re.compile(rf"</{name}\s*>", re.I).search(html, pos)
+            inner, pos = (html[pos:close.start()], close.end()) if close else ("", pos)
+            if name == "iframe":
+                out.append(_watch(video_url(urljoin(url, (a.get("src") or a.get("data-src") or "").strip())), a.get("title", "")))
+            else:
+                parts = [a, *(_attributes(t.group("attrs")) for t in TAG.finditer(inner) if (t.group("name") or "").lower() == "source")]
+                source = next(filter(None, (part.get(k, "").strip() for part in parts for k in ("src", "data-src"))), "")  # (a lazy one: data-src)
+                out.append(_watch(urljoin(url, source) if source else None, a.get("title", "")))
+            continue
+        for block in (b for b in renamed if b[0] == name):
+            block[1] += 1
+        if headings and re.search(headings, a.get("class", "")):
+            renamed.append([name, 1])
+            out.append("<h2>")
         else:
-            self.line += text
-
-    def _wrap(self, reopen: bool = False) -> None:
-        """What was written since the open link began becomes its text: [text](url). A block ending inside the link closes
-        the text there and opens it again on the next line (`reopen`)."""
-        kind = "cell" if self.cell is not None else "line"
-        if self.url and self.mark and self.mark[0] == kind:
-            buf = self.cell if self.cell is not None else self.line
-            seg = buf[self.mark[1]:]
-            text = re.sub(r"\s+", " ", re.sub(r"</?[a-z][^>]*>", " ", seg, flags=re.I)).strip()  # (a site that writes <p> as text: not in a link)
-            head = re.match(r"(#{2,3} |- )", text)  # (a link around a heading or an item: the mark of the line stays outside)
-            if head:
-                text = text[head.end():]
-            if text:
-                if "![" not in text:
-                    text = text.replace("[", "(").replace("]", ")")
-                done = buf[:self.mark[1]] + seg[:len(seg) - len(seg.lstrip())] + (head.group(1) if head else "") + f"[{text}]({md_url(self.url)})" + seg[len(seg.rstrip()):]
-                if self.cell is not None:
-                    self.cell = done
-                else:
-                    self.line = done
-        self.mark = (kind, 0) if reopen and self.url else None
-
-    def _image(self, attrs: dict) -> None:
-        srcset = (attrs.get("srcset") or attrs.get("data-srcset") or "").split(",")[-1].split()
-        src = attrs.get("data-original") or attrs.get("data-src") or attrs.get("data-lazy-src") or (srcset[0] if srcset else "") or attrs.get("src") or ""
-        if not src.strip():
-            return  # (a picture a script fills in later: urljoin would make of it the address of the page)
-        url = urljoin(self.base, src.strip())  # (Tilda keeps a 20-pixel preview in src, the picture in data-original)
-        url = re.sub(r"^(https://)thb(\.tildacdn\.com/tild[\w-]+)/-/[^/]+/[^/]+/(.+)$", r"\1static\2/\3", url)  # (a preview with no original beside it: the file itself)
-        small = any((attrs.get(k) or "").isdigit() and int(attrs[k]) <= 64 for k in ("width", "height"))
-        if urlsplit(url).scheme not in {"http", "https"} or small or IMAGE_SKIP.search(urlsplit(url).path) or TRACKER.search(url):
-            return
-        alt = re.sub(r"[\[\]]", "", re.sub(r"\s+", " ", attrs.get("alt") or attrs.get("title") or "")).strip()
-        self._put(f" ![{alt}]({md_url(url)}) ")
-
-    def _watch(self, url: str | None, title: str = "") -> None:
-        if url:
-            self._put(f" [▶ {re.sub(r'[\[\]]', '', title).strip() or 'video'}]({md_url(url)}) ")
-
-    def _flush(self) -> None:
-        self._wrap(reopen=True)
-        text = re.sub(r"\s+", " ", self.line).strip()
-        if text and text not in {"-", "|", "## ", "### "} and not re.fullmatch(r"(#+|-|\|)\s*", text):
-            self.lines.append(text)
-        self.line = ""
-
-    def _end_row(self) -> None:
-        if self.cell is not None:
-            self._end_cell()
-        if self.row and any(self.row):
-            self._flush()
-            self.lines.append("| " + " | ".join(self.row) + " |")
-            if self.tables:
-                if self.tables[-1] == 0:
-                    self.lines.append("|" + " --- |" * len(self.row))
-                self.tables[-1] += 1
-        self.row = None
-
-    def _end_cell(self) -> None:
-        self._wrap()
-        if self.row is None:
-            self.row = []
-        self.row.append(re.sub(r"\s+", " ", self.cell or "").replace("|", "/").strip())
-        self.cell = None
-
-    def handle_starttag(self, tag: str, attrs: list) -> None:
-        if tag == "title":
-            self._in_title = True
-        a = {k: v or "" for k, v in attrs}
-        if not self.hidden:
-            if tag == "img":
-                self._image(a)
-            elif tag == "iframe":
-                self._watch(video_url(urljoin(self.base, (a.get("src") or a.get("data-src") or "").strip())), a.get("title", ""))
-            elif tag == "video":
-                self.video = not a.get("src")
-                self._watch(urljoin(self.base, a["src"]) if a.get("src") else None, a.get("title", ""))
-            elif tag == "source" and self.video and a.get("src"):
-                self.video = False
-                self._watch(urljoin(self.base, a["src"]))
-            elif a.get("data-videolazy-id") and a.get("data-videolazy-type") in {"youtube", "vimeo"}:  # (Tilda's video block)
-                vid = a["data-videolazy-id"]
-                self._watch(f"https://www.youtube.com/watch?v={vid}" if a["data-videolazy-type"] == "youtube" else f"https://vimeo.com/{vid}")
-            elif tag not in self.HIDDEN:  # (Bitrix keeps a video in the data-source / data-src of a div)
-                self._watch(next(filter(None, (video_url(urljoin(self.base, a[k].strip())) for k in ("data-source", "data-src", "data-video-src") if a.get(k))), None))
-            if "background-image" in a.get("style", "") and tag not in self.HIDDEN:  # (a banner: the first address, not the 2x copies)
-                found = re.search(r"background-image:\s*(?:-webkit-)?(?:image-set\()?\s*url\(\s*['\"]?([^'\")]+)", a["style"])
-                if found:
-                    self._image({"src": found.group(1), "data-original": a.get("data-original", "")})  # (Tilda: the 20-pixel preview in the style, the picture in data-original)
-            elif a.get("data-original") and tag not in self.HIDDEN | {"img"}:
-                self._image({"src": a["data-original"]})
-        if tag in self.HIDDEN:
-            self.hidden += 1
-            return
-        if tag == "a":
-            self.href, self.anchor, self.url, self.mark = a.get("href"), "", None, None
-            if re.match(r"(?i)javascript:", re.sub(r"[\s*]", "", self.href or "")):  # (a script, not a link; media writes it 'jav * ascript:void(0)', an address of every page)
-                self.href = None
-            if self.href and not self.hidden:
-                url = urljoin(self.base, self.href.strip())
-                if urlsplit(url).scheme in {"http", "https"} and urldefrag(url)[0] != urldefrag(self.base)[0]:
-                    self.url, self.mark = url, ("cell" if self.cell is not None else "line", len(self.cell if self.cell is not None else self.line))
-        if tag == "table":
-            self._flush()
-            self.tables.append(0)
-        elif tag == "tr":
-            self._end_row()
-            self.row = []
-        elif tag in {"td", "th"}:
-            if self.cell is not None:
-                self._end_cell()
-            self.cell = ""
-        elif self.cell is not None:
-            if tag in self.BLOCK or re.fullmatch(r"h[1-6]|li", tag):
-                self.cell += " "  # (a break inside a cell is a space: the row stays one line)
-        elif tag in self.BLOCK or re.fullmatch(r"h[1-6]|li", tag):
-            self._flush()
-            if re.fullmatch(r"h[1-3]", tag):
-                self.line = "## "
-            elif re.fullmatch(r"h[4-6]", tag):
-                self.line = "### "
-            elif tag == "li":
-                self.line = "- "
-            elif self.headings and re.search(self.headings, a.get("class", "")):
-                self.line = "## "
-
-    def handle_endtag(self, tag: str) -> None:
-        if tag == "title":
-            self._in_title = False
-        if tag in self.HIDDEN:
-            self.hidden = max(0, self.hidden - 1)
-            return
-        if tag == "a":
-            self._wrap()
-            if self.href:
-                self.links.append((urljoin(self.base, self.href.strip()), re.sub(r"\s+", " ", self.anchor).strip()))
-            self.href, self.url = None, None
-        if tag == "video":
-            self.video = False
-        if tag in {"td", "th"} and self.cell is not None:
-            self._end_cell()
-        elif tag == "tr":
-            self._end_row()
-        elif tag == "table":
-            self._end_row()
-            if self.tables:
-                self.tables.pop()
-        elif self.cell is None and (tag in self.BLOCK or re.fullmatch(r"h[1-6]|li", tag)):
-            self._flush()
-
-    def handle_data(self, data: str) -> None:
-        if self._in_title:
-            self.title += data
-        if self.hidden:
-            return
-        if self.cell is not None:
-            self.cell += data
+            out.append(m.group())
+        if a.get("data-videolazy-id") and a.get("data-videolazy-type") in {"youtube", "vimeo"}:  # (Tilda's video block)
+            vid = a["data-videolazy-id"]
+            out.append(_watch(f"https://www.youtube.com/watch?v={vid}" if a["data-videolazy-type"] == "youtube" else f"https://vimeo.com/{vid}"))
         else:
-            self.line += data
-        if self.href is not None:
-            self.anchor += data
+            out.append(_watch(next(filter(None, (video_url(urljoin(url, a[k].strip())) for k in VIDEO_SOURCES if a.get(k))), None)))
+        banner = a.get("data-original") or (found.group(1) if (found := BANNER.search(a.get("style", ""))) else "")
+        if banner.strip():  # (Tilda: the 20-pixel preview in the style, the picture in data-original)
+            out.append(_tag("img", {"src": banner.strip()}))
+    out.append(html[pos:])
+    return "".join(out)
 
 
-def read(html: str, url: str, headings: str | None = None) -> tuple[str, str, list[tuple[str, str]]]:
-    """(title, markdown lines, links) of a page; `headings`: Site.headings."""
-    parser = _Markdown(url, headings)
-    parser.feed(html)
-    parser.close()
-    parser._flush()
-    lines, item = [], 0
-    for line in parser.lines:
+@dataclass
+class _Link:
+    """What _Page learns of an open <a> while the converter goes through what is inside it."""
+    words: str = ""  # its text as the page has it, with the spaces at its ends (the converter hands visit_link the text without them)
+    picture: bool = False  # a picture that is content
+    block: bool = False  # a block inside: a card, a line of its own
+    heading: tuple[int, str] | None = None  # (level, words) of a heading inside
+
+
+class _Page:
+    """What html_to_markdown is told besides its options, element by element, and what it learns of the page: its links (the
+    crawl follows them) and whether a <noscript> asks for JavaScript (the page is its scripts: get_page has the browser read it).
+    The links stay in the text where the page has them, `[text](url)`, the pictures too, `![alt](url)` (not the decorations:
+    icons, pixels, counters); a heading of the page is `## ` (h1-h3) or `### `: the wiki's page is the `# `. A link is read with
+    what is inside it (`open`): one with no words and no picture (an icon, a burger) is none, where the converter would write
+    its address for its words; a link around a heading is the heading's words, the heading stays one; a card (blocks in a link)
+    is a line of its own, not one with the next cards."""
+
+    def __init__(self, url: str) -> None:
+        self.url = url
+        self.links: list[tuple[str, str]] = []  # (url, text), those of a <noscript> and a form too (Tilda's redirect block: 'Redirect to
+        # URL'; the policy a consent links)
+        self.script = False
+        self.open: list[_Link] = []  # the <a> the converter is inside
+
+    def visit_element_start(self, ctx: NodeContext) -> dict:
+        if ctx.tag_name == "a":
+            self.open.append(_Link())
+        elif self.open and ctx.tag_name in BLOCKS:
+            self.open[-1].block = True
+        return CONTINUE
+
+    def visit_element_end(self, ctx: NodeContext, output: str) -> dict:
+        if ctx.tag_name == "a" and self.open:
+            self.open.pop()
+        if ctx.tag_name not in UNWRITTEN:
+            return CONTINUE
+        if ctx.tag_name == "noscript" and "javascript" in output.lower():
+            self.script = True  # ('You need to enable JavaScript to run this app.', 'У вас отключено исполнение JavaScript')
+        return _custom("")
+
+    def visit_text(self, ctx: NodeContext, text: str) -> dict:
+        if self.open:
+            self.open[-1].words += text
+        return CONTINUE
+
+    def visit_link(self, ctx: NodeContext, href: str, text: str, title: str | None = None) -> dict:
+        href = urljoin(self.url, href.strip())  # (the converter resolves `href=" /a "`, not `href=" https://… "`: the browser does both)
+        link = self.open[-1] if self.open else _Link(words=text, picture=True)
+        words = re.sub(r"\s+", " ", re.sub(r"</?[a-z][^>]*>", " ", text, flags=re.I)).strip()  # (a site that writes <p> as text: not in a link)
+        if SCRIPT_HREF.search(re.sub(r"[\s*]", "", unquote(href))):  # (a script, not a link; media writes it 'jav * ascript:void(0)')
+            return _custom(words)
+        self.links.append((href, re.sub(r"\s+", " ", re.sub(r"\*\*|__", "", MD_IMAGE.sub("", words))).strip()))
+        if not link.words.strip() and not link.picture:
+            return _custom("")  # (an icon, a burger, an svg: the converter's words for it are its address)
+        if urlsplit(href).scheme not in {"http", "https"} or urldefrag(unquote(href))[0] == urldefrag(unquote(self.url))[0]:
+            out = words  # (a fragment of the page, a mailto: are words)
+        elif link.heading and link.heading[1] in words:
+            level, head = link.heading
+            rest = words.replace(head, "", 1).strip()
+            out = f"\n\n{'#' * level} [{head.replace('[', '(').replace(']', ')')}]({readable(href)})\n\n{rest}"
+        else:
+            out = f"[{words if '![' in words else words.replace('[', '(').replace(']', ')')}]({readable(href)})"
+        if link.block:
+            out = f"\n\n{out}\n\n"
+        return _custom((" " if link.words[:1].isspace() else "") + out + (" " if link.words[-1:].isspace() else ""))
+
+    def visit_image(self, ctx: NodeContext, src: str, alt: str, title: str | None = None) -> dict:
+        alt = re.sub(r"[\[\]]", "", re.sub(r"\s+", " ", alt or title or "")).strip()
+        if src.startswith("data:"):
+            if self.open and alt:
+                self.open[-1].picture = True  # (its alt, the words of the link: inline_data_media)
+            return CONTINUE
+        url = TILDA_PREVIEW.sub(r"\1static\2/\3", src.strip())  # (Tilda: the file, not its 20-pixel preview)
+        parts = urlsplit(url)
+        if (parts.scheme not in {"http", "https"} or IMAGE_SKIP.search(parts.path) or TRACKER.search(url)
+                or urldefrag(url)[0] == urldefrag(self.url)[0]):  # (a decoration; no address: a script fills it in later)
+            return _custom("")
+        if self.open:
+            self.open[-1].picture = True
+        return _custom(f" ![{alt}]({readable(url)}) ")
+
+    def visit_heading(self, ctx: NodeContext, level: int, text: str, id: str | None = None) -> dict:
+        words = re.sub(r"\s+", " ", text).strip()
+        mark = "##" if level <= 3 else "###"
+        if self.open:  # (inside a link: visit_link writes it, the converter would write '[## words](…)')
+            if words and not self.open[-1].heading:
+                self.open[-1].heading = (len(mark), words)
+            return CONTINUE
+        return _custom(f"\n\n{mark} {words}\n\n") if words else SKIP  # (a block: the converter writes a custom one as it is, the words after it would join it)
+
+
+def _options(url: str) -> ConversionOptions:
+    return ConversionOptions(
+        base_url=url,  # (every link and picture with its whole address)
+        extract_images=False,
+        inline_data_media="alt_text_only",
+        hidden_content="all",  # (the text of a closed tab or a menu is the page's; the <noscript> is read by _Page, not written)
+        preprocessing=PreprocessingOptions(enabled=False),  # (the menu stays: the crawl follows its links, boilerplate() keeps it once)
+        exclude_selectors=["select", "svg"],  # (the options of a list: a language, a city; an icon drawn)
+        bullets="-",
+        compact_tables=True,
+        autolinks=False,
+    )
+
+
+@functools.lru_cache(maxsize=2)  # (get_page reads a page to tell whether it needs its scripts, fetch_site reads it again)
+def convert_page(html: str, url: str, headings: str | None = None) -> tuple[str, str, tuple[tuple[str, str], ...], bool]:
+    """(title, markdown lines, links, whether it needs its scripts) of a page; `headings`: Site.headings. A page needs its scripts
+    when its <noscript> asks for JavaScript or it has fewer than MIN_WORDS words: the HTML is an empty shell."""
+    page = _Page(url)
+    try:
+        result = convert(_prepared(html, url, headings), _options(url), visitor=page)
+    except ConversionError as e:
+        print(f"  {url}: not read as HTML ({e})", flush=True)
+        return url, "", (), False
+    lines, item, base = [], 0, None
+    for raw in FRONT.sub("", result.content or "", count=1).splitlines():
+        line = re.sub(r"\s+", " ", raw).strip()
+        if not line or re.fullmatch(r"(#+|-|\||([-*_] ?){3,})", line):
+            continue  # (an empty heading or item, a rule)
+        if listed := re.match(r"( *)((?:- )*)(-|\d+\.) (.*)", raw):  # an item of a list in an item keeps its place, counted from the first item
+            pad, outer, mark, rest = listed.groups()
+            if outer and mark != "-":  # ('- 2. Правила': the item's own words)
+                outer, mark, rest = outer[:-2], "-", f"{mark} {rest}"
+            column = len(pad) + len(outer)  # (an item that opens with a list, '- - x': the inner item is the line)
+            base = column if base is None else min(base, column)  # (whose own item was empty: no code block of 4 spaces)
+            line = " " * (column - base) + f"{mark} " + re.sub(r"\s+", " ", rest).strip()
+        else:
+            base = None
         if lines and re.fullmatch(r"\d{1,2}", lines[-1]) and int(lines[-1]) in (1, item + 1):  # (not a counter: '110 places', '50 places')
             item = int(lines[-1])
             hashes, words = re.match(r"(#+ )?(.*)", line).groups()  # (a step whose words are a heading: '### **1.** Submit an application')
@@ -608,11 +817,20 @@ def read(html: str, url: str, headings: str | None = None) -> tuple[str, str, li
             continue
         lines.append(line)
         for k in range(1, 9):  # Tilda repeats a block (of up to a few lines) for phones: the second copy goes
-            if len(lines) >= 2 * k and lines[-k:] == lines[-2 * k:-k]:
-                del lines[-k:]
+            if len(lines) >= 2 * k and [UNLISTED.sub("", x) for x in lines[-k:]] == [UNLISTED.sub("", x) for x in lines[-2 * k:-k]]:
+                del lines[-k:]  # (the first copy may open an item of a list: '- ![](a.jpg)', then '![](a.jpg)')
                 break
-    title = re.sub(r"\s+", " ", parser.title).strip() or next((line.lstrip("# ") for line in lines if line.startswith("## ")), url)
-    return title, "\n".join(lines), parser.links
+    text = "\n".join(lines)
+    meta = result.metadata.document
+    title = re.sub(r"\s+", " ", meta.title if meta and meta.title else "").strip() or next((re.sub(r"\*\*|__", "", plain(line.lstrip("# "))) for line in lines if line.startswith("## ")), url)
+    script = page.script or len(re.findall(r"[^\W\d_]{3,}", plain(text))) < MIN_WORDS
+    return title, text, tuple(page.links), script
+
+
+def read(html: str, url: str, headings: str | None = None) -> tuple[str, str, list[tuple[str, str]]]:
+    """(title, markdown lines, links) of a page; `headings`: Site.headings."""
+    title, text, links, _ = convert_page(html, url, headings)
+    return title, text, list(links)
 
 
 def _taken(site: Site, url: str) -> bool:
@@ -682,15 +900,44 @@ def new_linked_pages(names: list[str] | None = None) -> dict[str, set[str]]:
     return found
 
 
+def known_urls(index: dict) -> set[str]:
+    """The addresses of a site's index, gone ones too (a page that went, a copy of another under a second address: not new)."""
+    return {page["url"].rstrip("/") for page in index["pages"].values() if page.get("url")}
+
+
 def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | None = None,
-               linked: dict[str, set[str]] | None = None, visited: set[str] | None = None) -> int:
+               linked: dict[str, set[str]] | None = None, visited: set[str] | None = None, run: str | None = None,
+               only_new: bool = False) -> int:
     """Read every page of a site (from its sitemap and the links of its pages); keep the text of the new and changed ones
-    and the documents they link. The number of pages that are new, changed or gone."""
+    and the documents they link. The number of pages that are new, changed or gone. `run` names the run (`fetch` reads a
+    page again in the waves of linked pages): a page read short or not found is taken so only when another run finds it so.
+
+    An address the index does not have is read before the known ones: a new item of a feed does not wait for 2000 old news
+    (media's sitemap stopped in July 2024: its new pages are in the links of its start page), nor miss max_pages. With
+    `only_new` the pages of `start` are read and then only the new addresses they link (fetch_new), at most NEW_PAGES of them."""
     from catix.wiki.sources import crawl
 
+    run = run or datetime.now(timezone.utc).isoformat()
     index = load(name)
+    known = known_urls(index)
+    fresh: list[str] = []  # the new addresses: read first
+    kept = {slug: (ROOT / name / f"{slug}.md").read_text(encoding="utf-8") for slug, page in index["pages"].items()
+            if not page.get("gone") and (ROOT / name / f"{slug}.md").exists()}  # the pages as the last runs kept them
+    common = {lang: boilerplate([t for slug, t in kept.items() if language_of(site, slug) == lang]) for lang in ("ru", "en")}
     partial = start is not None
     todo: list[str] = list(start) if start is not None else [site.base]
+
+    def url_of(link: str) -> str:
+        number = re.search(rf"[?&]{site.listing}=(\d+)", link) if site.listing else None
+        return canonical(link) + (f"?{site.listing}={number.group(1)}" if number and number.group(1) != "1" else "")  # (a page of a list, after its first)
+
+    def put(link: str) -> None:
+        url = url_of(link)
+        if "?" not in url and url.rstrip("/") not in known:  # (a page of a list is never kept: not a new page, and the next pages of a list are old ones)
+            fresh.append(link)
+        elif not only_new:
+            todo.append(link)
+
     if site.sitemap and not partial:
         try:
             path = site.sitemap if isinstance(site.sitemap, str) else "sitemap.xml"
@@ -699,22 +946,27 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
                 if not maps:
                     break
                 for loc in re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", get_through(client, maps.pop(0)).text):
-                    (maps if loc.endswith(".xml") else todo).append(repaired(site, loc))
+                    if loc.endswith(".xml"):
+                        maps.append(loc)
+                    else:
+                        put(repaired(site, loc))
                 time.sleep(PAUSE if site.pause is None else site.pause)
         except httpx.HTTPError as e:
             print(f"  {name}: no sitemap ({e})")
         time.sleep(PAUSE if site.pause is None else site.pause)
     if site.discover and not partial:  # (the pages no link leads to: the browser lists them)
         render_live(site.base, profile_of(site))
-        todo += [urljoin(site.base, path) for path in json.loads(LIVE[profile_of(site)].evaluate(site.discover))]
-        print(f"  {name}: {len(todo)} pages listed")
+        for path in json.loads(LIVE[profile_of(site)].evaluate(site.discover)):
+            put(urljoin(site.base, path))
+        print(f"  {name}: {len(todo) + len(fresh)} pages listed, {len(fresh)} of them new")
     rules = robots_of(site, client)
     seen, read_slugs, read_ok, changed, docs = set(), set(), 0, 0, {}
     first: dict[str, str] = {}  # the words of a page (their hash) -> the page read with them first in this run
-    while todo and len(seen) < site.max_pages:
-        link = todo.pop(0)
-        number = re.search(rf"[?&]{site.listing}=(\d+)", link) if site.listing else None
-        url = canonical(link) + (f"?{site.listing}={number.group(1)}" if number and number.group(1) != "1" else "")  # (a page of a list, after its first)
+    limit = min(site.max_pages, len(todo) + NEW_PAGES) if only_new else site.max_pages
+
+    while (fresh or todo) and len(seen) < limit:
+        link = (fresh or todo).pop(0)
+        url = url_of(link)
         if url in seen or not _taken(site, url) or rules and not rules.can_fetch(regulations.HEADERS["User-Agent"], url):
             continue
         seen.add(url)
@@ -726,14 +978,13 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
         try:
             resp = get_page(client, site, url)
             time.sleep(PAUSE if site.pause is None else site.pause)
-        except (httpx.HTTPError, subprocess.TimeoutExpired) as e:
+        except httpx.HTTPError as e:
             print(f"  FAILED {url}: {e}")
             continue
         old = index["pages"].get(slug, {})
         if resp.status_code == 404 or "text/html" not in resp.headers.get("content-type", ""):
             if old and not old.get("gone") and slug not in read_slugs:  # (not for the other spelling of an address that was read: /x/ and /x)
-                index["pages"][slug] = {**old, "gone": True}
-                changed += 1
+                changed += missed(index["pages"], slug, "404" if resp.status_code == 404 else f"not a page ({resp.headers.get('content-type', 'no type')})", run)
             continue
         if resp.status_code != 200:
             print(f"  {url}: {resp.status_code}")
@@ -744,6 +995,8 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
             continue
         read_ok += 1
         read_slugs.add(slug)
+        if "missing" in old:  # (it is there: the 404 or the missing link before was the wrong one)
+            old = index["pages"][slug] = {key: value for key, value in old.items() if key != "missing"}
         if site.private:
             text = re.sub(site.private, "", text, flags=re.M).rstrip() + "\n"  # (the person who is logged in is not the page's)
         if site.bare:
@@ -756,7 +1009,7 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
                 doc = canonical(link)
                 docs[doc] = max(docs.get(doc, ""), anchor, key=len)  # the fullest of the link texts: 'Правила проживания', not 'Правила'
             elif _taken(site, link) or crawl.provider(link) == name:
-                todo.append(link)
+                put(link)
             elif linked is not None and (other := crawl.provider(link)):
                 target = canonical(link)
                 if target not in (visited or set()) and target not in linked.setdefault(other, set()):
@@ -777,30 +1030,53 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
             print(f"  {slug}: edited by hand, kept")
             continue
         if old.get("sha256") == sha and not old.get("gone"):
+            index["pages"][slug] = {key: value for key, value in old.items() if key != "short"}  # (the short read was the wrong one)
             if not (ROOT / name / f"{slug}.md").exists() or (ROOT / name / f"{slug}.md").read_text(encoding="utf-8") != text:
-                index["pages"][slug] = {**old, "file_sha": put_cache(name, slug, text)}  # (the same words, other links and pictures)
+                index["pages"][slug]["file_sha"] = put_cache(name, slug, text)  # (the same words, other links and pictures)
             continue
+        mark = old.get("short")
+        if slug in kept and not old.get("gone") and not (mark and mark["run"] != run):  # a read that went wrong (a stub, an app's empty shell, half a page)
+            lang = language_of(site, slug)  # writes over the page and the cards drop what it said: the next run has to read it so too
+            before, after = own_words(site, kept[slug], common[lang]), own_words(site, text, common[lang])
+            if before >= MIN_WORDS and after < SHORT_READ * before:
+                index["pages"][slug] = {**old, "short": mark or {"words": after, "run": run}}
+                if not mark:
+                    print(f"  {slug}: {after} words of its {before}, kept as it was until the next run reads it so", flush=True)
+                continue
         index["pages"][slug] = {"url": url, "title": title, "sha256": sha, "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
                                 "last_modified": resp.headers.get("last-modified", ""), "file_sha": put_cache(name, slug, text)}
         changed += 1
         print(f"  {slug}: {'changed' if old else 'new'}, {len(text)} chars", flush=True)
         if changed % 50 == 0:
             save(name, index)  # (a long crawl cut short keeps what it read)
-    for slug, page in index["pages"].items():  # a page no link leads to any more has left the site
-        if read_ok and page["url"] not in seen and slug not in read_slugs and not page.get("gone") and len(seen) < site.max_pages:  # (not when the site did not answer)
-            index["pages"][slug] = {**page, "gone": True}
-            changed += 1
+    for slug, page in list(index["pages"].items()):  # a page no link leads to any more has left the site
+        if (read_ok and not partial and page["url"] not in seen and slug not in read_slugs and not page.get("gone")
+                and len(seen) < site.max_pages):  # (not when the site did not answer; not from a few pages: they do not lead everywhere)
+            changed += missed(index["pages"], slug, "no link leads to it", run)
     if read_ok and not partial:
         index["docs"] = docs
+    elif docs:  # (a few pages: their documents join the site's, the whole site's run says which are linked no more)
+        index["docs"] = docs | index["docs"]
     save(name, index)
     return changed
 
 
-def fetch(names: list[str] | None = None, only_new: bool = False) -> int:
-    """The sites named (every site when none is), one after another; the number of pages that are new, changed or gone."""
-    if unknown := [n for n in names or [] if n not in SITES]:
-        sys.exit(f"no site {', '.join(unknown)}: the sites are {', '.join(SITES)}")
-    total = 0
+def fetch(names: list[str] | None = None, only_new: bool = False, documents: bool = False, ocr: bool = False) -> int:
+    """The sites named (every site when none is, the pending ones too), one after another, then the pages of other trusted
+    sites their pages link, wave after wave; the number of pages that are new, changed or gone.
+
+    With `documents` (the weekly run) the waves go on through the documents: once the pages settle, the documents they link
+    are read (regulations.read_new, which follows the documents those link; text layers only by default, scans queued for
+    a later manual run with OCR), and the pages of trusted sites
+    their text names are the next wave, whose documents are read in turn, until a wave brings nothing new (document -> site
+    -> document -> site). The first such wave takes the pages every document read so far names, not only the new ones': a
+    page only a document leads to is not reached by its own site's run, and without the wave it would be gone a week later
+    ('no link leads to it'). A run of a few sites takes their documents and the pages of what it read. The number counts
+    the documents read too."""
+    every = every_site()
+    if unknown := [n for n in names or [] if n not in every]:
+        sys.exit(f"no site {', '.join(unknown)}: the sites are {', '.join(every)}")
+    total, run = 0, datetime.now(timezone.utc).isoformat(timespec="seconds")
     no_cookies = CookieJar(policy=DefaultCookiePolicy(allowed_domains=[]))  # every page as a new visitor sees it (robotics keeps the language of the last page in a cookie: its sitemap became English)
     with httpx.Client(headers=regulations.HEADERS, timeout=60, follow_redirects=True, cookies=no_cookies) as client:
         linked: dict[str, set[str]] = {}
@@ -814,63 +1090,148 @@ def fetch(names: list[str] | None = None, only_new: bool = False) -> int:
                         continue
                     print(f"== {name}: {len(urls)} new linked pages")
                     try:
-                        total += fetch_site(name, SITES[name], client, start=sorted(urls), linked=linked, visited=visited)
+                        total += fetch_site(name, SITES[name], client, start=sorted(urls), linked=linked, visited=visited, run=run)
                     finally:
                         close_live()
             return total
-        for name, site in SITES.items():
+        for name, site in every.items():
             if names and name not in names:
                 continue
             print(f"== {name}: {site.base}")
             try:
-                total += fetch_site(name, site, client, linked=linked, visited=visited)
+                total += fetch_site(name, site, client, linked=linked, visited=visited, run=run)
             finally:
                 close_live()
-        while linked:
-            wave, linked = linked, {}
-            for name, urls in wave.items():
-                if name not in SITES:
-                    continue
-                print(f"== {name}: {len(urls)} linked pages")
+        first = True
+        while True:
+            while linked:
+                wave, linked = linked, {}
+                for name, urls in wave.items():
+                    urls = urls - visited  # (read since the link was found: by its site's run)
+                    if name not in SITES or not urls:
+                        continue
+                    print(f"== {name}: {len(urls)} linked pages")
+                    try:
+                        total += fetch_site(name, SITES[name], client, start=sorted(urls), linked=linked, visited=visited, run=run)
+                    finally:
+                        close_live()
+            if not documents:
+                break
+            print("== the documents the pages link", flush=True)
+            read = regulations.read_new(prefixes=tuple(f"site-{name}-" for name in names) if names else None, ocr=ocr)
+            total += len(read)
+            found = regulations.page_links_of(None if first and not names else read)
+            first = False
+            linked = {other: urls - visited for other, urls in found.items() if urls - visited}
+            if linked:
+                print(f"== the pages of trusted sites the documents name: {sum(map(len, linked.values()))}", flush=True)
+            else:
+                break
+    return total
+
+
+def entries(site: Site) -> list[str]:
+    """The pages a site shows its new pages on: its feeds (Site.feeds), its start page (in each language) when it names none."""
+    if site.feeds:
+        return list(dict.fromkeys(urljoin(site.base, path) for path in site.feeds))
+    return [site.base, *([urljoin(site.base, f"{site.english}/")] if site.english else [])]
+
+
+def fetch_new(names: list[str] | None = None, client: httpx.Client | None = None, documents: bool = False) -> int:
+    """The pages that appeared since the last run, read now and not at the weekly run: the feed of each site (its start page
+    when it names none: entries), the new addresses it links (fetch_site, only_new) and, wave after wave (NEW_DEPTH), the new
+    pages of other trusted sites that the new pages link. No sitemap: a known address is not read, but its file is (84 of
+    them, 5 minutes of a run), and a new page is in the feed first. The pages a site had are the weekly `fetch`'s: it reads
+    them all again for changes, and its sitemap. So is a site behind a login (Site.profile: the person's browser once a week,
+    not every few hours) and a site the weekly run has not read yet (the whole of it, not 50 pages). The number of pages new
+    or changed.
+
+    With `documents` (the 6-hourly run) the documents a wave's new pages link are read after it by their text layer alone
+    (regulations.read_new without OCR: a scan is queued for a manual OCR run, so no OCR model needs to be up), and the new pages
+    of trusted sites their text names join the next wave (site -> site -> document -> site). The number counts them too."""
+    if unknown := [n for n in names or [] if n not in SITES]:
+        sys.exit(f"no site {', '.join(unknown)}: the sites are {', '.join(SITES)}")
+    run = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    readable = {name for name, site in SITES.items() if not site.profile and (ROOT / name / "index.json").exists()}
+    wave = {name: entries(SITES[name]) for name in SITES if name in readable and (not names or name in names)}
+    total, visited = 0, set()
+    with contextlib.ExitStack() as stack:
+        if client is None:
+            no_cookies = CookieJar(policy=DefaultCookiePolicy(allowed_domains=[]))
+            client = stack.enter_context(httpx.Client(headers=regulations.HEADERS, timeout=60, follow_redirects=True, cookies=no_cookies))
+        for depth in range(NEW_DEPTH + 1):
+            linked: dict[str, set[str]] = {}
+            changed = 0
+            for name, start in wave.items():
+                print(f"== {name}: {'its start pages' if depth == 0 else f'{len(start)} new pages linked'}", flush=True)
                 try:
-                    total += fetch_site(name, SITES[name], client, start=sorted(urls), linked=linked, visited=visited)
+                    changed += fetch_site(name, SITES[name], client, start=start, linked=linked, visited=visited, run=run, only_new=True)
+                except Exception as e:  # noqa: BLE001 - one site failing (its browser, its server) leaves the others to read; the weekly run reads it whole
+                    print(f"  {name}: {type(e).__name__}: {str(e)[:300]}", flush=True)
                 finally:
                     close_live()
+            total += changed
+            if documents and changed:  # (the documents of the pages read, by their text layer; the pages their text names)
+                read = regulations.read_new(prefixes=("site-",), ocr=False)
+                total += len(read)
+                for other, urls in regulations.page_links_of(read).items():
+                    linked.setdefault(other, set()).update(urls - visited)
+            wave = {}
+            for name, urls in linked.items():
+                known = known_urls(load(name)) if name in readable else set()
+                if name in readable and (new := sorted(u for u in urls if u.rstrip("/") not in known)):
+                    wave[name] = new
+            if not wave:
+                break
     return total
 
 
 LINKED_DOC = re.compile(r"\[([^\]]*)\]\((https?://[^)\s]+)\)")
+PICTURE = re.compile(r"!\[([^\]]*)\]\([^)\s]*\)")
+
+
+def links_of(text: str) -> list[tuple[str, str]]:
+    """(text, address) of the links of a page of the bundle. A picture that is a link (`[![](cover.png)](rules.pdf)`: Tilda's
+    covers of the collections of edu) is a link whose text is the picture's alt: LINKED_DOC alone took the picture's address
+    for the link's and lost the document."""
+    return LINKED_DOC.findall(PICTURE.sub(lambda m: m.group(1), text))
 
 
 def collect_linked_docs() -> int:
-    """The documents of the university's hosts that the pages of the bundle link and no site has among its documents yet (a page
-    of `apply` or `dovuz` linking a PDF of innopolis.university: fetch_site took only the documents of the site's own host
-    before): added to the documents of the site whose page links them, to be downloaded by `regs fetch`. The links are read from
-    the pages as they are in the bundle, so the sites need not be read again. The number added."""
-    have = {canonical(u) for name in SITES for u in load(name)["docs"]}
+    """The documents of trusted providers (crawl.provider: a site of SITES, not a pending one) that the pages of the bundle
+    link and no site has among its documents yet (a page of `apply` or `dovuz` linking a PDF of innopolis.university: fetch_site
+    took only the documents of the site's own host before): added to the documents of the site whose page links them, to be
+    downloaded by `regs fetch`. The links are read from the pages as they are in the bundle, so the sites need not be read
+    again. The number added."""
+    from catix.wiki.sources import crawl
+
+    names = list(every_site())
+    have = {canonical(u) for name in names for u in load(name)["docs"]}
     added = 0
-    for name in SITES:
+    for name in names:
         folder = DOCS / FOLDER / name
         if not folder.is_dir() or not (ROOT / name / "index.json").exists():
             continue
         index, found = load(name), {}
         for page in sorted(folder.glob("*.md")):
-            for label, link in LINKED_DOC.findall(page.read_text(encoding="utf-8")):
-                if DOC.search(urlsplit(link).path) and university_host(urlsplit(link).hostname or "") and canonical(link) not in have:
-                    found[canonical(link)] = max(found.get(canonical(link), ""), label, key=len)
+            for label, link in links_of(page.read_text(encoding="utf-8")):
+                url = canonical(link)  # (https: a link the site wrote with http:// is the same file)
+                if DOC.search(urlsplit(link).path) and url not in have and crawl.provider(url):
+                    found[url] = max(found.get(url, ""), label, key=len)
         if found:
             index["docs"].update(found)
             save(name, index)
             have |= set(found)
             added += len(found)
-            print(f"  {name}: {len(found)} documents of the university's hosts added")
+            print(f"  {name}: {len(found)} documents of trusted sites added")
     return added
 
 
 def docs() -> dict[str, dict]:
-    """The documents the sites link, as regulations.all_docs wants them."""
+    """The documents the sites link, as regulations.all_docs wants them (those a pending site links too: they are of trusted
+    providers, as every document of a site's index)."""
     out = {}
-    for name, site in SITES.items():
+    for name, site in every_site().items():
         for url, anchor in load(name)["docs"].items():
             file = unquote(url.rsplit("/", 1)[-1])
             stem = re.sub(r"[_]+", " ", file.rsplit(".", 1)[0]).strip()
@@ -893,6 +1254,13 @@ def boilerplate(texts: list[str]) -> set[str]:
     need = max(3, min(0.5 * len(texts), max(10, 0.25 * len(texts))))
     counts = Counter(line for text in texts for line in set(text.splitlines()))
     return {line for line, n in counts.items() if n >= need}
+
+
+def own_words(site: Site, text: str, common: set[str]) -> int:
+    """The words of a page that are its own: not the lines its site repeats (the menu, the footer: on sez.innopolis.ru 80% of a
+    page), not what comes after Site.end (the related news). What a read that went wrong loses, and a menu would hide it."""
+    own = re.split(site.end, text, maxsplit=1)[0] if site.end else text
+    return len(re.findall(r"[^\W\d_]{3,}", plain("\n".join(line for line in own.splitlines() if line not in common))))
 
 
 def year_of(site: Site, slug: str, title: str, body: str) -> int | None:
@@ -957,7 +1325,7 @@ def shared_file(site: Site, lang: str) -> str:
 def write_shared(out, name: str, lang: str, body: str, at: str, keep: set) -> int:
     """The lines every page of a site repeats (menu, footer, contacts), once, as a page of its own: the pages lose them, the wiki
     keeps them, and search finds them in one place instead of in a copy per page."""
-    site = SITES[name]
+    site = every_site()[name]
     host = urlsplit(site.base).netloc
     title = f"Общие блоки сайта {host}: меню, шапка, подвал, контакты" if lang == "ru" else f"Blocks shared by the pages of {host}: menu, header, footer, contacts"
     sha = hashlib.sha256(plain(body).encode()).hexdigest()[:12]
@@ -987,7 +1355,7 @@ def compile_all() -> None:
     shared: dict[tuple[str, str], list[str]] = {}  # (site, language) -> the lines its pages repeat, in the order they come
     kept: dict[str, str] = {}  # the address of a page of a site not read here -> its page, as it is
     untouched: set = set()  # the files of those sites
-    for name, site in SITES.items():
+    for name, site in every_site().items():  # (the pending sites' too: a person reviews them, explore looks in them for hosts)
         if not (ROOT / name / "index.json").exists():  # (read elsewhere: a site behind a login, by the person's browser) its pages stay as they are
             files = [f for f in sorted((out / name).glob("*.md")) if f.name != "index.md"] if (out / name).is_dir() else []
             untouched |= set(files)
@@ -1026,8 +1394,8 @@ def compile_all() -> None:
                 continue  # a page of pictures and buttons
             entries[name, slug] = {"site": site, "page": p, "title": title, "lang": lang, "lines": lines}
     where = kept | {address(e["page"]["url"]): page_path(name, slug) for (name, slug), e in entries.items()}
-    for key, doc in docs().items():  # (a document of a site, once it is a page of regulations)
-        if (DOCS / "regulations" / f"{key}.md").exists():
+    for key, doc in regulations.all_docs().items():  # a document, once it is a page of regulations, under the key it has there: the
+        if (DOCS / "regulations" / f"{key}.md").exists():  # file sveden lists too is `sveden-…`, not the site's (its link stayed the site's)
             where[address(doc["url"])] = f"/{DOCS.name}/regulations/{key}.md"
     keep, written = set(), 0
     for (name, lang), lines in sorted(shared.items()):
@@ -1068,17 +1436,20 @@ def compile_all() -> None:
 
 
 def status() -> None:
-    for name, site in SITES.items():
+    for name, site in every_site().items():
         index = load(name)
         pages = index["pages"].values()
-        print(f"{name} ({site.base}): {sum(not p.get('gone') for p in pages)} pages, {sum(bool(p.get('gone')) for p in pages)} gone, "
-              f"{len(index['docs'])} documents linked")
+        print(f"{name} ({site.base}{', pending a look' if name not in SITES else ''}): {sum(not p.get('gone') for p in pages)} pages, "
+              f"{sum(bool(p.get('gone')) for p in pages)} gone, {len(index['docs'])} documents linked")
 
 
 def main(args: Namespace) -> None:
     cmd = args.action
     if cmd == "fetch":
-        fetch(args.names, only_new=getattr(args, "only_new", False))
+        only_new = getattr(args, "only_new", False)
+        print(f"{fetch(args.names, only_new=only_new, documents=not only_new)} pages new, changed or gone" + ("" if only_new else " and documents read"))
+    elif cmd == "new":
+        print(f"{fetch_new(args.names, documents=True)} pages new or changed and documents read")
     elif cmd == "compile":
         compile_all()
     elif cmd == "status":

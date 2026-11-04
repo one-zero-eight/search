@@ -1,6 +1,7 @@
 """Finding new sites of the university (wiki/sources/discover.py): which hosts are candidates, what the probe refuses, and that
 a found site waits for a person (autopilot.py)."""
 
+import dataclasses
 import json
 from datetime import datetime, timedelta, timezone
 from types import SimpleNamespace
@@ -26,6 +27,7 @@ def bundle(tmp_path, monkeypatch):
     sites.CONFIG.write_text("blocked: []\nsites: {}\n", encoding="utf-8")
     monkeypatch.setattr(sites, "SITES", dict(sites.SITES))
     monkeypatch.setattr(discover, "public", lambda host: True)
+    monkeypatch.setattr(discover.regulations, "all_docs", lambda: {})  # (the documents of the real data name hosts too)
 
     def link(page: str, *urls: str) -> None:
         (docs / "sites" / "apply" / f"{page}.md").write_text("\n".join(f"[x]({u})" for u in urls), encoding="utf-8")
@@ -112,8 +114,10 @@ def test_discover_keeps_a_found_site_pending_with_safe_settings(bundle):
     found = json.loads(sites.DISCOVERED.read_text(encoding="utf-8"))["sites"]
     assert found["lab.innopolis.university"]["status"] == "pending" and found["lab.innopolis.university"]["examples"] == ["/raw/sites/apply/a.md"]
     assert found["login.innopolis.university"]["status"] == "closed"  # (a login page needs access, it is not a failure)
-    site = sites.SITES["lab"]  # (read from now on, with the settings that cannot do harm)
+    site = sites.load_sites(sites.pending_file())["lab"]  # (a line of sites-pending.yaml: read from now on, with the settings that cannot do harm)
     assert (site.base, site.robots, site.max_pages, site.pause) == ("https://lab.innopolis.university/", True, sites.DISCOVERED_PAGES, sites.DISCOVERED_PAUSE)
+    assert sites.pending_sites()["lab"] == site and "lab" in sites.every_site()
+    assert "lab" not in sites.SITES and sites.pending_file() == sites.DISCOVERED.with_name("sites-pending.yaml")  # (not trusted: no line in sites.yaml)
     assert discover.pending_hosts() == ["lab.innopolis.university"]
     assert "lab.innopolis.university" in discover.known_hosts() and "login.innopolis.university" not in discover.known_hosts()
 
@@ -147,7 +151,11 @@ def test_a_pending_site_never_reaches_the_branch_by_itself(bundle, monkeypatch):
 
     assert discover.accept_pending() == ["lab.innopolis.university"]  # (a person accepted: no look again)
     assert "lab.innopolis.university" not in sites.discovered()
-    assert "lab" in sites.SITES and not discover.pending_hosts()
+    assert "lab" in sites.SITES and not discover.pending_hosts() and not sites.pending_file().exists()
+    assert sites.load_sites(sites.CONFIG)["lab"].max_pages == sites.DISCOVERED_PAGES  # (its line moved to sites.yaml as it was)
+    from catix.wiki.sources import crawl
+
+    assert crawl.provider("https://lab.innopolis.university/news") == "lab"  # (trusted from now on)
     assert not any("new sites" in f for f in autopilot.check(report, False).failed)
 
 
@@ -163,7 +171,7 @@ def test_a_dry_run_probes_but_keeps_nothing(bundle, capsys):
     assert discover.discover(client=client(routes), dry_run=True, pause=0) == 1
     out = capsys.readouterr().out
     assert "lab.innopolis.university: would be found" in out and "sso.innopolis.university: not taken: HTTP 404" in out
-    assert not sites.DISCOVERED.exists() and "lab" not in sites.SITES
+    assert not sites.DISCOVERED.exists() and not sites.pending_file().exists() and "lab" not in sites.every_site()
 
 
 def test_a_host_that_did_not_answer_is_tried_again_sooner():
@@ -253,16 +261,14 @@ def test_only_new_reads_the_pending_sites_and_not_on_a_schedule(bundle, monkeypa
 
     bundle("a", "https://lab.innopolis.university/", "https://third.innopolis.university/")
     discover.discover(client=client({f"https://{h}.innopolis.university/": html() for h in ("lab", "third")}), pause=0)
-    found = sites.discovered()
-    found["lab.innopolis.university"]["status"] = "accepted"  # (a person accepted it: the weekly run reads it)
-    discover.write(found)
+    discover.accept_pending(["lab.innopolis.university"])  # (a person accepted it: the weekly run reads it)
     assert discover.pending_hosts() == ["third.innopolis.university"]
 
     asked = []
-    monkeypatch.setattr(sites, "fetch", lambda names=None: asked.append(names) or 5)
-    monkeypatch.setattr(regulations, "fetch", lambda *args, **kwargs: 1)  # (the documents the new pages link)
-    assert registry.ON_REQUEST[0].name == "new-sites" and registry.ON_REQUEST[0].update() == 6
-    assert asked == [["third"]]
+    monkeypatch.setattr(sites, "fetch", lambda names=None, **kwargs: asked.append((names, kwargs)) or 5)  # (pages and the documents they link)
+    monkeypatch.setattr(regulations, "fetch", lambda *args, **kwargs: pytest.fail("sites.fetch reads the documents in its waves"))
+    assert registry.ON_REQUEST[0].name == "new-sites" and registry.ON_REQUEST[0].update() == 5
+    assert asked == [(["third"], {"documents": True, "ocr": False})]
 
     assert "new-sites" not in [s.name for s in registry.SOURCES]
     assert [s.name for s in autopilot.due({}, datetime.now(timezone.utc))] == [s.name for s in registry.SOURCES]  # (never due by itself)
@@ -281,7 +287,7 @@ def web(bundle, tmp_path, monkeypatch):
     monkeypatch.setattr(sites, "ROOT", tmp_path / "raw" / "sites")
     read, chain = [], {}
 
-    def fetch(names=None):
+    def fetch(names=None, **kwargs):
         for name in names:
             host = f"{name}.innopolis.university"
             read.append(name)
@@ -343,7 +349,8 @@ def test_a_person_accepts_some_and_rejects_the_rest(web, capsys):
     assert discover.pending_hosts() == ["b.innopolis.university"]
     assert "a.innopolis.university" not in sites.discovered() and "c.innopolis.university" not in sites.discovered()
     assert "a" in sites.SITES
-    assert not (sites.ROOT / "c").exists() and not (discover.DOCS / sites.FOLDER / "c").exists() and "c" not in sites.SITES  # (what was read of it is gone)
+    assert not (sites.ROOT / "c").exists() and not (discover.DOCS / sites.FOLDER / "c").exists() and "c" not in sites.every_site()  # (what was read of it is gone)
+    assert list(sites.load_sites(sites.pending_file())) == ["b"]
     assert (sites.ROOT / "a").exists()
     assert autopilot.load_state()["rejected_sites"] == ["c.innopolis.university"]
     with pytest.raises(SystemExit):
@@ -400,7 +407,12 @@ def test_explore_reads_a_site_a_person_added_and_only_the_documents_of_the_sites
     discover.write(found)  # (added by hand with `sites add`: no page links it)
     sites.load_discovered()
     prefixes_seen = []
-    monkeypatch.setattr(regulations, "fetch", lambda limit=None, prefixes=None: prefixes_seen.append(prefixes) or 0)
+    def fetch(limit=None, prefixes=None, ocr=True):
+        assert ocr is False  # (exploration queues scans too; no OCR server is needed)
+        prefixes_seen.append(prefixes)
+        return 0
+
+    monkeypatch.setattr(regulations, "fetch", fetch)
     discover.explore(set(), client=http, pause=0)
     assert "mine-innopolis-ru" in web.read and "a" in web.read  # (the added one was read in the first round, the found one too)
     assert prefixes_seen and all(p is not None and all(x.startswith("site-") for x in p) for p in prefixes_seen)
@@ -411,16 +423,21 @@ def test_the_documents_of_the_universitys_hosts_that_other_sites_link_are_collec
     docs = tmp_path / "wiki" / "raw"
     monkeypatch.setattr(sites, "DOCS", docs)
     monkeypatch.setattr(sites, "ROOT", tmp_path / "raw" / "sites")
-    monkeypatch.setattr(sites, "SITES", {n: sites.SITES["career"] for n in ("career", "apply")})
-    for name, body in (("career", "[Образец](https://innopolis.university/upload/iblock/a/Образец%20согласия.docx) [x](https://example.org/a.pdf) [ПИШ](https://innopolis.university/upload/b/944225_ПИШ.pdf)"),
+    monkeypatch.setattr(sites, "DISCOVERED", tmp_path / "raw" / "sites-discovered.json")
+    monkeypatch.setattr(sites, "SITES", {n: sites.SITES[n] for n in ("career", "apply", "university", "digitalinnopolisdays-ru")})
+    for name, body in (("career", "[Образец](https://innopolis.university/upload/iblock/a/Образец%20согласия.docx) [x](https://example.org/a.pdf) [ПИШ](https://innopolis.university/upload/b/944225_ПИШ.pdf) "
+                                  "[![](https://static.tildacdn.com/tild1/cover.png)](https://innopolis.university/filespublic/cases_cdto.pdf) "  # (a picture that is a link)
+                                  "[Политика](https://reg.digitalinnopolisdays.ru/upload/medialibrary/61a/policy.pdf)"),  # (a trusted site off the university's domains)
                        ("apply", "[Guide](https://apply.innopolis.university/upload/files/guide.pdf) [Образец](https://innopolis.university/upload/iblock/a/%D0%9E%D0%B1%D1%80%D0%B0%D0%B7%D0%B5%D1%86%20%D1%81%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D1%8F.docx)")):
         (docs / "sites" / name).mkdir(parents=True)
         (docs / "sites" / name / "home.md").write_text(body, encoding="utf-8")
         (sites.ROOT / name).mkdir(parents=True)
         (sites.ROOT / name / "index.json").write_text(json.dumps({"pages": {}, "docs": {}}), encoding="utf-8")
 
-    assert sites.collect_linked_docs() == 3  # (the same file spelled two ways is one; a document of another domain is not taken)
-    assert sorted(sites.load("career")["docs"]) == ["https://innopolis.university/upload/b/944225_%D0%9F%D0%98%D0%A8.pdf", "https://innopolis.university/upload/iblock/a/%D0%9E%D0%B1%D1%80%D0%B0%D0%B7%D0%B5%D1%86%20%D1%81%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D1%8F.docx"]
+    assert sites.collect_linked_docs() == 5  # (the same file spelled two ways is one; a document of a site not in SITES is not taken)
+    assert sorted(sites.load("career")["docs"]) == ["https://innopolis.university/filespublic/cases_cdto.pdf", "https://innopolis.university/upload/b/944225_%D0%9F%D0%98%D0%A8.pdf",
+                                                   "https://innopolis.university/upload/iblock/a/%D0%9E%D0%B1%D1%80%D0%B0%D0%B7%D0%B5%D1%86%20%D1%81%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D1%8F.docx",
+                                                   "https://reg.digitalinnopolisdays.ru/upload/medialibrary/61a/policy.pdf"]
     assert list(sites.load("apply")["docs"]) == ["https://apply.innopolis.university/upload/files/guide.pdf"]
     assert sites.collect_linked_docs() == 0  # (nothing twice)
 
@@ -459,7 +476,7 @@ def test_an_app_is_probed_in_the_browser_and_read_that_way(monkeypatch, bundle):
 
     bundle("a", "https://1519.innopolis.university/")
     assert discover.discover(client=client({"https://1519.innopolis.university/": html(SHELL)}), pause=0) == 1
-    assert sites.SITES["1519"].render is True  # (read by the browser from now on)
+    assert sites.pending_sites()["1519"].render is True  # (read by the browser from now on)
 
 
 def test_an_empty_shell_stays_refused_when_the_browser_shows_nothing_either(monkeypatch):
@@ -475,3 +492,34 @@ def test_a_plain_page_is_not_sent_to_the_browser(monkeypatch):
     monkeypatch.setattr(discover, "public", lambda host: True)
     monkeypatch.setattr(sites, "render_page", lambda url: pytest.fail("a page with words needs no browser"))
     assert "render" not in discover.probe("lab.innopolis.university", client({"https://lab.innopolis.university/": html()}))
+
+
+def test_a_host_a_document_names_is_a_candidate_too(bundle, tmp_path, monkeypatch):
+    docs = tmp_path / "raw" / "regulations"
+    docs.mkdir(parents=True)
+    (docs / "rules.txt").write_text("Положение размещено на https://lab.innopolis.university/docs, сведения: https://innopolis.universityСайт/ "
+                                    "и https://lab.innopolis.university/team, https://inno-cup.ru/ и https://innopolis.unive\nrsity/x", encoding="utf-8")
+    (docs / "plan.txt").write_text("См. https://lab.innopolis.university/.", encoding="utf-8")
+    (discover.DOCS / "regulations").mkdir(parents=True)
+    (discover.DOCS / "regulations" / "plan.md").write_text("x", encoding="utf-8")
+    monkeypatch.setattr(discover.regulations, "all_docs", lambda: {
+        "rules": {"title": "Rules", "url": "https://innopolis.university/upload/rules.pdf", "root": docs},
+        "plan": {"title": "Plan", "url": "https://innopolis.university/upload/plan.pdf", "root": docs},
+        "unread": {"title": "Not read", "url": "https://innopolis.university/upload/unread.pdf", "root": docs}})
+    found = discover.candidates(set())
+    assert [(h, k) for h, k, _ in found] == [("lab.innopolis.university", "university")]  # (not an address the PDF cut or glued, not an `inno` host)
+    assert found[0][2] == ["/raw/regulations/plan.md", "https://innopolis.university/upload/rules.pdf"]  # (a document by its page, or its address before it has one)
+
+
+def test_approve_adds_the_line_at_the_end_of_sites_yaml_and_leaves_the_rest_as_it_was(bundle, monkeypatch):
+    head = "blocked:\n- moodle.innopolis.university\nsites:\n  hotel:\n    base: https://hotel.innopolis.university/\n    language: ru\n    about: the hotel\n    skip: ^x$  # by hand\n\n"
+    sites.CONFIG.write_text(head, encoding="utf-8")
+    sites.add_pending("lab.innopolis.university", {"status": "pending", "title": "Robotics lab", "language": "en"})
+    lines = sites.load_sites(sites.pending_file())
+    sites.write_pending({"lab": dataclasses.replace(lines["lab"], max_pages=200)})  # (a person raised its limit before approving)
+    assert sites.approve_discovered("lab.innopolis.university", {}) == "lab"
+    text = sites.CONFIG.read_text(encoding="utf-8")
+    assert text.startswith(head.rstrip("\n") + "\n  lab:\n    base: https://lab.innopolis.university/\n")  # (the comment and the order kept)
+    config = sites.load_sites(sites.CONFIG)
+    assert list(config) == ["hotel", "lab"] and config["lab"].max_pages == 200 and config["lab"].about == "lab.innopolis.university, found by the wiki's run: Robotics lab"
+    assert not sites.pending_file().exists() and sites.SITES["lab"] == config["lab"]

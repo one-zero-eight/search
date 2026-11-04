@@ -40,8 +40,8 @@ class SiteChoice(BaseModel):
 
 @router.get("/sites", tags=["Parsers"])
 def list_sites(_auth: VerifiedDep) -> list[SiteChoice]:
-    """Names accepted by the parser, from the same catalog as sites.fetch (including pending sites)."""
-    return [SiteChoice(name=name, url=site.base, about=site.about) for name, site in sorted(site_source.every_site().items())]
+    """Names accepted by the parser: trusted configured sites from sites.SITES."""
+    return [SiteChoice(name=name, url=site.base, about=site.about) for name, site in sorted(site_source.SITES.items())]
 
 
 def selected_sites(section: str, names: list[str] | None) -> list[str]:
@@ -51,7 +51,7 @@ def selected_sites(section: str, names: list[str] | None) -> list[str]:
         if names is not None:
             raise HTTPException(400, "sites is only supported for website resources")
         return []
-    catalog = site_source.every_site()
+    catalog = site_source.SITES
     if section in {"hotel", "campuslife"}:
         if names is not None and set(names) != {section}:
             raise HTTPException(400, f"Use /sites/parse to select sites other than {section}")
@@ -79,7 +79,7 @@ def run_parse_route(
 ) -> ParseResult:
     """Fetch new/changed pages and process only when fetch reports changes.
 
-    wiki/eduwiki reads MediaWiki; sites/resources reads configured websites; hotel/campuslife selects that site.
+    wiki/eduwiki reads MediaWiki; sites/resources reads trusted configured sites; hotel/campuslife selects that site.
     The response waits for completion; blocking work runs in FastAPI's thread pool. No autopilot or agent is started.
     parsing_is_needed=false rebuilds and indexes the cached source without fetching (also retries a failed processing step).
     indexing_is_needed=false only updates the snapshot and bundle. Website links retain sites.fetch's trusted-site traversal.

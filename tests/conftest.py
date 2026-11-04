@@ -48,6 +48,12 @@ def _hermetic(request, monkeypatch):
     from catix import live_search
 
     monkeypatch.setattr(live_search, "search", lambda *args, **kwargs: ([], None))
+    from catix.wiki.sources import sites
+
+    def no_browser(url: str) -> str:
+        raise httpx.TransportError("no browser in the tests")  # (a page of few words would start Chromium: it is read as the site sent it)
+
+    monkeypatch.setattr(sites, "render_page", no_browser)
     helpers.DEFAULT_CHATS = frozenset({CHAT_ID}) if "chat" in request.fixturenames else None
     yield
     helpers.DEFAULT_CHATS = None

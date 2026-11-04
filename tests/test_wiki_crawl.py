@@ -113,11 +113,16 @@ def test_only_new_page_links_are_collected_from_existing_site_pages(providers):
 def test_regulations_fetch_resumes_until_the_trusted_document_queue_is_empty(monkeypatch):
     from catix.wiki.sources import regulations
 
-    calls, waves = [], iter([1, 1, 0])
-    monkeypatch.setattr(regulations, "_fetch_once", lambda limit, prefixes: calls.append((limit, prefixes)) or next(waves))
+    calls, waves = [], iter([["one"], ["two"], []])
+    monkeypatch.setattr(regulations, "_fetch_once", lambda limit, prefixes, ocr: calls.append((limit, prefixes, ocr)) or next(waves))
     monkeypatch.setattr(regulations, "discover_linked_documents", lambda: 1 if len(calls) < 2 else 0)
     assert regulations.fetch(limit=5, prefixes=("site-a-",)) == 2
-    assert calls == [(5, ("site-a-",)), (4, None)]
+    assert calls == [(5, ("site-a-",), True), (4, None, True)]
+    calls.clear()
+    waves = iter([["three"], []])
+    monkeypatch.setattr(regulations, "discover_linked_documents", lambda: 0)
+    assert regulations.read_new(prefixes=("site-a-",), ocr=False) == ["three"]  # (the keys of those read; without OCR in every pass)
+    assert calls == [(None, ("site-a-",), False)]
 
 
 def test_regulations_fetch_downloads_a_document_found_in_the_previous_one(providers, monkeypatch):
@@ -136,8 +141,8 @@ def test_regulations_fetch_downloads_a_document_found_in_the_previous_one(provid
     monkeypatch.setattr(regulations, "pages_of", lambda _: 1)
     monkeypatch.setattr(regulations, "to_pdf", lambda path: path)
     monkeypatch.setattr(opendataloader, "converted", lambda pdfs: nullcontext({}))
-    monkeypatch.setattr(regulations, "extract", lambda pdf, ocr_left, converted=None: (
-        "See https://b.example/docs/two.pdf" if pdf.name == "site-a-linked-one.pdf" else "No more links", "text layer", 0))
+    monkeypatch.setattr(regulations, "layer_text", lambda pdf, converted=None: (
+        "See https://b.example/docs/two.pdf" if pdf.name == "site-a-linked-one.pdf" else "No more links", "text layer"))
 
     requested = []
     def get(url, **kwargs):
@@ -152,3 +157,24 @@ def test_regulations_fetch_downloads_a_document_found_in_the_previous_one(provid
 
 
 
+
+
+def test_the_pages_a_document_names_are_those_of_trusted_sites(providers):
+    from catix.wiki.sources import crawl, regulations
+
+    text = ("Подробнее: https://a.example/news/item, https://b.example/private/x https://pending.example/about "
+            "https://unknown.example/page https://a.example/docs/one.pdf https://old-a.example/news/item. https://a.example/source")
+    assert crawl.text_page_links(text, "https://a.example/source") == ["https://a.example/news/item", "https://old-a.example/news/item"]
+
+    regulations.LINKED = providers / "raw" / "regulations" / "linked.json"
+    docs = providers / "raw" / "docs"
+    docs.mkdir(parents=True)
+    (docs / "site-a-1-rules.txt").write_text("См. https://b.example/rules/ и https://a.example/news", encoding="utf-8")
+    import pytest as _pytest
+
+    with _pytest.MonkeyPatch.context() as m:
+        m.setattr(regulations, "all_docs", lambda: {
+            "site-a-1-rules": {"title": "Rules", "url": "https://a.example/upload/rules.pdf", "root": docs},
+            "site-b-2-plan": {"title": "Plan", "url": "https://b.example/upload/plan.pdf", "root": docs}})  # (not read: no text)
+        assert regulations.page_links_of() == {"a": {"https://a.example/news"}, "b": {"https://b.example/rules/"}}
+        assert regulations.page_links_of(["site-b-2-plan", "gone"]) == {}

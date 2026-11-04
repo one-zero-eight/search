@@ -64,7 +64,7 @@ def parser() -> argparse.ArgumentParser:
         ("regs", "Official regulations", None, ("fetch", "compile", "reextract", "refresh")),
         ("rpd", "Course programmes", "status", ("fetch", "compile", "refresh", "status")),
         ("papers", "Past exam papers", "status", ("fetch", "compile", "status")),
-        ("sites", "University and city sites", "status", ("fetch", "compile", "status", "docs", "discover", "explore", "add", "review", "accept", "approve", "reject")),
+        ("sites", "University and city sites", "status", ("fetch", "new", "compile", "status", "docs", "discover", "explore", "add", "review", "accept", "approve", "reject")),
     ):
         group = command(commands, name, about)
         actions_parser = group.add_subparsers(dest="action", required=default is None)
@@ -78,6 +78,7 @@ def parser() -> argparse.ArgumentParser:
                 leaf.add_argument("ids", nargs="+", metavar="ID")
             elif name == "regs" and action == "fetch":
                 leaf.add_argument("limit", nargs="?", type=positive, metavar="N", help="At most N new documents")
+                leaf.add_argument("--no-ocr", action="store_true", help="Read text layers only; queue scans for a run with OCR")
             elif name == "rpd" and action in ("fetch", "compile"):
                 leaf.add_argument("--all-years", action="store_const", const=True, default=None, help="Include every cohort")
                 if action == "fetch":
@@ -86,6 +87,8 @@ def parser() -> argparse.ArgumentParser:
                 if action == "fetch":
                     leaf.add_argument("names", nargs="*", metavar="SITE")
                     leaf.add_argument("--only-new", action="store_true", help="Fetch only uncached trusted-provider page links")
+                elif action == "new":
+                    leaf.add_argument("names", nargs="*", metavar="SITE")
                 elif action == "discover":
                     leaf.add_argument("--dry-run", action="store_true", help="Probe, but write nothing")
                     leaf.add_argument("--all", action="store_true", help="Probe every candidate, retry failed and closed hosts now")

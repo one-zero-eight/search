@@ -38,9 +38,9 @@ def test_sites_fetch_only_new_is_typed(monkeypatch):
     from catix.wiki.sources import sites
 
     calls = []
-    monkeypatch.setattr(sites, "fetch", lambda names, only_new=False: calls.append((names, only_new)))
+    monkeypatch.setattr(sites, "fetch", lambda names, only_new=False, documents=False: calls.append((names, only_new, documents)) or 0)
     cli.main(["sites", "fetch", "apply", "--only-new"])
-    assert calls == [(["apply"], True)]
+    assert calls == [(["apply"], True, False)]  # (only the new linked pages: not the documents' waves)
 
 
 @pytest.mark.parametrize("words", [
@@ -84,7 +84,8 @@ def test_defaults(words, command, action):
     (["sveden", "discover"], "sources.sveden", "discover", (), {}),
     (["sveden", "triage", "--redo"], "sources.sveden", "triage", (True,), {}),
     (["sveden", "override", "keep", "one", "two"], "sources.sveden", "override", ("keep", ["one", "two"]), {}),
-    (["regs", "fetch", "3"], "sources.regulations", "fetch", (3,), {}),
+    (["regs", "fetch", "3"], "sources.regulations", "fetch", (3,), {"ocr": True}),
+    (["regs", "fetch", "--no-ocr"], "sources.regulations", "fetch", (None,), {"ocr": False}),
     (["regs", "compile"], "sources.regulations", "compile_all", (), {}),
     (["regs", "refresh"], "sources.regulations", "refresh", (), {}),
     (["regs", "reextract"], "sources.regulations", "reextract", (), {}),
@@ -96,7 +97,9 @@ def test_defaults(words, command, action):
     (["papers", "fetch"], "sources.pastpapers", "fetch", (), {}),
     (["papers", "compile"], "sources.pastpapers", "compile_all", (), {}),
     (["sites"], "sources.sites", "status", (), {}),
-    (["sites", "fetch", "apply", "hotel"], "sources.sites", "fetch", (["apply", "hotel"],), {"only_new": False}),
+    (["sites", "fetch", "apply", "hotel"], "sources.sites", "fetch", (["apply", "hotel"],), {"only_new": False, "documents": True}),
+    (["sites", "fetch", "--only-new"], "sources.sites", "fetch", ([],), {"only_new": True, "documents": False}),
+    (["sites", "new", "apply"], "sources.sites", "fetch_new", (["apply"],), {"documents": True}),
     (["sites", "compile"], "sources.sites", "compile_all", (), {}),
     (["sites", "docs"], "sources.sites", "collect_linked_docs", (), {}),
     (["sites", "review"], "sources.discover", "review", (), {}),

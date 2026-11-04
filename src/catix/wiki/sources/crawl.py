@@ -18,9 +18,10 @@ def _site_hosts(site) -> set[str]:
 def provider(url: str) -> str | None:
     """The configured provider name for a safe URL, or None.
 
-    Explicit SITES entries are trusted. A discovered site is trusted only after
-    its persisted status becomes ``accepted``; pending sites are deliberately
-    excluded even though load_discovered adds them to SITES for safe crawling.
+    The entries of SITES (sources/sites.yaml) are trusted. A site discover.py
+    found waits in sites-pending.yaml and is not trusted until a person
+    approves it (`sites approve` moves its line to sites.yaml); a host still
+    pending in sites-discovered.json is not trusted even with a line in SITES.
     """
     parts = urlsplit(url)
     if parts.scheme != "https" or parts.port is not None or parts.username or parts.password or not parts.hostname:
@@ -51,6 +52,21 @@ def document_links(text: str, source_url: str) -> list[str]:
             continue
         canonical = sites.canonical(url)
         if canonical != sites.canonical(source_url) and canonical not in seen:
+            seen.add(canonical)
+            found.append(canonical)
+    return found
+
+
+def text_page_links(text: str, source_url: str) -> list[str]:
+    """Canonical trusted HTML page URLs written out in the text of a document (a regulation's 'see https://...'): its addresses
+    stand bare in the text, not as markdown links."""
+    found = []
+    seen = {sites.canonical(source_url)}
+    for raw in URL.findall(text):
+        url = raw.rstrip(TRAILING)
+        if DOCUMENT.search(urlsplit(url).path) or provider(url) is None:
+            continue
+        if (canonical := sites.canonical(url)) not in seen:
             seen.add(canonical)
             found.append(canonical)
     return found

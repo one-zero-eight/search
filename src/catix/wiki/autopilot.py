@@ -67,6 +67,7 @@ def save_state(state: dict) -> None:
 
 
 def due(state: dict, now: datetime) -> list[sources.Source]:
+    """The sources whose interval has passed."""
     asked = state.get("asked", {})
     return [s for s in sources.SOURCES if s.name not in asked or now - datetime.fromisoformat(asked[s.name]) >= s.every]
 
@@ -260,7 +261,8 @@ def working_tree() -> str:
 
 
 def accept(push: bool = True) -> str:
-    """The changes waiting for review, committed to `wiki` as a person accepted them. The pending sites become accepted."""
+    """The changes waiting for review, committed to `wiki` as a person accepted them. The pending sites are approved: their
+    lines move from raw/sites-pending.yaml to sources/sites.yaml (the code's checkout: commit it), their hosts are trusted."""
     discover.accept_pending()
     git("add", "-A")
     if bad := outside(git("diff", "--cached", "--name-only").splitlines()):

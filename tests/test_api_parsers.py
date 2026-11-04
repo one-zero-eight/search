@@ -23,7 +23,7 @@ AUTH = {"Authorization": "Bearer good"}
 def client(monkeypatch, tmp_path):
     monkeypatch.setattr(token, "claims", lambda t: {"uid": "u1", "email": "a@innopolis.university"} if t == "good" else None)
     monkeypatch.setattr(parsers, "LOCK", tmp_path / ".autopilot.lock")
-    monkeypatch.setattr(sites, "every_site", lambda: {name: sites.SITES[name] for name in ("hotel", "campuslife")})
+    monkeypatch.setattr(sites, "SITES", {name: sites.SITES[name] for name in ("hotel", "campuslife")})
 
     def no_fetch(*args, **kwargs):
         pytest.fail("unexpected fetch")
@@ -45,11 +45,21 @@ def test_selected_sites_reuse_fetch_and_compile_changes(client, monkeypatch):
     assert calls == [("fetch", ["hotel", "campuslife"], {}), "compile", "link"]
 
 
-def test_site_choices_come_from_the_fetch_catalog(client):
+def test_site_choices_come_from_the_configured_catalog(client):
     response = client.get("/sites", headers=AUTH)
     assert response.status_code == 200
     assert response.json() == [{"name": name, "url": sites.SITES[name].base, "about": sites.SITES[name].about}
                                for name in ("campuslife", "hotel")]
+
+
+@pytest.mark.parametrize("method,path", [("get", "/sites"), ("post", "/sites/parse?indexing_is_needed=false")])
+def test_site_routes_work_without_every_site(client, monkeypatch, method, path):
+    monkeypatch.delattr(sites, "every_site", raising=False)
+    monkeypatch.setattr(sites, "fetch", lambda names: 0)
+    response = client.request(method, path, headers=AUTH)
+    assert response.status_code == 200, response.text
+    names = [site["name"] for site in response.json()] if method == "get" else response.json()["sites"]
+    assert names == ["campuslife", "hotel"]
 
 
 @pytest.mark.parametrize("section,names,status", [

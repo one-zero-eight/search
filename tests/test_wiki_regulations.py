@@ -166,6 +166,61 @@ def test_a_pdf_opendataloader_cannot_read_is_read_by_pdfplumber(monkeypatch, tmp
     assert method == regulations.PDFPLUMBER and ocr_pages == 0 and text.startswith("1.1.")
 
 
+def test_scans_are_read_several_at_once(monkeypatch):
+    """Short scans side by side fill the OCR server's slots: three are open at once, not one after another."""
+    import threading
+    from pathlib import Path
+    from catix.wiki.sources import regulations
+
+    together = threading.Barrier(3, timeout=10)  # (one at a time, the first would wait here for ever: BrokenBarrierError)
+    monkeypatch.setattr(regulations, "ocr_text", lambda pdf: (together.wait(), (pdf.stem, "ocr"))[1])
+    done = {scan: future.result() for scan, future in regulations.read_scans(["a", "b", "c"], lambda s: Path(f"{s}.pdf"))}
+    assert done == {"a": ("a", "ocr"), "b": ("b", "ocr"), "c": ("c", "ocr")}
+
+
+def test_the_pages_of_two_short_scans_are_read_side_by_side(monkeypatch, tmp_path):
+    """chandra reads the pages of every scan in one queue (page_pool): two scans of 2 pages have 4 pages in flight."""
+    import threading
+    from concurrent.futures import ThreadPoolExecutor
+    from pathlib import Path
+    from catix.wiki.sources import chandra
+
+    def pdftoppm(args, check):  # 2 pages of each scan, as pdftoppm names them
+        for n in (1, 2):
+            Path(f"{args[-1]}-{n}.png").write_bytes(b"")
+
+    together = threading.Barrier(4, timeout=10)
+    monkeypatch.setattr(chandra, "available", lambda: True)
+    monkeypatch.setattr(chandra.subprocess, "run", pdftoppm)
+    monkeypatch.setattr(chandra, "read_page", lambda png: (together.wait(), f'<div data-label="Text"><p>{png.stem}</p></div>')[1])
+    with ThreadPoolExecutor(2) as scans:
+        texts = list(scans.map(chandra.text_of_pdf, [tmp_path / "a.pdf", tmp_path / "b.pdf"]))
+    assert [t.split() for t in texts] == [["p-1", "p-2"], ["p-1", "p-2"]]
+
+
+def test_a_stopped_reading_of_scans_starts_none_of_those_waiting(monkeypatch):
+    """Ctrl-C (the reading given up): the scans not started are not read, the one being read ends."""
+    import threading
+    from pathlib import Path
+    from catix.wiki.sources import regulations
+
+    started, release = [], threading.Event()
+
+    def ocr_text(pdf):
+        started.append(pdf.stem)
+        if pdf.stem != "a":
+            release.wait(10)
+        return pdf.stem, "ocr"
+
+    monkeypatch.setattr(regulations.settings, "ocr_parallel", 1)
+    monkeypatch.setattr(regulations, "ocr_text", ocr_text)
+    reading = regulations.read_scans(["a", "b", "c", "d"], lambda s: Path(f"{s}.pdf"))
+    assert next(reading)[0] == "a"
+    reading.close()
+    release.set()
+    assert "c" not in started and "d" not in started
+
+
 def test_a_short_table_of_data_is_worth_a_page_and_a_form_of_lines_is_not():
     from catix.wiki.sources.regulations import readable
 
@@ -203,7 +258,7 @@ def test_a_login_page_given_for_a_document_is_not_the_document_and_the_document_
 
     import httpx
 
-    from catix.wiki.sources import opendataloader, regulations
+    from catix.wiki.sources import opendataloader, regulations, sites
 
     url = "https://help.university.innopolis.ru/documents/reglament.pdf"
     monkeypatch.setattr(regulations, "all_docs", lambda: {"site-help-1-reglament": {"title": "Регламент", "url": url, "root": tmp_path, "section": "site/help", "ext": "pdf"}})
@@ -211,6 +266,7 @@ def test_a_login_page_given_for_a_document_is_not_the_document_and_the_document_
     monkeypatch.setattr(regulations.httpx, "get", lambda *a, **k: login)
     monkeypatch.setattr(regulations, "PAUSE", 0)
     monkeypatch.setattr(opendataloader, "converted", lambda pdfs: contextlib.nullcontext({}))
+    monkeypatch.setattr(sites, "collect_linked_docs", lambda: 0)  # (it reads and writes the real bundle's sites)
     assert regulations.fetch() == 0
     assert list(tmp_path.iterdir()) == []  # no file, and no note that would keep it skipped
 
@@ -221,7 +277,7 @@ def test_a_broken_link_the_site_answers_with_its_page_is_skipped(monkeypatch, tm
 
     import httpx
 
-    from catix.wiki.sources import opendataloader, regulations
+    from catix.wiki.sources import opendataloader, regulations, sites
 
     url = "https://innopolis.university/sveden/upload/iblock/e9e/x/10.pdf"
     monkeypatch.setattr(regulations, "all_docs", lambda: {"site-university-1-10": {"title": "Результаты опроса", "url": url, "root": tmp_path, "section": "site/university", "ext": "pdf"}})
@@ -229,6 +285,7 @@ def test_a_broken_link_the_site_answers_with_its_page_is_skipped(monkeypatch, tm
     monkeypatch.setattr(regulations.httpx, "get", lambda *a, **k: page)
     monkeypatch.setattr(regulations, "PAUSE", 0)
     monkeypatch.setattr(opendataloader, "converted", lambda pdfs: contextlib.nullcontext({}))
+    monkeypatch.setattr(sites, "collect_linked_docs", lambda: 0)  # (it reads and writes the real bundle's sites)
     assert regulations.fetch() == 0
     assert [f.name for f in tmp_path.iterdir()] == ["site-university-1-10.json"] and "skipped" in json.loads((tmp_path / "site-university-1-10.json").read_text())
 
@@ -260,3 +317,34 @@ def test_a_flat_numbering_past_99_keeps_its_clauses():
 
     assert to_markdown("99. Зачисление проводится в 2 этапа.\n\n100. На каждом этапе определяется приоритет.") == (
         "**99.** Зачисление проводится в 2 этапа.\n\n**100.** На каждом этапе определяется приоритет.")
+
+
+def test_a_scan_is_queued_by_a_run_without_ocr_and_read_by_the_next_run_with_it(monkeypatch, tmp_path):
+    import contextlib
+    import json
+
+    import httpx
+
+    from catix.wiki.sources import opendataloader, regulations, sites
+
+    url, key = "https://hotel.innopolis.university/upload/rules.pdf", "site-hotel-1-rules"
+    monkeypatch.setattr(regulations, "all_docs", lambda: {key: {"title": "Правила", "url": url, "root": tmp_path, "section": "site/hotel", "ext": "pdf"}})
+    monkeypatch.setattr(sites, "collect_linked_docs", lambda: 0)  # (it reads and writes the real bundle's sites)
+    monkeypatch.setattr(regulations, "discover_linked_documents", lambda: 0)
+    asked, layers, read = [], [], []
+    monkeypatch.setattr(regulations.httpx, "get", lambda u, **k: asked.append(u) or httpx.Response(200, content=b"%PDF-1.4 a scan", headers={"etag": "v1"},
+                                                                                                  request=httpx.Request("GET", u)))
+    monkeypatch.setattr(regulations, "PAUSE", 0)
+    monkeypatch.setattr(regulations, "pages_of", lambda pdf: 3)
+    monkeypatch.setattr(opendataloader, "converted", lambda pdfs: contextlib.nullcontext({}))
+    monkeypatch.setattr(regulations, "layer_text", lambda pdf, converted=None: layers.append(pdf.name))  # (None: too little text, a scan)
+    monkeypatch.setattr(regulations, "ocr_text", lambda pdf: read.append(pdf.name) or ("1. Общие положения " * 50, "ocr (chandra-ocr-2)"))
+
+    assert regulations.read_new(ocr=False) == []
+    meta = json.loads((tmp_path / f"{key}.json").read_text(encoding="utf-8"))
+    assert meta["ocr"] == "queued" and meta["pages"] == 3 and meta["remote"]["etag"] == "v1" and not read and not (tmp_path / f"{key}.txt").exists()
+    assert regulations.read_new(ocr=False) == [] and asked == [url] and layers == [f"{key}.pdf"]  # (it waits: not downloaded, its text layer not asked again)
+    assert regulations.read_new() == [key] and read == [f"{key}.pdf"] and layers == [f"{key}.pdf"]  # (the run with OCR reads it at once)
+    meta = json.loads((tmp_path / f"{key}.json").read_text(encoding="utf-8"))
+    assert "ocr" not in meta and meta["method"] == "ocr (chandra-ocr-2)" and meta["remote"]["etag"] == "v1" and "sha256" in meta
+    assert regulations.read_new() == []  # (read: nothing more)

@@ -1,29 +1,37 @@
-"""New sites of the university, found by the wiki's run in the links of the pages it already reads.
+"""New sites of the university, found by the wiki's run in the links of the pages it already reads and in the text of the
+documents it read.
 
     catix-wiki sites discover [--dry-run] [--all]   # the hosts the pages link that no source reads yet, and what the probe says of them
                                                     # (--dry-run keeps nothing; --all: every candidate, however many, failed ones again)
     catix-wiki sites explore [--rounds 10] [--max-sites 60]   # discover --all, read what was found, look in its pages for more, again, until a round finds nothing
     catix-wiki sites add HOST_OR_URL ...                      # hosts you found yourself: probed, then pending like the others (no link needed)
     catix-wiki sites review                                   # what the pending sites gave: pages read, titles, who links them; and the hosts that need access
-    catix-wiki sites approve HOST_OR_NAME ... | --all         # worth keeping: move it from discovery to sources/sites.yaml
+    catix-wiki sites approve HOST_OR_NAME ... | --all         # worth keeping: move its line from raw/sites-pending.yaml to sources/sites.yaml
     catix-wiki sites accept HOST_OR_NAME ... | --all          # alias for approve
     catix-wiki sites reject HOST_OR_NAME ... | --all          # not worth it: forgotten for good, with the pages read
 
 A host is a candidate when
   - it is a host of the university (innopolis.university, innopolis.ru, innopolis.edu.ru, innopolis.com, innopolis.college,
     and their subdomains), or another host with the word `inno` in its name (innopolis, innohassle, inno-..., not
-    `innovation`), that one page of the bundle links;
-  - it is not read yet (no site of SITES, no alias of one), is not one a person rejected, and did not fail a probe lately.
-The links come from the pages of the bundle, never from what people write in the chats: anyone can write a link there.
+    `innovation`), that one page of the bundle links; or a host of the university that one document read names (its text:
+    'https://...' as it is written; not a host with `inno` only: the text of a PDF cuts an address at the end of a line,
+    'innopolis.unive', and glues it to the next word, 'hotel.innopolis.universityas');
+  - it is not read yet (no site of SITES or of the pending ones, no alias of one), is not one a person rejected, and did not
+    fail a probe lately.
+The links come from the pages of the bundle and the documents of trusted sites, never from what people write in the chats:
+anyone can write a link there.
 
 A candidate is probed before anything is kept: its name must resolve to public addresses only, https, its robots.txt must not
 close the start page, the start page (and where it redirects, which must be a host of the same kind) must have words of its
 own, not a login or an empty shell. A bot check that answers in place of the start page ('Вы не робот?' of timepad, behind
 Yandex) is asked again (sites.get_through: the wall comes and goes), and named when it lets nothing through. A host that
-passes becomes a *pending* site in raw/sites-discovered.json and is read like the others, but with the safe settings of
-sites.load_discovered (30 pages, robots.txt, a slow pace). A pending site never reaches the static catalog by itself: a
-person reviews it, then `sites approve` moves it to sources/sites.yaml; `sites reject` forgets it. Failed and closed probes
-remain in raw/sites-discovered.json so discover can retry or show that access is needed. At most MAX_NEW sites a run.
+passes becomes a *pending* site: raw/sites-discovered.json keeps what the probe said of it, raw/sites-pending.yaml its line
+as SITES has them, with the safe settings of sites.found_site (30 pages, robots.txt, a slow pace; a person may raise them
+there). It is read like the others (the weekly `sites`, `autopilot --only-new`, explore) but is not trusted: crawl.provider
+knows sources/sites.yaml alone, so the links of other sites do not lead the crawl to it and its own documents wait. A pending
+site never reaches the static catalog by itself: a person reviews it, then `sites approve` moves its line to
+sources/sites.yaml (its host is a trusted provider from then on); `sites reject` forgets it. Failed and closed probes remain
+in raw/sites-discovered.json so discover can retry or show that access is needed. At most MAX_NEW sites a run.
 """
 
 import ipaddress
@@ -55,6 +63,7 @@ RETRY_UNREACHABLE_DAYS = 7  # ... and one that did not answer (an outage, a name
 UNREACHABLE = ("no answer", "the name does not resolve", "a bot check")
 CLOSED = "needs access"  # the reason of a host behind a login or answering 401/403: status "closed", listed by `sites review`
 LINK = re.compile(r"\]\((https?://[^)\s]+)\)")
+HOST = re.compile(r"(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,}")  # (a name: not the end of a word the text of a PDF glued to an address)
 LOGIN_TITLE = re.compile(r"(?i)авториз|личный кабинет|вход\b|регистрац|sign.?in|log.?in|account")
 APP_SHELL = re.compile(r"""(?i)id=["'](root|app|__next|__nuxt)["']|<script[^>]+type=["']module|enable javascript|<noscript""")  # a page the scripts fill in
 PASSWORD_FIELD = re.compile(r"""(?i)<input[^>]+type=["']?password""")
@@ -81,18 +90,29 @@ def read_by_code() -> set[str]:
 def known_hosts() -> set[str]:
     """The hosts that are read already or must not be asked: what the code reads, every site of SITES with its aliases, and the found ones."""
     known = read_by_code()
-    for site in sites.SITES.values():
+    for site in sites.every_site().values():  # (the pending sites too: found already)
         known |= {host_of(site.base), *site.aliases}
     return known | sites.BLOCKED | {host for host, entry in sites.discovered().items() if entry.get("status") not in ("failed", "closed")}  # (a failed or closed one is asked again later: retry_later)
 
 
 def links_by_host() -> dict[str, set[str]]:
-    """host -> the pages of the bundle's sites that link it."""
+    """host -> the pages of the bundle's sites that link it, and the documents read whose text names it, if it is a host of the
+    university (a document by its page of the bundle, /raw/regulations/<key>.md, or by its address before it has one)."""
+    from catix.wiki.sources import crawl
+
     found: dict[str, set[str]] = {}
     for path in sorted((DOCS / sites.FOLDER).rglob("*.md")):
         for url in LINK.findall(path.read_text(encoding="utf-8")):
-            if host := host_of(url):
+            if (host := host_of(url)) and HOST.fullmatch(host):
                 found.setdefault(host, set()).add("/" + path.relative_to(DOCS.parent).as_posix())
+    for key, doc in regulations.all_docs().items():
+        if not (text := doc["root"] / f"{key}.txt").exists():
+            continue
+        page = DOCS / "regulations" / f"{key}.md"
+        where = "/" + page.relative_to(DOCS.parent).as_posix() if page.exists() else doc["url"]
+        for raw in crawl.URL.findall(text.read_text(encoding="utf-8")):
+            if (host := host_of(raw.rstrip(crawl.TRAILING))) and HOST.fullmatch(host) and kind_of(host) == "university":
+                found.setdefault(host, set()).add(where)
     return found
 
 
@@ -154,7 +174,7 @@ def probe(host: str, client: httpx.Client) -> dict | str:
         return f"HTTP {page.status_code}, not a page"
     html, rendered = page.text, False
     title, text, _ = sites.read(html, str(page.url))
-    if len(text.split()) < MIN_WORDS and APP_SHELL.search(html) and sites.CHROMIUM:
+    if sites.needs_script(page) or len(text.split()) < MIN_WORDS and APP_SHELL.search(html):
         # an app: its HTML is an empty shell, the text comes from scripts (a headless browser runs them, as for Site.render)
         try:
             shown = sites.render_page(str(page.url))
@@ -184,7 +204,7 @@ def write(found: dict) -> None:
 def discover(rejected: set[str] = frozenset(), client: httpx.Client | None = None, dry_run: bool = False, pause: float = sites.PAUSE,
              everything: bool = False, since: datetime | None = None) -> int:
     """Probe the candidates, keep the ones that pass as pending sites; how many were found. `dry_run` probes and says what it
-    would do, but keeps nothing (the file of found sites is not written, SITES does not change). `everything`: no limit of hosts or
+    would do, but keeps nothing (neither the file of found sites nor sites-pending.yaml is written). `everything`: no limit of hosts or
     of sites for the run, and the hosts that failed a probe lately are probed again (a night's run by hand), except those that
     failed since `since` (the earlier rounds of `explore`)."""
     now = datetime.now(timezone.utc)
@@ -194,6 +214,7 @@ def discover(rejected: set[str] = frozenset(), client: httpx.Client | None = Non
     own = client or httpx.Client(headers=regulations.HEADERS, timeout=20, follow_redirects=True,
                                  cookies=CookieJar(policy=DefaultCookiePolicy(allowed_domains=[])))
     added = probes = 0
+    taken: list[str] = []
     try:
         for host, kind, pages in candidates(set(rejected)):
             if not everything and (added >= MAX_NEW or probes >= MAX_PROBES):
@@ -212,6 +233,7 @@ def discover(rejected: set[str] = frozenset(), client: httpx.Client | None = Non
             else:
                 print(f"  {host}: {'would be found' if dry_run else 'found'}, '{result['title']}', {result['words']} words, linked from {len(pages)} pages")
                 found[host] = {"status": "pending", "kind": kind, "found": now.date().isoformat(), "pages": len(pages), "examples": pages[:3], **result}
+                taken.append(host)
                 added += 1
             time.sleep(pause)
     finally:
@@ -219,32 +241,31 @@ def discover(rejected: set[str] = frozenset(), client: httpx.Client | None = Non
             own.close()
     if not dry_run:
         write(found)
-        sites.load_discovered()
+        for host in taken:
+            sites.add_pending(host, found[host])
     return added
 
 
 def pending_hosts() -> list[str]:
-    return sorted(host for host, entry in sites.discovered().items() if entry.get("status") == "pending")
+    """The hosts of the sites waiting for a person (sites.pending_sites: sites-pending.yaml and the pending probes)."""
+    return sorted(host_of(site.base) for site in sites.pending_sites().values())
 
 
 def accept_pending(hosts: list[str] | None = None) -> list[str]:
-    """Approve pending sites: copy them to sites.yaml and remove them from the discovery queue."""
+    """Approve pending sites: their lines move from sites-pending.yaml to sites.yaml (trusted from now on) and they leave the
+    discovery queue."""
     found = sites.discovered()
     selected = [h for h in pending_hosts() if hosts is None or h in hosts]
     for host in selected:
-        sites.approve_discovered(host, found[host])
-        found.pop(host)
+        sites.approve_discovered(host, found.pop(host, {}))
     if selected:
         write(found)
-    sites.load_discovered()
     return selected
 
 
 def unread_hosts() -> list[str]:
-    """Pending runtime sites that have no pages read yet."""
-    return [host for host, entry in sorted(sites.discovered().items())
-            if entry.get("status") == "pending" and (name := sites.site_name(host)) in sites.SITES
-            and not (sites.ROOT / name / "index.json").exists()]
+    """Pending sites that have no pages read yet (one a person added with `sites add`, or found and not read)."""
+    return [host for host in pending_hosts() if not (sites.ROOT / sites.site_name(host) / "index.json").exists()]
 
 
 def explore(rejected: set[str], max_rounds: int = 10, max_sites: int = 60, client: httpx.Client | None = None, pause: float = sites.PAUSE) -> list[str]:
@@ -268,7 +289,7 @@ def explore(rejected: set[str], max_rounds: int = 10, max_sites: int = 60, clien
         print(f"== reading {', '.join(names)}", flush=True)
         try:
             sites.fetch(names)
-            regulations.fetch(prefixes=tuple(f"site-{name}-" for name in names))  # their documents (PDF, DOC): downloaded and read; the build makes their pages
+            regulations.fetch(prefixes=tuple(f"site-{name}-" for name in names), ocr=False)  # text layers only; scans stay queued
         except Exception as e:  # noqa: BLE001 - one site down must not end the night's run; its pages are what was read
             print(f"  reading stopped: {type(e).__name__}: {e}", flush=True)
         sites.compile_all()
@@ -307,7 +328,7 @@ def reject(hosts: list[str]) -> list[str]:
     for host in hosts:
         found.pop(host, None)
         name = sites.site_name(host)
-        sites.SITES.pop(name, None)
+        sites.drop_pending(name)
         for folder in (sites.ROOT / name, DOCS / sites.FOLDER / name):
             shutil.rmtree(folder, ignore_errors=True)
     write(found)
@@ -318,7 +339,7 @@ def review() -> None:
     """What the pending sites gave, to decide which are worth keeping."""
     found = sites.discovered()
     for host in pending_hosts():
-        entry, name = found[host], sites.site_name(host)
+        entry, name = found.get(host, {}), sites.site_name(host)
         index = sites.load(name)
         pages = [p for p in index["pages"].values() if not p.get("gone")]
         titles = "; ".join(p["title"][:50] for p in pages[:4])
@@ -342,7 +363,7 @@ def add(addresses: list[str], client: httpx.Client | None = None, pause: float =
     found = sites.discovered()
     own = client or httpx.Client(headers=regulations.HEADERS, timeout=20, follow_redirects=True,
                                  cookies=CookieJar(policy=DefaultCookiePolicy(allowed_domains=[])))
-    kept = 0
+    kept, taken = 0, []
     try:
         for address in addresses:
             host = host_of(address if "//" in address else f"https://{address}")
@@ -356,13 +377,15 @@ def add(addresses: list[str], client: httpx.Client | None = None, pause: float =
             else:
                 print(f"  {host}: kept as pending, '{result['title']}', {result['words']} words")
                 found[host] = {"status": "pending", "kind": "manual", "found": now.date().isoformat(), "pages": 0, "examples": [], **result}
+                taken.append(host)
                 kept += 1
             time.sleep(pause)
     finally:
         if client is None:
             own.close()
     write(found)
-    sites.load_discovered()
+    for host in taken:
+        sites.add_pending(host, found[host])
     return kept
 
 

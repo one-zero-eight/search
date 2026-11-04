@@ -1196,7 +1196,7 @@ sites:
     base: https://innopoliscinema.ru/
     language: ru
     about: 'innopoliscinema.ru, found by the wiki''s run: «Кино&Театр» в Иннополисе'
-    skip: ^(tilda|members)/|(^|/)((\w+[-_])?form|thank_?you\w*|test\w*|\w+_test)$
+    skip: ^(tilda|members)/|(^|/)dates/|(^|/)((\w+[-_])?form|thank_?you\w*|test\w*|\w+_test)$
     sitemap: true
     max_pages: 30
     english: null

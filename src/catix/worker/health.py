@@ -28,6 +28,7 @@ QUEUE_CHECKS_BEFORE_ALERT = 3  # The queue is long for this many checks in a row
 REMIND_HOURS = 6
 QUEUE = "очередь эмбеддингов"
 USERBOT = "userbot (поиск в Telegram)"
+LLM = "языковая модель (чат)"
 
 
 def _health_url(route: object) -> str:
@@ -37,7 +38,7 @@ def _health_url(route: object) -> str:
 
 def targets() -> dict[str, str]:
     found = {
-        "языковая модель (чат)": _health_url(settings.llm_route),
+        LLM: _health_url(settings.llm_route),
         "эмбеддинги": _health_url(settings.embeddings_route),
     }
     if settings.reranker_route:
@@ -102,7 +103,8 @@ async def run() -> None:
             while True:
                 try:
                     for name, url in targets().items():
-                        await monitor.step(name, await probe(client, url), "не отвечает на /health")
+                        ok = await probe(client, url)
+                        await monitor.step(name, ok, "не отвечает на /health")
                     backlog = await asyncio.to_thread(embedder.backlog)
                     await monitor.step(QUEUE, backlog <= settings.alert_queue_max, f"{backlog} сообщений ждут вектора, эмбеддеры не успевают")
                     if userbot:
