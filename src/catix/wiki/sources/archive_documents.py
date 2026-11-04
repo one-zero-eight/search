@@ -11,6 +11,7 @@ import shutil
 import subprocess
 import tempfile
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urljoin
 
@@ -123,13 +124,19 @@ def download(url: str, destination: Path) -> dict:
 
 
 def prepare(docs: dict[str, dict], prefixes: tuple[str, ...] | None = None) -> list[str]:
-    """Download/unpack pending containers. Return removed member keys so deletion-only updates trigger a rebuild."""
+    """Download/unpack pending containers. Return removed member keys so deletion-only updates trigger a rebuild. A container
+    that failed (a 404, a host down, one over the limits) is asked again after sites.RETRY, not by every run: one over the
+    byte limit was downloaded up to it every few hours."""
+    from catix.wiki.sources import sites
+
     removed = []
     for key, doc in docs.items():
         if not (is_archive(key, doc) or doc.get("archive_root")) or prefixes and not key.startswith(prefixes):
             continue
         doc = {**doc, "root": doc.get("archive_root", doc["root"])}
         old = load(key, doc)
+        if old.get("status") not in (None, "ready") and sites.recent(old.get("tried_at")):
+            continue
         if old.get("status") == "ready" and not old.get("refetch") and all(
                 (doc["root"] / item["storage"] / f"{item['key']}.{item['ext']}").exists()
                 for item in [*old.get("members", []), *([old["document"]] if old.get("document") else [])] if item["status"] == "ready"):
@@ -177,7 +184,8 @@ def prepare(docs: dict[str, dict], prefixes: tuple[str, ...] | None = None) -> l
                 print(f"{key}: archive read, {len(after)} documents, {len(before - after)} removed", flush=True)
             except (archives.ArchiveError, httpx.HTTPError, OSError) as error:
                 status = error.status if isinstance(error, archives.ArchiveError) else "unavailable"
-                save(key, doc, {**old, "url": doc["url"], "status": status, "error": str(error), "refetch": True})
+                save(key, doc, {**old, "url": doc["url"], "status": status, "error": str(error), "refetch": True,
+                                "tried_at": datetime.now(timezone.utc).isoformat(timespec="seconds")})
                 print(f"{key}: archive {status}: {error}; previous members kept", flush=True)
     return removed
 

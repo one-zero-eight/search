@@ -257,7 +257,7 @@ def test_archive_members_use_document_text_and_persistent_ocr_queue(bundle, monk
     assert bundle["requests"] == [("GET", bundle["url"])]
 
 
-def test_archive_refresh_preserves_previous_members_until_replacement_is_valid(bundle):
+def test_archive_refresh_preserves_previous_members_until_replacement_is_valid(bundle, monkeypatch):
     regulations.read_new(ocr=False)
     regulations.compile_all()
     before = {d["member"]: (key, d) for key, d in regulations.all_docs().items() if d.get("member")}
@@ -272,6 +272,10 @@ def test_archive_refresh_preserves_previous_members_until_replacement_is_valid(b
     assert page.read_bytes() == original
     assert set(before) == {d["member"] for d in regulations.all_docs().values() if d.get("member")}
     bundle["body"] = zipped({"orders/scan.pdf": b"%PDF SCAN", "new.pdf": b"%PDF TEXT new"})
+    asked = len(bundle["requests"])
+    assert regulations.read_new(ocr=False) == [] and len(bundle["requests"]) == asked  # (the failed version waits RETRY, not every run)
+    from datetime import timedelta
+    monkeypatch.setattr(sites, "RETRY", timedelta(0))  # (RETRY has passed)
     changed = regulations.read_new(ocr=False)
     assert key in changed  # deletion-only changes also have to trigger a rebuild
     regulations.compile_all()

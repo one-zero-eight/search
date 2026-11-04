@@ -85,7 +85,6 @@ def test_defaults(words, command, action):
     (["sveden", "triage", "--redo"], "sources.sveden", "triage", (True,), {}),
     (["sveden", "override", "keep", "one", "two"], "sources.sveden", "override", ("keep", ["one", "two"]), {}),
     (["regs", "fetch", "3"], "sources.regulations", "fetch", (3,), {"ocr": True}),
-    (["regs", "fetch", "--no-ocr"], "sources.regulations", "fetch", (None,), {"ocr": False}),
     (["regs", "compile"], "sources.regulations", "compile_all", (), {}),
     (["regs", "refresh"], "sources.regulations", "refresh", (), {}),
     (["regs", "reextract"], "sources.regulations", "reextract", (), {}),
@@ -120,6 +119,19 @@ def test_commands_dispatch_typed_arguments(words, module, function, positional, 
     monkeypatch.setattr(sys, "argv", ["unrelated", "arguments"])
     cli.main(words)
     assert calls == [(positional, keywords)]
+
+
+def test_regs_fetch_reads_the_documents_then_the_trusted_pages_no_run_has_read(monkeypatch):
+    from catix.wiki.sources import regulations, sites
+
+    calls = []
+    monkeypatch.setattr(regulations, "fetch", lambda *args, **kwargs: calls.append(("documents", args, kwargs)) or 2)
+    monkeypatch.setattr(sites, "fetch", lambda *args, **kwargs: calls.append(("pages", args, kwargs)) or 3)
+    cli.main(["regs", "fetch", "--no-ocr"])
+    assert calls == [("documents", (None,), {"ocr": False}), ("pages", (), {"only_new": True, "documents": True, "ocr": False})]
+    calls.clear()
+    cli.main(["regs", "fetch", "3"])
+    assert calls == [("documents", (3,), {"ocr": True})]  # (N: a quick run of documents only, no pages)
 
 
 def test_explore_and_discover_options(monkeypatch):

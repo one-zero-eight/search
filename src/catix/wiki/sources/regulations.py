@@ -1,7 +1,9 @@
 """Official regulations (PDF files on innopolis.university/sveden/document) as a second source of the bundle.
 
-    catix-wiki regs fetch [N] [--no-ocr]   # download and extract documents; after each material, follow links to documents on configured SITES providers
-                                # (--no-ocr: a scan is queued for a run with OCR, as the 6-hourly run of new pages does)
+    catix-wiki regs fetch [N] [--no-ocr]   # every trusted link no run has processed: download and extract the documents, after each material follow
+                                # links to documents on configured SITES providers; then read the pages of trusted sites that cached pages and
+                                # documents link and no run has read (sites.fetch, only_new) and their documents, until nothing new comes
+                                # (N: at most N documents, and no pages; --no-ocr: a scan is queued for a run with OCR, as the 6-hourly run does)
     catix-wiki regs reextract   # extract downloaded PDFs again; scans use chandra or its saved page HTML
     catix-wiki regs refresh     # ask the site (HEAD) whether a downloaded document changed; a changed one is downloaded again by fetch
     catix-wiki regs compile     # raw/regulations -> wiki/raw/regulations/<key>.md
@@ -90,6 +92,15 @@ AUDIENCE_OF_SECTION = {  # who a document is for, by the section of the site tha
 
 
 HEADERS = {"User-Agent": "catix-wiki/0.1 (Innopolis University assistant; polite crawl)"}
+LOGIN = re.compile(r"(?i)(?:^|[./])(?:sso|adfs|idp|cas|auth|oauth2?|login|signin|sign-in|passport)(?:[./?]|$)")  # the host or path of a login
+
+
+def a_login(resp: httpx.Response) -> bool:
+    """Whether the page a site sent in place of a file is a login (help sends to the university's SSO) by its address or its
+    password field, not a page of the site (university.innopolis.ru/files/ sends to the start page of innopolis.university)."""
+    from catix.wiki.sources import sites
+
+    return bool(LOGIN.search(f"{resp.url.host}{resp.url.path}") or sites.LOGIN_FORM.search(resp.text))
 
 
 def signature(headers: httpx.Headers) -> dict:
@@ -425,7 +436,12 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
     without asking its text layer again; the runs without OCR pass it by (the 6-hourly run needs no OCR model up).
     A scan chandra does not read stays queued, regardless of the number of failed attempts. A scan longer than MAX_OCR_PAGES
     is not queued: it is put aside (`"ocr": "too long"`), and no run reads it or asks its text layer again until the limit
-    covers it or the file changes on the site (ocr_state; `catix-wiki regs queue` lists them apart)."""
+    covers it or the file changes on the site (ocr_state; `catix-wiki regs queue` lists them apart).
+
+    Every download ends in a note: a document no file came for (a host that does not answer, a login it was sent to) is
+    `failed`, and no run asks it again before sites.RETRY; without the note every run asked it again (olymp.innopolis.ru has
+    no address any more, university.innopolis.ru/files/ sends to the university's start page). A host that fails
+    MAX_FAILURES times in a row is let be for the rest of the run; the other hosts are read (a dead host stopped the whole run)."""
     from catix.wiki.sources import archive_documents, opendataloader, sites
 
     # Pick up university-hosted files already present in compiled site pages;
@@ -435,8 +451,13 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
     def skip(d: dict, meta: Path, why: str) -> None:
         meta.write_text(json.dumps({"title": d["title"], "url": d["url"], "skipped": why}), encoding="utf-8")
 
+    def put_off(d: dict, meta: Path, old: dict, why: str) -> None:
+        """No file this time: why and when, and what an earlier run read of the document stays (its text, its page)."""
+        meta.write_text(json.dumps({**old, "title": d["title"], "url": d["url"], "failed": why,
+                                    "tried_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}, ensure_ascii=False, indent=1), encoding="utf-8")
+
     removed = archive_documents.prepare(all_docs(), prefixes)
-    docs, failures, downloaded, queued = all_docs(), 0, [], set()
+    docs, failures, downloaded, queued = all_docs(), Counter(), [], set()
     for key, d in docs.items():
         if archive_documents.is_archive(key, d) or prefixes and not key.startswith(prefixes):
             continue
@@ -454,6 +475,9 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
             continue  # (a document that changed on the site is noticed by `regs refresh`; a skipped one stays skipped)
         if waiting and not ocr:
             continue
+        host = httpx.URL(d["url"]).host
+        if not src.exists() and (old.get("failed") and sites.recent(old.get("tried_at")) or failures[host] >= MAX_FAILURES):
+            continue  # (no file came lately: asked again after RETRY; its host stopped answering in this run: the next run asks)
         if limit is not None and len(downloaded) >= limit:
             break
         print(key, flush=True)
@@ -469,10 +493,11 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
                     skip(d, meta, "file too big")
                     continue
                 if ext not in ("htm", "html") and re.match(rb"\s*<(!doctype html|html)\b", resp.content[:200], re.I):
-                    if resp.url.host != httpx.URL(d["url"]).host:  # sent to a login (help: to the university's SSO): not skipped, read once someone logged in fetches it
-                        print(f"  sent to {resp.url.host}, a page, not the file: left for a run that can open it")
-                    else:  # a broken link the site answers with one of its pages
-                        print("  the site answers with a page, not the file, skipped")
+                    if resp.url.host != host and a_login(resp):  # (help: the university's SSO): not skipped, read once someone logged in fetches it
+                        print(f"  sent to the login of {resp.url.host}: asked again in {sites.RETRY.days} days, or read once a person puts the file beside its note")
+                        put_off(d, meta, old, f"sent to the login of {resp.url.host}")
+                    else:  # a broken link the site answers with one of its pages (or with the start page of another host of it)
+                        print("  the site answers with a page, not the file, skipped" + (f" ({resp.url})" if resp.url.host != host else ""))
                         skip(d, meta, "a page, not the file")
                     time.sleep(PAUSE)
                     continue
@@ -480,13 +505,16 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
                 print(f"  FAILED: {e}")
                 if isinstance(e, httpx.HTTPStatusError) and e.response.status_code == 404:  # a dead link on the site itself
                     skip(d, meta, "404 on the site")
-                failures = 0 if isinstance(e, httpx.HTTPStatusError) and e.response.status_code == 404 else failures + 1
-                if failures >= MAX_FAILURES:  # the site refuses connections: going on would only hammer it
-                    print(f"{failures} failures in a row: the site is not answering, stopped (the rest is fetched by the next run)")
-                    break
-                time.sleep(PAUSE + 5 * failures)  # slower while the site is failing
+                    failures[host] = 0
+                    time.sleep(PAUSE)
+                    continue
+                failures[host] += 1
+                put_off(d, meta, old, f"{type(e).__name__}: {str(e)[:200]}")
+                if failures[host] >= MAX_FAILURES:  # the host refuses connections: going on would only hammer it
+                    print(f"  {failures[host]} failures in a row: {host} is not answering, its other documents wait for the next run")
+                time.sleep(PAUSE + 5 * failures[host])  # slower while the host is failing
                 continue
-            failures = 0
+            failures[host] = 0
             src.write_bytes(resp.content)
             remote = signature(resp.headers)
             time.sleep(PAUSE)
@@ -516,7 +544,7 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
     def queue(item: tuple, pages: int, state: str = QUEUED, **more: object) -> None:
         """The scan's note: QUEUED for a run with OCR, or TOO_LONG, put aside. (`refetch` is done: the file was downloaded again.)"""
         _, d, _, _, meta, old, remote = item
-        old = {k: v for k, v in old.items() if k != "refetch"}
+        old = {k: v for k, v in old.items() if k not in ("refetch", "failed", "tried_at")}
         meta.write_text(json.dumps({**old, "title": d["title"], "url": d["url"], "ocr": state, "pages": pages, "remote": remote,
                                     "queued_at": old.get("queued_at") or datetime.now(timezone.utc).isoformat(timespec="seconds"), **more},
                                    ensure_ascii=False, indent=1), encoding="utf-8")
@@ -875,7 +903,13 @@ def store(key: str, root: Path, meta_path: Path, meta: dict, text: str, method: 
 def main(args: Namespace) -> None:
     cmd = args.action
     if cmd == "fetch":
-        fetch(args.limit, ocr=not getattr(args, "no_ocr", False))
+        from catix.wiki.sources import sites
+
+        ocr = not getattr(args, "no_ocr", False)
+        read = fetch(args.limit, ocr=ocr)  # (the documents no run has read, and those they name)
+        if args.limit is None:  # (then the pages of trusted sites no run has read, their documents, ...; N: a quick run of documents only)
+            read += sites.fetch(only_new=True, documents=True, ocr=ocr)
+        print(f"{read} documents and pages read")
     elif cmd == "compile":
         compile_all()
     elif cmd == "reextract":

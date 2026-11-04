@@ -10,8 +10,9 @@ projects the pages link most (career, corporate, dovuz, progmatica, the college,
 
     catix-wiki sites fetch [SITE ...]   # the pages of every site (or of those named) -> raw/sites/<site>/ (one request every Site.pause seconds); trusted-provider page links are followed recursively,
                                         # through the documents too: their text layers (scans queued for manual OCR), the pages their text names, their documents, ...
-    catix-wiki sites new [SITE ...]     # only the pages that appeared: the new links of each site's feed (or start page), and the new pages they link on any trusted site,
-                                        # through the documents they link, read by their text layer alone (a scan waits for a manual OCR run)
+    catix-wiki sites new [SITE ...]     # only the pages that appeared: the new links of each site's feed (or start page), the trusted links of cached pages and documents
+                                        # no run has read (unread_links), and the new pages they link on any trusted site, through the documents they link, read by their
+                                        # text layer alone (a scan waits for a manual OCR run); a link that gave nothing is asked again after RETRY
     catix-wiki sites compile    # raw/sites -> wiki/raw/sites/<site>/<slug>.md
     catix-wiki sites status     # pages and documents found on every site
     catix-wiki sites docs       # the documents of trusted sites that the pages link and no site has yet: to be downloaded by `regs fetch`
@@ -46,7 +47,7 @@ import time
 from argparse import Namespace
 from collections import Counter
 from dataclasses import dataclass, fields
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from html import escape, unescape
 from http.cookiejar import CookieJar, DefaultCookiePolicy
 from pathlib import Path
@@ -82,6 +83,18 @@ MIN_WORDS = 10  # a page with fewer words (after the shared lines) is a page of 
 NEW_PAGES = 50  # new pages a run of new pages (fetch_new) reads on one site besides its start pages: a feed shows tens, a calendar would run away
 NEW_DEPTH = 3  # waves of fetch_new: the new pages of other trusted sites that new pages link, and those that these link
 SHORT_READ = 0.5  # a page read with less than this share of its own words is kept as it was until the next run reads it as short (fetch_site)
+RETRY = timedelta(days=6)  # a link a run asked and got nothing from (a 404, a file, a host down, a login) waits this long before a run of
+# new links asks it again: 280 of the 474 links no run had read answered 404, and every 6-hourly run would ask them. Less than the
+# week between two runs of every site: the weekly run asks again what the last one could not get (it reads every link of a site anyway).
+
+
+def recent(at: str | None, now: datetime | None = None) -> bool:
+    """Whether a try noted at `at` (an ISO time) is newer than RETRY: the link waits, no run asks it yet."""
+    try:
+        when = datetime.fromisoformat(at or "")
+    except ValueError:
+        return False
+    return (now or datetime.now(timezone.utc)) - when < RETRY
 
 
 @dataclass(frozen=True)
@@ -1003,12 +1016,16 @@ def save(name: str, index: dict) -> None:
 
 
 def new_linked_pages(names: list[str] | None = None) -> dict[str, set[str]]:
-    """Trusted-provider page links in cached pages whose target is not cached yet."""
+    """Trusted-provider page links in cached pages whose target is neither cached nor tried lately (settled). The menus repeat
+    the same links on every page: each link is judged once a call (crawl.provider for every link of 8000 pages took 84 s)."""
     from catix.wiki.sources import crawl
 
     readable = every_site()
     selected = names or list(readable)
-    known = {name: known_urls(load(name)) for name in readable}
+    known = {name: settled(load(name)) for name in readable}
+    provider = functools.cache(lambda link: crawl.provider(link, page=True))  # (the catalog does not change within a call)
+    target_of = functools.cache(lambda name, link: page_url(SITES[name], link))
+    address_of = functools.cache(address)
     found: dict[str, set[str]] = {}
     for source in selected:
         folder = ROOT / source
@@ -1016,17 +1033,39 @@ def new_linked_pages(names: list[str] | None = None) -> dict[str, set[str]]:
             continue
         index = load(source)
         for path in folder.glob("*.md"):
-            url = index["pages"].get(path.stem, {}).get("url", readable[source].base)
-            for target in crawl.page_links(path.read_text(encoding="utf-8"), url):
-                provider = crawl.provider(target, page=True)
-                if provider and address(target) not in known.setdefault(provider, set()):
-                    found.setdefault(provider, set()).add(target)
+            here = canonical(index["pages"].get(path.stem, {}).get("url", readable[source].base))
+            for raw in crawl.PAGE.findall(path.read_text(encoding="utf-8")):  # (crawl.page_links, each link judged once)
+                link = raw.rstrip(crawl.TRAILING)
+                if not (name := provider(link)) or (target := target_of(name, link)) == here:
+                    continue
+                if (other := provider(target)) and address_of(target) not in known.setdefault(other, set()):
+                    found.setdefault(other, set()).add(target)
+    return found
+
+
+def unread_links(names: list[str] | None = None) -> dict[str, set[str]]:
+    """provider -> the pages of trusted sites that no run has read or tried lately (settled), though a cached page of `names`
+    (of every site when None) or a document read (of those sites) links them: links whose wave never came (a provider
+    approved after the page was read, a run that stopped at max_pages, a page only a document names). What `regs fetch`
+    and the 6-hourly run (fetch_new) read besides the documents and the feeds."""
+    found = new_linked_pages(names)
+    keys = None if not names else [key for key in regulations.all_docs() if key.startswith(tuple(f"site-{name}-" for name in names))]  # (the CLI's [] is every site)
+    for name, urls in regulations.page_links_of(keys).items():
+        known = settled(load(name))
+        if new := {url for url in urls if address(url) not in known}:
+            found.setdefault(name, set()).update(new)
     return found
 
 
 def known_urls(index: dict) -> set[str]:
     """The addresses of a site's index, gone ones too (a page that went, a copy of another under a second address: not new)."""
     return {address(page["url"]) for page in index["pages"].values() if page.get("url")}
+
+
+def settled(index: dict, now: datetime | None = None) -> set[str]:
+    """The addresses of a site a run of new links need not ask: those of its index (known_urls) and the new ones a run asked
+    lately that gave no page (`tried`: a 404, a file, the copy of another page, an address the site sends elsewhere)."""
+    return known_urls(index) | {url for url, mark in index.get("tried", {}).items() if recent(mark.get("run"), now)}
 
 
 def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | None = None,
@@ -1039,12 +1078,22 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
     An address the index does not have is read before the known ones: a new item of a feed does not wait for 2000 old news
     (media's sitemap stopped in July 2024: its new pages are in the links of its start page), nor miss max_pages. With
     `only_new` the pages of `start` are read and then only the new addresses they link (fetch_new), at most NEW_PAGES of them.
-    A few pages (`start`: a wave) do not read again a page this run read (`visited`): its site's run read it, and its links."""
+    A few pages (`start`: a wave) do not read again a page this run read (`visited`): its site's run read it, and its links.
+
+    A new address that gives no page (a 404, a file, the words of another page, robots.txt, a host that does not answer) is
+    noted in the index's `tried`, so that the runs of new links (unread_links) do not ask it every few hours (settled). A
+    new address the site sends to another one is no page of its own either: the page it is sent to is read in its place, in
+    this site or in the wave of the other one (innopolis.university/news/x is media's page; it was kept as the university's)."""
     from catix.wiki.sources import crawl
 
     run = run or datetime.now(timezone.utc).isoformat()
     index = load(name)
     known = known_urls(index)
+
+    def note(url: str, why: str) -> None:
+        if address(url) not in known:  # (a page the index has keeps its own marks: missed, short)
+            index.setdefault("tried", {})[address(url)] = {"why": why, "run": run}
+
     fresh: list[str] = []  # the new addresses: read first
     kept = {slug: (ROOT / name / f"{slug}.md").read_text(encoding="utf-8") for slug, page in index["pages"].items()
             if not page.get("gone") and (ROOT / name / f"{slug}.md").exists()}  # the pages as the last runs kept them
@@ -1098,8 +1147,10 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
     while (fresh or todo) and len(seen) < limit:
         link = (fresh or todo).pop(0)
         url = url_of(link)
-        if (not url or url in seen or (partial and visited is not None and url in visited) or not _taken(site, link)
-                or rules and not rules.can_fetch(regulations.HEADERS["User-Agent"], url)):
+        if not url or url in seen or (partial and visited is not None and url in visited) or not _taken(site, link):
+            continue
+        if rules and not rules.can_fetch(regulations.HEADERS["User-Agent"], url):
+            note(url, "robots.txt disallows it")
             continue
         seen.add(url)
         if visited is not None:
@@ -1123,18 +1174,32 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
             time.sleep(PAUSE if site.pause is None else site.pause)
         except httpx.HTTPError as e:
             print(f"  FAILED {url}: {e}")
+            note(url, f"{type(e).__name__}: {str(e)[:200]}")
             continue
         old = index["pages"].get(slug, {})
         if resp.status_code == 404 or "text/html" not in resp.headers.get("content-type", ""):
+            why = "404" if resp.status_code == 404 else f"not a page ({resp.headers.get('content-type', 'no type')})"
             if old and not old.get("gone") and slug not in read_slugs:  # (not for the other spelling of an address that was read: /x/ and /x)
-                changed += missed(index["pages"], slug, "404" if resp.status_code == 404 else f"not a page ({resp.headers.get('content-type', 'no type')})", run)
+                changed += missed(index["pages"], slug, why, run)
+            note(url, why)
             continue
         if resp.status_code != 200:
             print(f"  {url}: {resp.status_code}")
+            note(url, str(resp.status_code))
+            continue
+        moved = str(resp.url)
+        if address(url) not in known and address(moved) != address(url):  # (a known page that moved stays the page it was)
+            print(f"  {url}: sent to {moved}", flush=True)
+            note(url, f"sent to {moved}")
+            if (other := crawl.provider(moved, page=True)) == name:
+                put(moved)
+            elif other and linked is not None and (target := page_url(SITES[other], moved)) not in (visited or set()):
+                linked.setdefault(other, set()).add(target)
             continue
         title, text, links = read(resp.text, str(resp.url), site.headings)
         if WALL_TITLE.search(title):  # (a bot check that let none of the asks of get_page through, not the site's page)
             print(f"  {url}: a bot check answers in its place", flush=True)
+            note(url, "a bot check")
             continue
         read_ok += 1
         read_slugs.add(slug)
@@ -1164,6 +1229,7 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
             if old and not old.get("gone"):
                 index["pages"][slug] = {**old, "gone": True}
                 changed += 1
+            note(url, f"the words of {first[sha]}")
             continue
         (ROOT / name).mkdir(parents=True, exist_ok=True)
         if keep_by_hand(name, slug, old):  # (a person wrote this page: the crawl does not write over it; its words are the page's words now)
@@ -1200,6 +1266,9 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
         index["docs"] = docs
     elif docs:  # (a few pages: their documents join the site's, the whole site's run says which are linked no more)
         index["docs"] = docs | index["docs"]
+    if "tried" in index:  # (an address read since is a page; one the whole site's run did not ask again lately is linked no more)
+        pages = known_urls(index)
+        index["tried"] = {url: mark for url, mark in index["tried"].items() if url not in pages and (partial or recent(mark.get("run")))}
     save(name, index)
     return changed
 
@@ -1212,8 +1281,9 @@ def fetch(names: list[str] | None = None, only_new: bool = False, documents: boo
     then the new addresses these link (fetch_site, only_new), NEW_DEPTH waves at most, as fetch_new does: its known pages are
     the weekly run's, which reads them all again (the approval of a site that links one page of innopolis.university read
     hundreds of the university's pages). A site never read and a site behind a login are left to the weekly run, which reads
-    them whole. `only_new` reads no site whole: the links of their cached pages that the sites they lead to do not have
-    (new_linked_pages), wave after wave.
+    them whole. `only_new` reads no site whole: the links of their cached pages and of the documents read that the sites they
+    lead to do not have and no run tried lately (unread_links), wave after wave; with `documents` too, it is what `regs fetch`
+    reads after the documents: every trusted link no run has processed, and what it leads to.
 
     With `documents` (the weekly run) the waves go on through the documents: once the pages settle, the documents they link
     are read (regulations.read_new, which follows the documents those link; text layers only by default, scans queued for
@@ -1230,7 +1300,7 @@ def fetch(names: list[str] | None = None, only_new: bool = False, documents: boo
     weekly = not names and not only_new  # (every site read whole: its waves have no end but what they bring)
     no_cookies = CookieJar(policy=DefaultCookiePolicy(allowed_domains=[]))  # every page as a new visitor sees it (robotics keeps the language of the last page in a cookie: its sitemap became English)
     with httpx.Client(headers=regulations.HEADERS, timeout=60, follow_redirects=True, cookies=no_cookies) as client:
-        linked: dict[str, set[str]] = new_linked_pages(names) if only_new else {}
+        linked: dict[str, set[str]] = unread_links(names) if only_new else {}
         visited: set[str] = set()
         whole = set() if only_new else {name for name in every if not names or name in names}
         for name, site in every.items():
@@ -1244,14 +1314,14 @@ def fetch(names: list[str] | None = None, only_new: bool = False, documents: boo
 
         def unread(name: str, urls: set[str]) -> list[str]:
             """The linked pages of a site a wave reads: those the run has not read, and of a site it did not read whole
-            only those its index does not have."""
+            only those its index does not have and no run tried lately (settled)."""
             urls = urls - visited  # (read since the link was found: by its site's run)
             if name in whole:
                 return sorted(urls)
             if SITES[name].profile or not (ROOT / name / "index.json").exists():
                 return []
-            known = known_urls(load(name))
-            return sorted(url for url in urls if url.rstrip("/") not in known)
+            known = settled(load(name))
+            return sorted(url for url in urls if address(url) not in known)
 
         prefixes = tuple(f"site-{name}-" for name in names) if names else None
         first = True
@@ -1297,7 +1367,9 @@ def fetch_new(names: list[str] | None = None, client: httpx.Client | None = None
     them, 5 minutes of a run), and a new page is in the feed first. The pages a site had are the weekly `fetch`'s: it reads
     them all again for changes, and its sitemap. So is a site behind a login (Site.profile: the person's browser once a week,
     not every few hours) and a site the weekly run has not read yet (the whole of it, not 50 pages). The number of pages new
-    or changed.
+    or changed. The first wave takes, besides the feeds, the trusted links no run has read (unread_links: of a cached page,
+    of a document; 474 of them waited for the weekly run, most of them dead): one a run asked and got no page from waits
+    RETRY (settled), so a dead link is not asked every 6 hours.
 
     With `documents` (the 6-hourly run) the first wave always reconsiders the saved document links, even when no HTML changed:
     a provider approved since the last read makes an old link readable. Later waves read the documents their new pages link.
@@ -1309,6 +1381,10 @@ def fetch_new(names: list[str] | None = None, client: httpx.Client | None = None
     run = datetime.now(timezone.utc).isoformat(timespec="seconds")
     readable = {name for name, site in SITES.items() if not site.profile and (ROOT / name / "index.json").exists()}
     wave = {name: entries(SITES[name]) for name in SITES if name in readable and (not names or name in names)}
+    feeds = set(wave)
+    backlog = {name: sorted(urls) for name, urls in unread_links(names).items() if name in readable}
+    for name, urls in backlog.items():
+        wave[name] = list(dict.fromkeys([*wave.get(name, []), *urls]))
     total, visited = 0, set()
     with contextlib.ExitStack() as stack:
         if client is None:
@@ -1318,7 +1394,9 @@ def fetch_new(names: list[str] | None = None, client: httpx.Client | None = None
             linked: dict[str, set[str]] = {}
             changed = 0
             for name, start in wave.items():
-                print(f"== {name}: {'its start pages' if depth == 0 else f'{len(start)} new pages linked'}", flush=True)
+                what = [f"{len(start)} new pages linked"] if depth else [
+                    *(["its start pages"] if name in feeds else []), *([f"{len(backlog[name])} links no run has read"] if name in backlog else [])]
+                print(f"== {name}: {' and '.join(what)}", flush=True)
                 try:
                     changed += fetch_site(name, SITES[name], client, start=start, linked=linked, visited=visited, run=run, only_new=True)
                 except Exception as e:  # noqa: BLE001 - one site failing (its browser, its server) leaves the others to read; the weekly run reads it whole
@@ -1333,8 +1411,8 @@ def fetch_new(names: list[str] | None = None, client: httpx.Client | None = None
                     linked.setdefault(other, set()).update(urls - visited)
             wave = {}
             for name, urls in linked.items():
-                known = known_urls(load(name)) if name in readable else set()
-                if name in readable and (new := sorted(u for u in urls if u.rstrip("/") not in known)):
+                known = settled(load(name)) if name in readable else set()
+                if name in readable and (new := sorted(u for u in urls if address(u) not in known)):
                     wave[name] = new
             if not wave:
                 break

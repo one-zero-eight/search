@@ -491,6 +491,86 @@ def test_the_run_of_new_pages_goes_on_through_the_documents_by_their_text_layer(
     assert "team" in sites.load("club")["pages"] and "https://unit.example/rules.pdf" in sites.load("unit")["docs"]
 
 
+def test_the_run_of_new_pages_reads_the_old_links_no_run_has_read_and_a_dead_one_waits(tmp_path, monkeypatch):
+    """A page links a page of another trusted site that no wave reached (the link was there before the site was approved):
+    the 6-hourly run reads it with the feeds. A dead one is asked once, then waits RETRY: 280 of the 474 such links
+    answered 404, and each run would have asked them again."""
+    from datetime import timedelta
+
+    monkeypatch.setattr(sites, "ROOT", tmp_path)
+    monkeypatch.setattr(sites, "PAUSE", 0)
+    monkeypatch.setattr(sites, "DISCOVERED", tmp_path / "discovered.json")
+    unit = sites.Site("https://unit.example/", "ru", "a unit", r"^nothing$", sitemap=False)
+    club = sites.Site("https://club.example/", "ru", "a club", r"^nothing$", sitemap=False)
+    monkeypatch.setattr(sites, "SITES", {"unit": unit, "club": club})
+    web = Web({"unit.example": {"/": ["https://club.example/team/", "https://club.example/gone/"]}, "club.example": {"/": [], "/team/": []}})
+    sites.fetch_site("unit", unit, web)  # (alone, no wave: its links to club wait in its cached page)
+    sites.fetch_site("club", club, web)
+    assert sites.unread_links() == {"club": {"https://club.example/team/", "https://club.example/gone/"}}
+    from catix.wiki.sources import regulations
+
+    named = {"club": {"https://club.example/rules/"}}  # (a page only a document names)
+    monkeypatch.setattr(regulations, "page_links_of", lambda keys: named if keys is None else {})
+    assert sites.unread_links([]) == sites.unread_links() == {"club": {"https://club.example/team/", "https://club.example/gone/", "https://club.example/rules/"}}  # (`sites new`: [] is every site)
+    monkeypatch.setattr(regulations, "page_links_of", lambda keys: {})
+    web.asked.clear()
+    assert sites.fetch_new(client=web) == 1
+    assert sorted(web.asked) == [("club.example", "/"), ("club.example", "/gone/"), ("club.example", "/team/"), ("unit.example", "/")]
+    assert "team" in sites.load("club")["pages"] and sites.load("club")["tried"]["https://club.example/gone"]["why"] == "404"
+    assert sites.unread_links() == {}
+    web.asked.clear()
+    assert sites.fetch_new(client=web) == 0 and sorted(web.asked) == [("club.example", "/"), ("unit.example", "/")]  # (the dead link waits)
+    monkeypatch.setattr(sites, "RETRY", timedelta(0))  # (RETRY has passed)
+    web.asked.clear()
+    sites.fetch_new(client=web)
+    assert ("club.example", "/gone/") in web.asked
+
+
+class Moving(Web):
+    """Web, where some addresses send to others ({host: {path: address}}), as httpx's client following them does."""
+
+    def __init__(self, links, moved):
+        super().__init__(links)
+        self.moved = moved
+
+    def get(self, url):
+        target = self.moved.get(httpx.URL(url).host, {}).get(httpx.URL(url).path)
+        return super().get(target) if target else super().get(url)
+
+
+def test_a_new_address_the_site_sends_elsewhere_is_no_page_of_its_own_and_the_page_it_is_sent_to_is_read(tmp_path, monkeypatch):
+    """innopolis.university/news/x sends to media.innopolis.university/news/x: it was kept as a page of the university, a copy
+    of media's. '/bachelor/' sends to '/bachelors/': the page under its own address."""
+    monkeypatch.setattr(sites, "ROOT", tmp_path)
+    monkeypatch.setattr(sites, "PAUSE", 0)
+    monkeypatch.setattr(sites, "DISCOVERED", tmp_path / "discovered.json")
+    unit = sites.Site("https://unit.example/", "ru", "a unit", r"^nothing$", sitemap=False)
+    media = sites.Site("https://media.example/", "ru", "the news", r"^nothing$", sitemap=False)
+    monkeypatch.setattr(sites, "SITES", {"unit": unit, "media": media})
+    web = Moving({"unit.example": {"/": ["/news/x/", "/bachelor/"], "/bachelors/": []}, "media.example": {"/news/x/": []}},
+                 {"unit.example": {"/news/x/": "https://media.example/news/x/", "/bachelor/": "https://unit.example/bachelors/"}})
+    linked: dict[str, set[str]] = {}
+    sites.fetch_site("unit", unit, web, linked=linked)
+    index = sites.load("unit")
+    assert {page["url"] for page in index["pages"].values()} == {"https://unit.example/", "https://unit.example/bachelors/"}
+    assert {url: mark["why"] for url, mark in index["tried"].items()} == {
+        "https://unit.example/news/x": "sent to https://media.example/news/x/", "https://unit.example/bachelor": "sent to https://unit.example/bachelors/"}
+    assert linked == {"media": {"https://media.example/news/x/"}}  # (media's wave reads it)
+
+
+def test_a_known_page_the_site_now_sends_elsewhere_stays_the_page_it_was(tmp_path, monkeypatch):
+    monkeypatch.setattr(sites, "ROOT", tmp_path)
+    monkeypatch.setattr(sites, "PAUSE", 0)
+    unit = sites.Site("https://unit.example/", "ru", "a unit", r"^nothing$", sitemap=False)
+    monkeypatch.setattr(sites, "SITES", {"unit": unit})
+    web = Moving({"unit.example": {"/": ["/a/"], "/a/": [], "/b/": []}}, {})
+    sites.fetch_site("unit", unit, web)
+    web.moved = {"unit.example": {"/a/": "https://unit.example/b/"}}
+    sites.fetch_site("unit", unit, web)
+    index = sites.load("unit")
+    assert index["pages"]["a"]["url"] == "https://unit.example/a/" and not index["pages"]["a"].get("gone") and "tried" not in index
+
+
 def test_the_weekly_run_goes_on_through_the_documents_and_keeps_a_page_only_a_document_names(tmp_path, monkeypatch):
     from catix.wiki.sources import regulations
 

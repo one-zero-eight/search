@@ -3,7 +3,7 @@
     catix-wiki fetch [NAMESPACE ...]   # default: namespace 0 (articles); only pages whose revision changed are downloaded
     catix-wiki status                  # pages in the snapshot, redirects, pages missing on the wiki now
     catix-wiki sveden discover|triage|status|override   # all documents of innopolis.university/sveden (see sources/sveden.py)
-    catix-wiki regs fetch|compile|queue   # official regulations (PDF) as a second source, see sources/regulations.py; queue: the OCR queue (sources/ocr_queue.py)
+    catix-wiki regs fetch|compile|queue   # official regulations (PDF) as a second source, see sources/regulations.py; fetch: every trusted link no run has processed; queue: the OCR queue (sources/ocr_queue.py)
     catix-wiki rpd fetch|compile|status   # course programmes (РПД) from the archives of sveden/education, see sources/rpd.py
     catix-wiki sites fetch [SITE ...]|compile|status   # the sites of the university, its services and the city, see sources/sites.py
     catix-wiki papers fetch|compile|status  # past exam papers from the students' Notion database, see sources/pastpapers.py
@@ -87,7 +87,7 @@ def parser() -> argparse.ArgumentParser:
             elif name == "sites":
                 if action == "fetch":
                     leaf.add_argument("names", nargs="*", metavar="SITE")
-                    leaf.add_argument("--only-new", action="store_true", help="Fetch only uncached trusted-provider page links")
+                    leaf.add_argument("--only-new", action="store_true", help="Fetch only trusted-provider page links no run has read or tried lately")
                 elif action == "new":
                     leaf.add_argument("names", nargs="*", metavar="SITE")
                 elif action == "discover":

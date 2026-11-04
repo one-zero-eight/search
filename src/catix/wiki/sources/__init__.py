@@ -83,8 +83,10 @@ def _sites() -> int:
 def _new_pages() -> int:
     """The pages that appeared on the sites since the last run (sites.fetch_new), wave after wave through the documents they
     link (site -> site -> document -> site): a page of a hackathon on media is in the wiki hours after it is published, not up
-    to a week later at the run of `sites`. The documents are read by their text layer alone: scans stay queued for a manual
-    OCR run, so the OCR model need not be up every 6 hours."""
+    to a week later at the run of `sites`. With them every trusted link no run has processed: the documents not read yet and
+    the pages that cached pages and documents link (sites.unread_links); one that gave nothing waits sites.RETRY. The
+    documents are read by their text layer alone: scans stay queued for a manual OCR run, so the OCR model need not be up
+    every 6 hours."""
     from catix.wiki.sources import sites
 
     return sites.fetch_new(documents=True)
@@ -109,7 +111,7 @@ def _papers() -> int:
 SOURCES = [
     Source("eduwiki", timedelta(hours=6), _eduwiki, "eduwiki.innopolis.university: pages whose revision changed"),
     Source("new-pages", timedelta(hours=6), _new_pages, "the feed (or start page) of each site: the new pages it links, the new pages of other trusted sites they link, "
-           "and through the documents they link (text layers only, scans stay queued for OCR)"),
+           "the trusted links of pages and documents no run has read, and through the documents they link (text layers only, scans stay queued for OCR)"),
     Source("sveden", timedelta(days=1), _sveden, "innopolis.university/sveden: documents and course programmes added to the site (scans stay queued for OCR)"),
     Source("files", timedelta(days=7), _files, "documents and archives read before that changed on the site (HEAD, ~1 request every 2 s)"),
     Source("discover", timedelta(days=7), _discover, "new hosts of the university in the links of the pages: probed, then read and sent for a person's look"),

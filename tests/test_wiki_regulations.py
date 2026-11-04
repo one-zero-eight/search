@@ -1,3 +1,4 @@
+import pytest
 from catix.wiki.sources.regulations import to_markdown
 
 
@@ -268,7 +269,12 @@ def test_a_login_page_given_for_a_document_is_not_the_document_and_the_document_
     monkeypatch.setattr(opendataloader, "converted", lambda pdfs: contextlib.nullcontext({}))
     monkeypatch.setattr(sites, "collect_linked_docs", lambda: 0)  # (it reads and writes the real bundle's sites)
     assert regulations.fetch() == 0
-    assert list(tmp_path.iterdir()) == []  # no file, and no note that would keep it skipped
+    import json
+    assert [f.name for f in tmp_path.iterdir()] == ["site-help-1-reglament.json"]  # no file; a note that it waits, not that it is skipped
+    note = json.loads((tmp_path / "site-help-1-reglament.json").read_text())
+    assert "skipped" not in note and note["failed"] == "sent to the login of sso.university.innopolis.ru"
+    monkeypatch.setattr(regulations.httpx, "get", lambda *a, **k: pytest.fail("asked again before RETRY"))
+    assert regulations.fetch() == 0
 
 
 def test_a_broken_link_the_site_answers_with_its_page_is_skipped(monkeypatch, tmp_path):
@@ -288,6 +294,51 @@ def test_a_broken_link_the_site_answers_with_its_page_is_skipped(monkeypatch, tm
     monkeypatch.setattr(sites, "collect_linked_docs", lambda: 0)  # (it reads and writes the real bundle's sites)
     assert regulations.fetch() == 0
     assert [f.name for f in tmp_path.iterdir()] == ["site-university-1-10.json"] and "skipped" in json.loads((tmp_path / "site-university-1-10.json").read_text())
+
+
+def test_every_download_ends_in_a_note_and_a_dead_host_stops_only_its_own_documents(monkeypatch, tmp_path):
+    """olymp.innopolis.ru has no address any more and university.innopolis.ru/files/ sends to the start page of
+    innopolis.university: without a note every run asked them again, and five failures in a row stopped the whole run."""
+    import contextlib
+    import json
+    from datetime import timedelta
+
+    import httpx
+
+    from catix.wiki.sources import opendataloader, regulations, sites
+
+    docs = {f"site-dead-{n}": {"title": f"Dead {n}", "url": f"https://dead.example/{n}.pdf", "root": tmp_path, "section": "site/dead", "ext": "pdf"}
+            for n in range(regulations.MAX_FAILURES + 1)}
+    docs["site-media-1-free"] = {"title": "Free", "url": "https://old.example/files/FREE.pdf", "root": tmp_path, "section": "site/media", "ext": "pdf"}
+    monkeypatch.setattr(regulations, "all_docs", lambda: docs)
+    asked = []
+
+    def get(url, **kwargs):
+        asked.append(url)
+        if url.startswith("https://dead.example/"):
+            raise httpx.ConnectError("[Errno -5] No address associated with hostname", request=httpx.Request("GET", url))
+        return httpx.Response(200, html="<!DOCTYPE html><html><title>Университет</title><a href='/news/'>Новости</a></html>",
+                              request=httpx.Request("GET", "https://new.example/"))  # (the start page of the other host, no login)
+
+    monkeypatch.setattr(regulations.httpx, "get", get)
+    monkeypatch.setattr(regulations, "PAUSE", 0)
+    monkeypatch.setattr(regulations.time, "sleep", lambda seconds: None)
+    monkeypatch.setattr(opendataloader, "converted", lambda pdfs: contextlib.nullcontext({}))
+    monkeypatch.setattr(sites, "collect_linked_docs", lambda: 0)  # (it reads and writes the real bundle's sites)
+    assert regulations.fetch() == 0
+    dead = [f"https://dead.example/{n}.pdf" for n in range(regulations.MAX_FAILURES)]
+    assert asked == [*dead, "https://old.example/files/FREE.pdf"]  # (the dead host let be after MAX_FAILURES; the other host read)
+    notes = {f.stem: json.loads(f.read_text()) for f in tmp_path.glob("*.json")}
+    assert all(notes[f"site-dead-{n}"]["failed"].startswith("ConnectError") for n in range(regulations.MAX_FAILURES))
+    assert f"site-dead-{regulations.MAX_FAILURES}" not in notes  # (not asked: the next run asks it)
+    assert notes["site-media-1-free"]["skipped"] == "a page, not the file"
+    asked.clear()
+    assert regulations.fetch() == 0
+    assert asked == [f"https://dead.example/{regulations.MAX_FAILURES}.pdf"]  # (the others wait RETRY; the skipped one stays skipped)
+    monkeypatch.setattr(sites, "RETRY", timedelta(0))  # (RETRY has passed)
+    asked.clear()
+    regulations.fetch()
+    assert asked == dead
 
 
 def test_the_headings_chandra_found_are_the_headings_of_the_page_and_none_is_guessed_from_a_number():
