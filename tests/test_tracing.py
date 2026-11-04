@@ -73,9 +73,9 @@ def test_a_question_is_one_trace_with_session_user_and_text(phoenix):
 def test_feedback_is_an_annotation_and_a_second_vote_replaces_the_first(phoenix):
     span_id, _ = traced_run()
     spans_of(phoenix, span_id)
-    tracing.score_feedback(span_id, 4242, True)
-    tracing.score_feedback(span_id, 4242, False)  # the same user changes their mind
-    tracing.score_feedback(span_id, 4343, True)  # someone else keeps theirs
+    tracing.score_feedback(span_id, "tg:4242", True)
+    tracing.score_feedback(span_id, "tg:4242", False)  # the same user changes their mind
+    tracing.score_feedback(span_id, "tg:4343", True)  # someone else keeps theirs
     votes = {a["identifier"]: (a["result"]["label"], a["result"]["score"]) for a in phoenix.spans.get_span_annotations(span_ids=[span_id], project_identifier=settings.phoenix_project)}
     assert votes == {"tg:4242": ("👎", 0.0), "tg:4343": ("👍", 1.0)}
 
@@ -85,4 +85,4 @@ def test_without_tracing_nothing_breaks(monkeypatch):
     with tracing.question("t", "1", "q") as traced:
         traced.answer("a")
     assert traced.id is None and tracing.run_config("t", "1") == {"configurable": {"thread_id": "t"}}
-    tracing.score_feedback("abc", 1, True)  # off: does nothing
+    tracing.score_feedback("abc", "tg:1", True)  # off: does nothing

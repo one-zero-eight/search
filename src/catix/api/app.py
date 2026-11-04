@@ -2,6 +2,7 @@
 
     GET  /search/search                    cards from the wiki          POST /ask/   the agent, a conversation by chat_id
     POST /search/search/{id}/feedback      likes of the cards           POST /act/   mock (cAtIx has no actions)
+    POST /ask/{id}/feedback                👍/👎 on an answer (an annotation on its trace in Phoenix)
     POST /{section}/parse                a request for the wiki's own run (Redis queue)   GET /parse/{id}   where it is
 """
 

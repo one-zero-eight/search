@@ -1,4 +1,5 @@
 """POST /ask/: a question to the cAtIx agent (the one the Telegram and Max bots use), with a conversation by `chat_id`.
+POST /ask/{ask_query_id}/feedback: a 👍/👎 on an answer, an annotation on its trace in Phoenix as under the bot's answers.
 
 POST /act/ is a mock: the search service had an agent that did things in InNoHassle services for the user (booking a
 music room, sport classes); cAtIx has none.
@@ -10,6 +11,7 @@ import functools
 import json
 import logging
 import time
+from typing import Literal
 
 from fastapi import APIRouter, Body, HTTPException
 from fastapi.responses import StreamingResponse
@@ -42,6 +44,9 @@ def agent():
 
 
 questions = QuestionQueue(settings.agent_parallel_questions)
+
+# The answer, the cards of its sources, the conversation, and the root span of the answer's trace (None when tracing is off)
+Answered = tuple[str, list[SearchResponse], list, str | None]
 
 
 def _cards(registry: dict, before: set[str]) -> list[SearchResponse]:
@@ -136,9 +141,7 @@ async def one_at_a_time(client: str):
             _gates.pop(client, None)
 
 
-async def run(
-    query: str, chat_id: str, user: UserTokenData, events: asyncio.Queue | None = None
-) -> tuple[str, list[SearchResponse], list]:
+async def run(query: str, chat_id: str, user: UserTokenData, events: asyncio.Queue | None = None) -> Answered:
     """Answer a question. It runs as a task of its own that POST /ask/{chat_id}/cancel can cancel: then `AskCancelled` is
     raised here, while the cancelling of the caller itself (the client went away) goes on as it is."""
     task = asyncio.ensure_future(_in_line(query, chat_id, user, events))
@@ -159,16 +162,12 @@ async def run(
         raise
 
 
-async def _in_line(
-    query: str, chat_id: str, user: UserTokenData, events: asyncio.Queue | None = None
-) -> tuple[str, list[SearchResponse], list]:
+async def _in_line(query: str, chat_id: str, user: UserTokenData, events: asyncio.Queue | None = None) -> Answered:
     async with one_at_a_time(user.innohassle_id):
         return await _run(query, chat_id, user, events)
 
 
-async def _run(
-    query: str, chat_id: str, user: UserTokenData, events: asyncio.Queue | None = None
-) -> tuple[str, list[SearchResponse], list]:
+async def _run(query: str, chat_id: str, user: UserTokenData, events: asyncio.Queue | None = None) -> Answered:
     key = f"tg:{user.telegram_id or 0}"
     allowed = await asyncio.to_thread(groups.scoped_chat_ids, key, user.telegram_id)
     group = await asyncio.to_thread(groups.effective_group, key, user.telegram_id)
@@ -205,7 +204,7 @@ async def _run(
         raise
     cited = answer.rstrip().split("\n\n")[-1].startswith(("Источники:", "Sources:"))
     cards = _cards(result.get("sources") or {}, before) if cited else []
-    return answer, cards, _history(result["messages"])
+    return answer, cards, _history(result["messages"]), traced.id
 
 
 def chat_of(user: UserTokenData, chat_id: str | None) -> str:
@@ -235,7 +234,7 @@ async def ask_by_query(user: VerifiedDep, query: str = Body(..., pattern=NOT_BLA
     chat_id = chat_of(user, chat_id)
     started = time.monotonic()
     try:
-        answer, cards, messages = await run(query, chat_id, user)
+        answer, cards, messages, span_id = await run(query, chat_id, user)
     except AskCancelled:
         raise HTTPException(status_code=409, detail="The question was cancelled") from None
     except Exception as e:
@@ -245,7 +244,12 @@ async def ask_by_query(user: VerifiedDep, query: str = Body(..., pattern=NOT_BLA
         raise HTTPException(status_code=502, detail=f"ML service error: {e}") from e
     log.info("ask for `%s` (%d ms): %s", query, round((time.monotonic() - started) * 1000), answer)
     return AskResponses(
-        query=query, answer=answer, chat_id=chat_id, ask_query_id=state.new_id(), search_responses=cards, messages=messages
+        query=query,
+        answer=answer,
+        chat_id=chat_id,
+        ask_query_id=state.remember_ask(user.innohassle_id, span_id),
+        search_responses=cards,
+        messages=messages,
     )
 
 
@@ -265,10 +269,15 @@ async def ask_by_query_stream(user: VerifiedDep, query: str = Body(..., pattern=
     async def work() -> None:
         started = time.monotonic()
         try:
-            answer, cards, messages = await run(query, chat_id, user, events)
+            answer, cards, messages, span_id = await run(query, chat_id, user, events)
             log.info("ask (stream) for `%s` (%d ms): %s", query, round((time.monotonic() - started) * 1000), answer)
             done = AskResponses(
-                query=query, answer=answer, chat_id=chat_id, ask_query_id=state.new_id(), search_responses=cards, messages=messages
+                query=query,
+                answer=answer,
+                chat_id=chat_id,
+                ask_query_id=state.remember_ask(user.innohassle_id, span_id),
+                search_responses=cards,
+                messages=messages,
             )
             await events.put(("done", done.model_dump(mode="json")))
         except AskCancelled:
@@ -303,6 +312,29 @@ async def cancel_ask(user: VerifiedDep, chat_id: str):
     for task in tasks:
         task.cancel()
     return {"status": "success", "chat_id": chat_id, "cancelled": len(tasks)}
+
+
+@router.post(
+    "/ask/{ask_query_id}/feedback",
+    responses={
+        200: {"description": "Success"},
+        404: {"description": "Ask query not found or user has no access to it"},
+        502: {"description": "The feedback could not be saved"},
+    },
+)
+async def add_user_feedback(user: VerifiedDep, ask_query_id: str, feedback: Literal["like", "dislike"]):
+    """A 👍 (`like`) or 👎 (`dislike`) on an answer, as under the answers of the Telegram bot: the annotation `user-feedback` on
+    the answer's trace in Phoenix. A second vote of the user replaces the first. An answer has an `ask_query_id` only when
+    tracing is on."""
+    asked = state.asks.get(ask_query_id)
+    if asked is None or asked[0] != user.innohassle_id:
+        raise HTTPException(status_code=404, detail="Ask query not found or user has no access to it")
+    try:
+        await asyncio.to_thread(tracing.score_feedback, asked[1], f"api:{user.innohassle_id}", feedback == "like")
+    except Exception as e:
+        log.exception("could not save the feedback")
+        raise HTTPException(status_code=502, detail="The feedback could not be saved") from e
+    return {"status": "success", "ask_query_id": ask_query_id}
 
 
 @router.post(

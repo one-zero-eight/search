@@ -1,6 +1,7 @@
 """The HTTP API (api/): the search service's paths answered by cAtIx. The wiki and the agent are replaced, the token is faked."""
 
 import asyncio
+import json
 from types import SimpleNamespace
 
 import httpx
@@ -85,7 +86,7 @@ def test_page_pieces_keep_a_table_together():
 
 def test_ask_keeps_a_chat_for_its_owner(client, monkeypatch):
     async def run(query, chat_id, user):
-        return f"answer to {query}", [], [{"role": "user", "content": query}]
+        return f"answer to {query}", [], [{"role": "user", "content": query}], None
 
     monkeypatch.setattr(ask, "run", run)
     first = client.post("/ask/", json={"query": "hi"}, headers=AUTH).json()
@@ -105,6 +106,43 @@ def test_ask_needs_a_question(client, path, query):
     assert client.post(path, json={"query": query}, headers=AUTH).status_code == 422
 
 
+def test_feedback_on_an_answer_annotates_its_trace(client, monkeypatch):
+    async def run(query, chat_id, user):
+        return "answer", [], [], "span-1"
+
+    votes = []
+    monkeypatch.setattr(ask, "run", run)
+    monkeypatch.setattr(ask.tracing, "score_feedback", lambda span_id, voter, good: votes.append((span_id, voter, good)))
+    ask_id = client.post("/ask/", json={"query": "hi"}, headers=AUTH).json()["ask_query_id"]
+    url = f"/ask/{ask_id}/feedback"
+    assert client.post(url, params={"feedback": "dislike"}, headers=AUTH).json()["status"] == "success"
+    assert client.post(url, params={"feedback": "like"}, headers=AUTH).status_code == 200  # the user changes their mind
+    assert votes == [("span-1", "api:u1", False), ("span-1", "api:u1", True)]
+    assert client.post(url, params={"feedback": "meh"}, headers=AUTH).status_code == 422
+    assert client.post("/ask/nope/feedback", params={"feedback": "like"}, headers=AUTH).status_code == 404
+
+    state.asks[ask_id] = ("somebody else", "span-1")
+    assert client.post(url, params={"feedback": "like"}, headers=AUTH).status_code == 404
+    assert len(votes) == 2
+
+
+def test_an_answer_without_a_trace_has_no_feedback(client, monkeypatch):
+    async def run(query, chat_id, user):
+        return "answer", [], [], None  # tracing is off
+
+    monkeypatch.setattr(ask, "run", run)
+    assert client.post("/ask/", json={"query": "hi"}, headers=AUTH).json()["ask_query_id"] is None
+
+
+def test_feedback_that_phoenix_does_not_take_is_a_502(client, monkeypatch):
+    def score_feedback(span_id, voter, good):
+        raise RuntimeError("phoenix is down")
+
+    monkeypatch.setattr(ask.tracing, "score_feedback", score_feedback)
+    ask_id = state.remember_ask("u1", "span-1")
+    assert client.post(f"/ask/{ask_id}/feedback", params={"feedback": "like"}, headers=AUTH).status_code == 502
+
+
 def test_ask_failure_is_a_502(client, monkeypatch):
     async def run(query, chat_id, user):
         raise RuntimeError("model is down")
@@ -117,7 +155,7 @@ def test_ask_stream_sends_the_work_and_the_final_answer(client, monkeypatch):
     async def run(query, chat_id, user, events):
         await events.put(("status", {"text": "checking"}))
         await events.put(("answer", {"text": "ans"}))
-        return "answer", [], []
+        return "answer", [], [], "span-1"
 
     monkeypatch.setattr(ask, "run", run)
     response = client.post("/ask/stream", json={"query": "hi"}, headers=AUTH)
@@ -125,6 +163,8 @@ def test_ask_stream_sends_the_work_and_the_final_answer(client, monkeypatch):
     names = [line.removeprefix("event: ") for line in response.text.splitlines() if line.startswith("event: ")]
     assert names == ["status", "answer", "done"]
     assert '"answer": "answer"' in response.text
+    done = json.loads(response.text.split("event: done\ndata: ")[1])
+    assert state.asks[done["ask_query_id"]] == ("u1", "span-1")  # the 👍/👎 on it annotates its trace
 
 
 def test_ask_stream_runs_through_the_queue(client, monkeypatch):
@@ -221,7 +261,7 @@ def test_a_clients_questions_are_answered_one_at_a_time_in_order(monkeypatch):
         log.append(("start", query))
         await asyncio.sleep(0.05)
         log.append(("end", query))
-        return f"a:{query}", [], []
+        return f"a:{query}", [], [], None
 
     monkeypatch.setattr(ask, "_run", fake)
 

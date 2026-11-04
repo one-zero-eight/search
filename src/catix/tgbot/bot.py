@@ -220,7 +220,7 @@ async def feedback(query: CallbackQuery, bot: Bot) -> None:
         return
     good, trace = parts[1] == "1", parts[2]
     try:
-        await asyncio.to_thread(tracing.score_feedback, trace, query.from_user.id, good)
+        await asyncio.to_thread(tracing.score_feedback, trace, f"tg:{query.from_user.id}", good)
     except Exception:  # noqa: BLE001 - a vote must never break the bot
         log.exception("could not save the feedback")
     await query.answer("Спасибо!" if good else "Спасибо, разберём")
