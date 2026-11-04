@@ -35,7 +35,6 @@ def test_real_archive_documents_reach_wiki_without_ocr(tmp_path, monkeypatch, ex
     monkeypatch.setattr(sites, "DISCOVERED", tmp_path / "raw" / "discovered.json")
     monkeypatch.setattr(sites, "SITES", {"unit": sites.Site("https://unit.example/", "en", "Unit", "^nothing$", sitemap=False)})
     monkeypatch.setattr(regulations, "DOCS", {})
-    monkeypatch.setattr(regulations, "SVEDEN_ROOT", tmp_path / "raw" / "sveden")
     monkeypatch.setattr(regulations, "LINKED", tmp_path / "raw" / "linked.json")
     monkeypatch.setattr(regulations, "PAUSE", 0)
     monkeypatch.setattr(chandra, "text_of_pdf", lambda *a, **kw: pytest.fail("a text document called OCR"))

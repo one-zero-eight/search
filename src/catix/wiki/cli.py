@@ -2,7 +2,6 @@
 
     catix-wiki fetch [NAMESPACE ...]   # default: namespace 0 (articles); only pages whose revision changed are downloaded
     catix-wiki status                  # pages in the snapshot, redirects, pages missing on the wiki now
-    catix-wiki sveden discover|triage|status|override   # all documents of innopolis.university/sveden (see sources/sveden.py)
     catix-wiki regs fetch|compile|queue   # official regulations (PDF) as a second source, see sources/regulations.py; fetch: every trusted link no run has processed; queue: the OCR queue (sources/ocr_queue.py)
     catix-wiki rpd fetch|compile|status   # course programmes (РПД) from the archives of sveden/education, see sources/rpd.py
     catix-wiki sites fetch [SITE ...]|compile|status   # the sites of the university, its services and the city, see sources/sites.py
@@ -18,7 +17,7 @@ The bundle (paths.py): wiki/raw/ holds the documents, written by code from the s
 
 The code is laid out by what each part does:
     sources/       what the wiki is made from: each module asks one source what is new and brings it into raw/
-                   (eduwiki, sveden: the site's documents, regulations: their PDFs and pages, rpd: course programmes, sites: the services' sites, pastpapers: past exams,
+                   (eduwiki, regulations: the documents the sites link, their PDFs and pages, rpd: course programmes, sites: the services' sites, pastpapers: past exams,
                    mock: a stand-in site); sources/__init__.py says how often each is asked
     compile.py     eduwiki snapshot -> pages (the model turns wikitext into markdown); also what every part shares
                    (the bundle's folder, the model client, front matter)
@@ -54,7 +53,6 @@ def parser() -> argparse.ArgumentParser:
     command(commands, "status", "Show the eduwiki snapshot")
 
     for name, about, default, actions in (
-        ("sveden", "University disclosure documents", "status", ("discover", "triage", "status", "override")),
         ("regs", "Official regulations", None, ("fetch", "compile", "reextract", "refresh", "queue")),
         ("rpd", "Course programmes", "status", ("fetch", "compile", "refresh", "status")),
         ("papers", "Past exam papers", "status", ("fetch", "compile", "status")),
@@ -66,12 +64,7 @@ def parser() -> argparse.ArgumentParser:
         for action in actions:
             about_action = "Show the OCR queue and the scans too long for OCR" if (name, action) == ("regs", "queue") else f"{action.capitalize()} {about.lower()}"
             leaf = command(actions_parser, action, about_action)
-            if name == "sveden" and action == "triage":
-                leaf.add_argument("--redo", action="store_true", help="Triage documents again")
-            elif name == "sveden" and action == "override":
-                leaf.add_argument("decision", choices=("keep", "skip"))
-                leaf.add_argument("ids", nargs="+", metavar="ID")
-            elif name == "regs" and action == "fetch":
+            if name == "regs" and action == "fetch":
                 leaf.add_argument("limit", nargs="?", type=positive, metavar="N", help="At most N new documents")
                 leaf.add_argument("--no-ocr", action="store_true", help="Read text layers only; queue scans for a run with OCR")
             elif name == "rpd" and action in ("fetch", "compile"):
@@ -162,10 +155,6 @@ def main(argv: list[str] | None = None) -> None:
         from catix.wiki.sources import eduwiki
 
         eduwiki.status()
-    elif cmd == "sveden":
-        from catix.wiki.sources import sveden
-
-        sveden.main(args)
     elif cmd == "regs":
         from catix.wiki.sources import regulations
 

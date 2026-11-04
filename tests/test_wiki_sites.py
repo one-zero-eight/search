@@ -124,7 +124,7 @@ def test_the_university_site_reads_the_pages_of_its_disclosure_section_too_and_h
     uni = SITES["university"]
     assert sites._taken(uni, "https://innopolis.university/campus")
     assert sites._taken(uni, "https://innopolis.university/en/about/")
-    assert sites._taken(uni, "https://innopolis.university/sveden/employees/")  # (its text: sveden.py reads only the documents)
+    assert sites._taken(uni, "https://innopolis.university/sveden/employees/")  # (the disclosure section: a page as any other, its documents too)
     assert not sites._taken(uni, "https://innopolis.university/lk/")
     assert not sites._taken(uni, "https://apply.innopolis.university/")  # (another site)
     assert sites.language_of(uni, "en-about") == "en" and sites.language_of(uni, "about") == "ru" and sites.language_of(uni, "entrance") == "ru"
@@ -190,7 +190,6 @@ def _site_root(tmp_path, monkeypatch, pages):
 
     monkeypatch.setattr(sites, "ROOT", tmp_path / "cache")
     monkeypatch.setattr(sites, "DOCS", tmp_path / "wiki" / "raw")
-    monkeypatch.setattr(regulations, "SVEDEN_ROOT", tmp_path / "sveden")  # (the documents of the bundle: none but the test's)
     monkeypatch.setattr(regulations, "LINKED", tmp_path / "linked.json")
     monkeypatch.setattr(sites, "SITES", {"hotel": sites.SITES["hotel"]})
     index = {"pages": {}, "docs": {}}
@@ -365,6 +364,50 @@ def test_a_page_not_found_or_no_longer_linked_is_gone_when_the_next_run_finds_it
     assert changed == 1 and pages["b"]["missing"]["why"] == "no link leads to it" and not pages["b"].get("gone")
     changed, pages = fetch("5")
     assert changed == 1 and pages["b"]["gone"] and "missing" not in pages["b"]
+
+
+def test_a_document_no_page_links_any_more_keeps_its_page_marked_as_no_longer_on_the_site(tmp_path, monkeypatch):
+    import json
+
+    from catix.wiki import paths
+    from catix.wiki.sources import regulations
+
+    monkeypatch.setattr(sites, "ROOT", tmp_path / "cache")
+    monkeypatch.setattr(paths, "DOCS", tmp_path / "wiki")
+    monkeypatch.setattr(sites, "PAUSE", 0)
+    monkeypatch.setattr(regulations, "DOCS", {})
+    monkeypatch.setattr(regulations, "linked_documents", lambda: {})
+    monkeypatch.setattr(sites, "every_site", lambda: {"hotel": sites.SITES["hotel"]})
+    site = sites.Site("https://hotel.innopolis.university/", "ru", "the hotel", r"^nothing$", sitemap=False, max_pages=10)
+    files = {"/upload/a.pdf": "Правила проживания в гостинице", "/upload/b.pdf": "Положение об оплате проживания"}
+
+    class Client:
+        def get(self, url):
+            links = " ".join(f"<a href='{path}'>{name}</a>" for path, name in files.items())
+            html = f"<html><head><title>Гостиница</title></head><body><h1>Гостиница</h1><p>{WORDS}</p><p>Документы</p><p>{links}</p></body></html>"
+            return httpx.Response(200, headers={"content-type": "text/html"}, text=html, request=httpx.Request("GET", url))
+
+    sites.fetch_site("hotel", site, Client(), run="2026-11-01T00:00:00+00:00")
+    b = canonical("https://hotel.innopolis.university/upload/b.pdf")
+    assert set(sites.load("hotel")["docs"]) == {canonical("https://hotel.innopolis.university/upload/a.pdf"), b}
+    del files["/upload/b.pdf"]  # (removed from the page, or hidden in a comment: no visitor sees it)
+    sites.fetch_site("hotel", site, Client(), run="2026-11-04T00:00:00+00:00")
+    index = sites.load("hotel")
+    assert b not in index["docs"] and index["unlisted"][b] == {"anchor": "Положение об оплате проживания", "since": "2026-11-04", "context": "Документы"}
+    assert [d["url"] for d in sites.docs().values()] == [canonical("https://hotel.innopolis.university/upload/a.pdf")]  # (never read: nothing to keep)
+    key = sites.doc_key("hotel", b)
+    docs = tmp_path / "cache" / "hotel" / "docs"
+    docs.mkdir(parents=True, exist_ok=True)
+    (docs / f"{key}.txt").write_text("Положение об оплате проживания. " + WORDS * 3, encoding="utf-8")
+    (docs / f"{key}.json").write_text(json.dumps({"url": b, "sha256": "ab" * 32, "method": "text layer (opendataloader)",
+                                                  "fetched_at": "2026-10-01T00:00:00+00:00", "section": "site/hotel"}), encoding="utf-8")
+    assert sites.docs()[key]["unlisted"] == "2026-11-04"
+    regulations.compile_all()
+    page = (tmp_path / "wiki" / "regulations" / f"{key}.md").read_text(encoding="utf-8")
+    assert 'stale_after: "2026-11-04T00:00:00+00:00"' in page and "> Ни одна видимая страница сайта не ссылается на этот документ (с 2026-11-04)" in page  # (the agent: 'may be outdated')
+    files["/upload/b.pdf"] = "Положение об оплате проживания"
+    sites.fetch_site("hotel", site, Client(), start=["https://hotel.innopolis.university/"], run="2026-11-05T00:00:00+00:00")
+    assert "unlisted" not in sites.load("hotel") and "unlisted" not in sites.docs()[key]  # (linked again: as any other)
 
 
 class Web:
@@ -686,26 +729,35 @@ def test_a_link_to_a_document_of_a_site_leads_to_its_page_of_regulations_once_th
     assert f"[Правила](/raw/regulations/{key}.md)" in (out / "hotel" / "home.md").read_text(encoding="utf-8")
 
 
-def test_a_link_to_a_document_sveden_lists_too_leads_to_the_page_of_regulations_it_has_there(tmp_path, monkeypatch):
-    import json
-
-    from catix.wiki.sources import regulations
-
-    url = "https://innopolis.university/upload/iblock/a1/Правила приема.pdf"
-    out = _site_root(tmp_path, monkeypatch, {"home": ("https://hotel.innopolis.university/", f"{WORDS} [Правила]({url.replace(' ', '%20')})")})
-    index = sites.load("hotel")
-    index["docs"] = {sites.canonical(url): "Правила приема"}  # (the site links it, and sveden lists it: all_docs keeps sveden's)
-    sites.save("hotel", index)
-    (tmp_path / "sveden").mkdir()
-    (tmp_path / "sveden" / "index.json").write_text(json.dumps([{"url": sites.canonical(url), "title": "Правила приема в университет на 2026 год",
-                                                                 "sections": ["apply"], "ext": "pdf"}]), encoding="utf-8")
-    (tmp_path / "sveden" / "triage.json").write_text(json.dumps({sites.canonical(url): {"decision": "keep"}}), encoding="utf-8")
-    (key,) = [k for k in regulations.all_docs() if k.startswith("sveden-")]
-    assert not any(k.startswith("site-") for k in regulations.all_docs())  # (one file, one page)
-    (tmp_path / "wiki" / "raw" / "regulations").mkdir(parents=True)
-    (tmp_path / "wiki" / "raw" / "regulations" / f"{key}.md").write_text("x", encoding="utf-8")
-    sites.compile_all()
-    assert f"[Правила](/raw/regulations/{key}.md)" in (out / "hotel" / "home.md").read_text(encoding="utf-8")
+def test_a_document_in_a_table_or_under_a_heading_is_told_by_them_not_by_its_own_words(tmp_path, monkeypatch):
+    text = """## Высшее образование
+Образовательная программа высшего образования - программа магистратуры: 38.04.05 Бизнес-информатика
+| Год | Учебные планы | Рабочие программы дисциплин (модулей) |
+| --- | --- | --- |
+| 2025 | [Учебный план](https://innopolis.university/upload/x/УП.pdf) | [1 семестр](https://innopolis.university/upload/x/РПД%201.7z) |
+Программа бакалавриата 09.03.01
+- [Результаты опросов](https://innopolis.university/upload/c/Результаты.pdf)
+[Положение](https://innopolis.university/upload/a/Положение.pdf)
+*в процессе лицензирования.
+Программа дополнительного профессионального образования [«Инженерия искусственного интеллекта»](https://innopolis.university/upload/d/ОП.pdf)
+[Учебный план](https://innopolis.university/upload/d/УП.pdf)
+—
+[Оценочные материалы](https://innopolis.university/upload/d/ОМ.pdf)"""
+    contexts = sites.contexts_of(text)
+    further = "Программа дополнительного профессионального образования «Инженерия искусственного интеллекта»"
+    assert contexts[canonical("https://innopolis.university/upload/d/ОП.pdf")] == "в процессе лицензирования."  # (its own line names it)
+    assert contexts[canonical("https://innopolis.university/upload/d/УП.pdf")] == further
+    assert contexts[canonical("https://innopolis.university/upload/d/ОМ.pdf")] == further  # (a dash, an empty cell, is no caption)
+    caption = "Образовательная программа высшего образования - программа магистратуры: 38.04.05 Бизнес-информатика"
+    assert contexts[canonical("https://innopolis.university/upload/x/УП.pdf")] == f"{caption} — 2025 — Учебные планы"
+    assert contexts[canonical("https://innopolis.university/upload/x/РПД 1.7z")] == f"{caption} — 2025 — Рабочие программы дисциплин (модулей)"
+    assert contexts[canonical("https://innopolis.university/upload/c/Результаты.pdf")] == "Программа бакалавриата 09.03.01"  # (the header of a panel)
+    assert contexts[canonical("https://innopolis.university/upload/a/Положение.pdf")] == "Программа бакалавриата 09.03.01"
+    monkeypatch.setattr(sites, "ROOT", tmp_path)
+    url = canonical("https://innopolis.university/upload/x/УП.pdf")
+    sites.save("university", {"pages": {}, "docs": {url: "Учебный план (документ подписан ПЭП)"}, "contexts": {url: contexts[url]}})
+    (doc,) = sites.docs().values()
+    assert doc["title"] == f"{caption} — 2025 — Учебные планы — Учебный план" and doc["context"] == contexts[url]
 
 
 def test_a_link_around_a_heading_keeps_the_heading_a_heading_and_a_picture_without_an_address_is_none():

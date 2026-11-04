@@ -339,7 +339,6 @@ def test_regulations_fetch_downloads_a_document_found_in_the_previous_one(provid
 
     regulations.ROOT = providers / "raw" / "regulations"
     regulations.LINKED = regulations.ROOT / "linked.json"
-    regulations.SVEDEN_ROOT = providers / "raw" / "sveden"
     regulations.DOCS = {}
     regulations.LINKED.parent.mkdir(parents=True)
     regulations.LINKED.write_text(json.dumps({"documents": {

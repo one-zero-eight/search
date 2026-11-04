@@ -1,10 +1,9 @@
 """The sources of the wiki: the code that reads them (one module each) and how often each is asked.
 
     eduwiki.py      eduwiki.innopolis.university: a snapshot of the pages (compile.py makes the bundle's pages of it)
-    sveden.py       innopolis.university/sveden: every document the site discloses; the model decides which to keep
-    regulations.py  the kept documents (PDF): text, then wiki/raw/regulations/ by code (the model writes only a description)
+    regulations.py  the documents the sites link (PDF, office files, archives): text, then wiki/raw/regulations/ by code
     rpd.py          course programmes (РПД) from the archives of sveden/education: wiki/raw/course-programmes/, by code only
-    sites.py        the sites of the university's services (campus life, the campus hotel): wiki/raw/sites/, their documents as regulations;
+    sites.py        the sites of the university and its services (its disclosure section sveden/ too): wiki/raw/sites/, their documents as regulations;
                     the pages that appeared on them every 6 hours (new-pages), all their pages again every week (sites)
     discover.py     new sites of the university in the links of the pages: pending a person's look (autopilot accept | discard)
     pastpapers.py   past exam papers the students keep in Notion: wiki/raw/past-papers/, one page per subject, by code only
@@ -15,9 +14,8 @@
 
 A source is code: `update` asks the source what is new or changed since the last time and brings it into raw/ (the
 wiki's run then makes pages of it, autopilot.py). It returns how many things changed; 0 means there is nothing to make.
-Each source asks in its own way: the eduwiki by revision numbers (one listing), the disclosure section of the site by
-its list of documents, the documents already read by what the site says about the file (HEAD: ETag, date, size),
-without downloading them.
+Each source asks in its own way: the eduwiki by revision numbers (one listing), the sites by their pages, the documents
+already read by what the site says about the file (HEAD: ETag, date, size), without downloading them.
 """
 
 from collections.abc import Callable
@@ -45,16 +43,6 @@ def _eduwiki() -> int:
     return eduwiki.fetch([0])
 
 
-def _sveden() -> int:
-    """New documents of the disclosure section: the listing, the model's decision about the new ones, then the files of
-    the kept ones and the course programmes of new archives."""
-    from catix.wiki.sources import regulations, rpd, sveden
-
-    changed = sveden.discover()
-    sveden.triage()
-    return changed + regulations.fetch(ocr=False) + rpd.fetch()  # (scans stay queued for a manual OCR run)
-
-
 def _files() -> int:
     """Documents already read that changed on the site under the same link; fetch downloads them again."""
     from catix.wiki.sources import regulations, rpd
@@ -75,9 +63,9 @@ def _sites() -> int:
     """The pages of the sites read again (the pending ones too), and through them the documents: those that are new or
     changed, the pages of trusted sites their text names, their documents, ... (sites.fetch with documents: document -> site
     -> document -> site). Text layers only: scans stay queued for a manual OCR run; the bot's LLM is never stopped."""
-    from catix.wiki.sources import regulations, sites
+    from catix.wiki.sources import regulations, rpd, sites
 
-    return regulations.refresh(prefix="site-") + sites.fetch(documents=True, ocr=False)
+    return regulations.refresh(prefix="site-") + sites.fetch(documents=True, ocr=False) + rpd.fetch()  # (and the course programmes of new archives)
 
 
 def _new_pages() -> int:
@@ -86,10 +74,11 @@ def _new_pages() -> int:
     to a week later at the run of `sites`. With them every trusted link no run has processed: the documents not read yet and
     the pages that cached pages and documents link (sites.unread_links); one that gave nothing waits sites.RETRY. The
     documents are read by their text layer alone: scans stay queued for a manual OCR run, so the OCR model need not be up
-    every 6 hours."""
-    from catix.wiki.sources import sites
+    every 6 hours. The disclosure section is among the feeds of the university's site (raw/sites.yaml): a document it
+    lists is in the wiki hours later, the course programmes of a new archive too (rpd.fetch)."""
+    from catix.wiki.sources import rpd, sites
 
-    return sites.fetch_new(documents=True)
+    return sites.fetch_new(documents=True) + rpd.fetch()
 
 
 def _new_sites() -> int:
@@ -113,7 +102,6 @@ SOURCES = [
     # Source("eduwiki", timedelta(days=6), _eduwiki, "eduwiki.innopolis.university: pages whose revision changed"),
     Source("new-pages", timedelta(seconds=1), _new_pages, "the feed (or start page) of each site: the new pages it links, the new pages of other trusted sites they link, "
     "the trusted links of pages and documents no run has read, and through the documents they link (text layers only, scans stay queued for OCR)"),
-    # Source("sveden", timedelta(days=1), _sveden, "innopolis.university/sveden: documents and course programmes added to the site (scans stay queued for OCR)"),
     # Source("files", timedelta(days=7), _files, "documents and archives read before that changed on the site (HEAD, ~1 request every 2 s)"),
     # Source("discover", timedelta(days=7), _discover, "new hosts of the university in the links of the pages: probed, then read and sent for a person's look"),
     # Source("sites", timedelta(days=7), _sites, "every site again, its documents (text layers only, scans stay queued for OCR) and the pages their text names, wave after wave"),

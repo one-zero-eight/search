@@ -5,7 +5,8 @@
     catix-wiki rpd refresh               # ask the site (HEAD) whether an archive read before changed; fetch reads a changed one again
     catix-wiki rpd status                # archives found and taken, programmes read
 
-The site keeps one 7z archive per programme, cohort and semester (sveden.py lists them; the cell of the table says which).
+The site keeps one 7z archive per programme, cohort and semester in the table of sveden/education, a page of the university's
+site as any other (sites.py reads it; the cell of the table says which: sites.contexts_of).
 Every PDF inside is one course: its text is kept as it is (as for the regulations, the program only turns the layout into
 markdown), no model is asked, the title and the description are made by code from the header of the programme and the
 place of the archive. Section 6 (the classrooms and equipment of the university) is the same in every programme and is left out.
@@ -28,7 +29,7 @@ from pathlib import Path
 import httpx
 
 from catix.settings import settings
-from catix.wiki.sources import regulations, sveden
+from catix.wiki.sources import regulations
 from catix.wiki.compile import PRODUCER, yaml_value
 from catix.wiki.paths import DOCS, RAW
 
@@ -54,13 +55,25 @@ def latin(text: str) -> str:
 
 
 def archives(all_years: bool | None = None, dead: set[str] = frozenset()) -> list[dict]:
-    """The РПД archives that sveden.py found, with the programme and the cohort of their cell; only the latest cohort of each
-    programme unless `all_years` (default: WIKI_RPD_ALL_YEARS). A cohort most of whose links are `dead` (404 on the site: every master's programme of 2026
-    once) does not count: the one before it is taken."""
-    found = []
-    for d in sveden.load(sveden.INDEX):
-        if d["ext"] in ("7z", "zip") and (m := CELL.match(d.get("context", ""))):
-            found.append({"url": d["url"], "title": d["title"], "programme": m["programme"], "year": int(m["year"]), "ext": d["ext"]})
+    """The РПД archives the sites link, with the programme and the cohort of their cell in the table of sveden/education
+    (sites.contexts_of: '<programme> — <cohort> — Рабочие программы дисциплин'); only the latest cohort of each programme
+    unless `all_years` (default: WIKI_RPD_ALL_YEARS). A cohort most of whose links are `dead` (404 on the site: every
+    master's programme of 2026 once) does not count: the one before it is taken. An archive keeps the address it was read
+    under (the keys of its programmes are made of it): the disclosure section's old listing wrote its spaces, the sites
+    write them as %20."""
+    from catix.wiki.sources import sites
+
+    remote = json.loads(REMOTE.read_text(encoding="utf-8")) if REMOTE.exists() else {}
+    known = {sites.canonical(url): url for url in [*remote, *(c["archive"] for c in load().values())]}
+    found, seen = [], set()
+    for name in sites.every_site():
+        index = sites.load(name)
+        for url, anchor in index["docs"].items():
+            ext = index.get("archive_types", {}).get(url, url.rsplit(".", 1)[-1].lower())
+            if ext in ("7z", "zip") and url not in seen and (m := CELL.match(index.get("contexts", {}).get(url, ""))):
+                seen.add(url)
+                title = re.sub(r"\s+", " ", anchor).strip()
+                found.append({"url": known.get(url, url), "title": title, "programme": m["programme"], "year": int(m["year"]), "ext": ext})
     if settings.wiki_rpd_all_years if all_years is None else all_years:
         return found
     alive, total, latest = Counter(), Counter(), Counter()
@@ -78,11 +91,14 @@ def programme_label(cell: str) -> tuple[str, str]:
     программы (профиль) – Анализ данных*' -> ('бакалавриат', '09.03.01 Информатика..., профиль «Анализ данных»')."""
     school = "ПИШ, " if cell.startswith("Передовая инженерная школа") else ""
     cell = re.sub(r"^Передовая инженерная школа:\s*", "", cell)
-    cell = re.sub(r"^Образовательная программа (?:среднего профессионального|высшего) образования\s*[-–]\s*программа\s*", "", cell)
+    cell = re.sub(r"^Образовательная программа (?:среднего профессионального|высшего) образования\s*[-–]\s*(?:программа\s*)?", "", cell)  # ('- бакалавриата: …')
     level = next((v for k, v in LEVELS.items() if cell.startswith(k)), "")
     rest = cell.split(":", 1)[1].strip() if ":" in cell else cell
     rest = re.sub(r";\s*\S{1,3}$", "", rest)  # the caption is cut at 170 characters: '…; К' was 'Квалификация'
     rest = re.sub(r";?\s*Направленность программы \(профиль\)\s*[-–]\s*(.+?)\*?$", r", профиль «\1»", rest).replace("*", "")
+    rest = re.sub(r";\s*Квалификация\s*[-–]\s*([^;]+?)\s*(?=;|$)", r", квалификация «\1»", rest)  # (СПО: the same code after 9
+    rest = re.sub(r";\s*Направленность\s*[-–]\s*([^;]+?)\s*(?=;|$)", r", направленность «\1»", rest)
+    rest = re.sub(r";\s*База обучения\s*[-–]\s*(\d+) класс\w*", r", после \1 классов", rest)  # classes and after 11 is two programmes)
     return level, f"{school}{level} {rest}".strip()
 
 

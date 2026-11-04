@@ -44,7 +44,7 @@ import httpx
 
 from catix.wiki.paths import DOCS
 from catix.settings import settings
-from catix.wiki.sources import eduwiki, regulations, sites, sveden
+from catix.wiki.sources import eduwiki, regulations, sites
 
 UNIVERSITY = sites.UNIVERSITY
 MIN_PAGES = 1  # pages of the bundle that must link the host: one link is enough (a person decides in `sites review`)
@@ -74,10 +74,10 @@ def kind_of(host: str) -> str:
 
 
 def read_by_code() -> set[str]:
-    """The hosts the code reads without a line in SITES: a source of its own (the eduwiki's API, the disclosure section and the
-    documents of the university) or the agent's tools (the InNoHassle API: clubs, events, maps). They come from the constants the
+    """The hosts the code reads without a line in SITES: a source of its own (the eduwiki's API, the documents of the
+    university) or the agent's tools (the InNoHassle API: clubs, events, maps). They come from the constants the
     code reads them by; tests/test_wiki_discover.py fails when the code names a host that is not here."""
-    return {host_of(url) for url in (eduwiki.API, sveden.BASE, regulations.BASE, str(settings.innohassle_api))}
+    return {host_of(url) for url in (eduwiki.API, regulations.BASE, str(settings.innohassle_api))}
 
 
 def known_hosts() -> set[str]:

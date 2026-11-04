@@ -2,8 +2,8 @@
 
     catix-wiki build [--offline]
 
-  sources  (not with --offline) every source asks what is new or changed (sources/): the wiki, the documents of
-           innopolis.university/sveden (kept or skipped by the model), the regulations, the course programmes
+  sources  (not with --offline) every source asks what is new or changed (sources/): the wiki, the sites (the disclosure
+           section innopolis.university/sveden among their pages) and their documents, the regulations, the course programmes
   regs     regulations -> wiki/regulations (the text as it is; the model writes only the description)
   rpd      course programmes of every cohort -> wiki/raw/course-programmes (by code only)
   sites    pages of the services' sites -> wiki/raw/sites (the text as it is; the model writes only the description)

@@ -1,6 +1,6 @@
 """The sites of the university and its services as a source of the bundle: innopolis.university (the university's own
-site, every page in Russian and English; of its disclosure section /sveden/ sveden.py reads the documents, this the text of
-the pages: the staff, the structure), apply.innopolis.university (for applicants: programmes, admission, grants, olympiads;
+site, every page in Russian and English, its disclosure section /sveden/ too: the staff, the structure and the documents
+the university discloses, as any other page and its documents), apply.innopolis.university (for applicants: programmes, admission, grants, olympiads;
 Russian), campuslife.innopolis.ru
 (student life: the handbook, the FAQ, scholarships, clubs; English), hotel.innopolis.university (the campus and its
 dormitories; Russian), new.innopolis.university/en/ (international applicants; English), media.innopolis.university (the
@@ -1139,7 +1139,7 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
             put(urljoin(site.base, path))
         print(f"  {name}: {len(todo) + len(fresh)} pages listed, {len(fresh)} of them new")
     rules = robots_of(site, client)
-    seen, read_slugs, read_ok, changed, docs = set(), set(), 0, 0, {}
+    seen, read_slugs, read_ok, changed, docs, contexts = set(), set(), 0, 0, {}, {}
     first: dict[str, str] = {}  # the words of a page (their hash) -> the page read with them first in this run
     limit = min(site.max_pages, len(todo) + NEW_PAGES) if only_new else site.max_pages
 
@@ -1222,6 +1222,9 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
                 target = page_url(SITES[other], link)
                 if target not in (visited or set()) and target not in linked.setdefault(other, set()):
                     linked[other].add(target)
+        for doc, context in contexts_of(text).items():
+            if doc in docs:
+                contexts.setdefault(doc, context)
         if "?" in url:  # (a page of a list: its links are taken, it is not kept)
             continue
         sha = hashlib.sha256(plain(text).encode()).hexdigest()  # (the words: a new link or picture is not a new version)
@@ -1263,9 +1266,20 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
                 and len(seen) < site.max_pages):  # (not when the site did not answer; not from a few pages: they do not lead everywhere)
             changed += missed(index["pages"], slug, "no link leads to it", run)
     if read_ok and not partial:
+        unlisted = index.get("unlisted", {})
+        for url, anchor in index["docs"].items():  # a document no page links any more (removed, or hidden in a comment) keeps its
+            if url not in docs and url not in unlisted:  # page: what it said is not lost, it is marked as no longer on the site (docs)
+                unlisted[url] = {"anchor": anchor, "since": run[:10], **({"context": index["contexts"][url]} if url in index.get("contexts", {}) else {})}
+        index["unlisted"] = unlisted
         index["docs"] = docs
     elif docs:  # (a few pages: their documents join the site's, the whole site's run says which are linked no more)
         index["docs"] = docs | index["docs"]
+    if "unlisted" in index:  # (linked again: listed as any other)
+        index["unlisted"] = {url: mark for url, mark in index["unlisted"].items() if url not in index["docs"]}
+        if not index["unlisted"]:
+            del index["unlisted"]
+    if contexts or "contexts" in index:
+        index["contexts"] = {doc: context for doc, context in {**index.get("contexts", {}), **contexts}.items() if doc in index["docs"]}
     if "tried" in index:  # (an address read since is a page; one the whole site's run did not ask again lately is linked no more)
         pages = known_urls(index)
         index["tried"] = {url: mark for url, mark in index["tried"].items() if url not in pages and (partial or recent(mark.get("run")))}
@@ -1430,6 +1444,44 @@ def links_of(text: str) -> list[tuple[str, str]]:
     return LINKED_DOC.findall(PICTURE.sub(lambda m: m.group(1), text))
 
 
+def _words(markdown: str) -> str:
+    return re.sub(r"\s+", " ", re.sub(r"^[#*\-\s]+|\*+$|\*\*|__", "", plain(markdown))).strip()  # (and the asterisk of a footnote: 'программ*')
+
+
+def contexts_of(text: str) -> dict[str, str]:
+    """What each document a page links belongs to, read from the page as markdown, not from the markup of one site (a
+    regular expression over the HTML of sveden would break with a change of its classes, and it took the links its comments hide):
+    a link in a table is '<the line before the table> — <the first cell of its row> — <the header of its column>'
+    (sveden/education: 'программа бакалавриата: 09.03.01 … — 2025 — Рабочие программы дисциплин (модулей)': a link
+    whose words are '2025' or 'Учебный план' says nothing alone); one in a list or a paragraph, the last line of words
+    before it (a heading, the header of a panel: 'программа магистратуры 09.04.01 …'; a line of words with a link in it
+    too: the programme of further education its link names). The canonical
+    address -> its context; a document the page links twice keeps the first."""
+    found: dict[str, str] = {}
+    caption, header = "", None
+    for line in text.splitlines():
+        line = line.strip()
+        if line.startswith("|"):
+            cells = [cell.strip() for cell in line.strip("|").split("|")]
+            if header is None:
+                header = [_words(cell) for cell in cells]
+            elif not all(re.fullmatch(r":?-{3,}:?", cell) for cell in cells if cell):
+                row = _words(cells[0])
+                for i, cell in enumerate(cells):
+                    for _, url in links_of(cell):
+                        found.setdefault(canonical(url), " — ".join(part for part in (caption, row if i else "", header[i] if i < len(header) else "") if part))
+            continue
+        header = None
+        if links := links_of(line):
+            for _, url in links:
+                found.setdefault(canonical(url), caption)
+            if len(re.findall(r"[^\W\d_]{3,}", re.sub(r"!?\[[^\]]*\]\([^)]*\)", " ", line))) >= 3:  # (words around a link: 'Программа
+                caption = _words(line)[:400]  # дополнительного профессионального образования [«Инженерия ИИ»](…)', the caption of the links under it)
+        elif re.search(r"[^\W_]", words := _words(line)):  # (not a line of a dash: an empty cell)
+            caption = words[:400]
+    return {url: context for url, context in found.items() if context}
+
+
 def collect_linked_docs() -> int:
     """The documents of trusted providers (crawl.provider: a site of SITES, not a pending one) that the pages of the bundle
     link and no site has among its documents yet (a page of `apply` or `dovuz` linking a PDF of innopolis.university: fetch_site
@@ -1466,18 +1518,29 @@ def docs() -> dict[str, dict]:
     copies: dict[str, list[tuple[str, str, dict]]] = {}
     for name, site in every_site().items():
         index = load(name)
-        for url, anchor in index["docs"].items():
+        unlisted = {url: mark for url, mark in index.get("unlisted", {}).items() if url not in index["docs"]
+                    and any((ROOT / name / "docs" / f"{doc_key(name, url)}{end}").exists() for end in (".txt", ".archive.json"))}  # (one never read has nothing to keep)
+        for url, anchor in [*index["docs"].items(), *((url, mark["anchor"]) for url, mark in unlisted.items())]:
             file = unquote(urlsplit(url).path.rsplit("/", 1)[-1])
             stem = re.sub(r"[_]+", " ", file.rsplit(".", 1)[0]).strip()
             if re.search(r"(?i)\.(pdf|docx?|xlsx?|pptx?|rtf|odt)$", anchor):  # the link says the file's name (help: 'Приказ ад-01.2019.12.23 регламент_процесса_….pdf')
                 anchor = re.sub(r"_+", " ", anchor.rsplit(".", 1)[0]).strip()
             title = anchor if len(anchor) >= 12 and not re.fullmatch(r"(?i)(скачать|здесь|тут|download|here|подробнее|ссылк\w*)", anchor) else stem
-            title = re.sub(r"\s+", " ", re.sub(r"\s*\(\d\)$", "", title)).strip()  # ('… 2025 год (2)': the second copy of a file)
-            key = f"site-{name}-" + hashlib.sha1(url.encode()).hexdigest()[:8] + "-" + (latin(stem)[:40].strip("-") or "doc")
-            copies.setdefault(url, []).append((name, key, {
+            title = re.sub(r"\s+", " ", re.sub(r"\s*\(\d\)$", "", regulations.SIGNED.sub("", title))).strip()  # ('… 2025 год (2)': the second copy of a file)
+            context = index.get("contexts", {}).get(url, "") or unlisted.get(url, {}).get("context", "")
+            if context and (len(title) < 30 or re.fullmatch(r"[\d\s./()–-]+", title) or title.lower().startswith(("учебный план", "календарный", "рабочая программа"))):
+                title = f"{context[:220]} — {title}"  # ('Учебный план', '2025': the programme and the year are the table's, contexts_of)
+            copies.setdefault(url, []).append((name, doc_key(name, url), {
                 "title": title, "url": url, "root": ROOT / name / "docs", "section": f"site/{name}", "ext": index.get("archive_types", {}).get(url, file.rsplit(".", 1)[-1].lower()),
-                **({"audience": list(site.audience)} if site.audience else {})}))  # (the regulations of help are for the staff, as its pages)
+                **({"context": context} if context else {}), **({"audience": list(site.audience)} if site.audience else {}),  # (the regulations of help are for the staff, as its pages)
+                **({"unlisted": unlisted[url]["since"]} if url in unlisted else {})}))
     return dict(owner(url, found) if len(found) > 1 else found[0][1:] for url, found in copies.items())
+
+
+def doc_key(name: str, url: str) -> str:
+    """The key of a document of a site: the site, the address (canonical) and the name of its file."""
+    stem = re.sub(r"[_]+", " ", unquote(urlsplit(url).path.rsplit("/", 1)[-1]).rsplit(".", 1)[0]).strip()
+    return f"site-{name}-" + hashlib.sha1(url.encode()).hexdigest()[:8] + "-" + (latin(stem)[:40].strip("-") or "doc")
 
 
 def owner(url: str, copies: list[tuple[str, str, dict]]) -> tuple[str, dict]:
@@ -1493,9 +1556,11 @@ def owner(url: str, copies: list[tuple[str, str, dict]]) -> tuple[str, dict]:
     _, key, doc = min(copies, key=lambda copy: (not (copy[2]["root"] / f"{copy[1]}.txt").exists(),
                                                  not any((copy[2]["root"] / f"{copy[1]}{end}").exists() for end in (".json", ".archive.json")),
                                                  copy[0] != home))  # (min keeps the first of equal copies)
-    doc = {field: value for field, value in doc.items() if field != "audience"}
+    doc = {field: value for field, value in doc.items() if field not in ("audience", "unlisted")}
     if all(d.get("audience") for _, _, d in copies):
         doc["audience"] = [a for a in AUDIENCES if any(a in d["audience"] for _, _, d in copies)]
+    if all(d.get("unlisted") for _, _, d in copies):  # (on the site while one site links it)
+        doc["unlisted"] = max(d["unlisted"] for _, _, d in copies)
     return key, doc
 
 
@@ -1649,8 +1714,8 @@ def compile_all() -> None:
                 continue  # a page of pictures and buttons
             entries[name, slug] = {"site": site, "page": p, "title": title, "lang": lang, "lines": lines}
     where = kept | {address(e["page"]["url"]): page_path(name, slug) for (name, slug), e in entries.items()}
-    for key, doc in regulations.all_docs().items():  # a document, once it is a page of regulations, under the key it has there: the
-        if (DOCS / "regulations" / f"{key}.md").exists():  # file sveden lists too is `sveden-…`, not the site's (its link stayed the site's)
+    for key, doc in regulations.all_docs().items():  # a document, once it is a page of regulations, under the key it has there: a
+        if (DOCS / "regulations" / f"{key}.md").exists():  # file of the bundle (DOCS) a site links too keeps the bundle's key
             where[address(doc["url"])] = f"/{DOCS.name}/regulations/{key}.md"
     keep, written = set(), 0
     for (name, lang), lines in sorted(shared.items()):

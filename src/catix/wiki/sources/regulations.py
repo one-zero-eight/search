@@ -1,4 +1,5 @@
-"""Official regulations (PDF files on innopolis.university/sveden/document) as a second source of the bundle.
+"""The documents of the bundle (the first regulations, and every PDF or office file the sites link, the disclosure section of
+innopolis.university/sveden among them): their text, and the pages of wiki/raw/regulations/.
 
     catix-wiki regs fetch [N] [--no-ocr]   # every trusted link no run has processed: download and extract the documents, after each material follow
                                 # links to documents on configured SITES providers; then read the pages of trusted sites that cached pages and
@@ -74,19 +75,12 @@ def issued_of(text: str, fallback: str) -> str:
     return f"{y}-{mo:02d}-{d:02d}T00:00:00+03:00"
 
 
-SVEDEN_ROOT = ROOT.parent / "sveden"
 MAX_BYTES, MAX_PAGES, MAX_OCR_PAGES = 25_000_000, 150, 40  # one document may not take hours of OCR
 QUEUED, TOO_LONG = "queued", "too long"  # a scan's "ocr" in its note: waits for a run with OCR / longer than MAX_OCR_PAGES, put aside (ocr_state)
 MAX_FAILURES = 5  # network errors in a row before a run gives up
 PAUSE = 2  # seconds between requests: the site blocked us once after a burst, so stay well below what it tolerates
 OCR_BUDGET = 200  # pages of OCR per run of `regs fetch`; documents left over are done by the next run
 AUDIENCE_OF_SECTION = {  # who a document is for, by the section of the site that lists it; a section of every kind of document names no one (everyone)
-    "sveden/education": ["student", "postgraduate", "applicant", "teacher"],  # programmes, study plans, practice
-    "sveden/eduStandarts": ["student", "postgraduate", "applicant", "teacher"],
-    "sveden/apply": ["applicant"],
-    "sveden/grants": ["student", "postgraduate"],  # scholarships, material support
-    "sveden/paid_edu": ["student", "postgraduate", "applicant", "public"],  # contracts and prices, courses for anyone
-    "sveden/struct": ["staff", "management"],  # the units' regulations
     "site/hotel": ["student", "postgraduate", "applicant", "public"],  # the dormitory's rules and prices, its guests
 }
 
@@ -117,30 +111,18 @@ def changed(old: dict | None, new: dict) -> bool:
     return (old.get("modified"), old.get("size")) != (new.get("modified"), new.get("size"))
 
 
-SIGNED = re.compile(r"\s*\(документ подписан (?:ПЭП|простой электронной подписью|электронной подписью)\)", re.I)  # says nothing about the content
+SIGNED = re.compile(r"\s*\(документы? подписаны? (?:ПЭП|простой электронной подписью|электронной подписью)\)", re.I)  # says nothing about the content
 GLUED = re.compile(r"^(\s*\d{1,2}(?:\.\d{1,2}){1,4}\.)(?=[^\W\d_]|«)|^(\s*\d{1,2}\.)(?=[А-ЯЁA-Z])", re.M)  # '3.2.Аспирант', '8.Во время'
 
 
 def all_docs() -> dict[str, dict]:
-    """Every document of the bundle's official source: the first regulations (DOCS) and those the model kept from the disclosure section (sveden.py)."""
-    docs = {k: {"title": t, "url": BASE + p, "root": ROOT, "section": "document"} for k, (t, p) in DOCS.items()}
-    index = {d["url"]: d for d in json.loads((SVEDEN_ROOT / "index.json").read_text(encoding="utf-8"))} if (SVEDEN_ROOT / "index.json").exists() else {}
-    decisions = json.loads((SVEDEN_ROOT / "triage.json").read_text(encoding="utf-8")) if (SVEDEN_ROOT / "triage.json").exists() else {}
+    """Every document of the bundle: the first regulations (DOCS), those the sites link (the disclosure section of the
+    university's site among them: sites.docs) and those the documents' own text names (linked_documents)."""
     from catix.wiki.sources import sites
 
-    known = {sites.canonical(d["url"]) for d in docs.values()}  # (the disclosure section writes the spaces of a file DOCS has: one document)
-    for url, dec in decisions.items():
-        if dec["decision"] != "keep" or url not in index or sites.canonical(url) in known:
-            continue
-        d = index[url]
-        title = SIGNED.sub("", d["title"]).strip()
-        if len(title) < 30 or re.fullmatch(r"[\d\s./()–-]+", title) or title.lower().startswith(("учебный план", "календарный", "рабочая программа")):
-            title = f"{d['context'][:220]} — {title}" if d.get("context") else title  # 'Study plan' alone says nothing: the programme is in the list it sits in
-        key = "sveden-" + hashlib.sha1(url.encode()).hexdigest()[:8] + "-" + (re.sub(r"[^a-z0-9]+", "-", unquote(url.rsplit("/", 1)[-1]).lower()).strip("-")[:30] or "doc")
-        docs[key] = {"title": title, "url": url, "root": SVEDEN_ROOT, "section": "sveden/" + d["sections"][0], "context": d.get("context", ""), "ext": d["ext"]}
-        known.add(sites.canonical(url))
+    docs = {k: {"title": t, "url": BASE + p, "root": ROOT, "section": "document"} for k, (t, p) in DOCS.items()}
     have = {sites.canonical(d["url"]) for d in docs.values()}
-    docs.update({k: d for k, d in sites.docs().items() if d["url"] not in have})  # the documents the sites link (the rules and prices of the dormitories); one sveden has is not read twice
+    docs.update({k: d for k, d in sites.docs().items() if d["url"] not in have})  # (one of DOCS the site links too is not read twice)
     have |= {sites.canonical(d["url"]) for d in docs.values()}
     for url, found in linked_documents().items():
         if url in have:
@@ -159,7 +141,9 @@ def all_docs() -> dict[str, dict]:
         from catix.wiki.sources import rpd
 
         specialised = {sites.canonical(a["url"]) for a in rpd.archives()}
-        docs = {key: d for key, d in docs.items() if sites.canonical(d["url"]) not in specialised}
+        read = {sites.canonical(c["archive"]) for c in rpd.load().values() if "sha256" in c}
+        docs = {key: d for key, d in docs.items() if (url := sites.canonical(d["url"])) not in specialised  # (an archive read here
+                or url not in read and (d["root"] / f"{key}.archive.json").exists()}  # before rpd took it: its files stay pages until rpd has read it)
     docs.update(archive_documents.members(docs))
     boiler = re.compile(r"^(?:Высшее образование\s*[-–]\s*\w+\s*)?(?:Образовательная программа высшего образования\s*[-–]\s*программа\s*\w+\s*)?")
     for d in docs.values():
@@ -669,7 +653,7 @@ def refresh(prefix: str = "") -> int:
                 continue
             failures = 0
             time.sleep(PAUSE)
-            if resp.status_code != 200:  # (a document gone from the list of the site leaves the bundle through `sveden discover`)
+            if resp.status_code != 200:  # (a document no page links any more leaves the bundle with the next run of its site)
                 continue
             now = signature(resp.headers)
             if changed(meta.get("remote"), now):
@@ -776,7 +760,7 @@ def compile_all() -> None:
     docs = all_docs()
     for page in [*paths.DOCS.joinpath("regulations").glob("sveden-*.md"), *paths.DOCS.joinpath("regulations").glob("site-*.md")]:
         if page.stem not in docs and (page.stem.startswith("sveden-") or "-member-" not in page.stem):  # the document is no longer
-            page.unlink()  # kept (a new decision of the triage, it left the site, another key has the same file: sites.owner)
+            page.unlink()  # kept (it left the site, another key has the same file: sites.owner; sveden-*: of the old listing)
             print(f"{page.stem}: no longer kept, page removed")
     for page in paths.DOCS.joinpath("regulations").glob("*-member-*.md"):
         if page.stem not in docs and "\narchive_member:" in page.read_text(encoding="utf-8"):
@@ -814,6 +798,9 @@ def compile_all() -> None:
                  "generated:", f"  by: {yaml_value(PRODUCER + ' regulations')}", f"  at: {yaml_value(meta['fetched_at'])}",
                  f"extraction: {yaml_value(meta['method'])}", "status: draft",
                  *(['review: "scanned document read by OCR: check numbers and dates against the PDF before relying on them"'] if ocr else []), "---"]
+        if d.get("unlisted"):  # (no page of the site links it any more: removed or hidden; what it said stays, as possibly outdated)
+            front.insert(-1, f"stale_after: {yaml_value(d['unlisted'] + 'T00:00:00+00:00')}")
+            body = f"> Ни одна видимая страница сайта не ссылается на этот документ (с {d['unlisted']}): ссылку убрали или скрыли, это может быть старая редакция.\n\n{body}"
         page = "\n".join(front) + f"\n\n# {title}\n\n{body}\n\n# Citations\n\n1. [{title}]({meta['url']}), file {meta['sha256'][:12]}\n"
         if page != old:
             target.write_text(page, encoding="utf-8")

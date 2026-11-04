@@ -13,7 +13,8 @@ One run:
   2. if one brought something, or the data still has changes an earlier run could not commit: build.rebuild();
   3. the checks: lint without errors, the search finds the answers of
      quality.py (hit@5 >= settings.wiki_min_hit5), the agent answers tests/test_docs_answers.py (a failed test once more;
-     answers that were not checked, because pytest did not start or the model server did not answer, fail it too);
+     answers that were not checked, because pytest did not start or the model server did not answer, fail it too), and
+     no more than MAX_LOST pages taken away with nothing in their place (lost_pages);
   4. a commit in the checkout of the `wiki` branch (settings.wiki_root), where only wiki/ and raw/ may change. All checks
      passed: pushed to `wiki`. One failed: the same changes go to a branch `wiki-review/<time>` for a person, and `wiki`
      stays as it was; the working tree keeps them, and the next run checks them again together with what is new.
@@ -31,6 +32,7 @@ admins were told of) is in .autopilot.json next to the data, not committed. `--l
 import fcntl
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -42,6 +44,7 @@ from collections import Counter
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from urllib.parse import unquote
 
 from catix import admins
 from catix.settings import settings
@@ -108,6 +111,32 @@ def summary(name_status: str) -> str:
         by[folder, words.get(status[:1], status)] += 1
     folders = dict.fromkeys(f for f, _ in sorted(by))
     return "\n".join(f"{f}: " + ", ".join(f"{n} {w}" for (g, w), n in sorted(by.items()) if g == f) for f in folders)
+
+
+MAX_LOST = 10  # pages a run may take away with nothing in their place before a person looks (a page a site no longer has:
+# 0-4 a run); 236 courses of 26 archives and 137 documents hidden on the site once left in one run, unnoticed, through a bug
+RESOURCE = re.compile(r"^resource: (.+)$", re.M)
+
+
+def source_of(page: str) -> str:
+    """What a page of the bundle is made of: its resource, from its front matter, as one spelling (an archive's courses
+    rpd read name it with spaces, the pages of its files with %20; any page of an archive has what the archive says)."""
+    if not (m := RESOURCE.search(page.split("\n---", 1)[0])):
+        return ""
+    value = m[1].strip()
+    return unquote(json.loads(value) if value.startswith('"') else value)
+
+
+def lost_pages(status: str) -> list[str]:
+    """The pages the staged changes remove (git diff --cached --name-status) whose source no page left has: what they said
+    is gone from the wiki. A page under a new name or another page of the same source (a course rpd read in place of the
+    file of an archive) is not lost."""
+    removed = [line.split("\t", 1)[1] for line in status.splitlines() if line.startswith("D\t")]
+    removed = [path for path in removed if path.startswith("wiki/") and path.endswith(".md") and not path.endswith("index.md")]
+    if not removed:
+        return []
+    left = {source_of(page.read_text(encoding="utf-8")) for page in (DATA / "wiki").rglob("*.md")}
+    return [path for path in removed if (source := source_of(git("show", f"HEAD:{path}", check=False))) and source not in left]
 
 
 @dataclass
@@ -255,6 +284,9 @@ def run_once(names: list[str] | None = None, push: bool = True, answers: bool = 
         git("reset", "-q")
         raise RuntimeError(f"the run changed paths outside the data, nothing committed: {bad[:5]}")
     checks = check(report, answers)
+    if lost := lost_pages(git("diff", "--cached", "--name-status", "--no-renames")):
+        checks.add(len(lost) <= MAX_LOST, f"pages removed with nothing in their place: {len(lost)} (at most {MAX_LOST} without a person's look): "
+                   + ", ".join(path.removeprefix("wiki/") for path in lost[:5]))
     found = ", ".join(f"{k} {v}" for k, v in changed.items() if v) or "changes left by an earlier run"
     message = (f"wiki: {found}\n\n{summary(git('diff', '--cached', '--name-status'))}\n\nChecks:\n"
                + "\n".join([*(f"- FAILED {c}" for c in checks.failed), *(f"- {c}" for c in checks.passed)]))

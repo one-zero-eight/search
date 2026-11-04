@@ -51,7 +51,7 @@ def test_sites_fetch_only_new_is_typed(monkeypatch):
     ["sites", "add"], ["sites", "accept"], ["sites", "reject"],
     ["sites", "accept", "lab", "--all"], ["sites", "reject", "--all", "lab"],
     ["regs"], ["regs", "fetch", "many"], ["rpd", "fetch", "--limit"],
-    ["sveden", "override", "maybe", "x"], ["sveden", "override", "keep"],
+    ["sveden"],
     ["agent"], ["layout"], ["compile"], ["compile", "--random"],
     ["compile", "--sample", "--all"], ["compile", "--all", "Page"], ["compile", "link", "Page"],
     ["index", "export"], ["index", "import"], ["index", "status", "extra"],
@@ -66,7 +66,7 @@ def test_invalid_arguments_exit_two_before_work(words, capsys):
 
 
 @pytest.mark.parametrize("words,command,action", [
-    ([], "status", None), (["sites"], "sites", "status"), (["sveden"], "sveden", "status"),
+    ([], "status", None), (["sites"], "sites", "status"),
     (["papers"], "papers", "status"), (["rpd"], "rpd", "status"),
     (["autopilot"], "autopilot", "run"), (["index"], "index", "sync"),
 ])
@@ -79,10 +79,6 @@ def test_defaults(words, command, action):
     ([], "sources.eduwiki", "status", (), {}),
     (["fetch"], "sources.eduwiki", "fetch", ([0],), {}),
     (["fetch", "0", "14"], "sources.eduwiki", "fetch", ([0, 14],), {}),
-    (["sveden"], "sources.sveden", "status", (), {}),
-    (["sveden", "discover"], "sources.sveden", "discover", (), {}),
-    (["sveden", "triage", "--redo"], "sources.sveden", "triage", (True,), {}),
-    (["sveden", "override", "keep", "one", "two"], "sources.sveden", "override", ("keep", ["one", "two"]), {}),
     (["regs", "fetch", "3"], "sources.regulations", "fetch", (3,), {"ocr": True}),
     (["regs", "compile"], "sources.regulations", "compile_all", (), {}),
     (["regs", "refresh"], "sources.regulations", "refresh", (), {}),

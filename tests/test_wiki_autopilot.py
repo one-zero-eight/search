@@ -12,9 +12,9 @@ def test_only_the_data_may_be_committed():
 
 def test_a_source_is_asked_when_its_interval_has_passed():
     now = datetime(2026, 10, 24, 12, tzinfo=timezone.utc)
-    state = {"asked": {"eduwiki": (now - timedelta(hours=7)).isoformat(), "sveden": (now - timedelta(hours=2)).isoformat()}}
-    assert [s.name for s in autopilot.due(state, now)] == ["eduwiki", "new-pages", "files", "discover", "sites", "papers"]  # the ones after eduwiki were never asked
-    assert [s.name for s in sources.SOURCES] == ["eduwiki", "new-pages", "sveden", "files", "discover", "sites", "papers"]
+    state = {"asked": {"eduwiki": (now - timedelta(hours=7)).isoformat(), "files": (now - timedelta(hours=2)).isoformat()}}
+    assert [s.name for s in autopilot.due(state, now)] == ["eduwiki", "new-pages", "discover", "sites", "papers"]  # files was asked 2 h ago, the others after eduwiki never
+    assert [s.name for s in sources.SOURCES] == ["eduwiki", "new-pages", "files", "discover", "sites", "papers"]
     night = datetime(2026, 10, 24, 0, 30, tzinfo=timezone.utc)
     assert "ocr" not in [s.name for s in autopilot.due(state, night)]
     assert "ocr" not in [s.name for s in sources.ON_REQUEST]
@@ -198,3 +198,20 @@ def test_the_results_come_from_pytest_s_own_report():
     one = "tests/test_wiki_autopilot.py::test_only_the_data_may_be_committed"
     run = autopilot.run_answers(one)
     assert run.results == {one: "passed"} and not run.broken, run.output
+
+
+def test_a_page_taken_away_with_nothing_in_its_place_is_lost_one_renamed_or_replaced_is_not(tmp_path, monkeypatch):
+    def page(resource, member=None):
+        return "\n".join(["---", "type: regulation", f'resource: "{resource}"', *([f'archive_member: "{member}"'] if member else []), "---", "", "# x", ""])
+
+    head = {"wiki/raw/regulations/sveden-1-a.md": page("https://u/a.pdf"), "wiki/raw/regulations/sveden-2-b.md": page("https://u/b.pdf"),
+            "wiki/raw/regulations/site-u-3-rpd-member-1.md": page("https://u/%D0%A0%D0%9F%D0%94%201.7z", "x/Матанализ.pdf"), "wiki/raw/regulations/index.md": page("i")}
+    monkeypatch.setattr(autopilot, "DATA", tmp_path)
+    monkeypatch.setattr(autopilot, "git", lambda *args, check=True: head[args[1].removeprefix("HEAD:")])
+    left = tmp_path / "wiki" / "raw" / "regulations"
+    left.mkdir(parents=True)
+    (left / "site-university-1-a.md").write_text(page("https://u/a.pdf"), encoding="utf-8")  # (a under its new key)
+    status = "\n".join(f"D\t{path}" for path in head) + "\nA\twiki/raw/regulations/site-university-1-a.md"
+    assert autopilot.lost_pages(status) == ["wiki/raw/regulations/sveden-2-b.md", "wiki/raw/regulations/site-u-3-rpd-member-1.md"]
+    (left / "rpd-course.md").write_text(page("https://u/РПД 1.7z"), encoding="utf-8")  # (the course, read by rpd: the archive with spaces)
+    assert autopilot.lost_pages(status) == ["wiki/raw/regulations/sveden-2-b.md"]

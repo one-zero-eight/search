@@ -71,6 +71,16 @@ def test_the_cell_gives_the_level_and_a_short_programme():
     assert level == "бакалавриат"
     assert label == "ПИШ, бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «Инженерия информационных систем»"
     assert programme_label("подготовки кадров высшей квалификации: 1.2.2. Математическое моделирование")[0] == "аспирантура"
+    assert programme_label("Образовательная программа высшего образования - бакалавриата: 09.03.01 Информатика и вычислительная техника; "
+                           "Направленность программы (профиль) – AI360: Инженерия данных") == (
+        "бакалавриат", "бакалавриат 09.03.01 Информатика и вычислительная техника, профиль «AI360: Инженерия данных»")  # (no 'программа')
+    assert programme_label("Образовательная программа среднего профессионального образования - программа подготовки специалистов среднего звена: "
+                           "09.02.07 Информационные системы и программирование; Квалификация – Программист; База обучения - 9 классов") == (
+        "СПО", "СПО 09.02.07 Информационные системы и программирование, квалификация «Программист», после 9 классов")
+    assert programme_label("Образовательная программа среднего профессионального образования - программа подготовки специалистов среднего звена: "
+                           "09.02.11 Разработка и управление программным обеспечением; Квалификация – Программист; Направленность - Разработка "
+                           "информационных систем; База обучения - 9 классов")[1] == (
+        "СПО 09.02.11 Разработка и управление программным обеспечением, квалификация «Программист», направленность «Разработка информационных систем», после 9 классов")
 
 
 def test_the_semester_comes_from_the_archive_or_the_file():
@@ -98,12 +108,49 @@ def test_a_cut_caption_loses_its_cut_word():
     assert programme_label(cell) == ("СПО", "СПО 09.02.07 Информационные системы и программирование")
 
 
+def _listed(monkeypatch, listed):
+    """The archives as the university's site links them: its documents, and the cell of the table each sits in (contexts_of)."""
+    from catix.wiki.sources import sites
+
+    monkeypatch.setattr(sites, "every_site", lambda: {"university": None})
+    monkeypatch.setattr(sites, "load", lambda name: {"docs": {d["url"]: d["title"] for d in listed}, "contexts": {d["url"]: d["context"] for d in listed}})
+
+
+def test_an_archive_keeps_the_address_it_was_read_under(monkeypatch):
+    from catix.wiki.sources import rpd
+
+    cell = "бакалавриата: 09.03.01 Информатика — 2025 — Рабочие программы дисциплин (модулей)"
+    _listed(monkeypatch, [{"url": "https://x/%D0%A0%D0%9F%D0%94%201.7z", "ext": "7z", "title": "1 семестр", "context": cell}])
+    monkeypatch.setattr(rpd, "load", lambda: {"rpd-1-x": {"archive": "https://x/РПД 1.7z"}})  # (the old listing wrote the spaces)
+    (archive,) = rpd.archives()
+    assert archive["url"] == "https://x/РПД 1.7z" and archive["year"] == 2025 and archive["programme"] == "бакалавриата: 09.03.01 Информатика"
+
+
+def test_the_files_of_an_archive_stay_documents_until_rpd_has_read_it(tmp_path, monkeypatch):
+    from catix.wiki.sources import regulations, rpd, sites
+
+    cell = "бакалавриата: 09.03.01 Информатика — 2025 — Рабочие программы дисциплин (модулей)"
+    url = "https://innopolis.university/upload/x/РПД%201.7z"
+    _listed(monkeypatch, [{"url": url, "title": "1 семестр", "context": cell}])
+    monkeypatch.setattr(regulations, "DOCS", {})
+    monkeypatch.setattr(regulations, "linked_documents", lambda: {})
+    monkeypatch.setattr(sites, "docs", lambda: {"site-university-x-rpd-1": {"title": "1 семестр", "url": url, "root": sites.ROOT, "section": "site/university", "ext": "7z"}})
+    monkeypatch.setattr(rpd, "load", lambda: {})
+    assert "site-university-x-rpd-1" not in regulations.all_docs()  # (new: rpd reads it, not the documents' reader too)
+    monkeypatch.setattr(sites, "ROOT", tmp_path)
+    monkeypatch.setattr(sites, "docs", lambda: {"site-university-x-rpd-1": {"title": "1 семестр", "url": url, "root": tmp_path, "section": "site/university", "ext": "7z"}})
+    (tmp_path / "site-university-x-rpd-1.archive.json").write_text('{"status": "ready", "members": []}', encoding="utf-8")
+    assert "site-university-x-rpd-1" in regulations.all_docs()  # (read as documents before rpd took it: its files are not lost meanwhile)
+    monkeypatch.setattr(rpd, "load", lambda: {"rpd-1-x": {"archive": url, "sha256": "ab"}})
+    assert "site-university-x-rpd-1" not in regulations.all_docs()  # (its courses are rpd's pages now)
+
+
 def test_a_cohort_whose_links_are_dead_gives_way_to_the_one_before(monkeypatch):
     from catix.wiki.sources import rpd
 
     cell = "магистратуры: 09.04.01 Информатика; Направленность программы (профиль) – Кибербезопасность* — {} — Рабочие программы дисциплин"
     listed = [{"url": f"https://x/{y}-{s}.7z", "ext": "7z", "title": f"{s} семестр", "context": cell.format(y)} for y, n in ((2025, 3), (2026, 4)) for s in range(1, n + 1)]
-    monkeypatch.setattr(rpd.sveden, "load", lambda path: listed)
+    _listed(monkeypatch, listed)
     assert {a["year"] for a in rpd.archives()} == {2025, 2026}  # every cohort by default (WIKI_RPD_ALL_YEARS)
     assert {a["year"] for a in rpd.archives(all_years=False)} == {2026}
     dead = {f"https://x/2026-{s}.7z" for s in (1, 2, 3)}
@@ -138,7 +185,7 @@ def test_a_checkout_without_the_downloads_keeps_the_pages(tmp_path, monkeypatch)
     from catix.wiki.sources import rpd
 
     cell = "магистратуры: 09.04.01 Информатика; Направленность программы (профиль) – Кибербезопасность* — 2026 — Рабочие программы дисциплин"
-    monkeypatch.setattr(rpd.sveden, "load", lambda path: [{"url": "https://x/a.7z", "ext": "7z", "title": "1 семестр", "context": cell}])
+    _listed(monkeypatch, [{"url": "https://x/a.7z", "ext": "7z", "title": "1 семестр", "context": cell}])
     monkeypatch.setattr(rpd, "ROOT", tmp_path / "raw")
     monkeypatch.setattr(rpd, "DOCS", tmp_path / "wiki" / "raw")
     monkeypatch.setattr(rpd, "load", lambda: {"rpd-1-x": {"archive": "https://x/a.7z", "sha256": "0" * 64}})

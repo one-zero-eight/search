@@ -19,7 +19,6 @@ def backlog(tmp_path, monkeypatch):
     monkeypatch.setattr(compiler, "BUNDLE", tmp_path / "wiki")
     monkeypatch.setattr(regulations, "DOCS", {})
     monkeypatch.setattr(regulations, "ROOT", tmp_path / "raw" / "regulations")
-    monkeypatch.setattr(regulations, "SVEDEN_ROOT", tmp_path / "raw" / "sveden")
     monkeypatch.setattr(regulations, "LINKED", tmp_path / "raw" / "linked.json")
     monkeypatch.setattr(regulations, "PAUSE", 0)
     source = sites.Site("https://source.example/", "en", "Source", r"^private", sitemap=False, pause=0)

@@ -48,7 +48,6 @@ def bundle(tmp_path, monkeypatch):
     monkeypatch.setattr(sites, "SITES", {"unit": sites.Site("https://unit.example/", "ru", "Unit", r"^nothing$", sitemap=False, pause=0)})
     monkeypatch.setattr(regulations, "DOCS", {})
     monkeypatch.setattr(regulations, "ROOT", tmp_path / "raw" / "regulations")
-    monkeypatch.setattr(regulations, "SVEDEN_ROOT", tmp_path / "raw" / "sveden")
     monkeypatch.setattr(regulations, "LINKED", tmp_path / "raw" / "linked.json")
     monkeypatch.setattr(regulations, "PAUSE", 0)
     url = "https://unit.example/docs/rules.zip"
