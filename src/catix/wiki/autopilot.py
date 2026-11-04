@@ -23,8 +23,10 @@ One run:
 New sites: the `discover` source (sources/discover.py) finds hosts of the university in the links of the pages and reads them with safe
 limits. They are pending: whatever such a run brought goes to the review branch and the admins are told in Telegram; `accept` keeps
 the sites, `discard` forgets them for good (.autopilot.json: rejected_sites).
-Runs one at a time (a lock file). Its state (when each source was asked, the changes last sent for review) is in
-.autopilot.json next to the data, not committed. `--loop` wakes up for a request (REQUEST_POLL) without waiting for the schedule.
+OCR: the sources queue scans for a manual run with OCR and put aside those too long for it (sources/ocr_queue.py); when
+either grows, the admins are told in Telegram, of each scan once.
+Runs one at a time (a lock file). Its state (when each source was asked, the changes last sent for review, the scans the
+admins were told of) is in .autopilot.json next to the data, not committed. `--loop` wakes up for a request (REQUEST_POLL) without waiting for the schedule.
 """
 
 import fcntl
@@ -203,6 +205,10 @@ def run_once(names: list[str] | None = None, push: bool = True, answers: bool = 
         if source in sources.SOURCES or source in sources.ON_REQUEST:  # (a few sites read do not move the schedule of all of them)
             state.setdefault("asked", {})[source.name] = now.isoformat(timespec="seconds")
             save_state(state)
+    try:
+        tell_ocr_queue(state)
+    except Exception:  # noqa: BLE001 - the queue's report must not stop the run
+        traceback.print_exc()
     from catix.wiki import agent
 
     waiting = settings.wiki_agent and bool(agent.load_queue())
@@ -252,6 +258,22 @@ def sites_limit() -> int:
     from catix.wiki.sources import sites
 
     return sites.DISCOVERED_PAGES
+
+
+def tell_ocr_queue(state: dict) -> None:
+    """The admins told when the OCR queue grows, or the scans put aside as too long for it (sources/ocr_queue.py): of each scan
+    once. The state keeps the scans told that are still there (`ocr_told`): one read by OCR leaves it, one that comes back,
+    or moves between the queue and the long ones, is told again."""
+    from catix.wiki.sources import ocr_queue
+
+    found = ocr_queue.scans()
+    now = {(s.source, s.key, s.too_long) for s in found}
+    told = {tuple(t) for t in state.get("ocr_told", [])}
+    if text := ocr_queue.message(found, {(source, key) for source, key, _ in now - told}):
+        tell_admins(text)
+    if now != told:
+        state["ocr_told"] = [list(t) for t in sorted(now)]
+        save_state(state)
 
 
 def tell_admins(text: str) -> None:

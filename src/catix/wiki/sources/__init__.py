@@ -8,7 +8,8 @@
                     the pages that appeared on them every 6 hours (new-pages), all their pages again every week (sites)
     discover.py     new sites of the university in the links of the pages: pending a person's look (autopilot accept | discard)
     pastpapers.py   past exam papers the students keep in Notion: wiki/raw/past-papers/, one page per subject, by code only
-    OCR scans      queued by the sources for a manual run with OCR; no scheduled model switching
+    ocr_queue.py    the scans the sources queue for a manual run with OCR (no scheduled model switching), and apart from it
+                    those too long for OCR; `catix-wiki regs queue` shows them, the wiki's run tells the admins when they grow
     mock.py         a stand-in site for showing and testing the wiki's run (WIKI_MOCK_SITE)
 
 

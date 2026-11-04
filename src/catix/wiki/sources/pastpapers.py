@@ -7,7 +7,8 @@ Materials", Past Papers [EN programs]), with the subject, the year, the name of 
 
 Not an official source: the students collected the papers, a paper may be a variant or a reconstruction. The pages are
 made by code only (no model): the list of a subject's papers, newest first, each with a link to its row in Notion and the
-text of its file (the text layer; scans wait for a manual run with chandra). The wiki's agent does not make cards of them
+text of its file (the text layer; scans wait for a manual run with chandra, those over MAX_SCAN_PAGES are put aside:
+`catix-wiki regs queue` shows both). The wiki's agent does not make cards of them
 (their section is not in WIKI_AGENT_SECTIONS): they answer "what was on the exam", not "what are the rules".
 """
 
@@ -36,6 +37,7 @@ FOLDER = "past-papers"
 PAUSE = 2
 MAX_CHARS = 8000  # of one paper on the page: the start says what was asked, a long one is in its file
 OCR_PAGES = 120  # per run: scans left over are read by the next run
+MAX_SCAN_PAGES = 20  # of one scan: a longer one is put aside ("ocr": "too long"), not queued (regulations.ocr_state)
 
 
 def _value(record: dict) -> dict:
@@ -88,13 +90,19 @@ def file_key(url: str) -> str:
     return hashlib.sha1(url.split("?")[0].encode()).hexdigest()[:12]
 
 
+TOO_LONG_FOR_OCR = "scan too long for OCR"
+
+
 def read_pdf(path, ocr_left: int = 20) -> tuple[str | None, str]:
-    """The text layer, else chandra within the page budget. None means queued; NotRead means chandra failed."""
+    """The text layer, else chandra within the page budget. None means queued, or put aside when the scan is longer than
+    MAX_SCAN_PAGES (TOO_LONG_FOR_OCR); NotRead means chandra failed."""
     pages = regulations.pages_of(path)
     text = subprocess.run(["pdftotext", str(path), "-"], capture_output=True, text=True).stdout
     if len(re.findall(r"[^\W\d_]{3,}", text)) >= 15 * max(1, pages) or len(text.strip()) > 300 * pages:
         return text, "text layer"
-    if ocr_left <= 0 or pages > min(20, ocr_left):
+    if pages > MAX_SCAN_PAGES:
+        return None, TOO_LONG_FOR_OCR
+    if ocr_left <= 0 or pages > ocr_left:
         return None, "scan queued for OCR"
     return regulations.ocr_text(path)
 
@@ -114,11 +122,14 @@ def fetch(ocr: bool = True) -> int:
                 key = file_key(url)
                 if key in entry["files"] and ("sha256" in entry["files"][key] or "skipped" in entry["files"][key]):
                     continue
+                if regulations.ocr_state(note := entry["files"].get(key, {}), MAX_SCAN_PAGES) == regulations.TOO_LONG:
+                    entry["files"][key] = {**note, "ocr": regulations.TOO_LONG}  # (put aside; one queued before that is marked so)
+                    continue
                 if not name.lower().endswith(".pdf"):
                     entry["files"][key] = {"name": name, "skipped": "not a PDF"}
                     continue
                 path = files / f"{key}.pdf"
-                waiting = entry["files"].get(key, {}).get("ocr") == "queued"
+                waiting = regulations.ocr_state(note, MAX_SCAN_PAGES) == regulations.QUEUED
                 if waiting and path.exists() and not ocr:
                     continue
                 if not path.exists():
@@ -135,7 +146,7 @@ def fetch(ocr: bool = True) -> int:
                 pages = regulations.pages_of(path)
                 try:
                     if waiting:
-                        text, method = regulations.ocr_text(path) if ocr and ocr_left > 0 and pages <= min(20, ocr_left) else (None, "scan queued for OCR")
+                        text, method = regulations.ocr_text(path) if ocr and ocr_left > 0 and pages <= min(MAX_SCAN_PAGES, ocr_left) else (None, "scan queued for OCR")
                     else:
                         text, method = read_pdf(path, ocr_left=ocr_left if ocr else 0)
                     if method.startswith("ocr"):
@@ -144,7 +155,7 @@ def fetch(ocr: bool = True) -> int:
                     text, method = None, str(e)
                     ocr_left -= pages
                 if text is None:
-                    entry["files"][key] = {"name": name, "ocr": "queued", "pages": pages}
+                    entry["files"][key] = {"name": name, "ocr": regulations.TOO_LONG if method == TOO_LONG_FOR_OCR else regulations.QUEUED, "pages": pages}
                 else:
                     (ROOT / f"{key}.txt").write_text(text, encoding="utf-8")
                     entry["files"][key] = {"name": name, "sha256": hashlib.sha256(path.read_bytes()).hexdigest(), "method": method, "chars": len(text)}
@@ -215,7 +226,9 @@ def compile_all() -> None:
 def status() -> None:
     index = load()
     files = [f for e in index.values() for f in e["files"].values()]
-    print(f"{len(index)} rows, {len(files)} files: {sum('sha256' in f for f in files)} read, {sum('skipped' in f for f in files)} skipped")
+    print(f"{len(index)} rows, {len(files)} files: {sum('sha256' in f for f in files)} read, {sum('skipped' in f for f in files)} skipped, "
+          f"{sum(regulations.ocr_state(f, MAX_SCAN_PAGES) == regulations.QUEUED for f in files)} scans queued for OCR, "
+          f"{sum(regulations.ocr_state(f, MAX_SCAN_PAGES) == regulations.TOO_LONG for f in files)} too long for it")
 
 
 def main(args: Namespace) -> None:

@@ -74,12 +74,13 @@ def test_paper_scans_use_only_chandra(monkeypatch, tmp_path):
         pastpapers.read_pdf(tmp_path / "exam.pdf")
 
 
-@pytest.mark.parametrize("pages,budget", [(0, 0), (2, 0), (3, 2), (21, 120)])
-def test_paper_scans_respect_disabled_ocr_and_page_limits(monkeypatch, tmp_path, pages, budget):
+@pytest.mark.parametrize("pages,budget,why", [(0, 0, "scan queued for OCR"), (2, 0, "scan queued for OCR"), (3, 2, "scan queued for OCR"),
+                                              (21, 120, pastpapers.TOO_LONG_FOR_OCR), (21, 0, pastpapers.TOO_LONG_FOR_OCR)])
+def test_paper_scans_respect_disabled_ocr_and_page_limits(monkeypatch, tmp_path, pages, budget, why):
     monkeypatch.setattr(regulations, "pages_of", lambda pdf: pages)
     monkeypatch.setattr(pastpapers.subprocess, "run", lambda *a, **kw: SimpleNamespace(stdout=""))
     monkeypatch.setattr(chandra, "text_of_pdf", lambda *a, **kw: pytest.fail("OCR ran outside its budget"))
-    assert pastpapers.read_pdf(tmp_path / "exam.pdf", ocr_left=budget) == (None, "scan queued for OCR")
+    assert pastpapers.read_pdf(tmp_path / "exam.pdf", ocr_left=budget) == (None, why)
 
 
 def test_paper_queue_survives_unavailable_ocr_without_redownloading(monkeypatch, tmp_path):

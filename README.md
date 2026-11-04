@@ -273,4 +273,4 @@ experiments/   скрипты оценки качества поиска и да
 ## TODO
 
 - Change InMemorySaver to AsyncPostgresSaver
-- OCR limit: `MAX_OCR_PAGES = 40` and `OCR_BUDGET = 200` (`src/catix/wiki/sources/regulations.py`); review these limits when a dedicated chandra server is available. Longer scans stay queued; there is no alternative OCR engine.
+- OCR limit: `MAX_OCR_PAGES = 40` and `OCR_BUDGET = 200` (`src/catix/wiki/sources/regulations.py`); review these limits when a dedicated chandra server is available. Longer scans are put aside (`"ocr": "too long"`, out of the queue, listed by `catix-wiki regs queue`, the admins are told in Telegram); raising the limit queues them again. There is no alternative OCR engine.

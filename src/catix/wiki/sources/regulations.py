@@ -5,6 +5,7 @@
     catix-wiki regs reextract   # extract downloaded PDFs again; scans use chandra or its saved page HTML
     catix-wiki regs refresh     # ask the site (HEAD) whether a downloaded document changed; a changed one is downloaded again by fetch
     catix-wiki regs compile     # raw/regulations -> wiki/raw/regulations/<key>.md
+    catix-wiki regs queue       # the OCR queue (every source's scans waiting for chandra) and the scans too long for it (ocr_queue.py)
 
 The text of a regulation is NOT rewritten by the model: the program only turns the layout into markdown (chapters, clauses, tables)
 and the clause numbers stay, so that a card can quote 'п. 5.3'. No model writes any of the page (compile_all).
@@ -73,6 +74,7 @@ def issued_of(text: str, fallback: str) -> str:
 
 SVEDEN_ROOT = ROOT.parent / "sveden"
 MAX_BYTES, MAX_PAGES, MAX_OCR_PAGES = 25_000_000, 150, 40  # one document may not take hours of OCR
+QUEUED, TOO_LONG = "queued", "too long"  # a scan's "ocr" in its note: waits for a run with OCR / longer than MAX_OCR_PAGES, put aside (ocr_state)
 MAX_FAILURES = 5  # network errors in a row before a run gives up
 PAUSE = 2  # seconds between requests: the site blocked us once after a burst, so stay well below what it tolerates
 OCR_BUDGET = 200  # pages of OCR per run of `regs fetch`; documents left over are done by the next run
@@ -344,16 +346,27 @@ def ocr_refused(pages: int, ocr_left: int) -> str | None:
     return "ocr deferred" if pages > ocr_left else None
 
 
-def queued() -> dict[str, int]:
-    """The scans waiting for a manual run with OCR, key -> pages. Scans exceeding MAX_OCR_PAGES stay queued but are not
-    counted here: the current OCR budget cannot read them."""
-    out = {}
+def ocr_state(note: dict, limit: int | None = None) -> str | None:
+    """What a document's note says of its scan: QUEUED (it waits for a run with OCR), TOO_LONG (longer than `limit` pages,
+    MAX_OCR_PAGES by default: put aside, out of the queue, no run reads it), None (not a scan waiting). By the pages, not the
+    word written: a note queued before the long ones were put aside is a long one, and a long one is queued again once the
+    limit covers it."""
+    if note.get("ocr") not in (QUEUED, TOO_LONG):
+        return None
+    return TOO_LONG if note.get("pages", 0) > (MAX_OCR_PAGES if limit is None else limit) else QUEUED
+
+
+def scan_notes() -> Iterator[tuple[str, dict, dict]]:
+    """(key, document, note) of every scan queued for OCR or put aside as too long (ocr_state)."""
     for key, d in all_docs().items():
         meta = d["root"] / f"{key}.json"
-        if meta.exists() and (note := json.loads(meta.read_text(encoding="utf-8"))).get("ocr") == "queued" \
-                and not ocr_refused(note.get("pages", 0), MAX_OCR_PAGES):
-            out[key] = note.get("pages", 0)
-    return out
+        if meta.exists() and ocr_state(note := json.loads(meta.read_text(encoding="utf-8"))):
+            yield key, d, note
+
+
+def queued() -> dict[str, int]:
+    """The scans waiting for a manual run with OCR, key -> pages; not those too long for it (put aside: ocr_state)."""
+    return {key: note.get("pages", 0) for key, _, note in scan_notes() if ocr_state(note) == QUEUED}
 
 
 class NotRead(RuntimeError):
@@ -409,7 +422,9 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
     documents whose key starts with one of them ('site-lab-': the documents of one site). Without `ocr` a scan (a PDF the text
     layer gives too little of) is not read: it is queued (`"ocr": "queued"` in its note) for a run with OCR, which reads it
     without asking its text layer again; the runs without OCR pass it by (the 6-hourly run needs no OCR model up).
-    A scan chandra does not read stays queued, regardless of the number of failed attempts."""
+    A scan chandra does not read stays queued, regardless of the number of failed attempts. A scan longer than MAX_OCR_PAGES
+    is not queued: it is put aside (`"ocr": "too long"`), and no run reads it or asks its text layer again until the limit
+    covers it or the file changes on the site (ocr_state; `catix-wiki regs queue` lists them apart)."""
     from catix.wiki.sources import archive_documents, opendataloader, sites
 
     # Pick up university-hosted files already present in compiled site pages;
@@ -429,7 +444,11 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
         ext = d.get("ext", "pdf")
         src, meta = root / f"{key}.{ext}", root / f"{key}.json"
         old = json.loads(meta.read_text(encoding="utf-8")) if meta.exists() else {}
-        waiting = old.get("ocr") == "queued" and src.exists()  # (a scan queued by a run without OCR, downloaded already)
+        if ocr_state(old) == TOO_LONG and not old.get("refetch"):  # (put aside: no run reads it, its text layer is not asked again)
+            if old["ocr"] != TOO_LONG:  # (queued before the long scans were put aside)
+                meta.write_text(json.dumps({**old, "ocr": TOO_LONG}, ensure_ascii=False, indent=1), encoding="utf-8")
+            continue
+        waiting = ocr_state(old) == QUEUED and src.exists()  # (a scan queued by a run without OCR, downloaded already)
         if not waiting and old and ((root / f"{key}.txt").exists() or "skipped" in old) and not old.get("refetch"):
             continue  # (a document that changed on the site is noticed by `regs refresh`; a skipped one stays skipped)
         if waiting and not ocr:
@@ -493,9 +512,11 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
                                     "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "remote": remote}, ensure_ascii=False, indent=1), encoding="utf-8")
         print(f"{key}: {len(text)} chars by {method}" + (" (a new version)" if old.get("sha256") and old["sha256"] != sha else ""), flush=True)
 
-    def queue(item: tuple, pages: int, **more: object) -> None:
+    def queue(item: tuple, pages: int, state: str = QUEUED, **more: object) -> None:
+        """The scan's note: QUEUED for a run with OCR, or TOO_LONG, put aside. (`refetch` is done: the file was downloaded again.)"""
         _, d, _, _, meta, old, remote = item
-        meta.write_text(json.dumps({**old, "title": d["title"], "url": d["url"], "ocr": "queued", "pages": pages, "remote": remote,
+        old = {k: v for k, v in old.items() if k != "refetch"}
+        meta.write_text(json.dumps({**old, "title": d["title"], "url": d["url"], "ocr": state, "pages": pages, "remote": remote,
                                     "queued_at": old.get("queued_at") or datetime.now(timezone.utc).isoformat(timespec="seconds"), **more},
                                    ensure_ascii=False, indent=1), encoding="utf-8")
 
@@ -515,6 +536,10 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
                     done.append(key)
                     continue
             pages = pages_of(pdf)  # a scan: its pages are taken from the budget now, it is read with the others after the loop
+            if pages > MAX_OCR_PAGES:  # (not queued: it would wait in the queue for ever)
+                print(f"{key}: a scan of {pages} pages, longer than {MAX_OCR_PAGES}: put aside, not queued for OCR")
+                queue(item, pages, TOO_LONG)
+                continue
             if not ocr:
                 print(f"{key}: a scan of {pages} pages, queued for a run with OCR")
             elif why := ocr_refused(pages, ocr_left):
@@ -523,7 +548,7 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
                 ocr_left -= pages
                 scans.append(item)
                 continue
-            if key not in queued:  # (the next runs do not ask its text layer again)
+            if key not in queued or old.get("ocr") != QUEUED:  # (the next runs do not ask its text layer again; a long one the limit covers now is queued)
                 queue(item, pages)
     if scans:
         print(f"{len(scans)} scans to read by OCR ({OCR_BUDGET - ocr_left} pages)", flush=True)
@@ -846,3 +871,7 @@ def main(args: Namespace) -> None:
         reextract()
     elif cmd == "refresh":
         refresh()
+    elif cmd == "queue":
+        from catix.wiki.sources import ocr_queue
+
+        ocr_queue.show()

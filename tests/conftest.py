@@ -88,6 +88,7 @@ def _hermetic(request, monkeypatch):
     from catix import live_search
 
     monkeypatch.setattr(live_search, "search", lambda *args, **kwargs: ([], None))
+    monkeypatch.setattr(settings, "tg_bot_token", None)  # (the wiki's run tells the admins of new sites and of the OCR queue: not from a test)
     from catix.wiki.sources import sites
 
     def no_browser(url: str) -> str:

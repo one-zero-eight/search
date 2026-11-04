@@ -3,7 +3,7 @@
     catix-wiki fetch [NAMESPACE ...]   # default: namespace 0 (articles); only pages whose revision changed are downloaded
     catix-wiki status                  # pages in the snapshot, redirects, pages missing on the wiki now
     catix-wiki sveden discover|triage|status|override   # all documents of innopolis.university/sveden (see sources/sveden.py)
-    catix-wiki regs fetch|compile      # official regulations (PDF) as a second source, see sources/regulations.py
+    catix-wiki regs fetch|compile|queue   # official regulations (PDF) as a second source, see sources/regulations.py; queue: the OCR queue (sources/ocr_queue.py)
     catix-wiki rpd fetch|compile|status   # course programmes (РПД) from the archives of sveden/education, see sources/rpd.py
     catix-wiki sites fetch [SITE ...]|compile|status   # the sites of the university, its services and the city, see sources/sites.py
     catix-wiki papers fetch|compile|status  # past exam papers from the students' Notion database, see sources/pastpapers.py
@@ -61,7 +61,7 @@ def parser() -> argparse.ArgumentParser:
 
     for name, about, default, actions in (
         ("sveden", "University disclosure documents", "status", ("discover", "triage", "status", "override")),
-        ("regs", "Official regulations", None, ("fetch", "compile", "reextract", "refresh")),
+        ("regs", "Official regulations", None, ("fetch", "compile", "reextract", "refresh", "queue")),
         ("rpd", "Course programmes", "status", ("fetch", "compile", "refresh", "status")),
         ("papers", "Past exam papers", "status", ("fetch", "compile", "status")),
         ("sites", "University and city sites", "status", ("fetch", "new", "compile", "status", "docs", "discover", "explore", "add", "review", "accept", "approve", "reject", "migrate")),
@@ -70,7 +70,8 @@ def parser() -> argparse.ArgumentParser:
         actions_parser = group.add_subparsers(dest="action", required=default is None)
         group.set_defaults(action=default)
         for action in actions:
-            leaf = command(actions_parser, action, f"{action.capitalize()} {about.lower()}")
+            about_action = "Show the OCR queue and the scans too long for OCR" if (name, action) == ("regs", "queue") else f"{action.capitalize()} {about.lower()}"
+            leaf = command(actions_parser, action, about_action)
             if name == "sveden" and action == "triage":
                 leaf.add_argument("--redo", action="store_true", help="Triage documents again")
             elif name == "sveden" and action == "override":
