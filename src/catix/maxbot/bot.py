@@ -30,6 +30,7 @@ from catix.agent.core import build_agent, final_answer
 from catix.agent.questions import QuestionQueue
 from catix.common.render import chunks, to_html
 from catix.db.rows import ChatGroup
+from catix.common.llm_down import UNAVAILABLE, unreachable
 from catix.settings import settings
 from catix.agent.tools import AgentContext
 
@@ -234,9 +235,9 @@ async def _answer(max_: Max, chat_id: int, user_id: int, question: str, reply_mi
                 )
                 answer = final_answer(state["messages"], state.get("sources") or {}) or "Не получилось сформулировать ответ."
                 traced.answer(answer)
-    except Exception:
+    except Exception as e:
         log.exception("agent failed")
-        answer = "Не получилось ответить: ошибка на стороне ассистента. Попробуйте ещё раз позже."
+        answer = UNAVAILABLE if unreachable(e) else "Не получилось ответить: ошибка на стороне ассистента. Попробуйте ещё раз позже."
     finally:
         typing.cancel()
     for i, chunk in enumerate(chunks(answer, MESSAGE_LIMIT)):

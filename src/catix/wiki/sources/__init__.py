@@ -109,14 +109,15 @@ def _papers() -> int:
 
 
 SOURCES = [
-    Source("eduwiki", timedelta(hours=6), _eduwiki, "eduwiki.innopolis.university: pages whose revision changed"),
-    Source("new-pages", timedelta(hours=6), _new_pages, "the feed (or start page) of each site: the new pages it links, the new pages of other trusted sites they link, "
-           "the trusted links of pages and documents no run has read, and through the documents they link (text layers only, scans stay queued for OCR)"),
-    Source("sveden", timedelta(days=1), _sveden, "innopolis.university/sveden: documents and course programmes added to the site (scans stay queued for OCR)"),
-    Source("files", timedelta(days=7), _files, "documents and archives read before that changed on the site (HEAD, ~1 request every 2 s)"),
-    Source("discover", timedelta(days=7), _discover, "new hosts of the university in the links of the pages: probed, then read and sent for a person's look"),
-    Source("sites", timedelta(days=7), _sites, "every site again, its documents (text layers only, scans stay queued for OCR) and the pages their text names, wave after wave"),
-    Source("papers", timedelta(days=7), _papers, "past exam papers in the students' Notion database: new rows and their files"),
+    # TODO: Commented it for testing
+    # Source("eduwiki", timedelta(days=6), _eduwiki, "eduwiki.innopolis.university: pages whose revision changed"),
+    Source("new-pages", timedelta(seconds=1), _new_pages, "the feed (or start page) of each site: the new pages it links, the new pages of other trusted sites they link, "
+    "the trusted links of pages and documents no run has read, and through the documents they link (text layers only, scans stay queued for OCR)"),
+    # Source("sveden", timedelta(days=1), _sveden, "innopolis.university/sveden: documents and course programmes added to the site (scans stay queued for OCR)"),
+    # Source("files", timedelta(days=7), _files, "documents and archives read before that changed on the site (HEAD, ~1 request every 2 s)"),
+    # Source("discover", timedelta(days=7), _discover, "new hosts of the university in the links of the pages: probed, then read and sent for a person's look"),
+    # Source("sites", timedelta(days=7), _sites, "every site again, its documents (text layers only, scans stay queued for OCR) and the pages their text names, wave after wave"),
+    # Source("papers", timedelta(days=7), _papers, "past exam papers in the students' Notion database: new rows and their files"),
 ]
 
 

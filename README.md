@@ -272,5 +272,7 @@ experiments/   скрипты оценки качества поиска и да
 
 ## TODO
 
+- Remove unused features (clean code)
+- Redesign autopilot implementation and logic (for now it's not working)
 - Change InMemorySaver to AsyncPostgresSaver
 - OCR limit: `MAX_OCR_PAGES = 40` and `OCR_BUDGET = 200` (`src/catix/wiki/sources/regulations.py`); review these limits when a dedicated chandra server is available. Longer scans are put aside (`"ocr": "too long"`, out of the queue, listed by `catix-wiki regs queue`, the admins are told in Telegram); raising the limit queues them again. There is no alternative OCR engine.

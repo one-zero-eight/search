@@ -24,6 +24,7 @@ from catix.api import state
 from catix.api.auth import UserTokenData, VerifiedDep
 from catix.api.schemas import ActResponses, AskResponses, SearchResponse
 from catix.api.search import make_source
+from catix.common.llm_down import UNAVAILABLE, unreachable
 from catix.common.status import CHECKING, HELPER_TOOLS, QUEUED, STATUS, WRITING
 from catix.settings import settings
 from catix.tgbot.stream import partial_text
@@ -227,6 +228,7 @@ def server_event(name: str, data: dict) -> str:
         200: {"description": "Success"},
         408: {"description": "Chat timed out"},
         502: {"description": "ML service error"},
+        503: {"description": "The language model cannot be reached; the detail says the assistant is not working now"},
     },
 )
 async def ask_by_query(user: VerifiedDep, query: str = Body(..., pattern=NOT_BLANK), chat_id: str | None = Body(None)):
@@ -238,6 +240,8 @@ async def ask_by_query(user: VerifiedDep, query: str = Body(..., pattern=NOT_BLA
         raise HTTPException(status_code=409, detail="The question was cancelled") from None
     except Exception as e:
         log.exception("the agent failed")
+        if unreachable(e):
+            raise HTTPException(status_code=503, detail=UNAVAILABLE) from e
         raise HTTPException(status_code=502, detail=f"ML service error: {e}") from e
     log.info("ask for `%s` (%d ms): %s", query, round((time.monotonic() - started) * 1000), answer)
     return AskResponses(
@@ -271,7 +275,7 @@ async def ask_by_query_stream(user: VerifiedDep, query: str = Body(..., pattern=
             await events.put(("cancelled", {"detail": "The question was cancelled"}))
         except Exception as e:
             log.exception("the agent failed")
-            await events.put(("error", {"detail": f"ML service error: {e}"}))
+            await events.put(("error", {"detail": UNAVAILABLE if unreachable(e) else f"ML service error: {e}"}))
         await events.put(None)
 
     async def generate():

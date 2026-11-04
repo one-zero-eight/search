@@ -8,6 +8,7 @@ import httpx
 from html_to_markdown import convert, ConversionOptions, VisitorHandle, VisitResult, NodeContent, NodeContext, PreprocessingOptions, NodeContent, PreprocessingPreset
 from catix.wiki.sources import regulations, sites
 from urllib.parse import urljoin
+from catix.wiki import autopilot
 from playwright.sync_api import sync_playwright
 
 class VisitorPage:
@@ -51,33 +52,11 @@ def parse_with_broswer(url: str) -> str:
         page.wait_for_selector("body")
         return page.content()
 def main():
+    autopilot.run_once(answers=False, push=False)
+        
     # tempdir = tempfile.mkdtemp()
     # tempdir = Path(tempdir)
     # print(tempdir)
-     from html_to_markdown import convert, ConversionOptions
-
-     H = """<body>
-    <img src="data:image/gif;base64,R0lG" data-src="/lazy.jpg" alt="L">
-    <img src="/a.jpg" data-lazy-src="/real.jpg" alt="Z"> <img srcset="/s1.jpg 1x, /s2.jpg 2x" alt="S">
-    <div class="t-bgimg" data-original="https://static.tildacdn.com/x/a.png" style="background-image:url('x')"></div>
-    <div class="article__title">Стоимость</div>
-    <div data-videolazy-id="xyz" data-videolazy-type="youtube"></div>
-    <section style="background-image:url('/banner.jpg')"><p>Кампус</p></section>
-    <video><source data-src="/v.mp4"></video>
-    <iframe data-src="https://www.youtube.com/embed/abc" title="Тур"></iframe>
-    </body>"""
-     class V:
-        def visit_image(self, ctx, src, alt, title=None):
-            print("visit_image", src, alt); return {"type": "continue"}
-        def visit_video(self, ctx, src): print("visit_video", repr(src)); return {"type": "continue"}
-        def visit_iframe(self, ctx: NodeContext, src): 
-            print("visit_iframe", repr(src))
-            print(ctx.attributes())
-            print("hello")
-            return {"type": "continue"}
-
-     r = convert(H, ConversionOptions(base_url="https://a.ru/", include_document_structure=True, preprocessing=PreprocessingOptions(preset=PreprocessingPreset.AGGRESSIVE)), visitor=V())
-     print(r.document)
      # for i in r.metadata.images: print("IMG", i.src, dict(i.attributes)):
      #    print(r)
      # for n in r.document.nodes:

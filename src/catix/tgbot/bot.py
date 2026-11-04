@@ -60,6 +60,7 @@ from catix.agent.core import build_agent, final_answer
 from catix.agent.questions import QuestionQueue
 from catix.common.render import chunks as _chunks
 from catix.common.render import to_html as _to_html
+from catix.common.llm_down import UNAVAILABLE, unreachable
 from catix.settings import settings
 from catix.agent.tools import AgentContext
 
@@ -331,9 +332,9 @@ async def _answer(message: Message, question: str) -> None:
             )
             answer, trace = await _run_agent(question, thread_id, message.from_user.id if message.from_user else None, streamer)
             log.info("answered in %.1fs, %d chars", time.monotonic() - started, len(answer))
-        except Exception:
+        except Exception as e:
             log.exception("agent failed")
-            answer, trace = "Не получилось ответить: ошибка на стороне ассистента. Попробуйте ещё раз позже.", None
+            answer, trace = UNAVAILABLE if unreachable(e) else "Не получилось ответить: ошибка на стороне ассистента. Попробуйте ещё раз позже.", None
 
     parts = _chunks(answer, 4096)
     sent = None
@@ -464,9 +465,9 @@ async def _inline_answer(user_id: int, question: str) -> tuple[str, str | None]:
         # One answer per message, an inline message cannot be followed by more.
         answer, trace = await _run_agent(question, thread_id, user_id, None, brief=True)  # No calendar buttons in a card.
         return _chunks(answer, 3500)[0], trace
-    except Exception:
+    except Exception as e:
         log.exception("inline agent failed")
-        return "Не получилось ответить: ошибка на стороне ассистента. Попробуйте ещё раз позже.", None
+        return UNAVAILABLE if unreachable(e) else "Не получилось ответить: ошибка на стороне ассистента. Попробуйте ещё раз позже.", None
     finally:
         agent.checkpointer.delete_thread(thread_id)
 
