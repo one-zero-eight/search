@@ -298,9 +298,8 @@ def discard() -> str:
 
 
 def ready() -> str | None:
-    """Why the run cannot work here, or None: the data must be a checkout of the `wiki` branch, not the code."""
-    if settings.wiki_root is None:
-        return "WIKI_ROOT is not set: the wiki's run writes to a checkout of the `wiki` branch (DEPLOY.md, section 2a)"
+    """Why the run cannot work here, or None: the data must be a checkout of the `wiki` branch (paths.py: WIKI_ROOT is set
+    and is not the code)."""
     try:
         branch = git("rev-parse", "--abbrev-ref", "HEAD")
     except RuntimeError as e:

@@ -35,6 +35,8 @@ docker compose -f docker-compose.prod.yml run --rm -v ./wiki-index.tar.gz:/tmp/w
 ```
 После импорта сервис `wiki` досчитывает только то, что изменилось после коммита из файла.
 
+`api` и `worker` монтируют тот же checkout только для чтения (`WIKI_ROOT=/wiki-data`): код вики без `WIKI_ROOT` не запускается, а писать в вики может только её собственный прогон.
+
 Новые коммиты вики привозит `scripts/wiki-pull.sh`: `git pull` ветки и, если что-то пришло, сервис `wiki`. Скрипт ставится в cron, например `*/15 * * * * /srv/cAtIx/scripts/wiki-pull.sh >> /var/log/catix-wiki-pull.log 2>&1`. Пересобирать образ для обновления вики не нужно.
 
 Векторы кусков считает `worker` в фоне, когда нет новых сообщений из чатов. Пока векторов нет, куски находятся по словам. Первый раз это займёт около 45 минут (88 тыс. кусков), дальше — секунды на коммит. Очередь вики в алертах не участвует.
@@ -69,7 +71,7 @@ WIKI_ROOT=/path/to/wiki-checkout uv run catix-wiki sites migrate --from /path/to
 его отсутствие — ошибка с подсказкой миграции, а не повод молча использовать каталог из кода.
 Одобрение и миграцию выполняйте без параллельной записи других команд в тот же checkout.
 
-`catix-wiki autopilot --loop` работает там, где есть LLM (llama.cpp), и пишет в checkout ветки `wiki` (`WIKI_ROOT` в `.env`):
+`catix-wiki autopilot --loop` работает там, где есть LLM (llama.cpp), и пишет в checkout ветки `wiki` (`WIKI_ROOT` в `.env`, обязателен: без него, как и с `WIKI_ROOT` на checkout кода, команды вики не запускаются):
 ```bash
 git worktree add ../catix-wiki wiki          # или git clone -b wiki; затем WIKI_ROOT=<путь> в .env
 uv run catix-wiki autopilot --loop           # лучше как systemd-сервис пользователя

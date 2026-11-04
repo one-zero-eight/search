@@ -207,3 +207,12 @@ def test_rejected_pending_record_restored_by_git_is_not_read(monkeypatch, tmp_pa
     discover.write({"lab.example": {"status": "pending"}})
     assert sites.pending_sites() == {}
     assert discover.pending_hosts() == []
+
+
+def test_a_file_written_whole_is_readable_as_open_makes_it(tmp_path):
+    path = tmp_path / "raw" / "sites.yaml"
+    sites.atomic_write(path, "sites: {}\n")  # (NamedTemporaryFile alone: 0600, closed to the containers that mount the wiki)
+    umask = os.umask(0o022)
+    os.umask(umask)
+    assert path.stat().st_mode & 0o777 == 0o666 & ~umask and path.read_text(encoding="utf-8") == "sites: {}\n"
+    assert [p.name for p in path.parent.iterdir()] == ["sites.yaml"]  # (no temporary file left)

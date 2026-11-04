@@ -47,7 +47,7 @@ def positive(value: str) -> int:
 
 def parser() -> argparse.ArgumentParser:
     root = argparse.ArgumentParser(prog="catix-wiki", description="Read sources, build and maintain the wiki.", allow_abbrev=False,
-                                   epilog="Data: WIKI_ROOT/raw and WIKI_ROOT/wiki; without WIKI_ROOT, the code checkout (not the current directory).")
+                                   epilog="Data: WIKI_ROOT/raw and WIKI_ROOT/wiki. WIKI_ROOT is required: a checkout of the `wiki` branch, not the code.")
     commands = root.add_subparsers(dest="command")
     root.set_defaults(command="status")
 

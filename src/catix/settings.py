@@ -215,7 +215,8 @@ class Settings(BaseSettings):
     ingest_max_batch: int = Field(500, gt=0)
 
     # The wiki's data, wiki/ (the bundle) and raw/ (what it is made from): a checkout of the orphan `wiki` branch, which
-    # only the wiki's own run writes to (wiki/autopilot.py). Unset: the repository itself, as in development.
+    # only the wiki's own run writes to (wiki/autopilot.py). Required by everything that reads the wiki's files
+    # (catix.wiki.paths: catix-wiki, the API, the worker), which stops without it; the bots do not need it.
     wiki_root: Path | None = None
     wiki_branch: str = "wiki"
     wiki_remote: str = "origin"

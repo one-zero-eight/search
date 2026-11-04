@@ -16,20 +16,10 @@ wheels/
 data/
 raw/*.db*
 
-# The wiki's data lives on the orphan branch `wiki` (a checkout of it is WIKI_ROOT, see src/catix/wiki/paths.py). Without
-# WIKI_ROOT the wiki commands write here: that copy is never committed to the code.
+# The wiki's data lives on the orphan branch `wiki` (a checkout of it is WIKI_ROOT, see src/catix/wiki/paths.py), never in
+# the code: an old copy of it here (from before WIKI_ROOT was required) is not committed.
 /wiki/
-/raw/eduwiki
-/raw/regulations
-/raw/rpd
-/raw/sveden
-/raw/sites
-/raw/sites.yaml
-/raw/sites-discovered.json
-/raw/sites-pending.yaml*
-/raw/past-papers
-/raw/knowledge-queue.json
-/raw/topics.json
+/raw/
 experiments/.wiki-demo-site/
 wiki-index.tar.gz
 /secrets/

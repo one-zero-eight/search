@@ -1,8 +1,12 @@
-"""Fixtures: skip when the model server is down; a throwaway chat with known facts and planted injections."""
+"""Fixtures: skip when the model server is down; a throwaway chat with known facts and planted injections; the wiki's data of
+the run in a folder of its own."""
 
 import os
-from pathlib import Path
+import shutil
+import sys
+import tempfile
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 
 import httpx
 import pytest
@@ -13,6 +17,13 @@ from catix.agent.core import build_agent
 from catix.db import pg, store
 from catix.settings import settings
 from tests.helpers import TRACES, LocalModel
+
+# The wiki's data of a test run: a folder of its own, never the WIKI_ROOT of .env (the real checkout of `wiki`) nor the code.
+# Set before anything imports catix.wiki (paths.py reads it once); in the environment too, for the processes a test starts.
+assert "catix.wiki.paths" not in sys.modules, "catix.wiki was imported before the tests' WIKI_ROOT was set"
+WIKI_ROOT = Path(tempfile.mkdtemp(prefix="catix-test-wiki-"))
+settings.wiki_root = WIKI_ROOT
+os.environ["WIKI_ROOT"] = str(WIKI_ROOT)
 
 CHAT_ID = -999000999
 MONTHS = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"]
@@ -35,6 +46,10 @@ def wiki_site_catalog(tmp_path_factory, monkeypatch):
 def pytest_configure(config):
     config.addinivalue_line("markers", "redteam: slow DeepTeam attack runs (one per vulnerability)")
     config.addinivalue_line("markers", "model: the test calls the model server directly")
+
+
+def pytest_unconfigure(config):
+    shutil.rmtree(WIKI_ROOT, ignore_errors=True)
 
 
 FAILED_TRACES: dict[str, list[str]] = {}  # test id -> the Phoenix links of the questions it asked

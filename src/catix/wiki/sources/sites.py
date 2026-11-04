@@ -220,8 +220,14 @@ def every_site() -> dict[str, Site]:
     return {**pending_sites(), **SITES}
 
 
+_UMASK = os.umask(0o022)
+os.umask(_UMASK)  # (read once, at import: os.umask sets it as it tells it)
+
+
 def atomic_write(path: Path, text: str) -> None:
-    """Readers see a complete file; an unchanged write leaves its timestamp alone."""
+    """Readers see a complete file; an unchanged write leaves its timestamp alone. The file is readable as one open() makes
+    (0666 less the umask): NamedTemporaryFile makes it 0600, and the catalogue in the checkout of the wiki was then closed to
+    the containers that mount it (their user is not the checkout's owner)."""
     if path.exists() and path.read_text(encoding="utf-8") == text:
         return
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -231,6 +237,7 @@ def atomic_write(path: Path, text: str) -> None:
             out.write(text)
             out.flush()
             os.fsync(out.fileno())
+            os.chmod(temporary, 0o666 & ~_UMASK)
             os.replace(temporary, path)
         finally:
             temporary.unlink(missing_ok=True)

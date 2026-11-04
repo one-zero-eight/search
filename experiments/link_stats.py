@@ -1,6 +1,6 @@
 """Statistics of the links in the pages of the bundle: how many go to other pages of the wiki, how many leave it, where to.
 
-    python experiments/link_stats.py                     # an overview of wiki/raw/sites of the bundle that settings.wiki_root (or this checkout) holds
+    python experiments/link_stats.py                     # an overview of wiki/raw/sites of the bundle that WIKI_ROOT holds
     python experiments/link_stats.py --root /path/to/data --folder raw/sites --top 20
     python experiments/link_stats.py --group image       # one group, described as exactly as the pages allow
     python experiments/link_stats.py --group files --examples 20 --all     # ... with its examples, and every address with its count
@@ -338,7 +338,7 @@ def show_group(r: dict, everything: bool) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--root", type=Path, help="the data root (holds wiki/); default: settings.wiki_root or this checkout")
+    ap.add_argument("--root", type=Path, help="the data root (holds wiki/); default: WIKI_ROOT")
     ap.add_argument("--folder", default="raw/sites", help="folder of the bundle to read, below wiki/")
     ap.add_argument("--top", type=int, default=15, help="how many rows of a table")
     ap.add_argument("--group", choices=sorted(GROUPS), help="describe one group of links instead of the overview")

@@ -94,6 +94,14 @@ services:
   worker:
     <<: *app
     command: ["catix-worker"]
+    environment: # (it imports the wiki's code, which needs WIKI_ROOT; it reads no file of it)
+      DATABASE_URL: postgresql://ctx@db:5432/ctx
+      PGPASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      REDIS_URL: redis://redis:6379/0
+      WIKI_ROOT: /wiki-data
+    volumes:
+      - catix_data:/app/data
+      - ${WIKI_DIR:-../catix-wiki}:/wiki-data:ro
     ports:
       - "127.0.0.1:8090:8090" # personal calendars (/users/my-calendar.ics); put an HTTPS reverse proxy (Caddy, nginx) in front of it
 
@@ -107,6 +115,10 @@ services:
       PGPASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
       REDIS_URL: redis://redis:6379/0
       API_HOST: 0.0.0.0
+      WIKI_ROOT: /wiki-data # read-only: POST /{section}/parse cannot write the wiki here (only the wiki's own run commits it)
+    volumes:
+      - catix_data:/app/data
+      - ${WIKI_DIR:-../catix-wiki}:/wiki-data:ro
     ports:
       - "127.0.0.1:8004:8000"
 

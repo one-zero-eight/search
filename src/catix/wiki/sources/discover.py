@@ -198,7 +198,7 @@ def write(found: dict) -> None:
 def discover(rejected: set[str] = frozenset(), client: httpx.Client | None = None, dry_run: bool = False, pause: float = sites.PAUSE,
              everything: bool = False, since: datetime | None = None) -> int:
     """Probe the candidates, keep the ones that pass as pending sites; how many were found. `dry_run` probes and says what it
-    would do, but keeps nothing (neither the file of found sites nor sites-pending.yaml is written). `everything`: no limit of hosts or
+    would do, but keeps nothing (raw/sites-discovered.json, which holds the pending sites and their settings, is not written). `everything`: no limit of hosts or
     of sites for the run, and the hosts that failed a probe lately are probed again (a night's run by hand), except those that
     failed since `since` (the earlier rounds of `explore`)."""
     now = datetime.now(timezone.utc)
