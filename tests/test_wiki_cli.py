@@ -182,7 +182,10 @@ def test_autopilot_collects_repeated_sources_and_options(tmp_path, monkeypatch):
     monkeypatch.setattr(autopilot, "LOCK", tmp_path / "lock")
     monkeypatch.setattr(autopilot, "run_once", lambda *a, **kw: calls.append((a, kw)) or "done")
     cli.main(["autopilot", "--source", "sites", "files", "--no-answers", "--source", "papers", "--no-push"])
-    assert calls == [((["sites", "files", "papers"],), {"push": False, "answers": False})]
+    assert calls == [((["sites", "files", "papers"],), {"push": False, "answers": False, "sites": None})]
+    calls.clear()
+    cli.main(["autopilot", "--site", "hotel", "--site", "campuslife", "--no-answers"])
+    assert calls == [((["sites"],), {"push": True, "answers": False, "sites": ["hotel", "campuslife"]})]
 
 
 def test_agent_keeps_legacy_paths_and_notes_get_only_paths(monkeypatch):

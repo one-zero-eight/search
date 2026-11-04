@@ -1,7 +1,8 @@
-"""Manual incremental source updates. No autopilot, agent, git commits or pushes."""
+"""POST /{section}/parse: a request for the wiki's own run, not an update made here. The API never writes the wiki (its
+checkout is read-only in docker-compose.prod.yml): it queues the request in Redis (catix.wiki.parse_requests), and
+`catix-wiki autopilot` asks the source with its checks, commits to `wiki` and pushes, or sends the changes for review. The
+server's index follows the branch (scripts/wiki-pull.sh). GET /parse/{id} tells where the request is."""
 
-import fcntl
-import logging
 from typing import Literal
 
 from fastapi import APIRouter, HTTPException, Query
@@ -9,27 +10,32 @@ from pydantic import BaseModel, Field
 
 from catix.api.auth import VerifiedDep
 from catix.api.schemas import InfoSources
-from catix.settings import settings
-from catix.wiki import compile as compiler
-from catix.wiki import lint, search_index
-from catix.wiki.paths import DATA
-from catix.wiki.sources import eduwiki
+from catix.wiki import parse_requests
 from catix.wiki.sources import sites as site_source
 
 router = APIRouter()
-log = logging.getLogger(__name__)
-LOCK = DATA / ".autopilot.lock"  # shared with autopilot.main, including other API worker processes
 Section = InfoSources | Literal["wiki", "sites"]
+SOURCE_OF = {"wiki": "eduwiki", "eduwiki": "eduwiki", "sites": "sites", "resources": "sites", "hotel": "sites", "campuslife": "sites"}
 
 
-class ParseResult(BaseModel):
+class ParseRequest(BaseModel):
+    id: str
     section: str
-    sites: list[str] = Field(default_factory=list)
-    changed: int = 0
-    processed: bool = False
-    indexed: bool = False
-    index: dict[str, int] = Field(default_factory=dict)
-    embedded: int = 0
+    source: Literal["eduwiki", "sites"]
+    sites: list[str] = Field(default_factory=list, description="The sites the run reads (names of GET /sites)")
+    parsing: bool = Field(True, description="False: no source is asked, the run builds and checks the data it holds")
+    status: Literal["queued", "running", "done", "failed"]
+    outcome: Literal["", "committed", "review", "unchanged", "error"] = Field(
+        "", description="done: committed to the `wiki` branch (the search has it after the server pulls it), review (the "
+                        "changes failed a check and wait for a person in a branch wiki-review/...) or unchanged; failed: error")
+    result: str = Field("", description="What the wiki's run did, in its own words")
+    created_at: str
+    started_at: str = ""
+    finished_at: str = ""
+
+    @classmethod
+    def of(cls, request: parse_requests.Request) -> "ParseRequest":
+        return cls.model_validate({k: v for k, v in vars(request).items() if k in cls.model_fields})
 
 
 class SiteChoice(BaseModel):
@@ -48,7 +54,7 @@ def list_sites(_auth: VerifiedDep) -> list[SiteChoice]:
 def selected_sites(section: str, names: list[str] | None) -> list[str]:
     if section in {"moodle", "clubs", "maps", "residents"}:
         raise HTTPException(410, f"No parser for {section}; use sites to select a configured website")
-    if section not in {"sites", "resources", "hotel", "campuslife"}:
+    if SOURCE_OF[section] != "sites":
         if names is not None:
             raise HTTPException(400, "sites is only supported for website resources")
         return []
@@ -61,70 +67,51 @@ def selected_sites(section: str, names: list[str] | None) -> list[str]:
     selected = list(dict.fromkeys(names)) if names is not None else sorted(catalog)
     if unknown := [name for name in selected if name not in catalog]:
         raise HTTPException(400, detail={"unknown_sites": unknown, "available_sites": sorted(catalog)})
+    if not selected:
+        raise HTTPException(400, "No trusted sites to read")
     return selected
 
 
-@router.post("/{section}/parse", responses={
+@router.post("/{section}/parse", status_code=202, responses={
     400: {"description": "Invalid site selection or flags"},
     401: {"description": "Unauthorized"},
-    409: {"description": "Wiki update already running or bundle failed lint"},
     410: {"description": "Source has no parser"},
-    502: {"description": "Source update or processing failed"},
-    503: {"description": "Indexing is not configured"},
+    503: {"description": "The queue of the wiki's run (Redis) is not configured or does not answer"},
 })
 def run_parse_route(
     _auth: VerifiedDep,
     section: Section,
-    indexing_is_needed: bool = True,
+    indexing_is_needed: bool = Query(True, deprecated=True, description="Ignored: the wiki's run always checks and indexes "
+                                     "what it commits, and the server's index follows the `wiki` branch"),
     parsing_is_needed: bool = True,
     sites: list[str] | None = Query(default=None, description="Names from GET /sites; repeat to select several. Omit for all sites."),
-) -> ParseResult:
-    """Fetch new/changed pages and process only when fetch reports changes.
+) -> ParseRequest:
+    """Queue an update of the source for the wiki's own run and answer at once (202) with the request; GET /parse/{id} follows it.
 
-    wiki/eduwiki reads MediaWiki; sites/resources reads trusted configured sites; hotel/campuslife selects that site.
-    The response waits for completion; blocking work runs in FastAPI's thread pool. No autopilot or agent is started.
-    parsing_is_needed=false rebuilds and indexes the cached source without fetching (also retries a failed processing step).
-    indexing_is_needed=false only updates the snapshot and bundle. Website links retain sites.fetch's trusted-site traversal.
+    wiki/eduwiki: the pages of the eduwiki whose revision changed; sites/resources: the trusted sites named (all of them when
+    none is), their pages and the documents they link; hotel/campuslife: that site. The run (`catix-wiki autopilot`) asks the
+    source, builds the pages, runs its checks (lint, cards, search, answers) and commits to the `wiki` branch, or sends the
+    changes to a review branch when a check fails. parsing_is_needed=false asks no source: the run builds and checks the data
+    it already holds. The same request still waiting is queued once: asking again answers with it.
     """
-    result = ParseResult(section=section, sites=selected_sites(section, sites))
+    names = selected_sites(section, sites)
     if not parsing_is_needed and not indexing_is_needed:
         raise HTTPException(400, "Enable parsing or indexing")
-    if indexing_is_needed and not settings.database_url:
-        raise HTTPException(503, "Indexing requires DATABASE_URL; use indexing_is_needed=false to only update pages")
-    LOCK.parent.mkdir(parents=True, exist_ok=True)
-    with LOCK.open("a") as lock:
-        try:
-            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        except BlockingIOError:
-            raise HTTPException(409, "A wiki update is already running") from None
-        try:
-            return update(result, parsing_is_needed, indexing_is_needed)
-        except HTTPException:
-            raise
-        except Exception:
-            log.exception("Parser failed for %s", section)
-            raise HTTPException(502, "Source update failed; see server logs. Cached data is kept for retry.") from None
+    try:
+        request = parse_requests.submit(section, SOURCE_OF[section], names, parsing_is_needed)
+    except parse_requests.Unavailable as e:
+        raise HTTPException(503, str(e)) from None
+    return ParseRequest.of(request)
 
 
-def update(result: ParseResult, parsing: bool, indexing: bool) -> ParseResult:
-    """The caller holds the shared wiki lock for the entire fetch/compile/index chain."""
-    wiki = result.section in {"wiki", "eduwiki"}
-    if parsing:
-        if wiki:
-            result.changed = eduwiki.fetch([0])
-        elif result.sites:
-            result.changed = site_source.fetch(result.sites)
-    if result.changed or not parsing:
-        if wiki:
-            compiler.compile_pages(None)
-        else:
-            site_source.compile_all()
-        compiler.link()
-        result.processed = True
-        if indexing:
-            if errors := lint.lint():
-                raise HTTPException(409, f"Bundle has {errors} lint errors; index not updated")
-            result.index = search_index.sync()
-            result.embedded = search_index.embed_all()
-            result.indexed = True
-    return result
+@router.get("/parse/{request_id}", tags=["Parsers"], responses={404: {"description": "No such request (or finished long ago)"},
+                                                              503: {"description": "The queue (Redis) does not answer"}})
+def parse_status(_auth: VerifiedDep, request_id: str) -> ParseRequest:
+    """Where a request of POST /{section}/parse is: queued, running, done (with what the run did) or failed."""
+    try:
+        request = parse_requests.get(request_id)
+    except parse_requests.Unavailable as e:
+        raise HTTPException(503, str(e)) from None
+    if request is None:
+        raise HTTPException(404, "No such request")
+    return ParseRequest.of(request)

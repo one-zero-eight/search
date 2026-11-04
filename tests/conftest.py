@@ -43,6 +43,16 @@ def wiki_site_catalog(tmp_path_factory, monkeypatch):
     sites.reload_catalog()
 
 
+@pytest.fixture(autouse=True)
+def parse_queue(monkeypatch):
+    """The queue of the API's requests to the wiki's run (parse_requests) in memory, never the Redis of .env."""
+    from catix.wiki import parse_requests
+
+    fake = helpers.FakeRedis()
+    monkeypatch.setattr(parse_requests, "connect", lambda: fake)
+    return fake
+
+
 def pytest_configure(config):
     config.addinivalue_line("markers", "redteam: slow DeepTeam attack runs (one per vulnerability)")
     config.addinivalue_line("markers", "model: the test calls the model server directly")

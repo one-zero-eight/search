@@ -115,7 +115,7 @@ services:
       PGPASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
       REDIS_URL: redis://redis:6379/0
       API_HOST: 0.0.0.0
-      WIKI_ROOT: /wiki-data # read-only: POST /{section}/parse cannot write the wiki here (only the wiki's own run commits it)
+      WIKI_ROOT: /wiki-data # read-only: POST /{section}/parse queues a request in Redis, the wiki's own run serves and commits it
     volumes:
       - catix_data:/app/data
       - ${WIKI_DIR:-../catix-wiki}:/wiki-data:ro

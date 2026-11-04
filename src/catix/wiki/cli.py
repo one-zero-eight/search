@@ -7,7 +7,7 @@
     catix-wiki rpd fetch|compile|status   # course programmes (РПД) from the archives of sveden/education, see sources/rpd.py
     catix-wiki sites fetch [SITE ...]|compile|status   # the sites of the university, its services and the city, see sources/sites.py
     catix-wiki papers fetch|compile|status  # past exam papers from the students' Notion database, see sources/pastpapers.py
-    catix-wiki autopilot [--loop] [--source NAME ...] [--no-push] [--no-answers]   # the wiki maintains itself and commits to its branch (see autopilot.py)
+    catix-wiki autopilot [--loop] [--source NAME ...] [--site NAME ...] [--no-push] [--no-answers]   # the wiki maintains itself, serves the API's requests and commits to its branch (see autopilot.py)
     catix-wiki build [--offline]       # the whole chain, re-running only what changed (see build.py)
     catix-wiki agent [queue|all [FOLDER]|check [--two-sources]|links|candidates|notes|PATH ...]   # the cards (agent.py), the links (links.py), the notes of the pages (notes.py)
     catix-wiki graph                   # relations between concepts (prerequisites, teachers), see graph.py
@@ -107,6 +107,7 @@ def parser() -> argparse.ArgumentParser:
     pilot = command(commands, "autopilot", "Run, accept or discard wiki updates")
     pilot.add_argument("action", nargs="?", choices=("run", "accept", "discard"), default="run")
     pilot.add_argument("--source", nargs="+", action="extend", metavar="NAME", help="Sources to ask now; may be repeated")
+    pilot.add_argument("--site", nargs="+", action="extend", metavar="NAME", help="Read only these sites (the source sites, limited); may be repeated")
     for flag, help in (("loop", "Keep running on the source schedule"), ("only-new", "Read only pending sites"),
                        ("build", "Build existing data without fetching sources"), ("no-push", "Do not push commits"),
                        ("no-answers", "Skip answer checks")):

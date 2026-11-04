@@ -255,3 +255,87 @@ class MatchesAny(_Deterministic):
     def check(self, test_case: LLMTestCase) -> tuple[bool, str]:
         hit = any(re.search(p, test_case.actual_output or "", re.I) for p in self.patterns)
         return hit, "matched" if hit else f"none of {self.patterns} matched"
+
+
+class FakeRedis:
+    """The few Redis commands of the queue of the wiki's run (catix.wiki.parse_requests), in memory; `ttl` keeps what expire set."""
+
+    def __init__(self) -> None:
+        self.data: dict[str, Any] = {}
+        self.ttl: dict[str, int] = {}
+
+    def get(self, key):
+        return self.data.get(key)
+
+    def set(self, key, value, ex=None, nx=False):
+        if nx and key in self.data:
+            return None
+        self.data[key] = str(value)
+        if ex:
+            self.ttl[key] = ex
+        return True
+
+    def incr(self, key):
+        self.data[key] = str(int(self.data.get(key, 0)) + 1)
+        return int(self.data[key])
+
+    def hset(self, key, mapping):
+        self.data.setdefault(key, {}).update({k: str(v) for k, v in mapping.items()})
+        return len(mapping)
+
+    def hgetall(self, key):
+        return dict(self.data.get(key, {}))
+
+    def rpush(self, key, *values):
+        self.data.setdefault(key, []).extend(str(v) for v in values)
+        return len(self.data[key])
+
+    def lmove(self, source, destination, wherefrom="LEFT", whereto="RIGHT"):
+        items = self.data.get(source) or []
+        if not items:
+            return None
+        value = items.pop(0 if wherefrom == "LEFT" else -1)
+        target = self.data.setdefault(destination, [])
+        target.append(value) if whereto == "RIGHT" else target.insert(0, value)
+        return value
+
+    def lrange(self, key, start, end):
+        items = self.data.get(key, [])
+        return list(items[start:] if end == -1 else items[start:end + 1])
+
+    def lrem(self, key, count, value):
+        items = self.data.get(key, [])
+        kept = [v for v in items if v != value]
+        self.data[key] = kept
+        return len(items) - len(kept)
+
+    def llen(self, key):
+        return len(self.data.get(key, []))
+
+    def delete(self, *keys):
+        return sum(self.data.pop(key, None) is not None for key in keys)
+
+    def expire(self, key, seconds):
+        self.ttl[key] = seconds
+        return key in self.data
+
+    def pipeline(self, transaction=True):
+        fake = self
+
+        class Pipeline:
+            def __init__(self):
+                self.calls = []
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *exc):
+                return False
+
+            def __getattr__(self, name):
+                return lambda *a, **k: self.calls.append((name, a, k))
+
+            def execute(self):
+                return [getattr(fake, name)(*a, **k) for name, a, k in self.calls]
+
+        return Pipeline()

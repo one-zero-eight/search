@@ -121,6 +121,27 @@ SOURCES = [
 ON_REQUEST = [Source("new-sites", timedelta(days=36500), _new_sites, "the sites discover.py found that wait for a person's look, and only them")]
 
 
+def sites_of(names: list[str]) -> Source:
+    """The weekly `sites` limited to the named sites (`autopilot --site NAME`, a request of POST /sites/parse): their documents
+    asked again (HEAD), their pages and, through them, the documents they link (text layers only, scans stay queued for OCR).
+    A name the catalog no longer has is passed by. The schedule of `sites` does not change: the other sites are not read."""
+    names = list(dict.fromkeys(names))
+
+    def update() -> int:
+        from catix.wiki.sources import regulations, sites
+
+        every = sites.every_site()
+        known = [name for name in names if name in every]
+        if gone := [name for name in names if name not in every]:
+            print(f"  not in the catalog of sites (passed by): {', '.join(gone)}", flush=True)
+        if not known:
+            return 0
+        return sum(regulations.refresh(prefix=f"site-{name}-") for name in known) + sites.fetch(known, documents=True, ocr=False)
+
+    return Source(f"sites ({', '.join(names)})", timedelta(days=36500), update,
+                  f"the sites {', '.join(names)} only: their documents, pages and the documents they link (scans stay queued for OCR)")
+
+
 def _mock() -> int:
     from catix.wiki.sources import mock
 

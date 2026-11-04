@@ -97,6 +97,29 @@ def test_changes_that_pass_the_checks_are_committed_to_wiki(tmp_path, monkeypatc
     assert "wiki/b.md: 1 new" in autopilot.git("log", "-1", "--format=%b") and not autopilot.git("status", "--porcelain")
 
 
+def test_named_sites_are_committed_without_moving_the_schedule(tmp_path, monkeypatch):
+    import pytest
+
+    _data(tmp_path, monkeypatch, lambda d: (d / "wiki" / "b.md").write_text("b\n"))
+    monkeypatch.setattr(sources, "SOURCES", [sources.Source("sites", timedelta(days=7), lambda: pytest.fail("every site read"), "all")])
+    monkeypatch.setattr(sources, "sites_of", lambda names: sources.Source(f"sites ({', '.join(names)})", timedelta(0), lambda: 1, "some"))
+    line = autopilot.run_once(["sites"], push=False, sites=["hotel"])
+    assert line.kind == "committed" and line.failed == ()
+    assert autopilot.git("log", "-1", "--format=%s") == "wiki: sites (hotel) 1"
+    assert "sites" not in autopilot.load_state().get("asked", {})  # (the weekly run of every site is still due)
+
+
+def test_a_source_that_raises_is_named_in_the_outcome(tmp_path, monkeypatch):
+    _data(tmp_path, monkeypatch, lambda d: None)
+
+    def broken():
+        raise RuntimeError("the site does not answer")
+
+    monkeypatch.setattr(sources, "SOURCES", [sources.Source("eduwiki", timedelta(0), broken, "test")])
+    line = autopilot.run_once(push=False)
+    assert (line.kind, line.failed) == ("unchanged", ("eduwiki",)) and "failed: eduwiki" in line
+
+
 def test_changes_that_fail_go_to_a_review_branch_and_wiki_stays(tmp_path, monkeypatch):
     _data(tmp_path, monkeypatch, lambda d: (d / "wiki" / "b.md").write_text("b\n"), failed=["search: hit@5 70%"])
     head = autopilot.git("rev-parse", "HEAD")
