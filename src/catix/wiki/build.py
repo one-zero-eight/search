@@ -14,8 +14,7 @@
   lint     the bundle against OKF v0.2; the exit code is 1 on errors
   index    (when DATABASE_URL is set and lint passed) the agent's search: pages and pieces that changed, their vectors
 
-The wiki's own run (autopilot.py) calls `rebuild` after its sources found something, then the wiki's agent keeps the
-knowledge cards (agent.py), and commits what they made.
+The wiki's own run (autopilot.py) calls `rebuild` after its sources found something, and commits what it made.
 """
 
 import sys
@@ -34,7 +33,6 @@ class Report:
 
     lint_errors: int = 0
     index: dict[str, int] = field(default_factory=dict)
-    agent: dict[str, int] = field(default_factory=dict)  # what the wiki's agent did with the cards (agent.py)
 
 
 def rebuild() -> Report:

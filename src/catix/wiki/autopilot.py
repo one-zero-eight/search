@@ -1,4 +1,4 @@
-"""The wiki maintains itself: its sources are asked on their schedule, what changed becomes pages and knowledge cards, checks decide,
+"""The wiki maintains itself: its sources are asked on their schedule, what changed becomes pages, checks decide,
 and the result is committed to the `wiki` branch and pushed.
 
     catix-wiki autopilot [--loop] [--source NAME ...] [--site NAME ...] [--only-new] [--build] [--no-push] [--no-answers]
@@ -6,14 +6,12 @@ and the result is committed to the `wiki` branch and pushed.
     catix-wiki autopilot discard   # a person disagrees: the changes are thrown away, the search index follows the branch again
 
 One run:
-  0. a checkout whose documents are still beside the model's folders is laid out first (layout.py: into wiki/raw/);
   1. the sources that are due (sources/, each with its own interval; `--source` asks the named ones now, e.g. when
      something tells the wiki that a source changed; `--site` reads only the named sites in place of every site), and those
      the requests waiting in the queue name (POST /{section}/parse of the API, parse_requests.py: the API never writes the
      wiki, its requests are served here, with the same checks and commit; the run says in the queue what it did);
-  2. if one brought something, or the data still has changes an earlier run could not commit: build.rebuild(), then the
-     wiki's agent on the pages that changed (agent.py);
-  3. the checks: lint without errors, every card holds against the pages, the search finds the answers of
+  2. if one brought something, or the data still has changes an earlier run could not commit: build.rebuild();
+  3. the checks: lint without errors, the search finds the answers of
      quality.py (hit@5 >= settings.wiki_min_hit5), the agent answers tests/test_docs_answers.py (a failed test once more;
      answers that were not checked, because pytest did not start or the model server did not answer, fail it too);
   4. a commit in the checkout of the `wiki` branch (settings.wiki_root), where only wiki/ and raw/ may change. All checks
@@ -213,37 +211,7 @@ def check(report: build.Report, answers: bool) -> Checks:
                + (f"; not found: {'; '.join(score.missed[:5])}" if score.missed else ""))
     if answers:
         checks.add(*answers_check())
-    if report.agent:
-        broken = report.agent.get("cards broken", 0)
-        checks.add(broken == 0, f"cards: {report.agent.get('cards written', 0)} written, {broken} do not hold against the pages (catix-wiki agent check)")
     return checks
-
-
-def changed_pages() -> list[str]:
-    """Documents the run added or changed ('/raw/regulations/x.md'), from git: what the wiki's agent reads next. Only the
-    documents: what the model wrote (its cards, notes and folders) is never a source."""
-    out = []
-    for line in git("status", "--porcelain", "-uall", "--", f"wiki/{DOCS_FOLDER}").splitlines():  # (-uall: a new folder is its files, not one line)
-        status, path = line[:2], line[3:].split(" -> ")[-1].strip('"')
-        if "D" in status or not path.endswith(".md") or path.rsplit("/", 1)[-1] in {"index.md", "log.md"}:
-            continue
-        out.append("/" + path.removeprefix("wiki/"))
-    return out
-
-
-def keep_cards(report: build.Report) -> None:
-    """The wiki's agent on the pages that changed (and on those still queued from earlier runs), then the cards into the index."""
-    from catix.wiki import agent, lint, search_index
-
-    print(f"== agent: {agent.enqueue(changed_pages())} changed pages queued, {len(agent.load_queue())} in the queue", flush=True)
-    if not agent.load_queue() and not agent.check_all():
-        return
-    report.agent = agent.run()
-    print(f"== agent: {report.agent}", flush=True)
-    report.lint_errors = lint.lint()
-    if not report.lint_errors and settings.database_url:
-        search_index.sync()
-        search_index.embed_all()
 
 
 def run_once(names: list[str] | None = None, push: bool = True, answers: bool = True, sites: list[str] | None = None) -> Outcome:
@@ -254,15 +222,11 @@ def run_once(names: list[str] | None = None, push: bool = True, answers: bool = 
         asked = [sources.sites_of(sites) if s.name == "sites" else s for s in asked]
     changed: dict[str, int] = {}
     failed: list[str] = []
-    from catix.wiki import layout
-
     def outcome(kind: str, text: str) -> Outcome:
         line = Outcome(kind, text + (f" (failed: {', '.join(failed)}; see the log)" if failed else ""))
         line.failed = tuple(failed)
         return line
 
-    if moved := layout.migrate():  # a checkout of the layout before wiki/raw/: its documents move before anything writes new ones
-        changed["layout"] = len(moved)
     for source in asked:
         print(f"== source {source.name}: {source.about}", flush=True)
         try:
@@ -278,16 +242,11 @@ def run_once(names: list[str] | None = None, push: bool = True, answers: bool = 
         tell_ocr_queue(state)
     except Exception:  # noqa: BLE001 - the queue's report must not stop the run
         traceback.print_exc()
-    from catix.wiki import agent
-
-    waiting = settings.wiki_agent and bool(agent.load_queue())
-    if not any(changed.values()) and not git("status", "--porcelain") and not waiting:
+    if not any(changed.values()) and not git("status", "--porcelain"):
         return outcome("unchanged", f"nothing new ({', '.join(s.name for s in asked) or 'no source due'})")
     if not any(changed.values()) and state.get("review_tree") and working_tree() == state["review_tree"]:
         return outcome("unchanged", "nothing new; changes wait for review (catix-wiki autopilot accept | discard)")  # (an earlier run's, not this one's)
     report = build.rebuild()
-    if settings.wiki_agent and not report.lint_errors:
-        keep_cards(report)
     git("add", "-A")
     staged = git("diff", "--cached", "--name-only").splitlines()
     if not staged:

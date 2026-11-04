@@ -27,8 +27,8 @@ links (PDF, DOCX: the rules of the dormitories, their prices) go the way of the 
 Every week a run reads all pages again and compares their text: these sites say nothing reliable about changes (678 of 4476
 pages sent Last-Modified, the sitemaps of media and apply stopped in 2024 and 2025); the new pages are fetch_new's. A page that comes
 back with less than half of its own words (SHORT_READ: a stub, an app's empty shell, half a page), answers 404 or is no
-longer linked is kept as it was until the next run finds it so too: written over or dropped at once, it would take with it
-what the cards citing it say. The sites are read once a week, so a page that really went is gone a week later.
+longer linked is kept as it was until the next run finds it so too: written over or dropped at once, a bad read would take
+the page out of the search. The sites are read once a week, so a page that really went is gone a week later.
 """
 
 import asyncio

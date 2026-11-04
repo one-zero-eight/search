@@ -10,7 +10,7 @@
     catix-wiki regs queue       # the OCR queue (every source's scans waiting for chandra) and the scans too long for it (ocr_queue.py)
 
 The text of a regulation is NOT rewritten by the model: the program only turns the layout into markdown (chapters, clauses, tables)
-and the clause numbers stay, so that a card can quote 'п. 5.3'. No model writes any of the page (compile_all).
+and the clause numbers stay, so that an answer can cite 'п. 5.3'. No model writes any of the page (compile_all).
 These concepts carry `source_kind: official-document`; a scanned one also `extraction: ocr` and a `review:` note.
 """
 

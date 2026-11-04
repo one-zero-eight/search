@@ -8,8 +8,7 @@ Materials", Past Papers [EN programs]), with the subject, the year, the name of 
 Not an official source: the students collected the papers, a paper may be a variant or a reconstruction. The pages are
 made by code only (no model): the list of a subject's papers, newest first, each with a link to its row in Notion and the
 text of its file (the text layer; scans wait for a manual run with chandra, those over MAX_SCAN_PAGES are put aside:
-`catix-wiki regs queue` shows both). The wiki's agent does not make cards of them
-(their section is not in WIKI_AGENT_SECTIONS): they answer "what was on the exam", not "what are the rules".
+`catix-wiki regs queue` shows both). They answer "what was on the exam", not "what are the rules".
 """
 
 import hashlib

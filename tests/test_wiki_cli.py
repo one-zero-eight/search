@@ -52,8 +52,7 @@ def test_sites_fetch_only_new_is_typed(monkeypatch):
     ["sites", "accept", "lab", "--all"], ["sites", "reject", "--all", "lab"],
     ["regs"], ["regs", "fetch", "many"], ["rpd", "fetch", "--limit"],
     ["sveden", "override", "maybe", "x"], ["sveden", "override", "keep"],
-    ["agent", "unknown"], ["agent", "notes", "--check", "--link"],
-    ["agent", "candidates", "--output"], ["compile"], ["compile", "--random"],
+    ["agent"], ["layout"], ["compile"], ["compile", "--random"],
     ["compile", "--sample", "--all"], ["compile", "--all", "Page"], ["compile", "link", "Page"],
     ["index", "export"], ["index", "import"], ["index", "status", "extra"],
     ["index", "status", "--no-embed"], ["autopilot", "--source"],
@@ -69,7 +68,7 @@ def test_invalid_arguments_exit_two_before_work(words, capsys):
 @pytest.mark.parametrize("words,command,action", [
     ([], "status", None), (["sites"], "sites", "status"), (["sveden"], "sveden", "status"),
     (["papers"], "papers", "status"), (["rpd"], "rpd", "status"),
-    (["agent"], "agent", "queue"), (["autopilot"], "autopilot", "run"), (["index"], "index", "sync"),
+    (["autopilot"], "autopilot", "run"), (["index"], "index", "sync"),
 ])
 def test_defaults(words, command, action):
     parsed = cli.parse_args(words)
@@ -108,9 +107,7 @@ def test_defaults(words, command, action):
     (["compile", "Page A", "Page B"], "compile", "compile_pages", (["Page A", "Page B"],), {}),
     (["compile", "link"], "compile", "link", (), {}),
     (["link"], "compile", "link", (), {}),
-    (["layout", "--dry-run"], "layout", "migrate", (True,), {}),
     (["graph", "--no-model"], "graph", "main", (), {"use_model": False}),
-    (["agent"], "agent", "run", (), {}),
 ])
 def test_commands_dispatch_typed_arguments(words, module, function, positional, keywords, monkeypatch):
     target = importlib.import_module("catix.wiki." + module)
@@ -200,19 +197,6 @@ def test_autopilot_collects_repeated_sources_and_options(tmp_path, monkeypatch):
     assert calls == [((["sites"],), {"push": True, "answers": False, "sites": ["hotel", "campuslife"]})]
 
 
-def test_agent_keeps_legacy_paths_and_notes_get_only_paths(monkeypatch):
-    from catix.wiki import agent, notes
-
-    calls = []
-    monkeypatch.setattr(agent, "Index", lambda: "index")
-    monkeypatch.setattr(agent, "resolve", lambda page, idx: page + "-resolved")
-    monkeypatch.setattr(agent, "run", lambda pages: calls.append(pages))
-    monkeypatch.setattr(notes, "run", lambda pages: calls.append(pages))
-    cli.main(["agent", "/raw/a.md", "/raw/b.md"])
-    cli.main(["agent", "notes", "/raw/a.md", "/raw/b.md"])
-    assert calls == [["/raw/a.md-resolved", "/raw/b.md-resolved"], ["/raw/a.md", "/raw/b.md"]]
-
-
 @pytest.mark.parametrize("action", ["export", "import"])
 def test_index_file_is_a_path(action, monkeypatch):
     from catix.wiki import search_index
@@ -249,21 +233,9 @@ def test_offline_build_does_not_update_sources(monkeypatch):
     assert result.value.code == 0 and calls == ["build"]
 
 
-def test_agent_link_and_candidate_options(monkeypatch):
-    from types import SimpleNamespace
-    from catix.wiki import links
-
-    calls = []
-    monkeypatch.setattr(links, "apply", lambda **kw: calls.append(kw) or SimpleNamespace(links=0, cards_linked=0, cards=0, names=0, changed=[], ambiguous=[]))
-    monkeypatch.setattr(links, "candidates", lambda **kw: calls.append(kw) or SimpleNamespace(phrases=0, articles=0, items=[], output=kw["output"]))
-    cli.main(["agent", "links", "--dry-run"])
-    cli.main(["agent", "candidates", "--output", "report.json", "--folders", "courses,pages"])
-    assert calls == [{"dry_run": True}, {"output": Path("report.json"), "skip": ("courses", "pages")}]
-
-
 @pytest.mark.parametrize("command", [
     [], ["sites"], ["sites", "discover"], ["sites", "explore"], ["sites", "accept"], ["sites", "reject"],
-    ["agent"], ["agent", "notes"], ["agent", "candidates"], ["autopilot"], ["index"], ["compile"],
+    ["autopilot"], ["index"], ["compile"],
 ])
 def test_help_is_available_at_each_level(command, capsys):
     with pytest.raises(SystemExit) as result:

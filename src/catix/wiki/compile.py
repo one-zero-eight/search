@@ -26,7 +26,7 @@ import yaml
 from catix.settings import settings
 from catix.wiki.sources.eduwiki import PAGES, load_manifest
 from catix.wiki.markup import convert
-from catix.wiki.paths import BUNDLE, DOCS_FOLDER, NOTES_FOLDER, model_folders  # (the other modules take BUNDLE from here)
+from catix.wiki.paths import BUNDLE, DOCS_FOLDER  # (the other modules take BUNDLE from here)
 from catix.wiki.tables import TOKEN, extract
 
 
@@ -314,16 +314,6 @@ def compile_page(pid: str, entry: dict, aliases: list[str]) -> Path | None:
     return path
 
 
-def worth_reading(meta: dict) -> bool:
-    """Whether a page of the sources may hold what readers ask about (WIKI_AGENT_SECTIONS): not a survey or a curriculum."""
-    if meta.get("type") in {"card", "note"}:  # the model's own: never read as a source
-        return False
-    if meta.get("type") == "course-programme":
-        return settings.wiki_agent_course_programmes
-    section = meta.get("section")
-    return section is None or str(section) in settings.wiki_agent_sections
-
-
 YAML_LOADER = getattr(yaml, "CSafeLoader", yaml.SafeLoader)  # libyaml: the pure-Python loader took 1.3 ms a card, a list of 280 cards 0.4 s
 
 
@@ -366,7 +356,6 @@ FOLDERS = {  # directory of the documents (wiki/raw/) -> what it holds, for the 
     "people": "People",
     "pages": "Other pages",
 }
-NOTES_ABOUT = "Notes on documents: what a document is and whom it concerns, a few sentences beside it"
 
 
 def _groups(directory: str, items: list[tuple[Path, dict]]) -> list[tuple[str, list[tuple[Path, dict]]]]:
@@ -387,10 +376,8 @@ def _groups(directory: str, items: list[tuple[Path, dict]]) -> list[tuple[str, l
     return list(groups.items())
 
 
-def _folder_index(folder: Path, directory: str, about: str, items: list[tuple[Path, dict]], titles: dict[str, str], bundle: Path,
-                  inverse: dict[str, list[str]] | None = None) -> None:
-    """index.md of one folder: its pages, and for an entity what it is related to (the register: a position and who holds it),
-    by its own relations and by those of the cards leading to it (`inverse`: a person who "holds" a post the post is "held by")."""
+def _folder_index(folder: Path, directory: str, about: str, items: list[tuple[Path, dict]], titles: dict[str, str], bundle: Path) -> None:
+    """index.md of one folder: its pages, and what each is related to by its own relations."""
     lines = [f"# {directory}", "", f"{about}. Back to [the wiki](/index.md).", ""]
     for heading, group in _groups(directory, items):
         lines += [f"## {heading}", ""] if heading else []
@@ -399,7 +386,7 @@ def _folder_index(folder: Path, directory: str, about: str, items: list[tuple[Pa
             line = f"- [{m['title'].split(' — ')[0] if short else m['title']}](/{p.relative_to(bundle).as_posix()})"
             line += "" if short or m["description"].strip() in ("", m["title"].strip()) else f": {m['description']}"  # (a post's card says its name twice; a document has none)
             related = [f"{r['relation']} [{titles[r['to']]}]({r['to']})" for r in m["relations"] if r.get("to") in titles]
-            related = list(dict.fromkeys([*related, *(inverse or {}).get("/" + p.relative_to(bundle).as_posix(), [])]))
+            related = list(dict.fromkeys(related))
             lines.append(line + (f" — {'; '.join(related)}" if related else ""))
         lines.append("")
     (folder / "index.md").write_text("\n".join(lines), encoding="utf-8")
@@ -407,7 +394,7 @@ def _folder_index(folder: Path, directory: str, about: str, items: list[tuple[Pa
 
 def write_index(found: list[tuple[Path, dict]], bundle: Path | None = None) -> None:
     """index.md of every folder of the bundle with the pages in it, and the root index.md with the folders (OKF: only the
-    root one has front matter). The documents (wiki/raw/) come first, then what the model wrote of them."""
+    root one has front matter)."""
     bundle = bundle or BUNDLE
     docs_dir = bundle / DOCS_FOLDER
     root = ["---", 'okf_version: "0.2"', "---", "", "# Innopolis University wiki", "",
@@ -415,12 +402,6 @@ def write_index(found: list[tuple[Path, dict]], bundle: Path | None = None) -> N
             "the [disclosure section](https://innopolis.university/sveden/) of the university's site, the course programmes and the sites of "
             "[campus life](https://campuslife.innopolis.ru) and [the campus hotel](https://hotel.innopolis.university), and past exam papers the students collected.", ""]
     titles = {"/" + p.relative_to(bundle).as_posix(): m["title"] for p, m in found}
-    inverse: dict[str, list[str]] = {}  # an entity -> what the cards leading to it are to it ("held by [X](/people/x.md)")
-    for p, m in found:
-        for r in m.get("relations") or []:
-            if r.get("inverse") and r.get("to") in titles:
-                rel = "/" + p.relative_to(bundle).as_posix()
-                inverse.setdefault(r["to"], []).append(f"{r['inverse']} [{titles[rel]}]({rel})")
     docs = ["# raw", "", "The documents as the sources publish them, written by code and never by the model: the evidence the rest "
             "of the wiki cites. Back to [the wiki](/index.md).", ""]
     root += ["## Documents", "", f"The university's documents as their sources publish them, written by code: the evidence everything "
@@ -437,16 +418,6 @@ def write_index(found: list[tuple[Path, dict]], bundle: Path | None = None) -> N
         _folder_index(folder, directory, FOLDERS.get(directory, directory), items, titles, bundle)
     if docs_dir.exists():
         (docs_dir / "index.md").write_text("\n".join([*docs, ""]), encoding="utf-8")
-    root += ["", "## Written by the wiki", "", "What the wiki's model made of the documents: every sentence cites them, and code "
-             "checks every citation.", ""]
-    for directory, about in [*model_folders(bundle).items(), (NOTES_FOLDER, NOTES_ABOUT)]:
-        folder = bundle / directory
-        items = [(p, m) for p, m in found if p.parent == folder]
-        if not items:
-            (folder / "index.md").unlink(missing_ok=True)
-            continue
-        root.append(f"- [{directory}](/{directory}/index.md): {about}, {len(items)} pages")
-        _folder_index(folder, directory, about, items, titles, bundle, inverse)
     root.append("")
     (bundle / "index.md").write_text("\n".join(root), encoding="utf-8")
 

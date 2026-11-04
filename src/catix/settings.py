@@ -68,11 +68,8 @@ class Settings(BaseSettings):
     # tracing (agent/tracing.py).
     phoenix_endpoint: HttpUrl | None = None
     phoenix_project: str = "catix"
-    # USD per 1M tokens of the wiki's model, for the costs in Phoenix: {"input": .., "cache_read": .., "output": ..}. Phoenix
-    # keeps one price a model, so an API with peak and off-peak prices gets the ones its runs are billed at.
-    wiki_llm_prices: dict[str, float] = {}
     wiki_phoenix_project: str = (
-        "catix-wiki"  # the wiki's builds and its agent (catix-wiki), apart from the assistant's questions
+        "catix-wiki"  # the wiki's builds (catix-wiki), apart from the assistant's questions
     )
 
     innohassle_api: HttpUrl = HttpUrl("https://api.innohassle.ru")
@@ -228,38 +225,6 @@ class Settings(BaseSettings):
     # Course programmes (wiki/sources/rpd.py) of every cohort on the site, not only the latest one of each programme: a student of
     # 2024 studies by the programme of 2024.
     wiki_rpd_all_years: bool = True
-    # The wiki's agent (wiki/agent.py): after each run of the sources it reads the pages that changed and keeps the
-    # knowledge cards (wiki/knowledge/). At most `wiki_agent_max_pages` pages a run; the rest wait in the queue.
-    wiki_agent: bool = True
-    wiki_agent_max_pages: int = Field(30, gt=0)
-    wiki_agent_steps: int = Field(150, gt=0, description="Model and tool steps per task of the agent.")
-    # A card goes in one tool call: with the assistant's LLM_MAX_TOKENS a long one was cut off half way and its JSON broke.
-    wiki_agent_max_tokens: int = Field(16000, gt=0)
-    # Every link of a card to a source carries a verbatim quote of it, found by code; the numbers are checked against the quote.
-    wiki_agent_quotes: bool = True
-    # With it a card resting on a single source page is refused (a subject is what more than one page speaks of). Off since
-    # 2026-10-30: it refused the cards of people that one page names, and got in the way more than it helped. See agent.SOURCES.
-    wiki_agent_two_sources: bool = False
-    # Tasks (batches of pages) the agent works on at once: an API takes several, the local server shares its slots with
-    # the assistant (unset: 4 with WIKI_LLM_ROUTE, else 1).
-    wiki_agent_parallel: int | None = Field(None, gt=0)
-    # The documents of the site the agent reads, by the section they come from: rules, procedures, admission, fees,
-    # grants, the units' regulations, the pages of the university's site and of its site for applicants, the sites of campus life and the campus hotel. Left out: sveden/rating-system (surveys) and sveden/education (curricula, programme
-    # descriptions); a page of the teaching wiki has no section and is always read. Course programmes only when asked.
-    wiki_agent_sections: list[str] = [
-        "document",
-        "sveden/document",
-        "sveden/apply",
-        "sveden/paid_edu",
-        "sveden/grants",
-        "sveden/objects",
-        "sveden/struct",
-        "site/university",
-        "site/apply",
-        "site/campuslife",
-        "site/hotel",
-    ]
-    wiki_agent_course_programmes: bool = False
 
     # Old SQLite file, only read by `catix-db migrate`.
     messages_db: Path = Path("raw/telegram.db")

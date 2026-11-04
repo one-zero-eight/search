@@ -98,14 +98,12 @@ def test_autopilot_new_pages_reads_backlog_even_when_html_is_unchanged(backlog):
 
 
 def test_autopilot_publishes_the_old_link_after_approval(backlog, monkeypatch):
-    from catix.wiki import autopilot, build, layout
+    from catix.wiki import autopilot, build
 
     url, _, requests = backlog
     root = sites.ROOT.parent.parent
     monkeypatch.setattr(autopilot, "DATA", root)
     monkeypatch.setattr(autopilot, "STATE", root / ".autopilot.json")
-    monkeypatch.setattr(autopilot.settings, "wiki_agent", False)
-    monkeypatch.setattr(layout, "migrate", lambda: [])
     (root / ".gitignore").write_text(".autopilot.*\n")
     autopilot.git("init", "-q", "-b", "wiki")
     autopilot.git("add", "-A")

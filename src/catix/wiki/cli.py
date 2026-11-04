@@ -9,16 +9,12 @@
     catix-wiki papers fetch|compile|status  # past exam papers from the students' Notion database, see sources/pastpapers.py
     catix-wiki autopilot [--loop] [--source NAME ...] [--site NAME ...] [--no-push] [--no-answers]   # the wiki maintains itself, serves the API's requests and commits to its branch (see autopilot.py)
     catix-wiki build [--offline]       # the whole chain, re-running only what changed (see build.py)
-    catix-wiki agent [queue|all [FOLDER]|check [--two-sources]|links|candidates|notes|PATH ...]   # the cards (agent.py), the links (links.py), the notes of the pages (notes.py)
     catix-wiki graph                   # relations between concepts (prerequisites, teachers), see graph.py
     catix-wiki lint                    # check wiki/ against OKF v0.2
     catix-wiki index [status|--no-embed]   # the bundle in the database for the agent's search (see search_index.py)
     catix-wiki compile ...             # snapshot -> OKF bundle in wiki/ (see compile.py)
-    catix-wiki layout [--dry-run]      # the documents into wiki/raw/, every path that led to them with them (see layout.py)
 
-The bundle (paths.py): wiki/raw/ holds the documents, written by code and never by the model; wiki/notes/ the model's notes
-on single documents; every other folder is the model's: knowledge/ (cards of subjects) and the folders it makes for the
-entities the documents name (people/, positions/, units/, ...), declared in wiki/folders.json.
+The bundle (paths.py): wiki/raw/ holds the documents, written by code from the sources.
 
 The code is laid out by what each part does:
     sources/       what the wiki is made from: each module asks one source what is new and brings it into raw/
@@ -27,8 +23,6 @@ The code is laid out by what each part does:
     compile.py     eduwiki snapshot -> pages (the model turns wikitext into markdown); also what every part shares
                    (the bundle's folder, the model client, front matter)
     graph.py       relations between pages (code; the model only resolves a prerequisite line to a course)
-    agent.py       the wiki's agent (deepagents): reads the documents and keeps the cards of subjects and of entities;
-                   code checks every card;  layout.py: the move of the documents into wiki/raw/
     lint.py        OKF checks;  search_index.py, chunks.py: the bundle in the database for the agent's search
     build.py       the whole chain;  autopilot.py: the wiki's own run that commits to the `wiki` branch
 """
@@ -115,27 +109,8 @@ def parser() -> argparse.ArgumentParser:
         pilot.add_argument("--" + flag, action="store_true", help=help)
 
     command(commands, "build", "Rebuild the entire wiki").add_argument("--offline", action="store_true", help="Do not fetch sources")
-    agent = command(commands, "agent", "Maintain cards, links and notes (agent /PATH ... also works)")
-    actions = agent.add_subparsers(dest="action")
-    agent.set_defaults(action="queue")
-    command(actions, "queue", "Process the card queue")
-    command(actions, "all", "Enqueue source pages").add_argument("folders", nargs="*", metavar="FOLDER")
-    command(actions, "run", "Process selected source pages").add_argument("pages", nargs="+", metavar="PATH")
-    command(actions, "check", "Check every card").add_argument("--two-sources", action="store_true", help="Require two source pages")
-    command(actions, "links", "Regenerate links between cards").add_argument("--dry-run", action="store_true", help="Write nothing")
-    candidates = command(actions, "candidates", "Report subjects named in multiple documents")
-    candidates.add_argument("--output", type=Path, help="JSON report path")
-    candidates.add_argument("--folders", help="Comma-separated document folders to skip")
-    notes = command(actions, "notes", "Write or check notes of source pages")
-    notes.add_argument("pages", nargs="*", metavar="PATH")
-    mode = notes.add_mutually_exclusive_group()
-    mode.add_argument("--check", action="store_true", help="Check existing notes")
-    mode.add_argument("--link", action="store_true", help="Regenerate page-to-note links")
-    notes.add_argument("--measure", action="store_true", help="Measure retrieval before and after writing notes")
-
     command(commands, "graph", "Derive relations between concepts").add_argument("--no-model", action="store_true", help="Do not ask the model")
     command(commands, "lint", "Validate the OKF bundle")
-    command(commands, "layout", "Move source documents into wiki/raw").add_argument("--dry-run", action="store_true", help="Write nothing")
     index = command(commands, "index", "Sync, inspect or transfer the search index")
     index.add_argument("action", nargs="?", choices=("sync", "status", "export", "import"), default="sync")
     index.add_argument("file", nargs="?", type=Path, help="Export/import file")
@@ -153,8 +128,6 @@ def parser() -> argparse.ArgumentParser:
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     words = list(sys.argv[1:] if argv is None else argv)
-    if len(words) > 1 and words[0] == "agent" and words[1].startswith("/"):
-        words.insert(1, "run")  # preserve `agent /raw/regulations/x.md ...`
     args = parser().parse_args(words)
 
     if args.command == "compile":
@@ -217,10 +190,6 @@ def main(argv: list[str] | None = None) -> None:
         from catix.wiki import build
 
         build.main(args)
-    elif cmd == "agent":
-        from catix.wiki import agent
-
-        agent.main(args)
     elif cmd == "graph":
         from catix.wiki import graph
 
@@ -229,10 +198,6 @@ def main(argv: list[str] | None = None) -> None:
         from catix.wiki import lint
 
         lint.main()
-    elif cmd == "layout":
-        from catix.wiki import layout
-
-        layout.main(dry_run=args.dry_run)
     elif cmd == "index":
         from catix.wiki import search_index
 

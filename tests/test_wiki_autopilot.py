@@ -73,10 +73,6 @@ def _data(tmp_path, monkeypatch, write, failed=()):
     (tmp_path / "wiki" / "a.md").write_text("a\n")
     (tmp_path / ".gitignore").write_text(".autopilot.*\n")
     monkeypatch.setattr(autopilot, "DATA", tmp_path)
-    monkeypatch.setattr(autopilot.settings, "wiki_agent", False)  # (the wiki's agent has tests of its own)
-    from catix.wiki import layout
-
-    monkeypatch.setattr(layout, "migrate", lambda *a, **k: [])  # (the move of the real bundle into wiki/raw/: not here)
     monkeypatch.setattr(autopilot, "STATE", tmp_path / ".autopilot.json")
     autopilot.git("add", "-A")
     autopilot.git("commit", "-q", "-m", "start")
