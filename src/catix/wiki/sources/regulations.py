@@ -126,9 +126,11 @@ def all_docs() -> dict[str, dict]:
     docs = {k: {"title": t, "url": BASE + p, "root": ROOT, "section": "document"} for k, (t, p) in DOCS.items()}
     index = {d["url"]: d for d in json.loads((SVEDEN_ROOT / "index.json").read_text(encoding="utf-8"))} if (SVEDEN_ROOT / "index.json").exists() else {}
     decisions = json.loads((SVEDEN_ROOT / "triage.json").read_text(encoding="utf-8")) if (SVEDEN_ROOT / "triage.json").exists() else {}
-    known = {d["url"] for d in docs.values()}
+    from catix.wiki.sources import sites
+
+    known = {sites.canonical(d["url"]) for d in docs.values()}  # (the disclosure section writes the spaces of a file DOCS has: one document)
     for url, dec in decisions.items():
-        if dec["decision"] != "keep" or url not in index or url in known:
+        if dec["decision"] != "keep" or url not in index or sites.canonical(url) in known:
             continue
         d = index[url]
         title = SIGNED.sub("", d["title"]).strip()
@@ -136,8 +138,7 @@ def all_docs() -> dict[str, dict]:
             title = f"{d['context'][:220]} — {title}" if d.get("context") else title  # 'Study plan' alone says nothing: the programme is in the list it sits in
         key = "sveden-" + hashlib.sha1(url.encode()).hexdigest()[:8] + "-" + (re.sub(r"[^a-z0-9]+", "-", unquote(url.rsplit("/", 1)[-1]).lower()).strip("-")[:30] or "doc")
         docs[key] = {"title": title, "url": url, "root": SVEDEN_ROOT, "section": "sveden/" + d["sections"][0], "context": d.get("context", ""), "ext": d["ext"]}
-    from catix.wiki.sources import sites
-
+        known.add(sites.canonical(url))
     have = {sites.canonical(d["url"]) for d in docs.values()}
     docs.update({k: d for k, d in sites.docs().items() if d["url"] not in have})  # the documents the sites link (the rules and prices of the dormitories); one sveden has is not read twice
     have |= {sites.canonical(d["url"]) for d in docs.values()}
@@ -773,9 +774,9 @@ def compile_all() -> None:
 
     paths.DOCS.joinpath("regulations").mkdir(parents=True, exist_ok=True)
     docs = all_docs()
-    for page in paths.DOCS.joinpath("regulations").glob("sveden-*.md"):
-        if page.stem not in docs:  # the document is no longer kept (a new decision of the triage, or it left the site)
-            page.unlink()
+    for page in [*paths.DOCS.joinpath("regulations").glob("sveden-*.md"), *paths.DOCS.joinpath("regulations").glob("site-*.md")]:
+        if page.stem not in docs and (page.stem.startswith("sveden-") or "-member-" not in page.stem):  # the document is no longer
+            page.unlink()  # kept (a new decision of the triage, it left the site, another key has the same file: sites.owner)
             print(f"{page.stem}: no longer kept, page removed")
     for page in paths.DOCS.joinpath("regulations").glob("*-member-*.md"):
         if page.stem not in docs and "\narchive_member:" in page.read_text(encoding="utf-8"):

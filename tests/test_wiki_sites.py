@@ -94,6 +94,32 @@ def test_the_documents_of_a_site_go_to_the_regulations_with_a_readable_key(tmp_p
     assert doc["section"] == "site/hotel" and doc["ext"] == "pdf" and "audience" not in doc  # (the hotel names no readers: everyone)
 
 
+def test_a_file_several_sites_link_is_one_document_kept_under_the_key_of_the_copy_already_read(tmp_path, monkeypatch):
+    from catix.wiki import paths
+    from catix.wiki.sources import regulations
+
+    monkeypatch.setattr(sites, "ROOT", tmp_path / "cache")
+    monkeypatch.setattr(paths, "DOCS", tmp_path / "wiki")
+    url = canonical("https://hotel.innopolis.university/files/politicacookies.pdf")
+    for name in ("university", "media", "hotel", "help"):  # (the policy in the footer of every site)
+        sites.save(name, {"pages": {}, "docs": {url: "Политика cookies"}})
+    (key, doc), = sites.docs().items()
+    assert key.startswith("site-hotel-") and doc["root"] == tmp_path / "cache" / "hotel" / "docs"  # (no copy read: the site serving it)
+    assert "audience" not in doc  # (help's are for the staff, but the other sites give it to everyone)
+    media = key.replace("site-hotel-", "site-media-")
+    (tmp_path / "cache" / "media" / "docs").mkdir(parents=True)
+    (tmp_path / "cache" / "media" / "docs" / f"{media}.json").write_text("{}", encoding="utf-8")
+    assert list(sites.docs()) == [media]  # (a copy tried: its note stays the document's)
+    university = key.replace("site-hotel-", "site-university-")
+    (tmp_path / "cache" / "university" / "docs").mkdir(parents=True)
+    (tmp_path / "cache" / "university" / "docs" / f"{university}.txt").write_text("Политика", encoding="utf-8")
+    assert list(sites.docs()) == [university]  # (a copy read: its text and OCR are not made again)
+    (tmp_path / "wiki" / "regulations").mkdir(parents=True)
+    (tmp_path / "wiki" / "regulations" / f"{media}.md").write_text("x", encoding="utf-8")
+    regulations.compile_all()
+    assert not (tmp_path / "wiki" / "regulations" / f"{media}.md").exists()  # (a page of the copy that is no document leaves)
+
+
 def test_the_university_site_reads_the_pages_of_its_disclosure_section_too_and_has_an_english_copy():
     uni = SITES["university"]
     assert sites._taken(uni, "https://innopolis.university/campus")

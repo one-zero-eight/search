@@ -399,3 +399,17 @@ def test_a_scan_is_queued_by_a_run_without_ocr_and_read_by_the_next_run_with_it(
     meta = json.loads((tmp_path / f"{key}.json").read_text(encoding="utf-8"))
     assert "ocr" not in meta and meta["method"] == "ocr (chandra-ocr-2)" and meta["remote"]["etag"] == "v1" and "sha256" in meta
     assert regulations.read_new() == []  # (read: nothing more)
+
+
+def test_a_file_the_disclosure_section_lists_with_its_spaces_as_the_bundle_has_it_is_one_document(tmp_path, monkeypatch):
+    import json
+
+    from catix.wiki.sources import regulations
+
+    monkeypatch.setattr(regulations, "DOCS", {"attestation-regulation": ("Положение об аттестации", "bd2/Положение%20о%20формах.pdf")})
+    monkeypatch.setattr(regulations, "SVEDEN_ROOT", tmp_path)
+    url = regulations.BASE + "bd2/Положение о формах.pdf"
+    (tmp_path / "index.json").write_text(json.dumps([{"url": url, "title": "Положение о формах, периодичности и порядке контроля",
+                                                      "sections": ["document"], "ext": "pdf"}]), encoding="utf-8")
+    (tmp_path / "triage.json").write_text(json.dumps({url: {"decision": "keep"}}), encoding="utf-8")
+    assert [key for key in regulations.all_docs() if key.startswith(("attestation", "sveden"))] == ["attestation-regulation"]

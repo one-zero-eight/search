@@ -1462,8 +1462,8 @@ def collect_linked_docs() -> int:
 
 def docs() -> dict[str, dict]:
     """The documents the sites link, as regulations.all_docs wants them (those a pending site links too: they are of trusted
-    providers, as every document of a site's index)."""
-    out = {}
+    providers, as every document of a site's index). A file several sites link is one document (owner), not one a site."""
+    copies: dict[str, list[tuple[str, str, dict]]] = {}
     for name, site in every_site().items():
         index = load(name)
         for url, anchor in index["docs"].items():
@@ -1474,9 +1474,29 @@ def docs() -> dict[str, dict]:
             title = anchor if len(anchor) >= 12 and not re.fullmatch(r"(?i)(скачать|здесь|тут|download|here|подробнее|ссылк\w*)", anchor) else stem
             title = re.sub(r"\s+", " ", re.sub(r"\s*\(\d\)$", "", title)).strip()  # ('… 2025 год (2)': the second copy of a file)
             key = f"site-{name}-" + hashlib.sha1(url.encode()).hexdigest()[:8] + "-" + (latin(stem)[:40].strip("-") or "doc")
-            out[key] = {"title": title, "url": url, "root": ROOT / name / "docs", "section": f"site/{name}", "ext": index.get("archive_types", {}).get(url, file.rsplit(".", 1)[-1].lower()),
-                        **({"audience": list(site.audience)} if site.audience else {})}  # (the regulations of help are for the staff, as its pages)
-    return out
+            copies.setdefault(url, []).append((name, key, {
+                "title": title, "url": url, "root": ROOT / name / "docs", "section": f"site/{name}", "ext": index.get("archive_types", {}).get(url, file.rsplit(".", 1)[-1].lower()),
+                **({"audience": list(site.audience)} if site.audience else {})}))  # (the regulations of help are for the staff, as its pages)
+    return dict(owner(url, found) if len(found) > 1 else found[0][1:] for url, found in copies.items())
+
+
+def owner(url: str, copies: list[tuple[str, str, dict]]) -> tuple[str, dict]:
+    """(key, document) of a file several sites link: the cookie policy in the footer of 16 of them, the licence on four. Each
+    downloaded it, read it, queued its scan for OCR and made it a page of regulations of its own. The key is that of the copy
+    already read, else of one already tried (a note, an archive's manifest), else of the site that serves the file, else of
+    the first site that links it: a key once read stays (its text and OCR are not made again), and the links of every site's
+    pages lead to it (they find a document by its address). It is for everyone unless every site that links it names its
+    readers (help: the staff)."""
+    from catix.wiki.sources import crawl
+
+    home = crawl.provider(url)
+    _, key, doc = min(copies, key=lambda copy: (not (copy[2]["root"] / f"{copy[1]}.txt").exists(),
+                                                 not any((copy[2]["root"] / f"{copy[1]}{end}").exists() for end in (".json", ".archive.json")),
+                                                 copy[0] != home))  # (min keeps the first of equal copies)
+    doc = {field: value for field, value in doc.items() if field != "audience"}
+    if all(d.get("audience") for _, _, d in copies):
+        doc["audience"] = [a for a in AUDIENCES if any(a in d["audience"] for _, _, d in copies)]
+    return key, doc
 
 
 def boilerplate(texts: list[str]) -> set[str]:
