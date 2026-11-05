@@ -623,6 +623,44 @@ async def set_commands(bot: Bot) -> None:
             log.warning("menu for admin %s not set (they have not started the bot yet?): %s", admin_id, e)
 
 
+def profile_texts(username: str) -> dict[str | None, tuple[str, str]]:
+    """The bot's profile by the language of a person's Telegram (None: any other, Russian as the rest of the bot): the
+    description an empty chat with the bot shows above Start (at most 512 characters) and the short description of its
+    profile and of a link to it (at most 120)."""
+    return {
+        None: (
+            "Привет! Я cAtIx, ассистент Университета Иннополис.\n\n"
+            "Отвечаю на вопросы об учёбе и кампусе: положения и приказы, учебные программы, аудитории, клубы, события, "
+            "а также экзамены, дедлайны и советы из учебных чатов. В ответе указываю источники.\n\n"
+            "Присылаю переносы и отмены занятий, найденные в чатах вашей группы, и по кнопке добавляю их в ваш календарь.\n\n"
+            f"Нажмите «Старт» и напишите вопрос. В группе: /ask или упоминание, в любом чате: @{username} вопрос.",
+            "Ассистент Университета Иннополис: документы, аудитории, клубы, события и ответы из учебных чатов с источниками.",
+        ),
+        "en": (
+            "Hi! I'm cAtIx, the Innopolis University assistant.\n\n"
+            "I answer questions about studies and campus life: regulations and orders, course programmes, rooms, clubs, "
+            "events, and exams, deadlines and tips from the study chats. Every answer cites its sources.\n\n"
+            "I send you the reschedules and cancellations I find in your group's chats and add them to your calendar with "
+            "one tap.\n\n"
+            f"Press Start and ask a question. In a group: /ask or a mention; in any chat: @{username} question.",
+            "Innopolis University assistant: documents, rooms, clubs, events and answers from the study chats, with sources.",
+        ),
+    }
+
+
+async def set_profile(bot: Bot, username: str) -> None:
+    """Writes the description and the short description where they differ from what Telegram has (a restart changes
+    nothing)."""
+    for language, (description, short) in profile_texts(username).items():
+        try:
+            if (await bot.get_my_description(language_code=language)).description != description:
+                await bot.set_my_description(description, language_code=language)
+            if (await bot.get_my_short_description(language_code=language)).short_description != short:
+                await bot.set_my_short_description(short, language_code=language)
+        except TelegramAPIError as e:  # The profile is a convenience, the bot must start without it.
+            log.warning("the bot's description (%s) not set: %s", language or "default", e)
+
+
 async def run() -> None:
     if not settings.tg_bot_token:
         sys.exit("Set TG_BOT_TOKEN in .env (create a bot with @BotFather).")
@@ -637,6 +675,7 @@ async def run() -> None:
     me = await bot.me()
     log.info("Running as @%s", me.username)
     await set_commands(bot)
+    await set_profile(bot, me.username or "")
     log.info("%d chats the bot already stores became chosen in /listen", await asyncio.to_thread(userbot_config.seed_bot_chats))
     tracing.log_status()
     await asyncio.to_thread(sqlquery.reset_context)  # Rows left behind by a crash.
