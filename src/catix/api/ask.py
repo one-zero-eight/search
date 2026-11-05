@@ -1,4 +1,7 @@
-"""POST /ask/: a question to the cAtIx agent (the one the Telegram and Max bots use), with a conversation by `chat_id`.
+"""POST /ask/: a question to the cAtIx agent (the one the Telegram and Max bots use), with a conversation by `chat_id`. The chats
+are kept in Postgres: the agent's memory of each (LangGraph's AsyncPostgresSaver) and the answers as the client got them
+(api/chats.py), so that the user comes back to a chat (GET /ask/chats, GET /ask/chats/{chat_id}) and goes on with it, after a
+restart as well.
 An answer that names upcoming events offers them for the user's calendar (`calendar_events`), as the "➕ В мой календарь"
 buttons under the bot's answers; POST /users/my-calendar/events/{id} adds one (api/users.py).
 POST /ask/{ask_query_id}/feedback: a 👍/👎 on an answer with an optional comment, an annotation on its trace in Phoenix as under
@@ -10,7 +13,6 @@ music room, sport classes); cAtIx has none.
 
 import asyncio
 import contextlib
-import functools
 import json
 import logging
 import time
@@ -19,6 +21,9 @@ from typing import Literal
 from fastapi import APIRouter, Body, HTTPException
 from fastapi.responses import StreamingResponse
 from langchain_core.messages import AIMessage, AIMessageChunk, HumanMessage, ToolMessage
+from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
+from psycopg.rows import dict_row
+from psycopg_pool import AsyncConnectionPool
 
 from catix import groups, personal_calendar
 from catix.agent import events as calendar_events
@@ -26,9 +31,9 @@ from catix.agent import tracing
 from catix.agent.core import SUPERVISOR_NAME, build_agent, final_answer
 from catix.agent.questions import QuestionQueue
 from catix.agent.tools import AgentContext
-from catix.api import state
+from catix.api import chats, state
 from catix.api.auth import UserTokenData, VerifiedDep
-from catix.api.schemas import ActResponses, AskResponses, CalendarEventOffer, SearchResponse
+from catix.api.schemas import ActResponses, AskChat, AskChatHistory, AskResponses, CalendarEventOffer, SearchResponse
 from catix.api.search import make_source
 from catix.common.llm_down import UNAVAILABLE, unreachable
 from catix.common.status import CHECKING, HELPER_TOOLS, QUEUED, STATUS, WRITING
@@ -43,15 +48,46 @@ COMMENT_MAX = 2000  # characters in a comment on an answer, as in the site's tex
 ACT_UNAVAILABLE = "Действия в сервисах InNoHassle пока недоступны. Я могу ответить на вопрос об университете: задайте его через /ask/."
 
 
-@functools.cache
+_agent = None
+
+
 def agent():
-    return build_agent()
+    """The agent of the API, built when the app starts (`memory`)."""
+    if _agent is None:
+        raise RuntimeError("the agent is built when the app starts (api/ask.py `memory`)")
+    return _agent
+
+
+@contextlib.asynccontextmanager
+async def memory():
+    """For the life of the app: the agent that keeps its memory of the chats in Postgres (AsyncPostgresSaver, thread
+    `api:<chat_id>`; `setup` makes its tables or brings them up to date)."""
+    global _agent
+    if not settings.database_url:
+        raise RuntimeError("DATABASE_URL is not set (see docker-compose.yml)")
+    # The connections as AsyncPostgresSaver.from_conn_string makes its own. The saver uses one at a time.
+    pool = AsyncConnectionPool(
+        settings.database_url,
+        min_size=1,
+        max_size=2,
+        kwargs={"autocommit": True, "prepare_threshold": 0, "row_factory": dict_row},
+        open=False,
+    )
+    async with pool:
+        saver = AsyncPostgresSaver(pool)  # type: ignore[arg-type]  # (a pool of dict-row connections, as it wants)
+        await saver.setup()
+        _agent = build_agent(checkpointer=saver)
+        try:
+            yield
+        finally:
+            _agent = None
 
 
 questions = QuestionQueue(settings.agent_parallel_questions)
 
-# The answer, the cards of its sources, the conversation, and the root span of the answer's trace (None when tracing is off)
-Answered = tuple[str, list[SearchResponse], list, str | None]
+# The answer, the cards of its sources, the conversation, the root span of the answer's trace (None when tracing is off) and the
+# checkpoint of the chat's thread after the answer
+Answered = tuple[str, list[SearchResponse], list, str | None, str | None]
 
 
 def _cards(registry: dict, before: set[str]) -> list[SearchResponse]:
@@ -146,8 +182,8 @@ async def one_at_a_time(client: str):
             _gates.pop(client, None)
 
 
-async def run(query: str, chat_id: str, user: UserTokenData, events: asyncio.Queue | None = None) -> Answered:
-    """Answer a question. It runs as a task of its own that POST /ask/{chat_id}/cancel can cancel: then `AskCancelled` is
+async def run(query: str, chat_id: str, user: UserTokenData, events: asyncio.Queue | None = None) -> AskResponses:
+    """Answer a question and keep the answer in its chat. It runs as a task of its own that POST /ask/{chat_id}/cancel can cancel: then `AskCancelled` is
     raised here, while the cancelling of the caller itself (the client went away) goes on as it is."""
     task = asyncio.ensure_future(_in_line(query, chat_id, user, events))
     pending.setdefault(chat_id, set()).add(task)
@@ -167,19 +203,38 @@ async def run(query: str, chat_id: str, user: UserTokenData, events: asyncio.Que
         raise
 
 
-async def _in_line(query: str, chat_id: str, user: UserTokenData, events: asyncio.Queue | None = None) -> Answered:
+async def _in_line(query: str, chat_id: str, user: UserTokenData, events: asyncio.Queue | None = None) -> AskResponses:
     async with one_at_a_time(user.innohassle_id):
-        return await _run(query, chat_id, user, events)
+        answer, cards, messages, span_id, checkpoint = await _run(query, chat_id, user, events)
+        response = AskResponses(
+            query=query,
+            answer=answer,
+            chat_id=chat_id,
+            # The id of the answer for its 👍/👎. None when tracing is off: a vote is an annotation on the answer's trace, and
+            # without a trace there is nothing to vote on (the bot shows no buttons then either).
+            ask_query_id=state.new_id() if span_id else None,
+            search_responses=cards,
+            calendar_events=await calendar_offers(answer),
+            messages=messages,
+        )
+        # Kept before the client's next question starts: it goes on from the checkpoint kept with this answer.
+        await asyncio.to_thread(chats.save_answer, response, span_id, checkpoint)
+        return response
 
 
 async def _run(query: str, chat_id: str, user: UserTokenData, events: asyncio.Queue | None = None) -> Answered:
     key = f"tg:{user.telegram_id or 0}"
     allowed = await asyncio.to_thread(groups.scoped_chat_ids, key, user.telegram_id)
     group = await asyncio.to_thread(groups.effective_group, key, user.telegram_id)
-    thread_id = state.thread_of(chat_id)
+    thread_id = chats.thread_of(chat_id)
     config = tracing.run_config(thread_id, str(user.telegram_id) if user.telegram_id else user.innohassle_id)
-    if resume := state.resume_from.pop(chat_id, None):
-        config["configurable"]["checkpoint_id"] = resume  # fork from before the question that did not finish
+    # A question goes on from the chat's last answer: one that was cancelled (or failed, or the API stopped) halfway left its
+    # messages in the thread, and a tool call without its result would break the next question. Before the first answer
+    # there is nothing to go on from: what such a question left goes.
+    if last := await asyncio.to_thread(chats.checkpoint, chat_id):
+        config["configurable"]["checkpoint_id"] = last
+    else:
+        await agent().checkpointer.adelete_thread(thread_id)
     context = AgentContext(
         allowed_chat_ids=frozenset(allowed),
         user_telegram_id=user.telegram_id,
@@ -187,29 +242,23 @@ async def _run(query: str, chat_id: str, user: UserTokenData, events: asyncio.Qu
     )
     snapshot = await agent().aget_state(config)
     before = set(snapshot.values.get("sources") or {})
-    checkpoint = snapshot.config["configurable"].get("checkpoint_id")  # None: the chat has no history yet
+
     async def report_wait(ahead: int) -> None:
         await events.put(("status", {"text": QUEUED.format(ahead=ahead)}))  # type: ignore[union-attr]
 
-    try:
-        async with questions.turn(f"api:{user.innohassle_id}", on_wait=None if events is None else report_wait):
-            with tracing.question(thread_id, user.innohassle_id, query) as traced:
-                inputs = {"messages": [{"role": "user", "content": query}]}
-                if events is None:
-                    result = await agent().ainvoke(inputs, config, context=context)
-                else:
-                    result = await stream_agent(inputs, config, context, events)
-                answer = final_answer(result["messages"], result.get("sources") or {}) or "Не получилось сформулировать ответ."
-                traced.answer(answer)
-    except BaseException:  # cancelled or failed halfway: the thread goes back to where the question found it
-        if checkpoint is None:
-            agent().checkpointer.delete_thread(thread_id)
-        else:
-            state.resume_from[chat_id] = checkpoint
-        raise
+    async with questions.turn(f"api:{user.innohassle_id}", on_wait=None if events is None else report_wait):
+        with tracing.question(thread_id, user.innohassle_id, query) as traced:
+            inputs = {"messages": [{"role": "user", "content": query}]}
+            if events is None:
+                result = await agent().ainvoke(inputs, config, context=context)
+            else:
+                result = await stream_agent(inputs, config, context, events)
+            answer = final_answer(result["messages"], result.get("sources") or {}) or "Не получилось сформулировать ответ."
+            traced.answer(answer)
     cited = answer.rstrip().split("\n\n")[-1].startswith(("Источники:", "Sources:"))
     cards = _cards(result.get("sources") or {}, before) if cited else []
-    return answer, cards, _history(result["messages"]), traced.id
+    after = await agent().aget_state({"configurable": {"thread_id": thread_id}})  # the thread's latest checkpoint
+    return answer, cards, _history(result["messages"]), traced.id, after.config["configurable"]["checkpoint_id"]
 
 
 async def calendar_offers(answer: str) -> list[CalendarEventOffer]:
@@ -224,13 +273,14 @@ async def calendar_offers(answer: str) -> list[CalendarEventOffer]:
     return [CalendarEventOffer(id=proposal_id, **event) for proposal_id, event in offered]
 
 
-def chat_of(user: UserTokenData, chat_id: str | None) -> str:
-    """The chat a question goes to: its owner's chat, or a new one."""
-    if chat_id and chat_id in state.chats and state.chats[chat_id] != user.innohassle_id:
+async def chat_of(user: UserTokenData, chat_id: str | None, query: str) -> str:
+    """The chat a question goes to: its owner's chat, or a new one titled by the question."""
+    owner = await asyncio.to_thread(chats.owner, chat_id) if chat_id else None
+    if owner is not None and owner != user.innohassle_id:
         raise HTTPException(status_code=404, detail="Chat not found or user has no access to it")
-    if not chat_id or chat_id not in state.chats:
-        return state.remember_chat(user.innohassle_id)  # An id that is not known (any more) starts a new chat.
-    return chat_id
+    if owner is None:
+        return await asyncio.to_thread(chats.start, user.innohassle_id, query)  # An id that is not known starts a new chat.
+    return chat_id  # type: ignore[return-value]  # (it has an owner)
 
 
 def server_event(name: str, data: dict) -> str:
@@ -248,10 +298,10 @@ def server_event(name: str, data: dict) -> str:
     },
 )
 async def ask_by_query(user: VerifiedDep, query: str = Body(..., pattern=NOT_BLANK), chat_id: str | None = Body(None)):
-    chat_id = chat_of(user, chat_id)
+    chat_id = await chat_of(user, chat_id, query)
     started = time.monotonic()
     try:
-        answer, cards, messages, span_id = await run(query, chat_id, user)
+        response = await run(query, chat_id, user)
     except AskCancelled:
         raise HTTPException(status_code=409, detail="The question was cancelled") from None
     except Exception as e:
@@ -259,16 +309,8 @@ async def ask_by_query(user: VerifiedDep, query: str = Body(..., pattern=NOT_BLA
         if unreachable(e):
             raise HTTPException(status_code=503, detail=UNAVAILABLE) from e
         raise HTTPException(status_code=502, detail=f"ML service error: {e}") from e
-    log.info("ask for `%s` (%d ms): %s", query, round((time.monotonic() - started) * 1000), answer)
-    return AskResponses(
-        query=query,
-        answer=answer,
-        chat_id=chat_id,
-        ask_query_id=state.remember_ask(user.innohassle_id, span_id),
-        search_responses=cards,
-        calendar_events=await calendar_offers(answer),
-        messages=messages,
-    )
+    log.info("ask for `%s` (%d ms): %s", query, round((time.monotonic() - started) * 1000), response.answer)
+    return response
 
 
 @router.post(
@@ -282,23 +324,14 @@ async def ask_by_query_stream(user: VerifiedDep, query: str = Body(..., pattern=
     offers for the calendar), `cancelled`
     ({detail}: POST /ask/{chat_id}/cancel) or `error` ({detail}). A client's questions are answered one at a time, in the
     order they came: while an earlier one is not done, this one waits and sends no events."""
-    chat_id = chat_of(user, chat_id)
+    chat_id = await chat_of(user, chat_id, query)
     events: asyncio.Queue = asyncio.Queue()
 
     async def work() -> None:
         started = time.monotonic()
         try:
-            answer, cards, messages, span_id = await run(query, chat_id, user, events)
-            log.info("ask (stream) for `%s` (%d ms): %s", query, round((time.monotonic() - started) * 1000), answer)
-            done = AskResponses(
-                query=query,
-                answer=answer,
-                chat_id=chat_id,
-                ask_query_id=state.remember_ask(user.innohassle_id, span_id),
-                search_responses=cards,
-                calendar_events=await calendar_offers(answer),
-                messages=messages,
-            )
+            done = await run(query, chat_id, user, events)
+            log.info("ask (stream) for `%s` (%d ms): %s", query, round((time.monotonic() - started) * 1000), done.answer)
             await events.put(("done", done.model_dump(mode="json")))
         except AskCancelled:
             await events.put(("cancelled", {"detail": "The question was cancelled"}))
@@ -326,7 +359,7 @@ async def cancel_ask(user: VerifiedDep, chat_id: str):
     """Cancel the work of the agent in the chat: the question being answered and the ones of this chat still waiting for
     their turn. Their requests end with 409 (`/ask/stream`: a `cancelled` event). The conversation goes on as it was before
     the cancelled questions; the answers already given stay in it."""
-    if state.chats.get(chat_id) != user.innohassle_id:
+    if await asyncio.to_thread(chats.owner, chat_id) != user.innohassle_id:
         raise HTTPException(status_code=404, detail="Chat not found or user has no access to it")
     tasks = [task for task in pending.get(chat_id, ()) if not task.done()]
     for task in tasks:
@@ -350,17 +383,39 @@ async def add_user_feedback(
 ):
     """A 👍 (`like`) or 👎 (`dislike`) on an answer, as under the answers of the Telegram bot: the annotation `user-feedback` on
     the answer's trace in Phoenix, and the user's `comment` on what they liked or not is its explanation. A second vote of the
-    user (the same one with a comment, or another) replaces the first. An answer has an `ask_query_id` only when tracing is on."""
-    asked = state.asks.get(ask_query_id)
+    user (the same one with a comment, or another) replaces the first. An answer has an `ask_query_id` only when tracing is on.
+    The chat's history (GET /ask/chats/{chat_id}) shows the vote with its comment."""
+    asked = await asyncio.to_thread(chats.asked, ask_query_id)
     if asked is None or asked[0] != user.innohassle_id:
         raise HTTPException(status_code=404, detail="Ask query not found or user has no access to it")
     comment = (comment or "").strip() or None
     try:
         await asyncio.to_thread(tracing.score_feedback, asked[1], f"api:{user.innohassle_id}", feedback == "like", comment)
+        await asyncio.to_thread(chats.vote, ask_query_id, feedback, comment)
     except Exception as e:
         log.exception("could not save the feedback")
         raise HTTPException(status_code=502, detail="The feedback could not be saved") from e
     return {"status": "success", "ask_query_id": ask_query_id}
+
+
+@router.get("/ask/chats", responses={200: {"description": "Success"}})
+async def list_chats(user: VerifiedDep) -> list[AskChat]:
+    """The user's chats with the assistant, the last answered first (at most 100). GET /ask/chats/{chat_id} gives the
+    questions and answers of one, and a question with its `chat_id` goes on with it."""
+    return await asyncio.to_thread(chats.of_user, user.innohassle_id)
+
+
+@router.get(
+    "/ask/chats/{chat_id}",
+    responses={200: {"description": "Success"}, 404: {"description": "Chat not found or user has no access to it"}},
+)
+async def chat_history(user: VerifiedDep, chat_id: str) -> AskChatHistory:
+    """A chat of the user: its questions and answers, the oldest first, as POST /ask/ gave them, with the user's votes. A
+    question that was cancelled or failed is not in it: the agent does not remember it either."""
+    found = await asyncio.to_thread(chats.history, chat_id, user.innohassle_id)
+    if found is None:
+        raise HTTPException(status_code=404, detail="Chat not found or user has no access to it")
+    return found
 
 
 @router.post(

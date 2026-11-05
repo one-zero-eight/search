@@ -3,11 +3,13 @@
     GET  /search/search                    cards from the wiki          POST /ask/   the agent, a conversation by chat_id
     POST /search/search/{id}/feedback      likes of the cards           POST /act/   mock (cAtIx has no actions)
     POST /ask/{id}/feedback                👍/👎 on an answer (an annotation on its trace in Phoenix)
+    GET  /ask/chats, /ask/chats/{id}       the user's chats with the assistant, to come back to one (kept in Postgres)
     POST /{section}/parse                a request for the wiki's own run (Redis queue)   GET /parse/{id}   where it is
     GET  /users/my-calendar.ics          the user's personal calendar (the events they added under the answers)
     POST /users/my-calendar/events/{id}  the "➕ В мой календарь" button under an answer of /ask/ (its calendar_events)
 """
 
+import contextlib
 import logging
 import re
 
@@ -22,6 +24,12 @@ from catix.api import ask, parsers, search, users
 from catix.settings import settings
 
 log = logging.getLogger("catix.api")
+
+
+@contextlib.asynccontextmanager
+async def lifespan(_app: FastAPI):
+    async with ask.memory():  # the agent with its memory of the chats in Postgres
+        yield
 
 
 def unique_operation_id(route: APIRoute) -> str:
@@ -49,6 +57,7 @@ app = FastAPI(
     docs_url=None,
     redoc_url=None,
     redirect_slashes=False,
+    lifespan=lifespan,
 )
 app.add_middleware(
     CORSMiddleware,

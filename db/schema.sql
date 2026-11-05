@@ -210,6 +210,32 @@ CREATE TABLE IF NOT EXISTS calendar_proposals (
     created_at timestamptz NOT NULL DEFAULT now()
 );
 
+-- The conversations of the site's assistant (catix-api POST /ask/, api/chats.py): whose each one is, and its answers as the
+-- client got them, to show again when the user comes back to it. What the agent itself remembers of a conversation is in
+-- LangGraph's tables (checkpoints, checkpoint_blobs, checkpoint_writes, made by AsyncPostgresSaver.setup() when the API
+-- starts), thread 'api:<chat_id>'.
+CREATE TABLE IF NOT EXISTS api_chats (
+    chat_id       text PRIMARY KEY,
+    innohassle_id text NOT NULL,                     -- the owner
+    title         text NOT NULL,                     -- the first question
+    checkpoint    text,                              -- the agent's thread after the last answer: the next question goes on
+                                                     -- from it, so one cancelled or failed halfway leaves nothing behind
+    created_at    timestamptz NOT NULL DEFAULT now(),
+    updated_at    timestamptz NOT NULL DEFAULT now() -- of the last answer
+);
+CREATE INDEX IF NOT EXISTS api_chats_owner_idx ON api_chats (innohassle_id, updated_at DESC);
+CREATE TABLE IF NOT EXISTS api_answers (
+    id           bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    chat_id      text NOT NULL REFERENCES api_chats (chat_id) ON DELETE CASCADE,
+    ask_query_id text UNIQUE,                        -- what a 👍/👎 names; none when tracing is off
+    span_id      text,                               -- the root span of the answer's trace in Phoenix: what the vote annotates
+    response     jsonb NOT NULL,                     -- AskResponses without `messages` (the agent's own history)
+    feedback     text,                               -- the user's last vote, 'like' or 'dislike'
+    comment      text,                               -- and what they said of it
+    created_at   timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS api_answers_chat_idx ON api_answers (chat_id, id);
+
 -- Reschedules, room changes and cancellations found in chat messages (changes.py). Each is sent to the users of the
 -- chat's group, and a user who accepts it gets it in their personal calendar (personal_events); status and decided_at
 -- are from when an admin decided for everybody and are no longer used. The worker reads new messages from a Redis

@@ -2,17 +2,18 @@
 
 import asyncio
 import json
+from datetime import datetime, timezone
 from types import SimpleNamespace
 
 import httpx
-import asyncio
 
 import pytest
 from fastapi.testclient import TestClient
 from langchain_core.messages import AIMessage, HumanMessage
 
-from catix.api import ask, search, state
+from catix.api import ask, chats, search, state
 from catix.api.app import app
+from catix.api.schemas import AskChat, AskChatHistory, AskResponses
 from catix.db.wiki import WikiHit
 from catix.innohassle import token
 
@@ -25,10 +26,77 @@ def hit(path: str, title: str, resource: str, trust: str = "wiki", relevance: fl
                    issued=None, relevance=relevance)
 
 
+class FakeChats:
+    """api/chats.py in memory: these tests run without a database (tests/test_api_chats.py tries the real one)."""
+
+    thread_of = staticmethod(chats.thread_of)
+
+    def __init__(self):
+        self.chats: dict[str, dict] = {}  # chat_id -> owner, title, checkpoint, updated
+        self.answers: list[dict] = []  # response, span_id, feedback, comment
+
+    def start(self, innohassle_id: str, question: str) -> str:
+        chat_id = state.new_id()
+        self.chats[chat_id] = {"owner": innohassle_id, "title": question, "checkpoint": None, "updated": datetime.now(timezone.utc)}
+        return chat_id
+
+    def owner(self, chat_id: str) -> str | None:
+        return self.chats.get(chat_id, {}).get("owner")
+
+    def checkpoint(self, chat_id: str) -> str | None:
+        return self.chats.get(chat_id, {}).get("checkpoint")
+
+    def save_answer(self, response: AskResponses, span_id: str | None, checkpoint: str | None) -> None:
+        self.answers.append({"response": response, "span_id": span_id, "feedback": None, "comment": None})
+        self.chats[response.chat_id].update(checkpoint=checkpoint, updated=datetime.now(timezone.utc))
+
+    def _chat(self, chat_id: str) -> AskChat:
+        chat = self.chats[chat_id]
+        return AskChat(chat_id=chat_id, title=chat["title"], created_at=chat["updated"], updated_at=chat["updated"])
+
+    def of_user(self, innohassle_id: str) -> list[AskChat]:
+        answered = {a["response"].chat_id for a in self.answers}
+        mine = [c for c, chat in self.chats.items() if chat["owner"] == innohassle_id and c in answered]
+        return [self._chat(c) for c in sorted(mine, key=lambda c: self.chats[c]["updated"], reverse=True)]
+
+    def history(self, chat_id: str, innohassle_id: str) -> AskChatHistory | None:
+        if self.owner(chat_id) != innohassle_id:
+            return None
+        answers = [a["response"].model_copy(update={"messages": [], "feedback": a["feedback"], "feedback_comment": a["comment"]})
+                   for a in self.answers if a["response"].chat_id == chat_id]
+        return AskChatHistory(**self._chat(chat_id).model_dump(), answers=answers)
+
+    def _answer(self, ask_query_id: str) -> dict | None:
+        return next((a for a in self.answers if a["response"].ask_query_id == ask_query_id), None)
+
+    def asked(self, ask_query_id: str) -> tuple[str, str] | None:
+        answer = self._answer(ask_query_id)
+        return None if answer is None else (self.chats[answer["response"].chat_id]["owner"], answer["span_id"])
+
+    def vote(self, ask_query_id: str, feedback: str, comment: str | None) -> None:
+        self._answer(ask_query_id).update(feedback=feedback, comment=comment)  # type: ignore[union-attr]
+
+
+@pytest.fixture(autouse=True)
+def kept(monkeypatch) -> FakeChats:
+    fake = FakeChats()
+    monkeypatch.setattr(ask, "chats", fake)
+    return fake
+
+
 @pytest.fixture
 def client(monkeypatch):
     monkeypatch.setattr(token, "claims", lambda t: {"uid": "u1", "email": "a@innopolis.university", "telegram_id": 7} if t == "good" else None)
-    return TestClient(app)
+    return TestClient(app)  # (not entered: the app's start, which opens the agent's memory in Postgres, does not run)
+
+
+def answering(answer="answer", span_id=None, checkpoint="cp-1"):
+    """A fake of ask._run: the agent answers `answer` (with `{query}` in it), its trace is `span_id`."""
+
+    async def _run(query, chat_id, user, events=None):
+        return answer.format(query=query), [], [{"role": "user", "content": query}], span_id, checkpoint
+
+    return _run
 
 
 def test_token_is_required(client):
@@ -84,20 +152,45 @@ def test_page_pieces_keep_a_table_together():
     assert search.join_pieces(pieces) == "text\n\n| a | b |\n| - | - |\n| 1 | 2 |\n| 3 | 4 |\n\nend"
 
 
-def test_ask_keeps_a_chat_for_its_owner(client, monkeypatch):
-    async def run(query, chat_id, user):
-        return f"answer to {query}", [], [{"role": "user", "content": query}], None
-
-    monkeypatch.setattr(ask, "run", run)
+def test_ask_keeps_a_chat_for_its_owner(client, monkeypatch, kept):
+    monkeypatch.setattr(ask, "_run", answering("answer to {query}"))
     first = client.post("/ask/", json={"query": "hi"}, headers=AUTH).json()
     assert first["answer"] == "answer to hi" and first["chat_id"] and first["messages"]
+    assert kept.chats[first["chat_id"]]["title"] == "hi" and kept.checkpoint(first["chat_id"]) == "cp-1"
     again = client.post("/ask/", json={"query": "more", "chat_id": first["chat_id"]}, headers=AUTH).json()
     assert again["chat_id"] == first["chat_id"]
+    assert [a["response"].answer for a in kept.answers] == ["answer to hi", "answer to more"]
 
-    state.chats[first["chat_id"]] = "somebody else"
+    kept.chats[first["chat_id"]]["owner"] = "somebody else"
     assert client.post("/ask/", json={"query": "x", "chat_id": first["chat_id"]}, headers=AUTH).status_code == 404
     unknown = client.post("/ask/", json={"query": "x", "chat_id": "0" * 24}, headers=AUTH).json()
-    assert unknown["chat_id"] != "0" * 24  # a forgotten chat starts a new one
+    assert unknown["chat_id"] != "0" * 24  # an unknown chat starts a new one
+
+
+def test_the_user_comes_back_to_a_chat(client, monkeypatch, kept):
+    monkeypatch.setattr(ask, "_run", answering("answer to {query}", span_id="span-1"))
+    monkeypatch.setattr(ask.tracing, "score_feedback", lambda *args: None)
+    first = client.post("/ask/", json={"query": "first"}, headers=AUTH).json()
+    client.post("/ask/", json={"query": "second", "chat_id": first["chat_id"]}, headers=AUTH)
+    other = client.post("/ask/", json={"query": "other"}, headers=AUTH).json()
+    client.post(f"/ask/{first['ask_query_id']}/feedback", params={"feedback": "like"}, json={"comment": "good"}, headers=AUTH)
+
+    listed = client.get("/ask/chats", headers=AUTH).json()
+    assert [(c["chat_id"], c["title"]) for c in listed] == [(other["chat_id"], "other"), (first["chat_id"], "first")]
+    history = client.get(f"/ask/chats/{first['chat_id']}", headers=AUTH).json()
+    assert history["title"] == "first"
+    assert [(a["query"], a["answer"], a["feedback"], a["feedback_comment"]) for a in history["answers"]] == [
+        ("first", "answer to first", "like", "good"),
+        ("second", "answer to second", None, None),
+    ]
+    assert all(a["messages"] == [] and a["chat_id"] == first["chat_id"] for a in history["answers"])
+
+    kept.start("somebody else", "theirs")
+    assert len(client.get("/ask/chats", headers=AUTH).json()) == 2  # nor a chat without an answer, nor another's
+    kept.chats[first["chat_id"]]["owner"] = "somebody else"
+    assert client.get(f"/ask/chats/{first['chat_id']}", headers=AUTH).status_code == 404
+    assert client.get("/ask/chats/nope", headers=AUTH).status_code == 404
+    assert client.get("/ask/chats", headers={"Authorization": "Bearer bad"}).status_code == 401
 
 
 @pytest.mark.parametrize("path", ["/ask/", "/ask/stream"])
@@ -106,12 +199,9 @@ def test_ask_needs_a_question(client, path, query):
     assert client.post(path, json={"query": query}, headers=AUTH).status_code == 422
 
 
-def test_feedback_on_an_answer_annotates_its_trace(client, monkeypatch):
-    async def run(query, chat_id, user):
-        return "answer", [], [], "span-1"
-
+def test_feedback_on_an_answer_annotates_its_trace(client, monkeypatch, kept):
     votes = []
-    monkeypatch.setattr(ask, "run", run)
+    monkeypatch.setattr(ask, "_run", answering(span_id="span-1"))
     monkeypatch.setattr(
         ask.tracing, "score_feedback", lambda span_id, voter, good, comment=None: votes.append((span_id, voter, good, comment))
     )
@@ -133,26 +223,27 @@ def test_feedback_on_an_answer_annotates_its_trace(client, monkeypatch):
     assert client.post(url, params={"feedback": "like"}, json=too_long, headers=AUTH).status_code == 422
     assert client.post("/ask/nope/feedback", params={"feedback": "like"}, headers=AUTH).status_code == 404
 
-    state.asks[ask_id] = ("somebody else", "span-1")
+    assert kept.answers[0]["feedback"] == "like" and kept.answers[0]["comment"] is None  # the last vote, for the history
+
+    kept.chats[kept.answers[0]["response"].chat_id]["owner"] = "somebody else"
     assert client.post(url, params={"feedback": "like"}, headers=AUTH).status_code == 404
     assert len(votes) == 4
 
 
 def test_an_answer_without_a_trace_has_no_feedback(client, monkeypatch):
-    async def run(query, chat_id, user):
-        return "answer", [], [], None  # tracing is off
-
-    monkeypatch.setattr(ask, "run", run)
+    monkeypatch.setattr(ask, "_run", answering(span_id=None))  # tracing is off
     assert client.post("/ask/", json={"query": "hi"}, headers=AUTH).json()["ask_query_id"] is None
 
 
-def test_feedback_that_phoenix_does_not_take_is_a_502(client, monkeypatch):
+def test_feedback_that_phoenix_does_not_take_is_a_502(client, monkeypatch, kept):
     def score_feedback(span_id, voter, good, comment=None):
         raise RuntimeError("phoenix is down")
 
     monkeypatch.setattr(ask.tracing, "score_feedback", score_feedback)
-    ask_id = state.remember_ask("u1", "span-1")
+    monkeypatch.setattr(ask, "_run", answering(span_id="span-1"))
+    ask_id = client.post("/ask/", json={"query": "hi"}, headers=AUTH).json()["ask_query_id"]
     assert client.post(f"/ask/{ask_id}/feedback", params={"feedback": "like"}, headers=AUTH).status_code == 502
+    assert kept.answers[0]["feedback"] is None
 
 
 def test_ask_failure_is_a_502(client, monkeypatch):
@@ -163,24 +254,31 @@ def test_ask_failure_is_a_502(client, monkeypatch):
     assert client.post("/ask/", json={"query": "x"}, headers=AUTH).status_code == 502
 
 
-def test_ask_stream_sends_the_work_and_the_final_answer(client, monkeypatch):
-    async def run(query, chat_id, user, events):
+def test_ask_stream_sends_the_work_and_the_final_answer(client, monkeypatch, kept):
+    async def _run(query, chat_id, user, events):
         await events.put(("status", {"text": "checking"}))
         await events.put(("answer", {"text": "ans"}))
-        return "answer", [], [], "span-1"
+        return "answer", [], [], "span-1", "cp-1"
 
-    monkeypatch.setattr(ask, "run", run)
+    monkeypatch.setattr(ask, "_run", _run)
     response = client.post("/ask/stream", json={"query": "hi"}, headers=AUTH)
     assert response.headers["content-type"].startswith("text/event-stream")
     names = [line.removeprefix("event: ") for line in response.text.splitlines() if line.startswith("event: ")]
     assert names == ["status", "answer", "done"]
     assert '"answer": "answer"' in response.text
     done = json.loads(response.text.split("event: done\ndata: ")[1])
-    assert state.asks[done["ask_query_id"]] == ("u1", "span-1")  # the 👍/👎 on it annotates its trace
+    assert kept.asked(done["ask_query_id"]) == ("u1", "span-1")  # the 👍/👎 on it annotates its trace
+    assert kept.checkpoint(done["chat_id"]) == "cp-1"  # kept with the answer: the next question goes on from it
 
 
 def test_ask_stream_runs_through_the_queue(client, monkeypatch):
-    monkeypatch.setattr(ask, "agent", lambda: type("A", (), {"aget_state": lambda self, c: _state()})())
+    class FakeAgent:
+        checkpointer = SimpleNamespace(adelete_thread=lambda thread_id: _state())
+
+        def aget_state(self, config):
+            return _state()
+
+    monkeypatch.setattr(ask, "agent", FakeAgent)
     monkeypatch.setattr(ask, "questions", ask.QuestionQueue(1))
 
     async def stream_agent(inputs, config, context, events):
@@ -222,7 +320,7 @@ def test_stream_agent_shows_what_the_bot_shows(monkeypatch):
 
 
 async def _state():
-    return type("S", (), {"values": {}, "config": {"configurable": {}}})()
+    return type("S", (), {"values": {}, "config": {"configurable": {"checkpoint_id": "cp"}}})()
 
 
 def test_ask_stream_failure_is_an_error_event(client, monkeypatch):
@@ -273,14 +371,19 @@ def test_a_clients_questions_are_answered_one_at_a_time_in_order(monkeypatch):
         log.append(("start", query))
         await asyncio.sleep(0.05)
         log.append(("end", query))
-        return f"a:{query}", [], [], None
+        return f"a:{query}", [], [], None, "cp"
 
     monkeypatch.setattr(ask, "_run", fake)
 
     async def go():
         async with two_users(monkeypatch) as c:
-            post = lambda q, who="good": c.post("/ask/", json={"query": q}, headers={"Authorization": f"Bearer {who}"})  # noqa: E731
-            return await asyncio.gather(post("1"), post("2"), post("3"), post("x", "other"))
+            async def post(q, after, who="good"):
+                # One after another: a question takes its place in the line once its chat is looked up in the database,
+                # so of the ones that come at the same instant either may be first.
+                await asyncio.sleep(after)
+                return await c.post("/ask/", json={"query": q}, headers={"Authorization": f"Bearer {who}"})
+
+            return await asyncio.gather(post("1", 0), post("2", 0.01), post("3", 0.02), post("x", 0.01, "other"))
 
     responses = asyncio.run(go())
     assert [r.status_code for r in responses] == [200] * 4
@@ -290,7 +393,7 @@ def test_a_clients_questions_are_answered_one_at_a_time_in_order(monkeypatch):
     assert not ask._gates and not ask.pending
 
 
-def test_cancel_stops_the_running_and_the_waiting_questions_of_a_chat(monkeypatch):
+def test_cancel_stops_the_running_and_the_waiting_questions_of_a_chat(monkeypatch, kept):
     started = []
 
     async def fake(query, chat_id, user, events=None):
@@ -298,7 +401,7 @@ def test_cancel_stops_the_running_and_the_waiting_questions_of_a_chat(monkeypatc
         await asyncio.Event().wait()
 
     monkeypatch.setattr(ask, "_run", fake)
-    state.chats["c1"] = "u1"
+    kept.chats["c1"] = {"owner": "u1", "title": "1", "checkpoint": None}
 
     async def go():
         async with two_users(monkeypatch) as c:
@@ -315,40 +418,57 @@ def test_cancel_stops_the_running_and_the_waiting_questions_of_a_chat(monkeypatc
     assert cancelled.json()["cancelled"] == 2
     assert [r.status_code for r in asks] == [409, 409]
     assert started == ["1"]  # the second never got its turn
-    assert not ask._gates and not ask.pending
+    assert not ask._gates and not ask.pending and not kept.answers
 
 
-def test_a_cancelled_question_leaves_the_thread_as_it_found_it(monkeypatch):
-    deleted = []
-    checkpoint = {"id": None}
+def test_a_question_goes_on_from_the_last_answer_of_its_chat(monkeypatch, kept):
+    """A question cancelled (or failed, or cut by a restart) halfway leaves its messages in the thread: the next one goes on
+    from the checkpoint kept with the chat's last answer, and before the first answer the thread is cleared."""
+    deleted, configs = [], []
+    hang = {"on": False}
 
     class FakeAgent:
-        checkpointer = SimpleNamespace(delete_thread=deleted.append)
+        async def _delete(thread_id):
+            deleted.append(thread_id)
+
+        checkpointer = SimpleNamespace(adelete_thread=_delete)
 
         async def aget_state(self, config):
-            return SimpleNamespace(values={}, config={"configurable": {"checkpoint_id": checkpoint["id"]}})
+            return SimpleNamespace(values={}, config={"configurable": {"checkpoint_id": f"after:{config['configurable']['thread_id']}"}})
 
-        async def ainvoke(self, *args, **kwargs):
-            await asyncio.Event().wait()
+        async def ainvoke(self, inputs, config, context):
+            configs.append(dict(config["configurable"]))
+            if hang["on"]:
+                await asyncio.Event().wait()
+            return {"messages": [HumanMessage(inputs["messages"][0]["content"]), AIMessage("answer")], "sources": {}}
 
     monkeypatch.setattr(ask, "agent", lambda: FakeAgent())
     monkeypatch.setattr(ask.groups, "scoped_chat_ids", lambda key, telegram_id: set())
     monkeypatch.setattr(ask.groups, "effective_group", lambda key, telegram_id: ask.groups.ALL)
     user = ask.UserTokenData(innohassle_id="u1", email="a@innopolis.university", telegram_id=7)
+    chat_id = kept.start("u1", "q")
 
-    async def cancel_after_start(chat_id):
+    async def cancel_after_start():
         task = asyncio.create_task(ask.run("q", chat_id, user))
-        while chat_id not in ask.pending:
+        while not configs:
             await asyncio.sleep(0.01)
-        await asyncio.sleep(0.05)
         for pending in list(ask.pending[chat_id]):
             pending.cancel()
         with pytest.raises(ask.AskCancelled):
             await task
 
-    asyncio.run(cancel_after_start("fresh"))
-    assert deleted == ["api:fresh"] and "fresh" not in state.resume_from  # no history: nothing to keep
+    hang["on"] = True
+    asyncio.run(cancel_after_start())
+    assert deleted == [f"api:{chat_id}"] and "checkpoint_id" not in configs[0]  # no answer yet: from nothing
+    assert not kept.answers and kept.checkpoint(chat_id) is None
 
-    checkpoint["id"] = "cp-1"
-    asyncio.run(cancel_after_start("old"))
-    assert state.resume_from["old"] == "cp-1"  # the next question forks from the last finished one
+    hang["on"], configs[:] = False, []
+    assert asyncio.run(ask.run("q", chat_id, user)).answer == "answer"
+    assert kept.checkpoint(chat_id) == f"after:api:{chat_id}"  # the thread's latest checkpoint, kept with the answer
+
+    hang["on"], configs[:], deleted[:] = True, [], []
+    asyncio.run(cancel_after_start())
+    hang["on"], configs[:] = False, []
+    asyncio.run(ask.run("q", chat_id, user))
+    assert configs[0]["checkpoint_id"] == f"after:api:{chat_id}" and not deleted  # past the cancelled one
+    assert len(kept.answers) == 2

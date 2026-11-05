@@ -29,6 +29,7 @@ from langchain_core.messages.utils import count_tokens_approximately
 from langchain_core.tools import BaseTool, tool
 from langchain.tools import ToolRuntime
 from langchain_openai import ChatOpenAI
+from langgraph.checkpoint.base import BaseCheckpointSaver
 from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.types import Command
 from pydantic import BaseModel, Field
@@ -944,10 +945,11 @@ def _helper_tool(role: roles.Role, model) -> BaseTool:
     return ask
 
 
-def build_agent(model=None, *, guardrail: bool = True):
+def build_agent(model=None, *, guardrail: bool = True, checkpointer: BaseCheckpointSaver | None = None):
     """The agent: a supervisor whose tools are the helpers (`ask_chats`, `ask_campus`, `ask_docs`). `guardrail=False` leaves out the
     screen in front of it (agent/guardrail.py); only the tests do that, to try the agent's own prompt against attacks that
-    the screen would stop first."""
+    the screen would stop first. The conversations are remembered by `checkpointer`: the API's are in Postgres
+    (api/ask.py `memory`), the bots' and the CLI's in the memory of the process (the default)."""
     model = model or ChatOpenAI(
         base_url=str(settings.llm_route),
         api_key="not-needed",
@@ -989,6 +991,6 @@ def build_agent(model=None, *, guardrail: bool = True):
             ModelCallLimitMiddleware(run_limit=settings.agent_max_model_calls, exit_behavior="end"),
         ],
         context_schema=AgentContext,
-        checkpointer=InMemorySaver(),
+        checkpointer=checkpointer or InMemorySaver(),
         name=SUPERVISOR_NAME,  # Metadata of its model calls says whose text it is (tgbot/stream.py).
     )

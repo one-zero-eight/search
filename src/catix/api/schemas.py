@@ -177,7 +177,25 @@ class AskResponses(BaseModel):
     calendar_events: list[CalendarEventOffer] = []
     "Upcoming events the answer names (an exam, a deadline), offered for the user's calendar: a button each."
     messages: list
-    "Chat history for llm (do not show on frontend)."
+    "Chat history for llm (do not show on frontend). Empty in a chat's history (GET /ask/chats/{chat_id})."
+    feedback: Literal["like", "dislike"] | None = None
+    "The user's 👍 (`like`) or 👎 (`dislike`) on the answer, in a chat's history."
+    feedback_comment: str | None = None
+    "What the user said of the answer with their vote, in a chat's history."
+
+
+class AskChat(BaseModel):
+    chat_id: str
+    title: str
+    "The first question of the chat."
+    created_at: datetime
+    updated_at: datetime
+    "When the last answer was given."
+
+
+class AskChatHistory(AskChat):
+    answers: list[AskResponses]
+    "The questions with their answers, the oldest first, as POST /ask/ gave them, with the user's votes."
 
 
 class ActResponses(BaseModel):

@@ -15,6 +15,7 @@ from catix.api.app import app
 from catix.db import pg
 from catix.innohassle import client as innohassle
 from catix.innohassle import token as innohassle_token
+from tests.test_api import FakeChats
 
 KEY = rsa.generate_private_key(public_exponent=65537, key_size=2048)
 OTHER = rsa.generate_private_key(public_exponent=65537, key_size=2048)
@@ -88,26 +89,30 @@ def test_the_button_under_an_answer_adds_the_event_to_the_account(client, monkey
 
 
 def test_an_answer_offers_its_events_for_the_calendar(client, monkeypatch):
-    async def run(query, chat_id, user):
-        return "Экзамен 20 ноября в 10:00", [], [], None
+    async def _run(query, chat_id, user, events=None):
+        return "Экзамен 20 ноября в 10:00", [], [], None, "cp-1"
 
     event = {"title": "Экзамен", "starts_at": "2026-11-20T10:00:00+03:00", "ends_at": None, "all_day": False, "room": "108", "source_url": None}
-    monkeypatch.setattr(ask, "run", run)
+    kept = FakeChats()
+    monkeypatch.setattr(ask, "chats", kept)
+    monkeypatch.setattr(ask, "_run", _run)
     monkeypatch.setattr(ask.calendar_events, "extract", lambda answer: [event])
     monkeypatch.setattr(personal_calendar, "propose", lambda events: [("p1", e) for e in events])
     monkeypatch.setattr(innohassle_token, "claims", lambda t: {"uid": "u1", "email": "a@innopolis.university"})
     offers = client.post("/ask/", json={"query": "когда экзамен"}, headers={"Authorization": "Bearer x"}).json()["calendar_events"]
     assert [(o["id"], o["title"], o["room"]) for o in offers] == [("p1", "Экзамен", "108")]
+    assert [o.id for o in kept.answers[0]["response"].calendar_events] == ["p1"]  # the chat's history shows them too
 
 
 def test_an_answer_whose_events_cannot_be_read_still_comes(client, monkeypatch):
-    async def run(query, chat_id, user):
-        return "Экзамен 20 ноября", [], [], None
+    async def _run(query, chat_id, user, events=None):
+        return "Экзамен 20 ноября", [], [], None, "cp-1"
 
     def broken(answer):
         raise RuntimeError("the model is down")
 
-    monkeypatch.setattr(ask, "run", run)
+    monkeypatch.setattr(ask, "chats", FakeChats())
+    monkeypatch.setattr(ask, "_run", _run)
     monkeypatch.setattr(ask.calendar_events, "extract", broken)
     monkeypatch.setattr(innohassle_token, "claims", lambda t: {"uid": "u1", "email": "a@innopolis.university"})
     resp = client.post("/ask/", json={"query": "когда экзамен"}, headers={"Authorization": "Bearer x"})
