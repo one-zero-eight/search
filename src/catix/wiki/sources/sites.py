@@ -51,7 +51,6 @@ from datetime import datetime, timedelta, timezone
 from http.cookiejar import CookieJar, DefaultCookiePolicy
 from pathlib import Path
 from typing import Any, cast
-from html import unescape
 from urllib.parse import parse_qs, quote, unquote, urldefrag, urljoin, urlsplit
 from urllib.robotparser import RobotFileParser
 
@@ -680,8 +679,6 @@ LAZY_SOURCES = ("data-original", "data-src", "data-lazy-src")  # where a lazy pi
 SMALL = 64  # pixels: a picture this wide or high is an icon, a pixel of a counter
 VIDEO_SOURCES = ("data-source", "data-src", "data-video-src")  # where a block keeps the video it plays (Bitrix: a div with data-source)
 BANNER = re.compile(r"background-image:\s*(?:-webkit-)?(?:image-set\()?\s*url\(\s*['\"]?([^'\")]+)")  # (a banner: the first address, not the 2x copies)
-VIDEO_BLOCK = re.compile(r"<video\b[^>]*>(.*?)</video\s*>", re.S | re.I)
-LAZY_SOURCE = re.compile(r"<source\b[^>]*?\bdata-src\s*=\s*[\"']?([^\"'\s>]+)", re.I)  # (a <source> the converter shows no visitor: its data-src)
 TILDA_PREVIEW = re.compile(r"^(https://)thb(\.tildacdn\.com/tild[\w-]+)/-/[^/]+/[^/]+/(.+)$")  # (a preview with no original beside it: the file itself)
 HEADINGS = ["h1", "h2", "h3", "h4", "h5", "h6"]
 BLOCKS = ["p", "div", "section", "article", "ul", "ol", "li", "table", "blockquote", "dl", "figure", *HEADINGS]
@@ -708,11 +705,6 @@ def _custom(output: str) -> dict:
     return {"type": "custom", "output": output}
 
 
-def _attributes(ctx: NodeContext) -> dict[str, str]:
-    """The attributes of an element as the page writes them: the converter hands them over with their entities (`&amp;`) as they are."""
-    return {name: unescape(value) for name, value in ctx.attributes().items()}
-
-
 @dataclass
 class _Link:
     """What _Page learns of an open <a> while the converter goes through what is inside it."""
@@ -734,8 +726,7 @@ class _Page:
     def __init__(self, url: str, headings: str | None = None) -> None:
         self.url = url
         self.headings = headings  # Site.headings: a class that names a block a heading
-        self.video_src = ""  # the file of the <video> the converter has read last (its own src or the first <source>)
-        self.lazy_videos: list[str] = []  # data-src of the <source> of each <video> of the page, in order (the converter shows no <source> to a visitor)
+        self.video_src = ""  # the file of the <video> the converter is in: its own src, the first <source> with one, else the first data-src of a <source>
         self.depth = 0  # of the element the converter is in
         self.bare: tuple[str, int] | None = None  # (address, depth of its parent) of the last link that wrapped nothing
         self.links: list[tuple[str, str]] = []  # (url, text), those of a <noscript> and a form too (Tilda's redirect block: 'Redirect to
@@ -747,6 +738,9 @@ class _Page:
         self.depth += 1
         if ctx.tag_name == "a":
             self.open.append(_Link())
+        elif ctx.tag_name == "source" and ctx.parent_tag == "video" and not self.video_src:  # (after visit_video, before the end of the <video>)
+            if lazy := ctx.attributes().get("data-src", "").strip():
+                self.video_src = urljoin(self.url, lazy)
         elif self.open and ctx.tag_name in BLOCKS:
             self.open[-1].block = True
         return CONTINUE
@@ -775,7 +769,7 @@ class _Page:
     def _video(self, ctx: NodeContext) -> str:
         """The link a video or a frame is replaced by (a frame that is not a video, a map, a form, is gone): the words of a frame
         are for a browser that has none."""
-        a = _attributes(ctx)
+        a = ctx.attributes()
         if ctx.tag_name == "iframe":
             return self._watch(video_url(urljoin(self.url, (a.get("src") or a.get("data-src") or "").strip())), a.get("title", ""))
         lazy = a.get("data-src", "").strip()  # (a lazy one)
@@ -783,14 +777,13 @@ class _Page:
         return self._watch(source or None, a.get("title", ""))
 
     def visit_video(self, ctx: NodeContext, src: str | None, *rest) -> dict:
-        lazy = self.lazy_videos.pop(0) if self.lazy_videos else ""
-        self.video_src = src or (urljoin(self.url, lazy) if lazy else "")
+        self.video_src = src or ""  # (its own src or that of its first <source>: a lazy data-src is read in visit_element_start)
         return CONTINUE
 
     def _lead(self, ctx: NodeContext) -> str:
         """What the converter cannot see in a block, written at its start: the video it plays (Tilda: data-videolazy-id; Bitrix: a div with
         data-source) as a link to where it is watched, a banner of a style and the picture of a Tilda block (data-original of a div) as a picture."""
-        a = _attributes(ctx)
+        a = ctx.attributes()
         if a.get("data-videolazy-id") and a.get("data-videolazy-type") in {"youtube", "vimeo"}:
             vid = a["data-videolazy-id"]
             lead = self._watch(f"https://www.youtube.com/watch?v={vid}" if a["data-videolazy-type"] == "youtube" else f"https://vimeo.com/{vid}")
@@ -818,7 +811,7 @@ class _Page:
         if lead:
             rest = output.lstrip()
             output = output[:len(output) - len(rest)] + lead + "\n" + rest
-        if self.headings and re.search(self.headings, _attributes(ctx).get("class", "")):  # (a block the site names a heading)
+        if self.headings and re.search(self.headings, ctx.attributes().get("class", "")):  # (a block the site names a heading)
             result = self.visit_heading(ctx, 2, output)
             if result is not CONTINUE:
                 return result
@@ -856,7 +849,7 @@ class _Page:
         return _custom((" " if link.words[:1].isspace() else "") + out + (" " if link.words[-1:].isspace() else ""))
 
     def visit_image(self, ctx: NodeContext, src: str, alt: str, title: str | None = None) -> dict:
-        attributes = _attributes(ctx)
+        attributes = ctx.attributes()
         if any(attributes.get(k, "").isdigit() and int(attributes[k]) <= SMALL for k in ("width", "height")):
             return _custom("")  # (a pixel, an icon)
         alt = re.sub(r"[\[\]]", "", re.sub(r"\s+", " ", alt or title or "")).strip()
@@ -897,7 +890,6 @@ def convert_page(html: str, url: str, headings: str | None = None) -> tuple[str,
     """(title, markdown lines, links, whether it needs its scripts) of a page; `headings`: Site.headings. A page needs its scripts
     when its <noscript> asks for JavaScript or it has fewer than MIN_WORDS words: the HTML is an empty shell."""
     page = _Page(url, headings)
-    page.lazy_videos = [unescape(found.group(1)) if (found := LAZY_SOURCE.search(block)) else "" for block in VIDEO_BLOCK.findall(html)]
     try:
         result = convert(html, _options(url), visitor=page)
     except ConversionError as e:

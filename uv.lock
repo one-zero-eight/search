@@ -349,7 +349,7 @@ requires-dist = [
     { name = "beautifulsoup4", specifier = ">=4.15" },
     { name = "certifi", specifier = ">=2026.7.22" },
     { name = "fastapi", specifier = ">=0.161.1" },
-    { name = "html-to-markdown", path = "vendor/html_to_markdown-3.20.0-cp311-abi3-manylinux_2_34_x86_64.whl" },
+    { name = "html-to-markdown", path = "vendor/html_to_markdown-3.21.0-cp311-abi3-manylinux_2_34_x86_64.whl" },
     { name = "httpx", specifier = ">=0.28.1" },
     { name = "icalendar", specifier = ">=7.3.0" },
     { name = "langchain", specifier = ">=1.4.5" },
@@ -992,10 +992,10 @@ wheels = [
 
 [[package]]
 name = "html-to-markdown"
-version = "3.20.0"
-source = { path = "vendor/html_to_markdown-3.20.0-cp311-abi3-manylinux_2_34_x86_64.whl" }
+version = "3.21.0"
+source = { path = "vendor/html_to_markdown-3.21.0-cp311-abi3-manylinux_2_34_x86_64.whl" }
 wheels = [
-    { filename = "html_to_markdown-3.20.0-cp311-abi3-manylinux_2_34_x86_64.whl", hash = "sha256:7a05237a5e3097765df2cdb4bc70b078393f5b0608691191c23e92722323723b" },
+    { filename = "html_to_markdown-3.21.0-cp311-abi3-manylinux_2_34_x86_64.whl", hash = "sha256:d6c642ae2fb52081c9f8c309d04e2f5a26edc7534de9cbb25c1b6a3131737c85" },
 ]
 
 [[package]]

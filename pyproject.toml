@@ -34,7 +34,7 @@ dependencies = [
     "telethon>=1.45.0",
     "uvicorn>=0.54.0",
     "websockets>=16.1.1",
-    "html-to-markdown>=3.20.0",
+    "html-to-markdown>=3.21.0",
     "playwright>=1.64.1",
     "markdownify>=1.2.3",
     "libarchive-c>=5.3",
@@ -69,7 +69,7 @@ dev = [
     "sentry-sdk>=2.72.0",
 ]
 
-# 3.20.0 is not on PyPI yet (NodeContext.attributes() is empty in 3.19): the wheel built from the tag's sources (xberg-io/html-to-markdown#969).
-# Drop this table and vendor/ once 3.20.0 is released.
+# 3.21.0 is not on PyPI yet (in 3.20.0 a visitor gets attributes with their entities, `&amp;`, and no <source> of a <video>):
+# the wheel built from main 3ec91d3, "prepare 3.21.0" (xberg-io/html-to-markdown#970). Drop this table and vendor/ once 3.21.0 is released.
 [tool.uv.sources]
-html-to-markdown = { path = "vendor/html_to_markdown-3.20.0-cp311-abi3-manylinux_2_34_x86_64.whl" }
+html-to-markdown = { path = "vendor/html_to_markdown-3.21.0-cp311-abi3-manylinux_2_34_x86_64.whl" }
