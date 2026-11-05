@@ -4,6 +4,8 @@
     POST /search/search/{id}/feedback      likes of the cards           POST /act/   mock (cAtIx has no actions)
     POST /ask/{id}/feedback                👍/👎 on an answer (an annotation on its trace in Phoenix)
     GET  /ask/chats, /ask/chats/{id}       the user's chats with the assistant, to come back to one (kept in Postgres)
+    PATCH /ask/chats/{id}                  the user renames a chat (the model names it by its first question)
+    DELETE /ask/chats/{id}                 the user deletes a chat with the agent's memory of it
     POST /{section}/parse                a request for the wiki's own run (Redis queue)   GET /parse/{id}   where it is
     GET  /users/my-calendar.ics          the user's personal calendar (the events they added under the answers)
     POST /users/my-calendar/events/{id}  the "➕ В мой календарь" button under an answer of /ask/ (its calendar_events)

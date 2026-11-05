@@ -95,6 +95,7 @@ def test_an_answer_offers_its_events_for_the_calendar(client, monkeypatch):
     event = {"title": "Экзамен", "starts_at": "2026-11-20T10:00:00+03:00", "ends_at": None, "all_day": False, "room": "108", "source_url": None}
     kept = FakeChats()
     monkeypatch.setattr(ask, "chats", kept)
+    monkeypatch.setattr(ask.titles, "name", lambda question: None)
     monkeypatch.setattr(ask, "_run", _run)
     monkeypatch.setattr(ask.calendar_events, "extract", lambda answer: [event])
     monkeypatch.setattr(personal_calendar, "propose", lambda events: [("p1", e) for e in events])
@@ -112,6 +113,7 @@ def test_an_answer_whose_events_cannot_be_read_still_comes(client, monkeypatch):
         raise RuntimeError("the model is down")
 
     monkeypatch.setattr(ask, "chats", FakeChats())
+    monkeypatch.setattr(ask.titles, "name", lambda question: None)
     monkeypatch.setattr(ask, "_run", _run)
     monkeypatch.setattr(ask.calendar_events, "extract", broken)
     monkeypatch.setattr(innohassle_token, "claims", lambda t: {"uid": "u1", "email": "a@innopolis.university"})

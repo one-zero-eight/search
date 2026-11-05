@@ -296,6 +296,12 @@ def page_of_resource(resource: str) -> list[WikiHit]:
     return page(path) if path else []
 
 
+def has_resource(resource: str) -> bool:
+    """Whether a page of the wiki is the copy of the original at `resource`."""
+    with pg.connection() as conn:
+        return pg.scalar(conn, "SELECT 1 FROM wiki_pages WHERE resource = %s LIMIT 1", (resource,)) is not None
+
+
 def find_page(name: str) -> str | None:
     """A page by its path ('/raw/regulations/x.md', 'raw/regulations/x') or, failing that, by words of its title."""
     path = "/" + name.strip().lstrip("/")

@@ -2,6 +2,7 @@
 
 import asyncio
 import json
+import time
 from datetime import datetime, timezone
 from types import SimpleNamespace
 
@@ -37,8 +38,25 @@ class FakeChats:
 
     def start(self, innohassle_id: str, question: str) -> str:
         chat_id = state.new_id()
-        self.chats[chat_id] = {"owner": innohassle_id, "title": question, "checkpoint": None, "updated": datetime.now(timezone.utc)}
+        self.chats[chat_id] = {"owner": innohassle_id, "title": question, "title_by": "question", "checkpoint": None,
+                               "updated": datetime.now(timezone.utc)}
         return chat_id
+
+    def needs_title(self, chat_id: str) -> bool:
+        return self.chats.get(chat_id, {}).get("title_by") == "question"
+
+    def rename(self, chat_id: str, innohassle_id: str, title: str) -> AskChat | None:
+        if self.owner(chat_id) != innohassle_id:
+            return None
+        self.chats[chat_id].update(title=title.strip(), title_by="user")
+        return self._chat(chat_id)
+
+    def delete(self, chat_id: str, innohassle_id: str) -> bool:
+        if self.owner(chat_id) != innohassle_id:
+            return False
+        del self.chats[chat_id]
+        self.answers = [a for a in self.answers if a["response"].chat_id != chat_id]
+        return True
 
     def owner(self, chat_id: str) -> str | None:
         return self.chats.get(chat_id, {}).get("owner")
@@ -46,9 +64,12 @@ class FakeChats:
     def checkpoint(self, chat_id: str) -> str | None:
         return self.chats.get(chat_id, {}).get("checkpoint")
 
-    def save_answer(self, response: AskResponses, span_id: str | None, checkpoint: str | None) -> None:
+    def save_answer(self, response: AskResponses, span_id: str | None, checkpoint: str | None, title: str | None = None) -> None:
         self.answers.append({"response": response, "span_id": span_id, "feedback": None, "comment": None})
-        self.chats[response.chat_id].update(checkpoint=checkpoint, updated=datetime.now(timezone.utc))
+        chat = self.chats[response.chat_id]
+        chat.update(checkpoint=checkpoint, updated=datetime.now(timezone.utc))
+        if title and chat["title_by"] == "question":
+            chat.update(title=title, title_by="model")
 
     def _chat(self, chat_id: str) -> AskChat:
         chat = self.chats[chat_id]
@@ -81,6 +102,7 @@ class FakeChats:
 def kept(monkeypatch) -> FakeChats:
     fake = FakeChats()
     monkeypatch.setattr(ask, "chats", fake)
+    monkeypatch.setattr(ask.titles, "name", lambda question: f"Тема: {question}")  # (the model is not asked)
     return fake
 
 
@@ -156,7 +178,7 @@ def test_ask_keeps_a_chat_for_its_owner(client, monkeypatch, kept):
     monkeypatch.setattr(ask, "_run", answering("answer to {query}"))
     first = client.post("/ask/", json={"query": "hi"}, headers=AUTH).json()
     assert first["answer"] == "answer to hi" and first["chat_id"] and first["messages"]
-    assert kept.chats[first["chat_id"]]["title"] == "hi" and kept.checkpoint(first["chat_id"]) == "cp-1"
+    assert kept.chats[first["chat_id"]]["title"] == "Тема: hi" and kept.checkpoint(first["chat_id"]) == "cp-1"
     again = client.post("/ask/", json={"query": "more", "chat_id": first["chat_id"]}, headers=AUTH).json()
     assert again["chat_id"] == first["chat_id"]
     assert [a["response"].answer for a in kept.answers] == ["answer to hi", "answer to more"]
@@ -176,9 +198,9 @@ def test_the_user_comes_back_to_a_chat(client, monkeypatch, kept):
     client.post(f"/ask/{first['ask_query_id']}/feedback", params={"feedback": "like"}, json={"comment": "good"}, headers=AUTH)
 
     listed = client.get("/ask/chats", headers=AUTH).json()
-    assert [(c["chat_id"], c["title"]) for c in listed] == [(other["chat_id"], "other"), (first["chat_id"], "first")]
+    assert [(c["chat_id"], c["title"]) for c in listed] == [(other["chat_id"], "Тема: other"), (first["chat_id"], "Тема: first")]
     history = client.get(f"/ask/chats/{first['chat_id']}", headers=AUTH).json()
-    assert history["title"] == "first"
+    assert history["title"] == "Тема: first"
     assert [(a["query"], a["answer"], a["feedback"], a["feedback_comment"]) for a in history["answers"]] == [
         ("first", "answer to first", "like", "good"),
         ("second", "answer to second", None, None),
@@ -421,6 +443,50 @@ def test_cancel_stops_the_running_and_the_waiting_questions_of_a_chat(monkeypatc
     assert not ask._gates and not ask.pending and not kept.answers
 
 
+def test_a_deleted_chat_goes_with_its_answers_and_the_agents_memory(monkeypatch, kept):
+    """A question of the chat still being answered is cancelled first; one sent with the chat's id afterwards starts a new chat."""
+    started, deleted = [], []
+
+    async def fake(query, chat_id, user, events=None):
+        started.append(query)
+        if query == "hang":
+            await asyncio.Event().wait()
+        return f"a:{query}", [], [], None, "cp"
+
+    async def delete_thread(thread_id):
+        deleted.append(thread_id)
+
+    monkeypatch.setattr(ask, "_run", fake)
+    monkeypatch.setattr(ask, "agent", lambda: SimpleNamespace(checkpointer=SimpleNamespace(adelete_thread=delete_thread)))
+
+    async def go():
+        async with two_users(monkeypatch) as c:
+            h = {"Authorization": "Bearer good"}
+            chat_id = (await c.post("/ask/", json={"query": "first"}, headers=h)).json()["chat_id"]
+            other = (await c.post("/ask/", json={"query": "other"}, headers=h)).json()["chat_id"]
+            hanging = asyncio.create_task(c.post("/ask/", json={"query": "hang", "chat_id": chat_id}, headers=h))
+            while "hang" not in started:
+                await asyncio.sleep(0.01)
+            stranger = await c.delete(f"/ask/chats/{chat_id}", headers={"Authorization": "Bearer other"})
+            deleting = await c.delete(f"/ask/chats/{chat_id}", headers=h)
+            again = await c.delete(f"/ask/chats/{chat_id}", headers=h)
+            listed = (await c.get("/ask/chats", headers=h)).json()
+            history = await c.get(f"/ask/chats/{chat_id}", headers=h)
+            after = (await c.post("/ask/", json={"query": "after", "chat_id": chat_id}, headers=h)).json()
+            return chat_id, other, stranger, deleting, again, await hanging, listed, history, after
+
+    chat_id, other, stranger, deleting, again, hanging, listed, history, after = asyncio.run(go())
+    assert stranger.status_code == 404
+    assert deleting.status_code == 200 and deleting.json() == {"status": "success", "chat_id": chat_id}
+    assert hanging.status_code == 409  # cancelled before the chat went
+    assert again.status_code == 404 and history.status_code == 404
+    assert deleted == [f"api:{chat_id}"]
+    assert [c["chat_id"] for c in listed] == [other]  # the other chat stays
+    assert after["chat_id"] not in (chat_id, other)  # a new chat
+    assert not ask._gates and not ask.pending
+    assert {a["response"].chat_id for a in kept.answers} == {other, after["chat_id"]}
+
+
 def test_a_question_goes_on_from_the_last_answer_of_its_chat(monkeypatch, kept):
     """A question cancelled (or failed, or cut by a restart) halfway leaves its messages in the thread: the next one goes on
     from the checkpoint kept with the chat's last answer, and before the first answer the thread is cleared."""
@@ -472,3 +538,77 @@ def test_a_question_goes_on_from_the_last_answer_of_its_chat(monkeypatch, kept):
     asyncio.run(ask.run("q", chat_id, user))
     assert configs[0]["checkpoint_id"] == f"after:api:{chat_id}" and not deleted  # past the cancelled one
     assert len(kept.answers) == 2
+
+
+# --- the name of a chat ---
+
+
+def test_the_model_names_a_chat_by_its_first_question_and_the_user_renames_it(client, monkeypatch, kept):
+    asked = []
+
+    def name(question):
+        asked.append(question)
+        return f"Тема: {question}"
+
+    monkeypatch.setattr(ask, "_run", answering())
+    monkeypatch.setattr(ask.titles, "name", name)
+    chat_id = client.post("/ask/", json={"query": "когда пересдача"}, headers=AUTH).json()["chat_id"]
+    client.post("/ask/", json={"query": "а по физике", "chat_id": chat_id}, headers=AUTH)
+    assert asked == ["когда пересдача"] and kept.chats[chat_id]["title"] == "Тема: когда пересдача"  # named once
+
+    url = f"/ask/chats/{chat_id}"
+    renamed = client.patch(url, json={"title": "  Пересдачи  "}, headers=AUTH)
+    assert renamed.status_code == 200 and renamed.json()["title"] == "Пересдачи"
+    assert client.get("/ask/chats", headers=AUTH).json()[0]["title"] == "Пересдачи"
+    assert client.patch(url, json={"title": " "}, headers=AUTH).status_code == 422
+    assert client.patch(url, json={"title": "x" * (chats.TITLE_MAX + 1)}, headers=AUTH).status_code == 422
+    assert client.patch("/ask/chats/nope", json={"title": "x"}, headers=AUTH).status_code == 404
+    kept.chats[chat_id]["owner"] = "somebody else"
+    assert client.patch(url, json={"title": "mine"}, headers=AUTH).status_code == 404
+
+
+def test_a_chat_the_model_could_not_name_keeps_its_question_and_is_named_by_the_next(client, monkeypatch, kept):
+    def broken(question):
+        raise RuntimeError("the model is down")
+
+    monkeypatch.setattr(ask, "_run", answering())
+    monkeypatch.setattr(ask.titles, "name", broken)
+    chat_id = client.post("/ask/", json={"query": "когда пересдача"}, headers=AUTH).json()["chat_id"]
+    assert kept.chats[chat_id]["title"] == "когда пересдача"  # the answer came all the same
+    monkeypatch.setattr(ask.titles, "name", lambda question: f"Тема: {question}")
+    client.post("/ask/", json={"query": "а по физике", "chat_id": chat_id}, headers=AUTH)
+    assert kept.chats[chat_id]["title"] == "Тема: а по физике"
+
+
+def test_the_answer_does_not_wait_long_for_the_name(monkeypatch, kept):
+    monkeypatch.setattr(ask, "_run", answering())
+    monkeypatch.setattr(ask, "TITLE_WAIT", 0.05)
+    monkeypatch.setattr(ask.titles, "name", lambda question: time.sleep(0.5) or "late")
+    user = ask.UserTokenData(innohassle_id="u1", email="a@innopolis.university", telegram_id=7)
+    chat_id = kept.start("u1", "q")
+
+    async def answer() -> float:
+        started = time.monotonic()
+        await ask.run("q", chat_id, user)
+        return time.monotonic() - started
+
+    assert asyncio.run(answer()) < 0.4 and kept.chats[chat_id]["title"] == "q"  # named by the next question
+
+
+def test_a_user_name_is_never_replaced_by_the_model(client, monkeypatch, kept):
+    monkeypatch.setattr(ask, "_run", answering())
+    chat_id = kept.start("u1", "q")
+    client.patch(f"/ask/chats/{chat_id}", json={"title": "Моё"}, headers=AUTH)
+    client.post("/ask/", json={"query": "q", "chat_id": chat_id}, headers=AUTH)
+    assert kept.chats[chat_id]["title"] == "Моё"
+
+
+@pytest.mark.parametrize(("reply", "name"), [
+    ("Пересдача по матанализу", "Пересдача по матанализу"),
+    ('"Retake of Calculus."\n', "Retake of Calculus"),
+    ("«Запись на спорт»\nВот название", "Запись на спорт"),
+    ("Название: Общежитие", "Общежитие"),
+    ("  \n", None),
+])
+def test_the_name_is_the_first_line_without_quotes(reply, name):
+    assert ask.titles.clean(reply) == name

@@ -1,6 +1,7 @@
 """The conversations of the site's assistant (POST /ask/) in Postgres, tables api_chats and api_answers (db/schema.sql): whose
-each chat is, its answers as the client got them with the user's 👍/👎, and the checkpoint the agent's thread of the chat
-goes on from. The agent's thread itself is in LangGraph's tables (AsyncPostgresSaver, api/ask.py `memory`).
+each chat is and its name, its answers as the client got them with the user's 👍/👎, and the checkpoint the agent's thread
+of the chat goes on from. A chat is named by its first question until the model names it (agent/titles.py) or the user
+renames it; the model never replaces the user's name. The agent's thread itself is in LangGraph's tables (AsyncPostgresSaver, api/ask.py `memory`).
 
 The functions block: the API calls them with asyncio.to_thread.
 """
@@ -43,9 +44,16 @@ def checkpoint(chat_id: str) -> str | None:
         return pg.scalar(conn, "SELECT checkpoint FROM api_chats WHERE chat_id = %s", (chat_id,))
 
 
-def save_answer(response: AskResponses, span_id: str | None, checkpoint: str | None) -> None:
+def needs_title(chat_id: str) -> bool:
+    """Whether the chat is still named by its first question: neither the model nor the user has named it."""
+    with pg.connection() as conn:
+        return bool(pg.scalar(conn, "SELECT title_by = 'question' FROM api_chats WHERE chat_id = %s", (chat_id,)))
+
+
+def save_answer(response: AskResponses, span_id: str | None, checkpoint: str | None, title: str | None = None) -> None:
     """Keep an answer in its chat (`response.chat_id`), with the root span of its trace (what a vote annotates) and the
-    checkpoint of the agent's thread after it, which the next question goes on from."""
+    checkpoint of the agent's thread after it, which the next question goes on from. `title` is the model's name of the
+    chat: it is taken only while the chat is named by its question."""
     kept = response.model_dump(mode="json", exclude={"messages", "feedback", "feedback_comment"})
     with pg.connection() as conn:
         conn.execute(
@@ -53,6 +61,29 @@ def save_answer(response: AskResponses, span_id: str | None, checkpoint: str | N
             (response.chat_id, response.ask_query_id, span_id, Jsonb(kept)),
         )
         conn.execute("UPDATE api_chats SET checkpoint = %s, updated_at = now() WHERE chat_id = %s", (checkpoint, response.chat_id))
+        if title:
+            conn.execute(
+                "UPDATE api_chats SET title = %s, title_by = 'model' WHERE chat_id = %s AND title_by = 'question'",
+                (title[:TITLE_MAX], response.chat_id),
+            )
+
+
+def rename(chat_id: str, innohassle_id: str, title: str) -> AskChat | None:
+    """The user's name of their chat, which the model does not replace; None when the chat is not theirs."""
+    with pg.connection() as conn:
+        row = conn.execute(
+            """UPDATE api_chats SET title = %s, title_by = 'user' WHERE chat_id = %s AND innohassle_id = %s
+               RETURNING chat_id, title, created_at, updated_at""",
+            (title.strip()[:TITLE_MAX], chat_id, innohassle_id),
+        ).fetchone()
+    return None if row is None else AskChat(**row)
+
+
+def delete(chat_id: str, innohassle_id: str) -> bool:
+    """The user's chat goes with its answers and their votes (ON DELETE CASCADE); False when the chat is not theirs. The
+    agent's thread of it is the caller's to delete (api/ask.py `delete_chat`)."""
+    with pg.connection() as conn:
+        return conn.execute("DELETE FROM api_chats WHERE chat_id = %s AND innohassle_id = %s", (chat_id, innohassle_id)).rowcount > 0
 
 
 def of_user(innohassle_id: str) -> list[AskChat]:

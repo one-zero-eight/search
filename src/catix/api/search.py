@@ -6,9 +6,10 @@ import logging
 import re
 import time
 from typing import Literal
-from urllib.parse import urlsplit
+from urllib.parse import quote, unquote, urljoin, urlsplit
 
-from fastapi import APIRouter, HTTPException, Query
+import httpx
+from fastapi import APIRouter, HTTPException, Query, Response
 
 from catix.agent import tracing
 from catix.api import state
@@ -125,6 +126,77 @@ async def page_by_url(_auth: VerifiedDep, url: str) -> PageText:
     if not hits:
         raise HTTPException(status_code=404, detail="Page not found")
     return PageText(title=hits[0].title, url=url, text=join_pieces([hit.text for hit in hits]))
+
+
+PDF_MAX_BYTES = 25_000_000  # the wiki reads no bigger document either (wiki/sources/regulations.MAX_BYTES)
+PDF_TIMEOUT = 60  # seconds for the whole download
+PDF_REDIRECTS = 5
+PDF_HEADERS = {"User-Agent": "catix-api/0.1 (Innopolis University assistant; document preview)"}
+
+
+def pdf_http() -> httpx.AsyncClient:
+    return httpx.AsyncClient(headers=PDF_HEADERS, timeout=PDF_TIMEOUT, follow_redirects=False)
+
+
+def same_site(url: str, original: str) -> bool:
+    """A redirect of a document may lead to another host of the same site (www., files.), not anywhere else."""
+    parts = urlsplit(url)
+    host, base = (parts.hostname or "").lower(), ".".join((original or "").lower().split(".")[-2:])
+    return (parts.scheme in {"http", "https"} and parts.port is None and not parts.username and not parts.password
+            and "." in base and (host == base or host.endswith("." + base)))
+
+
+async def download_pdf(url: str) -> bytes:
+    """The PDF at `url`, redirects followed on its own site; 502 if the site gives no PDF (a login page, an error)."""
+    original = urlsplit(url).hostname or ""
+    async with asyncio.timeout(PDF_TIMEOUT), pdf_http() as http:
+        for _ in range(PDF_REDIRECTS + 1):
+            if not same_site(url, original):
+                raise HTTPException(status_code=502, detail="The document moved off its site")
+            async with http.stream("GET", url) as response:
+                if response.is_redirect:
+                    url = urljoin(url, response.headers.get("location", ""))
+                    continue
+                if response.status_code != 200:
+                    raise HTTPException(status_code=502, detail=f"The site answered {response.status_code}")
+                declared = response.headers.get("content-length", "")
+                if declared.isdigit() and int(declared) > PDF_MAX_BYTES:
+                    raise HTTPException(status_code=502, detail="The document is too big")
+                body = bytearray()
+                async for chunk in response.aiter_bytes():
+                    body += chunk
+                    if len(body) > PDF_MAX_BYTES:
+                        raise HTTPException(status_code=502, detail="The document is too big")
+                if b"%PDF-" not in body[:1024]:
+                    raise HTTPException(status_code=502, detail="The site gave no PDF")
+                return bytes(body)
+    raise HTTPException(status_code=502, detail="Too many redirects")
+
+
+@router.get("/pdf", response_class=Response, responses={
+    200: {"description": "The PDF", "content": {"application/pdf": {}}},
+    404: {"description": "The knowledge base has no page of this document"},
+    502: {"description": "The site gave no PDF"},
+    504: {"description": "The site did not answer in time"},
+})
+async def pdf_by_url(_auth: VerifiedDep, url: str) -> Response:
+    """The original PDF of a page of the knowledge base, for a preview in a frame: the university's sites forbid showing
+    their files in a frame of another site (X-Frame-Options: SAMEORIGIN), this answer does not. Only documents the
+    knowledge base has a page of: not a proxy to anywhere."""
+    if not await asyncio.to_thread(wiki_store.has_resource, url):
+        raise HTTPException(status_code=404, detail="Document not found")
+    try:
+        body = await download_pdf(url)
+    except TimeoutError:
+        raise HTTPException(status_code=504, detail="The site did not answer in time") from None
+    except httpx.HTTPError as error:
+        log.warning("pdf %s: %r", url, error)
+        raise HTTPException(status_code=502, detail="The site did not answer") from None
+    name = unquote(urlsplit(url).path.rsplit("/", 1)[-1]) or "document.pdf"
+    return Response(body, media_type="application/pdf", headers={
+        "Content-Disposition": f"inline; filename*=UTF-8''{quote(name)}",
+        "Cache-Control": "private, max-age=3600",
+    })
 
 
 @router.post("/search/{search_query_id}/feedback")

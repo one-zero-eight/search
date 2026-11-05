@@ -36,6 +36,21 @@ def answer(chat_id: str, text: str, ask_query_id: str | None = None) -> AskRespo
     return AskResponses(query=f"q:{text}", answer=text, chat_id=chat_id, ask_query_id=ask_query_id, search_responses=[], messages=[{"a": 1}])
 
 
+def test_a_chat_is_named_by_the_model_until_the_user_renames_it(owner):
+    chat_id = chats.start(owner, "когда пересдача")
+    assert chats.needs_title(chat_id) and not chats.needs_title("nope")
+    chats.save_answer(answer(chat_id, "first"), None, "cp-1", title="Пересдачи")
+    assert chats.history(chat_id, owner).title == "Пересдачи" and not chats.needs_title(chat_id)  # type: ignore[union-attr]
+    chats.save_answer(answer(chat_id, "second"), None, "cp-2", title="Другое")  # named already: kept
+    assert chats.history(chat_id, owner).title == "Пересдачи"  # type: ignore[union-attr]
+
+    assert chats.rename(chat_id, "somebody else", "чужое") is None
+    renamed = chats.rename(chat_id, owner, "  Мои пересдачи ")
+    assert renamed is not None and renamed.title == "Мои пересдачи"
+    chats.save_answer(answer(chat_id, "third"), None, "cp-3", title="Модель")
+    assert chats.of_user(owner)[0].title == "Мои пересдачи"
+
+
 def test_a_chat_keeps_its_answers_and_votes(owner):
     chat_id = chats.start(owner, "  Когда пересдача?  ")
     empty = chats.start(owner, "no answer yet")
@@ -63,12 +78,29 @@ def test_a_chat_keeps_its_answers_and_votes(owner):
     assert [c.chat_id for c in chats.of_user(owner)] == [empty, chat_id]  # the last answered first
 
 
+def test_a_deleted_chat_goes_with_its_answers(owner):
+    chat_id = chats.start(owner, "удалить")
+    kept = chats.start(owner, "оставить")
+    chats.save_answer(answer(chat_id, "first", ask_query_id=f"{chat_id}-1"), "span-1", "cp-1")
+    chats.save_answer(answer(kept, "kept"), None, "cp-2")
+    chats.vote(f"{chat_id}-1", "like", None)
+
+    assert not chats.delete(chat_id, "somebody else") and chats.owner(chat_id) == owner
+    assert chats.delete(chat_id, owner)
+    assert chats.owner(chat_id) is None and chats.history(chat_id, owner) is None and chats.asked(f"{chat_id}-1") is None
+    with pg.connection() as conn:
+        assert pg.scalar(conn, "SELECT count(*) FROM api_answers WHERE chat_id = %s", (chat_id,)) == 0
+    assert [c.chat_id for c in chats.of_user(owner)] == [kept]
+    assert not chats.delete(chat_id, owner)  # gone already
+
+
 def test_the_agent_remembers_a_chat_after_a_restart(owner, monkeypatch):
     script = [_ask("ask_chats", "вопрос"), AIMessage("Отчёт помощника."), AIMessage("Ответ.")]  # each question: helper, report, answer
     monkeypatch.setattr(ask, "build_agent", lambda checkpointer: build_agent(ScriptedModel(responses=script), guardrail=False,
                                                                             checkpointer=checkpointer))
     monkeypatch.setattr(ask.groups, "scoped_chat_ids", lambda key, telegram_id: set())
     monkeypatch.setattr(ask.groups, "effective_group", lambda key, telegram_id: ask.groups.ALL)
+    monkeypatch.setattr(ask.titles, "name", lambda question: "Вопросы")
     user = UserTokenData(innohassle_id=owner, email="a@innopolis.university", telegram_id=None)
     chat_id = chats.start(owner, "первый вопрос")
 
@@ -82,3 +114,4 @@ def test_the_agent_remembers_a_chat_after_a_restart(owner, monkeypatch):
     assert asyncio.run(ask_once("второй вопрос")) == ["первый вопрос", "второй вопрос"]
     history = chats.history(chat_id, owner)
     assert history is not None and [a.query for a in history.answers] == ["первый вопрос", "второй вопрос"]
+    assert history.title == "Вопросы"

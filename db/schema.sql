@@ -217,13 +217,17 @@ CREATE TABLE IF NOT EXISTS calendar_proposals (
 CREATE TABLE IF NOT EXISTS api_chats (
     chat_id       text PRIMARY KEY,
     innohassle_id text NOT NULL,                     -- the owner
-    title         text NOT NULL,                     -- the first question
+    title         text NOT NULL,                     -- the first question, then what the model or the user named it
+    title_by      text NOT NULL DEFAULT 'question' CHECK (title_by IN ('question', 'model', 'user')),
     checkpoint    text,                              -- the agent's thread after the last answer: the next question goes on
                                                      -- from it, so one cancelled or failed halfway leaves nothing behind
     created_at    timestamptz NOT NULL DEFAULT now(),
     updated_at    timestamptz NOT NULL DEFAULT now() -- of the last answer
 );
 CREATE INDEX IF NOT EXISTS api_chats_owner_idx ON api_chats (innohassle_id, updated_at DESC);
+-- (tables created before this column existed; a name the user gave is never replaced by the model's)
+ALTER TABLE api_chats ADD COLUMN IF NOT EXISTS title_by text NOT NULL DEFAULT 'question'
+    CHECK (title_by IN ('question', 'model', 'user'));
 CREATE TABLE IF NOT EXISTS api_answers (
     id           bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     chat_id      text NOT NULL REFERENCES api_chats (chat_id) ON DELETE CASCADE,

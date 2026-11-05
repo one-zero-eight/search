@@ -1,7 +1,8 @@
 """POST /ask/: a question to the cAtIx agent (the one the Telegram and Max bots use), with a conversation by `chat_id`. The chats
 are kept in Postgres: the agent's memory of each (LangGraph's AsyncPostgresSaver) and the answers as the client got them
 (api/chats.py), so that the user comes back to a chat (GET /ask/chats, GET /ask/chats/{chat_id}) and goes on with it, after a
-restart as well.
+restart as well. The model names a chat by its first question while the agent answers it (agent/titles.py); the user
+renames it with PATCH /ask/chats/{chat_id} and deletes it with DELETE /ask/chats/{chat_id}.
 An answer that names upcoming events offers them for the user's calendar (`calendar_events`), as the "➕ В мой календарь"
 buttons under the bot's answers; POST /users/my-calendar/events/{id} adds one (api/users.py).
 POST /ask/{ask_query_id}/feedback: a 👍/👎 on an answer with an optional comment, an annotation on its trace in Phoenix as under
@@ -27,7 +28,7 @@ from psycopg_pool import AsyncConnectionPool
 
 from catix import groups, personal_calendar
 from catix.agent import events as calendar_events
-from catix.agent import tracing
+from catix.agent import titles, tracing
 from catix.agent.core import SUPERVISOR_NAME, build_agent, final_answer
 from catix.agent.questions import QuestionQueue
 from catix.agent.tools import AgentContext
@@ -43,6 +44,7 @@ from catix.tgbot.stream import partial_text
 log = logging.getLogger("catix.api")
 router = APIRouter(prefix="", tags=["Ask"])
 
+TITLE_WAIT = 5  # seconds the answer waits for the model's name of the chat once it is ready itself
 NOT_BLANK = r"\S"  # a question has at least one non-space character
 COMMENT_MAX = 2000  # characters in a comment on an answer, as in the site's text box
 ACT_UNAVAILABLE = "Действия в сервисах InNoHassle пока недоступны. Я могу ответить на вопрос об университете: задайте его через /ask/."
@@ -203,9 +205,25 @@ async def run(query: str, chat_id: str, user: UserTokenData, events: asyncio.Que
         raise
 
 
+async def chat_title(question: str) -> str | None:
+    """The model's name of a chat that starts with the question. A bonus: when it fails, the chat keeps the question."""
+    try:
+        return await asyncio.to_thread(titles.name, question)
+    except Exception:  # noqa: BLE001 - the answer does not need it
+        log.exception("could not name the chat")
+        return None
+
+
 async def _in_line(query: str, chat_id: str, user: UserTokenData, events: asyncio.Queue | None = None) -> AskResponses:
     async with one_at_a_time(user.innohassle_id):
-        answer, cards, messages, span_id, checkpoint = await _run(query, chat_id, user, events)
+        # A chat not named yet is named while the agent answers: the answer does not wait for it.
+        naming = asyncio.ensure_future(chat_title(query)) if await asyncio.to_thread(chats.needs_title, chat_id) else None
+        try:
+            answer, cards, messages, span_id, checkpoint = await _run(query, chat_id, user, events)
+        except BaseException:
+            if naming is not None:
+                naming.cancel()  # The question is not kept: the next one names the chat.
+            raise
         response = AskResponses(
             query=query,
             answer=answer,
@@ -217,8 +235,13 @@ async def _in_line(query: str, chat_id: str, user: UserTokenData, events: asynci
             calendar_events=await calendar_offers(answer),
             messages=messages,
         )
+        title = None
+        if naming is not None:  # Ready by now as a rule: the agent takes longer. The answer waits for it only so long.
+            done, _ = await asyncio.wait({naming}, timeout=TITLE_WAIT)
+            title = naming.result() if done else None
+            naming.cancel()
         # Kept before the client's next question starts: it goes on from the checkpoint kept with this answer.
-        await asyncio.to_thread(chats.save_answer, response, span_id, checkpoint)
+        await asyncio.to_thread(chats.save_answer, response, span_id, checkpoint, title)
         return response
 
 
@@ -361,10 +384,15 @@ async def cancel_ask(user: VerifiedDep, chat_id: str):
     the cancelled questions; the answers already given stay in it."""
     if await asyncio.to_thread(chats.owner, chat_id) != user.innohassle_id:
         raise HTTPException(status_code=404, detail="Chat not found or user has no access to it")
+    return {"status": "success", "chat_id": chat_id, "cancelled": len(cancel_pending(chat_id))}
+
+
+def cancel_pending(chat_id: str) -> list[asyncio.Task]:
+    """Cancel the questions of the chat that are running or waiting for their turn; the tasks cancelled."""
     tasks = [task for task in pending.get(chat_id, ()) if not task.done()]
     for task in tasks:
         task.cancel()
-    return {"status": "success", "chat_id": chat_id, "cancelled": len(tasks)}
+    return tasks
 
 
 @router.post(
@@ -416,6 +444,42 @@ async def chat_history(user: VerifiedDep, chat_id: str) -> AskChatHistory:
     if found is None:
         raise HTTPException(status_code=404, detail="Chat not found or user has no access to it")
     return found
+
+
+@router.patch(
+    "/ask/chats/{chat_id}",
+    responses={200: {"description": "Success"}, 404: {"description": "Chat not found or user has no access to it"}},
+)
+async def rename_chat(
+    user: VerifiedDep,
+    chat_id: str,
+    title: str = Body(..., embed=True, pattern=NOT_BLANK, max_length=chats.TITLE_MAX),
+) -> AskChat:
+    """The user's name of their chat, in place of the one the model gave it (or its first question). The model does not
+    name the chat again after that."""
+    renamed = await asyncio.to_thread(chats.rename, chat_id, user.innohassle_id, title)
+    if renamed is None:
+        raise HTTPException(status_code=404, detail="Chat not found or user has no access to it")
+    return renamed
+
+
+@router.delete(
+    "/ask/chats/{chat_id}",
+    responses={200: {"description": "Success"}, 404: {"description": "Chat not found or user has no access to it"}},
+)
+async def delete_chat(user: VerifiedDep, chat_id: str):
+    """Delete a chat of the user: its questions and answers with the user's votes, and the agent's memory of it. A question
+    of the chat being answered or waiting for its turn is cancelled first (its request ends as by POST /ask/{chat_id}/cancel).
+    A question sent with this `chat_id` afterwards starts a new chat. The answers' traces stay in Phoenix, and the events
+    the user added to their calendar stay there."""
+    if await asyncio.to_thread(chats.owner, chat_id) != user.innohassle_id:
+        raise HTTPException(status_code=404, detail="Chat not found or user has no access to it")
+    if tasks := cancel_pending(chat_id):
+        await asyncio.wait(tasks)  # They stop before the chat goes: none of them writes to the agent's thread after it.
+    if not await asyncio.to_thread(chats.delete, chat_id, user.innohassle_id):
+        raise HTTPException(status_code=404, detail="Chat not found or user has no access to it")  # (deleted meanwhile)
+    await agent().checkpointer.adelete_thread(chats.thread_of(chat_id))
+    return {"status": "success", "chat_id": chat_id}
 
 
 @router.post(
