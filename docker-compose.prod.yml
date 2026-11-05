@@ -1,22 +1,27 @@
 # Production / beta: everything cAtIx needs in one place.
-#   docker compose -f docker-compose.prod.yml up -d --build            db, redis, schema, wiki, tgbot, maxbot, worker
+#   docker compose -f docker-compose.prod.yml up -d --build            db, redis, schema, wiki, tgbot, worker, api, phoenix
 #   docker compose -f docker-compose.prod.yml --profile userbot up -d   + the Telegram userbot (after its login, see DEPLOY.md)
+#   docker compose -f docker-compose.prod.yml --profile maxbot up -d    + the Max bot
 #   docker compose -f docker-compose.prod.yml --profile tunnel up -d    + an SSH tunnel to the GPU server (see DEPLOY.md)
-#   docker compose -f docker-compose.prod.yml --profile phoenix up -d   + Phoenix, the trace viewer (see DEPLOY.md)
 # Own project name and volumes: it does not touch the development docker-compose.yml (project `ctx`).
 name: catix-prod
+
+# The services find each other by name; these override the development values in .env (localhost there is the container
+# itself: PHOENIX_ENDPOINT=http://localhost:6006 from .env.example sent no trace). The password is not in the URL (libpq
+# reads PGPASSWORD): a password with / @ : # ? would break the URL ('failed to resolve host'). A service with an
+# `environment` of its own merges these into it: its own replaces the whole block.
+x-env: &env
+  DATABASE_URL: postgresql://ctx@db:5432/ctx
+  PGPASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+  REDIS_URL: redis://redis:6379/0
+  PHOENIX_ENDPOINT: http://phoenix:6006
 
 x-app: &app
   build: .
   image: catix:latest
   restart: unless-stopped
   env_file: .env
-  environment:
-    # The services find each other by name; these override the development values in .env. The password is not in the URL
-    # (libpq reads PGPASSWORD): a password with / @ : # ? would break the URL ('failed to resolve host').
-    DATABASE_URL: postgresql://ctx@db:5432/ctx
-    PGPASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
-    REDIS_URL: redis://redis:6379/0
+  environment: *env
   volumes:
     - catix_data:/app/data
   extra_hosts:
@@ -27,6 +32,7 @@ x-app: &app
   depends_on:
     migrate: { condition: service_completed_successfully }
     redis: { condition: service_healthy }
+    phoenix: { condition: service_started }
 
 services:
   db:
@@ -76,8 +82,7 @@ services:
     restart: "no"
     command: ["catix-wiki", "index", "--no-embed"]
     environment:
-      DATABASE_URL: postgresql://ctx@db:5432/ctx
-      PGPASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      <<: *env
       WIKI_ROOT: /wiki-data
     volumes:
       - ${WIKI_DIR:-../catix-wiki}:/wiki-data:ro
@@ -95,9 +100,7 @@ services:
     <<: *app
     command: ["catix-worker"]
     environment: # (it imports the wiki's code, which needs WIKI_ROOT; it reads no file of it)
-      DATABASE_URL: postgresql://ctx@db:5432/ctx
-      PGPASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
-      REDIS_URL: redis://redis:6379/0
+      <<: *env
       FEED_HOST: 0.0.0.0
       WIKI_ROOT: /wiki-data
     volumes:
@@ -112,9 +115,7 @@ services:
     <<: *app
     command: ["catix-api"]
     environment:
-      DATABASE_URL: postgresql://ctx@db:5432/ctx
-      PGPASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
-      REDIS_URL: redis://redis:6379/0
+      <<: *env
       API_HOST: 0.0.0.0
       WIKI_ROOT: /wiki-data # read-only: POST /{section}/parse queues a request in Redis, the wiki's own run serves and commits it
     volumes:
@@ -129,11 +130,10 @@ services:
     profiles: ["userbot"]
     command: ["catix-tguserbot", "listen"]
 
-  # Trace viewer: the agent's questions, model calls, tools and search steps, and the users' 👍/👎. Then in .env:
-  #   PHOENIX_ENDPOINT=http://phoenix:6006
+  # Trace viewer: the agent's questions, model calls, tools and search steps, and the users' 👍/👎 (they are annotations
+  # on the traces: without Phoenix they are lost). Always on; the apps send to it at PHOENIX_ENDPOINT (x-env above).
   # Its UI has no login: it listens on the server's localhost only and is opened through an SSH tunnel (DEPLOY.md).
   phoenix:
-    profiles: ["phoenix"]
     image: arizephoenix/phoenix:version-20.23.0   # the same version as docker-compose.yml: the UI and the API change between versions
     restart: unless-stopped
     environment:

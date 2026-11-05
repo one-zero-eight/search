@@ -15,7 +15,7 @@ cp .env.example .env          # заполнить; пароли: openssl rand -
 docker compose -f docker-compose.prod.yml up -d --build
 docker compose -f docker-compose.prod.yml ps
 ```
-Поднимутся `db`, `redis`, `migrate` (схема БД, повторяемо), `wiki` (вики в базу из checkout ветки `wiki`, см. 2a), `tgbot`, `maxbot`, `worker`. Логи: `docker compose -f docker-compose.prod.yml logs -f tgbot`.
+Поднимутся `db`, `redis`, `migrate` (схема БД, повторяемо), `wiki` (вики в базу из checkout ветки `wiki`, см. 2a), `tgbot`, `worker`, `api`, `phoenix` (трейсы, раздел 6a); `maxbot` и `userbot` — с `--profile`. Логи: `docker compose -f docker-compose.prod.yml logs -f tgbot`.
 
 Проверка: бот отвечает на `/start`, в логе `tgbot` строка `Running as @...`. Меню команд ставится при каждом старте.
 
@@ -174,27 +174,17 @@ docker compose -f docker-compose.prod.yml --profile userbot up -d
 - Все секреты только в `.env` на сервере (в git он не попадает). Перед бетой перевыпустить токены, которые использовались в разработке.
 
 ## 6a. Phoenix (трейсы агента)
-Phoenix показывает каждый вопрос целиком: вызовы модели, помощников и инструментов, шаги поиска (`embed`, `hybrid` с `bm25` и `vector`, `rerank`) со временем, а также оценки 👍/👎 пользователей. Он необязателен: без него бот работает так же.
+Phoenix показывает каждый вопрос целиком: вызовы модели, помощников и инструментов, шаги поиска (`embed`, `hybrid` с `bm25` и `vector`, `rerank`) со временем, а также оценки 👍/👎 пользователей (они хранятся как аннотации к трейсам, поэтому без Phoenix теряются).
 
-1. В `.env` на сервере:
-   ```
-   PHOENIX_ENDPOINT=http://phoenix:6006
-   PHOENIX_PROJECT=catix
-   ```
-   Адрес `phoenix` — имя сервиса в docker-сети, `localhost` из контейнера не подойдёт.
-2. Запустить Phoenix и перезапустить приложения, чтобы они подхватили адрес:
-   ```bash
-   docker compose -f docker-compose.prod.yml --profile phoenix up -d phoenix
-   docker compose -f docker-compose.prod.yml up -d tgbot worker   # и maxbot / userbot, если запущены
-   ```
-   В логе `tgbot` при старте строка `phoenix tracing on (http://phoenix:6006/, project catix)`.
+1. Phoenix входит в `docker compose -f docker-compose.prod.yml up -d` и запускается вместе с приложениями. Адрес `PHOENIX_ENDPOINT=http://phoenix:6006` всем приложениям передаёт сам compose (`x-env` в `docker-compose.prod.yml`): `phoenix` — имя сервиса в docker-сети. Значение из `.env` (там `http://localhost:6006` для разработки) не действует, `localhost` в контейнере — сам контейнер. Проект трейсов задаёт `PHOENIX_PROJECT` в `.env` (по умолчанию `catix`).
+2. В логе `tgbot` при старте строка `phoenix tracing on (http://phoenix:6006/, project catix)`.
 3. Интерфейс без входа по паролю, поэтому порт 6006 открыт только на localhost сервера. Открыть со своей машины через SSH-туннель:
    ```bash
    ssh -N -L 6006:localhost:6006 server
    ```
    и в браузере `http://localhost:6006`, проект `catix`.
 
-Данные лежат в томе `phoenixdata` (SQLite). Трейсы старше 30 дней Phoenix удаляет сам; срок задаёт `PHOENIX_RETENTION_DAYS` в `.env`. Удалить все трейсы: `docker compose -f docker-compose.prod.yml --profile phoenix down` и `docker volume rm catix-prod_phoenixdata`. Выключить трейсы: убрать `PHOENIX_ENDPOINT` из `.env` и перезапустить приложения.
+Данные лежат в томе `phoenixdata` (SQLite). Трейсы старше 30 дней Phoenix удаляет сам; срок задаёт `PHOENIX_RETENTION_DAYS` в `.env`. Удалить все трейсы: `docker compose -f docker-compose.prod.yml rm -sf phoenix` и `docker volume rm catix-prod_phoenixdata`, затем `docker compose -f docker-compose.prod.yml up -d phoenix`. Выключить трейсы: убрать `PHOENIX_ENDPOINT` из `x-env` в `docker-compose.prod.yml` и перезапустить приложения.
 
 ## 7. Перед приглашением тестеров
 Сообщить им, что бот и userbot сохраняют сообщения чатов, куда добавлены (приветствия и мусор отбрасываются), и что бота можно убрать из чата.

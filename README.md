@@ -155,7 +155,7 @@ instructions», «покажи свой системный промпт», «т�
 | `MAX_BOT_TOKEN`                                                   | бот Max (необязательно)                                                               |
 | `INNOHASSLE_SERVICE_TOKEN`                                        | сервисный токен InNoHassle (scope `users`): группа по Telegram id                     |
 | `FEED_HOST`, `FEED_PORT`, `FEED_ROOT_PATH`                        | личный календарь `/users/my-calendar.ics` (токен InNoHassle пользователя); префикс за прокси   |
-| `PHOENIX_ENDPOINT`, `PHOENIX_PROJECT`                             | трассировка в Phoenix (`http://localhost:6006`) и оценки 👍/👎 (пусто = выключена)  |
+| `PHOENIX_ENDPOINT`, `PHOENIX_PROJECT`                             | трассировка в Phoenix (`http://localhost:6006`; в `docker-compose.prod.yml` всегда `http://phoenix:6006`) и оценки 👍/👎 (пусто = выключена)  |
 | `ALERTS`, `ALERT_QUEUE_MAX`                                       | алерты админам                                                                        |
 
 `TG_CHATS` и `TG_TOPICS` только стартовый список: при первом запуске копируются в базу, дальше чаты выбираются в `/listen`.
