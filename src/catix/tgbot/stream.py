@@ -1,7 +1,10 @@
 """Shows the answer in Telegram while the model is still writing it.
 
 Telegram's `sendMessageDraft` streams a partial message into a private chat: a draft with the same id is updated
-in place, it lives 30 seconds, and the final text must still be sent as a normal message (the draft then disappears).
+in place, it lives 30 seconds, and the final text must still be sent as a normal message. Telegram Desktop turns the
+draft into that message only when their texts begin alike (HistoryStreamedDrafts::adoptIncoming compares the prefixes);
+otherwise the draft stays next to the answer for its 30 seconds. So the last draft is always the answer's beginning
+(`finish`), also when the screen refused the question and a status was all that was shown.
 It does not exist for groups, which keep the typing indicator and one message at the end.
 
 Only the text of the supervisor's last model call is shown (`lc_agent_name` and `langgraph_node` in the metadata of a
@@ -113,6 +116,13 @@ class DraftStreamer:
         if time.monotonic() - self._last >= INTERVAL_SECONDS:
             await self._send(self.render(text[:MAX_CHARS]), html=True)
             self._shown = text
+
+    async def finish(self, html_text: str) -> None:
+        """Right before the answer is sent: the draft shows the answer's first message (`html_text`, as it will be sent),
+        so that the message replaces it. A status in the draft (a refusal, an error, a short answer written before the
+        next draft was due) would otherwise stay under the answer for 30 seconds."""
+        if self.enabled and self._last:  # Only when a draft was shown at all.
+            await self._send(html_text, html=True)
 
 
 async def run(agent, inputs: dict, config: dict, context, streamer: DraftStreamer | None) -> dict:

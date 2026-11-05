@@ -320,16 +320,14 @@ async def _answer(message: Message, question: str) -> None:
     thread_id = f"tg:{message.chat.id}:{message.from_user.id if message.from_user else 0}"
     log.info("question in %s: %s", thread_id, question[:200])
     started = time.monotonic()
+    # Drafts exist only in private chats; groups get the typing indicator and one message at the end.
+    streamer = (
+        stream.DraftStreamer(message.bot, message.chat.id, message.message_thread_id if message.is_topic_message else None, _to_html)
+        if message.chat.type == ChatType.PRIVATE
+        else None
+    )
     async with ChatActionSender.typing(chat_id=message.chat.id, bot=message.bot, message_thread_id=message.message_thread_id):
         try:
-            # Drafts exist only in private chats; groups get the typing indicator and one message at the end.
-            streamer = (
-                stream.DraftStreamer(
-                    message.bot, message.chat.id, message.message_thread_id if message.is_topic_message else None, _to_html
-                )
-                if message.chat.type == ChatType.PRIVATE
-                else None
-            )
             answer, trace = await _run_agent(question, thread_id, message.from_user.id if message.from_user else None, streamer)
             log.info("answered in %.1fs, %d chars", time.monotonic() - started, len(answer))
         except Exception as e:
@@ -337,6 +335,8 @@ async def _answer(message: Message, question: str) -> None:
             answer, trace = UNAVAILABLE if unreachable(e) else "Не получилось ответить: ошибка на стороне ассистента. Попробуйте ещё раз позже.", None
 
     parts = _chunks(answer, 4096)
+    if streamer and parts:  # The draft must begin like the answer, or Telegram Desktop leaves it next to it (stream.py).
+        await streamer.finish(_to_html(parts[0]))
     sent = None
     for i, chunk in enumerate(parts):
         keyboard = _feedback_keyboard(trace) if i == len(parts) - 1 else None  # Under the last piece.

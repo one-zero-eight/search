@@ -59,3 +59,17 @@ def test_without_metadata_the_text_is_shown_as_before():
     drafts = Recorder()
     _run(drafts.feed(AIMessageChunk(content="Привет", id="s1")))
     assert drafts.sent == ["Привет"]
+
+
+def test_a_status_is_replaced_by_the_answer_before_it_is_sent():
+    # Telegram Desktop turns the draft into the answer only when their texts begin alike; a status would stay 30 s.
+    drafts = Recorder()
+    _run(drafts.start())
+    _run(drafts.finish("I don't do tasks like that"))
+    assert drafts.sent == [stream.CHECKING, "I don't do tasks like that"]
+
+
+def test_no_draft_at_the_end_when_none_was_shown():
+    drafts = Recorder()
+    _run(drafts.finish("ответ"))
+    assert drafts.sent == []
