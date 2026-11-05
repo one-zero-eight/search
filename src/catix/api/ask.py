@@ -1,5 +1,6 @@
 """POST /ask/: a question to the cAtIx agent (the one the Telegram and Max bots use), with a conversation by `chat_id`.
-POST /ask/{ask_query_id}/feedback: a 👍/👎 on an answer, an annotation on its trace in Phoenix as under the bot's answers.
+POST /ask/{ask_query_id}/feedback: a 👍/👎 on an answer with an optional comment, an annotation on its trace in Phoenix as under
+the bot's answers.
 
 POST /act/ is a mock: the search service had an agent that did things in InNoHassle services for the user (booking a
 music room, sport classes); cAtIx has none.
@@ -35,6 +36,7 @@ log = logging.getLogger("catix.api")
 router = APIRouter(prefix="", tags=["Ask"])
 
 NOT_BLANK = r"\S"  # a question has at least one non-space character
+COMMENT_MAX = 2000  # characters in a comment on an answer, as in the site's text box
 ACT_UNAVAILABLE = "Действия в сервисах InNoHassle пока недоступны. Я могу ответить на вопрос об университете: задайте его через /ask/."
 
 
@@ -322,15 +324,21 @@ async def cancel_ask(user: VerifiedDep, chat_id: str):
         502: {"description": "The feedback could not be saved"},
     },
 )
-async def add_user_feedback(user: VerifiedDep, ask_query_id: str, feedback: Literal["like", "dislike"]):
+async def add_user_feedback(
+    user: VerifiedDep,
+    ask_query_id: str,
+    feedback: Literal["like", "dislike"],
+    comment: str | None = Body(None, embed=True, max_length=COMMENT_MAX),
+):
     """A 👍 (`like`) or 👎 (`dislike`) on an answer, as under the answers of the Telegram bot: the annotation `user-feedback` on
-    the answer's trace in Phoenix. A second vote of the user replaces the first. An answer has an `ask_query_id` only when
-    tracing is on."""
+    the answer's trace in Phoenix, and the user's `comment` on what they liked or not is its explanation. A second vote of the
+    user (the same one with a comment, or another) replaces the first. An answer has an `ask_query_id` only when tracing is on."""
     asked = state.asks.get(ask_query_id)
     if asked is None or asked[0] != user.innohassle_id:
         raise HTTPException(status_code=404, detail="Ask query not found or user has no access to it")
+    comment = (comment or "").strip() or None
     try:
-        await asyncio.to_thread(tracing.score_feedback, asked[1], f"api:{user.innohassle_id}", feedback == "like")
+        await asyncio.to_thread(tracing.score_feedback, asked[1], f"api:{user.innohassle_id}", feedback == "like", comment)
     except Exception as e:
         log.exception("could not save the feedback")
         raise HTTPException(status_code=502, detail="The feedback could not be saved") from e

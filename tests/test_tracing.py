@@ -76,8 +76,11 @@ def test_feedback_is_an_annotation_and_a_second_vote_replaces_the_first(phoenix)
     tracing.score_feedback(span_id, "tg:4242", True)
     tracing.score_feedback(span_id, "tg:4242", False)  # the same user changes their mind
     tracing.score_feedback(span_id, "tg:4343", True)  # someone else keeps theirs
-    votes = {a["identifier"]: (a["result"]["label"], a["result"]["score"]) for a in phoenix.spans.get_span_annotations(span_ids=[span_id], project_identifier=settings.phoenix_project)}
-    assert votes == {"tg:4242": ("👎", 0.0), "tg:4343": ("👍", 1.0)}
+    tracing.score_feedback(span_id, "api:u1", False)
+    tracing.score_feedback(span_id, "api:u1", False, "Не тот корпус")  # then says what was wrong with the answer
+    annotations = phoenix.spans.get_span_annotations(span_ids=[span_id], project_identifier=settings.phoenix_project)
+    votes = {a["identifier"]: (a["result"]["label"], a["result"]["score"], a["result"].get("explanation")) for a in annotations}
+    assert votes == {"tg:4242": ("👎", 0.0, None), "tg:4343": ("👍", 1.0, None), "api:u1": ("👎", 0.0, "Не тот корпус")}
 
 
 def test_without_tracing_nothing_breaks(monkeypatch):

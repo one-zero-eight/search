@@ -112,18 +112,30 @@ def test_feedback_on_an_answer_annotates_its_trace(client, monkeypatch):
 
     votes = []
     monkeypatch.setattr(ask, "run", run)
-    monkeypatch.setattr(ask.tracing, "score_feedback", lambda span_id, voter, good: votes.append((span_id, voter, good)))
+    monkeypatch.setattr(
+        ask.tracing, "score_feedback", lambda span_id, voter, good, comment=None: votes.append((span_id, voter, good, comment))
+    )
     ask_id = client.post("/ask/", json={"query": "hi"}, headers=AUTH).json()["ask_query_id"]
     url = f"/ask/{ask_id}/feedback"
     assert client.post(url, params={"feedback": "dislike"}, headers=AUTH).json()["status"] == "success"
     assert client.post(url, params={"feedback": "like"}, headers=AUTH).status_code == 200  # the user changes their mind
-    assert votes == [("span-1", "api:u1", False), ("span-1", "api:u1", True)]
+    # then says what they liked: the same vote again, with the comment
+    assert client.post(url, params={"feedback": "like"}, json={"comment": " Clear and short \n"}, headers=AUTH).status_code == 200
+    assert client.post(url, params={"feedback": "like"}, json={"comment": "  "}, headers=AUTH).status_code == 200  # blank is none
+    assert votes == [
+        ("span-1", "api:u1", False, None),
+        ("span-1", "api:u1", True, None),
+        ("span-1", "api:u1", True, "Clear and short"),
+        ("span-1", "api:u1", True, None),
+    ]
     assert client.post(url, params={"feedback": "meh"}, headers=AUTH).status_code == 422
+    too_long = {"comment": "x" * (ask.COMMENT_MAX + 1)}
+    assert client.post(url, params={"feedback": "like"}, json=too_long, headers=AUTH).status_code == 422
     assert client.post("/ask/nope/feedback", params={"feedback": "like"}, headers=AUTH).status_code == 404
 
     state.asks[ask_id] = ("somebody else", "span-1")
     assert client.post(url, params={"feedback": "like"}, headers=AUTH).status_code == 404
-    assert len(votes) == 2
+    assert len(votes) == 4
 
 
 def test_an_answer_without_a_trace_has_no_feedback(client, monkeypatch):
@@ -135,7 +147,7 @@ def test_an_answer_without_a_trace_has_no_feedback(client, monkeypatch):
 
 
 def test_feedback_that_phoenix_does_not_take_is_a_502(client, monkeypatch):
-    def score_feedback(span_id, voter, good):
+    def score_feedback(span_id, voter, good, comment=None):
         raise RuntimeError("phoenix is down")
 
     monkeypatch.setattr(ask.tracing, "score_feedback", score_feedback)

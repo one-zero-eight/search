@@ -190,10 +190,11 @@ def _phoenix_client():
     return _client
 
 
-def score_feedback(span_id: str, voter: str, good: bool) -> None:
+def score_feedback(span_id: str, voter: str, good: bool, comment: str | None = None) -> None:
     """A thumbs up (1) or down (0) of `voter` (`tg:<Telegram id>` in the bot, `api:<InNoHassle id>` in the API) on the answer
-    whose root span is `span_id`; the same voter changing their mind replaces the earlier vote (same `identifier`). The span
-    reaches Phoenix a few seconds after the answer, so an early vote waits a bit."""
+    whose root span is `span_id`, with the voter's `comment` on what they liked or not as its explanation; the same voter
+    changing their mind or adding a comment replaces the earlier vote (same `identifier`). The span reaches Phoenix a few
+    seconds after the answer, so an early vote waits a bit."""
     if not enabled():
         return
     last: Exception | None = None
@@ -205,6 +206,7 @@ def score_feedback(span_id: str, voter: str, good: bool) -> None:
                 span_id=span_id,
                 label="👍" if good else "👎",
                 score=1.0 if good else 0.0,
+                explanation=comment,
                 identifier=voter,
                 sync=True,
             )
