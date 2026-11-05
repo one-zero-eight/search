@@ -1,7 +1,8 @@
 """Background worker: embeddings and schedule changes, a separate app that the Telegram and Max bots feed.
 
     bots --(ids of stored messages)--> Redis stream --> this worker --> schedule_changes (Postgres)
-                                                                    --> cards to the users of the chat's group (Telegram)
+                                                                    --> cards to the users of the chat's group who
+                                                                        started the Telegram bot (bot_users.py)
 
 Embedding threads (embedder.py) turn every stored message into a vector; they read their queue from Postgres and
 are woken by the same stream. The bots only store messages, they compute nothing.
@@ -12,16 +13,16 @@ after it was looked at, and unacknowledged ones are read again. The users' butto
 """
 
 import asyncio
-import contextlib
 import logging
 import threading
 
 import redis.asyncio as redis
 from aiogram import Bot
 from aiogram.enums import ParseMode
-from aiogram.exceptions import TelegramAPIError
+from aiogram.exceptions import TelegramAPIError, TelegramForbiddenError
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
+from catix import bot_users
 from catix.worker import changes
 from catix.worker import embedder
 from catix.worker import health
@@ -57,10 +58,14 @@ async def notify_users(bot: Bot) -> None:
         try:
             for change in await asyncio.to_thread(changes.unnotified):
                 for user in await asyncio.to_thread(changes.recipients, change):
-                    with contextlib.suppress(TelegramAPIError):  # Blocked the bot, never started it, ...
+                    try:
                         await bot.send_message(
                             user, changes.card(change), parse_mode=ParseMode.HTML, reply_markup=change_keyboard(change.id), disable_web_page_preview=True
                         )
+                    except TelegramForbiddenError:  # Blocked the bot (or the account is gone): not written to again.
+                        await asyncio.to_thread(bot_users.blocked, user)
+                    except TelegramAPIError as e:
+                        log.warning("change %s was not sent to %s: %s", change.id, user, e)
                     await asyncio.sleep(SEND_PAUSE)
                 await asyncio.to_thread(changes.mark_notified, change.id)
         except Exception:

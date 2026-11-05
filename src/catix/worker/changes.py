@@ -3,13 +3,14 @@
 The worker (worker.py, `catix-worker`) gets the id of every new message from a Redis stream. The model decides
 whether the message puts something on the calendar (a reschedule, a room change, a cancellation or a new event) and,
 if so, when and where. A found change is sent to the users of the chat's study group (of a chat for everybody: to every
-user the bot knows), and each decides for themselves: "✅ В мой календарь" puts it in their personal calendar
-(personal_calendar.py, /users/my-calendar.ics). The stream carries only new messages, so history is not scanned.
+user) who started the bot, the only ones it may write to (bot_users.py). Each decides for themselves: "✅ В мой
+календарь" puts it in their personal calendar (personal_calendar.py, /users/my-calendar.ics). The stream carries only new messages, so history is not scanned.
 """
 
 import html
 import logging
 import re
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime, time, timedelta
 
 from langchain_core.prompts import ChatPromptTemplate
@@ -17,6 +18,7 @@ from langchain_openai import ChatOpenAI
 from pydantic import BaseModel, Field
 
 from catix import admins as admins_module
+from catix import bot_users, groups
 from catix.common import dates
 from catix.db import pg
 from catix.agent import tracing
@@ -28,6 +30,7 @@ log = logging.getLogger("catix.changes")
 DEFAULT_LENGTH = timedelta(minutes=90)  # A class; used when the message gives no end.
 
 MIN_CHARS = 15  # "ок", "спасибо", a sticker caption: nothing to decide, so the model is not asked.
+LOOKUPS = 8  # Groups of the users asked from InNoHassle at once.
 KIND_TITLE = {"reschedule": "Перенос", "room_change": "Смена аудитории", "cancel": "Отмена", "announcement": "Анонс"}
 
 PROMPT = """\
@@ -171,15 +174,19 @@ def mark_notified(change_id: int) -> None:
 
 
 def recipients(change: ChangeView) -> list[int]:
-    """Telegram ids of the users a change is for: those of the chat's group (/mygroup); for a chat of group `all`, every
-    user who has a group, `all` included. The Max users are not told: the worker sends through Telegram only."""
+    """Telegram ids of the users a change is for, among those the bot may write to (they started it, bot_users.py): for a
+    chat of group `all`, all of them; for a chat of a study group, the users of that group: the one InNoHassle knows, else
+    the one they chose (/mygroup), as for the search (groups.effective_group). The Max users are not told: the worker
+    sends through Telegram only."""
+    users = bot_users.reachable()
+    if change.group_code == groups.ALL:
+        return users
     with pg.connection() as conn:
-        keys = pg.column(
-            conn,
-            "SELECT user_key FROM user_groups WHERE user_key LIKE 'tg:%%' AND (%s = 'all' OR group_code = %s) ORDER BY user_key",
-            (change.group_code, change.group_code),
-        )
-    return [int(key.removeprefix("tg:")) for key in keys]
+        rows = conn.execute("SELECT user_key, group_code FROM user_groups WHERE user_key LIKE 'tg:%'").fetchall()  # no parameters: % as is
+    chosen = {row["user_key"]: row["group_code"] for row in rows}
+    with ThreadPoolExecutor(LOOKUPS) as pool:  # One request to InNoHassle per user (cached for an hour).
+        known = list(pool.map(groups.auto_group, users))
+    return [user for user, group in zip(users, known, strict=True) if (group or chosen.get(f"tg:{user}", groups.ALL)) == change.group_code]
 
 
 def _words(text: str) -> str:

@@ -21,13 +21,14 @@ import uuid
 from datetime import datetime, timezone
 
 from aiogram import Bot, Dispatcher, F, Router
-from aiogram.enums import ChatType, ParseMode
+from aiogram.enums import ChatMemberStatus, ChatType, ParseMode
 from aiogram.exceptions import TelegramAPIError, TelegramBadRequest
 from aiogram.filters import Command, CommandObject, CommandStart
 from aiogram.types import (
     BotCommand,
     BotCommandScopeChat,
     CallbackQuery,
+    ChatMemberUpdated,
     ChosenInlineResult,
     InlineKeyboardButton,
     InlineKeyboardMarkup,
@@ -48,7 +49,7 @@ from catix.tgbot import admin
 from catix.tgbot import listen
 from catix.tgbot import official
 from catix.worker import changes
-from catix import groups, personal_calendar, userbot_config
+from catix import bot_users, groups, personal_calendar, userbot_config
 from catix.ingest import writer as ingest
 from catix.db import pg
 from catix.agent import sqlquery
@@ -353,12 +354,15 @@ async def _answer(message: Message, question: str) -> None:
 
 @router.message(CommandStart())
 async def start(message: Message) -> None:
+    is_admin = message.from_user is not None and message.from_user.id in await asyncio.to_thread(changes.admins)
     await message.answer(
         "Привет! Я cAtIx, ассистент Innopolis University: клубы, аудитории, события, а также экзамены, дедлайны и советы "
-        "из чатов, куда меня добавили.\n\nВ личке просто пишите вопрос. В группе: /ask вопрос, упоминание или ответ "
+        "из чатов, куда меня добавили.\n\nСюда я присылаю переносы, отмены и новые события, которые нашёл в чатах "
+        "вашей учебной группы (/mygroup) и в общих: кнопка «✅ В мой календарь» добавит событие в /calendar.\n\n"
+        "В личке просто пишите вопрос. В группе: /ask вопрос, упоминание или ответ "
         "на моё сообщение.\n\n/mygroup: ваша учебная группа (по умолчанию ищу везде).\n"
-        "/clear: забыть наш разговор и начать заново.\n"
-        "/listen и /admin: для администратора: чаты и учебные группы, другие администраторы."
+        "/clear: забыть наш разговор и начать заново."
+        + ("\n/listen и /admin: для администратора: чаты и учебные группы, другие администраторы." if is_admin else "")
     )
 
 
@@ -555,6 +559,26 @@ async def inline_wait(query: CallbackQuery) -> None:
 # ---- schedule changes: each user decides on what the worker (worker.py) found in the chats of their group ---------
 
 
+async def remember_private(handler, message: Message, data: dict):
+    """Outer middleware: whoever writes to the bot in private (/start first) may be written to, so the found changes are
+    sent to them (bot_users.py)."""
+    if message.chat.type == ChatType.PRIVATE and message.from_user and not message.from_user.is_bot:
+        try:
+            await asyncio.to_thread(bot_users.remember, message.from_user.id)
+        except Exception:  # The database being down must not stop the answer.
+            log.exception("could not remember user %s", message.from_user.id)
+    return await handler(message, data)
+
+
+@router.my_chat_member(F.chat.type == ChatType.PRIVATE)
+async def private_status(update: ChatMemberUpdated) -> None:
+    """The user blocked the bot (no more changes for them) or unblocked it."""
+    if update.new_chat_member.status == ChatMemberStatus.KICKED:
+        await asyncio.to_thread(bot_users.blocked, update.from_user.id)
+    else:
+        await asyncio.to_thread(bot_users.remember, update.from_user.id)
+
+
 @router.callback_query(F.data.startswith("chg:"))
 async def decide_change(query: CallbackQuery) -> None:
     _, action, change_id = query.data.split(":")
@@ -604,6 +628,7 @@ async def run() -> None:
         sys.exit("Set TG_BOT_TOKEN in .env (create a bot with @BotFather).")
     bot = Bot(settings.tg_bot_token.get_secret_value())
     dp = Dispatcher()
+    dp.message.outer_middleware(remember_private)  # every private message, whichever router answers it
     dp.include_router(admin.router)  # before the generic handlers: /admin, /listen and their buttons
     dp.include_router(listen.router)
     dp.include_router(official.router)  # /official: an admin marks chats as official

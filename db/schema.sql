@@ -23,6 +23,19 @@ CREATE TABLE IF NOT EXISTS user_groups (
 );
 ALTER TABLE chats ADD COLUMN IF NOT EXISTS link text;  -- tables created before this column existed
 
+-- Telegram users the bot may write to first (bot_users.py): Telegram lets a bot message only a person who opened a
+-- private chat with it (/start or any message there). Found schedule changes go to them. blocked_at: the user blocked
+-- the bot; cleared when they start it again.
+CREATE TABLE IF NOT EXISTS bot_users (
+    telegram_id bigint PRIMARY KEY,
+    started_at  timestamptz NOT NULL DEFAULT now(),
+    blocked_at  timestamptz
+);
+-- The users who chose a group with /mygroup did it in a private chat with the bot. (A blocked one keeps blocked_at.)
+INSERT INTO bot_users (telegram_id)
+SELECT substr(user_key, 4)::bigint FROM user_groups WHERE user_key ~ '^tg:[0-9]+$'
+ON CONFLICT (telegram_id) DO NOTHING;
+
 -- What the userbot listens to, set by an admin in the bot (/listen, tgbot/listen.py) and read by the userbot
 -- (tguserbot/userbot.py). The userbot publishes the chats and forum topics it can see; the admin picks from them.
 CREATE TABLE IF NOT EXISTS userbot_dialogs (

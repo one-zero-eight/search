@@ -1,7 +1,7 @@
 """Schedule changes go to the users and each decides for themselves (worker/changes.py), without a model.
 
-A change from a chat of a study group goes to the users of that group (/mygroup); from a chat for everybody, to every user
-the bot knows. "✅ В мой календарь" puts it in that user's calendar only, and twice is once. A reschedule, room change or
+A change from a chat of a study group goes to the users of that group (/mygroup); from a chat for everybody, to every user.
+Only to the users who started the bot (bot_users.py): Telegram lets a bot write first to nobody else. "✅ В мой календарь" puts it in that user's calendar only, and twice is once. A reschedule, room change or
 cancellation of an event the user has changes or removes that event instead of adding another.
 """
 
@@ -9,12 +9,14 @@ from datetime import datetime, timedelta, timezone
 
 import pytest
 
-from catix import groups, personal_calendar
+from catix import bot_users, groups, personal_calendar
 from catix.db import pg
 from catix.worker import changes
 
 GROUP = "B26-ZZ-98"
 MINE, OTHER, EVERYBODY = "tg:999000011", "tg:999000012", "tg:999000013"
+NEVER_STARTED, ONLY_STARTED = 999000014, 999000015  # chose a group but never started the bot (an old row); /start only
+USERS = [999000011, 999000012, 999000013, NEVER_STARTED, ONLY_STARTED]
 
 
 SOON = datetime.now(timezone.utc).replace(microsecond=0) + timedelta(days=2)
@@ -34,13 +36,16 @@ def found(chat, nth: int, kind: str, subject: str, starts_at: datetime, room: st
 
 @pytest.fixture
 def change(chat):
-    for key, group in ((MINE, GROUP), (OTHER, "B26-ZZ-97"), (EVERYBODY, groups.ALL)):
+    for key, group in ((MINE, GROUP), (OTHER, "B26-ZZ-97"), (EVERYBODY, groups.ALL), (f"tg:{NEVER_STARTED}", GROUP)):
         groups.set_user_group(key, group)
+    for user in (999000011, 999000012, 999000013, ONLY_STARTED):
+        bot_users.remember(user)
     yield found(chat, 0, "announcement", "Ботаника", SOON, "301")
     groups.set_chat_group(chat, groups.ALL)
     with pg.connection() as conn:
         conn.execute("DELETE FROM schedule_changes WHERE message_id IN (SELECT id FROM messages WHERE chat_id = %s)", (chat,))
-        conn.execute("DELETE FROM user_groups WHERE user_key = ANY(%s)", ([MINE, OTHER, EVERYBODY],))
+        conn.execute("DELETE FROM user_groups WHERE user_key = ANY(%s)", ([f"tg:{user}" for user in USERS],))
+        conn.execute("DELETE FROM bot_users WHERE telegram_id = ANY(%s)", (USERS,))
         conn.execute("DELETE FROM personal_events WHERE user_key = ANY(%s)", ([MINE, OTHER, EVERYBODY],))
 
 
@@ -57,7 +62,28 @@ def test_a_change_of_a_group_chat_goes_to_that_group_only(chat, change):
 
 def test_a_change_of_a_chat_for_everybody_goes_to_every_user(chat, change):
     sent = changes.recipients(view(change))
-    assert {999000011, 999000012, 999000013} <= set(sent)
+    assert {999000011, 999000012, 999000013, ONLY_STARTED} <= set(sent)
+
+
+def test_only_the_users_who_started_the_bot_are_written_to(chat, change):
+    assert NEVER_STARTED not in changes.recipients(view(change))
+    groups.set_chat_group(chat, GROUP)
+    assert NEVER_STARTED not in changes.recipients(view(change))
+    assert ONLY_STARTED not in changes.recipients(view(change))  # Group `all`: only the changes of the chats for everybody.
+
+
+def test_a_user_who_blocked_the_bot_gets_nothing_until_they_start_it_again(chat, change):
+    groups.set_chat_group(chat, GROUP)
+    bot_users.blocked(999000011)
+    assert 999000011 not in changes.recipients(view(change))
+    bot_users.remember(999000011)
+    assert 999000011 in changes.recipients(view(change))
+
+
+def test_the_group_innohassle_knows_comes_before_the_chosen_one(chat, change, monkeypatch):
+    groups.set_chat_group(chat, GROUP)
+    monkeypatch.setattr(groups, "auto_group", lambda telegram_id: GROUP if telegram_id in (999000012, ONLY_STARTED) else None)
+    assert {999000011, 999000012, ONLY_STARTED} <= set(changes.recipients(view(change)))
 
 
 def test_accepting_puts_the_change_in_that_users_calendar_only(change):
