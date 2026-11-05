@@ -1139,3 +1139,19 @@ def test_a_document_named_by_its_file_is_titled_without_it_and_is_for_the_reader
     (doc,) = sites.docs().values()
     assert doc["title"] == "Приказ ад-01.2019.12.23 регламент процесса организации ит-поддержки"
     assert doc["audience"] == ["staff"]
+
+
+ATTRIBUTES = """<html><body>
+<a href="/card/" class="c"><div><div class="t-bgimg" data-original="https://static.tildacdn.com/tild1/a.png"> </div><div><a href="/card/"> </a></div></div></a>
+<iframe src="https://vkvideo.ru/video_ext.php?oid=-1&amp;id=2&amp;hash=x"></iframe>
+<video controls><source data-src="/media/lazy.mp4" type="video/mp4"></video>
+<video controls><source src="/media/own.mp4"></video>
+</body></html>"""
+
+
+def test_what_lives_in_the_attributes_of_an_element_is_read_as_the_page_writes_it():
+    text, links = read(ATTRIBUTES, "https://events.innopolis.university/")[1:]
+    assert "[![](https://static.tildacdn.com/tild1/a.png)](https://events.innopolis.university/card/)" in text  # (a card whose link the parser closed before its picture)
+    assert "[▶ video](https://vk.com/video-1_2)" in text  # (&amp; in the query of a frame is &)
+    assert text.index("lazy.mp4") < text.index("own.mp4")  # (a <source> with a lazy data-src, one with a src: each video its own)
+    assert ("https://vk.com/video-1_2", "▶ video") in links

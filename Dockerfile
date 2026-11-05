@@ -6,6 +6,7 @@ WORKDIR /app
 
 # Dependencies first: this layer is rebuilt only when pyproject.toml or uv.lock change.
 COPY pyproject.toml uv.lock .python-version ./
+COPY vendor ./vendor
 RUN uv sync --frozen --no-dev --no-install-project
 
 COPY src ./src

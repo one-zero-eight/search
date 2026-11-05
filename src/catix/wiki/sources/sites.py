@@ -48,10 +48,10 @@ from argparse import Namespace
 from collections import Counter
 from dataclasses import dataclass, fields
 from datetime import datetime, timedelta, timezone
-from html import escape, unescape
 from http.cookiejar import CookieJar, DefaultCookiePolicy
 from pathlib import Path
 from typing import Any, cast
+from html import unescape
 from urllib.parse import parse_qs, quote, unquote, urldefrag, urljoin, urlsplit
 from urllib.robotparser import RobotFileParser
 
@@ -680,15 +680,9 @@ LAZY_SOURCES = ("data-original", "data-src", "data-lazy-src")  # where a lazy pi
 SMALL = 64  # pixels: a picture this wide or high is an icon, a pixel of a counter
 VIDEO_SOURCES = ("data-source", "data-src", "data-video-src")  # where a block keeps the video it plays (Bitrix: a div with data-source)
 BANNER = re.compile(r"background-image:\s*(?:-webkit-)?(?:image-set\()?\s*url\(\s*['\"]?([^'\")]+)")  # (a banner: the first address, not the 2x copies)
+VIDEO_BLOCK = re.compile(r"<video\b[^>]*>(.*?)</video\s*>", re.S | re.I)
+LAZY_SOURCE = re.compile(r"<source\b[^>]*?\bdata-src\s*=\s*[\"']?([^\"'\s>]+)", re.I)  # (a <source> the converter shows no visitor: its data-src)
 TILDA_PREVIEW = re.compile(r"^(https://)thb(\.tildacdn\.com/tild[\w-]+)/-/[^/]+/[^/]+/(.+)$")  # (a preview with no original beside it: the file itself)
-_W = "\t\n\f\r "  # (the spaces of HTML: a no-break space is a letter of a name)
-_NAME = rf"[^{_W}/>=][^{_W}/>=]*+"  # (as a browser reads a tag: a quote in a name is a letter of it)
-_VALUE = rf"""[{_W}]*+=[{_W}]*+(?:"[^"]*+"|'[^']*+'|[^{_W}>]++)"""
-ATTRIBUTE = re.compile(rf"""({_NAME})(?:[{_W}]*+=[{_W}]*+(?:"([^"]*+)"|'([^']*+)'|([^{_W}>]++)))?""")
-TAG = re.compile(  # (what is inside a script, a style, a comment is not tags)
-    rf"<!--.*?-->|<(script|style|textarea|title)\b[^>]*>.*?</\1[{_W}]*>"
-    rf"|<(?P<end>/?)(?P<name>[a-zA-Z][^{_W}/>]*+)(?P<attrs>(?:[{_W}/]++|{_NAME}(?:{_VALUE})?|=[^{_W}/>=]*+)*+)>",
-    re.S | re.I)
 HEADINGS = ["h1", "h2", "h3", "h4", "h5", "h6"]
 BLOCKS = ["p", "div", "section", "article", "ul", "ol", "li", "table", "blockquote", "dl", "figure", *HEADINGS]
 SCRIPT_HREF = re.compile(r"(?i)javascript:")
@@ -714,83 +708,9 @@ def _custom(output: str) -> dict:
     return {"type": "custom", "output": output}
 
 
-def _attributes(text: str) -> dict[str, str]:
-    found: dict[str, str] = {}
-    for name, quoted, single, bare in ATTRIBUTE.findall(text):
-        found.setdefault(name.lower(), unescape(quoted or single or bare))  # (the first of two of a name, as a browser takes)
-    return found
-
-
-def _tag(name: str, attributes: dict[str, str]) -> str:
-    return f"<{name}" + "".join(f' {k}="{escape(v)}"' for k, v in attributes.items()) + ">"
-
-
-def _watch(src: str | None, title: str = "") -> str:
-    """A link to where a video is watched, `▶ title`: plain() knows it is no words."""
-    return f'<a href="{escape(src)}">▶ {escape(re.sub(r"[\[\]]", "", title).strip() or "video")}</a>' if src else ""
-
-
-def _prepared(html: str, url: str, headings: str | None) -> str:
-    """The page with what the converter cannot see written as tags it reads. Its visitor (_Page) is given no attributes of
-    the elements (NodeContext.attributes() is empty in html-to-markdown 3.19, DocumentNode.attributes too; those of an <img>
-    and an <a> come only in the metadata of the result, after the visitor ran), so what lives in them is moved here, tag by tag
-    (no tree: each step reads one opening tag and writes beside it). The file of a lazy picture whose src is a preview
-    (data-original, data-src; the converter takes data-src or a srcset itself only for a missing or a data: src) into its src,
-    a picture of 64 pixels or less out; a banner of a style and the picture of a Tilda block (data-original of a div) as an
-    <img>; a video (a frame, a <video> whose file is in data-src, the video block of Tilda or Bitrix) as a link to where it is
-    watched, with its title; a block the site names a heading (Site.headings, a class) as an <h2>. A frame that is not a video
-    (a map, a form) is gone. All the rest is _Page's."""
-    out: list[str] = []
-    pos = 0
-    renamed: list[list] = []  # [tag, depth] of a block made an <h2>: its own closing tag closes the <h2>
-    while m := TAG.search(html, pos):
-        out.append(html[pos:m.start()])
-        pos = m.end()
-        name = (m.group("name") or "").lower()
-        if not name:  # (a comment, a script, a style: as they are)
-            out.append(m.group())
-            continue
-        if m.group("end"):
-            for block in (b for b in renamed if b[0] == name):
-                block[1] -= 1
-            out.append("</h2>" if renamed and renamed[-1][1] == 0 and renamed.pop() else m.group())
-            continue
-        a = _attributes(m.group("attrs"))
-        if name == "img":
-            if any(a.get(k, "").isdigit() and int(a[k]) <= SMALL for k in ("width", "height")):
-                continue  # (a pixel, an icon: the converter knows the size only in its metadata, after the visitor ran)
-            if src := next(filter(None, (a.get(k, "").strip() for k in LAZY_SOURCES)), ""):
-                out.append(_tag("img", {**a, "src": src}))
-            else:
-                out.append(m.group())
-            continue
-        if name in {"iframe", "video"}:  # (the whole element: a frame's words are for a browser that has none)
-            close = re.compile(rf"</{name}\s*>", re.I).search(html, pos)
-            inner, pos = (html[pos:close.start()], close.end()) if close else ("", pos)
-            if name == "iframe":
-                out.append(_watch(video_url(urljoin(url, (a.get("src") or a.get("data-src") or "").strip())), a.get("title", "")))
-            else:
-                parts = [a, *(_attributes(t.group("attrs")) for t in TAG.finditer(inner) if (t.group("name") or "").lower() == "source")]
-                source = next(filter(None, (part.get(k, "").strip() for part in parts for k in ("src", "data-src"))), "")  # (a lazy one: data-src)
-                out.append(_watch(urljoin(url, source) if source else None, a.get("title", "")))
-            continue
-        for block in (b for b in renamed if b[0] == name):
-            block[1] += 1
-        if headings and re.search(headings, a.get("class", "")):
-            renamed.append([name, 1])
-            out.append("<h2>")
-        else:
-            out.append(m.group())
-        if a.get("data-videolazy-id") and a.get("data-videolazy-type") in {"youtube", "vimeo"}:  # (Tilda's video block)
-            vid = a["data-videolazy-id"]
-            out.append(_watch(f"https://www.youtube.com/watch?v={vid}" if a["data-videolazy-type"] == "youtube" else f"https://vimeo.com/{vid}"))
-        else:
-            out.append(_watch(next(filter(None, (video_url(urljoin(url, a[k].strip())) for k in VIDEO_SOURCES if a.get(k))), None)))
-        banner = a.get("data-original") or (found.group(1) if (found := BANNER.search(a.get("style", ""))) else "")
-        if banner.strip():  # (Tilda: the 20-pixel preview in the style, the picture in data-original)
-            out.append(_tag("img", {"src": banner.strip()}))
-    out.append(html[pos:])
-    return "".join(out)
+def _attributes(ctx: NodeContext) -> dict[str, str]:
+    """The attributes of an element as the page writes them: the converter hands them over with their entities (`&amp;`) as they are."""
+    return {name: unescape(value) for name, value in ctx.attributes().items()}
 
 
 @dataclass
@@ -811,28 +731,98 @@ class _Page:
     its address for its words; a link around a heading is the heading's words, the heading stays one; a card (blocks in a link)
     is a line of its own, not one with the next cards."""
 
-    def __init__(self, url: str) -> None:
+    def __init__(self, url: str, headings: str | None = None) -> None:
         self.url = url
+        self.headings = headings  # Site.headings: a class that names a block a heading
+        self.video_src = ""  # the file of the <video> the converter has read last (its own src or the first <source>)
+        self.lazy_videos: list[str] = []  # data-src of the <source> of each <video> of the page, in order (the converter shows no <source> to a visitor)
+        self.depth = 0  # of the element the converter is in
+        self.bare: tuple[str, int] | None = None  # (address, depth of its parent) of the last link that wrapped nothing
         self.links: list[tuple[str, str]] = []  # (url, text), those of a <noscript> and a form too (Tilda's redirect block: 'Redirect to
         # URL'; the policy a consent links)
         self.script = False
         self.open: list[_Link] = []  # the <a> the converter is inside
 
     def visit_element_start(self, ctx: NodeContext) -> dict:
+        self.depth += 1
         if ctx.tag_name == "a":
             self.open.append(_Link())
         elif self.open and ctx.tag_name in BLOCKS:
             self.open[-1].block = True
         return CONTINUE
 
+    def _watch(self, src: str | None, title: str = "") -> str:
+        """A link to where a video is watched, `▶ title`: plain() knows it is no words."""
+        if not src:
+            return ""
+        words = re.sub(r"[\[\]]", "", title).strip() or "video"
+        self.links.append((src, f"▶ {words}"))
+        return f"[▶ {words}]({readable(src)})"
+
+    def _picture(self, src: str, alt: str = "", banner: bool = False) -> str:
+        """` ![alt](url) ` of a picture that is content; nothing for a decoration (icons, pixels, counters). A banner after a link that wrapped nothing is in it."""
+        url = TILDA_PREVIEW.sub(r"\1static\2/\3", urljoin(self.url, src.strip()))  # (Tilda: the file, not its 20-pixel preview)
+        parts = urlsplit(url)
+        if (parts.scheme not in {"http", "https"} or IMAGE_SKIP.search(parts.path) or TRACKER.search(url)
+                or urldefrag(url)[0] == urldefrag(self.url)[0]):  # (a decoration; no address: a script fills it in later)
+            return ""
+        if self.open:
+            self.open[-1].picture = True
+        elif banner and self.bare:  # (a link inside a link: the parser closes the first, an empty one, and wraps the next picture in a copy of it)
+            return f" [![{alt}]({readable(url)})]({readable(self.bare[0])}) "
+        return f" ![{alt}]({readable(url)}) "
+
+    def _video(self, ctx: NodeContext) -> str:
+        """The link a video or a frame is replaced by (a frame that is not a video, a map, a form, is gone): the words of a frame
+        are for a browser that has none."""
+        a = _attributes(ctx)
+        if ctx.tag_name == "iframe":
+            return self._watch(video_url(urljoin(self.url, (a.get("src") or a.get("data-src") or "").strip())), a.get("title", ""))
+        lazy = a.get("data-src", "").strip()  # (a lazy one)
+        source, self.video_src = self.video_src or (urljoin(self.url, lazy) if lazy else ""), ""
+        return self._watch(source or None, a.get("title", ""))
+
+    def visit_video(self, ctx: NodeContext, src: str | None, *rest) -> dict:
+        lazy = self.lazy_videos.pop(0) if self.lazy_videos else ""
+        self.video_src = src or (urljoin(self.url, lazy) if lazy else "")
+        return CONTINUE
+
+    def _lead(self, ctx: NodeContext) -> str:
+        """What the converter cannot see in a block, written at its start: the video it plays (Tilda: data-videolazy-id; Bitrix: a div with
+        data-source) as a link to where it is watched, a banner of a style and the picture of a Tilda block (data-original of a div) as a picture."""
+        a = _attributes(ctx)
+        if a.get("data-videolazy-id") and a.get("data-videolazy-type") in {"youtube", "vimeo"}:
+            vid = a["data-videolazy-id"]
+            lead = self._watch(f"https://www.youtube.com/watch?v={vid}" if a["data-videolazy-type"] == "youtube" else f"https://vimeo.com/{vid}")
+        else:
+            lead = self._watch(next(filter(None, (video_url(urljoin(self.url, a[k].strip())) for k in VIDEO_SOURCES if a.get(k))), None))
+        banner = a.get("data-original") or (found.group(1) if (found := BANNER.search(a.get("style", ""))) else "")
+        return lead + (self._picture(banner, banner=True) if banner.strip() else "")  # (Tilda: the 20-pixel preview in the style, the picture in data-original)
+
     def visit_element_end(self, ctx: NodeContext, output: str) -> dict:
-        if ctx.tag_name == "a" and self.open:
+        tag = ctx.tag_name
+        self.depth -= 1
+        if self.bare and self.depth < self.bare[1]:
+            self.bare = None  # (the parent of the empty link is closed)
+        if tag == "a" and self.open:
             self.open.pop()
-        if ctx.tag_name not in UNWRITTEN:
+        if tag in {"iframe", "video"}:
+            return _custom(self._video(ctx))
+        if tag in UNWRITTEN:
+            if tag == "noscript" and "javascript" in output.lower():
+                self.script = True  # ('You need to enable JavaScript to run this app.', 'У вас отключено исполнение JavaScript')
+            return _custom("")
+        if tag in {"img", "source", "br", "hr", "input", "meta", "link"}:
             return CONTINUE
-        if ctx.tag_name == "noscript" and "javascript" in output.lower():
-            self.script = True  # ('You need to enable JavaScript to run this app.', 'У вас отключено исполнение JavaScript')
-        return _custom("")
+        lead = self._lead(ctx) if tag != "a" else ""  # (a link has its own in visit_link: the converter has written it by now)
+        if lead:
+            rest = output.lstrip()
+            output = output[:len(output) - len(rest)] + lead + "\n" + rest
+        if self.headings and re.search(self.headings, _attributes(ctx).get("class", "")):  # (a block the site names a heading)
+            result = self.visit_heading(ctx, 2, output)
+            if result is not CONTINUE:
+                return result
+        return _custom(output) if lead else CONTINUE
 
     def visit_text(self, ctx: NodeContext, text: str) -> dict:
         if self.open:
@@ -842,11 +832,16 @@ class _Page:
     def visit_link(self, ctx: NodeContext, href: str, text: str, title: str | None = None) -> dict:
         href = urljoin(self.url, href.strip())  # (the converter resolves `href=" /a "`, not `href=" https://… "`: the browser does both)
         link = self.open[-1] if self.open else _Link(words=text, picture=True)
+        if lead := self._lead(ctx):  # (Tilda: a link that is a banner, the picture in its data-original)
+            text = f"{lead} {text}"
+            link.picture = True
         words = re.sub(r"\s+", " ", re.sub(r"</?[a-z][^>]*>", " ", text, flags=re.I)).strip()  # (a site that writes <p> as text: not in a link)
         if SCRIPT_HREF.search(re.sub(r"[\s*]", "", unquote(href))):  # (a script, not a link; media writes it 'jav * ascript:void(0)')
             return _custom(words)
         self.links.append((href, re.sub(r"\s+", " ", re.sub(r"\*\*|__", "", MD_IMAGE.sub("", words))).strip()))
         if not link.words.strip() and not link.picture:
+            if urlsplit(href).scheme in {"http", "https"}:
+                self.bare = (href, self.depth - 1)
             return _custom("")  # (an icon, a burger, an svg: the converter's words for it are its address)
         if urlsplit(href).scheme not in {"http", "https"} or urldefrag(unquote(href))[0] == urldefrag(unquote(self.url))[0]:
             out = words  # (a fragment of the page, a mailto: are words)
@@ -861,19 +856,17 @@ class _Page:
         return _custom((" " if link.words[:1].isspace() else "") + out + (" " if link.words[-1:].isspace() else ""))
 
     def visit_image(self, ctx: NodeContext, src: str, alt: str, title: str | None = None) -> dict:
+        attributes = _attributes(ctx)
+        if any(attributes.get(k, "").isdigit() and int(attributes[k]) <= SMALL for k in ("width", "height")):
+            return _custom("")  # (a pixel, an icon)
         alt = re.sub(r"[\[\]]", "", re.sub(r"\s+", " ", alt or title or "")).strip()
+        # the file of a lazy picture whose src is a preview (the converter takes data-src or a srcset itself only for a missing or a data: src)
+        src = next(filter(None, (attributes.get(k, "").strip() for k in LAZY_SOURCES)), "") or src
         if src.startswith("data:"):
             if self.open and alt:
                 self.open[-1].picture = True  # (its alt, the words of the link: inline_data_media)
             return CONTINUE
-        url = TILDA_PREVIEW.sub(r"\1static\2/\3", src.strip())  # (Tilda: the file, not its 20-pixel preview)
-        parts = urlsplit(url)
-        if (parts.scheme not in {"http", "https"} or IMAGE_SKIP.search(parts.path) or TRACKER.search(url)
-                or urldefrag(url)[0] == urldefrag(self.url)[0]):  # (a decoration; no address: a script fills it in later)
-            return _custom("")
-        if self.open:
-            self.open[-1].picture = True
-        return _custom(f" ![{alt}]({readable(url)}) ")
+        return _custom(self._picture(src, alt))
 
     def visit_heading(self, ctx: NodeContext, level: int, text: str, id: str | None = None) -> dict:
         words = re.sub(r"\s+", " ", text).strip()
@@ -903,9 +896,10 @@ def _options(url: str) -> ConversionOptions:
 def convert_page(html: str, url: str, headings: str | None = None) -> tuple[str, str, tuple[tuple[str, str], ...], bool]:
     """(title, markdown lines, links, whether it needs its scripts) of a page; `headings`: Site.headings. A page needs its scripts
     when its <noscript> asks for JavaScript or it has fewer than MIN_WORDS words: the HTML is an empty shell."""
-    page = _Page(url)
+    page = _Page(url, headings)
+    page.lazy_videos = [unescape(found.group(1)) if (found := LAZY_SOURCE.search(block)) else "" for block in VIDEO_BLOCK.findall(html)]
     try:
-        result = convert(_prepared(html, url, headings), _options(url), visitor=page)
+        result = convert(html, _options(url), visitor=page)
     except ConversionError as e:
         print(f"  {url}: not read as HTML ({e})", flush=True)
         return url, "", (), False
