@@ -25,13 +25,22 @@ class UserTokenData(BaseModel):
     "User's Telegram ID connected to InNoHassle Accounts"
 
 
-def verify_user(bearer: HTTPAuthorizationCredentials | None = Depends(bearer_scheme)) -> UserTokenData:
-    unauthorized = HTTPException(
-        401, "Unable to verify credentials OR Credentials not provided", headers={"WWW-Authenticate": "Bearer"}
-    )
+def _unauthorized() -> HTTPException:
+    return HTTPException(401, "Unable to verify credentials OR Credentials not provided", headers={"WWW-Authenticate": "Bearer"})
+
+
+def _claims(bearer: HTTPAuthorizationCredentials | None) -> dict:
+    """The claims of a valid InNoHassle token; 401 for a missing or a bad one."""
     claims = innohassle_token.claims(bearer.credentials) if bearer and bearer.credentials else None
-    if not claims or claims.get("uid") is None or claims.get("email") is None:
-        raise unauthorized
+    if not claims:
+        raise _unauthorized()
+    return claims
+
+
+def verify_user(bearer: HTTPAuthorizationCredentials | None = Depends(bearer_scheme)) -> UserTokenData:
+    claims = _claims(bearer)
+    if claims.get("uid") is None or claims.get("email") is None:
+        raise _unauthorized()
     telegram_id = claims.get("telegram_id")
     return UserTokenData(
         innohassle_id=str(claims["uid"]),
@@ -40,4 +49,22 @@ def verify_user(bearer: HTTPAuthorizationCredentials | None = Depends(bearer_sch
     )
 
 
+class TokenAccount(BaseModel):
+    innohassle_id: str
+    "InNoHassle Accounts ID"
+    telegram_id: int | None = None
+    "User's Telegram ID connected to InNoHassle Accounts"
+
+
+def verify_account(bearer: HTTPAuthorizationCredentials | None = Depends(bearer_scheme)) -> TokenAccount:
+    """The account of a valid token, without the email `verify_user` needs: the personal calendar of an account that has no
+    Innopolis SSO opens too."""
+    claims = _claims(bearer)
+    if claims.get("uid") is None:
+        raise _unauthorized()
+    telegram_id = claims.get("telegram_id")
+    return TokenAccount(innohassle_id=str(claims["uid"]), telegram_id=telegram_id if isinstance(telegram_id, int) else None)
+
+
 VerifiedDep = Annotated[UserTokenData, Depends(verify_user)]
+AccountDep = Annotated[TokenAccount, Depends(verify_account)]

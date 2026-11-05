@@ -3,8 +3,6 @@
     bots --(ids of stored messages)--> Redis stream --> this worker --> schedule_changes (Postgres)
                                                                     --> cards to the users of the chat's group (Telegram)
 
-The worker also serves the users' personal calendars (feed.py, GET /users/my-calendar.ics).
-
 Embedding threads (embedder.py) turn every stored message into a vector; they read their queue from Postgres and
 are woken by the same stream. The bots only store messages, they compute nothing.
 
@@ -26,7 +24,6 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 from catix.worker import changes
 from catix.worker import embedder
-from catix.worker import feed
 from catix.worker import health
 from catix.db import pg
 from catix.agent import tracing
@@ -122,7 +119,6 @@ async def run() -> None:
     stop, wake = threading.Event(), threading.Event()
     embedder.start(stop, wake)
     monitoring = asyncio.create_task(health.run())  # Alerts to the admins, independent of Redis and the changes part.
-    calendar = asyncio.create_task(feed.serve())  # The users' personal calendars, independent of Redis too.
     if not settings.redis_url:
         log.warning("REDIS_URL is not set: only embeddings run (polling the queue); schedule changes need Redis")
         await asyncio.Event().wait()
@@ -146,7 +142,6 @@ async def run() -> None:
         tracing.flush()
         stop.set()
         monitoring.cancel()
-        calendar.cancel()
         waking.cancel()
         if notifying:
             notifying.cancel()

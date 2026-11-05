@@ -117,18 +117,13 @@ class Settings(BaseSettings):
     changes_enabled: bool = True
     # Telegram ids that set up the bot and get the alerts; more are added in the bot (/admin).
     admin_telegram_ids: list[int] = []
-    # The worker serves the users' personal calendars at /users/my-calendar.ics on feed_host:feed_port, behind an HTTPS
-    # proxy. In a container it listens on all interfaces: Docker's published port reaches the container's own network,
-    # not its loopback (on 127.0.0.1 a request to the published port got an empty reply).
-    feed_host: str = "127.0.0.1"
-    feed_port: int = 8090
-    # The prefix the proxy serves the worker under (e.g. /catix for https://host/catix/users/my-calendar.ics), whether it
-    # strips the prefix or passes it on. Empty: the worker is at the root of the domain.
-    feed_root_path: str = Field("", pattern=r"^(/\S*[^/])?$")
-    # The HTTP API (`catix-api`, src/catix/api/): the search service's paths. In a container it listens on all interfaces.
+    # The HTTP API (`catix-api`, src/catix/api/): the search service's paths and the users' personal calendars
+    # (/users/my-calendar.ics), behind an HTTPS proxy. In a container it listens on all interfaces: Docker's published
+    # port reaches the container's own network, not its loopback (on 127.0.0.1 a request to it got an empty reply).
     api_host: str = "127.0.0.1"
     api_port: int = 8000
-    # The prefix the proxy serves the API under (e.g. /search/v0), as feed_root_path.
+    # The prefix the proxy serves the API under (e.g. /search/v0 for https://host/search/v0/users/my-calendar.ics),
+    # whether it strips the prefix or passes it on. Empty: the API is at the root of the domain.
     api_root_path: str = Field("", pattern=r"^(/\S*[^/])?$")
     # Origins that may call the API from a browser, as a regex.
     api_cors_allow_origin_regex: str = ".*"

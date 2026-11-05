@@ -4,6 +4,8 @@
     POST /search/search/{id}/feedback      likes of the cards           POST /act/   mock (cAtIx has no actions)
     POST /ask/{id}/feedback                👍/👎 on an answer (an annotation on its trace in Phoenix)
     POST /{section}/parse                a request for the wiki's own run (Redis queue)   GET /parse/{id}   where it is
+    GET  /users/my-calendar.ics          the user's personal calendar (the events they added under the answers)
+    POST /users/my-calendar/events/{id}  the "➕ В мой календарь" button under an answer of /ask/ (its calendar_events)
 """
 
 import logging
@@ -16,7 +18,7 @@ from fastapi.responses import RedirectResponse
 from fastapi.routing import APIRoute
 from starlette.middleware.cors import CORSMiddleware
 
-from catix.api import ask, parsers, search
+from catix.api import ask, parsers, search, users
 from catix.settings import settings
 
 log = logging.getLogger("catix.api")
@@ -75,7 +77,7 @@ async def swagger_ui_html(request: Request):
     )
 
 
-for _router in (search.router, ask.router, parsers.router):
+for _router in (search.router, ask.router, parsers.router, users.router):
     app.include_router(_router)
 
 

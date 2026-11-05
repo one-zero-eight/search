@@ -1,5 +1,6 @@
 """The request and response models of the API: the same JSON as the search service had before cAtIx replaced it."""
 
+from datetime import datetime
 from enum import StrEnum
 from typing import Annotated, Literal
 
@@ -144,6 +145,26 @@ class PageText(BaseModel):
     "The page as markdown."
 
 
+class CalendarEventOffer(BaseModel):
+    id: str
+    "Pass it to POST /users/my-calendar/events/{proposal_id} to add the event to the user's calendar (for 48 hours)."
+    title: str
+    starts_at: datetime
+    "Start; for an all-day event the day (its time means nothing)."
+    ends_at: datetime | None = None
+    all_day: bool = False
+    "The answer names the day only, not the time."
+    room: str | None = None
+    source_url: str | None = None
+    "Where the event comes from (a message of a chat)."
+
+
+class AddedCalendarEvent(BaseModel):
+    proposal_id: str
+    title: str
+    "The title of the event as it is in the calendar."
+
+
 class AskResponses(BaseModel):
     query: str
     answer: str
@@ -153,6 +174,8 @@ class AskResponses(BaseModel):
     "Assigned ask query index"
     search_responses: list[SearchResponse]
     "Responses to the search query."
+    calendar_events: list[CalendarEventOffer] = []
+    "Upcoming events the answer names (an exam, a deadline), offered for the user's calendar: a button each."
     messages: list
     "Chat history for llm (do not show on frontend)."
 

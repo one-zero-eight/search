@@ -3,15 +3,16 @@
 #   scripts/catix.sh up [--tunnel]   docker (db, redis) -> schema -> SSH tunnel to the GPU server -> model check -> apps
 #   scripts/catix.sh down            stops the apps (docker and the SSH tunnel stay)
 #   scripts/catix.sh status          what runs and what answers
-#   scripts/catix.sh logs [app]      follows a log (tgbot, maxbot, worker, tguserbot; default: all)
-# --tunnel also starts a `tuna` tunnel (tuna.am) for the calendar feed and prints the address to give to `catix-feed link`.
+#   scripts/catix.sh logs [app]      follows a log (tgbot, maxbot, worker, api, tguserbot; default: all)
+# --tunnel also starts a `tuna` tunnel (tuna.am) to the HTTP API (catix-api, API_PORT) for the calendar
+# (https://<address>/users/my-calendar.ics) and prints the address.
 # TUNA_SUBDOMAIN (environment or .env) pins the address: your permanent free domain, shown by tuna on start, e.g. grand-tundra-5389.
 # The Telegram userbot (reads chats under your own account) starts only after `uv run catix-tguserbot login` was done once.
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
 LOGS=data/logs
-APPS=(catix-tgbot catix-maxbot catix-worker)
+APPS=(catix-tgbot catix-maxbot catix-worker catix-api)
 USERBOT=catix-tguserbot
 USERBOT_SESSION=data/telegram.session
 GPU_HOST=inh-compute
@@ -25,6 +26,7 @@ logfile() { echo "$LOGS/${1#catix-}.log"; }
 tunnel_running() { pgrep -f "[t]una http" > /dev/null; }
 tunnel_url() { grep -o 'Forwarding https://[^ ]*' "$LOGS/tunnel.log" 2> /dev/null | tail -1 | cut -d' ' -f2 || true; }
 tuna_subdomain() { echo "${TUNA_SUBDOMAIN:-$(grep -E '^TUNA_SUBDOMAIN=' .env 2> /dev/null | cut -d= -f2- | tr -d "\"'")}"; }
+api_port() { local port="${API_PORT:-$(grep -E '^API_PORT=' .env 2> /dev/null | cut -d= -f2- | tr -d "\"'")}"; echo "${port:-8000}"; }
 
 check_models() {
   local failed=0
@@ -79,14 +81,14 @@ up() {
     else
       : > "$LOGS/tunnel.log"
       subdomain=$(tuna_subdomain)
-      nohup tuna http 8090 --log "$LOGS/tunnel.log" --no-colors ${subdomain:+--subdomain="$subdomain"} > /dev/null 2>&1 &
+      nohup tuna http "$(api_port)" --log "$LOGS/tunnel.log" --no-colors ${subdomain:+--subdomain="$subdomain"} > /dev/null 2>&1 &
       for _ in $(seq 20); do
         url=$(tunnel_url)
         [ -n "$url" ] && break
         sleep 1
       done
       ok "tunnel: ${url:-no address yet, see $LOGS/tunnel.log}"
-      echo "  If the address changed, link it: uv run catix-feed link ${url:-<address>}"
+      [ -n "$url" ] && echo "  calendar: $url/users/my-calendar.ics (Authorization: Bearer <InNoHassle token>)"
       [ -n "$subdomain" ] || echo "  (random address: set TUNA_SUBDOMAIN to keep it between restarts)"
     fi
   fi
@@ -104,12 +106,12 @@ status() {
   echo "apps:"
   for app in "${APPS[@]}"; do if running "$app"; then ok "$app"; else bad "$app is not running"; fi; done
   if running "$USERBOT"; then ok "$USERBOT"; elif [ -f "$USERBOT_SESSION" ]; then bad "$USERBOT is not running"; else echo "  $USERBOT: no session yet (login first)"; fi
-  if tunnel_running; then ok "tuna: $(tunnel_url)"; else echo "  tuna not running (only needed for the calendar feed: up --tunnel)"; fi
+  if tunnel_running; then ok "tuna: $(tunnel_url)"; else echo "  tuna not running (only needed for the calendar from outside: up --tunnel)"; fi
   echo "database:"; uv run --quiet catix-db status 2>&1 | grep -v WARNING | sed 's/^/  /' | head -8
 }
 
 logs() {
-  if [ -n "${1:-}" ]; then tail -f "$LOGS/$1.log"; else tail -f "$LOGS"/{tgbot,maxbot,worker,tguserbot}.log 2> /dev/null; fi
+  if [ -n "${1:-}" ]; then tail -f "$LOGS/$1.log"; else tail -f "$LOGS"/{tgbot,maxbot,worker,api,tguserbot}.log 2> /dev/null; fi
 }
 
 case "${1:-}" in
@@ -117,5 +119,5 @@ case "${1:-}" in
   down) down ;;
   status) status ;;
   logs) logs "${2:-}" ;;
-  *) sed -n '2,9p' "$0" | sed 's/^# \{0,1\}//'; exit 1 ;;
+  *) sed -n '2,10p' "$0" | sed 's/^# \{0,1\}//'; exit 1 ;;
 esac

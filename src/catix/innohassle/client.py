@@ -58,9 +58,9 @@ class ServiceTokenError(Exception):
     """The service token is missing or lacks the `users` scope."""
 
 
-def study_group_by_telegram_id(telegram_id: int) -> str | None:
-    """The study group (SSO `group`, e.g. B26-CSE-01) InNoHassle knows for a Telegram id; None if the person is not
-    registered there or has no group (staff). Needs a token with the `users` scope."""
+def _user_by_telegram_id(telegram_id: int) -> dict | None:
+    """The InNoHassle account linked to a Telegram id; None if the person is not registered there. Needs a token with the
+    `users` scope."""
     if not settings.innohassle_service_token:
         raise ServiceTokenError("INNOHASSLE_SERVICE_TOKEN is not set")
     resp = _client.get(
@@ -72,8 +72,21 @@ def study_group_by_telegram_id(telegram_id: int) -> str | None:
     if resp.status_code in (401, 403):
         raise ServiceTokenError(f"InNoHassle refused the service token: {resp.text[:120]}")
     resp.raise_for_status()
-    sso = resp.json().get("innopolis_sso") or {}
+    return resp.json()
+
+
+def study_group_by_telegram_id(telegram_id: int) -> str | None:
+    """The study group (SSO `group`, e.g. B26-CSE-01) InNoHassle knows for a Telegram id; None if the person is not
+    registered there or has no group (staff)."""
+    user = _user_by_telegram_id(telegram_id)
+    sso = (user or {}).get("innopolis_sso") or {}
     return sso.get("group") or None
+
+
+def user_id_by_telegram_id(telegram_id: int) -> str | None:
+    """The InNoHassle id (the `uid` of the account's tokens) linked to a Telegram id; None if the person is not registered."""
+    user = _user_by_telegram_id(telegram_id)
+    return str(user["id"]) if user else None
 
 
 def event_groups() -> list[dict]:

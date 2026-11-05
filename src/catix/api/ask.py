@@ -1,4 +1,6 @@
 """POST /ask/: a question to the cAtIx agent (the one the Telegram and Max bots use), with a conversation by `chat_id`.
+An answer that names upcoming events offers them for the user's calendar (`calendar_events`), as the "➕ В мой календарь"
+buttons under the bot's answers; POST /users/my-calendar/events/{id} adds one (api/users.py).
 POST /ask/{ask_query_id}/feedback: a 👍/👎 on an answer with an optional comment, an annotation on its trace in Phoenix as under
 the bot's answers.
 
@@ -18,14 +20,15 @@ from fastapi import APIRouter, Body, HTTPException
 from fastapi.responses import StreamingResponse
 from langchain_core.messages import AIMessage, AIMessageChunk, HumanMessage, ToolMessage
 
-from catix import groups
+from catix import groups, personal_calendar
+from catix.agent import events as calendar_events
 from catix.agent import tracing
 from catix.agent.core import SUPERVISOR_NAME, build_agent, final_answer
 from catix.agent.questions import QuestionQueue
 from catix.agent.tools import AgentContext
 from catix.api import state
 from catix.api.auth import UserTokenData, VerifiedDep
-from catix.api.schemas import ActResponses, AskResponses, SearchResponse
+from catix.api.schemas import ActResponses, AskResponses, CalendarEventOffer, SearchResponse
 from catix.api.search import make_source
 from catix.common.llm_down import UNAVAILABLE, unreachable
 from catix.common.status import CHECKING, HELPER_TOOLS, QUEUED, STATUS, WRITING
@@ -209,6 +212,18 @@ async def _run(query: str, chat_id: str, user: UserTokenData, events: asyncio.Qu
     return answer, cards, _history(result["messages"]), traced.id
 
 
+async def calendar_offers(answer: str) -> list[CalendarEventOffer]:
+    """The upcoming events the answer names, offered for the user's calendar as under the bot's answers (one more short
+    call of the model, only when the answer has a date). A bonus: when it fails, the answer goes without them."""
+    try:
+        events = await asyncio.to_thread(calendar_events.extract, answer)
+        offered = await asyncio.to_thread(personal_calendar.propose, events) if events else []
+    except Exception:  # noqa: BLE001 - the answer is there already
+        log.exception("could not offer calendar events")
+        return []
+    return [CalendarEventOffer(id=proposal_id, **event) for proposal_id, event in offered]
+
+
 def chat_of(user: UserTokenData, chat_id: str | None) -> str:
     """The chat a question goes to: its owner's chat, or a new one."""
     if chat_id and chat_id in state.chats and state.chats[chat_id] != user.innohassle_id:
@@ -251,6 +266,7 @@ async def ask_by_query(user: VerifiedDep, query: str = Body(..., pattern=NOT_BLA
         chat_id=chat_id,
         ask_query_id=state.remember_ask(user.innohassle_id, span_id),
         search_responses=cards,
+        calendar_events=await calendar_offers(answer),
         messages=messages,
     )
 
@@ -262,7 +278,8 @@ async def ask_by_query(user: VerifiedDep, query: str = Body(..., pattern=NOT_BLA
 )
 async def ask_by_query_stream(user: VerifiedDep, query: str = Body(..., pattern=NOT_BLANK), chat_id: str | None = Body(None)):
     """The same as POST /ask/, but the work is shown while it goes on. Events: `status` ({text}: what the agent is doing: waiting in the queue, checking, asking a helper, writing, as in the Telegram bot),
-    `answer` ({text}: the whole answer so far), `done` (AskResponses: the final answer with its sources), `cancelled`
+    `answer` ({text}: the whole answer so far), `done` (AskResponses: the final answer with its sources and the events it
+    offers for the calendar), `cancelled`
     ({detail}: POST /ask/{chat_id}/cancel) or `error` ({detail}). A client's questions are answered one at a time, in the
     order they came: while an earlier one is not done, this one waits and sends no events."""
     chat_id = chat_of(user, chat_id)
@@ -279,6 +296,7 @@ async def ask_by_query_stream(user: VerifiedDep, query: str = Body(..., pattern=
                 chat_id=chat_id,
                 ask_query_id=state.remember_ask(user.innohassle_id, span_id),
                 search_responses=cards,
+                calendar_events=await calendar_offers(answer),
                 messages=messages,
             )
             await events.put(("done", done.model_dump(mode="json")))

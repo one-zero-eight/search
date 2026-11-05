@@ -101,16 +101,14 @@ services:
     command: ["catix-worker"]
     environment: # (it imports the wiki's code, which needs WIKI_ROOT; it reads no file of it)
       <<: *env
-      FEED_HOST: 0.0.0.0
       WIKI_ROOT: /wiki-data
     volumes:
       - catix_data:/app/data
       - ${WIKI_DIR:-../catix-wiki}:/wiki-data:ro
-    ports:
-      - "127.0.0.1:8090:8090" # personal calendars (/users/my-calendar.ics); put an HTTPS reverse proxy (Caddy, nginx) in front of it
 
   # The HTTP API of the former search service (/search/search, /ask/, /act/): the same paths, answered by the agent
-  # and the wiki. Put an HTTPS reverse proxy in front of it; API_ROOT_PATH is the prefix it serves the API under.
+  # and the wiki, and the users' personal calendars (/users/my-calendar.ics). Put an HTTPS reverse proxy in front of it;
+  # API_ROOT_PATH is the prefix it serves the API under.
   api:
     <<: *app
     command: ["catix-api"]

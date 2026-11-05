@@ -1,18 +1,31 @@
 """A user's personal calendar: the events they added with "➕ В мой календарь" under an answer.
 
-Served at GET /users/my-calendar.ics (worker/feed.py) to whoever shows the user's InNoHassle token; user_key is 'tg:<id>'.
+The events are kept under the person's InNoHassle account, 'ih:<InNoHassle id>'. The site (api/users.py: the button
+POST /users/my-calendar/events/{id} and the calendar GET /users/my-calendar.ics) takes the account from the token, the
+Telegram bot asks InNoHassle for the account linked to the Telegram id. A user of the bot InNoHassle does not know keeps
+their events under 'tg:<telegram id>'; they move to the account as soon as it is known (the bot finds it, or a token of the
+account shows that Telegram id).
 """
 
 import json
+import logging
 import secrets
+import time
 from dataclasses import dataclass
 from datetime import datetime, timezone
 
 from catix.db import pg
+from catix.innohassle import client as innohassle
 from catix.settings import settings
+
+log = logging.getLogger("catix.calendar")
 
 MAX_PROPOSALS = 3
 PROPOSAL_TTL_HOURS = 48
+ACCOUNT_TTL = 3600.0  # The InNoHassle account of a Telegram id is trusted for an hour,
+ACCOUNT_MISS_TTL = 600.0  # a miss (not registered, no service token) is asked again after ten minutes,
+ACCOUNT_ERROR_TTL = 60.0  # InNoHassle failing after a minute.
+_accounts: dict[int, tuple[float, str | None]] = {}
 
 
 @dataclass(frozen=True, slots=True)
@@ -24,6 +37,43 @@ class PersonalEvent:
     all_day: bool
     room: str | None
     source_url: str | None = None  # The chat message the event comes from.
+
+
+# ---- whose events ---------------------------------------------------------------------------------------------
+
+
+def account_key(innohassle_id: str, telegram_id: int | None = None) -> str:
+    """The key of an InNoHassle account's calendar. The events its Telegram account added in the bot while InNoHassle did
+    not know it move into it (an event the account has already is kept once)."""
+    key = f"ih:{innohassle_id}"
+    if telegram_id:
+        old = f"tg:{telegram_id}"
+        with pg.connection() as conn:
+            conn.execute(
+                """DELETE FROM personal_events t USING personal_events a
+                   WHERE t.user_key = %s AND a.user_key = %s AND a.title = t.title AND a.starts_at = t.starts_at""",
+                (old, key),
+            )
+            conn.execute("UPDATE personal_events SET user_key = %s WHERE user_key = %s", (key, old))
+    return key
+
+
+def telegram_key(telegram_id: int) -> str:
+    """The key of the calendar of a user of the Telegram bot: their InNoHassle account when InNoHassle knows the one linked
+    to this Telegram id, else the Telegram id. Without the service token or with InNoHassle down it is the Telegram id: the
+    events added then move to the account the next time it is found."""
+    hit = _accounts.get(telegram_id)
+    if not hit or time.monotonic() >= hit[0]:
+        try:
+            account = innohassle.user_id_by_telegram_id(telegram_id)
+            hit = (time.monotonic() + (ACCOUNT_TTL if account else ACCOUNT_MISS_TTL), account)
+        except innohassle.ServiceTokenError:
+            hit = (time.monotonic() + ACCOUNT_MISS_TTL, None)
+        except Exception:  # noqa: BLE001 - InNoHassle being down must not break the calendar buttons
+            log.exception("InNoHassle account lookup for telegram id %s failed", telegram_id)
+            hit = (time.monotonic() + ACCOUNT_ERROR_TTL, None)
+        _accounts[telegram_id] = hit
+    return account_key(hit[1], telegram_id) if hit[1] else f"tg:{telegram_id}"
 
 
 # ---- events ---------------------------------------------------------------------------------------------------

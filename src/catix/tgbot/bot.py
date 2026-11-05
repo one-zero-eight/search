@@ -237,10 +237,10 @@ async def feedback(query: CallbackQuery, bot: Bot) -> None:
 
 
 def _calendar_screen(user_id: int) -> tuple[str, InlineKeyboardMarkup | None]:
-    user_key = f"tg:{user_id}"
+    user_key = personal_calendar.telegram_key(user_id)
     lines = [
-        "🗓 <b>Ваш личный календарь</b>: события, которые вы добавили кнопкой «➕ В мой календарь» под ответами.",
-        "Он отдаётся по запросу с вашим токеном InNoHassle (аккаунт, привязанный к этому Telegram).",
+        "🗓 <b>Ваш личный календарь</b>: события, которые вы добавили кнопкой «➕ В мой календарь» под ответами здесь и на сайте.",
+        "Он виден в календаре InNoHassle (innohassle.ru/calendar), когда этот Telegram привязан к вашему аккаунту InNoHassle.",
     ]
     rows = []
     events = personal_calendar.upcoming(user_key, 5)
@@ -262,10 +262,10 @@ async def calendar_command(message: Message) -> None:
 @router.callback_query(F.data.startswith("cal:"))
 async def calendar_callback(query: CallbackQuery) -> None:
     _, action, *args = query.data.split(":")
-    user_key = f"tg:{query.from_user.id}"
     if action == "done":
         await query.answer("Уже в вашем календаре")
         return
+    user_key = await asyncio.to_thread(personal_calendar.telegram_key, query.from_user.id)
     if action == "add":  # Anyone can add an offered event to their own calendar, in a group too.
         title = await asyncio.to_thread(personal_calendar.add_proposal, user_key, args[0])
         if title is None:
@@ -559,7 +559,8 @@ async def inline_wait(query: CallbackQuery) -> None:
 async def decide_change(query: CallbackQuery) -> None:
     _, action, change_id = query.data.split(":")
     if action == "ok":
-        done = await asyncio.to_thread(changes.add_to_calendar, f"tg:{query.from_user.id}", int(change_id))
+        user_key = await asyncio.to_thread(personal_calendar.telegram_key, query.from_user.id)
+        done = await asyncio.to_thread(changes.add_to_calendar, user_key, int(change_id))
         verdict = f"✅ {done[:180]}. /calendar" if done else "Изменение не найдено"
     else:
         verdict = "❌ Не добавлено"
