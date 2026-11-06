@@ -78,6 +78,9 @@ class Settings(BaseSettings):
     # Token of a service with the `users` scope: it lets us ask InNoHassle which study group a Telegram id belongs to.
     # The only InNoHassle token: the rest (clubs, events, maps, group timetables) is public. Without it groups are chosen with /mygroup.
     innohassle_service_token: SecretStr | None = None
+    # InNoHassle Sport (sport.innopolis.university): the account helper reads the asker's sport and checks them in to a
+    # training with their own Sport token, which only the site has (api/auth.py verify_asker, agent/sport_tools.py).
+    sport_api: HttpUrl = HttpUrl("https://sport.innopolis.university/api/v3")
     # Tavily, the web search of the docs helper for what the knowledge base lacks (agent/web_tools.py). Unset: the helper has
     # no web search. Only the helper's own query goes there, never who asks.
     tavily_api_key: SecretStr | None = None

@@ -33,7 +33,9 @@ Max-чаты ──Max-бот─────────────────
                                                             ├─► ask_docs    (search_wiki, read_wiki, get_courses;
                                                             │                с TAVILY_API_KEY search_web, read_web_page)
                                                             └─► ask_account (только на сайте, с токеном пользователя:
-                                                                             get_my_schedule, get_free_rooms; бронь, запись,
+                                                                             get_my_schedule, get_free_rooms; со спорт-токеном
+                                                                             X-Sport-Token get_my_sport, get_sport_trainings,
+                                                                             get_sports; бронь, запись, запись на тренировку,
                                                                              отмена, удаление из AI-календаря — после его
                                                                              подтверждения) ─► ответ с источниками
 ```

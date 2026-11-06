@@ -19,6 +19,7 @@ from pydantic import BaseModel, Field, SecretStr, field_validator
 
 from catix import official
 from catix.agent.account_tools import ACCOUNT_TOOLS
+from catix.agent.sport_tools import SPORT_TOOLS
 from catix.agent.calendar_tools import CALENDAR_TOOLS
 from catix.agent.campus_tools import CAMPUS_TOOLS
 from catix.agent.web_tools import WEB_TOOLS
@@ -59,6 +60,9 @@ class AgentContext:
     # The asker's InNoHassle account on the site: their AI Calendar is kept under it (agent/calendar_tools.py). In the
     # Telegram bot the account linked to `user_telegram_id` is asked for when it is needed.
     innohassle_id: str | None = None
+    # The asker's InNoHassle Sport token, which the site sends with a question (api/auth.py verify_asker): the account helper
+    # reads their sport and checks them in with it (agent/sport_tools.py). Never kept, never shown.
+    sport_token: SecretStr | None = field(default=None, repr=False)
 
 
 DEFAULT_EVENTS_WINDOW_DAYS = 14
@@ -921,6 +925,7 @@ TOOLS = [
     read_wiki,
     *CAMPUS_TOOLS,
     *ACCOUNT_TOOLS,
+    *SPORT_TOOLS,
     *CALENDAR_TOOLS,
     *WEB_TOOLS,
 ]

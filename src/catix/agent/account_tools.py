@@ -1,6 +1,7 @@
 """Tools on the asker's own InNoHassle account, asked with their token, which only the site has (api/auth.py): their schedule
 and bookings, the free rooms they may book, and the actions done for them: booking the music room or a room, enrolling in
-an event (or leaving it), cancelling a booking, removing an event from their AI Calendar (agent/calendar_tools.py).
+an event (or leaving it), cancelling a booking, removing an event from their AI Calendar (agent/calendar_tools.py), checking
+them in to a sport training (agent/sport_tools.py).
 
 No action is done at once. HumanInTheLoopMiddleware stops the account helper after the model call that asks for one
 (core._helper_tool, `APPROVAL` here): the run pauses (a LangGraph interrupt, kept in the chat's checkpoint), the site shows
@@ -25,8 +26,10 @@ from pydantic import BaseModel, Field, ValidationError
 
 from catix import personal_calendar
 from catix.agent.calendar_tools import RemoveFromAiCalendarArgs, calendar_key, events_between
+from catix.agent.sport_tools import SportCheckinArgs, sport_token, training_name
 from catix.common.dates import ClockTime
 from catix.innohassle import client as innohassle
+from catix.innohassle import sport as sport_api
 from catix.settings import settings
 
 log = logging.getLogger("catix.account")
@@ -263,7 +266,8 @@ def _problem(name: str, args: dict) -> str | None:
     """What makes the arguments of an action wrong whatever happens; None if they may be right. Such a call is not put to the
     user: the tool says what is wrong and does nothing."""
     schema = {"book_music_room": BookMusicRoomArgs, "book_room": BookRoomArgs, "enroll_in_event": EnrollArgs,
-              "cancel_booking": CancelBookingArgs, "remove_from_ai_calendar": RemoveFromAiCalendarArgs}[name]  # fmt: skip
+              "cancel_booking": CancelBookingArgs, "remove_from_ai_calendar": RemoveFromAiCalendarArgs,
+              "sport_checkin": SportCheckinArgs}[name]  # fmt: skip
     try:
         parsed = schema.model_validate(args)
     except ValidationError as e:
@@ -448,6 +452,23 @@ def _describe_removal(tool_call, state, runtime) -> str:
     return f"Убрать из вашего AI-календаря: {what}." if ru else f"Remove from your AI Calendar: {what}."
 
 
+def _describe_checkin(tool_call, state, runtime) -> str:
+    a, ru = SportCheckinArgs.model_validate(tool_call["args"]), _russian(state)
+    what = f"#{a.training_id}"
+    try:
+        token = sport_token(runtime)
+        t = sport_api.training(token, a.training_id) if token else None
+        if t:
+            when = _when(_local(t["start"]), None if t.get("is_all_day") else _local(t["end"]), ru)
+            place = (t.get("training_location") or {}).get("name")
+            what = f"«{training_name(t)}» ({when.rsplit(', ', 1)[0] if t.get('is_all_day') else when}{', ' + place if place else ''})"
+    except (innohassle.ServiceError, KeyError, ValueError):
+        pass
+    if ru:
+        return f"Отменить вашу запись на тренировку {what}." if a.cancel else f"Записать вас на тренировку {what}."
+    return f"Cancel your check-in to the training {what}." if a.cancel else f"Check you in to the training {what}."
+
+
 def _gate(name: str, describe) -> dict:
     return {
         "allowed_decisions": ["approve", "reject"],
@@ -463,4 +484,5 @@ APPROVAL = {
     "enroll_in_event": _gate("enroll_in_event", _describe_enrol),
     "cancel_booking": _gate("cancel_booking", _describe_cancel),
     "remove_from_ai_calendar": _gate("remove_from_ai_calendar", _describe_removal),
+    "sport_checkin": _gate("sport_checkin", _describe_checkin),
 }

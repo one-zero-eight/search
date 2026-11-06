@@ -662,6 +662,23 @@ def test_an_action_waits_in_the_chat_until_the_user_decides(client, monkeypatch,
     assert client.post(f"/ask/{chat_id}/decision", json={"decision": "maybe"}, headers=AUTH).status_code == 422
 
 
+def test_the_sites_sport_token_reaches_the_agent_with_the_question_and_the_decision(client, monkeypatch, kept):
+    seen = []
+
+    async def _run(query, chat_id, user, events=None, decision=None):
+        seen.append(user.sport_token and user.sport_token.get_secret_value())
+        if decision is None:
+            return ask.Waiting("Нужно ваше подтверждение", [], None, "cp-paused", APPROVAL, [{"id": "i1", "actions": 1}])
+        return "Записал.", [], [], None, "cp-2"
+
+    monkeypatch.setattr(ask, "_run", _run)
+    monkeypatch.setattr(token, "sport_email", {"sport-mine": "a@innopolis.university", "sport-other": "b@innopolis.university"}.get)
+    first = client.post("/ask/", json={"query": "запиши меня на волейбол"}, headers=AUTH | {"X-Sport-Token": "sport-mine"}).json()
+    client.post(f"/ask/{first['chat_id']}/decision", json={"decision": "approve"}, headers=AUTH | {"X-Sport-Token": "sport-other"})
+    client.post("/ask/", json={"query": "сколько у меня часов спорта"}, headers=AUTH)
+    assert seen == ["sport-mine", None, None], "only the asker's own, and only from the request it came with"
+
+
 def test_a_decision_resumes_the_paused_checkpoint_once(monkeypatch, kept):
     calls = []
     paused = SimpleNamespace(id="i1", value={"action_requests": [{"name": "book_music_room", "description": "Забронировать музкомнату."}]})

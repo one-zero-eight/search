@@ -42,7 +42,7 @@ from catix.agent.core import SUPERVISOR_NAME, _language, build_agent, final_answ
 from catix.agent.questions import QuestionQueue
 from catix.agent.tools import AgentContext
 from catix.api import chats, state
-from catix.api.auth import UserTokenData, VerifiedDep
+from catix.api.auth import AskerDep, UserTokenData, VerifiedDep
 from catix.api.schemas import (
     ActResponses,
     AskAction,
@@ -348,6 +348,7 @@ async def _run(
         study_group=None if group == groups.ALL else group,
         innohassle_token=user.token,  # the site's user: the account helper (agent/account_tools.py)
         innohassle_id=user.innohassle_id,  # their AI Calendar (agent/calendar_tools.py)
+        sport_token=user.sport_token,  # their sport, when the site sent their Sport token (agent/sport_tools.py)
     )
     # The sources known before this question: the cards are of what it found (when resumed, also before it paused).
     if resume is None:
@@ -421,7 +422,7 @@ def server_event(name: str, data: dict) -> str:
         503: {"description": "The language model cannot be reached; the detail says the assistant is not working now"},
     },
 )
-async def ask_by_query(user: VerifiedDep, query: str = Body(..., pattern=NOT_BLANK), chat_id: str | None = Body(None)):
+async def ask_by_query(user: AskerDep, query: str = Body(..., pattern=NOT_BLANK), chat_id: str | None = Body(None)):
     chat_id = await chat_of(user, chat_id, query)
     started = time.monotonic()
     try:
@@ -442,7 +443,7 @@ async def ask_by_query(user: VerifiedDep, query: str = Body(..., pattern=NOT_BLA
     response_class=StreamingResponse,
     responses={200: {"description": "Server-sent events: `status`, `answer`, then `done` (AskResponses) or `error`"}},
 )
-async def ask_by_query_stream(user: VerifiedDep, query: str = Body(..., pattern=NOT_BLANK), chat_id: str | None = Body(None)):
+async def ask_by_query_stream(user: AskerDep, query: str = Body(..., pattern=NOT_BLANK), chat_id: str | None = Body(None)):
     """The same as POST /ask/, but the work is shown while it goes on. Events: `status` ({text}: what the agent is doing: waiting in the queue, checking, asking a helper, writing, as in the Telegram bot),
     `answer` ({text}: the whole answer so far), `done` (AskResponses: the final answer with its sources and the events it
     offers for the calendar), `cancelled`
@@ -506,7 +507,7 @@ NOTHING_WAITS = "Nothing in this chat waits for a decision (it was decided alrea
         503: {"description": "The language model cannot be reached; the detail says the assistant is not working now"},
     },
 )
-async def decide(user: VerifiedDep, chat_id: str, decision: AskDecision):
+async def decide(user: AskerDep, chat_id: str, decision: AskDecision):
     """Approve or reject what the assistant is about to do for the user (the `approval` of the chat's last response): booking
     the music room or a room, enrolling in an event, cancelling a booking. The agent goes on from where it paused, does it
     with this request's token (approve) or not (reject), and its answer is the answer to the question that waited. Each
@@ -534,7 +535,7 @@ async def decide(user: VerifiedDep, chat_id: str, decision: AskDecision):
         409: {"description": "Nothing waits for a decision in the chat"},
     },
 )
-async def decide_stream(user: VerifiedDep, chat_id: str, decision: AskDecision):
+async def decide_stream(user: AskerDep, chat_id: str, decision: AskDecision):
     """The same as POST /ask/{chat_id}/decision, with the work shown while it goes on: the events of POST /ask/stream."""
     query = await _waiting_question(user, chat_id)
     return _streamed(query, chat_id, user, decision)

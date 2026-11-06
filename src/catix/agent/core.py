@@ -975,6 +975,8 @@ def _helper_tool(role: roles.Role, model) -> BaseTool:
             announced = len(out["messages"])
         messages = out["messages"]
         report = clean(messages, messages[-1].text.strip()) or NO_REPORT
+        if not role.cites:
+            report = re.sub(r"[ \t]+([.,;:!?])", r"\1", sources.RUN_RE.sub("", report)).strip() or NO_REPORT
         used = {
             "tools": [c["name"] for m in messages if isinstance(m, AIMessage) for c in m.tool_calls],
             "calls": [c for m in messages if isinstance(m, AIMessage) for c in m.tool_calls],

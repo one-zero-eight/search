@@ -30,6 +30,10 @@ STATUS = {
     "cancel_booking": "🗑 Готовлю отмену брони…",
     "get_my_ai_calendar": "🗓 Смотрю ваш AI-календарь…",
     "remove_from_ai_calendar": "🗑 Готовлю удаление из календаря…",
+    "get_my_sport": "🏃 Смотрю ваши часы спорта…",
+    "get_sport_trainings": "🏃 Смотрю тренировки…",
+    "get_sports": "🏃 Смотрю виды спорта…",
+    "sport_checkin": "🏃 Готовлю запись на тренировку…",
     "search_web": "🌐 Ищу в интернете…",
     "read_web_page": "🌐 Читаю страницу сайта…",
 }

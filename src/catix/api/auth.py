@@ -1,8 +1,9 @@
 """`Authorization: Bearer <InNoHassle token>`, as in the search service."""
 
+import asyncio
 from typing import Annotated
 
-from fastapi import Depends, HTTPException
+from fastapi import Depends, Header, HTTPException
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel, Field, SecretStr
 
@@ -25,6 +26,8 @@ class UserTokenData(BaseModel):
     "User's Telegram ID connected to InNoHassle Accounts"
     token: SecretStr | None = Field(None, exclude=True, repr=False)
     "The token itself: the agent's account helper asks InNoHassle with it as the user (agent/account_tools.py). Never kept."
+    sport_token: SecretStr | None = Field(None, exclude=True, repr=False)
+    "The user's InNoHassle Sport token (`X-Sport-Token`, verify_asker): the account helper reads their sport with it. Never kept."
 
 
 def _unauthorized() -> HTTPException:
@@ -71,3 +74,29 @@ def verify_account(bearer: HTTPAuthorizationCredentials | None = Depends(bearer_
 
 VerifiedDep = Annotated[UserTokenData, Depends(verify_user)]
 AccountDep = Annotated[TokenAccount, Depends(verify_account)]
+
+
+async def verify_asker(
+    user: VerifiedDep,
+    sport_token: Annotated[
+        str | None,
+        Header(
+            alias="X-Sport-Token",
+            description="The user's InNoHassle Sport token ([InNoHassle Accounts](https://api.innohassle.ru/accounts/v0/tokens/"
+            "generate-my-sport-token), as the site keeps it): the assistant reads their sport hours and trainings and checks "
+            "them in to a training (after they approve it) with it. Without it, or with one of another user or expired, the "
+            "assistant has no access to their sport.",
+        ),
+    ] = None,
+) -> UserTokenData:
+    """The user who asks the assistant, with their Sport token when it is valid and theirs (the same Innopolis email). (Async:
+    a request without the header goes on at once, in the order the questions came.)"""
+    if not sport_token:
+        return user
+    email = await asyncio.to_thread(innohassle_token.sport_email, sport_token)  # (the keys may be fetched)
+    if email and email.lower() == user.email.lower():
+        return user.model_copy(update={"sport_token": SecretStr(sport_token)})
+    return user
+
+
+AskerDep = Annotated[UserTokenData, Depends(verify_asker)]

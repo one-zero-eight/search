@@ -75,9 +75,9 @@ def kind_of(host: str) -> str:
 
 def read_by_code() -> set[str]:
     """The hosts the code reads without a line in SITES: a source of its own (the eduwiki's API, the documents of the
-    university) or the agent's tools (the InNoHassle API: clubs, events, maps). They come from the constants the
-    code reads them by; tests/test_wiki_discover.py fails when the code names a host that is not here."""
-    return {host_of(url) for url in (eduwiki.API, regulations.BASE, str(settings.innohassle_api))}
+    university) or the agent's tools (the InNoHassle API: clubs, events, maps; InNoHassle Sport, as the user). They come
+    from the constants the code reads them by; tests/test_wiki_discover.py fails when the code names a host that is not here."""
+    return {host_of(url) for url in (eduwiki.API, regulations.BASE, str(settings.innohassle_api), str(settings.sport_api))}
 
 
 def known_hosts() -> set[str]:
