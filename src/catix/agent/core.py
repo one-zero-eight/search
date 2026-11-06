@@ -709,6 +709,51 @@ class PriorityMiddleware(AgentMiddleware):
         return await handler(self._with(request))
 
 
+# The sampling the model card recommends for thinking. Greedy (temperature 0, the agent's) a thinking model goes round in
+# its reasoning until the token limit, and the answer comes back empty.
+THINKING_SAMPLING = {"temperature": 0.85, "top_p": 0.95, "presence_penalty": 1.1}
+THINKING_EXTRA_BODY = {"top_k": 20, "min_p": 0.0, "repetition_penalty": 1.0}
+
+
+class PlanThinkingMiddleware(AgentMiddleware):
+    """The supervisor's first model call of a question thinks (AGENT_PLAN_THINKING), with the sampling of the model card: its
+    plan of which helpers to ask and with what. Its later calls (another helper, the answer from the reports) and the helpers
+    do not, nor does small talk (`answer_alone`, set by the screen) or a run without the screen (the tests).
+
+    Measured on 13 real questions of the bots and the site, 2 runs each, against no thinking at all (2026-11-07):
+    - the plan alone: median 51 s vs 42 s. It asked two helpers at once in 12 of 26 runs (0 of 13 without), took the courses
+      of tomorrow's classes from the conversation for "на каких моих завтрашних парах будет тест", answered a six-part
+      question of an applicant point by point, and never began an answer in English ("Based on the search results…"),
+      which without thinking happened twice;
+    - the helpers thinking too: no better in all, median 110 s. Every call thinking: 89 s, and once a raw JSON for an
+      answer; with a todo list besides (write_todos): 130 s, and the list was never used;
+    - small talk thinking: 11k characters of reasoning, 127 s, for the one sentence that answers "сколько у тебя данных?".
+    The plan also rewrote a word it did not know: "как добраться до верхнего услона" went to the campus helper as "до
+    верхнего этажа" (roles.SUPERVISOR keeps the user's words)."""
+
+    @staticmethod
+    def _plans(request: ModelRequest) -> bool:
+        if not settings.agent_plan_thinking or request.state.get("answer_alone") is not False:
+            return False
+        # The state, not request.messages: a hint added to the request (RunGuardMiddleware) is not the user's question.
+        return not any(isinstance(m, AIMessage) for m in _this_run(request.state["messages"]))
+
+    def _with(self, request: ModelRequest) -> ModelRequest:
+        if not self._plans(request):
+            return request
+        extra = {**(getattr(request.model, "extra_body", None) or {}), **request.model_settings.get("extra_body", {})}
+        template = {**(extra.get("chat_template_kwargs") or {}), "enable_thinking": True}
+        extra = {**extra, **THINKING_EXTRA_BODY, "chat_template_kwargs": template}
+        limit = {"max_tokens": settings.llm_plan_max_tokens}
+        return request.override(model_settings={**request.model_settings, **THINKING_SAMPLING, **limit, "extra_body": extra})
+
+    def wrap_model_call(self, request, handler):
+        return handler(self._with(request))
+
+    async def awrap_model_call(self, request, handler):
+        return await handler(self._with(request))
+
+
 ACCOUNT_HELPER = "ask_account"
 
 
@@ -1043,6 +1088,7 @@ def build_agent(model=None, *, guardrail: bool = True, checkpointer: BaseCheckpo
             ),
             SourcesMiddleware(),
             RunGuardMiddleware(t.name for t in helpers),
+            PlanThinkingMiddleware(),  # before PriorityMiddleware, which keeps the extra_body it sets
             PriorityMiddleware(),
             LoggingMiddleware(),
             ToolErrorMiddleware(on_error=_tool_error),

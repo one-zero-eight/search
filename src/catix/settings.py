@@ -28,6 +28,12 @@ class Settings(BaseSettings):
     # Qwen "thinking" before answering: slightly more careful, but 2-10x slower on this hardware
     # and sometimes runs out of tokens with an empty answer.
     llm_thinking: bool = False
+    # Only the supervisor's first model call of a question thinks, its plan, and only for a real question (the screen's
+    # `ok`, not small talk): agent/core.py PlanThinkingMiddleware. `llm_plan_max_tokens` is that call's budget: the
+    # reasoning and then the tool calls. On 13 real questions, thinking everywhere made the agent 1.7x slower than
+    # the plan alone (median 89 vs 51 s) and was no better.
+    agent_plan_thinking: bool = True
+    llm_plan_max_tokens: int = Field(8192, gt=0)
     # Next to every chat message the tools give the concrete dates its "завтра", "в пятницу" or "23 октября" mean
     # and how far they are from today (src/catix/common/dates.py); the model does not have to do date arithmetic.
     annotate_dates: bool = True
