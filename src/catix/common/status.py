@@ -28,5 +28,9 @@ STATUS = {
     "book_room": "🏫 Готовлю бронь аудитории…",
     "enroll_in_event": "📅 Готовлю запись на событие…",
     "cancel_booking": "🗑 Готовлю отмену брони…",
+    "get_my_ai_calendar": "🗓 Смотрю ваш AI-календарь…",
+    "remove_from_ai_calendar": "🗑 Готовлю удаление из календаря…",
+    "search_web": "🌐 Ищу в интернете…",
+    "read_web_page": "🌐 Читаю страницу сайта…",
 }
 HELPER_TOOLS = frozenset(name for name in STATUS if name.startswith("ask_"))  # when one of them returns, the answer is written

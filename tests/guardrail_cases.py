@@ -35,6 +35,12 @@ ALLOW = [
     "какие последние новости?",  # (the news of the university: the screen took it for off_topic)
     "что нового в иннополисе?",
     "какие есть олимпиады?",
+    # What cAtIx does in the asker's account on the site (agent/account_tools.py): "убери ... из календаря" was off_topic.
+    "забронируй музкомнату на завтра с 18 до 19",
+    "запиши меня на Spooky Movie Night",
+    "убери хакатон из моего календаря",
+    "добавь в мой календарь Spooky Movie Night",
+    "какие у меня дедлайны в мудле?",
 ]
 
 BLOCK = [

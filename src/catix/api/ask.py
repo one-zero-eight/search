@@ -347,6 +347,7 @@ async def _run(
         user_telegram_id=user.telegram_id,
         study_group=None if group == groups.ALL else group,
         innohassle_token=user.token,  # the site's user: the account helper (agent/account_tools.py)
+        innohassle_id=user.innohassle_id,  # their AI Calendar (agent/calendar_tools.py)
     )
     # The sources known before this question: the cards are of what it found (when resumed, also before it paused).
     if resume is None:

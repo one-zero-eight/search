@@ -37,7 +37,7 @@ from pydantic import BaseModel, Field
 from typing_extensions import NotRequired
 
 from catix import userbot_config
-from catix.agent import claims, questions, roles, sources
+from catix.agent import claims, questions, roles, sources, web_tools
 from catix.agent.account_tools import APPROVAL
 from catix.agent.guardrail import GuardrailMiddleware
 from catix.agent.tools import MAX_READS, TOOLS, AgentContext, reads_done
@@ -912,6 +912,11 @@ class AskArgs(BaseModel):
 NO_REPORT = "The helper could not find an answer. Say that nothing was found and offer to look with other words."
 
 
+def helper_tools(role: roles.Role) -> list[BaseTool]:
+    """The tools of a helper: those of its role, the web search only with its key (web_tools.enabled)."""
+    return [t for t in TOOLS if t.name in role.tools and (t.name not in web_tools.NAMES or web_tools.enabled())]
+
+
 def _helper_tool(role: roles.Role, model) -> BaseTool:
     """A helper agent as a tool of the supervisor.
 
@@ -926,7 +931,7 @@ def _helper_tool(role: roles.Role, model) -> BaseTool:
     """
     helper = create_agent(
         model,
-        [t for t in TOOLS if t.name in role.tools],
+        helper_tools(role),
         middleware=[
             prompt_for(role.name),
             QuestionNoteMiddleware(hint=True),

@@ -3,6 +3,7 @@ no other token does. The tokens are signed here by a key of our own, put in plac
 the database: the events of the Telegram bot move to the InNoHassle account."""
 
 import time
+from datetime import datetime
 
 import jwt
 import pytest
@@ -15,6 +16,7 @@ from catix.api.app import app
 from catix.db import pg
 from catix.innohassle import client as innohassle
 from catix.innohassle import token as innohassle_token
+from catix.settings import settings
 from tests.test_api import FakeChats
 
 KEY = rsa.generate_private_key(public_exponent=65537, key_size=2048)
@@ -89,7 +91,7 @@ def test_the_button_under_an_answer_adds_the_event_to_the_account(client, monkey
 
 
 def test_an_answer_offers_its_events_for_the_calendar(client, monkeypatch):
-    async def _run(query, chat_id, user, events=None):
+    async def _run(query, chat_id, user, events=None, decision=None):
         return "Экзамен 20 ноября в 10:00", [], [], None, "cp-1"
 
     event = {"title": "Экзамен", "starts_at": "2026-11-20T10:00:00+03:00", "ends_at": None, "all_day": False, "room": "108", "source_url": None}
@@ -106,7 +108,7 @@ def test_an_answer_offers_its_events_for_the_calendar(client, monkeypatch):
 
 
 def test_an_answer_whose_events_cannot_be_read_still_comes(client, monkeypatch):
-    async def _run(query, chat_id, user, events=None):
+    async def _run(query, chat_id, user, events=None, decision=None):
         return "Экзамен 20 ноября", [], [], None, "cp-1"
 
     def broken(answer):
@@ -200,3 +202,18 @@ def test_the_feed_says_which_chat_message_an_event_comes_from(events):
     feed = personal_calendar.ics(IH).replace("\r\n ", "")  # unfolded
     assert "DESCRIPTION:Из чата «Test-2»\\, 05.11 21:10\\, Дмитрий:\\nЗАВТРА ЭКЗАМЕН\\, 104\r\n" in feed
     assert "X-WR-LINK" not in feed
+
+
+def test_the_agent_reads_the_events_of_a_period_and_removes_one_of_its_own(events):
+    """agent/calendar_tools.py: the AI Calendar of a period, one event by its id (for the approval) and its removal."""
+    add, titles = events
+    add(IH, "Экзамен", 10)
+    add(IH, "Дедлайн", 12)
+    at = lambda day: datetime(2099, 1, day, tzinfo=settings.tz)  # noqa: E731
+    assert [e.title for e in personal_calendar.between(IH, at(10), at(11))] == ["Экзамен"]
+    assert [e.title for e in personal_calendar.between(IH, at(11), at(13))] == ["Дедлайн"]
+    exam = personal_calendar.between(IH, at(10), at(11))[0]
+    assert personal_calendar.event_of(IH, exam.id).title == "Экзамен" and personal_calendar.event_of(TG, exam.id) is None
+    assert not personal_calendar.delete_event(TG, exam.id), "not someone else's"
+    assert personal_calendar.delete_event(IH, exam.id) and not personal_calendar.delete_event(IH, exam.id)
+    assert titles(IH) == ["Дедлайн"]

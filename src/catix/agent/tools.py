@@ -19,7 +19,9 @@ from pydantic import BaseModel, Field, SecretStr, field_validator
 
 from catix import official
 from catix.agent.account_tools import ACCOUNT_TOOLS
+from catix.agent.calendar_tools import CALENDAR_TOOLS
 from catix.agent.campus_tools import CAMPUS_TOOLS
+from catix.agent.web_tools import WEB_TOOLS
 from catix.agent.sources import Collector
 from catix.common import courses, dates
 from catix.db import store
@@ -54,6 +56,9 @@ class AgentContext:
     # asker with it (agent/account_tools.py). Never kept, never shown; None in the bots and the CLI, where there is no account
     # helper (core.AccountOnTheSiteMiddleware).
     innohassle_token: SecretStr | None = field(default=None, repr=False)
+    # The asker's InNoHassle account on the site: their AI Calendar is kept under it (agent/calendar_tools.py). In the
+    # Telegram bot the account linked to `user_telegram_id` is asked for when it is needed.
+    innohassle_id: str | None = None
 
 
 DEFAULT_EVENTS_WINDOW_DAYS = 14
@@ -588,6 +593,14 @@ def _own_group(runtime: ToolRuntime[AgentContext]) -> dict | None:
 
 MAX_CLASSES = 40
 DEFAULT_SCHEDULE_DAYS = 7
+GROUP_UNKNOWN = "The asker's group is not known: ask them for it (such as B26-DSAI-04)."
+
+
+def _named(group: str, runtime: ToolRuntime[AgentContext]) -> bool:
+    """Is it the asker's own group or one the question names? Told that the asker's group is not known, the campus helper
+    took B26-CSE-01 from an example of the prompts and gave its timetable as "the schedule of your group"."""
+    own = runtime.context.study_group if runtime.context else None
+    return _norm(group) in _norm(_question(runtime) or "") or bool(own and _norm(group) == _norm(own))
 
 
 def _norm(text: str) -> str:
@@ -640,6 +653,8 @@ def get_schedule(
     start = date_from or datetime.now(settings.tz).date()
     end = date_to or start + timedelta(days=DEFAULT_SCHEDULE_DAYS - 1)
 
+    if group and not _named(group, runtime):
+        return {"error": GROUP_UNKNOWN}
     if group:
         matches = _find_group(group)
         if not matches:
@@ -657,7 +672,7 @@ def get_schedule(
         source = own["name"]
         ics = innohassle.group_schedule_ics(own["alias"])
     else:
-        return {"error": "The asker's group is not known. Ask for their group, e.g. B26-DSAI-04."}
+        return {"error": GROUP_UNKNOWN}
 
     calendar = icalendar.Calendar.from_ical(ics)
     now = datetime.now(settings.tz)
@@ -906,4 +921,6 @@ TOOLS = [
     read_wiki,
     *CAMPUS_TOOLS,
     *ACCOUNT_TOOLS,
+    *CALENDAR_TOOLS,
+    *WEB_TOOLS,
 ]

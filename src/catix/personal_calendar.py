@@ -128,6 +128,29 @@ def upcoming(user_key: str, limit: int = 6) -> list[PersonalEvent]:
         )
 
 
+def between(user_key: str, start: datetime, end: datetime, limit: int = 40) -> list[PersonalEvent]:
+    """The user's events that are on in [start, end): begun before its end, not over before its start."""
+    with pg.connection() as conn:
+        return pg.rows(
+            conn,
+            PersonalEvent,
+            """SELECT id, title, starts_at, ends_at, all_day, room, source_url FROM personal_events
+               WHERE user_key = %s AND starts_at < %s AND coalesce(ends_at, starts_at) >= %s ORDER BY starts_at LIMIT %s""",
+            (user_key, end, start, limit),
+        )
+
+
+def event_of(user_key: str, event_id: int) -> PersonalEvent | None:
+    """One event of the user's, or None when they have no such event."""
+    with pg.connection() as conn:
+        return pg.row(
+            conn,
+            PersonalEvent,
+            "SELECT id, title, starts_at, ends_at, all_day, room FROM personal_events WHERE id = %s AND user_key = %s",
+            (event_id, user_key),
+        )
+
+
 def delete_event(user_key: str, event_id: int) -> bool:
     with pg.connection() as conn:
         return conn.execute("DELETE FROM personal_events WHERE id = %s AND user_key = %s", (event_id, user_key)).rowcount > 0

@@ -91,8 +91,9 @@ def test_the_tools_are_split_between_the_helpers():
     assert chats <= known and campus <= known and docs <= known and account <= known, "a helper names a tool that does not exist"
     assert known == chats | campus | docs | account, "a tool belongs to no helper"
     assert "search_userbot_chats" not in campus and "get_schedule" not in chats
-    # The documents have a helper of their own; get_courses gives who teaches a course this term next to the programmes.
-    assert docs == {"search_wiki", "read_wiki", "get_courses"}
+    # The documents have a helper of their own; get_courses gives who teaches a course this term next to the programmes, and
+    # the web search (with its key) what the knowledge base lacks.
+    assert docs == {"search_wiki", "read_wiki", "get_courses", "search_web", "read_web_page"}
 
 
 class ScriptedModel(FakeMessagesListChatModel):

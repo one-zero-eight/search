@@ -154,10 +154,20 @@ def _as_user(method: str, path: str, token: str, *, params: dict | None = None, 
     return resp
 
 
-def my_schedule_ics(token: str) -> str:
-    """Everything in the user's InNoHassle calendar: their groups' classes, the groups they added, sport, the music room,
-    the events they enrolled in, their room bookings and Moodle deadlines (when Moodle is linked)."""
-    return _as_user("GET", "/schedule/v0/users/me/all.ics", token).text
+# The user's own calendars, as the site's calendar shows them. all.ics is only the event groups (the classes of their groups
+# and the groups they added, not hidden): sport, Moodle and the events they enrolled in are calendars of their own. (The
+# music room and the room bookings are read from their services, with the ids a cancellation takes.)
+MY_CALENDARS = {
+    "class": "/schedule/v0/users/me/all.ics",
+    "sport": "/schedule/v0/users/me/sport.ics",
+    "deadline": "/schedule/v0/users/me/moodle.ics",  # 404 when the user's Moodle is not linked to InNoHassle
+    "event": "/events/v1/users/me/events.ics",
+}
+
+
+def my_calendar_ics(token: str, kind: str) -> str:
+    """One of the user's calendars (MY_CALENDARS) as iCalendar text."""
+    return _as_user("GET", MY_CALENDARS[kind], token).text
 
 
 def my_music_room_bookings(token: str) -> list[dict]:

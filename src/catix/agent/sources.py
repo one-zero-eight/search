@@ -92,6 +92,10 @@ class Collector:
                   "based_on": [{"title": b["title"], "link": b["link"]} for b in hit.based_on if b.get("link")][:2]}
         return self._add(f"wiki:{hit.id}", fields)
 
+    def add_web(self, title: str, url: str, official: bool) -> str:
+        """A page found on the web (agent/web_tools.py): one source per page, whatever was quoted from it."""
+        return self._add(f"web:{url}", {"web": True, "title": title, "link": url, "official_site": official})
+
     def result(self, payload: dict, tool_name: str, artifact: dict | None = None) -> Command:
         """The tool's result for the model, and the new sources for the state; `artifact` goes with it, unseen by the model."""
         import json
@@ -104,6 +108,8 @@ class Collector:
 def _identity(ref: str, source: dict) -> object:
     """What one number of the source list stands for: a chat message, or a whole document of the wiki (its clauses are listed
     in its one line, so that twelve clauses of one regulation do not make twelve lines)."""
+    if source.get("web"):
+        return ("web", source.get("link"))
     return ("wiki", source.get("title"), source.get("link")) if source.get("wiki") else ref
 
 
@@ -211,7 +217,17 @@ def _wiki_line(number: int, source: dict) -> str:
     return line + " (eduwiki)"
 
 
+def _web_line(number: int, source: dict) -> str:
+    """[n] «Title» (innopolis.university): a page the docs helper found on the web, with its host; a site that is not the
+    university's or the city's is said to be from the web."""
+    host = (urlsplit(source.get("link") or "").hostname or "").removeprefix("www.")
+    where = host if source.get("official_site") else f"{host}, из интернета" if host else "из интернета"
+    return f"[{number}] {_link(source.get('title') or host, source.get('link'))} ({where})"
+
+
 def _line(number: int, source: dict) -> str:
+    if source.get("web"):
+        return _web_line(number, source)
     if source.get("wiki"):
         return _wiki_line(number, source)
     date = source.get("date")

@@ -79,3 +79,25 @@ def test_a_teacher_gives_their_courses_and_a_course_its_teachers():
                                              "email": "e.zuev@innopolis.ru", "telegram": "@zouev", "role": "Primary Instructor"}
     assert course["blocks"] == ["Блок 2"] and {c["kind"] for c in course["weekly_classes"]} == {"lecture", "lab"}
     assert "note" in campus_tools.get_courses.invoke({"query": "квантовая гравитация"})
+
+
+def test_a_group_the_asker_did_not_name_is_not_taken_for_theirs(monkeypatch):
+    """Told that the asker's group was not known, the helper took B26-CSE-01 from an example and gave its timetable as theirs."""
+    from types import SimpleNamespace
+
+    from langchain_core.messages import HumanMessage
+
+    from catix.agent import tools
+    from catix.agent.tools import AgentContext
+
+    asked = []
+    monkeypatch.setattr(tools, "_find_group", lambda group: asked.append(group) or [{"name": "B26-CSE-01", "alias": "b26-cse-01"}])
+    monkeypatch.setattr(tools.innohassle, "group_schedule_ics", lambda alias: "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nEND:VCALENDAR\r\n")
+
+    def schedule(question: str, group: str, own: str | None = None) -> dict:
+        runtime = SimpleNamespace(context=AgentContext(study_group=own), state={"messages": [HumanMessage(question)]})
+        return tools.get_schedule.func(runtime, group=group)
+
+    assert schedule("что у меня на этой неделе", "B26-CSE-01") == {"error": tools.GROUP_UNKNOWN} and not asked
+    assert "error" not in schedule("расписание b26 cse 01 на неделю", "B26-CSE-01"), "named in the question, in other spelling"
+    assert "error" not in schedule("что у меня на этой неделе", "B26-CSE-01", own="B26-CSE-01"), "the asker's own group"

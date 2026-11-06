@@ -1,6 +1,6 @@
 """Tools on the asker's own InNoHassle account, asked with their token, which only the site has (api/auth.py): their schedule
 and bookings, the free rooms they may book, and the actions done for them: booking the music room or a room, enrolling in
-an event (or leaving it), cancelling a booking.
+an event (or leaving it), cancelling a booking, removing an event from their AI Calendar (agent/calendar_tools.py).
 
 No action is done at once. HumanInTheLoopMiddleware stops the account helper after the model call that asks for one
 (core._helper_tool, `APPROVAL` here): the run pauses (a LangGraph interrupt, kept in the chat's checkpoint), the site shows
@@ -10,9 +10,12 @@ be right whatever happens (a time already past, an end before the start: `_probl
 and says what is wrong without doing anything, so a call that was not approved never does anything.
 """
 
+import logging
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime, time, timedelta
 from typing import Literal
 
+import httpx
 import icalendar
 import recurring_ical_events
 from langchain.tools import ToolRuntime
@@ -20,9 +23,13 @@ from langchain_core.messages import HumanMessage
 from langchain_core.tools import tool
 from pydantic import BaseModel, Field, ValidationError
 
+from catix import personal_calendar
+from catix.agent.calendar_tools import RemoveFromAiCalendarArgs, calendar_key, events_between
 from catix.common.dates import ClockTime
 from catix.innohassle import client as innohassle
 from catix.settings import settings
+
+log = logging.getLogger("catix.account")
 
 MAX_ITEMS = 40
 DEFAULT_DAYS = 7
@@ -78,8 +85,14 @@ class GetMyScheduleArgs(BaseModel):
     date_to: date | None = Field(None, description=f"YYYY-MM-DD inclusive, default date_from + {DEFAULT_DAYS - 1} days.")
 
 
-def _calendar(token: str, start: date, end: date) -> list[dict]:
-    calendar = icalendar.Calendar.from_ical(innohassle.my_schedule_ics(token))
+MOODLE_NOT_LINKED = (
+    "Their Moodle is not linked to InNoHassle, so its deadlines are not here: they are in Moodle's own calendar, "
+    "https://moodle.innopolis.university/calendar/view.php?view=month"
+)
+
+
+def _calendar_items(text: str, kind: str, start: date, end: date) -> list[dict]:
+    calendar = icalendar.Calendar.from_ical(text)
     now, seen, out = _now(), set(), []
     for ev in recurring_ical_events.of(calendar).between(start, end + timedelta(days=1)):
         begin = ev.decoded("DTSTART")
@@ -88,14 +101,37 @@ def _calendar(token: str, start: date, end: date) -> list[dict]:
             continue
         seen.add(key)
         if not isinstance(begin, datetime):  # a whole day: a deadline, a holiday
-            out.append({"date": begin.strftime("%Y-%m-%d %a"), "all_day": True, "title": title, "place": place})
+            out.append({k: v for k, v in {"kind": kind, "date": begin.strftime("%Y-%m-%d %a"), "all_day": True, "title": title,
+                                          "place": place}.items() if v})  # fmt: skip
             continue
         begin = begin.astimezone(settings.tz)
         finish = ev.decoded("DTEND").astimezone(settings.tz) if "DTEND" in ev else begin
-        item = {**_span(begin, finish), "title": title, "place": place,
+        item = {"kind": kind, **(_span(begin, finish) if finish > begin else {"date": begin.strftime("%Y-%m-%d %a"),
+                "time": f"{begin:%H:%M}"}), "title": title, "place": place,  # a deadline is a moment
                 "status": "finished" if finish <= now else "now" if begin <= now else "upcoming"}  # fmt: skip
         out.append({k: v for k, v in item.items() if v})
-    return sorted(out, key=lambda i: (i["date"], i.get("time", "")))
+    return out
+
+
+def _calendar(token: str, start: date, end: date) -> tuple[list[dict], dict[str, str]]:
+    """The asker's InNoHassle calendars in the period (classes, sport, Moodle deadlines, the events they enrolled in), each
+    item with its `kind`; and what could not be read, by kind. Read at once: four requests one after another took seconds.
+    Raises ServiceError 401 when InNoHassle does not accept the token."""
+    with ThreadPoolExecutor(max_workers=len(innohassle.MY_CALENDARS)) as pool:
+        asked = {kind: pool.submit(innohassle.my_calendar_ics, token, kind) for kind in innohassle.MY_CALENDARS}
+    items, problems = [], {}
+    for kind, future in asked.items():
+        try:
+            items += _calendar_items(future.result(), kind, start, end)
+        except innohassle.ServiceError as e:
+            if e.status == 401:
+                raise
+            problems[kind] = MOODLE_NOT_LINKED if kind == "deadline" and e.status == 404 else f"{e.status}: {e.detail}"
+        except httpx.HTTPError as e:  # (a timeout: the others are still there)
+            problems[kind] = f"InNoHassle did not answer ({type(e).__name__})"
+        except ValueError as e:  # not iCalendar
+            problems[kind] = f"unreadable calendar: {e}"[:200]
+    return sorted(items, key=lambda i: (i["date"], i.get("time", ""))), problems
 
 
 def _bookings(token: str, start: date, end: date) -> tuple[list[dict], list[str]]:
@@ -122,24 +158,35 @@ def _bookings(token: str, start: date, end: date) -> tuple[list[dict], list[str]
 
 @tool(args_schema=GetMyScheduleArgs)
 def get_my_schedule(runtime: ToolRuntime, date_from: date | None = None, date_to: date | None = None) -> dict:
-    """The asker's own InNoHassle calendar for a period: the classes of their groups and of the courses they added, sport,
-    the events they enrolled in, Moodle deadlines (if Moodle is linked); and their bookings of the music room and of rooms,
-    with the ids that cancel_booking takes."""
+    """The asker's own calendar for a period, everything in it: the classes of their groups and of the groups they added
+    (kind "class"), sport ("sport"), Moodle deadlines ("deadline", when their Moodle is linked), the events they enrolled in
+    ("event"), and their AI Calendar (the events they added under the assistant's answers, with the `calendar_event_id`
+    remove_from_ai_calendar takes); and their bookings of the music room and of rooms, with the ids cancel_booking takes."""
     if not (token := _token(runtime)):
         return {"error": NO_ACCOUNT}
     start = date_from or _now().date()
     end = date_to or start + timedelta(days=DEFAULT_DAYS - 1)
     result: dict = {"now": _now().strftime("%Y-%m-%d %H:%M"), "range": [start.isoformat(), end.isoformat()]}
     try:
-        schedule = _calendar(token, start, end)
+        schedule, problems = _calendar(token, start, end)
     except innohassle.ServiceError as e:
         return {"error": _why(e, "The InNoHassle schedule")}
     result["schedule"] = schedule[:MAX_ITEMS]
     if len(schedule) > MAX_ITEMS:
         result["note"] = f"Only the first {MAX_ITEMS} of {len(schedule)} are shown; narrow the dates."
-    result["bookings"], problems = _bookings(token, start, end)
-    if problems:
-        result["bookings_not_read"] = problems
+    result["bookings"], not_booked = _bookings(token, start, end)
+    not_read = [f"{kind}: {problem}" for kind, problem in problems.items()] + not_booked
+    try:
+        key, no_key = calendar_key(runtime)
+        if key:
+            result["ai_calendar"] = events_between(key, start, end)
+        else:
+            not_read.append(f"ai_calendar: {no_key}")
+    except Exception:  # noqa: BLE001 - the calendar of InNoHassle is there without it
+        log.exception("the AI Calendar could not be read")
+        not_read.append("ai_calendar: could not be read now")
+    if not_read:
+        result["not_read"] = not_read
     return result
 
 
@@ -216,7 +263,7 @@ def _problem(name: str, args: dict) -> str | None:
     """What makes the arguments of an action wrong whatever happens; None if they may be right. Such a call is not put to the
     user: the tool says what is wrong and does nothing."""
     schema = {"book_music_room": BookMusicRoomArgs, "book_room": BookRoomArgs, "enroll_in_event": EnrollArgs,
-              "cancel_booking": CancelBookingArgs}[name]  # fmt: skip
+              "cancel_booking": CancelBookingArgs, "remove_from_ai_calendar": RemoveFromAiCalendarArgs}[name]  # fmt: skip
     try:
         parsed = schema.model_validate(args)
     except ValidationError as e:
@@ -389,6 +436,18 @@ def _describe_cancel(tool_call, state, runtime) -> str:
     return f"Отменить вашу бронь аудитории: {when or a.booking_id}." if ru else f"Cancel your room booking: {when or a.booking_id}."
 
 
+def _describe_removal(tool_call, state, runtime) -> str:
+    a, ru = RemoveFromAiCalendarArgs.model_validate(tool_call["args"]), _russian(state)
+    key, _ = calendar_key(runtime)
+    event = personal_calendar.event_of(key, a.calendar_event_id) if key else None
+    what = f"#{a.calendar_event_id}"
+    if event is not None:
+        start = event.starts_at.astimezone(settings.tz)
+        when = _when(start, event.ends_at.astimezone(settings.tz) if event.ends_at else None, ru)
+        what = f"«{event.title}» ({when.rsplit(', ', 1)[0] if event.all_day else when})"
+    return f"Убрать из вашего AI-календаря: {what}." if ru else f"Remove from your AI Calendar: {what}."
+
+
 def _gate(name: str, describe) -> dict:
     return {
         "allowed_decisions": ["approve", "reject"],
@@ -403,4 +462,5 @@ APPROVAL = {
     "book_room": _gate("book_room", _describe_room),
     "enroll_in_event": _gate("enroll_in_event", _describe_enrol),
     "cancel_booking": _gate("cancel_booking", _describe_cancel),
+    "remove_from_ai_calendar": _gate("remove_from_ai_calendar", _describe_removal),
 }

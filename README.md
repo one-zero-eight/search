@@ -26,9 +26,16 @@ Max-чаты ──Max-бот─────────────────
                                                         │  └► embedding_queue ─► эмбеддеры ─► векторы
                                                         ▼
                                       Redis-поток ─► worker ─► изменения расписания ─► пользователям группы
-Вопрос ─► tgbot / maxbot ─► guardrail ─► супервизор ─┬─► ask_chats  (search_chats, search_userbot_chats, read_chats)
-                                                     └─► ask_campus (get_schedule, get_clubs, get_university_events,
-                                                                     find_room, search_chats) ─► ответ с источниками
+Вопрос ─► tgbot / maxbot / сайт ─► guardrail ─► супервизор ─┬─► ask_chats   (search_chats, search_userbot_chats, read_chats)
+                                                            ├─► ask_campus  (get_schedule, get_courses, get_room_timetable,
+                                                            │                get_clubs, get_university_events, find_room,
+                                                            │                get_music_room_schedule, get_my_ai_calendar)
+                                                            ├─► ask_docs    (search_wiki, read_wiki, get_courses;
+                                                            │                с TAVILY_API_KEY search_web, read_web_page)
+                                                            └─► ask_account (только на сайте, с токеном пользователя:
+                                                                             get_my_schedule, get_free_rooms; бронь, запись,
+                                                                             отмена, удаление из AI-календаря — после его
+                                                                             подтверждения) ─► ответ с источниками
 ```
 
 Процессы (точки входа `pyproject.toml`):
