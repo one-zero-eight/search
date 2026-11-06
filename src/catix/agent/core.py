@@ -41,7 +41,7 @@ from catix.agent import claims, questions, roles, sources
 from catix.agent.account_tools import APPROVAL
 from catix.agent.guardrail import GuardrailMiddleware
 from catix.agent.tools import MAX_READS, TOOLS, AgentContext, reads_done
-from catix.common import courses
+from catix.common import courses, dates
 from catix.db import store
 from catix.settings import settings
 
@@ -189,8 +189,9 @@ ALONE_REMINDER = (
 
 
 class QuestionNoteMiddleware(AgentMiddleware):
-    """Appends a note to the user's message for the model: the decoded subject abbreviations (`hint`, for the helpers) and/or
-    a `reminder` of its role (for the supervisor).
+    """Appends a note to the user's message for the model: the days and weeks it names, worked out (dates.question_dates,
+    for everybody: on Friday 6 November the model took "на прошлой неделе" for 2-6 November and passed it to the helpers),
+    the decoded subject abbreviations (`hint`, for the helpers) and/or a `reminder` of its role (for the supervisor).
 
     It goes to the end of the message, not to the system prompt: the prompt then stays identical for every question
     and the model server keeps its cache of it (a changing line inside it cost about a second per question). The
@@ -212,7 +213,13 @@ class QuestionNoteMiddleware(AgentMiddleware):
                 reminder = self.reminder
                 if self.alone and request.state.get("answer_alone"):
                     reminder = self.alone.format(language=_language(str(messages[i].content)))
-                notes = [courses.hint_line(str(messages[i].content)).strip() if self.hint else "", reminder]
+                text = str(messages[i].content)
+                worked = dates.question_dates(text, datetime.now(settings.tz))
+                notes = [
+                    f"Dates in this message, worked out (use them, not your own arithmetic): {'; '.join(worked)}." if worked else "",
+                    courses.hint_line(text).strip() if self.hint else "",
+                    reminder,
+                ]
                 note = " ".join(n for n in notes if n)
                 if not note:
                     return request

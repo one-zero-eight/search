@@ -114,6 +114,51 @@ _RANGE_RE = re.compile(rf"(?<![\w.])(?:с\s+)?(\d{{1,2}})\s*(?:[–—-]|по)\s
 _NEXT_WEEK_RE = re.compile(r"(?<![\w])(?:(?:следующей|следующую|будущей)\s+недел[еияю]|next\s+week)(?![\w])", re.I)
 
 
+_LAST_WEEK_RE = re.compile(r"(?<![\w])(?:(?:прошлой|прошлую|прошедшей|предыдущей)\s+недел[еияю]|(?:last|previous|past)\s+week)(?![\w])", re.I)
+_WEEKEND_RE = re.compile(
+    r"(?<![\w])(?:(?:на|в)\s+(?:(прошлых|прошлые)|(следующих|следующие)|эт(?:их|и)\s+)?\s*выходн\w*|(?:(last)|(next)|this)?\s*weekend)(?![\w])", re.I
+)
+_MONTH_AROUND_RE = re.compile(r"(?<![\w])(?:(?:в\s+)?(этом|прошлом|следующем)\s+месяце|(this|last|next)\s+month)(?![\w])", re.I)
+# A question about what was: its "в понедельник" is the last Monday, its "15 января" of this year, not of the next one.
+_PAST_RE = re.compile(
+    r"(?<![\w])(?:был[аио]?|прошл\w*|прошедш\w*|прош[её]л|писали|написали|состоял\w*|was|were|did|happened|last)(?![\w])", re.I
+)
+_MONTH_AROUND = {"этом": 0, "this": 0, "прошлом": -1, "last": -1, "следующем": 1, "next": 1}
+
+
+def question_dates(text: str, now: datetime) -> list[str]:
+    """The days, weeks and months a question names, worked out from now: "'на прошлой неделе' = 2026-10-26 Mon to
+    2026-11-01 Sun". The model gave "с 2 по 6 ноября" for last week on Friday 6 November, and passed it to the helpers."""
+    today = now.date()
+    monday = today - timedelta(days=today.weekday())
+    past = bool(_PAST_RE.search(text))
+    lines: list[str] = []
+
+    def span(phrase: str, first: date, last: date) -> None:
+        lines.append(f"'{phrase.strip()}' = {first:%Y-%m-%d %a} to {last:%Y-%m-%d %a}")
+
+    for pattern, ahead in ((_LAST_WEEK_RE, -7), (_THIS_WEEK_RE, 0), (_NEXT_WEEK_RE, 7)):
+        if match := pattern.search(text):
+            span(match.group(0), monday + timedelta(days=ahead), monday + timedelta(days=ahead + 6))
+    if match := _WEEKEND_RE.search(text):
+        last_one = match.group(1) or match.group(3) or (past and today.weekday() < 5)
+        ahead = -7 if last_one else 7 if match.group(2) or match.group(4) else 0
+        span(match.group(0), monday + timedelta(days=ahead + 5), monday + timedelta(days=ahead + 6))
+    if match := _MONTH_AROUND_RE.search(text):
+        index = today.year * 12 + today.month - 1 + _MONTH_AROUND[(match.group(1) or match.group(2)).lower()]
+        first = date(index // 12, index % 12 + 1, 1)
+        span(match.group(0), first, date(first.year + first.month // 12, first.month % 12 + 1, 1) - timedelta(days=1))
+    for phrase, target in found_dates(text, now, now):
+        if past and target > today and not _RELATIVE_RE.fullmatch(phrase.strip()) and not _SPAN_RE.search(phrase):
+            if _WEEKDAY_RE.fullmatch(phrase.strip()):
+                if not re.search(r"следующ|next", phrase, re.I):
+                    target -= timedelta(days=7)  # "что было в понедельник": the last one
+            elif not re.search(r"\d{4}", phrase):
+                target = _day(target.year - 1, target.month, target.day) or target  # "что было 15 января": this January
+        lines.append(f"'{phrase.strip()}' = {target:%Y-%m-%d %a} ({_relation(target, today)})")
+    return list(dict.fromkeys(lines))[:MAX_RESULTS]
+
+
 def first_day_in(text: str, sent_at: datetime, now: datetime, start: date, end: date) -> date | None:
     """The earliest day from `start` to `end` the message speaks of (a day, or a week: "на следующей неделе"), or None."""
     sent = sent_at.astimezone(now.tzinfo).date()

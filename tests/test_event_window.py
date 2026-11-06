@@ -82,3 +82,20 @@ def test_a_period_lists_a_message_by_the_soonest_of_its_days_in_it():
     assert dates.first_day_in("Фестиваль с 5 по 10 ноября", written, NOW, *week) == date(2026, 11, 9)  # begun before
     assert dates.first_day_in("Квиз 20 ноября", written, NOW, *week) is None
     assert dates.first_day_in("На следующей неделе квиз", datetime(2026, 11, 6, tzinfo=TZ), NOW, *week) == date(2026, 11, 9)
+
+
+def test_the_days_a_question_names_are_worked_out_for_the_model():
+    """On Friday 6 November the model took "на прошлой неделе" for 2-6 November (agent/core.py QuestionNoteMiddleware)."""
+    friday = datetime(2026, 11, 6, 18, 0, tzinfo=TZ)
+    assert dates.question_dates("что было на прошлой неделе?", friday) == ["'прошлой неделе' = 2026-10-26 Mon to 2026-11-01 Sun"]
+    assert dates.question_dates("какие мероприятия будут на следующей неделе?", friday) == [
+        "'следующей неделе' = 2026-11-09 Mon to 2026-11-15 Sun"
+    ]
+    # What was: the last Monday and this January; what will be: the next Monday and the next January.
+    assert dates.question_dates("что было в понедельник?", friday) == ["'в понедельник' = 2026-11-02 Mon (4 days ago)"]
+    assert dates.question_dates("что будет в понедельник?", friday) == ["'в понедельник' = 2026-11-09 Mon (in 3 days)"]
+    assert dates.question_dates("что было 15 января", friday) == ["'15 января' = 2026-01-15 Thu (295 days ago)"]
+    assert dates.question_dates("когда экзамен 15 января", friday) == ["'15 января' = 2027-01-15 Fri (in 70 days)"]
+    assert dates.question_dates("что было на прошлых выходных", friday) == ["'на прошлых выходных' = 2026-10-31 Sat to 2026-11-01 Sun"]
+    assert dates.question_dates("что писали в прошлом месяце?", friday) == ["'в прошлом месяце' = 2026-10-01 Thu to 2026-10-31 Sat"]
+    assert dates.question_dates("когда мидтерм по итп", friday) == []
