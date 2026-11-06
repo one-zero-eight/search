@@ -142,6 +142,26 @@ def test_a_link_written_unescaped_is_kept_and_a_line_left_with_only_its_label_go
     assert_test(LLMTestCase(input="", actual_output=cut), [ContainsAll(["Приложении 2 [m1]. [m2]"], name="RefKept"), ContainsNone(["Ссылка на шаблон", "регламнт"], name="LabelGone")])
 
 
+def test_a_link_in_bold_or_without_its_closing_slash_is_the_same_link_and_an_invented_one_goes_with_its_markup():
+    """The model wrote "Сайт спорта: **https://sport.innopolis.university** [6][7]" from a chat message with that link: the
+    `**` was taken for part of it, the link was cut as invented and "Сайт спорта: **" was left."""
+    from langchain_core.messages import ToolMessage
+
+    from catix.agent.core import clean
+
+    turn = [ToolMessage(content=json.dumps({"messages": [{"ref": "m6", "text": "Записывайтесь на https://sport.innopolis.university"}]}),
+                        tool_call_id="s", name="search_chats"),
+            ToolMessage(content=json.dumps({"pieces": [{"ref": "m7", "text": "Профиль: https://sport.innopolis.university/profile/"}]}),
+                        tool_call_id="w", name="search_wiki")]  # fmt: skip
+    for answer in ["Сайт спорта: **https://sport.innopolis.university** [m6].", "Запись на `https://sport.innopolis.university/`.",
+                   "Часы — в профиле: _https://sport.innopolis.university/profile_ [m7]", "Сайт: https://sport.innopolis.university!"]:  # fmt: skip
+        assert clean(turn, answer) == answer
+    assert clean(turn, "Записаться можно на сайте [m6].\nСайт спорта: **https://sport.invented.example** [m7]") == "Записаться можно на сайте [m6]. [m7]"
+    assert clean(turn, "Зайдите на **https://sport.invented.example/login** и запишитесь [m6].") == "Зайдите на и запишитесь [m6]."
+    assert clean(turn, "**Сайт: https://sport.invented.example**\nЗапись открыта [m6].") == "Запись открыта [m6]."
+    assert clean(turn, "Есть бот для записи [m6].\nБот: `https://t.me/invented_bot`.") == "Есть бот для записи [m6]."
+
+
 def test_a_tool_name_written_as_a_ref_goes():
     """The campus helper cited find_room, whose results have no refs: '… в корпусе «East» [find_room].'"""
     from catix.agent.core import clean

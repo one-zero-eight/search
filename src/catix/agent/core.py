@@ -777,7 +777,11 @@ class LoggingMiddleware(AgentMiddleware):
 
 
 URL_RE = re.compile(r"https?://[^\s)\]>\"']+")
-LABEL_ONLY = re.compile(r"[^\n\[\]]{0,80}:\**\s*(?:\[m\d+\]\s*)*")  # "Ссылка на шаблон: [m3]", what is left once its link is cut
+# What follows a URL without being part of it: punctuation, and the markup the model wraps it in ("**https://…**").
+URL_TAIL = ".,;:!?*_~`"
+# A URL with the markup it opens with: an invented one goes with it, not leaving "Сайт спорта: **".
+WRAPPED_URL = re.compile(r"(\*{1,3}|_{1,3}|`)?(" + URL_RE.pattern + ")")
+LABEL_ONLY = re.compile(r"[^\n\[\]]{0,80}:\s*\**\s*(?:\[m\d+\]\s*)*[.,;]?\s*")  # "Ссылка на шаблон: [m3]", what is left once its link is cut
 # A tool's name written as a ref ("…аудитория в корпусе «East» [find_room]": a find_room result has no ref to cite).
 TOOL_REF = re.compile(r"\s*\[(?:%s)\]" % "|".join(sorted({t.name for t in TOOLS} | {f"ask_{r}" for r in roles.ROLES}, key=len, reverse=True)))
 # Sage wraps a report in <answer>…</answer> now and then, and a lone report is the answer the user gets.
@@ -791,7 +795,7 @@ def _urls_in(content: object) -> set[str]:
 
     def walk(value: object) -> None:
         if isinstance(value, str):
-            found.update(url.rstrip(".,;:") for url in URL_RE.findall(value))
+            found.update(url.rstrip(URL_TAIL) for url in URL_RE.findall(value))
         elif isinstance(value, dict):
             for item in value.values():
                 walk(item)
@@ -806,27 +810,36 @@ def _urls_in(content: object) -> set[str]:
     return found
 
 
+def _url_key(url: str) -> str:
+    """A URL as it is compared: unescaped (a document's link is %-escaped in the results, and the model may write its
+    Cyrillic as letters), without what follows it and without a closing slash (https://sport.innopolis.university/)."""
+    return unquote(url.rstrip(URL_TAIL)).rstrip("/")
+
+
 def clean(turn: list[BaseMessage], answer: str) -> str:
     """The answer without invented URLs and without unbacked attributions, judged by the tool results of `turn`.
 
     The prompt forbids invented links and asks for careful wording, but small models do neither reliably, so both are
     enforced in code.
     """
-    # Compared unescaped: a document's link is %-escaped in the results, and the model may write its Cyrillic as letters.
-    known = {unquote(url) for m in turn if isinstance(m, ToolMessage) for url in _urls_in(m.content)}
+    known = {_url_key(url) for m in turn if isinstance(m, ToolMessage) for url in _urls_in(m.content)}
 
     def keep_known(match: re.Match) -> str:
-        url = match.group(0).rstrip(".,;:")
-        if unquote(url) in known:
+        opening, written = match.group(1) or "", match.group(2)
+        url = written.rstrip(URL_TAIL)
+        if _url_key(url) in known:
             return match.group(0)
         log.warning("removed invented url: %s", url)
-        return ""
+        tail = written[len(url) :]  # ("**" of "**https://…**", a full stop)
+        return tail[len(opening) :] if opening and tail.startswith(opening) else opening + tail
 
     lines: list[str] = []
     for line in ANSWER_TAG.sub("", answer).strip().split("\n"):
-        kept = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", lambda m: m.group(0) if unquote(m.group(2)) in known else m.group(1), line)
-        kept = URL_RE.sub(keep_known, kept)
-        kept = TOOL_REF.sub("", kept)
+        kept = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", lambda m: m.group(0) if _url_key(m.group(2)) in known else m.group(1), line)
+        linked = WRAPPED_URL.sub(keep_known, kept)
+        if linked != kept:  # A URL went: no gap where it was ("Зайдите на  и запишитесь").
+            linked = re.sub(r"(?<=\S)[ \t]{2,}(?=\S)", " ", linked)
+        kept = TOOL_REF.sub("", linked)
         if kept != line and LABEL_ONLY.fullmatch(kept):
             # The link was all the line had ("Ссылка на шаблон: <url> [m3]"): the line goes, its refs join the line above.
             refs = "".join(re.findall(r"\[m\d+\]", kept))
