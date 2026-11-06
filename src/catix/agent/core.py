@@ -16,6 +16,7 @@ from langchain.agents.middleware import (
     AgentState,
     ClearToolUsesEdit,
     ContextEditingMiddleware,
+    HumanInTheLoopMiddleware,
     ModelCallLimitMiddleware,
     ModelRequest,
     ModelResponse,
@@ -37,6 +38,7 @@ from typing_extensions import NotRequired
 
 from catix import userbot_config
 from catix.agent import claims, questions, roles, sources
+from catix.agent.account_tools import APPROVAL
 from catix.agent.guardrail import GuardrailMiddleware
 from catix.agent.tools import MAX_READS, TOOLS, AgentContext, reads_done
 from catix.common import courses
@@ -700,6 +702,29 @@ class PriorityMiddleware(AgentMiddleware):
         return await handler(self._with(request))
 
 
+ACCOUNT_HELPER = "ask_account"
+
+
+class AccountOnTheSiteMiddleware(AgentMiddleware):
+    """The supervisor is offered the account helper only when the asker's InNoHassle token is known: on the site
+    (AgentContext.innohassle_token). The bots and the CLI have none, so their supervisor has no such tool and says that it is
+    done on the site (roles.SUPERVISOR). Each kind of asker always gets the same list of tools, so the model server keeps its
+    cache of the start of the request for both."""
+
+    @staticmethod
+    def _without(request: ModelRequest) -> ModelRequest:
+        context = request.runtime.context if request.runtime else None
+        if context is not None and context.innohassle_token is not None:
+            return request
+        return request.override(tools=[t for t in request.tools if getattr(t, "name", None) != ACCOUNT_HELPER])
+
+    def wrap_model_call(self, request, handler):
+        return handler(self._without(request))
+
+    async def awrap_model_call(self, request, handler):
+        return await handler(self._without(request))
+
+
 class LoggingMiddleware(AgentMiddleware):
     """Logs context size and duration of every model call, and every tool call with its arguments."""
 
@@ -884,7 +909,11 @@ def _helper_tool(role: roles.Role, model) -> BaseTool:
     """A helper agent as a tool of the supervisor.
 
     The helper runs on its own: its own prompt, its own tools, no memory between calls (`checkpointer=False`, so that it
-    does not inherit the supervisor's). It starts with the sources of the conversation, so that refs continue the numbering,
+    does not inherit the supervisor's). A helper with tools that wait for the user's decision (`role.approval`: the account
+    helper's actions) has HumanInTheLoopMiddleware and the supervisor's checkpointer instead: the interrupt pauses the
+    helper and, through this tool, the supervisor; resumed (Command(resume=...), api/ask.py), the supervisor runs this tool
+    again and the helper goes on from where it stopped. It still remembers nothing of its earlier calls: each call is a task
+    of its own, with a checkpoint namespace of its own. It starts with the sources of the conversation, so that refs continue the numbering,
     and returns its report with the sources it found. Its tool calls and their results are not in the supervisor's context
     (that is the point), but the message keeps them in `artifact` for the traces and the tests.
     """
@@ -905,6 +934,7 @@ def _helper_tool(role: roles.Role, model) -> BaseTool:
                 ]
             ),
             LookUpFirstMiddleware(),
+            *([HumanInTheLoopMiddleware({name: APPROVAL[name] for name in role.approval})] if role.approval else []),
             RunGuardMiddleware(role.tools),
             CiteMiddleware(),  # inside the guard: the second answer is checked for tool call markup too
             PriorityMiddleware(),
@@ -913,7 +943,7 @@ def _helper_tool(role: roles.Role, model) -> BaseTool:
             ModelCallLimitMiddleware(run_limit=settings.agent_max_model_calls, exit_behavior="end"),
         ],
         context_schema=AgentContext,
-        checkpointer=False,
+        checkpointer=None if role.approval else False,
         name=role.name,
     )
 
@@ -946,7 +976,7 @@ def _helper_tool(role: roles.Role, model) -> BaseTool:
 
 
 def build_agent(model=None, *, guardrail: bool = True, checkpointer: BaseCheckpointSaver | None = None):
-    """The agent: a supervisor whose tools are the helpers (`ask_chats`, `ask_campus`, `ask_docs`). `guardrail=False` leaves out the
+    """The agent: a supervisor whose tools are the helpers (`ask_chats`, `ask_campus`, `ask_docs`, and on the site `ask_account`). `guardrail=False` leaves out the
     screen in front of it (agent/guardrail.py); only the tests do that, to try the agent's own prompt against attacks that
     the screen would stop first. The conversations are remembered by `checkpointer`: the API's are in Postgres
     (api/ask.py `memory`), the bots' and the CLI's in the memory of the process (the default)."""
@@ -966,6 +996,7 @@ def build_agent(model=None, *, guardrail: bool = True, checkpointer: BaseCheckpo
         middleware=[
             *([GuardrailMiddleware()] if guardrail else []),  # first: a blocked message costs the agent nothing
             prompt_for(None),
+            AccountOnTheSiteMiddleware(),
             FallbackMiddleware(),  # before PassReportMiddleware: a report of no use is not passed on as the answer
             PassReportMiddleware(),  # before the reminder is added to the user's message (see there)
             QuestionNoteMiddleware(reminder=ROLE_REMINDER, alone=ALONE_REMINDER),

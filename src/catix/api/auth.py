@@ -4,7 +4,7 @@ from typing import Annotated
 
 from fastapi import Depends, HTTPException
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, SecretStr
 
 from catix.innohassle import token as innohassle_token
 
@@ -23,6 +23,8 @@ class UserTokenData(BaseModel):
     "Innopolis email (@innopolis.university or @innopolis.ru)"
     telegram_id: int | None = None
     "User's Telegram ID connected to InNoHassle Accounts"
+    token: SecretStr | None = Field(None, exclude=True, repr=False)
+    "The token itself: the agent's account helper asks InNoHassle with it as the user (agent/account_tools.py). Never kept."
 
 
 def _unauthorized() -> HTTPException:
@@ -46,6 +48,7 @@ def verify_user(bearer: HTTPAuthorizationCredentials | None = Depends(bearer_sch
         innohassle_id=str(claims["uid"]),
         email=claims["email"],
         telegram_id=telegram_id if isinstance(telegram_id, int) else None,
+        token=SecretStr(bearer.credentials),  # type: ignore[union-attr]  # (valid claims: there is a token)
     )
 
 

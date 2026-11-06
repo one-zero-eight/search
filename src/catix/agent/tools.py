@@ -15,9 +15,11 @@ import recurring_ical_events
 from langchain.tools import ToolRuntime
 from langchain_core.tools import tool
 from langgraph.types import Command
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, SecretStr, field_validator
 
 from catix import official
+from catix.agent.account_tools import ACCOUNT_TOOLS
+from catix.agent.campus_tools import CAMPUS_TOOLS
 from catix.agent.sources import Collector
 from catix.common import courses, dates
 from catix.db import store
@@ -48,6 +50,10 @@ class AgentContext:
     # When the question was asked: the prompts say this time, so that it stays the same for all the model calls of one
     # question (see core.prompt_for).
     asked_at: datetime = field(default_factory=lambda: datetime.now(settings.tz))
+    # The asker's InNoHassle token, which only the site has (api/auth.py): the account helper's tools ask InNoHassle as the
+    # asker with it (agent/account_tools.py). Never kept, never shown; None in the bots and the CLI, where there is no account
+    # helper (core.AccountOnTheSiteMiddleware).
+    innohassle_token: SecretStr | None = field(default=None, repr=False)
 
 
 DEFAULT_EVENTS_WINDOW_DAYS = 14
@@ -152,41 +158,63 @@ class GetUniversityEventsArgs(BaseModel):
     query: str | None = Field(None, description="Optional keywords to filter by.")
 
 
+EVENT_PAGE = "https://innohassle.ru/events/p/{id}"
+
+
+def _event_item(item: dict) -> dict:
+    """An event of InNoHassle Events as the model sees it: its names and description in each language it has, when, where,
+    who hosts it and how to enrol (`id` is what enroll_in_event takes)."""
+    data = item["data"]
+    begin = datetime.fromisoformat(data["starts_at"])
+    locales = (innohassle.event(item["id"]).get("data") or {}).get("locales") or {}
+    names = {lang: loc.get("name") for lang, loc in locales.items() if loc.get("name")}
+    texts = [_doc_to_text(loc.get("description") or "") for loc in locales.values()]
+    enrollment = data.get("enrollment") or {}
+    if enrollment.get("type") == "external":
+        enrol = f"on the organisers' page: {enrollment.get('url')}" if enrollment.get("url") else "with the organisers"
+    else:
+        capacity = enrollment.get("capacity")
+        enrol = f"on InNoHassle, {item.get('enrolled_count', 0)} enrolled" + (f" of {capacity} places" if capacity else "")
+    location = data.get("location") or {}
+    event = {
+        "id": item["id"],
+        "title": data.get("name") or next(iter(names.values()), ""),
+        "names": names if len(set(names.values())) > 1 else None,
+        "start": _fmt(begin),
+        "end": _fmt(begin + timedelta(hours=data.get("duration_hours") or 0)) if data.get("duration_hours") else None,
+        "location": location.get("display_name") or None,
+        "map": location.get("url") or None,
+        "hosts": [h["display_name"] for h in data.get("hosts") or []] or None,
+        "enrollment": enrol,
+        "page": EVENT_PAGE.format(id=item["id"]),
+        "description": "\n\n".join(t for t in texts if t)[:600] or None,
+    }
+    return {k: v for k, v in event.items() if v}
+
+
 @tool(args_schema=GetUniversityEventsArgs)
 def get_university_events(date_from: date | None = None, date_to: date | None = None, query: str | None = None) -> dict:
-    """University-wide events (talks, workshops, celebrations) from InNoHassle.
-    Does NOT contain class schedules, exams or deadlines."""
+    """University-wide events (talks, workshops, movie nights, celebrations, trips) from InNoHassle Events, with who hosts
+    them and how to enrol. Does NOT contain class schedules, exams or deadlines."""
     start = date_from or datetime.now(settings.tz).date()
     end = date_to or start + timedelta(days=DEFAULT_EVENTS_WINDOW_DAYS)
-    calendar = icalendar.Calendar.from_ical(innohassle.events_ics())
-    # Expands RRULE so recurring events show up as individual occurrences.
-    occurrences = recurring_ical_events.of(calendar).between(start, end + timedelta(days=1))
-
+    listed = innohassle.events(
+        datetime.combine(start, datetime.min.time(), settings.tz), datetime.combine(end + timedelta(days=1), datetime.min.time(), settings.tz)
+    )
     events = []
-    for ev in occurrences:
-        title = str(ev.get("SUMMARY", ""))
-        description = str(ev.get("DESCRIPTION", ""))
-        location = str(ev.get("LOCATION", ""))
-        if query and not _matches(query, title, description, location):
+    for item in sorted(listed, key=lambda i: i["data"]["starts_at"]):
+        event = _event_item(item)
+        if query and not _matches(query, event["title"], *(event.get("names") or {}).values(), event.get("description"),
+                                  event.get("location"), *(event.get("hosts") or [])):  # fmt: skip
             continue
-        event = {
-            "title": title,
-            "start": _fmt(ev.decoded("DTSTART")),
-            "end": _fmt(ev.decoded("DTEND")) if "DTEND" in ev else None,
-            "location": location or None,
-            "description": description[:500] or None,
-        }
-        if "URL" in ev:
-            event["url"] = str(ev.get("URL"))
         events.append(event)
-    events.sort(key=lambda e: e["start"])
     result = {
         "range": [start.isoformat(), end.isoformat()],
         "total": len(events),
         "events": events[:MAX_EVENTS],
     }
-    if not calendar.walk("VEVENT"):
-        result["note"] = "The InNoHassle events calendar is empty right now, so absence of events here proves nothing."
+    if not listed:
+        result["note"] = "InNoHassle Events has no published event in this period, so absence of events here proves nothing."
     return result
 
 
@@ -267,6 +295,16 @@ def search_chats(
     for a chat an admin marked as the university's official one; all the rest is students talking.
     Results are ranked by relevance only, not by date: read the dates and prefer the latest information."""
     allowed = runtime.context.allowed_chat_ids if runtime.context else None
+    now = datetime.now(settings.tz)
+    question = _question(runtime)
+    upcoming = asks_upcoming(question)
+    if upcoming:  # What is coming starts today: "в ноябре" is from today on, a period wholly over is none.
+        event_from = max(event_from or now.date(), now.date())
+        event_to = event_to if event_to and event_to >= event_from else None
+        # The day a message was written says nothing of what is coming, and drops the announcements made before (the
+        # model gave 1 October one time, 1 November the next).
+        date_from = date_to = None
+    shown = MAX_MESSAGES if settings.reranker_route is None else MAX_MESSAGES_RERANKED
     rows = store.search(
         queries,
         chat=chat,
@@ -274,24 +312,28 @@ def search_chats(
         date_from=date_from and date_from.isoformat(),
         date_to=date_to and date_to.isoformat(),
         # A period of events needs a wider pool: the filter below is applied after the ranking.
-        limit=EVENT_POOL if event_from or event_to else MAX_MESSAGES if settings.reranker_route is None else MAX_MESSAGES_RERANKED,
-        original=_question(runtime),
+        limit=EVENT_POOL if event_from or event_to or upcoming else shown,
+        original=question,
     )
     collector = Collector(runtime)
     asked = _asked_courses(runtime)
     messages = []
-    now = datetime.now(settings.tz)
-    if event_from or event_to:
+    found = len(rows)
+    if upcoming:  # One rule whether the model gave a period or not: it gave one a time and not the next.
+        rows = [r for r in rows if dates.coming(r.text, r.date, now, event_from, event_to)][:shown]
+    elif event_from or event_to:
         start, end = event_from or date.min, event_to or date.max
         # Written in the period, or speaking of a day in it ("23 October" in a post of 5 October).
         rows = [
             r
             for r in rows
             if start <= r.date.astimezone(settings.tz).date() <= end or dates.mentions_between(r.text, r.date, now, start, end)
-        ][: MAX_MESSAGES if settings.reranker_route is None else MAX_MESSAGES_RERANKED]
+        ][:shown]
     for row in rows:
         messages.append(_message_item(row, collector, asked, now))
     result = {"total": len(messages), "messages": messages}
+    if upcoming and len(rows) < min(found, shown):
+        result["note"] = PAST_LEFT_OUT
     # The refs of those about the question, for the guard: two searches in a row with none it had not found before end the
     # searching (core.empty_searches).
     scored = any(row.relevance is not None for row in rows)
@@ -322,6 +364,7 @@ def _message_item(row, collector: Collector, asked: list[str], now: datetime, te
 
 
 MAX_READ = 50  # messages read_chats returns at most
+PERIOD_SCAN = 3000  # messages read_chats reads at most for a period of events, to keep those about its days
 READ_TEXT = 300  # characters of a message when it returns more than MAX_MESSAGES: 50 of 600 would fill a third of the context
 
 
@@ -336,6 +379,13 @@ class ReadChatsArgs(BaseModel):
     sender: str | None = Field(None, description="Only messages of the person whose name contains this ('Новиков').")
     date_from: date | None = Field(None, description="YYYY-MM-DD: only messages written on or after this day.")
     date_to: date | None = Field(None, description="YYYY-MM-DD inclusive: only messages written on or before this day.")
+    event_from: date | None = Field(
+        None,
+        description="YYYY-MM-DD: only messages ABOUT a day on or after this one, whenever written (an olympiad of 15 November "
+        "announced on 13 October), the soonest first. With event_to, for 'what is on next week': every message about those "
+        "days, whatever its words.",
+    )
+    event_to: date | None = Field(None, description="YYYY-MM-DD inclusive: the end of the period the messages are about.")
     limit: int = Field(10, description=f"How many of the newest messages to return, 1 to {MAX_READ}.")
 
     @field_validator("limit", mode="before")
@@ -356,14 +406,26 @@ def read_chats(
     sender: str | None = None,
     date_from: date | None = None,
     date_to: date | None = None,
+    event_from: date | None = None,
+    event_to: date | None = None,
     limit: int = 10,
 ) -> Command:
     """The newest messages of the chats, newest first, and how many pass the filters in all (`total`). For "what is new",
     the latest announcements (official_only), the last messages of one chat or of one person, what was written today, a
     full list of the messages with some words over a period ("all tests since September") and counts ("how many messages
-    about deadlines this month"). Not for a question about a topic: search_chats finds messages by meaning, whatever their
-    date."""
+    about deadlines this month"). With event_from/event_to, what is on in a period: every message about its days, the
+    soonest first ("какие мероприятия будут на следующей неделе"). Not for a question about a topic: search_chats finds
+    messages by meaning, whatever their date."""
     collector = Collector(runtime)
+    now = datetime.now(settings.tz)
+    if asks_upcoming(_question(runtime)):  # As in search_chats: what is coming starts today, whenever it was written.
+        event_from, date_from, date_to = max(event_from or now.date(), now.date()), None, None
+        event_to = event_to if event_to and event_to >= event_from else None
+    period = (event_from or date.min, event_to or date.max) if event_from or event_to else None
+    if period:  # The messages written up to ANNOUNCED_AHEAD_DAYS before it (a few hundred), then those about its days.
+        ahead = period[0] - timedelta(days=dates.ANNOUNCED_AHEAD_DAYS) if event_from else None
+        date_from = max(filter(None, [date_from, ahead]), default=None)
+        date_to = min(filter(None, [date_to, event_to]), default=None)
     found = store.latest(
         chat=chat,
         chat_ids=runtime.context.allowed_chat_ids if runtime.context else None,
@@ -372,19 +434,47 @@ def read_chats(
         sender=sender,
         date_from=date_from and date_from.isoformat(),
         date_to=date_to and date_to.isoformat(),
-        limit=limit,
+        limit=PERIOD_SCAN if period else limit,
     )
     if found is None:
         return collector.result({"error": f"No chat matches {chat!r}: take a title from the list of chats."}, "read_chats")
     total, rows = found
-    asked, now = _asked_courses(runtime), datetime.now(settings.tz)
+    if period:
+        days = {r.ref_id: dates.first_day_in(r.text, r.date, now, *period) for r in rows}
+        rows = sorted((r for r in rows if days[r.ref_id]), key=lambda r: (days[r.ref_id], -r.date.timestamp()))
+        total, rows = len(rows), rows[:limit]
+    asked = _asked_courses(runtime)
     text_limit = 600 if limit <= MAX_MESSAGES else READ_TEXT
     result = {"total": total, "shown": len(rows), "messages": [_message_item(r, collector, asked, now, text_limit) for r in rows]}
     if total > len(rows):
-        result["note"] = f"The newest {len(rows)} of {total}: narrow the period or the words, or raise the limit, to see more."
+        which = "soonest" if period else "newest"
+        result["note"] = f"The {which} {len(rows)} of {total}: narrow the period or the words, or raise the limit, to see more."
     elif not total and chat:
         result["note"] = "Nothing here: a chat that is not stored is searched with search_userbot_chats, by words."
     return collector.result(result, "read_chats")
+
+
+# A question about events still to come: "какой ивент будет", "ближайшие дедлайны", "upcoming exams". Its chat searches keep
+# only the messages about a day from today on, or naming no day and recent (dates.coming), whatever period the model gives:
+# shown "(4 days ago)" next to each date, it still reported events over as coming, and it gave a period one time and not
+# the next, so the same question got different answers. A question "what happens if" is not one.
+_UPCOMING = re.compile(r"(?<!\w)(?:будет|будут|будем|предстоящ\w*|ближайш\w*|скоро|upcoming|coming|will|next)(?!\w)", re.I)
+_EVENT = re.compile(
+    r"(?<!\w)(?:ивент|мероприят|событи|фест|концерт|встреч|лекци|семинар|мастер-класс|воркшоп|хакатон|конференц|олимпиад|"
+    r"соревновани|турнир|квиз|экзамен|мидтерм|контрольн|тест|зач[её]т|дедлайн|сдач|event|fest|concert|meetup|meeting|"
+    r"lecture|seminar|workshop|hackathon|conference|olympiad|contest|competition|tournament|quiz|exam|midterm|test|deadline)",
+    re.I,
+)
+_CONDITIONAL = re.compile(r"(?<!\w)(?:если|if)(?!\w)", re.I)
+PAST_LEFT_OUT = (
+    "Messages about days already over, and old ones that name no day, were left out: the question is about what is "
+    "coming. Do not report past events as coming; if nothing is left, say that nothing coming was found."
+)
+
+
+def asks_upcoming(question: str | None) -> bool:
+    """Is it a question about events still to come (and not "what happens if...")?"""
+    return bool(question and _UPCOMING.search(question) and _EVENT.search(question) and not _CONDITIONAL.search(question))
 
 
 def _question(runtime: ToolRuntime[AgentContext]) -> str | None:
@@ -446,6 +536,9 @@ def search_userbot_chats(
         )
     official_ids = official.ids()
     chat_group = store.chat_groups([int(c) for c in chats])
+    upcoming = asks_upcoming(_question(runtime))
+    if upcoming:  # As in search_chats: the day a message was written says nothing of what is coming.
+        date_from = date_to = None
     hits, problem = live_search.search(
         queries, sorted(chats), date_from and date_from.isoformat(), date_to and date_to.isoformat()
     )
@@ -453,6 +546,8 @@ def search_userbot_chats(
     asked = _asked_courses(runtime)
     messages = []
     for hit in hits:
+        if upcoming and not dates.coming(hit.text, hit.date, now):
+            continue  # The question is about what is coming (asks_upcoming).
         item = {
             "ref": collector.add_live(
                 hit.chat_id,
@@ -475,8 +570,10 @@ def search_userbot_chats(
             item["dates_in_text"] = resolved
         messages.append(item)
     result: dict = {"total": len(messages), "messages": messages}
+    if len(messages) < len(hits):
+        result["note"] = PAST_LEFT_OUT
     if problem:
-        result["note"] = f"Telegram search gave no usable answer for some chats: {problem}."
+        result["note"] = " ".join(filter(None, [result.get("note"), f"Telegram search gave no usable answer for some chats: {problem}."]))
     return collector.result(result, "search_userbot_chats")
 
 
@@ -807,4 +904,6 @@ TOOLS = [
     search_userbot_chats,
     search_wiki,
     read_wiki,
+    *CAMPUS_TOOLS,
+    *ACCOUNT_TOOLS,
 ]

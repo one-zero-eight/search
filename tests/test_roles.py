@@ -87,10 +87,12 @@ def test_the_supervisor_has_the_rules_of_conduct_and_none_of_the_tools():
 def test_the_tools_are_split_between_the_helpers():
     known = {t.name for t in TOOLS}
     chats, campus, docs = roles.ROLES["chats"].tools, roles.ROLES["campus"].tools, roles.ROLES["docs"].tools
-    assert chats <= known and campus <= known and docs <= known, "a helper names a tool that does not exist"
-    assert known == chats | campus | docs, "a tool belongs to no helper"
+    account = roles.ROLES["account"].tools
+    assert chats <= known and campus <= known and docs <= known and account <= known, "a helper names a tool that does not exist"
+    assert known == chats | campus | docs | account, "a tool belongs to no helper"
     assert "search_userbot_chats" not in campus and "get_schedule" not in chats
-    assert docs == {"search_wiki", "read_wiki"}, "the documents have a helper of their own"
+    # The documents have a helper of their own; get_courses gives who teaches a course this term next to the programmes.
+    assert docs == {"search_wiki", "read_wiki", "get_courses"}
 
 
 class ScriptedModel(FakeMessagesListChatModel):

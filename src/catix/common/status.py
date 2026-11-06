@@ -9,6 +9,7 @@ STATUS = {
     "ask_chats": "💬 Спрашиваю помощника по чатам…",
     "ask_campus": "🧭 Спрашиваю помощника по кампусу…",
     "ask_docs": "📚 Спрашиваю помощника по документам…",
+    "ask_account": "👤 Спрашиваю помощника по вашему аккаунту…",
     "search_wiki": "📚 Ищу в документах университета…",
     "read_wiki": "📖 Читаю документ…",
     "search_chats": "🔎 Ищу в базе знаний…",
@@ -18,5 +19,14 @@ STATUS = {
     "get_university_events": "📅 Смотрю события…",
     "find_room": "🗺 Ищу на карте…",
     "read_chats": "📜 Читаю последние сообщения чатов…",
+    "get_courses": "🎓 Смотрю курсы и преподавателей…",
+    "get_room_timetable": "🏫 Смотрю занятость аудиторий…",
+    "get_music_room_schedule": "🎸 Смотрю расписание музкомнаты…",
+    "get_my_schedule": "🗓 Смотрю ваш календарь InNoHassle…",
+    "get_free_rooms": "🏫 Ищу свободные аудитории…",
+    "book_music_room": "🎸 Готовлю бронь музкомнаты…",
+    "book_room": "🏫 Готовлю бронь аудитории…",
+    "enroll_in_event": "📅 Готовлю запись на событие…",
+    "cancel_booking": "🗑 Готовлю отмену брони…",
 }
 HELPER_TOOLS = frozenset(name for name in STATUS if name.startswith("ask_"))  # when one of them returns, the answer is written

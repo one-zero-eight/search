@@ -7,13 +7,15 @@ import uuid
 
 import pytest
 from langchain_core.messages import AIMessage
+from pydantic import SecretStr
 
 from catix.agent.core import build_agent
 from catix.api import ask, chats
 from catix.api.auth import UserTokenData
-from catix.api.schemas import AskResponses
+from catix.api.schemas import AskDecision, AskResponses
 from catix.db import pg
 from catix.settings import settings
+from tests.test_account import DAY, _call, music_room  # noqa: F401 - music_room is a fixture
 from tests.test_roles import ScriptedModel, _ask
 
 pytestmark = pytest.mark.skipif(not settings.database_url, reason="needs the database (DATABASE_URL)")
@@ -115,3 +117,41 @@ def test_the_agent_remembers_a_chat_after_a_restart(owner, monkeypatch):
     history = chats.history(chat_id, owner)
     assert history is not None and [a.query for a in history.answers] == ["первый вопрос", "второй вопрос"]
     assert history.title == "Вопросы"
+
+
+def test_a_question_waits_in_the_chat_for_the_decision_that_is_made_once(owner, monkeypatch, music_room):  # noqa: F811
+    asked = "забронируй музкомнату послезавтра с 18 до 19"
+    script = [
+        _call("ask_account", {"question": asked}, "s1"),  # the supervisor
+        _call("book_music_room", {"day": DAY.isoformat(), "time_from": "18:00", "time_to": "19:00"}, "h1"),  # the helper: waits
+        AIMessage("Музкомната забронирована."),  # the helper's report, once approved
+        AIMessage("Готово: музкомната ваша."),
+    ]
+    monkeypatch.setattr(ask, "build_agent", lambda checkpointer: build_agent(ScriptedModel(responses=script), guardrail=False,
+                                                                            checkpointer=checkpointer))
+    monkeypatch.setattr(ask.groups, "scoped_chat_ids", lambda key, telegram_id: set())
+    monkeypatch.setattr(ask.groups, "effective_group", lambda key, telegram_id: ask.groups.ALL)
+    monkeypatch.setattr(ask.titles, "name", lambda question: "Музкомната")
+    user = UserTokenData(innohassle_id=owner, email="a@innopolis.university", telegram_id=None, token=SecretStr("user-token"))
+    chat_id = chats.start(owner, asked)
+
+    async def ask_and_decide():
+        async with ask.memory():
+            waits = await ask.run(asked, chat_id, user)
+            assert waits.approval is not None and not music_room, "nothing is booked before the user decides"
+            assert [c.chat_id for c in chats.of_user(owner)] == [chat_id], "a chat that waits is listed"
+            history = chats.history(chat_id, owner)
+            assert history is not None and history.answers == [] and history.waiting.approval == waits.approval  # type: ignore[union-attr]
+            with pytest.raises(ask.NothingToDecide):  # not the approval that waits
+                await ask.run(asked, chat_id, user, decision=AskDecision(decision="approve", approval_id="another"))
+            done = await ask.run(asked, chat_id, user, decision=AskDecision(decision="approve", approval_id=waits.approval.id))
+            with pytest.raises(ask.NothingToDecide):  # decided already: the music room is not booked twice
+                await ask.run(asked, chat_id, user, decision=AskDecision(decision="approve", approval_id=waits.approval.id))
+            return done
+
+    done = asyncio.run(ask_and_decide())
+    assert done.answer == "Готово: музкомната ваша." and done.approval is None
+    assert [(token, f"{start:%H:%M}") for token, start, _ in music_room] == [("user-token", "18:00")]
+    history = chats.history(chat_id, owner)
+    assert history is not None and history.waiting is None and [a.answer for a in history.answers] == [done.answer]
+    assert history.title == "Музкомната"

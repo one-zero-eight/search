@@ -22,7 +22,9 @@ class Settings(BaseSettings):
     wiki_llm_route: HttpUrl | None = None
     wiki_llm_model: str | None = None
     wiki_llm_api_key: SecretStr | None = None
-    llm_temperature: float = Field(0.3, ge=0)
+    # The agent's. 0: the same question gets the same answer; with 0.3 the model chose other searches each time, and they
+    # found other messages. Still not exact: the server batches several questions, which moves the numbers a little.
+    llm_temperature: float = Field(0.0, ge=0)
     # Qwen "thinking" before answering: slightly more careful, but 2-10x slower on this hardware
     # and sometimes runs out of tokens with an empty answer.
     llm_thinking: bool = False

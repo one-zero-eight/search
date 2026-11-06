@@ -14,6 +14,8 @@ from pydantic import WithJsonSchema
 
 MAX_RESULTS = 6
 YEAR_ROLLOVER_DAYS = 180  # "15 января" in a message sent in December means the next year.
+UNDATED_COMING_DAYS = 14  # A message that names no day counts for what is coming this long after it was written (`coming`).
+ANNOUNCED_AHEAD_DAYS = 60  # How long before an event its announcement may be written (a hackathon of 13 November on 24 September).
 
 # A time of day in a model's structured output, written HH:MM. Not plain `time`: its JSON schema (format "time") lets
 # the guided decoding go on with fractional seconds, and the model did: "18:00:00.0000…" up to the token limit.
@@ -100,6 +102,49 @@ def resolve(text: str, sent_at: datetime, now: datetime) -> list[str]:
 def mentions_between(text: str, sent_at: datetime, now: datetime, start: date, end: date) -> bool:
     """Does the message speak of a day in start..end (both included)? "23 October" in a post of 5 October does."""
     return any(start <= target <= end for _, target in found_dates(text, sent_at, now))
+
+
+# "на этой неделе", "события недели", "на следующей неделе", "this week": a whole week, the message's own or the next. Only
+# for `coming`: as a day it would put "на этой неделе перенос пары" on one day for the schedule-change detection.
+_THIS_WEEK_RE = re.compile(
+    r"(?<![\w])(?:(?:этой|эту|эта|текущей)\s+недел[еияю]|(?:событи[йя]|мероприяти[йя])\s+недели|this\s+week)(?![\w])", re.I
+)
+# "13–16 ноября", "с 13 по 16 ноября": the days between count too (`first_day_in` only, as the weeks).
+_RANGE_RE = re.compile(rf"(?<![\w.])(?:с\s+)?(\d{{1,2}})\s*(?:[–—-]|по)\s*(\d{{1,2}})\s+({_MONTH_NAMES})(?![\w])", re.I)
+_NEXT_WEEK_RE = re.compile(r"(?<![\w])(?:(?:следующей|следующую|будущей)\s+недел[еияю]|next\s+week)(?![\w])", re.I)
+
+
+def first_day_in(text: str, sent_at: datetime, now: datetime, start: date, end: date) -> date | None:
+    """The earliest day from `start` to `end` the message speaks of (a day, or a week: "на следующей неделе"), or None."""
+    sent = sent_at.astimezone(now.tzinfo).date()
+    spans = [(target, target) for _, target in found_dates(text, sent_at, now)]
+    monday = sent - timedelta(days=sent.weekday())
+    for pattern, ahead in ((_THIS_WEEK_RE, 0), (_NEXT_WEEK_RE, 7)):
+        if pattern.search(text):
+            spans.append((monday + timedelta(days=ahead), monday + timedelta(days=ahead + 6)))
+    for match in _RANGE_RE.finditer(text):
+        month = _MONTHS[match.group(3).lower()]
+        first, last = _with_year(sent, month, int(match.group(1)), None), _with_year(sent, month, int(match.group(2)), None)
+        if first and last and first <= last:
+            spans.append((first, last))
+    return min((max(first, start) for first, last in spans if first <= end and last >= start), default=None)
+
+
+def names_a_day(text: str, sent_at: datetime, now: datetime) -> bool:
+    """Does the message speak of any day or week at all?"""
+    return first_day_in(text, sent_at, now, date.min, date.max) is not None
+
+
+def coming(text: str, sent_at: datetime, now: datetime, start: date | None = None, end: date | None = None) -> bool:
+    """Is the message about something still to come, for a question about what is coming? It speaks of a day (or a week)
+    from `start`, today at the earliest, to `end`. One that names no day counts only for a period that starts today and
+    only for UNDATED_COMING_DAYS after it was written: "registration is open" of June is not of something coming in
+    November, and a weekly digest without days is of its own week."""
+    today = now.date()
+    start = max(start or today, today)
+    if names_a_day(text, sent_at, now):
+        return first_day_in(text, sent_at, now, start, end or date.max) is not None
+    return start == today and (today - sent_at.astimezone(now.tzinfo).date()).days <= UNDATED_COMING_DAYS
 
 
 def found_dates(text: str, sent_at: datetime, now: datetime) -> list[tuple[str, date]]:

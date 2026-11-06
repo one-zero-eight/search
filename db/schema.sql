@@ -253,6 +253,11 @@ CREATE TABLE IF NOT EXISTS api_answers (
     created_at   timestamptz NOT NULL DEFAULT now()
 );
 CREATE INDEX IF NOT EXISTS api_answers_chat_idx ON api_answers (chat_id, id);
+-- A question whose answer waits for the user's decision on actions in InNoHassle (HumanInTheLoopMiddleware, api/ask.py): the
+-- checkpoint the agent paused at, which the decision resumes, and what the client got (AskResponses with its `approval`,
+-- and the interrupts with how many actions each). A new question drops it; an answer clears it.
+ALTER TABLE api_chats ADD COLUMN IF NOT EXISTS waiting_checkpoint text;
+ALTER TABLE api_chats ADD COLUMN IF NOT EXISTS waiting jsonb;
 
 -- Reschedules, room changes and cancellations found in chat messages (changes.py). Each is sent to the users of the
 -- chat's group, and a user who accepts it gets it in their personal calendar (personal_events); status and decided_at

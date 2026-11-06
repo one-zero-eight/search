@@ -11,10 +11,12 @@ import httpx
 import pytest
 from fastapi.testclient import TestClient
 from langchain_core.messages import AIMessage, HumanMessage
+from langgraph.types import Command
+from pydantic import SecretStr
 
 from catix.api import ask, chats, search, state
 from catix.api.app import app
-from catix.api.schemas import AskChat, AskChatHistory, AskResponses
+from catix.api.schemas import AskAction, AskApproval, AskChat, AskChatHistory, AskDecision, AskResponses
 from catix.db.wiki import WikiHit
 from catix.innohassle import token
 
@@ -67,9 +69,22 @@ class FakeChats:
     def save_answer(self, response: AskResponses, span_id: str | None, checkpoint: str | None, title: str | None = None) -> None:
         self.answers.append({"response": response, "span_id": span_id, "feedback": None, "comment": None})
         chat = self.chats[response.chat_id]
-        chat.update(checkpoint=checkpoint, updated=datetime.now(timezone.utc))
+        chat.update(checkpoint=checkpoint, updated=datetime.now(timezone.utc), waiting=None)
         if title and chat["title_by"] == "question":
             chat.update(title=title, title_by="model")
+
+    def save_waiting(self, response: AskResponses, checkpoint: str, interrupts: list[dict]) -> None:
+        self.chats[response.chat_id].update(waiting=(checkpoint, interrupts, response), updated=datetime.now(timezone.utc))
+
+    def waiting(self, chat_id: str):
+        return self.chats.get(chat_id, {}).get("waiting")
+
+    def take_waiting(self, chat_id: str, checkpoint: str) -> bool:
+        found = self.waiting(chat_id)
+        if found is None or found[0] != checkpoint:
+            return False
+        self.chats[chat_id]["waiting"] = None
+        return True
 
     def _chat(self, chat_id: str) -> AskChat:
         chat = self.chats[chat_id]
@@ -77,7 +92,7 @@ class FakeChats:
 
     def of_user(self, innohassle_id: str) -> list[AskChat]:
         answered = {a["response"].chat_id for a in self.answers}
-        mine = [c for c, chat in self.chats.items() if chat["owner"] == innohassle_id and c in answered]
+        mine = [c for c, chat in self.chats.items() if chat["owner"] == innohassle_id and (c in answered or chat.get("waiting"))]
         return [self._chat(c) for c in sorted(mine, key=lambda c: self.chats[c]["updated"], reverse=True)]
 
     def history(self, chat_id: str, innohassle_id: str) -> AskChatHistory | None:
@@ -85,7 +100,8 @@ class FakeChats:
             return None
         answers = [a["response"].model_copy(update={"messages": [], "feedback": a["feedback"], "feedback_comment": a["comment"]})
                    for a in self.answers if a["response"].chat_id == chat_id]
-        return AskChatHistory(**self._chat(chat_id).model_dump(), answers=answers)
+        found = self.waiting(chat_id)
+        return AskChatHistory(**self._chat(chat_id).model_dump(), answers=answers, waiting=found[2] if found else None)
 
     def _answer(self, ask_query_id: str) -> dict | None:
         return next((a for a in self.answers if a["response"].ask_query_id == ask_query_id), None)
@@ -115,7 +131,7 @@ def client(monkeypatch):
 def answering(answer="answer", span_id=None, checkpoint="cp-1"):
     """A fake of ask._run: the agent answers `answer` (with `{query}` in it), its trace is `span_id`."""
 
-    async def _run(query, chat_id, user, events=None):
+    async def _run(query, chat_id, user, events=None, decision=None):
         return answer.format(query=query), [], [{"role": "user", "content": query}], span_id, checkpoint
 
     return _run
@@ -277,7 +293,7 @@ def test_ask_failure_is_a_502(client, monkeypatch):
 
 
 def test_ask_stream_sends_the_work_and_the_final_answer(client, monkeypatch, kept):
-    async def _run(query, chat_id, user, events):
+    async def _run(query, chat_id, user, events, decision=None):
         await events.put(("status", {"text": "checking"}))
         await events.put(("answer", {"text": "ans"}))
         return "answer", [], [], "span-1", "cp-1"
@@ -346,7 +362,7 @@ async def _state():
 
 
 def test_ask_stream_failure_is_an_error_event(client, monkeypatch):
-    async def run(query, chat_id, user, events):
+    async def run(query, chat_id, user, events, decision=None):
         raise RuntimeError("model is down")
 
     monkeypatch.setattr(ask, "run", run)
@@ -389,7 +405,7 @@ def two_users(monkeypatch):
 def test_a_clients_questions_are_answered_one_at_a_time_in_order(monkeypatch):
     log = []
 
-    async def fake(query, chat_id, user, events=None):
+    async def fake(query, chat_id, user, events=None, decision=None):
         log.append(("start", query))
         await asyncio.sleep(0.05)
         log.append(("end", query))
@@ -418,7 +434,7 @@ def test_a_clients_questions_are_answered_one_at_a_time_in_order(monkeypatch):
 def test_cancel_stops_the_running_and_the_waiting_questions_of_a_chat(monkeypatch, kept):
     started = []
 
-    async def fake(query, chat_id, user, events=None):
+    async def fake(query, chat_id, user, events=None, decision=None):
         started.append(query)
         await asyncio.Event().wait()
 
@@ -447,7 +463,7 @@ def test_a_deleted_chat_goes_with_its_answers_and_the_agents_memory(monkeypatch,
     """A question of the chat still being answered is cancelled first; one sent with the chat's id afterwards starts a new chat."""
     started, deleted = [], []
 
-    async def fake(query, chat_id, user, events=None):
+    async def fake(query, chat_id, user, events=None, decision=None):
         started.append(query)
         if query == "hang":
             await asyncio.Event().wait()
@@ -612,3 +628,85 @@ def test_a_user_name_is_never_replaced_by_the_model(client, monkeypatch, kept):
 ])
 def test_the_name_is_the_first_line_without_quotes(reply, name):
     assert ask.titles.clean(reply) == name
+
+
+# --- an answer that waits for the user's decision (HumanInTheLoopMiddleware) ---
+
+APPROVAL = AskApproval(id="cp-paused", actions=[AskAction(name="book_music_room", description="Забронировать музыкальную комнату на пт, 7 ноября, 18:00–19:00.")])
+
+
+def test_an_action_waits_in_the_chat_until_the_user_decides(client, monkeypatch, kept):
+    decided = []
+
+    async def _run(query, chat_id, user, events=None, decision=None):
+        if decision is None:
+            return ask.Waiting("Нужно ваше подтверждение", [], None, "cp-paused", APPROVAL, [{"id": "i1", "actions": 1}])
+        decided.append((query, decision.decision, decision.approval_id, user.token.get_secret_value()))
+        return "Забронировано.", [], [], None, "cp-2"
+
+    monkeypatch.setattr(ask, "_run", _run)
+    first = client.post("/ask/", json={"query": "забронируй музкомнату"}, headers=AUTH).json()
+    chat_id = first["chat_id"]
+    assert first["approval"] == APPROVAL.model_dump() and first["ask_query_id"] is None and first["calendar_events"] == []
+    assert not kept.answers, "no answer yet: the question waits"
+    assert client.get("/ask/chats", headers=AUTH).json()[0]["chat_id"] == chat_id  # it is listed, to come back to it
+    history = client.get(f"/ask/chats/{chat_id}", headers=AUTH).json()
+    assert history["answers"] == [] and history["waiting"]["approval"]["id"] == "cp-paused"
+
+    done = client.post(f"/ask/{chat_id}/decision", json={"decision": "approve", "approval_id": "cp-paused"}, headers=AUTH)
+    assert done.status_code == 200 and done.json()["answer"] == "Забронировано." and done.json()["approval"] is None
+    assert decided == [("забронируй музкомнату", "approve", "cp-paused", "good")], "the question that waited, with this request's token"
+    assert client.get(f"/ask/chats/{chat_id}", headers=AUTH).json()["waiting"] is None
+    assert client.post(f"/ask/{chat_id}/decision", json={"decision": "approve"}, headers=AUTH).status_code == 409
+    assert client.post("/ask/nope/decision", json={"decision": "reject"}, headers=AUTH).status_code == 404
+    assert client.post(f"/ask/{chat_id}/decision", json={"decision": "maybe"}, headers=AUTH).status_code == 422
+
+
+def test_a_decision_resumes_the_paused_checkpoint_once(monkeypatch, kept):
+    calls = []
+    paused = SimpleNamespace(id="i1", value={"action_requests": [{"name": "book_music_room", "description": "Забронировать музкомнату."}]})
+    state_of = {"paused": False}
+
+    class FakeAgent:
+        async def _delete(thread_id):
+            return None
+
+        checkpointer = SimpleNamespace(adelete_thread=_delete)
+
+        async def aget_state(self, config):
+            now = state_of["paused"]
+            return SimpleNamespace(values={}, interrupts=[paused] if now else [],
+                                   config={"configurable": {"checkpoint_id": "cp-paused" if now else "cp-done"}})
+
+        async def ainvoke(self, inputs, config, context):
+            calls.append((inputs, dict(config["configurable"]), context.innohassle_token.get_secret_value()))
+            resumed = isinstance(inputs, Command)
+            state_of["paused"] = not resumed
+            return {"messages": [HumanMessage("q"), AIMessage("Забронировано." if resumed else "")], "sources": {}}
+
+    monkeypatch.setattr(ask, "agent", lambda: FakeAgent())
+    monkeypatch.setattr(ask.groups, "scoped_chat_ids", lambda key, telegram_id: set())
+    monkeypatch.setattr(ask.groups, "effective_group", lambda key, telegram_id: ask.groups.ALL)
+    user = ask.UserTokenData(innohassle_id="u1", email="a@innopolis.university", telegram_id=7, token=SecretStr("tok"))
+    chat_id = kept.start("u1", "забронируй музкомнату")
+
+    waiting = asyncio.run(ask.run("забронируй музкомнату", chat_id, user))
+    assert waiting.approval.actions[0].name == "book_music_room" and "- Забронировать музкомнату." in waiting.answer
+    assert kept.waiting(chat_id)[0] == "cp-paused" and kept.checkpoint(chat_id) is None
+
+    wrong = AskDecision(decision="approve", approval_id="cp-other")
+    with pytest.raises(ask.NothingToDecide):
+        asyncio.run(ask.run("забронируй музкомнату", chat_id, user, decision=wrong))
+    answered = asyncio.run(ask.run("забронируй музкомнату", chat_id, user, decision=AskDecision(decision="approve", approval_id="cp-paused")))
+    inputs, configurable, token = calls[-1]
+    assert isinstance(inputs, Command) and inputs.resume == {"i1": {"decisions": [{"type": "approve"}]}}
+    assert configurable["checkpoint_id"] == "cp-paused" and token == "tok"
+    assert answered.answer == "Забронировано." and kept.checkpoint(chat_id) == "cp-done" and kept.waiting(chat_id) is None
+    with pytest.raises(ask.NothingToDecide):  # never twice
+        asyncio.run(ask.run("забронируй музкомнату", chat_id, user, decision=AskDecision(decision="approve")))
+    assert sum(isinstance(c[0], Command) for c in calls) == 1
+
+
+def test_a_rejection_tells_the_helper_that_nothing_was_done():
+    assert ask._decisions([{"id": "i1", "actions": 2}], "reject") == {
+        "i1": {"decisions": [{"type": "reject", "message": ask.DECLINED}] * 2}}

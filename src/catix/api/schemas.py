@@ -165,6 +165,20 @@ class AddedCalendarEvent(BaseModel):
     "The title of the event as it is in the calendar."
 
 
+class AskAction(BaseModel):
+    name: str
+    "The action: book_music_room, book_room, enroll_in_event or cancel_booking."
+    description: str
+    "What is to be done for the user, in the language of the question, to show them."
+
+
+class AskApproval(BaseModel):
+    id: str
+    "Which wait this is: pass it as `approval_id` of the decision, so that it is not taken for a later one."
+    actions: list[AskAction]
+    "What the assistant is about to do for the user in InNoHassle. Nothing is done before the user decides: POST /ask/{chat_id}/decision."
+
+
 class AskResponses(BaseModel):
     query: str
     answer: str
@@ -182,6 +196,9 @@ class AskResponses(BaseModel):
     "The user's 👍 (`like`) or 👎 (`dislike`) on the answer, in a chat's history."
     feedback_comment: str | None = None
     "What the user said of the answer with their vote, in a chat's history."
+    approval: AskApproval | None = None
+    "The answer is not there yet: the assistant waits for the user's decision on these actions (`answer` says so). The decision "
+    "(POST /ask/{chat_id}/decision) gives the answer; a new question in the chat instead drops them undone."
 
 
 class AskChat(BaseModel):
@@ -196,6 +213,15 @@ class AskChat(BaseModel):
 class AskChatHistory(AskChat):
     answers: list[AskResponses]
     "The questions with their answers, the oldest first, as POST /ask/ gave them, with the user's votes."
+    waiting: AskResponses | None = None
+    "The last question, when the assistant waits for the user's decision on its `approval` (POST /ask/{chat_id}/decision)."
+
+
+class AskDecision(BaseModel):
+    decision: Literal["approve", "reject"]
+    "Do the actions of the chat's `approval` (approve) or not (reject)."
+    approval_id: str | None = None
+    "The `id` of the approval decided on; when it is not the one waiting, nothing is done (409)."
 
 
 class ActResponses(BaseModel):

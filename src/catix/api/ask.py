@@ -8,8 +8,14 @@ buttons under the bot's answers; POST /users/my-calendar/events/{id} adds one (a
 POST /ask/{ask_query_id}/feedback: a 👍/👎 on an answer with an optional comment, an annotation on its trace in Phoenix as under
 the bot's answers.
 
-POST /act/ is a mock: the search service had an agent that did things in InNoHassle services for the user (booking a
-music room, sport classes); cAtIx has none.
+An answer may have to wait for the user: on the site the account helper does things in InNoHassle for the user (books the music
+room or a room, enrols them in an event, cancels a booking: agent/account_tools.py), and HumanInTheLoopMiddleware pauses the
+agent before each such action (a LangGraph interrupt in the chat's thread). The response then has `approval` (what is to be
+done) instead of the answer, and the question waits in the chat (api/chats.py `save_waiting`). POST
+/ask/{chat_id}/decision (or .../decision/stream) approves or rejects it: the agent goes on from where it paused, with the token
+of that request, and its answer is the answer to the question. An answer to a new question in the chat drops what waited.
+
+POST /act/ is a mock kept from the search service, which had an agent for actions only; cAtIx does them in /ask/.
 """
 
 import asyncio
@@ -17,24 +23,37 @@ import contextlib
 import json
 import logging
 import time
+from dataclasses import dataclass
 from typing import Literal
 
 from fastapi import APIRouter, Body, HTTPException
 from fastapi.responses import StreamingResponse
 from langchain_core.messages import AIMessage, AIMessageChunk, HumanMessage, ToolMessage
 from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
+from langgraph.types import Command
 from psycopg.rows import dict_row
 from psycopg_pool import AsyncConnectionPool
 
 from catix import groups, personal_calendar
 from catix.agent import events as calendar_events
 from catix.agent import titles, tracing
-from catix.agent.core import SUPERVISOR_NAME, build_agent, final_answer
+from catix.agent.account_tools import DECLINED
+from catix.agent.core import SUPERVISOR_NAME, _language, build_agent, final_answer
 from catix.agent.questions import QuestionQueue
 from catix.agent.tools import AgentContext
 from catix.api import chats, state
 from catix.api.auth import UserTokenData, VerifiedDep
-from catix.api.schemas import ActResponses, AskChat, AskChatHistory, AskResponses, CalendarEventOffer, SearchResponse
+from catix.api.schemas import (
+    ActResponses,
+    AskAction,
+    AskApproval,
+    AskChat,
+    AskChatHistory,
+    AskDecision,
+    AskResponses,
+    CalendarEventOffer,
+    SearchResponse,
+)
 from catix.api.search import make_source
 from catix.common.llm_down import UNAVAILABLE, unreachable
 from catix.common.status import CHECKING, HELPER_TOOLS, QUEUED, STATUS, WRITING
@@ -47,7 +66,14 @@ router = APIRouter(prefix="", tags=["Ask"])
 TITLE_WAIT = 5  # seconds the answer waits for the model's name of the chat once it is ready itself
 NOT_BLANK = r"\S"  # a question has at least one non-space character
 COMMENT_MAX = 2000  # characters in a comment on an answer, as in the site's text box
-ACT_UNAVAILABLE = "Действия в сервисах InNoHassle пока недоступны. Я могу ответить на вопрос об университете: задайте его через /ask/."
+ACT_UNAVAILABLE = (
+    "Здесь действия в сервисах InNoHassle не выполняются: попросите ассистента в чате (/ask/) — забронировать музкомнату или "
+    "аудиторию, записаться на событие или отменить бронь, — и подтвердите действие под его ответом."
+)
+WAITING = {
+    "Russian": "Чтобы это сделать, нужно ваше подтверждение:\n\n{actions}\n\nПодтвердите или отклоните это под сообщением.",
+    "English": "This needs your approval first:\n\n{actions}\n\nApprove or reject it below.",
+}
 
 
 _agent = None
@@ -92,6 +118,38 @@ questions = QuestionQueue(settings.agent_parallel_questions)
 Answered = tuple[str, list[SearchResponse], list, str | None, str | None]
 
 
+@dataclass(frozen=True)
+class Waiting:
+    """The agent paused for the user's decision (HumanInTheLoopMiddleware): what to tell them, what is to be done, the
+    checkpoint it paused at and its interrupts ({id, actions}: how many decisions each wants)."""
+
+    answer: str
+    messages: list
+    span_id: str | None
+    checkpoint: str
+    approval: AskApproval
+    interrupts: list[dict]
+
+
+class NothingToDecide(Exception):
+    """A decision came for a chat where nothing waits for one (decided already, or the approval is not the one waiting)."""
+
+
+def _approval(interrupts, checkpoint: str) -> AskApproval:
+    actions = []
+    for interrupt in interrupts:
+        value = interrupt.value if isinstance(interrupt.value, dict) else {}
+        for request in value.get("action_requests") or [{"name": "action", "description": str(interrupt.value)}]:
+            actions.append(AskAction(name=request.get("name") or "action", description=request.get("description") or request.get("name") or ""))
+    return AskApproval(id=checkpoint, actions=actions)
+
+
+def _decisions(found: list[dict], decision: str) -> dict:
+    """The resume of each interrupt: one decision per action it asked about, the same for all."""
+    one = {"type": "approve"} if decision == "approve" else {"type": "reject", "message": DECLINED}
+    return {i["id"]: {"decisions": [one] * i["actions"]} for i in found}
+
+
 def _cards(registry: dict, before: set[str]) -> list[SearchResponse]:
     """The pages of the knowledge base this answer found, as cards (one per document)."""
     cards: dict[tuple, SearchResponse] = {}
@@ -131,7 +189,8 @@ async def stream_agent(inputs: dict, config: dict, context: AgentContext, events
     await events.put(("status", {"text": CHECKING}))
     async for mode, data in agent().astream(inputs, config, context=context, stream_mode=["messages", "values", "custom"]):
         if mode == "values":
-            state = data
+            if "messages" in data:  # (not the interrupt the run paused on: api/ask.py reads it from the thread's state)
+                state = data
         elif mode == "custom":
             if isinstance(data, dict):
                 await show_status(STATUS.get(data.get("tool") or ""))
@@ -184,10 +243,13 @@ async def one_at_a_time(client: str):
             _gates.pop(client, None)
 
 
-async def run(query: str, chat_id: str, user: UserTokenData, events: asyncio.Queue | None = None) -> AskResponses:
-    """Answer a question and keep the answer in its chat. It runs as a task of its own that POST /ask/{chat_id}/cancel can cancel: then `AskCancelled` is
+async def run(
+    query: str, chat_id: str, user: UserTokenData, events: asyncio.Queue | None = None, decision: AskDecision | None = None
+) -> AskResponses:
+    """Answer a question and keep the answer in its chat; with `decision`, go on with the chat's question that waits for it
+    (`query` is that question). It runs as a task of its own that POST /ask/{chat_id}/cancel can cancel: then `AskCancelled` is
     raised here, while the cancelling of the caller itself (the client went away) goes on as it is."""
-    task = asyncio.ensure_future(_in_line(query, chat_id, user, events))
+    task = asyncio.ensure_future(_in_line(query, chat_id, user, events, decision))
     pending.setdefault(chat_id, set()).add(task)
 
     def forget(done: asyncio.Task) -> None:
@@ -214,16 +276,26 @@ async def chat_title(question: str) -> str | None:
         return None
 
 
-async def _in_line(query: str, chat_id: str, user: UserTokenData, events: asyncio.Queue | None = None) -> AskResponses:
+async def _in_line(
+    query: str, chat_id: str, user: UserTokenData, events: asyncio.Queue | None = None, decision: AskDecision | None = None
+) -> AskResponses:
     async with one_at_a_time(user.innohassle_id):
         # A chat not named yet is named while the agent answers: the answer does not wait for it.
         naming = asyncio.ensure_future(chat_title(query)) if await asyncio.to_thread(chats.needs_title, chat_id) else None
         try:
-            answer, cards, messages, span_id, checkpoint = await _run(query, chat_id, user, events)
+            done = await _run(query, chat_id, user, events, decision)
         except BaseException:
             if naming is not None:
                 naming.cancel()  # The question is not kept: the next one names the chat.
             raise
+        if isinstance(done, Waiting):
+            if naming is not None:
+                naming.cancel()  # Named when it is answered.
+            response = AskResponses(query=query, answer=done.answer, chat_id=chat_id, search_responses=[], messages=done.messages,
+                                    approval=done.approval)  # fmt: skip
+            await asyncio.to_thread(chats.save_waiting, response, done.checkpoint, done.interrupts)
+            return response
+        answer, cards, messages, span_id, checkpoint = done
         response = AskResponses(
             query=query,
             answer=answer,
@@ -232,7 +304,8 @@ async def _in_line(query: str, chat_id: str, user: UserTokenData, events: asynci
             # without a trace there is nothing to vote on (the bot shows no buttons then either).
             ask_query_id=state.new_id() if span_id else None,
             search_responses=cards,
-            calendar_events=await calendar_offers(answer),
+            # (After a decision the answer tells what was booked: InNoHassle's calendar has it already.)
+            calendar_events=await calendar_offers(answer) if decision is None else [],
             messages=messages,
         )
         title = None
@@ -245,16 +318,27 @@ async def _in_line(query: str, chat_id: str, user: UserTokenData, events: asynci
         return response
 
 
-async def _run(query: str, chat_id: str, user: UserTokenData, events: asyncio.Queue | None = None) -> Answered:
+async def _run(
+    query: str, chat_id: str, user: UserTokenData, events: asyncio.Queue | None = None, decision: AskDecision | None = None
+) -> Answered | Waiting:
     key = f"tg:{user.telegram_id or 0}"
     allowed = await asyncio.to_thread(groups.scoped_chat_ids, key, user.telegram_id)
     group = await asyncio.to_thread(groups.effective_group, key, user.telegram_id)
     thread_id = chats.thread_of(chat_id)
     config = tracing.run_config(thread_id, str(user.telegram_id) if user.telegram_id else user.innohassle_id)
+    last = await asyncio.to_thread(chats.checkpoint, chat_id)
+    resume = None
+    if decision is not None:
+        # The decision goes on from the checkpoint the agent paused at, and only from the one the user saw.
+        found = await asyncio.to_thread(chats.waiting, chat_id)
+        if found is None or (decision.approval_id is not None and decision.approval_id != found[0]):
+            raise NothingToDecide(chat_id)
+        config["configurable"]["checkpoint_id"] = found[0]
+        resume = Command(resume=_decisions(found[1], decision.decision))
     # A question goes on from the chat's last answer: one that was cancelled (or failed, or the API stopped) halfway left its
     # messages in the thread, and a tool call without its result would break the next question. Before the first answer
     # there is nothing to go on from: what such a question left goes.
-    if last := await asyncio.to_thread(chats.checkpoint, chat_id):
+    elif last:
         config["configurable"]["checkpoint_id"] = last
     else:
         await agent().checkpointer.adelete_thread(thread_id)
@@ -262,25 +346,41 @@ async def _run(query: str, chat_id: str, user: UserTokenData, events: asyncio.Qu
         allowed_chat_ids=frozenset(allowed),
         user_telegram_id=user.telegram_id,
         study_group=None if group == groups.ALL else group,
+        innohassle_token=user.token,  # the site's user: the account helper (agent/account_tools.py)
     )
-    snapshot = await agent().aget_state(config)
-    before = set(snapshot.values.get("sources") or {})
+    # The sources known before this question: the cards are of what it found (when resumed, also before it paused).
+    if resume is None:
+        snapshot = await agent().aget_state(config)
+    else:
+        snapshot = await agent().aget_state({"configurable": {"thread_id": thread_id, "checkpoint_id": last}}) if last else None
+    before = set((snapshot.values.get("sources") or {}) if snapshot else {})
 
     async def report_wait(ahead: int) -> None:
         await events.put(("status", {"text": QUEUED.format(ahead=ahead)}))  # type: ignore[union-attr]
 
     async with questions.turn(f"api:{user.innohassle_id}", on_wait=None if events is None else report_wait):
         with tracing.question(thread_id, user.innohassle_id, query) as traced:
-            inputs = {"messages": [{"role": "user", "content": query}]}
+            inputs = resume or {"messages": [{"role": "user", "content": query}]}
+            # Taken right before the agent goes on: from here the decision cannot be made again (chats.take_waiting).
+            if resume is not None and not await asyncio.to_thread(chats.take_waiting, chat_id, config["configurable"]["checkpoint_id"]):
+                raise NothingToDecide(chat_id)
             if events is None:
                 result = await agent().ainvoke(inputs, config, context=context)
             else:
                 result = await stream_agent(inputs, config, context, events)
+            after = await agent().aget_state({"configurable": {"thread_id": thread_id}})  # the thread's latest checkpoint
+            if paused := list(getattr(after, "interrupts", None) or ()):
+                checkpoint = after.config["configurable"]["checkpoint_id"]
+                approval = _approval(paused, checkpoint)
+                lines = "\n".join(f"- {a.description}" for a in approval.actions)
+                answer = WAITING.get(_language(query), WAITING["Russian"]).format(actions=lines)
+                traced.answer(answer)
+                counts = [{"id": i.id, "actions": len((i.value or {}).get("action_requests") or [None])} for i in paused]
+                return Waiting(answer, _history(result["messages"]), traced.id, checkpoint, approval, counts)
             answer = final_answer(result["messages"], result.get("sources") or {}) or "Не получилось сформулировать ответ."
             traced.answer(answer)
     cited = answer.rstrip().split("\n\n")[-1].startswith(("Источники:", "Sources:"))
     cards = _cards(result.get("sources") or {}, before) if cited else []
-    after = await agent().aget_state({"configurable": {"thread_id": thread_id}})  # the thread's latest checkpoint
     return answer, cards, _history(result["messages"]), traced.id, after.config["configurable"]["checkpoint_id"]
 
 
@@ -348,16 +448,23 @@ async def ask_by_query_stream(user: VerifiedDep, query: str = Body(..., pattern=
     ({detail}: POST /ask/{chat_id}/cancel) or `error` ({detail}). A client's questions are answered one at a time, in the
     order they came: while an earlier one is not done, this one waits and sends no events."""
     chat_id = await chat_of(user, chat_id, query)
+    return _streamed(query, chat_id, user)
+
+
+def _streamed(query: str, chat_id: str, user: UserTokenData, decision: AskDecision | None = None) -> StreamingResponse:
+    """The answer to `query` (with `decision`: to the question that waited for it) as server-sent events."""
     events: asyncio.Queue = asyncio.Queue()
 
     async def work() -> None:
         started = time.monotonic()
         try:
-            done = await run(query, chat_id, user, events)
+            done = await run(query, chat_id, user, events, decision)
             log.info("ask (stream) for `%s` (%d ms): %s", query, round((time.monotonic() - started) * 1000), done.answer)
             await events.put(("done", done.model_dump(mode="json")))
         except AskCancelled:
             await events.put(("cancelled", {"detail": "The question was cancelled"}))
+        except NothingToDecide:
+            await events.put(("error", {"detail": NOTHING_WAITS}))
         except Exception as e:
             log.exception("the agent failed")
             await events.put(("error", {"detail": UNAVAILABLE if unreachable(e) else f"ML service error: {e}"}))
@@ -372,6 +479,64 @@ async def ask_by_query_stream(user: VerifiedDep, query: str = Body(..., pattern=
             task.cancel()  # The client went away: the answer is not needed any more.
 
     return StreamingResponse(generate(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
+
+
+async def _waiting_question(user: UserTokenData, chat_id: str) -> str:
+    """The user's question that waits in the chat for their decision; 404 for a chat not theirs, 409 when nothing waits."""
+    if await asyncio.to_thread(chats.owner, chat_id) != user.innohassle_id:
+        raise HTTPException(status_code=404, detail="Chat not found or user has no access to it")
+    found = await asyncio.to_thread(chats.waiting, chat_id)
+    if found is None:
+        raise HTTPException(status_code=409, detail=NOTHING_WAITS)
+    return found[2].query
+
+
+NOTHING_WAITS = "Nothing in this chat waits for a decision (it was decided already, or a newer question was answered)"
+
+
+@router.post(
+    "/ask/{chat_id}/decision",
+    response_model=AskResponses,
+    responses={
+        200: {"description": "The answer to the question that waited, or another approval"},
+        404: {"description": "Chat not found or user has no access to it"},
+        409: {"description": "Nothing waits for a decision in the chat, or the question was cancelled"},
+        502: {"description": "ML service error"},
+        503: {"description": "The language model cannot be reached; the detail says the assistant is not working now"},
+    },
+)
+async def decide(user: VerifiedDep, chat_id: str, decision: AskDecision):
+    """Approve or reject what the assistant is about to do for the user (the `approval` of the chat's last response): booking
+    the music room or a room, enrolling in an event, cancelling a booking. The agent goes on from where it paused, does it
+    with this request's token (approve) or not (reject), and its answer is the answer to the question that waited. Each
+    action is done only after this; one not decided is never done."""
+    query = await _waiting_question(user, chat_id)
+    try:
+        return await run(query, chat_id, user, decision=decision)
+    except NothingToDecide:
+        raise HTTPException(status_code=409, detail=NOTHING_WAITS) from None
+    except AskCancelled:
+        raise HTTPException(status_code=409, detail="The question was cancelled") from None
+    except Exception as e:
+        log.exception("the agent failed")
+        if unreachable(e):
+            raise HTTPException(status_code=503, detail=UNAVAILABLE) from e
+        raise HTTPException(status_code=502, detail=f"ML service error: {e}") from e
+
+
+@router.post(
+    "/ask/{chat_id}/decision/stream",
+    response_class=StreamingResponse,
+    responses={
+        200: {"description": "Server-sent events, as of POST /ask/stream"},
+        404: {"description": "Chat not found or user has no access to it"},
+        409: {"description": "Nothing waits for a decision in the chat"},
+    },
+)
+async def decide_stream(user: VerifiedDep, chat_id: str, decision: AskDecision):
+    """The same as POST /ask/{chat_id}/decision, with the work shown while it goes on: the events of POST /ask/stream."""
+    query = await _waiting_question(user, chat_id)
+    return _streamed(query, chat_id, user, decision)
 
 
 @router.post(
