@@ -10,10 +10,10 @@ Events added under 'tg:<telegram id>' before move to the account as soon as it i
 import json
 import logging
 import secrets
-import time
 from dataclasses import dataclass
 from datetime import datetime, timezone
 
+from catix.common import cache
 from catix.db import pg
 from catix.innohassle import client as innohassle
 from catix.settings import settings
@@ -23,7 +23,6 @@ log = logging.getLogger("catix.calendar")
 MAX_PROPOSALS = 3
 PROPOSAL_TTL_HOURS = 48
 ACCOUNT_TTL = 3600.0  # The InNoHassle account of a Telegram id is trusted for an hour; a miss is asked again each time.
-_accounts: dict[int, tuple[float, str]] = {}
 
 CONNECT_TELEGRAM = "https://innohassle.ru/account/connect-telegram"
 NOT_LINKED = (
@@ -71,9 +70,10 @@ class NoAccount(Exception):
 def telegram_key(telegram_id: int) -> str:
     """The calendar key of a user of the Telegram bot: the InNoHassle account linked to their Telegram id. Raises
     NoAccount when InNoHassle knows no such account (NOT_LINKED) or cannot be asked: no service token, down (UNAVAILABLE)."""
-    hit = _accounts.get(telegram_id)
-    if hit and time.monotonic() < hit[0]:
-        return account_key(hit[1], telegram_id)
+    key = f"innohassle-account:tg:{telegram_id}"
+    found, account = cache.get(key)
+    if found:
+        return account_key(account, telegram_id)
     try:
         account = innohassle.user_id_by_telegram_id(telegram_id)
     except innohassle.ServiceTokenError as e:
@@ -84,7 +84,7 @@ def telegram_key(telegram_id: int) -> str:
         raise NoAccount(UNAVAILABLE) from e
     if account is None:
         raise NoAccount(NOT_LINKED)
-    _accounts[telegram_id] = (time.monotonic() + ACCOUNT_TTL, account)
+    cache.put(key, account, ACCOUNT_TTL)
     return account_key(account, telegram_id)
 
 

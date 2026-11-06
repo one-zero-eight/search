@@ -53,6 +53,16 @@ def parse_queue(monkeypatch):
     return fake
 
 
+@pytest.fixture(autouse=True)
+def shared_cache(monkeypatch):
+    """The shared cache (common/cache.py) in memory and empty for each test, never the Redis of .env."""
+    from catix.common import cache
+
+    fake = helpers.FakeRedis()
+    monkeypatch.setattr(cache, "_redis", lambda: fake)
+    return fake
+
+
 def pytest_configure(config):
     config.addinivalue_line("markers", "redteam: slow DeepTeam attack runs (one per vulnerability)")
     config.addinivalue_line("markers", "model: the test calls the model server directly")

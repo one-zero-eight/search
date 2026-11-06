@@ -9,10 +9,9 @@ wiki's pieces (sources.Collector.add_web) and a page off the official sites is s
 (roles.prompt).
 """
 
+import hashlib
 import json
 import logging
-import threading
-import time
 from urllib.parse import urlsplit
 
 import httpx
@@ -23,6 +22,7 @@ from langgraph.types import Command
 from pydantic import BaseModel, Field
 
 from catix.agent.sources import Collector
+from catix.common import cache
 from catix.settings import settings
 
 log = logging.getLogger("catix.web")
@@ -37,13 +37,10 @@ PAGE_CHARS = 4000  # of a page read
 MAX_SEARCHES = 2
 MAX_READS = 1
 CACHE_SECONDS = 6 * 3600
-CACHE_SIZE = 500
 WIKI_FIRST = "Search the knowledge base first (search_wiki); search the web only for what it does not have."
 NO_MORE = "No more web {what} in this question: report with what you have, and say what is missing."
 
 _client = httpx.Client(base_url=TAVILY, timeout=20)
-_cache: dict[str, tuple[float, dict]] = {}
-_lock = threading.Lock()
 
 
 def enabled() -> bool:
@@ -56,20 +53,16 @@ def official(url: str) -> bool:
 
 
 def _tavily(path: str, body: dict) -> dict:
-    """POST to Tavily, cached: the same query of the same day costs nothing again. Raises httpx.HTTPError."""
-    key = f"{path} {json.dumps(body, sort_keys=True, ensure_ascii=False)}"
-    with _lock:
-        if (hit := _cache.get(key)) and hit[0] > time.monotonic():
-            return hit[1]
-    resp = _client.post(path, json=body, headers={"Authorization": f"Bearer {settings.tavily_api_key.get_secret_value()}"})  # type: ignore[union-attr]
-    resp.raise_for_status()
-    data = resp.json()
-    with _lock:
-        if len(_cache) >= CACHE_SIZE:
-            for old in sorted(_cache, key=lambda k: _cache[k][0])[: CACHE_SIZE // 2]:
-                del _cache[old]
-        _cache[key] = (time.monotonic() + CACHE_SECONDS, data)
-    return data
+    """POST to Tavily, cached for CACHE_SECONDS: the same query of the same day costs nothing again, in any process.
+    Raises httpx.HTTPError."""
+
+    def load() -> dict:
+        resp = _client.post(path, json=body, headers={"Authorization": f"Bearer {settings.tavily_api_key.get_secret_value()}"})  # type: ignore[union-attr]
+        resp.raise_for_status()
+        return resp.json()
+
+    asked = hashlib.sha256(f"{path} {json.dumps(body, sort_keys=True, ensure_ascii=False)}".encode()).hexdigest()
+    return cache.cached(f"tavily:{asked}", CACHE_SECONDS, load)
 
 
 def _run_calls(runtime: ToolRuntime) -> list[str]:

@@ -258,7 +258,8 @@ class MatchesAny(_Deterministic):
 
 
 class FakeRedis:
-    """The few Redis commands of the queue of the wiki's run (catix.wiki.parse_requests), in memory; `ttl` keeps what expire set."""
+    """The few Redis commands of the queue of the wiki's run (catix.wiki.parse_requests) and of the shared cache
+    (catix.common.cache), in memory; `ttl` keeps what expire and set's `ex` set (nothing expires)."""
 
     def __init__(self) -> None:
         self.data: dict[str, Any] = {}

@@ -147,7 +147,6 @@ def events():
         return [e.title for e in personal_calendar.upcoming(key)]
 
     def clean() -> None:
-        personal_calendar._accounts.pop(TELEGRAM_ID, None)
         with pg.connection() as conn:
             conn.execute("DELETE FROM personal_events WHERE user_key = ANY(%s)", ([TG, IH],))
 

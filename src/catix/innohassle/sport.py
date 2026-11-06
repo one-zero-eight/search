@@ -1,21 +1,18 @@
 """Client of InNoHassle Sport (settings.sport_api, the API of sport.innopolis.university), asked as the user with their Sport
 token, which only the site has (api/auth.py verify_asker): every endpoint wants it, the list of sports too. Nothing of the
-user's is cached; the sports and the current semester, the same for everyone, are kept for a while."""
+user's is cached; the sports and the current semester, the same for everyone, are kept for a while (common/cache.py)."""
 
-import threading
-import time
 from datetime import datetime
 from typing import Any
 
 import httpx
 
+from catix.common import cache
 from catix.innohassle.client import ServiceError, _detail
 from catix.settings import settings
 
 _client = httpx.Client(base_url=str(settings.sport_api), timeout=20)
 SHARED_TTL = 3600  # seconds
-_shared: dict[str, tuple[float, Any]] = {}
-_lock = threading.Lock()
 
 
 def _call(method: str, path: str, token: str, *, params: dict | None = None) -> httpx.Response:
@@ -27,13 +24,7 @@ def _call(method: str, path: str, token: str, *, params: dict | None = None) -> 
 
 def _shared_get(path: str, token: str) -> Any:
     """What is the same for every user (a valid token reads it), cached for SHARED_TTL."""
-    with _lock:
-        if (hit := _shared.get(path)) and hit[0] > time.monotonic():
-            return hit[1]
-    data = _call("GET", path, token).json()
-    with _lock:
-        _shared[path] = (time.monotonic() + SHARED_TTL, data)
-    return data
+    return cache.cached(f"sport:{path}", SHARED_TTL, lambda: _call("GET", path, token).json())
 
 
 def me(token: str) -> dict:

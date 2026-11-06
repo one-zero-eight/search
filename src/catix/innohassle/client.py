@@ -2,14 +2,16 @@
 
 Clubs, events, maps, the timetable and the music room's bookings are public; the service token (scope `users`) is sent only
 to the users endpoint. What is the user's own (their schedule, bookings, enrolments) is asked with the user's own token,
-which only the site has (api/auth.py): those calls are never cached, and the token is never kept."""
+which only the site has (api/auth.py): those calls are never cached, and the token is never kept. What is the same for
+everybody is kept in the shared cache (common/cache.py) for settings.innohassle_cache_ttl."""
 
-import time
 from datetime import date, datetime
 from typing import Any
+from urllib.parse import urlencode
 
 import httpx
 
+from catix.common import cache
 from catix.settings import settings
 
 _client = httpx.Client(
@@ -19,20 +21,17 @@ _client = httpx.Client(
 )
 
 
-_cache: dict[str, tuple[float, Any]] = {}
 BOOKINGS_TTL = 30  # seconds: the music room's bookings are looked at right before one is made
 
 
 def _get(path: str, *, params: dict | None = None, as_text: bool = False, ttl: int | None = None) -> Any:
-    key = f"{path}?{sorted((params or {}).items())}"
-    ttl = settings.innohassle_cache_ttl if ttl is None else ttl
-    if (hit := _cache.get(key)) and time.monotonic() - hit[0] < ttl:
-        return hit[1]
-    resp = _client.get(path.lstrip("/"), params=params)
-    resp.raise_for_status()
-    data = resp.text if as_text else resp.json()
-    _cache[key] = (time.monotonic(), data)
-    return data
+    def load() -> Any:
+        resp = _client.get(path.lstrip("/"), params=params)
+        resp.raise_for_status()
+        return resp.text if as_text else resp.json()
+
+    key = f"innohassle:{path}?{urlencode(sorted((params or {}).items()))}"
+    return cache.cached(key, settings.innohassle_cache_ttl if ttl is None else ttl, load)
 
 
 def clubs() -> list[dict]:
@@ -198,11 +197,8 @@ def cancel_music_room(token: str, booking_id: int) -> None:
 def bookable_rooms(token: str) -> list[dict]:
     """The rooms the room booking service has (id, title, capacity, access_level, restrict_daytime); the same for
     everybody, so it is cached once read."""
-    if (hit := _cache.get("room-booking:rooms")) and time.monotonic() - hit[0] < settings.innohassle_cache_ttl:
-        return hit[1]
-    rooms = _as_user("GET", "/room-booking/v0/rooms/", token).json()
-    _cache["room-booking:rooms"] = (time.monotonic(), rooms)
-    return rooms
+    return cache.cached("innohassle:room-booking:rooms", settings.innohassle_cache_ttl,
+                        lambda: _as_user("GET", "/room-booking/v0/rooms/", token).json())  # fmt: skip
 
 
 def room_bookings(token: str, start: datetime, end: datetime) -> list[dict]:

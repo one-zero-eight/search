@@ -10,14 +10,16 @@ TG_CHATS and TG_TOPICS from .env are copied here once (`seed`), after that this 
 """
 
 import time
+from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any
 
+from catix.common import cache
 from catix.db import pg
 from catix.groups import MAX_CHAT_BASE
 from catix.settings import settings
 
-CACHE_TTL = 10.0  # Seconds: `topic_allowed` runs for every stored message.
+CACHE_TTL = 10.0  # Seconds: `topic_allowed` runs for every stored message. A change made here is seen at once (`_forget`).
 
 
 @dataclass(frozen=True, slots=True)
@@ -82,6 +84,7 @@ def replace_dialogs(found: list[Dialog]) -> None:
         ids = [d.chat_id for d in found]
         cur.execute("DELETE FROM userbot_dialogs WHERE NOT chat_id = ANY(%s::bigint[])", (ids,))
         cur.execute("DELETE FROM userbot_topics WHERE NOT chat_id = ANY(%s::bigint[])", (ids,))
+    _forget()
 
 
 def replace_topics(chat_id: int, found: list[Topic]) -> None:
@@ -119,7 +122,7 @@ def set_reader(chat_id: int, reader: str) -> None:
     assert reader in READERS
     with pg.connection() as conn:
         conn.execute("UPDATE userbot_listen SET reader = %s WHERE chat_id = %s", (reader, chat_id))
-    _cache.clear()
+    _forget()
 
 
 def effective_reader(reader: str, userbot_has_chat: bool) -> str:
@@ -136,8 +139,8 @@ def searchable_chats() -> set[int]:
 
 def searchable_titles(allowed: "frozenset[int] | set[int] | None" = None) -> dict[int, str]:
     """`searchable_chats` with their titles, only those a question of this asker may use (its study group)."""
-    ids = _cached("searchable_ids", searchable_chats)
-    names = _cached("dialog_titles", _dialog_titles)
+    ids = _cached_ids("searchable_ids", searchable_chats)
+    names = _cached_by_chat("dialog_titles", _dialog_titles)
     return {c: names.get(c, str(c)) for c in ids if allowed is None or c in allowed}
 
 
@@ -149,7 +152,7 @@ def _dialog_titles() -> dict[int, str]:
 def live_chat_titles(allowed: "frozenset[int] | set[int] | None" = None) -> dict[int, str]:
     """The live-search chats (title by id) a question may use: those of its study group, cached for a few seconds because the
     agent asks on every model call."""
-    live = _cached("live_ids", live_chats)
+    live = _cached_ids("live_ids", live_chats)
     ids = [c for c in live if allowed is None or c in allowed]
     if not ids:
         return {}
@@ -159,7 +162,7 @@ def live_chat_titles(allowed: "frozenset[int] | set[int] | None" = None) -> dict
             found = conn.execute("SELECT chat_id, title FROM chats WHERE chat_id = ANY(%s::bigint[])", (sorted(live),)).fetchall()
         return {r["chat_id"]: r["title"] for r in found}
 
-    titles = _cached("live_titles", load)
+    titles = _cached_by_chat("live_titles", load)
     return {c: titles.get(c, str(c)) for c in ids}
 
 
@@ -181,7 +184,7 @@ def set_listen(chat_id: int, on: bool) -> None:
             conn.execute("INSERT INTO userbot_listen (chat_id) VALUES (%s) ON CONFLICT DO NOTHING", (chat_id,))
         else:
             conn.execute("DELETE FROM userbot_listen WHERE chat_id = %s", (chat_id,))
-    _cache.clear()
+    _forget()
 
 
 def toggle_topic(chat_id: int, topic_id: int) -> None:
@@ -194,29 +197,35 @@ def toggle_topic(chat_id: int, topic_id: int) -> None:
                WHERE chat_id = %(c)s""",
             {"t": topic_id, "c": chat_id},
         )
-    _cache.clear()
+    _forget()
 
 
 def clear_topics(chat_id: int) -> None:
     with pg.connection() as conn:
         conn.execute("UPDATE userbot_listen SET topic_ids = NULL WHERE chat_id = %s", (chat_id,))
-    _cache.clear()
+    _forget()
 
 
-_cache: dict[str, tuple[float, Any]] = {}
+# What the bots and the userbot read for every message, kept in the shared cache (common/cache.py) for CACHE_TTL.
+_CACHED = ("rows", "known", "mine", "searchable_ids", "dialog_titles", "live_ids", "live_titles")
 
 
-def _cached(key: str, load) -> Any:
-    hit = _cache.get(key)
-    if hit and time.monotonic() < hit[0]:
-        return hit[1]
-    value = load()
-    _cache[key] = (time.monotonic() + CACHE_TTL, value)
-    return value
+def _forget() -> None:
+    """The choice or the userbot's chats changed: every process reads them again."""
+    cache.drop(*(f"listen:{name}" for name in _CACHED))
+
+
+def _cached_ids(name: str, load: Callable[[], set[int]]) -> set[int]:
+    return set(cache.cached(f"listen:{name}", CACHE_TTL, lambda: sorted(load())))
+
+
+def _cached_by_chat(name: str, load: Callable[[], dict[int, Any]]) -> dict[int, Any]:
+    """A dict by chat id: JSON keeps the ids as strings, and a tuple in it as a list."""
+    return {int(chat_id): value for chat_id, value in cache.cached(f"listen:{name}", CACHE_TTL, load).items()}
 
 
 def listened_cached() -> dict[int, list[int] | None]:
-    return {c: topics for c, (topics, _) in _cached("rows", _rows).items()}
+    return {c: topics for c, (topics, _) in _cached_by_chat("rows", _rows).items()}
 
 
 def _known_chats_cached() -> set[int]:
@@ -224,21 +233,20 @@ def _known_chats_cached() -> set[int]:
         with pg.connection() as conn:
             return set(pg.column(conn, "SELECT chat_id FROM chats"))
 
-    return _cached("known", load)
+    return _cached_ids("known", load)
 
 
 def bot_listens(chat_id: int) -> bool:
     """Whether the Bot API bot stores this chat: it is chosen in /listen and the bot is its reader (`auto` gives a chat
     the userbot's account is in to the userbot). A chat the bot has never seen is turned on now (adding the bot to a chat
     is the consent); a known chat that is not chosen was turned off by an admin."""
-    rows = _cached("rows", _rows)
+    rows = _cached_by_chat("rows", _rows)
     if chat_id not in rows:
         if chat_id in _known_chats_cached():
             return False
         set_listen(chat_id, True)
-        _cache.pop("known", None)
-        rows = _cached("rows", _rows)
-    return effective_reader(rows[chat_id][1], chat_id in _cached("mine", userbot_chat_ids)) == "bot"
+        rows = _cached_by_chat("rows", _rows)
+    return effective_reader(rows[chat_id][1], chat_id in _cached_ids("mine", userbot_chat_ids)) == "bot"
 
 
 def seed_bot_chats() -> int:
@@ -253,7 +261,7 @@ def seed_bot_chats() -> int:
                 [(chat_id, settings.tg_topics.get(chat_id)) for chat_id in ids],
             )
     set_meta("bot_chats_seeded", "1")
-    _cache.clear()
+    _forget()
     return len(ids)
 
 

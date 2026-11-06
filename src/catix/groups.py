@@ -10,8 +10,8 @@ Both bots use this module; only the admin check (is this user an admin of that c
 
 import logging
 import re
-import time
 
+from catix.common import cache
 from catix.innohassle import client as innohassle
 from catix.db import pg
 from catix.settings import settings
@@ -56,18 +56,18 @@ def set_chat_group(chat_id: int, code: str) -> None:
 
 AUTO_TTL = 3600.0  # A found group is trusted for an hour,
 AUTO_MISS_TTL = 600.0  # a miss (not registered, no token) is asked again after ten minutes.
-_auto: dict[int, tuple[float, str | None]] = {}
 _warned_token = False
 
 
 def auto_group(telegram_id: int | None) -> str | None:
-    """The user's study group from InNoHassle by Telegram id, cached; None if unknown (then /mygroup decides)."""
+    """The user's study group from InNoHassle by Telegram id, cached (common/cache.py); None if unknown (then /mygroup decides)."""
     global _warned_token
     if telegram_id is None or not settings.innohassle_groups or not settings.innohassle_service_token:
         return None
-    hit = _auto.get(telegram_id)
-    if hit and time.monotonic() < hit[0]:
-        return hit[1]
+    key = f"group:tg:{telegram_id}"
+    found, kept = cache.get(key)
+    if found:
+        return kept
     group: str | None = None
     try:
         raw = innohassle.study_group_by_telegram_id(telegram_id)
@@ -83,8 +83,7 @@ def auto_group(telegram_id: int | None) -> str | None:
     except Exception:  # noqa: BLE001 - InNoHassle being down must not break answering
         log.exception("group lookup for telegram id %s failed", telegram_id)
         ttl = 60.0
-    _auto[telegram_id] = (time.monotonic() + ttl, group)
-    return group
+    return cache.put(key, group, ttl)
 
 
 def effective_group(user_key: str, telegram_id: int | None = None) -> str:

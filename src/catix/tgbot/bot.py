@@ -59,6 +59,7 @@ from catix.agent import events as calendar_events
 from catix.agent import tracing
 from catix.agent.core import build_agent, final_answer
 from catix.agent.questions import QuestionQueue
+from catix.common import cache
 from catix.common.render import chunks as _chunks
 from catix.common.render import to_html as _to_html
 from catix.common.llm_down import UNAVAILABLE, unreachable
@@ -100,25 +101,26 @@ def _origin(message: Message) -> tuple[str | None, datetime] | None:
     return None
 
 
-CHAT_LINKS: dict[int, tuple[float, str | None]] = {}
-CHAT_LINK_MISS_TTL = 600.0  # A chat without a link is asked again after ten minutes: the bot may have become an admin.
+CHAT_LINK_TTL = 86400.0  # A chat's link is asked again after a day (an invite link may be revoked),
+CHAT_LINK_MISS_TTL = 600.0  # a chat without a link after ten minutes: the bot may have become an admin.
 IGNORED: set[int] = set()
 
 
 async def _chat_link(message: Message) -> str | None:
-    """Link to a chat whose messages have no links (basic groups): its public name or invite link.
+    """Link to a chat whose messages have no links (basic groups): its public name or invite link, cached (common/cache.py).
     Telegram shows the invite link only to a bot that is an admin; without it there is no link for a while."""
     chat = message.chat
-    hit = CHAT_LINKS.get(chat.id)
-    if hit is None or (hit[1] is None and time.monotonic() >= hit[0]):
-        try:
-            full = await message.bot.get_chat(chat.id)
-            link = f"https://t.me/{full.username}" if full.username else full.invite_link
-        except TelegramAPIError as e:
-            log.warning("no link for chat %s: %s", chat.id, e)
-            link = None
-        hit = CHAT_LINKS[chat.id] = (time.monotonic() + CHAT_LINK_MISS_TTL, link)
-    return hit[1]
+    key = f"tg-chat-link:{chat.id}"
+    found, link = cache.get(key)
+    if found:
+        return link
+    try:
+        full = await message.bot.get_chat(chat.id)
+        link = f"https://t.me/{full.username}" if full.username else full.invite_link
+    except TelegramAPIError as e:
+        log.warning("no link for chat %s: %s", chat.id, e)
+        link = None
+    return cache.put(key, link, CHAT_LINK_TTL if link else CHAT_LINK_MISS_TTL)
 
 
 async def _save(message: Message) -> None:

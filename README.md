@@ -54,7 +54,7 @@ Max-чаты ──Max-бот─────────────────
 
 Внешние сервисы:
 
-- **Postgres** (ParadeDB: `pg_search` для BM25 и `pgvector` для векторов) и **Redis** (поток новых сообщений).
+- **Postgres** (ParadeDB: `pg_search` для BM25 и `pgvector` для векторов) и **Redis** (поток новых сообщений и общий кэш всех процессов: InNoHassle, Sport, Tavily, выбор `/listen`, `src/catix/common/cache.py`).
 - **llama.cpp**-серверы: чат-модель (`LLM_ROUTE`), эмбеддинги `bge-m3` (`EMBEDDINGS_ROUTE`), реранкер `bge-reranker-v2-m3` (`RERANKER_ROUTE`, необязателен).
 - **InNoHassle** (клубы, события, расписание групп; токен пользователя открывает его календарь), **Arize Phoenix** (трассировка, один контейнер, необязателен).
 

@@ -86,7 +86,7 @@ class Settings(BaseSettings):
     tavily_api_key: SecretStr | None = None
     # Off for now: the groups InNoHassle gives are not the right ones yet, so users set theirs with /mygroup.
     innohassle_groups: bool = False
-    innohassle_cache_ttl: int = Field(600, ge=0, description="Seconds.")
+    innohassle_cache_ttl: int = Field(600, ge=0, description="Seconds in the shared cache (Redis); 0: not cached.")
 
     # Telegram userbot (MTProto). api_id / api_hash come from https://my.telegram.org -> API development tools.
     tg_api_id: int | None = None
@@ -120,7 +120,8 @@ class Settings(BaseSettings):
     # Schedule changes found in chats (changes.py): reschedules, room changes, cancellations. Each goes to the users
     # of the chat's group, who put it in their own calendar or not.
     # Redis (docker-compose.yml): the bots put the ids of newly stored messages on a stream, the worker `catix-worker`
-    # reads it. Without it the bots publish nothing.
+    # reads it; every process keeps its cache there (common/cache.py: InNoHassle, Sport, Tavily, /listen). Without it the
+    # bots publish nothing and nothing is cached.
     redis_url: str | None = None
     changes_enabled: bool = True
     # Telegram ids that set up the bot and get the alerts; more are added in the bot (/admin).
