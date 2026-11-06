@@ -81,6 +81,22 @@ def test_only_a_title_with_an_academic_year_makes_a_series_of_versions():
     assert _series("Учебный план [Учебный план. Внедрение]") is None
 
 
+def test_the_section_a_page_of_the_site_names_first_is_not_part_of_the_documents_series():
+    """The site's pages of the admission rules of 2026/2027 name their section first, those of 2024/2025 do not: they were
+    not of one series, and the rules of 2024/2025 were cited for a master's admission."""
+    from catix.db.wiki import _series, _year
+
+    rules = "Правила приема на обучение по образовательным программам высшего образования – программам бакалавриата и программам магистратуры в АНО ВО «Университет Иннополис»"
+    old = f"{rules} на 2024/2025 учебный год"
+    admission = f"Информация о приеме на 2026/27 учебный год по образовательным программам высшего образования — {rules.upper()} НА 2026/2027 УЧЕБНЫЙ ГОД [Правила_приема_ВО_новая_редакция]"
+    acts = f'Локальные нормативные акты(предусмотренные ч. 2 ст. 30 Федеральный закон от 29.12.2012 № 273-ФЗ "Об образовании в Российской Федерации") — {rules} на 2026/2027 учебный год'
+    assert _series(old) == _series(admission) == _series(acts) is not None
+    assert (_year(old), _year(admission), _year(acts)) == (2024, 2026, 2026)
+    assert _series("Информация о приеме на 2026/27 учебный год — Сроки проведения приема") is None, "a section's own year is not a document's"
+    staff = "Список научно-педагогических работников с окончанием срока действия трудового договора — В {} учебном году"
+    assert _series(staff.format("2024/2025")) == _series(staff.format("2025/2026")) != _series(f"Приказ о стипендиях — В 2025/2026 учебном году")
+
+
 def test_an_older_version_is_said_to_be_replaced():
     old = hit(newer="Правила приема на 2026/2027 учебный год")
     assert tools._warnings(old) == ["an older version: «Правила приема на 2026/2027 учебный год» replaces it; use that one unless the question is about this year"]

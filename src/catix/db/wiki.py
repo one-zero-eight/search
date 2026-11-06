@@ -150,13 +150,35 @@ def _copies(hits: list[WikiHit], queries: list[str] = ()) -> list[WikiHit]:
 ACADEMIC_YEAR = re.compile(r"(\d{4})\s*/\s*\d{4}")
 
 
+def _own_title(title: str) -> str:
+    """The document's own title, the last part with an academic year: a page of the university's site names its section
+    first ("Информация о приеме на 2026/27 учебный год … — ПРАВИЛА ПРИЕМА … НА 2026/2027 УЧЕБНЫЙ ГОД"), and the version of
+    another year may be in another section or in none. With the section the versions were not of one series, and the rules
+    of 2024/2025 were cited for a master's admission as if they were the current ones."""
+    parts = [part for part in title.split(" — ") if ACADEMIC_YEAR.search(part)]
+    if not parts or len(_words_of(ACADEMIC_YEAR.sub(" ", parts[-1]))) < 4:
+        return title  # ("Список работников … — В 2021/2022 учебном году": the part with the year names no document)
+    return parts[-1]
+
+
+def _words_of(text: str) -> list[str]:
+    return re.sub(r"[^а-яёa-z0-9.]+", " ", re.sub(r"\([^)]*\)|\[[^\]]*\]", " ", text.lower())).split()
+
+
+def _year(title: str) -> int | None:
+    """The first year of the academic year a document is for ("на 2026/2027 учебный год": 2026)."""
+    found = ACADEMIC_YEAR.search(_own_title(title))
+    return int(found.group(1)) if found else None
+
+
 def _series(title: str) -> str | None:
-    """What stays of a title without its academic year: the admission rules of every year have one. Only titles with an
-    academic year make a series; "Учебный план" or "Приказ о зачислении" name different documents of different programmes."""
+    """What stays of a document's own title without its academic year: the admission rules of every year have one. Only
+    titles with an academic year make a series; "Учебный план" or "Приказ о зачислении" name different documents of
+    different programmes."""
+    title = _own_title(title)
     if not ACADEMIC_YEAR.search(title):
         return None
-    title = ACADEMIC_YEAR.sub(" ", re.sub(r"\([^)]*\)|\[[^\]]*\]", " ", title.lower()))
-    return " ".join(re.sub(r"[^а-яёa-z0-9.]+", " ", title).split())
+    return " ".join(_words_of(ACADEMIC_YEAR.sub(" ", title)))
 
 
 def _mark_newer(hits: list[WikiHit]) -> None:
@@ -167,11 +189,11 @@ def _mark_newer(hits: list[WikiHit]) -> None:
         titles = pg.column(conn, "SELECT DISTINCT title FROM wiki_pages WHERE trust = 'official' AND title ~ '\\d{4}\\s*/\\s*\\d{4}'")
     latest: dict[str, tuple[int, str]] = {}
     for title in titles:
-        key, year = _series(title), int(ACADEMIC_YEAR.search(title).group(1))
+        key, year = _series(title), _year(title) or 0
         if key and year > latest.get(key, (0, ""))[0]:
             latest[key] = (year, title)
     for h in hits:
-        if (key := _series(h.title)) and key in latest and latest[key][0] > int(ACADEMIC_YEAR.search(h.title).group(1)):
+        if (key := _series(h.title)) and key in latest and latest[key][0] > (_year(h.title) or 0):
             h.newer = latest[key][1]
 
 
@@ -224,7 +246,7 @@ def search(queries: str | list[str], *, trust: Collection[str] | None = None, li
     # An earlier version of a document is left out unless a query names its year: the helper cited the admission rules of
     # 2024/2025 next to those of 2026/2027 even with the warning that they are replaced.
     asked = " ".join(queries)
-    hits = [h for h in hits if not h.newer or ACADEMIC_YEAR.search(h.title).group(1) in asked]
+    hits = [h for h in hits if not h.newer or str(_year(h.title)) in asked]
     return _rerank(queries, hits, limit) if reranking else hits[:limit]
 
 
