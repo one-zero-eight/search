@@ -7,10 +7,17 @@ how far it is from today.
 """
 
 import re
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, time, timedelta
+from typing import Annotated
+
+from pydantic import WithJsonSchema
 
 MAX_RESULTS = 6
 YEAR_ROLLOVER_DAYS = 180  # "15 января" in a message sent in December means the next year.
+
+# A time of day in a model's structured output, written HH:MM. Not plain `time`: its JSON schema (format "time") lets
+# the guided decoding go on with fractional seconds, and the model did: "18:00:00.0000…" up to the token limit.
+ClockTime = Annotated[time, WithJsonSchema({"type": "string", "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$"})]
 
 _MONTHS = {
     # Russian genitive ("23 октября") and English names/abbreviations.

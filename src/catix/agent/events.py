@@ -2,26 +2,22 @@
 
 The agent itself does not offer them (the model ignored a tool for it), so after the answer is sent one more short call
 reads the answer text and lists the upcoming events it states with a date: an exam, a deadline, a lecture. The same kind
-of structured call as the schedule-change detection in worker/changes.py. Only when the answer looks like it has a date.
+of structured call as the schedule-change detection in worker/changes.py. Only when the answer names a day from today on.
 """
 
 import re
-from datetime import date, datetime, time
+from datetime import date, datetime, time, timedelta
 
 from langchain_openai import ChatOpenAI
 from pydantic import BaseModel, Field
 
 from catix.agent import tracing
+from catix.common import dates
+from catix.common.dates import ClockTime
 from catix.settings import settings
 
 MAX_EVENTS = 3
-
-# Cheap gate: a month name, a numeric date or "today/tomorrow". Most answers have none and cost no extra call.
-_LOOKS_DATED = re.compile(
-    r"\d{1,2}\s*(?:янв|фев|мар|апр|ма[йя]|июн|июл|авг|сен|окт|ноя|дек)|(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\w*\s*\d{1,2}"
-    r"|\d{1,2}\s*(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)|\b\d{1,2}[./]\d{1,2}\b(?!\d)|сегодня|завтра|послезавтра|today|tomorrow",
-    re.I,
-)
+MAX_CHARS = 3000  # Of the answer before its source list: the model needs only the [n] markers, not the list.
 
 PROMPT = """\
 Below is an answer a university assistant gave to a student. List the UPCOMING events it states with a date: an exam, \
@@ -29,28 +25,31 @@ midterm, test, deadline, lecture, meeting, contest. Rules:
 - Only events that are in the future relative to now and whose day the answer states (or says "today"/"tomorrow").
 - Never invent or guess a day or a time. A time only if the answer gives it. Skip events already over, vague \
 recurrences and anything without a day.
-- title: short, in the language of the answer: the subject and what happens ("Midterm: Mathematical Analysis").
+- title: short, in the language of the answer (a Russian answer, a Russian title): the subject and what happens \
+("Мидтерм: математический анализ", "Midterm: Mathematical Analysis").
 - day: YYYY-MM-DD. start_time / end_time: HH:MM local time or null. room: as written or null.
-- source: the number n of the marker [n] next to the fact in the answer (the source list is below it), or null.
+- source: the number n of the marker [n] next to the fact in the answer, or null.
 - At most {limit} events; an empty list if there is none.
 
 Now: {now} ({weekday}).
-Answer:
+{hints}Answer:
 {answer}
 """
 
 
+# Every string and number is bounded: the guided decoding holds the model to the schema, so an unbounded field is
+# where it can loop to the token limit (it did in `time`, and a string goes on when a list may not).
 class Event(BaseModel):
-    title: str
+    title: str = Field(max_length=120)
     day: date
-    start_time: time | None = None
-    end_time: time | None = None
-    room: str | None = None
-    source: int | None = None
+    start_time: ClockTime | None = None
+    end_time: ClockTime | None = None
+    room: str | None = Field(None, max_length=80)
+    source: int | None = Field(None, ge=1, le=99)
 
 
 class Events(BaseModel):
-    events: list[Event] = Field(default_factory=list)
+    events: list[Event] = Field(default_factory=list, max_length=MAX_EVENTS)
 
 
 def _model():
@@ -58,7 +57,7 @@ def _model():
         base_url=str(settings.llm_route),
         api_key="not-needed",
         model=settings.llm_model,
-        max_tokens=500,
+        max_tokens=800,  # Three events of the bounded schema fit with room to spare.
         temperature=0,
         extra_body={"chat_template_kwargs": {"enable_thinking": False}},
     ).with_structured_output(Events, method="json_schema")
@@ -75,12 +74,15 @@ def source_links(answer: str) -> dict[int, str]:
 
 def extract(answer: str) -> list[dict]:
     """The upcoming events the answer names, as dicts ready for `personal_calendar.propose`."""
-    body = re.split(r"\n+(?:Источники|Sources):", answer, maxsplit=1)[0]
-    if not _LOOKS_DATED.search(body):  # The source list adds nothing to look at.
-        return []
-    text = answer
+    body = re.split(r"\n+(?:Источники|Sources):", answer, maxsplit=1)[0][:MAX_CHARS]
     now = datetime.now(settings.tz)
-    prompt = PROMPT.format(limit=MAX_EVENTS, now=f"{now:%Y-%m-%d %H:%M}", weekday=f"{now:%A}", answer=text[:1500])
+    # Cheap gate: most answers name no day from today on and cost no extra call. The same date reading as for the chat
+    # messages, so "в пятницу" and "через неделю" count, and the model gets the days worked out.
+    if not dates.mentions_between(body, now, now, now.date(), now.date() + timedelta(days=366)):
+        return []
+    resolved = dates.resolve(body, now, now)
+    hints = ("Dates in the answer, resolved: " + "; ".join(resolved) + "\n") if resolved else ""
+    prompt = PROMPT.format(limit=MAX_EVENTS, now=f"{now:%Y-%m-%d %H:%M}", weekday=f"{now:%A}", hints=hints, answer=body)
     result: Events = _model().invoke(prompt, config=tracing.run_config("calendar-events", name="calendar-event-extraction"))
     links = source_links(answer)
     found = []

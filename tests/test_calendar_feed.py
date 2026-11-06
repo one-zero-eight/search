@@ -171,12 +171,32 @@ def test_the_bot_keeps_the_events_under_the_account_inno_hassle_knows(events, mo
     assert titles(IH) == ["Экзамен"]
 
 
-def test_without_inno_hassle_the_bot_keeps_the_telegram_id(events, monkeypatch):
+def test_without_an_account_the_bot_keeps_nothing_and_says_why(events, monkeypatch):
+    """Only an InNoHassle account has a calendar: a Telegram id InNoHassle does not know gets none, not one of its own."""
+
     def down(telegram_id):
         raise RuntimeError("InNoHassle is down")
 
     monkeypatch.setattr(innohassle, "user_id_by_telegram_id", down)
-    assert personal_calendar.telegram_key(TELEGRAM_ID) == TG
-    personal_calendar._accounts.pop(TELEGRAM_ID)
+    with pytest.raises(personal_calendar.NoAccount, match="не отвечает"):
+        personal_calendar.telegram_key(TELEGRAM_ID)
     monkeypatch.setattr(innohassle, "user_id_by_telegram_id", lambda telegram_id: None)  # not registered
-    assert personal_calendar.telegram_key(TELEGRAM_ID) == TG
+    with pytest.raises(personal_calendar.NoAccount) as no:
+        personal_calendar.telegram_key(TELEGRAM_ID)
+    assert str(no.value) == personal_calendar.NOT_LINKED and personal_calendar.CONNECT_TELEGRAM in str(no.value)
+    assert len(personal_calendar.NOT_LINKED) <= 200  # Telegram shows at most 200 characters in the alert of a button.
+    # Linked just now: the next press finds the account, the miss was not kept.
+    monkeypatch.setattr(innohassle, "user_id_by_telegram_id", lambda telegram_id: "test-calendar-account")
+    assert personal_calendar.telegram_key(TELEGRAM_ID) == IH
+
+
+def test_the_feed_says_which_chat_message_an_event_comes_from(events):
+    """A message of a basic group has no link: the event says in words where it was read (the site shows DESCRIPTION)."""
+    with pg.connection() as conn:
+        conn.execute(
+            "INSERT INTO personal_events (user_key, title, starts_at, source_note) VALUES (%s, %s, %s::timestamptz, %s)",
+            (IH, "Анонс: экзамен", "2099-01-10T10:00:00+03:00", "Из чата «Test-2», 05.11 21:10, Дмитрий:\nЗАВТРА ЭКЗАМЕН, 104"),
+        )
+    feed = personal_calendar.ics(IH).replace("\r\n ", "")  # unfolded
+    assert "DESCRIPTION:Из чата «Test-2»\\, 05.11 21:10\\, Дмитрий:\\nЗАВТРА ЭКЗАМЕН\\, 104\r\n" in feed
+    assert "X-WR-LINK" not in feed

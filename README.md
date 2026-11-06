@@ -278,7 +278,8 @@ experiments/   скрипты оценки качества поиска и да
 См. `LICENSE` в корне репозитория.
 
 ## TODO
-
+- Get group of user by their telegram_id or innohassle id (contribute to accounts and return study group of the user)
+- Add calendar tools for agent (change, create, delete my AI calendar)
 - Remove unused features (clean code) maybe delete the whole wiki 😱
 - Redesign autopilot implementation and logic (for now it's not working)
 - Bots (tgbot, maxbot): InMemorySaver to AsyncPostgresSaver, as catix-api has (their agents are built at import, outside an event loop)

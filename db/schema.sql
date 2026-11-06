@@ -215,6 +215,7 @@ CREATE TABLE IF NOT EXISTS personal_events (
     UNIQUE (user_key, title, starts_at)
 );
 ALTER TABLE personal_events ADD COLUMN IF NOT EXISTS source_url text;  -- the message the event comes from (X-WR-LINK)
+ALTER TABLE personal_events ADD COLUMN IF NOT EXISTS source_note text;  -- the chat, time, author and text of it (DESCRIPTION)
 
 -- Events the agent offered under an answer, waiting for a button press (short ids fit in callback data).
 CREATE TABLE IF NOT EXISTS calendar_proposals (

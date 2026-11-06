@@ -100,22 +100,25 @@ def _origin(message: Message) -> tuple[str | None, datetime] | None:
     return None
 
 
-CHAT_LINKS: dict[int, str | None] = {}
+CHAT_LINKS: dict[int, tuple[float, str | None]] = {}
+CHAT_LINK_MISS_TTL = 600.0  # A chat without a link is asked again after ten minutes: the bot may have become an admin.
 IGNORED: set[int] = set()
 
 
 async def _chat_link(message: Message) -> str | None:
     """Link to a chat whose messages have no links (basic groups): its public name or invite link.
-    Telegram shows the invite link only to a bot that is an admin; without it there is no link, and that is cached."""
+    Telegram shows the invite link only to a bot that is an admin; without it there is no link for a while."""
     chat = message.chat
-    if chat.id not in CHAT_LINKS:
+    hit = CHAT_LINKS.get(chat.id)
+    if hit is None or (hit[1] is None and time.monotonic() >= hit[0]):
         try:
             full = await message.bot.get_chat(chat.id)
-            CHAT_LINKS[chat.id] = f"https://t.me/{full.username}" if full.username else full.invite_link
+            link = f"https://t.me/{full.username}" if full.username else full.invite_link
         except TelegramAPIError as e:
             log.warning("no link for chat %s: %s", chat.id, e)
-            CHAT_LINKS[chat.id] = None
-    return CHAT_LINKS[chat.id]
+            link = None
+        hit = CHAT_LINKS[chat.id] = (time.monotonic() + CHAT_LINK_MISS_TTL, link)
+    return hit[1]
 
 
 async def _save(message: Message) -> None:
@@ -238,11 +241,14 @@ async def feedback(query: CallbackQuery, bot: Bot) -> None:
 
 
 def _calendar_screen(user_id: int) -> tuple[str, InlineKeyboardMarkup | None]:
-    user_key = personal_calendar.telegram_key(user_id)
     lines = [
         "🗓 <b>Ваш личный календарь</b>: события, которые вы добавили кнопкой «➕ В мой календарь» под ответами здесь и на сайте.",
-        "Он виден в календаре InNoHassle (innohassle.ru/calendar), когда этот Telegram привязан к вашему аккаунту InNoHassle.",
+        "Он хранится в вашем аккаунте InNoHassle и виден в календаре innohassle.ru/calendar.",
     ]
+    try:
+        user_key = personal_calendar.telegram_key(user_id)
+    except personal_calendar.NoAccount as e:
+        return "\n".join([*lines, "", html.escape(str(e))]), None
     rows = []
     events = personal_calendar.upcoming(user_key, 5)
     if events:
@@ -266,7 +272,11 @@ async def calendar_callback(query: CallbackQuery) -> None:
     if action == "done":
         await query.answer("Уже в вашем календаре")
         return
-    user_key = await asyncio.to_thread(personal_calendar.telegram_key, query.from_user.id)
+    try:
+        user_key = await asyncio.to_thread(personal_calendar.telegram_key, query.from_user.id)
+    except personal_calendar.NoAccount as e:  # Nothing is added: the button stays for after the Telegram is linked.
+        await query.answer(str(e), show_alert=True)
+        return
     if action == "add":  # Anyone can add an offered event to their own calendar, in a group too.
         title = await asyncio.to_thread(personal_calendar.add_proposal, user_key, args[0])
         if title is None:
@@ -583,7 +593,11 @@ async def private_status(update: ChatMemberUpdated) -> None:
 async def decide_change(query: CallbackQuery) -> None:
     _, action, change_id = query.data.split(":")
     if action == "ok":
-        user_key = await asyncio.to_thread(personal_calendar.telegram_key, query.from_user.id)
+        try:
+            user_key = await asyncio.to_thread(personal_calendar.telegram_key, query.from_user.id)
+        except personal_calendar.NoAccount as e:  # The card keeps its buttons for after the Telegram is linked.
+            await query.answer(str(e), show_alert=True)
+            return
         done = await asyncio.to_thread(changes.add_to_calendar, user_key, int(change_id))
         verdict = f"✅ {done[:180]}. /calendar" if done else "Изменение не найдено"
     else:

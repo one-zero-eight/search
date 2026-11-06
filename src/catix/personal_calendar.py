@@ -1,10 +1,10 @@
 """A user's personal calendar: the events they added with "➕ В мой календарь" under an answer.
 
-The events are kept under the person's InNoHassle account, 'ih:<InNoHassle id>'. The site (api/users.py: the button
-POST /users/my-calendar/events/{id} and the calendar GET /users/my-calendar.ics) takes the account from the token, the
-Telegram bot asks InNoHassle for the account linked to the Telegram id. A user of the bot InNoHassle does not know keeps
-their events under 'tg:<telegram id>'; they move to the account as soon as it is known (the bot finds it, or a token of the
-account shows that Telegram id).
+The events are kept under the person's InNoHassle account, 'ih:<InNoHassle id>', and only there. The site (api/users.py:
+the button POST /users/my-calendar/events/{id} and the calendar GET /users/my-calendar.ics) takes the account from the
+token, the Telegram bot asks InNoHassle for the account linked to the Telegram id (accounts/v0/users/by-telegram-id). A
+user of the bot InNoHassle does not know adds nothing: the bot asks them to link the Telegram to InNoHassle first.
+Events added under 'tg:<telegram id>' before move to the account as soon as it is known.
 """
 
 import json
@@ -22,10 +22,15 @@ log = logging.getLogger("catix.calendar")
 
 MAX_PROPOSALS = 3
 PROPOSAL_TTL_HOURS = 48
-ACCOUNT_TTL = 3600.0  # The InNoHassle account of a Telegram id is trusted for an hour,
-ACCOUNT_MISS_TTL = 600.0  # a miss (not registered, no service token) is asked again after ten minutes,
-ACCOUNT_ERROR_TTL = 60.0  # InNoHassle failing after a minute.
-_accounts: dict[int, tuple[float, str | None]] = {}
+ACCOUNT_TTL = 3600.0  # The InNoHassle account of a Telegram id is trusted for an hour; a miss is asked again each time.
+_accounts: dict[int, tuple[float, str]] = {}
+
+CONNECT_TELEGRAM = "https://innohassle.ru/account/connect-telegram"
+NOT_LINKED = (
+    "Календарь хранится в вашем аккаунте InNoHassle, а этот Telegram к нему не привязан. "
+    f"Привяжите его: {CONNECT_TELEGRAM}, и нажмите ещё раз."
+)
+UNAVAILABLE = "InNoHassle сейчас не отвечает, а календарь хранится там. Попробуйте позже."
 
 
 @dataclass(frozen=True, slots=True)
@@ -37,14 +42,15 @@ class PersonalEvent:
     all_day: bool
     room: str | None
     source_url: str | None = None  # The chat message the event comes from.
+    source_note: str | None = None  # The chat, time, author and text of that message.
 
 
 # ---- whose events ---------------------------------------------------------------------------------------------
 
 
 def account_key(innohassle_id: str, telegram_id: int | None = None) -> str:
-    """The key of an InNoHassle account's calendar. The events its Telegram account added in the bot while InNoHassle did
-    not know it move into it (an event the account has already is kept once)."""
+    """The key of an InNoHassle account's calendar. The events its Telegram account added in the bot under the Telegram id
+    (before the calendar was only the account's) move into it (an event the account has already is kept once)."""
     key = f"ih:{innohassle_id}"
     if telegram_id:
         old = f"tg:{telegram_id}"
@@ -58,22 +64,28 @@ def account_key(innohassle_id: str, telegram_id: int | None = None) -> str:
     return key
 
 
+class NoAccount(Exception):
+    """No InNoHassle account to keep a Telegram user's events under; the message is what to tell them."""
+
+
 def telegram_key(telegram_id: int) -> str:
-    """The key of the calendar of a user of the Telegram bot: their InNoHassle account when InNoHassle knows the one linked
-    to this Telegram id, else the Telegram id. Without the service token or with InNoHassle down it is the Telegram id: the
-    events added then move to the account the next time it is found."""
+    """The calendar key of a user of the Telegram bot: the InNoHassle account linked to their Telegram id. Raises
+    NoAccount when InNoHassle knows no such account (NOT_LINKED) or cannot be asked: no service token, down (UNAVAILABLE)."""
     hit = _accounts.get(telegram_id)
-    if not hit or time.monotonic() >= hit[0]:
-        try:
-            account = innohassle.user_id_by_telegram_id(telegram_id)
-            hit = (time.monotonic() + (ACCOUNT_TTL if account else ACCOUNT_MISS_TTL), account)
-        except innohassle.ServiceTokenError:
-            hit = (time.monotonic() + ACCOUNT_MISS_TTL, None)
-        except Exception:  # noqa: BLE001 - InNoHassle being down must not break the calendar buttons
-            log.exception("InNoHassle account lookup for telegram id %s failed", telegram_id)
-            hit = (time.monotonic() + ACCOUNT_ERROR_TTL, None)
-        _accounts[telegram_id] = hit
-    return account_key(hit[1], telegram_id) if hit[1] else f"tg:{telegram_id}"
+    if hit and time.monotonic() < hit[0]:
+        return account_key(hit[1], telegram_id)
+    try:
+        account = innohassle.user_id_by_telegram_id(telegram_id)
+    except innohassle.ServiceTokenError as e:
+        log.warning("no InNoHassle account lookup for telegram id %s: %s", telegram_id, e)
+        raise NoAccount(UNAVAILABLE) from e
+    except Exception as e:
+        log.exception("InNoHassle account lookup for telegram id %s failed", telegram_id)
+        raise NoAccount(UNAVAILABLE) from e
+    if account is None:
+        raise NoAccount(NOT_LINKED)
+    _accounts[telegram_id] = (time.monotonic() + ACCOUNT_TTL, account)
+    return account_key(account, telegram_id)
 
 
 # ---- events ---------------------------------------------------------------------------------------------------
@@ -132,7 +144,8 @@ def ics(user_key: str) -> str:
         rows = pg.rows(
             conn,
             PersonalEvent,
-            "SELECT id, title, starts_at, ends_at, all_day, room, source_url FROM personal_events WHERE user_key = %s ORDER BY starts_at",
+            """SELECT id, title, starts_at, ends_at, all_day, room, source_url, source_note FROM personal_events
+               WHERE user_key = %s ORDER BY starts_at""",
             (user_key,),
         )
     stamp = lambda t: t.astimezone(timezone.utc).strftime("%Y%m%dT%H%M%SZ")  # noqa: E731
@@ -149,6 +162,8 @@ def ics(user_key: str) -> str:
             lines.append(f"LOCATION:{_escape(r.room)}")
         if r.source_url:
             lines += [f"URL:{r.source_url}", f"X-WR-LINK:{r.source_url}"]  # The message the event comes from.
+        if r.source_note:  # Where it comes from in words: a message of a basic group has no link.
+            lines.append(f"DESCRIPTION:{_escape(r.source_note)}")
         lines.append("END:VEVENT")
     lines.append("END:VCALENDAR")
     return "\r\n".join(_fold(line) for line in lines) + "\r\n"

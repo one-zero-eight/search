@@ -20,6 +20,7 @@ from pydantic import BaseModel, Field
 from catix import admins as admins_module
 from catix import bot_users, groups
 from catix.common import dates
+from catix.common.dates import ClockTime
 from catix.db import pg
 from catix.agent import tracing
 from catix.db.rows import ChangeKind, ChangeView, MessageToRead
@@ -63,14 +64,16 @@ TEMPLATE = ChatPromptTemplate.from_messages([("human", PROMPT)])
 
 
 class Change(BaseModel):
+    """Every string bounded, the times HH:MM: the model loops to the token limit in an unbounded field (agent/events.py)."""
+
     is_change: bool
     kind: ChangeKind | None = None
-    subject: str | None = None
+    subject: str | None = Field(None, max_length=120)
     day: date | None = None
-    start_time: time | None = None
-    end_time: time | None = None
-    room: str | None = None
-    summary: str = Field("", description="One short sentence in Russian.")
+    start_time: ClockTime | None = None
+    end_time: ClockTime | None = None
+    room: str | None = Field(None, max_length=80)
+    summary: str = Field("", max_length=200, description="One short sentence in Russian.")
 
 
 def when(change: Change) -> tuple[datetime, datetime | None, bool]:
@@ -221,13 +224,17 @@ def add_to_calendar(user_key: str, change_id: int) -> str | None:
         if change is None:
             return None
         link = change.link or change.chat_link
+        note = f"Из чата {_origin(change)}:\n{change.text[:600]}"  # A basic group has no link: the message itself, then.
         subject = change.subject or change.summary
         earlier = _earlier_event(conn, user_key, subject) if change.kind != "announcement" and change.subject else None
         if earlier is not None and change.kind == "cancel":
             conn.execute("DELETE FROM personal_events WHERE id = %s", (earlier,))
             return f"Убрано из вашего календаря: {subject}"
         if earlier is not None and change.kind == "room_change":
-            conn.execute("UPDATE personal_events SET room = %s, source_url = coalesce(%s, source_url) WHERE id = %s", (change.room, link, earlier))
+            conn.execute(
+                "UPDATE personal_events SET room = %s, source_url = coalesce(%s, source_url), source_note = %s WHERE id = %s",
+                (change.room, link, note, earlier),
+            )
             return f"Аудитория изменена в вашем календаре: {subject}"
         if earlier is not None:  # A reschedule.
             title = pg.scalar(conn, "SELECT title FROM personal_events WHERE id = %s", (earlier,))
@@ -236,17 +243,23 @@ def add_to_calendar(user_key: str, change_id: int) -> str | None:
                          (user_key, title, change.starts_at, earlier))
             conn.execute(
                 """UPDATE personal_events SET starts_at = %s, ends_at = %s, all_day = %s, room = coalesce(%s, room),
-                          source_url = coalesce(%s, source_url) WHERE id = %s""",
-                (change.starts_at, change.ends_at, change.all_day, change.room, link, earlier),
+                          source_url = coalesce(%s, source_url), source_note = %s WHERE id = %s""",
+                (change.starts_at, change.ends_at, change.all_day, change.room, link, note, earlier),
             )
             return f"Перенесено в вашем календаре: {subject}"
         title = f"{KIND_TITLE[change.kind]}: {subject}"
         conn.execute(
-            """INSERT INTO personal_events (user_key, title, starts_at, ends_at, all_day, room, source_url)
-               VALUES (%s, %s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING""",
-            (user_key, title, change.starts_at, change.ends_at, change.all_day, change.room, link),
+            """INSERT INTO personal_events (user_key, title, starts_at, ends_at, all_day, room, source_url, source_note)
+               VALUES (%s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING""",
+            (user_key, title, change.starts_at, change.ends_at, change.all_day, change.room, link, note),
         )
     return f"Добавлено в ваш календарь: {title}"
+
+
+def _origin(change: ChangeView) -> str:
+    """Where a change was read (plain text): «chat», when, who."""
+    sent = change.date.astimezone(settings.tz)
+    return ", ".join(filter(None, [f"«{change.chat_title}»", f"{sent:%d.%m %H:%M}", change.sender_name]))
 
 
 def card(change: ChangeView) -> str:
@@ -256,8 +269,7 @@ def card(change: ChangeView) -> str:
     lines.append(f"Когда: {when:%d.%m.%Y}" + ("" if change.all_day else f" {when:%H:%M}"))
     if change.room:
         lines.append(f"Аудитория: {html.escape(change.room)}")
-    sent = change.date.astimezone(settings.tz)
-    source = f"«{html.escape(change.chat_title)}», {sent:%d.%m %H:%M}, {html.escape(change.sender_name or '')}"
+    source = html.escape(_origin(change))
     if link := change.link or change.chat_link:
         source = f'<a href="{html.escape(link)}">{source}</a>'
     lines += ["", f"Источник: {source}", html.escape(change.text[:600])]

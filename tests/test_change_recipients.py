@@ -93,6 +93,7 @@ def test_accepting_puts_the_change_in_that_users_calendar_only(change):
     assert [e.title for e in mine] == ["Анонс: Ботаника"] and mine[0].room == "301"
     assert personal_calendar.upcoming(OTHER) == []
     assert "SUMMARY:Анонс: Ботаника" in personal_calendar.ics(MINE)
+    assert "DESCRIPTION:Из чата «" in personal_calendar.ics(MINE)  # The message it was read from, a link or not.
     assert changes.add_to_calendar(MINE, -1) is None
 
 

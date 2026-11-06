@@ -120,7 +120,7 @@ services:
       - catix_data:/app/data
       - ${WIKI_DIR:-../catix-wiki}:/wiki-data:ro
     ports:
-      - "127.0.0.1:8004:8000"
+      - "0.0.0.0:8004:8000"
 
   # Reads chats with a Telegram account: start it only after `login` (DEPLOY.md), the session lives in the data volume.
   userbot:

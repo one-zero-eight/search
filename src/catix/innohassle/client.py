@@ -66,6 +66,7 @@ def _user_by_telegram_id(telegram_id: int) -> dict | None:
     resp = _client.get(
         f"accounts/v0/users/by-telegram-id/{telegram_id}",
         headers={"Authorization": f"Bearer {settings.innohassle_service_token.get_secret_value()}"},
+        timeout=10,  # A calendar button waits for it, and Telegram drops an answer to a button after 15 seconds.
     )
     if resp.status_code == 404:
         return None
