@@ -11,7 +11,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     """Read from environment variables or `.env` (names are case-insensitive, e.g. LLM_ROUTE)."""
 
-    # (hide_input_in_errors: a malformed value is named, never printed, as it may hold a password: TAVILY_PROXY)
+    # (hide_input_in_errors: a malformed value is named, never printed, as it may hold a password: DEEPSEEK_PROXY)
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore", hide_input_in_errors=True)
 
     llm_route: HttpUrl = HttpUrl("http://localhost:8080/v1")
@@ -89,12 +89,12 @@ class Settings(BaseSettings):
     # InNoHassle Sport (sport.innopolis.university): the account helper reads the asker's sport and checks them in to a
     # training with their own Sport token, which only the site has (api/auth.py verify_asker, agent/sport_tools.py).
     sport_api: HttpUrl = HttpUrl("https://sport.innopolis.university/api/v3")
-    # Tavily, the web search of the docs helper for what the knowledge base lacks (agent/web_tools.py). Unset: the helper has
+    # DeepSeek Search & Fetch, for what the knowledge base lacks (agent/web_tools.py). Unset: the helper has
     # no web search. Only the helper's own query goes there, never who asks.
-    tavily_api_key: SecretStr | None = None
-    # Where Tavily refuses the server's region (403), it is asked through this HTTP proxy on a machine where it is open:
+    deepseek_api_key: SecretStr | None = None
+    # Optional HTTP proxy for Search & Fetch:
     # http://[user:password@]host:port (https:// for a proxy reached over TLS). Unset: directly.
-    tavily_proxy: SecretStr | None = None
+    deepseek_proxy: SecretStr | None = None
     # Off for now: the groups InNoHassle gives are not the right ones yet, so users set theirs with /mygroup.
     innohassle_groups: bool = False
     innohassle_cache_ttl: int = Field(600, ge=0, description="Seconds in the shared cache (Redis); 0: not cached.")
@@ -131,7 +131,7 @@ class Settings(BaseSettings):
     # Schedule changes found in chats (changes.py): reschedules, room changes, cancellations. Each goes to the users
     # of the chat's group, who put it in their own calendar or not.
     # Redis (docker-compose.yml): the bots put the ids of newly stored messages on a stream, the worker `catix-worker`
-    # reads it; every process keeps its cache there (common/cache.py: InNoHassle, Sport, Tavily, /listen). Without it the
+    # reads it; every process keeps its cache there (common/cache.py: InNoHassle, Sport, DeepSeek, /listen). Without it the
     # bots publish nothing and nothing is cached.
     redis_url: str | None = None
     changes_enabled: bool = True
@@ -249,22 +249,22 @@ class Settings(BaseSettings):
     courses_file: Path = Path("courses.toml")
     timezone: str = "Europe/Moscow"
 
-    @field_validator("tavily_api_key", "tavily_proxy")
+    @field_validator("deepseek_api_key", "deepseek_proxy")
     @classmethod
     def _empty_is_unset(cls, value: SecretStr | None) -> SecretStr | None:
-        """`TAVILY_API_KEY=` in .env is no key (and so no web search), not an empty one."""
+        """`DEEPSEEK_API_KEY=` in .env is no key (and so no web search), not an empty one."""
         return value if value is not None and value.get_secret_value().strip() else None
 
-    @field_validator("tavily_proxy")
+    @field_validator("deepseek_proxy")
     @classmethod
     def _http_proxy(cls, value: SecretStr | None) -> SecretStr | None:
-        """A malformed TAVILY_PROXY stops the start, as a malformed TG_PROXY stops the userbot's."""
+        """A malformed DEEPSEEK_PROXY stops the start, as a malformed TG_PROXY stops the userbot's."""
         if value is None:
             return None
         url = value.get_secret_value().strip()
         parts = urlsplit(url)
         if parts.scheme not in ("http", "https") or not parts.hostname or not parts.port:
-            raise ValueError("TAVILY_PROXY is an HTTP proxy with a host and a port, e.g. http://user:password@host:3128")
+            raise ValueError("DEEPSEEK_PROXY is an HTTP proxy with a host and a port, e.g. http://user:password@host:3128")
         return SecretStr(url)
 
     @cached_property

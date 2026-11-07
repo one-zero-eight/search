@@ -1,5 +1,5 @@
 """The cache every process shares, in Redis (REDIS_URL): what the API, the bots, the worker and the userbot read from other
-services (InNoHassle, Sport, Tavily) or from the database (what /listen chose), each kept for a time of its own under
+services (InNoHassle, Sport, DeepSeek) or from the database (what /listen chose), each kept for a time of its own under
 `catix:cache:<key>`.
 
 One cache for all the processes: a process that starts finds it warm, a service is asked once for all of them, and a

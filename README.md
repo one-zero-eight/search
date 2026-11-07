@@ -31,7 +31,7 @@ Max-чаты ──Max-бот─────────────────
                                                             │                get_clubs, get_university_events, find_room,
                                                             │                get_music_room_schedule, get_my_ai_calendar)
                                                             ├─► ask_docs    (search_wiki, read_wiki, get_courses;
-                                                            │                с TAVILY_API_KEY search_web, read_web_page)
+                                                            │                с DEEPSEEK_API_KEY search_web, read_web_page)
                                                             └─► ask_account (только на сайте, с токеном пользователя:
                                                                              get_my_schedule, get_free_rooms; со спорт-токеном
                                                                              X-Sport-Token get_my_sport, get_sport_trainings,
@@ -54,7 +54,7 @@ Max-чаты ──Max-бот─────────────────
 
 Внешние сервисы:
 
-- **Postgres** (ParadeDB: `pg_search` для BM25 и `pgvector` для векторов) и **Redis** (поток новых сообщений и общий кэш всех процессов: InNoHassle, Sport, Tavily, выбор `/listen`, `src/catix/common/cache.py`).
+- **Postgres** (ParadeDB: `pg_search` для BM25 и `pgvector` для векторов) и **Redis** (поток новых сообщений и общий кэш всех процессов: InNoHassle, Sport, DeepSeek Search & Fetch, выбор `/listen`, `src/catix/common/cache.py`).
 - **llama.cpp**-серверы: чат-модель (`LLM_ROUTE`), эмбеддинги `bge-m3` (`EMBEDDINGS_ROUTE`), реранкер `bge-reranker-v2-m3` (`RERANKER_ROUTE`, необязателен).
 - **InNoHassle** (клубы, события, расписание групп; токен пользователя открывает его календарь), **Arize Phoenix** (трассировка, один контейнер, необязателен).
 

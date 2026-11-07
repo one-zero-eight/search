@@ -311,7 +311,7 @@ timetable: who teaches each, with emails and Telegram, and the weekly classes).
 """
 
 
-# The docs helper's web search (agent/web_tools.py), in its prompt only when it has the tools (a Tavily key).
+# The docs helper's web search (agent/web_tools.py), in its prompt only when it has the tools (a DeepSeek key).
 WEB = """\
 - search_web, only after search_wiki, for what the knowledge base does not have or may have too old: a page newer than it,
   an event or a service it does not hold. It searches the sites of the university and of the city of Innopolis; `anywhere`
@@ -421,5 +421,5 @@ def abilities(helpers: Iterable[str]) -> str:
 
 def prompt(role: str) -> str:
     """The prompt of a helper: the rules about facts and its own part (with the web search when it has it)."""
-    web = WEB if "search_web" in ROLES[role].tools and settings.tavily_api_key is not None else ""
+    web = WEB if "search_web" in ROLES[role].tools and settings.deepseek_api_key is not None else ""
     return f"{FACTS}\n{ROLES[role].prompt}{web}"
