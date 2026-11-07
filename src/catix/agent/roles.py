@@ -13,6 +13,7 @@ training) that wait for the asker's approval (agent/account_tools.py). The bots
 have no token and no such helper (core.AccountOnTheSiteMiddleware).
 """
 
+from collections.abc import Iterable
 from dataclasses import dataclass
 
 from catix.settings import settings
@@ -335,6 +336,8 @@ class Role:
     # False: its tools give no sources, so a ref in its report is invented and goes (core._helper_tool). The account helper
     # wrote a training's id 13 as [m13], which may be a real source of an earlier question of the conversation.
     cites: bool = True
+    # What the asker gets from it, in their terms: told to the supervisor when it is asked what it can do (`abilities`).
+    offers: str = ""
 
 
 ROLES: dict[str, Role] = {
@@ -348,6 +351,8 @@ ROLES: dict[str, Role] = {
         "complete question; the report comes with source refs like [m0] that you keep.",
         CHATS,
         frozenset({"search_chats", "search_userbot_chats", "read_chats"}),
+        offers="what was announced or discussed in the university chats: midterms, tests, deadlines, reschedules and "
+        "cancelled classes, homework, the latest messages of a chat",
     ),
     "campus": Role(
         "campus",
@@ -358,6 +363,8 @@ ROLES: dict[str, Role] = {
         CAMPUS,
         frozenset({"get_schedule", "get_clubs", "get_university_events", "find_room", "search_wiki", "search_chats", "read_chats",
                    "get_courses", "get_room_timetable", "get_music_room_schedule", "get_my_ai_calendar"}),
+        offers="the timetable of a group, the courses of the term and their teachers, rooms free of classes, clubs, the "
+        "university's events, when the music room is free, where a room, office, canteen or printer is",
     ),
     "account": Role(
         "account",
@@ -374,6 +381,10 @@ ROLES: dict[str, Role] = {
         approval=frozenset({"book_music_room", "book_room", "enroll_in_event", "cancel_booking", "remove_from_ai_calendar",
                             "sport_checkin"}),
         cites=False,
+        offers="in the asker's own InNoHassle account: their calendar and bookings, their sport hours and the trainings "
+        "they may go to; and, each time after they approve it, booking the music room or a room, enrolling them in a "
+        "university event, checking them in to a sport training, cancelling a booking, removing an event from their AI "
+        "Calendar",
     ),
     "docs": Role(
         "docs",
@@ -387,8 +398,25 @@ ROLES: dict[str, Role] = {
         "postgraduate, applicant, teacher) when it is known; the report comes with source refs like [m0] that you keep.",
         DOCS,
         frozenset({"search_wiki", "read_wiki", "get_courses", "search_web", "read_web_page"}),
+        offers="the university's rules and documents (exams and retakes, grades, academic leave, scholarships, fees, "
+        "admission, programmes and study plans, postgraduate study) and the news and pages of the sites of the university "
+        "and of the city of Innopolis",
     ),
 }
+
+# Told when it has no account helper (the bots, the CLI): what the site's assistant does in the asker's account.
+ON_THE_SITE = ("not here, but on the site innohassle.ru, signed in, in the chat with the assistant: the asker's own calendar, "
+               "bookings and sport hours, booking the music room or a room, enrolling in an event, checking in to a sport training")
+CALENDAR_BUTTON = "an event named in an answer goes to the asker's calendar with the button «➕ В мой календарь» under that answer"
+
+
+def abilities(helpers: Iterable[str]) -> str:
+    """What the supervisor can do for this asker, for "что ты умеешь?": what each helper it has offers. It answers that alone
+    (core.ALONE_REMINDER), and without this it listed topics ("расписание, экзамены, правила, события…") and not one of
+    the account helper's actions, which it never saw as something to tell the user."""
+    have = set(helpers)
+    offers = [role.offers for name, role in ROLES.items() if name in have]
+    return "; ".join([*offers, *([] if "account" in have else [ON_THE_SITE]), CALENDAR_BUTTON]) + "."
 
 
 def prompt(role: str) -> str:

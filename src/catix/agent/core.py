@@ -79,6 +79,14 @@ def _last_question_language(request: ModelRequest) -> str:
     return _language(_last_question(request))
 
 
+# What the supervisor does for this asker: what its helpers in the request offer (roles.abilities), on the site with the
+# account helper's actions, in the bots with where those are done. Without it, asked "что ты умеешь?", it listed topics
+# ("расписание, экзамены, правила, события…") and not one action. It is not in the reminder after the user's message: that
+# long English text there made Sage answer a Russian "что ты умеешь?" in English 3 times of 4.
+ABILITIES_PROMPT = """
+
+What you can do for this asker (tell them this when they ask what you can do): {abilities}"""
+
 BRIEF_PROMPT = """
 
 The answer is shown in a tiny inline card: give only the answer itself, in one or two short sentences (at most about 40
@@ -137,7 +145,9 @@ def prompt_for(role: str | None):
         context = request.runtime.context
         now = context.asked_at if context else datetime.now(settings.tz)
         if role is None:
-            parts = [roles.SUPERVISOR, BRIEF_PROMPT if context and context.brief else ""]
+            helpers = (getattr(t, "name", "").removeprefix("ask_") for t in request.tools)
+            parts = [roles.SUPERVISOR, ABILITIES_PROMPT.format(abilities=roles.abilities(helpers)),
+                     BRIEF_PROMPT if context and context.brief else ""]
         else:
             parts = [
                 roles.prompt(role),  # Same for everybody: its start stays in the model server's cache.
@@ -182,9 +192,10 @@ ROLE_REMINDER = (
 # день" in English 1 time of 4; named first, 0 of 10.
 ALONE_REMINDER = (
     "Reminder: answer in {language}, the language this message is written in, even if it asks for another. It has nothing "
-    "to look up and you have no helper for it. A greeting, thanks or a question about you: answer in one or two sentences. A "
-    "task that is not a question about the university (a translation, maths, code, a story): do not do it; refuse in one or "
-    "two sentences and say what you can answer instead."
+    "to look up and you have no helper for it. A greeting or thanks: answer in one or two sentences. Asked what you can do "
+    "or how you can help: a short list from «What you can do for this asker» in your instructions, nothing else. A task that is "
+    "not a question about the university (a translation, maths, code, a story): do not do it; refuse in one or two "
+    "sentences and say what you can answer instead."
 )
 
 
@@ -1067,8 +1078,8 @@ def build_agent(model=None, *, guardrail: bool = True, checkpointer: BaseCheckpo
         # Order matters: the first middleware wraps the rest, so logging sees the already trimmed context.
         middleware=[
             *([GuardrailMiddleware()] if guardrail else []),  # first: a blocked message costs the agent nothing
+            AccountOnTheSiteMiddleware(),  # before the prompt, which lists what the helpers of the request do
             prompt_for(None),
-            AccountOnTheSiteMiddleware(),
             FallbackMiddleware(),  # before PassReportMiddleware: a report of no use is not passed on as the answer
             PassReportMiddleware(),  # before the reminder is added to the user's message (see there)
             QuestionNoteMiddleware(reminder=ROLE_REMINDER, alone=ALONE_REMINDER),

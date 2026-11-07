@@ -13,7 +13,7 @@ from deepeval.test_case import LLMTestCase
 from langchain.agents.middleware.types import ModelResponse
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
 
-from catix.agent import core
+from catix.agent import core, roles
 from catix.agent.core import RunGuardMiddleware
 from tests.helpers import ContainsAll
 
@@ -331,6 +331,28 @@ def test_a_message_with_nothing_to_look_up_is_answered_without_a_helper(monkeypa
     assert note._with_hint(alone).messages[0].content.endswith(f"[{ALONE_REMINDER.format(language='Russian')}]")  # ("вопрос")
     assert note._with_hint(asked).messages[0].content.endswith(f"[{ROLE_REMINDER}]")
     assert RunGuardMiddleware()._final(asked).tool_choice is None
+
+
+def test_asked_what_it_can_do_it_is_told_what_its_helpers_do_for_this_asker():
+    """"что ты умеешь?" was answered with topics ("расписание, экзамены, правила, события…") and none of the actions: the
+    supervisor's prompt lists what its helpers of the request do (roles.abilities), on the site the account helper's
+    actions, in the bots where they are done. AccountOnTheSiteMiddleware goes first, so the prompt sees its tools."""
+    from catix.agent.core import AccountOnTheSiteMiddleware, prompt_for
+
+    helpers = [types.SimpleNamespace(name=f"ask_{name}") for name in roles.ROLES]
+    prompts = {}
+    for kind, token in (("site", "token"), ("bot", None)):
+        request = Req(0).override(tools=helpers, runtime=types.SimpleNamespace(context=types.SimpleNamespace(
+            innohassle_token=token, asked_at=core.datetime.now(core.settings.tz), brief=False)))
+        request.system_prompt = None
+        seen = []
+        AccountOnTheSiteMiddleware().wrap_model_call(request, lambda r: prompt_for(None).wrap_model_call(r, seen.append))
+        prompts[kind] = seen[0].system_message.text
+    assert roles.ROLES["account"].offers in prompts["site"] and roles.ON_THE_SITE not in prompts["site"]
+    assert roles.ROLES["account"].offers not in prompts["bot"] and roles.ON_THE_SITE in prompts["bot"]
+    for text in prompts.values():
+        assert all(roles.ROLES[name].offers in text for name in ("chats", "campus", "docs")) and roles.CALENDAR_BUTTON in text
+    assert all(role.offers for role in roles.ROLES.values())
 
 
 def test_the_markup_token_is_asked_of_the_server_once_and_another_model_gets_no_ban(monkeypatch):
