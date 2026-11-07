@@ -1,46 +1,27 @@
-###########################################################
-# Builder stage. Build dependencies.
-FROM ghcr.io/astral-sh/uv:python3.11-bookworm-slim AS builder
-ENV PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1 \
-    UV_COMPILE_BYTECODE=1 \
-    UV_LINK_MODE=copy \
-    UV_PYTHON_DOWNLOADS=0
+# One image for every cAtIx process: the command decides which one runs (see docker-compose.prod.yml).
+FROM ghcr.io/astral-sh/uv:python3.13-bookworm-slim
 
-WORKDIR /app
-COPY ./pyproject.toml ./uv.lock ./
-
-RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --frozen --no-install-project --no-dev --no-group ml
-
-
-###########################################################
-# Production stage. Copy only runtime deps that were installed in the Builder stage.
-FROM python:3.11-slim-bookworm AS production
-
-ENV PYTHONUNBUFFERED=1
-
-# Copy the applicant from the builder
-COPY --from=builder /app /app
-
-# Create user with the name uv
-RUN groupadd -g 1500 uv && \
-    useradd -m -u 1500 -g uv uv
-
-USER uv
+ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy PYTHONUNBUFFERED=1
 WORKDIR /app
 
-# Place executables in the environment at the front of the path
-ENV PATH="/app/.venv/bin:$PATH"
+# Dependencies first: this layer is rebuilt only when pyproject.toml or uv.lock change.
+COPY pyproject.toml uv.lock .python-version ./
+COPY vendor ./vendor
+RUN uv sync --frozen --no-dev --no-install-project
 
-COPY --chown=uv:uv . /app
+COPY src ./src
+COPY db ./db
+COPY courses.toml ./
+RUN uv sync --frozen --no-dev
 
-EXPOSE 8000
-CMD ["gunicorn", \
-    "--worker-class", "uvicorn.workers.UvicornWorker", \
-    "--bind", "0.0.0.0:8000", \
-    "--workers", "1", \
-    "src.api.app:app", \
-    "--timeout", "300", \
-    "--forwarded-allow-ips=*" \
-]
+# The Max API is served with a certificate of the Russian Ministry of Digital Development (see settings.max_root_ca).
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates curl libarchive13 \
+    && rm -rf /var/lib/apt/lists/* \
+    && curl -fsSL https://gu-st.ru/content/lending/russian_trusted_root_ca_pem.crt -o /app/russian_root_ca.crt
+
+ENV PATH="/app/.venv/bin:$PATH" MAX_ROOT_CA=/app/russian_root_ca.crt
+# The Telegram session of the userbot and other state live in a volume mounted at /app/data.
+RUN useradd --create-home app && mkdir -p /app/data && chown app /app/data
+USER app
+
+CMD ["catix-tgbot"]

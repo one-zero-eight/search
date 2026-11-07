@@ -1,0 +1,489 @@
+"""The wiki maintains itself: its sources are asked on their schedule, what changed becomes pages, checks decide,
+and the result is committed to the `wiki` branch and pushed.
+
+    catix-wiki autopilot [--loop] [--source NAME ...] [--site NAME ...] [--only-new] [--build] [--no-push] [--no-answers]
+    catix-wiki autopilot accept    # a person read the review branch and agrees: the changes are committed to `wiki` and pushed
+    catix-wiki autopilot discard   # a person disagrees: the changes are thrown away, the search index follows the branch again
+
+One run:
+  1. the sources that are due (sources/, each with its own interval; `--source` asks the named ones now, e.g. when
+     something tells the wiki that a source changed; `--site` reads only the named sites in place of every site), and those
+     the requests waiting in the queue name (POST /{section}/parse of the API, parse_requests.py: the API never writes the
+     wiki, its requests are served here, with the same checks and commit; the run says in the queue what it did);
+  2. if one brought something, or the data still has changes an earlier run could not commit: build.rebuild();
+  3. the checks: lint without errors, the search finds the answers of
+     quality.py (hit@5 >= settings.wiki_min_hit5), the agent answers tests/test_docs_answers.py (a failed test once more;
+     answers that were not checked, because pytest did not start or the model server did not answer, fail it too), and
+     no more than MAX_LOST pages taken away with nothing in their place (lost_pages);
+  4. a commit in the checkout of the `wiki` branch (settings.wiki_root), where only wiki/ and raw/ may change. All checks
+     passed: pushed to `wiki`. One failed: the same changes go to a branch `wiki-review/<time>` for a person, and `wiki`
+     stays as it was; the working tree keeps them, and the next run checks them again together with what is new.
+`--build`: no source is asked; the pages read by hand (`catix-wiki sites explore`, `sites accept`) are built, checked and committed.
+`--only-new`: only the pending sites are read (the source `new-sites`), not all of them like the weekly `sites`: after `catix-wiki sites discover --all`, a run takes minutes.
+New sites: the `discover` source (sources/discover.py) finds hosts of the university in the links of the pages and reads them with safe
+limits. They are pending: whatever such a run brought goes to the review branch and the admins are told in Telegram; `accept` keeps
+the sites, `discard` forgets them for good (.autopilot.json: rejected_sites).
+OCR: the sources queue scans for a manual run with OCR and put aside those too long for it (sources/ocr_queue.py); when
+either grows, the admins are told in Telegram, of each scan once.
+Runs one at a time (a lock file). Its state (when each source was asked, the changes last sent for review, the scans the
+admins were told of) is in .autopilot.json next to the data, not committed. `--loop` wakes up for a request (REQUEST_POLL) without waiting for the schedule.
+"""
+
+import fcntl
+import json
+import os
+import re
+import subprocess
+import sys
+import tempfile
+import time
+import traceback
+import xml.etree.ElementTree as ET
+from argparse import Namespace
+from collections import Counter
+from dataclasses import dataclass, field
+from datetime import datetime, timedelta, timezone
+from pathlib import Path
+from urllib.parse import unquote
+
+from catix import admins
+from catix.settings import settings
+from catix.wiki import build, parse_requests, quality, sources
+from catix.wiki.paths import DATA, DOCS_FOLDER, REPO
+from catix.wiki.sources import discover
+
+ALLOWED = ("wiki/", "raw/")  # the only paths a commit of the wiki's own run may touch
+STATE = DATA / ".autopilot.json"
+LOCK = DATA / ".autopilot.lock"
+AUTHOR = {"GIT_AUTHOR_NAME": "cAtIx wiki", "GIT_AUTHOR_EMAIL": "wiki@catix.invalid", "GIT_COMMITTER_NAME": "cAtIx wiki", "GIT_COMMITTER_EMAIL": "wiki@catix.invalid"}
+IDLE = timedelta(minutes=15)  # the longest sleep of --loop between two looks at the schedule
+REQUEST_POLL = 30  # seconds between two looks of the sleeping --loop at the queue of requests
+
+
+class Outcome(str):
+    """What a run did, in a line, and of which kind: committed (to `wiki`), review (the changes wait for a person) or
+    unchanged (nothing new reached the wiki); `failed`: the sources that raised (the others went on). The queue of requests
+    keeps them (parse_requests.finish)."""
+
+    kind: str
+    failed: tuple[str, ...] = ()
+
+    def __new__(cls, kind: str, text: str) -> "Outcome":
+        line = super().__new__(cls, text)
+        line.kind = kind
+        return line
+
+
+def git(*args: str, check: bool = True) -> str:
+    out = subprocess.run(["git", "-C", str(DATA), *args], capture_output=True, text=True, env={**os.environ, **AUTHOR})
+    if check and out.returncode != 0:
+        raise RuntimeError(f"git {' '.join(args)}: {out.stderr.strip()}")
+    return out.stdout.strip()
+
+
+def load_state() -> dict:
+    return json.loads(STATE.read_text(encoding="utf-8")) if STATE.exists() else {}
+
+
+def save_state(state: dict) -> None:
+    STATE.write_text(json.dumps(state, ensure_ascii=False, indent=1), encoding="utf-8")
+
+
+def due(state: dict, now: datetime) -> list[sources.Source]:
+    """The sources whose interval has passed."""
+    asked = state.get("asked", {})
+    return [s for s in sources.SOURCES if s.name not in asked or now - datetime.fromisoformat(asked[s.name]) >= s.every]
+
+
+def outside(paths: list[str]) -> list[str]:
+    """Paths a commit of the wiki's run must not touch (code, configuration: everything but the data)."""
+    return [p for p in paths if not p.startswith(ALLOWED)]
+
+
+def summary(name_status: str) -> str:
+    """'wiki/raw/regulations: 3 new, 2 changed' from `git diff --name-status`."""
+    words = {"A": "new", "M": "changed", "D": "removed", "R": "renamed"}
+    by = Counter()
+    for line in name_status.splitlines():
+        status, *paths = line.split("\t")
+        depth = 3 if paths[-1].startswith(f"wiki/{DOCS_FOLDER}/") else 2  # a document's folder is under wiki/raw/
+        folder = "/".join(paths[-1].split("/")[:depth]) if paths[-1].count("/") >= depth else paths[-1]
+        by[folder, words.get(status[:1], status)] += 1
+    folders = dict.fromkeys(f for f, _ in sorted(by))
+    return "\n".join(f"{f}: " + ", ".join(f"{n} {w}" for (g, w), n in sorted(by.items()) if g == f) for f in folders)
+
+
+MAX_LOST = 10  # pages a run may take away with nothing in their place before a person looks (a page a site no longer has:
+# 0-4 a run); 236 courses of 26 archives and 137 documents hidden on the site once left in one run, unnoticed, through a bug
+RESOURCE = re.compile(r"^resource: (.+)$", re.M)
+
+
+def source_of(page: str) -> str:
+    """What a page of the bundle is made of: its resource, from its front matter, as one spelling (an archive's courses
+    rpd read name it with spaces, the pages of its files with %20; any page of an archive has what the archive says)."""
+    if not (m := RESOURCE.search(page.split("\n---", 1)[0])):
+        return ""
+    value = m[1].strip()
+    return unquote(json.loads(value) if value.startswith('"') else value)
+
+
+def lost_pages(status: str) -> list[str]:
+    """The pages the staged changes remove (git diff --cached --name-status) whose source no page left has: what they said
+    is gone from the wiki. A page under a new name or another page of the same source (a course rpd read in place of the
+    file of an archive) is not lost."""
+    removed = [line.split("\t", 1)[1] for line in status.splitlines() if line.startswith("D\t")]
+    removed = [path for path in removed if path.startswith("wiki/") and path.endswith(".md") and not path.endswith("index.md")]
+    if not removed:
+        return []
+    left = {source_of(page.read_text(encoding="utf-8")) for page in (DATA / "wiki").rglob("*.md")}
+    return [path for path in removed if (source := source_of(git("show", f"HEAD:{path}", check=False))) and source not in left]
+
+
+@dataclass
+class Checks:
+    failed: list[str] = field(default_factory=list)
+    passed: list[str] = field(default_factory=list)
+
+    def add(self, ok: bool, text: str) -> None:
+        (self.passed if ok else self.failed).append(text)
+
+
+ANSWERS = "tests/test_docs_answers.py"
+SHOWN = 40  # lines of pytest's output the log gets when the answers did not pass
+
+
+@dataclass
+class Tests:
+    """One pytest run of the answers: each test's result (passed, failed: failed or raised in a fixture, skipped: the model
+    server did not answer, conftest.py), why tests were skipped, or why there are no results (`broken`: pytest did not run them)."""
+    results: dict[str, str] = field(default_factory=dict)
+    reasons: list[str] = field(default_factory=list)
+    broken: str = ""
+    output: str = ""
+
+    def having(self, result: str) -> list[str]:
+        return [test for test, r in self.results.items() if r == result]
+
+
+def last_line(text: str) -> str:
+    return next((line.strip() for line in reversed(text.splitlines()) if line.strip()), "")
+
+
+def run_answers(*tests: str) -> Tests:
+    """pytest on the answers, by the interpreter of this run (`python -m pytest`: no console script, whose first line may name
+    an interpreter a moved .venv no longer has); the results from its JUnit report, not from its text."""
+    with tempfile.TemporaryDirectory(prefix="catix-answers-") as tmp:
+        report = Path(tmp) / "answers.xml"
+        out = subprocess.run([sys.executable, "-m", "pytest", "-q", "-p", "no:cacheprovider", f"--junitxml={report}", *tests],
+                             cwd=REPO, capture_output=True, text=True, check=False, env={**os.environ, "WIKI_ROOT": str(DATA)})
+        try:
+            cases = list(ET.parse(report).getroot().iter("testcase"))
+        except (OSError, ET.ParseError):  # (no report: pytest did not start or died)
+            cases = []
+    run = Tests(output="\n".join(part.rstrip() for part in (out.stdout, out.stderr) if part.strip()))
+    for case in cases:
+        test = f"{case.get('classname', '').replace('.', '/')}.py::{case.get('name')}"  # (the tests are functions of the module)
+        if case.find("failure") is not None or case.find("error") is not None:
+            run.results[test] = "failed"
+        elif (skip := case.find("skipped")) is not None:
+            run.results[test] = "skipped"
+            run.reasons.append(skip.get("message", ""))
+        else:
+            run.results[test] = "passed"
+    if out.returncode not in (0, 1) or not run.results:  # (2: a test file did not load, 5: no tests; 1 without results: no pytest)
+        run.broken = f"exit {out.returncode}: {last_line(out.stderr) or last_line(out.stdout) or 'no output'}"
+    return run
+
+
+def names(tests: list[str]) -> str:
+    return ", ".join(test.rsplit("::", 1)[-1] for test in tests)
+
+
+def answers_check() -> tuple[bool, str]:
+    """tests/test_docs_answers.py against the real agent; a failed test gets one more try (the model is not deterministic).
+    Passes only when every test passed: tests that did not run (pytest did not start; the model server did not answer, so they
+    were skipped) checked nothing, and the line says so. The log gets what pytest said when they did not pass."""
+    first = run_answers(ANSWERS)
+    last, results, retried = first, dict(first.results), []
+    if first.having("failed") and not first.broken:
+        last = run_answers(*first.having("failed"))
+        results.update(last.results)
+        retried = last.having("passed")
+    final = Tests(results=results, reasons=[*first.reasons, *(last.reasons if last is not first else [])], broken=first.broken or last.broken)
+    failed, skipped = final.having("failed"), final.having("skipped")
+    if final.broken:
+        ok, line = False, f"answers: not checked, pytest did not run {ANSWERS} ({final.broken})"
+    elif failed:
+        ok, line = False, f"answers: {len(failed)} of {len(results)} failed twice in {ANSWERS}: {names(failed)}"
+    elif skipped:
+        why = "; ".join(dict.fromkeys(r for r in final.reasons if r)) or "no reason given"
+        ok, line = False, f"answers: not checked, {len(skipped)} of {len(results)} skipped in {ANSWERS} ({why})"
+    else:
+        ok, line = True, f"answers: {len(results)} of {len(results)} passed in {ANSWERS}" + (f" ({names(retried)} on the second try)" if retried else "")
+    if not ok:
+        print(f"== {line}\n" + "\n".join(last.output.splitlines()[-SHOWN:]), flush=True)
+    return ok, line
+
+
+def check(report: build.Report, answers: bool) -> Checks:
+    checks = Checks()
+    checks.add(report.lint_errors == 0, f"lint: {report.lint_errors} errors")
+    if pending := discover.pending_hosts():  # before the early returns below: a new site never reaches `wiki` without a person
+        checks.add(False, f"new sites wait for a person's look: {', '.join(pending)} (accept: the sites are read from now on; discard: they are forgotten)")
+    if not settings.database_url:
+        checks.add(False, "search: not checked (no DATABASE_URL)")
+        return checks
+    if report.lint_errors:
+        return checks  # (the index was not updated: the search and the answers would check the old bundle)
+    score = quality.score()
+    checks.add(score.hit5 >= settings.wiki_min_hit5, f"search: hit@5 {score.hit5:.0%} (at least {settings.wiki_min_hit5:.0%}), hit@10 {score.hit10:.0%}"
+               + (f"; not found: {'; '.join(score.missed[:5])}" if score.missed else ""))
+    if answers:
+        checks.add(*answers_check())
+    return checks
+
+
+def run_once(names: list[str] | None = None, push: bool = True, answers: bool = True, sites: list[str] | None = None) -> Outcome:
+    """One run; what it did, in a line. `sites`: the `sites` source reads only these sites (sources.sites_of)."""
+    state, now = load_state(), datetime.now(timezone.utc)
+    asked = [s for s in [*sources.SOURCES, *sources.ON_REQUEST] if s.name in names] if names else due(state, now)
+    if sites:
+        asked = [sources.sites_of(sites) if s.name == "sites" else s for s in asked]
+    changed: dict[str, int] = {}
+    failed: list[str] = []
+    def outcome(kind: str, text: str) -> Outcome:
+        line = Outcome(kind, text + (f" (failed: {', '.join(failed)}; see the log)" if failed else ""))
+        line.failed = tuple(failed)
+        return line
+
+    for source in asked:
+        print(f"== source {source.name}: {source.about}", flush=True)
+        try:
+            changed[source.name] = source.update()
+        except Exception:  # noqa: BLE001 - one source failing must not stop the others; it is asked again next time
+            traceback.print_exc()
+            failed.append(source.name)
+            continue
+        if source in sources.SOURCES or source in sources.ON_REQUEST:  # (a few sites read do not move the schedule of all of them)
+            state.setdefault("asked", {})[source.name] = now.isoformat(timespec="seconds")
+            save_state(state)
+    try:
+        tell_ocr_queue(state)
+    except Exception:  # noqa: BLE001 - the queue's report must not stop the run
+        traceback.print_exc()
+    if not any(changed.values()) and not git("status", "--porcelain"):
+        return outcome("unchanged", f"nothing new ({', '.join(s.name for s in asked) or 'no source due'})")
+    if not any(changed.values()) and state.get("review_tree") and working_tree() == state["review_tree"]:
+        return outcome("unchanged", "nothing new; changes wait for review (catix-wiki autopilot accept | discard)")  # (an earlier run's, not this one's)
+    report = build.rebuild()
+    git("add", "-A")
+    staged = git("diff", "--cached", "--name-only").splitlines()
+    if not staged:
+        return outcome("unchanged", "sources changed, the wiki did not")
+    if bad := outside(staged):
+        git("reset", "-q")
+        raise RuntimeError(f"the run changed paths outside the data, nothing committed: {bad[:5]}")
+    checks = check(report, answers)
+    if lost := lost_pages(git("diff", "--cached", "--name-status", "--no-renames")):
+        checks.add(len(lost) <= MAX_LOST, f"pages removed with nothing in their place: {len(lost)} (at most {MAX_LOST} without a person's look): "
+                   + ", ".join(path.removeprefix("wiki/") for path in lost[:5]))
+    found = ", ".join(f"{k} {v}" for k, v in changed.items() if v) or "changes left by an earlier run"
+    message = (f"wiki: {found}\n\n{summary(git('diff', '--cached', '--name-status'))}\n\nChecks:\n"
+               + "\n".join([*(f"- FAILED {c}" for c in checks.failed), *(f"- {c}" for c in checks.passed)]))
+    if not checks.failed:
+        git("commit", "-q", "-m", message)
+        if push and settings.wiki_push:
+            git("push", "-q", settings.wiki_remote, f"HEAD:{settings.wiki_branch}")
+        state.pop("review_tree", None)
+        save_state(state)
+        return outcome("committed", f"committed {git('rev-parse', '--short', 'HEAD')}: {len(staged)} files" + (" and pushed" if push and settings.wiki_push else ""))
+    tree = git("write-tree")
+    git("reset", "-q")  # (the working tree keeps the changes; `wiki` does not get them)
+    if state.get("review_tree") == tree:
+        return outcome("review", "the same changes as last time failed the checks again: " + "; ".join(checks.failed))
+    commit = git("commit-tree", tree, "-p", "HEAD", "-m", message)
+    branch = f"wiki-review/{now:%Y%m%d-%H%M}"
+    git("update-ref", f"refs/heads/{branch}", commit)
+    if push and settings.wiki_push:
+        git("push", "-q", settings.wiki_remote, f"{commit}:refs/heads/{branch}")
+    state["review_tree"] = tree
+    save_state(state)
+    if pending := discover.pending_hosts():
+        tell_admins(f"🌐 Вики нашла новые сайты университета: {', '.join(pending)}.\nСтраницы прочитаны и лежат в ветке {branch} (до {sites_limit()} на сайт), в `wiki` их нет. "
+                    "Посмотрите и на сервере выполните: catix-wiki autopilot accept (оставить) или discard (забыть).")
+    return outcome("review", f"checks failed, changes sent to {branch} for review: " + "; ".join(checks.failed))
+
+
+def sites_limit() -> int:
+    from catix.wiki.sources import sites
+
+    return sites.DISCOVERED_PAGES
+
+
+def tell_ocr_queue(state: dict) -> None:
+    """The admins told when the OCR queue grows, or the scans put aside as too long for it (sources/ocr_queue.py): of each scan
+    once. The state keeps the scans told that are still there (`ocr_told`): one read by OCR leaves it, one that comes back,
+    or moves between the queue and the long ones, is told again."""
+    from catix.wiki.sources import ocr_queue
+
+    found = ocr_queue.scans()
+    now = {(s.source, s.key, s.too_long) for s in found}
+    told = {tuple(t) for t in state.get("ocr_told", [])}
+    if text := ocr_queue.message(found, {(source, key) for source, key, _ in now - told}):
+        tell_admins(text)
+    if now != told:
+        state["ocr_told"] = [list(t) for t in sorted(now)]
+        save_state(state)
+
+
+def tell_admins(text: str) -> None:
+    """A message to the admins of the bot (they set up the alerts too); the run goes on if it cannot be sent."""
+    if not settings.tg_bot_token:
+        print(f"(no TG_BOT_TOKEN: the admins are not told) {text}", flush=True)
+        return
+    import asyncio
+
+    from aiogram import Bot
+
+    async def send() -> None:
+        ids = list(dict.fromkeys([*settings.admin_telegram_ids, *(admins.added() if settings.database_url else [])]))
+        async with Bot(settings.tg_bot_token.get_secret_value()) as bot:
+            for admin in ids:
+                try:
+                    await bot.send_message(admin, text, parse_mode=None)
+                except Exception as e:  # noqa: BLE001 - blocked the bot, never started it, ...
+                    print(f"admin {admin} was not told: {e}", flush=True)
+
+    try:
+        asyncio.run(send())
+    except Exception:  # noqa: BLE001
+        traceback.print_exc()
+
+
+def working_tree() -> str:
+    """The tree the working state would commit, without committing it."""
+    git("add", "-A")
+    try:
+        return git("write-tree")
+    finally:
+        git("reset", "-q")
+
+
+def accept(push: bool = True) -> str:
+    """Approve/build pending sites, then commit data (including raw/sites.yaml) to `wiki`. Code is never edited."""
+    discover.approve_sites(discover.pending_hosts())
+    git("add", "-A")
+    if bad := outside(git("diff", "--cached", "--name-only").splitlines()):
+        git("reset", "-q")
+        return f"paths outside the data changed, nothing committed: {bad[:5]}"
+    if not git("diff", "--cached", "--name-only"):
+        return "nothing waits for review"
+    git("commit", "-q", "-m", f"wiki: accepted after review\n\n{summary(git('diff', '--cached', '--name-status'))}")
+    if push and settings.wiki_push:
+        git("push", "-q", settings.wiki_remote, f"HEAD:{settings.wiki_branch}")
+    state = load_state()
+    state.pop("review_tree", None)
+    save_state(state)
+    return f"committed {git('rev-parse', '--short', 'HEAD')}"
+
+
+def discard() -> str:
+    """The changes waiting for review, thrown away: the files of the branch come back (downloads, which git ignores, stay) and
+    the search index follows them. The pending sites are rejected: no later run finds them again."""
+    state = load_state()
+    if pending := discover.pending_hosts():
+        state["rejected_sites"] = sorted({*state.get("rejected_sites", []), *pending})
+        save_state(state)
+    git("checkout", "--", ".")
+    git("clean", "-fdq", "--", *ALLOWED)  # (new pages of the run; ignored files are not touched without -x)
+    state = load_state()
+    state.pop("review_tree", None)
+    save_state(state)
+    if settings.database_url:
+        from catix.wiki import search_index
+
+        search_index.sync()
+    return "changes thrown away"
+
+
+def ready() -> str | None:
+    """Why the run cannot work here, or None: the data must be a checkout of the `wiki` branch (paths.py: WIKI_ROOT is set
+    and is not the code)."""
+    try:
+        branch = git("rev-parse", "--abbrev-ref", "HEAD")
+    except RuntimeError as e:
+        return f"{DATA} is not a git checkout: {e}"
+    if branch != settings.wiki_branch:
+        return f"{DATA} is on branch {branch}, not {settings.wiki_branch}"
+    return None
+
+
+def with_requests(names: list[str] | None, sites: list[str] | None, requests: list[parse_requests.Request], state: dict,
+                  now: datetime) -> tuple[list[str] | None, list[str] | None]:
+    """The sources a run asks and the sites `sites` reads (None: every site), with the requests it serves: the sources of the
+    command line (or the due ones) and those the requests name. A request that asks no source (parsing false) adds nothing:
+    the run builds and checks what the data holds anyway. `sites` asked for every site (the schedule, `--source sites`) reads
+    every site; asked only for some (`--site`, the requests), it reads the union of them."""
+    if not requests:
+        return names, sites
+    base = list(names) if names else [s.name for s in due(state, now)]
+    asked = list(dict.fromkeys([*base, *(r.source for r in requests if r.parsing)])) or ["build-only"]
+    if "sites" not in asked:
+        return asked, None
+    limits = ([sites or None] if "sites" in base else []) + [r.sites or None for r in requests if r.parsing and r.source == "sites"]
+    return asked, None if None in limits else list(dict.fromkeys(name for limit in limits for name in limit))
+
+
+def served(requests: list[parse_requests.Request], line: Outcome) -> None:
+    """The queue learns what the run did; a request whose source raised failed (the run's other sources may have gone on)."""
+    if not requests:
+        return
+    broken = [r for r in requests if r.parsing and any(name.split(" (")[0] == r.source for name in line.failed)]
+    parse_requests.finish([r for r in requests if r not in broken], line.kind, str(line))
+    parse_requests.finish(broken, "error", str(line), failed=True)
+
+
+def pause(seconds: float) -> None:
+    """The sleep of --loop, cut short by a request in the queue."""
+    end = time.monotonic() + seconds
+    while (left := end - time.monotonic()) > 0 and not parse_requests.waiting():
+        time.sleep(min(REQUEST_POLL, left))
+
+
+def main(args: Namespace) -> None:
+    if problem := ready():
+        sys.exit(problem)
+    if args.action in ("accept", "discard"):
+        print(accept(not args.no_push) if args.action == "accept" else discard())
+        return
+    names, sites = args.source, getattr(args, "site", None)
+    if sites and "sites" not in (names or []):
+        names = [*(names or []), "sites"]  # (--site is the source `sites`, limited to these sites)
+    if args.only_new:
+        names = [*(names or []), "new-sites"]
+    if args.build:
+        names = names or ["build-only"]  # no source is asked (a name that is none): what the working tree holds is built, checked and committed or sent for review
+    with LOCK.open("w") as lock:
+        try:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            sys.exit("another run of the wiki is going on")
+        while True:
+            started = datetime.now(timezone.utc)
+            requests = parse_requests.take()
+            asked, limited = with_requests(names, sites, requests, load_state(), started)
+            if requests:
+                print(f"[{started:%Y-%m-%d %H:%M}] requests: {', '.join(r.describe() for r in requests)}", flush=True)
+            try:
+                line = run_once(asked, push=not args.no_push, answers=not args.no_answers, sites=limited)
+                print(f"[{started:%Y-%m-%d %H:%M}] {line}", flush=True)
+                served(requests, line)
+            except Exception as e:  # noqa: BLE001 - the loop keeps going; the next run tries again
+                traceback.print_exc()
+                parse_requests.finish(requests, "error", f"the run failed: {type(e).__name__}: {e}", failed=True)
+            if not args.loop:
+                return
+            names, sites = None, None  # (--source and --site ask now; the loop then follows the schedule)
+            state = load_state()
+            waits = [datetime.fromisoformat(state["asked"][s.name]) + s.every - datetime.now(timezone.utc) for s in sources.SOURCES if s.name in state.get("asked", {})]
+            pause(max(60.0, min([IDLE, *waits]).total_seconds()))

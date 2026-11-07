@@ -1,22 +1,34 @@
-### IDE ###
-.idea
-.vscode
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
 
-### Cache ###
-__pycache__
-.ruff_cache
-*.py[cod]
-s3/
-qdrant_storage/
-cache/
-
-### Environment ###
+# Virtual environments
 .venv
+
+# Secrets
 .env
-settings.yaml
-*.pem
 
-### OS ###
-.DS_Store
+# Telegram session (full account access) and private chat data
+data/
+raw/*.db*
 
-lance_data/
+# The wiki's data lives on the orphan branch `wiki` (a checkout of it is WIKI_ROOT, see src/catix/wiki/paths.py), never in
+# the code: an old copy of it here (from before WIKI_ROOT was required) is not committed.
+/wiki/
+/raw/
+experiments/.wiki-demo-site/
+wiki-index.tar.gz
+/secrets/
+wiki-index.2026-10-24.tar.gz
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
