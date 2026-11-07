@@ -1,0 +1,178 @@
+"""Native operations reuse domain tools, not generated HTTP write endpoints."""
+
+import json
+
+import pytest
+from tests.mcp_native_helpers import call
+from catix.innohassle import mcp_server
+
+@pytest.fixture(autouse=True)
+def verified_identity(monkeypatch):
+    monkeypatch.setattr(mcp_server.token_verifier, "claims", lambda token: {"uid": "owner"})
+
+
+
+def test_registry_is_complete_safe_and_normalizes_business_arguments():
+    from catix.innohassle import mcp_domain as domain
+
+    expected = {
+        'printers_print_get_printers_status', 'maps_scenes_search_areas', 'maps_scenes_scenes',
+        'clubs_get_clubs_list_clubs__get', 'music_bookings_daily_bookings', 'events_events_list_events',
+        'schedule_get_schedule', 'timetable_get_courses', 'timetable_get_room_timetable',
+        'maps_find_room', 'clubs_get_clubs',
+        'account_get_my_schedule', 'rooms_get_free_rooms', 'rooms_book_room', 'account_cancel_booking',
+        'music_get_music_room_schedule', 'music_book_music_room', 'events_get_university_events',
+        'events_enroll_in_event', 'sport_get_my_sport', 'sport_get_sport_trainings', 'sport_get_sports',
+        'sport_sport_checkin',
+    }
+    assert set(domain.definitions()) == expected
+    for name, operation in domain.definitions().items():
+        assert operation.name == name
+        assert domain.policy(name)['auth'] in {'sport', 'innohassle', 'public'}
+        assert operation.description
+        assert domain.schema(name)['additionalProperties'] is False
+        assert not {'runtime', 'token', 'sport_token', 'uid', 'user'} & domain.schema(name)['properties'].keys()
+    args = domain.validate('sport_sport_checkin', {'training_id': 7})
+    assert args == {'training_id': 7, 'cancel': False}
+    assert json.loads(json.dumps(args)) == args
+    with pytest.raises(ValueError):
+        domain.validate('sport_sport_checkin', {'training_id': '7'})
+    with pytest.raises(ValueError):
+        domain.validate('sport_sport_checkin', {'training_id': 7, 'runtime': {'uid': 'other'}})
+    with pytest.raises(ValueError):
+        domain.validate('account_get_my_schedule', {'date_from': '2026-02-30'})
+    with pytest.raises(ValueError):
+        domain.validate('calendar_add_to_ai_calendar', {'title': 'test', 'day': '2099-01-01'})
+    args = domain.validate('rooms_book_room', {'room_id': 'r', 'day': '2099-01-01',
+        'time_from': '10:00', 'time_to': '11:00', 'title': 'meeting'})
+    assert args['time_from'] == '10:00'
+    assert domain.validate('rooms_book_room', args) == args
+
+
+
+
+
+
+def test_domain_rejects_invalid_business_arguments_before_dispatch():
+    from catix.innohassle import mcp_domain as domain
+
+    with pytest.raises(ValueError, match='already past'):
+        domain.validate('music_book_music_room', {'day': '2000-01-01', 'time_from': '10:00', 'time_to': '11:00'})
+    for name, args in [
+        ('events_enroll_in_event', {'event_id': 'not-a-mongo-id'}),
+        ('account_cancel_booking', {'service': 'music_room', 'booking_id': 'not-an-int'}),
+        ('rooms_book_room', {'room_id': 'r', 'day': '2000-01-01', 'time_from': '10:00', 'time_to': '11:00', 'title': 'meeting'}),
+    ]:
+        with pytest.raises(ValueError):
+            domain.validate(name, args)
+
+
+def test_unknown_write_outcome_is_not_a_decline_or_a_retry(monkeypatch, caplog):
+    import httpx
+    from catix.innohassle import sport as sport_api
+    from catix.innohassle import mcp_domain as domain
+
+    calls = []
+    def fail(*args):
+        calls.append(args)
+        raise httpx.ReadTimeout('secret upstream body')
+    monkeypatch.setattr(sport_api, 'check_in', fail)
+    result = call('sport_sport_checkin', {'training_id': 7}, token='ih', sport_token='sport', uid='owner')
+    assert result['done'] is None and result['outcome'] == 'unknown'
+    assert 'retry automatically' in result['error']
+    assert len(calls) == 1
+    assert 'secret upstream' not in str(result) + caplog.text
+
+
+def test_business_refusal_redacts_reflected_credentials(monkeypatch, caplog):
+    from catix.innohassle import sport as sport_api
+    from catix.innohassle import mcp_domain as domain
+    from catix.innohassle.client import ServiceError
+
+    def refuse(*args):
+        raise ServiceError(403, 'Training full; token=ih-secret and sport-secret')
+    monkeypatch.setattr(sport_api, 'check_in', refuse)
+    result = call('sport_sport_checkin', {'training_id': 7},
+        token='ih-secret', sport_token='sport-secret', uid='owner')
+    assert result['done'] is False
+    assert 'Training full' in result['error']
+    assert 'ih-secret' not in str(result) + caplog.text
+    assert 'sport-secret' not in str(result) + caplog.text
+
+
+def test_sport_summary_reuses_aggregation_without_model_runtime(monkeypatch):
+    from catix.innohassle import sport as sport_api
+    from catix.innohassle import mcp_domain as domain
+
+    seen = []
+    monkeypatch.setattr(sport_api, 'me', lambda token: seen.append(token) or {'user_id': 22, 'student_info': {'medical_group': 'main'}})
+    monkeypatch.setattr(sport_api, 'hours', lambda token, uid: seen.append((token, uid)) or {'hours_from_groups': 5, 'self_sport_hours': 2, 'required_hours': 20, 'debt': 3})
+    monkeypatch.setattr(sport_api, 'current_semester', lambda token: {})
+    monkeypatch.setattr(sport_api, 'my_trainings', lambda *args: [])
+    assert domain.validate('sport_get_my_sport', {}) == {}
+    result = call('sport_get_my_sport', {}, token='ih-secret', sport_token='sport-secret', uid='owner')
+    assert result['hours'] == {'done': 7, 'from_trainings': 5, 'self_sport': 2, 'required': 20, 'debt': 3, 'left': 16}
+    assert result['medical_group'] == 'main'
+    assert seen == ['sport-secret', ('sport-secret', 22)]
+
+
+def test_room_music_and_event_domain_rules_survive_native_dispatch(monkeypatch):
+    from catix.innohassle import client as api, mcp_account as account_tools
+    from catix.innohassle import mcp_domain as domain
+
+    writes = []
+    kwargs = {'token': 'ih-secret', 'sport_token': None, 'uid': 'owner'}
+    room = {'room_id': 'r', 'title': 'meeting', 'day': '2099-01-01', 'time_from': '10:00', 'time_to': '11:00'}
+    monkeypatch.setattr(api, 'can_book_room', lambda *a: (False, 'students only'))
+    monkeypatch.setattr(api, 'book_room', lambda *a: writes.append(a) or {'outlook_booking_id': 'outlook-returned-id'})
+    assert call('rooms_book_room', room, **kwargs)['done'] is False
+    assert not writes
+    monkeypatch.setattr(api, 'can_book_room', lambda *a: (True, None))
+    result = call('rooms_book_room', room, **kwargs)
+    assert result['done'] is True and result['booked']['booking_id'] == 'outlook-returned-id'
+    assert writes[-1][:3] == ('ih-secret', 'r', 'meeting')
+    monkeypatch.setattr(api, 'cancel_room', lambda *a: writes.append(a))
+    assert call('account_cancel_booking', {'service': 'room', 'booking_id': 'outlook-returned-id'}, **kwargs)['done'] is True
+    assert writes[-1] == ('ih-secret', 'outlook-returned-id')
+    music = {k: v for k, v in room.items() if k not in {'room_id', 'title'}}
+    monkeypatch.setattr(api, 'music_room_bookings', lambda *a: [{'time_start': '2099-01-01T10:30:00', 'time_end': '2099-01-01T11:30:00'}])
+    monkeypatch.setattr(api, 'book_music_room', lambda *a: writes.append(a) or {'id': 4})
+    assert call('music_book_music_room', music, **kwargs)['done'] is False
+    count = len(writes)
+    monkeypatch.setattr(api, 'music_room_bookings', lambda *a: [])
+    monkeypatch.setattr(api, 'music_room_hours_left', lambda *a: (0.5, 2))
+    assert call('music_book_music_room', music, **kwargs)['done'] is False
+    assert len(writes) == count
+    monkeypatch.setattr(api, 'music_room_hours_left', lambda *a: (2, 3))
+    assert call('music_book_music_room', music, **kwargs)['booked']['booking_id'] == '4'
+    monkeypatch.setattr(api, 'event', lambda *a: {'data': {'enrollment': {'type': 'external', 'url': 'https://organizer.test/join'}}})
+    monkeypatch.setattr(api, 'enroll', lambda *a: writes.append(a))
+    count = len(writes)
+    result = call('events_enroll_in_event', {'event_id': 'a' * 24}, **kwargs)
+    assert result['done'] is False and 'https://organizer.test/join' in result['error']
+    assert len(writes) == count
+    monkeypatch.setattr(api, 'event', lambda *a: {'data': {'enrollment': {'type': 'innohassle'}}})
+    assert call('events_enroll_in_event', {'event_id': 'a' * 24}, **kwargs)['enrolled'] is True
+    assert writes[-1] == ('ih-secret', 'a' * 24)
+
+
+def test_room_availability_and_account_schedule_keep_aggregations(monkeypatch):
+    from datetime import date
+    from catix.innohassle import client as api, mcp_account as account_tools
+    from catix.innohassle import mcp_domain as domain
+
+    kwargs = {'token': 'ih-secret', 'sport_token': 'sport-secret', 'uid': 'verified'}
+    monkeypatch.setattr(api, 'bookable_rooms', lambda token: [
+        {'id': 'free', 'title': 'Free', 'capacity': 10, 'access_level': 'yellow'},
+        {'id': 'busy', 'title': 'Busy', 'capacity': 5}])
+    monkeypatch.setattr(api, 'room_bookings', lambda *a: [
+        {'room_id': 'busy', 'start': '2099-01-01T10:30:00', 'end': '2099-01-01T11:30:00'}])
+    result = call('rooms_get_free_rooms', {'day': '2099-01-01', 'time_from': '10:00', 'time_to': '11:00'}, **kwargs)
+    assert result['free'] == [{'room_id': 'free', 'title': 'Free', 'capacity': 10, 'who': 'students'}]
+    assert result['booked'] == ['busy']
+    monkeypatch.setattr(account_tools, '_calendar', lambda *a: ([{'kind': 'class', 'title': 'Math'}], {}))
+    monkeypatch.setattr(account_tools, '_bookings', lambda *a: ([{'booking_id': 'outlook-id'}], []))
+    result = call('account_get_my_schedule', {'date_from': '2099-01-01', 'date_to': '2099-01-02'}, **kwargs)
+    assert result['schedule'] == [{'kind': 'class', 'title': 'Math'}]
+    assert result['bookings'] == [{'booking_id': 'outlook-id'}]
+    assert 'ai_calendar' not in result

@@ -10,19 +10,14 @@ from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta
 from typing import Literal
 
-import icalendar
-import recurring_ical_events
 from langchain.tools import ToolRuntime
 from langchain_core.tools import tool
 from langgraph.types import Command
 from pydantic import BaseModel, Field, SecretStr, field_validator
 
 from catix import official
-from catix.agent.account_tools import ACCOUNT_TOOLS
 from catix.agent.api_tools import API_TOOLS
-from catix.agent.sport_tools import SPORT_TOOLS
 from catix.agent.calendar_tools import CALENDAR_TOOLS
-from catix.agent.campus_tools import CAMPUS_TOOLS
 from catix.agent.web_tools import WEB_TOOLS
 from catix.agent.sources import Collector
 from catix.common import courses, dates
@@ -31,10 +26,6 @@ from catix.db import wiki as wiki_store
 from catix.innohassle import client as innohassle
 from catix.settings import settings
 
-MAX_CLUBS = 10
-MAX_CLUBS_LISTING = 40
-MAX_EVENTS = 30
-MAX_AREAS = 8
 MAX_MESSAGES = 15
 MAX_MESSAGES_RERANKED = 8  # The reranker picks the best of ~100, so fewer are enough.
 
@@ -55,207 +46,21 @@ class AgentContext:
     # question (see core.prompt_for).
     asked_at: datetime = field(default_factory=lambda: datetime.now(settings.tz))
     # The asker's InNoHassle token, which only the site has (api/auth.py): the account helper's tools ask InNoHassle as the
-    # asker with it (agent/account_tools.py). Never kept, never shown; None in the bots and the CLI, where there is no account
+    # asker with it through MCP. Also authorizes local AI Calendar actions. Never kept, never shown; None in the bots and the CLI, where there is no account
     # helper (core.AccountOnTheSiteMiddleware).
     innohassle_token: SecretStr | None = field(default=None, repr=False)
     # The asker's InNoHassle account on the site: their AI Calendar is kept under it (agent/calendar_tools.py). In the
     # Telegram bot the account linked to `user_telegram_id` is asked for when it is needed.
     innohassle_id: str | None = None
     # The asker's InNoHassle Sport token, which the site sends with a question (api/auth.py verify_asker): the account helper
-    # reads their sport and checks them in with it (agent/sport_tools.py). Never kept, never shown.
+    # reads their sport and checks them in through MCP. Never kept, never shown.
     sport_token: SecretStr | None = field(default=None, repr=False)
-
-
-DEFAULT_EVENTS_WINDOW_DAYS = 14
-
-
-def _doc_to_text(raw: str) -> str:
-    """Club descriptions are stored as a ProseMirror JSON document; flatten it to plain text."""
-    try:
-        doc = json.loads(raw)
-    except (json.JSONDecodeError, TypeError):
-        return raw or ""
-
-    lines: list[str] = []
-
-    def walk(node: dict, buf: list[str]) -> None:
-        match node.get("type"):
-            case "text":
-                buf.append(node.get("text", ""))
-            case "hardBreak":
-                buf.append("\n")
-            case _:
-                for child in node.get("content", []):
-                    walk(child, buf)
-
-    for block in doc.get("content", []):
-        buf: list[str] = []
-        walk(block, buf)
-        if text := "".join(buf).strip():
-            lines.append(text)
-    return "\n".join(lines)
-
-
-def _matches(query: str, *fields: str | None) -> bool:
-    haystack = " ".join(f for f in fields if f).lower()
-    return all(word in haystack for word in query.lower().split())
 
 
 def _fmt(dt: date | datetime) -> str:
     if isinstance(dt, datetime):
         return dt.astimezone(settings.tz).strftime("%Y-%m-%d %H:%M %a")
     return dt.isoformat()
-
-
-class GetClubsArgs(BaseModel):
-    query: str | None = Field(
-        None,
-        description="Keywords in English, e.g. 'chess', 'dance', 'robotics'. Club data is in English.",
-    )
-    type: Literal["tech", "sport", "hobby", "art"] | None = None
-    include_inactive: bool = Field(False, description="Also return closed clubs.")
-
-
-@tool(args_schema=GetClubsArgs)
-def get_clubs(query: str | None = None, type: str | None = None, include_inactive: bool = False) -> dict:
-    """Student clubs of Innopolis University. With `query`: full description, schedule, location,
-    leader contacts and links. Without `query`: a short list of titles; call again with a query for details."""
-    leaders = innohassle.club_leaders()
-    found = []
-    for club in innohassle.clubs():
-        if not include_inactive and not club["is_active"]:
-            continue
-        if type and club["type"] != type:
-            continue
-        description = _doc_to_text(club["description"])
-        if query and not _matches(query, club["title"], club["short_description"], description):
-            continue
-        if not query:
-            # Listing mode: many clubs, so only the essentials to save context.
-            found.append(
-                {
-                    "title": club["title"],
-                    "type": club["type"],
-                    "short_description": club["short_description"][:200],
-                }
-            )
-            continue
-        leader = leaders.get(club["leader_innohassle_id"] or "")
-        found.append(
-            {
-                "title": club["title"],
-                "type": club["type"],
-                "active": club["is_active"],
-                "short_description": club["short_description"],
-                "description": description[:1200],
-                "leader": leader and {"name": leader["name"], "telegram": leader["telegram_alias"]},
-                "links": [{"label": l.get("label"), "url": l["link"]} for l in club["links"]],
-            }
-        )
-    limit = MAX_CLUBS if query else MAX_CLUBS_LISTING
-    result = {"total": len(found), "clubs": found[:limit]}
-    if len(found) > limit:
-        result["note"] = f"Only the first {limit} of {len(found)} are shown; narrow the query or filter by type."
-    return result
-
-
-class GetUniversityEventsArgs(BaseModel):
-    date_from: date | None = Field(None, description="YYYY-MM-DD, default today.")
-    date_to: date | None = Field(
-        None,
-        description=f"YYYY-MM-DD inclusive, default date_from + {DEFAULT_EVENTS_WINDOW_DAYS} days.",
-    )
-    query: str | None = Field(None, description="Optional keywords to filter by.")
-
-
-EVENT_PAGE = "https://innohassle.ru/events/p/{id}"
-
-
-def _event_item(item: dict) -> dict:
-    """An event of InNoHassle Events as the model sees it: its names and description in each language it has, when, where,
-    who hosts it and how to enrol (`id` is what enroll_in_event takes)."""
-    data = item["data"]
-    begin = datetime.fromisoformat(data["starts_at"])
-    locales = (innohassle.event(item["id"]).get("data") or {}).get("locales") or {}
-    names = {lang: loc.get("name") for lang, loc in locales.items() if loc.get("name")}
-    texts = [_doc_to_text(loc.get("description") or "") for loc in locales.values()]
-    enrollment = data.get("enrollment") or {}
-    if enrollment.get("type") == "external":
-        enrol = f"on the organisers' page: {enrollment.get('url')}" if enrollment.get("url") else "with the organisers"
-    else:
-        capacity = enrollment.get("capacity")
-        enrol = f"on InNoHassle, {item.get('enrolled_count', 0)} enrolled" + (f" of {capacity} places" if capacity else "")
-    location = data.get("location") or {}
-    event = {
-        "id": item["id"],
-        "title": data.get("name") or next(iter(names.values()), ""),
-        "names": names if len(set(names.values())) > 1 else None,
-        "start": _fmt(begin),
-        "end": _fmt(begin + timedelta(hours=data.get("duration_hours") or 0)) if data.get("duration_hours") else None,
-        "location": location.get("display_name") or None,
-        "map": location.get("url") or None,
-        "hosts": [h["display_name"] for h in data.get("hosts") or []] or None,
-        "enrollment": enrol,
-        "page": EVENT_PAGE.format(id=item["id"]),
-        "description": "\n\n".join(t for t in texts if t)[:600] or None,
-    }
-    return {k: v for k, v in event.items() if v}
-
-
-@tool(args_schema=GetUniversityEventsArgs)
-def get_university_events(date_from: date | None = None, date_to: date | None = None, query: str | None = None) -> dict:
-    """University-wide events (talks, workshops, movie nights, celebrations, trips) from InNoHassle Events, with who hosts
-    them and how to enrol. Does NOT contain class schedules, exams or deadlines."""
-    start = date_from or datetime.now(settings.tz).date()
-    end = date_to or start + timedelta(days=DEFAULT_EVENTS_WINDOW_DAYS)
-    listed = innohassle.events(
-        datetime.combine(start, datetime.min.time(), settings.tz), datetime.combine(end + timedelta(days=1), datetime.min.time(), settings.tz)
-    )
-    events = []
-    for item in sorted(listed, key=lambda i: i["data"]["starts_at"]):
-        event = _event_item(item)
-        if query and not _matches(query, event["title"], *(event.get("names") or {}).values(), event.get("description"),
-                                  event.get("location"), *(event.get("hosts") or [])):  # fmt: skip
-            continue
-        events.append(event)
-    result = {
-        "range": [start.isoformat(), end.isoformat()],
-        "total": len(events),
-        "events": events[:MAX_EVENTS],
-    }
-    if not listed:
-        result["note"] = "InNoHassle Events has no published event in this period, so absence of events here proves nothing."
-    return result
-
-
-class FindRoomArgs(BaseModel):
-    query: str = Field(description="Room number ('319'), place ('canteen', 'printer') or person surname.")
-
-
-@tool(args_schema=FindRoomArgs)
-def find_room(query: str) -> dict:
-    """Search the campus map: room numbers, offices (e.g. 'Student Affairs'), canteens, printers,
-    and which staff member sits in which room. Returns floor/building, description and working hours."""
-    scene_titles = {s["scene_id"]: s["title"] for s in innohassle.scenes()}
-    seen: set[tuple[str, str]] = set()
-    areas = []
-    for hit in innohassle.search_areas(query):
-        area = hit["area"]
-        key = (hit["scene_id"], area["svg_polygon_id"])
-        if key in seen:
-            continue
-        seen.add(key)
-        areas.append(
-            {
-                "title": area["title"],
-                "ru_title": area["ru_title"],
-                "where": scene_titles.get(hit["scene_id"], hit["scene_id"]),
-                "description": area["description"],
-                "people": area["people"] or None,
-                "bookable": area["room_booking_id"] is not None,
-            }
-        )
-    return {"total": len(areas), "areas": areas[:MAX_AREAS]}
 
 
 class SearchChatsArgs(BaseModel):
@@ -596,7 +401,6 @@ def _own_group(runtime: ToolRuntime[AgentContext]) -> dict | None:
     return matches[0] if len(matches) == 1 else None
 
 
-MAX_CLASSES = 40
 DEFAULT_SCHEDULE_DAYS = 7
 GROUP_UNKNOWN = "The asker's group is not known: ask them for it (such as B26-DSAI-04)."
 
@@ -623,11 +427,6 @@ def _find_group(query: str) -> list[dict]:
     return by_suffix or [g for g in groups if key in _norm(g["name"])]
 
 
-def _instructor(description: str) -> str | None:
-    match = re.search(r"Instructors?:\s*([^\n]+?)(?:\s+Groups?:|\n|$)", description)
-    return match.group(1).strip() if match else None
-
-
 class GetScheduleArgs(BaseModel):
     group: str | None = Field(
         None,
@@ -642,83 +441,6 @@ class GetScheduleArgs(BaseModel):
         None,
         description="Filter by words in the class title, e.g. 'lab', 'Programming'.",
     )
-
-
-@tool(args_schema=GetScheduleArgs)
-def get_schedule(
-    runtime: ToolRuntime[AgentContext],
-    group: str | None = None,
-    date_from: date | None = None,
-    date_to: date | None = None,
-    query: str | None = None,
-) -> dict:
-    """Official university timetable from InNoHassle: lectures, tutorials and labs with times, rooms and
-    instructors. Use for "what classes / where is the lab / which room" questions. Exams and reschedules
-    announced in chats are found with search_chats instead."""
-    start = date_from or datetime.now(settings.tz).date()
-    end = date_to or start + timedelta(days=DEFAULT_SCHEDULE_DAYS - 1)
-
-    if group and not _named(group, runtime):
-        return {"error": GROUP_UNKNOWN}
-    if group:
-        matches = _find_group(group)
-        if not matches:
-            return {
-                "error": f"No schedule group matches {group!r}. Ask the user for the exact group, e.g. B26-DSAI-04."
-            }
-        if len(matches) > 1:
-            return {
-                "error": "Several groups match, ask the user which one.",
-                "candidates": [g["name"] for g in matches[:15]],
-            }
-        source = matches[0]["name"]
-        ics = innohassle.group_schedule_ics(matches[0]["alias"])
-    elif (own := _own_group(runtime)) is not None:
-        source = own["name"]
-        ics = innohassle.group_schedule_ics(own["alias"])
-    else:
-        return {"error": GROUP_UNKNOWN}
-
-    calendar = icalendar.Calendar.from_ical(ics)
-    now = datetime.now(settings.tz)
-    classes, seen = [], set()
-    for ev in recurring_ical_events.of(calendar).between(start, end + timedelta(days=1)):
-        title = str(ev.get("SUMMARY", ""))
-        if query and not _matches(query, title):
-            continue
-        begin = ev.decoded("DTSTART")
-        if not isinstance(begin, datetime):
-            continue  # All-day entries are markers, not classes.
-        key = (begin, title, str(ev.get("LOCATION", "")))
-        if key in seen:
-            continue  # A calendar may repeat an event once per source group.
-        seen.add(key)
-        local = begin.astimezone(settings.tz)
-        finish = ev.decoded("DTEND") if "DTEND" in ev else begin
-        # Computed here: the model is unreliable at comparing clock times with "now".
-        status = "finished" if finish <= now else "now" if begin <= now else "upcoming"
-        item = {
-            "date": local.strftime("%Y-%m-%d %a"),
-            "time": f"{local:%H:%M}-{ev.decoded('DTEND').astimezone(settings.tz):%H:%M}"
-            if "DTEND" in ev
-            else f"{local:%H:%M}",
-            "title": title,
-            "room": str(ev.get("LOCATION", "")) or None,
-            "instructor": _instructor(str(ev.get("DESCRIPTION", ""))),
-            "status": status,
-        }
-        classes.append({k: v for k, v in item.items() if v})
-    classes.sort(key=lambda c: (c["date"], c["time"]))
-    result = {
-        "schedule": source,
-        "now": now.strftime("%Y-%m-%d %H:%M"),
-        "range": [start.isoformat(), end.isoformat()],
-        "total": len(classes),
-        "classes": classes[:MAX_CLASSES],
-    }
-    if len(classes) > MAX_CLASSES:
-        result["note"] = f"Only the first {MAX_CLASSES} are shown; narrow the dates."
-    return result
 
 
 # ---- the wiki: documents of the university, guides, eduwiki ------------------------------------------------------
@@ -915,19 +637,12 @@ def read_wiki(page: str, runtime: ToolRuntime[AgentContext], clause: str | None 
 
 
 TOOLS = [
-    get_schedule,
     search_chats,
     read_chats,
-    get_clubs,
-    get_university_events,
-    find_room,
     search_userbot_chats,
     search_wiki,
     read_wiki,
-    *CAMPUS_TOOLS,
-    *ACCOUNT_TOOLS,
     *API_TOOLS,
-    *SPORT_TOOLS,
     *CALENDAR_TOOLS,
     *WEB_TOOLS,
 ]

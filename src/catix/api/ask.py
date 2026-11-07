@@ -8,8 +8,9 @@ buttons under the bot's answers; POST /users/my-calendar/events/{id} adds one (a
 POST /ask/{ask_query_id}/feedback: a 👍/👎 on an answer with an optional comment, an annotation on its trace in Phoenix as under
 the bot's answers.
 
-An answer may have to wait for the user: on the site the account helper does things in InNoHassle for the user (books the music
-room or a room, enrols them in an event, cancels a booking: agent/account_tools.py), and HumanInTheLoopMiddleware pauses the
+An answer may have to wait for the user: on the site the account helper does external actions through MCP (books the music
+room or a room, enrols them in an event, cancels a booking), and the orchestrator manages the local AI Calendar.
+HumanInTheLoopMiddleware pauses the
 agent before each such action (a LangGraph interrupt in the chat's thread). The response then has `approval` (what is to be
 done) instead of the answer, and the question waits in the chat (api/chats.py `save_waiting`). POST
 /ask/{chat_id}/decision (or .../decision/stream) approves or rejects it: the agent goes on from where it paused, with the token
@@ -37,7 +38,7 @@ from psycopg_pool import AsyncConnectionPool
 from catix import groups, personal_calendar
 from catix.agent import events as calendar_events
 from catix.agent import titles, tracing
-from catix.agent.account_tools import DECLINED
+from catix.agent.approval import DECLINED
 from catix.agent.core import SUPERVISOR_NAME, _language, build_agent, final_answer
 from catix.agent.questions import QuestionQueue
 from catix.agent.tools import AgentContext
@@ -346,9 +347,9 @@ async def _run(
         allowed_chat_ids=frozenset(allowed),
         user_telegram_id=user.telegram_id,
         study_group=None if group == groups.ALL else group,
-        innohassle_token=user.token,  # the site's user: the account helper (agent/account_tools.py)
+        innohassle_token=user.token,  # the site's user: external MCP account actions and local calendar approval
         innohassle_id=user.innohassle_id,  # their AI Calendar (agent/calendar_tools.py)
-        sport_token=user.sport_token,  # their sport, when the site sent their Sport token (agent/sport_tools.py)
+        sport_token=user.sport_token,  # their sport through MCP, when the site sent their separate Sport token
     )
     # The sources known before this question: the cards are of what it found (when resumed, also before it paused).
     if resume is None:

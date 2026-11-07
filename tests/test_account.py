@@ -1,22 +1,28 @@
-"""The account helper (agent/account_tools.py): on the site it works with the asker's InNoHassle token, and each action it asks
-for waits for the asker's decision (HumanInTheLoopMiddleware). Without a model or InNoHassle: a scripted model asks for the
-action, the services are fakes that record what was done."""
+"""External account operations use real MCP; AI Calendar remains local.
+
+Scripted graphs preserve approve/reject behavior with synthetic upstream services.
+"""
 
 from datetime import datetime, time, timedelta, timezone
 from types import SimpleNamespace
 
 import pytest
+from fastmcp.exceptions import ToolError
 from langchain_core.messages import AIMessage, ToolMessage
 from langgraph.types import Command
 from pydantic import SecretStr
 
 from catix import personal_calendar
-from catix.agent import account_tools, calendar_tools, roles
+from catix.agent import calendar_approval, calendar_tools, roles
+from catix.agent.approval import DECLINED
 from catix.agent.core import ACCOUNT_HELPER, AccountOnTheSiteMiddleware, build_agent
 from catix.agent.tools import TOOLS, AgentContext
 from catix.innohassle import client as innohassle
 from catix.settings import settings
+from tests.mcp_native_helpers import call
 from tests.test_roles import ScriptedModel
+
+pytestmark = pytest.mark.usefixtures("native_mcp")
 
 SITE = AgentContext(innohassle_token=SecretStr("user-token"), innohassle_id="u1")
 DAY = (datetime.now(settings.tz) + timedelta(days=2)).date()
@@ -24,6 +30,14 @@ DAY = (datetime.now(settings.tz) + timedelta(days=2)).date()
 
 def _call(name: str, args: dict, call_id: str) -> AIMessage:
     return AIMessage(content="", tool_calls=[{"name": name, "args": args, "id": call_id, "type": "tool_call"}])
+
+
+@pytest.fixture
+def native_mcp(monkeypatch, mcp_http_protocol):
+    """Real MCP HTTP with synthetic identity; no accounts, proof store or network."""
+    from catix.innohassle import token
+
+    monkeypatch.setattr(token, "claims", lambda value: {"uid": "u1"} if value == "user-token" else None)
 
 
 @pytest.fixture
@@ -44,7 +58,8 @@ def music_room(monkeypatch):
 def _booking_run(*after_decision: AIMessage, slot=("18:00", "19:00")):
     script = [
         _call(ACCOUNT_HELPER, {"question": "забронируй музкомнату послезавтра с 18 до 19"}, "s1"),  # the supervisor
-        _call("book_music_room", {"day": DAY.isoformat(), "time_from": slot[0], "time_to": slot[1]}, "h1"),  # the helper
+        _call("call_api_tool", {"name": "music_book_music_room", "arguments": {
+            "day": DAY.isoformat(), "time_from": slot[0], "time_to": slot[1]}}, "h1"),  # the helper
         *after_decision,
     ]
     agent = build_agent(ScriptedModel(responses=script), guardrail=False)
@@ -58,7 +73,7 @@ def test_an_action_waits_for_the_users_approval_and_is_done_once_approved(music_
     paused = agent.get_state(config).interrupts
     assert len(paused) == 1 and not music_room, "nothing is booked before the user decides"
     request = paused[0].value["action_requests"][0]
-    assert request["name"] == "book_music_room"
+    assert request["name"] == "call_api_tool" and request["args"]["name"] == "music_book_music_room"
     assert "музыкальную комнату" in request["description"] and "18:00–19:00" in request["description"]
     assert paused[0].value["review_configs"][0]["allowed_decisions"] == ["approve", "reject"]
 
@@ -72,7 +87,7 @@ def test_a_rejected_action_is_not_done_and_the_helper_is_told_so(music_room):
     agent, config = _booking_run(AIMessage(content="Бронь отменена вами."), AIMessage(content="Хорошо, не бронирую."))
     paused = agent.get_state(config).interrupts
     out = agent.invoke(
-        Command(resume={paused[0].id: {"decisions": [{"type": "reject", "message": account_tools.DECLINED}]}}), config, context=SITE
+        Command(resume={paused[0].id: {"decisions": [{"type": "reject", "message": DECLINED}]}}), config, context=SITE
     )
     assert not music_room
     report = next(m for m in out["messages"] if isinstance(m, ToolMessage) and m.name == ACCOUNT_HELPER)
@@ -80,20 +95,27 @@ def test_a_rejected_action_is_not_done_and_the_helper_is_told_so(music_room):
     assert told, "the helper gets the user's refusal as the result of the call"
 
 
-def test_an_impossible_action_is_not_put_to_the_user_and_does_nothing(music_room):
+def test_a_past_action_is_refused_by_mcp_even_after_host_consent(music_room):
     yesterday = (datetime.now(settings.tz) - timedelta(days=1)).date()
     script = [
         _call(ACCOUNT_HELPER, {"question": "забронируй музкомнату вчера"}, "s1"),
-        _call("book_music_room", {"day": yesterday.isoformat(), "time_from": "18:00", "time_to": "19:00"}, "h1"),
+        _call("call_api_tool", {"name": "music_book_music_room", "arguments": {
+            "day": yesterday.isoformat(), "time_from": "18:00", "time_to": "19:00"}}, "h1"),
         AIMessage(content="Это время уже прошло."),
         AIMessage(content="Это время уже прошло: назовите другое."),
     ]
     agent = build_agent(ScriptedModel(responses=script), guardrail=False)
     config = {"configurable": {"thread_id": "past"}}
-    out = agent.invoke({"messages": [{"role": "user", "content": "забронируй музкомнату вчера"}]}, config, context=SITE)
+    agent.invoke({"messages": [{"role": "user", "content": "забронируй музкомнату вчера"}]}, config, context=SITE)
+    paused = agent.get_state(config).interrupts
+    assert len(paused) == 1 and not music_room
+    out = agent.invoke(Command(resume={paused[0].id: {"decisions": [{"type": "approve"}]}}), config, context=SITE)
     assert not agent.get_state(config).interrupts and not music_room
     report = next(m for m in out["messages"] if isinstance(m, ToolMessage) and m.name == ACCOUNT_HELPER)
-    assert any("already past" in r for r in report.artifact["results"])
+    assert any('"error"' in r for r in report.artifact["results"]), report.artifact["results"]
+    with pytest.raises(ToolError, match="already past"):
+        call("music_book_music_room", {"day": yesterday.isoformat(), "time_from": "18:00", "time_to": "19:00"}, token="user-token")
+    assert not music_room
 
 
 def test_the_account_helper_is_offered_only_with_the_users_token():
@@ -109,24 +131,38 @@ def test_the_account_helper_is_offered_only_with_the_users_token():
     assert offered(SITE) == ["ask_docs", ACCOUNT_HELPER]
 
 
-def test_the_account_tools_without_a_token_say_that_it_is_done_on_the_site():
-    runtime = SimpleNamespace(context=AgentContext())
-    assert "only on the site" in account_tools.get_my_schedule.func(runtime)["error"]
-    result = account_tools.book_music_room.func(DAY, datetime.min.time(), datetime.max.time(), runtime)
-    assert "only on the site" in result["error"]
+def test_account_mcp_requires_sign_in_before_reading_or_writing(music_room):
+    with pytest.raises(ToolError, match="sign in"):
+        call("account_get_my_schedule", {})
+    with pytest.raises(ToolError, match="sign in"):
+        call("music_book_music_room", {"day": DAY.isoformat(), "time_from": "18:00", "time_to": "19:00"})
+    assert not music_room
 
 
 def test_the_token_is_never_shown():
     assert "user-token" not in repr(SITE) and "user-token" not in str(SITE)
 
 
-def test_every_action_of_a_helper_waits_for_a_decision():
+def test_retired_external_langchain_implementations_are_removed():
+    from importlib.util import find_spec
+    from catix.agent import tools
+
+    for module in ("account_tools", "sport_tools", "campus_tools"):
+        assert find_spec(f"catix.agent.{module}") is None
+    for name in ("get_clubs", "get_university_events", "find_room", "get_schedule"):
+        assert not hasattr(tools, name)
+
+
+def test_external_tools_are_registered_only_through_shared_mcp():
     known = {t.name for t in TOOLS}
     account = roles.ROLES["account"]
-    assert account.approval == set(account_tools.APPROVAL) and account.approval <= account.tools <= known
-    for role in roles.ROLES.values():
-        if role.name != "account":
-            assert not role.tools & set(account_tools.APPROVAL), f"the {role.name} helper may not act for the user"
+    from catix.agent.api_tools import API_APPROVAL
+
+    assert set(API_APPROVAL) == {"call_api_tool"}
+    assert account.tools == {"search_api_tools", "call_api_tool"} and account.tools <= known
+    assert {"get_my_ai_calendar", "add_to_ai_calendar", "update_ai_calendar", "remove_from_ai_calendar"} <= known
+    assert not {"get_my_schedule", "book_music_room", "sport_checkin", "get_courses", "get_schedule",
+                "get_clubs", "get_university_events", "find_room"} & known
 
 
 @pytest.mark.parametrize(
@@ -140,12 +176,30 @@ def test_every_action_of_a_helper_waits_for_a_decision():
         ("cancel_booking", {"service": "music_room", "booking_id": "77"}, False),
         ("cancel_booking", {"service": "music_room", "booking_id": "tomorrow"}, True),
         ("cancel_booking", {"service": "room", "booking_id": "AAMkAD="}, False),
-        ("remove_from_ai_calendar", {"calendar_event_id": 5}, False),
-        ("remove_from_ai_calendar", {"calendar_event_id": 0}, True),
     ],
 )
-def test_arguments_that_cannot_be_right_are_told_without_asking(name, args, wrong):
-    assert (account_tools._problem(name, args) is not None) is wrong
+def test_mcp_validates_business_arguments_before_upstream_writes(name, args, wrong, music_room, monkeypatch):
+    writes = []
+    monkeypatch.setattr(innohassle, "event", lambda event_id: {"data": {"enrollment": {"type": "innohassle"}}})
+    monkeypatch.setattr(innohassle, "enroll", lambda *a: writes.append(a))
+    monkeypatch.setattr(innohassle, "cancel_music_room", lambda *a: writes.append(a))
+    monkeypatch.setattr(innohassle, "cancel_room", lambda *a: writes.append(a))
+    target = {"book_music_room": "music_book_music_room", "enroll_in_event": "events_enroll_in_event",
+              "cancel_booking": "account_cancel_booking"}[name]
+    if wrong:
+        with pytest.raises(ToolError):
+            call(target, args, token="user-token")
+        assert not writes and not music_room
+    else:
+        assert call(target, args, token="user-token")["done"] is True
+        assert len(writes) + len(music_room) == 1
+
+
+@pytest.mark.parametrize(("event_id", "valid"), [(5, True), (0, False)])
+def test_invalid_local_calendar_arguments_do_not_request_consent(event_id, valid):
+    request = SimpleNamespace(tool_call={"name": "remove_from_ai_calendar", "args": {"calendar_event_id": event_id}},
+                              runtime=SimpleNamespace(context=SITE))
+    assert calendar_approval.LOCAL_CALENDAR_APPROVAL["remove_from_ai_calendar"]["when"](request) is valid
 
 
 # --- the asker's whole calendar and their AI Calendar ---
@@ -198,12 +252,14 @@ def calendars(monkeypatch):
 
 
 def test_the_schedule_has_every_calendar_of_the_asker_and_says_what_it_could_not_read(calendars, ai_calendar):
-    out = account_tools.get_my_schedule.func(SimpleNamespace(context=SITE), DAY, DAY)
+    out = call("account_get_my_schedule", {"date_from": DAY.isoformat(), "date_to": DAY.isoformat()}, token="user-token")
     assert [(i["kind"], i["time"], i["title"]) for i in out["schedule"]] == [
         ("class", "09:00-10:00", "Compiler Construction (lec)"), ("sport", "19:00-20:00", "Плавание"),
         ("event", "21:00-23:00", "Spooky Movie Night"),
     ]  # fmt: skip
-    assert out["ai_calendar"] == [{"calendar_event_id": 5, "date": HACKATHON.starts_at.strftime("%Y-%m-%d %a"), "title": "Хакатон",
+    assert "ai_calendar" not in out, "MCP must not read the local calendar"
+    local = calendar_tools.get_my_ai_calendar.func(SimpleNamespace(context=SITE), DAY, DAY)
+    assert local["events"] == [{"calendar_event_id": 5, "date": HACKATHON.starts_at.strftime("%Y-%m-%d %a"), "title": "Хакатон",
                                    "all_day": False, "starts_at": HACKATHON.starts_at.isoformat(), "ends_at": HACKATHON.ends_at.isoformat(),
                                    "time": "10:00-18:00", "place": "108", "source": "https://t.me/c/1/2"}]  # fmt: skip
     assert "not_read" not in out, "the retired Moodle calendar must not leave a warning"
@@ -214,7 +270,7 @@ def test_a_sign_in_that_innohassle_refuses_is_the_error_of_the_schedule(calendar
         raise innohassle.ServiceError(401, "Invalid token")
 
     monkeypatch.setattr(innohassle, "my_calendar_ics", refused)
-    assert "sign in" in account_tools.get_my_schedule.func(SimpleNamespace(context=SITE), DAY, DAY)["error"]
+    assert "sign in" in call("account_get_my_schedule", {"date_from": DAY.isoformat(), "date_to": DAY.isoformat()}, token="user-token")["error"]
 
 
 def test_the_ai_calendar_is_read_on_the_site_and_in_the_telegram_bot(ai_calendar):
@@ -229,9 +285,7 @@ def test_the_ai_calendar_is_read_on_the_site_and_in_the_telegram_bot(ai_calendar
 def test_an_event_is_removed_from_the_ai_calendar_once_the_user_approves(ai_calendar):
     asked = "убери хакатон из моего календаря"
     script = [
-        _call(ACCOUNT_HELPER, {"question": asked}, "s1"),
         _call("remove_from_ai_calendar", {"calendar_event_id": 5}, "h1"),
-        AIMessage(content="Хакатон убран из календаря."),
         AIMessage(content="Готово: хакатон убран."),
     ]
     agent = build_agent(ScriptedModel(responses=script), guardrail=False)
@@ -254,6 +308,8 @@ def test_a_calendar_that_does_not_answer_leaves_the_others(calendars, ai_calenda
         return calendars.get(kind, calendars["class"])
 
     monkeypatch.setattr(innohassle, "my_calendar_ics", slow_sport)
-    out = account_tools.get_my_schedule.func(SimpleNamespace(context=SITE), DAY, DAY)
+    out = call("account_get_my_schedule", {"date_from": DAY.isoformat(), "date_to": DAY.isoformat()}, token="user-token")
     assert "sport" not in {i["kind"] for i in out["schedule"]} and "class" in {i["kind"] for i in out["schedule"]}
-    assert "sport: InNoHassle did not answer (ReadTimeout)" in out["not_read"] and out["ai_calendar"]
+    assert "sport: InNoHassle did not answer (ReadTimeout)" in out["not_read"]
+    assert "ai_calendar" not in out
+    assert calendar_tools.get_my_ai_calendar.func(SimpleNamespace(context=SITE), DAY, DAY)["events"]

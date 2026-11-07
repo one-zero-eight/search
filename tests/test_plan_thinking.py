@@ -10,7 +10,7 @@ from catix.agent import core, questions
 from catix.agent.core import PlanThinkingMiddleware, PriorityMiddleware
 from catix.settings import settings
 
-ASK = {"name": "ask_campus", "args": {"question": "как добраться до верхнего услона"}, "id": "c1", "type": "tool_call"}
+ASK = {"name": "ask_docs", "args": {"question": "как добраться до верхнего услона"}, "id": "c1", "type": "tool_call"}
 MODEL = types.SimpleNamespace(extra_body={"chat_template_kwargs": {"enable_thinking": False}})
 
 
@@ -28,7 +28,7 @@ class Req:
 
 
 QUESTION = [HumanMessage("как добраться до верхнего услона")]
-REPORTED = [*QUESTION, AIMessage(content="", tool_calls=[ASK]), ToolMessage(content="Автобус …", tool_call_id="c1", name="ask_campus")]
+REPORTED = [*QUESTION, AIMessage(content="", tool_calls=[ASK]), ToolMessage(content="Автобус …", tool_call_id="c1", name="ask_docs")]
 
 
 def _settings(request: Req) -> dict:

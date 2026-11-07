@@ -1,7 +1,7 @@
 """Explicit local tools for the asker's AI Calendar (personal_calendar.py).
 
 Read by the known site account or the account linked to Telegram. On the signed-in site, adding, replacing and removing
-an event require the account helper's approval flow. Mutations never use service authentication or a Telegram lookup.
+an event require the orchestrator's native approval flow. Mutations never use service authentication or a Telegram lookup.
 The existing "➕ В мой календарь" answer buttons remain available in the bot and on the site.
 """
 
@@ -113,7 +113,16 @@ def get_my_ai_calendar(runtime: ToolRuntime, date_from: date | None = None, date
 
 
 class RemoveFromAiCalendarArgs(BaseModel):
-    calendar_event_id: int = Field(gt=0, description="The `calendar_event_id` from get_my_ai_calendar or get_my_schedule.")
+    model_config = ConfigDict(extra="forbid")
+
+    calendar_event_id: int = Field(gt=0, description="The `calendar_event_id` from get_my_ai_calendar.")
+
+    @model_validator(mode="before")
+    @classmethod
+    def without_injected_runtime(cls, values):
+        if isinstance(values, dict) and isinstance(values.get("runtime"), ToolRuntime):
+            return {key: value for key, value in values.items() if key != "runtime"}
+        return values
 
 
 @tool(args_schema=RemoveFromAiCalendarArgs)
@@ -201,7 +210,7 @@ def add_to_ai_calendar(
 
 
 class UpdateAiCalendarArgs(AddToAiCalendarArgs):
-    calendar_event_id: int = Field(gt=0, description="The owned event id from get_my_ai_calendar or get_my_schedule.")
+    calendar_event_id: int = Field(gt=0, description="The owned event id from get_my_ai_calendar.")
 
 
 @tool(args_schema=UpdateAiCalendarArgs)

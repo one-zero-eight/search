@@ -3,7 +3,7 @@
 #   scripts/catix.sh up [--tunnel]   docker (db, redis) -> schema -> SSH tunnel to the GPU server -> model check -> apps
 #   scripts/catix.sh down            stops the apps (docker and the SSH tunnel stay)
 #   scripts/catix.sh status          what runs and what answers
-#   scripts/catix.sh logs [app]      follows a log (tgbot, maxbot, worker, api, tguserbot; default: all)
+#   scripts/catix.sh logs [app]      follows a log (mcp, tgbot, maxbot, worker, api, tguserbot; default: all)
 # --tunnel also starts a `tuna` tunnel (tuna.am) to the HTTP API (catix-api, API_PORT) for the calendar
 # (https://<address>/users/my-calendar.ics) and prints the address.
 # TUNA_SUBDOMAIN (environment or .env) pins the address: your permanent free domain, shown by tuna on start, e.g. grand-tundra-5389.
@@ -12,7 +12,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 LOGS=data/logs
-APPS=(catix-tgbot catix-maxbot catix-worker catix-api)
+APPS=(catix-mcp catix-tgbot catix-maxbot catix-worker catix-api)
 USERBOT=catix-tguserbot
 USERBOT_SESSION=data/telegram.session
 GPU_HOST=inh-compute
@@ -68,7 +68,15 @@ up() {
   fi
 
   echo "5/5 apps"
-  for app in "${APPS[@]}"; do start_app "$app"; done
+  start_app catix-mcp
+  local ready=0
+  for _ in $(seq 30); do
+    if [ "$(health 8010)" = 200 ]; then ready=1; break; fi
+    sleep 1
+  done
+  if [ "$ready" != 1 ]; then bad "MCP (localhost:8010) is not ready; see $(logfile catix-mcp)"; return 1; fi
+  ok "MCP ready (http://127.0.0.1:8010/mcp)"
+  for app in "${APPS[@]:1}"; do start_app "$app"; done
   if [ -f "$USERBOT_SESSION" ]; then
     start_app "$USERBOT" listen
   else
@@ -95,7 +103,8 @@ up() {
 }
 
 down() {
-  for app in "${APPS[@]}" "$USERBOT"; do
+  # Stop callers before their MCP dependency.
+  for app in "${APPS[@]:1}" "$USERBOT" catix-mcp; do
     if running "$app"; then pkill -f "[b]in/$app( |\$)" && ok "$app stopped"; else echo "  $app not running"; fi
   done
 }
@@ -105,13 +114,14 @@ status() {
   echo "models:"; check_models || true
   echo "apps:"
   for app in "${APPS[@]}"; do if running "$app"; then ok "$app"; else bad "$app is not running"; fi; done
+  if [ "$(health 8010)" = 200 ]; then ok "MCP HTTP (localhost:8010)"; else bad "MCP HTTP (localhost:8010) does not answer"; fi
   if running "$USERBOT"; then ok "$USERBOT"; elif [ -f "$USERBOT_SESSION" ]; then bad "$USERBOT is not running"; else echo "  $USERBOT: no session yet (login first)"; fi
   if tunnel_running; then ok "tuna: $(tunnel_url)"; else echo "  tuna not running (only needed for the calendar from outside: up --tunnel)"; fi
   echo "database:"; uv run --quiet catix-db status 2>&1 | grep -v WARNING | sed 's/^/  /' | head -8
 }
 
 logs() {
-  if [ -n "${1:-}" ]; then tail -f "$LOGS/$1.log"; else tail -f "$LOGS"/{tgbot,maxbot,worker,api,tguserbot}.log 2> /dev/null; fi
+  if [ -n "${1:-}" ]; then tail -f "$LOGS/$1.log"; else tail -f "$LOGS"/{mcp,tgbot,maxbot,worker,api,tguserbot}.log 2> /dev/null; fi
 }
 
 case "${1:-}" in

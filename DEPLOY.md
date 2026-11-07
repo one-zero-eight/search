@@ -15,7 +15,9 @@ cp .env.example .env          # заполнить; пароли: openssl rand -
 docker compose -f docker-compose.prod.yml up -d --build
 docker compose -f docker-compose.prod.yml ps
 ```
-Поднимутся `db`, `redis`, `migrate` (схема БД, повторяемо), `wiki` (вики в базу из checkout ветки `wiki`, см. 2a), `tgbot`, `worker`, `api`, `phoenix` (трейсы, раздел 6a); `maxbot` и `userbot` — с `--profile`. Логи: `docker compose -f docker-compose.prod.yml logs -f tgbot`.
+Поднимутся `db`, `redis`, `migrate` (схема БД, повторяемо), `wiki` (вики в базу из checkout ветки `wiki`, см. 2a), `mcp`, `tgbot`, `worker`, `api`, `phoenix` (трейсы, раздел 6a); `maxbot` и `userbot` — с `--profile`. Логи: `docker compose -f docker-compose.prod.yml logs -f tgbot`.
+
+`mcp` — отдельный HTTP-сервер инструментов. Он собирает каталог при старте, доступен приложениям как `http://mcp:8010/mcp` и не публикует порт наружу. API и боты ждут его `/health`. Подтверждения выполняет клиент cAtIx по списку имён инструментов; сервер проверяет пользовательские credentials и аргументы, но не требует билетов или Redis для согласия. Другой клиент с действительными credentials может вызвать изменение напрямую. Для обновления инструментов перезапускайте также `mcp`; при изменении клиентского списка подтверждений — приложения. Логи: `docker compose -f docker-compose.prod.yml logs -f mcp`. Локально вне Docker сервер запускается командой `uv run catix-mcp` на `127.0.0.1:8010`, а `scripts/catix.sh up` управляет им вместе с приложениями.
 
 Проверка: бот отвечает на `/start`, в логе `tgbot` строка `Running as @...`. Меню команд ставится при каждом старте.
 

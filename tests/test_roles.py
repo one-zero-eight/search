@@ -70,30 +70,36 @@ DOCS_AND_CHATS_ROUTE = [
 
 
 def test_each_helper_has_the_rules_about_facts_and_its_own_part():
-    chats, campus = roles.prompt("chats"), roles.prompt("campus")
+    chats = roles.prompt("chats")
     assert_test(LLMTestCase(input="", actual_output=chats), [ContainsAll(["helper of cAtIx", "search_userbot_chats", "After every tool result", "dates_in_text"], name="Chats")])
-    assert_test(LLMTestCase(input="", actual_output=campus), [ContainsAll(["helper of cAtIx", "get_schedule", "InNoHassle"], name="Campus"), ContainsNone(["search_userbot_chats", "After every tool result"], name="NotTheChatRules")])
+    assert "campus" not in roles.ROLES
+    assert all(name in roles.SUPERVISOR for name in ("schedule_get_schedule", "InNoHassle", "call_api_tool"))
     docs = roles.prompt("docs")
-    assert_test(LLMTestCase(input="", actual_output=docs), [ContainsAll(["helper of cAtIx", "search_wiki", "read_wiki", "newest"], name="Docs"), ContainsNone(["search_userbot_chats", "get_schedule"], name="NotTheOtherRules")])
-    assert len(campus) < len(chats)
+    assert_test(LLMTestCase(input="", actual_output=docs), [ContainsAll(["helper of cAtIx", "search_wiki", "read_wiki", "newest"], name="Docs"), ContainsNone(["search_userbot_chats", "After every tool result"], name="NotTheOtherRules")])
+    assert roles.READ_TOOLS <= roles.ROLES["docs"].tools & roles.ROLES["chats"].tools
 
 
-def test_the_supervisor_has_the_rules_of_conduct_and_none_of_the_tools():
+def test_the_supervisor_has_conduct_and_direct_reads_not_chat_retrieval_rules():
     text = roles.SUPERVISOR
     assert_test(LLMTestCase(input="", actual_output=text), [ContainsAll(["Stay in this role", "Never advertise", "helpers"], name="Conduct"), ContainsNone(["search_chats", "query_db", "dates_in_text", "After every tool result"], name="NoToolRules")])
-    assert len(text) < len(roles.prompt("chats"))
+    assert "search_api_tools" in text and "call_api_tool" in text
+    assert "campus helper" not in text
 
 
 def test_the_tools_are_split_between_the_helpers():
     known = {t.name for t in TOOLS}
-    chats, campus, docs = roles.ROLES["chats"].tools, roles.ROLES["campus"].tools, roles.ROLES["docs"].tools
+    chats, docs = roles.ROLES["chats"].tools, roles.ROLES["docs"].tools
     account = roles.ROLES["account"].tools
-    assert chats <= known and campus <= known and docs <= known and account <= known, "a helper names a tool that does not exist"
-    assert known == chats | campus | docs | account, "a tool belongs to no helper"
-    assert "search_userbot_chats" not in campus and "get_schedule" not in chats
-    # The documents have a helper of their own; get_courses gives who teaches a course this term next to the programmes, and
-    # the web search (with its key) what the knowledge base lacks.
-    assert docs == {"search_wiki", "read_wiki", "get_courses", "search_web", "read_web_page"}
+    assert chats <= known and docs <= known and account <= known and roles.MAIN_TOOLS <= known, "a role names a tool that does not exist"
+    assert known == chats | docs | account | roles.MAIN_TOOLS, "retired API wrappers must not remain registered"
+    assert not {"get_schedule", "find_room", "get_clubs", "get_university_events", "book_room", "sport_checkin"} & known
+    assert "search_userbot_chats" not in roles.MAIN_TOOLS and "get_schedule" not in chats
+    # The docs helper reads current courses via MCP; no duplicate legacy model-visible wrapper.
+    assert docs == {"search_wiki", "read_wiki", "search_web", "read_web_page"} | roles.READ_TOOLS
+    assert "act_api_tool" not in known
+    assert account == roles.READ_TOOLS
+    assert all("call_api_tool" in role.tools for role in roles.ROLES.values())
+    assert all(not hasattr(role, "approval") for role in roles.ROLES.values())
 
 
 class ScriptedModel(FakeMessagesListChatModel):
@@ -117,7 +123,10 @@ def _ask(helper: str, question: str) -> AIMessage:
     return AIMessage(content="", tool_calls=[{"name": helper, "args": {"question": question}, "id": "c1", "type": "tool_call"}])
 
 
-def test_a_question_goes_to_the_helper_and_its_report_comes_back():
+def test_a_question_goes_to_the_helper_and_its_report_comes_back(monkeypatch):
+    from catix.db import store
+
+    monkeypatch.setattr(store, "visible_chats", lambda *a: [])
     out, _ = _run([
         _ask("ask_chats", "когда мидтерм по итп"),
         AIMessage(content="Мидтерм 22 октября, ссылка: https://invented.example/x"),  # the helper (no tools needed here)
@@ -131,9 +140,12 @@ def test_a_question_goes_to_the_helper_and_its_report_comes_back():
     assert final_answer(out["messages"], out.get("sources") or {}) == "Мидтерм 22 октября."
 
 
-def test_the_helper_keeps_its_own_context_and_has_no_memory_between_calls():
+def test_the_helper_keeps_its_own_context_and_has_no_memory_between_calls(monkeypatch):
+    from catix.db import store
+
+    monkeypatch.setattr(store, "visible_chats", lambda *a: [])
     out, agent = _run([
-        _ask("ask_campus", "какие клубы есть"),
+        _ask("ask_chats", "какие клубы обсуждают"),
         AIMessage(content="Клуб шахмат."),
         AIMessage(content="Есть клуб шахмат."),
     ])
@@ -148,7 +160,7 @@ def test_a_blocked_helper_tool_name_is_not_one_the_supervisor_can_make_up():
     from catix.agent.core import parse_text_tool_calls
 
     text = "<tool_call><function=ask_chats><parameter=question>когда мидтерм</parameter></function></tool_call>"
-    assert parse_text_tool_calls(text, {"ask_chats", "ask_campus"})[0]["args"] == {"question": "когда мидтерм"}
+    assert parse_text_tool_calls(text, {"ask_chats", "call_api_tool"})[0]["args"] == {"question": "когда мидтерм"}
     assert parse_text_tool_calls(text, {"search_chats"}) == []
 
 
@@ -183,10 +195,12 @@ def test_the_news_goes_to_the_docs_and_the_chats_helpers(agent, text):
     assert_test(LLMTestCase(input=text, actual_output=",".join(asked) or "none", expected_output="ask_chats,ask_docs"), [SameLabel()])
 
 
+@pytest.mark.model
 @pytest.mark.parametrize("text", CAMPUS_ROUTE[:-2], ids=[t[:40] for t in CAMPUS_ROUTE[:-2]])
-def test_a_question_about_the_timetable_clubs_or_map_goes_to_the_campus_helper(agent, text):
+def test_a_question_about_the_timetable_clubs_or_map_uses_direct_reads(agent, text):
     answer = ask(agent, text)
-    assert_test(LLMTestCase(input=text, actual_output="campus" if "ask_campus" in answer.helpers else ",".join(answer.helpers) or "none", expected_output="campus"), [SameLabel()])
+    assert "ask_campus" not in answer.helpers
+    assert {"search_api_tools", "call_api_tool"} & set(answer.helpers), answer.helpers
 
 
 @pytest.mark.model
@@ -313,8 +327,8 @@ def test_a_report_without_refs_is_asked_again_only_when_the_tools_gave_sources()
             clone.__dict__.update(changes)
             return clone
 
-    found = ToolMessage(content='{"results": [{"ref": "m3", "text": "40 баллов"}]}', tool_call_id="c1")
-    nothing = ToolMessage(content='{"results": []}', tool_call_id="c1")
+    found = ToolMessage(content='{"results": [{"ref": "m3", "text": "40 баллов"}]}', tool_call_id="c1", name="search_wiki")
+    nothing = ToolMessage(content='{"results": []}', tool_call_id="c1", name="search_wiki")
     calls = []
 
     def model(request):

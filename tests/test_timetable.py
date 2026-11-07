@@ -1,13 +1,12 @@
-"""The official timetable read as the classes of a day (innohassle/timetable.py) and the campus tools on it
-(agent/campus_tools.py), on a timetable made up here."""
+"""Official timetable parsing and registered MCP tools, on a synthetic timetable."""
 
 from datetime import date, time
 
 import pytest
 
-from catix.agent import campus_tools
 from catix.innohassle import client as innohassle
 from catix.innohassle import timetable
+from tests.mcp_native_helpers import call
 
 BLOCK_1 = {"start_date": "2026-08-24", "end_date": "2026-10-25"}
 BLOCK_2 = {"start_date": "2026-10-26", "end_date": "2026-12-27"}
@@ -63,40 +62,40 @@ def fake_timetable(monkeypatch):
 
 
 def test_a_room_has_the_classes_of_the_day_and_the_free_rooms_have_none():
-    room = campus_tools.get_room_timetable.invoke({"room": "ауд. 108", "day": MONDAY.isoformat()})
+    room = call("timetable_get_room_timetable", {"room": "ауд. 108", "day": MONDAY.isoformat()})
     assert room["capacity"] == 312 and [c["time"] for c in room["classes"]] == ["09:00-10:30", "14:20-15:50"]
     assert room["classes"][0]["instructor"] == "Evgeny Zuyev"
-    free = campus_tools.get_room_timetable.invoke({"day": MONDAY.isoformat(), "time_from": "14:00", "time_to": "15:00"})
+    free = call("timetable_get_room_timetable", {"day": MONDAY.isoformat(), "time_from": "14:00", "time_to": "15:00"})
     assert [r["room"] for r in free["free_of_classes"]] == ["313"] and free["with_classes"] == ["108"]  # never "ONLINE"
 
 
 def test_a_teacher_gives_their_courses_and_a_course_its_teachers():
-    by_teacher = campus_tools.get_courses.invoke({"query": "Зуев"})
+    by_teacher = call("timetable_get_courses", {"query": "Зуев"})
     assert by_teacher["teachers"][0]["telegram"] == "@zouev"
     assert [c["course"] for c in by_teacher["teachers"][0]["courses"]] == ["Compiler Construction"]
-    course = campus_tools.get_courses.invoke({"query": "компиляторов"})["courses"][0]
+    course = call("timetable_get_courses", {"query": "компиляторов"})["courses"][0]
     assert course["instructors"][0] | {} == {"name": "Evgeny Zuyev", "name_ru": "Зуев Евгений Александрович", "position": "Full Professor",
                                              "email": "e.zuev@innopolis.ru", "telegram": "@zouev", "role": "Primary Instructor"}
     assert course["blocks"] == ["Блок 2"] and {c["kind"] for c in course["weekly_classes"]} == {"lecture", "lab"}
-    assert "note" in campus_tools.get_courses.invoke({"query": "квантовая гравитация"})
+    assert "note" in call("timetable_get_courses", {"query": "квантовая гравитация"})
 
 
-def test_a_group_the_asker_did_not_name_is_not_taken_for_theirs(monkeypatch):
+def test_a_group_the_asker_did_not_name_is_not_taken_for_theirs(monkeypatch, mcp_http_protocol):
     """Told that the asker's group was not known, the helper took B26-CSE-01 from an example and gave its timetable as theirs."""
     from types import SimpleNamespace
 
     from langchain_core.messages import HumanMessage
 
-    from catix.agent import tools
+    from catix.agent import api_tools, tools
     from catix.agent.tools import AgentContext
 
     asked = []
-    monkeypatch.setattr(tools, "_find_group", lambda group: asked.append(group) or [{"name": "B26-CSE-01", "alias": "b26-cse-01"}])
-    monkeypatch.setattr(tools.innohassle, "group_schedule_ics", lambda alias: "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nEND:VCALENDAR\r\n")
+    monkeypatch.setattr(innohassle, "event_groups", lambda: asked.append("groups") or [{"name": "B26-CSE-01", "alias": "b26-cse-01"}])
+    monkeypatch.setattr(innohassle, "group_schedule_ics", lambda alias: "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nEND:VCALENDAR\r\n")
 
     def schedule(question: str, group: str, own: str | None = None) -> dict:
         runtime = SimpleNamespace(context=AgentContext(study_group=own), state={"messages": [HumanMessage(question)]})
-        return tools.get_schedule.func(runtime, group=group)
+        return api_tools.call_api_tool.func("schedule_get_schedule", runtime, {"group": group})
 
     assert schedule("что у меня на этой неделе", "B26-CSE-01") == {"error": tools.GROUP_UNKNOWN} and not asked
     assert "error" not in schedule("расписание b26 cse 01 на неделю", "B26-CSE-01"), "named in the question, in other spelling"

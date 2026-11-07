@@ -14,6 +14,7 @@ x-env: &env
   DATABASE_URL: postgresql://ctx@db:5432/ctx
   PGPASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
   REDIS_URL: redis://redis:6379/0
+  INNOHASSLE_MCP_URL: http://mcp:8010/mcp
   PHOENIX_ENDPOINT: http://phoenix:6006
 
 x-app: &app
@@ -29,7 +30,7 @@ x-app: &app
   logging:
     driver: json-file
     options: { max-size: "20m", max-file: "5" }
-  depends_on:
+  depends_on: &app-depends
     migrate: { condition: service_completed_successfully }
     redis: { condition: service_healthy }
     phoenix: { condition: service_started }
@@ -87,14 +88,32 @@ services:
     volumes:
       - ${WIKI_DIR:-../catix-wiki}:/wiki-data:ro
 
+  # Private MCP process: builds its catalogue once, shares Redis approval capabilities with the apps.
+  # No published ports; only this Compose network can reach it.
+  mcp:
+    <<: *app
+    command: ["catix-mcp", "--host", "0.0.0.0", "--port", "8010"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8010/health', timeout=2).close()"]
+      interval: 5s
+      timeout: 3s
+      start_period: 20s
+      retries: 12
+
   tgbot:
     <<: *app
     command: ["catix-tgbot"]
+    depends_on:
+      <<: *app-depends
+      mcp: { condition: service_healthy }
 
   maxbot:
     <<: *app
     profiles: ["maxbot"]
     command: ["catix-maxbot"]
+    depends_on:
+      <<: *app-depends
+      mcp: { condition: service_healthy }
 
   worker:
     <<: *app
@@ -112,6 +131,9 @@ services:
   api:
     <<: *app
     command: ["catix-api"]
+    depends_on:
+      <<: *app-depends
+      mcp: { condition: service_healthy }
     environment:
       <<: *env
       API_HOST: 0.0.0.0

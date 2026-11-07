@@ -73,6 +73,87 @@ def test_transport_failure_never_echoes_diagnostics_or_credentials(monkeypatch):
     assert "error" in result and "private-user-token" not in str(result) and "diagnostic" not in str(result)
 
 
+def test_mutation_transport_failure_is_unknown_and_not_retryable(monkeypatch):
+    from catix.innohassle import mcp_client
+
+    attempted = []
+
+    @asynccontextmanager
+    async def broken(token, *, sport_token=None):
+        attempted.append((token, sport_token))
+        raise RuntimeError("private-token internal diagnostic")
+        yield
+
+    monkeypatch.setattr(mcp_client, "_connection", broken)
+    result = mcp_client.request_sync("call_tool", {"name": "sport_sport_checkin", "arguments": {"training_id": 11}},
+                                     "private-token", sport_token="sport-token")
+    assert result["done"] is None and result["outcome"] == "unknown"
+    assert "Do not retry automatically" in result["error"]
+    assert "private-token" not in str(result) and "diagnostic" not in str(result)
+    assert attempted == [("private-token", "sport-token")]
+
+
+def test_mutation_protocol_error_after_execution_is_unknown(monkeypatch):
+    from fastmcp.exceptions import ToolError
+    from catix.innohassle import mcp_client
+
+    writes = []
+    server = FastMCP("uncertain", transforms=[BM25SearchTransform()])
+
+    @server.tool
+    def music_book_music_room() -> dict:
+        writes.append("committed")
+        raise ToolError("private-backend-diagnostic")
+
+    @asynccontextmanager
+    async def connection(token, **kwargs):
+        async with Client(server, cache=False) as client:
+            yield client
+
+    monkeypatch.setattr(mcp_client, "_connection", connection)
+    result = mcp_client.request_sync("call_tool", {"name": "music_book_music_room", "arguments": {}},
+                                     "test-token")
+    assert writes == ["committed"]
+    assert result["done"] is None and result["outcome"] == "unknown"
+    assert "Do not retry automatically" in result["error"] and "private-backend" not in str(result)
+
+
+@pytest.mark.parametrize("value", [None, [], "unexpected", {"result": "not a receipt"},
+                                   {"done": "true"}, {"done": True, "data": "x" * 40_001}])
+def test_malformed_or_oversized_mutation_result_is_unknown_without_retry(monkeypatch, value):
+    from types import SimpleNamespace
+    from catix.innohassle import mcp_client
+
+    called = []
+
+    class Client:
+        async def call_tool(self, method, arguments, **kwargs):
+            called.append((method, arguments))
+            return SimpleNamespace(is_error=False, data=value)
+
+    @asynccontextmanager
+    async def connection(token):
+        yield Client()
+
+    monkeypatch.setattr(mcp_client, "_connection", connection)
+    result = mcp_client.request_sync("call_tool", {"name": "rooms_book_room", "arguments": {}}, "ih")
+    assert result["done"] is None and result["outcome"] == "unknown"
+    assert len(called) == 1
+
+
+def test_preview_failure_is_not_a_mutation_outcome(monkeypatch):
+    from catix.innohassle import mcp_client
+
+    @asynccontextmanager
+    async def broken(token):
+        raise RuntimeError("private diagnostic")
+        yield
+
+    monkeypatch.setattr(mcp_client, "_connection", broken)
+    result = mcp_client.request_sync("preview_tool", {"name": "rooms_book_room", "arguments": {}, "language": "en"}, "ih")
+    assert "error" in result and "outcome" not in result
+
+
 @pytest.mark.parametrize("url", ["http://outside.example/mcp", "https://user:password@outside.example/mcp", "https://outside.example/mcp?token=secret"])
 def test_remote_credentials_require_https_or_loopback_without_url_credentials(url):
     from catix.innohassle import mcp_client

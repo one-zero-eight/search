@@ -83,13 +83,13 @@ class Settings(BaseSettings):
     )
 
     innohassle_api: HttpUrl = HttpUrl("https://api.innohassle.ru")
-    # Unset: the composed MCP adapter runs in-process. Set to an internal HTTPS/loopback endpoint for catix-mcp.
-    innohassle_mcp_url: HttpUrl | None = None
+    # Independently running MCP HTTP server; Docker uses the private http://mcp:8010/mcp endpoint.
+    innohassle_mcp_url: HttpUrl = HttpUrl("http://127.0.0.1:8010/mcp")
     # Token of a service with the `users` scope: it lets us ask InNoHassle which study group a Telegram id belongs to.
     # The only InNoHassle token: the rest (clubs, events, maps, group timetables) is public. Without it groups are chosen with /mygroup.
     innohassle_service_token: SecretStr | None = None
     # InNoHassle Sport (sport.innopolis.university): the account helper reads the asker's sport and checks them in to a
-    # training with their own Sport token, which only the site has (api/auth.py verify_asker, agent/sport_tools.py).
+    # training with their own Sport token, which only the site has (api/auth.py verify_asker, innohassle/mcp_sport.py).
     sport_api: HttpUrl = HttpUrl("https://sport.innopolis.university/api/v3")
     # DeepSeek Search & Fetch, for what the knowledge base lacks (agent/web_tools.py). Unset: the helper has
     # no web search. Only the helper's own query goes there, never who asks.
@@ -250,6 +250,16 @@ class Settings(BaseSettings):
     messages_db: Path = Path("raw/telegram.db")
     courses_file: Path = Path("courses.toml")
     timezone: str = "Europe/Moscow"
+
+    @field_validator("innohassle_mcp_url", mode="before")
+    @classmethod
+    def _mcp_url_without_context(cls, value):
+        # HttpUrl normalizes empty userinfo away; reject it before conversion.
+        raw = str(value)
+        parsed = urlsplit(raw)
+        if parsed.username is not None or parsed.password is not None or "?" in raw or "#" in raw:
+            raise ValueError("MCP URLs must not contain credentials, query or fragment.")
+        return value
 
     @field_validator("deepseek_api_key", "deepseek_proxy")
     @classmethod

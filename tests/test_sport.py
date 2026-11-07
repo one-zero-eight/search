@@ -1,24 +1,30 @@
-"""The asker's sport (agent/sport_tools.py, innohassle/sport.py) with InNoHassle Sport faked: their hours and what is left, the
+"""The asker's sport through MCP with InNoHassle Sport faked: their hours and what is left, the
 trainings they may go to, checking in only after they approve it, and the Sport token taken only from the site and only
 when it is theirs (api/auth.py verify_asker)."""
 
 import asyncio
 from datetime import date, datetime, time, timedelta
-from types import SimpleNamespace
 
 import httpx
 import pytest
+from fastmcp.exceptions import ToolError
 from langchain_core.language_models.fake_chat_models import FakeMessagesListChatModel
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
+from langgraph.types import Command
 from pydantic import SecretStr
 
-from catix.agent import account_tools, roles, sport_tools
+from catix.agent import roles
 from catix.agent.core import build_agent
 from catix.agent.tools import AgentContext
 from catix.api import auth
 from catix.innohassle import client as innohassle
 from catix.innohassle import sport as sport_api
+from catix.innohassle.mcp_sport import training_name
 from catix.settings import settings
+from tests.mcp_native_helpers import call
+from tests.test_account import native_mcp  # noqa: F401
+
+pytestmark = pytest.mark.usefixtures("native_mcp")
 
 SITE = AgentContext(innohassle_token=SecretStr("user-token"), innohassle_id="u1", sport_token=SecretStr("sport-token"))
 NO_SPORT = AgentContext(innohassle_token=SecretStr("user-token"), innohassle_id="u1")
@@ -71,7 +77,7 @@ def sport(monkeypatch):
 
 
 def test_the_askers_hours_and_what_is_left(sport):
-    out = sport_tools.get_my_sport.func(SimpleNamespace(context=SITE))
+    out = call("sport_get_my_sport", {}, token="user-token", sport_token="sport-token")
     assert out["hours"] == {"done": 14, "from_trainings": 10, "self_sport": 4, "required": 30, "debt": 2, "left": 18}
     assert out["semester"] == {"name": "F26", "ends": (TODAY + timedelta(days=40)).isoformat(), "days_left": 40}
     assert out["medical_group"] == "General" and "debt" in out["note"]
@@ -79,53 +85,79 @@ def test_the_askers_hours_and_what_is_left(sport):
 
 
 def test_the_trainings_they_may_go_to_with_places_and_check_in(sport):
-    out = sport_tools.get_sport_trainings.func(SimpleNamespace(context=SITE), TODAY, FRIDAY, "volley")
+    out = call("sport_get_sport_trainings", {"date_from": TODAY.isoformat(), "date_to": FRIDAY.isoformat(), "sport": "volley"},
+               token="user-token", sport_token="sport-token")
     assert [(t["training_id"], t["places_left"], t["can_check_in"]) for t in out["trainings"]] == [(11, 17, True), (12, 0, False)]
     first = out["trainings"][0]
     assert first == {"training_id": 11, "date": FRIDAY.strftime("%Y-%m-%d %a"), "name": "Volleyball (Beginners)", "time": "18:00-19:30",
                      "place": "Sport Complex, Hall 1", "places_left": 17, "checked_in": False, "can_check_in": True}  # fmt: skip
     assert "no places left" in out["rules"]
-    swimming = sport_tools.get_sport_trainings.func(SimpleNamespace(context=SITE), TODAY, FRIDAY, "swim")["trainings"]
+    swimming = call("sport_get_sport_trainings", {"date_from": TODAY.isoformat(), "date_to": FRIDAY.isoformat(), "sport": "swim"},
+                    token="user-token", sport_token="sport-token")["trainings"]
     assert swimming[0]["checked_in"] is True and "can_check_in" not in swimming[0]
-    none = sport_tools.get_sport_trainings.func(SimpleNamespace(context=SITE), TODAY, FRIDAY, "Tennis")
+    none = call("sport_get_sport_trainings", {"date_from": TODAY.isoformat(), "date_to": FRIDAY.isoformat(), "sport": "Tennis"},
+                token="user-token", sport_token="sport-token")
     assert none["trainings"] == [] and "Swimming" in none["note"] and "Volleyball" in none["note"]
 
 
 def test_a_training_is_named_once():
-    assert sport_tools.training_name(VOLLEYBALL) == "Volleyball (Beginners)"
-    assert sport_tools.training_name(SWIMMING) == "Swimming"
-    assert sport_tools.training_name(_training(1, "Yoga", "Group 2", TODAY, 9)) == "Yoga (Group 2)"
+    assert training_name(VOLLEYBALL) == "Volleyball (Beginners)"
+    assert training_name(SWIMMING) == "Swimming"
+    assert training_name(_training(1, "Yoga", "Group 2", TODAY, 9)) == "Yoga (Group 2)"
 
 
 def test_without_the_sport_token_nothing_is_asked(sport):
-    runtime = SimpleNamespace(context=NO_SPORT)
-    assert sport_tools.get_my_sport.func(runtime) == {"error": sport_tools.NO_SPORT}
-    assert sport_tools.get_sport_trainings.func(runtime)["error"] == sport_tools.NO_SPORT
-    assert sport_tools.sport_checkin.func(11, runtime) == {"done": False, "error": sport_tools.NO_SPORT} and not sport
+    for name, args in [("sport_get_my_sport", {}), ("sport_get_sport_trainings", {}),
+                       ("sport_sport_checkin", {"training_id": 11})]:
+        with pytest.raises(ToolError, match="separate InNoHassle Sport sign-in"):
+            call(name, args, token="user-token")
+    assert not sport
 
 
-def test_checking_in_waits_for_the_askers_approval(sport):
-    account, names = roles.ROLES["account"], {t.name for t in sport_tools.SPORT_TOOLS}
-    assert "sport_checkin" in account.approval and names <= account.tools
-    for role in roles.ROLES.values():
-        if role.name != "account":
-            assert not role.tools & names, f"the {role.name} helper has no sport token"
-    runtime = SimpleNamespace(context=SITE)
-    state = {"messages": [HumanMessage("запиши меня на волейбол в пятницу")]}
-    described = account_tools.APPROVAL["sport_checkin"]["description"]({"args": {"training_id": 11}}, state, runtime)
-    assert described.startswith("Записать вас на тренировку «Volleyball (Beginners)»") and "18:00–19:30, Sport Complex, Hall 1" in described
-    cancel = account_tools.APPROVAL["sport_checkin"]["description"]({"args": {"training_id": 13, "cancel": True}}, state, runtime)
-    assert cancel.startswith("Отменить вашу запись на тренировку «Swimming»")
+@pytest.mark.parametrize("decision", ["approve", "reject"])
+@pytest.mark.parametrize("cancel", [False, True])
+def test_checking_in_waits_for_the_askers_approval(sport, decision, cancel):
+    training_id = 13 if cancel else 11
+    question = "отмени запись на плавание" if cancel else "запиши меня на волейбол в пятницу"
+    script = [
+        AIMessage(content="", tool_calls=[{"name": "ask_account", "args": {"question": question}, "id": "s1"}]),
+        AIMessage(content="", tool_calls=[{"name": "call_api_tool", "args": {
+            "name": "sport_sport_checkin", "arguments": {"training_id": training_id, "cancel": cancel}}, "id": "h1"}]),
+        AIMessage(content="Обработано."), AIMessage(content="Обработано."),
+    ]
+    agent = build_agent(ScriptedModel(responses=script), guardrail=False)
+    config = {"configurable": {"thread_id": "sport-consent"}}
+    agent.invoke({"messages": [HumanMessage(question)]}, config, context=SITE)
+    paused = agent.get_state(config).interrupts
+    assert len(paused) == 1 and not sport
+    request = paused[0].value["action_requests"][0]
+    assert request["name"] == "call_api_tool" and request["args"]["name"] == "sport_sport_checkin"
+    description = request["description"]
+    if cancel:
+        assert description.startswith("Отменить вашу запись на тренировку «Swimming»")
+    else:
+        assert description.startswith("Записать вас на тренировку «Volleyball (Beginners)»")
+        assert "18:00–19:30, Sport Complex, Hall 1" in description
+    agent.invoke(Command(resume={paused[0].id: {"decisions": [{"type": decision}]}}), config, context=SITE)
+    assert sport == ([(training_id, not cancel)] if decision == "approve" else [])
+    assert not agent.get_state(config).interrupts
 
-    assert sport_tools.sport_checkin.func(11, runtime)["done"] is True and sport == [(11, True)]
-    assert sport_tools.sport_checkin.func(13, runtime, cancel=True)["done"] is True and sport[-1] == (13, False)
-    refused = sport_tools.sport_checkin.func(12, runtime)
+
+def test_a_full_training_refusal_survives_mcp(sport):
+    refused = call("sport_sport_checkin", {"training_id": 12}, token="user-token", sport_token="sport-token")
     assert refused == {"done": False, "error": "InNoHassle Sport refused: You cannot check in at this training"}
+    assert not sport
 
 
 @pytest.mark.parametrize(("args", "wrong"), [({"training_id": 11}, False), ({"training_id": 0}, True), ({"training_id": "volleyball"}, True)])
-def test_a_check_in_that_cannot_be_right_is_not_put_to_the_asker(args, wrong):
-    assert (account_tools._problem("sport_checkin", args) is not None) is wrong
+def test_mcp_rejects_invalid_checkin_before_upstream_write(args, wrong, sport):
+    if wrong:
+        with pytest.raises(ToolError):
+            call("sport_sport_checkin", args, token="user-token", sport_token="sport-token")
+        assert not sport
+    else:
+        assert call("sport_sport_checkin", args, token="user-token", sport_token="sport-token")["done"] is True
+        assert sport == [(11, True)]
 
 
 def test_the_client_asks_the_sport_as_the_user(monkeypatch):

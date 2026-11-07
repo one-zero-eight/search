@@ -8,18 +8,16 @@ from typing import Any
 import httpx
 
 from catix.common import cache
-from catix.innohassle.client import ServiceError, _detail
+from catix.innohassle.client import ServiceError, _check_response, _http_client
 from catix.settings import settings
 
-_client = httpx.Client(base_url=str(settings.sport_api), timeout=20)
+_client = _http_client(str(settings.sport_api))
 SHARED_TTL = 3600  # seconds
 
 
 def _call(method: str, path: str, token: str, *, params: dict | None = None) -> httpx.Response:
     resp = _client.request(method, path.lstrip("/"), params=params, headers={"Authorization": f"Bearer {token}"})
-    if resp.status_code >= 400:
-        raise ServiceError(resp.status_code, _detail(resp))
-    return resp
+    return _check_response(resp)
 
 
 def _shared_get(path: str, token: str) -> Any:

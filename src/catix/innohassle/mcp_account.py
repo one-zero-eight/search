@@ -1,0 +1,471 @@
+"""Explicit MCP account integrations. Business rules execute here, not in the agent."""
+
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from catix.innohassle import client as innohassle
+from concurrent.futures import ThreadPoolExecutor
+from datetime import date, datetime, time, timedelta
+
+import httpx
+import icalendar
+import recurring_ical_events
+from fastmcp.tools import tool
+
+from catix.common.dates import ClockTime
+from catix.innohassle import mcp_schemas as schemas
+from catix.innohassle.mcp_declarations import credential, guarded, metadata
+from catix.settings import settings
+
+MAX_ITEMS = 40
+
+
+DEFAULT_DAYS = 7
+
+
+MONTHS_RU = [
+    "января",
+    "февраля",
+    "марта",
+    "апреля",
+    "мая",
+    "июня",
+    "июля",
+    "августа",
+    "сентября",
+    "октября",
+    "ноября",
+    "декабря",
+]
+
+
+WEEKDAYS_RU = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"]
+
+
+def _now() -> datetime:
+    return datetime.now(settings.tz)
+
+
+def _at(day: date, clock: time) -> datetime:
+    return datetime.combine(day, clock, settings.tz)
+
+
+def _local(value: str) -> datetime:
+    """A time a service gave: with an offset or without one (then local time)."""
+    parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    return parsed.astimezone(settings.tz) if parsed.tzinfo else parsed.replace(tzinfo=settings.tz)
+
+
+def _span(start: datetime, end: datetime) -> dict:
+    return {"date": start.strftime("%Y-%m-%d %a"), "time": f"{start:%H:%M}-{end:%H:%M}"}
+
+
+def _why(e: innohassle.ServiceError, what: str) -> str:
+    if e.status == 401:
+        return "InNoHassle did not accept the asker's sign-in: ask them to sign in on the site again."
+    return f"{what} refused: {e.detail}"
+
+
+def _refused(e: innohassle.ServiceError, what: str) -> dict:
+    """The result of an action a service refused: nothing was done."""
+    return {"done": False, "error": _why(e, what)}
+
+
+def _calendar_items(text: str, kind: str, start: date, end: date) -> list[dict]:
+    calendar = icalendar.Calendar.from_ical(text)
+    now, seen, out = (_now(), set(), [])
+    for ev in recurring_ical_events.of(calendar).between(start, end + timedelta(days=1)):
+        begin = ev.decoded("DTSTART")
+        title, place = (str(ev.get("SUMMARY", "")), str(ev.get("LOCATION", "")) or None)
+        if (key := (str(begin), title, place)) in seen:
+            continue
+        seen.add(key)
+        if not isinstance(begin, datetime):
+            out.append(
+                {
+                    k: v
+                    for k, v in {
+                        "kind": kind,
+                        "date": begin.strftime("%Y-%m-%d %a"),
+                        "all_day": True,
+                        "title": title,
+                        "place": place,
+                    }.items()
+                    if v
+                }
+            )
+            continue
+        begin = begin.astimezone(settings.tz)
+        finish = ev.decoded("DTEND").astimezone(settings.tz) if "DTEND" in ev else begin
+        item = {
+            "kind": kind,
+            **(
+                _span(begin, finish)
+                if finish > begin
+                else {"date": begin.strftime("%Y-%m-%d %a"), "time": f"{begin:%H:%M}"}
+            ),
+            "title": title,
+            "place": place,
+            "status": "finished" if finish <= now else "now" if begin <= now else "upcoming",
+        }
+        out.append({k: v for k, v in item.items() if v})
+    return out
+
+
+def _calendar(token: str, start: date, end: date) -> tuple[list[dict], dict[str, str]]:
+    """The asker's InNoHassle calendars in the period (classes, sport, the events they enrolled in), each
+    item with its `kind`; and what could not be read, by kind. Read concurrently rather than waiting on each service in turn.
+    Raises ServiceError 401 when InNoHassle does not accept the token."""
+    from catix.innohassle import client as innohassle
+
+    with ThreadPoolExecutor(max_workers=len(innohassle.MY_CALENDARS)) as pool:
+        asked = {kind: pool.submit(innohassle.my_calendar_ics, token, kind) for kind in innohassle.MY_CALENDARS}
+    items, problems = ([], {})
+    for kind, future in asked.items():
+        try:
+            items += _calendar_items(future.result(), kind, start, end)
+        except innohassle.ServiceError as e:
+            if e.status == 401:
+                raise
+            problems[kind] = f"{e.status}: {e.detail}"
+        except httpx.HTTPError as e:
+            problems[kind] = f"InNoHassle did not answer ({type(e).__name__})"
+        except ValueError as e:
+            problems[kind] = f"unreadable calendar: {e}"[:200]
+    return (sorted(items, key=lambda i: (i["date"], i.get("time", ""))), problems)
+
+
+def _bookings(token: str, start: date, end: date) -> tuple[list[dict], list[str]]:
+    """The asker's bookings of the music room and of rooms in the period, with the ids cancel_booking takes; and what could
+    not be read."""
+    from catix.innohassle import client as innohassle
+
+    out, problems = ([], [])
+    first, last = (_at(start, time.min), _at(end + timedelta(days=1), time.min))
+    try:
+        for b in innohassle.my_music_room_bookings(token):
+            begin, finish = (_local(b["time_start"]), _local(b["time_end"]))
+            if first <= begin < last:
+                out.append(
+                    {"service": "music_room", "booking_id": str(b["id"]), **_span(begin, finish), "title": "Music room"}
+                )
+    except innohassle.ServiceError as e:
+        problems.append(f"music room: {e.detail}")
+    try:
+        for b in innohassle.my_room_bookings(token, first, last):
+            begin, finish = (_local(b["start"]), _local(b["end"]))
+            out.append(
+                {
+                    "service": "room",
+                    "booking_id": b.get("outlook_booking_id"),
+                    **_span(begin, finish),
+                    "room": b.get("room_id"),
+                    "title": b.get("title"),
+                }
+            )
+    except innohassle.ServiceError as e:
+        problems.append(f"rooms: {e.detail}")
+    return (sorted(out, key=lambda b: (b["date"], b["time"])), problems)
+
+
+def _future_span(day: date, time_from: time, time_to: time) -> str | None:
+    if _at(day, time_to) <= _at(day, time_from):
+        return "time_to must be after time_from."
+    if _at(day, time_from) <= _now():
+        return "That time is already past: ask the asker for a time to come."
+    return None
+
+
+def _when(start: datetime, end: datetime | None, ru: bool) -> str:
+    day = (
+        f"{WEEKDAYS_RU[start.weekday()]}, {start.day} {MONTHS_RU[start.month - 1]}"
+        if ru
+        else start.strftime("%a, %d %b")
+    )
+    return f"{day}, {start:%H:%M}" + (f"–{end:%H:%M}" if end else "")
+
+
+def _describe_room(arguments, identity, language) -> str:
+    from catix.innohassle import client as innohassle
+
+    a, ru = (schemas.BookRoomArgs.model_validate(arguments), language == "ru")
+    name = a.room_id
+    try:
+        token = identity.token
+        found = next((r for r in innohassle.bookable_rooms(token) if r["id"] == a.room_id), None) if token else None
+        name = (found or {}).get("ru_title" if ru else "title") or name
+    except innohassle.ServiceError:
+        pass
+    when = _when(_at(a.day, a.time_from), _at(a.day, a.time_to), ru)
+    return f"Забронировать {name} на {when}: «{a.title}»." if ru else f"Book {name} for {when}: “{a.title}”."
+
+
+def _describe_cancel(arguments, identity, language) -> str:
+    from catix.innohassle import client as innohassle
+
+    a, ru = (schemas.CancelBookingArgs.model_validate(arguments), language == "ru")
+    when = None
+    try:
+        token = identity.token
+        now = _now()
+        if token and a.service == "music_room":
+            b = next((b for b in innohassle.my_music_room_bookings(token) if str(b["id"]) == a.booking_id), None)
+            when = b and _when(_local(b["time_start"]), _local(b["time_end"]), ru)
+        elif token:
+            b = next(
+                (
+                    b
+                    for b in innohassle.my_room_bookings(token, now - timedelta(days=1), now + timedelta(days=60))
+                    if b.get("outlook_booking_id") == a.booking_id
+                ),
+                None,
+            )
+            when = b and f"{b.get('room_id')}, {_when(_local(b['start']), _local(b['end']), ru)}: «{b.get('title')}»"
+    except innohassle.ServiceError:
+        pass
+    if a.service == "music_room":
+        return (
+            f"Отменить вашу бронь музыкальной комнаты: {when or a.booking_id}."
+            if ru
+            else f"Cancel your music room booking: {when or a.booking_id}."
+        )
+    return (
+        f"Отменить вашу бронь аудитории: {when or a.booking_id}."
+        if ru
+        else f"Cancel your room booking: {when or a.booking_id}."
+    )
+
+
+def _describe_music_room(arguments, identity, language) -> str:
+    a, ru = (schemas.BookMusicRoomArgs.model_validate(arguments), language == "ru")
+    when = _when(_at(a.day, a.time_from), _at(a.day, a.time_to), ru)
+    return (
+        f"Забронировать музыкальную комнату (спорткомплекс) на {when}."
+        if ru
+        else f"Book the music room (sports complex) for {when}."
+    )
+
+
+def _describe_enrol(arguments, identity, language) -> str:
+    from catix.innohassle import client as innohassle
+
+    a, ru = (schemas.EnrollArgs.model_validate(arguments), language == "ru")
+    try:
+        data = innohassle.event(a.event_id).get("data") or {}
+        locales = data.get("locales") or {}
+        name = (locales.get("ru" if ru else "en") or next(iter(locales.values()), {})).get("name") or a.event_id
+        start = _local(data["starts_at"])
+        what = f"«{name}» ({_when(start, None, ru)}, {(data.get('location') or {}).get('display_name') or '—'})"
+    except (innohassle.ServiceError, KeyError, StopIteration):
+        what = a.event_id
+    if ru:
+        return f"Отменить вашу запись на {what}." if a.leave else f"Записать вас на {what}."
+    return f"Cancel your enrolment in {what}." if a.leave else f"Enrol you in {what}."
+
+
+@tool(**metadata("innohassle"))
+@guarded(args_model=schemas.GetMyScheduleArgs)
+def account_get_my_schedule(date_from: date | None = None, date_to: date | None = None) -> dict:
+    """Signed-in user's external InNoHassle calendars and room/music bookings. No local AI Calendar data."""
+    from catix.innohassle import client as innohassle
+
+    token = credential()
+    start = date_from or _now().date()
+    end = date_to or start + timedelta(days=DEFAULT_DAYS - 1)
+    result: dict = {"now": _now().strftime("%Y-%m-%d %H:%M"), "range": [start.isoformat(), end.isoformat()]}
+    try:
+        schedule, problems = _calendar(token, start, end)
+    except innohassle.ServiceError as e:
+        return {"error": _why(e, "The InNoHassle schedule")}
+    result["schedule"] = schedule[:MAX_ITEMS]
+    if len(schedule) > MAX_ITEMS:
+        result["note"] = f"Only the first {MAX_ITEMS} of {len(schedule)} are shown; narrow the dates."
+    result["bookings"], not_booked = _bookings(token, start, end)
+    not_read = [f"{kind}: {problem}" for kind, problem in problems.items()] + not_booked
+    if not_read:
+        result["not_read"] = not_read
+    return result
+
+
+@tool(**metadata("innohassle"))
+@guarded(args_model=schemas.GetFreeRoomsArgs)
+def rooms_get_free_rooms(time_from: ClockTime, time_to: ClockTime, day: date | None = None) -> dict:
+    """Room booking availability: find a free room or classroom for a reservation.
+    Найти свободные аудитории и комнаты для бронирования.
+
+    Check room booking times for the requested day and interval, including capacity and access rules.
+    Sign-in required. Returns free and occupied rooms separately; does not create a booking.
+    Availability depends on the interval: ask for the end time or duration if it is unknown.
+    """
+    from catix.innohassle import client as innohassle
+
+    token = credential()
+    day = day or _now().date()
+    start, end = (_at(day, time_from), _at(day, time_to))
+    if end <= start:
+        return {"error": "time_to must be after time_from."}
+    try:
+        rooms = innohassle.bookable_rooms(token)
+        bookings = innohassle.room_bookings(token, start, end)
+    except innohassle.ServiceError as e:
+        return {"error": _why(e, "The room booking service")}
+    busy = {b["room_id"] for b in bookings if _local(b["start"]) < end and start < _local(b["end"])}
+    free = []
+    for room in rooms:
+        if room["id"] in busy:
+            continue
+        item = {
+            "room_id": room["id"],
+            "title": room.get("title"),
+            "capacity": room.get("capacity"),
+            "who": {"yellow": "students", "red": "staff only", "special": "special rules"}.get(
+                room.get("access_level") or "", None
+            ),
+            "night_only": "only 19:00-08:00 and at weekends" if room.get("restrict_daytime") else None,
+        }
+        free.append({k: v for k, v in item.items() if v})
+    return {
+        "date": day.strftime("%Y-%m-%d %a"),
+        "range": f"{time_from:%H:%M}-{time_to:%H:%M}",
+        "free": free,
+        "booked": sorted(busy),
+    }
+
+
+@tool(**metadata("innohassle", write=True))
+@guarded(args_model=schemas.BookRoomArgs, preview=_describe_room)
+def rooms_book_room(room_id: str, day: date, time_from: ClockTime, time_to: ClockTime, title: str) -> dict:
+    """Create a room booking or reservation after permission/time checks.
+    Забронировать аудиторию или комнату.
+
+    Book a room with its actual ID, requested title and time interval.
+    Sign-in required; client hosts handle confirmation. Never retry an unknown outcome automatically.
+    """
+    from catix.innohassle import client as innohassle
+
+    token = credential()
+    if problem := _future_span(day, time_from, time_to):
+        return {"done": False, "error": problem}
+    start, end = (_at(day, time_from), _at(day, time_to))
+    try:
+        allowed, why = innohassle.can_book_room(token, room_id, start, end)
+        if not allowed:
+            return {
+                "done": False,
+                "error": f"The asker cannot book this room then: {why or 'the service gave no reason'}.",
+            }
+        booking = innohassle.book_room(token, room_id, title, start, end)
+    except innohassle.ServiceError as e:
+        return _refused(e, "The room booking service")
+    return {
+        "done": True,
+        "booked": {
+            "service": "room",
+            "booking_id": booking.get("outlook_booking_id"),
+            "room": room_id,
+            "title": title,
+            **_span(start, end),
+        },
+        "note": "Booked: tell the asker. It is in their Outlook and InNoHassle calendars.",
+    }
+
+
+@tool(**metadata("innohassle", write=True))
+@guarded(args_model=schemas.CancelBookingArgs, preview=_describe_cancel)
+def account_cancel_booking(service: str, booking_id: str) -> dict:
+    """Cancel the signed-in user's room or music_room booking/reservation by its exact opaque ID.
+    Отменить бронь аудитории или музыкальной комнаты.
+
+    Client hosts handle confirmation; never retry an unknown outcome automatically.
+    """
+    from catix.innohassle import client as innohassle
+
+    token = credential()
+    music_id = None
+    if service == "music_room":
+        try:
+            music_id = int(booking_id)
+        except ValueError:
+            return {"done": False, "error": "No such music room booking: take its `booking_id` from get_my_schedule."}
+    try:
+        if music_id is not None:
+            innohassle.cancel_music_room(token, music_id)
+        else:
+            innohassle.cancel_room(token, booking_id)
+    except innohassle.ServiceError as e:
+        return _refused(e, "The music room" if service == "music_room" else "The room booking service")
+    return {
+        "done": True,
+        "cancelled": {"service": service, "booking_id": booking_id},
+        "note": "Cancelled: tell the asker.",
+    }
+
+
+@tool(**metadata("innohassle", write=True))
+@guarded(args_model=schemas.BookMusicRoomArgs, preview=_describe_music_room)
+def music_book_music_room(day: date, time_from: ClockTime, time_to: ClockTime) -> dict:
+    """Book the music room after overlap and remaining-hours checks.
+
+    Sign-in required; client hosts handle confirmation. Never retry unknown outcomes automatically.
+    """
+    from catix.innohassle import client as innohassle
+
+    token = credential()
+    if problem := _future_span(day, time_from, time_to):
+        return {"done": False, "error": problem}
+    start, end = (_at(day, time_from), _at(day, time_to))
+    try:
+        taken = [
+            b
+            for b in innohassle.music_room_bookings(day)
+            if _local(b["time_start"]) < end and start < _local(b["time_end"])
+        ]
+        if taken:
+            busy = ", ".join((f"{_local(b['time_start']):%H:%M}-{_local(b['time_end']):%H:%M}" for b in taken))
+            return {"done": False, "error": f"The music room is booked then ({busy}): nothing was booked."}
+        daily, weekly = innohassle.music_room_hours_left(token, day)
+        hours = (end - start).total_seconds() / 3600
+        if hours > min(daily, weekly):
+            return {
+                "done": False,
+                "error": f"The asker may book {daily:g} more hours that day and {weekly:g} that week: nothing was booked.",
+            }
+        booking = innohassle.book_music_room(token, start, end)
+    except innohassle.ServiceError as e:
+        return _refused(e, "The music room")
+    return {
+        "done": True,
+        "booked": {"service": "music_room", "booking_id": str(booking.get("id")), **_span(start, end)},
+        "note": "Booked: tell the asker. The booking is in their InNoHassle calendar.",
+    }
+
+
+@tool(**metadata("innohassle", write=True))
+@guarded(args_model=schemas.EnrollArgs, preview=_describe_enrol)
+def events_enroll_in_event(event_id: str, leave: bool = False) -> dict:
+    """Enroll in or leave an InNoHassle event; external registrations return their link instead.
+
+    Sign-in required; client hosts handle confirmation. Never retry unknown outcomes automatically.
+    """
+    from catix.innohassle import client as innohassle
+
+    token = credential()
+    try:
+        event = innohassle.event(event_id)
+        enrollment = (event.get("data") or {}).get("enrollment") or {}
+        if not leave and enrollment.get("type") == "external":
+            return {
+                "done": False,
+                "error": f"This event is enrolled with its organisers: {enrollment.get('url') or 'no link given'}.",
+            }
+        (innohassle.unenroll if leave else innohassle.enroll)(token, event_id)
+    except innohassle.ServiceError as e:
+        return _refused(e, "InNoHassle Events")
+    return {
+        "done": True,
+        "event_id": event_id,
+        "enrolled": not leave,
+        "note": "Done: tell the asker. Their enrolments are in their InNoHassle calendar.",
+    }

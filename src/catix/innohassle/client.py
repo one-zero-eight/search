@@ -6,19 +6,24 @@ which only the site has (api/auth.py): those calls are never cached, and the tok
 everybody is kept in the shared cache (common/cache.py) for settings.innohassle_cache_ttl."""
 
 from datetime import date, datetime
+from http.cookiejar import CookieJar, DefaultCookiePolicy
 from typing import Any
-from urllib.parse import urlencode
+from urllib.parse import quote, urlencode
 
 import httpx
 
 from catix.common import cache
+from catix.innohassle.identifiers import validate_outlook_id, validate_room_id
 from catix.settings import settings
 
-_client = httpx.Client(
-    base_url=str(settings.innohassle_api),
-    timeout=30,
-    follow_redirects=True,
-)
+
+def _http_client(base_url: str, *, timeout: float = 20, **kwargs) -> httpx.Client:
+    """Shared connections, never shared user sessions or redirected credentials."""
+    return httpx.Client(base_url=base_url, timeout=httpx.Timeout(timeout, connect=5), follow_redirects=False,
+                        cookies=CookieJar(policy=DefaultCookiePolicy(allowed_domains=[])), **kwargs)
+
+
+_client = _http_client(str(settings.innohassle_api), timeout=30)
 
 
 BOOKINGS_TTL = 30  # seconds: the music room's bookings are looked at right before one is made
@@ -146,11 +151,22 @@ def _detail(resp: httpx.Response) -> str:
     return str(detail)[:300]
 
 
-def _as_user(method: str, path: str, token: str, *, params: dict | None = None, json: dict | None = None) -> httpx.Response:
-    resp = _client.request(method, path.lstrip("/"), params=params, json=json, headers={"Authorization": f"Bearer {token}"}, timeout=20)
+def _check_response(resp: httpx.Response) -> httpx.Response:
+    if 300 <= resp.status_code < 400:
+        raise httpx.HTTPStatusError("API redirects are refused.", request=resp.request, response=resp)
+    if resp.request.method not in {"GET", "HEAD", "OPTIONS"} and (resp.status_code == 408 or resp.status_code >= 500):
+        # These are not definite domain refusals: the mutation may have committed.
+        # Escape legacy ServiceError handlers; MCP reports an unknown outcome without retrying.
+        raise httpx.HTTPStatusError("The API mutation outcome is unknown.", request=resp.request, response=resp)
     if resp.status_code >= 400:
         raise ServiceError(resp.status_code, _detail(resp))
     return resp
+
+
+def _as_user(method: str, path: str, token: str, *, params: dict | None = None, json: dict | None = None) -> httpx.Response:
+    resp = _client.request(method, path.lstrip("/"), params=params, json=json, headers={"Authorization": f"Bearer {token}"},
+                           timeout=httpx.Timeout(20, connect=5))
+    return _check_response(resp)
 
 
 # The user's own calendars, as the site's calendar shows them. all.ics is only the event groups (the classes of their groups
@@ -189,6 +205,8 @@ def book_music_room(token: str, start: datetime, end: datetime) -> dict:
 
 
 def cancel_music_room(token: str, booking_id: int) -> None:
+    if type(booking_id) is not int:
+        raise ValueError("Invalid music room booking identifier.")
     if _as_user("DELETE", f"/music-room/v0/bookings/{booking_id}", token).json() is not True:
         raise ServiceError(200, "the music room did not cancel the booking")
 
@@ -211,19 +229,22 @@ def my_room_bookings(token: str, start: datetime, end: datetime) -> list[dict]:
 
 def can_book_room(token: str, room_id: str, start: datetime, end: datetime) -> tuple[bool, str]:
     """(may the user book the room then, why not)."""
+    segment = quote(validate_room_id(room_id), safe="")
     answer = _as_user(
-        "GET", f"/room-booking/v0/room/{room_id}/can-book", token, params={"start": start.isoformat(), "end": end.isoformat()}
+        "GET", f"/room-booking/v0/room/{segment}/can-book", token, params={"start": start.isoformat(), "end": end.isoformat()}
     ).json()
     return bool(answer.get("can_book")), str(answer.get("reason_why_cannot") or "")
 
 
 def book_room(token: str, room_id: str, title: str, start: datetime, end: datetime) -> dict:
+    validate_room_id(room_id)
     body = {"room_id": room_id, "title": title, "start": start.isoformat(), "end": end.isoformat()}
     return _as_user("POST", "/room-booking/v0/bookings/", token, json=body).json()
 
 
 def cancel_room(token: str, outlook_booking_id: str) -> None:
-    _as_user("DELETE", f"/room-booking/v0/bookings/{outlook_booking_id}", token)
+    segment = quote(validate_outlook_id(outlook_booking_id), safe="")
+    _as_user("DELETE", f"/room-booking/v0/bookings/{segment}", token)
 
 
 def enroll(token: str, event_id: str) -> dict:

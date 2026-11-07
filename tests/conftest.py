@@ -63,6 +63,14 @@ def shared_cache(monkeypatch):
     return fake
 
 
+@pytest.fixture
+def mcp_http_protocol(monkeypatch):
+    """Opt-in HTTP protocol harness and shared approval store, never runtime fallback."""
+    from tests.mcp_helpers import install_http_adapter
+
+    return install_http_adapter(monkeypatch)
+
+
 def pytest_configure(config):
     config.addinivalue_line("markers", "redteam: slow DeepTeam attack runs (one per vulnerability)")
     config.addinivalue_line("markers", "model: the test calls the model server directly")

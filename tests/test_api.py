@@ -444,7 +444,11 @@ def test_cancel_stops_the_running_and_the_waiting_questions_of_a_chat(monkeypatc
     async def go():
         async with two_users(monkeypatch) as c:
             h = {"Authorization": "Bearer good"}
-            asks = [asyncio.create_task(c.post("/ask/", json={"query": q, "chat_id": "c1"}, headers=h)) for q in ("1", "2")]
+            # Authentication/chat lookup runs concurrently; task creation order alone does not choose the gate winner.
+            asks = [asyncio.create_task(c.post("/ask/", json={"query": "1", "chat_id": "c1"}, headers=h))]
+            while not started:
+                await asyncio.sleep(0.01)
+            asks.append(asyncio.create_task(c.post("/ask/", json={"query": "2", "chat_id": "c1"}, headers=h)))
             while len(ask.pending.get("c1", ())) < 2 or not started:
                 await asyncio.sleep(0.01)
             stranger = await c.post("/ask/c1/cancel", headers={"Authorization": "Bearer other"})

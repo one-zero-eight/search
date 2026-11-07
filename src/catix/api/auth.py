@@ -25,7 +25,7 @@ class UserTokenData(BaseModel):
     telegram_id: int | None = None
     "User's Telegram ID connected to InNoHassle Accounts"
     token: SecretStr | None = Field(None, exclude=True, repr=False)
-    "The token itself: the agent's account helper asks InNoHassle with it as the user (agent/account_tools.py). Never kept."
+    "The token itself: MCP account operations ask InNoHassle with it as the user (innohassle/mcp_account.py). Never kept."
     sport_token: SecretStr | None = Field(None, exclude=True, repr=False)
     "The user's InNoHassle Sport token (`X-Sport-Token`, verify_asker): the account helper reads their sport with it. Never kept."
 

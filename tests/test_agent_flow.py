@@ -145,7 +145,7 @@ def test_after_two_rounds_of_reports_with_sources_the_supervisor_answers():
         call = {"name": "ask_docs", "args": {"question": f"q{n}"}, "id": f"a{n}", "type": "tool_call"}
         return [AIMessage(content="", tool_calls=[call]), ToolMessage(content=report, tool_call_id=f"a{n}", name="ask_docs")]
 
-    guard = RunGuardMiddleware({"ask_docs", "ask_chats", "ask_campus"})
+    guard = RunGuardMiddleware({"ask_docs", "ask_chats"} | roles.MAIN_TOOLS)
     req = Req(0)
     req.messages = [HumanMessage("как перезачесть курсы"), *ask(1, core.TOOL_FAILURE_ANSWER), *ask(2, "Решает аттестационная комиссия [m1].")]
     assert guard._final(req).tool_choice is None
@@ -163,7 +163,7 @@ def test_a_helper_that_reported_with_sources_is_not_asked_again_and_the_next_cal
     def report(n: int, text: str) -> ToolMessage:
         return ToolMessage(content=text, tool_call_id=f"a{n}", name="ask_docs")
 
-    guard = RunGuardMiddleware({"ask_docs", "ask_chats", "ask_campus"})
+    guard = RunGuardMiddleware({"ask_docs", "ask_chats"} | roles.MAIN_TOOLS)
     messages = [HumanMessage("сколько нужно заниматься физкультурой"), AIMessage(content="", tool_calls=[ask(1)]), report(1, core.TOOL_FAILURE_ANSWER)]
     assert guard._asked_again(types.SimpleNamespace(tool_call=ask(2), state={"messages": messages})) is None  # (the first one failed)
     messages += [AIMessage(content="", tool_calls=[ask(2)]), report(2, "2 часа в неделю [m1]."), AIMessage(content="", tool_calls=[ask(3)])]
@@ -222,7 +222,7 @@ def test_when_the_docs_helper_found_nothing_the_chats_helper_is_asked_next_witho
         call = FallbackMiddleware().wrap_model_call(req(nothing), model).result[-1].tool_calls[0]
         assert call["name"] == "ask_chats" and call["args"] == {"question": "что такое DID?"} and not seen
     for useful in (req(("ask_docs", "DID — это … [m1].", True)), req(("ask_docs", "DID — это … [m1].", None)),
-                   req(("ask_docs", "Ничего.", None), ("ask_chats", "Ничего.", None)), req(("ask_campus", "Ничего.", None))):
+                   req(("ask_docs", "Ничего.", None), ("ask_chats", "Ничего.", None)), req(("call_api_tool", "Ничего.", None))):
         assert FallbackMiddleware().wrap_model_call(useful, model) is written
 
 
@@ -343,7 +343,7 @@ def test_asked_what_it_can_do_it_is_told_what_its_helpers_do_for_this_asker():
     prompts = {}
     for kind, token in (("site", "token"), ("bot", None)):
         request = Req(0).override(tools=helpers, runtime=types.SimpleNamespace(context=types.SimpleNamespace(
-            innohassle_token=token, asked_at=core.datetime.now(core.settings.tz), brief=False)))
+            innohassle_token=token, asked_at=core.datetime.now(core.settings.tz), brief=False, study_group=None)))
         request.system_prompt = None
         seen = []
         AccountOnTheSiteMiddleware().wrap_model_call(request, lambda r: prompt_for(None).wrap_model_call(r, seen.append))
@@ -351,7 +351,8 @@ def test_asked_what_it_can_do_it_is_told_what_its_helpers_do_for_this_asker():
     assert roles.ROLES["account"].offers in prompts["site"] and roles.ON_THE_SITE not in prompts["site"]
     assert roles.ROLES["account"].offers not in prompts["bot"] and roles.ON_THE_SITE in prompts["bot"]
     for text in prompts.values():
-        assert all(roles.ROLES[name].offers in text for name in ("chats", "campus", "docs")) and roles.CALENDAR_BUTTON in text
+        assert all(roles.ROLES[name].offers in text for name in ("chats", "docs")) and roles.CALENDAR_BUTTON in text
+        assert roles.DIRECT_OFFERS in text
     assert all(role.offers for role in roles.ROLES.values())
 
 
