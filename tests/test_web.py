@@ -1,16 +1,20 @@
 """The docs helper's web search (agent/web_tools.py), with Tavily faked: only after the knowledge base, the official sites
-first, a few calls a question, pages cited with their site; without a key the helper has no web search."""
+first, a few calls a question, pages cited with their site; without a key the helper has no web search. Tavily is asked
+through TAVILY_PROXY when it is set, else directly, and one that does not work fails fast."""
 
+import base64
 import json
+import socket
+import threading
 from types import SimpleNamespace
 
 import pytest
 from langchain_core.messages import HumanMessage, ToolMessage
-from pydantic import SecretStr
+from pydantic import SecretStr, ValidationError
 
 from catix.agent import roles, sources, web_tools
 from catix.agent.core import helper_tools
-from catix.settings import settings
+from catix.settings import Settings, settings
 
 NEWS = "https://media.innopolis.university/news/new-building"
 BLOG = "https://blog.example.com/innopolis"
@@ -96,10 +100,77 @@ def test_the_official_sites_are_the_universitys_and_the_citys_with_their_subdoma
     assert web_tools.official(url) is official
 
 
-def test_the_docs_helper_has_the_web_search_only_with_a_key(monkeypatch):
+@pytest.mark.parametrize("proxy", [None, "http://127.0.0.1:3128"])
+def test_the_docs_helper_has_the_web_search_only_with_a_key_with_a_proxy_or_without(monkeypatch, proxy):
     docs = roles.ROLES["docs"]
+    monkeypatch.setattr(settings, "tavily_proxy", proxy and SecretStr(proxy))
     monkeypatch.setattr(settings, "tavily_api_key", None)
     assert not {t.name for t in helper_tools(docs)} & web_tools.NAMES and "search_web" not in roles.prompt("docs")
     monkeypatch.setattr(settings, "tavily_api_key", SecretStr("tvly-test"))
     assert web_tools.NAMES <= {t.name for t in helper_tools(docs)} and "search_web" in roles.prompt("docs")
     assert not {t.name for t in helper_tools(roles.ROLES["chats"])} & web_tools.NAMES, "only the docs helper"
+
+
+def test_without_a_proxy_tavily_is_asked_directly(monkeypatch):
+    for name in ("HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY", "http_proxy", "https_proxy", "all_proxy"):
+        monkeypatch.delenv(name, raising=False)
+    monkeypatch.setattr(settings, "tavily_proxy", None)
+    web_tools._client.cache_clear()
+    try:
+        assert web_tools._client()._mounts == {}, "no proxy mounted"
+    finally:
+        web_tools._client.cache_clear()
+
+
+def test_an_empty_key_or_proxy_in_env_is_none():
+    unset = Settings(_env_file=None, tavily_api_key="", tavily_proxy=" ")  # type: ignore[call-arg]
+    assert unset.tavily_api_key is None and unset.tavily_proxy is None
+
+
+@pytest.mark.parametrize("url", ["socks5://u:p@h:1080", "http://bot:hunter2@host-without-port", "proxy.example:3128"])
+def test_a_proxy_that_is_not_an_http_one_stops_the_start_without_showing_its_password(url):
+    with pytest.raises(ValidationError, match="TAVILY_PROXY is an HTTP proxy") as e:
+        Settings(_env_file=None, tavily_proxy=url)  # type: ignore[call-arg]
+    assert "hunter2" not in str(e.value) and "u:p" not in str(e.value)
+
+
+def _proxy(reply: bytes | None) -> tuple[str, list[bytes]]:
+    """A proxy on 127.0.0.1 that keeps what it is asked and answers `reply`; None: nobody listens on its port."""
+    server = socket.create_server(("127.0.0.1", 0))
+    port, seen = server.getsockname()[1], []
+    if reply is None:
+        server.close()
+        return f"http://bot:secret@127.0.0.1:{port}", seen
+
+    def serve() -> None:
+        while True:
+            try:
+                conn, _ = server.accept()
+            except OSError:
+                return
+            with conn:
+                seen.append(conn.recv(4096))
+                conn.sendall(reply)
+
+    threading.Thread(target=serve, daemon=True).start()
+    return f"http://bot:secret@127.0.0.1:{port}", seen
+
+
+@pytest.mark.parametrize("reply", [b"HTTP/1.1 502 Bad Gateway\r\nContent-Length: 0\r\n\r\n", None], ids=["refuses", "nobody"])
+def test_tavily_is_asked_through_the_proxy_and_one_that_does_not_work_stops_the_web_for_a_while(monkeypatch, reply):
+    url, seen = _proxy(reply)
+    monkeypatch.setattr(settings, "tavily_api_key", SecretStr("tvly-test"))
+    monkeypatch.setattr(settings, "tavily_proxy", SecretStr(url))
+    monkeypatch.setattr(settings, "redis_url", None)  # (nothing cached)
+    monkeypatch.setattr(web_tools, "_down", (0.0, ""))
+    web_tools._client.cache_clear()
+    try:
+        payload, _, _ = _out(web_tools.search_web.func("новый корпус", _runtime("search_wiki")))
+        assert payload == {"error": "The web search is not available now (it cannot be reached): report without it."}
+        if reply is not None:
+            assert seen[0].startswith(b"CONNECT api.tavily.com:443 ")
+            assert b"Proxy-Authorization: Basic " + base64.b64encode(b"bot:secret") in seen[0]
+        payload, _, _ = _out(web_tools.search_web.func("другой запрос", _runtime("search_wiki")))
+        assert "cannot be reached" in payload["error"] and len(seen) == (0 if reply is None else 1), "not asked again yet"
+    finally:
+        web_tools._client.cache_clear()

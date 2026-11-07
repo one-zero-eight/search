@@ -159,6 +159,18 @@ docker compose -f docker-compose.prod.yml --profile userbot up -d
 ```
 Затем в `docker compose -f docker-compose.prod.yml logs userbot` не должно быть `Attempt 1 at connecting failed`.
 
+## 4a. Веб-поиск (Tavily)
+Помощник по документам ищет в интернете то, чего нет в базе знаний, через Tavily, если в `.env` есть `TAVILY_API_KEY` (без ключа веб-поиска нет). Где Tavily открыт, больше ничего не нужно. Из региона, где он закрыт, Tavily отвечает 403 (в логах `Tavily refused (403)`, помощнику — «it was refused»): тогда к нему ходят через HTTP-прокси с машины, откуда он открыт:
+```
+TAVILY_API_KEY=tvly-...
+TAVILY_PROXY=http://user:password@host:3128      # HTTP-прокси (CONNECT); https://, если к самому прокси подключаются по TLS
+```
+SOCKS здесь не подходит. С неверным адресом (не `http://`/`https://`, без порта) сервисы не запустятся, пароль в ошибке не показывается. Проверить прокси с сервера:
+```bash
+curl -sS -o /dev/null -w "%{http_code}\n" -x http://user:password@host:3128 https://api.tavily.com/   # 200 — прокси работает и Tavily его пускает
+```
+Если прокси недоступен, отказывает или Tavily его не пускает, помощник отвечает без интернета: недоступный прокси бросается через 5 с, принявший соединение и замолчавший — через 20 с. Следующие 2 минуты этот процесс в интернет не ходит, и вопросы его не ждут (найденное за последние 6 часов берётся из кэша). В логах при этом будет `Tavily cannot be reached through TAVILY_PROXY` или `Tavily refused (403)`. Без прокси так же: Tavily недоступен или отказал — ответ без интернета и пауза 2 минуты.
+
 ## 5. Календарный фид
 Личный календарь пользователя `GET /users/my-calendar.ics` отдаёт HTTP API (сервис `api`, порт `127.0.0.1:8004`) рядом с поиском и `/ask/`. В запросе заголовок `Authorization: Bearer <токен InNoHassle пользователя>`: подпись проверяется по открытым ключам InNoHassle (`/accounts/v0/.well-known/jwks.json`), календарь принадлежит аккаунту InNoHassle (`uid` токена; email в токене не нужен). В календаре события, которые пользователь добавил кнопкой «➕ В мой календарь» под ответами на сайте (`POST /users/my-calendar/events/{id}`) и в Telegram-боте; календарь сайта (`/calendar`) его показывает. Бот узнаёт аккаунт пользователя по Telegram id (`INNOHASSLE_SERVICE_TOKEN` со scope `users`); без токена или для того, кого InNoHassle не знает, бот держит события под Telegram id и переносит их в аккаунт, как только тот найден. Календарей групп нет. Перед портом нужен HTTPS (Caddy: `reverse_proxy 127.0.0.1:8004` для вашего домена). Если прокси отдаёт API под префиксом (`https://host/search/v0/users/my-calendar.ics`), задайте `API_ROOT_PATH=/search/v0`: API откроется и когда прокси срезает префикс (`handle_path /search/v0/*`), и когда передаёт его дальше (`handle /search/v0/*`).
 

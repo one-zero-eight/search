@@ -1,16 +1,18 @@
 from datetime import time
 from functools import cached_property
 from pathlib import Path
+from urllib.parse import urlsplit
 from zoneinfo import ZoneInfo
 
-from pydantic import AliasChoices, Field, HttpUrl, SecretStr
+from pydantic import AliasChoices, Field, HttpUrl, SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
     """Read from environment variables or `.env` (names are case-insensitive, e.g. LLM_ROUTE)."""
 
-    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
+    # (hide_input_in_errors: a malformed value is named, never printed, as it may hold a password: TAVILY_PROXY)
+    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore", hide_input_in_errors=True)
 
     llm_route: HttpUrl = HttpUrl("http://localhost:8080/v1")
     # llama.cpp serves whatever model it was started with, the name is informational.
@@ -90,6 +92,9 @@ class Settings(BaseSettings):
     # Tavily, the web search of the docs helper for what the knowledge base lacks (agent/web_tools.py). Unset: the helper has
     # no web search. Only the helper's own query goes there, never who asks.
     tavily_api_key: SecretStr | None = None
+    # Where Tavily refuses the server's region (403), it is asked through this HTTP proxy on a machine where it is open:
+    # http://[user:password@]host:port (https:// for a proxy reached over TLS). Unset: directly.
+    tavily_proxy: SecretStr | None = None
     # Off for now: the groups InNoHassle gives are not the right ones yet, so users set theirs with /mygroup.
     innohassle_groups: bool = False
     innohassle_cache_ttl: int = Field(600, ge=0, description="Seconds in the shared cache (Redis); 0: not cached.")
@@ -243,6 +248,24 @@ class Settings(BaseSettings):
     messages_db: Path = Path("raw/telegram.db")
     courses_file: Path = Path("courses.toml")
     timezone: str = "Europe/Moscow"
+
+    @field_validator("tavily_api_key", "tavily_proxy")
+    @classmethod
+    def _empty_is_unset(cls, value: SecretStr | None) -> SecretStr | None:
+        """`TAVILY_API_KEY=` in .env is no key (and so no web search), not an empty one."""
+        return value if value is not None and value.get_secret_value().strip() else None
+
+    @field_validator("tavily_proxy")
+    @classmethod
+    def _http_proxy(cls, value: SecretStr | None) -> SecretStr | None:
+        """A malformed TAVILY_PROXY stops the start, as a malformed TG_PROXY stops the userbot's."""
+        if value is None:
+            return None
+        url = value.get_secret_value().strip()
+        parts = urlsplit(url)
+        if parts.scheme not in ("http", "https") or not parts.hostname or not parts.port:
+            raise ValueError("TAVILY_PROXY is an HTTP proxy with a host and a port, e.g. http://user:password@host:3128")
+        return SecretStr(url)
 
     @cached_property
     def tz(self) -> ZoneInfo:

@@ -4,14 +4,21 @@
 The knowledge base stays the first place to look: a web search before a search_wiki of the same question is refused, and a
 question gets at most MAX_SEARCHES searches and MAX_READS page reads (each costs Tavily credits). Only the helper's own
 query goes to Tavily, never who asks. What a page says is data, as a chat message is: the results are cited like the
-wiki's pieces (sources.Collector.add_web) and a page off the official sites is said to be from the web. Without a key
-(settings.tavily_api_key) the helper has no such tools (core._helper_tool) and its prompt does not mention them
-(roles.prompt).
+wiki's pieces (sources.Collector.add_web) and a page off the official sites is said to be from the web.
+
+Without a key (settings.tavily_api_key) the helper has no such tools (core.helper_tools) and its prompt does not
+mention them (roles.prompt). Where Tavily refuses the server's region it is asked through an HTTP proxy
+(settings.tavily_proxy); where it is open, directly. A proxy that does not work (or a Tavily that cannot be reached,
+refuses the key or is out of its limit) fails within TIMEOUT and the helper reports without the web; for DOWN_SECONDS
+after that the web is not asked again in this process (what is cached is still given), so that every question does not
+wait for it.
 """
 
+import functools
 import hashlib
 import json
 import logging
+import time
 from urllib.parse import urlsplit
 
 import httpx
@@ -37,14 +44,28 @@ PAGE_CHARS = 4000  # of a page read
 MAX_SEARCHES = 2
 MAX_READS = 1
 CACHE_SECONDS = 6 * 3600
+DOWN_SECONDS = 120.0
+TIMEOUT = httpx.Timeout(20, connect=5)  # (a proxy that cannot be reached is given up on in 5 s, a silent one in 20 s)
 WIKI_FIRST = "Search the knowledge base first (search_wiki); search the web only for what it does not have."
 NO_MORE = "No more web {what} in this question: report with what you have, and say what is missing."
 
-_client = httpx.Client(base_url=TAVILY, timeout=20)
+# Until when (time.monotonic) the web is not asked, and what the helper is told meanwhile.
+_down: tuple[float, str] = (0.0, "")
+
+
+class _Down(Exception):
+    """The web search failed a moment ago (_down): not asked again yet."""
 
 
 def enabled() -> bool:
     return settings.tavily_api_key is not None
+
+
+@functools.cache
+def _client() -> httpx.Client:
+    """Through TAVILY_PROXY when it is set, else directly."""
+    proxy = settings.tavily_proxy.get_secret_value() if settings.tavily_proxy else None
+    return httpx.Client(base_url=TAVILY, proxy=proxy, timeout=TIMEOUT)
 
 
 def official(url: str) -> bool:
@@ -53,11 +74,13 @@ def official(url: str) -> bool:
 
 
 def _tavily(path: str, body: dict) -> dict:
-    """POST to Tavily, cached for CACHE_SECONDS: the same query of the same day costs nothing again, in any process.
-    Raises httpx.HTTPError."""
+    """POST to Tavily (through the proxy, if any), cached for CACHE_SECONDS: the same query of the same day costs nothing again, in
+    any process. Raises httpx.HTTPError, or _Down while the web is not asked."""
 
     def load() -> dict:
-        resp = _client.post(path, json=body, headers={"Authorization": f"Bearer {settings.tavily_api_key.get_secret_value()}"})  # type: ignore[union-attr]
+        if time.monotonic() < _down[0]:
+            raise _Down
+        resp = _client().post(path, json=body, headers={"Authorization": f"Bearer {settings.tavily_api_key.get_secret_value()}"})  # type: ignore[union-attr]
         resp.raise_for_status()
         return resp.json()
 
@@ -72,14 +95,27 @@ def _run_calls(runtime: ToolRuntime) -> list[str]:
     return [m.name or "" for m in messages[start + 1 :] if isinstance(m, ToolMessage)]
 
 
-def _failed(e: httpx.HTTPError) -> str:
+def _failed(e: httpx.HTTPError | _Down) -> str:
+    """What the helper is told; a failure that will not pass in a moment stops the web for DOWN_SECONDS."""
+    global _down
+    if isinstance(e, _Down):
+        return _down[1]
     status = e.response.status_code if isinstance(e, httpx.HTTPStatusError) else None
-    log.warning("Tavily failed: %s", status or e)
-    if status in (401, 403):
-        return "The web search is not available now (its key was refused): report without it."
-    if status in (429, 432, 433):
-        return "The web search is out of its limit for now: report without it."
-    return "The web search did not answer: report without it."
+    if status is None:  # (the proxy refused, closed or did not answer, or Tavily could not be reached)
+        via = "through TAVILY_PROXY" if settings.tavily_proxy else "(no TAVILY_PROXY)"
+        log.warning("Tavily cannot be reached %s: %s: %s", via, type(e).__name__, e)
+        say = "The web search is not available now (it cannot be reached): report without it."
+    elif status in (401, 403):
+        log.warning("Tavily refused (%s): the key, or the region (where it is blocked, set TAVILY_PROXY)", status)
+        say = "The web search is not available now (it was refused): report without it."
+    elif status in (429, 432, 433):
+        log.warning("Tavily is out of its limit (%s)", status)
+        say = "The web search is out of its limit for now: report without it."
+    else:
+        log.warning("Tavily failed: %s", status)
+        return "The web search did not answer: report without it."
+    _down = (time.monotonic() + DOWN_SECONDS, say)
+    return say
 
 
 def _text(value: str | None, limit: int) -> str:
@@ -111,7 +147,7 @@ def search_web(query: str, runtime: ToolRuntime, anywhere: bool = False) -> Comm
         body["include_domains"] = OFFICIAL_SITES
     try:
         found = _tavily("/search", body).get("results") or []
-    except httpx.HTTPError as e:
+    except (httpx.HTTPError, _Down) as e:
         return collector.result({"error": _failed(e)}, "search_web")
     results = []
     for hit in found[:MAX_RESULTS]:
@@ -147,7 +183,7 @@ def read_web_page(url: str, runtime: ToolRuntime) -> Command:
     body = {"urls": [url], "extract_depth": "basic", "format": "markdown", "query": question[:300], "chunks_per_source": 3}
     try:
         data = _tavily("/extract", body)
-    except httpx.HTTPError as e:
+    except (httpx.HTTPError, _Down) as e:
         return collector.result({"error": _failed(e)}, "read_web_page")
     page = next((r for r in data.get("results") or [] if r.get("raw_content")), None)
     if page is None:
