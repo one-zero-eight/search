@@ -83,6 +83,8 @@ class Settings(BaseSettings):
     )
 
     innohassle_api: HttpUrl = HttpUrl("https://api.innohassle.ru")
+    # Unset: the composed MCP adapter runs in-process. Set to an internal HTTPS/loopback endpoint for catix-mcp.
+    innohassle_mcp_url: HttpUrl | None = None
     # Token of a service with the `users` scope: it lets us ask InNoHassle which study group a Telegram id belongs to.
     # The only InNoHassle token: the rest (clubs, events, maps, group timetables) is public. Without it groups are chosen with /mygroup.
     innohassle_service_token: SecretStr | None = None

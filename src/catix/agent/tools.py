@@ -19,6 +19,7 @@ from pydantic import BaseModel, Field, SecretStr, field_validator
 
 from catix import official
 from catix.agent.account_tools import ACCOUNT_TOOLS
+from catix.agent.api_tools import API_TOOLS
 from catix.agent.sport_tools import SPORT_TOOLS
 from catix.agent.calendar_tools import CALENDAR_TOOLS
 from catix.agent.campus_tools import CAMPUS_TOOLS
@@ -925,6 +926,7 @@ TOOLS = [
     read_wiki,
     *CAMPUS_TOOLS,
     *ACCOUNT_TOOLS,
+    *API_TOOLS,
     *SPORT_TOOLS,
     *CALENDAR_TOOLS,
     *WEB_TOOLS,

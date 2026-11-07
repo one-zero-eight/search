@@ -182,14 +182,13 @@ def _ics(title: str, start: datetime, end: datetime) -> str:
 
 @pytest.fixture
 def calendars(monkeypatch):
-    """The asker's InNoHassle calendars that day (Moodle not linked: 404), no bookings."""
+    """The asker's supported InNoHassle calendars that day, no bookings. Moodle is retired."""
     at = lambda h: datetime.combine(DAY, time(h), settings.tz)  # noqa: E731
     texts = {"class": _ics("Compiler Construction (lec)", at(9), at(10)), "sport": _ics("Плавание", at(19), at(20)),
              "event": _ics("Spooky Movie Night", at(21), at(23))}  # fmt: skip
 
     def calendar(token, kind):
-        if kind == "deadline":
-            raise innohassle.ServiceError(404, "Moodle for user is not configured")
+        assert kind in texts, "the retired Moodle calendar must never be requested"
         return texts[kind]
 
     monkeypatch.setattr(innohassle, "my_calendar_ics", calendar)
@@ -205,8 +204,9 @@ def test_the_schedule_has_every_calendar_of_the_asker_and_says_what_it_could_not
         ("event", "21:00-23:00", "Spooky Movie Night"),
     ]  # fmt: skip
     assert out["ai_calendar"] == [{"calendar_event_id": 5, "date": HACKATHON.starts_at.strftime("%Y-%m-%d %a"), "title": "Хакатон",
+                                   "all_day": False, "starts_at": HACKATHON.starts_at.isoformat(), "ends_at": HACKATHON.ends_at.isoformat(),
                                    "time": "10:00-18:00", "place": "108", "source": "https://t.me/c/1/2"}]  # fmt: skip
-    assert out["not_read"] == [f"deadline: {account_tools.MOODLE_NOT_LINKED}"], "no Moodle: said, with Moodle's own calendar"
+    assert "not_read" not in out, "the retired Moodle calendar must not leave a warning"
 
 
 def test_a_sign_in_that_innohassle_refuses_is_the_error_of_the_schedule(calendars, monkeypatch):

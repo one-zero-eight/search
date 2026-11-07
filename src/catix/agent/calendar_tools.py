@@ -1,22 +1,24 @@
-"""The asker's AI Calendar (personal_calendar.py): the events they added with "➕ В мой календарь" under the assistant's
-answers, in the Telegram bot and on the site. cAtIx keeps it under their InNoHassle account, so it is read without their
-InNoHassle token: on the site by their account (AgentContext.innohassle_id), in the Telegram bot by the account linked to
-their Telegram. An event is added only by its button under an answer (agent/events.py offers it): the button is the
-asker's own decision, in the bot as on the site. Removing one waits for the asker's approval like the account helper's
-other actions (account_tools.APPROVAL), so it is the account helper's, on the site; in the bot /calendar has a button
-for each event.
+"""Explicit local tools for the asker's AI Calendar (personal_calendar.py).
+
+Read by the known site account or the account linked to Telegram. On the signed-in site, adding, replacing and removing
+an event require the account helper's approval flow. Mutations never use service authentication or a Telegram lookup.
+The existing "➕ В мой календарь" answer buttons remain available in the bot and on the site.
 """
 
+import logging
 from datetime import date, datetime, time, timedelta
 
 from langchain.tools import ToolRuntime
 from langchain_core.tools import tool
-from pydantic import BaseModel, Field
+from psycopg import Error as DatabaseError
+from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
 
 from catix import personal_calendar
+from catix.common.dates import ClockTime
 from catix.settings import settings
 
 DEFAULT_DAYS = 14
+log = logging.getLogger("catix.calendar.tools")
 NO_CALENDAR = (
     "The asker's AI Calendar is kept under their InNoHassle account, and this chat does not know it: it is in the Telegram "
     "bot (/calendar) and on the site innohassle.ru/calendar."
@@ -26,6 +28,17 @@ NOT_LINKED = (
     f"{personal_calendar.CONNECT_TELEGRAM}."
 )
 UNAVAILABLE = "InNoHassle does not answer now, and the AI Calendar is kept under the asker's InNoHassle account: try later."
+
+
+def _unknown_calendar_outcome() -> dict:
+    # A lost connection can follow a commit; RuntimeError also covers a missing committed readback.
+    # Never log the exception/traceback: database diagnostics may contain credentials or private data.
+    log.warning("AI Calendar mutation outcome could not be confirmed")
+    return {
+        "done": None, "outcome": "unknown",
+        "error": "The AI Calendar action could not be confirmed; changes may have been applied. "
+                 "Check the calendar (read back its events) before deciding what to do. Do not retry automatically.",
+    }
 
 
 def calendar_key(runtime: ToolRuntime) -> tuple[str | None, str | None]:
@@ -43,10 +56,24 @@ def calendar_key(runtime: ToolRuntime) -> tuple[str | None, str | None]:
         return None, NOT_LINKED if str(e) == personal_calendar.NOT_LINKED else UNAVAILABLE
 
 
+def _mutation_key(runtime: ToolRuntime) -> tuple[str | None, str | None]:
+    """Only the site's authenticated user can mutate; never resolve a bot account through service auth."""
+    context = getattr(runtime, "context", None)
+    account = getattr(context, "innohassle_id", None)
+    token = getattr(context, "innohassle_token", None)
+    if not isinstance(account, str) or not account.strip() or not token or not token.get_secret_value().strip():
+        return None, "AI Calendar actions require signing in on innohassle.ru; nothing was done here."
+    return personal_calendar.account_key(account), None
+
+
 def calendar_item(event: personal_calendar.PersonalEvent) -> dict:
     """An event of the AI Calendar as the model sees it, with the id remove_from_ai_calendar takes."""
     start = event.starts_at.astimezone(settings.tz)
-    item: dict = {"calendar_event_id": event.id, "date": start.strftime("%Y-%m-%d %a"), "title": event.title}
+    item: dict = {
+        "calendar_event_id": event.id, "date": start.strftime("%Y-%m-%d %a"), "title": event.title,
+        "all_day": event.all_day, "starts_at": event.starts_at.isoformat(),
+        "ends_at": event.ends_at.isoformat() if event.ends_at is not None else None,
+    }
     if not event.all_day:
         end = event.ends_at.astimezone(settings.tz) if event.ends_at else None
         item["time"] = f"{start:%H:%M}" + (f"-{end:%H:%M}" if end else "")
@@ -71,9 +98,8 @@ class GetAiCalendarArgs(BaseModel):
 
 @tool(args_schema=GetAiCalendarArgs)
 def get_my_ai_calendar(runtime: ToolRuntime, date_from: date | None = None, date_to: date | None = None) -> dict:
-    """The asker's AI Calendar for a period: the events they added themselves with the "➕ В мой календарь" button under the
-    assistant's answers (in the Telegram bot and on the site), with the source message of each. Not their classes: those
-    are in the timetable."""
+    """The asker's AI Calendar for a period: personal events added through the answer buttons or approved local actions,
+    with their ids, raw timestamps and source messages where available. Not their classes: those are in the timetable."""
     key, why = calendar_key(runtime)
     if key is None:
         return {"error": why}
@@ -82,7 +108,7 @@ def get_my_ai_calendar(runtime: ToolRuntime, date_from: date | None = None, date
     events = events_between(key, start, end)
     result: dict = {"range": [start.isoformat(), end.isoformat()], "events": events}
     if not events:
-        result["note"] = "No event of the AI Calendar in this period. An event gets there by its button under an answer."
+        result["note"] = "No event of the AI Calendar in this period. Add through an answer button or an approved AI Calendar action on the site."
     return result
 
 
@@ -94,13 +120,115 @@ class RemoveFromAiCalendarArgs(BaseModel):
 def remove_from_ai_calendar(calendar_event_id: int, runtime: ToolRuntime) -> dict:
     """Remove one event from the asker's AI Calendar. The asker approves or declines it before it is done: call it as soon as
     they asked; never ask them yourself."""
-    key, why = calendar_key(runtime)
+    try:
+        calendar_event_id = RemoveFromAiCalendarArgs(calendar_event_id=calendar_event_id).calendar_event_id
+    except ValidationError as e:
+        return {"done": False, "error": str(e)}
+    key, why = _mutation_key(runtime)
     if key is None:
         return {"done": False, "error": why}
-    if not personal_calendar.delete_event(key, calendar_event_id):
+    try:
+        removed = personal_calendar.delete_event(key, calendar_event_id)
+    except (DatabaseError, RuntimeError):
+        return _unknown_calendar_outcome()
+    if not removed:
         return {"done": False, "error": "No such event in the asker's AI Calendar: take its `calendar_event_id` from get_my_ai_calendar."}
     return {"done": True, "removed": calendar_event_id, "note": "Removed: tell the asker."}
 
 
-CALENDAR_TOOLS = [get_my_ai_calendar, remove_from_ai_calendar]
+class AddToAiCalendarArgs(BaseModel):
+    model_config = ConfigDict(str_strip_whitespace=True, extra="forbid")
+
+    title: str = Field(min_length=1, max_length=personal_calendar.MAX_TITLE_LENGTH)
+    day: date = Field(description="YYYY-MM-DD in the local timezone.")
+    all_day: bool = Field(False, description="True only when the asker explicitly requests an all-day event.")
+    start_time: ClockTime | None = Field(None, description="Local HH:MM, required unless all_day is true.")
+    end_time: ClockTime | None = Field(None, description="Optional local HH:MM on the same day, after start_time.")
+    room: str | None = Field(None, description="Optional place; not a room booking.")
+
+    @model_validator(mode="before")
+    @classmethod
+    def without_injected_runtime(cls, values):
+        # LangChain validates its injected ToolRuntime before restoring it from the original input.
+        # Exclude that trusted object, not arbitrary extra model arguments or a model-supplied runtime dict.
+        if isinstance(values, dict) and isinstance(values.get("runtime"), ToolRuntime):
+            return {key: value for key, value in values.items() if key != "runtime"}
+        return values
+
+    @model_validator(mode="after")
+    def valid_time_span(self):
+        for clock in (self.start_time, self.end_time):
+            if clock is not None and clock.tzinfo is not None:
+                raise ValueError("Use local clock times without a timezone offset.")
+        if self.all_day:
+            if self.start_time is not None or self.end_time is not None:
+                raise ValueError("An all-day event must not specify start_time or end_time.")
+        elif self.start_time is None:
+            raise ValueError("Specify start_time, or explicitly request all_day=true.")
+        elif self.end_time is not None and self.end_time <= self.start_time:
+            raise ValueError("end_time must be after start_time on the same day.")
+        return self
+
+    def event_values(self) -> dict:
+        start = self.start_time or settings.changes_default_time
+        return {
+            "title": self.title, "starts_at": datetime.combine(self.day, start, settings.tz), "all_day": self.all_day,
+            "ends_at": datetime.combine(self.day, self.end_time, settings.tz) if self.end_time else None, "room": self.room,
+        }
+
+
+@tool(args_schema=AddToAiCalendarArgs)
+def add_to_ai_calendar(
+    title: str, day: date, runtime: ToolRuntime, all_day: bool = False,
+    start_time: ClockTime | None = None, end_time: ClockTime | None = None, room: str | None = None,
+) -> dict:
+    """Add one personal event to the asker's AI Calendar, not a booking or enrollment. The asker approves it before it runs.
+    No recurrence or notifications. A repeated title and start returns the existing event without changing its details."""
+    try:
+        args = AddToAiCalendarArgs(title=title, day=day, all_day=all_day, start_time=start_time, end_time=end_time, room=room)
+    except ValidationError as e:
+        return {"done": False, "error": str(e)}
+    key, why = _mutation_key(runtime)
+    if key is None:
+        return {"done": False, "error": why}
+    try:
+        event = personal_calendar.add_event(key, **args.event_values())
+    except (DatabaseError, RuntimeError):
+        return _unknown_calendar_outcome()
+    except ValueError as e:
+        return {"done": False, "error": str(e)}
+    return {"done": True, "event": calendar_item(event), "note": "Saved in AI Calendar; if already present, its existing details were kept."}
+
+
+class UpdateAiCalendarArgs(AddToAiCalendarArgs):
+    calendar_event_id: int = Field(gt=0, description="The owned event id from get_my_ai_calendar or get_my_schedule.")
+
+
+@tool(args_schema=UpdateAiCalendarArgs)
+def update_ai_calendar(
+    calendar_event_id: int, title: str, day: date, runtime: ToolRuntime, all_day: bool = False,
+    start_time: ClockTime | None = None, end_time: ClockTime | None = None, room: str | None = None,
+) -> dict:
+    """Replace one owned AI Calendar event after approval. Read it first and pass every unchanged field too: omitted room
+    and end_time are cleared. A material edit clears its old source attribution. No booking, recurrence or notifications."""
+    try:
+        args = UpdateAiCalendarArgs(calendar_event_id=calendar_event_id, title=title, day=day, all_day=all_day,
+                                    start_time=start_time, end_time=end_time, room=room)
+    except ValidationError as e:
+        return {"done": False, "error": str(e)}
+    key, why = _mutation_key(runtime)
+    if key is None:
+        return {"done": False, "error": why}
+    try:
+        event = personal_calendar.update_event(key, args.calendar_event_id, **args.event_values())
+    except (DatabaseError, RuntimeError):
+        return _unknown_calendar_outcome()
+    except ValueError as e:
+        return {"done": False, "error": str(e)}
+    if event is None:
+        return {"done": False, "error": "No such event in the asker's AI Calendar: read get_my_ai_calendar first."}
+    return {"done": True, "event": calendar_item(event), "note": "Saved the event's requested details in AI Calendar."}
+
+
+CALENDAR_TOOLS = [get_my_ai_calendar, remove_from_ai_calendar, add_to_ai_calendar, update_ai_calendar]
 

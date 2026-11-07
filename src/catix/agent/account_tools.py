@@ -22,10 +22,11 @@ import recurring_ical_events
 from langchain.tools import ToolRuntime
 from langchain_core.messages import HumanMessage
 from langchain_core.tools import tool
+from psycopg import Error as DatabaseError
 from pydantic import BaseModel, Field, ValidationError
 
 from catix import personal_calendar
-from catix.agent.calendar_tools import RemoveFromAiCalendarArgs, calendar_key, events_between
+from catix.agent.calendar_tools import AddToAiCalendarArgs, RemoveFromAiCalendarArgs, UpdateAiCalendarArgs, calendar_key, events_between
 from catix.agent.sport_tools import SportCheckinArgs, sport_token, training_name
 from catix.common.dates import ClockTime
 from catix.innohassle import client as innohassle
@@ -88,12 +89,6 @@ class GetMyScheduleArgs(BaseModel):
     date_to: date | None = Field(None, description=f"YYYY-MM-DD inclusive, default date_from + {DEFAULT_DAYS - 1} days.")
 
 
-MOODLE_NOT_LINKED = (
-    "Their Moodle is not linked to InNoHassle, so its deadlines are not here: they are in Moodle's own calendar, "
-    "https://moodle.innopolis.university/calendar/view.php?view=month"
-)
-
-
 def _calendar_items(text: str, kind: str, start: date, end: date) -> list[dict]:
     calendar = icalendar.Calendar.from_ical(text)
     now, seen, out = _now(), set(), []
@@ -117,8 +112,8 @@ def _calendar_items(text: str, kind: str, start: date, end: date) -> list[dict]:
 
 
 def _calendar(token: str, start: date, end: date) -> tuple[list[dict], dict[str, str]]:
-    """The asker's InNoHassle calendars in the period (classes, sport, Moodle deadlines, the events they enrolled in), each
-    item with its `kind`; and what could not be read, by kind. Read at once: four requests one after another took seconds.
+    """The asker's InNoHassle calendars in the period (classes, sport, the events they enrolled in), each
+    item with its `kind`; and what could not be read, by kind. Read concurrently rather than waiting on each service in turn.
     Raises ServiceError 401 when InNoHassle does not accept the token."""
     with ThreadPoolExecutor(max_workers=len(innohassle.MY_CALENDARS)) as pool:
         asked = {kind: pool.submit(innohassle.my_calendar_ics, token, kind) for kind in innohassle.MY_CALENDARS}
@@ -129,7 +124,7 @@ def _calendar(token: str, start: date, end: date) -> tuple[list[dict], dict[str,
         except innohassle.ServiceError as e:
             if e.status == 401:
                 raise
-            problems[kind] = MOODLE_NOT_LINKED if kind == "deadline" and e.status == 404 else f"{e.status}: {e.detail}"
+            problems[kind] = f"{e.status}: {e.detail}"
         except httpx.HTTPError as e:  # (a timeout: the others are still there)
             problems[kind] = f"InNoHassle did not answer ({type(e).__name__})"
         except ValueError as e:  # not iCalendar
@@ -162,7 +157,7 @@ def _bookings(token: str, start: date, end: date) -> tuple[list[dict], list[str]
 @tool(args_schema=GetMyScheduleArgs)
 def get_my_schedule(runtime: ToolRuntime, date_from: date | None = None, date_to: date | None = None) -> dict:
     """The asker's own calendar for a period, everything in it: the classes of their groups and of the groups they added
-    (kind "class"), sport ("sport"), Moodle deadlines ("deadline", when their Moodle is linked), the events they enrolled in
+    (kind "class"), sport ("sport"), the events they enrolled in
     ("event"), and their AI Calendar (the events they added under the assistant's answers, with the `calendar_event_id`
     remove_from_ai_calendar takes); and their bookings of the music room and of rooms, with the ids cancel_booking takes."""
     if not (token := _token(runtime)):
@@ -262,14 +257,24 @@ def _future_span(day: date, time_from: time, time_to: time) -> str | None:
     return None
 
 
+def _calendar_business_args(args: dict) -> dict:
+    """Match execution: LangChain overwrites runtime before validating the tool's arguments.
+
+    A model-supplied runtime cannot select an identity, nor may it make an otherwise executable call skip consent.
+    Keep every other field so extra='forbid' still rejects unsupported operations in both approval and execution.
+    """
+    return {key: value for key, value in args.items() if key != "runtime"}
+
+
 def _problem(name: str, args: dict) -> str | None:
     """What makes the arguments of an action wrong whatever happens; None if they may be right. Such a call is not put to the
     user: the tool says what is wrong and does nothing."""
     schema = {"book_music_room": BookMusicRoomArgs, "book_room": BookRoomArgs, "enroll_in_event": EnrollArgs,
               "cancel_booking": CancelBookingArgs, "remove_from_ai_calendar": RemoveFromAiCalendarArgs,
-              "sport_checkin": SportCheckinArgs}[name]  # fmt: skip
+              "sport_checkin": SportCheckinArgs, "add_to_ai_calendar": AddToAiCalendarArgs,
+              "update_ai_calendar": UpdateAiCalendarArgs}[name]  # fmt: skip
     try:
-        parsed = schema.model_validate(args)
+        parsed = schema.model_validate(_calendar_business_args(args) if issubclass(schema, AddToAiCalendarArgs) else args)
     except ValidationError as e:
         return f"Wrong arguments: {e.errors()[0]['msg']}"
     if isinstance(parsed, BookMusicRoomArgs | BookRoomArgs):
@@ -440,16 +445,50 @@ def _describe_cancel(tool_call, state, runtime) -> str:
     return f"Отменить вашу бронь аудитории: {when or a.booking_id}." if ru else f"Cancel your room booking: {when or a.booking_id}."
 
 
+def _calendar_when(start: datetime, end: datetime | None, ru: bool) -> str:
+    day, clock = _when(start, end, ru).rsplit(", ", 1)
+    return f"{day} {start.year}, {clock}"
+
+
+def _calendar_event_for_approval(runtime, event_id: int, ru: bool) -> tuple[personal_calendar.PersonalEvent | None, str]:
+    try:
+        key, _ = calendar_key(runtime)
+        return (personal_calendar.event_of(key, event_id) if key else None), ""
+    except (DatabaseError, RuntimeError):
+        # Exception text/tracebacks can include connection credentials; keep both the UI and logs nonsensitive.
+        log.warning("AI Calendar event details unavailable during approval")
+        return None, (" Текущие данные события не удалось прочитать." if ru else " Current event details could not be read.")
+
+
 def _describe_removal(tool_call, state, runtime) -> str:
     a, ru = RemoveFromAiCalendarArgs.model_validate(tool_call["args"]), _russian(state)
-    key, _ = calendar_key(runtime)
-    event = personal_calendar.event_of(key, a.calendar_event_id) if key else None
+    event, unavailable = _calendar_event_for_approval(runtime, a.calendar_event_id, ru)
     what = f"#{a.calendar_event_id}"
     if event is not None:
         start = event.starts_at.astimezone(settings.tz)
-        when = _when(start, event.ends_at.astimezone(settings.tz) if event.ends_at else None, ru)
+        when = _calendar_when(start, event.ends_at.astimezone(settings.tz) if event.ends_at else None, ru)
         what = f"«{event.title}» ({when.rsplit(', ', 1)[0] if event.all_day else when})"
-    return f"Убрать из вашего AI-календаря: {what}." if ru else f"Remove from your AI Calendar: {what}."
+    return (f"Убрать из вашего AI-календаря: {what}." if ru else f"Remove from your AI Calendar: {what}.") + unavailable
+
+
+def _describe_calendar(tool_call, state, runtime) -> str:
+    updating = tool_call["name"] == "update_ai_calendar"
+    schema = UpdateAiCalendarArgs if updating else AddToAiCalendarArgs
+    a, ru = schema.model_validate(_calendar_business_args(tool_call["args"])), _russian(state)
+    values = a.event_values()
+    when = _calendar_when(values["starts_at"], values["ends_at"], ru)
+    if a.all_day:
+        when = when.rsplit(", ", 1)[0] + (", весь день" if ru else ", all day")
+    elif a.end_time is None:
+        when += " (без времени окончания)" if ru else " (no end time)"
+    place = a.room or ("место не задано" if ru else "no place specified")
+    details = f"«{a.title}» — {when}; {place}"
+    if not isinstance(a, UpdateAiCalendarArgs):
+        return f"Добавить в ваш AI-календарь: {details}." if ru else f"Add to your AI Calendar: {details}."
+    old, unavailable = _calendar_event_for_approval(runtime, a.calendar_event_id, ru)
+    previous = f"«{old.title}» (#{a.calendar_event_id})" if old else f"#{a.calendar_event_id}"
+    return (f"Изменить событие {previous} в вашем AI-календаре на: {details}."
+            if ru else f"Update event {previous} in your AI Calendar to: {details}.") + unavailable
 
 
 def _describe_checkin(tool_call, state, runtime) -> str:
@@ -484,5 +523,7 @@ APPROVAL = {
     "enroll_in_event": _gate("enroll_in_event", _describe_enrol),
     "cancel_booking": _gate("cancel_booking", _describe_cancel),
     "remove_from_ai_calendar": _gate("remove_from_ai_calendar", _describe_removal),
+    "add_to_ai_calendar": _gate("add_to_ai_calendar", _describe_calendar),
+    "update_ai_calendar": _gate("update_ai_calendar", _describe_calendar),
     "sport_checkin": _gate("sport_checkin", _describe_checkin),
 }

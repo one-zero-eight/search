@@ -13,6 +13,8 @@ import secrets
 from dataclasses import dataclass
 from datetime import datetime, timezone
 
+from psycopg.errors import UniqueViolation
+
 from catix.common import cache
 from catix.db import pg
 from catix.innohassle import client as innohassle
@@ -117,6 +119,76 @@ def add_proposal(user_key: str, proposal_id: str) -> str | None:
     return event["title"]
 
 
+MAX_TITLE_LENGTH = 300
+
+
+def _validate_manual_event(user_key: str, title: str, starts_at: datetime, ends_at: datetime | None) -> None:
+    """Guard the storage API too: callers need not have used the agent's argument schema."""
+    if not isinstance(user_key, str) or not user_key.startswith("ih:") or not user_key[3:].strip():
+        raise ValueError("A known InNoHassle account is required.")
+    if not isinstance(title, str) or not 1 <= len(title.strip()) <= MAX_TITLE_LENGTH:
+        raise ValueError(f"The title must contain 1–{MAX_TITLE_LENGTH} characters.")
+    for value in (starts_at,) + ((ends_at,) if ends_at is not None else ()):
+        if not isinstance(value, datetime) or value.utcoffset() is None:
+            raise ValueError("Calendar dates must be timezone-aware datetimes.")
+    if ends_at is not None and ends_at <= starts_at:
+        raise ValueError("The end must be after the start.")
+
+
+def add_event(
+    user_key: str, *, title: str, starts_at: datetime, all_day: bool,
+    ends_at: datetime | None = None, room: str | None = None,
+) -> PersonalEvent:
+    """Add a manual event without inventing a source; return its committed readback."""
+    _validate_manual_event(user_key, title, starts_at, ends_at)
+    title = title.strip()
+    room = room.strip() if room is not None else None
+    with pg.connection() as conn:
+        event_id = pg.scalar(
+            conn,
+            """INSERT INTO personal_events (user_key, title, starts_at, ends_at, all_day, room)
+               VALUES (%s, %s, %s, %s, %s, %s)
+               ON CONFLICT (user_key, title, starts_at) DO NOTHING RETURNING id""",
+            (user_key, title, starts_at, ends_at, all_day, room),
+        )
+        if event_id is None:
+            event_id = pg.scalar(
+                conn, "SELECT id FROM personal_events WHERE user_key = %s AND title = %s AND starts_at = %s",
+                (user_key, title, starts_at),
+            )
+    event = event_of(user_key, event_id)
+    if event is None:
+        raise RuntimeError("The saved calendar event could not be read back.")
+    return event
+
+
+def update_event(
+    user_key: str, event_id: int, *, title: str, starts_at: datetime, all_day: bool,
+    ends_at: datetime | None = None, room: str | None = None,
+) -> PersonalEvent | None:
+    """Replace owned details, clearing stale provenance only on a material change. None means no owned event."""
+    _validate_manual_event(user_key, title, starts_at, ends_at)
+    title = title.strip()
+    room = room.strip() if room is not None else None
+    try:
+        with pg.connection() as conn:
+            changed = conn.execute(
+                """UPDATE personal_events SET title = %s, starts_at = %s, ends_at = %s, all_day = %s, room = %s,
+                       source_url = NULL, source_note = NULL
+                   WHERE id = %s AND user_key = %s
+                     AND (title, starts_at, ends_at, all_day, room) IS DISTINCT FROM (%s, %s, %s, %s, %s)""",
+                (title, starts_at, ends_at, all_day, room, event_id, user_key, title, starts_at, ends_at, all_day, room),
+            ).rowcount
+    except UniqueViolation as e:
+        raise ValueError("An event with this title and start already exists in your AI Calendar; neither event was changed.") from e
+    if not changed:
+        return event_of(user_key, event_id)
+    event = event_of(user_key, event_id)
+    if event is None:
+        raise RuntimeError("The saved calendar event could not be read back.")
+    return event
+
+
 def upcoming(user_key: str, limit: int = 6) -> list[PersonalEvent]:
     with pg.connection() as conn:
         return pg.rows(
@@ -146,7 +218,8 @@ def event_of(user_key: str, event_id: int) -> PersonalEvent | None:
         return pg.row(
             conn,
             PersonalEvent,
-            "SELECT id, title, starts_at, ends_at, all_day, room FROM personal_events WHERE id = %s AND user_key = %s",
+            """SELECT id, title, starts_at, ends_at, all_day, room, source_url, source_note
+               FROM personal_events WHERE id = %s AND user_key = %s""",
             (event_id, user_key),
         )
 

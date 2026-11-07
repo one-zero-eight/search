@@ -39,11 +39,15 @@ dependencies = [
     "markdownify>=1.2.3",
     "libarchive-c>=5.3",
     "langgraph-checkpoint-postgres>=3.2.0",
+    "jsonschema[format-nongpl]>=4.23",
+    "fastmcp>=4.1.6,<5",
+    "httpx2>=2.5",
 ]
 
 [project.scripts]
 catix = "catix.cli:main"
 catix-api = "catix.api.app:main"
+catix-mcp = "catix.innohassle.mcp_server:main"
 catix-tgbot ="catix.tgbot.bot:main"
 catix-tguserbot = "catix.tguserbot.userbot:main"
 catix-maxbot = "catix.maxbot.bot:main"

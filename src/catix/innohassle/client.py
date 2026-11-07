@@ -154,12 +154,11 @@ def _as_user(method: str, path: str, token: str, *, params: dict | None = None, 
 
 
 # The user's own calendars, as the site's calendar shows them. all.ics is only the event groups (the classes of their groups
-# and the groups they added, not hidden): sport, Moodle and the events they enrolled in are calendars of their own. (The
+# and the groups they added, not hidden): sport and the events they enrolled in are calendars of their own. (The
 # music room and the room bookings are read from their services, with the ids a cancellation takes.)
 MY_CALENDARS = {
     "class": "/schedule/v0/users/me/all.ics",
     "sport": "/schedule/v0/users/me/sport.ics",
-    "deadline": "/schedule/v0/users/me/moodle.ics",  # 404 when the user's Moodle is not linked to InNoHassle
     "event": "/events/v1/users/me/events.ics",
 }
 
