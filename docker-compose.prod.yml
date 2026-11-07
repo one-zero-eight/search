@@ -131,16 +131,21 @@ services:
   # Trace viewer: the agent's questions, model calls, tools and search steps, and the users' 👍/👎 (they are annotations
   # on the traces: without Phoenix they are lost). Always on; the apps send to it at PHOENIX_ENDPOINT (x-env above).
   # Its UI has no login: it listens on the server's localhost only and is opened through an SSH tunnel (DEPLOY.md).
+  # It keeps the traces in the database of `db`, in a schema of its own (`phoenix`, it creates it and migrates it itself),
+  # so scripts/backup.sh saves them with the rest. The password comes as PGPASSWORD (asyncpg reads it), not in the URL:
+  # PHOENIX_POSTGRES_PASSWORD would be put into the URL with / unescaped.
   phoenix:
     image: arizephoenix/phoenix:version-20.23.0   # the same version as docker-compose.yml: the UI and the API change between versions
     restart: unless-stopped
     environment:
-      PHOENIX_WORKING_DIR: /mnt/data
+      PHOENIX_SQL_DATABASE_URL: postgresql://ctx@db:5432/ctx
+      PHOENIX_SQL_DATABASE_SCHEMA: phoenix
+      PGPASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
       PHOENIX_DEFAULT_RETENTION_POLICY_DAYS: ${PHOENIX_RETENTION_DAYS:-30}   # older traces are deleted
     ports:
       - "127.0.0.1:6006:6006"
-    volumes:
-      - phoenixdata:/mnt/data
+    depends_on:
+      db: { condition: service_healthy }
 
   # SSH tunnel to the GPU server, for when the models are not reachable directly. Then in .env:
   #   LLM_ROUTE=http://tunnel:8080/v1  EMBEDDINGS_ROUTE=http://tunnel:8081/v1  RERANKER_ROUTE=http://tunnel:8082/v1
@@ -157,7 +162,6 @@ services:
       ${GPU_SSH:-user@gpu-host}"
 
 volumes:
-  phoenixdata:
   pgdata:
   redisdata:
   catix_data:

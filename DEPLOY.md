@@ -184,7 +184,7 @@ Phoenix показывает каждый вопрос целиком: вызо�
    ```
    и в браузере `http://localhost:6006`, проект `catix`.
 
-Данные лежат в томе `phoenixdata` (SQLite). Трейсы старше 30 дней Phoenix удаляет сам; срок задаёт `PHOENIX_RETENTION_DAYS` в `.env`. Удалить все трейсы: `docker compose -f docker-compose.prod.yml rm -sf phoenix` и `docker volume rm catix-prod_phoenixdata`, затем `docker compose -f docker-compose.prod.yml up -d phoenix`. Выключить трейсы: убрать `PHOENIX_ENDPOINT` из `x-env` в `docker-compose.prod.yml` и перезапустить приложения.
+Трейсы лежат в той же базе PostgreSQL (`db`), в отдельной схеме `phoenix`: Phoenix сам создаёт её и сам делает миграции при старте, поэтому `scripts/backup.sh` сохраняет их вместе с остальной базой. Трейсы старше 30 дней Phoenix удаляет сам; срок задаёт `PHOENIX_RETENTION_DAYS` в `.env`. Удалить все трейсы: `docker compose -f docker-compose.prod.yml rm -sf phoenix`, затем `docker compose -f docker-compose.prod.yml exec db psql -U ctx -d ctx -c 'DROP SCHEMA phoenix CASCADE'` и `docker compose -f docker-compose.prod.yml up -d phoenix`. Выключить трейсы: убрать `PHOENIX_ENDPOINT` из `x-env` в `docker-compose.prod.yml` и перезапустить приложения.
 
 ## 7. Перед приглашением тестеров
 Сообщить им, что бот и userbot сохраняют сообщения чатов, куда добавлены (приветствия и мусор отбрасываются), и что бота можно убрать из чата.
