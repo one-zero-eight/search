@@ -16,6 +16,7 @@ from catix.api.schemas import AskDecision, AskResponses
 from catix.db import pg
 from catix.settings import settings
 from tests.test_account import DAY, _call, music_room  # noqa: F401 - music_room is a fixture
+from tests.test_account import native_mcp  # noqa: F401 - synthetic MCP identity and transport
 from tests.test_roles import ScriptedModel, _ask
 
 pytestmark = pytest.mark.skipif(not settings.database_url, reason="needs the database (DATABASE_URL)")
@@ -119,12 +120,11 @@ def test_the_agent_remembers_a_chat_after_a_restart(owner, monkeypatch):
     assert history.title == "Вопросы"
 
 
-def test_a_question_waits_in_the_chat_for_the_decision_that_is_made_once(owner, monkeypatch, music_room):  # noqa: F811
+def test_a_question_waits_in_the_chat_for_the_decision_that_is_made_once(owner, monkeypatch, music_room, native_mcp):  # noqa: F811
     asked = "забронируй музкомнату послезавтра с 18 до 19"
     script = [
-        _call("ask_account", {"question": asked}, "s1"),  # the supervisor
-        _call("book_music_room", {"day": DAY.isoformat(), "time_from": "18:00", "time_to": "19:00"}, "h1"),  # the helper: waits
-        AIMessage("Музкомната забронирована."),  # the helper's report, once approved
+        _call("call_api_tool", {"name": "music_book_music_room", "arguments": {
+            "day": DAY.isoformat(), "time_from": "18:00", "time_to": "19:00"}}, "h1"),
         AIMessage("Готово: музкомната ваша."),
     ]
     monkeypatch.setattr(ask, "build_agent", lambda checkpointer: build_agent(ScriptedModel(responses=script), guardrail=False,

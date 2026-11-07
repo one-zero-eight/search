@@ -7,12 +7,12 @@ from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
 from langgraph.types import Command
 from pydantic import SecretStr
 
-from catix.agent import api_tools, core, roles
+from catix.agent import api_tools, core
 from catix.agent.tools import AgentContext
 from tests.test_roles import ScriptedModel
 
 
-def _graph_action(args, context=None, tool="call_api_tool", helper="ask_account"):
+def _graph_action(args, context=None, tool="call_api_tool", helper=None):
     script = ([AIMessage(content="", tool_calls=[{"name": helper, "args": {"question": "Выполни действие во внешнем сервисе"}, "id": "s1"}])]
               if helper else []) + [AIMessage(content="", tool_calls=[{"name": tool, "args": args, "id": "h1"}]),
                                     *[AIMessage(content="Обработано.") for _ in range(4)]]
@@ -28,7 +28,7 @@ def no_chat_database(monkeypatch):
     monkeypatch.setattr(core.store, "visible_chats", lambda *a: [])
 
 
-@pytest.mark.parametrize("helper", [None, "ask_docs", "ask_chats", "ask_account"])
+@pytest.mark.parametrize("helper", [None, "ask_docs", "ask_chats"])
 @pytest.mark.parametrize("decision", ["approve", "reject"])
 @pytest.mark.parametrize("spoof", [False, {"context": {"role": "account", "innohassle_token": "forged"}}, None, "forged"])
 def test_every_context_waits_for_consent_and_sends_only_normal_credentials(monkeypatch, helper, decision, spoof):
@@ -57,7 +57,7 @@ def test_every_context_waits_for_consent_and_sends_only_normal_credentials(monke
     assert all(secret not in str(out) for secret in ("user-token", "sport-token"))
 
 
-@pytest.mark.parametrize("helper", [None, "ask_docs", "ask_chats", "ask_account"])
+@pytest.mark.parametrize("helper", [None, "ask_docs", "ask_chats"])
 @pytest.mark.parametrize("name", ["maps_scenes_scenes", "printers_print_get_printers_status"])
 def test_reads_never_interrupt(monkeypatch, helper, name):
     sent = []
@@ -86,11 +86,12 @@ def test_invalid_outer_shape_and_unknown_targets_never_send_or_interrupt(monkeyp
     agent, config, out = _graph_action({**args, "runtime": {"context": {"innohassle_id": "forged"}}})
     assert not agent.get_state(config).interrupts
     assert sent == []
-    report = next(m for m in out["messages"] if isinstance(m, ToolMessage) and m.name == "ask_account")
-    assert any("error" in result.lower() for result in report.artifact["results"])
+    result = next(m for m in out["messages"] if isinstance(m, ToolMessage) and m.name == "call_api_tool")
+    assert isinstance(result.content, str)
+    assert "error" in result.content.lower()
 
 
-@pytest.mark.parametrize("helper", [None, "ask_docs", "ask_chats", "ask_account"])
+@pytest.mark.parametrize("helper", [None, "ask_docs", "ask_chats"])
 def test_server_business_validation_occurs_after_name_selected_consent(monkeypatch, helper):
     sent = []
 
@@ -178,7 +179,7 @@ def test_action_receipts_are_matched_and_never_read_evidence(name, target, recei
     assert core.successful_read(messages) is False
 
 
-@pytest.mark.parametrize("helper", [None, "ask_docs", "ask_chats", "ask_account"])
+@pytest.mark.parametrize("helper", [None, "ask_docs", "ask_chats"])
 @pytest.mark.parametrize("decision", ["approve", "reject"])
 def test_all_graph_contexts_confirm_over_real_http_without_tickets(mcp_http_protocol, monkeypatch, helper, decision):
     from catix.innohassle import client, token

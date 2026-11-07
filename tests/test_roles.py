@@ -89,15 +89,15 @@ def test_the_supervisor_has_conduct_and_direct_reads_not_chat_retrieval_rules():
 def test_the_tools_are_split_between_the_helpers():
     known = {t.name for t in TOOLS}
     chats, docs = roles.ROLES["chats"].tools, roles.ROLES["docs"].tools
-    account = roles.ROLES["account"].tools
-    assert chats <= known and docs <= known and account <= known and roles.MAIN_TOOLS <= known, "a role names a tool that does not exist"
-    assert known == chats | docs | account | roles.MAIN_TOOLS, "retired API wrappers must not remain registered"
+    assert set(roles.ROLES) == {"docs", "chats"}
+    assert chats <= known and docs <= known and roles.MAIN_TOOLS <= known, "a role names a tool that does not exist"
+    assert known == chats | docs | roles.MAIN_TOOLS, "retired API wrappers must not remain registered"
     assert not {"get_schedule", "find_room", "get_clubs", "get_university_events", "book_room", "sport_checkin"} & known
     assert "search_userbot_chats" not in roles.MAIN_TOOLS and "get_schedule" not in chats
     # The docs helper reads current courses via MCP; no duplicate legacy model-visible wrapper.
     assert docs == {"search_wiki", "read_wiki", "search_web", "read_web_page"} | roles.READ_TOOLS
     assert "act_api_tool" not in known
-    assert account == roles.READ_TOOLS
+    assert roles.READ_TOOLS <= roles.MAIN_TOOLS
     assert all("call_api_tool" in role.tools for role in roles.ROLES.values())
     assert all(not hasattr(role, "approval") for role in roles.ROLES.values())
 

@@ -15,7 +15,7 @@ from pydantic import SecretStr
 from catix import personal_calendar
 from catix.agent import calendar_approval, calendar_tools, roles
 from catix.agent.approval import DECLINED
-from catix.agent.core import ACCOUNT_HELPER, AccountOnTheSiteMiddleware, build_agent
+from catix.agent.core import LocalCalendarAccessMiddleware, build_agent
 from catix.agent.tools import TOOLS, AgentContext
 from catix.innohassle import client as innohassle
 from catix.settings import settings
@@ -57,9 +57,8 @@ def music_room(monkeypatch):
 
 def _booking_run(*after_decision: AIMessage, slot=("18:00", "19:00")):
     script = [
-        _call(ACCOUNT_HELPER, {"question": "забронируй музкомнату послезавтра с 18 до 19"}, "s1"),  # the supervisor
         _call("call_api_tool", {"name": "music_book_music_room", "arguments": {
-            "day": DAY.isoformat(), "time_from": slot[0], "time_to": slot[1]}}, "h1"),  # the helper
+            "day": DAY.isoformat(), "time_from": slot[0], "time_to": slot[1]}}, "h1"),
         *after_decision,
     ]
     agent = build_agent(ScriptedModel(responses=script), guardrail=False)
@@ -69,7 +68,7 @@ def _booking_run(*after_decision: AIMessage, slot=("18:00", "19:00")):
 
 
 def test_an_action_waits_for_the_users_approval_and_is_done_once_approved(music_room):
-    agent, config = _booking_run(AIMessage(content="Музкомната забронирована."), AIMessage(content="Готово: музкомната ваша."))
+    agent, config = _booking_run(AIMessage(content="Готово: музкомната ваша."))
     paused = agent.get_state(config).interrupts
     assert len(paused) == 1 and not music_room, "nothing is booked before the user decides"
     request = paused[0].value["action_requests"][0]
@@ -83,25 +82,24 @@ def test_an_action_waits_for_the_users_approval_and_is_done_once_approved(music_
     assert not agent.get_state(config).interrupts
 
 
-def test_a_rejected_action_is_not_done_and_the_helper_is_told_so(music_room):
-    agent, config = _booking_run(AIMessage(content="Бронь отменена вами."), AIMessage(content="Хорошо, не бронирую."))
+def test_a_rejected_action_is_not_done_and_the_root_is_told_so(music_room):
+    agent, config = _booking_run(AIMessage(content="Хорошо, не бронирую."))
     paused = agent.get_state(config).interrupts
     out = agent.invoke(
         Command(resume={paused[0].id: {"decisions": [{"type": "reject", "message": DECLINED}]}}), config, context=SITE
     )
     assert not music_room
-    report = next(m for m in out["messages"] if isinstance(m, ToolMessage) and m.name == ACCOUNT_HELPER)
-    told = [r for r in report.artifact["results"] if "declined" in r]
-    assert told, "the helper gets the user's refusal as the result of the call"
+    result = next(m for m in out["messages"] if isinstance(m, ToolMessage) and m.name == "call_api_tool")
+    assert "declined" in result.content, "the root gets the user's refusal as the result of the call"
+    assert out["messages"][-1].text == "Хорошо, не бронирую."
+    assert not agent.get_state(config).interrupts
 
 
 def test_a_past_action_is_refused_by_mcp_even_after_host_consent(music_room):
     yesterday = (datetime.now(settings.tz) - timedelta(days=1)).date()
     script = [
-        _call(ACCOUNT_HELPER, {"question": "забронируй музкомнату вчера"}, "s1"),
         _call("call_api_tool", {"name": "music_book_music_room", "arguments": {
             "day": yesterday.isoformat(), "time_from": "18:00", "time_to": "19:00"}}, "h1"),
-        AIMessage(content="Это время уже прошло."),
         AIMessage(content="Это время уже прошло: назовите другое."),
     ]
     agent = build_agent(ScriptedModel(responses=script), guardrail=False)
@@ -111,24 +109,27 @@ def test_a_past_action_is_refused_by_mcp_even_after_host_consent(music_room):
     assert len(paused) == 1 and not music_room
     out = agent.invoke(Command(resume={paused[0].id: {"decisions": [{"type": "approve"}]}}), config, context=SITE)
     assert not agent.get_state(config).interrupts and not music_room
-    report = next(m for m in out["messages"] if isinstance(m, ToolMessage) and m.name == ACCOUNT_HELPER)
-    assert any('"error"' in r for r in report.artifact["results"]), report.artifact["results"]
+    report = next(m for m in out["messages"] if isinstance(m, ToolMessage) and m.name == "call_api_tool")
+    assert '"error"' in report.content, report.content
     with pytest.raises(ToolError, match="already past"):
         call("music_book_music_room", {"day": yesterday.isoformat(), "time_from": "18:00", "time_to": "19:00"}, token="user-token")
     assert not music_room
 
 
-def test_the_account_helper_is_offered_only_with_the_users_token():
-    tools = [SimpleNamespace(name="ask_docs"), SimpleNamespace(name=ACCOUNT_HELPER)]
+def test_only_local_calendar_writes_require_the_site_token_and_owner():
+    public = ["ask_docs", "ask_chats", "search_api_tools", "call_api_tool", "get_my_ai_calendar"]
+    writes = ["add_to_ai_calendar", "update_ai_calendar", "remove_from_ai_calendar"]
+    tools = [SimpleNamespace(name=name) for name in public + writes]
 
     def request(context):
         return SimpleNamespace(runtime=SimpleNamespace(context=context), tools=tools,
                                override=lambda **kw: SimpleNamespace(tools=kw["tools"]))  # fmt: skip
 
-    offered = lambda context: [t.name for t in AccountOnTheSiteMiddleware._without(request(context)).tools]  # noqa: E731
-    assert offered(AgentContext()) == ["ask_docs"]  # the bots, the CLI
-    assert offered(None) == ["ask_docs"]
-    assert offered(SITE) == ["ask_docs", ACCOUNT_HELPER]
+    offered = lambda context: [t.name for t in LocalCalendarAccessMiddleware._without(request(context)).tools]  # noqa: E731
+    for context in (None, AgentContext(), AgentContext(user_telegram_id=7),
+                    AgentContext(innohassle_token=SecretStr("user-token")), AgentContext(innohassle_id="u1")):
+        assert offered(context) == public
+    assert offered(SITE) == public + writes
 
 
 def test_account_mcp_requires_sign_in_before_reading_or_writing(music_room):
@@ -155,11 +156,13 @@ def test_retired_external_langchain_implementations_are_removed():
 
 def test_external_tools_are_registered_only_through_shared_mcp():
     known = {t.name for t in TOOLS}
-    account = roles.ROLES["account"]
     from catix.agent.api_tools import API_APPROVAL
 
     assert set(API_APPROVAL) == {"call_api_tool"}
-    assert account.tools == {"search_api_tools", "call_api_tool"} and account.tools <= known
+    shared = {"search_api_tools", "call_api_tool"}
+    assert set(roles.ROLES) == {"docs", "chats"}
+    assert shared <= roles.MAIN_TOOLS <= known
+    assert all(shared <= role.tools <= known for role in roles.ROLES.values())
     assert {"get_my_ai_calendar", "add_to_ai_calendar", "update_ai_calendar", "remove_from_ai_calendar"} <= known
     assert not {"get_my_schedule", "book_music_room", "sport_checkin", "get_courses", "get_schedule",
                 "get_clubs", "get_university_events", "find_room"} & known

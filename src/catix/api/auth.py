@@ -27,7 +27,7 @@ class UserTokenData(BaseModel):
     token: SecretStr | None = Field(None, exclude=True, repr=False)
     "The token itself: MCP account operations ask InNoHassle with it as the user (innohassle/mcp_account.py). Never kept."
     sport_token: SecretStr | None = Field(None, exclude=True, repr=False)
-    "The user's InNoHassle Sport token (`X-Sport-Token`, verify_asker): the account helper reads their sport with it. Never kept."
+    "The user's InNoHassle Sport token (`X-Sport-Token`, verify_asker): shared API tools read their sport with it. Never kept."
 
 
 def _unauthorized() -> HTTPException:

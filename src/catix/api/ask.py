@@ -8,8 +8,8 @@ buttons under the bot's answers; POST /users/my-calendar/events/{id} adds one (a
 POST /ask/{ask_query_id}/feedback: a 👍/👎 on an answer with an optional comment, an annotation on its trace in Phoenix as under
 the bot's answers.
 
-An answer may have to wait for the user: on the site the account helper does external actions through MCP (books the music
-room or a room, enrols them in an event, cancels a booking), and the orchestrator manages the local AI Calendar.
+An answer may have to wait for the user: on the site shared API tools do external actions through MCP (book the music
+room or a room, enrol them in an event, cancel a booking), and the orchestrator manages the local AI Calendar.
 HumanInTheLoopMiddleware pauses the
 agent before each such action (a LangGraph interrupt in the chat's thread). The response then has `approval` (what is to be
 done) instead of the answer, and the question waits in the chat (api/chats.py `save_waiting`). POST

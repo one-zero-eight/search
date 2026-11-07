@@ -45,15 +45,14 @@ class AgentContext:
     # When the question was asked: the prompts say this time, so that it stays the same for all the model calls of one
     # question (see core.prompt_for).
     asked_at: datetime = field(default_factory=lambda: datetime.now(settings.tz))
-    # The asker's InNoHassle token, which only the site has (api/auth.py): the account helper's tools ask InNoHassle as the
-    # asker with it through MCP. Also authorizes local AI Calendar actions. Never kept, never shown; None in the bots and the CLI, where there is no account
-    # helper (core.AccountOnTheSiteMiddleware).
+    # The asker's InNoHassle token, which only the site has (api/auth.py): shared API tools use it through MCP.
+    # Also authorizes local AI Calendar actions. Never kept, never shown; None in the bots and the CLI.
     innohassle_token: SecretStr | None = field(default=None, repr=False)
     # The asker's InNoHassle account on the site: their AI Calendar is kept under it (agent/calendar_tools.py). In the
     # Telegram bot the account linked to `user_telegram_id` is asked for when it is needed.
     innohassle_id: str | None = None
-    # The asker's InNoHassle Sport token, which the site sends with a question (api/auth.py verify_asker): the account helper
-    # reads their sport and checks them in through MCP. Never kept, never shown.
+    # The asker's InNoHassle Sport token, which the site sends with a question (api/auth.py verify_asker): shared API tools
+    # read their sport and check them in through MCP. Never kept, never shown.
     sport_token: SecretStr | None = field(default=None, repr=False)
 
 

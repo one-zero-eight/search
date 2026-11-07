@@ -83,8 +83,8 @@ def _last_question_language(request: ModelRequest) -> str:
     return _language(_last_question(request))
 
 
-# What the supervisor does for this asker: what its helpers in the request offer (roles.abilities), on the site with the
-# account helper's actions, in the bots with where those are done. Without it, asked "что ты умеешь?", it listed topics
+# What the supervisor does for this asker: its retrieval helpers, account access and local calendar capabilities
+# (roles.abilities), in the bots with where site actions are done. Without it, asked "что ты умеешь?", it listed topics
 # ("расписание, экзамены, правила, события…") and not one action. It is not in the reminder after the user's message: that
 # long English text there made Sage answer a Russian "что ты умеешь?" in English 3 times of 4.
 ABILITIES_PROMPT = """
@@ -149,8 +149,11 @@ def prompt_for(role: str | None):
         context = request.runtime.context
         now = context.asked_at if context else datetime.now(settings.tz)
         if role is None:
-            helpers = (getattr(t, "name", "").removeprefix("ask_") for t in request.tools)
-            parts = [roles.SUPERVISOR, ABILITIES_PROMPT.format(abilities=roles.abilities(helpers)),
+            tool_names = {getattr(t, "name", "") for t in request.tools}
+            helpers = (name.removeprefix("ask_") for name in tool_names if name.startswith("ask_"))
+            abilities = roles.abilities(helpers, signed_in=bool(context and context.innohassle_token),
+                                        calendar_writes=set(LOCAL_CALENDAR_APPROVAL) <= tool_names)
+            parts = [roles.SUPERVISOR, ABILITIES_PROMPT.format(abilities=abilities),
                      BRIEF_PROMPT if context and context.brief else "",
                      COURSES_PROMPT.format(glossary=courses.glossary()) if courses.courses() else "",
                      GROUP_PROMPT.format(group=context.study_group) if context and context.study_group else NO_GROUP_PROMPT]
@@ -946,24 +949,13 @@ class PlanThinkingMiddleware(AgentMiddleware):
         return await handler(self._with(request))
 
 
-ACCOUNT_HELPER = "ask_account"
-
-
-class AccountOnTheSiteMiddleware(AgentMiddleware):
-    """Offer the account helper with a site token and local writes only with a site token plus owner.
-    Local reads remain available to both the site and bots. The asker's InNoHassle token is known on the site
-    (AgentContext.innohassle_token). The bots and the CLI have none, so their supervisor has no such tool and says that it is
-    done on the site (roles.SUPERVISOR). Each kind of asker always gets the same list of tools, so the model server keeps its
-    cache of the start of the request for both."""
+class LocalCalendarAccessMiddleware(AgentMiddleware):
+    """Offer local writes only with an authenticated site owner; retain reads and shared API tools everywhere.
+    Each local write also enforces ownership at execution, even if the model guesses a hidden name."""
 
     @staticmethod
     def _without(request: ModelRequest) -> ModelRequest:
-        context = request.runtime.context if request.runtime else None
-        hidden = set()
-        if context is None or context.innohassle_token is None:
-            hidden.add(ACCOUNT_HELPER)
-        if _mutation_key(request.runtime)[0] is None:
-            hidden.update(LOCAL_CALENDAR_APPROVAL)
+        hidden = LOCAL_CALENDAR_APPROVAL if _mutation_key(request.runtime)[0] is None else {}
         # Local reads are available on the site as well as in bots. Hidden writes are
         # also refused by each tool's runtime ownership guard if a model guesses a name.
         return request.override(tools=[t for t in request.tools if getattr(t, "name", None) not in hidden])
@@ -1320,9 +1312,9 @@ def _helper_tool(role: roles.Role, model) -> BaseTool:
         messages = out["messages"]
         report = TOOL_FAILURE_ANSWER if failed else clean(messages, messages[-1].text.strip()) or NO_REPORT
         # Only retrieval tools issue source refs. MCP IDs/text cannot resurrect an old
-        # source from the inherited registry, even for citation-capable helpers.
+        # source from the inherited registry.
         refs = {ref for m in messages if isinstance(m, ToolMessage) and m.name in RETRIEVAL_TOOLS
-                for ref in RESULT_REF.findall(str(m.content))} if role.cites else set()
+                for ref in RESULT_REF.findall(str(m.content))}
         report = sources.GROUP_RE.sub(
             lambda match: "".join(f"[{ref}]" for ref in re.findall(r"m\d+", match.group()) if ref in refs), report)
         report = re.sub(r"[ \t]+([.,;:!?])", r"\1", report).strip() or NO_REPORT
@@ -1368,7 +1360,7 @@ def build_agent(model=None, *, guardrail: bool = True, checkpointer: BaseCheckpo
         # Order matters: the first middleware wraps the rest, so logging sees the already trimmed context.
         middleware=[
             *([GuardrailMiddleware()] if guardrail else []),  # first: a blocked message costs the agent nothing
-            AccountOnTheSiteMiddleware(),  # before the prompt, which lists what the helpers of the request do
+            LocalCalendarAccessMiddleware(),  # before the prompt, which lists available capabilities
             prompt_for(None),
             FallbackMiddleware(),  # before PassReportMiddleware: a report of no use is not passed on as the answer
             PassReportMiddleware(),  # before the reminder is added to the user's message (see there)

@@ -13,7 +13,6 @@ from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
 from langgraph.types import Command
 from pydantic import SecretStr
 
-from catix.agent import roles
 from catix.agent.core import build_agent
 from catix.agent.tools import AgentContext
 from catix.api import auth
@@ -120,10 +119,9 @@ def test_checking_in_waits_for_the_askers_approval(sport, decision, cancel):
     training_id = 13 if cancel else 11
     question = "отмени запись на плавание" if cancel else "запиши меня на волейбол в пятницу"
     script = [
-        AIMessage(content="", tool_calls=[{"name": "ask_account", "args": {"question": question}, "id": "s1"}]),
         AIMessage(content="", tool_calls=[{"name": "call_api_tool", "args": {
             "name": "sport_sport_checkin", "arguments": {"training_id": training_id, "cancel": cancel}}, "id": "h1"}]),
-        AIMessage(content="Обработано."), AIMessage(content="Обработано."),
+        AIMessage(content="Обработано."),
     ]
     agent = build_agent(ScriptedModel(responses=script), guardrail=False)
     config = {"configurable": {"thread_id": "sport-consent"}}
@@ -203,13 +201,28 @@ class ScriptedModel(FakeMessagesListChatModel):
         return self
 
 
-def test_a_ref_in_the_account_helpers_report_is_invented_and_goes():
-    # The account helper's tools give no sources: it wrote the training 13 as [m13], which may be a source of an earlier question.
-    script = [AIMessage(content="", tool_calls=[{"name": "ask_account", "args": {"question": "сколько у меня часов спорта"}, "id": "c1", "type": "tool_call"}]),
-              AIMessage(content="У вас 14 часов из 30 [m13]. Вы записаны на плавание [m1, m2] [m3]."),
-              AIMessage(content="У вас 14 часов из 30.")]  # fmt: skip
+@pytest.mark.parametrize("helper", [None, "ask_chats"])
+def test_api_results_do_not_create_citation_refs(sport, monkeypatch, helper):
+    from catix.agent import core
+
+    monkeypatch.setattr(core.store, "visible_chats", lambda *a: [])
+    # API results provide facts, not citation sources; training IDs cannot become refs.
+    fake_refs = "У вас 14 часов из 30 [m13]. Вы записаны на плавание [m1, m2] [m3]."
+    clean = "У вас 14 часов из 30. Вы записаны на плавание."
+    script = ([AIMessage(content="", tool_calls=[{"name": helper, "args": {"question": "сколько у меня часов спорта"}, "id": "c1"}])]
+              if helper else []) + [
+        AIMessage(content="", tool_calls=[{"name": "call_api_tool", "args": {"name": "sport_get_my_sport", "arguments": {}}, "id": "r1"}]),
+        AIMessage(content=fake_refs),
+        *([AIMessage(content=fake_refs)] if helper else []),
+    ]
     agent = build_agent(ScriptedModel(responses=script), guardrail=False)
     out = agent.invoke({"messages": [{"role": "user", "content": "сколько у меня часов спорта"}]}, {"configurable": {"thread_id": "s"}}, context=SITE)
-    report = next(m for m in out["messages"] if isinstance(m, ToolMessage))
-    assert report.name == "ask_account" and report.content == "У вас 14 часов из 30. Вы записаны на плавание."
-    assert roles.ROLES["account"].cites is False and all(r.cites for r in roles.ROLES.values() if r.name != "account")
+    if helper:
+        report = next(m for m in out["messages"] if isinstance(m, ToolMessage))
+        assert report.name == helper and report.content == clean
+        assert report.artifact["tools"] == ["call_api_tool"]
+        assert report.artifact["read_found"] is True
+    else:
+        assert core.read_evidence(out["messages"])
+    assert core.final_answer(out["messages"], out.get("sources") or {}) == clean
+    assert not out.get("sources")

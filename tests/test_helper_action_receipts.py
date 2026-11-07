@@ -51,7 +51,7 @@ def invoke_action(script, question="Отмени бронь.", model_class=Scrip
     return agent, config, context, out
 
 
-@pytest.mark.parametrize("helper", ["account", "docs", "chats"])
+@pytest.mark.parametrize("helper", ["docs", "chats"])
 @pytest.mark.parametrize("bad_prose", [BAD_MARKUP, "."])
 @pytest.mark.parametrize("root_answer", [core.TOOL_FAILURE_ANSWER, "Действие не выполнено. Повторите запрос."])
 @pytest.mark.parametrize("receipt", [CONFIRMED, UNKNOWN])
@@ -92,7 +92,7 @@ class FailingReportModel(ScriptedModel):
         return super()._generate(*args, **kwargs)
 
 
-@pytest.mark.parametrize("helper", ["account", "docs", "chats"])
+@pytest.mark.parametrize("helper", ["docs", "chats"])
 @pytest.mark.parametrize("receipt", [CONFIRMED, UNKNOWN])
 def test_helper_model_exception_retains_streamed_receipt(mutation, helper, receipt):
     sent, payload = mutation
@@ -115,7 +115,7 @@ def test_helper_model_exception_retains_streamed_receipt(mutation, helper, recei
     assert ("могло выполниться" if receipt == UNKNOWN else "подтверждено сервисом") in answer
 
 
-@pytest.mark.parametrize("helper", ["account", "docs", "chats"])
+@pytest.mark.parametrize("helper", ["docs", "chats"])
 @pytest.mark.parametrize("reverse", [False, True])
 @pytest.mark.parametrize("question", ["Отмени обе брони.", "Cancel both bookings."])
 def test_mixed_receipts_preserve_unknown_and_second_consent(mutation, helper, reverse, question):
@@ -147,7 +147,7 @@ def test_mixed_receipts_preserve_unknown_and_second_consent(mutation, helper, re
     assert core.found_anything(out["messages"]) is not True
 
 
-@pytest.mark.parametrize("helper", ["account", "docs", "chats"])
+@pytest.mark.parametrize("helper", ["docs", "chats"])
 @pytest.mark.parametrize("reject", [False, True])
 def test_no_receipt_without_approval_or_after_rejection(mutation, helper, reject):
     sent, _ = mutation
@@ -166,7 +166,7 @@ def test_no_receipt_without_approval_or_after_rejection(mutation, helper, reject
     assert sent == []
 
 
-def helper_result(monkeypatch, messages, *, error=None, role="account"):
+def helper_result(monkeypatch, messages, *, error=None, role="docs"):
     """Exercise the real helper boundary with precisely shaped stream messages."""
     from types import SimpleNamespace
     from langchain_core.tools import StructuredTool
@@ -184,7 +184,7 @@ def helper_result(monkeypatch, messages, *, error=None, role="account"):
     return helper.func("Отмени бронь.", runtime).update["messages"][0]
 
 
-@pytest.mark.parametrize("role", ["account", "docs", "chats"])
+@pytest.mark.parametrize("role", ["docs", "chats"])
 @pytest.mark.parametrize("target,ident,status,receipt", [
     ("account_cancel_booking", "unmatched", "success", CONFIRMED),
     ("account_cancel_booking", "w1", "error", CONFIRMED),
@@ -211,15 +211,15 @@ def test_old_or_unmatched_helper_artifacts_do_not_resurrect_receipts(monkeypatch
     messages = [HumanMessage("Act"), call("call_api_tool", ACTION, "w1"),
                 ToolMessage(content=json.dumps(CONFIRMED), name="call_api_tool", tool_call_id="w1"), AIMessage(content=".")]
     report = helper_result(monkeypatch, messages)
-    root = [HumanMessage("Act"), call("ask_account", {"question": "Act"}, "h1"), report, AIMessage(content=".")]
+    root = [HumanMessage("Act"), call("ask_docs", {"question": "Act"}, "h1"), report, AIMessage(content=".")]
     assert core.action_receipt(root)  # Positive control: this artifact is valid in its own turn.
     assert "confirmed" in core.final_answer(root, {})
-    mismatched = [root[0], call("ask_account", {"question": "Act"}, "other"), report, root[-1]]
+    mismatched = [root[0], call("ask_docs", {"question": "Act"}, "other"), report, root[-1]]
     assert not core.action_receipt(mismatched)
-    wrong_name = [root[0], call("ask_docs", {"question": "Act"}, "h1"), report, root[-1]]
+    wrong_name = [root[0], call("ask_chats", {"question": "Act"}, "h1"), report, root[-1]]
     assert not core.action_receipt(wrong_name)
-    root += [HumanMessage("Any announcements?"), call("ask_account", {"question": "Announcements?"}, "h2"),
-             ToolMessage(content=core.TOOL_FAILURE_ANSWER, name="ask_account", tool_call_id="h2"), AIMessage(content="All done.")]
+    root += [HumanMessage("Any announcements?"), call("ask_docs", {"question": "Announcements?"}, "h2"),
+             ToolMessage(content=core.TOOL_FAILURE_ANSWER, name="ask_docs", tool_call_id="h2"), AIMessage(content="All done.")]
     assert not core.action_receipt(root)
     assert core.final_answer(root, {}) == core.TOOL_FAILURE_ANSWER
     report = helper_result(monkeypatch, [*messages, HumanMessage("Another question"), AIMessage(content=core.TOOL_FAILURE_ANSWER)])
@@ -254,6 +254,6 @@ def test_exhausted_helper_budget_returns_receipt_not_limit_text(monkeypatch, rec
                 AIMessage(content="Model call limits exceeded: run limit (8/8)")]
     report = helper_result(monkeypatch, messages)
     assert "Do not repeat" in report.content
-    root = [HumanMessage("Cancel booking."), call("ask_account", {"question": "Act"}, "h1"), report,
+    root = [HumanMessage("Cancel booking."), call("ask_docs", {"question": "Act"}, "h1"), report,
             AIMessage(content="The action failed. Retry.")]
     assert core.final_answer(root, {}) == report.content

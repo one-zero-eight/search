@@ -66,7 +66,7 @@ def test_calendar_actions_are_exposed_only_on_root_and_always_reviewed():
 
     names = {"add_to_ai_calendar", "update_ai_calendar", "remove_from_ai_calendar"}
     assert names <= {t.name for t in TOOLS}
-    assert roles.ROLES["account"].tools == {"search_api_tools", "call_api_tool"}
+    assert {"search_api_tools", "call_api_tool"} <= roles.MAIN_TOOLS
     assert all(not hasattr(role, "approval") for role in roles.ROLES.values())
     assert names == set(LOCAL_CALENDAR_APPROVAL)
     assert names | {"get_my_ai_calendar"} <= roles.MAIN_TOOLS
@@ -284,17 +284,18 @@ def test_approved_calendar_event_is_persisted_and_exported_in_the_real_feed(cale
 
 
 def test_calendar_write_binding_requires_site_identity_but_read_is_always_local():
-    from catix.agent.core import AccountOnTheSiteMiddleware
+    from catix.agent.core import LocalCalendarAccessMiddleware
 
     def offered(context):
         request = SimpleNamespace(runtime=SimpleNamespace(context=context), tools=TOOLS,
                                   override=lambda **kw: SimpleNamespace(**kw))
-        return {t.name for t in AccountOnTheSiteMiddleware._without(request).tools}
+        return {t.name for t in LocalCalendarAccessMiddleware._without(request).tools}
 
     writes = {"add_to_ai_calendar", "update_ai_calendar", "remove_from_ai_calendar"}
     for context in (None, AgentContext(), AgentContext(user_telegram_id=42),
                     AgentContext(innohassle_id="u1"), AgentContext(innohassle_token=SecretStr("token"))):
         assert "get_my_ai_calendar" in offered(context)
+        assert {"search_api_tools", "call_api_tool"} <= offered(context)
         assert not writes & offered(context)
     assert writes | {"get_my_ai_calendar"} <= offered(SITE)
 
