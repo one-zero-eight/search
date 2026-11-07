@@ -51,6 +51,14 @@ def test_all_agents_share_account_discovery_and_action_rules():
         assert "never guess" in prompt and "separate Sport sign-in" in prompt
 
 
+def test_music_schedule_is_not_described_as_confirmed_availability():
+    for prompt in (roles.SUPERVISOR, roles.prompt("docs"), roles.prompt("chats")):
+        assert "shows when the music room is free" not in prompt
+        assert "music_get_music_room_schedule lists occupied intervals" in prompt
+        assert 'say "no bookings"' in prompt
+        assert "opening hours and access are not verified" in prompt
+
+
 def test_printer_status_is_offered_without_promising_printing_or_moodle():
     from catix.agent.tools import TOOLS
 
