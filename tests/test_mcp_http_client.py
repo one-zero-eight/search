@@ -64,7 +64,7 @@ def test_configured_http_client_isolates_tokens_refuses_cookies_and_closes_conne
 
 
 def test_http_client_sends_only_service_credentials_out_of_band(monkeypatch):
-    from catix.innohassle import mcp_domain, sport
+    from catix.innohassle import sport
     from tests.test_sport import VOLLEYBALL
 
     requests, writes = [], []
@@ -75,7 +75,7 @@ def test_http_client_sends_only_service_credentials_out_of_band(monkeypatch):
     monkeypatch.setattr(sport, "training", lambda access, ident: VOLLEYBALL)
     monkeypatch.setattr(sport, "check_in", lambda *args: writes.append(args))
 
-    args = mcp_domain.validate("sport_sport_checkin", {"training_id": 11})
+    args = {"training_id": 11, "cancel": False}
 
     class RecordRequests:
         def __init__(self, app):

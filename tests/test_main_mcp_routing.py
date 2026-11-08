@@ -244,7 +244,7 @@ def test_empty_calendar_preserves_partial_answer_only_for_exact_local_read(targe
 def test_web_ai_calendar_survives_failed_helper_without_mcp(monkeypatch, empty):
     from pydantic import SecretStr
     from catix.agent import calendar_tools
-    from catix.innohassle import mcp_domain
+    from catix.innohassle import mcp_server
 
     owners, reads = [], []
     events = [] if empty else [{"title": "Personal meeting"}]
@@ -256,7 +256,7 @@ def test_web_ai_calendar_survives_failed_helper_without_mcp(monkeypatch, empty):
         pytest.fail("Local calendar reads must not consult or call MCP")
 
     monkeypatch.setattr(api_tools.mcp_client, "request_sync", no_mcp)
-    monkeypatch.setattr(mcp_domain, "definitions", no_mcp)
+    monkeypatch.setattr(mcp_server, "build_server", no_mcp)
     fact = "В личном календаре событий нет." if empty else "В личном календаре: Personal meeting."
     answer = fact + " Объявления проверить не удалось."
     out = run([
@@ -274,12 +274,12 @@ def test_web_ai_calendar_survives_failed_helper_without_mcp(monkeypatch, empty):
 
 
 def test_malformed_local_calendar_never_consults_mcp_declarations(monkeypatch):
-    from catix.innohassle import mcp_domain
+    from catix.innohassle import mcp_server
 
     def no_mcp():
         pytest.fail("Local calendar evidence must not depend on MCP declarations")
 
-    monkeypatch.setattr(mcp_domain, "definitions", no_mcp)
+    monkeypatch.setattr(mcp_server, "build_server", no_mcp)
     messages = [HumanMessage("Что у меня завтра?"), call("get_my_ai_calendar", {}, "r1"),
                 ToolMessage(content='{"events": [], "range": []}', name="get_my_ai_calendar", tool_call_id="r1")]
     assert core.successful_read(messages) is False
@@ -703,7 +703,8 @@ def test_other_native_read_empty_contracts(monkeypatch, target, args):
 @pytest.mark.parametrize("empty", [False, True])
 def test_native_read_envelopes_from_declared_functions(monkeypatch, empty):
     import httpx
-    from catix.innohassle import client, mcp_domain, token
+    from catix.innohassle import client, token
+    from tests.mcp_native_helpers import registered_tools
 
     samples = {
         "printers_print_get_printers_status": {"printer": {"display_name": "313", "cups_name": "m0"},
@@ -715,10 +716,10 @@ def test_native_read_envelopes_from_declared_functions(monkeypatch, empty):
         "events_events_list_events": {"id": "m0", "data": {"name": "Workshop", "starts_at": "2099-01-01T10:00:00",
                                                             "duration_hours": 1.0, "location": {"display_name": "313"}}},
     }
-    declared = mcp_domain.definitions()
-    assert set(samples) == {name for name, tool in declared.items() if not tool.meta["catix"]["write"]
+    declared = registered_tools()
+    assert set(samples) == {name for name, tool in declared.items() if tool.annotations.read_only_hint
                            and "data" in (tool.output_schema or {}).get("required", [])}
-    assert all("domain" not in tool.meta["catix"] for tool in declared.values())
+    assert all("catix" not in (tool.meta or {}) for tool in declared.values())
     monkeypatch.setattr(token, "claims", lambda value: {"uid": "u1"})
     for target, sample in samples.items():
         with httpx.Client(base_url="https://synthetic.invalid", transport=httpx.MockTransport(

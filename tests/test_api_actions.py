@@ -6,7 +6,7 @@ import asyncio
 import httpx
 import pytest
 
-from catix.innohassle import actions, mcp_domain, client as backend
+from catix.innohassle import actions, client as backend
 
 
 def read(name, parameters, token):
@@ -72,15 +72,16 @@ def test_policy_rejects_non_object_arguments_before_protocol(gateway):
     # FastMCP Client treats a falsey [] as omitted arguments. The host checks
     # the original JSON before entering that client; do not test the sanitization.
     with pytest.raises(ValueError):
-        mcp_domain.validate(NAME, [])
+        from catix.agent.api_tools import CallApiToolArgs
+        CallApiToolArgs.model_validate({"name": NAME, "arguments": []})
     assert not gateway.asked
 
 
 @pytest.mark.parametrize('name', ['printers_print_actual_print', 'accounts_tokens_impersonate', 'https://evil.example/',
                                  'printers/../accounts/users', 'GET /print/get_printers_status'])
 def test_unknown_names_cannot_pass_the_single_catalogue(gateway, name):
-    with pytest.raises(ValueError):
-        mcp_domain.validate(name, {})
+    with pytest.raises(actions.ReadError):
+        read(name, {}, "user-secret")
     assert not gateway.asked
 
 

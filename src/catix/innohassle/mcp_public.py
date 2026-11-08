@@ -3,15 +3,14 @@
 import json
 import re
 from datetime import date, datetime, timedelta
-from typing import Annotated
+from typing import Annotated, Literal
 
 import icalendar
 import recurring_ical_events
 from fastmcp.tools import tool
 from pydantic import Field
 
-from catix.innohassle import mcp_schemas as schemas
-from catix.innohassle.mcp_declarations import guarded, metadata
+from catix.innohassle.mcp_declarations import metadata, result_boundary
 from catix.settings import settings
 
 MAX_CLUBS = 10
@@ -132,8 +131,8 @@ def _instructor(description: str) -> str | None:
     return match.group(1).strip() if match else None
 
 
-@tool(**metadata("public"))
-@guarded(args_model=schemas.GetScheduleArgs)
+@tool(**metadata())
+@result_boundary()
 def schedule_get_schedule(
     group: Annotated[str, Field(pattern="\\S")],
     date_from: date | None = None,
@@ -200,8 +199,8 @@ def schedule_get_schedule(
     return result
 
 
-@tool(**metadata("public"))
-@guarded(args_model=schemas.FindRoomArgs)
+@tool(**metadata())
+@result_boundary()
 def maps_find_room(query: str) -> dict:
     """Public campus map search with room descriptions, people and booking capability.
 
@@ -231,9 +230,12 @@ def maps_find_room(query: str) -> dict:
     return {"total": len(areas), "areas": areas[:MAX_AREAS]}
 
 
-@tool(**metadata("public"))
-@guarded(args_model=schemas.GetClubsArgs)
-def clubs_get_clubs(query: str | None = None, type: str | None = None, include_inactive: bool = False) -> dict:
+@tool(**metadata())
+@result_boundary()
+def clubs_get_clubs(
+    query: str | None = None, type: Literal["tech", "sport", "hobby", "art"] | None = None,
+    include_inactive: bool = False,
+) -> dict:
     """Public university clubs: list/filter clubs or search their details, leaders and links.
 
     Defaults to active clubs. Query selects detailed matching clubs rather than an inventory.
@@ -274,8 +276,8 @@ def clubs_get_clubs(query: str | None = None, type: str | None = None, include_i
     return result
 
 
-@tool(**metadata("public"))
-@guarded(args_model=schemas.GetUniversityEventsArgs)
+@tool(**metadata())
+@result_boundary()
 def events_get_university_events(
     date_from: date | None = None, date_to: date | None = None, query: str | None = None
 ) -> dict:

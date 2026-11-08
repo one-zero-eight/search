@@ -9,7 +9,7 @@ from pydantic import SecretStr
 
 from catix.agent import api_tools, core
 from catix.agent.tools import AgentContext
-from catix.innohassle import mcp_domain
+from tests.mcp_native_helpers import input_schema
 from tests.test_roles import ScriptedModel
 
 
@@ -32,7 +32,7 @@ def mutation(monkeypatch):
     def request(method, args, token=None, **kwargs):
         if method == "search_tools":
             assert token is None and kwargs == {}
-            return {"tools": [{"name": args["query"], "inputSchema": mcp_domain.schema(args["query"])}]}
+            return {"tools": [{"name": args["query"], "inputSchema": input_schema(args["query"])}]}
         assert token == "synthetic-user"
         assert method == "call_tool"
         sent.append(args)

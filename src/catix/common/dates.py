@@ -10,7 +10,7 @@ import re
 from datetime import date, datetime, time, timedelta
 from typing import Annotated
 
-from pydantic import WithJsonSchema
+from pydantic import BeforeValidator, WithJsonSchema
 
 MAX_RESULTS = 6
 YEAR_ROLLOVER_DAYS = 180  # "15 января" in a message sent in December means the next year.
@@ -19,7 +19,19 @@ ANNOUNCED_AHEAD_DAYS = 60  # How long before an event its announcement may be wr
 
 # A time of day in a model's structured output, written HH:MM. Not plain `time`: its JSON schema (format "time") lets
 # the guided decoding go on with fractional seconds, and the model did: "18:00:00.0000…" up to the token limit.
-ClockTime = Annotated[time, WithJsonSchema({"type": "string", "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$"})]
+def _clock_time(value):
+    if isinstance(value, str) and re.fullmatch(r"(?:[01][0-9]|2[0-3]):[0-5][0-9]", value):
+        return time.fromisoformat(value)
+    if isinstance(value, time) and value.second == 0 and value.microsecond == 0 and value.tzinfo is None:
+        return value
+    raise ValueError("Time must use HH:MM format.")
+
+
+ClockTime = Annotated[
+    time,
+    BeforeValidator(_clock_time),
+    WithJsonSchema({"type": "string", "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$"}),
+]
 
 _MONTHS = {
     # Russian genitive ("23 октября") and English names/abbreviations.

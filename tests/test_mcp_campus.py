@@ -11,7 +11,8 @@ from pydantic import SecretStr
 
 from catix.agent import api_tools, tools
 from catix.innohassle import mcp_campus as campus_tools
-from catix.innohassle import client as backend, mcp_client, mcp_domain, mcp_server
+from catix.innohassle import client as backend, mcp_client, mcp_server
+from tests.mcp_native_helpers import registered_tools, input_schema
 from catix.settings import settings
 from tests.mcp_helpers import install_http_adapter
 
@@ -50,12 +51,13 @@ def runtime(group=None, question='What are my classes?', user='alice'):
 
 def test_public_native_registration_and_explicit_http_schedule(campus_http):
     for name, (module, legacy) in PUBLIC.items():
-        operation = mcp_domain.definitions().get(name)
+        operation = registered_tools().get(name)
         assert operation is not None, name
-        assert operation.meta['catix'] == {'auth': 'public', 'write': False}
-        assert mcp_domain.policy(name) == {'auth': 'public', 'write': False}
-        assert not {'runtime', 'uid', 'user_id', 'token', 'sport_token'} & mcp_domain.schema(name)['properties'].keys()
-    schema = mcp_domain.schema('schedule_get_schedule')
+        from fastmcp.server.dependencies import get_dependency_parameters
+        assert not get_dependency_parameters(operation.fn)
+        assert operation.annotations.read_only_hint is True
+        assert not {'runtime', 'uid', 'user_id', 'token', 'sport_token'} & input_schema(name)['properties'].keys()
+    schema = input_schema('schedule_get_schedule')
     assert 'group' in schema['required']
     assert schema['properties']['group']['type'] == 'string'
     # Direct MCP clients may explicitly select any public group. This is not identity.
@@ -66,8 +68,8 @@ def test_public_native_registration_and_explicit_http_schedule(campus_http):
     assert result['classes'] == []
     assert campus_http == [GROUPS[1].lower()]
     for bad in [{}, {'group': None}, {'group': ''}, {'group': '   '}]:
-        with pytest.raises(ValueError):
-            mcp_domain.validate('schedule_get_schedule', bad)
+        assert 'error' in mcp_client.request_sync('call_tool', {
+            'name': 'schedule_get_schedule', 'arguments': bad}, None)
 
 
 @pytest.mark.parametrize('asynchronous', [False, True])
@@ -179,8 +181,6 @@ def test_identity_runtime_and_node_input_are_rejected_at_server_boundary(campus_
             args['group'] = GROUPS[0]
         args[field] = value
         assert 'error' in api_tools._call(name, runtime(GROUPS[0]), args)
-        with pytest.raises(ValueError):
-            mcp_domain.validate(name, args)
     assert campus_http == []
     with pytest.raises(ValueError):
         api_tools.CallApiToolArgs.model_validate({'name': 'schedule_get_schedule', field: value})
@@ -189,7 +189,7 @@ def test_identity_runtime_and_node_input_are_rejected_at_server_boundary(campus_
 def test_schedule_schema_does_not_mutate_legacy_optional_group():
     legacy = tools.GetScheduleArgs.model_json_schema()
     for _ in range(3):
-        assert mcp_domain.schema('schedule_get_schedule')['required'] == ['group']
+        assert input_schema('schedule_get_schedule')['required'] == ['group']
     assert 'group' not in legacy.get('required', [])
     assert legacy['properties']['group']['default'] is None
 

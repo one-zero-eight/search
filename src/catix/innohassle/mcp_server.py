@@ -1,4 +1,4 @@
-"""One static, typed MCP catalogue, built once per internal HTTP server lifetime."""
+"""Typed MCP server with native registration, validation and dependencies."""
 
 import argparse
 import asyncio
@@ -9,16 +9,18 @@ from dataclasses import dataclass
 from typing import Any
 
 from fastmcp import FastMCP
-from fastmcp.exceptions import ToolError
-from fastmcp.server.dependencies import get_http_request
+from fastmcp.exceptions import ToolError, ValidationError
+from fastmcp.server.dependencies import get_http_request, resolve_dependencies
 from fastmcp.server.middleware import Middleware
 from fastmcp.server.transforms.search import BM25SearchTransform
 from fastmcp.tools.base import Tool, ToolResult
+from fastmcp.tools.function_tool import FunctionTool
+from pydantic import ValidationError as ModelValidationError
 from starlette.requests import Request
 from starlette.responses import JSONResponse
 
-from catix.innohassle import actions, mcp_domain
 from catix.innohassle import token as token_verifier
+from catix.innohassle.mcp_declarations import invalid_arguments
 
 _credential: ContextVar[str | None] = ContextVar("catix_mcp_credential", default=None)
 _sport_credential: ContextVar[str | None] = ContextVar("catix_mcp_sport_credential", default=None)
@@ -36,14 +38,12 @@ _identity: ContextVar[_Identity | None] = ContextVar("catix_mcp_identity", defau
 
 @contextmanager
 def credentials(token: str | None, *, sport_token: str | None = None):
-    """Trusted runtime only: set BEFORE entering a fresh in-process Client(root).
+    """Trusted in-process test/client context; HTTP always uses its own headers.
 
-    Never reuse a connected Client across users. Model arguments and MCP _meta
-    cannot set this context. HTTP requests always use their own verified headers.
+    Set before entering a fresh Client(root). Do not reuse it across users.
     """
     handle = _credential.set(token)
     sport_handle = _sport_credential.set(sport_token)
-
     try:
         yield
     finally:
@@ -51,42 +51,54 @@ def credentials(token: str | None, *, sport_token: str | None = None):
         _credential.reset(handle)
 
 
-class _RequestPolicy(Middleware):
+class _RequestBoundary(Middleware):
+    async def _invalid_call(
+        self, declared: FunctionTool, arguments: Any, error: ModelValidationError | None = None,
+    ) -> ToolResult:
+        # SDK input validation precedes DI. Resolve the same credential dependencies
+        # on a rejected call too, without invoking its body or revalidating arguments.
+        # Business inputs never feed these dependencies.
+        async with resolve_dependencies(declared.fn, {}):
+            pass
+        message = "Invalid account operation arguments; nothing was done."
+        if error is not None:
+            # Custom field validators MUST NOT put private input in ValueError
+            # messages: excluding input/context does not sanitize msg itself.
+            # Keep built-in diagnostics and extra-key locations out of replies.
+            authored = [detail["msg"] for detail in error.errors(include_input=False, include_context=False)
+                        if detail["type"] == "value_error"]
+            if authored:
+                message += f" {authored[0]}"
+        if isinstance(arguments, dict):
+            missing = [key for key in declared.parameters.get("required", []) if key not in arguments]
+            if missing:
+                message += f" Missing required fields: {', '.join(missing)}."
+        if declared.annotations and declared.annotations.read_only_hint is False:
+            return ToolResult(structured_content=invalid_arguments(message))
+        raise ToolError(message)
+
     async def on_call_tool(self, context, call_next):
-        # Check original JSON before FastMCP/Pydantic deserializes ClockTime or
-        # coerces any other field. Leaf validation alone cannot recover lost input.
         name, arguments = context.message.name, context.message.arguments
         arguments = {} if arguments is None else arguments
+        if name in {"search_tools", "service_status"}:
+            return await call_next(context)
         if name == "call_tool":
-            # The SDK proxy accepts omitted/null arguments, but may only target
-            # concrete declarations, never another proxy or discovery interface.
             if not isinstance(arguments, dict) or set(arguments) - {"name", "arguments"}:
                 raise ToolError("Invalid account operation arguments; nothing was done.")
             name, arguments = arguments.get("name"), arguments.get("arguments")
             arguments = {} if arguments is None else arguments
-        if not isinstance(name, str):
+        if not isinstance(name, str) or name in {"call_tool", "search_tools", "service_status"}:
             raise ToolError("Unknown API operation.")
-        invalid_arguments = None
-        try:
-            if context.message.name not in {"search_tools", "service_status"}:
-                mcp_domain.validate(name, arguments)
-        except mcp_domain.InvalidArguments as error:
-            if not mcp_domain.policy(name)["write"]:
-                raise ToolError(str(error)) from None
-            # Only our authored validation before execution proves no write occurred.
-            # Keep authentication below; arbitrary protocol failures stay ambiguous.
-            invalid_arguments = {"done": False, "code": "invalid_arguments", "error": str(error)}
-        except ValueError as error:
-            raise ToolError(str(error)) from None
+        declared = await context.fastmcp_context.fastmcp.get_tool(name)
+        if not isinstance(declared, FunctionTool):
+            raise ToolError("Unknown API operation.")
         try:
             request = get_http_request()
         except RuntimeError:
-            token = _credential.get()
-            sport_token = _sport_credential.get()
+            token, sport_token = _credential.get(), _sport_credential.get()
         else:
             token = request.headers.get("x-innohassle-token")
             sport_token = request.headers.get("x-sport-token")
-
         uid = None
         if token:
             try:
@@ -96,57 +108,20 @@ class _RequestPolicy(Middleware):
             if not isinstance(claims, dict) or not isinstance(claims.get("uid"), str) or not claims["uid"].strip():
                 raise ToolError("InNoHassle sign-in is invalid; sign in on the site again.")
             uid = claims["uid"]
-        identity_handle = _identity.set(_Identity(token, sport_token, uid))
+        handle = _identity.set(_Identity(token, sport_token, uid))
         try:
-            if invalid_arguments is not None:
-                _authorized(name)
-                return ToolResult(structured_content=invalid_arguments)
-            return await call_next(context)
+            if not isinstance(arguments, dict):
+                return await self._invalid_call(declared, arguments)
+            try:
+                return await call_next(context)
+            except ValidationError as error:
+                # Only the SDK's tagged argument failure proves execution did not
+                # start. Body/output/dependency failures must never enter this path.
+                if not isinstance(error.__cause__, ModelValidationError):
+                    raise ToolError("The operation could not be completed.") from None
+                return await self._invalid_call(declared, arguments, error.__cause__)
         finally:
-            _identity.reset(identity_handle)
-
-
-def _authorized(name: str):
-    """Verified-identity gate for execution."""
-    operation = mcp_domain.policy(name)
-    protected = operation["auth"] != "public"
-    identity = _identity.get()
-    if identity is None or (protected and (not identity.token or not identity.uid)):
-        raise ToolError("This account operation requires sign in on innohassle.ru.")
-    if operation["auth"] == "sport" and not identity.sport_token:
-        raise ToolError("This operation requires the separate InNoHassle Sport sign-in.")
-    return operation, identity
-
-
-async def _dispatch(name: str, arguments: dict, *, execute) -> dict:
-    """Guard every leaf: original JSON was validated before SDK coercion too."""
-    try:
-        normalized = mcp_domain.validate(name, mcp_domain._json(arguments))
-    except ValueError as error:
-        raise ToolError(str(error)) from None
-    operation, identity = _authorized(name)
-    protected = operation["auth"] != "public"
-
-    try:
-        result = await asyncio.to_thread(
-            execute,
-            normalized,
-            token=identity.token if protected else None,
-            sport_token=identity.sport_token if protected else None,
-            uid=identity.uid if protected else None,
-        )
-        return mcp_domain._redact(result, (identity.token, identity.sport_token))
-    except actions.ReadError as error:
-        raise ToolError(str(error)) from None
-    except Exception:
-        if operation["write"]:
-            return {
-                "done": None,
-                "outcome": "unknown",
-                "error": "The action could not be confirmed; changes may have been applied. "
-                "Read back the current state. Do not retry automatically.",
-            }
-        raise ToolError("InNoHassle API is unavailable; try again later.") from None
+            _identity.reset(handle)
 
 
 def _compact_search_results(tools: Sequence[Tool]) -> list[dict[str, Any]]:
@@ -155,16 +130,20 @@ def _compact_search_results(tools: Sequence[Tool]) -> list[dict[str, Any]]:
 
 
 async def build_server() -> FastMCP:
-    """Register explicit typed functions without upstream schema I/O."""
-    root = FastMCP("cAtIx InNoHassle", strict_input_validation=True, mask_error_details=True)
-    root.add_middleware(_RequestPolicy())
+    """Register decorated functions directly; the server owns their tool objects."""
+    from catix.innohassle import mcp_tools
+
+    root = FastMCP("cAtIx InNoHassle", strict_input_validation=True, mask_error_details=True, on_duplicate="error")
+    root.add_middleware(_RequestBoundary())
     status: dict[str, dict[str, Any]] = {}
-    for name, declared in mcp_domain.definitions().items():
-        root.add_tool(declared)
-        namespace = name.split("_", 1)[0]
+    for function in vars(mcp_tools).values():
+        if getattr(function, "__fastmcp__", None) is None:
+            continue
+        declared = root.add_tool(function)
+        namespace = declared.name.split("_", 1)[0]
         service = status.setdefault(namespace, {"registered": True, "tools": 0, "tool_names": []})
         service["tools"] += 1
-        service["tool_names"].append(name)
+        service["tool_names"].append(declared.name)
 
     @root.tool
     def service_status() -> dict[str, Any]:
@@ -184,7 +163,7 @@ async def build_server() -> FastMCP:
 
 @asynccontextmanager
 async def adapter():
-    """Construct one catalogue for an HTTP-server lifetime or isolated test."""
+    """Construct one server for an HTTP-server lifetime or isolated test."""
     yield await build_server()
 
 
@@ -198,12 +177,8 @@ def main():
     async def serve():
         async with adapter() as root:
             await root.run_async(
-                transport="http",
-                host=options.host,
-                port=options.port,
-                path="/mcp",
-                stateless_http=True,
-                show_banner=False,
+                transport="http", host=options.host, port=options.port,
+                path="/mcp", stateless_http=True, show_banner=False,
             )
 
     asyncio.run(serve())

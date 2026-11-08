@@ -1,14 +1,16 @@
-"""Explicit standalone FastMCP declarations, shared by host policy and server.
+"""Explicit standalone FastMCP declarations registered directly by the server.
 
 The SDK @tool attaches metadata without constructing a server. Business functions
 are imported normally from service modules and own their implementations.
 """
 
+import re
 from datetime import date, datetime
 from typing import Annotated
 
+from fastmcp.dependencies import Depends
 from fastmcp.tools import tool
-from pydantic import Field
+from pydantic import AwareDatetime, BeforeValidator, Field
 
 from catix.innohassle import actions
 from catix.innohassle.mcp_account import (
@@ -41,6 +43,7 @@ from catix.innohassle.mcp_campus import (
     timetable_get_room_timetable as timetable_get_room_timetable,
 )
 from catix.innohassle.mcp_declarations import metadata as _metadata
+from catix.innohassle.mcp_declarations import require_innohassle, result_boundary
 from catix.innohassle.mcp_public import (
     clubs_get_clubs as clubs_get_clubs,
 )
@@ -67,46 +70,47 @@ from catix.innohassle.mcp_sport import (
 )
 
 
-async def _read(
-    function, arguments: dict, path: str, response_model: type[actions.Projection], action_id: str, note: str
+def _read(
+    arguments: dict, path: str, response_model: type[actions.Projection], action_id: str, note: str,
+    *, token: str | None = None,
 ) -> dict:
-    from catix.innohassle import mcp_server
-
-    def execute(normalized, *, token, sport_token, uid):
-        return actions.read(path, response_model, normalized, token, action_id=action_id, note=note)
-
-    return await mcp_server._dispatch(function.__name__, arguments, execute=execute)
+    parameters = {key: value.isoformat() if isinstance(value, (date, datetime)) else value
+                  for key, value in arguments.items()}
+    return actions.read(path, response_model, parameters, token, action_id=action_id, note=note)
 
 
-@tool(**_metadata("innohassle"))
-async def printers_print_get_printers_status() -> actions.ReadResult[actions.PrinterStatus]:
+@tool(**_metadata())
+@result_boundary()
+def printers_print_get_printers_status(
+    *, token: str = Depends(require_innohassle),
+) -> actions.ReadResult[actions.PrinterStatus]:
     """Printer availability, paper and toner / Состояние принтеров, бумага и тонер.
 
     Sign-in required. offline=false means reachable, not ready to print. Null
     percentages mean unknown, not zero. No printing, print jobs or scanning.
     Принтер принтеры печать распечатать бумага тонер картридж состояние доступность.
     """
-    result = await _read(
-        printers_print_get_printers_status,
+    result = _read(
         {},
         "/printers/v0/print/get_printers_status",
         actions.PrinterStatus,
         "printers.print_get_printers_status",
         "offline=false only means reachable, not ready to print. Null percentages mean unknown, not zero. "
         "Read-only: printing, print jobs and scanning are not available.",
+        token=token,
     )
     return actions.ReadResult[actions.PrinterStatus].model_validate(result)
 
 
-@tool(**_metadata("public"))
-async def maps_scenes_search_areas(query: Annotated[str, Field(min_length=1)]) -> actions.ReadResult[actions.AreaHit]:
+@tool(**_metadata())
+@result_boundary()
+def maps_scenes_search_areas(query: Annotated[str, Field(min_length=1)]) -> actions.ReadResult[actions.AreaHit]:
     """Find a room, place or printer on the campus map / Найти аудиторию, место или принтер на карте.
 
     Public read. Location only, not live printer state or room availability.
     English keywords can match English map names.
     """
-    result = await _read(
-        maps_scenes_search_areas,
+    result = _read(
         {"query": query},
         "/maps/v0/scenes/areas/search",
         actions.AreaHit,
@@ -116,11 +120,11 @@ async def maps_scenes_search_areas(query: Annotated[str, Field(min_length=1)]) -
     return actions.ReadResult[actions.AreaHit].model_validate(result)
 
 
-@tool(**_metadata("public"))
-async def maps_scenes_scenes() -> actions.ReadResult[actions.Scene]:
+@tool(**_metadata())
+@result_boundary()
+def maps_scenes_scenes() -> actions.ReadResult[actions.Scene]:
     """Campus map scenes floors buildings / Карты кампуса этажи здания. Public read."""
-    result = await _read(
-        maps_scenes_scenes,
+    result = _read(
         {},
         "/maps/v0/scenes/",
         actions.Scene,
@@ -130,14 +134,14 @@ async def maps_scenes_scenes() -> actions.ReadResult[actions.Scene]:
     return actions.ReadResult[actions.Scene].model_validate(result)
 
 
-@tool(**_metadata("public"))
-async def clubs_get_clubs_list_clubs__get() -> actions.ReadResult[actions.Club]:
+@tool(**_metadata())
+@result_boundary()
+def clubs_get_clubs_list_clubs__get() -> actions.ReadResult[actions.Club]:
     """University clubs hobby community / Университетские клубы кружки объединения.
 
     Public read. Report truncation; is_active=false means the club is not active.
     """
-    result = await _read(
-        clubs_get_clubs_list_clubs__get,
+    result = _read(
         {},
         "/clubs/v0/clubs/",
         actions.Club,
@@ -147,15 +151,15 @@ async def clubs_get_clubs_list_clubs__get() -> actions.ReadResult[actions.Club]:
     return actions.ReadResult[actions.Club].model_validate(result)
 
 
-@tool(**_metadata("public"))
-async def music_bookings_daily_bookings(date: date) -> actions.ReadResult[actions.Booking]:
+@tool(**_metadata())
+@result_boundary()
+def music_bookings_daily_bookings(date: date) -> actions.ReadResult[actions.Booking]:
     """Music room bookings for a day / Занятость музыкальной комнаты за день.
 
     Public read, occupied slots only. Does not give opening hours. Do not infer
     free slots; use the dedicated music-room domain tools for booking rules.
     """
-    result = await _read(
-        music_bookings_daily_bookings,
+    result = _read(
         {"date": date},
         "/music-room/v0/bookings/daily_bookings",
         actions.Booking,
@@ -166,10 +170,30 @@ async def music_bookings_daily_bookings(date: date) -> actions.ReadResult[action
     return actions.ReadResult[actions.Booking].model_validate(result)
 
 
-@tool(**_metadata("public"))
-async def events_events_list_events(
-    from_: Annotated[datetime | None, Field(alias="from")] = None,
-    to: datetime | None = None,
+def _rfc3339(value):
+    # Pydantic also accepts spaces and timezone-less datetimes, whereas the
+    # published JSON Schema date-time format requires an RFC 3339 timestamp.
+    if isinstance(value, str):
+        if not re.fullmatch(
+            r"[0-9]{4}-[0-9]{2}-[0-9]{2}[Tt](?:[01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]"
+            r"(?:\.[0-9]+)?(?:[Zz]|[+-](?:[01][0-9]|2[0-3]):[0-5][0-9])", value,
+        ):
+            raise ValueError("Date-time must use RFC 3339 format with a timezone.")
+        try:
+            return datetime.fromisoformat(value.upper())
+        except ValueError:
+            raise ValueError("Date-time must use a valid RFC 3339 timestamp.") from None
+    return value
+
+
+EventDateTime = Annotated[AwareDatetime, BeforeValidator(_rfc3339)]
+
+
+@tool(**_metadata())
+@result_boundary()
+def events_events_list_events(
+    from_: Annotated[EventDateTime | None, Field(alias="from")] = None,
+    to: EventDateTime | None = None,
     club: int | None = None,
 ) -> actions.ReadResult[actions.Event]:
     """Published university events lectures workshops / Мероприятия университета события лекции.
@@ -177,8 +201,7 @@ async def events_events_list_events(
     Public read. Optional from/to date-time range; defaults to the current month.
     No enrolment or participant data.
     """
-    result = await _read(
-        events_events_list_events,
+    result = _read(
         {"from": from_, "to": to, "club": club},
         "/events/v1/events/",
         actions.Event,

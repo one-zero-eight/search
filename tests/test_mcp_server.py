@@ -5,7 +5,8 @@ from types import SimpleNamespace
 import pytest
 from fastmcp import Client, FastMCP
 
-from catix.innohassle import actions, mcp_domain, mcp_server, token
+from catix.innohassle import actions, mcp_server, token
+from tests.mcp_native_helpers import registered_tools
 
 MAP = 'maps_scenes_search_areas'
 PRINTER = 'printers_print_get_printers_status'
@@ -39,7 +40,7 @@ def test_static_search_schemas_describe_typed_parameters_and_projected_output(po
             found = next(t for t in results if t['name'] == PRINTER)
             assert found['inputSchema']['properties'] == {}
             assert found['inputSchema']['additionalProperties'] is False
-            declared = mcp_domain.definitions()[PRINTER]
+            declared = registered_tools()[PRINTER]
             assert declared.annotations.read_only_hint is True
             assert 'Sign-in required' in found['description']
             assert 'outputSchema' not in found

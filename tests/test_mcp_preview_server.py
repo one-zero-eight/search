@@ -4,7 +4,8 @@ from contextlib import asynccontextmanager
 
 import pytest
 
-from catix.innohassle import client as api, sport, mcp_domain, mcp_server
+from catix.innohassle import client as api, sport, mcp_server
+
 from tests.mcp_native_helpers import connection as native_connection
 
 
@@ -176,9 +177,6 @@ def test_mutation_validation_preserves_raw_types_and_hides_private_inputs(verifi
 @pytest.mark.parametrize('name', ['calendar_get_my_ai_calendar', 'calendar_add_to_ai_calendar',
                                  'calendar_update_ai_calendar', 'calendar_remove_from_ai_calendar'])
 def test_calendar_rpc_names_are_absent_and_refused_on_every_path(verified, monkeypatch, name):
-    for lookup in [mcp_domain.policy, mcp_domain.schema]:
-        with pytest.raises(ValueError):
-            lookup(name)
     async def run():
         async with connection(False) as client:
             assert (await client.call_tool(name, {}, raise_on_error=False)).is_error
@@ -188,12 +186,23 @@ def test_calendar_rpc_names_are_absent_and_refused_on_every_path(verified, monke
 
 @pytest.mark.parametrize('remote', [False, True])
 @pytest.mark.parametrize('generic', [False, True])
-def test_validation_exception_during_execution_is_not_a_definite_refusal(verified, monkeypatch, caplog, remote, generic):
+@pytest.mark.parametrize('failure_kind', ['value', 'pydantic', 'sdk'])
+def test_validation_exception_during_execution_is_not_a_definite_refusal(verified, monkeypatch, caplog, remote, generic, failure_kind):
     writes = []
 
     def uncertain(*args):
+        from fastmcp.exceptions import ValidationError as SDKValidationError
+        from pydantic import ValidationError
+
         writes.append(args)
-        raise mcp_domain.InvalidArguments('private-upstream-diagnostic')
+        if failure_kind == 'value':
+            raise ValueError('private-upstream-diagnostic')
+        error = ValidationError.from_exception_data('Upstream', [
+            {'type': 'int_parsing', 'loc': ('value',), 'input': 'private-upstream-diagnostic'},
+        ])
+        if failure_kind == 'pydantic':
+            raise error
+        raise SDKValidationError('private-upstream-diagnostic') from error
 
     monkeypatch.setattr(sport, 'check_in', uncertain)
 

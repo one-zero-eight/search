@@ -95,8 +95,7 @@ def test_http_mutation_validation_is_definite_refusal_before_upstream(monkeypatc
             result = await mcp_client.request('call_tool', {'name': 'rooms_book_room', 'arguments': {
                 **valid, 'time_to': '10:00', 'title': 'private-input-secret'}}, 'ih')
             assert result == {'done': False, 'code': 'invalid_arguments', 'error':
-                              'Invalid account operation arguments; nothing was done. '
-                              'Value error, time_to must be after time_from.'}
+                              'time_to must be after time_from.'}
             assert not reads and not writes
             allowed = await mcp_client.request('call_tool', {
                 'name': 'rooms_book_room', 'arguments': valid}, 'ih')

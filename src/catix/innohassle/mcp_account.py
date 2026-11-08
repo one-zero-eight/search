@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Annotated, Literal
 
 if TYPE_CHECKING:
     from catix.innohassle import client as innohassle
@@ -12,11 +12,15 @@ from datetime import date, datetime, time, timedelta
 import httpx
 import icalendar
 import recurring_ical_events
+from fastmcp.dependencies import Depends
 from fastmcp.tools import tool
+from pydantic import AfterValidator, Field
 
 from catix.common.dates import ClockTime
-from catix.innohassle import mcp_schemas as schemas
-from catix.innohassle.mcp_declarations import credential, guarded, metadata
+from catix.innohassle.identifiers import validate_outlook_id, validate_room_id
+from catix.innohassle.mcp_declarations import (
+    invalid_arguments, metadata, require_innohassle, result_boundary,
+)
 from catix.settings import settings
 
 MAX_ITEMS = 40
@@ -159,13 +163,15 @@ def _future_span(day: date, time_from: time, time_to: time) -> str | None:
     return None
 
 
-@tool(**metadata("innohassle"))
-@guarded(args_model=schemas.GetMyScheduleArgs)
-def account_get_my_schedule(date_from: date | None = None, date_to: date | None = None) -> dict:
+@tool(**metadata())
+@result_boundary()
+def account_get_my_schedule(
+    date_from: date | None = None, date_to: date | None = None,
+    *, token: str = Depends(require_innohassle),
+) -> dict:
     """Signed-in user's external InNoHassle calendars and room/music bookings. No local AI Calendar data."""
     from catix.innohassle import client as innohassle
 
-    token = credential()
     start = date_from or _now().date()
     end = date_to or start + timedelta(days=DEFAULT_DAYS - 1)
     result: dict = {"now": _now().strftime("%Y-%m-%d %H:%M"), "range": [start.isoformat(), end.isoformat()]}
@@ -183,9 +189,12 @@ def account_get_my_schedule(date_from: date | None = None, date_to: date | None 
     return result
 
 
-@tool(**metadata("innohassle"))
-@guarded(args_model=schemas.GetFreeRoomsArgs)
-def rooms_get_free_rooms(time_from: ClockTime, time_to: ClockTime, day: date | None = None) -> dict:
+@tool(**metadata())
+@result_boundary()
+def rooms_get_free_rooms(
+    time_from: ClockTime, time_to: ClockTime, day: date | None = None,
+    *, token: str = Depends(require_innohassle),
+) -> dict:
     """Room booking availability: find a free room or classroom for a reservation.
     Найти свободные аудитории и комнаты для бронирования.
 
@@ -195,7 +204,6 @@ def rooms_get_free_rooms(time_from: ClockTime, time_to: ClockTime, day: date | N
     """
     from catix.innohassle import client as innohassle
 
-    token = credential()
     day = day or _now().date()
     start, end = (_at(day, time_from), _at(day, time_to))
     if end <= start:
@@ -228,9 +236,14 @@ def rooms_get_free_rooms(time_from: ClockTime, time_to: ClockTime, day: date | N
     }
 
 
-@tool(**metadata("innohassle", write=True))
-@guarded(args_model=schemas.BookRoomArgs)
-def rooms_book_room(room_id: str, day: date, time_from: ClockTime, time_to: ClockTime, title: str) -> dict:
+@tool(**metadata(write=True))
+@result_boundary(write=True)
+def rooms_book_room(
+    room_id: Annotated[str, Field(max_length=80), AfterValidator(validate_room_id)],
+    day: date, time_from: ClockTime, time_to: ClockTime,
+    title: Annotated[str, Field(max_length=100)],
+    *, token: str = Depends(require_innohassle),
+) -> dict:
     """Create a room booking or reservation after permission/time checks.
     Забронировать аудиторию или комнату.
 
@@ -239,9 +252,8 @@ def rooms_book_room(room_id: str, day: date, time_from: ClockTime, time_to: Cloc
     """
     from catix.innohassle import client as innohassle
 
-    token = credential()
     if problem := _future_span(day, time_from, time_to):
-        return {"done": False, "error": problem}
+        return invalid_arguments(problem)
     start, end = (_at(day, time_from), _at(day, time_to))
     try:
         allowed, why = innohassle.can_book_room(token, room_id, start, end)
@@ -266,9 +278,13 @@ def rooms_book_room(room_id: str, day: date, time_from: ClockTime, time_to: Cloc
     }
 
 
-@tool(**metadata("innohassle", write=True))
-@guarded(args_model=schemas.CancelBookingArgs)
-def account_cancel_booking(service: str, booking_id: str) -> dict:
+@tool(**metadata(write=True))
+@result_boundary(write=True)
+def account_cancel_booking(
+    service: Literal["music_room", "room"],
+    booking_id: Annotated[str, Field(max_length=200), AfterValidator(validate_outlook_id)],
+    *, token: str = Depends(require_innohassle),
+) -> dict:
     """Cancel the signed-in user's room or music_room booking/reservation by its exact opaque ID.
     Отменить бронь аудитории или музыкальной комнаты.
 
@@ -276,13 +292,14 @@ def account_cancel_booking(service: str, booking_id: str) -> dict:
     """
     from catix.innohassle import client as innohassle
 
-    token = credential()
     music_id = None
     if service == "music_room":
+        if not booking_id.isdigit():
+            return invalid_arguments("No such music room booking: take its booking_id from account_get_my_schedule.")
         try:
             music_id = int(booking_id)
         except ValueError:
-            return {"done": False, "error": "No such music room booking: take its `booking_id` from get_my_schedule."}
+            return invalid_arguments("No such music room booking: take its booking_id from account_get_my_schedule.")
     try:
         if music_id is not None:
             innohassle.cancel_music_room(token, music_id)
@@ -297,18 +314,20 @@ def account_cancel_booking(service: str, booking_id: str) -> dict:
     }
 
 
-@tool(**metadata("innohassle", write=True))
-@guarded(args_model=schemas.BookMusicRoomArgs)
-def music_book_music_room(day: date, time_from: ClockTime, time_to: ClockTime) -> dict:
+@tool(**metadata(write=True))
+@result_boundary(write=True)
+def music_book_music_room(
+    day: date, time_from: ClockTime, time_to: ClockTime,
+    *, token: str = Depends(require_innohassle),
+) -> dict:
     """Book the music room after overlap and remaining-hours checks.
 
     Sign-in required; client hosts handle confirmation. Never retry unknown outcomes automatically.
     """
     from catix.innohassle import client as innohassle
 
-    token = credential()
     if problem := _future_span(day, time_from, time_to):
-        return {"done": False, "error": problem}
+        return invalid_arguments(problem)
     start, end = (_at(day, time_from), _at(day, time_to))
     try:
         taken = [
@@ -336,16 +355,18 @@ def music_book_music_room(day: date, time_from: ClockTime, time_to: ClockTime) -
     }
 
 
-@tool(**metadata("innohassle", write=True))
-@guarded(args_model=schemas.EnrollArgs)
-def events_enroll_in_event(event_id: str, leave: bool = False) -> dict:
+@tool(**metadata(write=True))
+@result_boundary(write=True)
+def events_enroll_in_event(
+    event_id: Annotated[str, Field(pattern="^[0-9a-f]{24}$")], leave: bool = False,
+    *, token: str = Depends(require_innohassle),
+) -> dict:
     """Enroll in or leave an InNoHassle event; external registrations return their link instead.
 
     Sign-in required; client hosts handle confirmation. Never retry unknown outcomes automatically.
     """
     from catix.innohassle import client as innohassle
 
-    token = credential()
     try:
         event = innohassle.event(event_id)
         enrollment = (event.get("data") or {}).get("enrollment") or {}

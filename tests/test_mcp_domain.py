@@ -12,8 +12,8 @@ def verified_identity(monkeypatch):
 
 
 
-def test_registry_is_complete_safe_and_normalizes_business_arguments():
-    from catix.innohassle import mcp_domain as domain
+def test_server_registration_is_complete_and_keeps_flat_arguments():
+    from tests.mcp_native_helpers import registered_tools
 
     expected = {
         'printers_print_get_printers_status', 'maps_scenes_search_areas', 'maps_scenes_scenes',
@@ -25,52 +25,32 @@ def test_registry_is_complete_safe_and_normalizes_business_arguments():
         'events_enroll_in_event', 'sport_get_my_sport', 'sport_get_sport_trainings', 'sport_get_sports',
         'sport_sport_checkin',
     }
-    assert set(domain.definitions()) == expected
-    for name, operation in domain.definitions().items():
-        assert operation.name == name
-        assert domain.policy(name)['auth'] in {'sport', 'innohassle', 'public'}
-        assert operation.description
-        assert domain.schema(name)['additionalProperties'] is False
-        assert not {'runtime', 'token', 'sport_token', 'uid', 'user'} & domain.schema(name)['properties'].keys()
-    args = domain.validate('sport_sport_checkin', {'training_id': 7})
-    assert args == {'training_id': 7, 'cancel': False}
-    assert json.loads(json.dumps(args)) == args
-    with pytest.raises(ValueError):
-        domain.validate('sport_sport_checkin', {'training_id': '7'})
-    with pytest.raises(ValueError):
-        domain.validate('sport_sport_checkin', {'training_id': 7, 'runtime': {'uid': 'other'}})
-    with pytest.raises(ValueError):
-        domain.validate('account_get_my_schedule', {'date_from': '2026-02-30'})
-    with pytest.raises(ValueError):
-        domain.validate('calendar_add_to_ai_calendar', {'title': 'test', 'day': '2099-01-01'})
-    args = domain.validate('rooms_book_room', {'room_id': 'r', 'day': '2099-01-01',
-        'time_from': '10:00', 'time_to': '11:00', 'title': 'meeting'})
-    assert args['time_from'] == '10:00'
-    assert domain.validate('rooms_book_room', args) == args
+    declared = registered_tools()
+    assert set(declared) == expected
+    for name, operation in declared.items():
+        assert operation.name == name and operation.description
+        assert operation.parameters['additionalProperties'] is False
+        assert not {'runtime', 'token', 'sport_token', 'uid', 'user'} & operation.parameters['properties'].keys()
+    assert declared['sport_sport_checkin'].parameters['properties']['cancel']['default'] is False
+    assert 'title' in declared['rooms_book_room'].parameters['required']
 
 
-
-
-
-
-def test_domain_rejects_invalid_business_arguments_before_dispatch():
-    from catix.innohassle import mcp_domain as domain
-
-    with pytest.raises(ValueError, match='already past'):
-        domain.validate('music_book_music_room', {'day': '2000-01-01', 'time_from': '10:00', 'time_to': '11:00'})
-    for name, args in [
-        ('events_enroll_in_event', {'event_id': 'not-a-mongo-id'}),
-        ('account_cancel_booking', {'service': 'music_room', 'booking_id': 'not-an-int'}),
-        ('rooms_book_room', {'room_id': 'r', 'day': '2000-01-01', 'time_from': '10:00', 'time_to': '11:00', 'title': 'meeting'}),
-    ]:
-        with pytest.raises(ValueError):
-            domain.validate(name, args)
+@pytest.mark.parametrize('name,arguments', [
+    ('music_book_music_room', {'day': '2000-01-01', 'time_from': '10:00', 'time_to': '11:00'}),
+    ('events_enroll_in_event', {'event_id': 'not-a-mongo-id'}),
+    ('account_cancel_booking', {'service': 'music_room', 'booking_id': 'not-an-int'}),
+    ('rooms_book_room', {'room_id': 'r', 'day': '2000-01-01', 'time_from': '10:00', 'time_to': '11:00', 'title': 'meeting'}),
+    ('sport_sport_checkin', {'training_id': '7'}),
+    ('sport_sport_checkin', {'training_id': 7, 'runtime': {'uid': 'other'}}),
+])
+def test_invalid_business_arguments_are_definite_refusals(name, arguments):
+    result = call(name, arguments, token='ih', sport_token='sport')
+    assert result['done'] is False and result['code'] == 'invalid_arguments'
 
 
 def test_unknown_write_outcome_is_not_a_decline_or_a_retry(monkeypatch, caplog):
     import httpx
     from catix.innohassle import sport as sport_api
-    from catix.innohassle import mcp_domain as domain
 
     calls = []
     def fail(*args):
@@ -86,7 +66,6 @@ def test_unknown_write_outcome_is_not_a_decline_or_a_retry(monkeypatch, caplog):
 
 def test_business_refusal_redacts_reflected_credentials(monkeypatch, caplog):
     from catix.innohassle import sport as sport_api
-    from catix.innohassle import mcp_domain as domain
     from catix.innohassle.client import ServiceError
 
     def refuse(*args):
@@ -102,14 +81,12 @@ def test_business_refusal_redacts_reflected_credentials(monkeypatch, caplog):
 
 def test_sport_summary_reuses_aggregation_without_model_runtime(monkeypatch):
     from catix.innohassle import sport as sport_api
-    from catix.innohassle import mcp_domain as domain
 
     seen = []
     monkeypatch.setattr(sport_api, 'me', lambda token: seen.append(token) or {'user_id': 22, 'student_info': {'medical_group': 'main'}})
     monkeypatch.setattr(sport_api, 'hours', lambda token, uid: seen.append((token, uid)) or {'hours_from_groups': 5, 'self_sport_hours': 2, 'required_hours': 20, 'debt': 3})
     monkeypatch.setattr(sport_api, 'current_semester', lambda token: {})
     monkeypatch.setattr(sport_api, 'my_trainings', lambda *args: [])
-    assert domain.validate('sport_get_my_sport', {}) == {}
     result = call('sport_get_my_sport', {}, token='ih-secret', sport_token='sport-secret', uid='owner')
     assert result['hours'] == {'done': 7, 'from_trainings': 5, 'self_sport': 2, 'required': 20, 'debt': 3, 'left': 16}
     assert result['medical_group'] == 'main'
@@ -118,7 +95,6 @@ def test_sport_summary_reuses_aggregation_without_model_runtime(monkeypatch):
 
 def test_room_music_and_event_domain_rules_survive_native_dispatch(monkeypatch):
     from catix.innohassle import client as api, mcp_account as account_tools
-    from catix.innohassle import mcp_domain as domain
 
     writes = []
     kwargs = {'token': 'ih-secret', 'sport_token': None, 'uid': 'owner'}
@@ -159,7 +135,6 @@ def test_room_music_and_event_domain_rules_survive_native_dispatch(monkeypatch):
 def test_room_availability_and_account_schedule_keep_aggregations(monkeypatch):
     from datetime import date
     from catix.innohassle import client as api, mcp_account as account_tools
-    from catix.innohassle import mcp_domain as domain
 
     kwargs = {'token': 'ih-secret', 'sport_token': 'sport-secret', 'uid': 'verified'}
     monkeypatch.setattr(api, 'bookable_rooms', lambda token: [

@@ -4,7 +4,8 @@ from copy import deepcopy
 import httpx
 import pytest
 
-from catix.innohassle import actions, mcp_domain, client as backend
+from catix.innohassle import actions, client as backend
+
 from tests.test_api_actions import read
 
 BODIES = {
@@ -46,7 +47,7 @@ def test_public_reads_never_receive_credentials_and_only_project_reviewed_fields
     assert result['total'] == 1 and result['truncated'] is False
     assert 'private' not in str(result) and 'must-not-forward' not in str(result)
     assert [r.url.path for r in service_api[0]] == [path]
-    assert mcp_domain.policy(name)['auth'] == 'public'
+    assert 'authorization' not in service_api[0][0].headers
 
 
 def test_events_use_v1_and_original_query_aliases(service_api):

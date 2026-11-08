@@ -5,8 +5,20 @@ import asyncio
 import pytest
 from fastmcp import Client
 
-from catix.innohassle import mcp_domain, mcp_server
+from catix.innohassle import mcp_server
+from tests.mcp_native_helpers import registered_tools
 from tests.mcp_native_helpers import connection
+
+
+def test_clock_time_rejects_non_hhmm_native_values():
+    from datetime import time
+    from pydantic import TypeAdapter, ValidationError
+    from catix.common.dates import ClockTime
+
+    assert TypeAdapter(ClockTime).validate_python("10:30") == time(10, 30)
+    for invalid in ("10:30:00", "10:30:00.000", "10:30+03:00", 1030, True):
+        with pytest.raises(ValidationError):
+            TypeAdapter(ClockTime).validate_python(invalid)
 
 
 @pytest.fixture
@@ -27,7 +39,7 @@ def test_native_search_schema_and_direct_read_with_separate_credentials(native):
             assert set(sport) == {'name', 'description', 'inputSchema'}
             assert 'runtime' not in sport['inputSchema']['properties']
             assert sport['inputSchema']['additionalProperties'] is False
-            annotations = mcp_domain.definitions()['sport_sport_checkin'].annotations
+            annotations = registered_tools()['sport_sport_checkin'].annotations
             assert annotations.read_only_hint is False
             assert annotations.destructive_hint is True
             assert (await client.call_tool('sport_get_sports', {})).data['sports'] == ['Volleyball']

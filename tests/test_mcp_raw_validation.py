@@ -8,7 +8,8 @@ import pytest
 from fastmcp import Client
 
 from catix.innohassle import client as backend
-from catix.innohassle import mcp_domain, mcp_server
+from catix.innohassle import mcp_server
+from tests.mcp_native_helpers import registered_tools
 from tests.mcp_native_helpers import connection as native_connection
 from catix.settings import settings
 
@@ -66,10 +67,7 @@ async def connection(remote=False):
     "10:30:00", "10:30:00.000000", "10:30Z",
 ])
 def test_invalid_raw_time_does_not_write(room_storage, generic, altered, remote):
-    normalized = mcp_domain.validate(NAME, ARGS)
     invalid = {**ARGS, "time_from": altered}
-    with pytest.raises(ValueError):
-        mcp_domain.validate(NAME, invalid)
 
     async def run():
         async with connection(remote) as client:
@@ -91,24 +89,19 @@ def test_invalid_raw_time_does_not_write(room_storage, generic, altered, remote)
     time(10, 30, 59), time(10, 30, 0, 123456), time.fromisoformat("10:30+05:00"),
 ])
 def test_typed_time_conversion_preserves_disallowed_components(value):
-    encoded = mcp_domain._json({"time_from": value})
-    assert encoded == {"time_from": value.isoformat()}
+    from pydantic import TypeAdapter
+    from catix.common.dates import ClockTime
+
     with pytest.raises(ValueError):
-        mcp_domain.validate(NAME, {**ARGS, **encoded})
+        TypeAdapter(ClockTime).validate_python(value)
 
 
-def test_temporal_normalization_and_defaults_remain_unchanged():
-    assert mcp_domain._json({"day": date(2099, 1, 1), "time_from": time(10, 30)}) == {
-        "day": "2099-01-01", "time_from": "10:30",
-    }
-    stamp = datetime.fromisoformat("2099-01-01T10:30:59.123456+05:00")
-    assert mcp_domain._json([stamp]) == ["2099-01-01T10:30:59.123456+05:00"]
-    assert mcp_domain.validate(NAME, ARGS) == ARGS
-    assert mcp_domain.validate("sport_sport_checkin", {"training_id": 7}) == {"training_id": 7, "cancel": False}
-    assert mcp_domain.validate("events_events_list_events", {}) == {"from": None, "to": None, "club": None}
-    assert mcp_domain.validate("events_events_list_events", {"from": stamp.isoformat(), "club": 0}) == {
-        "from": stamp.isoformat(), "to": None, "club": 0,
-    }
+def test_native_defaults_remain_unchanged():
+    declared = registered_tools()
+    assert declared['sport_sport_checkin'].parameters['properties']['cancel']['default'] is False
+    fields = declared['events_events_list_events'].parameters['properties']
+    assert set(fields) == {'from', 'to', 'club'}
+    assert all(field['default'] is None for field in fields.values())
 
 
 @pytest.mark.parametrize("generic", [False, True], ids=["direct", "generic"])
@@ -122,8 +115,6 @@ def test_raw_domain_failures_and_boolean_zero_do_not_reach_backend(room_storage,
     async def run():
         async with connection() as client:
             for arguments in invalid:
-                with pytest.raises(ValueError):
-                    mcp_domain.validate(NAME, arguments)
                 denied = await call(client, NAME, arguments, generic)
                 assert not denied.is_error and denied.data['done'] is False
                 assert denied.data['code'] == 'invalid_arguments'
@@ -163,7 +154,6 @@ def test_generic_proxy_rejects_nested_interfaces_and_malformed_raw_payloads(room
 ])
 def test_valid_room_time_contract(room_storage, generic, times):
     arguments = {**ARGS, **times}
-    normalized = mcp_domain.validate(NAME, arguments)
 
     async def run():
         async with connection() as client:
@@ -204,6 +194,30 @@ def test_datetime_alias_defaults_and_integer_zero_reach_read_unchanged(monkeypat
     assert [dict(request.url.params) for request in requests] == [{}, {"from": stamp, "club": "0"}]
 
 
+@pytest.mark.parametrize("generic", [False, True], ids=["direct", "generic"])
+@pytest.mark.parametrize("field", ["from", "to"])
+@pytest.mark.parametrize("invalid", ["2099-01-01T10:30:00", "2099-01-01 10:30:00+03:00"])
+def test_datetime_wire_format_rejects_non_rfc3339_before_read(monkeypatch, generic, field, invalid):
+    import httpx
+
+    requests = []
+    def reply(request):
+        requests.append(request)
+        return httpx.Response(200, json=[])
+
+    async def run():
+        with backend._http_client("https://synthetic.test", transport=httpx.MockTransport(reply)) as http:
+            monkeypatch.setattr(backend, "_client", http)
+            async with mcp_server.adapter() as root, Client(root) as client:
+                denied = await call(client, "events_events_list_events", {field: invalid}, generic)
+                assert denied.is_error
+                assert requests == []
+                allowed = await call(client, "events_events_list_events", {field: "2099-01-01T10:30:00+03:00"}, generic)
+                assert not allowed.is_error
+                assert len(requests) == 1
+    asyncio.run(run())
+
+
 @pytest.mark.parametrize('remote', [False, True], ids=['inprocess', 'http'])
 @pytest.mark.parametrize('generic', [False, True], ids=['direct', 'generic'])
 @pytest.mark.parametrize('cancel', [0, 1, 'false', 'true', None])
@@ -224,8 +238,6 @@ def test_boolean_coercion_cannot_turn_invalid_input_into_a_write(monkeypatch, re
             monkeypatch.setattr(sport, '_client', http)
             async with sport_connection(remote) as client:
                 invalid = {**args, 'cancel': cancel}
-                with pytest.raises(ValueError):
-                    mcp_domain.validate(name, invalid)
                 denied = await call(client, name, invalid, generic)
                 assert not denied.is_error and denied.data['done'] is False
                 assert denied.data['code'] == 'invalid_arguments'

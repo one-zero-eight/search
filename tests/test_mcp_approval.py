@@ -7,7 +7,7 @@ from pydantic import SecretStr
 
 from catix.agent import api_tools, core
 from catix.agent.tools import AgentContext
-from catix.innohassle import mcp_domain
+from tests.mcp_native_helpers import input_schema
 from tests.test_roles import ScriptedModel
 
 
@@ -41,7 +41,7 @@ def test_every_context_waits_for_consent_and_sends_only_normal_credentials(monke
     def request(method, payload, token=None, **credentials):
         if method == "search_tools":
             assert token is None and credentials == {}
-            return {"tools": [{"name": payload["query"], "inputSchema": mcp_domain.schema(payload["query"])}]}
+            return {"tools": [{"name": payload["query"], "inputSchema": input_schema(payload["query"])}]}
         assert token == "user-token" and credentials == {"sport_token": "sport-token"}
         assert method == "call_tool"
         sent.append(payload)
@@ -149,7 +149,7 @@ def test_root_action_receipt_survives_unrelated_helper_failure(monkeypatch, rece
     def request(method, payload, token=None, **kwargs):
         if method == "search_tools":
             assert token is None and kwargs == {}
-            return {"tools": [{"name": payload["query"], "inputSchema": mcp_domain.schema(payload["query"])}]}
+            return {"tools": [{"name": payload["query"], "inputSchema": input_schema(payload["query"])}]}
         assert method == "call_tool"
         sent.append(payload)
         return receipt

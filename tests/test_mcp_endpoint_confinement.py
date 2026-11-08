@@ -15,7 +15,8 @@ from fastmcp import Client
 from fastmcp.client.transports import StreamableHttpTransport
 from fastmcp.utilities.asgi_transport import StreamingASGITransport, run_asgi_lifespan
 
-from catix.innohassle import client as backend, mcp_domain, mcp_server, token
+from catix.innohassle import client as backend, mcp_server, token
+
 
 
 @pytest.fixture
@@ -190,14 +191,15 @@ def test_http_room_preflight_stays_on_approved_endpoint(monkeypatch, signed_user
 @pytest.mark.parametrize("identifier", UNSAFE_IDS)
 @pytest.mark.parametrize("name", ["account_cancel_booking", "rooms_book_room"])
 def test_invalid_identifier_is_rejected_by_server_argument_validation(name, identifier):
-    from catix.innohassle.mcp_schemas import BookRoomArgs, CancelBookingArgs
+    from inspect import unwrap
+    from typing import get_type_hints
+    from pydantic import TypeAdapter
+    from catix.innohassle.mcp_account import account_cancel_booking, rooms_book_room
 
-    arguments = {"service": "room", "booking_id": identifier} if name == "account_cancel_booking" else room_arguments(identifier)
+    function, field = (account_cancel_booking, "booking_id") if name == "account_cancel_booking" else (rooms_book_room, "room_id")
+    annotation = get_type_hints(unwrap(function), include_extras=True)[field]
     with pytest.raises(ValueError):
-        mcp_domain.validate(name, arguments)
-    model = CancelBookingArgs if name == "account_cancel_booking" else BookRoomArgs
-    with pytest.raises(ValueError):
-        model.model_validate(arguments)
+        TypeAdapter(annotation).validate_python(identifier)
 
 
 @pytest.mark.parametrize("generic", [False, True])
@@ -215,7 +217,6 @@ def test_authenticated_http_rejects_encoded_and_literal_path_syntax(monkeypatch,
                     assert result.data['code'] == 'invalid_arguments'
             for identifier, segment in [("AA+/BB==", b"AA%2B%2FBB%3D%3D"), ("AA+/BB", b"AA%2B%2FBB")]:
                 arguments = {"service": "room", "booking_id": identifier}
-                assert mcp_domain.validate("account_cancel_booking", arguments) == arguments
                 result = await call("account_cancel_booking", arguments, generic=generic)
                 assert result.data["done"] is True and result.data["cancelled"] == arguments
                 assert upstream[-1].url.raw_path == b"/room-booking/v0/bookings/" + segment

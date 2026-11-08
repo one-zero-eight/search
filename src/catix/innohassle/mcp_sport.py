@@ -9,11 +9,11 @@ if TYPE_CHECKING:
 from datetime import date, datetime, time, timedelta
 from typing import Annotated
 
+from fastmcp.dependencies import Depends
 from fastmcp.tools import tool
 from pydantic import Field
 
-from catix.innohassle import mcp_schemas as schemas
-from catix.innohassle.mcp_declarations import credential, guarded, metadata
+from catix.innohassle.mcp_declarations import metadata, require_sport, result_boundary
 from catix.settings import settings
 
 SPORT_PAGE = "https://innohassle.ru/sport"
@@ -77,9 +77,9 @@ def _day_start(day: date) -> datetime:
     return datetime.combine(day, time.min, settings.tz)
 
 
-@tool(**metadata("sport"))
-@guarded()
-def sport_get_my_sport() -> dict:
+@tool(**metadata())
+@result_boundary()
+def sport_get_my_sport(*, token: str = Depends(require_sport)) -> dict:
     """Personal Sport summary: hours earned/required, debt, medical group and trainings.
 
     Requires InNoHassle sign-in and the separate Sport credential.
@@ -87,7 +87,6 @@ def sport_get_my_sport() -> dict:
     from catix.innohassle import sport as sport_api
     from catix.innohassle.client import ServiceError
 
-    token = credential(sport=True)
     try:
         user = sport_api.me(token)
         if not user.get("student_info"):
@@ -130,10 +129,12 @@ def sport_get_my_sport() -> dict:
     return result
 
 
-@tool(**metadata("sport"))
-@guarded(args_model=schemas.GetSportTrainingsArgs)
+@tool(**metadata())
+@result_boundary()
 def sport_get_sport_trainings(
-    date_from: date | None = None, date_to: date | None = None, sport: str | None = None
+    date_from: date | None = None, date_to: date | None = None,
+    sport: Annotated[str | None, Field(max_length=60)] = None,
+    *, token: str = Depends(require_sport),
 ) -> dict:
     """Sport trainings in a date range, optionally filtered by sport, with signup availability.
 
@@ -142,7 +143,6 @@ def sport_get_sport_trainings(
     from catix.innohassle import sport as sport_api
     from catix.innohassle.client import ServiceError
 
-    token = credential(sport=True)
     start = date_from or datetime.now(settings.tz).date()
     end = date_to or start + timedelta(days=DEFAULT_DAYS - 1)
     if end < start:
@@ -175,14 +175,16 @@ def sport_get_sport_trainings(
     return result
 
 
-@tool(**metadata("sport"))
-@guarded(args_model=schemas.GetSportsArgs)
-def sport_get_sports(sport: str | None = None) -> dict:
+@tool(**metadata())
+@result_boundary()
+def sport_get_sports(
+    sport: Annotated[str | None, Field(max_length=60)] = None,
+    *, token: str = Depends(require_sport),
+) -> dict:
     """List available sports or details for a sport. Requires separate Sport sign-in."""
     from catix.innohassle import sport as sport_api
     from catix.innohassle.client import ServiceError
 
-    token = credential(sport=True)
     try:
         found = sport_api.sports(token)
     except ServiceError as e:
@@ -219,9 +221,12 @@ def sport_get_sports(sport: str | None = None) -> dict:
     }
 
 
-@tool(**metadata("sport", write=True))
-@guarded(args_model=schemas.SportCheckinArgs)
-def sport_sport_checkin(training_id: Annotated[int, Field(gt=0)], cancel: bool = False) -> dict:
+@tool(**metadata(write=True))
+@result_boundary(write=True)
+def sport_sport_checkin(
+    training_id: Annotated[int, Field(gt=0)], cancel: bool = False,
+    *, token: str = Depends(require_sport),
+) -> dict:
     """Sign up for a Sport training, or cancel the signup.
     Записаться на спортивную тренировку или отменить запись.
 
@@ -231,7 +236,6 @@ def sport_sport_checkin(training_id: Annotated[int, Field(gt=0)], cancel: bool =
     from catix.innohassle import sport as sport_api
     from catix.innohassle.client import ServiceError
 
-    token = credential(sport=True)
     try:
         sport_api.check_in(token, training_id, not cancel)
     except ServiceError as e:

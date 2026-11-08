@@ -4,19 +4,19 @@ import importlib
 
 from fastmcp import Client
 
-from catix.innohassle import mcp_domain, mcp_server
+from catix.innohassle import mcp_server
+from tests.mcp_native_helpers import registered_tools
 
 
 def test_no_calendar_or_legacy_implementation_metadata():
-    definitions = mcp_domain.definitions()
+    definitions = registered_tools()
     assert len(definitions) == 23
     assert not any(name.startswith('calendar_') for name in definitions)
     for definition in definitions.values():
-        assert set(definition.meta['catix']) == {'auth', 'write'}
+        assert 'catix' not in (definition.meta or {})
+        assert not hasattr(definition.fn, '_args_model')
         assert not hasattr(definition.fn, '_preview')
-    assert not hasattr(mcp_domain, 'describe_preview')
-    assert not hasattr(mcp_domain, '_resolve')
-    assert not hasattr(mcp_domain, 'invoke')
+    assert importlib.util.find_spec('catix.innohassle.mcp_domain') is None
 
 
 def test_sport_implementation_runs_without_agent_import(monkeypatch):

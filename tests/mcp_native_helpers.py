@@ -6,6 +6,28 @@ from fastmcp import Client
 from catix.innohassle import mcp_server
 
 
+def registered_tools():
+    """Test fixture: inspect the actual server, not a parallel declaration cache."""
+    from concurrent.futures import ThreadPoolExecutor
+
+    async def collect():
+        root = await mcp_server.build_server()
+        status = (await root.get_tool('service_status')).fn()
+        return {name: await root.get_tool(name)
+                for service in status.values() for name in service['tool_names']}
+    try:
+        asyncio.get_running_loop()
+    except RuntimeError:
+        return asyncio.run(collect())
+    with ThreadPoolExecutor(max_workers=1) as pool:
+        return pool.submit(lambda: asyncio.run(collect())).result()
+
+
+def input_schema(name):
+    return registered_tools()[name].parameters
+
+
+
 @asynccontextmanager
 async def connection(remote=False, token=None, sport_token=None):
     root = await mcp_server.build_server()

@@ -8,9 +8,8 @@ from fastmcp.tools import tool
 from pydantic import Field
 
 from catix.common.dates import ClockTime
-from catix.innohassle import mcp_schemas as schemas
 from catix.innohassle import timetable
-from catix.innohassle.mcp_declarations import guarded, metadata
+from catix.innohassle.mcp_declarations import metadata, result_boundary
 from catix.settings import settings
 
 MAX_COURSES = 5
@@ -68,8 +67,8 @@ def _room_id(text: str) -> str:
     return match.group(0) if match else text.strip()
 
 
-@tool(**metadata("public"))
-@guarded(args_model=schemas.GetCoursesArgs)
+@tool(**metadata())
+@result_boundary()
 def timetable_get_courses(query: Annotated[str, Field(min_length=1, max_length=80)]) -> dict:
     """Public course and instructor search in the official timetable.
 
@@ -141,11 +140,11 @@ def timetable_get_courses(query: Annotated[str, Field(min_length=1, max_length=8
     return result
 
 
-@tool(**metadata("public"))
-@guarded(args_model=schemas.GetRoomTimetableArgs)
+@tool(**metadata())
+@result_boundary()
 def timetable_get_room_timetable(
     day: date | None = None,
-    room: str | None = None,
+    room: Annotated[str | None, Field(max_length=20)] = None,
     time_from: ClockTime | None = None,
     time_to: ClockTime | None = None,
 ) -> dict:
@@ -208,8 +207,8 @@ def timetable_get_room_timetable(
     }
 
 
-@tool(**metadata("public"))
-@guarded(args_model=schemas.GetMusicRoomScheduleArgs)
+@tool(**metadata())
+@result_boundary()
 def music_get_music_room_schedule(date_from: date | None = None, date_to: date | None = None) -> dict:
     """Music room schedule over a date range: occupied booking intervals and access instructions.
     Расписание музыкальной комнаты: занятость и правила доступа.
