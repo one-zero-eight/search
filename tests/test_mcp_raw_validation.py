@@ -74,7 +74,8 @@ def test_invalid_raw_time_does_not_write(room_storage, generic, altered, remote)
     async def run():
         async with connection(remote) as client:
             denied = await call(client, NAME, invalid, generic)
-            assert denied.is_error, denied.data
+            assert not denied.is_error and denied.data['done'] is False
+            assert denied.data['code'] == 'invalid_arguments'
             assert room_storage == [] and not room_storage.requests
             # A subsequent valid request must reach HTTP exactly once.
             allowed = await call(client, NAME, ARGS, generic)
@@ -123,7 +124,9 @@ def test_raw_domain_failures_and_boolean_zero_do_not_reach_backend(room_storage,
             for arguments in invalid:
                 with pytest.raises(ValueError):
                     mcp_domain.validate(NAME, arguments)
-                assert (await call(client, NAME, arguments, generic)).is_error
+                denied = await call(client, NAME, arguments, generic)
+                assert not denied.is_error and denied.data['done'] is False
+                assert denied.data['code'] == 'invalid_arguments'
                 assert room_storage == [] and not room_storage.requests
             assert (await call(client, NAME, ARGS, generic)).data["done"] is True
 
@@ -223,7 +226,9 @@ def test_boolean_coercion_cannot_turn_invalid_input_into_a_write(monkeypatch, re
                 invalid = {**args, 'cancel': cancel}
                 with pytest.raises(ValueError):
                     mcp_domain.validate(name, invalid)
-                assert (await call(client, name, invalid, generic)).is_error
+                denied = await call(client, name, invalid, generic)
+                assert not denied.is_error and denied.data['done'] is False
+                assert denied.data['code'] == 'invalid_arguments'
                 assert not requests
                 assert (await call(client, name, args, generic)).data['signed_up'] is True
     asyncio.run(run())

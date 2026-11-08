@@ -86,7 +86,7 @@ def _data(result):
 async def request(method: str, arguments: dict, token: str | None = None, *,
                   sport_token: str | None = None) -> dict:
     """Call one of the adapter's fixed interface tools; the model never chooses a URL or transport."""
-    if method not in {"search_tools", "call_tool", "preview_tool"}:
+    if method not in {"search_tools", "call_tool"}:
         return {"error": "Unsupported MCP interface operation."}
     mutation = method == "call_tool" and isinstance(arguments.get("name"), str) and arguments["name"] in CONFIRMATION_TOOLS
     try:
@@ -118,10 +118,10 @@ async def request(method: str, arguments: dict, token: str | None = None, *,
 
 def request_sync(method: str, arguments: dict, token: str | None = None, *,
                  sport_token: str | None = None) -> dict:
-    """Bridge sync tools/HITL callbacks; native async callers use request instead.
+    """Bridge sync callers; native async callers use request instead.
 
-    LangChain can invoke its synchronous approval-description callback on an
-    event-loop thread. Run that request in its own worker rather than nesting loops.
+    A synchronous caller may run on an event-loop thread. Run its request in a
+    context-preserving worker rather than nesting loops.
     """
     kwargs = {"sport_token": sport_token} if sport_token else {}
 

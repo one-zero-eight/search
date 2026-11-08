@@ -26,7 +26,7 @@ def tool_call(name, args, ident):
 
 @pytest.mark.parametrize("helper", [None, "ask_docs", "ask_chats"])
 @pytest.mark.parametrize("asynchronous", [False, True])
-def test_discovered_schema_rejects_missing_title_locally_before_preview_or_approval(
+def test_discovered_schema_rejects_missing_title_locally_before_approval(
     mcp_http_protocol, monkeypatch, helper, asynchronous,
 ):
     calls, writes = [], []
@@ -34,7 +34,7 @@ def test_discovered_schema_rejects_missing_title_locally_before_preview_or_appro
     monkeypatch.setattr(core.store, "visible_chats", lambda *a: [])
     monkeypatch.setattr(token, "claims", lambda value: {"uid": "test-user"} if value == "synthetic-user" else None)
     monkeypatch.setattr(client, "book_room", lambda *a: writes.append(a) or {"outlook_booking_id": "test-booking"})
-    monkeypatch.setattr(client, "bookable_rooms", lambda *a: pytest.fail("No preview lookup for invalid arguments"))
+    monkeypatch.setattr(client, "bookable_rooms", lambda *a: pytest.fail("No detail lookup for invalid arguments"))
 
     async def record_async(method, arguments, access=None, **kwargs):
         # Both request_sync and native async callers reach this boundary once.
@@ -73,15 +73,14 @@ def test_discovered_schema_rejects_missing_title_locally_before_preview_or_appro
 
 
 @pytest.mark.parametrize("decision", ["approve", "reject"])
-def test_title_clarification_then_one_checkpointed_preview_and_explicit_consent(
+def test_title_clarification_then_local_description_and_explicit_consent(
     mcp_http_protocol, monkeypatch, decision,
 ):
     requests, writes = [], []
     original = mcp_client.request
     monkeypatch.setattr(token, "claims", lambda value: {"uid": "test-user"} if value == "synthetic-user" else None)
     monkeypatch.setattr(core.store, "visible_chats", lambda *a: [])
-    monkeypatch.setattr(client, "bookable_rooms", lambda *a: [
-        {"id": "su-office", "ru_title": "Офис студсовета", "title": "Student union office"}])
+    monkeypatch.setattr(client, "bookable_rooms", lambda *a: pytest.fail("Confirmation must not fetch display details"))
     monkeypatch.setattr(client, "can_book_room", lambda *a: (True, None))
     monkeypatch.setattr(client, "book_room", lambda *a: writes.append(a) or {"outlook_booking_id": "test-booking"})
 
@@ -111,8 +110,8 @@ def test_title_clarification_then_one_checkpointed_preview_and_explicit_consent(
     assert len(pending) == 1 and writes == []
     action = pending[0].value["action_requests"][0]
     assert action["args"] == complete
-    assert all(value in action["description"] for value in ["Офис студсовета", "2099", "10:00", "12:00", "Заседание студсовета"]), action["description"]
-    assert requests.count("preview_tool") == 1
+    assert all(value in action["description"] for value in ["su-office", "2099", "10:00", "12:00", "Заседание студсовета"]), action["description"]
+    assert requests == ["search_tools"]
     prepared_requests = list(requests)
 
     agent.invoke(Command(resume={pending[0].id: {"decisions": [{"type": decision}]}}), config, context=context)

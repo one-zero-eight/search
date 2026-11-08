@@ -6,14 +6,14 @@ from collections.abc import Sequence
 from contextlib import asynccontextmanager, contextmanager
 from contextvars import ContextVar
 from dataclasses import dataclass
-from typing import Any, Literal
+from typing import Any
 
 from fastmcp import FastMCP
 from fastmcp.exceptions import ToolError
 from fastmcp.server.dependencies import get_http_request
 from fastmcp.server.middleware import Middleware
 from fastmcp.server.transforms.search import BM25SearchTransform
-from fastmcp.tools.base import Tool
+from fastmcp.tools.base import Tool, ToolResult
 from starlette.requests import Request
 from starlette.responses import JSONResponse
 
@@ -64,25 +64,18 @@ class _RequestPolicy(Middleware):
                 raise ToolError("Invalid account operation arguments; nothing was done.")
             name, arguments = arguments.get("name"), arguments.get("arguments")
             arguments = {} if arguments is None else arguments
-        elif name == "preview_tool":
-            if (
-                not isinstance(arguments, dict)
-                or set(arguments) - {"name", "arguments", "language"}
-                or not isinstance(arguments.get("arguments"), dict)
-                or arguments.get("language", "ru") not in ("ru", "en")
-            ):
-                raise ToolError("Invalid account operation arguments; nothing was done.")
-            name, arguments = arguments.get("name"), arguments["arguments"]
+        if not isinstance(name, str):
+            raise ToolError("Unknown API operation.")
+        invalid_arguments = None
         try:
             if context.message.name not in {"search_tools", "service_status"}:
-                if not isinstance(name, str):
-                    raise ValueError("Unknown API operation.")
-                if context.message.name == "preview_tool":
-                    # Keep the envelope/name gate, but let the preview return
-                    # structured feedback for its untouched inner JSON dict.
-                    mcp_domain.policy(name)
-                else:
-                    mcp_domain.validate(name, arguments)
+                mcp_domain.validate(name, arguments)
+        except mcp_domain.InvalidArguments as error:
+            if not mcp_domain.policy(name)["write"]:
+                raise ToolError(str(error)) from None
+            # Only our authored validation before execution proves no write occurred.
+            # Keep authentication below; arbitrary protocol failures stay ambiguous.
+            invalid_arguments = {"done": False, "code": "invalid_arguments", "error": str(error)}
         except ValueError as error:
             raise ToolError(str(error)) from None
         try:
@@ -105,13 +98,16 @@ class _RequestPolicy(Middleware):
             uid = claims["uid"]
         identity_handle = _identity.set(_Identity(token, sport_token, uid))
         try:
+            if invalid_arguments is not None:
+                _authorized(name)
+                return ToolResult(structured_content=invalid_arguments)
             return await call_next(context)
         finally:
             _identity.reset(identity_handle)
 
 
 def _authorized(name: str):
-    """Common verified-identity gate for execution and read-only previews."""
+    """Verified-identity gate for execution."""
     operation = mcp_domain.policy(name)
     protected = operation["auth"] != "public"
     identity = _identity.get()
@@ -175,28 +171,8 @@ async def build_server() -> FastMCP:
         """Complete concrete tool names/counts by namespace, not upstream health or search matches."""
         return status
 
-    @root.tool(annotations={"readOnlyHint": True, "destructiveHint": False})
-    async def preview_tool(name: str, arguments: dict, language: Literal["ru", "en"] = "ru") -> dict:
-        """Authenticated read-only description of a proposed mutation."""
-        operation, identity = _authorized(name)
-        if not operation["write"]:
-            raise ToolError("Only mutations have a preview.")
-        try:
-            normalized = mcp_domain.validate(name, arguments)
-        except mcp_domain.InvalidArguments as error:
-            return {"error": str(error), "code": "invalid_arguments"}
-        try:
-            description = await asyncio.to_thread(mcp_domain.describe_preview, name, normalized, identity, language)
-        except Exception:
-            raise ToolError("Preview details are unavailable; nothing was done.") from None
-        return {
-            "name": name,
-            "arguments": normalized,
-            "description": mcp_domain._redact(description, (identity.token, identity.sport_token)),
-        }
-
     root.add_transform(BM25SearchTransform(
-        always_visible=["service_status", "preview_tool"], search_result_serializer=_compact_search_results,
+        always_visible=["service_status"], search_result_serializer=_compact_search_results,
     ))
 
     @root.custom_route("/health", methods=["GET"])

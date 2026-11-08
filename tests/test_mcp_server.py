@@ -34,7 +34,7 @@ def policy(monkeypatch):
 def test_static_search_schemas_describe_typed_parameters_and_projected_output(policy):
     async def run():
         async with mcp_server.adapter() as root, Client(root) as client:
-            assert {t.name for t in await client.list_tools()} == {'search_tools', 'call_tool', 'service_status', 'preview_tool'}
+            assert {t.name for t in await client.list_tools()} == {'search_tools', 'call_tool', 'service_status'}
             results = (await client.call_tool('search_tools', {'query': 'printer printers paper toner status'})).data
             found = next(t for t in results if t['name'] == PRINTER)
             assert found['inputSchema']['properties'] == {}

@@ -32,7 +32,7 @@ def test_startup_registers_all_typed_tools_without_schema_network(monkeypatch):
             assert mcp_domain.policy(name)['auth'] in {'public', 'innohassle', 'sport'}
             assert mcp_domain.schema(name) == (await root.get_tool(name)).parameters
         async with Client(root) as client:
-            assert {t.name for t in await client.list_tools()} == {'search_tools', 'call_tool', 'service_status', 'preview_tool'}
+            assert {t.name for t in await client.list_tools()} == {'search_tools', 'call_tool', 'service_status'}
             status = (await client.call_tool('service_status', {})).data
             assert sum(item['tools'] for item in status.values()) == 23
             assert all(item['registered'] for item in status.values())

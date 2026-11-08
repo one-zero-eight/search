@@ -1,8 +1,7 @@
-"""Mutation previews are authenticated reads, not an execution prerequisite."""
+"""Preview RPC is retired; execution keeps validation and authentication."""
 import asyncio
 from contextlib import asynccontextmanager
 
-import httpx
 import pytest
 
 from catix.innohassle import client as api, sport, mcp_domain, mcp_server
@@ -22,7 +21,31 @@ def verified(monkeypatch):
 
 
 @pytest.mark.parametrize('remote', [False, True])
-def test_missing_title_preview_returns_safe_validation_result(verified, monkeypatch, caplog, remote):
+@pytest.mark.parametrize('interface', ['list_tools', 'preview_tool', 'call_tool'])
+def test_preview_rpc_is_absent_and_unavailable(verified, monkeypatch, remote, interface):
+    reads, writes = [], []
+    monkeypatch.setattr(sport, 'training', lambda *a: reads.append(a) or {})
+    monkeypatch.setattr(sport, 'check_in', lambda *a: writes.append(a))
+
+    async def run():
+        async with connection(remote) as client:
+            payload = {'name': 'sport_sport_checkin', 'arguments': {'training_id': 7}}
+            if interface == 'list_tools':
+                assert 'preview_tool' not in {tool.name for tool in await client.list_tools()}
+            else:
+                if interface == 'call_tool':
+                    payload = {'name': 'preview_tool', 'arguments': payload}
+                result = await client.call_tool(interface, payload, raise_on_error=False)
+                assert result.is_error
+            assert not reads and not writes
+            # A standalone authenticated mutation remains available without a preview.
+            assert (await client.call_tool('sport_sport_checkin', {'training_id': 7})).data['done'] is True
+    asyncio.run(run())
+    assert not reads and writes == [('sport', 7, True)]
+
+
+@pytest.mark.parametrize('remote', [False, True])
+def test_missing_title_mutation_returns_safe_validation_error(verified, monkeypatch, caplog, remote):
     reads, writes = [], []
     monkeypatch.setattr(api, 'bookable_rooms', lambda *a: reads.append(a) or [])
     monkeypatch.setattr(api, 'can_book_room', lambda *a: reads.append(a) or (True, None))
@@ -32,120 +55,85 @@ def test_missing_title_preview_returns_safe_validation_result(verified, monkeypa
 
     async def run():
         async with connection(remote) as client:
-            result = await client.call_tool('preview_tool', {
-                'name': 'rooms_book_room', 'arguments': arguments}, raise_on_error=False)
-            assert not result.is_error
-            assert set(result.data) == {'error', 'code'}
-            assert result.data['code'] == 'invalid_arguments'
-            assert 'title' in result.data['error']
-            assert 'private-input-value' not in str(result)
             for interface in ['rooms_book_room', 'call_tool']:
                 payload = arguments if interface == 'rooms_book_room' else {
                     'name': 'rooms_book_room', 'arguments': arguments}
-                assert (await client.call_tool(interface, payload, raise_on_error=False)).is_error
+                result = await client.call_tool(interface, payload, raise_on_error=False)
+                assert not result.is_error and result.data['done'] is False
+                assert result.data['code'] == 'invalid_arguments'
+                assert 'title' in str(result.content)
+                assert 'private-input-value' not in str(result)
     asyncio.run(run())
     assert not reads and not writes
     assert 'private-input-value' not in caplog.text
 
 
 @pytest.mark.parametrize('remote', [False, True])
-def test_preview_is_readonly_and_keeps_sport_credentials(verified, monkeypatch, remote):
-    reads, writes = [], []
-    monkeypatch.setattr(sport, 'training', lambda *a: reads.append(a) or {
-        'start': '2099-01-01T10:00:00+03:00', 'end': '2099-01-01T11:00:00+03:00',
-        'sport_name': 'Volleyball', 'training_location': {'name': 'Court A'}})
+@pytest.mark.parametrize('token,sport_token', [(None, None), (None, 'sport'), ('invalid', 'sport'), ('ih', None)])
+@pytest.mark.parametrize('generic', [False, True])
+@pytest.mark.parametrize('invalid', [False, True])
+def test_mutation_authentication_precedes_upstream_writes(verified, monkeypatch, remote, token, sport_token, generic, invalid):
+    writes = []
+    monkeypatch.setattr(sport, 'training', lambda *a: pytest.fail('Unexpected display lookup'))
     monkeypatch.setattr(sport, 'check_in', lambda *a: writes.append(a))
-    name, args = 'sport_sport_checkin', {'training_id': 7}
-    normalized = mcp_domain.validate(name, args)
+    name, arguments = 'sport_sport_checkin', {'training_id': 7}
+    interface = 'call_tool' if generic else name
+    payload = {'name': name, 'arguments': arguments} if generic else arguments
 
     async def run():
+        async with connection(remote, token, sport_token) as client:
+            invalid_payload = {'name': name, 'arguments': {}} if generic else {}
+            result = await client.call_tool(interface, invalid_payload if invalid else payload, raise_on_error=False)
+            assert result.is_error
+            assert 'sign' in str(result.content)
+        assert not writes
         async with connection(remote) as client:
-            for language in ['ru', 'en']:
-                result = (await client.call_tool('preview_tool', {
-                    'name': name, 'arguments': args, 'language': language})).data
-                assert result['name'] == name and result['arguments'] == normalized
-                assert 'Volleyball' in result['description'] and 'Court A' in result['description']
-                assert ('Записать' if language == 'ru' else 'Check you in') in result['description']
-                assert not writes
-            assert (await client.call_tool(name, args)).data['done'] is True
+            assert (await client.call_tool(interface, payload)).data['done'] is True
     asyncio.run(run())
-    assert reads == [('sport', 7), ('sport', 7)]
     assert writes == [('sport', 7, True)]
 
 
 @pytest.mark.parametrize('remote', [False, True])
-@pytest.mark.parametrize('token,sport_token', [(None, None), (None, 'sport'), ('invalid', 'sport'), ('ih', None)])
-@pytest.mark.parametrize('arguments', [{'training_id': 7}, {}])
-def test_preview_authentication_precedes_read_lookups(verified, monkeypatch, remote, token, sport_token, arguments):
-    monkeypatch.setattr(sport, 'training', lambda *a: pytest.fail('Unauthenticated preview read'))
-    async def run():
-        async with connection(remote, token, sport_token) as client:
-            result = await client.call_tool('preview_tool', {
-                'name': 'sport_sport_checkin', 'arguments': arguments}, raise_on_error=False)
-            assert result.is_error
-            assert 'sign' in str(result.content)
-    asyncio.run(run())
-
-
-@pytest.mark.parametrize('remote', [False, True])
-def test_invalid_preview_and_nested_controls_never_read(verified, monkeypatch, remote):
-    monkeypatch.setattr(api, 'bookable_rooms', lambda *a: pytest.fail('Invalid preview read'))
-    monkeypatch.setattr(sport, 'training', lambda *a: pytest.fail('Invalid preview read'))
+def test_invalid_mutations_and_nested_controls_never_execute(verified, monkeypatch, remote):
+    monkeypatch.setattr(api, 'can_book_room', lambda *a: pytest.fail('Invalid mutation read'))
+    monkeypatch.setattr(api, 'book_room', lambda *a: pytest.fail('Invalid mutation write'))
+    monkeypatch.setattr(sport, 'check_in', lambda *a: pytest.fail('Invalid mutation write'))
     room = {'room_id': 'r', 'day': '2099-01-01', 'time_from': '10:30', 'time_to': '11:30', 'title': 'Study'}
     invalid_arguments = [
         {'name': 'rooms_book_room', 'arguments': {**room, 'time_from': '10:30:59+05:00'}},
         {'name': 'rooms_book_room', 'arguments': {**room, 'room_id': '../escape'}},
         {'name': 'rooms_book_room', 'arguments': {**room, 'day': '2000-01-01'}},
         {'name': 'sport_sport_checkin', 'arguments': {'training_id': 7, 'cancel': 0}},
+        {'name': 'sport_sport_checkin', 'arguments': False},
+        {'name': 'sport_sport_checkin', 'arguments': {}},
     ]
     malformed = [
-        {'name': 'sport_sport_checkin', 'arguments': {'training_id': 7}, 'language': 'xx'},
+        {'name': 'sport_sport_checkin', 'arguments': {'training_id': 7}, 'language': 'en'},
         {'name': 'sport_sport_checkin', 'arguments': {'training_id': 7}, 'uid': 'other'},
-        {'name': 'sport_sport_checkin', 'arguments': False},
-        {'name': 'sport_sport_checkin'},
-        {'name': 'maps_scenes_scenes', 'arguments': {}},
     ]
     malformed += [{'name': name, 'arguments': {}} for name in ['unknown', 'call_tool', 'preview_tool', 'search_tools', 'service_status']]
     async def run():
         async with connection(remote) as client:
             for arguments in invalid_arguments:
-                result = await client.call_tool('preview_tool', arguments, raise_on_error=False)
-                assert not result.is_error and result.data['code'] == 'invalid_arguments'
+                for generic in [False, True]:
+                    result = await client.call_tool('call_tool' if generic else arguments['name'],
+                        arguments if generic else arguments['arguments'], raise_on_error=False)
+                    assert not result.is_error and result.data['done'] is False
+                    assert result.data['code'] == 'invalid_arguments'
             for arguments in malformed:
-                assert (await client.call_tool('preview_tool', arguments, raise_on_error=False)).is_error
+                assert (await client.call_tool('call_tool', arguments, raise_on_error=False)).is_error
             for name in ['preview_tool', 'call_tool', 'search_tools', 'service_status']:
                 assert (await client.call_tool('call_tool', {'name': name, 'arguments': {}}, raise_on_error=False)).is_error
     asyncio.run(run())
 
 
 @pytest.mark.parametrize('remote', [False, True])
-@pytest.mark.parametrize('failure', [httpx.ReadTimeout, ValueError, mcp_domain.InvalidArguments])
-def test_preview_callback_or_transport_failure_is_safe(verified, monkeypatch, caplog, remote, failure):
-    def fail(*args):
-        raise failure('private credential ih sport upstream diagnostic')
-    if failure is httpx.ReadTimeout:
-        monkeypatch.setattr(sport, 'training', fail)
-    else:
-        monkeypatch.setattr(mcp_domain.definitions()['sport_sport_checkin'].fn, '_preview', fail)
-    writes = []
-    monkeypatch.setattr(sport, 'check_in', lambda *a: writes.append(a))
-    async def run():
-        async with connection(remote) as client:
-            result = await client.call_tool('preview_tool', {
-                'name': 'sport_sport_checkin', 'arguments': {'training_id': 7}}, raise_on_error=False)
-            assert result.is_error
-            assert 'unavailable' in str(result.content)
-            assert 'upstream diagnostic' not in str(result)
-    asyncio.run(run())
-    assert not writes and 'upstream diagnostic' not in caplog.text
-
-
-@pytest.mark.parametrize('remote', [False, True])
-def test_preview_validation_preserves_raw_types_and_hides_private_inputs(verified, monkeypatch, caplog, remote):
+@pytest.mark.parametrize('generic', [False, True])
+def test_mutation_validation_preserves_raw_types_and_hides_private_inputs(verified, monkeypatch, caplog, remote, generic):
     reads, writes = [], []
     monkeypatch.setattr(api, 'bookable_rooms', lambda *a: reads.append(a) or [])
     monkeypatch.setattr(api, 'can_book_room', lambda *a: reads.append(a) or (True, None))
-    monkeypatch.setattr(api, 'book_room', lambda *a: writes.append(a))
+    monkeypatch.setattr(api, 'book_room', lambda *a: writes.append(a) or {'outlook_booking_id': 'booking'})
     monkeypatch.setattr(sport, 'training', lambda *a: reads.append(a) or {})
     monkeypatch.setattr(sport, 'check_in', lambda *a: writes.append(a))
     room = {'room_id': 'r', 'day': '2099-01-01', 'time_from': '10:30',
@@ -166,76 +154,23 @@ def test_preview_validation_preserves_raw_types_and_hides_private_inputs(verifie
     async def run():
         async with connection(remote) as client:
             for name, arguments in cases:
-                result = await client.call_tool('preview_tool', {
-                    'name': name, 'arguments': arguments}, raise_on_error=False)
-                assert not result.is_error and result.data['code'] == 'invalid_arguments'
-                assert set(result.data) == {'error', 'code'}
+                payload = {'name': name, 'arguments': arguments} if generic else arguments
+                result = await client.call_tool('call_tool' if generic else name, payload, raise_on_error=False)
+                assert not result.is_error and result.data['done'] is False
+                assert result.data['code'] == 'invalid_arguments'
                 assert 'private-' not in str(result)
                 assert 'input_value' not in str(result) and 'ctx' not in str(result)
                 if arguments.get('time_to') == '10:00':
-                    assert 'time_to must be after time_from' in result.data['error']
+                    assert 'time_to must be after time_from' in str(result.content)
                 assert not reads and not writes
+            for name, arguments in [('rooms_book_room', {**room, 'title': 'Study'}),
+                                    ('sport_sport_checkin', {'training_id': 7})]:
+                payload = {'name': name, 'arguments': arguments} if generic else arguments
+                assert (await client.call_tool('call_tool' if generic else name, payload)).data['done'] is True
     asyncio.run(run())
+    assert len(reads) == 1 and len(writes) == 2
+    assert writes[-1] == ('sport', 7, True)
     assert 'private-' not in caplog.text
-
-
-@pytest.mark.parametrize('remote', [False, True])
-def test_valid_room_preview_keeps_id_when_name_lookup_is_unavailable(verified, monkeypatch, remote):
-    reads, writes = [], []
-    def unavailable(*args):
-        reads.append(args)
-        raise api.ServiceError(503, 'private-upstream-diagnostic')
-    monkeypatch.setattr(api, 'bookable_rooms', unavailable)
-    monkeypatch.setattr(api, 'book_room', lambda *a: writes.append(a))
-    arguments = {'room_id': 'room-id', 'day': '2099-01-01', 'time_from': '10:30',
-                 'time_to': '11:30', 'title': 'Study'}
-
-    async def run():
-        async with connection(remote) as client:
-            result = await client.call_tool('preview_tool', {
-                'name': 'rooms_book_room', 'arguments': arguments}, raise_on_error=False)
-            assert not result.is_error
-            assert set(result.data) == {'name', 'arguments', 'description'}
-            assert result.data['arguments'] == arguments
-            assert 'room-id' in result.data['description'] and 'Study' in result.data['description']
-            assert 'private-upstream-diagnostic' not in str(result)
-    asyncio.run(run())
-    assert reads == [('ih',)] and not writes
-
-
-@pytest.mark.parametrize('language', ['ru', 'en'])
-def test_account_preview_callbacks_keep_human_labels(verified, monkeypatch, language):
-    for method in ['book_music_room', 'cancel_music_room', 'enroll', 'unenroll']:
-        monkeypatch.setattr(api, method, lambda *a: pytest.fail('Approval preview mutated'))
-    monkeypatch.setattr(api, 'my_music_room_bookings', lambda token: [
-        {'id': 42, 'time_start': '2099-01-01T10:00:00+03:00', 'time_end': '2099-01-01T11:00:00+03:00'}])
-    monkeypatch.setattr(api, 'event', lambda event_id: {'data': {
-        'locales': {'ru': {'name': 'Мастерская'}, 'en': {'name': 'Workshop'}},
-        'starts_at': '2099-01-01T10:00:00+03:00', 'location': {'display_name': 'Room 108'}}})
-    cases = [
-        ('music_book_music_room', {'day': '2099-01-01', 'time_from': '10:00', 'time_to': '11:00'}, '10:00–11:00'),
-        ('account_cancel_booking', {'service': 'music_room', 'booking_id': '42'}, '10:00–11:00'),
-        ('events_enroll_in_event', {'event_id': 'a' * 24}, 'Мастерская' if language == 'ru' else 'Workshop'),
-        ('events_enroll_in_event', {'event_id': 'a' * 24, 'leave': True}, 'Отменить' if language == 'ru' else 'Cancel'),
-    ]
-    async def run():
-        async with connection(False) as client:
-            for name, arguments, label in cases:
-                result = (await client.call_tool('preview_tool', {
-                    'name': name, 'arguments': arguments, 'language': language})).data
-                assert result['name'] == name and result['arguments'] == mcp_domain.validate(name, arguments)
-                assert label in result['description']
-    asyncio.run(run())
-
-
-@pytest.mark.parametrize('language', [[], {}, None, 0])
-def test_preview_rejects_nonstring_language_without_internal_error(verified, language):
-    async def run():
-        async with connection(False) as client:
-            result = await client.call_tool('preview_tool', {
-                'name': 'sport_sport_checkin', 'arguments': {'training_id': 7}, 'language': language}, raise_on_error=False)
-            assert result.is_error and 'Invalid account operation arguments' in str(result.content)
-    asyncio.run(run())
 
 
 @pytest.mark.parametrize('name', ['calendar_get_my_ai_calendar', 'calendar_add_to_ai_calendar',
@@ -247,6 +182,29 @@ def test_calendar_rpc_names_are_absent_and_refused_on_every_path(verified, monke
     async def run():
         async with connection(False) as client:
             assert (await client.call_tool(name, {}, raise_on_error=False)).is_error
-            for interface in ['call_tool', 'preview_tool']:
-                assert (await client.call_tool(interface, {'name': name, 'arguments': {}}, raise_on_error=False)).is_error
+            assert (await client.call_tool('call_tool', {'name': name, 'arguments': {}}, raise_on_error=False)).is_error
     asyncio.run(run())
+
+
+@pytest.mark.parametrize('remote', [False, True])
+@pytest.mark.parametrize('generic', [False, True])
+def test_validation_exception_during_execution_is_not_a_definite_refusal(verified, monkeypatch, caplog, remote, generic):
+    writes = []
+
+    def uncertain(*args):
+        writes.append(args)
+        raise mcp_domain.InvalidArguments('private-upstream-diagnostic')
+
+    monkeypatch.setattr(sport, 'check_in', uncertain)
+
+    async def run():
+        async with connection(remote) as client:
+            name, arguments = 'sport_sport_checkin', {'training_id': 7}
+            result = await client.call_tool('call_tool' if generic else name,
+                {'name': name, 'arguments': arguments} if generic else arguments)
+            assert result.data['done'] is None and result.data['outcome'] == 'unknown'
+            assert 'invalid_arguments' not in str(result.data)
+            assert 'private-upstream-diagnostic' not in str(result)
+    asyncio.run(run())
+    assert writes == [('sport', 7, True)]
+    assert 'private-upstream-diagnostic' not in caplog.text

@@ -60,6 +60,53 @@ def test_async_client_handles_simultaneous_users_without_shared_credentials(mcp_
     assert sorted(mcp_connection[0]) == ["user-a", "user-b"]
 
 
+def test_sync_client_bridge_works_on_event_loop_thread(mcp_connection):
+    from catix.innohassle import mcp_client
+
+    async def run():
+        return mcp_client.request_sync("call_tool", {
+            "name": "maps_rooms", "arguments": {"query": "301"}}, "user-a")
+
+    assert asyncio.run(run())["data"] == [{"room": "301"}]
+    assert mcp_connection == (["user-a"], ["301"])
+
+
+def test_http_mutation_validation_is_definite_refusal_before_upstream(monkeypatch, caplog):
+    from fastmcp.utilities.asgi_transport import StreamingASGITransport, run_asgi_lifespan
+    from catix.innohassle import client as api, mcp_client, mcp_server
+    from catix.settings import settings
+
+    reads, writes = [], []
+    monkeypatch.setattr(mcp_server.token_verifier, 'claims',
+                        lambda token: {'uid': 'owner'} if token == 'ih' else None)
+    monkeypatch.setattr(api, 'can_book_room', lambda *a: reads.append(a) or (True, None))
+    monkeypatch.setattr(api, 'book_room', lambda *a: writes.append(a) or {'outlook_booking_id': 'booking'})
+    monkeypatch.setattr(settings, 'innohassle_mcp_url', 'http://127.0.0.1/mcp')
+    original = mcp_client._http_client
+    valid = {'room_id': 'r', 'day': '2099-01-01', 'time_from': '10:30',
+             'time_to': '11:30', 'title': 'Study'}
+
+    async def run():
+        root = await mcp_server.build_server()
+        app = root.http_app(stateless_http=True)
+        monkeypatch.setattr(mcp_client, '_http_client',
+                            lambda **kw: original(transport=StreamingASGITransport(app), **kw))
+        async with run_asgi_lifespan(app):
+            result = await mcp_client.request('call_tool', {'name': 'rooms_book_room', 'arguments': {
+                **valid, 'time_to': '10:00', 'title': 'private-input-secret'}}, 'ih')
+            assert result == {'done': False, 'code': 'invalid_arguments', 'error':
+                              'Invalid account operation arguments; nothing was done. '
+                              'Value error, time_to must be after time_from.'}
+            assert not reads and not writes
+            allowed = await mcp_client.request('call_tool', {
+                'name': 'rooms_book_room', 'arguments': valid}, 'ih')
+            assert allowed['done'] is True
+
+    asyncio.run(run())
+    assert len(reads) == 1 and len(writes) == 1
+    assert 'private-input-secret' not in caplog.text
+
+
 def test_transport_failure_never_echoes_diagnostics_or_credentials(monkeypatch):
     from catix.innohassle import mcp_client
 
@@ -141,17 +188,21 @@ def test_malformed_or_oversized_mutation_result_is_unknown_without_retry(monkeyp
     assert len(called) == 1
 
 
-def test_preview_failure_is_not_a_mutation_outcome(monkeypatch):
+@pytest.mark.parametrize('inside_event_loop', [False, True])
+def test_removed_preview_rpc_is_rejected_without_transport(monkeypatch, inside_event_loop):
     from catix.innohassle import mcp_client
 
-    @asynccontextmanager
-    async def broken(token):
-        raise RuntimeError("private diagnostic")
-        yield
+    def forbidden(*args, **kwargs):
+        pytest.fail('Removed preview must not open a transport connection')
 
-    monkeypatch.setattr(mcp_client, "_connection", broken)
-    result = mcp_client.request_sync("preview_tool", {"name": "rooms_book_room", "arguments": {}, "language": "en"}, "ih")
-    assert "error" in result and "outcome" not in result
+    monkeypatch.setattr(mcp_client, "_connection", forbidden)
+    payload = {"name": "rooms_book_room", "arguments": {}, "language": "en"}
+
+    async def run():
+        return await mcp_client.request("preview_tool", payload, "ih")
+
+    result = asyncio.run(run()) if inside_event_loop else mcp_client.request_sync("preview_tool", payload, "ih")
+    assert result == {"error": "Unsupported MCP interface operation."}
 
 
 @pytest.mark.parametrize("url", ["http://outside.example/mcp", "https://user:password@outside.example/mcp", "https://outside.example/mcp?token=secret"])

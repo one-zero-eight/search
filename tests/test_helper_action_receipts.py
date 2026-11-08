@@ -34,8 +34,6 @@ def mutation(monkeypatch):
             assert token is None and kwargs == {}
             return {"tools": [{"name": args["query"], "inputSchema": mcp_domain.schema(args["query"])}]}
         assert token == "synthetic-user"
-        if method == "preview_tool":
-            return {"name": args["name"], "arguments": args["arguments"], "description": "Cancel synthetic booking"}
         assert method == "call_tool"
         sent.append(args)
         result = payload["result"]

@@ -72,7 +72,8 @@ def test_authenticated_http_cancellation_cannot_escape_to_music_room(monkeypatch
                 "service": "room", "booking_id": "../../../music-room/v0/bookings/42",
             })
             assert upstream == [], [(request.method, str(request.url)) for request in upstream]
-            assert result.is_error
+            assert not result.is_error and result.data['done'] is False
+            assert result.data['code'] == 'invalid_arguments'
             allowed = await call("account_cancel_booking", {"service": "room", "booking_id": "outlook-id"})
             assert allowed.data["done"] is True
             assert len(upstream) == 1
@@ -139,8 +140,9 @@ def test_direct_room_operations_reject_unsafe_ids_without_request(upstream, iden
 @pytest.mark.parametrize("identifier", ["../../../music-room/v0/bookings/42", "%252e%252e%252f42", "a?other", "a#other", "a\\b", "a\nb"])
 @pytest.mark.parametrize("name", ["account_cancel_booking", "rooms_book_room"])
 @pytest.mark.parametrize("helper", [None, "ask_docs", "ask_chats"])
-def test_invalid_identifier_is_refused_before_approval_or_upstream(monkeypatch, upstream, signed_user, mcp_http_protocol, name, identifier, helper):
+def test_invalid_identifier_is_refused_at_execution_before_upstream(monkeypatch, upstream, signed_user, mcp_http_protocol, name, identifier, helper):
     from langchain_core.messages import ToolMessage
+    from langgraph.types import Command
     from pydantic import SecretStr
     from catix.agent import core
     from catix.agent.tools import AgentContext
@@ -150,10 +152,21 @@ def test_invalid_identifier_is_refused_before_approval_or_upstream(monkeypatch, 
     arguments = {"service": "room", "booking_id": identifier} if name == "account_cancel_booking" else room_arguments(identifier)
     context = AgentContext(innohassle_token=SecretStr(signed_user), innohassle_id="synthetic-owner")
     agent, config, out = _graph_action({"name": name, "arguments": arguments}, context=context, helper=helper)
+    paused = agent.get_state(config).interrupts
+    assert len(paused) == 1 and upstream == []
+    assert paused[0].value['action_requests'][0]['args']['arguments'] == arguments
+    out = agent.invoke(Command(resume={paused[0].id: {'decisions': [{'type': 'approve'}]}}), config, context=context)
     assert not agent.get_state(config).interrupts and upstream == []
+    assert not core.action_receipt(out['messages'])
     results = [m for m in out["messages"] if isinstance(m, ToolMessage)]
     payloads = results[0].artifact["results"] if helper else [m.content for m in results]
-    assert any("identifier" in json.loads(value).get("error", "").lower() for value in payloads)
+    refused = []
+    for value in payloads:
+        assert isinstance(value, str)
+        result = json.loads(value)
+        if 'identifier' in result.get('error', '').lower():
+            refused.append(result)
+    assert refused and all(result['done'] is False and result['code'] == 'invalid_arguments' for result in refused)
 
 
 def test_http_room_preflight_stays_on_approved_endpoint(monkeypatch, signed_user, upstream):
@@ -161,7 +174,8 @@ def test_http_room_preflight_stays_on_approved_endpoint(monkeypatch, signed_user
         async with wire(monkeypatch, signed_user) as call:
             invalid = await call("rooms_book_room", room_arguments("../../../accounts/v0/tokens/generate-my-sport-token?"))
             assert upstream == [], [(request.method, str(request.url)) for request in upstream]
-            assert invalid.is_error
+            assert not invalid.is_error and invalid.data['done'] is False
+            assert invalid.data['code'] == 'invalid_arguments'
             allowed = await call("rooms_book_room", room_arguments("r+1@example.test"))
             assert allowed.data["done"] is True
             assert [(request.method, request.url.raw_path.split(b"?")[0]) for request in upstream] == [
@@ -197,7 +211,8 @@ def test_authenticated_http_rejects_encoded_and_literal_path_syntax(monkeypatch,
                 ]:
                     result = await call(name, arguments, generic=generic)
                     assert upstream == [], (name, identifier, upstream)
-                    assert result.is_error, (name, identifier, result)
+                    assert not result.is_error and result.data['done'] is False
+                    assert result.data['code'] == 'invalid_arguments'
             for identifier, segment in [("AA+/BB==", b"AA%2B%2FBB%3D%3D"), ("AA+/BB", b"AA%2B%2FBB")]:
                 arguments = {"service": "room", "booking_id": identifier}
                 assert mcp_domain.validate("account_cancel_booking", arguments) == arguments

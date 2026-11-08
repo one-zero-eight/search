@@ -54,7 +54,8 @@ def test_standalone_writes_require_credentials_not_host_consent(native, remote, 
                 arguments = {**args, **extra}
                 result = await client.call_tool('call_tool' if generic else name,
                     {'name': name, 'arguments': arguments} if generic else arguments, raise_on_error=False)
-                assert result.is_error
+                assert not result.is_error and result.data['done'] is False
+                assert result.data['code'] == 'invalid_arguments'
                 assert not native
             # Repeated explicit requests reach business logic; no capability replay gate.
             for _ in range(2):

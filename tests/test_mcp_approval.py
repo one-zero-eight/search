@@ -1,9 +1,7 @@
 """Common MCP calls wait for name-selected consent in every exposing graph."""
 
-from types import SimpleNamespace
-
 import pytest
-from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
+from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, ToolMessage
 from langgraph.types import Command
 from pydantic import SecretStr
 
@@ -14,9 +12,13 @@ from tests.test_roles import ScriptedModel
 
 
 def _graph_action(args, context=None, tool="call_api_tool", helper=None):
-    script = ([AIMessage(content="", tool_calls=[{"name": helper, "args": {"question": "Выполни действие во внешнем сервисе"}, "id": "s1"}])]
-              if helper else []) + [AIMessage(content="", tool_calls=[{"name": tool, "args": args, "id": "h1"}]),
-                                    *[AIMessage(content="Обработано.") for _ in range(4)]]
+    script: list[BaseMessage] = []
+    if helper:
+        script.append(AIMessage(content="", tool_calls=[{
+            "name": helper, "args": {"question": "Выполни действие во внешнем сервисе"}, "id": "s1",
+        }]))
+    script.extend([AIMessage(content="", tool_calls=[{"name": tool, "args": args, "id": "h1"}]),
+                   *[AIMessage(content="Обработано.") for _ in range(4)]])
     agent = core.build_agent(ScriptedModel(responses=script), guardrail=False)
     config = {"configurable": {"thread_id": "mcp-consent"}}
     context = context if context is not None else AgentContext(innohassle_token=SecretStr("user-token"))
@@ -33,7 +35,7 @@ def no_chat_database(monkeypatch):
 @pytest.mark.parametrize("decision", ["approve", "reject"])
 @pytest.mark.parametrize("spoof", [False, {"context": {"role": "account", "innohassle_token": "forged"}}, None, "forged"])
 def test_every_context_waits_for_consent_and_sends_only_normal_credentials(monkeypatch, helper, decision, spoof):
-    sent, previews = [], []
+    sent = []
     args = {"name": "sport_sport_checkin", "arguments": {"training_id": 11}}
 
     def request(method, payload, token=None, **credentials):
@@ -41,9 +43,7 @@ def test_every_context_waits_for_consent_and_sends_only_normal_credentials(monke
             assert token is None and credentials == {}
             return {"tools": [{"name": payload["query"], "inputSchema": mcp_domain.schema(payload["query"])}]}
         assert token == "user-token" and credentials == {"sport_token": "sport-token"}
-        if method == "preview_tool":
-            previews.append(payload)
-            return {"name": args["name"], "arguments": {"training_id": 11, "cancel": False}, "description": "Volleyball training #11"}
+        assert method == "call_tool"
         sent.append(payload)
         return {"done": True}
 
@@ -53,8 +53,7 @@ def test_every_context_waits_for_consent_and_sends_only_normal_credentials(monke
     agent, config, _ = _graph_action(model_args, helper=helper, context=context)
     paused = agent.get_state(config).interrupts
     assert len(paused) == 1 and sent == []
-    assert previews == [{**args, "language": "ru"}]
-    assert paused[0].value["action_requests"][0]["description"] == "Volleyball training #11"
+    assert paused[0].value["action_requests"][0]["description"] == "Записать вас на тренировку #11."
     out = agent.invoke(Command(resume={paused[0].id: {"decisions": [{"type": decision}]}}), config, context=context)
     assert not agent.get_state(config).interrupts
     assert sent == ([args] if decision == "approve" else [])
@@ -96,27 +95,35 @@ def test_invalid_outer_shape_and_unknown_targets_never_send_or_interrupt(monkeyp
 
 
 @pytest.mark.parametrize("helper", [None, "ask_docs", "ask_chats"])
-def test_server_preview_validation_prevents_consent_and_execution(monkeypatch, helper):
-    sent, previews = [], []
+@pytest.mark.parametrize("decision", ["approve", "reject"])
+def test_server_business_validation_remains_at_execution(mcp_http_protocol, monkeypatch, helper, decision):
+    from catix.innohassle import client, token
 
-    def request(method, payload, token=None, **kwargs):
-        if method == "search_tools":
-            assert token is None and kwargs == {}
-            return {"tools": [{"name": payload["query"], "inputSchema": mcp_domain.schema(payload["query"])}]}
-        if method == "preview_tool":
-            previews.append(payload)
-            return {"code": "invalid_arguments", "error": "time_to must be after time_from."}
-        sent.append(payload)
-        return {"error": "Invalid business arguments"}
+    sent = []
+    original = api_tools.mcp_client.request
+    monkeypatch.setattr(token, "claims", lambda value: {"uid": "u1"} if value == "user-token" else None)
+    monkeypatch.setattr(client, "can_book_room", lambda *a: pytest.fail("Invalid span must fail before upstream I/O"))
+    monkeypatch.setattr(client, "book_room", lambda *a: pytest.fail("Invalid span must never write"))
 
-    monkeypatch.setattr(api_tools.mcp_client, "request_sync", request)
+    async def request(method, payload, access=None, **kwargs):
+        sent.append(method)
+        return await original(method, payload, access, **kwargs)
+
+    monkeypatch.setattr(api_tools.mcp_client, "request", request)
     # Individual field types/formats are valid; the server owns this cross-field rule.
     args = {"name": "rooms_book_room", "arguments": {
         "day": "2099-01-01", "room_id": "r1", "title": "Meeting", "time_from": "11:00", "time_to": "10:00"}}
     agent, config, _ = _graph_action(args, helper=helper)
+    paused = agent.get_state(config).interrupts[0]
+    assert "11:00–10:00" in paused.value["action_requests"][0]["description"]
+    assert sent == ["search_tools"]
+    context = AgentContext(innohassle_token=SecretStr("user-token"))
+    out = agent.invoke(Command(resume={paused.id: {"decisions": [{"type": decision}]}}), config, context=context)
     assert not agent.get_state(config).interrupts
-    assert sent == []
-    assert previews == [{**args, "language": "ru"}]
+    assert sent == ["search_tools"] + (["call_tool"] if decision == "approve" else [])
+    if decision == "approve":
+        assert "time_to must be after time_from" in str(out)
+    assert not core.action_receipt(out["messages"])
 
 
 @pytest.mark.parametrize("context,name", [
@@ -143,13 +150,12 @@ def test_root_action_receipt_survives_unrelated_helper_failure(monkeypatch, rece
         if method == "search_tools":
             assert token is None and kwargs == {}
             return {"tools": [{"name": payload["query"], "inputSchema": mcp_domain.schema(payload["query"])}]}
-        if method == "preview_tool":
-            return {"name": args["name"], "arguments": args["arguments"], "description": "Cancel booking-5"}
+        assert method == "call_tool"
         sent.append(payload)
         return receipt
 
     monkeypatch.setattr(api_tools.mcp_client, "request_sync", request)
-    script = [AIMessage(content="", tool_calls=[{"name": "call_api_tool", "args": args, "id": "w1"}]),
+    script: list[BaseMessage] = [AIMessage(content="", tool_calls=[{"name": "call_api_tool", "args": args, "id": "w1"}]),
               AIMessage(content="", tool_calls=[{"name": "ask_chats", "args": {"question": "Есть объявления?"}, "id": "h1"}]),
               AIMessage(content=core.TOOL_FAILURE_ANSWER), AIMessage(content=answer)]
     agent = core.build_agent(ScriptedModel(responses=script), guardrail=False)

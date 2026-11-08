@@ -109,7 +109,7 @@ def test_missing_required_field_forces_no_tools_clarification(monkeypatch, rpc, 
     assert len(pending) == 1
     assert model.bindings[-1]["tool_choice"] != "none", "A new human turn must clear the restriction"
     assert pending[0].value["action_requests"][0]["args"] == {"name": TARGET, "arguments": corrected}
-    assert [method for method, *_ in rpc].count("preview_tool") == 1
+    assert all(method == "search_tools" for method, *_ in rpc)
     before_resume = list(rpc)
     invoke(Command(resume={pending[0].id: {"decisions": [{"type": decision}]}}))
     assert not agent.get_state(CONFIG).interrupts
@@ -142,8 +142,6 @@ def rpc(monkeypatch):
             assert token is None and credentials == {}
             assert payload == {"query": TARGET}
             return {"tools": [{"name": TARGET, "inputSchema": deepcopy(SCHEMA)}]}
-        if method == "preview_tool":
-            return {"name": payload["name"], "arguments": payload["arguments"], "description": "Book SU office."}
         assert method == "call_tool"
         return {"done": True}
 
@@ -166,7 +164,7 @@ def test_only_paired_successful_discovery_supplies_schema(monkeypatch, rpc, trus
     assert [method for method, *_ in rpc] == ([] if trusted else ["search_tools"])
 
 
-def test_root_missing_title_reaches_model_without_preview_interrupt_or_write(monkeypatch, rpc):
+def test_root_missing_title_reaches_model_without_interrupt_or_write(monkeypatch, rpc):
     agent, model = graph(monkeypatch, [action(ARGUMENTS)])
     out = agent.invoke({"messages": [HumanMessage("Book SU office.")]}, CONFIG, context=CONTEXT)
     assert not agent.get_state(CONFIG).interrupts
@@ -179,7 +177,7 @@ def test_root_missing_title_reaches_model_without_preview_interrupt_or_write(mon
 
 
 @pytest.mark.parametrize("decision", ["approve", "reject"])
-def test_valid_write_uses_durable_preview_once_and_original_arguments(monkeypatch, rpc, decision):
+def test_valid_write_uses_local_description_and_original_arguments(monkeypatch, rpc, decision):
     from langgraph.types import Command
 
     arguments = {**ARGUMENTS, "title": "Planning"}
@@ -187,20 +185,20 @@ def test_valid_write_uses_durable_preview_once_and_original_arguments(monkeypatc
     agent.invoke({"messages": [HumanMessage("Book SU office.")]}, CONFIG, context=CONTEXT)
     paused = agent.get_state(CONFIG)
     assert len(paused.interrupts) == 1
-    assert [method for method, *_ in rpc] == ["search_tools", "preview_tool"]
+    assert [method for method, *_ in rpc] == ["search_tools"]
     request = paused.interrupts[0].value["action_requests"][0]
-    assert request["description"] == "Book SU office."
+    assert request["description"] == 'Book room su-office for 2026-11-10, 10:00–12:00: “Planning”.'
     assert request["args"] == {"name": TARGET, "arguments": arguments}
     prepared = paused.values.get("api_prepared")
-    assert prepared == [{"call_id": "write-1", "target": TARGET, "arguments": arguments, "description": "Book SU office."}]
+    assert prepared == [{"call_id": "write-1", "target": TARGET, "arguments": arguments, "description": request["description"]}]
     agent.invoke(Command(resume={paused.interrupts[0].id: {"decisions": [{"type": decision}]}}), CONFIG, context=CONTEXT)
     assert not agent.get_state(CONFIG).interrupts
-    assert [method for method, *_ in rpc] == ["search_tools", "preview_tool"] + (["call_tool"] if decision == "approve" else [])
+    assert [method for method, *_ in rpc] == ["search_tools"] + (["call_tool"] if decision == "approve" else [])
     assert agent.get_state(CONFIG).values["api_prepared"] == []
 
 
 @pytest.mark.parametrize("decision", [None, "approve", "reject"])
-def test_async_preflight_uses_native_transport_and_durable_preview(monkeypatch, decision):
+def test_async_preflight_uses_native_discovery_and_local_description(monkeypatch, decision):
     import asyncio
     from langgraph.types import Command
 
@@ -211,8 +209,7 @@ def test_async_preflight_uses_native_transport_and_durable_preview(monkeypatch, 
         if method == "search_tools":
             assert token is None and not credentials
             return {"tools": [{"name": TARGET, "inputSchema": SCHEMA}]}
-        if method == "preview_tool":
-            return {"name": TARGET, "arguments": payload["arguments"], "description": "Book SU office."}
+        assert method == "call_tool"
         return {"done": True}
 
     monkeypatch.setattr(api_tools.mcp_client, "request", request)
@@ -225,7 +222,7 @@ def test_async_preflight_uses_native_transport_and_durable_preview(monkeypatch, 
         paused = await agent.aget_state(CONFIG)
         if decision:
             assert len(paused.interrupts) == 1
-            assert sent == ["search_tools", "preview_tool"]
+            assert sent == ["search_tools"]
             await agent.ainvoke(Command(resume={paused.interrupts[0].id: {"decisions": [{"type": decision}]}}),
                                 CONFIG, context=CONTEXT)
         else:
@@ -234,44 +231,37 @@ def test_async_preflight_uses_native_transport_and_durable_preview(monkeypatch, 
         assert not (await agent.aget_state(CONFIG)).interrupts
 
     asyncio.run(run())
-    assert sent == ["search_tools"] + (["preview_tool"] if decision else []) + (["call_tool"] if decision == "approve" else [])
+    assert sent == ["search_tools"] + (["call_tool"] if decision == "approve" else [])
 
 
-@pytest.mark.parametrize("failure", ["error", "invalid_arguments", "name", "arguments", "empty", "timeout", "exception"])
-def test_preview_failure_returns_feedback_without_approval_or_execution(monkeypatch, failure):
+@pytest.mark.parametrize("failure", ["timeout", "exception", "formatting"])
+def test_preparation_failure_returns_feedback_without_approval_or_execution(monkeypatch, failure):
+    from catix.agent import api_preflight
+
     sent = []
     arguments = {**ARGUMENTS, "title": "Planning"}
 
     def request(method, payload, *args, **kwargs):
         sent.append(method)
-        assert method == "preview_tool"
+        assert method == "search_tools"
         if failure == "timeout":
             raise TimeoutError("synthetic-private-diagnostic")
-        if failure == "exception":
-            raise ValueError("synthetic-private-diagnostic")
-        if failure == "error":
-            return {"error": "synthetic-private-diagnostic"}
-        if failure == "invalid_arguments":
-            return {"error": "End time must be after start time.", "code": "invalid_arguments"}
-        result = {"name": TARGET, "arguments": arguments, "description": "Book SU office."}
-        if failure == "name":
-            result["name"] = "music_book_music_room"
-        elif failure == "arguments":
-            result["arguments"] = {**arguments, "room_id": "another-office"}
-        else:
-            result["description"] = " "
-        return result
+        raise ValueError("synthetic-private-diagnostic")
+
+    def broken_description(*args):
+        raise ValueError("synthetic-private-diagnostic")
 
     monkeypatch.setattr(api_tools.mcp_client, "request_sync", request)
+    if failure == "formatting":
+        monkeypatch.setattr(api_preflight, "describe_action", broken_description)
     agent, model = graph(monkeypatch, [action(arguments)])
-    out = agent.invoke({"messages": [HumanMessage("Book SU office."), *discovery()]}, CONFIG, context=CONTEXT)
+    out = agent.invoke({"messages": [HumanMessage("Book SU office."), *(discovery() if failure == "formatting" else [])]},
+                       CONFIG, context=CONTEXT)
     assert not agent.get_state(CONFIG).interrupts
-    assert sent == ["preview_tool"]
+    assert sent == ([] if failure == "formatting" else ["search_tools"])
     feedback = next(m for m in model.seen[-1] if isinstance(m, ToolMessage) and m.tool_call_id == "write-1")
     assert json.loads(feedback.text)["error"]
     assert "synthetic-private-diagnostic" not in str(out)
-    if failure == "invalid_arguments":
-        assert "End time must be after start time" in feedback.content
 
 
 @pytest.mark.parametrize("schema,value", [
@@ -285,7 +275,7 @@ def test_preview_failure_returns_feedback_without_approval_or_execution(monkeypa
     ({"type": "number", "minimum": 2}, 1),
     ({"type": "array", "items": {"type": "integer"}}, [False]),
 ])
-def test_complete_discovery_constraints_fail_before_preview(monkeypatch, schema, value):
+def test_complete_discovery_constraints_fail_before_confirmation(monkeypatch, schema, value):
     monkeypatch.setattr(api_tools.mcp_client, "request_sync", lambda *a, **kw: pytest.fail("Invalid discovered arguments need no I/O"))
     catalogue_schema = {"type": "object", "properties": {"field": schema}}
     agent, _ = graph(monkeypatch, [action({"field": value})])
@@ -340,11 +330,13 @@ def test_references_are_local_only(monkeypatch, rpc, external):
 
     monkeypatch.setattr(urllib.request, "urlopen", lambda *a, **kw: pytest.fail("Schema retrieval is forbidden"))
     ref = "https://schema.invalid/private" if external else "#/$defs/title"
-    schema = {"type": "object", "$defs": {"title": {"type": "string"}}, "properties": {"title": {"$ref": ref}}}
-    agent, _ = graph(monkeypatch, [action({"title": "Planning"})])
+    schema = deepcopy(SCHEMA)
+    schema["$defs"] = {"title": {"type": "string"}}
+    schema["properties"]["title"] = {"$ref": ref}
+    agent, _ = graph(monkeypatch, [action({**ARGUMENTS, "title": "Planning"})])
     agent.invoke({"messages": [HumanMessage("Book the room."), *discovery(schema)]}, CONFIG, context=CONTEXT)
     assert bool(agent.get_state(CONFIG).interrupts) is not external
-    assert [method for method, *_ in rpc] == ([] if external else ["preview_tool"])
+    assert rpc == []
 
 
 def test_invalid_parallel_batch_pairs_every_call_and_executes_none(monkeypatch, rpc):
@@ -356,7 +348,7 @@ def test_invalid_parallel_batch_pairs_every_call_and_executes_none(monkeypatch, 
                "api_prepared": [{"call_id": "invalid", "target": TARGET, "arguments": ARGUMENTS, "description": "STALE"}]}
     out = agent.invoke(initial, CONFIG, context=CONTEXT)
     assert not agent.get_state(CONFIG).interrupts
-    assert [method for method, *_ in rpc] == ["preview_tool"]
+    assert rpc == []
     results = {m.tool_call_id: m for m in model.seen[-1] if isinstance(m, ToolMessage) and m.tool_call_id != "discover-1"}
     assert set(results) == {call["id"] for call in calls}
     assert "title" in results["invalid"].content
@@ -427,7 +419,7 @@ def test_clarification_is_schema_generic_but_not_for_other_validation_errors(mon
     out = agent.invoke({"messages": [HumanMessage("Book SU office."), *discovery(schema)]}, CONFIG, context=CONTEXT)
     assert (model.bindings[-1]["tool_choice"] == "none") is (case == "generic_required")
     assert bool(agent.get_state(CONFIG).interrupts) is (case == "ordinary_validation")
-    assert [method for method, *_ in rpc] == (["preview_tool"] if case == "ordinary_validation" else [])
+    assert rpc == []
     if case == "generic_required":
         error = next(m for m in out["messages"] if isinstance(m, ToolMessage) and m.tool_call_id == "write-1")
         assert "organizer" in error.content and error.artifact["requires_user_input"] is True
@@ -454,7 +446,7 @@ def test_only_current_matched_artifacts_require_user_input(monkeypatch, rpc, mar
     agent, _ = graph(monkeypatch, [action({**ARGUMENTS, "title": "Planning"})])
     agent.invoke({"messages": [*messages, *discovery()]}, CONFIG, context=CONTEXT)
     assert len(agent.get_state(CONFIG).interrupts) == 1
-    assert [method for method, *_ in rpc] == ["preview_tool"]
+    assert rpc == []
 
 
 @pytest.mark.parametrize("asynchronous", [False, True])
@@ -507,9 +499,9 @@ def test_new_batch_never_reuses_previous_approval_or_prepared_description(monkey
     assert len(second_pause.interrupts) == 1 and second_pause.interrupts[0].id != paused.id
     assert second_pause.values["api_prepared"][0]["call_id"] == "second"
     assert second_pause.values["api_prepared"][0]["arguments"] == second
-    assert [method for method, *_ in rpc] == ["preview_tool", "call_tool", "preview_tool"]
+    assert [method for method, *_ in rpc] == ["call_tool"]
     agent.invoke(Command(resume={second_pause.interrupts[0].id: {"decisions": [{"type": "reject"}]}}), CONFIG, context=CONTEXT)
-    assert [method for method, *_ in rpc] == ["preview_tool", "call_tool", "preview_tool"]
+    assert [method for method, *_ in rpc] == ["call_tool"]
     assert not agent.get_state(CONFIG).interrupts
 
 
@@ -532,4 +524,4 @@ def test_pending_approval_survives_fresh_graph_and_preflight_outage(monkeypatch,
     fresh.invoke(Command(resume={paused.id: {"decisions": [{"type": "approve"}]}}), CONFIG, context=CONTEXT)
     assert writes == [{"name": TARGET, "arguments": arguments}]
     assert not fresh.get_state(CONFIG).interrupts
-    assert [method for method, *_ in rpc] == ["search_tools", "preview_tool"]
+    assert [method for method, *_ in rpc] == ["search_tools"]

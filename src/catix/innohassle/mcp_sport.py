@@ -13,7 +13,6 @@ from fastmcp.tools import tool
 from pydantic import Field
 
 from catix.innohassle import mcp_schemas as schemas
-from catix.innohassle.mcp_account import _when
 from catix.innohassle.mcp_declarations import credential, guarded, metadata
 from catix.settings import settings
 
@@ -76,26 +75,6 @@ def _matches(t: dict, wanted: str) -> bool:
 
 def _day_start(day: date) -> datetime:
     return datetime.combine(day, time.min, settings.tz)
-
-
-def _describe_checkin(arguments, identity, language) -> str:
-    from catix.innohassle import client as innohassle
-    from catix.innohassle import sport as sport_api
-
-    a, ru = (schemas.SportCheckinArgs.model_validate(arguments), language == "ru")
-    what = f"#{a.training_id}"
-    try:
-        token = identity.sport_token
-        t = sport_api.training(token, a.training_id) if token else None
-        if t:
-            when = _when(_local(t["start"]), None if t.get("is_all_day") else _local(t["end"]), ru)
-            place = (t.get("training_location") or {}).get("name")
-            what = f"«{training_name(t)}» ({(when.rsplit(', ', 1)[0] if t.get('is_all_day') else when)}{(', ' + place if place else '')})"
-    except (innohassle.ServiceError, KeyError, ValueError):
-        pass
-    if ru:
-        return f"Отменить вашу запись на тренировку {what}." if a.cancel else f"Записать вас на тренировку {what}."
-    return f"Cancel your check-in to the training {what}." if a.cancel else f"Check you in to the training {what}."
 
 
 @tool(**metadata("sport"))
@@ -241,7 +220,7 @@ def sport_get_sports(sport: str | None = None) -> dict:
 
 
 @tool(**metadata("sport", write=True))
-@guarded(args_model=schemas.SportCheckinArgs, preview=_describe_checkin)
+@guarded(args_model=schemas.SportCheckinArgs)
 def sport_sport_checkin(training_id: Annotated[int, Field(gt=0)], cancel: bool = False) -> dict:
     """Sign up for a Sport training, or cancel the signup.
     Записаться на спортивную тренировку или отменить запись.

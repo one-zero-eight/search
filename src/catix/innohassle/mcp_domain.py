@@ -1,7 +1,7 @@
 """Offline policy/schema lookup derived solely from explicit MCP functions.
 
-Only pure model validation is shared with the host. Implementations execute in
-MCP service functions; preview callbacks run on the authenticated server.
+Validation and implementations remain authoritative in the MCP service.
+Client hosts own confirmation descriptions and consent.
 """
 
 from copy import deepcopy
@@ -16,7 +16,7 @@ from pydantic import ValidationError as ModelValidationError
 
 
 class InvalidArguments(ValueError):
-    """Safe authored validation feedback, distinct from policy/callback failures."""
+    """Safe authored validation feedback, distinct from policy failures."""
 
 
 @cache
@@ -35,8 +35,6 @@ def definitions():
         local = (declared.meta or {}).get("catix", {})
         if local.get("auth") not in {"public", "innohassle", "sport"} or type(local.get("write")) is not bool:
             raise ValueError("MCP tool is missing trusted policy metadata.")
-        if local["write"] and not callable(getattr(function, "_preview", None)):
-            raise ValueError("Mutation is missing its preview.")
         tools[declared.name] = declared
     return MappingProxyType(tools)
 
@@ -107,17 +105,6 @@ def validate(name: str, arguments: dict) -> dict:
         raise InvalidArguments(message) from None
     except TypeError:
         raise InvalidArguments("Invalid account operation arguments; nothing was done.") from None
-
-
-def describe_preview(name: str, arguments: dict, identity, language: str = "ru") -> str:
-    """Server-only read-only preview callback; identity already verified by middleware."""
-    normalized = validate(name, arguments)
-    if not policy(name)["write"]:
-        raise ValueError("Only mutations have a preview.")
-    callback: Any = getattr(_definition(name).fn, "_preview", None)
-    if not callable(callback):
-        raise ValueError("Mutation is missing its preview.")
-    return callback(normalized, identity, language)
 
 
 def _redact(value: Any, secrets: tuple[str | None, ...]) -> Any:

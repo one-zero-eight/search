@@ -14,12 +14,13 @@ from langgraph.errors import GraphBubbleUp
 from referencing import Registry
 from typing_extensions import NotRequired
 
-from catix.agent.api_tools import _credential_mode, _credentials, _needs_approval, _reviewed_args
+from catix.agent.api_descriptions import describe_action
+from catix.agent.api_tools import _needs_approval, _reviewed_args
 from catix.innohassle import mcp_client
 
 
 class PreflightError(ValueError):
-    """Safe argument/preview feedback, never transport exception diagnostics."""
+    """Safe argument feedback, never transport exception diagnostics."""
 
     def __init__(self, message, *, requires_user_input=False):
         super().__init__(message)
@@ -88,29 +89,21 @@ def _discovered_schema(messages, target):
     return found
 
 
-def _preview_payload(args, state):
+def _language(state):
     question = next((str(message.content) for message in reversed(state["messages"])
                      if isinstance(message, HumanMessage)), "")
     letters = [char for char in question if char.isalpha()]
-    language = "ru" if not letters or sum("Ѐ" <= char <= "ӿ" for char in letters) * 2 >= len(letters) else "en"
-    return {"name": args.name, "arguments": args.arguments, "language": language}
+    return "ru" if not letters or sum("Ѐ" <= char <= "ӿ" for char in letters) * 2 >= len(letters) else "en"
 
 
-def _prepared(call, args, preview):
-    if (isinstance(preview, dict) and preview.get("code") == "invalid_arguments"
-            and isinstance(preview.get("error"), str)):
-        # This wire code carries the server's safe validation message, not a
-        # transport exception. Business checks remain authoritative on the server.
-        raise PreflightError(preview["error"])
-    echoed = preview.get("arguments") if isinstance(preview, dict) else None
-    if (isinstance(preview, dict) and "error" not in preview and preview.get("name") == args.name
-            and isinstance(echoed, dict)
-            and all(key in echoed and json.dumps(echoed[key], sort_keys=True) == json.dumps(value, sort_keys=True)
-                    for key, value in args.arguments.items())
-            and isinstance(preview.get("description"), str) and preview["description"].strip()):
-        return {"call_id": call["id"], "target": args.name, "arguments": deepcopy(args.arguments),
-                "description": preview["description"]}
-    raise PreflightError("The operation could not be previewed reliably. No action was executed.")
+def _prepared(call, args, state, schema):
+    # Defaults are for display only; execution and consent stay bound to the original JSON.
+    displayed = {key: deepcopy(field["default"]) for key, field in schema.get("properties", {}).items()
+                 if isinstance(field, dict) and "default" in field}
+    displayed.update(deepcopy(args.arguments))
+    _validate(schema, displayed)
+    return {"call_id": call["id"], "target": args.name, "arguments": deepcopy(args.arguments),
+            "description": describe_action(args.name, displayed, _language(state))}
 
 
 class ApiPreflightState(AgentState):
@@ -121,7 +114,7 @@ class ApiPreflightMiddleware(AgentMiddleware[ApiPreflightState, Any]):
     """Listed after HITL: after_model hooks run in reverse order.
 
     This separate node commits descriptions before HITL interrupts. Resuming only
-    replays HITL's pure lookup, not schema/preview I/O. Each new model batch replaces
+    replays HITL's pure lookup, not schema I/O or formatting. Each new model batch replaces
     the prepared list; failures return paired results for the entire unexecuted batch.
     """
 
@@ -180,9 +173,7 @@ class ApiPreflightMiddleware(AgentMiddleware[ApiPreflightState, Any]):
                 if schema is None:
                     schema = _schema(mcp_client.request_sync("search_tools", {"query": args.name}), args.name)
                 _validate(schema, args.arguments)
-                token, credentials = _credentials(_credential_mode(args.name), runtime)
-                preview = mcp_client.request_sync("preview_tool", _preview_payload(args, state), token, **credentials)
-                prepared.append(_prepared(call, args, preview))
+                prepared.append(_prepared(call, args, state, schema))
             except GraphBubbleUp:
                 raise
             except PreflightError as error:
@@ -205,9 +196,7 @@ class ApiPreflightMiddleware(AgentMiddleware[ApiPreflightState, Any]):
                 if schema is None:
                     schema = _schema(await mcp_client.request("search_tools", {"query": args.name}), args.name)
                 _validate(schema, args.arguments)
-                token, credentials = _credentials(_credential_mode(args.name), runtime)
-                preview = await mcp_client.request("preview_tool", _preview_payload(args, state), token, **credentials)
-                prepared.append(_prepared(call, args, preview))
+                prepared.append(_prepared(call, args, state, schema))
             except GraphBubbleUp:
                 raise
             except PreflightError as error:

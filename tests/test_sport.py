@@ -132,10 +132,9 @@ def test_checking_in_waits_for_the_askers_approval(sport, decision, cancel):
     assert request["name"] == "call_api_tool" and request["args"]["name"] == "sport_sport_checkin"
     description = request["description"]
     if cancel:
-        assert description.startswith("Отменить вашу запись на тренировку «Swimming»")
+        assert description == "Отменить вашу запись на тренировку #13."
     else:
-        assert description.startswith("Записать вас на тренировку «Volleyball (Beginners)»")
-        assert "18:00–19:30, Sport Complex, Hall 1" in description
+        assert description == "Записать вас на тренировку #11."
     agent.invoke(Command(resume={paused[0].id: {"decisions": [{"type": decision}]}}), config, context=SITE)
     assert sport == ([(training_id, not cancel)] if decision == "approve" else [])
     assert not agent.get_state(config).interrupts
@@ -150,8 +149,8 @@ def test_a_full_training_refusal_survives_mcp(sport):
 @pytest.mark.parametrize(("args", "wrong"), [({"training_id": 11}, False), ({"training_id": 0}, True), ({"training_id": "volleyball"}, True)])
 def test_mcp_rejects_invalid_checkin_before_upstream_write(args, wrong, sport):
     if wrong:
-        with pytest.raises(ToolError):
-            call("sport_sport_checkin", args, token="user-token", sport_token="sport-token")
+        refused = call("sport_sport_checkin", args, token="user-token", sport_token="sport-token")
+        assert refused["done"] is False and refused["code"] == "invalid_arguments"
         assert not sport
     else:
         assert call("sport_sport_checkin", args, token="user-token", sport_token="sport-token")["done"] is True

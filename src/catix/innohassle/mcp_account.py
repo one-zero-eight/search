@@ -25,25 +25,6 @@ MAX_ITEMS = 40
 DEFAULT_DAYS = 7
 
 
-MONTHS_RU = [
-    "января",
-    "февраля",
-    "марта",
-    "апреля",
-    "мая",
-    "июня",
-    "июля",
-    "августа",
-    "сентября",
-    "октября",
-    "ноября",
-    "декабря",
-]
-
-
-WEEKDAYS_RU = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"]
-
-
 def _now() -> datetime:
     return datetime.now(settings.tz)
 
@@ -178,93 +159,6 @@ def _future_span(day: date, time_from: time, time_to: time) -> str | None:
     return None
 
 
-def _when(start: datetime, end: datetime | None, ru: bool) -> str:
-    day = (
-        f"{WEEKDAYS_RU[start.weekday()]}, {start.day} {MONTHS_RU[start.month - 1]} {start.year}"
-        if ru
-        else start.strftime("%a, %d %b %Y")
-    )
-    return f"{day}, {start:%H:%M}" + (f"–{end:%H:%M}" if end else "")
-
-
-def _describe_room(arguments, identity, language) -> str:
-    from catix.innohassle import client as innohassle
-
-    a, ru = (schemas.BookRoomArgs.model_validate(arguments), language == "ru")
-    name = a.room_id
-    try:
-        token = identity.token
-        found = next((r for r in innohassle.bookable_rooms(token) if r["id"] == a.room_id), None) if token else None
-        name = (found or {}).get("ru_title" if ru else "title") or name
-    except innohassle.ServiceError:
-        pass
-    when = _when(_at(a.day, a.time_from), _at(a.day, a.time_to), ru)
-    return f"Забронировать {name} на {when}: «{a.title}»." if ru else f"Book {name} for {when}: “{a.title}”."
-
-
-def _describe_cancel(arguments, identity, language) -> str:
-    from catix.innohassle import client as innohassle
-
-    a, ru = (schemas.CancelBookingArgs.model_validate(arguments), language == "ru")
-    when = None
-    try:
-        token = identity.token
-        now = _now()
-        if token and a.service == "music_room":
-            b = next((b for b in innohassle.my_music_room_bookings(token) if str(b["id"]) == a.booking_id), None)
-            when = b and _when(_local(b["time_start"]), _local(b["time_end"]), ru)
-        elif token:
-            b = next(
-                (
-                    b
-                    for b in innohassle.my_room_bookings(token, now - timedelta(days=1), now + timedelta(days=60))
-                    if b.get("outlook_booking_id") == a.booking_id
-                ),
-                None,
-            )
-            when = b and f"{b.get('room_id')}, {_when(_local(b['start']), _local(b['end']), ru)}: «{b.get('title')}»"
-    except innohassle.ServiceError:
-        pass
-    if a.service == "music_room":
-        return (
-            f"Отменить вашу бронь музыкальной комнаты: {when or a.booking_id}."
-            if ru
-            else f"Cancel your music room booking: {when or a.booking_id}."
-        )
-    return (
-        f"Отменить вашу бронь аудитории: {when or a.booking_id}."
-        if ru
-        else f"Cancel your room booking: {when or a.booking_id}."
-    )
-
-
-def _describe_music_room(arguments, identity, language) -> str:
-    a, ru = (schemas.BookMusicRoomArgs.model_validate(arguments), language == "ru")
-    when = _when(_at(a.day, a.time_from), _at(a.day, a.time_to), ru)
-    return (
-        f"Забронировать музыкальную комнату (спорткомплекс) на {when}."
-        if ru
-        else f"Book the music room (sports complex) for {when}."
-    )
-
-
-def _describe_enrol(arguments, identity, language) -> str:
-    from catix.innohassle import client as innohassle
-
-    a, ru = (schemas.EnrollArgs.model_validate(arguments), language == "ru")
-    try:
-        data = innohassle.event(a.event_id).get("data") or {}
-        locales = data.get("locales") or {}
-        name = (locales.get("ru" if ru else "en") or next(iter(locales.values()), {})).get("name") or a.event_id
-        start = _local(data["starts_at"])
-        what = f"«{name}» ({_when(start, None, ru)}, {(data.get('location') or {}).get('display_name') or '—'})"
-    except (innohassle.ServiceError, KeyError, StopIteration):
-        what = a.event_id
-    if ru:
-        return f"Отменить вашу запись на {what}." if a.leave else f"Записать вас на {what}."
-    return f"Cancel your enrolment in {what}." if a.leave else f"Enrol you in {what}."
-
-
 @tool(**metadata("innohassle"))
 @guarded(args_model=schemas.GetMyScheduleArgs)
 def account_get_my_schedule(date_from: date | None = None, date_to: date | None = None) -> dict:
@@ -335,7 +229,7 @@ def rooms_get_free_rooms(time_from: ClockTime, time_to: ClockTime, day: date | N
 
 
 @tool(**metadata("innohassle", write=True))
-@guarded(args_model=schemas.BookRoomArgs, preview=_describe_room)
+@guarded(args_model=schemas.BookRoomArgs)
 def rooms_book_room(room_id: str, day: date, time_from: ClockTime, time_to: ClockTime, title: str) -> dict:
     """Create a room booking or reservation after permission/time checks.
     Забронировать аудиторию или комнату.
@@ -373,7 +267,7 @@ def rooms_book_room(room_id: str, day: date, time_from: ClockTime, time_to: Cloc
 
 
 @tool(**metadata("innohassle", write=True))
-@guarded(args_model=schemas.CancelBookingArgs, preview=_describe_cancel)
+@guarded(args_model=schemas.CancelBookingArgs)
 def account_cancel_booking(service: str, booking_id: str) -> dict:
     """Cancel the signed-in user's room or music_room booking/reservation by its exact opaque ID.
     Отменить бронь аудитории или музыкальной комнаты.
@@ -404,7 +298,7 @@ def account_cancel_booking(service: str, booking_id: str) -> dict:
 
 
 @tool(**metadata("innohassle", write=True))
-@guarded(args_model=schemas.BookMusicRoomArgs, preview=_describe_music_room)
+@guarded(args_model=schemas.BookMusicRoomArgs)
 def music_book_music_room(day: date, time_from: ClockTime, time_to: ClockTime) -> dict:
     """Book the music room after overlap and remaining-hours checks.
 
@@ -443,7 +337,7 @@ def music_book_music_room(day: date, time_from: ClockTime, time_to: ClockTime) -
 
 
 @tool(**metadata("innohassle", write=True))
-@guarded(args_model=schemas.EnrollArgs, preview=_describe_enrol)
+@guarded(args_model=schemas.EnrollArgs)
 def events_enroll_in_event(event_id: str, leave: bool = False) -> dict:
     """Enroll in or leave an InNoHassle event; external registrations return their link instead.
 

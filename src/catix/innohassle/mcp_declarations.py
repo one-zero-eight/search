@@ -16,7 +16,7 @@ def metadata(auth: str, *, write: bool = False) -> dict:
     }
 
 
-def guarded(*, args_model=None, preview=None):
+def guarded(*, args_model=None):
     """Keep signature/policy on a real function; no implementation registry.
 
     Validation and authorization precede the function body. ContextVars propagate
@@ -40,7 +40,6 @@ def guarded(*, args_model=None, preview=None):
             return await mcp_server._dispatch(function.__name__, dict(bound.arguments), execute=execute)
 
         setattr(entry, "_args_model", args_model)
-        setattr(entry, "_preview", preview)
         return entry
 
     return decorate
