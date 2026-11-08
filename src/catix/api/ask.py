@@ -160,9 +160,11 @@ def _cards(registry: dict, before: set[str]) -> list[SearchResponse]:
             continue
         preview = f"{source['title']}" + (f", п. {source['clause']}" if source.get("clause") else "")
         card = make_source(
-            source["title"], source.get("link") or "", preview, site=bool(source.get("site")), trust=source.get("trust") or "wiki"
+            source["title"], source.get("link") or "", preview, site=bool(source.get("site")), trust=source.get("trust") or "wiki",
+            archive_document=source.get("archive_document"),
         )
-        cards.setdefault((card.display_name, card.url), SearchResponse(source=card))
+        document = source.get("archive_document") or {}
+        cards.setdefault((card.display_name, card.url, document.get("page"), document.get("revision")), SearchResponse(source=card))
     return list(cards.values())
 
 

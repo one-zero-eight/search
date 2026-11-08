@@ -16,6 +16,7 @@ from catix.api import state
 from catix.api.auth import VerifiedDep
 from catix.api.schemas import (
     ALL_SOURCES,
+    ArchiveDocument,
     CampusLifeSource,
     EduwikiSource,
     HotelSource,
@@ -27,6 +28,8 @@ from catix.api.schemas import (
     Sources,
 )
 from catix.db import wiki as wiki_store
+from catix.wiki import previews
+from catix.wiki.sources.archives import ArchiveError
 
 log = logging.getLogger("catix.api")
 router = APIRouter(prefix="/search", tags=["Search"])
@@ -39,7 +42,7 @@ HOSTS = {  # the sites of the old sources that the wiki holds
 }
 
 
-def make_source(title: str, url: str, preview: str, *, site: bool, trust: str) -> Sources:
+def make_source(title: str, url: str, preview: str, *, site: bool, trust: str, archive_document: dict | None = None) -> Sources:
     """A page of the wiki as a card. What the old sources do not have (the university's documents, other sites) is an
     EduWiki card whose breadcrumbs say where it comes from."""
     fields = {"display_name": title, "url": url, "preview_text": table_as_text(preview)[:PREVIEW_CHARS]}
@@ -48,23 +51,27 @@ def make_source(title: str, url: str, preview: str, *, site: bool, trust: str) -
         card, name = HOSTS.get(host, (EduwikiSource, host or "Сайт"))
         return card(**fields, breadcrumbs=[name])
     if trust == "wiki":
-        return EduwikiSource(**fields)
-    return EduwikiSource(**fields, breadcrumbs=["Сводка cAtIx" if trust == "guide" else "Документы университета"])
+        return EduwikiSource(**fields, archive_document=ArchiveDocument.model_validate(archive_document) if archive_document else None)
+    return EduwikiSource(**fields, breadcrumbs=["Сводка cAtIx" if trust == "guide" else "Документы университета"],
+                         archive_document=ArchiveDocument.model_validate(archive_document) if archive_document else None)
 
 
 def to_source(hit: wiki_store.WikiHit) -> Sources:
-    return make_source(hit.title, hit.resource or "", hit.text, site=hit.path.startswith("/raw/sites/"), trust=hit.trust)
+    document = previews.describe(hit.path, hit.page_sha, hit.resource or "")
+    return make_source(hit.title, hit.resource or "", hit.text, site=hit.path.startswith("/raw/sites/"), trust=hit.trust,
+                       archive_document=document)
 
 
 def to_responses(hits: list[wiki_store.WikiHit], sources: list[InfoSources]) -> list[SearchResponse]:
     """One card per document: the scores of its pieces go together, as the search service did for the chunks of a page."""
-    cards: dict[tuple[str, str], SearchResponse] = {}
+    cards: dict[tuple, SearchResponse] = {}
     for hit in hits:
         source = to_source(hit)
         if source.type not in sources:
             continue
         score = hit.relevance if hit.relevance is not None else None
-        key = (source.display_name, source.url)
+        document = source.archive_document if isinstance(source, EduwikiSource) else None
+        key = (source.display_name, source.url, document.page if document else None, document.revision if document else None)
         if (card := cards.get(key)) is None:
             cards[key] = SearchResponse(score=None if score is None else [score], source=source)
         elif score is not None:
@@ -196,6 +203,36 @@ async def pdf_by_url(_auth: VerifiedDep, url: str) -> Response:
     return Response(body, media_type="application/pdf", headers={
         "Content-Disposition": f"inline; filename*=UTF-8''{quote(name)}",
         "Cache-Control": "private, max-age=3600",
+    })
+
+
+@router.get("/archive-document", response_class=Response, responses={
+    200: {"description": "The cited archive member", "content": {"application/pdf": {}}},
+    404: {"description": "This document revision is unavailable"},
+    502: {"description": "The archive could not be downloaded or opened"},
+    503: {"description": "The preview cache is unavailable"},
+    504: {"description": "The archive download timed out"},
+})
+async def archive_document(_auth: VerifiedDep, page: str, revision: str) -> Response:
+    """Download and safely unpack the source archive on demand; cache the exact verified PDF."""
+    hits = await asyncio.to_thread(wiki_store.page, page)
+    if not hits or hits[0].page_sha != revision:
+        raise HTTPException(status_code=404, detail="This document revision is unavailable")
+    try:
+        found = await asyncio.to_thread(previews.read, page, revision, hits[0].resource or "")
+    except (TimeoutError, httpx.TimeoutException):
+        raise HTTPException(status_code=504, detail="The archive download timed out") from None
+    except (httpx.HTTPError, ArchiveError):
+        raise HTTPException(status_code=502, detail="The archive could not be downloaded or opened") from None
+    except OSError:
+        raise HTTPException(status_code=503, detail="The preview cache is unavailable") from None
+    if found is None:
+        raise HTTPException(status_code=404, detail="This document revision is unavailable")
+    body, name = found
+    return Response(body, media_type="application/pdf", headers={
+        "Content-Disposition": f"inline; filename*=UTF-8''{quote(name, safe='')}",
+        "Cache-Control": "private, max-age=3600",
+        "X-Content-Type-Options": "nosniff",
     })
 
 

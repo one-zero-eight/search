@@ -72,9 +72,19 @@ class SiteBaseSource(BaseModel):
     preview_text: str
 
 
+class ArchiveDocument(BaseModel):
+    page: str
+    "Exact wiki page of the cited archive member."
+    revision: str
+    "Indexed page fingerprint; a different revision must not be substituted."
+    member: str
+    "Original filename including its path inside the archive."
+
+
 class EduwikiSource(SiteBaseSource):
     type: Literal[InfoSources.eduwiki] = InfoSources.eduwiki
     breadcrumbs: list[str] = ["EduWiki"]
+    archive_document: ArchiveDocument | None = None
 
 
 class CampusLifeSource(SiteBaseSource):

@@ -21,6 +21,7 @@ from langgraph.types import Command
 
 from catix.db import store
 from catix.settings import settings
+from catix.wiki import previews
 
 log = logging.getLogger("catix.sources")
 
@@ -90,6 +91,9 @@ class Collector:
         fields = {"wiki": True, "title": hit.title, "clause": hit.clause, "section": hit.heading, "link": hit.resource, "trust": hit.trust,
                   "site": hit.path.startswith("/raw/sites/"),
                   "based_on": [{"title": b["title"], "link": b["link"]} for b in hit.based_on if b.get("link")][:2]}
+        if document := previews.describe(hit.path, hit.page_sha, hit.resource or ""):
+            fields["archive_document"] = document
+            return self._add(f"wiki:{hit.id}:{hit.page_sha}", fields)
         return self._add(f"wiki:{hit.id}", fields)
 
     def add_web(self, title: str, url: str, official: bool) -> str:
@@ -110,6 +114,8 @@ def _identity(ref: str, source: dict) -> object:
     in its one line, so that twelve clauses of one regulation do not make twelve lines)."""
     if source.get("web"):
         return ("web", source.get("link"))
+    if document := source.get("archive_document"):
+        return ("archive", document["page"], document["revision"])
     return ("wiki", source.get("title"), source.get("link")) if source.get("wiki") else ref
 
 

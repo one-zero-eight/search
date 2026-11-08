@@ -235,6 +235,7 @@ class Settings(BaseSettings):
     # only the wiki's own run writes to (wiki/autopilot.py). Required by everything that reads the wiki's files
     # (catix.wiki.paths: catix-wiki, the API, the worker), which stops without it; the bots do not need it.
     wiki_root: Path | None = None
+    archive_preview_cache: Path = Path("data/archive-previews")  # Writable API cache, separate from read-only WIKI_ROOT.
     wiki_branch: str = "wiki"
     wiki_remote: str = "origin"
     wiki_push: bool = True  # push a commit that passed every check; one that failed goes to a review branch

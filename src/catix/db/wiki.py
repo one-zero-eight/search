@@ -47,6 +47,7 @@ class WikiHit:
     newer: str | None = None  # the title of a later version of the document ("на 2026/2027 учебный год" for one of 2024/2025)
     also_in: list[dict] = field(default_factory=list)  # the other pages that hold the same text ({title, page}), those the queries name first
     relevance: float | None = None  # its second best score of the reranker over the queries, from _rerank (as store.MessageHit)
+    page_sha: str = ""  # the indexed page revision, not the chunk's text hash
 
 
 # The course programmes (wiki/sources/rpd.py) are 700 pages of the same shape that use every word of study ("курс", "дисциплина",
@@ -90,7 +91,7 @@ def _vector(vector: list[float], trust: list[str], courses: bool = False) -> lis
 
 
 HIT = """SELECT c.id, c.path, c.seq, c.heading, c.clause, c.sha, c.text, c.cites, p.title, p.type, p.trust, p.audience, p.resource,
-                p.status, p.review, p.source_warning, p.stale_after, p.issued
+                p.status, p.review, p.source_warning, p.stale_after, p.issued, p.sha AS page_sha
          FROM wiki_chunks c JOIN wiki_pages p ON p.path = c.path"""
 
 
