@@ -25,6 +25,8 @@ def test_server_registration_is_complete_and_keeps_flat_arguments():
         'music_get_music_room_schedule', 'music_get_available_windows', 'music_book_music_room', 'events_get_university_events',
         'events_enroll_in_event', 'sport_get_my_sport', 'sport_get_sport_trainings', 'sport_get_sports',
         'sport_sport_checkin',
+        'when2meet_get_my_meetings', 'when2meet_get_meeting',
+        'when2meet_create_meeting', 'when2meet_set_my_availability',
     }
     declared = registered_tools()
     assert set(declared) == expected

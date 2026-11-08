@@ -74,6 +74,18 @@ from catix.innohassle.mcp_sport import (
 from catix.innohassle.mcp_sport import (
     sport_sport_checkin as sport_sport_checkin,
 )
+from catix.innohassle.mcp_when2meet import (
+    when2meet_create_meeting as when2meet_create_meeting,
+)
+from catix.innohassle.mcp_when2meet import (
+    when2meet_get_meeting as when2meet_get_meeting,
+)
+from catix.innohassle.mcp_when2meet import (
+    when2meet_get_my_meetings as when2meet_get_my_meetings,
+)
+from catix.innohassle.mcp_when2meet import (
+    when2meet_set_my_availability as when2meet_set_my_availability,
+)
 
 
 def _read(

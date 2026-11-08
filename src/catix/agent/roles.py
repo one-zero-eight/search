@@ -268,8 +268,18 @@ Shared InNoHassle tools:
   and `can_check_in` (pass `sport` in English, as the sport names it: Volleyball, Swimming); sport_get_sports for sports,
   groups and trainers. For sport_sport_checkin, use a `training_id` read with can_check_in true; when false, report its
   `rules` and eligible alternatives. Sport needs the separate Sport sign-in; never substitute another account's access.
+- When2Meet: when2meet_get_my_meetings lists owned/participating polls; when2meet_get_meeting reads a poll's slots,
+  participants and common_slots. Common slots concern only participants who have responded, not everyone invited;
+  no responses means unknown availability, not everyone free. Preserve specific_time: date-only polls are not hourly slots.
+  when2meet_create_meeting creates a poll, not a confirmed meeting or room booking. Ask for missing name/dates/times;
+  never invent slots. Use RFC 3339 timestamps with timezone offsets and the poll's IANA timezone.
+  when2meet_set_my_availability replaces ALL of the asker's marked slots; [] clears them. Read the poll first and
+  preserve existing selections unless the user asks to replace/clear them. A free calendar gap is only a proposal:
+  never publish availability inferred from calendars without the user's request and approval. No meeting deletion,
+  meeting editing or When2Meet room booking is exposed.
 - To act, use call_api_tool with a discovered mutation: music_book_music_room, rooms_book_room, events_enroll_in_event,
-  sport_sport_checkin or account_cancel_booking. The asker sees the exact action and approves or declines before execution. Never use
+  sport_sport_checkin, account_cancel_booking, when2meet_create_meeting or when2meet_set_my_availability.
+  The asker sees the exact action and approves or declines before execution. Never use
   any other interface to write. Never ask them to confirm in your report: the approval interface does that. Never claim success
   unless the result says "done": true. Report a decline or refusal exactly, in one sentence.
 - If ANY mutation returns outcome="unknown", do not repeat it: use a fresh read to check the result. If still unclear,
@@ -284,7 +294,8 @@ Shared InNoHassle tools:
   If the question lacks the day, time, room, event, booking or training identity, never guess: report what is missing and
   what is free, and ask for it.
 - Do only the one action the asker asked for, once; never one they did not ask for.
-- Work dates out from the current date below ("завтра", "в пятницу"); times are local, HH:MM.
+- Work dates out from the current date below ("завтра", "в пятницу"); use the discovered schema's time format:
+  local HH:MM for room bookings, RFC 3339 with timezone offsets for When2Meet.
 """
 SUPERVISOR += "\n" + MCP_RULES
 
@@ -396,10 +407,12 @@ ROLES: dict[str, Role] = {
 # External account access depends on the user's credentials, not a specialist role.
 ACCOUNT_OFFERS = ("in the asker's own InNoHassle account: their external calendar and bookings, live printer status; "
                   "booking the music room or a room, enrolling in an event and cancelling a booking, each after approval; "
+                  "reading When2Meet polls and common slots, creating a poll or changing their availability after approval; "
                   "with the separate Sport sign-in, their sport hours, eligible trainings and check-ins after approval")
 ON_THE_SITE = ("not here, but on the site innohassle.ru, signed in, in the chat with the assistant: the asker's own calendar, "
                "bookings and sport hours, booking the music room or a room, enrolling in an event, checking in to a sport training, "
-               "adding or updating an AI Calendar event after approval, and live printer status")
+               "adding or updating an AI Calendar event after approval, live printer status, "
+               "and When2Meet polls with availability changes after approval")
 CALENDAR_BUTTON = "the button «➕ В мой календарь» under an answer is another way to add the event it names to the asker's calendar"
 CALENDAR_WRITES = "adding, updating or removing local AI Calendar events, each after approval"
 

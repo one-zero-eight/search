@@ -13,6 +13,8 @@ CONFIRMATION_TOOLS = frozenset({
     "account_cancel_booking",
     "events_enroll_in_event",
     "sport_sport_checkin",
+    "when2meet_create_meeting",
+    "when2meet_set_my_availability",
 })
 
 CREDENTIAL_MODES = MappingProxyType({
@@ -41,6 +43,10 @@ CREDENTIAL_MODES = MappingProxyType({
     "sport_get_sport_trainings": "sport",
     "sport_get_sports": "sport",
     "sport_sport_checkin": "sport",
+    "when2meet_get_my_meetings": "innohassle",
+    "when2meet_get_meeting": "innohassle",
+    "when2meet_create_meeting": "innohassle",
+    "when2meet_set_my_availability": "innohassle",
 })
 
 READ_TOOLS = frozenset(CREDENTIAL_MODES) - CONFIRMATION_TOOLS

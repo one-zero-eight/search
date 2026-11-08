@@ -46,7 +46,8 @@ def test_all_agents_share_account_discovery_and_action_rules():
         assert "reads and mutations" in prompt and "approval" in prompt
         assert "calendar_update_ai_calendar" not in prompt
         assert "sport_sport_checkin" in prompt and "can_check_in true" in prompt
-        assert "music_book_music_room" in prompt and "book only a free time" in prompt
+        assert "music_book_music_room" in prompt and "music_get_available_windows" in prompt
+        assert "Book only the exact interval the user requested and confirmed" in prompt
         assert "do not repeat" in prompt and 'outcome="unknown"' in prompt
         assert "never guess" in prompt and "separate Sport sign-in" in prompt
 

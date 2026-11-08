@@ -806,6 +806,20 @@ def _read_parts(target: str, data: dict) -> tuple | None:
         return lists("days")
     elif target == "sport_get_sports":
         return lists("sports")
+    elif target == "when2meet_get_my_meetings":
+        parts = counted("meetings")
+        if (parts is not None and type(data.get("truncated")) is bool
+                and data["truncated"] == (data["total"] > len(parts[0]))
+                and data.get("status") in {"active", "archived"}
+                and data.get("scope") in {"all", "owned", "participating"}
+                and all(isinstance(row, dict) and all(isinstance(row.get(key), str) and row[key]
+                                                     for key in ("id", "slug", "name")) for row in parts[0])):
+            return parts
+    elif target == "when2meet_get_meeting":
+        if (all(isinstance(data.get(key), str) and data[key] for key in ("id", "slug", "name"))
+                and type(data.get("is_archived")) is bool
+                and lists("slots", "participants", "common_slots") is not None):
+            return (data,)
     # A small wire-result contract, not imported server DTOs or business validators.
     # Check the concrete target and its row identity as well as the common envelope:
     # metadata, write receipts and another operation's data are never read evidence.

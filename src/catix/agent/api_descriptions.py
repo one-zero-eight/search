@@ -24,4 +24,19 @@ def describe_action(name: str, arguments: dict, language: str) -> str:
         if ru:
             return f"{'Отменить вашу запись' if a['cancel'] else 'Записать вас'} на тренировку #{a['training_id']}."
         return f"{'Cancel your check-in to' if a['cancel'] else 'Check you in to'} the training #{a['training_id']}."
+    if name == "when2meet_create_meeting":
+        slots = ", ".join(a["slots"])
+        description = a["description"] if a["description"] is not None else ("не задано" if ru else "none")
+        if ru:
+            return (f"Создать опрос When2Meet «{a['name']}». Часовой пояс: {a['timezone']}. "
+                    f"Режим: {'время' if a['specific_time'] else 'даты'}. Слоты: {slots}. Описание: {description}.")
+        return (f"Create When2Meet poll “{a['name']}”. Timezone: {a['timezone']}. "
+                f"Mode: {'times' if a['specific_time'] else 'dates'}. Slots: {slots}. Description: {description}.")
+    if name == "when2meet_set_my_availability":
+        if not a["availability"]:
+            return (f"Очистить все ваши отмеченные слоты в When2Meet {a['meeting_ref']}." if ru
+                    else f"Clear all your marked slots in When2Meet {a['meeting_ref']}.")
+        slots = ", ".join(a["availability"])
+        return (f"Заменить все ваши отмеченные слоты в When2Meet {a['meeting_ref']} на: {slots}." if ru
+                else f"Replace all your marked slots in When2Meet {a['meeting_ref']} with: {slots}.")
     raise ValueError("No confirmation template for this operation.")

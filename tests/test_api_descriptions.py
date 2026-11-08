@@ -27,6 +27,21 @@ CASES = [
      "Записать вас на тренировку #7.", "Check you in to the training #7."),
     ("sport_sport_checkin", {"training_id": 7, "cancel": True},
      "Отменить вашу запись на тренировку #7.", "Cancel your check-in to the training #7."),
+    ("when2meet_create_meeting", {"name": "Planning", "slots": ["2099-01-02T10:00:00+03:00"],
+                                "timezone": "Europe/Moscow", "specific_time": True, "description": "Team meeting"},
+     "Создать опрос When2Meet «Planning». Часовой пояс: Europe/Moscow. Режим: время. Слоты: 2099-01-02T10:00:00+03:00. Описание: Team meeting.",
+     "Create When2Meet poll “Planning”. Timezone: Europe/Moscow. Mode: times. Slots: 2099-01-02T10:00:00+03:00. Description: Team meeting."),
+    ("when2meet_create_meeting", {"name": "Planning", "slots": ["2099-01-02T00:00:00+03:00"],
+                                "timezone": "Europe/Moscow", "specific_time": False, "description": None},
+     "Создать опрос When2Meet «Planning». Часовой пояс: Europe/Moscow. Режим: даты. Слоты: 2099-01-02T00:00:00+03:00. Описание: не задано.",
+     "Create When2Meet poll “Planning”. Timezone: Europe/Moscow. Mode: dates. Slots: 2099-01-02T00:00:00+03:00. Description: none."),
+    ("when2meet_set_my_availability", {"meeting_ref": "team-42", "availability": ["2099-01-02T10:00:00+03:00"]},
+     "Заменить все ваши отмеченные слоты в When2Meet team-42 на: 2099-01-02T10:00:00+03:00.",
+     "Replace all your marked slots in When2Meet team-42 with: 2099-01-02T10:00:00+03:00."),
+    ("when2meet_set_my_availability", {"meeting_ref": "team-42", "availability": []},
+     "Очистить все ваши отмеченные слоты в When2Meet team-42.",
+     "Clear all your marked slots in When2Meet team-42."),
+
 ]
 
 

@@ -157,7 +157,7 @@ async def _acall(name: str, runtime: ToolRuntime, arguments: dict | None = None)
 search_api_tools = StructuredTool.from_function(
     func=_search, coroutine=_asearch, name="search_api_tools", args_schema=SearchApiToolsArgs,
     description="Search the shared MCP catalogue: study-group timetables, courses and teachers, account schedules, rooms, music, "
-                "events, Sport, maps, clubs and printer state. AI Calendar uses separate local tools. "
+                "events, Sport, maps, clubs, When2Meet meeting polls and printer state. AI Calendar uses separate local tools. "
                 "Returns top matching tools with description and complete inputSchema, not the whole catalogue. "
                 "services includes every registered tool name: absence from top matches does not mean a tool is missing. "
                 "Search an exact name from that list to get its arguments; no separate describe call is needed. "

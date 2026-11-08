@@ -87,15 +87,21 @@ def test_missing_credentials_fail_before_transport(monkeypatch, name, context):
 
 def test_confirmation_is_selected_by_exact_name_even_for_invalid_business_arguments():
     for name in ("rooms_book_room", "music_book_music_room", "account_cancel_booking",
-                 "events_enroll_in_event", "sport_sport_checkin"):
+                 "events_enroll_in_event", "sport_sport_checkin", "when2meet_create_meeting",
+                 "when2meet_set_my_availability"):
         assert api_tools._needs_approval(SimpleNamespace(tool_call={"args": {"name": name, "arguments": {}}}))
     assert not api_tools._needs_approval(SimpleNamespace(tool_call={"args": {"name": "maps_scenes_scenes", "arguments": {}}}))
 
 
 def test_client_catalogue_is_complete_and_pure():
     from catix.innohassle.mcp_access import CREDENTIAL_MODES, CONFIRMATION_TOOLS
-    assert len(CREDENTIAL_MODES) == 25
+    assert len(CREDENTIAL_MODES) == 25 + 4
     assert set(CREDENTIAL_MODES.values()) == {"public", "innohassle", "sport"}
     assert CONFIRMATION_TOOLS == {"rooms_book_room", "music_book_music_room", "account_cancel_booking",
-                                  "events_enroll_in_event", "sport_sport_checkin"}
+                                  "events_enroll_in_event", "sport_sport_checkin", "when2meet_create_meeting",
+                                  "when2meet_set_my_availability"}
+    assert all(CREDENTIAL_MODES[name] == "innohassle" for name in (
+        "when2meet_get_my_meetings", "when2meet_get_meeting", "when2meet_create_meeting",
+        "when2meet_set_my_availability",
+    ))
     assert CONFIRMATION_TOOLS <= CREDENTIAL_MODES.keys()
