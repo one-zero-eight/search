@@ -14,6 +14,14 @@ from catix.innohassle import mcp_client
 from catix.settings import settings
 
 
+def _unavailable(error: str, code: str) -> tuple[dict, None]:
+    return {"error": error, "code": code, "complete": False,
+            "note": "Personal training availability was not verified. Explain the failure without recommending slots. "
+                    "Do not retry this recommendation in the same turn or fall back to sport_get_sport_trainings, "
+                    "sport_get_my_sport, or separate calendar reads to calculate alternatives yourself. "
+                    "The user may request a new check later."}, None
+
+
 class AvailableTrainingsArgs(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -36,12 +44,13 @@ def get_my_available_trainings(runtime: ToolRuntime, day: date, sport: str | Non
     unverified is NOT free time. Report complete=false/truncated; this is not a reservation or an automatic signup.
     unknown_duration_events identifies events with no known end; ask when they end, not for another calendar read.
     These uncertainties do not invalidate entries in available or definite conflicts in excluded.
+    On error, explain that availability could not be checked; do not retry or use raw Sport/calendar reads as a fallback.
     Omit sport unless the user chose it. Ask for the day if unknown. Signup still requires separate user approval and fresh checks.
     """
     try:
         token, credentials = _credentials("sport", runtime)
     except ValueError as error:
-        return {"error": str(error)}, None
+        return _unavailable(str(error), "authentication_required")
     period = {"date_from": day.isoformat(), "date_to": day.isoformat()}
     arguments = {**period, **({"sport": sport} if sport is not None else {})}
     try:
@@ -50,10 +59,15 @@ def get_my_available_trainings(runtime: ToolRuntime, day: date, sport: str | Non
     except GraphBubbleUp:
         raise
     except Exception:
-        return {"error": "Sport trainings could not be read; availability is unknown."}, None
-    if (not isinstance(trainings, dict) or "error" in trainings or trainings.get("range") != [day.isoformat(), day.isoformat()]
+        return _unavailable("Sport trainings could not be read; availability is unknown.", "sport_unavailable")
+    if isinstance(trainings, dict) and "error" in trainings:
+        if trainings.get("code") == "upstream_timeout":
+            return _unavailable("Sport did not answer in time; personal training availability is unknown.", "upstream_timeout")
+        return _unavailable("Sport trainings could not be read; availability is unknown.", "sport_unavailable")
+    if (not isinstance(trainings, dict) or trainings.get("range") != [day.isoformat(), day.isoformat()]
             or not isinstance(trainings.get("trainings"), list)):
-        return {"error": "Sport trainings could not be read for the requested day; availability is unknown."}, None
+        return _unavailable("Sport returned an unreadable training list for the requested day; availability is unknown.",
+                            "invalid_training_response")
     agenda = read_my_schedule(runtime, day, day)
     available, excluded, unverified = [], [], []
     for candidate in trainings["trainings"]:
@@ -81,4 +95,11 @@ def get_my_available_trainings(runtime: ToolRuntime, day: date, sport: str | Non
               "total": len(available) + len(excluded) + len(unverified), "truncated": truncated,
               "complete": agenda.get("complete") is True and not truncated and not unverified,
               "not_read": not_read, "checked_at": datetime.now(settings.tz).isoformat()}
+    if unverified:
+        result["note"] = ("Some trainings could not be checked. If available is empty, lead with uncertainty: "
+                          "'Не удалось определить, какие тренировки подходят по вашему расписанию: проверка неполная.' "
+                          "Explain the missing data below, not 'подходящих тренировок нет'. "
+                          "can_check_in is only Sport eligibility, not personal availability. "
+                          "Do not offer signup for unverified slots or repeat reads in this turn. "
+                          "If available is nonempty, recommend only those verified entries.")
     return result, {"trainings": trainings, "agenda": agenda, "training_arguments": arguments}

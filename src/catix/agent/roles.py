@@ -305,6 +305,12 @@ Shared InNoHassle tools:
   A specific day means that day alone, not a week starting then. Omit sport unless the user named one; do not guess
   Volleyball or fetch sport hours just to recommend a slot. Report incomplete/truncated results instead of claiming
   an exhaustive list. A recommendation is read-only: do not sign up unless the user requests it and then approves.
+  If get_my_available_trainings returns an error, explain that personal availability could not be checked and stop
+  this recommendation attempt. Do not retry in the same turn, fall back to raw sport_get_sport_trainings or
+  sport_get_my_sport, or read calendars separately to invent suitable alternatives. A timeout is not an empty list
+  and does not mean no trainings are available. A new user request may start a fresh check.
+  Likewise, unverified candidates mean unknown personal availability, not "no suitable trainings". Explain what
+  could not be checked without offering to sign up for unverified slots or repeating reads in the same turn.
 - Before planning a personal event, moving it, booking time or signing up, read get_my_schedule
   for explicit dates covering its entire duration. Do this even if the user did not
   mention classes. can_check_in is NOT personal availability: it only says Sport permits signup.

@@ -73,6 +73,9 @@ async def _connection(token: str | None, *, sport_token: str | None = None):
 def _data(result):
     if result.is_error:
         # Our adapter produces safe errors. Do not echo arbitrary transport/server diagnostics.
+        structured = result.structured_content
+        if isinstance(structured, dict) and structured.get("code") == "upstream_timeout":
+            return {"code": "upstream_timeout", "error": "The upstream API request timed out; no reliable result was obtained."}
         text = " ".join(getattr(block, "text", "") for block in result.content).casefold()
         if "sign in" in text or "authentication" in text or "401" in text:
             return {"error": "This API operation requires signing in on innohassle.ru with a valid account."}

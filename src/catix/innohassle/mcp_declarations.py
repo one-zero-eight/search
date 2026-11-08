@@ -1,12 +1,18 @@
 """Native credential dependencies and safe business-result boundaries."""
 
+import logging
 from functools import wraps
+from time import perf_counter
 from typing import Any
 
+import httpx
 from fastmcp.exceptions import ToolError
+from fastmcp.tools import ToolResult
 from pydantic import BaseModel
 
 from catix.innohassle import actions
+
+log = logging.getLogger("catix.mcp.server")
 
 
 def metadata(*, write: bool = False) -> dict:
@@ -71,15 +77,22 @@ def result_boundary(*, write: bool = False):
 
             identity = _identity.get()
             secrets = (identity.token, identity.sport_token) if identity else ()
+            started = perf_counter()
             try:
                 return _redact(function(*args, **kwargs), secrets)
-            except actions.ReadError as error:
+            except Exception as error:
+                # Exception messages/tracebacks can contain tokens or upstream bodies.
+                log.warning("MCP operation failed tool=%s exception=%s elapsed_ms=%.1f",
+                            function.__name__, type(error).__name__, (perf_counter() - started) * 1000)
                 if not write:
-                    raise ToolError(_redact(str(error), secrets)) from None
-                # Once a mutation body starts, even readback failures are ambiguous.
-            except Exception:
-                if not write:
+                    if isinstance(error, httpx.TimeoutException):
+                        return ToolResult(is_error=True, structured_content={
+                            "code": "upstream_timeout", "error": "The upstream API request timed out; no reliable result was obtained.",
+                        })
+                    if isinstance(error, actions.ReadError):
+                        raise ToolError(_redact(str(error), secrets)) from None
                     raise ToolError("InNoHassle API is unavailable; try again later.") from None
+                # Once a mutation body starts, even readback failures are ambiguous.
             return {
                 "done": None,
                 "outcome": "unknown",

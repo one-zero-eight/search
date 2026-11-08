@@ -89,6 +89,19 @@ def test_unknown_event_end_only_affects_later_nonconflicting_trainings(services)
     assert result["complete"] is False and result["not_read"] == []
 
 
+def test_trace_all_day_medical_checks_exclude_otherwise_eligible_trainings(services):
+    services["local"] = [{"title": "Медосмотры", "all_day": True,
+                          "starts_at": "2026-11-09T00:00:00+03:00",
+                          "ends_at": "2026-11-10T00:00:00+03:00"}]
+    result, _ = tool().func(SimpleNamespace(context=CONTEXT), date.fromisoformat(DAY))
+    assert result["available"] == [] and result["unverified"] == [] and result["complete"] is True
+    by_id = {item["training_id"]: item for item in result["excluded"]}
+    for training_id in (49039, 47775, 46975):
+        assert by_id[training_id]["reason"] == "schedule_conflict"
+        assert "Медосмотры" in [event["title"] for event in by_id[training_id]["conflicts"]]
+    assert [event["title"] for event in by_id[49039]["conflicts"]] == ["Медосмотры", *[e["title"] for e in CLASSES]]
+
+
 @pytest.mark.parametrize("mode", ["partial_calendar", "local_conflict", "unknown_duration", "closed", "truncated", "empty"])
 def test_recommendations_never_confuse_unknown_or_ineligible_with_free(services, mode):
     services["trainings"]["trainings"] = [deepcopy(TRAININGS[2])]
@@ -114,6 +127,23 @@ def test_recommendations_never_confuse_unknown_or_ineligible_with_free(services,
         assert result["complete"] is False and result["truncated"] is True and result["not_read"]
     else:
         assert result["complete"] is True and result["total"] == 0
+
+
+@pytest.mark.parametrize("upstream,code", [
+    ({"code": "upstream_timeout", "error": "private diagnostic"}, "upstream_timeout"),
+    ({"error": "private diagnostic"}, "sport_unavailable"),
+    ({"range": ["2026-11-08", "2026-11-09"], "trainings": []}, "invalid_training_response"),
+    (None, "invalid_training_response"),
+])
+def test_failed_training_read_preserves_safe_reason_and_stops_before_calendar(services, upstream, code):
+    services["trainings"] = upstream
+    result, artifact = tool().func(SimpleNamespace(context=CONTEXT), date.fromisoformat(DAY))
+    assert result["code"] == code and result["complete"] is False
+    assert "Do not retry" in result["note"]
+    assert "sport_get_sport_trainings" in result["note"] and "sport_get_my_sport" in result["note"]
+    assert "private diagnostic" not in str(result)
+    assert artifact is None
+    assert [request[1]["name"] for request in services["requests"]] == ["sport_get_sport_trainings"]
 
 
 @pytest.mark.parametrize("signup", [False, True])
