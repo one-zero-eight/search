@@ -50,8 +50,9 @@ def init() -> None:
 def prune_noise(args: list[str]) -> None:
     """Find stored messages that ingest/noise.py rejects now; with `yes` delete them (their vectors go with them)."""
     with pg.connection() as conn:
-        rows = conn.execute("SELECT id, text FROM messages").fetchall()
-    found = [r for r in rows if noise.is_noise(r["text"])]
+        rows = conn.execute("SELECT id, text, image_refs FROM messages").fetchall()
+    # A captionless photo may still be waiting for OCR, not noise.
+    found = [r for r in rows if not r["image_refs"] and noise.is_noise(r["text"])]
     print(f"{len(found)} of {len(rows)} messages are noise")
     shown: dict[str, int] = {}
     for r in found:  # Distinct texts with counts, most frequent first.
@@ -62,7 +63,8 @@ def prune_noise(args: list[str]) -> None:
         print("nothing deleted; run `catix-db prune-noise yes` to delete them")
         return
     with pg.connection() as conn:
-        deleted = conn.execute("DELETE FROM messages WHERE id = ANY(%s::bigint[])", ([r["id"] for r in found],)).rowcount
+        deleted = conn.execute("DELETE FROM messages WHERE id = ANY(%s::bigint[]) AND cardinality(image_refs) = 0",
+                               ([r["id"] for r in found],)).rowcount
     print(f"deleted {deleted} messages with their vectors")
 
 
@@ -72,6 +74,7 @@ DUPLICATES = """
                row_number() OVER (PARTITION BY chat_id, lower(btrim(regexp_replace(text, '\\s+', ' ', 'g'))) ORDER BY date DESC, id DESC) AS rn,
                count(*) OVER (PARTITION BY chat_id, lower(btrim(regexp_replace(text, '\\s+', ' ', 'g')))) AS copies
         FROM messages
+        WHERE cardinality(image_refs) = 0  -- Same caption does not mean the same image.
     )
     SELECT r.id, r.chat_id, r.text, r.copies
     FROM ranked r
@@ -100,7 +103,8 @@ def dedupe(args: list[str]) -> None:
         print("nothing deleted; run `catix-db dedupe yes` to delete them")
         return
     with pg.connection() as conn:
-        deleted = conn.execute("DELETE FROM messages WHERE id = ANY(%s::bigint[])", ([r["id"] for r in found],)).rowcount
+        deleted = conn.execute("DELETE FROM messages WHERE id = ANY(%s::bigint[]) AND cardinality(image_refs) = 0",
+                               ([r["id"] for r in found],)).rowcount
     print(f"deleted {deleted} messages with their vectors")
 
 

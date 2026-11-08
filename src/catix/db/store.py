@@ -11,6 +11,8 @@ from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, replace
 from datetime import datetime
 
+from psycopg.rows import dict_row
+
 from catix import userbot_config
 from catix.agent import tracing
 from catix.common import courses
@@ -54,9 +56,15 @@ class Message:
     sender_id: int | None
     sender_name: str | None
     reply_to: int | None
-    text: str
+    text: str  # Original caption/text, never the OCR-enriched searchable text.
     link: str | None
     sender_link: str | None = None  # Profile of the author, built from the @username where the messenger has one.
+    image_source: str | None = None
+    image_refs: tuple[str, ...] = ()
+    # Trusted local receive/read-start time, captured before preparation/network awaits.
+    # This is NOT a source edit version (MAX only supplies creation time).
+    observed_at: datetime | None = None
+    live_edit: bool = False  # Only an explicit live correction may reopen an undated exclusion.
 
 
 @dataclass(frozen=True)
@@ -71,27 +79,111 @@ class ChatInfo:
 # ---- writing ----------------------------------------------------------------------------------------------
 
 
+def _lock_ingest_state(cur, keys: Iterable[tuple[int, int]]) -> dict[tuple[int, int], dict]:
+    """Lock even absent messages, in deterministic order across entire batches.
+
+    The state rows have no chat FK, so an exclusion can precede all preparation.
+    Row locks serialize the fence check and message mutation in one transaction.
+    """
+    keys = sorted(set(keys))
+    if not keys:
+        return {}
+    params = ([c for c, _ in keys], [m for _, m in keys])
+    # One insert/read per batch, not per-message permission/metadata round trips.
+    cur.execute(
+        """INSERT INTO message_ingest_state (chat_id, msg_id, edit_date)
+           SELECT k.chat_id, k.msg_id, m.edit_date FROM unnest(%s::bigint[], %s::bigint[]) AS k(chat_id, msg_id)
+           LEFT JOIN messages m USING (chat_id, msg_id)
+           ORDER BY k.chat_id, k.msg_id ON CONFLICT DO NOTHING""", params,
+    )
+    cur.execute(
+        """SELECT s.* FROM message_ingest_state s
+           JOIN unnest(%s::bigint[], %s::bigint[]) AS k(chat_id, msg_id) USING (chat_id, msg_id)
+           ORDER BY s.chat_id, s.msg_id FOR UPDATE OF s""", params,
+    )
+    return {(s["chat_id"], s["msg_id"]): s for s in cur.fetchall()}
+
+
+def _accept_ingest(state: dict, edit_date: datetime | None, observed_at: datetime | None = None,
+                   *, excluded: bool = False, live_edit: bool = False) -> bool:
+    # A known source edit is authoritative, including over a later undated snapshot.
+    if state["edit_date"] is not None:
+        if edit_date is None or edit_date < state["edit_date"]:
+            return False
+        if edit_date > state["edit_date"]:
+            return True
+        # Equal-second Telegram edits need the same local ordering as MAX. With
+        # missing local freshness, exclusion wins rather than reopening content.
+        if excluded and (observed_at is None or state["observed_at"] is None):
+            return True
+    elif edit_date is not None and not state["excluded"]:
+        return True  # First known source edit also outranks an undated snapshot.
+    if state["observed_at"] is not None:
+        if observed_at is None or observed_at < state["observed_at"]:
+            return False
+    if state["excluded"] and not excluded:
+        return bool(live_edit and observed_at is not None and state["observed_at"] is not None
+                    and observed_at > state["observed_at"])
+    return True
+
+
 def write_batch(chats: Iterable[ChatInfo], messages: list[Message]) -> None:
-    """Store chats and messages in one transaction. New or edited text is queued for embedding by a trigger."""
+    """Store chats, raw captions and image work atomically. Triggers enqueue OCR and changed-text embeddings.
+
+    An unchanged caption/source/refs replay preserves OCR and the existing claim or retry state.
+    """
     latest = {c.chat_id: c for c in chats}
-    if noise.enabled():
-        messages = [m for m in messages if not noise.is_noise(m.text)]
-    with pg.connection() as conn, conn.cursor() as cur:
+    drop_noise = noise.enabled()
+    with pg.connection() as conn, conn.cursor(row_factory=dict_row) as cur:
+        states = _lock_ingest_state(cur, ((m.chat_id, m.msg_id) for m in messages))
+        accepted = []
+        changed_states = {}
+        for m in messages:
+            state = states[m.chat_id, m.msg_id]
+            if not _accept_ingest(state, m.edit_date, m.observed_at, live_edit=m.live_edit):
+                continue
+            state.update(edit_date=m.edit_date, observed_at=m.observed_at, excluded=False)
+            changed_states[m.chat_id, m.msg_id] = (m.edit_date, m.observed_at, m.chat_id, m.msg_id)
+            if metadata := state["original_metadata"]:
+                m = replace(m, **{**metadata, "date": datetime.fromisoformat(metadata["date"])})
+            accepted.append(m)
+        messages = accepted
+        cur.executemany(
+            """UPDATE message_ingest_state SET edit_date = %s, observed_at = %s, excluded = false
+               WHERE chat_id = %s AND msg_id = %s""", list(changed_states.values()),
+        )
         cur.executemany(
             """INSERT INTO chats (chat_id, title, username, bot_member, link) VALUES (%s, %s, %s, %s, %s)
                ON CONFLICT (chat_id) DO UPDATE SET
                    title = excluded.title, username = excluded.username, link = coalesce(excluded.link, chats.link),
                    bot_member = chats.bot_member OR excluded.bot_member""",
-            [(c.chat_id, c.title, c.username, c.via_bot, c.link) for c in latest.values()],
+            [(c.chat_id, c.title, c.username, c.via_bot, c.link) for c in sorted(latest.values(), key=lambda c: c.chat_id)],
         )
         cur.executemany(
-            """INSERT INTO messages (chat_id, msg_id, topic_id, date, edit_date, sender_id, sender_name, reply_to, text, link, sender_link)
-               VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """INSERT INTO messages (chat_id, msg_id, topic_id, date, edit_date, sender_id, sender_name, reply_to, text, link, sender_link,
+                                    image_caption, image_source, image_refs)
+               SELECT %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+               -- A noise-only edit can still remove a previously stored image and its OCR.
+               WHERE %s OR EXISTS (SELECT 1 FROM messages WHERE chat_id = %s AND msg_id = %s
+                                    AND cardinality(image_refs) > 0)
                ON CONFLICT (chat_id, msg_id) DO UPDATE SET
-                   text = excluded.text, edit_date = excluded.edit_date, sender_name = excluded.sender_name
-               -- Re-reading an unchanged message must not rewrite the row (and its search index entries).
-               WHERE messages.text IS DISTINCT FROM excluded.text
-                  OR messages.edit_date IS DISTINCT FROM excluded.edit_date""",
+                   text = CASE WHEN coalesce(messages.image_caption, messages.text) = excluded.image_caption
+                                    AND messages.image_source IS NOT DISTINCT FROM excluded.image_source
+                                    AND messages.image_refs = excluded.image_refs
+                               THEN messages.text ELSE excluded.text END,
+                   image_text = CASE WHEN coalesce(messages.image_caption, messages.text) = excluded.image_caption
+                                          AND messages.image_source IS NOT DISTINCT FROM excluded.image_source
+                                          AND messages.image_refs = excluded.image_refs
+                                     THEN messages.image_text ELSE NULL END,
+                   image_caption = excluded.image_caption, image_source = excluded.image_source,
+                   image_refs = excluded.image_refs,
+                   edit_date = coalesce(excluded.edit_date, messages.edit_date), sender_name = excluded.sender_name
+               -- Compare the raw caption, never the derived searchable OCR text.
+               WHERE (messages.edit_date IS NULL OR excluded.edit_date >= messages.edit_date)
+                 AND (coalesce(messages.image_caption, messages.text) IS DISTINCT FROM excluded.image_caption
+                      OR messages.image_source IS DISTINCT FROM excluded.image_source
+                      OR messages.image_refs IS DISTINCT FROM excluded.image_refs
+                      OR messages.edit_date IS DISTINCT FROM excluded.edit_date)""",
             [
                 (
                     m.chat_id,
@@ -105,6 +197,12 @@ def write_batch(chats: Iterable[ChatInfo], messages: list[Message]) -> None:
                     m.text,
                     m.link,
                     m.sender_link,
+                    m.text,
+                    m.image_source,
+                    list(m.image_refs),
+                    bool(m.image_refs) or not drop_noise or not noise.is_noise(m.text),
+                    m.chat_id,
+                    m.msg_id,
                 )
                 for m in messages
             ],
@@ -203,6 +301,29 @@ def clear_chat(chat_id: int) -> int:
     with them (cascade); the chat itself, its study group and the choice in /listen stay."""
     with pg.connection() as conn:
         return conn.execute("DELETE FROM messages WHERE chat_id = %s", (chat_id,)).rowcount
+
+
+def delete_message(chat_id: int, msg_id: int, *, edit_date: datetime | None = None,
+                   observed_at: datetime | None = None) -> int:
+    """Persist an exclusion and delete indexed content/work in the same transaction.
+
+    The fence survives row deletion and delayed Writer retries. The live OCR lease stays.
+    """
+    with pg.connection() as conn, conn.cursor(row_factory=dict_row) as cur:
+        state = _lock_ingest_state(cur, [(chat_id, msg_id)])[chat_id, msg_id]
+        if not _accept_ingest(state, edit_date, observed_at, excluded=True):
+            return 0
+        cur.execute(
+            """UPDATE message_ingest_state SET edit_date = %s, observed_at = %s, excluded = true,
+                   original_metadata = coalesce(original_metadata, (
+                       SELECT jsonb_build_object('date', date, 'topic_id', topic_id, 'sender_id', sender_id,
+                           'sender_name', sender_name, 'reply_to', reply_to, 'link', link, 'sender_link', sender_link)
+                       FROM messages WHERE chat_id = %s AND msg_id = %s))
+               WHERE chat_id = %s AND msg_id = %s""",
+            (edit_date, observed_at, chat_id, msg_id, chat_id, msg_id),
+        )
+        cur.execute("DELETE FROM messages WHERE chat_id = %s AND msg_id = %s", (chat_id, msg_id))
+        return cur.rowcount
 
 
 def upsert_chat(chat_id: int, title: str, username: str | None, *, via_bot: bool = False) -> None:

@@ -30,11 +30,15 @@ from telethon.tl.custom.message import Message as TgMessage
 from telethon.tl.functions.auth import ResendCodeRequest, SendCodeRequest
 from telethon.tl.functions.messages import GetForumTopicsRequest
 from telethon.tl.types import Channel, Chat, CodeSettings, ForumTopic, PeerChannel, auth
+from telethon.tl.types import (
+    DocumentAttributeAnimated, DocumentAttributeSticker, DocumentAttributeVideo,
+    MessageMediaDocument, MessageMediaPhoto,
+)
 
 from catix import live_search, userbot_config
 from catix.db import pg
 from catix.db import store
-from catix.ingest import publish
+from catix.ingest import images, publish
 from catix.settings import settings
 
 BATCH = 500
@@ -91,12 +95,37 @@ def _link(entity: Channel | Chat, msg_id: int) -> str | None:
     return None  # Basic groups have no message links.
 
 
+def _image_refs(msg: TgMessage) -> tuple[str, ...]:
+    # msg.photo/document also expose web previews: require actual attached media.
+    if isinstance(msg.media, MessageMediaPhoto) and msg.photo:
+        return (f"photo:{msg.photo.id}",)
+    if isinstance(msg.media, MessageMediaDocument) and (document := msg.document):
+        if document.mime_type in {"image/jpeg", "image/png", "image/webp"} and not any(
+            isinstance(a, (DocumentAttributeSticker, DocumentAttributeAnimated, DocumentAttributeVideo))
+            for a in document.attributes
+        ):
+            return (f"document:{document.id}",)
+    return ()
+
+
+async def _download_image(client: TelegramClient, job: dict, ref: str) -> bytes:
+    message = await client.get_messages(job["chat_id"], ids=job["msg_id"])
+    if not message or ref not in _image_refs(message):
+        raise ValueError("Image changed or removed")
+    if message.file and (message.file.size or 0) > images.MAX_BYTES:
+        raise ValueError("Image size limit")
+    with images.LimitedBuffer() as output:
+        await client.download_media(message, file=output)
+        return output.getvalue()
+
+
 def _to_store(msg: TgMessage, chat_id: int, entity: Channel | Chat) -> store.Message | None:
     text = msg.message or ""
+    refs = _image_refs(msg)
     if msg.file and msg.file.name:
         # Keep file names: "exam_2025.pdf" is useful even without the content.
         text = f"{text}\n[file: {msg.file.name}]".strip()
-    if not text:
+    if not text and not refs and not msg.edit_date:
         return None
     reply = msg.reply_to
     topic_id = None
@@ -120,6 +149,8 @@ def _to_store(msg: TgMessage, chat_id: int, entity: Channel | Chat) -> store.Mes
         sender_name=sender_name or None,
         reply_to=reply.reply_to_msg_id if reply and reply.reply_to_msg_id != topic_id else None,
         text=text,
+        image_source="tguserbot" if refs else None,
+        image_refs=refs,
         link=_link(entity, msg.id),
         sender_link=(
             f"https://t.me/{username}" if not msg.forward and (username := getattr(msg.sender, "username", None)) else None
@@ -325,6 +356,8 @@ async def sync() -> None:
 
 async def _sync_stream(client: TelegramClient, entity: Channel | Chat, chat_id: int, topic_id: int | None) -> int:
     """Fetch new messages of a whole chat (topic_id None) or of one topic."""
+    if chat_id not in userbot_config.userbot_reads():
+        return 0
     last_id = store.last_msg_id(chat_id, topic_id)
     if last_id:
         kwargs = {"min_id": last_id}
@@ -342,9 +375,15 @@ async def _sync_stream(client: TelegramClient, entity: Channel | Chat, chat_id: 
         if row and store.topic_allowed(chat_id, row.topic_id) and (topic_id is None or _in_topic(row, topic_id)):
             batch.append(row)
         if len(batch) >= BATCH:
+            if chat_id not in userbot_config.userbot_reads():
+                return total  # Drop buffered messages when listening was revoked during the backfill.
+            batch = [row for row in batch if store.topic_allowed(chat_id, row.topic_id)]
             store.upsert_messages(batch)
             total += len(batch)
             batch = []
+    if chat_id not in userbot_config.userbot_reads():
+        return total
+    batch = [row for row in batch if store.topic_allowed(chat_id, row.topic_id)]
     store.upsert_messages(batch)
     return total + len(batch)
 
@@ -391,7 +430,7 @@ async def _listen_once() -> None:
 
         async def save(event: events.NewMessage.Event | events.MessageEdited.Event) -> None:
             entity = entities.get(event.chat_id)
-            if entity is None:
+            if entity is None or event.chat_id not in userbot_config.userbot_reads():
                 return  # Not a chat chosen in the bot.
             row = _to_store(event.message, event.chat_id, entity)
             if row and store.topic_allowed(row.chat_id, row.topic_id):
@@ -403,13 +442,22 @@ async def _listen_once() -> None:
         follower = asyncio.create_task(_follow_choice(client, entities))
         searching = asyncio.create_task(_serve_search(client))
         heartbeat = asyncio.create_task(_heartbeat(client))
+        async def download(job: dict, ref: str) -> bytes:
+            return await _download_image(client, job, ref)
+
+        async def allowed(job: dict) -> bool:
+            return job["chat_id"] in userbot_config.userbot_reads() and store.topic_allowed(job["chat_id"], job["topic_id"])
+
+        recognizing = asyncio.create_task(images.run("tguserbot", download, allowed=allowed))
         print("Listening. The chats are chosen in the bot: /listen. Ctrl+C to stop.")
         try:
             await client.run_until_disconnected()
         finally:
-            follower.cancel()
-            searching.cancel()
-            heartbeat.cancel()
+            tasks = (follower, searching, heartbeat, recognizing)
+            for task in tasks:
+                task.cancel()
+            # Finish downloads/lease cleanup while the Telegram client is still open.
+            await asyncio.gather(*tasks, return_exceptions=True)
 
 
 async def _heartbeat(client: TelegramClient) -> None:

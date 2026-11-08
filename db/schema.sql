@@ -100,6 +100,61 @@ CREATE TABLE IF NOT EXISTS messages (
 ALTER TABLE messages ADD COLUMN IF NOT EXISTS sender_link text;  -- tables created before this column existed
 CREATE INDEX IF NOT EXISTS messages_date_idx ON messages (date);
 
+-- Durable exclusion/version fence, independent of chats/messages (an edit can arrive first).
+-- Ordinary row deletion/maintenance must not erase this protection.
+CREATE TABLE IF NOT EXISTS message_ingest_state (
+    chat_id bigint NOT NULL,
+    msg_id bigint NOT NULL,
+    edit_date timestamptz,
+    excluded boolean NOT NULL DEFAULT false,
+    PRIMARY KEY (chat_id, msg_id)
+);
+ALTER TABLE message_ingest_state ADD COLUMN IF NOT EXISTS observed_at timestamptz;
+-- Only attribution, never excluded caption/OCR/media. Used when a newer edit reenters.
+ALTER TABLE message_ingest_state ADD COLUMN IF NOT EXISTS original_metadata jsonb;
+
+-- Captions stay separate from derived OCR; messages.text is the searchable combination.
+ALTER TABLE messages ADD COLUMN IF NOT EXISTS image_caption text; -- NULL only for legacy rows (fall back to text)
+ALTER TABLE messages ADD COLUMN IF NOT EXISTS image_source text
+    CHECK (image_source IN ('tguserbot', 'tgbot', 'maxbot'));
+ALTER TABLE messages ADD COLUMN IF NOT EXISTS image_refs text[] NOT NULL DEFAULT '{}';
+ALTER TABLE messages ADD COLUMN IF NOT EXISTS image_text text; -- NULL = not recognized, '' = recognized without text
+CREATE TABLE IF NOT EXISTS image_queue (
+    message_id bigint PRIMARY KEY REFERENCES messages (id) ON DELETE CASCADE,
+    status text NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'claimed', 'failed')),
+    attempts integer NOT NULL DEFAULT 0,
+    available_at timestamptz NOT NULL DEFAULT now(),
+    token text,
+    lease_until timestamptz
+);
+-- Independent of messages: an edit/deletion must not release a still-running OCR request.
+CREATE TABLE IF NOT EXISTS image_queue_lease (
+    singleton boolean PRIMARY KEY DEFAULT true CHECK (singleton),
+    token text,
+    lease_until timestamptz
+);
+INSERT INTO image_queue_lease (singleton) VALUES (true) ON CONFLICT DO NOTHING;
+CREATE OR REPLACE FUNCTION enqueue_image() RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+    IF cardinality(NEW.image_refs) > 0 AND NEW.image_source IS NOT NULL THEN
+        INSERT INTO image_queue (message_id) VALUES (NEW.id)
+            ON CONFLICT (message_id) DO UPDATE SET status = 'pending', attempts = 0,
+                available_at = now(), token = NULL, lease_until = NULL;
+    ELSE
+        DELETE FROM image_queue WHERE message_id = NEW.id;
+    END IF;
+    RETURN NEW;
+END $$;
+DROP TRIGGER IF EXISTS messages_image_insert ON messages;
+CREATE TRIGGER messages_image_insert AFTER INSERT ON messages
+    FOR EACH ROW EXECUTE FUNCTION enqueue_image();
+DROP TRIGGER IF EXISTS messages_image_edit ON messages;
+CREATE TRIGGER messages_image_edit AFTER UPDATE OF image_caption, image_source, image_refs ON messages
+    FOR EACH ROW WHEN (OLD.image_caption IS DISTINCT FROM NEW.image_caption
+                      OR OLD.image_source IS DISTINCT FROM NEW.image_source
+                      OR OLD.image_refs IS DISTINCT FROM NEW.image_refs)
+    EXECUTE FUNCTION enqueue_image();
+
 -- chat_id is copied here so that vector search can filter by the chats a user may see without a join.
 CREATE TABLE IF NOT EXISTS message_embeddings (
     message_id bigint PRIMARY KEY REFERENCES messages (id) ON DELETE CASCADE,

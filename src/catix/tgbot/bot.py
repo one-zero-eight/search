@@ -51,6 +51,7 @@ from catix.tgbot import official
 from catix.worker import changes
 from catix import bot_users, groups, personal_calendar, userbot_config
 from catix.ingest import writer as ingest
+from catix.ingest import images
 from catix.db import pg
 from catix.agent import sqlquery
 from catix.db import store
@@ -123,11 +124,31 @@ async def _chat_link(message: Message) -> str | None:
     return cache.put(key, link, CHAT_LINK_TTL if link else CHAT_LINK_MISS_TTL)
 
 
-async def _save(message: Message) -> None:
+def _image_refs(message: Message) -> tuple[str, ...]:
+    if message.photo:
+        return (message.photo[-1].file_id,)
+    if (message.document and message.document.mime_type in {"image/jpeg", "image/png", "image/webp"}
+            and not (message.sticker or message.animation or message.video)):
+        return (message.document.file_id,)
+    return ()
+
+
+async def _download_image(bot: Bot, job: dict, ref: str) -> bytes:
+    metadata = await bot.get_file(ref)
+    if (metadata.file_size or 0) > images.MAX_BYTES:
+        raise ValueError("Image size limit")
+    with images.LimitedBuffer() as output:
+        await bot.download(ref, destination=output)
+        return output.getvalue()
+
+
+async def _save(message: Message, *, observed_at: datetime | None = None) -> None:
+    observed_at = observed_at or datetime.now(timezone.utc)
     text = message.text or message.caption or ""
+    refs = _image_refs(message)
     if message.document and message.document.file_name:
         text = f"{text}\n[file: {message.document.file_name}]".strip()
-    if not text:
+    if not text and not refs and not message.edit_date:
         return
     if not await asyncio.to_thread(userbot_config.bot_listens, message.chat.id):
         if message.chat.id not in IGNORED:  # Once per chat: why a chat the bot is in stays empty.
@@ -159,10 +180,14 @@ async def _save(message: Message) -> None:
             date=date,
             # Bot API gives edit_date as a unix timestamp, unlike `date`.
             edit_date=datetime.fromtimestamp(message.edit_date, timezone.utc) if message.edit_date else None,
+            observed_at=observed_at,
+            live_edit=bool(message.edit_date),
             sender_id=sender.id if sender else None,
             sender_name=sender_name,
             reply_to=message.reply_to_message.message_id if message.reply_to_message else None,
             text=text,
+            image_source="tgbot" if refs else None,
+            image_refs=refs,
             link=_link(message),
             sender_link=f"https://t.me/{sender.username}" if sender and sender.username and not origin_seen else None,
         ),
@@ -435,19 +460,47 @@ async def private(message: Message) -> None:
 
 @router.message(F.chat.type.in_(GROUPS))
 async def group(message: Message, bot: Bot) -> None:
+    observed_at = datetime.now(timezone.utc)
     me = await bot.me()
-    text = message.text or ""
+    text = message.text or message.caption or ""
     mention = f"@{me.username}"
     is_reply_to_bot = bool(message.reply_to_message and message.reply_to_message.from_user and message.reply_to_message.from_user.id == me.id)
-    if mention.lower() in text.lower() or is_reply_to_bot:
-        await _reply(message, re.sub(re.escape(mention), "", text, flags=re.I))
+    if mention.lower() in text.lower() or is_reply_to_bot or re.match(r"^/ask(?:@\w+)?(?:\s|$)", text):
+        question = re.sub(re.escape(mention), "", text, flags=re.I)
+        await _reply(message, re.sub(r"^/ask(?:@\w+)?(?:\s|$)", "", question))
     else:
-        await _save(message)
+        await _save(message, observed_at=observed_at)
+
+
+async def _delete_excluded_edit(message: Message, *, observed_at: datetime) -> None:
+    # Match _save's listener/topic boundary and migrated storage identity.
+    if not await asyncio.to_thread(userbot_config.bot_listens, message.chat.id):
+        return
+    topic_id = message.message_thread_id if message.is_topic_message else None
+    if not store.topic_allowed(message.chat.id, topic_id):
+        return
+    await asyncio.to_thread(
+        store.delete_message, MIGRATED.get(message.chat.id, message.chat.id), message.message_id,
+        edit_date=datetime.fromtimestamp(message.edit_date, timezone.utc) if message.edit_date else message.date,
+        observed_at=observed_at,
+    )
 
 
 @router.edited_message(F.chat.type.in_(GROUPS))
 async def edited(message: Message) -> None:
-    await _save(message)
+    observed_at = datetime.now(timezone.utc)
+    text = message.text or message.caption or ""
+    if re.match(r"^/ask(?:@\w+)?(?:\s|$)", text):
+        await _delete_excluded_edit(message, observed_at=observed_at)
+        return
+    if text or message.reply_to_message:
+        me = await message.bot.me()
+        if (f"@{me.username}".lower() in text.lower()
+                or (message.reply_to_message and message.reply_to_message.from_user
+                    and message.reply_to_message.from_user.id == me.id)):
+            await _delete_excluded_edit(message, observed_at=observed_at)
+            return
+    await _save(message, observed_at=observed_at)
 
 
 # Channels deliver posts as channel_post updates, and only to bots that are channel admins.
@@ -696,14 +749,26 @@ async def run() -> None:
     tracing.log_status()
     await asyncio.to_thread(sqlquery.reset_context)  # Rows left behind by a crash.
     writing = asyncio.create_task(writer.run())
+    async def download(job: dict, ref: str) -> bytes:
+        return await _download_image(bot, job, ref)
+
+    async def allowed(job: dict) -> bool:
+        return (await asyncio.to_thread(userbot_config.bot_listens, job["chat_id"])
+                and store.topic_allowed(job["chat_id"], job["topic_id"]))
+
+    recognizing = asyncio.create_task(images.run("tgbot", download, allowed=allowed))
     try:
-        await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
+        await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types(), close_bot_session=False)
     finally:
+        recognizing.cancel()
+        with contextlib.suppress(asyncio.CancelledError):
+            await recognizing
         tracing.flush()
         writing.cancel()  # Flushes what is already collected before stopping.
         with contextlib.suppress(asyncio.CancelledError):
             await writing
         pg.close()
+        await bot.session.close()
 
 
 def main() -> None:
